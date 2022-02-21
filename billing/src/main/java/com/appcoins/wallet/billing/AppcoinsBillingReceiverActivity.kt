@@ -14,6 +14,7 @@ import com.appcoins.wallet.bdsbilling.mappers.ExternalBillingSerializer
 import com.appcoins.wallet.bdsbilling.repository.*
 import com.appcoins.wallet.bdsbilling.repository.entity.Product
 import com.appcoins.wallet.bdsbilling.repository.entity.Purchase
+import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.Scheduler
 import io.reactivex.Single
 import io.reactivex.functions.Function4
@@ -51,8 +52,8 @@ class AppcoinsBillingReceiverActivity : MessageProcessorActivity() {
     serializer = ExternalBillingSerializer()
     val dependenciesProvider = applicationContext as BillingDependenciesProvider
     val bdsBilling = BdsBilling(
-        BdsRepository(RemoteRepository(dependenciesProvider.bdsApi(), BdsApiResponseMapper(
-            SubscriptionsMapper(), InAppMapper(serializer)),
+        BdsRepository(RemoteRepository(dependenciesProvider.brokerBdsApi(), dependenciesProvider.inappBdsApi(),
+          BdsApiResponseMapper(SubscriptionsMapper(), InAppMapper(serializer)),
             dependenciesProvider.bdsApiSecondary(),
             dependenciesProvider.subscriptionBillingService(), serializer)),
         dependenciesProvider.walletService(), BillingThrowableCodeMapper())

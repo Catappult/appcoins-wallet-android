@@ -4,8 +4,10 @@ import com.asfoundation.wallet.entity.Wallet
 import com.asfoundation.wallet.repository.WalletRepositoryType
 import io.reactivex.Observable
 import io.reactivex.schedulers.Schedulers
+import javax.inject.Inject
 
-class ObserveDefaultWalletUseCase(private val walletRepository: WalletRepositoryType) {
+class ObserveDefaultWalletUseCase @Inject constructor(
+    private val walletRepository: WalletRepositoryType) {
 
   operator fun invoke(): Observable<Wallet> {
     return walletRepository.observeDefaultWallet()

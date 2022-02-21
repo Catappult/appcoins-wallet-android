@@ -26,9 +26,10 @@ import com.asfoundation.wallet.navigator.UriNavigator
 import com.asfoundation.wallet.util.CurrencyFormatUtils
 import com.asfoundation.wallet.util.Period
 import com.asfoundation.wallet.util.WalletCurrency
+import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import com.asfoundation.wallet.wallets.usecases.GetWalletInfoUseCase
 import com.jakewharton.rxbinding2.view.RxView
-import dagger.android.support.DaggerFragment
+import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -37,9 +38,6 @@ import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.appcoins_radio_button.*
 import kotlinx.android.synthetic.main.credits_radio_button.*
 import kotlinx.android.synthetic.main.credits_radio_button.view.*
-import kotlinx.android.synthetic.main.dialog_buy_app_info_header.app_icon
-import kotlinx.android.synthetic.main.dialog_buy_app_info_header.app_name
-import kotlinx.android.synthetic.main.dialog_buy_app_info_header.app_sku_description
 import kotlinx.android.synthetic.main.dialog_buy_buttons.*
 import kotlinx.android.synthetic.main.iab_error_layout.*
 import kotlinx.android.synthetic.main.merged_appcoins_layout.*
@@ -50,7 +48,8 @@ import kotlinx.android.synthetic.main.view_purchase_bonus.view.*
 import java.math.BigDecimal
 import javax.inject.Inject
 
-class MergedAppcoinsFragment : DaggerFragment(), MergedAppcoinsView {
+@AndroidEntryPoint
+class MergedAppcoinsFragment : BasePageViewFragment(), MergedAppcoinsView {
 
   companion object {
     private const val FIAT_AMOUNT_KEY = "fiat_amount"

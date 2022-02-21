@@ -6,8 +6,9 @@ import com.asfoundation.wallet.util.Period
 import com.asfoundation.wallet.util.isNoNetworkException
 import java.text.SimpleDateFormat
 import java.util.*
+import javax.inject.Inject
 
-class UserSubscriptionsMapper {
+class UserSubscriptionsMapper @Inject constructor() {
 
   internal companion object {
     internal const val DATE_FORMAT_PATTERN = "yyyy-MM-dd'T'HH:mm:ss.SSSSSS'Z'"

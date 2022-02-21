@@ -3,8 +3,12 @@ package com.asfoundation.wallet.repository
 import android.content.SharedPreferences
 import io.reactivex.Completable
 import io.reactivex.Single
+import it.czerwinski.android.hilt.annotations.BoundTo
+import javax.inject.Inject
 
-class SharedPreferencesRepository(private val pref: SharedPreferences) : PreferencesRepositoryType {
+@BoundTo(supertype = PreferencesRepositoryType::class)
+class SharedPreferencesRepository @Inject constructor(private val pref: SharedPreferences) :
+    PreferencesRepositoryType {
 
   companion object {
 

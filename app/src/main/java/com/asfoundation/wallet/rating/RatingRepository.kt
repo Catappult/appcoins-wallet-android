@@ -1,8 +1,8 @@
 package com.asfoundation.wallet.rating
 
 import android.content.SharedPreferences
-import com.asf.wallet.BuildConfig
 import com.appcoins.wallet.commons.Logger
+import com.asf.wallet.BuildConfig
 import com.asfoundation.wallet.rating.network.WalletFeedbackBody
 import io.reactivex.Single
 import okhttp3.ResponseBody
@@ -10,10 +10,11 @@ import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.Header
 import retrofit2.http.POST
+import javax.inject.Inject
 
-class RatingRepository(private val sharedPreferences: SharedPreferences,
-                       private val walletFeedbackApi: WalletFeedbackApi,
-                       private val logger: Logger) {
+class RatingRepository @Inject constructor(private val sharedPreferences: SharedPreferences,
+                                           private val walletFeedbackApi: WalletFeedbackApi,
+                                           private val logger: Logger) {
 
   companion object {
     const val REMIND_ME_LATER_TIME_KEY = "first_time_rating"

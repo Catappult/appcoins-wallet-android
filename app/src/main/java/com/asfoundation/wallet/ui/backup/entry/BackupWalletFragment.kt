@@ -9,8 +9,9 @@ import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import androidx.core.content.res.ResourcesCompat
 import com.asf.wallet.R
+import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import com.jakewharton.rxbinding2.view.RxView
-import dagger.android.support.DaggerFragment
+import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.fragment_backup_wallet_layout.*
@@ -18,7 +19,8 @@ import kotlinx.android.synthetic.main.layout_backup_password_toggle.*
 import kotlinx.android.synthetic.main.layout_wallet_backup_info.*
 import javax.inject.Inject
 
-class BackupWalletFragment : DaggerFragment(), BackupWalletFragmentView {
+@AndroidEntryPoint
+class BackupWalletFragment : BasePageViewFragment(), BackupWalletFragmentView {
 
   @Inject
   lateinit var presenter: BackupWalletPresenter

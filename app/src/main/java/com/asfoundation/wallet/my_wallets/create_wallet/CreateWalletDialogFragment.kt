@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
+import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -15,20 +16,18 @@ import com.asf.wallet.R
 import com.asf.wallet.databinding.FragmentCreateWalletDialogLayoutBinding
 import com.asfoundation.wallet.base.Async
 import com.asfoundation.wallet.base.SingleStateFragment
-import com.asfoundation.wallet.onboarding.OnboardingFragment
-import dagger.android.support.DaggerDialogFragment
+import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
-class CreateWalletDialogFragment : DaggerDialogFragment(),
+@AndroidEntryPoint
+class CreateWalletDialogFragment : DialogFragment(),
     SingleStateFragment<CreateWalletState, CreateWalletSideEffect> {
 
-  @Inject
-  lateinit var viewModelFactory: CreateWalletDialogViewModelFactory
 
   @Inject
   lateinit var navigator: CreateWalletDialogNavigator
 
-  private val viewModel: CreateWalletDialogViewModel by viewModels { viewModelFactory }
+  private val viewModel: CreateWalletDialogViewModel by viewModels()
   private val views by viewBinding(FragmentCreateWalletDialogLayoutBinding::bind)
 
   override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {

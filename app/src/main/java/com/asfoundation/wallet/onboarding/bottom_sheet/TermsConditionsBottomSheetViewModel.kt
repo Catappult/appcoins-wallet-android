@@ -5,6 +5,8 @@ import com.asfoundation.wallet.base.BaseViewModel
 import com.asfoundation.wallet.base.SideEffect
 import com.asfoundation.wallet.base.ViewState
 import com.asfoundation.wallet.onboarding.use_cases.SetOnboardingCompletedUseCase
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
 sealed class TermsConditionsBottomSheetSideEffect : SideEffect {
   data class NavigateToLink(val uri: Uri) : TermsConditionsBottomSheetSideEffect()
@@ -14,7 +16,8 @@ sealed class TermsConditionsBottomSheetSideEffect : SideEffect {
 
 object TermsConditionsBottomSheetState : ViewState
 
-class TermsConditionsBottomSheetViewModel(
+@HiltViewModel
+class TermsConditionsBottomSheetViewModel @Inject constructor(
     private val setOnboardingCompletedUseCase: SetOnboardingCompletedUseCase) :
     BaseViewModel<TermsConditionsBottomSheetState, TermsConditionsBottomSheetSideEffect>(
         initialState()) {

@@ -20,20 +20,21 @@ import io.reactivex.Completable
 import io.reactivex.Single
 import java.math.BigDecimal
 import java.util.*
+import javax.inject.Inject
 import kotlin.collections.ArrayList
 
-class TopUpInteractor(private val repository: BdsRepository,
+class TopUpInteractor @Inject constructor(private val repository: BdsRepository,
                       private val conversionService: LocalCurrencyConversionService,
                       private val gamificationInteractor: GamificationInteractor,
                       private val topUpValuesService: TopUpValuesService,
-                      private val chipValueIndexMap: LinkedHashMap<FiatValue, Int>,
-                      private var limitValues: TopUpLimitValues,
                       private var walletBlockedInteract: WalletBlockedInteract,
                       private var inAppPurchaseInteractor: InAppPurchaseInteractor,
                       private var supportInteractor: SupportInteractor,
                       private var topUpDefaultValueExperiment: TopUpDefaultValueExperiment,
                       private val getCurrentPromoCodeUseCase: GetCurrentPromoCodeUseCase) {
 
+  private val chipValueIndexMap: LinkedHashMap<FiatValue, Int> = LinkedHashMap()
+  private var limitValues: TopUpLimitValues = TopUpLimitValues()
 
   fun getPaymentMethods(value: String, currency: String): Single<List<PaymentMethod>> {
     return repository.getPaymentMethods(value, currency, "fiat", true, "TOPUP")

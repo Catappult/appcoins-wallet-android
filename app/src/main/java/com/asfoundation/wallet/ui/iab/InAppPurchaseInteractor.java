@@ -34,6 +34,8 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
+import javax.inject.Inject;
+import javax.inject.Named;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -54,7 +56,7 @@ public class InAppPurchaseInteractor {
   private final BackupInteractContract backupInteract;
   private final BillingMessagesMapper billingMessagesMapper;
 
-  public InAppPurchaseInteractor(AsfInAppPurchaseInteractor asfInAppPurchaseInteractor,
+  public @Inject InAppPurchaseInteractor(@Named("ASF_IN_APP_INTERACTOR") AsfInAppPurchaseInteractor asfInAppPurchaseInteractor,
       BdsInAppPurchaseInteractor bdsInAppPurchaseInteractor,
       GetWalletInfoUseCase getWalletInfoUseCase, Billing billing,
       SharedPreferences sharedPreferences, PackageManager packageManager,

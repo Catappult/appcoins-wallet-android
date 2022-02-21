@@ -1,6 +1,11 @@
 package com.asfoundation.wallet.advertise
 
-class PoaAnalyticsController(private val poaStartedEventList: MutableList<String>) {
+import java.util.concurrent.CopyOnWriteArrayList
+import javax.inject.Inject
+
+class PoaAnalyticsController @Inject constructor() {
+
+  private val poaStartedEventList: MutableList<String> = CopyOnWriteArrayList()
 
   fun wasStartedEventSent(packageName: String): Boolean {
     return poaStartedEventList.contains(packageName)
@@ -13,5 +18,4 @@ class PoaAnalyticsController(private val poaStartedEventList: MutableList<String
   fun cleanStateFor(packageName: String) {
     poaStartedEventList.remove(packageName)
   }
-
 }

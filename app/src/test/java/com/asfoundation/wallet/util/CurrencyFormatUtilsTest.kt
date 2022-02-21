@@ -8,7 +8,7 @@ import java.util.*
 
 class CurrencyFormatUtilsTest {
 
-  private val formatter = CurrencyFormatUtils.create()
+  private val formatter = CurrencyFormatUtils()
   private val value = BigDecimal(123456789.123456)
 
   @Test

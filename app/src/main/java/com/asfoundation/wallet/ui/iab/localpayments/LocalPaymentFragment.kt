@@ -15,8 +15,9 @@ import com.asfoundation.wallet.ui.iab.IabView
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
 import com.asfoundation.wallet.ui.iab.localpayments.LocalPaymentView.ViewState
 import com.asfoundation.wallet.ui.iab.localpayments.LocalPaymentView.ViewState.*
+import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import com.jakewharton.rxbinding2.view.RxView
-import dagger.android.support.DaggerFragment
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_iab_transaction_completed.view.*
 import kotlinx.android.synthetic.main.iab_error_layout.view.*
 import kotlinx.android.synthetic.main.local_payment_layout.*
@@ -27,7 +28,8 @@ import java.math.BigDecimal
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
-class LocalPaymentFragment : DaggerFragment(), LocalPaymentView {
+@AndroidEntryPoint
+class LocalPaymentFragment : BasePageViewFragment(), LocalPaymentView {
 
   @Inject
   lateinit var localPaymentPresenter: LocalPaymentPresenter

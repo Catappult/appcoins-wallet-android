@@ -6,8 +6,9 @@ import androidx.biometric.BiometricManager
 import com.asfoundation.wallet.fingerprint.FingerprintPreferencesRepositoryContract
 import com.asfoundation.wallet.repository.PreferencesRepositoryType
 import io.reactivex.Single
+import javax.inject.Inject
 
-class ShouldShowFingerprintTooltipUseCase(
+class ShouldShowFingerprintTooltipUseCase @Inject constructor(
     private val preferencesRepositoryType: PreferencesRepositoryType,
     private val packageManager: PackageManager,
     private val fingerprintPreferences: FingerprintPreferencesRepositoryContract,

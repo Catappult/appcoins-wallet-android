@@ -8,8 +8,10 @@ import androidx.annotation.StringRes
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.graphics.drawable.DrawableCompat
 import com.asf.wallet.R
+import dagger.hilt.android.qualifiers.ApplicationContext
+import javax.inject.Inject
 
-class GamificationMapper(private val context: Context) {
+class GamificationMapper @Inject constructor(@ApplicationContext private val context: Context) {
 
   fun mapCurrentLevelInfo(level: Int): CurrentLevelInfo {
     return when (level) {

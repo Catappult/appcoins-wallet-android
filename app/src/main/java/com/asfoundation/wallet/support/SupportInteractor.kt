@@ -2,20 +2,20 @@ package com.asfoundation.wallet.support
 
 import com.appcoins.wallet.bdsbilling.WalletService
 import com.appcoins.wallet.gamification.Gamification
+import com.asfoundation.wallet.base.RxSchedulers
 import com.asfoundation.wallet.promo_code.use_cases.GetCurrentPromoCodeUseCase
 import io.intercom.android.sdk.Intercom
 import io.intercom.android.sdk.UnreadConversationCountListener
 import io.reactivex.Completable
 import io.reactivex.Observable
-import io.reactivex.Scheduler
 import java.util.*
+import javax.inject.Inject
 
-class SupportInteractor(private val supportRepository: SupportRepository,
-                        private val walletService: WalletService,
-                        private val gamificationRepository: Gamification,
-                        private val getCurrentPromoCodeUseCase: GetCurrentPromoCodeUseCase,
-                        private val viewScheduler: Scheduler,
-                        private val ioScheduler: Scheduler) {
+class SupportInteractor @Inject constructor(private val supportRepository: SupportRepository,
+                                            private val walletService: WalletService,
+                                            private val gamificationRepository: Gamification,
+                                            private val getCurrentPromoCodeUseCase: GetCurrentPromoCodeUseCase,
+                                            private val rxSchedulers: RxSchedulers) {
 
   fun showSupport(): Completable {
     return getCurrentPromoCodeUseCase()
@@ -23,18 +23,18 @@ class SupportInteractor(private val supportRepository: SupportRepository,
           walletService.getWalletAddress()
               .flatMapCompletable { address ->
                 gamificationRepository.getUserLevel(address, promoCode.code)
-                    .observeOn(viewScheduler)
+                    .observeOn(rxSchedulers.main)
                     .flatMapCompletable { showSupport(address, it) }
               }
-              .subscribeOn(ioScheduler)
+              .subscribeOn(rxSchedulers.io)
         }
   }
 
   fun showSupport(gamificationLevel: Int): Completable {
     return walletService.getWalletAddress()
-        .observeOn(viewScheduler)
+        .observeOn(rxSchedulers.main)
         .flatMapCompletable { showSupport(it, gamificationLevel) }
-        .subscribeOn(ioScheduler)
+        .subscribeOn(rxSchedulers.io)
   }
 
   fun showSupport(walletAddress: String, gamificationLevel: Int): Completable {

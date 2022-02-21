@@ -12,6 +12,7 @@ import com.asfoundation.wallet.promo_code.repository.PromoCodeLocalDataSource
 import com.asfoundation.wallet.promotions.model.PromotionsModel
 import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.GoogleApiAvailability
+import dagger.hilt.android.qualifiers.ApplicationContext
 import io.reactivex.Completable
 import io.reactivex.Single
 import io.sentry.Sentry
@@ -19,9 +20,10 @@ import io.sentry.android.AndroidSentryClientFactory
 import io.sentry.event.Breadcrumb
 import io.sentry.event.BreadcrumbBuilder
 import io.sentry.event.User
+import javax.inject.Inject
 
-class SentryAnalytics(
-  private val context: Context, private val idsRepository: IdsRepository,
+class SentryAnalytics @Inject constructor(
+  @ApplicationContext private val context: Context, private val idsRepository: IdsRepository,
   private val promotionsRepository: PromotionsRepository,
   private val logger: Logger,
   private val promoCodeLocalDataSource: PromoCodeLocalDataSource

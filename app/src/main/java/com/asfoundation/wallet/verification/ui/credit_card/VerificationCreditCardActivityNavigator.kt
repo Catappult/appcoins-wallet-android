@@ -1,13 +1,15 @@
 package com.asfoundation.wallet.verification.ui.credit_card
 
 import android.app.Activity
-import androidx.fragment.app.FragmentManager
+import androidx.appcompat.app.AppCompatActivity
 import com.asf.wallet.R
 import com.asfoundation.wallet.verification.ui.credit_card.code.VerificationCodeFragment
 import com.asfoundation.wallet.verification.ui.credit_card.intro.VerificationIntroFragment
+import javax.inject.Inject
 
-class VerificationCreditCardActivityNavigator(private val activity: Activity,
-                                              private val fragmentManager: FragmentManager) {
+class VerificationCreditCardActivityNavigator @Inject constructor(private val activity: Activity) {
+
+  private val fragmentManager = (activity as AppCompatActivity).supportFragmentManager
 
   fun navigateToWalletVerificationIntro() {
     fragmentManager.beginTransaction()

@@ -1,15 +1,17 @@
 package com.asfoundation.wallet.billing.partners
 
-import com.asfoundation.wallet.util.DeviceInfo
+import com.asf.wallet.BuildConfig
 import io.reactivex.Single
+import it.czerwinski.android.hilt.annotations.BoundTo
+import javax.inject.Inject
 
-
-class PartnerAddressService(private val installerService: InstallerService,
-                            private val deviceInfo: DeviceInfo,
-                            private val oemIdExtractorService: OemIdExtractorService,
-                            private val defaultStoreAddress: String,
-                            private val defaultOemAddress: String) :
+@BoundTo(supertype = AddressService::class)
+class PartnerAddressService @Inject constructor(private val installerService: InstallerService,
+                                                private val oemIdExtractorService: OemIdExtractorService) :
     AddressService {
+
+  private val defaultStoreAddress: String = BuildConfig.DEFAULT_STORE_ADDRESS
+  private val defaultOemAddress: String = BuildConfig.DEFAULT_OEM_ADDRESS
 
   override fun getStoreAddress(suggestedStoreAddress: String?): String {
     return suggestedStoreAddress?.let { suggestedStoreAddress } ?: defaultStoreAddress

@@ -2,8 +2,11 @@ package com.asfoundation.wallet.eskills.withdraw.repository
 
 import android.content.SharedPreferences
 import io.reactivex.Single
+import it.czerwinski.android.hilt.annotations.BoundTo
+import javax.inject.Inject
 
-class SharedPreferencesWithdrawLocalStorage(
+@BoundTo(supertype = WithdrawLocalStorage::class)
+class SharedPreferencesWithdrawLocalStorage @Inject constructor(
     private val preferences: SharedPreferences
 ) : WithdrawLocalStorage {
   companion object {

@@ -13,9 +13,10 @@ import androidx.appcompat.app.AppCompatActivity
 import com.asf.wallet.R
 import com.asfoundation.wallet.analytics.UxCamUtils
 import com.asfoundation.wallet.util.Log
-import dagger.android.AndroidInjection
+import dagger.hilt.android.AndroidEntryPoint
 
-class WebViewActivity () : AppCompatActivity() {
+@AndroidEntryPoint
+class WebViewActivity() : AppCompatActivity() {
 
   override fun getAssets(): AssetManager {
     //Workaround for crash when inflating the webView
@@ -29,7 +30,6 @@ class WebViewActivity () : AppCompatActivity() {
   private lateinit var billingWebViewFragment: BillingWebViewFragment
 
   public override fun onCreate(savedInstanceState: Bundle?) {
-    AndroidInjection.inject(this)
     super.onCreate(savedInstanceState)
     setContentView(R.layout.web_view_activity)
     lockCurrentPosition()

@@ -20,16 +20,17 @@ import io.reactivex.Observable
 import io.reactivex.Scheduler
 import io.reactivex.Single
 import java.math.BigDecimal
+import javax.inject.Inject
 
-class PaymentMethodsInteractor(private val supportInteractor: SupportInteractor,
-                               private val gamificationInteractor: GamificationInteractor,
-                               private val walletBlockedInteract: WalletBlockedInteract,
-                               private val inAppPurchaseInteractor: InAppPurchaseInteractor,
-                               private val fingerprintPreferences: FingerprintPreferencesRepositoryContract,
-                               private val billing: Billing,
-                               private val errorMapper: ErrorMapper,
-                               private val bdsPendingTransactionService: BdsPendingTransactionService,
-                               private val getCurrentPromoCodeUseCase: GetCurrentPromoCodeUseCase) {
+class PaymentMethodsInteractor @Inject constructor(private val supportInteractor: SupportInteractor,
+                                                   private val gamificationInteractor: GamificationInteractor,
+                                                   private val walletBlockedInteract: WalletBlockedInteract,
+                                                   private val inAppPurchaseInteractor: InAppPurchaseInteractor,
+                                                   private val fingerprintPreferences: FingerprintPreferencesRepositoryContract,
+                                                   private val billing: Billing,
+                                                   private val errorMapper: ErrorMapper,
+                                                   private val bdsPendingTransactionService: BdsPendingTransactionService,
+                                                   private val getCurrentPromoCodeUseCase: GetCurrentPromoCodeUseCase) {
 
 
   fun showSupport(gamificationLevel: Int): Completable {

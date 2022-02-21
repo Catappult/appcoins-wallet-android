@@ -8,17 +8,13 @@ import com.asf.wallet.R
 import com.asfoundation.wallet.ui.AuthenticationPromptActivity
 import com.asfoundation.wallet.ui.BaseActivity
 import com.asfoundation.wallet.ui.settings.entry.SettingsFragment
-import dagger.android.AndroidInjection
-import dagger.android.DispatchingAndroidInjector
-import dagger.android.HasAndroidInjector
+import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
-import javax.inject.Inject
 
-class SettingsActivity : BaseActivity(), HasAndroidInjector, SettingsActivityView {
+@AndroidEntryPoint
+class SettingsActivity : BaseActivity(), SettingsActivityView {
 
-  @Inject
-  lateinit var androidInjector: DispatchingAndroidInjector<Any>
   private var authenticationResultSubject: PublishSubject<Boolean>? = null
 
   companion object {
@@ -36,7 +32,6 @@ class SettingsActivity : BaseActivity(), HasAndroidInjector, SettingsActivityVie
   }
 
   override fun onCreate(savedInstanceState: Bundle?) {
-    AndroidInjection.inject(this)
     super.onCreate(savedInstanceState)
     setContentView(R.layout.activity_settings)
     toolbar()
@@ -65,8 +60,6 @@ class SettingsActivity : BaseActivity(), HasAndroidInjector, SettingsActivityVie
         authenticationResultSubject?.onNext(true)
       }
   }
-
-  override fun androidInjector() = androidInjector
 
   override fun authenticationResult(): Observable<Boolean> = authenticationResultSubject!!
 

@@ -5,11 +5,16 @@ import android.telephony.TelephonyManager
 import com.asf.wallet.BuildConfig
 import com.asfoundation.wallet.identification.IdsRepository
 import com.uxcam.UXCam
+import dagger.hilt.android.qualifiers.ApplicationContext
 import io.reactivex.Completable
 import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
+import javax.inject.Inject
 
-class UxCamUtils (private val context: Context, private val idsRepository: IdsRepository) {
+class UxCamUtils @Inject constructor(
+  @ApplicationContext private val context: Context,
+  private val idsRepository: IdsRepository
+) {
 
   /**
    * list of countries to use uxcam
@@ -32,7 +37,8 @@ class UxCamUtils (private val context: Context, private val idsRepository: IdsRe
     //val countryCode: String = context.resources.configuration.locale.getCountry()   // to use system language instead of carrier
 
     // countries are being filter based on the sim carrier, phones with no sim will be excluded
-    val tm: TelephonyManager? = context.getSystemService(Context.TELEPHONY_SERVICE) as? TelephonyManager
+    val tm: TelephonyManager? =
+      context.getSystemService(Context.TELEPHONY_SERVICE) as? TelephonyManager
     val countryCode: String = tm?.networkCountryIso?.toUpperCase() ?: ""
 
     if (countriesFilterList.contains(countryCode)) {

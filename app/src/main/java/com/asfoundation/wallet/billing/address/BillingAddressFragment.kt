@@ -9,13 +9,14 @@ import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
-import com.asf.wallet.R
 import com.appcoins.wallet.commons.Logger
+import com.asf.wallet.R
 import com.asfoundation.wallet.ui.iab.IabView
 import com.asfoundation.wallet.util.CurrencyFormatUtils
 import com.asfoundation.wallet.util.WalletCurrency
+import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import com.jakewharton.rxbinding2.view.RxView
-import dagger.android.support.DaggerFragment
+import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.Observable
 import kotlinx.android.synthetic.main.dialog_buy_buttons_payment_methods.*
 import kotlinx.android.synthetic.main.fragment_billing_address.*
@@ -25,7 +26,8 @@ import kotlinx.android.synthetic.main.view_purchase_bonus.*
 import java.math.BigDecimal
 import javax.inject.Inject
 
-class BillingAddressFragment : DaggerFragment(), BillingAddressView {
+@AndroidEntryPoint
+class BillingAddressFragment : BasePageViewFragment(), BillingAddressView {
 
   companion object {
 
@@ -199,7 +201,7 @@ class BillingAddressFragment : DaggerFragment(), BillingAddressView {
       app_sku_description.text = skuDescription
     }
     try {
-      app_icon.setImageDrawable(context!!.packageManager
+      app_icon.setImageDrawable(requireContext().packageManager
           .getApplicationIcon(domain))
     } catch (e: PackageManager.NameNotFoundException) {
       e.printStackTrace()
@@ -224,7 +226,7 @@ class BillingAddressFragment : DaggerFragment(), BillingAddressView {
 
   @Throws(PackageManager.NameNotFoundException::class)
   private fun getApplicationName(appPackage: String): CharSequence? {
-    val packageManager = context!!.packageManager
+    val packageManager = requireContext().packageManager
     val packageInfo = packageManager.getApplicationInfo(appPackage, 0)
     return packageManager.getApplicationLabel(packageInfo)
   }

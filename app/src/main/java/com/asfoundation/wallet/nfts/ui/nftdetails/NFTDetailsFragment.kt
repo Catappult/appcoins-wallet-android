@@ -20,8 +20,10 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.bumptech.glide.request.RequestListener
+import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class NFTDetailsFragment : BasePageViewFragment(),
     SingleStateFragment<NFTDetailsState, NFTDetailsSideEffect> {
 

@@ -12,6 +12,7 @@ import com.asfoundation.wallet.GlideApp
 import com.asfoundation.wallet.subscriptions.SubscriptionItem
 import com.asfoundation.wallet.util.CurrencyFormatUtils
 import com.asfoundation.wallet.util.WalletCurrency
+import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.Request
 import com.bumptech.glide.request.RequestOptions
@@ -19,13 +20,14 @@ import com.bumptech.glide.request.target.SizeReadyCallback
 import com.bumptech.glide.request.target.Target
 import com.bumptech.glide.request.transition.Transition
 import com.jakewharton.rxbinding2.view.RxView
-import dagger.android.support.DaggerFragment
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_subscription_cancel.*
 import kotlinx.android.synthetic.main.layout_subscription_info.*
 import kotlinx.android.synthetic.main.no_network_retry_only_layout.*
 import javax.inject.Inject
 
-class SubscriptionCancelFragment : DaggerFragment(), SubscriptionCancelView {
+@AndroidEntryPoint
+class SubscriptionCancelFragment : BasePageViewFragment(), SubscriptionCancelView {
 
   @Inject
   lateinit var currencyFormatUtils: CurrencyFormatUtils

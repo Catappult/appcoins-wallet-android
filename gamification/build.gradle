@@ -1,6 +1,7 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
+apply plugin: 'dagger.hilt.android.plugin'
 
 android {
   buildToolsVersion project.build_tools_version
@@ -52,6 +53,12 @@ dependencies {
   implementation fileTree(dir: 'libs', include: ['*.jar'])
   implementation project(path: ':commons')
   implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+
+  implementation 'com.google.dagger:hilt-android:2.40.5'
+  kapt 'com.google.dagger:hilt-compiler:2.40.5'
+  //hilt-extensions to allow injecting an implementation that has an interface
+  implementation 'it.czerwinski.android.hilt:hilt-extensions:1.2.0'
+  kapt'it.czerwinski.android.hilt:hilt-processor:1.2.0'
 
   implementation "androidx.room:room-runtime:$project.room_version"
   implementation "androidx.room:room-rxjava2:$project.room_version"

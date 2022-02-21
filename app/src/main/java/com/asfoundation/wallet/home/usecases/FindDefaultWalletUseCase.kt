@@ -4,8 +4,10 @@ import com.asfoundation.wallet.entity.Wallet
 import com.asfoundation.wallet.repository.WalletRepositoryType
 import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
+import javax.inject.Inject
 
-class FindDefaultWalletUseCase(private val walletRepository: WalletRepositoryType) {
+class FindDefaultWalletUseCase @Inject constructor(
+    private val walletRepository: WalletRepositoryType) {
 
   operator fun invoke(): Single<Wallet> {
     return walletRepository.getDefaultWallet()

@@ -95,9 +95,6 @@
         android:label="@string/bottom_navigation_my_wallets"
         android:theme="@style/AppTheme.Transparent" />
     <activity
-        android:name="com.asfoundation.wallet.ui.SendActivity"
-        android:label="@string/title_activity_send" />
-    <activity
         android:name="com.asfoundation.wallet.transfers.TransferConfirmationActivity"
         android:label="@string/title_activity_confirmation" />
     <activity
@@ -106,6 +103,9 @@
     <activity
         android:name="com.asfoundation.wallet.ui.GasSettingsActivity"
         android:label="@string/title_send_settings" />
+    <activity
+        android:name="com.asfoundation.wallet.ui.SendActivity"
+        android:label="@string/title_activity_send" />
     <activity
         android:name="com.asfoundation.wallet.ui.Erc681Receiver"
         android:theme="@style/Theme.AppCompat.Transparent.NoDisplay">

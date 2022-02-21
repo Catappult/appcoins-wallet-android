@@ -13,8 +13,9 @@ import com.asfoundation.wallet.base.navigate
 import com.asfoundation.wallet.referrals.InviteFriendsActivity
 import com.asfoundation.wallet.ui.BaseActivity
 import com.asfoundation.wallet.ui.gamification.GamificationActivity
+import javax.inject.Inject
 
-class PromotionsNavigator(private val fragment: Fragment) : Navigator {
+class PromotionsNavigator @Inject constructor(private val fragment: Fragment) : Navigator {
 
   fun navigateToInfo() {
     navigate(fragment.findNavController(), PromotionsFragmentDirections.actionNavigateToInfo())

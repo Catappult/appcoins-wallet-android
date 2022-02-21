@@ -22,9 +22,10 @@ import com.asfoundation.wallet.util.CurrencyFormatUtils
 import com.asfoundation.wallet.util.KeyboardUtils
 import com.asfoundation.wallet.util.WalletCurrency
 import com.asfoundation.wallet.verification.ui.credit_card.VerificationCreditCardActivityView
+import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import com.google.android.material.textfield.TextInputLayout
 import com.jakewharton.rxbinding2.view.RxView
-import dagger.android.support.DaggerFragment
+import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.Observable
 import io.reactivex.subjects.BehaviorSubject
 import kotlinx.android.synthetic.main.error_top_up_layout.*
@@ -34,7 +35,8 @@ import kotlinx.android.synthetic.main.no_network_retry_only_layout.*
 import kotlinx.android.synthetic.main.selected_payment_method_cc.*
 import javax.inject.Inject
 
-class VerificationIntroFragment : DaggerFragment(), VerificationIntroView {
+@AndroidEntryPoint
+class VerificationIntroFragment : BasePageViewFragment(), VerificationIntroView {
 
   companion object {
     private const val CARD_NUMBER_KEY = "card_number"

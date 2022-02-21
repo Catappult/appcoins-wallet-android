@@ -5,7 +5,9 @@ import com.appcoins.wallet.bdsbilling.WalletService
 import com.appcoins.wallet.billing.carrierbilling.*
 import com.appcoins.wallet.billing.common.response.TransactionStatus
 import com.appcoins.wallet.commons.Logger
+import com.asfoundation.wallet.base.RxSchedulers
 import com.asfoundation.wallet.billing.adyen.PurchaseBundleModel
+import com.asfoundation.wallet.billing.carrier_billing.CarrierBillingRepository
 import com.asfoundation.wallet.billing.partners.AddressService
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.promo_code.use_cases.GetCurrentPromoCodeUseCase
@@ -22,16 +24,17 @@ import io.reactivex.Scheduler
 import io.reactivex.Single
 import io.reactivex.functions.BiFunction
 import java.util.concurrent.TimeUnit
+import javax.inject.Inject
 
-class CarrierInteractor(private val repository: CarrierBillingRepository,
-                        private val walletService: WalletService,
-                        private val partnerAddressService: AddressService,
-                        private val inAppPurchaseInteractor: InAppPurchaseInteractor,
-                        private val walletBlockedInteract: WalletBlockedInteract,
-                        private val walletVerificationInteractor: WalletVerificationInteractor,
-                        private val getCurrentPromoCodeUseCase: GetCurrentPromoCodeUseCase,
-                        private val logger: Logger,
-                        private val ioScheduler: Scheduler) {
+class CarrierInteractor @Inject constructor(private val repository: CarrierBillingRepository,
+                                            private val walletService: WalletService,
+                                            private val partnerAddressService: AddressService,
+                                            private val inAppPurchaseInteractor: InAppPurchaseInteractor,
+                                            private val walletBlockedInteract: WalletBlockedInteract,
+                                            private val walletVerificationInteractor: WalletVerificationInteractor,
+                                            private val getCurrentPromoCodeUseCase: GetCurrentPromoCodeUseCase,
+                                            private val logger: Logger,
+                                            private val rxSchedulers: RxSchedulers) {
 
   fun createPayment(phoneNumber: String, packageName: String,
                     origin: String?, transactionData: String, transactionType: String,
@@ -98,13 +101,13 @@ class CarrierInteractor(private val repository: CarrierBillingRepository,
 
   private fun getTransactionBuilder(transactionData: String): Single<TransactionBuilder> {
     return inAppPurchaseInteractor.parseTransaction(transactionData, true)
-        .subscribeOn(ioScheduler)
+        .subscribeOn(rxSchedulers.io)
   }
 
   private fun getAddresses(packageName: String): Single<WalletAddresses> {
     return Single.zip(walletService.getAndSignCurrentWalletAddress()
-        .subscribeOn(ioScheduler), partnerAddressService.getAttributionEntity(packageName)
-        .subscribeOn(ioScheduler), BiFunction { addressModel, attributionEntity ->
+        .subscribeOn(rxSchedulers.io), partnerAddressService.getAttributionEntity(packageName)
+        .subscribeOn(rxSchedulers.io), BiFunction { addressModel, attributionEntity ->
       WalletAddresses(addressModel.address, addressModel.signedAddress, attributionEntity.oemId,
           attributionEntity.domain)
     })
@@ -112,7 +115,7 @@ class CarrierInteractor(private val repository: CarrierBillingRepository,
 
   private fun observeTransactionUpdates(uid: String, walletAddress: String,
                                         walletSignature: String): Observable<CarrierPaymentModel> {
-    return Observable.interval(0, 5, TimeUnit.SECONDS, ioScheduler)
+    return Observable.interval(0, 5, TimeUnit.SECONDS, rxSchedulers.io)
         .timeInterval()
         .switchMap { repository.getPayment(uid, walletAddress, walletSignature) }
         .filter { paymentModel -> isEndingState(paymentModel.status) }
@@ -139,7 +142,7 @@ class CarrierInteractor(private val repository: CarrierBillingRepository,
 
   fun getWalletStatus(): Single<WalletStatus> {
     return Single.zip(walletBlockedInteract.isWalletBlocked()
-        .subscribeOn(ioScheduler), isWalletVerified().subscribeOn(ioScheduler),
+        .subscribeOn(rxSchedulers.io), isWalletVerified().subscribeOn(rxSchedulers.io),
         BiFunction { blocked, verified -> WalletStatus(blocked, verified) })
   }
 

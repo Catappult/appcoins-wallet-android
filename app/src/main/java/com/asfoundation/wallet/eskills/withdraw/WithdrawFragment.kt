@@ -16,20 +16,20 @@ import com.asfoundation.wallet.eskills.withdraw.domain.FailedWithdraw
 import com.asfoundation.wallet.eskills.withdraw.domain.SuccessfulWithdraw
 import com.asfoundation.wallet.eskills.withdraw.domain.WithdrawResult
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
+import dagger.hilt.android.AndroidEntryPoint
 import io.intercom.android.sdk.utilities.KeyboardUtils
 import java.math.BigDecimal
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class WithdrawFragment : BasePageViewFragment(),
     SingleStateFragment<WithdrawState, WithdrawSideEffect> {
 
-  @Inject
-  lateinit var withdrawViewModelFactory: WithdrawViewModelFactory
 
   @Inject
   lateinit var navigator: WithdrawNavigator
 
-  private val viewModel: WithdrawViewModel by viewModels { withdrawViewModelFactory }
+  private val viewModel: WithdrawViewModel by viewModels()
   private val views by viewBinding(FragmentWithdrawBinding::bind)
 
   companion object {

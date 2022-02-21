@@ -6,6 +6,7 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'com.google.gms.google-services'
 apply plugin: 'androidx.navigation.safeargs.kotlin'
+apply plugin: 'dagger.hilt.android.plugin'
 
 android {
   buildToolsVersion project.build_tools_version
@@ -29,7 +30,7 @@ android {
     //room schemas location
     javaCompileOptions {
       annotationProcessorOptions {
-        arguments = ["room.schemaLocation": "$projectDir/schemas".toString()]
+        arguments += ["room.schemaLocation": "$projectDir/schemas".toString()]
       }
     }
 
@@ -196,6 +197,7 @@ dependencies {
 
   implementation "android.arch.lifecycle:runtime:$project.lifecycle_version"
   implementation "android.arch.lifecycle:extensions:$project.lifecycle_version"
+  implementation "androidx.lifecycle:lifecycle-extensions:$project.lifecycle_version"
   implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:${project.ktx_lifecycle_version}"
   implementation "androidx.lifecycle:lifecycle-runtime-ktx:$project.ktx_lifecycle_version"
   implementation "androidx.lifecycle:lifecycle-viewmodel-savedstate:$project.ktx_lifecycle_version"
@@ -212,10 +214,11 @@ dependencies {
   implementation "com.google.zxing:core:$project.zxing_version"
   implementation "com.journeyapps:zxing-android-embedded:$project.zxing_android_version"
 
-  implementation "com.google.dagger:dagger:$project.dagger_version"
-  kapt "com.google.dagger:dagger-android-processor:$project.dagger_version"
-  kapt "com.google.dagger:dagger-compiler:$project.dagger_version"
-  implementation "com.google.dagger:dagger-android-support:$project.dagger_version"
+  implementation 'com.google.dagger:hilt-android:2.40.5'
+  kapt 'com.google.dagger:hilt-compiler:2.40.5'
+  //hilt-extensions to allow injecting an implementation that has an interface
+  implementation 'it.czerwinski.android.hilt:hilt-extensions:1.2.0'
+  kapt'it.czerwinski.android.hilt:hilt-processor:1.2.0'
 
   implementation "io.reactivex.rxjava2:rxjava:$project.rxjava_version"
   implementation "io.reactivex.rxjava2:rxandroid:$project.rxandroid_version"

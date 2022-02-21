@@ -12,17 +12,20 @@ import com.asfoundation.wallet.promotions.model.PromotionsModel
 import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.GoogleApiAvailability
 import com.indicative.client.android.Indicative
+import dagger.hilt.android.qualifiers.ApplicationContext
 import io.reactivex.Completable
 import io.reactivex.Single
+import it.czerwinski.android.hilt.annotations.BoundTo
+import javax.inject.Inject
 
-
-class IndicativeAnalytics(
-  private val context: Context, private val idsRepository: IdsRepository,
+@BoundTo(supertype = AnalyticsSetup::class)
+class IndicativeAnalytics @Inject constructor(
+  @ApplicationContext private val context: Context,
+  private val idsRepository: IdsRepository,
   private val promotionsRepository: PromotionsRepository,
   private val logger: Logger,
   private val promoCodeLocalDataSource: PromoCodeLocalDataSource
-) :
-  AnalyticsSetup {
+) : AnalyticsSetup {
 
   var usrId: String = ""  // wallet address
   var superProperties: MutableMap<String, Any> = HashMap()
@@ -54,10 +57,10 @@ class IndicativeAnalytics(
         Single.zip(idsRepository.getInstallerPackage(BuildConfig.APPLICATION_ID),
           Single.just(idsRepository.getGamificationLevel()), Single.just(hasGms()),
           Single.just(idsRepository.getActiveWalletAddress()),
-          promoCodeLocalDataSource.getSavedPromoCode(),
+          promoCodeLocalDataSource.getSavedPromoCode())
           { installerPackage: String, level: Int, hasGms: Boolean, walletAddress: String, promoCode: PromoCode ->
-            IndicativeInitializeWrapper(installerPackage, level, hasGms, walletAddress, promoCode)
-          })
+          IndicativeInitializeWrapper(installerPackage, level, hasGms, walletAddress, promoCode)
+          }
           .flatMap {
             promotionsRepository.getWalletOrigin(
               it.walletAddress,

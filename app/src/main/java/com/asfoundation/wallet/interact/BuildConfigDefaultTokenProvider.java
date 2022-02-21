@@ -4,18 +4,21 @@ import com.asf.wallet.BuildConfig;
 import com.asfoundation.wallet.entity.NetworkInfo;
 import com.asfoundation.wallet.entity.TokenInfo;
 import com.asfoundation.wallet.wallets.FindDefaultWalletInteract;
+import dagger.hilt.components.SingletonComponent;
 import io.reactivex.Single;
+import it.czerwinski.android.hilt.annotations.BoundTo;
+import javax.inject.Inject;
 import org.jetbrains.annotations.NotNull;
 
 /**
  * Created by trinkes on 07/02/2018.
  */
-
+@BoundTo(supertype = DefaultTokenProvider.class)
 public class BuildConfigDefaultTokenProvider implements DefaultTokenProvider {
   private final FindDefaultWalletInteract findDefaultWalletInteract;
   private final NetworkInfo defaultNetwork;
 
-  public BuildConfigDefaultTokenProvider(FindDefaultWalletInteract findDefaultWalletInteract,
+  public @Inject BuildConfigDefaultTokenProvider(FindDefaultWalletInteract findDefaultWalletInteract,
       NetworkInfo defaultNetwork) {
     this.findDefaultWalletInteract = findDefaultWalletInteract;
     this.defaultNetwork = defaultNetwork;

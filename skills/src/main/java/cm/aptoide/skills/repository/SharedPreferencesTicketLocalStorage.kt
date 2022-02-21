@@ -5,8 +5,11 @@ import cm.aptoide.skills.model.WalletAddress
 import cm.aptoide.skills.util.EskillsPaymentData
 import com.google.gson.Gson
 import io.reactivex.Single
+import it.czerwinski.android.hilt.annotations.BoundTo
+import javax.inject.Inject
 
-class SharedPreferencesTicketLocalStorage(
+@BoundTo (supertype = TicketLocalStorage::class)
+class SharedPreferencesTicketLocalStorage @Inject constructor(
   private val preferences: SharedPreferences,
   private val mapper: Gson
 ) :

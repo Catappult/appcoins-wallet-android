@@ -2,8 +2,9 @@ package com.asfoundation.wallet.ui.transact
 
 import com.asfoundation.wallet.entity.Address
 import java.math.BigDecimal
+import javax.inject.Inject
 
-class TransactionDataValidator {
+class TransactionDataValidator @Inject constructor() {
   fun validateData(toWallet: String, amount: BigDecimal, balance: BigDecimal): DataStatus {
     if (!Address.isAddress(toWallet)) {
       return DataStatus.INVALID_WALLET_ADDRESS

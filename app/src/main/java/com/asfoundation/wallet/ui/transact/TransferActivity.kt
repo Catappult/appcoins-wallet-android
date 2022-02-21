@@ -5,7 +5,9 @@ import android.content.Intent
 import android.os.Bundle
 import com.asf.wallet.R
 import com.asfoundation.wallet.ui.BaseActivity
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class TransferActivity : BaseActivity(), TransferActivityView, TransactNavigator {
 
   private lateinit var presenter: TransferActivityPresenter
@@ -32,7 +34,7 @@ class TransferActivity : BaseActivity(), TransferActivityView, TransactNavigator
 
   override fun showTransactFragment() {
     supportFragmentManager.beginTransaction()
-        .replace(R.id.fragment_container, TransferFragment.newInstance())
-        .commit()
+      .replace(R.id.fragment_container, TransferFragment.newInstance())
+      .commit()
   }
 }

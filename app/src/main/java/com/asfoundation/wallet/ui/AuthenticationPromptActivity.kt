@@ -6,13 +6,14 @@ import android.os.Bundle
 import androidx.biometric.BiometricPrompt
 import androidx.core.content.ContextCompat
 import com.asf.wallet.R
-import dagger.android.AndroidInjection
+import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.subjects.PublishSubject
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class AuthenticationPromptActivity : BaseActivity(), AuthenticationPromptView {
 
   @Inject
@@ -35,7 +36,6 @@ class AuthenticationPromptActivity : BaseActivity(), AuthenticationPromptView {
   }
 
   override fun onCreate(savedInstanceState: Bundle?) {
-    AndroidInjection.inject(this)
     super.onCreate(savedInstanceState)
     setContentView(R.layout.authentication_prompt_activity)
     retryClickSubject = PublishSubject.create<Any>()

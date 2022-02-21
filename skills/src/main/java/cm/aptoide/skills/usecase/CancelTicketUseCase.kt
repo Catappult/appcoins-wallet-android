@@ -6,8 +6,9 @@ import cm.aptoide.skills.model.TicketResponse
 import cm.aptoide.skills.repository.TicketRepository
 import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
+import javax.inject.Inject
 
-class CancelTicketUseCase(private val walletAddressObtainer: WalletAddressObtainer,
+class CancelTicketUseCase @Inject constructor(private val walletAddressObtainer: WalletAddressObtainer,
                           private val ewtObtainer: EwtObtainer,
                           private val ticketRepository: TicketRepository) {
   operator fun invoke(ticketId: String): Single<TicketResponse> {

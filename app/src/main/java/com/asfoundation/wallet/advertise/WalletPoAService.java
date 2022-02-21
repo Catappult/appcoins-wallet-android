@@ -16,10 +16,10 @@ import android.os.Message;
 import android.os.Messenger;
 import androidx.annotation.IntRange;
 import androidx.core.app.NotificationCompat;
+import com.appcoins.wallet.commons.Logger;
 import com.asf.wallet.R;
 import com.asfoundation.wallet.billing.analytics.PoaAnalytics;
 import com.asfoundation.wallet.interact.AutoUpdateInteract;
-import com.appcoins.wallet.commons.Logger;
 import com.asfoundation.wallet.main.MainActivityNavigator;
 import com.asfoundation.wallet.poa.PoaInformationModel;
 import com.asfoundation.wallet.poa.Proof;
@@ -29,7 +29,7 @@ import com.asfoundation.wallet.poa.ProofSubmissionData;
 import com.asfoundation.wallet.repository.WrongNetworkException;
 import com.asfoundation.wallet.util.Log;
 import com.asfoundation.wallet.verification.ui.credit_card.VerificationBroadcastReceiver;
-import dagger.android.AndroidInjection;
+import dagger.hilt.android.AndroidEntryPoint;
 import io.reactivex.Observable;
 import io.reactivex.disposables.Disposable;
 import java.util.List;
@@ -53,8 +53,7 @@ import static com.asfoundation.wallet.verification.ui.credit_card.VerificationBr
 /**
  * Created by Joao Raimundo on 29/03/2018.
  */
-
-public class WalletPoAService extends Service {
+@AndroidEntryPoint public class WalletPoAService extends Service {
 
   public static final int SERVICE_ID = 77784;
   public static final int VERIFICATION_SERVICE_ID = 77785;
@@ -84,11 +83,6 @@ public class WalletPoAService extends Service {
   private Disposable startedEventDisposable;
   private Disposable completedEventDisposable;
   private String appName;
-
-  @Override public void onCreate() {
-    super.onCreate();
-    AndroidInjection.inject(this);
-  }
 
   @Override public int onStartCommand(Intent intent, int flags, int startId) {
     if (intent != null && intent.hasExtra(PARAM_APP_PACKAGE_NAME)) {

@@ -8,10 +8,12 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import io.reactivex.Completable;
 import io.reactivex.Single;
+import it.czerwinski.android.hilt.annotations.BoundTo;
 import java.io.File;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.List;
+import javax.inject.Inject;
 import org.spongycastle.util.encoders.Hex;
 import org.web3j.crypto.Credentials;
 import org.web3j.crypto.ECKeyPair;
@@ -23,7 +25,8 @@ import org.web3j.tx.ChainId;
 
 import static org.web3j.crypto.Wallet.create;
 
-public class Web3jKeystoreAccountService implements AccountKeystoreService {
+@BoundTo(supertype = AccountKeystoreService.class) public class Web3jKeystoreAccountService
+    implements AccountKeystoreService {
   private static final int PRIVATE_KEY_RADIX = 16;
   /**
    * CPU/Memory cost parameter. Must be larger than 1, a power of 2 and less than 2^(128 * r / 8).
@@ -38,7 +41,7 @@ public class Web3jKeystoreAccountService implements AccountKeystoreService {
   private final KeyStoreFileManager keyStoreFileManager;
   private final ObjectMapper objectMapper;
 
-  public Web3jKeystoreAccountService(KeyStoreFileManager keyStoreFileManager,
+  public @Inject Web3jKeystoreAccountService(KeyStoreFileManager keyStoreFileManager,
       ObjectMapper objectMapper) {
     this.keyStoreFileManager = keyStoreFileManager;
     this.objectMapper = objectMapper;

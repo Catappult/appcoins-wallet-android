@@ -1,6 +1,8 @@
 plugins {
   id 'com.android.library'
   id 'kotlin-android'
+  id 'kotlin-kapt'
+  id 'dagger.hilt.android.plugin'
 }
 
 android {
@@ -63,8 +65,11 @@ dependencies {
   implementation "com.squareup.retrofit2:adapter-rxjava2:$project.retrofit_version"
   implementation "com.google.code.gson:gson:$project.gson_version"
 
-  implementation "com.google.dagger:dagger:$project.dagger_version"
-  implementation "com.google.dagger:dagger-android-support:$project.dagger_version"
+  implementation 'com.google.dagger:hilt-android:2.40.5'
+  kapt 'com.google.dagger:hilt-compiler:2.40.5'
+  //hilt-extensions to allow injecting an implementation that has an interface
+  implementation 'it.czerwinski.android.hilt:hilt-extensions:1.2.0'
+  kapt'it.czerwinski.android.hilt:hilt-processor:1.2.0'
 
   implementation "com.airbnb.android:lottie:$project.lottie_version"
   implementation "com.facebook.shimmer:shimmer:$project.shimmer_version"

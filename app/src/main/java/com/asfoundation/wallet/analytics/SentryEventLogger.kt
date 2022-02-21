@@ -6,8 +6,9 @@ import io.sentry.Sentry
 import io.sentry.event.Breadcrumb
 import io.sentry.event.BreadcrumbBuilder
 import java.util.concurrent.atomic.AtomicBoolean
+import javax.inject.Inject
 
-class SentryEventLogger : EventLogger {
+class SentryEventLogger @Inject constructor() : EventLogger {
 
   val enabled: AtomicBoolean = AtomicBoolean(true)
 

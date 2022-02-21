@@ -12,6 +12,7 @@ import com.asfoundation.wallet.util.scaleToString
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.jakewharton.rxbinding2.view.RxView
+import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.invite_friends_fragment_layout.*
@@ -19,6 +20,7 @@ import kotlinx.android.synthetic.main.referral_notification_card.*
 import java.math.BigDecimal
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class InviteFriendsFragment : BasePageViewFragment(), InviteFriendsFragmentView {
 
   @Inject
@@ -115,72 +117,72 @@ class InviteFriendsFragment : BasePageViewFragment(), InviteFriendsFragmentView 
   }
 
   private val receivedAmount: BigDecimal by lazy {
-    if (arguments!!.containsKey(RECEIVED_AMOUNT)) {
-      arguments!!.getSerializable(RECEIVED_AMOUNT) as BigDecimal
+    if (requireArguments().containsKey(RECEIVED_AMOUNT)) {
+      requireArguments().getSerializable(RECEIVED_AMOUNT) as BigDecimal
     } else {
       throw IllegalArgumentException("Received amount not found")
     }
   }
 
   private val maxAmount: BigDecimal by lazy {
-    if (arguments!!.containsKey(MAX_AMOUNT)) {
-      arguments!!.getSerializable(MAX_AMOUNT) as BigDecimal
+    if (requireArguments().containsKey(MAX_AMOUNT)) {
+      requireArguments().getSerializable(MAX_AMOUNT) as BigDecimal
     } else {
       throw IllegalArgumentException("Max amount not found")
     }
   }
 
   private val amount: BigDecimal by lazy {
-    if (arguments!!.containsKey(AMOUNT)) {
-      arguments!!.getSerializable(AMOUNT) as BigDecimal
+    if (requireArguments().containsKey(AMOUNT)) {
+      requireArguments().getSerializable(AMOUNT) as BigDecimal
     } else {
       throw IllegalArgumentException("Amount not found")
     }
   }
 
   private val pendingAmount: BigDecimal by lazy {
-    if (arguments!!.containsKey(PENDING_AMOUNT)) {
-      arguments!!.getSerializable(PENDING_AMOUNT) as BigDecimal
+    if (requireArguments().containsKey(PENDING_AMOUNT)) {
+      requireArguments().getSerializable(PENDING_AMOUNT) as BigDecimal
     } else {
       throw IllegalArgumentException("Pending amount not found")
     }
   }
 
   private val currency: String by lazy {
-    if (arguments!!.containsKey(CURRENCY)) {
-      arguments!!.getString(CURRENCY, "")
+    if (requireArguments().containsKey(CURRENCY)) {
+      requireArguments().getString(CURRENCY, "")
     } else {
       throw IllegalArgumentException("Currency not found")
     }
   }
 
   private val link: String by lazy {
-    if (arguments!!.containsKey(LINK)) {
-      arguments!!.getString(LINK, "")
+    if (requireArguments().containsKey(LINK)) {
+      requireArguments().getString(LINK, "")
     } else {
       throw IllegalArgumentException("link not found")
     }
   }
 
   private val completedInvites: Int by lazy {
-    if (arguments!!.containsKey(COMPLETED_INVITES)) {
-      arguments!!.getInt(COMPLETED_INVITES)
+    if (requireArguments().containsKey(COMPLETED_INVITES)) {
+      requireArguments().getInt(COMPLETED_INVITES)
     } else {
       throw IllegalArgumentException("Completed not found")
     }
   }
 
   private val available: Int by lazy {
-    if (arguments!!.containsKey(AVAILABLE)) {
-      arguments!!.getInt(AVAILABLE)
+    if (requireArguments().containsKey(AVAILABLE)) {
+      requireArguments().getInt(AVAILABLE)
     } else {
       throw IllegalArgumentException("available not found")
     }
   }
 
   private val isRedeemed: Boolean by lazy {
-    if (arguments!!.containsKey(IS_REDEEMED)) {
-      arguments!!.getBoolean(IS_REDEEMED)
+    if (requireArguments().containsKey(IS_REDEEMED)) {
+      requireArguments().getBoolean(IS_REDEEMED)
     } else {
       throw IllegalArgumentException("is redeemed not found")
     }

@@ -5,9 +5,14 @@ import com.asfoundation.wallet.util.isNoNetworkException
 import io.reactivex.Single
 import retrofit2.http.GET
 import retrofit2.http.Path
+import javax.inject.Inject
 
-class TopUpValuesService(private val api: TopUpValuesApi,
-                         private val responseMapper: TopUpValuesApiResponseMapper) {
+class TopUpValuesService @Inject constructor(private val api: TopUpValuesApi,
+                                             private val responseMapper: TopUpValuesApiResponseMapper) {
+
+  companion object {
+    private const val API_VERSION ="8.20180518"
+  }
 
   fun getDefaultValues(): Single<TopUpValuesModel> {
     return api.getDefaultValues(BuildConfig.APPLICATION_ID)
@@ -26,11 +31,11 @@ class TopUpValuesService(private val api: TopUpValuesApi,
   }
 
   interface TopUpValuesApi {
-    @GET("product/8.20180518/topup/billing/domains/{packageName}")
+    @GET("8.20180518/topup/billing/domains/{packageName}")
     fun getInputLimitValues(@Path("packageName")
                             packageName: String): Single<TopUpLimitValuesResponse>
 
-    @GET("product/8.20200402/topup/billing/domains/{packageName}/skus")
+    @GET("8.20200402/topup/billing/domains/{packageName}/skus")
     fun getDefaultValues(
         @Path("packageName") packageName: String): Single<TopUpDefaultValuesResponse>
   }

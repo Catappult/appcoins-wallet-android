@@ -7,10 +7,12 @@ import com.asfoundation.wallet.repository.entity.TransactionLinkIdEntity
 import io.reactivex.Flowable
 import io.reactivex.Maybe
 import io.reactivex.Single
-
-class TransactionsLocalRepository(private val transactionsDao: TransactionsDao,
-                                  private val sharedPreferences: SharedPreferences,
-                                  private val transactionLinkIdDao: TransactionLinkIdDao) :
+import it.czerwinski.android.hilt.annotations.BoundTo
+import javax.inject.Inject
+@BoundTo(supertype = TransactionsRepository::class)
+class TransactionsLocalRepository @Inject constructor(private val transactionsDao: TransactionsDao,
+                                                      private val sharedPreferences: SharedPreferences,
+                                                      private val transactionLinkIdDao: TransactionLinkIdDao) :
     TransactionsRepository {
 
   companion object {

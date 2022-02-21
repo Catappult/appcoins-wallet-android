@@ -1,6 +1,10 @@
 package com.asfoundation.wallet.logging.send_logs
 
+import android.content.Context
 import com.asfoundation.wallet.base.RxSchedulers
+import com.asfoundation.wallet.logging.send_logs.db.LogEntity
+import com.asfoundation.wallet.logging.send_logs.db.LogsDao
+import dagger.hilt.android.qualifiers.ApplicationContext
 import io.reactivex.Completable
 import io.reactivex.Maybe
 import io.reactivex.Observable
@@ -13,14 +17,14 @@ import okhttp3.RequestBody.Companion.asRequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
 import retrofit2.http.*
 import java.io.File
+import javax.inject.Inject
 
-class SendLogsRepository(
+class SendLogsRepository @Inject constructor(
     private val sendLogsApi: SendLogsApi,
     private val awsUploadFilesApi: AwsUploadFilesApi,
     private val logsDao: LogsDao,
     private val rxSchedulers: RxSchedulers,
-    private val cacheDir: File,
-) {
+    @ApplicationContext private val context: Context) {
 
   private val sendStateBehaviorSubject = BehaviorSubject.createDefault(SendState.UNINITIALIZED)
 
@@ -38,7 +42,7 @@ class SendLogsRepository(
                   if (logs.isEmpty())
                     return@flatMapMaybe Maybe.empty()
 
-                  val logsFile = File.createTempFile("log", null, cacheDir)
+                  val logsFile = File.createTempFile("log", null, context.cacheDir)
                   val logContent = StringBuilder()
 
                   logs.forEach { logEntity ->
@@ -103,7 +107,8 @@ class SendLogsRepository(
   }
 
   fun observeSendLogsState(address: String): Observable<SendLogsState> {
-    return Observable.combineLatest(getSendLogsVisibility(address).toObservable(), sendStateBehaviorSubject,
+    return Observable.combineLatest(getSendLogsVisibility(address).toObservable(),
+        sendStateBehaviorSubject,
         { shouldShow, state -> SendLogsState(shouldShow, state) })
   }
 

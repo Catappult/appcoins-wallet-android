@@ -428,11 +428,14 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
   }
 
   private fun sendPaymentMethodDetailsEvent(paymentMethod: String) {
-    disposables.add(transactionBuilder.subscribe { transactionBuilder: TransactionBuilder ->
-      analytics.sendPaymentMethodDetailsEvent(domain, transactionBuilder.skuId,
+    disposables.add(transactionBuilder
+      .observeOn(networkScheduler)
+      .doOnSuccess { transactionBuilder ->
+        analytics.sendPaymentMethodDetailsEvent(domain, transactionBuilder.skuId,
           transactionBuilder.amount()
-              .toString(), paymentMethod, transactionBuilder.type)
-    })
+            .toString(), paymentMethod, transactionBuilder.type)
+      }
+      .subscribe({}, { it.printStackTrace() }))
   }
 
   private fun handleErrorDismissEvent() {
@@ -499,7 +502,8 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
   }
 
   private fun sendPaymentEvent() {
-    disposables.add(transactionBuilder.subscribeOn(networkScheduler)
+    disposables.add(transactionBuilder
+        .subscribeOn(networkScheduler)
         .observeOn(viewScheduler)
         .subscribe { transactionBuilder: TransactionBuilder ->
           analytics.sendPaymentEvent(domain, transactionBuilder.skuId,
@@ -510,8 +514,10 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
   }
 
   private fun sendRevenueEvent() {
-    disposables.add(transactionBuilder.subscribe { transactionBuilder: TransactionBuilder ->
-      analytics.sendRevenueEvent(adyenPaymentInteractor.convertToFiat(transactionBuilder.amount()
+    disposables.add(transactionBuilder
+      .observeOn(networkScheduler)
+      .doOnSuccess { transactionBuilder ->
+        analytics.sendRevenueEvent(adyenPaymentInteractor.convertToFiat(transactionBuilder.amount()
           .toDouble(), BillingAnalytics.EVENT_REVENUE_CURRENCY)
           .subscribeOn(networkScheduler)
           .observeOn(viewScheduler)
@@ -519,7 +525,8 @@ class AdyenPaymentPresenter(private val view: AdyenPaymentView,
           .amount
           .setScale(2, BigDecimal.ROUND_UP)
           .toString())
-    })
+      }
+      .subscribe({}, { it.printStackTrace() }))
   }
 
   private fun sendPaymentSuccessEvent() {

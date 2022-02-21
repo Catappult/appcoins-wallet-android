@@ -1,31 +1,27 @@
 package com.asfoundation.wallet.service
 
-import com.asf.wallet.BuildConfig
+import com.asfoundation.wallet.base.RxSchedulers
 import com.asfoundation.wallet.entity.SubmitPoAException
 import com.asfoundation.wallet.entity.SubmitPoAResponse
 import com.asfoundation.wallet.poa.PoaInformationModel
 import com.asfoundation.wallet.poa.Proof
 import com.asfoundation.wallet.poa.ProofComponent
 import io.reactivex.Observable
-import io.reactivex.Scheduler
 import io.reactivex.Single
 import retrofit2.http.*
+import javax.inject.Inject
+import javax.inject.Named
 
-class CampaignService(
-    private val campaignApi: CampaignApi,
-    private val versionCode: Int,
-    private val scheduler: Scheduler) {
-
-  companion object {
-    const val SERVICE_HOST = BuildConfig.BACKEND_HOST
-  }
+class CampaignService @Inject constructor(private val campaignApi: CampaignApi,
+                                          @Named("local_version_code") private val versionCode: Int,
+                                          private val rxSchedulers: RxSchedulers) {
 
   fun submitProof(proof: Proof, wallet: String): Single<String> {
     return campaignApi.submitProof(
         SerializedProof(proof.campaignId, proof.packageName, wallet, proof.proofComponentList,
             proof.storeAddress, proof.oemAddress), versionCode)
         .map { response -> handleResponse(response) }
-        .subscribeOn(scheduler)
+        .subscribeOn(rxSchedulers.io)
         .singleOrError()
   }
 
@@ -33,14 +29,14 @@ class CampaignService(
                   packageVersionCode: Int): Single<Campaign> {
     return campaignApi.getCampaign(address, packageName, packageVersionCode)
         .map { response -> handleResponse(response) }
-        .subscribeOn(scheduler)
+        .subscribeOn(rxSchedulers.io)
         .singleOrError()
   }
 
   fun retrievePoaInformation(address: String): Single<PoaInformationModel> {
     return campaignApi.getPoaInformation(address)
         .map { handleResponse(it) }
-        .subscribeOn(scheduler)
+        .subscribeOn(rxSchedulers.io)
         .singleOrError()
   }
 

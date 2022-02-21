@@ -14,6 +14,7 @@ import androidx.annotation.ColorRes;
 import androidx.annotation.DrawableRes;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.RecyclerView;
 import com.asf.wallet.R;
@@ -36,7 +37,7 @@ import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.bumptech.glide.request.RequestOptions;
 import com.google.android.material.appbar.AppBarLayout;
-import dagger.android.AndroidInjection;
+import dagger.hilt.android.AndroidEntryPoint;
 import io.reactivex.disposables.CompositeDisposable;
 import java.math.BigDecimal;
 import java.util.Calendar;
@@ -46,11 +47,11 @@ import javax.inject.Inject;
 import static com.asfoundation.wallet.C.Key.GLOBAL_BALANCE_CURRENCY;
 import static com.asfoundation.wallet.C.Key.TRANSACTION;
 
-public class TransactionDetailActivity extends BaseActivity {
+@AndroidEntryPoint public class TransactionDetailActivity extends BaseActivity {
 
   private static final int DECIMALS = 18;
-  @Inject TransactionDetailViewModelFactory transactionDetailViewModelFactory;
   @Inject CurrencyFormatUtils formatter;
+  @Inject TransactionDetailViewModelFactory viewModelFactory;
   private TransactionDetailViewModel viewModel;
   private Transaction transaction;
   private String globalBalanceCurrency;
@@ -66,8 +67,6 @@ public class TransactionDetailActivity extends BaseActivity {
 
   @Override protected void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-
-    AndroidInjection.inject(this);
 
     setContentView(R.layout.activity_transaction_detail);
     findViewById(R.id.more_detail).setVisibility(View.GONE);
@@ -91,7 +90,7 @@ public class TransactionDetailActivity extends BaseActivity {
     detailsList = findViewById(R.id.details_list);
     detailsList.setAdapter(adapter);
 
-    viewModel = ViewModelProviders.of(this, transactionDetailViewModelFactory)
+    viewModel = new ViewModelProvider(this,viewModelFactory)
         .get(TransactionDetailViewModel.class);
 
     viewModel.initializeView(transaction.getPaidAmount(), transaction.getPaidCurrency(),

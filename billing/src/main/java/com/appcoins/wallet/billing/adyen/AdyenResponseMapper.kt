@@ -16,10 +16,11 @@ import com.appcoins.wallet.billing.util.isNoNetworkException
 import com.google.gson.Gson
 import com.google.gson.JsonObject
 import retrofit2.HttpException
+import javax.inject.Inject
 
-open class AdyenResponseMapper(private val gson: Gson,
-                               private val billingErrorMapper: BillingErrorMapper,
-                               private val adyenSerializer: AdyenSerializer) {
+open class AdyenResponseMapper @Inject constructor(private val gson: Gson,
+                                                   private val billingErrorMapper: BillingErrorMapper,
+                                                   private val adyenSerializer: AdyenSerializer) {
 
   open fun map(response: PaymentMethodsResponse,
                method: AdyenPaymentRepository.Methods): PaymentInfoModel {

@@ -8,11 +8,13 @@ import android.view.ViewGroup
 import com.asf.wallet.R
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import com.jakewharton.rxbinding2.view.RxView
+import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.remove_wallet_first_layout.*
 import kotlinx.android.synthetic.main.wallet_outlined_card.*
 
+@AndroidEntryPoint
 class RemoveWalletFragment : BasePageViewFragment(), RemoveWalletView {
 
   private lateinit var presenter: RemoveWalletPresenter
@@ -63,16 +65,16 @@ class RemoveWalletFragment : BasePageViewFragment(), RemoveWalletView {
   }
 
   private val walletAddress: String by lazy {
-    if (arguments!!.containsKey(WALLET_ADDRESS_KEY)) {
-      arguments!!.getString(WALLET_ADDRESS_KEY)!!
+    if (requireArguments().containsKey(WALLET_ADDRESS_KEY)) {
+      requireArguments().getString(WALLET_ADDRESS_KEY)!!
     } else {
       throw IllegalArgumentException("walletAddress not found")
     }
   }
 
   private val fiatBalance: String by lazy {
-    if (arguments!!.containsKey(FIAT_BALANCE_KEY)) {
-      arguments!!.getString(FIAT_BALANCE_KEY)!!
+    if (requireArguments().containsKey(FIAT_BALANCE_KEY)) {
+      requireArguments().getString(FIAT_BALANCE_KEY)!!
     } else {
       throw IllegalArgumentException("fiat balance not found")
     }

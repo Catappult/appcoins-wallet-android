@@ -4,8 +4,10 @@ import android.os.Bundle
 import com.appcoins.wallet.bdsbilling.repository.entity.Purchase
 import com.appcoins.wallet.billing.BillingMessagesMapper
 import com.asfoundation.wallet.ui.iab.PaymentMethodsView.SelectedPaymentMethod
+import javax.inject.Inject
 
-class PaymentMethodsMapper(private val billingMessagesMapper: BillingMessagesMapper) {
+class PaymentMethodsMapper @Inject constructor(
+    private val billingMessagesMapper: BillingMessagesMapper) {
 
   fun map(paymentId: String): SelectedPaymentMethod {
     return when (paymentId) {

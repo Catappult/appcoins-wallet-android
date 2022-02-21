@@ -5,9 +5,12 @@ import cm.aptoide.skills.model.WalletAddress
 import com.appcoins.wallet.bdsbilling.WalletService
 import io.reactivex.Observable
 import io.reactivex.Single
+import it.czerwinski.android.hilt.annotations.BoundTo
+import javax.inject.Inject
 
-class DefaultWalletAddressObtainer(private val walletService: WalletService) :
-    WalletAddressObtainer {
+@BoundTo(supertype = WalletAddressObtainer::class)
+class DefaultWalletAddressObtainer @Inject constructor(private val walletService: WalletService) :
+  WalletAddressObtainer {
 
   override fun getWalletAddress(): Single<WalletAddress> {
     return walletService.getWalletAddress()

@@ -4,8 +4,9 @@ import cm.aptoide.skills.interfaces.ExternalSkillsPaymentProvider
 import cm.aptoide.skills.model.Price
 import io.reactivex.Single
 import java.math.BigDecimal
+import javax.inject.Inject
 
-class GetTicketPriceUseCase(private val externalSkillsPaymentProvider: ExternalSkillsPaymentProvider) {
+class GetTicketPriceUseCase @Inject constructor(private val externalSkillsPaymentProvider: ExternalSkillsPaymentProvider) {
   fun getLocalPrice(value: BigDecimal, currency: String): Single<Price> {
     return externalSkillsPaymentProvider.getLocalFiatAmount(value, currency)
   }

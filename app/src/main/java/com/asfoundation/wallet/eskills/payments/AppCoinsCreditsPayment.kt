@@ -7,8 +7,9 @@ import com.asfoundation.wallet.ui.iab.RewardPayment
 import com.asfoundation.wallet.ui.iab.RewardsManager
 import com.asfoundation.wallet.ui.iab.Status
 import io.reactivex.Single
+import javax.inject.Inject
 
-class AppCoinsCreditsPayment(private val rewardsManager: RewardsManager,
+class AppCoinsCreditsPayment @Inject constructor(private val rewardsManager: RewardsManager,
                              private val billing: Billing) {
   fun pay(eskillsPaymentData: EskillsPaymentData,
           ticket: CreatedTicket): Single<PaymentResult> {

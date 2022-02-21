@@ -16,8 +16,9 @@ import com.asfoundation.wallet.util.Duration
 import com.asfoundation.wallet.util.KeyboardUtils
 import com.asfoundation.wallet.util.WalletCurrency
 import com.asfoundation.wallet.verification.ui.credit_card.VerificationCreditCardActivityView
+import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import com.jakewharton.rxbinding2.view.RxView
-import dagger.android.support.DaggerFragment
+import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.Observable
 import kotlinx.android.synthetic.main.error_top_up_layout.*
 import kotlinx.android.synthetic.main.fragment_verification_code.*
@@ -26,7 +27,8 @@ import kotlinx.android.synthetic.main.no_network_retry_only_layout.*
 import java.util.*
 import javax.inject.Inject
 
-class VerificationCodeFragment : DaggerFragment(), VerificationCodeView {
+@AndroidEntryPoint
+class VerificationCodeFragment : BasePageViewFragment(), VerificationCodeView {
 
   @Inject
   lateinit var presenter: VerificationCodePresenter

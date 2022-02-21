@@ -29,10 +29,11 @@ import com.asfoundation.wallet.ui.iab.PaymentMethod
 import com.asfoundation.wallet.util.CurrencyFormatUtils
 import com.asfoundation.wallet.util.WalletCurrency
 import com.asfoundation.wallet.util.convertDpToPx
+import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import com.jakewharton.rxbinding2.view.RxView
 import com.jakewharton.rxbinding2.widget.RxTextView
 import com.jakewharton.rxrelay2.PublishRelay
-import dagger.android.support.DaggerFragment
+import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -45,7 +46,8 @@ import rx.functions.Action1
 import java.math.BigDecimal
 import javax.inject.Inject
 
-class TopUpFragment : DaggerFragment(), TopUpFragmentView {
+@AndroidEntryPoint
+class TopUpFragment : BasePageViewFragment(), TopUpFragmentView {
 
   @Inject
   lateinit var interactor: TopUpInteractor
@@ -105,8 +107,8 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
   }
 
   private val appPackage: String by lazy {
-    if (arguments!!.containsKey(PARAM_APP_PACKAGE)) {
-      arguments!!.getString(PARAM_APP_PACKAGE)!!
+    if (requireArguments().containsKey(PARAM_APP_PACKAGE)) {
+      requireArguments().getString(PARAM_APP_PACKAGE)!!
     } else {
       throw IllegalArgumentException("application package name data not found")
     }
@@ -435,9 +437,9 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
 
   override fun changeMainValueColor(isValid: Boolean) {
     if (isValid) {
-      main_value.setTextColor(ContextCompat.getColor(context!!, R.color.fakeBlack))
+      main_value.setTextColor(ContextCompat.getColor(requireContext(), R.color.fakeBlack))
     } else {
-      main_value.setTextColor(ContextCompat.getColor(context!!, R.color.color_grey_9e))
+      main_value.setTextColor(ContextCompat.getColor(requireContext(), R.color.color_grey_9e))
     }
   }
 
@@ -578,7 +580,7 @@ class TopUpFragment : DaggerFragment(), TopUpFragmentView {
       return 0
     }
     return with(TypedValue().also {
-      context!!.theme.resolveAttribute(android.R.attr.actionBarSize, it, true)
+      requireContext().theme.resolveAttribute(android.R.attr.actionBarSize, it, true)
     }) {
       TypedValue.complexToDimensionPixelSize(this.data, resources.displayMetrics)
     }

@@ -2,41 +2,34 @@ package com.asfoundation.wallet.di
 
 import android.content.Context
 import cm.aptoide.analytics.AnalyticsManager
-import com.appcoins.wallet.commons.Logger
-import com.appcoins.wallet.gamification.repository.PromotionsRepository
 import com.asfoundation.wallet.abtesting.experiments.topup.TopUpABTestingAnalytics
-import com.asfoundation.wallet.advertise.PoaAnalyticsController
 import com.asfoundation.wallet.analytics.*
 import com.asfoundation.wallet.analytics.gamification.GamificationAnalytics
 import com.asfoundation.wallet.billing.analytics.*
 import com.asfoundation.wallet.home.ui.HomeAnalytics
 import com.asfoundation.wallet.identification.IdsRepository
 import com.asfoundation.wallet.promo_code.repository.PromoCodeLocalDataSource
+import com.asfoundation.wallet.billing.analytics.BillingAnalytics
+import com.asfoundation.wallet.billing.analytics.PageViewAnalytics
+import com.asfoundation.wallet.billing.analytics.PoaAnalytics
+import com.asfoundation.wallet.billing.analytics.WalletsAnalytics
+import com.asfoundation.wallet.di.annotations.DefaultHttpClient
 import com.asfoundation.wallet.rating.RatingAnalytics
 import com.asfoundation.wallet.topup.TopUpAnalytics
 import com.asfoundation.wallet.ui.iab.PaymentMethodsAnalytics
-import com.asfoundation.wallet.ui.iab.localpayments.LocalPaymentAnalytics
 import com.asfoundation.wallet.verification.ui.credit_card.VerificationAnalytics
 import dagger.Module
 import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
+import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
-import java.util.concurrent.CopyOnWriteArrayList
 import javax.inject.Named
 import javax.inject.Singleton
 
+@InstallIn(SingletonComponent::class)
 @Module
 class AnalyticsModule {
-
-  @Provides
-  fun provideLocalPaymentAnalytics(billingAnalytics: BillingAnalytics): LocalPaymentAnalytics {
-    return LocalPaymentAnalytics(billingAnalytics)
-  }
-
-  @Singleton
-  @Provides
-  fun providesPageViewAnalytics(analyticsManager: AnalyticsManager): PageViewAnalytics {
-    return PageViewAnalytics(analyticsManager)
-  }
 
   @Singleton
   @Provides
@@ -133,150 +126,21 @@ class AnalyticsModule {
 
   @Singleton
   @Provides
-  fun provideSentryEventLogger(): SentryEventLogger =
-    SentryEventLogger()
-
-  @Singleton
-  @Provides
-  fun provideAnalyticsManager(
-    @Named("default") okHttpClient: OkHttpClient, api: AnalyticsAPI,
-    @Named("bi_event_list") biEventList: List<String>,
-    @Named("rakam_event_list") rakamEventList: List<String>,
-    @Named("indicative_event_list") indicativeEventList: List<String>,
-    @Named("indicative_event_list") sentryEventList: List<String>,
-    sentryEventLogger: SentryEventLogger,
-    indicativeAnalytics: IndicativeAnalytics
-  ): AnalyticsManager {
+  fun provideAnalyticsManager(@DefaultHttpClient okHttpClient: OkHttpClient, api: AnalyticsAPI,
+                              @Named("bi_event_list") biEventList: List<String>,
+                              @Named("rakam_event_list") rakamEventList: List<String>,
+                              @Named("indicative_event_list") indicativeEventList: List<String>,
+                              @Named("sentry_event_list") sentryEventList: List<String>,
+                              indicativeAnalytics: IndicativeAnalytics
+                              ): AnalyticsManager {
     return AnalyticsManager.Builder()
       .addLogger(BackendEventLogger(api), biEventList)
       .addLogger(IndicativeEventLogger(indicativeAnalytics), indicativeEventList)
       .addLogger(RakamEventLogger(), rakamEventList)
-      .addLogger(sentryEventLogger, sentryEventList)
+      .addLogger(SentryEventLogger(), sentryEventList)
       .setAnalyticsNormalizer(KeysNormalizer())
       .setDebugLogger(LogcatAnalyticsLogger())
       .setKnockLogger(HttpClientKnockLogger(okHttpClient))
       .build()
-  }
-
-  @Singleton
-  @Provides
-  fun provideWalletEventSender(analytics: AnalyticsManager): WalletsEventSender =
-    WalletsAnalytics(analytics)
-
-  @Singleton
-  @Provides
-  fun provideBillingAnalytics(analytics: AnalyticsManager) = BillingAnalytics(analytics)
-
-  @Singleton
-  @Provides
-  fun providePoAAnalytics(analytics: AnalyticsManager) = PoaAnalytics(analytics)
-
-  @Singleton
-  @Provides
-  fun providesPoaAnalyticsController() = PoaAnalyticsController(CopyOnWriteArrayList())
-
-  @Singleton
-  @Provides
-  fun providesTransactionsAnalytics(analytics: AnalyticsManager) = HomeAnalytics(analytics)
-
-  @Singleton
-  @Provides
-  fun provideGamificationAnalytics(analytics: AnalyticsManager) = GamificationAnalytics(analytics)
-
-  @Singleton
-  @Provides
-  fun provideRakamAnalyticsSetup(
-    context: Context, idsRepository: IdsRepository,
-    promotionsRepository: PromotionsRepository, logger: Logger,
-    promoCodeLocalDataSource: PromoCodeLocalDataSource
-  ): RakamAnalytics {
-    return RakamAnalytics(
-      context, idsRepository, promotionsRepository, logger,
-      promoCodeLocalDataSource
-    )
-  }
-
-  @Singleton
-  @Provides
-  fun provideIndicativeAnalyticsSetup(
-    context: Context, idsRepository: IdsRepository,
-    promotionsRepository: PromotionsRepository, logger: Logger,
-    promoCodeLocalDataSource: PromoCodeLocalDataSource
-  ): IndicativeAnalytics {
-    return IndicativeAnalytics(
-      context, idsRepository, promotionsRepository, logger,
-      promoCodeLocalDataSource
-    )
-  }
-
-  @Singleton
-  @Provides
-  fun provideSentryAnalyticsSetup(
-    context: Context, idsRepository: IdsRepository,
-    promotionsRepository: PromotionsRepository, logger: Logger,
-    promoCodeLocalDataSource: PromoCodeLocalDataSource
-  ): SentryAnalytics {
-    return SentryAnalytics(
-      context, idsRepository, promotionsRepository, logger,
-      promoCodeLocalDataSource
-    )
-  }
-
-  @Singleton
-  @Provides
-  fun provideAnalyticsSetup(
-    rakamAnalytics: RakamAnalytics,
-    indicativeAnalytics: IndicativeAnalytics,
-    sentryAnalytics: SentryAnalytics
-  ): AnalyticsSetup {
-    return JoinedAnalytics(rakamAnalytics, indicativeAnalytics, sentryAnalytics)
-  }
-
-  @Singleton
-  @Provides
-  fun provideUxCamSetup(context: Context, idsRepository: IdsRepository): UxCamUtils {
-    return UxCamUtils(context, idsRepository)
-  }
-
-  @Singleton
-  @Provides
-  fun provideLaunchAnalytics(analyticsManager: AnalyticsManager) = LaunchAnalytics(analyticsManager)
-
-  @Singleton
-  @Provides
-  fun provideTopUpAnalytics(
-    analyticsManager: AnalyticsManager,
-    abTestingAnalytics: TopUpABTestingAnalytics
-  ) =
-    TopUpAnalytics(analyticsManager, abTestingAnalytics)
-
-  @Provides
-  fun providePaymentMethodsAnalytics(
-    analyticsManager: AnalyticsManager,
-    billingAnalytics: BillingAnalytics,
-    analyticsSetup: AnalyticsSetup
-  ): PaymentMethodsAnalytics {
-    return PaymentMethodsAnalytics(
-      analyticsManager,
-      billingAnalytics,
-      analyticsSetup
-    )
-  }
-
-  @Singleton
-  @Provides
-  fun providesTopUpdABTestingAnalytics(analytics: AnalyticsManager): TopUpABTestingAnalytics {
-    return TopUpABTestingAnalytics(analytics)
-  }
-
-  @Singleton
-  @Provides
-  fun providesRatingAnalytics(analyticsManager: AnalyticsManager) =
-    RatingAnalytics(analyticsManager)
-
-  @Singleton
-  @Provides
-  fun providesVerificationAnalytics(analytics: AnalyticsManager): VerificationAnalytics {
-    return VerificationAnalytics(analytics)
   }
 }

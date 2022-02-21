@@ -4,8 +4,9 @@ import com.asfoundation.wallet.eskills.withdraw.repository.WithdrawRepository
 import com.asfoundation.wallet.ewt.EwtAuthenticatorService
 import io.reactivex.Single
 import java.math.BigDecimal
+import javax.inject.Inject
 
-class GetAvailableAmountToWithdrawUseCase(
+class GetAvailableAmountToWithdrawUseCase @Inject constructor(
     private val ewtObtainer: EwtAuthenticatorService,
     private val withdrawRepository: WithdrawRepository,
 ) {
