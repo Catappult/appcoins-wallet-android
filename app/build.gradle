@@ -169,6 +169,7 @@ dependencies {
   implementation project(path: ':permissions')
   implementation project(path: ':appcoinsRewards')
   implementation project(path: ':skills')
+  implementation project(path: ':ethereumj-android')
 
   coreLibraryDesugaring "com.android.tools:desugar_jdk_libs:$project.desugar_version"
   implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
@@ -251,13 +252,6 @@ dependencies {
   implementation "com.google.firebase:firebase-messaging:$project.firebase_messaging"
 
   implementation "org.web3j:core:$project.web3j_version"
-//  implementation ("org.web3j:core:$project.web3j_version"){
-//    exclude group: "org.bouncycastle"
-//  }
-
-//  implementation "com.madgag.spongycastle:core:$project.spongycastle_version"
-
-//  implementation 'com.github.ethereum:ethereumj:0.5.7'
 
   implementation "com.github.walleth.kethereum:erc681:$project.erc681_version"
 
