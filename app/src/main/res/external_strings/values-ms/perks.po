@@ -10,7 +10,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Malay\n"
 "Language: ms_MY\n"
-"PO-Revision-Date: 2022-02-18 18:00\n"
+"PO-Revision-Date: 2022-02-18 19:19\n"
 
 #. Card Title
 #:
@@ -55,7 +55,7 @@ msgstr "Kerana anda telah capai tahap seterusnya."
 #. Card - Home - Extra Gamification Bonus.
 #:
 msgid "Receive an extra {0}% Bonus in all your purchases in {1}, except when you use AppCoins Credits."
-msgstr ""
+msgstr "Terima Bonus ekstra {0}% bagi semua pembelian anda dalam {1}, kecuali pembelian dengan Kredit AppCoins."
 
 #. Card - Promotions - Extra Gamification Bonus.
 #:

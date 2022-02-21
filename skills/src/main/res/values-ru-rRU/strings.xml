@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="appcoins_wallet">AppCoins Wallet</string>
+  <string name="appcoins_wallet">Кошелёк AppCoins</string>
   <string name="provide_wallet_creating_wallet_header">Создание адреса кошелька&#8230;</string>
   <string name="processing_loading_title">Получаем ваш входной билет...</string>
   <string name="finding_room_loading_title">Ожидание противников...</string>
@@ -11,23 +11,23 @@
   <string name="cancel">Отменить</string>
   <string name="buy_button">Buy</string>
   <string name="topup_button">Top Up</string>
-  <string name="connection_error_body">It seems your\'re not connected to the Internet. Check your connection and try again!</string>
-  <string name="playing_game_notification_title">Currently playing e-Skills</string>
-  <string name="playing_game_notification_body">Getting game info…</string>
-  <string name="finish_game_notification_title">Your e-Skills game has finished</string>
-  <string name="won_game_notification_body">You won! Your wallet is now $%1$.2f heavier!</string>
-  <string name="lost_game_notification_body">You lost… Better luck next time!</string>
-  <string name="dismiss_button">Dismiss</string>
-  <string name="location_not_available_title">e-Skills games are not available in your location</string>
-  <string name="location_not_available_body">We\'re working hard to bring these to everyone, so come back soon!</string>
-  <string name="e_skills_room_create_title">Create or join a room</string>
-  <string name="e_skills_room_create_body">Create a new room and share it with your opponents or join an existing room.</string>
+  <string name="connection_error_body">Кажется, вы не подключены к интернету. Проверьте ваше подключение и попробуйте снова!</string>
+  <string name="playing_game_notification_title">Вы играете с e-Skills</string>
+  <string name="playing_game_notification_body">Получаем информацию об игре…</string>
+  <string name="finish_game_notification_title">Ваша игра с e-Skills закончена</string>
+  <string name="won_game_notification_body">You won! Your wallet is now %1$.2f$ heavier!</string>
+  <string name="lost_game_notification_body">Вы проиграли… Удачи в следующий раз!</string>
+  <string name="dismiss_button">Закрыть</string>
+  <string name="location_not_available_title">Игры с e-Skills недоступны в вашем регионе</string>
+  <string name="location_not_available_body">Мы прилагаем все усилия, чтобы сделать их доступными каждому, так что возвращайтесь в скором времени!</string>
+  <string name="e_skills_room_create_title">Создать комнату или присоединиться</string>
+  <string name="e_skills_room_create_body">Создайте новую комнату и пригласите в неё оппонентов, либо присоединитесь к существующей комнате.</string>
   <string name="e_skills_room_field">Your room name here…</string>
   <string name="e_skills_payment_title">Payment with</string>
   <string name="e_skills_payment_body">AppCoins Credits</string>
   <string name="copied_to_clipboard">Copied to the clipboard</string>
   <string name="processing_payment_title">Processing your payment</string>
   <string name="purchase_error_title">Oops, something went wrong.</string>
-  <string name="purchase_eskills_sku">Entry ticket</string>
-  <string name="shared_room_waiting">Waiting for opponents to join %s</string>
+  <string name="purchase_eskills_sku">Входной билет</string>
+  <string name="shared_room_waiting">Ожидание противников в %s</string>
 </resources>

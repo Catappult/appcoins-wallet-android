@@ -39,7 +39,7 @@
   <string name="cancel_button">MÉGSE</string>
   <string name="buy_button">VÁSÁRLÁS</string>
   <string name="iab_wallet_not_installed_popup_close_install">WALLET TELEPÍTÉSE</string>
-  <string name="button_ok">OK</string>
+  <string name="button_ok">OKÉ</string>
   <string name="install_button">Telepítés</string>
   <!-- Error messages -->
   <string name="title_dialog_error">Hiba</string>

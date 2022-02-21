@@ -9,7 +9,7 @@
   <string name="bottom_navigation_my_wallets">Dompet Saya</string>
   <!-- Strings relatedwalletount creation -->
   <string name="prompt_password">Kata laluan</string>
-  <string name="action_sign_in_short">Create</string>
+  <string name="action_sign_in_short">Cipta</string>
   <!-- String related to sending -->
   <string name="prompt_to">Kepada</string>
   <string name="action_send">Hantar</string>
@@ -130,10 +130,10 @@
   <string name="intro_wallet_created_short">Dompet dicipta!</string>
   <string name="intro_agree_terms_and_conditions_body">Dengan mengetik Langkau, anda bersetuju dengan %1$s dan %2$s Dompet AppCoins</string>
   <string name="intro_skip_button">LANGKAU</string>
-  <string name="intro_welcome_header">Welcome to the AppCoins Wallet</string>
-  <string name="intro_welcome_body">Your app for in-app purchases.</string>
-  <string name="intro_already_have_wallet_button">I already have a wallet</string>
-  <string name="intro_get_started_button">Get started</string>
+  <string name="intro_welcome_header">Selamat datang ke Dompet AppCoins</string>
+  <string name="intro_welcome_body">Aplikasi anda untuk pembelian dalam aplikasi.</string>
+  <string name="intro_already_have_wallet_button">Saya sudah ada dompet</string>
+  <string name="intro_get_started_button">Mula</string>
   <!-- Menus -->
   <!-- Labels -->
   <string name="label_from">Daripada</string>
@@ -162,7 +162,7 @@
   <string name="action_changelly">Changelly</string>
   <string name="action_wallets">Dompet</string>
   <string name="action_next">Seterusnya</string>
-  <string name="action_edit">Edit</string>
+  <string name="action_edit">Sunting</string>
   <string name="action_save">Simpan</string>
   <!-- Subject -->
   <string name="error_fail_generate_qr">Tidak dapat menjana kod QR.</string>
@@ -171,7 +171,7 @@
   <string name="error_transaction_failed">Ralat transaksi</string>
   <string name="error_must_numeric">Ia mesti nilai angka.</string>
   <string name="transaction_succeeded">Transaksi berjaya</string>
-  <string name="NA">N/A</string>
+  <string name="NA">Tiada</string>
   <string name="error_wallet_not_selected">Dompet tidak dipilih</string>
   <string name="no_transactions_yet">Dapatkan beberapa APPC ujian supaya anda dapat lihat cara bayaran AppCoins berfungsi</string>
   <string name="no_transactions_yet_main">Belum ada transaksi!</string>
@@ -241,8 +241,8 @@
   <string name="transaction_type_poa_offchain">@string/transaction_type_poa</string>
   <string name="transaction_type_standard">Pemindahan</string>
   <string name="transaction_type_bonus">Bonus</string>
-  <string name="transaction_type_eskills_reward">e-Skills Reward</string>
-  <string name="transaction_type_eskills">e-Skills Purchase</string>
+  <string name="transaction_type_eskills_reward">Eskills Reward</string>
+  <string name="transaction_type_eskills">Pembelian e-Skills</string>
   <string name="transaction_type_voucher">e-Baucar</string>
   <string name="transaction_type_voucher_title">Baucar untuk %s</string>
   <string name="transaction_type_reverted_bonus_title">Bonus Dikembalikan</string>
@@ -486,10 +486,10 @@
   <string name="verification_settings_unverified_title">Sahkan Dompet</string>
   <string name="verification_settings_unverified_body">Dapatkan ganjaran dan jemput rakan</string>
   <string name="verification_settings_verified_title">Dompet Disahkan</string>
-  <string name="verification_settings_verifying_title">Verifying wallet…</string>
-  <string name="verification_verified_paypal_description">You will be refunded immediately. Your wallet will be verified shortly.</string>
-  <string name="verification_verify_paypal_description">A minimal transaction of %s will be made to confirm your account. It will be refunded immediately.</string>
-  <string name="verification_verify_paypal_button">Verify Now</string>
+  <string name="verification_settings_verifying_title">Mengesahkan dompet…</string>
+  <string name="verification_verified_paypal_description">Wang anda akan dikembalikan segera. Dompet anda akan disahkan sebentar lagi.</string>
+  <string name="verification_verify_paypal_description">Transaksi minimum sebanyak %s akan dibuat untuk mengesahkan akaun anda. Ia akan dikembalikan segera.</string>
+  <string name="verification_verify_paypal_button">Sahkan Sekarang</string>
   <string name="verification_settings_card_verified_title">Kad Disahkan</string>
   <string name="verification_settings_no_internet">Anda perlu sambungan Internet</string>
   <string name="verification_error_time_expired">Alamak, masa anda telah tamat. Buat semula!</string>
@@ -547,8 +547,8 @@
   <string name="purchase_error_card_already_in_progress">Permintaan anda telah diproses atau sedang berlangsung. Sila tunggu.</string>
   <string name="purchase_error_payment_rejected">Pembayaran ditolak! Sila cuba dengan kad lain atau gunakan kaedah bayaran yang lain.</string>
   <string name="purchase_error_verify_wallet">Cuba sahkan dompet anda untuk atasi masalah ini.</string>
-  <string name="purchase_error_verify_card">Validate your card to complete this purchase.</string>
-  <string name="purachse_error_verify_card_button">VALIDATE CARD</string>
+  <string name="purchase_error_verify_card">Sahkan kad anda untuk selesaikan pembelian ini.</string>
+  <string name="purachse_error_verify_card_button">SAHKAN KAD</string>
   <string name="purchase_eskills_sku">Tiket masuk</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">Alamat bil</string>
@@ -669,7 +669,7 @@
   <string name="backup_additional_security_disclaimer_title">Sila pastikan kata laluan anda selamat.</string>
   <string name="backup_additional_security_disclaimer_body">Tiada pemulihan kata laluan.</string>
   <string name="backup_additional_security_password_not_march">Kata laluan tidak sepadan.</string>
-  <string name="import_wallet_recovering_body">Recovering wallet...</string>
+  <string name="import_wallet_recovering_body">Mendapatkan semula dompet...</string>
   <!--Wallets Management-->
   <string name="wallets_title">Dompet</string>
   <string name="wallets_total_balance_title">Jumlah baki dalam %s</string>
@@ -782,7 +782,7 @@
   <string name="gamif_card_start">Anda masih di Bumi</string>
   <string name="gamif_card_title">Anda berada di %s</string>
   <string name="gamif_card_body">Belanja sebanyak %s AppCoins untuk capai tahap seterusnya.</string>
-  <string name="gamif_bonus">%s%% Bonus</string>
+  <string name="gamif_bonus">Bonus %s%%</string>
   <string name="gamif_placeholder_earth">Bumi</string>
   <string name="gamif_quote_earth">\"Dunia ini satu-satunya tempat yang kita miliki bersama\" – Wendell Berry</string>
   <string name="gamif_placeholder_moon">Bulan</string>
@@ -936,7 +936,7 @@
   <string name="card_verification_wallets_insert_bode_button">Masukkan kod</string>
   <string name="card_verification_no_attempts_title">Oops, anda telah masukkan kod yang salah berulang kali, jadi %1$s akan dikembalikan ke kad anda.</string>
   <string name="card_verification_no_attempts_body">Sila mulakan proses pengesahan sekali lagi.</string>
-  <string name="wallet_verify_header">Validate at least one payment method</string>
+  <string name="wallet_verify_header">Sahkan sekurang-kurangnya satu kaedah pembayaran</string>
   <string name="verify_card_title">Sahkan Kad</string>
   <!--Vouchers-->
   <string name="voucher_card_body_1">Beli baucar ini dan dapatkan</string>
@@ -969,17 +969,17 @@
   <string name="e_skills_withdraw_invalid_email_error_message">E-mel tidak sah</string>
   <string name="e_skills_withdraw_not_enough_balance_error_message">Baki tidak mencukupi</string>
   <string name="e_skills_withdraw_not_enough_earnings_error_message">Anda hanya boleh keluarkan dana yang diperoleh dalam permainan e-Skills</string>
-  <string name="e_skills_withdraw_minimum_amount_error_message">Minimum amount to withdraw is $%1$.2f</string>
-  <string name="e_skills_withdraw_max_amount_part_1">You can withdraw:</string>
+  <string name="e_skills_withdraw_minimum_amount_error_message">Amaun minimum untuk dikeluarkan ialah $%1$.2f</string>
+  <string name="e_skills_withdraw_max_amount_part_1">Anda boleh keluarkan:</string>
   <string name="e_skills_withdraw_max_amount_part_2">$%1$.2f</string>
-  <string name="e_skills_know_more_about">know more about e-Skills</string>
-  <string name="e_skills_know_more_about_tmp">you can only withdraw the funds earned in e-Skills games</string>
-  <string name="e_skills_withdraw_started">A withdraw of $%1$.2f \nhas been started</string>
+  <string name="e_skills_know_more_about">ketahui selanjutnya tentang e-Skills</string>
+  <string name="e_skills_know_more_about_tmp">anda hanya boleh keluarkan dana yang diperoleh dalam permainan e-Skills</string>
+  <string name="e_skills_withdraw_started">Pengeluaran sebanyak $%1$.2f \ntelah dimulakan</string>
   <string name="e_skills_withdraw_generic_error">Generic error message</string>
-  <string name="e_skills_withdraw_maybe_later">Maybe later</string>
-  <string name="e_skills_room_create_title">Create or join a room</string>
-  <string name="e_skills_room_create_body">Create a new room and share it with your opponents or join an existing room.</string>
-  <string name="e_skills_room_field">Your room name here...</string>
+  <string name="e_skills_withdraw_maybe_later">Nanti</string>
+  <string name="e_skills_room_create_title">Cipta atau sertai bilik</string>
+  <string name="e_skills_room_create_body">Cipta bilik baru dan kongsikannya dengan lawan anda atau sertai bilik sedia ada.</string>
+  <string name="e_skills_room_field">Nama bilik anda di sini...</string>
   <!--Promo Code-->
   <string name="promo_code_settings_title">Kod Promo</string>
   <string name="promo_code_view_title">Kod Promo</string>
@@ -993,8 +993,8 @@
   <string name="promo_code_expired_tag">Luput</string>
   <string name="promo_code_success_title">Selesai!</string>
   <string name="promo_code_success_body">Anda akan terima %s%% bonus ekstra untuk semua pembelian anda.</string>
-  <string name="promo_code_success_body_specific_app">You\'ll get %1$s%% extra bonus in all your purchases in %2$s.</string>
-  <string name="promo_code_promotions_tag">Promotional code</string>
+  <string name="promo_code_success_body_specific_app">Anda akan dapat bonus ekstra sebanyak %1$s%% bagi semua pembelian dalam %2$s.</string>
+  <string name="promo_code_promotions_tag">Kod promosi</string>
   <!--AppCoins Info Page-->
   <string name="appcoins_info_title">Perihal AppCoins</string>
   <string name="appcoins_info_prince_title">Harga AppCoins (APPC)</string>
@@ -1008,6 +1008,6 @@
   <string name="appcoins_info_market_cap_title">Modal Pasaran</string>
   <string name="appcoins_info_volume_title">Jumlah (24j)</string>
   <!--  NFTs -->
-  <string name="nfts_title">NFTs</string>
-  <string name="nfts_no_nfts">No NFTs available at the moment.</string>
+  <string name="nfts_title">NFT</string>
+  <string name="nfts_no_nfts">Tiada NFT buat masa ini.</string>
 </resources>
