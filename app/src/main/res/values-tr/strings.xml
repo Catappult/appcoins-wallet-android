@@ -120,7 +120,7 @@
   <string name="intro_2_title">Daha Fazla Oynayın, Daha Az Ödeyin</string>
   <string name="intro_2_body">En sevdiğiniz uygulama ve oyunlarda ürün satın aldığınızda ödül kazanın.</string>
   <string name="intro_3_title">Basit ve Kolay</string>
-  <string name="intro_3_body">Favori ödeme yönteminizi kullanarak tüm uygulama için satın alımlarınızı işleyin.</string>
+  <string name="intro_3_body">Oyunlarınızda doğrudan satın alma işlemi gerçekleştirebilmek için AppCoins Wallet yüklü kalsın.</string>
   <string name="intro_4_title">Güvenli ve Gizli</string>
   <string name="intro_4_body">Özel anahtarlarınız asla cihazınızı terk etmez, dolayısıyla AppCoin\'leriniz her zaman güvendedir.</string>
   <string name="intro_4_body_2">En yeni teknoloji sayesinde tüm işlemleriniz her zaman güvenli.</string>
@@ -271,7 +271,7 @@
   <string name="dialog_credit_card_number">Kart Numarası</string>
   <string name="dialog_credit_card_expiration">Son Kullanma Tarihi</string>
   <string name="dialog_credit_card_cvv">CVV</string>
-  <string name="dialog_bank_card">Bank card</string>
+  <string name="dialog_bank_card">Credit/debit card</string>
   <string name="dialog_expiry_date">Son kullanma tarihi</string>
   <string name="activity_airdrop_title">AppCoin\'leri almak için insan olduğunuzu doğrulayın</string>
   <string name="activity_airdrop_details">Bu sadece güvenlik içindir.</string>
@@ -401,7 +401,7 @@
   <string name="askafriend_share_add_message_body">Mesaj Ekleyin (İsteğe Bağlı)</string>
   <string name="askafriend_share_button">Paylaş</string>
   <string name="askafriend_share_popup_title">Birinden şu yolla ödemesini isteyin:</string>
-  <string name="askafriend_received_body">%s APPC-C aldınız</string>
+  <string name="askafriend_received_body">You just received %s AppCoins Credits</string>
   <string name="askafriend_notification_received_title">Yeni Transfer Alındı</string>
   <string name="askafriend_notification_received_body">%1$s %2$s cüzdanınıza eklendi.</string>
   <string name="askafriend_received_title">Transfer Alındı</string>
@@ -589,7 +589,7 @@
   <string name="referral_view_share_link_button">DAVET BAĞLANTISINI PAYLAŞIN</string>
   <string name="referral_view_notifications_title">Bildirimler</string>
   <string name="referral_share_sheet_title">Davet bağlantısını şu yolla paylaş:</string>
-  <string name="referral_view_unverified_body">Receive %s worth of AppCoins Credits for each friend. Your first need to verify your wallet.</string>
+  <string name="referral_view_unverified_body">Receive %s worth of AppCoins Credits for each friend. You first need to verify your wallet.</string>
   <string name="referral_view_verify_button">CÜZDANI DOĞRULAYIN</string>
   <string name="referral_view_i_have_been_invited_button">DAVET EDİLDİM</string>
   <string name="referral_view_dropup_menu_friends_invited">Davet edilen arkadaşlar</string>
@@ -984,7 +984,7 @@
   <string name="e_skills_withdraw_title">e-Skills Çekme İşlemi</string>
   <string name="e_skills_withdraw_invalid_email_error_message">Geçersiz e-posta</string>
   <string name="e_skills_withdraw_not_enough_balance_error_message">Yetersiz bakiye</string>
-  <string name="e_skills_withdraw_not_enough_earnings_error_message">Sadece e-Skills oyunlarında kazanılan fonları çekebilirsiniz</string>
+  <string name="e_skills_withdraw_not_enough_earnings_error_message">You haven\'t won enough e-Skills games to withdraw that amount</string>
   <string name="e_skills_withdraw_minimum_amount_error_message">Minimum çekme tutarı %1$.2f $\'dır</string>
   <string name="e_skills_withdraw_max_amount_part_1">Çekebileceğiniz tutar:</string>
   <string name="e_skills_withdraw_max_amount_part_2">$%1$.2f</string>
