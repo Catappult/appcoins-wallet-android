@@ -120,7 +120,7 @@
   <string name="intro_2_title">Jouez plus, payez moins</string>
   <string name="intro_2_body">Soyez récompensé pour acheter des objets dans vos applications et jeux préférés.</string>
   <string name="intro_3_title">Simple et facile</string>
-  <string name="intro_3_body">Traitez tous vos achats in-app en utilisant votre méthode de paiement préférée.</string>
+  <string name="intro_3_body">Ayez toujours AppCoins Wallet d\'installé pour acheter directement dans vos jeux.</string>
   <string name="intro_4_title">Sécurisé et privé</string>
   <string name="intro_4_body">Vos clés privées ne quitterons jamais votre appareil, vos AppCoins sont donc sécurisés en permanence.</string>
   <string name="intro_4_body_2">Toutes vos transactions sont sécurisées grâce aux technologies les plus récentes.</string>
@@ -271,7 +271,7 @@
   <string name="dialog_credit_card_number">Numéro de carte</string>
   <string name="dialog_credit_card_expiration">Date d’expiration</string>
   <string name="dialog_credit_card_cvv">CVV</string>
-  <string name="dialog_bank_card">Bank card</string>
+  <string name="dialog_bank_card">Credit/debit card</string>
   <string name="dialog_expiry_date">Date d\'expiration</string>
   <string name="activity_airdrop_title">Confirmez que vous êtes un être humain pour recevoir des AppCoins</string>
   <string name="activity_airdrop_details">Juste par sécurité.</string>
@@ -401,7 +401,7 @@
   <string name="askafriend_share_add_message_body">Ajoutez un Message (facultatif)</string>
   <string name="askafriend_share_button">Partagez</string>
   <string name="askafriend_share_popup_title">Demander à quelqu\'un via :</string>
-  <string name="askafriend_received_body">Vous venez de recevoir %s APPC-C</string>
+  <string name="askafriend_received_body">You just received %s AppCoins Credits</string>
   <string name="askafriend_notification_received_title">Nouveau transfert reçu</string>
   <string name="askafriend_notification_received_body">%1$s %2$s ont été crédités sur votre portefeuille.</string>
   <string name="askafriend_received_title">Transfert reçu</string>
@@ -845,7 +845,7 @@
   <string name="carrier_billing_terms_button">Termes et Conditions</string>
   <string name="carrier_billing_privacy_button">Politique de confidentialité</string>
   <!--Manage Cards-->
-  <string name="manage_cards_settings_add_title">Add bank card</string>
+  <string name="manage_cards_settings_add_title">Ajouter carte de crédit/débit</string>
   <string name="manage_cards_settings_manage_title">Gérer les cartes</string>
   <string name="manage_cards_view_title">Gérer les cartes</string>
   <string name="manage_cards_view_manage_subtitle">Gérer vos paiements par carte</string>
@@ -984,7 +984,7 @@
   <string name="e_skills_withdraw_title">retrait d\'e-Skills</string>
   <string name="e_skills_withdraw_invalid_email_error_message">Courriel non valide</string>
   <string name="e_skills_withdraw_not_enough_balance_error_message">Balance insuffisante</string>
-  <string name="e_skills_withdraw_not_enough_earnings_error_message">Vous ne pouvez retirer que les fonds gagnés dans les jeux e-Skills</string>
+  <string name="e_skills_withdraw_not_enough_earnings_error_message">You haven\'t won enough e-Skills games to withdraw that amount</string>
   <string name="e_skills_withdraw_minimum_amount_error_message">Le montant minimum pour retirer est de $%1$.2f</string>
   <string name="e_skills_withdraw_max_amount_part_1">Vous pouvez retirer :</string>
   <string name="e_skills_withdraw_max_amount_part_2">$%1$.2f</string>
