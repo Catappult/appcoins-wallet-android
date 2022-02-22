@@ -120,7 +120,7 @@
   <string name="intro_2_title">เล่นเมาก จ่ายน้อยลง</string>
   <string name="intro_2_body">รับรางวัลสำหรับการซื้อสินค้าในแอปพลิเคชันที่ชื่นชอบและเกมของคุณ</string>
   <string name="intro_3_title">ไม่ซับซ้อน ง่าย</string>
-  <string name="intro_3_body">ดำเนินการการซื้อของในแอปทั้งหมดโดยใช้วิธีการชำระเงินที่คุณชื่นชอบ</string>
+  <string name="intro_3_body">ติดตั้ง AppCoins Wallet เพื่อใช้จ่ายแกมส์ได้โดยตรง</string>
   <string name="intro_4_title">ปลอดภัยและเป็นส่วนตัว</string>
   <string name="intro_4_body">คีย์ส่วนตัวของคุณจะไม่เคยออกจากอุปกรณ์ของคุณ เพื่อ AppCoins ของคุณจะปลอดภัยตลอดเวลา</string>
   <string name="intro_4_body_2">ธุรกรรมทั้งหมดของคุณปลอดภัยด้วยเทคโนโลยีล่าสุด</string>
@@ -271,7 +271,7 @@
   <string name="dialog_credit_card_number">หมายเลขบัตร</string>
   <string name="dialog_credit_card_expiration">วันหมดอายุ</string>
   <string name="dialog_credit_card_cvv">CVV</string>
-  <string name="dialog_bank_card">Bank card</string>
+  <string name="dialog_bank_card">Credit/debit card</string>
   <string name="dialog_expiry_date">วันหมดอายุ</string>
   <string name="activity_airdrop_title">ยืนยันว่า คุณเป็นคนที่จะได้รับ AppCoins</string>
   <string name="activity_airdrop_details">นี้เป็นเพียงสิ่งปลอดภัย</string>
@@ -401,7 +401,7 @@
   <string name="askafriend_share_add_message_body">เพิ่มข้อความ (ถ้ามี)</string>
   <string name="askafriend_share_button">ใช้ร่วมกัน</string>
   <string name="askafriend_share_popup_title">ถามบางคนผ่าน:</string>
-  <string name="askafriend_received_body">คุณเพิ่งได้รับ %s APPC-C</string>
+  <string name="askafriend_received_body">You just received %s AppCoins Credits</string>
   <string name="askafriend_notification_received_title">ได้รับการโอนใหม่</string>
   <string name="askafriend_notification_received_body">%1$s %2$s ถูกเก็บเป็นเครดิตในกระเป๋าสตางค์ของคุณ</string>
   <string name="askafriend_received_title">รับการโอน</string>
@@ -455,7 +455,7 @@
   <string name="home_empty_discover_apps_button">ค้นพบแอปยอดนิยม</string>
   <!--Tokens-->
   <!--Settings-->
-  <string name="title_redeem">Redeem Code</string>
+  <string name="title_redeem">แลกใช้รหัส</string>
   <string name="settings_item_support">ติดต่อทีมสนับสนุน</string>
   <string name="settings_subheader_support">การสนับสนุน</string>
   <string name="settings_subheader_about_us">เกี่ยวกับเรา</string>
@@ -589,7 +589,7 @@
   <string name="referral_view_share_link_button">แชร์ลิงก์เชิญ</string>
   <string name="referral_view_notifications_title">การแจ้งเตือน</string>
   <string name="referral_share_sheet_title">แชร์ลิงค์เชิญ:</string>
-  <string name="referral_view_unverified_body">Receive %s worth of AppCoins Credits for each friend. Your first need to verify your wallet.</string>
+  <string name="referral_view_unverified_body">Receive %s worth of AppCoins Credits for each friend. You first need to verify your wallet.</string>
   <string name="referral_view_verify_button">ยินยันกระเป๋าสตางค์</string>
   <string name="referral_view_i_have_been_invited_button">ฉันได้ส่งเชิญไปแล้ว</string>
   <string name="referral_view_dropup_menu_friends_invited">เพื่อนที่เชิญ</string>
@@ -977,7 +977,7 @@
   <string name="e_skills_withdraw_title">การถอน e-Skills</string>
   <string name="e_skills_withdraw_invalid_email_error_message">ไม่พบอีเมล</string>
   <string name="e_skills_withdraw_not_enough_balance_error_message">มียอดคงเหลือไม่เพียงพอ</string>
-  <string name="e_skills_withdraw_not_enough_earnings_error_message">คุณสามารถถอนเงินที่ได้รับในเกม e-Skills เท่านั้น</string>
+  <string name="e_skills_withdraw_not_enough_earnings_error_message">You haven\'t won enough e-Skills games to withdraw that amount</string>
   <string name="e_skills_withdraw_minimum_amount_error_message">จำนวนเงินขั้นต่ำในการถอนคือ $%1$.2f</string>
   <string name="e_skills_withdraw_max_amount_part_1">คุณสามารถถอน:</string>
   <string name="e_skills_withdraw_max_amount_part_2">$%1$.2f</string>
