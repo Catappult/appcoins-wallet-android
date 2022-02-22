@@ -120,7 +120,7 @@
   <string name="intro_2_title">少花钱，多玩乐</string>
   <string name="intro_2_body">在你最喜爱的应用和游戏中购买物品即可获得奖励。</string>
   <string name="intro_3_title">简单易用</string>
-  <string name="intro_3_body">使用你最喜爱的付款方式处理所有应用内购买。</string>
+  <string name="intro_3_body">继续安装AppCoins钱包，以直接在游戏中购买。</string>
   <string name="intro_4_title">安全私密</string>
   <string name="intro_4_body">你的私钥永远不会离开你的设备，因此你的AppCoins始终安全。</string>
   <string name="intro_4_body_2">得益于最新技术，您的所有交易都始终安全。</string>
@@ -401,7 +401,7 @@
   <string name="askafriend_share_add_message_body">添加消息（可选）</string>
   <string name="askafriend_share_button">分享</string>
   <string name="askafriend_share_popup_title">通过以下方式请求他人：</string>
-  <string name="askafriend_received_body">你刚刚接收了%s APPC-C</string>
+  <string name="askafriend_received_body">You just received %s AppCoins Credits</string>
   <string name="askafriend_notification_received_title">已收到新转账</string>
   <string name="askafriend_notification_received_body">%1$s %2$s已计入你的钱包。</string>
   <string name="askafriend_received_title">已接收的转账</string>
@@ -844,7 +844,7 @@
   <string name="carrier_billing_terms_button">条款与条件</string>
   <string name="carrier_billing_privacy_button">隐私政策</string>
   <!--Manage Cards-->
-  <string name="manage_cards_settings_add_title">Add bank card</string>
+  <string name="manage_cards_settings_add_title">添加信用卡/借记卡</string>
   <string name="manage_cards_settings_manage_title">管理支付卡</string>
   <string name="manage_cards_view_title">管理支付卡</string>
   <string name="manage_cards_view_manage_subtitle">管理您的支付卡</string>
@@ -975,7 +975,7 @@
   <string name="e_skills_withdraw_title">e-Skills取款</string>
   <string name="e_skills_withdraw_invalid_email_error_message">无效的电子邮件</string>
   <string name="e_skills_withdraw_not_enough_balance_error_message">余额不足</string>
-  <string name="e_skills_withdraw_not_enough_earnings_error_message">你只能取在e-Skills游戏中获得的资金</string>
+  <string name="e_skills_withdraw_not_enough_earnings_error_message">You haven\'t won enough e-Skills games to withdraw that amount</string>
   <string name="e_skills_withdraw_minimum_amount_error_message">最低取款金额$%1$.2f</string>
   <string name="e_skills_withdraw_max_amount_part_1">你可以取款：</string>
   <string name="e_skills_withdraw_max_amount_part_2">$%1$.2f</string>
