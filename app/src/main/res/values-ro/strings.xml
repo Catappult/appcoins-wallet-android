@@ -525,6 +525,7 @@
   <string name="purchase_card_error_not_supported">Tipul tău de card nu este încă acceptat. Încearcă cu un alt card.</string>
   <string name="purchase_card_error_security">Ești sigur că informațiile de securitate sunt corecte? Încearcă din nou.</string>
   <string name="purchase_card_error_wrong_CVV">Codul tău CVV/CVC pare a fi greșit. Încearcă din nou.</string>
+  <string name="purchase_card_error_re_insert">It seems you registered this card long time ago! Insert the card details again or use a different one.</string>
   <string name="purchase_wallet_error_contact_us">Ups, ceva nu e în regulă cu portofelul tău. Te rugăm să ne contactezi.</string>
   <string name="purchase_carrier_error">Se pare că numărul tău de telefon nu este compatibil cu această metodă de plată.</string>
   <string name="purchase_carrier_error_minimum">Operatorul tău nu suportă plăți mai mici de %s.</string>
