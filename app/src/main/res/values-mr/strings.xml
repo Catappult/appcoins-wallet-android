@@ -120,7 +120,7 @@
   <string name="intro_2_title">जास्त खेळा, कमी पैसे भरा</string>
   <string name="intro_2_body">आपल्या आवडत्या अॅप्स आणि खेळातील वस्तु खरेदी करुन बक्षिसे मिळवा.</string>
   <string name="intro_3_title">साधे आणि सोपे</string>
-  <string name="intro_3_body">आपली आवडती पेमेंट पद्धत वापरुन आपली इन-अॅप खरेदी प्रक्रिया पूर्ण करा.</string>
+  <string name="intro_3_body">Keep the AppCoins Wallet installed to directly purchase in your games.</string>
   <string name="intro_4_title">सुरक्षित आणि खासगी</string>
   <string name="intro_4_body">आपल्या खासगी कीज आपल्या डिव्हाइसच्या बाहेर जाणार नाहीत. त्यामुळे आपल्या अॅपकॉइन्स नेहमीच सुरक्षित रहातील.</string>
   <string name="intro_4_body_2">अत्याधुनिक तंत्रज्ञानामुळे आपले सर्व व्यवहार नेहमीच सुरक्षित असतील.</string>
@@ -271,7 +271,7 @@
   <string name="dialog_credit_card_number">कार्ड क्रमांक</string>
   <string name="dialog_credit_card_expiration">कालबाह्य तारीख</string>
   <string name="dialog_credit_card_cvv">सीव्हीव्ही</string>
-  <string name="dialog_bank_card">Bank card</string>
+  <string name="dialog_bank_card">क्रेडीट/डेबीट कार्ड</string>
   <string name="dialog_expiry_date">कालबाह्यता तारीख</string>
   <string name="activity_airdrop_title">अॅपकॉइन्स मिळविण्यासाठी आपण मानव आहात याची पुष्टी करा</string>
   <string name="activity_airdrop_details">हे फक्त सुरक्षिततेबाबत आहे.</string>
@@ -401,7 +401,7 @@
   <string name="askafriend_share_add_message_body">संदेश जोडा (पर्यायी)</string>
   <string name="askafriend_share_button">शेयर</string>
   <string name="askafriend_share_popup_title">कोणालातरी ह्याद्वारे विचारा:</string>
-  <string name="askafriend_received_body">आपल्याला आत्ताच %s एपीपीसी-सी मिळाले</string>
+  <string name="askafriend_received_body">You just received %s AppCoins Credits</string>
   <string name="askafriend_notification_received_title">नविन हस्तांतरण मिळाले</string>
   <string name="askafriend_notification_received_body">%1$s %2$s आपल्या वॉलेटमध्ये जमा केले.</string>
   <string name="askafriend_received_title">हस्तांतरण मिळाले</string>
@@ -589,7 +589,7 @@
   <string name="referral_view_share_link_button">आमंत्रण लिंक सामायिक करा</string>
   <string name="referral_view_notifications_title">सूचना</string>
   <string name="referral_share_sheet_title">आमंत्रण लिंक ह्याद्वारे सामायिक करा:</string>
-  <string name="referral_view_unverified_body">Receive %s worth of AppCoins Credits for each friend. Your first need to verify your wallet.</string>
+  <string name="referral_view_unverified_body">Receive %s worth of AppCoins Credits for each friend. You first need to verify your wallet.</string>
   <string name="referral_view_verify_button">वॉलेट सत्यापित करा</string>
   <string name="referral_view_i_have_been_invited_button">मला आमंत्रण आले आहे</string>
   <string name="referral_view_dropup_menu_friends_invited">मित्रांना आमंत्रित केले</string>
