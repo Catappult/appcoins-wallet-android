@@ -271,7 +271,7 @@
   <string name="dialog_credit_card_number">Số thẻ</string>
   <string name="dialog_credit_card_expiration">Ngày hết hạn</string>
   <string name="dialog_credit_card_cvv">Mã CVV</string>
-  <string name="dialog_bank_card">Bank card</string>
+  <string name="dialog_bank_card">Credit/debit card</string>
   <string name="dialog_expiry_date">Ngày hết hạn</string>
   <string name="activity_airdrop_title">Xác nhận bạn là con người để nhận AppCoin</string>
   <string name="activity_airdrop_details">Đây chỉ là yếu tố bảo mật.</string>
@@ -401,7 +401,7 @@
   <string name="askafriend_share_add_message_body">Thêm lời nhắn (Tùy chọn)</string>
   <string name="askafriend_share_button">Chia sẻ</string>
   <string name="askafriend_share_popup_title">Nhờ ai đó qua:</string>
-  <string name="askafriend_received_body">Bạn vừa nhận được %s APPC-C</string>
+  <string name="askafriend_received_body">You just received %s AppCoins Credits</string>
   <string name="askafriend_notification_received_title">Chuyển khoản mới nhận</string>
   <string name="askafriend_notification_received_body">%1$s %2$s đã được ghi có vào ví của bạn.</string>
   <string name="askafriend_received_title">Đã nhận tiền</string>
@@ -589,7 +589,7 @@
   <string name="referral_view_share_link_button">CHIA SẺ LIÊN KẾT MỜI</string>
   <string name="referral_view_notifications_title">Thông báo</string>
   <string name="referral_share_sheet_title">Chia sẻ liên kết mời qua:</string>
-  <string name="referral_view_unverified_body">Receive %s worth of AppCoins Credits for each friend. Your first need to verify your wallet.</string>
+  <string name="referral_view_unverified_body">Receive %s worth of AppCoins Credits for each friend. You first need to verify your wallet.</string>
   <string name="referral_view_verify_button">XÁC MINH VÍ</string>
   <string name="referral_view_i_have_been_invited_button">TÔI ĐÃ ĐƯỢC MỜI</string>
   <string name="referral_view_dropup_menu_friends_invited">Bạn bè đã mời</string>
@@ -975,7 +975,7 @@
   <string name="e_skills_withdraw_title">Rút tiền e-Skills</string>
   <string name="e_skills_withdraw_invalid_email_error_message">Email không hợp lệ</string>
   <string name="e_skills_withdraw_not_enough_balance_error_message">Không đủ số dư</string>
-  <string name="e_skills_withdraw_not_enough_earnings_error_message">Bạn chỉ có thể rút tiền kiếm được từ các trò chơi e-Skills</string>
+  <string name="e_skills_withdraw_not_enough_earnings_error_message">You haven\'t won enough e-Skills games to withdraw that amount</string>
   <string name="e_skills_withdraw_minimum_amount_error_message">Số tiền tối thiểu để rút là $%1$.2f</string>
   <string name="e_skills_withdraw_max_amount_part_1">Bạn có thể rút:</string>
   <string name="e_skills_withdraw_max_amount_part_2">$%1$.2f</string>
