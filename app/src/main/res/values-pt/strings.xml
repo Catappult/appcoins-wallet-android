@@ -120,7 +120,7 @@
   <string name="intro_2_title">Joga Mais, Paga Menos</string>
   <string name="intro_2_body">Recebe recompensas ao comprares itens nas tuas apps e jogos preferidos.</string>
   <string name="intro_3_title">Simples e Fácil</string>
-  <string name="intro_3_body">Processa todas as tuas compras integradas utilizando o teu método de pagamento preferido.</string>
+  <string name="intro_3_body">Mantém a AppCoins Wallet instalada para comprares diretamente nos teus jogos.</string>
   <string name="intro_4_title">Seguro e Privado</string>
   <string name="intro_4_body">As tuas private keys nunca deixarão o teu dispositivo, e por isso as tuas AppCoins estão sempre seguras.</string>
   <string name="intro_4_body_2">Todas as tuas transações são sempre seguras graças à mais recente tecnologia.</string>
@@ -401,7 +401,7 @@
   <string name="askafriend_share_add_message_body">Adicionar mensagem (Opcional)</string>
   <string name="askafriend_share_button">Partilha</string>
   <string name="askafriend_share_popup_title">Pergunta a alguém via:</string>
-  <string name="askafriend_received_body">You just received %s APPC-C</string>
+  <string name="askafriend_received_body">You just received %s AppCoins Credits</string>
   <string name="askafriend_notification_received_title">Nova transferência recebida</string>
   <string name="askafriend_notification_received_body">%1$s%2$s foram creditados na tua wallet.</string>
   <string name="askafriend_received_title">Transferência Recebida</string>
@@ -589,7 +589,7 @@
   <string name="referral_view_share_link_button">PARTILHAR LINK DE CONVITE</string>
   <string name="referral_view_notifications_title">Notificações</string>
   <string name="referral_share_sheet_title">Partilhar link de convite via:</string>
-  <string name="referral_view_unverified_body">Receive %s worth of AppCoins Credits for each friend. Your first need to verify your wallet.</string>
+  <string name="referral_view_unverified_body">Receive %s worth of AppCoins Credits for each friend. You first need to verify your wallet.</string>
   <string name="referral_view_verify_button">VERIFICAR WALLET</string>
   <string name="referral_view_i_have_been_invited_button">FUI CONVIDADO (A)</string>
   <string name="referral_view_dropup_menu_friends_invited">Amigos Convidados</string>
@@ -845,7 +845,7 @@
   <string name="carrier_billing_terms_button">Termos e Condições</string>
   <string name="carrier_billing_privacy_button">Política de Privacidade</string>
   <!--Manage Cards-->
-  <string name="manage_cards_settings_add_title">Add bank card</string>
+  <string name="manage_cards_settings_add_title">Adicionar cartão de crédito/débito</string>
   <string name="manage_cards_settings_manage_title">Gerir cartões</string>
   <string name="manage_cards_view_title">Gerir cartões</string>
   <string name="manage_cards_view_manage_subtitle">Gere os teus cartões de pagamento</string>
@@ -984,7 +984,7 @@
   <string name="e_skills_withdraw_title">Levantar e-Skills</string>
   <string name="e_skills_withdraw_invalid_email_error_message">E-mail inválido</string>
   <string name="e_skills_withdraw_not_enough_balance_error_message">Sem saldo suficiente</string>
-  <string name="e_skills_withdraw_not_enough_earnings_error_message">Só podes levantar os fundos ganhos nos jogos e-Skills</string>
+  <string name="e_skills_withdraw_not_enough_earnings_error_message">You haven\'t won enough e-Skills games to withdraw that amount</string>
   <string name="e_skills_withdraw_minimum_amount_error_message">O montante mínimo a levantar é de $%1$.2f</string>
   <string name="e_skills_withdraw_max_amount_part_1">Podes levantar:</string>
   <string name="e_skills_withdraw_max_amount_part_2">$%1$.2f</string>
