@@ -120,7 +120,7 @@
   <string name="intro_2_title">Juega Más, Paga Menos</string>
   <string name="intro_2_body">Obtén recompensas al hacer compras en tus juegos favoritos.</string>
   <string name="intro_3_title">Fácil y Sencillo</string>
-  <string name="intro_3_body">Procesa todas tus compras in-app con tu método de pago preferido.</string>
+  <string name="intro_3_body">Keep the AppCoins Wallet installed to directly purchase in your games.</string>
   <string name="intro_4_title">Seguro y Privado</string>
   <string name="intro_4_body">Tus private keys no abandonan tu dispositivo, por lo que tus APPC siempre están seguras.</string>
   <string name="intro_4_body_2">Todas tus transacciones están siempre seguras gracias a la última tecnología.</string>
@@ -271,7 +271,7 @@
   <string name="dialog_credit_card_number">Número de la tarjeta</string>
   <string name="dialog_credit_card_expiration">Fecha de caducidad</string>
   <string name="dialog_credit_card_cvv">CVV</string>
-  <string name="dialog_bank_card">Tarjeta bancaria</string>
+  <string name="dialog_bank_card">Tarjeta de crédito/débito</string>
   <string name="dialog_expiry_date">Fecha de caducidad</string>
   <string name="activity_airdrop_title">Confirma que eres humano para recibir AppCoins</string>
   <string name="activity_airdrop_details">Es solo una medida de seguridad.</string>
@@ -401,7 +401,7 @@
   <string name="askafriend_share_add_message_body">Añadir mensaje (opcional)</string>
   <string name="askafriend_share_button">Compartir</string>
   <string name="askafriend_share_popup_title">Pedir a través de:</string>
-  <string name="askafriend_received_body">Has recibido %s APPC-C</string>
+  <string name="askafriend_received_body">You just received %s AppCoins Credits</string>
   <string name="askafriend_notification_received_title">Nueva transferencia recibida</string>
   <string name="askafriend_notification_received_body">%1$s %2$s fueron abonados en tu wallet.</string>
   <string name="askafriend_received_title">Transferencia Recibida</string>
@@ -589,7 +589,7 @@
   <string name="referral_view_share_link_button">COMPARTIR LINK</string>
   <string name="referral_view_notifications_title">Notificaciones</string>
   <string name="referral_share_sheet_title">Compartir link via:</string>
-  <string name="referral_view_unverified_body">Receive %s worth of AppCoins Credits for each friend. Your first need to verify your wallet.</string>
+  <string name="referral_view_unverified_body">Receive %s worth of AppCoins Credits for each friend. You first need to verify your wallet.</string>
   <string name="referral_view_verify_button">VERIFICAR WALLET</string>
   <string name="referral_view_i_have_been_invited_button">HE SIDO INVITADO</string>
   <string name="referral_view_dropup_menu_friends_invited">Amigos invitados</string>
@@ -845,7 +845,7 @@
   <string name="carrier_billing_terms_button">Términos y Condiciones</string>
   <string name="carrier_billing_privacy_button">Política de Privacidad</string>
   <!--Manage Cards-->
-  <string name="manage_cards_settings_add_title">Add bank card</string>
+  <string name="manage_cards_settings_add_title">Añadir tarjeta de crédito/débito</string>
   <string name="manage_cards_settings_manage_title">Gestionar tarjetas</string>
   <string name="manage_cards_view_title">Gestionar tarjetas</string>
   <string name="manage_cards_view_manage_subtitle">Gestiona tus tarjetas de pago</string>
