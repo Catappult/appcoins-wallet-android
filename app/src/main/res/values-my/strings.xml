@@ -271,7 +271,7 @@
   <string name="dialog_credit_card_number">ကဒ္နံပါတ္</string>
   <string name="dialog_credit_card_expiration">သက္တမ္းကုန္သည့္ရက္</string>
   <string name="dialog_credit_card_cvv">CVV</string>
-  <string name="dialog_bank_card">Bank card</string>
+  <string name="dialog_bank_card">Credit/debit card</string>
   <string name="dialog_expiry_date">သက္တမ္းကုန္ရက္</string>
   <string name="activity_airdrop_title">AppCoins ကို ရရွိရန္အတြက္ သင္သည္ လူသားျဖစ္ေၾကာင္း အတည္ျပဳပါ</string>
   <string name="activity_airdrop_details">ယင္းသည္ လံုၿခံဳေရးကိစၥအတြက္သာ ျဖစ္ပါသည္။</string>
@@ -440,6 +440,8 @@
   <string name="get_code_button">ကုဒ္ရယူမည္</string>
   <string name="confirm_button">အတည္ျပဳမည္</string>
   <string name="withdraw_button">ထုတ္ယူမည္</string>
+  <string name="email_here_field">Your email here&#8230;</string>
+  <string name="understood_button">Understood!</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">AppCoins Wallet ၏ %1$s ႏွင့္ %2$s ကို သေဘာတူပါသည္။</string>
   <string name="terms_and_conditions_error">ဆက္လုပ္ႏိုင္ရန္ ကၽြႏ္ုပ္တို႔၏ စည္းမ်ဥ္းစည္းကမ္းမ်ားႏွင့္ ကုိယ္ေရးလံုၿခံဳမႈ မူ၀ါဒကို လက္ခံေပးပါ</string>
@@ -449,11 +451,11 @@
   <string name="get_started">Get Started</string>
   <string name="existent_wallet">I already have a wallet</string>
   <!--Home-->
-  <string name="home_empty_discover_apps_body">အေကာင္းဆံုး အန္းဒ႐ိုက္အက္ပ္မ်ားက သင့္ကိုေစာင့္ေနပါသည္။</string>
+  <string name="home_empty_discover_apps_body">Make a purchase on your favorite game and we\'ll handle everything.</string>
   <string name="home_empty_discover_apps_button">ထိပ္တန္းအက္ပ္မ်ားကို ရွာေဖြလိုက္ပါ</string>
   <!--Tokens-->
   <!--Settings-->
-  <string name="title_redeem">Redeem Gift Card</string>
+  <string name="title_redeem">Redeem Code</string>
   <string name="settings_item_support">ပံ့ပိုးေရးအဖြဲ့အား ဆက္သြယ္ပါ</string>
   <string name="settings_subheader_support">ပံ့ပိုးေရး</string>
   <string name="settings_subheader_about_us">ကၽြႏ္ုပ္တို႔အေၾကာင္း</string>
@@ -547,7 +549,7 @@
   <string name="purchase_error_transaction_timeout">ေငြလႊဲေျပာင္းမႈကို ၿပီးေအာင္လုပ္ရန္ သင္အခ်ိန္အလြန္ၾကာေနပုံ ရပါသည္။ ျပန္ႀကိဳးစားေပးပါ။</string>
   <string name="purchase_error_card_already_in_progress">သင့္ေတာင္းဆိုမႈကို စီစဥ္ေဆာင္႐ြက္ထားၿပီး သို႔မဟုတ္ ေဆာင္႐ြက္ေနဆဲ ျဖစ္ပါသည္။ ေစာင့္ေပးပါ။</string>
   <string name="purchase_error_payment_rejected">ေငြေပးေခ်မႈကို ျငင္းဆန္လိုက္ပါသည္။ အျခားထုတ္ေပးသူ တစ္ဦးထံမွ ကဒ္တစ္ကဒ္ျဖင့္ စမ္းၾကည့္ေပးပါ သို႔မဟုတ္ အျခားေငြေပးေခ်မႈ နည္းလမ္းကို အသုံးျပဳေပးပါ။</string>
-  <string name="purchase_error_verify_wallet">ဤအေျခအေနကို ေျဖရွင္းရန္အတြက္ သင့္ပိုက္ဆံအိတ္ကို အတည္ျပဳရန္ ႀကိဳးစားပါ။</string>
+  <string name="purchase_error_verify_wallet">Validate your payment method to complete this purchase.</string>
   <string name="purchase_error_verify_card">ဤဝယ္ယူမႈကို ၿပီးစီးေစရန္ သင့္ကဒ္ကို အတည္ျပဳပါ။</string>
   <string name="purachse_error_verify_card_button">ကဒ္ကို အတည္ျပဳမည္</string>
   <string name="purchase_eskills_sku">ဝင္ေရာက္ခြင့္လက္မွတ္</string>
@@ -627,25 +629,16 @@
   <!--Backup and Import-->
   <string name="backup_home_notification_title">သင့္ပိုက္ဆံအိတ္ကို အရန္သိမ္းဆည္းထားပါ</string>
   <string name="backup_home_notification_body">သင့္ဖုန္းကို ေပ်ာက္ဖူးပါသလား။ ယခုပင္ သင့္ပိုက္ဆံအိတ္ကို အရန္သိမ္းဆည္းထားလိုက္ပါ။</string>
-  <string name="backup_button">အရံသိမ္းဆည္းမည္</string>
-  <string name="backup_title">ပိုက္ဆံအိတ္ကို အရန္သိမ္းဆည္းမည္</string>
   <string name="backup_password_title">သင့္ပိုက္ဆံအိတ္ကို ကုဒ္ဖ်က္လိုက္ပါ (ေရြးခ်ယ္ႏိုင္ပါသည္)</string>
-  <string name="backup_password">စကား၀ွက္</string>
-  <string name="backup_body">သင့္ကိုယ္ပိုင္ကီးမ်ား သို႔မဟုတ္ အျခား၀င္ေရာက္ခြင့္နည္းလမ္းမ်ားကို ကၽြႏ္ုပ္တို႔ မသိမ္းဆည္းထားပါ။ သင့္ပိုက္ဆံအိတ္၏ ဘက္ခ္ကပ္ (ကီးစတိုး) ကို လံုၿခံဳေအာင္ထားရန္ အေရးႀကီးပါသည္။</string>
   <string name="backup_confirmation_title">ေနာက္ထပ္တစ္ဆင့္သာ</string>
   <string name="backup_confirmation_body">သင့္အရံသိမ္းဆည္းမႈကို လံုၿခံဳေအာင္ ထားလိုက္ပါ။ မည္သည့္ေနရာတြင္ သိမ္းလိုပါသလဲ။</string>
   <string name="backup_confirmation_yes">ဟုတ္ကဲ့ ၿပီးပါၿပီ</string>
   <string name="backup_confirmation_no">မဟုတ္ပါ။ ကိရိယာေပၚတြင္ သိမ္းဆည္းမည္</string>
-  <string name="backup_done_title">အရံသိမ္းဆည္းမႈ ၿပီးစီးပါၿပီ။</string>
   <string name="backup_done_body">သင့္အရံသိမ္းဆည္းမႈဖိုင္သည္ လံုၿခံဳေသာေနရာတြင္ ရွိေနေၾကာင္း ေသခ်ာပါသလား။</string>
   <string name="backup_confirmation_no_share_title">အရံသိမ္းဆည္းမႈ ၿပီးစီးပါၿပီ။</string>
   <string name="backup_confirmation_no_share_body">သင့္အရံသိမ္းဆည္းမႈဖိုင္သည္ သင့္ Downloads ဖိုလ္ဒါတြင္ ရွိပါသည္။</string>
   <string name="backup_save_dialogue_title">အရံသိမ္းဆည္းမႈဖိုင္ကို သိမ္းမည္</string>
   <string name="backup_save_dialogue_body">သင့္အရံသိမ္းဆည္းမႈဖိုင္အတြက္ အမည္တစ္ခုကို ေရြးခ်ယ္ပါ။</string>
-  <string name="backup_confirmation_tips_title">ဖိိုင္ကို ေဘးကင္းေအာင္ထားပါ -</string>
-  <string name="backup_confirmation_tips_1">ယင္းကို ပရင့္ထုတ္ကာ တေနရာရာတြင္ လံုျခံဳေအာင္ သိမ္းထားပါ။</string>
-  <string name="backup_confirmation_tips_2">ယူအက္စ္ဘီ ဒ႐ိုက္တစ္ခုေပၚတြင္ သိမ္းဆည္းပါ။</string>
-  <string name="backup_confirmation_tips_3">သီးသန္႔ျဖစ္ၿပီး လံုျခံဳေသာ cloud သိမ္းဆည္းမႈတစ္ခုတြင္ ကူးယူထားပါ။</string>
   <string name="backup_send_via_title">အရန္သိမ္းဆည္းမႈကို ေပးပို႔မည္ -</string>
   <string name="backup_send_button">အရံသိမ္းဆည္းမႈကို ေပးပို႔မည္</string>
   <string name="backup_save_button">အရံသိမ္းဆည္းမႈကို သိမ္းမည္</string>
@@ -659,14 +652,27 @@
   <string name="import_wallet_wrong_password_body">အိုး စကား၀ွက္မွားေနပါသည္။</string>
   <string name="error_invalid_private_key">သီးျခားကီး မမွန္ကန္ပါ</string>
   <string name="error_invalid_keystore">Keystore မမွန္ကန္ပါ</string>
+  <string name="backup_title">Backup uour wallet now!</string>
+  <string name="backup_body">သင့္ကိုယ္ပိုင္ကီးမ်ား သို႔မဟုတ္ အျခား၀င္ေရာက္ခြင့္နည္းလမ္းမ်ားကို ကၽြႏ္ုပ္တို႔ မသိမ္းဆည္းထားပါ။ သင့္ပိုက္ဆံအိတ္၏ ဘက္ခ္ကပ္ (ကီးစတိုး) ကို လံုၿခံဳေအာင္ထားရန္ အေရးႀကီးပါသည္။</string>
+  <string name="backup_additional_security_title">ေနာက္ထပ္လံုျခံဳေရး (ေရြးခ်ယ္ႏိုင္ပါသည္)</string>
+  <string name="backup_additional_security_body">စကားဝွက္တစ္ခု ေရြးခ်ယ္ပါ</string>
+  <string name="backup_button">BACKUP WALLET</string>
+  <string name="backup_password">စကား၀ွက္</string>
+  <string name="backup_ready_title">Your backup is ready! Keep it safe.</string>
+  <string name="backup_ready_save_on_email">Save it on your email</string>
+  <string name="backup_ready_email_button">Send to email</string>
+  <string name="backup_ready_device_button">Save on device</string>
+  <string name="backup_done_title">အရံသိမ္းဆည္းမႈ ၿပီးစီးပါၿပီ။</string>
+  <string name="backup_confirmation_tips_title">ဖိိုင္ကို ေဘးကင္းေအာင္ထားပါ -</string>
+  <string name="backup_confirmation_tips_1">ယင္းကို ပရင့္ထုတ္ကာ တေနရာရာတြင္ လံုျခံဳေအာင္ သိမ္းထားပါ။</string>
+  <string name="backup_confirmation_tips_2">ယူအက္စ္ဘီ ဒ႐ိုက္တစ္ခုေပၚတြင္ သိမ္းဆည္းပါ။</string>
+  <string name="backup_confirmation_tips_3">သီးသန္႔ျဖစ္ၿပီး လံုျခံဳေသာ cloud သိမ္းဆည္းမႈတစ္ခုတြင္ ကူးယူထားပါ။</string>
   <string name="backup_tooltip_body">သင့္ပိုက္ဆံအိတ္အတြက္ အရံသိမ္းဆည္းမႈတစ္ခု ျပဳလုပ္လိုက္ပါ။</string>
   <string name="backup_tooltip_later_button">ေနာက္မွလုပ္မည္</string>
   <string name="backup_tooltip_backup_button">အရံသိမ္းဆည္းမည္</string>
   <string name="backup_notification_title">သင့္ပိုက္ဆံအိတ္အတြက္ အရံသိမ္းဆည္းမႈတစ္ခု ျပဳလုပ္လိုက္ပါ။</string>
   <string name="backup_notification_body">သင့္ေငြမ်ားကို ေဘးကင္းေအာင္ထားရွိကာ သင့္ပိုက္ဆံအိတ္ကို အၿမဲတမ္း ၀င္ေရာက္အသံုးျပဳႏိုင္ေအာင္ ျပဳလုပ္ထားပါ။</string>
   <string name="backup_choose_wallet_title">အရံသိမ္းဆည္းရန္အတြက္ ပိုက္ဆံအိတ္တစ္ခုကို ေရြးခ်ယ္ပါ</string>
-  <string name="backup_additional_security_title">ေနာက္ထပ္လံုျခံဳေရး (ေရြးခ်ယ္ႏိုင္ပါသည္)</string>
-  <string name="backup_additional_security_body">စကားဝွက္တစ္ခု ေရြးခ်ယ္ပါ</string>
   <string name="backup_additional_security_disclaimer_title">သင့္စကားဝွက္ကို ေဘးကင္းေအာင္ ထားေပးပါ။</string>
   <string name="backup_additional_security_disclaimer_body">စကားဝွက္ ျပန္လည္ရယူမႈ မရွိပါ။</string>
   <string name="backup_additional_security_password_not_march">စကားဝွက္မ်ား မကိုက္ညီပါ။</string>
@@ -914,7 +920,7 @@
   <string name="rate_us_back_title">ကၽြႏ္ုပ္တို႔ကို ကူညီလိုပါသလား။</string>
   <string name="rate_us_back_body">AppCoins Wallet ကို ပိုမိုေကာင္းမြန္ေအာင္ ကၽြႏ္ုပ္တို႔ျပဳလုပ္ႏိုင္ေစရန္ အက္ပ္စတိုးတြင္ အဆင့္သတ္မွတ္ေပးပါ။</string>
   <!--Card verification-->
-  <string name="card_verification_body">Use your bank card to verify your wallet.</string>
+  <string name="card_verification_body">ေငြေပးေခ်မႈမ်ား ျပဳလုပ္ရန္ သင့္ခရက္ဒစ္/ဒက္ဘစ္ကဒ္ကို အတည္ျပဳပါ။</string>
   <string name="card_verification_charde_disclaimer">သင့္ကဒ္ကို %s ေကာက္ခံမည္ျဖစ္ကာ ကုဒ္ကိုသင္အတည္ျပဳလိုက္သည္ႏွင့္ ေငြျပန္အမ္းေပးပါမည္။ သင့္ဘဏ္အေပၚ မူတည္၍ ယင္းသည္ မိနစ္ပိုင္းမွ ရက္အနည္းငယ္အထိ ၾကာႏိုင္ပါသည္။</string>
   <string name="card_verification_code_title">ေငြလႊဲေျပာင္းမႈ အေသးစိတ္မ်ားပါ ကုဒ္ကို စစ္ေဆးပါ</string>
   <string name="card_verification_code_body">သင့္ကဒ္ကိုထုတ္ေပးသူကေပးေသာ ေငြလႊဲေျပာင္းမႈ အက်ဥ္းခ်ဳပ္တြင္ သီးျခားကုဒ္တစ္ခု ေတြ႕ရပါမည္။</string>
@@ -1010,5 +1016,5 @@
   <string name="appcoins_info_volume_title">ပမာဏ (၂၄ နာရီ)</string>
   <!--  NFTs -->
   <string name="nfts_title">NFTs</string>
-  <string name="nfts_no_nfts">လက္ရွိတြင္ မည္သည့္ NFT မွ် မရရွိႏိုင္ပါ။</string>
+  <string name="nfts_no_nfts">You don\'t have any NFTs in this wallet yet!</string>
 </resources>
