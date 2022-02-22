@@ -271,7 +271,7 @@
   <string name="dialog_credit_card_number">卡號</string>
   <string name="dialog_credit_card_expiration">到期日</string>
   <string name="dialog_credit_card_cvv">CVV</string>
-  <string name="dialog_bank_card">Bank card</string>
+  <string name="dialog_bank_card">Credit/debit card</string>
   <string name="dialog_expiry_date">到期日</string>
   <string name="activity_airdrop_title">完成驗證以接收您的AppCoins</string>
   <string name="activity_airdrop_details">這只是為了保證安全。</string>
@@ -391,7 +391,7 @@
   <string name="my_wallets_action_new_wallet">New wallet</string>
   <string name="my_wallets_action_recover_wallet">Recover wallet</string>
   <string name="my_wallets_action_backup_wallet">Backup wallet</string>
-  <string name="my_wallets_action_verify_new_card">Verify new card</string>
+  <string name="my_wallets_action_verify_new_card">Validate new card</string>
   <string name="my_wallets_action_delete_wallet">Delete wallet</string>
   <!--Ask a friend for funds-->
   <string name="askafriend_payment_option_button">請人代付</string>
@@ -440,6 +440,8 @@
   <string name="get_code_button">獲得代碼</string>
   <string name="confirm_button">確認</string>
   <string name="withdraw_button">withdraw</string>
+  <string name="email_here_field">Your email here&#8230;</string>
+  <string name="understood_button">Understood!</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">我瞭解並同意AppCoins錢包的 %1$s 以及 %2$s。</string>
   <string name="terms_and_conditions_error">請同意使用條例及隱私權政策以繼續。</string>
@@ -449,11 +451,11 @@
   <string name="get_started">Get Started</string>
   <string name="existent_wallet">I already have a wallet</string>
   <!--Home-->
-  <string name="home_empty_discover_apps_body">最棒的Android應用程式商店等你來探索。</string>
+  <string name="home_empty_discover_apps_body">Make a purchase on your favorite game and we\'ll handle everything.</string>
   <string name="home_empty_discover_apps_button">發現暢銷應用程式</string>
   <!--Tokens-->
   <!--Settings-->
-  <string name="title_redeem">Redeem Gift Card</string>
+  <string name="title_redeem">Redeem Code</string>
   <string name="settings_item_support">聯繫支援</string>
   <string name="settings_subheader_support">尋求支援</string>
   <string name="settings_subheader_about_us">關於我們</string>
@@ -525,6 +527,7 @@
   <string name="purchase_card_error_not_supported">暫未支援您的卡片類型，請嘗試其他卡片。</string>
   <string name="purchase_card_error_security">您的安全碼可能有誤，請再試一次。</string>
   <string name="purchase_card_error_wrong_CVV">您的CVV/CVC可能有誤，請再試一次。</string>
+  <string name="purchase_card_error_re_insert">It seems you registered this card long time ago! Insert the card details again or use a different one.</string>
   <string name="purchase_wallet_error_contact_us">糟糕，您的錢包可能存在問題，請與我們聯繫。</string>
   <string name="purchase_carrier_error">您的電話號碼似乎不支援此付款方式。</string>
   <string name="purchase_carrier_error_minimum">您的電信代扣不支援低於%s的付款。</string>
@@ -546,7 +549,7 @@
   <string name="purchase_error_transaction_timeout">It seems you took too long to complete the transaction. Please try again.</string>
   <string name="purchase_error_card_already_in_progress">Your request was already processed or is in progress. Please wait.</string>
   <string name="purchase_error_payment_rejected">Payment rejected! Please try with a card from a different issuer or use other payment method.</string>
-  <string name="purchase_error_verify_wallet">Try to verify your wallet in order to unlock this situation.</string>
+  <string name="purchase_error_verify_wallet">Validate your payment method to complete this purchase.</string>
   <string name="purchase_error_verify_card">Validate your card to complete this purchase.</string>
   <string name="purachse_error_verify_card_button">VALIDATE CARD</string>
   <string name="purchase_eskills_sku">Entry ticket</string>
@@ -586,7 +589,7 @@
   <string name="referral_view_share_link_button">分享邀請連結</string>
   <string name="referral_view_notifications_title">通知</string>
   <string name="referral_share_sheet_title">分享邀請連結至：</string>
-  <string name="referral_view_unverified_body">每邀請一位好友，即可獲得價值%s的AppCoins點數。請先驗證您的錢包。</string>
+  <string name="referral_view_unverified_body">Receive %s worth of AppCoins Credits for each friend. You first need to verify your wallet.</string>
   <string name="referral_view_verify_button">驗證錢包</string>
   <string name="referral_view_i_have_been_invited_button">我收到了邀請</string>
   <string name="referral_view_dropup_menu_friends_invited">已邀請好友</string>
@@ -626,25 +629,16 @@
   <!--Backup and Import-->
   <string name="backup_home_notification_title">備份您的錢包</string>
   <string name="backup_home_notification_body">你有丟過手機嗎？現在就備份錢包吧！</string>
-  <string name="backup_button">備份</string>
-  <string name="backup_title">備份錢包</string>
   <string name="backup_password_title">加密您的錢包（可選）</string>
-  <string name="backup_password">密碼</string>
-  <string name="backup_body">我們不會儲存您的私鑰或任何其他存取方式。 確保錢包的備份（密鑰庫）的安全很重要。</string>
   <string name="backup_confirmation_title">最後一步</string>
   <string name="backup_confirmation_body">確保備份安全！ 您想在哪裡儲存它？</string>
   <string name="backup_confirmation_yes">是的，完成</string>
   <string name="backup_confirmation_no">不，儲存至裝置</string>
-  <string name="backup_done_title">備份完成！</string>
   <string name="backup_done_body">確認備份資料儲存在安全的地方了嗎？</string>
   <string name="backup_confirmation_no_share_title">備份完成！</string>
   <string name="backup_confirmation_no_share_body">備份資料位於「下載」資料夾中。</string>
   <string name="backup_save_dialogue_title">儲存備份檔案</string>
   <string name="backup_save_dialogue_body">輸入備份資料的名稱。</string>
-  <string name="backup_confirmation_tips_title">確保資料安全：</string>
-  <string name="backup_confirmation_tips_1">列印並將其儲存在安全的地方。</string>
-  <string name="backup_confirmation_tips_2">將其儲存在隨身碟。</string>
-  <string name="backup_confirmation_tips_3">將其複製到私人且安全的雲端儲存。</string>
   <string name="backup_send_via_title">傳送備份至：</string>
   <string name="backup_send_button">傳送備份</string>
   <string name="backup_save_button">儲存備份</string>
@@ -658,14 +652,27 @@
   <string name="import_wallet_wrong_password_body">密碼不正確</string>
   <string name="error_invalid_private_key">無效的私鑰</string>
   <string name="error_invalid_keystore">無效的密鑰庫</string>
+  <string name="backup_title">Backup uour wallet now!</string>
+  <string name="backup_body">我們不會儲存您的私鑰或任何其他存取方式。 確保錢包的備份（密鑰庫）的安全很重要。</string>
+  <string name="backup_additional_security_title">加強安全性（可選）</string>
+  <string name="backup_additional_security_body">添加密碼</string>
+  <string name="backup_button">BACKUP WALLET</string>
+  <string name="backup_password">密碼</string>
+  <string name="backup_ready_title">Your backup is ready! Keep it safe.</string>
+  <string name="backup_ready_save_on_email">Save it on your email</string>
+  <string name="backup_ready_email_button">Send to email</string>
+  <string name="backup_ready_device_button">Save on device</string>
+  <string name="backup_done_title">備份完成！</string>
+  <string name="backup_confirmation_tips_title">確保資料安全：</string>
+  <string name="backup_confirmation_tips_1">列印並將其儲存在安全的地方。</string>
+  <string name="backup_confirmation_tips_2">將其儲存在隨身碟。</string>
+  <string name="backup_confirmation_tips_3">將其複製到私人且安全的雲端儲存。</string>
   <string name="backup_tooltip_body">備份您的錢包吧！</string>
   <string name="backup_tooltip_later_button">稍後再說</string>
   <string name="backup_tooltip_backup_button">備份</string>
   <string name="backup_notification_title">備份您的錢包吧！</string>
   <string name="backup_notification_body">確保您的資金安全，並確保隨時可以存取您的錢包。</string>
   <string name="backup_choose_wallet_title">選擇一個錢包進行備份</string>
-  <string name="backup_additional_security_title">加強安全性（可選）</string>
-  <string name="backup_additional_security_body">添加密碼</string>
   <string name="backup_additional_security_disclaimer_title">請妥善保管您的密碼。</string>
   <string name="backup_additional_security_disclaimer_body">密碼無法恢復。</string>
   <string name="backup_additional_security_password_not_march">密碼不一致。</string>
@@ -837,7 +844,7 @@
   <string name="carrier_billing_terms_button">使用條款</string>
   <string name="carrier_billing_privacy_button">隱私權政策</string>
   <!--Manage Cards-->
-  <string name="manage_cards_settings_add_title">Add bank card</string>
+  <string name="manage_cards_settings_add_title">新增信用卡/金融卡</string>
   <string name="manage_cards_settings_manage_title">管理卡片</string>
   <string name="manage_cards_view_title">管理卡片</string>
   <string name="manage_cards_view_manage_subtitle">管理付款卡片</string>
@@ -913,7 +920,7 @@
   <string name="rate_us_back_title">可以幫助我們嗎？</string>
   <string name="rate_us_back_body">在應用程式商店上給AppCoins錢包評分，鼓勵我們為您提供更佳體驗。</string>
   <!--Card verification-->
-  <string name="card_verification_body">Use your bank card to verify your wallet.</string>
+  <string name="card_verification_body">Validate your credit/debit card to make payments.</string>
   <string name="card_verification_charde_disclaimer">We\'ll charge %s to your card, and we\'ll refund it once you confirm the code. Depending on your bank, it can take between minutes and up to a few days.</string>
   <string name="card_verification_code_title">查看交易詳情中的數字。</string>
   <string name="card_verification_code_body">您的信用卡月結單上會顯示專屬的代碼。</string>
@@ -937,7 +944,7 @@
   <string name="card_verification_no_attempts_title">糟糕，您輸入的代碼錯誤太多次，因此 %1$s 會退回到您的卡片。</string>
   <string name="card_verification_no_attempts_body">請重新開始驗證。</string>
   <string name="wallet_verify_header">Validate at least one payment method</string>
-  <string name="verify_card_title">Verify Card</string>
+  <string name="verify_card_title">Validate Card</string>
   <!--Vouchers-->
   <string name="voucher_card_body_1">Buy this voucher and get</string>
   <string name="voucher_card_body_2"> up to %s%% bonus.</string>
@@ -968,7 +975,7 @@
   <string name="e_skills_withdraw_title">e-Skills Withdrawal</string>
   <string name="e_skills_withdraw_invalid_email_error_message">Invalid e-mail</string>
   <string name="e_skills_withdraw_not_enough_balance_error_message">Not enough balance</string>
-  <string name="e_skills_withdraw_not_enough_earnings_error_message">You can only withdraw the funds earned in e-Skills games</string>
+  <string name="e_skills_withdraw_not_enough_earnings_error_message">You haven\'t won enough e-Skills games to withdraw that amount</string>
   <string name="e_skills_withdraw_minimum_amount_error_message">Minimum amount to withdraw is $%1$.2f</string>
   <string name="e_skills_withdraw_max_amount_part_1">You can withdraw:</string>
   <string name="e_skills_withdraw_max_amount_part_2">$%1$.2f</string>
@@ -992,7 +999,7 @@
   <string name="promo_code_active_tag">訂閱項目</string>
   <string name="promo_code_expired_tag">已到期</string>
   <string name="promo_code_success_title">兌換成功！</string>
-  <string name="promo_code_success_body">You’ll get %s%% extra bonus on all your purchases.</string>
+  <string name="promo_code_success_body">You\'ll get %s%% extra bonus in all your purchases.</string>
   <string name="promo_code_success_body_specific_app">You\'ll get %1$s%% extra bonus in all your purchases in %2$s.</string>
   <string name="promo_code_promotions_tag">Promotional code</string>
   <!--AppCoins Info Page-->
@@ -1009,5 +1016,5 @@
   <string name="appcoins_info_volume_title">Volume (24h)</string>
   <!--  NFTs -->
   <string name="nfts_title">NFTs</string>
-  <string name="nfts_no_nfts">No NFTs available at the moment.</string>
+  <string name="nfts_no_nfts">You don\'t have any NFTs in this wallet yet!</string>
 </resources>
