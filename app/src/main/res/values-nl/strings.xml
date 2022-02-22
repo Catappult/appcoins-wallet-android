@@ -440,6 +440,8 @@
   <string name="get_code_button">Code aanvragen</string>
   <string name="confirm_button">Bevestigen</string>
   <string name="withdraw_button">uitbetalen</string>
+  <string name="email_here_field">Your email here&#8230;</string>
+  <string name="understood_button">Understood!</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Ik ga akkoord met de %1$s en het %2$s van AppCoins Wallet.</string>
   <string name="terms_and_conditions_error">Accepteer onze algemene voorwaarden en ons privacybeleid om door te gaan</string>
@@ -449,11 +451,11 @@
   <string name="get_started">Get Started</string>
   <string name="existent_wallet">I already have a wallet</string>
   <!--Home-->
-  <string name="home_empty_discover_apps_body">De beste Android-apps wachten op je.</string>
+  <string name="home_empty_discover_apps_body">Doe een aankoop in je favoriete game en wij regelen de rest.</string>
   <string name="home_empty_discover_apps_button">ONTDEK DE BESTE APPS</string>
   <!--Tokens-->
   <!--Settings-->
-  <string name="title_redeem">Code inwisselen</string>
+  <string name="title_redeem">Redeem Code</string>
   <string name="settings_item_support">Neem contact op met support</string>
   <string name="settings_subheader_support">Ondersteuning</string>
   <string name="settings_subheader_about_us">Over ons</string>
@@ -547,7 +549,7 @@
   <string name="purchase_error_transaction_timeout">Het lijkt erop dat je er te lang over hebt gedaan om de transactie te voltooien. Probeer het opnieuw.</string>
   <string name="purchase_error_card_already_in_progress">Je verzoek is al verwerkt of is in behandeling. Even geduld.</string>
   <string name="purchase_error_payment_rejected">Betaling is geweigerd! Probeer een kaart van een andere uitgever of een andere betaalmethode te gebruiken.</string>
-  <string name="purchase_error_verify_wallet">Probeer je wallet te verifiëren om dit probleem op te lossen.</string>
+  <string name="purchase_error_verify_wallet">Validate your payment method to complete this purchase.</string>
   <string name="purchase_error_verify_card">Verifieer je kaart om deze aankoop te voltooien.</string>
   <string name="purachse_error_verify_card_button">KAART VERIFIËREN</string>
   <string name="purchase_eskills_sku">Toegangsticket</string>
@@ -627,25 +629,16 @@
   <!--Backup and Import-->
   <string name="backup_home_notification_title">Back-up van je wallet maken</string>
   <string name="backup_home_notification_body">Ben je je telefoon wel eens kwijtgeraakt? Maak nu een back-up van je wallet!</string>
-  <string name="backup_button">BACK-UP</string>
-  <string name="backup_title">Back-up van wallet maken</string>
   <string name="backup_password_title">Versleutel je wallet (optioneel)</string>
-  <string name="backup_password">Wachtwoord</string>
-  <string name="backup_body">We slaan je privésleutels of andere toegangsmethoden niet op. Het is belangrijk om de back-up van je wallet (keystore) veilig te houden.</string>
   <string name="backup_confirmation_title">Nog maar één stap</string>
   <string name="backup_confirmation_body">Zorg voor een veilige back-up! Waar wil je de back-up opslaan?</string>
   <string name="backup_confirmation_yes">JA, ZEKER WETEN</string>
   <string name="backup_confirmation_no">NEE, OP APPARAAT OPSLAAN</string>
-  <string name="backup_done_title">Back-up gereed!</string>
   <string name="backup_done_body">Weet je zeker dat je back-upbestand op een veilige plek is opgeslagen?</string>
   <string name="backup_confirmation_no_share_title">Back-up gereed!</string>
   <string name="backup_confirmation_no_share_body">Je back-upbestand is in de map downloads opgeslagen.</string>
   <string name="backup_save_dialogue_title">Back-upbestand opslaan</string>
   <string name="backup_save_dialogue_body">Kies een naam voor je back-upbestand.</string>
-  <string name="backup_confirmation_tips_title">Sla het bestand veilig op:</string>
-  <string name="backup_confirmation_tips_1">Kopieer het bestand en sla het op een veilige plek op.</string>
-  <string name="backup_confirmation_tips_2">Sla het bestand op een USB-stick op.</string>
-  <string name="backup_confirmation_tips_3">Kopieer het naar een persoonlijke en veilige cloudopslag.</string>
   <string name="backup_send_via_title">Back-up verzenden via:</string>
   <string name="backup_send_button">BACK-UP VERZENDEN</string>
   <string name="backup_save_button">BACK-UP OPSLAAN</string>
@@ -659,14 +652,27 @@
   <string name="import_wallet_wrong_password_body">Oeps, verkeerd wachtwoord!</string>
   <string name="error_invalid_private_key">Ongeldige privésleutel</string>
   <string name="error_invalid_keystore">Ongeldige keystore</string>
+  <string name="backup_title">Backup uour wallet now!</string>
+  <string name="backup_body">We slaan je privésleutels of andere toegangsmethoden niet op. Het is belangrijk om de back-up van je wallet (keystore) veilig te houden.</string>
+  <string name="backup_additional_security_title">Extra beveiliging (optioneel)</string>
+  <string name="backup_additional_security_body">Kies een wachtwoord</string>
+  <string name="backup_button">BACKUP WALLET</string>
+  <string name="backup_password">Wachtwoord</string>
+  <string name="backup_ready_title">Your backup is ready! Keep it safe.</string>
+  <string name="backup_ready_save_on_email">Save it on your email</string>
+  <string name="backup_ready_email_button">Send to email</string>
+  <string name="backup_ready_device_button">Save on device</string>
+  <string name="backup_done_title">Back-up gereed!</string>
+  <string name="backup_confirmation_tips_title">Sla het bestand veilig op:</string>
+  <string name="backup_confirmation_tips_1">Kopieer het bestand en sla het op een veilige plek op.</string>
+  <string name="backup_confirmation_tips_2">Sla het bestand op een USB-stick op.</string>
+  <string name="backup_confirmation_tips_3">Kopieer het naar een persoonlijke en veilige cloudopslag.</string>
   <string name="backup_tooltip_body">Maak een back-up van je wallet!</string>
   <string name="backup_tooltip_later_button">MISSCHIEN LATER</string>
   <string name="backup_tooltip_backup_button">BACK-UP</string>
   <string name="backup_notification_title">Maak een back-up van je wallet!</string>
   <string name="backup_notification_body">Beveilig je saldo en zorg ervoor dat je altijd toegang tot je wallet hebt.</string>
   <string name="backup_choose_wallet_title">Kies een wallet om een back-up te maken</string>
-  <string name="backup_additional_security_title">Extra beveiliging (optioneel)</string>
-  <string name="backup_additional_security_body">Kies een wachtwoord</string>
   <string name="backup_additional_security_disclaimer_title">Bewaar je wachtwoord veilig.</string>
   <string name="backup_additional_security_disclaimer_body">Er is geen wachtwoordherstel.</string>
   <string name="backup_additional_security_password_not_march">De wachtwoorden komen niet overeen.</string>
@@ -839,7 +845,7 @@
   <string name="carrier_billing_terms_button">Algemene voorwaarden</string>
   <string name="carrier_billing_privacy_button">Privacybeleid</string>
   <!--Manage Cards-->
-  <string name="manage_cards_settings_add_title">Creditcard/betaalkaart toevoegen</string>
+  <string name="manage_cards_settings_add_title">Add credit/debit card</string>
   <string name="manage_cards_settings_manage_title">Kaarten beheren</string>
   <string name="manage_cards_view_title">Kaarten beheren</string>
   <string name="manage_cards_view_manage_subtitle">Beheer je betaalkaarten</string>
@@ -1019,5 +1025,5 @@
   <string name="appcoins_info_volume_title">Volume (24 uur)</string>
   <!--  NFTs -->
   <string name="nfts_title">NFT\'s</string>
-  <string name="nfts_no_nfts">Er zijn momenteel geen NFT\'s beschikbaar.</string>
+  <string name="nfts_no_nfts">You don\'t have any NFTs in this wallet yet!</string>
 </resources>
