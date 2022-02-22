@@ -120,7 +120,7 @@
   <string name="intro_2_title">Graj więcej, płać mniej</string>
   <string name="intro_2_body">Odbieraj nagrody za kupowanie przedmiotów w ulubionych aplikacjach i grach.</string>
   <string name="intro_3_title">Prosto i łatwo</string>
-  <string name="intro_3_body">Zapłać za wszystkie transakcje w aplikacjach używając Twojej ulubionej metody płatności.</string>
+  <string name="intro_3_body">Za pomocą AppCoins Wallet możesz robić zakupy w swoich grach.</string>
   <string name="intro_4_title">Bezpieczeństwo i prywatność</string>
   <string name="intro_4_body">Twoje prywatne klucze nigdy nie opuszczą Twojego urządzenia, więc Twoje AppCoins są zawsze bezpieczne.</string>
   <string name="intro_4_body_2">Twoje transakcje są zawsze bezpieczne dzięki najnowszej technologii.</string>
@@ -271,7 +271,7 @@
   <string name="dialog_credit_card_number">Numer karty</string>
   <string name="dialog_credit_card_expiration">Data wygaśnięcia</string>
   <string name="dialog_credit_card_cvv">CVV</string>
-  <string name="dialog_bank_card">Bank card</string>
+  <string name="dialog_bank_card">Credit/debit card</string>
   <string name="dialog_expiry_date">Data ważności</string>
   <string name="activity_airdrop_title">Potwierdź, że jesteś człowiekiem, aby otrzymać AppCoins</string>
   <string name="activity_airdrop_details">To dla bezpieczeństwa.</string>
@@ -401,7 +401,7 @@
   <string name="askafriend_share_add_message_body">Dodaj wiadomość (opcjonalnie)</string>
   <string name="askafriend_share_button">Udostępnij</string>
   <string name="askafriend_share_popup_title">Poproś kogoś przez:</string>
-  <string name="askafriend_received_body">Właśnie otrzymałeś/aś %s APPC-C</string>
+  <string name="askafriend_received_body">You just received %s AppCoins Credits</string>
   <string name="askafriend_notification_received_title">Przelew Odebrany</string>
   <string name="askafriend_notification_received_body">%1$s %2$s zostały zapisane do Twojego portfela.</string>
   <string name="askafriend_received_title">Przelew Odebrany</string>
@@ -589,7 +589,7 @@
   <string name="referral_view_share_link_button">UDOSTĘPNIJ TWÓJ LINK</string>
   <string name="referral_view_notifications_title">Powiadomienia</string>
   <string name="referral_share_sheet_title">Udostępnij link przez:</string>
-  <string name="referral_view_unverified_body">Receive %s worth of AppCoins Credits for each friend. Your first need to verify your wallet.</string>
+  <string name="referral_view_unverified_body">Receive %s worth of AppCoins Credits for each friend. You first need to verify your wallet.</string>
   <string name="referral_view_verify_button">ZWERYFIKUJ PORTFEL</string>
   <string name="referral_view_i_have_been_invited_button">ZOSTAŁEM ZAPROSZONY</string>
   <string name="referral_view_dropup_menu_friends_invited">Zaproszonych Znajomych</string>
@@ -1002,7 +1002,7 @@
   <string name="e_skills_withdraw_title">Wypłata e-Skills</string>
   <string name="e_skills_withdraw_invalid_email_error_message">Niepoprawny e-mail</string>
   <string name="e_skills_withdraw_not_enough_balance_error_message">Brak środków</string>
-  <string name="e_skills_withdraw_not_enough_earnings_error_message">Możesz wypłacić wyłącznie środki uzyskane w grach e-Skills</string>
+  <string name="e_skills_withdraw_not_enough_earnings_error_message">You haven\'t won enough e-Skills games to withdraw that amount</string>
   <string name="e_skills_withdraw_minimum_amount_error_message">Minimalna kwota wypłaty to $%1$.2f</string>
   <string name="e_skills_withdraw_max_amount_part_1">Możesz wypłacić:</string>
   <string name="e_skills_withdraw_max_amount_part_2">$%1$.2f</string>
