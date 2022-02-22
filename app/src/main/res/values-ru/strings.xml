@@ -120,7 +120,7 @@
   <string name="intro_2_title">Играй больше, плати меньше</string>
   <string name="intro_2_body">Получите награду для покупок в ваших любимых приложениях и играх.</string>
   <string name="intro_3_title">Простой в использовании</string>
-  <string name="intro_3_body">Производите все встроенные покупки с использованием предпочтительного метода оплаты.</string>
+  <string name="intro_3_body">Сохраняйте AppCoins Wallet на устройстве, чтобы совершать покупки в ваших играх напрямую.</string>
   <string name="intro_4_title">Безопасно и конфиденциально</string>
   <string name="intro_4_body">Ваши приватные ключи никогда не покидают устройство, поэтому ваши AppCoins всегда в безопасности.</string>
   <string name="intro_4_body_2">Все ваши транзакции всегда в безопасности благодаря новейшим технологиям.</string>
@@ -271,7 +271,7 @@
   <string name="dialog_credit_card_number">Номер карты</string>
   <string name="dialog_credit_card_expiration">Дата окончания срока действия</string>
   <string name="dialog_credit_card_cvv">CVV</string>
-  <string name="dialog_bank_card">Bank card</string>
+  <string name="dialog_bank_card">Credit/debit card</string>
   <string name="dialog_expiry_date">Дата окончания действия</string>
   <string name="activity_airdrop_title">Подтвердите, что вы человек, чтобы получить AppCoins</string>
   <string name="activity_airdrop_details">Это просто для обеспечения безопасности.</string>
@@ -589,7 +589,7 @@
   <string name="referral_view_share_link_button">ПОДЕЛИТЬСЯ ПРИГЛАШЕНИЕМ</string>
   <string name="referral_view_notifications_title">Уведомления</string>
   <string name="referral_share_sheet_title">Поделиться ссылкой-приглашением через:</string>
-  <string name="referral_view_unverified_body">Receive %s worth of AppCoins Credits for each friend. Your first need to verify your wallet.</string>
+  <string name="referral_view_unverified_body">Receive %s worth of AppCoins Credits for each friend. You first need to verify your wallet.</string>
   <string name="referral_view_verify_button">ПОДТВЕРДИТЬ КОШЕЛЁК</string>
   <string name="referral_view_i_have_been_invited_button">МЕНЯ ПРИГЛАСИЛИ</string>
   <string name="referral_view_dropup_menu_friends_invited">Друзей приглашено</string>
@@ -1002,7 +1002,7 @@
   <string name="e_skills_withdraw_title">Вывод средств e-Skills</string>
   <string name="e_skills_withdraw_invalid_email_error_message">Неверный e-mail</string>
   <string name="e_skills_withdraw_not_enough_balance_error_message">Недостаточно средств</string>
-  <string name="e_skills_withdraw_not_enough_earnings_error_message">Вы можете вывести только средства, заработанные в играх e-Skills</string>
+  <string name="e_skills_withdraw_not_enough_earnings_error_message">You haven\'t won enough e-Skills games to withdraw that amount</string>
   <string name="e_skills_withdraw_minimum_amount_error_message">Минимальная сумма для снятия средств $%1$.2f</string>
   <string name="e_skills_withdraw_max_amount_part_1">Вы можете снять:</string>
   <string name="e_skills_withdraw_max_amount_part_2">$%1$.2f</string>
