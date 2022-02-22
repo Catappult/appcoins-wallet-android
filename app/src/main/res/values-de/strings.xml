@@ -525,6 +525,7 @@
   <string name="purchase_card_error_not_supported">Ihre Karte wird noch nicht unterstützt. Bitte versuchen Sie es mit einer anderen Karte.</string>
   <string name="purchase_card_error_security">Sind Sie sicher, dass ihre Sicherheitsinformationen richtig sind? Bitte versuchen Sie es erneut.</string>
   <string name="purchase_card_error_wrong_CVV">Scheinbar ist ihr CVV/CVC-Code nicht korrekt. Bitte geben Sie ihn erneut ein.</string>
+  <string name="purchase_card_error_re_insert">It seems you registered this card long time ago! Insert the card details again or use a different one.</string>
   <string name="purchase_wallet_error_contact_us">Upps, etwas ist mit dem Wallet nicht in Ordnung, bitte nehmen Sie Kontakt mit uns auf.</string>
   <string name="purchase_carrier_error">Ihre Telefonnummer ist nicht kompatibel zu dieser Bezahlmethode.</string>
   <string name="purchase_carrier_error_minimum">Ihr Zahlungsdienstleister unterstützt keinen Zahlungen mit einem Wert von unter %s.</string>
