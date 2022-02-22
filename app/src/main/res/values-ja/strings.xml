@@ -120,7 +120,7 @@
   <string name="intro_2_title">支払いを減らして、もっとプレーする</string>
   <string name="intro_2_body">あなたのお気に入りのアプリやゲーム内のアイテムを購入するために報酬を手に入れる</string>
   <string name="intro_3_title">シンプルで簡単</string>
-  <string name="intro_3_body">お気に入りの支払い方法を使用して、アプリ内購入をすべて処理します。</string>
+  <string name="intro_3_body">Keep the AppCoins Wallet installed to directly purchase in your games.</string>
   <string name="intro_4_title">安全でプレイベート</string>
   <string name="intro_4_body">あなたのプライベート鍵がデバイスから消えることはありませんので、あなたのAppCoinsは常に安全です。</string>
   <string name="intro_4_body_2">最新のテクノロジーにより、お客様の取引は常に安全です。</string>
@@ -272,7 +272,7 @@
   <string name="dialog_credit_card_number">カード番号</string>
   <string name="dialog_credit_card_expiration">有効期限</string>
   <string name="dialog_credit_card_cvv">CVV</string>
-  <string name="dialog_bank_card">Bank card</string>
+  <string name="dialog_bank_card">Credit/debit card</string>
   <string name="dialog_expiry_date">有効期限</string>
   <string name="activity_airdrop_title">あなたがAppCoinsを受け取る人間であることを確認してください</string>
   <string name="activity_airdrop_details">これはセキュリティ上の問題です。</string>
@@ -402,7 +402,7 @@
   <string name="askafriend_share_add_message_body">メッセージ (必須ではございません) を追加する。</string>
   <string name="askafriend_share_button">共有する</string>
   <string name="askafriend_share_popup_title">アプリ経由で：</string>
-  <string name="askafriend_received_body">ちょうど %s APPC-C を受け取りました</string>
+  <string name="askafriend_received_body">You just received %s AppCoins Credits</string>
   <string name="askafriend_notification_received_title">新たに送金を受け取りました</string>
   <string name="askafriend_notification_received_body">%1$s %2$sがあなたのウォレットに入金されました。</string>
   <string name="askafriend_received_title">受取完了</string>
@@ -590,7 +590,7 @@
   <string name="referral_view_share_link_button">招待リンクの共有</string>
   <string name="referral_view_notifications_title">通知</string>
   <string name="referral_share_sheet_title">招待リンクを共有：</string>
-  <string name="referral_view_unverified_body">Receive %s worth of AppCoins Credits for each friend. Your first need to verify your wallet.</string>
+  <string name="referral_view_unverified_body">Receive %s worth of AppCoins Credits for each friend. You first need to verify your wallet.</string>
   <string name="referral_view_verify_button">ウォレットの認証</string>
   <string name="referral_view_i_have_been_invited_button">すでに招待されている</string>
   <string name="referral_view_dropup_menu_friends_invited">招待済みの友達</string>
@@ -976,7 +976,7 @@
   <string name="e_skills_withdraw_title">e-Skillsの引き出し</string>
   <string name="e_skills_withdraw_invalid_email_error_message">無効なメールアドレス</string>
   <string name="e_skills_withdraw_not_enough_balance_error_message">残高不足</string>
-  <string name="e_skills_withdraw_not_enough_earnings_error_message">e-Skillsゲームで獲得した資金のみを引き出すことができます。</string>
+  <string name="e_skills_withdraw_not_enough_earnings_error_message">You haven\'t won enough e-Skills games to withdraw that amount</string>
   <string name="e_skills_withdraw_minimum_amount_error_message">Minimum amount to withdraw is $%1$.2f</string>
   <string name="e_skills_withdraw_max_amount_part_1">You can withdraw:</string>
   <string name="e_skills_withdraw_max_amount_part_2">$%1$.2f</string>
