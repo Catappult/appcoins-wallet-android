@@ -525,6 +525,7 @@
   <string name="purchase_card_error_not_supported">Je kaarttype wordt nog niet ondersteund. Probeer het opnieuw met een andere kaart.</string>
   <string name="purchase_card_error_security">Weet je zeker dat je de juiste beveiligingsinformatie hebt ingevoerd? Probeer het opnieuw.</string>
   <string name="purchase_card_error_wrong_CVV">Het lijkt erop dat de CVV/CVC-code onjuist is. Probeer het opnieuw.</string>
+  <string name="purchase_card_error_re_insert">It seems you registered this card long time ago! Insert the card details again or use a different one.</string>
   <string name="purchase_wallet_error_contact_us">Oeps, er is iets mis met je wallet. Neem contact met ons op.</string>
   <string name="purchase_carrier_error">Het lijkt erop dat je telefoonnummer niet compatibel met deze betaalmethode is.</string>
   <string name="purchase_carrier_error_minimum">Je provider ondersteunt geen betalingen met bedragen lager dan %s.</string>
