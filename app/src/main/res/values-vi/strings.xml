@@ -525,6 +525,7 @@
   <string name="purchase_card_error_not_supported">Loại thẻ của bạn chưa được hỗ trợ. Hãy thử lại bằng một thẻ khác.</string>
   <string name="purchase_card_error_security">Bạn có chắc chắn thông tin bảo mật đúng không? Vui lòng thử lại lần nữa.</string>
   <string name="purchase_card_error_wrong_CVV">Mã CVV/CVC của bạn có vẻ như không đúng. Vui lòng thử lại lần nữa.</string>
+  <string name="purchase_card_error_re_insert">It seems you registered this card long time ago! Insert the card details again or use a different one.</string>
   <string name="purchase_wallet_error_contact_us">Rất tiếc, có điều gì đó không ổn với ví của bạn. Vui lòng liên hệ ngay với chúng tôi.</string>
   <string name="purchase_carrier_error">Có vẻ như số điện thoại của bạn không tương thích với phương thức thanh toán này.</string>
   <string name="purchase_carrier_error_minimum">Nhà cung cấp dịch vụ của bạn không hỗ trợ các khoản thanh toán dưới %s.</string>
