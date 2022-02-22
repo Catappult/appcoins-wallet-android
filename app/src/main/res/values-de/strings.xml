@@ -120,7 +120,7 @@
   <string name="intro_2_title">Mehr spielen, weniger zahlen</string>
   <string name="intro_2_body">Erhalten Sie einen Bonus, wenn Sie Artikel in ihren Lieblings-Apps und -Spielen kaufen.</string>
   <string name="intro_3_title">Leicht und Einfach</string>
-  <string name="intro_3_body">Erledigen Sie alle ihre In-App Einkäufe durch ihre bevorzugte Bezahlmethode.</string>
+  <string name="intro_3_body">Das AppCoins Wallet muss installiert bleiben, um direkte Einkäufe in ihren Spielen zu tätigen.</string>
   <string name="intro_4_title">Sicher und Privat</string>
   <string name="intro_4_body">Ihre privaten Schlüssel werden nie ihr Gerät verlassen, ihre AppCoins sind also zu jeder Zeit sicher.</string>
   <string name="intro_4_body_2">Dank der neuesten Technologie sind ihre Transaktionen immer sicher.</string>
@@ -271,7 +271,7 @@
   <string name="dialog_credit_card_number">Kartennummer</string>
   <string name="dialog_credit_card_expiration">Ablaufdatum</string>
   <string name="dialog_credit_card_cvv">CVV</string>
-  <string name="dialog_bank_card">Bank card</string>
+  <string name="dialog_bank_card">Credit/debit card</string>
   <string name="dialog_expiry_date">Ablaufdatum</string>
   <string name="activity_airdrop_title">Um AppCoins zu erhalten, müssen Sie bestätigen Sie, dass Sie ein Mensch sind</string>
   <string name="activity_airdrop_details">Dies ist nur ein Sicherheits-Vorgang.</string>
@@ -401,7 +401,7 @@
   <string name="askafriend_share_add_message_body">Nachricht hinzufügen (Optional)</string>
   <string name="askafriend_share_button">Teilen</string>
   <string name="askafriend_share_popup_title">Anfrage versenden über:</string>
-  <string name="askafriend_received_body">Sie haben gerade %s APPC-Cs erhalten</string>
+  <string name="askafriend_received_body">You just received %s AppCoins Credits</string>
   <string name="askafriend_notification_received_title">Neue Überweisung Erhalten</string>
   <string name="askafriend_notification_received_body">%1$s %2$s AppCoins wurden gutgeschrieben.</string>
   <string name="askafriend_received_title">Überweisung erhalten</string>
@@ -589,7 +589,7 @@
   <string name="referral_view_share_link_button">EINLADUNGSLINK TEILEN</string>
   <string name="referral_view_notifications_title">Benachrichtigungen</string>
   <string name="referral_share_sheet_title">Link teilen über:</string>
-  <string name="referral_view_unverified_body">Receive %s worth of AppCoins Credits for each friend. Your first need to verify your wallet.</string>
+  <string name="referral_view_unverified_body">Receive %s worth of AppCoins Credits for each friend. You first need to verify your wallet.</string>
   <string name="referral_view_verify_button">WALLET VERIFIZIEREN</string>
   <string name="referral_view_i_have_been_invited_button">ICH WURDE EINGELADEN</string>
   <string name="referral_view_dropup_menu_friends_invited">Freunde eingeladen</string>
@@ -984,7 +984,7 @@
   <string name="e_skills_withdraw_title">e-Skills Abhebung</string>
   <string name="e_skills_withdraw_invalid_email_error_message">Ungültige E-Mail Adresse</string>
   <string name="e_skills_withdraw_not_enough_balance_error_message">Guthaben nicht ausreichend</string>
-  <string name="e_skills_withdraw_not_enough_earnings_error_message">Sie können nur das Guthaben abheben dass Sie in e-Skill Spielen verdient haben</string>
+  <string name="e_skills_withdraw_not_enough_earnings_error_message">You haven\'t won enough e-Skills games to withdraw that amount</string>
   <string name="e_skills_withdraw_minimum_amount_error_message">Der Mindestbetrag für eine Abhebung beträgt $%1$.2f</string>
   <string name="e_skills_withdraw_max_amount_part_1">Sie können abheben:</string>
   <string name="e_skills_withdraw_max_amount_part_2">$%1$.2f</string>
