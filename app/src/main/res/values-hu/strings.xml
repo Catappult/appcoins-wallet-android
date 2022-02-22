@@ -525,6 +525,7 @@
   <string name="purchase_card_error_not_supported">Ezt a kártyatípust nem támogatjuk. Használj egy másikat.</string>
   <string name="purchase_card_error_security">Biztos vagy benne, hogy helyes a biztonsági információ? Próbáld újra.</string>
   <string name="purchase_card_error_wrong_CVV">Úgy tűnik, rossz CVV/CVC kódot adtál meg. Próbáld újra.</string>
+  <string name="purchase_card_error_re_insert">It seems you registered this card long time ago! Insert the card details again or use a different one.</string>
   <string name="purchase_wallet_error_contact_us">Hoppá, valami gond van a tárcáddal. Vedd fel velünk a kapcsolatot.</string>
   <string name="purchase_carrier_error">Úgy tűnik, hogy a telefonszámod nem kompatibilis ezzel a fizetési móddal.</string>
   <string name="purchase_carrier_error_minimum">A szolgáltató nem támogatja a(z) %s összegnél kisebb fizetéseket.</string>
