@@ -391,7 +391,7 @@
   <string name="my_wallets_action_new_wallet">New wallet</string>
   <string name="my_wallets_action_recover_wallet">Recover wallet</string>
   <string name="my_wallets_action_backup_wallet">Backup wallet</string>
-  <string name="my_wallets_action_verify_new_card">Verify new card</string>
+  <string name="my_wallets_action_verify_new_card">Validate new card</string>
   <string name="my_wallets_action_delete_wallet">Delete wallet</string>
   <!--Ask a friend for funds-->
   <string name="askafriend_payment_option_button">कोणालातरी पैसे भरायला सांगा</string>
@@ -440,6 +440,8 @@
   <string name="get_code_button">कोड मिळवा</string>
   <string name="confirm_button">पुष्टी करा</string>
   <string name="withdraw_button">withdraw</string>
+  <string name="email_here_field">Your email here&#8230;</string>
+  <string name="understood_button">Understood!</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">मला अॅपकॉइन्स वॉलेटच्या %1$s आणि %2$s मान्य आहेत.</string>
   <string name="terms_and_conditions_error">चालू ठेवण्यासाठी कृपया आमच्या अटी आणि शर्ती मंजुर करा</string>
@@ -449,11 +451,11 @@
   <string name="get_started">Get Started</string>
   <string name="existent_wallet">I already have a wallet</string>
   <!--Home-->
-  <string name="home_empty_discover_apps_body">उत्कृष्ट अँड्रॉइड अॅप्स आपली वाट बघताहेत.</string>
+  <string name="home_empty_discover_apps_body">Make a purchase on your favorite game and we\'ll handle everything.</string>
   <string name="home_empty_discover_apps_button">उच्चीची अॅप्स शोधा</string>
   <!--Tokens-->
   <!--Settings-->
-  <string name="title_redeem">Redeem Gift Card</string>
+  <string name="title_redeem">Redeem Code</string>
   <string name="settings_item_support">समर्थन गटाशी संपर्क साधा</string>
   <string name="settings_subheader_support">सपोर्ट</string>
   <string name="settings_subheader_about_us">आमच्याविषयी</string>
@@ -547,7 +549,7 @@
   <string name="purchase_error_transaction_timeout">It seems you took too long to complete the transaction. Please try again.</string>
   <string name="purchase_error_card_already_in_progress">Your request was already processed or is in progress. Please wait.</string>
   <string name="purchase_error_payment_rejected">Payment rejected! Please try with a card from a different issuer or use other payment method.</string>
-  <string name="purchase_error_verify_wallet">Try to verify your wallet in order to unlock this situation.</string>
+  <string name="purchase_error_verify_wallet">Validate your payment method to complete this purchase.</string>
   <string name="purchase_error_verify_card">Validate your card to complete this purchase.</string>
   <string name="purachse_error_verify_card_button">VALIDATE CARD</string>
   <string name="purchase_eskills_sku">Entry ticket</string>
@@ -627,25 +629,16 @@
   <!--Backup and Import-->
   <string name="backup_home_notification_title">वॉलेट बॅकअप करा</string>
   <string name="backup_home_notification_body">आपला फोन हरवला आहे का? आपले वॉलेट आत्ताच बॅकअप करा!</string>
-  <string name="backup_button">बॅकअप</string>
-  <string name="backup_title">वॉलेट बॅकअप करा</string>
   <string name="backup_password_title">आपले वॉलेट एनक्रिप्ट करा (पर्यायी)</string>
-  <string name="backup_password">पासवर्ड</string>
-  <string name="backup_body">आपल्या खासगी कीज किंवा अन्य प्रवेश पद्धतींना आम्ही साठवित नाही. आपल्या वॉलेटच्या बॅकअप (की स्टोर) सुरक्षेसाठी हे महत्वाचे आहे.</string>
   <string name="backup_confirmation_title">अजुन फक्त एकच पायरी</string>
   <string name="backup_confirmation_body">आपला बॅकअप सुरक्षित राखा! आपण त्याला कुठे सेव्ह कराल?</string>
   <string name="backup_confirmation_yes">हो, संपवा</string>
   <string name="backup_confirmation_no">नको, डिव्हाईसवर सेव्ह करा</string>
-  <string name="backup_done_title">बॅकअप झाला!</string>
   <string name="backup_done_body">बॅकअप फाईल सुरक्षित जागी आहे ह्याची खात्री आहे ना?</string>
   <string name="backup_confirmation_no_share_title">बॅकअप झाला!</string>
   <string name="backup_confirmation_no_share_body">आपली बॅकअप फाईल आपल्या डाऊनलोडस फोल्डरमध्ये आहे.</string>
   <string name="backup_save_dialogue_title">बॅकअप फाईल सेव्ह करा</string>
   <string name="backup_save_dialogue_body">आपल्या बॅकअप फाईलचे नाव निवडा.</string>
-  <string name="backup_confirmation_tips_title">फाईल सुरक्षित राखा:</string>
-  <string name="backup_confirmation_tips_1">प्रिंट करुन कुठेतरी सुरक्षित राखा.</string>
-  <string name="backup_confirmation_tips_2">यूएसबी ड्राईव्हवर सेव्ह करा.</string>
-  <string name="backup_confirmation_tips_3">खासगी आणि सुरक्षित क्लाऊड स्टोरेजमध्ये कॉपी करा.</string>
   <string name="backup_send_via_title">बॅकअप ह्याद्वारे करा:</string>
   <string name="backup_send_button">बॅकअप करा</string>
   <string name="backup_save_button">बॅकअप सेव्ह करा</string>
@@ -659,14 +652,27 @@
   <string name="import_wallet_wrong_password_body">अरेरे, चुकीचा पासवर्ड!</string>
   <string name="error_invalid_private_key">खासगी की अवैध आहे</string>
   <string name="error_invalid_keystore">अवैध कीस्ट्रोक</string>
+  <string name="backup_title">Backup uour wallet now!</string>
+  <string name="backup_body">आपल्या खासगी कीज किंवा अन्य प्रवेश पद्धतींना आम्ही साठवित नाही. आपल्या वॉलेटच्या बॅकअप (की स्टोर) सुरक्षेसाठी हे महत्वाचे आहे.</string>
+  <string name="backup_additional_security_title">अतिरिक्त सुरक्षा (पर्यायी)</string>
+  <string name="backup_additional_security_body">पासवर्ड निवडा</string>
+  <string name="backup_button">BACKUP WALLET</string>
+  <string name="backup_password">पासवर्ड</string>
+  <string name="backup_ready_title">Your backup is ready! Keep it safe.</string>
+  <string name="backup_ready_save_on_email">Save it on your email</string>
+  <string name="backup_ready_email_button">Send to email</string>
+  <string name="backup_ready_device_button">Save on device</string>
+  <string name="backup_done_title">बॅकअप झाला!</string>
+  <string name="backup_confirmation_tips_title">फाईल सुरक्षित राखा:</string>
+  <string name="backup_confirmation_tips_1">प्रिंट करुन कुठेतरी सुरक्षित राखा.</string>
+  <string name="backup_confirmation_tips_2">यूएसबी ड्राईव्हवर सेव्ह करा.</string>
+  <string name="backup_confirmation_tips_3">खासगी आणि सुरक्षित क्लाऊड स्टोरेजमध्ये कॉपी करा.</string>
   <string name="backup_tooltip_body">आपल्या वॉलेटचा बॅकअप करा!</string>
   <string name="backup_tooltip_later_button">कदाचित नंतर</string>
   <string name="backup_tooltip_backup_button">बॅकअप</string>
   <string name="backup_notification_title">आपल्या वॉलेटचा बॅकअप करा!</string>
   <string name="backup_notification_body">आपले पैसे सुरक्षित राखा आणि आपल्या वॉलेटमध्ये आपल्याला नेहमीच प्रवेश मिळेल याची खात्री करा.</string>
   <string name="backup_choose_wallet_title">बॅकअपसाठी वॉलेट निवडा</string>
-  <string name="backup_additional_security_title">अतिरिक्त सुरक्षा (पर्यायी)</string>
-  <string name="backup_additional_security_body">पासवर्ड निवडा</string>
   <string name="backup_additional_security_disclaimer_title">कृपया आपला पासवर्ड सुरक्षित राखा.</string>
   <string name="backup_additional_security_disclaimer_body">पासवर्ड रिकव्हरी नाही.</string>
   <string name="backup_additional_security_password_not_march">पासवर्डस एकसमान नाहीत.</string>
@@ -843,7 +849,7 @@
   <string name="carrier_billing_terms_button">अटी आणि शर्ती</string>
   <string name="carrier_billing_privacy_button">गोपनीयता धोरण</string>
   <!--Manage Cards-->
-  <string name="manage_cards_settings_add_title">Add bank card</string>
+  <string name="manage_cards_settings_add_title">Add credit/debit card</string>
   <string name="manage_cards_settings_manage_title">कार्डांचे व्यवस्थापन करा</string>
   <string name="manage_cards_view_title">कार्डांचे व्यवस्थापन करा</string>
   <string name="manage_cards_view_manage_subtitle">आपल्या पेमेंट कार्डांचे व्यवस्थापन करा</string>
@@ -942,7 +948,7 @@
   <string name="rate_us_back_title">आम्हाला मदत कराल?</string>
   <string name="rate_us_back_body">अॅपस्टोरवरील अॅपकॉइन्स वॉलेट रेट करा म्हणजे आम्ही त्याला सुधारु शकू.</string>
   <!--Card verification-->
-  <string name="card_verification_body">Use your bank card to verify your wallet.</string>
+  <string name="card_verification_body">Validate your credit/debit card to make payments.</string>
   <string name="card_verification_charde_disclaimer">We\'ll charge %s to your card, and we\'ll refund it once you confirm the code. Depending on your bank, it can take between minutes and up to a few days.</string>
   <string name="card_verification_code_title">व्यवहार तपशीलात कोड तपासा</string>
   <string name="card_verification_code_body">आपण पुरविलेल्या कार्ड व्यवहार तपशीलात एक अनोखा कोड दिसेल.</string>
@@ -968,7 +974,7 @@
   <string name="card_verification_no_attempts_title">अरेरे, आपण चुकीचा कोड खूप वेळा घातल्याने %1$s आपल्या कार्डावर रिफंड केले जातील.</string>
   <string name="card_verification_no_attempts_body">कृपया सत्यापन प्रक्रिया पुन्हा सुरु करा.</string>
   <string name="wallet_verify_header">Validate at least one payment method</string>
-  <string name="verify_card_title">Verify Card</string>
+  <string name="verify_card_title">Validate Card</string>
   <!--Vouchers-->
   <string name="voucher_card_body_1">हे व्हाऊचर खरेदी करा आणि मिळवा</string>
   <string name="voucher_card_body_2"> %s%% पर्यंत बोनस मिळवा.</string>
@@ -999,7 +1005,7 @@
   <string name="e_skills_withdraw_title">e-Skills Withdrawal</string>
   <string name="e_skills_withdraw_invalid_email_error_message">Invalid e-mail</string>
   <string name="e_skills_withdraw_not_enough_balance_error_message">Not enough balance</string>
-  <string name="e_skills_withdraw_not_enough_earnings_error_message">You can only withdraw the funds earned in e-Skills games</string>
+  <string name="e_skills_withdraw_not_enough_earnings_error_message">You haven\'t won enough e-Skills games to withdraw that amount</string>
   <string name="e_skills_withdraw_minimum_amount_error_message">Minimum amount to withdraw is $%1$.2f</string>
   <string name="e_skills_withdraw_max_amount_part_1">You can withdraw:</string>
   <string name="e_skills_withdraw_max_amount_part_2">$%1$.2f</string>
@@ -1023,7 +1029,7 @@
   <string name="promo_code_active_tag">सक्रिय</string>
   <string name="promo_code_expired_tag">कालबाह्य</string>
   <string name="promo_code_success_title">झाले!</string>
-  <string name="promo_code_success_body">You’ll get %s%% extra bonus on all your purchases.</string>
+  <string name="promo_code_success_body">You\'ll get %s%% extra bonus in all your purchases.</string>
   <string name="promo_code_success_body_specific_app">You\'ll get %1$s%% extra bonus in all your purchases in %2$s.</string>
   <string name="promo_code_promotions_tag">Promotional code</string>
   <!--AppCoins Info Page-->
@@ -1040,5 +1046,5 @@
   <string name="appcoins_info_volume_title">Volume (24h)</string>
   <!--  NFTs -->
   <string name="nfts_title">NFTs</string>
-  <string name="nfts_no_nfts">No NFTs available at the moment.</string>
+  <string name="nfts_no_nfts">You don\'t have any NFTs in this wallet yet!</string>
 </resources>
