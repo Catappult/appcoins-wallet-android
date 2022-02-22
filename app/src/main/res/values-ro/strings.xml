@@ -120,7 +120,7 @@
   <string name="intro_2_title">Joci mai mult, plătești mai puțin</string>
   <string name="intro_2_body">Primești recompense pentru cumpărarea articolelor în aplicațiile și jocurile preferate.</string>
   <string name="intro_3_title">Simplu și Ușor</string>
-  <string name="intro_3_body">Procesează-ți toate cumpărăturile in-app folosind metoda ta de plată preferată.</string>
+  <string name="intro_3_body">Păstrează AppCoins Wallet instalat pentru a face achiziții direct în jocurile tale.</string>
   <string name="intro_4_title">Sigur și Privat</string>
   <string name="intro_4_body">Cheile tale private nu vor părăsi niciodată dispozitivul tău, așa că AppCoins sunt sigure în orice moment.</string>
   <string name="intro_4_body_2">Toate tranzacțiile tale sunt întotdeauna sigure datorită tehnologiei de ultimă generație.</string>
@@ -271,7 +271,7 @@
   <string name="dialog_credit_card_number">Număr card</string>
   <string name="dialog_credit_card_expiration">Data de expirare</string>
   <string name="dialog_credit_card_cvv">CVV</string>
-  <string name="dialog_bank_card">Bank card</string>
+  <string name="dialog_bank_card">Credit/debit card</string>
   <string name="dialog_expiry_date">Data expirării</string>
   <string name="activity_airdrop_title">Confirmă că ești o ființă umană pentru a primi AppCoins</string>
   <string name="activity_airdrop_details">Acest lucru este doar pentru securitate.</string>
@@ -401,7 +401,7 @@
   <string name="askafriend_share_add_message_body">Adaugă un mesaj (opțional)</string>
   <string name="askafriend_share_button">Distribuie</string>
   <string name="askafriend_share_popup_title">Roagă pe cineva via:</string>
-  <string name="askafriend_received_body">Tocmai ai primit %s APPC-C</string>
+  <string name="askafriend_received_body">You just received %s AppCoins Credits</string>
   <string name="askafriend_notification_received_title">Transfer nou primit</string>
   <string name="askafriend_notification_received_body">%1$s %2$s au fost creditați în portofelul tău.</string>
   <string name="askafriend_received_title">Transfer primit</string>
@@ -589,7 +589,7 @@
   <string name="referral_view_share_link_button">DISTRIBUIE LINK DE INVITAȚIE</string>
   <string name="referral_view_notifications_title">Notificări</string>
   <string name="referral_share_sheet_title">Distribuie link de invitația via:</string>
-  <string name="referral_view_unverified_body">Receive %s worth of AppCoins Credits for each friend. Your first need to verify your wallet.</string>
+  <string name="referral_view_unverified_body">Receive %s worth of AppCoins Credits for each friend. You first need to verify your wallet.</string>
   <string name="referral_view_verify_button">VERIFICĂ PORTOFEL</string>
   <string name="referral_view_i_have_been_invited_button">AM FOST INVITAT</string>
   <string name="referral_view_dropup_menu_friends_invited">Prieteni invitați</string>
@@ -993,7 +993,7 @@
   <string name="e_skills_withdraw_title">Retragere e-Skills</string>
   <string name="e_skills_withdraw_invalid_email_error_message">E-mail nevalid</string>
   <string name="e_skills_withdraw_not_enough_balance_error_message">Fonduri insuficiente</string>
-  <string name="e_skills_withdraw_not_enough_earnings_error_message">Poți retrage numai fondurile câștigate în jocurile e-Skills</string>
+  <string name="e_skills_withdraw_not_enough_earnings_error_message">You haven\'t won enough e-Skills games to withdraw that amount</string>
   <string name="e_skills_withdraw_minimum_amount_error_message">Suma minimă disponibilă pentru retragere este $%1$.2f</string>
   <string name="e_skills_withdraw_max_amount_part_1">Poți retrage:</string>
   <string name="e_skills_withdraw_max_amount_part_2">$%1$.2f</string>
