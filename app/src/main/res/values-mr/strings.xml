@@ -525,6 +525,7 @@
   <string name="purchase_card_error_not_supported">आपल्या कार्डाचा प्रकार अजुनतरी समर्थित नाही. वेगळे वापरुन प्रयत्न करा.</string>
   <string name="purchase_card_error_security">सुरक्षा माहिती बरोबर आहे ह्याची खात्री आहे? कृपया पुन्हा प्रयत्न करा.</string>
   <string name="purchase_card_error_wrong_CVV">आपला सीव्हीव्ही/सीव्हीसी कोड चुकीचा वाटतोय. कृपया पुन्हा प्रयत्न करा.</string>
+  <string name="purchase_card_error_re_insert">It seems you registered this card long time ago! Insert the card details again or use a different one.</string>
   <string name="purchase_wallet_error_contact_us">अरेरे आपल्या वॉलेटमध्ये सर्व काही ठीक नाहीये. कृपया आमच्याशी संपर्क साधा.</string>
   <string name="purchase_carrier_error">ह्या पेमेंट पद्धतीशी आपला फोन नंबर सुसंगत नाही असे दिसतेय.</string>
   <string name="purchase_carrier_error_minimum">%s पेक्षा कमी पेमेंटसना आपला कॅरियर समर्थन देत नाही.</string>
