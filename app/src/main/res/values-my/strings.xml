@@ -120,7 +120,7 @@
   <string name="intro_2_title">မ်ားမ်ားကစားပါ၊ နည္းနည္းပဲေပးပါ</string>
   <string name="intro_2_body">သင့္စိတ္ႀကိဳက္ အက္ပ္မ်ားနွင့္ ဂိမ္းမ်ားတြင္ ပစၥည္းမ်ားကို ဝယ္ယူျခင္းအတြက္ ဆုရယူလိုက္ပါ။</string>
   <string name="intro_3_title">႐ိုးရွင္းၿပီး လြယ္ကူပါသည္</string>
-  <string name="intro_3_body">သင့္စိတ္ႀကိဳက္ ေငြေပးေခ်မႈ နည္းလမ္းကို အသံုးျပဳ၍ အက္ပ္အတြင္း ဝယ္ယူမႈမ်ား အားလံုးကို စီစဥ္ေဆာင္ရြက္လိုက္ပါ။</string>
+  <string name="intro_3_body">Keep the AppCoins Wallet installed to directly purchase in your games.</string>
   <string name="intro_4_title">ေဘးကင္းၿပီး လံုျခံဳပါသည္</string>
   <string name="intro_4_body">သင့္သီးသန္႔ကီးမ်ားသည္ သင့္စက္ပစၥည္းတြင္သာ ရွိေနမည္ ျဖစ္ေသာေၾကာင့္ သင့္ AppCoins မ်ားမွာ အခ်ိန္ျပည့္ လံုျခံဳပါသည္။</string>
   <string name="intro_4_body_2">ေနာက္ဆံုးေပၚနည္းပညာေၾကာင့္ သင့္ေငြလႊဲေျပာင္းမႈအားလံုး အၿမဲလံုျခံဳပါသည္။</string>
@@ -401,7 +401,7 @@
   <string name="askafriend_share_add_message_body">မက္ေဆ့ဂ်္ထည့္မည္ (မထည့္လည္းရပါသည္)</string>
   <string name="askafriend_share_button">မွ်ေဝမည္</string>
   <string name="askafriend_share_popup_title">မွတဆင့္ တစံုတေယာက္ကိုေျပာရန္ -</string>
-  <string name="askafriend_received_body">%s APPC-C ကို သင္ရရွိလိုက္ပါသည္</string>
+  <string name="askafriend_received_body">You just received %s AppCoins Credits</string>
   <string name="askafriend_notification_received_title">လႊဲေပးမႈအသစ္ကို လက္ခံရရွိခဲ့ပါသည္</string>
   <string name="askafriend_notification_received_body">%1$s %2$s တို႔ကို သင့္ပိုက္ဆံအိတ္တြင္ ထည့္ေပးလိုက္ပါသည္။</string>
   <string name="askafriend_received_title">လႊဲေပးမႈကို လက္ခံရရွိခဲ့ပါသည္</string>
@@ -844,7 +844,7 @@
   <string name="carrier_billing_terms_button">စည္းမ်ဥ္းစည္းကမ္းမ်ား</string>
   <string name="carrier_billing_privacy_button">ကိုယ္ေရးလံုျခံဳမႈ မူဝါဒ</string>
   <!--Manage Cards-->
-  <string name="manage_cards_settings_add_title">Add bank card</string>
+  <string name="manage_cards_settings_add_title">ခရက္ဒစ္/ဒက္ဘစ္ကဒ္ ထည့္မည္</string>
   <string name="manage_cards_settings_manage_title">ကဒ္မ်ားကို စီမံမည္</string>
   <string name="manage_cards_view_title">ကဒ္မ်ားကို စီမံမည္</string>
   <string name="manage_cards_view_manage_subtitle">သင့္ေငြေပးေခ်မႈ ကဒ္မ်ားကို စီမံမည္</string>
@@ -975,7 +975,7 @@
   <string name="e_skills_withdraw_title">e-Skills ေငြထုတ္ယူမႈ</string>
   <string name="e_skills_withdraw_invalid_email_error_message">အီးေမးလ္ မမွန္ကန္ပါ</string>
   <string name="e_skills_withdraw_not_enough_balance_error_message">လက္က်န္ေငြ မလုံေလာက္ပါ</string>
-  <string name="e_skills_withdraw_not_enough_earnings_error_message">e-Skills ဂိမ္းမ်ားတြင္ ရရွိခဲ့ေသာ ေငြမ်ားကိုသာ သင္ထုတ္ယူႏိုင္ပါသည္</string>
+  <string name="e_skills_withdraw_not_enough_earnings_error_message">You haven\'t won enough e-Skills games to withdraw that amount</string>
   <string name="e_skills_withdraw_minimum_amount_error_message">ထုတ္ယူရမည့္ အနည္းဆုံး ပမာဏမွာ $%1$.2f ျဖစ္ပါသည္</string>
   <string name="e_skills_withdraw_max_amount_part_1">သင္ထုတ္ယူႏိုင္သည္မွာ -</string>
   <string name="e_skills_withdraw_max_amount_part_2">$%1$.2f</string>
