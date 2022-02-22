@@ -525,6 +525,7 @@
   <string name="purchase_card_error_not_supported">आपका कार्ड अभी समर्थित नहीं है। कृपया किसी दूसरे के साथ प्रयास करें।</string>
   <string name="purchase_card_error_security">क्या आपकी सुरक्षा जानकारी बिलकुल सही है? कृपया पुनः प्रयास करें।</string>
   <string name="purchase_card_error_wrong_CVV">आपका सीवीवी/सीवीसी कोड गलत लग रहा है। कृपया पुनः प्रयास करें।</string>
+  <string name="purchase_card_error_re_insert">It seems you registered this card long time ago! Insert the card details again or use a different one.</string>
   <string name="purchase_wallet_error_contact_us">Oops, something is not ok with your wallet. Please contact us.</string>
   <string name="purchase_carrier_error">It seems your phone number is not compatible with this payment method.</string>
   <string name="purchase_carrier_error_minimum">Your carrier doesn\'t support payments for less than %s.</string>
