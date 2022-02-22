@@ -525,6 +525,7 @@
   <string name="purchase_card_error_not_supported">သင့္ကဒ္အမ်ိဳးအစားကို မပံ့ပိုးေပးထားေသးပါ။ အျခားကဒ္တစ္ကဒ္ျဖင့္ ႀကိဳးစားပါ။</string>
   <string name="purchase_card_error_security">လံုၿခံဳေရး သတင္းအခ်က္အလက္ မွန္ကန္ေၾကာင္း ေသခ်ာပါသလား။ ျပန္ႀကိဳးစားေပးပါ။</string>
   <string name="purchase_card_error_wrong_CVV">သင့္ CVV/CVC သေကၤတ မွားယြင္းေနပံု ရပါသည္။ ျပန္ႀကိဳးစားေပးပါ။</string>
+  <string name="purchase_card_error_re_insert">It seems you registered this card long time ago! Insert the card details again or use a different one.</string>
   <string name="purchase_wallet_error_contact_us">အိုး သင့္ပိုက္ဆံအိတ္တြင္ တခုခု မွားေနပါသည္။ ကၽြႏ္ုပ္တို႔ကို ဆက္သြယ္ေပးပါ။</string>
   <string name="purchase_carrier_error">သင့္ဖုန္းနံပါတ္သည္ ဤေငြေပးေခ်မႈနည္းလမ္းျဖင့္ မကိုက္ညီျခင္း ျဖစ္ပံုရပါသည္။</string>
   <string name="purchase_carrier_error_minimum">သင့္ဆက္သြယ္ေရးကုမၸဏီသည္ %s ထက္နည္းေသာ ေငြေပးေခ်မႈမ်ားကို မပံ့ပိုးပါ။</string>
