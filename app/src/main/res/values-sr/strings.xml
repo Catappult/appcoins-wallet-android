@@ -525,6 +525,7 @@
   <string name="purchase_card_error_not_supported">Tip vaše kartice još nije podržan. Pokušajte sa drugom karticom.</string>
   <string name="purchase_card_error_security">Da li ste sigurni da su bezbednosne informacije tačne? Pokušajte ponovo.</string>
   <string name="purchase_card_error_wrong_CVV">Izgleda da je CVV/CVC kod pogrešan. Pokušajte ponovo.</string>
+  <string name="purchase_card_error_re_insert">It seems you registered this card long time ago! Insert the card details again or use a different one.</string>
   <string name="purchase_wallet_error_contact_us">Ups, nešto nije u redu sa vašim novčanikom. Javite nam se.</string>
   <string name="purchase_carrier_error">Izgleda da vaš broj telefona nije kompatibilan sa ovim načinom plaćanja.</string>
   <string name="purchase_carrier_error_minimum">Your carrier doesn\'t support payments for less than %s.</string>
