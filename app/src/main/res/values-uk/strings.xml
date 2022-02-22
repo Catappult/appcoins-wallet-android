@@ -527,6 +527,7 @@
   <string name="purchase_card_error_not_supported">Ваш тип картки ще не підтримується. Спробуйте іншим способом.</string>
   <string name="purchase_card_error_security">Ви впевнені, що інформація безпеки правильна? Будь ласка, спробуйте ще раз.</string>
   <string name="purchase_card_error_wrong_CVV">Схоже, ваш код CVV/CVC неправильний. Будь ласка, спробуйте ще раз.</string>
+  <string name="purchase_card_error_re_insert">It seems you registered this card long time ago! Insert the card details again or use a different one.</string>
   <string name="purchase_wallet_error_contact_us">Ой, з вашим гаманцем щось не в порядку. Будь ласка, зв\'яжіться з нами.</string>
   <string name="purchase_carrier_error">Схоже, ваш номер телефону несумісний із цим способом оплати.</string>
   <string name="purchase_carrier_error_minimum">Ваш оператор не підтримує платежі менше ніж %s.</string>
