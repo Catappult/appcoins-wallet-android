@@ -120,7 +120,7 @@
   <string name="intro_2_title">Igrajte više, platite manje</string>
   <string name="intro_2_body">Dobijte nagrade za kupovinu u svojim omiljenim aplikacijama i igrama.</string>
   <string name="intro_3_title">Jednostavno i lako</string>
-  <string name="intro_3_body">Obradite sve kupovine u aplikacijama pomoću omiljenog načina plaćanja.</string>
+  <string name="intro_3_body">Keep the AppCoins Wallet installed to directly purchase in your games.</string>
   <string name="intro_4_title">Bezbedno i privatno</string>
   <string name="intro_4_body">Vaši privatni ključevi nikad neće napuštati uređaj, tako da su vaši AppCoins uvek bezbedni.</string>
   <string name="intro_4_body_2">All your transactions are always safe thanks to the latest technology.</string>
@@ -271,7 +271,7 @@
   <string name="dialog_credit_card_number">Broj kartice</string>
   <string name="dialog_credit_card_expiration">Datum isteka</string>
   <string name="dialog_credit_card_cvv">CVV</string>
-  <string name="dialog_bank_card">Bank card</string>
+  <string name="dialog_bank_card">Credit/debit card</string>
   <string name="dialog_expiry_date">Datum isteka</string>
   <string name="activity_airdrop_title">Potvrdite da ste ljudsko biće da biste primili AppCoins</string>
   <string name="activity_airdrop_details">Ovo je samo iz bezbednosnih razloga.</string>
@@ -401,7 +401,7 @@
   <string name="askafriend_share_add_message_body">Dodajte poruku (izborno)</string>
   <string name="askafriend_share_button">Podeli</string>
   <string name="askafriend_share_popup_title">Zatražite preko:</string>
-  <string name="askafriend_received_body">Upravo ste dobili %s AppCoins Credits</string>
+  <string name="askafriend_received_body">You just received %s AppCoins Credits</string>
   <string name="askafriend_notification_received_title">Novi prenos je primljen</string>
   <string name="askafriend_notification_received_body">U vaš novčanik je dodato %1$s %2$s.</string>
   <string name="askafriend_received_title">Prenos je primljen</string>
@@ -435,7 +435,7 @@
   <string name="password">Lozinka</string>
   <string name="repeat_password">Repeat password</string>
   <string name="turn_on_button">Turn on</string>
-  <string name="no_thanks_button">No,thanks</string>
+  <string name="no_thanks_button">No, thanks</string>
   <string name="remind_later_button">Remind me later</string>
   <string name="get_code_button">Get code</string>
   <string name="confirm_button">Potvrdi</string>
@@ -536,7 +536,7 @@
   <string name="purchase_error_wallet_block_code_403">Izgleda da nešto nije u redu sa vašim novčanikom. Javite nam se.</string>
   <string name="purchase_card_error_CVV">Pogrešan CVV/CVC</string>
   <string name="error_contac_us_body">Ako se problem i dalje javlja, obratite nam se.</string>
-  <string name="purchase_error_unverified_wallet">Try to complete the purchese after verifying your wallet.</string>
+  <string name="purchase_error_unverified_wallet">Try to complete the purchase after verifying your wallet.</string>
   <string name="purchase_error_try_other_method">Oops&#8230; Something is going on! Please try with a different payment method or contact us.</string>
   <string name="purchase_error_try_other_amount">It seems your top-up amount is too high! Please try with a lower one or contact us!</string>
   <string name="purchase_error_try_other_amount_or_method">Oops&#8230; Something is going on! Try with a different payment method or top-up amount.</string>
@@ -589,7 +589,7 @@
   <string name="referral_view_share_link_button">PODELI LINK KA POZIVU</string>
   <string name="referral_view_notifications_title">Obaveštenja</string>
   <string name="referral_share_sheet_title">Podeli pozivni link preko:</string>
-  <string name="referral_view_unverified_body">Receive %s worth of AppCoins Credits for each friend. Your first need to verify your wallet.</string>
+  <string name="referral_view_unverified_body">Receive %s worth of AppCoins Credits for each friend. You first need to verify your wallet.</string>
   <string name="referral_view_verify_button">POTVRDITE NOVČANIK</string>
   <string name="referral_view_i_have_been_invited_button">POZVAN/A SAM</string>
   <string name="referral_view_dropup_menu_friends_invited">Pozvani prijatelji</string>
@@ -832,7 +832,7 @@
   <string name="carrier_billing_insert_phone_body">Unesite svoj broj telefona</string>
   <string name="carrier_billing_insert_phone_previously_used">Continue with previously used number</string>
   <string name="carrier_billing_phone_field">Vaš broj telefona...</string>
-  <string name="carrier_billing_carrier_fees_body">%1$s će naplatiti naknadu od %2$s</string>
+  <string name="carrier_billing_carrier_fees_body">A %1$s fee will be charged</string>
   <string name="carrier_billing_purchase_info_body">%1$s u aplikaciji %2$s.</string>
   <string name="carrier_billing_phone_confirmation_body">Vaš broj telefona je %s.</string>
   <string name="carrier_billing_enter_pin_body">Unesite PIN kod koji ste dobili u SMS poruci.</string>
@@ -937,13 +937,13 @@
   <string name="card_verification_body">Validate your credit/debit card to make payments.</string>
   <string name="card_verification_charde_disclaimer">We\'ll charge %s to your card, and we\'ll refund it once you confirm the code. Depending on your bank, it can take between minutes and up to a few days.</string>
   <string name="card_verification_code_title">Check the code in the transaction details</string>
-  <string name="card_verification_code_body">A unique code will appear in the summary of the transaction provided by your card issues.</string>
+  <string name="card_verification_code_body">A unique code will appear in the summary of the transaction provided by your card issuer.</string>
   <string name="card_verification_code_example_title">Example of Transaction Summary</string>
   <string name="card_verification_code_example_date">Trans. Date</string>
   <string name="card_verification_code_example_description">Opis</string>
   <string name="card_verification_code_example_amount">Iznos</string>
-  <string name="card_verification_code_example_code">Unique code</string>
-  <string name="card_verification_code_enter_title">Enter the 4 digits code</string>
+  <string name="card_verification_code_example_code">Unique code.\nExpires in %s days.</string>
+  <string name="card_verification_code_enter_title">Enter the %s digits code</string>
   <plurals name="card_verification_code_enter_hours_body">
     <item quantity="one">%1$s will be refunded within %2$s hour after you confirm the code.</item>
     <item quantity="few">%1$s will be refunded within %2$s hours after you confirm the code.</item>
