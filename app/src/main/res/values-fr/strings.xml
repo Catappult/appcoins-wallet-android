@@ -440,6 +440,8 @@
   <string name="get_code_button">Obtenir un code</string>
   <string name="confirm_button">Confirmer</string>
   <string name="withdraw_button">retirer</string>
+  <string name="email_here_field">Your email here&#8230;</string>
+  <string name="understood_button">Understood!</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">J\'accepte les %1$s et %2$s du portefeuille AppCoins.</string>
   <string name="terms_and_conditions_error">Veuillez accepter nos Termes et Conditions et la Politique de Confidentialité afin de poursuivre</string>
@@ -449,11 +451,11 @@
   <string name="get_started">Get Started</string>
   <string name="existent_wallet">I already have a wallet</string>
   <!--Home-->
-  <string name="home_empty_discover_apps_body">Les meilleures applications Android vous attendent.</string>
+  <string name="home_empty_discover_apps_body">Faites un achat sur votre jeu préféré et nous nous occupons de tout.</string>
   <string name="home_empty_discover_apps_button">DÉCOUVREZ LES APPLICATIONS AU TOP</string>
   <!--Tokens-->
   <!--Settings-->
-  <string name="title_redeem">Redeem Gift Card</string>
+  <string name="title_redeem">Redeem Code</string>
   <string name="settings_item_support">Contacter le Support</string>
   <string name="settings_subheader_support">Support</string>
   <string name="settings_subheader_about_us">À propos de nous</string>
@@ -547,7 +549,7 @@
   <string name="purchase_error_transaction_timeout">Il semble que vous ayez mis trop de temps à effectuer la transaction. Veuillez réessayer.</string>
   <string name="purchase_error_card_already_in_progress">Votre demande a déjà été traitée ou est en cours de traitement. Veuillez patienter.</string>
   <string name="purchase_error_payment_rejected">Paiement rejeté ! Veuillez essayer avec la carte d\'un autre émetteur ou utiliser un autre mode de paiement.</string>
-  <string name="purchase_error_verify_wallet">Essayez de vérifier votre portefeuille afin de débloquer cette situation.</string>
+  <string name="purchase_error_verify_wallet">Validate your payment method to complete this purchase.</string>
   <string name="purchase_error_verify_card">Validez votre carte pour terminer cet achat.</string>
   <string name="purachse_error_verify_card_button">VALIDER LA CARTE</string>
   <string name="purchase_eskills_sku">Ticket d\'entrée</string>
@@ -627,25 +629,16 @@
   <!--Backup and Import-->
   <string name="backup_home_notification_title">Sauvegarder votre portefeuille</string>
   <string name="backup_home_notification_body">Avez-vous déjà perdu votre téléphone ? Sauvegardez votre portefeuille maintenant !</string>
-  <string name="backup_button">SAUVEGARDE</string>
-  <string name="backup_title">Sauvegarde portefeuille</string>
   <string name="backup_password_title">Crypter votre portefeuille (optionnel)</string>
-  <string name="backup_password">Mot de passe</string>
-  <string name="backup_body">Nous ne conservons pas vos clés privées ni aucune autre méthode d\'accès. Il est important de conserver la sauvegarde (keystore) de votre portefeuille en sécurité.</string>
   <string name="backup_confirmation_title">Encore une étape</string>
   <string name="backup_confirmation_body">Conservez vos sauvegardes en sécurité ! Où voulez-vous la sauvegarder ?</string>
   <string name="backup_confirmation_yes">OUI, TERMINÉ</string>
   <string name="backup_confirmation_no">NON, SAUVEGARDER SUR L\'APPAREIL</string>
-  <string name="backup_done_title">Sauvegarde effectuée !</string>
   <string name="backup_done_body">Êtes-vous sûr que votre fichier de sauvegarde se trouve dans un endroit sûr ?</string>
   <string name="backup_confirmation_no_share_title">Sauvegarde effectuée !</string>
   <string name="backup_confirmation_no_share_body">Votre fichier sauvegardé est dans votre dossier Téléchargements.</string>
   <string name="backup_save_dialogue_title">Enregistrez le fichier de sauvegarde</string>
   <string name="backup_save_dialogue_body">Choisissez un nom pour votre fichier de sauvegarde.</string>
-  <string name="backup_confirmation_tips_title">Conservez le fichier en sécurité :</string>
-  <string name="backup_confirmation_tips_1">Imprimez-le et stockez-le dans un endroit sûr.</string>
-  <string name="backup_confirmation_tips_2">Sauvegardez-le sur un disque USB.</string>
-  <string name="backup_confirmation_tips_3">Copiez-le vers un cloud privé et sécurisé.</string>
   <string name="backup_send_via_title">Envoyer la sauvegarde via :</string>
   <string name="backup_send_button">ENVOYER SAUVEGARDE</string>
   <string name="backup_save_button">ENREGISTREZ LA SAUVEGARDE</string>
@@ -659,14 +652,27 @@
   <string name="import_wallet_wrong_password_body">Oups, mauvais mot de passe !</string>
   <string name="error_invalid_private_key">Clé privée invalide</string>
   <string name="error_invalid_keystore">Keystore invalide</string>
+  <string name="backup_title">Backup uour wallet now!</string>
+  <string name="backup_body">Nous ne conservons pas vos clés privées ni aucune autre méthode d\'accès. Il est important de conserver la sauvegarde (keystore) de votre portefeuille en sécurité.</string>
+  <string name="backup_additional_security_title">Sécurité supplémentaire (facultatif)</string>
+  <string name="backup_additional_security_body">Choisissez un mot de passe</string>
+  <string name="backup_button">BACKUP WALLET</string>
+  <string name="backup_password">Mot de passe</string>
+  <string name="backup_ready_title">Your backup is ready! Keep it safe.</string>
+  <string name="backup_ready_save_on_email">Save it on your email</string>
+  <string name="backup_ready_email_button">Send to email</string>
+  <string name="backup_ready_device_button">Save on device</string>
+  <string name="backup_done_title">Sauvegarde effectuée !</string>
+  <string name="backup_confirmation_tips_title">Conservez le fichier en sécurité :</string>
+  <string name="backup_confirmation_tips_1">Imprimez-le et stockez-le dans un endroit sûr.</string>
+  <string name="backup_confirmation_tips_2">Sauvegardez-le sur un disque USB.</string>
+  <string name="backup_confirmation_tips_3">Copiez-le vers un cloud privé et sécurisé.</string>
   <string name="backup_tooltip_body">Faites une sauvegarde de votre portefeuille !</string>
   <string name="backup_tooltip_later_button">PEUT ÊTRE PLUS TARD</string>
   <string name="backup_tooltip_backup_button">SAUVEGARDE</string>
   <string name="backup_notification_title">Faites une sauvegarde de votre portefeuille !</string>
   <string name="backup_notification_body">Gardez vos fonds en sécurité et assurez-vous que vous pouvez toujours accéder à votre portefeuille.</string>
   <string name="backup_choose_wallet_title">Choisissez un portefeuille à sauvegarder</string>
-  <string name="backup_additional_security_title">Sécurité supplémentaire (facultatif)</string>
-  <string name="backup_additional_security_body">Choisissez un mot de passe</string>
   <string name="backup_additional_security_disclaimer_title">Veuillez conserver votre mot de passe en lieu sûr.</string>
   <string name="backup_additional_security_disclaimer_body">Il n\'y a pas de récupération de mot de passe.</string>
   <string name="backup_additional_security_password_not_march">Les mots de passe ne correspondent pas.</string>
@@ -921,7 +927,7 @@
   <string name="rate_us_back_title">Vous voulez nous aider ?</string>
   <string name="rate_us_back_body">Evaluez le portefeuille AppCoins sur l\'app store afin que nous puissions l\'améliorer.</string>
   <!--Card verification-->
-  <string name="card_verification_body">Use your bank card to verify your wallet.</string>
+  <string name="card_verification_body">Validez votre carte de crédit/débit pour effectuer des paiements.</string>
   <string name="card_verification_charde_disclaimer">Nous débiterons %s sur votre carte, et nous vous rembourserons une fois que vous aurez confirmé le code. En fonction de votre banque, cela peut prendre entre quelques minutes et quelques jours.</string>
   <string name="card_verification_code_title">Vérifiez le code dans les détails de la transaction</string>
   <string name="card_verification_code_body">Un code unique apparaîtra dans le résumé de la transaction fourni par l\'émetteur de votre carte.</string>
@@ -1019,5 +1025,5 @@
   <string name="appcoins_info_volume_title">Volume (24h)</string>
   <!--  NFTs -->
   <string name="nfts_title">NFTs</string>
-  <string name="nfts_no_nfts">Aucun NFT n\'est disponible pour le moment.</string>
+  <string name="nfts_no_nfts">You don\'t have any NFTs in this wallet yet!</string>
 </resources>
