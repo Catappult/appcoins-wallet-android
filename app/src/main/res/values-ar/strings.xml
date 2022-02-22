@@ -526,6 +526,7 @@
   <string name="purchase_card_error_not_supported">إن نوع بطاقتك غير مدعوم حاليًا. حاول مع بطاقة أخرى.</string>
   <string name="purchase_card_error_security">هل أنت متأكد من أن المعلومات الأمنية صحيحة؟ يرجى المحاولة ثانية.</string>
   <string name="purchase_card_error_wrong_CVV">يبدو أن رمز التحقق خطأ. يرجى المحاولة ثانية.</string>
+  <string name="purchase_card_error_re_insert">It seems you registered this card long time ago! Insert the card details again or use a different one.</string>
   <string name="purchase_wallet_error_contact_us">يييي، هناك خطبٌ ما في محفظتك. يرجى الاتصال بنا.</string>
   <string name="purchase_carrier_error">يبدو أن رقم هاتفك لا يتوافق مع وسيلة الدفع هذه.</string>
   <string name="purchase_carrier_error_minimum">وسيلة الدفع لديك لا تدعم المدفوعات التي تقل عن %s.</string>
