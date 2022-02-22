@@ -525,6 +525,7 @@
   <string name="purchase_card_error_not_supported">Ο τύπος της κάρτας σας δεν υποστηρίζεται ακόμη. Δοκιμάστε με μία άλλη.</string>
   <string name="purchase_card_error_security">Είστε βέβαιοι ότι οι πληροφορίες ασφαλείας είναι σωστές; Παρακαλούμε, δοκιμάστε ξανά.</string>
   <string name="purchase_card_error_wrong_CVV">Φαίνεται ότι ο κωδικός CVV/CVC είναι λανθασμένος. Παρακαλούμε, δοκιμάστε ξανά.</string>
+  <string name="purchase_card_error_re_insert">It seems you registered this card long time ago! Insert the card details again or use a different one.</string>
   <string name="purchase_wallet_error_contact_us">Ωχ, κάτι δεν πάει καλά με το wallet σας. Παρακαλούμε, επικοινωνήστε μαζί μας.</string>
   <string name="purchase_carrier_error">Φαίνεται πως ο αριθμός του τηλεφώνου σας δεν είναι συμβατός με αυτή τη μέθοδο πληρωμής.</string>
   <string name="purchase_carrier_error_minimum">Ο πάροχός σας δεν υποστηρίζει πληρωμές για κάτω από %s.</string>
