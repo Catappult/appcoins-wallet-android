@@ -526,6 +526,7 @@
   <string name="purchase_card_error_not_supported">お使いのカードタイプはまだサポートされていません。別のカードでお試しください。</string>
   <string name="purchase_card_error_security">セキュリティ情報にお間違えはありませんか？確認後、もう一度お試しください。</string>
   <string name="purchase_card_error_wrong_CVV">CVV/CVCコードが間違っているようです。確認後、もう一度お試しください。</string>
+  <string name="purchase_card_error_re_insert">It seems you registered this card long time ago! Insert the card details again or use a different one.</string>
   <string name="purchase_wallet_error_contact_us">ウォレットに何か問題があるようです。お問い合わせください。</string>
   <string name="purchase_carrier_error">お使いの電話番号は、この支払い方法に対応していないようです。</string>
   <string name="purchase_carrier_error_minimum">あなたのキャリアは %s 未満の支払いをサポートしません。</string>
