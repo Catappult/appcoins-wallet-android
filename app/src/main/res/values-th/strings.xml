@@ -440,6 +440,8 @@
   <string name="get_code_button">รับรหัส</string>
   <string name="confirm_button">ยืนยัน</string>
   <string name="withdraw_button">ถอน</string>
+  <string name="email_here_field">Your email here&#8230;</string>
+  <string name="understood_button">Understood!</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">ฉันตกลงใน %1$s และ %2$sของกระเป่าสตางค์ AppCoins</string>
   <string name="terms_and_conditions_error">โปรดยอมรับข้อตกลงและเงื่อนไขเพื่อดำเนินการต่อ</string>
@@ -449,11 +451,11 @@
   <string name="get_started">Get Started</string>
   <string name="existent_wallet">I already have a wallet</string>
   <!--Home-->
-  <string name="home_empty_discover_apps_body">แอปแอนดรอยด์ที่ดีที่สุดกำลังรอคุณอยู่</string>
+  <string name="home_empty_discover_apps_body">ดำเนินการซื้อเกมส์ที่คุณชื่นชอบและเราจะรับมือกับทุกอย่าง</string>
   <string name="home_empty_discover_apps_button">ค้นพบแอปยอดนิยม</string>
   <!--Tokens-->
   <!--Settings-->
-  <string name="title_redeem">Redeem Gift Card</string>
+  <string name="title_redeem">Redeem Code</string>
   <string name="settings_item_support">ติดต่อทีมสนับสนุน</string>
   <string name="settings_subheader_support">การสนับสนุน</string>
   <string name="settings_subheader_about_us">เกี่ยวกับเรา</string>
@@ -547,7 +549,7 @@
   <string name="purchase_error_transaction_timeout">ดูเหมือนว่าคุณใช้เวลานานเกินไปในการทำธุรกรรม กรุณาลองอีกครั้ง</string>
   <string name="purchase_error_card_already_in_progress">คำขอของคุณได้รับการประมวลผลแล้วหรืออยู่ระหว่างดำเนินการ โปรดรอ</string>
   <string name="purchase_error_payment_rejected">การชำระเงินถูกปฏิเสธ! โปรดลองใช้บัตรจากผู้ออกบัตรรายอื่นหรือใช้วิธีการชำระเงินอื่น</string>
-  <string name="purchase_error_verify_wallet">ลองยืนยันวอลเล็ตของคุณเพื่อปลดล็อกสถานการณ์นี้</string>
+  <string name="purchase_error_verify_wallet">Validate your payment method to complete this purchase.</string>
   <string name="purchase_error_verify_card">ตรวจสอบบัตรของคุณเพื่อทำการซื้อนี้ให้เสร็จสมบูรณ์</string>
   <string name="purachse_error_verify_card_button">ตรวจสอบบัตร</string>
   <string name="purchase_eskills_sku">ตั๋วเข้า</string>
@@ -629,25 +631,16 @@
   <!--Backup and Import-->
   <string name="backup_home_notification_title">สำรองกระเป๋าสตางค์ของคุณ</string>
   <string name="backup_home_notification_body">คุณเคยทำโทรศัพท์หายหรือไม่? สำรองกระเป๋าสตางค์ของคุณตอนนี้!</string>
-  <string name="backup_button">สำรอง</string>
-  <string name="backup_title">สำรองกระเป๋าสตางค์</string>
   <string name="backup_password_title">เข้ารหัสกระเป๋าสตางค์ของคุณ (ไม่จำเป็น)</string>
-  <string name="backup_password">รหัสผ่าน</string>
-  <string name="backup_body">เราไม่เก็บคีย์ส่วนตัวของคุณหรือวิธีการเข้าถึงอื่นๆ การสำรองข้อมูลกระเป๋าสตางค์ของคุณ (คีย์สตอร์) เป็นสิ่งสำคัญ</string>
   <string name="backup_confirmation_title">อีกเพียงนิดเดียว</string>
   <string name="backup_confirmation_body">สำรองข้อมูลของคุณให้ปลอดภัย! คุณต้องการบันทึกไว้ที่ไหน</string>
   <string name="backup_confirmation_yes">ใช่ เสร็จสิ้น</string>
   <string name="backup_confirmation_no">ไม่ บันทึกบนอุปกรณ์</string>
-  <string name="backup_done_title">สำรองสำเร็จ!</string>
   <string name="backup_done_body">คุณแน่ใจหรือว่าไฟล์สำรองของคุณอยู่ในที่ปลอดภัย?</string>
   <string name="backup_confirmation_no_share_title">สำรองสำเร็จ!</string>
   <string name="backup_confirmation_no_share_body">ไฟล์สำรองของคุณอยู่ในโฟลเดอร์การดาวโหลด</string>
   <string name="backup_save_dialogue_title">บันทึกไฟล์สำรอง</string>
   <string name="backup_save_dialogue_body">เลือกชื่อสำหรับไฟล์สำรองของคุณ</string>
-  <string name="backup_confirmation_tips_title">เก็บไฟล์ให้ปลอดภัย:</string>
-  <string name="backup_confirmation_tips_1">ปรินท์และจัดเก็บในที่ปลอดภัย</string>
-  <string name="backup_confirmation_tips_2">บันทึกลงในไดรฟ์ USB</string>
-  <string name="backup_confirmation_tips_3">คัดลอกเป็นส่วนตัวและเก็บรักษาในคลาวน์</string>
   <string name="backup_send_via_title">ส่งข้อมูลสำรองผ่าน:</string>
   <string name="backup_send_button">ส่งข้อมูลสำรอง</string>
   <string name="backup_save_button">บันทึกข้อมูลสำรอง</string>
@@ -661,14 +654,27 @@
   <string name="import_wallet_wrong_password_body">อุ๊ปส์ รหัสผ่านไม่ถูกต้อง!</string>
   <string name="error_invalid_private_key">ไม่มีไพรเวทคีย์</string>
   <string name="error_invalid_keystore">คีย์สโตนไม่ถูกต้อง</string>
+  <string name="backup_title">Backup uour wallet now!</string>
+  <string name="backup_body">เราไม่เก็บคีย์ส่วนตัวของคุณหรือวิธีการเข้าถึงอื่นๆ การสำรองข้อมูลกระเป๋าสตางค์ของคุณ (คีย์สตอร์) เป็นสิ่งสำคัญ</string>
+  <string name="backup_additional_security_title">ความปลอดภัยเพิ่มเติม (ตัวเลือก)</string>
+  <string name="backup_additional_security_body">เลือกรหัสผ่าน</string>
+  <string name="backup_button">BACKUP WALLET</string>
+  <string name="backup_password">รหัสผ่าน</string>
+  <string name="backup_ready_title">Your backup is ready! Keep it safe.</string>
+  <string name="backup_ready_save_on_email">Save it on your email</string>
+  <string name="backup_ready_email_button">Send to email</string>
+  <string name="backup_ready_device_button">Save on device</string>
+  <string name="backup_done_title">สำรองสำเร็จ!</string>
+  <string name="backup_confirmation_tips_title">เก็บไฟล์ให้ปลอดภัย:</string>
+  <string name="backup_confirmation_tips_1">ปรินท์และจัดเก็บในที่ปลอดภัย</string>
+  <string name="backup_confirmation_tips_2">บันทึกลงในไดรฟ์ USB</string>
+  <string name="backup_confirmation_tips_3">คัดลอกเป็นส่วนตัวและเก็บรักษาในคลาวน์</string>
   <string name="backup_tooltip_body">สำรองกระเป๋าสตางค์</string>
   <string name="backup_tooltip_later_button">อาจจะภายหลัง</string>
   <string name="backup_tooltip_backup_button">สำรอง</string>
   <string name="backup_notification_title">สำรองกระเป๋าสตางค์!</string>
   <string name="backup_notification_body">เก็บเงินของคุณอย่างปลอดภัยและแน่ใจว่าสามารุเข้าถึงกระเป๋าสตางค์</string>
   <string name="backup_choose_wallet_title">เลือกสำรองกระเป๋าสตางค์</string>
-  <string name="backup_additional_security_title">ความปลอดภัยเพิ่มเติม (ตัวเลือก)</string>
-  <string name="backup_additional_security_body">เลือกรหัสผ่าน</string>
   <string name="backup_additional_security_disclaimer_title">โปรดเก็บรักษารหัสผ่านของคุณให้ปลอดภัย</string>
   <string name="backup_additional_security_disclaimer_body">ไม่มีการกู้คืนรหัสผ่าน</string>
   <string name="backup_additional_security_password_not_march">รหัสผ่านไม่เหมือนกัน</string>
@@ -840,7 +846,7 @@
   <string name="carrier_billing_terms_button">ข้อกำหนดและเงื่อนไข</string>
   <string name="carrier_billing_privacy_button">นโยบายการเก็บข้อมูลส่วนบุคคล</string>
   <!--Manage Cards-->
-  <string name="manage_cards_settings_add_title">Add bank card</string>
+  <string name="manage_cards_settings_add_title">Add credit/debit card</string>
   <string name="manage_cards_settings_manage_title">จัดการบัตร</string>
   <string name="manage_cards_view_title">จัดการบัตร</string>
   <string name="manage_cards_view_manage_subtitle">จัดการการชำระเงินผ่านบัตรของคุณ</string>
@@ -916,7 +922,7 @@
   <string name="rate_us_back_title">ต้องการความช่วยเหลือไหม</string>
   <string name="rate_us_back_body">ให้คะแนน AppCoins Wallet บนแอพสโตร์เพื่อให้เราปรับปรุง</string>
   <!--Card verification-->
-  <string name="card_verification_body">Use your bank card to verify your wallet.</string>
+  <string name="card_verification_body">ตรวจสอบบัตรเครดิต/เดบิตของคุณเพื่อชำระเงิน</string>
   <string name="card_verification_charde_disclaimer">เราจะเรียกเก็บเงิน %s จากบัตรของคุณ และเราจะคืนเงินเมื่อคุณยืนยันรหัส ขึ้นอยู่กับธนาคารของคุณ อาจใช้เวลาระหว่างนาทีถึงสองสามวัน</string>
   <string name="card_verification_code_title">ตรวจสอบรหัสรายละเอียดธุรกรรม</string>
   <string name="card_verification_code_body">รหัสเฉพาะจะแสดงในข้อมูลสรุปธุรกรรมที่ผู้ออกบัตรของคุณให้ไว้</string>
@@ -1012,5 +1018,5 @@
   <string name="appcoins_info_volume_title">ปริมาณ (24h)</string>
   <!--  NFTs -->
   <string name="nfts_title">NFTs</string>
-  <string name="nfts_no_nfts">ไม่มี NFTs ในตอนนี้</string>
+  <string name="nfts_no_nfts">You don\'t have any NFTs in this wallet yet!</string>
 </resources>
