@@ -120,7 +120,7 @@
   <string name="intro_2_title">Mainkan Lebih Sering, Bayar Kurang</string>
   <string name="intro_2_body">Dapatkan hadiah untuk pembelian item di aplikasi dan permainan favorit Anda.</string>
   <string name="intro_3_title">Sederhana dan Mudah</string>
-  <string name="intro_3_body">Proses semua pembelian in-app Anda dengan metode pembayaran favorit.</string>
+  <string name="intro_3_body">Tetap instal AppCoins Wallet agar bisa langsung membeli di game Anda.</string>
   <string name="intro_4_title">Aman dan Pribadi</string>
   <string name="intro_4_body">Kunci pribadi Anda tidak akan pernah meninggalkan perangkat, jadi AppCoins Anda selalu aman.</string>
   <string name="intro_4_body_2">Semua transaksi yang Anda lakukan selalu aman berkat teknologi terkini.</string>
@@ -271,7 +271,7 @@
   <string name="dialog_credit_card_number">Nomor Kartu</string>
   <string name="dialog_credit_card_expiration">Tanggal Kedaluwarsa</string>
   <string name="dialog_credit_card_cvv">CVV</string>
-  <string name="dialog_bank_card">Bank card</string>
+  <string name="dialog_bank_card">Credit/debit card</string>
   <string name="dialog_expiry_date">Tanggal kedaluwarsa</string>
   <string name="activity_airdrop_title">Untuk menerima AppCoin, konfirmasikan bahwa Anda manusia</string>
   <string name="activity_airdrop_details">Ini hanya soal keamanan.</string>
@@ -401,7 +401,7 @@
   <string name="askafriend_share_add_message_body">Tambahkan Pesan (Opsional)</string>
   <string name="askafriend_share_button">Berbagi</string>
   <string name="askafriend_share_popup_title">Tanya seseorang via:</string>
-  <string name="askafriend_received_body">Anda baru saja menerima %s APPC-C</string>
+  <string name="askafriend_received_body">You just received %s AppCoins Credits</string>
   <string name="askafriend_notification_received_title">Transfer Baru Diterima</string>
   <string name="askafriend_notification_received_body">%1$s %2$s dimasukkan ke dompet Anda.</string>
   <string name="askafriend_received_title">Transfer yang Diterima</string>
@@ -589,7 +589,7 @@
   <string name="referral_view_share_link_button">BAGIKAN TAUTAN UNDANGAN</string>
   <string name="referral_view_notifications_title">Pemberitahuan</string>
   <string name="referral_share_sheet_title">Bagikan tautan undangan melalui:</string>
-  <string name="referral_view_unverified_body">Receive %s worth of AppCoins Credits for each friend. Your first need to verify your wallet.</string>
+  <string name="referral_view_unverified_body">Receive %s worth of AppCoins Credits for each friend. You first need to verify your wallet.</string>
   <string name="referral_view_verify_button">VERIFIKASI DOMPET</string>
   <string name="referral_view_i_have_been_invited_button">SAYA SUDAH DIUNDANG</string>
   <string name="referral_view_dropup_menu_friends_invited">Teman sudah diundang</string>
@@ -975,7 +975,7 @@
   <string name="e_skills_withdraw_title">Penarikan e-Skills</string>
   <string name="e_skills_withdraw_invalid_email_error_message">E-mail tidak valid</string>
   <string name="e_skills_withdraw_not_enough_balance_error_message">Saldo tidak cukup</string>
-  <string name="e_skills_withdraw_not_enough_earnings_error_message">Anda hanya bisa menarik dana yang diperoleh di game e-Skills</string>
+  <string name="e_skills_withdraw_not_enough_earnings_error_message">You haven\'t won enough e-Skills games to withdraw that amount</string>
   <string name="e_skills_withdraw_minimum_amount_error_message">Jumlah minimal yang bisa ditarik adalah $%1$.2f</string>
   <string name="e_skills_withdraw_max_amount_part_1">Anda bisa menarik:</string>
   <string name="e_skills_withdraw_max_amount_part_2">$%1$.2f</string>
