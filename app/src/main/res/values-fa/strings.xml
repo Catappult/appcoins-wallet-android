@@ -120,7 +120,7 @@
   <string name="intro_2_title">بیشتر بازی کن، کمتر پرداخت کن</string>
   <string name="intro_2_body">برای خرید کردن در بازی‌ها و اپلیکیشن‌های مورد علاقه خود پاداش بگیر.</string>
   <string name="intro_3_title">ساده و آسان</string>
-  <string name="intro_3_body">برای همه خریدهای داخل اپلیکیشن از روش پرداخت مورد علاقه خود استفاده کن.</string>
+  <string name="intro_3_body">AppCoins Wallet را برای خرید مستقیم در بازی‌های خود، نصب نگه دارید.</string>
   <string name="intro_4_title">امن و خصوصی</string>
   <string name="intro_4_body">کلیدهای خصوصی شما هرگز دستگاه شما را ترک نخواهد کرد، بنابراین AppCoins همیشه امن هستند.</string>
   <string name="intro_4_body_2">همه تراکنش‌های شما به کمک جدیدترین تکنولوژی‌ها همیشه امن خواهند بود.</string>
@@ -271,7 +271,7 @@
   <string name="dialog_credit_card_number">شماره کارت</string>
   <string name="dialog_credit_card_expiration">تاریخ انقضا</string>
   <string name="dialog_credit_card_cvv">CVV</string>
-  <string name="dialog_bank_card">Bank card</string>
+  <string name="dialog_bank_card">Credit/debit card</string>
   <string name="dialog_expiry_date">تاریخ انقضا</string>
   <string name="activity_airdrop_title">تایید کنید که انسان هستید تا AppCoins دریافت کنید</string>
   <string name="activity_airdrop_details">این فقط یک کار امنیتی است.</string>
@@ -401,7 +401,7 @@
   <string name="askafriend_share_add_message_body">پیام (اختیاری)</string>
   <string name="askafriend_share_button">اشتراک‌گذاری</string>
   <string name="askafriend_share_popup_title">از کسی بخواهید از طریق:</string>
-  <string name="askafriend_received_body">شما هم اکنون %s APPC-C دریافت کردید</string>
+  <string name="askafriend_received_body">You just received %s AppCoins Credits</string>
   <string name="askafriend_notification_received_title">جابجایی جدیدی دریافت شد</string>
   <string name="askafriend_notification_received_body">%1$s%2$s به کیف پول شما افزوده شد.</string>
   <string name="askafriend_received_title">انتقال دریافت شد</string>
@@ -589,7 +589,7 @@
   <string name="referral_view_share_link_button">لینک دعوت را به اشتراک بگذارید</string>
   <string name="referral_view_notifications_title">اعلانات</string>
   <string name="referral_share_sheet_title">لینک دعوت را به اشتراک بگذارید:</string>
-  <string name="referral_view_unverified_body">Receive %s worth of AppCoins Credits for each friend. Your first need to verify your wallet.</string>
+  <string name="referral_view_unverified_body">Receive %s worth of AppCoins Credits for each friend. You first need to verify your wallet.</string>
   <string name="referral_view_verify_button">تایید کیف پول</string>
   <string name="referral_view_i_have_been_invited_button">دعوت شده‌ام</string>
   <string name="referral_view_dropup_menu_friends_invited">دوستان دعوت‌شده</string>
@@ -984,7 +984,7 @@
   <string name="e_skills_withdraw_title">برداشت از e-Skills</string>
   <string name="e_skills_withdraw_invalid_email_error_message">ایمیل نامعتبر</string>
   <string name="e_skills_withdraw_not_enough_balance_error_message">موجودی کافی نیست</string>
-  <string name="e_skills_withdraw_not_enough_earnings_error_message">شما تنها می‌توانید مقادیر درآمد بازی‌های e-Skills را برداشت کنید</string>
+  <string name="e_skills_withdraw_not_enough_earnings_error_message">You haven\'t won enough e-Skills games to withdraw that amount</string>
   <string name="e_skills_withdraw_minimum_amount_error_message">حداقل مقدار برای برداشت %1$.2f$ است</string>
   <string name="e_skills_withdraw_max_amount_part_1">مقدار قابل برداشت:</string>
   <string name="e_skills_withdraw_max_amount_part_2">$%1$.2f</string>
