@@ -120,7 +120,7 @@
   <string name="intro_2_title">العب أكثر، ادفع أقل</string>
   <string name="intro_2_body">احصل على المكافآت عند شراء العناصر في تطبيقاتك وألعابك المفضلة.</string>
   <string name="intro_3_title">بسيط وسهل</string>
-  <string name="intro_3_body">قم بكل عمليات الشراء داخل التطبيقات باستخدام وسيلة الدفع المفضلة لديك.</string>
+  <string name="intro_3_body">Keep the AppCoins Wallet installed to directly purchase in your games.</string>
   <string name="intro_4_title">آمن وسرّي</string>
   <string name="intro_4_body">مفاتيحك السرية لن تفارق الجهاز، ما يبقي الأبكوينز الخاصو بك آمنة طوال الوقت.</string>
   <string name="intro_4_body_2">ستكون كل تحويلاتك آمنة دومًا بفضل التقنيات الحديثة.</string>
@@ -401,7 +401,7 @@
   <string name="askafriend_share_add_message_body">أضف رسالة (اختياري)</string>
   <string name="askafriend_share_button">مشاركة</string>
   <string name="askafriend_share_popup_title">اطل من شخص من خلال:</string>
-  <string name="askafriend_received_body">لقد تلقّيت للتوّ %s APPC-C</string>
+  <string name="askafriend_received_body">You just received %s AppCoins Credits</string>
   <string name="askafriend_notification_received_title">لقد استلمت حوالة</string>
   <string name="askafriend_notification_received_body">أضيفت %1$s %2$s إلى محفظتك.</string>
   <string name="askafriend_received_title">استلمتَ حوالة</string>
@@ -850,7 +850,7 @@
   <string name="carrier_billing_terms_button">الأحكام والشروط</string>
   <string name="carrier_billing_privacy_button">سياسة الخصوصية</string>
   <!--Manage Cards-->
-  <string name="manage_cards_settings_add_title">Add bank card</string>
+  <string name="manage_cards_settings_add_title">أضف بطاقة تأمين/ائتمان</string>
   <string name="manage_cards_settings_manage_title">إدارة البطاقات</string>
   <string name="manage_cards_view_title">إدارة البطاقات</string>
   <string name="manage_cards_view_manage_subtitle">إدارة بطاقات الدفع لديك</string>
@@ -956,7 +956,7 @@
   <string name="rate_us_back_title">تريد مساعدتنا؟</string>
   <string name="rate_us_back_body">أضف تقيمك لمحفظة AppCoins على متجر التطبيقات لنعمل على تحسينه.</string>
   <!--Card verification-->
-  <string name="card_verification_body">Use your bank card to verify your wallet.</string>
+  <string name="card_verification_body">تحقق من بطاقتك الائتمانية لتسدد مدفوعاتك.</string>
   <string name="card_verification_charde_disclaimer">سيتم خصم %s من بطاقتك، وستستعيدها عندما تُدخل رمز التأكيد. اعتمادًا على البنك الذي تتعامل معه، يمكن أن تستغرق العملية من دقيقة إلى بضعة أيام.</string>
   <string name="card_verification_code_title">تفقد الرمز في تفاصيل حركة الدفع</string>
   <string name="card_verification_code_body">سيظهر رمز مميز في ملخص عملية التحويل عن طريق مُصدِر بطاقتك.</string>
@@ -1021,7 +1021,7 @@
   <string name="e_skills_withdraw_title">سحب رصيد e-Skills</string>
   <string name="e_skills_withdraw_invalid_email_error_message">بريد إلكتروني غير صالح</string>
   <string name="e_skills_withdraw_not_enough_balance_error_message">رصيد غير كافٍ</string>
-  <string name="e_skills_withdraw_not_enough_earnings_error_message">يمكنك فقط سحب أموالك التي كسبتها في ألعاب e-Skills</string>
+  <string name="e_skills_withdraw_not_enough_earnings_error_message">You haven\'t won enough e-Skills games to withdraw that amount</string>
   <string name="e_skills_withdraw_minimum_amount_error_message">الحد الأدنى للسحب هو %1$.2f</string>
   <string name="e_skills_withdraw_max_amount_part_1">يمكنك أن تسحب:</string>
   <string name="e_skills_withdraw_max_amount_part_2">$%1$.2f</string>
