@@ -525,6 +525,7 @@
   <string name="purchase_card_error_not_supported">Тип вашей карты пока не поддерживается. Попробуйте другую карту.</string>
   <string name="purchase_card_error_security">Вы уверены, что правильно ввели атрибуты безопасности? Пожалуйста, попробуйте снова.</string>
   <string name="purchase_card_error_wrong_CVV">Кажеся, вы ввели неверный CVV/CVC код. Пожалуйста, попробуйте снова.</string>
+  <string name="purchase_card_error_re_insert">It seems you registered this card long time ago! Insert the card details again or use a different one.</string>
   <string name="purchase_wallet_error_contact_us">Ой, с вашим бумажником что-то не так. Пожалуйста, свяжитесь с нами.</string>
   <string name="purchase_carrier_error">Похоже, ваш номер телефона несовместим с этим способом оплаты.</string>
   <string name="purchase_carrier_error_minimum">Ваш провайдер не поддерживает платежи меньше, чем %s.</string>
