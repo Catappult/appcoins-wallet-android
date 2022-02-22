@@ -525,6 +525,7 @@
   <string name="purchase_card_error_not_supported">ประเภทบัตรของคุณยังไม่ได้รับการรับรอง โปรดลองบัตรใบอื่น</string>
   <string name="purchase_card_error_security">คุณมั่นใจว่าข้อมูลความปลอดภัยถูกต้องใช่ไหม? โปรดลองใหม่อีกครั้ง</string>
   <string name="purchase_card_error_wrong_CVV">รหัส CVV / CVC ของคุณดูเหมือนจะผิด กรุณาลองอีกครั้ง</string>
+  <string name="purchase_card_error_re_insert">It seems you registered this card long time ago! Insert the card details again or use a different one.</string>
   <string name="purchase_wallet_error_contact_us">อุ๊ปส์ มีบางอย่างไม่ปกติกับวอลเล็ตของคุณ โปรดติดต่อเรา</string>
   <string name="purchase_carrier_error">ดูเหมือนว่าหมายเลขโทรศัพท์ใช้ไม่ได้สำหรับการชำระเงินนี้</string>
   <string name="purchase_carrier_error_minimum">ผู้ให้บริการของคุณไม่รองรับการชำระเงินที่น้อยกว่า %s</string>
