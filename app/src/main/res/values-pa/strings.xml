@@ -120,7 +120,7 @@
   <string name="intro_2_title">ਪੈਸੇ ਘੱਟ ਦਿਓ, ਖੇਡੋ ਜ਼ਿਆਦਾ</string>
   <string name="intro_2_body">ਆਪਣੀਆਂ ਮਨਪਸੰਦ ਐਪਾਂ ਅਤੇ ਖੇਡਾਂ ਵਿੱਚ ਆਈਟਮਾਂ ਖਰੀਦਣ ਤੇ ਇਨਾਮ ਪ੍ਰਾਪਤ ਕਰੋ|</string>
   <string name="intro_3_title">ਆਸਾਨ ਅਤੇ ਸੌਖਾ</string>
-  <string name="intro_3_body">ਆਪਣੀ ਮਨਪਸੰਦ ਭੁਗਤਾਨ ਵਿਧੀ ਵਰਤਦੇ ਹੋਏ ਆਪਣੀਆਂ ਸਾਰੀਆਂ ਇਨ-ਐਪ ਖ਼ਰੀਦਾਂ ਕਰੋ|</string>
+  <string name="intro_3_body">ਆਪਣੀਆਂ ਗੇਮਾਂ ਵਿੱਚ ਸਿੱਧੇ ਖਰੀਦਣ ਲਈ ਐਪ ਸਿੱਕੇ ਬਟੂਏ ਨੂੰ ਸਥਾਪਿਤ ਰੱਖੋ।</string>
   <string name="intro_4_title">ਸੁਰੱਖਿਅਤ ਅਤੇ ਨਿੱਜੀ</string>
   <string name="intro_4_body">ਤੁਹਾਡੀਆਂ ਨਿੱਜੀ ਚਾਬੀਆਂ ਕਦੇ ਵੀ ਤੁਹਾਡੇ ਫੋਨ ਨੂੰ ਨਹੀਂ ਛੱਡਣਗੀਆਂ, ਤਾਂ ਜੋ ਤੁਹਾਡੇ ਐਪ ਸਿੱਕੇ ਹਰ ਸਮੇਂ ਸੁਰੱਖਿਅਤ ਰਹਿਣ|</string>
   <string name="intro_4_body_2">ਤੁਹਾਡੀਆਂ ਸਾਰੇ ਲੈਣ-ਦੇਣ ਹਮੇਸ਼ਾ ਸੁਰੱਖਿਅਤ ਹਨ, ਨਵੀਨਤਮ ਤਕਨਾਲੋਜੀ ਦਾ ਧੰਨਵਾਦ|</string>
@@ -271,7 +271,7 @@
   <string name="dialog_credit_card_number">ਕਾਰਡ ਨੰਬਰ</string>
   <string name="dialog_credit_card_expiration">ਐਕਸਪਾਈਰੀ ਦੀ ਤਾਰੀਖ</string>
   <string name="dialog_credit_card_cvv">ਸੀਵੀਵੀ</string>
-  <string name="dialog_bank_card">Bank card</string>
+  <string name="dialog_bank_card">Credit/debit card</string>
   <string name="dialog_expiry_date">ਆਖਰੀ ਤਾਰੀਖ</string>
   <string name="activity_airdrop_title">ਐਪ ਸਿੱਕੇ ਪ੍ਰਾਪਤ ਕਰਨ ਲਈ ਪੁਸ਼ਟੀ ਕਰੋ ਕਿ ਤੁਸੀਂ ਇੱਕ ਮਨੁੱਖ ਹੋ</string>
   <string name="activity_airdrop_details">ਇਹ ਕੇਵਲ ਇੱਕ ਸੁਰੱਖਿਆ ਚੀਜ਼ ਹੈ|</string>
@@ -401,7 +401,7 @@
   <string name="askafriend_share_add_message_body">ਸੁਨੇਹਾ ਜੋੜੋ (ਵਿਕਲਪਿਕ)</string>
   <string name="askafriend_share_button">ਸ਼ੇਅਰ</string>
   <string name="askafriend_share_popup_title">ਕਿਸੇ ਨੂੰ ਇਸ ਦੁਆਰਾ ਪੁਛੋ:</string>
-  <string name="askafriend_received_body">ਤੁਸੀਂ ਹੁਣੇ %s ਐਪ ਸਿੱਕੇ-ਕਰੈਡਿਟ ਪ੍ਰਾਪਤ ਕੀਤੇ</string>
+  <string name="askafriend_received_body">You just received %s AppCoins Credits</string>
   <string name="askafriend_notification_received_title">ਨਵਾ ਟ੍ਰਾਂਸਫਰ ਪ੍ਰਾਪਤ ਹੋਇਆ</string>
   <string name="askafriend_notification_received_body">%1$s %2$s ਤੁਹਾਡੇ ਬਟੂਏ ਵਿੱਚ ਪਾਏ ਗਏ|</string>
   <string name="askafriend_received_title">ਟ੍ਰਾਂਸਫਰ ਪ੍ਰਾਪਤ</string>
@@ -589,7 +589,7 @@
   <string name="referral_view_share_link_button">ਸੱਦੇ ਦੇ ਲਿੰਕ ਨੂੰ ਸਾਂਝਾ ਕਰੋ</string>
   <string name="referral_view_notifications_title">ਨੋਟੀਫਿਕੇਸ਼ਨ</string>
   <string name="referral_share_sheet_title">ਸੱਦੇ ਵਾਲੇ ਲਿੰਕ ਨੂੰ ਇਸ ਰਾਹੀਂ ਸਾਂਝਾ ਕਰੋ:</string>
-  <string name="referral_view_unverified_body">Receive %s worth of AppCoins Credits for each friend. Your first need to verify your wallet.</string>
+  <string name="referral_view_unverified_body">Receive %s worth of AppCoins Credits for each friend. You first need to verify your wallet.</string>
   <string name="referral_view_verify_button">ਬਟੂਏ ਦੀ ਤਸਦੀਕ ਕਰੋ</string>
   <string name="referral_view_i_have_been_invited_button">ਮੈਨੂੰ ਬੁਲਾਇਆ ਗਿਆ ਹੈ</string>
   <string name="referral_view_dropup_menu_friends_invited">ਦੋਸਤ ਬੁਲਾਏ ਗਏ</string>
@@ -984,7 +984,7 @@
   <string name="e_skills_withdraw_title">ਈ-ਹੁਨਰ ਵਾਪਸ ਲਓ</string>
   <string name="e_skills_withdraw_invalid_email_error_message">ਗਲਤ ਈ-ਮੇਲ</string>
   <string name="e_skills_withdraw_not_enough_balance_error_message">ਲੋੜੀਂਦਾ ਬੈਲੰਸ ਨਹੀਂ</string>
-  <string name="e_skills_withdraw_not_enough_earnings_error_message">ਤੁਸੀਂ ਸਿਰਫ ਈ-ਸਕਿੱਲ ਗੇਮਾਂ ਵਿੱਚ ਕਮਾਏ ਫੰਡ ਵਾਪਸ ਲੈ ਸਕਦੇ ਹੋ</string>
+  <string name="e_skills_withdraw_not_enough_earnings_error_message">You haven\'t won enough e-Skills games to withdraw that amount</string>
   <string name="e_skills_withdraw_minimum_amount_error_message">ਕਢਵਾਉਣ ਲਈ ਘੱਟੋ-ਘੱਟ ਰਕਮ $%1$.2f ਹੈ</string>
   <string name="e_skills_withdraw_max_amount_part_1">ਤੁਸੀਂ ਲੈ ਸਕਦੇ ਹੋ:</string>
   <string name="e_skills_withdraw_max_amount_part_2">$%1$.2f</string>
