@@ -440,6 +440,8 @@
   <string name="get_code_button">Obține cod</string>
   <string name="confirm_button">Confirmă</string>
   <string name="withdraw_button">retrage</string>
+  <string name="email_here_field">Your email here&#8230;</string>
+  <string name="understood_button">Understood!</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Sunt de acord cu %1$s și %2$s AppCoins Wallet.</string>
   <string name="terms_and_conditions_error">Te rugăm să accepți Termenii și condițiile și Politica de confidențialitate pentru a continua</string>
@@ -449,11 +451,11 @@
   <string name="get_started">Get Started</string>
   <string name="existent_wallet">I already have a wallet</string>
   <!--Home-->
-  <string name="home_empty_discover_apps_body">Cele mai bune aplicații Android te așteaptă.</string>
+  <string name="home_empty_discover_apps_body">Fă o achiziție în jocul tău preferat și ne vom ocupa noi de tot.</string>
   <string name="home_empty_discover_apps_button">DESCOPERĂ APLICAȚII DE TOP</string>
   <!--Tokens-->
   <!--Settings-->
-  <string name="title_redeem">Redeem Gift Card</string>
+  <string name="title_redeem">Redeem Code</string>
   <string name="settings_item_support">Contactează echipa de asistență</string>
   <string name="settings_subheader_support">Asistență</string>
   <string name="settings_subheader_about_us">Despre noi</string>
@@ -547,7 +549,7 @@
   <string name="purchase_error_transaction_timeout">Se pare că ai avut nevoie de prea mult timp pentru finalizarea tranzacției. Încearcă din nou.</string>
   <string name="purchase_error_card_already_in_progress">Cererea ta a fost deja procesată sau este în curs de procesare. Te rugăm să aștepți.</string>
   <string name="purchase_error_payment_rejected">Plată respinsă! Încearcă cu un card de la o bancă emitentă diferită sau folosește o altă metodă de plată.</string>
-  <string name="purchase_error_verify_wallet">Încearcă să îți verifici portofelul pentru a putea să rezolvi această problemă.</string>
+  <string name="purchase_error_verify_wallet">Validate your payment method to complete this purchase.</string>
   <string name="purchase_error_verify_card">Validează-ți cardul pentru a finaliza această achiziție.</string>
   <string name="purachse_error_verify_card_button">VALIDEAZĂ CARD</string>
   <string name="purchase_eskills_sku">Tichet de intrare</string>
@@ -627,25 +629,16 @@
   <!--Backup and Import-->
   <string name="backup_home_notification_title">Fă o copie de rezervă a portofelului</string>
   <string name="backup_home_notification_body">Ți-ai pierdut vreodată telefonul? Fă o copie de rezervă a portofelului tău acum!</string>
-  <string name="backup_button">COPIE DE REZERVĂ</string>
-  <string name="backup_title">Copie de rezervă portofel</string>
   <string name="backup_password_title">Criptează-ți portofelul (opțional)</string>
-  <string name="backup_password">Parolă</string>
-  <string name="backup_body">Nu îți stocăm cheile private sau orice alte metode de acces. Este important să păstrezi copia de rezervă a portofelului (keystore) în siguranță.</string>
   <string name="backup_confirmation_title">Încă un pas</string>
   <string name="backup_confirmation_body">Păstrează-ți copia de rezervă în siguranță! Unde vrei să o salvezi?</string>
   <string name="backup_confirmation_yes">DA, FINALIZEAZĂ</string>
   <string name="backup_confirmation_no">NU, SALVEAZĂ PE DISPOZITIV</string>
-  <string name="backup_done_title">Copie de rezervă efectuată!</string>
   <string name="backup_done_body">Ești sigur că fișierul copiei de rezervă este într-un loc sigur?</string>
   <string name="backup_confirmation_no_share_title">Copie de rezervă efectuată!</string>
   <string name="backup_confirmation_no_share_body">Fișierul tău de rezervă este în folder-ul tău de Descărcări.</string>
   <string name="backup_save_dialogue_title">Salvează fișier de rezervă</string>
   <string name="backup_save_dialogue_body">Alege un nume pentru fișierul de rezervă.</string>
-  <string name="backup_confirmation_tips_title">Păstrează fișierul în siguranță:</string>
-  <string name="backup_confirmation_tips_1">Scoate-l la imprimantă și păstrează-l în siguranță.</string>
-  <string name="backup_confirmation_tips_2">Salvează-l pe un drive USB.</string>
-  <string name="backup_confirmation_tips_3">Copiază-l într-un cloud de stocare privat și securizat.</string>
   <string name="backup_send_via_title">Trimite copie de rezervă via:</string>
   <string name="backup_send_button">TRIMITE COPIE DE REZERVĂ</string>
   <string name="backup_save_button">SALVEAZĂ COPIE DE REZERVĂ</string>
@@ -659,14 +652,27 @@
   <string name="import_wallet_wrong_password_body">Ups, parolă greșită!</string>
   <string name="error_invalid_private_key">Cheie privată nevalidă</string>
   <string name="error_invalid_keystore">Keystore nevalid</string>
+  <string name="backup_title">Backup uour wallet now!</string>
+  <string name="backup_body">Nu îți stocăm cheile private sau orice alte metode de acces. Este important să păstrezi copia de rezervă a portofelului (keystore) în siguranță.</string>
+  <string name="backup_additional_security_title">Securitate suplimentară (opțional)</string>
+  <string name="backup_additional_security_body">Alege o parolă</string>
+  <string name="backup_button">BACKUP WALLET</string>
+  <string name="backup_password">Parolă</string>
+  <string name="backup_ready_title">Your backup is ready! Keep it safe.</string>
+  <string name="backup_ready_save_on_email">Save it on your email</string>
+  <string name="backup_ready_email_button">Send to email</string>
+  <string name="backup_ready_device_button">Save on device</string>
+  <string name="backup_done_title">Copie de rezervă efectuată!</string>
+  <string name="backup_confirmation_tips_title">Păstrează fișierul în siguranță:</string>
+  <string name="backup_confirmation_tips_1">Scoate-l la imprimantă și păstrează-l în siguranță.</string>
+  <string name="backup_confirmation_tips_2">Salvează-l pe un drive USB.</string>
+  <string name="backup_confirmation_tips_3">Copiază-l într-un cloud de stocare privat și securizat.</string>
   <string name="backup_tooltip_body">Fă-ți o copie de rezervă a portofelului tău!</string>
   <string name="backup_tooltip_later_button">POATE MAI TÂRZIU</string>
   <string name="backup_tooltip_backup_button">FĂ COPIE</string>
   <string name="backup_notification_title">Fă o copie de rezervă a portofelului tău!</string>
   <string name="backup_notification_body">Păstrează-ți fondurile în siguranță și asigură-te că ai mereu acces la portofelul tău.</string>
   <string name="backup_choose_wallet_title">Alege portofelul pentru care vrei să faci o copie de rezervă</string>
-  <string name="backup_additional_security_title">Securitate suplimentară (opțional)</string>
-  <string name="backup_additional_security_body">Alege o parolă</string>
   <string name="backup_additional_security_disclaimer_title">Păstrează parola în siguranță.</string>
   <string name="backup_additional_security_disclaimer_body">Nu există acces la recuperarea parolei.</string>
   <string name="backup_additional_security_password_not_march">Parolele nu sunt identice.</string>
@@ -840,7 +846,7 @@
   <string name="carrier_billing_terms_button">Termeni și condiții</string>
   <string name="carrier_billing_privacy_button">Politica de confidențialitate</string>
   <!--Manage Cards-->
-  <string name="manage_cards_settings_add_title">Add bank card</string>
+  <string name="manage_cards_settings_add_title">Add credit/debit card</string>
   <string name="manage_cards_settings_manage_title">Gestionează carduri</string>
   <string name="manage_cards_view_title">Gestionează carduri</string>
   <string name="manage_cards_view_manage_subtitle">Gestionează cardurile tale de plată</string>
@@ -928,7 +934,7 @@
   <string name="rate_us_back_title">Vrei să ne dai o mână de ajutor?</string>
   <string name="rate_us_back_body">Evaluează AppCoins Wallet în App Store pentru a ne ajuta să îl îmbunătățim.</string>
   <!--Card verification-->
-  <string name="card_verification_body">Use your bank card to verify your wallet.</string>
+  <string name="card_verification_body">Validează-ți cardul de credit/debit pentru a face plăți.</string>
   <string name="card_verification_charde_disclaimer">Vom debita %s de pe cardul tău și vom rambursa suma imediat după ce confirmi codul. În funcție de banca ta, rambursarea poate dura între câteva minute și câteva zile.</string>
   <string name="card_verification_code_title">Verifică codul în detaliile tranzacției</string>
   <string name="card_verification_code_body">Un cod unic va apărea în rezumatul tranzacției furnizat de emitentul cardului tău.</string>
@@ -1028,5 +1034,5 @@
   <string name="appcoins_info_volume_title">Volum (24 h)</string>
   <!--  NFTs -->
   <string name="nfts_title">NFT-uri</string>
-  <string name="nfts_no_nfts">Fără NFT-uri disponibile în acest moment.</string>
+  <string name="nfts_no_nfts">You don\'t have any NFTs in this wallet yet!</string>
 </resources>
