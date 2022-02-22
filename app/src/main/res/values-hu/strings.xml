@@ -120,7 +120,7 @@
   <string name="intro_2_title">Játssz többet, fizess kevesebbet</string>
   <string name="intro_2_body">Jutalmakat kaphat, ha kedvenc appjaiban és játékaiban vásárol.</string>
   <string name="intro_3_title">Egyszerű és könnyű</string>
-  <string name="intro_3_body">Alkalmazáson belüli vásárlásaidat a kedvenc fizetési módszereddel hajthatod végre.</string>
+  <string name="intro_3_body">Az AppCoins Wallet maradjon telepítve, hogy közvetlenül vásárolhass a játékaidban.</string>
   <string name="intro_4_title">Biztonságos és privát</string>
   <string name="intro_4_body">Privát kulcsaid sose hagyják el eszközödet, így AppCoinsaid mindig biztonságban lesznek.</string>
   <string name="intro_4_body_2">A legújabb technológiáknak köszönhetően a tranzakcióid mindig biztonságban lesznek.</string>
@@ -271,7 +271,7 @@
   <string name="dialog_credit_card_number">Kártyaszám</string>
   <string name="dialog_credit_card_expiration">Lejárati dátum</string>
   <string name="dialog_credit_card_cvv">CVV</string>
-  <string name="dialog_bank_card">Bank card</string>
+  <string name="dialog_bank_card">Credit/debit card</string>
   <string name="dialog_expiry_date">Lejárati idő</string>
   <string name="activity_airdrop_title">AppCoins-ok fogadásához igazold, hogy ember vagy</string>
   <string name="activity_airdrop_details">Ezt csak biztonsági okból kérjük.</string>
@@ -401,7 +401,7 @@
   <string name="askafriend_share_add_message_body">Üzenet küldése (opcionális)</string>
   <string name="askafriend_share_button">Megosztás</string>
   <string name="askafriend_share_popup_title">Kérdezz meg valakit:</string>
-  <string name="askafriend_received_body">%s APPC-kreditet kaptál</string>
+  <string name="askafriend_received_body">You just received %s AppCoins Credits</string>
   <string name="askafriend_notification_received_title">Új átutalás érkezett</string>
   <string name="askafriend_notification_received_body">%1$s %2$s összeg érkezett a pénztárcádba.</string>
   <string name="askafriend_received_title">Beérkezett átutalás</string>
@@ -589,7 +589,7 @@
   <string name="referral_view_share_link_button">MEGHÍVÓ LINK MEGOSZTÁSA</string>
   <string name="referral_view_notifications_title">Értesítések</string>
   <string name="referral_share_sheet_title">Meghívó link megosztása:</string>
-  <string name="referral_view_unverified_body">Receive %s worth of AppCoins Credits for each friend. Your first need to verify your wallet.</string>
+  <string name="referral_view_unverified_body">Receive %s worth of AppCoins Credits for each friend. You first need to verify your wallet.</string>
   <string name="referral_view_verify_button">TÁRCA HITELESÍTÉS</string>
   <string name="referral_view_i_have_been_invited_button">MEGHÍVTAK</string>
   <string name="referral_view_dropup_menu_friends_invited">Meghívott barátok</string>
@@ -984,7 +984,7 @@
   <string name="e_skills_withdraw_title">e-Skills felvétel</string>
   <string name="e_skills_withdraw_invalid_email_error_message">Érvénytelen e-mail cím</string>
   <string name="e_skills_withdraw_not_enough_balance_error_message">Kevés az egyenleg</string>
-  <string name="e_skills_withdraw_not_enough_earnings_error_message">Csak az e-Skills játékokban szerzett összeget veheted fel</string>
+  <string name="e_skills_withdraw_not_enough_earnings_error_message">You haven\'t won enough e-Skills games to withdraw that amount</string>
   <string name="e_skills_withdraw_minimum_amount_error_message">A legkisebb lehívható összeg $%1$.2f</string>
   <string name="e_skills_withdraw_max_amount_part_1">Lehívható összeg:</string>
   <string name="e_skills_withdraw_max_amount_part_2">$%1$.2f</string>
