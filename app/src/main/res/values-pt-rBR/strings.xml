@@ -120,7 +120,7 @@
   <string name="intro_2_title">Jogue Mais, Pague Menos</string>
   <string name="intro_2_body">Seja recompensado por comprar itens em seus games e apps favoritos.</string>
   <string name="intro_3_title">Simples e Fácil</string>
-  <string name="intro_3_body">Processe todas as suas compras dentro do aplicativo utilizando seu método de pagamento favorito.</string>
+  <string name="intro_3_body">Mantenha a AppCoins Wallet instalada para comprar diretamente em seus jogos.</string>
   <string name="intro_4_title">Seguro e Privado</string>
   <string name="intro_4_body">Suas chaves privadas nunca deixam seu dispositivo, e por isso suas AppCoins estão sempre seguras.</string>
   <string name="intro_4_body_2">Todas as suas transações são sempre seguras graças à mais recente tecnologia.</string>
@@ -271,7 +271,7 @@
   <string name="dialog_credit_card_number">Número do Cartão</string>
   <string name="dialog_credit_card_expiration">Data de Validade</string>
   <string name="dialog_credit_card_cvv">CVV</string>
-  <string name="dialog_bank_card">Bank card</string>
+  <string name="dialog_bank_card">Credit/debit card</string>
   <string name="dialog_expiry_date">Vencimento</string>
   <string name="activity_airdrop_title">Confirmar se você é um humano para receber AppCoins</string>
   <string name="activity_airdrop_details">Isto é só um lance de segurança.</string>
@@ -401,7 +401,7 @@
   <string name="askafriend_share_add_message_body">Enviar Mensagem (opcional)</string>
   <string name="askafriend_share_button">Compartilhar</string>
   <string name="askafriend_share_popup_title">Peça a alguém via:</string>
-  <string name="askafriend_received_body">Você acaba de receber %s APPC-C</string>
+  <string name="askafriend_received_body">You just received %s AppCoins Credits</string>
   <string name="askafriend_notification_received_title">Nova Transferência Recebida</string>
   <string name="askafriend_notification_received_body">%1$s %2$s foram creditados em sua wallet.</string>
   <string name="askafriend_received_title">Transferência Recebida</string>
@@ -589,7 +589,7 @@
   <string name="referral_view_share_link_button">COMPARTILHAR LINK DE CONVITE</string>
   <string name="referral_view_notifications_title">Notificações</string>
   <string name="referral_share_sheet_title">Compartilhar convite via:</string>
-  <string name="referral_view_unverified_body">Receive %s worth of AppCoins Credits for each friend. Your first need to verify your wallet.</string>
+  <string name="referral_view_unverified_body">Receive %s worth of AppCoins Credits for each friend. You first need to verify your wallet.</string>
   <string name="referral_view_verify_button">VERIFICAR WALLET</string>
   <string name="referral_view_i_have_been_invited_button">JÁ FUI CONVIDADO</string>
   <string name="referral_view_dropup_menu_friends_invited">Amigos convidados</string>
@@ -984,7 +984,7 @@
   <string name="e_skills_withdraw_title">Retirada de e-Skills</string>
   <string name="e_skills_withdraw_invalid_email_error_message">E-mail inválido</string>
   <string name="e_skills_withdraw_not_enough_balance_error_message">Saldo insuficiente</string>
-  <string name="e_skills_withdraw_not_enough_earnings_error_message">Você só poderá sacar os fundos recebidos em jogos e-Skills</string>
+  <string name="e_skills_withdraw_not_enough_earnings_error_message">You haven\'t won enough e-Skills games to withdraw that amount</string>
   <string name="e_skills_withdraw_minimum_amount_error_message">A quantia mínima para sacar é $%1$.2f</string>
   <string name="e_skills_withdraw_max_amount_part_1">Você pode sacar:</string>
   <string name="e_skills_withdraw_max_amount_part_2">$%1$.2f</string>
@@ -1008,7 +1008,7 @@
   <string name="promo_code_active_tag">Ativo</string>
   <string name="promo_code_expired_tag">Expirado</string>
   <string name="promo_code_success_title">Pronto!</string>
-  <string name="promo_code_success_body">Você receberá %s% de bônus extra em todas as suas compras.</string>
+  <string name="promo_code_success_body">Você receberá %s%% de bônus extra em todas as suas compras.</string>
   <string name="promo_code_success_body_specific_app">Você receberá %1$s%% de bônus extra em todas as suas compras em %2$s.</string>
   <string name="promo_code_promotions_tag">Código promocional</string>
   <!--AppCoins Info Page-->
