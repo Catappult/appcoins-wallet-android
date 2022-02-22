@@ -120,7 +120,7 @@
   <string name="intro_2_title">Παίξτε Περισσότερο, Πληρώστε Λιγότερα</string>
   <string name="intro_2_body">Λάβετε ανταμοιβές για την αγορά αντικειμένων στις αγαπημένες σας εφαρμογές και παιχνίδια.</string>
   <string name="intro_3_title">Απλό και Εύκολο</string>
-  <string name="intro_3_body">Πραγματοποιήστε όλες σας τις πληρωμές σας εντός εφαρμογών, χρησιμοποιώντας την αγαπημένη σας μέθοδο πληρωμής.</string>
+  <string name="intro_3_body">Keep the AppCoins Wallet installed to directly purchase in your games.</string>
   <string name="intro_4_title">Ασφαλές και Ιδιωτικό</string>
   <string name="intro_4_body">Τα ιδιωτικά σας κλειδιά δε θα φύγουν ποτέ από τη συσκευή σας, επομένως τα AppCoins σας θα είναι πάντα ασφαλή.</string>
   <string name="intro_4_body_2">Όλες οι συναλλαγές σας είναι πάντα ασφαλείς, χάρις στη χρήση τεχνολογιών αιχμής.</string>
@@ -271,7 +271,7 @@
   <string name="dialog_credit_card_number">Αριθμός Κάρτας</string>
   <string name="dialog_credit_card_expiration">Ημερομηνία Λήξης</string>
   <string name="dialog_credit_card_cvv">CVV</string>
-  <string name="dialog_bank_card">Bank card</string>
+  <string name="dialog_bank_card">Credit/debit card</string>
   <string name="dialog_expiry_date">Ημερομηνία λήξης</string>
   <string name="activity_airdrop_title">Επιβεβαιώστε ότι είστε άνθρωπος για να λάβετε AppCoins</string>
   <string name="activity_airdrop_details">Αυτό γίνεται για λόγους ασφαλείας.</string>
@@ -401,7 +401,7 @@
   <string name="askafriend_share_add_message_body">Προσθήκη μηνύματος (προαιρετικά)</string>
   <string name="askafriend_share_button">Κοινοποίηση</string>
   <string name="askafriend_share_popup_title">Ρωτήστε κάποιον μέσω:</string>
-  <string name="askafriend_received_body">Μόλις λάβατε %s APPC-C</string>
+  <string name="askafriend_received_body">You just received %s AppCoins Credits</string>
   <string name="askafriend_notification_received_title">Πραγματοποιήθηκε νέα μεταφορά</string>
   <string name="askafriend_notification_received_body">%1$s %2$s πιστώθηκαν στο wallet σας.</string>
   <string name="askafriend_received_title">Η Μεταφορά Πραγματοποιήθηκε</string>
@@ -589,7 +589,7 @@
   <string name="referral_view_share_link_button">ΚΟΙΝΟΠΟΙΗΣΗ ΣΥΝΔΕΣΜΟΥ ΠΡΟΣΚΛΗΣΗΣ</string>
   <string name="referral_view_notifications_title">Ειδοποιήσεις</string>
   <string name="referral_share_sheet_title">Κοινοποίηση συνδέσμου πρόσκλησης μέσω:</string>
-  <string name="referral_view_unverified_body">Receive %s worth of AppCoins Credits for each friend. Your first need to verify your wallet.</string>
+  <string name="referral_view_unverified_body">Receive %s worth of AppCoins Credits for each friend. You first need to verify your wallet.</string>
   <string name="referral_view_verify_button">ΕΠΑΛΗΘΕΥΣΗ WALLET</string>
   <string name="referral_view_i_have_been_invited_button">ΕΧΩ ΛΑΒΕΙ ΠΡΟΣΚΛΗΣΗ</string>
   <string name="referral_view_dropup_menu_friends_invited">Προσκεκλημένοι φίλοι</string>
