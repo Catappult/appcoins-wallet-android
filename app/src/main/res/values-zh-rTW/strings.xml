@@ -525,6 +525,7 @@
   <string name="purchase_card_error_not_supported">暫未支援您的卡片類型，請嘗試其他卡片。</string>
   <string name="purchase_card_error_security">您的安全碼可能有誤，請再試一次。</string>
   <string name="purchase_card_error_wrong_CVV">您的CVV/CVC可能有誤，請再試一次。</string>
+  <string name="purchase_card_error_re_insert">It seems you registered this card long time ago! Insert the card details again or use a different one.</string>
   <string name="purchase_wallet_error_contact_us">糟糕，您的錢包可能存在問題，請與我們聯繫。</string>
   <string name="purchase_carrier_error">您的電話號碼似乎不支援此付款方式。</string>
   <string name="purchase_carrier_error_minimum">您的電信代扣不支援低於%s的付款。</string>
