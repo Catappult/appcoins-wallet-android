@@ -8,10 +8,11 @@ import retrofit2.http.Body
 import retrofit2.http.Headers
 import retrofit2.http.POST
 import retrofit2.http.Query
+import javax.inject.Inject
 
 
-class SkillsPaymentRepository(private val adyenApi: AdyenApi,
-                              private val adyenResponseMapper: AdyenResponseMapper) {
+class SkillsPaymentRepository @Inject constructor(private val adyenApi: AdyenApi,
+                                                  private val adyenResponseMapper: AdyenResponseMapper) {
 
 
   fun makeSkillsPayment(returnUrl: String,
@@ -33,7 +34,7 @@ class SkillsPaymentRepository(private val adyenApi: AdyenApi,
   interface AdyenApi {
 
 
-    @POST("transactions")
+    @POST("8.20200815/gateways/adyen_v2/transactions")
     @Headers("Content-Type: application/json;format=product_token")
     fun makePayment(@Query("wallet.address") walletAddress: String,
                     @Query("wallet.signature") walletSignature: String,

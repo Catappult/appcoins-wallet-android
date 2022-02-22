@@ -5,8 +5,9 @@ import android.content.Intent
 import com.asfoundation.wallet.C
 import com.asfoundation.wallet.transactions.Transaction
 import com.asfoundation.wallet.ui.balance.TransactionDetailActivity
+import javax.inject.Inject
 
-class TransactionDetailRouter {
+class TransactionDetailRouter @Inject constructor() {
   fun open(context: Context, transaction: Transaction, globalBalanceCurrency: String) {
     with(context) {
       val intent = Intent(this, TransactionDetailActivity::class.java)

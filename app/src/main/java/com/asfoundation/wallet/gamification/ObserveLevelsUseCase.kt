@@ -4,9 +4,11 @@ import com.appcoins.wallet.gamification.Gamification
 import com.appcoins.wallet.gamification.repository.Levels
 import com.asfoundation.wallet.wallets.usecases.GetCurrentWalletUseCase
 import io.reactivex.Observable
+import javax.inject.Inject
 
-class ObserveLevelsUseCase(private val getCurrentWallet: GetCurrentWalletUseCase,
-                           private val gamification: Gamification) {
+class ObserveLevelsUseCase @Inject constructor(
+    private val getCurrentWallet: GetCurrentWalletUseCase,
+    private val gamification: Gamification) {
 
   operator fun invoke(): Observable<Levels> {
     return getCurrentWallet()

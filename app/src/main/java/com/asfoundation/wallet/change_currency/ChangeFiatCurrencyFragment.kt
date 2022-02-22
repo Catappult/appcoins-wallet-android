@@ -14,18 +14,17 @@ import com.asfoundation.wallet.base.Async
 import com.asfoundation.wallet.base.SingleStateFragment
 import com.asfoundation.wallet.change_currency.list.ChangeFiatCurrencyController
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
+import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class ChangeFiatCurrencyFragment : BasePageViewFragment(),
     SingleStateFragment<ChangeFiatCurrencyState, ChangeFiatCurrencySideEffect> {
 
   @Inject
-  lateinit var changeFiatCurrencyViewModelFactory: ChangeFiatCurrencyViewModelFactory
-
-  @Inject
   lateinit var changeFiatCurrencyNavigator: ChangeFiatCurrencyNavigator
 
-  private val viewModel: ChangeFiatCurrencyViewModel by viewModels { changeFiatCurrencyViewModelFactory }
+  private val viewModel: ChangeFiatCurrencyViewModel by viewModels()
   private val views by viewBinding(FragmentChangeFiatCurrencyBinding::bind)
 
   private val changeFiatCurrencyController = ChangeFiatCurrencyController()

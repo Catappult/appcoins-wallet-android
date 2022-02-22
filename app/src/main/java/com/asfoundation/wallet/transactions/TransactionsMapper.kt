@@ -5,8 +5,9 @@ import com.asfoundation.wallet.repository.entity.OperationEntity
 import com.asfoundation.wallet.repository.entity.TransactionDetailsEntity
 import com.asfoundation.wallet.repository.entity.TransactionEntity
 import java.util.*
+import javax.inject.Inject
 
-class TransactionsMapper {
+class TransactionsMapper @Inject constructor() {
 
   companion object {
     private const val PERK_BONUS = "perk_bonus"

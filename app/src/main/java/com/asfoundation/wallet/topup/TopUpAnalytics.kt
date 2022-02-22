@@ -2,9 +2,10 @@ package com.asfoundation.wallet.topup
 
 import cm.aptoide.analytics.AnalyticsManager
 import com.asfoundation.wallet.abtesting.experiments.topup.TopUpABTestingAnalytics
+import javax.inject.Inject
 
-class TopUpAnalytics(private val analyticsManager: AnalyticsManager,
-                     private val abTestingAnalytics: TopUpABTestingAnalytics) {
+class TopUpAnalytics @Inject constructor(private val analyticsManager: AnalyticsManager,
+                                         private val abTestingAnalytics: TopUpABTestingAnalytics) {
 
   fun sendStartEvent() {
     analyticsManager.logEvent(HashMap<String, Any>(), WALLET_TOP_UP_START,

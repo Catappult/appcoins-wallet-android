@@ -2,8 +2,10 @@ package com.asfoundation.wallet.home.usecases
 
 import com.asfoundation.wallet.support.SupportRepository
 import io.intercom.android.sdk.Intercom
+import javax.inject.Inject
 
-class DisplayConversationListOrChatUseCase(private val supportRepository: SupportRepository) {
+class DisplayConversationListOrChatUseCase @Inject constructor(
+    private val supportRepository: SupportRepository) {
 
   @Suppress("DEPRECATION")
   operator fun invoke() {

@@ -20,8 +20,10 @@ import com.asfoundation.wallet.util.CurrencyFormatUtils
 import com.asfoundation.wallet.util.WalletCurrency
 import com.asfoundation.wallet.verification.ui.credit_card.intro.VerificationIntroModel
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
+import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class VerificationPaypalFragment : BasePageViewFragment(),
     SingleStateFragment<VerificationPaypalIntroState, VerificationPaypalIntroSideEffect> {
 

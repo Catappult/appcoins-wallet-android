@@ -1,8 +1,11 @@
 package com.asfoundation.wallet.fingerprint
 
 import android.content.SharedPreferences
+import it.czerwinski.android.hilt.annotations.BoundTo
+import javax.inject.Inject
 
-class FingerprintPreferencesRepository(private val pref: SharedPreferences) :
+@BoundTo(supertype = FingerprintPreferencesRepositoryContract::class)
+class FingerprintPreferencesRepository @Inject constructor(private val pref: SharedPreferences) :
     FingerprintPreferencesRepositoryContract {
 
   private companion object {

@@ -1,10 +1,12 @@
 package com.asfoundation.wallet.billing.analytics;
 
 import cm.aptoide.analytics.AnalyticsManager;
+import it.czerwinski.android.hilt.annotations.BoundTo;
 import java.util.HashMap;
 import java.util.Map;
+import javax.inject.Inject;
 
-public class BillingAnalytics implements EventSender {
+@BoundTo(supertype = EventSender.class) public class BillingAnalytics implements EventSender {
   public static final String PURCHASE_DETAILS = "PURCHASE_DETAILS";
   public static final String PAYMENT_METHOD_DETAILS = "PAYMENT_METHOD_DETAILS";
   public static final String PAYMENT = "PAYMENT";
@@ -22,6 +24,7 @@ public class BillingAnalytics implements EventSender {
   public static final String RAKAM_PAYPAL_URL = "wallet_payment_conclusion_paypal";
   public static final String RAKAM_PAYMENT_METHOD_DETAILS = "wallet_payment_method_details";
   public static final String RAKAM_PAYMENT_BILLING = "wallet_payment_billing";
+  public static final String EVENT_REVENUE_CURRENCY = "EUR";
   private static final String WALLET = "WALLET";
   private static final String EVENT_PACKAGE_NAME = "package_name";
   private static final String EVENT_SKU = "sku";
@@ -44,7 +47,7 @@ public class BillingAnalytics implements EventSender {
   private static final int MAX_CHARACTERS = 100;
   private final AnalyticsManager analytics;
 
-  public BillingAnalytics(AnalyticsManager analytics) {
+  public @Inject BillingAnalytics(AnalyticsManager analytics) {
     this.analytics = analytics;
   }
 

@@ -2,9 +2,14 @@ package com.asfoundation.wallet.billing.partners
 
 import android.content.Context
 import android.os.Build
+import dagger.hilt.android.qualifiers.ApplicationContext
 import io.reactivex.Single
+import it.czerwinski.android.hilt.annotations.BoundTo
+import javax.inject.Inject
 
-class InstallerSourceService(val context: Context) : InstallerService {
+@BoundTo(supertype = InstallerService::class)
+class InstallerSourceService @Inject constructor(@ApplicationContext val context: Context) :
+    InstallerService {
 
   override fun getInstallerPackageName(appPackageName: String): Single<String> {
     try {

@@ -3,8 +3,9 @@ package cm.aptoide.skills.util
 import android.net.Uri
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
+import javax.inject.Inject
 
-class EskillsUriParser {
+class EskillsUriParser @Inject constructor() {
   fun parse(uri: Uri): EskillsPaymentData {
     val scheme = uri.scheme
     val host = uri.host

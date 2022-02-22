@@ -7,6 +7,7 @@ import com.asfoundation.wallet.repository.WalletRepositoryType;
 import io.reactivex.Completable;
 import io.reactivex.Scheduler;
 import io.reactivex.Single;
+import javax.inject.Inject;
 
 import static com.asfoundation.wallet.interact.rx.operator.Operators.completableErrorProxy;
 
@@ -15,7 +16,7 @@ public class WalletCreatorInteract {
   private final WalletRepositoryType walletRepository;
   private final PasswordStore passwordStore;
 
-  public WalletCreatorInteract(WalletRepositoryType walletRepository, PasswordStore passwordStore, Scheduler syncScheduler) {
+  public @Inject WalletCreatorInteract(WalletRepositoryType walletRepository, PasswordStore passwordStore) {
     this.walletRepository = walletRepository;
     this.passwordStore = passwordStore;
   }

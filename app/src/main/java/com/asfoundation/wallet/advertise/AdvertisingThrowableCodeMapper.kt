@@ -2,8 +2,9 @@ package com.asfoundation.wallet.advertise
 
 import retrofit2.HttpException
 import java.net.UnknownHostException
+import javax.inject.Inject
 
-class AdvertisingThrowableCodeMapper {
+class AdvertisingThrowableCodeMapper @Inject constructor() {
   internal fun map(throwable: Throwable): Advertising.CampaignAvailabilityType {
     return when (throwable) {
       is HttpException -> {

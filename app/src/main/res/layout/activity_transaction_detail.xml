@@ -315,6 +315,34 @@
           tools:text="0xDEADBEEFDEADBEEFDEADBEEFDEADBEEFDEADBEEFDEADBEEFDEADBEEFDEADBEEF"
           />
 
+      <TextView
+          android:id="@+id/from_label"
+          style="@style/TransactionDetailsTextStyle"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="@dimen/half_large_margin"
+          android:layout_marginTop="@dimen/big_margin"
+          android:text="@string/label_from"
+          android:visibility="gone"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toBottomOf="@id/to_label"
+          />
+
+      <TextView
+          android:id="@+id/from"
+          style="@style/TransactionDetailsTextStyle.Content.Address"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginEnd="@dimen/half_large_margin"
+          android:singleLine="true"
+          android:visibility="gone"
+          app:layout_constrainedWidth="true"
+          app:layout_constraintBottom_toBottomOf="@id/from_label"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toEndOf="@id/guideline_mid"
+          tools:text="0xDEADBEEFDEADBEEFDEADBEEFDEADBEEFDEADBEEFDEADBEEFDEADBEEFDEADBEEF"
+          />
+
       <com.asfoundation.wallet.ui.common.SeparatorView
           android:id="@+id/bottom_separator"
           android:layout_width="match_parent"
@@ -324,7 +352,7 @@
           android:layout_marginEnd="32dp"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toBottomOf="@id/to_label"
+          app:layout_constraintTop_toBottomOf="@id/from_label"
           />
 
       <TextView

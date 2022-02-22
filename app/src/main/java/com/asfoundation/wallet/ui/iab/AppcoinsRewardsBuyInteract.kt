@@ -6,12 +6,14 @@ import com.asfoundation.wallet.verification.ui.credit_card.WalletVerificationInt
 import com.asfoundation.wallet.wallet_blocked.WalletBlockedInteract
 import io.reactivex.Completable
 import io.reactivex.Single
+import javax.inject.Inject
 
-class AppcoinsRewardsBuyInteract(private val inAppPurchaseInteractor: InAppPurchaseInteractor,
-                                 private val supportInteractor: SupportInteractor,
-                                 private val walletService: WalletService,
-                                 private val walletBlockedInteract: WalletBlockedInteract,
-                                 private val walletVerificationInteractor: WalletVerificationInteractor) {
+class AppcoinsRewardsBuyInteract @Inject constructor(
+    private val inAppPurchaseInteractor: InAppPurchaseInteractor,
+    private val supportInteractor: SupportInteractor,
+    private val walletService: WalletService,
+    private val walletBlockedInteract: WalletBlockedInteract,
+    private val walletVerificationInteractor: WalletVerificationInteractor) {
 
   fun isWalletBlocked() = walletBlockedInteract.isWalletBlocked()
 

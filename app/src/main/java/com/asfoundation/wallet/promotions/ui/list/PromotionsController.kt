@@ -7,7 +7,7 @@ import com.asfoundation.wallet.util.CurrencyFormatUtils
 
 class PromotionsController : TypedEpoxyController<PromotionsModel>() {
 
-  private val currencyFormatUtils = CurrencyFormatUtils.create()
+  private val currencyFormatUtils = CurrencyFormatUtils()
 
   var clickListener: ((PromotionClick) -> Unit)? = null
 

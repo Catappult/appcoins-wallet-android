@@ -11,12 +11,13 @@ import com.google.gson.annotations.SerializedName
 import io.reactivex.Completable
 import io.reactivex.Single
 import retrofit2.http.*
+import javax.inject.Inject
 
-class AdyenPaymentRepository(private val adyenApi: AdyenApi,
-                             private val bdsApi: RemoteRepository.BdsApi,
-                             private val subscriptionsApi: SubscriptionBillingApi,
-                             private val adyenResponseMapper: AdyenResponseMapper,
-                             private val logger: Logger) {
+class AdyenPaymentRepository @Inject constructor(private val adyenApi: AdyenApi,
+                                                 private val brokerBdsApi: RemoteRepository.BrokerBdsApi,
+                                                 private val subscriptionsApi: SubscriptionBillingApi,
+                                                 private val adyenResponseMapper: AdyenResponseMapper,
+                                                 private val logger: Logger) {
 
   fun loadPaymentInfo(methods: Methods, value: String,
                       currency: String, walletAddress: String): Single<PaymentInfoModel> {
@@ -95,7 +96,7 @@ class AdyenPaymentRepository(private val adyenApi: AdyenApi,
 
   fun getTransaction(uid: String, walletAddress: String,
                      signedWalletAddress: String): Single<PaymentModel> {
-    return bdsApi.getAppcoinsTransaction(uid, walletAddress, signedWalletAddress)
+    return brokerBdsApi.getAppcoinsTransaction(uid, walletAddress, signedWalletAddress)
         .map { adyenResponseMapper.map(it) }
         .onErrorReturn {
           logger.log("AdyenPaymentRepository", it)
@@ -105,7 +106,7 @@ class AdyenPaymentRepository(private val adyenApi: AdyenApi,
 
   interface AdyenApi {
 
-    @GET("payment-methods")
+    @GET("8.20200815/gateways/adyen_v2/payment-methods")
     fun loadPaymentInfo(@Query("wallet.address") walletAddress: String,
                         @Query("price.value") value: String,
                         @Query("price.currency") currency: String,
@@ -113,29 +114,29 @@ class AdyenPaymentRepository(private val adyenApi: AdyenApi,
     ): Single<PaymentMethodsResponse>
 
 
-    @GET("transactions/{uid}")
+    @GET("8.20200815/gateways/adyen_v2/transactions/{uid}")
     fun getTransaction(@Path("uid") uid: String, @Query("wallet.address") walletAddress: String,
                        @Query("wallet.signature")
                        walletSignature: String): Single<TransactionResponse>
 
-    @POST("transactions")
+    @POST("8.20200815/gateways/adyen_v2/transactions")
     fun makePayment(@Query("wallet.address") walletAddress: String,
                     @Query("wallet.signature") walletSignature: String,
                     @Body payment: Payment): Single<AdyenTransactionResponse>
 
     @Headers("Content-Type: application/json;format=product_token")
-    @POST("transactions")
+    @POST("8.20200815/gateways/adyen_v2/transactions")
     fun makeTokenPayment(@Query("wallet.address") walletAddress: String,
                          @Query("wallet.signature") walletSignature: String,
                          @Body payment: TokenPayment): Single<AdyenTransactionResponse>
 
-    @PATCH("transactions/{uid}")
+    @PATCH("8.20200815/gateways/adyen_v2/transactions/{uid}")
     fun submitRedirect(@Path("uid") uid: String,
                        @Query("wallet.address") address: String,
                        @Query("wallet.signature") signature: String,
                        @Body payment: AdyenPayment): Single<AdyenTransactionResponse>
 
-    @POST("disable-recurring")
+    @POST("8.20200815/gateways/adyen_v2/disable-recurring")
     fun disablePayments(@Body wallet: DisableWallet): Completable
   }
 

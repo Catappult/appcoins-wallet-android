@@ -4,8 +4,9 @@ import com.asfoundation.wallet.change_currency.ChangeFiatCurrency
 import com.asfoundation.wallet.change_currency.FiatCurrenciesRepository
 import com.asfoundation.wallet.service.currencies.LocalCurrencyConversionService
 import io.reactivex.Single
+import javax.inject.Inject
 
-class GetChangeFiatCurrencyModelUseCase(
+class GetChangeFiatCurrencyModelUseCase @Inject constructor(
     private val fiatCurrenciesRepository: FiatCurrenciesRepository,
     private val conversionService: LocalCurrencyConversionService) {
 

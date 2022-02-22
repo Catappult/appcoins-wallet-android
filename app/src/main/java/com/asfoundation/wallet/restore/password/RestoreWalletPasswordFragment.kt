@@ -12,14 +12,16 @@ import com.asf.wallet.R
 import com.asfoundation.wallet.restore.RestoreWalletActivityView
 import com.asfoundation.wallet.util.CurrencyFormatUtils
 import com.asfoundation.wallet.util.RestoreErrorType
+import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import com.jakewharton.rxbinding2.view.RxView
-import dagger.android.support.DaggerFragment
+import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.Observable
 import kotlinx.android.synthetic.main.fragment_restore_wallet_password.*
 import kotlinx.android.synthetic.main.wallet_outlined_card.*
 import javax.inject.Inject
 
-class RestoreWalletPasswordFragment : DaggerFragment(), RestoreWalletPasswordView {
+@AndroidEntryPoint
+class RestoreWalletPasswordFragment : BasePageViewFragment(), RestoreWalletPasswordView {
 
   @Inject
   lateinit var currencyFormatUtils: CurrencyFormatUtils

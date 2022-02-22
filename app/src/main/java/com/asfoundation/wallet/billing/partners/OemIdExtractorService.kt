@@ -3,11 +3,11 @@ package com.asfoundation.wallet.billing.partners
 import android.content.Context
 import android.content.pm.PackageManager
 import io.reactivex.Single
+import javax.inject.Inject
 
 
-class OemIdExtractorService(
-    private val extractorV1: IExtractOemId,
-    private val extractorV2: IExtractOemId) {
+class OemIdExtractorService @Inject constructor(private val extractorV1: OemIdExtractorV1,
+                                                private val extractorV2: OemIdExtractorV2) {
 
   fun extractOemId(packageName: String): Single<String> {
     return extractorV2.extract(packageName)

@@ -13,8 +13,10 @@ import com.appcoins.wallet.billing.AppcoinsBillingBinder.Companion.INAPP_PURCHAS
 import com.appcoins.wallet.billing.AppcoinsBillingBinder.Companion.INAPP_PURCHASE_ID
 import retrofit2.HttpException
 import java.io.IOException
+import javax.inject.Inject
 
-class BillingMessagesMapper(private val billingSerializer: ExternalBillingSerializer) {
+class BillingMessagesMapper @Inject constructor(
+    private val billingSerializer: ExternalBillingSerializer) {
 
   companion object {
     internal const val TRANSACTION_HASH = "transaction_hash"

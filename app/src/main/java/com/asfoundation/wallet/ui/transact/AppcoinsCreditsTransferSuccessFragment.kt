@@ -10,12 +10,14 @@ import com.asfoundation.wallet.ui.ActivityResultSharer
 import com.asfoundation.wallet.util.CurrencyFormatUtils
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import com.jakewharton.rxbinding2.view.RxView
+import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.transact_success_fragment_layout.*
 import java.math.BigDecimal
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class AppcoinsCreditsTransferSuccessFragment : BasePageViewFragment(),
     AppcoinsCreditsTransactSuccessView {
   companion object {
@@ -41,9 +43,9 @@ class AppcoinsCreditsTransferSuccessFragment : BasePageViewFragment(),
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-    val amount = arguments!!.getSerializable(AMOUNT_SENT_KEY) as BigDecimal
-    val currency = arguments!!.getString(CURRENCY_KEY)!!
-    val toAddress = arguments!!.getString(TO_ADDRESS_KEY)!!
+    val amount = requireArguments().getSerializable(AMOUNT_SENT_KEY) as BigDecimal
+    val currency = requireArguments().getString(CURRENCY_KEY)!!
+    val toAddress = requireArguments().getString(TO_ADDRESS_KEY)!!
     presenter = AppcoinsCreditsTransactSuccessPresenter(this, amount, currency, toAddress,
         CompositeDisposable(), formatter)
   }

@@ -1,6 +1,10 @@
 package com.asfoundation.wallet.abtesting
 
-class ABTestCacheValidator(private val localCache: HashMap<String, ExperimentModel>) {
+import javax.inject.Inject
+import javax.inject.Named
+
+class ABTestCacheValidator @Inject constructor(
+    @Named("ab-test-local-cache") private val localCache: HashMap<String, ExperimentModel>) {
 
   fun isCacheValid(experimentId: String): Boolean {
     return localCache.containsKey(experimentId) && !localCache[experimentId]!!.hasError &&

@@ -20,43 +20,43 @@ internal class Erc681ReceiverPresenter(private val view: Erc681ReceiverView,
   fun present(savedInstanceState: Bundle?) {
     if (savedInstanceState == null) {
       disposables.add(
-          handleWalletCreationIfNeeded()
-              .takeUntil { it != WalletGetterStatus.CREATING.toString() }
-              .flatMap {
-                transferParser.parse(data)
-                    .map { transactionBuilder ->
-                      var callingPackage = transactionBuilder.domain
-                      if (callingPackage == null) callingPackage = view.getCallingPackage()
-                      transactionBuilder.domain = callingPackage
-                      transactionBuilder.productName = productName
-                      transactionBuilder
-                    }
-                    .flatMap { transactionBuilder ->
-                      inAppPurchaseInteractor.isWalletFromBds(transactionBuilder.domain,
-                          transactionBuilder.toAddress())
-                          .doOnSuccess { isBds -> view.startEipTransfer(transactionBuilder, isBds) }
-                    }
-                    .toObservable()
-
+        handleWalletCreationIfNeeded()
+          .takeUntil { it != WalletGetterStatus.CREATING.toString() }
+          .flatMap {
+            transferParser.parse(data)
+              .map { transactionBuilder ->
+                var callingPackage = transactionBuilder.domain
+                if (callingPackage == null) callingPackage = view.getCallingPackage()
+                transactionBuilder.domain = callingPackage
+                transactionBuilder.productName = productName
+                transactionBuilder
               }
-              .subscribe({ }, { view.startApp(it) })
+              .flatMap { transactionBuilder ->
+                inAppPurchaseInteractor.isWalletFromBds(transactionBuilder.domain,
+                  transactionBuilder.toAddress())
+                  .doOnSuccess { isBds -> view.startEipTransfer(transactionBuilder, isBds) }
+              }
+              .toObservable()
+
+          }
+          .subscribe({ }, { view.startApp(it) })
       )
     }
   }
 
   private fun handleWalletCreationIfNeeded(): Observable<String> {
     return walletService.findWalletOrCreate()
-        .observeOn(viewScheduler)
-        .doOnNext {
-          if (it == WalletGetterStatus.CREATING.toString()) {
-            view.showLoadingAnimation()
-          }
+      .observeOn(viewScheduler)
+      .doOnNext {
+        if (it == WalletGetterStatus.CREATING.toString()) {
+          view.showLoadingAnimation()
         }
-        .filter { it != WalletGetterStatus.CREATING.toString() }
-        .map {
-          view.endAnimation()
-          it
-        }
+      }
+      .filter { it != WalletGetterStatus.CREATING.toString() }
+      .map {
+        view.endAnimation()
+        it
+      }
   }
 
   fun pause() {

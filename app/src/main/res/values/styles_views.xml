@@ -23,7 +23,7 @@
     <attr format="boolean" name="buttonCaps" />
   </declare-styleable>
 
-  <declare-styleable name="ToolbarTextSwitcher">
+  <declare-styleable name="AnimatedTextSwitcher">
     <attr format="string" name="toolbarText" />
   </declare-styleable>
 

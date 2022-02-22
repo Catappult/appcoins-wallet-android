@@ -14,7 +14,7 @@ public class TaggedCompositeDisposableTest {
   private TaggedCompositeDisposable compositeDisposable;
 
   @Before public void before() {
-    compositeDisposable = new TaggedCompositeDisposable(new HashMap<>());
+    compositeDisposable = new TaggedCompositeDisposable();
   }
 
   @Test public void addGet() {

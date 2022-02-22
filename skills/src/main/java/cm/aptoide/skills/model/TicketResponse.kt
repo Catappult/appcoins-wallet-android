@@ -41,5 +41,8 @@ data class TicketResponse(
     val paymentTransaction: String,
 
     @SerializedName("room_id")
-    val roomId: String?
+    val roomId: String?,
+
+    @SerializedName("queue_id")
+    val queueId: String?,
 )

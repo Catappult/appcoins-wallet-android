@@ -6,8 +6,9 @@ import com.asfoundation.wallet.promotions.PromotionUpdateScreen
 import com.asfoundation.wallet.promotions.model.GamificationItem
 import com.asfoundation.wallet.promotions.model.PerkPromotion
 import com.asfoundation.wallet.promotions.model.Promotion
+import javax.inject.Inject
 
-class SetSeenPromotionsUseCase(val promotionsRepository: PromotionsRepository) {
+class SetSeenPromotionsUseCase @Inject constructor(val promotionsRepository: PromotionsRepository) {
 
   operator fun invoke(promotions: List<Promotion>, wallet: String) {
     promotions.forEach {

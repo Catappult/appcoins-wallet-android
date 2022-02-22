@@ -8,8 +8,9 @@ import io.reactivex.Observable
 import io.reactivex.Single
 import java.math.BigDecimal
 import java.net.UnknownHostException
+import javax.inject.Inject
 
-class Gamification(private val repository: PromotionsRepository) {
+class Gamification @Inject constructor(private val repository: PromotionsRepository) {
 
   companion object {
     const val GAMIFICATION_ID = "GAMIFICATION"

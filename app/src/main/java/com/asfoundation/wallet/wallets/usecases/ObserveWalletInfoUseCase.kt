@@ -5,9 +5,11 @@ import com.asfoundation.wallet.wallets.domain.WalletInfo
 import com.asfoundation.wallet.wallets.repository.WalletInfoRepository
 import io.reactivex.Observable
 import io.reactivex.Single
+import javax.inject.Inject
 
-class ObserveWalletInfoUseCase(private val walletInfoRepository: WalletInfoRepository,
-                               private val getCurrentWalletUseCase: GetCurrentWalletUseCase) {
+class ObserveWalletInfoUseCase @Inject constructor(
+    private val walletInfoRepository: WalletInfoRepository,
+    private val getCurrentWalletUseCase: GetCurrentWalletUseCase) {
 
   /**
    * Observes WalletInfo

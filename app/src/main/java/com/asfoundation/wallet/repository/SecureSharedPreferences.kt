@@ -4,11 +4,16 @@ import android.content.Context
 import android.content.SharedPreferences
 import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKey
+import dagger.hilt.android.qualifiers.ApplicationContext
+import javax.inject.Inject
+import javax.inject.Singleton
 
 /**
  * Used to store and retrieve sensitive data as SharedPreferences
  */
-class SecureSharedPreferences(private val context: Context) {
+@Singleton
+class SecureSharedPreferences @Inject constructor(
+    @ApplicationContext private val context: Context) {
 
   companion object {
     const val FILE_NAME = "sec_shr_prf"

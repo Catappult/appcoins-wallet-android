@@ -9,6 +9,7 @@ import com.appcoins.wallet.billing.adyen.AdyenPaymentRepository
 import com.appcoins.wallet.billing.adyen.PaymentInfoModel
 import com.appcoins.wallet.billing.adyen.PaymentModel
 import com.appcoins.wallet.billing.util.Error
+import com.asfoundation.wallet.base.RxSchedulers
 import com.asfoundation.wallet.billing.address.BillingAddressRepository
 import com.asfoundation.wallet.billing.partners.AddressService
 import com.asfoundation.wallet.promo_code.use_cases.GetCurrentPromoCodeUseCase
@@ -24,19 +25,20 @@ import io.reactivex.Scheduler
 import io.reactivex.Single
 import io.reactivex.functions.BiFunction
 import java.util.concurrent.TimeUnit
+import javax.inject.Inject
 
-class AdyenPaymentInteractor(private val adyenPaymentRepository: AdyenPaymentRepository,
-                             private val inAppPurchaseInteractor: InAppPurchaseInteractor,
-                             private val billingMessagesMapper: BillingMessagesMapper,
-                             private val partnerAddressService: AddressService,
-                             private val walletService: WalletService,
-                             private val supportInteractor: SupportInteractor,
-                             private val walletBlockedInteract: WalletBlockedInteract,
-                             private val walletVerificationInteractor: WalletVerificationInteractor,
-                             private val billingAddressRepository: BillingAddressRepository,
-                             private val getCurrentPromoCodeUseCase: GetCurrentPromoCodeUseCase,
-                             private val networkThread: Scheduler
-) {
+class AdyenPaymentInteractor @Inject constructor(
+    private val adyenPaymentRepository: AdyenPaymentRepository,
+    private val inAppPurchaseInteractor: InAppPurchaseInteractor,
+    private val billingMessagesMapper: BillingMessagesMapper,
+    private val partnerAddressService: AddressService,
+    private val walletService: WalletService,
+    private val supportInteractor: SupportInteractor,
+    private val walletBlockedInteract: WalletBlockedInteract,
+    private val walletVerificationInteractor: WalletVerificationInteractor,
+    private val billingAddressRepository: BillingAddressRepository,
+    private val getCurrentPromoCodeUseCase: GetCurrentPromoCodeUseCase,
+    private val rxSchedulers: RxSchedulers) {
 
   fun forgetBillingAddress() = billingAddressRepository.forgetBillingAddress()
 
@@ -135,7 +137,7 @@ class AdyenPaymentInteractor(private val adyenPaymentRepository: AdyenPaymentRep
   fun getAuthorisedTransaction(uid: String): Observable<PaymentModel> {
     return walletService.getAndSignCurrentWalletAddress()
         .flatMapObservable { walletAddressModel ->
-          Observable.interval(0, 10, TimeUnit.SECONDS, networkThread)
+          Observable.interval(0, 10, TimeUnit.SECONDS, rxSchedulers.io)
               .timeInterval()
               .switchMap {
                 adyenPaymentRepository.getTransaction(uid, walletAddressModel.address,
@@ -153,7 +155,7 @@ class AdyenPaymentInteractor(private val adyenPaymentRepository: AdyenPaymentRep
           .flatMap { walletAddressModel ->
             Single.zip(adyenPaymentRepository.getTransaction(uid, walletAddressModel.address,
                 walletAddressModel.signedAddress),
-                Single.timer(REQUEST_INTERVAL_IN_SECONDS, TimeUnit.SECONDS, networkThread),
+                Single.timer(REQUEST_INTERVAL_IN_SECONDS, TimeUnit.SECONDS, rxSchedulers.io),
                 BiFunction { paymentModel: PaymentModel, _: Long -> paymentModel })
           }
           .flatMap {

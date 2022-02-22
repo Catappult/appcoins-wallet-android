@@ -3,10 +3,11 @@ package com.asfoundation.wallet.analytics
 import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import com.asf.wallet.BuildConfig
+import javax.inject.Inject
 
-class LaunchInteractor(private val launchAnalytics: LaunchAnalytics,
-                       private val sharedPreferences: SharedPreferences,
-                       private val packageManager: PackageManager) {
+class LaunchInteractor @Inject constructor(private val launchAnalytics: LaunchAnalytics,
+                                           private val sharedPreferences: SharedPreferences,
+                                           private val packageManager: PackageManager) {
 
   companion object {
     const val FIRST_LAUNCH_KEY = "first_launch"

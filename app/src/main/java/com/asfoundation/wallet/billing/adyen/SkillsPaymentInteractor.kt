@@ -4,11 +4,11 @@ import com.appcoins.wallet.bdsbilling.WalletService
 import com.appcoins.wallet.billing.adyen.PaymentModel
 import com.appcoins.wallet.billing.skills.SkillsPaymentRepository
 import io.reactivex.Single
+import javax.inject.Inject
 
-class SkillsPaymentInteractor(
+class SkillsPaymentInteractor @Inject constructor(
     private val skillsPaymentRepository: SkillsPaymentRepository,
-    private val walletService: WalletService
-) {
+    private val walletService: WalletService) {
 
   fun makeSkillsPayment(returnUrl: String, productToken: String,
                         encryptedCardNumber: String?, encryptedExpiryMonth: String?,

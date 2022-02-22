@@ -9,13 +9,15 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import com.asf.wallet.R
-import com.asfoundation.wallet.di.DaggerBottomSheetDialogFragment
 import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.jakewharton.rxbinding2.view.RxView
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.ether_transaction_bottom_sheet.*
 import javax.inject.Inject
 
-class EtherTransactionBottomSheetFragment : DaggerBottomSheetDialogFragment(),
+@AndroidEntryPoint
+class EtherTransactionBottomSheetFragment : BottomSheetDialogFragment(),
     EtherTransactionBottomSheetView {
 
   @Inject

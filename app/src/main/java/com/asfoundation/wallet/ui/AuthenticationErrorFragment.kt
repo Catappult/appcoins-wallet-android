@@ -10,10 +10,12 @@ import com.asf.wallet.R
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.jakewharton.rxbinding2.view.RxView
+import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.authentication_error_fragment.*
 import kotlinx.android.synthetic.main.fragment_balance.faded_background
 
+@AndroidEntryPoint
 class AuthenticationErrorFragment : BasePageViewFragment(), AuthenticationErrorView {
 
   private lateinit var presenter: AuthenticationErrorPresenter
@@ -21,8 +23,8 @@ class AuthenticationErrorFragment : BasePageViewFragment(), AuthenticationErrorV
   private lateinit var authenticationBottomSheet: BottomSheetBehavior<View>
 
   private val errorTimer: Long by lazy {
-    if (arguments!!.containsKey(ERROR_TIMER_KEY)) {
-      arguments!!.getLong(ERROR_TIMER_KEY, 0)
+    if (requireArguments().containsKey(ERROR_TIMER_KEY)) {
+      requireArguments().getLong(ERROR_TIMER_KEY, 0)
     } else {
       throw IllegalArgumentException("Error message not found")
     }

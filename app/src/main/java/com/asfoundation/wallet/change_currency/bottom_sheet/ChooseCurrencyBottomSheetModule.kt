@@ -1,10 +1,14 @@
 package com.asfoundation.wallet.change_currency.bottom_sheet
 
+import androidx.fragment.app.Fragment
 import com.asfoundation.wallet.change_currency.use_cases.SetSelectedCurrencyUseCase
 import dagger.Module
 import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.android.components.FragmentComponent
 import io.reactivex.schedulers.Schedulers
 
+@InstallIn(FragmentComponent::class)
 @Module
 class ChooseCurrencyBottomSheetModule {
 
@@ -17,7 +21,7 @@ class ChooseCurrencyBottomSheetModule {
 
   @Provides
   fun providesChooseCurrencyBottomSheetData(
-      fragment: ChooseCurrencyBottomSheetFragment): ChooseCurrencyBottomSheetData {
+      fragment: Fragment): ChooseCurrencyBottomSheetData {
     fragment.requireArguments()
         .apply {
           return ChooseCurrencyBottomSheetData(
@@ -26,11 +30,5 @@ class ChooseCurrencyBottomSheetModule {
               getString(ChooseCurrencyBottomSheetFragment.LABEL) as String,
               getString(ChooseCurrencyBottomSheetFragment.SIGN) as String)
         }
-  }
-
-  @Provides
-  fun providesChooseCurrencyBottomSheetNavigator(
-      fragment: ChooseCurrencyBottomSheetFragment): ChooseCurrencyBottomSheetNavigator {
-    return ChooseCurrencyBottomSheetNavigator(fragment)
   }
 }

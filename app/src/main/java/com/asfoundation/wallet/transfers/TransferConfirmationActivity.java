@@ -1,5 +1,8 @@
 package com.asfoundation.wallet.transfers;
 
+import static com.asfoundation.wallet.C.EXTRA_GAS_SETTINGS;
+import static com.asfoundation.wallet.C.EXTRA_TRANSACTION_BUILDER;
+import static com.asfoundation.wallet.C.GWEI_UNIT;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -10,7 +13,7 @@ import android.widget.TextView;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.core.content.res.ResourcesCompat;
-import androidx.lifecycle.ViewModelProviders;
+import androidx.lifecycle.ViewModelProvider;
 import com.asf.wallet.R;
 import com.asfoundation.wallet.C;
 import com.asfoundation.wallet.entity.ErrorEnvelope;
@@ -25,22 +28,16 @@ import com.asfoundation.wallet.util.WalletCurrency;
 import com.asfoundation.wallet.viewmodel.GasSettingsViewModel;
 import com.asfoundation.wallet.viewmodel.TransferConfirmationViewModel;
 import com.asfoundation.wallet.viewmodel.TransferConfirmationViewModelFactory;
-import dagger.android.AndroidInjection;
-import java.math.BigDecimal;
-import java.math.BigInteger;
+import dagger.hilt.android.AndroidEntryPoint;
 import javax.inject.Inject;
 
-import static com.asfoundation.wallet.C.EXTRA_GAS_SETTINGS;
-import static com.asfoundation.wallet.C.EXTRA_TRANSACTION_BUILDER;
-import static com.asfoundation.wallet.C.GWEI_UNIT;
-
-public class TransferConfirmationActivity extends BaseActivity {
+@AndroidEntryPoint public class TransferConfirmationActivity extends BaseActivity {
   private static final String TAG = TransferConfirmationActivity.class.getSimpleName();
 
   AlertDialog dialog;
-  @Inject TransferConfirmationViewModelFactory transferConfirmationViewModelFactory;
   CurrencyFormatUtils currencyFormatUtils;
-  TransferConfirmationViewModel viewModel;
+  @Inject TransferConfirmationViewModelFactory viewModelFactory;
+  private TransferConfirmationViewModel viewModel;
   private TextView fromAddressText;
   private TextView toAddressText;
   private TextView valueText;
@@ -50,13 +47,11 @@ public class TransferConfirmationActivity extends BaseActivity {
   private Button sendButton;
 
   @Override protected void onCreate(@Nullable Bundle savedInstanceState) {
-    AndroidInjection.inject(this);
-
     super.onCreate(savedInstanceState);
 
     setContentView(R.layout.activity_confirm);
     toolbar();
-    currencyFormatUtils = CurrencyFormatUtils.Companion.create();
+    currencyFormatUtils = new CurrencyFormatUtils();
     fromAddressText = findViewById(R.id.text_from);
     toAddressText = findViewById(R.id.text_to);
     valueText = findViewById(R.id.text_value);
@@ -66,7 +61,7 @@ public class TransferConfirmationActivity extends BaseActivity {
     sendButton = findViewById(R.id.send_button);
     sendButton.setOnClickListener(view -> onSend());
 
-    viewModel = ViewModelProviders.of(this, transferConfirmationViewModelFactory)
+    viewModel = new ViewModelProvider(this, viewModelFactory)
         .get(TransferConfirmationViewModel.class);
     viewModel.transactionBuilder()
         .observe(this, this::onTransactionBuilder);
@@ -110,13 +105,8 @@ public class TransferConfirmationActivity extends BaseActivity {
     int smallTitleSize = (int) getResources().getDimension(R.dimen.small_text);
     int color = getResources().getColor(R.color.color_grey_9e);
     valueText.setText(BalanceUtils.formatBalance(value, symbol, smallTitleSize, color));
-    BigDecimal gasLimitMin = BigDecimal.valueOf(C.GAS_LIMIT_MIN);
-    BigDecimal gasLimitMax = BigDecimal.valueOf(C.GAS_LIMIT_MAX);
-    BigDecimal gasPriceMin = BigDecimal.valueOf(C.GAS_PRICE_MIN);
-    BigInteger networkFeeMax = BigInteger.valueOf(C.NETWORK_FEE_MAX);
     final GasSettings gasSettings =
-        viewModel.handleSavedGasSettings(transactionBuilder.gasSettings().gasPrice, gasLimitMin,
-            networkFeeMax, gasPriceMin, gasLimitMax, transactionBuilder.gasSettings().gasLimit);
+        viewModel.handleSavedGasSettings(transactionBuilder.gasSettings().gasPrice, transactionBuilder.gasSettings().gasLimit);
 
     String formattedGasPrice = getString(R.string.gas_price_value,
         currencyFormatUtils.formatTransferCurrency(gasSettings.gasPrice, WalletCurrency.ETHEREUM),

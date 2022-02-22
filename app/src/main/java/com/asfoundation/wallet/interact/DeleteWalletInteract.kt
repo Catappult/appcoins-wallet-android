@@ -7,15 +7,16 @@ import com.asfoundation.wallet.repository.PasswordStore
 import com.asfoundation.wallet.repository.WalletRepositoryType
 import com.asfoundation.wallet.verification.ui.credit_card.WalletVerificationInteractor
 import io.reactivex.Completable
+import javax.inject.Inject
 
 /**
  * Delete and fetchTokens wallets
  */
-class DeleteWalletInteract(private val walletRepository: WalletRepositoryType,
-                           private val passwordStore: PasswordStore,
-                           private val walletVerificationInteractor: WalletVerificationInteractor,
-                           private val backupRestorePreferencesRepository: BackupRestorePreferencesRepository,
-                           private val fingerprintPreferences: FingerprintPreferencesRepositoryContract) {
+class DeleteWalletInteract @Inject constructor(private val walletRepository: WalletRepositoryType,
+                                               private val passwordStore: PasswordStore,
+                                               private val walletVerificationInteractor: WalletVerificationInteractor,
+                                               private val backupRestorePreferencesRepository: BackupRestorePreferencesRepository,
+                                               private val fingerprintPreferences: FingerprintPreferencesRepositoryContract) {
 
   fun delete(address: String): Completable {
     return passwordStore.getPassword(address)

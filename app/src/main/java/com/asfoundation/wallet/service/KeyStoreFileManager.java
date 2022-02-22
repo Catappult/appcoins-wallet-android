@@ -1,6 +1,8 @@
 package com.asfoundation.wallet.service;
 
+import android.content.Context;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import dagger.hilt.android.qualifiers.ApplicationContext;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -8,19 +10,23 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
+import javax.inject.Inject;
 import org.web3j.crypto.WalletFile;
 
 public class KeyStoreFileManager {
   private final String keystoreFolderPath;
   private final ObjectMapper mapper;
 
-  public KeyStoreFileManager(String keystoreFolderPath, ObjectMapper mapper) {
+  public @Inject KeyStoreFileManager(@ApplicationContext Context context, ObjectMapper mapper) {
+    File file = new File(context.getFilesDir(), "keystore/keystore");
     this.mapper = mapper;
-    new File(keystoreFolderPath).mkdirs();
-    if (keystoreFolderPath.charAt(keystoreFolderPath.length() - 1) == '/') {
-      this.keystoreFolderPath = keystoreFolderPath;
+    new File(file.getAbsolutePath()).mkdirs();
+    if (file.getAbsolutePath()
+        .charAt(file.getAbsolutePath()
+            .length() - 1) == '/') {
+      this.keystoreFolderPath = file.getAbsolutePath();
     } else {
-      this.keystoreFolderPath = keystoreFolderPath + "/";
+      this.keystoreFolderPath = file.getAbsolutePath() + "/";
     }
   }
 

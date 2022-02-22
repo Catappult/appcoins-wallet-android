@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.ui.transact
 
+import android.util.Log
 import com.appcoins.wallet.appcoins.rewards.AppcoinsRewardsRepository
 import com.asfoundation.wallet.entity.Wallet
 import com.asfoundation.wallet.ui.iab.RewardsManager
@@ -9,8 +10,9 @@ import com.asfoundation.wallet.wallets.usecases.GetWalletInfoUseCase
 import io.reactivex.Single
 import java.math.BigDecimal
 import java.net.UnknownHostException
+import javax.inject.Inject
 
-class TransferInteractor(private val rewardsManager: RewardsManager,
+class TransferInteractor @Inject constructor(private val rewardsManager: RewardsManager,
                          private val transactionDataValidator: TransactionDataValidator,
                          private val getWalletInfoUseCase: GetWalletInfoUseCase,
                          private val findDefaultWalletInteract: FindDefaultWalletInteract,
@@ -59,7 +61,7 @@ class TransferInteractor(private val rewardsManager: RewardsManager,
 
   fun validateEthTransferData(walletAddress: String,
                               amount: BigDecimal): Single<AppcoinsRewardsRepository.Status> {
-    return getWalletInfoUseCase(walletAddress, cached = false, updateFiat = false)
+    return getWalletInfoUseCase(null, cached = false, updateFiat = false)
         .map { walletInfo ->
           val ethAmount = walletInfo.walletBalance.ethBalance.token.amount
           validateData(transactionDataValidator.validateData(walletAddress, amount, ethAmount))
@@ -68,7 +70,7 @@ class TransferInteractor(private val rewardsManager: RewardsManager,
 
   fun validateAppcTransferData(walletAddress: String,
                                amount: BigDecimal): Single<AppcoinsRewardsRepository.Status> {
-    return getWalletInfoUseCase(walletAddress, cached = false, updateFiat = false)
+    return getWalletInfoUseCase(null, cached = false, updateFiat = false)
         .map { walletInfo ->
           val appcAmount = walletInfo.walletBalance.appcBalance.token.amount
           validateData(transactionDataValidator.validateData(walletAddress, amount, appcAmount))

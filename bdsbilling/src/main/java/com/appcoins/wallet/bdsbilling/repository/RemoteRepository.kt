@@ -14,7 +14,8 @@ import retrofit2.http.*
 import java.math.BigDecimal
 import java.util.*
 
-class RemoteRepository(private val inAppApi: BdsApi,
+class RemoteRepository(private val brokerBdsApi: BrokerBdsApi,
+                       private val inappBdsApi: InappBdsApi,
                        private val responseMapper: BdsApiResponseMapper,
                        private val bdsApiSecondary: BdsApiSecondary,
                        private val subsApi: SubscriptionBillingApi,
@@ -27,7 +28,7 @@ class RemoteRepository(private val inAppApi: BdsApi,
   }
 
   internal fun isBillingSupported(packageName: String): Single<Boolean> {
-    return inAppApi.getPackage(packageName,
+    return inappBdsApi.getPackage(packageName,
         BillingSupportedType.INAPP.name.toLowerCase(Locale.ROOT))
         .map { true } // If it's not supported it returns an error that is handle in BdsBilling.kt
   }
@@ -48,10 +49,10 @@ class RemoteRepository(private val inAppApi: BdsApi,
   private fun requestSkusDetails(packageName: String,
                                  skus: List<String>): Single<DetailsResponseBody> {
     return if (skus.size <= SKUS_DETAILS_REQUEST_LIMIT) {
-      inAppApi.getPackages(packageName, skus.joinToString(separator = ","))
+      inappBdsApi.getPackages(packageName, skus.joinToString(separator = ","))
     } else {
       Single.zip(
-          inAppApi.getPackages(packageName,
+        inappBdsApi.getPackages(packageName,
               skus.take(SKUS_DETAILS_REQUEST_LIMIT)
                   .joinToString(separator = ",")),
           requestSkusDetails(packageName, skus.drop(SKUS_DETAILS_REQUEST_LIMIT)),
@@ -79,7 +80,7 @@ class RemoteRepository(private val inAppApi: BdsApi,
 
   internal fun getSkuPurchase(packageName: String, skuId: String?, walletAddress: String,
                               walletSignature: String): Single<Purchase> {
-    return inAppApi.getSkuPurchase(packageName, skuId, walletAddress, walletSignature)
+    return inappBdsApi.getSkuPurchase(packageName, skuId, walletAddress, walletSignature)
         .map { inAppPurchase ->
           // TODO: Review this later, the actual response doesn't matter for now
           Purchase(inAppPurchase.uid, RemoteProduct(inAppPurchase.product.name), State.PENDING,
@@ -98,13 +99,13 @@ class RemoteRepository(private val inAppApi: BdsApi,
   internal fun getSkuTransaction(packageName: String, skuId: String?, walletAddress: String,
                                  walletSignature: String,
                                  type: BillingSupportedType): Single<TransactionsResponse> {
-    return inAppApi.getSkuTransaction(walletAddress, walletSignature, 0, type, 1,
+    return brokerBdsApi.getSkuTransaction(walletAddress, walletSignature, 0, type, 1,
         "latest", false, skuId, packageName)
   }
 
   internal fun getPurchases(packageName: String, walletAddress: String,
                             walletSignature: String): Single<List<Purchase>> {
-    return inAppApi.getPurchases(packageName, walletAddress, walletSignature,
+    return inappBdsApi.getPurchases(packageName, walletAddress, walletSignature,
         BillingSupportedType.INAPP.name.toLowerCase(Locale.ROOT))
         .map { responseMapper.map(packageName, it) }
   }
@@ -117,7 +118,7 @@ class RemoteRepository(private val inAppApi: BdsApi,
 
   internal fun consumePurchase(packageName: String, purchaseToken: String, walletAddress: String,
                                walletSignature: String): Single<Boolean> {
-    return inAppApi.consumePurchase(packageName, purchaseToken, walletAddress, walletSignature,
+    return inappBdsApi.consumePurchase(packageName, purchaseToken, walletAddress, walletSignature,
         Consumed())
         .toSingle { true }
   }
@@ -159,7 +160,7 @@ class RemoteRepository(private val inAppApi: BdsApi,
 
   fun registerPaymentProof(paymentId: String, paymentType: String, walletAddress: String,
                            walletSignature: String, paymentProof: String): Completable {
-    return inAppApi.patchTransaction(paymentType, paymentId, walletAddress, walletSignature,
+    return brokerBdsApi.patchTransaction(paymentType, paymentId, walletAddress, walletSignature,
         paymentProof)
   }
 
@@ -168,13 +169,13 @@ class RemoteRepository(private val inAppApi: BdsApi,
                                  currencyType: String?,
                                  direct: Boolean? = null,
                                  transactionType: String?): Single<List<PaymentMethodEntity>> {
-    return inAppApi.getPaymentMethods(value, currency, currencyType, direct, transactionType)
+    return brokerBdsApi.getPaymentMethods(value, currency, currencyType, direct, transactionType)
         .map { responseMapper.map(it) }
   }
 
   fun getAppcoinsTransaction(uid: String, address: String,
                              signedContent: String): Single<Transaction> {
-    return inAppApi.getAppcoinsTransaction(uid, address, signedContent)
+    return brokerBdsApi.getAppcoinsTransaction(uid, address, signedContent)
   }
 
   fun getWallet(packageName: String): Single<GetWalletResponse> {
@@ -199,7 +200,7 @@ class RemoteRepository(private val inAppApi: BdsApi,
                                     orderReference: String?, referrerUrl: String?,
                                     walletAddress: String,
                                     walletSignature: String): Single<Transaction> {
-    return inAppApi.createTransaction(origin, packageName, price, currency, productName, type,
+    return brokerBdsApi.createTransaction(origin, packageName, price, currency, productName, type,
         walletAddress, walletsDeveloper, entityOemId, entityDomain, entityPromoCode, paymentId,
         developerPayload,
         callback,
@@ -229,9 +230,9 @@ class RemoteRepository(private val inAppApi: BdsApi,
       val creditsPurchaseBody =
           CreditsPurchaseBody(callback, productToken)
 
-      return inAppApi.createTransaction(gateway, creditsPurchaseBody, walletAddress, signature)
+      return brokerBdsApi.createTransaction(gateway, creditsPurchaseBody, walletAddress, signature)
     } else {
-      return inAppApi.createTransaction(
+      return brokerBdsApi.createTransaction(
           gateway, origin, packageName, amount, currency, productName,
           type, userWallet, developerWallet, entityOemId, entityDomain, null, token,
           developerPayload,
@@ -240,24 +241,42 @@ class RemoteRepository(private val inAppApi: BdsApi,
     }
   }
 
-  interface BdsApi {
+  interface InappBdsApi{
 
-    @GET("inapp/8.20180518/packages/{packageName}")
+    @GET("8.20180518/packages/{packageName}")
     fun getPackage(@Path("packageName") packageName: String, @Query("type")
     type: String): Single<GetPackageResponse>
 
-    @GET("inapp/8.20180518/packages/{packageName}/products")
+    @GET("8.20180518/packages/{packageName}/products")
     fun getPackages(@Path("packageName") packageName: String,
                     @Query("names") names: String): Single<DetailsResponseBody>
 
-    @GET("inapp/8.20180518/packages/{packageName}/products/{skuId}/purchase")
+    @GET("8.20180518/packages/{packageName}/products/{skuId}/purchase")
     fun getSkuPurchase(@Path("packageName") packageName: String,
                        @Path("skuId") skuId: String?,
                        @Query("wallet.address") walletAddress: String,
                        @Query("wallet.signature")
                        walletSignature: String): Single<InappPurchaseResponse>
 
-    @GET("broker/8.20180518/transactions")
+    @GET("8.20180518/packages/{packageName}/purchases")
+    fun getPurchases(@Path("packageName") packageName: String,
+                     @Query("wallet.address") walletAddress: String,
+                     @Query("wallet.signature") walletSignature: String,
+                     @Query("type") type: String): Single<GetPurchasesResponse>
+
+    @Headers("Content-Type: application/json")
+    @PATCH("8.20180518/packages/{packageName}/purchases/{purchaseId}")
+    fun consumePurchase(@Path("packageName") packageName: String,
+                        @Path("purchaseId") purchaseToken: String,
+                        @Query("wallet.address") walletAddress: String,
+                        @Query("wallet.signature") walletSignature: String,
+                        @Body data: Consumed): Completable
+
+  }
+
+  interface BrokerBdsApi {
+
+    @GET("8.20180518/transactions")
     fun getSkuTransaction(
         @Query("wallet.address") walletAddress: String,
         @Query("wallet.signature") walletSignature: String,
@@ -270,26 +289,13 @@ class RemoteRepository(private val inAppApi: BdsApi,
         @Query("domain") packageName: String
     ): Single<TransactionsResponse>
 
-    @GET("broker/8.20180518/transactions/{uId}")
+    @GET("8.20180518/transactions/{uId}")
     fun getAppcoinsTransaction(@Path("uId") uId: String,
                                @Query("wallet.address") walletAddress: String,
                                @Query("wallet.signature")
                                walletSignature: String): Single<Transaction>
 
 
-    @GET("inapp/8.20180518/packages/{packageName}/purchases")
-    fun getPurchases(@Path("packageName") packageName: String,
-                     @Query("wallet.address") walletAddress: String,
-                     @Query("wallet.signature") walletSignature: String,
-                     @Query("type") type: String): Single<GetPurchasesResponse>
-
-    @Headers("Content-Type: application/json")
-    @PATCH("inapp/8.20180518/packages/{packageName}/purchases/{purchaseId}")
-    fun consumePurchase(@Path("packageName") packageName: String,
-                        @Path("purchaseId") purchaseToken: String,
-                        @Query("wallet.address") walletAddress: String,
-                        @Query("wallet.signature") walletSignature: String,
-                        @Body data: Consumed): Completable
 
     /**
      * @param value, value of purchase
@@ -300,7 +306,7 @@ class RemoteRepository(private val inAppApi: BdsApi,
      * if null no filter is applied by transactionType
      *
      */
-    @GET("broker/8.20210208/methods")
+    @GET("8.20210208/methods")
     fun getPaymentMethods(@Query("price.value") value: String? = null,
                           @Query("price.currency") currency: String? = null,
                           @Query("currency.type") currencyType: String? = null,
@@ -308,7 +314,7 @@ class RemoteRepository(private val inAppApi: BdsApi,
                           @Query("transaction.type") type: String?): Single<GetMethodsResponse>
 
     @FormUrlEncoded
-    @PATCH("broker/8.20200810/gateways/{gateway}/transactions/{uid}")
+    @PATCH("8.20200810/gateways/{gateway}/transactions/{uid}")
     fun patchTransaction(
         @Path("gateway") gateway: String,
         @Path("uid") uid: String, @Query("wallet.address") walletAddress: String,
@@ -321,7 +327,7 @@ class RemoteRepository(private val inAppApi: BdsApi,
      * @param walletAddress address of the user wallet
      * @param walletSignature signature obtained after signing the wallet
      */
-    @POST("broker/8.20200810/gateways/{gateway}/transactions")
+    @POST("8.20200810/gateways/{gateway}/transactions")
     @Headers("Content-Type: application/json; format=product_token")
     fun createTransaction(@Path("gateway") gateway: String,
                           @Body creditsPurchaseBody: CreditsPurchaseBody,
@@ -352,7 +358,7 @@ class RemoteRepository(private val inAppApi: BdsApi,
      * @param walletSignature signature obtained after signing the wallet
      */
     @FormUrlEncoded
-    @POST("broker/8.20200810/gateways/{gateway}/transactions")
+    @POST("8.20200810/gateways/{gateway}/transactions")
     fun createTransaction(@Path("gateway") gateway: String,
                           @Field("origin") origin: String?,
                           @Field("domain") domain: String,
@@ -397,7 +403,7 @@ class RemoteRepository(private val inAppApi: BdsApi,
      * @param walletSignature signature obtained after signing the wallet
      */
     @FormUrlEncoded
-    @POST("broker/8.20200810/gateways/myappcoins/transactions")
+    @POST("8.20200810/gateways/myappcoins/transactions")
     fun createTransaction(@Field("origin") origin: String?,
                           @Field("domain") domain: String,
                           @Field("price.value") priceValue: String?,
