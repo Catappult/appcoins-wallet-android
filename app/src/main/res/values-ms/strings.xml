@@ -525,6 +525,7 @@
   <string name="purchase_card_error_not_supported">Jenis kad anda masih belum disokong. Cuba dengan kad lain.</string>
   <string name="purchase_card_error_security">Anda pasti butiran keselamatan ini betul? Sila cuba lagi.</string>
   <string name="purchase_card_error_wrong_CVV">Kod CVV/CVC anda mungkin tidak betul. Sila cuba lagi.</string>
+  <string name="purchase_card_error_re_insert">It seems you registered this card long time ago! Insert the card details again or use a different one.</string>
   <string name="purchase_wallet_error_contact_us">Alamak, dompet anda ada masalah. Sila hubungi kami.</string>
   <string name="purchase_carrier_error">Nampaknya nombor telefon anda tidak serasi dengan kaedah pembayaran ini.</string>
   <string name="purchase_carrier_error_minimum">Operator anda tidak menyokong bayaran kurang daripada %s.</string>
