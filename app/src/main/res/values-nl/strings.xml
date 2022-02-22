@@ -120,7 +120,7 @@
   <string name="intro_2_title">Speel meer, betaal minder</string>
   <string name="intro_2_body">Krijg een beloning door items in je favoriete apps en games te kopen.</string>
   <string name="intro_3_title">Simpel en eenvoudig</string>
-  <string name="intro_3_body">Verwerk al je in-app aankopen met je favoriete betaalmethode.</string>
+  <string name="intro_3_body">Zorg ervoor dat je de AppCoins Wallet hebt geïnstalleerd om rechtstreeks in games te aankopen doen.</string>
   <string name="intro_4_title">Veilig en persoonlijk</string>
   <string name="intro_4_body">Je privésleutels staan alleen op jouw apparaat waardoor je AppCoins altijd beveiligd zijn.</string>
   <string name="intro_4_body_2">Al je transacties zijn altijd veilig dankzij de nieuwste technologie.</string>
@@ -401,7 +401,7 @@
   <string name="askafriend_share_add_message_body">Bericht toevoegen (optioneel)</string>
   <string name="askafriend_share_button">Delen</string>
   <string name="askafriend_share_popup_title">Vraag iemand via:</string>
-  <string name="askafriend_received_body">Je hebt zojuist %s APPC-C ontvangen</string>
+  <string name="askafriend_received_body">You just received %s AppCoins Credits</string>
   <string name="askafriend_notification_received_title">Nieuwe transactie ontvangen</string>
   <string name="askafriend_notification_received_body">Er zijn %1$s %2$s aan je wallet toegevoegd.</string>
   <string name="askafriend_received_title">Overdracht ontvangen</string>
@@ -984,7 +984,7 @@
   <string name="e_skills_withdraw_title">e-Skills uitbetalen</string>
   <string name="e_skills_withdraw_invalid_email_error_message">Ongeldig e-mailadres</string>
   <string name="e_skills_withdraw_not_enough_balance_error_message">Onvoldoende saldo</string>
-  <string name="e_skills_withdraw_not_enough_earnings_error_message">Je kunt alleen saldo laten uitbetalen dat je in games met e-Skills hebt verdiend</string>
+  <string name="e_skills_withdraw_not_enough_earnings_error_message">You haven\'t won enough e-Skills games to withdraw that amount</string>
   <string name="e_skills_withdraw_minimum_amount_error_message">Minimale bedrag voor uitbetaling is $ %1$.2f</string>
   <string name="e_skills_withdraw_max_amount_part_1">Bedrag dat je kunt opnemen:</string>
   <string name="e_skills_withdraw_max_amount_part_2">$%1$.2f</string>
