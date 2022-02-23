@@ -455,7 +455,7 @@
   <string name="home_empty_discover_apps_button">OTKRIJTE NAJPOPULARNIJE APLIKACIJE</string>
   <!--Tokens-->
   <!--Settings-->
-  <string name="title_redeem">Redeem Code</string>
+  <string name="title_redeem">Iskoristite kod</string>
   <string name="settings_item_support">Obratite se timu korisničke podrške</string>
   <string name="settings_subheader_support">Podrška</string>
   <string name="settings_subheader_about_us">O nama</string>
@@ -652,7 +652,7 @@
   <string name="import_wallet_wrong_password_body">Ups, pogrešna lozinka!</string>
   <string name="error_invalid_private_key">Neispravan privatni ključ</string>
   <string name="error_invalid_keystore">Nevažeće skladište ključeva</string>
-  <string name="backup_title">Backup uour wallet now!</string>
+  <string name="backup_title">Backup wallet</string>
   <string name="backup_body">Ne čuvamo vaše privatnhe ključeve ni ostale načine pristupa. Važno je da rezervna kopija (skladište ključeva) vašeg novčanika bude na sigurnom.</string>
   <string name="backup_additional_security_title">Additional Security (optional)</string>
   <string name="backup_additional_security_body">Choose a password</string>
