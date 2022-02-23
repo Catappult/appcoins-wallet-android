@@ -652,7 +652,7 @@
   <string name="import_wallet_wrong_password_body">密碼不正確</string>
   <string name="error_invalid_private_key">無效的私鑰</string>
   <string name="error_invalid_keystore">無效的密鑰庫</string>
-  <string name="backup_title">Backup wallet</string>
+  <string name="backup_title">Backup Wallet</string>
   <string name="backup_body">我們不會儲存您的私鑰或任何其他存取方式。 確保錢包的備份（密鑰庫）的安全很重要。</string>
   <string name="backup_additional_security_title">加強安全性（可選）</string>
   <string name="backup_additional_security_body">添加密碼</string>
