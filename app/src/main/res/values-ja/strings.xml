@@ -653,7 +653,7 @@
   <string name="import_wallet_wrong_password_body">間違ったパスワードです！</string>
   <string name="error_invalid_private_key">無効な秘密鍵です</string>
   <string name="error_invalid_keystore">無効なキーストアです</string>
-  <string name="backup_title">Backup Wallet</string>
+  <string name="backup_title">ウォレットをバックアップする</string>
   <string name="backup_body">当方があなたの秘密鍵やその他のアクセス方法を保存することはありません。ウォレットのバックアップ (キーストア) を安全に保管することが重要です。</string>
   <string name="backup_additional_security_title">追加のセキュリティ (オプション)</string>
   <string name="backup_additional_security_body">パスワードの入力</string>
