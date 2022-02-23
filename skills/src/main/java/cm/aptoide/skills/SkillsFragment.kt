@@ -65,11 +65,6 @@ class SkillsFragment : Fragment(), PaymentView {
     super.onViewCreated(view, savedInstanceState)
     disposable = CompositeDisposable()
 
-    val eskillsUri = getEskillsUri()
-    if (eskillsUri is UriValidationResult.Invalid) {
-      finishWithError(eskillsUri.requestCode)
-    }
-    val eskillsPaymentData = eskillsUriParser.parse((eskillsUri as UriValidationResult.Valid).uri)
     requireActivity().onBackPressedDispatcher
         .addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
           override fun handleOnBackPressed() {
@@ -85,7 +80,10 @@ class SkillsFragment : Fragment(), PaymentView {
 
   private fun showPurchaseTicketLayout() {
     val eSkillsPaymentData = getEskillsUri()
-    setupPurchaseTicketLayout(eSkillsPaymentData)
+    if (eSkillsPaymentData is UriValidationResult.Invalid) {
+      finishWithError(eSkillsPaymentData.requestCode)
+    }
+    setupPurchaseTicketLayout((eSkillsPaymentData as UriValidationResult.Valid).paymentData)
     binding.payTicketLayout.root.visibility = View.VISIBLE
   }
 
@@ -294,9 +292,9 @@ class SkillsFragment : Fragment(), PaymentView {
     super.onDestroyView()
   }
 
-  private fun getEskillsUri(): EskillsPaymentData {
+  private fun getEskillsUri(): UriValidationResult {
     val intent = requireActivity().intent
-    return eskillsUriParser.parse(Uri.parse(intent.getStringExtra(ESKILLS_URI_KEY)))
+    return viewModel.validateUrl(intent.getStringExtra(ESKILLS_URI_KEY)!!)
   }
 
   private fun handleWalletCreationIfNeeded(): Observable<String> {

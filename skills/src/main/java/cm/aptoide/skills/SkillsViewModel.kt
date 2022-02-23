@@ -2,26 +2,25 @@ package cm.aptoide.skills
 
 import android.content.Context
 import android.content.Intent
-import androidx.lifecycle.ViewModel
 import android.net.Uri
-import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModel
 import cm.aptoide.skills.entity.UserData
 import cm.aptoide.skills.interfaces.PaymentView
 import cm.aptoide.skills.interfaces.WalletAddressObtainer
 import cm.aptoide.skills.model.*
 import cm.aptoide.skills.usecase.*
 import cm.aptoide.skills.util.EskillsPaymentData
-import dagger.hilt.android.lifecycle.HiltViewModel
 import cm.aptoide.skills.util.UriValidationResult
+import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.subjects.PublishSubject
 import java.math.BigDecimal
 import java.util.concurrent.TimeUnit
-import javax.inject.Inject
 import java.util.regex.Matcher
 import java.util.regex.Pattern
+import javax.inject.Inject
 
 @HiltViewModel
 class SkillsViewModel @Inject constructor(
@@ -42,6 +41,7 @@ class SkillsViewModel @Inject constructor(
     private val getCachedPaymentUseCase: GetCachedPaymentUseCase,
     private val sendUserVerificationFlowUseCase: SendUserVerificationFlowUseCase,
     private val isWalletVerifiedUseCase: IsWalletVerifiedUseCase,
+    private val validateUrlUseCase: ValidateUrlUseCase
 ) : ViewModel() {
   lateinit var ticketId: String
   private val closeView: PublishSubject<Pair<Int, UserData>> = PublishSubject.create()
@@ -169,31 +169,7 @@ class SkillsViewModel @Inject constructor(
   }
 
   fun validateUrl(uriString: String): UriValidationResult {
-    val uri: Uri = Uri.parse(uriString)
-    if (hasInvalidRequestStructure(uriString, uri)) {
-      return UriValidationResult.Invalid(RESULT_INVALID_URL)
-    }
-    if (usernameContainsInvalidCharacters(uri)) {
-      return UriValidationResult.Invalid(RESULT_INVALID_USERNAME)
-    }
-    return UriValidationResult.Valid(uri)
-  }
-
-  private fun usernameContainsInvalidCharacters(eskillsUri: Uri): Boolean {
-    val pattern = Pattern.compile("[^A-Za-z0-9_ ]+")
-    val username = eskillsUri.getQueryParameter("user_name")!!
-    val matcher: Matcher = pattern.matcher(username)
-    return matcher.find()
-
-  }
-
-  private fun hasInvalidRequestStructure(uriString: String, parsedUri: Uri): Boolean {
-    val parametersString = uriString.split("?")[1]
-    if (parametersString.contains("#")) {
-      return true
-    }
-    val parametersArray = parametersString.split("&")
-    return parsedUri.queryParameterNames.size != parametersArray.size
+    return validateUrlUseCase(uriString)
   }
 
   fun closeView(): Observable<Pair<Int, UserData>> {
