@@ -654,7 +654,7 @@
   <string name="import_wallet_wrong_password_body">อุ๊ปส์ รหัสผ่านไม่ถูกต้อง!</string>
   <string name="error_invalid_private_key">ไม่มีไพรเวทคีย์</string>
   <string name="error_invalid_keystore">คีย์สโตนไม่ถูกต้อง</string>
-  <string name="backup_title">Backup Wallet</string>
+  <string name="backup_title">สำรองกระเป๋าสตางค์</string>
   <string name="backup_body">เราไม่เก็บคีย์ส่วนตัวของคุณหรือวิธีการเข้าถึงอื่นๆ การสำรองข้อมูลกระเป๋าสตางค์ของคุณ (คีย์สตอร์) เป็นสิ่งสำคัญ</string>
   <string name="backup_additional_security_title">ความปลอดภัยเพิ่มเติม (ตัวเลือก)</string>
   <string name="backup_additional_security_body">เลือกรหัสผ่าน</string>
