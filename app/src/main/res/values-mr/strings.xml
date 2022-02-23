@@ -652,7 +652,7 @@
   <string name="import_wallet_wrong_password_body">अरेरे, चुकीचा पासवर्ड!</string>
   <string name="error_invalid_private_key">खासगी की अवैध आहे</string>
   <string name="error_invalid_keystore">अवैध कीस्ट्रोक</string>
-  <string name="backup_title">Backup wallet</string>
+  <string name="backup_title">Backup Wallet</string>
   <string name="backup_body">आपल्या खासगी कीज किंवा अन्य प्रवेश पद्धतींना आम्ही साठवित नाही. आपल्या वॉलेटच्या बॅकअप (की स्टोर) सुरक्षेसाठी हे महत्वाचे आहे.</string>
   <string name="backup_additional_security_title">अतिरिक्त सुरक्षा (पर्यायी)</string>
   <string name="backup_additional_security_body">पासवर्ड निवडा</string>
