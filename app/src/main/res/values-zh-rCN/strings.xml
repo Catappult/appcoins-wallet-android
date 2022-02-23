@@ -652,7 +652,7 @@
   <string name="import_wallet_wrong_password_body">糟糕，密码错误！</string>
   <string name="error_invalid_private_key">无效的私钥</string>
   <string name="error_invalid_keystore">密钥库无效</string>
-  <string name="backup_title">Backup wallet</string>
+  <string name="backup_title">Backup Wallet</string>
   <string name="backup_body">我们不会存储你的私钥或任何其他访问方法。请务必确保你的钱包备份（密钥库）安全无虞。</string>
   <string name="backup_additional_security_title">额外安全性（可选）</string>
   <string name="backup_additional_security_body">选择密码</string>
