@@ -455,7 +455,7 @@
   <string name="home_empty_discover_apps_button">SCOPRI LE MIGLIORI APP</string>
   <!--Tokens-->
   <!--Settings-->
-  <string name="title_redeem">Redeem Code</string>
+  <string name="title_redeem">Riscatta il codice</string>
   <string name="settings_item_support">Contatta l\'assistenza clienti</string>
   <string name="settings_subheader_support">Supporto</string>
   <string name="settings_subheader_about_us">Chi siamo</string>
@@ -652,7 +652,7 @@
   <string name="import_wallet_wrong_password_body">Password errata!</string>
   <string name="error_invalid_private_key">Chiave privata non valida</string>
   <string name="error_invalid_keystore">Keystore non valido</string>
-  <string name="backup_title">Backup uour wallet now!</string>
+  <string name="backup_title">Backup wallet</string>
   <string name="backup_body">Non conserviamo le tue chiavi private o qualsiasi altro metodo di accesso. È importante che il backup del tuo wallet (keystore) sia al sicuro.</string>
   <string name="backup_additional_security_title">Ulteriore sicurezza (facoltativo)</string>
   <string name="backup_additional_security_body">Scegli una password</string>
