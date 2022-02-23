@@ -652,7 +652,7 @@
   <string name="import_wallet_wrong_password_body">अरे, गलत पासवर्ड!</string>
   <string name="error_invalid_private_key">अमान्य निजी कुंजी</string>
   <string name="error_invalid_keystore">अमान्य कीस्टोर</string>
-  <string name="backup_title">Backup uour wallet now!</string>
+  <string name="backup_title">Backup wallet</string>
   <string name="backup_body">हम आपकी निजी कुंजी या अन्य एक्सेस विधि को स्टोर नहीं करते हैं। अपने वॉलेट बैकअप (कीस्टोर) को सुरक्षित रखना महत्वपूर्ण है।</string>
   <string name="backup_additional_security_title">Additional Security (optional)</string>
   <string name="backup_additional_security_body">Choose a password</string>
