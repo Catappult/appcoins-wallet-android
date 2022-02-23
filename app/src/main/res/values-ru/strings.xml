@@ -455,7 +455,7 @@
   <string name="home_empty_discover_apps_button">ОТКРОЙТЕ ЛУЧШИЕ ПРИЛОЖЕНИЯ</string>
   <!--Tokens-->
   <!--Settings-->
-  <string name="title_redeem">Redeem Code</string>
+  <string name="title_redeem">Использовать код</string>
   <string name="settings_item_support">Связаться с поддержкой</string>
   <string name="settings_subheader_support">Поддержка</string>
   <string name="settings_subheader_about_us">О нас</string>
@@ -652,7 +652,7 @@
   <string name="import_wallet_wrong_password_body">Ой, неверный пароль!</string>
   <string name="error_invalid_private_key">Недопустимый приватный ключ</string>
   <string name="error_invalid_keystore">Недопустимое хранилище ключей</string>
-  <string name="backup_title">Backup uour wallet now!</string>
+  <string name="backup_title">Backup wallet</string>
   <string name="backup_body">Мы не храним ваши закрытые ключи или иные методы доступа. Важно хранить ваш бэкап (хранилище ключей) в безопасности.</string>
   <string name="backup_additional_security_title">Дополнительная безопасность (необязательно)</string>
   <string name="backup_additional_security_body">Выберите пароль</string>
