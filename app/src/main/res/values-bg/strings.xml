@@ -652,7 +652,7 @@
   <string name="import_wallet_wrong_password_body">Опа, грешна парола!</string>
   <string name="error_invalid_private_key">Невалиден частен ключ</string>
   <string name="error_invalid_keystore">Невалиден магазин за ключове</string>
-  <string name="backup_title">Backup uour wallet now!</string>
+  <string name="backup_title">Backup wallet</string>
   <string name="backup_body">Ние не съхраняваме твоите лични ключове или друг метод за достъп. Важно е да запазиш резервното копие (хранилище) на портфейла си.</string>
   <string name="backup_additional_security_title">Additional Security (optional)</string>
   <string name="backup_additional_security_body">Choose a password</string>
