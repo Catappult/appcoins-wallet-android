@@ -652,7 +652,7 @@
   <string name="import_wallet_wrong_password_body">Opps, falsches Password!</string>
   <string name="error_invalid_private_key">Ungültiger Privater Schlüssel</string>
   <string name="error_invalid_keystore">Ungültiger Keystore</string>
-  <string name="backup_title">Backup wallet</string>
+  <string name="backup_title">Backup Wallet</string>
   <string name="backup_body">Wir speichern weder ihre privaten Schlüssel noch andere Zugriffsmethoden. Es ist wichtig das Sie das Backup ihres Wallets (Keystore) sicher aufbewahren.</string>
   <string name="backup_additional_security_title">Zusätzliche Sicherheit (optional)</string>
   <string name="backup_additional_security_body">Wählen Sie ein Paswort</string>
