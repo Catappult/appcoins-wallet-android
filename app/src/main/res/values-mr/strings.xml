@@ -390,7 +390,7 @@
   <string name="balance_appccreditos_body">अॅपमधील खरेदी करण्याचे टोकन! आपल्या वॉलेटमधुन एपीपीसी-सीत भरणा करा किंवा अॅप वापरुन त्यांना मोफत मिळवा. स्नेह्यांमध्ये ह्याचे हस्तांतरणही केले जाऊ शकते!</string>
   <string name="my_wallets_action_new_wallet">New wallet</string>
   <string name="my_wallets_action_recover_wallet">Recover wallet</string>
-  <string name="my_wallets_action_backup_wallet">Backup wallet</string>
+  <string name="my_wallets_action_backup_wallet">वॉलेट बॅकअप करा</string>
   <string name="my_wallets_action_verify_new_card">Validate new card</string>
   <string name="my_wallets_action_delete_wallet">Delete wallet</string>
   <!--Ask a friend for funds-->
