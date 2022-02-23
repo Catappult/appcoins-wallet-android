@@ -455,7 +455,7 @@
   <string name="home_empty_discover_apps_button">探索最佳应用</string>
   <!--Tokens-->
   <!--Settings-->
-  <string name="title_redeem">Redeem Code</string>
+  <string name="title_redeem">兑换码</string>
   <string name="settings_item_support">联系支持团队</string>
   <string name="settings_subheader_support">支持</string>
   <string name="settings_subheader_about_us">关于我们</string>
@@ -652,7 +652,7 @@
   <string name="import_wallet_wrong_password_body">糟糕，密码错误！</string>
   <string name="error_invalid_private_key">无效的私钥</string>
   <string name="error_invalid_keystore">密钥库无效</string>
-  <string name="backup_title">Backup uour wallet now!</string>
+  <string name="backup_title">备份钱包</string>
   <string name="backup_body">我们不会存储你的私钥或任何其他访问方法。请务必确保你的钱包备份（密钥库）安全无虞。</string>
   <string name="backup_additional_security_title">额外安全性（可选）</string>
   <string name="backup_additional_security_body">选择密码</string>

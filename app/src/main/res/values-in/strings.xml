@@ -455,7 +455,7 @@
   <string name="home_empty_discover_apps_button">TEMUKAN APLIKASI TERATAS</string>
   <!--Tokens-->
   <!--Settings-->
-  <string name="title_redeem">Redeem Code</string>
+  <string name="title_redeem">Dapatkan Kode</string>
   <string name="settings_item_support">Hubungi Tim Dukungan</string>
   <string name="settings_subheader_support">Dukungan</string>
   <string name="settings_subheader_about_us">Tentang Kami</string>
@@ -652,7 +652,7 @@
   <string name="import_wallet_wrong_password_body">Ups, kata sandi salah!</string>
   <string name="error_invalid_private_key">Kunci pribadi tidak valid</string>
   <string name="error_invalid_keystore">Keystore salah</string>
-  <string name="backup_title">Backup uour wallet now!</string>
+  <string name="backup_title">Cadangkan Dompet</string>
   <string name="backup_body">Kami tidak menyimpan kunci pribadi Anda atau metode akses lainnya. Penting untuk selalu menjaga keamanan cadangan dompet (keystore) Anda.</string>
   <string name="backup_additional_security_title">Keamanan Tambahan (opsional)</string>
   <string name="backup_additional_security_body">Pilih kata sandi</string>

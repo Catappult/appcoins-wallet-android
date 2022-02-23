@@ -390,7 +390,7 @@
   <string name="balance_appccreditos_body">用於購買應用程式內物品的代幣。從您的錢包儲值APPC點數或透過使用應用程式來免費獲得它。 您也可以在朋友之間轉移它！</string>
   <string name="my_wallets_action_new_wallet">New wallet</string>
   <string name="my_wallets_action_recover_wallet">Recover wallet</string>
-  <string name="my_wallets_action_backup_wallet">Backup wallet</string>
+  <string name="my_wallets_action_backup_wallet">備份錢包</string>
   <string name="my_wallets_action_verify_new_card">Validate new card</string>
   <string name="my_wallets_action_delete_wallet">Delete wallet</string>
   <!--Ask a friend for funds-->
@@ -652,7 +652,7 @@
   <string name="import_wallet_wrong_password_body">密碼不正確</string>
   <string name="error_invalid_private_key">無效的私鑰</string>
   <string name="error_invalid_keystore">無效的密鑰庫</string>
-  <string name="backup_title">Backup uour wallet now!</string>
+  <string name="backup_title">Backup Wallet</string>
   <string name="backup_body">我們不會儲存您的私鑰或任何其他存取方式。 確保錢包的備份（密鑰庫）的安全很重要。</string>
   <string name="backup_additional_security_title">加強安全性（可選）</string>
   <string name="backup_additional_security_body">添加密碼</string>

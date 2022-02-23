@@ -390,7 +390,7 @@
   <string name="balance_appccreditos_body">Token za kupovine u aplikacijama! Dopunite APPC-C iz novčanika ili ih dobijte besplatno tako što ćete koristiti aplikacije. Možete i da ih prenesete prijateljima, kao i oni vama!</string>
   <string name="my_wallets_action_new_wallet">New wallet</string>
   <string name="my_wallets_action_recover_wallet">Recover wallet</string>
-  <string name="my_wallets_action_backup_wallet">Backup wallet</string>
+  <string name="my_wallets_action_backup_wallet">Napravite rezervnu kopiju novčanika</string>
   <string name="my_wallets_action_verify_new_card">Validate new card</string>
   <string name="my_wallets_action_delete_wallet">Delete wallet</string>
   <!--Ask a friend for funds-->
@@ -455,7 +455,7 @@
   <string name="home_empty_discover_apps_button">OTKRIJTE NAJPOPULARNIJE APLIKACIJE</string>
   <!--Tokens-->
   <!--Settings-->
-  <string name="title_redeem">Redeem Code</string>
+  <string name="title_redeem">Iskoristite kod</string>
   <string name="settings_item_support">Obratite se timu korisničke podrške</string>
   <string name="settings_subheader_support">Podrška</string>
   <string name="settings_subheader_about_us">O nama</string>
@@ -652,7 +652,7 @@
   <string name="import_wallet_wrong_password_body">Ups, pogrešna lozinka!</string>
   <string name="error_invalid_private_key">Neispravan privatni ključ</string>
   <string name="error_invalid_keystore">Nevažeće skladište ključeva</string>
-  <string name="backup_title">Backup uour wallet now!</string>
+  <string name="backup_title">Backup Wallet</string>
   <string name="backup_body">Ne čuvamo vaše privatnhe ključeve ni ostale načine pristupa. Važno je da rezervna kopija (skladište ključeva) vašeg novčanika bude na sigurnom.</string>
   <string name="backup_additional_security_title">Additional Security (optional)</string>
   <string name="backup_additional_security_body">Choose a password</string>

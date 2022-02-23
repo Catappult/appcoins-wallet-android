@@ -455,7 +455,7 @@
   <string name="home_empty_discover_apps_button">ONTDEK DE BESTE APPS</string>
   <!--Tokens-->
   <!--Settings-->
-  <string name="title_redeem">Redeem Code</string>
+  <string name="title_redeem">Code inwisselen</string>
   <string name="settings_item_support">Neem contact op met support</string>
   <string name="settings_subheader_support">Ondersteuning</string>
   <string name="settings_subheader_about_us">Over ons</string>
@@ -652,7 +652,7 @@
   <string name="import_wallet_wrong_password_body">Oeps, verkeerd wachtwoord!</string>
   <string name="error_invalid_private_key">Ongeldige privésleutel</string>
   <string name="error_invalid_keystore">Ongeldige keystore</string>
-  <string name="backup_title">Backup uour wallet now!</string>
+  <string name="backup_title">Back-up van wallet maken</string>
   <string name="backup_body">We slaan je privésleutels of andere toegangsmethoden niet op. Het is belangrijk om de back-up van je wallet (keystore) veilig te houden.</string>
   <string name="backup_additional_security_title">Extra beveiliging (optioneel)</string>
   <string name="backup_additional_security_body">Kies een wachtwoord</string>

@@ -390,7 +390,7 @@
   <string name="balance_appccreditos_body">इन-एप्प चीजें खरीदने के लिए टोकन! APPC-C को अपने वॉलेट से टॉप अप करें या एप्प उपयोग करके उन्हें मुफ्त में प्राप्त करें। उन्हें मित्रों के बीच स्थानांतरित भी किया जा सकता है!</string>
   <string name="my_wallets_action_new_wallet">New wallet</string>
   <string name="my_wallets_action_recover_wallet">Recover wallet</string>
-  <string name="my_wallets_action_backup_wallet">Backup wallet</string>
+  <string name="my_wallets_action_backup_wallet">वॉलेट का बैकअप लें</string>
   <string name="my_wallets_action_verify_new_card">Validate new card</string>
   <string name="my_wallets_action_delete_wallet">Delete wallet</string>
   <!--Ask a friend for funds-->
@@ -652,7 +652,7 @@
   <string name="import_wallet_wrong_password_body">अरे, गलत पासवर्ड!</string>
   <string name="error_invalid_private_key">अमान्य निजी कुंजी</string>
   <string name="error_invalid_keystore">अमान्य कीस्टोर</string>
-  <string name="backup_title">Backup uour wallet now!</string>
+  <string name="backup_title">Backup Wallet</string>
   <string name="backup_body">हम आपकी निजी कुंजी या अन्य एक्सेस विधि को स्टोर नहीं करते हैं। अपने वॉलेट बैकअप (कीस्टोर) को सुरक्षित रखना महत्वपूर्ण है।</string>
   <string name="backup_additional_security_title">Additional Security (optional)</string>
   <string name="backup_additional_security_body">Choose a password</string>

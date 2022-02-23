@@ -455,7 +455,7 @@
   <string name="home_empty_discover_apps_button">최고의 앱 찾아보기</string>
   <!--Tokens-->
   <!--Settings-->
-  <string name="title_redeem">Redeem Code</string>
+  <string name="title_redeem">리딤 코드</string>
   <string name="settings_item_support">지원 팀으로 연락하기</string>
   <string name="settings_subheader_support">지원</string>
   <string name="settings_subheader_about_us">당사 소개</string>
@@ -652,7 +652,7 @@
   <string name="import_wallet_wrong_password_body">이런, 잘못된 비밀번호입니다!</string>
   <string name="error_invalid_private_key">잘못된 비밀 키</string>
   <string name="error_invalid_keystore">잘못된 키 스토어</string>
-  <string name="backup_title">Backup uour wallet now!</string>
+  <string name="backup_title">지갑 백업하기</string>
   <string name="backup_body">개인 키 또는 다른 접근 방식을 저장하지 않습니다. 지갑의 백업(키스토어) 을 안전하게 유지하는 것이 중요합니다.</string>
   <string name="backup_additional_security_title">추가 보안(선택)</string>
   <string name="backup_additional_security_body">비밀번호 선택</string>

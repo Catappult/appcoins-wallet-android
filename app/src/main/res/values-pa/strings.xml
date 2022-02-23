@@ -455,7 +455,7 @@
   <string name="home_empty_discover_apps_button">ਵਧੀਆ ਐਪਸ ਲੱਭੋ</string>
   <!--Tokens-->
   <!--Settings-->
-  <string name="title_redeem">Redeem Code</string>
+  <string name="title_redeem">ਕੋਡ ਵਰਤੋ</string>
   <string name="settings_item_support">ਸਹਾਇਤਾ ਟੀਮ ਨਾਲ ਸੰਪਰਕ ਕਰੋ</string>
   <string name="settings_subheader_support">ਸਪੋਰਟ</string>
   <string name="settings_subheader_about_us">ਸਾਡੇ ਬਾਰੇ</string>
@@ -652,7 +652,7 @@
   <string name="import_wallet_wrong_password_body">ਓਹ ਹੋ, ਗਲਤ ਪਾਸਵਰਡ!</string>
   <string name="error_invalid_private_key">ਗਲਤ ਨਿਜੀ ਚਾਬੀ</string>
   <string name="error_invalid_keystore">ਅਵੈਧ ਕੀਸਟੋਰ</string>
-  <string name="backup_title">Backup uour wallet now!</string>
+  <string name="backup_title">ਬੈਕਅਪ ਬਟੂਆ</string>
   <string name="backup_body">ਅਸੀਂ ਤੁਹਾਡੀਆਂ ਨਿੱਜੀ ਕੁੰਜੀਆਂ ਜਾਂ ਕੋਈ ਹੋਰ ਪਹੁੰਚ ਵਿਧੀ ਆਪਣੇ ਕੋਲ ਨਹੀਂ ਰੱਖਦੇ| ਤੁਹਾਡੇ ਬਟੂਏ ਦਾ ਬੈਕਅਪ (ਚਾਬੀ ਸਟੋਰ) ਸੁਰੱਖਿਅਤ ਰੱਖਣਾ ਜਰੂਰੀ ਹੈ|</string>
   <string name="backup_additional_security_title">ਹੋਰ ਸੁਰੱਖਿਆ (ਵਿਕਲਪਿਕ)</string>
   <string name="backup_additional_security_body">ਇੱਕ ਪਾਸਵਰਡ ਚੁਣੋ</string>

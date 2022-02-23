@@ -390,7 +390,7 @@
   <string name="balance_appccreditos_body">Το token για την αγορά αντικειμένων εντός εφαρμογών! Λάβετε APPC-C από το wallet σας ή πραγματοποιήστε δωρεάν λήψη μέσω της χρήσης εφαρμογών. Επίσης, υπάρχει δυνατότητα μεταφοράς μεταξύ φίλων!</string>
   <string name="my_wallets_action_new_wallet">New wallet</string>
   <string name="my_wallets_action_recover_wallet">Recover wallet</string>
-  <string name="my_wallets_action_backup_wallet">Backup wallet</string>
+  <string name="my_wallets_action_backup_wallet">Αντίγραφο Ασφαλείας Wallet</string>
   <string name="my_wallets_action_verify_new_card">Validate new card</string>
   <string name="my_wallets_action_delete_wallet">Delete wallet</string>
   <!--Ask a friend for funds-->
@@ -455,7 +455,7 @@
   <string name="home_empty_discover_apps_button">ΑΝΑΚΑΛΥΨΤΕ ΚΟΡΥΦΑΙΕΣ ΕΦΑΡΜΟΓΕΣ</string>
   <!--Tokens-->
   <!--Settings-->
-  <string name="title_redeem">Redeem Code</string>
+  <string name="title_redeem">Εξαργύρωση Κωδικού</string>
   <string name="settings_item_support">Επικοινωνήστε με την Ομάδα Υποστήριξης</string>
   <string name="settings_subheader_support">Υποστήριξη</string>
   <string name="settings_subheader_about_us">Σχετικά με εμάς</string>
@@ -652,7 +652,7 @@
   <string name="import_wallet_wrong_password_body">Ωχ, λανθασμένος κωδικός πρόσβασης!</string>
   <string name="error_invalid_private_key">Μη έγκυρο ιδιωτικό κλειδί</string>
   <string name="error_invalid_keystore">Μη έγκυρο keystore</string>
-  <string name="backup_title">Backup uour wallet now!</string>
+  <string name="backup_title">Backup Wallet</string>
   <string name="backup_body">Δεν αποθηκεύουμε τα ιδιωτικά κλειδιά σας ή άλλες μεθόδους πρόσβασης. Είναι σημαντικό να διατηρείτε το αντίγραφο ασφαλείας του wallet σας (keystore) ασφαλές.</string>
   <string name="backup_additional_security_title">Επιπρόσθετη Ασφάλεια (προαιρετικά)</string>
   <string name="backup_additional_security_body">Επιλέξτε έναν κωδικό πρόσβασης</string>

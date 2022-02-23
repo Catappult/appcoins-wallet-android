@@ -455,7 +455,7 @@
   <string name="home_empty_discover_apps_button">DÉCOUVREZ LES APPLICATIONS AU TOP</string>
   <!--Tokens-->
   <!--Settings-->
-  <string name="title_redeem">Redeem Code</string>
+  <string name="title_redeem">Code d\'échange</string>
   <string name="settings_item_support">Contacter le Support</string>
   <string name="settings_subheader_support">Support</string>
   <string name="settings_subheader_about_us">À propos de nous</string>
@@ -652,7 +652,7 @@
   <string name="import_wallet_wrong_password_body">Oups, mauvais mot de passe !</string>
   <string name="error_invalid_private_key">Clé privée invalide</string>
   <string name="error_invalid_keystore">Keystore invalide</string>
-  <string name="backup_title">Backup uour wallet now!</string>
+  <string name="backup_title">Sauvegarde portefeuille</string>
   <string name="backup_body">Nous ne conservons pas vos clés privées ni aucune autre méthode d\'accès. Il est important de conserver la sauvegarde (keystore) de votre portefeuille en sécurité.</string>
   <string name="backup_additional_security_title">Sécurité supplémentaire (facultatif)</string>
   <string name="backup_additional_security_body">Choisissez un mot de passe</string>

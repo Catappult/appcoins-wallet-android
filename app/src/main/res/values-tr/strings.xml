@@ -455,7 +455,7 @@
   <string name="home_empty_discover_apps_button">EN İYİ UYGULAMALARI KEŞFEDİN</string>
   <!--Tokens-->
   <!--Settings-->
-  <string name="title_redeem">Redeem Code</string>
+  <string name="title_redeem">Kodu Kullan</string>
   <string name="settings_item_support">Destek Ekibiyle iletişime geçin</string>
   <string name="settings_subheader_support">Destek</string>
   <string name="settings_subheader_about_us">Hakkımızda</string>
@@ -652,7 +652,7 @@
   <string name="import_wallet_wrong_password_body">Hay aksi, yanlış şifre!</string>
   <string name="error_invalid_private_key">Geçersiz özel anahtar</string>
   <string name="error_invalid_keystore">Geçersiz keystore</string>
-  <string name="backup_title">Backup uour wallet now!</string>
+  <string name="backup_title">Yedek Cüzdan</string>
   <string name="backup_body">Gizli anahtarlarınızı veya diğer erişim yöntemlerinizi saklamayız. Cüzdanınızın yedeğini (keystore) güvende tutmak önemlidir.</string>
   <string name="backup_additional_security_title">Ek Güvenlik (isteğe bağlı)</string>
   <string name="backup_additional_security_body">Şifre seçin</string>

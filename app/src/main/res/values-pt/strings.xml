@@ -652,7 +652,7 @@
   <string name="import_wallet_wrong_password_body">Ups, password errada!</string>
   <string name="error_invalid_private_key">Senha privada inválida</string>
   <string name="error_invalid_keystore">Keystore inválida</string>
-  <string name="backup_title">Backup uour wallet now!</string>
+  <string name="backup_title">Backup Wallet</string>
   <string name="backup_body">Não guardamos as tuas senhas privadas ou qualquer outro método de acesso. É importante manter o backup da tua wallet (keystore) seguro.</string>
   <string name="backup_additional_security_title">Segurança Adicional (opcional)</string>
   <string name="backup_additional_security_body">Escolhe uma password</string>
