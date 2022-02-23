@@ -652,7 +652,7 @@
   <string name="import_wallet_wrong_password_body">အိုး စကား၀ွက္မွားေနပါသည္။</string>
   <string name="error_invalid_private_key">သီးျခားကီး မမွန္ကန္ပါ</string>
   <string name="error_invalid_keystore">Keystore မမွန္ကန္ပါ</string>
-  <string name="backup_title">Backup Wallet</string>
+  <string name="backup_title">ပိုက္ဆံအိတ္ကို အရန္သိမ္းဆည္းမည္</string>
   <string name="backup_body">သင့္ကိုယ္ပိုင္ကီးမ်ား သို႔မဟုတ္ အျခား၀င္ေရာက္ခြင့္နည္းလမ္းမ်ားကို ကၽြႏ္ုပ္တို႔ မသိမ္းဆည္းထားပါ။ သင့္ပိုက္ဆံအိတ္၏ ဘက္ခ္ကပ္ (ကီးစတိုး) ကို လံုၿခံဳေအာင္ထားရန္ အေရးႀကီးပါသည္။</string>
   <string name="backup_additional_security_title">ေနာက္ထပ္လံုျခံဳေရး (ေရြးခ်ယ္ႏိုင္ပါသည္)</string>
   <string name="backup_additional_security_body">စကားဝွက္တစ္ခု ေရြးခ်ယ္ပါ</string>
