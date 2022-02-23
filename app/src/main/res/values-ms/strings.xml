@@ -652,7 +652,7 @@
   <string name="import_wallet_wrong_password_body">Oops, kata laluan salah!</string>
   <string name="error_invalid_private_key">Kunci peribadi tidak sah</string>
   <string name="error_invalid_keystore">Kunci kedai tidak sah</string>
-  <string name="backup_title">Backup Wallet</string>
+  <string name="backup_title">Dompet Sandaran</string>
   <string name="backup_body">Kami tidak menyimpan kunci peribadi anda atau kaedah akses yang lain. Penting bagi anda untuk memastikan sandaran dompet (kunci gedung) anda selamat.</string>
   <string name="backup_additional_security_title">Ciri Keselamatan Tambahan (pilihan)</string>
   <string name="backup_additional_security_body">Pilih kata laluan</string>
