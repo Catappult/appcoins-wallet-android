@@ -652,7 +652,7 @@
   <string name="import_wallet_wrong_password_body">Oj, niepoprawne hasło!</string>
   <string name="error_invalid_private_key">Niewłaściwy klucz</string>
   <string name="error_invalid_keystore">Nieprawidłowy klucz</string>
-  <string name="backup_title">Backup wallet</string>
+  <string name="backup_title">Backup Wallet</string>
   <string name="backup_body">Nie przechowujemy Twoich prywatnych kluczy lub innych metod dostępu. Ważne jest aby kopia zapasowa Twojego portfela była bezpieczna.</string>
   <string name="backup_additional_security_title">Ekstra bezpiecznie (opcjonalnie)</string>
   <string name="backup_additional_security_body">Stwórz hasło</string>
