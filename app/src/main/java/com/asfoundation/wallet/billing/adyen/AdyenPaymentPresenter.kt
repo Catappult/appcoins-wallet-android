@@ -2,7 +2,7 @@ package com.asfoundation.wallet.billing.adyen
 
 import android.os.Bundle
 import androidx.annotation.StringRes
-import com.adyen.checkout.base.model.paymentmethods.PaymentMethod
+import com.adyen.checkout.core.model.ModelObject
 import com.appcoins.wallet.billing.ErrorInfo.ErrorType
 import com.appcoins.wallet.billing.adyen.AdyenBillingAddress
 import com.appcoins.wallet.billing.adyen.AdyenPaymentRepository
@@ -115,7 +115,7 @@ class AdyenPaymentPresenter(
               if (it.error.isNetworkError) view.showNetworkError()
               else view.showGenericError()
             } else {
-              view.finishCardConfiguration(it.paymentMethodInfo!!, it.isStored, true, null)
+              view.finishCardConfiguration(it, true, null)
             }
           }
       }
@@ -146,13 +146,10 @@ class AdyenPaymentPresenter(
             if (paymentType == PaymentType.CARD.name) {
               view.hideLoadingAndShowView()
               sendPaymentMethodDetailsEvent(BillingAnalytics.PAYMENT_METHOD_CC)
-              view.finishCardConfiguration(
-                it.paymentMethodInfo!!, it.isStored, false,
-                savedInstanceState
-              )
+              view.finishCardConfiguration(it, false, savedInstanceState)
               handleBuyClick(it.priceAmount, it.priceCurrency)
             } else if (paymentType == PaymentType.PAYPAL.name) {
-              launchPaypal(it.paymentMethodInfo!!, it.priceAmount, it.priceCurrency)
+              launchPaypal(it.paymentMethod!!, it.priceAmount, it.priceCurrency)
             }
           }
         }
@@ -164,7 +161,8 @@ class AdyenPaymentPresenter(
   }
 
   private fun launchPaypal(
-    paymentMethodInfo: PaymentMethod, priceAmount: BigDecimal,
+    paymentMethodInfo: ModelObject,
+    priceAmount: BigDecimal,
     priceCurrency: String
   ) {
     disposables.add(transactionBuilder.flatMap {

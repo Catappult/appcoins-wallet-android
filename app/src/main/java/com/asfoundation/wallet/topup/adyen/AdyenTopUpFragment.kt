@@ -14,14 +14,13 @@ import androidx.annotation.StringRes
 import androidx.appcompat.widget.SwitchCompat
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.adyen.checkout.adyen3ds2.Adyen3DS2Component
-import com.adyen.checkout.base.model.paymentmethods.StoredPaymentMethod
 import com.adyen.checkout.base.model.payments.response.Action
 import com.adyen.checkout.base.ui.view.RoundCornerImageView
-import com.adyen.checkout.card.CardComponent
 import com.adyen.checkout.card.CardConfiguration
 import com.adyen.checkout.core.api.Environment
 import com.adyen.checkout.redirect.RedirectComponent
 import com.appcoins.wallet.bdsbilling.Billing
+import com.appcoins.wallet.billing.adyen.PaymentInfoModel
 import com.appcoins.wallet.commons.Logger
 import com.asf.wallet.BuildConfig
 import com.asf.wallet.R
@@ -331,25 +330,25 @@ class AdyenTopUpFragment : BasePageViewFragment(), AdyenTopUpView {
   }
 
   override fun finishCardConfiguration(
-    paymentMethod: com.adyen.checkout.base.model.paymentmethods.PaymentMethod,
-    isStored: Boolean, forget: Boolean, savedInstanceState: Bundle?
+    paymentInfoModel: PaymentInfoModel,
+    forget: Boolean,
+    savedInstanceState: Bundle?
   ) {
-    this.isStored = isStored
+    this.isStored = paymentInfoModel.isStored
     handleLayoutVisibility(isStored)
-    prepareCardComponent(paymentMethod, forget, savedInstanceState)
+    prepareCardComponent(paymentInfoModel, forget, savedInstanceState)
     setStoredPaymentInformation(isStored)
   }
 
   override fun lockRotation() = topUpView.lockOrientation()
 
   private fun prepareCardComponent(
-    paymentMethodEntity: com.adyen.checkout.base.model.paymentmethods.PaymentMethod,
+    paymentInfoModel: PaymentInfoModel,
     forget: Boolean,
     savedInstanceState: Bundle?
   ) {
     if (forget) viewModelStore.clear()
-    val cardComponent =
-      CardComponent.PROVIDER.get(this, paymentMethodEntity, cardConfiguration)
+    val cardComponent = paymentInfoModel.cardComponent!!(this, cardConfiguration)
     if (forget) clearFields()
     adyen_card_form_pre_selected?.attach(cardComponent, this)
     cardComponent.observe(this) {
@@ -358,12 +357,10 @@ class AdyenTopUpFragment : BasePageViewFragment(), AdyenTopUpView {
         view?.let { view -> KeyboardUtils.hideKeyboard(view) }
         it.data.paymentMethod?.let { paymentMethod ->
           val hasCvc = !paymentMethod.encryptedSecurityCode.isNullOrEmpty()
-          val supportedShopperInteractions =
-            if (paymentMethodEntity is StoredPaymentMethod) paymentMethodEntity.supportedShopperInteractions else emptyList()
           paymentDataSubject?.onNext(
             AdyenCardWrapper(
               paymentMethod, adyenSaveDetailsSwitch?.isChecked ?: false, hasCvc,
-              supportedShopperInteractions
+              paymentInfoModel.supportedShopperInteractions
             )
           )
         }

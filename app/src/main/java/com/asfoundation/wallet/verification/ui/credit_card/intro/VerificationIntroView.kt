@@ -1,6 +1,7 @@
 package com.asfoundation.wallet.verification.ui.credit_card.intro
 
 import android.os.Bundle
+import com.appcoins.wallet.billing.adyen.PaymentInfoModel
 import com.appcoins.wallet.billing.adyen.VerificationPaymentModel.ErrorType
 import com.asfoundation.wallet.billing.adyen.AdyenCardWrapper
 import io.reactivex.Observable
@@ -24,8 +25,9 @@ interface VerificationIntroView {
   fun updateUi(verificationIntroModel: VerificationIntroModel)
 
   fun finishCardConfiguration(
-    paymentMethod: com.adyen.checkout.base.model.paymentmethods.PaymentMethod, isStored: Boolean,
-    forget: Boolean, savedInstance: Bundle?
+    paymentInfoModel: PaymentInfoModel,
+    forget: Boolean,
+    savedInstance: Bundle?
   )
 
   fun retrievePaymentData(): Observable<AdyenCardWrapper>

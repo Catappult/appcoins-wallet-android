@@ -2,7 +2,7 @@ package com.asfoundation.wallet.topup.adyen
 
 import android.os.Bundle
 import androidx.annotation.StringRes
-import com.adyen.checkout.base.model.paymentmethods.PaymentMethod
+import com.adyen.checkout.core.model.ModelObject
 import com.appcoins.wallet.billing.BillingMessagesMapper
 import com.appcoins.wallet.billing.ErrorInfo.ErrorType
 import com.appcoins.wallet.billing.adyen.AdyenBillingAddress
@@ -166,13 +166,10 @@ class AdyenTopUpPresenter(
           retrievedAmount = it.priceAmount.toString()
           retrievedCurrency = it.priceCurrency
           if (paymentType == PaymentType.CARD.name) {
-            view.finishCardConfiguration(
-              it.paymentMethodInfo!!, it.isStored, false,
-              savedInstanceState
-            )
+            view.finishCardConfiguration(it, false, savedInstanceState)
             handleTopUpClick()
           } else if (paymentType == PaymentType.PAYPAL.name) {
-            launchPaypal(it.paymentMethodInfo!!)
+            launchPaypal(it.paymentMethod!!)
           }
           loadBonusIntoView()
         }
@@ -181,7 +178,7 @@ class AdyenTopUpPresenter(
     )
   }
 
-  private fun launchPaypal(paymentMethodInfo: PaymentMethod) {
+  private fun launchPaypal(paymentMethodInfo: ModelObject) {
     disposables.add(
       adyenPaymentInteractor.makeTopUpPayment(
         paymentMethodInfo, false, false, emptyList(),
@@ -268,7 +265,7 @@ class AdyenTopUpPresenter(
                 )
               }
             } else {
-              view.finishCardConfiguration(it.paymentMethodInfo!!, it.isStored, true, null)
+              view.finishCardConfiguration(it, true, null)
             }
           }
       }

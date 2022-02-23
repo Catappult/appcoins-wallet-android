@@ -42,7 +42,7 @@ class VerificationPaypalViewModel(
   }
 
   fun launchVerificationPayment() {
-    val paymentMethod = state.verificationInfoAsync.value?.paymentInfoModel?.paymentMethodInfo
+    val paymentMethod = state.verificationInfoAsync.value?.paymentInfoModel?.paymentMethod
     if (paymentMethod != null) {
       makeVerificationPaymentUseCase(WalletVerificationInteractor.VerificationType.PAYPAL,
           paymentMethod, false, data.returnUrl).subscribeOn(Schedulers.io())

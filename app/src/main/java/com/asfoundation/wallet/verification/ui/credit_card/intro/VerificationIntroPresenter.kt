@@ -62,10 +62,7 @@ class VerificationIntroPresenter(
         .subscribeOn(ioScheduler)
         .observeOn(viewScheduler)
         .doOnSuccess {
-          view.finishCardConfiguration(
-            it.paymentInfoModel.paymentMethodInfo!!,
-            it.paymentInfoModel.isStored, forgetPrevious, savedInstanceState
-          )
+          view.finishCardConfiguration(it.paymentInfoModel, forgetPrevious, savedInstanceState)
           view.updateUi(it)
           hideLoading()
           handleSubmitClicks(it.verificationInfoModel)
@@ -234,10 +231,7 @@ class VerificationIntroPresenter(
           .doOnSuccess {
             hideLoading()
             view.updateUi(it)
-            view.finishCardConfiguration(
-              it.paymentInfoModel.paymentMethodInfo!!,
-              isStored = false, forget = true, savedInstance = null
-            )
+            view.finishCardConfiguration(it.paymentInfoModel, forget = true, savedInstance = null)
           }
       }
       .subscribe({}, {

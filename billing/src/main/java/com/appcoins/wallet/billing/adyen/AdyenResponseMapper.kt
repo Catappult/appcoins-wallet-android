@@ -1,7 +1,6 @@
 package com.appcoins.wallet.billing.adyen
 
 import com.adyen.checkout.base.model.PaymentMethodsApiResponse
-import com.adyen.checkout.base.model.paymentmethods.PaymentMethod
 import com.adyen.checkout.base.model.payments.response.Action
 import com.appcoins.wallet.bdsbilling.repository.entity.Transaction
 import com.appcoins.wallet.billing.ErrorInfo
@@ -33,13 +32,13 @@ open class AdyenResponseMapper @Inject constructor(
     // since the Adyen lib considers configuration a string.
     val adyenResponse: PaymentMethodsApiResponse =
       adyenSerializer.deserializePaymentMethods(response)
-    val storedPaymentModel =
-      findPaymentMethod(adyenResponse.storedPaymentMethods, method, true, response.price)
-    return if (storedPaymentModel.error.hasError) {
-      findPaymentMethod(adyenResponse.paymentMethods, method, false, response.price)
-    } else {
-      storedPaymentModel
-    }
+    return adyenResponse.storedPaymentMethods
+      ?.find { it.type == method.adyenType }
+      ?.let { PaymentInfoModel(it, response.price.value, response.price.currency) }
+      ?: adyenResponse.paymentMethods
+        ?.find { it.type == method.adyenType }
+        ?.let { PaymentInfoModel(it, response.price.value, response.price.currency) }
+      ?: PaymentInfoModel(Error(true))
   }
 
   open fun map(response: AdyenTransactionResponse): PaymentModel {
@@ -201,22 +200,6 @@ open class AdyenResponseMapper @Inject constructor(
         errorInfo = ErrorInfo(text = throwable.message)
       )
     )
-  }
-
-  private fun findPaymentMethod(
-    paymentMethods: List<PaymentMethod>?,
-    method: AdyenPaymentRepository.Methods,
-    isStored: Boolean, price: Price
-  ): PaymentInfoModel {
-    paymentMethods?.let {
-      for (paymentMethod in it) {
-        if (paymentMethod.type == method.adyenType) return PaymentInfoModel(
-          paymentMethod, isStored,
-          price.value, price.currency
-        )
-      }
-    }
-    return PaymentInfoModel(Error(true))
   }
 
   companion object {

@@ -91,17 +91,21 @@ class AdyenResponseMapperTest {
     val storedPaymentMethod = StoredPaymentMethod()
     storedPaymentMethod.type = AdyenPaymentRepository.Methods.CREDIT_CARD.adyenType
     paymentMethodsApiResponse.storedPaymentMethods = listOf(storedPaymentMethod)
-    val expectedModel =
-      PaymentInfoModel(
-        storedPaymentMethod, true, BigDecimal(2),
-        TEST_FIAT_CURRENCY
-      )
 
     Mockito.`when`(adyenSerializer.deserializePaymentMethods(paymentResponse))
       .thenReturn(paymentMethodsApiResponse)
 
     val model = mapper.map(paymentResponse, AdyenPaymentRepository.Methods.CREDIT_CARD)
-    Assert.assertEquals(expectedModel, model)
+    Assert.assertEquals(storedPaymentMethod, model.paymentMethod)
+    Assert.assertTrue(model.isStored)
+    Assert.assertEquals(BigDecimal(2), model.priceAmount)
+    Assert.assertEquals(TEST_FIAT_CURRENCY, model.priceCurrency)
+    Assert.assertNotNull(model.cardComponent)
+    Assert.assertEquals(
+      storedPaymentMethod.supportedShopperInteractions,
+      model.supportedShopperInteractions
+    )
+    Assert.assertEquals(Error(), model.error)
   }
 
   @Test
@@ -118,16 +122,18 @@ class AdyenResponseMapperTest {
     val paymentMethod = PaymentMethod()
     paymentMethod.type = AdyenPaymentRepository.Methods.CREDIT_CARD.adyenType
     paymentMethodsApiResponse.paymentMethods = listOf(paymentMethod)
-    val expectedModel = PaymentInfoModel(
-      paymentMethod, false, BigDecimal(2),
-      TEST_FIAT_CURRENCY
-    )
 
     Mockito.`when`(adyenSerializer.deserializePaymentMethods(paymentResponse))
       .thenReturn(paymentMethodsApiResponse)
 
     val model = mapper.map(paymentResponse, AdyenPaymentRepository.Methods.CREDIT_CARD)
-    Assert.assertEquals(expectedModel, model)
+    Assert.assertEquals(paymentMethod, model.paymentMethod)
+    Assert.assertFalse(model.isStored)
+    Assert.assertEquals(BigDecimal(2), model.priceAmount)
+    Assert.assertEquals(TEST_FIAT_CURRENCY, model.priceCurrency)
+    Assert.assertNotNull(model.cardComponent)
+    Assert.assertEquals(emptyList<String>(), model.supportedShopperInteractions)
+    Assert.assertEquals(Error(), model.error)
   }
 
   @Test
