@@ -652,7 +652,7 @@
   <string name="import_wallet_wrong_password_body">¡Oops, algo salió mal!</string>
   <string name="error_invalid_private_key">Private key no válida.</string>
   <string name="error_invalid_keystore">Keystore no válida</string>
-  <string name="backup_title">Backup wallet</string>
+  <string name="backup_title">Backup Wallet</string>
   <string name="backup_body">No almacenamos tus private keys ni otros métodos de acceso. Es importante tener tu backup (keystore) seguro.</string>
   <string name="backup_additional_security_title">Seguridad adicional (opcional)</string>
   <string name="backup_additional_security_body">Elige una contraseña</string>
