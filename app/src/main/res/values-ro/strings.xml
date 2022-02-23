@@ -652,7 +652,7 @@
   <string name="import_wallet_wrong_password_body">Ups, parolă greșită!</string>
   <string name="error_invalid_private_key">Cheie privată nevalidă</string>
   <string name="error_invalid_keystore">Keystore nevalid</string>
-  <string name="backup_title">Backup Wallet</string>
+  <string name="backup_title">Copie de rezervă portofel</string>
   <string name="backup_body">Nu îți stocăm cheile private sau orice alte metode de acces. Este important să păstrezi copia de rezervă a portofelului (keystore) în siguranță.</string>
   <string name="backup_additional_security_title">Securitate suplimentară (opțional)</string>
   <string name="backup_additional_security_body">Alege o parolă</string>
