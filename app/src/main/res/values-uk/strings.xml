@@ -654,7 +654,7 @@
   <string name="import_wallet_wrong_password_body">Ой, неправильний пароль!</string>
   <string name="error_invalid_private_key">Недійсний приватний ключ</string>
   <string name="error_invalid_keystore">Недійсне сховище ключів</string>
-  <string name="backup_title">Backup wallet</string>
+  <string name="backup_title">Backup Wallet</string>
   <string name="backup_body">Ми не зберігаємо ваші приватні ключі чи будь-який інший спосіб доступу. Важливо зберегти резервну копію (сховище ключів) вашого гаманця в безпеці.</string>
   <string name="backup_additional_security_title">Додаткова безпека (необов\'язково)</string>
   <string name="backup_additional_security_body">Виберіть пароль</string>
