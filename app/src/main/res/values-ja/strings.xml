@@ -456,7 +456,7 @@
   <string name="home_empty_discover_apps_button">トップアプリを発見</string>
   <!--Tokens-->
   <!--Settings-->
-  <string name="title_redeem">Redeem Code</string>
+  <string name="title_redeem">コードを利用</string>
   <string name="settings_item_support">サポートチームへのお問い合わせ</string>
   <string name="settings_subheader_support">サポート</string>
   <string name="settings_subheader_about_us">About Us</string>
@@ -653,7 +653,7 @@
   <string name="import_wallet_wrong_password_body">間違ったパスワードです！</string>
   <string name="error_invalid_private_key">無効な秘密鍵です</string>
   <string name="error_invalid_keystore">無効なキーストアです</string>
-  <string name="backup_title">Backup uour wallet now!</string>
+  <string name="backup_title">Backup wallet</string>
   <string name="backup_body">当方があなたの秘密鍵やその他のアクセス方法を保存することはありません。ウォレットのバックアップ (キーストア) を安全に保管することが重要です。</string>
   <string name="backup_additional_security_title">追加のセキュリティ (オプション)</string>
   <string name="backup_additional_security_body">パスワードの入力</string>
