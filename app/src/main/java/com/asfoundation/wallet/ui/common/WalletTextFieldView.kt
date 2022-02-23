@@ -69,6 +69,7 @@ class WalletTextFieldView : FrameLayout {
     views.textInputLayout.error = errorText
   }
 
+
   private fun applyType() {
     when (type) {
       Type.FILLED -> {

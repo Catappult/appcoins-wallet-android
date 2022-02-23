@@ -28,6 +28,7 @@
           app:layout_constraintTop_toTopOf="parent"
           />
       <include
+          android:id="@+id/password_toggle"
           layout="@layout/layout_backup_password_toggle"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"

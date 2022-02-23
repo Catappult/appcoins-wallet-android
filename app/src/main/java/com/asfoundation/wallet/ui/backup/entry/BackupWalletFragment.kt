@@ -1,157 +1,168 @@
 package com.asfoundation.wallet.ui.backup.entry
 
 import android.animation.LayoutTransition
-import android.content.Context
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.inputmethod.InputMethodManager
+import androidx.core.view.isVisible
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
+import by.kirich1409.viewbindingdelegate.viewBinding
 import com.asf.wallet.R
+import com.asf.wallet.databinding.FragmentBackupWalletLayoutBinding
+import com.asfoundation.wallet.base.Async
+import com.asfoundation.wallet.base.SingleStateFragment
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
-import com.jakewharton.rxbinding2.view.RxView
 import dagger.hilt.android.AndroidEntryPoint
-import io.reactivex.Observable
-import io.reactivex.subjects.PublishSubject
-import kotlinx.android.synthetic.main.fragment_backup_wallet_layout.*
-import kotlinx.android.synthetic.main.layout_backup_password_toggle.*
-import kotlinx.android.synthetic.main.layout_wallet_backup_info.*
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class BackupWalletFragment : BasePageViewFragment(), BackupWalletFragmentView {
+class BackupWalletFragment : BasePageViewFragment(),
+  SingleStateFragment<BackupWalletState, BackupWalletSideEffect> {
 
   @Inject
-  lateinit var presenter: BackupWalletPresenter
-  private var onPasswordCheckedSubject: PublishSubject<Boolean>? = null
-  private var passwordSubject: PublishSubject<PasswordFields>? = null
+  lateinit var backupWalletViewModelFactory: BackupWalletViewModelFactory
+
+  @Inject
+  lateinit var navigator: BackupWalletNavigator
+
+  private val viewModel: BackupWalletViewModel by viewModels { backupWalletViewModelFactory }
+  private val views by viewBinding(FragmentBackupWalletLayoutBinding::bind)
 
   companion object {
-    const val PARAM_WALLET_ADDR = "PARAM_WALLET_ADDR"
+    const val WALLET_ADDRESS_KEY = "wallet_address"
 
     @JvmStatic
     fun newInstance(walletAddress: String): BackupWalletFragment {
-      val bundle = Bundle()
-      bundle.putString(PARAM_WALLET_ADDR, walletAddress)
-      val fragment = BackupWalletFragment()
-      fragment.arguments = bundle
-      return fragment
+      return BackupWalletFragment()
+        .apply {
+          arguments = Bundle().apply {
+            putString(WALLET_ADDRESS_KEY, walletAddress)
+          }
+        }
     }
   }
 
-  override fun onCreate(savedInstanceState: Bundle?) {
-    super.onCreate(savedInstanceState)
-    passwordSubject = PublishSubject.create()
-    onPasswordCheckedSubject = PublishSubject.create()
-  }
-
-  override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                            savedInstanceState: Bundle?): View? {
+  override fun onCreateView(
+    inflater: LayoutInflater, container: ViewGroup?,
+    savedInstanceState: Bundle?
+  ): View? {
     return inflater.inflate(R.layout.fragment_backup_wallet_layout, container, false)
   }
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
-    setToggleListener()
+
     setTextWatchers()
     setTransitionListener()
-    presenter.present()
+    setPasswordToggleListener()
+
+    views.backupBtn.setOnClickListener {
+      var password = ""
+      if (views.passwordToggle?.backupPasswordToggle?.isChecked == true) {
+        password = views.passwordToggle!!.backupPasswordInput.getText()
+      }
+      navigator.showBackupCreationScreen(
+        requireArguments().getString(WALLET_ADDRESS_KEY)!!, password
+      )
+    }
+    views.backupSkipBtn.setOnClickListener {
+      navigator.navigateToSkipScreen()
+    }
+
+    viewModel.collectStateAndEvents(lifecycle, viewLifecycleOwner.lifecycleScope)
+  }
+
+  private fun setPasswordToggleListener() {
+    views.passwordToggle?.backupPasswordToggle?.setOnCheckedChangeListener { _, isChecked ->
+      if (isChecked) {
+        views.passwordToggle?.passwordGroup?.isVisible = true
+        handlePasswordFields()
+      } else {
+        views.passwordToggle?.passwordGroup?.isVisible = false
+        views.backupBtn.isEnabled = true
+      }
+    }
   }
 
   private fun setTextWatchers() {
-    val passwordEditText = backup_password_input
-    val repeatPasswordEditText = backup_repeat_password_input
-    passwordEditText.addTextChangedListener(
-        PasswordTextWatcher(passwordSubject!!, repeatPasswordEditText))
-    repeatPasswordEditText.addTextChangedListener(
-        PasswordTextWatcher(passwordSubject!!, passwordEditText))
-  }
-
-  private fun setToggleListener() {
-    backup_password_toggle.setOnCheckedChangeListener { _, isChecked ->
-      onPasswordCheckedSubject?.onNext(isChecked)
-    }
-  }
-
-  override fun onPasswordCheckedChanged(): Observable<Boolean> = onPasswordCheckedSubject!!
-
-  override fun setupUi(walletAddress: String, symbol: String, formattedAmount: String) {
-    backup_wallet_address.text = walletAddress
-    backup_balance.text = getString(R.string.value_fiat, symbol, formattedAmount)
-  }
-
-  override fun getBackupClick(): Observable<PasswordStatus> = RxView.clicks(backup_btn)
-      .map {
-        PasswordStatus(backup_password_input.getText(), backup_password_toggle.isChecked)
+    val textWatcher = object : TextWatcher {
+      override fun beforeTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) = Unit
+      override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) = Unit
+      override fun afterTextChanged(s: Editable) {
+        handlePasswordFields()
       }
+    }
 
-  override fun getSkipClick(): Observable<Any> = RxView.clicks(backup_skip_btn)
-
-  override fun hideKeyboard() {
-    val imm = activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager?
-    imm?.hideSoftInputFromWindow(password_group?.windowToken, 0)
+    views.passwordToggle?.backupPasswordInput?.addTextChangedListener(textWatcher)
+    views.passwordToggle?.backupRepeatPasswordInput?.addTextChangedListener(textWatcher)
   }
 
-  override fun hidePasswordFields() {
-    password_group.visibility = View.GONE
-    backup_btn.isEnabled = true
-  }
+  private fun handlePasswordFields() {
+    val password = views.passwordToggle?.backupPasswordInput?.getText()
+    val repeatedPassword = views.passwordToggle?.backupRepeatPasswordInput?.getText()
 
-  override fun showPasswordFields() {
-    password_group.visibility = View.VISIBLE
-    if (areInvalidPasswordFields()) {
-      backup_btn.isEnabled = false
+    if (password!!.isEmpty() || repeatedPassword!!.isEmpty()) {
+      showPasswordError(false)
+      views.backupBtn.isEnabled = false
+    } else if (password.isNotEmpty() && password != repeatedPassword) {
+      showPasswordError(true)
+      views.backupBtn.isEnabled = false
+    } else {
+      showPasswordError(false)
+      views.backupBtn.isEnabled = true
     }
   }
 
-  private fun areInvalidPasswordFields(): Boolean {
-    val password = backup_password_input.getText()
-    val repeatedPassword = backup_repeat_password_input.getText()
-    return password.isEmpty() || password != repeatedPassword
-  }
+  private fun showPasswordError(shouldShow: Boolean) {
+    var errorMessage: String? = null
 
-  override fun onPasswordTextChanged(): Observable<PasswordFields> = passwordSubject!!
-
-  override fun disableButton() {
-    backup_btn.isEnabled = false
-  }
-
-  override fun enableButton() {
-    backup_btn.isEnabled = true
-  }
-
-  override fun clearErrors() {
-    backup_repeat_password_input.setError(null)
-  }
-
-  override fun showPasswordError() {
-    backup_repeat_password_input.setError(
-        getString(R.string.backup_additional_security_password_not_march))
+    if (shouldShow) {
+      errorMessage = getString(R.string.backup_additional_security_password_not_march)
+    }
+    views.passwordToggle?.backupRepeatPasswordInput?.setError(errorMessage)
   }
 
   private fun setTransitionListener() {
-    backup_password_toggle_layout.layoutTransition.addTransitionListener(object :
-        LayoutTransition.TransitionListener {
-      override fun startTransition(transition: LayoutTransition?, container: ViewGroup?,
-                                   view: View?, transitionType: Int) = Unit
+    views.passwordToggle?.backupPasswordToggleLayout?.layoutTransition?.addTransitionListener(object :
+      LayoutTransition.TransitionListener {
+      override fun startTransition(
+        transition: LayoutTransition?, container: ViewGroup?,
+        view: View?, transitionType: Int
+      ) = Unit
 
-      override fun endTransition(transition: LayoutTransition?, container: ViewGroup?,
-                                 view: View?, transitionType: Int) {
+      override fun endTransition(
+        transition: LayoutTransition?, container: ViewGroup?,
+        view: View?, transitionType: Int
+      ) {
         if (transitionType == LayoutTransition.APPEARING) {
-          backup_scroll_view.smoothScrollTo(backup_scroll_view.x.toInt(), backup_scroll_view.bottom)
+          views.backupScrollView.smoothScrollTo(
+            views.backupScrollView.x.toInt(),
+            views.backupScrollView.bottom
+          )
         }
       }
     })
   }
 
-  override fun onDestroyView() {
-    presenter.stop()
-    super.onDestroyView()
+  override fun onStateChanged(state: BackupWalletState) {
+    views.walletBackupInfo.backupWalletAddress.text = state.walletAddress
+
+    when (state.balanceAsync) {
+      is Async.Success -> {
+        setBalance(state.balanceAsync()!!)
+      }
+      else -> Unit
+    }
   }
 
-  override fun onDestroy() {
-    onPasswordCheckedSubject = null
-    passwordSubject = null
-    super.onDestroy()
+  private fun setBalance(balance: Balance) {
+    views.walletBackupInfo.backupBalance.text =
+      getString(R.string.value_fiat, balance.symbol, balance.amount)
   }
+
+  override fun onSideEffect(sideEffect: BackupWalletSideEffect) = Unit
 }

@@ -1,4 +1,4 @@
-package com.asfoundation.wallet.ui.backup.entry
+package com.asfoundation.wallet.restore.password
 
 import android.content.Context
 import android.util.AttributeSet
