@@ -15,7 +15,6 @@ import androidx.annotation.DrawableRes;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.RecyclerView;
 import com.asf.wallet.R;
 import com.asfoundation.wallet.GlideApp;
@@ -253,7 +252,8 @@ import static com.asfoundation.wallet.C.Key.TRANSACTION;
         break;
       case TRANSFER:
         typeStr = R.string.transaction_type_p2p;
-        id = isSent ? "Transfer Sent" : getString(R.string.askafriend_received_title);
+        id = isSent ? getString(R.string.askafriend_send_title)
+            : getString(R.string.askafriend_received_title);
         typeIcon = R.drawable.transaction_type_transfer_off_chain;
         categoryBackground.setBackground(null);
         to = transaction.getTo();
@@ -273,11 +273,12 @@ import static com.asfoundation.wallet.C.Key.TRANSACTION;
         } else {
           symbol = getString(R.string.p2p_send_currency_appc_c);
         }
-        from = transaction.getFrom() ;
+        from = transaction.getFrom();
         break;
       case TRANSFER_OFF_CHAIN:
         typeStr = R.string.transaction_type_p2p;
-        id = isSent ? "Transfer Sent" : getString(R.string.askafriend_received_title);
+        id = isSent ? getString(R.string.askafriend_send_title)
+            : getString(R.string.askafriend_received_title);
         typeIcon = R.drawable.transaction_type_transfer_off_chain;
         categoryBackground.setBackground(null);
         to = transaction.getTo();
@@ -286,7 +287,7 @@ import static com.asfoundation.wallet.C.Key.TRANSACTION;
             view -> viewModel.showMoreDetailsBds(view.getContext(), transaction));
         manageSubscriptions.setVisibility(View.GONE);
         symbol = getString(R.string.p2p_send_currency_appc_c);
-        from = transaction.getFrom() ;
+        from = transaction.getFrom();
         break;
       case SUBS_OFFCHAIN:
         typeStr = R.string.subscriptions_category_title;
