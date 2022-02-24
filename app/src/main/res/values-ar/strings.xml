@@ -653,7 +653,7 @@
   <string name="import_wallet_wrong_password_body">يوه، كلمة مرور خاطئة!</string>
   <string name="error_invalid_private_key">مفتاح خاص غير صالح</string>
   <string name="error_invalid_keystore">محفظة مفاتيح غير صالحة</string>
-  <string name="backup_title">Backup Wallet</string>
+  <string name="backup_title">نسخ احتياطي للمحفظة</string>
   <string name="backup_body">نحن لا نحتفظ بمفاتيحك الخاصة أو أيٍّ من وسائل الدخولا أخرى. من المهم أن يبقى النسخ الاحتياطي لمحفظتك (keystore) بأمان.</string>
   <string name="backup_additional_security_title">أمان إضافي (اختياري)</string>
   <string name="backup_additional_security_body">اختر كلمة مرور</string>
