@@ -263,7 +263,7 @@
   <string name="ellipsize">\u0020• • •</string>
   <string name="transaction_status_label">Status</string>
   <string name="transaction_category_label">Kategoria</string>
-  <string name="transaction_order_reference_label">Order ID</string>
+  <string name="transaction_order_reference_label">ID zamówienia</string>
   <string name="transaction_details_label">Szczegóły</string>
   <string name="transaction_to_label">Do</string>
   <string name="dialog_credit_card_remember">Pamiętaj kartę</string>
@@ -271,7 +271,7 @@
   <string name="dialog_credit_card_number">Numer karty</string>
   <string name="dialog_credit_card_expiration">Data wygaśnięcia</string>
   <string name="dialog_credit_card_cvv">CVV</string>
-  <string name="dialog_bank_card">Credit/debit card</string>
+  <string name="dialog_bank_card">Karta kredytowa/debetowa</string>
   <string name="dialog_expiry_date">Data ważności</string>
   <string name="activity_airdrop_title">Potwierdź, że jesteś człowiekiem, aby otrzymać AppCoins</string>
   <string name="activity_airdrop_details">To dla bezpieczeństwa.</string>
@@ -401,7 +401,7 @@
   <string name="askafriend_share_add_message_body">Dodaj wiadomość (opcjonalnie)</string>
   <string name="askafriend_share_button">Udostępnij</string>
   <string name="askafriend_share_popup_title">Poproś kogoś przez:</string>
-  <string name="askafriend_received_body">You just received %s AppCoins Credits</string>
+  <string name="askafriend_received_body">Właśnie otrzymałeś %s AppCoins Credits</string>
   <string name="askafriend_notification_received_title">Przelew Odebrany</string>
   <string name="askafriend_notification_received_body">%1$s %2$s zostały zapisane do Twojego portfela.</string>
   <string name="askafriend_received_title">Przelew Odebrany</string>
@@ -440,15 +440,15 @@
   <string name="get_code_button">Kod</string>
   <string name="confirm_button">Potwierdź</string>
   <string name="withdraw_button">wypłać</string>
-  <string name="email_here_field">Your email here&#8230;</string>
-  <string name="understood_button">Understood!</string>
+  <string name="email_here_field">Twój adres email&#8230;</string>
+  <string name="understood_button">Rozumiem!</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Zgadzam się na %1$s i %2$s portfela AppCoins.</string>
   <string name="terms_and_conditions_error">Proszę zaakceptować nasz regulamin aby kontynuować</string>
   <string name="terms_and_conditions">Regulamin</string>
   <string name="privacy_policy">Polityka prywatności</string>
-  <string name="decline_button">Reject</string>
-  <string name="get_started">Get Started</string>
+  <string name="decline_button">Odrzuć</string>
+  <string name="get_started">Zaczynamy</string>
   <string name="existent_wallet">I already have a wallet</string>
   <!--Home-->
   <string name="home_empty_discover_apps_body">Dokonaj zakupu w ulubionej grze – my zajmiemy się resztą.</string>
