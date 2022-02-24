@@ -652,7 +652,7 @@
   <string name="import_wallet_wrong_password_body">Ωχ, λανθασμένος κωδικός πρόσβασης!</string>
   <string name="error_invalid_private_key">Μη έγκυρο ιδιωτικό κλειδί</string>
   <string name="error_invalid_keystore">Μη έγκυρο keystore</string>
-  <string name="backup_title">Backup Wallet</string>
+  <string name="backup_title">Αντίγραφο Ασφαλείας του Wallet</string>
   <string name="backup_body">Δεν αποθηκεύουμε τα ιδιωτικά κλειδιά σας ή άλλες μεθόδους πρόσβασης. Είναι σημαντικό να διατηρείτε το αντίγραφο ασφαλείας του wallet σας (keystore) ασφαλές.</string>
   <string name="backup_additional_security_title">Επιπρόσθετη Ασφάλεια (προαιρετικά)</string>
   <string name="backup_additional_security_body">Επιλέξτε έναν κωδικό πρόσβασης</string>
