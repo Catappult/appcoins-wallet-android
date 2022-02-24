@@ -34,8 +34,9 @@ import io.reactivex.Completable
 import io.reactivex.exceptions.UndeliverableException
 import io.reactivex.plugins.RxJavaPlugins
 import io.reactivex.schedulers.Schedulers
-import io.sentry.Sentry
-import io.sentry.android.AndroidSentryClientFactory
+import org.bouncycastle.jce.provider.BouncyCastleProvider
+import java.security.Provider
+import java.security.Security
 import java.util.*
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
@@ -125,6 +126,7 @@ class App : MultiDexApplication(), BillingDependenciesProvider {
     initiateIntercom()
     initiateSentry()
     initiateUxCam()
+    setupBouncyCastle()
     initializeWalletId()
   }
 
@@ -161,6 +163,15 @@ class App : MultiDexApplication(), BillingDependenciesProvider {
         throw RuntimeException(throwable)
       }
     }
+  }
+
+  // fixes issue with web3j to support ECDSA
+  // https://github.com/web3j/web3j/issues/915
+  private fun setupBouncyCastle() {
+    val provider: Provider = Security.getProvider(BouncyCastleProvider.PROVIDER_NAME) ?: return
+    if (provider.equals(BouncyCastleProvider::class.java)) { return }
+    Security.removeProvider(BouncyCastleProvider.PROVIDER_NAME)
+    Security.insertProviderAt(BouncyCastleProvider(), 1)
   }
 
   private fun checkGooglePlayServices(): Boolean {
