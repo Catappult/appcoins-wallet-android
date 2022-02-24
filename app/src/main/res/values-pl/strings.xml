@@ -158,7 +158,7 @@
   <string name="action_more_details">Więcej</string>
   <string name="action_add_wallet">Dodaj portfel</string>
   <string name="action_coinbase">Coinbase</string>
-  <string name="action_shapeshift">Shapeshift (Crypto only)</string>
+  <string name="action_shapeshift">Shapeshift (tylko kryptowaluty)</string>
   <string name="action_changelly">Changelly</string>
   <string name="action_wallets">Portfele</string>
   <string name="action_next">Następny</string>
