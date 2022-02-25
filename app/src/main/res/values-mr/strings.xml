@@ -9,7 +9,7 @@
   <string name="bottom_navigation_my_wallets">माझे वॉलेट्स</string>
   <!-- Strings relatedwalletount creation -->
   <string name="prompt_password">पासवर्ड</string>
-  <string name="action_sign_in_short">Create</string>
+  <string name="action_sign_in_short">निर्माण करा</string>
   <!-- String related to sending -->
   <string name="prompt_to">प्रति</string>
   <string name="action_send">पाठवा</string>
@@ -20,7 +20,7 @@
   <string name="confirm_delete_account">ह्या वॉलेटचा बॅकअप आपल्याकडे असण्याची खात्री करा.</string>
   <string name="action_import">परत मिळवा</string>
   <string name="copy">क्लिपबोर्डावर कॉपी करा</string>
-  <string name="copied">Copied!</string>
+  <string name="copied">कॉपी केले!</string>
   <string name="close">बंद करा</string>
   <string name="title_activity_settings">सेटिंग्ज</string>
   <string name="network_label">नेटवर्क</string>
@@ -28,7 +28,7 @@
   <string name="label_new">नविन</string>
   <string name="got_it_button">समजल</string>
   <string name="change_button">बदला</string>
-  <string name="vip">VIP</string>
+  <string name="vip">व्हीआयपी</string>
   <string name="low_storage_error">पुरेसे स्टोरेज नाही</string>
   <string name="no_camera_permission_title">कॅमेराची परवानगी</string>
   <string name="no_camera_permission">AppCoins BDS Wallet ला आपल्या कॅमेरात प्रवेश आणि ‍क्युआर कोड स्कॅन करण्याची परवानगी हवी आहे.</string>
@@ -50,7 +50,7 @@
   <string name="error_import">कीस्ट्रोक इंपोर्ट करताना त्रुटी</string>
   <string name="message_this_is_your_address">माझा जाहीर एथरियम वॉलेट पत्ता</string>
   <string name="backup_warning_text">हे अॅप मिटविले जाण्याच्या परिस्थितीत, फक्त आपणच आपल्या पैशांचे नियंत्रण करीत असल्याने, आपणांस आपले कीस्ट्रोक बॅकअप करावे लागतील.\n\nआपले वॉलेट क्लाऊड स्टोरेज किंवा स्टँडर्ड डिव्हाइस बॅकअपमध्ये कधीच सेव्ह केले जात नाही.</string>
-  <string name="backup_wallet_tooltip">Keep a copy of your wallet to keep it safe.</string>
+  <string name="backup_wallet_tooltip">सुरक्षित ठेवण्यासाठी आपल्या वॉलेटची एक कॉपी ठेवा.</string>
   <string name="message_no_backup">बॅकअप नाही, एथरियम नाही</string>
   <string name="error_deleting_account">वॉलेट मिटविताना त्रुटी</string>
   <string name="title_privacy_policy">गोपनीयता धोरण</string>
@@ -100,7 +100,7 @@
   <string name="title_dialog_error">त्रुटी</string>
   <string name="title_dialog_handling">प्रक्रियारत आहे…</string>
   <string name="title_dialog_add_account">वॉलेट जोडा</string>
-  <string name="title_dialog_deposit">How would you like to buy?</string>
+  <string name="title_dialog_deposit">आपल्याला खरेदी कशी करायला आवडेल?</string>
   <string name="title_dialog_close_channel">Close channel</string>
   <!-- Dialog messages-->
   <string name="dialog_message">आपले वॉलेट एनक्रिप्ट करण्यासाठी पासवर्ड सेट करा</string>
@@ -120,7 +120,7 @@
   <string name="intro_2_title">जास्त खेळा, कमी पैसे भरा</string>
   <string name="intro_2_body">आपल्या आवडत्या अॅप्स आणि खेळातील वस्तु खरेदी करुन बक्षिसे मिळवा.</string>
   <string name="intro_3_title">साधे आणि सोपे</string>
-  <string name="intro_3_body">Keep the AppCoins Wallet installed to directly purchase in your games.</string>
+  <string name="intro_3_body">आपल्या खेळात थेट खरेदी करण्यासाठी अॅपकॉईन्स वॉलेट इंस्टॉल केलेले असु द्यात.</string>
   <string name="intro_4_title">सुरक्षित आणि खासगी</string>
   <string name="intro_4_body">आपल्या खासगी कीज आपल्या डिव्हाइसच्या बाहेर जाणार नाहीत. त्यामुळे आपल्या अॅपकॉइन्स नेहमीच सुरक्षित रहातील.</string>
   <string name="intro_4_body_2">अत्याधुनिक तंत्रज्ञानामुळे आपले सर्व व्यवहार नेहमीच सुरक्षित असतील.</string>
@@ -130,10 +130,10 @@
   <string name="intro_wallet_created_short">वॉलेट बनविले!</string>
   <string name="intro_agree_terms_and_conditions_body">वगळा वर टॅप करुन आपण अॅपकॉइन्स वॉलेटच्या %1$s आणि %2$s ना मान्यता देता</string>
   <string name="intro_skip_button">वगळा</string>
-  <string name="intro_welcome_header">Welcome to the AppCoins Wallet</string>
-  <string name="intro_welcome_body">Your app for in-app purchases.</string>
-  <string name="intro_already_have_wallet_button">I already have a wallet</string>
-  <string name="intro_get_started_button">Get started</string>
+  <string name="intro_welcome_header">अॅपकॉईन्स वॉलेटमध्ये स्वागत आहे</string>
+  <string name="intro_welcome_body">अॅपमधील खरेदीसाठीचे आपले अॅप.</string>
+  <string name="intro_already_have_wallet_button">माझ्याकडे आधीपासुनच वॉलेट आहे</string>
+  <string name="intro_get_started_button">सुरु करुयात</string>
   <!-- Menus -->
   <!-- Labels -->
   <string name="label_from">कडुन</string>
@@ -158,7 +158,7 @@
   <string name="action_more_details">जास्त</string>
   <string name="action_add_wallet">वॉलेट जोडा</string>
   <string name="action_coinbase">Coinbase</string>
-  <string name="action_shapeshift">Shapeshift (Crypto only)</string>
+  <string name="action_shapeshift">शेपशिफ्ट (फक्त क्रिप्टो)</string>
   <string name="action_changelly">Changelly</string>
   <string name="action_wallets">वॉलेट्स</string>
   <string name="action_next">पुढचे</string>
@@ -242,7 +242,7 @@
   <string name="transaction_type_standard">हस्तांतरण</string>
   <string name="transaction_type_bonus">बोनस</string>
   <string name="transaction_type_eskills_reward">Eskills Reward</string>
-  <string name="transaction_type_eskills">e-Skills Purchase</string>
+  <string name="transaction_type_eskills">इ-स्किल्स खरेदी</string>
   <string name="transaction_type_voucher">इ-व्हाऊचर</string>
   <string name="transaction_type_voucher_title">%s साठी व्हाऊचर</string>
   <string name="transaction_type_reverted_bonus_title">परत केलेला बोनस</string>
@@ -252,8 +252,8 @@
   <string name="transaction_type_reverted_purchase_title">खरेदी परतावा</string>
   <string name="transaction_type_reverted_purchase_body">%s वर आपण केलेली खरेदी रक्कम परतवलीय. अधिक माहितीसाठी समर्थनाशी संपर्क साधा.</string>
   <string name="transaction_reverted_view_original_header">मूळ व्यवहार</string>
-  <string name="transaction_onchain_completed_title">Transaction on the way!</string>
-  <string name="transaction_onchain_completed_body">You can track it on Etherscan.</string>
+  <string name="transaction_onchain_completed_title">व्यवहार येत आहे!</string>
+  <string name="transaction_onchain_completed_body">इथरस्कॅनवर आपण ट्रॅक करु शकता.</string>
   <string name="transaction_type_p2p">@string/transaction_type_standard</string>
   <string name="transaction_details_brand_txt">एथरियमने पावर्ड</string>
   <string name="transaction_close_channel_btn_txt">close channel</string>
@@ -263,7 +263,7 @@
   <string name="ellipsize">\u0020• • •</string>
   <string name="transaction_status_label">दर्जा</string>
   <string name="transaction_category_label">श्रेणी</string>
-  <string name="transaction_order_reference_label">Order ID</string>
+  <string name="transaction_order_reference_label">ऑर्डर आयडी</string>
   <string name="transaction_details_label">तपशील</string>
   <string name="transaction_to_label">प्रति</string>
   <string name="dialog_credit_card_remember">कार्ड ध्यानात ठेवा</string>
@@ -288,7 +288,7 @@
   <string name="iab_activity_raiden_amount_label">Select Amount</string>
   <string name="iab_activity_raiden_channel_info_message">You’ll not pay fees for the transactions made with this developer until the amount you choose is reached. The amount will be withdrawn and stored, and you can close this channel anytime.</string>
   <string name="iab_activity_raiden_channel_info_title">µRaiden Channel</string>
-  <string name="proceed">proceed</string>
+  <string name="proceed">पुढे चला</string>
   <string name="iab_activity_raiden_channel_no_funds_message">You don\'t have enough funds on your µRainden payment channel. Go to your wallet and close the channel to create a new one.  Do you still want to complete this purchase with a standard payment?</string>
   <string name="iab_activity_raiden_channel_no_funds_title">Payment Channel Funds</string>
   <string name="spend_your_appcoins">आपल्या अॅपकॉइन्स खर्च करा</string>
@@ -331,7 +331,7 @@
   <string name="gamification_star_subtitle">चमकणारा, मोठा आणि जीवनाने भरलेला!</string>
   <string name="gamification_galaxy_subtitle">तिथे असलेली मोठी प्रणाली!</string>
   <string name="gamification_transaction_title">@string/gamification_level_bonus</string>
-  <string name="gamification_purchase_header">This purchase has a bonus!</string>
+  <string name="gamification_purchase_header">ह्या खरेदीवर बोनस आहे!</string>
   <string name="gamification_purchase_header_part_1">खरेदी बोनस:</string>
   <string name="gamification_purchase_header_part_2">%s एपीपीसी क्रेडीटस</string>
   <string name="gamification_purchase_body">आपल्या पुढच्या खरेदीत आपण हा बोनस वापरु शकता.</string>
@@ -388,11 +388,11 @@
   <string name="balance_ethereum_body">अॅपकॉइन्स इथेरियम क्रिप्टोकरंसीवर आधारीत आहे. आपण ह्याचा विनिमय बहुतेक एक्सचेंजमध्ये करु शकता, हे फार लोकप्रिय आहे!</string>
   <string name="balance_appcoins_body">अॅप इकॉनॉमीसाठी अॅपकॉइन्स ही क्रिप्टोकरंसी आहे. आपण ह्याचा विनिमय पुष्कळशा एक्सचेंजेसवर करु शकता आणि अॅपमधील वस्तु खरेदीसाठी करु शकता.</string>
   <string name="balance_appccreditos_body">अॅपमधील खरेदी करण्याचे टोकन! आपल्या वॉलेटमधुन एपीपीसी-सीत भरणा करा किंवा अॅप वापरुन त्यांना मोफत मिळवा. स्नेह्यांमध्ये ह्याचे हस्तांतरणही केले जाऊ शकते!</string>
-  <string name="my_wallets_action_new_wallet">New wallet</string>
-  <string name="my_wallets_action_recover_wallet">Recover wallet</string>
+  <string name="my_wallets_action_new_wallet">नविन वॉलेट</string>
+  <string name="my_wallets_action_recover_wallet">वॉलेट परत मिळवा</string>
   <string name="my_wallets_action_backup_wallet">वॉलेट बॅकअप करा</string>
-  <string name="my_wallets_action_verify_new_card">Validate new card</string>
-  <string name="my_wallets_action_delete_wallet">Delete wallet</string>
+  <string name="my_wallets_action_verify_new_card">नविन कार्डास प्रमाणित करा</string>
+  <string name="my_wallets_action_delete_wallet">वॉलेट मिटवा</string>
   <!--Ask a friend for funds-->
   <string name="askafriend_payment_option_button">कोणालातरी पैसे भरायला सांगा</string>
   <string name="askafriend_generating_link_message">आम्ही आपली पेमेंट लिंक&#8230; तयार करीत आहोत</string>
@@ -401,7 +401,7 @@
   <string name="askafriend_share_add_message_body">संदेश जोडा (पर्यायी)</string>
   <string name="askafriend_share_button">शेयर</string>
   <string name="askafriend_share_popup_title">कोणालातरी ह्याद्वारे विचारा:</string>
-  <string name="askafriend_received_body">You just received %s AppCoins Credits</string>
+  <string name="askafriend_received_body">आपल्याला आत्ताच %s अॅपकॉइन्स क्रेडीटस मिळालेत</string>
   <string name="askafriend_notification_received_title">नविन हस्तांतरण मिळाले</string>
   <string name="askafriend_notification_received_body">%1$s %2$s आपल्या वॉलेटमध्ये जमा केले.</string>
   <string name="askafriend_received_title">हस्तांतरण मिळाले</string>
@@ -439,9 +439,9 @@
   <string name="remind_later_button">नंतर पाहू</string>
   <string name="get_code_button">कोड मिळवा</string>
   <string name="confirm_button">पुष्टी करा</string>
-  <string name="withdraw_button">withdraw</string>
-  <string name="email_here_field">Your email here&#8230;</string>
-  <string name="understood_button">Understood!</string>
+  <string name="withdraw_button">पैसे काढा</string>
+  <string name="email_here_field">आपला ईमेल पत्ता इथे&#8230;</string>
+  <string name="understood_button">समजले!</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">मला अॅपकॉइन्स वॉलेटच्या %1$s आणि %2$s मान्य आहेत.</string>
   <string name="terms_and_conditions_error">चालू ठेवण्यासाठी कृपया आमच्या अटी आणि शर्ती मंजुर करा</string>
