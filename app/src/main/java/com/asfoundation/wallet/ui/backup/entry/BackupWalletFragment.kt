@@ -150,10 +150,13 @@ class BackupWalletFragment : BasePageViewFragment(),
 
   override fun onStateChanged(state: BackupWalletState) {
     views.walletBackupInfo.backupWalletAddress.text = state.walletAddress
+    handleBalanceAsync(state.balanceAsync)
+  }
 
-    when (state.balanceAsync) {
+  private fun handleBalanceAsync(balanceAsync: Async<Balance>) {
+    when (balanceAsync) {
       is Async.Success -> {
-        setBalance(state.balanceAsync()!!)
+        setBalance(balanceAsync())
       }
       else -> Unit
     }

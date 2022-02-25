@@ -1,24 +1,27 @@
 package com.asfoundation.wallet.ui.backup.success
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import by.kirich1409.viewbindingdelegate.viewBinding
 import com.asf.wallet.R
+import com.asf.wallet.databinding.FragmentBackupSuccessLayoutBinding
+import com.asfoundation.wallet.base.SideEffect
+import com.asfoundation.wallet.base.SingleStateFragment
+import com.asfoundation.wallet.base.ViewState
 import com.asfoundation.wallet.ui.backup.BackupActivityView
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
-import com.jakewharton.rxbinding2.view.RxView
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_backup_success_layout.*
 import kotlinx.android.synthetic.main.layout_backup_success_info.view.*
-import javax.inject.Inject
 
 @AndroidEntryPoint
-class BackupSuccessFragment : BasePageViewFragment(), BackupSuccessFragmentView {
+class BackupSuccessFragment : BasePageViewFragment(),
+  SingleStateFragment<ViewState, SideEffect> {
 
-  @Inject
-  lateinit var presenter: BackupSuccessPresenter
+  private val views by viewBinding(FragmentBackupSuccessLayoutBinding::bind)
+
   private lateinit var activityView: BackupActivityView
 
   companion object {
@@ -27,7 +30,7 @@ class BackupSuccessFragment : BasePageViewFragment(), BackupSuccessFragmentView 
     @JvmStatic
     fun newInstance(email: Boolean): BackupSuccessFragment {
       return BackupSuccessFragment()
-          .apply {
+        .apply {
             arguments = Bundle().apply {
               putBoolean(EMAIL_KEY, email)
             }
@@ -42,26 +45,25 @@ class BackupSuccessFragment : BasePageViewFragment(), BackupSuccessFragmentView 
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
-    presenter.present()
+
+    views.closeButton.setOnClickListener {
+      activityView.closeScreen()
+    }
+
+    setSuccessInfo()
   }
 
-  override fun onAttach(context: Context) {
-    super.onAttach(context)
-    check(
-        context is BackupActivityView) { "BackupSuccess fragment must be attached to Backup activity" }
-    activityView = context
+  private fun setSuccessInfo() {
+    var info = "Your backup file is stored in your device"
+
+    if (requireArguments().getBoolean(EMAIL_KEY)) {
+      info = "Your backup file is in your email"
+    }
+
+    views.backupSuccessInfo.body.text = info
   }
 
-  override fun getCloseButtonClick() = RxView.clicks(close_button)
+  override fun onStateChanged(state: ViewState) = Unit
 
-  override fun closeScreen() = activityView.closeScreen()
-
-  override fun setSuccessInfo(info: String) {
-    backup_success_info.body.text = info
-  }
-
-  override fun onDestroy() {
-    presenter.stop()
-    super.onDestroy()
-  }
+  override fun onSideEffect(sideEffect: SideEffect) = Unit
 }

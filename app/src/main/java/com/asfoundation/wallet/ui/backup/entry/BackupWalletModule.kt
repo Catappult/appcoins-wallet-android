@@ -1,6 +1,7 @@
 package com.asfoundation.wallet.ui.backup.entry
 
 import androidx.fragment.app.Fragment
+import com.asfoundation.wallet.base.RxSchedulers
 import com.asfoundation.wallet.ui.backup.entry.BackupWalletFragment.Companion.WALLET_ADDRESS_KEY
 import com.asfoundation.wallet.util.CurrencyFormatUtils
 import com.asfoundation.wallet.wallets.usecases.GetWalletInfoUseCase
@@ -17,12 +18,14 @@ class BackupWalletModule {
   fun providesBackupWalletViewModelFactory(
     getWalletInfoUseCase: GetWalletInfoUseCase,
     currencyFormatUtils: CurrencyFormatUtils,
-    data: BackupWalletData
+    data: BackupWalletData,
+    rxSchedulers: RxSchedulers,
   ): BackupWalletViewModelFactory {
     return BackupWalletViewModelFactory(
       data,
       getWalletInfoUseCase,
-      currencyFormatUtils
+      currencyFormatUtils,
+      rxSchedulers
     )
   }
 
