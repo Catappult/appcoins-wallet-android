@@ -440,15 +440,15 @@
   <string name="get_code_button">Einen Code erhalten</string>
   <string name="confirm_button">Bestätigen</string>
   <string name="withdraw_button">abheben</string>
-  <string name="email_here_field">Your email here&#8230;</string>
-  <string name="understood_button">Understood!</string>
+  <string name="email_here_field">Ihre E-Mail hier&#8230;</string>
+  <string name="understood_button">Verstanden!</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Ich stimme den %1$s und der %2$s des AppCoins Wallets zu.</string>
   <string name="terms_and_conditions_error">Um fortzufahren, akzeptieren Sie bitte unsere AGBs und unsere Datenschutzrichtlinie</string>
   <string name="terms_and_conditions">Allgemeinen Geschäftsbedingungen</string>
   <string name="privacy_policy">Datenschutzrichtlinie</string>
-  <string name="decline_button">Reject</string>
-  <string name="get_started">Get Started</string>
+  <string name="decline_button">Ablehnen</string>
+  <string name="get_started">Los Geht\'s</string>
   <string name="existent_wallet">Ich habe bereits ein Wallet</string>
   <!--Home-->
   <string name="home_empty_discover_apps_body">Kaufe bei deinem Lieblingsspiel ein und wir erledigen alles andere.</string>
@@ -656,11 +656,11 @@
   <string name="backup_body">Wir speichern weder ihre privaten Schlüssel noch andere Zugriffsmethoden. Es ist wichtig das Sie das Backup ihres Wallets (Keystore) sicher aufbewahren.</string>
   <string name="backup_additional_security_title">Zusätzliche Sicherheit (optional)</string>
   <string name="backup_additional_security_body">Wählen Sie ein Paswort</string>
-  <string name="backup_button">BACKUP WALLET</string>
+  <string name="backup_button">WALLET BACKUP</string>
   <string name="backup_password">Passwort</string>
-  <string name="backup_ready_title">Your backup is ready! Keep it safe.</string>
-  <string name="backup_ready_save_on_email">Save it on your email</string>
-  <string name="backup_ready_email_button">Send to email</string>
+  <string name="backup_ready_title">Ihr Backup ist fertig! Bewahren Sie es sicher auf.</string>
+  <string name="backup_ready_save_on_email">Speichern Sie es in Ihrer E-Mail</string>
+  <string name="backup_ready_email_button">An die E-Mail Adresse versenden</string>
   <string name="backup_ready_device_button">Save on device</string>
   <string name="backup_done_title">Backup erledigt!</string>
   <string name="backup_confirmation_tips_title">Datei sichern:</string>
