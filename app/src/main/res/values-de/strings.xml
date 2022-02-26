@@ -263,7 +263,7 @@
   <string name="ellipsize">\u0020• • •</string>
   <string name="transaction_status_label">Status</string>
   <string name="transaction_category_label">Kategorie</string>
-  <string name="transaction_order_reference_label">Order ID</string>
+  <string name="transaction_order_reference_label">Bestellnummer</string>
   <string name="transaction_details_label">Details</string>
   <string name="transaction_to_label">An</string>
   <string name="dialog_credit_card_remember">Erinnerungskarte</string>
@@ -401,7 +401,7 @@
   <string name="askafriend_share_add_message_body">Nachricht hinzufügen (Optional)</string>
   <string name="askafriend_share_button">Teilen</string>
   <string name="askafriend_share_popup_title">Anfrage versenden über:</string>
-  <string name="askafriend_received_body">You just received %s AppCoins Credits</string>
+  <string name="askafriend_received_body">Sie haben gerade %s AppCoins Credits erhalten</string>
   <string name="askafriend_notification_received_title">Neue Überweisung Erhalten</string>
   <string name="askafriend_notification_received_body">%1$s %2$s AppCoins wurden gutgeschrieben.</string>
   <string name="askafriend_received_title">Überweisung erhalten</string>
