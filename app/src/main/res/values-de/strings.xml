@@ -984,14 +984,14 @@
   <string name="e_skills_withdraw_title">e-Skills Abhebung</string>
   <string name="e_skills_withdraw_invalid_email_error_message">Ungültige E-Mail Adresse</string>
   <string name="e_skills_withdraw_not_enough_balance_error_message">Guthaben nicht ausreichend</string>
-  <string name="e_skills_withdraw_not_enough_earnings_error_message">You haven\'t won enough e-Skills games to withdraw that amount</string>
+  <string name="e_skills_withdraw_not_enough_earnings_error_message">Sie haben noch nicht genug e-Skills Spiele gewonnen, um diesen Betrag abzuheben</string>
   <string name="e_skills_withdraw_minimum_amount_error_message">Der Mindestbetrag für eine Abhebung beträgt $%1$.2f</string>
   <string name="e_skills_withdraw_max_amount_part_1">Sie können abheben:</string>
   <string name="e_skills_withdraw_max_amount_part_2">$%1$.2f</string>
   <string name="e_skills_know_more_about">Erfahren Sie mehr über e-Skills</string>
   <string name="e_skills_know_more_about_tmp">sie können nur das Guthaben abheben dass sie in e-Skill Spielen verdient haben</string>
   <string name="e_skills_withdraw_started">Ihre Abhebung von $%1$.2f \nwurde gestartet</string>
-  <string name="e_skills_withdraw_generic_error">Generic error message</string>
+  <string name="e_skills_withdraw_generic_error">Allgemeine Fehlermeldung</string>
   <string name="e_skills_withdraw_maybe_later">Vielleicht später</string>
   <string name="e_skills_room_create_title">Einem Raum beitreten oder erstellen</string>
   <string name="e_skills_room_create_body">Erstellen Sie einen Raum und teilen Sie ihn mit ihren Gegenspielern oder treten Sie einem existierenden Raum bei.</string>
