@@ -527,7 +527,7 @@
   <string name="purchase_card_error_not_supported">Ihre Karte wird noch nicht unterstützt. Bitte versuchen Sie es mit einer anderen Karte.</string>
   <string name="purchase_card_error_security">Sind Sie sicher, dass ihre Sicherheitsinformationen richtig sind? Bitte versuchen Sie es erneut.</string>
   <string name="purchase_card_error_wrong_CVV">Scheinbar ist ihr CVV/CVC-Code nicht korrekt. Bitte geben Sie ihn erneut ein.</string>
-  <string name="purchase_card_error_re_insert">It seems you registered this card long time ago! Insert the card details again or use a different one.</string>
+  <string name="purchase_card_error_re_insert">Es scheint, dass Sie diese Karte schon vor langer Zeit registriert haben! Geben Sie bitte die Kartendaten erneut ein oder verwenden Sie eine andere Karte.</string>
   <string name="purchase_wallet_error_contact_us">Upps, etwas ist mit dem Wallet nicht in Ordnung, bitte nehmen Sie Kontakt mit uns auf.</string>
   <string name="purchase_carrier_error">Ihre Telefonnummer ist nicht kompatibel zu dieser Bezahlmethode.</string>
   <string name="purchase_carrier_error_minimum">Ihr Zahlungsdienstleister unterstützt keinen Zahlungen mit einem Wert von unter %s.</string>
@@ -549,7 +549,7 @@
   <string name="purchase_error_transaction_timeout">Scheinbar haben Sie zu lange für den Abschluss der Transaktion gebraucht. Bitte versuchen Sie es erneut.</string>
   <string name="purchase_error_card_already_in_progress">Ihre Anfrage wird bereits bearbeitet oder ist bereits abgeschlossen. Bitte warten.</string>
   <string name="purchase_error_payment_rejected">Bezahlung wurde zurückgewiesen! Bitte versuchen Sie es mit einer anderen Karte oder einer anderen Bezahlmethode.</string>
-  <string name="purchase_error_verify_wallet">Validate your payment method to complete this purchase.</string>
+  <string name="purchase_error_verify_wallet">Bitte bestätigen Sie Ihre Zahlungsmethode, um diesen Kauf abzuschließen.</string>
   <string name="purchase_error_verify_card">Bestätigen Sie ihre Karte, um diesen Kauf abzuschließen.</string>
   <string name="purachse_error_verify_card_button">KARTE ÜBERPRÜFEN</string>
   <string name="purchase_eskills_sku">Ticket eingeben</string>
@@ -589,7 +589,7 @@
   <string name="referral_view_share_link_button">EINLADUNGSLINK TEILEN</string>
   <string name="referral_view_notifications_title">Benachrichtigungen</string>
   <string name="referral_share_sheet_title">Link teilen über:</string>
-  <string name="referral_view_unverified_body">Receive %s worth of AppCoins Credits for each friend. You first need to verify your wallet.</string>
+  <string name="referral_view_unverified_body">Erhalten Sie für jeden Freund AppCoins Credits im Wert von %s. Sie müssen zuerst ihr Wallet verifizieren.</string>
   <string name="referral_view_verify_button">WALLET VERIFIZIEREN</string>
   <string name="referral_view_i_have_been_invited_button">ICH WURDE EINGELADEN</string>
   <string name="referral_view_dropup_menu_friends_invited">Freunde eingeladen</string>
@@ -728,7 +728,7 @@
   <string name="pioneer_gamification_title">Sie sind ein Pionier</string>
   <string name="pioneer_gamification_body">Ein Pionier ist ein Erstanwender mit höheren Prämien.</string>
   <!--Check for Updates-->
-  <string name="check_updates_settings_current_title">Current version</string>
+  <string name="check_updates_settings_current_title">Aktuelle Version</string>
   <string name="check_updates_settings_title">Nach Updates suchen</string>
   <string name="check_updates_settings_subtitle">Aktuelle Version %s</string>
   <string name="check_updates_checking_body">Suche nach einer neuen Version</string>
@@ -845,7 +845,7 @@
   <string name="carrier_billing_terms_button">Allgemeinen Geschäftsbedingungen</string>
   <string name="carrier_billing_privacy_button">Datenschutzrichtlinie</string>
   <!--Manage Cards-->
-  <string name="manage_cards_settings_add_title">Add credit/debit card</string>
+  <string name="manage_cards_settings_add_title">Kredit-/Debitkarte hinzufügen</string>
   <string name="manage_cards_settings_manage_title">Karten verwalten</string>
   <string name="manage_cards_view_title">Karten verwalten</string>
   <string name="manage_cards_view_manage_subtitle">Verwalten Sie ihre Bezahlkarten</string>
@@ -912,7 +912,7 @@
   <string name="send_logs_settings">Log-Daten an das Support-Team versenden</string>
   <string name="send_logs_sending">Senden&#8230;</string>
   <string name="send_logs_sent">Gesendet!</string>
-  <string name="send_logs_error">Error!</string>
+  <string name="send_logs_error">Fehler!</string>
   <!--Rate us-->
   <string name="rate_us_question_title">Gefällt Ihnen das AppCoins Wallet?</string>
   <string name="rate_us_no">Nicht wirklich</string>
