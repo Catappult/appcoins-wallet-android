@@ -4,13 +4,13 @@
   <string name="provide_wallet_creating_wallet_header">Membuat alamat dompet&#8230;</string>
   <string name="processing_loading_title">Mengambil tiket masuk Anda</string>
   <string name="finding_room_loading_title">Menunggu lawan</string>
-  <string name="finding_room_name_loading_title">Waiting for opponents \nto join the</string>
+  <string name="finding_room_name_loading_title">Menunggu lawan\nuntuk bergabung di</string>
   <string name="finding_room_loading_message">Ini mungkin memakan waktu…</string>
   <string name="refunded">Uang Anda sudah dikembalikan.</string>
   <string name="ok">Oke</string>
   <string name="cancel">Batal</string>
-  <string name="buy_button">Buy</string>
-  <string name="topup_button">Top Up</string>
+  <string name="buy_button">Beli</string>
+  <string name="topup_button">Isi Ulang</string>
   <string name="connection_error_body">Sepertinya Anda tidak terhubung ke Internet. Periksa koneksi Anda, lalu coba lagi!</string>
   <string name="playing_game_notification_title">Saat ini memainkan e-Skills</string>
   <string name="playing_game_notification_body">Memuat info game…</string>
@@ -22,12 +22,12 @@
   <string name="location_not_available_body">Kami sedang bekerja keras untuk menghadirkan ini untuk semua orang, jadi harap segera kembali lagi!</string>
   <string name="e_skills_room_create_title">Buat atau gabung ke ruang</string>
   <string name="e_skills_room_create_body">Buat ruang baru dan bagikan dengan lawan Anda atau bergabung dengan ruang yang sudah ada.</string>
-  <string name="e_skills_room_field">Your room name here…</string>
-  <string name="e_skills_payment_title">Payment with</string>
-  <string name="e_skills_payment_body">AppCoins Credits</string>
-  <string name="copied_to_clipboard">Copied to the clipboard</string>
-  <string name="processing_payment_title">Processing your payment</string>
-  <string name="purchase_error_title">Oops, something went wrong.</string>
+  <string name="e_skills_room_field">Nama ruang Anda di sini…</string>
+  <string name="e_skills_payment_title">Pembayaran dengan</string>
+  <string name="e_skills_payment_body">Kredit AppCoins</string>
+  <string name="copied_to_clipboard">Disalin ke clipboard</string>
+  <string name="processing_payment_title">Memproses pembayaran Anda</string>
+  <string name="purchase_error_title">Ups, ada kesalahan.</string>
   <string name="purchase_eskills_sku">Tiket masuk</string>
   <string name="shared_room_waiting">Menunggu lawan untuk bergabung di %s</string>
 </resources>
