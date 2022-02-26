@@ -271,7 +271,7 @@
   <string name="dialog_credit_card_number">Kartennummer</string>
   <string name="dialog_credit_card_expiration">Ablaufdatum</string>
   <string name="dialog_credit_card_cvv">CVV</string>
-  <string name="dialog_bank_card">Credit/debit card</string>
+  <string name="dialog_bank_card">Kredit-/Debitkarte</string>
   <string name="dialog_expiry_date">Ablaufdatum</string>
   <string name="activity_airdrop_title">Um AppCoins zu erhalten, müssen Sie bestätigen Sie, dass Sie ein Mensch sind</string>
   <string name="activity_airdrop_details">Dies ist nur ein Sicherheits-Vorgang.</string>
@@ -449,7 +449,7 @@
   <string name="privacy_policy">Datenschutzrichtlinie</string>
   <string name="decline_button">Reject</string>
   <string name="get_started">Get Started</string>
-  <string name="existent_wallet">I already have a wallet</string>
+  <string name="existent_wallet">Ich habe bereits ein Wallet</string>
   <!--Home-->
   <string name="home_empty_discover_apps_body">Kaufe bei deinem Lieblingsspiel ein und wir erledigen alles andere.</string>
   <string name="home_empty_discover_apps_button">ENTDECKEN SIE DIE BESTEN APPS</string>
