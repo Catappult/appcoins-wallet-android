@@ -26,8 +26,8 @@
   <string name="e_skills_payment_title">Bezahlen mit</string>
   <string name="e_skills_payment_body">AppCoins Credits</string>
   <string name="copied_to_clipboard">In die Zwischenablage kopiert</string>
-  <string name="processing_payment_title">Processing your payment</string>
-  <string name="purchase_error_title">Oops, something went wrong.</string>
+  <string name="processing_payment_title">Verarbeitung ihrer Bezahlung</string>
+  <string name="purchase_error_title">Upps, etwas ist schiefgelaufen.</string>
   <string name="purchase_eskills_sku">Ticket eingeben</string>
   <string name="shared_room_waiting">Warten auf Gegenspieler die %s beitreten</string>
 </resources>
