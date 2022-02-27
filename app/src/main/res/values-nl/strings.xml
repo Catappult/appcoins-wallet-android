@@ -158,7 +158,7 @@
   <string name="action_more_details">Meer</string>
   <string name="action_add_wallet">Wallet toevoegen</string>
   <string name="action_coinbase">Coinbase</string>
-  <string name="action_shapeshift">Shapeshift (Crypto only)</string>
+  <string name="action_shapeshift">Shapeshift (alleen cryptovaluta)</string>
   <string name="action_changelly">Changelly</string>
   <string name="action_wallets">Wallets</string>
   <string name="action_next">Volgende</string>
@@ -263,7 +263,7 @@
   <string name="ellipsize">\u0020• • •</string>
   <string name="transaction_status_label">Status</string>
   <string name="transaction_category_label">Soort</string>
-  <string name="transaction_order_reference_label">Order ID</string>
+  <string name="transaction_order_reference_label">Bestelnummer</string>
   <string name="transaction_details_label">Details</string>
   <string name="transaction_to_label">Naar</string>
   <string name="dialog_credit_card_remember">Kaart onthouden</string>
@@ -401,7 +401,7 @@
   <string name="askafriend_share_add_message_body">Bericht toevoegen (optioneel)</string>
   <string name="askafriend_share_button">Delen</string>
   <string name="askafriend_share_popup_title">Vraag iemand via:</string>
-  <string name="askafriend_received_body">You just received %s AppCoins Credits</string>
+  <string name="askafriend_received_body">Je hebt zojuist %s AppCoins Credits ontvangen</string>
   <string name="askafriend_notification_received_title">Nieuwe transactie ontvangen</string>
   <string name="askafriend_notification_received_body">Er zijn %1$s %2$s aan je wallet toegevoegd.</string>
   <string name="askafriend_received_title">Overdracht ontvangen</string>
@@ -440,16 +440,16 @@
   <string name="get_code_button">Code aanvragen</string>
   <string name="confirm_button">Bevestigen</string>
   <string name="withdraw_button">uitbetalen</string>
-  <string name="email_here_field">Your email here&#8230;</string>
-  <string name="understood_button">Understood!</string>
+  <string name="email_here_field">Voer hier je e-mailadres in&#8230;</string>
+  <string name="understood_button">Ik begrijp het!</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Ik ga akkoord met de %1$s en het %2$s van AppCoins Wallet.</string>
   <string name="terms_and_conditions_error">Accepteer onze algemene voorwaarden en ons privacybeleid om door te gaan</string>
   <string name="terms_and_conditions">Algemene voorwaarden</string>
   <string name="privacy_policy">Privacybeleid</string>
-  <string name="decline_button">Reject</string>
-  <string name="get_started">Get Started</string>
-  <string name="existent_wallet">I already have a wallet</string>
+  <string name="decline_button">Weigeren</string>
+  <string name="get_started">Aan de slag</string>
+  <string name="existent_wallet">Ik heb al een wallet</string>
   <!--Home-->
   <string name="home_empty_discover_apps_body">Doe een aankoop in je favoriete game en wij regelen de rest.</string>
   <string name="home_empty_discover_apps_button">ONTDEK DE BESTE APPS</string>
