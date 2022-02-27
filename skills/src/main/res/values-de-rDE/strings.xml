@@ -23,7 +23,7 @@
   <string name="e_skills_room_create_title">Einem Raum beitreten oder erstellen</string>
   <string name="e_skills_room_create_body">Erstellen Sie einen Raum und teilen Sie ihn mit ihren Gegenspielern oder treten Sie einem existierenden Raum bei.</string>
   <string name="e_skills_room_field">Ihr Raumname hier…</string>
-  <string name="e_skills_payment_title">Payment with</string>
+  <string name="e_skills_payment_title">Bezahlen mit</string>
   <string name="e_skills_payment_body">AppCoins Credits</string>
   <string name="copied_to_clipboard">Copied to the clipboard</string>
   <string name="processing_payment_title">Processing your payment</string>
