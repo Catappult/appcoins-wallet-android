@@ -158,7 +158,7 @@
   <string name="action_more_details">เพิ่มเติม</string>
   <string name="action_add_wallet">เพิ่มกระเป๋าสตางค์</string>
   <string name="action_coinbase">Coinbase</string>
-  <string name="action_shapeshift">Shapeshift (Crypto only)</string>
+  <string name="action_shapeshift">เปลี่ยนรูปร่าง (คริปโตเท่านั้น)</string>
   <string name="action_changelly">Changelly</string>
   <string name="action_wallets">กระเป๋าสตางค์</string>
   <string name="action_next">ถัดไป</string>
@@ -263,7 +263,7 @@
   <string name="ellipsize">\u0020• • •</string>
   <string name="transaction_status_label">สถานะ</string>
   <string name="transaction_category_label">ประเภท</string>
-  <string name="transaction_order_reference_label">Order ID</string>
+  <string name="transaction_order_reference_label">รหัสคำสั่งซื้อ</string>
   <string name="transaction_details_label">รายละเอียด</string>
   <string name="transaction_to_label">ถึง</string>
   <string name="dialog_credit_card_remember">จดจำบัตร</string>
@@ -271,7 +271,7 @@
   <string name="dialog_credit_card_number">หมายเลขบัตร</string>
   <string name="dialog_credit_card_expiration">วันหมดอายุ</string>
   <string name="dialog_credit_card_cvv">CVV</string>
-  <string name="dialog_bank_card">Credit/debit card</string>
+  <string name="dialog_bank_card">บัตรเครดิต/เดบิต</string>
   <string name="dialog_expiry_date">วันหมดอายุ</string>
   <string name="activity_airdrop_title">ยืนยันว่า คุณเป็นคนที่จะได้รับ AppCoins</string>
   <string name="activity_airdrop_details">นี้เป็นเพียงสิ่งปลอดภัย</string>
@@ -401,7 +401,7 @@
   <string name="askafriend_share_add_message_body">เพิ่มข้อความ (ถ้ามี)</string>
   <string name="askafriend_share_button">ใช้ร่วมกัน</string>
   <string name="askafriend_share_popup_title">ถามบางคนผ่าน:</string>
-  <string name="askafriend_received_body">You just received %s AppCoins Credits</string>
+  <string name="askafriend_received_body">คุณเพิ่งได้รับ %s AppCoins Credits</string>
   <string name="askafriend_notification_received_title">ได้รับการโอนใหม่</string>
   <string name="askafriend_notification_received_body">%1$s %2$s ถูกเก็บเป็นเครดิตในกระเป๋าสตางค์ของคุณ</string>
   <string name="askafriend_received_title">รับการโอน</string>
@@ -440,16 +440,16 @@
   <string name="get_code_button">รับรหัส</string>
   <string name="confirm_button">ยืนยัน</string>
   <string name="withdraw_button">ถอน</string>
-  <string name="email_here_field">Your email here&#8230;</string>
-  <string name="understood_button">Understood!</string>
+  <string name="email_here_field">อีเมลของคุณที่นี่&#8230;</string>
+  <string name="understood_button">เข้าใจแล้ว!</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">ฉันตกลงใน %1$s และ %2$sของกระเป่าสตางค์ AppCoins</string>
   <string name="terms_and_conditions_error">โปรดยอมรับข้อตกลงและเงื่อนไขเพื่อดำเนินการต่อ</string>
   <string name="terms_and_conditions">ข้อกำหนดและเงื่อนไข</string>
   <string name="privacy_policy">นโยบายการเก็บข้อมูลส่วนบุคคล</string>
-  <string name="decline_button">Reject</string>
-  <string name="get_started">Get Started</string>
-  <string name="existent_wallet">I already have a wallet</string>
+  <string name="decline_button">ปฏิเสธ</string>
+  <string name="get_started">เริ่ม</string>
+  <string name="existent_wallet">ฉันมีกระเป๋าเงินอยู่แล้ว</string>
   <!--Home-->
   <string name="home_empty_discover_apps_body">ดำเนินการซื้อเกมส์ที่คุณชื่นชอบและเราจะรับมือกับทุกอย่าง</string>
   <string name="home_empty_discover_apps_button">ค้นพบแอปยอดนิยม</string>
@@ -527,7 +527,7 @@
   <string name="purchase_card_error_not_supported">ประเภทบัตรของคุณยังไม่ได้รับการรับรอง โปรดลองบัตรใบอื่น</string>
   <string name="purchase_card_error_security">คุณมั่นใจว่าข้อมูลความปลอดภัยถูกต้องใช่ไหม? โปรดลองใหม่อีกครั้ง</string>
   <string name="purchase_card_error_wrong_CVV">รหัส CVV / CVC ของคุณดูเหมือนจะผิด กรุณาลองอีกครั้ง</string>
-  <string name="purchase_card_error_re_insert">It seems you registered this card long time ago! Insert the card details again or use a different one.</string>
+  <string name="purchase_card_error_re_insert">ดูเหมือนว่าคุณลงทะเบียนบัตรนี้มานานแล้ว! ใส่รายละเอียดบัตรอีกครั้งหรือใช้ข้อมูลอื่น</string>
   <string name="purchase_wallet_error_contact_us">อุ๊ปส์ มีบางอย่างไม่ปกติกับวอลเล็ตของคุณ โปรดติดต่อเรา</string>
   <string name="purchase_carrier_error">ดูเหมือนว่าหมายเลขโทรศัพท์ใช้ไม่ได้สำหรับการชำระเงินนี้</string>
   <string name="purchase_carrier_error_minimum">ผู้ให้บริการของคุณไม่รองรับการชำระเงินที่น้อยกว่า %s</string>
