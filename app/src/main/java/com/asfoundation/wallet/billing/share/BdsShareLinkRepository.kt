@@ -22,7 +22,7 @@ class BdsShareLinkRepository @Inject constructor(private var api: BdsShareLinkAp
 
   interface BdsShareLinkApi {
 
-    @POST("deeplink/8.20190326/topup/inapp/products")
+    @POST("8.20190326/topup/inapp/products")
     fun getPaymentLink(@Body data: ShareLinkData): Single<GetPaymentLinkResponse>
   }
 }
