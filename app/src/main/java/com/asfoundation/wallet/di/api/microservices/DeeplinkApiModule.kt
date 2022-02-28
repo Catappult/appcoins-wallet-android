@@ -1,10 +1,8 @@
 package com.asfoundation.wallet.di.api.microservices
 
-import com.appcoins.wallet.bdsbilling.repository.RemoteRepository
 import com.asf.wallet.BuildConfig
-import com.asfoundation.wallet.di.annotations.BlockchainHttpClient
-import com.asfoundation.wallet.di.annotations.BrokerBlockchainRetrofit
-import com.asfoundation.wallet.di.annotations.InappBlockchainRetrofit
+import com.asfoundation.wallet.billing.share.BdsShareLinkRepository
+import com.asfoundation.wallet.di.annotations.*
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -18,15 +16,15 @@ import javax.inject.Singleton
 
 @InstallIn(SingletonComponent::class)
 @Module
-class InappApiModule {
-  private val inappUrl: String = "${BuildConfig.BASE_HOST}/inapp/"
+class DeeplinkApiModule {
+  private val deeplinkUrl: String = "${BuildConfig.BASE_HOST}/deeplink/"
 
   @Singleton
   @Provides
-  @InappBlockchainRetrofit
-  fun provideInappBlockchainRetrofit(@BlockchainHttpClient client: OkHttpClient): Retrofit {
+  @DeeplinkDefaultRetrofit
+  fun provideDeeplinkDefaultRetrofit(@DefaultHttpClient client: OkHttpClient): Retrofit {
     return Retrofit.Builder()
-      .baseUrl(inappUrl)
+      .baseUrl(deeplinkUrl)
       .client(client)
       .addConverterFactory(GsonConverterFactory.create())
       .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
@@ -35,10 +33,9 @@ class InappApiModule {
 
   @Singleton
   @Provides
-  fun providesInappBdsApi(
-    @InappBlockchainRetrofit retrofit: Retrofit
-  ): RemoteRepository.InappBdsApi {
-    return retrofit.create(RemoteRepository.InappBdsApi::class.java)
+  fun provideBdsShareLinkApi(
+    @DeeplinkDefaultRetrofit retrofit: Retrofit
+  ): BdsShareLinkRepository.BdsShareLinkApi {
+    return retrofit.create(BdsShareLinkRepository.BdsShareLinkApi::class.java)
   }
-
 }
