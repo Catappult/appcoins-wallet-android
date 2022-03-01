@@ -158,7 +158,7 @@
   <string name="action_more_details">ਹੋਰ</string>
   <string name="action_add_wallet">ਬਟੂਆ ਸ਼ਾਮਲ ਕਰੋ</string>
   <string name="action_coinbase">Coinbase</string>
-  <string name="action_shapeshift">Shapeshift (Crypto only)</string>
+  <string name="action_shapeshift">ਸ਼ੇਪਸ਼ਿਫਟ (ਸਿਰਫ਼ ਕ੍ਰਿਪਟੋ)</string>
   <string name="action_changelly">Changelly</string>
   <string name="action_wallets">ਬਟੂਏ</string>
   <string name="action_next">ਅਗਲਾ</string>
@@ -263,7 +263,7 @@
   <string name="ellipsize">\u0020• • •</string>
   <string name="transaction_status_label">ਸਥਿਤੀ</string>
   <string name="transaction_category_label">ਸ਼੍ਰੇਣੀ</string>
-  <string name="transaction_order_reference_label">Order ID</string>
+  <string name="transaction_order_reference_label">ਆਰਡਰ ਆਈਡੀ</string>
   <string name="transaction_details_label">ਵੇਰਵਾ</string>
   <string name="transaction_to_label">ਲਈ</string>
   <string name="dialog_credit_card_remember">ਕਾਰਡ ਯਾਦ ਰੱਖੋ</string>
@@ -271,7 +271,7 @@
   <string name="dialog_credit_card_number">ਕਾਰਡ ਨੰਬਰ</string>
   <string name="dialog_credit_card_expiration">ਐਕਸਪਾਈਰੀ ਦੀ ਤਾਰੀਖ</string>
   <string name="dialog_credit_card_cvv">ਸੀਵੀਵੀ</string>
-  <string name="dialog_bank_card">Credit/debit card</string>
+  <string name="dialog_bank_card">ਕ੍ਰੈਡਿਟ/ਡੈਬਿਟ ਕਾਰਡ</string>
   <string name="dialog_expiry_date">ਆਖਰੀ ਤਾਰੀਖ</string>
   <string name="activity_airdrop_title">ਐਪ ਸਿੱਕੇ ਪ੍ਰਾਪਤ ਕਰਨ ਲਈ ਪੁਸ਼ਟੀ ਕਰੋ ਕਿ ਤੁਸੀਂ ਇੱਕ ਮਨੁੱਖ ਹੋ</string>
   <string name="activity_airdrop_details">ਇਹ ਕੇਵਲ ਇੱਕ ਸੁਰੱਖਿਆ ਚੀਜ਼ ਹੈ|</string>
@@ -401,7 +401,7 @@
   <string name="askafriend_share_add_message_body">ਸੁਨੇਹਾ ਜੋੜੋ (ਵਿਕਲਪਿਕ)</string>
   <string name="askafriend_share_button">ਸ਼ੇਅਰ</string>
   <string name="askafriend_share_popup_title">ਕਿਸੇ ਨੂੰ ਇਸ ਦੁਆਰਾ ਪੁਛੋ:</string>
-  <string name="askafriend_received_body">You just received %s AppCoins Credits</string>
+  <string name="askafriend_received_body">ਤੁਸੀਂ ਹੁਣੇ %s ਐਪ ਸਿੱਕੇ ਪ੍ਰਾਪਤ ਕੀਤੇ</string>
   <string name="askafriend_notification_received_title">ਨਵਾ ਟ੍ਰਾਂਸਫਰ ਪ੍ਰਾਪਤ ਹੋਇਆ</string>
   <string name="askafriend_notification_received_body">%1$s %2$s ਤੁਹਾਡੇ ਬਟੂਏ ਵਿੱਚ ਪਾਏ ਗਏ|</string>
   <string name="askafriend_received_title">ਟ੍ਰਾਂਸਫਰ ਪ੍ਰਾਪਤ</string>
@@ -440,18 +440,18 @@
   <string name="get_code_button">ਕੋਡ ਪ੍ਰਾਪਤ ਕਰੋ</string>
   <string name="confirm_button">ਪੁਸ਼ਟੀ ਕਰੋ</string>
   <string name="withdraw_button">ਵਾਪਸ ਲਓ</string>
-  <string name="email_here_field">Your email here&#8230;</string>
-  <string name="understood_button">Understood!</string>
+  <string name="email_here_field">ਤੁਹਾਡੀ ਈਮੇਲ&#8230;</string>
+  <string name="understood_button">ਸਮਝਿਆ!</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">ਮੈਂ ਐਪ ਸਿੱਕੇ ਬਟੂਏ %1$s ਅਤੇ %2$s ਨਾਲ ਸਹਿਮਤ ਹਾਂ|</string>
   <string name="terms_and_conditions_error">ਜਾਰੀ ਰੱਖਣ ਲਈ ਕਿਰਪਾ ਕਰਕੇ ਸਾਡੇ ਨਿਯਮਾਂ ਅਤੇ ਸ਼ਰਤਾਂ ਅਤੇ ਨੀਜੀ ਨੀਤੀ ਨੂੰ ਸਵੀਕਾਰ ਕਰੋ</string>
   <string name="terms_and_conditions">ਨਿਬੰਧਨ ਅਤੇ ਸ਼ਰਤਾਂ</string>
   <string name="privacy_policy">ਪਰਾਈਵੇਟ ਨੀਤੀ</string>
-  <string name="decline_button">Reject</string>
-  <string name="get_started">Get Started</string>
-  <string name="existent_wallet">I already have a wallet</string>
+  <string name="decline_button">ਅਸਵੀਕਾਰ ਕਰੋ</string>
+  <string name="get_started">ਸ਼ੁਰੂ ਕਰੋ</string>
+  <string name="existent_wallet">ਮੇਰੇ ਕੋਲ ਪਹਿਲਾਂ ਹੀ ਇਕ ਬਟੂਆ ਹੈ|</string>
   <!--Home-->
-  <string name="home_empty_discover_apps_body">Make a purchase on your favorite game and we\'ll handle everything.</string>
+  <string name="home_empty_discover_apps_body">ਆਪਣੀ ਮਨਪਸੰਦ ਗੇਮ ਵਿੱਚ ਖਰੀਦਦਾਰੀ ਕਰੋ ਅਤੇ ਅਸੀਂ ਸੱਭ ਕੁੱਝ ਸੰਭਾਲ ਲਵਾਂਗੇ।</string>
   <string name="home_empty_discover_apps_button">ਵਧੀਆ ਐਪਸ ਲੱਭੋ</string>
   <!--Tokens-->
   <!--Settings-->
