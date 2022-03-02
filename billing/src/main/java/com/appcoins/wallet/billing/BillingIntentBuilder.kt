@@ -10,7 +10,7 @@ import com.appcoins.wallet.billing.AppcoinsBillingBinder.Companion.EXTRA_DEVELOP
 import com.appcoins.wallet.billing.repository.entity.TransactionData
 import com.appcoins.wallet.billing.util.PayloadHelper
 import com.google.gson.Gson
-import org.bouncycastle.util.encoders.Hex
+import org.spongycastle.util.encoders.Hex
 import java.io.UnsupportedEncodingException
 import java.math.BigDecimal
 import java.util.*
