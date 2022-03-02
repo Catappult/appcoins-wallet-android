@@ -447,9 +447,9 @@
   <string name="terms_and_conditions_error">Sila terima Terma dan Syarat serta Dasar Privasi kami untuk teruskan</string>
   <string name="terms_and_conditions">Terma dan Syarat</string>
   <string name="privacy_policy">Dasar Privasi</string>
-  <string name="decline_button">Reject</string>
-  <string name="get_started">Get Started</string>
-  <string name="existent_wallet">I already have a wallet</string>
+  <string name="decline_button">Tolak</string>
+  <string name="get_started">Mula</string>
+  <string name="existent_wallet">Saya sudah ada dompet</string>
   <!--Home-->
   <string name="home_empty_discover_apps_body">Buat pembelian dalam permainan kegemaran anda dan kami uruskan semuanya.</string>
   <string name="home_empty_discover_apps_button">TEMUI APLIKASI HEBAT</string>
@@ -656,12 +656,12 @@
   <string name="backup_body">Kami tidak menyimpan kunci peribadi anda atau kaedah akses yang lain. Penting bagi anda untuk memastikan sandaran dompet (kunci gedung) anda selamat.</string>
   <string name="backup_additional_security_title">Ciri Keselamatan Tambahan (pilihan)</string>
   <string name="backup_additional_security_body">Pilih kata laluan</string>
-  <string name="backup_button">BACKUP WALLET</string>
+  <string name="backup_button">SANDAR DOMPET</string>
   <string name="backup_password">Kata laluan</string>
   <string name="backup_ready_title">Your backup is ready! Keep it safe.</string>
-  <string name="backup_ready_save_on_email">Save it on your email</string>
-  <string name="backup_ready_email_button">Send to email</string>
-  <string name="backup_ready_device_button">Save on device</string>
+  <string name="backup_ready_save_on_email">Simpan dalam e-mel anda</string>
+  <string name="backup_ready_email_button">Hantar ke e-mel</string>
+  <string name="backup_ready_device_button">Simpan dalam peranti</string>
   <string name="backup_done_title">Sandaran selesai!</string>
   <string name="backup_confirmation_tips_title">Pastikan fail selamat:</string>
   <string name="backup_confirmation_tips_1">Cetak ia dan simpan ia di tempat yang selamat.</string>
@@ -727,7 +727,7 @@
   <string name="pioneer_gamification_title">Anda Perintis</string>
   <string name="pioneer_gamification_body">Perintis ialah penerima guna awal dengan bonus dipertingkat.</string>
   <!--Check for Updates-->
-  <string name="check_updates_settings_current_title">Current version</string>
+  <string name="check_updates_settings_current_title">Versi semasa</string>
   <string name="check_updates_settings_title">Semak kemas kini</string>
   <string name="check_updates_settings_subtitle">Versi semasa %s</string>
   <string name="check_updates_checking_body">Mencari versi baharu</string>
@@ -844,7 +844,7 @@
   <string name="carrier_billing_terms_button">Terma dan Syarat</string>
   <string name="carrier_billing_privacy_button">Dasar Privasi</string>
   <!--Manage Cards-->
-  <string name="manage_cards_settings_add_title">Add credit/debit card</string>
+  <string name="manage_cards_settings_add_title">Tambah kad kredit/debit</string>
   <string name="manage_cards_settings_manage_title">Urus kad</string>
   <string name="manage_cards_view_title">Urus kad</string>
   <string name="manage_cards_view_manage_subtitle">Urus kad pembayaran anda</string>
@@ -905,7 +905,7 @@
   <string name="send_logs_settings">Hantar log ke Pasukan Sokongan</string>
   <string name="send_logs_sending">Menghantar&#8230;</string>
   <string name="send_logs_sent">Dihantar!</string>
-  <string name="send_logs_error">Error!</string>
+  <string name="send_logs_error">Ralat!</string>
   <!--Rate us-->
   <string name="rate_us_question_title">Seronok guna Dompet AppCoins?</string>
   <string name="rate_us_no">Tak sangat</string>
@@ -975,14 +975,14 @@
   <string name="e_skills_withdraw_title">Pengeluaran e-Skills</string>
   <string name="e_skills_withdraw_invalid_email_error_message">E-mel tidak sah</string>
   <string name="e_skills_withdraw_not_enough_balance_error_message">Baki tidak mencukupi</string>
-  <string name="e_skills_withdraw_not_enough_earnings_error_message">You haven\'t won enough e-Skills games to withdraw that amount</string>
+  <string name="e_skills_withdraw_not_enough_earnings_error_message">Anda belum menang permainan e-Skills secukupnya untuk keluarkan amaun tersebut</string>
   <string name="e_skills_withdraw_minimum_amount_error_message">Amaun minimum untuk dikeluarkan ialah $%1$.2f</string>
   <string name="e_skills_withdraw_max_amount_part_1">Anda boleh keluarkan:</string>
   <string name="e_skills_withdraw_max_amount_part_2">$%1$.2f</string>
   <string name="e_skills_know_more_about">ketahui selanjutnya tentang e-Skills</string>
   <string name="e_skills_know_more_about_tmp">anda hanya boleh keluarkan dana yang diperoleh dalam permainan e-Skills</string>
   <string name="e_skills_withdraw_started">Pengeluaran sebanyak $%1$.2f \ntelah dimulakan</string>
-  <string name="e_skills_withdraw_generic_error">Generic error message</string>
+  <string name="e_skills_withdraw_generic_error">Mesej ralat umum</string>
   <string name="e_skills_withdraw_maybe_later">Nanti</string>
   <string name="e_skills_room_create_title">Cipta atau sertai bilik</string>
   <string name="e_skills_room_create_body">Cipta bilik baru dan kongsikannya dengan lawan anda atau sertai bilik sedia ada.</string>
@@ -994,7 +994,7 @@
   <string name="promo_code_view_field">Kod Promo di sini...</string>
   <string name="promo_code_view_error">Kod tidak sah. Cuba yang lain!</string>
   <string name="promo_code_activated">Kod promo diaktifkan!</string>
-  <string name="promo_code_delete_button">DELETE</string>
+  <string name="promo_code_delete_button">PADAM</string>
   <string name="promo_code_replace_button">GANTI</string>
   <string name="promo_code_active_tag">Aktif</string>
   <string name="promo_code_expired_tag">Luput</string>
