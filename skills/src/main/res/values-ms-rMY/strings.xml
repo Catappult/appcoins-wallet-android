@@ -4,7 +4,7 @@
   <string name="provide_wallet_creating_wallet_header">Mencipta alama dompet&#8230;</string>
   <string name="processing_loading_title">Mendapatkan tiket masuk anda</string>
   <string name="finding_room_loading_title">Menunggu lawan</string>
-  <string name="finding_room_name_loading_title">Waiting for opponents \nto join the</string>
+  <string name="finding_room_name_loading_title">Menunggu lawan \nuntuk sertai</string>
   <string name="finding_room_loading_message">Ini akan mengambil masa sebentar…</string>
   <string name="refunded">Wang anda sudah dikembalikan.</string>
   <string name="ok">OK</string>
