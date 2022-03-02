@@ -158,7 +158,7 @@
   <string name="action_more_details">更多</string>
   <string name="action_add_wallet">添加钱包</string>
   <string name="action_coinbase">Coinbase</string>
-  <string name="action_shapeshift">Shapeshift (Crypto only)</string>
+  <string name="action_shapeshift">Shapeshift（仅加密货币）</string>
   <string name="action_changelly">Changelly</string>
   <string name="action_wallets">钱包</string>
   <string name="action_next">下一步</string>
@@ -263,7 +263,7 @@
   <string name="ellipsize">\u0020• • •</string>
   <string name="transaction_status_label">状态</string>
   <string name="transaction_category_label">类别</string>
-  <string name="transaction_order_reference_label">Order ID</string>
+  <string name="transaction_order_reference_label">订单ID</string>
   <string name="transaction_details_label">详情</string>
   <string name="transaction_to_label">接收方</string>
   <string name="dialog_credit_card_remember">记住卡信息</string>
@@ -271,7 +271,7 @@
   <string name="dialog_credit_card_number">卡号</string>
   <string name="dialog_credit_card_expiration">到期日</string>
   <string name="dialog_credit_card_cvv">CVV</string>
-  <string name="dialog_bank_card">Credit/debit card</string>
+  <string name="dialog_bank_card">信用卡/借记卡</string>
   <string name="dialog_expiry_date">到期日期</string>
   <string name="activity_airdrop_title">请确认你是接收AppCoins的人类</string>
   <string name="activity_airdrop_details">以保安全。</string>
@@ -401,7 +401,7 @@
   <string name="askafriend_share_add_message_body">添加消息（可选）</string>
   <string name="askafriend_share_button">分享</string>
   <string name="askafriend_share_popup_title">通过以下方式请求他人：</string>
-  <string name="askafriend_received_body">You just received %s AppCoins Credits</string>
+  <string name="askafriend_received_body">你刚刚收到了%s AppCoins积金</string>
   <string name="askafriend_notification_received_title">已收到新转账</string>
   <string name="askafriend_notification_received_body">%1$s %2$s已计入你的钱包。</string>
   <string name="askafriend_received_title">已接收的转账</string>
@@ -440,16 +440,16 @@
   <string name="get_code_button">获取代码</string>
   <string name="confirm_button">确认</string>
   <string name="withdraw_button">取款</string>
-  <string name="email_here_field">Your email here&#8230;</string>
-  <string name="understood_button">Understood!</string>
+  <string name="email_here_field">你的电子邮件&#8230;</string>
+  <string name="understood_button">明白了！</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">我同意AppCoins Wallet的%1$s和%2$s。</string>
   <string name="terms_and_conditions_error">请接受我们的条款和条件以及隐私政策以继续</string>
   <string name="terms_and_conditions">条款与条件</string>
   <string name="privacy_policy">隐私政策</string>
-  <string name="decline_button">Reject</string>
-  <string name="get_started">Get Started</string>
-  <string name="existent_wallet">I already have a wallet</string>
+  <string name="decline_button">拒绝</string>
+  <string name="get_started">开始</string>
+  <string name="existent_wallet">我已经有钱包了</string>
   <!--Home-->
   <string name="home_empty_discover_apps_body">购买你最喜欢的游戏，我们会处理一切。</string>
   <string name="home_empty_discover_apps_button">探索最佳应用</string>
@@ -527,7 +527,7 @@
   <string name="purchase_card_error_not_supported">尚不支持你的卡类型。请尝试使用其他卡。</string>
   <string name="purchase_card_error_security">你确定安全信息正确吗？请重试。</string>
   <string name="purchase_card_error_wrong_CVV">你的CVV/CVC代码似乎有误。请重试。</string>
-  <string name="purchase_card_error_re_insert">It seems you registered this card long time ago! Insert the card details again or use a different one.</string>
+  <string name="purchase_card_error_re_insert">看来你很久以前就注册了这张卡！再次插入卡的详细信息或使用其他卡。</string>
   <string name="purchase_wallet_error_contact_us">糟糕，您的钱包出现问题。请与我们联系。</string>
   <string name="purchase_carrier_error">您的电话号码似乎与此付款方式不兼容。</string>
   <string name="purchase_carrier_error_minimum">您的运营商不支持低于%s的付款。</string>
@@ -549,7 +549,7 @@
   <string name="purchase_error_transaction_timeout">你完成交易的时间似乎太长。请重试。</string>
   <string name="purchase_error_card_already_in_progress">你的请求已被处理或正在处理。请稍候。</string>
   <string name="purchase_error_payment_rejected">付款已被拒绝！请尝试使用其他发卡机构的卡或使用其他支付方式。</string>
-  <string name="purchase_error_verify_wallet">Validate your payment method to complete this purchase.</string>
+  <string name="purchase_error_verify_wallet">验证你的支付方式以完成本次购买。</string>
   <string name="purchase_error_verify_card">验证你的卡以完成本次购买。</string>
   <string name="purachse_error_verify_card_button">验证卡</string>
   <string name="purchase_eskills_sku">入场券</string>
@@ -656,12 +656,12 @@
   <string name="backup_body">我们不会存储你的私钥或任何其他访问方法。请务必确保你的钱包备份（密钥库）安全无虞。</string>
   <string name="backup_additional_security_title">额外安全性（可选）</string>
   <string name="backup_additional_security_body">选择密码</string>
-  <string name="backup_button">BACKUP WALLET</string>
+  <string name="backup_button">备份钱包</string>
   <string name="backup_password">密码</string>
-  <string name="backup_ready_title">Your backup is ready! Keep it safe.</string>
-  <string name="backup_ready_save_on_email">Save it on your email</string>
-  <string name="backup_ready_email_button">Send to email</string>
-  <string name="backup_ready_device_button">Save on device</string>
+  <string name="backup_ready_title">你的备份已就绪！请保障它的安全。</string>
+  <string name="backup_ready_save_on_email">保存在你的电子邮件中</string>
+  <string name="backup_ready_email_button">发送至电子邮件</string>
+  <string name="backup_ready_device_button">保存在设备上</string>
   <string name="backup_done_title">备份完成！</string>
   <string name="backup_confirmation_tips_title">确保文件安全：</string>
   <string name="backup_confirmation_tips_1">打印并将其存储在安全的地方。</string>
@@ -727,7 +727,7 @@
   <string name="pioneer_gamification_title">您属于先锋用户</string>
   <string name="pioneer_gamification_body">先锋用户是指早期采用者，享有更高的奖励。</string>
   <!--Check for Updates-->
-  <string name="check_updates_settings_current_title">Current version</string>
+  <string name="check_updates_settings_current_title">当前版本</string>
   <string name="check_updates_settings_title">查看更新</string>
   <string name="check_updates_settings_subtitle">当前版本%s</string>
   <string name="check_updates_checking_body">正在搜索新版本</string>
@@ -905,7 +905,7 @@
   <string name="send_logs_settings">将日志发送给支持团队</string>
   <string name="send_logs_sending">正在发送&#8230;</string>
   <string name="send_logs_sent">已发送！</string>
-  <string name="send_logs_error">Error!</string>
+  <string name="send_logs_error">错误！</string>
   <!--Rate us-->
   <string name="rate_us_question_title">喜欢AppCoins Wallet吗？</string>
   <string name="rate_us_no">不太喜欢</string>
@@ -975,14 +975,14 @@
   <string name="e_skills_withdraw_title">e-Skills取款</string>
   <string name="e_skills_withdraw_invalid_email_error_message">无效的电子邮件</string>
   <string name="e_skills_withdraw_not_enough_balance_error_message">余额不足</string>
-  <string name="e_skills_withdraw_not_enough_earnings_error_message">You haven\'t won enough e-Skills games to withdraw that amount</string>
+  <string name="e_skills_withdraw_not_enough_earnings_error_message">你赢的e-Skills游戏不足，还不能提取该金额</string>
   <string name="e_skills_withdraw_minimum_amount_error_message">最低取款金额$%1$.2f</string>
   <string name="e_skills_withdraw_max_amount_part_1">你可以取款：</string>
   <string name="e_skills_withdraw_max_amount_part_2">$%1$.2f</string>
   <string name="e_skills_know_more_about">深入了解e-Skills</string>
   <string name="e_skills_know_more_about_tmp">你只能取在e-Skills游戏中获得的资金</string>
   <string name="e_skills_withdraw_started">取款$%1$.2f\n现已开始</string>
-  <string name="e_skills_withdraw_generic_error">Generic error message</string>
+  <string name="e_skills_withdraw_generic_error">通用的错误信息</string>
   <string name="e_skills_withdraw_maybe_later">以后再说</string>
   <string name="e_skills_room_create_title">创建或加入房间</string>
   <string name="e_skills_room_create_body">创建新房间并与对手分享房间或加入现有房间。</string>
@@ -994,7 +994,7 @@
   <string name="promo_code_view_field">在这里输入促销代码...</string>
   <string name="promo_code_view_error">无效代码。再试试！</string>
   <string name="promo_code_activated">促销代码已激活！</string>
-  <string name="promo_code_delete_button">DELETE</string>
+  <string name="promo_code_delete_button">删除</string>
   <string name="promo_code_replace_button">替换</string>
   <string name="promo_code_active_tag">激活</string>
   <string name="promo_code_expired_tag">已到期</string>
@@ -1016,5 +1016,5 @@
   <string name="appcoins_info_volume_title">数据（24小时）</string>
   <!--  NFTs -->
   <string name="nfts_title">非同质化代币</string>
-  <string name="nfts_no_nfts">You don\'t have any NFTs in this wallet yet!</string>
+  <string name="nfts_no_nfts">你这个钱包还没有任何NFT！</string>
 </resources>
