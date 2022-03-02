@@ -45,7 +45,10 @@ class BillingPaymentProofSubmissionTest {
   }
 
   @Mock
-  lateinit var api: RemoteRepository.BdsApi
+  lateinit var brokerBdsApi: RemoteRepository.BrokerBdsApi
+
+  @Mock
+  lateinit var inappBdsApi: RemoteRepository.InappBdsApi
 
   @Mock
   lateinit var subscriptionBillingApi: SubscriptionBillingApi
@@ -57,7 +60,8 @@ class BillingPaymentProofSubmissionTest {
     scheduler = TestScheduler()
 
     billing = BillingPaymentProofSubmissionImpl.Builder()
-        .setApi(api)
+        .setBrokerBdsApi(brokerBdsApi)
+        .setInappBdsApi(inappBdsApi)
         .setScheduler(scheduler)
         .setWalletService(object : WalletService {
           override fun getWalletAddress(): Single<String> = Single.just(walletAddress)
@@ -78,13 +82,13 @@ class BillingPaymentProofSubmissionTest {
         .build()
 
     `when`(
-        api.createTransaction(paymentType, origin, packageName, priceValue, currency, productName,
+        brokerBdsApi.createTransaction(paymentType, origin, packageName, priceValue, currency, productName,
             type, null, developerAddress, storeAddress, oemAddress, null, paymentId,
             developerPayload, callback, orderReference, referrerUrl, walletAddress, signedContent)).thenReturn(Single.just(Transaction(paymentId, Transaction.Status.FAILED,
         Gateway(Gateway.Name.appcoins_credits, "APPC C", "icon"), null,
         null, "orderReference", null, "", null, "")))
 
-    `when`(api.patchTransaction(paymentType, paymentId, walletAddress, signedContent,
+    `when`(brokerBdsApi.patchTransaction(paymentType, paymentId, walletAddress, signedContent,
         paymentToken)).thenReturn(Completable.complete())
   }
 
@@ -109,10 +113,10 @@ class BillingPaymentProofSubmissionTest {
         .assertComplete()
     purchaseDisposable.assertNoErrors()
         .assertComplete()
-    verify(api, times(1)).createTransaction(paymentType, origin, packageName, priceValue, currency,
+    verify(brokerBdsApi, times(1)).createTransaction(paymentType, origin, packageName, priceValue, currency,
         productName, type, null, developerAddress, storeAddress, oemAddress, null, paymentId,
         developerPayload, callback, orderReference, referrerUrl, walletAddress, signedContent)
-    verify(api, times(1)).patchTransaction(paymentType, paymentId,
+    verify(brokerBdsApi, times(1)).patchTransaction(paymentType, paymentId,
         walletAddress, signedContent, paymentToken)
 
   }

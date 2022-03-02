@@ -1,6 +1,7 @@
 package com.asfoundation.wallet.my_wallets.main.list.model
 
 import android.app.Activity
+import android.content.ContextWrapper
 import android.widget.ImageButton
 import android.widget.TextView
 import androidx.core.content.res.ResourcesCompat
@@ -16,6 +17,7 @@ import com.asfoundation.wallet.wallets.domain.WalletInfo
 import com.google.android.material.card.MaterialCardView
 import com.google.android.material.imageview.ShapeableImageView
 import com.google.android.material.snackbar.Snackbar
+import dagger.hilt.android.qualifiers.ActivityContext
 
 @EpoxyModelClass
 abstract class WalletInfoModel : EpoxyModelWithHolder<WalletInfoModel.WalletInfoHolder>() {
@@ -51,15 +53,15 @@ abstract class WalletInfoModel : EpoxyModelWithHolder<WalletInfoModel.WalletInfo
   }
 
   private fun setQrCode(holder: WalletInfoHolder, walletAddress: String) {
-    val context = holder.qrImage.context as Activity
+    val context = (holder.qrImage.context as ContextWrapper).baseContext as Activity
     try {
       val logo = ResourcesCompat.getDrawable(context.resources, R.drawable.ic_appc_token, null)
       val mergedQrCode = walletAddress.generateQrCode(context.windowManager, logo!!)
       holder.qrImage.setImageBitmap(mergedQrCode)
     } catch (e: Exception) {
       Snackbar.make(holder.qrImage, context.getString(R.string.error_fail_generate_qr),
-          Snackbar.LENGTH_SHORT)
-          .show()
+        Snackbar.LENGTH_SHORT)
+        .show()
     }
   }
 

@@ -3,8 +3,9 @@ package cm.aptoide.skills.repository
 import cm.aptoide.skills.api.RoomApi
 import cm.aptoide.skills.model.RoomResponse
 import io.reactivex.Single
+import javax.inject.Inject
 
-class RoomRepository(private val roomApi: RoomApi) {
+class RoomRepository @Inject constructor(private val roomApi: RoomApi) {
   companion object {
     const val BEARER_ = "Bearer "
   }

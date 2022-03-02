@@ -11,12 +11,14 @@ import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Single
 import java.math.BigDecimal
+import javax.inject.Inject
 
-class OnChainBuyInteract(private val inAppPurchaseInteractor: InAppPurchaseInteractor,
-                         private val supportInteractor: SupportInteractor,
-                         private val walletService: WalletService,
-                         private val walletBlockedInteract: WalletBlockedInteract,
-                         private val walletVerificationInteractor: WalletVerificationInteractor) {
+class OnChainBuyInteract @Inject constructor(
+    private val inAppPurchaseInteractor: InAppPurchaseInteractor,
+    private val supportInteractor: SupportInteractor,
+    private val walletService: WalletService,
+    private val walletBlockedInteract: WalletBlockedInteract,
+    private val walletVerificationInteractor: WalletVerificationInteractor) {
 
   fun showSupport(gamificationLevel: Int): Completable {
     return supportInteractor.showSupport(gamificationLevel)

@@ -4,10 +4,11 @@ import com.appcoins.wallet.bdsbilling.WalletService
 import com.appcoins.wallet.bdsbilling.repository.RemoteRepository
 import io.reactivex.Completable
 import io.reactivex.Observable
+import javax.inject.Inject
 
-class UserSubscriptionsInteractor(private val walletService: WalletService,
-                                  private val remoteRepository: RemoteRepository,
-                                  private val userSubscriptionRepository: UserSubscriptionRepository) {
+class UserSubscriptionsInteractor @Inject constructor(private val walletService: WalletService,
+                                                      private val remoteRepository: RemoteRepository,
+                                                      private val userSubscriptionRepository: UserSubscriptionRepository) {
 
   fun loadSubscriptions(freshReload: Boolean): Observable<SubscriptionModel> {
     return walletService.getWalletAddress()

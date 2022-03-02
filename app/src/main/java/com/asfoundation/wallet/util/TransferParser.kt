@@ -5,9 +5,10 @@ import com.asfoundation.wallet.entity.TransactionBuilder
 import io.reactivex.Single
 import org.kethereum.erc681.isEthereumURLString
 import org.kethereum.erc681.parseERC681
+import javax.inject.Inject
 
-class TransferParser(private val eipTransactionParser: EIPTransactionParser,
-                     private val oneStepTransactionParser: OneStepTransactionParser) {
+class TransferParser @Inject constructor(private val eipTransactionParser: EIPTransactionParser,
+                                         private val oneStepTransactionParser: OneStepTransactionParser) {
 
   fun parse(uri: String): Single<TransactionBuilder> {
     if (uri.isEthereumURLString()) {

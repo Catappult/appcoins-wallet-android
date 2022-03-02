@@ -1,16 +1,14 @@
 package com.asfoundation.wallet.rating
 
 import com.appcoins.wallet.bdsbilling.WalletService
-import com.asfoundation.wallet.transactions.Transaction
-import com.asfoundation.wallet.ui.gamification.GamificationInteractor
+import com.asfoundation.wallet.base.RxSchedulers
 import io.reactivex.Completable
-import io.reactivex.Scheduler
-import io.reactivex.Single
 import java.util.*
+import javax.inject.Inject
 
-class RatingInteractor(private val ratingRepository: RatingRepository,
-                       private val walletService: WalletService,
-                       private val ioScheduler: Scheduler) {
+class RatingInteractor @Inject constructor(private val ratingRepository: RatingRepository,
+                                           private val walletService: WalletService,
+                                           private val rxSchedulers: RxSchedulers) {
 
   fun sendUserFeedback(feedbackText: String): Completable {
     return walletService.getWalletAddress()
@@ -18,7 +16,7 @@ class RatingInteractor(private val ratingRepository: RatingRepository,
           ratingRepository.sendFeedback(address.toLowerCase(Locale.ROOT), feedbackText)
         }
         .ignoreElement()
-        .subscribeOn(ioScheduler)
+        .subscribeOn(rxSchedulers.io)
   }
 
   fun isNotFirstTime(): Boolean = ratingRepository.isNotFirstTime()

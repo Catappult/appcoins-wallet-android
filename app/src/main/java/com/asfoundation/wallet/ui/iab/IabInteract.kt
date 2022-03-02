@@ -7,13 +7,14 @@ import com.asfoundation.wallet.promo_code.use_cases.GetCurrentPromoCodeUseCase
 import com.asfoundation.wallet.support.SupportInteractor
 import com.asfoundation.wallet.wallet_blocked.WalletBlockedInteract
 import io.reactivex.Single
+import javax.inject.Inject
 
-class IabInteract(private val inAppPurchaseInteractor: InAppPurchaseInteractor,
-                  private val autoUpdateInteract: AutoUpdateInteract,
-                  private val supportInteractor: SupportInteractor,
-                  private val gamificationRepository: Gamification,
-                  private val walletBlockedInteract: WalletBlockedInteract,
-                  private val getCurrentPromoCodeUseCase: GetCurrentPromoCodeUseCase) {
+class IabInteract @Inject constructor(private val inAppPurchaseInteractor: InAppPurchaseInteractor,
+                                      private val autoUpdateInteract: AutoUpdateInteract,
+                                      private val supportInteractor: SupportInteractor,
+                                      private val gamificationRepository: Gamification,
+                                      private val walletBlockedInteract: WalletBlockedInteract,
+                                      private val getCurrentPromoCodeUseCase: GetCurrentPromoCodeUseCase) {
 
   companion object {
     const val PRE_SELECTED_PAYMENT_METHOD_KEY = "PRE_SELECTED_PAYMENT_METHOD_KEY"

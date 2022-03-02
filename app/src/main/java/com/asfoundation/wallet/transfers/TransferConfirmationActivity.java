@@ -13,7 +13,7 @@ import android.widget.TextView;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.core.content.res.ResourcesCompat;
-import androidx.lifecycle.ViewModelProviders;
+import androidx.lifecycle.ViewModelProvider;
 import com.asf.wallet.R;
 import com.asfoundation.wallet.C;
 import com.asfoundation.wallet.entity.ErrorEnvelope;
@@ -28,18 +28,16 @@ import com.asfoundation.wallet.util.WalletCurrency;
 import com.asfoundation.wallet.viewmodel.GasSettingsViewModel;
 import com.asfoundation.wallet.viewmodel.TransferConfirmationViewModel;
 import com.asfoundation.wallet.viewmodel.TransferConfirmationViewModelFactory;
-
+import dagger.hilt.android.AndroidEntryPoint;
 import javax.inject.Inject;
 
-import dagger.android.AndroidInjection;
-
-public class TransferConfirmationActivity extends BaseActivity {
+@AndroidEntryPoint public class TransferConfirmationActivity extends BaseActivity {
   private static final String TAG = TransferConfirmationActivity.class.getSimpleName();
 
   AlertDialog dialog;
-  @Inject TransferConfirmationViewModelFactory transferConfirmationViewModelFactory;
   CurrencyFormatUtils currencyFormatUtils;
-  TransferConfirmationViewModel viewModel;
+  @Inject TransferConfirmationViewModelFactory viewModelFactory;
+  private TransferConfirmationViewModel viewModel;
   private TextView fromAddressText;
   private TextView toAddressText;
   private TextView valueText;
@@ -49,13 +47,11 @@ public class TransferConfirmationActivity extends BaseActivity {
   private Button sendButton;
 
   @Override protected void onCreate(@Nullable Bundle savedInstanceState) {
-    AndroidInjection.inject(this);
-
     super.onCreate(savedInstanceState);
 
     setContentView(R.layout.activity_confirm);
     toolbar();
-    currencyFormatUtils = CurrencyFormatUtils.Companion.create();
+    currencyFormatUtils = new CurrencyFormatUtils();
     fromAddressText = findViewById(R.id.text_from);
     toAddressText = findViewById(R.id.text_to);
     valueText = findViewById(R.id.text_value);
@@ -65,7 +61,7 @@ public class TransferConfirmationActivity extends BaseActivity {
     sendButton = findViewById(R.id.send_button);
     sendButton.setOnClickListener(view -> onSend());
 
-    viewModel = ViewModelProviders.of(this, transferConfirmationViewModelFactory)
+    viewModel = new ViewModelProvider(this, viewModelFactory)
         .get(TransferConfirmationViewModel.class);
     viewModel.transactionBuilder()
         .observe(this, this::onTransactionBuilder);

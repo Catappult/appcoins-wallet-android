@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import javax.inject.Inject;
 import org.web3j.abi.FunctionEncoder;
 import org.web3j.abi.TypeReference;
 import org.web3j.abi.datatypes.Address;
@@ -16,6 +17,10 @@ import org.web3j.abi.datatypes.generated.Uint256;
 import org.web3j.utils.Numeric;
 
 public class TokenRepository {
+
+  public @Inject TokenRepository() {
+
+  }
 
   public static byte[] createTokenTransferData(String to, BigDecimal tokenAmount) {
     List<Type> params = Arrays.asList(new Address(to), new Uint256(tokenAmount.toBigInteger()));

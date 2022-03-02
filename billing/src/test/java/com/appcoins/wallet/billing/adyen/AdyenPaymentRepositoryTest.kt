@@ -28,7 +28,7 @@ class AdyenPaymentRepositoryTest {
   lateinit var adyenApi: AdyenPaymentRepository.AdyenApi
 
   @Mock
-  lateinit var bdsApi: RemoteRepository.BdsApi
+  lateinit var brokerBdsApi: RemoteRepository.BrokerBdsApi
 
   @Mock
   lateinit var subscriptionsApi: SubscriptionBillingApi
@@ -51,7 +51,7 @@ class AdyenPaymentRepositoryTest {
 
   @Before
   fun setup() {
-    adyenRepo = AdyenPaymentRepository(adyenApi, bdsApi, subscriptionsApi, mapper, logger)
+    adyenRepo = AdyenPaymentRepository(adyenApi, brokerBdsApi, subscriptionsApi, mapper, logger)
   }
 
   @Test
@@ -201,7 +201,7 @@ class AdyenPaymentRepositoryTest {
             emptyList(), PaymentModel.Status.COMPLETED)
 
     Mockito.`when`(
-        bdsApi.getAppcoinsTransaction(
+        brokerBdsApi.getAppcoinsTransaction(
             TEST_UID,
             TEST_WALLET_ADDRESS,
             TEST_WALLET_SIGNATURE))
@@ -226,7 +226,7 @@ class AdyenPaymentRepositoryTest {
     val expectedPaymentModel = PaymentModel(Error())
 
     Mockito.`when`(
-        bdsApi.getAppcoinsTransaction(
+        brokerBdsApi.getAppcoinsTransaction(
             TEST_UID,
             TEST_WALLET_ADDRESS,
             TEST_WALLET_SIGNATURE))

@@ -1,7 +1,9 @@
 package com.asfoundation.wallet.interact
 
+import com.asfoundation.wallet.base.RxSchedulers
 import com.asfoundation.wallet.entity.GasSettings
 import com.asfoundation.wallet.repository.GasSettingsRepositoryType
+import com.asfoundation.wallet.util.FakeSchedulers
 import io.reactivex.Single
 import io.reactivex.observers.TestObserver
 import io.reactivex.schedulers.TestScheduler
@@ -19,17 +21,12 @@ class FetchGasSettingsInteractTest {
   @Mock
   lateinit var gasSettingsRepositoryType: GasSettingsRepositoryType
 
-  lateinit var networkTestScheduler: TestScheduler
-  lateinit var viewTestScheduler: TestScheduler
-
+  private val fakeSchedulers: RxSchedulers = FakeSchedulers()
   private lateinit var fetchGasSettingsInteract: FetchGasSettingsInteract
 
   @Before
   fun setUp() {
-    networkTestScheduler = TestScheduler()
-    viewTestScheduler = TestScheduler()
-    fetchGasSettingsInteract =
-        FetchGasSettingsInteract(gasSettingsRepositoryType, networkTestScheduler, viewTestScheduler)
+    fetchGasSettingsInteract = FetchGasSettingsInteract(gasSettingsRepositoryType, fakeSchedulers)
   }
 
   @Test
@@ -44,8 +41,8 @@ class FetchGasSettingsInteractTest {
     fetchGasSettingsInteract.fetch(true)
         .subscribe(observer)
 
-    networkTestScheduler.triggerActions()
-    viewTestScheduler.triggerActions()
+    (fakeSchedulers.io as TestScheduler).triggerActions()
+    (fakeSchedulers.main as TestScheduler).triggerActions()
 
     observer.assertNoErrors()
         .assertValue { it == expectedGasSettings }

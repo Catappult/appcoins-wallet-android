@@ -8,15 +8,18 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import com.asf.wallet.R
+import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import com.jakewharton.rxbinding2.view.RxView
-import dagger.android.support.DaggerFragment
+import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.Observable
 import kotlinx.android.synthetic.main.fragment_rating_entry.no_button
 import kotlinx.android.synthetic.main.fragment_rating_negative.*
 import javax.inject.Inject
 
-class RatingNegativeFragment : DaggerFragment(), RatingNegativeView {
+@AndroidEntryPoint
+class RatingNegativeFragment : BasePageViewFragment(), RatingNegativeView {
 
   @Inject
   lateinit var presenter: RatingNegativePresenter

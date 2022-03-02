@@ -1,14 +1,15 @@
 package com.asfoundation.wallet.eskills.withdraw.usecases
 
 import com.asfoundation.wallet.eskills.withdraw.domain.FailedWithdraw
-import com.asfoundation.wallet.ewt.EwtAuthenticatorService
-import com.asfoundation.wallet.util.isEmailValid
 import com.asfoundation.wallet.eskills.withdraw.domain.WithdrawResult
 import com.asfoundation.wallet.eskills.withdraw.repository.WithdrawRepository
+import com.asfoundation.wallet.ewt.EwtAuthenticatorService
+import com.asfoundation.wallet.util.isEmailValid
 import io.reactivex.Single
 import java.math.BigDecimal
+import javax.inject.Inject
 
-class WithdrawToFiatUseCase(
+class WithdrawToFiatUseCase @Inject constructor(
     private val ewtObtainer: EwtAuthenticatorService,
     private val withdrawRepository: WithdrawRepository,
 ) {

@@ -8,11 +8,13 @@ import com.asfoundation.wallet.referrals.CardNotification
 import com.asfoundation.wallet.referrals.ReferralInteractorContract
 import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
+import javax.inject.Inject
 
-class GetCardNotificationsUseCase(private val referralInteractor: ReferralInteractorContract,
-                                  private val autoUpdateInteract: AutoUpdateInteract,
-                                  private val backupInteract: BackupInteractContract,
-                                  private val promotionsInteractor: PromotionsInteractor) {
+class GetCardNotificationsUseCase @Inject constructor(
+    private val referralInteractor: ReferralInteractorContract,
+    private val autoUpdateInteract: AutoUpdateInteract,
+    private val backupInteract: BackupInteractContract,
+    private val promotionsInteractor: PromotionsInteractor) {
 
   operator fun invoke(): Single<List<CardNotification>> {
     val getUnwatchedPendingBonusNotification =

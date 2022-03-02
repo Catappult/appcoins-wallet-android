@@ -9,7 +9,7 @@
   <string name="bottom_navigation_my_wallets">ਮੇਰੇ ਬਟੂਏ</string>
   <!-- Strings relatedwalletount creation -->
   <string name="prompt_password">ਪਾਸਵਰਡ</string>
-  <string name="action_sign_in_short">Create</string>
+  <string name="action_sign_in_short">ਬਣਾਓ</string>
   <!-- String related to sending -->
   <string name="prompt_to">ਲਈ</string>
   <string name="action_send">ਭੇਜੋ</string>
@@ -120,7 +120,7 @@
   <string name="intro_2_title">ਪੈਸੇ ਘੱਟ ਦਿਓ, ਖੇਡੋ ਜ਼ਿਆਦਾ</string>
   <string name="intro_2_body">ਆਪਣੀਆਂ ਮਨਪਸੰਦ ਐਪਾਂ ਅਤੇ ਖੇਡਾਂ ਵਿੱਚ ਆਈਟਮਾਂ ਖਰੀਦਣ ਤੇ ਇਨਾਮ ਪ੍ਰਾਪਤ ਕਰੋ|</string>
   <string name="intro_3_title">ਆਸਾਨ ਅਤੇ ਸੌਖਾ</string>
-  <string name="intro_3_body">ਆਪਣੀ ਮਨਪਸੰਦ ਭੁਗਤਾਨ ਵਿਧੀ ਵਰਤਦੇ ਹੋਏ ਆਪਣੀਆਂ ਸਾਰੀਆਂ ਇਨ-ਐਪ ਖ਼ਰੀਦਾਂ ਕਰੋ|</string>
+  <string name="intro_3_body">ਆਪਣੀਆਂ ਗੇਮਾਂ ਵਿੱਚ ਸਿੱਧੇ ਖਰੀਦਣ ਲਈ ਐਪ ਸਿੱਕੇ ਬਟੂਏ ਨੂੰ ਸਥਾਪਿਤ ਰੱਖੋ।</string>
   <string name="intro_4_title">ਸੁਰੱਖਿਅਤ ਅਤੇ ਨਿੱਜੀ</string>
   <string name="intro_4_body">ਤੁਹਾਡੀਆਂ ਨਿੱਜੀ ਚਾਬੀਆਂ ਕਦੇ ਵੀ ਤੁਹਾਡੇ ਫੋਨ ਨੂੰ ਨਹੀਂ ਛੱਡਣਗੀਆਂ, ਤਾਂ ਜੋ ਤੁਹਾਡੇ ਐਪ ਸਿੱਕੇ ਹਰ ਸਮੇਂ ਸੁਰੱਖਿਅਤ ਰਹਿਣ|</string>
   <string name="intro_4_body_2">ਤੁਹਾਡੀਆਂ ਸਾਰੇ ਲੈਣ-ਦੇਣ ਹਮੇਸ਼ਾ ਸੁਰੱਖਿਅਤ ਹਨ, ਨਵੀਨਤਮ ਤਕਨਾਲੋਜੀ ਦਾ ਧੰਨਵਾਦ|</string>
@@ -130,6 +130,10 @@
   <string name="intro_wallet_created_short">ਬਟੂਆ ਬਣਾਇਆ ਗਿਆ!</string>
   <string name="intro_agree_terms_and_conditions_body">ਛੱਡੋ ਤੇ ਟੈਪ ਕਰਕੇ, ਤੁਸੀਂ ਐਪ ਸਿੱਕੇ ਬਟੂਏ ਦੇ %1$s ਅਤੇ %2$s ਨਾਲ ਸਹਿਮਤ ਹੁੰਦੇ ਹੋ</string>
   <string name="intro_skip_button">ਛੱਡੋ</string>
+  <string name="intro_welcome_header">ਐਪ ਸਿੱਕੇ ਬਟੂਏ ਵਿੱਚ ਤੁਹਾਡਾ ਸੁਆਗਤ ਹੈ</string>
+  <string name="intro_welcome_body">ਇਨ-ਐਪ ਖ਼ਰੀਦ ਲਈ ਤੁਹਾਡੀ ਐਪ|</string>
+  <string name="intro_already_have_wallet_button">ਮੇਰੇ ਕੋਲ ਪਹਿਲਾਂ ਹੀ ਇਕ ਬਟੂਆ ਹੈ|</string>
+  <string name="intro_get_started_button">ਸ਼ੁਰੂ ਕਰੋ</string>
   <!-- Menus -->
   <!-- Labels -->
   <string name="label_from">ਵੱਲੋਂ</string>
@@ -237,6 +241,8 @@
   <string name="transaction_type_poa_offchain">@string/transaction_type_poa</string>
   <string name="transaction_type_standard">ਟ੍ਰਾਂਸਫਰ</string>
   <string name="transaction_type_bonus">ਬੋਨਸ</string>
+  <string name="transaction_type_eskills_reward">Eskills Reward</string>
+  <string name="transaction_type_eskills">ਈ-ਹੁਨਰ ਖਰੀਦਦਾਰੀ</string>
   <string name="transaction_type_voucher">ਈ-ਵਾਊਚਰ</string>
   <string name="transaction_type_voucher_title">%s ਲਈ ਵਾਊਚਰ</string>
   <string name="transaction_type_reverted_bonus_title">ਵਾਪਸ ਕੀਤਾ ਬੋਨਸ</string>
@@ -257,6 +263,7 @@
   <string name="ellipsize">\u0020• • •</string>
   <string name="transaction_status_label">ਸਥਿਤੀ</string>
   <string name="transaction_category_label">ਸ਼੍ਰੇਣੀ</string>
+  <string name="transaction_order_reference_label">Order ID</string>
   <string name="transaction_details_label">ਵੇਰਵਾ</string>
   <string name="transaction_to_label">ਲਈ</string>
   <string name="dialog_credit_card_remember">ਕਾਰਡ ਯਾਦ ਰੱਖੋ</string>
@@ -264,7 +271,7 @@
   <string name="dialog_credit_card_number">ਕਾਰਡ ਨੰਬਰ</string>
   <string name="dialog_credit_card_expiration">ਐਕਸਪਾਈਰੀ ਦੀ ਤਾਰੀਖ</string>
   <string name="dialog_credit_card_cvv">ਸੀਵੀਵੀ</string>
-  <string name="dialog_bank_card">Bank card</string>
+  <string name="dialog_bank_card">Credit/debit card</string>
   <string name="dialog_expiry_date">ਆਖਰੀ ਤਾਰੀਖ</string>
   <string name="activity_airdrop_title">ਐਪ ਸਿੱਕੇ ਪ੍ਰਾਪਤ ਕਰਨ ਲਈ ਪੁਸ਼ਟੀ ਕਰੋ ਕਿ ਤੁਸੀਂ ਇੱਕ ਮਨੁੱਖ ਹੋ</string>
   <string name="activity_airdrop_details">ਇਹ ਕੇਵਲ ਇੱਕ ਸੁਰੱਖਿਆ ਚੀਜ਼ ਹੈ|</string>
@@ -386,7 +393,6 @@
   <string name="my_wallets_action_backup_wallet">ਬੈਕਅਪ ਬਟੂਆ</string>
   <string name="my_wallets_action_verify_new_card">ਨਵੇਂ ਕਾਰਡ ਦੀ ਤਸਦੀਕ ਕਰੋ</string>
   <string name="my_wallets_action_delete_wallet">ਬਟੂਆ ਡੀਲੀਟ ਕਰੋ</string>
-  <string name="verify_card_title">ਕਾਰਡ ਦੀ ਤਸਦੀਕ ਕਰੋ</string>
   <!--Ask a friend for funds-->
   <string name="askafriend_payment_option_button">ਕਿਸੇ ਨੂੰ ਭੁਗਤਾਨ ਕਰਨ ਲਈ ਕਹੋ</string>
   <string name="askafriend_generating_link_message">ਅਸੀਂ ਤੁਹਾਡੇ ਭੁਗਤਾਨ ਦਾ ਲਿੰਕ ਉਤਪੰਨ ਕਰ ਰਹੇ ਹਾਂ&#8230;</string>
@@ -395,7 +401,7 @@
   <string name="askafriend_share_add_message_body">ਸੁਨੇਹਾ ਜੋੜੋ (ਵਿਕਲਪਿਕ)</string>
   <string name="askafriend_share_button">ਸ਼ੇਅਰ</string>
   <string name="askafriend_share_popup_title">ਕਿਸੇ ਨੂੰ ਇਸ ਦੁਆਰਾ ਪੁਛੋ:</string>
-  <string name="askafriend_received_body">ਤੁਸੀਂ ਹੁਣੇ %s ਐਪ ਸਿੱਕੇ-ਕਰੈਡਿਟ ਪ੍ਰਾਪਤ ਕੀਤੇ</string>
+  <string name="askafriend_received_body">You just received %s AppCoins Credits</string>
   <string name="askafriend_notification_received_title">ਨਵਾ ਟ੍ਰਾਂਸਫਰ ਪ੍ਰਾਪਤ ਹੋਇਆ</string>
   <string name="askafriend_notification_received_body">%1$s %2$s ਤੁਹਾਡੇ ਬਟੂਏ ਵਿੱਚ ਪਾਏ ਗਏ|</string>
   <string name="askafriend_received_title">ਟ੍ਰਾਂਸਫਰ ਪ੍ਰਾਪਤ</string>
@@ -434,17 +440,22 @@
   <string name="get_code_button">ਕੋਡ ਪ੍ਰਾਪਤ ਕਰੋ</string>
   <string name="confirm_button">ਪੁਸ਼ਟੀ ਕਰੋ</string>
   <string name="withdraw_button">ਵਾਪਸ ਲਓ</string>
+  <string name="email_here_field">Your email here&#8230;</string>
+  <string name="understood_button">Understood!</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">ਮੈਂ ਐਪ ਸਿੱਕੇ ਬਟੂਏ %1$s ਅਤੇ %2$s ਨਾਲ ਸਹਿਮਤ ਹਾਂ|</string>
   <string name="terms_and_conditions_error">ਜਾਰੀ ਰੱਖਣ ਲਈ ਕਿਰਪਾ ਕਰਕੇ ਸਾਡੇ ਨਿਯਮਾਂ ਅਤੇ ਸ਼ਰਤਾਂ ਅਤੇ ਨੀਜੀ ਨੀਤੀ ਨੂੰ ਸਵੀਕਾਰ ਕਰੋ</string>
   <string name="terms_and_conditions">ਨਿਬੰਧਨ ਅਤੇ ਸ਼ਰਤਾਂ</string>
   <string name="privacy_policy">ਪਰਾਈਵੇਟ ਨੀਤੀ</string>
+  <string name="decline_button">Reject</string>
+  <string name="get_started">Get Started</string>
+  <string name="existent_wallet">I already have a wallet</string>
   <!--Home-->
-  <string name="home_empty_discover_apps_body">ਵਧੀਆ ਐਂਡਰਾਇਡ ਐਪਾਂ ਤੁਹਾਡੀ ਉਡੀਕ ਕਰ ਰਹੀਆਂ ਹਨ|</string>
+  <string name="home_empty_discover_apps_body">Make a purchase on your favorite game and we\'ll handle everything.</string>
   <string name="home_empty_discover_apps_button">ਵਧੀਆ ਐਪਸ ਲੱਭੋ</string>
   <!--Tokens-->
   <!--Settings-->
-  <string name="title_redeem">Redeem Gift Card</string>
+  <string name="title_redeem">ਕੋਡ ਵਰਤੋ</string>
   <string name="settings_item_support">ਸਹਾਇਤਾ ਟੀਮ ਨਾਲ ਸੰਪਰਕ ਕਰੋ</string>
   <string name="settings_subheader_support">ਸਪੋਰਟ</string>
   <string name="settings_subheader_about_us">ਸਾਡੇ ਬਾਰੇ</string>
@@ -477,6 +488,10 @@
   <string name="verification_settings_unverified_title">ਬਟੂਏ ਦੀ ਤਸਦੀਕ ਕਰੋ</string>
   <string name="verification_settings_unverified_body">ਇਨਾਮ ਪ੍ਰਾਪਤ ਕਰੋ ਅਤੇ ਦੋਸਤਾਂ ਨੂੰ ਸੱਦਾ ਦਿਓ</string>
   <string name="verification_settings_verified_title">ਬਟੂਏ ਦੀ ਤਸਦੀਕ ਕੀਤੀ ਗਈ</string>
+  <string name="verification_settings_verifying_title">ਬਟੂਏ ਦੀ ਪੁਸ਼ਟੀ ਕੀਤੀ ਜਾ ਰਹੀ ਹੈ...</string>
+  <string name="verification_verified_paypal_description">ਤੁਹਾਨੂੰ ਤੁਰੰਤ ਹੀ ਰਿਫੰਡ ਕੀਤਾ ਜਾਵੇਗਾ। ਤੁਹਾਡੇ ਬਟੂਏ ਦੀ ਜਲਦੀ ਹੀ ਪੁਸ਼ਟੀ ਕੀਤੀ ਜਾਵੇਗੀ।</string>
+  <string name="verification_verify_paypal_description">ਤੁਹਾਡੇ ਖਾਤੇ ਦੀ ਪੁਸ਼ਟੀ ਕਰਨ ਲਈ ਘੱਟੋ-ਘੱਟ %s ਦਾ ਲੈਣ-ਦੇਣ ਕੀਤਾ ਜਾਵੇਗਾ। ਇਸ ਨੂੰ ਤੁਰੰਤ ਵਾਪਸ ਕਰ ਦਿੱਤਾ ਜਾਵੇਗਾ।</string>
+  <string name="verification_verify_paypal_button">ਹੁਣੇ ਪੁਸ਼ਟੀ ਕਰੋ</string>
   <string name="verification_settings_card_verified_title">ਕਾਰਡ ਦੀ ਤਸਦੀਕ ਕੀਤੀ ਗਈ</string>
   <string name="verification_settings_no_internet">ਤੁਹਾਨੂੰ ਇੰਟਰਨੈਟ ਨਾਲ ਜੁੜਨ ਦੀ ਜ਼ਰੂਰਤ ਹੈ</string>
   <string name="verification_error_time_expired">ਓਹ ਹੋ, ਤੁਹਾਡਾ ਸਮਾਂ ਖਤਮ ਹੋ ਗਿਆ ਹੈ| ਦੁਬਾਰਾ ਸ਼ੁਰੂ ਕਰੋ!</string>
@@ -512,6 +527,7 @@
   <string name="purchase_card_error_not_supported">ਤੁਹਾਡੇ ਕਾਰਡ ਦੀ ਕਿਸਮ ਅਜੇ ਸਮਰਥਿਤ ਨਹੀਂ ਹੈ| ਕਿਸੇ ਵੱਖਰੇ ਕਾਰਡ ਨਾਲ ਕੋਸ਼ਿਸ਼ ਕਰੋ|</string>
   <string name="purchase_card_error_security">ਕੀ ਤੁਹਾਨੂੰ ਯਕੀਨ ਹੈ ਕਿ ਸੁਰੱਖਿਆ ਜਾਣਕਾਰੀ ਸਹੀ ਹੈ? ਮੁੜ ਕੋਸ਼ਿਸ ਕਰੋ ਜੀ|</string>
   <string name="purchase_card_error_wrong_CVV">ਤੁਹਾਡਾ ਸੀਵੀਵੀ/ਸੀਵੀਸੀ ਕੋਡ ਗਲਤ ਜਾਪਦਾ ਹੈ| ਮੁੜ ਕੋਸ਼ਿਸ ਕਰੋ ਜੀ|</string>
+  <string name="purchase_card_error_re_insert">It seems you registered this card long time ago! Insert the card details again or use a different one.</string>
   <string name="purchase_wallet_error_contact_us">ਓਹ ਹੋ, ਤੁਹਾਡੇ ਬਟੂਏ ਨਾਲ ਕੁੱਝ ਠੀਕ ਨਹੀਂ ਹੈ| ਕਿਰਪਾ ਕਰਕੇ ਸਾਡੇ ਨਾਲ ਸੰਪਰਕ ਕਰੋ|</string>
   <string name="purchase_carrier_error">ਅਜਿਹਾ ਲਗਦਾ ਹੈ ਕਿ ਤੁਹਾਡਾ ਫੋਨ ਨੰਬਰ ਇਸ ਭੁਗਤਾਨ ਵਿਧੀ ਦੇ ਅਨੁਕੂਲ ਨਹੀਂ ਹੈ|</string>
   <string name="purchase_carrier_error_minimum">ਤੁਹਾਡਾ ਕੈਰੀਅਰ %s ਤੋਂ ਘੱਟ ਭੁਗਤਾਨ ਦਾ ਸਮਰਥਨ ਨਹੀਂ ਕਰਦਾ|</string>
@@ -533,7 +549,9 @@
   <string name="purchase_error_transaction_timeout">ਅਜਿਹਾ ਲਗਦਾ ਹੈ ਕਿ ਟ੍ਰਾਂਜੈਕਸ਼ਨ ਨੂੰ ਪੂਰਾ ਕਰਨ ਲਈ ਤੁਸੀ ਬਹੁਤ ਸਮਾਂ ਲਗਾ ਦਿੱਤਾ| ਮੁੜ ਕੋਸ਼ਿਸ ਕਰੋ ਜੀ|</string>
   <string name="purchase_error_card_already_in_progress">ਤੁਹਾਡੀ ਬੇਨਤੀ ਤੇ ਪਹਿਲਾਂ ਹੀ ਕਾਰਵਾਈ ਕੀਤੀ ਜਾ ਚੁੱਕੀ ਹੈ ਜਾਂ ਜਾਰੀ ਹੈ| ਕ੍ਰਿਪਾ ਕਰਕੇ ਉਡੀਕ ਕਰੋ|</string>
   <string name="purchase_error_payment_rejected">ਭੁਗਤਾਨ ਅਸਵੀਕਾਰ! ਕਿਰਪਾ ਕਰਕੇ ਕਿਸੇ ਵੱਖਰੇ ਜਾਰੀਕਰਤਾ ਦੇ ਕਾਰਡ ਨਾਲ ਕੋਸ਼ਿਸ਼ ਕਰੋ ਜਾਂ ਹੋਰ ਭੁਗਤਾਨ ਵਿਧੀ ਦੀ ਵਰਤੋਂ ਕਰੋ|</string>
-  <string name="purchase_error_verify_wallet">ਇਸ ਸਥਿਤੀ ਤੋਂ ਬਾਹਰ ਨਿਕਲਣ ਲਈ ਆਪਣੇ ਬਟੂਏ ਦੀ ਤਸਦੀਕ ਕਰਨ ਦੀ ਕੋਸ਼ਿਸ਼ ਕਰੋ|</string>
+  <string name="purchase_error_verify_wallet">Validate your payment method to complete this purchase.</string>
+  <string name="purchase_error_verify_card">ਇਸ ਖਰੀਦ ਨੂੰ ਪੂਰਾ ਕਰਨ ਲਈ ਆਪਣੇ ਕਾਰਡ ਨੂੰ ਪ੍ਰਮਾਣਿਤ ਕਰੋ।</string>
+  <string name="purachse_error_verify_card_button">ਕਾਰਡ ਪ੍ਰਮਾਣਿਤ ਕਰੋ</string>
   <string name="purchase_eskills_sku">ਦਾਖਲਾ ਟਿਕਟ</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">ਬਿਲਿੰਗ ਦਾ ਪਤਾ</string>
@@ -571,7 +589,7 @@
   <string name="referral_view_share_link_button">ਸੱਦੇ ਦੇ ਲਿੰਕ ਨੂੰ ਸਾਂਝਾ ਕਰੋ</string>
   <string name="referral_view_notifications_title">ਨੋਟੀਫਿਕੇਸ਼ਨ</string>
   <string name="referral_share_sheet_title">ਸੱਦੇ ਵਾਲੇ ਲਿੰਕ ਨੂੰ ਇਸ ਰਾਹੀਂ ਸਾਂਝਾ ਕਰੋ:</string>
-  <string name="referral_view_unverified_body">Receive %s worth of AppCoins Credits for each friend. Your first need to verify your wallet.</string>
+  <string name="referral_view_unverified_body">Receive %s worth of AppCoins Credits for each friend. You first need to verify your wallet.</string>
   <string name="referral_view_verify_button">ਬਟੂਏ ਦੀ ਤਸਦੀਕ ਕਰੋ</string>
   <string name="referral_view_i_have_been_invited_button">ਮੈਨੂੰ ਬੁਲਾਇਆ ਗਿਆ ਹੈ</string>
   <string name="referral_view_dropup_menu_friends_invited">ਦੋਸਤ ਬੁਲਾਏ ਗਏ</string>
@@ -611,25 +629,16 @@
   <!--Backup and Import-->
   <string name="backup_home_notification_title">ਆਪਣਾ ਬਟੂਆ ਬੈਕਅਪ ਕਰੋ</string>
   <string name="backup_home_notification_body">ਕੀ ਤੁਸੀਂ ਕਦੇ ਆਪਣਾ ਫੋਨ ਗੁਆਇਆ ਹੈ? ਹੁਣੇ ਆਪਣੇ ਬਟੂਏ ਦਾ ਬੈਕਅਪ ਲਓ!</string>
-  <string name="backup_button">ਬੈਕਅਪ</string>
-  <string name="backup_title">ਬੈਕਅਪ ਬਟੂਆ</string>
   <string name="backup_password_title">ਆਪਣੇ ਬਟੂਏ ਤੇ ਕੋਡ ਲਗਾਓ| (ਵਿਕਲਪਿਕ)</string>
-  <string name="backup_password">ਪਾਸਵਰਡ</string>
-  <string name="backup_body">ਅਸੀਂ ਤੁਹਾਡੀਆਂ ਨਿੱਜੀ ਕੁੰਜੀਆਂ ਜਾਂ ਕੋਈ ਹੋਰ ਪਹੁੰਚ ਵਿਧੀ ਆਪਣੇ ਕੋਲ ਨਹੀਂ ਰੱਖਦੇ| ਤੁਹਾਡੇ ਬਟੂਏ ਦਾ ਬੈਕਅਪ (ਚਾਬੀ ਸਟੋਰ) ਸੁਰੱਖਿਅਤ ਰੱਖਣਾ ਜਰੂਰੀ ਹੈ|</string>
   <string name="backup_confirmation_title">ਸਿਰਫ ਇਕ ਹੋਰ ਕਦਮ</string>
   <string name="backup_confirmation_body">ਆਪਣਾ ਬੈਕਅਪ ਸੁਰੱਖਿਅਤ ਰੱਖੋ! ਤੁਸੀਂ ਇਸਨੂੰ ਕਿੱਥੇ ਸੇਵ ਕਰਨਾ ਚਾਹੁੰਦੇ ਹੋ?</string>
   <string name="backup_confirmation_yes">ਹਾਂ, ਖਤਮ ਕਰੋ</string>
   <string name="backup_confirmation_no">ਨਹੀਂ, ਡਿਵਾਈਸ ਤੇ ਸੇਵ ਕਰੋ</string>
-  <string name="backup_done_title">ਬੈਕਅਪ ਹੋ ਗਿਆ!</string>
   <string name="backup_done_body">ਕੀ ਤੁਹਾਨੂੰ ਯਕੀਨ ਹੈ ਕਿ ਤੁਹਾਡੀ ਬੈਕਅਪ ਫਾਈਲ ਇੱਕ ਸੁਰੱਖਿਅਤ ਜਗ੍ਹਾ ਤੇ ਹੈ?</string>
   <string name="backup_confirmation_no_share_title">ਬੈਕਅਪ ਹੋ ਗਿਆ!</string>
   <string name="backup_confirmation_no_share_body">ਤੁਹਾਡੀ ਬੈਕਅਪ ਫਾਈਲ ਤੁਹਾਡੇ ਡਾਉਨਲੋਡ ਫੋਲਡਰ ਵਿੱਚ ਹੈ|</string>
   <string name="backup_save_dialogue_title">ਬੈਕਅਪ ਫਾਈਲ ਨੂੰ ਸੇਵ ਕਰੋ</string>
   <string name="backup_save_dialogue_body">ਆਪਣੀ ਬੈਕਅਪ ਫਾਈਲ ਲਈ ਇੱਕ ਨਾਮ ਚੁਣੋ|</string>
-  <string name="backup_confirmation_tips_title">ਫਾਈਲ ਨੂੰ ਸੁਰੱਖਿਅਤ ਰੱਖੋ:</string>
-  <string name="backup_confirmation_tips_1">ਇਸ ਦੀ ਕਾਪੀ ਕਢੋ ਅਤੇ ਕਿਤੇ ਸੁਰੱਖਿਅਤ ਰੱਖੋ|</string>
-  <string name="backup_confirmation_tips_2">ਇਸਨੂੰ ਇੱਕ ਯੂਐਸਬੀ ਡਰਾਈਵ ਤੇ ਸੁਰੱਖਿਅਤ ਕਰੋ|</string>
-  <string name="backup_confirmation_tips_3">ਇਸ ਨੂੰ ਇੱਕ ਨਿਜੀ ਅਤੇ ਸੁਰੱਖਿਅਤ ਕਲਾਉਡ ਸਟੋਰੇਜ ਤੇ ਕਾਪੀ ਕਰੋ|</string>
   <string name="backup_send_via_title">ਬੈਕਅਪ ਇਸ ਦੁਆਰਾ ਭੇਜੋ:</string>
   <string name="backup_send_button">ਬੈਕਅੱਪ ਭੇਜੋ</string>
   <string name="backup_save_button">ਬੈਕਅੱਪ ਸੇਵ ਕਰੋ</string>
@@ -643,17 +652,31 @@
   <string name="import_wallet_wrong_password_body">ਓਹ ਹੋ, ਗਲਤ ਪਾਸਵਰਡ!</string>
   <string name="error_invalid_private_key">ਗਲਤ ਨਿਜੀ ਚਾਬੀ</string>
   <string name="error_invalid_keystore">ਅਵੈਧ ਕੀਸਟੋਰ</string>
+  <string name="backup_title">ਬੈਕਅਪ ਬਟੂਆ</string>
+  <string name="backup_body">ਅਸੀਂ ਤੁਹਾਡੀਆਂ ਨਿੱਜੀ ਕੁੰਜੀਆਂ ਜਾਂ ਕੋਈ ਹੋਰ ਪਹੁੰਚ ਵਿਧੀ ਆਪਣੇ ਕੋਲ ਨਹੀਂ ਰੱਖਦੇ| ਤੁਹਾਡੇ ਬਟੂਏ ਦਾ ਬੈਕਅਪ (ਚਾਬੀ ਸਟੋਰ) ਸੁਰੱਖਿਅਤ ਰੱਖਣਾ ਜਰੂਰੀ ਹੈ|</string>
+  <string name="backup_additional_security_title">ਹੋਰ ਸੁਰੱਖਿਆ (ਵਿਕਲਪਿਕ)</string>
+  <string name="backup_additional_security_body">ਇੱਕ ਪਾਸਵਰਡ ਚੁਣੋ</string>
+  <string name="backup_button">BACKUP WALLET</string>
+  <string name="backup_password">ਪਾਸਵਰਡ</string>
+  <string name="backup_ready_title">Your backup is ready! Keep it safe.</string>
+  <string name="backup_ready_save_on_email">Save it on your email</string>
+  <string name="backup_ready_email_button">Send to email</string>
+  <string name="backup_ready_device_button">Save on device</string>
+  <string name="backup_done_title">ਬੈਕਅਪ ਹੋ ਗਿਆ!</string>
+  <string name="backup_confirmation_tips_title">ਫਾਈਲ ਨੂੰ ਸੁਰੱਖਿਅਤ ਰੱਖੋ:</string>
+  <string name="backup_confirmation_tips_1">ਇਸ ਦੀ ਕਾਪੀ ਕਢੋ ਅਤੇ ਕਿਤੇ ਸੁਰੱਖਿਅਤ ਰੱਖੋ|</string>
+  <string name="backup_confirmation_tips_2">ਇਸਨੂੰ ਇੱਕ ਯੂਐਸਬੀ ਡਰਾਈਵ ਤੇ ਸੁਰੱਖਿਅਤ ਕਰੋ|</string>
+  <string name="backup_confirmation_tips_3">ਇਸ ਨੂੰ ਇੱਕ ਨਿਜੀ ਅਤੇ ਸੁਰੱਖਿਅਤ ਕਲਾਉਡ ਸਟੋਰੇਜ ਤੇ ਕਾਪੀ ਕਰੋ|</string>
   <string name="backup_tooltip_body">ਆਪਣੇ ਬਟੂਏ ਦਾ ਬੈਕਅਪ ਬਣਾਓ!</string>
   <string name="backup_tooltip_later_button">ਫੇਰ ਕਦੇ</string>
   <string name="backup_tooltip_backup_button">ਬੈਕਅਪ</string>
   <string name="backup_notification_title">ਆਪਣੇ ਬਟੂਏ ਦਾ ਬੈਕਅਪ ਬਣਾਓ!</string>
   <string name="backup_notification_body">ਆਪਣੇ ਫੰਡਾਂ ਨੂੰ ਸੁਰੱਖਿਅਤ ਰੱਖੋ ਅਤੇ ਇਹ ਸੁਨਿਸ਼ਚਿਤ ਕਰੋ ਕਿ ਤੁਸੀਂ ਹਮੇਸ਼ਾਂ ਆਪਣੇ ਬਟੂਏ ਨੂੰ ਵਰਤ ਕਰ ਸਕਦੇ ਹੋ|</string>
   <string name="backup_choose_wallet_title">ਬੈਕਅਪ ਲਈ ਇੱਕ ਬਟੂਏ ਦੀ ਚੋਣ ਕਰੋ</string>
-  <string name="backup_additional_security_title">ਹੋਰ ਸੁਰੱਖਿਆ (ਵਿਕਲਪਿਕ)</string>
-  <string name="backup_additional_security_body">ਇੱਕ ਪਾਸਵਰਡ ਚੁਣੋ</string>
   <string name="backup_additional_security_disclaimer_title">ਕਿਰਪਾ ਕਰਕੇ ਆਪਣਾ ਪਾਸਵਰਡ ਸੁਰੱਖਿਅਤ ਰੱਖੋ|</string>
   <string name="backup_additional_security_disclaimer_body">ਕੋਈ ਪਾਸਵਰਡ ਰਿਕਵਰੀ ਨਹੀਂ ਹੈ|</string>
   <string name="backup_additional_security_password_not_march">ਪਾਸਵਰਡ ਮੇਲ ਨਹੀਂ ਖਾਂਦੇ|</string>
+  <string name="import_wallet_recovering_body">ਬਟੂਆ ਮੁੜ ਪ੍ਰਾਪਤ ਹੋ ਰਿਹਾ ਹੈ...</string>
   <!--Wallets Management-->
   <string name="wallets_title">ਬਟੂਏ</string>
   <string name="wallets_total_balance_title">%s ਵਿੱਚ ਕੁੱਲ ਰਕਮ</string>
@@ -705,6 +728,7 @@
   <string name="pioneer_gamification_title">ਤੁਸੀਂ ਇੱਕ ਪਾਇਨੀਅਰ ਹੋ</string>
   <string name="pioneer_gamification_body">ਇੱਕ ਪਾਇਨੀਅਰ ਵਧੇ ਹੋਏ ਬੋਨਸਾਂ ਵਾਲਾ ਇੱਕ ਆਰੰਭਕ ਧਾਰਕ ਹੈ|</string>
   <!--Check for Updates-->
+  <string name="check_updates_settings_current_title">Current version</string>
   <string name="check_updates_settings_title">ਅਪਡੇਟ ਦੇਖੋ</string>
   <string name="check_updates_settings_subtitle">ਮੌਜੂਦਾ ਵਰਜਨ %s</string>
   <string name="check_updates_checking_body">ਇੱਕ ਨਵੇਂ ਵਰਜਨ ਦੀ ਖੋਜ ਕੀਤੀ ਜਾ ਰਹੀ ਹੈ</string>
@@ -821,7 +845,7 @@
   <string name="carrier_billing_terms_button">ਨਿਯਮ ਅਤੇ ਸ਼ਰਤਾਂ</string>
   <string name="carrier_billing_privacy_button">ਗੋਪਨੀਯਤਾ ਨੀਤੀ</string>
   <!--Manage Cards-->
-  <string name="manage_cards_settings_add_title">Add bank card</string>
+  <string name="manage_cards_settings_add_title">Add credit/debit card</string>
   <string name="manage_cards_settings_manage_title">ਕਾਰਡ ਪ੍ਰਬੰਧਿਤ ਕਰੋ</string>
   <string name="manage_cards_view_title">ਕਾਰਡ ਪ੍ਰਬੰਧਿਤ ਕਰੋ</string>
   <string name="manage_cards_view_manage_subtitle">ਆਪਣੇ ਭੁਗਤਾਨ ਕਾਰਡ ਪ੍ਰਬੰਧਿਤ ਕਰੋ</string>
@@ -888,6 +912,7 @@
   <string name="send_logs_settings">ਸਹਾਇਤਾ ਟੀਮ ਨੂੰ ਲੌਗ ਭੇਜੋ</string>
   <string name="send_logs_sending">ਭੇਜਿਆ ਜਾ ਰਿਹਾ ਹੈ&#8230;</string>
   <string name="send_logs_sent">ਭੇਜਿਆ ਗਿਆ!</string>
+  <string name="send_logs_error">Error!</string>
   <!--Rate us-->
   <string name="rate_us_question_title">ਐਪ ਸਿੱਕੇ ਬਟੂਏ ਦਾ ਅਨੰਦ ਲੈ ਰਹੇ ਹੋ?</string>
   <string name="rate_us_no">ਸੱਚ ਵਿੱਚ ਨਹੀ</string>
@@ -902,7 +927,7 @@
   <string name="rate_us_back_title">ਸਾਡੀ ਮਦਦ ਕਰਨਾ ਚਾਹੁੰਦੇ ਹੋ?</string>
   <string name="rate_us_back_body">ਐਪ ਸਟੋਰ ਤੇ ਐਪ ਸਿੱਕੇ ਬਟੂਏ ਨੂੰ ਰੇਟ ਕਰੋ ਤਾਂ ਜੋ ਅਸੀਂ ਇਸ ਵਿੱਚ ਸੁਧਾਰ ਕਰ ਸਕੀਏ|</string>
   <!--Card verification-->
-  <string name="card_verification_body">Use your bank card to verify your wallet.</string>
+  <string name="card_verification_body">Validate your credit/debit card to make payments.</string>
   <string name="card_verification_charde_disclaimer">ਅਸੀਂ ਤੁਹਾਡੇ ਕਾਰਡ ਤੋਂ %s ਰੁਪਏ ਕਟਾਂਗੇ ਅਤੇ ਜਦੋਂ ਤੁਸੀਂ ਕੋਡ ਦੀ ਪੁਸ਼ਟੀ ਕਰੋਗੇ ਤਾਂ ਅਸੀਂ ਉਹ ਪੈਸੇ ਵਾਪਸ ਕਰ ਦੇਵਾਂਗੇ| ਤੁਹਾਡੇ ਬੈਂਕ ਤੇ ਨਿਰਭਰ ਕਰਦਿਆਂ, ਇਸ ਵਿੱਚ ਮਿੰਟਾਂ ਤੋਂ ਲੈ ਕੇ ਕੁੱਝ ਦਿਨਾਂ ਤੱਕ ਦਾ ਸਮਾਂ ਲੱਗ ਸਕਦਾ ਹੈ|</string>
   <string name="card_verification_code_title">ਲੈਣਦੇਣ ਦੇ ਵੇਰਵੇਆਂ ਵਿੱਚ ਕੋਡ ਦੀ ਜਾਂਚ ਕਰੋ</string>
   <string name="card_verification_code_body">ਤੁਹਾਡੇ ਕਾਰਡ ਦੇ ਜਾਰੀਕਰਤਾ ਦੁਆਰਾ ਪ੍ਰਦਾਨ ਕੀਤੇ ਸੌਦੇ ਦੇ ਸੰਖੇਪ ਵਿੱਚ ਇੱਕ ਵਿਲੱਖਣ ਕੋਡ ਦਿਖਾਈ ਦੇਵੇਗਾ|</string>
@@ -927,6 +952,8 @@
   <string name="card_verification_wallets_insert_bode_button">ਕੋਡ ਭਰੋ</string>
   <string name="card_verification_no_attempts_title">ਓਹ ਹੋ, ਤੁਸੀਂ ਬਹੁਤ ਵਾਰ ਗਲਤ ਕੋਡ ਪਾਇਆ ਹੈ ਤਾਂ %1$s ਤੁਹਾਡੇ ਕਾਰਡ ਤੇ ਵਾਪਸ ਕਰ ਦਿੱਤਾ ਜਾਵੇਗਾ|</string>
   <string name="card_verification_no_attempts_body">ਕਿਰਪਾ ਕਰਕੇ, ਪੁਸ਼ਟੀਕਰਣ ਪ੍ਰਕਿਰਿਆ ਦੁਬਾਰਾ ਸ਼ੁਰੂ ਕਰੋ|</string>
+  <string name="wallet_verify_header">ਘੱਟੋ-ਘੱਟ ਇੱਕ ਭੁਗਤਾਨ ਵਿਧੀ ਨੂੰ ਪ੍ਰਮਾਣਿਤ ਕਰੋ</string>
+  <string name="verify_card_title">ਕਾਰਡ ਦੀ ਤਸਦੀਕ ਕਰੋ</string>
   <!--Vouchers-->
   <string name="voucher_card_body_1">ਇਹ ਵਾਊਚਰ ਖਰੀਦੋ ਅਤੇ ਪ੍ਰਾਪਤ ਕਰੋ</string>
   <string name="voucher_card_body_2"> %s%% ਤੱਕ ਦਾ ਬੋਨਸ|</string>
@@ -948,7 +975,7 @@
   <!--Blockchain transactions-->
   <string name="block_transaction_disclaimer_title">ਟ੍ਰਾਂਜੈਕਸ਼ਨ ਰਸਤੇ ਵਿੱਚ ਹੈ!</string>
   <string name="block_transaction_disclaimer_body">ਤੁਸੀਂ ਇਸਨੂੰ ਈਥਰਸਕੈਨ ਤੇ ਟ੍ਰੈਕ ਕਰ ਸਕਦੇ ਹੋ|</string>
-  <!--  Withdraw Funds-->
+  <!-- e-Skills -->
   <string name="e_skills_withdraw_settings_title">ਈ-ਹੁਨਰ ਵਾਪਸ ਲਓ</string>
   <string name="e_skills_withdraw_email">ਪੇਪਾਲ ਈ-ਮੇਲ ਪਤਾ</string>
   <string name="e_skills_withdraw_amount">ਰਕਮ (ਡਾਲਰ)</string>
@@ -957,9 +984,18 @@
   <string name="e_skills_withdraw_title">ਈ-ਹੁਨਰ ਵਾਪਸ ਲਓ</string>
   <string name="e_skills_withdraw_invalid_email_error_message">ਗਲਤ ਈ-ਮੇਲ</string>
   <string name="e_skills_withdraw_not_enough_balance_error_message">ਲੋੜੀਂਦਾ ਬੈਲੰਸ ਨਹੀਂ</string>
-  <string name="e_skills_withdraw_not_enough_earnings_error_message">ਤੁਸੀਂ ਸਿਰਫ ਈ-ਸਕਿੱਲ ਗੇਮਾਂ ਵਿੱਚ ਕਮਾਏ ਫੰਡ ਵਾਪਸ ਲੈ ਸਕਦੇ ਹੋ</string>
-  <string name="e_skills_withdraw_max_amount">ਅਧਿਕਤਮ ਰਕਮ ਜੋ ਤੁਸੀਂ ਕੱਢਵਾ ਸਕਦੇ ਹੋ: %s</string>
-  <string name="e_skills_more_info_button">ਹੋਰ ਜਾਣਕਾਰੀ</string>
+  <string name="e_skills_withdraw_not_enough_earnings_error_message">You haven\'t won enough e-Skills games to withdraw that amount</string>
+  <string name="e_skills_withdraw_minimum_amount_error_message">ਕਢਵਾਉਣ ਲਈ ਘੱਟੋ-ਘੱਟ ਰਕਮ $%1$.2f ਹੈ</string>
+  <string name="e_skills_withdraw_max_amount_part_1">ਤੁਸੀਂ ਲੈ ਸਕਦੇ ਹੋ:</string>
+  <string name="e_skills_withdraw_max_amount_part_2">$%1$.2f</string>
+  <string name="e_skills_know_more_about">ਈ-ਹੁਨਰ ਬਾਰੇ ਹੋਰ ਜਾਣੋ</string>
+  <string name="e_skills_know_more_about_tmp">ਤੁਸੀਂ ਸਿਰਫ ਈ-ਸਕਿੱਲ ਗੇਮਾਂ ਵਿੱਚ ਕਮਾਏ ਫੰਡ ਵਾਪਸ ਲੈ ਸਕਦੇ ਹੋ</string>
+  <string name="e_skills_withdraw_started">$%1$.2f \n ਕੱਢਣਾ ਸ਼ੁਰੂ ਕਰ ਦਿੱਤਾ ਗਿਆ ਹੈ</string>
+  <string name="e_skills_withdraw_generic_error">Generic error message</string>
+  <string name="e_skills_withdraw_maybe_later">ਫੇਰ ਕਦੇ</string>
+  <string name="e_skills_room_create_title">ਇੱਕ ਰੂਮ ਬਣਾਓ ਜਾਂ ਉਸ ਵਿੱਚ ਸ਼ਾਮਲ ਹੋਵੋ</string>
+  <string name="e_skills_room_create_body">ਇੱਕ ਨਵਾਂ ਰੂਮ ਬਣਾਓ ਅਤੇ ਇਸਨੂੰ ਆਪਣੇ ਵਿਰੋਧੀਆਂ ਨਾਲ ਸਾਂਝਾ ਕਰੋ ਜਾਂ ਮੌਜੂਦਾ ਰੂਮ ਵਿੱਚ ਸ਼ਾਮਲ ਹੋਵੋ।</string>
+  <string name="e_skills_room_field">ਇੱਥੇ ਤੁਹਾਡੇ ਰੂਮ ਦਾ ਨਾਮ...</string>
   <!--Promo Code-->
   <string name="promo_code_settings_title">ਪ੍ਰੋਮੋ ਕੋਡ</string>
   <string name="promo_code_view_title">ਪ੍ਰੋਮੋ ਕੋਡ</string>
@@ -967,11 +1003,14 @@
   <string name="promo_code_view_field">ਪ੍ਰੋਮੋ ਕੋਡ ਇੱਥੇ...</string>
   <string name="promo_code_view_error">ਗਲਤ ਕੋਡ| ਕਿਸੇ ਹੋਰ ਨਾਲ ਕੋਸ਼ਿਸ਼ ਕਰੋ!</string>
   <string name="promo_code_activated">ਪ੍ਰੋਮੋ ਕੋਡ ਲਗਾ ਦਿੱਤਾ ਗਿਆ!</string>
+  <string name="promo_code_delete_button">DELETE</string>
   <string name="promo_code_replace_button">ਬਦਲੋ</string>
   <string name="promo_code_active_tag">ਐਕਟਿਵ</string>
   <string name="promo_code_expired_tag">ਮਿਆਦ ਪੁੱਗ ਗਈ</string>
   <string name="promo_code_success_title">ਹੋ ਗਿਆ!</string>
   <string name="promo_code_success_body">ਤੁਹਾਨੂੰ ਤੁਹਾਡੀਆਂ ਸਾਰੀਆਂ ਖਰੀਦਾਂ ਤੇ %s%% ਵਾਧੂ ਬੋਨਸ ਮਿਲੇਗਾ|</string>
+  <string name="promo_code_success_body_specific_app">ਤੁਹਾਨੂੰ ਤੁਹਾਡੀਆਂ ਸਾਰੀਆਂ %2$s ਵਿੱਚ ਕੀਤੀਆਂ ਖਰੀਦਾਂ ਤੇ %1$s%% ਵਾਧੂ ਬੋਨਸ ਮਿਲੇਗਾ|</string>
+  <string name="promo_code_promotions_tag">ਪ੍ਰੋਮੋਸ਼ਨਲ ਕੋਡ</string>
   <!--AppCoins Info Page-->
   <string name="appcoins_info_title">ਐਪ ਸਿੱਕਿਆਂ ਬਾਰੇ</string>
   <string name="appcoins_info_prince_title">ਐਪ ਸਿੱਕਿਆਂ ਦੀ ਕੀਮਤ (ਐਪਸੀ)</string>
@@ -984,4 +1023,7 @@
   <string name="appcoins_info_explorer_title">ਐਕਸਪਲੋਰਰ</string>
   <string name="appcoins_info_market_cap_title">ਮਾਰਕਿਟ ਦਾ ਹਿੱਸਾ</string>
   <string name="appcoins_info_volume_title">ਵਾਲਿਊਮ (24 ਘੰਟੇ)</string>
+  <!--  NFTs -->
+  <string name="nfts_title">ਐਨਐਫਟੀ</string>
+  <string name="nfts_no_nfts">You don\'t have any NFTs in this wallet yet!</string>
 </resources>

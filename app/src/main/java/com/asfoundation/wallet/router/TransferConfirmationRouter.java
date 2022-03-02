@@ -7,6 +7,7 @@ import com.asfoundation.wallet.transfers.TransferConfirmationActivity;
 import com.asfoundation.wallet.ui.ActivityResultSharer;
 import io.reactivex.Observable;
 import io.reactivex.subjects.PublishSubject;
+import javax.inject.Inject;
 import org.jetbrains.annotations.Nullable;
 
 import static com.asfoundation.wallet.C.EXTRA_TRANSACTION_BUILDER;
@@ -14,10 +15,9 @@ import static com.asfoundation.wallet.C.EXTRA_TRANSACTION_BUILDER;
 public class TransferConfirmationRouter implements ActivityResultSharer.ActivityResultListener {
 
   public static final int TRANSACTION_CONFIRMATION_REQUEST_CODE = 12344;
-  private final PublishSubject<Result> result;
+  private final PublishSubject<Result> result = PublishSubject.create();
 
-  public TransferConfirmationRouter(PublishSubject<Result> result) {
-    this.result = result;
+  public @Inject TransferConfirmationRouter() {
   }
 
   public void open(Activity activity, TransactionBuilder transactionBuilder) {

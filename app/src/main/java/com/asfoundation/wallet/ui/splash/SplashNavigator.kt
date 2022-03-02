@@ -1,18 +1,19 @@
 package com.asfoundation.wallet.ui.splash
 
+import android.app.Activity
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import com.asfoundation.wallet.router.OnboardingRouter
 import com.asfoundation.wallet.router.TransactionsRouter
 import com.asfoundation.wallet.support.SupportNotificationProperties.SUPPORT_NOTIFICATION_CLICK
 import com.asfoundation.wallet.ui.AuthenticationPromptActivity
 import com.asfoundation.wallet.ui.UpdateRequiredActivity
+import javax.inject.Inject
 
-class SplashNavigator(private val activity: AppCompatActivity) {
+class SplashNavigator @Inject constructor(private val activity: Activity) {
 
   fun firstScreenNavigation(shouldShowOnboarding: Boolean) {
     val fromSupportNotification =
-        activity.intent.getBooleanExtra(SUPPORT_NOTIFICATION_CLICK, false)
+      activity.intent.getBooleanExtra(SUPPORT_NOTIFICATION_CLICK, false)
     if (shouldShowOnboarding) {
       OnboardingRouter().open(activity, true, fromSupportNotification)
     } else {

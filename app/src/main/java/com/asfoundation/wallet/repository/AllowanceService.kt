@@ -9,14 +9,14 @@ import org.web3j.abi.TypeReference
 import org.web3j.abi.datatypes.Address
 import org.web3j.abi.datatypes.Function
 import org.web3j.abi.datatypes.generated.Uint256
-import org.web3j.protocol.Web3j
 import org.web3j.protocol.core.DefaultBlockParameterName
 import org.web3j.protocol.core.methods.request.Transaction
 import java.math.BigDecimal
 import java.math.BigInteger
+import javax.inject.Inject
 
-class AllowanceService(private val web3j: Web3j,
-                       private val defaultTokenProvider: DefaultTokenProvider) {
+class AllowanceService @Inject constructor(private val web3jProvider: Web3jProvider,
+                                           private val defaultTokenProvider: DefaultTokenProvider) {
 
   fun checkAllowance(owner: String, spender: String,
                      tokenAddress: String): Single<BigDecimal> {
@@ -49,7 +49,7 @@ class AllowanceService(private val web3j: Web3j,
     val transaction =
         Transaction.createEthCallTransaction(walletAddress,
             contractAddress, encodedFunction)
-    return web3j.ethCall(transaction, DefaultBlockParameterName.LATEST)
+    return web3jProvider.default.ethCall(transaction, DefaultBlockParameterName.LATEST)
         .send()
         .value
   }

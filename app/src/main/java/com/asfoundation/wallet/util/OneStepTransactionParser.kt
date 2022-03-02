@@ -2,66 +2,63 @@ package com.asfoundation.wallet.util
 
 import com.appcoins.wallet.bdsbilling.Billing
 import com.appcoins.wallet.bdsbilling.ProxyService
-import com.appcoins.wallet.bdsbilling.repository.BillingSupportedType
 import com.appcoins.wallet.bdsbilling.repository.entity.Product
+import com.appcoins.wallet.commons.MemoryCache
 import com.appcoins.wallet.commons.Repository
 import com.asf.wallet.BuildConfig
 import com.asfoundation.wallet.entity.Token
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.interact.DefaultTokenProvider
-import com.asfoundation.wallet.service.TokenRateService
 import io.reactivex.Single
 import io.reactivex.functions.Function4
-import io.reactivex.functions.Function5
 import io.reactivex.schedulers.Schedulers
+import io.reactivex.subjects.BehaviorSubject
 import java.math.BigDecimal
-import java.math.RoundingMode
+import javax.inject.Inject
 
 
-class OneStepTransactionParser(
-  private val proxyService: ProxyService,
-  private val billing: Billing,
-  private val conversionService: TokenRateService,
-  private val cache: Repository<String, TransactionBuilder>,
-  private val defaultTokenProvider: DefaultTokenProvider
-) {
+class OneStepTransactionParser @Inject constructor(private val proxyService: ProxyService,
+                                                   private val billing: Billing,
+                                                   private val defaultTokenProvider: DefaultTokenProvider) {
+  private val cache: Repository<String, TransactionBuilder> = MemoryCache(
+      BehaviorSubject.create(), HashMap())
 
   fun buildTransaction(oneStepUri: OneStepUri, referrerUrl: String): Single<TransactionBuilder> {
     return if (cache.getSync(oneStepUri.toString()) != null) {
       Single.just(cache.getSync(oneStepUri.toString()))
     } else {
       Single.zip(getToken(), getIabContract(), getWallet(oneStepUri), getTokenContract(),
-        Function4 { token: Token, iabContract: String, walletAddress: String,
-                    tokenContract: String ->
-          val paymentType = if (isSkills(oneStepUri)) {
-            Parameters.ESKILLS
-          } else Parameters.PAYMENT_TYPE_INAPP_UNMANAGED
-          TransactionBuilder(
-            token.tokenInfo.symbol,
-            tokenContract,
-            getChainId(oneStepUri),
-            walletAddress,
-            getAppcAmount(oneStepUri),
-            getSkuId(oneStepUri),
-            token.tokenInfo.decimals,
-            iabContract,
-            paymentType,
-            null,
-            getDomain(oneStepUri),
-            getPayload(oneStepUri),
-            getCallback(oneStepUri),
-            getOrderReference(oneStepUri),
-            getProductToken(oneStepUri),
-            getOriginAmount(oneStepUri),
-            getOriginCurrency(oneStepUri),
-            referrerUrl,
-            ""
-          ).shouldSendToken(true)
-        })
-        .doOnSuccess { transactionBuilder ->
-          cache.saveSync(oneStepUri.toString(), transactionBuilder)
-        }
-        .subscribeOn(Schedulers.io())
+          Function4 { token: Token, iabContract: String, walletAddress: String,
+                      tokenContract: String ->
+            val paymentType = if (isSkills(oneStepUri)) {
+              Parameters.ESKILLS
+            } else Parameters.PAYMENT_TYPE_INAPP_UNMANAGED
+            TransactionBuilder(
+                token.tokenInfo.symbol,
+                tokenContract,
+                getChainId(oneStepUri),
+                walletAddress,
+                getAppcAmount(oneStepUri),
+                getSkuId(oneStepUri),
+                token.tokenInfo.decimals,
+                iabContract,
+                paymentType,
+                null,
+                getDomain(oneStepUri),
+                getPayload(oneStepUri),
+                getCallback(oneStepUri),
+                getOrderReference(oneStepUri),
+                getProductToken(oneStepUri),
+                getOriginAmount(oneStepUri),
+                getOriginCurrency(oneStepUri),
+                referrerUrl,
+                ""
+            ).shouldSendToken(true)
+          })
+          .doOnSuccess { transactionBuilder ->
+            cache.saveSync(oneStepUri.toString(), transactionBuilder)
+          }
+          .subscribeOn(Schedulers.io())
     }
   }
 
@@ -126,7 +123,7 @@ class OneStepTransactionParser(
 
   private fun getToken(): Single<Token> {
     return defaultTokenProvider.defaultToken
-      .map { Token(it, BigDecimal.ZERO) }
+        .map { Token(it, BigDecimal.ZERO) }
   }
 
   private fun getIabContract(): Single<String> {
@@ -146,9 +143,9 @@ class OneStepTransactionParser(
 
     return if (domain != null) {
       billing.getWallet(domain)
-        .onErrorReturn {
-          toAddressWallet
-        }
+          .onErrorReturn {
+            toAddressWallet
+          }
     } else {
       Single.just(toAddressWallet)
     }

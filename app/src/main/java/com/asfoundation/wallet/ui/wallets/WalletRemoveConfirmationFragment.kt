@@ -5,11 +5,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.appcoins.wallet.commons.Logger
 import com.asf.wallet.R
 import com.asfoundation.wallet.interact.DeleteWalletInteract
-import com.appcoins.wallet.commons.Logger
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import com.jakewharton.rxbinding2.view.RxView
+import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
@@ -17,6 +18,7 @@ import kotlinx.android.synthetic.main.remove_wallet_balance.*
 import kotlinx.android.synthetic.main.remove_wallet_second_layout.*
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class WalletRemoveConfirmationFragment : BasePageViewFragment(), WalletRemoveConfirmationView {
 
   @Inject
@@ -83,40 +85,40 @@ class WalletRemoveConfirmationFragment : BasePageViewFragment(), WalletRemoveCon
   }
 
   private val walletAddress: String by lazy {
-    if (arguments!!.containsKey(WALLET_ADDRESS_KEY)) {
-      arguments!!.getString(WALLET_ADDRESS_KEY)!!
+    if (requireArguments().containsKey(WALLET_ADDRESS_KEY)) {
+      requireArguments().getString(WALLET_ADDRESS_KEY)!!
     } else {
       throw IllegalArgumentException("walletAddress not found")
     }
   }
 
   private val fiatBalance: String by lazy {
-    if (arguments!!.containsKey(FIAT_BALANCE_KEY)) {
-      arguments!!.getString(FIAT_BALANCE_KEY)!!
+    if (requireArguments().containsKey(FIAT_BALANCE_KEY)) {
+      requireArguments().getString(FIAT_BALANCE_KEY)!!
     } else {
       throw IllegalArgumentException("fiat balance not found")
     }
   }
 
   private val appcoinsBalance: String by lazy {
-    if (arguments!!.containsKey(APPC_BALANCE_KEY)) {
-      arguments!!.getString(APPC_BALANCE_KEY)!!
+    if (requireArguments().containsKey(APPC_BALANCE_KEY)) {
+      requireArguments().getString(APPC_BALANCE_KEY)!!
     } else {
       throw IllegalArgumentException("appc balance not found")
     }
   }
 
   private val creditsBalance: String by lazy {
-    if (arguments!!.containsKey(CREDITS_BALANCE_KEY)) {
-      arguments!!.getString(CREDITS_BALANCE_KEY)!!
+    if (requireArguments().containsKey(CREDITS_BALANCE_KEY)) {
+      requireArguments().getString(CREDITS_BALANCE_KEY)!!
     } else {
       throw IllegalArgumentException("credits balance not found")
     }
   }
 
   private val ethereumBalance: String by lazy {
-    if (arguments!!.containsKey(ETHEREUM_BALANCE_KEY)) {
-      arguments!!.getString(ETHEREUM_BALANCE_KEY)!!
+    if (requireArguments().containsKey(ETHEREUM_BALANCE_KEY)) {
+      requireArguments().getString(ETHEREUM_BALANCE_KEY)!!
     } else {
       throw IllegalArgumentException("ethereum balance not found")
     }

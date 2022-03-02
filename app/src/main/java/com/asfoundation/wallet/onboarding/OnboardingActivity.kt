@@ -6,8 +6,9 @@ import android.os.Bundle
 import com.asf.wallet.R
 import com.asfoundation.wallet.support.SupportNotificationProperties
 import com.asfoundation.wallet.ui.BaseActivity
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class OnboardingActivity : BaseActivity() {
   companion object {
     @JvmStatic

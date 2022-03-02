@@ -1,11 +1,12 @@
 package com.asfoundation.wallet.abtesting.experiments.topup
 
-import com.asf.wallet.R
 import com.asfoundation.wallet.abtesting.ABTestInteractor
 import com.asfoundation.wallet.abtesting.experiments.RakamExperiment
 import io.reactivex.Single
+import javax.inject.Inject
 
-class TopUpDefaultValueExperiment(private val abTestInteractor: ABTestInteractor) :
+class TopUpDefaultValueExperiment @Inject constructor(
+    private val abTestInteractor: ABTestInteractor) :
     RakamExperiment() {
 
   companion object {

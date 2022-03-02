@@ -6,8 +6,13 @@ import com.asfoundation.wallet.C;
 import com.asfoundation.wallet.entity.GasSettings;
 import com.asfoundation.wallet.ui.GasSettingsActivity;
 import com.asfoundation.wallet.viewmodel.GasSettingsViewModel;
+import javax.inject.Inject;
 
 public class GasSettingsRouter {
+
+  public @Inject GasSettingsRouter() {
+  }
+
   public void open(Activity context, GasSettings gasSettings) {
     Intent intent = new Intent(context, GasSettingsActivity.class);
     intent.putExtra(C.EXTRA_GAS_PRICE, gasSettings.gasPrice.toString());

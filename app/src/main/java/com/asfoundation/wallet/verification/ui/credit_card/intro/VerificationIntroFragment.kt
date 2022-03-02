@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.verification.ui.credit_card.intro
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,12 +9,10 @@ import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.widget.LinearLayout
 import androidx.appcompat.widget.SwitchCompat
-import androidx.lifecycle.Observer
-import com.adyen.checkout.base.model.paymentmethods.StoredPaymentMethod
 import com.adyen.checkout.base.ui.view.RoundCornerImageView
-import com.adyen.checkout.card.CardComponent
 import com.adyen.checkout.card.CardConfiguration
 import com.adyen.checkout.core.api.Environment
+import com.appcoins.wallet.billing.adyen.PaymentInfoModel
 import com.appcoins.wallet.billing.adyen.VerificationPaymentModel
 import com.asf.wallet.BuildConfig
 import com.asf.wallet.R
@@ -22,9 +21,10 @@ import com.asfoundation.wallet.util.CurrencyFormatUtils
 import com.asfoundation.wallet.util.KeyboardUtils
 import com.asfoundation.wallet.util.WalletCurrency
 import com.asfoundation.wallet.verification.ui.credit_card.VerificationCreditCardActivityView
+import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import com.google.android.material.textfield.TextInputLayout
 import com.jakewharton.rxbinding2.view.RxView
-import dagger.android.support.DaggerFragment
+import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.Observable
 import io.reactivex.subjects.BehaviorSubject
 import kotlinx.android.synthetic.main.error_top_up_layout.*
@@ -34,7 +34,8 @@ import kotlinx.android.synthetic.main.no_network_retry_only_layout.*
 import kotlinx.android.synthetic.main.selected_payment_method_cc.*
 import javax.inject.Inject
 
-class VerificationIntroFragment : DaggerFragment(), VerificationIntroView {
+@AndroidEntryPoint
+class VerificationIntroFragment : BasePageViewFragment(), VerificationIntroView {
 
   companion object {
     private const val CARD_NUMBER_KEY = "card_number"
@@ -71,13 +72,16 @@ class VerificationIntroFragment : DaggerFragment(), VerificationIntroView {
 
     require(context is VerificationCreditCardActivityView) {
       throw IllegalStateException(
-          "Wallet Verification Intro must be attached to Wallet Verification Activity")
+        "Wallet Verification Intro must be attached to Wallet Verification Activity"
+      )
     }
     activityView = context
   }
 
-  override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                            savedInstanceState: Bundle?): View? {
+  override fun onCreateView(
+    inflater: LayoutInflater, container: ViewGroup?,
+    savedInstanceState: Bundle?
+  ): View? {
     return inflater.inflate(R.layout.fragment_verification_intro, container, false)
   }
 
@@ -137,7 +141,7 @@ class VerificationIntroFragment : DaggerFragment(), VerificationIntroView {
 
   private fun setupCardConfiguration() {
     val cardConfigurationBuilder =
-        CardConfiguration.Builder(activity as Context, BuildConfig.ADYEN_PUBLIC_KEY)
+      CardConfiguration.Builder(activity as Context, BuildConfig.ADYEN_PUBLIC_KEY)
 
     cardConfiguration = cardConfigurationBuilder.let {
       it.setEnvironment(adyenEnvironment)
@@ -145,20 +149,25 @@ class VerificationIntroFragment : DaggerFragment(), VerificationIntroView {
     }
   }
 
+  @SuppressLint("StringFormatInvalid")
   override fun updateUi(verificationIntroModel: VerificationIntroModel) {
-    val amount = formatter.formatCurrency(verificationIntroModel.verificationInfoModel.value,
-        WalletCurrency.FIAT)
-    description.text = getString(R.string.card_verification_charde_disclaimer,
-        "${verificationIntroModel.verificationInfoModel.symbol}$amount")
+    val amount = formatter.formatCurrency(
+      verificationIntroModel.verificationInfoModel.value,
+      WalletCurrency.FIAT
+    )
+    description.text = getString(
+      R.string.card_verification_charde_disclaimer,
+      "${verificationIntroModel.verificationInfoModel.symbol}$amount"
+    )
   }
 
   override fun finishCardConfiguration(
-      paymentMethod: com.adyen.checkout.base.model.paymentmethods.PaymentMethod,
-      isStored: Boolean, forget: Boolean, savedInstance: Bundle?) {
-    this.isStored = isStored
+    paymentInfoModel: PaymentInfoModel, forget: Boolean, savedInstance: Bundle?
+  ) {
+    this.isStored = paymentInfoModel.isStored
 
     handleLayoutVisibility(isStored)
-    prepareCardComponent(paymentMethod, forget, savedInstance)
+    prepareCardComponent(paymentInfoModel, forget, savedInstance)
     setStoredPaymentInformation(isStored)
   }
 
@@ -178,30 +187,32 @@ class VerificationIntroFragment : DaggerFragment(), VerificationIntroView {
   }
 
   private fun prepareCardComponent(
-      paymentMethodEntity: com.adyen.checkout.base.model.paymentmethods.PaymentMethod,
-      forget: Boolean,
-      savedInstanceState: Bundle?) {
+    paymentInfoModel: PaymentInfoModel,
+    forget: Boolean,
+    savedInstanceState: Bundle?
+  ) {
     if (forget) viewModelStore.clear()
-    val cardComponent = CardComponent.PROVIDER.get(this, paymentMethodEntity, cardConfiguration)
+    val cardComponent = paymentInfoModel.cardComponent!!(this, cardConfiguration)
     if (forget) clearFields()
     adyen_card_form_pre_selected?.attach(cardComponent, this)
-    cardComponent.observe(this, Observer {
+    cardComponent.observe(this) {
       adyenSecurityCodeLayout.error = null
       if (it != null && it.isValid) {
         submit.isEnabled = true
         view?.let { view -> KeyboardUtils.hideKeyboard(view) }
         it.data.paymentMethod?.let { paymentMethod ->
           val hasCvc = !paymentMethod.encryptedSecurityCode.isNullOrEmpty()
-          val supportedShopperInteractions =
-              if (paymentMethodEntity is StoredPaymentMethod) paymentMethodEntity.supportedShopperInteractions else emptyList()
           paymentDataSubject.onNext(
-              AdyenCardWrapper(paymentMethod, adyenSaveDetailsSwitch.isChecked, hasCvc,
-                  supportedShopperInteractions))
+            AdyenCardWrapper(
+              paymentMethod, adyenSaveDetailsSwitch.isChecked, hasCvc,
+              paymentInfoModel.supportedShopperInteractions
+            )
+          )
         }
       } else {
         submit.isEnabled = false
       }
-    })
+    }
     if (!forget) {
       getFieldValues(savedInstanceState)
     }

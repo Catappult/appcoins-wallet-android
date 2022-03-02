@@ -5,8 +5,9 @@ import com.asfoundation.wallet.interact.AutoUpdateInteract
 import com.asfoundation.wallet.repository.PreferencesRepositoryType
 import com.asfoundation.wallet.viewmodel.AutoUpdateModel
 import io.reactivex.Single
+import javax.inject.Inject
 
-class SplashInteractor(private val autoUpdateInteract: AutoUpdateInteract,
+class SplashInteractor @Inject constructor(private val autoUpdateInteract: AutoUpdateInteract,
                        private val fingerprintPreferencesRepository: FingerprintPreferencesRepositoryContract,
                        private val preferencesRepositoryType: PreferencesRepositoryType) {
 

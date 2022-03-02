@@ -1,7 +1,8 @@
 package com.asfoundation.wallet.eskills.withdraw
 
-import androidx.fragment.app.FragmentActivity
+import android.app.Activity
+import javax.inject.Inject
 
-class WithdrawNavigator(val activity: FragmentActivity) {
+class WithdrawNavigator @Inject constructor(val activity: Activity) {
   fun navigateBack() = activity.finish()
 }

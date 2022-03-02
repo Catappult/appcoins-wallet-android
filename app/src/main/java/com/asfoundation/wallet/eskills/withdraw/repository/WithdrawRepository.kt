@@ -5,14 +5,14 @@ import com.asfoundation.wallet.eskills.withdraw.domain.SuccessfulWithdraw
 import com.asfoundation.wallet.eskills.withdraw.domain.WithdrawResult
 import io.reactivex.Single
 import java.math.BigDecimal
+import javax.inject.Inject
 
-
-class WithdrawRepository(
+class WithdrawRepository @Inject constructor(
     private val withdrawApi: WithdrawApi,
     private val mapper: WithdrawApiMapper,
     private val schedulers: RxSchedulers,
-    private val withdrawLocalStorage: WithdrawLocalStorage
-) {
+    private val withdrawLocalStorage: WithdrawLocalStorage) {
+
   fun getAvailableAmount(ewt: String): Single<BigDecimal> {
     return withdrawApi.getAvailableAmount(ewt)
         .subscribeOn(schedulers.io)

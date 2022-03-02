@@ -1,9 +1,13 @@
 package com.asfoundation.wallet.my_wallets.token
 
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import dagger.Module
 import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.android.components.FragmentComponent
 
+@InstallIn(FragmentComponent::class)
 @Module
 class TokenInfoDialogModule {
 
@@ -14,12 +18,7 @@ class TokenInfoDialogModule {
   }
 
   @Provides
-  fun provideTokenInfoDialogNavigator(fragment: TokenInfoDialogFragment): TokenInfoDialogNavigator {
-    return TokenInfoDialogNavigator(fragment.findNavController())
-  }
-
-  @Provides
-  fun provideTokenInfoDialogData(fragment: TokenInfoDialogFragment): TokenInfoDialogData {
+  fun provideTokenInfoDialogData(fragment: Fragment): TokenInfoDialogData {
     fragment.requireArguments()
         .apply {
           return TokenInfoDialogData(

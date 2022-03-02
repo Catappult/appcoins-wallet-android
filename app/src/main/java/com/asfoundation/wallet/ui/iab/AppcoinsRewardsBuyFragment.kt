@@ -16,6 +16,7 @@ import com.asfoundation.wallet.util.CurrencyFormatUtils
 import com.asfoundation.wallet.util.TransferParser
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import com.jakewharton.rxbinding2.view.RxView
+import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
@@ -27,7 +28,7 @@ import kotlinx.android.synthetic.main.support_error_layout.*
 import java.math.BigDecimal
 import javax.inject.Inject
 
-
+@AndroidEntryPoint
 class AppcoinsRewardsBuyFragment : BasePageViewFragment(), AppcoinsRewardsBuyView {
 
   @Inject
@@ -152,40 +153,40 @@ class AppcoinsRewardsBuyFragment : BasePageViewFragment(), AppcoinsRewardsBuyVie
       lottie_transaction_success.setAnimation(R.raw.success_animation)
 
   private val amount: BigDecimal by lazy {
-    if (arguments!!.containsKey(AMOUNT_KEY)) {
-      arguments!!.getSerializable(AMOUNT_KEY) as BigDecimal
+    if (requireArguments().containsKey(AMOUNT_KEY)) {
+      requireArguments().getSerializable(AMOUNT_KEY) as BigDecimal
     } else {
       throw IllegalArgumentException("amount data not found")
     }
   }
 
   private val uri: String by lazy {
-    if (arguments!!.containsKey(URI_KEY)) {
-      arguments!!.getString(URI_KEY, "")
+    if (requireArguments().containsKey(URI_KEY)) {
+      requireArguments().getString(URI_KEY, "")
     } else {
       throw IllegalArgumentException("uri not found")
     }
   }
 
   private val isBds: Boolean by lazy {
-    if (arguments!!.containsKey(IS_BDS)) {
-      arguments!!.getBoolean(IS_BDS)
+    if (requireArguments().containsKey(IS_BDS)) {
+      requireArguments().getBoolean(IS_BDS)
     } else {
       throw IllegalArgumentException("isBds not found")
     }
   }
 
   private val gamificationLevel: Int by lazy {
-    if (arguments!!.containsKey(GAMIFICATION_LEVEL)) {
-      arguments!!.getInt(GAMIFICATION_LEVEL)
+    if (requireArguments().containsKey(GAMIFICATION_LEVEL)) {
+      requireArguments().getInt(GAMIFICATION_LEVEL)
     } else {
       throw IllegalArgumentException("gamification level data not found")
     }
   }
 
   private val transactionBuilder: TransactionBuilder by lazy {
-    if (arguments!!.containsKey(TRANSACTION_KEY)) {
-      arguments!!.getParcelable<TransactionBuilder>(TRANSACTION_KEY)!!
+    if (requireArguments().containsKey(TRANSACTION_KEY)) {
+      requireArguments().getParcelable<TransactionBuilder>(TRANSACTION_KEY)!!
     } else {
       throw IllegalArgumentException("transaction data not found")
     }

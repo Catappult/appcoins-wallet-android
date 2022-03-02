@@ -18,11 +18,12 @@ import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.functions.Function3
 import java.math.BigDecimal
+import javax.inject.Inject
 
-class GamificationInteractor(private val gamification: Gamification,
-                             private val defaultWallet: FindDefaultWalletInteract,
-                             private val conversionService: LocalCurrencyConversionService,
-                             private val getCurrentPromoCodeUseCase: GetCurrentPromoCodeUseCase) {
+class GamificationInteractor @Inject constructor(private val gamification: Gamification,
+                                                 private val defaultWallet: FindDefaultWalletInteract,
+                                                 private val conversionService: LocalCurrencyConversionService,
+                                                 private val getCurrentPromoCodeUseCase: GetCurrentPromoCodeUseCase) {
 
   private var isBonusActiveAndValid: Boolean = false
 

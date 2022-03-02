@@ -4,8 +4,9 @@ import cm.aptoide.skills.api.TicketApi
 import cm.aptoide.skills.model.*
 import cm.aptoide.skills.util.EskillsPaymentData
 import io.reactivex.Single
+import javax.inject.Inject
 
-class TicketRepository(
+class TicketRepository @Inject constructor(
     private val ticketApi: TicketApi,
     private val ticketLocalStorage: TicketLocalStorage,
     private val ticketApiMapper: TicketApiMapper

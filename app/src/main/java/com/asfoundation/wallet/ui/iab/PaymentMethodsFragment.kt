@@ -14,6 +14,7 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.appcoins.wallet.commons.Logger
 import com.asf.wallet.R
+import com.asfoundation.wallet.C.Key.TRANSACTION
 import com.asfoundation.wallet.GlideApp
 import com.asfoundation.wallet.analytics.TaskTimer
 import com.asfoundation.wallet.billing.adyen.PaymentType
@@ -22,9 +23,10 @@ import com.asfoundation.wallet.ui.iab.PaymentMethodsView.PaymentMethodId
 import com.asfoundation.wallet.util.CurrencyFormatUtils
 import com.asfoundation.wallet.util.Period
 import com.asfoundation.wallet.util.WalletCurrency
+import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import com.jakewharton.rxbinding2.view.RxView
 import com.jakewharton.rxrelay2.PublishRelay
-import dagger.android.support.DaggerFragment
+import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -44,24 +46,22 @@ import kotlinx.android.synthetic.main.support_error_layout.view.error_message
 import java.math.BigDecimal
 import javax.inject.Inject
 
-class PaymentMethodsFragment : DaggerFragment(), PaymentMethodsView {
+@AndroidEntryPoint
+class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
 
   companion object {
     private const val IS_BDS = "isBds"
     private const val APP_PACKAGE = "app_package"
-    private const val TRANSACTION = "transaction"
     private const val ITEM_ALREADY_OWNED = "item_already_owned"
     private const val IS_DONATION = "is_donation"
     private const val IS_SUBSCRIPTION = "is_subscription"
     private const val FREQUENCY = "frequency"
 
     @JvmStatic
-    fun newInstance(
-        transaction: TransactionBuilder?, productName: String?,
-        isBds: Boolean, isDonation: Boolean,
-        developerPayload: String?, uri: String?,
-        transactionData: String?, isSubscription: Boolean, frequency: String?
-    ): Fragment {
+    fun newInstance(transaction: TransactionBuilder?, productName: String?, isBds: Boolean,
+                    isDonation: Boolean, developerPayload: String?, uri: String?,
+                    transactionData: String?, isSubscription: Boolean,
+                    frequency: String?): Fragment {
       val bundle = Bundle()
       bundle.apply {
         putParcelable(TRANSACTION, transaction)

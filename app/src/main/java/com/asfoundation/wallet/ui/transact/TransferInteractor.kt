@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.ui.transact
 
+import android.util.Log
 import com.appcoins.wallet.appcoins.rewards.AppcoinsRewardsRepository
 import com.asfoundation.wallet.entity.Wallet
 import com.asfoundation.wallet.ui.iab.RewardsManager
@@ -9,8 +10,9 @@ import com.asfoundation.wallet.wallets.usecases.GetWalletInfoUseCase
 import io.reactivex.Single
 import java.math.BigDecimal
 import java.net.UnknownHostException
+import javax.inject.Inject
 
-class TransferInteractor(private val rewardsManager: RewardsManager,
+class TransferInteractor @Inject constructor(private val rewardsManager: RewardsManager,
                          private val transactionDataValidator: TransactionDataValidator,
                          private val getWalletInfoUseCase: GetWalletInfoUseCase,
                          private val findDefaultWalletInteract: FindDefaultWalletInteract,

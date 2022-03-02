@@ -11,7 +11,9 @@ import com.asfoundation.wallet.ui.wallets.WalletsInteract
 import com.asfoundation.wallet.ui.wallets.WalletsModel
 import com.asfoundation.wallet.wallets.domain.WalletInfo
 import com.asfoundation.wallet.wallets.usecases.ObserveWalletInfoUseCase
+import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.schedulers.Schedulers
+import javax.inject.Inject
 
 object MyWalletsSideEffect : SideEffect
 
@@ -22,7 +24,8 @@ data class MyWalletsState(
     val backedUpOnceAsync: Async<Boolean> = Async.Uninitialized,
 ) : ViewState
 
-class MyWalletsViewModel(
+@HiltViewModel
+class MyWalletsViewModel @Inject constructor(
     private val balanceInteractor: BalanceInteractor,
     private val walletsInteract: WalletsInteract,
     private val observeWalletInfoUseCase: ObserveWalletInfoUseCase,

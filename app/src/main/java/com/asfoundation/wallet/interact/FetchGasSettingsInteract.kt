@@ -1,18 +1,17 @@
 package com.asfoundation.wallet.interact
 
+import com.asfoundation.wallet.base.RxSchedulers
 import com.asfoundation.wallet.entity.GasSettings
 import com.asfoundation.wallet.repository.GasSettingsRepositoryType
-import io.reactivex.Scheduler
 import io.reactivex.Single
+import javax.inject.Inject
 
-class FetchGasSettingsInteract(private val repository: GasSettingsRepositoryType,
-                               private val networkScheduler: Scheduler,
-                               private val vieScheduler: Scheduler) {
+class FetchGasSettingsInteract @Inject constructor(private val repository: GasSettingsRepositoryType,
+                               private val rxSchedulers: RxSchedulers) {
 
   fun fetch(forTokenTransfer: Boolean): Single<GasSettings> {
     return repository.getGasSettings(forTokenTransfer)
-        .subscribeOn(networkScheduler)
-        .observeOn(vieScheduler)
+        .subscribeOn(rxSchedulers.io)
+        .observeOn(rxSchedulers.main)
   }
-
 }

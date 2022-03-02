@@ -3,8 +3,13 @@ package com.asfoundation.wallet.ui.iab;
 import com.asfoundation.wallet.ui.iab.database.AppCoinsOperationEntity;
 import java.util.ArrayList;
 import java.util.List;
+import javax.inject.Inject;
 
 public class AppCoinsOperationMapper {
+
+  public @Inject AppCoinsOperationMapper(){
+  }
+
   public List<AppCoinsOperation> map(List<AppCoinsOperationEntity> appCoinsOperationEntities) {
     List<AppCoinsOperation> list = new ArrayList<>();
     for (AppCoinsOperationEntity appCoinsOperationEntity : appCoinsOperationEntities) {

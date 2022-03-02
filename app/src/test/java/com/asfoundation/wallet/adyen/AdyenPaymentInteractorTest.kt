@@ -8,6 +8,7 @@ import com.appcoins.wallet.billing.BillingMessagesMapper
 import com.appcoins.wallet.billing.adyen.AdyenPaymentRepository
 import com.appcoins.wallet.billing.adyen.PaymentInfoModel
 import com.appcoins.wallet.billing.adyen.PaymentModel
+import com.asfoundation.wallet.base.RxSchedulers
 import com.asfoundation.wallet.billing.address.BillingAddressRepository
 import com.asfoundation.wallet.billing.adyen.AdyenPaymentInteractor
 import com.asfoundation.wallet.billing.adyen.PurchaseBundleModel
@@ -18,6 +19,7 @@ import com.asfoundation.wallet.promo_code.use_cases.GetCurrentPromoCodeUseCase
 import com.asfoundation.wallet.support.SupportInteractor
 import com.asfoundation.wallet.ui.iab.FiatValue
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
+import com.asfoundation.wallet.util.FakeSchedulers
 import com.asfoundation.wallet.verification.ui.credit_card.WalletVerificationInteractor
 import com.asfoundation.wallet.wallet_blocked.WalletBlockedInteract
 import com.google.gson.JsonObject
@@ -76,15 +78,14 @@ class AdyenPaymentInteractorTest {
   lateinit var getCurrentPromoCodeUseCase: GetCurrentPromoCodeUseCase
 
   private lateinit var interactor: AdyenPaymentInteractor
-  private lateinit var scheduler: TestScheduler
+  private val fakeSchedulers = FakeSchedulers()
 
   @Before
   fun setup() {
-    scheduler = TestScheduler()
     interactor = AdyenPaymentInteractor(repository, inAppPurchaseInteractor, billingMessageMapper,
         partnerAddressService, walletService, supportInteractor, walletBlockedInteractor,
         walletVerificationInteractor, billingAddressRepository, getCurrentPromoCodeUseCase,
-        scheduler)
+        fakeSchedulers)
   }
 
   @Test
@@ -290,10 +291,10 @@ class AdyenPaymentInteractorTest {
     val expectedModel = PurchaseBundleModel(Bundle())
     Mockito.`when`(
         inAppPurchaseInteractor.getCompletedPurchaseBundle("INAPP", "merchant", "sku", null, null,
-            null, scheduler))
+            null, fakeSchedulers.main))
         .thenReturn(Single.just(expectedModel))
     interactor.getCompletePurchaseBundle("INAPP", "merchant", "sku", null, null, null,
-        scheduler)
+        fakeSchedulers.main)
         .subscribe(testObserver)
 
     testObserver.assertNoErrors()
@@ -326,7 +327,7 @@ class AdyenPaymentInteractorTest {
         .thenReturn(Single.just(expectedModel))
     interactor.getAuthorisedTransaction("uid")
         .subscribe(testObserver)
-    scheduler.advanceTimeTo(10, TimeUnit.SECONDS)
+    fakeSchedulers.testScheduler.advanceTimeTo(10, TimeUnit.SECONDS)
     testObserver.assertNoErrors()
         .assertValue { it == expectedModel }
   }
@@ -343,7 +344,7 @@ class AdyenPaymentInteractorTest {
         .thenReturn(Single.just(expectedModel))
     interactor.getFailedTransactionReason("uid")
         .subscribe(testObserver)
-    scheduler.advanceTimeBy(2, TimeUnit.SECONDS)
+    fakeSchedulers.testScheduler.advanceTimeBy(2, TimeUnit.SECONDS)
     testObserver.assertNoErrors()
         .assertValue { it == expectedModel }
   }
@@ -363,8 +364,8 @@ class AdyenPaymentInteractorTest {
         .thenReturn(Single.just(expectedFailModel), Single.just(expectedSuccessModel))
     interactor.getFailedTransactionReason("uid")
         .subscribe(testObserver)
-    scheduler.advanceTimeBy(2, TimeUnit.SECONDS)
-    scheduler.advanceTimeBy(2, TimeUnit.SECONDS)
+    fakeSchedulers.testScheduler.advanceTimeBy(2, TimeUnit.SECONDS)
+    fakeSchedulers.testScheduler.advanceTimeBy(2, TimeUnit.SECONDS)
     testObserver.assertNoErrors()
         .assertValue { it == expectedSuccessModel }
   }

@@ -3,8 +3,9 @@ package com.asfoundation.wallet.repository
 import com.asfoundation.wallet.service.AutoUpdateService
 import com.asfoundation.wallet.viewmodel.AutoUpdateModel
 import io.reactivex.Single
+import javax.inject.Inject
 
-class AutoUpdateRepository(private val autoUpdateService: AutoUpdateService) {
+class AutoUpdateRepository @Inject constructor(private val autoUpdateService: AutoUpdateService) {
 
   private var autoUpdateModel = AutoUpdateModel()
 

@@ -2,9 +2,11 @@ package com.asfoundation.wallet.home.usecases
 
 import com.asfoundation.wallet.rating.RatingRepository
 import io.reactivex.Single
+import javax.inject.Inject
 
-class ShouldOpenRatingDialogUseCase(private val ratingRepository: RatingRepository,
-                                    private val getUserLevelUseCase: GetUserLevelUseCase) {
+class ShouldOpenRatingDialogUseCase @Inject constructor(
+    private val ratingRepository: RatingRepository,
+    private val getUserLevelUseCase: GetUserLevelUseCase) {
 
   operator fun invoke(): Single<Boolean> {
     val remindMeLaterDate = ratingRepository.getRemindMeLaterDate()

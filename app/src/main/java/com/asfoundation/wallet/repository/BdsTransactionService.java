@@ -1,20 +1,20 @@
 package com.asfoundation.wallet.repository;
 
 import com.appcoins.wallet.commons.Repository;
+import com.asfoundation.wallet.base.RxSchedulers;
 import io.reactivex.Completable;
 import io.reactivex.Observable;
-import io.reactivex.Scheduler;
 import io.reactivex.disposables.CompositeDisposable;
 
 public class BdsTransactionService {
-  private final Scheduler scheduler;
+  private final RxSchedulers rxSchedulers;
   private final Repository<String, BdsTransaction> cache;
   private final CompositeDisposable disposables;
   private final BdsPendingTransactionService transactionService;
 
-  public BdsTransactionService(Scheduler scheduler, Repository<String, BdsTransaction> cache,
+  public BdsTransactionService(RxSchedulers rxSchedulers, Repository<String, BdsTransaction> cache,
       CompositeDisposable disposables, BdsPendingTransactionService transactionService) {
-    this.scheduler = scheduler;
+    this.rxSchedulers = rxSchedulers;
     this.cache = cache;
     this.disposables = disposables;
     this.transactionService = transactionService;
@@ -28,7 +28,7 @@ public class BdsTransactionService {
 
   public void start() {
     disposables.add(cache.getAll()
-        .subscribeOn(scheduler)
+        .subscribeOn(rxSchedulers.getIo())
         .flatMapIterable(bdsTransactions -> bdsTransactions)
         .filter(bdsTransaction -> bdsTransaction.getStatus()
             .equals(BdsTransaction.Status.WAITING))

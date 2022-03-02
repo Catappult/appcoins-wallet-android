@@ -24,9 +24,10 @@ import org.web3j.protocol.http.HttpService
 import org.web3j.utils.Numeric
 import java.math.BigDecimal
 import java.math.BigInteger
+import javax.inject.Inject
 
 
-class NFTRepository(private val nftApi: NftApi, private val rxSchedulers: RxSchedulers,
+class NFTRepository @Inject constructor(private val nftApi: NftApi, private val rxSchedulers: RxSchedulers,
                     private val nftNetwork: String,
                     private val localCurrencyConversionService: LocalCurrencyConversionService) {
 

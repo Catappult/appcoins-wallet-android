@@ -6,10 +6,11 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'com.google.gms.google-services'
 apply plugin: 'androidx.navigation.safeargs.kotlin'
+apply plugin: 'dagger.hilt.android.plugin'
 
 android {
-  buildToolsVersion '30.0.3'
-  compileSdkVersion 30
+  buildToolsVersion project.build_tools_version
+  compileSdkVersion project.compile_sdk_version
   ndkVersion "21.3.6528147"
   defaultConfig {
 
@@ -19,17 +20,17 @@ android {
     buildConfigField 'String', 'DEFAULT_STORE_ADDRESS', "\"" + json.stores.default_address + "\""
 
     applicationId "com.appcoins.wallet"
-    minSdkVersion 21
-    targetSdkVersion 30
-    versionCode 213
-    versionName "2.3.2.1"
+    minSdkVersion project.min_sdk_version
+    targetSdkVersion project.target_sdk_version
+    versionCode 215
+    versionName "2.3.3.1"
     testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     multiDexEnabled = true
 
     //room schemas location
     javaCompileOptions {
       annotationProcessorOptions {
-        arguments = ["room.schemaLocation": "$projectDir/schemas".toString()]
+        arguments += ["room.schemaLocation": "$projectDir/schemas".toString()]
       }
     }
 
@@ -100,6 +101,8 @@ android {
       buildConfigField 'String', 'ADYEN_PUBLIC_KEY', project.ADYEN_PUBLIC_KEY
       buildConfigField 'String', 'SENTRY_DSN_KEY', project.SENTRY_DSN_KEY
       buildConfigField 'String', 'SUBS_BASE_HOST', project.BASE_HOST_PROD
+      buildConfigField 'String', 'INDICATIVE_API_KEY', project.INDICATIVE_API_KEY
+      buildConfigField 'String', 'UXCAM_API_KEY', project.UXCAM_API_KEY
       manifestPlaceholders.legacyPaymentHost = "${project.MANIFEST_LEGACY_PAYMENT_HOST}"
       manifestPlaceholders.paymentHost = "${project.MANIFEST_PAYMENT_HOST}"
     }
@@ -126,6 +129,8 @@ android {
       buildConfigField 'String', 'ADYEN_PUBLIC_KEY', project.ADYEN_PUBLIC_KEY_DEV
       buildConfigField 'String', 'SENTRY_DSN_KEY', project.SENTRY_DSN_KEY_DEV
       buildConfigField 'String', 'SUBS_BASE_HOST', project.SUBS_BASE_HOST_DEV
+      buildConfigField 'String', 'UXCAM_API_KEY', project.UXCAM_API_KEY_DEV
+      buildConfigField 'String', 'INDICATIVE_API_KEY', project.INDICATIVE_API_KEY_DEV
       manifestPlaceholders.legacyPaymentHost = "${project.MANIFEST_LEGACY_PAYMENT_HOST_DEV}"
       manifestPlaceholders.paymentHost = "${project.MANIFEST_PAYMENT_HOST_DEV}"
       applicationVariants.all { variant -> renameArtifact(defaultConfig)
@@ -194,6 +199,7 @@ dependencies {
 
   implementation "android.arch.lifecycle:runtime:$project.lifecycle_version"
   implementation "android.arch.lifecycle:extensions:$project.lifecycle_version"
+  implementation "androidx.lifecycle:lifecycle-extensions:$project.lifecycle_version"
   implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:${project.ktx_lifecycle_version}"
   implementation "androidx.lifecycle:lifecycle-runtime-ktx:$project.ktx_lifecycle_version"
   implementation "androidx.lifecycle:lifecycle-viewmodel-savedstate:$project.ktx_lifecycle_version"
@@ -210,10 +216,11 @@ dependencies {
   implementation "com.google.zxing:core:$project.zxing_version"
   implementation "com.journeyapps:zxing-android-embedded:$project.zxing_android_version"
 
-  implementation "com.google.dagger:dagger:$project.dagger_version"
-  kapt "com.google.dagger:dagger-android-processor:$project.dagger_version"
-  kapt "com.google.dagger:dagger-compiler:$project.dagger_version"
-  implementation "com.google.dagger:dagger-android-support:$project.dagger_version"
+  implementation 'com.google.dagger:hilt-android:2.40.5'
+  kapt 'com.google.dagger:hilt-compiler:2.40.5'
+  //hilt-extensions to allow injecting an implementation that has an interface
+  implementation 'it.czerwinski.android.hilt:hilt-extensions:1.2.0'
+  kapt'it.czerwinski.android.hilt:hilt-processor:1.2.0'
 
   implementation "io.reactivex.rxjava2:rxjava:$project.rxjava_version"
   implementation "io.reactivex.rxjava2:rxandroid:$project.rxandroid_version"
@@ -276,6 +283,10 @@ dependencies {
 
   implementation "org.apache.commons:commons-lang3:$project.commons_lang3_version"
   implementation "com.android.support:support-annotations:$project.support_annotations"
+
+  implementation "com.uxcam:uxcam:$project.uxcam_version"
+
+  implementation "com.indicative.client.android:Indicative-Android:$project.indicative_version"
 
   testImplementation "junit:junit:$project.junit_version"
   testImplementation "org.mockito:mockito-core:$project.mockito_version"

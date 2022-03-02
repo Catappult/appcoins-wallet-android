@@ -14,7 +14,7 @@ import androidx.annotation.ColorRes;
 import androidx.annotation.DrawableRes;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
-import androidx.lifecycle.ViewModelProviders;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 import com.asf.wallet.R;
 import com.asfoundation.wallet.GlideApp;
@@ -36,7 +36,7 @@ import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.bumptech.glide.request.RequestOptions;
 import com.google.android.material.appbar.AppBarLayout;
-import dagger.android.AndroidInjection;
+import dagger.hilt.android.AndroidEntryPoint;
 import io.reactivex.disposables.CompositeDisposable;
 import java.math.BigDecimal;
 import java.util.Calendar;
@@ -46,11 +46,11 @@ import javax.inject.Inject;
 import static com.asfoundation.wallet.C.Key.GLOBAL_BALANCE_CURRENCY;
 import static com.asfoundation.wallet.C.Key.TRANSACTION;
 
-public class TransactionDetailActivity extends BaseActivity {
+@AndroidEntryPoint public class TransactionDetailActivity extends BaseActivity {
 
   private static final int DECIMALS = 18;
-  @Inject TransactionDetailViewModelFactory transactionDetailViewModelFactory;
   @Inject CurrencyFormatUtils formatter;
+  @Inject TransactionDetailViewModelFactory viewModelFactory;
   private TransactionDetailViewModel viewModel;
   private Transaction transaction;
   private String globalBalanceCurrency;
@@ -66,8 +66,6 @@ public class TransactionDetailActivity extends BaseActivity {
 
   @Override protected void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-
-    AndroidInjection.inject(this);
 
     setContentView(R.layout.activity_transaction_detail);
     findViewById(R.id.more_detail).setVisibility(View.GONE);
@@ -91,7 +89,7 @@ public class TransactionDetailActivity extends BaseActivity {
     detailsList = findViewById(R.id.details_list);
     detailsList.setAdapter(adapter);
 
-    viewModel = ViewModelProviders.of(this, transactionDetailViewModelFactory)
+    viewModel = new ViewModelProvider(this,viewModelFactory)
         .get(TransactionDetailViewModel.class);
 
     viewModel.initializeView(transaction.getPaidAmount(), transaction.getPaidCurrency(),
@@ -254,7 +252,8 @@ public class TransactionDetailActivity extends BaseActivity {
         break;
       case TRANSFER:
         typeStr = R.string.transaction_type_p2p;
-        id = isSent ? "Transfer Sent" : getString(R.string.askafriend_received_title);
+        id = isSent ? getString(R.string.askafriend_send_title)
+            : getString(R.string.askafriend_received_title);
         typeIcon = R.drawable.transaction_type_transfer_off_chain;
         categoryBackground.setBackground(null);
         to = transaction.getTo();
@@ -274,11 +273,12 @@ public class TransactionDetailActivity extends BaseActivity {
         } else {
           symbol = getString(R.string.p2p_send_currency_appc_c);
         }
-        from = transaction.getFrom() ;
+        from = transaction.getFrom();
         break;
       case TRANSFER_OFF_CHAIN:
         typeStr = R.string.transaction_type_p2p;
-        id = isSent ? "Transfer Sent" : getString(R.string.askafriend_received_title);
+        id = isSent ? getString(R.string.askafriend_send_title)
+            : getString(R.string.askafriend_received_title);
         typeIcon = R.drawable.transaction_type_transfer_off_chain;
         categoryBackground.setBackground(null);
         to = transaction.getTo();
@@ -287,7 +287,7 @@ public class TransactionDetailActivity extends BaseActivity {
             view -> viewModel.showMoreDetailsBds(view.getContext(), transaction));
         manageSubscriptions.setVisibility(View.GONE);
         symbol = getString(R.string.p2p_send_currency_appc_c);
-        from = transaction.getFrom() ;
+        from = transaction.getFrom();
         break;
       case SUBS_OFFCHAIN:
         typeStr = R.string.subscriptions_category_title;

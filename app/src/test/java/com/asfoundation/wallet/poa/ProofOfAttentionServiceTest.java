@@ -80,7 +80,7 @@ public class ProofOfAttentionServiceTest {
     proofOfAttentionService =
         new ProofOfAttentionService(cache, BuildConfig.APPLICATION_ID, hashCalculator,
             new CompositeDisposable(), proofWriter, testScheduler, maxNumberProofComponents,
-            new BackEndErrorMapper(), new TaggedCompositeDisposable(new HashMap<>()),
+            new BackEndErrorMapper(), new TaggedCompositeDisposable(),
             () -> Single.just("PT"), addressService, walletService, campaignInteract);
     if (BuildConfig.DEBUG) {
       chainId = 3;

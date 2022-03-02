@@ -1,7 +1,9 @@
 package com.asfoundation.wallet.repository;
 
 import com.appcoins.wallet.commons.MemoryCache;
+import com.asfoundation.wallet.base.RxSchedulers;
 import com.asfoundation.wallet.entity.PendingTransaction;
+import com.asfoundation.wallet.util.FakeSchedulers;
 import io.reactivex.Observable;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.observers.TestObserver;
@@ -27,19 +29,18 @@ import static org.mockito.Mockito.when;
   private static final String KEY = "key";
   @Mock BdsPendingTransactionService transactionService;
   private BdsTransactionService bdsPendingTransactionService;
-  private TestScheduler scheduler;
+  private final RxSchedulers fakeSchedulers = new FakeSchedulers();
 
   @Before public void setUp() {
     when(transactionService.checkTransactionStateFromTransactionId(UID)).thenReturn(
         Observable.just(new PendingTransaction(KEY, true), new PendingTransaction(KEY, false)));
-
-    scheduler = new TestScheduler();
-    bdsPendingTransactionService = new BdsTransactionService(scheduler,
+    bdsPendingTransactionService = new BdsTransactionService(fakeSchedulers,
         new MemoryCache<>(BehaviorSubject.create(), new ConcurrentHashMap<>()),
         new CompositeDisposable(), transactionService);
   }
 
   @Test public void getTransaction() {
+    TestScheduler scheduler = ((TestScheduler) fakeSchedulers.getMain());
     bdsPendingTransactionService.start();
     scheduler.triggerActions();
 
@@ -52,7 +53,7 @@ import static org.mockito.Mockito.when;
     TestObserver<Object> observer = new TestObserver<>();
     bdsPendingTransactionService.trackTransaction(KEY, PACKAGE_NAME, SKU, UID, PURCHASE_UID,
         ORDER_REFERENCE)
-        .subscribeOn(scheduler)
+        .subscribeOn(fakeSchedulers.getMain())
         .subscribe(observer);
     scheduler.advanceTimeBy(3, TimeUnit.SECONDS);
     scheduler.triggerActions();

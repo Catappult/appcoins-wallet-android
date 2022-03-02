@@ -8,8 +8,9 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import com.asf.wallet.R
 import com.asfoundation.wallet.subscriptions.SubscriptionAdapter
 import com.asfoundation.wallet.subscriptions.SubscriptionItem
+import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import com.jakewharton.rxbinding2.view.RxView
-import dagger.android.support.DaggerFragment
+import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.fragment_subscription_list.*
@@ -17,7 +18,8 @@ import kotlinx.android.synthetic.main.generic_error_retry_only_layout.*
 import kotlinx.android.synthetic.main.no_network_retry_only_layout.*
 import javax.inject.Inject
 
-class SubscriptionListFragment : DaggerFragment(), SubscriptionListView {
+@AndroidEntryPoint
+class SubscriptionListFragment : BasePageViewFragment(), SubscriptionListView {
 
   @Inject
   lateinit var presenter: SubscriptionListPresenter

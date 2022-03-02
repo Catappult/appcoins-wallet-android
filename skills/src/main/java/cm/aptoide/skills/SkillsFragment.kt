@@ -9,7 +9,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
+import androidx.fragment.app.Fragment
 import androidx.core.text.bold
+import androidx.fragment.app.viewModels
 import cm.aptoide.skills.databinding.FragmentSkillsBinding
 import cm.aptoide.skills.entity.UserData
 import cm.aptoide.skills.games.BackgroundGameService
@@ -17,7 +19,7 @@ import cm.aptoide.skills.interfaces.PaymentView
 import cm.aptoide.skills.model.*
 import cm.aptoide.skills.util.EskillsPaymentData
 import cm.aptoide.skills.util.EskillsUriParser
-import dagger.android.support.DaggerFragment
+import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Single
@@ -25,7 +27,8 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import javax.inject.Inject
 
-class SkillsFragment : DaggerFragment(), PaymentView {
+@AndroidEntryPoint
+class SkillsFragment : Fragment(), PaymentView {
 
   companion object {
     fun newInstance() = SkillsFragment()
@@ -41,8 +44,7 @@ class SkillsFragment : DaggerFragment(), PaymentView {
     private const val CLIPBOARD_TOOLTIP_DELAY_SECONDS = 3000L
   }
 
-  @Inject
-  lateinit var viewModel: SkillsViewModel
+  private val viewModel: SkillsViewModel by viewModels()
 
   @Inject
   lateinit var eskillsUriParser: EskillsUriParser

@@ -3,10 +3,10 @@ package com.asfoundation.wallet.wallets.usecases
 import io.reactivex.Single
 import org.web3j.utils.Convert
 import java.math.BigDecimal
+import javax.inject.Inject
 
-class HasEnoughBalanceUseCase(
-    private val getWalletInfoUseCase: GetWalletInfoUseCase
-) {
+class HasEnoughBalanceUseCase @Inject constructor(
+    private val getWalletInfoUseCase: GetWalletInfoUseCase) {
 
   enum class BalanceType {
     APPC, ETH, APPC_C

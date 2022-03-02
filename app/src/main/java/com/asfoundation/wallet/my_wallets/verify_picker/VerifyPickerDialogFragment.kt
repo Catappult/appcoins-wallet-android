@@ -7,11 +7,13 @@ import android.view.ViewGroup
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.asf.wallet.R
 import com.asf.wallet.databinding.FragmentVerifyPickerBinding
-import com.asfoundation.wallet.di.DaggerBottomSheetDialogFragment
 import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
-class VerifyPickerDialogFragment : DaggerBottomSheetDialogFragment() {
+@AndroidEntryPoint
+class VerifyPickerDialogFragment : BottomSheetDialogFragment() {
 
   @Inject
   lateinit var navigator: VerifyPickerDialogNavigator
