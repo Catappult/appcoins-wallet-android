@@ -11,13 +11,13 @@ import com.asfoundation.wallet.restore.intro.RestoreWalletFragment
 import com.asfoundation.wallet.ui.BaseActivity
 import com.asfoundation.wallet.verification.ui.credit_card.code.VerificationCodeFragment
 import com.asfoundation.wallet.verification.ui.credit_card.error.VerificationErrorFragment
-import dagger.android.AndroidInjection
+import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.activity_wallet_verification.*
 import javax.inject.Inject
 
-
+@AndroidEntryPoint
 class VerificationCreditCardActivity : BaseActivity(), VerificationCreditCardActivityView {
 
   companion object {
@@ -36,7 +36,6 @@ class VerificationCreditCardActivity : BaseActivity(), VerificationCreditCardAct
   private val toolbarBackPressSubject = PublishSubject.create<String>()
 
   override fun onCreate(savedInstanceState: Bundle?) {
-    AndroidInjection.inject(this)
     super.onCreate(savedInstanceState)
     setContentView(R.layout.activity_wallet_verification)
     val isWalletVerified = intent.getBooleanExtra(IS_WALLET_VERIFIED, false)

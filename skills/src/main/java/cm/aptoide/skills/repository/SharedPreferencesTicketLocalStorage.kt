@@ -1,21 +1,25 @@
 package cm.aptoide.skills.repository
 
 import android.content.SharedPreferences
+import cm.aptoide.skills.model.WalletAddress
 import cm.aptoide.skills.util.EskillsPaymentData
 import com.google.gson.Gson
 import io.reactivex.Single
+import it.czerwinski.android.hilt.annotations.BoundTo
+import javax.inject.Inject
 
-class SharedPreferencesTicketLocalStorage(
+@BoundTo (supertype = TicketLocalStorage::class)
+class SharedPreferencesTicketLocalStorage @Inject constructor(
   private val preferences: SharedPreferences,
   private val mapper: Gson
 ) :
   TicketLocalStorage {
   companion object {
-    private val PREFIX = "TICKET_LOCAL_STORAGE_PREFIX_"
+    private const val PREFIX = "TICKET_LOCAL_STORAGE_PREFIX_"
   }
 
   override fun getTicketInQueue(
-    walletAddress: String,
+      walletAddress: WalletAddress,
     eskillsPaymentData: EskillsPaymentData
   ): Single<StoredTicket> {
     return Single.fromCallable {
@@ -29,7 +33,7 @@ class SharedPreferencesTicketLocalStorage(
   }
 
   override fun saveTicketInQueue(
-    walletAddress: String,
+    walletAddress: WalletAddress,
     ticketId: String,
     eskillsPaymentData: EskillsPaymentData
   ) {
@@ -39,16 +43,16 @@ class SharedPreferencesTicketLocalStorage(
     editPreferences.apply()
   }
 
-  private fun getData(walletAddress: String): EskillsPaymentData? {
+  private fun getData(walletAddress: WalletAddress): EskillsPaymentData? {
     return preferences.getString(getDataKey(walletAddress), null)
       ?.let { mapper.fromJson(it, EskillsPaymentData::class.java) }
   }
 
-  private fun getWalletKey(walletAddress: String): String {
-    return PREFIX + "WALLET_" + walletAddress
+  private fun getWalletKey(walletAddress: WalletAddress): String {
+    return PREFIX + "WALLET_" + walletAddress.address
   }
 
-  private fun getDataKey(walletAddress: String): String {
-    return PREFIX + "DATA_" + walletAddress
+  private fun getDataKey(walletAddress: WalletAddress): String {
+    return PREFIX + "DATA_" + walletAddress.address
   }
 }

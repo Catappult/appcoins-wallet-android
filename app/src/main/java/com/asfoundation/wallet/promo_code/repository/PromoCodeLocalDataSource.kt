@@ -4,9 +4,10 @@ import com.asfoundation.wallet.base.RxSchedulers
 import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Single
+import javax.inject.Inject
 
-class PromoCodeLocalDataSource(private val promoCodeDao: PromoCodeDao,
-                               private val rxSchedulers: RxSchedulers) {
+class PromoCodeLocalDataSource @Inject constructor(private val promoCodeDao: PromoCodeDao,
+                                                   private val rxSchedulers: RxSchedulers) {
 
   fun savePromoCode(promoCode: PromoCodeResponse,
                     promoCodeBonus: PromoCodeBonusResponse): Single<PromoCodeEntity> {

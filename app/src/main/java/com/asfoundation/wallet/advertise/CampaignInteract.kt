@@ -12,14 +12,17 @@ import com.asfoundation.wallet.service.CampaignService
 import com.asfoundation.wallet.service.CampaignStatus
 import com.asfoundation.wallet.wallets.FindDefaultWalletInteract
 import io.reactivex.Single
+import it.czerwinski.android.hilt.annotations.BoundTo
 import java.net.UnknownHostException
+import javax.inject.Inject
 
-class CampaignInteract(private val campaignService: CampaignService,
-                       private val walletService: WalletService,
-                       private val autoUpdateInteract: AutoUpdateInteract,
-                       private val errorMapper: AdvertisingThrowableCodeMapper,
-                       private val defaultWalletInteract: FindDefaultWalletInteract,
-                       private val sharedPreferencesRepository: PreferencesRepositoryType) :
+@BoundTo(supertype = Advertising::class)
+class CampaignInteract @Inject constructor(private val campaignService: CampaignService,
+                                           private val walletService: WalletService,
+                                           private val autoUpdateInteract: AutoUpdateInteract,
+                                           private val errorMapper: AdvertisingThrowableCodeMapper,
+                                           private val defaultWalletInteract: FindDefaultWalletInteract,
+                                           private val sharedPreferencesRepository: PreferencesRepositoryType) :
     Advertising {
 
 

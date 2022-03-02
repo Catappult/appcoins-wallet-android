@@ -25,3 +25,5 @@
 #-renamesourcefileattribute SourceFile
     -keep class com.google.android.gms.ads.** { *; }
     -dontwarn okio.**
+    -keep class com.uxcam.** { *; }
+    -dontwarn com.uxcam.**

@@ -129,7 +129,7 @@
   </style>
 
   <style name="ToolbarTextAppearance.Title">
-    <item name="android:textSize">24sp</item>
+    <item name="android:textSize">20sp</item>
   </style>
 
   <style name="ToolbarTextAppearance.Title.Expanded">

@@ -1,13 +1,17 @@
 package com.asfoundation.wallet.repository
 
 import android.annotation.SuppressLint
+import com.asf.wallet.BuildConfig
 import com.asfoundation.wallet.entity.WalletHistory
 import io.reactivex.Single
 import retrofit2.HttpException
+import javax.inject.Inject
 
-class OffChainTransactions(
-    private val repository: OffChainTransactionsRepository,
-    private val versionCode: String) {
+class OffChainTransactions @Inject constructor(
+    private val repository: OffChainTransactionsRepository) {
+
+  private val versionCode: String
+    get() = BuildConfig.VERSION_CODE.toString()
 
   fun getTransactions(wallet: String, startingDate: Long? = null,
                       endingDate: Long? = null, offset: Int, sort: Sort?,

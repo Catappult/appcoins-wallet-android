@@ -2,6 +2,7 @@ package com.asfoundation.wallet.rating
 
 import android.content.Intent
 import android.net.Uri
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import com.asf.wallet.BuildConfig
 import com.asf.wallet.R
@@ -9,17 +10,20 @@ import com.asfoundation.wallet.rating.finish.RatingFinishFragment
 import com.asfoundation.wallet.rating.negative.RatingNegativeFragment
 import com.asfoundation.wallet.rating.positive.RatingPositiveFragment
 import io.reactivex.Observable
+import javax.inject.Inject
 
 
-class RatingNavigator(private val activity: RatingActivity,
+class RatingNavigator @Inject constructor(fragment: Fragment,
                       private val fragmentManager: FragmentManager) {
 
-  fun disableActivityBack() = activity.disableBack()
+  private val ratingActivity = fragment.activity as RatingActivity
 
-  fun enableActivityBack() = activity.enableBack()
+  fun disableActivityBack() = ratingActivity.disableBack()
+
+  fun enableActivityBack() = ratingActivity.enableBack()
 
   fun onBackPressed(): Observable<Any> {
-    return activity.onBackPressedSubject
+    return ratingActivity.onBackPressedSubject
   }
 
   fun navigateToSuggestions() {
@@ -37,11 +41,11 @@ class RatingNavigator(private val activity: RatingActivity,
   }
 
   fun navigateToRate() {
-    activity.startActivity(
+    ratingActivity.startActivity(
         Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=${BuildConfig.APPLICATION_ID}")))
   }
 
-  fun closeActivity() = activity.finish()
+  fun closeActivity() = ratingActivity.finish()
 
   fun navigateToFinish() {
     fragmentManager.beginTransaction()

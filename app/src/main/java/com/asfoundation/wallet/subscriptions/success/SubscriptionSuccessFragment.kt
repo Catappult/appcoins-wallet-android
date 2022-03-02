@@ -7,13 +7,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.asf.wallet.R
+import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import com.jakewharton.rxbinding2.view.RxView
-import dagger.android.support.DaggerFragment
+import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.Observable
 import kotlinx.android.synthetic.main.fragment_subscription_cancel_success.*
 import javax.inject.Inject
 
-class SubscriptionSuccessFragment : DaggerFragment(), SubscriptionSuccessView {
+@AndroidEntryPoint
+class SubscriptionSuccessFragment : BasePageViewFragment(), SubscriptionSuccessView {
 
   @Inject
   lateinit var presenter: SubscriptionSuccessPresenter

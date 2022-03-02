@@ -9,13 +9,17 @@ import com.asfoundation.wallet.promotions.PromotionsInteractor.Companion.REFERRA
 import io.reactivex.Completable
 import io.reactivex.Single
 import io.reactivex.functions.BiFunction
+import it.czerwinski.android.hilt.annotations.BoundTo
 import java.util.concurrent.TimeUnit
+import javax.inject.Inject
 
-class SharedPreferencesUserStatsLocalData(private val preferences: SharedPreferences,
-                                          private val promotionDao: PromotionDao,
-                                          private val levelsDao: LevelsDao,
-                                          private val levelDao: LevelDao,
-                                          private val walletOriginDao: WalletOriginDao) :
+@BoundTo(supertype = UserStatsLocalData::class)
+class SharedPreferencesUserStatsLocalData @Inject constructor(
+    private val preferences: SharedPreferences,
+    private val promotionDao: PromotionDao,
+    private val levelsDao: LevelsDao,
+    private val levelDao: LevelDao,
+    private val walletOriginDao: WalletOriginDao) :
     UserStatsLocalData {
 
   companion object {

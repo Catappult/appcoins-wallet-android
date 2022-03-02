@@ -3,7 +3,6 @@ package com.asfoundation.wallet.ui.iab.payments.carrier.status
 import com.appcoins.wallet.billing.carrierbilling.CarrierPaymentModel
 import com.appcoins.wallet.billing.common.response.TransactionStatus
 import com.asf.wallet.R
-import com.asfoundation.wallet.analytics.FacebookEventLogger
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics
 import com.appcoins.wallet.commons.Logger
 import com.asfoundation.wallet.ui.iab.payments.carrier.CarrierInteractor
@@ -113,7 +112,7 @@ class CarrierPaymentPresenter(private val disposables: CompositeDisposable,
 
   private fun sendPaymentSuccessEvents(): Completable {
     return carrierInteractor.convertToFiat(data.appcAmount
-        .toDouble(), FacebookEventLogger.EVENT_REVENUE_CURRENCY)
+        .toDouble(), BillingAnalytics.EVENT_REVENUE_CURRENCY)
         .doOnSuccess { fiatValue ->
           billingAnalytics.sendPaymentSuccessEvent(data.domain, data.skuId,
               data.appcAmount

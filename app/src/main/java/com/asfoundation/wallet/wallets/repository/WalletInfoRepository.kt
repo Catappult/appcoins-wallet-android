@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.wallets.repository
 
+import com.asfoundation.wallet.analytics.SentryEventLogger
 import com.asfoundation.wallet.base.RxSchedulers
 import com.asfoundation.wallet.wallets.db.WalletInfoDao
 import com.asfoundation.wallet.wallets.db.entity.WalletInfoEntity
@@ -12,11 +13,13 @@ import retrofit2.http.GET
 import retrofit2.http.Path
 import java.math.BigDecimal
 import java.util.*
+import javax.inject.Inject
 
-class WalletInfoRepository(
+class WalletInfoRepository @Inject constructor(
     private val api: WalletInfoApi,
     private val walletInfoDao: WalletInfoDao,
     private val balanceRepository: BalanceRepository,
+    private val sentryEventLogger: SentryEventLogger,
     private val rxSchedulers: RxSchedulers
 ) {
 
@@ -26,8 +29,25 @@ class WalletInfoRepository(
         .andThen(observeWalletInfo(walletAddress).firstOrError())
   }
 
+  /**
+   * Note that this will fetch from network if no cached value exists, so it is not a true
+   * cached value for every case.
+   * If you always want to fetch from network, see [observeUpdatedWalletInfo]
+   */
   fun getCachedWalletInfo(walletAddress: String): Single<WalletInfo> {
-    return observeWalletInfo(walletAddress).firstOrError()
+    return walletInfoDao.getWalletInfo(walletAddress)
+        .flatMap { list ->
+          if (list.isNotEmpty()) {
+            return@flatMap Single.just(
+                WalletInfo(list[0].wallet, getWalletBalance(list[0]), list[0].blocked,
+                    list[0].verified, list[0].logging))
+          }
+          return@flatMap fetchWalletInfo(walletAddress, updateFiatValues = true)
+              .map { entity ->
+                return@map WalletInfo(entity.wallet, getWalletBalance(entity), entity.blocked,
+                    entity.verified, entity.logging)
+              }
+        }
   }
 
   fun observeUpdatedWalletInfo(walletAddress: String,
@@ -53,8 +73,17 @@ class WalletInfoRepository(
    * My Wallets for now.
    */
   fun updateWalletInfo(walletAddress: String, updateFiatValues: Boolean): Completable {
+    return fetchWalletInfo(walletAddress, updateFiatValues)
+        .ignoreElement()
+        .onErrorComplete()
+        .subscribeOn(rxSchedulers.io)
+  }
+
+  private fun fetchWalletInfo(walletAddress: String,
+                              updateFiatValues: Boolean): Single<WalletInfoEntity> {
     return api.getWalletInfo(walletAddress)
         .flatMap { walletInfoResponse ->
+          sentryEventLogger.enabled.set(walletInfoResponse.breadcrumbs == 1)
           if (updateFiatValues) {
             return@flatMap balanceRepository.getWalletBalance(
                 walletInfoResponse.appcCreditsBalanceWei, walletInfoResponse.appcBalanceWei,
@@ -83,8 +112,6 @@ class WalletInfoRepository(
               .doOnSuccess { entity -> walletInfoDao.insertOrUpdateNoFiat(entity) }
         }
         .doOnError { e -> e.printStackTrace() }
-        .ignoreElement()
-        .subscribeOn(rxSchedulers.io)
   }
 
   // This normalization is important as wallet addresses can be received with mixed case

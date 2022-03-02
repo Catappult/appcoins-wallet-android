@@ -2,8 +2,9 @@ package com.asfoundation.wallet.billing.analytics
 
 import cm.aptoide.analytics.AnalyticsManager
 import java.util.*
+import javax.inject.Inject
 
-class PageViewAnalytics(private val analyticsManager: AnalyticsManager) {
+class PageViewAnalytics @Inject constructor(private val analyticsManager: AnalyticsManager) {
 
   fun sendPageViewEvent(context: String) {
     val eventData = HashMap<String, Any>()

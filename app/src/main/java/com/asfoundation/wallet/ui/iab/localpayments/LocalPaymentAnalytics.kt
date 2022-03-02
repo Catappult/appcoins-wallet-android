@@ -2,8 +2,9 @@ package com.asfoundation.wallet.ui.iab.localpayments
 
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics
 import java.math.BigDecimal
+import javax.inject.Inject
 
-class LocalPaymentAnalytics(private val analytics: BillingAnalytics) {
+class LocalPaymentAnalytics @Inject constructor(private val analytics: BillingAnalytics) {
 
   fun sendNavigationToUrlEvents(packageName: String, skuId: String?, amount: String, type: String,
                                 paymentId: String) {

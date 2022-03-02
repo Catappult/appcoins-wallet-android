@@ -12,10 +12,13 @@ import com.asfoundation.wallet.wallets.FindDefaultWalletInteract
 import com.asfoundation.wallet.wallets.usecases.GetWalletInfoUseCase
 import io.reactivex.Completable
 import io.reactivex.Single
+import it.czerwinski.android.hilt.annotations.BoundTo
 import java.math.BigDecimal
 import java.util.concurrent.TimeUnit
+import javax.inject.Inject
 
-class BackupInteract(
+@BoundTo(supertype = BackupInteractContract::class)
+class BackupInteract @Inject constructor(
     private val sharedPreferencesRepository: PreferencesRepositoryType,
     private val backupRestorePreferencesRepository: BackupRestorePreferencesRepository,
     private val fetchTransactionsUseCase: FetchTransactionsUseCase,

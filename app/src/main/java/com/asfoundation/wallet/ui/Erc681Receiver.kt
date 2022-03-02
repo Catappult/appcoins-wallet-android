@@ -12,7 +12,7 @@ import com.asfoundation.wallet.ui.iab.IabActivity.Companion.newIntent
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
 import com.asfoundation.wallet.ui.splash.SplashActivity
 import com.asfoundation.wallet.util.TransferParser
-import dagger.android.AndroidInjection
+import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.activity_iab_wallet_creation.*
@@ -21,6 +21,7 @@ import javax.inject.Inject
 /**
  * Created by trinkes on 13/03/2018.
  */
+@AndroidEntryPoint
 class Erc681Receiver : BaseActivity(), Erc681ReceiverView {
   @Inject
   lateinit var walletService: WalletService
@@ -41,14 +42,13 @@ class Erc681Receiver : BaseActivity(), Erc681ReceiverView {
   }
 
   override fun onCreate(savedInstanceState: Bundle?) {
-    AndroidInjection.inject(this)
     super.onCreate(savedInstanceState)
     setContentView(R.layout.activity_iab_wallet_creation)
     val productName = intent.extras!!.getString(PRODUCT_NAME, "")
     presenter =
-        Erc681ReceiverPresenter(this, transferParser, inAppPurchaseInteractor, walletService,
-            intent.dataString!!,
-            AndroidSchedulers.mainThread(), CompositeDisposable(), productName)
+      Erc681ReceiverPresenter(this, transferParser, inAppPurchaseInteractor, walletService,
+        intent.dataString!!,
+        AndroidSchedulers.mainThread(), CompositeDisposable(), productName)
     presenter.present(savedInstanceState)
   }
 
@@ -67,7 +67,7 @@ class Erc681Receiver : BaseActivity(), Erc681ReceiverView {
 
   override fun startEipTransfer(transactionBuilder: TransactionBuilder, isBds: Boolean) {
     val intent: Intent = if (intent.data != null && intent.data.toString()
-            .contains("/buy?")) {
+        .contains("/buy?")) {
       newIntent(this, intent, transactionBuilder, isBds, transactionBuilder.payload)
     } else {
       SendActivity.newIntent(this, intent)

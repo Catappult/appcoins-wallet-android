@@ -8,8 +8,9 @@ import com.google.gson.Gson
 import com.google.gson.annotations.SerializedName
 import retrofit2.HttpException
 import java.math.BigDecimal
+import javax.inject.Inject
 
-class WithdrawApiMapper(private val jsonMapper: Gson) {
+class WithdrawApiMapper @Inject constructor(private val jsonMapper: Gson) {
   fun map(error: Throwable): WithdrawResult {
     return when {
       error.isNoNetworkException() -> FailedWithdraw.NoNetworkError

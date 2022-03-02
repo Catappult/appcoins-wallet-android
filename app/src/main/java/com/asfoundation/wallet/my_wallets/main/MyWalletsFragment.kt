@@ -27,14 +27,13 @@ import com.asfoundation.wallet.util.safeLet
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.snackbar.Snackbar
+import dagger.hilt.android.AndroidEntryPoint
 import java.math.BigDecimal
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class MyWalletsFragment : BasePageViewFragment(),
     SingleStateFragment<MyWalletsState, MyWalletsSideEffect> {
-
-  @Inject
-  lateinit var viewModelFactory: MyWalletsViewModelFactory
 
   @Inject
   lateinit var formatter: CurrencyFormatUtils
@@ -42,13 +41,13 @@ class MyWalletsFragment : BasePageViewFragment(),
   @Inject
   lateinit var navigator: MyWalletsNavigator
 
-  private val viewModel: MyWalletsViewModel by viewModels { viewModelFactory }
+  private val viewModel: MyWalletsViewModel by viewModels()
 
   private var binding: FragmentMyWalletsBinding? = null
   private val views get() = binding!!
 
   private lateinit var walletsController: WalletsController
-  val epoxyVisibilityTracker = EpoxyVisibilityTracker()
+  private val epoxyVisibilityTracker = EpoxyVisibilityTracker()
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                             savedInstanceState: Bundle?): View? {
@@ -65,7 +64,7 @@ class MyWalletsFragment : BasePageViewFragment(),
 
   override fun onResume() {
     super.onResume()
-    viewModel.refreshData()
+    viewModel.refreshData(flushAsync = false)
   }
 
   override fun onDestroyView() {
@@ -75,7 +74,6 @@ class MyWalletsFragment : BasePageViewFragment(),
   }
 
   private fun initializeView() {
-    epoxyVisibilityTracker.attach(views.otherWalletsRecyclerView)
     walletsController = WalletsController()
     walletsController.walletClickListener = { click ->
       when (click) {
@@ -85,9 +83,9 @@ class MyWalletsFragment : BasePageViewFragment(),
         is WalletsListEvent.CopyWalletClick -> setAddressToClipBoard(click.walletAddress)
         is WalletsListEvent.ShareWalletClick -> showShare(click.walletAddress)
         WalletsListEvent.BackupClick -> {
-          viewModel.state.walletsAsync()
-              ?.let { walletsModel ->
-                navigator.navigateToBackupWallet(walletsModel.currentWallet.walletAddress)
+          viewModel.state.walletInfoAsync()
+              ?.let { walletInfo ->
+                navigator.navigateToBackupWallet(walletInfo.wallet)
               }
         }
         WalletsListEvent.VerifyWalletClick -> navigator.navigateToVerifyPicker()
@@ -112,14 +110,10 @@ class MyWalletsFragment : BasePageViewFragment(),
         }
         is WalletsListEvent.ChangedBalanceVisibility -> {
           if (click.balanceVisible) {
-            binding?.titleSwitcher?.setInAnimation(requireContext(), R.anim.slide_in_up)
-            binding?.titleSwitcher?.setOutAnimation(requireContext(), R.anim.slide_out_down)
             binding?.titleSwitcher?.setText(getString(R.string.wallets_active_wallet_title))
           } else {
             viewModel.state.walletInfoAsync()
                 ?.let { balance ->
-                  binding?.titleSwitcher?.setInAnimation(requireContext(), R.anim.slide_in_down)
-                  binding?.titleSwitcher?.setOutAnimation(requireContext(), R.anim.slide_out_up)
                   binding?.titleSwitcher?.setText(
                       getFiatBalanceText(balance.walletBalance.overallFiat))
                 }
@@ -127,8 +121,8 @@ class MyWalletsFragment : BasePageViewFragment(),
         }
       }
     }
+    epoxyVisibilityTracker.attach(views.otherWalletsRecyclerView)
     views.otherWalletsRecyclerView.setController(walletsController)
-    epoxyVisibilityTracker.requestVisibilityCheck()
   }
 
   private fun navigateToTokenInfo(tokenNameRes: Int, tokenSymbolRes: Int, tokenImageRes: Int,
@@ -141,7 +135,7 @@ class MyWalletsFragment : BasePageViewFragment(),
 
   private fun setListeners() {
     views.actionButtonMore.setOnClickListener { navigateToMore() }
-    views.actionButtonNfts.setOnClickListener { navigator.navigateToNfts()}
+    views.actionButtonNfts.setOnClickListener { navigator.navigateToNfts() }
   }
 
   override fun onStateChanged(state: MyWalletsState) {
@@ -186,8 +180,8 @@ class MyWalletsFragment : BasePageViewFragment(),
       val ethValue = "${
         getTokenValueText(walletInfo.walletBalance.ethBalance, WalletCurrency.ETHEREUM)
       } ${walletInfo.walletBalance.ethBalance.token.symbol}"
-      navigator.navigateToMore(walletsModel.currentWallet.walletAddress, overallFiatValue,
-          appcoinsValue, creditsValue, ethValue, verified, walletsModel.otherWallets.isNotEmpty())
+      navigator.navigateToMore(walletInfo.wallet, overallFiatValue,
+          appcoinsValue, creditsValue, ethValue, verified, walletsModel.wallets.isNotEmpty())
     }
   }
 

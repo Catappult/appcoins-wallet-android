@@ -13,12 +13,14 @@ import com.asfoundation.wallet.util.RestoreErrorType
 import com.asfoundation.wallet.wallets.WalletModel
 import io.reactivex.Completable
 import io.reactivex.Single
+import javax.inject.Inject
 
-class RestoreWalletInteractor(private val walletRepository: WalletRepositoryType,
-                              private val setDefaultWalletInteractor: SetDefaultWalletInteractor,
-                              private val passwordStore: PasswordStore,
-                              private val backupRestorePreferencesRepository: BackupRestorePreferencesRepository,
-                              private val fileInteractor: FileInteractor) {
+class RestoreWalletInteractor @Inject constructor(
+    private val walletRepository: WalletRepositoryType,
+    private val setDefaultWalletInteractor: SetDefaultWalletInteractor,
+    private val passwordStore: PasswordStore,
+    private val backupRestorePreferencesRepository: BackupRestorePreferencesRepository,
+    private val fileInteractor: FileInteractor) {
 
   fun isKeystore(key: String): Boolean = key.contains("{")
 

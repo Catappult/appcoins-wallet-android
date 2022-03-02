@@ -5,15 +5,18 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import com.asf.wallet.R
 import com.asfoundation.wallet.ui.backup.BackupActivityView
+import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import com.jakewharton.rxbinding2.view.RxView
-import dagger.android.support.DaggerFragment
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_backup_creation_layout.animation
 import kotlinx.android.synthetic.main.fragment_backup_success_layout.*
 import javax.inject.Inject
 
-class BackupSuccessFragment : DaggerFragment(), BackupSuccessFragmentView {
+@AndroidEntryPoint
+class BackupSuccessFragment : BasePageViewFragment(), BackupSuccessFragmentView {
 
   @Inject
   lateinit var presenter: BackupSuccessPresenter
@@ -33,10 +36,16 @@ class BackupSuccessFragment : DaggerFragment(), BackupSuccessFragmentView {
     super.onViewCreated(view, savedInstanceState)
     presenter.present()
     animation.playAnimation()
-    val text = "${getString(R.string.backup_confirmation_tips_title)}\n\n• ${getString(
-        R.string.backup_confirmation_tips_1)}\n• ${getString(
-        R.string.backup_confirmation_tips_2)}\n• ${getString(
-        R.string.backup_confirmation_tips_3)}"
+    val text = "${getString(R.string.backup_confirmation_tips_title)}\n\n• ${
+      getString(
+          R.string.backup_confirmation_tips_1)
+    }\n• ${
+      getString(
+          R.string.backup_confirmation_tips_2)
+    }\n• ${
+      getString(
+          R.string.backup_confirmation_tips_3)
+    }"
     information.text = text
   }
 

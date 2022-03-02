@@ -5,6 +5,7 @@ import com.appcoins.wallet.bdsbilling.WalletAddressModel
 import com.appcoins.wallet.bdsbilling.WalletService
 import com.asfoundation.wallet.entity.Wallet
 import com.asfoundation.wallet.repository.PasswordStore
+import com.asfoundation.wallet.repository.SignDataStandardNormalizer
 import com.asfoundation.wallet.repository.WalletRepositoryType
 import com.asfoundation.wallet.util.WalletUtils
 import com.asfoundation.wallet.wallets.WalletCreatorInteract
@@ -13,16 +14,19 @@ import ethereumj.crypto.HashUtil.sha3
 import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.internal.schedulers.ExecutorScheduler
+import it.czerwinski.android.hilt.annotations.BoundTo
 import org.web3j.crypto.Keys.toChecksumAddress
+import javax.inject.Inject
 
+@BoundTo(supertype = WalletService::class)
+class AccountWalletService @Inject constructor(
+    private val accountKeyService: AccountKeystoreService,
+    private val passwordStore: PasswordStore,
+    private val walletCreatorInteract: WalletCreatorInteract,
+    private val walletRepository: WalletRepositoryType,
+    private val syncScheduler: ExecutorScheduler) : WalletService {
 
-class AccountWalletService(private val accountKeyService: AccountKeystoreService,
-                           private val passwordStore: PasswordStore,
-                           private val walletCreatorInteract: WalletCreatorInteract,
-                           private val normalizer: ContentNormalizer,
-                           private val walletRepository: WalletRepositoryType,
-                           private val syncScheduler: ExecutorScheduler) : WalletService {
-
+  private val normalizer = SignDataStandardNormalizer()
   private var stringECKeyPair: Pair<String, ECKey>? = null
 
   override fun getWalletAddress(): Single<String> {

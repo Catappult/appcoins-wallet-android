@@ -7,10 +7,12 @@ import android.view.ViewGroup
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.asf.wallet.R
 import com.asf.wallet.databinding.GamificationInfoBottomSheetBinding
-import com.asfoundation.wallet.di.DaggerBottomSheetDialogFragment
 import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import dagger.hilt.android.AndroidEntryPoint
 
-class PromotionsInfoDialogFragment : DaggerBottomSheetDialogFragment() {
+@AndroidEntryPoint
+class PromotionsInfoDialogFragment : BottomSheetDialogFragment() {
 
   private val views by viewBinding(GamificationInfoBottomSheetBinding::bind)
 

@@ -5,16 +5,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
+import androidx.fragment.app.Fragment
 import com.asf.wallet.R
 import com.asfoundation.wallet.ui.settings.wallets.bottomsheet.SettingsWalletsBottomSheetFragment
 import com.asfoundation.wallet.ui.wallets.WalletsModel
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.jakewharton.rxbinding2.view.RxView
-import dagger.android.support.DaggerFragment
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_balance.*
 import javax.inject.Inject
 
-class SettingsWalletsFragment : DaggerFragment(), SettingsWalletsView {
+@AndroidEntryPoint
+class SettingsWalletsFragment : Fragment(), SettingsWalletsView {
 
   @Inject
   lateinit var presenter: SettingsWalletsPresenter
@@ -75,8 +77,8 @@ class SettingsWalletsFragment : DaggerFragment(), SettingsWalletsView {
   override fun outsideOfBottomSheetClick() = RxView.clicks(faded_background)
 
   private val walletsModel: WalletsModel by lazy {
-    if (arguments!!.containsKey(WALLET_MODEL_KEY)) {
-      arguments!!.getSerializable(WALLET_MODEL_KEY) as WalletsModel
+    if (requireArguments().containsKey(WALLET_MODEL_KEY)) {
+      requireArguments().getSerializable(WALLET_MODEL_KEY) as WalletsModel
     } else {
       throw IllegalArgumentException("WalletsModel not available")
     }

@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.billing.adyen
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -15,19 +16,16 @@ import android.view.inputmethod.EditorInfo
 import android.widget.LinearLayout
 import androidx.annotation.StringRes
 import androidx.appcompat.widget.SwitchCompat
-import androidx.lifecycle.Observer
 import com.adyen.checkout.adyen3ds2.Adyen3DS2Component
-import com.adyen.checkout.base.model.paymentmethods.PaymentMethod
-import com.adyen.checkout.base.model.paymentmethods.StoredPaymentMethod
 import com.adyen.checkout.base.model.payments.response.Action
 import com.adyen.checkout.base.ui.view.RoundCornerImageView
-import com.adyen.checkout.card.CardComponent
 import com.adyen.checkout.card.CardConfiguration
 import com.adyen.checkout.core.api.Environment
 import com.adyen.checkout.redirect.RedirectComponent
 import com.airbnb.lottie.FontAssetDelegate
 import com.airbnb.lottie.TextDelegate
 import com.appcoins.wallet.bdsbilling.Billing
+import com.appcoins.wallet.billing.adyen.PaymentInfoModel
 import com.appcoins.wallet.billing.repository.entity.TransactionData
 import com.appcoins.wallet.commons.Logger
 import com.asf.wallet.BuildConfig
@@ -46,9 +44,10 @@ import com.asfoundation.wallet.util.CurrencyFormatUtils
 import com.asfoundation.wallet.util.KeyboardUtils
 import com.asfoundation.wallet.util.Period
 import com.asfoundation.wallet.util.WalletCurrency
+import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import com.google.android.material.textfield.TextInputLayout
 import com.jakewharton.rxbinding2.view.RxView
-import dagger.android.support.DaggerFragment
+import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -73,7 +72,8 @@ import java.text.SimpleDateFormat
 import java.util.*
 import javax.inject.Inject
 
-class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
+@AndroidEntryPoint
+class AdyenPaymentFragment : BasePageViewFragment(), AdyenPaymentView {
 
   @Inject
   lateinit var inAppPurchaseInteractor: InAppPurchaseInteractor
@@ -125,18 +125,23 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
     paymentDetailsSubject = PublishSubject.create()
     adyen3DSErrorSubject = PublishSubject.create()
     billingAddressInput = PublishSubject.create()
-    val navigator = IabNavigator(requireFragmentManager(), activity as UriNavigator?, iabView)
+    val navigator = IabNavigator(parentFragmentManager, activity as UriNavigator?, iabView)
     compositeDisposable = CompositeDisposable()
-    presenter = AdyenPaymentPresenter(this, compositeDisposable, AndroidSchedulers.mainThread(),
-        Schedulers.io(), RedirectComponent.getReturnUrl(context!!), analytics, domain, origin,
-        adyenPaymentInteractor, skillsPaymentInteractor,
-        inAppPurchaseInteractor.parseTransaction(transactionData, true), navigator, paymentType,
-        transactionType, amount, currency, skills, isPreSelected, AdyenErrorCodeMapper(),
-        servicesErrorMapper, gamificationLevel, formatter, logger)
+    presenter = AdyenPaymentPresenter(
+      this, compositeDisposable, AndroidSchedulers.mainThread(),
+      Schedulers.io(), RedirectComponent.getReturnUrl(requireContext()), analytics, domain,
+      origin,
+      adyenPaymentInteractor, skillsPaymentInteractor,
+      inAppPurchaseInteractor.parseTransaction(transactionData, true), navigator, paymentType,
+      transactionType, amount, currency, skills, isPreSelected, AdyenErrorCodeMapper(),
+      servicesErrorMapper, gamificationLevel, formatter, logger
+    )
   }
 
-  override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                            savedInstanceState: Bundle?): View? {
+  override fun onCreateView(
+    inflater: LayoutInflater, container: ViewGroup?,
+    savedInstanceState: Bundle?
+  ): View? {
     return if (isPreSelected) {
       inflater.inflate(R.layout.adyen_credit_card_pre_selected, container, false)
     } else {
@@ -152,12 +157,12 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
 
   override fun setup3DSComponent() {
     adyen3DS2Component = Adyen3DS2Component.PROVIDER.get(this)
-    adyen3DS2Component.observe(this, Observer {
+    adyen3DS2Component.observe(this) {
       paymentDetailsSubject?.onNext(AdyenComponentResponseModel(it.details, it.paymentData))
-    })
-    adyen3DS2Component.observeErrors(this, Observer {
+    }
+    adyen3DS2Component.observeErrors(this) {
       adyen3DSErrorSubject?.onNext(it.errorMessage)
-    })
+    }
   }
 
   private fun setupUi() {
@@ -172,14 +177,17 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
     showProduct()
   }
 
-  override fun finishCardConfiguration(paymentMethod: PaymentMethod, isStored: Boolean,
-                                       forget: Boolean, savedInstance: Bundle?) {
-    this.isStored = isStored
+  override fun finishCardConfiguration(
+    paymentInfoModel: PaymentInfoModel,
+    forget: Boolean,
+    savedInstance: Bundle?
+  ) {
+    this.isStored = paymentInfoModel.isStored
     buy_button.visibility = VISIBLE
     cancel_button.visibility = VISIBLE
 
     handleLayoutVisibility(isStored)
-    prepareCardComponent(paymentMethod, forget, savedInstance)
+    prepareCardComponent(paymentInfoModel, forget, savedInstance)
     setStoredPaymentInformation(isStored)
   }
 
@@ -207,7 +215,7 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
       main_view_pre_selected?.visibility = VISIBLE
       main_view?.visibility = VISIBLE
       val billingAddressModel =
-          data!!.getSerializableExtra(BILLING_ADDRESS_MODEL) as BillingAddressModel
+        data!!.getSerializableExtra(BILLING_ADDRESS_MODEL) as BillingAddressModel
       this.billingAddressModel = billingAddressModel
       billingAddressInput?.onNext(true)
     } else {
@@ -225,7 +233,7 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
 
   override fun showProduct() {
     try {
-      app_icon?.setImageDrawable(context!!.packageManager.getApplicationIcon(domain))
+      app_icon?.setImageDrawable(requireContext().packageManager.getApplicationIcon(domain))
       app_name?.text = getApplicationName(domain)
     } catch (e: Exception) {
       e.printStackTrace()
@@ -270,7 +278,7 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
 
   override fun backEvent(): Observable<Any> {
     return RxView.clicks(cancel_button)
-        .mergeWith(iabView.backButtonPress())
+      .mergeWith(iabView.backButtonPress())
   }
 
   override fun showSuccess(renewal: Date?) {
@@ -317,13 +325,15 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
   }
 
   override fun showVerification(isWalletVerified: Boolean) =
-      iabView.showVerification(isWalletVerified)
+    iabView.showVerification(isWalletVerified)
 
   override fun showBillingAddress(value: BigDecimal, currency: String) {
     main_view?.visibility = GONE
     main_view_pre_selected?.visibility = GONE
-    iabView.showBillingAddress(value, currency, bonus, appcAmount, this,
-        adyenSaveDetailsSwitch?.isChecked ?: true, isStored)
+    iabView.showBillingAddress(
+      value, currency, bonus, appcAmount, this,
+      adyenSaveDetailsSwitch?.isChecked ?: true, isStored
+    )
   }
 
 
@@ -388,14 +398,14 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
 
   override fun setupRedirectComponent() {
     redirectComponent = RedirectComponent.PROVIDER.get(this)
-    redirectComponent.observe(this, Observer {
+    redirectComponent.observe(this) {
       paymentDetailsSubject?.onNext(AdyenComponentResponseModel(it.details, it.paymentData))
-    })
+    }
   }
 
 
   override fun handle3DSAction(action: Action) {
-    adyen3DS2Component.handleAction(activity!!, action)
+    adyen3DS2Component.handleAction(requireActivity(), action)
   }
 
   override fun onAdyen3DSError(): Observable<String> = adyen3DSErrorSubject!!
@@ -405,12 +415,13 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
     else RxView.clicks(change_card_button_pre_selected)
   }
 
+  @SuppressLint("SetTextI18n")
   override fun showProductPrice(amount: String, currencyCode: String) {
     var fiatText = "$amount $currencyCode"
     if (isSubscription) {
       val period = Period.parse(frequency!!)
-      period?.mapToSubsFrequency(context!!, fiatText)
-          ?.let { fiatText = it }
+      period?.mapToSubsFrequency(requireContext(), fiatText)
+        ?.let { fiatText = it }
       appc_price.text = "~${appc_price.text}"
     }
     fiat_price.text = fiatText
@@ -433,15 +444,15 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
   override fun submitUriResult(uri: Uri) = redirectComponent.handleRedirectResponse(uri)
 
   override fun getPaymentDetails(): Observable<AdyenComponentResponseModel> =
-      paymentDetailsSubject!!
+    paymentDetailsSubject!!
 
   override fun getAdyenSupportLogoClicks() = RxView.clicks(layout_support_logo)
 
   override fun getAdyenSupportIconClicks() = RxView.clicks(layout_support_icn)
 
   override fun getVerificationClicks() = Observable.merge(RxView.clicks(error_verify_wallet_button)
-      .map { false }, RxView.clicks(error_verify_card_button)
-      .map { true })
+    .map { false }, RxView.clicks(error_verify_card_button)
+    .map { true })
 
   override fun lockRotation() = iabView.lockRotation()
 
@@ -451,19 +462,19 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
 
   private fun setupAdyenLayouts() {
     adyenCardNumberLayout =
-        adyen_card_form_pre_selected?.findViewById(R.id.textInputLayout_cardNumber)
-            ?: adyen_card_form.findViewById(R.id.textInputLayout_cardNumber)
+      adyen_card_form_pre_selected?.findViewById(R.id.textInputLayout_cardNumber)
+        ?: adyen_card_form.findViewById(R.id.textInputLayout_cardNumber)
     adyenExpiryDateLayout =
-        adyen_card_form_pre_selected?.findViewById(R.id.textInputLayout_expiryDate)
-            ?: adyen_card_form.findViewById(R.id.textInputLayout_expiryDate)
+      adyen_card_form_pre_selected?.findViewById(R.id.textInputLayout_expiryDate)
+        ?: adyen_card_form.findViewById(R.id.textInputLayout_expiryDate)
     adyenSecurityCodeLayout =
-        adyen_card_form_pre_selected?.findViewById(R.id.textInputLayout_securityCode)
-            ?: adyen_card_form.findViewById(R.id.textInputLayout_securityCode)
+      adyen_card_form_pre_selected?.findViewById(R.id.textInputLayout_securityCode)
+        ?: adyen_card_form.findViewById(R.id.textInputLayout_securityCode)
     adyenCardImageLayout = adyen_card_form_pre_selected?.findViewById(R.id.cardBrandLogo_imageView)
-        ?: adyen_card_form?.findViewById(R.id.cardBrandLogo_imageView)
+      ?: adyen_card_form?.findViewById(R.id.cardBrandLogo_imageView)
     adyenSaveDetailsSwitch =
-        adyen_card_form_pre_selected?.findViewById(R.id.switch_storePaymentMethod)
-            ?: adyen_card_form?.findViewById(R.id.switch_storePaymentMethod)
+      adyen_card_form_pre_selected?.findViewById(R.id.switch_storePaymentMethod)
+        ?: adyen_card_form?.findViewById(R.id.switch_storePaymentMethod)
 
     adyenCardNumberLayout.editText?.imeOptions = EditorInfo.IME_FLAG_NO_EXTRACT_UI
     adyenExpiryDateLayout.editText?.imeOptions = EditorInfo.IME_FLAG_NO_EXTRACT_UI
@@ -490,7 +501,7 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
 
   private fun setupCardConfiguration() {
     val cardConfigurationBuilder =
-        CardConfiguration.Builder(activity as Context, BuildConfig.ADYEN_PUBLIC_KEY)
+      CardConfiguration.Builder(activity as Context, BuildConfig.ADYEN_PUBLIC_KEY)
 
     cardConfiguration = cardConfigurationBuilder.let {
       it.setEnvironment(adyenEnvironment)
@@ -499,8 +510,8 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
   }
 
   @Throws(PackageManager.NameNotFoundException::class)
-  private fun getApplicationName(appPackage: String): CharSequence? {
-    val packageManager = context!!.packageManager
+  private fun getApplicationName(appPackage: String): CharSequence {
+    val packageManager = requireContext().packageManager
     val packageInfo = packageManager.getApplicationInfo(appPackage, 0)
     return packageManager.getApplicationLabel(packageInfo)
   }
@@ -508,8 +519,10 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
   private fun setupTransactionCompleteAnimation() {
     val textDelegate = TextDelegate(lottie_transaction_success)
     textDelegate.setText("bonus_value", bonus)
-    textDelegate.setText("bonus_received",
-        resources.getString(R.string.gamification_purchase_completed_bonus_received))
+    textDelegate.setText(
+      "bonus_received",
+      resources.getString(R.string.gamification_purchase_completed_bonus_received)
+    )
     lottie_transaction_success.setTextDelegate(textDelegate)
     lottie_transaction_success.setFontAssetDelegate(object : FontAssetDelegate() {
       override fun fetchFont(fontFamily: String): Typeface {
@@ -555,29 +568,33 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
 
   }
 
-  private fun prepareCardComponent(paymentMethodEntity: PaymentMethod, forget: Boolean,
-                                   savedInstanceState: Bundle?) {
+  private fun prepareCardComponent(
+    paymentInfoModel: PaymentInfoModel,
+    forget: Boolean,
+    savedInstanceState: Bundle?
+  ) {
     if (forget) viewModelStore.clear()
-    val cardComponent = CardComponent.PROVIDER.get(this, paymentMethodEntity, cardConfiguration)
+    val cardComponent = paymentInfoModel.cardComponent!!(this, cardConfiguration)
     if (forget) clearFields()
     adyen_card_form_pre_selected?.attach(cardComponent, this)
-    cardComponent.observe(this, Observer {
+    cardComponent.observe(this) {
       adyenSecurityCodeLayout.error = null
       if (it != null && it.isValid) {
         buy_button?.isEnabled = true
         view?.let { view -> KeyboardUtils.hideKeyboard(view) }
         it.data.paymentMethod?.let { paymentMethod ->
           val hasCvc = !paymentMethod.encryptedSecurityCode.isNullOrEmpty()
-          val supportedShopperInteractions =
-              if (paymentMethodEntity is StoredPaymentMethod) paymentMethodEntity.supportedShopperInteractions else emptyList()
           paymentDataSubject?.onNext(
-              AdyenCardWrapper(paymentMethod, adyenSaveDetailsSwitch?.isChecked ?: false, hasCvc,
-                  supportedShopperInteractions))
+            AdyenCardWrapper(
+              paymentMethod, adyenSaveDetailsSwitch?.isChecked ?: false, hasCvc,
+              paymentInfoModel.supportedShopperInteractions
+            )
+          )
         }
       } else {
         buy_button?.isEnabled = false
       }
-    })
+    }
     if (!forget) {
       getFieldValues(savedInstanceState)
     }
@@ -635,7 +652,7 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
     val dateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
     val formattedDate = dateFormat.format(nextPaymentDate)
     val nextPaymentText =
-        "${getString(R.string.subscriptions_details_next_payment_title)} $formattedDate"
+      "${getString(R.string.subscriptions_details_next_payment_title)} $formattedDate"
     next_payment_date.text = nextPaymentText
   }
 
@@ -644,8 +661,10 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
       transactionType.equals(TransactionData.TransactionType.DONATION.name, ignoreCase = true) -> {
         buy_button.setText(R.string.action_donate)
       }
-      transactionType.equals(TransactionData.TransactionType.INAPP_SUBSCRIPTION.name,
-          ignoreCase = true) -> buy_button.text = getString(R.string.subscriptions_subscribe_button)
+      transactionType.equals(
+        TransactionData.TransactionType.INAPP_SUBSCRIPTION.name,
+        ignoreCase = true
+      ) -> buy_button.text = getString(R.string.subscriptions_subscribe_button)
       else -> {
         buy_button.setText(R.string.action_buy)
       }
@@ -689,11 +708,13 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
     private const val PRODUCT_TOKEN = "product_token"
 
     @JvmStatic
-    fun newInstance(transactionType: String, paymentType: PaymentType, domain: String,
-                    origin: String?, transactionData: String?, appcAmount: BigDecimal,
-                    amount: BigDecimal, currency: String?, bonus: String?, isPreSelected: Boolean,
-                    gamificationLevel: Int, skuDescription: String, productToken: String?,
-                    isSubscription: Boolean, frequency: String?): AdyenPaymentFragment {
+    fun newInstance(
+      transactionType: String, paymentType: PaymentType, domain: String,
+      origin: String?, transactionData: String?, appcAmount: BigDecimal,
+      amount: BigDecimal, currency: String?, bonus: String?, isPreSelected: Boolean,
+      gamificationLevel: Int, skuDescription: String, productToken: String?,
+      isSubscription: Boolean, frequency: String?
+    ): AdyenPaymentFragment {
       val fragment = AdyenPaymentFragment()
       fragment.arguments = Bundle().apply {
         putString(TRANSACTION_TYPE_KEY, transactionType)
@@ -717,96 +738,96 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
   }
 
   private val transactionType: String by lazy {
-    if (arguments!!.containsKey(TRANSACTION_TYPE_KEY)) {
-      arguments!!.getString(TRANSACTION_TYPE_KEY, "")
+    if (requireArguments().containsKey(TRANSACTION_TYPE_KEY)) {
+      requireArguments().getString(TRANSACTION_TYPE_KEY, "")
     } else {
       throw IllegalArgumentException("transaction type data not found")
     }
   }
 
   private val paymentType: String by lazy {
-    if (arguments!!.containsKey(PAYMENT_TYPE_KEY)) {
-      arguments!!.getString(PAYMENT_TYPE_KEY, "")
+    if (requireArguments().containsKey(PAYMENT_TYPE_KEY)) {
+      requireArguments().getString(PAYMENT_TYPE_KEY, "")
     } else {
       throw IllegalArgumentException("payment type data not found")
     }
   }
 
   private val domain: String by lazy {
-    if (arguments!!.containsKey(DOMAIN_KEY)) {
-      arguments!!.getString(DOMAIN_KEY, "")
+    if (requireArguments().containsKey(DOMAIN_KEY)) {
+      requireArguments().getString(DOMAIN_KEY, "")
     } else {
       throw IllegalArgumentException("domain data not found")
     }
   }
 
   private val origin: String? by lazy {
-    if (arguments!!.containsKey(ORIGIN_KEY)) {
-      arguments!!.getString(ORIGIN_KEY)
+    if (requireArguments().containsKey(ORIGIN_KEY)) {
+      requireArguments().getString(ORIGIN_KEY)
     } else {
       throw IllegalArgumentException("origin not found")
     }
   }
 
   private val transactionData: String by lazy {
-    if (arguments!!.containsKey(TRANSACTION_DATA_KEY)) {
-      arguments!!.getString(TRANSACTION_DATA_KEY, "")
+    if (requireArguments().containsKey(TRANSACTION_DATA_KEY)) {
+      requireArguments().getString(TRANSACTION_DATA_KEY, "")
     } else {
       throw IllegalArgumentException("transaction data not found")
     }
   }
 
   private val appcAmount: BigDecimal by lazy {
-    if (arguments!!.containsKey(APPC_AMOUNT_KEY)) {
-      arguments!!.getSerializable(APPC_AMOUNT_KEY) as BigDecimal
+    if (requireArguments().containsKey(APPC_AMOUNT_KEY)) {
+      requireArguments().getSerializable(APPC_AMOUNT_KEY) as BigDecimal
     } else {
       throw IllegalArgumentException("appc amount data not found")
     }
   }
 
   private val amount: BigDecimal by lazy {
-    if (arguments!!.containsKey(AMOUNT_KEY)) {
-      arguments!!.getSerializable(AMOUNT_KEY) as BigDecimal
+    if (requireArguments().containsKey(AMOUNT_KEY)) {
+      requireArguments().getSerializable(AMOUNT_KEY) as BigDecimal
     } else {
       throw IllegalArgumentException("amount data not found")
     }
   }
 
   private val currency: String by lazy {
-    if (arguments!!.containsKey(CURRENCY_KEY)) {
-      arguments!!.getString(CURRENCY_KEY, "")
+    if (requireArguments().containsKey(CURRENCY_KEY)) {
+      requireArguments().getString(CURRENCY_KEY, "")
     } else {
       throw IllegalArgumentException("currency data not found")
     }
   }
 
   private val bonus: String by lazy {
-    if (arguments!!.containsKey(BONUS_KEY)) {
-      arguments!!.getString(BONUS_KEY, "")
+    if (requireArguments().containsKey(BONUS_KEY)) {
+      requireArguments().getString(BONUS_KEY, "")
     } else {
       throw IllegalArgumentException("bonus data not found")
     }
   }
 
   private val isPreSelected: Boolean by lazy {
-    if (arguments!!.containsKey(PRE_SELECTED_KEY)) {
-      arguments!!.getBoolean(PRE_SELECTED_KEY)
+    if (requireArguments().containsKey(PRE_SELECTED_KEY)) {
+      requireArguments().getBoolean(PRE_SELECTED_KEY)
     } else {
       throw IllegalArgumentException("pre selected data not found")
     }
   }
 
   private val gamificationLevel: Int by lazy {
-    if (arguments!!.containsKey(GAMIFICATION_LEVEL)) {
-      arguments!!.getInt(GAMIFICATION_LEVEL)
+    if (requireArguments().containsKey(GAMIFICATION_LEVEL)) {
+      requireArguments().getInt(GAMIFICATION_LEVEL)
     } else {
       throw IllegalArgumentException("gamification level data not found")
     }
   }
 
   private val skuDescription: String by lazy {
-    if (arguments!!.containsKey(SKU_DESCRIPTION)) {
-      arguments!!.getString(SKU_DESCRIPTION, "")
+    if (requireArguments().containsKey(SKU_DESCRIPTION)) {
+      requireArguments().getString(SKU_DESCRIPTION, "")
     } else {
       throw IllegalArgumentException("sku description data not found")
     }
@@ -817,16 +838,16 @@ class AdyenPaymentFragment : DaggerFragment(), AdyenPaymentView {
   }
 
   private val isSubscription: Boolean by lazy {
-    if (arguments!!.containsKey(IS_SUBSCRIPTION)) {
-      arguments!!.getBoolean(IS_SUBSCRIPTION)
+    if (requireArguments().containsKey(IS_SUBSCRIPTION)) {
+      requireArguments().getBoolean(IS_SUBSCRIPTION)
     } else {
       throw IllegalArgumentException("isSubscription data not found")
     }
   }
 
   private val frequency: String? by lazy {
-    if (arguments!!.containsKey(FREQUENCY)) {
-      arguments!!.getString(FREQUENCY)
+    if (requireArguments().containsKey(FREQUENCY)) {
+      requireArguments().getString(FREQUENCY)
     } else {
       null
     }

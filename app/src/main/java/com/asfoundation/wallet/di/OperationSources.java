@@ -9,12 +9,13 @@ import io.reactivex.Observable;
 import io.reactivex.schedulers.Schedulers;
 import java.util.ArrayList;
 import java.util.List;
+import javax.inject.Inject;
 
 public class OperationSources {
   private final InAppPurchaseInteractor inAppPurchaseInteractor;
   private final ProofOfAttentionService proofOfAttentionService;
 
-  public OperationSources(InAppPurchaseInteractor inAppPurchaseInteractor,
+  public @Inject OperationSources(InAppPurchaseInteractor inAppPurchaseInteractor,
       ProofOfAttentionService proofOfAttentionService) {
     this.inAppPurchaseInteractor = inAppPurchaseInteractor;
     this.proofOfAttentionService = proofOfAttentionService;
@@ -29,8 +30,7 @@ public class OperationSources {
             .filter(paymentTransaction -> paymentTransaction.getStatus()
                 .equals(Payment.Status.COMPLETED))
             .map(
-                paymentTransaction -> new AppcoinsOperationsDataSaver.OperationDataSource
-                    .OperationData(
+                paymentTransaction -> new AppcoinsOperationsDataSaver.OperationDataSource.OperationData(
                     paymentTransaction.getBuyHash(), paymentTransaction.getPackageName(),
                     paymentTransaction.getProductName()))));
 

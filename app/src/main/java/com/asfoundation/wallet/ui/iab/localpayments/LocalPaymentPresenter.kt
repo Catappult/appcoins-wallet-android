@@ -11,8 +11,8 @@ import com.appcoins.wallet.bdsbilling.repository.entity.Transaction
 import com.appcoins.wallet.bdsbilling.repository.entity.Transaction.Status
 import com.asf.wallet.R
 import com.asfoundation.wallet.GlideApp
-import com.asfoundation.wallet.analytics.FacebookEventLogger
 import com.appcoins.wallet.commons.Logger
+import com.asfoundation.wallet.billing.analytics.BillingAnalytics
 import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Scheduler
@@ -203,7 +203,7 @@ class LocalPaymentPresenter(private val view: LocalPaymentView,
 
   private fun handleRevenueEvent() {
     disposables.add(localPaymentInteractor.convertToFiat(data.appcAmount.toDouble(),
-        FacebookEventLogger.EVENT_REVENUE_CURRENCY)
+        BillingAnalytics.EVENT_REVENUE_CURRENCY)
         .subscribeOn(networkScheduler)
         .doOnSuccess { fiatValue -> analytics.sendRevenueEvent(fiatValue.amount.toString()) }
         .subscribe({}, { it.printStackTrace() }))

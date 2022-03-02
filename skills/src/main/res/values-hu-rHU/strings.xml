@@ -1,11 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="appcoins_wallet">AppCoins Wallet</string>
   <string name="provide_wallet_creating_wallet_header">Tárcacím létrehozása&#8230;</string>
   <string name="processing_loading_title">Belépőjegy lehívása</string>
   <string name="finding_room_loading_title">Várakozás az ellenfelekre</string>
+  <string name="finding_room_name_loading_title">Waiting for opponents \nto join the</string>
   <string name="finding_room_loading_message">Ez eltarthat egy ideig…</string>
   <string name="refunded">Visszautaltuk a pénzed.</string>
   <string name="ok">OK</string>
   <string name="cancel">Mégse</string>
-  <string name="connectoin_error_body">Úgy tűnik nincs internetkapcsolat. Ellenőrizd a kapcsolatot és próbáld újra!</string>
+  <string name="buy_button">Buy</string>
+  <string name="topup_button">Top Up</string>
+  <string name="connection_error_body">Úgy tűnik nincs internetkapcsolat. Ellenőrizd a kapcsolatot és próbáld újra!</string>
+  <string name="playing_game_notification_title">Currently playing e-Skills</string>
+  <string name="playing_game_notification_body">Getting game info…</string>
+  <string name="finish_game_notification_title">Your e-Skills game has finished</string>
+  <string name="won_game_notification_body">You won! Your wallet is now %1$.2f$ heavier!</string>
+  <string name="lost_game_notification_body">You lost… Better luck next time!</string>
+  <string name="dismiss_button">Kihagyás</string>
+  <string name="location_not_available_title">e-Skills games are not available in your location</string>
+  <string name="location_not_available_body">We\'re working hard to bring these to everyone, so come back soon!</string>
+  <string name="e_skills_room_create_title">Szoba létrehozása vagy csatlakozás</string>
+  <string name="e_skills_room_create_body">Hozz létre egy új szobát és oszd meg az ellenfeleiddel vagy csatlakozz egy már létező szobához.</string>
+  <string name="e_skills_room_field">Your room name here…</string>
+  <string name="e_skills_payment_title">Payment with</string>
+  <string name="e_skills_payment_body">AppCoins Credits</string>
+  <string name="copied_to_clipboard">Copied to the clipboard</string>
+  <string name="processing_payment_title">Processing your payment</string>
+  <string name="purchase_error_title">Oops, something went wrong.</string>
+  <string name="purchase_eskills_sku">Belépőjegy</string>
+  <string name="shared_room_waiting">Waiting for opponents to join %s</string>
 </resources>

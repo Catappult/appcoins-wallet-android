@@ -11,78 +11,74 @@ import com.asfoundation.wallet.util.sumByBigDecimal
 import com.asfoundation.wallet.wallets.FetchWalletsInteract
 import com.asfoundation.wallet.wallets.WalletCreatorInteract
 import com.asfoundation.wallet.wallets.usecases.GetWalletInfoUseCase
+import com.asfoundation.wallet.wallets.usecases.ObserveWalletInfoUseCase
 import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
+import java.util.concurrent.TimeUnit
+import javax.inject.Inject
 
-class WalletsInteract(private val getWalletInfoUseCase: GetWalletInfoUseCase,
-                      private val fetchWalletsInteract: FetchWalletsInteract,
-                      private val walletCreatorInteract: WalletCreatorInteract,
-                      private val supportInteractor: SupportInteractor,
-                      private val preferencesRepository: SharedPreferencesRepository,
-                      private val gamificationRepository: Gamification,
-                      private val logger: Logger,
-                      private val getCurrentPromoCodeUseCase: GetCurrentPromoCodeUseCase) {
+class WalletsInteract @Inject constructor(
+    private val observeWalletInfoUseCase: ObserveWalletInfoUseCase,
+    private val getWalletInfoUseCase: GetWalletInfoUseCase,
+    private val fetchWalletsInteract: FetchWalletsInteract,
+    private val walletCreatorInteract: WalletCreatorInteract,
+    private val supportInteractor: SupportInteractor,
+    private val preferencesRepository: SharedPreferencesRepository,
+    private val gamificationRepository: Gamification,
+    private val logger: Logger,
+    private val getCurrentPromoCodeUseCase: GetCurrentPromoCodeUseCase) {
 
-  fun retrieveWalletsModel(): Single<WalletsModel> {
-    lateinit var currentWallet: WalletBalance
-    val wallets = ArrayList<WalletBalance>()
-    val currentWalletAddress = preferencesRepository.getCurrentWalletAddress()
+  fun observeWalletsModel(): Observable<WalletsModel> {
     return retrieveWallets().filter { it.isNotEmpty() }
-        .flatMapCompletable { list ->
-          Observable.fromIterable(list)
-              .flatMapCompletable { wallet ->
-                getWalletInfoUseCase(wallet.address, cached = true, updateFiat = false)
-                    .doOnSuccess { walletInfo ->
-                      val fiatValue = walletInfo.walletBalance.overallFiat
-                      if (currentWalletAddress == wallet.address) {
-                        currentWallet = WalletBalance(wallet.address, fiatValue,
-                            currentWalletAddress == wallet.address)
-                      }
-                      wallets.add(WalletBalance(wallet.address, fiatValue,
-                          currentWalletAddress == wallet.address))
-                    }
-                    .doOnError { logger.log("WalletsInteract", it) }
-                    .ignoreElement()
+        .flatMapIterable { list -> list }
+        .flatMap { wallet ->
+          return@flatMap observeWalletInfoUseCase(wallet.address, update = true, updateFiat = false)
+              .map { walletInfo ->
+                val currentWalletAddress = preferencesRepository.getCurrentWalletAddress()
+                val fiatValue = walletInfo.walletBalance.overallFiat
+                listOf(WalletBalance(wallet.address, fiatValue,
+                    currentWalletAddress == wallet.address))
               }
+              .doOnError { logger.log("WalletsInteract", it) }
         }
-        .toSingle {
-          WalletsModel(getTotalBalance(currentWallet, wallets), wallets.size, currentWallet,
-              wallets)
+        .scan { list, itemList ->
+          val newList =
+              list.filter { walletBalance -> walletBalance.walletAddress != itemList[0].walletAddress }
+          newList + itemList
+        }
+        .throttleLast(100, TimeUnit.MILLISECONDS)
+        .map { list ->
+          val totalBalance = getTotalBalance(list)
+          val balanceComparator = compareByDescending<WalletBalance> { it.balance.amount }
+          val walletsSorted =
+              list.sortedWith(balanceComparator.thenBy(WalletBalance::walletAddress))
+          WalletsModel(totalBalance, walletsSorted.size, walletsSorted)
         }
   }
 
   fun getWalletsModel(): Single<WalletsModel> {
-    lateinit var currentWallet: WalletBalance
-    val wallets = ArrayList<WalletBalance>()
-    val currentWalletAddress = preferencesRepository.getCurrentWalletAddress()
     return retrieveWallets().filter { it.isNotEmpty() }
-        .flatMapCompletable { list ->
-          Observable.fromIterable(list)
-              .flatMapCompletable { wallet ->
-                getWalletInfoUseCase(wallet.address, cached = true, updateFiat = false)
-                    .subscribeOn(Schedulers.io())
-                    .doOnSuccess { walletInfo ->
-                      val fiatValue = walletInfo.walletBalance.overallFiat
-                      if (currentWalletAddress == wallet.address) {
-                        currentWallet = WalletBalance(wallet.address, fiatValue,
-                            currentWalletAddress == wallet.address)
-                      } else {
-                        wallets.add(WalletBalance(wallet.address, fiatValue,
-                            currentWalletAddress == wallet.address))
-                      }
-                    }
-                    .doOnError { logger.log("WalletsInteract", it) }
-                    .ignoreElement()
+        .flatMapIterable { list -> list }
+        .flatMap { wallet ->
+          return@flatMap getWalletInfoUseCase(wallet.address, cached = true, updateFiat = false)
+              .map { walletInfo ->
+                val currentWalletAddress = preferencesRepository.getCurrentWalletAddress()
+                val fiatValue = walletInfo.walletBalance.overallFiat
+                WalletBalance(wallet.address, fiatValue,
+                    currentWalletAddress == wallet.address)
               }
+              .toObservable()
+              .doOnError { logger.log("WalletsInteract", it) }
         }
-        .toSingle {
-          val totalBalance = getTotalBalance(currentWallet, wallets)
+        .toList()
+        .map { list ->
+          val totalBalance = getTotalBalance(list)
           val balanceComparator = compareByDescending<WalletBalance> { it.balance.amount }
           val walletsSorted =
-              wallets.sortedWith(balanceComparator.thenBy(WalletBalance::walletAddress))
-          WalletsModel(totalBalance, wallets.size, currentWallet, walletsSorted)
+              list.sortedWith(balanceComparator.thenBy(WalletBalance::walletAddress))
+          WalletsModel(totalBalance, walletsSorted.size, walletsSorted)
         }
   }
 
@@ -101,10 +97,10 @@ class WalletsInteract(private val getWalletInfoUseCase: GetWalletInfoUseCase,
         }
   }
 
-  private fun getTotalBalance(currentWallet: WalletBalance,
-                              walletBalance: List<WalletBalance>): FiatValue {
+  private fun getTotalBalance(walletBalance: List<WalletBalance>): FiatValue {
     val totalBalance = walletBalance.sumByBigDecimal { it.balance.amount }
-    return FiatValue(totalBalance, currentWallet.balance.currency, currentWallet.balance.symbol)
+    val wallet = walletBalance[0]
+    return FiatValue(totalBalance, wallet.balance.currency, wallet.balance.symbol)
   }
 
   private fun retrieveWallets(): Observable<List<Wallet>> {

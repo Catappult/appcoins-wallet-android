@@ -1,6 +1,7 @@
 package com.asfoundation.wallet.my_wallets.main.list.model
 
 import android.app.Activity
+import android.content.ContextWrapper
 import android.widget.ImageButton
 import android.widget.TextView
 import androidx.core.content.res.ResourcesCompat
@@ -11,17 +12,18 @@ import com.asf.wallet.R
 import com.asfoundation.wallet.base.Async
 import com.asfoundation.wallet.my_wallets.main.list.WalletsListEvent
 import com.asfoundation.wallet.ui.common.BaseViewHolder
-import com.asfoundation.wallet.ui.wallets.WalletsModel
 import com.asfoundation.wallet.util.generateQrCode
+import com.asfoundation.wallet.wallets.domain.WalletInfo
 import com.google.android.material.card.MaterialCardView
 import com.google.android.material.imageview.ShapeableImageView
 import com.google.android.material.snackbar.Snackbar
+import dagger.hilt.android.qualifiers.ActivityContext
 
 @EpoxyModelClass
 abstract class WalletInfoModel : EpoxyModelWithHolder<WalletInfoModel.WalletInfoHolder>() {
 
   @EpoxyAttribute
-  lateinit var walletBalanceAsync: Async<WalletsModel>
+  lateinit var walletInfoAsync: Async<WalletInfo>
 
   @EpoxyAttribute(EpoxyAttribute.Option.DoNotHash)
   var walletClickListener: ((WalletsListEvent) -> Unit)? = null
@@ -29,21 +31,21 @@ abstract class WalletInfoModel : EpoxyModelWithHolder<WalletInfoModel.WalletInfo
   override fun getDefaultLayout(): Int = R.layout.item_wallet_info
 
   override fun bind(holder: WalletInfoHolder) {
-    when (val asyncValue = walletBalanceAsync) {
+    when (val asyncValue = walletInfoAsync) {
       is Async.Success -> {
-        val walletBalance = asyncValue().currentWallet
-        holder.walletAddressTextView.text = walletBalance.walletAddress
+        val walletAddress = asyncValue().wallet
+        holder.walletAddressTextView.text = walletAddress
         holder.actionButtonShareAddress.setOnClickListener {
           walletClickListener?.invoke(
-              WalletsListEvent.ShareWalletClick(walletBalance.walletAddress))
+              WalletsListEvent.ShareWalletClick(walletAddress))
         }
         holder.actionButtonCopyAddress.setOnClickListener {
-          walletClickListener?.invoke(WalletsListEvent.CopyWalletClick(walletBalance.walletAddress))
+          walletClickListener?.invoke(WalletsListEvent.CopyWalletClick(walletAddress))
         }
         holder.qrImage.setOnClickListener {
           walletClickListener?.invoke(WalletsListEvent.QrCodeClick(holder.qrImage))
         }
-        setQrCode(holder, walletBalance.walletAddress)
+        setQrCode(holder, walletAddress)
       }
       else -> Unit
     }
@@ -51,15 +53,15 @@ abstract class WalletInfoModel : EpoxyModelWithHolder<WalletInfoModel.WalletInfo
   }
 
   private fun setQrCode(holder: WalletInfoHolder, walletAddress: String) {
-    val context = holder.qrImage.context as Activity
+    val context = (holder.qrImage.context as ContextWrapper).baseContext as Activity
     try {
       val logo = ResourcesCompat.getDrawable(context.resources, R.drawable.ic_appc_token, null)
       val mergedQrCode = walletAddress.generateQrCode(context.windowManager, logo!!)
       holder.qrImage.setImageBitmap(mergedQrCode)
     } catch (e: Exception) {
       Snackbar.make(holder.qrImage, context.getString(R.string.error_fail_generate_qr),
-          Snackbar.LENGTH_SHORT)
-          .show()
+        Snackbar.LENGTH_SHORT)
+        .show()
     }
   }
 

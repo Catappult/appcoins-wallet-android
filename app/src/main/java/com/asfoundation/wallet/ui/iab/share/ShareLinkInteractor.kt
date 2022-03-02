@@ -4,10 +4,11 @@ import com.asfoundation.wallet.billing.share.ShareLinkRepository
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
 import com.asfoundation.wallet.wallets.FindDefaultWalletInteract
 import io.reactivex.Single
+import javax.inject.Inject
 
-class ShareLinkInteractor(private val remoteRepository: ShareLinkRepository,
-                          private val walletInteractor: FindDefaultWalletInteract,
-                          private val inAppPurchaseInteractor: InAppPurchaseInteractor) {
+class ShareLinkInteractor @Inject constructor(private val remoteRepository: ShareLinkRepository,
+                                              private val walletInteractor: FindDefaultWalletInteract,
+                                              private val inAppPurchaseInteractor: InAppPurchaseInteractor) {
 
   fun getLinkToShare(domain: String, skuId: String?, message: String?,
                      originalAmount: String?, originalCurrency: String?,

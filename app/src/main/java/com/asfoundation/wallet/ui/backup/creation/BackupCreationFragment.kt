@@ -16,15 +16,17 @@ import androidx.core.app.ShareCompat
 import com.asf.wallet.R
 import com.asfoundation.wallet.ui.backup.BackupActivityView
 import com.asfoundation.wallet.ui.backup.SystemFileIntentResult
+import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import com.jakewharton.rxbinding2.view.RxView
-import dagger.android.support.DaggerFragment
+import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.backup_dialog.view.*
 import kotlinx.android.synthetic.main.fragment_backup_creation_layout.*
 import javax.inject.Inject
 
-class BackupCreationFragment : BackupCreationView, DaggerFragment() {
+@AndroidEntryPoint
+class BackupCreationFragment : BasePageViewFragment(), BackupCreationView {
 
   @Inject
   lateinit var presenter: BackupCreationPresenter
@@ -120,7 +122,7 @@ class BackupCreationFragment : BackupCreationView, DaggerFragment() {
 
   override fun showSaveOnDeviceDialog(defaultName: String, path: String?) {
     if (!(::dialog.isInitialized)) {
-      dialog = AlertDialog.Builder(context!!)
+      dialog = AlertDialog.Builder(requireContext())
           .setView(dialogView)
           .create()
       dialog.window?.decorView?.setBackgroundResource(R.color.transparent)
@@ -167,7 +169,7 @@ class BackupCreationFragment : BackupCreationView, DaggerFragment() {
 
   override fun askForWritePermissions() {
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q ||
-        ActivityCompat.checkSelfPermission(context!!,
+        ActivityCompat.checkSelfPermission(requireContext(),
             Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
       onWritePermissionGivenSubject.onNext(Unit)
     } else {

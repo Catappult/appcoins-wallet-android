@@ -11,11 +11,13 @@ import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import com.asfoundation.wallet.wallets.WalletCreatorInteract
 import com.jakewharton.rxbinding2.view.RxView
 import com.jakewharton.rxrelay2.BehaviorRelay
+import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.fragment_create_wallet_layout.*
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class CreateWalletFragment : BasePageViewFragment(), CreateWalletView {
   companion object {
     fun newInstance() = CreateWalletFragment()

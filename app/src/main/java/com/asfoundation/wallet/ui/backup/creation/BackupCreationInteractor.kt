@@ -8,8 +8,9 @@ import com.asfoundation.wallet.repository.BackupRestorePreferencesRepository
 import io.reactivex.Completable
 import io.reactivex.Single
 import java.io.File
+import javax.inject.Inject
 
-class BackupCreationInteractor(private val exportWalletInteractor: ExportWalletInteractor,
+class BackupCreationInteractor @Inject constructor(private val exportWalletInteractor: ExportWalletInteractor,
                                private val fileInteractor: FileInteractor,
                                private val backupRestorePreferencesRepository: BackupRestorePreferencesRepository) {
 

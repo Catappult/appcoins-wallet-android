@@ -3,8 +3,9 @@ package com.asfoundation.wallet.service
 import com.appcoins.wallet.billing.ErrorInfo
 import com.appcoins.wallet.billing.ErrorInfo.ErrorType.*
 import com.asf.wallet.R
+import javax.inject.Inject
 
-class ServicesErrorCodeMapper {
+class ServicesErrorCodeMapper @Inject constructor() {
 
   fun mapError(errorType: ErrorInfo.ErrorType?): Int {
     return when (errorType) {

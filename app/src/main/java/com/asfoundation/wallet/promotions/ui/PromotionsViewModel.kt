@@ -3,17 +3,16 @@ package com.asfoundation.wallet.promotions.ui
 
 import android.content.ActivityNotFoundException
 import com.asfoundation.wallet.analytics.AnalyticsSetup
-import com.asfoundation.wallet.base.Async
-import com.asfoundation.wallet.base.BaseViewModel
-import com.asfoundation.wallet.base.SideEffect
-import com.asfoundation.wallet.base.ViewState
+import com.asfoundation.wallet.base.*
 import com.asfoundation.wallet.promotions.PromotionsInteractor
 import com.asfoundation.wallet.promotions.model.PromotionsModel
 import com.asfoundation.wallet.promotions.ui.list.PromotionClick
 import com.asfoundation.wallet.promotions.usecases.GetPromotionsUseCase
 import com.asfoundation.wallet.promotions.usecases.SetSeenPromotionsUseCase
 import com.asfoundation.wallet.promotions.usecases.SetSeenWalletOriginUseCase
+import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.Scheduler
+import javax.inject.Inject
 
 sealed class PromotionsSideEffect : SideEffect {
   data class NavigateToGamification(val cachedBonus: Double) : PromotionsSideEffect()
@@ -28,11 +27,12 @@ sealed class PromotionsSideEffect : SideEffect {
 data class PromotionsState(val promotionsModelAsync: Async<PromotionsModel> = Async.Uninitialized) :
     ViewState
 
-class PromotionsViewModel(private val getPromotions: GetPromotionsUseCase,
+@HiltViewModel
+class PromotionsViewModel @Inject constructor(private val getPromotions: GetPromotionsUseCase,
                           private val analyticsSetup: AnalyticsSetup,
                           private val setSeenPromotions: SetSeenPromotionsUseCase,
                           private val setSeenWalletOrigin: SetSeenWalletOriginUseCase,
-                          private val networkScheduler: Scheduler) :
+                          private val rxSchedulers: RxSchedulers) :
     BaseViewModel<PromotionsState, PromotionsSideEffect>(initialState()) {
 
 
@@ -52,7 +52,7 @@ class PromotionsViewModel(private val getPromotions: GetPromotionsUseCase,
 
   fun fetchPromotions() {
     getPromotions()
-        .subscribeOn(networkScheduler)
+        .subscribeOn(rxSchedulers.io)
         .asAsyncToState(PromotionsState::promotionsModelAsync) {
           copy(promotionsModelAsync = it)
         }

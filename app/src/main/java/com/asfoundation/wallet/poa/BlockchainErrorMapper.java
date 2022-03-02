@@ -6,12 +6,16 @@ import com.asfoundation.wallet.repository.WalletNotFoundException;
 import com.asfoundation.wallet.repository.WrongNetworkException;
 import com.asfoundation.wallet.util.UnknownTokenException;
 import java.net.UnknownHostException;
+import javax.inject.Inject;
 
 /**
  * Created by trinkes on 20/03/2018.
  */
 
 public class BlockchainErrorMapper {
+
+  public @Inject BlockchainErrorMapper(){
+  }
 
   private static final String INSUFFICIENT_ERROR_MESSAGE =
       "insufficient funds for gas * price + value";

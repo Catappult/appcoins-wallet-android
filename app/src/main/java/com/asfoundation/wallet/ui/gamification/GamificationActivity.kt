@@ -10,12 +10,14 @@ import androidx.appcompat.widget.Toolbar
 import com.asf.wallet.R
 import com.asfoundation.wallet.ui.BaseActivity
 import com.jakewharton.rxbinding2.view.RxView
+import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.activity_rewards_level.*
 import kotlinx.android.synthetic.main.no_network_retry_only_layout.*
 
+@AndroidEntryPoint
 class GamificationActivity : BaseActivity(), GamificationActivityView {
 
   private lateinit var menu: Menu

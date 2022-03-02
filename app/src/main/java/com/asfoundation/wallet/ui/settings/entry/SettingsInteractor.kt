@@ -9,8 +9,9 @@ import com.asfoundation.wallet.support.SupportInteractor
 import com.asfoundation.wallet.ui.FingerprintInteractor
 import com.asfoundation.wallet.ui.wallets.WalletsInteract
 import com.asfoundation.wallet.wallets.FindDefaultWalletInteract
+import javax.inject.Inject
 
-class SettingsInteractor(private val findDefaultWalletInteract: FindDefaultWalletInteract,
+class SettingsInteractor @Inject constructor(private val findDefaultWalletInteract: FindDefaultWalletInteract,
                          private val supportInteractor: SupportInteractor,
                          private val walletsInteract: WalletsInteract,
                          private val autoUpdateInteract: AutoUpdateInteract,
@@ -24,7 +25,7 @@ class SettingsInteractor(private val findDefaultWalletInteract: FindDefaultWalle
   fun findWallet() = findDefaultWalletInteract.find()
       .map { it.address }
 
-  fun retrieveWallets() = walletsInteract.retrieveWalletsModel()
+  fun retrieveWallets() = walletsInteract.getWalletsModel()
 
   fun sendCreateSuccessEvent() {
     walletsEventSender.sendCreateBackupEvent(WalletsAnalytics.ACTION_CREATE,

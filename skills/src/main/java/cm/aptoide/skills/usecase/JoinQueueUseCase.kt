@@ -5,6 +5,7 @@ import cm.aptoide.skills.interfaces.WalletAddressObtainer
 import cm.aptoide.skills.model.CreatedTicket
 import cm.aptoide.skills.model.ProcessingStatus
 import cm.aptoide.skills.model.Ticket
+import cm.aptoide.skills.model.WalletAddress
 import cm.aptoide.skills.repository.EmptyStoredTicket
 import cm.aptoide.skills.repository.StoredTicket
 import cm.aptoide.skills.repository.StoredTicketInQueue
@@ -12,17 +13,18 @@ import cm.aptoide.skills.repository.TicketRepository
 import cm.aptoide.skills.util.EskillsPaymentData
 import io.reactivex.Scheduler
 import io.reactivex.Single
+import io.reactivex.schedulers.Schedulers
+import javax.inject.Inject
 
-class JoinQueueUseCase(
+class JoinQueueUseCase @Inject constructor(
     private val walletAddressObtainer: WalletAddressObtainer,
     private val ewtObtainer: EwtObtainer,
     private val ticketRepository: TicketRepository,
-    private val networkScheduler: Scheduler
 ) {
 
-  fun joinQueue(eskillsPaymentData: EskillsPaymentData): Single<Ticket> {
+  operator fun invoke(eskillsPaymentData: EskillsPaymentData): Single<Ticket> {
     return walletAddressObtainer.getWalletAddress()
-        .subscribeOn(networkScheduler)
+        .subscribeOn(Schedulers.io())
         .flatMap { walletAddress ->
           ewtObtainer.getEWT()
               .flatMap { ewt ->
@@ -45,7 +47,7 @@ class JoinQueueUseCase(
       storedTicket: StoredTicket,
       eskillsPaymentData: EskillsPaymentData,
       ewt: String,
-      walletAddress: String): Single<Ticket> {
+      walletAddress: WalletAddress): Single<Ticket> {
     return when (storedTicket) {
       EmptyStoredTicket -> ticketRepository.createTicket(
           eskillsPaymentData, ewt, walletAddress
@@ -60,9 +62,9 @@ class JoinQueueUseCase(
       ewt: String,
       ticketInQueue: StoredTicketInQueue,
       eskillsPaymentData: EskillsPaymentData,
-      walletAddress: String
+      walletAddress: WalletAddress,
   ): Single<Ticket> {
-    return ticketRepository.getTicket(ewt, ticketInQueue.ticketId)
+    return ticketRepository.getTicket(ewt, ticketInQueue.ticketId, eskillsPaymentData.queueId)
         .flatMap {
           if (it is CreatedTicket && it.processingStatus == ProcessingStatus.IN_QUEUE) {
             Single.just(it)

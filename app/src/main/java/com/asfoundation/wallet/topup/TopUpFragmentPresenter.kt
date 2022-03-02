@@ -8,6 +8,7 @@ import com.asfoundation.wallet.util.CurrencyFormatUtils
 import com.asfoundation.wallet.util.Log
 import com.asfoundation.wallet.util.isNoNetworkException
 import io.reactivex.Completable
+import io.reactivex.Observable
 import io.reactivex.Scheduler
 import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable
@@ -212,16 +213,18 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
     }
   }
 
-  private fun getConvertedValue(data: TopUpData): Single<FiatValue> {
+  private fun getConvertedValue(data: TopUpData): Observable<FiatValue> {
     return if (data.selectedCurrencyType == TopUpData.FIAT_CURRENCY
         && data.currency.fiatValue != DEFAULT_VALUE) {
       interactor.convertLocal(data.currency.fiatCurrencyCode,
           data.currency.fiatValue, 2)
+          .toObservable()
     } else if (data.selectedCurrencyType == TopUpData.APPC_C_CURRENCY
         && data.currency.appcValue != DEFAULT_VALUE) {
       interactor.convertAppc(data.currency.appcValue)
+          .toObservable()
     } else {
-      Single.just(FiatValue(BigDecimal.ZERO, ""))
+      Observable.just(FiatValue(BigDecimal.ZERO, ""))
     }
   }
 

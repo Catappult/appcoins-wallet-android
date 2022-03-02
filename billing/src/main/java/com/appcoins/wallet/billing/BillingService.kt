@@ -29,8 +29,8 @@ class BillingService : Service() {
         object : BillingFactory {
           override fun getBilling(): Billing {
             return BdsBilling(BdsRepository(
-                RemoteRepository(dependenciesProvider.bdsApi(), BdsApiResponseMapper(
-                    SubscriptionsMapper(), InAppMapper(serializer)),
+                RemoteRepository(dependenciesProvider.brokerBdsApi(), dependenciesProvider.inappBdsApi(),
+                  BdsApiResponseMapper(SubscriptionsMapper(), InAppMapper(serializer)),
                     dependenciesProvider.bdsApiSecondary(),
                     dependenciesProvider.subscriptionBillingService(),
                     dependenciesProvider.billingSerializer())),

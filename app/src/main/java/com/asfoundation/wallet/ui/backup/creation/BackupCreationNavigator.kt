@@ -4,8 +4,9 @@ import androidx.fragment.app.FragmentManager
 import com.asf.wallet.R
 import com.asfoundation.wallet.ui.backup.BackupActivityNavigator
 import com.asfoundation.wallet.ui.backup.success.BackupSuccessFragment
+import javax.inject.Inject
 
-class BackupCreationNavigator(private val fragmentManager: FragmentManager,
+class BackupCreationNavigator @Inject constructor(private val fragmentManager: FragmentManager,
                               private val activityNavigator: BackupActivityNavigator) {
 
   fun openSystemFileDirectory(fileName: String) =

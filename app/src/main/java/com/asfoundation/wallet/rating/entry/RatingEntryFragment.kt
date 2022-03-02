@@ -5,13 +5,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.asf.wallet.R
+import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import com.jakewharton.rxbinding2.view.RxView
-import dagger.android.support.DaggerFragment
+import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.Observable
 import kotlinx.android.synthetic.main.fragment_rating_entry.*
 import javax.inject.Inject
 
-class RatingEntryFragment : DaggerFragment(), RatingEntryView {
+@AndroidEntryPoint
+class RatingEntryFragment : BasePageViewFragment(), RatingEntryView {
 
   @Inject
   lateinit var presenter: RatingEntryPresenter

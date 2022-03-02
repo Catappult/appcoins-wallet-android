@@ -1,10 +1,13 @@
 package com.asfoundation.wallet.billing.address
 
 import android.content.Intent
+import androidx.fragment.app.Fragment
 import com.asfoundation.wallet.ui.iab.IabActivity
+import javax.inject.Inject
 
-class BillingAddressNavigator(private val fragment: BillingAddressFragment,
-                              private val iabActivity: IabActivity) {
+class BillingAddressNavigator @Inject constructor(private val fragment: Fragment) {
+
+  private val iabActivity: IabActivity = fragment.activity as IabActivity
 
   fun finishWithSuccess(billingAddressModel: BillingAddressModel) {
     val intent = Intent().apply {

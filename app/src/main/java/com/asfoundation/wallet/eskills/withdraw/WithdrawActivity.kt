@@ -5,7 +5,9 @@ import android.content.Intent
 import android.os.Bundle
 import com.asf.wallet.R
 import com.asfoundation.wallet.ui.BaseActivity
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class WithdrawActivity : BaseActivity() {
   companion object {
     @JvmStatic
@@ -21,8 +23,8 @@ class WithdrawActivity : BaseActivity() {
 
     if (savedInstanceState == null) {
       supportFragmentManager.beginTransaction()
-        .add(R.id.fragment_container, WithdrawFragment.newInstance())
-        .commit()
+          .add(R.id.fragment_container, WithdrawFragment.newInstance())
+          .commit()
     }
   }
 }

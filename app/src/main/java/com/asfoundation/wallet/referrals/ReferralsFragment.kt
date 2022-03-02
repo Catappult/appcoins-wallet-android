@@ -9,8 +9,9 @@ import android.view.ViewGroup
 import com.asf.wallet.R
 import com.asfoundation.wallet.util.CurrencyFormatUtils
 import com.asfoundation.wallet.util.WalletCurrency
+import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import com.jakewharton.rxbinding2.view.RxView
-import dagger.android.support.DaggerFragment
+import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.invited_friends_animation_list.*
 import kotlinx.android.synthetic.main.referrals_layout.*
@@ -18,7 +19,8 @@ import java.math.BigDecimal
 import javax.inject.Inject
 import kotlin.math.roundToInt
 
-class ReferralsFragment : DaggerFragment(), ReferralsView {
+@AndroidEntryPoint
+class ReferralsFragment : BasePageViewFragment(), ReferralsView {
 
   private lateinit var presenter: ReferralsPresenter
 
@@ -97,48 +99,48 @@ class ReferralsFragment : DaggerFragment(), ReferralsView {
   }
 
   private val receivedAmount: BigDecimal by lazy {
-    if (arguments!!.containsKey(RECEIVED_AMOUNT)) {
-      arguments!!.getSerializable(RECEIVED_AMOUNT) as BigDecimal
+    if (requireArguments().containsKey(RECEIVED_AMOUNT)) {
+      requireArguments().getSerializable(RECEIVED_AMOUNT) as BigDecimal
     } else {
       throw IllegalArgumentException("Received amount not found")
     }
   }
 
   private val amount: BigDecimal by lazy {
-    if (arguments!!.containsKey(AMOUNT)) {
-      arguments!!.getSerializable(AMOUNT) as BigDecimal
+    if (requireArguments().containsKey(AMOUNT)) {
+      requireArguments().getSerializable(AMOUNT) as BigDecimal
     } else {
       throw IllegalArgumentException("Amount not found")
     }
   }
 
   private val currency: String by lazy {
-    if (arguments!!.containsKey(CURRENCY)) {
-      arguments!!.getString(CURRENCY, "")
+    if (requireArguments().containsKey(CURRENCY)) {
+      requireArguments().getString(CURRENCY, "")
     } else {
       throw IllegalArgumentException("Currency not found")
     }
   }
 
   private val completedInvites: Int by lazy {
-    if (arguments!!.containsKey(COMPLETED_INVITES)) {
-      arguments!!.getInt(COMPLETED_INVITES)
+    if (requireArguments().containsKey(COMPLETED_INVITES)) {
+      requireArguments().getInt(COMPLETED_INVITES)
     } else {
       throw IllegalArgumentException("Completed not found")
     }
   }
 
   private val available: Int by lazy {
-    if (arguments!!.containsKey(AVAILABLE)) {
-      arguments!!.getInt(AVAILABLE)
+    if (requireArguments().containsKey(AVAILABLE)) {
+      requireArguments().getInt(AVAILABLE)
     } else {
       throw IllegalArgumentException("available not found")
     }
   }
 
   private val isRedeemed: Boolean by lazy {
-    if (arguments!!.containsKey(IS_REDEEMED)) {
-      arguments!!.getBoolean(IS_REDEEMED)
+    if (requireArguments().containsKey(IS_REDEEMED)) {
+      requireArguments().getBoolean(IS_REDEEMED)
     } else {
       throw IllegalArgumentException("is redeemed not found")
     }

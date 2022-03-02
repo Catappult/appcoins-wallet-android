@@ -15,18 +15,17 @@ import com.asf.wallet.databinding.FragmentOnboardingBinding
 import com.asfoundation.wallet.base.SingleStateFragment
 import com.asfoundation.wallet.my_wallets.create_wallet.CreateWalletDialogFragment
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
+import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class OnboardingFragment : BasePageViewFragment(),
     SingleStateFragment<OnboardingState, OnboardingSideEffect> {
 
   @Inject
-  lateinit var onboardingViewModelFactory: OnboardingViewModelFactory
-
-  @Inject
   lateinit var navigator: OnboardingNavigator
 
-  private val viewModel: OnboardingViewModel by viewModels { onboardingViewModelFactory }
+  private val viewModel: OnboardingViewModel by viewModels()
   private val views by viewBinding(FragmentOnboardingBinding::bind)
 
   override fun onCreate(savedInstanceState: Bundle?) {

@@ -2,8 +2,9 @@ package com.asfoundation.wallet.repository
 
 import android.content.SharedPreferences
 import io.reactivex.Completable
+import javax.inject.Inject
 
-class BackupRestorePreferencesRepository(private val pref: SharedPreferences) {
+class BackupRestorePreferencesRepository @Inject constructor(private val pref: SharedPreferences) {
 
   companion object {
     private const val BACKUP_SEEN_TIME = "backup_seen_time_"

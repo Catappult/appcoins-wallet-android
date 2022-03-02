@@ -2,7 +2,6 @@ package com.asfoundation.wallet.util
 
 import com.appcoins.wallet.bdsbilling.Billing
 import com.appcoins.wallet.bdsbilling.ProxyService
-import com.appcoins.wallet.commons.MemoryCache
 import com.asfoundation.wallet.entity.TokenInfo
 import com.asfoundation.wallet.entity.Wallet
 import com.asfoundation.wallet.interact.DefaultTokenProvider
@@ -10,7 +9,6 @@ import com.asfoundation.wallet.service.TokenRateService
 import com.asfoundation.wallet.ui.iab.FiatValue
 import com.asfoundation.wallet.wallets.FindDefaultWalletInteract
 import io.reactivex.Single
-import io.reactivex.subjects.BehaviorSubject
 import org.junit.Before
 import org.junit.Test
 import org.mockito.ArgumentMatchers.anyBoolean
@@ -74,9 +72,7 @@ class OneStepTransactionParserTest {
   fun parseTransaction() {
 
     val oneStepTransactionParser =
-        OneStepTransactionParser(proxyService,
-            billing, conversionService,
-            MemoryCache(BehaviorSubject.create(), HashMap()), defaultTokenProvider)
+        OneStepTransactionParser(proxyService, billing, defaultTokenProvider)
 
     val parameters = HashMap<String, String>()
     parameters["value"] = priceValue
@@ -116,9 +112,7 @@ class OneStepTransactionParserTest {
   fun parseMinimumTransaction() {
 
     val oneStepTransactionParser =
-        OneStepTransactionParser(proxyService,
-            billing, conversionService,
-            MemoryCache(BehaviorSubject.create(), HashMap()), defaultTokenProvider)
+        OneStepTransactionParser(proxyService, billing, defaultTokenProvider)
 
     val parameters = HashMap<String, String>()
     parameters["value"] = priceValue
@@ -149,9 +143,7 @@ class OneStepTransactionParserTest {
   fun parseTransactionWithFiatValue() {
 
     val oneStepTransactionParser =
-        OneStepTransactionParser(proxyService,
-            billing, conversionService,
-            MemoryCache(BehaviorSubject.create(), HashMap()), defaultTokenProvider)
+        OneStepTransactionParser(proxyService, billing, defaultTokenProvider)
 
     val parameters = HashMap<String, String>()
     parameters["value"] = priceValue

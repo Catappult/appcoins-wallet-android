@@ -20,21 +20,20 @@ import com.asf.wallet.BuildConfig
 import com.asf.wallet.R
 import com.asf.wallet.databinding.TermsConditionsBottomSheetBinding
 import com.asfoundation.wallet.base.SingleStateFragment
-import com.asfoundation.wallet.di.DaggerBottomSheetDialogFragment
 import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
-class TermsConditionsBottomSheetFragment : DaggerBottomSheetDialogFragment(),
+@AndroidEntryPoint
+class TermsConditionsBottomSheetFragment : BottomSheetDialogFragment(),
     SingleStateFragment<TermsConditionsBottomSheetState, TermsConditionsBottomSheetSideEffect> {
 
 
   @Inject
-  lateinit var termsConditionsBottomSheetViewModelFactory: TermsConditionsBottomSheetViewModelFactory
-
-  @Inject
   lateinit var navigator: TermsConditionsBottomSheetNavigator
 
-  private val viewModel: TermsConditionsBottomSheetViewModel by viewModels { termsConditionsBottomSheetViewModelFactory }
+  private val viewModel: TermsConditionsBottomSheetViewModel by viewModels()
   private val views by viewBinding(TermsConditionsBottomSheetBinding::bind)
 
   companion object {

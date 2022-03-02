@@ -1,21 +1,28 @@
 package com.asfoundation.wallet.abtesting
 
 import com.asfoundation.wallet.abtesting.ABTestStatus.*
+import com.asfoundation.wallet.abtesting.db.RoomExperimentPersistence
+import com.asfoundation.wallet.base.RxSchedulers
 import com.asfoundation.wallet.identification.IdsRepository
 import io.reactivex.Completable
 import io.reactivex.Observable
-import io.reactivex.Scheduler
+import it.czerwinski.android.hilt.annotations.BoundTo
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.Path
+import javax.inject.Inject
+import javax.inject.Named
 
-class ABTestCenterRepository(private val api: ABTestApi,
-                             private val idsRepository: IdsRepository,
-                             private val localCache: HashMap<String, ExperimentModel>,
-                             private val persistence: RoomExperimentPersistence,
-                             private val cacheValidator: ABTestCacheValidator,
-                             private val ioScheduler: Scheduler) : ABTestRepository {
+@BoundTo(supertype = ABTestRepository::class)
+class ABTestCenterRepository @Inject constructor(private val api: ABTestApi,
+                                                 private val idsRepository: IdsRepository,
+                                                 @Named("ab-test-local-cache")
+                                                 private val localCache: HashMap<String, ExperimentModel>,
+                                                 private val persistence: RoomExperimentPersistence,
+                                                 private val cacheValidator: ABTestCacheValidator,
+                                                 private val rxSchedulers: RxSchedulers) :
+    ABTestRepository {
 
   override fun getExperiment(identifier: String): Observable<Experiment> {
     return if (localCache.containsKey(identifier)) {
@@ -72,7 +79,7 @@ class ABTestCenterRepository(private val api: ABTestApi,
     return getAndroidId()
         .flatMap {
           api.getExperiment(identifier, it)
-              .subscribeOn(ioScheduler)
+              .subscribeOn(rxSchedulers.io)
         }
         .map { mapToExperimentModel(it) }
         .onErrorReturn { ExperimentModel(Experiment(), true) }
@@ -96,7 +103,7 @@ class ABTestCenterRepository(private val api: ABTestApi,
   private fun retrieveExperimentFromDb(identifier: String): Observable<Experiment> {
     return persistence[identifier]
         .toObservable()
-        .observeOn(ioScheduler)
+        .observeOn(rxSchedulers.io)
         .flatMap { model ->
           if (!model.hasError && !model.experiment.isExpired()) {
             if (!localCache.containsKey(identifier)) {

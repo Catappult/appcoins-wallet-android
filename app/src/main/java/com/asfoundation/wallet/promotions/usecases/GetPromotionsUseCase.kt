@@ -5,26 +5,28 @@ import com.appcoins.wallet.gamification.repository.PromotionsRepository
 import com.appcoins.wallet.gamification.repository.UserStats
 import com.asfoundation.wallet.gamification.ObserveLevelsUseCase
 import com.asfoundation.wallet.promo_code.use_cases.GetCurrentPromoCodeUseCase
-import com.asfoundation.wallet.promo_code.use_cases.ObserveCurrentPromoCodeUseCase
 import com.asfoundation.wallet.promotions.model.PromotionsMapper
 import com.asfoundation.wallet.promotions.model.PromotionsModel
 import com.asfoundation.wallet.promotions.model.Voucher
 import com.asfoundation.wallet.promotions.model.VoucherListModel
 import com.asfoundation.wallet.wallets.usecases.GetCurrentWalletUseCase
 import io.reactivex.Observable
+import javax.inject.Inject
 
-class GetPromotionsUseCase(private val getCurrentWallet: GetCurrentWalletUseCase,
-                           private val observeLevels: ObserveLevelsUseCase,
-                           private val promotionsMapper: PromotionsMapper,
-                           private val promotionsRepository: PromotionsRepository,
-                           private val getCurrentPromoCodeUseCase: GetCurrentPromoCodeUseCase) {
+class GetPromotionsUseCase @Inject constructor(
+    private val getCurrentWallet: GetCurrentWalletUseCase,
+    private val observeLevels: ObserveLevelsUseCase,
+    private val promotionsMapper: PromotionsMapper,
+    private val promotionsRepository: PromotionsRepository,
+    private val getCurrentPromoCodeUseCase: GetCurrentPromoCodeUseCase) {
 
   operator fun invoke(): Observable<PromotionsModel> {
     return getCurrentPromoCodeUseCase()
         .flatMapObservable { promoCode ->
           getCurrentWallet()
               .flatMapObservable {
-                Observable.zip(observeLevels(), promotionsRepository.getUserStats(it.address, promoCode.code),
+                Observable.zip(observeLevels(),
+                    promotionsRepository.getUserStats(it.address, promoCode.code),
                     { levels: Levels, userStatsResponse: UserStats ->
                       promotionsMapper.mapToPromotionsModel(userStatsResponse, levels, it,
                           getMockedVouchers())

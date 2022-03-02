@@ -19,16 +19,17 @@ import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Scheduler
 import io.reactivex.Single
+import javax.inject.Inject
 
-class LocalPaymentInteractor(private val walletService: WalletService,
-                             private val partnerAddressService: AddressService,
-                             private val inAppPurchaseInteractor: InAppPurchaseInteractor,
-                             private val billingMessagesMapper: BillingMessagesMapper,
-                             private val supportInteractor: SupportInteractor,
-                             private val walletBlockedInteract: WalletBlockedInteract,
-                             private val walletVerificationInteractor: WalletVerificationInteractor,
-                             private val getCurrentPromoCodeUseCase: GetCurrentPromoCodeUseCase,
-                             private val remoteRepository: RemoteRepository) {
+class LocalPaymentInteractor @Inject constructor(private val walletService: WalletService,
+                                                 private val partnerAddressService: AddressService,
+                                                 private val inAppPurchaseInteractor: InAppPurchaseInteractor,
+                                                 private val billingMessagesMapper: BillingMessagesMapper,
+                                                 private val supportInteractor: SupportInteractor,
+                                                 private val walletBlockedInteract: WalletBlockedInteract,
+                                                 private val walletVerificationInteractor: WalletVerificationInteractor,
+                                                 private val getCurrentPromoCodeUseCase: GetCurrentPromoCodeUseCase,
+                                                 private val remoteRepository: RemoteRepository) {
 
   fun isWalletBlocked() = walletBlockedInteract.isWalletBlocked()
 

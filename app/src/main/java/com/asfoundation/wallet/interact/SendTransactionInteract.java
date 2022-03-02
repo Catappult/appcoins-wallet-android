@@ -5,13 +5,14 @@ import com.asfoundation.wallet.repository.PasswordStore;
 import com.asfoundation.wallet.repository.TransactionRepositoryType;
 import io.reactivex.Single;
 import io.reactivex.schedulers.Schedulers;
+import javax.inject.Inject;
 
 public class SendTransactionInteract {
 
   private final TransactionRepositoryType transactionRepository;
   private final PasswordStore passwordStore;
 
-  public SendTransactionInteract(TransactionRepositoryType transactionRepository,
+  public @Inject SendTransactionInteract(TransactionRepositoryType transactionRepository,
       PasswordStore passwordStore) {
     this.transactionRepository = transactionRepository;
     this.passwordStore = passwordStore;
