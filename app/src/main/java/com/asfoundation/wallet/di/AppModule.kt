@@ -48,12 +48,14 @@ import com.google.gson.JsonObject
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.qualifiers.ActivityContext
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.internal.schedulers.ExecutorScheduler
 import io.reactivex.schedulers.Schedulers
+import org.web3j.protocol.Web3j
+import org.web3j.protocol.Web3jFactory
+import org.web3j.protocol.http.HttpService
 import java.math.BigDecimal
 import javax.inject.Named
 import javax.inject.Singleton
@@ -236,12 +238,11 @@ internal class AppModule {
 
   @Singleton
   @Provides
-  @Named("NFTNetwork")
-  fun providesDefaultNFTNetwork(): String {
+  fun providesWeb3j(): Web3j {
     return if (BuildConfig.DEBUG) {
-      "https://rinkeby.infura.io/v3/${BuildConfig.INFURA_API_KEY_RINKEBY}"
+     Web3jFactory.build(HttpService("https://rinkeby.infura.io/v3/${BuildConfig.INFURA_API_KEY_RINKEBY}"))
     } else {
-      "https://mainnet.infura.io/v3/${BuildConfig.INFURA_API_KEY_MAIN}"
+      Web3jFactory.build(HttpService("https://mainnet.infura.io/v3/${BuildConfig.INFURA_API_KEY_MAIN}"))
     }
   }
 

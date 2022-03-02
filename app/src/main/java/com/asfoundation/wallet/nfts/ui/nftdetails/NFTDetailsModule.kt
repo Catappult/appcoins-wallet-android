@@ -1,6 +1,5 @@
 package com.asfoundation.wallet.nfts.ui.nftdetails
 
-import androidx.fragment.app.Fragment
 import com.asfoundation.wallet.nfts.domain.NFTItem
 import dagger.Module
 import dagger.Provides
@@ -13,13 +12,5 @@ class NFTDetailsModule {
   @Provides
   fun provideNFTDetailsViewModelFactory(data: NFTItem): NFTDetailsViewModelFactory {
     return NFTDetailsViewModelFactory(data)
-  }
-
-  @Provides
-  fun provideNFTDetailsData(fragment: Fragment): NFTItem {
-    fragment.requireArguments()
-        .apply {
-          return getSerializable(NFTDetailsFragment.NFT_ITEM_DATA)!! as NFTItem
-        }
   }
 }
