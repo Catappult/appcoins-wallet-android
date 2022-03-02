@@ -527,7 +527,7 @@
   <string name="purchase_card_error_not_supported">Jenis kad anda masih belum disokong. Cuba dengan kad lain.</string>
   <string name="purchase_card_error_security">Anda pasti butiran keselamatan ini betul? Sila cuba lagi.</string>
   <string name="purchase_card_error_wrong_CVV">Kod CVV/CVC anda mungkin tidak betul. Sila cuba lagi.</string>
-  <string name="purchase_card_error_re_insert">It seems you registered this card long time ago! Insert the card details again or use a different one.</string>
+  <string name="purchase_card_error_re_insert">Nampaknya anda pernah daftar kad ini dulu! Masukkan butiran kad sekali lagi atau cuba kad lain.</string>
   <string name="purchase_wallet_error_contact_us">Alamak, dompet anda ada masalah. Sila hubungi kami.</string>
   <string name="purchase_carrier_error">Nampaknya nombor telefon anda tidak serasi dengan kaedah pembayaran ini.</string>
   <string name="purchase_carrier_error_minimum">Operator anda tidak menyokong bayaran kurang daripada %s.</string>
@@ -549,7 +549,7 @@
   <string name="purchase_error_transaction_timeout">Nampaknya anda ambil masa terlalu lama untuk selesaikan transaksi. Sila cuba lagi.</string>
   <string name="purchase_error_card_already_in_progress">Permintaan anda telah diproses atau sedang berlangsung. Sila tunggu.</string>
   <string name="purchase_error_payment_rejected">Pembayaran ditolak! Sila cuba dengan kad lain atau gunakan kaedah bayaran yang lain.</string>
-  <string name="purchase_error_verify_wallet">Validate your payment method to complete this purchase.</string>
+  <string name="purchase_error_verify_wallet">Sahkan kaedah pembayaran anda untuk selesaikan pembelian ini.</string>
   <string name="purchase_error_verify_card">Sahkan kad anda untuk selesaikan pembelian ini.</string>
   <string name="purachse_error_verify_card_button">SAHKAN KAD</string>
   <string name="purchase_eskills_sku">Tiket masuk</string>
@@ -589,7 +589,7 @@
   <string name="referral_view_share_link_button">KONGSI PAUTAN JEMPUTAN</string>
   <string name="referral_view_notifications_title">Pemberitahuan</string>
   <string name="referral_share_sheet_title">Kongsi pautan jemputan melalui:</string>
-  <string name="referral_view_unverified_body">Receive %s worth of AppCoins Credits for each friend. You first need to verify your wallet.</string>
+  <string name="referral_view_unverified_body">Dapatkan Kredit AppCoins sebanyak %s bagi setiap rakan. Anda perlu sahkan dompet terlebih dahulu.</string>
   <string name="referral_view_verify_button">SAHKAN DOMPET</string>
   <string name="referral_view_i_have_been_invited_button">SAYA TELAH DIJEMPUT</string>
   <string name="referral_view_dropup_menu_friends_invited">Rakan telah dijemput</string>
@@ -658,7 +658,7 @@
   <string name="backup_additional_security_body">Pilih kata laluan</string>
   <string name="backup_button">SANDAR DOMPET</string>
   <string name="backup_password">Kata laluan</string>
-  <string name="backup_ready_title">Your backup is ready! Keep it safe.</string>
+  <string name="backup_ready_title">Sandaran anda siap! Pastikan ia selamat.</string>
   <string name="backup_ready_save_on_email">Simpan dalam e-mel anda</string>
   <string name="backup_ready_email_button">Hantar ke e-mel</string>
   <string name="backup_ready_device_button">Simpan dalam peranti</string>
@@ -1016,5 +1016,5 @@
   <string name="appcoins_info_volume_title">Jumlah (24j)</string>
   <!--  NFTs -->
   <string name="nfts_title">NFT</string>
-  <string name="nfts_no_nfts">You don\'t have any NFTs in this wallet yet!</string>
+  <string name="nfts_no_nfts">Anda belum ada NFT dalam dompet ini!</string>
 </resources>
