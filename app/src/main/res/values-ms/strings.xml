@@ -158,7 +158,7 @@
   <string name="action_more_details">Lebih Banyak</string>
   <string name="action_add_wallet">Tambah dompet</string>
   <string name="action_coinbase">Coinbase</string>
-  <string name="action_shapeshift">Shapeshift (Crypto only)</string>
+  <string name="action_shapeshift">Shapeshift (Kripto sahaja)</string>
   <string name="action_changelly">Changelly</string>
   <string name="action_wallets">Dompet</string>
   <string name="action_next">Seterusnya</string>
@@ -263,7 +263,7 @@
   <string name="ellipsize">\u0020• • •</string>
   <string name="transaction_status_label">Status</string>
   <string name="transaction_category_label">Kategori</string>
-  <string name="transaction_order_reference_label">Order ID</string>
+  <string name="transaction_order_reference_label">ID Tempahan</string>
   <string name="transaction_details_label">Butiran</string>
   <string name="transaction_to_label">Kepada</string>
   <string name="dialog_credit_card_remember">Ingat Kad</string>
@@ -271,7 +271,7 @@
   <string name="dialog_credit_card_number">Nombor Kad</string>
   <string name="dialog_credit_card_expiration">Tarikh Luput</string>
   <string name="dialog_credit_card_cvv">CVV</string>
-  <string name="dialog_bank_card">Credit/debit card</string>
+  <string name="dialog_bank_card">Kad kredit/debit</string>
   <string name="dialog_expiry_date">Tarikh luput</string>
   <string name="activity_airdrop_title">Sahkan anda ialah seorang manusia untuk terima AppCoins</string>
   <string name="activity_airdrop_details">Ini hanyalah ciri keselamatan.</string>
@@ -401,7 +401,7 @@
   <string name="askafriend_share_add_message_body">Tambah Mesej (Pilihan)</string>
   <string name="askafriend_share_button">Kongsi</string>
   <string name="askafriend_share_popup_title">Tanya seseorang melalui:</string>
-  <string name="askafriend_received_body">You just received %s AppCoins Credits</string>
+  <string name="askafriend_received_body">Anda baru saja terima %s Kredit AppCoins</string>
   <string name="askafriend_notification_received_title">Pindahan Baharu Diterima</string>
   <string name="askafriend_notification_received_body">%1$s %2$s telah dikreditkan ke dompet anda.</string>
   <string name="askafriend_received_title">Pindahan Diterima</string>
@@ -440,8 +440,8 @@
   <string name="get_code_button">Dapatkan kod</string>
   <string name="confirm_button">Sahkan</string>
   <string name="withdraw_button">keluarkan</string>
-  <string name="email_here_field">Your email here&#8230;</string>
-  <string name="understood_button">Understood!</string>
+  <string name="email_here_field">E-mel anda di sini&#8230;</string>
+  <string name="understood_button">Faham!</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Saya setuju dengan %1$s dan %2$s Dompet AppCoins.</string>
   <string name="terms_and_conditions_error">Sila terima Terma dan Syarat serta Dasar Privasi kami untuk teruskan</string>
