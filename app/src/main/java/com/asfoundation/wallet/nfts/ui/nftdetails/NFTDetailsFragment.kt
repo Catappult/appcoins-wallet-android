@@ -80,6 +80,9 @@ class NFTDetailsFragment : BasePageViewFragment(),
     views.nftImage.load(state.data.imageURL) {
       views.nftImageSkeleton.root.visibility = View.GONE
     }
+    if (state.data.schema != "ERC721") {
+      views.nftTransactButton.visibility = View.GONE
+    }
   }
 
   companion object {
@@ -88,5 +91,9 @@ class NFTDetailsFragment : BasePageViewFragment(),
 
   private fun setListeners() {
     views.actionBack.setOnClickListener { navigator.navigateBack() }
+
+    views.nftTransactButton.setOnClickListener {
+      viewModel.state.data?.let { data -> navigator.navigateToTransact(data) }
+    }
   }
 }

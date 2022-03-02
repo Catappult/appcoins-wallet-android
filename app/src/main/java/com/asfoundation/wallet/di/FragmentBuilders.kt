@@ -28,6 +28,8 @@ import com.asfoundation.wallet.nfts.ui.nftdetails.NFTDetailsFragment
 import com.asfoundation.wallet.nfts.ui.nftdetails.NFTDetailsModule
 import com.asfoundation.wallet.nfts.ui.nftlist.NFTFragment
 import com.asfoundation.wallet.nfts.ui.nftlist.NFTModule
+import com.asfoundation.wallet.nfts.ui.nftTransactDialog.NFTTransactDialogFragment
+import com.asfoundation.wallet.nfts.ui.nftTransactDialog.NFTTransactDialogModule
 import com.asfoundation.wallet.onboarding.OnboardingFragment
 import com.asfoundation.wallet.onboarding.OnboardingModule
 import com.asfoundation.wallet.onboarding.bottom_sheet.TermsConditionsBottomSheetFragment
@@ -377,6 +379,10 @@ abstract class FragmentBuilders {
   @FragmentScope
   @ContributesAndroidInjector(modules = [NFTDetailsModule::class])
   abstract fun bindNFTDetailsFragment(): NFTDetailsFragment
+
+  @FragmentScope
+  @ContributesAndroidInjector(modules = [NFTTransactDialogModule::class])
+  abstract fun bindNFTTransactDialogFragment(): NFTTransactDialogFragment
 
   @FragmentScope
   @ContributesAndroidInjector(modules = [VerifyPickerDialogModule::class])

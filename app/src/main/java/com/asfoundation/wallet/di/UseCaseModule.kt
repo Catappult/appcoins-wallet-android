@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.di
 
+import android.content.Context
 import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import androidx.biometric.BiometricManager
@@ -31,7 +32,9 @@ import com.asfoundation.wallet.logging.send_logs.use_cases.SendLogsUseCase
 import com.asfoundation.wallet.main.usecases.HasSeenPromotionTooltipUseCase
 import com.asfoundation.wallet.main.usecases.IncreaseLaunchCountUseCase
 import com.asfoundation.wallet.nfts.repository.NFTRepository
+import com.asfoundation.wallet.nfts.usecases.EstimateNFTSendGasUseCase
 import com.asfoundation.wallet.nfts.usecases.GetNFTListUseCase
+import com.asfoundation.wallet.nfts.usecases.SendNFTUseCase
 import com.asfoundation.wallet.onboarding.use_cases.SetOnboardingCompletedUseCase
 import com.asfoundation.wallet.promo_code.repository.PromoCodeRepository
 import com.asfoundation.wallet.promo_code.use_cases.DeletePromoCodeUseCase
@@ -47,6 +50,7 @@ import com.asfoundation.wallet.rating.RatingRepository
 import com.asfoundation.wallet.referrals.ReferralInteractorContract
 import com.asfoundation.wallet.referrals.SharedPreferencesReferralLocalData
 import com.asfoundation.wallet.repository.*
+import com.asfoundation.wallet.service.KeyStoreFileManager
 import com.asfoundation.wallet.service.currencies.LocalCurrencyConversionService
 import com.asfoundation.wallet.support.SupportRepository
 import com.asfoundation.wallet.ui.backup.success.BackupSuccessLogRepository
@@ -57,8 +61,10 @@ import com.asfoundation.wallet.verification.usecases.MakeVerificationPaymentUseC
 import com.asfoundation.wallet.verification.usecases.SetCachedVerificationUseCase
 import com.asfoundation.wallet.wallets.repository.WalletInfoRepository
 import com.asfoundation.wallet.wallets.usecases.*
+import com.fasterxml.jackson.databind.ObjectMapper
 import dagger.Module
 import dagger.Provides
+import java.io.File
 import javax.inject.Singleton
 
 @Module
@@ -287,6 +293,24 @@ class UseCaseModule {
   fun providesGetNftListUseCase(getCurrentWallet: GetCurrentWalletUseCase,
                                 NFTRepository: NFTRepository): GetNFTListUseCase {
     return GetNFTListUseCase(getCurrentWallet, NFTRepository)
+  }
+
+  @Singleton
+  @Provides
+  fun providesEstimateNFTSendGasUseCase(getCurrentWallet: GetCurrentWalletUseCase,
+                                        getSelectedCurrencyUseCase: GetSelectedCurrencyUseCase,
+                                        NFTRepository: NFTRepository): EstimateNFTSendGasUseCase {
+    return EstimateNFTSendGasUseCase(getCurrentWallet, getSelectedCurrencyUseCase, NFTRepository)
+  }
+
+  @Singleton
+  @Provides
+  fun providesSendNFTUseCase(getCurrentWallet: GetCurrentWalletUseCase,
+                             NFTRepository: NFTRepository, passwordStore: PasswordStore,
+                             context: Context): SendNFTUseCase {
+    val file = File(context.filesDir, "keystore/keystore")
+    val keyStore = KeyStoreFileManager(file.absolutePath, ObjectMapper())
+    return SendNFTUseCase(getCurrentWallet, NFTRepository, keyStore, passwordStore)
   }
 
   @Singleton
