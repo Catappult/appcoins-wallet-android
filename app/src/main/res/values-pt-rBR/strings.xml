@@ -158,7 +158,7 @@
   <string name="action_more_details">Mais</string>
   <string name="action_add_wallet">Adicionar wallet</string>
   <string name="action_coinbase">Coinbase</string>
-  <string name="action_shapeshift">Shapeshift (Crypto only)</string>
+  <string name="action_shapeshift">Shapeshift (apenas cripto)</string>
   <string name="action_changelly">Changelly</string>
   <string name="action_wallets">Wallets</string>
   <string name="action_next">Próximo</string>
@@ -263,7 +263,7 @@
   <string name="ellipsize">\u0020• • •</string>
   <string name="transaction_status_label">Status</string>
   <string name="transaction_category_label">Categoria</string>
-  <string name="transaction_order_reference_label">Order ID</string>
+  <string name="transaction_order_reference_label">ID do Pedido</string>
   <string name="transaction_details_label">Detalhes</string>
   <string name="transaction_to_label">Para</string>
   <string name="dialog_credit_card_remember">Memorizar Cartão</string>
@@ -271,7 +271,7 @@
   <string name="dialog_credit_card_number">Número do Cartão</string>
   <string name="dialog_credit_card_expiration">Data de Validade</string>
   <string name="dialog_credit_card_cvv">CVV</string>
-  <string name="dialog_bank_card">Credit/debit card</string>
+  <string name="dialog_bank_card">Cartão de crédito/débito</string>
   <string name="dialog_expiry_date">Vencimento</string>
   <string name="activity_airdrop_title">Confirmar se você é um humano para receber AppCoins</string>
   <string name="activity_airdrop_details">Isto é só um lance de segurança.</string>
@@ -401,7 +401,7 @@
   <string name="askafriend_share_add_message_body">Enviar Mensagem (opcional)</string>
   <string name="askafriend_share_button">Compartilhar</string>
   <string name="askafriend_share_popup_title">Peça a alguém via:</string>
-  <string name="askafriend_received_body">You just received %s AppCoins Credits</string>
+  <string name="askafriend_received_body">Você recebeu %s Créditos AppCoins</string>
   <string name="askafriend_notification_received_title">Nova Transferência Recebida</string>
   <string name="askafriend_notification_received_body">%1$s %2$s foram creditados em sua wallet.</string>
   <string name="askafriend_received_title">Transferência Recebida</string>
@@ -440,16 +440,16 @@
   <string name="get_code_button">Receber código</string>
   <string name="confirm_button">Confirmar</string>
   <string name="withdraw_button">sacar</string>
-  <string name="email_here_field">Your email here&#8230;</string>
-  <string name="understood_button">Understood!</string>
+  <string name="email_here_field">Seu e-mail aqui&#8230;</string>
+  <string name="understood_button">Entendido!</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Eu concordo com os %1$s e %2$s da AppCoins Wallet.</string>
   <string name="terms_and_conditions_error">Por favor, aceite nossos Termos e Condições e Política de Privacidade para continuar</string>
   <string name="terms_and_conditions">Termos e Condições</string>
   <string name="privacy_policy">Política de Privacidade</string>
-  <string name="decline_button">Reject</string>
-  <string name="get_started">Get Started</string>
-  <string name="existent_wallet">I already have a wallet</string>
+  <string name="decline_button">Rejeitar</string>
+  <string name="get_started">Começar</string>
+  <string name="existent_wallet">Já tenho uma wallet</string>
   <!--Home-->
   <string name="home_empty_discover_apps_body">Faça uma compra em seu jogo favorito e nós cuidaremos de tudo.</string>
   <string name="home_empty_discover_apps_button">DESCUBRA OS MELHORES APPS</string>
@@ -527,7 +527,7 @@
   <string name="purchase_card_error_not_supported">O seu tipo de cartão ainda não é aceito. Tente com um diferente.</string>
   <string name="purchase_card_error_security">Tem certeza de que as informações de segurança estão corretas? Por favor, tente novamente.</string>
   <string name="purchase_card_error_wrong_CVV">Seu código CVV/CVC parece estar errado. Por favor, tente novamente.</string>
-  <string name="purchase_card_error_re_insert">It seems you registered this card long time ago! Insert the card details again or use a different one.</string>
+  <string name="purchase_card_error_re_insert">Parece que você registrou este cartão há muito tempo! Insira os detalhes do cartão novamente ou use um cartão diferente.</string>
   <string name="purchase_wallet_error_contact_us">Opa, algo não está certo com sua wallet. Entre em contato conosco.</string>
   <string name="purchase_carrier_error">Parece que seu número de telefone não é compatível com esta forma de pagamento.</string>
   <string name="purchase_carrier_error_minimum">Sua operadora não aceita pagamentos de menos de %s.</string>
@@ -549,7 +549,7 @@
   <string name="purchase_error_transaction_timeout">Parece que você demorou muito para concluir a transação. Por favor, tente novamente.</string>
   <string name="purchase_error_card_already_in_progress">Sua solicitação já foi processada ou está em andamento. Por favor, aguarde.</string>
   <string name="purchase_error_payment_rejected">Pagamento recusado! Tente com um cartão de um emissor diferente ou use outro método de pagamento.</string>
-  <string name="purchase_error_verify_wallet">Validate your payment method to complete this purchase.</string>
+  <string name="purchase_error_verify_wallet">Valide seu método de pagamento para concluir esta compra.</string>
   <string name="purchase_error_verify_card">Valide seu cartão para completar essa compra.</string>
   <string name="purachse_error_verify_card_button">VALIDAR CARTÃO</string>
   <string name="purchase_eskills_sku">Ingresso</string>
@@ -589,7 +589,7 @@
   <string name="referral_view_share_link_button">COMPARTILHAR LINK DE CONVITE</string>
   <string name="referral_view_notifications_title">Notificações</string>
   <string name="referral_share_sheet_title">Compartilhar convite via:</string>
-  <string name="referral_view_unverified_body">Receive %s worth of AppCoins Credits for each friend. You first need to verify your wallet.</string>
+  <string name="referral_view_unverified_body">Receba %s em Créditos AppCoins por cada amigo. Primeiro você precisa verificar sua carteira.</string>
   <string name="referral_view_verify_button">VERIFICAR WALLET</string>
   <string name="referral_view_i_have_been_invited_button">JÁ FUI CONVIDADO</string>
   <string name="referral_view_dropup_menu_friends_invited">Amigos convidados</string>
@@ -656,12 +656,12 @@
   <string name="backup_body">Nós não armazenamos suas chaves privadas ou qualquer outro método de acesso. É importante manter o backup (keystore) de sua wallet seguro.</string>
   <string name="backup_additional_security_title">Segurança Adicional (opcional)</string>
   <string name="backup_additional_security_body">Escolha uma senha</string>
-  <string name="backup_button">BACKUP WALLET</string>
+  <string name="backup_button">FAZER BACKUP DA WALLET</string>
   <string name="backup_password">Senha</string>
-  <string name="backup_ready_title">Your backup is ready! Keep it safe.</string>
-  <string name="backup_ready_save_on_email">Save it on your email</string>
-  <string name="backup_ready_email_button">Send to email</string>
-  <string name="backup_ready_device_button">Save on device</string>
+  <string name="backup_ready_title">Seu backup está pronto! Mantenha-o seguro.</string>
+  <string name="backup_ready_save_on_email">Guarde-o em seu e-mail</string>
+  <string name="backup_ready_email_button">Enviar por e-mail</string>
+  <string name="backup_ready_device_button">Salvar no dispositivo</string>
   <string name="backup_done_title">Backup concluído!</string>
   <string name="backup_confirmation_tips_title">Mantenha o arquivo em segurança:</string>
   <string name="backup_confirmation_tips_1">Imprima-o e guarde em um lugar seguro.</string>
@@ -728,7 +728,7 @@
   <string name="pioneer_gamification_title">Você é um Pioneiro</string>
   <string name="pioneer_gamification_body">Um Pioneiro é um dos primeiros a utilizar, com maiores bônus.</string>
   <!--Check for Updates-->
-  <string name="check_updates_settings_current_title">Current version</string>
+  <string name="check_updates_settings_current_title">Versão atual</string>
   <string name="check_updates_settings_title">Verificar atualizações</string>
   <string name="check_updates_settings_subtitle">Versão atual %s</string>
   <string name="check_updates_checking_body">Procurando por uma nova versão</string>
@@ -845,7 +845,7 @@
   <string name="carrier_billing_terms_button">Termos e Condições</string>
   <string name="carrier_billing_privacy_button">Política de Privacidade</string>
   <!--Manage Cards-->
-  <string name="manage_cards_settings_add_title">Add credit/debit card</string>
+  <string name="manage_cards_settings_add_title">Inserir cartão de crédito/débito</string>
   <string name="manage_cards_settings_manage_title">Gerenciar cartões</string>
   <string name="manage_cards_view_title">Gerenciar cartões</string>
   <string name="manage_cards_view_manage_subtitle">Gerenciar seus cartões de pagamento</string>
@@ -912,7 +912,7 @@
   <string name="send_logs_settings">Enviar logs para a Equipe de Suporte</string>
   <string name="send_logs_sending">Enviando&#8230;</string>
   <string name="send_logs_sent">Enviado!</string>
-  <string name="send_logs_error">Error!</string>
+  <string name="send_logs_error">Erro!</string>
   <!--Rate us-->
   <string name="rate_us_question_title">Curtindo sua Wallet da AppCoins?</string>
   <string name="rate_us_no">Não muito</string>
@@ -984,14 +984,14 @@
   <string name="e_skills_withdraw_title">Retirada de e-Skills</string>
   <string name="e_skills_withdraw_invalid_email_error_message">E-mail inválido</string>
   <string name="e_skills_withdraw_not_enough_balance_error_message">Saldo insuficiente</string>
-  <string name="e_skills_withdraw_not_enough_earnings_error_message">You haven\'t won enough e-Skills games to withdraw that amount</string>
+  <string name="e_skills_withdraw_not_enough_earnings_error_message">Você não ganhou jogos e-Skills o suficiente para sacar essa quantia</string>
   <string name="e_skills_withdraw_minimum_amount_error_message">A quantia mínima para sacar é $%1$.2f</string>
   <string name="e_skills_withdraw_max_amount_part_1">Você pode sacar:</string>
   <string name="e_skills_withdraw_max_amount_part_2">$%1$.2f</string>
   <string name="e_skills_know_more_about">saiba mais sobre e-Skills</string>
   <string name="e_skills_know_more_about_tmp">você só poderá sacar os fundos recebidos em jogos e-Skills</string>
   <string name="e_skills_withdraw_started">Um saque de $%1$.2f \nfoi solicitado</string>
-  <string name="e_skills_withdraw_generic_error">Generic error message</string>
+  <string name="e_skills_withdraw_generic_error">Erro de mensagem genérico</string>
   <string name="e_skills_withdraw_maybe_later">Talvez depois</string>
   <string name="e_skills_room_create_title">Criar ou entrar em uma sala</string>
   <string name="e_skills_room_create_body">Crie uma nova sala e compartilhe-a com seus oponentes ou entre em uma sala existente.</string>
@@ -1003,7 +1003,7 @@
   <string name="promo_code_view_field">Código de Promoção aqui...</string>
   <string name="promo_code_view_error">Código inválido. Tente outro!</string>
   <string name="promo_code_activated">Código promocional ativado!</string>
-  <string name="promo_code_delete_button">DELETE</string>
+  <string name="promo_code_delete_button">EXCLUIR</string>
   <string name="promo_code_replace_button">SUBSTITUIR</string>
   <string name="promo_code_active_tag">Ativo</string>
   <string name="promo_code_expired_tag">Expirado</string>
@@ -1025,5 +1025,5 @@
   <string name="appcoins_info_volume_title">Volume (24h)</string>
   <!--  NFTs -->
   <string name="nfts_title">NFTs</string>
-  <string name="nfts_no_nfts">You don\'t have any NFTs in this wallet yet!</string>
+  <string name="nfts_no_nfts">Você ainda não tem nenhum NFT nesta carteira!</string>
 </resources>
