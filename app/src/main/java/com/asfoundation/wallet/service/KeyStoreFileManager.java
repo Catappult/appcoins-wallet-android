@@ -30,7 +30,7 @@ public class KeyStoreFileManager {
     }
   }
 
-  String getKeystore(String accountAddress) {
+  public String getKeystore(String accountAddress) {
     return Objects.requireNonNull(
         getFilePath(removeHexIndicator(accountAddress), keystoreFolderPath),
         "Wallet with address: " + accountAddress + " not found");
