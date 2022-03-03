@@ -158,7 +158,7 @@
   <string name="action_more_details">Più</string>
   <string name="action_add_wallet">Aggiungi portafoglio</string>
   <string name="action_coinbase">Coinbase</string>
-  <string name="action_shapeshift">Shapeshift (Crypto only)</string>
+  <string name="action_shapeshift">Shapeshift (solo crypto)</string>
   <string name="action_changelly">Changelly</string>
   <string name="action_wallets">Portafogli</string>
   <string name="action_next">Successivo</string>
@@ -263,7 +263,7 @@
   <string name="ellipsize">\u0020• • •</string>
   <string name="transaction_status_label">Stato</string>
   <string name="transaction_category_label">Categoria</string>
-  <string name="transaction_order_reference_label">Order ID</string>
+  <string name="transaction_order_reference_label">ID ordine</string>
   <string name="transaction_details_label">Dettagli</string>
   <string name="transaction_to_label">A</string>
   <string name="dialog_credit_card_remember">Ricorda la carta</string>
@@ -271,7 +271,7 @@
   <string name="dialog_credit_card_number">Numero di carta</string>
   <string name="dialog_credit_card_expiration">Data di scadenza</string>
   <string name="dialog_credit_card_cvv">CVV</string>
-  <string name="dialog_bank_card">Credit/debit card</string>
+  <string name="dialog_bank_card">Carta di credito/debito</string>
   <string name="dialog_expiry_date">Data di scadenza</string>
   <string name="activity_airdrop_title">Conferma di essere un umano per ricevere AppCoin</string>
   <string name="activity_airdrop_details">E\' solo una questione di sicurezza.</string>
@@ -401,7 +401,7 @@
   <string name="askafriend_share_add_message_body">Scrivi un messaggio (facoltativo)</string>
   <string name="askafriend_share_button">Condividi</string>
   <string name="askafriend_share_popup_title">Chiedi a un amico tramite:</string>
-  <string name="askafriend_received_body">You just received %s AppCoins Credits</string>
+  <string name="askafriend_received_body">Hai appena ricevuto %s AppCoins Credits</string>
   <string name="askafriend_notification_received_title">Nuovo trasferimento ricevuto</string>
   <string name="askafriend_notification_received_body">%1$s %2$s sono stati accreditati sul tuo wallet.</string>
   <string name="askafriend_received_title">Trasferimento ricevuto</string>
@@ -440,15 +440,15 @@
   <string name="get_code_button">Ottieni un codice</string>
   <string name="confirm_button">Conferma</string>
   <string name="withdraw_button">preleva</string>
-  <string name="email_here_field">Your email here&#8230;</string>
-  <string name="understood_button">Understood!</string>
+  <string name="email_here_field">Inserisci il tuo indirizzo email qui&#8230;</string>
+  <string name="understood_button">Tutto chiaro!</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Acconsento ai %1$s e all\'%2$s dell\'AppCoins Wallet.</string>
   <string name="terms_and_conditions_error">Accetta i nostri Termini e condizioni e l\'Informativa sulla privacy per continuare</string>
   <string name="terms_and_conditions">Termini e condizioni</string>
   <string name="privacy_policy">Informativa sulla privacy</string>
-  <string name="decline_button">Reject</string>
-  <string name="get_started">Get Started</string>
+  <string name="decline_button">Rifiuta</string>
+  <string name="get_started">Inizia</string>
   <string name="existent_wallet">I already have a wallet</string>
   <!--Home-->
   <string name="home_empty_discover_apps_body">Effettua un acquisto sul tuo gioco preferito e ci occuperemo noi del resto.</string>
