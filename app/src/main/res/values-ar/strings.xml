@@ -271,7 +271,7 @@
   <string name="dialog_credit_card_number">رقم البطاقة</string>
   <string name="dialog_credit_card_expiration">تاريخ الانتهاء</string>
   <string name="dialog_credit_card_cvv">الرمز السري</string>
-  <string name="dialog_bank_card">Credit/debit card</string>
+  <string name="dialog_bank_card">بطاقة ائتمان/مسبقة الدفع</string>
   <string name="dialog_expiry_date">تاريخ الانتهاء</string>
   <string name="activity_airdrop_title">قم بتأكيد كونك إنسانًا لتستقبل الأبكوينز</string>
   <string name="activity_airdrop_details">هذه أمر أمني محض.</string>
@@ -401,7 +401,7 @@
   <string name="askafriend_share_add_message_body">أضف رسالة (اختياري)</string>
   <string name="askafriend_share_button">مشاركة</string>
   <string name="askafriend_share_popup_title">اطل من شخص من خلال:</string>
-  <string name="askafriend_received_body">You just received %s AppCoins Credits</string>
+  <string name="askafriend_received_body">حصلت على %s AppCoins Credits</string>
   <string name="askafriend_notification_received_title">لقد استلمت حوالة</string>
   <string name="askafriend_notification_received_body">أضيفت %1$s %2$s إلى محفظتك.</string>
   <string name="askafriend_received_title">استلمتَ حوالة</string>
@@ -440,16 +440,16 @@
   <string name="get_code_button">احصل على الرمز</string>
   <string name="confirm_button">تأكيد</string>
   <string name="withdraw_button">سحب</string>
-  <string name="email_here_field">Your email here&#8230;</string>
-  <string name="understood_button">Understood!</string>
+  <string name="email_here_field">بريدك الإلكتروني هنا&#8230;</string>
+  <string name="understood_button">مفهوم!</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">أوافق على %1$s و%2$s الخاصة بـ AppCoins Wallet.</string>
   <string name="terms_and_conditions_error">يرجى قبول القواعد والشروط وسياسة الخصوصية لمتابعة</string>
   <string name="terms_and_conditions">القواعد والشروط</string>
   <string name="privacy_policy">سياسة الخصوصية</string>
-  <string name="decline_button">Reject</string>
-  <string name="get_started">Get Started</string>
-  <string name="existent_wallet">I already have a wallet</string>
+  <string name="decline_button">رفض</string>
+  <string name="get_started">ابدأ</string>
+  <string name="existent_wallet">لدي محفظة فعلًا</string>
   <!--Home-->
   <string name="home_empty_discover_apps_body">اشتري العناصر في ألعابك المفضلة وسنعتني نحن بكل شيء.</string>
   <string name="home_empty_discover_apps_button">اكتشف أفضل التطبيقات</string>
@@ -528,7 +528,7 @@
   <string name="purchase_card_error_not_supported">إن نوع بطاقتك غير مدعوم حاليًا. حاول مع بطاقة أخرى.</string>
   <string name="purchase_card_error_security">هل أنت متأكد من أن المعلومات الأمنية صحيحة؟ يرجى المحاولة ثانية.</string>
   <string name="purchase_card_error_wrong_CVV">يبدو أن رمز التحقق خطأ. يرجى المحاولة ثانية.</string>
-  <string name="purchase_card_error_re_insert">It seems you registered this card long time ago! Insert the card details again or use a different one.</string>
+  <string name="purchase_card_error_re_insert">يبدو أنك قد سجلت هذه البطاقة منذ مدة طويلة! أدخل معلومات البطاقة مرة أخرى أو استخدم بطاقة أخرى.</string>
   <string name="purchase_wallet_error_contact_us">يييي، هناك خطبٌ ما في محفظتك. يرجى الاتصال بنا.</string>
   <string name="purchase_carrier_error">يبدو أن رقم هاتفك لا يتوافق مع وسيلة الدفع هذه.</string>
   <string name="purchase_carrier_error_minimum">وسيلة الدفع لديك لا تدعم المدفوعات التي تقل عن %s.</string>
