@@ -120,7 +120,7 @@
   <string name="intro_2_title">Juega Más, Paga Menos</string>
   <string name="intro_2_body">Obtén recompensas al hacer compras en tus juegos favoritos.</string>
   <string name="intro_3_title">Fácil y Sencillo</string>
-  <string name="intro_3_body">Keep the AppCoins Wallet installed to directly purchase in your games.</string>
+  <string name="intro_3_body">Mantén de AppCoins Wallet instalada para poder hacer compras directamente en los juegos.</string>
   <string name="intro_4_title">Seguro y Privado</string>
   <string name="intro_4_body">Tus private keys no abandonan tu dispositivo, por lo que tus APPC siempre están seguras.</string>
   <string name="intro_4_body_2">Todas tus transacciones están siempre seguras gracias a la última tecnología.</string>
@@ -158,7 +158,7 @@
   <string name="action_more_details">Más</string>
   <string name="action_add_wallet">Añadir wallet</string>
   <string name="action_coinbase">Coinbase</string>
-  <string name="action_shapeshift">Shapeshift (Crypto only)</string>
+  <string name="action_shapeshift">Shapeshift (solo cripto)</string>
   <string name="action_changelly">Changelly</string>
   <string name="action_wallets">Wallets</string>
   <string name="action_next">Siguiente</string>
@@ -263,7 +263,7 @@
   <string name="ellipsize">\u0020• • •</string>
   <string name="transaction_status_label">Estado</string>
   <string name="transaction_category_label">Categoría</string>
-  <string name="transaction_order_reference_label">Order ID</string>
+  <string name="transaction_order_reference_label">ID de la compra</string>
   <string name="transaction_details_label">Detalles</string>
   <string name="transaction_to_label">Destinatario</string>
   <string name="dialog_credit_card_remember">Recordar Tarjeta</string>
@@ -401,7 +401,7 @@
   <string name="askafriend_share_add_message_body">Añadir mensaje (opcional)</string>
   <string name="askafriend_share_button">Compartir</string>
   <string name="askafriend_share_popup_title">Pedir a través de:</string>
-  <string name="askafriend_received_body">You just received %s AppCoins Credits</string>
+  <string name="askafriend_received_body">Recibiste %s AppCoins Credits</string>
   <string name="askafriend_notification_received_title">Nueva transferencia recibida</string>
   <string name="askafriend_notification_received_body">%1$s %2$s fueron abonados en tu wallet.</string>
   <string name="askafriend_received_title">Transferencia Recibida</string>
@@ -440,16 +440,16 @@
   <string name="get_code_button">Obtener código</string>
   <string name="confirm_button">Confirmar</string>
   <string name="withdraw_button">Retirar</string>
-  <string name="email_here_field">Your email here&#8230;</string>
-  <string name="understood_button">Understood!</string>
+  <string name="email_here_field">Tu email aquí&#8230;</string>
+  <string name="understood_button">¡Entendido!</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Acepto los %1$s y la %2$s de la AppCoins Wallet.</string>
   <string name="terms_and_conditions_error">Por favor, acepta nuestros Términos y Condiciones y Política de Privacidad para continuar</string>
   <string name="terms_and_conditions">Términos y Condiciones</string>
   <string name="privacy_policy">Política de Privacidad</string>
-  <string name="decline_button">Reject</string>
-  <string name="get_started">Get Started</string>
-  <string name="existent_wallet">I already have a wallet</string>
+  <string name="decline_button">Rechazada</string>
+  <string name="get_started">Comenzar</string>
+  <string name="existent_wallet">Ya tengo una wallet</string>
   <!--Home-->
   <string name="home_empty_discover_apps_body">Haz una compra en tu juego favorito y nos encargaremos de todo.</string>
   <string name="home_empty_discover_apps_button">DESCUBRIR APPS</string>
@@ -488,11 +488,11 @@
   <string name="verification_settings_unverified_title">Verificar Wallet</string>
   <string name="verification_settings_unverified_body">Recibe recompensas e invita a amigos.</string>
   <string name="verification_settings_verified_title">Wallet Verificada</string>
-  <string name="verification_settings_verifying_title">Verifying wallet…</string>
-  <string name="verification_verified_paypal_description">You will be refunded immediately. Your wallet will be verified shortly.</string>
-  <string name="verification_verify_paypal_description">A minimal transaction of %s will be made to confirm your account. It will be refunded immediately.</string>
-  <string name="verification_verify_paypal_button">Verify Now</string>
-  <string name="verification_settings_card_verified_title">Card Verified</string>
+  <string name="verification_settings_verifying_title">Verificando wallet…</string>
+  <string name="verification_verified_paypal_description">Se reembolsará inmediatamente. Tu wallet será verificada en breve.</string>
+  <string name="verification_verify_paypal_description">Se realizará una pequeña transacción de %s para confirmar tu cuenta. Será reembolsada inmediatamente.</string>
+  <string name="verification_verify_paypal_button">Verificar ahora</string>
+  <string name="verification_settings_card_verified_title">Tarjeta verificada</string>
   <string name="verification_settings_no_internet">Necesitas estar conectado a internet.</string>
   <string name="verification_error_time_expired">Ups, tu tiempo disponible ha pasado. ¡Comienza de nuevo!</string>
   <string name="verification_error_attempts_reached">Parace que ya has llegado al límite de intentos. Espera para intentarlo de nuevo.</string>
@@ -527,7 +527,7 @@
   <string name="purchase_card_error_not_supported">Todavía no aceptamos este tipo de tarjeta. Prueba con otra.</string>
   <string name="purchase_card_error_security">¿Estás seguro de que la información de seguridad es correcta? Prueba de nuevo.</string>
   <string name="purchase_card_error_wrong_CVV">El CVV/CVC no es correcto. Prueba de nuevo.</string>
-  <string name="purchase_card_error_re_insert">It seems you registered this card long time ago! Insert the card details again or use a different one.</string>
+  <string name="purchase_card_error_re_insert">¡Registraste esta tarjeta hace mucho tiempo! Inserta los datos de nuevo o usa una diferente.</string>
   <string name="purchase_wallet_error_contact_us">Oops, algo no está bien con tu wallet. Ponte en contact con nosotros.</string>
   <string name="purchase_carrier_error">Parece que tu número de teléfono no es compatible con este método de pago.</string>
   <string name="purchase_carrier_error_minimum">Tu operadora no acepta pagos de menos de %s.</string>
@@ -542,8 +542,8 @@
   <string name="purchase_error_try_other_amount_or_method">Vaya&#8230; ¡Algo no funciona! Prueba con otro método de pago u otra cantidad de recarga.</string>
   <string name="purchase_error_try_cheaper_item">¡Eso es un poco caro! Prueba a hacer una compra de un valor más bajo.</string>
   <string name="purchase_error_try_cheaper_item_or_method">¡Eso es un poco caro! Prueba a hacer una compra de un valor más bajo o usa otro método de pago.</string>
-  <string name="transfer_appc_error_no_eth_title">You need Ether!</string>
-  <string name="transfer_appc_error_no_eth_body">AppCoins transfers fees are paid in Ethereum, so you\'ll need ETH to transfer APPC.</string>
+  <string name="transfer_appc_error_no_eth_title">¡Necesitas Ether!</string>
+  <string name="transfer_appc_error_no_eth_body">Las tasas de la transferencia se pagan en Ethereum, así que necesitas ETH para transferir APPC.</string>
   <string name="purchase_error_invalid_credit_card">Invalid bank card number. Please make sure all digits are correct.</string>
   <string name="purchase_error_card_security_validation">There was an error on the 2nd level validation of this transaction. Please try again.</string>
   <string name="purchase_error_transaction_timeout">It seems you took too long to complete the transaction. Please try again.</string>
