@@ -120,7 +120,7 @@
   <string name="intro_2_title">العب أكثر، ادفع أقل</string>
   <string name="intro_2_body">احصل على المكافآت عند شراء العناصر في تطبيقاتك وألعابك المفضلة.</string>
   <string name="intro_3_title">بسيط وسهل</string>
-  <string name="intro_3_body">Keep the AppCoins Wallet installed to directly purchase in your games.</string>
+  <string name="intro_3_body">احتفظ بمحفظة AppCoins Wallet مثبتة لاستخدامها في الدفع داخل ألعابك.</string>
   <string name="intro_4_title">آمن وسرّي</string>
   <string name="intro_4_body">مفاتيحك السرية لن تفارق الجهاز، ما يبقي الأبكوينز الخاصو بك آمنة طوال الوقت.</string>
   <string name="intro_4_body_2">ستكون كل تحويلاتك آمنة دومًا بفضل التقنيات الحديثة.</string>
@@ -158,7 +158,7 @@
   <string name="action_more_details">المزيد</string>
   <string name="action_add_wallet">إضافة محفظة</string>
   <string name="action_coinbase">Coinbase</string>
-  <string name="action_shapeshift">Shapeshift (Crypto only)</string>
+  <string name="action_shapeshift">Shapeshift (للعملات الرقمية فقط)</string>
   <string name="action_changelly">Changelly</string>
   <string name="action_wallets">المَحافِظ</string>
   <string name="action_next">التالي</string>
@@ -263,7 +263,7 @@
   <string name="ellipsize">\u0020• • •</string>
   <string name="transaction_status_label">الحالة</string>
   <string name="transaction_category_label">الفئة</string>
-  <string name="transaction_order_reference_label">Order ID</string>
+  <string name="transaction_order_reference_label">اطلب الهُوِيَّة</string>
   <string name="transaction_details_label">تفاصيل</string>
   <string name="transaction_to_label">إلى</string>
   <string name="dialog_credit_card_remember">تذكر البطاقة</string>
