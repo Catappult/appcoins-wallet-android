@@ -1017,7 +1017,7 @@
   <!--  NFTs -->
   <string name="nfts_title">NFTs</string>
   <string name="nfts_no_nfts">ဤပိုက္ဆံအိတ္တြင္ မည္သည့္ NFT မွ် မရွိေသးပါ။</string>
-  <string name="nfts_transact_button">Transaction</string>
+  <string name="nfts_transact_button">Send this NFT</string>
   <string name="nfts_transact_button_send">Send</string>
   <string name="nfts_transact_button_next">Next</string>
   <string name="nfts_transact_button_done">Done</string>
@@ -1026,8 +1026,8 @@
   <string name="nfts_transact_input_tip">Wallet address here...</string>
   <string name="nfts_transact_done_mensage">%s successfully sent!</string>
   <string name="nfts_generic_error">Oops! Something went wrong!</string>
-  <string name="nfts_transact_gas_title">What’s your speed?</string>
-  <string name="nfts_transact_gas_description">Select how fast you’d like to send your NFT. The higher the Fee, the faster the transaction</string>
+  <string name="nfts_transact_gas_title">Are you in a hurry?</string>
+  <string name="nfts_transact_gas_description">Choose how much you want to pay in fees. The higher the fee, the faster the transaction.</string>
   <string name="nfts_transact_gas_price">Gas Price</string>
   <string name="nfts_transact_gas_limit">Gas Limit</string>
   <string name="nfts_transact_gas_fee_message">Transaction Fee</string>
