@@ -125,7 +125,7 @@ class AppcoinsRewardsBuyPresenter(private val view: AppcoinsRewardsBuyView,
       Status.ERROR -> Completable.fromAction {
         logger.log(TAG, "Credits error: ${transaction.errorMessage}")
         view.showError(null)
-      }
+      }.subscribeOn(viewScheduler)
       Status.FORBIDDEN -> Completable.fromAction {
         logger.log(TAG, "Forbidden")
         handleFraudFlow()
@@ -133,11 +133,11 @@ class AppcoinsRewardsBuyPresenter(private val view: AppcoinsRewardsBuyView,
       Status.SUB_ALREADY_OWNED -> Completable.fromAction {
         logger.log(TAG, "Sub already owned")
         view.showError(R.string.subscriptions_error_already_subscribed)
-      }
+      }.subscribeOn(viewScheduler)
       Status.NO_NETWORK -> Completable.fromAction {
         view.showNoNetworkError()
         view.hideLoading()
-      }
+      }.subscribeOn(viewScheduler)
     }
   }
 
