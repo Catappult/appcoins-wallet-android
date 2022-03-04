@@ -8,7 +8,6 @@ import com.asfoundation.wallet.service.currencies.LocalCurrencyConversionService
 import com.asfoundation.wallet.wallets.repository.BalanceRepository
 import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
-import org.bouncycastle.util.encoders.Hex
 import org.web3j.abi.FunctionEncoder
 import org.web3j.abi.TypeReference
 import org.web3j.abi.datatypes.*
@@ -136,7 +135,7 @@ class NFTRepository @Inject constructor(
     val gasLimit = BigDecimal(144000).toBigInteger()
     return Transaction(
       fromAddress, nonce, gasPrice, gasLimit, contractAddress, BigInteger.ZERO,
-      Hex.toHexString(data)
+      Numeric.toHexString(data)
     )
   }
 
@@ -157,7 +156,7 @@ class NFTRepository @Inject constructor(
     val nonce = ethGetTransactionCount.transactionCount
     return RawTransaction.createTransaction(
       nonce, gasPrice, gasLimit, contractAddress,
-      Hex.toHexString(data)
+      Numeric.toHexString(data)
     )
   }
 
