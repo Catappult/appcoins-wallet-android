@@ -2,6 +2,7 @@ package cm.aptoide.skills
 
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import androidx.lifecycle.ViewModel
 import cm.aptoide.skills.entity.UserData
 import cm.aptoide.skills.interfaces.PaymentView
@@ -9,6 +10,7 @@ import cm.aptoide.skills.interfaces.WalletAddressObtainer
 import cm.aptoide.skills.model.*
 import cm.aptoide.skills.usecase.*
 import cm.aptoide.skills.util.EskillsPaymentData
+import cm.aptoide.skills.util.UriValidationResult
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.Observable
 import io.reactivex.Single
@@ -16,6 +18,8 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.subjects.PublishSubject
 import java.math.BigDecimal
 import java.util.concurrent.TimeUnit
+import java.util.regex.Matcher
+import java.util.regex.Pattern
 import javax.inject.Inject
 
 @HiltViewModel
@@ -37,6 +41,7 @@ class SkillsViewModel @Inject constructor(
     private val getCachedPaymentUseCase: GetCachedPaymentUseCase,
     private val sendUserVerificationFlowUseCase: SendUserVerificationFlowUseCase,
     private val isWalletVerifiedUseCase: IsWalletVerifiedUseCase,
+    private val validateUrlUseCase: ValidateUrlUseCase
 ) : ViewModel() {
   lateinit var ticketId: String
   private val closeView: PublishSubject<Pair<Int, UserData>> = PublishSubject.create()
@@ -47,8 +52,9 @@ class SkillsViewModel @Inject constructor(
     const val RESULT_REGION_NOT_SUPPORTED = 2
     const val RESULT_SERVICE_UNAVAILABLE = 3
     const val RESULT_ERROR = 6
+    const val RESULT_INVALID_URL = 7
+    const val RESULT_INVALID_USERNAME = 8
     const val GET_ROOM_RETRY_MILLIS = 3000L
-
     const val AUTHENTICATION_REQUEST_CODE = 33
   }
 
@@ -160,6 +166,10 @@ class SkillsViewModel @Inject constructor(
               Pair(RESULT_ERROR, UserData.fromStatus(UserData.Status.REFUNDED))
           )
         }
+  }
+
+  fun validateUrl(uriString: String): UriValidationResult {
+    return validateUrlUseCase(uriString)
   }
 
   fun closeView(): Observable<Pair<Int, UserData>> {
