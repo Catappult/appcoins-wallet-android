@@ -10,6 +10,7 @@ import com.asfoundation.wallet.ui.backup.BackupActivity
 import com.asfoundation.wallet.ui.settings.wallets.SettingsWalletsFragment
 import com.asfoundation.wallet.ui.wallets.WalletsModel
 import com.asfoundation.wallet.eskills.withdraw.WithdrawActivity
+import com.asfoundation.wallet.recover.RecoverWalletFragment
 import javax.inject.Inject
 
 class SettingsNavigator @Inject constructor(private val fragmentManager: FragmentManager,
@@ -46,6 +47,16 @@ class SettingsNavigator @Inject constructor(private val fragmentManager: Fragmen
   fun showPromoCodeFragment() {
     PromoCodeBottomSheetFragment.newInstance()
         .show(fragmentManager, "PromoCodeBottomSheet")
+  }
+
+  fun navigateToRecoverWalletFragment() {
+    fragmentManager.beginTransaction()
+      .replace(
+        R.id.fragment_container,
+        RecoverWalletFragment.newInstance()
+      )
+      .addToBackStack(RecoverWalletFragment::class.java.simpleName)
+      .commit()
   }
 
   fun navigateToWithdrawScreen() {

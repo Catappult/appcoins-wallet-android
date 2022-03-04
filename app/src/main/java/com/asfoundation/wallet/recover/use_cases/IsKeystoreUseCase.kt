@@ -1,5 +1,7 @@
 package com.asfoundation.wallet.recover.use_cases
 
-class IsKeystoreUseCase {
+import javax.inject.Inject
+
+class IsKeystoreUseCase @Inject constructor() {
   operator fun invoke(key: String): Boolean = key.contains("{")
 }

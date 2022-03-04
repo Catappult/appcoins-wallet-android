@@ -14,7 +14,6 @@ import javax.inject.Inject
 class WalletRepository @Inject constructor(private val preferencesRepositoryType: PreferencesRepositoryType,
                        private val accountKeystoreService: AccountKeystoreService,
                        private val analyticsSetUp: AnalyticsSetup,
-                       private val amplitudeAnalytics: AmplitudeAnalytics,
                        private val passwordStore: PasswordStore) : WalletRepositoryType {
 
   override fun fetchWallets(): Single<Array<Wallet>> {

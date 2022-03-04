@@ -20,24 +20,26 @@ import com.asf.wallet.databinding.FragmentRecoverWalletBinding
 import com.asfoundation.wallet.base.Async
 import com.asfoundation.wallet.base.SingleStateFragment
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
+import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class RecoverWalletFragment : BasePageViewFragment(),
-    SingleStateFragment<RecoverWalletState, RecoverWalletSideEffect> {
-  @Inject
-  lateinit var recoverWalletViewModelFactory: RecoverWalletViewModelFactory
+  SingleStateFragment<RecoverWalletState, RecoverWalletSideEffect> {
 
   @Inject
   lateinit var recoverWalletNavigator: RecoverWalletNavigator
 
-  private val viewModel: RecoverWalletViewModel by viewModels { recoverWalletViewModelFactory }
+  private val viewModel: RecoverWalletViewModel by viewModels()
   private val views by viewBinding(FragmentRecoverWalletBinding::bind)
 
   lateinit var requestPermissionsLauncher: ActivityResultLauncher<String>
   lateinit var storageIntentLauncher: ActivityResultLauncher<Intent>
 
-  override fun onCreateView(inflater: LayoutInflater, @Nullable container: ViewGroup?,
-                            @Nullable savedInstanceState: Bundle?): View? {
+  override fun onCreateView(
+    inflater: LayoutInflater, @Nullable container: ViewGroup?,
+    @Nullable savedInstanceState: Bundle?
+  ): View? {
     return inflater.inflate(R.layout.fragment_recover_wallet, container, false)
   }
 
@@ -52,7 +54,10 @@ class RecoverWalletFragment : BasePageViewFragment(),
       requestPermissionsLauncher.launch(Manifest.permission.READ_EXTERNAL_STORAGE)
     }
     views.recoverWalletButton.setOnClickListener {
-      viewModel.handleRecoverClick(views.recoverWalletOptions.keystoreEditText.text.toString(), passwordRequired = false)
+      viewModel.handleRecoverClick(
+        views.recoverWalletOptions.keystoreEditText.text.toString(),
+        passwordRequired = false
+      )
     }
 //    views.recoverWalletPasswordButton.setOnClickListener {
 //      viewModel.handleRecoverClick("", passwordRequired = true)
@@ -62,19 +67,19 @@ class RecoverWalletFragment : BasePageViewFragment(),
 
   fun createLaunchers() {
     requestPermissionsLauncher =
-        registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
-          if (isGranted) {
-            recoverWalletNavigator.launchFileIntent(storageIntentLauncher, viewModel.filePath())
-          }
+      registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
+        if (isGranted) {
+          recoverWalletNavigator.launchFileIntent(storageIntentLauncher, viewModel.filePath())
         }
+      }
     storageIntentLauncher =
-        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-          if (result.resultCode == Activity.RESULT_OK) {
-            result.data?.let {
-              viewModel.handleFileChosen(uri = it.data ?: Uri.parse(""))
-            }
+      registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+        if (result.resultCode == Activity.RESULT_OK) {
+          result.data?.let {
+            viewModel.handleFileChosen(uri = it.data ?: Uri.parse(""))
           }
         }
+      }
   }
 
   override fun onStateChanged(state: RecoverWalletState) {
@@ -84,8 +89,10 @@ class RecoverWalletFragment : BasePageViewFragment(),
   override fun onSideEffect(sideEffect: RecoverWalletSideEffect) = Unit
 
   private fun handleWalletModelRecoverState(asyncRecoverResult: Async<RecoverWalletResult>) {
-    Log.d("APPC-2780",
-        "RecoverWalletFragment: handleWalletModelRecoverState: state -> $asyncRecoverResult ")
+    Log.d(
+      "APPC-2780",
+      "RecoverWalletFragment: handleWalletModelRecoverState: state -> $asyncRecoverResult "
+    )
     when (asyncRecoverResult) {
       is Async.Uninitialized -> {
         showRecoverOptionsScreen()

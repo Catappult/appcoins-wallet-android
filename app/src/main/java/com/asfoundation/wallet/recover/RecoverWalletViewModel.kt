@@ -7,8 +7,10 @@ import com.asfoundation.wallet.billing.analytics.WalletsAnalytics
 import com.asfoundation.wallet.billing.analytics.WalletsEventSender
 import com.asfoundation.wallet.recover.use_cases.*
 import com.asfoundation.wallet.wallets.usecases.UpdateWalletInfoUseCase
+import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.Completable
 import io.reactivex.Single
+import javax.inject.Inject
 
 sealed class RecoverWalletSideEffect : SideEffect {
   data class NavigateToFileIntent(val uri: Uri) : RecoverWalletSideEffect()
@@ -18,7 +20,8 @@ data class RecoverWalletState(
     val recoverResultAsync: Async<RecoverWalletResult> = Async.Uninitialized) :
     ViewState
 
-class RecoverWalletViewModel(private val getFilePathUseCase: GetFilePathUseCase,
+@HiltViewModel
+class RecoverWalletViewModel @Inject constructor(private val getFilePathUseCase: GetFilePathUseCase,
                              private val readFileUseCase: ReadFileUseCase,
                              private val setDefaultWalletUseCase: SetDefaultWalletUseCase,
                              private val isKeystoreUseCase: IsKeystoreUseCase,

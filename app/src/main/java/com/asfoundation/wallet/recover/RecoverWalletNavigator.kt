@@ -6,8 +6,10 @@ import android.net.Uri
 import android.os.Build
 import android.provider.DocumentsContract
 import androidx.activity.result.ActivityResultLauncher
+import androidx.fragment.app.Fragment
+import javax.inject.Inject
 
-class RecoverWalletNavigator(private val recoverWalletFragment: RecoverWalletFragment) {
+class RecoverWalletNavigator @Inject constructor() {
 
   fun launchFileIntent(storageIntentLauncher: ActivityResultLauncher<Intent>,
                        path: Uri?) {

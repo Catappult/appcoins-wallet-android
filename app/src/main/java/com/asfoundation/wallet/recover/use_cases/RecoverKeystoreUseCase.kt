@@ -8,30 +8,33 @@ import com.asfoundation.wallet.repository.PasswordStore
 import com.asfoundation.wallet.repository.WalletRepositoryType
 import com.asfoundation.wallet.util.CurrencyFormatUtils
 import com.asfoundation.wallet.wallets.usecases.GetWalletInfoUseCase
-import com.asfoundation.wallet.wallets.usecases.ObserveWalletInfoUseCase
 import io.reactivex.Single
+import javax.inject.Inject
 
-class RecoverKeystoreUseCase(private val walletRepository: WalletRepositoryType,
-                             private val passwordStore: PasswordStore,
-                             private val backupRestorePreferencesRepository: BackupRestorePreferencesRepository,
-                             private val getWalletInfoUseCase: GetWalletInfoUseCase,
-                             private val currencyFormatUtils: CurrencyFormatUtils) {
+class RecoverKeystoreUseCase @Inject constructor(
+  private val walletRepository: WalletRepositoryType,
+  private val passwordStore: PasswordStore,
+  private val backupRestorePreferencesRepository: BackupRestorePreferencesRepository,
+  private val getWalletInfoUseCase: GetWalletInfoUseCase,
+  private val currencyFormatUtils: CurrencyFormatUtils
+) {
 
   operator fun invoke(keystore: String, password: String = ""): Single<RecoverWalletResult> {
     return passwordStore.generatePassword()
-        .flatMap { newPassword ->
-          walletRepository.restoreKeystoreToWallet(keystore, password, newPassword)
+      .flatMap { newPassword ->
+        walletRepository.restoreKeystoreToWallet(keystore, password, newPassword)
+      }
+      .flatMap {
+        RecoverWalletResultMapper(getWalletInfoUseCase, currencyFormatUtils).map(it)
+      }
+      .doOnSuccess {
+        when (it) {
+          is SuccessfulWalletRecover -> backupRestorePreferencesRepository.setWalletRestoreBackup(
+            it.address
+          )
+          else -> Unit
         }
-        .flatMap {
-          RecoverWalletResultMapper(getWalletInfoUseCase, currencyFormatUtils).map(it)
-        }
-        .doOnSuccess {
-          when (it) {
-            is SuccessfulWalletRecover -> backupRestorePreferencesRepository.setWalletRestoreBackup(
-                it.address)
-            else -> Unit
-          }
-        }
+      }
 
   }
 }

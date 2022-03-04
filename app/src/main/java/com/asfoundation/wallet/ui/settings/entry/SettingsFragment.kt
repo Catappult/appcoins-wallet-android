@@ -163,10 +163,7 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
   override fun setRestorePreference() {
     val restorePreference = findPreference<Preference>("pref_restore")
     restorePreference?.setOnPreferenceClickListener {
-      context?.let {
-        startActivity(
-            RestoreWalletActivity.newIntent(it))
-      }
+      presenter.onRecoverWalletPreferenceClick()
       false
     }
   }
