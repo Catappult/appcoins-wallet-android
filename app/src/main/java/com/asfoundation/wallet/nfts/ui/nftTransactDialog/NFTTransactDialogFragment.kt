@@ -17,11 +17,13 @@ import com.asfoundation.wallet.nfts.domain.GasInfo
 import com.asfoundation.wallet.util.BalanceUtils
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import dagger.hilt.android.AndroidEntryPoint
 import org.apache.commons.lang3.StringUtils.capitalize
 import java.math.BigInteger
 import java.math.RoundingMode
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class NFTTransactDialogFragment : BottomSheetDialogFragment(),
     SingleStateFragment<NFTTransactState, NFTTransactSideEffect> {
 
