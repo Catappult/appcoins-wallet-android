@@ -8,24 +8,28 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.FragmentComponent
+import javax.inject.Named
 
 @InstallIn(FragmentComponent::class)
 @Module
 class NFTTransactDialogModule {
 
   @Provides
-  fun provideNFTTransactDialogViewModelFactory(data: NFTItem,
-                                               estimateNFTSendGasUseCase: EstimateNFTSendGasUseCase,
-                                               sendNFTUseCase: SendNFTUseCase): NFTTransactDialogViewModelFactory {
+  fun provideNFTTransactDialogViewModelFactory(
+    @Named("NFTTransactionItem") data: NFTItem,
+    estimateNFTSendGasUseCase: EstimateNFTSendGasUseCase,
+    sendNFTUseCase: SendNFTUseCase
+  ): NFTTransactDialogViewModelFactory {
     return NFTTransactDialogViewModelFactory(data, estimateNFTSendGasUseCase, sendNFTUseCase)
   }
 
   @Provides
+  @Named("NFTTransactionItem")
   fun provideNFTDetailsData(fragment: Fragment): NFTItem {
     fragment.requireArguments()
-        .apply {
-          return getSerializable(NFTTransactDialogFragment.NFT_ITEM_DATA)!! as NFTItem
-        }
+      .apply {
+        return getSerializable(NFTTransactDialogFragment.NFT_ITEM_DATA)!! as NFTItem
+      }
   }
 
 }
