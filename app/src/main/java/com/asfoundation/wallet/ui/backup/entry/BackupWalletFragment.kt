@@ -2,6 +2,7 @@ package com.asfoundation.wallet.ui.backup.entry
 
 import android.animation.LayoutTransition
 import android.os.Bundle
+import android.os.CountDownTimer
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.LayoutInflater
@@ -89,16 +90,24 @@ class BackupWalletFragment : BasePageViewFragment(),
   }
 
   private fun setTextWatchers() {
-    val textWatcher = object : TextWatcher {
+    val passwordTextWatcher = object : TextWatcher {
+      var timer: CountDownTimer? = null
+
       override fun beforeTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) = Unit
       override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) = Unit
       override fun afterTextChanged(s: Editable) {
-        handlePasswordFields()
+        timer?.cancel()
+        timer = object : CountDownTimer(350, 350) {
+          override fun onTick(millisUntilFinished: Long) {}
+          override fun onFinish() {
+            handlePasswordFields()
+          }
+        }.start()
       }
     }
 
-    views.passwordToggle?.backupPasswordInput?.addTextChangedListener(textWatcher)
-    views.passwordToggle?.backupRepeatPasswordInput?.addTextChangedListener(textWatcher)
+    views.passwordToggle?.backupPasswordInput?.addTextChangedListener(passwordTextWatcher)
+    views.passwordToggle?.backupRepeatPasswordInput?.addTextChangedListener(passwordTextWatcher)
   }
 
   private fun handlePasswordFields() {

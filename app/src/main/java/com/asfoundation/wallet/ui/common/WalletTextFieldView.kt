@@ -93,8 +93,8 @@ class WalletTextFieldView : FrameLayout {
         views.textInputLayout.boxStrokeColor =
             ContextCompat.getColor(this.context, R.color.transparent)
         views.textInputLayout.boxStrokeWidth = 0
-        views.textInputLayout.isPasswordVisibilityToggleEnabled = true
         views.textInputEditText.inputType = InputType.TYPE_TEXT_VARIATION_PASSWORD
+        views.textInputLayout.isPasswordVisibilityToggleEnabled = true
       }
     }
   }

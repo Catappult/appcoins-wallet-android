@@ -10,19 +10,14 @@ import com.asf.wallet.databinding.FragmentBackupSuccessLayoutBinding
 import com.asfoundation.wallet.base.SideEffect
 import com.asfoundation.wallet.base.SingleStateFragment
 import com.asfoundation.wallet.base.ViewState
-import com.asfoundation.wallet.ui.backup.BackupActivityView
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.fragment_backup_success_layout.*
-import kotlinx.android.synthetic.main.layout_backup_success_info.view.*
 
 @AndroidEntryPoint
 class BackupSuccessFragment : BasePageViewFragment(),
   SingleStateFragment<ViewState, SideEffect> {
 
   private val views by viewBinding(FragmentBackupSuccessLayoutBinding::bind)
-
-  private lateinit var activityView: BackupActivityView
 
   companion object {
     const val EMAIL_KEY = "email"
@@ -47,7 +42,7 @@ class BackupSuccessFragment : BasePageViewFragment(),
     super.onViewCreated(view, savedInstanceState)
 
     views.closeButton.setOnClickListener {
-      activityView.closeScreen()
+      this.activity?.finish()
     }
 
     setSuccessInfo()

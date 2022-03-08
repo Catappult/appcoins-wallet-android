@@ -1,11 +1,9 @@
 package com.asfoundation.wallet.ui.backup.skip
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.activity.result.ActivityResultLauncher
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import by.kirich1409.viewbindingdelegate.viewBinding
@@ -25,8 +23,6 @@ class SkipDialogFragment : BottomSheetDialogFragment(),
 
   @Inject
   lateinit var navigator: SkipDialogNavigator
-
-  private lateinit var activityResultLauncher: ActivityResultLauncher<Intent>
 
   private val viewModel: SkipDialogViewModel by viewModels { skipDialogViewModelFactory }
   private val views by viewBinding(BackupSkipLayoutBinding::bind)
