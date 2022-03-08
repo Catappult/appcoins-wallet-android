@@ -13,6 +13,7 @@ import com.asfoundation.wallet.topup.localpayments.LocalTopUpPaymentFragment.Com
 import com.asfoundation.wallet.topup.localpayments.LocalTopUpPaymentFragment.Companion.PAYMENT_LABEL
 import com.asfoundation.wallet.ui.iab.localpayments.LocalPaymentInteractor
 import com.asfoundation.wallet.util.CurrencyFormatUtils
+import com.asfoundation.wallet.wallets.usecases.GetWalletInfoUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -33,12 +34,13 @@ class LocalTopUpPaymentModule {
     topUpAnalytics: TopUpAnalytics,
     navigator: TopUpNavigator,
     currencyFormatUtils: CurrencyFormatUtils,
+    getWalletInfoUseCase: GetWalletInfoUseCase,
     logger: Logger
   ): LocalTopUpPaymentPresenter {
     return LocalTopUpPaymentPresenter(
       fragment as LocalTopUpPaymentView, fragment.context,
       interactor, topUpAnalytics, navigator, currencyFormatUtils, AndroidSchedulers.mainThread(),
-      Schedulers.io(), CompositeDisposable(), data, logger
+      Schedulers.io(), CompositeDisposable(), data, getWalletInfoUseCase, logger
     )
   }
 

@@ -30,6 +30,7 @@ import com.asfoundation.wallet.ui.iab.FiatValue
 import com.asfoundation.wallet.ui.iab.Navigator
 import com.asfoundation.wallet.util.CurrencyFormatUtils
 import com.asfoundation.wallet.util.WalletCurrency
+import com.asfoundation.wallet.wallets.usecases.GetWalletInfoUseCase
 import com.google.gson.JsonObject
 import io.reactivex.Completable
 import io.reactivex.Observable
@@ -63,6 +64,7 @@ class AdyenTopUpPresenter(
   private val gamificationLevel: Int,
   private val topUpAnalytics: TopUpAnalytics,
   private val formatter: CurrencyFormatUtils,
+  private val getWalletInfoUseCase: GetWalletInfoUseCase,
   private val logger: Logger
 ) {
 
@@ -415,12 +417,18 @@ class AdyenTopUpPresenter(
   }
 
   private fun handleSuccessTransaction(): Completable {
-    return Completable.fromAction {
-      topUpAnalytics.sendSuccessEvent(appcValue.toDouble(), paymentType, "success")
-      val bundle = createBundle(retrievedAmount, retrievedCurrency, fiatCurrencySymbol)
-      waitingResult = false
-      navigator.popView(bundle)
-    }
+    return getWalletInfoUseCase(null, cached = false, updateFiat = true)
+      .subscribeOn(networkScheduler)
+      .observeOn(viewScheduler)
+      .ignoreElement()
+      .onErrorComplete()
+      .andThen(
+        Completable.fromAction {
+          topUpAnalytics.sendSuccessEvent(appcValue.toDouble(), paymentType, "success")
+          val bundle = createBundle(retrievedAmount, retrievedCurrency, fiatCurrencySymbol)
+          waitingResult = false
+          navigator.popView(bundle)
+        })
   }
 
   private fun handleFraudFlow(@StringRes error: Int, fraudCheckIds: List<Int>) {

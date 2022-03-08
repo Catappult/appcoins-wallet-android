@@ -14,6 +14,7 @@ import com.asfoundation.wallet.ui.iab.localpayments.LocalPaymentInteractor
 import com.asfoundation.wallet.util.CurrencyFormatUtils
 import com.asfoundation.wallet.util.WalletCurrency
 import com.asfoundation.wallet.util.isNoNetworkException
+import com.asfoundation.wallet.wallets.usecases.GetWalletInfoUseCase
 import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Scheduler
@@ -32,6 +33,7 @@ class LocalTopUpPaymentPresenter(
   private val networkScheduler: Scheduler,
   private val disposables: CompositeDisposable,
   private val data: LocalTopUpPaymentData,
+  private val getWalletInfoUseCase: GetWalletInfoUseCase,
   private val logger: Logger
 ) {
 
@@ -172,15 +174,20 @@ class LocalTopUpPaymentPresenter(
         transaction.status == Transaction.Status.INVALID_TRANSACTION
 
   private fun handleSyncCompletedStatus(): Completable {
-    return Completable.fromAction {
-      analytics.sendSuccessEvent(data.topUpData.appcValue.toDouble(), data.paymentId, "success")
-      val bundle = createBundle(
-        data.topUpData.fiatValue, data.topUpData.fiatCurrencyCode,
-        data.topUpData.fiatCurrencySymbol
-      )
-      waitingResult = false
-      navigator.popView(bundle)
-    }
+    return getWalletInfoUseCase(null, cached = false, updateFiat = true)
+      .subscribeOn(networkScheduler)
+      .observeOn(viewScheduler)
+      .ignoreElement()
+      .onErrorComplete()
+      .andThen(Completable.fromAction {
+        analytics.sendSuccessEvent(data.topUpData.appcValue.toDouble(), data.paymentId, "success")
+        val bundle = createBundle(
+          data.topUpData.fiatValue, data.topUpData.fiatCurrencyCode,
+          data.topUpData.fiatCurrencySymbol
+        )
+        waitingResult = false
+        navigator.popView(bundle)
+      })
   }
 
   private fun handleSupportClicks() {
