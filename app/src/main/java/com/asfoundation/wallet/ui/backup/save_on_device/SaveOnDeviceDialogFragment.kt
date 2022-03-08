@@ -23,7 +23,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import javax.inject.Inject
 
 class SaveOnDeviceDialogFragment : BottomSheetDialogFragment(),
-    SingleStateFragment<SaveBackupBottomSheetState, SaveBackupBottomSheetSideEffect> {
+  SingleStateFragment<SaveOnDeviceDialogState, SaveOnDeviceDialogSideEffect> {
 
 
   @Inject
@@ -35,7 +35,7 @@ class SaveOnDeviceDialogFragment : BottomSheetDialogFragment(),
   private lateinit var requestPermissionsLauncher: ActivityResultLauncher<String>
   private lateinit var openDocumentTreeResultLauncher: ActivityResultLauncher<Intent>
 
-  private val viewModel: SaveBackupBottomSheetViewModel by viewModels { saveOnDeviceDialogViewModelFactory }
+  private val viewModel: SaveOnDeviceDialogViewModel by viewModels { saveOnDeviceDialogViewModelFactory }
   private val views by viewBinding(SaveBackupLayoutBinding::bind)
 
   companion object {
@@ -114,7 +114,7 @@ class SaveOnDeviceDialogFragment : BottomSheetDialogFragment(),
     return R.style.AppBottomSheetDialogThemeNoFloating
   }
 
-  override fun onStateChanged(state: SaveBackupBottomSheetState) {
+  override fun onStateChanged(state: SaveOnDeviceDialogState) {
     setFileName(state.fileName)
     setFilePath(state.downloadsPath)
   }
@@ -132,14 +132,14 @@ class SaveOnDeviceDialogFragment : BottomSheetDialogFragment(),
     }
   }
 
-  override fun onSideEffect(sideEffect: SaveBackupBottomSheetSideEffect) = when (sideEffect) {
-    SaveBackupBottomSheetSideEffect.NavigateToSuccess -> navigator.navigateToSuccessScreen()
-    SaveBackupBottomSheetSideEffect.ShowError -> showError()
+  override fun onSideEffect(sideEffect: SaveOnDeviceDialogSideEffect) = when (sideEffect) {
+    SaveOnDeviceDialogSideEffect.NavigateToSuccess -> navigator.navigateToSuccessScreen()
+    SaveOnDeviceDialogSideEffect.ShowError -> showError()
   }
 
   fun showError() {
     Toast.makeText(context, R.string.error_export, Toast.LENGTH_LONG)
-        .show()
+      .show()
     requireActivity().finish()
   }
 }

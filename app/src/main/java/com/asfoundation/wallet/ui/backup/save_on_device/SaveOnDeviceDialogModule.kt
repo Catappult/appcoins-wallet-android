@@ -17,24 +17,30 @@ import javax.inject.Named
 class SaveOnDeviceDialogModule {
 
   @Provides
-  fun providesSaveBackupBottomSheetViewModelFactory(
-      saveOnDeviceDialogData: SaveOnDeviceDialogData,
-      saveBackupFileUseCase: SaveBackupFileUseCase,
-      backupSuccessLogUseCase: BackupSuccessLogUseCase,
-      @Named("downloads-path") downloadsPath: File?): SaveOnDeviceDialogViewModelFactory {
-    return SaveOnDeviceDialogViewModelFactory(saveOnDeviceDialogData, saveBackupFileUseCase,
-        backupSuccessLogUseCase, downloadsPath)
+  fun providesSaveOnDeviceDialogViewModelFactory(
+    saveOnDeviceDialogData: SaveOnDeviceDialogData,
+    saveBackupFileUseCase: SaveBackupFileUseCase,
+    backupSuccessLogUseCase: BackupSuccessLogUseCase,
+    @Named("downloads-path") downloadsPath: File?
+  ): SaveOnDeviceDialogViewModelFactory {
+    return SaveOnDeviceDialogViewModelFactory(
+      saveOnDeviceDialogData, saveBackupFileUseCase,
+      backupSuccessLogUseCase, downloadsPath
+    )
   }
 
   @Provides
-  fun providesSaveBackupBottomSheetData(
-      fragment: Fragment): SaveOnDeviceDialogData {
+  fun providesSaveOnDeviceDialogData(
+    fragment: Fragment
+  ): SaveOnDeviceDialogData {
     fragment.requireArguments()
-        .apply {
-          return SaveOnDeviceDialogData(
-              getString(SaveOnDeviceDialogFragment.WALLET_ADDRESS_KEY)!!, getString(
-              SaveOnDeviceDialogFragment.PASSWORD_KEY)!!)
-        }
+      .apply {
+        return SaveOnDeviceDialogData(
+          getString(SaveOnDeviceDialogFragment.WALLET_ADDRESS_KEY)!!, getString(
+            SaveOnDeviceDialogFragment.PASSWORD_KEY
+          )!!
+        )
+      }
   }
 
   @Provides

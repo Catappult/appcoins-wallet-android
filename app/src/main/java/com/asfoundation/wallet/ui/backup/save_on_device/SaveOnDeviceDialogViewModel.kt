@@ -8,26 +8,32 @@ import com.asfoundation.wallet.ui.backup.use_cases.BackupSuccessLogUseCase
 import com.asfoundation.wallet.ui.backup.use_cases.SaveBackupFileUseCase
 import java.io.File
 
-sealed class SaveBackupBottomSheetSideEffect : SideEffect {
-  object NavigateToSuccess : SaveBackupBottomSheetSideEffect()
-  object ShowError : SaveBackupBottomSheetSideEffect()
+sealed class SaveOnDeviceDialogSideEffect : SideEffect {
+  object NavigateToSuccess : SaveOnDeviceDialogSideEffect()
+  object ShowError : SaveOnDeviceDialogSideEffect()
 }
 
-data class SaveBackupBottomSheetState(val fileName: String, val downloadsPath: String?) : ViewState
+data class SaveOnDeviceDialogState(val fileName: String, val downloadsPath: String?) : ViewState
 
-class SaveBackupBottomSheetViewModel(
-    private val data: SaveOnDeviceDialogData,
-    private val saveBackupFileUseCase: SaveBackupFileUseCase,
-    private val backupSuccessLogUseCase: BackupSuccessLogUseCase,
-    private val downloadsPath: File?) :
-    BaseViewModel<SaveBackupBottomSheetState, SaveBackupBottomSheetSideEffect>(
-        initialState(data, downloadsPath)) {
+class SaveOnDeviceDialogViewModel(
+  private val data: SaveOnDeviceDialogData,
+  private val saveBackupFileUseCase: SaveBackupFileUseCase,
+  private val backupSuccessLogUseCase: BackupSuccessLogUseCase,
+  private val downloadsPath: File?
+) :
+  BaseViewModel<SaveOnDeviceDialogState, SaveOnDeviceDialogSideEffect>(
+    initialState(data, downloadsPath)
+  ) {
 
   companion object {
-    fun initialState(data: SaveOnDeviceDialogData,
-                     downloadsPath: File?): SaveBackupBottomSheetState {
-      return SaveBackupBottomSheetState("walletbackup${data.walletAddress}",
-          downloadsPath?.absolutePath)
+    fun initialState(
+      data: SaveOnDeviceDialogData,
+      downloadsPath: File?
+    ): SaveOnDeviceDialogState {
+      return SaveOnDeviceDialogState(
+        "walletbackup${data.walletAddress}",
+        downloadsPath?.absolutePath
+      )
     }
   }
 
@@ -35,13 +41,13 @@ class SaveBackupBottomSheetViewModel(
     DocumentFile.fromFile(it)
   }) {
     saveBackupFileUseCase(data.walletAddress, data.password, fileName, filePath)
-        .andThen(backupSuccessLogUseCase(data.walletAddress))
-        .doOnComplete { sendSideEffect { SaveBackupBottomSheetSideEffect.NavigateToSuccess } }
+      .andThen(backupSuccessLogUseCase(data.walletAddress))
+      .doOnComplete { sendSideEffect { SaveOnDeviceDialogSideEffect.NavigateToSuccess } }
         .scopedSubscribe { showError(it) }
   }
 
   private fun showError(throwable: Throwable) {
     throwable.printStackTrace()
-    sendSideEffect { SaveBackupBottomSheetSideEffect.ShowError }
+    sendSideEffect { SaveOnDeviceDialogSideEffect.ShowError }
   }
 }

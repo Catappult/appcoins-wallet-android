@@ -1,7 +1,6 @@
 package com.asfoundation.wallet.ui.backup.save_on_device
 
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
 import com.asf.wallet.R
 import com.asfoundation.wallet.ui.backup.success.BackupSuccessFragment
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment

@@ -10,7 +10,7 @@ class BackupCreationNavigator @Inject constructor(private val fragment: Fragment
 
   fun navigateToSaveOnDeviceScreen(walletAddress: String, password: String) {
     val bottomSheet = SaveOnDeviceDialogFragment.newInstance(walletAddress, password)
-    bottomSheet.show(fragment.requireFragmentManager(), "SaveBackupBottomSheet")
+    bottomSheet.show(fragment.requireFragmentManager(), "SaveOnDeviceDialog")
   }
 
   fun navigateToSuccessScreen() {
