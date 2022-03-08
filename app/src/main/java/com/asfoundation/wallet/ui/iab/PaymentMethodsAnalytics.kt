@@ -2,7 +2,6 @@ package com.asfoundation.wallet.ui.iab
 
 import cm.aptoide.analytics.AnalyticsManager
 import com.asfoundation.wallet.analytics.AnalyticsSetup
-import com.asfoundation.wallet.analytics.IndicativeAnalytics
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics
 import javax.inject.Inject
 
@@ -17,6 +16,7 @@ class PaymentMethodsAnalytics @Inject constructor(private val analyticsManager: 
     const val WALLET_PAYMENT_LOADING_TOTAL = "wallet_payment_loading_total"
     const val WALLET_PAYMENT_LOADING_STEP = "wallet_payment_loading_step"
 
+    const val LOADING_STEP_WALLET_INFO = "get_wallet_info"
     const val LOADING_STEP_CONVERT_TO_FIAT = "convert_to_local_fiat"
     const val LOADING_STEP_GET_PAYMENT_METHODS = "get_payment_methods"
     const val LOADING_STEP_GET_EARNING_BONUS = "get_earning_bonus"

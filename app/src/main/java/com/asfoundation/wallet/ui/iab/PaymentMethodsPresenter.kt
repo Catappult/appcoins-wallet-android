@@ -18,6 +18,7 @@ import com.asfoundation.wallet.ui.iab.PaymentMethodsView.SelectedPaymentMethod.*
 import com.asfoundation.wallet.util.CurrencyFormatUtils
 import com.asfoundation.wallet.util.WalletCurrency
 import com.asfoundation.wallet.util.isNoNetworkException
+import com.asfoundation.wallet.wallets.usecases.GetWalletInfoUseCase
 import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Scheduler
@@ -38,6 +39,7 @@ class PaymentMethodsPresenter(
   private val transaction: TransactionBuilder,
   private val paymentMethodsMapper: PaymentMethodsMapper,
   private val formatter: CurrencyFormatUtils,
+  private val getWalletInfoUseCase: GetWalletInfoUseCase,
   private val logger: Logger,
   private val interactor: PaymentMethodsInteractor,
   private val paymentMethodsData: PaymentMethodsData,
@@ -386,49 +388,60 @@ class PaymentMethodsPresenter(
   }
 
   private fun setupUi(firstRun: Boolean) {
-    disposables.add(Completable.fromAction {
-      startMeasure(PaymentMethodsAnalytics.LOADING_STEP_CONVERT_TO_FIAT, firstRun)
-    }
-      .andThen(getPurchaseFiatValue())
-      .flatMapCompletable { fiatValue ->
-        endMeasure(PaymentMethodsAnalytics.LOADING_STEP_CONVERT_TO_FIAT, firstRun)
-        this.cachedFiatValue = fiatValue
-        startMeasure(PaymentMethodsAnalytics.LOADING_STEP_GET_PAYMENT_METHODS, firstRun)
-        getPaymentMethods(fiatValue)
-          .flatMapCompletable { paymentMethods ->
-            endMeasure(PaymentMethodsAnalytics.LOADING_STEP_GET_PAYMENT_METHODS, firstRun)
-            startMeasure(PaymentMethodsAnalytics.LOADING_STEP_GET_EARNING_BONUS, firstRun)
-            interactor.getEarningBonus(transaction.domain, transaction.amount())
-              .observeOn(viewScheduler)
-              .flatMapCompletable {
-                endMeasure(PaymentMethodsAnalytics.LOADING_STEP_GET_EARNING_BONUS, firstRun)
-                Completable.fromAction {
-                  startMeasure(
-                    PaymentMethodsAnalytics.LOADING_STEP_GET_PROCESSING_DATA,
-                    firstRun
-                  )
-                  view.updateProductName()
-                  setupBonusInformation(it)
-                  selectPaymentMethod(
-                    paymentMethods, fiatValue,
-                    interactor.isBonusActiveAndValid(it)
-                  )
-                  endMeasure(
-                    PaymentMethodsAnalytics.LOADING_STEP_GET_PROCESSING_DATA,
-                    firstRun
-                  )
+    disposables.add(
+      Completable.fromAction {
+        startMeasure(PaymentMethodsAnalytics.LOADING_STEP_WALLET_INFO, firstRun)
+      }
+        .andThen(
+          getWalletInfoUseCase(null, cached = false, updateFiat = true)
+            .subscribeOn(networkThread)
+            .map { "" }
+            .onErrorReturnItem("")
+        )
+        .flatMap {
+          endMeasure(PaymentMethodsAnalytics.LOADING_STEP_WALLET_INFO, firstRun)
+          startMeasure(PaymentMethodsAnalytics.LOADING_STEP_CONVERT_TO_FIAT, firstRun)
+          return@flatMap getPurchaseFiatValue()
+        }
+        .flatMapCompletable { fiatValue ->
+          endMeasure(PaymentMethodsAnalytics.LOADING_STEP_CONVERT_TO_FIAT, firstRun)
+          this.cachedFiatValue = fiatValue
+          startMeasure(PaymentMethodsAnalytics.LOADING_STEP_GET_PAYMENT_METHODS, firstRun)
+          getPaymentMethods(fiatValue)
+            .flatMapCompletable { paymentMethods ->
+              endMeasure(PaymentMethodsAnalytics.LOADING_STEP_GET_PAYMENT_METHODS, firstRun)
+              startMeasure(PaymentMethodsAnalytics.LOADING_STEP_GET_EARNING_BONUS, firstRun)
+              interactor.getEarningBonus(transaction.domain, transaction.amount())
+                .observeOn(viewScheduler)
+                .flatMapCompletable {
+                  endMeasure(PaymentMethodsAnalytics.LOADING_STEP_GET_EARNING_BONUS, firstRun)
+                  Completable.fromAction {
+                    startMeasure(
+                      PaymentMethodsAnalytics.LOADING_STEP_GET_PROCESSING_DATA,
+                      firstRun
+                    )
+                    view.updateProductName()
+                    setupBonusInformation(it)
+                    selectPaymentMethod(
+                      paymentMethods, fiatValue,
+                      interactor.isBonusActiveAndValid(it)
+                    )
+                    endMeasure(
+                      PaymentMethodsAnalytics.LOADING_STEP_GET_PROCESSING_DATA,
+                      firstRun
+                    )
+                  }
                 }
-              }
-          }
-      }
-      .subscribeOn(networkThread)
-      .observeOn(viewScheduler)
-      .doOnComplete {
-        //If first run we should rely on the hideLoading of the handleOnGoingPurchases method
-        if (!firstRun) view.hideLoading()
-        endMeasure(PaymentMethodsAnalytics.WALLET_PAYMENT_LOADING_TOTAL, firstRun)
-      }
-      .subscribe({ }, { this.showError(it) })
+            }
+        }
+        .subscribeOn(networkThread)
+        .observeOn(viewScheduler)
+        .doOnComplete {
+          //If first run we should rely on the hideLoading of the handleOnGoingPurchases method
+          if (!firstRun) view.hideLoading()
+          endMeasure(PaymentMethodsAnalytics.WALLET_PAYMENT_LOADING_TOTAL, firstRun)
+        }
+        .subscribe({ }, { this.showError(it) })
     )
   }
 

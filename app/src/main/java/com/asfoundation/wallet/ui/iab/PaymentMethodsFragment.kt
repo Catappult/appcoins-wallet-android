@@ -25,6 +25,7 @@ import com.asfoundation.wallet.util.CurrencyFormatUtils
 import com.asfoundation.wallet.util.Period
 import com.asfoundation.wallet.util.WalletCurrency
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
+import com.asfoundation.wallet.wallets.usecases.GetWalletInfoUseCase
 import com.jakewharton.rxbinding2.view.RxView
 import com.jakewharton.rxrelay2.PublishRelay
 import dagger.hilt.android.AndroidEntryPoint
@@ -96,6 +97,9 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
   lateinit var formatter: CurrencyFormatUtils
 
   @Inject
+  lateinit var getWalletInfoUseCase: GetWalletInfoUseCase
+
+  @Inject
   lateinit var logger: Logger
 
   @Inject
@@ -136,8 +140,8 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
     presenter = PaymentMethodsPresenter(
       this, AndroidSchedulers.mainThread(),
       Schedulers.io(), CompositeDisposable(), paymentMethodsAnalytics, transactionBuilder!!,
-      paymentMethodsMapper, formatter, logger, paymentMethodsInteractor, paymentMethodsData,
-      taskTimer
+      paymentMethodsMapper, formatter, getWalletInfoUseCase, logger, paymentMethodsInteractor,
+      paymentMethodsData, taskTimer
     )
   }
 
