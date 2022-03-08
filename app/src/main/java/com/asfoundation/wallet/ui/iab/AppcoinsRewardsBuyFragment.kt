@@ -15,6 +15,7 @@ import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.util.CurrencyFormatUtils
 import com.asfoundation.wallet.util.TransferParser
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
+import com.asfoundation.wallet.wallets.usecases.GetWalletInfoUseCase
 import com.jakewharton.rxbinding2.view.RxView
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -50,6 +51,9 @@ class AppcoinsRewardsBuyFragment : BasePageViewFragment(), AppcoinsRewardsBuyVie
   lateinit var appcoinsRewardsBuyInteract: AppcoinsRewardsBuyInteract
 
   @Inject
+  lateinit var getWalletInfoUseCase: GetWalletInfoUseCase
+
+  @Inject
   lateinit var logger: Logger
 
   private lateinit var presenter: AppcoinsRewardsBuyPresenter
@@ -68,7 +72,7 @@ class AppcoinsRewardsBuyFragment : BasePageViewFragment(), AppcoinsRewardsBuyVie
       this, rewardsManager, AndroidSchedulers.mainThread(),
       Schedulers.io(), CompositeDisposable(), transactionBuilder.domain,
       isBds, analytics, transactionBuilder, formatter, gamificationLevel,
-      appcoinsRewardsBuyInteract, logger
+      appcoinsRewardsBuyInteract, getWalletInfoUseCase, logger
     )
     setupTransactionCompleteAnimation()
     presenter.present()

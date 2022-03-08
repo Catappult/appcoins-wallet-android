@@ -7,6 +7,7 @@ import com.asf.wallet.R
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.util.CurrencyFormatUtils
+import com.asfoundation.wallet.wallets.usecases.GetWalletInfoUseCase
 import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Scheduler
@@ -28,6 +29,7 @@ class AppcoinsRewardsBuyPresenter(
   private val formatter: CurrencyFormatUtils,
   private val gamificationLevel: Int,
   private val appcoinsRewardsBuyInteract: AppcoinsRewardsBuyInteract,
+  private val getWalletInfoUseCase: GetWalletInfoUseCase,
   private val logger: Logger
 ) {
 
@@ -105,6 +107,13 @@ class AppcoinsRewardsBuyPresenter(
         if (isBds && isManagedPaymentType(transactionBuilder.type)) {
           val billingType = BillingSupportedType.valueOfProductType(transactionBuilder.type)
           rewardsManager.getPaymentCompleted(packageName, sku, transaction.purchaseUid, billingType)
+            .flatMap { txn ->
+              getWalletInfoUseCase(null, cached = false, updateFiat = true)
+                .subscribeOn(networkScheduler)
+                .observeOn(viewScheduler)
+                .map { txn }
+                .onErrorReturnItem(txn)
+            }
             .flatMapCompletable { purchase ->
               Completable.fromAction { view.showTransactionCompleted() }
                 .subscribeOn(viewScheduler)
@@ -126,6 +135,13 @@ class AppcoinsRewardsBuyPresenter(
         } else {
           rewardsManager.getTransaction(packageName, sku, amount)
             .firstOrError()
+            .flatMap { txn ->
+              getWalletInfoUseCase(null, cached = false, updateFiat = true)
+                .subscribeOn(networkScheduler)
+                .observeOn(viewScheduler)
+                .map { txn }
+                .onErrorReturnItem(txn)
+            }
             .map(Transaction::txId)
             .flatMapCompletable { transactionId ->
               Completable.fromAction { view.showTransactionCompleted() }

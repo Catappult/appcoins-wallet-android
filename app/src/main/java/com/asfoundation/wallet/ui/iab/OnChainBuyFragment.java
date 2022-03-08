@@ -19,6 +19,7 @@ import com.asf.wallet.R;
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics;
 import com.asfoundation.wallet.entity.TransactionBuilder;
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment;
+import com.asfoundation.wallet.wallets.usecases.GetWalletInfoUseCase;
 import com.jakewharton.rxbinding2.view.RxView;
 import dagger.hilt.android.AndroidEntryPoint;
 import io.reactivex.Observable;
@@ -46,6 +47,7 @@ import static com.asfoundation.wallet.ui.iab.IabActivity.TRANSACTION_AMOUNT;
   private static final String BONUS_KEY = "bonus";
   private static final String GAMIFICATION_LEVEL = "gamification_level";
   @Inject OnChainBuyInteract onChainBuyInteract;
+  @Inject GetWalletInfoUseCase getWalletInfoUseCase;
   @Inject BillingAnalytics analytics;
   @Inject Logger logger;
   private Button okErrorButton;
@@ -114,7 +116,8 @@ import static com.asfoundation.wallet.ui.iab.IabActivity.TRANSACTION_AMOUNT;
 
     presenter = new OnChainBuyPresenter(this, AndroidSchedulers.mainThread(), Schedulers.io(),
         new CompositeDisposable(), onChainBuyInteract.getBillingMessagesMapper(), isBds, analytics,
-        getAppPackage(), data, gamificationLevel, logger, onChainBuyInteract, transaction);
+        getAppPackage(), data, gamificationLevel, logger, onChainBuyInteract, getWalletInfoUseCase,
+        transaction);
     adapter =
         new ArrayAdapter<>(getContext().getApplicationContext(), R.layout.iab_raiden_dropdown_item,
             R.id.item, new ArrayList<>());
