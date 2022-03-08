@@ -271,7 +271,7 @@
   <string name="dialog_credit_card_number">Số thẻ</string>
   <string name="dialog_credit_card_expiration">Ngày hết hạn</string>
   <string name="dialog_credit_card_cvv">Mã CVV</string>
-  <string name="dialog_bank_card">Bank card</string>
+  <string name="dialog_bank_card">Credit/debit card</string>
   <string name="dialog_expiry_date">Ngày hết hạn</string>
   <string name="activity_airdrop_title">Xác nhận bạn là con người để nhận AppCoin</string>
   <string name="activity_airdrop_details">Đây chỉ là yếu tố bảo mật.</string>
@@ -401,7 +401,7 @@
   <string name="askafriend_share_add_message_body">Thêm lời nhắn (Tùy chọn)</string>
   <string name="askafriend_share_button">Chia sẻ</string>
   <string name="askafriend_share_popup_title">Nhờ ai đó qua:</string>
-  <string name="askafriend_received_body">Bạn vừa nhận được %s APPC-C</string>
+  <string name="askafriend_received_body">You just received %s AppCoins Credits</string>
   <string name="askafriend_notification_received_title">Chuyển khoản mới nhận</string>
   <string name="askafriend_notification_received_body">%1$s %2$s đã được ghi có vào ví của bạn.</string>
   <string name="askafriend_received_title">Đã nhận tiền</string>
@@ -440,6 +440,8 @@
   <string name="get_code_button">Lấy mã</string>
   <string name="confirm_button">Xác nhận</string>
   <string name="withdraw_button">rút</string>
+  <string name="email_here_field">Your email here&#8230;</string>
+  <string name="understood_button">Understood!</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Tôi đồng ý với %1$s và %2$s của Ví AppCoins.</string>
   <string name="terms_and_conditions_error">Vui lòng chấp nhận Điều khoản và Điều kiện và Chính sách bảo mật của chúng tôi để tiếp tục</string>
@@ -453,7 +455,7 @@
   <string name="home_empty_discover_apps_button">KHÁM PHÁ CÁC ỨNG DỤNG HÀNG ĐẦU</string>
   <!--Tokens-->
   <!--Settings-->
-  <string name="title_redeem">Redeem Gift Card</string>
+  <string name="title_redeem">Redeem Code</string>
   <string name="settings_item_support">Liên hệ với Đội ngũ Hỗ trợ</string>
   <string name="settings_subheader_support">Hỗ trợ</string>
   <string name="settings_subheader_about_us">Giới thiệu</string>
@@ -525,6 +527,7 @@
   <string name="purchase_card_error_not_supported">Loại thẻ của bạn chưa được hỗ trợ. Hãy thử lại bằng một thẻ khác.</string>
   <string name="purchase_card_error_security">Bạn có chắc chắn thông tin bảo mật đúng không? Vui lòng thử lại lần nữa.</string>
   <string name="purchase_card_error_wrong_CVV">Mã CVV/CVC của bạn có vẻ như không đúng. Vui lòng thử lại lần nữa.</string>
+  <string name="purchase_card_error_re_insert">It seems you registered this card long time ago! Insert the card details again or use a different one.</string>
   <string name="purchase_wallet_error_contact_us">Rất tiếc, có điều gì đó không ổn với ví của bạn. Vui lòng liên hệ ngay với chúng tôi.</string>
   <string name="purchase_carrier_error">Có vẻ như số điện thoại của bạn không tương thích với phương thức thanh toán này.</string>
   <string name="purchase_carrier_error_minimum">Nhà cung cấp dịch vụ của bạn không hỗ trợ các khoản thanh toán dưới %s.</string>
@@ -546,7 +549,7 @@
   <string name="purchase_error_transaction_timeout">Có vẻ như bạn đã mất quá nhiều thời gian để hoàn thành giao dịch. Vui lòng thử lại.</string>
   <string name="purchase_error_card_already_in_progress">Yêu cầu của bạn đã được xử lý hoặc đang được xử lý. Vui lòng chờ.</string>
   <string name="purchase_error_payment_rejected">Thanh toán bị từ chối! Vui lòng thử bằng thẻ của một công ty phát hành khác hoặc sử dụng phương thức thanh toán khác.</string>
-  <string name="purchase_error_verify_wallet">Hãy thử xác minh ví của bạn để giải quyết tình huống này.</string>
+  <string name="purchase_error_verify_wallet">Validate your payment method to complete this purchase.</string>
   <string name="purchase_error_verify_card">Xác thực thẻ của bạn để hoàn tất giao dịch mua này.</string>
   <string name="purachse_error_verify_card_button">XÁC THỰC THẺ</string>
   <string name="purchase_eskills_sku">Vé tham gia</string>
@@ -586,7 +589,7 @@
   <string name="referral_view_share_link_button">CHIA SẺ LIÊN KẾT MỜI</string>
   <string name="referral_view_notifications_title">Thông báo</string>
   <string name="referral_share_sheet_title">Chia sẻ liên kết mời qua:</string>
-  <string name="referral_view_unverified_body">Receive %s worth of AppCoins Credits for each friend. Your first need to verify your wallet.</string>
+  <string name="referral_view_unverified_body">Receive %s worth of AppCoins Credits for each friend. You first need to verify your wallet.</string>
   <string name="referral_view_verify_button">XÁC MINH VÍ</string>
   <string name="referral_view_i_have_been_invited_button">TÔI ĐÃ ĐƯỢC MỜI</string>
   <string name="referral_view_dropup_menu_friends_invited">Bạn bè đã mời</string>
@@ -626,25 +629,16 @@
   <!--Backup and Import-->
   <string name="backup_home_notification_title">Sao lưu Ví của bạn</string>
   <string name="backup_home_notification_body">Bạn đã bao giờ bị mất điện thoại chưa? Hãy sao lưu ví của mình ngay!</string>
-  <string name="backup_button">SAO LƯU</string>
-  <string name="backup_title">Sao lưu</string>
   <string name="backup_password_title">Đồng bộ ví của bạn (tùy chọn)</string>
-  <string name="backup_password">Mật khẩu</string>
-  <string name="backup_body">Chúng tôi không lưu trữ khóa cá nhân hoặc bất kỳ phương thức truy cập nào khác của bạn. Điều quan trọng hơn cả là giữ cho bản sao lưu ví (kho khóa) của bạn được an toàn.</string>
   <string name="backup_confirmation_title">Chỉ một bước nữa thôi</string>
   <string name="backup_confirmation_body">Giữ bản sao lưu của bạn an toàn! Bạn muốn lưu nó ở đâu?</string>
   <string name="backup_confirmation_yes">CÓ, HOÀN TẤT</string>
   <string name="backup_confirmation_no">KHÔNG, LƯU TRÊN THIẾT BỊ</string>
-  <string name="backup_done_title">Sao lưu hoàn tất!</string>
   <string name="backup_done_body">Bạn có chắc rằng tập tin sao lưu của bạn đang ở chỗ an toàn không?</string>
   <string name="backup_confirmation_no_share_title">Sao lưu hoàn tất!</string>
   <string name="backup_confirmation_no_share_body">Tập tin sao lưu của bạn nằm trong thư mục Downloads của bạn.</string>
   <string name="backup_save_dialogue_title">Lưu tập tin sao lưu</string>
   <string name="backup_save_dialogue_body">Chọn tên cho tập tin sao lưu của bạn.</string>
-  <string name="backup_confirmation_tips_title">Giữ cho tập tin được an toàn:</string>
-  <string name="backup_confirmation_tips_1">In và lưu nó ở một nơi an toàn.</string>
-  <string name="backup_confirmation_tips_2">Lưu nó vào ổ USB.</string>
-  <string name="backup_confirmation_tips_3">Sao chép nó vào một lưu trữ đám mây riêng tư và an toàn.</string>
   <string name="backup_send_via_title">Gửi bản sao lưu qua:</string>
   <string name="backup_send_button">LƯU BẢN SAO LƯU</string>
   <string name="backup_save_button">LƯU BẢN SAO LƯU</string>
@@ -658,14 +652,27 @@
   <string name="import_wallet_wrong_password_body">Rất tiếc, sai mật khẩu!</string>
   <string name="error_invalid_private_key">Khóa cá nhân không hợp lệ</string>
   <string name="error_invalid_keystore">Kho khóa không hợp lệ</string>
+  <string name="backup_title">Backup uour wallet now!</string>
+  <string name="backup_body">Chúng tôi không lưu trữ khóa cá nhân hoặc bất kỳ phương thức truy cập nào khác của bạn. Điều quan trọng hơn cả là giữ cho bản sao lưu ví (kho khóa) của bạn được an toàn.</string>
+  <string name="backup_additional_security_title">Bảo mật bổ sung (tùy chọn)</string>
+  <string name="backup_additional_security_body">Chọn mật khẩu</string>
+  <string name="backup_button">BACKUP WALLET</string>
+  <string name="backup_password">Mật khẩu</string>
+  <string name="backup_ready_title">Your backup is ready! Keep it safe.</string>
+  <string name="backup_ready_save_on_email">Save it on your email</string>
+  <string name="backup_ready_email_button">Send to email</string>
+  <string name="backup_ready_device_button">Save on device</string>
+  <string name="backup_done_title">Sao lưu hoàn tất!</string>
+  <string name="backup_confirmation_tips_title">Giữ cho tập tin được an toàn:</string>
+  <string name="backup_confirmation_tips_1">In và lưu nó ở một nơi an toàn.</string>
+  <string name="backup_confirmation_tips_2">Lưu nó vào ổ USB.</string>
+  <string name="backup_confirmation_tips_3">Sao chép nó vào một lưu trữ đám mây riêng tư và an toàn.</string>
   <string name="backup_tooltip_body">Tạo bản sao lưu cho ví của bạn!</string>
   <string name="backup_tooltip_later_button">ĐỂ SAU</string>
   <string name="backup_tooltip_backup_button">SAO LƯU</string>
   <string name="backup_notification_title">Tạo bản sao lưu cho ví của bạn!</string>
   <string name="backup_notification_body">Giữ tiền của bạn an toàn và đảm bảo bạn luôn có thể truy cập vào ví của mình.</string>
   <string name="backup_choose_wallet_title">Chọn một ví để sao lưu</string>
-  <string name="backup_additional_security_title">Bảo mật bổ sung (tùy chọn)</string>
-  <string name="backup_additional_security_body">Chọn mật khẩu</string>
   <string name="backup_additional_security_disclaimer_title">Hãy giữ mật khẩu của bạn an toàn.</string>
   <string name="backup_additional_security_disclaimer_body">Không có khôi phục mật khẩu.</string>
   <string name="backup_additional_security_password_not_march">Mật khẩu không khớp.</string>
@@ -837,7 +844,7 @@
   <string name="carrier_billing_terms_button">Điều khoản và Điều kiện</string>
   <string name="carrier_billing_privacy_button">Chính sách Quyền riêng tư</string>
   <!--Manage Cards-->
-  <string name="manage_cards_settings_add_title">Add bank card</string>
+  <string name="manage_cards_settings_add_title">Add credit/debit card</string>
   <string name="manage_cards_settings_manage_title">Quản lý thẻ</string>
   <string name="manage_cards_view_title">Quản lý thẻ</string>
   <string name="manage_cards_view_manage_subtitle">Quản lý thẻ thanh toán của bạn</string>
@@ -913,7 +920,7 @@
   <string name="rate_us_back_title">Bạn muốn giúp chúng tôi?</string>
   <string name="rate_us_back_body">Xếp hạng Ví AppCoins trên cửa hàng ứng dụng để chúng tôi có thể cải thiện nó.</string>
   <!--Card verification-->
-  <string name="card_verification_body">Use your bank card to verify your wallet.</string>
+  <string name="card_verification_body">Xác thực thẻ tín dụng / thẻ ghi nợ của bạn để thực hiện thanh toán.</string>
   <string name="card_verification_charde_disclaimer">Chúng tôi sẽ tính phí %s vào thẻ của bạn và sẽ hoàn lại tiền ngay khi bạn xác nhận mã. Tùy thuộc vào ngân hàng của bạn, có thể sẽ mất từ vài phút đến vài ngày.</string>
   <string name="card_verification_code_title">Kiểm tra mã trong chi tiết giao dịch</string>
   <string name="card_verification_code_body">Mã sẽ xuất hiện trong bản tóm tắt giao dịch do công ty phát hành thẻ của bạn cung cấp.</string>
@@ -968,7 +975,7 @@
   <string name="e_skills_withdraw_title">Rút tiền e-Skills</string>
   <string name="e_skills_withdraw_invalid_email_error_message">Email không hợp lệ</string>
   <string name="e_skills_withdraw_not_enough_balance_error_message">Không đủ số dư</string>
-  <string name="e_skills_withdraw_not_enough_earnings_error_message">Bạn chỉ có thể rút tiền kiếm được từ các trò chơi e-Skills</string>
+  <string name="e_skills_withdraw_not_enough_earnings_error_message">You haven\'t won enough e-Skills games to withdraw that amount</string>
   <string name="e_skills_withdraw_minimum_amount_error_message">Số tiền tối thiểu để rút là $%1$.2f</string>
   <string name="e_skills_withdraw_max_amount_part_1">Bạn có thể rút:</string>
   <string name="e_skills_withdraw_max_amount_part_2">$%1$.2f</string>
@@ -1009,5 +1016,5 @@
   <string name="appcoins_info_volume_title">Khối lượng (24h)</string>
   <!--  NFTs -->
   <string name="nfts_title">NFTs</string>
-  <string name="nfts_no_nfts">Không có NFTs nào tại thời điểm này.</string>
+  <string name="nfts_no_nfts">You don\'t have any NFTs in this wallet yet!</string>
 </resources>

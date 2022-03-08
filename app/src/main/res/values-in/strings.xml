@@ -120,7 +120,7 @@
   <string name="intro_2_title">Mainkan Lebih Sering, Bayar Kurang</string>
   <string name="intro_2_body">Dapatkan hadiah untuk pembelian item di aplikasi dan permainan favorit Anda.</string>
   <string name="intro_3_title">Sederhana dan Mudah</string>
-  <string name="intro_3_body">Proses semua pembelian in-app Anda dengan metode pembayaran favorit.</string>
+  <string name="intro_3_body">Tetap instal AppCoins Wallet agar bisa langsung membeli di game Anda.</string>
   <string name="intro_4_title">Aman dan Pribadi</string>
   <string name="intro_4_body">Kunci pribadi Anda tidak akan pernah meninggalkan perangkat, jadi AppCoins Anda selalu aman.</string>
   <string name="intro_4_body_2">Semua transaksi yang Anda lakukan selalu aman berkat teknologi terkini.</string>
@@ -271,7 +271,7 @@
   <string name="dialog_credit_card_number">Nomor Kartu</string>
   <string name="dialog_credit_card_expiration">Tanggal Kedaluwarsa</string>
   <string name="dialog_credit_card_cvv">CVV</string>
-  <string name="dialog_bank_card">Bank card</string>
+  <string name="dialog_bank_card">Credit/debit card</string>
   <string name="dialog_expiry_date">Tanggal kedaluwarsa</string>
   <string name="activity_airdrop_title">Untuk menerima AppCoin, konfirmasikan bahwa Anda manusia</string>
   <string name="activity_airdrop_details">Ini hanya soal keamanan.</string>
@@ -401,7 +401,7 @@
   <string name="askafriend_share_add_message_body">Tambahkan Pesan (Opsional)</string>
   <string name="askafriend_share_button">Berbagi</string>
   <string name="askafriend_share_popup_title">Tanya seseorang via:</string>
-  <string name="askafriend_received_body">Anda baru saja menerima %s APPC-C</string>
+  <string name="askafriend_received_body">You just received %s AppCoins Credits</string>
   <string name="askafriend_notification_received_title">Transfer Baru Diterima</string>
   <string name="askafriend_notification_received_body">%1$s %2$s dimasukkan ke dompet Anda.</string>
   <string name="askafriend_received_title">Transfer yang Diterima</string>
@@ -440,6 +440,8 @@
   <string name="get_code_button">Dapatkan kode</string>
   <string name="confirm_button">Konfirmasi</string>
   <string name="withdraw_button">tarik</string>
+  <string name="email_here_field">Your email here&#8230;</string>
+  <string name="understood_button">Understood!</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Saya setuju dengan %1$s dan %2$s AppCoins Wallet.</string>
   <string name="terms_and_conditions_error">Harap menerima Syarat dan Ketentuan serta Kebijakan Privasi kami untuk melanjutkan</string>
@@ -449,11 +451,11 @@
   <string name="get_started">Get Started</string>
   <string name="existent_wallet">I already have a wallet</string>
   <!--Home-->
-  <string name="home_empty_discover_apps_body">Aplikasi Android terbaik menunggu Anda.</string>
+  <string name="home_empty_discover_apps_body">Lakukan pembelian di game favorit Anda, nanti kami akan menangani semuanya.</string>
   <string name="home_empty_discover_apps_button">TEMUKAN APLIKASI TERATAS</string>
   <!--Tokens-->
   <!--Settings-->
-  <string name="title_redeem">Redeem Gift Card</string>
+  <string name="title_redeem">Redeem Code</string>
   <string name="settings_item_support">Hubungi Tim Dukungan</string>
   <string name="settings_subheader_support">Dukungan</string>
   <string name="settings_subheader_about_us">Tentang Kami</string>
@@ -525,6 +527,7 @@
   <string name="purchase_card_error_not_supported">Jenis kartu Anda belum didukung. Silakan coba yang lainnya.</string>
   <string name="purchase_card_error_security">Apakah Anda yakin informasi keamanannya benar? Silakan coba lagi.</string>
   <string name="purchase_card_error_wrong_CVV">Kode CVV/CVC Anda sepertinya salah. Silakan coba lagi.</string>
+  <string name="purchase_card_error_re_insert">It seems you registered this card long time ago! Insert the card details again or use a different one.</string>
   <string name="purchase_wallet_error_contact_us">Ups, ada masalah dengan dompet Anda. Silakan hubungi kami.</string>
   <string name="purchase_carrier_error">Sepertinya nomor telepon Anda tidak kompatibel dengan metode pembayaran ini.</string>
   <string name="purchase_carrier_error_minimum">Operator Anda tidak mendukung pembayaran kurang dari %s.</string>
@@ -546,7 +549,7 @@
   <string name="purchase_error_transaction_timeout">Sepertinya Anda terlalu lama menyelesaikan transaksi. Silakan coba lagi.</string>
   <string name="purchase_error_card_already_in_progress">Permintaan Anda sudah diproses atau sedang dijalankan. Mohon tunggu.</string>
   <string name="purchase_error_payment_rejected">Pembayaran ditolak! Silakan coba dengan kartu dari penerbit kartu lain atau gunakan metode pembayaran lain.</string>
-  <string name="purchase_error_verify_wallet">Coba verifikasi dompet Anda untuk mengatasi situasi ini.</string>
+  <string name="purchase_error_verify_wallet">Validate your payment method to complete this purchase.</string>
   <string name="purchase_error_verify_card">Validasi kartu Anda untuk menyelesaikan pembelian ini.</string>
   <string name="purachse_error_verify_card_button">VALIDASI KARTU</string>
   <string name="purchase_eskills_sku">Tiket masuk</string>
@@ -586,7 +589,7 @@
   <string name="referral_view_share_link_button">BAGIKAN TAUTAN UNDANGAN</string>
   <string name="referral_view_notifications_title">Pemberitahuan</string>
   <string name="referral_share_sheet_title">Bagikan tautan undangan melalui:</string>
-  <string name="referral_view_unverified_body">Receive %s worth of AppCoins Credits for each friend. Your first need to verify your wallet.</string>
+  <string name="referral_view_unverified_body">Receive %s worth of AppCoins Credits for each friend. You first need to verify your wallet.</string>
   <string name="referral_view_verify_button">VERIFIKASI DOMPET</string>
   <string name="referral_view_i_have_been_invited_button">SAYA SUDAH DIUNDANG</string>
   <string name="referral_view_dropup_menu_friends_invited">Teman sudah diundang</string>
@@ -626,25 +629,16 @@
   <!--Backup and Import-->
   <string name="backup_home_notification_title">Cadangkan Dompet Anda</string>
   <string name="backup_home_notification_body">Apakah Anda pernah kehilangan HP? Cadangkan dompet Anda sekarang!</string>
-  <string name="backup_button">CADANGKAN</string>
-  <string name="backup_title">Cadangkan Dompet</string>
   <string name="backup_password_title">Enkripsi dompet Anda (opsional)</string>
-  <string name="backup_password">Kata Sandi</string>
-  <string name="backup_body">Kami tidak menyimpan kunci pribadi Anda atau metode akses lainnya. Penting untuk selalu menjaga keamanan cadangan dompet (keystore) Anda.</string>
   <string name="backup_confirmation_title">Tinggal satu langkah lagi</string>
   <string name="backup_confirmation_body">Amankan cadangan Anda! Di mana Anda ingin menyimpan cadangan itu?</string>
   <string name="backup_confirmation_yes">YA, SELESAIKAN</string>
   <string name="backup_confirmation_no">TIDAK, SIMPAN DI PERANGKAT</string>
-  <string name="backup_done_title">Pencadangan selesai!</string>
   <string name="backup_done_body">Apakah Anda yakin file cadangan Anda ada di tempat yang aman?</string>
   <string name="backup_confirmation_no_share_title">Pencadangan selesai!</string>
   <string name="backup_confirmation_no_share_body">File cadangan Anda berada di folder Unduhan.</string>
   <string name="backup_save_dialogue_title">Simpan file cadangan</string>
   <string name="backup_save_dialogue_body">Pilih nama untuk file cadangan Anda.</string>
-  <string name="backup_confirmation_tips_title">Amankan file:</string>
-  <string name="backup_confirmation_tips_1">Cetak dan simpan di tempat yang aman.</string>
-  <string name="backup_confirmation_tips_2">Simpan di USB drive.</string>
-  <string name="backup_confirmation_tips_3">Salin ke penyimpanan cloud yang pribadi dan aman.</string>
   <string name="backup_send_via_title">Kirim cadangan via:</string>
   <string name="backup_send_button">KIRIM CADANGAN</string>
   <string name="backup_save_button">SIMPAN CADANGAN</string>
@@ -658,14 +652,27 @@
   <string name="import_wallet_wrong_password_body">Ups, kata sandi salah!</string>
   <string name="error_invalid_private_key">Kunci pribadi tidak valid</string>
   <string name="error_invalid_keystore">Keystore salah</string>
+  <string name="backup_title">Backup uour wallet now!</string>
+  <string name="backup_body">Kami tidak menyimpan kunci pribadi Anda atau metode akses lainnya. Penting untuk selalu menjaga keamanan cadangan dompet (keystore) Anda.</string>
+  <string name="backup_additional_security_title">Keamanan Tambahan (opsional)</string>
+  <string name="backup_additional_security_body">Pilih kata sandi</string>
+  <string name="backup_button">BACKUP WALLET</string>
+  <string name="backup_password">Kata Sandi</string>
+  <string name="backup_ready_title">Your backup is ready! Keep it safe.</string>
+  <string name="backup_ready_save_on_email">Save it on your email</string>
+  <string name="backup_ready_email_button">Send to email</string>
+  <string name="backup_ready_device_button">Save on device</string>
+  <string name="backup_done_title">Pencadangan selesai!</string>
+  <string name="backup_confirmation_tips_title">Amankan file:</string>
+  <string name="backup_confirmation_tips_1">Cetak dan simpan di tempat yang aman.</string>
+  <string name="backup_confirmation_tips_2">Simpan di USB drive.</string>
+  <string name="backup_confirmation_tips_3">Salin ke penyimpanan cloud yang pribadi dan aman.</string>
   <string name="backup_tooltip_body">Buat cadangan dompet!</string>
   <string name="backup_tooltip_later_button">MUNGKIN NANTI</string>
   <string name="backup_tooltip_backup_button">CADANGKAN</string>
   <string name="backup_notification_title">Buat cadangan dompet!</string>
   <string name="backup_notification_body">Jaga keamanan dana Anda dan pastikan agar Anda selalu bisa mengakses dompet Anda.</string>
   <string name="backup_choose_wallet_title">Pilih dompet untuk dicadangkan</string>
-  <string name="backup_additional_security_title">Keamanan Tambahan (opsional)</string>
-  <string name="backup_additional_security_body">Pilih kata sandi</string>
   <string name="backup_additional_security_disclaimer_title">Harap jaga keamanan kata sandi Anda.</string>
   <string name="backup_additional_security_disclaimer_body">Tidak ada pemulihan kata sandi.</string>
   <string name="backup_additional_security_password_not_march">Kata sandi tidak cocok.</string>
@@ -837,7 +844,7 @@
   <string name="carrier_billing_terms_button">Syarat dan Ketentuan</string>
   <string name="carrier_billing_privacy_button">Kebijakan Privasi</string>
   <!--Manage Cards-->
-  <string name="manage_cards_settings_add_title">Add bank card</string>
+  <string name="manage_cards_settings_add_title">Add credit/debit card</string>
   <string name="manage_cards_settings_manage_title">Kelola kartu</string>
   <string name="manage_cards_view_title">Kelola kartu</string>
   <string name="manage_cards_view_manage_subtitle">Kelola kartu pembayaran Anda</string>
@@ -913,7 +920,7 @@
   <string name="rate_us_back_title">Ingin membantu kami?</string>
   <string name="rate_us_back_body">Beri nilai Dompet AppCoins di toko aplikasi agar kami bisa meningkatkannya.</string>
   <!--Card verification-->
-  <string name="card_verification_body">Use your bank card to verify your wallet.</string>
+  <string name="card_verification_body">Validasi kartu kredit/debit Anda untuk melakukan pembayaran.</string>
   <string name="card_verification_charde_disclaimer">Kami akan membebankan biaya %s ke kartu Anda, dan akan kami kembalikan setelah Anda mengonfirmasi kode. Tergantung bank yang Anda gunakan, proses ini bisa memakan waktu hitungan menit sampai beberapa hari.</string>
   <string name="card_verification_code_title">Periksa kode di rincian transaksi</string>
   <string name="card_verification_code_body">Kode unik akan muncul pada ringkasan transaksi yang diberikan oleh penerbit kartu Anda.</string>
@@ -968,7 +975,7 @@
   <string name="e_skills_withdraw_title">Penarikan e-Skills</string>
   <string name="e_skills_withdraw_invalid_email_error_message">E-mail tidak valid</string>
   <string name="e_skills_withdraw_not_enough_balance_error_message">Saldo tidak cukup</string>
-  <string name="e_skills_withdraw_not_enough_earnings_error_message">Anda hanya bisa menarik dana yang diperoleh di game e-Skills</string>
+  <string name="e_skills_withdraw_not_enough_earnings_error_message">You haven\'t won enough e-Skills games to withdraw that amount</string>
   <string name="e_skills_withdraw_minimum_amount_error_message">Jumlah minimal yang bisa ditarik adalah $%1$.2f</string>
   <string name="e_skills_withdraw_max_amount_part_1">Anda bisa menarik:</string>
   <string name="e_skills_withdraw_max_amount_part_2">$%1$.2f</string>
@@ -1009,5 +1016,5 @@
   <string name="appcoins_info_volume_title">Volume (24 jam)</string>
   <!--  NFTs -->
   <string name="nfts_title">NFT</string>
-  <string name="nfts_no_nfts">NFT tidak tersedia saat ini.</string>
+  <string name="nfts_no_nfts">You don\'t have any NFTs in this wallet yet!</string>
 </resources>

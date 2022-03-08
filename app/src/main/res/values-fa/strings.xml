@@ -120,7 +120,7 @@
   <string name="intro_2_title">بیشتر بازی کن، کمتر پرداخت کن</string>
   <string name="intro_2_body">برای خرید کردن در بازی‌ها و اپلیکیشن‌های مورد علاقه خود پاداش بگیر.</string>
   <string name="intro_3_title">ساده و آسان</string>
-  <string name="intro_3_body">برای همه خریدهای داخل اپلیکیشن از روش پرداخت مورد علاقه خود استفاده کن.</string>
+  <string name="intro_3_body">AppCoins Wallet را برای خرید مستقیم در بازی‌های خود، نصب نگه دارید.</string>
   <string name="intro_4_title">امن و خصوصی</string>
   <string name="intro_4_body">کلیدهای خصوصی شما هرگز دستگاه شما را ترک نخواهد کرد، بنابراین AppCoins همیشه امن هستند.</string>
   <string name="intro_4_body_2">همه تراکنش‌های شما به کمک جدیدترین تکنولوژی‌ها همیشه امن خواهند بود.</string>
@@ -271,7 +271,7 @@
   <string name="dialog_credit_card_number">شماره کارت</string>
   <string name="dialog_credit_card_expiration">تاریخ انقضا</string>
   <string name="dialog_credit_card_cvv">CVV</string>
-  <string name="dialog_bank_card">Bank card</string>
+  <string name="dialog_bank_card">Credit/debit card</string>
   <string name="dialog_expiry_date">تاریخ انقضا</string>
   <string name="activity_airdrop_title">تایید کنید که انسان هستید تا AppCoins دریافت کنید</string>
   <string name="activity_airdrop_details">این فقط یک کار امنیتی است.</string>
@@ -401,7 +401,7 @@
   <string name="askafriend_share_add_message_body">پیام (اختیاری)</string>
   <string name="askafriend_share_button">اشتراک‌گذاری</string>
   <string name="askafriend_share_popup_title">از کسی بخواهید از طریق:</string>
-  <string name="askafriend_received_body">شما هم اکنون %s APPC-C دریافت کردید</string>
+  <string name="askafriend_received_body">You just received %s AppCoins Credits</string>
   <string name="askafriend_notification_received_title">جابجایی جدیدی دریافت شد</string>
   <string name="askafriend_notification_received_body">%1$s%2$s به کیف پول شما افزوده شد.</string>
   <string name="askafriend_received_title">انتقال دریافت شد</string>
@@ -440,6 +440,8 @@
   <string name="get_code_button">دریافت کد</string>
   <string name="confirm_button">تایید</string>
   <string name="withdraw_button">خارج‌کردن</string>
+  <string name="email_here_field">Your email here&#8230;</string>
+  <string name="understood_button">Understood!</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">با %1$s و %2$s کیف پول AppCoins موافقم.</string>
   <string name="terms_and_conditions_error">برای ادامه، لطفا شرایط، مقررات و قوانین حریم خصوصی را تایید کنید</string>
@@ -449,11 +451,11 @@
   <string name="get_started">Get Started</string>
   <string name="existent_wallet">I already have a wallet</string>
   <!--Home-->
-  <string name="home_empty_discover_apps_body">بهترین اپلیکیشن‌های اندروید منتظر شما هستند.</string>
+  <string name="home_empty_discover_apps_body">در بازی موردعلاقه خود خریدی انجام دهید و ما بقیه کارها را انجام می‌دهیم.</string>
   <string name="home_empty_discover_apps_button">اپلیکیشن‌های برتر را کشف کنید</string>
   <!--Tokens-->
   <!--Settings-->
-  <string name="title_redeem">Redeem Gift Card</string>
+  <string name="title_redeem">Redeem Code</string>
   <string name="settings_item_support">تماس با تیم پشتیبانی</string>
   <string name="settings_subheader_support">پشتیبانی</string>
   <string name="settings_subheader_about_us">درباره ما</string>
@@ -525,6 +527,7 @@
   <string name="purchase_card_error_not_supported">نوع کارت شما پشتیبانی نمی‌شود. با کارت دیگری امتحان کنید.</string>
   <string name="purchase_card_error_security">آیا مطمئن هستید که اطلاعات امنیتی صحیح است؟ لطفا مجدد امتحان کنید.</string>
   <string name="purchase_card_error_wrong_CVV">کد CVV/CVC به نظر اشتباه است. لطفا دوباره امتحان کنید.</string>
+  <string name="purchase_card_error_re_insert">It seems you registered this card long time ago! Insert the card details again or use a different one.</string>
   <string name="purchase_wallet_error_contact_us">مشکلی برای کیف پول شما پیش آمده است. لطفا با ما تماس بگیرید.</string>
   <string name="purchase_carrier_error">شماره موبایل شما برای این روش پرداخت سازگار نیست.</string>
   <string name="purchase_carrier_error_minimum">سرویس مخابراتی شما پرداخت‌هایی کمتر از %s را پشتیبانی نمی‌کند.</string>
@@ -546,7 +549,7 @@
   <string name="purchase_error_transaction_timeout">زمان سپری شده برای کامل کردن تراکنش به پایان رسیده‌است. لطفا دوباره اقدام کنید.</string>
   <string name="purchase_error_card_already_in_progress">درخواست شده قبلا اجرا شده و یا در حال اجراست. لطفا منتظر بمانید.</string>
   <string name="purchase_error_payment_rejected">پرداخت رد شد! لطفا با کارت متفاوتی دوباره اقدام کنید و یا روش پرداخت دیگری را استفاده کنید.</string>
-  <string name="purchase_error_verify_wallet">برای آزاد شدن شرایط، لطفا سعی کنید کیف‌پول خود را تایید کنید.</string>
+  <string name="purchase_error_verify_wallet">Validate your payment method to complete this purchase.</string>
   <string name="purchase_error_verify_card">برای تکمیل این خرید، کارت خود را معتبرسازی کنید.</string>
   <string name="purachse_error_verify_card_button">معتبرسازی کارت</string>
   <string name="purchase_eskills_sku">بلیت ورود</string>
@@ -586,7 +589,7 @@
   <string name="referral_view_share_link_button">لینک دعوت را به اشتراک بگذارید</string>
   <string name="referral_view_notifications_title">اعلانات</string>
   <string name="referral_share_sheet_title">لینک دعوت را به اشتراک بگذارید:</string>
-  <string name="referral_view_unverified_body">Receive %s worth of AppCoins Credits for each friend. Your first need to verify your wallet.</string>
+  <string name="referral_view_unverified_body">Receive %s worth of AppCoins Credits for each friend. You first need to verify your wallet.</string>
   <string name="referral_view_verify_button">تایید کیف پول</string>
   <string name="referral_view_i_have_been_invited_button">دعوت شده‌ام</string>
   <string name="referral_view_dropup_menu_friends_invited">دوستان دعوت‌شده</string>
@@ -626,25 +629,16 @@
   <!--Backup and Import-->
   <string name="backup_home_notification_title">پشتیبان‌گیری از کیف پول خود</string>
   <string name="backup_home_notification_body">آیا موبایل خود را گم‌کرده‌اید؟ از کیف پول خود همین حالا پشتیان‌گیری کنید!</string>
-  <string name="backup_button">پشتیبان‌گیری</string>
-  <string name="backup_title">پشتیبان‌گیری از کیف‌پول</string>
   <string name="backup_password_title">کدگذاری از کیف پول (اختیاری)</string>
-  <string name="backup_password">رمزعبور</string>
-  <string name="backup_body">ما کلید خصوصی و سایر روش‌های دسترسی شما را ذخیره نمی‌کنیم. مهم است که پشتیبان‌گیری کیف‌پول (keystore) خود در جای امنی ذخیره کنید.</string>
   <string name="backup_confirmation_title">فقط یک قدم دیگر</string>
   <string name="backup_confirmation_body">بک‌آپ خود را امن نگه دارید! در کجا ذخیره شود؟</string>
   <string name="backup_confirmation_yes">بله، تمام شد</string>
   <string name="backup_confirmation_no">نه، ذخیره روی دستگاه</string>
-  <string name="backup_done_title">بک‌آپ تکمیل شد!</string>
   <string name="backup_done_body">آیا مطمئن هستید که فایل بک‌آپ شما در جای امنی قرار دارد؟</string>
   <string name="backup_confirmation_no_share_title">بک‌آپ تکمیل شد!</string>
   <string name="backup_confirmation_no_share_body">بک‌آپ شما در پوشه دانلودهای شماست.</string>
   <string name="backup_save_dialogue_title">ذخیره فایل بک‌آپ</string>
   <string name="backup_save_dialogue_body">نامی برای فایل بک‌آپ خود انتخاب کنید.</string>
-  <string name="backup_confirmation_tips_title">فایل را محفوظ نگه دارید:</string>
-  <string name="backup_confirmation_tips_1">آن را پرینت و در جای امنی نگه‌داری کنید.</string>
-  <string name="backup_confirmation_tips_2">آن را روی یک USB ذخیره کنید.</string>
-  <string name="backup_confirmation_tips_3">آن را به یک ذخیره ابری شخصی و امن منتقل کنید.</string>
   <string name="backup_send_via_title">ارسال بک‌آپ از طریق:</string>
   <string name="backup_send_button">ارسال بک‌آپ</string>
   <string name="backup_save_button">ذخیره بک‌آپ</string>
@@ -658,14 +652,27 @@
   <string name="import_wallet_wrong_password_body">اوه، رمز عبور اشتباه است!</string>
   <string name="error_invalid_private_key">کلید خصوصی غیرمعتبر</string>
   <string name="error_invalid_keystore">keystore نامعتبر</string>
+  <string name="backup_title">Backup uour wallet now!</string>
+  <string name="backup_body">ما کلید خصوصی و سایر روش‌های دسترسی شما را ذخیره نمی‌کنیم. مهم است که پشتیبان‌گیری کیف‌پول (keystore) خود در جای امنی ذخیره کنید.</string>
+  <string name="backup_additional_security_title">افزایش امنیت (اختیاری)</string>
+  <string name="backup_additional_security_body">انتخاب رمزعبور</string>
+  <string name="backup_button">BACKUP WALLET</string>
+  <string name="backup_password">رمزعبور</string>
+  <string name="backup_ready_title">Your backup is ready! Keep it safe.</string>
+  <string name="backup_ready_save_on_email">Save it on your email</string>
+  <string name="backup_ready_email_button">Send to email</string>
+  <string name="backup_ready_device_button">Save on device</string>
+  <string name="backup_done_title">بک‌آپ تکمیل شد!</string>
+  <string name="backup_confirmation_tips_title">فایل را محفوظ نگه دارید:</string>
+  <string name="backup_confirmation_tips_1">آن را پرینت و در جای امنی نگه‌داری کنید.</string>
+  <string name="backup_confirmation_tips_2">آن را روی یک USB ذخیره کنید.</string>
+  <string name="backup_confirmation_tips_3">آن را به یک ذخیره ابری شخصی و امن منتقل کنید.</string>
   <string name="backup_tooltip_body">از کیف پول خود یک بک‌آپ بگیرید!</string>
   <string name="backup_tooltip_later_button">شاید بعدا</string>
   <string name="backup_tooltip_backup_button">بک‌آپ</string>
   <string name="backup_notification_title">از کیف پول خود یک بک‌آپ بگیرید!</string>
   <string name="backup_notification_body">پول‌های خود را امن نگه دارید و مطمئن شوید که همیشه قادر به دسترسی به کیف پول خود هستید.</string>
   <string name="backup_choose_wallet_title">یک کیف پول برای بک‌آپ انتخاب کنید</string>
-  <string name="backup_additional_security_title">افزایش امنیت (اختیاری)</string>
-  <string name="backup_additional_security_body">انتخاب رمزعبور</string>
   <string name="backup_additional_security_disclaimer_title">لطفا رمزعبور خود را امن نگه دارید.</string>
   <string name="backup_additional_security_disclaimer_body">بازیابی برای رمزعبور وجود ندارد.</string>
   <string name="backup_additional_security_password_not_march">رمزعبور همخوانی ندارد.</string>
@@ -838,7 +845,7 @@
   <string name="carrier_billing_terms_button">شرایط و ضوابط</string>
   <string name="carrier_billing_privacy_button">سیاست حفظ حریم خصوصی</string>
   <!--Manage Cards-->
-  <string name="manage_cards_settings_add_title">Add bank card</string>
+  <string name="manage_cards_settings_add_title">Add credit/debit card</string>
   <string name="manage_cards_settings_manage_title">مدیریت کارت‌ها</string>
   <string name="manage_cards_view_title">مدیریت کارت‌ها</string>
   <string name="manage_cards_view_manage_subtitle">مدیریت کارت‌های پرداختی خود</string>
@@ -920,7 +927,7 @@
   <string name="rate_us_back_title">آیا می‌خواهید به ما کمک کنید؟</string>
   <string name="rate_us_back_body">AppCoins Wallet را در فروشگاه اپلیکیشن رتبه بندی کنید تا بتوانیم آن را بهتر کنیم.</string>
   <!--Card verification-->
-  <string name="card_verification_body">Use your bank card to verify your wallet.</string>
+  <string name="card_verification_body">برای پرداخت، کارت اعتباری خود معتبرسازی کنید.</string>
   <string name="card_verification_charde_disclaimer">ما کارت شما را %s شارژ خواهیم کرد و با تایید کد، آن را برگشت خواهیم زد. با توجه به بانک شما می‌تواند چند دقیقه تا چند روز طول بکشد.</string>
   <string name="card_verification_code_title">کد را در جزییات تراکنش بررسی کنید</string>
   <string name="card_verification_code_body">یک کد ویژه در خلاصه تراکنش توسط بانک شما دیده می‌شود.</string>
@@ -977,7 +984,7 @@
   <string name="e_skills_withdraw_title">برداشت از e-Skills</string>
   <string name="e_skills_withdraw_invalid_email_error_message">ایمیل نامعتبر</string>
   <string name="e_skills_withdraw_not_enough_balance_error_message">موجودی کافی نیست</string>
-  <string name="e_skills_withdraw_not_enough_earnings_error_message">شما تنها می‌توانید مقادیر درآمد بازی‌های e-Skills را برداشت کنید</string>
+  <string name="e_skills_withdraw_not_enough_earnings_error_message">You haven\'t won enough e-Skills games to withdraw that amount</string>
   <string name="e_skills_withdraw_minimum_amount_error_message">حداقل مقدار برای برداشت %1$.2f$ است</string>
   <string name="e_skills_withdraw_max_amount_part_1">مقدار قابل برداشت:</string>
   <string name="e_skills_withdraw_max_amount_part_2">$%1$.2f</string>
@@ -1018,5 +1025,5 @@
   <string name="appcoins_info_volume_title">حجم (۲۴ساعته)</string>
   <!--  NFTs -->
   <string name="nfts_title">NFT ها</string>
-  <string name="nfts_no_nfts">هیچ NFT در حال حاضر موجود نیست.</string>
+  <string name="nfts_no_nfts">You don\'t have any NFTs in this wallet yet!</string>
 </resources>

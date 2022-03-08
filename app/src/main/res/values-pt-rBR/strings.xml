@@ -120,7 +120,7 @@
   <string name="intro_2_title">Jogue Mais, Pague Menos</string>
   <string name="intro_2_body">Seja recompensado por comprar itens em seus games e apps favoritos.</string>
   <string name="intro_3_title">Simples e Fácil</string>
-  <string name="intro_3_body">Processe todas as suas compras dentro do aplicativo utilizando seu método de pagamento favorito.</string>
+  <string name="intro_3_body">Mantenha a AppCoins Wallet instalada para comprar diretamente em seus jogos.</string>
   <string name="intro_4_title">Seguro e Privado</string>
   <string name="intro_4_body">Suas chaves privadas nunca deixam seu dispositivo, e por isso suas AppCoins estão sempre seguras.</string>
   <string name="intro_4_body_2">Todas as suas transações são sempre seguras graças à mais recente tecnologia.</string>
@@ -271,7 +271,7 @@
   <string name="dialog_credit_card_number">Número do Cartão</string>
   <string name="dialog_credit_card_expiration">Data de Validade</string>
   <string name="dialog_credit_card_cvv">CVV</string>
-  <string name="dialog_bank_card">Bank card</string>
+  <string name="dialog_bank_card">Credit/debit card</string>
   <string name="dialog_expiry_date">Vencimento</string>
   <string name="activity_airdrop_title">Confirmar se você é um humano para receber AppCoins</string>
   <string name="activity_airdrop_details">Isto é só um lance de segurança.</string>
@@ -401,7 +401,7 @@
   <string name="askafriend_share_add_message_body">Enviar Mensagem (opcional)</string>
   <string name="askafriend_share_button">Compartilhar</string>
   <string name="askafriend_share_popup_title">Peça a alguém via:</string>
-  <string name="askafriend_received_body">Você acaba de receber %s APPC-C</string>
+  <string name="askafriend_received_body">You just received %s AppCoins Credits</string>
   <string name="askafriend_notification_received_title">Nova Transferência Recebida</string>
   <string name="askafriend_notification_received_body">%1$s %2$s foram creditados em sua wallet.</string>
   <string name="askafriend_received_title">Transferência Recebida</string>
@@ -440,6 +440,8 @@
   <string name="get_code_button">Receber código</string>
   <string name="confirm_button">Confirmar</string>
   <string name="withdraw_button">sacar</string>
+  <string name="email_here_field">Your email here&#8230;</string>
+  <string name="understood_button">Understood!</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Eu concordo com os %1$s e %2$s da AppCoins Wallet.</string>
   <string name="terms_and_conditions_error">Por favor, aceite nossos Termos e Condições e Política de Privacidade para continuar</string>
@@ -449,11 +451,11 @@
   <string name="get_started">Get Started</string>
   <string name="existent_wallet">I already have a wallet</string>
   <!--Home-->
-  <string name="home_empty_discover_apps_body">Os melhores apps de Android estão esperando por você.</string>
+  <string name="home_empty_discover_apps_body">Faça uma compra em seu jogo favorito e nós cuidaremos de tudo.</string>
   <string name="home_empty_discover_apps_button">DESCUBRA OS MELHORES APPS</string>
   <!--Tokens-->
   <!--Settings-->
-  <string name="title_redeem">Redeem Gift Card</string>
+  <string name="title_redeem">Redeem Code</string>
   <string name="settings_item_support">Falar com a Equipe de Suporte</string>
   <string name="settings_subheader_support">Suporte</string>
   <string name="settings_subheader_about_us">Sobre Nós</string>
@@ -525,6 +527,7 @@
   <string name="purchase_card_error_not_supported">O seu tipo de cartão ainda não é aceito. Tente com um diferente.</string>
   <string name="purchase_card_error_security">Tem certeza de que as informações de segurança estão corretas? Por favor, tente novamente.</string>
   <string name="purchase_card_error_wrong_CVV">Seu código CVV/CVC parece estar errado. Por favor, tente novamente.</string>
+  <string name="purchase_card_error_re_insert">It seems you registered this card long time ago! Insert the card details again or use a different one.</string>
   <string name="purchase_wallet_error_contact_us">Opa, algo não está certo com sua wallet. Entre em contato conosco.</string>
   <string name="purchase_carrier_error">Parece que seu número de telefone não é compatível com esta forma de pagamento.</string>
   <string name="purchase_carrier_error_minimum">Sua operadora não aceita pagamentos de menos de %s.</string>
@@ -546,7 +549,7 @@
   <string name="purchase_error_transaction_timeout">Parece que você demorou muito para concluir a transação. Por favor, tente novamente.</string>
   <string name="purchase_error_card_already_in_progress">Sua solicitação já foi processada ou está em andamento. Por favor, aguarde.</string>
   <string name="purchase_error_payment_rejected">Pagamento recusado! Tente com um cartão de um emissor diferente ou use outro método de pagamento.</string>
-  <string name="purchase_error_verify_wallet">Tente verificar sua carteira a fim de desbloquear esta situação.</string>
+  <string name="purchase_error_verify_wallet">Validate your payment method to complete this purchase.</string>
   <string name="purchase_error_verify_card">Valide seu cartão para completar essa compra.</string>
   <string name="purachse_error_verify_card_button">VALIDAR CARTÃO</string>
   <string name="purchase_eskills_sku">Ingresso</string>
@@ -586,7 +589,7 @@
   <string name="referral_view_share_link_button">COMPARTILHAR LINK DE CONVITE</string>
   <string name="referral_view_notifications_title">Notificações</string>
   <string name="referral_share_sheet_title">Compartilhar convite via:</string>
-  <string name="referral_view_unverified_body">Receive %s worth of AppCoins Credits for each friend. Your first need to verify your wallet.</string>
+  <string name="referral_view_unverified_body">Receive %s worth of AppCoins Credits for each friend. You first need to verify your wallet.</string>
   <string name="referral_view_verify_button">VERIFICAR WALLET</string>
   <string name="referral_view_i_have_been_invited_button">JÁ FUI CONVIDADO</string>
   <string name="referral_view_dropup_menu_friends_invited">Amigos convidados</string>
@@ -626,25 +629,16 @@
   <!--Backup and Import-->
   <string name="backup_home_notification_title">Fazer Backup da Wallet</string>
   <string name="backup_home_notification_body">Você já perdeu seu telefone? Faça o backup de sua wallet agora!</string>
-  <string name="backup_button">BACKUP</string>
-  <string name="backup_title">Backup da Wallet</string>
   <string name="backup_password_title">Encriptar sua wallet (opcional)</string>
-  <string name="backup_password">Senha</string>
-  <string name="backup_body">Nós não armazenamos suas chaves privadas ou qualquer outro método de acesso. É importante manter o backup (keystore) de sua wallet seguro.</string>
   <string name="backup_confirmation_title">Só mais um passo</string>
   <string name="backup_confirmation_body">Mantenha seu backup seguro! Onde você quer salvá-lo?</string>
   <string name="backup_confirmation_yes">SIM, CONCLUIR</string>
   <string name="backup_confirmation_no">NÃO, SALVAR NO DISPOSITIVO</string>
-  <string name="backup_done_title">Backup concluído!</string>
   <string name="backup_done_body">Tem certeza de que seu arquivo de backup está em um local seguro?</string>
   <string name="backup_confirmation_no_share_title">Backup concluído!</string>
   <string name="backup_confirmation_no_share_body">Seu arquivo de backup está em sua pasta Downloads.</string>
   <string name="backup_save_dialogue_title">Salvar arquivo de backup</string>
   <string name="backup_save_dialogue_body">Escolha um nome para seu arquivo de backup.</string>
-  <string name="backup_confirmation_tips_title">Mantenha o arquivo em segurança:</string>
-  <string name="backup_confirmation_tips_1">Imprima-o e guarde em um lugar seguro.</string>
-  <string name="backup_confirmation_tips_2">Salvar em uma unidade USB.</string>
-  <string name="backup_confirmation_tips_3">Copiar para um armazenamento em nuvem privativo e seguro.</string>
   <string name="backup_send_via_title">Enviar backup via:</string>
   <string name="backup_send_button">ENVIAR BACKUP</string>
   <string name="backup_save_button">SALVAR BACKUP</string>
@@ -658,14 +652,27 @@
   <string name="import_wallet_wrong_password_body">Ops, senha incorreta!</string>
   <string name="error_invalid_private_key">Chave privada inválida</string>
   <string name="error_invalid_keystore">Keystore inválida</string>
+  <string name="backup_title">Backup uour wallet now!</string>
+  <string name="backup_body">Nós não armazenamos suas chaves privadas ou qualquer outro método de acesso. É importante manter o backup (keystore) de sua wallet seguro.</string>
+  <string name="backup_additional_security_title">Segurança Adicional (opcional)</string>
+  <string name="backup_additional_security_body">Escolha uma senha</string>
+  <string name="backup_button">BACKUP WALLET</string>
+  <string name="backup_password">Senha</string>
+  <string name="backup_ready_title">Your backup is ready! Keep it safe.</string>
+  <string name="backup_ready_save_on_email">Save it on your email</string>
+  <string name="backup_ready_email_button">Send to email</string>
+  <string name="backup_ready_device_button">Save on device</string>
+  <string name="backup_done_title">Backup concluído!</string>
+  <string name="backup_confirmation_tips_title">Mantenha o arquivo em segurança:</string>
+  <string name="backup_confirmation_tips_1">Imprima-o e guarde em um lugar seguro.</string>
+  <string name="backup_confirmation_tips_2">Salvar em uma unidade USB.</string>
+  <string name="backup_confirmation_tips_3">Copiar para um armazenamento em nuvem privativo e seguro.</string>
   <string name="backup_tooltip_body">Faça um backup da sua wallet!</string>
   <string name="backup_tooltip_later_button">TALVEZ MAIS TARDE</string>
   <string name="backup_tooltip_backup_button">BACKUP</string>
   <string name="backup_notification_title">Faça um backup da sua wallet!</string>
   <string name="backup_notification_body">Mantenha seus fundos seguros e tenha sempre acesso à sua carteira.</string>
   <string name="backup_choose_wallet_title">Escolha uma wallet para fazer backup</string>
-  <string name="backup_additional_security_title">Segurança Adicional (opcional)</string>
-  <string name="backup_additional_security_body">Escolha uma senha</string>
   <string name="backup_additional_security_disclaimer_title">Mantenha sua senha segura.</string>
   <string name="backup_additional_security_disclaimer_body">Não há recuperação de senha.</string>
   <string name="backup_additional_security_password_not_march">As senhas não conferem.</string>
@@ -838,7 +845,7 @@
   <string name="carrier_billing_terms_button">Termos e Condições</string>
   <string name="carrier_billing_privacy_button">Política de Privacidade</string>
   <!--Manage Cards-->
-  <string name="manage_cards_settings_add_title">Add bank card</string>
+  <string name="manage_cards_settings_add_title">Add credit/debit card</string>
   <string name="manage_cards_settings_manage_title">Gerenciar cartões</string>
   <string name="manage_cards_view_title">Gerenciar cartões</string>
   <string name="manage_cards_view_manage_subtitle">Gerenciar seus cartões de pagamento</string>
@@ -920,7 +927,7 @@
   <string name="rate_us_back_title">Gostaria de nos ajudar?</string>
   <string name="rate_us_back_body">Avalie o AppCoins Wallet na app store para que possamos melhorá-lo.</string>
   <!--Card verification-->
-  <string name="card_verification_body">Use your bank card to verify your wallet.</string>
+  <string name="card_verification_body">Valide o seu cartão de crédito/débito para efetuar pagamentos.</string>
   <string name="card_verification_charde_disclaimer">Cobraremos %s do seu cartão e o reembolsaremos assim que você confirmar o código. Dependendo de seu banco, pode levar entre minutos e até alguns dias.</string>
   <string name="card_verification_code_title">Verifique o código nos detalhes da transação</string>
   <string name="card_verification_code_body">Um código único será exibido no resumo da transação fornecido pelo emissor do seu cartão.</string>
@@ -977,7 +984,7 @@
   <string name="e_skills_withdraw_title">Retirada de e-Skills</string>
   <string name="e_skills_withdraw_invalid_email_error_message">E-mail inválido</string>
   <string name="e_skills_withdraw_not_enough_balance_error_message">Saldo insuficiente</string>
-  <string name="e_skills_withdraw_not_enough_earnings_error_message">Você só poderá sacar os fundos recebidos em jogos e-Skills</string>
+  <string name="e_skills_withdraw_not_enough_earnings_error_message">You haven\'t won enough e-Skills games to withdraw that amount</string>
   <string name="e_skills_withdraw_minimum_amount_error_message">A quantia mínima para sacar é $%1$.2f</string>
   <string name="e_skills_withdraw_max_amount_part_1">Você pode sacar:</string>
   <string name="e_skills_withdraw_max_amount_part_2">$%1$.2f</string>
@@ -1001,7 +1008,7 @@
   <string name="promo_code_active_tag">Ativo</string>
   <string name="promo_code_expired_tag">Expirado</string>
   <string name="promo_code_success_title">Pronto!</string>
-  <string name="promo_code_success_body">Você receberá %s% de bônus extra em todas as suas compras.</string>
+  <string name="promo_code_success_body">Você receberá %s%% de bônus extra em todas as suas compras.</string>
   <string name="promo_code_success_body_specific_app">Você receberá %1$s%% de bônus extra em todas as suas compras em %2$s.</string>
   <string name="promo_code_promotions_tag">Código promocional</string>
   <!--AppCoins Info Page-->
@@ -1018,5 +1025,5 @@
   <string name="appcoins_info_volume_title">Volume (24h)</string>
   <!--  NFTs -->
   <string name="nfts_title">NFTs</string>
-  <string name="nfts_no_nfts">Nenhum NFT está disponível no momento.</string>
+  <string name="nfts_no_nfts">You don\'t have any NFTs in this wallet yet!</string>
 </resources>
