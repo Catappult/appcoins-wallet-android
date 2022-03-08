@@ -1043,4 +1043,14 @@
   <string name="nfts_transact_error_no_funds">Not enough funds! You don\'t have enough ETH to pay for the fees.</string>
   <string name="nfts_transact_error_low_gas">Gas is too low! Increase your gas for the network to accept your transaction.</string>
   <string name="nfts_transact_error_already_in_progress">This NFT is already being sent! A previous transaction is currently in progress.</string>
+  <!-- Gift Card -->
+  <string name="gift_card_title">Redeem your gift card code</string>
+  <string name="gift_card_field">Card code here...</string>
+  <string name="gift_card_done_title">Code redeemed!</string>
+  <string name="gift_card_done_body">Check your transacions list.</string>
+  <string name="gift_card_error_general_title">Something went wrong!</string>
+  <string name="gift_card_error_general_body">Please try again or use a different code.</string>
+  <string name="gift_card_error_used_title">This code has already been used!</string>
+  <string name="gift_card_error_new_users_title">This code is only for new users!</string>
+  <string name="gift_card_error_try_with_different_body">Please try again with a different one.</string>
 </resources>
