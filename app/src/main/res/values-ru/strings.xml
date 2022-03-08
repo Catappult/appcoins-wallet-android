@@ -1058,4 +1058,7 @@
   <string name="nfts_transact_gas_price">Цена топлива</string>
   <string name="nfts_transact_gas_limit">Лимит топлива</string>
   <string name="nfts_transact_gas_fee_message">Комиссия за транзакцию</string>
+  <string name="nfts_transact_error_no_funds">Not enough funds! You don\'t have enough ETH to pay for the fees.</string>
+  <string name="nfts_transact_error_low_gas">Gas is too low! Increase your gas for the network to accept your transaction.</string>
+  <string name="nfts_transact_error_already_in_progress">This NFT is already being sent! A previous transaction is currently in progress.</string>
 </resources>
