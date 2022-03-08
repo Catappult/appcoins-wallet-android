@@ -39,7 +39,6 @@ import com.asfoundation.wallet.util.CurrencyFormatUtils
 import com.asfoundation.wallet.util.KeyboardUtils
 import com.asfoundation.wallet.util.WalletCurrency
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
-import com.asfoundation.wallet.wallets.usecases.GetWalletInfoUseCase
 import com.google.android.material.textfield.TextInputLayout
 import com.jakewharton.rxbinding2.view.RxView
 import dagger.hilt.android.AndroidEntryPoint
@@ -86,9 +85,6 @@ class AdyenTopUpFragment : BasePageViewFragment(), AdyenTopUpView {
   lateinit var servicesErrorMapper: ServicesErrorCodeMapper
 
   @Inject
-  lateinit var getWalletInfoUseCase: GetWalletInfoUseCase
-
-  @Inject
   lateinit var logger: Logger
 
   @Inject
@@ -127,7 +123,7 @@ class AdyenTopUpFragment : BasePageViewFragment(), AdyenTopUpView {
         data.selectedCurrencyType, navigator, inAppPurchaseInteractor.billingMessagesMapper,
         adyenPaymentInteractor, data.bonusValue, data.fiatCurrencySymbol,
         AdyenErrorCodeMapper(), servicesErrorMapper, data.gamificationLevel, topUpAnalytics,
-        formatter, getWalletInfoUseCase, logger
+        formatter, logger
       )
   }
 
