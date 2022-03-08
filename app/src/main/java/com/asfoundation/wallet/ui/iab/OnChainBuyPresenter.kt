@@ -8,7 +8,6 @@ import com.asfoundation.wallet.billing.analytics.BillingAnalytics
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.ui.iab.AsfInAppPurchaseInteractor.CurrentPaymentStep
 import com.asfoundation.wallet.util.UnknownTokenException
-import com.asfoundation.wallet.wallets.usecases.GetWalletInfoUseCase
 import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Scheduler
@@ -31,7 +30,6 @@ class OnChainBuyPresenter(
   private val gamificationLevel: Int,
   private val logger: Logger,
   private val onChainBuyInteract: OnChainBuyInteract,
-  private val getWalletInfoUseCase: GetWalletInfoUseCase,
   private val transactionBuilder: TransactionBuilder
 ) {
 
@@ -128,13 +126,6 @@ class OnChainBuyPresenter(
       Payment.Status.COMPLETED -> {
         view.lockRotation()
         onChainBuyInteract.getCompletedPurchase(transaction, isBds)
-          .flatMap { pmt ->
-            getWalletInfoUseCase(null, cached = false, updateFiat = true)
-              .subscribeOn(networkScheduler)
-              .observeOn(viewScheduler)
-              .map { pmt }
-              .onErrorReturnItem(pmt)
-          }
           .observeOn(viewScheduler)
           .map { buildBundle(it, transaction.orderReference) }
           .flatMapCompletable { bundle -> handleSuccessTransaction(bundle) }
