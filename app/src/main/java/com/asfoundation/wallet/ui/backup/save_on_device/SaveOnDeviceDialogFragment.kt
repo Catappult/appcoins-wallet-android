@@ -20,8 +20,10 @@ import com.asf.wallet.databinding.SaveBackupLayoutBinding
 import com.asfoundation.wallet.base.SingleStateFragment
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class SaveOnDeviceDialogFragment : BottomSheetDialogFragment(),
   SingleStateFragment<SaveOnDeviceDialogState, SaveOnDeviceDialogSideEffect> {
 
@@ -46,12 +48,12 @@ class SaveOnDeviceDialogFragment : BottomSheetDialogFragment(),
     @JvmStatic
     fun newInstance(walletAddress: String, password: String): SaveOnDeviceDialogFragment {
       return SaveOnDeviceDialogFragment()
-          .apply {
-            arguments = Bundle().apply {
-              putString(WALLET_ADDRESS_KEY, walletAddress)
-              putString(PASSWORD_KEY, password)
-            }
+        .apply {
+          arguments = Bundle().apply {
+            putString(WALLET_ADDRESS_KEY, walletAddress)
+            putString(PASSWORD_KEY, password)
           }
+        }
     }
 
   }
@@ -63,7 +65,7 @@ class SaveOnDeviceDialogFragment : BottomSheetDialogFragment(),
 
   private fun createLaunchers() {
     openDocumentTreeResultLauncher = registerForActivityResult(
-        ActivityResultContracts.StartActivityForResult()) { activityResult ->
+      ActivityResultContracts.StartActivityForResult()) { activityResult ->
       val data = activityResult.data
       if (activityResult.resultCode == Activity.RESULT_OK && data != null) {
         data.data?.let {
@@ -73,7 +75,7 @@ class SaveOnDeviceDialogFragment : BottomSheetDialogFragment(),
       }
     }
     requestPermissionsLauncher = registerForActivityResult(
-        ActivityResultContracts.RequestPermission()) { isGranted ->
+      ActivityResultContracts.RequestPermission()) { isGranted ->
       if (isGranted) {
         viewModel.saveBackupFile(views.fileNameInput.getText())
       }
