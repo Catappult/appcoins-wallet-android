@@ -2,8 +2,6 @@ package com.asfoundation.wallet.topup.localpayments
 
 import androidx.fragment.app.Fragment
 import com.appcoins.wallet.commons.Logger
-import com.asfoundation.wallet.navigator.UriNavigator
-import com.asfoundation.wallet.topup.TopUpActivityView
 import com.asfoundation.wallet.topup.TopUpAnalytics
 import com.asfoundation.wallet.topup.TopUpPaymentData
 import com.asfoundation.wallet.topup.adyen.TopUpNavigator
@@ -28,25 +26,31 @@ import io.reactivex.schedulers.Schedulers
 class LocalTopUpPaymentModule {
 
   @Provides
-  fun providesLocalTopUpPaymentPresenter(fragment: Fragment,
-                                         data: LocalTopUpPaymentData,
-                                         interactor: LocalPaymentInteractor,
-                                         topUpAnalytics: TopUpAnalytics,
-                                         navigator: TopUpNavigator,
-                                         currencyFormatUtils: CurrencyFormatUtils,
-                                         logger: Logger): LocalTopUpPaymentPresenter {
-    return LocalTopUpPaymentPresenter(fragment as LocalTopUpPaymentView, fragment.context,
-        interactor, topUpAnalytics, navigator, currencyFormatUtils, AndroidSchedulers.mainThread(),
-        Schedulers.io(), CompositeDisposable(), data, logger)
+  fun providesLocalTopUpPaymentPresenter(
+    fragment: Fragment,
+    data: LocalTopUpPaymentData,
+    interactor: LocalPaymentInteractor,
+    topUpAnalytics: TopUpAnalytics,
+    navigator: TopUpNavigator,
+    currencyFormatUtils: CurrencyFormatUtils,
+    logger: Logger
+  ): LocalTopUpPaymentPresenter {
+    return LocalTopUpPaymentPresenter(
+      fragment as LocalTopUpPaymentView, fragment.context,
+      interactor, topUpAnalytics, navigator, currencyFormatUtils, AndroidSchedulers.mainThread(),
+      Schedulers.io(), CompositeDisposable(), data, logger
+    )
   }
 
   @Provides
   fun providesLocalTopUpPaymentData(fragment: Fragment): LocalTopUpPaymentData {
     fragment.requireArguments()
-        .apply {
-          return LocalTopUpPaymentData(getString(PAYMENT_ID)!!, getString(PAYMENT_ICON)!!,
-              getString(PAYMENT_LABEL)!!, getBoolean(ASYNC), getString(PACKAGE_NAME)!!,
-              getSerializable(PAYMENT_DATA) as TopUpPaymentData)
-        }
+      .apply {
+        return LocalTopUpPaymentData(
+          getString(PAYMENT_ID)!!, getString(PAYMENT_ICON)!!,
+          getString(PAYMENT_LABEL)!!, getBoolean(ASYNC), getString(PACKAGE_NAME)!!,
+          getSerializable(PAYMENT_DATA) as TopUpPaymentData
+        )
+      }
   }
 }
