@@ -10,7 +10,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: German\n"
 "Language: de_DE\n"
-"PO-Revision-Date: 2022-02-18 19:18\n"
+"PO-Revision-Date: 2022-02-27 14:56\n"
 
 #. Card Title
 #:
@@ -85,7 +85,7 @@ msgstr "Wegen deines ersten Einkauf des Tages bei {0}."
 #. Title for bonus receipts.
 #:
 msgid "+{0} AppCoins Credits Bonus!"
-msgstr ""
+msgstr "+{0} AppCoins Credits Bonus!"
 
 #. Card - Home - Expendidute per amount Promotion.
 #:

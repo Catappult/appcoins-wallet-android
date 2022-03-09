@@ -4,13 +4,13 @@
   <string name="provide_wallet_creating_wallet_header">A criar o endereço da wallet&#8230;</string>
   <string name="processing_loading_title">A obter o teu bilhete de entrada</string>
   <string name="finding_room_loading_title">À espera de adversários</string>
-  <string name="finding_room_name_loading_title">Waiting for opponents \nto join the</string>
+  <string name="finding_room_name_loading_title">À espera de adversários \npara se juntarem a</string>
   <string name="finding_room_loading_message">Isto pode demorar um pouco…</string>
   <string name="refunded">O teu dinheiro foi reembolsado.</string>
   <string name="ok">OK</string>
   <string name="cancel">Cancelar</string>
-  <string name="buy_button">Buy</string>
-  <string name="topup_button">Top Up</string>
+  <string name="buy_button">Comprar</string>
+  <string name="topup_button">Carregar</string>
   <string name="connection_error_body">Parece que não estás ligado à Internet. Por favor verifica a ligação e tenta novamente!</string>
   <string name="playing_game_notification_title">Atualmente a jogar e-Skills</string>
   <string name="playing_game_notification_body">A obter informações do jogo...</string>
@@ -22,12 +22,12 @@
   <string name="location_not_available_body">Estamos a trabalhar arduamente para levar estes a toda a gente, por isso volta em breve!</string>
   <string name="e_skills_room_create_title">Cria ou junta-te a uma sala</string>
   <string name="e_skills_room_create_body">Cria uma nova sala e partilha-a com os teus adversários ou junta-te a uma sala já existente.</string>
-  <string name="e_skills_room_field">Your room name here…</string>
-  <string name="e_skills_payment_title">Payment with</string>
+  <string name="e_skills_room_field">O nome da tua sala aqui…</string>
+  <string name="e_skills_payment_title">Pagamento com</string>
   <string name="e_skills_payment_body">AppCoins Credits</string>
-  <string name="copied_to_clipboard">Copied to the clipboard</string>
-  <string name="processing_payment_title">Processing your payment</string>
-  <string name="purchase_error_title">Oops, something went wrong.</string>
+  <string name="copied_to_clipboard">Copiado para a área de transferência</string>
+  <string name="processing_payment_title">A processar o teu pagamento</string>
+  <string name="purchase_error_title">Ups, algo correu mal.</string>
   <string name="purchase_eskills_sku">Bilhete de entrada</string>
   <string name="shared_room_waiting">À espera que adversários se juntem a %s</string>
 </resources>
