@@ -127,14 +127,6 @@ class BrokerApiModule {
 
   @Singleton
   @Provides
-  fun provideBdsShareLinkApi(
-    @BrokerDefaultRetrofit retrofit: Retrofit
-  ): BdsShareLinkRepository.BdsShareLinkApi {
-    return retrofit.create(BdsShareLinkRepository.BdsShareLinkApi::class.java)
-  }
-
-  @Singleton
-  @Provides
   fun provideWalletValidationApi(
     @BrokerDefaultRetrofit retrofit: Retrofit
   ): BrokerVerificationRepository.BrokerVerificationApi {
