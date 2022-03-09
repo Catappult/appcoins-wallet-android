@@ -7,17 +7,14 @@ import com.asfoundation.wallet.interact.DefaultTokenProvider;
 import com.asfoundation.wallet.poa.BlockchainErrorMapper;
 import com.asfoundation.wallet.service.AccountKeystoreService;
 import com.asfoundation.wallet.ui.iab.raiden.MultiWalletNonceObtainer;
-import ethereumj.Transaction;
 import io.reactivex.Flowable;
-import io.reactivex.Scheduler;
 import io.reactivex.Single;
 import io.reactivex.schedulers.Schedulers;
-import it.czerwinski.android.hilt.annotations.BoundTo;
 import java.math.BigDecimal;
 import java.math.BigInteger;
-import javax.inject.Inject;
 import org.reactivestreams.Publisher;
 import org.web3j.abi.datatypes.Address;
+import org.web3j.crypto.Hash;
 import org.web3j.protocol.Web3j;
 import org.web3j.protocol.core.methods.response.EthSendTransaction;
 import org.web3j.protocol.http.HttpService;
@@ -74,7 +71,7 @@ public abstract class TransactionRepository implements TransactionRepositoryType
         transactionBuilder.contractAddress(), BigDecimal.ZERO,
         nonceObtainer.getNonce(new Address(transactionBuilder.fromAddress()),
             getChainId(transactionBuilder))).map(
-        signedTransaction -> Numeric.toHexString(new Transaction(signedTransaction).getHash()));
+        signedTransaction -> calculateHashFromSigned(signedTransaction));
   }
 
   @Override public Single<String> computeBuyTransactionHash(TransactionBuilder transactionBuilder,
@@ -85,8 +82,7 @@ public abstract class TransactionRepository implements TransactionRepositoryType
             transactionBuilder.appcoinsData(), transactionBuilder.getIabContract(), BigDecimal.ZERO,
             nonceObtainer.getNonce(new Address(transactionBuilder.fromAddress()),
                 getChainId(transactionBuilder))))
-        .map(
-            signedTransaction -> Numeric.toHexString(new Transaction(signedTransaction).getHash()));
+        .map(signedTransaction -> calculateHashFromSigned(signedTransaction));
   }
 
   private Single<String> createTransactionAndSend(TransactionBuilder transactionBuilder,
@@ -143,6 +139,11 @@ public abstract class TransactionRepository implements TransactionRepositoryType
               transactionBuilder.gasSettings().gasLimit, nonce.longValue(), data,
               defaultNetwork.chainId);
         });
+  }
+
+  private String calculateHashFromSigned(byte[] signedTx) {
+    byte[] hash = Hash.sha3(signedTx);
+    return Numeric.toHexString(hash);
   }
 
   private Publisher<?> retry(Throwable throwable) {
