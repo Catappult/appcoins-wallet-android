@@ -10,8 +10,8 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.nio.charset.StandardCharsets;
 import javax.inject.Inject;
+import org.bouncycastle.util.encoders.Hex;
 import org.kethereum.erc681.ERC681;
-import org.web3j.utils.Numeric;
 
 public class EIPTransactionParser {
   private final DefaultTokenProvider defaultTokenProvider;
@@ -97,10 +97,11 @@ public class EIPTransactionParser {
   }
 
   private TransactionData retrieveData(ERC681 payment) {
-    String data = Numeric.toHexString(payment.getFunctionParams()
+    String data = new String(Hex.decode(payment.getFunctionParams()
         .get("data")
         .substring(2)
-        .getBytes(StandardCharsets.UTF_8));
+        .getBytes(StandardCharsets.UTF_8)));
+
     try {
       return new Gson().fromJson(data, TransactionData.class);
     } catch (JsonSyntaxException e) {
