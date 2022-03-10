@@ -100,15 +100,23 @@ import static org.web3j.crypto.Wallet.create;
     return Single.fromCallable(() -> {
       RawTransaction transaction;
       if (data == null) {
-        transaction = RawTransaction.createEtherTransaction(chainId, BigInteger.valueOf(nonce),
-            gasLimit.toBigInteger(), toAddress, amount.toBigInteger(), maxPriorityFee,
-            //maxPriorityFeePerGas
-            gasPrice.toBigInteger()     //maxFeePerGas
-
+        transaction = RawTransaction.createEtherTransaction(
+            chainId,
+            BigInteger.valueOf(nonce),
+            gasLimit.toBigInteger(),
+            toAddress,
+            amount.toBigInteger(),
+            maxPriorityFee,           //maxPriorityFeePerGas
+            gasPrice.toBigInteger()   //maxFeePerGas
         );
       } else {
-        transaction = RawTransaction.createTransaction(chainId, BigInteger.valueOf(nonce),
-            gasLimit.toBigInteger(), toAddress, amount.toBigInteger(), Numeric.toHexString(data),
+        transaction = RawTransaction.createTransaction(
+            chainId,
+            BigInteger.valueOf(nonce),
+            gasLimit.toBigInteger(),
+            toAddress,
+            amount.toBigInteger(),
+            Numeric.toHexString(data),
             maxPriorityFee,             //maxPriorityFeePerGas
             gasPrice.toBigInteger()     //maxFeePerGas
         );
