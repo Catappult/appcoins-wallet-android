@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.asf.wallet.R
-import com.asf.wallet.databinding.BackupSkipLayoutBinding
+import com.asf.wallet.databinding.BackupSkipDialogFragmentBinding
 import com.asfoundation.wallet.base.SideEffect
 import com.asfoundation.wallet.base.SingleStateFragment
 import com.asfoundation.wallet.base.ViewState
@@ -21,7 +21,7 @@ class BackupSkipDialogFragment : BottomSheetDialogFragment(),
   @Inject
   lateinit var navigator: BackupSkipDialogNavigator
 
-  private val views by viewBinding(BackupSkipLayoutBinding::bind)
+  private val views by viewBinding(BackupSkipDialogFragmentBinding::bind)
 
   companion object {
     @JvmStatic
@@ -32,7 +32,7 @@ class BackupSkipDialogFragment : BottomSheetDialogFragment(),
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                             savedInstanceState: Bundle?): View? {
-    return inflater.inflate(R.layout.backup_skip_layout, container, false)
+    return inflater.inflate(R.layout.backup_skip_dialog_fragment, container, false)
   }
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

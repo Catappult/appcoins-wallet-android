@@ -33,7 +33,7 @@
           >
         <include
             android:id="@+id/backup_creation_info"
-            layout="@layout/layout_backup_creation_info"
+            layout="@layout/backup_save_options_info"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/big_margin"
@@ -58,7 +58,7 @@
             />
       </androidx.constraintlayout.widget.ConstraintLayout>
       <include
-          layout="@layout/layout_backup_creation_options"
+          layout="@layout/backup_save_options_options"
           android:layout_width="0dp"
           android:layout_height="wrap_content"
           app:layout_constraintBottom_toBottomOf="parent"

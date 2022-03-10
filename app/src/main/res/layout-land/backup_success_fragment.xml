@@ -25,7 +25,7 @@
           />
       <include
           android:id="@+id/backup_success_info"
-          layout="@layout/layout_backup_success_info"
+          layout="@layout/backup_success_info"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:layout_marginVertical="@dimen/big_margin"
@@ -44,7 +44,7 @@
           >
         <include
             android:id="@+id/tips"
-            layout="@layout/layout_backup_success_tips"
+            layout="@layout/backup_success_tips"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="parent"

@@ -16,7 +16,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.asf.wallet.R
-import com.asf.wallet.databinding.SaveBackupLayoutBinding
+import com.asf.wallet.databinding.BackupSaveOnDeviceDialogFragmentBinding
 import com.asfoundation.wallet.base.SingleStateFragment
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -38,7 +38,7 @@ class BackupSaveOnDeviceDialogFragment : BottomSheetDialogFragment(),
   private lateinit var openDocumentTreeResultLauncher: ActivityResultLauncher<Intent>
 
   private val viewModel: BackupSaveOnDeviceDialogViewModel by viewModels { backupSaveOnDeviceDialogViewModelFactory }
-  private val views by viewBinding(SaveBackupLayoutBinding::bind)
+  private val views by viewBinding(BackupSaveOnDeviceDialogFragmentBinding::bind)
 
   companion object {
     const val WALLET_ADDRESS_KEY = "wallet_address"
@@ -84,7 +84,7 @@ class BackupSaveOnDeviceDialogFragment : BottomSheetDialogFragment(),
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                             savedInstanceState: Bundle?): View? {
-    return inflater.inflate(R.layout.save_backup_layout, container, false)
+    return inflater.inflate(R.layout.backup_save_on_device_dialog_fragment, container, false)
   }
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

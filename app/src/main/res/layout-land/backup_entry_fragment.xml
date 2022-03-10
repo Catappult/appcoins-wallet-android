@@ -22,7 +22,7 @@
         >
       <include
           android:id="@+id/wallet_backup_info"
-          layout="@layout/layout_wallet_backup_info"
+          layout="@layout/backup_entry_info"
           android:layout_width="0dp"
           android:layout_height="wrap_content"
           android:layout_marginEnd="@dimen/normal_margin"
@@ -38,7 +38,7 @@
           app:layout_constraintGuide_percent="0.5"
           />
       <include
-          layout="@layout/layout_backup_password_toggle"
+          layout="@layout/backup_entry_password_toggle"
           android:layout_width="0dp"
           android:layout_height="wrap_content"
           android:layout_marginStart="@dimen/normal_margin"

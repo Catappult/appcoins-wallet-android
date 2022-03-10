@@ -13,7 +13,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.asf.wallet.R
-import com.asf.wallet.databinding.FragmentBackupWalletLayoutBinding
+import com.asf.wallet.databinding.BackupEntryFragmentBinding
 import com.asfoundation.wallet.base.Async
 import com.asfoundation.wallet.base.SingleStateFragment
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
@@ -31,7 +31,7 @@ class BackupEntryFragment : BasePageViewFragment(),
   lateinit var navigator: BackupEntryNavigator
 
   private val viewModel: BackupEntryViewModel by viewModels { backupEntryViewModelFactory }
-  private val views by viewBinding(FragmentBackupWalletLayoutBinding::bind)
+  private val views by viewBinding(BackupEntryFragmentBinding::bind)
 
   companion object {
     const val WALLET_ADDRESS_KEY = "wallet_address"
@@ -51,7 +51,7 @@ class BackupEntryFragment : BasePageViewFragment(),
     inflater: LayoutInflater, container: ViewGroup?,
     savedInstanceState: Bundle?
   ): View? {
-    return inflater.inflate(R.layout.fragment_backup_wallet_layout, container, false)
+    return inflater.inflate(R.layout.backup_entry_fragment, container, false)
   }
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -97,7 +97,7 @@ class BackupEntryFragment : BasePageViewFragment(),
       override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) = Unit
       override fun afterTextChanged(s: Editable) {
         timer?.cancel()
-        timer = object : CountDownTimer(350, 350) {
+        timer = object : CountDownTimer(500, 500) {
           override fun onTick(millisUntilFinished: Long) {}
           override fun onFinish() {
             handlePasswordFields()

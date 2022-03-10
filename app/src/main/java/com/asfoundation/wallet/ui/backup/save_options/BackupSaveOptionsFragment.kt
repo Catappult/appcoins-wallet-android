@@ -11,7 +11,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.asf.wallet.R
-import com.asf.wallet.databinding.LayoutBackupCreationOptionsBinding
+import com.asf.wallet.databinding.BackupSaveOptionsOptionsBinding
 import com.asfoundation.wallet.base.SingleStateFragment
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
@@ -28,7 +28,7 @@ class BackupSaveOptionsFragment : BasePageViewFragment(),
   lateinit var navigator: BackupSaveOptionsNavigator
 
   private val viewModel: BackupSaveOptionsViewModel by viewModels { backupSaveOptionsViewModelFactory }
-  private val views by viewBinding(LayoutBackupCreationOptionsBinding::bind)
+  private val views by viewBinding(BackupSaveOptionsOptionsBinding::bind)
 
   companion object {
 
@@ -50,7 +50,7 @@ class BackupSaveOptionsFragment : BasePageViewFragment(),
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                             savedInstanceState: Bundle?): View? {
-    return inflater.inflate(R.layout.fragment_backup_creation_layout, container, false)
+    return inflater.inflate(R.layout.backup_save_options_fragment, container, false)
   }
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
