@@ -198,7 +198,7 @@ class MyWalletsFragment : BasePageViewFragment(),
       } ${walletInfo.walletBalance.ethBalance.token.symbol}"
       navigator.navigateToMore(
         walletInfo.wallet, overallFiatValue,
-        appcoinsValue, creditsValue, ethValue, verified, walletsModel.wallets.isNotEmpty()
+        appcoinsValue, creditsValue, ethValue, verified, walletsModel.wallets.size > 1
       )
     }
   }
