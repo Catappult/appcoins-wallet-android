@@ -7,9 +7,7 @@ import android.view.MenuItem
 import com.asf.wallet.R
 import com.asfoundation.wallet.permissions.manage.view.ToolbarManager
 import com.asfoundation.wallet.ui.BaseActivity
-import com.asfoundation.wallet.ui.backup.entry.BackupWalletFragment
 import dagger.hilt.android.AndroidEntryPoint
-import io.reactivex.subjects.PublishSubject
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -45,8 +43,6 @@ class BackupActivity : BaseActivity(), BackupActivityView, ToolbarManager {
     }
     return super.onOptionsItemSelected(item)
   }
-
-  override fun closeScreen() = finish()
 
   override fun setupToolbar() {
     toolbar()

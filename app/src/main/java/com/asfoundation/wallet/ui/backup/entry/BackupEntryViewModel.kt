@@ -5,25 +5,25 @@ import com.asfoundation.wallet.util.CurrencyFormatUtils
 import com.asfoundation.wallet.wallets.domain.WalletBalance
 import com.asfoundation.wallet.wallets.usecases.GetWalletInfoUseCase
 
-sealed class BackupWalletSideEffect : SideEffect
+sealed class BackupEntrySideEffect : SideEffect
 
-data class BackupWalletState(
+data class BackupEntryState(
   val walletAddress: String,
   val balanceAsync: Async<Balance> = Async.Uninitialized,
 ) : ViewState
 
-class BackupWalletViewModel(
-  private val data: BackupWalletData,
+class BackupEntryViewModel(
+  private val data: BackupEntryData,
   private val getWalletInfoUseCase: GetWalletInfoUseCase,
   private val currencyFormatUtils: CurrencyFormatUtils,
   private val rxSchedulers: RxSchedulers,
-) : BaseViewModel<BackupWalletState, BackupWalletSideEffect>(
+) : BaseViewModel<BackupEntryState, BackupEntrySideEffect>(
   initialState(data)
 ) {
 
   companion object {
-    fun initialState(data: BackupWalletData): BackupWalletState {
-      return BackupWalletState(data.walletAddress)
+    fun initialState(data: BackupEntryData): BackupEntryState {
+      return BackupEntryState(data.walletAddress)
     }
   }
 
@@ -35,7 +35,7 @@ class BackupWalletViewModel(
     getWalletInfoUseCase(data.walletAddress, cached = true, updateFiat = false)
       .map { walletInfo -> mapBalance(walletInfo.walletBalance) }
       .subscribeOn(rxSchedulers.io)
-      .asAsyncToState(BackupWalletState::balanceAsync) {
+      .asAsyncToState(BackupEntryState::balanceAsync) {
         copy(balanceAsync = it)
       }
       .scopedSubscribe() { e ->

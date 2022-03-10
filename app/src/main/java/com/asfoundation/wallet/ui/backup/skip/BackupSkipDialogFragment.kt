@@ -4,33 +4,29 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.viewModels
-import androidx.lifecycle.lifecycleScope
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.asf.wallet.R
 import com.asf.wallet.databinding.BackupSkipLayoutBinding
+import com.asfoundation.wallet.base.SideEffect
 import com.asfoundation.wallet.base.SingleStateFragment
+import com.asfoundation.wallet.base.ViewState
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import javax.inject.Inject
 
-class SkipDialogFragment : BottomSheetDialogFragment(),
-    SingleStateFragment<SkipDialogState, SkipDialogSideEffect> {
+class BackupSkipDialogFragment : BottomSheetDialogFragment(),
+  SingleStateFragment<ViewState, SideEffect> {
 
 
   @Inject
-  lateinit var skipDialogViewModelFactory: SkipDialogViewModelFactory
+  lateinit var navigator: BackupSkipDialogNavigator
 
-  @Inject
-  lateinit var navigator: SkipDialogNavigator
-
-  private val viewModel: SkipDialogViewModel by viewModels { skipDialogViewModelFactory }
   private val views by viewBinding(BackupSkipLayoutBinding::bind)
 
   companion object {
     @JvmStatic
-    fun newInstance(): SkipDialogFragment {
-      return SkipDialogFragment()
+    fun newInstance(): BackupSkipDialogFragment {
+      return BackupSkipDialogFragment()
     }
   }
 
@@ -47,8 +43,6 @@ class SkipDialogFragment : BottomSheetDialogFragment(),
     views.cancel.setOnClickListener {
       navigator.navigateBack()
     }
-
-    viewModel.collectStateAndEvents(lifecycle, viewLifecycleOwner.lifecycleScope)
   }
 
   override fun onStart() {
@@ -61,8 +55,7 @@ class SkipDialogFragment : BottomSheetDialogFragment(),
     return R.style.AppBottomSheetDialogThemeNoFloating
   }
 
-  override fun onStateChanged(state: SkipDialogState) = Unit
+  override fun onStateChanged(state: ViewState) = Unit
 
-
-  override fun onSideEffect(sideEffect: SkipDialogSideEffect) = Unit
+  override fun onSideEffect(sideEffect: SideEffect) = Unit
 }

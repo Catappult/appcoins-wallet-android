@@ -8,29 +8,30 @@ import com.asfoundation.wallet.ui.backup.use_cases.BackupSuccessLogUseCase
 import com.asfoundation.wallet.ui.backup.use_cases.SaveBackupFileUseCase
 import java.io.File
 
-sealed class SaveOnDeviceDialogSideEffect : SideEffect {
-  object NavigateToSuccess : SaveOnDeviceDialogSideEffect()
-  object ShowError : SaveOnDeviceDialogSideEffect()
+sealed class BackupSaveOnDeviceDialogSideEffect : SideEffect {
+  object NavigateToSuccess : BackupSaveOnDeviceDialogSideEffect()
+  object ShowError : BackupSaveOnDeviceDialogSideEffect()
 }
 
-data class SaveOnDeviceDialogState(val fileName: String, val downloadsPath: String?) : ViewState
+data class BackupSaveOnDeviceDialogState(val fileName: String, val downloadsPath: String?) :
+  ViewState
 
-class SaveOnDeviceDialogViewModel(
-  private val data: SaveOnDeviceDialogData,
+class BackupSaveOnDeviceDialogViewModel(
+  private val data: BackupSaveOnDeviceDialogData,
   private val saveBackupFileUseCase: SaveBackupFileUseCase,
   private val backupSuccessLogUseCase: BackupSuccessLogUseCase,
   private val downloadsPath: File?
 ) :
-  BaseViewModel<SaveOnDeviceDialogState, SaveOnDeviceDialogSideEffect>(
+  BaseViewModel<BackupSaveOnDeviceDialogState, BackupSaveOnDeviceDialogSideEffect>(
     initialState(data, downloadsPath)
   ) {
 
   companion object {
     fun initialState(
-      data: SaveOnDeviceDialogData,
+      data: BackupSaveOnDeviceDialogData,
       downloadsPath: File?
-    ): SaveOnDeviceDialogState {
-      return SaveOnDeviceDialogState(
+    ): BackupSaveOnDeviceDialogState {
+      return BackupSaveOnDeviceDialogState(
         "walletbackup${data.walletAddress}",
         downloadsPath?.absolutePath
       )
@@ -42,12 +43,12 @@ class SaveOnDeviceDialogViewModel(
   }) {
     saveBackupFileUseCase(data.walletAddress, data.password, fileName, filePath)
       .andThen(backupSuccessLogUseCase(data.walletAddress))
-      .doOnComplete { sendSideEffect { SaveOnDeviceDialogSideEffect.NavigateToSuccess } }
+      .doOnComplete { sendSideEffect { BackupSaveOnDeviceDialogSideEffect.NavigateToSuccess } }
         .scopedSubscribe { showError(it) }
   }
 
   private fun showError(throwable: Throwable) {
     throwable.printStackTrace()
-    sendSideEffect { SaveOnDeviceDialogSideEffect.ShowError }
+    sendSideEffect { BackupSaveOnDeviceDialogSideEffect.ShowError }
   }
 }

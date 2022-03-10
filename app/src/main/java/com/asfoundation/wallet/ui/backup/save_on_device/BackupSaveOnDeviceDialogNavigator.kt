@@ -6,9 +6,9 @@ import com.asfoundation.wallet.ui.backup.success.BackupSuccessFragment
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import javax.inject.Inject
 
-class SaveOnDeviceDialogNavigator @Inject constructor(val fragment: Fragment) {
+class BackupSaveOnDeviceDialogNavigator @Inject constructor(val fragment: Fragment) {
 
-  fun dismiss(){
+  fun dismiss() {
     (fragment as BottomSheetDialogFragment).dismiss()
   }
 

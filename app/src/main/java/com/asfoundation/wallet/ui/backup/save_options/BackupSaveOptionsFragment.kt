@@ -1,4 +1,4 @@
-package com.asfoundation.wallet.ui.backup.creation
+package com.asfoundation.wallet.ui.backup.save_options
 
 import android.os.Bundle
 import android.text.Editable
@@ -18,16 +18,16 @@ import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class BackupCreationFragment : BasePageViewFragment(),
-    SingleStateFragment<BackupCreationState, BackupCreationSideEffect> {
+class BackupSaveOptionsFragment : BasePageViewFragment(),
+  SingleStateFragment<BackupSaveOptionsState, BackupSaveOptionsSideEffect> {
 
   @Inject
-  lateinit var backupCreationViewModelFactory: BackupCreationViewModelFactory
+  lateinit var backupSaveOptionsViewModelFactory: BackupSaveOptionsViewModelFactory
 
   @Inject
-  lateinit var navigator: BackupCreationNavigator
+  lateinit var navigator: BackupSaveOptionsNavigator
 
-  private val viewModel: BackupCreationViewModel by viewModels { backupCreationViewModelFactory }
+  private val viewModel: BackupSaveOptionsViewModel by viewModels { backupSaveOptionsViewModelFactory }
   private val views by viewBinding(LayoutBackupCreationOptionsBinding::bind)
 
   companion object {
@@ -36,14 +36,14 @@ class BackupCreationFragment : BasePageViewFragment(),
     const val PASSWORD_KEY = "password"
 
     @JvmStatic
-    fun newInstance(walletAddress: String, password: String): BackupCreationFragment {
-      return BackupCreationFragment()
-          .apply {
-            arguments = Bundle().apply {
-              putString(WALLET_ADDRESS_KEY, walletAddress)
-              putString(PASSWORD_KEY, password)
-            }
+    fun newInstance(walletAddress: String, password: String): BackupSaveOptionsFragment {
+      return BackupSaveOptionsFragment()
+        .apply {
+          arguments = Bundle().apply {
+            putString(WALLET_ADDRESS_KEY, walletAddress)
+            putString(PASSWORD_KEY, password)
           }
+        }
     }
   }
 
@@ -80,14 +80,14 @@ class BackupCreationFragment : BasePageViewFragment(),
 
   fun showError() {
     Toast.makeText(context, R.string.error_export, Toast.LENGTH_LONG)
-        .show()
+      .show()
     requireActivity().finish()
   }
 
-  override fun onStateChanged(state: BackupCreationState) = Unit
+  override fun onStateChanged(state: BackupSaveOptionsState) = Unit
 
-  override fun onSideEffect(sideEffect: BackupCreationSideEffect) = when (sideEffect) {
-    BackupCreationSideEffect.ShowError -> showError()
-    BackupCreationSideEffect.NavigateToSuccess -> navigator.navigateToSuccessScreen()
+  override fun onSideEffect(sideEffect: BackupSaveOptionsSideEffect) = when (sideEffect) {
+    BackupSaveOptionsSideEffect.ShowError -> showError()
+    BackupSaveOptionsSideEffect.NavigateToSuccess -> navigator.navigateToSuccessScreen()
   }
 }

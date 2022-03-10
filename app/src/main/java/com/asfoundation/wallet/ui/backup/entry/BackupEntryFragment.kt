@@ -21,24 +21,24 @@ import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class BackupWalletFragment : BasePageViewFragment(),
-  SingleStateFragment<BackupWalletState, BackupWalletSideEffect> {
+class BackupEntryFragment : BasePageViewFragment(),
+  SingleStateFragment<BackupEntryState, BackupEntrySideEffect> {
 
   @Inject
-  lateinit var backupWalletViewModelFactory: BackupWalletViewModelFactory
+  lateinit var backupEntryViewModelFactory: BackupEntryViewModelFactory
 
   @Inject
-  lateinit var navigator: BackupWalletNavigator
+  lateinit var navigator: BackupEntryNavigator
 
-  private val viewModel: BackupWalletViewModel by viewModels { backupWalletViewModelFactory }
+  private val viewModel: BackupEntryViewModel by viewModels { backupEntryViewModelFactory }
   private val views by viewBinding(FragmentBackupWalletLayoutBinding::bind)
 
   companion object {
     const val WALLET_ADDRESS_KEY = "wallet_address"
 
     @JvmStatic
-    fun newInstance(walletAddress: String): BackupWalletFragment {
-      return BackupWalletFragment()
+    fun newInstance(walletAddress: String): BackupEntryFragment {
+      return BackupEntryFragment()
         .apply {
           arguments = Bundle().apply {
             putString(WALLET_ADDRESS_KEY, walletAddress)
@@ -157,7 +157,7 @@ class BackupWalletFragment : BasePageViewFragment(),
     })
   }
 
-  override fun onStateChanged(state: BackupWalletState) {
+  override fun onStateChanged(state: BackupEntryState) {
     views.walletBackupInfo.backupWalletAddress.text = state.walletAddress
     handleBalanceAsync(state.balanceAsync)
   }
@@ -176,5 +176,5 @@ class BackupWalletFragment : BasePageViewFragment(),
       getString(R.string.value_fiat, balance.symbol, balance.amount)
   }
 
-  override fun onSideEffect(sideEffect: BackupWalletSideEffect) = Unit
+  override fun onSideEffect(sideEffect: BackupEntrySideEffect) = Unit
 }

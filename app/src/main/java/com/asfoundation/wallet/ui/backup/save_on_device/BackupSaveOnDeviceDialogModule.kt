@@ -14,30 +14,30 @@ import javax.inject.Named
 
 @InstallIn(FragmentComponent::class)
 @Module
-class SaveOnDeviceDialogModule {
+class BackupSaveOnDeviceDialogModule {
 
   @Provides
-  fun providesSaveOnDeviceDialogViewModelFactory(
-    saveOnDeviceDialogData: SaveOnDeviceDialogData,
+  fun providesBackupSaveOnDeviceDialogViewModelFactory(
+    backupSaveOnDeviceDialogData: BackupSaveOnDeviceDialogData,
     saveBackupFileUseCase: SaveBackupFileUseCase,
     backupSuccessLogUseCase: BackupSuccessLogUseCase,
     @Named("downloads-path") downloadsPath: File?
-  ): SaveOnDeviceDialogViewModelFactory {
-    return SaveOnDeviceDialogViewModelFactory(
-      saveOnDeviceDialogData, saveBackupFileUseCase,
+  ): BackupSaveOnDeviceDialogViewModelFactory {
+    return BackupSaveOnDeviceDialogViewModelFactory(
+      backupSaveOnDeviceDialogData, saveBackupFileUseCase,
       backupSuccessLogUseCase, downloadsPath
     )
   }
 
   @Provides
-  fun providesSaveOnDeviceDialogData(
+  fun providesBackupSaveOnDeviceDialogData(
     fragment: Fragment
-  ): SaveOnDeviceDialogData {
+  ): BackupSaveOnDeviceDialogData {
     fragment.requireArguments()
       .apply {
-        return SaveOnDeviceDialogData(
-          getString(SaveOnDeviceDialogFragment.WALLET_ADDRESS_KEY)!!, getString(
-            SaveOnDeviceDialogFragment.PASSWORD_KEY
+        return BackupSaveOnDeviceDialogData(
+          getString(BackupSaveOnDeviceDialogFragment.WALLET_ADDRESS_KEY)!!, getString(
+            BackupSaveOnDeviceDialogFragment.PASSWORD_KEY
           )!!
         )
       }

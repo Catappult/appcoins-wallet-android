@@ -39,7 +39,7 @@
       android:layout_marginHorizontal="@dimen/half_large_margin"
       android:layout_marginTop="16dp"
       android:layout_marginBottom="@dimen/half_large_margin"
-      app:buttonText="@string/backup_confirmation_button"
+      app:buttonText="@string/understand_button"
       app:buttonType="filled"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"

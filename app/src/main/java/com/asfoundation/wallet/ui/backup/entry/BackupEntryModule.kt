@@ -2,7 +2,7 @@ package com.asfoundation.wallet.ui.backup.entry
 
 import androidx.fragment.app.Fragment
 import com.asfoundation.wallet.base.RxSchedulers
-import com.asfoundation.wallet.ui.backup.entry.BackupWalletFragment.Companion.WALLET_ADDRESS_KEY
+import com.asfoundation.wallet.ui.backup.entry.BackupEntryFragment.Companion.WALLET_ADDRESS_KEY
 import com.asfoundation.wallet.util.CurrencyFormatUtils
 import com.asfoundation.wallet.wallets.usecases.GetWalletInfoUseCase
 import dagger.Module
@@ -12,16 +12,16 @@ import dagger.hilt.android.components.FragmentComponent
 
 @InstallIn(FragmentComponent::class)
 @Module
-class BackupWalletModule {
+class BackupEntryModule {
 
   @Provides
-  fun providesBackupWalletViewModelFactory(
+  fun providesBackupEntryViewModelFactory(
     getWalletInfoUseCase: GetWalletInfoUseCase,
     currencyFormatUtils: CurrencyFormatUtils,
-    data: BackupWalletData,
+    data: BackupEntryData,
     rxSchedulers: RxSchedulers,
-  ): BackupWalletViewModelFactory {
-    return BackupWalletViewModelFactory(
+  ): BackupEntryViewModelFactory {
+    return BackupEntryViewModelFactory(
       data,
       getWalletInfoUseCase,
       currencyFormatUtils,
@@ -30,10 +30,10 @@ class BackupWalletModule {
   }
 
   @Provides
-  fun providesBackupWalletData(fragment: Fragment): BackupWalletData {
+  fun providesBackupEntryData(fragment: Fragment): BackupEntryData {
     fragment.requireArguments()
-        .apply {
-          return BackupWalletData(getString(WALLET_ADDRESS_KEY)!!)
-        }
+      .apply {
+        return BackupEntryData(getString(WALLET_ADDRESS_KEY)!!)
+      }
   }
 }
