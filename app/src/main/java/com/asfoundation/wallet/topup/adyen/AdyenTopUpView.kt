@@ -24,7 +24,7 @@ interface AdyenTopUpView {
 
   fun showSecurityValidationError()
 
-  fun showTimeoutError()
+  fun showOutdatedCardError()
 
   fun showAlreadyProcessedError()
 

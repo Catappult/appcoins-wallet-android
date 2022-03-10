@@ -230,8 +230,8 @@ class AdyenTopUpFragment : BasePageViewFragment(), AdyenTopUpView {
     showSpecificError(R.string.purchase_error_card_security_validation)
   }
 
-  override fun showTimeoutError() {
-    showSpecificError(R.string.purchase_error_transaction_timeout)
+  override fun showOutdatedCardError() {
+    showSpecificError(R.string.purchase_card_error_re_insert)
   }
 
   override fun showAlreadyProcessedError() {

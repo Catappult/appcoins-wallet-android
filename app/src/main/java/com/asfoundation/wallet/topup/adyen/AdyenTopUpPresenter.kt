@@ -582,7 +582,7 @@ class AdyenTopUpPresenter(
 
       paymentModel.error.errorInfo?.errorType == ErrorType.CARD_SECURITY_VALIDATION -> view.showSecurityValidationError()
 
-      paymentModel.error.errorInfo?.errorType == ErrorType.TIMEOUT -> view.showTimeoutError()
+      paymentModel.error.errorInfo?.errorType == ErrorType.OUTDATED_CARD -> view.showOutdatedCardError()
 
       paymentModel.error.errorInfo?.errorType == ErrorType.ALREADY_PROCESSED -> view.showAlreadyProcessedError()
 
