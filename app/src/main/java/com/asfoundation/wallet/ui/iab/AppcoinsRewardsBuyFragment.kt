@@ -55,17 +55,21 @@ class AppcoinsRewardsBuyFragment : BasePageViewFragment(), AppcoinsRewardsBuyVie
   private lateinit var presenter: AppcoinsRewardsBuyPresenter
   private lateinit var iabView: IabView
 
-  override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                            savedInstanceState: Bundle?): View? {
+  override fun onCreateView(
+    inflater: LayoutInflater, container: ViewGroup?,
+    savedInstanceState: Bundle?
+  ): View? {
     return inflater.inflate(R.layout.reward_payment_layout, container, false)
   }
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
-    presenter = AppcoinsRewardsBuyPresenter(this, rewardsManager, AndroidSchedulers.mainThread(),
-        Schedulers.io(), CompositeDisposable(), transactionBuilder.domain,
-        isBds, analytics, transactionBuilder, formatter, gamificationLevel,
-        appcoinsRewardsBuyInteract, logger)
+    presenter = AppcoinsRewardsBuyPresenter(
+      this, rewardsManager, AndroidSchedulers.mainThread(),
+      Schedulers.io(), CompositeDisposable(), transactionBuilder.domain,
+      isBds, analytics, transactionBuilder, formatter, gamificationLevel,
+      appcoinsRewardsBuyInteract, logger
+    )
     setupTransactionCompleteAnimation()
     presenter.present()
   }
@@ -114,8 +118,10 @@ class AppcoinsRewardsBuyFragment : BasePageViewFragment(), AppcoinsRewardsBuyVie
     presenter.sendRevenueEvent()
     presenter.sendPaymentSuccessEvent()
     val bundle = billingMessagesMapper.successBundle(uid)
-    bundle.putString(InAppPurchaseInteractor.PRE_SELECTED_PAYMENT_METHOD_KEY,
-        PaymentMethodsView.PaymentMethodId.APPC_CREDITS.id)
+    bundle.putString(
+      InAppPurchaseInteractor.PRE_SELECTED_PAYMENT_METHOD_KEY,
+      PaymentMethodsView.PaymentMethodId.APPC_CREDITS.id
+    )
     iabView.finish(bundle)
   }
 
@@ -126,8 +132,10 @@ class AppcoinsRewardsBuyFragment : BasePageViewFragment(), AppcoinsRewardsBuyVie
     presenter.sendRevenueEvent()
     presenter.sendPaymentSuccessEvent()
     val bundle = billingMessagesMapper.mapPurchase(purchase, orderReference)
-    bundle.putString(InAppPurchaseInteractor.PRE_SELECTED_PAYMENT_METHOD_KEY,
-        PaymentMethodsView.PaymentMethodId.APPC_CREDITS.id)
+    bundle.putString(
+      InAppPurchaseInteractor.PRE_SELECTED_PAYMENT_METHOD_KEY,
+      PaymentMethodsView.PaymentMethodId.APPC_CREDITS.id
+    )
     iabView.finish(bundle)
   }
 
@@ -150,7 +158,7 @@ class AppcoinsRewardsBuyFragment : BasePageViewFragment(), AppcoinsRewardsBuyVie
   }
 
   private fun setupTransactionCompleteAnimation() =
-      lottie_transaction_success.setAnimation(R.raw.success_animation)
+    lottie_transaction_success.setAnimation(R.raw.success_animation)
 
   private val amount: BigDecimal by lazy {
     if (requireArguments().containsKey(AMOUNT_KEY)) {
@@ -199,9 +207,11 @@ class AppcoinsRewardsBuyFragment : BasePageViewFragment(), AppcoinsRewardsBuyVie
     private const val TRANSACTION_KEY = "transaction_key"
     private const val GAMIFICATION_LEVEL = "gamification_level"
 
-    fun newInstance(amount: BigDecimal, transactionBuilder: TransactionBuilder,
-                    uri: String?, isBds: Boolean,
-                    gamificationLevel: Int): Fragment {
+    fun newInstance(
+      amount: BigDecimal, transactionBuilder: TransactionBuilder,
+      uri: String?, isBds: Boolean,
+      gamificationLevel: Int
+    ): Fragment {
       return AppcoinsRewardsBuyFragment().apply {
         arguments = Bundle().apply {
           putSerializable(AMOUNT_KEY, amount)
