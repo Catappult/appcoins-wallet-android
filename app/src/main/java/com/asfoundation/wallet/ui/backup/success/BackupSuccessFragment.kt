@@ -49,13 +49,13 @@ class BackupSuccessFragment : BasePageViewFragment(),
   }
 
   private fun setSuccessInfo() {
-    var info = "Your backup file is stored in your device"
+    var info = R.string.backup_success_save_on_device
 
     if (requireArguments().getBoolean(EMAIL_KEY)) {
-      info = "Your backup file is in your email"
+      info = R.string.backup_success_save_on_email
     }
 
-    views.backupSuccessInfo.body.text = info
+    views.backupSuccessInfo.body.text = context?.getString(info)
   }
 
   override fun onStateChanged(state: ViewState) = Unit

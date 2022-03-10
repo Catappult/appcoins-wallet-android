@@ -23,7 +23,7 @@
       android:layout_height="wrap_content"
       android:layout_marginTop="@dimen/big_margin"
       android:gravity="center"
-      android:text="@string/backup_confirmation_title"
+      android:text="@string/backup_ready_title"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toBottomOf="@id/animation"

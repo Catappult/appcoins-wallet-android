@@ -35,25 +35,15 @@
         />
     <TextView
         android:id="@+id/tip_1_title"
-        style="@style/WalletBackupTextStyle.Bold.White"
+        style="@style/WalletBackupTextStyle.Normal.White.M"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/small_margin"
         android:layout_marginTop="@dimen/normal_margin"
         android:paddingStart="@dimen/big_padding"
-        android:text="@string/backup_confirmation_tips_1_title"
+        android:text="@string/backup_confirmation_tips_1"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        />
-    <TextView
-        style="@style/WalletBackupTextStyle.Normal.White.M"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/small_margin"
-        android:text="@string/backup_confirmation_tips_1_body"
-        app:layout_constraintBottom_toBottomOf="@+id/tip_1_title"
-        app:layout_constraintStart_toEndOf="@+id/tip_1_title"
-        app:layout_constraintTop_toTopOf="@+id/tip_1_title"
         />
   </androidx.constraintlayout.widget.ConstraintLayout>
   <androidx.constraintlayout.widget.ConstraintLayout
@@ -74,25 +64,15 @@
         />
     <TextView
         android:id="@+id/tip_2_title"
-        style="@style/WalletBackupTextStyle.Bold.White"
+        style="@style/WalletBackupTextStyle.Normal.White.M"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/small_margin"
         android:layout_marginTop="@dimen/normal_margin"
         android:paddingStart="@dimen/big_padding"
-        android:text="@string/backup_confirmation_tips_2_title"
+        android:text="@string/backup_confirmation_tips_2"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        />
-    <TextView
-        style="@style/WalletBackupTextStyle.Normal.White.M"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/small_margin"
-        android:text="@string/backup_confirmation_tips_2_body"
-        app:layout_constraintBottom_toBottomOf="@+id/tip_2_title"
-        app:layout_constraintStart_toEndOf="@+id/tip_2_title"
-        app:layout_constraintTop_toTopOf="@+id/tip_2_title"
         />
   </androidx.constraintlayout.widget.ConstraintLayout>
   <androidx.constraintlayout.widget.ConstraintLayout
@@ -113,25 +93,15 @@
         />
     <TextView
         android:id="@+id/tip_3_title"
-        style="@style/WalletBackupTextStyle.Bold.White"
+        style="@style/WalletBackupTextStyle.Normal.White.M"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/small_margin"
         android:layout_marginTop="@dimen/normal_margin"
         android:paddingStart="@dimen/big_padding"
-        android:text="@string/backup_confirmation_tips_3_title"
+        android:text="@string/backup_confirmation_tips_3"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        />
-    <TextView
-        style="@style/WalletBackupTextStyle.Normal.White.M"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/small_margin"
-        android:text="@string/backup_confirmation_tips_3_body"
-        app:layout_constraintBottom_toBottomOf="@+id/tip_3_title"
-        app:layout_constraintStart_toEndOf="@+id/tip_3_title"
-        app:layout_constraintTop_toTopOf="@+id/tip_3_title"
         />
   </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

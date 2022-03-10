@@ -36,7 +36,7 @@
       android:layout_height="wrap_content"
       android:layout_marginTop="@dimen/normal_margin"
       android:gravity="center"
-      android:text="@string/backup_confirmation_no_share_body"
+      android:text="@string/backup_success_save_on_email"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toBottomOf="@id/title"

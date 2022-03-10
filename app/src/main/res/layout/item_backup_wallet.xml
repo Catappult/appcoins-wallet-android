@@ -42,7 +42,7 @@
         android:ellipsize="end"
         android:fontFamily="sans-serif-medium"
         android:maxLines="1"
-        android:text="@string/backup_title"
+        android:text="@string/action_backup_wallet"
         android:textColor="@color/white"
         android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="@+id/backup_alert_icon"

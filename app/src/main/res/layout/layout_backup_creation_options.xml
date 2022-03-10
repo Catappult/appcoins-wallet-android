@@ -12,7 +12,7 @@
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_marginHorizontal="@dimen/half_large_margin"
-      android:text="@string/backup_option_email_title"
+      android:text="@string/backup_ready_save_on_email"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent"
       />
@@ -26,7 +26,7 @@
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toBottomOf="@+id/send_email_title"
       app:textFieldColor="@color/white"
-      app:textFieldHint="@string/backup_option_email_hint"
+      app:textFieldHint="@string/email_here_field"
       app:textFieldType="filled"
       />
   <com.asfoundation.wallet.ui.common.WalletButtonView
@@ -36,7 +36,7 @@
       android:layout_marginHorizontal="@dimen/half_large_margin"
       android:layout_marginTop="16dp"
       android:layout_marginBottom="18dp"
-      app:buttonText="@string/backup_option_email_button"
+      app:buttonText="@string/backup_ready_email_button"
       app:buttonType="filled"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
@@ -90,7 +90,7 @@
       android:layout_height="@dimen/large_button_height"
       android:layout_marginHorizontal="@dimen/half_large_margin"
       android:layout_marginTop="20dp"
-      app:buttonText="@string/backup_option_device_button"
+      app:buttonText="@string/backup_ready_device_button"
       app:buttonType="outlined"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
