@@ -683,9 +683,6 @@
   <string name="backup_home_notification_title">Backup Your Wallet</string>
   <string name="backup_home_notification_body">Have you ever lost your phone? Backup your wallet now!</string>
 
-
-  <string name="backup_password_title">Encrypt your wallet (optional)</string>
-
   <string name="backup_confirmation_no_share_title">Backup done!</string>
   <string name="backup_save_dialogue_title">Save backup file</string>
   <string name="backup_save_dialogue_body">Choose a name for your backup file.</string>
