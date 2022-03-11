@@ -24,7 +24,7 @@ class InappApiModule {
   @Singleton
   @Provides
   @InappBlockchainRetrofit
-  fun provideBrokerBlockchainRetrofit(@BlockchainHttpClient client: OkHttpClient): Retrofit {
+  fun provideInappBlockchainRetrofit(@BlockchainHttpClient client: OkHttpClient): Retrofit {
     return Retrofit.Builder()
       .baseUrl(inappUrl)
       .client(client)

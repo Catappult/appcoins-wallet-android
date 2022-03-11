@@ -158,7 +158,7 @@
   <string name="action_more_details">เพิ่มเติม</string>
   <string name="action_add_wallet">เพิ่มกระเป๋าสตางค์</string>
   <string name="action_coinbase">Coinbase</string>
-  <string name="action_shapeshift">Shapeshift (Crypto only)</string>
+  <string name="action_shapeshift">เปลี่ยนรูปร่าง (คริปโตเท่านั้น)</string>
   <string name="action_changelly">Changelly</string>
   <string name="action_wallets">กระเป๋าสตางค์</string>
   <string name="action_next">ถัดไป</string>
@@ -263,7 +263,7 @@
   <string name="ellipsize">\u0020• • •</string>
   <string name="transaction_status_label">สถานะ</string>
   <string name="transaction_category_label">ประเภท</string>
-  <string name="transaction_order_reference_label">Order ID</string>
+  <string name="transaction_order_reference_label">รหัสคำสั่งซื้อ</string>
   <string name="transaction_details_label">รายละเอียด</string>
   <string name="transaction_to_label">ถึง</string>
   <string name="dialog_credit_card_remember">จดจำบัตร</string>
@@ -271,7 +271,7 @@
   <string name="dialog_credit_card_number">หมายเลขบัตร</string>
   <string name="dialog_credit_card_expiration">วันหมดอายุ</string>
   <string name="dialog_credit_card_cvv">CVV</string>
-  <string name="dialog_bank_card">Credit/debit card</string>
+  <string name="dialog_bank_card">บัตรเครดิต/เดบิต</string>
   <string name="dialog_expiry_date">วันหมดอายุ</string>
   <string name="activity_airdrop_title">ยืนยันว่า คุณเป็นคนที่จะได้รับ AppCoins</string>
   <string name="activity_airdrop_details">นี้เป็นเพียงสิ่งปลอดภัย</string>
@@ -401,7 +401,7 @@
   <string name="askafriend_share_add_message_body">เพิ่มข้อความ (ถ้ามี)</string>
   <string name="askafriend_share_button">ใช้ร่วมกัน</string>
   <string name="askafriend_share_popup_title">ถามบางคนผ่าน:</string>
-  <string name="askafriend_received_body">You just received %s AppCoins Credits</string>
+  <string name="askafriend_received_body">คุณเพิ่งได้รับ %s AppCoins Credits</string>
   <string name="askafriend_notification_received_title">ได้รับการโอนใหม่</string>
   <string name="askafriend_notification_received_body">%1$s %2$s ถูกเก็บเป็นเครดิตในกระเป๋าสตางค์ของคุณ</string>
   <string name="askafriend_received_title">รับการโอน</string>
@@ -440,16 +440,16 @@
   <string name="get_code_button">รับรหัส</string>
   <string name="confirm_button">ยืนยัน</string>
   <string name="withdraw_button">ถอน</string>
-  <string name="email_here_field">Your email here&#8230;</string>
-  <string name="understood_button">Understood!</string>
+  <string name="email_here_field">อีเมลของคุณที่นี่&#8230;</string>
+  <string name="understood_button">เข้าใจแล้ว!</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">ฉันตกลงใน %1$s และ %2$sของกระเป่าสตางค์ AppCoins</string>
   <string name="terms_and_conditions_error">โปรดยอมรับข้อตกลงและเงื่อนไขเพื่อดำเนินการต่อ</string>
   <string name="terms_and_conditions">ข้อกำหนดและเงื่อนไข</string>
   <string name="privacy_policy">นโยบายการเก็บข้อมูลส่วนบุคคล</string>
-  <string name="decline_button">Reject</string>
-  <string name="get_started">Get Started</string>
-  <string name="existent_wallet">I already have a wallet</string>
+  <string name="decline_button">ปฏิเสธ</string>
+  <string name="get_started">เริ่ม</string>
+  <string name="existent_wallet">ฉันมีกระเป๋าเงินอยู่แล้ว</string>
   <!--Home-->
   <string name="home_empty_discover_apps_body">ดำเนินการซื้อเกมส์ที่คุณชื่นชอบและเราจะรับมือกับทุกอย่าง</string>
   <string name="home_empty_discover_apps_button">ค้นพบแอปยอดนิยม</string>
@@ -527,7 +527,7 @@
   <string name="purchase_card_error_not_supported">ประเภทบัตรของคุณยังไม่ได้รับการรับรอง โปรดลองบัตรใบอื่น</string>
   <string name="purchase_card_error_security">คุณมั่นใจว่าข้อมูลความปลอดภัยถูกต้องใช่ไหม? โปรดลองใหม่อีกครั้ง</string>
   <string name="purchase_card_error_wrong_CVV">รหัส CVV / CVC ของคุณดูเหมือนจะผิด กรุณาลองอีกครั้ง</string>
-  <string name="purchase_card_error_re_insert">It seems you registered this card long time ago! Insert the card details again or use a different one.</string>
+  <string name="purchase_card_error_re_insert">ดูเหมือนว่าคุณลงทะเบียนบัตรนี้มานานแล้ว! ใส่รายละเอียดบัตรอีกครั้งหรือใช้ข้อมูลอื่น</string>
   <string name="purchase_wallet_error_contact_us">อุ๊ปส์ มีบางอย่างไม่ปกติกับวอลเล็ตของคุณ โปรดติดต่อเรา</string>
   <string name="purchase_carrier_error">ดูเหมือนว่าหมายเลขโทรศัพท์ใช้ไม่ได้สำหรับการชำระเงินนี้</string>
   <string name="purchase_carrier_error_minimum">ผู้ให้บริการของคุณไม่รองรับการชำระเงินที่น้อยกว่า %s</string>
@@ -549,7 +549,7 @@
   <string name="purchase_error_transaction_timeout">ดูเหมือนว่าคุณใช้เวลานานเกินไปในการทำธุรกรรม กรุณาลองอีกครั้ง</string>
   <string name="purchase_error_card_already_in_progress">คำขอของคุณได้รับการประมวลผลแล้วหรืออยู่ระหว่างดำเนินการ โปรดรอ</string>
   <string name="purchase_error_payment_rejected">การชำระเงินถูกปฏิเสธ! โปรดลองใช้บัตรจากผู้ออกบัตรรายอื่นหรือใช้วิธีการชำระเงินอื่น</string>
-  <string name="purchase_error_verify_wallet">Validate your payment method to complete this purchase.</string>
+  <string name="purchase_error_verify_wallet">ตรวจสอบวิธีการชำระเงินของคุณเพื่อดำเนินการสั่งซื้อนี้ให้เสร็จสิ้น</string>
   <string name="purchase_error_verify_card">ตรวจสอบบัตรของคุณเพื่อทำการซื้อนี้ให้เสร็จสมบูรณ์</string>
   <string name="purachse_error_verify_card_button">ตรวจสอบบัตร</string>
   <string name="purchase_eskills_sku">ตั๋วเข้า</string>
@@ -589,7 +589,7 @@
   <string name="referral_view_share_link_button">แชร์ลิงก์เชิญ</string>
   <string name="referral_view_notifications_title">การแจ้งเตือน</string>
   <string name="referral_share_sheet_title">แชร์ลิงค์เชิญ:</string>
-  <string name="referral_view_unverified_body">Receive %s worth of AppCoins Credits for each friend. You first need to verify your wallet.</string>
+  <string name="referral_view_unverified_body">รับเครดิต AppCoins มูลค่า %s สำหรับเพื่อนแต่ละคน คุณต้องยืนยันกระเป๋าสตางค์ของคุณก่อน</string>
   <string name="referral_view_verify_button">ยินยันกระเป๋าสตางค์</string>
   <string name="referral_view_i_have_been_invited_button">ฉันได้ส่งเชิญไปแล้ว</string>
   <string name="referral_view_dropup_menu_friends_invited">เพื่อนที่เชิญ</string>
@@ -654,16 +654,16 @@
   <string name="import_wallet_wrong_password_body">อุ๊ปส์ รหัสผ่านไม่ถูกต้อง!</string>
   <string name="error_invalid_private_key">ไม่มีไพรเวทคีย์</string>
   <string name="error_invalid_keystore">คีย์สโตนไม่ถูกต้อง</string>
-  <string name="backup_title">Backup uour wallet now!</string>
+  <string name="backup_title">สำรองกระเป๋าสตางค์</string>
   <string name="backup_body">เราไม่เก็บคีย์ส่วนตัวของคุณหรือวิธีการเข้าถึงอื่นๆ การสำรองข้อมูลกระเป๋าสตางค์ของคุณ (คีย์สตอร์) เป็นสิ่งสำคัญ</string>
   <string name="backup_additional_security_title">ความปลอดภัยเพิ่มเติม (ตัวเลือก)</string>
   <string name="backup_additional_security_body">เลือกรหัสผ่าน</string>
-  <string name="backup_button">BACKUP WALLET</string>
+  <string name="backup_button">สำรองข้อมูลกระเป๋าสตางค์</string>
   <string name="backup_password">รหัสผ่าน</string>
-  <string name="backup_ready_title">Your backup is ready! Keep it safe.</string>
-  <string name="backup_ready_save_on_email">Save it on your email</string>
-  <string name="backup_ready_email_button">Send to email</string>
-  <string name="backup_ready_device_button">Save on device</string>
+  <string name="backup_ready_title">ข้อมูลสำรองของคุณพร้อมแล้ว! เก็บให้ปลอดภัย</string>
+  <string name="backup_ready_save_on_email">บันทึกไว้ในอีเมลของคุณ</string>
+  <string name="backup_ready_email_button">ส่งไปยังอีเมล</string>
+  <string name="backup_ready_device_button">บันทึกบนอุปกรณ์</string>
   <string name="backup_done_title">สำรองสำเร็จ!</string>
   <string name="backup_confirmation_tips_title">เก็บไฟล์ให้ปลอดภัย:</string>
   <string name="backup_confirmation_tips_1">ปรินท์และจัดเก็บในที่ปลอดภัย</string>
@@ -729,7 +729,7 @@
   <string name="pioneer_gamification_title">คุณคือระดับ Pioneer</string>
   <string name="pioneer_gamification_body">ระดับ Pioneer เป็นผู้เริ่มต้นได้โบนัสเพิ่มขึ้น</string>
   <!--Check for Updates-->
-  <string name="check_updates_settings_current_title">Current version</string>
+  <string name="check_updates_settings_current_title">เวอร์ชั่นปัจจุบัน</string>
   <string name="check_updates_settings_title">ตรวจสอบการอัพเดต</string>
   <string name="check_updates_settings_subtitle">เวอร์ชั่นปัจจุบัน %s</string>
   <string name="check_updates_checking_body">กำลังค้นหาเวอร์ชั่นใหม่</string>
@@ -846,7 +846,7 @@
   <string name="carrier_billing_terms_button">ข้อกำหนดและเงื่อนไข</string>
   <string name="carrier_billing_privacy_button">นโยบายการเก็บข้อมูลส่วนบุคคล</string>
   <!--Manage Cards-->
-  <string name="manage_cards_settings_add_title">Add credit/debit card</string>
+  <string name="manage_cards_settings_add_title">เพิ่มบัตรเครดิต/เดบิต</string>
   <string name="manage_cards_settings_manage_title">จัดการบัตร</string>
   <string name="manage_cards_view_title">จัดการบัตร</string>
   <string name="manage_cards_view_manage_subtitle">จัดการการชำระเงินผ่านบัตรของคุณ</string>
@@ -907,7 +907,7 @@
   <string name="send_logs_settings">ส่งบันทึกไปยังทีมสนับสนุน</string>
   <string name="send_logs_sending">กำลังส่ง&#8230;</string>
   <string name="send_logs_sent">ส่งแล้ว!</string>
-  <string name="send_logs_error">Error!</string>
+  <string name="send_logs_error">ข้อผิดพลาด!</string>
   <!--Rate us-->
   <string name="rate_us_question_title">เพลิดเพลินกับ AppCoins Wallet หรือไม่</string>
   <string name="rate_us_no">ไม่เลย</string>
@@ -977,14 +977,14 @@
   <string name="e_skills_withdraw_title">การถอน e-Skills</string>
   <string name="e_skills_withdraw_invalid_email_error_message">ไม่พบอีเมล</string>
   <string name="e_skills_withdraw_not_enough_balance_error_message">มียอดคงเหลือไม่เพียงพอ</string>
-  <string name="e_skills_withdraw_not_enough_earnings_error_message">You haven\'t won enough e-Skills games to withdraw that amount</string>
+  <string name="e_skills_withdraw_not_enough_earnings_error_message">คุณยังไม่ชนะเกม e-Skills มากพอที่จะถอนเงินจำนวนนั้น</string>
   <string name="e_skills_withdraw_minimum_amount_error_message">จำนวนเงินขั้นต่ำในการถอนคือ $%1$.2f</string>
   <string name="e_skills_withdraw_max_amount_part_1">คุณสามารถถอน:</string>
   <string name="e_skills_withdraw_max_amount_part_2">$%1$.2f</string>
   <string name="e_skills_know_more_about">เรียนรู้เพิ่มเติมเกี่ยวกับ e-Skills</string>
   <string name="e_skills_know_more_about_tmp">คุณสามารถถอนเงินที่ได้รับในเกม e-Skills เท่านั้น</string>
   <string name="e_skills_withdraw_started">การถอนเงิน $%1$.2f \nเริ่มต้นขึ้นแล้ว</string>
-  <string name="e_skills_withdraw_generic_error">Generic error message</string>
+  <string name="e_skills_withdraw_generic_error">ข้อความแสดงข้อผิดพลาดทั่วไป</string>
   <string name="e_skills_withdraw_maybe_later">ไว้ก่อน</string>
   <string name="e_skills_room_create_title">สร้างหรือเข้าร่วมห้อง</string>
   <string name="e_skills_room_create_body">สร้างห้องใหม่และแชร์กับฝ่ายตรงข้ามหรือเข้าร่วมห้องที่มีอยู่</string>
@@ -996,7 +996,7 @@
   <string name="promo_code_view_field">Promo Code ที่นี่...</string>
   <string name="promo_code_view_error">รหัสไม่ถูกต้อง ลองกับอันอื่นสิ!</string>
   <string name="promo_code_activated">รหัสโปรโมชั่นเปิดใช้งาน!</string>
-  <string name="promo_code_delete_button">DELETE</string>
+  <string name="promo_code_delete_button">ลบ</string>
   <string name="promo_code_replace_button">แทนที่</string>
   <string name="promo_code_active_tag">ใช้งาน</string>
   <string name="promo_code_expired_tag">หมดอายุ</string>
@@ -1018,5 +1018,32 @@
   <string name="appcoins_info_volume_title">ปริมาณ (24h)</string>
   <!--  NFTs -->
   <string name="nfts_title">NFTs</string>
-  <string name="nfts_no_nfts">You don\'t have any NFTs in this wallet yet!</string>
+  <string name="nfts_no_nfts">คุณยังไม่มี NFT ในกระเป๋าเงินนี้!</string>
+  <string name="nfts_transact_button">Send this NFT</string>
+  <string name="nfts_transact_button_send">Send</string>
+  <string name="nfts_transact_button_next">Next</string>
+  <string name="nfts_transact_button_done">Done</string>
+  <string name="nfts_transact_button_success">Got it</string>
+  <string name="nfts_transact_tip">Enter your friend\'s wallet address</string>
+  <string name="nfts_transact_input_tip">Wallet address here...</string>
+  <string name="nfts_transact_done_mensage">%s successfully sent!</string>
+  <string name="nfts_generic_error">Oops! Something went wrong!</string>
+  <string name="nfts_transact_gas_title">Are you in a hurry?</string>
+  <string name="nfts_transact_gas_description">Choose how much you want to pay in fees. The higher the fee, the faster the transaction.</string>
+  <string name="nfts_transact_gas_price">Gas Price</string>
+  <string name="nfts_transact_gas_limit">Gas Limit</string>
+  <string name="nfts_transact_gas_fee_message">Transaction Fee</string>
+  <string name="nfts_transact_error_no_funds">Not enough funds! You don\'t have enough ETH to pay for the fees.</string>
+  <string name="nfts_transact_error_low_gas">Gas is too low! Increase your gas for the network to accept your transaction.</string>
+  <string name="nfts_transact_error_already_in_progress">This NFT is already being sent! A previous transaction is currently in progress.</string>
+  <!-- Gift Card -->
+  <string name="gift_card_title">Redeem your gift card code</string>
+  <string name="gift_card_field">Card code here...</string>
+  <string name="gift_card_done_title">Code redeemed!</string>
+  <string name="gift_card_done_body">Check your transacions list.</string>
+  <string name="gift_card_error_general_title">Something went wrong!</string>
+  <string name="gift_card_error_general_body">Please try again or use a different code.</string>
+  <string name="gift_card_error_used_title">This code has already been used!</string>
+  <string name="gift_card_error_new_users_title">This code is only for new users!</string>
+  <string name="gift_card_error_try_with_different_body">Please try again with a different one.</string>
 </resources>

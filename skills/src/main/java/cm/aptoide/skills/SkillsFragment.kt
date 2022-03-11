@@ -9,8 +9,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
-import androidx.fragment.app.Fragment
 import androidx.core.text.bold
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import cm.aptoide.skills.databinding.FragmentSkillsBinding
 import cm.aptoide.skills.entity.UserData
@@ -19,6 +19,7 @@ import cm.aptoide.skills.interfaces.PaymentView
 import cm.aptoide.skills.model.*
 import cm.aptoide.skills.util.EskillsPaymentData
 import cm.aptoide.skills.util.EskillsUriParser
+import cm.aptoide.skills.util.UriValidationResult
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.Completable
 import io.reactivex.Observable
@@ -79,7 +80,10 @@ class SkillsFragment : Fragment(), PaymentView {
 
   private fun showPurchaseTicketLayout() {
     val eSkillsPaymentData = getEskillsUri()
-    setupPurchaseTicketLayout(eSkillsPaymentData)
+    if (eSkillsPaymentData is UriValidationResult.Invalid) {
+      finishWithError(eSkillsPaymentData.requestCode)
+    }
+    setupPurchaseTicketLayout((eSkillsPaymentData as UriValidationResult.Valid).paymentData)
     binding.payTicketLayout.root.visibility = View.VISIBLE
   }
 
@@ -288,9 +292,9 @@ class SkillsFragment : Fragment(), PaymentView {
     super.onDestroyView()
   }
 
-  private fun getEskillsUri(): EskillsPaymentData {
+  private fun getEskillsUri(): UriValidationResult {
     val intent = requireActivity().intent
-    return eskillsUriParser.parse(Uri.parse(intent.getStringExtra(ESKILLS_URI_KEY)))
+    return viewModel.validateUrl(intent.getStringExtra(ESKILLS_URI_KEY)!!)
   }
 
   private fun handleWalletCreationIfNeeded(): Observable<String> {
