@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    >
+  <com.google.android.material.textfield.TextInputLayout
+      android:id="@+id/text_input_layout"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_gravity="center"
+      android:fontFamily="sans-serif"
+      android:inputType="text"
+      android:textColor="@color/black"
+      android:textColorHint="@color/grey_70"
+      android:textSize="14sp"
+      style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+      app:boxStrokeErrorColor="@color/warning_text_red"
+      app:errorIconDrawable="@null"
+      app:errorTextColor="@color/warning_text_red"
+      app:hintEnabled="false"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      >
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/text_input_edit_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:imeOptions="actionUnspecified|flagNoFullscreen|flagNoExtractUi"
+        android:maxLines="1"
+        tools:text="Text"
+        />
+  </com.google.android.material.textfield.TextInputLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

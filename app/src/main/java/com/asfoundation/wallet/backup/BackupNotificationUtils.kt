@@ -35,10 +35,10 @@ object BackupNotificationUtils {
 
     val notification =
         builder.setContentTitle(context.getString(R.string.backup_notification_title))
-            .setAutoCancel(true)
-            .setContentIntent(backupIntent)
-            .addAction(0, context.getString(R.string.dismiss_button), dismissIntent)
-            .addAction(0, context.getString(R.string.backup_title), backupIntent)
+          .setAutoCancel(true)
+          .setContentIntent(backupIntent)
+          .addAction(0, context.getString(R.string.dismiss_button), dismissIntent)
+          .addAction(0, context.getString(R.string.action_backup_wallet), backupIntent)
             .setSmallIcon(R.drawable.ic_launcher_foreground)
             .setDeleteIntent(dismissIntent)
             .setContentText(context.getString(R.string.backup_notification_body))

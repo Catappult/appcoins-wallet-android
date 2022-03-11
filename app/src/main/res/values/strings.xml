@@ -475,6 +475,8 @@
   <string name="withdraw_button">withdraw</string>
   <string name="email_here_field">Your email here&#8230;</string>
   <string name="understood_button">Understood!</string>
+  <string name="skip_button">Skip for now</string>
+  <string name="understand_button">I understand</string>
 
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">I agree to AppCoins Wallet\'s %1$s and %2$s.</string>
@@ -681,24 +683,10 @@
   <string name="backup_home_notification_title">Backup Your Wallet</string>
   <string name="backup_home_notification_body">Have you ever lost your phone? Backup your wallet now!</string>
 
-
-  <string name="backup_password_title">Encrypt your wallet (optional)</string>
-
-
-  <string name="backup_confirmation_title">Just one more step</string>
-  <string name="backup_confirmation_body">Keep your backup safe! Where do you want to save it?</string>
-  <string name="backup_confirmation_yes">YES, FINISH</string>
-  <string name="backup_confirmation_no">NO, SAVE ON DEVICE</string>
-
-  <string name="backup_done_body">Are you sure your backup file is on a safe place?</string>
   <string name="backup_confirmation_no_share_title">Backup done!</string>
-  <string name="backup_confirmation_no_share_body">Your backup file is in your Downloads folder.</string>
   <string name="backup_save_dialogue_title">Save backup file</string>
   <string name="backup_save_dialogue_body">Choose a name for your backup file.</string>
 
-  <string name="backup_send_via_title">Send backup via:</string>
-  <string name="backup_send_button">SEND BACKUP</string>
-  <string name="backup_save_button">SAVE BACKUP</string>
   <string name="import_wallet_title">Recover Wallet</string>
   <string name="import_wallet_body">Paste your wallet\'s backup below.</string>
   <string name="import_wallet_keystore_private_keys">Keystore or private keys</string>
@@ -710,22 +698,19 @@
   <string name="error_invalid_private_key">Invalid private key</string>
   <string name="error_invalid_keystore">Invalid keystore</string>
 
-  <string name="backup_title">Backup Wallet</string>
+  <string name="backup_title">Backup your wallet now!</string>
   <string name="backup_body">We don\'t store your private keys or any other access method. It\'s important to keep your wallet\'s backup (keystore) safe.</string>
   <string name="backup_additional_security_title">Additional Security (optional)</string>
   <string name="backup_additional_security_body">Choose a password</string>
   <string name="backup_button">BACKUP WALLET</string>
-  <string name="backup_password">Password</string>
-  <string name="backup_ready_title">Your backup is ready! Keep it safe.</string>
+  <string name="backup_ready_title">Your backup is ready!\nKeep it safe.</string>
   <string name="backup_ready_save_on_email">Save it on your email</string>
   <string name="backup_ready_email_button">Send to email</string>
   <string name="backup_ready_device_button">Save on device</string>
-  <string name="backup_done_title">Backup done!</string>
   <string name="backup_confirmation_tips_title">Keep the file safe:</string>
-  <string name="backup_confirmation_tips_1">Print it and store it somewhere safe.</string>
-  <string name="backup_confirmation_tips_2">Save it on a USB drive.</string>
-  <string name="backup_confirmation_tips_3">Copy it to a private and secure cloud storage.</string>
-
+  <string name="backup_confirmation_tips_1"><b>Print it</b> and store it somewhere safe.</string>
+  <string name="backup_confirmation_tips_2"><b>Save it</b> on a USB drive.</string>
+  <string name="backup_confirmation_tips_3"><b>Copy it</b> to a private and secure cloud storage.</string>
 
   <string name="backup_tooltip_body">Make a backup of your wallet!</string>
   <string name="backup_tooltip_later_button">MAYBE LATER</string>
@@ -738,6 +723,26 @@
   <string name="backup_additional_security_disclaimer_body">There is no password recovery.</string>
   <string name="backup_additional_security_password_not_march">The passwords don\'t match.</string>
   <string name="import_wallet_recovering_body">Recovering wallet...</string>
+
+  <string name="backup_skip_title">I understand that I may loose my funds if I don\'t backup my wallet key.</string>
+  <string name="backup_wallet_button">Backup wallet</string>
+  <string name="backup_success_save_on_email">Your backup file is in your email.</string>
+  <string name="backup_success_save_on_device">Your backup file is stored in your device.</string>
+
+
+  <!--Backup DELETE-->
+  <string name="backup_confirmation_body" />
+  <string name="backup_confirmation_no" />
+  <string name="backup_confirmation_no_share_body" />
+  <string name="backup_confirmation_title" />
+  <string name="backup_confirmation_yes" />
+  <string name="backup_done_body" />
+  <string name="backup_done_title" />
+  <string name="backup_password" />
+  <string name="backup_password_title" />
+  <string name="backup_save_button" />
+  <string name="backup_send_button" />
+  <string name="backup_send_via_title" />
 
 
   <!--Wallets Management-->
@@ -1144,8 +1149,8 @@
   <string name="nfts_transact_error_no_funds">Not enough funds! You don\'t have enough ETH to pay for the fees.</string>
   <string name="nfts_transact_error_low_gas">Gas is too low! Increase your gas for the network to accept your transaction.</string>
   <string name="nfts_transact_error_already_in_progress">This NFT is already being sent! A previous transaction is currently in progress.</string>
-  
-  
+
+
   <!-- Gift Card -->
   <string name="gift_card_title">Redeem your gift card code</string>
   <string name="gift_card_field">Card code here...</string>
@@ -1156,6 +1161,6 @@
   <string name="gift_card_error_used_title">This code has already been used!</string>
   <string name="gift_card_error_new_users_title">This code is only for new users!</string>
   <string name="gift_card_error_try_with_different_body">Please try again with a different one.</string>
-  
+
 
 </resources>

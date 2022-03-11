@@ -4,12 +4,12 @@ import android.content.Intent
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
 import com.asf.wallet.R
+import com.asfoundation.wallet.backup.BackupActivity
+import com.asfoundation.wallet.eskills.withdraw.WithdrawActivity
 import com.asfoundation.wallet.promo_code.bottom_sheet.PromoCodeBottomSheetFragment
 import com.asfoundation.wallet.ui.AuthenticationPromptActivity
-import com.asfoundation.wallet.ui.backup.BackupActivity
 import com.asfoundation.wallet.ui.settings.wallets.SettingsWalletsFragment
 import com.asfoundation.wallet.ui.wallets.WalletsModel
-import com.asfoundation.wallet.eskills.withdraw.WithdrawActivity
 import javax.inject.Inject
 
 class SettingsNavigator @Inject constructor(private val fragmentManager: FragmentManager,

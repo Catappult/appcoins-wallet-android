@@ -224,8 +224,8 @@
         android:theme="@style/Theme.AppCompat.Transparent.WebActivity" />
 
     <activity
-        android:name="com.asfoundation.wallet.ui.backup.BackupActivity"
-        android:label="@string/backup_title"
+        android:name="com.asfoundation.wallet.backup.BackupActivity"
+        android:label="@string/action_backup_wallet"
         android:theme="@style/MaterialAppTheme" />
 
     <activity

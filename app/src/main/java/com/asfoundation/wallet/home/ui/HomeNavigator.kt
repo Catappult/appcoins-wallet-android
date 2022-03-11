@@ -8,6 +8,7 @@ import androidx.core.app.ShareCompat
 import androidx.fragment.app.Fragment
 import com.asf.wallet.R
 import com.asfoundation.wallet.C
+import com.asfoundation.wallet.backup.BackupActivity
 import com.asfoundation.wallet.base.Navigator
 import com.asfoundation.wallet.change_currency.ChangeFiatCurrencyActivity
 import com.asfoundation.wallet.entity.Wallet
@@ -16,7 +17,6 @@ import com.asfoundation.wallet.rating.RatingActivity
 import com.asfoundation.wallet.transactions.Transaction
 import com.asfoundation.wallet.ui.BaseActivity
 import com.asfoundation.wallet.ui.MyAddressActivity
-import com.asfoundation.wallet.ui.backup.BackupActivity
 import com.asfoundation.wallet.ui.balance.TransactionDetailActivity
 import com.asfoundation.wallet.ui.settings.SettingsActivity
 import com.asfoundation.wallet.ui.transact.TransferActivity.Companion.newIntent
