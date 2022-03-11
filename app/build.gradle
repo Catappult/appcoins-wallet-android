@@ -22,8 +22,8 @@ android {
     applicationId "com.appcoins.wallet"
     minSdkVersion project.min_sdk_version
     targetSdkVersion project.target_sdk_version
-    versionCode 215
-    versionName "2.3.3.1"
+    versionCode 217
+    versionName "2.3.4.1"
     testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     multiDexEnabled = true
 
@@ -63,6 +63,8 @@ android {
         project.APTOIDE_WEB_SERVICES_AB_TEST_HOST
     buildConfigField 'String', 'INFURA_API_KEY_MAIN', project.INFURA_API_KEY_MAIN
     buildConfigField 'String', 'INFURA_API_KEY_ROPSTEN', project.INFURA_API_KEY_ROPSTEN
+    buildConfigField 'String', 'INFURA_API_KEY_RINKEBY', project.INFURA_API_KEY_RINKEBY
+    buildConfigField 'String', 'AMPLITUDE_API_KEY', project.AMPLITUDE_API_KEY
     buildConfigField 'String', 'FEEDBACK_ZENDESK_API_KEY', project.FEEDBACK_ZENDESK_API_KEY
     buildConfigField 'String', 'FEEDBACK_ZENDESK_BASE_HOST', project.FEEDBACK_ZENDESK_BASE_HOST
     buildConfigField 'String', 'APTOIDE_TOP_APPS_URL', project.APTOIDE_TOP_APPS_URL
@@ -138,13 +140,8 @@ android {
   packagingOptions {
     exclude 'META-INF/NOTICE' // will not include NOTICE file
     exclude 'META-INF/LICENSE' // will not include LICENSE file
-    // as noted by @Vishnuvathsan you may also need to include
-    // variations on the file name. It depends on your dependencies.
-    // Some other common variations on notice and license file names
-    //exclude 'META-INF/notice'
-    //exclude 'META-INF/notice.txt'
-    //exclude 'META-INF/license'
-    //exclude 'META-INF/license.txt'
+    pickFirst  'org/bouncycastle/x509/CertPathReviewerMessages_de.properties'
+    pickFirst  'org/bouncycastle/x509/CertPathReviewerMessages.properties'
   }
   lintOptions {
     abortOnError false
@@ -172,6 +169,7 @@ dependencies {
   implementation project(path: ':permissions')
   implementation project(path: ':appcoinsRewards')
   implementation project(path: ':skills')
+  implementation project(path: ':ethereumj-android')
 
   coreLibraryDesugaring "com.android.tools:desugar_jdk_libs:$project.desugar_version"
   implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"

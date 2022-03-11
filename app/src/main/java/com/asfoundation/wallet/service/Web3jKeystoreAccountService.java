@@ -18,7 +18,6 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.List;
 import javax.inject.Inject;
-import org.spongycastle.util.encoders.Hex;
 import org.web3j.crypto.Credentials;
 import org.web3j.crypto.ECKeyPair;
 import org.web3j.crypto.RawTransaction;
@@ -26,6 +25,7 @@ import org.web3j.crypto.TransactionEncoder;
 import org.web3j.crypto.WalletFile;
 import org.web3j.crypto.WalletUtils;
 import org.web3j.tx.ChainId;
+import org.web3j.utils.Numeric;
 
 import static org.web3j.crypto.Wallet.create;
 
@@ -41,6 +41,8 @@ import static org.web3j.crypto.Wallet.create;
    * (128 * r * 8).
    */
   private static final int P = 1;
+
+  private final BigInteger maxPriorityFee = BigInteger.valueOf(1_500_000_000L);
 
   private final KeyStoreFileManager keyStoreFileManager;
   private final ObjectMapper objectMapper;
@@ -108,12 +110,26 @@ import static org.web3j.crypto.Wallet.create;
     return Single.fromCallable(() -> {
       RawTransaction transaction;
       if (data == null) {
-        transaction = RawTransaction.createEtherTransaction(BigInteger.valueOf(nonce),
-            gasPrice.toBigInteger(), gasLimit.toBigInteger(), toAddress, amount.toBigInteger());
+        transaction = RawTransaction.createEtherTransaction(
+            chainId,
+            BigInteger.valueOf(nonce),
+            gasLimit.toBigInteger(),
+            toAddress,
+            amount.toBigInteger(),
+            maxPriorityFee,           //maxPriorityFeePerGas
+            gasPrice.toBigInteger()   //maxFeePerGas
+        );
       } else {
-        transaction =
-            RawTransaction.createTransaction(BigInteger.valueOf(nonce), gasPrice.toBigInteger(),
-                gasLimit.toBigInteger(), toAddress, amount.toBigInteger(), Hex.toHexString(data));
+        transaction = RawTransaction.createTransaction(
+            chainId,
+            BigInteger.valueOf(nonce),
+            gasLimit.toBigInteger(),
+            toAddress,
+            amount.toBigInteger(),
+            Numeric.toHexString(data),
+            maxPriorityFee,             //maxPriorityFeePerGas
+            gasPrice.toBigInteger()     //maxFeePerGas
+        );
       }
 
       Credentials credentials =

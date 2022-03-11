@@ -758,7 +758,7 @@ class AdyenPaymentPresenter(
 
       error.errorInfo?.errorType == ErrorType.CARD_SECURITY_VALIDATION -> view.showSecurityValidationError()
 
-      error.errorInfo?.errorType == ErrorType.TIMEOUT -> view.showTimeoutError()
+      error.errorInfo?.errorType == ErrorType.OUTDATED_CARD -> view.showOutdatedCardError()
 
       error.errorInfo?.errorType == ErrorType.ALREADY_PROCESSED -> view.showAlreadyProcessedError()
 

@@ -21,6 +21,8 @@ class WalletButtonView : FrameLayout {
 
   private var color = ContextCompat.getColor(this.context, R.color.wild_watermelon)
 
+  private var enabled = true
+
   constructor(context: Context) : this(context, null)
   constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0)
   constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(
@@ -56,33 +58,51 @@ class WalletButtonView : FrameLayout {
     applyType()
   }
 
+  override fun setEnabled(enabled: Boolean) {
+    this.enabled = enabled
+    applyType()
+  }
+
   fun setColorResource(@ColorRes colorRes: Int) {
     setColor(ContextCompat.getColor(this.context, colorRes))
   }
 
   private fun applyType() {
-    when (type) {
-      Type.FILLED -> {
-        views.root.setCardBackgroundColor(color)
-        views.root.strokeColor = ContextCompat.getColor(this.context, R.color.transparent)
-        views.root.strokeWidth = 0
-        views.root.setRippleColorResource(R.color.white)
-        views.text.setTextColor(ContextCompat.getColor(this.context, R.color.white))
+    if (enabled) {
+      views.root.isClickable = true
+
+      when (type) {
+        Type.FILLED -> {
+          views.root.setCardBackgroundColor(color)
+          views.root.strokeColor = ContextCompat.getColor(this.context, R.color.transparent)
+          views.root.strokeWidth = 0
+          views.root.setRippleColorResource(R.color.white)
+          views.text.setTextColor(ContextCompat.getColor(this.context, R.color.white))
+        }
+        Type.OUTLINED -> {
+          views.root.setCardBackgroundColor(
+              ContextCompat.getColor(this.context, R.color.transparent))
+          views.root.strokeColor = color
+          views.root.strokeWidth = 1.convertDpToPx(resources)
+          views.root.rippleColor = ColorStateList.valueOf(color)
+          views.text.setTextColor(color)
+        }
+        Type.TEXT -> {
+          views.root.setCardBackgroundColor(
+              ContextCompat.getColor(this.context, R.color.transparent))
+          views.root.strokeColor = ContextCompat.getColor(this.context, R.color.transparent)
+          views.root.strokeWidth = 0
+          views.root.setRippleColorResource(R.color.transparent)
+          views.text.setTextColor(color)
+        }
       }
-      Type.OUTLINED -> {
-        views.root.setCardBackgroundColor(ContextCompat.getColor(this.context, R.color.transparent))
-        views.root.strokeColor = color
-        views.root.strokeWidth = 1.convertDpToPx(resources)
-        views.root.rippleColor = ColorStateList.valueOf(color)
-        views.text.setTextColor(color)
-      }
-      Type.TEXT -> {
-        views.root.setCardBackgroundColor(ContextCompat.getColor(this.context, R.color.transparent))
-        views.root.strokeColor = ContextCompat.getColor(this.context, R.color.transparent)
-        views.root.strokeWidth = 0
-        views.root.setRippleColorResource(R.color.transparent)
-        views.text.setTextColor(color)
-      }
+    } else {
+      views.root.isClickable = false
+      views.root.setCardBackgroundColor(ContextCompat.getColor(this.context, R.color.grey_c9))
+      views.root.strokeColor = ContextCompat.getColor(this.context, R.color.transparent)
+      views.root.strokeWidth = 0
+      views.root.setRippleColorResource(R.color.white)
+      views.text.setTextColor(ContextCompat.getColor(this.context, R.color.white))
     }
   }
 

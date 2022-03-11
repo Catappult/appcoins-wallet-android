@@ -4,6 +4,7 @@ import com.appcoins.wallet.bdsbilling.repository.RemoteRepository
 import com.appcoins.wallet.billing.adyen.AdyenPaymentRepository
 import com.appcoins.wallet.billing.skills.SkillsPaymentRepository
 import com.asf.wallet.BuildConfig
+import com.asfoundation.wallet.backup.repository.BackupRepository
 import com.asfoundation.wallet.base.RxSchedulers
 import com.asfoundation.wallet.billing.carrier_billing.CarrierBillingRepository
 import com.asfoundation.wallet.billing.carrier_billing.CarrierErrorResponse
@@ -127,17 +128,17 @@ class BrokerApiModule {
 
   @Singleton
   @Provides
-  fun provideBdsShareLinkApi(
-    @BrokerDefaultRetrofit retrofit: Retrofit
-  ): BdsShareLinkRepository.BdsShareLinkApi {
-    return retrofit.create(BdsShareLinkRepository.BdsShareLinkApi::class.java)
-  }
-
-  @Singleton
-  @Provides
   fun provideWalletValidationApi(
     @BrokerDefaultRetrofit retrofit: Retrofit
   ): BrokerVerificationRepository.BrokerVerificationApi {
     return retrofit.create(BrokerVerificationRepository.BrokerVerificationApi::class.java)
+  }
+
+  @Singleton
+  @Provides
+  fun providesBackupEmailApi(
+    @BrokerDefaultRetrofit retrofit: Retrofit
+  ): BackupRepository.BackupEmailApi {
+    return retrofit.create(BackupRepository.BackupEmailApi::class.java)
   }
 }

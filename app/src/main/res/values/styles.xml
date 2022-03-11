@@ -196,6 +196,12 @@
     <item name="android:elevation">0dp</item>
   </style>
 
+  <style name="MaterialButtonStyle.Light.White">
+    <item name="android:textColor">@color/white</item>
+    <item name="android:textAllCaps">false</item>
+    <item name="android:minHeight">48dp</item>
+  </style>
+
   <style name="ButtonStyle.Alternative" parent="ButtonStyle">
     <item name="android:background">@drawable/button_snd_background</item>
     <item name="android:textColor">@color/btn_text_enable_color</item>
@@ -212,20 +218,22 @@
 
   <style name="ButtonStyle.Alternative.Backup" parent="ButtonStyle.Alternative">
     <item name="android:gravity">center</item>
-    <item name="android:minWidth">240dp</item>
+    <item name="android:minWidth">80dp</item>
+    <item name="android:minHeight">48dp</item>
     <item name="android:paddingStart">@dimen/half_large_padding</item>
     <item name="android:paddingEnd">@dimen/half_large_padding</item>
+    <item name="android:textAllCaps">false</item>
   </style>
 
-  <style name="FloatingButtonStyle" parent="Widget.MaterialComponents.Button">
-    <item name="android:backgroundTint">@color/floating_btn_start_gradient_color</item>
-    <item name="android:textAllCaps">true</item>
-    <item name="android:textColor">@drawable/btn_text_color</item>
+  <style name="FloatingButtonStyle" parent="Widget.MaterialComponents.Button.TextButton">
     <item name="android:fontFamily">@font/roboto_regular</item>
     <item name="android:textSize">14sp</item>
-    <item name="android:paddingStart">@dimen/big_padding</item>
-    <item name="android:paddingEnd">@dimen/big_padding</item>
     <item name="android:minWidth">64dp</item>
+    <item name="android:textColor">@color/grey_blue_medium</item>
+    <item name="android:paddingStart">@dimen/half_large_padding</item>
+    <item name="android:paddingEnd">@dimen/half_large_padding</item>
+    <item name="android:textAllCaps">false</item>
+    <item name="android:textStyle">bold</item>
   </style>
 
   <style name="TransactionDetailsTextStyle">
@@ -767,7 +775,7 @@
   </style>
 
   <style name="WalletBackupTextStyle.Address" parent="TextAppearance.AppCompat.Body1.Roboto.Regular">
-    <item name="android:textColor">@color/black</item>
+    <item name="android:textColor">@color/white</item>
     <item name="android:textSize">14sp</item>
     <item name="android:lineSpacingExtra">2sp</item>
     <item name="android:ellipsize">end</item>
@@ -782,13 +790,34 @@
     <item name="android:lineSpacingExtra">6sp</item>
   </style>
 
+  <style name="WalletBackupTextStyle.Bold.White">
+    <item name="android:textColor">@color/white</item>
+  </style>
+
+  <style name="WalletBackupTextStyle.Bold.White.Small.Transparent">
+    <item name="android:textColor">@color/white_transparent_10</item>
+  </style>
+
+  <style name="WalletBackupTextStyle.Bold.White.Big">
+    <item name="android:textSize">@dimen/backup_big_text_size</item>
+  </style>
+
+  <style name="WalletBackupTextStyle.Bold.White.L">
+    <item name="android:textSize">@dimen/backup_l_text_size</item>
+  </style>
+
+  <style name="WalletBackupTextStyle.Normal.White.L">
+    <item name="android:textColor">@color/white</item>
+    <item name="android:textSize">@dimen/backup_l_text_size</item>
+  </style>
+
   <style name="WalletBackupTextStyle.Bold.Inactive" parent="WalletBackupTextStyle.Bold">
     <item name="android:color">@color/grey_65</item>
   </style>
 
   <style name="WalletBackupTextStyle.Description" parent="TextAppearance.AppCompat.Body1.Roboto.Regular">
     <item name="android:textSize">@dimen/backup_description_normal_text_size</item>
-    <item name="android:color">@color/grey_5a</item>
+    <item name="android:textColor">@color/white</item>
     <item name="android:lineSpacingExtra">@dimen/backup_description_line_spacing_extra</item>
     <item name="android:gravity">center_horizontal</item>
   </style>
@@ -796,6 +825,27 @@
   <style name="WalletBackupTextStyle.Normal" parent="TextAppearance.AppCompat.Body1.Roboto.Regular">
     <item name="android:textSize">@dimen/backup_description_normal_text_size</item>
     <item name="android:color">@color/black</item>
+  </style>
+
+  <style name="WalletBackupTextStyle.Normal.White">
+    <item name="android:textColor">@color/white</item>
+  </style>
+
+  <style name="WalletBackupTextStyle.Normal.White.M">
+    <item name="android:textSize">@dimen/backup_m_text_size</item>
+  </style>
+
+  <style name="WalletBackupTextStyle.Normal.White.S">
+    <item name="android:textSize">@dimen/backup_s_text_size</item>
+  </style>
+
+  <style name="WalletBackupTextStyle.Bold.White.Small">
+    <item name="android:textSize">@dimen/backup_description_small_text_size</item>
+  </style>
+
+  <style name="WalletBackupTextStyle.NormalGrey" parent="TextAppearance.AppCompat.Body1.Roboto.Regular">
+    <item name="android:textSize">@dimen/backup_description_normal_text_size</item>
+    <item name="android:textColor">@color/grey_blue_medium</item>
     <item name="android:letterSpacing">0.01</item>
     <item name="android:lineSpacingExtra">2sp</item>
   </style>
@@ -1025,6 +1075,12 @@
     <item name="android:imeOptions">flagNoFullscreen|flagNoExtractUi</item>
   </style>
 
+  <style name="PasswordEditTextWhite">
+    <item name="android:background">@color/white</item>
+    <item name="android:inputType">textPassword</item>
+    <item name="android:imeOptions">flagNoFullscreen|flagNoExtractUi</item>
+  </style>
+
   <style name="WalletBackupWarningStyle" parent="TextAppearance.AppCompat.Body1.Roboto.Regular">
     <item name="android:textSize">12sp</item>
     <item name="android:textColor">@color/warning_text_red</item>
@@ -1033,7 +1089,6 @@
 
   <style name="WalletBackupWarningStyle.Bold">
     <item name="android:textStyle">bold</item>
-    <item name="android:textSize">13sp</item>
   </style>
 
   <style name="TooltipButtonStyle" parent="@style/Widget.AppCompat.Button.Borderless">
@@ -1240,6 +1295,13 @@
     <item name="android:textSize">16sp</item>
   </style>
 
+  <style name="Commons" />
+
+  <style name="Commons.RoundedRectangleShape">
+    <item name="cornerFamily">rounded</item>
+    <item name="cornerSize">8dp</item>
+  </style>
+
   <style name="Home" />
 
   <style name="Home.PillShape">
@@ -1260,19 +1322,6 @@
     <item name="backgroundTint">@color/wild_watermelon</item>
     <item name="iconGravity">end</item>
     <item name="iconPadding">0dp</item>
-    <item name="shapeAppearance">@style/Home.PillShape</item>
-  </style>
-
-  <style name="NFTs" />
-
-  <style name="NFTs.GoToNFTS">
-    <item name="android:textAllCaps">false</item>
-    <item name="android:textSize">14sp</item>
-    <item name="android:fontFamily">@font/roboto_bolt</item>
-    <item name="backgroundTint">@color/light_grey_alpha_73</item>
-    <item name="iconGravity"> end</item>
-    <item name="iconPadding">0dp</item>
-    <item name="iconTint">@color/wild_watermelon</item>
     <item name="shapeAppearance">@style/Home.PillShape</item>
   </style>
 

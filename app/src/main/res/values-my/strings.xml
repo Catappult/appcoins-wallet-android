@@ -120,7 +120,7 @@
   <string name="intro_2_title">မ်ားမ်ားကစားပါ၊ နည္းနည္းပဲေပးပါ</string>
   <string name="intro_2_body">သင့္စိတ္ႀကိဳက္ အက္ပ္မ်ားနွင့္ ဂိမ္းမ်ားတြင္ ပစၥည္းမ်ားကို ဝယ္ယူျခင္းအတြက္ ဆုရယူလိုက္ပါ။</string>
   <string name="intro_3_title">႐ိုးရွင္းၿပီး လြယ္ကူပါသည္</string>
-  <string name="intro_3_body">Keep the AppCoins Wallet installed to directly purchase in your games.</string>
+  <string name="intro_3_body">သင့္ဂိမ္းမ်ားတြင္ တိုက္႐ိုက္ဝယ္ယူႏိုင္ေစရန္ AppCoins Wallet ကို ထည့္သြင္းထားပါ။</string>
   <string name="intro_4_title">ေဘးကင္းၿပီး လံုျခံဳပါသည္</string>
   <string name="intro_4_body">သင့္သီးသန္႔ကီးမ်ားသည္ သင့္စက္ပစၥည္းတြင္သာ ရွိေနမည္ ျဖစ္ေသာေၾကာင့္ သင့္ AppCoins မ်ားမွာ အခ်ိန္ျပည့္ လံုျခံဳပါသည္။</string>
   <string name="intro_4_body_2">ေနာက္ဆံုးေပၚနည္းပညာေၾကာင့္ သင့္ေငြလႊဲေျပာင္းမႈအားလံုး အၿမဲလံုျခံဳပါသည္။</string>
@@ -158,7 +158,7 @@
   <string name="action_more_details">ေနာက္ထပ္</string>
   <string name="action_add_wallet">ပိုက္ဆံအိတ္ကို ထည့္မည္</string>
   <string name="action_coinbase">Coinbase</string>
-  <string name="action_shapeshift">Shapeshift (Crypto only)</string>
+  <string name="action_shapeshift">Shapeshift (Crypto သာလွ်င္)</string>
   <string name="action_changelly">Changelly</string>
   <string name="action_wallets">ပိုက္ဆံအိတ္မ်ား</string>
   <string name="action_next">ေနာက္္ထပ္</string>
@@ -263,7 +263,7 @@
   <string name="ellipsize">\u0020• • •</string>
   <string name="transaction_status_label">အေျခအေန</string>
   <string name="transaction_category_label">က႑</string>
-  <string name="transaction_order_reference_label">Order ID</string>
+  <string name="transaction_order_reference_label">ေအာ္ဒါအိုင္ဒီ</string>
   <string name="transaction_details_label">အေသးစိတ္မ်ား</string>
   <string name="transaction_to_label">သို႔</string>
   <string name="dialog_credit_card_remember">ကဒ္ကို သတိရပါ</string>
@@ -271,7 +271,7 @@
   <string name="dialog_credit_card_number">ကဒ္နံပါတ္</string>
   <string name="dialog_credit_card_expiration">သက္တမ္းကုန္သည့္ရက္</string>
   <string name="dialog_credit_card_cvv">CVV</string>
-  <string name="dialog_bank_card">Credit/debit card</string>
+  <string name="dialog_bank_card">ခရက္ဒစ္/ဒက္ဘစ္ကဒ္</string>
   <string name="dialog_expiry_date">သက္တမ္းကုန္ရက္</string>
   <string name="activity_airdrop_title">AppCoins ကို ရရွိရန္အတြက္ သင္သည္ လူသားျဖစ္ေၾကာင္း အတည္ျပဳပါ</string>
   <string name="activity_airdrop_details">ယင္းသည္ လံုၿခံဳေရးကိစၥအတြက္သာ ျဖစ္ပါသည္။</string>
@@ -401,7 +401,7 @@
   <string name="askafriend_share_add_message_body">မက္ေဆ့ဂ်္ထည့္မည္ (မထည့္လည္းရပါသည္)</string>
   <string name="askafriend_share_button">မွ်ေဝမည္</string>
   <string name="askafriend_share_popup_title">မွတဆင့္ တစံုတေယာက္ကိုေျပာရန္ -</string>
-  <string name="askafriend_received_body">You just received %s AppCoins Credits</string>
+  <string name="askafriend_received_body">%s AppCoins Credits ကို သင္ရရွိပါသည္</string>
   <string name="askafriend_notification_received_title">လႊဲေပးမႈအသစ္ကို လက္ခံရရွိခဲ့ပါသည္</string>
   <string name="askafriend_notification_received_body">%1$s %2$s တို႔ကို သင့္ပိုက္ဆံအိတ္တြင္ ထည့္ေပးလိုက္ပါသည္။</string>
   <string name="askafriend_received_title">လႊဲေပးမႈကို လက္ခံရရွိခဲ့ပါသည္</string>
@@ -440,18 +440,18 @@
   <string name="get_code_button">ကုဒ္ရယူမည္</string>
   <string name="confirm_button">အတည္ျပဳမည္</string>
   <string name="withdraw_button">ထုတ္ယူမည္</string>
-  <string name="email_here_field">Your email here&#8230;</string>
-  <string name="understood_button">Understood!</string>
+  <string name="email_here_field">သင့္အီးေမးလ္ကို ဤေနရာတြင္&#8230;</string>
+  <string name="understood_button">သိပါၿပီ။</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">AppCoins Wallet ၏ %1$s ႏွင့္ %2$s ကို သေဘာတူပါသည္။</string>
   <string name="terms_and_conditions_error">ဆက္လုပ္ႏိုင္ရန္ ကၽြႏ္ုပ္တို႔၏ စည္းမ်ဥ္းစည္းကမ္းမ်ားႏွင့္ ကုိယ္ေရးလံုၿခံဳမႈ မူ၀ါဒကို လက္ခံေပးပါ</string>
   <string name="terms_and_conditions">စည္းမ်ဥ္းစည္းကမ္းမ်ား</string>
   <string name="privacy_policy">ကိုယ္ေရးလံုျခံဳမႈ မူဝါဒ</string>
-  <string name="decline_button">Reject</string>
-  <string name="get_started">Get Started</string>
-  <string name="existent_wallet">I already have a wallet</string>
+  <string name="decline_button">ျငင္းဆန္မည္</string>
+  <string name="get_started">စတင္မည္</string>
+  <string name="existent_wallet">ကြၽႏ္ုပ္တြင္ ပိုက္ဆံအိတ္တစ္အိတ္ ရွိၿပီးျဖစ္ပါသည္</string>
   <!--Home-->
-  <string name="home_empty_discover_apps_body">Make a purchase on your favorite game and we\'ll handle everything.</string>
+  <string name="home_empty_discover_apps_body">သင့္စိတ္ႀကိဳက္ဂိမ္းတြင္ ဝယ္ယူမႈတစ္ခု ျပဳလုပ္လိုက္ပါ။ က်န္တာကို ကြၽႏ္ုပ္တို႔တာဝန္ထားပါ။</string>
   <string name="home_empty_discover_apps_button">ထိပ္တန္းအက္ပ္မ်ားကို ရွာေဖြလိုက္ပါ</string>
   <!--Tokens-->
   <!--Settings-->
@@ -527,7 +527,7 @@
   <string name="purchase_card_error_not_supported">သင့္ကဒ္အမ်ိဳးအစားကို မပံ့ပိုးေပးထားေသးပါ။ အျခားကဒ္တစ္ကဒ္ျဖင့္ ႀကိဳးစားပါ။</string>
   <string name="purchase_card_error_security">လံုၿခံဳေရး သတင္းအခ်က္အလက္ မွန္ကန္ေၾကာင္း ေသခ်ာပါသလား။ ျပန္ႀကိဳးစားေပးပါ။</string>
   <string name="purchase_card_error_wrong_CVV">သင့္ CVV/CVC သေကၤတ မွားယြင္းေနပံု ရပါသည္။ ျပန္ႀကိဳးစားေပးပါ။</string>
-  <string name="purchase_card_error_re_insert">It seems you registered this card long time ago! Insert the card details again or use a different one.</string>
+  <string name="purchase_card_error_re_insert">ဤကဒ္ကို အခ်ိန္အေတာ္ၾကာကတည္းက စာရင္းသြင္းထားၿပီး ျဖစ္ပုံရပါသည္။ ကဒ္၏ အေသးစိတ္အခ်က္မ်ားကို ျပန္ထည့္ပါ သို႔မဟုတ္ အျခားတစ္ကဒ္ကို အသုံးျပဳပါ။</string>
   <string name="purchase_wallet_error_contact_us">အိုး သင့္ပိုက္ဆံအိတ္တြင္ တခုခု မွားေနပါသည္။ ကၽြႏ္ုပ္တို႔ကို ဆက္သြယ္ေပးပါ။</string>
   <string name="purchase_carrier_error">သင့္ဖုန္းနံပါတ္သည္ ဤေငြေပးေခ်မႈနည္းလမ္းျဖင့္ မကိုက္ညီျခင္း ျဖစ္ပံုရပါသည္။</string>
   <string name="purchase_carrier_error_minimum">သင့္ဆက္သြယ္ေရးကုမၸဏီသည္ %s ထက္နည္းေသာ ေငြေပးေခ်မႈမ်ားကို မပံ့ပိုးပါ။</string>
@@ -549,7 +549,7 @@
   <string name="purchase_error_transaction_timeout">ေငြလႊဲေျပာင္းမႈကို ၿပီးေအာင္လုပ္ရန္ သင္အခ်ိန္အလြန္ၾကာေနပုံ ရပါသည္။ ျပန္ႀကိဳးစားေပးပါ။</string>
   <string name="purchase_error_card_already_in_progress">သင့္ေတာင္းဆိုမႈကို စီစဥ္ေဆာင္႐ြက္ထားၿပီး သို႔မဟုတ္ ေဆာင္႐ြက္ေနဆဲ ျဖစ္ပါသည္။ ေစာင့္ေပးပါ။</string>
   <string name="purchase_error_payment_rejected">ေငြေပးေခ်မႈကို ျငင္းဆန္လိုက္ပါသည္။ အျခားထုတ္ေပးသူ တစ္ဦးထံမွ ကဒ္တစ္ကဒ္ျဖင့္ စမ္းၾကည့္ေပးပါ သို႔မဟုတ္ အျခားေငြေပးေခ်မႈ နည္းလမ္းကို အသုံးျပဳေပးပါ။</string>
-  <string name="purchase_error_verify_wallet">Validate your payment method to complete this purchase.</string>
+  <string name="purchase_error_verify_wallet">ဤဝယ္ယူမႈကို ၿပီးစီးေစရန္ သင့္ေငြေပးေခ်မႈ နည္းလမ္းကို အတည္ျပဳပါ။</string>
   <string name="purchase_error_verify_card">ဤဝယ္ယူမႈကို ၿပီးစီးေစရန္ သင့္ကဒ္ကို အတည္ျပဳပါ။</string>
   <string name="purachse_error_verify_card_button">ကဒ္ကို အတည္ျပဳမည္</string>
   <string name="purchase_eskills_sku">ဝင္ေရာက္ခြင့္လက္မွတ္</string>
@@ -656,12 +656,12 @@
   <string name="backup_body">သင့္ကိုယ္ပိုင္ကီးမ်ား သို႔မဟုတ္ အျခား၀င္ေရာက္ခြင့္နည္းလမ္းမ်ားကို ကၽြႏ္ုပ္တို႔ မသိမ္းဆည္းထားပါ။ သင့္ပိုက္ဆံအိတ္၏ ဘက္ခ္ကပ္ (ကီးစတိုး) ကို လံုၿခံဳေအာင္ထားရန္ အေရးႀကီးပါသည္။</string>
   <string name="backup_additional_security_title">ေနာက္ထပ္လံုျခံဳေရး (ေရြးခ်ယ္ႏိုင္ပါသည္)</string>
   <string name="backup_additional_security_body">စကားဝွက္တစ္ခု ေရြးခ်ယ္ပါ</string>
-  <string name="backup_button">BACKUP WALLET</string>
+  <string name="backup_button">ပိုက္ဆံအိတ္ကို အရန္သိမ္းဆည္းမည္</string>
   <string name="backup_password">စကား၀ွက္</string>
-  <string name="backup_ready_title">Your backup is ready! Keep it safe.</string>
-  <string name="backup_ready_save_on_email">Save it on your email</string>
-  <string name="backup_ready_email_button">Send to email</string>
-  <string name="backup_ready_device_button">Save on device</string>
+  <string name="backup_ready_title">အရန္သိမ္းဆည္းမႈ အသင့္ျဖစ္ပါၿပီ။ လုံၿခဳံေအာင္ ထားလိုက္ပါ။</string>
+  <string name="backup_ready_save_on_email">သင့္အီးေမးလ္တြင္ သိမ္းလိုက္ပါ</string>
+  <string name="backup_ready_email_button">အီးေမးလ္သို႔ပို႔မည္</string>
+  <string name="backup_ready_device_button">ကိရိယာေပၚတြင္ သိမ္းမည္</string>
   <string name="backup_done_title">အရံသိမ္းဆည္းမႈ ၿပီးစီးပါၿပီ။</string>
   <string name="backup_confirmation_tips_title">ဖိိုင္ကို ေဘးကင္းေအာင္ထားပါ -</string>
   <string name="backup_confirmation_tips_1">ယင္းကို ပရင့္ထုတ္ကာ တေနရာရာတြင္ လံုျခံဳေအာင္ သိမ္းထားပါ။</string>
@@ -727,7 +727,7 @@
   <string name="pioneer_gamification_title">သင္က ေရွ႔ေဆာင္လမ္းျပတစ္ဦး ျဖစ္ပါသည္</string>
   <string name="pioneer_gamification_body">ေရွ႔ေဆာင္လမ္းျပသူဆိုသည္မွာ ေဘာနပ္စ္မ်ားမ်ားပိုရသည့္ အေစာပိုင္းသံုးစြဲသူ ျဖစ္ပါသည္။</string>
   <!--Check for Updates-->
-  <string name="check_updates_settings_current_title">Current version</string>
+  <string name="check_updates_settings_current_title">လက္ရွိဗားရွင္း</string>
   <string name="check_updates_settings_title">အပ္ဒိတ္မ်ားကို စစ္ၾကည့္လိုက္ပါ</string>
   <string name="check_updates_settings_subtitle">လက္ရွိဗားရွင္း %s</string>
   <string name="check_updates_checking_body">ဗားရွင္းအသစ္ကို ရွာေနပါသည္</string>
@@ -905,7 +905,7 @@
   <string name="send_logs_settings">မွတ္တမ္းမ်ားကို ပံ့ပိုးေရးအဖြဲ႕ထံသို႔ ေပးပို႔မည္</string>
   <string name="send_logs_sending">ေပးပို႔ေနပါသည္&#8230;</string>
   <string name="send_logs_sent">ေပးပို႔လိုက္ပါသည္။</string>
-  <string name="send_logs_error">Error!</string>
+  <string name="send_logs_error">ခ်ိဳ႕ယြင္းခ်က္။</string>
   <!--Rate us-->
   <string name="rate_us_question_title">AppCoins Wallet ကို ႏွစ္သက္ပါသလား။</string>
   <string name="rate_us_no">မဟုတ္ပါ</string>
@@ -975,14 +975,14 @@
   <string name="e_skills_withdraw_title">e-Skills ေငြထုတ္ယူမႈ</string>
   <string name="e_skills_withdraw_invalid_email_error_message">အီးေမးလ္ မမွန္ကန္ပါ</string>
   <string name="e_skills_withdraw_not_enough_balance_error_message">လက္က်န္ေငြ မလုံေလာက္ပါ</string>
-  <string name="e_skills_withdraw_not_enough_earnings_error_message">You haven\'t won enough e-Skills games to withdraw that amount</string>
+  <string name="e_skills_withdraw_not_enough_earnings_error_message">ထိုပမာဏကို ထုတ္ယူႏိုင္ေလာက္ေအာင္ e-Skills ဂိမ္းမ်ားကို သင္ႏိုင္ထားျခင္း မရွိပါ</string>
   <string name="e_skills_withdraw_minimum_amount_error_message">ထုတ္ယူရမည့္ အနည္းဆုံး ပမာဏမွာ $%1$.2f ျဖစ္ပါသည္</string>
   <string name="e_skills_withdraw_max_amount_part_1">သင္ထုတ္ယူႏိုင္သည္မွာ -</string>
   <string name="e_skills_withdraw_max_amount_part_2">$%1$.2f</string>
   <string name="e_skills_know_more_about">e-Skills အေၾကာင္း ပိုသိေအာင္ လုပ္လိုက္ပါ</string>
   <string name="e_skills_know_more_about_tmp">e-Skills ဂိမ္းမ်ားတြင္ ရရွိခဲ့ေသာ ေငြမ်ားကိုသာ သင္ထုတ္ယူႏိုင္ပါသည္</string>
   <string name="e_skills_withdraw_started">$%1$.2f \n ထုတ္ယူမႈကို စတင္လိုက္ပါသည္</string>
-  <string name="e_skills_withdraw_generic_error">Generic error message</string>
+  <string name="e_skills_withdraw_generic_error">မူရင္း ခ်ိဳ႕ယြင္းခ်က္ မက္ေဆ့ဂ်္</string>
   <string name="e_skills_withdraw_maybe_later">ေနာက္မွလုပ္မည္</string>
   <string name="e_skills_room_create_title">အခန္းတစ္ခန္းကို ျပဳလုပ္တြင္ သို႔မဟုတ္ ပါဝင္ပါ</string>
   <string name="e_skills_room_create_body">အခန္းအသစ္ တစ္ခန္းကို ျပဳလုပ္ကာ သင့္ၿပိဳင္ဖက္မ်ားထံ မွ်ေဝလိုက္ပါ သို႔မဟုတ္ ရွိၿပီးသား အခန္းတစ္ခန္းတြင္ ပါဝင္လိုက္ပါ။</string>
@@ -994,7 +994,7 @@
   <string name="promo_code_view_field">ဤေနရာတြင္ ပ႐ိုမိုကုဒ္ကိုထည့္ပါ...</string>
   <string name="promo_code_view_error">ကုဒ္မမွန္ကန္ပါ။ ေနာက္ထပ္တစ္ခုျဖင့္ ႀကိဳးစားပါ။</string>
   <string name="promo_code_activated">ပ႐ိုမိုကုဒ္ကို သုံးလိုက္ပါၿပီ။</string>
-  <string name="promo_code_delete_button">DELETE</string>
+  <string name="promo_code_delete_button">ဖ်က္မည္</string>
   <string name="promo_code_replace_button">လဲလွယ္မည္</string>
   <string name="promo_code_active_tag">သုံးႏိုင္ေသာ</string>
   <string name="promo_code_expired_tag">သက္တမ္းကုန္သြားပါၿပီ</string>
@@ -1016,5 +1016,32 @@
   <string name="appcoins_info_volume_title">ပမာဏ (၂၄ နာရီ)</string>
   <!--  NFTs -->
   <string name="nfts_title">NFTs</string>
-  <string name="nfts_no_nfts">You don\'t have any NFTs in this wallet yet!</string>
+  <string name="nfts_no_nfts">ဤပိုက္ဆံအိတ္တြင္ မည္သည့္ NFT မွ် မရွိေသးပါ။</string>
+  <string name="nfts_transact_button">Send this NFT</string>
+  <string name="nfts_transact_button_send">Send</string>
+  <string name="nfts_transact_button_next">Next</string>
+  <string name="nfts_transact_button_done">Done</string>
+  <string name="nfts_transact_button_success">Got it</string>
+  <string name="nfts_transact_tip">Enter your friend\'s wallet address</string>
+  <string name="nfts_transact_input_tip">Wallet address here...</string>
+  <string name="nfts_transact_done_mensage">%s successfully sent!</string>
+  <string name="nfts_generic_error">Oops! Something went wrong!</string>
+  <string name="nfts_transact_gas_title">Are you in a hurry?</string>
+  <string name="nfts_transact_gas_description">Choose how much you want to pay in fees. The higher the fee, the faster the transaction.</string>
+  <string name="nfts_transact_gas_price">Gas Price</string>
+  <string name="nfts_transact_gas_limit">Gas Limit</string>
+  <string name="nfts_transact_gas_fee_message">Transaction Fee</string>
+  <string name="nfts_transact_error_no_funds">Not enough funds! You don\'t have enough ETH to pay for the fees.</string>
+  <string name="nfts_transact_error_low_gas">Gas is too low! Increase your gas for the network to accept your transaction.</string>
+  <string name="nfts_transact_error_already_in_progress">This NFT is already being sent! A previous transaction is currently in progress.</string>
+  <!-- Gift Card -->
+  <string name="gift_card_title">Redeem your gift card code</string>
+  <string name="gift_card_field">Card code here...</string>
+  <string name="gift_card_done_title">Code redeemed!</string>
+  <string name="gift_card_done_body">Check your transacions list.</string>
+  <string name="gift_card_error_general_title">Something went wrong!</string>
+  <string name="gift_card_error_general_body">Please try again or use a different code.</string>
+  <string name="gift_card_error_used_title">This code has already been used!</string>
+  <string name="gift_card_error_new_users_title">This code is only for new users!</string>
+  <string name="gift_card_error_try_with_different_body">Please try again with a different one.</string>
 </resources>

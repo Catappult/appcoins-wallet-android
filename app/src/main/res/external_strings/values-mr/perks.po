@@ -10,7 +10,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Marathi\n"
 "Language: mr_IN\n"
-"PO-Revision-Date: 2022-02-18 18:00\n"
+"PO-Revision-Date: 2022-02-25 01:48\n"
 
 #. Card Title
 #:
@@ -20,7 +20,7 @@ msgstr "अॅपकॉइन्स क्रेडीटस मिळवा!"
 #. Tooltip - APPC Credis disclaimer.
 #:
 msgid "Receive an extra {0}% Bonus in all your purchases in {1}, except when you use AppCoins Credits."
-msgstr ""
+msgstr "आपल्या सर्व खरेदीवर {1}, {0}% अतिरिक्त बोनस मिळवा अपवाद फक्त अॅपकॉइन्स क्रेडीटसचा,."
 
 #. Card - Purchase Promotion.
 #:
@@ -55,7 +55,7 @@ msgstr "कारण आपण पुढच्या पातळीवर प�
 #. Card - Home - Extra Gamification Bonus.
 #:
 msgid "Receive an extra {0}% Bonus in all your purchases in {1}, except when you use AppCoins Credits."
-msgstr ""
+msgstr "आपल्या सर्व खरेदीवर {1}, {0}% अतिरिक्त बोनस मिळवा अपवाद फक्त अॅपकॉइन्स क्रेडीटसचा,."
 
 #. Card - Promotions - Extra Gamification Bonus.
 #:
@@ -110,7 +110,7 @@ msgstr "कारण आपण {0} {1} अॅपकॉइन्स अॅप्�
 #. Card - Extra bonus in all games.
 #:
 msgid "Receive an extra {0}% Bonus in all your purchases, except when you use AppCoins Credits."
-msgstr ""
+msgstr "आपल्या सर्व खरेदीवर {0}% अतिरिक्त बोनस मिळवा अपवाद फक्त अॅपकॉइन्स क्रेडीटसचा,."
 
 #. Card - Title - Common
 #:

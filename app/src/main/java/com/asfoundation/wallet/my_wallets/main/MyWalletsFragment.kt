@@ -33,7 +33,7 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class MyWalletsFragment : BasePageViewFragment(),
-    SingleStateFragment<MyWalletsState, MyWalletsSideEffect> {
+  SingleStateFragment<MyWalletsState, MyWalletsSideEffect> {
 
   @Inject
   lateinit var formatter: CurrencyFormatUtils
@@ -49,8 +49,10 @@ class MyWalletsFragment : BasePageViewFragment(),
   private lateinit var walletsController: WalletsController
   private val epoxyVisibilityTracker = EpoxyVisibilityTracker()
 
-  override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                            savedInstanceState: Bundle?): View? {
+  override fun onCreateView(
+    inflater: LayoutInflater, container: ViewGroup?,
+    savedInstanceState: Bundle?
+  ): View {
     binding = FragmentMyWalletsBinding.inflate(inflater, container, false)
     return views.root
   }
@@ -79,14 +81,15 @@ class MyWalletsFragment : BasePageViewFragment(),
       when (click) {
         WalletsListEvent.CreateNewWalletClick -> navigator.navigateToCreateNewWallet()
         is WalletsListEvent.OtherWalletClick -> navigator.navigateToChangeActiveWallet(
-            click.walletBalance)
+          click.walletBalance
+        )
         is WalletsListEvent.CopyWalletClick -> setAddressToClipBoard(click.walletAddress)
         is WalletsListEvent.ShareWalletClick -> showShare(click.walletAddress)
         WalletsListEvent.BackupClick -> {
           viewModel.state.walletInfoAsync()
-              ?.let { walletInfo ->
-                navigator.navigateToBackupWallet(walletInfo.wallet)
-              }
+            ?.let { walletInfo ->
+              navigator.navigateToBackupWallet(walletInfo.wallet)
+            }
         }
         WalletsListEvent.VerifyWalletClick -> navigator.navigateToVerifyPicker()
         WalletsListEvent.VerifyInsertCodeClick -> navigator.navigateToVerifyCreditCard()
@@ -94,17 +97,23 @@ class MyWalletsFragment : BasePageViewFragment(),
         is WalletsListEvent.TokenClick -> {
           when (click.token) {
             WalletsListEvent.TokenClick.Token.APPC -> {
-              navigateToTokenInfo(R.string.appc_token_name, R.string.p2p_send_currency_appc,
-                  R.drawable.ic_appc, R.string.balance_appcoins_body, false)
+              navigateToTokenInfo(
+                R.string.appc_token_name, R.string.p2p_send_currency_appc,
+                R.drawable.ic_appc, R.string.balance_appcoins_body, false
+              )
             }
             WalletsListEvent.TokenClick.Token.APPC_C -> {
-              navigateToTokenInfo(R.string.appc_credits_token_name,
-                  R.string.p2p_send_currency_appc_c,
-                  R.drawable.ic_appc_c_token, R.string.balance_appccreditos_body, true)
+              navigateToTokenInfo(
+                R.string.appc_credits_token_name,
+                R.string.p2p_send_currency_appc_c,
+                R.drawable.ic_appc_c_token, R.string.balance_appccreditos_body, true
+              )
             }
             WalletsListEvent.TokenClick.Token.ETH -> {
-              navigateToTokenInfo(R.string.ethereum_token_name, R.string.p2p_send_currency_eth,
-                  R.drawable.ic_eth_token, R.string.balance_ethereum_body, false)
+              navigateToTokenInfo(
+                R.string.ethereum_token_name, R.string.p2p_send_currency_eth,
+                R.drawable.ic_eth_token, R.string.balance_ethereum_body, false
+              )
             }
           }
         }
@@ -113,10 +122,11 @@ class MyWalletsFragment : BasePageViewFragment(),
             binding?.titleSwitcher?.setText(getString(R.string.wallets_active_wallet_title))
           } else {
             viewModel.state.walletInfoAsync()
-                ?.let { balance ->
-                  binding?.titleSwitcher?.setText(
-                      getFiatBalanceText(balance.walletBalance.overallFiat))
-                }
+              ?.let { balance ->
+                binding?.titleSwitcher?.setText(
+                  getFiatBalanceText(balance.walletBalance.overallFiat)
+                )
+              }
           }
         }
       }
@@ -125,8 +135,10 @@ class MyWalletsFragment : BasePageViewFragment(),
     views.otherWalletsRecyclerView.setController(walletsController)
   }
 
-  private fun navigateToTokenInfo(tokenNameRes: Int, tokenSymbolRes: Int, tokenImageRes: Int,
-                                  tokenDescriptionRes: Int, showTopUp: Boolean) {
+  private fun navigateToTokenInfo(
+    tokenNameRes: Int, tokenSymbolRes: Int, tokenImageRes: Int,
+    tokenDescriptionRes: Int, showTopUp: Boolean
+  ) {
     val title = "${getString(tokenNameRes)} (${getString(tokenSymbolRes)})"
     val image = requireContext().getDrawableURI(tokenImageRes)
     val description = getString(tokenDescriptionRes)
@@ -139,8 +151,10 @@ class MyWalletsFragment : BasePageViewFragment(),
   }
 
   override fun onStateChanged(state: MyWalletsState) {
-    walletsController.setData(state.walletsAsync, state.walletVerifiedAsync,
-        state.walletInfoAsync, state.backedUpOnceAsync)
+    walletsController.setData(
+      state.walletsAsync, state.walletVerifiedAsync,
+      state.walletInfoAsync, state.backedUpOnceAsync
+    )
   }
 
   override fun onSideEffect(sideEffect: MyWalletsSideEffect) = Unit
@@ -165,9 +179,11 @@ class MyWalletsFragment : BasePageViewFragment(),
   }
 
   private fun navigateToMore() {
-    safeLet(viewModel.state.walletInfoAsync(),
-        viewModel.state.walletsAsync(),
-        viewModel.state.walletVerifiedAsync()) { walletInfo, walletsModel, verifyModel ->
+    safeLet(
+      viewModel.state.walletInfoAsync(),
+      viewModel.state.walletsAsync(),
+      viewModel.state.walletVerifiedAsync()
+    ) { walletInfo, walletsModel, verifyModel ->
       val verifyStatus = verifyModel.status ?: verifyModel.cachedStatus
       val verified = verifyStatus == BalanceVerificationStatus.VERIFIED
       val overallFiatValue = getFiatBalanceText(walletInfo.walletBalance.overallFiat)
@@ -180,31 +196,34 @@ class MyWalletsFragment : BasePageViewFragment(),
       val ethValue = "${
         getTokenValueText(walletInfo.walletBalance.ethBalance, WalletCurrency.ETHEREUM)
       } ${walletInfo.walletBalance.ethBalance.token.symbol}"
-      navigator.navigateToMore(walletInfo.wallet, overallFiatValue,
-          appcoinsValue, creditsValue, ethValue, verified, walletsModel.wallets.isNotEmpty())
+      navigator.navigateToMore(
+        walletInfo.wallet, overallFiatValue,
+        appcoinsValue, creditsValue, ethValue, verified, walletsModel.wallets.size > 1
+      )
     }
   }
 
   fun setAddressToClipBoard(walletAddress: String) {
     val clipboard =
-        requireActivity().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager?
+      requireActivity().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager?
     val clip = ClipData.newPlainText(
-        MyAddressActivity.KEY_ADDRESS, walletAddress)
+      MyAddressActivity.KEY_ADDRESS, walletAddress
+    )
     clipboard?.setPrimaryClip(clip)
     val bottomNavView: BottomNavigationView = requireActivity().findViewById(R.id.bottom_nav)!!
 
     Snackbar.make(bottomNavView, R.string.wallets_address_copied_body, Snackbar.LENGTH_SHORT)
-        .apply {
-          anchorView = bottomNavView
-        }
-        .show()
+      .apply {
+        anchorView = bottomNavView
+      }
+      .show()
   }
 
   fun showShare(walletAddress: String) {
-    ShareCompat.IntentBuilder.from(requireActivity())
-        .setText(walletAddress)
-        .setType("text/plain")
-        .setChooserTitle(resources.getString(R.string.share_via))
-        .startChooser()
+    ShareCompat.IntentBuilder(requireActivity())
+      .setText(walletAddress)
+      .setType("text/plain")
+      .setChooserTitle(resources.getString(R.string.share_via))
+      .startChooser()
   }
 }
