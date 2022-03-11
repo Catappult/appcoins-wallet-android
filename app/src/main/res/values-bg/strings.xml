@@ -442,6 +442,8 @@
   <string name="withdraw_button">withdraw</string>
   <string name="email_here_field">Your email here&#8230;</string>
   <string name="understood_button">Understood!</string>
+  <string name="skip_button">Skip for now</string>
+  <string name="understand_button">I understand</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Съгласявам се с %1$s и %2$s на AppCoins Wallet.</string>
   <string name="terms_and_conditions_error">Моля, приеми нашите Общи правила и Политика за поверителност, за да продължиш</string>
@@ -629,19 +631,9 @@
   <!--Backup and Import-->
   <string name="backup_home_notification_title">Направи бекъп на портфейла си</string>
   <string name="backup_home_notification_body">Някога архивирал ли си си телефона? Архивирай портфейла си сега!</string>
-  <string name="backup_password_title">Криптирай портфейла си (по желание)</string>
-  <string name="backup_confirmation_title">Само още една стъпка</string>
-  <string name="backup_confirmation_body">Пази бекъпа си! Къде искаш да го запазиш?</string>
-  <string name="backup_confirmation_yes">ДА, ЗАВЪРШИ</string>
-  <string name="backup_confirmation_no">НЕ, ЗАПАМЕТИ НА УСТРОЙСТВОТО</string>
-  <string name="backup_done_body">Сигурен ли си, че файлът с бекъпа ти е на сигурно място?</string>
   <string name="backup_confirmation_no_share_title">Бекъп завършен!</string>
-  <string name="backup_confirmation_no_share_body">Твоят бекъп файл е в папката ти Изтегляния.</string>
   <string name="backup_save_dialogue_title">Запамети бекъп файл</string>
   <string name="backup_save_dialogue_body">Избери име за своя бекъп файл.</string>
-  <string name="backup_send_via_title">Изпрати бекъп чрез:</string>
-  <string name="backup_send_button">ИЗПРАТИ БЕКЪП</string>
-  <string name="backup_save_button">ЗАПАЗИ БЕКЪП</string>
   <string name="import_wallet_title">Възстанови портфейла</string>
   <string name="import_wallet_body">Постави бекъп-а на портфейла си по-долу.</string>
   <string name="import_wallet_keystore_private_keys">Хранилище или лични ключове</string>
@@ -652,21 +644,19 @@
   <string name="import_wallet_wrong_password_body">Опа, грешна парола!</string>
   <string name="error_invalid_private_key">Невалиден частен ключ</string>
   <string name="error_invalid_keystore">Невалиден магазин за ключове</string>
-  <string name="backup_title">Backup Wallet</string>
+  <string name="backup_title">Backup your wallet now!</string>
   <string name="backup_body">Ние не съхраняваме твоите лични ключове или друг метод за достъп. Важно е да запазиш резервното копие (хранилище) на портфейла си.</string>
   <string name="backup_additional_security_title">Additional Security (optional)</string>
   <string name="backup_additional_security_body">Choose a password</string>
   <string name="backup_button">BACKUP WALLET</string>
-  <string name="backup_password">Парола</string>
-  <string name="backup_ready_title">Your backup is ready! Keep it safe.</string>
+  <string name="backup_ready_title">Your backup is ready!\nKeep it safe.</string>
   <string name="backup_ready_save_on_email">Save it on your email</string>
   <string name="backup_ready_email_button">Send to email</string>
   <string name="backup_ready_device_button">Save on device</string>
-  <string name="backup_done_title">Бекъпът приключи!</string>
   <string name="backup_confirmation_tips_title">Безопасно запаметяване на файла:</string>
-  <string name="backup_confirmation_tips_1">Изпринтирай го и го съхранявай на сигурно място.</string>
-  <string name="backup_confirmation_tips_2">Запамети го на флашка.</string>
-  <string name="backup_confirmation_tips_3">Копирай го на частен и сигурен облак.</string>
+  <string name="backup_confirmation_tips_1"><b>Print it</b> and store it somewhere safe.</string>
+  <string name="backup_confirmation_tips_2"><b>Save it</b> on a USB drive.</string>
+  <string name="backup_confirmation_tips_3"><b>Copy it</b> to a private and secure cloud storage.</string>
   <string name="backup_tooltip_body">Направи бекъп на портфейла си!</string>
   <string name="backup_tooltip_later_button">МОЖЕ БИ ПО-КЪСНО</string>
   <string name="backup_tooltip_backup_button">БЕКЪП</string>
@@ -677,6 +667,23 @@
   <string name="backup_additional_security_disclaimer_body">There is no password recovery.</string>
   <string name="backup_additional_security_password_not_march">The passwords don\'t match.</string>
   <string name="import_wallet_recovering_body">Recovering wallet...</string>
+  <string name="backup_skip_title">I understand that I may loose my funds if I don\'t backup my wallet key.</string>
+  <string name="backup_wallet_button">Backup wallet</string>
+  <string name="backup_success_save_on_email">Your backup file is in your email.</string>
+  <string name="backup_success_save_on_device">Your backup file is stored in your device.</string>
+  <!--Backup DELETE-->
+  <string name="backup_confirmation_body"></string>
+  <string name="backup_confirmation_no"></string>
+  <string name="backup_confirmation_no_share_body"></string>
+  <string name="backup_confirmation_title"></string>
+  <string name="backup_confirmation_yes"></string>
+  <string name="backup_done_body"></string>
+  <string name="backup_done_title"></string>
+  <string name="backup_password"></string>
+  <string name="backup_password_title"></string>
+  <string name="backup_save_button"></string>
+  <string name="backup_send_button"></string>
+  <string name="backup_send_via_title"></string>
   <!--Wallets Management-->
   <string name="wallets_title">Портфейли</string>
   <string name="wallets_total_balance_title">Общ баланс в %s</string>
