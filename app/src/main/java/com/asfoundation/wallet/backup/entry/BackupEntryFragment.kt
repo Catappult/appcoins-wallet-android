@@ -96,7 +96,7 @@ class BackupEntryFragment : BasePageViewFragment(),
       override fun beforeTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) = Unit
       override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) = Unit
       override fun afterTextChanged(s: Editable) {
-        timer?.cancel()
+        timer?.cancel() // wait until the user stops writing for 0.5s to validate password fields
         timer = object : CountDownTimer(500, 500) {
           override fun onTick(millisUntilFinished: Long) {}
           override fun onFinish() {
@@ -114,7 +114,10 @@ class BackupEntryFragment : BasePageViewFragment(),
     val password = views.passwordToggle?.backupPasswordInput?.getText()
     val repeatedPassword = views.passwordToggle?.backupRepeatPasswordInput?.getText()
 
-    if (password!!.isEmpty() || repeatedPassword!!.isEmpty()) {
+    if (views.passwordToggle?.passwordGroup?.isVisible == false) {
+      showPasswordError(false)
+      views.backupBtn.isEnabled = true
+    } else if (password!!.isEmpty() || repeatedPassword!!.isEmpty()) {
       showPasswordError(false)
       views.backupBtn.isEnabled = false
     } else if (password.isNotEmpty() && password != repeatedPassword) {
