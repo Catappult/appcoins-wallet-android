@@ -36,7 +36,7 @@ interface AdyenPaymentView {
 
   fun showSecurityValidationError()
 
-  fun showTimeoutError()
+  fun showOutdatedCardError()
 
   fun showAlreadyProcessedError()
 
