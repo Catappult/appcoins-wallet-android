@@ -442,6 +442,8 @@
   <string name="withdraw_button">keluarkan</string>
   <string name="email_here_field">E-mel anda di sini&#8230;</string>
   <string name="understood_button">Faham!</string>
+  <string name="skip_button">Skip for now</string>
+  <string name="understand_button">I understand</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Saya setuju dengan %1$s dan %2$s Dompet AppCoins.</string>
   <string name="terms_and_conditions_error">Sila terima Terma dan Syarat serta Dasar Privasi kami untuk teruskan</string>
@@ -629,19 +631,9 @@
   <!--Backup and Import-->
   <string name="backup_home_notification_title">Sandar Dompet Anda</string>
   <string name="backup_home_notification_body">Anda pernah hilang telefon? Buat sandaran dompet anda sekarang!</string>
-  <string name="backup_password_title">Sulitkan dompet anda (pilihan)</string>
-  <string name="backup_confirmation_title">Satu lagi langkah</string>
-  <string name="backup_confirmation_body">Pastikan sandaran anda selamat! Di mana anda mahu simpan?</string>
-  <string name="backup_confirmation_yes">YA, SELESAI</string>
-  <string name="backup_confirmation_no">TIDAK, SIMPAN DALAM PERANTI</string>
-  <string name="backup_done_body">Anda pasti fail sandaran anda di tempat selamat?</string>
   <string name="backup_confirmation_no_share_title">Sandaran selesai!</string>
-  <string name="backup_confirmation_no_share_body">Fail sandaran anda di dalam folder Muat Turun.</string>
   <string name="backup_save_dialogue_title">Simpan fail sandaran</string>
   <string name="backup_save_dialogue_body">Pilih nama untuk fail sandaran anda.</string>
-  <string name="backup_send_via_title">Hantar sandaran melalui:</string>
-  <string name="backup_send_button">HANTAR SANDARAN</string>
-  <string name="backup_save_button">SIMPAN SANDARAN</string>
   <string name="import_wallet_title">Dapatkan Semula Dompet</string>
   <string name="import_wallet_body">Tampal sandaran dompet anda di bawah.</string>
   <string name="import_wallet_keystore_private_keys">Kunci gedung atau kunci peribadi</string>
@@ -652,21 +644,19 @@
   <string name="import_wallet_wrong_password_body">Oops, kata laluan salah!</string>
   <string name="error_invalid_private_key">Kunci peribadi tidak sah</string>
   <string name="error_invalid_keystore">Kunci kedai tidak sah</string>
-  <string name="backup_title">Dompet Sandaran</string>
+  <string name="backup_title">Backup your wallet now!</string>
   <string name="backup_body">Kami tidak menyimpan kunci peribadi anda atau kaedah akses yang lain. Penting bagi anda untuk memastikan sandaran dompet (kunci gedung) anda selamat.</string>
   <string name="backup_additional_security_title">Ciri Keselamatan Tambahan (pilihan)</string>
   <string name="backup_additional_security_body">Pilih kata laluan</string>
   <string name="backup_button">SANDAR DOMPET</string>
-  <string name="backup_password">Kata laluan</string>
-  <string name="backup_ready_title">Sandaran anda siap! Pastikan ia selamat.</string>
+  <string name="backup_ready_title">Your backup is ready!\nKeep it safe.</string>
   <string name="backup_ready_save_on_email">Simpan dalam e-mel anda</string>
   <string name="backup_ready_email_button">Hantar ke e-mel</string>
   <string name="backup_ready_device_button">Simpan dalam peranti</string>
-  <string name="backup_done_title">Sandaran selesai!</string>
   <string name="backup_confirmation_tips_title">Pastikan fail selamat:</string>
-  <string name="backup_confirmation_tips_1">Cetak ia dan simpan ia di tempat yang selamat.</string>
-  <string name="backup_confirmation_tips_2">Simpan di dalam pemacu USB.</string>
-  <string name="backup_confirmation_tips_3">Salin ke storan awan peribadi dan selamat.</string>
+  <string name="backup_confirmation_tips_1"><b>Print it</b> and store it somewhere safe.</string>
+  <string name="backup_confirmation_tips_2"><b>Save it</b> on a USB drive.</string>
+  <string name="backup_confirmation_tips_3"><b>Copy it</b> to a private and secure cloud storage.</string>
   <string name="backup_tooltip_body">Buat sandaran untuk dompet anda!</string>
   <string name="backup_tooltip_later_button">LAIN KALI</string>
   <string name="backup_tooltip_backup_button">SANDARAN</string>
@@ -677,6 +667,23 @@
   <string name="backup_additional_security_disclaimer_body">Tiada pemulihan kata laluan.</string>
   <string name="backup_additional_security_password_not_march">Kata laluan tidak sepadan.</string>
   <string name="import_wallet_recovering_body">Mendapatkan semula dompet...</string>
+  <string name="backup_skip_title">I understand that I may loose my funds if I don\'t backup my wallet key.</string>
+  <string name="backup_wallet_button">Backup wallet</string>
+  <string name="backup_success_save_on_email">Your backup file is in your email.</string>
+  <string name="backup_success_save_on_device">Your backup file is stored in your device.</string>
+  <!--Backup DELETE-->
+  <string name="backup_confirmation_body"></string>
+  <string name="backup_confirmation_no"></string>
+  <string name="backup_confirmation_no_share_body"></string>
+  <string name="backup_confirmation_title"></string>
+  <string name="backup_confirmation_yes"></string>
+  <string name="backup_done_body"></string>
+  <string name="backup_done_title"></string>
+  <string name="backup_password"></string>
+  <string name="backup_password_title"></string>
+  <string name="backup_save_button"></string>
+  <string name="backup_send_button"></string>
+  <string name="backup_send_via_title"></string>
   <!--Wallets Management-->
   <string name="wallets_title">Dompet</string>
   <string name="wallets_total_balance_title">Jumlah baki dalam %s</string>

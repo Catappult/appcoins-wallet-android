@@ -443,6 +443,8 @@
   <string name="withdraw_button">出金</string>
   <string name="email_here_field">Your email here&#8230;</string>
   <string name="understood_button">Understood!</string>
+  <string name="skip_button">Skip for now</string>
+  <string name="understand_button">I understand</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">AppCoins Walletの%1$sと%2$sに同意します。</string>
   <string name="terms_and_conditions_error">ご利用規約とプライバシーポリシーに同意の上、お進みください。</string>
@@ -630,19 +632,9 @@
   <!--Backup and Import-->
   <string name="backup_home_notification_title">ウォレットのバックアップ</string>
   <string name="backup_home_notification_body">携帯電話を紛失したことはありませんか？今すぐウォレットをバックアップしましょう！</string>
-  <string name="backup_password_title">ウォレットを暗号化 (任意)</string>
-  <string name="backup_confirmation_title">あと1ステップ</string>
-  <string name="backup_confirmation_body">バックアップを安全に保管しましょう！ どこに保存しますか？</string>
-  <string name="backup_confirmation_yes">はい、完了します。</string>
-  <string name="backup_confirmation_no">いいえ、端末に保存</string>
-  <string name="backup_done_body">バックアップファイルが安全な場所にあることを確認していますか？</string>
   <string name="backup_confirmation_no_share_title">バックアップ完了！</string>
-  <string name="backup_confirmation_no_share_body">バックアップファイルは、ダウンロードフォルダにあります。</string>
   <string name="backup_save_dialogue_title">バックアップファイルの保存</string>
   <string name="backup_save_dialogue_body">バックアップファイルの名前を決めてください。</string>
-  <string name="backup_send_via_title">バックアップを送信：</string>
-  <string name="backup_send_button">バックアップの送信</string>
-  <string name="backup_save_button">バックアップの保存</string>
   <string name="import_wallet_title">ウォレットの復元</string>
   <string name="import_wallet_body">ウォレットのバックアップを以下に貼り付けてください。</string>
   <string name="import_wallet_keystore_private_keys">キーストアまたは秘密鍵</string>
@@ -653,21 +645,19 @@
   <string name="import_wallet_wrong_password_body">間違ったパスワードです！</string>
   <string name="error_invalid_private_key">無効な秘密鍵です</string>
   <string name="error_invalid_keystore">無効なキーストアです</string>
-  <string name="backup_title">ウォレットをバックアップする</string>
+  <string name="backup_title">Backup your wallet now!</string>
   <string name="backup_body">当方があなたの秘密鍵やその他のアクセス方法を保存することはありません。ウォレットのバックアップ (キーストア) を安全に保管することが重要です。</string>
   <string name="backup_additional_security_title">追加のセキュリティ (オプション)</string>
   <string name="backup_additional_security_body">パスワードの入力</string>
   <string name="backup_button">BACKUP WALLET</string>
-  <string name="backup_password">パスワード</string>
-  <string name="backup_ready_title">Your backup is ready! Keep it safe.</string>
+  <string name="backup_ready_title">Your backup is ready!\nKeep it safe.</string>
   <string name="backup_ready_save_on_email">Save it on your email</string>
   <string name="backup_ready_email_button">Send to email</string>
   <string name="backup_ready_device_button">Save on device</string>
-  <string name="backup_done_title">バックアップ完了！</string>
   <string name="backup_confirmation_tips_title">ファイルを大切に保管してください:</string>
-  <string name="backup_confirmation_tips_1">印刷して、安全な場所に保管</string>
-  <string name="backup_confirmation_tips_2">USBメモリに保存</string>
-  <string name="backup_confirmation_tips_3">プライベートで安全なクラウドストレージにコピー</string>
+  <string name="backup_confirmation_tips_1"><b>Print it</b> and store it somewhere safe.</string>
+  <string name="backup_confirmation_tips_2"><b>Save it</b> on a USB drive.</string>
+  <string name="backup_confirmation_tips_3"><b>Copy it</b> to a private and secure cloud storage.</string>
   <string name="backup_tooltip_body">ウォレットのバックアップを取っておきましょう！</string>
   <string name="backup_tooltip_later_button">あとで</string>
   <string name="backup_tooltip_backup_button">バックアップ</string>
@@ -678,6 +668,23 @@
   <string name="backup_additional_security_disclaimer_body">パスワードの復元はできません。</string>
   <string name="backup_additional_security_password_not_march">パスワードが一致しません。</string>
   <string name="import_wallet_recovering_body">Recovering wallet...</string>
+  <string name="backup_skip_title">I understand that I may loose my funds if I don\'t backup my wallet key.</string>
+  <string name="backup_wallet_button">Backup wallet</string>
+  <string name="backup_success_save_on_email">Your backup file is in your email.</string>
+  <string name="backup_success_save_on_device">Your backup file is stored in your device.</string>
+  <!--Backup DELETE-->
+  <string name="backup_confirmation_body"></string>
+  <string name="backup_confirmation_no"></string>
+  <string name="backup_confirmation_no_share_body"></string>
+  <string name="backup_confirmation_title"></string>
+  <string name="backup_confirmation_yes"></string>
+  <string name="backup_done_body"></string>
+  <string name="backup_done_title"></string>
+  <string name="backup_password"></string>
+  <string name="backup_password_title"></string>
+  <string name="backup_save_button"></string>
+  <string name="backup_send_button"></string>
+  <string name="backup_send_via_title"></string>
   <!--Wallets Management-->
   <string name="wallets_title">ウォレット</string>
   <string name="wallets_total_balance_title">%sでの総残高</string>

@@ -442,6 +442,8 @@
   <string name="withdraw_button">rút</string>
   <string name="email_here_field">Nhập email của bạn tại đây&#8230;</string>
   <string name="understood_button">Đã hiểu!</string>
+  <string name="skip_button">Skip for now</string>
+  <string name="understand_button">I understand</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Tôi đồng ý với %1$s và %2$s của Ví AppCoins.</string>
   <string name="terms_and_conditions_error">Vui lòng chấp nhận Điều khoản và Điều kiện và Chính sách bảo mật của chúng tôi để tiếp tục</string>
@@ -629,19 +631,9 @@
   <!--Backup and Import-->
   <string name="backup_home_notification_title">Sao lưu Ví của bạn</string>
   <string name="backup_home_notification_body">Bạn đã bao giờ bị mất điện thoại chưa? Hãy sao lưu ví của mình ngay!</string>
-  <string name="backup_password_title">Đồng bộ ví của bạn (tùy chọn)</string>
-  <string name="backup_confirmation_title">Chỉ một bước nữa thôi</string>
-  <string name="backup_confirmation_body">Giữ bản sao lưu của bạn an toàn! Bạn muốn lưu nó ở đâu?</string>
-  <string name="backup_confirmation_yes">CÓ, HOÀN TẤT</string>
-  <string name="backup_confirmation_no">KHÔNG, LƯU TRÊN THIẾT BỊ</string>
-  <string name="backup_done_body">Bạn có chắc rằng tập tin sao lưu của bạn đang ở chỗ an toàn không?</string>
   <string name="backup_confirmation_no_share_title">Sao lưu hoàn tất!</string>
-  <string name="backup_confirmation_no_share_body">Tập tin sao lưu của bạn nằm trong thư mục Downloads của bạn.</string>
   <string name="backup_save_dialogue_title">Lưu tập tin sao lưu</string>
   <string name="backup_save_dialogue_body">Chọn tên cho tập tin sao lưu của bạn.</string>
-  <string name="backup_send_via_title">Gửi bản sao lưu qua:</string>
-  <string name="backup_send_button">LƯU BẢN SAO LƯU</string>
-  <string name="backup_save_button">LƯU BẢN SAO LƯU</string>
   <string name="import_wallet_title">Khôi phục ví</string>
   <string name="import_wallet_body">Dán sao lưu ví của bạn dưới đây.</string>
   <string name="import_wallet_keystore_private_keys">Kho khóa hoặc khóa cá nhân</string>
@@ -652,21 +644,19 @@
   <string name="import_wallet_wrong_password_body">Rất tiếc, sai mật khẩu!</string>
   <string name="error_invalid_private_key">Khóa cá nhân không hợp lệ</string>
   <string name="error_invalid_keystore">Kho khóa không hợp lệ</string>
-  <string name="backup_title">Sao lưu</string>
+  <string name="backup_title">Backup your wallet now!</string>
   <string name="backup_body">Chúng tôi không lưu trữ khóa cá nhân hoặc bất kỳ phương thức truy cập nào khác của bạn. Điều quan trọng hơn cả là giữ cho bản sao lưu ví (kho khóa) của bạn được an toàn.</string>
   <string name="backup_additional_security_title">Bảo mật bổ sung (tùy chọn)</string>
   <string name="backup_additional_security_body">Chọn mật khẩu</string>
   <string name="backup_button">SAO LƯU VÍ</string>
-  <string name="backup_password">Mật khẩu</string>
-  <string name="backup_ready_title">Bản sao lưu của bạn đã sẵn sàng! Hãy giữ nó an toàn.</string>
+  <string name="backup_ready_title">Your backup is ready!\nKeep it safe.</string>
   <string name="backup_ready_save_on_email">Lưu nó vào email của bạn</string>
   <string name="backup_ready_email_button">Gửi đến email</string>
   <string name="backup_ready_device_button">Lưu trên thiết bị</string>
-  <string name="backup_done_title">Sao lưu hoàn tất!</string>
   <string name="backup_confirmation_tips_title">Giữ cho tập tin được an toàn:</string>
-  <string name="backup_confirmation_tips_1">In và lưu nó ở một nơi an toàn.</string>
-  <string name="backup_confirmation_tips_2">Lưu nó vào ổ USB.</string>
-  <string name="backup_confirmation_tips_3">Sao chép nó vào một lưu trữ đám mây riêng tư và an toàn.</string>
+  <string name="backup_confirmation_tips_1"><b>Print it</b> and store it somewhere safe.</string>
+  <string name="backup_confirmation_tips_2"><b>Save it</b> on a USB drive.</string>
+  <string name="backup_confirmation_tips_3"><b>Copy it</b> to a private and secure cloud storage.</string>
   <string name="backup_tooltip_body">Tạo bản sao lưu cho ví của bạn!</string>
   <string name="backup_tooltip_later_button">ĐỂ SAU</string>
   <string name="backup_tooltip_backup_button">SAO LƯU</string>
@@ -677,6 +667,23 @@
   <string name="backup_additional_security_disclaimer_body">Không có khôi phục mật khẩu.</string>
   <string name="backup_additional_security_password_not_march">Mật khẩu không khớp.</string>
   <string name="import_wallet_recovering_body">Đang khôi phục ví...</string>
+  <string name="backup_skip_title">I understand that I may loose my funds if I don\'t backup my wallet key.</string>
+  <string name="backup_wallet_button">Backup wallet</string>
+  <string name="backup_success_save_on_email">Your backup file is in your email.</string>
+  <string name="backup_success_save_on_device">Your backup file is stored in your device.</string>
+  <!--Backup DELETE-->
+  <string name="backup_confirmation_body"></string>
+  <string name="backup_confirmation_no"></string>
+  <string name="backup_confirmation_no_share_body"></string>
+  <string name="backup_confirmation_title"></string>
+  <string name="backup_confirmation_yes"></string>
+  <string name="backup_done_body"></string>
+  <string name="backup_done_title"></string>
+  <string name="backup_password"></string>
+  <string name="backup_password_title"></string>
+  <string name="backup_save_button"></string>
+  <string name="backup_send_button"></string>
+  <string name="backup_send_via_title"></string>
   <!--Wallets Management-->
   <string name="wallets_title">Ví</string>
   <string name="wallets_total_balance_title">Tổng số dư bằng %s</string>

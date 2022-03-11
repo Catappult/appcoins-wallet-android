@@ -442,6 +442,8 @@
   <string name="withdraw_button">withdraw</string>
   <string name="email_here_field">Your email here&#8230;</string>
   <string name="understood_button">Understood!</string>
+  <string name="skip_button">Skip for now</string>
+  <string name="understand_button">I understand</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Συμφωνώ με %1$s και %2$s του AppCoins Wallet.</string>
   <string name="terms_and_conditions_error">Παρακαλούμε αποδεχτείτε τους Όρους και Προϋποθέσεις και την Πολιτική Απορρήτου για να συνεχίσετε</string>
@@ -629,19 +631,9 @@
   <!--Backup and Import-->
   <string name="backup_home_notification_title">Αντίγραφο Ασφαλείας του Wallet σας</string>
   <string name="backup_home_notification_body">Έχετε χάσει ποτέ το κινητό σας; Δημιουργήστε ένα αντίγραφο ασφαλείας του wallet σας τώρα!</string>
-  <string name="backup_password_title">Κρυπτογραφήστε το wallet σας (προαιρετικό)</string>
-  <string name="backup_confirmation_title">Μόνο ένα βήμα ακόμη</string>
-  <string name="backup_confirmation_body">Διατηρήστε ασφαλές το αντίγραφο ασφαλείας! Πού θέλετε να το αποθηκεύσετε;</string>
-  <string name="backup_confirmation_yes">ΝΑΙ, ΤΕΛΟΣ</string>
-  <string name="backup_confirmation_no">ΟΧΙ, ΑΠΟΘΗΚΕΥΣΗ ΣΤΗ ΣΥΣΚΕΥΗ</string>
-  <string name="backup_done_body">Είστε σίγουροι ότι το αρχείο αντιγράφου ασφαλείας είναι σε ασφαλές μέρος;</string>
   <string name="backup_confirmation_no_share_title">Το αντίγραφο ασφαλείας ολοκληρώθηκε!</string>
-  <string name="backup_confirmation_no_share_body">Το αρχείο αντιγράφου ασφαλείας βρίσκεται στον φάκελο Λήψεις.</string>
   <string name="backup_save_dialogue_title">Αποθήκευση αρχείου αντιγράφου ασφαλείας</string>
   <string name="backup_save_dialogue_body">Επιλέξτε ένα όνομα για το αρχείο αντιγράφου ασφαλείας.</string>
-  <string name="backup_send_via_title">Αποστολή αντιγράφου ασφαλείας μέσω:</string>
-  <string name="backup_send_button">ΑΠΟΣΤΟΛΗ ΑΝΤΙΓΡΑΦΟΥ ΑΣΦΑΛΕΙΑΣ</string>
-  <string name="backup_save_button">ΑΠΟΘΗΚΕΥΣΗ ΑΝΤΙΓΡΑΦΟΥ ΑΣΦΑΛΕΙΑΣ</string>
   <string name="import_wallet_title">Ανάκτηση Wallet</string>
   <string name="import_wallet_body">Επικολλήστε το αντίγραφο ασφαλείας του wallet σας παρακάτω.</string>
   <string name="import_wallet_keystore_private_keys">Keystore ή ιδιωτικά κλειδιά</string>
@@ -652,21 +644,19 @@
   <string name="import_wallet_wrong_password_body">Ωχ, λανθασμένος κωδικός πρόσβασης!</string>
   <string name="error_invalid_private_key">Μη έγκυρο ιδιωτικό κλειδί</string>
   <string name="error_invalid_keystore">Μη έγκυρο keystore</string>
-  <string name="backup_title">Αντίγραφο Ασφαλείας του Wallet</string>
+  <string name="backup_title">Backup your wallet now!</string>
   <string name="backup_body">Δεν αποθηκεύουμε τα ιδιωτικά κλειδιά σας ή άλλες μεθόδους πρόσβασης. Είναι σημαντικό να διατηρείτε το αντίγραφο ασφαλείας του wallet σας (keystore) ασφαλές.</string>
   <string name="backup_additional_security_title">Επιπρόσθετη Ασφάλεια (προαιρετικά)</string>
   <string name="backup_additional_security_body">Επιλέξτε έναν κωδικό πρόσβασης</string>
   <string name="backup_button">BACKUP WALLET</string>
-  <string name="backup_password">Κωδικός πρόσβασης</string>
-  <string name="backup_ready_title">Your backup is ready! Keep it safe.</string>
+  <string name="backup_ready_title">Your backup is ready!\nKeep it safe.</string>
   <string name="backup_ready_save_on_email">Save it on your email</string>
   <string name="backup_ready_email_button">Send to email</string>
   <string name="backup_ready_device_button">Save on device</string>
-  <string name="backup_done_title">Το αντίγραφο ασφαλείας ολοκληρώθηκε!</string>
   <string name="backup_confirmation_tips_title">Διατηρήστε το αρχείο ασφαλές:</string>
-  <string name="backup_confirmation_tips_1">Εκτυπώστε το και αποθηκεύστε το σε ασφαλές μέρος.</string>
-  <string name="backup_confirmation_tips_2">Αποθήκευση σε μονάδα USB.</string>
-  <string name="backup_confirmation_tips_3">Αντιγράψτε το σε ιδιωτικό και ασφαλή αποθηκευτικό χώρο cloud.</string>
+  <string name="backup_confirmation_tips_1"><b>Print it</b> and store it somewhere safe.</string>
+  <string name="backup_confirmation_tips_2"><b>Save it</b> on a USB drive.</string>
+  <string name="backup_confirmation_tips_3"><b>Copy it</b> to a private and secure cloud storage.</string>
   <string name="backup_tooltip_body">Δημιουργήστε αντίγραφο ασφαλείας του wallet σας!</string>
   <string name="backup_tooltip_later_button">ΙΣΩΣ ΑΡΓΟΤΕΡΑ</string>
   <string name="backup_tooltip_backup_button">ΑΝΤΙΓΡΑΦΟ ΑΣΦΑΛΕΙΑΣ</string>
@@ -677,6 +667,23 @@
   <string name="backup_additional_security_disclaimer_body">Δεν υπάρχει δυνατότητα επαναφοράς κωδικού.</string>
   <string name="backup_additional_security_password_not_march">Οι κωδικοί πρόσβασης δεν ταιριάζουν.</string>
   <string name="import_wallet_recovering_body">Recovering wallet...</string>
+  <string name="backup_skip_title">I understand that I may loose my funds if I don\'t backup my wallet key.</string>
+  <string name="backup_wallet_button">Backup wallet</string>
+  <string name="backup_success_save_on_email">Your backup file is in your email.</string>
+  <string name="backup_success_save_on_device">Your backup file is stored in your device.</string>
+  <!--Backup DELETE-->
+  <string name="backup_confirmation_body"></string>
+  <string name="backup_confirmation_no"></string>
+  <string name="backup_confirmation_no_share_body"></string>
+  <string name="backup_confirmation_title"></string>
+  <string name="backup_confirmation_yes"></string>
+  <string name="backup_done_body"></string>
+  <string name="backup_done_title"></string>
+  <string name="backup_password"></string>
+  <string name="backup_password_title"></string>
+  <string name="backup_save_button"></string>
+  <string name="backup_send_button"></string>
+  <string name="backup_send_via_title"></string>
   <!--Wallets Management-->
   <string name="wallets_title">Wallets</string>
   <string name="wallets_total_balance_title">Συνολικό Υπόλοιπο σε %s</string>
