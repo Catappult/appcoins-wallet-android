@@ -442,6 +442,8 @@
   <string name="withdraw_button">abheben</string>
   <string name="email_here_field">Ihre E-Mail hier&#8230;</string>
   <string name="understood_button">Verstanden!</string>
+  <string name="skip_button">Skip for now</string>
+  <string name="understand_button">I understand</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Ich stimme den %1$s und der %2$s des AppCoins Wallets zu.</string>
   <string name="terms_and_conditions_error">Um fortzufahren, akzeptieren Sie bitte unsere AGBs und unsere Datenschutzrichtlinie</string>
@@ -629,19 +631,9 @@
   <!--Backup and Import-->
   <string name="backup_home_notification_title">Backup für ihr Wallet durchführen</string>
   <string name="backup_home_notification_body">Haben Sie schon nal ihr Smartphone verloren? Machen Sie jetzt ein Backup von ihrem Wallet!</string>
-  <string name="backup_password_title">Wallet verschlüsseln (optional)</string>
-  <string name="backup_confirmation_title">Nur noch einen Schritt</string>
-  <string name="backup_confirmation_body">Sicher Sie ihr Bachup! Wo wollen Sie es speichern?</string>
-  <string name="backup_confirmation_yes">JA, FERTIG</string>
-  <string name="backup_confirmation_no">NEIN, AUF GERÄT SPEICHERN</string>
-  <string name="backup_done_body">Sind Sie sich sicher, dass die Backup-Datei sich an einem sicheren Ort befindet?</string>
   <string name="backup_confirmation_no_share_title">Backup erledigt!</string>
-  <string name="backup_confirmation_no_share_body">Die Backup-Datei befindet sich im Download-Ordner.</string>
   <string name="backup_save_dialogue_title">Backup-Datei speichern</string>
   <string name="backup_save_dialogue_body">Einen Namen für die Backup-Datei auswählen.</string>
-  <string name="backup_send_via_title">Backup versenden über:</string>
-  <string name="backup_send_button">BACKUP VERSENDEN</string>
-  <string name="backup_save_button">BACKUP SICHERN</string>
   <string name="import_wallet_title">Wallet wiederherstellen</string>
   <string name="import_wallet_body">Fügen Sie das Backup ihres Wallets unten ein.</string>
   <string name="import_wallet_keystore_private_keys">Keystore oder private Schlüssel</string>
@@ -652,21 +644,19 @@
   <string name="import_wallet_wrong_password_body">Opps, falsches Password!</string>
   <string name="error_invalid_private_key">Ungültiger Privater Schlüssel</string>
   <string name="error_invalid_keystore">Ungültiger Keystore</string>
-  <string name="backup_title">Wallet Backup</string>
+  <string name="backup_title">Backup your wallet now!</string>
   <string name="backup_body">Wir speichern weder ihre privaten Schlüssel noch andere Zugriffsmethoden. Es ist wichtig das Sie das Backup ihres Wallets (Keystore) sicher aufbewahren.</string>
   <string name="backup_additional_security_title">Zusätzliche Sicherheit (optional)</string>
   <string name="backup_additional_security_body">Wählen Sie ein Paswort</string>
   <string name="backup_button">WALLET BACKUP</string>
-  <string name="backup_password">Passwort</string>
-  <string name="backup_ready_title">Ihr Backup ist fertig! Bewahren Sie es sicher auf.</string>
+  <string name="backup_ready_title">Your backup is ready!\nKeep it safe.</string>
   <string name="backup_ready_save_on_email">Speichern Sie es in Ihrer E-Mail</string>
   <string name="backup_ready_email_button">An die E-Mail Adresse versenden</string>
   <string name="backup_ready_device_button">Auf dem Gerät speichern</string>
-  <string name="backup_done_title">Backup erledigt!</string>
   <string name="backup_confirmation_tips_title">Datei sichern:</string>
-  <string name="backup_confirmation_tips_1">Ausdrucken und an einem sicheren Ort aufbewahren.</string>
-  <string name="backup_confirmation_tips_2">Auf einem USB-Stick sichern.</string>
-  <string name="backup_confirmation_tips_3">In einer privaten und sicheren Cloud speichern.</string>
+  <string name="backup_confirmation_tips_1"><b>Print it</b> and store it somewhere safe.</string>
+  <string name="backup_confirmation_tips_2"><b>Save it</b> on a USB drive.</string>
+  <string name="backup_confirmation_tips_3"><b>Copy it</b> to a private and secure cloud storage.</string>
   <string name="backup_tooltip_body">Erstellen Sie ein Backup ihre Wallets!</string>
   <string name="backup_tooltip_later_button">VIELLEICHT SPÄTER</string>
   <string name="backup_tooltip_backup_button">BACKUP</string>
@@ -677,6 +667,23 @@
   <string name="backup_additional_security_disclaimer_body">Es gibt keine Möglichkeit das Passwort wiederherzustellen.</string>
   <string name="backup_additional_security_password_not_march">Die Passwörter stimmen nicht überein.</string>
   <string name="import_wallet_recovering_body">Wallet wiederherstellen...</string>
+  <string name="backup_skip_title">I understand that I may loose my funds if I don\'t backup my wallet key.</string>
+  <string name="backup_wallet_button">Backup wallet</string>
+  <string name="backup_success_save_on_email">Your backup file is in your email.</string>
+  <string name="backup_success_save_on_device">Your backup file is stored in your device.</string>
+  <!--Backup DELETE-->
+  <string name="backup_confirmation_body"></string>
+  <string name="backup_confirmation_no"></string>
+  <string name="backup_confirmation_no_share_body"></string>
+  <string name="backup_confirmation_title"></string>
+  <string name="backup_confirmation_yes"></string>
+  <string name="backup_done_body"></string>
+  <string name="backup_done_title"></string>
+  <string name="backup_password"></string>
+  <string name="backup_password_title"></string>
+  <string name="backup_save_button"></string>
+  <string name="backup_send_button"></string>
+  <string name="backup_send_via_title"></string>
   <!--Wallets Management-->
   <string name="wallets_title">Wallets</string>
   <string name="wallets_total_balance_title">Gesamtguthaben in %s</string>
