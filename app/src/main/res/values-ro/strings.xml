@@ -442,6 +442,8 @@
   <string name="withdraw_button">retrage</string>
   <string name="email_here_field">E-mailul tău aici&#8230;</string>
   <string name="understood_button">Am înțeles!</string>
+  <string name="skip_button">Skip for now</string>
+  <string name="understand_button">I understand</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Sunt de acord cu %1$s și %2$s AppCoins Wallet.</string>
   <string name="terms_and_conditions_error">Te rugăm să accepți Termenii și condițiile și Politica de confidențialitate pentru a continua</string>
@@ -629,19 +631,9 @@
   <!--Backup and Import-->
   <string name="backup_home_notification_title">Fă o copie de rezervă a portofelului</string>
   <string name="backup_home_notification_body">Ți-ai pierdut vreodată telefonul? Fă o copie de rezervă a portofelului tău acum!</string>
-  <string name="backup_password_title">Criptează-ți portofelul (opțional)</string>
-  <string name="backup_confirmation_title">Încă un pas</string>
-  <string name="backup_confirmation_body">Păstrează-ți copia de rezervă în siguranță! Unde vrei să o salvezi?</string>
-  <string name="backup_confirmation_yes">DA, FINALIZEAZĂ</string>
-  <string name="backup_confirmation_no">NU, SALVEAZĂ PE DISPOZITIV</string>
-  <string name="backup_done_body">Ești sigur că fișierul copiei de rezervă este într-un loc sigur?</string>
   <string name="backup_confirmation_no_share_title">Copie de rezervă efectuată!</string>
-  <string name="backup_confirmation_no_share_body">Fișierul tău de rezervă este în folder-ul tău de Descărcări.</string>
   <string name="backup_save_dialogue_title">Salvează fișier de rezervă</string>
   <string name="backup_save_dialogue_body">Alege un nume pentru fișierul de rezervă.</string>
-  <string name="backup_send_via_title">Trimite copie de rezervă via:</string>
-  <string name="backup_send_button">TRIMITE COPIE DE REZERVĂ</string>
-  <string name="backup_save_button">SALVEAZĂ COPIE DE REZERVĂ</string>
   <string name="import_wallet_title">Recuperează Portofel</string>
   <string name="import_wallet_body">Lipește copia de rezervă a portofelului tău mai jos.</string>
   <string name="import_wallet_keystore_private_keys">Keystore sau chei private</string>
@@ -652,21 +644,19 @@
   <string name="import_wallet_wrong_password_body">Ups, parolă greșită!</string>
   <string name="error_invalid_private_key">Cheie privată nevalidă</string>
   <string name="error_invalid_keystore">Keystore nevalid</string>
-  <string name="backup_title">Copie de rezervă portofel</string>
+  <string name="backup_title">Backup your wallet now!</string>
   <string name="backup_body">Nu îți stocăm cheile private sau orice alte metode de acces. Este important să păstrezi copia de rezervă a portofelului (keystore) în siguranță.</string>
   <string name="backup_additional_security_title">Securitate suplimentară (opțional)</string>
   <string name="backup_additional_security_body">Alege o parolă</string>
   <string name="backup_button">COPIE DE REZERVĂ PORTOFEL</string>
-  <string name="backup_password">Parolă</string>
-  <string name="backup_ready_title">Copia ta de rezervă este pregătită! Păstreaz-o în siguranță.</string>
+  <string name="backup_ready_title">Your backup is ready!\nKeep it safe.</string>
   <string name="backup_ready_save_on_email">Salveaz-o în e-mailul tău</string>
   <string name="backup_ready_email_button">Trimite-o pe e-mail</string>
   <string name="backup_ready_device_button">Salvează pe dispozitiv</string>
-  <string name="backup_done_title">Copie de rezervă efectuată!</string>
   <string name="backup_confirmation_tips_title">Păstrează fișierul în siguranță:</string>
-  <string name="backup_confirmation_tips_1">Scoate-l la imprimantă și păstrează-l în siguranță.</string>
-  <string name="backup_confirmation_tips_2">Salvează-l pe un drive USB.</string>
-  <string name="backup_confirmation_tips_3">Copiază-l într-un cloud de stocare privat și securizat.</string>
+  <string name="backup_confirmation_tips_1"><b>Print it</b> and store it somewhere safe.</string>
+  <string name="backup_confirmation_tips_2"><b>Save it</b> on a USB drive.</string>
+  <string name="backup_confirmation_tips_3"><b>Copy it</b> to a private and secure cloud storage.</string>
   <string name="backup_tooltip_body">Fă-ți o copie de rezervă a portofelului tău!</string>
   <string name="backup_tooltip_later_button">POATE MAI TÂRZIU</string>
   <string name="backup_tooltip_backup_button">FĂ COPIE</string>
@@ -677,6 +667,23 @@
   <string name="backup_additional_security_disclaimer_body">Nu există acces la recuperarea parolei.</string>
   <string name="backup_additional_security_password_not_march">Parolele nu sunt identice.</string>
   <string name="import_wallet_recovering_body">Se recuperează portofelul...</string>
+  <string name="backup_skip_title">I understand that I may loose my funds if I don\'t backup my wallet key.</string>
+  <string name="backup_wallet_button">Backup wallet</string>
+  <string name="backup_success_save_on_email">Your backup file is in your email.</string>
+  <string name="backup_success_save_on_device">Your backup file is stored in your device.</string>
+  <!--Backup DELETE-->
+  <string name="backup_confirmation_body"></string>
+  <string name="backup_confirmation_no"></string>
+  <string name="backup_confirmation_no_share_body"></string>
+  <string name="backup_confirmation_title"></string>
+  <string name="backup_confirmation_yes"></string>
+  <string name="backup_done_body"></string>
+  <string name="backup_done_title"></string>
+  <string name="backup_password"></string>
+  <string name="backup_password_title"></string>
+  <string name="backup_save_button"></string>
+  <string name="backup_send_button"></string>
+  <string name="backup_send_via_title"></string>
   <!--Wallets Management-->
   <string name="wallets_title">Portofele</string>
   <string name="wallets_total_balance_title">Balanță totală în %s</string>
