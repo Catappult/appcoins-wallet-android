@@ -7,9 +7,9 @@ import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
 import com.asf.wallet.R
+import com.asfoundation.wallet.backup.BackupActivity.Companion.newIntent
 import com.asfoundation.wallet.ui.AuthenticationPromptActivity
 import com.asfoundation.wallet.ui.BaseActivity
-import com.asfoundation.wallet.ui.backup.BackupActivity.Companion.newIntent
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject

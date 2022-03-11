@@ -2,7 +2,7 @@ package com.asfoundation.wallet.ui.settings.wallets.bottomsheet
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
-import com.asfoundation.wallet.ui.backup.BackupActivity
+import com.asfoundation.wallet.backup.BackupActivity
 import javax.inject.Inject
 
 class SettingsWalletsBottomSheetNavigator @Inject constructor(val fragmentManager: FragmentManager,

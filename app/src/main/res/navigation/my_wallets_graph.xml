@@ -180,7 +180,7 @@
       tools:layout="@layout/activity_restore_wallet" />
   <activity
       android:id="@+id/backup_wallet_activity"
-      android:name="com.asfoundation.wallet.ui.backup.BackupActivity"
+      android:name="com.asfoundation.wallet.backup.BackupActivity"
       tools:layout="@layout/activity_backup">
     <argument
         android:name="wallet_addr"

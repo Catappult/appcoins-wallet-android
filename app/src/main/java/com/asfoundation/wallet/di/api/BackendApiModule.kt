@@ -5,6 +5,7 @@ import com.appcoins.wallet.gamification.repository.entity.PromotionsDeserializer
 import com.appcoins.wallet.gamification.repository.entity.PromotionsResponse
 import com.appcoins.wallet.gamification.repository.entity.PromotionsSerializer
 import com.asf.wallet.BuildConfig
+import com.asfoundation.wallet.backup.repository.BackupRepository
 import com.asfoundation.wallet.di.annotations.*
 import com.asfoundation.wallet.eskills.withdraw.repository.WithdrawApi
 import com.asfoundation.wallet.logging.send_logs.SendLogsRepository
@@ -16,7 +17,6 @@ import com.asfoundation.wallet.service.AutoUpdateService
 import com.asfoundation.wallet.service.CampaignService
 import com.asfoundation.wallet.service.GasService
 import com.asfoundation.wallet.service.TokenRateService
-import com.asfoundation.wallet.ui.backup.repository.BackupRepository
 import com.asfoundation.wallet.wallets.repository.WalletInfoRepository
 import com.fasterxml.jackson.databind.DeserializationFeature
 import com.fasterxml.jackson.databind.ObjectMapper
