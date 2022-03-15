@@ -150,6 +150,10 @@ class SettingsPresenter(private val view: SettingsView,
     navigator.showPromoCodeFragment()
   }
 
+  fun onRedeemGiftPreferenceClick() {
+    navigator.showRedeemGiftFragment()
+  }
+
   fun onBugReportClicked() = settingsInteractor.displaySupportScreen()
 
   fun redirectToStore() {
