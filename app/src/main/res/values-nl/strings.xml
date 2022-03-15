@@ -555,6 +555,7 @@
   <string name="purchase_error_verify_card">Verifieer je kaart om deze aankoop te voltooien.</string>
   <string name="purachse_error_verify_card_button">KAART VERIFIËREN</string>
   <string name="purchase_eskills_sku">Toegangsticket</string>
+  <string name="purchase_paytmupi_install_disclaimer">You\'ll need to install Paytm UPI app.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">Factuuradres</string>
   <string name="purchase_address_address_field">Adres</string>
