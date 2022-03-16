@@ -556,6 +556,7 @@
   <string name="purchase_error_verify_card">Validate your card to complete this purchase.</string>
   <string name="purachse_error_verify_card_button">VALIDATE CARD</string>
   <string name="purchase_eskills_sku">エントリーチケット</string>
+  <string name="purchase_paytmupi_install_disclaimer">You\'ll need to install Paytm UPI app.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">請求先住所</string>
   <string name="purchase_address_address_field">住所</string>

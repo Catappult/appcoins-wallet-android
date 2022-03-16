@@ -457,7 +457,7 @@
   <string name="home_empty_discover_apps_button">DESCUBRIR APPS</string>
   <!--Tokens-->
   <!--Settings-->
-  <string name="title_redeem">Usar código promocional</string>
+  <string name="title_redeem">Canjear Tarjeta Regalo</string>
   <string name="settings_item_support">Contacta con nosotros</string>
   <string name="settings_subheader_support">Apoyo</string>
   <string name="settings_subheader_about_us">Sobre nosotros</string>
@@ -555,6 +555,7 @@
   <string name="purchase_error_verify_card">Valida tu tarjeta para completar esta compra.</string>
   <string name="purachse_error_verify_card_button">VALIDAR TARJETA</string>
   <string name="purchase_eskills_sku">Ticket de entrada</string>
+  <string name="purchase_paytmupi_install_disclaimer">You\'ll need to install Paytm UPI app.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">Dirección</string>
   <string name="purchase_address_address_field">Dirección</string>

@@ -555,6 +555,7 @@
   <string name="purchase_error_verify_card">ही खरेदी पूर्ण करण्यासाठी आपल्या कार्डाचे सत्यापन करा.</string>
   <string name="purachse_error_verify_card_button">कार्ड सत्यापित करा</string>
   <string name="purchase_eskills_sku">प्रवेश तिकिट</string>
+  <string name="purchase_paytmupi_install_disclaimer">You\'ll need to install Paytm UPI app.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">बिलिंग पत्ता</string>
   <string name="purchase_address_address_field">पत्ता</string>

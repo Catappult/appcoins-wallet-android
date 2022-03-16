@@ -555,6 +555,7 @@
   <string name="purchase_error_verify_card">Potwierdź kartę, by sfinalizować zakup.</string>
   <string name="purachse_error_verify_card_button">Potwierdź kartę</string>
   <string name="purchase_eskills_sku">Bilet wstępu</string>
+  <string name="purchase_paytmupi_install_disclaimer">You\'ll need to install Paytm UPI app.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">Adres rozliczeniowy</string>
   <string name="purchase_address_address_field">Adres</string>

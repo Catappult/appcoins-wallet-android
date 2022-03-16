@@ -555,6 +555,7 @@
   <string name="purchase_error_verify_card">ဤဝယ္ယူမႈကို ၿပီးစီးေစရန္ သင့္ကဒ္ကို အတည္ျပဳပါ။</string>
   <string name="purachse_error_verify_card_button">ကဒ္ကို အတည္ျပဳမည္</string>
   <string name="purchase_eskills_sku">ဝင္ေရာက္ခြင့္လက္မွတ္</string>
+  <string name="purchase_paytmupi_install_disclaimer">You\'ll need to install Paytm UPI app.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">က်သင့္ေငြေကာက္ခံရန္လိပ္စာ</string>
   <string name="purchase_address_address_field">လိပ္စာ</string>
