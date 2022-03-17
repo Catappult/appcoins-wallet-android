@@ -19,7 +19,6 @@
   <queries>
     <package android:name="com.gojek.app" />
     <package android:name="net.one97.paytm" />
-    <package android:name="com.google.android.apps.nbu.paisa.user" />
     <package android:name="com.phonepe.app" />
     <package android:name="in.org.npci.upiapp" />
   </queries>
