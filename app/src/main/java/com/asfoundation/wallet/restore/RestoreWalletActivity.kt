@@ -14,7 +14,7 @@ import android.view.animation.AnimationUtils
 import androidx.core.app.ActivityCompat
 import com.asf.wallet.R
 import com.asfoundation.wallet.navigator.ActivityNavigator
-import com.asfoundation.wallet.recover.RecoverWalletFragment
+import com.asfoundation.wallet.recover.entry.RecoverEntryFragment
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.activity_restore_wallet.*
@@ -126,7 +126,7 @@ class RestoreWalletActivity : ActivityNavigator(), RestoreWalletActivityView {
   override fun getCurrentFragment(): String {
     val fragments = supportFragmentManager.fragments
     return if (fragments.isNotEmpty()) fragments[0]::class.java.simpleName
-    else RecoverWalletFragment::class.java.simpleName
+    else RecoverEntryFragment::class.java.simpleName
   }
 
   override fun endActivity() = finish()

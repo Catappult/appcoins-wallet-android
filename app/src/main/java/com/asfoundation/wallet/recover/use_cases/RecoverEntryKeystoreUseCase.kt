@@ -1,8 +1,8 @@
 package com.asfoundation.wallet.recover.use_cases
 
-import com.asfoundation.wallet.recover.RecoverWalletResult
-import com.asfoundation.wallet.recover.RecoverWalletResultMapper
-import com.asfoundation.wallet.recover.SuccessfulWalletRecover
+import com.asfoundation.wallet.recover.result.RecoverEntryResult
+import com.asfoundation.wallet.recover.result.RecoverEntryResultMapper
+import com.asfoundation.wallet.recover.result.SuccessfulEntryRecover
 import com.asfoundation.wallet.repository.BackupRestorePreferencesRepository
 import com.asfoundation.wallet.repository.PasswordStore
 import com.asfoundation.wallet.repository.WalletRepositoryType
@@ -11,7 +11,7 @@ import com.asfoundation.wallet.wallets.usecases.GetWalletInfoUseCase
 import io.reactivex.Single
 import javax.inject.Inject
 
-class RecoverKeystoreUseCase @Inject constructor(
+class RecoverEntryKeystoreUseCase @Inject constructor(
   private val walletRepository: WalletRepositoryType,
   private val passwordStore: PasswordStore,
   private val backupRestorePreferencesRepository: BackupRestorePreferencesRepository,
@@ -19,17 +19,17 @@ class RecoverKeystoreUseCase @Inject constructor(
   private val currencyFormatUtils: CurrencyFormatUtils
 ) {
 
-  operator fun invoke(keystore: String, password: String = ""): Single<RecoverWalletResult> {
+  operator fun invoke(keystore: String, password: String = ""): Single<RecoverEntryResult> {
     return passwordStore.generatePassword()
       .flatMap { newPassword ->
         walletRepository.restoreKeystoreToWallet(keystore, password, newPassword)
       }
       .flatMap {
-        RecoverWalletResultMapper(getWalletInfoUseCase, currencyFormatUtils).map(it)
+        RecoverEntryResultMapper(getWalletInfoUseCase, currencyFormatUtils, keystore).map(it)
       }
       .doOnSuccess {
         when (it) {
-          is SuccessfulWalletRecover -> backupRestorePreferencesRepository.setWalletRestoreBackup(
+          is SuccessfulEntryRecover -> backupRestorePreferencesRepository.setWalletRestoreBackup(
             it.address
           )
           else -> Unit

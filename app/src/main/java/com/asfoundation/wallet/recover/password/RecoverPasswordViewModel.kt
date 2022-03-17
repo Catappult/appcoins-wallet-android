@@ -1,0 +1,98 @@
+package com.asfoundation.wallet.recover.password
+
+import android.util.Log
+import androidx.lifecycle.SavedStateHandle
+import com.asfoundation.wallet.base.*
+import com.asfoundation.wallet.billing.analytics.WalletsAnalytics
+import com.asfoundation.wallet.billing.analytics.WalletsEventSender
+import com.asfoundation.wallet.recover.password.RecoverPasswordFragment.Companion.KEYSTORE_KEY
+import com.asfoundation.wallet.recover.result.*
+import com.asfoundation.wallet.recover.use_cases.*
+import com.asfoundation.wallet.wallets.usecases.UpdateWalletInfoUseCase
+import dagger.hilt.android.lifecycle.HiltViewModel
+import io.reactivex.Completable
+import io.reactivex.Single
+import javax.inject.Inject
+
+sealed class RecoverPasswordSideEffect : SideEffect
+
+data class RecoverPasswordState(
+  val recoverResultAsync: Async<RecoverPasswordResult> = Async.Uninitialized
+) :
+  ViewState
+
+@HiltViewModel
+class RecoverPasswordViewModel @Inject constructor(
+  private val setDefaultWalletUseCase: SetDefaultWalletUseCase,
+  private val updateWalletInfoUseCase: UpdateWalletInfoUseCase,
+  private val walletsEventSender: WalletsEventSender,
+  private val recoverPasswordKeystoreUseCase: RecoverPasswordKeystoreUseCase,
+  private val savedStateHandle: SavedStateHandle,
+) :
+  BaseViewModel<RecoverPasswordState, RecoverPasswordSideEffect>(initialState()) {
+
+  companion object {
+    fun initialState(): RecoverPasswordState {
+      return RecoverPasswordState()
+    }
+  }
+
+  private fun setDefaultWallet(recoverResult: RecoverPasswordResult): Single<RecoverPasswordResult> {
+    return when (recoverResult) {
+      is FailedPasswordRecover -> Single.just(recoverResult)
+      is SuccessfulPasswordRecover -> Completable.mergeArray(
+        setDefaultWalletUseCase(recoverResult.address),
+        updateWalletInfoUseCase(recoverResult.address, updateFiat = true)
+      )
+        .andThen(Single.just(recoverResult))
+    }
+  }
+
+  fun handleRecoverPasswordClick(password : String) {
+    val keystore = savedStateHandle.get<String>(KEYSTORE_KEY)
+    Log.d(
+      "APPC-2780",
+      "RecoverPasswordViewModel: handleRecoverPasswordClick: keystore -> $keystore"
+    )
+    recoverPasswordKeystoreUseCase(keystore = keystore!!, password = password)
+      .flatMap { setDefaultWallet(it) }
+      .asAsyncToState {
+        copy(recoverResultAsync = it)
+      }
+      .doOnSuccess { handleRecoverResult(it) }
+      .doOnError {
+        walletsEventSender.sendWalletCompleteRestoreEvent(
+          WalletsAnalytics.STATUS_FAIL,
+          it.message
+        )
+      }
+      .scopedSubscribe()
+  }
+
+  private fun handleRecoverResult(recoverResult: RecoverPasswordResult) {
+    Log.d(
+      "APPC-2780",
+      "RecoverPasswordViewModel: handleRecoverResult: recoverResult -> $recoverResult"
+    )
+    when (recoverResult) {
+      is SuccessfulPasswordRecover -> {
+        walletsEventSender.sendWalletPasswordRestoreEvent(
+          WalletsAnalytics.ACTION_IMPORT,
+          WalletsAnalytics.STATUS_SUCCESS
+        )
+      }
+      is FailedPasswordRecover.InvalidPassword -> {
+        walletsEventSender.sendWalletPasswordRestoreEvent(
+          WalletsAnalytics.ACTION_IMPORT,
+          WalletsAnalytics.STATUS_FAIL, recoverResult.throwable?.message
+        )
+      }
+      else -> {
+        walletsEventSender.sendWalletRestoreEvent(
+          WalletsAnalytics.ACTION_IMPORT,
+          WalletsAnalytics.STATUS_FAIL, recoverResult.toString()
+        )
+      }
+    }
+  }
+}

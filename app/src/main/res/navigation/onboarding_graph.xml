@@ -61,6 +61,6 @@
 
   <fragment
       android:id="@+id/recover_wallet_fragment"
-      android:name="com.asfoundation.wallet.recover.RecoverWalletFragment"
-      tools:layout="@layout/fragment_recover_wallet"/>
+      android:name="com.asfoundation.wallet.recover.entry.RecoverEntryFragment"
+      tools:layout="@layout/recover_entry_fragment"/>
 </navigation>

@@ -1,4 +1,4 @@
-package com.asfoundation.wallet.recover
+package com.asfoundation.wallet.recover.result
 
 sealed class RestoreResult
 
@@ -6,8 +6,7 @@ data class SuccessfulRestore(val address: String) : RestoreResult()
 
 sealed class FailedRestore : RestoreResult() {
   data class GenericError(val throwable: Throwable? = null) : FailedRestore()
-  data class RequirePassword(val throwable: Throwable? = null, val address: String) : FailedRestore()
-  data class InvalidPassword(val throwable: Throwable? = null) : FailedRestore()
+  data class InvalidPassword(val throwable: Throwable? = null, val address: String) : FailedRestore()
   data class AlreadyAdded(val throwable: Throwable? = null) : FailedRestore()
   data class InvalidKeystore(val throwable: Throwable? = null) : FailedRestore()
   data class InvalidPrivateKey(val throwable: Throwable? = null) : FailedRestore()
@@ -20,8 +19,7 @@ class RestoreResultErrorMapper {
         return FailedRestore.InvalidKeystore(throwable)
       }
       return when (throwable.message) {
-        "Requires password" -> FailedRestore.RequirePassword(throwable, address)
-        "Invalid password provided" -> FailedRestore.InvalidPassword(throwable)
+        "Invalid password provided" -> FailedRestore.InvalidPassword(throwable, address)
         "Already added" -> FailedRestore.AlreadyAdded(throwable)
         else -> FailedRestore.GenericError(throwable)
       }

@@ -1,12 +1,13 @@
 package com.asfoundation.wallet.service;
 
+import android.util.Log;
 import com.asfoundation.wallet.C;
 import com.asfoundation.wallet.entity.ServiceErrorException;
 import com.asfoundation.wallet.entity.Wallet;
-import com.asfoundation.wallet.recover.FailedRestore;
-import com.asfoundation.wallet.recover.RestoreResult;
-import com.asfoundation.wallet.recover.RestoreResultErrorMapper;
-import com.asfoundation.wallet.recover.SuccessfulRestore;
+import com.asfoundation.wallet.recover.result.FailedRestore;
+import com.asfoundation.wallet.recover.result.RestoreResult;
+import com.asfoundation.wallet.recover.result.RestoreResultErrorMapper;
+import com.asfoundation.wallet.recover.result.SuccessfulRestore;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -61,14 +62,15 @@ import static org.web3j.crypto.Wallet.create;
 
   @Override
   public Single<RestoreResult> restoreKeystore(String store, String password, String newPassword) {
+    Log.d("APPC-2780", "restoreKeystore: pass -> " + password + ", newPass -> " + newPassword);
     return Single.fromCallable(() -> extractAddressFromStore(store))
         .flatMap(address -> {
           if (hasAccount(address)) {
             return Single.error(
                 new ServiceErrorException(C.ErrorCode.ALREADY_ADDED, "Already added"));
-          } else if (password.equals("")) {
-            return Single.error(new ServiceErrorException(C.ErrorCode.CANT_GET_STORE_PASSWORD,
-                "Requires password"));
+          //} else if (password.equals("")) {
+          //  return Single.error(new ServiceErrorException(C.ErrorCode.CANT_GET_STORE_PASSWORD,
+          //      "Requires password"));
           } else {
             return importKeystoreInternal(store, password, newPassword);
           }

@@ -1,8 +1,7 @@
 package com.asfoundation.wallet.service;
 
 import com.asfoundation.wallet.entity.Wallet;
-import com.asfoundation.wallet.recover.RestoreResult;
-import com.asfoundation.wallet.util.RestoreError;
+import com.asfoundation.wallet.recover.result.RestoreResult;
 import io.reactivex.Completable;
 import io.reactivex.Single;
 import java.math.BigDecimal;

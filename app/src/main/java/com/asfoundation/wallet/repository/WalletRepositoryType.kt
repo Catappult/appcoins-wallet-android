@@ -1,8 +1,7 @@
 package com.asfoundation.wallet.repository
 
 import com.asfoundation.wallet.entity.Wallet
-import com.asfoundation.wallet.recover.RecoverWalletResult
-import com.asfoundation.wallet.recover.RestoreResult
+import com.asfoundation.wallet.recover.result.RestoreResult
 import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Single

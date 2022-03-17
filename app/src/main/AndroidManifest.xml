@@ -229,6 +229,11 @@
         android:theme="@style/MaterialAppTheme" />
 
     <activity
+        android:name="com.asfoundation.wallet.recover.RecoverActivity"
+        android:label="@string/import_wallet_title"
+        android:theme="@style/MaterialAppTheme" />
+
+    <activity
         android:name="com.asfoundation.wallet.ui.AuthenticationPromptActivity"
         android:launchMode="singleTask"
         android:theme="@style/Theme.AppCompat.Transparent.NoFloating" />
