@@ -45,7 +45,7 @@
       android:icon="@drawable/ic_backup_black"
       android:key="pref_backup"
       android:layout="@layout/preference_without_summary_layout"
-      android:title="@string/backup_title" />
+      android:title="@string/action_backup_wallet" />
   <Preference
       android:icon="@drawable/ic_restore_black"
       android:key="pref_restore"

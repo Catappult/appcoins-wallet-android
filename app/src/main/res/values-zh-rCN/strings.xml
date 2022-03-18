@@ -442,6 +442,8 @@
   <string name="withdraw_button">取款</string>
   <string name="email_here_field">你的电子邮件&#8230;</string>
   <string name="understood_button">明白了！</string>
+  <string name="skip_button">Skip for now</string>
+  <string name="understand_button">I understand</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">我同意AppCoins Wallet的%1$s和%2$s。</string>
   <string name="terms_and_conditions_error">请接受我们的条款和条件以及隐私政策以继续</string>
@@ -553,6 +555,7 @@
   <string name="purchase_error_verify_card">验证你的卡以完成本次购买。</string>
   <string name="purachse_error_verify_card_button">验证卡</string>
   <string name="purchase_eskills_sku">入场券</string>
+  <string name="purchase_paytmupi_install_disclaimer">You\'ll need to install Paytm UPI app.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">帐单地址</string>
   <string name="purchase_address_address_field">地址</string>
@@ -629,19 +632,9 @@
   <!--Backup and Import-->
   <string name="backup_home_notification_title">备份你的钱包</string>
   <string name="backup_home_notification_body">丢过手机吗？立即备份你的钱包！</string>
-  <string name="backup_password_title">为你的钱包加密（可选）</string>
-  <string name="backup_confirmation_title">最后一个步骤</string>
-  <string name="backup_confirmation_body">请确保备份安全！你希望将其保存在哪里？</string>
-  <string name="backup_confirmation_yes">是的，完成</string>
-  <string name="backup_confirmation_no">不，保存在设备上</string>
-  <string name="backup_done_body">你确定备份文件存放在安全的位置吗？</string>
   <string name="backup_confirmation_no_share_title">备份完成！</string>
-  <string name="backup_confirmation_no_share_body">备份文件位于“下载”文件夹中。</string>
   <string name="backup_save_dialogue_title">保存备份文件</string>
   <string name="backup_save_dialogue_body">选择备份文件的名称。</string>
-  <string name="backup_send_via_title">备份发送方式：</string>
-  <string name="backup_send_button">发送备份</string>
-  <string name="backup_save_button">保存备份</string>
   <string name="import_wallet_title">恢复钱包</string>
   <string name="import_wallet_body">将你的钱包备份粘贴在下方。</string>
   <string name="import_wallet_keystore_private_keys">密钥库或私钥</string>
@@ -652,21 +645,19 @@
   <string name="import_wallet_wrong_password_body">糟糕，密码错误！</string>
   <string name="error_invalid_private_key">无效的私钥</string>
   <string name="error_invalid_keystore">密钥库无效</string>
-  <string name="backup_title">备份钱包</string>
+  <string name="backup_title">Backup your wallet now!</string>
   <string name="backup_body">我们不会存储你的私钥或任何其他访问方法。请务必确保你的钱包备份（密钥库）安全无虞。</string>
   <string name="backup_additional_security_title">额外安全性（可选）</string>
   <string name="backup_additional_security_body">选择密码</string>
   <string name="backup_button">备份钱包</string>
-  <string name="backup_password">密码</string>
-  <string name="backup_ready_title">你的备份已就绪！请保障它的安全。</string>
+  <string name="backup_ready_title">Your backup is ready!\nKeep it safe.</string>
   <string name="backup_ready_save_on_email">保存在你的电子邮件中</string>
   <string name="backup_ready_email_button">发送至电子邮件</string>
   <string name="backup_ready_device_button">保存在设备上</string>
-  <string name="backup_done_title">备份完成！</string>
   <string name="backup_confirmation_tips_title">确保文件安全：</string>
-  <string name="backup_confirmation_tips_1">打印并将其存储在安全的地方。</string>
-  <string name="backup_confirmation_tips_2">将其保存在 USB 驱动器上。</string>
-  <string name="backup_confirmation_tips_3">将其复制到安全的私有云存储中。</string>
+  <string name="backup_confirmation_tips_1"><b>Print it</b> and store it somewhere safe.</string>
+  <string name="backup_confirmation_tips_2"><b>Save it</b> on a USB drive.</string>
+  <string name="backup_confirmation_tips_3"><b>Copy it</b> to a private and secure cloud storage.</string>
   <string name="backup_tooltip_body">备份您的钱包！</string>
   <string name="backup_tooltip_later_button">以后再说</string>
   <string name="backup_tooltip_backup_button">备份</string>
@@ -677,6 +668,23 @@
   <string name="backup_additional_security_disclaimer_body">密码不可恢复。</string>
   <string name="backup_additional_security_password_not_march">密码不匹配。</string>
   <string name="import_wallet_recovering_body">正在恢复钱包……</string>
+  <string name="backup_skip_title">I understand that I may loose my funds if I don\'t backup my wallet key.</string>
+  <string name="backup_wallet_button">Backup wallet</string>
+  <string name="backup_success_save_on_email">Your backup file is in your email.</string>
+  <string name="backup_success_save_on_device">Your backup file is stored in your device.</string>
+  <!--Backup DELETE-->
+  <string name="backup_confirmation_body"></string>
+  <string name="backup_confirmation_no"></string>
+  <string name="backup_confirmation_no_share_body"></string>
+  <string name="backup_confirmation_title"></string>
+  <string name="backup_confirmation_yes"></string>
+  <string name="backup_done_body"></string>
+  <string name="backup_done_title"></string>
+  <string name="backup_password"></string>
+  <string name="backup_password_title"></string>
+  <string name="backup_save_button"></string>
+  <string name="backup_send_button"></string>
+  <string name="backup_send_via_title"></string>
   <!--Wallets Management-->
   <string name="wallets_title">钱包</string>
   <string name="wallets_total_balance_title">总余额(%s)</string>

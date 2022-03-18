@@ -6,7 +6,6 @@ import android.content.Context
 import android.content.Intent
 import android.content.Intent.FLAG_ACTIVITY_NEW_TASK
 import com.asfoundation.wallet.backup.BackupNotificationUtils.NOTIFICATION_SERVICE_ID
-import com.asfoundation.wallet.ui.backup.BackupActivity
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
