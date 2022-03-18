@@ -119,4 +119,8 @@ class RecoverWalletViewModel @Inject constructor(
       }
     }
   }
+
+  fun resetState(){
+    setState { copy(recoverResultAsync = Async.Uninitialized) }
+  }
 }
