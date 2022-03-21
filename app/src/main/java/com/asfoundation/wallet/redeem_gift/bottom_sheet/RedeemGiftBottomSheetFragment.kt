@@ -12,15 +12,9 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.asf.wallet.R
-import com.asf.wallet.databinding.SettingsPromoCodeBottomSheetLayoutBinding
 import com.asf.wallet.databinding.SettingsRedeemGiftBottomSheetLayoutBinding
 import com.asfoundation.wallet.base.Async
 import com.asfoundation.wallet.base.SingleStateFragment
-import com.asfoundation.wallet.promo_code.bottom_sheet.PromoCodeBottomSheetNavigator
-import com.asfoundation.wallet.promo_code.bottom_sheet.PromoCodeBottomSheetSideEffect
-import com.asfoundation.wallet.promo_code.bottom_sheet.PromoCodeBottomSheetState
-import com.asfoundation.wallet.promo_code.bottom_sheet.PromoCodeBottomSheetViewModel
-import com.asfoundation.wallet.promo_code.repository.PromoCode
 import com.asfoundation.wallet.util.KeyboardUtils
 import com.asfoundation.wallet.util.setReadOnly
 import com.google.android.material.bottomsheet.BottomSheetBehavior
@@ -53,21 +47,19 @@ class RedeemGiftBottomSheetFragment : BottomSheetDialogFragment(),
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
+
     views.redeemGiftBottomSheetSubmitButton.setOnClickListener {
       viewModel.submitClick(views.redeemGiftBottomSheetString.text.toString())
     }
-    views.redeemGiftBottomSheetReplaceButton.setOnClickListener {
-      viewModel.replaceClick()
+    views.redeemGiftBottomSheetSuccessGotItButton.setOnClickListener {
+      viewModel.successGotItClick()
     }
-    views.redeemGiftBottomSheetDeleteButton.setOnClickListener { viewModel.deleteClick() }
-    views.redeemGiftBottomSheetSuccessGotItButton.setOnClickListener { viewModel.successGotItClick() }
 
     views.redeemGiftBottomSheetString.addTextChangedListener(object : TextWatcher {
       override fun beforeTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) = Unit
       override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
         views.redeemGiftBottomSheetSubmitButton.isEnabled = s.isNotEmpty()
       }
-
       override fun afterTextChanged(s: Editable) = Unit
     })
 
@@ -86,7 +78,7 @@ class RedeemGiftBottomSheetFragment : BottomSheetDialogFragment(),
 
   override fun onStateChanged(state: RedeemGiftBottomSheetState) {
     when (val clickAsync = state.submitClickAsync) {
-      is Async.Uninitialized -> setRedeemGift(state.promoCodeAsync, state.shouldShowDefault)
+      is Async.Uninitialized -> redeemGift(state.redeemGiftAsync, state.shouldShowDefault)
       is Async.Loading -> {
         if (clickAsync.value == null) {
           showLoading()
@@ -96,7 +88,7 @@ class RedeemGiftBottomSheetFragment : BottomSheetDialogFragment(),
         showErrorMessage()
       }
       is Async.Success -> {
-        state.promoCodeAsync.value?.let { redeemGift -> showSuccess(redeemGift) }
+        state.redeemGiftAsync.value?.let { redeemGift -> showSuccess(redeemGift) }
       }
     }
   }
@@ -107,8 +99,7 @@ class RedeemGiftBottomSheetFragment : BottomSheetDialogFragment(),
     }
   }
 
-  fun setRedeemGift(redeemGiftAsync: Async<PromoCode>,
-                   shouldShowDefault: Boolean) {
+  fun redeemGift(redeemGiftAsync: Async<GiftCode>) {
     when (redeemGiftAsync) {
       is Async.Uninitialized,
       is Async.Loading -> {
@@ -118,13 +109,7 @@ class RedeemGiftBottomSheetFragment : BottomSheetDialogFragment(),
         showErrorMessage()
       }
       is Async.Success -> {
-        if (shouldShowDefault) {
-          showDefaultScreen()
-        } else {
-          if (redeemGiftAsync.value?.code != null) {
-            showCurrentCodeScreen(redeemGiftAsync.value.code)
-          }
-        }
+        showDefaultScreen()
       }
     }
   }
@@ -152,27 +137,13 @@ class RedeemGiftBottomSheetFragment : BottomSheetDialogFragment(),
     views.redeemGiftBottomSheetTitle.visibility = View.VISIBLE
     views.redeemGiftBottomSheetTextRectangle.visibility = View.VISIBLE
     views.redeemGiftBottomSheetTextRectangle.setBackgroundResource(
-      R.drawable.rectangle_text_default_promo_code)
+      R.drawable.rectangle_text_redeem_gift)
     views.redeemGiftBottomSheetSubmitButton.visibility = View.VISIBLE
     views.redeemGiftBottomSheetSubmitButton.isEnabled = false
   }
 
-  private fun showCurrentCodeScreen(redeemGiftString: String) {
-    hideAll()
-    views.redeemGiftBottomSheetString.text = Editable.Factory.getInstance()
-      .newEditable(redeemGiftString)
-    views.redeemGiftBottomSheetString.setReadOnly(true)
-    views.redeemGiftBottomSheetTitle.visibility = View.VISIBLE
-    views.redeemGiftBottomSheetTextRectangle.visibility = View.VISIBLE
-    views.redeemGiftBottomSheetTextRectangle.setBackgroundResource(
-      R.drawable.rectangle_text_active_promo_code)
-    views.redeemGiftBottomSheetActiveCheckmark.visibility = View.VISIBLE
-    views.redeemGiftBottomSheetDeleteButton.visibility = View.VISIBLE
-    views.redeemGiftBottomSheetReplaceButton.visibility = View.VISIBLE
-  }
-
   @SuppressLint("StringFormatMatches")
-  private fun showSuccess(redeemGift: PromoCode) {
+  private fun showSuccess(redeemGift: GiftCode) {
     hideAll()
     KeyboardUtils.hideKeyboard(view)
     views.redeemGiftBottomSheetSuccessAnimation.visibility = View.VISIBLE
@@ -182,15 +153,6 @@ class RedeemGiftBottomSheetFragment : BottomSheetDialogFragment(),
     views.redeemGiftBottomSheetSuccessAnimation.playAnimation()
     views.redeemGiftBottomSheetSuccessTitle.visibility = View.VISIBLE
     views.redeemGiftBottomSheetSuccessSubtitle.visibility = View.VISIBLE
-    if (redeemGift.appName != null) {
-      views.redeemGiftBottomSheetSuccessSubtitle.text =
-        this.getString(R.string.promo_code_success_body_specific_app, redeemGift.bonus.toString(),
-          redeemGift.appName)
-    } else {
-      views.redeemGiftBottomSheetSuccessSubtitle.text =
-        this.getString(R.string.promo_code_success_body, redeemGift.bonus.toString())
-    }
-
     views.redeemGiftBottomSheetSuccessGotItButton.visibility = View.VISIBLE
 
   }
