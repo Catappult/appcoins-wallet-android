@@ -60,7 +60,7 @@ class RecoverEntryFragment : BasePageViewFragment(),
     }
     views.recoverWalletButton.setOnClickListener {
       viewModel.handleRecoverClick(
-        views.recoverWalletOptions.keystoreEditText.text.toString()
+        views.recoverWalletOptions.recoverKeystoreInput.getText()
       )
     }
     viewModel.collectStateAndEvents(lifecycle, viewLifecycleOwner.lifecycleScope)
@@ -124,13 +124,13 @@ class RecoverEntryFragment : BasePageViewFragment(),
 
   private fun handleErrorState(recoverResult: RecoverEntryResult) {
     Log.d("APPC-2780", "RecoverEntryFragment: handleErrorState: $recoverResult ")
-    views.recoverWalletOptions.labelInput.isErrorEnabled = true
+//    views.recoverWalletOptions.labelInput.isErrorEnabled = true
     when (recoverResult) {
       is FailedEntryRecover.AlreadyAdded -> {
-        views.recoverWalletOptions.labelInput.error = getString(R.string.error_already_added)
+        views.recoverWalletOptions.recoverKeystoreInput.setError(getString(R.string.error_already_added))
       }
       is FailedEntryRecover.InvalidKeystore -> {
-        views.recoverWalletOptions.labelInput.error = getString(R.string.error_import)
+        views.recoverWalletOptions.recoverKeystoreInput.setError(getString(R.string.error_import))
       }
       is FailedEntryRecover.InvalidPassword -> {
         navigator.navigateToRecoverPasswordFragment(
@@ -141,10 +141,10 @@ class RecoverEntryFragment : BasePageViewFragment(),
         viewModel.resetState()
       }
       is FailedEntryRecover.InvalidPrivateKey -> {
-        views.recoverWalletOptions.labelInput.error = getString(R.string.error_import)
+        views.recoverWalletOptions.recoverKeystoreInput.setError(getString(R.string.error_import))
       }
       is FailedEntryRecover.GenericError -> {
-        views.recoverWalletOptions.labelInput.error = getString(R.string.error_general)
+        views.recoverWalletOptions.recoverKeystoreInput.setError(getString(R.string.error_general))
       }
       else -> return
     }

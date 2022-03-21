@@ -45,7 +45,7 @@ class RecoverPasswordFragment : BasePageViewFragment(),
     super.onViewCreated(view, savedInstanceState)
 
     views.recoverWalletPasswordButton.setOnClickListener {
-      viewModel.handleRecoverPasswordClick(views.recoverWalletPassword.recoverPasswordInput.getText())
+      viewModel.handleRecoverPasswordClick(views.recoverPasswordInfo.recoverPasswordInput.getText())
     }
     viewModel.collectStateAndEvents(lifecycle, viewLifecycleOwner.lifecycleScope)
   }
@@ -75,8 +75,8 @@ class RecoverPasswordFragment : BasePageViewFragment(),
     }
   }
   private fun showWalletContent() {
-        views.recoverWalletPassword.walletBalance.text = requireArguments().getString(WALLET_BALANCE_KEY)
-        views.recoverWalletPassword.walletAddress.text = requireArguments().getString(WALLET_ADDRESS_KEY)
+        views.recoverPasswordInfo.recoverWalletBalance.text = requireArguments().getString(WALLET_BALANCE_KEY)
+        views.recoverPasswordInfo.recoverWalletAddress.text = requireArguments().getString(WALLET_ADDRESS_KEY)
   }
 
   private fun handleSuccessState(recoverResult: RecoverPasswordResult) {
@@ -94,6 +94,7 @@ class RecoverPasswordFragment : BasePageViewFragment(),
 //    views.recoverWalletPassword.recoverPasswordInput.isErrorEnabled = true
     when (recoverResult) {
       is FailedPasswordRecover.InvalidPassword -> {
+        views.recoverPasswordInfo.recoverPasswordInput.setError(getString(R.string.import_wallet_wrong_password_body))
         Log.d("APPC-2780", "RecoverPasswordFragment: handleErrorState: InvalidPassword ")
       }
       is FailedPasswordRecover.GenericError -> {

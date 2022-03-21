@@ -8,48 +8,16 @@
     android:id="@+id/recover_wallet_options"
     >
 
-  <TextView
-      android:id="@+id/recover_wallet_title"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:text="@string/my_wallets_action_recover_wallet"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toTopOf="parent"
-      style="@style/OnboardingWelcomeTitleTextStyle"
-      />
-  <TextView
-      android:id="@+id/recover_wallet_subtitle"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_marginTop="@dimen/onboarding_subtitle_margin_top"
-      android:text="@string/import_wallet_body"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@id/recover_wallet_title"
-      style="@style/OnboardingWelcomeSubtitleTextStyle"
-      />
-
-  <com.google.android.material.textfield.TextInputLayout
-      android:id="@+id/label_input"
-      style="@style/RecoverWalletTextInputLayout"
+  <com.asfoundation.wallet.ui.common.WalletTextFieldView
+      android:id="@+id/recover_keystore_input"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:layout_marginTop="25dp"
       android:maxHeight="170dp"
-      app:layout_constraintTop_toBottomOf="@id/recover_wallet_subtitle"
-      >
-
-    <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/keystore_edit_text"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="top"
-        android:hint="@string/import_wallet_keystore_private_keys"
-        android:background="@color/white"
-        android:imeOptions="actionUnspecified|flagNoFullscreen|flagNoExtractUi"
-        />
-  </com.google.android.material.textfield.TextInputLayout>
+      app:layout_constraintTop_toTopOf="parent"
+      app:textFieldColor="@color/white"
+      app:textFieldHint="@string/import_wallet_keystore_private_keys"
+      app:textFieldType="filled"
+      />
 
   <androidx.constraintlayout.widget.ConstraintLayout
       android:id="@+id/separator"
@@ -57,7 +25,7 @@
       android:layout_height="wrap_content"
       android:layout_marginTop="25dp"
       app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@id/label_input"
+      app:layout_constraintTop_toBottomOf="@id/recover_keystore_input"
       >
     <View
         android:id="@+id/first_half_separator"
