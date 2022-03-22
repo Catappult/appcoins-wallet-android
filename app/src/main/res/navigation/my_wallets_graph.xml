@@ -203,7 +203,7 @@
       android:name="com.asfoundation.wallet.backup.BackupActivity"
       tools:layout="@layout/activity_backup">
     <argument
-        android:name="wallet_addr"
+        android:name="wallet_address"
         app:argType="string" />
   </activity>
   <activity
