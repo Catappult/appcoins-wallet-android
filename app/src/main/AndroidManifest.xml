@@ -71,11 +71,6 @@
     <activity
         android:name="com.asfoundation.wallet.onboarding.OnboardingActivity"
         android:label="" />
-    <activity
-        android:name="com.asfoundation.wallet.restore.RestoreWalletActivity"
-
-        android:label="@string/title_import"
-        android:windowSoftInputMode="stateHidden" />
 
     <activity
         android:name="com.asfoundation.wallet.main.MainActivity"
@@ -231,7 +226,8 @@
     <activity
         android:name="com.asfoundation.wallet.recover.RecoverActivity"
         android:label="@string/import_wallet_title"
-        android:theme="@style/MaterialAppTheme" />
+        android:theme="@style/MaterialAppTheme"
+        android:windowSoftInputMode="stateHidden|adjustPan" />
 
     <activity
         android:name="com.asfoundation.wallet.ui.AuthenticationPromptActivity"
