@@ -18,7 +18,6 @@ import com.asfoundation.wallet.util.BalanceUtils
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
-import org.apache.commons.lang3.StringUtils.capitalize
 import java.math.BigInteger
 import java.math.RoundingMode
 import javax.inject.Inject
@@ -61,9 +60,21 @@ class NFTTransactDialogFragment : BottomSheetDialogFragment(),
       is Async.Loading -> showLoading()
       is Async.Success -> if (transactionHash.value?.startsWith(
               "0x") == true) showSuccess() else transactionHash.value?.let {
-        showError(it)
+        showError(mapError(it))
       }
       Async.Uninitialized -> setGasPrice(state.gasPriceAsync)
+    }
+  }
+
+  private fun mapError(errorMessage: String): String {
+    return when (errorMessage) {
+      "already known" -> getString(R.string.nfts_transact_error_already_in_progress)
+      "replacement transaction underpriced" -> getString(
+          R.string.nfts_transact_error_already_in_progress)
+      "insufficient funds for gas * price + value" -> getString(
+          R.string.nfts_transact_error_no_funds)
+      "intrinsic gas too low" -> getString(R.string.nfts_transact_error_low_gas)
+      else -> getString(R.string.nfts_generic_error)
     }
   }
 
@@ -83,16 +94,20 @@ class NFTTransactDialogFragment : BottomSheetDialogFragment(),
     views.layoutNftTransactPickGas.gasPriceInput.text = Editable.Factory.getInstance()
         .newEditable(gasInfo.gasPrice.toString())
     views.layoutNftTransactPickGas.gasPriceInput.doAfterTextChanged {
-      updateFee(gasInfo.copyWith(
-          gasPrice = BigInteger(views.layoutNftTransactPickGas.gasPriceInput.text.toString()),
-          gasLimit = BigInteger(views.layoutNftTransactPickGas.gasLimitInput.text.toString())))
+      updateFee(gasInfo.copyWith(gasPrice = BigInteger(
+          views.layoutNftTransactPickGas.gasPriceInput.text.toString()
+              ?.let { "0" }), gasLimit = BigInteger(
+          views.layoutNftTransactPickGas.gasLimitInput.text.toString()
+              ?.let { "0" })))
     }
     views.layoutNftTransactPickGas.gasLimitInput.text = Editable.Factory.getInstance()
         .newEditable(gasInfo.gasLimit.toString())
     views.layoutNftTransactPickGas.gasLimitInput.doAfterTextChanged {
-      updateFee(gasInfo.copyWith(
-          gasPrice = BigInteger(views.layoutNftTransactPickGas.gasPriceInput.text.toString()),
-          gasLimit = BigInteger(views.layoutNftTransactPickGas.gasLimitInput.text.toString())))
+      updateFee(gasInfo.copyWith(gasPrice = BigInteger(
+          views.layoutNftTransactPickGas.gasPriceInput.text.toString()
+              ?.let { "0" }), gasLimit = BigInteger(
+          views.layoutNftTransactPickGas.gasLimitInput.text.toString()
+              ?.let { "0" })))
     }
     updateFee(gasInfo)
     views.layoutNftTransactPickGas.root.visibility = View.VISIBLE
@@ -133,7 +148,7 @@ class NFTTransactDialogFragment : BottomSheetDialogFragment(),
     views.layoutNftTransactPickGas.root.visibility = View.GONE
     views.layoutNftTransactDone.successAnimation.visibility = View.INVISIBLE
     views.layoutNftTransactDone.errorAnimation.visibility = View.VISIBLE
-    views.layoutNftTransactDone.doneMensage.text = capitalize(errorMessage)
+    views.layoutNftTransactDone.doneMensage.text = errorMessage
     views.layoutNftTransactDone.root.visibility = View.VISIBLE
   }
 
