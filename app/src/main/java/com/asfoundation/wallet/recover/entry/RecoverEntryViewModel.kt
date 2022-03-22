@@ -1,10 +1,10 @@
 package com.asfoundation.wallet.recover.entry
 
 import android.net.Uri
-import android.util.Log
 import com.asfoundation.wallet.base.*
 import com.asfoundation.wallet.billing.analytics.WalletsAnalytics
 import com.asfoundation.wallet.billing.analytics.WalletsEventSender
+import com.asfoundation.wallet.onboarding.use_cases.SetOnboardingCompletedUseCase
 import com.asfoundation.wallet.recover.result.FailedEntryRecover
 import com.asfoundation.wallet.recover.result.RecoverEntryResult
 import com.asfoundation.wallet.recover.result.SuccessfulEntryRecover
@@ -15,9 +15,7 @@ import io.reactivex.Completable
 import io.reactivex.Single
 import javax.inject.Inject
 
-sealed class RecoverEntrySideEffect : SideEffect {
-  data class NavigateToFileIntent(val uri: Uri) : RecoverEntrySideEffect()
-}
+sealed class RecoverEntrySideEffect : SideEffect
 
 data class RecoverEntryState(
   val recoverResultAsync: Async<RecoverEntryResult> = Async.Uninitialized
@@ -33,6 +31,7 @@ class RecoverWalletViewModel @Inject constructor(
   private val recoverEntryKeystoreUseCase: RecoverEntryKeystoreUseCase,
   private val recoverEntryPrivateKeyUseCase: RecoverEntryPrivateKeyUseCase,
   private val updateWalletInfoUseCase: UpdateWalletInfoUseCase,
+  private val setOnboardingCompletedUseCase: SetOnboardingCompletedUseCase,
   private val walletsEventSender: WalletsEventSender,
   private val rxSchedulers: RxSchedulers
 ) :
@@ -49,7 +48,6 @@ class RecoverWalletViewModel @Inject constructor(
   }
 
   fun handleFileChosen(uri: Uri) {
-    Log.d("APPC-2780", "RecoverWalletViewModel: handleFileChosen: uri -> $uri")
     readFileUseCase(uri)
       .observeOn(rxSchedulers.computation)
       .flatMap { fetchWallet(it) }
@@ -63,7 +61,6 @@ class RecoverWalletViewModel @Inject constructor(
   }
 
   private fun fetchWallet(key: String): Single<RecoverEntryResult> {
-    Log.d("APPC-2780", "RecoverWalletViewModel: fetchWallet: key -> $key")
     return if (isKeystoreUseCase(key = key)) recoverEntryKeystoreUseCase(keystore = key)
     else {
       if (key.length == 64) recoverEntryPrivateKeyUseCase(privateKey = key)
@@ -77,7 +74,7 @@ class RecoverWalletViewModel @Inject constructor(
       is SuccessfulEntryRecover -> Completable.mergeArray(
         setDefaultWalletUseCase(recoverResult.address),
         updateWalletInfoUseCase(recoverResult.address, updateFiat = true)
-      )
+      ).andThen(Completable.fromAction { setOnboardingCompletedUseCase() })
         .andThen(Single.just(recoverResult))
     }
   }
@@ -90,17 +87,15 @@ class RecoverWalletViewModel @Inject constructor(
       }
       .doOnSuccess { handleRecoverResult(it) }
       .doOnError {
-        walletsEventSender.sendWalletCompleteRestoreEvent(WalletsAnalytics.STATUS_FAIL,
-          it.message)
+        walletsEventSender.sendWalletCompleteRestoreEvent(
+          WalletsAnalytics.STATUS_FAIL,
+          it.message
+        )
       }
       .scopedSubscribe()
   }
 
   private fun handleRecoverResult(recoverResult: RecoverEntryResult) {
-    Log.d(
-      "APPC-2780",
-      "RecoverWalletViewModel: handleRecoverResult: recoverResult -> $recoverResult"
-    )
     when (recoverResult) {
       is SuccessfulEntryRecover -> {
         walletsEventSender.sendWalletRestoreEvent(
@@ -108,7 +103,7 @@ class RecoverWalletViewModel @Inject constructor(
           WalletsAnalytics.STATUS_SUCCESS
         )
       }
-      is FailedEntryRecover.InvalidPassword-> {
+      is FailedEntryRecover.InvalidPassword -> {
 
       }
       else -> {
@@ -120,7 +115,7 @@ class RecoverWalletViewModel @Inject constructor(
     }
   }
 
-  fun resetState(){
+  fun resetState() {
     setState { copy(recoverResultAsync = Async.Uninitialized) }
   }
 }

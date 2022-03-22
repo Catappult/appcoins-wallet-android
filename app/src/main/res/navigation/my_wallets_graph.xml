@@ -107,8 +107,8 @@
         app:popUpTo="@id/more_dialog_fragment"
         app:popUpToInclusive="true" />
     <action
-        android:id="@+id/action_navigate_to_restore_wallet"
-        app:destination="@id/restore_wallet_activity"
+        android:id="@+id/action_navigate_to_recover_wallet"
+        app:destination="@id/recover_wallet_activity"
         app:popUpTo="@id/more_dialog_fragment"
         app:popUpToInclusive="true" />
     <action
@@ -188,11 +188,16 @@
   <activity
       android:id="@+id/verify_paypal_wallet_activity"
       android:name="com.asfoundation.wallet.verification.ui.paypal.VerificationPaypalActivity"
-      tools:layout="@layout/activity_wallet_paypal_verification" />
+      tools:layout="@layout/activity_wallet_paypal_verification"/>
+
   <activity
-      android:id="@+id/restore_wallet_activity"
-      android:name="com.asfoundation.wallet.restore.RestoreWalletActivity"
-      tools:layout="@layout/activity_restore_wallet" />
+      android:id="@+id/recover_wallet_activity"
+      android:name="com.asfoundation.wallet.recover.RecoverActivity"
+      tools:layout="@layout/recover_wallet_activity">
+    <argument
+        android:name="onboarding_layout"
+        app:argType="boolean" />
+  </activity>
   <activity
       android:id="@+id/backup_wallet_activity"
       android:name="com.asfoundation.wallet.backup.BackupActivity"

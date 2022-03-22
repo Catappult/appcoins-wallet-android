@@ -11,12 +11,8 @@
       tools:layout="@layout/fragment_onboarding">
 
     <action
-        android:id="@+id/action_navigate_to_restore_wallet"
-        app:destination="@id/restore_wallet_activity" />
-
-    <action
-        android:id="@+id/action_navigate_to_recover_wallet"
-        app:destination="@id/recover_wallet_fragment" />
+        android:id="@+id/action_navigate_to_recover_wallet_activity"
+        app:destination="@id/recover_wallet_activity" />
 
     <action
         android:id="@+id/action_navigate_terms_conditions"
@@ -55,12 +51,11 @@
   </activity>
 
   <activity
-      android:id="@+id/restore_wallet_activity"
-      android:name="com.asfoundation.wallet.restore.RestoreWalletActivity"
-      tools:layout="@layout/activity_restore_wallet" />
-
-  <fragment
-      android:id="@+id/recover_wallet_fragment"
-      android:name="com.asfoundation.wallet.recover.entry.RecoverEntryFragment"
-      tools:layout="@layout/recover_entry_fragment"/>
+      android:id="@+id/recover_wallet_activity"
+      android:name="com.asfoundation.wallet.recover.RecoverActivity"
+      tools:layout="@layout/recover_wallet_activity" >
+    <argument
+        android:name="onboarding_layout"
+        app:argType="boolean" />
+  </activity>
 </navigation>

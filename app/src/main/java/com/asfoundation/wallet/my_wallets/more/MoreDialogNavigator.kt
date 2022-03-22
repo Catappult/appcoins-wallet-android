@@ -11,7 +11,7 @@ class MoreDialogNavigator(private val navController: NavController) : Navigator 
   }
 
   fun navigateToRestoreWallet() {
-    navigate(navController, MoreDialogFragmentDirections.actionNavigateToRestoreWallet())
+    navigate(navController, MoreDialogFragmentDirections.actionNavigateToRecoverWallet(onboardingLayout = false))
   }
 
   fun navigateToBackupWallet(walletAddress: String) {

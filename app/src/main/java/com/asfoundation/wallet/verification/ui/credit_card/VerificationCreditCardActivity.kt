@@ -7,7 +7,7 @@ import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
 import com.asf.wallet.R
-import com.asfoundation.wallet.restore.intro.RestoreWalletFragment
+import com.asfoundation.wallet.recover.entry.RecoverEntryFragment
 import com.asfoundation.wallet.ui.BaseActivity
 import com.asfoundation.wallet.verification.ui.credit_card.code.VerificationCodeFragment
 import com.asfoundation.wallet.verification.ui.credit_card.error.VerificationErrorFragment
@@ -69,7 +69,7 @@ class VerificationCreditCardActivity : BaseActivity(), VerificationCreditCardAct
   override fun getCurrentFragment(): String {
     val fragments = supportFragmentManager.fragments
     return if (fragments.isNotEmpty()) fragments[0]::class.java.simpleName
-    else RestoreWalletFragment::class.java.simpleName
+    else RecoverEntryFragment::class.java.simpleName
   }
 
   override fun cancel() = finish()

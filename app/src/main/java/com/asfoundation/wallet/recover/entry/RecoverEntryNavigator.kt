@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.asfoundation.wallet.base.Navigator
 import com.asfoundation.wallet.base.navigate
+import com.asfoundation.wallet.onboarding.OnboardingFragmentDirections
 import javax.inject.Inject
 
 class RecoverEntryNavigator @Inject constructor(val fragment: Fragment) : Navigator{
@@ -38,6 +39,17 @@ class RecoverEntryNavigator @Inject constructor(val fragment: Fragment) : Naviga
   fun navigateToCreateWalletDialog(){
     navigate(fragment.findNavController(),
       RecoverEntryFragmentDirections.actionNavigateCreateWalletDialog()
+    )
+  }
+
+  fun navigateBack() {
+    fragment.requireActivity().finish()
+  }
+
+  fun navigateToMainActivity(fromSupportNotification: Boolean) {
+    navigate(
+      fragment.findNavController(),
+      OnboardingFragmentDirections.actionNavigateToMainActivity(fromSupportNotification)
     )
   }
 }

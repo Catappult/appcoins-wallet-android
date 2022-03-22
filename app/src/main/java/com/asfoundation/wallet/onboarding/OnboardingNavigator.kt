@@ -18,13 +18,8 @@ class OnboardingNavigator @Inject constructor(private val fragment: Fragment) : 
         OnboardingFragmentDirections.actionNavigateToMainActivity(fromSupportNotification))
   }
 
-  fun navigateToRestoreActivity() {
+  fun navigateToRecoverActivity() {
     navigate(fragment.findNavController(),
-        OnboardingFragmentDirections.actionNavigateToRestoreWallet())
-  }
-
-  fun navigateToRecoverFragment() {
-    navigate(fragment.findNavController(),
-        OnboardingFragmentDirections.actionNavigateToRecoverWallet())
+        OnboardingFragmentDirections.actionNavigateToRecoverWalletActivity(onboardingLayout = true))
   }
 }

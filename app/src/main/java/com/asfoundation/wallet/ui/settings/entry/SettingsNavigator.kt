@@ -50,7 +50,7 @@ class SettingsNavigator @Inject constructor(private val fragmentManager: Fragmen
   }
 
   fun navigateToRecoverWalletActivity() {
-    activity.startActivity(RecoverActivity.newIntent(activity))
+    activity.startActivity(RecoverActivity.newIntent(activity, onboardingLayout = false))
   }
 
   fun navigateToWithdrawScreen() {

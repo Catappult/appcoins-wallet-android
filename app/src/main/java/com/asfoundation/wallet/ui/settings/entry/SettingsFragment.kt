@@ -22,7 +22,6 @@ import com.asfoundation.wallet.logging.send_logs.SettingsSendLogsPreference
 import com.asfoundation.wallet.permissions.manage.view.ManagePermissionsActivity
 import com.asfoundation.wallet.promo_code.SettingsPreferencePromoCodeState
 import com.asfoundation.wallet.promo_code.repository.PromoCode
-import com.asfoundation.wallet.restore.RestoreWalletActivity
 import com.asfoundation.wallet.subscriptions.SubscriptionActivity
 import com.asfoundation.wallet.ui.settings.SettingsActivityView
 import com.asfoundation.wallet.util.getLanguageAndCountryCodes

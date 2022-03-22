@@ -1,7 +1,6 @@
 package com.asfoundation.wallet.recover.password
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,6 +13,7 @@ import com.asf.wallet.databinding.RecoverPasswordFragmentBinding
 import com.asfoundation.wallet.base.Async
 import com.asfoundation.wallet.base.SingleStateFragment
 import com.asfoundation.wallet.my_wallets.create_wallet.CreateWalletDialogFragment
+import com.asfoundation.wallet.recover.entry.RecoverEntryFragment
 import com.asfoundation.wallet.recover.result.*
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
@@ -43,7 +43,12 @@ class RecoverPasswordFragment : BasePageViewFragment(),
 
   override fun onViewCreated(view: View, @Nullable savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
-
+    if (!requireActivity().intent.getBooleanExtra(RecoverEntryFragment.ONBOARDING_LAYOUT, false)) {
+      views.recoverWalletBackButton.visibility = View.GONE
+    }
+    views.recoverWalletBackButton.setOnClickListener {
+      navigator.navigateBack()
+    }
     views.recoverWalletPasswordButton.setOnClickListener {
       viewModel.handleRecoverPasswordClick(views.recoverPasswordInfo.recoverPasswordInput.getText())
     }
@@ -57,10 +62,6 @@ class RecoverPasswordFragment : BasePageViewFragment(),
   override fun onSideEffect(sideEffect: RecoverPasswordSideEffect) = Unit
 
   private fun handleRecoverPasswordState(asyncRecoverResult: Async<RecoverPasswordResult>) {
-    Log.d(
-      "APPC-2780",
-      "RecoverPasswordFragment: handleRecoverPasswordState: state -> $asyncRecoverResult "
-    )
     when (asyncRecoverResult) {
       is Async.Uninitialized,
       is Async.Loading -> {
@@ -74,13 +75,15 @@ class RecoverPasswordFragment : BasePageViewFragment(),
       }
     }
   }
+
   private fun showWalletContent() {
-        views.recoverPasswordInfo.recoverWalletBalance.text = requireArguments().getString(WALLET_BALANCE_KEY)
-        views.recoverPasswordInfo.recoverWalletAddress.text = requireArguments().getString(WALLET_ADDRESS_KEY)
+    views.recoverPasswordInfo.recoverWalletBalance.text =
+      requireArguments().getString(WALLET_BALANCE_KEY)
+    views.recoverPasswordInfo.recoverWalletAddress.text =
+      requireArguments().getString(WALLET_ADDRESS_KEY)
   }
 
   private fun handleSuccessState(recoverResult: RecoverPasswordResult) {
-    Log.d("APPC-2780", "RecoverPasswordFragment: handleSuccessState: $recoverResult ")
     when (recoverResult) {
       is SuccessfulPasswordRecover -> {
         navigator.navigateToCreateWalletDialog()
@@ -90,15 +93,9 @@ class RecoverPasswordFragment : BasePageViewFragment(),
   }
 
   private fun handleErrorState(recoverResult: RecoverPasswordResult) {
-    Log.d("APPC-2780", "RecoverPasswordFragment: handleErrorState: $recoverResult ")
-//    views.recoverWalletPassword.recoverPasswordInput.isErrorEnabled = true
     when (recoverResult) {
       is FailedPasswordRecover.InvalidPassword -> {
         views.recoverPasswordInfo.recoverPasswordInput.setError(getString(R.string.import_wallet_wrong_password_body))
-        Log.d("APPC-2780", "RecoverPasswordFragment: handleErrorState: InvalidPassword ")
-      }
-      is FailedPasswordRecover.GenericError -> {
-        Log.d("APPC-2780", "RecoverPasswordFragment: handleErrorState: GenericError ")
       }
       else -> return
     }
@@ -109,8 +106,7 @@ class RecoverPasswordFragment : BasePageViewFragment(),
       CreateWalletDialogFragment.RESULT_REQUEST_KEY,
       this
     ) { _, _ ->
-      activity?.finish()
-//      navigator.navigateToMainActivity(fromSupportNotification = false)
+      navigator.navigateToMainActivity(fromSupportNotification = false)
     }
   }
 

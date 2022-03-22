@@ -1,10 +1,10 @@
 package com.asfoundation.wallet.recover.password
 
-import android.util.Log
 import androidx.lifecycle.SavedStateHandle
 import com.asfoundation.wallet.base.*
 import com.asfoundation.wallet.billing.analytics.WalletsAnalytics
 import com.asfoundation.wallet.billing.analytics.WalletsEventSender
+import com.asfoundation.wallet.onboarding.use_cases.SetOnboardingCompletedUseCase
 import com.asfoundation.wallet.recover.password.RecoverPasswordFragment.Companion.KEYSTORE_KEY
 import com.asfoundation.wallet.recover.result.*
 import com.asfoundation.wallet.recover.use_cases.*
@@ -27,6 +27,7 @@ class RecoverPasswordViewModel @Inject constructor(
   private val updateWalletInfoUseCase: UpdateWalletInfoUseCase,
   private val walletsEventSender: WalletsEventSender,
   private val recoverPasswordKeystoreUseCase: RecoverPasswordKeystoreUseCase,
+  private val setOnboardingCompletedUseCase: SetOnboardingCompletedUseCase,
   private val savedStateHandle: SavedStateHandle,
 ) :
   BaseViewModel<RecoverPasswordState, RecoverPasswordSideEffect>(initialState()) {
@@ -43,17 +44,13 @@ class RecoverPasswordViewModel @Inject constructor(
       is SuccessfulPasswordRecover -> Completable.mergeArray(
         setDefaultWalletUseCase(recoverResult.address),
         updateWalletInfoUseCase(recoverResult.address, updateFiat = true)
-      )
+      ).andThen(Completable.fromAction { setOnboardingCompletedUseCase() })
         .andThen(Single.just(recoverResult))
     }
   }
 
-  fun handleRecoverPasswordClick(password : String) {
+  fun handleRecoverPasswordClick(password: String) {
     val keystore = savedStateHandle.get<String>(KEYSTORE_KEY)
-    Log.d(
-      "APPC-2780",
-      "RecoverPasswordViewModel: handleRecoverPasswordClick: keystore -> $keystore"
-    )
     recoverPasswordKeystoreUseCase(keystore = keystore!!, password = password)
       .flatMap { setDefaultWallet(it) }
       .asAsyncToState {
@@ -70,10 +67,6 @@ class RecoverPasswordViewModel @Inject constructor(
   }
 
   private fun handleRecoverResult(recoverResult: RecoverPasswordResult) {
-    Log.d(
-      "APPC-2780",
-      "RecoverPasswordViewModel: handleRecoverResult: recoverResult -> $recoverResult"
-    )
     when (recoverResult) {
       is SuccessfulPasswordRecover -> {
         walletsEventSender.sendWalletPasswordRestoreEvent(

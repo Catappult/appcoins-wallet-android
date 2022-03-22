@@ -5,7 +5,6 @@ import android.app.Activity
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -37,8 +36,8 @@ class RecoverEntryFragment : BasePageViewFragment(),
   private val viewModel: RecoverWalletViewModel by viewModels()
   private val views by viewBinding(RecoverEntryFragmentBinding::bind)
 
-  lateinit var requestPermissionsLauncher: ActivityResultLauncher<String>
-  lateinit var storageIntentLauncher: ActivityResultLauncher<Intent>
+  private lateinit var requestPermissionsLauncher: ActivityResultLauncher<String>
+  private lateinit var storageIntentLauncher: ActivityResultLauncher<Intent>
 
   override fun onCreateView(
     inflater: LayoutInflater, @Nullable container: ViewGroup?,
@@ -55,6 +54,12 @@ class RecoverEntryFragment : BasePageViewFragment(),
 
   override fun onViewCreated(view: View, @Nullable savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
+    if (!requireActivity().intent.getBooleanExtra(ONBOARDING_LAYOUT, false)) {
+      views.recoverWalletBackButton.visibility = View.GONE
+    }
+    views.recoverWalletBackButton.setOnClickListener {
+      navigator.navigateBack()
+    }
     views.recoverWalletOptions.recoverFromFileButton.setOnClickListener {
       requestPermissionsLauncher.launch(Manifest.permission.READ_EXTERNAL_STORAGE)
     }
@@ -90,10 +95,6 @@ class RecoverEntryFragment : BasePageViewFragment(),
   override fun onSideEffect(sideEffect: RecoverEntrySideEffect) = Unit
 
   private fun handleRecoverEntryState(asyncRecoverResult: Async<RecoverEntryResult>) {
-    Log.d(
-      "APPC-2780",
-      "RecoverWalletFragment: handleWalletModelRecoverState: state -> $asyncRecoverResult "
-    )
     when (asyncRecoverResult) {
       is Async.Uninitialized,
       is Async.Loading -> {
@@ -113,7 +114,6 @@ class RecoverEntryFragment : BasePageViewFragment(),
   }
 
   private fun handleSuccessState(recoverResult: RecoverEntryResult) {
-    Log.d("APPC-2780", "RecoverEntryFragment: handleSuccessState: $recoverResult ")
     when (recoverResult) {
       is SuccessfulEntryRecover -> {
         navigator.navigateToCreateWalletDialog()
@@ -123,8 +123,6 @@ class RecoverEntryFragment : BasePageViewFragment(),
   }
 
   private fun handleErrorState(recoverResult: RecoverEntryResult) {
-    Log.d("APPC-2780", "RecoverEntryFragment: handleErrorState: $recoverResult ")
-//    views.recoverWalletOptions.labelInput.isErrorEnabled = true
     when (recoverResult) {
       is FailedEntryRecover.AlreadyAdded -> {
         views.recoverWalletOptions.recoverKeystoreInput.setError(getString(R.string.error_already_added))
@@ -155,12 +153,11 @@ class RecoverEntryFragment : BasePageViewFragment(),
       CreateWalletDialogFragment.RESULT_REQUEST_KEY,
       this
     ) { _, _ ->
-      activity?.finish()
-//      navigator.navigateToMainActivity(fromSupportNotification = false)
+      navigator.navigateToMainActivity(fromSupportNotification = false)
     }
   }
 
   companion object {
-    fun newInstance() = RecoverEntryFragment()
+    const val ONBOARDING_LAYOUT = "onboarding_layout"
   }
 }

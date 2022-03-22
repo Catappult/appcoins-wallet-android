@@ -10,6 +10,10 @@
       android:name="com.asfoundation.wallet.recover.entry.RecoverEntryFragment"
       tools:layout="@layout/recover_entry_fragment">
 
+    <argument
+        android:name="onboarding_layout"
+        app:argType="boolean" />
+
     <action
         android:id="@+id/action_navigate_to_recover_password"
         app:destination="@id/recover_password_fragment" />
@@ -18,6 +22,12 @@
         android:id="@+id/action_navigate_create_wallet_dialog"
         app:destination="@id/create_wallet_dialog_fragment"
         app:popUpTo="@+id/onboarding_terms_conditions_dialog"
+        app:popUpToInclusive="true" />
+
+    <action
+        android:id="@+id/action_navigate_to_main_activity"
+        app:destination="@id/main_activity"
+        app:popUpTo="@+id/main_nav_graph"
         app:popUpToInclusive="true" />
   </fragment>
 
@@ -39,10 +49,25 @@
         app:destination="@id/create_wallet_dialog_fragment"
         app:popUpTo="@+id/onboarding_terms_conditions_dialog"
         app:popUpToInclusive="true" />
+
+    <action
+        android:id="@+id/action_navigate_to_main_activity"
+        app:destination="@id/main_activity"
+        app:popUpTo="@+id/main_nav_graph"
+        app:popUpToInclusive="true" />
   </fragment>
 
   <dialog
       android:id="@+id/create_wallet_dialog_fragment"
       android:name="com.asfoundation.wallet.my_wallets.create_wallet.CreateWalletDialogFragment"
       tools:layout="@layout/fragment_create_wallet_dialog_layout" />
+
+  <activity
+      android:id="@+id/main_activity"
+      android:name="com.asfoundation.wallet.main.MainActivity"
+      tools:layout="@layout/qr_code_layout">
+    <argument
+        android:name="wallet_addr"
+        app:argType="boolean" />
+  </activity>
 </navigation>
