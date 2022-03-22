@@ -6,7 +6,9 @@ data class SuccessfulRestore(val address: String) : RestoreResult()
 
 sealed class FailedRestore : RestoreResult() {
   data class GenericError(val throwable: Throwable? = null) : FailedRestore()
-  data class InvalidPassword(val throwable: Throwable? = null, val address: String) : FailedRestore()
+  data class InvalidPassword(val throwable: Throwable? = null, val address: String) :
+    FailedRestore()
+
   data class AlreadyAdded(val throwable: Throwable? = null) : FailedRestore()
   data class InvalidKeystore(val throwable: Throwable? = null) : FailedRestore()
   data class InvalidPrivateKey(val throwable: Throwable? = null) : FailedRestore()

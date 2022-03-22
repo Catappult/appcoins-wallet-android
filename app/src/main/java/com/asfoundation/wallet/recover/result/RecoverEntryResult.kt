@@ -43,7 +43,7 @@ class RecoverEntryResultMapper(
           .map {
             FailedEntryRecover.InvalidPassword(
               throwable = restoreResult.throwable,
-              key= key,
+              key = key,
               address = it.wallet,
               amount = currencyFormatUtils.formatCurrency(
                 it.walletBalance.overallFiat.amount

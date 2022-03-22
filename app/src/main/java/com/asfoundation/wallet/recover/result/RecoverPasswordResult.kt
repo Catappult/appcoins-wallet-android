@@ -11,7 +11,7 @@ sealed class FailedPasswordRecover : RecoverPasswordResult() {
   data class InvalidPassword(val throwable: Throwable? = null) : FailedPasswordRecover()
 }
 
-class RecoverPasswordResultMapper(keystore: String) {
+class RecoverPasswordResultMapper() {
   fun map(restoreResult: RestoreResult): Single<RecoverPasswordResult> {
     return when (restoreResult) {
       is FailedRestore.GenericError ->

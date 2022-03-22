@@ -19,7 +19,7 @@ class RecoverPasswordKeystoreUseCase @Inject constructor(
         walletRepository.restoreKeystoreToWallet(keystore, password, newPassword)
       }
       .flatMap {
-        RecoverPasswordResultMapper(keystore).map(it)
+        RecoverPasswordResultMapper().map(it)
       }
       .doOnSuccess {
         when (it) {
