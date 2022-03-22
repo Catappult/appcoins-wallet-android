@@ -2,10 +2,12 @@ package com.asfoundation.wallet.billing.analytics;
 
 import android.text.TextUtils;
 import cm.aptoide.analytics.AnalyticsManager;
+import it.czerwinski.android.hilt.annotations.BoundTo;
 import java.util.HashMap;
 import java.util.Map;
+import javax.inject.Inject;
 
-public class PoaAnalytics implements PoaEventSender {
+@BoundTo(supertype = PoaEventSender.class) public class PoaAnalytics implements PoaEventSender {
 
   public static final String POA_STARTED = "POA_STARTED";
   public static final String POA_COMPLETED = "POA_COMPLETED";
@@ -19,7 +21,7 @@ public class PoaAnalytics implements PoaEventSender {
 
   private final AnalyticsManager analytics;
 
-  public PoaAnalytics(AnalyticsManager analytics) {
+  public @Inject PoaAnalytics(AnalyticsManager analytics) {
     this.analytics = analytics;
   }
 

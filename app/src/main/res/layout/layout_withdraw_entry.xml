@@ -91,10 +91,10 @@
       app:layout_constraintBottom_toBottomOf="@+id/withdraw_image_trophy"
       app:layout_constraintStart_toEndOf="@id/withdraw_image_trophy"
       app:layout_constraintTop_toBottomOf="@id/withdraw_available_amount_title"
+      app:layout_constraintVertical_bias="0.0"
       app:lottie_loop="true"
       app:lottie_rawRes="@raw/gamification_peek_skeleton"
       />
-
   <TextView
       android:id="@+id/paypal_email_title"
       android:layout_width="0dp"

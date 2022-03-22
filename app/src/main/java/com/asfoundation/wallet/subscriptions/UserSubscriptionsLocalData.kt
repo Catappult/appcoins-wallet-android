@@ -7,8 +7,10 @@ import com.asfoundation.wallet.subscriptions.db.UserSubscriptionEntity
 import com.asfoundation.wallet.subscriptions.db.UserSubscriptionsDao
 import io.reactivex.Observable
 import io.reactivex.Single
+import javax.inject.Inject
 
-class UserSubscriptionsLocalData(private val userSubscriptionsDao: UserSubscriptionsDao) {
+class UserSubscriptionsLocalData @Inject constructor(
+    private val userSubscriptionsDao: UserSubscriptionsDao) {
 
   fun insertSubscriptions(responseList: List<UserSubscriptionResponse>,
                           walletAddress: String) {

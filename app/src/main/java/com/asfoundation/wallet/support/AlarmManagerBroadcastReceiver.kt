@@ -4,6 +4,7 @@ import android.app.AlarmManager
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
+import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.os.Build
@@ -16,17 +17,12 @@ import com.asfoundation.wallet.support.SupportNotificationProperties.ACTION_KEY
 import com.asfoundation.wallet.support.SupportNotificationProperties.CHANNEL_ID
 import com.asfoundation.wallet.support.SupportNotificationProperties.CHANNEL_NAME
 import com.asfoundation.wallet.support.SupportNotificationProperties.NOTIFICATION_SERVICE_ID
-import dagger.android.AndroidInjection
-import dagger.android.DaggerBroadcastReceiver
-import dagger.android.DispatchingAndroidInjector
-import dagger.android.HasAndroidInjector
+import dagger.hilt.android.AndroidEntryPoint
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
-class AlarmManagerBroadcastReceiver : DaggerBroadcastReceiver(), HasAndroidInjector {
-
-  @Inject
-  lateinit var androidInjector: DispatchingAndroidInjector<Any>
+@AndroidEntryPoint
+class AlarmManagerBroadcastReceiver : BroadcastReceiver() {
 
   @Inject
   lateinit var supportInteractor: SupportInteractor
@@ -52,12 +48,7 @@ class AlarmManagerBroadcastReceiver : DaggerBroadcastReceiver(), HasAndroidInjec
 
   }
 
-  override fun androidInjector() = androidInjector
-
   override fun onReceive(context: Context, intent: Intent) {
-    super.onReceive(context, intent)
-    AndroidInjection.inject(this, context)
-
     notificationManager =
         context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 

@@ -3,8 +3,9 @@ package com.asfoundation.wallet.subscriptions.success
 import androidx.fragment.app.FragmentManager
 import com.asf.wallet.R
 import com.asfoundation.wallet.subscriptions.list.SubscriptionListFragment
+import javax.inject.Inject
 
-class SubscriptionSuccessNavigator(private val fragmentManager: FragmentManager) {
+class SubscriptionSuccessNavigator @Inject constructor(private val fragmentManager: FragmentManager) {
 
   fun navigateToSubscriptionList() {
     for (i in 0 until fragmentManager.backStackEntryCount) fragmentManager.popBackStack()

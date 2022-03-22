@@ -1,9 +1,13 @@
 package com.asfoundation.wallet.my_wallets.more
 
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import dagger.Module
 import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.android.components.FragmentComponent
 
+@InstallIn(FragmentComponent::class)
 @Module
 class MoreDialogModule {
 
@@ -13,7 +17,7 @@ class MoreDialogModule {
   }
 
   @Provides
-  fun provideMoreDialogData(fragment: MoreDialogFragment): MoreDialogData {
+  fun provideMoreDialogData(fragment: Fragment): MoreDialogData {
     fragment.requireArguments()
         .apply {
           return MoreDialogData(
@@ -29,7 +33,7 @@ class MoreDialogModule {
   }
 
   @Provides
-  fun provideMoreDialogNavigator(fragment: MoreDialogFragment): MoreDialogNavigator {
+  fun provideMoreDialogNavigator(fragment: Fragment): MoreDialogNavigator {
     return MoreDialogNavigator(fragment.findNavController())
   }
 }

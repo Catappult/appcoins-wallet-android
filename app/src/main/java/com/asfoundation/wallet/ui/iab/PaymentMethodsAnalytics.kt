@@ -1,12 +1,14 @@
 package com.asfoundation.wallet.ui.iab
 
 import cm.aptoide.analytics.AnalyticsManager
-import com.asfoundation.wallet.analytics.RakamAnalytics
+import com.asfoundation.wallet.analytics.AnalyticsSetup
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics
+import javax.inject.Inject
 
-class PaymentMethodsAnalytics(private val analyticsManager: AnalyticsManager,
+class PaymentMethodsAnalytics @Inject constructor(private val analyticsManager: AnalyticsManager,
                               private val billingAnalytics: BillingAnalytics,
-                              private val rakamAnalytics: RakamAnalytics) {
+                              private val analyticsSetup: AnalyticsSetup
+) {
 
   companion object {
     private const val WALLET = "WALLET"
@@ -14,6 +16,7 @@ class PaymentMethodsAnalytics(private val analyticsManager: AnalyticsManager,
     const val WALLET_PAYMENT_LOADING_TOTAL = "wallet_payment_loading_total"
     const val WALLET_PAYMENT_LOADING_STEP = "wallet_payment_loading_step"
 
+    const val LOADING_STEP_WALLET_INFO = "get_wallet_info"
     const val LOADING_STEP_CONVERT_TO_FIAT = "convert_to_local_fiat"
     const val LOADING_STEP_GET_PAYMENT_METHODS = "get_payment_methods"
     const val LOADING_STEP_GET_EARNING_BONUS = "get_earning_bonus"
@@ -24,7 +27,7 @@ class PaymentMethodsAnalytics(private val analyticsManager: AnalyticsManager,
   }
 
   fun setGamificationLevel(cachedGamificationLevel: Int) {
-    rakamAnalytics.setGamificationLevel(cachedGamificationLevel)
+    analyticsSetup.setGamificationLevel(cachedGamificationLevel)
   }
 
   fun sendPurchaseDetailsEvent(appPackage: String, skuId: String?, amount: String,

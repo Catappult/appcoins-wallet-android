@@ -5,6 +5,8 @@ import com.asfoundation.wallet.base.BaseViewModel
 import com.asfoundation.wallet.base.SideEffect
 import com.asfoundation.wallet.base.ViewState
 import com.asfoundation.wallet.ui.wallets.WalletsInteract
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
 object CreateWalletSideEffect : SideEffect
 
@@ -12,7 +14,8 @@ data class CreateWalletState(
     val walletCreationAsync: Async<Unit> = Async.Uninitialized
 ) : ViewState
 
-class CreateWalletDialogViewModel(
+@HiltViewModel
+class CreateWalletDialogViewModel @Inject constructor(
     private val walletsInteract: WalletsInteract
 ) : BaseViewModel<CreateWalletState, CreateWalletSideEffect>(initialState()) {
 

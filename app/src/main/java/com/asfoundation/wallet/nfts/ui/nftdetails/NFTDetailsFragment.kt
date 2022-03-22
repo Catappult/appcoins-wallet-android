@@ -20,8 +20,10 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.bumptech.glide.request.RequestListener
+import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class NFTDetailsFragment : BasePageViewFragment(),
     SingleStateFragment<NFTDetailsState, NFTDetailsSideEffect> {
 
@@ -80,6 +82,9 @@ class NFTDetailsFragment : BasePageViewFragment(),
     views.nftImage.load(state.data.imageURL) {
       views.nftImageSkeleton.root.visibility = View.GONE
     }
+    if (state.data.schema != "ERC721") {
+      views.nftTransactButton.visibility = View.GONE
+    }
   }
 
   companion object {
@@ -88,5 +93,9 @@ class NFTDetailsFragment : BasePageViewFragment(),
 
   private fun setListeners() {
     views.actionBack.setOnClickListener { navigator.navigateBack() }
+
+    views.nftTransactButton.setOnClickListener {
+      viewModel.state.data?.let { data -> navigator.navigateToTransact(data) }
+    }
   }
 }

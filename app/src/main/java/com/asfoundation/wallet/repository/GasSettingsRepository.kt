@@ -3,10 +3,14 @@ package com.asfoundation.wallet.repository
 import com.asfoundation.wallet.entity.GasSettings
 import com.asfoundation.wallet.service.GasService
 import io.reactivex.Single
+import it.czerwinski.android.hilt.annotations.BoundTo
 import java.math.BigDecimal
 import java.util.concurrent.TimeUnit
+import javax.inject.Inject
 
-class GasSettingsRepository(private val gasService: GasService) : GasSettingsRepositoryType {
+@BoundTo(supertype = GasSettingsRepositoryType::class)
+class GasSettingsRepository @Inject constructor(private val gasService: GasService) :
+    GasSettingsRepositoryType {
 
   private var lastFlushTime = 0L
   private var cachedGasPrice: BigDecimal? = null

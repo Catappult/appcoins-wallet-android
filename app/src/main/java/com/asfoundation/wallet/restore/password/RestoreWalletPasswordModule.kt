@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.restore.password
 
+import androidx.fragment.app.Fragment
 import com.asfoundation.wallet.base.RxSchedulers
 import com.asfoundation.wallet.billing.analytics.WalletsEventSender
 import com.asfoundation.wallet.onboarding.use_cases.SetOnboardingCompletedUseCase
@@ -9,13 +10,16 @@ import com.asfoundation.wallet.wallets.usecases.ObserveWalletInfoUseCase
 import com.google.gson.Gson
 import dagger.Module
 import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.android.components.FragmentComponent
 import io.reactivex.disposables.CompositeDisposable
 
+@InstallIn(FragmentComponent::class)
 @Module
 class RestoreWalletPasswordModule {
 
   @Provides
-  fun providesRestoreWalletPasswordPresenter(fragment: RestoreWalletPasswordFragment,
+  fun providesRestoreWalletPasswordPresenter(fragment: Fragment,
                                              data: RestoreWalletPasswordData,
                                              observeWalletInfoUseCase: ObserveWalletInfoUseCase,
                                              interactor: RestoreWalletPasswordInteractor,
@@ -31,7 +35,7 @@ class RestoreWalletPasswordModule {
 
   @Provides
   fun providesRestoreWalletPasswordData(
-      fragment: RestoreWalletPasswordFragment): RestoreWalletPasswordData {
+      fragment: Fragment): RestoreWalletPasswordData {
     fragment.requireArguments()
         .apply {
           return RestoreWalletPasswordData(

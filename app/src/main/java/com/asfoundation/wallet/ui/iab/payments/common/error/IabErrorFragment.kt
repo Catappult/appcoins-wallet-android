@@ -6,14 +6,16 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.StringRes
 import com.asf.wallet.R
+import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import com.jakewharton.rxbinding2.view.RxView
-import dagger.android.support.DaggerFragment
+import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.Observable
 import kotlinx.android.synthetic.main.dialog_buy_buttons.*
 import kotlinx.android.synthetic.main.fragment_iab_error.*
 import javax.inject.Inject
 
-class IabErrorFragment : DaggerFragment(), IabErrorView {
+@AndroidEntryPoint
+class IabErrorFragment : BasePageViewFragment(), IabErrorView {
 
   @Inject
   lateinit var presenter: IabErrorPresenter

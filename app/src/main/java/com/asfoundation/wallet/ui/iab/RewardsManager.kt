@@ -12,9 +12,11 @@ import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
 import java.math.BigDecimal
+import javax.inject.Inject
 
-class RewardsManager(private val appcoinsRewards: AppcoinsRewards, private val billing: Billing,
-                     private val partnerAddressService: AddressService) {
+class RewardsManager @Inject constructor(private val appcoinsRewards: AppcoinsRewards,
+                                         private val billing: Billing,
+                                         private val partnerAddressService: AddressService) {
 
   fun pay(sku: String?, amount: BigDecimal, developerAddress: String, packageName: String,
           origin: String?, type: String, payload: String?, callbackUrl: String?,

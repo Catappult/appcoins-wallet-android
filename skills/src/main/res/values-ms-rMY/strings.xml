@@ -1,11 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="appcoins_wallet">Dompet AppCoins</string>
   <string name="provide_wallet_creating_wallet_header">Mencipta alama dompet&#8230;</string>
   <string name="processing_loading_title">Mendapatkan tiket masuk anda</string>
   <string name="finding_room_loading_title">Menunggu lawan</string>
+  <string name="finding_room_name_loading_title">Menunggu lawan \nuntuk sertai</string>
   <string name="finding_room_loading_message">Ini akan mengambil masa sebentar…</string>
   <string name="refunded">Wang anda sudah dikembalikan.</string>
   <string name="ok">OK</string>
   <string name="cancel">Batal</string>
-  <string name="connectoin_error_body">Nampaknya anda tiada sambungan Internet. Semak sambungan anda dan cuba lagi!</string>
+  <string name="buy_button">Beli</string>
+  <string name="topup_button">Tambah Nilai</string>
+  <string name="connection_error_body">Nampaknya anda tiada sambungan Internet. Semak sambungan anda dan cuba lagi!</string>
+  <string name="playing_game_notification_title">Sedang bermain e-Skills</string>
+  <string name="playing_game_notification_body">Mendapatkan maklumat permainan…</string>
+  <string name="finish_game_notification_title">Permainan e-Skills anda sudah tamat</string>
+  <string name="won_game_notification_body">You won! Your wallet is now %1$.2f$ heavier!</string>
+  <string name="lost_game_notification_body">Anda tewas…Cuba lagi lain kali!</string>
+  <string name="dismiss_button">Abaikan</string>
+  <string name="location_not_available_title">Permainan e-Skills tidak tersedia di lokasi anda</string>
+  <string name="location_not_available_body">Kami sedang berusaha untuk meluaskan liputan, jadi jangan ke mana-mana!</string>
+  <string name="e_skills_room_create_title">Cipta atau sertai bilik</string>
+  <string name="e_skills_room_create_body">Cipta bilik baru dan kongsikannya dengan lawan anda atau sertai bilik sedia ada.</string>
+  <string name="e_skills_room_field">Nama bilik anda di sini…</string>
+  <string name="e_skills_payment_title">Bayar dengan</string>
+  <string name="e_skills_payment_body">Kredit AppCoins</string>
+  <string name="copied_to_clipboard">Disalin ke papan klip</string>
+  <string name="processing_payment_title">Memproses bayaran anda</string>
+  <string name="purchase_error_title">Oops, ada yang tak kena.</string>
+  <string name="purchase_eskills_sku">Tiket masuk</string>
+  <string name="shared_room_waiting">Menunggu lawan untuk sertai %s</string>
 </resources>

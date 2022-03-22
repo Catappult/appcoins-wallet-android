@@ -12,13 +12,10 @@ import com.asfoundation.wallet.topup.TopUpActivityView
 import com.asfoundation.wallet.topup.TopUpData
 import com.asfoundation.wallet.topup.TopUpPaymentData
 import com.asfoundation.wallet.util.WalletCurrency
+import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import com.jakewharton.rxbinding2.view.RxView
-import dagger.android.support.DaggerFragment
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.error_top_up_layout.*
-import kotlinx.android.synthetic.main.fragment_adyen_top_up.converted_value
-import kotlinx.android.synthetic.main.fragment_adyen_top_up.loading
-import kotlinx.android.synthetic.main.fragment_adyen_top_up.main_currency_code
-import kotlinx.android.synthetic.main.fragment_adyen_top_up.main_value
 import kotlinx.android.synthetic.main.local_topup_payment_layout.*
 import kotlinx.android.synthetic.main.no_network_retry_only_layout.*
 import kotlinx.android.synthetic.main.pending_user_payment_view.*
@@ -27,7 +24,8 @@ import kotlinx.android.synthetic.main.topup_pending_user_payment_view.view.*
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
-class LocalTopUpPaymentFragment : DaggerFragment(), LocalTopUpPaymentView {
+@AndroidEntryPoint
+class LocalTopUpPaymentFragment : BasePageViewFragment(), LocalTopUpPaymentView {
 
   @Inject
   lateinit var presenter: LocalTopUpPaymentPresenter

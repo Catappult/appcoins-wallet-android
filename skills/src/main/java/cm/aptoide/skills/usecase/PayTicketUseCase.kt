@@ -6,8 +6,9 @@ import cm.aptoide.skills.model.PaymentResult
 import cm.aptoide.skills.model.SuccessfulPayment
 import cm.aptoide.skills.util.EskillsPaymentData
 import io.reactivex.Single
+import javax.inject.Inject
 
-class PayTicketUseCase(private val externalSkillsPaymentProvider: ExternalSkillsPaymentProvider) {
+class PayTicketUseCase @Inject constructor(private val externalSkillsPaymentProvider: ExternalSkillsPaymentProvider) {
   operator fun invoke(ticket: CreatedTicket,
                       eskillsPaymentData: EskillsPaymentData): Single<PaymentResult> {
     val environment = eskillsPaymentData.environment

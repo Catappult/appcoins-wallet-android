@@ -12,10 +12,8 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.asf.wallet.R
 import com.asf.wallet.databinding.FragmentHomeBinding
-import com.asfoundation.wallet.C
 import com.asfoundation.wallet.base.Async
 import com.asfoundation.wallet.base.SingleStateFragment
-import com.asfoundation.wallet.entity.ErrorEnvelope
 import com.asfoundation.wallet.entity.GlobalBalance
 import com.asfoundation.wallet.home.ui.list.HomeController
 import com.asfoundation.wallet.home.ui.list.HomeListClick
@@ -28,15 +26,14 @@ import com.asfoundation.wallet.util.RootUtil
 import com.asfoundation.wallet.util.WalletCurrency
 import com.asfoundation.wallet.util.convertDpToPx
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
+import dagger.hilt.android.AndroidEntryPoint
 import io.intercom.android.sdk.Intercom
 import java.math.BigDecimal
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class HomeFragment : BasePageViewFragment(),
     SingleStateFragment<HomeState, HomeSideEffect> {
-
-  @Inject
-  lateinit var homeViewModelFactory: HomeViewModelFactory
 
   @Inject
   lateinit var navigator: HomeNavigator
@@ -44,7 +41,7 @@ class HomeFragment : BasePageViewFragment(),
   @Inject
   lateinit var formatter: CurrencyFormatUtils
 
-  private val viewModel: HomeViewModel by viewModels { homeViewModelFactory }
+  private val viewModel: HomeViewModel by viewModels()
 
   private var _views: FragmentHomeBinding? = null
   private val views get() = _views!!

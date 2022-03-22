@@ -11,8 +11,9 @@ import com.asfoundation.wallet.navigator.ActivityNavigatorContract
 import com.asfoundation.wallet.restore.RestoreWalletActivity
 import com.asfoundation.wallet.restore.password.RestoreWalletPasswordFragment
 import io.reactivex.Completable
+import javax.inject.Inject
 
-class RestoreWalletNavigator(private val fragmentManager: FragmentManager,
+class RestoreWalletNavigator @Inject constructor(private val fragmentManager: FragmentManager,
                              private val activityNavigator: ActivityNavigatorContract) {
 
   fun launchFileIntent(path: Uri?): Completable {

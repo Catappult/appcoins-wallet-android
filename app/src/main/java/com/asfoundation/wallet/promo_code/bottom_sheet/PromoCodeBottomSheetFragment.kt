@@ -16,24 +16,23 @@ import com.asf.wallet.R
 import com.asf.wallet.databinding.SettingsPromoCodeBottomSheetLayoutBinding
 import com.asfoundation.wallet.base.Async
 import com.asfoundation.wallet.base.SingleStateFragment
-import com.asfoundation.wallet.di.DaggerBottomSheetDialogFragment
 import com.asfoundation.wallet.promo_code.repository.PromoCode
 import com.asfoundation.wallet.util.KeyboardUtils
 import com.asfoundation.wallet.util.setReadOnly
 import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
-class PromoCodeBottomSheetFragment : DaggerBottomSheetDialogFragment(),
+@AndroidEntryPoint
+class PromoCodeBottomSheetFragment : BottomSheetDialogFragment(),
     SingleStateFragment<PromoCodeBottomSheetState, PromoCodeBottomSheetSideEffect> {
 
 
   @Inject
-  lateinit var promoCodeBottomSheetViewModelFactory: PromoCodeBottomSheetViewModelFactory
-
-  @Inject
   lateinit var navigator: PromoCodeBottomSheetNavigator
 
-  private val viewModel: PromoCodeBottomSheetViewModel by viewModels { promoCodeBottomSheetViewModelFactory }
+  private val viewModel: PromoCodeBottomSheetViewModel by viewModels()
   private val views by viewBinding(SettingsPromoCodeBottomSheetLayoutBinding::bind)
 
   companion object {

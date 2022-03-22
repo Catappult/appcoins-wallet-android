@@ -1,21 +1,16 @@
 package com.asfoundation.wallet.backup
 
 import android.app.NotificationManager
+import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.Intent.FLAG_ACTIVITY_NEW_TASK
 import com.asfoundation.wallet.backup.BackupNotificationUtils.NOTIFICATION_SERVICE_ID
-import com.asfoundation.wallet.ui.backup.BackupActivity
-import dagger.android.AndroidInjection
-import dagger.android.DaggerBroadcastReceiver
-import dagger.android.DispatchingAndroidInjector
-import dagger.android.HasAndroidInjector
+import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
-class BackupBroadcastReceiver : DaggerBroadcastReceiver(), HasAndroidInjector {
-
-  @Inject
-  lateinit var androidInjector: DispatchingAndroidInjector<Any>
+@AndroidEntryPoint
+class BackupBroadcastReceiver : BroadcastReceiver() {
 
   @Inject
   lateinit var backupInteract: BackupInteractContract
@@ -39,8 +34,6 @@ class BackupBroadcastReceiver : DaggerBroadcastReceiver(), HasAndroidInjector {
   }
 
   override fun onReceive(context: Context, intent: Intent) {
-    super.onReceive(context, intent)
-    AndroidInjection.inject(this, context)
     notificationManager =
         context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
@@ -60,7 +53,5 @@ class BackupBroadcastReceiver : DaggerBroadcastReceiver(), HasAndroidInjector {
       } else if (intent.getStringExtra(ACTION) == ACTION_DISMISS) return
     }
   }
-
-  override fun androidInjector() = androidInjector
 
 }

@@ -4,13 +4,16 @@ import com.asfoundation.wallet.poa.CountryCodeProvider;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.reactivex.Single;
+import it.czerwinski.android.hilt.annotations.BoundTo;
+import javax.inject.Inject;
 import retrofit2.http.GET;
 
+@BoundTo(supertype = CountryCodeProvider.class)
 public class IpCountryCodeProvider implements CountryCodeProvider {
   public static String ENDPOINT = com.asf.wallet.BuildConfig.BACKEND_HOST;
   private final IpApi ipApi;
 
-  public IpCountryCodeProvider(IpApi ipApi) {
+  public @Inject IpCountryCodeProvider(IpApi ipApi) {
     this.ipApi = ipApi;
   }
 

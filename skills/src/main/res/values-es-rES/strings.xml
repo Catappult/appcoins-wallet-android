@@ -1,11 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <string name="appcoins_wallet">AppCoins Wallet</string>
   <string name="provide_wallet_creating_wallet_header">Creando dirección pública&#8230;</string>
-  <string name="processing_loading_title">Getting your entry ticket</string>
-  <string name="finding_room_loading_title">Waiting for opponents</string>
+  <string name="processing_loading_title">Obteniendo tu ticket de entrada</string>
+  <string name="finding_room_loading_title">Esperando adversarios</string>
+  <string name="finding_room_name_loading_title">Esperando a que los adversarios \nse unan a</string>
   <string name="finding_room_loading_message">Esto puedo tardar un poquito…</string>
-  <string name="refunded">Your money has been refunded.</string>
+  <string name="refunded">Tu dinero ha sido reembolsado.</string>
   <string name="ok">OK</string>
   <string name="cancel">Cancelar</string>
-  <string name="connectoin_error_body">Parece que no tienes conexión a Internet. ¡Compruébala y prueba de nuevo!</string>
+  <string name="buy_button">Comprar</string>
+  <string name="topup_button">Recargar</string>
+  <string name="connection_error_body">Parece que no tienes conexión a Internet. ¡Compruébala y prueba de nuevo!</string>
+  <string name="playing_game_notification_title">Jugando una partida de e-Skills</string>
+  <string name="playing_game_notification_body">Obteniendo la información del juego…</string>
+  <string name="finish_game_notification_title">El juego de e-Skills ha terminado</string>
+  <string name="won_game_notification_body">You won! Your wallet is now %1$.2f$ heavier!</string>
+  <string name="lost_game_notification_body">Perdiste… ¡Buena suerte para la próxima vez!</string>
+  <string name="dismiss_button">Pasar</string>
+  <string name="location_not_available_title">Los juegos e-Skills no están disponibles en tu localización.</string>
+  <string name="location_not_available_body">Estamos trabajando duro para que lleguen a todas partes, ¡vuelve pronto!</string>
+  <string name="e_skills_room_create_title">Crear o unirse a una sala</string>
+  <string name="e_skills_room_create_body">Crea una nueva sala y compártela con tus adversarios, o únete a una sala existe.</string>
+  <string name="e_skills_room_field">El nombre de la sala…</string>
+  <string name="e_skills_payment_title">Método de pago</string>
+  <string name="e_skills_payment_body">AppCoins Credits</string>
+  <string name="copied_to_clipboard">Copiado al portapapeles</string>
+  <string name="processing_payment_title">Procesando tu pago</string>
+  <string name="purchase_error_title">Ups, algo salió mal.</string>
+  <string name="purchase_eskills_sku">Ticket de entrada</string>
+  <string name="shared_room_waiting">Esperando a que los adversarios se unan a %s</string>
 </resources>

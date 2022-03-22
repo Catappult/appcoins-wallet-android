@@ -2,8 +2,9 @@ package cm.aptoide.skills.repository
 
 import android.content.pm.PackageManager
 import android.graphics.drawable.Drawable
+import javax.inject.Inject
 
-class LocalApplicationsRepository(private val packageManager: PackageManager) {
+class LocalApplicationsRepository @Inject constructor(private val packageManager: PackageManager) {
   fun getApplicationName(packageName: String): String {
     val packageInfo = packageManager.getApplicationInfo(packageName, 0)
     return packageManager.getApplicationLabel(packageInfo)

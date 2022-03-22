@@ -1,6 +1,5 @@
 package com.asfoundation.wallet.ui.overlay
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,17 +9,18 @@ import android.view.ViewTreeObserver
 import androidx.fragment.app.Fragment
 import com.asf.wallet.R
 import com.asfoundation.wallet.main.MainActivityNavigator
+import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import com.google.android.material.bottomnavigation.BottomNavigationItemView
 import com.google.android.material.bottomnavigation.BottomNavigationMenuView
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.jakewharton.rxbinding2.view.RxView
-import dagger.android.support.DaggerFragment
+import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.Observable
 import kotlinx.android.synthetic.main.overlay_fragment.*
 import javax.inject.Inject
 
-
-class OverlayFragment : DaggerFragment(), OverlayView {
+@AndroidEntryPoint
+class OverlayFragment : BasePageViewFragment(), OverlayView {
 
   @Inject
   lateinit var presenter: OverlayPresenter
@@ -34,10 +34,6 @@ class OverlayFragment : DaggerFragment(), OverlayView {
     } else {
       throw IllegalArgumentException("item not found")
     }
-  }
-
-  override fun onAttach(context: Context) {
-    super.onAttach(context)
   }
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

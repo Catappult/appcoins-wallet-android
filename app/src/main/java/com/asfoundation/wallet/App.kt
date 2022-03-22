@@ -11,14 +11,15 @@ import com.appcoins.wallet.bdsbilling.repository.RemoteRepository
 import com.appcoins.wallet.bdsbilling.subscriptions.SubscriptionBillingApi
 import com.appcoins.wallet.billing.BillingDependenciesProvider
 import com.appcoins.wallet.billing.BillingMessagesMapper
+import com.appcoins.wallet.commons.Logger
 import com.asf.wallet.BuildConfig
+import com.asfoundation.wallet.analytics.IndicativeAnalytics
 import com.asfoundation.wallet.analytics.LaunchInteractor
 import com.asfoundation.wallet.analytics.RakamAnalytics
-import com.asfoundation.wallet.di.DaggerAppComponent
+import com.asfoundation.wallet.analytics.SentryAnalytics
+import com.asfoundation.wallet.analytics.UxCamUtils
 import com.asfoundation.wallet.identification.IdsRepository
 import com.asfoundation.wallet.logging.FlurryReceiver
-import com.appcoins.wallet.commons.Logger
-import com.asfoundation.wallet.logging.SentryReceiver
 import com.asfoundation.wallet.poa.ProofOfAttentionService
 import com.asfoundation.wallet.repository.PreferencesRepositoryType
 import com.asfoundation.wallet.support.AlarmManagerBroadcastReceiver
@@ -27,22 +28,21 @@ import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
 import com.flurry.android.FlurryAgent
 import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.GoogleApiAvailability
-import dagger.android.DispatchingAndroidInjector
-import dagger.android.HasAndroidInjector
+import dagger.hilt.android.HiltAndroidApp
 import io.intercom.android.sdk.Intercom
 import io.reactivex.Completable
 import io.reactivex.exceptions.UndeliverableException
 import io.reactivex.plugins.RxJavaPlugins
 import io.reactivex.schedulers.Schedulers
-import io.sentry.Sentry
-import io.sentry.android.AndroidSentryClientFactory
+import org.bouncycastle.jce.provider.BouncyCastleProvider
+import java.security.Provider
+import java.security.Security
 import java.util.*
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
-class App : MultiDexApplication(), HasAndroidInjector, BillingDependenciesProvider {
-  @Inject
-  lateinit var androidInjector: DispatchingAndroidInjector<Any>
+@HiltAndroidApp
+class App : MultiDexApplication(), BillingDependenciesProvider {
 
   @Inject
   lateinit var proofOfAttentionService: ProofOfAttentionService
@@ -54,7 +54,10 @@ class App : MultiDexApplication(), HasAndroidInjector, BillingDependenciesProvid
   lateinit var appcoinsOperationsDataSaver: AppcoinsOperationsDataSaver
 
   @Inject
-  lateinit var bdsApi: RemoteRepository.BdsApi
+  lateinit var brokerBdsApi: RemoteRepository.BrokerBdsApi
+
+  @Inject
+  lateinit var inappBdsApi: RemoteRepository.InappBdsApi
 
   @Inject
   lateinit var walletService: WalletService
@@ -81,6 +84,12 @@ class App : MultiDexApplication(), HasAndroidInjector, BillingDependenciesProvid
   lateinit var rakamAnalytics: RakamAnalytics
 
   @Inject
+  lateinit var indicativeAnalytics: IndicativeAnalytics
+
+  @Inject
+  lateinit var sentryAnalytics: SentryAnalytics
+
+  @Inject
   lateinit var preferencesRepositoryType: PreferencesRepositoryType
 
   @Inject
@@ -95,16 +104,15 @@ class App : MultiDexApplication(), HasAndroidInjector, BillingDependenciesProvid
   @Inject
   lateinit var billingSerializer: ExternalBillingSerializer
 
+  @Inject
+  lateinit var uxCamUtils: UxCamUtils
+
   companion object {
     private val TAG = App::class.java.name
   }
 
   override fun onCreate() {
     super.onCreate()
-    val appComponent = DaggerAppComponent.builder()
-        .application(this)
-        .build()
-    appComponent.inject(this)
     setupRxJava()
     val gpsAvailable = checkGooglePlayServices()
     if (gpsAvailable.not()) setupSupportNotificationAlarm()
@@ -113,9 +121,12 @@ class App : MultiDexApplication(), HasAndroidInjector, BillingDependenciesProvid
     proofOfAttentionService.start()
     appcoinsOperationsDataSaver.start()
     appcoinsRewards.start()
+    initializeIndicative()
     initializeRakam()
     initiateIntercom()
     initiateSentry()
+    initiateUxCam()
+    setupBouncyCastle()
     initializeWalletId()
   }
 
@@ -130,6 +141,15 @@ class App : MultiDexApplication(), HasAndroidInjector, BillingDependenciesProvid
         .subscribeOn(Schedulers.io())
         .subscribe()
   }
+  private fun initializeIndicative() {
+    indicativeAnalytics.initialize()
+      .subscribeOn(Schedulers.io())
+      .subscribe()
+  }
+
+  private fun initiateUxCam() {
+    uxCamUtils.initialize()?.subscribe()
+  }
 
   private fun setupRxJava() {
     RxJavaPlugins.setErrorHandler { throwable: Throwable ->
@@ -143,6 +163,15 @@ class App : MultiDexApplication(), HasAndroidInjector, BillingDependenciesProvid
         throw RuntimeException(throwable)
       }
     }
+  }
+
+  // fixes issue with web3j to support ECDSA
+  // https://github.com/web3j/web3j/issues/915
+  private fun setupBouncyCastle() {
+    val provider: Provider = Security.getProvider(BouncyCastleProvider.PROVIDER_NAME) ?: return
+    if (provider.equals(BouncyCastleProvider::class.java)) { return }
+    Security.removeProvider(BouncyCastleProvider.PROVIDER_NAME)
+    Security.insertProviderAt(BouncyCastleProvider(), 1)
   }
 
   private fun checkGooglePlayServices(): Boolean {
@@ -164,8 +193,7 @@ class App : MultiDexApplication(), HasAndroidInjector, BillingDependenciesProvid
   }
 
   private fun initiateSentry() {
-    Sentry.init(BuildConfig.SENTRY_DSN_KEY, AndroidSentryClientFactory(this))
-    logger.addReceiver(SentryReceiver())
+    sentryAnalytics.initialize().subscribe()
   }
 
   private fun initiateIntercom() {
@@ -184,11 +212,11 @@ class App : MultiDexApplication(), HasAndroidInjector, BillingDependenciesProvid
 
   fun analyticsManager() = analyticsManager
 
-  override fun androidInjector() = androidInjector
-
   override fun supportedVersion() = BuildConfig.BILLING_SUPPORTED_VERSION
 
-  override fun bdsApi() = bdsApi
+  override fun brokerBdsApi() = brokerBdsApi
+
+  override fun inappBdsApi() = inappBdsApi
 
   override fun walletService() = walletService
 

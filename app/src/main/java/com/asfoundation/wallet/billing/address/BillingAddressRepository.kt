@@ -3,8 +3,10 @@ package com.asfoundation.wallet.billing.address
 import com.asfoundation.wallet.repository.SecureSharedPreferences
 import com.asfoundation.wallet.util.component6
 import com.asfoundation.wallet.util.guardLet
+import javax.inject.Inject
 
-class BillingAddressRepository(private val secureSharedPreferences: SecureSharedPreferences) {
+class BillingAddressRepository @Inject constructor(
+    private val secureSharedPreferences: SecureSharedPreferences) {
 
   companion object {
     private const val BILLING_ADDRESS_PREFIX = "billing_address"

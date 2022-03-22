@@ -89,7 +89,10 @@ public final class BarcodeCaptureActivity extends BaseActivity
   @Override protected void onDestroy() {
     super.onDestroy();
     if (mPreview != null) {
-      mPreview.release();
+      mPreview = null;
+    }
+    if (mCameraSource !=null){
+      mCameraSource = null;
     }
   }
 

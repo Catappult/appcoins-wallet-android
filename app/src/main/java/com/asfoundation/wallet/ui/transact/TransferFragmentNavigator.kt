@@ -1,7 +1,7 @@
 package com.asfoundation.wallet.ui.transact
 
 import android.content.Intent
-import androidx.fragment.app.FragmentActivity
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import com.asf.wallet.R
 import com.asfoundation.wallet.C
@@ -14,10 +14,10 @@ import com.asfoundation.wallet.ui.iab.IabActivity
 import com.asfoundation.wallet.wallet_blocked.WalletBlockedActivity
 import io.reactivex.Completable
 import java.math.BigDecimal
+import javax.inject.Inject
 
-class TransferFragmentNavigator(private val fragmentManager: FragmentManager,
-                                private val fragment: TransferFragment,
-                                private val activity: FragmentActivity,
+class TransferFragmentNavigator @Inject constructor(private val fragmentManager: FragmentManager,
+                                private val fragment: Fragment,
                                 private val defaultTokenProvider: DefaultTokenProvider) {
 
   companion object {
@@ -74,15 +74,15 @@ class TransferFragmentNavigator(private val fragmentManager: FragmentManager,
     fragment.startActivityForResult(intent, TRANSACTION_CONFIRMATION_REQUEST_CODE)
   }
 
-  fun navigateBack() = activity.onBackPressed()
+  fun navigateBack() = fragment.requireActivity().onBackPressed()
 
   fun showWalletBlocked() {
-    fragment.startActivityForResult(WalletBlockedActivity.newIntent(activity),
+    fragment.startActivityForResult(WalletBlockedActivity.newIntent(fragment.requireActivity()),
         IabActivity.BLOCKED_WARNING_REQUEST_CODE)
   }
 
   fun showQrCodeScreen() {
-    val intent = Intent(activity, BarcodeCaptureActivity::class.java)
+    val intent = Intent(fragment.requireActivity(), BarcodeCaptureActivity::class.java)
     fragment.startActivityForResult(intent, BARCODE_READER_REQUEST_CODE)
   }
 

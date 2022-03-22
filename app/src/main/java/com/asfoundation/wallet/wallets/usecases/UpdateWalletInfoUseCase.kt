@@ -4,9 +4,11 @@ import com.asfoundation.wallet.entity.Wallet
 import com.asfoundation.wallet.wallets.repository.WalletInfoRepository
 import io.reactivex.Completable
 import io.reactivex.Single
+import javax.inject.Inject
 
-class UpdateWalletInfoUseCase(private val walletInfoRepository: WalletInfoRepository,
-                              private val getCurrentWalletUseCase: GetCurrentWalletUseCase) {
+class UpdateWalletInfoUseCase @Inject constructor(
+    private val walletInfoRepository: WalletInfoRepository,
+    private val getCurrentWalletUseCase: GetCurrentWalletUseCase) {
 
   /**
    * Updates WalletInfo

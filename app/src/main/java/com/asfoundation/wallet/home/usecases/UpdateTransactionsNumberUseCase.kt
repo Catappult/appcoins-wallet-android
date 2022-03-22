@@ -2,8 +2,10 @@ package com.asfoundation.wallet.home.usecases
 
 import com.asfoundation.wallet.rating.RatingRepository
 import com.asfoundation.wallet.transactions.Transaction
+import javax.inject.Inject
 
-class UpdateTransactionsNumberUseCase(private val ratingRepository: RatingRepository) {
+class UpdateTransactionsNumberUseCase @Inject constructor(
+    private val ratingRepository: RatingRepository) {
 
   companion object {
     const val MINIMUM_TRANSACTIONS_NR = 5

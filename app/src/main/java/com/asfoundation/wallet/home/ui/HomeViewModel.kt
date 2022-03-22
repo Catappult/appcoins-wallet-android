@@ -3,12 +3,10 @@ package com.asfoundation.wallet.home.ui
 import android.content.Intent
 import android.net.Uri
 import android.text.format.DateUtils
+import android.util.Log
 import com.appcoins.wallet.gamification.repository.Levels
 import com.asf.wallet.BuildConfig
-import com.asfoundation.wallet.base.Async
-import com.asfoundation.wallet.base.BaseViewModel
-import com.asfoundation.wallet.base.SideEffect
-import com.asfoundation.wallet.base.ViewState
+import com.asfoundation.wallet.base.*
 import com.asfoundation.wallet.billing.analytics.WalletsAnalytics
 import com.asfoundation.wallet.billing.analytics.WalletsEventSender
 import com.asfoundation.wallet.entity.GlobalBalance
@@ -23,11 +21,15 @@ import com.asfoundation.wallet.ui.widget.holder.CardNotificationAction
 import com.asfoundation.wallet.viewmodel.TransactionsWalletModel
 import com.asfoundation.wallet.wallets.domain.WalletBalance
 import com.asfoundation.wallet.wallets.usecases.ObserveWalletInfoUseCase
+import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.*
 import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.BehaviorSubject
 import java.math.BigDecimal
 import java.util.concurrent.TimeUnit
+import javax.inject.Inject
+import javax.inject.Named
 
 sealed class HomeSideEffect : SideEffect {
   data class NavigateToBrowser(val uri: Uri) : HomeSideEffect()
@@ -51,7 +53,8 @@ data class HomeState(val transactionsModelAsync: Async<TransactionsModel> = Asyn
                      val showVipBadge: Boolean = false,
                      val unreadMessages: Boolean = false) : ViewState
 
-class HomeViewModel(private val analytics: HomeAnalytics,
+@HiltViewModel
+class HomeViewModel @Inject constructor(private val analytics: HomeAnalytics,
                     private val observeWalletInfoUseCase: ObserveWalletInfoUseCase,
                     private val shouldOpenRatingDialogUseCase: ShouldOpenRatingDialogUseCase,
                     private val updateTransactionsNumberUseCase: UpdateTransactionsNumberUseCase,
@@ -69,10 +72,9 @@ class HomeViewModel(private val analytics: HomeAnalytics,
                     private val getUnreadConversationsCountEventsUseCase: GetUnreadConversationsCountEventsUseCase,
                     private val displayChatUseCase: DisplayChatUseCase,
                     private val displayConversationListOrChatUseCase: DisplayConversationListOrChatUseCase,
-                    private val walletPackageName: String,
+                    @Named("package-name") private val walletPackageName: String,
                     private val walletsEventSender: WalletsEventSender,
-                    private val viewScheduler: Scheduler,
-                    private val networkScheduler: Scheduler) :
+                    private val rxSchedulers: RxSchedulers) :
     BaseViewModel<HomeState, HomeSideEffect>(initialState()) {
 
   private val UPDATE_INTERVAL = 30 * DateUtils.SECOND_IN_MILLIS
@@ -129,22 +131,22 @@ class HomeViewModel(private val analytics: HomeAnalytics,
   private fun observeWalletData(model: TransactionsWalletModel): Observable<Unit> {
     return Observable.mergeDelayError(
         observeBalance(),
-        updateTransactions(model).subscribeOn(networkScheduler),
+        updateTransactions(model).subscribeOn(rxSchedulers.io),
         updateRegisterUser(model.wallet).toObservable()
     )
         .map { }
-        .subscribeOn(networkScheduler)
+        .subscribeOn(rxSchedulers.io)
   }
 
   private fun updateRegisterUser(wallet: Wallet): Completable {
     return getUserLevelUseCase()
-        .subscribeOn(networkScheduler)
+        .subscribeOn(rxSchedulers.io)
         .map { userLevel ->
           registerSupportUser(userLevel, wallet.address)
           true
         }
         .ignoreElement()
-        .subscribeOn(networkScheduler)
+        .subscribeOn(rxSchedulers.io)
   }
 
   private fun registerSupportUser(level: Int, walletAddress: String) {
@@ -192,8 +194,8 @@ class HomeViewModel(private val analytics: HomeAnalytics,
           updateTransactionsNumberUseCase(
               transactions)
         }
-        .subscribeOn(networkScheduler)
-        .observeOn(viewScheduler)
+        .subscribeOn(rxSchedulers.io)
+        .observeOn(rxSchedulers.main)
         .asAsyncToState(retainValue) { copy(transactionsModelAsync = it) }
         .map { walletModel }
   }
@@ -214,20 +216,21 @@ class HomeViewModel(private val analytics: HomeAnalytics,
         .switchMap {
           fetchTransactionsUseCase(wallet.address)
         }
-        .subscribeOn(networkScheduler)
+        .subscribeOn(rxSchedulers.io)
         .onErrorReturnItem(emptyList())
   }
 
   private fun getCardNotifications(): Observable<List<CardNotification>> {
     return refreshCardNotifications.flatMapSingle { getCardNotificationsUseCase() }
-        .subscribeOn(networkScheduler)
+        .subscribeOn(rxSchedulers.io)
         .onErrorReturnItem(emptyList())
   }
 
   private fun getMaxBonus(): Observable<Double> {
     return getLevelsUseCase()
-        .subscribeOn(networkScheduler)
+        .subscribeOn(rxSchedulers.io)
         .flatMap { (status, list) ->
+          Log.d("Hilt-", "getMaxBonus: status -> $status -- list -> $list")
           if (status
               == Levels.Status.OK) {
             return@flatMap Single.just(list[list
@@ -242,10 +245,10 @@ class HomeViewModel(private val analytics: HomeAnalytics,
 
   private fun verifyUserLevel() {
     findDefaultWalletUseCase()
-        .subscribeOn(networkScheduler)
+        .subscribeOn(rxSchedulers.io)
         .flatMap {
           getUserLevelUseCase()
-              .subscribeOn(networkScheduler)
+              .subscribeOn(rxSchedulers.io)
               .doOnSuccess { userLevel: Int ->
                 setState { copy(showVipBadge = (userLevel == 9 || userLevel == 10)) }
               }
@@ -264,7 +267,7 @@ class HomeViewModel(private val analytics: HomeAnalytics,
   private fun handleUnreadConversationCount() {
     observeRefreshData().switchMap {
       getUnreadConversationsCountEventsUseCase()
-          .subscribeOn(viewScheduler)
+          .subscribeOn(rxSchedulers.main)
           .doOnNext { count: Int? ->
             setState { copy(unreadMessages = (count != null && count != 0)) }
           }
@@ -388,7 +391,7 @@ class HomeViewModel(private val analytics: HomeAnalytics,
 
   private fun dismissNotification(cardNotification: CardNotification) {
     dismissCardNotificationUseCase(cardNotification)
-        .subscribeOn(viewScheduler)
+        .subscribeOn(rxSchedulers.main)
         .doOnComplete { refreshCardNotifications.onNext(true) }
         .scopedSubscribe() { e ->
           e.printStackTrace()

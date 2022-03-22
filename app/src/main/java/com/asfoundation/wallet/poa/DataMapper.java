@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import javax.inject.Inject;
 import org.web3j.abi.FunctionEncoder;
 import org.web3j.abi.TypeReference;
 import org.web3j.abi.datatypes.Address;
@@ -19,6 +20,11 @@ import org.web3j.abi.datatypes.generated.Uint64;
 import org.web3j.utils.Numeric;
 
 public class DataMapper {
+
+  public @Inject DataMapper(){
+
+  }
+
   public byte[] getData(Proof proof) {
     Utf8String packageName = new Utf8String(proof.getPackageName());
 

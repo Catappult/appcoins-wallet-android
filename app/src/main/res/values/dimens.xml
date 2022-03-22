@@ -84,6 +84,11 @@
   <dimen name="backup_entry_icon_width">56dp</dimen>
   <dimen name="backup_entry_icon_height">54dp</dimen>
   <dimen name="backup_description_normal_text_size">14sp</dimen>
+  <dimen name="backup_description_small_text_size">12sp</dimen>
+  <dimen name="backup_big_text_size">22sp</dimen>
+  <dimen name="backup_l_text_size">16sp</dimen>
+  <dimen name="backup_m_text_size">14sp</dimen>
+  <dimen name="backup_s_text_size">12sp</dimen>
   <dimen name="backup_description_line_spacing_extra">6sp</dimen>
 
   <!--Change fiat currency -->
@@ -99,6 +104,13 @@
   <dimen name="design_bottom_navigation_active_item_max_width" tools:override="true">5000dp</dimen>
 
   <!--Subscriptions -->
-
   <dimen name="subscriptions_image_size">64dp</dimen>
+
+  <!-- Backup 2.0 -->
+  <dimen name="round_corner">6dp</dimen>
+  <dimen name="round_corner_big">32dp</dimen>
+
+  <dimen name="large_button_height">48dp</dimen>
+  <dimen name="small_button_height">36dp</dimen>
+
 </resources>

@@ -1,22 +1,21 @@
 package com.asfoundation.wallet.repository;
 
+import com.asfoundation.wallet.base.RxSchedulers;
 import com.asfoundation.wallet.entity.NetworkInfo;
 import com.asfoundation.wallet.entity.TransactionBuilder;
 import com.asfoundation.wallet.interact.DefaultTokenProvider;
 import com.asfoundation.wallet.poa.BlockchainErrorMapper;
 import com.asfoundation.wallet.service.AccountKeystoreService;
 import com.asfoundation.wallet.ui.iab.raiden.MultiWalletNonceObtainer;
-import ethereumj.Transaction;
 import io.reactivex.Flowable;
-import io.reactivex.Scheduler;
 import io.reactivex.Single;
 import io.reactivex.schedulers.Schedulers;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import org.reactivestreams.Publisher;
 import org.web3j.abi.datatypes.Address;
+import org.web3j.crypto.Hash;
 import org.web3j.protocol.Web3j;
-import org.web3j.protocol.Web3jFactory;
 import org.web3j.protocol.core.methods.response.EthSendTransaction;
 import org.web3j.protocol.http.HttpService;
 import org.web3j.utils.Numeric;
@@ -31,18 +30,18 @@ public abstract class TransactionRepository implements TransactionRepositoryType
   private final DefaultTokenProvider defaultTokenProvider;
   private final BlockchainErrorMapper errorMapper;
   private final MultiWalletNonceObtainer nonceObtainer;
-  private final Scheduler scheduler;
+  private final RxSchedulers rxSchedulers;
 
   public TransactionRepository(NetworkInfo defaultNetwork,
       AccountKeystoreService accountKeystoreService, DefaultTokenProvider defaultTokenProvider,
       BlockchainErrorMapper errorMapper, MultiWalletNonceObtainer nonceObtainer,
-      Scheduler scheduler) {
+      RxSchedulers rxSchedulers) {
     this.defaultNetwork = defaultNetwork;
     this.accountKeystoreService = accountKeystoreService;
     this.defaultTokenProvider = defaultTokenProvider;
     this.errorMapper = errorMapper;
     this.nonceObtainer = nonceObtainer;
-    this.scheduler = scheduler;
+    this.rxSchedulers = rxSchedulers;
   }
 
   public Single<String> createTransaction(TransactionBuilder transactionBuilder, String password) {
@@ -59,7 +58,7 @@ public abstract class TransactionRepository implements TransactionRepositoryType
 
   @Override public Single<String> callIab(TransactionBuilder transaction, String password) {
     return defaultTokenProvider.getDefaultToken()
-        .observeOn(scheduler)
+        .observeOn(rxSchedulers.getIo())
         .flatMap(
             token -> createTransactionAndSend(transaction, password, transaction.appcoinsData(),
                 transaction.getIabContract(), BigDecimal.ZERO));
@@ -72,24 +71,23 @@ public abstract class TransactionRepository implements TransactionRepositoryType
         transactionBuilder.contractAddress(), BigDecimal.ZERO,
         nonceObtainer.getNonce(new Address(transactionBuilder.fromAddress()),
             getChainId(transactionBuilder))).map(
-        signedTransaction -> Numeric.toHexString(new Transaction(signedTransaction).getHash()));
+        signedTransaction -> calculateHashFromSigned(signedTransaction));
   }
 
   @Override public Single<String> computeBuyTransactionHash(TransactionBuilder transactionBuilder,
       String password) {
     return defaultTokenProvider.getDefaultToken()
-        .observeOn(scheduler)
+        .observeOn(rxSchedulers.getIo())
         .flatMap(tokenInfo -> createRawTransaction(transactionBuilder, password,
             transactionBuilder.appcoinsData(), transactionBuilder.getIabContract(), BigDecimal.ZERO,
             nonceObtainer.getNonce(new Address(transactionBuilder.fromAddress()),
                 getChainId(transactionBuilder))))
-        .map(
-            signedTransaction -> Numeric.toHexString(new Transaction(signedTransaction).getHash()));
+        .map(signedTransaction -> calculateHashFromSigned(signedTransaction));
   }
 
   private Single<String> createTransactionAndSend(TransactionBuilder transactionBuilder,
       String password, byte[] data, String toAddress, BigDecimal amount) {
-    final Web3j web3j = Web3jFactory.build(new HttpService(defaultNetwork.rpcServerUrl));
+    final Web3j web3j = Web3j.build(new HttpService(defaultNetwork.rpcServerUrl));
     return Single.fromCallable(
         () -> nonceObtainer.getNonce(new Address(transactionBuilder.fromAddress()),
             getChainId(transactionBuilder)))
@@ -141,6 +139,11 @@ public abstract class TransactionRepository implements TransactionRepositoryType
               transactionBuilder.gasSettings().gasLimit, nonce.longValue(), data,
               defaultNetwork.chainId);
         });
+  }
+
+  private String calculateHashFromSigned(byte[] signedTx) {
+    byte[] hash = Hash.sha3(signedTx);
+    return Numeric.toHexString(hash);
   }
 
   private Publisher<?> retry(Throwable throwable) {

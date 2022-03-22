@@ -13,7 +13,7 @@ import com.asfoundation.wallet.ui.BaseActivity
 import com.asfoundation.wallet.verification.ui.credit_card.VerificationCreditCardActivity
 import com.asfoundation.wallet.wallets.FindDefaultWalletInteract
 import com.jakewharton.rxbinding2.view.RxView
-import dagger.android.AndroidInjection
+import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -25,6 +25,7 @@ import kotlinx.android.synthetic.main.no_network_retry_only_layout.*
 import java.math.BigDecimal
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class InviteFriendsActivity : BaseActivity(), InviteFriendsActivityView {
 
   private lateinit var menu: Menu
@@ -41,7 +42,6 @@ class InviteFriendsActivity : BaseActivity(), InviteFriendsActivityView {
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-    AndroidInjection.inject(this)
     setContentView(R.layout.invite_friends_activity_layout)
     toolbar()
     infoButtonSubject = PublishSubject.create()

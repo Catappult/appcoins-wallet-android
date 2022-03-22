@@ -19,12 +19,13 @@ import com.google.zxing.BarcodeFormat;
 import com.google.zxing.MultiFormatWriter;
 import com.google.zxing.common.BitMatrix;
 import com.journeyapps.barcodescanner.BarcodeEncoder;
-import dagger.android.AndroidInjection;
+import dagger.hilt.android.AndroidEntryPoint;
 import javax.inject.Inject;
 
 import static com.asfoundation.wallet.C.Key.WALLET;
 
-public class MyAddressActivity extends BaseActivity implements View.OnClickListener {
+@AndroidEntryPoint public class MyAddressActivity extends BaseActivity
+    implements View.OnClickListener {
 
   public static final String KEY_ADDRESS = "key_address";
   private static final float QR_IMAGE_WIDTH_RATIO = 0.9f;
@@ -33,8 +34,6 @@ public class MyAddressActivity extends BaseActivity implements View.OnClickListe
   private Wallet wallet;
 
   @Override protected void onCreate(@Nullable Bundle savedInstanceState) {
-    AndroidInjection.inject(this);
-
     super.onCreate(savedInstanceState);
 
     setContentView(R.layout.activity_my_address);

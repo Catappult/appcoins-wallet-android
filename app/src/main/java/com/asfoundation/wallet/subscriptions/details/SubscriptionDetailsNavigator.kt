@@ -8,8 +8,9 @@ import com.asfoundation.wallet.subscriptions.SubscriptionItem
 import com.asfoundation.wallet.subscriptions.cancel.SubscriptionCancelFragment
 import com.asfoundation.wallet.subscriptions.success.SubscriptionSuccessFragment
 import com.asfoundation.wallet.util.SharedElementTransition
+import javax.inject.Inject
 
-class SubscriptionDetailsNavigator(private val fragmentManager: FragmentManager) {
+class SubscriptionDetailsNavigator @Inject constructor(private val fragmentManager: FragmentManager) {
 
   fun showCancelSubscription(subscriptionItem: SubscriptionItem, sharedElement: View) {
     val transitionName = ViewCompat.getTransitionName(sharedElement) ?: ""

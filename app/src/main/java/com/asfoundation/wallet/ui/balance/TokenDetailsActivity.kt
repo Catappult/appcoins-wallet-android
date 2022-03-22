@@ -11,11 +11,12 @@ import com.asfoundation.wallet.router.TopUpRouter
 import com.asfoundation.wallet.ui.BaseActivity
 import com.asfoundation.wallet.util.WalletCurrency
 import com.jakewharton.rxbinding2.view.RxView
+import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.activity_token_details.*
 
-
+@AndroidEntryPoint
 class TokenDetailsActivity : BaseActivity(), TokenDetailsView {
 
   private var contentVisible = false
