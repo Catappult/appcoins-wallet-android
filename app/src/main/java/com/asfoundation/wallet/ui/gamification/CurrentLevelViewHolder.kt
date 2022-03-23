@@ -25,11 +25,11 @@ class CurrentLevelViewHolder(
 
   override fun bind(level: LevelItem) {
     val currentLevel = level as CurrentLevelItem
-    val progress = getProgressPercentage(
-      currentLevel.amount, currentLevel.amountSpent,
+    val progress = getProgressPercentage(currentLevel.amountSpent, currentLevel.nextLevelAmount)
+    val progressString = validateAndGetProgressString(
+      currentLevel.amountSpent,
       currentLevel.nextLevelAmount
     )
-    val progressString = validateAndGetProgressString(progress)
     handleSpecificLevel(
       currentLevel.level, progressString, currentLevel.bonus,
       currentLevel.amountSpent, currentLevel.nextLevelAmount
@@ -42,14 +42,14 @@ class CurrentLevelViewHolder(
   }
 
   private fun handleSpecificLevel(
-    level: Int, progressPercentage: String, bonus: Double,
+    level: Int, progressString: String, bonus: Double,
     amountSpent: BigDecimal, nextLevelAmount: BigDecimal?
   ) {
     val currentLevelInfo = mapper.mapCurrentLevelInfo(level)
     itemView.current_level_image.setImageDrawable(currentLevelInfo.planet)
     setColor(currentLevelInfo.levelColor)
     setText(
-      currentLevelInfo.title, currentLevelInfo.phrase, progressPercentage, bonus, amountSpent,
+      currentLevelInfo.title, currentLevelInfo.phrase, progressString, bonus, amountSpent,
       nextLevelAmount
     )
   }
@@ -88,21 +88,16 @@ class CurrentLevelViewHolder(
     val df = DecimalFormat("###.#")
     itemView.current_level_bonus.text =
       itemView.context.getString(R.string.gamif_bonus, df.format(bonus))
-    itemView.percentage_left.text = "$progressPercentage%"
+    itemView.percentage_left.text = progressPercentage
   }
 
   private fun getProgressPercentage(
-    levelAmount: BigDecimal, amountSpent: BigDecimal,
+    amountSpent: BigDecimal,
     nextLevelAmount: BigDecimal?
   ): BigDecimal {
     return if (nextLevelAmount != null) {
-      var levelRange = nextLevelAmount.subtract(levelAmount)
-      if (levelRange.toDouble() == 0.0) {
-        levelRange = BigDecimal.ONE
-      }
-      val amountSpentInLevel = amountSpent.subtract(levelAmount)
-      amountSpentInLevel.divide(levelRange, 2, RoundingMode.DOWN)
-        .multiply(BigDecimal(100))
+      val levelRange = nextLevelAmount.max(BigDecimal.ONE)
+      amountSpent.multiply(BigDecimal(100)).divide(levelRange, 2, RoundingMode.DOWN)
     } else {
       BigDecimal(100)
     }
@@ -116,9 +111,13 @@ class CurrentLevelViewHolder(
     }
   }
 
-  private fun validateAndGetProgressString(progress: BigDecimal): String {
-    return if (progress >= BigDecimal.ZERO && progress <= BigDecimal(100.0)) {
-      currencyFormatUtils.formatGamificationValues(progress)
+  private fun validateAndGetProgressString(
+    spent: BigDecimal,
+    next: BigDecimal?
+  ): String {
+    return if (spent >= BigDecimal.ZERO && spent <= next ?: BigDecimal.ZERO) {
+      val format = currencyFormatUtils.formatShortGamificationValues
+      "${format(spent)} / ${format(next ?: BigDecimal.ZERO)}"
     } else {
       ""
     }
