@@ -97,17 +97,17 @@ class CurrencyFormatUtilsTest {
     //Big value
     Locale.setDefault(Locale.US)
     var formattedValueUs =
-        formatter.formatTransferCurrency(bigValue, WalletCurrency.ETHEREUM)
+      formatter.formatTransferCurrency(bigValue, WalletCurrency.ETHEREUM)
     var expectedValueUs = "123,456,789.0123"
 
     Locale.setDefault(Locale.FRANCE)
     var formattedValueFr =
-        formatter.formatTransferCurrency(bigValue, WalletCurrency.ETHEREUM)
+      formatter.formatTransferCurrency(bigValue, WalletCurrency.ETHEREUM)
     var expectedValueFr = "123 456 789,0123"
 
     Locale.setDefault(Locale("pt", "BR"))
     val formattedValueBr =
-        formatter.formatTransferCurrency(bigValue, WalletCurrency.ETHEREUM)
+      formatter.formatTransferCurrency(bigValue, WalletCurrency.ETHEREUM)
     val expectedValueBr = "123.456.789,0123"
 
     assertEquals(expectedValueUs, formattedValueUs)
@@ -198,9 +198,149 @@ class CurrencyFormatUtilsTest {
   }
 
   @Test
+  fun formatShortGamificationValues() {
+    val gamificationValueInt = BigDecimal(123)
+    val gamificationValueDecimal = BigDecimal(123.123)
+    val gamificationValueKInt = BigDecimal(12345)
+    val gamificationValueKDecimal = BigDecimal(12345.123)
+    val gamificationValueMInt = BigDecimal(12345678)
+    val gamificationValueMDecimal = BigDecimal(12345678.123)
+    val gamificationValueBInt = BigDecimal(1234567890)
+    val gamificationValueBDecimal = BigDecimal(1234567890.123)
+
+    Locale.setDefault(Locale.US)
+    var formattedValueUs = formatter.formatShortGamificationValues(gamificationValueInt)
+    var expectedValueUs = "123"
+
+    Locale.setDefault(Locale.FRANCE)
+    var formattedValueFr = formatter.formatShortGamificationValues(gamificationValueInt)
+    var expectedValueFr = "123"
+
+    Locale.setDefault(Locale("pt", "BR"))
+    var formattedValueBr = formatter.formatShortGamificationValues(gamificationValueInt)
+    var expectedValueBr = "123"
+
+    assertEquals(expectedValueUs, formattedValueUs)
+    assertEquals(expectedValueFr, formattedValueFr)
+    assertEquals(expectedValueBr, formattedValueBr)
+
+    Locale.setDefault(Locale.US)
+    formattedValueUs = formatter.formatShortGamificationValues(gamificationValueKInt)
+    expectedValueUs = "12.34k"
+
+    Locale.setDefault(Locale.FRANCE)
+    formattedValueFr = formatter.formatShortGamificationValues(gamificationValueKInt)
+    expectedValueFr = "12,34k"
+
+    Locale.setDefault(Locale("pt", "BR"))
+    formattedValueBr = formatter.formatShortGamificationValues(gamificationValueKInt)
+    expectedValueBr = "12,34k"
+
+    assertEquals(expectedValueUs, formattedValueUs)
+    assertEquals(expectedValueFr, formattedValueFr)
+    assertEquals(expectedValueBr, formattedValueBr)
+
+    Locale.setDefault(Locale.US)
+    formattedValueUs = formatter.formatShortGamificationValues(gamificationValueMInt)
+    expectedValueUs = "12.35m"
+
+    Locale.setDefault(Locale.FRANCE)
+    formattedValueFr = formatter.formatShortGamificationValues(gamificationValueMInt)
+    expectedValueFr = "12,35m"
+
+    Locale.setDefault(Locale("pt", "BR"))
+    formattedValueBr = formatter.formatShortGamificationValues(gamificationValueMInt)
+    expectedValueBr = "12,35m"
+
+    assertEquals(expectedValueUs, formattedValueUs)
+    assertEquals(expectedValueFr, formattedValueFr)
+    assertEquals(expectedValueBr, formattedValueBr)
+
+    Locale.setDefault(Locale.US)
+    formattedValueUs = formatter.formatShortGamificationValues(gamificationValueBInt)
+    expectedValueUs = "1.23b"
+
+    Locale.setDefault(Locale.FRANCE)
+    formattedValueFr = formatter.formatShortGamificationValues(gamificationValueBInt)
+    expectedValueFr = "1,23b"
+
+    Locale.setDefault(Locale("pt", "BR"))
+    formattedValueBr = formatter.formatShortGamificationValues(gamificationValueBInt)
+    expectedValueBr = "1,23b"
+
+    assertEquals(expectedValueUs, formattedValueUs)
+    assertEquals(expectedValueFr, formattedValueFr)
+    assertEquals(expectedValueBr, formattedValueBr)
+
+    Locale.setDefault(Locale.US)
+    formattedValueUs = formatter.formatShortGamificationValues(gamificationValueDecimal)
+    expectedValueUs = "123.12"
+
+    Locale.setDefault(Locale.FRANCE)
+    formattedValueFr = formatter.formatShortGamificationValues(gamificationValueDecimal)
+    expectedValueFr = "123,12"
+
+    Locale.setDefault(Locale("pt", "BR"))
+    formattedValueBr = formatter.formatShortGamificationValues(gamificationValueDecimal)
+    expectedValueBr = "123,12"
+
+    assertEquals(expectedValueUs, formattedValueUs)
+    assertEquals(expectedValueFr, formattedValueFr)
+    assertEquals(expectedValueBr, formattedValueBr)
+
+    Locale.setDefault(Locale.US)
+    formattedValueUs = formatter.formatShortGamificationValues(gamificationValueKDecimal)
+    expectedValueUs = "12.35k"
+
+    Locale.setDefault(Locale.FRANCE)
+    formattedValueFr = formatter.formatShortGamificationValues(gamificationValueKDecimal)
+    expectedValueFr = "12,35k"
+
+    Locale.setDefault(Locale("pt", "BR"))
+    formattedValueBr = formatter.formatShortGamificationValues(gamificationValueKDecimal)
+    expectedValueBr = "12,35k"
+
+    assertEquals(expectedValueUs, formattedValueUs)
+    assertEquals(expectedValueFr, formattedValueFr)
+    assertEquals(expectedValueBr, formattedValueBr)
+
+    Locale.setDefault(Locale.US)
+    formattedValueUs = formatter.formatShortGamificationValues(gamificationValueMDecimal)
+    expectedValueUs = "12.35m"
+
+    Locale.setDefault(Locale.FRANCE)
+    formattedValueFr = formatter.formatShortGamificationValues(gamificationValueMDecimal)
+    expectedValueFr = "12,35m"
+
+    Locale.setDefault(Locale("pt", "BR"))
+    formattedValueBr = formatter.formatShortGamificationValues(gamificationValueMDecimal)
+    expectedValueBr = "12,35m"
+
+    assertEquals(expectedValueUs, formattedValueUs)
+    assertEquals(expectedValueFr, formattedValueFr)
+    assertEquals(expectedValueBr, formattedValueBr)
+
+    Locale.setDefault(Locale.US)
+    formattedValueUs = formatter.formatShortGamificationValues(gamificationValueBDecimal)
+    expectedValueUs = "1.23b"
+
+    Locale.setDefault(Locale.FRANCE)
+    formattedValueFr = formatter.formatShortGamificationValues(gamificationValueBDecimal)
+    expectedValueFr = "1,23b"
+
+    Locale.setDefault(Locale("pt", "BR"))
+    formattedValueBr = formatter.formatShortGamificationValues(gamificationValueBDecimal)
+    expectedValueBr = "1,23b"
+
+    assertEquals(expectedValueUs, formattedValueUs)
+    assertEquals(expectedValueFr, formattedValueFr)
+    assertEquals(expectedValueBr, formattedValueBr)
+  }
+
+  @Test
   fun scaleFiat() {
     val formattedValueUs = formatter.scaleFiat(value)
-        .toString()
+      .toString()
     val expectedValueUs = "123456789.12"
 
     assertEquals(expectedValueUs, formattedValueUs)

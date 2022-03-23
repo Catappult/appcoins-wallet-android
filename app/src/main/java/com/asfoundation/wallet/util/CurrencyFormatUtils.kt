@@ -14,6 +14,9 @@ class CurrencyFormatUtils @Inject constructor() {
     const val APPC_SCALE = 2
     const val CREDITS_SCALE = 2
     const val ETH_SCALE = 4
+    val BILLION = BigDecimal(1_000_000_000)
+    val MILLION = BigDecimal(1_000_000)
+    val THOUSAND = BigDecimal(1_000)
   }
 
   fun formatCurrency(value: BigDecimal, currencyType: WalletCurrency): String {
@@ -120,6 +123,15 @@ class CurrencyFormatUtils @Inject constructor() {
   fun formatGamificationValues(value: BigDecimal): String {
     val formatter = DecimalFormat("#,###.##")
     return formatter.format(value)
+  }
+
+  val formatShortGamificationValues: (value: BigDecimal) -> String = { value ->
+    when {
+      value >= BILLION -> "${formatGamificationValues(value.divide(BILLION))}b"
+      value >= MILLION -> "${formatGamificationValues(value.divide(MILLION))}m"
+      value >= THOUSAND -> "${formatGamificationValues(value.divide(THOUSAND))}k"
+      else -> formatGamificationValues(value)
+    }
   }
 
   fun scaleFiat(value: BigDecimal): BigDecimal = value.setScale(FIAT_SCALE, BigDecimal.ROUND_FLOOR)
