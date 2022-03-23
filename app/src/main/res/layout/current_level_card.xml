@@ -60,28 +60,30 @@
         android:layout_width="0dp"
         android:layout_height="8dp"
         android:layout_marginTop="10dp"
-        android:layout_marginEnd="56dp"
         android:max="100"
         android:progressDrawable="@drawable/generic_progress_bar"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/percentage_left"
         app:layout_constraintStart_toStartOf="@id/spend_amount_text"
         app:layout_constraintTop_toBottomOf="@id/spend_amount_text"
         />
+
     <TextView
         android:id="@+id/percentage_left"
+        style="@style/TextAppearance.AppCompat.Body1.Roboto.Regular"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="2dp"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginBottom="3dp"
         android:fontFamily="sans-serif"
         android:lineSpacingExtra="9sp"
-        android:text="75%"
         android:textColor="@color/white"
         android:textSize="11sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@id/current_level_progress_bar"
+        app:layout_constraintBottom_toBottomOf="@id/current_level_progress_bar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/current_level_progress_bar"
-        app:layout_constraintTop_toBottomOf="@id/current_level_progress_bar"
+        app:layout_constraintTop_toTopOf="@id/current_level_progress_bar"
+        tools:text="65k / 150k"
         />
 
     <TextView
