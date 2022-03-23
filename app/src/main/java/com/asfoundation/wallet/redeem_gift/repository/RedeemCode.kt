@@ -1,3 +1,11 @@
 package com.asfoundation.wallet.redeem_gift.repository
 
-data class RedeemCode(val amount: String, val error: String)
+sealed class RedeemCode
+
+object SuccessfulRedeem : RedeemCode()
+
+sealed class FailedRedeem : RedeemCode() {
+  object AlreadyRedeemedError : FailedRedeem()  // 450
+  object OnlyNewUsersError : FailedRedeem()     // 451
+  data class GenericError(val detail: String) : FailedRedeem()  // all others
+}

@@ -1,19 +1,25 @@
 package com.asfoundation.wallet.redeem_gift.use_cases
 
+import com.asfoundation.wallet.ewt.EwtAuthenticatorService
+import com.asfoundation.wallet.redeem_gift.repository.RedeemCode
 import com.asfoundation.wallet.redeem_gift.repository.RedeemGiftRepository
-import com.asfoundation.wallet.repository.WalletRepository
-import io.reactivex.Completable
+import com.asfoundation.wallet.wallets.usecases.GetCurrentWalletUseCase
+import io.reactivex.Single
 import javax.inject.Inject
 
 class RedeemGiftUseCase @Inject constructor(
-    private val redeemGiftRepository: RedeemGiftRepository,
-    private val walletRepository: WalletRepository
+  private val getCurrentWallet: GetCurrentWalletUseCase,
+  private val redeemGiftRepository: RedeemGiftRepository,
+  private val ewtObtainer: EwtAuthenticatorService,
 ) {
 
-  operator fun invoke(redeemGiftCode: String): Completable {
-
-    //TODO get wallet address from repo
-
-    return redeemGiftRepository.setRedeemGift(redeemGiftCode)
+  operator fun invoke(redeemGiftCode: String): Single<RedeemCode> {
+    return getCurrentWallet()
+      .flatMap { wallet ->
+        ewtObtainer.getEwtAuthenticationWithAddress(wallet.address)
+      }
+      .flatMap { ewt ->
+        redeemGiftRepository.redeemGift(redeemGiftCode, ewt)
+      }
   }
 }

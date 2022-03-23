@@ -1393,4 +1393,31 @@
     <item name="android:lineSpacingExtra">2sp</item>
   </style>
 
+
+  <style name="RedeemGiftTitle" parent="TextAppearance.AppCompat.Body1.Roboto.Regular">
+    <item name="android:textColor">@color/black</item>
+    <item name="android:textSize">14sp</item>
+    <item name="android:textStyle">bold</item>
+    <item name="android:lineSpacingExtra">2sp</item>
+  </style>
+
+  <style name="RedeemGiftString" parent="TextAppearance.AppCompat.Body1.Roboto.Regular">
+    <item name="android:textColor">@color/black</item>
+    <item name="android:textSize">14sp</item>
+    <item name="android:lineSpacingExtra">2sp</item>
+  </style>
+
+  <style name="RedeemGiftSuccessTitle" parent="TextAppearance.AppCompat.Body1.Roboto.Regular">
+    <item name="android:textColor">@color/black</item>
+    <item name="android:textSize">20sp</item>
+    <item name="android:textStyle">bold</item>
+    <item name="android:lineSpacingExtra">2sp</item>
+  </style>
+
+  <style name="RedeemGiftSuccessSubtitle" parent="TextAppearance.AppCompat.Body1.Roboto.Regular">
+    <item name="android:textColor">@color/black</item>
+    <item name="android:textSize">16sp</item>
+    <item name="android:lineSpacingExtra">2sp</item>
+  </style>
+
 </resources>

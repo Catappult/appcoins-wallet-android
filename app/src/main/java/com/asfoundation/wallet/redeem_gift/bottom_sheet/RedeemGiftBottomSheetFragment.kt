@@ -10,11 +10,15 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.work.ListenableWorker
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.asf.wallet.R
 import com.asf.wallet.databinding.SettingsRedeemGiftBottomSheetLayoutBinding
 import com.asfoundation.wallet.base.Async
 import com.asfoundation.wallet.base.SingleStateFragment
+import com.asfoundation.wallet.redeem_gift.repository.FailedRedeem
+import com.asfoundation.wallet.redeem_gift.repository.RedeemCode
+import com.asfoundation.wallet.redeem_gift.repository.SuccessfulRedeem
 import com.asfoundation.wallet.util.KeyboardUtils
 import com.asfoundation.wallet.util.setReadOnly
 import com.google.android.material.bottomsheet.BottomSheetBehavior
@@ -54,6 +58,9 @@ class RedeemGiftBottomSheetFragment : BottomSheetDialogFragment(),
     views.redeemGiftBottomSheetSuccessGotItButton.setOnClickListener {
       viewModel.successGotItClick()
     }
+    views.redeemGiftBottomSheetErrorButton.setOnClickListener {
+      showDefaultScreen()
+    }
 
     views.redeemGiftBottomSheetString.addTextChangedListener(object : TextWatcher {
       override fun beforeTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) = Unit
@@ -77,18 +84,24 @@ class RedeemGiftBottomSheetFragment : BottomSheetDialogFragment(),
   }
 
   override fun onStateChanged(state: RedeemGiftBottomSheetState) {
-    when (val clickAsync = state.submitClickAsync) {
-      is Async.Uninitialized -> redeemGift(state.redeemGiftAsync, state.shouldShowDefault)
+    when (val clickAsync = state.submitRedeemAsync) {
+      is Async.Uninitialized ->  {
+      }
       is Async.Loading -> {
         if (clickAsync.value == null) {
           showLoading()
         }
       }
       is Async.Fail -> {
-        showErrorMessage()
+        showErrorMessage(FailedRedeem.GenericError(""))
       }
       is Async.Success -> {
-        state.redeemGiftAsync.value?.let { redeemGift -> showSuccess(redeemGift) }
+        state.submitRedeemAsync.value?.let { redeemState ->
+          if (redeemState is SuccessfulRedeem)
+            showSuccess(redeemState)
+          else
+            showErrorMessage(redeemState as? FailedRedeem ?: FailedRedeem.GenericError(""))
+        }
       }
     }
   }
@@ -99,30 +112,30 @@ class RedeemGiftBottomSheetFragment : BottomSheetDialogFragment(),
     }
   }
 
-  fun redeemGift(redeemGiftAsync: Async<GiftCode>) {
-    when (redeemGiftAsync) {
-      is Async.Uninitialized,
-      is Async.Loading -> {
-        showDefaultScreen()
+  private fun showErrorMessage(error: FailedRedeem) {
+    hideAll()
+    KeyboardUtils.hideKeyboard(view)
+    views.redeemGiftBottomSheetErrorAnimation.visibility = View.VISIBLE
+    views.redeemGiftBottomSheetErrorAnimation.setImageResource(R.drawable.ic_alert_circle_red)
+    views.redeemGiftBottomSheetErrorAnimation.repeatCount = 0
+    views.redeemGiftBottomSheetErrorAnimation.playAnimation()
+    when(error) {
+      FailedRedeem.OnlyNewUsersError ->{
+        views.redeemGiftBottomSheetErrorTitle.text = getString(R.string.gift_card_error_new_users_title)
+        views.redeemGiftBottomSheetErrorSubtitle.text = getString(R.string.gift_card_error_try_with_different_body)
       }
-      is Async.Fail -> {
-        showErrorMessage()
+      FailedRedeem.AlreadyRedeemedError ->{
+        views.redeemGiftBottomSheetErrorTitle.text = getString(R.string.gift_card_error_used_title)
+        views.redeemGiftBottomSheetErrorSubtitle.text = getString(R.string.gift_card_error_try_with_different_body)
       }
-      is Async.Success -> {
-        showDefaultScreen()
+      is FailedRedeem.GenericError ->{
+        views.redeemGiftBottomSheetErrorTitle.text = getString(R.string.gift_card_error_general_title)
+        views.redeemGiftBottomSheetErrorSubtitle.text = getString(R.string.gift_card_error_general_body)
       }
     }
-  }
-
-  private fun showErrorMessage() {
-    hideAll()
-    views.redeemGiftBottomSheetString.setReadOnly(false, InputType.TYPE_CLASS_TEXT)
-    views.redeemGiftBottomSheetTitle.visibility = View.VISIBLE
-    views.redeemGiftBottomSheetTextRectangle.visibility = View.VISIBLE
-    views.redeemGiftBottomSheetTextRectangle.setBackgroundResource(R.drawable.rectangle_outline_red)
-    views.redeemGiftBottomSheetErrorMessage.visibility = View.VISIBLE
-    views.redeemGiftBottomSheetSubmitButton.visibility = View.VISIBLE
-    views.redeemGiftBottomSheetSubmitButton.isEnabled = false
+    views.redeemGiftBottomSheetErrorTitle.visibility = View.VISIBLE
+    views.redeemGiftBottomSheetErrorSubtitle.visibility = View.VISIBLE
+    views.redeemGiftBottomSheetErrorButton.visibility = View.VISIBLE
   }
 
   private fun showLoading() {
@@ -143,12 +156,11 @@ class RedeemGiftBottomSheetFragment : BottomSheetDialogFragment(),
   }
 
   @SuppressLint("StringFormatMatches")
-  private fun showSuccess(redeemGift: GiftCode) {
+  private fun showSuccess(redeemGift: RedeemCode) {
     hideAll()
     KeyboardUtils.hideKeyboard(view)
     views.redeemGiftBottomSheetSuccessAnimation.visibility = View.VISIBLE
-    views.redeemGiftBottomSheetSuccessAnimation.setAnimation(R.raw.success_animation)
-    views.redeemGiftBottomSheetSuccessAnimation.setAnimation(R.raw.success_animation)
+    views.redeemGiftBottomSheetSuccessAnimation.setImageResource(R.drawable.ic_success_check)
     views.redeemGiftBottomSheetSuccessAnimation.repeatCount = 0
     views.redeemGiftBottomSheetSuccessAnimation.playAnimation()
     views.redeemGiftBottomSheetSuccessTitle.visibility = View.VISIBLE
@@ -161,28 +173,28 @@ class RedeemGiftBottomSheetFragment : BottomSheetDialogFragment(),
     hideDefaultScreen()
     hideButtons()
     hideLoading()
-    hideErrorMessage()
+    hideErrorScreen()
     hideSuccessScreen()
   }
 
   private fun hideDefaultScreen() {
     views.redeemGiftBottomSheetTitle.visibility = View.GONE
     views.redeemGiftBottomSheetTextRectangle.visibility = View.GONE
-    views.redeemGiftBottomSheetActiveCheckmark.visibility = View.GONE
   }
 
   private fun hideButtons() {
     views.redeemGiftBottomSheetSubmitButton.visibility = View.GONE
-    views.redeemGiftBottomSheetReplaceButton.visibility = View.GONE
-    views.redeemGiftBottomSheetDeleteButton.visibility = View.GONE
   }
 
   private fun hideLoading() {
     views.redeemGiftBottomSheetSystemView.visibility = View.GONE
   }
 
-  private fun hideErrorMessage() {
-    views.redeemGiftBottomSheetErrorMessage.visibility = View.GONE
+  private fun hideErrorScreen() {
+    views.redeemGiftBottomSheetErrorAnimation.visibility = View.GONE
+    views.redeemGiftBottomSheetErrorTitle.visibility = View.GONE
+    views.redeemGiftBottomSheetErrorSubtitle.visibility = View.GONE
+    views.redeemGiftBottomSheetErrorButton.visibility = View.GONE
   }
 
   private fun hideSuccessScreen() {
