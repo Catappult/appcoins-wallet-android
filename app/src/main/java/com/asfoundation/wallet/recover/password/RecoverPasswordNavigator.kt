@@ -12,7 +12,7 @@ class RecoverPasswordNavigator @Inject constructor(val fragment: Fragment) : Nav
   fun navigateToCreateWalletDialog() {
     navigate(
       fragment.findNavController(),
-      RecoverPasswordFragmentDirections.actionNavigateCreateWalletDialog()
+      RecoverPasswordFragmentDirections.actionNavigateCreateWalletDialog(needsWalletCreation = false)
     )
   }
 

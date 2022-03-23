@@ -7,7 +7,7 @@ import com.asfoundation.wallet.base.navigate
 class MoreDialogNavigator(private val navController: NavController) : Navigator {
 
   fun navigateToCreateNewWallet() {
-    navigate(navController, MoreDialogFragmentDirections.actionNavigateToCreateWallet())
+    navigate(navController, MoreDialogFragmentDirections.actionNavigateToCreateWallet(needsWalletCreation = true))
   }
 
   fun navigateToRestoreWallet() {

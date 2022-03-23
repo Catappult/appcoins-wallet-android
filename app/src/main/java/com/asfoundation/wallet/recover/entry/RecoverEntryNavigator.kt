@@ -51,7 +51,7 @@ class RecoverEntryNavigator @Inject constructor(val fragment: Fragment) : Naviga
   fun navigateToCreateWalletDialog() {
     navigate(
       fragment.findNavController(),
-      RecoverEntryFragmentDirections.actionNavigateCreateWalletDialog()
+      RecoverEntryFragmentDirections.actionNavigateCreateWalletDialog(needsWalletCreation = false)
     )
   }
 

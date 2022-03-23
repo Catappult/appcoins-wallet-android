@@ -3,6 +3,7 @@ package com.asfoundation.wallet.my_wallets.create_wallet
 import android.animation.Animator
 import android.app.Dialog
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -21,7 +22,7 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class CreateWalletDialogFragment : DialogFragment(),
-    SingleStateFragment<CreateWalletState, CreateWalletSideEffect> {
+  SingleStateFragment<CreateWalletState, CreateWalletSideEffect> {
 
 
   @Inject
@@ -38,14 +39,18 @@ class CreateWalletDialogFragment : DialogFragment(),
     }
   }
 
-  override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                            savedInstanceState: Bundle?): View? {
+  override fun onCreateView(
+    inflater: LayoutInflater, container: ViewGroup?,
+    savedInstanceState: Bundle?
+  ): View? {
     return inflater.inflate(R.layout.fragment_create_wallet_dialog_layout, container, false)
   }
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
     viewModel.collectStateAndEvents(lifecycle, viewLifecycleOwner.lifecycleScope)
+    //Temporary solution until this animation is refactored to the new design
+    if (requireArguments().getBoolean(NEEDS_WALLET_CREATION)) viewModel.createNewWallet() else viewModel.recoverWallet()
   }
 
   override fun onDestroy() {
@@ -64,7 +69,11 @@ class CreateWalletDialogFragment : DialogFragment(),
       }
       is Async.Success -> {
         views.createWalletAnimation.setAnimation(R.raw.success_animation)
-        views.createWalletText.text = getText(R.string.provide_wallet_created_header)
+        if (requireArguments().getBoolean(NEEDS_WALLET_CREATION)) {
+          views.createWalletText.text = getText(R.string.provide_wallet_created_header)
+        } else {
+          views.createWalletText.text = getText(R.string.wallets_imported_body)
+        }
         views.createWalletAnimation.addAnimatorListener(object : Animator.AnimatorListener {
           override fun onAnimationRepeat(animation: Animator?) = Unit
           override fun onAnimationEnd(animation: Animator?) = navigator.navigateBack()
@@ -82,6 +91,7 @@ class CreateWalletDialogFragment : DialogFragment(),
 
   companion object {
     const val RESULT_REQUEST_KEY = "CreateWalletDialogFragment"
+    const val NEEDS_WALLET_CREATION = "needs_wallet_creation"
   }
 
 }
