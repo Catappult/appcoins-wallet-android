@@ -1,6 +1,5 @@
 package com.asfoundation.wallet.service;
 
-import android.util.Log;
 import com.asfoundation.wallet.C;
 import com.asfoundation.wallet.entity.ServiceErrorException;
 import com.asfoundation.wallet.entity.Wallet;

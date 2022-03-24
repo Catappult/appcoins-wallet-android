@@ -104,7 +104,7 @@ class RecoverWalletViewModel @Inject constructor(
         )
       }
       is FailedEntryRecover.InvalidPassword -> {
-
+        setState { copy(recoverResultAsync = Async.Uninitialized) }
       }
       else -> {
         walletsEventSender.sendWalletRestoreEvent(
@@ -113,9 +113,5 @@ class RecoverWalletViewModel @Inject constructor(
         )
       }
     }
-  }
-
-  fun resetState() {
-    setState { copy(recoverResultAsync = Async.Uninitialized) }
   }
 }

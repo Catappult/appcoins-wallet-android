@@ -136,7 +136,6 @@ class RecoverEntryFragment : BasePageViewFragment(),
           walletBalance = recoverResult.symbol + recoverResult.amount,
           walletAddress = recoverResult.address
         )
-        viewModel.resetState()
       }
       is FailedEntryRecover.InvalidPrivateKey -> {
         views.recoverWalletOptions.recoverKeystoreInput.setError(getString(R.string.error_import))
