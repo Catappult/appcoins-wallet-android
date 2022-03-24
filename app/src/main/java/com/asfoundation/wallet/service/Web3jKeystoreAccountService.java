@@ -62,15 +62,11 @@ import static org.web3j.crypto.Wallet.create;
 
   @Override
   public Single<RestoreResult> restoreKeystore(String store, String password, String newPassword) {
-    Log.d("APPC-2780", "restoreKeystore: pass -> " + password + ", newPass -> " + newPassword);
     return Single.fromCallable(() -> extractAddressFromStore(store))
         .flatMap(address -> {
           if (hasAccount(address)) {
             return Single.error(
                 new ServiceErrorException(C.ErrorCode.ALREADY_ADDED, "Already added"));
-          //} else if (password.equals("")) {
-          //  return Single.error(new ServiceErrorException(C.ErrorCode.CANT_GET_STORE_PASSWORD,
-          //      "Requires password"));
           } else {
             return importKeystoreInternal(store, password, newPassword);
           }
@@ -88,7 +84,7 @@ import static org.web3j.crypto.Wallet.create;
       return new ObjectMapper().writeValueAsString(walletFile);
     })
         .flatMap(keystore -> restoreKeystore(keystore, newPassword, newPassword))
-        .onErrorReturn(throwable -> new FailedRestore.InvalidPrivateKey(throwable));
+        .onErrorReturn(FailedRestore.InvalidPrivateKey::new);
   }
 
   @Override
