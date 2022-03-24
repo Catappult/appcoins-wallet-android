@@ -114,12 +114,10 @@ class WalletRepository @Inject constructor(private val preferencesRepositoryType
   }
 
   override fun savePassword(address: String, password: String): Completable {
-    return Completable.fromAction {
-      passwordStore.setPassword(address, password)
+    return passwordStore.setPassword(address, password)
           .onErrorResumeNext { throwable ->
             deleteWallet(address, password)
                 .lift(Operators.completableErrorProxy(throwable))
           }
-    }
   }
 }
