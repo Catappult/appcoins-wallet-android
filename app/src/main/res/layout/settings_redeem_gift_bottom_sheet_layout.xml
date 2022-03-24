@@ -55,16 +55,16 @@
 
   </androidx.constraintlayout.widget.ConstraintLayout>
 
-  <Button
+  <com.asfoundation.wallet.ui.common.WalletButtonView
       android:id="@+id/redeem_gift_bottom_sheet_submit_button"
-      style="@style/ButtonStyle"
-      android:layout_width="match_parent"
-      android:layout_height="40dp"
+      android:layout_width="0dp"
+      android:layout_height="@dimen/onboarding_button_height"
       android:layout_marginTop="35dp"
-      android:enabled="false"
-      android:text="@string/carrier_billing_submit_button"
-      app:layout_constraintEnd_toEndOf="parent"
+      app:buttonText="@string/action_next"
+      app:buttonType="filled"
       app:layout_constraintTop_toBottomOf="@id/redeem_gift_bottom_sheet_text_rectangle"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
       />
 
   <com.asfoundation.wallet.widget.SystemView
@@ -124,13 +124,13 @@
       app:layout_constraintTop_toBottomOf="@id/redeem_gift_bottom_sheet_success_title"
       />
 
-  <Button
+  <com.asfoundation.wallet.ui.common.WalletButtonView
       android:id="@+id/redeem_gift_bottom_sheet_success_got_it_button"
-      style="@style/ButtonStyle"
-      android:layout_width="match_parent"
-      android:layout_height="40dp"
+      android:layout_width="0dp"
+      android:layout_height="@dimen/onboarding_button_height"
       android:layout_marginTop="14dp"
-      android:text="@string/got_it_button"
+      app:buttonText="@string/got_it_button"
+      app:buttonType="filled"
       android:visibility="gone"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
@@ -183,13 +183,13 @@
       app:layout_constraintTop_toBottomOf="@id/redeem_gift_bottom_sheet_error_title"
       />
 
-  <Button
+  <com.asfoundation.wallet.ui.common.WalletButtonView
       android:id="@+id/redeem_gift_bottom_sheet_error_button"
-      style="@style/ButtonStyle"
-      android:layout_width="match_parent"
-      android:layout_height="40dp"
+      android:layout_width="0dp"
+      android:layout_height="@dimen/onboarding_button_height"
       android:layout_marginTop="14dp"
-      android:text="@string/try_again"
+      app:buttonText="@string/try_again"
+      app:buttonType="filled"
       android:visibility="gone"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"

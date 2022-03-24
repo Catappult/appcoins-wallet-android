@@ -71,6 +71,7 @@ class RedeemGiftBottomSheetFragment : BottomSheetDialogFragment(),
     })
 
     viewModel.collectStateAndEvents(lifecycle, viewLifecycleOwner.lifecycleScope)
+    views.redeemGiftBottomSheetSubmitButton.isEnabled = false
   }
 
   override fun onStart() {
