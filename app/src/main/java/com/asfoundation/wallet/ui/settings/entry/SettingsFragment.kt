@@ -171,7 +171,6 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
 
   override fun setRedeemCodePreference(walletAddress: String) {
     val redeemPreference = findPreference<Preference>("pref_redeem")
-//    redeemCodePreference?.setRedeemGift(walletAddress) // TODO passar address
     redeemPreference?.setOnPreferenceClickListener {
       presenter.onRedeemGiftPreferenceClick()
       false

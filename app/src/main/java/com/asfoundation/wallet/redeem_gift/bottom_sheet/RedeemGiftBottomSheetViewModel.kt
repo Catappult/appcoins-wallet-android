@@ -40,7 +40,4 @@ class RedeemGiftBottomSheetViewModel @Inject constructor(
 
   fun successGotItClick() = sendSideEffect { RedeemGiftBottomSheetSideEffect.NavigateBack }
 
-  fun tryAgainClick() {
-    state.submitRedeemAsync.value
-  }
 }

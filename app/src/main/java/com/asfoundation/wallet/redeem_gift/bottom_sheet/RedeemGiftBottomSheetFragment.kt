@@ -1,6 +1,5 @@
 package com.asfoundation.wallet.redeem_gift.bottom_sheet
 
-import android.annotation.SuppressLint
 import android.os.Bundle
 import android.text.Editable
 import android.text.InputType
@@ -10,14 +9,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.work.ListenableWorker
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.asf.wallet.R
 import com.asf.wallet.databinding.SettingsRedeemGiftBottomSheetLayoutBinding
 import com.asfoundation.wallet.base.Async
 import com.asfoundation.wallet.base.SingleStateFragment
 import com.asfoundation.wallet.redeem_gift.repository.FailedRedeem
-import com.asfoundation.wallet.redeem_gift.repository.RedeemCode
 import com.asfoundation.wallet.redeem_gift.repository.SuccessfulRedeem
 import com.asfoundation.wallet.util.KeyboardUtils
 import com.asfoundation.wallet.util.setReadOnly
@@ -99,7 +96,7 @@ class RedeemGiftBottomSheetFragment : BottomSheetDialogFragment(),
       is Async.Success -> {
         state.submitRedeemAsync.value?.let { redeemState ->
           if (redeemState is SuccessfulRedeem)
-            showSuccess(redeemState)
+            showSuccess()
           else
             showErrorMessage(redeemState as? FailedRedeem ?: FailedRedeem.GenericError(""))
         }
@@ -156,8 +153,7 @@ class RedeemGiftBottomSheetFragment : BottomSheetDialogFragment(),
     views.redeemGiftBottomSheetSubmitButton.isEnabled = false
   }
 
-  @SuppressLint("StringFormatMatches")
-  private fun showSuccess(redeemGift: RedeemCode) {
+  private fun showSuccess() {
     hideAll()
     KeyboardUtils.hideKeyboard(view)
     views.redeemGiftBottomSheetSuccessAnimation.visibility = View.VISIBLE
