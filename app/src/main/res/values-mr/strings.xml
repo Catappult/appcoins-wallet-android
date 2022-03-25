@@ -1070,16 +1070,16 @@
   <string name="nfts_transact_gas_limit">गॅस सीमा</string>
   <string name="nfts_transact_gas_fee_message">व्यवहार शुल्क</string>
   <string name="nfts_transact_error_no_funds">पुरेसे पैसे नाहीत! शुल्क भरण्यासाठी पुरेसे ईटीएच आपल्याकडे नाहीत.</string>
-  <string name="nfts_transact_error_low_gas">Gas is too low! Increase your gas for the network to accept your transaction.</string>
-  <string name="nfts_transact_error_already_in_progress">This NFT is already being sent! A previous transaction is currently in progress.</string>
+  <string name="nfts_transact_error_low_gas">गॅस फार कमी! आपला व्यवहार मान्य करविण्यासाठी नेटवर्कचा आपला गॅस वाढवा.</string>
+  <string name="nfts_transact_error_already_in_progress">ही एनएफटी आधीच पाठविली जात आहे! आधीचा व्यवहार सध्या प्रक्रियागत आहे.</string>
   <!-- Gift Card -->
-  <string name="gift_card_title">Redeem your gift card code</string>
-  <string name="gift_card_field">Card code here...</string>
-  <string name="gift_card_done_title">Code redeemed!</string>
-  <string name="gift_card_done_body">Check your transacions list.</string>
-  <string name="gift_card_error_general_title">Something went wrong!</string>
-  <string name="gift_card_error_general_body">Please try again or use a different code.</string>
-  <string name="gift_card_error_used_title">This code has already been used!</string>
-  <string name="gift_card_error_new_users_title">This code is only for new users!</string>
-  <string name="gift_card_error_try_with_different_body">Please try again with a different one.</string>
+  <string name="gift_card_title">आपला गिफ्ट कार्ड कोड रिडीम करा</string>
+  <string name="gift_card_field">कार्ड कोड इथे...</string>
+  <string name="gift_card_done_title">कोड रिडीम झाला!</string>
+  <string name="gift_card_done_body">आपल्या व्यवहारांची सूची तपासा.</string>
+  <string name="gift_card_error_general_title">काहीतरी चूक झाली!</string>
+  <string name="gift_card_error_general_body">कृपया पुन्हा प्रयत्न करा किंवा वेगळा कोड वापरा.</string>
+  <string name="gift_card_error_used_title">हा कोड आधीच वापरला गेला आहे!</string>
+  <string name="gift_card_error_new_users_title">हा कोड फक्त नविन वापरकर्त्यांसाठीच आहे!</string>
+  <string name="gift_card_error_try_with_different_body">वेगळ्यासह पुन्हा प्रयत्न करा.</string>
 </resources>
