@@ -442,8 +442,8 @@
   <string name="withdraw_button">पैसे काढा</string>
   <string name="email_here_field">आपला ईमेल पत्ता इथे&#8230;</string>
   <string name="understood_button">समजले!</string>
-  <string name="skip_button">Skip for now</string>
-  <string name="understand_button">I understand</string>
+  <string name="skip_button">आतापुरत वगळा</string>
+  <string name="understand_button">मला समजते</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">मला अॅपकॉइन्स वॉलेटच्या %1$s आणि %2$s मान्य आहेत.</string>
   <string name="terms_and_conditions_error">चालू ठेवण्यासाठी कृपया आमच्या अटी आणि शर्ती मंजुर करा</string>
@@ -555,7 +555,7 @@
   <string name="purchase_error_verify_card">ही खरेदी पूर्ण करण्यासाठी आपल्या कार्डाचे सत्यापन करा.</string>
   <string name="purachse_error_verify_card_button">कार्ड सत्यापित करा</string>
   <string name="purchase_eskills_sku">प्रवेश तिकिट</string>
-  <string name="purchase_paytmupi_install_disclaimer">You\'ll need to install Paytm UPI app.</string>
+  <string name="purchase_paytmupi_install_disclaimer">आपल्याला पेटीएम यूपीआय अॅप इंस्टॉल करावे लागेल.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">बिलिंग पत्ता</string>
   <string name="purchase_address_address_field">पत्ता</string>
@@ -645,19 +645,19 @@
   <string name="import_wallet_wrong_password_body">अरेरे, चुकीचा पासवर्ड!</string>
   <string name="error_invalid_private_key">खासगी की अवैध आहे</string>
   <string name="error_invalid_keystore">अवैध कीस्ट्रोक</string>
-  <string name="backup_title">Backup your wallet now!</string>
+  <string name="backup_title">आपले वॉलेट आताच बॅकअप करा!</string>
   <string name="backup_body">आपल्या खासगी कीज किंवा अन्य प्रवेश पद्धतींना आम्ही साठवित नाही. आपल्या वॉलेटच्या बॅकअप (की स्टोर) सुरक्षेसाठी हे महत्वाचे आहे.</string>
   <string name="backup_additional_security_title">अतिरिक्त सुरक्षा (पर्यायी)</string>
   <string name="backup_additional_security_body">पासवर्ड निवडा</string>
   <string name="backup_button">वॉलेट बॅकअप करा</string>
-  <string name="backup_ready_title">Your backup is ready!\nKeep it safe.</string>
+  <string name="backup_ready_title">आपले बॅकअप तयार आहे!\nते सुरक्षित राखा.</string>
   <string name="backup_ready_save_on_email">आपल्या ईमेलवर सेव्ह करा</string>
   <string name="backup_ready_email_button">ईमेलवर पाठवा</string>
   <string name="backup_ready_device_button">डिव्हाईसवर सेव्ह करा</string>
   <string name="backup_confirmation_tips_title">फाईल सुरक्षित राखा:</string>
-  <string name="backup_confirmation_tips_1"><b>Print it</b> and store it somewhere safe.</string>
-  <string name="backup_confirmation_tips_2"><b>Save it</b> on a USB drive.</string>
-  <string name="backup_confirmation_tips_3"><b>Copy it</b> to a private and secure cloud storage.</string>
+  <string name="backup_confirmation_tips_1"><b>प्रिंट करा</b> आणि कुठेतरी सुरक्षित राखा.</string>
+  <string name="backup_confirmation_tips_2">यूएसबी ड्राईव्हवर <b>सेव्ह करा</b>.</string>
+  <string name="backup_confirmation_tips_3">खासगी आणि सुरक्षित क्लाऊड स्टोरेजमध्ये <b>कॉपी करा</b>.</string>
   <string name="backup_tooltip_body">आपल्या वॉलेटचा बॅकअप करा!</string>
   <string name="backup_tooltip_later_button">कदाचित नंतर</string>
   <string name="backup_tooltip_backup_button">बॅकअप</string>
@@ -668,10 +668,10 @@
   <string name="backup_additional_security_disclaimer_body">पासवर्ड रिकव्हरी नाही.</string>
   <string name="backup_additional_security_password_not_march">पासवर्डस एकसमान नाहीत.</string>
   <string name="import_wallet_recovering_body">वॉलेट परत मिळवा...</string>
-  <string name="backup_skip_title">I understand that I may loose my funds if I don\'t backup my wallet key.</string>
-  <string name="backup_wallet_button">Backup wallet</string>
-  <string name="backup_success_save_on_email">Your backup file is in your email.</string>
-  <string name="backup_success_save_on_device">Your backup file is stored in your device.</string>
+  <string name="backup_skip_title">जर मी माझ्या वॉलेटची की बॅकअप केली नाही तर माझे पैसे जातील हे मला समजते.</string>
+  <string name="backup_wallet_button">वॉलेट बॅकअप करा</string>
+  <string name="backup_success_save_on_email">आपली बॅकअप फाईल आपल्या ईमेलमध्ये आहे.</string>
+  <string name="backup_success_save_on_device">आपली बॅकअप फाईल आपल्या डिव्हाईसवर साठवली आहे.</string>
   <!--Backup DELETE-->
   <string name="backup_confirmation_body"></string>
   <string name="backup_confirmation_no"></string>
@@ -1055,31 +1055,31 @@
   <!--  NFTs -->
   <string name="nfts_title">एनएफटी</string>
   <string name="nfts_no_nfts">अजुनपर्यंत आपल्या ह्या वॉलेटमध्ये एनएफटी नाही!</string>
-  <string name="nfts_transact_button">Send this NFT</string>
-  <string name="nfts_transact_button_send">Send</string>
-  <string name="nfts_transact_button_next">Next</string>
-  <string name="nfts_transact_button_done">Done</string>
-  <string name="nfts_transact_button_success">Got it</string>
-  <string name="nfts_transact_tip">Enter your friend\'s wallet address</string>
-  <string name="nfts_transact_input_tip">Wallet address here...</string>
-  <string name="nfts_transact_done_mensage">%s successfully sent!</string>
-  <string name="nfts_generic_error">Oops! Something went wrong!</string>
-  <string name="nfts_transact_gas_title">Are you in a hurry?</string>
-  <string name="nfts_transact_gas_description">Choose how much you want to pay in fees. The higher the fee, the faster the transaction.</string>
-  <string name="nfts_transact_gas_price">Gas Price</string>
-  <string name="nfts_transact_gas_limit">Gas Limit</string>
-  <string name="nfts_transact_gas_fee_message">Transaction Fee</string>
-  <string name="nfts_transact_error_no_funds">Not enough funds! You don\'t have enough ETH to pay for the fees.</string>
-  <string name="nfts_transact_error_low_gas">Gas is too low! Increase your gas for the network to accept your transaction.</string>
-  <string name="nfts_transact_error_already_in_progress">This NFT is already being sent! A previous transaction is currently in progress.</string>
+  <string name="nfts_transact_button">ही एनएफटी पाठवा</string>
+  <string name="nfts_transact_button_send">पाठवा</string>
+  <string name="nfts_transact_button_next">पुढचे</string>
+  <string name="nfts_transact_button_done">झाले</string>
+  <string name="nfts_transact_button_success">समजले</string>
+  <string name="nfts_transact_tip">आपल्या स्नेह्याचा वॉलेट पत्ता भरा</string>
+  <string name="nfts_transact_input_tip">वॉलेट पत्ता इथे...</string>
+  <string name="nfts_transact_done_mensage">%s सफलतेने पाठविले!</string>
+  <string name="nfts_generic_error">अरेरे! काहीतरी चूक झाली!</string>
+  <string name="nfts_transact_gas_title">घाई आहे?</string>
+  <string name="nfts_transact_gas_description">शुल्क म्हणुन किती भरायचे ते निवडा. जितके जास्त शुल्क तितका लवकर व्यवहार.</string>
+  <string name="nfts_transact_gas_price">गॅस किंमत</string>
+  <string name="nfts_transact_gas_limit">गॅस सीमा</string>
+  <string name="nfts_transact_gas_fee_message">व्यवहार शुल्क</string>
+  <string name="nfts_transact_error_no_funds">पुरेसे पैसे नाहीत! शुल्क भरण्यासाठी पुरेसे ईटीएच आपल्याकडे नाहीत.</string>
+  <string name="nfts_transact_error_low_gas">गॅस फार कमी! आपला व्यवहार मान्य करविण्यासाठी नेटवर्कचा आपला गॅस वाढवा.</string>
+  <string name="nfts_transact_error_already_in_progress">ही एनएफटी आधीच पाठविली जात आहे! आधीचा व्यवहार सध्या प्रक्रियागत आहे.</string>
   <!-- Gift Card -->
-  <string name="gift_card_title">Redeem your gift card code</string>
-  <string name="gift_card_field">Card code here...</string>
-  <string name="gift_card_done_title">Code redeemed!</string>
-  <string name="gift_card_done_body">Check your transacions list.</string>
-  <string name="gift_card_error_general_title">Something went wrong!</string>
-  <string name="gift_card_error_general_body">Please try again or use a different code.</string>
-  <string name="gift_card_error_used_title">This code has already been used!</string>
-  <string name="gift_card_error_new_users_title">This code is only for new users!</string>
-  <string name="gift_card_error_try_with_different_body">Please try again with a different one.</string>
+  <string name="gift_card_title">आपला गिफ्ट कार्ड कोड रिडीम करा</string>
+  <string name="gift_card_field">कार्ड कोड इथे...</string>
+  <string name="gift_card_done_title">कोड रिडीम झाला!</string>
+  <string name="gift_card_done_body">आपल्या व्यवहारांची सूची तपासा.</string>
+  <string name="gift_card_error_general_title">काहीतरी चूक झाली!</string>
+  <string name="gift_card_error_general_body">कृपया पुन्हा प्रयत्न करा किंवा वेगळा कोड वापरा.</string>
+  <string name="gift_card_error_used_title">हा कोड आधीच वापरला गेला आहे!</string>
+  <string name="gift_card_error_new_users_title">हा कोड फक्त नविन वापरकर्त्यांसाठीच आहे!</string>
+  <string name="gift_card_error_try_with_different_body">वेगळ्यासह पुन्हा प्रयत्न करा.</string>
 </resources>
