@@ -1,6 +1,5 @@
 package com.asfoundation.wallet.ui.gamification
 
-import android.content.Context
 import android.content.res.ColorStateList
 import android.os.Build
 import android.view.View
@@ -17,20 +16,24 @@ import java.text.DecimalFormat
 
 
 class CurrentLevelViewHolder(
-    itemView: View,
-    private val currencyFormatUtils: CurrencyFormatUtils,
-    private val mapper: GamificationMapper,
-    private val uiEventListener: PublishSubject<Pair<String, Boolean>>
+  itemView: View,
+  private val currencyFormatUtils: CurrencyFormatUtils,
+  private val mapper: GamificationMapper,
+  private val uiEventListener: PublishSubject<Pair<String, Boolean>>
 ) :
-    LevelsViewHolder(itemView) {
+  LevelsViewHolder(itemView) {
 
   override fun bind(level: LevelItem) {
     val currentLevel = level as CurrentLevelItem
-    val progress = getProgressPercentage(currentLevel.amount, currentLevel.amountSpent,
-        currentLevel.nextLevelAmount)
-    val progressString = validateAndGetProgressString(progress)
-    handleSpecificLevel(currentLevel.level, progressString, currentLevel.bonus,
-        currentLevel.amountSpent, currentLevel.nextLevelAmount)
+    val progress = getProgressPercentage(currentLevel.amountSpent, currentLevel.nextLevelAmount)
+    val progressString = validateAndGetProgressString(
+      currentLevel.amountSpent,
+      currentLevel.nextLevelAmount
+    )
+    handleSpecificLevel(
+      currentLevel.level, progressString, currentLevel.bonus,
+      currentLevel.amountSpent, currentLevel.nextLevelAmount
+    )
     setProgress(progress)
     handleToggleButton(currentLevel.level)
     itemView.gamification_info_btn.setOnClickListener {
@@ -39,14 +42,16 @@ class CurrentLevelViewHolder(
   }
 
   private fun handleSpecificLevel(
-      level: Int, progressPercentage: String, bonus: Double,
-      amountSpent: BigDecimal, nextLevelAmount: BigDecimal?
+    level: Int, progressString: String, bonus: Double,
+    amountSpent: BigDecimal, nextLevelAmount: BigDecimal?
   ) {
     val currentLevelInfo = mapper.mapCurrentLevelInfo(level)
     itemView.current_level_image.setImageDrawable(currentLevelInfo.planet)
     setColor(currentLevelInfo.levelColor)
-    setText(currentLevelInfo.title, currentLevelInfo.phrase, progressPercentage, bonus, amountSpent,
-        nextLevelAmount)
+    setText(
+      currentLevelInfo.title, currentLevelInfo.phrase, progressString, bonus, amountSpent,
+      nextLevelAmount
+    )
   }
 
   private fun handleToggleButton(level: Int) {
@@ -66,36 +71,33 @@ class CurrentLevelViewHolder(
   }
 
   private fun setText(
-      title: String, phrase: String, progressPercentage: String,
-      bonus: Double, amountSpent: BigDecimal, nextLevelAmount: BigDecimal?
+    title: String, phrase: String, progressPercentage: String,
+    bonus: Double, amountSpent: BigDecimal, nextLevelAmount: BigDecimal?
   ) {
     itemView.current_level_title.text = title
     if (nextLevelAmount != null) {
       itemView.spend_amount_text.text =
-          itemView.context.getString(R.string.gamif_card_body,
-              currencyFormatUtils.formatGamificationValues(nextLevelAmount - amountSpent))
+        itemView.context.getString(
+          R.string.gamif_card_body,
+          currencyFormatUtils.formatGamificationValues(nextLevelAmount - amountSpent)
+        )
     } else {
       itemView.spend_amount_text.visibility = View.INVISIBLE
     }
     itemView.current_level_phrase.text = phrase
     val df = DecimalFormat("###.#")
     itemView.current_level_bonus.text =
-        itemView.context.getString(R.string.gamif_bonus, df.format(bonus))
-    itemView.percentage_left.text = "$progressPercentage%"
+      itemView.context.getString(R.string.gamif_bonus, df.format(bonus))
+    itemView.percentage_left.text = progressPercentage
   }
 
   private fun getProgressPercentage(
-      levelAmount: BigDecimal, amountSpent: BigDecimal,
-      nextLevelAmount: BigDecimal?
+    amountSpent: BigDecimal,
+    nextLevelAmount: BigDecimal?
   ): BigDecimal {
     return if (nextLevelAmount != null) {
-      var levelRange = nextLevelAmount.subtract(levelAmount)
-      if (levelRange.toDouble() == 0.0) {
-        levelRange = BigDecimal.ONE
-      }
-      val amountSpentInLevel = amountSpent.subtract(levelAmount)
-      amountSpentInLevel.divide(levelRange, 2, RoundingMode.DOWN)
-          .multiply(BigDecimal(100))
+      val levelRange = nextLevelAmount.max(BigDecimal.ONE)
+      amountSpent.multiply(BigDecimal(100)).divide(levelRange, 2, RoundingMode.DOWN)
     } else {
       BigDecimal(100)
     }
@@ -109,9 +111,13 @@ class CurrentLevelViewHolder(
     }
   }
 
-  private fun validateAndGetProgressString(progress: BigDecimal): String {
-    return if (progress >= BigDecimal.ZERO && progress <= BigDecimal(100.0)) {
-      currencyFormatUtils.formatGamificationValues(progress)
+  private fun validateAndGetProgressString(
+    spent: BigDecimal,
+    next: BigDecimal?
+  ): String {
+    return if (spent >= BigDecimal.ZERO && spent <= next ?: BigDecimal.ZERO) {
+      val format = currencyFormatUtils.formatShortGamificationValues
+      "${format(spent)} / ${format(next ?: BigDecimal.ZERO)}"
     } else {
       ""
     }

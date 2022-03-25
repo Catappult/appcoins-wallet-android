@@ -7,13 +7,16 @@ import java.text.DecimalFormat
 import java.text.NumberFormat
 import javax.inject.Inject
 
-class CurrencyFormatUtils @Inject constructor(){
+class CurrencyFormatUtils @Inject constructor() {
 
   companion object {
     const val FIAT_SCALE = 2
     const val APPC_SCALE = 2
     const val CREDITS_SCALE = 2
     const val ETH_SCALE = 4
+    val BILLION = BigDecimal(1_000_000_000)
+    val MILLION = BigDecimal(1_000_000)
+    val THOUSAND = BigDecimal(1_000)
   }
 
   fun formatCurrency(value: BigDecimal, currencyType: WalletCurrency): String {
@@ -39,47 +42,55 @@ class CurrencyFormatUtils @Inject constructor(){
     return formatCurrencyFiat(value)
   }
 
-  private fun formatCurrencyFiat(value: Double,
-                                 rounding: RoundingMode? = RoundingMode.FLOOR): String {
+  private fun formatCurrencyFiat(
+    value: Double,
+    rounding: RoundingMode = RoundingMode.FLOOR
+  ): String {
     val fiatFormatter = NumberFormat.getNumberInstance()
-        .apply {
-          minimumFractionDigits = FIAT_SCALE
-          maximumFractionDigits = FIAT_SCALE
-          roundingMode = rounding
-        }
+      .apply {
+        minimumFractionDigits = FIAT_SCALE
+        maximumFractionDigits = FIAT_SCALE
+        roundingMode = rounding
+      }
     return fiatFormatter.format(value)
   }
 
-  private fun formatCurrencyAppcoins(value: Double,
-                                     rounding: RoundingMode? = RoundingMode.FLOOR): String {
+  private fun formatCurrencyAppcoins(
+    value: Double,
+    rounding: RoundingMode = RoundingMode.FLOOR
+  ): String {
     val appcFormatter = NumberFormat.getNumberInstance()
-        .apply {
-          minimumFractionDigits = APPC_SCALE
-          maximumFractionDigits = APPC_SCALE
-          roundingMode = rounding
-        }
+      .apply {
+        minimumFractionDigits = APPC_SCALE
+        maximumFractionDigits = APPC_SCALE
+        roundingMode = rounding
+      }
     return appcFormatter.format(value)
   }
 
-  private fun formatCurrencyCredits(value: Double,
-                                    rounding: RoundingMode? = RoundingMode.FLOOR): String {
+  private fun formatCurrencyCredits(
+    value: Double,
+    rounding: RoundingMode = RoundingMode.FLOOR
+  ): String {
     val creditsFormatter = NumberFormat.getNumberInstance()
-        .apply {
-          minimumFractionDigits = CREDITS_SCALE
-          maximumFractionDigits = CREDITS_SCALE
-          roundingMode = rounding
-        }
+      .apply {
+        minimumFractionDigits = CREDITS_SCALE
+        maximumFractionDigits = CREDITS_SCALE
+        roundingMode = rounding
+      }
     return creditsFormatter.format(value)
   }
 
-  private fun formatCurrencyEth(value: Double,
-                                rounding: RoundingMode? = RoundingMode.FLOOR): String {
+  private fun formatCurrencyEth(
+    value: Double,
+    rounding: RoundingMode = RoundingMode.FLOOR
+  ): String {
     val ethFormatter = NumberFormat.getNumberInstance()
-        .apply {
-          minimumFractionDigits = ETH_SCALE
-          maximumFractionDigits = ETH_SCALE
-          roundingMode = rounding
-        }
+      .apply {
+        minimumFractionDigits = ETH_SCALE
+        maximumFractionDigits = ETH_SCALE
+        roundingMode = rounding
+      }
     return ethFormatter.format(value)
   }
 
@@ -91,12 +102,12 @@ class CurrencyFormatUtils @Inject constructor(){
       else -> throw IllegalArgumentException()
     }
     val transferFormatter = DecimalFormat("#,##0.00")
-        .apply {
-          minimumFractionDigits = scale
-          maximumFractionDigits = 15
-          isParseBigDecimal = true
-          roundingMode = RoundingMode.FLOOR
-        }
+      .apply {
+        minimumFractionDigits = scale
+        maximumFractionDigits = 15
+        isParseBigDecimal = true
+        roundingMode = RoundingMode.FLOOR
+      }
     return transferFormatter.format(value)
   }
 
@@ -112,6 +123,15 @@ class CurrencyFormatUtils @Inject constructor(){
   fun formatGamificationValues(value: BigDecimal): String {
     val formatter = DecimalFormat("#,###.##")
     return formatter.format(value)
+  }
+
+  val formatShortGamificationValues: (value: BigDecimal) -> String = { value ->
+    when {
+      value >= BILLION -> "${formatGamificationValues(value.divide(BILLION))}b"
+      value >= MILLION -> "${formatGamificationValues(value.divide(MILLION))}m"
+      value >= THOUSAND -> "${formatGamificationValues(value.divide(THOUSAND))}k"
+      else -> formatGamificationValues(value)
+    }
   }
 
   fun scaleFiat(value: BigDecimal): BigDecimal = value.setScale(FIAT_SCALE, BigDecimal.ROUND_FLOOR)
