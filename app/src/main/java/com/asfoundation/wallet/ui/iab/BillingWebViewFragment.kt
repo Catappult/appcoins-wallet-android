@@ -11,8 +11,10 @@ import android.view.ViewGroup
 import android.webkit.CookieManager
 import android.webkit.WebView
 import android.webkit.WebViewClient
+import com.appcoins.wallet.commons.Logger
 import com.asf.wallet.BuildConfig
 import com.asf.wallet.R
+import com.asfoundation.wallet.billing.adyen.AdyenPaymentPresenter
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics
 import com.asfoundation.wallet.util.Log
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
@@ -33,13 +35,16 @@ class BillingWebViewFragment : BasePageViewFragment() {
 
   @Inject
   lateinit var inAppPurchaseInteractor: InAppPurchaseInteractor
-
   @Inject
   lateinit var analytics: BillingAnalytics
+  @Inject
+  lateinit var logger: Logger
+
   lateinit var currentUrl: String
   private var executorService: ScheduledExecutorService? = null
   private var webViewActivity: WebViewActivity? = null
   private var asyncDetailsShown = false
+  private val TAG = BillingWebViewFragment::class.java.name
 
   companion object {
     private const val CARRIER_BILLING_RETURN_SCHEMA = "https://%s/return/carrier_billing"
@@ -206,7 +211,7 @@ class BillingWebViewFragment : BasePageViewFragment() {
           if(fallbackUrl != null) {
             webView.loadUrl(fallbackUrl)
           } else {
-            Log.e("webview", "Was not able to open external app from the webview...")
+            logger.log(TAG, "Unable to open external app from the webview")
           }
         }
       }
