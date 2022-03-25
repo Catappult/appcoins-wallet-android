@@ -9,7 +9,7 @@
   <string name="bottom_navigation_my_wallets">マイ・ウオレット</string>
   <!-- Strings relatedwalletount creation -->
   <string name="prompt_password">パスワード</string>
-  <string name="action_sign_in_short">Create</string>
+  <string name="action_sign_in_short">作成</string>
   <!-- String related to sending -->
   <string name="prompt_to">宛て</string>
   <string name="action_send">送信する</string>
@@ -120,7 +120,7 @@
   <string name="intro_2_title">支払いを減らして、もっとプレーする</string>
   <string name="intro_2_body">あなたのお気に入りのアプリやゲーム内のアイテムを購入するために報酬を手に入れる</string>
   <string name="intro_3_title">シンプルで簡単</string>
-  <string name="intro_3_body">Keep the AppCoins Wallet installed to directly purchase in your games.</string>
+  <string name="intro_3_body">AppCoins Walletをインストールしておくと、ゲーム内で直接購入することができます。</string>
   <string name="intro_4_title">安全でプレイベート</string>
   <string name="intro_4_body">あなたのプライベート鍵がデバイスから消えることはありませんので、あなたのAppCoinsは常に安全です。</string>
   <string name="intro_4_body_2">最新のテクノロジーにより、お客様の取引は常に安全です。</string>
@@ -131,10 +131,10 @@
   <string name="intro_agree_terms_and_conditions_body">\"\"\"スキップをタップすることで、AppCoinウォレットの %1$s と %2$s に同意します
  \"\"\"</string>
   <string name="intro_skip_button">スキップ</string>
-  <string name="intro_welcome_header">Welcome to the AppCoins Wallet</string>
-  <string name="intro_welcome_body">Your app for in-app purchases.</string>
-  <string name="intro_already_have_wallet_button">I already have a wallet</string>
-  <string name="intro_get_started_button">Get started</string>
+  <string name="intro_welcome_header">AppCoinsウォレットへようこそ</string>
+  <string name="intro_welcome_body">アプリ内課金用のアプリ</string>
+  <string name="intro_already_have_wallet_button">ウォレットをすでに持っています</string>
+  <string name="intro_get_started_button">始める</string>
   <!-- Menus -->
   <!-- Labels -->
   <string name="label_from">差出人</string>
@@ -159,7 +159,7 @@
   <string name="action_more_details">もっと</string>
   <string name="action_add_wallet">ウォレットを追加する</string>
   <string name="action_coinbase">Coinbase</string>
-  <string name="action_shapeshift">Shapeshift (Crypto only)</string>
+  <string name="action_shapeshift">Shapeshift (暗号のみ)</string>
   <string name="action_changelly">Changelly</string>
   <string name="action_wallets">ウォレット</string>
   <string name="action_next">次に</string>
@@ -264,7 +264,7 @@
   <string name="ellipsize">\u0020• • •</string>
   <string name="transaction_status_label">状況</string>
   <string name="transaction_category_label">カテゴリー</string>
-  <string name="transaction_order_reference_label">Order ID</string>
+  <string name="transaction_order_reference_label">オーダーID</string>
   <string name="transaction_details_label">詳細</string>
   <string name="transaction_to_label">宛て</string>
   <string name="dialog_credit_card_remember">リメンバーカード</string>
@@ -272,7 +272,7 @@
   <string name="dialog_credit_card_number">カード番号</string>
   <string name="dialog_credit_card_expiration">有効期限</string>
   <string name="dialog_credit_card_cvv">CVV</string>
-  <string name="dialog_bank_card">Credit/debit card</string>
+  <string name="dialog_bank_card">クレジット/デビットカード</string>
   <string name="dialog_expiry_date">有効期限</string>
   <string name="activity_airdrop_title">あなたがAppCoinsを受け取る人間であることを確認してください</string>
   <string name="activity_airdrop_details">これはセキュリティ上の問題です。</string>
@@ -318,7 +318,7 @@
   <string name="gamification_how_table_b1">ボーナス</string>
   <string name="gamification_how_table_a2">%s APPC</string>
   <string name="gamification_how_table_b2">%s %%</string>
-  <string name="gamification_how_table_level">LEVEL</string>
+  <string name="gamification_how_table_level">レベル</string>
   <string name="gamification_how_terms_and_conditions">条件</string>
   <string name="gamification_how_spend">APPC %s を使う</string>
   <string name="gamification_a_comet_title">彗星</string>
