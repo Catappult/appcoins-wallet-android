@@ -11,7 +11,6 @@ import android.view.View
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.SwitchPreferenceCompat
-import com.asf.wallet.BuildConfig
 import com.asf.wallet.R
 import com.asfoundation.wallet.billing.analytics.PageViewAnalytics
 import com.asfoundation.wallet.change_currency.ChangeFiatCurrencyActivity
@@ -24,14 +23,12 @@ import com.asfoundation.wallet.promo_code.SettingsPreferencePromoCodeState
 import com.asfoundation.wallet.promo_code.repository.PromoCode
 import com.asfoundation.wallet.subscriptions.SubscriptionActivity
 import com.asfoundation.wallet.ui.settings.SettingsActivityView
-import com.asfoundation.wallet.util.getLanguageAndCountryCodes
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.preference_fingerprint.*
 import kotlinx.android.synthetic.main.preference_fingerprint_off.*
-import java.util.*
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -113,7 +110,7 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
   private fun openPermissionScreen(): Boolean {
     context?.let {
       val intent = ManagePermissionsActivity.newIntent(it)
-          .apply { flags = Intent.FLAG_ACTIVITY_SINGLE_TOP }
+        .apply { flags = Intent.FLAG_ACTIVITY_SINGLE_TOP }
       startActivity(intent)
     }
     return true
@@ -122,9 +119,9 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
   private fun openSubscriptionsScreen(): Boolean {
     context?.let {
       val intent = SubscriptionActivity.newIntent(it)
-          .apply {
-            flags = Intent.FLAG_ACTIVITY_SINGLE_TOP
-          }
+        .apply {
+          flags = Intent.FLAG_ACTIVITY_SINGLE_TOP
+        }
       startActivity(intent)
     }
     return true
@@ -133,7 +130,7 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
   override fun showError() {
     view?.let {
       Snackbar.make(it, R.string.unknown_error, Snackbar.LENGTH_SHORT)
-          .show()
+        .show()
     }
   }
 
@@ -143,7 +140,7 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
     settingsCurrencyPreference?.setOnPreferenceClickListener {
       context?.let {
         val intent = ChangeFiatCurrencyActivity.newIntent(it)
-            .apply { flags = Intent.FLAG_ACTIVITY_SINGLE_TOP }
+          .apply { flags = Intent.FLAG_ACTIVITY_SINGLE_TOP }
         startActivity(intent)
       }
 
@@ -170,10 +167,7 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
   override fun setRedeemCodePreference(walletAddress: String) {
     val redeemPreference = findPreference<Preference>("pref_redeem")
     redeemPreference?.setOnPreferenceClickListener {
-      startBrowserActivity(Uri.parse(
-          BuildConfig.MY_APPCOINS_BASE_HOST + "redeem?wallet_address=" + walletAddress +
-              "&lang=" + Locale.getDefault()
-              .getLanguageAndCountryCodes()), false)
+      presenter.onRedeemGiftPreferenceClick()
       false
     }
   }
@@ -339,8 +333,10 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
     privacyPolicyPreference?.setOnPreferenceClickListener {
       // NOTE - if this gets moved to myappcoins domain, don't forget to add "lang" parameter
       //  just like it is done for setRedeemCodePreference (this class)
-      startBrowserActivity(Uri.parse("https://catappult.io/appcoins-wallet/privacy-policy"),
-          false)
+      startBrowserActivity(
+        Uri.parse("https://catappult.io/appcoins-wallet/privacy-policy"),
+        false
+      )
       false
     }
   }
@@ -350,8 +346,10 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
     termsConditionsPreference?.setOnPreferenceClickListener {
       // NOTE - if this gets moved to myappcoins domain, don't forget to add "lang" parameter
       //  just like it is done for setRedeemCodePreference (this class)
-      startBrowserActivity(Uri.parse("https://catappult.io/appcoins-wallet/terms-conditions"),
-          false)
+      startBrowserActivity(
+        Uri.parse("https://catappult.io/appcoins-wallet/terms-conditions"),
+        false
+      )
       false
     }
   }
@@ -360,11 +358,12 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
     val creditsPreference = findPreference<Preference>("pref_credits")
     creditsPreference?.setOnPreferenceClickListener {
       AlertDialog.Builder(activity)
-          .setPositiveButton(R.string.close
-          ) { dialog, _ -> dialog.dismiss() }
-          .setMessage(R.string.settings_fragment_credits)
-          .create()
-          .show()
+        .setPositiveButton(
+          R.string.close
+        ) { dialog, _ -> dialog.dismiss() }
+        .setMessage(R.string.settings_fragment_credits)
+        .create()
+        .show()
       true
     }
   }

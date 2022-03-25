@@ -11,6 +11,7 @@ import com.asfoundation.wallet.eskills.withdraw.repository.WithdrawApi
 import com.asfoundation.wallet.logging.send_logs.SendLogsRepository
 import com.asfoundation.wallet.nfts.repository.NftApi
 import com.asfoundation.wallet.promo_code.repository.PromoCodeRepository
+import com.asfoundation.wallet.redeem_gift.repository.RedeemGiftRepository
 import com.asfoundation.wallet.repository.IpCountryCodeProvider
 import com.asfoundation.wallet.repository.OffChainTransactionsRepository
 import com.asfoundation.wallet.service.AutoUpdateService
@@ -126,6 +127,14 @@ class BackendApiModule {
     @BackendDefaultRetrofit retrofit: Retrofit
   ): PromoCodeRepository.PromoCodeBackendApi {
     return retrofit.create(PromoCodeRepository.PromoCodeBackendApi::class.java)
+  }
+
+  @Singleton
+  @Provides
+  fun providesRedeemGiftBackendApi(
+    @BackendDefaultRetrofit retrofit: Retrofit
+  ): RedeemGiftRepository.RedeemGiftBackendApi {
+    return retrofit.create(RedeemGiftRepository.RedeemGiftBackendApi::class.java)
   }
 
   @Singleton

@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/redeem_gift_bottom_sheet_layout"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/bottom_sheet_small_height"
+    android:background="@drawable/rounded_dialog"
+    android:clipChildren="false"
+    android:clipToPadding="false"
+    android:orientation="vertical"
+    android:paddingHorizontal="32dp"
+    android:paddingTop="32dp"
+    android:paddingBottom="36dp"
+    >
+
+  <!--  Insert gift code: -->
+  <TextView
+      android:id="@+id/redeem_gift_bottom_sheet_title"
+      style="@style/RedeemGiftTitle"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="@string/gift_card_title"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      />
+
+  <androidx.constraintlayout.widget.ConstraintLayout
+      android:id="@+id/redeem_gift_bottom_sheet_text_rectangle"
+      android:layout_width="match_parent"
+      android:layout_height="49dp"
+      android:layout_marginTop="14dp"
+      android:background="@drawable/rectangle_text_default_promo_code"
+      android:paddingHorizontal="16dp"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/redeem_gift_bottom_sheet_title"
+      >
+
+    <EditText
+        android:id="@+id/redeem_gift_bottom_sheet_string"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:hint="@string/gift_card_field"
+        android:imeActionLabel="@string/prompt_to"
+        android:imeOptions="actionUnspecified|flagNoFullscreen|flagNoExtractUi"
+        android:inputType="text"
+        android:maxLines="1"
+        android:maxLength="16"
+        android:paddingEnd="@dimen/large_margin"
+        app:layout_constraintBottom_toBottomOf="@id/redeem_gift_bottom_sheet_text_rectangle"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/redeem_gift_bottom_sheet_text_rectangle"
+        />
+
+  </androidx.constraintlayout.widget.ConstraintLayout>
+
+  <com.asfoundation.wallet.ui.common.WalletButtonView
+      android:id="@+id/redeem_gift_bottom_sheet_submit_button"
+      android:layout_width="0dp"
+      android:layout_height="@dimen/onboarding_button_height"
+      android:layout_marginTop="35dp"
+      app:buttonText="@string/action_next"
+      app:buttonType="filled"
+      app:layout_constraintTop_toBottomOf="@id/redeem_gift_bottom_sheet_text_rectangle"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      />
+
+  <com.asfoundation.wallet.widget.SystemView
+      android:id="@+id/redeem_gift_bottom_sheet_system_view"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:background="@color/white"
+      android:visibility="gone"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      />
+
+
+  <!--  Success messages: -->
+  <com.airbnb.lottie.LottieAnimationView
+      android:id="@+id/redeem_gift_bottom_sheet_success_animation"
+      android:layout_width="80dp"
+      android:layout_height="80dp"
+      android:layout_centerInParent="true"
+      app:lottie_enableMergePathsForKitKatAndAbove="true"
+      app:lottie_loop="true"
+      app:lottie_rawRes="@raw/fade_in_create_wallet"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/redeem_gift_bottom_sheet_success_title"
+      app:layout_constraintTop_toTopOf="parent"
+      />
+
+  <TextView
+      android:id="@+id/redeem_gift_bottom_sheet_success_title"
+      style="@style/RedeemGiftSuccessTitle"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="12dp"
+      android:text="@string/gift_card_done_title"
+      android:visibility="gone"
+      app:layout_constraintBottom_toTopOf="@id/redeem_gift_bottom_sheet_success_subtitle"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/redeem_gift_bottom_sheet_success_animation"
+      />
+
+  <TextView
+      android:id="@+id/redeem_gift_bottom_sheet_success_subtitle"
+      style="@style/RedeemGiftSuccessSubtitle"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="8dp"
+      android:text="@string/gift_card_done_body"
+      android:textAlignment="center"
+      android:visibility="gone"
+      app:layout_constraintBottom_toTopOf="@id/redeem_gift_bottom_sheet_success_got_it_button"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/redeem_gift_bottom_sheet_success_title"
+      />
+
+  <com.asfoundation.wallet.ui.common.WalletButtonView
+      android:id="@+id/redeem_gift_bottom_sheet_success_got_it_button"
+      android:layout_width="0dp"
+      android:layout_height="@dimen/onboarding_button_height"
+      android:layout_marginTop="14dp"
+      app:buttonText="@string/got_it_button"
+      app:buttonType="filled"
+      android:visibility="gone"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/redeem_gift_bottom_sheet_success_subtitle"
+      />
+
+
+  <!--  Error messages: -->
+  <com.airbnb.lottie.LottieAnimationView
+      android:id="@+id/redeem_gift_bottom_sheet_error_animation"
+      android:layout_width="80dp"
+      android:layout_height="80dp"
+      android:layout_centerInParent="true"
+      app:lottie_enableMergePathsForKitKatAndAbove="true"
+      app:lottie_loop="true"
+      app:lottie_rawRes="@raw/fade_in_create_wallet"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/redeem_gift_bottom_sheet_error_title"
+      app:layout_constraintTop_toTopOf="parent"
+      />
+
+  <TextView
+      android:id="@+id/redeem_gift_bottom_sheet_error_title"
+      style="@style/RedeemGiftSuccessTitle"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="12dp"
+      android:text="@string/error_general"
+      android:visibility="gone"
+      app:layout_constraintBottom_toTopOf="@id/redeem_gift_bottom_sheet_error_subtitle"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/redeem_gift_bottom_sheet_error_animation"
+      />
+
+  <TextView
+      android:id="@+id/redeem_gift_bottom_sheet_error_subtitle"
+      style="@style/RedeemGiftSuccessSubtitle"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="8dp"
+      android:text="@string/gift_card_error_general_body"
+      android:textAlignment="center"
+      android:visibility="gone"
+      app:layout_constraintBottom_toTopOf="@id/redeem_gift_bottom_sheet_error_button"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/redeem_gift_bottom_sheet_error_title"
+      />
+
+  <com.asfoundation.wallet.ui.common.WalletButtonView
+      android:id="@+id/redeem_gift_bottom_sheet_error_button"
+      android:layout_width="0dp"
+      android:layout_height="@dimen/onboarding_button_height"
+      android:layout_marginTop="14dp"
+      app:buttonText="@string/try_again"
+      app:buttonType="filled"
+      android:visibility="gone"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/redeem_gift_bottom_sheet_error_subtitle"
+      />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

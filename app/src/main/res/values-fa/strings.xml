@@ -442,6 +442,8 @@
   <string name="withdraw_button">خارج‌کردن</string>
   <string name="email_here_field">نشانی ایمیل شما در اینجا&#8230;</string>
   <string name="understood_button">متوجه!</string>
+  <string name="skip_button">Skip for now</string>
+  <string name="understand_button">I understand</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">با %1$s و %2$s کیف پول AppCoins موافقم.</string>
   <string name="terms_and_conditions_error">برای ادامه، لطفا شرایط، مقررات و قوانین حریم خصوصی را تایید کنید</string>
@@ -553,6 +555,7 @@
   <string name="purchase_error_verify_card">برای تکمیل این خرید، کارت خود را معتبرسازی کنید.</string>
   <string name="purachse_error_verify_card_button">معتبرسازی کارت</string>
   <string name="purchase_eskills_sku">بلیت ورود</string>
+  <string name="purchase_paytmupi_install_disclaimer">You\'ll need to install Paytm UPI app.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">نشانی پرداخت</string>
   <string name="purchase_address_address_field">نشانی</string>
@@ -629,19 +632,9 @@
   <!--Backup and Import-->
   <string name="backup_home_notification_title">پشتیبان‌گیری از کیف پول خود</string>
   <string name="backup_home_notification_body">آیا موبایل خود را گم‌کرده‌اید؟ از کیف پول خود همین حالا پشتیان‌گیری کنید!</string>
-  <string name="backup_password_title">کدگذاری از کیف پول (اختیاری)</string>
-  <string name="backup_confirmation_title">فقط یک قدم دیگر</string>
-  <string name="backup_confirmation_body">بک‌آپ خود را امن نگه دارید! در کجا ذخیره شود؟</string>
-  <string name="backup_confirmation_yes">بله، تمام شد</string>
-  <string name="backup_confirmation_no">نه، ذخیره روی دستگاه</string>
-  <string name="backup_done_body">آیا مطمئن هستید که فایل بک‌آپ شما در جای امنی قرار دارد؟</string>
   <string name="backup_confirmation_no_share_title">بک‌آپ تکمیل شد!</string>
-  <string name="backup_confirmation_no_share_body">بک‌آپ شما در پوشه دانلودهای شماست.</string>
   <string name="backup_save_dialogue_title">ذخیره فایل بک‌آپ</string>
   <string name="backup_save_dialogue_body">نامی برای فایل بک‌آپ خود انتخاب کنید.</string>
-  <string name="backup_send_via_title">ارسال بک‌آپ از طریق:</string>
-  <string name="backup_send_button">ارسال بک‌آپ</string>
-  <string name="backup_save_button">ذخیره بک‌آپ</string>
   <string name="import_wallet_title">بازیابی کیف‌پول</string>
   <string name="import_wallet_body">پشتیبان‌گیری کیف‌ پول خود را در زیر قرار دهید.</string>
   <string name="import_wallet_keystore_private_keys">Keystore یا private keys</string>
@@ -652,21 +645,19 @@
   <string name="import_wallet_wrong_password_body">اوه، رمز عبور اشتباه است!</string>
   <string name="error_invalid_private_key">کلید خصوصی غیرمعتبر</string>
   <string name="error_invalid_keystore">keystore نامعتبر</string>
-  <string name="backup_title">پشتیبان‌گیری از کیف‌پول</string>
+  <string name="backup_title">Backup your wallet now!</string>
   <string name="backup_body">ما کلید خصوصی و سایر روش‌های دسترسی شما را ذخیره نمی‌کنیم. مهم است که پشتیبان‌گیری کیف‌پول (keystore) خود در جای امنی ذخیره کنید.</string>
   <string name="backup_additional_security_title">افزایش امنیت (اختیاری)</string>
   <string name="backup_additional_security_body">انتخاب رمزعبور</string>
   <string name="backup_button">کیف پول پشتیبان</string>
-  <string name="backup_password">رمزعبور</string>
-  <string name="backup_ready_title">بک‌آپ شما آماده است! از آن محافظت کنید.</string>
+  <string name="backup_ready_title">Your backup is ready!\nKeep it safe.</string>
   <string name="backup_ready_save_on_email">روی ایمیل خود آن را ذخیره کنید</string>
   <string name="backup_ready_email_button">به ایمیل ارسال کنید</string>
   <string name="backup_ready_device_button">روی دستگاه ذخیره کنید</string>
-  <string name="backup_done_title">بک‌آپ تکمیل شد!</string>
   <string name="backup_confirmation_tips_title">فایل را محفوظ نگه دارید:</string>
-  <string name="backup_confirmation_tips_1">آن را پرینت و در جای امنی نگه‌داری کنید.</string>
-  <string name="backup_confirmation_tips_2">آن را روی یک USB ذخیره کنید.</string>
-  <string name="backup_confirmation_tips_3">آن را به یک ذخیره ابری شخصی و امن منتقل کنید.</string>
+  <string name="backup_confirmation_tips_1"><b>Print it</b> and store it somewhere safe.</string>
+  <string name="backup_confirmation_tips_2"><b>Save it</b> on a USB drive.</string>
+  <string name="backup_confirmation_tips_3"><b>Copy it</b> to a private and secure cloud storage.</string>
   <string name="backup_tooltip_body">از کیف پول خود یک بک‌آپ بگیرید!</string>
   <string name="backup_tooltip_later_button">شاید بعدا</string>
   <string name="backup_tooltip_backup_button">بک‌آپ</string>
@@ -677,6 +668,23 @@
   <string name="backup_additional_security_disclaimer_body">بازیابی برای رمزعبور وجود ندارد.</string>
   <string name="backup_additional_security_password_not_march">رمزعبور همخوانی ندارد.</string>
   <string name="import_wallet_recovering_body">بازیابی کیف‌پول...</string>
+  <string name="backup_skip_title">I understand that I may loose my funds if I don\'t backup my wallet key.</string>
+  <string name="backup_wallet_button">Backup wallet</string>
+  <string name="backup_success_save_on_email">Your backup file is in your email.</string>
+  <string name="backup_success_save_on_device">Your backup file is stored in your device.</string>
+  <!--Backup DELETE-->
+  <string name="backup_confirmation_body"></string>
+  <string name="backup_confirmation_no"></string>
+  <string name="backup_confirmation_no_share_body"></string>
+  <string name="backup_confirmation_title"></string>
+  <string name="backup_confirmation_yes"></string>
+  <string name="backup_done_body"></string>
+  <string name="backup_done_title"></string>
+  <string name="backup_password"></string>
+  <string name="backup_password_title"></string>
+  <string name="backup_save_button"></string>
+  <string name="backup_send_button"></string>
+  <string name="backup_send_via_title"></string>
   <!--Wallets Management-->
   <string name="wallets_title">کیف‌پول‌ها</string>
   <string name="wallets_total_balance_title">تراز کلی در %s</string>

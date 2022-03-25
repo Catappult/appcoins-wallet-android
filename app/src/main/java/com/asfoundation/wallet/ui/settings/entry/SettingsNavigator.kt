@@ -11,6 +11,7 @@ import com.asfoundation.wallet.recover.RecoverActivity
 import com.asfoundation.wallet.ui.AuthenticationPromptActivity
 import com.asfoundation.wallet.ui.settings.wallets.SettingsWalletsFragment
 import com.asfoundation.wallet.ui.wallets.WalletsModel
+import com.asfoundation.wallet.redeem_gift.bottom_sheet.RedeemGiftBottomSheetFragment
 import javax.inject.Inject
 
 class SettingsNavigator @Inject constructor(private val fragmentManager: FragmentManager,
@@ -46,7 +47,12 @@ class SettingsNavigator @Inject constructor(private val fragmentManager: Fragmen
 
   fun showPromoCodeFragment() {
     PromoCodeBottomSheetFragment.newInstance()
-        .show(fragmentManager, "PromoCodeBottomSheet")
+      .show(fragmentManager, "PromoCodeBottomSheet")
+  }
+
+  fun showRedeemGiftFragment() {
+    RedeemGiftBottomSheetFragment.newInstance()
+      .show(fragmentManager, "RedeemGiftBottomSheet")
   }
 
   fun navigateToRecoverWalletActivity() {

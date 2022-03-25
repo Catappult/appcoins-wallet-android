@@ -9,7 +9,7 @@
   <string name="bottom_navigation_my_wallets">マイ・ウオレット</string>
   <!-- Strings relatedwalletount creation -->
   <string name="prompt_password">パスワード</string>
-  <string name="action_sign_in_short">Create</string>
+  <string name="action_sign_in_short">作成</string>
   <!-- String related to sending -->
   <string name="prompt_to">宛て</string>
   <string name="action_send">送信する</string>
@@ -120,7 +120,7 @@
   <string name="intro_2_title">支払いを減らして、もっとプレーする</string>
   <string name="intro_2_body">あなたのお気に入りのアプリやゲーム内のアイテムを購入するために報酬を手に入れる</string>
   <string name="intro_3_title">シンプルで簡単</string>
-  <string name="intro_3_body">Keep the AppCoins Wallet installed to directly purchase in your games.</string>
+  <string name="intro_3_body">AppCoins Walletをインストールしておくと、ゲーム内で直接購入することができます。</string>
   <string name="intro_4_title">安全でプレイベート</string>
   <string name="intro_4_body">あなたのプライベート鍵がデバイスから消えることはありませんので、あなたのAppCoinsは常に安全です。</string>
   <string name="intro_4_body_2">最新のテクノロジーにより、お客様の取引は常に安全です。</string>
@@ -131,10 +131,10 @@
   <string name="intro_agree_terms_and_conditions_body">\"\"\"スキップをタップすることで、AppCoinウォレットの %1$s と %2$s に同意します
  \"\"\"</string>
   <string name="intro_skip_button">スキップ</string>
-  <string name="intro_welcome_header">Welcome to the AppCoins Wallet</string>
-  <string name="intro_welcome_body">Your app for in-app purchases.</string>
-  <string name="intro_already_have_wallet_button">I already have a wallet</string>
-  <string name="intro_get_started_button">Get started</string>
+  <string name="intro_welcome_header">AppCoinsウォレットへようこそ</string>
+  <string name="intro_welcome_body">アプリ内課金用のアプリ</string>
+  <string name="intro_already_have_wallet_button">ウォレットをすでに持っています</string>
+  <string name="intro_get_started_button">始める</string>
   <!-- Menus -->
   <!-- Labels -->
   <string name="label_from">差出人</string>
@@ -159,7 +159,7 @@
   <string name="action_more_details">もっと</string>
   <string name="action_add_wallet">ウォレットを追加する</string>
   <string name="action_coinbase">Coinbase</string>
-  <string name="action_shapeshift">Shapeshift (Crypto only)</string>
+  <string name="action_shapeshift">Shapeshift (暗号のみ)</string>
   <string name="action_changelly">Changelly</string>
   <string name="action_wallets">ウォレット</string>
   <string name="action_next">次に</string>
@@ -243,7 +243,7 @@
   <string name="transaction_type_standard">移動</string>
   <string name="transaction_type_bonus">ボーナス</string>
   <string name="transaction_type_eskills_reward">Eskills Reward</string>
-  <string name="transaction_type_eskills">e-Skills Purchase</string>
+  <string name="transaction_type_eskills">e-Skills購入</string>
   <string name="transaction_type_voucher">eギフト券</string>
   <string name="transaction_type_voucher_title">%sのクーポン</string>
   <string name="transaction_type_reverted_bonus_title">還元されたボーナス</string>
@@ -264,7 +264,7 @@
   <string name="ellipsize">\u0020• • •</string>
   <string name="transaction_status_label">状況</string>
   <string name="transaction_category_label">カテゴリー</string>
-  <string name="transaction_order_reference_label">Order ID</string>
+  <string name="transaction_order_reference_label">オーダーID</string>
   <string name="transaction_details_label">詳細</string>
   <string name="transaction_to_label">宛て</string>
   <string name="dialog_credit_card_remember">リメンバーカード</string>
@@ -272,7 +272,7 @@
   <string name="dialog_credit_card_number">カード番号</string>
   <string name="dialog_credit_card_expiration">有効期限</string>
   <string name="dialog_credit_card_cvv">CVV</string>
-  <string name="dialog_bank_card">Credit/debit card</string>
+  <string name="dialog_bank_card">クレジット/デビットカード</string>
   <string name="dialog_expiry_date">有効期限</string>
   <string name="activity_airdrop_title">あなたがAppCoinsを受け取る人間であることを確認してください</string>
   <string name="activity_airdrop_details">これはセキュリティ上の問題です。</string>
@@ -318,7 +318,7 @@
   <string name="gamification_how_table_b1">ボーナス</string>
   <string name="gamification_how_table_a2">%s APPC</string>
   <string name="gamification_how_table_b2">%s %%</string>
-  <string name="gamification_how_table_level">LEVEL</string>
+  <string name="gamification_how_table_level">レベル</string>
   <string name="gamification_how_terms_and_conditions">条件</string>
   <string name="gamification_how_spend">APPC %s を使う</string>
   <string name="gamification_a_comet_title">彗星</string>
@@ -402,7 +402,7 @@
   <string name="askafriend_share_add_message_body">メッセージ (必須ではございません) を追加する。</string>
   <string name="askafriend_share_button">共有する</string>
   <string name="askafriend_share_popup_title">アプリ経由で：</string>
-  <string name="askafriend_received_body">You just received %s AppCoins Credits</string>
+  <string name="askafriend_received_body">%sのAppCoinsクレジットを受け取りました%s</string>
   <string name="askafriend_notification_received_title">新たに送金を受け取りました</string>
   <string name="askafriend_notification_received_body">%1$s %2$sがあなたのウォレットに入金されました。</string>
   <string name="askafriend_received_title">受取完了</string>
@@ -441,18 +441,20 @@
   <string name="get_code_button">コードを入手</string>
   <string name="confirm_button">承認する</string>
   <string name="withdraw_button">出金</string>
-  <string name="email_here_field">Your email here&#8230;</string>
-  <string name="understood_button">Understood!</string>
+  <string name="email_here_field">メールアドレス&#8230;</string>
+  <string name="understood_button">了解！</string>
+  <string name="skip_button">今はスキップ</string>
+  <string name="understand_button">了承</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">AppCoins Walletの%1$sと%2$sに同意します。</string>
   <string name="terms_and_conditions_error">ご利用規約とプライバシーポリシーに同意の上、お進みください。</string>
   <string name="terms_and_conditions">利用規約</string>
   <string name="privacy_policy">プライバシー ポリシー</string>
-  <string name="decline_button">Reject</string>
-  <string name="get_started">Get Started</string>
-  <string name="existent_wallet">I already have a wallet</string>
+  <string name="decline_button">拒否</string>
+  <string name="get_started">始める</string>
+  <string name="existent_wallet">ウォレットをすでに持っています</string>
   <!--Home-->
-  <string name="home_empty_discover_apps_body">Make a purchase on your favorite game and we\'ll handle everything.</string>
+  <string name="home_empty_discover_apps_body">好きなゲームを購入、あとはお任せください。</string>
   <string name="home_empty_discover_apps_button">トップアプリを発見</string>
   <!--Tokens-->
   <!--Settings-->
@@ -489,10 +491,10 @@
   <string name="verification_settings_unverified_title">ウオレットの認証</string>
   <string name="verification_settings_unverified_body">リワードをゲットして友達を招待</string>
   <string name="verification_settings_verified_title">ウオレット認証済み</string>
-  <string name="verification_settings_verifying_title">Verifying wallet…</string>
-  <string name="verification_verified_paypal_description">You will be refunded immediately. Your wallet will be verified shortly.</string>
-  <string name="verification_verify_paypal_description">A minimal transaction of %s will be made to confirm your account. It will be refunded immediately.</string>
-  <string name="verification_verify_paypal_button">Verify Now</string>
+  <string name="verification_settings_verifying_title">ウオレットの認証中...</string>
+  <string name="verification_verified_paypal_description">すぐに返金されます。ウォレット間もなく確認されます。</string>
+  <string name="verification_verify_paypal_description">アカウントの確認のため、%sの最小限の取引が行われます。これはすぐに返金されます。</string>
+  <string name="verification_verify_paypal_button">今すぐ確認</string>
   <string name="verification_settings_card_verified_title">カード認証済み</string>
   <string name="verification_settings_no_internet">インターネットに接続する必要があります</string>
   <string name="verification_error_time_expired">期限切れです。再試行してください。</string>
@@ -528,7 +530,7 @@
   <string name="purchase_card_error_not_supported">お使いのカードタイプはまだサポートされていません。別のカードでお試しください。</string>
   <string name="purchase_card_error_security">セキュリティ情報にお間違えはありませんか？確認後、もう一度お試しください。</string>
   <string name="purchase_card_error_wrong_CVV">CVV/CVCコードが間違っているようです。確認後、もう一度お試しください。</string>
-  <string name="purchase_card_error_re_insert">It seems you registered this card long time ago! Insert the card details again or use a different one.</string>
+  <string name="purchase_card_error_re_insert">このカードは以前に登録されたようです。カード情報をもう一度入れるか、別のカードを使用してください。</string>
   <string name="purchase_wallet_error_contact_us">ウォレットに何か問題があるようです。お問い合わせください。</string>
   <string name="purchase_carrier_error">お使いの電話番号は、この支払い方法に対応していないようです。</string>
   <string name="purchase_carrier_error_minimum">あなたのキャリアは %s 未満の支払いをサポートしません。</string>
@@ -550,10 +552,11 @@
   <string name="purchase_error_transaction_timeout">トランザクションの完了に時間がかかりすぎたようです。もう一度お試しください。</string>
   <string name="purchase_error_card_already_in_progress">あなたのリクエストはすでに処理済みか、処理中です。しばらくお待ちください。</string>
   <string name="purchase_error_payment_rejected">支払いが拒否されました。他の発行元のカードでお試しいただくか、他のお支払い方法をご利用ください。</string>
-  <string name="purchase_error_verify_wallet">Validate your payment method to complete this purchase.</string>
-  <string name="purchase_error_verify_card">Validate your card to complete this purchase.</string>
-  <string name="purachse_error_verify_card_button">VALIDATE CARD</string>
+  <string name="purchase_error_verify_wallet">支払い方法を確認し、この購入を完了します。</string>
+  <string name="purchase_error_verify_card">この購入を完了するためには支払い方法を確認してください。</string>
+  <string name="purachse_error_verify_card_button">カードの確認</string>
   <string name="purchase_eskills_sku">エントリーチケット</string>
+  <string name="purchase_paytmupi_install_disclaimer">Paytm UPIアプリをインストールする必要があります。</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">請求先住所</string>
   <string name="purchase_address_address_field">住所</string>
@@ -590,7 +593,7 @@
   <string name="referral_view_share_link_button">招待リンクの共有</string>
   <string name="referral_view_notifications_title">通知</string>
   <string name="referral_share_sheet_title">招待リンクを共有：</string>
-  <string name="referral_view_unverified_body">Receive %s worth of AppCoins Credits for each friend. You first need to verify your wallet.</string>
+  <string name="referral_view_unverified_body">友達1人につき%s相当のAppCoinsクレジットを受け取ることができます。まず、あなたのウォレットを確認する必要があります。</string>
   <string name="referral_view_verify_button">ウォレットの認証</string>
   <string name="referral_view_i_have_been_invited_button">すでに招待されている</string>
   <string name="referral_view_dropup_menu_friends_invited">招待済みの友達</string>
@@ -630,19 +633,9 @@
   <!--Backup and Import-->
   <string name="backup_home_notification_title">ウォレットのバックアップ</string>
   <string name="backup_home_notification_body">携帯電話を紛失したことはありませんか？今すぐウォレットをバックアップしましょう！</string>
-  <string name="backup_password_title">ウォレットを暗号化 (任意)</string>
-  <string name="backup_confirmation_title">あと1ステップ</string>
-  <string name="backup_confirmation_body">バックアップを安全に保管しましょう！ どこに保存しますか？</string>
-  <string name="backup_confirmation_yes">はい、完了します。</string>
-  <string name="backup_confirmation_no">いいえ、端末に保存</string>
-  <string name="backup_done_body">バックアップファイルが安全な場所にあることを確認していますか？</string>
   <string name="backup_confirmation_no_share_title">バックアップ完了！</string>
-  <string name="backup_confirmation_no_share_body">バックアップファイルは、ダウンロードフォルダにあります。</string>
   <string name="backup_save_dialogue_title">バックアップファイルの保存</string>
   <string name="backup_save_dialogue_body">バックアップファイルの名前を決めてください。</string>
-  <string name="backup_send_via_title">バックアップを送信：</string>
-  <string name="backup_send_button">バックアップの送信</string>
-  <string name="backup_save_button">バックアップの保存</string>
   <string name="import_wallet_title">ウォレットの復元</string>
   <string name="import_wallet_body">ウォレットのバックアップを以下に貼り付けてください。</string>
   <string name="import_wallet_keystore_private_keys">キーストアまたは秘密鍵</string>
@@ -653,21 +646,19 @@
   <string name="import_wallet_wrong_password_body">間違ったパスワードです！</string>
   <string name="error_invalid_private_key">無効な秘密鍵です</string>
   <string name="error_invalid_keystore">無効なキーストアです</string>
-  <string name="backup_title">ウォレットをバックアップする</string>
+  <string name="backup_title">ウォレットのバックアップ!</string>
   <string name="backup_body">当方があなたの秘密鍵やその他のアクセス方法を保存することはありません。ウォレットのバックアップ (キーストア) を安全に保管することが重要です。</string>
   <string name="backup_additional_security_title">追加のセキュリティ (オプション)</string>
   <string name="backup_additional_security_body">パスワードの入力</string>
-  <string name="backup_button">BACKUP WALLET</string>
-  <string name="backup_password">パスワード</string>
-  <string name="backup_ready_title">Your backup is ready! Keep it safe.</string>
-  <string name="backup_ready_save_on_email">Save it on your email</string>
-  <string name="backup_ready_email_button">Send to email</string>
-  <string name="backup_ready_device_button">Save on device</string>
-  <string name="backup_done_title">バックアップ完了！</string>
+  <string name="backup_button">ウォレットのバックアップ</string>
+  <string name="backup_ready_title">バックアップの準備は完了！\n大切に保管してください。</string>
+  <string name="backup_ready_save_on_email">メールに保存する</string>
+  <string name="backup_ready_email_button">メールに送信</string>
+  <string name="backup_ready_device_button">デバイスに保存</string>
   <string name="backup_confirmation_tips_title">ファイルを大切に保管してください:</string>
-  <string name="backup_confirmation_tips_1">印刷して、安全な場所に保管</string>
-  <string name="backup_confirmation_tips_2">USBメモリに保存</string>
-  <string name="backup_confirmation_tips_3">プライベートで安全なクラウドストレージにコピー</string>
+  <string name="backup_confirmation_tips_1"><b>印刷</b>して安全な場所に保管。</string>
+  <string name="backup_confirmation_tips_2"><b>USBメモリ</b>に保存する。</string>
+  <string name="backup_confirmation_tips_3">安全なプライベートクラウドストレージに<b>コピー</b>する。</string>
   <string name="backup_tooltip_body">ウォレットのバックアップを取っておきましょう！</string>
   <string name="backup_tooltip_later_button">あとで</string>
   <string name="backup_tooltip_backup_button">バックアップ</string>
@@ -677,7 +668,24 @@
   <string name="backup_additional_security_disclaimer_title">パスワードは大切に保管してください。</string>
   <string name="backup_additional_security_disclaimer_body">パスワードの復元はできません。</string>
   <string name="backup_additional_security_password_not_march">パスワードが一致しません。</string>
-  <string name="import_wallet_recovering_body">Recovering wallet...</string>
+  <string name="import_wallet_recovering_body">ウォレットのリカバリ中...</string>
+  <string name="backup_skip_title">ウォレットキーをバックアップしない場合、資金が失われる可能性があることを理解しています。</string>
+  <string name="backup_wallet_button">ウォレットをバックアップ</string>
+  <string name="backup_success_save_on_email">バックアップファイルはメールの中にあります。</string>
+  <string name="backup_success_save_on_device">バックアップファイルは、お使いの端末に保存されています。</string>
+  <!--Backup DELETE-->
+  <string name="backup_confirmation_body"></string>
+  <string name="backup_confirmation_no"></string>
+  <string name="backup_confirmation_no_share_body"></string>
+  <string name="backup_confirmation_title"></string>
+  <string name="backup_confirmation_yes"></string>
+  <string name="backup_done_body"></string>
+  <string name="backup_done_title"></string>
+  <string name="backup_password"></string>
+  <string name="backup_password_title"></string>
+  <string name="backup_save_button"></string>
+  <string name="backup_send_button"></string>
+  <string name="backup_send_via_title"></string>
   <!--Wallets Management-->
   <string name="wallets_title">ウォレット</string>
   <string name="wallets_total_balance_title">%sでの総残高</string>
@@ -728,7 +736,7 @@
   <string name="pioneer_gamification_title">あなたはパイオニア</string>
   <string name="pioneer_gamification_body">パイオニアとは、増額ボーナスを受けとることができる早期アダプターのこと。</string>
   <!--Check for Updates-->
-  <string name="check_updates_settings_current_title">Current version</string>
+  <string name="check_updates_settings_current_title">現在のバージョン</string>
   <string name="check_updates_settings_title">アップデートの確認</string>
   <string name="check_updates_settings_subtitle">現在のバージョン %s</string>
   <string name="check_updates_checking_body">新バージョンの検索中</string>
@@ -845,7 +853,7 @@
   <string name="carrier_billing_terms_button">利用規約</string>
   <string name="carrier_billing_privacy_button">プライバシー ポリシー</string>
   <!--Manage Cards-->
-  <string name="manage_cards_settings_add_title">Add credit/debit card</string>
+  <string name="manage_cards_settings_add_title">クレジット/デビットカードの追加</string>
   <string name="manage_cards_settings_manage_title">カードの管理</string>
   <string name="manage_cards_view_title">カードの管理</string>
   <string name="manage_cards_view_manage_subtitle">支払い用カードの管理</string>
@@ -906,7 +914,7 @@
   <string name="send_logs_settings">サポートチームにログを送信</string>
   <string name="send_logs_sending">送信中&#8230;</string>
   <string name="send_logs_sent">送信しました！</string>
-  <string name="send_logs_error">Error!</string>
+  <string name="send_logs_error">エラー!</string>
   <!--Rate us-->
   <string name="rate_us_question_title">AppCoins Walletをお楽しみ頂けていますか？</string>
   <string name="rate_us_no">いいえ</string>
@@ -921,7 +929,7 @@
   <string name="rate_us_back_title">ご協力していただけますか？</string>
   <string name="rate_us_back_body">改善のため、アプリストアでAppCoins Walletを評価する。</string>
   <!--Card verification-->
-  <string name="card_verification_body">Validate your credit/debit card to make payments.</string>
+  <string name="card_verification_body">クレジットカード/デビットカードを有効にして、支払いを行ってください。</string>
   <string name="card_verification_charde_disclaimer">お客様のカードには%sが請求され、コードを確認した後に返金されます。お使いの銀行によっては、数分から数日かかる場合もあります。</string>
   <string name="card_verification_code_title">取引明細のコードを確認</string>
   <string name="card_verification_code_body">カード発行会社が提供する取引の概要に固有のコードが表示されます。</string>
@@ -944,7 +952,7 @@
   <string name="card_verification_wallets_insert_bode_button">コードの入力</string>
   <string name="card_verification_no_attempts_title">間違ったコードが何回も入力されたので、%1$sはあなたのカードに返金されます。</string>
   <string name="card_verification_no_attempts_body">再度、認証プロセスを開始してください。</string>
-  <string name="wallet_verify_header">Validate at least one payment method</string>
+  <string name="wallet_verify_header">少なくとも1つの支払い方法を確認してください</string>
   <string name="verify_card_title">カードの認証</string>
   <!--Vouchers-->
   <string name="voucher_card_body_1">このクーポンを購入して</string>
@@ -976,18 +984,18 @@
   <string name="e_skills_withdraw_title">e-Skillsの引き出し</string>
   <string name="e_skills_withdraw_invalid_email_error_message">無効なメールアドレス</string>
   <string name="e_skills_withdraw_not_enough_balance_error_message">残高不足</string>
-  <string name="e_skills_withdraw_not_enough_earnings_error_message">You haven\'t won enough e-Skills games to withdraw that amount</string>
-  <string name="e_skills_withdraw_minimum_amount_error_message">Minimum amount to withdraw is $%1$.2f</string>
-  <string name="e_skills_withdraw_max_amount_part_1">You can withdraw:</string>
+  <string name="e_skills_withdraw_not_enough_earnings_error_message">その金額を引き出すのに十分なe-Skillsゲームに勝利していません。</string>
+  <string name="e_skills_withdraw_minimum_amount_error_message">最低引出額は$%1$.2fです。</string>
+  <string name="e_skills_withdraw_max_amount_part_1">引き出し可能額：</string>
   <string name="e_skills_withdraw_max_amount_part_2">$%1$.2f</string>
-  <string name="e_skills_know_more_about">know more about e-Skills</string>
+  <string name="e_skills_know_more_about">e-Skillsについてもっと知る</string>
   <string name="e_skills_know_more_about_tmp">e-Skillsゲームで獲得した資金のみを引き出すことができます。</string>
-  <string name="e_skills_withdraw_started">A withdraw of $%1$.2f \nhas been started</string>
-  <string name="e_skills_withdraw_generic_error">Generic error message</string>
-  <string name="e_skills_withdraw_maybe_later">Maybe later</string>
-  <string name="e_skills_room_create_title">Create or join a room</string>
-  <string name="e_skills_room_create_body">Create a new room and share it with your opponents or join an existing room.</string>
-  <string name="e_skills_room_field">Your room name here...</string>
+  <string name="e_skills_withdraw_started">$%1$.2fの出金手続きが\n開始されました</string>
+  <string name="e_skills_withdraw_generic_error">一般的なエラーメッセージ</string>
+  <string name="e_skills_withdraw_maybe_later">後で</string>
+  <string name="e_skills_room_create_title">ルームの作成・参加</string>
+  <string name="e_skills_room_create_body">新しいルームを作成して対戦相手と共有したり、既存のルームに参加したりすることができます。</string>
+  <string name="e_skills_room_field">あなたのルーム名...</string>
   <!--Promo Code-->
   <string name="promo_code_settings_title">プロモーションコード</string>
   <string name="promo_code_view_title">プロモーションコード</string>
@@ -995,54 +1003,54 @@
   <string name="promo_code_view_field">プロモーションコードをここに入力...</string>
   <string name="promo_code_view_error">無効なコードです。別のコードでお試しください。</string>
   <string name="promo_code_activated">プロモーションコードが有効になりました！</string>
-  <string name="promo_code_delete_button">DELETE</string>
+  <string name="promo_code_delete_button">削除</string>
   <string name="promo_code_replace_button">別のコード</string>
   <string name="promo_code_active_tag">有効</string>
   <string name="promo_code_expired_tag">期限切れ</string>
   <string name="promo_code_success_title">完了！</string>
   <string name="promo_code_success_body">購入で%s%%の追加ボーナスをゲット。</string>
-  <string name="promo_code_success_body_specific_app">You\'ll get %1$s%% extra bonus in all your purchases in %2$s.</string>
-  <string name="promo_code_promotions_tag">Promotional code</string>
+  <string name="promo_code_success_body_specific_app">%2$sでの購入全てに、%1$s%%のボーナスが追加されます。</string>
+  <string name="promo_code_promotions_tag">プロモーション・コード</string>
   <!--AppCoins Info Page-->
   <string name="appcoins_info_title">AppCoinsについて</string>
   <string name="appcoins_info_prince_title">AppCoins 価格(APPC)</string>
   <string name="appcoins_info_title_1">AppCoins とは何か？</string>
   <string name="appcoins_info_body_1">AppCoinsは、Aptoide社が開発したデジタルトークンで、世界中で2億人以上のユーザーに利用されています。この革新的な決済ソリューションの主な目的は、アプリ経済への信頼を提供し、仲介者を排除することです。</string>
-  <string name="appcoins_info_title_1b">Like all digital tokens, AppCoins value changes constantly in relation to your preferred currency (EUR, USD...). You can track these changes over time in the graphic above.</string>
-  <string name="appcoins_info_title_2">What are AppCoins for?</string>
-  <string name="appcoins_info_body_2">Both AppCoins and AppCoins Credits can be used to make payments in your favorite apps. You\'ll receive AppCoins Credits as a bonus when making a purchase with any other payment method (bank card, PayPal...) and also when topping up your AppCoins Wallet.</string>
-  <string name="appcoins_info_website_title">Website</string>
-  <string name="appcoins_info_explorer_title">Explorer</string>
-  <string name="appcoins_info_market_cap_title">Market Cap</string>
-  <string name="appcoins_info_volume_title">Volume (24h)</string>
+  <string name="appcoins_info_title_1b">他のデジタルトークンと同様、AppCoinの価値は、お客様のご希望の通貨（EUR、USD...）に連動して常に変化します。上のグラフでは、これらの経時的な変化を追跡することができます。</string>
+  <string name="appcoins_info_title_2">AppCoinは何のためにあるの？</string>
+  <string name="appcoins_info_body_2">AppCoinsとAppCoins Creditsは、どちらもお気に入りのアプリでの支払いに使用できます。他の支払い方法（銀行カード、PayPal...）で購入したり、AppCoins Walletに追加したりすると、ボーナスとしてAppCoins Creditsを受け取ることができます。</string>
+  <string name="appcoins_info_website_title">ウェブサイト</string>
+  <string name="appcoins_info_explorer_title">エクスプローラー</string>
+  <string name="appcoins_info_market_cap_title">マーケットキャップ</string>
+  <string name="appcoins_info_volume_title">取引高（24h）</string>
   <!--  NFTs -->
-  <string name="nfts_title">NFTs</string>
-  <string name="nfts_no_nfts">You don\'t have any NFTs in this wallet yet!</string>
-  <string name="nfts_transact_button">Send this NFT</string>
-  <string name="nfts_transact_button_send">Send</string>
-  <string name="nfts_transact_button_next">Next</string>
-  <string name="nfts_transact_button_done">Done</string>
-  <string name="nfts_transact_button_success">Got it</string>
-  <string name="nfts_transact_tip">Enter your friend\'s wallet address</string>
-  <string name="nfts_transact_input_tip">Wallet address here...</string>
-  <string name="nfts_transact_done_mensage">%s successfully sent!</string>
-  <string name="nfts_generic_error">Oops! Something went wrong!</string>
-  <string name="nfts_transact_gas_title">Are you in a hurry?</string>
-  <string name="nfts_transact_gas_description">Choose how much you want to pay in fees. The higher the fee, the faster the transaction.</string>
-  <string name="nfts_transact_gas_price">Gas Price</string>
-  <string name="nfts_transact_gas_limit">Gas Limit</string>
-  <string name="nfts_transact_gas_fee_message">Transaction Fee</string>
-  <string name="nfts_transact_error_no_funds">Not enough funds! You don\'t have enough ETH to pay for the fees.</string>
-  <string name="nfts_transact_error_low_gas">Gas is too low! Increase your gas for the network to accept your transaction.</string>
-  <string name="nfts_transact_error_already_in_progress">This NFT is already being sent! A previous transaction is currently in progress.</string>
+  <string name="nfts_title">NFT</string>
+  <string name="nfts_no_nfts">このウォレットにはまだNFTが入っていません</string>
+  <string name="nfts_transact_button">このNFTを送信</string>
+  <string name="nfts_transact_button_send">送信</string>
+  <string name="nfts_transact_button_next">次</string>
+  <string name="nfts_transact_button_done">完了</string>
+  <string name="nfts_transact_button_success">了解</string>
+  <string name="nfts_transact_tip">お友達のウォレットアドレスを入力</string>
+  <string name="nfts_transact_input_tip">ここにウォレットのアドレス...</string>
+  <string name="nfts_transact_done_mensage">%sが正常に送信されました!</string>
+  <string name="nfts_generic_error">問題が発生しました！</string>
+  <string name="nfts_transact_gas_title">お急ぎですか？</string>
+  <string name="nfts_transact_gas_description">手数料をいくらにするか選んでください。手数料が高いほど、トランザクションが速くなります。</string>
+  <string name="nfts_transact_gas_price">ガスの価格</string>
+  <string name="nfts_transact_gas_limit">ガスの制限</string>
+  <string name="nfts_transact_gas_fee_message">取引手数料</string>
+  <string name="nfts_transact_error_no_funds">資金が足りません！手数料を払うのに十分なETHがありません。</string>
+  <string name="nfts_transact_error_low_gas">ガスが少なすぎます! ネットワークがあなたの取引を受け入れるには、ガスを増やしてください。</string>
+  <string name="nfts_transact_error_already_in_progress">NFTはすでに送信されています。前の取引が現在進行中です。</string>
   <!-- Gift Card -->
-  <string name="gift_card_title">Redeem your gift card code</string>
-  <string name="gift_card_field">Card code here...</string>
-  <string name="gift_card_done_title">Code redeemed!</string>
-  <string name="gift_card_done_body">Check your transacions list.</string>
-  <string name="gift_card_error_general_title">Something went wrong!</string>
-  <string name="gift_card_error_general_body">Please try again or use a different code.</string>
-  <string name="gift_card_error_used_title">This code has already been used!</string>
-  <string name="gift_card_error_new_users_title">This code is only for new users!</string>
-  <string name="gift_card_error_try_with_different_body">Please try again with a different one.</string>
+  <string name="gift_card_title">ギフトカードコードを利用</string>
+  <string name="gift_card_field">カードコードをここに入力...</string>
+  <string name="gift_card_done_title">コード使用可能！</string>
+  <string name="gift_card_done_body">トランザクション・リストを確認</string>
+  <string name="gift_card_error_general_title">問題が発生しました！</string>
+  <string name="gift_card_error_general_body">もう一度試すか、別のコードを使用してください。</string>
+  <string name="gift_card_error_used_title">このコードはすでに使用されています！</string>
+  <string name="gift_card_error_new_users_title">このコードは新規ユーザー限定です！</string>
+  <string name="gift_card_error_try_with_different_body">別のもので再度お試しください。</string>
 </resources>

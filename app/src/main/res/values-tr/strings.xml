@@ -442,6 +442,8 @@
   <string name="withdraw_button">çek</string>
   <string name="email_here_field">Your email here&#8230;</string>
   <string name="understood_button">Understood!</string>
+  <string name="skip_button">Skip for now</string>
+  <string name="understand_button">I understand</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">AppCoins Wallet\'ın %1$s ve %2$s\'nı kabul ediyorum.</string>
   <string name="terms_and_conditions_error">Devam etmek için lütfen Koşul ve Şartlarımız ile Gizlilik Politikasını kabul edin</string>
@@ -553,6 +555,7 @@
   <string name="purchase_error_verify_card">Bu satın alma işlemini tamamlamak için kartınızı doğrulayın.</string>
   <string name="purachse_error_verify_card_button">KARTI DOĞRULAYIN</string>
   <string name="purchase_eskills_sku">Giriş bileti</string>
+  <string name="purchase_paytmupi_install_disclaimer">You\'ll need to install Paytm UPI app.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">Faturalandırma adresi</string>
   <string name="purchase_address_address_field">Adres</string>
@@ -629,19 +632,9 @@
   <!--Backup and Import-->
   <string name="backup_home_notification_title">Cüzdanınızı Yedekleyin</string>
   <string name="backup_home_notification_body">Hiç telefonunuzu kaybettiniz mi? Cüzdanınızı hemen yedekleyin!</string>
-  <string name="backup_password_title">Cüzdanınızı şifreleyin (isteğe bağlı)</string>
-  <string name="backup_confirmation_title">Sadece bir adım daha</string>
-  <string name="backup_confirmation_body">Yedeklemenizi güvende tutun! Nereye kaydetmek istersiniz?</string>
-  <string name="backup_confirmation_yes">EVET, BİTİR</string>
-  <string name="backup_confirmation_no">HAYIR, CİHAZA KAYDET</string>
-  <string name="backup_done_body">Yedekleme dosyanızın güvenli bir yerde olduğundan emin misiniz?</string>
   <string name="backup_confirmation_no_share_title">Yedekleme tamamlandı!</string>
-  <string name="backup_confirmation_no_share_body">Yedekleme dosyanız İndirilenler klasöründe.</string>
   <string name="backup_save_dialogue_title">Yedekleme dosyasını kaydet</string>
   <string name="backup_save_dialogue_body">Yedekleme dosyanızı adlandırın.</string>
-  <string name="backup_send_via_title">Yedeklemeyi şununla gönder:</string>
-  <string name="backup_send_button">YEDEKLEMEYİ GÖNDER</string>
-  <string name="backup_save_button">YEDEKLEMEYİ KAYDET</string>
   <string name="import_wallet_title">Cüzdanı geri yükle</string>
   <string name="import_wallet_body">Aşağıya cüzdanınızın yedeğini yapıştırın.</string>
   <string name="import_wallet_keystore_private_keys">Keystore veya özel anahtarlar</string>
@@ -652,21 +645,19 @@
   <string name="import_wallet_wrong_password_body">Hay aksi, yanlış şifre!</string>
   <string name="error_invalid_private_key">Geçersiz özel anahtar</string>
   <string name="error_invalid_keystore">Geçersiz keystore</string>
-  <string name="backup_title">Yedek Cüzdan</string>
+  <string name="backup_title">Backup your wallet now!</string>
   <string name="backup_body">Gizli anahtarlarınızı veya diğer erişim yöntemlerinizi saklamayız. Cüzdanınızın yedeğini (keystore) güvende tutmak önemlidir.</string>
   <string name="backup_additional_security_title">Ek Güvenlik (isteğe bağlı)</string>
   <string name="backup_additional_security_body">Şifre seçin</string>
   <string name="backup_button">BACKUP WALLET</string>
-  <string name="backup_password">Şifre</string>
-  <string name="backup_ready_title">Your backup is ready! Keep it safe.</string>
+  <string name="backup_ready_title">Your backup is ready!\nKeep it safe.</string>
   <string name="backup_ready_save_on_email">Save it on your email</string>
   <string name="backup_ready_email_button">Send to email</string>
   <string name="backup_ready_device_button">Save on device</string>
-  <string name="backup_done_title">Yedekleme tamamlandı!</string>
   <string name="backup_confirmation_tips_title">Dosyayı güvende tutun:</string>
-  <string name="backup_confirmation_tips_1">Yazdırın ve güvenli bir yerde saklayın.</string>
-  <string name="backup_confirmation_tips_2">USB sürücüsüne kaydedin.</string>
-  <string name="backup_confirmation_tips_3">Gizli ve güvenli bir bulut depolama alanına kopyalayın.</string>
+  <string name="backup_confirmation_tips_1"><b>Print it</b> and store it somewhere safe.</string>
+  <string name="backup_confirmation_tips_2"><b>Save it</b> on a USB drive.</string>
+  <string name="backup_confirmation_tips_3"><b>Copy it</b> to a private and secure cloud storage.</string>
   <string name="backup_tooltip_body">Cüzdanınızın bir yedeğini oluşturun!</string>
   <string name="backup_tooltip_later_button">BELKİ DAHA SONRA</string>
   <string name="backup_tooltip_backup_button">YEDEKLE</string>
@@ -677,6 +668,23 @@
   <string name="backup_additional_security_disclaimer_body">Şifre kurtarma yapılamıyor.</string>
   <string name="backup_additional_security_password_not_march">Şifreler eşleşmiyor.</string>
   <string name="import_wallet_recovering_body">Cüzdan geri yükleniyor...</string>
+  <string name="backup_skip_title">I understand that I may loose my funds if I don\'t backup my wallet key.</string>
+  <string name="backup_wallet_button">Backup wallet</string>
+  <string name="backup_success_save_on_email">Your backup file is in your email.</string>
+  <string name="backup_success_save_on_device">Your backup file is stored in your device.</string>
+  <!--Backup DELETE-->
+  <string name="backup_confirmation_body"></string>
+  <string name="backup_confirmation_no"></string>
+  <string name="backup_confirmation_no_share_body"></string>
+  <string name="backup_confirmation_title"></string>
+  <string name="backup_confirmation_yes"></string>
+  <string name="backup_done_body"></string>
+  <string name="backup_done_title"></string>
+  <string name="backup_password"></string>
+  <string name="backup_password_title"></string>
+  <string name="backup_save_button"></string>
+  <string name="backup_send_button"></string>
+  <string name="backup_send_via_title"></string>
   <!--Wallets Management-->
   <string name="wallets_title">Cüzdanlar</string>
   <string name="wallets_total_balance_title">%s cinsinden toplam bakiye</string>

@@ -150,6 +150,10 @@ class SettingsPresenter(private val view: SettingsView,
     navigator.showPromoCodeFragment()
   }
 
+  fun onRedeemGiftPreferenceClick() {
+    navigator.showRedeemGiftFragment()
+  }
+
   fun onRecoverWalletPreferenceClick() {
     navigator.navigateToRecoverWalletActivity()
   }

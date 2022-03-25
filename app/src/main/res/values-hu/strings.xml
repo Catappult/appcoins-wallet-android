@@ -442,6 +442,8 @@
   <string name="withdraw_button">felvétel</string>
   <string name="email_here_field">Az email címed&#8230;</string>
   <string name="understood_button">Értem!</string>
+  <string name="skip_button">Skip for now</string>
+  <string name="understand_button">I understand</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Beleegyezem a következőbe: AppCoins Wallet %1$s és %2$s.</string>
   <string name="terms_and_conditions_error">A folytatáshoz kérjük, fogadd el a Felhasználási feltételeket és az Adatvédelmi szabályzatot</string>
@@ -553,6 +555,7 @@
   <string name="purchase_error_verify_card">A vásárlás befejezéséhez erősítsd meg a kártyádat.</string>
   <string name="purachse_error_verify_card_button">KÁRTYA MEGERŐSÍTÉSE</string>
   <string name="purchase_eskills_sku">Belépőjegy</string>
+  <string name="purchase_paytmupi_install_disclaimer">You\'ll need to install Paytm UPI app.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">Számlázási cím</string>
   <string name="purchase_address_address_field">Cím</string>
@@ -629,19 +632,9 @@
   <!--Backup and Import-->
   <string name="backup_home_notification_title">Wallet biztonsági mentés</string>
   <string name="backup_home_notification_body">Vesztetted már el a telefonod? Készíts biztonsági másolatot a tárcádról most!</string>
-  <string name="backup_password_title">Tárca titkosítása (nem kötelező)</string>
-  <string name="backup_confirmation_title">Csak még egy lépés</string>
-  <string name="backup_confirmation_body">Tartsd biztonságban a biztonsági mentést! Hova szeretnéd elmenteni?</string>
-  <string name="backup_confirmation_yes">IGEN, KÉSZ</string>
-  <string name="backup_confirmation_no">NEM, MENTÉS ESZKÖZRE</string>
-  <string name="backup_done_body">Biztos vagy benne, hogy a biztonsági mentés biztonságos helyen van?</string>
   <string name="backup_confirmation_no_share_title">Kész a biztonsági mentés!</string>
-  <string name="backup_confirmation_no_share_body">A biztonsági mentés a Letöltések mappában van.</string>
   <string name="backup_save_dialogue_title">Biztonságimásolat-fájl mentése</string>
   <string name="backup_save_dialogue_body">Add meg a biztonságimásolat-fájl nevét.</string>
-  <string name="backup_send_via_title">Biztonsági másolat küldése:</string>
-  <string name="backup_send_button">BIZTONSÁGI MÁSOLAT KÜLDÉSE</string>
-  <string name="backup_save_button">BIZTONSÁGI MÁSOLAT MENTÉSE</string>
   <string name="import_wallet_title">Pénztárca helyreállítása</string>
   <string name="import_wallet_body">Illeszd be a tárca biztonsági másolatát alulra.</string>
   <string name="import_wallet_keystore_private_keys">Keystore vagy privát kulcsok</string>
@@ -652,21 +645,19 @@
   <string name="import_wallet_wrong_password_body">Hoppá, hibás jelszó!</string>
   <string name="error_invalid_private_key">Érvénytelen privát kulcs</string>
   <string name="error_invalid_keystore">Érvénytelen keystore</string>
-  <string name="backup_title">Biztonsági mentés készítése</string>
+  <string name="backup_title">Backup your wallet now!</string>
   <string name="backup_body">Nem tároljuk sem a titkos kulcsokat, sem bármely más hozzáférési módot. Fontos a tárcáról készült biztonsági mentés (keystore) biztonsága.</string>
   <string name="backup_additional_security_title">További biztonság (nem kötelező)</string>
   <string name="backup_additional_security_body">Válaszd ki a jelszavad</string>
   <string name="backup_button">TÁRCA BIZTONSÁGI MENTÉSE</string>
-  <string name="backup_password">Jelszó</string>
-  <string name="backup_ready_title">Elkészült a biztonsági mentés. Tarts biztos helyen.</string>
+  <string name="backup_ready_title">Your backup is ready!\nKeep it safe.</string>
   <string name="backup_ready_save_on_email">Mentés az email címedre</string>
   <string name="backup_ready_email_button">Küldés az email címedre</string>
   <string name="backup_ready_device_button">Mentés az eszközön</string>
-  <string name="backup_done_title">Kész a biztonsági mentés!</string>
   <string name="backup_confirmation_tips_title">Tartsd biztonságban a fájlt:</string>
-  <string name="backup_confirmation_tips_1">Nyomtasd ki és tárold biztonságos helyen.</string>
-  <string name="backup_confirmation_tips_2">Mentsd egy USB meghajtóra.</string>
-  <string name="backup_confirmation_tips_3">Másold egy biztonságos és magán felhőalapú tárhelyre.</string>
+  <string name="backup_confirmation_tips_1"><b>Print it</b> and store it somewhere safe.</string>
+  <string name="backup_confirmation_tips_2"><b>Save it</b> on a USB drive.</string>
+  <string name="backup_confirmation_tips_3"><b>Copy it</b> to a private and secure cloud storage.</string>
   <string name="backup_tooltip_body">Készíts biztonsági másolatot a tárcádról!</string>
   <string name="backup_tooltip_later_button">TALÁN KÉSŐBB</string>
   <string name="backup_tooltip_backup_button">BIZTONSÁGI MENTÉS</string>
@@ -677,6 +668,23 @@
   <string name="backup_additional_security_disclaimer_body">Nincs jelszó visszaállítás.</string>
   <string name="backup_additional_security_password_not_march">A jelszavak nem egyeznek.</string>
   <string name="import_wallet_recovering_body">Tárca visszaállítása...</string>
+  <string name="backup_skip_title">I understand that I may loose my funds if I don\'t backup my wallet key.</string>
+  <string name="backup_wallet_button">Backup wallet</string>
+  <string name="backup_success_save_on_email">Your backup file is in your email.</string>
+  <string name="backup_success_save_on_device">Your backup file is stored in your device.</string>
+  <!--Backup DELETE-->
+  <string name="backup_confirmation_body"></string>
+  <string name="backup_confirmation_no"></string>
+  <string name="backup_confirmation_no_share_body"></string>
+  <string name="backup_confirmation_title"></string>
+  <string name="backup_confirmation_yes"></string>
+  <string name="backup_done_body"></string>
+  <string name="backup_done_title"></string>
+  <string name="backup_password"></string>
+  <string name="backup_password_title"></string>
+  <string name="backup_save_button"></string>
+  <string name="backup_send_button"></string>
+  <string name="backup_send_via_title"></string>
   <!--Wallets Management-->
   <string name="wallets_title">Tárcák</string>
   <string name="wallets_total_balance_title">Teljes egyenleg %s pénznemben</string>

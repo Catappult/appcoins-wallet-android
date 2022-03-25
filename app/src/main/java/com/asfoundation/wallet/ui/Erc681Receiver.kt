@@ -44,7 +44,7 @@ class Erc681Receiver : BaseActivity(), Erc681ReceiverView {
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.activity_iab_wallet_creation)
-    val productName = intent.extras!!.getString(PRODUCT_NAME, "")
+    val productName = intent.extras?.getString(PRODUCT_NAME, "")
     presenter =
       Erc681ReceiverPresenter(this, transferParser, inAppPurchaseInteractor, walletService,
         intent.dataString!!,
