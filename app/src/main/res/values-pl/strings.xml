@@ -442,8 +442,8 @@
   <string name="withdraw_button">wypłać</string>
   <string name="email_here_field">Twój adres email&#8230;</string>
   <string name="understood_button">Rozumiem!</string>
-  <string name="skip_button">Skip for now</string>
-  <string name="understand_button">I understand</string>
+  <string name="skip_button">Pomiń</string>
+  <string name="understand_button">Rozumiem</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Zgadzam się na %1$s i %2$s portfela AppCoins.</string>
   <string name="terms_and_conditions_error">Proszę zaakceptować nasz regulamin aby kontynuować</string>
@@ -555,7 +555,7 @@
   <string name="purchase_error_verify_card">Potwierdź kartę, by sfinalizować zakup.</string>
   <string name="purachse_error_verify_card_button">Potwierdź kartę</string>
   <string name="purchase_eskills_sku">Bilet wstępu</string>
-  <string name="purchase_paytmupi_install_disclaimer">You\'ll need to install Paytm UPI app.</string>
+  <string name="purchase_paytmupi_install_disclaimer">Musisz zainstalować Paytm UPI.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">Adres rozliczeniowy</string>
   <string name="purchase_address_address_field">Adres</string>
@@ -645,19 +645,19 @@
   <string name="import_wallet_wrong_password_body">Oj, niepoprawne hasło!</string>
   <string name="error_invalid_private_key">Niewłaściwy klucz</string>
   <string name="error_invalid_keystore">Nieprawidłowy klucz</string>
-  <string name="backup_title">Backup your wallet now!</string>
+  <string name="backup_title">Utwórz kopię zapasową portfela!</string>
   <string name="backup_body">Nie przechowujemy Twoich prywatnych kluczy lub innych metod dostępu. Ważne jest aby kopia zapasowa Twojego portfela była bezpieczna.</string>
   <string name="backup_additional_security_title">Ekstra bezpiecznie (opcjonalnie)</string>
   <string name="backup_additional_security_body">Stwórz hasło</string>
   <string name="backup_button">UTWÓRZ KOPIĘ ZAPASOWĄ PORTFELA</string>
-  <string name="backup_ready_title">Your backup is ready!\nKeep it safe.</string>
+  <string name="backup_ready_title">Backup gotowy!\nDbaj o niego.</string>
   <string name="backup_ready_save_on_email">Zapisz na emailu</string>
   <string name="backup_ready_email_button">Wyślij na maila</string>
   <string name="backup_ready_device_button">Zapisz na urządzeniu</string>
   <string name="backup_confirmation_tips_title">Dbaj o bezpieczeństwo pliku:</string>
-  <string name="backup_confirmation_tips_1"><b>Print it</b> and store it somewhere safe.</string>
-  <string name="backup_confirmation_tips_2"><b>Save it</b> on a USB drive.</string>
-  <string name="backup_confirmation_tips_3"><b>Copy it</b> to a private and secure cloud storage.</string>
+  <string name="backup_confirmation_tips_1"><b>Wydrukuj go</b> i przechowuj w bezpiecznym miejscu.</string>
+  <string name="backup_confirmation_tips_2"><b>Zapisz go</b> na pendrivie.</string>
+  <string name="backup_confirmation_tips_3"><b>Umieść kopię</b> w bezpiecznej prywatnej chmurze.</string>
   <string name="backup_tooltip_body">Stwórz backup portfela!</string>
   <string name="backup_tooltip_later_button">MOŻE PÓŹNIEJ</string>
   <string name="backup_tooltip_backup_button">KOPIUJ</string>
@@ -668,10 +668,10 @@
   <string name="backup_additional_security_disclaimer_body">Nie można odzyskać hasła.</string>
   <string name="backup_additional_security_password_not_march">Hasła nie są identyczne.</string>
   <string name="import_wallet_recovering_body">Odzyskiwanie portfela...</string>
-  <string name="backup_skip_title">I understand that I may loose my funds if I don\'t backup my wallet key.</string>
-  <string name="backup_wallet_button">Backup wallet</string>
-  <string name="backup_success_save_on_email">Your backup file is in your email.</string>
-  <string name="backup_success_save_on_device">Your backup file is stored in your device.</string>
+  <string name="backup_skip_title">Rozumiem, że jeśłi nie wykonam kopii, mogę utracić środki.</string>
+  <string name="backup_wallet_button">Utwórz kopię zapasową</string>
+  <string name="backup_success_save_on_email">Twója kopia zapasowa jest na emailu.</string>
+  <string name="backup_success_save_on_device">Twója kopia zapasowa jest na urządzeniu.</string>
   <!--Backup DELETE-->
   <string name="backup_confirmation_body"></string>
   <string name="backup_confirmation_no"></string>
@@ -1052,21 +1052,21 @@
   <!--  NFTs -->
   <string name="nfts_title">NFTs</string>
   <string name="nfts_no_nfts">W tym portfelu nie masz jeszcze żadnych NFT!</string>
-  <string name="nfts_transact_button">Send this NFT</string>
-  <string name="nfts_transact_button_send">Send</string>
-  <string name="nfts_transact_button_next">Next</string>
-  <string name="nfts_transact_button_done">Done</string>
-  <string name="nfts_transact_button_success">Got it</string>
-  <string name="nfts_transact_tip">Enter your friend\'s wallet address</string>
-  <string name="nfts_transact_input_tip">Wallet address here...</string>
-  <string name="nfts_transact_done_mensage">%s successfully sent!</string>
-  <string name="nfts_generic_error">Oops! Something went wrong!</string>
-  <string name="nfts_transact_gas_title">Are you in a hurry?</string>
-  <string name="nfts_transact_gas_description">Choose how much you want to pay in fees. The higher the fee, the faster the transaction.</string>
-  <string name="nfts_transact_gas_price">Gas Price</string>
-  <string name="nfts_transact_gas_limit">Gas Limit</string>
-  <string name="nfts_transact_gas_fee_message">Transaction Fee</string>
-  <string name="nfts_transact_error_no_funds">Not enough funds! You don\'t have enough ETH to pay for the fees.</string>
+  <string name="nfts_transact_button">Wyślij te NFT</string>
+  <string name="nfts_transact_button_send">Wyślij</string>
+  <string name="nfts_transact_button_next">Następny</string>
+  <string name="nfts_transact_button_done">Zrobione</string>
+  <string name="nfts_transact_button_success">Rozumiem</string>
+  <string name="nfts_transact_tip">Wprowadź adres portfela znajomego</string>
+  <string name="nfts_transact_input_tip">Adres portfela...</string>
+  <string name="nfts_transact_done_mensage">Wysłano %s!</string>
+  <string name="nfts_generic_error">Ojej, coś poszło nie tak!</string>
+  <string name="nfts_transact_gas_title">Spieszysz się?</string>
+  <string name="nfts_transact_gas_description">Wybierz, ile chcesz wpłacić. Im wyższa opłata, tym szybsza transakcja.</string>
+  <string name="nfts_transact_gas_price">Cena gazu</string>
+  <string name="nfts_transact_gas_limit">Limit gazu</string>
+  <string name="nfts_transact_gas_fee_message">Koszt transakcji</string>
+  <string name="nfts_transact_error_no_funds">Za mało funduszy! Nie masz wystarczająco dużo ETH, by zapłacić.</string>
   <string name="nfts_transact_error_low_gas">Gas is too low! Increase your gas for the network to accept your transaction.</string>
   <string name="nfts_transact_error_already_in_progress">This NFT is already being sent! A previous transaction is currently in progress.</string>
   <!-- Gift Card -->
