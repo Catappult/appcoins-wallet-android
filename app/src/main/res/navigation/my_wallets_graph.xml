@@ -107,8 +107,8 @@
         app:popUpTo="@id/more_dialog_fragment"
         app:popUpToInclusive="true" />
     <action
-        android:id="@+id/action_navigate_to_restore_wallet"
-        app:destination="@id/restore_wallet_activity"
+        android:id="@+id/action_navigate_to_recover_wallet"
+        app:destination="@id/recover_wallet_activity"
         app:popUpTo="@id/more_dialog_fragment"
         app:popUpToInclusive="true" />
     <action
@@ -138,7 +138,12 @@
   <dialog
       android:id="@+id/create_wallet_dialog_fragment"
       android:name="com.asfoundation.wallet.my_wallets.create_wallet.CreateWalletDialogFragment"
-      tools:layout="@layout/fragment_create_wallet_dialog_layout" />
+      tools:layout="@layout/fragment_create_wallet_dialog_layout" >
+    <!-- temporary argument to differentiate the recover from a creation -->
+    <argument
+        android:name="needs_wallet_creation"
+        app:argType="boolean" />
+  </dialog>
 
   <dialog
       android:id="@+id/token_info_dialog_fragment"
@@ -188,17 +193,22 @@
   <activity
       android:id="@+id/verify_paypal_wallet_activity"
       android:name="com.asfoundation.wallet.verification.ui.paypal.VerificationPaypalActivity"
-      tools:layout="@layout/activity_wallet_paypal_verification" />
+      tools:layout="@layout/activity_wallet_paypal_verification"/>
+
   <activity
-      android:id="@+id/restore_wallet_activity"
-      android:name="com.asfoundation.wallet.restore.RestoreWalletActivity"
-      tools:layout="@layout/activity_restore_wallet" />
+      android:id="@+id/recover_wallet_activity"
+      android:name="com.asfoundation.wallet.recover.RecoverActivity"
+      tools:layout="@layout/recover_wallet_activity">
+    <argument
+        android:name="onboarding_layout"
+        app:argType="boolean" />
+  </activity>
   <activity
       android:id="@+id/backup_wallet_activity"
       android:name="com.asfoundation.wallet.backup.BackupActivity"
       tools:layout="@layout/activity_backup">
     <argument
-        android:name="wallet_addr"
+        android:name="wallet_address"
         app:argType="string" />
   </activity>
   <activity

@@ -3,16 +3,19 @@ package com.asfoundation.wallet.repository
 import android.content.SharedPreferences
 import com.asfoundation.wallet.analytics.AnalyticsSetup
 import com.asfoundation.wallet.entity.Wallet
+import com.asfoundation.wallet.interact.rx.operator.Operators
+import com.asfoundation.wallet.recover.result.RestoreResult
+import com.asfoundation.wallet.recover.result.SuccessfulRestore
 import com.asfoundation.wallet.service.AccountKeystoreService
 import io.reactivex.*
 import it.czerwinski.android.hilt.annotations.BoundTo
 import javax.inject.Inject
 
 @BoundTo(supertype = WalletRepositoryType::class)
-class WalletRepository @Inject constructor(
-    private val preferencesRepositoryType: PreferencesRepositoryType,
-    private val accountKeystoreService: AccountKeystoreService,
-    private val analyticsSetUp: AnalyticsSetup) : WalletRepositoryType {
+class WalletRepository @Inject constructor(private val preferencesRepositoryType: PreferencesRepositoryType,
+                       private val accountKeystoreService: AccountKeystoreService,
+                       private val analyticsSetUp: AnalyticsSetup,
+                       private val passwordStore: PasswordStore) : WalletRepositoryType {
 
   override fun fetchWallets(): Single<Array<Wallet>> {
     return accountKeystoreService.fetchAccounts()
@@ -34,12 +37,29 @@ class WalletRepository @Inject constructor(
   }
 
   override fun restoreKeystoreToWallet(store: String, password: String,
-                                       newPassword: String): Single<Wallet> {
+                                       newPassword: String): Single<RestoreResult> {
     return accountKeystoreService.restoreKeystore(store, password, newPassword)
+        .flatMap { restoreResult ->
+          var savePasswordCompletable = Completable.complete()
+          if (restoreResult is SuccessfulRestore) {
+            savePasswordCompletable = savePassword(restoreResult.address, newPassword)
+          }
+          return@flatMap savePasswordCompletable
+              .andThen(Single.just(restoreResult))
+        }
   }
 
-  override fun restorePrivateKeyToWallet(privateKey: String?, newPassword: String): Single<Wallet> {
+  override fun restorePrivateKeyToWallet(privateKey: String?,
+                                         newPassword: String): Single<RestoreResult> {
     return accountKeystoreService.restorePrivateKey(privateKey, newPassword)
+        .flatMap { restoreResult ->
+          var savePasswordCompletable = Completable.complete()
+          if (restoreResult is SuccessfulRestore) {
+            savePasswordCompletable = savePassword(restoreResult.address, newPassword)
+          }
+          return@flatMap savePasswordCompletable
+              .andThen(Single.just(restoreResult))
+        }
   }
 
   override fun exportWallet(address: String, password: String,
@@ -91,5 +111,13 @@ class WalletRepository @Inject constructor(
           preferencesRepositoryType.addChangeListener(listener)
         } as ObservableOnSubscribe<String>)
         .flatMapSingle { address -> findWallet(address) }
+  }
+
+  override fun savePassword(address: String, password: String): Completable {
+    return passwordStore.setPassword(address, password)
+          .onErrorResumeNext { throwable ->
+            deleteWallet(address, password)
+                .lift(Operators.completableErrorProxy(throwable))
+          }
   }
 }

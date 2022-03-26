@@ -3,6 +3,10 @@ package com.asfoundation.wallet.service;
 import com.asfoundation.wallet.C;
 import com.asfoundation.wallet.entity.ServiceErrorException;
 import com.asfoundation.wallet.entity.Wallet;
+import com.asfoundation.wallet.recover.result.FailedRestore;
+import com.asfoundation.wallet.recover.result.RestoreResult;
+import com.asfoundation.wallet.recover.result.RestoreResultErrorMapper;
+import com.asfoundation.wallet.recover.result.SuccessfulRestore;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -56,7 +60,7 @@ import static org.web3j.crypto.Wallet.create;
   }
 
   @Override
-  public Single<Wallet> restoreKeystore(String store, String password, String newPassword) {
+  public Single<RestoreResult> restoreKeystore(String store, String password, String newPassword) {
     return Single.fromCallable(() -> extractAddressFromStore(store))
         .flatMap(address -> {
           if (hasAccount(address)) {
@@ -66,17 +70,20 @@ import static org.web3j.crypto.Wallet.create;
             return importKeystoreInternal(store, password, newPassword);
           }
         })
-        .doOnError(Throwable::printStackTrace);
+        .map(wallet -> (RestoreResult) new SuccessfulRestore(wallet.address))
+        .onErrorReturn(throwable -> new RestoreResultErrorMapper().map(throwable,
+            extractAddressFromStore(store)));
   }
 
-  @Override public Single<Wallet> restorePrivateKey(String privateKey, String newPassword) {
+  @Override public Single<RestoreResult> restorePrivateKey(String privateKey, String newPassword) {
     return Single.fromCallable(() -> {
       BigInteger key = new BigInteger(privateKey, PRIVATE_KEY_RADIX);
       ECKeyPair keypair = ECKeyPair.create(key);
       WalletFile walletFile = create(newPassword, keypair, N, P);
       return new ObjectMapper().writeValueAsString(walletFile);
     })
-        .flatMap(keystore -> restoreKeystore(keystore, newPassword, newPassword));
+        .flatMap(keystore -> restoreKeystore(keystore, newPassword, newPassword))
+        .onErrorReturn(FailedRestore.InvalidPrivateKey::new);
   }
 
   @Override

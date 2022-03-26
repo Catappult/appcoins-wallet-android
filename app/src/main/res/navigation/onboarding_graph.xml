@@ -11,8 +11,8 @@
       tools:layout="@layout/fragment_onboarding">
 
     <action
-        android:id="@+id/action_navigate_to_restore_wallet"
-        app:destination="@id/restore_wallet_activity" />
+        android:id="@+id/action_navigate_to_recover_wallet_activity"
+        app:destination="@id/recover_wallet_activity" />
 
     <action
         android:id="@+id/action_navigate_terms_conditions"
@@ -33,13 +33,18 @@
         android:id="@+id/action_navigate_create_wallet_dialog"
         app:destination="@id/create_wallet_dialog_fragment"
         app:popUpTo="@+id/onboarding_terms_conditions_dialog"
-        app:popUpToInclusive="true"/>
+        app:popUpToInclusive="true" />
   </dialog>
 
   <dialog
       android:id="@+id/create_wallet_dialog_fragment"
       android:name="com.asfoundation.wallet.my_wallets.create_wallet.CreateWalletDialogFragment"
-      tools:layout="@layout/fragment_create_wallet_dialog_layout" />
+      tools:layout="@layout/fragment_create_wallet_dialog_layout">
+    <!-- temporary argument to differentiate the recover from a creation -->
+    <argument
+        android:name="needs_wallet_creation"
+        app:argType="boolean" />
+  </dialog>
 
   <activity
       android:id="@+id/main_activity"
@@ -51,7 +56,11 @@
   </activity>
 
   <activity
-      android:id="@+id/restore_wallet_activity"
-      android:name="com.asfoundation.wallet.restore.RestoreWalletActivity"
-      tools:layout="@layout/activity_restore_wallet" />
+      android:id="@+id/recover_wallet_activity"
+      android:name="com.asfoundation.wallet.recover.RecoverActivity"
+      tools:layout="@layout/recover_wallet_activity" >
+    <argument
+        android:name="onboarding_layout"
+        app:argType="boolean" />
+  </activity>
 </navigation>

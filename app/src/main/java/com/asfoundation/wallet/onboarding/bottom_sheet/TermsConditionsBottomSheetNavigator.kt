@@ -33,6 +33,6 @@ class TermsConditionsBottomSheetNavigator @Inject constructor(private val fragme
 
   fun navigateToCreateWalletDialog() {
     navigate(fragment.findNavController(),
-        TermsConditionsBottomSheetFragmentDirections.actionNavigateCreateWalletDialog())
+        TermsConditionsBottomSheetFragmentDirections.actionNavigateCreateWalletDialog(needsWalletCreation = true))
   }
 }

@@ -7,6 +7,7 @@ import com.asf.wallet.R
 import com.asfoundation.wallet.backup.BackupActivity
 import com.asfoundation.wallet.eskills.withdraw.WithdrawActivity
 import com.asfoundation.wallet.promo_code.bottom_sheet.PromoCodeBottomSheetFragment
+import com.asfoundation.wallet.recover.RecoverActivity
 import com.asfoundation.wallet.ui.AuthenticationPromptActivity
 import com.asfoundation.wallet.ui.settings.wallets.SettingsWalletsFragment
 import com.asfoundation.wallet.ui.wallets.WalletsModel
@@ -52,6 +53,10 @@ class SettingsNavigator @Inject constructor(private val fragmentManager: Fragmen
   fun showRedeemGiftFragment() {
     RedeemGiftBottomSheetFragment.newInstance()
       .show(fragmentManager, "RedeemGiftBottomSheet")
+  }
+
+  fun navigateToRecoverWalletActivity() {
+    activity.startActivity(RecoverActivity.newIntent(activity, onboardingLayout = false))
   }
 
   fun navigateToWithdrawScreen() {

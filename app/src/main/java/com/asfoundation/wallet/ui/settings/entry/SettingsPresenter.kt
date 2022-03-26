@@ -154,6 +154,10 @@ class SettingsPresenter(private val view: SettingsView,
     navigator.showRedeemGiftFragment()
   }
 
+  fun onRecoverWalletPreferenceClick() {
+    navigator.navigateToRecoverWalletActivity()
+  }
+
   fun onBugReportClicked() = settingsInteractor.displaySupportScreen()
 
   fun redirectToStore() {

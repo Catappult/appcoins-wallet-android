@@ -21,7 +21,7 @@ class MyWalletsNavigator @Inject constructor(private val fragment: Fragment,
   }
 
   fun navigateToCreateNewWallet() {
-    navigate(navController, MyWalletsFragmentDirections.actionNavigateToCreateWallet())
+    navigate(navController, MyWalletsFragmentDirections.actionNavigateToCreateWallet(needsWalletCreation = true))
   }
 
   fun navigateToTokenInfo(title: String, image: String, description: String, showTopUp: Boolean) {

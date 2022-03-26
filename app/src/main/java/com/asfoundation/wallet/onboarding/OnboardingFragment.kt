@@ -70,11 +70,11 @@ class OnboardingFragment : BasePageViewFragment(),
   }
 
   private fun setClickListeners() {
-    views.onboardingWelcomeMessage.onboardingNextButton.setOnClickListener { viewModel.handleNextClick() }
-    views.onboardingWelcomeMessage.onboardingExistentWalletButton.setOnClickListener { viewModel.handleRecoverClick() }
+    views.onboardingWelcomeButtons.onboardingNextButton.setOnClickListener { viewModel.handleNextClick() }
+    views.onboardingWelcomeButtons.onboardingExistentWalletButton.setOnClickListener { viewModel.handleRecoverClick() }
 
-    views.onboardingValuePropositions.onboardingBackButton.setOnClickListener { viewModel.handleBackButtonClick() }
-    views.onboardingValuePropositions.onboardingGetStartedButton.setOnClickListener { navigator.navigateToTermsBottomSheet() }
+    views.onboardingValuesButtons.onboardingBackButton.setOnClickListener { viewModel.handleBackButtonClick() }
+    views.onboardingValuesButtons.onboardingGetStartedButton.setOnClickListener { navigator.navigateToTermsBottomSheet() }
   }
 
   override fun onStateChanged(state: OnboardingState) {
@@ -86,14 +86,16 @@ class OnboardingFragment : BasePageViewFragment(),
 
   override fun onSideEffect(sideEffect: OnboardingSideEffect) {
     when (sideEffect) {
-      OnboardingSideEffect.NavigateToRecoverWallet -> navigator.navigateToRestoreActivity()
+      OnboardingSideEffect.NavigateToRecoverWallet -> navigator.navigateToRecoverActivity()
     }
   }
 
   private fun showWelcomeScreen() {
     views.onboardingValuePropositions.root.visibility = View.GONE
+    views.onboardingValuesButtons.root.visibility = View.GONE
     views.onboardingWalletIcon.visibility = View.VISIBLE
     views.onboardingWelcomeMessage.root.visibility = View.VISIBLE
+    views.onboardingWelcomeButtons.root.visibility = View.VISIBLE
   }
 
   private fun showValuesScreen() {
@@ -103,7 +105,9 @@ class OnboardingFragment : BasePageViewFragment(),
       views.onboardingWalletIcon.visibility = View.GONE
     }
     views.onboardingWelcomeMessage.root.visibility = View.GONE
+    views.onboardingWelcomeButtons.root.visibility = View.GONE
     views.onboardingValuePropositions.root.visibility = View.VISIBLE
+    views.onboardingValuesButtons.root.visibility = View.VISIBLE
   }
 
   companion object {

@@ -3,6 +3,7 @@ package com.asfoundation.wallet.ui;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import androidx.annotation.Nullable;
@@ -42,6 +43,7 @@ public abstract class BaseActivity extends AppCompatActivity implements Activity
 
   protected Toolbar toolbar() {
     Toolbar toolbar = findViewById(R.id.toolbar);
+    toolbar.setVisibility(View.VISIBLE);
     if (toolbar != null) {
       setSupportActionBar(toolbar);
       toolbar.setTitle(getTitle());

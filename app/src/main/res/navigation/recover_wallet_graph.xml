@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/recover_wallet"
+    app:startDestination="@id/recover_entry_fragment">
+
+  <fragment
+      android:id="@+id/recover_entry_fragment"
+      android:name="com.asfoundation.wallet.recover.entry.RecoverEntryFragment"
+      tools:layout="@layout/recover_entry_fragment">
+
+    <argument
+        android:name="onboarding_layout"
+        app:argType="boolean" />
+
+    <action
+        android:id="@+id/action_navigate_to_recover_password"
+        app:destination="@id/recover_password_fragment" />
+
+    <action
+        android:id="@+id/action_navigate_create_wallet_dialog"
+        app:destination="@id/create_wallet_dialog_fragment"
+        app:popUpTo="@+id/onboarding_terms_conditions_dialog"
+        app:popUpToInclusive="true" />
+
+    <action
+        android:id="@+id/action_navigate_to_main_activity"
+        app:destination="@id/main_activity"
+        app:popUpTo="@+id/main_nav_graph"
+        app:popUpToInclusive="true" />
+  </fragment>
+
+  <fragment
+      android:id="@+id/recover_password_fragment"
+      android:name="com.asfoundation.wallet.recover.password.RecoverPasswordFragment"
+      tools:layout="@layout/recover_password_fragment">
+    <argument
+        android:name="keystore"
+        app:argType="string" />
+    <argument
+        android:name="wallet_balance"
+        app:argType="string" />
+    <argument
+        android:name="wallet_address"
+        app:argType="string" />
+    <action
+        android:id="@+id/action_navigate_create_wallet_dialog"
+        app:destination="@id/create_wallet_dialog_fragment"
+        app:popUpTo="@+id/onboarding_terms_conditions_dialog"
+        app:popUpToInclusive="true" />
+
+    <action
+        android:id="@+id/action_navigate_to_main_activity"
+        app:destination="@id/main_activity"
+        app:popUpTo="@+id/main_nav_graph"
+        app:popUpToInclusive="true" />
+  </fragment>
+
+  <dialog
+      android:id="@+id/create_wallet_dialog_fragment"
+      android:name="com.asfoundation.wallet.my_wallets.create_wallet.CreateWalletDialogFragment"
+      tools:layout="@layout/fragment_create_wallet_dialog_layout" >
+    <!-- temporary argument to differentiate the recover from a creation -->
+    <argument
+      android:name="needs_wallet_creation"
+      app:argType="boolean" />
+  </dialog>
+
+  <activity
+      android:id="@+id/main_activity"
+      android:name="com.asfoundation.wallet.main.MainActivity"
+      tools:layout="@layout/qr_code_layout">
+    <argument
+        android:name="wallet_addr"
+        app:argType="boolean" />
+  </activity>
+</navigation>

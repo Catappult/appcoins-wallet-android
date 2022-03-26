@@ -212,11 +212,11 @@ dependencies {
   implementation "com.google.zxing:core:$project.zxing_version"
   implementation "com.journeyapps:zxing-android-embedded:$project.zxing_android_version"
 
-  implementation 'com.google.dagger:hilt-android:2.40.5'
-  kapt 'com.google.dagger:hilt-compiler:2.40.5'
+  implementation "com.google.dagger:hilt-android:$project.hilt_version"
+  kapt "com.google.dagger:hilt-compiler:$project.hilt_version"
   //hilt-extensions to allow injecting an implementation that has an interface
-  implementation 'it.czerwinski.android.hilt:hilt-extensions:1.2.0'
-  kapt'it.czerwinski.android.hilt:hilt-processor:1.2.0'
+  implementation "it.czerwinski.android.hilt:hilt-extensions:$project.hilt_czerwinski_extensions_version"
+  kapt "it.czerwinski.android.hilt:hilt-processor:$project.hilt_czerwinski_extensions_version"
 
   implementation "io.reactivex.rxjava2:rxjava:$project.rxjava_version"
   implementation "io.reactivex.rxjava2:rxandroid:$project.rxandroid_version"
@@ -271,7 +271,7 @@ dependencies {
   implementation "com.airbnb.android:epoxy:$project.epoxy_version"
   kapt "com.airbnb.android:epoxy-processor:$project.epoxy_version"
 
-  implementation "com.appsflyer:af-android-sdk:6.3.2"
+  implementation "com.appsflyer:af-android-sdk:$project.appsflyer_version"
 
   implementation "androidx.biometric:biometric:$project.biometrics_version"
 
@@ -279,6 +279,9 @@ dependencies {
 
   implementation "org.apache.commons:commons-lang3:$project.commons_lang3_version"
   implementation "com.android.support:support-annotations:$project.support_annotations"
+
+  implementation "androidx.activity:activity-ktx:$project.ktx_version"
+  implementation "androidx.fragment:fragment-ktx:$project.ktx_version"
 
   implementation "com.uxcam:uxcam:$project.uxcam_version"
 
