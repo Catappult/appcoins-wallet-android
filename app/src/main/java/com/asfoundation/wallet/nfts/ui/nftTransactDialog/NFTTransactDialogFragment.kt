@@ -13,7 +13,10 @@ import com.asf.wallet.R
 import com.asf.wallet.databinding.FragmentNftTransactBinding
 import com.asfoundation.wallet.base.Async
 import com.asfoundation.wallet.base.SingleStateFragment
+import com.asfoundation.wallet.nfts.domain.FailedNftTransfer
 import com.asfoundation.wallet.nfts.domain.GasInfo
+import com.asfoundation.wallet.nfts.domain.NftTransferResult
+import com.asfoundation.wallet.nfts.domain.SuccessfulNftTransfer
 import com.asfoundation.wallet.util.BalanceUtils
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -55,26 +58,25 @@ class NFTTransactDialogFragment : BottomSheetDialogFragment(),
     views.layoutNftTransactDone.doneMensage.text =
         getString(R.string.nfts_transact_done_mensage, state.data.name)
 
-    when (val transactionHash = state.transactionHashAsync) {
+    when (val transactionResult = state.transactionResultAsync) {
       is Async.Fail -> showError(getString(R.string.nfts_generic_error))
       is Async.Loading -> showLoading()
-      is Async.Success -> if (transactionHash.value?.startsWith(
-              "0x") == true) showSuccess() else transactionHash.value?.let {
-        showError(mapError(it))
-      }
+      is Async.Success -> transactionResult.value?.let { showResult(it) }
       Async.Uninitialized -> setGasPrice(state.gasPriceAsync)
     }
   }
 
-  private fun mapError(errorMessage: String): String {
-    return when (errorMessage) {
-      "already known" -> getString(R.string.nfts_transact_error_already_in_progress)
-      "replacement transaction underpriced" -> getString(
-          R.string.nfts_transact_error_already_in_progress)
-      "insufficient funds for gas * price + value" -> getString(
-          R.string.nfts_transact_error_no_funds)
-      "intrinsic gas too low" -> getString(R.string.nfts_transact_error_low_gas)
-      else -> getString(R.string.nfts_generic_error)
+  private fun showResult(result: NftTransferResult) {
+    when (result) {
+      is SuccessfulNftTransfer -> showSuccess()
+      is FailedNftTransfer.AlreadyKnown -> showError(
+          getString(R.string.nfts_transact_error_already_in_progress))
+      is FailedNftTransfer.ReplacementUnderpriced -> showError(
+          getString(R.string.nfts_transact_error_already_in_progress))
+      is FailedNftTransfer.InsufficientFunds -> showError(
+          getString(R.string.nfts_transact_error_no_funds))
+      is FailedNftTransfer.GasToLow -> showError(getString(R.string.nfts_transact_error_low_gas))
+      else -> showError(getString(R.string.nfts_generic_error))
     }
   }
 
@@ -94,20 +96,20 @@ class NFTTransactDialogFragment : BottomSheetDialogFragment(),
     views.layoutNftTransactPickGas.gasPriceInput.text = Editable.Factory.getInstance()
         .newEditable(gasInfo.gasPrice.toString())
     views.layoutNftTransactPickGas.gasPriceInput.doAfterTextChanged {
-      updateFee(gasInfo.copyWith(gasPrice = BigInteger(
-          views.layoutNftTransactPickGas.gasPriceInput.text.toString()
-              ?.let { "0" }), gasLimit = BigInteger(
-          views.layoutNftTransactPickGas.gasLimitInput.text.toString()
-              ?.let { "0" })))
+      updateFee(gasInfo.copyWith(
+          gasPrice = views.layoutNftTransactPickGas.gasPriceInput.text.toString()
+              .toBigIntegerOrNull() ?: BigInteger.ZERO,
+          gasLimit = views.layoutNftTransactPickGas.gasLimitInput.text.toString()
+              .toBigIntegerOrNull() ?: BigInteger.ZERO))
     }
     views.layoutNftTransactPickGas.gasLimitInput.text = Editable.Factory.getInstance()
         .newEditable(gasInfo.gasLimit.toString())
     views.layoutNftTransactPickGas.gasLimitInput.doAfterTextChanged {
-      updateFee(gasInfo.copyWith(gasPrice = BigInteger(
-          views.layoutNftTransactPickGas.gasPriceInput.text.toString()
-              ?.let { "0" }), gasLimit = BigInteger(
-          views.layoutNftTransactPickGas.gasLimitInput.text.toString()
-              ?.let { "0" })))
+      updateFee(gasInfo.copyWith(
+          gasPrice = views.layoutNftTransactPickGas.gasPriceInput.text.toString()
+              .toBigIntegerOrNull() ?: BigInteger.ZERO,
+          gasLimit = views.layoutNftTransactPickGas.gasLimitInput.text.toString()
+              .toBigIntegerOrNull() ?: BigInteger.ZERO))
     }
     updateFee(gasInfo)
     views.layoutNftTransactPickGas.root.visibility = View.VISIBLE
