@@ -353,9 +353,7 @@ class AdyenTopUpFragment : BasePageViewFragment(), AdyenTopUpView {
     forget: Boolean,
     savedInstanceState: Bundle?
   ) {
-    if (forget) viewModelStore.clear()
     val cardComponent = paymentInfoModel.cardComponent!!(this, cardConfiguration)
-    if (forget) clearFields()
     adyen_card_form_pre_selected?.attach(cardComponent, this)
     cardComponent.observe(this) {
       if (it != null && it.isValid) {
@@ -374,7 +372,9 @@ class AdyenTopUpFragment : BasePageViewFragment(), AdyenTopUpView {
         button.isEnabled = false
       }
     }
-    if (!forget) {
+    if (forget) {
+      clearFields()
+    } else {
       getFieldValues(savedInstanceState)
     }
   }

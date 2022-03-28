@@ -188,9 +188,7 @@ class VerificationIntroFragment : BasePageViewFragment(), VerificationIntroView 
     forget: Boolean,
     savedInstanceState: Bundle?
   ) {
-    if (forget) viewModelStore.clear()
     val cardComponent = paymentInfoModel.cardComponent!!(this, cardConfiguration)
-    if (forget) clearFields()
     adyen_card_form_pre_selected?.attach(cardComponent, this)
     cardComponent.observe(this) {
       adyenSecurityCodeLayout.error = null
@@ -210,7 +208,9 @@ class VerificationIntroFragment : BasePageViewFragment(), VerificationIntroView 
         submit.isEnabled = false
       }
     }
-    if (!forget) {
+    if (forget) {
+      clearFields()
+    } else {
       getFieldValues(savedInstanceState)
     }
   }
