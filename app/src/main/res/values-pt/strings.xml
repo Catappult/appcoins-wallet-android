@@ -1045,20 +1045,20 @@
   <string name="nfts_generic_error">Ups! Algo correu mal!</string>
   <string name="nfts_transact_gas_title">Estás com pressa?</string>
   <string name="nfts_transact_gas_description">Escolhe quanto queres pagar em taxas. Quanto mais alta for a taxa, mais rápida é a transação.</string>
-  <string name="nfts_transact_gas_price">Gas Price</string>
-  <string name="nfts_transact_gas_limit">Gas Limit</string>
-  <string name="nfts_transact_gas_fee_message">Transaction Fee</string>
-  <string name="nfts_transact_error_no_funds">Not enough funds! You don\'t have enough ETH to pay for the fees.</string>
-  <string name="nfts_transact_error_low_gas">Gas is too low! Increase your gas for the network to accept your transaction.</string>
-  <string name="nfts_transact_error_already_in_progress">This NFT is already being sent! A previous transaction is currently in progress.</string>
+  <string name="nfts_transact_gas_price">Preço do gás</string>
+  <string name="nfts_transact_gas_limit">Limite do gás</string>
+  <string name="nfts_transact_gas_fee_message">Taxa de Transação</string>
+  <string name="nfts_transact_error_no_funds">Fundos insuficientes! Não tens ETH suficiente para pagar as taxas.</string>
+  <string name="nfts_transact_error_low_gas">O gás está muito em baixo! Aumenta o teu gás para que a rede aceite a tua transação.</string>
+  <string name="nfts_transact_error_already_in_progress">Este NFT já está a ser enviado! Uma transação anterior está atualmente em curso.</string>
   <!-- Gift Card -->
-  <string name="gift_card_title">Redeem your gift card code</string>
-  <string name="gift_card_field">Card code here...</string>
-  <string name="gift_card_done_title">Code redeemed!</string>
-  <string name="gift_card_done_body">Check your transacions list.</string>
-  <string name="gift_card_error_general_title">Something went wrong!</string>
-  <string name="gift_card_error_general_body">Please try again or use a different code.</string>
-  <string name="gift_card_error_used_title">This code has already been used!</string>
-  <string name="gift_card_error_new_users_title">This code is only for new users!</string>
-  <string name="gift_card_error_try_with_different_body">Please try again with a different one.</string>
+  <string name="gift_card_title">Redime o código do teu cartão oferta</string>
+  <string name="gift_card_field">Código do cartão aqui...</string>
+  <string name="gift_card_done_title">Código redimido!</string>
+  <string name="gift_card_done_body">Verifica a tua lista de transações.</string>
+  <string name="gift_card_error_general_title">Algo correu mal!</string>
+  <string name="gift_card_error_general_body">Por favor, tenta novamente ou usa um código diferente.</string>
+  <string name="gift_card_error_used_title">Este código já foi usado!</string>
+  <string name="gift_card_error_new_users_title">Este código é apenas para novos utilizadores!</string>
+  <string name="gift_card_error_try_with_different_body">Por favor, tenta novamente com um diferente.</string>
 </resources>
