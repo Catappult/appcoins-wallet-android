@@ -442,8 +442,8 @@
   <string name="withdraw_button">keluarkan</string>
   <string name="email_here_field">E-mel anda di sini&#8230;</string>
   <string name="understood_button">Faham!</string>
-  <string name="skip_button">Skip for now</string>
-  <string name="understand_button">I understand</string>
+  <string name="skip_button">Langkau buat sekarang</string>
+  <string name="understand_button">Saya faham</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Saya setuju dengan %1$s dan %2$s Dompet AppCoins.</string>
   <string name="terms_and_conditions_error">Sila terima Terma dan Syarat serta Dasar Privasi kami untuk teruskan</string>
@@ -555,7 +555,7 @@
   <string name="purchase_error_verify_card">Sahkan kad anda untuk selesaikan pembelian ini.</string>
   <string name="purachse_error_verify_card_button">SAHKAN KAD</string>
   <string name="purchase_eskills_sku">Tiket masuk</string>
-  <string name="purchase_paytmupi_install_disclaimer">You\'ll need to install Paytm UPI app.</string>
+  <string name="purchase_paytmupi_install_disclaimer">Anda perlu memasang aplikasi Paytm UPI.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">Alamat bil</string>
   <string name="purchase_address_address_field">Alamat</string>
@@ -645,19 +645,19 @@
   <string name="import_wallet_wrong_password_body">Oops, kata laluan salah!</string>
   <string name="error_invalid_private_key">Kunci peribadi tidak sah</string>
   <string name="error_invalid_keystore">Kunci kedai tidak sah</string>
-  <string name="backup_title">Backup your wallet now!</string>
+  <string name="backup_title">Sandar dompet anda sekarang!</string>
   <string name="backup_body">Kami tidak menyimpan kunci peribadi anda atau kaedah akses yang lain. Penting bagi anda untuk memastikan sandaran dompet (kunci gedung) anda selamat.</string>
   <string name="backup_additional_security_title">Ciri Keselamatan Tambahan (pilihan)</string>
   <string name="backup_additional_security_body">Pilih kata laluan</string>
   <string name="backup_button">SANDAR DOMPET</string>
-  <string name="backup_ready_title">Your backup is ready!\nKeep it safe.</string>
+  <string name="backup_ready_title">Sandaran anda siap!\nPastikan ia selamat.</string>
   <string name="backup_ready_save_on_email">Simpan dalam e-mel anda</string>
   <string name="backup_ready_email_button">Hantar ke e-mel</string>
   <string name="backup_ready_device_button">Simpan dalam peranti</string>
   <string name="backup_confirmation_tips_title">Pastikan fail selamat:</string>
-  <string name="backup_confirmation_tips_1"><b>Print it</b> and store it somewhere safe.</string>
-  <string name="backup_confirmation_tips_2"><b>Save it</b> on a USB drive.</string>
-  <string name="backup_confirmation_tips_3"><b>Copy it</b> to a private and secure cloud storage.</string>
+  <string name="backup_confirmation_tips_1"><b>Cetak ia</b> dan simpan ia di tempat yang selamat.</string>
+  <string name="backup_confirmation_tips_2"><b>Simpan</b> di dalam pemacu USB.</string>
+  <string name="backup_confirmation_tips_3"><b>Salin</b> ke storan awan peribadi dan selamat.</string>
   <string name="backup_tooltip_body">Buat sandaran untuk dompet anda!</string>
   <string name="backup_tooltip_later_button">LAIN KALI</string>
   <string name="backup_tooltip_backup_button">SANDARAN</string>
@@ -668,10 +668,10 @@
   <string name="backup_additional_security_disclaimer_body">Tiada pemulihan kata laluan.</string>
   <string name="backup_additional_security_password_not_march">Kata laluan tidak sepadan.</string>
   <string name="import_wallet_recovering_body">Mendapatkan semula dompet...</string>
-  <string name="backup_skip_title">I understand that I may loose my funds if I don\'t backup my wallet key.</string>
-  <string name="backup_wallet_button">Backup wallet</string>
-  <string name="backup_success_save_on_email">Your backup file is in your email.</string>
-  <string name="backup_success_save_on_device">Your backup file is stored in your device.</string>
+  <string name="backup_skip_title">Saya faham bahawa saya boleh kehilangan dana saya jika saya tidak buat sandaran kunci dompet saya.</string>
+  <string name="backup_wallet_button">Dompet sandaran</string>
+  <string name="backup_success_save_on_email">Fail sandaran anda ada dalam e-mel anda.</string>
+  <string name="backup_success_save_on_device">Fail sandaran anda disimpan dalam peranti anda.</string>
   <!--Backup DELETE-->
   <string name="backup_confirmation_body"></string>
   <string name="backup_confirmation_no"></string>
@@ -1025,31 +1025,31 @@
   <!--  NFTs -->
   <string name="nfts_title">NFT</string>
   <string name="nfts_no_nfts">Anda belum ada NFT dalam dompet ini!</string>
-  <string name="nfts_transact_button">Send this NFT</string>
-  <string name="nfts_transact_button_send">Send</string>
-  <string name="nfts_transact_button_next">Next</string>
-  <string name="nfts_transact_button_done">Done</string>
-  <string name="nfts_transact_button_success">Got it</string>
-  <string name="nfts_transact_tip">Enter your friend\'s wallet address</string>
-  <string name="nfts_transact_input_tip">Wallet address here...</string>
-  <string name="nfts_transact_done_mensage">%s successfully sent!</string>
-  <string name="nfts_generic_error">Oops! Something went wrong!</string>
-  <string name="nfts_transact_gas_title">Are you in a hurry?</string>
-  <string name="nfts_transact_gas_description">Choose how much you want to pay in fees. The higher the fee, the faster the transaction.</string>
-  <string name="nfts_transact_gas_price">Gas Price</string>
-  <string name="nfts_transact_gas_limit">Gas Limit</string>
-  <string name="nfts_transact_gas_fee_message">Transaction Fee</string>
-  <string name="nfts_transact_error_no_funds">Not enough funds! You don\'t have enough ETH to pay for the fees.</string>
-  <string name="nfts_transact_error_low_gas">Gas is too low! Increase your gas for the network to accept your transaction.</string>
-  <string name="nfts_transact_error_already_in_progress">This NFT is already being sent! A previous transaction is currently in progress.</string>
+  <string name="nfts_transact_button">Hantar NFT ini</string>
+  <string name="nfts_transact_button_send">Hantar</string>
+  <string name="nfts_transact_button_next">Seterusnya</string>
+  <string name="nfts_transact_button_done">Selesai</string>
+  <string name="nfts_transact_button_success">Berjaya</string>
+  <string name="nfts_transact_tip">Masukkan alamat dompet rakan anda</string>
+  <string name="nfts_transact_input_tip">Alamat dompet di sini...</string>
+  <string name="nfts_transact_done_mensage">%s berjaya dihantar!</string>
+  <string name="nfts_generic_error">Oops! Ada yang tak kena!</string>
+  <string name="nfts_transact_gas_title">Anda nak cepat?</string>
+  <string name="nfts_transact_gas_description">Pilih berapa banyak anda mahu bayar untuk fi. Lebih tinggi fi, lebih pantas transaksi.</string>
+  <string name="nfts_transact_gas_price">Harga Minyak</string>
+  <string name="nfts_transact_gas_limit">Had Minyak</string>
+  <string name="nfts_transact_gas_fee_message">Fi Transaksi</string>
+  <string name="nfts_transact_error_no_funds">Dana tidak cukup! ETH anda tidak cukup untuk bayar fi.</string>
+  <string name="nfts_transact_error_low_gas">Minyak terlalu sedikit! Tingkatkan minyak anda supaya rangkaian dapat menerima transaksi anda.</string>
+  <string name="nfts_transact_error_already_in_progress">NFT ini sedang dihantar! Transaksi sebelum ini sedang diproses.</string>
   <!-- Gift Card -->
-  <string name="gift_card_title">Redeem your gift card code</string>
-  <string name="gift_card_field">Card code here...</string>
-  <string name="gift_card_done_title">Code redeemed!</string>
-  <string name="gift_card_done_body">Check your transacions list.</string>
-  <string name="gift_card_error_general_title">Something went wrong!</string>
-  <string name="gift_card_error_general_body">Please try again or use a different code.</string>
-  <string name="gift_card_error_used_title">This code has already been used!</string>
-  <string name="gift_card_error_new_users_title">This code is only for new users!</string>
-  <string name="gift_card_error_try_with_different_body">Please try again with a different one.</string>
+  <string name="gift_card_title">Tebus kod kad hadiah anda</string>
+  <string name="gift_card_field">Kod kad di sini...</string>
+  <string name="gift_card_done_title">Kod telah ditebus!</string>
+  <string name="gift_card_done_body">Semak senarai transaksi anda.</string>
+  <string name="gift_card_error_general_title">Ada yang tak kena!</string>
+  <string name="gift_card_error_general_body">Cuba sekali lagi atau cuba kod lain.</string>
+  <string name="gift_card_error_used_title">Kod ini telah digunakan!</string>
+  <string name="gift_card_error_new_users_title">Kod ini hanya untuk pengguna baru!</string>
+  <string name="gift_card_error_try_with_different_body">Cuba sekali lagi dengan kod lain.</string>
 </resources>

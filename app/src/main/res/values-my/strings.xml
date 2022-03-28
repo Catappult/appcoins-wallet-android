@@ -442,8 +442,8 @@
   <string name="withdraw_button">ထုတ္ယူမည္</string>
   <string name="email_here_field">သင့္အီးေမးလ္ကို ဤေနရာတြင္&#8230;</string>
   <string name="understood_button">သိပါၿပီ။</string>
-  <string name="skip_button">Skip for now</string>
-  <string name="understand_button">I understand</string>
+  <string name="skip_button">ေလာေလာဆယ္ ေက်ာ္သြားမည္</string>
+  <string name="understand_button">နားလည္ပါသည္</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">AppCoins Wallet ၏ %1$s ႏွင့္ %2$s ကို သေဘာတူပါသည္။</string>
   <string name="terms_and_conditions_error">ဆက္လုပ္ႏိုင္ရန္ ကၽြႏ္ုပ္တို႔၏ စည္းမ်ဥ္းစည္းကမ္းမ်ားႏွင့္ ကုိယ္ေရးလံုၿခံဳမႈ မူ၀ါဒကို လက္ခံေပးပါ</string>
@@ -555,7 +555,7 @@
   <string name="purchase_error_verify_card">ဤဝယ္ယူမႈကို ၿပီးစီးေစရန္ သင့္ကဒ္ကို အတည္ျပဳပါ။</string>
   <string name="purachse_error_verify_card_button">ကဒ္ကို အတည္ျပဳမည္</string>
   <string name="purchase_eskills_sku">ဝင္ေရာက္ခြင့္လက္မွတ္</string>
-  <string name="purchase_paytmupi_install_disclaimer">You\'ll need to install Paytm UPI app.</string>
+  <string name="purchase_paytmupi_install_disclaimer">Paytm UPI အက္ပ္ကို ထည့္သြင္းရန္ လိုအပ္ပါသည္။</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">က်သင့္ေငြေကာက္ခံရန္လိပ္စာ</string>
   <string name="purchase_address_address_field">လိပ္စာ</string>
@@ -645,19 +645,19 @@
   <string name="import_wallet_wrong_password_body">အိုး စကား၀ွက္မွားေနပါသည္။</string>
   <string name="error_invalid_private_key">သီးျခားကီး မမွန္ကန္ပါ</string>
   <string name="error_invalid_keystore">Keystore မမွန္ကန္ပါ</string>
-  <string name="backup_title">Backup your wallet now!</string>
+  <string name="backup_title">သင့္ပိုက္ဆံအိတ္ကို ယခုပင္ အရန္သိမ္းဆည္းလိုက္ပါ။</string>
   <string name="backup_body">သင့္ကိုယ္ပိုင္ကီးမ်ား သို႔မဟုတ္ အျခား၀င္ေရာက္ခြင့္နည္းလမ္းမ်ားကို ကၽြႏ္ုပ္တို႔ မသိမ္းဆည္းထားပါ။ သင့္ပိုက္ဆံအိတ္၏ ဘက္ခ္ကပ္ (ကီးစတိုး) ကို လံုၿခံဳေအာင္ထားရန္ အေရးႀကီးပါသည္။</string>
   <string name="backup_additional_security_title">ေနာက္ထပ္လံုျခံဳေရး (ေရြးခ်ယ္ႏိုင္ပါသည္)</string>
   <string name="backup_additional_security_body">စကားဝွက္တစ္ခု ေရြးခ်ယ္ပါ</string>
   <string name="backup_button">ပိုက္ဆံအိတ္ကို အရန္သိမ္းဆည္းမည္</string>
-  <string name="backup_ready_title">Your backup is ready!\nKeep it safe.</string>
+  <string name="backup_ready_title">အရန္သိမ္းဆည္းမႈ အသင့္ျဖစ္ပါၿပီ။\nလုံၿခဳံေအာင္ ထားလိုက္ပါ။</string>
   <string name="backup_ready_save_on_email">သင့္အီးေမးလ္တြင္ သိမ္းလိုက္ပါ</string>
   <string name="backup_ready_email_button">အီးေမးလ္သို႔ပို႔မည္</string>
   <string name="backup_ready_device_button">ကိရိယာေပၚတြင္ သိမ္းမည္</string>
   <string name="backup_confirmation_tips_title">ဖိိုင္ကို ေဘးကင္းေအာင္ထားပါ -</string>
-  <string name="backup_confirmation_tips_1"><b>Print it</b> and store it somewhere safe.</string>
-  <string name="backup_confirmation_tips_2"><b>Save it</b> on a USB drive.</string>
-  <string name="backup_confirmation_tips_3"><b>Copy it</b> to a private and secure cloud storage.</string>
+  <string name="backup_confirmation_tips_1"><b>ပရင့္ထုတ္ကာ</b> လုံၿခဳံေသာ တစ္ေနရာရာတြင္ သိမ္းထားလိုက္ပါ။</string>
+  <string name="backup_confirmation_tips_2">ယူအက္စ္ဘီ ဒ႐ိုက္ဗ္တစ္ခုေပၚတြင္ <b>သိမ္းဆည္းပါ။</b></string>
+  <string name="backup_confirmation_tips_3">သီးသန႔္ျဖစ္ၿပီး လုံၿခဳံေသာ cloud သိမ္းဆည္းမႈတစ္ခုတြင္ <b>ကူးယူထားပါ။</b></string>
   <string name="backup_tooltip_body">သင့္ပိုက္ဆံအိတ္အတြက္ အရံသိမ္းဆည္းမႈတစ္ခု ျပဳလုပ္လိုက္ပါ။</string>
   <string name="backup_tooltip_later_button">ေနာက္မွလုပ္မည္</string>
   <string name="backup_tooltip_backup_button">အရံသိမ္းဆည္းမည္</string>
@@ -668,10 +668,10 @@
   <string name="backup_additional_security_disclaimer_body">စကားဝွက္ ျပန္လည္ရယူမႈ မရွိပါ။</string>
   <string name="backup_additional_security_password_not_march">စကားဝွက္မ်ား မကိုက္ညီပါ။</string>
   <string name="import_wallet_recovering_body">ပိုက္ဆံအိတ္ကို ျပန္လည္ရယူေနပါသည္...</string>
-  <string name="backup_skip_title">I understand that I may loose my funds if I don\'t backup my wallet key.</string>
-  <string name="backup_wallet_button">Backup wallet</string>
-  <string name="backup_success_save_on_email">Your backup file is in your email.</string>
-  <string name="backup_success_save_on_device">Your backup file is stored in your device.</string>
+  <string name="backup_skip_title">ကြၽႏ္ုပ္၏ ပိုက္ဆံအိတ္ကီးကို အရန္သိမ္းဆည္းမထားပါက ကြၽႏ္ုပ္၏ေငြမ်ားကို ဆုံးရႈံးႏိုင္ေၾကာင္း နားလည္ပါသည္။</string>
+  <string name="backup_wallet_button">ပိုက္ဆံအိတ္ကို အရန္ထားရွိမည္</string>
+  <string name="backup_success_save_on_email">အရန္သိမ္းဆည္းမႈဖိုင္သည္ သင့္အီးေမးလ္တြင္ ရွိပါသည္။</string>
+  <string name="backup_success_save_on_device">အရန္သိမ္းဆည္းမႈဖိုင္ကို သင့္ကိရိယာေပၚတြင္ သိမ္းထားပါသည္။</string>
   <!--Backup DELETE-->
   <string name="backup_confirmation_body"></string>
   <string name="backup_confirmation_no"></string>
@@ -1025,31 +1025,31 @@
   <!--  NFTs -->
   <string name="nfts_title">NFTs</string>
   <string name="nfts_no_nfts">ဤပိုက္ဆံအိတ္တြင္ မည္သည့္ NFT မွ် မရွိေသးပါ။</string>
-  <string name="nfts_transact_button">Send this NFT</string>
-  <string name="nfts_transact_button_send">Send</string>
-  <string name="nfts_transact_button_next">Next</string>
-  <string name="nfts_transact_button_done">Done</string>
-  <string name="nfts_transact_button_success">Got it</string>
-  <string name="nfts_transact_tip">Enter your friend\'s wallet address</string>
-  <string name="nfts_transact_input_tip">Wallet address here...</string>
-  <string name="nfts_transact_done_mensage">%s successfully sent!</string>
-  <string name="nfts_generic_error">Oops! Something went wrong!</string>
-  <string name="nfts_transact_gas_title">Are you in a hurry?</string>
-  <string name="nfts_transact_gas_description">Choose how much you want to pay in fees. The higher the fee, the faster the transaction.</string>
-  <string name="nfts_transact_gas_price">Gas Price</string>
-  <string name="nfts_transact_gas_limit">Gas Limit</string>
-  <string name="nfts_transact_gas_fee_message">Transaction Fee</string>
-  <string name="nfts_transact_error_no_funds">Not enough funds! You don\'t have enough ETH to pay for the fees.</string>
-  <string name="nfts_transact_error_low_gas">Gas is too low! Increase your gas for the network to accept your transaction.</string>
-  <string name="nfts_transact_error_already_in_progress">This NFT is already being sent! A previous transaction is currently in progress.</string>
+  <string name="nfts_transact_button">ဤ NFT ကို ေပးပို႔မည္</string>
+  <string name="nfts_transact_button_send">ေပးပို႔မည္</string>
+  <string name="nfts_transact_button_next">ေနာက္္ထပ္</string>
+  <string name="nfts_transact_button_done">ၿပီးပါၿပီ</string>
+  <string name="nfts_transact_button_success">သိပါၿပီ</string>
+  <string name="nfts_transact_tip">သင့္သူငယ္ခ်င္း၏ ပိုက္ဆံအိတ္လိပ္စာကို ထည့္ပါ</string>
+  <string name="nfts_transact_input_tip">ပိုက္ဆံအိတ္လိပ္စာကို ဤေနရာတြင္...</string>
+  <string name="nfts_transact_done_mensage">%s ေအာင္ျမင္စြာ ေပးပို႔လိုက္ပါသည္။</string>
+  <string name="nfts_generic_error">အိုး။ တစ္ခုခု မွားသြားပါသည္။</string>
+  <string name="nfts_transact_gas_title">အေရးႀကီးေနပါသလား။</string>
+  <string name="nfts_transact_gas_description">အခေၾကးေငြအျဖစ္ သင္မည္မွ်ေပးလိုသည္ကို ေ႐ြးခ်ယ္ပါ။ အခေၾကးေငြမ်ားေလ ေငြလႊဲေျပာင္းမႈ ပိုျမန္ေလ ျဖစ္ပါသည္။</string>
+  <string name="nfts_transact_gas_price">ဂတ္စ္ေစ်းႏႈန္း</string>
+  <string name="nfts_transact_gas_limit">ဂတ္စ္အကန္္႔အသတ္</string>
+  <string name="nfts_transact_gas_fee_message">ေငြလႊဲေျပာင္းခ</string>
+  <string name="nfts_transact_error_no_funds">ေငြမလုံေလာက္ပါ။ အခေၾကးေငြကိုေပးရန္ သင့္တြင္ ETH အလုံအေလာက္ မရွိပါ။</string>
+  <string name="nfts_transact_error_low_gas">ဂတ္စ္အလြန္နည္းေနပါသည္။ သင့္ေငြလႊဲေျပာင္းမႈကို လက္ခံရန္ ကြန္ရက္အတြက္ ဂတ္စ္ကို တိုးျမႇင့္လိုက္ပါ။</string>
+  <string name="nfts_transact_error_already_in_progress">ဤ NFT ကို ေပးပို႔ထားၿပီး ျဖစ္ပါသည္။ ယခင္ေငြလႊဲေျပာင္းမႈကို လက္ရွိတြင္ ေဆာင္႐ြက္ေနဆဲ ျဖစ္ပါသည္။</string>
   <!-- Gift Card -->
-  <string name="gift_card_title">Redeem your gift card code</string>
-  <string name="gift_card_field">Card code here...</string>
-  <string name="gift_card_done_title">Code redeemed!</string>
-  <string name="gift_card_done_body">Check your transacions list.</string>
-  <string name="gift_card_error_general_title">Something went wrong!</string>
-  <string name="gift_card_error_general_body">Please try again or use a different code.</string>
-  <string name="gift_card_error_used_title">This code has already been used!</string>
-  <string name="gift_card_error_new_users_title">This code is only for new users!</string>
-  <string name="gift_card_error_try_with_different_body">Please try again with a different one.</string>
+  <string name="gift_card_title">သင့္လက္ေဆာင္ကုဒ္ကို လဲလွယ္လိုက္ပါ</string>
+  <string name="gift_card_field">ကဒ္ကုဒ္ကို ဤေနရာတြင္...</string>
+  <string name="gift_card_done_title">ကုဒ္ကို လဲလွယ္လိုက္ပါၿပီ။</string>
+  <string name="gift_card_done_body">သင့္ေငြလႊဲေျပာင္းမႈ စာရင္းကို စစ္ေဆးပါ။</string>
+  <string name="gift_card_error_general_title">တစ္ခုခု မွားသြားပါသည္။</string>
+  <string name="gift_card_error_general_body">ျပန္ႀကိဳးစားေပးပါ သို႔မဟုတ္ အျခားကုဒ္တစ္ခုကို အသုံးျပဳေပးပါ။</string>
+  <string name="gift_card_error_used_title">ဤကုဒ္ကို အသုံးျပဳထားၿပီး ျဖစ္ပါသည္။</string>
+  <string name="gift_card_error_new_users_title">ဤကုဒ္သည္ အသုံးျပဳသူ အသစ္မ်ားအတြက္သာ ျဖစ္ပါသည္။</string>
+  <string name="gift_card_error_try_with_different_body">အျခားတစ္ခုျဖင့္ ျပန္ႀကိဳးစားေပးပါ။</string>
 </resources>
