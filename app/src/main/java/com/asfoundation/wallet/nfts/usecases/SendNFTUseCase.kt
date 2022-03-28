@@ -1,6 +1,7 @@
 package com.asfoundation.wallet.nfts.usecases
 
 import com.asfoundation.wallet.nfts.domain.NFTItem
+import com.asfoundation.wallet.nfts.domain.NftTransferResult
 import com.asfoundation.wallet.nfts.repository.NFTRepository
 import com.asfoundation.wallet.repository.PasswordStore
 import com.asfoundation.wallet.service.KeyStoreFileManager
@@ -17,20 +18,14 @@ class SendNFTUseCase @Inject constructor(
   private val passwordStore: PasswordStore
 ) {
 
-  operator fun invoke(
-    toAddress: String, nft: NFTItem, gasPrice: BigInteger,
-    gasLimit: BigInteger
-  ): Single<String> {
+  operator fun invoke(toAddress: String, nft: NFTItem, gasPrice: BigInteger,
+                      gasLimit: BigInteger): Single<NftTransferResult> {
     return getCurrentWallet().flatMap { wallet ->
       passwordStore.getPassword(wallet.address)
-        .flatMap { password ->
-          NFTRepository.sendNFT(
-            wallet.address, toAddress, nft.tokenId, nft.contractAddress,
-            nft.schema, gasPrice, gasLimit, WalletUtils.loadCredentials(
-              password,
-              keyStoreFileManager.getKeystore(wallet.address)
-            )
-          )
+          .flatMap { password ->
+            NFTRepository.sendNFT(wallet.address, toAddress, nft.tokenId, nft.contractAddress,
+                nft.schema, gasPrice, gasLimit, WalletUtils.loadCredentials(password,
+                keyStoreFileManager.getKeystore(wallet.address)))
         }
     }
   }

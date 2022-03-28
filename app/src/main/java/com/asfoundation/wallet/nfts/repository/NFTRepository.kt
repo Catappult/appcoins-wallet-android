@@ -4,6 +4,8 @@ import android.util.Log
 import com.asfoundation.wallet.base.RxSchedulers
 import com.asfoundation.wallet.nfts.domain.GasInfo
 import com.asfoundation.wallet.nfts.domain.NFTItem
+import com.asfoundation.wallet.nfts.domain.NftTransferResult
+import com.asfoundation.wallet.nfts.domain.SuccessfulNftTransfer
 import com.asfoundation.wallet.service.currencies.LocalCurrencyConversionService
 import com.asfoundation.wallet.wallets.repository.BalanceRepository
 import io.reactivex.Single
@@ -72,18 +74,14 @@ class NFTRepository @Inject constructor(
       .subscribeOn(Schedulers.io())
   }
 
-  fun sendNFT(
-    fromAddress: String, toAddress: String, tokenID: BigDecimal, contractAddress: String,
-    schema: String, gasPrice: BigInteger, gasLimit: BigInteger,
-    credentials: Credentials
-  ): Single<String> {
+  fun sendNFT(fromAddress: String, toAddress: String, tokenID: BigDecimal, contractAddress: String,
+              schema: String, gasPrice: BigInteger, gasLimit: BigInteger,
+              credentials: Credentials): Single<NftTransferResult> {
     return Single.fromCallable {
-      signAndSendTransaction(
-        fromAddress, toAddress, tokenID, contractAddress, schema, gasPrice,
-        gasLimit, credentials
-      )
+      signAndSendTransaction(fromAddress, toAddress, tokenID, contractAddress, schema, gasPrice,
+          gasLimit, credentials)
     }
-      .subscribeOn(Schedulers.io())
+        .subscribeOn(Schedulers.io())
   }
 
   private fun createTransactionDataNFT721(
@@ -160,25 +158,20 @@ class NFTRepository @Inject constructor(
     )
   }
 
-  private fun signAndSendTransaction(
-    fromAddress: String, toAddress: String, tokenID: BigDecimal,
-    contractAddress: String, schema: String, gasPrice: BigInteger,
-    gasLimit: BigInteger, credentials: Credentials
-  ): String {
+  private fun signAndSendTransaction(fromAddress: String, toAddress: String, tokenID: BigDecimal,
+                                     contractAddress: String, schema: String, gasPrice: BigInteger,
+                                     gasLimit: BigInteger,
+                                     credentials: Credentials): NftTransferResult {
     val transaction =
-      createSendTransaction(
-        fromAddress, toAddress, tokenID, contractAddress, schema, gasPrice,
-        gasLimit
-      )
+        createSendTransaction(fromAddress, toAddress, tokenID, contractAddress, schema, gasPrice,
+            gasLimit)
     val signedTransaction: ByteArray = TransactionEncoder.signMessage(transaction, credentials)
     val raw = web3j.ethSendRawTransaction(Numeric.toHexString(signedTransaction))
-      .send()
+        .send()
     return if (raw.transactionHash == null) {
-      Log.d("NFT", raw.error.message)
-      raw.error.message
+      NftTransferErrorMapper().map(Throwable(raw.error.message))
     } else {
-      Log.d("NFT", raw.transactionHash)
-      raw.transactionHash
+      SuccessfulNftTransfer()
     }
   }
 
