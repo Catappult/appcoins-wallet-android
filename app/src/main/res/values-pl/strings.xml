@@ -1075,8 +1075,8 @@
   <string name="gift_card_done_title">Kod odzyskany!</string>
   <string name="gift_card_done_body">Sprawdź listę transakcji.</string>
   <string name="gift_card_error_general_title">Coś poszło nie tak!</string>
-  <string name="gift_card_error_general_body">Please try again or use a different code.</string>
-  <string name="gift_card_error_used_title">This code has already been used!</string>
-  <string name="gift_card_error_new_users_title">This code is only for new users!</string>
-  <string name="gift_card_error_try_with_different_body">Please try again with a different one.</string>
+  <string name="gift_card_error_general_body">Spróbuj ponownie lub użyj innego kodu.</string>
+  <string name="gift_card_error_used_title">Ten kod już został wykorzystany!</string>
+  <string name="gift_card_error_new_users_title">To kod dla nowych użytkowników!</string>
+  <string name="gift_card_error_try_with_different_body">Spróbuj ponownie z innym kodem.</string>
 </resources>
