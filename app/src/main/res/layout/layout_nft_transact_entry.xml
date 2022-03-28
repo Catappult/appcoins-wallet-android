@@ -37,7 +37,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/nfts_transact_input_tip"
-        android:imeOptions="actionUnspecified|flagNoFullscreen|flagNoExtractUi"
+        android:imeOptions="actionDone|flagNoFullscreen|flagNoExtractUi"
         android:inputType="text"
         android:maxLines="1"
         />
