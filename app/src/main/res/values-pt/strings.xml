@@ -442,8 +442,8 @@
   <string name="withdraw_button">levantar</string>
   <string name="email_here_field">O teu e-mail aqui&#8230;</string>
   <string name="understood_button">Entendido!</string>
-  <string name="skip_button">Skip for now</string>
-  <string name="understand_button">I understand</string>
+  <string name="skip_button">Saltar por agora</string>
+  <string name="understand_button">Compreendo</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Eu concordo com os %1$s e a %2$s da AppCoins Wallet.</string>
   <string name="terms_and_conditions_error">Por favor aceita os nossos Termos e Condições e a Política de Privacidade para continuar</string>
@@ -555,7 +555,7 @@
   <string name="purchase_error_verify_card">Valida o teu cartão para completar esta compra.</string>
   <string name="purachse_error_verify_card_button">VALIDAR CARTÃO</string>
   <string name="purchase_eskills_sku">Bilhete de entrada</string>
-  <string name="purchase_paytmupi_install_disclaimer">You\'ll need to install Paytm UPI app.</string>
+  <string name="purchase_paytmupi_install_disclaimer">Terás de instalar a app Paytm UPI.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">Morada de faturação</string>
   <string name="purchase_address_address_field">Morada</string>
@@ -645,19 +645,19 @@
   <string name="import_wallet_wrong_password_body">Ups, password errada!</string>
   <string name="error_invalid_private_key">Senha privada inválida</string>
   <string name="error_invalid_keystore">Keystore inválida</string>
-  <string name="backup_title">Backup your wallet now!</string>
+  <string name="backup_title">Faz já o backup da tua wallet!</string>
   <string name="backup_body">Não guardamos as tuas senhas privadas ou qualquer outro método de acesso. É importante manter o backup da tua wallet (keystore) seguro.</string>
   <string name="backup_additional_security_title">Segurança Adicional (opcional)</string>
   <string name="backup_additional_security_body">Escolhe uma password</string>
   <string name="backup_button">BACKUP DA WALLET</string>
-  <string name="backup_ready_title">Your backup is ready!\nKeep it safe.</string>
+  <string name="backup_ready_title">O teu backup está pronto!\nGuarda-o em segurança.</string>
   <string name="backup_ready_save_on_email">Guarda-o no teu e-mail</string>
   <string name="backup_ready_email_button">Enviar para o e-mail</string>
   <string name="backup_ready_device_button">Guardar no dispositivo</string>
   <string name="backup_confirmation_tips_title">Mantém o ficheiro seguro:</string>
-  <string name="backup_confirmation_tips_1"><b>Print it</b> and store it somewhere safe.</string>
-  <string name="backup_confirmation_tips_2"><b>Save it</b> on a USB drive.</string>
-  <string name="backup_confirmation_tips_3"><b>Copy it</b> to a private and secure cloud storage.</string>
+  <string name="backup_confirmation_tips_1"><b>Imprime-o</b> e guarda-o num lugar seguro.</string>
+  <string name="backup_confirmation_tips_2"><b>Guarda-o</b> numa unidade USB.</string>
+  <string name="backup_confirmation_tips_3"><b>Copia-o</b> para um armazenamento privado e seguro em nuvem.</string>
   <string name="backup_tooltip_body">Faz um backup da tua wallet!</string>
   <string name="backup_tooltip_later_button">TALVEZ MAIS TARDE</string>
   <string name="backup_tooltip_backup_button">BACKUP</string>
@@ -668,10 +668,10 @@
   <string name="backup_additional_security_disclaimer_body">Não há recuperação de password.</string>
   <string name="backup_additional_security_password_not_march">As password não coincidem.</string>
   <string name="import_wallet_recovering_body">A recuperar wallet...</string>
-  <string name="backup_skip_title">I understand that I may loose my funds if I don\'t backup my wallet key.</string>
-  <string name="backup_wallet_button">Backup wallet</string>
-  <string name="backup_success_save_on_email">Your backup file is in your email.</string>
-  <string name="backup_success_save_on_device">Your backup file is stored in your device.</string>
+  <string name="backup_skip_title">Compreendo que posso perder os meus fundos se não fizer cópias de segurança da chave da minha wallet.</string>
+  <string name="backup_wallet_button">Backup da wallet</string>
+  <string name="backup_success_save_on_email">O teu ficheiro de backup está no teu e-mail.</string>
+  <string name="backup_success_save_on_device">O teu ficheiro de backup está armazenado no teu dispositivo.</string>
   <!--Backup DELETE-->
   <string name="backup_confirmation_body"></string>
   <string name="backup_confirmation_no"></string>
@@ -1034,17 +1034,17 @@
   <!--  NFTs -->
   <string name="nfts_title">NFTs</string>
   <string name="nfts_no_nfts">Ainda não tens nenhuns NFTs nesta wallet!</string>
-  <string name="nfts_transact_button">Send this NFT</string>
-  <string name="nfts_transact_button_send">Send</string>
-  <string name="nfts_transact_button_next">Next</string>
-  <string name="nfts_transact_button_done">Done</string>
-  <string name="nfts_transact_button_success">Got it</string>
-  <string name="nfts_transact_tip">Enter your friend\'s wallet address</string>
-  <string name="nfts_transact_input_tip">Wallet address here...</string>
-  <string name="nfts_transact_done_mensage">%s successfully sent!</string>
-  <string name="nfts_generic_error">Oops! Something went wrong!</string>
-  <string name="nfts_transact_gas_title">Are you in a hurry?</string>
-  <string name="nfts_transact_gas_description">Choose how much you want to pay in fees. The higher the fee, the faster the transaction.</string>
+  <string name="nfts_transact_button">Enviar este NFT</string>
+  <string name="nfts_transact_button_send">Enviar</string>
+  <string name="nfts_transact_button_next">Próximo</string>
+  <string name="nfts_transact_button_done">Feito</string>
+  <string name="nfts_transact_button_success">Entendi</string>
+  <string name="nfts_transact_tip">Introduz o endereço da wallet do teu amigo</string>
+  <string name="nfts_transact_input_tip">Endereço da wallet aqui...</string>
+  <string name="nfts_transact_done_mensage">%s enviado com sucesso!</string>
+  <string name="nfts_generic_error">Ups! Algo correu mal!</string>
+  <string name="nfts_transact_gas_title">Estás com pressa?</string>
+  <string name="nfts_transact_gas_description">Escolhe quanto queres pagar em taxas. Quanto mais alta for a taxa, mais rápida é a transação.</string>
   <string name="nfts_transact_gas_price">Gas Price</string>
   <string name="nfts_transact_gas_limit">Gas Limit</string>
   <string name="nfts_transact_gas_fee_message">Transaction Fee</string>
