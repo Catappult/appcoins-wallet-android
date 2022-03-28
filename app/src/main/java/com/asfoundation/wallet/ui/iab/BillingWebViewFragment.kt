@@ -11,9 +11,12 @@ import android.view.ViewGroup
 import android.webkit.CookieManager
 import android.webkit.WebView
 import android.webkit.WebViewClient
+import com.appcoins.wallet.commons.Logger
 import com.asf.wallet.BuildConfig
 import com.asf.wallet.R
+import com.asfoundation.wallet.billing.adyen.AdyenPaymentPresenter
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics
+import com.asfoundation.wallet.util.Log
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
@@ -32,13 +35,16 @@ class BillingWebViewFragment : BasePageViewFragment() {
 
   @Inject
   lateinit var inAppPurchaseInteractor: InAppPurchaseInteractor
-
   @Inject
   lateinit var analytics: BillingAnalytics
+  @Inject
+  lateinit var logger: Logger
+
   lateinit var currentUrl: String
   private var executorService: ScheduledExecutorService? = null
   private var webViewActivity: WebViewActivity? = null
   private var asyncDetailsShown = false
+  private val TAG = BillingWebViewFragment::class.java.name
 
   companion object {
     private const val CARRIER_BILLING_RETURN_SCHEMA = "https://%s/return/carrier_billing"
@@ -46,16 +52,24 @@ class BillingWebViewFragment : BasePageViewFragment() {
     private const val ADYEN_PAYMENT_SCHEMA = "adyencheckout://"
     private const val LOCAL_PAYMENTS_SCHEMA = "myappcoins.com/t/"
     private const val LOCAL_PAYMENTS_URL = "https://myappcoins.com/t/"
-    private val EXTERNAL_INTENT_SCHEMA_LIST =
-        listOf("picpay://", "gojek://", "shopeeid://", "grab://", "intent://",
-            "open.dolfinwallet://", "momo://")
+    private val EXTERNAL_INTENT_SCHEMA_LIST = listOf(
+      "picpay://",
+      "shopeeid://",
+      "grab://",
+      "intent://",
+      "open.dolfinwallet://",
+      "momo://",
+      "tez://",
+      "phonepe://",
+      "paytmmp://",
+      "bhim://",
+      "upi://",
+      "gojek://",
+    )
     private const val ASYNC_PAYMENT_FORM_SHOWN_SCHEMA = "https://pm.dlocal.com//v1/gateway/show?"
-    private const val CODAPAY_FINAL_REDIRECT_SCHEMA =
-        "https://airtime.codapayments.com/epcgw/dlocal/"
-    private const val CODAPAY_BACK_URL =
-        "https://pay.dlocal.com/payment_method_connectors/global_pm//back"
-    private const val CODAPAY_CANCEL_URL =
-        "codapayments.com/airtime/cancelConfirm"
+    private const val CODAPAY_FINAL_REDIRECT_SCHEMA = "https://airtime.codapayments.com/epcgw/dlocal/"
+    private const val CODAPAY_BACK_URL = "https://pay.dlocal.com/payment_method_connectors/global_pm//back"
+    private const val CODAPAY_CANCEL_URL = "codapayments.com/airtime/cancelConfirm"
     private const val URL = "url"
     private const val CURRENT_URL = "currentUrl"
     private const val ORDER_ID_PARAMETER = "OrderId"
@@ -87,11 +101,13 @@ class BillingWebViewFragment : BasePageViewFragment() {
       savedInstanceState.getString(CURRENT_URL)!!
     }
     CookieManager.getInstance()
-        .setAcceptCookie(true)
+      .setAcceptCookie(true)
   }
 
-  override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                            savedInstanceState: Bundle?): View? {
+  override fun onCreateView(
+    inflater: LayoutInflater, container: ViewGroup?,
+    savedInstanceState: Bundle?
+  ): View? {
     val view = inflater.inflate(R.layout.webview_fragment, container, false)
 
     view.webview.webViewClient = object : WebViewClient() {
@@ -105,9 +121,10 @@ class BillingWebViewFragment : BasePageViewFragment() {
             launchActivityForSchema(view, clickUrl)
           }
           clickUrl.contains(CODAPAY_FINAL_REDIRECT_SCHEMA) && clickUrl.contains(
-              ORDER_ID_PARAMETER) -> {
+            ORDER_ID_PARAMETER
+          ) -> {
             val orderId = Uri.parse(clickUrl)
-                .getQueryParameter(ORDER_ID_PARAMETER)
+              .getQueryParameter(ORDER_ID_PARAMETER)
             finishWithSuccess(LOCAL_PAYMENTS_URL + orderId)
           }
           clickUrl.contains(CARRIER_BILLING_RETURN_SCHEMA.format(BuildConfig.APPLICATION_ID)) -> {
@@ -186,22 +203,26 @@ class BillingWebViewFragment : BasePageViewFragment() {
       if (intent != null) {
         val packageManager = requireContext().packageManager
         val info =
-            packageManager.resolveActivity(intent, PackageManager.MATCH_DEFAULT_ONLY)
+          packageManager.resolveActivity(intent, PackageManager.MATCH_DEFAULT_ONLY)
         if (info != null) {
           requireContext().startActivity(intent)
         } else {
           val fallbackUrl = intent.getStringExtra("browser_fallback_url")
-          fallbackUrl?.let {
+          if(fallbackUrl != null) {
             webView.loadUrl(fallbackUrl)
+          } else {
+            logger.log(TAG, "Unable to open external app from the webview")
           }
         }
       }
     } catch (e: URISyntaxException) {
       e.printStackTrace()
       if (view != null) {
-        Snackbar.make(requireView(), R.string.unknown_error,
-            Snackbar.LENGTH_SHORT)
-            .show()
+        Snackbar.make(
+          requireView(), R.string.unknown_error,
+          Snackbar.LENGTH_SHORT
+        )
+          .show()
       }
     }
   }
