@@ -6,6 +6,7 @@ import com.asfoundation.wallet.base.SideEffect
 import com.asfoundation.wallet.base.ViewState
 import com.asfoundation.wallet.nfts.domain.GasInfo
 import com.asfoundation.wallet.nfts.domain.NFTItem
+import com.asfoundation.wallet.nfts.domain.NftTransferResult
 import com.asfoundation.wallet.nfts.usecases.EstimateNFTSendGasUseCase
 import com.asfoundation.wallet.nfts.usecases.SendNFTUseCase
 import java.math.BigInteger
@@ -15,7 +16,7 @@ object NFTTransactSideEffect : SideEffect
 
 data class NFTTransactState(val data: NFTItem,
                             val gasPriceAsync: Async<GasInfo> = Async.Uninitialized,
-                            val transactionHashAsync: Async<String> = Async.Uninitialized) :
+                            val transactionResultAsync: Async<NftTransferResult> = Async.Uninitialized) :
     ViewState
 
 class NFTTransactDialogViewModel(private val data: NFTItem,
@@ -31,10 +32,10 @@ class NFTTransactDialogViewModel(private val data: NFTItem,
 
   fun send(toAddress: String, gasPrice: BigInteger, gasLimit: BigInteger) {
     sendNFT(toAddress, data, gasPrice, gasLimit).asAsyncToState(
-        NFTTransactState::transactionHashAsync) {
-      copy(transactionHashAsync = it)
+        NFTTransactState::transactionResultAsync) {
+      copy(transactionResultAsync = it)
     }
-        .repeatableScopedSubscribe(NFTTransactState::transactionHashAsync.name) { e ->
+        .repeatableScopedSubscribe(NFTTransactState::transactionResultAsync.name) { e ->
           e.printStackTrace()
         }
   }
