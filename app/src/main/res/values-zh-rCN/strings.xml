@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="app_name">AppCoins钱包</string>
+  <string name="app_name">AppCoins Wallet</string>
   <string name="title_send">发送</string>
   <string name="title_send_with_token">发送%s</string>
   <string name="title_request">接收</string>
@@ -442,8 +442,8 @@
   <string name="withdraw_button">取款</string>
   <string name="email_here_field">你的电子邮件&#8230;</string>
   <string name="understood_button">明白了！</string>
-  <string name="skip_button">Skip for now</string>
-  <string name="understand_button">I understand</string>
+  <string name="skip_button">暂时跳过</string>
+  <string name="understand_button">我明白</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">我同意AppCoins Wallet的%1$s和%2$s。</string>
   <string name="terms_and_conditions_error">请接受我们的条款和条件以及隐私政策以继续</string>
@@ -555,7 +555,7 @@
   <string name="purchase_error_verify_card">验证你的卡以完成本次购买。</string>
   <string name="purachse_error_verify_card_button">验证卡</string>
   <string name="purchase_eskills_sku">入场券</string>
-  <string name="purchase_paytmupi_install_disclaimer">You\'ll need to install Paytm UPI app.</string>
+  <string name="purchase_paytmupi_install_disclaimer">你需要安装Paytm UPI应用。</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">帐单地址</string>
   <string name="purchase_address_address_field">地址</string>
@@ -645,19 +645,19 @@
   <string name="import_wallet_wrong_password_body">糟糕，密码错误！</string>
   <string name="error_invalid_private_key">无效的私钥</string>
   <string name="error_invalid_keystore">密钥库无效</string>
-  <string name="backup_title">Backup your wallet now!</string>
+  <string name="backup_title">立即备份你的钱包！</string>
   <string name="backup_body">我们不会存储你的私钥或任何其他访问方法。请务必确保你的钱包备份（密钥库）安全无虞。</string>
   <string name="backup_additional_security_title">额外安全性（可选）</string>
   <string name="backup_additional_security_body">选择密码</string>
   <string name="backup_button">备份钱包</string>
-  <string name="backup_ready_title">Your backup is ready!\nKeep it safe.</string>
+  <string name="backup_ready_title">你的备份已就绪！\n请保障其安全。</string>
   <string name="backup_ready_save_on_email">保存在你的电子邮件中</string>
   <string name="backup_ready_email_button">发送至电子邮件</string>
   <string name="backup_ready_device_button">保存在设备上</string>
   <string name="backup_confirmation_tips_title">确保文件安全：</string>
-  <string name="backup_confirmation_tips_1"><b>Print it</b> and store it somewhere safe.</string>
-  <string name="backup_confirmation_tips_2"><b>Save it</b> on a USB drive.</string>
-  <string name="backup_confirmation_tips_3"><b>Copy it</b> to a private and secure cloud storage.</string>
+  <string name="backup_confirmation_tips_1"><b>打印</b>并将其存储在安全的地方。</string>
+  <string name="backup_confirmation_tips_2">将其<b>保存</b>在 USB 驱动器上。</string>
+  <string name="backup_confirmation_tips_3">将其<b>复制</b>到安全的私有云存储中。</string>
   <string name="backup_tooltip_body">备份您的钱包！</string>
   <string name="backup_tooltip_later_button">以后再说</string>
   <string name="backup_tooltip_backup_button">备份</string>
@@ -668,10 +668,10 @@
   <string name="backup_additional_security_disclaimer_body">密码不可恢复。</string>
   <string name="backup_additional_security_password_not_march">密码不匹配。</string>
   <string name="import_wallet_recovering_body">正在恢复钱包……</string>
-  <string name="backup_skip_title">I understand that I may loose my funds if I don\'t backup my wallet key.</string>
-  <string name="backup_wallet_button">Backup wallet</string>
-  <string name="backup_success_save_on_email">Your backup file is in your email.</string>
-  <string name="backup_success_save_on_device">Your backup file is stored in your device.</string>
+  <string name="backup_skip_title">我明白，如果我不备份钱包密钥，我可能会失去资金。</string>
+  <string name="backup_wallet_button">备份钱包</string>
+  <string name="backup_success_save_on_email">你的备份文件位于你的电子邮件中。</string>
+  <string name="backup_success_save_on_device">你的备份文件存储在你的设备中。</string>
   <!--Backup DELETE-->
   <string name="backup_confirmation_body"></string>
   <string name="backup_confirmation_no"></string>
@@ -1025,31 +1025,31 @@
   <!--  NFTs -->
   <string name="nfts_title">非同质化代币</string>
   <string name="nfts_no_nfts">你这个钱包还没有任何NFT！</string>
-  <string name="nfts_transact_button">Send this NFT</string>
-  <string name="nfts_transact_button_send">Send</string>
-  <string name="nfts_transact_button_next">Next</string>
-  <string name="nfts_transact_button_done">Done</string>
-  <string name="nfts_transact_button_success">Got it</string>
-  <string name="nfts_transact_tip">Enter your friend\'s wallet address</string>
-  <string name="nfts_transact_input_tip">Wallet address here...</string>
-  <string name="nfts_transact_done_mensage">%s successfully sent!</string>
-  <string name="nfts_generic_error">Oops! Something went wrong!</string>
-  <string name="nfts_transact_gas_title">Are you in a hurry?</string>
-  <string name="nfts_transact_gas_description">Choose how much you want to pay in fees. The higher the fee, the faster the transaction.</string>
-  <string name="nfts_transact_gas_price">Gas Price</string>
-  <string name="nfts_transact_gas_limit">Gas Limit</string>
-  <string name="nfts_transact_gas_fee_message">Transaction Fee</string>
-  <string name="nfts_transact_error_no_funds">Not enough funds! You don\'t have enough ETH to pay for the fees.</string>
-  <string name="nfts_transact_error_low_gas">Gas is too low! Increase your gas for the network to accept your transaction.</string>
-  <string name="nfts_transact_error_already_in_progress">This NFT is already being sent! A previous transaction is currently in progress.</string>
+  <string name="nfts_transact_button">发送这个NFT</string>
+  <string name="nfts_transact_button_send">发送</string>
+  <string name="nfts_transact_button_next">下一步</string>
+  <string name="nfts_transact_button_done">完成</string>
+  <string name="nfts_transact_button_success">明白了</string>
+  <string name="nfts_transact_tip">输入好友的钱包地址</string>
+  <string name="nfts_transact_input_tip">钱包地址在这里输入......</string>
+  <string name="nfts_transact_done_mensage">已成功发送%s！</string>
+  <string name="nfts_generic_error">糟糕！出错了！</string>
+  <string name="nfts_transact_gas_title">着急吗？</string>
+  <string name="nfts_transact_gas_description">选择你想要支付多少费用。费用越高，交易越快。</string>
+  <string name="nfts_transact_gas_price">燃料价格</string>
+  <string name="nfts_transact_gas_limit">燃料限额</string>
+  <string name="nfts_transact_gas_fee_message">交易费</string>
+  <string name="nfts_transact_error_no_funds">资金不足！你没有足够的ETH来支付费用。</string>
+  <string name="nfts_transact_error_low_gas">燃料太低了！增加网络的燃料以接受交易。</string>
+  <string name="nfts_transact_error_already_in_progress">这个NFT已经发送！之前的交易目前正在进行中。</string>
   <!-- Gift Card -->
-  <string name="gift_card_title">Redeem your gift card code</string>
-  <string name="gift_card_field">Card code here...</string>
-  <string name="gift_card_done_title">Code redeemed!</string>
-  <string name="gift_card_done_body">Check your transacions list.</string>
-  <string name="gift_card_error_general_title">Something went wrong!</string>
-  <string name="gift_card_error_general_body">Please try again or use a different code.</string>
-  <string name="gift_card_error_used_title">This code has already been used!</string>
-  <string name="gift_card_error_new_users_title">This code is only for new users!</string>
-  <string name="gift_card_error_try_with_different_body">Please try again with a different one.</string>
+  <string name="gift_card_title">兑换礼品卡代码</string>
+  <string name="gift_card_field">卡代码在这里输入......</string>
+  <string name="gift_card_done_title">代码已兑换！</string>
+  <string name="gift_card_done_body">检查交易列表。</string>
+  <string name="gift_card_error_general_title">出错了！</string>
+  <string name="gift_card_error_general_body">请重试或使用不同的代码。</string>
+  <string name="gift_card_error_used_title">这个代码已经被使用！</string>
+  <string name="gift_card_error_new_users_title">这个代码仅适用于新用户！</string>
+  <string name="gift_card_error_try_with_different_body">请重试不同的代码。</string>
 </resources>
