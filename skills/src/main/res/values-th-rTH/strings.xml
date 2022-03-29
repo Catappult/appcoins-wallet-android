@@ -4,13 +4,13 @@
   <string name="provide_wallet_creating_wallet_header">สร้างที่อยู่กระเป๋าสตางค์ &#8230;</string>
   <string name="processing_loading_title">รับบัตรเข้างาน</string>
   <string name="finding_room_loading_title">รอฝ่ายตรงข้าม</string>
-  <string name="finding_room_name_loading_title">Waiting for opponents \nto join the</string>
+  <string name="finding_room_name_loading_title">รอให้ฝ่ายตรงข้าม\nเข้าร่วม</string>
   <string name="finding_room_loading_message">นี้อาจใช้เวลาสักครู่...</string>
   <string name="refunded">เงินของคุณได้รับการคืนเงินแล้ว</string>
   <string name="ok">ตกลง</string>
   <string name="cancel">ยกเลิก</string>
-  <string name="buy_button">Buy</string>
-  <string name="topup_button">Top Up</string>
+  <string name="buy_button">ซื้อ</string>
+  <string name="topup_button">เติม</string>
   <string name="connection_error_body">มันดูเหมือนว่าคุณไม่ได้เชื่อมต่ออินเตอร์เน็ต ตรวจสอบการเชื่อมต่อของคุณและลองอีกครั้ง!</string>
   <string name="playing_game_notification_title">กำลังเล่น e-Skills</string>
   <string name="playing_game_notification_body">กำลังรับข้อมูลเกม...</string>
@@ -22,12 +22,12 @@
   <string name="location_not_available_body">เรากำลังดำเนินการอย่างเต็มที่เพื่อนำเสนอสิ่งเหล่านี้ให้กับทุกคน โปรดกลับมาเร็วๆ นี้!</string>
   <string name="e_skills_room_create_title">สร้างหรือเข้าร่วมห้อง</string>
   <string name="e_skills_room_create_body">สร้างห้องใหม่และแชร์กับฝ่ายตรงข้ามหรือเข้าร่วมห้องที่มีอยู่</string>
-  <string name="e_skills_room_field">Your room name here…</string>
-  <string name="e_skills_payment_title">Payment with</string>
-  <string name="e_skills_payment_body">AppCoins Credits</string>
-  <string name="copied_to_clipboard">Copied to the clipboard</string>
-  <string name="processing_payment_title">Processing your payment</string>
-  <string name="purchase_error_title">Oops, something went wrong.</string>
+  <string name="e_skills_room_field">ชื่อห้องของคุณที่นี่...</string>
+  <string name="e_skills_payment_title">ชำระเงินด้วย</string>
+  <string name="e_skills_payment_body">เครดิต AppCoins</string>
+  <string name="copied_to_clipboard">คัดลอกไปยังคลิปบอร์ด</string>
+  <string name="processing_payment_title">ดำเนินการชำระเงินของคุณ</string>
+  <string name="purchase_error_title">อุ๊ปส์ มีบางอย่างผิดพลาด</string>
   <string name="purchase_eskills_sku">ตั๋วเข้า</string>
   <string name="shared_room_waiting">รอให้ฝ่ายตรงข้ามเข้าร่วม %s</string>
 </resources>

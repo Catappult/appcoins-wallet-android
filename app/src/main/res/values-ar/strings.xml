@@ -442,8 +442,8 @@
   <string name="withdraw_button">سحب</string>
   <string name="email_here_field">بريدك الإلكتروني هنا&#8230;</string>
   <string name="understood_button">مفهوم!</string>
-  <string name="skip_button">Skip for now</string>
-  <string name="understand_button">I understand</string>
+  <string name="skip_button">تجاهل الآن</string>
+  <string name="understand_button">أتفهم ذلك</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">أوافق على %1$s و%2$s الخاصة بـ AppCoins Wallet.</string>
   <string name="terms_and_conditions_error">يرجى قبول القواعد والشروط وسياسة الخصوصية لمتابعة</string>
@@ -556,7 +556,7 @@
   <string name="purchase_error_verify_card">تحقق من بطاقتك لإتمام عملية الشراء هذه.</string>
   <string name="purachse_error_verify_card_button">تحتت من البطاقة</string>
   <string name="purchase_eskills_sku">بطاقة الدخول</string>
-  <string name="purchase_paytmupi_install_disclaimer">You\'ll need to install Paytm UPI app.</string>
+  <string name="purchase_paytmupi_install_disclaimer">أنت بحاجة إلى تثبيت تطبيق Paytm UPI.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">عنوان الفوترة</string>
   <string name="purchase_address_address_field">العنوان</string>
@@ -646,19 +646,19 @@
   <string name="import_wallet_wrong_password_body">يوه، كلمة مرور خاطئة!</string>
   <string name="error_invalid_private_key">مفتاح خاص غير صالح</string>
   <string name="error_invalid_keystore">محفظة مفاتيح غير صالحة</string>
-  <string name="backup_title">Backup your wallet now!</string>
+  <string name="backup_title">احفظ نسخة احتياطية لمحفظتك الآن!</string>
   <string name="backup_body">نحن لا نحتفظ بمفاتيحك الخاصة أو أيٍّ من وسائل الدخولا أخرى. من المهم أن يبقى النسخ الاحتياطي لمحفظتك (keystore) بأمان.</string>
   <string name="backup_additional_security_title">أمان إضافي (اختياري)</string>
   <string name="backup_additional_security_body">اختر كلمة مرور</string>
   <string name="backup_button">نسخ احتياطي للمحفظة</string>
-  <string name="backup_ready_title">Your backup is ready!\nKeep it safe.</string>
+  <string name="backup_ready_title">نسختك الاحتياطية جاهزة\nحافظ عليها.</string>
   <string name="backup_ready_save_on_email">احفظها في بريدك الإلكتروني</string>
   <string name="backup_ready_email_button">أرسل إلى البريد الإلكتروني</string>
   <string name="backup_ready_device_button">احفظها في الجهاز</string>
   <string name="backup_confirmation_tips_title">احفظ الملف بأمان:</string>
-  <string name="backup_confirmation_tips_1"><b>Print it</b> and store it somewhere safe.</string>
-  <string name="backup_confirmation_tips_2"><b>Save it</b> on a USB drive.</string>
-  <string name="backup_confirmation_tips_3"><b>Copy it</b> to a private and secure cloud storage.</string>
+  <string name="backup_confirmation_tips_1"><b>اطبعها</b> وخزنها في مكان آمن.</string>
+  <string name="backup_confirmation_tips_2"><b>احفظها</b> على مشغل USB.</string>
+  <string name="backup_confirmation_tips_3"><b>انسخها</b> إلى سحابة تخزين خاصة وآمنة.</string>
   <string name="backup_tooltip_body">أنشئ نسخًا احتياطيًا لمحفظتك!</string>
   <string name="backup_tooltip_later_button">ربما لاحقًا</string>
   <string name="backup_tooltip_backup_button">نسخ احتياطي</string>
@@ -669,10 +669,10 @@
   <string name="backup_additional_security_disclaimer_body">لا يمكن استرجاع كلمة المرور.</string>
   <string name="backup_additional_security_password_not_march">كلمة المرور غير متطابقة.</string>
   <string name="import_wallet_recovering_body">استعادة المحفظة...</string>
-  <string name="backup_skip_title">I understand that I may loose my funds if I don\'t backup my wallet key.</string>
-  <string name="backup_wallet_button">Backup wallet</string>
-  <string name="backup_success_save_on_email">Your backup file is in your email.</string>
-  <string name="backup_success_save_on_device">Your backup file is stored in your device.</string>
+  <string name="backup_skip_title">أنا أدرك أنني قد أفقد أموالي إذا لم أحتفظ بنسخة احتياطية من مفتاح محفظتي.</string>
+  <string name="backup_wallet_button">نسخ احتياطي للمحفظة</string>
+  <string name="backup_success_save_on_email">ملف النسخ الاحتياطي في بريدك الإلكتروني.</string>
+  <string name="backup_success_save_on_device">ملف النسخ الاحتياطي مخزن في جهازك.</string>
   <!--Backup DELETE-->
   <string name="backup_confirmation_body"></string>
   <string name="backup_confirmation_no"></string>
@@ -1085,17 +1085,17 @@
   <string name="nfts_transact_gas_price">مصاريف جانبية</string>
   <string name="nfts_transact_gas_limit">حد المصاريف الجانبية</string>
   <string name="nfts_transact_gas_fee_message">مصاريف التحويل</string>
-  <string name="nfts_transact_error_no_funds">Not enough funds! You don\'t have enough ETH to pay for the fees.</string>
-  <string name="nfts_transact_error_low_gas">Gas is too low! Increase your gas for the network to accept your transaction.</string>
-  <string name="nfts_transact_error_already_in_progress">This NFT is already being sent! A previous transaction is currently in progress.</string>
+  <string name="nfts_transact_error_no_funds">ليس لديك أموال كافية! ليس لديك ETH كافية لتدفع الرسوم.</string>
+  <string name="nfts_transact_error_low_gas">عمولة التحويل منخفضة جدًا! ارفع عمولة تحويلك للشبكة لقبول تحويلاتك.</string>
+  <string name="nfts_transact_error_already_in_progress">هذه الـ NFT مرسلة فعلًا! هناك تحويل سابق قيد التنفيذ حاليًا.</string>
   <!-- Gift Card -->
-  <string name="gift_card_title">Redeem your gift card code</string>
-  <string name="gift_card_field">Card code here...</string>
-  <string name="gift_card_done_title">Code redeemed!</string>
-  <string name="gift_card_done_body">Check your transacions list.</string>
-  <string name="gift_card_error_general_title">Something went wrong!</string>
-  <string name="gift_card_error_general_body">Please try again or use a different code.</string>
-  <string name="gift_card_error_used_title">This code has already been used!</string>
-  <string name="gift_card_error_new_users_title">This code is only for new users!</string>
-  <string name="gift_card_error_try_with_different_body">Please try again with a different one.</string>
+  <string name="gift_card_title">استرداد رمز بطاقة هديتك</string>
+  <string name="gift_card_field">رمز البطاقة هنا...</string>
+  <string name="gift_card_done_title">تم استرداد الرمز!</string>
+  <string name="gift_card_done_body">افحص قائمة تحويلاتك.</string>
+  <string name="gift_card_error_general_title">حدث خطأ!</string>
+  <string name="gift_card_error_general_body">يرجى المحاولة ثانية أو استخدام رمز آخر.</string>
+  <string name="gift_card_error_used_title">سبق فعلًا استخدام هذا الرمز!</string>
+  <string name="gift_card_error_new_users_title">هذا الرمز خاص بالمستخدمين الجدد فقط!</string>
+  <string name="gift_card_error_try_with_different_body">يرجى المحاولة ثانية مع رمز آخر.</string>
 </resources>

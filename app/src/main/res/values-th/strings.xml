@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="app_name">กระเป๋าสตางค์ AppCoins</string>
+  <string name="app_name">AppCoins Wallet</string>
   <string name="title_send">ส่ง</string>
   <string name="title_send_with_token">ส่ง %s</string>
   <string name="title_request">ได้รับ</string>
@@ -442,8 +442,8 @@
   <string name="withdraw_button">ถอน</string>
   <string name="email_here_field">อีเมลของคุณที่นี่&#8230;</string>
   <string name="understood_button">เข้าใจแล้ว!</string>
-  <string name="skip_button">Skip for now</string>
-  <string name="understand_button">I understand</string>
+  <string name="skip_button">ข้ามไปก่อน</string>
+  <string name="understand_button">ฉันเข้าใจ</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">ฉันตกลงใน %1$s และ %2$sของกระเป่าสตางค์ AppCoins</string>
   <string name="terms_and_conditions_error">โปรดยอมรับข้อตกลงและเงื่อนไขเพื่อดำเนินการต่อ</string>
@@ -555,7 +555,7 @@
   <string name="purchase_error_verify_card">ตรวจสอบบัตรของคุณเพื่อทำการซื้อนี้ให้เสร็จสมบูรณ์</string>
   <string name="purachse_error_verify_card_button">ตรวจสอบบัตร</string>
   <string name="purchase_eskills_sku">ตั๋วเข้า</string>
-  <string name="purchase_paytmupi_install_disclaimer">You\'ll need to install Paytm UPI app.</string>
+  <string name="purchase_paytmupi_install_disclaimer">คุณจะต้องติดตั้งแอป Paytm UPI</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">ที่อยู่เรียกเก็บเงิน</string>
   <string name="purchase_address_address_field">ที่อยู่</string>
@@ -647,19 +647,19 @@
   <string name="import_wallet_wrong_password_body">อุ๊ปส์ รหัสผ่านไม่ถูกต้อง!</string>
   <string name="error_invalid_private_key">ไม่มีไพรเวทคีย์</string>
   <string name="error_invalid_keystore">คีย์สโตนไม่ถูกต้อง</string>
-  <string name="backup_title">Backup your wallet now!</string>
+  <string name="backup_title">สำรองกระเป๋าสตางค์ของคุณตอนนี้!</string>
   <string name="backup_body">เราไม่เก็บคีย์ส่วนตัวของคุณหรือวิธีการเข้าถึงอื่นๆ การสำรองข้อมูลกระเป๋าสตางค์ของคุณ (คีย์สตอร์) เป็นสิ่งสำคัญ</string>
   <string name="backup_additional_security_title">ความปลอดภัยเพิ่มเติม (ตัวเลือก)</string>
   <string name="backup_additional_security_body">เลือกรหัสผ่าน</string>
   <string name="backup_button">สำรองข้อมูลกระเป๋าสตางค์</string>
-  <string name="backup_ready_title">Your backup is ready!\nKeep it safe.</string>
+  <string name="backup_ready_title">ข้อมูลสำรองของคุณพร้อมแล้ว! \nเก็บให้ปลอดภัย</string>
   <string name="backup_ready_save_on_email">บันทึกไว้ในอีเมลของคุณ</string>
   <string name="backup_ready_email_button">ส่งไปยังอีเมล</string>
   <string name="backup_ready_device_button">บันทึกบนอุปกรณ์</string>
   <string name="backup_confirmation_tips_title">เก็บไฟล์ให้ปลอดภัย:</string>
-  <string name="backup_confirmation_tips_1"><b>Print it</b> and store it somewhere safe.</string>
-  <string name="backup_confirmation_tips_2"><b>Save it</b> on a USB drive.</string>
-  <string name="backup_confirmation_tips_3"><b>Copy it</b> to a private and secure cloud storage.</string>
+  <string name="backup_confirmation_tips_1"><b>ปรินท์</b>และจัดเก็บในที่ปลอดภัย</string>
+  <string name="backup_confirmation_tips_2"><b>บันทึก</b>ลงในไดรฟ์ USB</string>
+  <string name="backup_confirmation_tips_3"><b>คัดลอก</b>เป็นส่วนตัวและเก็บรักษาในคลาวน์</string>
   <string name="backup_tooltip_body">สำรองกระเป๋าสตางค์</string>
   <string name="backup_tooltip_later_button">อาจจะภายหลัง</string>
   <string name="backup_tooltip_backup_button">สำรอง</string>
@@ -670,10 +670,10 @@
   <string name="backup_additional_security_disclaimer_body">ไม่มีการกู้คืนรหัสผ่าน</string>
   <string name="backup_additional_security_password_not_march">รหัสผ่านไม่เหมือนกัน</string>
   <string name="import_wallet_recovering_body">กำลังกู้คืนกระเป๋าสตางค์...</string>
-  <string name="backup_skip_title">I understand that I may loose my funds if I don\'t backup my wallet key.</string>
-  <string name="backup_wallet_button">Backup wallet</string>
-  <string name="backup_success_save_on_email">Your backup file is in your email.</string>
-  <string name="backup_success_save_on_device">Your backup file is stored in your device.</string>
+  <string name="backup_skip_title">ฉันเข้าใจว่าฉันอาจสูญเสียเงินของฉันหากฉันไม่สำรองคีย์กระเป๋าเงินของฉัน</string>
+  <string name="backup_wallet_button">กระเป๋าสตางค์สำรอง</string>
+  <string name="backup_success_save_on_email">ไฟล์สำรองของคุณอยู่ในอีเมลของคุณ</string>
+  <string name="backup_success_save_on_device">ไฟล์สำรองของคุณถูกเก็บไว้ในอุปกรณ์ของคุณ</string>
   <!--Backup DELETE-->
   <string name="backup_confirmation_body"></string>
   <string name="backup_confirmation_no"></string>
@@ -1027,31 +1027,31 @@
   <!--  NFTs -->
   <string name="nfts_title">NFTs</string>
   <string name="nfts_no_nfts">คุณยังไม่มี NFT ในกระเป๋าเงินนี้!</string>
-  <string name="nfts_transact_button">Send this NFT</string>
-  <string name="nfts_transact_button_send">Send</string>
-  <string name="nfts_transact_button_next">Next</string>
-  <string name="nfts_transact_button_done">Done</string>
-  <string name="nfts_transact_button_success">Got it</string>
-  <string name="nfts_transact_tip">Enter your friend\'s wallet address</string>
-  <string name="nfts_transact_input_tip">Wallet address here...</string>
-  <string name="nfts_transact_done_mensage">%s successfully sent!</string>
-  <string name="nfts_generic_error">Oops! Something went wrong!</string>
-  <string name="nfts_transact_gas_title">Are you in a hurry?</string>
-  <string name="nfts_transact_gas_description">Choose how much you want to pay in fees. The higher the fee, the faster the transaction.</string>
-  <string name="nfts_transact_gas_price">Gas Price</string>
-  <string name="nfts_transact_gas_limit">Gas Limit</string>
-  <string name="nfts_transact_gas_fee_message">Transaction Fee</string>
-  <string name="nfts_transact_error_no_funds">Not enough funds! You don\'t have enough ETH to pay for the fees.</string>
-  <string name="nfts_transact_error_low_gas">Gas is too low! Increase your gas for the network to accept your transaction.</string>
-  <string name="nfts_transact_error_already_in_progress">This NFT is already being sent! A previous transaction is currently in progress.</string>
+  <string name="nfts_transact_button">ส่ง NFT นี้</string>
+  <string name="nfts_transact_button_send">ส่ง</string>
+  <string name="nfts_transact_button_next">ถัดไป</string>
+  <string name="nfts_transact_button_done">เสร็จ</string>
+  <string name="nfts_transact_button_success">ได้รับ</string>
+  <string name="nfts_transact_tip">แสกนหรือใส่ที่อยู่กระเป๋าสตางค์ของเพื่อน</string>
+  <string name="nfts_transact_input_tip">ที่อยู่กระเป๋าเงินที่นี่...</string>
+  <string name="nfts_transact_done_mensage">%s ถูกส่งสำเร็จ!</string>
+  <string name="nfts_generic_error">อุ๊ปส์ มีบางอย่างผิดพลาด!</string>
+  <string name="nfts_transact_gas_title">คุณรีบร้อนใช่ไหม</string>
+  <string name="nfts_transact_gas_description">เลือกจำนวนเงินที่คุณต้องการชำระเป็นค่าธรรมเนียม ยิ่งค่าธรรมเนียมสูง ยิ่งทำธุรกรรมได้เร็ว</string>
+  <string name="nfts_transact_gas_price">ราคาแก๊ส</string>
+  <string name="nfts_transact_gas_limit">จำกัดแก๊ส</string>
+  <string name="nfts_transact_gas_fee_message">ค่าธรรมเนียมธุรกรรม</string>
+  <string name="nfts_transact_error_no_funds">เงินทุนไม่เพียงพอ! คุณมี ETH ไม่เพียงพอสำหรับชำระค่าธรรมเนียม</string>
+  <string name="nfts_transact_error_low_gas">แก๊สต่ำเกินไป! เพิ่มแก๊สของคุณเพื่อให้เครือข่ายยอมรับธุรกรรมของคุณ</string>
+  <string name="nfts_transact_error_already_in_progress">NFT นี้ถูกส่งไปแล้ว! การทำธุรกรรมก่อนหน้านี้กำลังดำเนินการอยู่</string>
   <!-- Gift Card -->
-  <string name="gift_card_title">Redeem your gift card code</string>
-  <string name="gift_card_field">Card code here...</string>
-  <string name="gift_card_done_title">Code redeemed!</string>
-  <string name="gift_card_done_body">Check your transacions list.</string>
-  <string name="gift_card_error_general_title">Something went wrong!</string>
-  <string name="gift_card_error_general_body">Please try again or use a different code.</string>
-  <string name="gift_card_error_used_title">This code has already been used!</string>
-  <string name="gift_card_error_new_users_title">This code is only for new users!</string>
-  <string name="gift_card_error_try_with_different_body">Please try again with a different one.</string>
+  <string name="gift_card_title">แลกรหัสบัตรของขวัญของคุณ</string>
+  <string name="gift_card_field">รหัสการ์ดที่นี่...</string>
+  <string name="gift_card_done_title">แลกรหัส!</string>
+  <string name="gift_card_done_body">ตรวจสอบรายการธุรกรรมของคุณ</string>
+  <string name="gift_card_error_general_title">มีบางสิ่งที่ผิด!</string>
+  <string name="gift_card_error_general_body">โปรดลองอีกครั้งหรือใช้รหัสอื่น</string>
+  <string name="gift_card_error_used_title">รหัสนี้ถูกใช้ไปแล้ว!</string>
+  <string name="gift_card_error_new_users_title">รหัสนี้สำหรับผู้ใช้ใหม่เท่านั้น!</string>
+  <string name="gift_card_error_try_with_different_body">โปรดลองอีกครั้งโดยใช้อันอื่น</string>
 </resources>
