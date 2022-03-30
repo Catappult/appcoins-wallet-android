@@ -1047,7 +1047,7 @@
   <string name="gift_card_title">ギフトカードコードを利用</string>
   <string name="gift_card_field">カードコードをここに入力...</string>
   <string name="gift_card_done_title">コード使用可能！</string>
-  <string name="gift_card_done_body">トランザクション・リストを確認</string>
+  <string name="gift_card_done_body">Check your transactions list.</string>
   <string name="gift_card_error_general_title">問題が発生しました！</string>
   <string name="gift_card_error_general_body">もう一度試すか、別のコードを使用してください。</string>
   <string name="gift_card_error_used_title">このコードはすでに使用されています！</string>
