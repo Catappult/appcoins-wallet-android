@@ -1046,7 +1046,7 @@
   <string name="gift_card_title">Tukarkan kode kartu hadiah Anda</string>
   <string name="gift_card_field">Kode kartu disini...</string>
   <string name="gift_card_done_title">Kode sudah ditukar!</string>
-  <string name="gift_card_done_body">Periksa daftar transaksi Anda.</string>
+  <string name="gift_card_done_body">Check your transactions list.</string>
   <string name="gift_card_error_general_title">Ada kesalahan!</string>
   <string name="gift_card_error_general_body">Silakan coba lagi atau gunakan kode yang lain.</string>
   <string name="gift_card_error_used_title">Kode ini sudah digunakan!</string>
