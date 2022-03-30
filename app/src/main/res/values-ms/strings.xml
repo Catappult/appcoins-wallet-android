@@ -1046,7 +1046,7 @@
   <string name="gift_card_title">Tebus kod kad hadiah anda</string>
   <string name="gift_card_field">Kod kad di sini...</string>
   <string name="gift_card_done_title">Kod telah ditebus!</string>
-  <string name="gift_card_done_body">Semak senarai transaksi anda.</string>
+  <string name="gift_card_done_body">Check your transactions list.</string>
   <string name="gift_card_error_general_title">Ada yang tak kena!</string>
   <string name="gift_card_error_general_body">Cuba sekali lagi atau cuba kod lain.</string>
   <string name="gift_card_error_used_title">Kod ini telah digunakan!</string>
