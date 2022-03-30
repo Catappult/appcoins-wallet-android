@@ -1055,7 +1055,7 @@
   <string name="gift_card_title">Utilisez le code de votre carte cadeau</string>
   <string name="gift_card_field">Code de la carte ici...</string>
   <string name="gift_card_done_title">Code utilisé !</string>
-  <string name="gift_card_done_body">Vérifiez votre liste de transactions.</string>
+  <string name="gift_card_done_body">Check your transactions list.</string>
   <string name="gift_card_error_general_title">Quelque chose s\'est mal passé !</string>
   <string name="gift_card_error_general_body">Veuillez réessayer ou utiliser un autre code.</string>
   <string name="gift_card_error_used_title">Ce code a déjà été utilisé !</string>
