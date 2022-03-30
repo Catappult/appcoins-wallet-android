@@ -1046,7 +1046,7 @@
   <string name="gift_card_title">兑换礼品卡代码</string>
   <string name="gift_card_field">卡代码在这里输入......</string>
   <string name="gift_card_done_title">代码已兑换！</string>
-  <string name="gift_card_done_body">检查交易列表。</string>
+  <string name="gift_card_done_body">Check your transactions list.</string>
   <string name="gift_card_error_general_title">出错了！</string>
   <string name="gift_card_error_general_body">请重试或使用不同的代码。</string>
   <string name="gift_card_error_used_title">这个代码已经被使用！</string>
