@@ -1073,7 +1073,7 @@
   <string name="gift_card_title">Odzyskaj kod prezentowy</string>
   <string name="gift_card_field">Wpisz kod karty</string>
   <string name="gift_card_done_title">Kod odzyskany!</string>
-  <string name="gift_card_done_body">Sprawdź listę transakcji.</string>
+  <string name="gift_card_done_body">Check your transactions list.</string>
   <string name="gift_card_error_general_title">Coś poszło nie tak!</string>
   <string name="gift_card_error_general_body">Spróbuj ponownie lub użyj innego kodu.</string>
   <string name="gift_card_error_used_title">Ten kod już został wykorzystany!</string>
