@@ -1075,7 +1075,7 @@
   <string name="gift_card_title">Активуйте код подарункової картки</string>
   <string name="gift_card_field">Код картки тут...</string>
   <string name="gift_card_done_title">Код активовано!</string>
-  <string name="gift_card_done_body">Перевірте свій список транзакцій.</string>
+  <string name="gift_card_done_body">Check your transactions list.</string>
   <string name="gift_card_error_general_title">Щось пішло не так!</string>
   <string name="gift_card_error_general_body">Будь ласка, спробуйте ще раз або скористайтеся іншим кодом.</string>
   <string name="gift_card_error_used_title">Цей код уже використано!</string>
