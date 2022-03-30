@@ -2,18 +2,18 @@ package com.asfoundation.wallet.di
 
 import android.content.Context
 import cm.aptoide.analytics.AnalyticsManager
+import com.appcoins.wallet.commons.Logger
+import com.appcoins.wallet.gamification.repository.PromotionsRepository
 import com.asfoundation.wallet.abtesting.experiments.topup.TopUpABTestingAnalytics
 import com.asfoundation.wallet.analytics.*
-import com.asfoundation.wallet.analytics.gamification.GamificationAnalytics
-import com.asfoundation.wallet.billing.analytics.*
-import com.asfoundation.wallet.home.ui.HomeAnalytics
-import com.asfoundation.wallet.identification.IdsRepository
-import com.asfoundation.wallet.promo_code.repository.PromoCodeLocalDataSource
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics
 import com.asfoundation.wallet.billing.analytics.PageViewAnalytics
 import com.asfoundation.wallet.billing.analytics.PoaAnalytics
 import com.asfoundation.wallet.billing.analytics.WalletsAnalytics
 import com.asfoundation.wallet.di.annotations.DefaultHttpClient
+import com.asfoundation.wallet.home.ui.HomeAnalytics
+import com.asfoundation.wallet.identification.IdsRepository
+import com.asfoundation.wallet.promo_code.repository.PromoCodeLocalDataSource
 import com.asfoundation.wallet.rating.RatingAnalytics
 import com.asfoundation.wallet.topup.TopUpAnalytics
 import com.asfoundation.wallet.ui.iab.PaymentMethodsAnalytics
@@ -126,13 +126,32 @@ class AnalyticsModule {
 
   @Singleton
   @Provides
-  fun provideAnalyticsManager(@DefaultHttpClient okHttpClient: OkHttpClient, api: AnalyticsAPI,
-                              @Named("bi_event_list") biEventList: List<String>,
-                              @Named("rakam_event_list") rakamEventList: List<String>,
-                              @Named("indicative_event_list") indicativeEventList: List<String>,
-                              @Named("sentry_event_list") sentryEventList: List<String>,
-                              indicativeAnalytics: IndicativeAnalytics
-                              ): AnalyticsManager {
+  fun provideIndicativeAnalytics(
+    @ApplicationContext context: Context,
+    idsRepository: IdsRepository,
+    promotionsRepository: PromotionsRepository,
+    logger: Logger,
+    promoCodeLocalDataSource: PromoCodeLocalDataSource
+  ): IndicativeAnalytics {
+    return IndicativeAnalytics(
+      context,
+      idsRepository,
+      promotionsRepository,
+      logger,
+      promoCodeLocalDataSource
+    )
+  }
+
+  @Singleton
+  @Provides
+  fun provideAnalyticsManager(
+    @DefaultHttpClient okHttpClient: OkHttpClient, api: AnalyticsAPI,
+    @Named("bi_event_list") biEventList: List<String>,
+    @Named("rakam_event_list") rakamEventList: List<String>,
+    @Named("indicative_event_list") indicativeEventList: List<String>,
+    @Named("sentry_event_list") sentryEventList: List<String>,
+    indicativeAnalytics: IndicativeAnalytics
+  ): AnalyticsManager {
     return AnalyticsManager.Builder()
       .addLogger(BackendEventLogger(api), biEventList)
       .addLogger(IndicativeEventLogger(indicativeAnalytics), indicativeEventList)
