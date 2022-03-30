@@ -1046,7 +1046,7 @@
   <string name="gift_card_title">기프트 카드 코드를 사용하세요</string>
   <string name="gift_card_field">카드 코드 입력...</string>
   <string name="gift_card_done_title">코드 교환!</string>
-  <string name="gift_card_done_body">환산 목록을 확인하세요.</string>
+  <string name="gift_card_done_body">Check your transactions list.</string>
   <string name="gift_card_error_general_title">무엇인가 잘못 되었습니다!</string>
   <string name="gift_card_error_general_body">다시 시도하거나 다른 코드를 사용하십시오.</string>
   <string name="gift_card_error_used_title">이 코드는 이미 사용되었습니다!</string>
