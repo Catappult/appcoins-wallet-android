@@ -1092,7 +1092,7 @@
   <string name="gift_card_title">استرداد رمز بطاقة هديتك</string>
   <string name="gift_card_field">رمز البطاقة هنا...</string>
   <string name="gift_card_done_title">تم استرداد الرمز!</string>
-  <string name="gift_card_done_body">افحص قائمة تحويلاتك.</string>
+  <string name="gift_card_done_body">Check your transactions list.</string>
   <string name="gift_card_error_general_title">حدث خطأ!</string>
   <string name="gift_card_error_general_body">يرجى المحاولة ثانية أو استخدام رمز آخر.</string>
   <string name="gift_card_error_used_title">سبق فعلًا استخدام هذا الرمز!</string>
