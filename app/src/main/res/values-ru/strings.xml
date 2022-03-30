@@ -1073,7 +1073,7 @@
   <string name="gift_card_title">Погасите ваш подарочный код</string>
   <string name="gift_card_field">Подарочный код здесь...</string>
   <string name="gift_card_done_title">Код погашен!</string>
-  <string name="gift_card_done_body">Проверьте ваш список транзакций.</string>
+  <string name="gift_card_done_body">Check your transactions list.</string>
   <string name="gift_card_error_general_title">Что-то пошло неправильно!</string>
   <string name="gift_card_error_general_body">Пожалуйста, попробуйте снова или используйте другой код.</string>
   <string name="gift_card_error_used_title">Этот код уже был использован!</string>
