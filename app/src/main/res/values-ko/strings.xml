@@ -671,7 +671,7 @@
   <string name="backup_skip_title">지갑 키를 백업하지 않으면 자금이 빠져나갈 수 있다는 것을 이해했습니다.</string>
   <string name="backup_wallet_button">지갑 백업하기</string>
   <string name="backup_success_save_on_email">백업 파일이 이메일에 있습니다.</string>
-  <string name="backup_success_save_on_device">Your backup file is stored in your device.</string>
+  <string name="backup_success_save_on_device">백업 파일이 디바이스에 저장됩니다.</string>
   <!--Backup DELETE-->
   <string name="backup_confirmation_body"></string>
   <string name="backup_confirmation_no"></string>
@@ -735,7 +735,7 @@
   <string name="pioneer_gamification_title">선지자입니다</string>
   <string name="pioneer_gamification_body">선지자는 증가된 보너스를 받는 얼리 어댑터입니다.</string>
   <!--Check for Updates-->
-  <string name="check_updates_settings_current_title">Current version</string>
+  <string name="check_updates_settings_current_title">현재 버전</string>
   <string name="check_updates_settings_title">업데이트 학인</string>
   <string name="check_updates_settings_subtitle">현재 버전 %s</string>
   <string name="check_updates_checking_body">새로운 버전 찾기</string>
@@ -852,7 +852,7 @@
   <string name="carrier_billing_terms_button">이용약관</string>
   <string name="carrier_billing_privacy_button">개인정보 보호정책</string>
   <!--Manage Cards-->
-  <string name="manage_cards_settings_add_title">Add credit/debit card</string>
+  <string name="manage_cards_settings_add_title">신용/직불 카드 추가</string>
   <string name="manage_cards_settings_manage_title">카드 관리</string>
   <string name="manage_cards_view_title">카드 관리</string>
   <string name="manage_cards_view_manage_subtitle">지불 카드 관리</string>
@@ -913,7 +913,7 @@
   <string name="send_logs_settings">로그를 지원 팀으로 전송해 주세요</string>
   <string name="send_logs_sending">전송중&#8230;</string>
   <string name="send_logs_sent">전송됨!</string>
-  <string name="send_logs_error">Error!</string>
+  <string name="send_logs_error">오류!</string>
   <!--Rate us-->
   <string name="rate_us_question_title">AppCoins 지갑을 잘 사용하고 계시나요?</string>
   <string name="rate_us_no">전혀</string>
@@ -928,7 +928,7 @@
   <string name="rate_us_back_title">도와주시겠어요?</string>
   <string name="rate_us_back_body">AppCoins 지갑을 평가해서 개선할 수 있도록 해 주세요.</string>
   <!--Card verification-->
-  <string name="card_verification_body">Validate your credit/debit card to make payments.</string>
+  <string name="card_verification_body">결제하려면 신용 카드/직불 카드를 확인하십시오.</string>
   <string name="card_verification_charde_disclaimer">%s을(를) 카드에 충전해드릴것이고, 코드를 확인하시면 환불해 드립니다. 은행에 따라 몇 분에서 며칠 정도 걸릴 수 있습니다.</string>
   <string name="card_verification_code_title">거래 상세에서 이 코드를 확인하세요</string>
   <string name="card_verification_code_body">카드 발급사에서 제공한 거래 요약정보에 이 유일한 코드가 표시됩니다.</string>
@@ -951,7 +951,7 @@
   <string name="card_verification_wallets_insert_bode_button">코드 입력</string>
   <string name="card_verification_no_attempts_title">이런, 잘못된 코드를 여러번 입력하셔서 %1$s 금액이 카드로 환불됩니다.</string>
   <string name="card_verification_no_attempts_body">인증 절차를 다시 진행해 주세요.</string>
-  <string name="wallet_verify_header">Validate at least one payment method</string>
+  <string name="wallet_verify_header">하나 이상의 지급 방법을 확인하십시오</string>
   <string name="verify_card_title">카드 검증</string>
   <!--Vouchers-->
   <string name="voucher_card_body_1">이 바우처를 구매하고 받는</string>
@@ -983,18 +983,18 @@
   <string name="e_skills_withdraw_title">e-Skills 인출</string>
   <string name="e_skills_withdraw_invalid_email_error_message">잘못된 이메일</string>
   <string name="e_skills_withdraw_not_enough_balance_error_message">잔액 부족</string>
-  <string name="e_skills_withdraw_not_enough_earnings_error_message">You haven\'t won enough e-Skills games to withdraw that amount</string>
-  <string name="e_skills_withdraw_minimum_amount_error_message">Minimum amount to withdraw is $%1$.2f</string>
-  <string name="e_skills_withdraw_max_amount_part_1">You can withdraw:</string>
+  <string name="e_skills_withdraw_not_enough_earnings_error_message">e-스킬 게임에서 해당 금액을 인출할 수 있을 만큼 승리하지 못했습니다</string>
+  <string name="e_skills_withdraw_minimum_amount_error_message">인출할 수 있는 최소 금액은 $%1$.2f입니다</string>
+  <string name="e_skills_withdraw_max_amount_part_1">인출할 수 있습니다:</string>
   <string name="e_skills_withdraw_max_amount_part_2">$%1$.2f</string>
-  <string name="e_skills_know_more_about">know more about e-Skills</string>
+  <string name="e_skills_know_more_about">e-스킬에 대해 자세히 알고 있습니다</string>
   <string name="e_skills_know_more_about_tmp">e-Skills 게임에서 벌어들인 자금만 인출할 수 있습니다.</string>
-  <string name="e_skills_withdraw_started">A withdraw of $%1$.2f \nhas been started</string>
-  <string name="e_skills_withdraw_generic_error">Generic error message</string>
-  <string name="e_skills_withdraw_maybe_later">Maybe later</string>
-  <string name="e_skills_room_create_title">Create or join a room</string>
-  <string name="e_skills_room_create_body">Create a new room and share it with your opponents or join an existing room.</string>
-  <string name="e_skills_room_field">Your room name here...</string>
+  <string name="e_skills_withdraw_started">$%1$.2f의 인출이 \n시작되었습니다</string>
+  <string name="e_skills_withdraw_generic_error">일반 오류 메시지</string>
+  <string name="e_skills_withdraw_maybe_later">다음 기회로</string>
+  <string name="e_skills_room_create_title">룸 생성 또는 가입</string>
+  <string name="e_skills_room_create_body">새 룸을 만들어 상대방과 공유하거나 기존 룸에 가입합니다.</string>
+  <string name="e_skills_room_field">룸 이름 입력...</string>
   <!--Promo Code-->
   <string name="promo_code_settings_title">프로모션 코드</string>
   <string name="promo_code_view_title">프로모션 코드</string>
@@ -1002,14 +1002,14 @@
   <string name="promo_code_view_field">프로모션 코드 입력...</string>
   <string name="promo_code_view_error">잘못된 코드. 다른 코드를 입력해주세요!</string>
   <string name="promo_code_activated">프로모션 코드가 활성화되었습니다!</string>
-  <string name="promo_code_delete_button">DELETE</string>
+  <string name="promo_code_delete_button">삭제</string>
   <string name="promo_code_replace_button">바꾸기</string>
   <string name="promo_code_active_tag">활성</string>
   <string name="promo_code_expired_tag">만료됨</string>
   <string name="promo_code_success_title">되었습니다!</string>
   <string name="promo_code_success_body">모든 구매에 대해서 %s%% 추가 보너스를 받게됩니다.</string>
-  <string name="promo_code_success_body_specific_app">You\'ll get %1$s%% extra bonus in all your purchases in %2$s.</string>
-  <string name="promo_code_promotions_tag">Promotional code</string>
+  <string name="promo_code_success_body_specific_app">%2$s의 모든 구매에 대해서 %1$s%%의 추가 보너스를 받게됩니다.</string>
+  <string name="promo_code_promotions_tag">프로모션 코드</string>
   <!--AppCoins Info Page-->
   <string name="appcoins_info_title">AppCoins 소개</string>
   <string name="appcoins_info_prince_title">AppCoins 가격 (APPC)</string>
@@ -1024,32 +1024,32 @@
   <string name="appcoins_info_volume_title">거래량 (24h)</string>
   <!--  NFTs -->
   <string name="nfts_title">NFTs</string>
-  <string name="nfts_no_nfts">You don\'t have any NFTs in this wallet yet!</string>
-  <string name="nfts_transact_button">Send this NFT</string>
-  <string name="nfts_transact_button_send">Send</string>
-  <string name="nfts_transact_button_next">Next</string>
-  <string name="nfts_transact_button_done">Done</string>
-  <string name="nfts_transact_button_success">Got it</string>
-  <string name="nfts_transact_tip">Enter your friend\'s wallet address</string>
-  <string name="nfts_transact_input_tip">Wallet address here...</string>
-  <string name="nfts_transact_done_mensage">%s successfully sent!</string>
-  <string name="nfts_generic_error">Oops! Something went wrong!</string>
-  <string name="nfts_transact_gas_title">Are you in a hurry?</string>
-  <string name="nfts_transact_gas_description">Choose how much you want to pay in fees. The higher the fee, the faster the transaction.</string>
-  <string name="nfts_transact_gas_price">Gas Price</string>
-  <string name="nfts_transact_gas_limit">Gas Limit</string>
-  <string name="nfts_transact_gas_fee_message">Transaction Fee</string>
-  <string name="nfts_transact_error_no_funds">Not enough funds! You don\'t have enough ETH to pay for the fees.</string>
-  <string name="nfts_transact_error_low_gas">Gas is too low! Increase your gas for the network to accept your transaction.</string>
-  <string name="nfts_transact_error_already_in_progress">This NFT is already being sent! A previous transaction is currently in progress.</string>
+  <string name="nfts_no_nfts">이 지갑에는 아직 NFT가 없습니다!</string>
+  <string name="nfts_transact_button">이 NFT를 보냅니다</string>
+  <string name="nfts_transact_button_send">보내기</string>
+  <string name="nfts_transact_button_next">다음</string>
+  <string name="nfts_transact_button_done">완료</string>
+  <string name="nfts_transact_button_success">알겠습니다</string>
+  <string name="nfts_transact_tip">친구의 지갑 주소를 입력하세요</string>
+  <string name="nfts_transact_input_tip">지갑 주소 입력...</string>
+  <string name="nfts_transact_done_mensage">%s 를 성공적으로 보냈습니다!</string>
+  <string name="nfts_generic_error">이런, 무언가 잘못되었습니다!</string>
+  <string name="nfts_transact_gas_title">급하신가요?</string>
+  <string name="nfts_transact_gas_description">얼마를 수수료로 지불할지 선택하세요. 수수료가 높을수록 거래 속도가 빨라집니다.</string>
+  <string name="nfts_transact_gas_price">가스 가격</string>
+  <string name="nfts_transact_gas_limit">가스 제한</string>
+  <string name="nfts_transact_gas_fee_message">거래 수수료</string>
+  <string name="nfts_transact_error_no_funds">자금이 부족합니다! ETH가 부족하여 수수료를 지불할 수 없습니다.</string>
+  <string name="nfts_transact_error_low_gas">가스가 너무 낮아요! 네트워크가 거래를 수락할 수 있도록 가스를 늘립니다.</string>
+  <string name="nfts_transact_error_already_in_progress">이 NFT는 이미 전송 중입니다! 이전 거래가 현재 진행 중입니다.</string>
   <!-- Gift Card -->
-  <string name="gift_card_title">Redeem your gift card code</string>
-  <string name="gift_card_field">Card code here...</string>
-  <string name="gift_card_done_title">Code redeemed!</string>
-  <string name="gift_card_done_body">Check your transacions list.</string>
-  <string name="gift_card_error_general_title">Something went wrong!</string>
-  <string name="gift_card_error_general_body">Please try again or use a different code.</string>
-  <string name="gift_card_error_used_title">This code has already been used!</string>
-  <string name="gift_card_error_new_users_title">This code is only for new users!</string>
-  <string name="gift_card_error_try_with_different_body">Please try again with a different one.</string>
+  <string name="gift_card_title">기프트 카드 코드를 사용하세요</string>
+  <string name="gift_card_field">카드 코드 입력...</string>
+  <string name="gift_card_done_title">코드 교환!</string>
+  <string name="gift_card_done_body">환산 목록을 확인하세요.</string>
+  <string name="gift_card_error_general_title">무엇인가 잘못 되었습니다!</string>
+  <string name="gift_card_error_general_body">다시 시도하거나 다른 코드를 사용하십시오.</string>
+  <string name="gift_card_error_used_title">이 코드는 이미 사용되었습니다!</string>
+  <string name="gift_card_error_new_users_title">이 코드는 새 사용자만 사용할 수 있습니다!</string>
+  <string name="gift_card_error_try_with_different_body">다른 계정으로 다시 시도하십시오.</string>
 </resources>
