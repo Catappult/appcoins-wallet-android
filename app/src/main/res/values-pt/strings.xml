@@ -1055,7 +1055,7 @@
   <string name="gift_card_title">Redime o código do teu cartão oferta</string>
   <string name="gift_card_field">Código do cartão aqui...</string>
   <string name="gift_card_done_title">Código redimido!</string>
-  <string name="gift_card_done_body">Verifica a tua lista de transações.</string>
+  <string name="gift_card_done_body">Check your transactions list.</string>
   <string name="gift_card_error_general_title">Algo correu mal!</string>
   <string name="gift_card_error_general_body">Por favor, tenta novamente ou usa um código diferente.</string>
   <string name="gift_card_error_used_title">Este código já foi usado!</string>
