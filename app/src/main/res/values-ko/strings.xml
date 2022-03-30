@@ -9,7 +9,7 @@
   <string name="bottom_navigation_my_wallets">내 지갑</string>
   <!-- Strings relatedwalletount creation -->
   <string name="prompt_password">비밀번호</string>
-  <string name="action_sign_in_short">Create</string>
+  <string name="action_sign_in_short">생성</string>
   <!-- String related to sending -->
   <string name="prompt_to">수신</string>
   <string name="action_send">전송</string>
@@ -120,7 +120,7 @@
   <string name="intro_2_title">더 많이 플레이, 보다 적은 지불</string>
   <string name="intro_2_body">좋아하는 앱과 게임에서 아이템을 구매하여 보상을 받으세요.</string>
   <string name="intro_3_title">간단하고 쉬움</string>
-  <string name="intro_3_body">Keep the AppCoins Wallet installed to directly purchase in your games.</string>
+  <string name="intro_3_body">AppCoins 지갑을 설치한 상태로 유지하여 게임에서 직접 구매하십시오.</string>
   <string name="intro_4_title">안전하고 비공개</string>
   <string name="intro_4_body">개인 키는 기기에서 절대로 전송되지 않으므로, AppCoins는 항상 안전합니다.</string>
   <string name="intro_4_body_2">최신 기술 덕분에 모든 거래는 항상 안전합니다.</string>
@@ -130,10 +130,10 @@
   <string name="intro_wallet_created_short">지갑이 생성되었습니다!</string>
   <string name="intro_agree_terms_and_conditions_body">건너뛰기를 탭하는 것으로, AppCoins 지갑의 %1$s 그리고 %2$s에 동의합니다</string>
   <string name="intro_skip_button">건너뛰기</string>
-  <string name="intro_welcome_header">Welcome to the AppCoins Wallet</string>
-  <string name="intro_welcome_body">Your app for in-app purchases.</string>
-  <string name="intro_already_have_wallet_button">I already have a wallet</string>
-  <string name="intro_get_started_button">Get started</string>
+  <string name="intro_welcome_header">AppCoins 지갑에 오신 것을 환영합니다</string>
+  <string name="intro_welcome_body">앱 내 구매 내역.</string>
+  <string name="intro_already_have_wallet_button">지갑은 이미 있어요</string>
+  <string name="intro_get_started_button">지금 시작</string>
   <!-- Menus -->
   <!-- Labels -->
   <string name="label_from">송신</string>
