@@ -17,8 +17,10 @@ import io.reactivex.Completable
 import io.reactivex.Single
 import it.czerwinski.android.hilt.annotations.BoundTo
 import javax.inject.Inject
+import javax.inject.Singleton
 
 @BoundTo(supertype = AnalyticsSetup::class)
+@Singleton
 class IndicativeAnalytics @Inject constructor(
   @ApplicationContext private val context: Context,
   private val idsRepository: IdsRepository,

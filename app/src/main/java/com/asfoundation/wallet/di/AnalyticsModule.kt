@@ -1,9 +1,6 @@
 package com.asfoundation.wallet.di
 
-import android.content.Context
 import cm.aptoide.analytics.AnalyticsManager
-import com.appcoins.wallet.commons.Logger
-import com.appcoins.wallet.gamification.repository.PromotionsRepository
 import com.asfoundation.wallet.abtesting.experiments.topup.TopUpABTestingAnalytics
 import com.asfoundation.wallet.analytics.*
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics
@@ -12,8 +9,6 @@ import com.asfoundation.wallet.billing.analytics.PoaAnalytics
 import com.asfoundation.wallet.billing.analytics.WalletsAnalytics
 import com.asfoundation.wallet.di.annotations.DefaultHttpClient
 import com.asfoundation.wallet.home.ui.HomeAnalytics
-import com.asfoundation.wallet.identification.IdsRepository
-import com.asfoundation.wallet.promo_code.repository.PromoCodeLocalDataSource
 import com.asfoundation.wallet.rating.RatingAnalytics
 import com.asfoundation.wallet.topup.TopUpAnalytics
 import com.asfoundation.wallet.ui.iab.PaymentMethodsAnalytics
@@ -21,7 +16,6 @@ import com.asfoundation.wallet.verification.ui.credit_card.VerificationAnalytics
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import javax.inject.Named
@@ -123,24 +117,6 @@ class AnalyticsModule {
       PaymentMethodsAnalytics.WALLET_PAYMENT_LOADING_TOTAL,
       PaymentMethodsAnalytics.WALLET_PAYMENT_LOADING_STEP
     )
-
-  @Singleton
-  @Provides
-  fun provideIndicativeAnalytics(
-    @ApplicationContext context: Context,
-    idsRepository: IdsRepository,
-    promotionsRepository: PromotionsRepository,
-    logger: Logger,
-    promoCodeLocalDataSource: PromoCodeLocalDataSource
-  ): IndicativeAnalytics {
-    return IndicativeAnalytics(
-      context,
-      idsRepository,
-      promotionsRepository,
-      logger,
-      promoCodeLocalDataSource
-    )
-  }
 
   @Singleton
   @Provides

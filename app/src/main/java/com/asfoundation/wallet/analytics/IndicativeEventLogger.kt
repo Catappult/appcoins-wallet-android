@@ -8,7 +8,7 @@ import javax.inject.Inject
 
 class IndicativeEventLogger @Inject constructor(
   val indicativeAnalytics: IndicativeAnalytics
-  ) : EventLogger {
+) : EventLogger {
 
   companion object {
     private const val TAG = "IndicativeEventLogger"
