@@ -442,8 +442,8 @@
   <string name="withdraw_button">rút</string>
   <string name="email_here_field">Nhập email của bạn tại đây&#8230;</string>
   <string name="understood_button">Đã hiểu!</string>
-  <string name="skip_button">Skip for now</string>
-  <string name="understand_button">I understand</string>
+  <string name="skip_button">Bỏ qua bây giờ</string>
+  <string name="understand_button">Tôi hiểu</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Tôi đồng ý với %1$s và %2$s của Ví AppCoins.</string>
   <string name="terms_and_conditions_error">Vui lòng chấp nhận Điều khoản và Điều kiện và Chính sách bảo mật của chúng tôi để tiếp tục</string>
@@ -555,7 +555,7 @@
   <string name="purchase_error_verify_card">Xác thực thẻ của bạn để hoàn tất giao dịch mua này.</string>
   <string name="purachse_error_verify_card_button">XÁC THỰC THẺ</string>
   <string name="purchase_eskills_sku">Vé tham gia</string>
-  <string name="purchase_paytmupi_install_disclaimer">You\'ll need to install Paytm UPI app.</string>
+  <string name="purchase_paytmupi_install_disclaimer">Bạn sẽ cần cài đặt ứng dụng Paytm UPI.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">Địa chỉ thanh toán</string>
   <string name="purchase_address_address_field">Địa chỉ</string>
@@ -645,19 +645,19 @@
   <string name="import_wallet_wrong_password_body">Rất tiếc, sai mật khẩu!</string>
   <string name="error_invalid_private_key">Khóa cá nhân không hợp lệ</string>
   <string name="error_invalid_keystore">Kho khóa không hợp lệ</string>
-  <string name="backup_title">Backup your wallet now!</string>
+  <string name="backup_title">Sao lưu ví của bạn ngay bây giờ!</string>
   <string name="backup_body">Chúng tôi không lưu trữ khóa cá nhân hoặc bất kỳ phương thức truy cập nào khác của bạn. Điều quan trọng hơn cả là giữ cho bản sao lưu ví (kho khóa) của bạn được an toàn.</string>
   <string name="backup_additional_security_title">Bảo mật bổ sung (tùy chọn)</string>
   <string name="backup_additional_security_body">Chọn mật khẩu</string>
   <string name="backup_button">SAO LƯU VÍ</string>
-  <string name="backup_ready_title">Your backup is ready!\nKeep it safe.</string>
+  <string name="backup_ready_title">Bản sao lưu của bạn đã sẵn sàng!\nHãy giữ nó an toàn.</string>
   <string name="backup_ready_save_on_email">Lưu nó vào email của bạn</string>
   <string name="backup_ready_email_button">Gửi đến email</string>
   <string name="backup_ready_device_button">Lưu trên thiết bị</string>
   <string name="backup_confirmation_tips_title">Giữ cho tập tin được an toàn:</string>
-  <string name="backup_confirmation_tips_1"><b>Print it</b> and store it somewhere safe.</string>
-  <string name="backup_confirmation_tips_2"><b>Save it</b> on a USB drive.</string>
-  <string name="backup_confirmation_tips_3"><b>Copy it</b> to a private and secure cloud storage.</string>
+  <string name="backup_confirmation_tips_1"><b>In</b> và lưu trữ nó ở nơi an toàn.</string>
+  <string name="backup_confirmation_tips_2"><b>Lưu</b> trên ổ USB.</string>
+  <string name="backup_confirmation_tips_3"><b>Sao chép</b> vào một bộ nhớ đám mây riêng tư và an toàn.</string>
   <string name="backup_tooltip_body">Tạo bản sao lưu cho ví của bạn!</string>
   <string name="backup_tooltip_later_button">ĐỂ SAU</string>
   <string name="backup_tooltip_backup_button">SAO LƯU</string>
@@ -668,8 +668,8 @@
   <string name="backup_additional_security_disclaimer_body">Không có khôi phục mật khẩu.</string>
   <string name="backup_additional_security_password_not_march">Mật khẩu không khớp.</string>
   <string name="import_wallet_recovering_body">Đang khôi phục ví...</string>
-  <string name="backup_skip_title">I understand that I may loose my funds if I don\'t backup my wallet key.</string>
-  <string name="backup_wallet_button">Backup wallet</string>
+  <string name="backup_skip_title">Tôi hiểu rằng mình có thể mất tiền nếu không sao lưu khóa ví của mình.</string>
+  <string name="backup_wallet_button">Sao lưu ví</string>
   <string name="backup_success_save_on_email">Your backup file is in your email.</string>
   <string name="backup_success_save_on_device">Your backup file is stored in your device.</string>
   <!--Backup DELETE-->
