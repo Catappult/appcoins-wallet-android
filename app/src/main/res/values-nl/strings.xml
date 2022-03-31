@@ -442,8 +442,8 @@
   <string name="withdraw_button">uitbetalen</string>
   <string name="email_here_field">Voer hier je e-mailadres in&#8230;</string>
   <string name="understood_button">Ik begrijp het!</string>
-  <string name="skip_button">Skip for now</string>
-  <string name="understand_button">I understand</string>
+  <string name="skip_button">Voorlopig overslaan</string>
+  <string name="understand_button">Begrepen</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Ik ga akkoord met de %1$s en het %2$s van AppCoins Wallet.</string>
   <string name="terms_and_conditions_error">Accepteer onze algemene voorwaarden en ons privacybeleid om door te gaan</string>
@@ -555,7 +555,7 @@
   <string name="purchase_error_verify_card">Verifieer je kaart om deze aankoop te voltooien.</string>
   <string name="purachse_error_verify_card_button">KAART VERIFIËREN</string>
   <string name="purchase_eskills_sku">Toegangsticket</string>
-  <string name="purchase_paytmupi_install_disclaimer">You\'ll need to install Paytm UPI app.</string>
+  <string name="purchase_paytmupi_install_disclaimer">Je moet de Paytm UPI-app installeren.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">Factuuradres</string>
   <string name="purchase_address_address_field">Adres</string>
@@ -645,19 +645,19 @@
   <string name="import_wallet_wrong_password_body">Oeps, verkeerd wachtwoord!</string>
   <string name="error_invalid_private_key">Ongeldige privésleutel</string>
   <string name="error_invalid_keystore">Ongeldige keystore</string>
-  <string name="backup_title">Backup your wallet now!</string>
+  <string name="backup_title">Maak nu een back-up van je wallet!</string>
   <string name="backup_body">We slaan je privésleutels of andere toegangsmethoden niet op. Het is belangrijk om de back-up van je wallet (keystore) veilig te houden.</string>
   <string name="backup_additional_security_title">Extra beveiliging (optioneel)</string>
   <string name="backup_additional_security_body">Kies een wachtwoord</string>
   <string name="backup_button">BACK-UP VAN WALLET MAKEN</string>
-  <string name="backup_ready_title">Your backup is ready!\nKeep it safe.</string>
+  <string name="backup_ready_title">Je back-up is klaar!\nSla de back-up veilig op.</string>
   <string name="backup_ready_save_on_email">Opslaan in je mailbox</string>
   <string name="backup_ready_email_button">Naar mailbox verzenden</string>
   <string name="backup_ready_device_button">Opslaan op apparaat</string>
   <string name="backup_confirmation_tips_title">Sla het bestand veilig op:</string>
-  <string name="backup_confirmation_tips_1"><b>Print it</b> and store it somewhere safe.</string>
-  <string name="backup_confirmation_tips_2"><b>Save it</b> on a USB drive.</string>
-  <string name="backup_confirmation_tips_3"><b>Copy it</b> to a private and secure cloud storage.</string>
+  <string name="backup_confirmation_tips_1"><b>Druk het bestand af</b> en bewaar het op een veilige plek.</string>
+  <string name="backup_confirmation_tips_2"><b>Sla het bestand</b> op een USB-stick op.</string>
+  <string name="backup_confirmation_tips_3"><b>Kopieer het bestand</b> naar een persoonlijke en veilige cloudopslag.</string>
   <string name="backup_tooltip_body">Maak een back-up van je wallet!</string>
   <string name="backup_tooltip_later_button">MISSCHIEN LATER</string>
   <string name="backup_tooltip_backup_button">BACK-UP</string>
@@ -668,10 +668,10 @@
   <string name="backup_additional_security_disclaimer_body">Er is geen wachtwoordherstel.</string>
   <string name="backup_additional_security_password_not_march">De wachtwoorden komen niet overeen.</string>
   <string name="import_wallet_recovering_body">Wallet herstellen...</string>
-  <string name="backup_skip_title">I understand that I may loose my funds if I don\'t backup my wallet key.</string>
-  <string name="backup_wallet_button">Backup wallet</string>
-  <string name="backup_success_save_on_email">Your backup file is in your email.</string>
-  <string name="backup_success_save_on_device">Your backup file is stored in your device.</string>
+  <string name="backup_skip_title">Ik begrijp dat ik mijn saldo kan kwijtraken als ik geen back-up van de sleutel voor mijn wallet maak.</string>
+  <string name="backup_wallet_button">Back-up van wallet maken</string>
+  <string name="backup_success_save_on_email">Het back-upbestand bevindt zich in je mailbox.</string>
+  <string name="backup_success_save_on_device">Het back-upbestand is op je apparaat opgeslagen.</string>
   <!--Backup DELETE-->
   <string name="backup_confirmation_body"></string>
   <string name="backup_confirmation_no"></string>
@@ -1034,7 +1034,7 @@
   <!--  NFTs -->
   <string name="nfts_title">NFT\'s</string>
   <string name="nfts_no_nfts">Deze wallet bevat nog geen NFT\'s!</string>
-  <string name="nfts_transact_button">Send this NFT</string>
+  <string name="nfts_transact_button">Verstuur deze NFT</string>
   <string name="nfts_transact_button_send">Send</string>
   <string name="nfts_transact_button_next">Next</string>
   <string name="nfts_transact_button_done">Done</string>
