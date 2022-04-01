@@ -1,19 +1,14 @@
 package com.asfoundation.wallet.di
 
-import android.content.Context
 import cm.aptoide.analytics.AnalyticsManager
 import com.asfoundation.wallet.abtesting.experiments.topup.TopUpABTestingAnalytics
 import com.asfoundation.wallet.analytics.*
-import com.asfoundation.wallet.analytics.gamification.GamificationAnalytics
-import com.asfoundation.wallet.billing.analytics.*
-import com.asfoundation.wallet.home.ui.HomeAnalytics
-import com.asfoundation.wallet.identification.IdsRepository
-import com.asfoundation.wallet.promo_code.repository.PromoCodeLocalDataSource
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics
 import com.asfoundation.wallet.billing.analytics.PageViewAnalytics
 import com.asfoundation.wallet.billing.analytics.PoaAnalytics
 import com.asfoundation.wallet.billing.analytics.WalletsAnalytics
 import com.asfoundation.wallet.di.annotations.DefaultHttpClient
+import com.asfoundation.wallet.home.ui.HomeAnalytics
 import com.asfoundation.wallet.rating.RatingAnalytics
 import com.asfoundation.wallet.topup.TopUpAnalytics
 import com.asfoundation.wallet.ui.iab.PaymentMethodsAnalytics
@@ -21,7 +16,6 @@ import com.asfoundation.wallet.verification.ui.credit_card.VerificationAnalytics
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import javax.inject.Named
@@ -126,13 +120,14 @@ class AnalyticsModule {
 
   @Singleton
   @Provides
-  fun provideAnalyticsManager(@DefaultHttpClient okHttpClient: OkHttpClient, api: AnalyticsAPI,
-                              @Named("bi_event_list") biEventList: List<String>,
-                              @Named("rakam_event_list") rakamEventList: List<String>,
-                              @Named("indicative_event_list") indicativeEventList: List<String>,
-                              @Named("sentry_event_list") sentryEventList: List<String>,
-                              indicativeAnalytics: IndicativeAnalytics
-                              ): AnalyticsManager {
+  fun provideAnalyticsManager(
+    @DefaultHttpClient okHttpClient: OkHttpClient, api: AnalyticsAPI,
+    @Named("bi_event_list") biEventList: List<String>,
+    @Named("rakam_event_list") rakamEventList: List<String>,
+    @Named("indicative_event_list") indicativeEventList: List<String>,
+    @Named("sentry_event_list") sentryEventList: List<String>,
+    indicativeAnalytics: IndicativeAnalytics
+  ): AnalyticsManager {
     return AnalyticsManager.Builder()
       .addLogger(BackendEventLogger(api), biEventList)
       .addLogger(IndicativeEventLogger(indicativeAnalytics), indicativeEventList)
