@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.MenuItem
 import com.asf.wallet.R
 import com.asfoundation.wallet.ui.BaseActivity
+import com.asfoundation.wallet.util.safeLet
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -17,11 +18,13 @@ class BackupActivity : BaseActivity() {
 
   companion object {
     const val WALLET_ADDRESS_KEY = "wallet_address"
+    const val IS_BACKUP_TRIGGER = "is_backup_trigger"
 
     @JvmStatic
-    fun newIntent(context: Context, walletAddress: String) =
+    fun newIntent(context: Context, walletAddress: String, isBackupTrigger: Boolean) =
       Intent(context, BackupActivity::class.java).apply {
         putExtra(WALLET_ADDRESS_KEY, walletAddress)
+        putExtra(IS_BACKUP_TRIGGER, isBackupTrigger)
       }
   }
 
@@ -30,7 +33,13 @@ class BackupActivity : BaseActivity() {
     setContentView(R.layout.activity_backup)
 
     toolbar()
-    this.intent.getStringExtra(WALLET_ADDRESS_KEY)?.let { navigator.showBackupScreen(it) }
+//    this.intent.getStringExtra(WALLET_ADDRESS_KEY)?.let { navigator.showBackupScreen(it) }
+    safeLet(
+      intent.getStringExtra(WALLET_ADDRESS_KEY),
+      intent.getBooleanExtra(IS_BACKUP_TRIGGER, false)
+    ) { walletAddress, isBackupTrigger ->
+      navigator.showBackupScreen(walletAddress, isBackupTrigger)
+    }
   }
 
   override fun onOptionsItemSelected(item: MenuItem): Boolean {

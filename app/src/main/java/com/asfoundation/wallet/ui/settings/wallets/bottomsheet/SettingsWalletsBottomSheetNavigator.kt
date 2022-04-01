@@ -9,7 +9,7 @@ class SettingsWalletsBottomSheetNavigator @Inject constructor(val fragmentManage
                                           val fragment: Fragment) {
 
   fun navigateToBackup(walletAddress: String) {
-    fragment.startActivity(BackupActivity.newIntent(fragment.requireContext(), walletAddress))
+    fragment.startActivity(BackupActivity.newIntent(fragment.requireContext(), walletAddress, isBackupTrigger = false))
     fragmentManager.popBackStack()
   }
 }

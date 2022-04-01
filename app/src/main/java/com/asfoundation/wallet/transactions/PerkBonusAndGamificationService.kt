@@ -15,6 +15,7 @@ import com.appcoins.wallet.gamification.repository.Levels
 import com.appcoins.wallet.gamification.repository.PromotionsRepository
 import com.asf.wallet.R
 import com.asfoundation.wallet.C
+import com.asfoundation.wallet.backup.triggers.BackupTriggerPreferences
 import com.asfoundation.wallet.main.MainActivityNavigator
 import com.asfoundation.wallet.promo_code.use_cases.GetCurrentPromoCodeUseCase
 import com.asfoundation.wallet.repository.TransactionRepositoryType
@@ -55,6 +56,9 @@ class PerkBonusAndGamificationService :
 
   @Inject
   lateinit var getCurrentPromoCodeUseCase: GetCurrentPromoCodeUseCase
+
+  @Inject
+  lateinit var backupTriggerPreferences: BackupTriggerPreferences
 
   override fun onHandleIntent(intent: Intent?) {
     val address = intent?.getStringExtra(ADDRESS_KEY)
@@ -109,6 +113,7 @@ class PerkBonusAndGamificationService :
                                                maxLevel: Int, bonusTransactionValue: String) {
     if (lastShownLevel < currentLevel && hasPurchaseResultedInLevelUp(transactions,
             stats.totalSpend.minus(currentLevelStartAmount))) {
+      backupTriggerPreferences.setTriggerState(active = true)
       promotionsRepository.shownLevel(address, currentLevel, NOTIFICATIONS_LEVEL_UP)
       buildNotification(createLevelUpNotification(stats,
           currentLevel == maxLevel, bonusTransactionValue),

@@ -92,8 +92,8 @@ class HomeNavigator @Inject constructor(private val fragment: Fragment,
     }
   }
 
-  fun navigateToBackup(walletAddress: String) {
-    val intent = BackupActivity.newIntent(fragment.requireContext(), walletAddress)
+  fun navigateToBackup(walletAddress: String, isBackupTrigger : Boolean) {
+    val intent = BackupActivity.newIntent(fragment.requireContext(), walletAddress, isBackupTrigger)
         .apply {
           flags = Intent.FLAG_ACTIVITY_SINGLE_TOP
         }

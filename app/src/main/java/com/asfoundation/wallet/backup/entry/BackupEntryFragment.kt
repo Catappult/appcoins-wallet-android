@@ -35,13 +35,15 @@ class BackupEntryFragment : BasePageViewFragment(),
 
   companion object {
     const val WALLET_ADDRESS_KEY = "wallet_address"
+    const val IS_BACKUP_TRIGGER = "is_backup_trigger"
 
     @JvmStatic
-    fun newInstance(walletAddress: String): BackupEntryFragment {
+    fun newInstance(walletAddress: String, isBackupTrigger : Boolean): BackupEntryFragment {
       return BackupEntryFragment()
         .apply {
           arguments = Bundle().apply {
             putString(WALLET_ADDRESS_KEY, walletAddress)
+            putBoolean(IS_BACKUP_TRIGGER, isBackupTrigger)
           }
         }
     }

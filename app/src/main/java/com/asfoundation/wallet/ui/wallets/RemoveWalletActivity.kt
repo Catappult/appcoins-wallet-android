@@ -75,7 +75,7 @@ class RemoveWalletActivity : BaseActivity(), RemoveWalletActivityView {
   }
 
   override fun navigateToBackUp(walletAddress: String) =
-      startActivity(newIntent(this, walletAddress))
+      startActivity(newIntent(this, walletAddress, false))
 
   override fun showRemoveWalletAnimation() {
     requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LOCKED

@@ -191,8 +191,9 @@ class HomeFragment : BasePageViewFragment(),
       is HomeSideEffect.NavigateToShare -> navigator.handleShare(sideEffect.url)
       is HomeSideEffect.NavigateToDetails -> navigator.navigateToTransactionDetails(
           sideEffect.transaction, sideEffect.balanceCurrency)
-      is HomeSideEffect.NavigateToBackup -> navigator.navigateToBackup(sideEffect.walletAddress)
+      is HomeSideEffect.NavigateToBackup -> navigator.navigateToBackup(sideEffect.walletAddress, isBackupTrigger = false)
       is HomeSideEffect.NavigateToIntent -> navigator.openIntent(sideEffect.intent)
+      is HomeSideEffect.ShowBackupTrigger -> navigator.navigateToBackup(sideEffect.walletAddress, isBackupTrigger = true)
       HomeSideEffect.ShowFingerprintTooltip -> setFingerprintTooltip()
       HomeSideEffect.NavigateToChangeCurrency -> navigator.navigateToCurrencySelector()
     }

@@ -6,6 +6,7 @@ import android.text.format.DateUtils
 import android.util.Log
 import com.appcoins.wallet.gamification.repository.Levels
 import com.asf.wallet.BuildConfig
+import com.asfoundation.wallet.backup.triggers.BackupTriggerPreferences
 import com.asfoundation.wallet.base.*
 import com.asfoundation.wallet.billing.analytics.WalletsAnalytics
 import com.asfoundation.wallet.billing.analytics.WalletsEventSender
@@ -13,6 +14,7 @@ import com.asfoundation.wallet.entity.GlobalBalance
 import com.asfoundation.wallet.entity.Wallet
 import com.asfoundation.wallet.home.usecases.*
 import com.asfoundation.wallet.interact.AutoUpdateInteract
+import com.asfoundation.wallet.main.MainSideEffect
 import com.asfoundation.wallet.referrals.CardNotification
 import com.asfoundation.wallet.transactions.Transaction
 import com.asfoundation.wallet.ui.balance.TokenBalance
@@ -42,6 +44,7 @@ sealed class HomeSideEffect : SideEffect {
 
   data class NavigateToBackup(val walletAddress: String) : HomeSideEffect()
   data class NavigateToIntent(val intent: Intent) : HomeSideEffect()
+  data class ShowBackupTrigger(val walletAddress: String) : HomeSideEffect()
   object NavigateToMyWallets : HomeSideEffect()
   object NavigateToSend : HomeSideEffect()
   object NavigateToChangeCurrency : HomeSideEffect()
@@ -55,6 +58,7 @@ data class HomeState(val transactionsModelAsync: Async<TransactionsModel> = Asyn
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(private val analytics: HomeAnalytics,
+                                        private val backupTriggerPreferences: BackupTriggerPreferences,
                     private val observeWalletInfoUseCase: ObserveWalletInfoUseCase,
                     private val shouldOpenRatingDialogUseCase: ShouldOpenRatingDialogUseCase,
                     private val updateTransactionsNumberUseCase: UpdateTransactionsNumberUseCase,
@@ -94,6 +98,7 @@ class HomeViewModel @Inject constructor(private val analytics: HomeAnalytics,
     handleUnreadConversationCount()
     handleRateUsDialogVisibility()
     handleFingerprintTooltipVisibility()
+    handleNewLevelBackupTrigger()
   }
 
   private fun handleWalletData() {
@@ -359,7 +364,6 @@ class HomeViewModel @Inject constructor(private val analytics: HomeAnalytics,
       }
       CardNotificationAction.UPDATE -> {
         sendSideEffect {
-//          HomeSideEffect.NavigateToIntent(buildAutoUpdateIntentUseCase())
           HomeSideEffect.NavigateToIntent(buildAutoUpdateIntent())
         }
         dismissNotification(cardNotification)
@@ -379,6 +383,17 @@ class HomeViewModel @Inject constructor(private val analytics: HomeAnalytics,
       CardNotificationAction.NONE -> {
       }
     }
+  }
+
+  private fun handleNewLevelBackupTrigger() {
+    observeWalletInfoUseCase(null, update = false, updateFiat = false)
+      .doOnNext {
+        if(backupTriggerPreferences.getTriggerState()){
+          backupTriggerPreferences.setTriggerState(active = false)
+          sendSideEffect { HomeSideEffect.ShowBackupTrigger(it.wallet) }
+        }
+      }
+      .scopedSubscribe()
   }
 
   private fun buildAutoUpdateIntent(): Intent {

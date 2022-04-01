@@ -28,7 +28,7 @@ class SettingsNavigator @Inject constructor(private val fragmentManager: Fragmen
   }
 
   fun navigateToBackup(walletAddress: String) {
-    activity.startActivity(BackupActivity.newIntent(activity, walletAddress))
+    activity.startActivity(BackupActivity.newIntent(activity, walletAddress, isBackupTrigger = false))
   }
 
   fun showWalletsBottomSheet(walletModel: WalletsModel) {

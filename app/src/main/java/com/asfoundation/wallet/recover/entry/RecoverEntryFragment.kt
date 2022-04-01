@@ -33,7 +33,7 @@ class RecoverEntryFragment : BasePageViewFragment(),
   @Inject
   lateinit var navigator: RecoverEntryNavigator
 
-  private val viewModel: RecoverWalletViewModel by viewModels()
+  private val viewModel: RecoverEntryViewModel by viewModels()
   private val views by viewBinding(RecoverEntryFragmentBinding::bind)
 
   private lateinit var requestPermissionsLauncher: ActivityResultLauncher<String>

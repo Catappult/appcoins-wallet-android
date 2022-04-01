@@ -74,6 +74,24 @@ class PromotionsInteractor @Inject constructor(
 
   }
 
+  fun hasNewLevel(): Single<Boolean> {
+    return getCurrentPromoCodeUseCase()
+      .flatMap { promoCode ->
+        findWalletUseCase()
+          .flatMap { wallet ->
+            promotionsRepo.getUserStats(wallet.address, promoCode.code, false)
+              .lastOrError()
+              .flatMap {
+                val gamification =
+                  it.promotions.firstOrNull { promotionsResponse -> promotionsResponse is GamificationResponse } as GamificationResponse?
+                gamificationInteractor.hasNewLevel(wallet.address, gamification,
+                  GamificationContext.SCREEN_PROMOTIONS)
+              }
+              .subscribeOn(Schedulers.io())
+          }
+      }
+  }
+
   fun getUnwatchedPromotionNotification(): Single<CardNotification> {
     return getCurrentPromoCodeUseCase()
         .flatMap { promoCode ->

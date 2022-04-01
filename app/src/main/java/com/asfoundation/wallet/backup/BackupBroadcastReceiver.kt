@@ -45,7 +45,7 @@ class BackupBroadcastReceiver : BroadcastReceiver() {
       backupInteract.saveDismissSystemNotification(it)
 
       if (intent.getStringExtra(ACTION) == ACTION_BACKUP) {
-        val backupIntent = BackupActivity.newIntent(context, it)
+        val backupIntent = BackupActivity.newIntent(context, it, isBackupTrigger = true)
             .apply {
               flags = Intent.FLAG_ACTIVITY_NEW_TASK
             }
