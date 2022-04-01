@@ -14,9 +14,7 @@ import android.webkit.WebViewClient
 import com.appcoins.wallet.commons.Logger
 import com.asf.wallet.BuildConfig
 import com.asf.wallet.R
-import com.asfoundation.wallet.billing.adyen.AdyenPaymentPresenter
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics
-import com.asfoundation.wallet.util.Log
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
@@ -212,6 +210,10 @@ class BillingWebViewFragment : BasePageViewFragment() {
             webView.loadUrl(fallbackUrl)
           } else {
             logger.log(TAG, "Unable to open external app from the webview")
+
+//            view?.warning_group?.visibility = View.GONE
+//            view?.warning_group?.visibility = View.VISIBLE
+
           }
         }
       }
