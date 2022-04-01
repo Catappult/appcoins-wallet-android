@@ -33,7 +33,7 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class HomeFragment : BasePageViewFragment(),
-    SingleStateFragment<HomeState, HomeSideEffect> {
+  SingleStateFragment<HomeState, HomeSideEffect> {
 
   @Inject
   lateinit var navigator: HomeNavigator
@@ -50,8 +50,10 @@ class HomeFragment : BasePageViewFragment(),
   private lateinit var tooltip: View
   private lateinit var popup: PopupWindow
 
-  override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                            savedInstanceState: Bundle?): View? {
+  override fun onCreateView(
+    inflater: LayoutInflater, container: ViewGroup?,
+    savedInstanceState: Bundle?
+  ): View? {
     _views = FragmentHomeBinding.inflate(inflater, container, false)
     return views.root
   }
@@ -62,7 +64,7 @@ class HomeFragment : BasePageViewFragment(),
 
     views.actionButtonVip.root.visibility = View.GONE
     views.actionButtonVip.root
-        .setOnClickListener { viewModel.goToVipLink() }
+      .setOnClickListener { viewModel.goToVipLink() }
     initializeLists()
     views.refreshLayout.setOnRefreshListener { viewModel.updateData() }
     views.refreshLayout.setProgressViewOffset(false, 0, 68.convertDpToPx(resources))
@@ -80,14 +82,15 @@ class HomeFragment : BasePageViewFragment(),
   override fun onResume() {
     super.onResume()
     val fromSupportNotification =
-        requireActivity().intent.getBooleanExtra(
-            SupportNotificationProperties.SUPPORT_NOTIFICATION_CLICK,
-            false)
+      requireActivity().intent.getBooleanExtra(
+        SupportNotificationProperties.SUPPORT_NOTIFICATION_CLICK,
+        false
+      )
     if (!fromSupportNotification) {
       viewModel.updateData()
       checkRoot()
       Intercom.client()
-          .handlePushMessage()
+        .handlePushMessage()
     } else {
       requireActivity().finish()
     }
@@ -113,8 +116,10 @@ class HomeFragment : BasePageViewFragment(),
           if (homeClick.id == CAROUSEL_GAMIFICATION) navigator.navigateToPromotions()
         }
         is HomeListClick.NotificationClick -> {
-          viewModel.onNotificationClick(homeClick.cardNotification,
-              homeClick.cardNotificationAction)
+          viewModel.onNotificationClick(
+            homeClick.cardNotification,
+            homeClick.cardNotificationAction
+          )
         }
         is HomeListClick.TransactionClick -> {
           onTransactionClick(homeClick.transaction)
@@ -154,7 +159,9 @@ class HomeFragment : BasePageViewFragment(),
         val overallBalanceFiat = balanceAsync().walletBalance.overallFiat
         val overallAmount = formatter.formatCurrency(overallBalanceFiat.amount, WalletCurrency.FIAT)
         if (overallBalanceFiat.amount > BigDecimal(
-                "-1") && overallBalanceFiat.symbol.isNotEmpty()) {
+            "-1"
+          ) && overallBalanceFiat.symbol.isNotEmpty()
+        ) {
           views.balance.visibility = View.VISIBLE
           views.balanceSkeleton.visibility = View.INVISIBLE
           views.balance.text = overallBalanceFiat.symbol + overallAmount
@@ -164,8 +171,10 @@ class HomeFragment : BasePageViewFragment(),
     }
   }
 
-  private fun setRefreshLayout(defaultWalletBalanceAsync: Async<GlobalBalance>,
-                               transactionsModelAsync: Async<TransactionsModel>) {
+  private fun setRefreshLayout(
+    defaultWalletBalanceAsync: Async<GlobalBalance>,
+    transactionsModelAsync: Async<TransactionsModel>
+  ) {
     when (defaultWalletBalanceAsync) {
       is Async.Fail,
       is Async.Success -> {
@@ -187,13 +196,21 @@ class HomeFragment : BasePageViewFragment(),
       is HomeSideEffect.NavigateToReceive -> navigator.navigateToReceive(sideEffect.wallet)
       HomeSideEffect.NavigateToSend -> navigator.navigateToSend()
       is HomeSideEffect.NavigateToSettings -> navigator.navigateToSettings(
-          sideEffect.turnOnFingerprint)
+        sideEffect.turnOnFingerprint
+      )
       is HomeSideEffect.NavigateToShare -> navigator.handleShare(sideEffect.url)
       is HomeSideEffect.NavigateToDetails -> navigator.navigateToTransactionDetails(
-          sideEffect.transaction, sideEffect.balanceCurrency)
-      is HomeSideEffect.NavigateToBackup -> navigator.navigateToBackup(sideEffect.walletAddress, isBackupTrigger = false)
+        sideEffect.transaction, sideEffect.balanceCurrency
+      )
+      is HomeSideEffect.NavigateToBackup -> navigator.navigateToBackup(
+        sideEffect.walletAddress,
+        isBackupTrigger = false
+      )
       is HomeSideEffect.NavigateToIntent -> navigator.openIntent(sideEffect.intent)
-      is HomeSideEffect.ShowBackupTrigger -> navigator.navigateToBackup(sideEffect.walletAddress, isBackupTrigger = true)
+      is HomeSideEffect.ShowBackupTrigger -> navigator.navigateToBackup(
+        sideEffect.walletAddress,
+        isBackupTrigger = true
+      )
       HomeSideEffect.ShowFingerprintTooltip -> setFingerprintTooltip()
       HomeSideEffect.NavigateToChangeCurrency -> navigator.navigateToCurrencySelector()
     }
@@ -216,17 +233,17 @@ class HomeFragment : BasePageViewFragment(),
     val pref = PreferenceManager.getDefaultSharedPreferences(context)
     if (RootUtil.isDeviceRooted() && pref.getBoolean("should_show_root_warning", true)) {
       pref.edit()
-          .putBoolean("should_show_root_warning", false)
-          .apply()
+        .putBoolean("should_show_root_warning", false)
+        .apply()
       val alertDialog = AlertDialog.Builder(context)
-          .setTitle(R.string.root_title)
-          .setMessage(R.string.root_body)
-          .setNegativeButton(R.string.ok) { dialog, which -> }
-          .show()
+        .setTitle(R.string.root_title)
+        .setMessage(R.string.root_body)
+        .setNegativeButton(R.string.ok) { dialog, which -> }
+        .show()
       alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE)
-          .setBackgroundColor(ResourcesCompat.getColor(resources, R.color.transparent, null))
+        .setBackgroundColor(ResourcesCompat.getColor(resources, R.color.transparent, null))
       alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE)
-          .setTextColor(ResourcesCompat.getColor(resources, R.color.text_button_color, null))
+        .setTextColor(ResourcesCompat.getColor(resources, R.color.text_button_color, null))
     }
   }
 
@@ -248,12 +265,12 @@ class HomeFragment : BasePageViewFragment(),
 
   private fun setTooltipListeners() {
     tooltip.findViewById<View>(R.id.tooltip_later_button)
-        .setOnClickListener { dismissPopup() }
+      .setOnClickListener { dismissPopup() }
     tooltip.findViewById<View>(R.id.tooltip_turn_on_button)
-        .setOnClickListener {
-          dismissPopup()
-          viewModel.onTurnFingerprintOnClick()
-        }
+      .setOnClickListener {
+        dismissPopup()
+        viewModel.onTurnFingerprintOnClick()
+      }
   }
 
   private fun dismissPopup() {

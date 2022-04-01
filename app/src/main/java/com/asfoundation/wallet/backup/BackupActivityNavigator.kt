@@ -10,9 +10,12 @@ class BackupActivityNavigator @Inject constructor(private val activity: Activity
 
   private val fragmentManager = (activity as AppCompatActivity).supportFragmentManager
 
-  fun showBackupScreen(walletAddress: String, isBackupTrigger : Boolean) {
+  fun showBackupScreen(walletAddress: String, isBackupTrigger: Boolean) {
     fragmentManager.beginTransaction()
-      .replace(R.id.fragment_container, BackupEntryFragment.newInstance(walletAddress, isBackupTrigger))
+      .replace(
+        R.id.fragment_container,
+        BackupEntryFragment.newInstance(walletAddress, isBackupTrigger)
+      )
       .commit()
   }
 }

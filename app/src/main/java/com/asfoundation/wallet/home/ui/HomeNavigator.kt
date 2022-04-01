@@ -22,8 +22,10 @@ import com.asfoundation.wallet.ui.settings.SettingsActivity
 import com.asfoundation.wallet.ui.transact.TransferActivity.Companion.newIntent
 import javax.inject.Inject
 
-class HomeNavigator @Inject constructor(private val fragment: Fragment,
-                    private val mainActivityNavigator: MainActivityNavigator) : Navigator {
+class HomeNavigator @Inject constructor(
+  private val fragment: Fragment,
+  private val mainActivityNavigator: MainActivityNavigator
+) : Navigator {
 
   fun navigateToRateUs(shouldNavigate: Boolean) {
     if (shouldNavigate) {
@@ -65,50 +67,50 @@ class HomeNavigator @Inject constructor(private val fragment: Fragment,
       val launchBrowser = Intent(Intent.ACTION_VIEW, uri)
       launchBrowser.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
       fragment.requireContext()
-          .startActivity(launchBrowser)
+        .startActivity(launchBrowser)
     } catch (exception: ActivityNotFoundException) {
       exception.printStackTrace()
       Toast.makeText(fragment.requireContext(), R.string.unknown_error, Toast.LENGTH_SHORT)
-          .show()
+        .show()
     }
   }
 
   fun handleShare(link: String) {
     ShareCompat.IntentBuilder.from(fragment.activity as BaseActivity)
-        .setText(link)
-        .setType("text/plain")
-        .setChooserTitle(fragment.resources.getString(R.string.referral_share_sheet_title))
-        .startChooser()
+      .setText(link)
+      .setType("text/plain")
+      .setChooserTitle(fragment.resources.getString(R.string.referral_share_sheet_title))
+      .startChooser()
   }
 
   fun navigateToTransactionDetails(transaction: Transaction, globalBalanceCurrency: String) {
     with(fragment.requireContext()) {
       val intent = Intent(this, TransactionDetailActivity::class.java)
-          .apply {
-            putExtra(C.Key.TRANSACTION, transaction)
-            putExtra(C.Key.GLOBAL_BALANCE_CURRENCY, globalBalanceCurrency)
-          }
+        .apply {
+          putExtra(C.Key.TRANSACTION, transaction)
+          putExtra(C.Key.GLOBAL_BALANCE_CURRENCY, globalBalanceCurrency)
+        }
       startActivity(intent)
     }
   }
 
-  fun navigateToBackup(walletAddress: String, isBackupTrigger : Boolean) {
+  fun navigateToBackup(walletAddress: String, isBackupTrigger: Boolean) {
     val intent = BackupActivity.newIntent(fragment.requireContext(), walletAddress, isBackupTrigger)
-        .apply {
-          flags = Intent.FLAG_ACTIVITY_SINGLE_TOP
-        }
+      .apply {
+        flags = Intent.FLAG_ACTIVITY_SINGLE_TOP
+      }
     openIntent(intent)
   }
 
 
   fun navigateToCurrencySelector() {
     val intent = ChangeFiatCurrencyActivity.newIntent(fragment.requireContext())
-        .apply {
-          flags = Intent.FLAG_ACTIVITY_SINGLE_TOP
-        }
+      .apply {
+        flags = Intent.FLAG_ACTIVITY_SINGLE_TOP
+      }
     openIntent(intent)
   }
 
   fun openIntent(intent: Intent) = fragment.requireContext()
-      .startActivity(intent)
+    .startActivity(intent)
 }

@@ -38,7 +38,7 @@ class BackupEntryFragment : BasePageViewFragment(),
     const val IS_BACKUP_TRIGGER = "is_backup_trigger"
 
     @JvmStatic
-    fun newInstance(walletAddress: String, isBackupTrigger : Boolean): BackupEntryFragment {
+    fun newInstance(walletAddress: String, isBackupTrigger: Boolean): BackupEntryFragment {
       return BackupEntryFragment()
         .apply {
           arguments = Bundle().apply {

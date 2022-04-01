@@ -9,7 +9,7 @@ class BackupTriggerPreferences @Inject constructor(private val pref: SharedPrefe
     private const val BACKUP_TRIGGER_STATE = "backup_trigger_state"
   }
 
-  fun setTriggerState(active : Boolean) {
+  fun setTriggerState(active: Boolean) {
     pref.edit()
       .putBoolean(BACKUP_TRIGGER_STATE, active)
       .apply()

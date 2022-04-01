@@ -35,7 +35,7 @@ import kotlin.math.pow
 
 @AndroidEntryPoint
 class PerkBonusAndGamificationService :
-    IntentService(PerkBonusAndGamificationService::class.java.simpleName) {
+  IntentService(PerkBonusAndGamificationService::class.java.simpleName) {
 
   @Inject
   lateinit var transactionRepository: TransactionRepositoryType
@@ -76,80 +76,111 @@ class PerkBonusAndGamificationService :
 
   private fun handleNotifications(address: String): Single<Unit> {
     return Single.zip(getLastShownLevelUp(address),
-        promotionsRepository.getLastShownLevel(address, NOTIFICATIONS_ALMOST_NEXT_LEVEL),
-        getGamificationStats(address),
-        getLevelList(address),
-        getNewTransactions(address),
-        Function5 { lastShownLevel: Int, almostNextLevelLastShown: Int, stats: GamificationStats,
-                    allLevels: List<Levels.Level>, transactions: List<Transaction> ->
-          val bonusTransactionValue = getAllPerkBonusTransactionValues(transactions)
-          if (isCaseInvalidForNotifications(stats, transactions, allLevels)) {
-            handlePerkBonusNotificationPartnerUser(bonusTransactionValue)
-            return@Function5
-          }
-          val maxLevel = allLevels.maxBy { level -> level.level }!!.level
-          val currentLevel = stats.level
-          val currentLevelStartAmount = allLevels[currentLevel].amount
-          handlePerkAndLevelUpNotification(address, lastShownLevel, currentLevel, transactions,
-              stats, currentLevelStartAmount, maxLevel, bonusTransactionValue)
-          handleAlmostNextLevelNotification(address, almostNextLevelLastShown, currentLevel, stats,
-              currentLevelStartAmount, maxLevel)
-        })
-        .doOnError { it.printStackTrace() }
-        .subscribeOn(Schedulers.io())
+      promotionsRepository.getLastShownLevel(address, NOTIFICATIONS_ALMOST_NEXT_LEVEL),
+      getGamificationStats(address),
+      getLevelList(address),
+      getNewTransactions(address),
+      Function5 { lastShownLevel: Int, almostNextLevelLastShown: Int, stats: GamificationStats,
+                  allLevels: List<Levels.Level>, transactions: List<Transaction> ->
+        val bonusTransactionValue = getAllPerkBonusTransactionValues(transactions)
+        if (isCaseInvalidForNotifications(stats, transactions, allLevels)) {
+          handlePerkBonusNotificationPartnerUser(bonusTransactionValue)
+          return@Function5
+        }
+        val maxLevel = allLevels.maxBy { level -> level.level }!!.level
+        val currentLevel = stats.level
+        val currentLevelStartAmount = allLevels[currentLevel].amount
+        handlePerkAndLevelUpNotification(
+          address, lastShownLevel, currentLevel, transactions,
+          stats, currentLevelStartAmount, maxLevel, bonusTransactionValue
+        )
+        handleAlmostNextLevelNotification(
+          address, almostNextLevelLastShown, currentLevel, stats,
+          currentLevelStartAmount, maxLevel
+        )
+      })
+      .doOnError { it.printStackTrace() }
+      .subscribeOn(Schedulers.io())
   }
 
   private fun handlePerkBonusNotificationPartnerUser(bonusTransactionValue: String) {
     if (bonusTransactionValue.isNotEmpty()) {
-      buildNotification(createPerkBonusNotification(bonusTransactionValue),
-          NOTIFICATION_SERVICE_ID_PERK_AND_LEVEL_UP)
+      buildNotification(
+        createPerkBonusNotification(bonusTransactionValue),
+        NOTIFICATION_SERVICE_ID_PERK_AND_LEVEL_UP
+      )
     }
   }
 
-  private fun handlePerkAndLevelUpNotification(address: String, lastShownLevel: Int,
-                                               currentLevel: Int, transactions: List<Transaction>,
-                                               stats: GamificationStats,
-                                               currentLevelStartAmount: BigDecimal,
-                                               maxLevel: Int, bonusTransactionValue: String) {
-    if (lastShownLevel < currentLevel && hasPurchaseResultedInLevelUp(transactions,
-            stats.totalSpend.minus(currentLevelStartAmount))) {
+  private fun handlePerkAndLevelUpNotification(
+    address: String, lastShownLevel: Int,
+    currentLevel: Int, transactions: List<Transaction>,
+    stats: GamificationStats,
+    currentLevelStartAmount: BigDecimal,
+    maxLevel: Int, bonusTransactionValue: String
+  ) {
+    if (lastShownLevel < currentLevel && hasPurchaseResultedInLevelUp(
+        transactions,
+        stats.totalSpend.minus(currentLevelStartAmount)
+      )
+    ) {
       backupTriggerPreferences.setTriggerState(active = true)
       promotionsRepository.shownLevel(address, currentLevel, NOTIFICATIONS_LEVEL_UP)
-      buildNotification(createLevelUpNotification(stats,
-          currentLevel == maxLevel, bonusTransactionValue),
-          NOTIFICATION_SERVICE_ID_PERK_AND_LEVEL_UP)
+      buildNotification(
+        createLevelUpNotification(
+          stats,
+          currentLevel == maxLevel, bonusTransactionValue
+        ),
+        NOTIFICATION_SERVICE_ID_PERK_AND_LEVEL_UP
+      )
     } else if (bonusTransactionValue.isNotEmpty()) {
-      buildNotification(createPerkBonusNotification(bonusTransactionValue),
-          NOTIFICATION_SERVICE_ID_PERK_AND_LEVEL_UP)
+      buildNotification(
+        createPerkBonusNotification(bonusTransactionValue),
+        NOTIFICATION_SERVICE_ID_PERK_AND_LEVEL_UP
+      )
     }
   }
 
-  private fun handleAlmostNextLevelNotification(address: String, almostNextLevelLastShown: Int,
-                                                currentLevel: Int, stats: GamificationStats,
-                                                currentLevelStartAmount: BigDecimal,
-                                                maxLevel: Int) {
+  private fun handleAlmostNextLevelNotification(
+    address: String, almostNextLevelLastShown: Int,
+    currentLevel: Int, stats: GamificationStats,
+    currentLevelStartAmount: BigDecimal,
+    maxLevel: Int
+  ) {
     if (showAlmostNextLevelNotification(currentLevel, almostNextLevelLastShown, maxLevel)) {
       val almostNextLevelPercent = gamificationMapper.mapAlmostNextLevelUpPercentage(stats.level)
       val totalAppCoinsAmountThisLevel = stats.nextLevelAmount!!.minus(currentLevelStartAmount)
       val currentAppCoinsAmountThisLevel = stats.totalSpend.minus(currentLevelStartAmount)
-      if (isNearNextLevel(totalAppCoinsAmountThisLevel, currentAppCoinsAmountThisLevel,
-              almostNextLevelPercent)) {
+      if (isNearNextLevel(
+          totalAppCoinsAmountThisLevel, currentAppCoinsAmountThisLevel,
+          almostNextLevelPercent
+        )
+      ) {
         promotionsRepository.shownLevel(address, currentLevel, NOTIFICATIONS_ALMOST_NEXT_LEVEL)
-        buildNotification(createAlmostNextLevelNotification(
-            formatter.formatGamificationValues(totalAppCoinsAmountThisLevel
-                .minus(currentAppCoinsAmountThisLevel))), NOTIFICATION_SERVICE_ID_ALMOST_LEVEL_UP)
+        buildNotification(
+          createAlmostNextLevelNotification(
+            formatter.formatGamificationValues(
+              totalAppCoinsAmountThisLevel
+                .minus(currentAppCoinsAmountThisLevel)
+            )
+          ), NOTIFICATION_SERVICE_ID_ALMOST_LEVEL_UP
+        )
       }
     }
   }
 
-  private fun showAlmostNextLevelNotification(currentLevel: Int, almostNextLevelLastShown: Int,
-                                              maxLevel: Int): Boolean {
+  private fun showAlmostNextLevelNotification(
+    currentLevel: Int, almostNextLevelLastShown: Int,
+    maxLevel: Int
+  ): Boolean {
     return currentLevel in (almostNextLevelLastShown + 1) until maxLevel
   }
 
-  private fun isNearNextLevel(totalAppCoinsAmountThisLevel: BigDecimal,
-                              currentAppCoinsAmountThisLevel: BigDecimal,
-                              almostNextLevelPercent: Int): Boolean {
+  private fun isNearNextLevel(
+    totalAppCoinsAmountThisLevel: BigDecimal,
+    currentAppCoinsAmountThisLevel: BigDecimal,
+    almostNextLevelPercent: Int
+  ): Boolean {
     return totalAppCoinsAmountThisLevel > BigDecimal.ZERO &&
         currentAppCoinsAmountThisLevel > BigDecimal.ZERO &&
         (currentAppCoinsAmountThisLevel.toDouble() / totalAppCoinsAmountThisLevel.toDouble()
@@ -160,39 +191,41 @@ class PerkBonusAndGamificationService :
     return getCurrentPromoCodeUseCase().flatMapObservable {
       promotionsRepository.getGamificationStats(address, it.code)
     }
-        .firstOrError()
+      .firstOrError()
   }
 
 
   private fun getLastShownLevelUp(address: String): Single<Int> {
     return promotionsRepository.getLastShownLevel(address, NOTIFICATIONS_LEVEL_UP)
-        .map { if (it == GamificationStats.INVALID_LEVEL) 0 else it }
+      .map { if (it == GamificationStats.INVALID_LEVEL) 0 else it }
   }
 
   private fun getLevelList(address: String): Single<List<Levels.Level>> =
-      promotionsRepository.getLevels(address)
-          .lastOrError()
-          .map { it.list }
+    promotionsRepository.getLevels(address)
+      .lastOrError()
+      .map { it.list }
 
-  private fun isCaseInvalidForNotifications(stats: GamificationStats,
-                                            transactions: List<Transaction>,
-                                            allLevels: List<Levels.Level>): Boolean {
+  private fun isCaseInvalidForNotifications(
+    stats: GamificationStats,
+    transactions: List<Transaction>,
+    allLevels: List<Levels.Level>
+  ): Boolean {
     return stats.status != GamificationStats.Status.OK || !stats.isActive ||
         transactions.isEmpty() || allLevels.isEmpty()
   }
 
   private fun getNewTransactions(address: String): Single<List<Transaction>> {
     return transactionRepository.fetchNewTransactions(address)
-        .map {
-          //note that - if list is empty, then will retry again (if max retries wasn't reached)
-          //Use small gap, to avoid older transactions that may have not yet been inserted in DB
-          val transactionGap = it[0].processedTime - TRANSACTION_GAP_TIME_IN_MILLIS
-          it.takeWhile { transaction -> transaction.processedTime >= transactionGap }
-          it
-        }
-        .doOnError { it.printStackTrace() }
-        .retry(4)
-        .onErrorReturn { emptyList() }
+      .map {
+        //note that - if list is empty, then will retry again (if max retries wasn't reached)
+        //Use small gap, to avoid older transactions that may have not yet been inserted in DB
+        val transactionGap = it[0].processedTime - TRANSACTION_GAP_TIME_IN_MILLIS
+        it.takeWhile { transaction -> transaction.processedTime >= transactionGap }
+        it
+      }
+      .doOnError { it.printStackTrace() }
+      .retry(4)
+      .onErrorReturn { emptyList() }
   }
 
   private fun getAllPerkBonusTransactionValues(transactions: List<Transaction>): String {
@@ -207,8 +240,10 @@ class PerkBonusAndGamificationService :
     return getScaledValue(appcValue.toString()) ?: ""
   }
 
-  private fun hasPurchaseResultedInLevelUp(transactions: List<Transaction>,
-                                           currentLevelAmount: BigDecimal): Boolean {
+  private fun hasPurchaseResultedInLevelUp(
+    transactions: List<Transaction>,
+    currentLevelAmount: BigDecimal
+  ): Boolean {
     // this method is used for the cases where there is no information in shared preferences
     //  about the last level where the level up notification has been shown
     // As such, one will compare the actual purchase values that weren't made with APPC-C
@@ -230,18 +265,22 @@ class PerkBonusAndGamificationService :
     }?.value ?: ""
   }
 
-  private fun buildNotification(notificationBuilder: NotificationCompat.Builder,
-                                notificationServiceId: Int) =
-      notificationManager.notify(notificationServiceId, notificationBuilder.build())
+  private fun buildNotification(
+    notificationBuilder: NotificationCompat.Builder,
+    notificationServiceId: Int
+  ) =
+    notificationManager.notify(notificationServiceId, notificationBuilder.build())
 
-  private fun initializeNotificationBuilder(channelId: String, channelName: String,
-                                            intent: PendingIntent):
+  private fun initializeNotificationBuilder(
+    channelId: String, channelName: String,
+    intent: PendingIntent
+  ):
       NotificationCompat.Builder {
     val builder: NotificationCompat.Builder
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
       val importance = NotificationManager.IMPORTANCE_HIGH
       val notificationChannel =
-          NotificationChannel(channelId, channelName, importance)
+        NotificationChannel(channelId, channelName, importance)
       builder = NotificationCompat.Builder(this, channelId)
       notificationManager.createNotificationChannel(notificationChannel)
     } else {
@@ -249,20 +288,24 @@ class PerkBonusAndGamificationService :
       builder.setVibrate(LongArray(0))
     }
     return builder.setAutoCancel(true)
-        .setContentIntent(intent)
-        .setPriority(NotificationCompat.PRIORITY_HIGH)
-        .setSmallIcon(R.drawable.ic_launcher_foreground)
+      .setContentIntent(intent)
+      .setPriority(NotificationCompat.PRIORITY_HIGH)
+      .setSmallIcon(R.drawable.ic_launcher_foreground)
   }
 
   private fun createPerkBonusNotification(value: String): NotificationCompat.Builder {
-    return initializeNotificationBuilder(PERK_CHANNEL_ID, PERK_CHANNEL_NAME,
-        mainActivityNavigator.getHomePendingIntent())
-        .setContentTitle(getString(R.string.perks_notification, value))
-        .setContentText(getString(R.string.support_new_message_button))
+    return initializeNotificationBuilder(
+      PERK_CHANNEL_ID, PERK_CHANNEL_NAME,
+      mainActivityNavigator.getHomePendingIntent()
+    )
+      .setContentTitle(getString(R.string.perks_notification, value))
+      .setContentText(getString(R.string.support_new_message_button))
   }
 
-  private fun createLevelUpNotification(stats: GamificationStats, maxLevelReached: Boolean,
-                                        levelUpBonusCredits: String):
+  private fun createLevelUpNotification(
+    stats: GamificationStats, maxLevelReached: Boolean,
+    levelUpBonusCredits: String
+  ):
       NotificationCompat.Builder {
     val reachedLevelInfo: ReachedLevelInfo = if (maxLevelReached) {
       gamificationMapper.mapNotificationMaxLevelReached()
@@ -270,9 +313,11 @@ class PerkBonusAndGamificationService :
       gamificationMapper.mapReachedLevelInfo(stats.level)
     }
     val builder =
-        initializeNotificationBuilder(LEVEL_UP_CHANNEL_ID, LEVEL_UP_CHANNEL_NAME,
-            mainActivityNavigator.getPromotionsPendingIntent())
-            .setContentTitle(reachedLevelInfo.reachedTitle)
+      initializeNotificationBuilder(
+        LEVEL_UP_CHANNEL_ID, LEVEL_UP_CHANNEL_NAME,
+        mainActivityNavigator.getPromotionsPendingIntent()
+      )
+        .setContentTitle(reachedLevelInfo.reachedTitle)
     val levelBitmap = reachedLevelInfo.planet?.toBitmap()
     if (levelBitmap != null) {
       builder.setLargeIcon(levelBitmap)
@@ -290,17 +335,22 @@ class PerkBonusAndGamificationService :
       }
     }
     return builder.setContentText(contentMessage)
-        .setStyle(NotificationCompat.BigTextStyle()
-            .bigText(contentMessage))
+      .setStyle(
+        NotificationCompat.BigTextStyle()
+          .bigText(contentMessage)
+      )
   }
 
   private fun createAlmostNextLevelNotification(appCoinsToSpend: String):
       NotificationCompat.Builder {
-    return initializeNotificationBuilder(LEVEL_UP_CHANNEL_ID,
-        LEVEL_UP_CHANNEL_NAME, mainActivityNavigator.getPromotionsPendingIntent())
-        .setContentTitle(getString(R.string.gamification_level_up_notification_title))
-        .setContentText(
-            getString(R.string.gamification_level_up_notification_body, appCoinsToSpend))
+    return initializeNotificationBuilder(
+      LEVEL_UP_CHANNEL_ID,
+      LEVEL_UP_CHANNEL_NAME, mainActivityNavigator.getPromotionsPendingIntent()
+    )
+      .setContentTitle(getString(R.string.gamification_level_up_notification_title))
+      .setContentText(
+        getString(R.string.gamification_level_up_notification_body, appCoinsToSpend)
+      )
   }
 
   private fun getScaledValue(valueStr: String?): String? {
@@ -311,8 +361,13 @@ class PerkBonusAndGamificationService :
     return formatter.formatGamificationValues(value)
   }
 
-  private fun removeEtherDecimals(value: BigDecimal) = value.divide(BigDecimal(10.0.pow(
-      C.ETHER_DECIMALS.toDouble())), 2, RoundingMode.FLOOR)
+  private fun removeEtherDecimals(value: BigDecimal) = value.divide(
+    BigDecimal(
+      10.0.pow(
+        C.ETHER_DECIMALS.toDouble()
+      )
+    ), 2, RoundingMode.FLOOR
+  )
 
   companion object {
     private const val TRANSACTION_GAP_TIME_IN_MILLIS = 15000L

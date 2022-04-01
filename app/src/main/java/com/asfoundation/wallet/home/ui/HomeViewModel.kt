@@ -40,7 +40,7 @@ sealed class HomeSideEffect : SideEffect {
   data class NavigateToSettings(val turnOnFingerprint: Boolean = false) : HomeSideEffect()
   data class NavigateToShare(val url: String) : HomeSideEffect()
   data class NavigateToDetails(val transaction: Transaction, val balanceCurrency: String) :
-      HomeSideEffect()
+    HomeSideEffect()
 
   data class NavigateToBackup(val walletAddress: String) : HomeSideEffect()
   data class NavigateToIntent(val intent: Intent) : HomeSideEffect()
@@ -51,35 +51,39 @@ sealed class HomeSideEffect : SideEffect {
   object ShowFingerprintTooltip : HomeSideEffect()
 }
 
-data class HomeState(val transactionsModelAsync: Async<TransactionsModel> = Async.Uninitialized,
-                     val defaultWalletBalanceAsync: Async<GlobalBalance> = Async.Uninitialized,
-                     val showVipBadge: Boolean = false,
-                     val unreadMessages: Boolean = false) : ViewState
+data class HomeState(
+  val transactionsModelAsync: Async<TransactionsModel> = Async.Uninitialized,
+  val defaultWalletBalanceAsync: Async<GlobalBalance> = Async.Uninitialized,
+  val showVipBadge: Boolean = false,
+  val unreadMessages: Boolean = false
+) : ViewState
 
 @HiltViewModel
-class HomeViewModel @Inject constructor(private val analytics: HomeAnalytics,
-                                        private val backupTriggerPreferences: BackupTriggerPreferences,
-                    private val observeWalletInfoUseCase: ObserveWalletInfoUseCase,
-                    private val shouldOpenRatingDialogUseCase: ShouldOpenRatingDialogUseCase,
-                    private val updateTransactionsNumberUseCase: UpdateTransactionsNumberUseCase,
-                    private val findNetworkInfoUseCase: FindNetworkInfoUseCase,
-                    private val fetchTransactionsUseCase: FetchTransactionsUseCase,
-                    private val findDefaultWalletUseCase: FindDefaultWalletUseCase,
-                    private val observeDefaultWalletUseCase: ObserveDefaultWalletUseCase,
-                    private val dismissCardNotificationUseCase: DismissCardNotificationUseCase,
-                    private val shouldShowFingerprintTooltipUseCase: ShouldShowFingerprintTooltipUseCase,
-                    private val setSeenFingerprintTooltipUseCase: SetSeenFingerprintTooltipUseCase,
-                    private val getLevelsUseCase: GetLevelsUseCase,
-                    private val getUserLevelUseCase: GetUserLevelUseCase,
-                    private val getCardNotificationsUseCase: GetCardNotificationsUseCase,
-                    private val registerSupportUserUseCase: RegisterSupportUserUseCase,
-                    private val getUnreadConversationsCountEventsUseCase: GetUnreadConversationsCountEventsUseCase,
-                    private val displayChatUseCase: DisplayChatUseCase,
-                    private val displayConversationListOrChatUseCase: DisplayConversationListOrChatUseCase,
-                    @Named("package-name") private val walletPackageName: String,
-                    private val walletsEventSender: WalletsEventSender,
-                    private val rxSchedulers: RxSchedulers) :
-    BaseViewModel<HomeState, HomeSideEffect>(initialState()) {
+class HomeViewModel @Inject constructor(
+  private val analytics: HomeAnalytics,
+  private val backupTriggerPreferences: BackupTriggerPreferences,
+  private val observeWalletInfoUseCase: ObserveWalletInfoUseCase,
+  private val shouldOpenRatingDialogUseCase: ShouldOpenRatingDialogUseCase,
+  private val updateTransactionsNumberUseCase: UpdateTransactionsNumberUseCase,
+  private val findNetworkInfoUseCase: FindNetworkInfoUseCase,
+  private val fetchTransactionsUseCase: FetchTransactionsUseCase,
+  private val findDefaultWalletUseCase: FindDefaultWalletUseCase,
+  private val observeDefaultWalletUseCase: ObserveDefaultWalletUseCase,
+  private val dismissCardNotificationUseCase: DismissCardNotificationUseCase,
+  private val shouldShowFingerprintTooltipUseCase: ShouldShowFingerprintTooltipUseCase,
+  private val setSeenFingerprintTooltipUseCase: SetSeenFingerprintTooltipUseCase,
+  private val getLevelsUseCase: GetLevelsUseCase,
+  private val getUserLevelUseCase: GetUserLevelUseCase,
+  private val getCardNotificationsUseCase: GetCardNotificationsUseCase,
+  private val registerSupportUserUseCase: RegisterSupportUserUseCase,
+  private val getUnreadConversationsCountEventsUseCase: GetUnreadConversationsCountEventsUseCase,
+  private val displayChatUseCase: DisplayChatUseCase,
+  private val displayConversationListOrChatUseCase: DisplayConversationListOrChatUseCase,
+  @Named("package-name") private val walletPackageName: String,
+  private val walletsEventSender: WalletsEventSender,
+  private val rxSchedulers: RxSchedulers
+) :
+  BaseViewModel<HomeState, HomeSideEffect>(initialState()) {
 
   private val UPDATE_INTERVAL = 30 * DateUtils.SECOND_IN_MILLIS
   private val MINUS_ONE = BigDecimal("-1")
@@ -103,10 +107,10 @@ class HomeViewModel @Inject constructor(private val analytics: HomeAnalytics,
 
   private fun handleWalletData() {
     observeRefreshData().switchMap { observeNetworkAndWallet() }
-        .switchMap { observeWalletData(it) }
-        .scopedSubscribe() { e ->
-          e.printStackTrace()
-        }
+      .switchMap { observeWalletData(it) }
+      .scopedSubscribe() { e ->
+        e.printStackTrace()
+      }
   }
 
   private fun observeRefreshData(): Observable<Boolean> {
@@ -123,35 +127,35 @@ class HomeViewModel @Inject constructor(private val analytics: HomeAnalytics,
 
   private fun observeNetworkAndWallet(): Observable<TransactionsWalletModel> {
     return Observable.combineLatest(findNetworkInfoUseCase()
-        .toObservable(), observeDefaultWalletUseCase(),
-        { networkInfo, wallet ->
-          val previousModel: TransactionsWalletModel? =
-              state.transactionsModelAsync.value?.transactionsWalletModel
-          val isNewWallet = previousModel == null || !previousModel.wallet
-              .sameAddress(wallet.address)
-          TransactionsWalletModel(networkInfo, wallet, isNewWallet)
-        })
+      .toObservable(), observeDefaultWalletUseCase()
+    ) { networkInfo, wallet ->
+      val previousModel: TransactionsWalletModel? =
+        state.transactionsModelAsync.value?.transactionsWalletModel
+      val isNewWallet = previousModel == null || !previousModel.wallet
+        .sameAddress(wallet.address)
+      TransactionsWalletModel(networkInfo, wallet, isNewWallet)
+    }
   }
 
   private fun observeWalletData(model: TransactionsWalletModel): Observable<Unit> {
     return Observable.mergeDelayError(
-        observeBalance(),
-        updateTransactions(model).subscribeOn(rxSchedulers.io),
-        updateRegisterUser(model.wallet).toObservable()
+      observeBalance(),
+      updateTransactions(model).subscribeOn(rxSchedulers.io),
+      updateRegisterUser(model.wallet).toObservable()
     )
-        .map { }
-        .subscribeOn(rxSchedulers.io)
+      .map { }
+      .subscribeOn(rxSchedulers.io)
   }
 
   private fun updateRegisterUser(wallet: Wallet): Completable {
     return getUserLevelUseCase()
-        .subscribeOn(rxSchedulers.io)
-        .map { userLevel ->
-          registerSupportUser(userLevel, wallet.address)
-          true
-        }
-        .ignoreElement()
-        .subscribeOn(rxSchedulers.io)
+      .subscribeOn(rxSchedulers.io)
+      .map { userLevel ->
+        registerSupportUser(userLevel, wallet.address)
+        true
+      }
+      .ignoreElement()
+      .subscribeOn(rxSchedulers.io)
   }
 
   private fun registerSupportUser(level: Int, walletAddress: String) {
@@ -164,50 +168,59 @@ class HomeViewModel @Inject constructor(private val analytics: HomeAnalytics,
    */
   private fun observeBalance(): Observable<GlobalBalance> {
     return Observable.interval(0, UPDATE_INTERVAL, TimeUnit.MILLISECONDS)
-        .flatMap { observeRefreshData() }
-        .switchMap {
-          observeWalletInfoUseCase(null, update = true, updateFiat = true)
-              .map { walletInfo -> mapWalletValue(walletInfo.walletBalance) }
-              .asAsyncToState(HomeState::defaultWalletBalanceAsync) {
-                copy(defaultWalletBalanceAsync = it)
-              }
-        }
+      .flatMap { observeRefreshData() }
+      .switchMap {
+        observeWalletInfoUseCase(null, update = true, updateFiat = true)
+          .map { walletInfo -> mapWalletValue(walletInfo.walletBalance) }
+          .asAsyncToState(HomeState::defaultWalletBalanceAsync) {
+            copy(defaultWalletBalanceAsync = it)
+          }
+      }
   }
 
   private fun mapWalletValue(walletBalance: WalletBalance): GlobalBalance {
-    return GlobalBalance(walletBalance, shouldShow(walletBalance.appcBalance, 0.01),
-        shouldShow(walletBalance.creditsBalance, 0.01),
-        shouldShow(walletBalance.ethBalance, 0.0001))
+    return GlobalBalance(
+      walletBalance, shouldShow(walletBalance.appcBalance, 0.01),
+      shouldShow(walletBalance.creditsBalance, 0.01),
+      shouldShow(walletBalance.ethBalance, 0.0001)
+    )
   }
 
   private fun shouldShow(tokenBalance: TokenBalance, threshold: Double): Boolean {
     return (tokenBalance.token.amount >= BigDecimal(
-        threshold) && tokenBalance.fiat.amount.toDouble() >= threshold)
+      threshold
+    ) && tokenBalance.fiat.amount.toDouble() >= threshold)
   }
 
   private fun updateTransactions(
-      walletModel: TransactionsWalletModel?): Observable<TransactionsWalletModel> {
+    walletModel: TransactionsWalletModel?
+  ): Observable<TransactionsWalletModel> {
     if (walletModel == null) return Observable.empty()
     val retainValue = if (walletModel.isNewWallet) null else HomeState::transactionsModelAsync
     return Observable.combineLatest(getTransactions(walletModel.wallet), getCardNotifications(),
-        getMaxBonus(), observeNetworkAndWallet(),
-        { transactions: List<Transaction>, notifications: List<CardNotification>, maxBonus: Double, transactionsWalletModel: TransactionsWalletModel ->
-          createTransactionsModel(transactions, notifications, maxBonus,
-              transactionsWalletModel)
-        })
-        .doOnNext { (transactions) ->
-          updateTransactionsNumberUseCase(
-              transactions)
-        }
-        .subscribeOn(rxSchedulers.io)
-        .observeOn(rxSchedulers.main)
-        .asAsyncToState(retainValue) { copy(transactionsModelAsync = it) }
-        .map { walletModel }
+      getMaxBonus(), observeNetworkAndWallet()
+    ) { transactions: List<Transaction>, notifications: List<CardNotification>, maxBonus: Double, transactionsWalletModel: TransactionsWalletModel ->
+      createTransactionsModel(
+        transactions, notifications, maxBonus,
+        transactionsWalletModel
+      )
+    }
+      .doOnNext { (transactions) ->
+        updateTransactionsNumberUseCase(
+          transactions
+        )
+      }
+      .subscribeOn(rxSchedulers.io)
+      .observeOn(rxSchedulers.main)
+      .asAsyncToState(retainValue) { copy(transactionsModelAsync = it) }
+      .map { walletModel }
   }
 
-  private fun createTransactionsModel(transactions: List<Transaction>,
-                                      notifications: List<CardNotification>, maxBonus: Double,
-                                      transactionsWalletModel: TransactionsWalletModel): TransactionsModel {
+  private fun createTransactionsModel(
+    transactions: List<Transaction>,
+    notifications: List<CardNotification>, maxBonus: Double,
+    transactionsWalletModel: TransactionsWalletModel
+  ): TransactionsModel {
     return TransactionsModel(transactions, notifications, maxBonus, transactionsWalletModel)
   }
 
@@ -217,50 +230,57 @@ class HomeViewModel @Inject constructor(private val analytics: HomeAnalytics,
    */
   private fun getTransactions(wallet: Wallet): Observable<List<Transaction>>? {
     return Observable.interval(0, UPDATE_INTERVAL, TimeUnit.MILLISECONDS)
-        .flatMap { observeRefreshData() }
-        .switchMap {
-          fetchTransactionsUseCase(wallet.address)
-        }
-        .subscribeOn(rxSchedulers.io)
-        .onErrorReturnItem(emptyList())
+      .flatMap { observeRefreshData() }
+      .switchMap {
+        fetchTransactionsUseCase(wallet.address)
+      }
+      .subscribeOn(rxSchedulers.io)
+      .onErrorReturnItem(emptyList())
   }
 
   private fun getCardNotifications(): Observable<List<CardNotification>> {
     return refreshCardNotifications.flatMapSingle { getCardNotificationsUseCase() }
-        .subscribeOn(rxSchedulers.io)
-        .onErrorReturnItem(emptyList())
+      .subscribeOn(rxSchedulers.io)
+      .onErrorReturnItem(emptyList())
   }
 
   private fun getMaxBonus(): Observable<Double> {
     return getLevelsUseCase()
-        .subscribeOn(rxSchedulers.io)
-        .flatMap { (status, list) ->
-          Log.d("Hilt-", "getMaxBonus: status -> $status -- list -> $list")
-          if (status
-              == Levels.Status.OK) {
-            return@flatMap Single.just(list[list
-                .size - 1]
-                .bonus)
-          }
-          Single.error(IllegalStateException(status
-              .name))
+      .subscribeOn(rxSchedulers.io)
+      .flatMap { (status, list) ->
+        Log.d("Hilt-", "getMaxBonus: status -> $status -- list -> $list")
+        if (status
+          == Levels.Status.OK
+        ) {
+          return@flatMap Single.just(
+            list[list
+              .size - 1]
+              .bonus
+          )
         }
-        .toObservable()
+        Single.error(
+          IllegalStateException(
+            status
+              .name
+          )
+        )
+      }
+      .toObservable()
   }
 
   private fun verifyUserLevel() {
     findDefaultWalletUseCase()
-        .subscribeOn(rxSchedulers.io)
-        .flatMap {
-          getUserLevelUseCase()
-              .subscribeOn(rxSchedulers.io)
-              .doOnSuccess { userLevel: Int ->
-                setState { copy(showVipBadge = (userLevel == 9 || userLevel == 10)) }
-              }
-        }
-        .scopedSubscribe() { e ->
-          e.printStackTrace()
-        }
+      .subscribeOn(rxSchedulers.io)
+      .flatMap {
+        getUserLevelUseCase()
+          .subscribeOn(rxSchedulers.io)
+          .doOnSuccess { userLevel: Int ->
+            setState { copy(showVipBadge = (userLevel == 9 || userLevel == 10)) }
+          }
+      }
+      .scopedSubscribe() { e ->
+        e.printStackTrace()
+      }
   }
 
   fun goToVipLink() {
@@ -272,37 +292,37 @@ class HomeViewModel @Inject constructor(private val analytics: HomeAnalytics,
   private fun handleUnreadConversationCount() {
     observeRefreshData().switchMap {
       getUnreadConversationsCountEventsUseCase()
-          .subscribeOn(rxSchedulers.main)
-          .doOnNext { count: Int? ->
-            setState { copy(unreadMessages = (count != null && count != 0)) }
-          }
-    }
-        .scopedSubscribe() { e ->
-          e.printStackTrace()
+        .subscribeOn(rxSchedulers.main)
+        .doOnNext { count: Int? ->
+          setState { copy(unreadMessages = (count != null && count != 0)) }
         }
+    }
+      .scopedSubscribe() { e ->
+        e.printStackTrace()
+      }
   }
 
   private fun handleRateUsDialogVisibility() {
     shouldOpenRatingDialogUseCase()
-        .observeOn(AndroidSchedulers.mainThread())
-        .doOnSuccess { shouldShow ->
-          sendSideEffect { HomeSideEffect.NavigateToRateUs(shouldShow) }
-        }
-        .scopedSubscribe() { e ->
-          e.printStackTrace()
-        }
+      .observeOn(AndroidSchedulers.mainThread())
+      .doOnSuccess { shouldShow ->
+        sendSideEffect { HomeSideEffect.NavigateToRateUs(shouldShow) }
+      }
+      .scopedSubscribe() { e ->
+        e.printStackTrace()
+      }
   }
 
   private fun handleFingerprintTooltipVisibility() {
     shouldShowFingerprintTooltipUseCase(BuildConfig.APPLICATION_ID)
-        .doOnSuccess { value ->
-          if (value == true) {
-            sendSideEffect { HomeSideEffect.ShowFingerprintTooltip }
-          }
+      .doOnSuccess { value ->
+        if (value == true) {
+          sendSideEffect { HomeSideEffect.ShowFingerprintTooltip }
         }
-        .scopedSubscribe() { e ->
-          e.printStackTrace()
-        }
+      }
+      .scopedSubscribe() { e ->
+        e.printStackTrace()
+      }
   }
 
   fun onTurnFingerprintOnClick() {
@@ -342,7 +362,8 @@ class HomeViewModel @Inject constructor(private val analytics: HomeAnalytics,
     sendSideEffect {
       state.transactionsModelAsync.value?.transactionsWalletModel?.let {
         HomeSideEffect.NavigateToReceive(
-            it.wallet)
+          it.wallet
+        )
       }
     }
   }
@@ -355,8 +376,10 @@ class HomeViewModel @Inject constructor(private val analytics: HomeAnalytics,
     }
   }
 
-  fun onNotificationClick(cardNotification: CardNotification,
-                          cardNotificationAction: CardNotificationAction) {
+  fun onNotificationClick(
+    cardNotification: CardNotification,
+    cardNotificationAction: CardNotificationAction
+  ) {
     when (cardNotificationAction) {
       CardNotificationAction.DISMISS -> dismissNotification(cardNotification)
       CardNotificationAction.DISCOVER -> sendSideEffect {
@@ -370,13 +393,15 @@ class HomeViewModel @Inject constructor(private val analytics: HomeAnalytics,
       }
       CardNotificationAction.BACKUP -> {
         val model: TransactionsWalletModel? =
-            state.transactionsModelAsync.value?.transactionsWalletModel
+          state.transactionsModelAsync.value?.transactionsWalletModel
         if (model != null) {
           val wallet = model.wallet
           if (wallet.address != null) {
             sendSideEffect { HomeSideEffect.NavigateToBackup(wallet.address) }
-            walletsEventSender.sendCreateBackupEvent(WalletsAnalytics.ACTION_CREATE,
-                WalletsAnalytics.CONTEXT_CARD, WalletsAnalytics.STATUS_SUCCESS)
+            walletsEventSender.sendCreateBackupEvent(
+              WalletsAnalytics.ACTION_CREATE,
+              WalletsAnalytics.CONTEXT_CARD, WalletsAnalytics.STATUS_SUCCESS
+            )
           }
         }
       }
@@ -388,7 +413,7 @@ class HomeViewModel @Inject constructor(private val analytics: HomeAnalytics,
   private fun handleNewLevelBackupTrigger() {
     observeWalletInfoUseCase(null, update = false, updateFiat = false)
       .doOnNext {
-        if(backupTriggerPreferences.getTriggerState()){
+        if (backupTriggerPreferences.getTriggerState()) {
           backupTriggerPreferences.setTriggerState(active = false)
           sendSideEffect { HomeSideEffect.ShowBackupTrigger(it.wallet) }
         }
@@ -398,18 +423,20 @@ class HomeViewModel @Inject constructor(private val analytics: HomeAnalytics,
 
   private fun buildAutoUpdateIntent(): Intent {
     val intent =
-        Intent(Intent.ACTION_VIEW,
-            Uri.parse(String.format(AutoUpdateInteract.PLAY_APP_VIEW_URL, walletPackageName)))
+      Intent(
+        Intent.ACTION_VIEW,
+        Uri.parse(String.format(AutoUpdateInteract.PLAY_APP_VIEW_URL, walletPackageName))
+      )
     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
     return intent
   }
 
   private fun dismissNotification(cardNotification: CardNotification) {
     dismissCardNotificationUseCase(cardNotification)
-        .subscribeOn(rxSchedulers.main)
-        .doOnComplete { refreshCardNotifications.onNext(true) }
-        .scopedSubscribe() { e ->
-          e.printStackTrace()
-        }
+      .subscribeOn(rxSchedulers.main)
+      .doOnComplete { refreshCardNotifications.onNext(true) }
+      .scopedSubscribe() { e ->
+        e.printStackTrace()
+      }
   }
 }

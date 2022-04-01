@@ -33,7 +33,6 @@ class BackupActivity : BaseActivity() {
     setContentView(R.layout.activity_backup)
 
     toolbar()
-//    this.intent.getStringExtra(WALLET_ADDRESS_KEY)?.let { navigator.showBackupScreen(it) }
     safeLet(
       intent.getStringExtra(WALLET_ADDRESS_KEY),
       intent.getBooleanExtra(IS_BACKUP_TRIGGER, false)

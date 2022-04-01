@@ -5,11 +5,19 @@ import androidx.fragment.app.FragmentManager
 import com.asfoundation.wallet.backup.BackupActivity
 import javax.inject.Inject
 
-class SettingsWalletsBottomSheetNavigator @Inject constructor(val fragmentManager: FragmentManager,
-                                          val fragment: Fragment) {
+class SettingsWalletsBottomSheetNavigator @Inject constructor(
+  val fragmentManager: FragmentManager,
+  val fragment: Fragment
+) {
 
   fun navigateToBackup(walletAddress: String) {
-    fragment.startActivity(BackupActivity.newIntent(fragment.requireContext(), walletAddress, isBackupTrigger = false))
+    fragment.startActivity(
+      BackupActivity.newIntent(
+        fragment.requireContext(),
+        walletAddress,
+        isBackupTrigger = false
+      )
+    )
     fragmentManager.popBackStack()
   }
 }

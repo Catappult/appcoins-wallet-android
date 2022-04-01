@@ -56,18 +56,24 @@ class RemoveWalletActivity : BaseActivity(), RemoveWalletActivityView {
 
   private fun navigateToInitialRemoveWalletView() {
     supportFragmentManager.beginTransaction()
-        .replace(R.id.fragment_container,
-            RemoveWalletFragment.newInstance(walletAddress, fiatBalance))
-        .commit()
+      .replace(
+        R.id.fragment_container,
+        RemoveWalletFragment.newInstance(walletAddress, fiatBalance)
+      )
+      .commit()
   }
 
   override fun navigateToWalletRemoveConfirmation() {
     supportFragmentManager.beginTransaction()
-        .replace(R.id.fragment_container,
-            WalletRemoveConfirmationFragment.newInstance(walletAddress, fiatBalance,
-                appcoinsBalance, creditsBalance, ethereumBalance))
-        .addToBackStack(WalletRemoveConfirmationFragment::class.java.simpleName)
-        .commit()
+      .replace(
+        R.id.fragment_container,
+        WalletRemoveConfirmationFragment.newInstance(
+          walletAddress, fiatBalance,
+          appcoinsBalance, creditsBalance, ethereumBalance
+        )
+      )
+      .addToBackStack(WalletRemoveConfirmationFragment::class.java.simpleName)
+      .commit()
   }
 
   override fun finish() {
@@ -75,7 +81,7 @@ class RemoveWalletActivity : BaseActivity(), RemoveWalletActivityView {
   }
 
   override fun navigateToBackUp(walletAddress: String) =
-      startActivity(newIntent(this, walletAddress, false))
+    startActivity(newIntent(this, walletAddress, false))
 
   override fun showRemoveWalletAnimation() {
     requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LOCKED
@@ -86,7 +92,7 @@ class RemoveWalletActivity : BaseActivity(), RemoveWalletActivityView {
 
   override fun showAuthentication() {
     val intent = AuthenticationPromptActivity.newIntent(this)
-        .apply { intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP }
+      .apply { intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP }
     startActivityForResult(intent, AUTHENTICATION_REQUEST_CODE)
   }
 
@@ -143,9 +149,11 @@ class RemoveWalletActivity : BaseActivity(), RemoveWalletActivityView {
     private const val AUTHENTICATION_REQUEST_CODE = 33
 
     @JvmStatic
-    fun newIntent(context: Context, walletAddress: String, totalFiatBalance: String,
-                  appcoinsBalance: String, creditsBalance: String,
-                  ethereumBalance: String): Intent {
+    fun newIntent(
+      context: Context, walletAddress: String, totalFiatBalance: String,
+      appcoinsBalance: String, creditsBalance: String,
+      ethereumBalance: String
+    ): Intent {
       val intent = Intent(context, RemoveWalletActivity::class.java)
       intent.putExtra(WALLET_ADDRESS_KEY, walletAddress)
       intent.putExtra(FIAT_BALANCE_KEY, totalFiatBalance)
