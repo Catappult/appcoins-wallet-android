@@ -657,7 +657,7 @@
   <string name="backup_confirmation_tips_title">فایل را محفوظ نگه دارید:</string>
   <string name="backup_confirmation_tips_1"><b>آن را پرینت کنید</b> و در جای امنی نگه‌داری کنید.</string>
   <string name="backup_confirmation_tips_2">آن را روی یک USB <b>ذخیره کنید.</b></string>
-  <string name="backup_confirmation_tips_3"><b>Copy it</b> to a private and secure cloud storage.</string>
+  <string name="backup_confirmation_tips_3">آن را به یک ذخیره ابری شخصی و امن <b>منتقل کنید.</b></string>
   <string name="backup_tooltip_body">از کیف پول خود یک بک‌آپ بگیرید!</string>
   <string name="backup_tooltip_later_button">شاید بعدا</string>
   <string name="backup_tooltip_backup_button">بک‌آپ</string>
@@ -668,10 +668,10 @@
   <string name="backup_additional_security_disclaimer_body">بازیابی برای رمزعبور وجود ندارد.</string>
   <string name="backup_additional_security_password_not_march">رمزعبور همخوانی ندارد.</string>
   <string name="import_wallet_recovering_body">بازیابی کیف‌پول...</string>
-  <string name="backup_skip_title">I understand that I may loose my funds if I don\'t backup my wallet key.</string>
-  <string name="backup_wallet_button">Backup wallet</string>
-  <string name="backup_success_save_on_email">Your backup file is in your email.</string>
-  <string name="backup_success_save_on_device">Your backup file is stored in your device.</string>
+  <string name="backup_skip_title">متوجه هستم که در صورت عدم بک‌آپ کیف پول، ممکن است دارایی خود را از دست بدهم.</string>
+  <string name="backup_wallet_button">بک‌آپ کیف پول</string>
+  <string name="backup_success_save_on_email">فایل بک‌آپ شما در ایمیل شماست.</string>
+  <string name="backup_success_save_on_device">فایل بک‌آپ شما در دستگاه شما ذخیره شده‌است.</string>
   <!--Backup DELETE-->
   <string name="backup_confirmation_body"></string>
   <string name="backup_confirmation_no"></string>
@@ -1048,17 +1048,17 @@
   <string name="nfts_transact_gas_price">قیمت گس</string>
   <string name="nfts_transact_gas_limit">حد گس</string>
   <string name="nfts_transact_gas_fee_message">هزینه تراکنش</string>
-  <string name="nfts_transact_error_no_funds">Not enough funds! You don\'t have enough ETH to pay for the fees.</string>
-  <string name="nfts_transact_error_low_gas">Gas is too low! Increase your gas for the network to accept your transaction.</string>
-  <string name="nfts_transact_error_already_in_progress">This NFT is already being sent! A previous transaction is currently in progress.</string>
+  <string name="nfts_transact_error_no_funds">دارایی شما کافی نیست! به اندازه کافی ETH برای پرداخت هزینه‌ها ندارید.</string>
+  <string name="nfts_transact_error_low_gas">Gas بسیار کم است! Gas خود را افزایش دهید تا شبکه بتواند تراکنش شما را تایید کند.</string>
+  <string name="nfts_transact_error_already_in_progress">این NFT پیشاپیش ارسال شده‌است! یکی از پرداخت‌های قبلی در حال پردازش است.</string>
   <!-- Gift Card -->
-  <string name="gift_card_title">Redeem your gift card code</string>
-  <string name="gift_card_field">Card code here...</string>
-  <string name="gift_card_done_title">Code redeemed!</string>
-  <string name="gift_card_done_body">Check your transactions list.</string>
-  <string name="gift_card_error_general_title">Something went wrong!</string>
-  <string name="gift_card_error_general_body">Please try again or use a different code.</string>
-  <string name="gift_card_error_used_title">This code has already been used!</string>
-  <string name="gift_card_error_new_users_title">This code is only for new users!</string>
-  <string name="gift_card_error_try_with_different_body">Please try again with a different one.</string>
+  <string name="gift_card_title">کد کارت هدیه خود را استفاده کنید</string>
+  <string name="gift_card_field">کد کارت در اینجا...</string>
+  <string name="gift_card_done_title">کد استفاده شد!</string>
+  <string name="gift_card_done_body">لیست تراکنش‌های خود را بررسی کنید.</string>
+  <string name="gift_card_error_general_title">مشکلی پیش آمده است!</string>
+  <string name="gift_card_error_general_body">لطفا مجددا با کد جدیدی امتحان کنید.</string>
+  <string name="gift_card_error_used_title">این کد قبلا استفاده شده‌است!</string>
+  <string name="gift_card_error_new_users_title">این کد تنها بربای کاربران جدید است!</string>
+  <string name="gift_card_error_try_with_different_body">لطفا مجددا با کد متفاوتی امتحان کنید.</string>
 </resources>
