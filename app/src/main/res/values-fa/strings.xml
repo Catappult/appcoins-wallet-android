@@ -442,8 +442,8 @@
   <string name="withdraw_button">خارج‌کردن</string>
   <string name="email_here_field">نشانی ایمیل شما در اینجا&#8230;</string>
   <string name="understood_button">متوجه!</string>
-  <string name="skip_button">Skip for now</string>
-  <string name="understand_button">I understand</string>
+  <string name="skip_button">پریدن</string>
+  <string name="understand_button">متوجه‌ام</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">با %1$s و %2$s کیف پول AppCoins موافقم.</string>
   <string name="terms_and_conditions_error">برای ادامه، لطفا شرایط، مقررات و قوانین حریم خصوصی را تایید کنید</string>
@@ -555,7 +555,7 @@
   <string name="purchase_error_verify_card">برای تکمیل این خرید، کارت خود را معتبرسازی کنید.</string>
   <string name="purachse_error_verify_card_button">معتبرسازی کارت</string>
   <string name="purchase_eskills_sku">بلیت ورود</string>
-  <string name="purchase_paytmupi_install_disclaimer">You\'ll need to install Paytm UPI app.</string>
+  <string name="purchase_paytmupi_install_disclaimer">شما باید اپلیکیشن Paytm UPI را نصب کنید.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">نشانی پرداخت</string>
   <string name="purchase_address_address_field">نشانی</string>
@@ -645,18 +645,18 @@
   <string name="import_wallet_wrong_password_body">اوه، رمز عبور اشتباه است!</string>
   <string name="error_invalid_private_key">کلید خصوصی غیرمعتبر</string>
   <string name="error_invalid_keystore">keystore نامعتبر</string>
-  <string name="backup_title">Backup your wallet now!</string>
+  <string name="backup_title">از کیف پول خود بک‌آپ بگیرید!</string>
   <string name="backup_body">ما کلید خصوصی و سایر روش‌های دسترسی شما را ذخیره نمی‌کنیم. مهم است که پشتیبان‌گیری کیف‌پول (keystore) خود در جای امنی ذخیره کنید.</string>
   <string name="backup_additional_security_title">افزایش امنیت (اختیاری)</string>
   <string name="backup_additional_security_body">انتخاب رمزعبور</string>
   <string name="backup_button">کیف پول پشتیبان</string>
-  <string name="backup_ready_title">Your backup is ready!\nKeep it safe.</string>
+  <string name="backup_ready_title">بک‌آپ شما آماده است!\nاز آن محافظت کنید.</string>
   <string name="backup_ready_save_on_email">روی ایمیل خود آن را ذخیره کنید</string>
   <string name="backup_ready_email_button">به ایمیل ارسال کنید</string>
   <string name="backup_ready_device_button">روی دستگاه ذخیره کنید</string>
   <string name="backup_confirmation_tips_title">فایل را محفوظ نگه دارید:</string>
-  <string name="backup_confirmation_tips_1"><b>Print it</b> and store it somewhere safe.</string>
-  <string name="backup_confirmation_tips_2"><b>Save it</b> on a USB drive.</string>
+  <string name="backup_confirmation_tips_1"><b>آن را پرینت کنید</b> و در جای امنی نگه‌داری کنید.</string>
+  <string name="backup_confirmation_tips_2">آن را روی یک USB <b>ذخیره کنید.</b></string>
   <string name="backup_confirmation_tips_3"><b>Copy it</b> to a private and secure cloud storage.</string>
   <string name="backup_tooltip_body">از کیف پول خود یک بک‌آپ بگیرید!</string>
   <string name="backup_tooltip_later_button">شاید بعدا</string>
