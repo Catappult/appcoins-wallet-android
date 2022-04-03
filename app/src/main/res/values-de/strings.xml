@@ -650,14 +650,14 @@
   <string name="backup_additional_security_title">Zusätzliche Sicherheit (optional)</string>
   <string name="backup_additional_security_body">Wählen Sie ein Paswort</string>
   <string name="backup_button">WALLET BACKUP</string>
-  <string name="backup_ready_title">Your backup is ready!\nKeep it safe.</string>
+  <string name="backup_ready_title">Ihr Backup ist fertig!\n Bewahren Sie es sicher auf.</string>
   <string name="backup_ready_save_on_email">Speichern Sie es in Ihrer E-Mail</string>
   <string name="backup_ready_email_button">An die E-Mail Adresse versenden</string>
   <string name="backup_ready_device_button">Auf dem Gerät speichern</string>
   <string name="backup_confirmation_tips_title">Datei sichern:</string>
-  <string name="backup_confirmation_tips_1"><b>Print it</b> and store it somewhere safe.</string>
-  <string name="backup_confirmation_tips_2"><b>Save it</b> on a USB drive.</string>
-  <string name="backup_confirmation_tips_3"><b>Copy it</b> to a private and secure cloud storage.</string>
+  <string name="backup_confirmation_tips_1"><b>Drucken Sie es aus</b> und bewahren Sie es an einem sicheren Ort auf.</string>
+  <string name="backup_confirmation_tips_2"><b>Speichern Sie es</b> auf einem USB-Laufwerk.</string>
+  <string name="backup_confirmation_tips_3"><b>Kopieren Sie sie</b> in einen privaten und sicheren Cloud-Speicher.</string>
   <string name="backup_tooltip_body">Erstellen Sie ein Backup ihre Wallets!</string>
   <string name="backup_tooltip_later_button">VIELLEICHT SPÄTER</string>
   <string name="backup_tooltip_backup_button">BACKUP</string>
@@ -668,10 +668,10 @@
   <string name="backup_additional_security_disclaimer_body">Es gibt keine Möglichkeit das Passwort wiederherzustellen.</string>
   <string name="backup_additional_security_password_not_march">Die Passwörter stimmen nicht überein.</string>
   <string name="import_wallet_recovering_body">Wallet wiederherstellen...</string>
-  <string name="backup_skip_title">I understand that I may loose my funds if I don\'t backup my wallet key.</string>
-  <string name="backup_wallet_button">Backup wallet</string>
-  <string name="backup_success_save_on_email">Your backup file is in your email.</string>
-  <string name="backup_success_save_on_device">Your backup file is stored in your device.</string>
+  <string name="backup_skip_title">Mir ist klar, dass ich mein Geld verlieren kann, wenn ich keine Sicherungskopie meines Wallet-Keys mache.</string>
+  <string name="backup_wallet_button">Wallet-Backup erstellen</string>
+  <string name="backup_success_save_on_email">Ihre Backup-Datei befindet sich in Ihrer E-Mail.</string>
+  <string name="backup_success_save_on_device">Ihre Backup-Datei wurde auf Ihrem Gerät gespeichert.</string>
   <!--Backup DELETE-->
   <string name="backup_confirmation_body"></string>
   <string name="backup_confirmation_no"></string>
@@ -1034,13 +1034,13 @@
   <!--  NFTs -->
   <string name="nfts_title">NFTs</string>
   <string name="nfts_no_nfts">Sie haben noch keine NFTs in dieser Wallet!</string>
-  <string name="nfts_transact_button">Send this NFT</string>
-  <string name="nfts_transact_button_send">Send</string>
-  <string name="nfts_transact_button_next">Next</string>
-  <string name="nfts_transact_button_done">Done</string>
-  <string name="nfts_transact_button_success">Got it</string>
-  <string name="nfts_transact_tip">Enter your friend\'s wallet address</string>
-  <string name="nfts_transact_input_tip">Wallet address here...</string>
+  <string name="nfts_transact_button">Dieses NFT versenden</string>
+  <string name="nfts_transact_button_send">Senden</string>
+  <string name="nfts_transact_button_next">Weiter</string>
+  <string name="nfts_transact_button_done">Geschafft</string>
+  <string name="nfts_transact_button_success">Verstanden</string>
+  <string name="nfts_transact_tip">Wallet-Adresse ihres Freundes eingeben</string>
+  <string name="nfts_transact_input_tip">Wallet-Adresse hier eingeben...</string>
   <string name="nfts_transact_done_mensage">%s successfully sent!</string>
   <string name="nfts_generic_error">Oops! Something went wrong!</string>
   <string name="nfts_transact_gas_title">Are you in a hurry?</string>
@@ -1059,6 +1059,6 @@
   <string name="gift_card_error_general_title">Something went wrong!</string>
   <string name="gift_card_error_general_body">Please try again or use a different code.</string>
   <string name="gift_card_error_used_title">This code has already been used!</string>
-  <string name="gift_card_error_new_users_title">This code is only for new users!</string>
-  <string name="gift_card_error_try_with_different_body">Please try again with a different one.</string>
+  <string name="gift_card_error_new_users_title">Dieser Code gilt nur für neue Benutzer!</string>
+  <string name="gift_card_error_try_with_different_body">Beitte verwenden Sie einen anderen.</string>
 </resources>
