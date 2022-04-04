@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+  <style name="AdyenMaterialAppTheme" parent="MaterialAppTheme">
+    <item name="colorPrimary">#000000</item>
+  </style>
+
+  <style name="ThreeDS2Theme" parent="AppTheme" tools:override="true">
+    <!-- Customize the SDK theme here. -->
+    <item name="colorPrimary">@color/adyen_3DS_color</item>
+    <item name="colorPrimaryDark">@color/adyen_3DS_color</item>
+    <item name="colorAccent">@color/adyen_3DS_color</item>
+  </style>
+
+  <style name="AdyenCheckout.SwitchTheme" parent="Widget.AppCompat.CompoundButton.Switch">
+    <item name="colorControlActivated">@color/pinkish_orange</item>
+  </style>
+
+  <style name="AdyenCheckout.Card.StorePaymentSwitch" parent="AdyenCheckout.Switch">
+    <item name="android:text">@string/dialog_credit_card_remember</item>
+    <item name="android:textSize">14sp</item>
+    <item name="android:paddingStart">0dp</item>
+    <item name="android:paddingTop">0dp</item>
+    <item name="android:paddingEnd">0dp</item>
+    <item name="android:paddingBottom">0dp</item>
+    <item name="android:layout_marginTop">4dp</item>
+    <item name="android:layout_marginBottom">0dp</item>
+  </style>
+
+  <style name="AdyenCheckout.TextInputLayout" parent="AppcoinsTextInputLayout">
+    <item name="android:minHeight">@dimen/adyen_text_input_layout_height</item>
+    <item name="errorIconDrawable">@null</item>
+  </style>
+
+  <style name="AdyenCheckout.TextInputEditText">
+    <item name="android:layout_width">match_parent</item>
+    <item name="android:layout_height">@dimen/input_height</item>
+    <item name="android:textCursorDrawable">@drawable/cursor_shape</item>
+    <item name="android:textSize">16sp</item>
+    <!-- The textDirection and textAlignment attributes ensure consistent display behaviour with RTL locales -->
+    <item name="android:textDirection">ltr</item>
+    <item name="android:textAlignment">viewStart</item>
+    <item name="android:imeOptions">flagNoExtractUi</item>
+  </style>
+
+  <string name="checkout_security_code_not_valid" translatable="false">@string/purchase_card_error_CVV</string>
+
+</resources>

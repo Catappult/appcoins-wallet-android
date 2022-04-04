@@ -6,8 +6,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.inputmethod.EditorInfo
-import android.widget.LinearLayout
 import androidx.appcompat.widget.SwitchCompat
 import com.adyen.checkout.card.CardConfiguration
 import com.adyen.checkout.components.ui.view.RoundCornerImageView
@@ -115,28 +113,6 @@ class VerificationIntroFragment : BasePageViewFragment(), VerificationIntroView 
     adyenSecurityCodeLayout = adyen_card_form.findViewById(R.id.textInputLayout_securityCode)
     adyenCardImageLayout = adyen_card_form.findViewById(R.id.cardBrandLogo_imageView_primary)
     adyenSaveDetailsSwitch = adyen_card_form.findViewById(R.id.switch_storePaymentMethod)
-
-    adyenCardNumberLayout.editText?.imeOptions = EditorInfo.IME_FLAG_NO_EXTRACT_UI
-    adyenExpiryDateLayout.editText?.imeOptions = EditorInfo.IME_FLAG_NO_EXTRACT_UI
-    adyenSecurityCodeLayout.editText?.imeOptions = EditorInfo.IME_FLAG_NO_EXTRACT_UI
-
-    adyenSaveDetailsSwitch.run {
-
-      val params: LinearLayout.LayoutParams = this.layoutParams as LinearLayout.LayoutParams
-      params.topMargin = 2
-
-      layoutParams = params
-      isChecked = true
-      textSize = 14f
-      text = getString(R.string.dialog_credit_card_remember)
-    }
-
-    val height = resources.getDimensionPixelSize(R.dimen.adyen_text_input_layout_height)
-
-    adyenCardNumberLayout.minimumHeight = height
-    adyenExpiryDateLayout.minimumHeight = height
-    adyenSecurityCodeLayout.minimumHeight = height
-    adyenCardNumberLayout.errorIconDrawable = null
   }
 
   private fun setupCardConfiguration() {

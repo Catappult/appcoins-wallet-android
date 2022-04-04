@@ -9,10 +9,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.View.*
 import android.view.ViewGroup
-import android.widget.LinearLayout
 import androidx.annotation.StringRes
 import androidx.appcompat.widget.SwitchCompat
-import androidx.constraintlayout.widget.ConstraintLayout
 import com.adyen.checkout.adyen3ds2.Adyen3DS2Component
 import com.adyen.checkout.adyen3ds2.Adyen3DS2Configuration
 import com.adyen.checkout.card.CardConfiguration
@@ -537,36 +535,6 @@ class AdyenTopUpFragment : BasePageViewFragment(), AdyenTopUpView {
     adyenSaveDetailsSwitch =
       adyen_card_form_pre_selected?.findViewById(R.id.switch_storePaymentMethod)
         ?: adyen_card_form?.findViewById(R.id.switch_storePaymentMethod)
-
-    adyenSaveDetailsSwitch?.run {
-
-      val params: LinearLayout.LayoutParams = this.layoutParams as LinearLayout.LayoutParams
-      params.topMargin = 4
-      params.bottomMargin = 0
-
-      layoutParams = params
-      isChecked = true
-      textSize = 14f
-      text = getString(R.string.dialog_credit_card_remember)
-      setPadding(0, 0, 0, 0)
-    }
-
-    val height = resources.getDimensionPixelSize(R.dimen.adyen_text_input_layout_height)
-
-    val view: View = adyen_card_form_pre_selected ?: adyen_card_form
-    val layoutParams: ConstraintLayout.LayoutParams =
-      view.layoutParams as ConstraintLayout.LayoutParams
-    layoutParams.bottomMargin = 0
-    layoutParams.marginStart = 0
-    layoutParams.marginEnd = 0
-    layoutParams.topMargin = 0
-    view.layoutParams = layoutParams
-    view.setPadding(0, 0, 24, 0)
-
-    adyenCardNumberLayout.minimumHeight = height
-    adyenCardNumberLayout.errorIconDrawable = null
-    adyenExpiryDateLayout.minimumHeight = height
-    adyenSecurityCodeLayout.minimumHeight = height
   }
 
   override fun hideKeyboard() {

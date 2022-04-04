@@ -1,4 +1,4 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
   <!-- Base application theme. -->
   <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
     <!-- Customize your theme here. -->
@@ -38,23 +38,6 @@
   <style name="AppModalStyle" parent="Widget.Design.BottomSheet.Modal">
     <item name="android:background">@drawable/rounded_dialog</item>
   </style>
-
-  <style name="AdyenMaterialAppTheme" parent="MaterialAppTheme">
-    <item name="colorPrimary">#000000</item>
-  </style>
-
-  <style name="ThreeDS2Theme" parent="AppTheme" tools:override="true">
-    <!-- Customize the SDK theme here. -->
-    <item name="colorPrimary">@color/adyen_3DS_color</item>
-    <item name="colorPrimaryDark">@color/adyen_3DS_color</item>
-    <item name="colorAccent">@color/adyen_3DS_color</item>
-  </style>
-
-  <style name="AdyenCheckout.SwitchTheme" parent="Widget.AppCompat.CompoundButton.Switch">
-    <item name="colorControlActivated">@color/pinkish_orange</item>
-  </style>
-
-  <style name="AdyenCheckout.TextInputLayout" parent="AppcoinsTextInputLayout" />
 
   <style name="AppTheme.NoActionBar" parent="AppTheme">
     <item name="windowActionBar">false</item>
