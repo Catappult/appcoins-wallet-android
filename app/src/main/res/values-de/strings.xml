@@ -1052,8 +1052,8 @@
   <string name="nfts_transact_error_low_gas">Das Gas ist zu niedrig! Erhöhen Sie ihr Gas, damit das Netzwerk ihre Transaktion akzeptiert.</string>
   <string name="nfts_transact_error_already_in_progress">Diese NFT wird bereits versendet! Eine frühere Transaktion ist bereits im Gange.</string>
   <!-- Gift Card -->
-  <string name="gift_card_title">Redeem your gift card code</string>
-  <string name="gift_card_field">Card code here...</string>
+  <string name="gift_card_title">Lösen Sie ihren Geschenkkartencode ein</string>
+  <string name="gift_card_field">Den Code der Karte finden Sie hier...</string>
   <string name="gift_card_done_title">Code redeemed!</string>
   <string name="gift_card_done_body">Check your transactions list.</string>
   <string name="gift_card_error_general_title">Something went wrong!</string>
