@@ -1048,7 +1048,7 @@
   <string name="gift_card_title">แลกรหัสบัตรของขวัญของคุณ</string>
   <string name="gift_card_field">รหัสการ์ดที่นี่...</string>
   <string name="gift_card_done_title">แลกรหัส!</string>
-  <string name="gift_card_done_body">ตรวจสอบรายการธุรกรรมของคุณ</string>
+  <string name="gift_card_done_body">Check your transactions list.</string>
   <string name="gift_card_error_general_title">มีบางสิ่งที่ผิด!</string>
   <string name="gift_card_error_general_body">โปรดลองอีกครั้งหรือใช้รหัสอื่น</string>
   <string name="gift_card_error_used_title">รหัสนี้ถูกใช้ไปแล้ว!</string>

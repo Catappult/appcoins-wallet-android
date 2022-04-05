@@ -442,8 +442,8 @@
   <string name="withdraw_button">preleva</string>
   <string name="email_here_field">Inserisci il tuo indirizzo email qui&#8230;</string>
   <string name="understood_button">Tutto chiaro!</string>
-  <string name="skip_button">Skip for now</string>
-  <string name="understand_button">I understand</string>
+  <string name="skip_button">Ignora per ora</string>
+  <string name="understand_button">Ho capito</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Acconsento ai %1$s e all\'%2$s dell\'AppCoins Wallet.</string>
   <string name="terms_and_conditions_error">Accetta i nostri Termini e condizioni e l\'Informativa sulla privacy per continuare</string>
@@ -555,7 +555,7 @@
   <string name="purchase_error_verify_card">Convalida la tua carta per completare questo acquisto.</string>
   <string name="purachse_error_verify_card_button">CONVALIDA CARTA</string>
   <string name="purchase_eskills_sku">Biglietto d\'ingresso</string>
-  <string name="purchase_paytmupi_install_disclaimer">You\'ll need to install Paytm UPI app.</string>
+  <string name="purchase_paytmupi_install_disclaimer">Dovrai installare l\'app Paytm UPI.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">Indirizzo di fatturazione</string>
   <string name="purchase_address_address_field">Indirizzo</string>
@@ -645,19 +645,19 @@
   <string name="import_wallet_wrong_password_body">Password errata!</string>
   <string name="error_invalid_private_key">Chiave privata non valida</string>
   <string name="error_invalid_keystore">Keystore non valido</string>
-  <string name="backup_title">Backup your wallet now!</string>
+  <string name="backup_title">Effettua subito il backup del tuo wallet!</string>
   <string name="backup_body">Non conserviamo le tue chiavi private o qualsiasi altro metodo di accesso. È importante che il backup del tuo wallet (keystore) sia al sicuro.</string>
   <string name="backup_additional_security_title">Ulteriore sicurezza (facoltativo)</string>
   <string name="backup_additional_security_body">Scegli una password</string>
   <string name="backup_button">FAI IL BACKUP DEL WALLET</string>
-  <string name="backup_ready_title">Your backup is ready!\nKeep it safe.</string>
+  <string name="backup_ready_title">Il tuo backup è pronto!\nConservalo con cura.</string>
   <string name="backup_ready_save_on_email">Salvalo nella tua email</string>
   <string name="backup_ready_email_button">Invia a email</string>
   <string name="backup_ready_device_button">Salvalo sul dispositivo</string>
   <string name="backup_confirmation_tips_title">Tieni il file al sicuro:</string>
-  <string name="backup_confirmation_tips_1"><b>Print it</b> and store it somewhere safe.</string>
-  <string name="backup_confirmation_tips_2"><b>Save it</b> on a USB drive.</string>
-  <string name="backup_confirmation_tips_3"><b>Copy it</b> to a private and secure cloud storage.</string>
+  <string name="backup_confirmation_tips_1"><b>Stampalo</b> e conservalo in un luogo sicuro.</string>
+  <string name="backup_confirmation_tips_2"><b>Salvalo</b> su una chiavetta USB.</string>
+  <string name="backup_confirmation_tips_3"><b>Copialo</b> su un archivio cloud privato e sicuro.</string>
   <string name="backup_tooltip_body">Fai un backup del tuo wallet!</string>
   <string name="backup_tooltip_later_button">MAGARI PIÙ TARDI</string>
   <string name="backup_tooltip_backup_button">BACKUP</string>
@@ -668,10 +668,10 @@
   <string name="backup_additional_security_disclaimer_body">Non è possibile recuperare la password.</string>
   <string name="backup_additional_security_password_not_march">Le password non corrispondono.</string>
   <string name="import_wallet_recovering_body">Recupero wallet in corso...</string>
-  <string name="backup_skip_title">I understand that I may loose my funds if I don\'t backup my wallet key.</string>
-  <string name="backup_wallet_button">Backup wallet</string>
-  <string name="backup_success_save_on_email">Your backup file is in your email.</string>
-  <string name="backup_success_save_on_device">Your backup file is stored in your device.</string>
+  <string name="backup_skip_title">Sono consapevole che potrei incorrere nella perdita dei miei fondi se non effettuo il backup della chiave del mio wallet.</string>
+  <string name="backup_wallet_button">Effettua il backup del wallet</string>
+  <string name="backup_success_save_on_email">Il tuo file di backup è nella tua email.</string>
+  <string name="backup_success_save_on_device">Il tuo file di backup è memorizzato sul tuo dispositivo.</string>
   <!--Backup DELETE-->
   <string name="backup_confirmation_body"></string>
   <string name="backup_confirmation_no"></string>
@@ -1048,17 +1048,17 @@
   <string name="nfts_transact_gas_price">Importo carburante</string>
   <string name="nfts_transact_gas_limit">Limite carburante</string>
   <string name="nfts_transact_gas_fee_message">Commissione di transazione</string>
-  <string name="nfts_transact_error_no_funds">Not enough funds! You don\'t have enough ETH to pay for the fees.</string>
-  <string name="nfts_transact_error_low_gas">Gas is too low! Increase your gas for the network to accept your transaction.</string>
-  <string name="nfts_transact_error_already_in_progress">This NFT is already being sent! A previous transaction is currently in progress.</string>
+  <string name="nfts_transact_error_no_funds">Non hai abbastanza fondi! Non disponi di abbastanza ETH per coprire le commissioni.</string>
+  <string name="nfts_transact_error_low_gas">Il livello del gas è troppo basso! Aumenta il gas affinché la rete accetti la tua transazione.</string>
+  <string name="nfts_transact_error_already_in_progress">Questo NFT è già stato inviato! Al momento è in corso una transazione precedente.</string>
   <!-- Gift Card -->
-  <string name="gift_card_title">Redeem your gift card code</string>
-  <string name="gift_card_field">Card code here...</string>
-  <string name="gift_card_done_title">Code redeemed!</string>
-  <string name="gift_card_done_body">Check your transacions list.</string>
-  <string name="gift_card_error_general_title">Something went wrong!</string>
-  <string name="gift_card_error_general_body">Please try again or use a different code.</string>
-  <string name="gift_card_error_used_title">This code has already been used!</string>
-  <string name="gift_card_error_new_users_title">This code is only for new users!</string>
-  <string name="gift_card_error_try_with_different_body">Please try again with a different one.</string>
+  <string name="gift_card_title">Riscatta il tuo codice buono regalo</string>
+  <string name="gift_card_field">Inserisci il codice del buono qui...</string>
+  <string name="gift_card_done_title">Codice riscattato!</string>
+  <string name="gift_card_done_body">Controlla la lista delle transazioni.</string>
+  <string name="gift_card_error_general_title">Qualcosa è andato storto!</string>
+  <string name="gift_card_error_general_body">Ritenta oppure usa un altro codice.</string>
+  <string name="gift_card_error_used_title">Questo codice è già stato usato!</string>
+  <string name="gift_card_error_new_users_title">Questo codice può essere utilizzato solo dai nuovi utenti!</string>
+  <string name="gift_card_error_try_with_different_body">Ritenta usando un altro codice.</string>
 </resources>

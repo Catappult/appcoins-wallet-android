@@ -1046,7 +1046,7 @@
   <string name="gift_card_title">သင့္လက္ေဆာင္ကုဒ္ကို လဲလွယ္လိုက္ပါ</string>
   <string name="gift_card_field">ကဒ္ကုဒ္ကို ဤေနရာတြင္...</string>
   <string name="gift_card_done_title">ကုဒ္ကို လဲလွယ္လိုက္ပါၿပီ။</string>
-  <string name="gift_card_done_body">သင့္ေငြလႊဲေျပာင္းမႈ စာရင္းကို စစ္ေဆးပါ။</string>
+  <string name="gift_card_done_body">Check your transactions list.</string>
   <string name="gift_card_error_general_title">တစ္ခုခု မွားသြားပါသည္။</string>
   <string name="gift_card_error_general_body">ျပန္ႀကိဳးစားေပးပါ သို႔မဟုတ္ အျခားကုဒ္တစ္ခုကို အသုံးျပဳေပးပါ။</string>
   <string name="gift_card_error_used_title">ဤကုဒ္ကို အသုံးျပဳထားၿပီး ျဖစ္ပါသည္။</string>

@@ -442,8 +442,8 @@
   <string name="withdraw_button">felvétel</string>
   <string name="email_here_field">Az email címed&#8230;</string>
   <string name="understood_button">Értem!</string>
-  <string name="skip_button">Skip for now</string>
-  <string name="understand_button">I understand</string>
+  <string name="skip_button">Kihagyom</string>
+  <string name="understand_button">Megértettem</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Beleegyezem a következőbe: AppCoins Wallet %1$s és %2$s.</string>
   <string name="terms_and_conditions_error">A folytatáshoz kérjük, fogadd el a Felhasználási feltételeket és az Adatvédelmi szabályzatot</string>
@@ -555,7 +555,7 @@
   <string name="purchase_error_verify_card">A vásárlás befejezéséhez erősítsd meg a kártyádat.</string>
   <string name="purachse_error_verify_card_button">KÁRTYA MEGERŐSÍTÉSE</string>
   <string name="purchase_eskills_sku">Belépőjegy</string>
-  <string name="purchase_paytmupi_install_disclaimer">You\'ll need to install Paytm UPI app.</string>
+  <string name="purchase_paytmupi_install_disclaimer">Telepítsd a Paytm UPI appot.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">Számlázási cím</string>
   <string name="purchase_address_address_field">Cím</string>
@@ -645,19 +645,19 @@
   <string name="import_wallet_wrong_password_body">Hoppá, hibás jelszó!</string>
   <string name="error_invalid_private_key">Érvénytelen privát kulcs</string>
   <string name="error_invalid_keystore">Érvénytelen keystore</string>
-  <string name="backup_title">Backup your wallet now!</string>
+  <string name="backup_title">Wallet biztonsági mentés!</string>
   <string name="backup_body">Nem tároljuk sem a titkos kulcsokat, sem bármely más hozzáférési módot. Fontos a tárcáról készült biztonsági mentés (keystore) biztonsága.</string>
   <string name="backup_additional_security_title">További biztonság (nem kötelező)</string>
   <string name="backup_additional_security_body">Válaszd ki a jelszavad</string>
   <string name="backup_button">TÁRCA BIZTONSÁGI MENTÉSE</string>
-  <string name="backup_ready_title">Your backup is ready!\nKeep it safe.</string>
+  <string name="backup_ready_title">Elkészült a biztonsági mentés.\n Tartsd biztos helyen.</string>
   <string name="backup_ready_save_on_email">Mentés az email címedre</string>
   <string name="backup_ready_email_button">Küldés az email címedre</string>
   <string name="backup_ready_device_button">Mentés az eszközön</string>
   <string name="backup_confirmation_tips_title">Tartsd biztonságban a fájlt:</string>
-  <string name="backup_confirmation_tips_1"><b>Print it</b> and store it somewhere safe.</string>
-  <string name="backup_confirmation_tips_2"><b>Save it</b> on a USB drive.</string>
-  <string name="backup_confirmation_tips_3"><b>Copy it</b> to a private and secure cloud storage.</string>
+  <string name="backup_confirmation_tips_1"><b>Nyomtasd ki</b> és tárold biztonságos helyen.</string>
+  <string name="backup_confirmation_tips_2"><b>Mentsd</b> egy USB meghajtóra.</string>
+  <string name="backup_confirmation_tips_3"><b>Másold</b> egy biztonságos és magán felhőalapú tárhelyre.</string>
   <string name="backup_tooltip_body">Készíts biztonsági másolatot a tárcádról!</string>
   <string name="backup_tooltip_later_button">TALÁN KÉSŐBB</string>
   <string name="backup_tooltip_backup_button">BIZTONSÁGI MENTÉS</string>
@@ -668,10 +668,10 @@
   <string name="backup_additional_security_disclaimer_body">Nincs jelszó visszaállítás.</string>
   <string name="backup_additional_security_password_not_march">A jelszavak nem egyeznek.</string>
   <string name="import_wallet_recovering_body">Tárca visszaállítása...</string>
-  <string name="backup_skip_title">I understand that I may loose my funds if I don\'t backup my wallet key.</string>
-  <string name="backup_wallet_button">Backup wallet</string>
-  <string name="backup_success_save_on_email">Your backup file is in your email.</string>
-  <string name="backup_success_save_on_device">Your backup file is stored in your device.</string>
+  <string name="backup_skip_title">Megértettem, hogy elveszíthetem a pénzem, ha nem végzem el a biztonsági mentést.</string>
+  <string name="backup_wallet_button">Wallet biztonsági mentése</string>
+  <string name="backup_success_save_on_email">A biztonsági mentés fájl megérkezett emailben.</string>
+  <string name="backup_success_save_on_device">A biztonsági mentés fájl az eszközödön található.</string>
   <!--Backup DELETE-->
   <string name="backup_confirmation_body"></string>
   <string name="backup_confirmation_no"></string>
@@ -1034,31 +1034,31 @@
   <!--  NFTs -->
   <string name="nfts_title">NFT-ék</string>
   <string name="nfts_no_nfts">Még nincs NFT ebben a tárcában!</string>
-  <string name="nfts_transact_button">Send this NFT</string>
-  <string name="nfts_transact_button_send">Send</string>
-  <string name="nfts_transact_button_next">Next</string>
-  <string name="nfts_transact_button_done">Done</string>
-  <string name="nfts_transact_button_success">Got it</string>
-  <string name="nfts_transact_tip">Enter your friend\'s wallet address</string>
-  <string name="nfts_transact_input_tip">Wallet address here...</string>
-  <string name="nfts_transact_done_mensage">%s successfully sent!</string>
-  <string name="nfts_generic_error">Oops! Something went wrong!</string>
-  <string name="nfts_transact_gas_title">Are you in a hurry?</string>
-  <string name="nfts_transact_gas_description">Choose how much you want to pay in fees. The higher the fee, the faster the transaction.</string>
-  <string name="nfts_transact_gas_price">Gas Price</string>
-  <string name="nfts_transact_gas_limit">Gas Limit</string>
-  <string name="nfts_transact_gas_fee_message">Transaction Fee</string>
-  <string name="nfts_transact_error_no_funds">Not enough funds! You don\'t have enough ETH to pay for the fees.</string>
-  <string name="nfts_transact_error_low_gas">Gas is too low! Increase your gas for the network to accept your transaction.</string>
-  <string name="nfts_transact_error_already_in_progress">This NFT is already being sent! A previous transaction is currently in progress.</string>
+  <string name="nfts_transact_button">NFT küldése</string>
+  <string name="nfts_transact_button_send">Küldés</string>
+  <string name="nfts_transact_button_next">Tovább</string>
+  <string name="nfts_transact_button_done">Kész</string>
+  <string name="nfts_transact_button_success">Értem</string>
+  <string name="nfts_transact_tip">Írd be barátod walletjának címét</string>
+  <string name="nfts_transact_input_tip">Wallet címe ide...</string>
+  <string name="nfts_transact_done_mensage">%s sikeresen elküldve!</string>
+  <string name="nfts_generic_error">Hoppá, valami baj történt!</string>
+  <string name="nfts_transact_gas_title">Sietsz?</string>
+  <string name="nfts_transact_gas_description">Döntsd el, mennyi díjat akarsz fizetni. Minél gyorsabb a tranzakció annál magasabb lesz.</string>
+  <string name="nfts_transact_gas_price">Gas ár</string>
+  <string name="nfts_transact_gas_limit">Gas korlát</string>
+  <string name="nfts_transact_gas_fee_message">Tranzakciós díj</string>
+  <string name="nfts_transact_error_no_funds">Nincs elég pénzed. Nincs elég ETH-d a díjak kifizetésére.</string>
+  <string name="nfts_transact_error_low_gas">Túl kevés a gas! Növeld a gast a hálózathoz, hogy elfogadhasd a tranzakciót.</string>
+  <string name="nfts_transact_error_already_in_progress">Az NFT-t már elküldtél. Az előző tranzakció még folyamatban van.</string>
   <!-- Gift Card -->
-  <string name="gift_card_title">Redeem your gift card code</string>
-  <string name="gift_card_field">Card code here...</string>
-  <string name="gift_card_done_title">Code redeemed!</string>
-  <string name="gift_card_done_body">Check your transacions list.</string>
-  <string name="gift_card_error_general_title">Something went wrong!</string>
-  <string name="gift_card_error_general_body">Please try again or use a different code.</string>
-  <string name="gift_card_error_used_title">This code has already been used!</string>
-  <string name="gift_card_error_new_users_title">This code is only for new users!</string>
-  <string name="gift_card_error_try_with_different_body">Please try again with a different one.</string>
+  <string name="gift_card_title">Ajándékutalvány kódjának beváltása</string>
+  <string name="gift_card_field">A kártya kódja ide...</string>
+  <string name="gift_card_done_title">Kód beváltva!</string>
+  <string name="gift_card_done_body">Nézd meg a tranzakciók listáját.</string>
+  <string name="gift_card_error_general_title">Valami hiba történt!</string>
+  <string name="gift_card_error_general_body">Próbáld újra vagy használj másik kódot.</string>
+  <string name="gift_card_error_used_title">Ezt a kódot már beváltották!</string>
+  <string name="gift_card_error_new_users_title">A kód csak új felhasználók számára érvényes!</string>
+  <string name="gift_card_error_try_with_different_body">Próbáld újra egy másik kóddal.</string>
 </resources>

@@ -23,11 +23,11 @@
   <string name="e_skills_room_create_title">룸 생성 또는 가입</string>
   <string name="e_skills_room_create_body">새 룸을 만들어 상대방과 공유하거나 기존 룸에 가입합니다.</string>
   <string name="e_skills_room_field">룸 이름 입력...</string>
-  <string name="e_skills_payment_title">지불</string>
+  <string name="e_skills_payment_title">지불 방법</string>
   <string name="e_skills_payment_body">AppCoins 크레디트</string>
   <string name="copied_to_clipboard">클립보드에 복사되었습니다</string>
   <string name="processing_payment_title">결제를 처리하고 있습니다</string>
   <string name="purchase_error_title">이런, 무언가 잘못되었습니다.</string>
   <string name="purchase_eskills_sku">입장권</string>
-  <string name="shared_room_waiting">상대가 %s에 가입하기를 기다리는 중입니다</string>
+  <string name="shared_room_waiting">상대가 %s에 합류하기를 기다리는 중입니다</string>
 </resources>

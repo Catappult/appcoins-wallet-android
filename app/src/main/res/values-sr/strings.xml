@@ -1064,7 +1064,7 @@
   <string name="gift_card_title">Redeem your gift card code</string>
   <string name="gift_card_field">Card code here...</string>
   <string name="gift_card_done_title">Code redeemed!</string>
-  <string name="gift_card_done_body">Check your transacions list.</string>
+  <string name="gift_card_done_body">Check your transactions list.</string>
   <string name="gift_card_error_general_title">Something went wrong!</string>
   <string name="gift_card_error_general_body">Please try again or use a different code.</string>
   <string name="gift_card_error_used_title">This code has already been used!</string>

@@ -1055,7 +1055,7 @@
   <string name="gift_card_title">Resgatar o código do seu cartão-presente</string>
   <string name="gift_card_field">Código do cartão-presente...</string>
   <string name="gift_card_done_title">Código resgatado!</string>
-  <string name="gift_card_done_body">Confira sua lista de transações.</string>
+  <string name="gift_card_done_body">Check your transactions list.</string>
   <string name="gift_card_error_general_title">Algo deu errado!</string>
   <string name="gift_card_error_general_body">Tente novamente ou use um código diferente.</string>
   <string name="gift_card_error_used_title">Este código já foi utilizado!</string>

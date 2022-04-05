@@ -1076,7 +1076,7 @@
   <string name="gift_card_title">आपला गिफ्ट कार्ड कोड रिडीम करा</string>
   <string name="gift_card_field">कार्ड कोड इथे...</string>
   <string name="gift_card_done_title">कोड रिडीम झाला!</string>
-  <string name="gift_card_done_body">आपल्या व्यवहारांची सूची तपासा.</string>
+  <string name="gift_card_done_body">Check your transactions list.</string>
   <string name="gift_card_error_general_title">काहीतरी चूक झाली!</string>
   <string name="gift_card_error_general_body">कृपया पुन्हा प्रयत्न करा किंवा वेगळा कोड वापरा.</string>
   <string name="gift_card_error_used_title">हा कोड आधीच वापरला गेला आहे!</string>
