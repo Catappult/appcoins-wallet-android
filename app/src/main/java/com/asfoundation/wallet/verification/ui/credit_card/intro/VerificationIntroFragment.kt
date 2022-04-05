@@ -6,21 +6,19 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.widget.SwitchCompat
 import com.adyen.checkout.card.CardConfiguration
-import com.adyen.checkout.components.ui.view.RoundCornerImageView
 import com.adyen.checkout.core.api.Environment
 import com.appcoins.wallet.billing.adyen.PaymentInfoModel
 import com.appcoins.wallet.billing.adyen.VerificationPaymentModel
 import com.asf.wallet.BuildConfig
 import com.asf.wallet.R
 import com.asfoundation.wallet.billing.adyen.AdyenCardWrapper
+import com.asfoundation.wallet.util.AdyenCardView
 import com.asfoundation.wallet.util.CurrencyFormatUtils
 import com.asfoundation.wallet.util.KeyboardUtils
 import com.asfoundation.wallet.util.WalletCurrency
 import com.asfoundation.wallet.verification.ui.credit_card.VerificationCreditCardActivityView
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
-import com.google.android.material.textfield.TextInputLayout
 import com.jakewharton.rxbinding2.view.RxView
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.Observable
@@ -52,11 +50,7 @@ class VerificationIntroFragment : BasePageViewFragment(), VerificationIntroView 
 
   private lateinit var activityView: VerificationCreditCardActivityView
   private lateinit var cardConfiguration: CardConfiguration
-  private lateinit var adyenCardNumberLayout: TextInputLayout
-  private lateinit var adyenExpiryDateLayout: TextInputLayout
-  private lateinit var adyenSecurityCodeLayout: TextInputLayout
-  private lateinit var adyenCardImageLayout: RoundCornerImageView
-  private lateinit var adyenSaveDetailsSwitch: SwitchCompat
+  private lateinit var adyenCardView: AdyenCardView
 
   private var isStored = false
   private var paymentDataSubject: BehaviorSubject<AdyenCardWrapper> = BehaviorSubject.create()
@@ -91,16 +85,8 @@ class VerificationIntroFragment : BasePageViewFragment(), VerificationIntroView 
   }
 
   private fun setupUi() {
-    setupAdyenLayouts()
+    adyenCardView = AdyenCardView(adyen_card_form)
     setupCardConfiguration()
-  }
-
-  private fun setupAdyenLayouts() {
-    adyenCardNumberLayout = adyen_card_form.findViewById(R.id.textInputLayout_cardNumber)
-    adyenExpiryDateLayout = adyen_card_form.findViewById(R.id.textInputLayout_expiryDate)
-    adyenSecurityCodeLayout = adyen_card_form.findViewById(R.id.textInputLayout_securityCode)
-    adyenCardImageLayout = adyen_card_form.findViewById(R.id.cardBrandLogo_imageView_primary)
-    adyenSaveDetailsSwitch = adyen_card_form.findViewById(R.id.switch_storePaymentMethod)
   }
 
   private fun setupCardConfiguration() {
@@ -131,17 +117,10 @@ class VerificationIntroFragment : BasePageViewFragment(), VerificationIntroView 
   }
 
   private fun handleLayoutVisibility(isStored: Boolean) {
+    adyenCardView.showInputFields(!isStored)
+    change_card_button.visibility = if (isStored) View.VISIBLE else View.GONE
     if (isStored) {
-      adyenCardNumberLayout.visibility = View.GONE
-      adyenExpiryDateLayout.visibility = View.GONE
-      adyenCardImageLayout.visibility = View.GONE
-      change_card_button.visibility = View.VISIBLE
       view?.let { KeyboardUtils.showKeyboard(it) }
-    } else {
-      adyenCardNumberLayout.visibility = View.VISIBLE
-      adyenExpiryDateLayout.visibility = View.VISIBLE
-      adyenCardImageLayout.visibility = View.VISIBLE
-      change_card_button.visibility = View.GONE
     }
   }
 
@@ -152,7 +131,7 @@ class VerificationIntroFragment : BasePageViewFragment(), VerificationIntroView 
     val cardComponent = paymentInfoModel.cardComponent!!(this, cardConfiguration)
     adyen_card_form_pre_selected?.attach(cardComponent, this)
     cardComponent.observe(this) {
-      adyenSecurityCodeLayout.error = null
+      adyenCardView.setError(null)
       if (it != null && it.isValid) {
         submit.isEnabled = true
         view?.let { view -> KeyboardUtils.hideKeyboard(view) }
@@ -160,7 +139,9 @@ class VerificationIntroFragment : BasePageViewFragment(), VerificationIntroView 
           val hasCvc = !paymentMethod.encryptedSecurityCode.isNullOrEmpty()
           paymentDataSubject.onNext(
             AdyenCardWrapper(
-              paymentMethod, adyenSaveDetailsSwitch.isChecked, hasCvc,
+              paymentMethod,
+              adyenCardView.cardSave,
+              hasCvc,
               paymentInfoModel.supportedShopperInteractions
             )
           )
@@ -170,31 +151,20 @@ class VerificationIntroFragment : BasePageViewFragment(), VerificationIntroView 
       }
     }
     if (forget) {
-      clearFields()
+      adyenCardView.clear()
     }
   }
 
   private fun setStoredPaymentInformation(isStored: Boolean) {
     if (isStored) {
-      adyen_card_form_pre_selected_number?.text = adyenCardNumberLayout.editText?.text
+      adyen_card_form_pre_selected_number?.text = adyenCardView.cardNumber
       adyen_card_form_pre_selected_number?.visibility = View.VISIBLE
-      payment_method_ic?.setImageDrawable(adyenCardImageLayout.drawable)
+      payment_method_ic?.setImageDrawable(adyenCardView.cardImage)
     } else {
       adyen_card_form_pre_selected_number?.visibility = View.GONE
       payment_method_ic?.visibility = View.GONE
     }
   }
-
-  private fun clearFields() {
-    adyenCardNumberLayout.editText?.text = null
-    adyenCardNumberLayout.editText?.isEnabled = true
-    adyenExpiryDateLayout.editText?.text = null
-    adyenExpiryDateLayout.editText?.isEnabled = true
-    adyenSecurityCodeLayout.editText?.text = null
-    adyenCardNumberLayout.requestFocus()
-    adyenSecurityCodeLayout.error = null
-  }
-
 
   override fun getCancelClicks() = RxView.clicks(cancel)
 
@@ -260,7 +230,7 @@ class VerificationIntroFragment : BasePageViewFragment(), VerificationIntroView 
       change_card_button.visibility = View.INVISIBLE
     }
     content_container.visibility = View.VISIBLE
-    adyenSecurityCodeLayout.error = getString(R.string.purchase_card_error_CVV)
+    adyenCardView.setError(getString(R.string.purchase_card_error_CVV))
   }
 
   override fun retrievePaymentData() = paymentDataSubject

@@ -10,12 +10,10 @@ import android.view.View
 import android.view.View.*
 import android.view.ViewGroup
 import androidx.annotation.StringRes
-import androidx.appcompat.widget.SwitchCompat
 import com.adyen.checkout.adyen3ds2.Adyen3DS2Component
 import com.adyen.checkout.adyen3ds2.Adyen3DS2Configuration
 import com.adyen.checkout.card.CardConfiguration
 import com.adyen.checkout.components.model.payments.response.Action
-import com.adyen.checkout.components.ui.view.RoundCornerImageView
 import com.adyen.checkout.core.api.Environment
 import com.adyen.checkout.redirect.RedirectComponent
 import com.adyen.checkout.redirect.RedirectConfiguration
@@ -35,11 +33,11 @@ import com.asfoundation.wallet.topup.TopUpData.Companion.FIAT_CURRENCY
 import com.asfoundation.wallet.topup.TopUpPaymentData
 import com.asfoundation.wallet.topup.address.BillingAddressTopUpFragment.Companion.BILLING_ADDRESS_MODEL
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
+import com.asfoundation.wallet.util.AdyenCardView
 import com.asfoundation.wallet.util.CurrencyFormatUtils
 import com.asfoundation.wallet.util.KeyboardUtils
 import com.asfoundation.wallet.util.WalletCurrency
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
-import com.google.android.material.textfield.TextInputLayout
 import com.jakewharton.rxbinding2.view.RxView
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.Observable
@@ -96,13 +94,9 @@ class AdyenTopUpFragment : BasePageViewFragment(), AdyenTopUpView {
   private lateinit var adyen3DS2Configuration: Adyen3DS2Configuration
   private lateinit var redirectComponent: RedirectComponent
   private lateinit var adyen3DS2Component: Adyen3DS2Component
-  private lateinit var adyenCardNumberLayout: TextInputLayout
-  private lateinit var adyenExpiryDateLayout: TextInputLayout
-  private lateinit var adyenSecurityCodeLayout: TextInputLayout
   private lateinit var presenter: AdyenTopUpPresenter
+  private lateinit var adyenCardView: AdyenCardView
 
-  private var adyenCardImageLayout: RoundCornerImageView? = null
-  private var adyenSaveDetailsSwitch: SwitchCompat? = null
   private var paymentDataSubject: ReplaySubject<AdyenCardWrapper>? = null
   private var paymentDetailsSubject: PublishSubject<AdyenComponentResponseModel>? = null
   private var adyen3DSErrorSubject: PublishSubject<String>? = null
@@ -292,7 +286,7 @@ class AdyenTopUpFragment : BasePageViewFragment(), AdyenTopUpView {
     }
     credit_card_info_container.visibility = VISIBLE
 
-    adyenSecurityCodeLayout.error = getString(R.string.purchase_card_error_CVV)
+    adyenCardView.setError(getString(R.string.purchase_card_error_CVV))
   }
 
   override fun retryClick() = RxView.clicks(retry_button)
@@ -317,8 +311,7 @@ class AdyenTopUpFragment : BasePageViewFragment(), AdyenTopUpView {
   override fun navigateToBillingAddress(fiatAmount: String, fiatCurrency: String) {
     topUpView.unlockRotation()
     topUpView.navigateToBillingAddress(
-      data, fiatAmount, fiatCurrency, this,
-      adyenSaveDetailsSwitch?.isChecked ?: true, isStored
+      data, fiatAmount, fiatCurrency, this, adyenCardView.cardSave, isStored
     )
     // To allow back behaviour when address input is needed
     hideLoading()
@@ -348,7 +341,9 @@ class AdyenTopUpFragment : BasePageViewFragment(), AdyenTopUpView {
           val hasCvc = !paymentMethod.encryptedSecurityCode.isNullOrEmpty()
           paymentDataSubject?.onNext(
             AdyenCardWrapper(
-              paymentMethod, adyenSaveDetailsSwitch?.isChecked ?: false, hasCvc,
+              paymentMethod,
+              adyenCardView.cardSave,
+              hasCvc,
               paymentInfoModel.supportedShopperInteractions
             )
           )
@@ -358,24 +353,14 @@ class AdyenTopUpFragment : BasePageViewFragment(), AdyenTopUpView {
       }
     }
     if (forget) {
-      clearFields()
+      adyenCardView.clear()
     }
   }
 
   private fun handleLayoutVisibility(isStored: Boolean) {
-    if (isStored) {
-      adyenCardNumberLayout.visibility = GONE
-      adyenExpiryDateLayout.visibility = GONE
-      adyenCardImageLayout?.visibility = GONE
-      change_card_button?.visibility = VISIBLE
-      change_card_button_pre_selected?.visibility = VISIBLE
-    } else {
-      adyenCardNumberLayout.visibility = VISIBLE
-      adyenExpiryDateLayout.visibility = VISIBLE
-      adyenCardImageLayout?.visibility = VISIBLE
-      change_card_button?.visibility = GONE
-      change_card_button_pre_selected?.visibility = GONE
-    }
+    adyenCardView.showInputFields(!isStored)
+    change_card_button?.visibility = if (isStored) VISIBLE else GONE
+    change_card_button_pre_selected?.visibility = if (isStored) VISIBLE else GONE
   }
 
   override fun setupRedirectComponent() {
@@ -434,25 +419,14 @@ class AdyenTopUpFragment : BasePageViewFragment(), AdyenTopUpView {
 
   private fun setStoredPaymentInformation(isStored: Boolean) {
     if (isStored) {
-      adyen_card_form_pre_selected_number?.text =
-        adyenCardNumberLayout.editText?.text
+      adyen_card_form_pre_selected_number?.text = adyenCardView.cardNumber
       adyen_card_form_pre_selected_number?.visibility = VISIBLE
-      payment_method_ic?.setImageDrawable(adyenCardImageLayout?.drawable)
+      payment_method_ic?.setImageDrawable(adyenCardView.cardImage)
       view?.let { KeyboardUtils.showKeyboard(it) }
     } else {
       adyen_card_form_pre_selected_number?.visibility = GONE
       payment_method_ic?.visibility = GONE
     }
-  }
-
-  private fun clearFields() {
-    adyenCardNumberLayout.editText?.text = null
-    adyenCardNumberLayout.editText?.isEnabled = true
-    adyenExpiryDateLayout.editText?.text = null
-    adyenExpiryDateLayout.editText?.isEnabled = true
-    adyenSecurityCodeLayout.editText?.text = null
-    adyenCardNumberLayout.requestFocus()
-    adyenSecurityCodeLayout.error = null
   }
 
   override fun setupUi() {
@@ -462,7 +436,7 @@ class AdyenTopUpFragment : BasePageViewFragment(), AdyenTopUpView {
     if (paymentType == PaymentType.CARD.name) {
       button.setText(R.string.topup_home_button)
 
-      setupAdyenLayouts()
+      adyenCardView = AdyenCardView(adyen_card_form_pre_selected ?: adyen_card_form)
       setupCardConfiguration()
     }
     setupRedirectConfiguration()
@@ -492,24 +466,6 @@ class AdyenTopUpFragment : BasePageViewFragment(), AdyenTopUpView {
       .Builder(activity as Context, BuildConfig.ADYEN_PUBLIC_KEY)
       .setEnvironment(adyenEnvironment)
       .build()
-  }
-
-  private fun setupAdyenLayouts() {
-    adyenCardNumberLayout =
-      adyen_card_form_pre_selected?.findViewById(R.id.textInputLayout_cardNumber)
-        ?: adyen_card_form.findViewById(R.id.textInputLayout_cardNumber)
-    adyenExpiryDateLayout =
-      adyen_card_form_pre_selected?.findViewById(R.id.textInputLayout_expiryDate)
-        ?: adyen_card_form.findViewById(R.id.textInputLayout_expiryDate)
-    adyenSecurityCodeLayout =
-      adyen_card_form_pre_selected?.findViewById(R.id.textInputLayout_securityCode)
-        ?: adyen_card_form.findViewById(R.id.textInputLayout_securityCode)
-    adyenCardImageLayout =
-      adyen_card_form_pre_selected?.findViewById(R.id.cardBrandLogo_imageView_primary)
-        ?: adyen_card_form?.findViewById(R.id.cardBrandLogo_imageView_primary)
-    adyenSaveDetailsSwitch =
-      adyen_card_form_pre_selected?.findViewById(R.id.switch_storePaymentMethod)
-        ?: adyen_card_form?.findViewById(R.id.switch_storePaymentMethod)
   }
 
   override fun hideKeyboard() {
