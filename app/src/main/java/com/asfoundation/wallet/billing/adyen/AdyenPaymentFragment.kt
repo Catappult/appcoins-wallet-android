@@ -183,17 +183,13 @@ class AdyenPaymentFragment : BasePageViewFragment(), AdyenPaymentView {
     showProduct()
   }
 
-  override fun finishCardConfiguration(
-    paymentInfoModel: PaymentInfoModel,
-    forget: Boolean,
-    savedInstance: Bundle?
-  ) {
+  override fun finishCardConfiguration(paymentInfoModel: PaymentInfoModel, forget: Boolean) {
     this.isStored = paymentInfoModel.isStored
     buy_button.visibility = VISIBLE
     cancel_button.visibility = VISIBLE
 
     handleLayoutVisibility(isStored)
-    prepareCardComponent(paymentInfoModel, forget, savedInstance)
+    prepareCardComponent(paymentInfoModel, forget)
     setStoredPaymentInformation(isStored)
   }
 
@@ -201,12 +197,6 @@ class AdyenPaymentFragment : BasePageViewFragment(), AdyenPaymentView {
 
   override fun onSaveInstanceState(outState: Bundle) {
     super.onSaveInstanceState(outState)
-    outState.apply {
-      putString(CARD_NUMBER_KEY, adyenCardNumberLayout.editText?.text.toString())
-      putString(EXPIRY_DATE_KEY, adyenExpiryDateLayout.editText?.text.toString())
-      putString(CVV_KEY, adyenSecurityCodeLayout.editText?.text.toString())
-      putBoolean(SAVE_DETAILS_KEY, adyenSaveDetailsSwitch?.isChecked ?: false)
-    }
     presenter.onSaveInstanceState(outState)
   }
 
@@ -571,8 +561,7 @@ class AdyenPaymentFragment : BasePageViewFragment(), AdyenPaymentView {
 
   private fun prepareCardComponent(
     paymentInfoModel: PaymentInfoModel,
-    forget: Boolean,
-    savedInstanceState: Bundle?
+    forget: Boolean
   ) {
     val cardComponent = paymentInfoModel.cardComponent!!(this, cardConfiguration)
     adyen_card_form_pre_selected?.attach(cardComponent, this)
@@ -596,18 +585,6 @@ class AdyenPaymentFragment : BasePageViewFragment(), AdyenPaymentView {
     }
     if (forget) {
       clearFields()
-    } else {
-      getFieldValues(savedInstanceState)
-    }
-  }
-
-  private fun getFieldValues(savedInstanceState: Bundle?) {
-    savedInstanceState?.let {
-      adyenCardNumberLayout.editText?.setText(it.getString(CARD_NUMBER_KEY, ""))
-      adyenExpiryDateLayout.editText?.setText(it.getString(EXPIRY_DATE_KEY, ""))
-      adyenSecurityCodeLayout.editText?.setText(it.getString(CVV_KEY, ""))
-      adyenSaveDetailsSwitch?.isChecked = it.getBoolean(SAVE_DETAILS_KEY, false)
-      it.clear()
     }
   }
 
@@ -700,10 +677,6 @@ class AdyenPaymentFragment : BasePageViewFragment(), AdyenPaymentView {
     private const val PRE_SELECTED_KEY = "pre_selected"
     private const val IS_SUBSCRIPTION = "is_subscription"
     private const val FREQUENCY = "frequency"
-    private const val CARD_NUMBER_KEY = "card_number"
-    private const val EXPIRY_DATE_KEY = "expiry_date"
-    private const val CVV_KEY = "cvv_key"
-    private const val SAVE_DETAILS_KEY = "save_details"
     private const val GAMIFICATION_LEVEL = "gamification_level"
     private const val SKU_DESCRIPTION = "sku_description"
     private const val PRODUCT_TOKEN = "product_token"

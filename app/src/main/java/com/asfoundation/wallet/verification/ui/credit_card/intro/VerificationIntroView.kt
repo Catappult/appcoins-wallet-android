@@ -1,6 +1,5 @@
 package com.asfoundation.wallet.verification.ui.credit_card.intro
 
-import android.os.Bundle
 import com.appcoins.wallet.billing.adyen.PaymentInfoModel
 import com.appcoins.wallet.billing.adyen.VerificationPaymentModel.ErrorType
 import com.asfoundation.wallet.billing.adyen.AdyenCardWrapper
@@ -24,11 +23,7 @@ interface VerificationIntroView {
 
   fun updateUi(verificationIntroModel: VerificationIntroModel)
 
-  fun finishCardConfiguration(
-    paymentInfoModel: PaymentInfoModel,
-    forget: Boolean,
-    savedInstance: Bundle?
-  )
+  fun finishCardConfiguration(paymentInfoModel: PaymentInfoModel, forget: Boolean)
 
   fun retrievePaymentData(): Observable<AdyenCardWrapper>
 

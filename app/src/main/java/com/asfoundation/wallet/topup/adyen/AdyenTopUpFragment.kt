@@ -152,14 +152,6 @@ class AdyenTopUpFragment : BasePageViewFragment(), AdyenTopUpView {
 
   override fun onSaveInstanceState(outState: Bundle) {
     super.onSaveInstanceState(outState)
-    if (this::adyenCardNumberLayout.isInitialized) {
-      outState.apply {
-        putString(CARD_NUMBER_KEY, adyenCardNumberLayout.editText?.text.toString())
-        putString(EXPIRY_DATE_KEY, adyenExpiryDateLayout.editText?.text.toString())
-        putString(CVV_KEY, adyenSecurityCodeLayout.editText?.text.toString())
-        putBoolean(SAVE_DETAILS_KEY, adyenSaveDetailsSwitch?.isChecked ?: false)
-      }
-    }
     presenter.onSaveInstanceState(outState)
   }
 
@@ -333,14 +325,10 @@ class AdyenTopUpFragment : BasePageViewFragment(), AdyenTopUpView {
     button.isEnabled = true
   }
 
-  override fun finishCardConfiguration(
-    paymentInfoModel: PaymentInfoModel,
-    forget: Boolean,
-    savedInstanceState: Bundle?
-  ) {
+  override fun finishCardConfiguration(paymentInfoModel: PaymentInfoModel, forget: Boolean) {
     this.isStored = paymentInfoModel.isStored
     handleLayoutVisibility(isStored)
-    prepareCardComponent(paymentInfoModel, forget, savedInstanceState)
+    prepareCardComponent(paymentInfoModel, forget)
     setStoredPaymentInformation(isStored)
   }
 
@@ -348,8 +336,7 @@ class AdyenTopUpFragment : BasePageViewFragment(), AdyenTopUpView {
 
   private fun prepareCardComponent(
     paymentInfoModel: PaymentInfoModel,
-    forget: Boolean,
-    savedInstanceState: Bundle?
+    forget: Boolean
   ) {
     val cardComponent = paymentInfoModel.cardComponent!!(this, cardConfiguration)
     adyen_card_form_pre_selected?.attach(cardComponent, this)
@@ -372,8 +359,6 @@ class AdyenTopUpFragment : BasePageViewFragment(), AdyenTopUpView {
     }
     if (forget) {
       clearFields()
-    } else {
-      getFieldValues(savedInstanceState)
     }
   }
 
@@ -457,16 +442,6 @@ class AdyenTopUpFragment : BasePageViewFragment(), AdyenTopUpView {
     } else {
       adyen_card_form_pre_selected_number?.visibility = GONE
       payment_method_ic?.visibility = GONE
-    }
-  }
-
-  private fun getFieldValues(savedInstanceState: Bundle?) {
-    savedInstanceState?.let {
-      adyenCardNumberLayout.editText?.setText(it.getString(CARD_NUMBER_KEY, ""))
-      adyenExpiryDateLayout.editText?.setText(it.getString(EXPIRY_DATE_KEY, ""))
-      adyenSecurityCodeLayout.editText?.setText(it.getString(CVV_KEY, ""))
-      adyenSaveDetailsSwitch?.isChecked = it.getBoolean(SAVE_DETAILS_KEY, false)
-      it.clear()
     }
   }
 
@@ -583,10 +558,6 @@ class AdyenTopUpFragment : BasePageViewFragment(), AdyenTopUpView {
 
     private const val PAYMENT_TYPE = "paymentType"
     private const val PAYMENT_DATA = "data"
-    private const val CARD_NUMBER_KEY = "card_number"
-    private const val EXPIRY_DATE_KEY = "expiry_date"
-    private const val CVV_KEY = "cvv_key"
-    private const val SAVE_DETAILS_KEY = "save_details"
 
     fun newInstance(paymentType: PaymentType, data: TopUpPaymentData): AdyenTopUpFragment {
       val bundle = Bundle()

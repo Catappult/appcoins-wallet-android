@@ -48,11 +48,7 @@ interface AdyenPaymentView {
 
   fun hideLoadingAndShowView()
 
-  fun finishCardConfiguration(
-    paymentInfoModel: PaymentInfoModel,
-    forget: Boolean,
-    savedInstance: Bundle?
-  )
+  fun finishCardConfiguration(paymentInfoModel: PaymentInfoModel, forget: Boolean)
 
   fun retrievePaymentData(): ReplaySubject<AdyenCardWrapper>
 

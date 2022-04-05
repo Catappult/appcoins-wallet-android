@@ -37,7 +37,7 @@ class VerificationIntroPresenter(
     handleViewState(savedInstanceState)
     handleCancelClicks()
     handleForgetCardClick()
-    handleRetryClick(savedInstanceState)
+    handleRetryClick()
     handleTryAgainClicks()
     handleSupportClicks()
   }
@@ -46,23 +46,23 @@ class VerificationIntroPresenter(
     savedInstanceState?.let {
       currentError = savedInstanceState.get(CURRENT_ERROR_KEY) as ErrorState?
     }
-    if (currentError == null) loadModel(savedInstanceState)
+    if (currentError == null) loadModel()
     else {
       when {
         currentError?.errorType != null -> view.showError(currentError!!.errorType)
         currentError?.errorString != null -> view.showSpecificError(currentError!!.errorString!!)
-        else -> loadModel(savedInstanceState)
+        else -> loadModel()
       }
     }
   }
 
-  private fun loadModel(savedInstanceState: Bundle?, forgetPrevious: Boolean = false) {
+  private fun loadModel(forgetPrevious: Boolean = false) {
     disposable.add(
       interactor.loadVerificationIntroModel()
         .subscribeOn(ioScheduler)
         .observeOn(viewScheduler)
         .doOnSuccess {
-          view.finishCardConfiguration(it.paymentInfoModel, forgetPrevious, savedInstanceState)
+          view.finishCardConfiguration(it.paymentInfoModel, forgetPrevious)
           view.updateUi(it)
           hideLoading()
           handleSubmitClicks(it.verificationInfoModel)
@@ -86,20 +86,21 @@ class VerificationIntroPresenter(
     )
   }
 
-  private fun handleRetryClick(savedInstanceState: Bundle?) {
+  private fun handleRetryClick() {
     disposable.add(view.retryClick()
       .observeOn(viewScheduler)
       .doOnNext { showLoading() }
       .delay(1, TimeUnit.SECONDS)
-      .doOnNext { loadModel(savedInstanceState, true) }
+      .doOnNext { loadModel(true) }
       .subscribe({}, { it.printStackTrace() })
     )
   }
 
   private fun handleTryAgainClicks() {
-    disposable.add(view.getTryAgainClicks()
-      .throttleFirst(50, TimeUnit.MILLISECONDS)
-      .doOnNext { loadModel(null, true) }
+    disposable.add(
+      view.getTryAgainClicks()
+        .throttleFirst(50, TimeUnit.MILLISECONDS)
+        .doOnNext { loadModel(true) }
       .observeOn(viewScheduler)
       .subscribe({}, { it.printStackTrace() })
     )
@@ -231,7 +232,7 @@ class VerificationIntroPresenter(
           .doOnSuccess {
             hideLoading()
             view.updateUi(it)
-            view.finishCardConfiguration(it.paymentInfoModel, forget = true, savedInstance = null)
+            view.finishCardConfiguration(it.paymentInfoModel, forget = true)
           }
       }
       .subscribe({}, {

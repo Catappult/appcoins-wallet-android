@@ -36,10 +36,6 @@ import javax.inject.Inject
 class VerificationIntroFragment : BasePageViewFragment(), VerificationIntroView {
 
   companion object {
-    private const val CARD_NUMBER_KEY = "card_number"
-    private const val EXPIRY_DATE_KEY = "expiry_date"
-    private const val CVV_KEY = "cvv_key"
-    private const val SAVE_DETAILS_KEY = "save_details"
 
     @JvmStatic
     fun newInstance() = VerificationIntroFragment()
@@ -92,14 +88,6 @@ class VerificationIntroFragment : BasePageViewFragment(), VerificationIntroView 
   override fun onSaveInstanceState(outState: Bundle) {
     super.onSaveInstanceState(outState)
     presenter.onSavedInstance(outState)
-    if (this::adyenCardNumberLayout.isInitialized) {
-      outState.apply {
-        putString(CARD_NUMBER_KEY, adyenCardNumberLayout.editText?.text.toString())
-        putString(EXPIRY_DATE_KEY, adyenExpiryDateLayout.editText?.text.toString())
-        putString(CVV_KEY, adyenSecurityCodeLayout.editText?.text.toString())
-        putBoolean(SAVE_DETAILS_KEY, adyenSaveDetailsSwitch.isChecked)
-      }
-    }
   }
 
   private fun setupUi() {
@@ -134,13 +122,11 @@ class VerificationIntroFragment : BasePageViewFragment(), VerificationIntroView 
     )
   }
 
-  override fun finishCardConfiguration(
-    paymentInfoModel: PaymentInfoModel, forget: Boolean, savedInstance: Bundle?
-  ) {
+  override fun finishCardConfiguration(paymentInfoModel: PaymentInfoModel, forget: Boolean) {
     this.isStored = paymentInfoModel.isStored
 
     handleLayoutVisibility(isStored)
-    prepareCardComponent(paymentInfoModel, forget, savedInstance)
+    prepareCardComponent(paymentInfoModel, forget)
     setStoredPaymentInformation(isStored)
   }
 
@@ -161,8 +147,7 @@ class VerificationIntroFragment : BasePageViewFragment(), VerificationIntroView 
 
   private fun prepareCardComponent(
     paymentInfoModel: PaymentInfoModel,
-    forget: Boolean,
-    savedInstanceState: Bundle?
+    forget: Boolean
   ) {
     val cardComponent = paymentInfoModel.cardComponent!!(this, cardConfiguration)
     adyen_card_form_pre_selected?.attach(cardComponent, this)
@@ -186,18 +171,6 @@ class VerificationIntroFragment : BasePageViewFragment(), VerificationIntroView 
     }
     if (forget) {
       clearFields()
-    } else {
-      getFieldValues(savedInstanceState)
-    }
-  }
-
-  private fun getFieldValues(savedInstanceState: Bundle?) {
-    savedInstanceState?.let {
-      adyenCardNumberLayout.editText?.setText(it.getString(CARD_NUMBER_KEY, ""))
-      adyenExpiryDateLayout.editText?.setText(it.getString(EXPIRY_DATE_KEY, ""))
-      adyenSecurityCodeLayout.editText?.setText(it.getString(CVV_KEY, ""))
-      adyenSaveDetailsSwitch.isChecked = it.getBoolean(SAVE_DETAILS_KEY, false)
-      it.clear()
     }
   }
 
