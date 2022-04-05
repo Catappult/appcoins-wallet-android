@@ -104,7 +104,7 @@ class SkillsViewModel @Inject constructor(
                                         ticket: CreatedTicket): Single<Ticket> {
     return when (paymentResult) {
       is SuccessfulPayment -> Single.fromCallable { view.hideLoading() }
-      is FailedPayment.GenericError -> Single.fromCallable { view.showError() }
+      is FailedPayment.GenericError -> Single.fromCallable { view.showError(RESULT_ERROR) }
       is FailedPayment.FraudError -> isWalletVerifiedUseCase().observeOn(
           AndroidSchedulers.mainThread())
           .doOnSuccess { view.showFraudError(it) }
