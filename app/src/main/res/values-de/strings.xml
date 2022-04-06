@@ -1054,8 +1054,8 @@
   <!-- Gift Card -->
   <string name="gift_card_title">Lösen Sie ihren Geschenkkartencode ein</string>
   <string name="gift_card_field">Den Code der Karte finden Sie hier...</string>
-  <string name="gift_card_done_title">Code redeemed!</string>
-  <string name="gift_card_done_body">Check your transactions list.</string>
+  <string name="gift_card_done_title">Code eingelöst!</string>
+  <string name="gift_card_done_body">Überprüfen Sie ihre Transaktionsliste.</string>
   <string name="gift_card_error_general_title">Something went wrong!</string>
   <string name="gift_card_error_general_body">Please try again or use a different code.</string>
   <string name="gift_card_error_used_title">This code has already been used!</string>
