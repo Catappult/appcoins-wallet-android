@@ -1056,9 +1056,9 @@
   <string name="gift_card_field">Den Code der Karte finden Sie hier...</string>
   <string name="gift_card_done_title">Code eingelöst!</string>
   <string name="gift_card_done_body">Überprüfen Sie ihre Transaktionsliste.</string>
-  <string name="gift_card_error_general_title">Something went wrong!</string>
-  <string name="gift_card_error_general_body">Please try again or use a different code.</string>
-  <string name="gift_card_error_used_title">This code has already been used!</string>
+  <string name="gift_card_error_general_title">Etwas ist schief gelaufen!</string>
+  <string name="gift_card_error_general_body">Bitte versuchen Sie es erneut oder verwenden Sie einen anderen Code.</string>
+  <string name="gift_card_error_used_title">Dieser Code wurde bereits verwendet!</string>
   <string name="gift_card_error_new_users_title">Dieser Code gilt nur für neue Benutzer!</string>
   <string name="gift_card_error_try_with_different_body">Beitte verwenden Sie einen anderen.</string>
 </resources>
