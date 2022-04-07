@@ -128,6 +128,7 @@ class VerificationIntroFragment : BasePageViewFragment(), VerificationIntroView 
     paymentInfoModel: PaymentInfoModel,
     forget: Boolean
   ) {
+    if (forget) adyenCardView.clear(this)
     val cardComponent = paymentInfoModel.cardComponent!!(this, cardConfiguration)
     adyen_card_form_pre_selected?.attach(cardComponent, this)
     cardComponent.observe(this) {
@@ -149,9 +150,6 @@ class VerificationIntroFragment : BasePageViewFragment(), VerificationIntroView 
       } else {
         submit.isEnabled = false
       }
-    }
-    if (forget) {
-      adyenCardView.clear()
     }
   }
 

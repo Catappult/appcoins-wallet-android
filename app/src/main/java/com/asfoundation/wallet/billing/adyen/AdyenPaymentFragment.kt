@@ -525,6 +525,7 @@ class AdyenPaymentFragment : BasePageViewFragment(), AdyenPaymentView {
     paymentInfoModel: PaymentInfoModel,
     forget: Boolean
   ) {
+    if (forget) adyenCardView.clear(this)
     val cardComponent = paymentInfoModel.cardComponent!!(this, cardConfiguration)
     adyen_card_form_pre_selected?.attach(cardComponent, this)
     cardComponent.observe(this) {
@@ -546,9 +547,6 @@ class AdyenPaymentFragment : BasePageViewFragment(), AdyenPaymentView {
       } else {
         buy_button?.isEnabled = false
       }
-    }
-    if (forget) {
-      adyenCardView.clear()
     }
   }
 

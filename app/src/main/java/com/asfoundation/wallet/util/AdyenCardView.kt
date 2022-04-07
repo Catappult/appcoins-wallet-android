@@ -2,12 +2,17 @@ package com.asfoundation.wallet.util
 
 import android.view.View
 import androidx.appcompat.widget.SwitchCompat
+import androidx.lifecycle.ViewModelStoreOwner
+import androidx.savedstate.SavedStateRegistryOwner
+import com.adyen.checkout.card.CardComponent
 import com.adyen.checkout.card.CardView
 import com.adyen.checkout.components.ui.view.RoundCornerImageView
 import com.asf.wallet.R
 import com.google.android.material.textfield.TextInputLayout
 
 class AdyenCardView(view: View?) {
+
+  private val DEFAULT_KEY = "androidx.lifecycle.ViewModelProvider.DefaultKey"
 
   private val cardView: CardView? = view?.findViewById(R.id.adyen_card_form_pre_selected)
   private val adyenCardNumberLayout: TextInputLayout? =
@@ -42,7 +47,7 @@ class AdyenCardView(view: View?) {
     adyenCardImageLayout?.visibility = if (show) View.VISIBLE else View.GONE
   }
 
-  fun clear() {
+  fun <T> clear(owner: T) where T : SavedStateRegistryOwner, T : ViewModelStoreOwner {
     adyenCardNumberLayout?.editText?.text = null
     adyenCardNumberLayout?.editText?.isEnabled = true
     adyenExpiryDateLayout?.editText?.text = null
@@ -51,5 +56,7 @@ class AdyenCardView(view: View?) {
     adyenCardNumberLayout?.requestFocus()
     adyenSecurityCodeLayout?.error = null
     adyenSaveDetailsSwitch?.isChecked = true
+    owner.viewModelStore.clear()
+    owner.savedStateRegistry.unregisterSavedStateProvider(DEFAULT_KEY + ":" + CardComponent::class.java.canonicalName)
   }
 }
