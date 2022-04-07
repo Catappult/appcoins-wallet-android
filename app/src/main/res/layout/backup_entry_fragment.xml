@@ -24,7 +24,7 @@
           layout="@layout/backup_entry_info"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          android:layout_marginTop="@dimen/big_margin"
+          android:layout_marginTop="@dimen/half_large_margin"
           app:layout_constraintTop_toTopOf="parent"
           />
       <include

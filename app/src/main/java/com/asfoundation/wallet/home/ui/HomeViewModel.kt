@@ -22,6 +22,7 @@ import com.asfoundation.wallet.ui.widget.entity.TransactionsModel
 import com.asfoundation.wallet.ui.widget.holder.CardNotificationAction
 import com.asfoundation.wallet.viewmodel.TransactionsWalletModel
 import com.asfoundation.wallet.wallets.domain.WalletBalance
+import com.asfoundation.wallet.wallets.usecases.GetWalletInfoUseCase
 import com.asfoundation.wallet.wallets.usecases.ObserveWalletInfoUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.*
@@ -63,6 +64,7 @@ class HomeViewModel @Inject constructor(
   private val analytics: HomeAnalytics,
   private val backupTriggerPreferences: BackupTriggerPreferences,
   private val observeWalletInfoUseCase: ObserveWalletInfoUseCase,
+  private val getWalletInfoUseCase: GetWalletInfoUseCase,
   private val shouldOpenRatingDialogUseCase: ShouldOpenRatingDialogUseCase,
   private val updateTransactionsNumberUseCase: UpdateTransactionsNumberUseCase,
   private val findNetworkInfoUseCase: FindNetworkInfoUseCase,
@@ -126,8 +128,9 @@ class HomeViewModel @Inject constructor(
   }
 
   private fun observeNetworkAndWallet(): Observable<TransactionsWalletModel> {
-    return Observable.combineLatest(findNetworkInfoUseCase()
-      .toObservable(), observeDefaultWalletUseCase()
+    return Observable.combineLatest(
+      findNetworkInfoUseCase()
+        .toObservable(), observeDefaultWalletUseCase()
     ) { networkInfo, wallet ->
       val previousModel: TransactionsWalletModel? =
         state.transactionsModelAsync.value?.transactionsWalletModel
@@ -197,7 +200,8 @@ class HomeViewModel @Inject constructor(
   ): Observable<TransactionsWalletModel> {
     if (walletModel == null) return Observable.empty()
     val retainValue = if (walletModel.isNewWallet) null else HomeState::transactionsModelAsync
-    return Observable.combineLatest(getTransactions(walletModel.wallet), getCardNotifications(),
+    return Observable.combineLatest(
+      getTransactions(walletModel.wallet), getCardNotifications(),
       getMaxBonus(), observeNetworkAndWallet()
     ) { transactions: List<Transaction>, notifications: List<CardNotification>, maxBonus: Double, transactionsWalletModel: TransactionsWalletModel ->
       createTransactionsModel(
@@ -411,10 +415,10 @@ class HomeViewModel @Inject constructor(
   }
 
   private fun handleNewLevelBackupTrigger() {
-    observeWalletInfoUseCase(null, update = false, updateFiat = false)
-      .doOnNext {
+//    backupTriggerPreferences.setTriggerState(active = true) //TODO temp for debug only, remove after
+    getWalletInfoUseCase(null, cached = false, updateFiat = false)
+      .doOnSuccess {
         if (backupTriggerPreferences.getTriggerState()) {
-          backupTriggerPreferences.setTriggerState(active = false)
           sendSideEffect { HomeSideEffect.ShowBackupTrigger(it.wallet) }
         }
       }

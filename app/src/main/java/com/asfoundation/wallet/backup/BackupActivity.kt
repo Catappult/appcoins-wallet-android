@@ -4,9 +4,11 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
+import android.view.View
 import com.asf.wallet.R
 import com.asfoundation.wallet.ui.BaseActivity
 import com.asfoundation.wallet.util.safeLet
+import com.google.android.material.appbar.AppBarLayout
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -31,8 +33,10 @@ class BackupActivity : BaseActivity() {
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.activity_backup)
-
-    toolbar()
+    if (!intent.getBooleanExtra(IS_BACKUP_TRIGGER, false)) {
+      findViewById<AppBarLayout>(R.id.backup_wallet_app_bar).visibility = View.VISIBLE
+      toolbar()
+    }
     safeLet(
       intent.getStringExtra(WALLET_ADDRESS_KEY),
       intent.getBooleanExtra(IS_BACKUP_TRIGGER, false)

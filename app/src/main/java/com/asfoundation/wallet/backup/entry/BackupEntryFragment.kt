@@ -73,7 +73,9 @@ class BackupEntryFragment : BasePageViewFragment(),
       )
     }
     views.backupSkipBtn.setOnClickListener {
-      navigator.navigateToSkipScreen()
+      navigator.navigateToSkipScreen(
+        requireArguments().getString(WALLET_ADDRESS_KEY)!!
+      )
     }
 
     viewModel.collectStateAndEvents(lifecycle, viewLifecycleOwner.lifecycleScope)

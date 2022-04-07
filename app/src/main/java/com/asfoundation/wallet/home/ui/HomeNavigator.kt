@@ -9,12 +9,15 @@ import androidx.fragment.app.Fragment
 import com.asf.wallet.R
 import com.asfoundation.wallet.C
 import com.asfoundation.wallet.backup.BackupActivity
+import com.asfoundation.wallet.backup.entry.BackupEntryFragment
+import com.asfoundation.wallet.backup.triggers.BackupTriggerDialogFragment
 import com.asfoundation.wallet.base.Navigator
 import com.asfoundation.wallet.change_currency.ChangeFiatCurrencyActivity
 import com.asfoundation.wallet.entity.Wallet
 import com.asfoundation.wallet.main.MainActivityNavigator
 import com.asfoundation.wallet.rating.RatingActivity
 import com.asfoundation.wallet.transactions.Transaction
+import com.asfoundation.wallet.transfers.EtherTransactionBottomSheetFragment
 import com.asfoundation.wallet.ui.BaseActivity
 import com.asfoundation.wallet.ui.MyAddressActivity
 import com.asfoundation.wallet.ui.balance.TransactionDetailActivity
@@ -94,14 +97,20 @@ class HomeNavigator @Inject constructor(
     }
   }
 
-  fun navigateToBackup(walletAddress: String, isBackupTrigger: Boolean) {
-    val intent = BackupActivity.newIntent(fragment.requireContext(), walletAddress, isBackupTrigger)
-      .apply {
-        flags = Intent.FLAG_ACTIVITY_SINGLE_TOP
-      }
+  fun navigateToBackup(walletAddress: String) {
+    val intent =
+      BackupActivity.newIntent(fragment.requireContext(), walletAddress, isBackupTrigger = false)
+        .apply {
+          flags = Intent.FLAG_ACTIVITY_SINGLE_TOP
+        }
     openIntent(intent)
   }
 
+  fun navigateToBackupTrigger(walletAddress: String) {
+    val bottomSheet = BackupTriggerDialogFragment.newInstance(walletAddress)
+    bottomSheet.isCancelable = false
+    bottomSheet.show(fragment.parentFragmentManager, "BackupTrigger")
+  }
 
   fun navigateToCurrencySelector() {
     val intent = ChangeFiatCurrencyActivity.newIntent(fragment.requireContext())

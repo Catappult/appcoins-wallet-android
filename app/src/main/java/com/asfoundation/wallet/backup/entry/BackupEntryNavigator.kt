@@ -18,8 +18,8 @@ class BackupEntryNavigator @Inject constructor(private val fragmentManager: Frag
       .commit()
   }
 
-  fun navigateToSkipScreen() {
-    val bottomSheet = BackupSkipDialogFragment.newInstance()
+  fun navigateToSkipScreen(walletAddress: String) {
+    val bottomSheet = BackupSkipDialogFragment.newInstance(walletAddress = walletAddress)
     bottomSheet.show(fragmentManager, "SkipDialog")
   }
 }
