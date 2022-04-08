@@ -45,7 +45,9 @@ sealed class HomeSideEffect : SideEffect {
 
   data class NavigateToBackup(val walletAddress: String) : HomeSideEffect()
   data class NavigateToIntent(val intent: Intent) : HomeSideEffect()
-  data class ShowBackupTrigger(val walletAddress: String) : HomeSideEffect()
+  data class ShowBackupTrigger(val walletAddress: String, val triggerSource: String) :
+    HomeSideEffect()
+
   object NavigateToMyWallets : HomeSideEffect()
   object NavigateToSend : HomeSideEffect()
   object NavigateToChangeCurrency : HomeSideEffect()
@@ -415,11 +417,19 @@ class HomeViewModel @Inject constructor(
   }
 
   private fun handleNewLevelBackupTrigger() {
-//    backupTriggerPreferences.setTriggerState(active = true) //TODO temp for debug only, remove after
+    backupTriggerPreferences.setTriggerState(
+      active = true,
+      triggerSource = "NewLevel"
+    ) //TODO temp for debug only, remove after
     getWalletInfoUseCase(null, cached = false, updateFiat = false)
       .doOnSuccess {
         if (backupTriggerPreferences.getTriggerState()) {
-          sendSideEffect { HomeSideEffect.ShowBackupTrigger(it.wallet) }
+          sendSideEffect {
+            HomeSideEffect.ShowBackupTrigger(
+              it.wallet,
+              backupTriggerPreferences.getTriggerSource()
+            )
+          }
         }
       }
       .scopedSubscribe()

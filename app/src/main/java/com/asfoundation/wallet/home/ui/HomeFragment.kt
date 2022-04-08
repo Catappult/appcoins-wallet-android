@@ -207,7 +207,8 @@ class HomeFragment : BasePageViewFragment(),
       )
       is HomeSideEffect.NavigateToIntent -> navigator.openIntent(sideEffect.intent)
       is HomeSideEffect.ShowBackupTrigger -> navigator.navigateToBackupTrigger(
-        sideEffect.walletAddress
+        sideEffect.walletAddress,
+        sideEffect.triggerSource
       )
       HomeSideEffect.ShowFingerprintTooltip -> setFingerprintTooltip()
       HomeSideEffect.NavigateToChangeCurrency -> navigator.navigateToCurrencySelector()

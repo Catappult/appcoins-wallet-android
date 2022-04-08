@@ -35,15 +35,13 @@ class BackupEntryFragment : BasePageViewFragment(),
 
   companion object {
     const val WALLET_ADDRESS_KEY = "wallet_address"
-    const val IS_BACKUP_TRIGGER = "is_backup_trigger"
 
     @JvmStatic
-    fun newInstance(walletAddress: String, isBackupTrigger: Boolean): BackupEntryFragment {
+    fun newInstance(walletAddress: String): BackupEntryFragment {
       return BackupEntryFragment()
         .apply {
           arguments = Bundle().apply {
             putString(WALLET_ADDRESS_KEY, walletAddress)
-            putBoolean(IS_BACKUP_TRIGGER, isBackupTrigger)
           }
         }
     }
@@ -70,11 +68,6 @@ class BackupEntryFragment : BasePageViewFragment(),
       }
       navigator.showBackupCreationScreen(
         requireArguments().getString(WALLET_ADDRESS_KEY)!!, password
-      )
-    }
-    views.backupSkipBtn.setOnClickListener {
-      navigator.navigateToSkipScreen(
-        requireArguments().getString(WALLET_ADDRESS_KEY)!!
       )
     }
 

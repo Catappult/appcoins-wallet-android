@@ -28,11 +28,12 @@ class BackupSkipDialogFragment : BottomSheetDialogFragment(),
 
   companion object {
     @JvmStatic
-    fun newInstance(walletAddress: String): BackupSkipDialogFragment {
+    fun newInstance(walletAddress: String, triggerSource: String): BackupSkipDialogFragment {
       return BackupSkipDialogFragment()
         .apply {
           arguments = Bundle().apply {
             putString(BackupTriggerDialogFragment.WALLET_ADDRESS_KEY, walletAddress)
+            putString(BackupTriggerDialogFragment.TRIGGER_SOURCE, triggerSource)
           }
         }
     }
@@ -52,7 +53,8 @@ class BackupSkipDialogFragment : BottomSheetDialogFragment(),
     }
     views.cancel.setOnClickListener {
       navigator.navigateBack(
-        requireArguments().getString(BackupTriggerDialogFragment.WALLET_ADDRESS_KEY)!!
+        requireArguments().getString(BackupTriggerDialogFragment.WALLET_ADDRESS_KEY)!!,
+        requireArguments().getString(BackupTriggerDialogFragment.TRIGGER_SOURCE)!!
       )
     }
   }

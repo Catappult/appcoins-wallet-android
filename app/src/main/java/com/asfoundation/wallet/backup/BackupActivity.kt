@@ -37,12 +37,8 @@ class BackupActivity : BaseActivity() {
       findViewById<AppBarLayout>(R.id.backup_wallet_app_bar).visibility = View.VISIBLE
       toolbar()
     }
-    safeLet(
-      intent.getStringExtra(WALLET_ADDRESS_KEY),
-      intent.getBooleanExtra(IS_BACKUP_TRIGGER, false)
-    ) { walletAddress, isBackupTrigger ->
-      navigator.showBackupScreen(walletAddress, isBackupTrigger)
-    }
+    intent.getStringExtra(WALLET_ADDRESS_KEY)?.let { navigator.showBackupScreen(it) }
+
   }
 
   override fun onOptionsItemSelected(item: MenuItem): Boolean {

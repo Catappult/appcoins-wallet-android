@@ -106,8 +106,8 @@ class HomeNavigator @Inject constructor(
     openIntent(intent)
   }
 
-  fun navigateToBackupTrigger(walletAddress: String) {
-    val bottomSheet = BackupTriggerDialogFragment.newInstance(walletAddress)
+  fun navigateToBackupTrigger(walletAddress: String, triggerSource: String) {
+    val bottomSheet = BackupTriggerDialogFragment.newInstance(walletAddress, triggerSource)
     bottomSheet.isCancelable = false
     bottomSheet.show(fragment.parentFragmentManager, "BackupTrigger")
   }

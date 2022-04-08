@@ -17,9 +17,4 @@ class BackupEntryNavigator @Inject constructor(private val fragmentManager: Frag
       .addToBackStack("BackupEntryFragment")
       .commit()
   }
-
-  fun navigateToSkipScreen(walletAddress: String) {
-    val bottomSheet = BackupSkipDialogFragment.newInstance(walletAddress = walletAddress)
-    bottomSheet.show(fragmentManager, "SkipDialog")
-  }
 }

@@ -11,9 +11,9 @@ class BackupSkipDialogNavigator @Inject constructor(
   val backupTriggerPreferences: BackupTriggerPreferences
 ) {
 
-  fun navigateBack(walletAddress: String) {
+  fun navigateBack(walletAddress: String, triggerSource: String) {
     (fragment as BottomSheetDialogFragment).dismiss()
-    val bottomSheet = BackupTriggerDialogFragment.newInstance(walletAddress)
+    val bottomSheet = BackupTriggerDialogFragment.newInstance(walletAddress, triggerSource)
     bottomSheet.isCancelable = false
     bottomSheet.show(fragment.parentFragmentManager, "BackupTriggerFromSkip")
   }

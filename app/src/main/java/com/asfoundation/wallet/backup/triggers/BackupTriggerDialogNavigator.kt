@@ -18,9 +18,9 @@ class BackupTriggerDialogNavigator @Inject constructor(val fragment: Fragment) {
     fragment.requireContext().startActivity(intent)
   }
 
-  fun navigateToDismiss(walletAddress: String) {
+  fun navigateToDismiss(walletAddress: String, triggerSource: String) {
     (fragment as BottomSheetDialogFragment).dismiss()
-    val bottomSheet = BackupSkipDialogFragment.newInstance(walletAddress = walletAddress)
+    val bottomSheet = BackupSkipDialogFragment.newInstance(walletAddress, triggerSource)
     bottomSheet.isCancelable = false
     bottomSheet.show(fragment.parentFragmentManager, "BackupDismiss")
   }
