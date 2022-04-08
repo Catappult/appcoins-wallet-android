@@ -444,6 +444,7 @@
   <string name="understood_button">समजले!</string>
   <string name="skip_button">आतापुरत वगळा</string>
   <string name="understand_button">मला समजते</string>
+  <string name="install_button">Install</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">मला अॅपकॉइन्स वॉलेटच्या %1$s आणि %2$s मान्य आहेत.</string>
   <string name="terms_and_conditions_error">चालू ठेवण्यासाठी कृपया आमच्या अटी आणि शर्ती मंजुर करा</string>
@@ -556,6 +557,8 @@
   <string name="purachse_error_verify_card_button">कार्ड सत्यापित करा</string>
   <string name="purchase_eskills_sku">प्रवेश तिकिट</string>
   <string name="purchase_paytmupi_install_disclaimer">आपल्याला पेटीएम यूपीआय अॅप इंस्टॉल करावे लागेल.</string>
+  <string name="purchase_app_needed_body">You need the following app to complete your purchase.</string>
+  <string name="purchase_apps_needed_body">You need one of the following apps to complete your purchase.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">बिलिंग पत्ता</string>
   <string name="purchase_address_address_field">पत्ता</string>
