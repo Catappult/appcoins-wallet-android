@@ -477,6 +477,7 @@
   <string name="understood_button">Understood!</string>
   <string name="skip_button">Skip for now</string>
   <string name="understand_button">I understand</string>
+  <string name="install_button">Install</string>
 
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">I agree to AppCoins Wallet\'s %1$s and %2$s.</string>
