@@ -1,6 +1,5 @@
 package com.asfoundation.wallet.nfts.repository
 
-import android.util.Log
 import com.asfoundation.wallet.base.RxSchedulers
 import com.asfoundation.wallet.nfts.domain.GasInfo
 import com.asfoundation.wallet.nfts.domain.NFTItem
@@ -13,7 +12,6 @@ import io.reactivex.schedulers.Schedulers
 import org.web3j.abi.FunctionEncoder
 import org.web3j.abi.TypeReference
 import org.web3j.abi.datatypes.*
-import org.web3j.abi.datatypes.generated.Bytes1
 import org.web3j.abi.datatypes.generated.Uint256
 import org.web3j.crypto.Credentials
 import org.web3j.crypto.RawTransaction
@@ -68,7 +66,6 @@ class NFTRepository @Inject constructor(
       if (!estimatedGas.hasError()) {
         gasLimit = estimatedGas.amountUsed
       }
-      Log.d("NFT", rate.currency)
       return@fromCallable GasInfo(gasPrice, gasLimit, rate.amount, rate.symbol, rate.currency)
     }
       .subscribeOn(Schedulers.io())
@@ -97,17 +94,14 @@ class NFTRepository @Inject constructor(
     return Numeric.hexStringToByteArray(Numeric.cleanHexPrefix(encodedFunction))
   }
 
-  //TODO fix this function to work with NFT1155
   private fun createTransactionDataNFT1155(
     from: String,
     to: String,
     tokenID: BigDecimal,
   ): ByteArray {
     val functionName = "safeTransferFrom"
-    val params: List<Type<*>> = listOf(
-      Address(from), Address(to), Uint256(tokenID.toBigInteger()),
-      Bytes1(BigInteger.ZERO.toByteArray())
-    )
+    val params: List<Type<*>> = listOf(Address(from), Address(to), Uint256(tokenID.toBigInteger()),
+        Uint256(BigInteger.ONE), DynamicBytes(byteArrayOf()))
     val returnTypes: List<TypeReference<*>> = listOf(object : TypeReference<Bool?>() {})
     val function = Function(functionName, params, returnTypes)
     val encodedFunction = FunctionEncoder.encode(function)
@@ -121,7 +115,7 @@ class NFTRepository @Inject constructor(
   ): Transaction {
     val data: ByteArray = when (schema) {
       "ERC721" -> createTransactionDataNFT721(fromAddress, toAddress, tokenID)
-      //"ERC1155" -> createTransactionDataNFT1155(fromAddress, toAddress, tokenID)
+      "ERC1155" -> createTransactionDataNFT1155(fromAddress, toAddress, tokenID)
       else -> error("Contract not handled")
     }
     val ethGetTransactionCount =
@@ -144,7 +138,7 @@ class NFTRepository @Inject constructor(
   ): RawTransaction {
     val data: ByteArray = when (schema) {
       "ERC721" -> createTransactionDataNFT721(fromAddress, toAddress, tokenID)
-      //"ERC1155" -> createTransactionDataNFT1155(fromAddress, toAddress, tokenID)
+      "ERC1155" -> createTransactionDataNFT1155(fromAddress, toAddress, tokenID)
       else -> error("Contract not handled")
     }
     val ethGetTransactionCount =
