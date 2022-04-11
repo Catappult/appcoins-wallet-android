@@ -68,7 +68,7 @@ class AdyenPaymentPresenter(
     retrieveSavedInstace(savedInstanceState)
     view.setup3DSComponent()
     view.setupRedirectComponent()
-    if (!waitingResult) loadPaymentMethodInfo(savedInstanceState)
+    if (!waitingResult) loadPaymentMethodInfo()
     handleBack()
     handleErrorDismissEvent()
     handleForgetCardClick()
@@ -115,7 +115,7 @@ class AdyenPaymentPresenter(
               if (it.error.isNetworkError) view.showNetworkError()
               else view.showGenericError()
             } else {
-              view.finishCardConfiguration(it, true, null)
+              view.finishCardConfiguration(it, true)
             }
           }
       }
@@ -126,7 +126,7 @@ class AdyenPaymentPresenter(
     )
   }
 
-  private fun loadPaymentMethodInfo(savedInstanceState: Bundle?) {
+  private fun loadPaymentMethodInfo() {
     view.showLoading()
     disposables.add(
       adyenPaymentInteractor.loadPaymentInfo(
@@ -146,7 +146,7 @@ class AdyenPaymentPresenter(
             if (paymentType == PaymentType.CARD.name) {
               view.hideLoadingAndShowView()
               sendPaymentMethodDetailsEvent(BillingAnalytics.PAYMENT_METHOD_CC)
-              view.finishCardConfiguration(it, false, savedInstanceState)
+              view.finishCardConfiguration(it, false)
               handleBuyClick(it.priceAmount, it.priceCurrency)
             } else if (paymentType == PaymentType.PAYPAL.name) {
               launchPaypal(it.paymentMethod!!, it.priceAmount, it.priceCurrency)

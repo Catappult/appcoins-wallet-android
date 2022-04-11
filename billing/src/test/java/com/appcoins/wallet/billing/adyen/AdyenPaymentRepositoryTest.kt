@@ -1,6 +1,6 @@
 package com.appcoins.wallet.billing.adyen
 
-import com.adyen.checkout.base.model.payments.request.CardPaymentMethod
+import com.adyen.checkout.components.model.payments.request.CardPaymentMethod
 import com.appcoins.wallet.bdsbilling.repository.BillingSupportedType
 import com.appcoins.wallet.bdsbilling.repository.RemoteRepository
 import com.appcoins.wallet.bdsbilling.repository.entity.Gateway
