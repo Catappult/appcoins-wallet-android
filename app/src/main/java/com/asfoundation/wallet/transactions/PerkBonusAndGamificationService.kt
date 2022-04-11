@@ -124,7 +124,10 @@ class PerkBonusAndGamificationService :
         stats.totalSpend.minus(currentLevelStartAmount)
       )
     ) {
-      backupTriggerPreferences.setTriggerState(active = true, triggerSource = "NewLevel")
+      backupTriggerPreferences.setTriggerState(
+        active = true,
+        triggerSource = BackupTriggerPreferences.TriggerSource.NEW_LEVEL
+      )
       promotionsRepository.shownLevel(address, currentLevel, NOTIFICATIONS_LEVEL_UP)
       buildNotification(
         createLevelUpNotification(

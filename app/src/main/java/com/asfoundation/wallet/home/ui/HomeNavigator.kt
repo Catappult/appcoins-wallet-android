@@ -9,15 +9,14 @@ import androidx.fragment.app.Fragment
 import com.asf.wallet.R
 import com.asfoundation.wallet.C
 import com.asfoundation.wallet.backup.BackupActivity
-import com.asfoundation.wallet.backup.entry.BackupEntryFragment
 import com.asfoundation.wallet.backup.triggers.BackupTriggerDialogFragment
+import com.asfoundation.wallet.backup.triggers.BackupTriggerPreferences
 import com.asfoundation.wallet.base.Navigator
 import com.asfoundation.wallet.change_currency.ChangeFiatCurrencyActivity
 import com.asfoundation.wallet.entity.Wallet
 import com.asfoundation.wallet.main.MainActivityNavigator
 import com.asfoundation.wallet.rating.RatingActivity
 import com.asfoundation.wallet.transactions.Transaction
-import com.asfoundation.wallet.transfers.EtherTransactionBottomSheetFragment
 import com.asfoundation.wallet.ui.BaseActivity
 import com.asfoundation.wallet.ui.MyAddressActivity
 import com.asfoundation.wallet.ui.balance.TransactionDetailActivity
@@ -106,7 +105,10 @@ class HomeNavigator @Inject constructor(
     openIntent(intent)
   }
 
-  fun navigateToBackupTrigger(walletAddress: String, triggerSource: String) {
+  fun navigateToBackupTrigger(
+    walletAddress: String,
+    triggerSource: BackupTriggerPreferences.TriggerSource
+  ) {
     val bottomSheet = BackupTriggerDialogFragment.newInstance(walletAddress, triggerSource)
     bottomSheet.isCancelable = false
     bottomSheet.show(fragment.parentFragmentManager, "BackupTrigger")

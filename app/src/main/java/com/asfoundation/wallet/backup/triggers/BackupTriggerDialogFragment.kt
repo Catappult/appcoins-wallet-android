@@ -30,12 +30,15 @@ class BackupTriggerDialogFragment : BottomSheetDialogFragment(),
     const val TRIGGER_SOURCE = "trigger_source"
 
     @JvmStatic
-    fun newInstance(walletAddress: String, triggerSource: String): BackupTriggerDialogFragment {
+    fun newInstance(
+      walletAddress: String,
+      triggerSource: BackupTriggerPreferences.TriggerSource
+    ): BackupTriggerDialogFragment {
       return BackupTriggerDialogFragment()
         .apply {
           arguments = Bundle().apply {
             putString(WALLET_ADDRESS_KEY, walletAddress)
-            putString(TRIGGER_SOURCE, triggerSource)
+            putSerializable(TRIGGER_SOURCE, triggerSource)
           }
         }
     }
@@ -59,7 +62,7 @@ class BackupTriggerDialogFragment : BottomSheetDialogFragment(),
     Log.d(
       "APPC-2782",
       "BackupTriggerDialogFragment: onViewCreated: source -> ${
-        requireArguments().getString(TRIGGER_SOURCE)!!
+        requireArguments().getSerializable(TRIGGER_SOURCE)!!
       } "
     )
 
@@ -67,10 +70,10 @@ class BackupTriggerDialogFragment : BottomSheetDialogFragment(),
       requireArguments().getString(WALLET_ADDRESS_KEY)!!
 
     //TODO
-    when (requireArguments().getString(TRIGGER_SOURCE)!!) {
-      "NewLevel" -> views.triggerDialogMessage.text =
+    when (requireArguments().getSerializable(TRIGGER_SOURCE)!!) {
+      BackupTriggerPreferences.TriggerSource.NEW_LEVEL -> views.triggerDialogMessage.text =
         "(Example) Congrats on reaching a new level, we recommend you to backup your wallet to avoid losing your progress."
-      "FirstPurchase" -> views.triggerDialogMessage.text =
+      BackupTriggerPreferences.TriggerSource.FIRST_PURCHASE -> views.triggerDialogMessage.text =
         "(Example) Congrats on your first purchase, we recommend you to backup your wallet to avoid the bonus your received"
       else -> views.triggerDialogMessage.text = ""
     }
@@ -85,7 +88,7 @@ class BackupTriggerDialogFragment : BottomSheetDialogFragment(),
     views.triggerDismissBtn.setOnClickListener {
       navigator.navigateToDismiss(
         requireArguments().getString(WALLET_ADDRESS_KEY)!!,
-        requireArguments().getString(TRIGGER_SOURCE)!!
+        requireArguments().getSerializable(TRIGGER_SOURCE)!! as BackupTriggerPreferences.TriggerSource
       )
     }
   }

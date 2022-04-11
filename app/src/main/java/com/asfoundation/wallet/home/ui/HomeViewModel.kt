@@ -14,7 +14,6 @@ import com.asfoundation.wallet.entity.GlobalBalance
 import com.asfoundation.wallet.entity.Wallet
 import com.asfoundation.wallet.home.usecases.*
 import com.asfoundation.wallet.interact.AutoUpdateInteract
-import com.asfoundation.wallet.main.MainSideEffect
 import com.asfoundation.wallet.referrals.CardNotification
 import com.asfoundation.wallet.transactions.Transaction
 import com.asfoundation.wallet.ui.balance.TokenBalance
@@ -27,7 +26,6 @@ import com.asfoundation.wallet.wallets.usecases.ObserveWalletInfoUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.*
 import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.BehaviorSubject
 import java.math.BigDecimal
 import java.util.concurrent.TimeUnit
@@ -45,7 +43,10 @@ sealed class HomeSideEffect : SideEffect {
 
   data class NavigateToBackup(val walletAddress: String) : HomeSideEffect()
   data class NavigateToIntent(val intent: Intent) : HomeSideEffect()
-  data class ShowBackupTrigger(val walletAddress: String, val triggerSource: String) :
+  data class ShowBackupTrigger(
+    val walletAddress: String,
+    val triggerSource: BackupTriggerPreferences.TriggerSource
+  ) :
     HomeSideEffect()
 
   object NavigateToMyWallets : HomeSideEffect()
@@ -419,7 +420,7 @@ class HomeViewModel @Inject constructor(
   private fun handleNewLevelBackupTrigger() {
     backupTriggerPreferences.setTriggerState(
       active = true,
-      triggerSource = "NewLevel"
+      triggerSource = BackupTriggerPreferences.TriggerSource.FIRST_PURCHASE
     ) //TODO temp for debug only, remove after
     getWalletInfoUseCase(null, cached = false, updateFiat = false)
       .doOnSuccess {

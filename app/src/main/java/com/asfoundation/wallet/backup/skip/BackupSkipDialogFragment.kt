@@ -8,6 +8,7 @@ import by.kirich1409.viewbindingdelegate.viewBinding
 import com.asf.wallet.R
 import com.asf.wallet.databinding.BackupSkipDialogFragmentBinding
 import com.asfoundation.wallet.backup.triggers.BackupTriggerDialogFragment
+import com.asfoundation.wallet.backup.triggers.BackupTriggerPreferences
 import com.asfoundation.wallet.base.SideEffect
 import com.asfoundation.wallet.base.SingleStateFragment
 import com.asfoundation.wallet.base.ViewState
@@ -28,12 +29,15 @@ class BackupSkipDialogFragment : BottomSheetDialogFragment(),
 
   companion object {
     @JvmStatic
-    fun newInstance(walletAddress: String, triggerSource: String): BackupSkipDialogFragment {
+    fun newInstance(
+      walletAddress: String,
+      triggerSource: BackupTriggerPreferences.TriggerSource
+    ): BackupSkipDialogFragment {
       return BackupSkipDialogFragment()
         .apply {
           arguments = Bundle().apply {
             putString(BackupTriggerDialogFragment.WALLET_ADDRESS_KEY, walletAddress)
-            putString(BackupTriggerDialogFragment.TRIGGER_SOURCE, triggerSource)
+            putSerializable(BackupTriggerDialogFragment.TRIGGER_SOURCE, triggerSource)
           }
         }
     }
@@ -54,7 +58,7 @@ class BackupSkipDialogFragment : BottomSheetDialogFragment(),
     views.cancel.setOnClickListener {
       navigator.navigateBack(
         requireArguments().getString(BackupTriggerDialogFragment.WALLET_ADDRESS_KEY)!!,
-        requireArguments().getString(BackupTriggerDialogFragment.TRIGGER_SOURCE)!!
+        requireArguments().getSerializable(BackupTriggerDialogFragment.TRIGGER_SOURCE)!! as BackupTriggerPreferences.TriggerSource
       )
     }
   }
