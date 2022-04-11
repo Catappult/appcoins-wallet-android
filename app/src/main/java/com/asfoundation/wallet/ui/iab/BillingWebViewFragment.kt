@@ -1,13 +1,18 @@
 package com.asfoundation.wallet.ui.iab
 
+import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
 import android.webkit.CookieManager
 import android.webkit.WebView
 import android.webkit.WebViewClient
@@ -58,11 +63,11 @@ class BillingWebViewFragment : BasePageViewFragment() {
       "open.dolfinwallet://",
       "momo://",
       "tez://",
-      "phonepe://",
-      "paytmmp://",
-      "bhim://",
       "upi://",
-      "gojek://",
+      ExternalAppEnum.GOJEK.uriScheme,
+      ExternalAppEnum.PHONEPE.uriScheme,
+      ExternalAppEnum.PAYTM.uriScheme,
+      ExternalAppEnum.BHIM.uriScheme,
     )
     private const val ASYNC_PAYMENT_FORM_SHOWN_SCHEMA = "https://pm.dlocal.com//v1/gateway/show?"
     private const val CODAPAY_FINAL_REDIRECT_SCHEMA = "https://airtime.codapayments.com/epcgw/dlocal/"
@@ -72,6 +77,8 @@ class BillingWebViewFragment : BasePageViewFragment() {
     private const val CURRENT_URL = "currentUrl"
     private const val ORDER_ID_PARAMETER = "OrderId"
     const val OPEN_SUPPORT = BuildConfig.MY_APPCOINS_BASE_HOST + "open-support"
+
+    private var currentExtAppSelected: ExternalAppEnum? = null
 
     fun newInstance(url: String?): BillingWebViewFragment {
       return BillingWebViewFragment().apply {
@@ -155,7 +162,26 @@ class BillingWebViewFragment : BasePageViewFragment() {
     view.webview.settings.domStorageEnabled = true
     view.webview.settings.useWideViewPort = true
     view.webview.loadUrl(currentUrl)
+
+    view?.warning_get_bt?.setOnClickListener {
+      dismissGetAppWarning()
+      currentExtAppSelected?.let {
+        openDownloadExternalApp(it)
+      }
+    }
+    view?.warning_cancel_bt?.setOnClickListener {
+      dismissGetAppWarning()
+    }
+
     return view
+  }
+
+  private fun openDownloadExternalApp(appInfo: ExternalAppEnum) {
+    try {
+      startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(appInfo.marketUri)))
+    } catch (e: ActivityNotFoundException) {
+      startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(appInfo.googlePlayUrl)))
+    }
   }
 
   fun isExternalIntentSchema(clickUrl: String): Boolean {
@@ -209,11 +235,11 @@ class BillingWebViewFragment : BasePageViewFragment() {
           if(fallbackUrl != null) {
             webView.loadUrl(fallbackUrl)
           } else {
-            logger.log(TAG, "Unable to open external app from the webview")
-
-//            view?.warning_group?.visibility = View.GONE
-//            view?.warning_group?.visibility = View.VISIBLE
-
+            val appInfo = getAppInfo(url)
+            if (appInfo != null)
+              showGetAppWarning(appInfo)
+            else
+              logger.log(TAG, "Unable to open external app from the webview: $url")
           }
         }
       }
@@ -241,5 +267,22 @@ class BillingWebViewFragment : BasePageViewFragment() {
     intent.data = Uri.parse(url)
     webViewActivity?.setResult(WebViewActivity.FAIL, intent)
     webViewActivity?.finish()
+  }
+
+  private fun getAppInfo(url: String): ExternalAppEnum? {
+    return ExternalAppEnum.values().find { url.contains(it.uriScheme) }
+  }
+
+  private fun showGetAppWarning(appInfo: ExternalAppEnum) {
+    currentExtAppSelected = appInfo
+    view?.warning_group?.startAnimation(AnimationUtils.loadAnimation(context,R.anim.pop_in_animation))
+    view?.warning_group?.visibility = View.VISIBLE
+    view?.warning_name_tv?.text = appInfo.appName
+    view?.warning_app_iv?.setImageResource(appInfo.appIcon)
+  }
+
+  private fun dismissGetAppWarning() {
+    view?.warning_group?.startAnimation(AnimationUtils.loadAnimation(context,R.anim.pop_out_animation))
+    view?.warning_group?.visibility = View.GONE
   }
 }
