@@ -444,6 +444,7 @@
   <string name="understood_button">Verstanden!</string>
   <string name="skip_button">Jetzt überspringen</string>
   <string name="understand_button">Ich verstehe</string>
+  <string name="install_button">Install</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Ich stimme den %1$s und der %2$s des AppCoins Wallets zu.</string>
   <string name="terms_and_conditions_error">Um fortzufahren, akzeptieren Sie bitte unsere AGBs und unsere Datenschutzrichtlinie</string>
@@ -556,6 +557,8 @@
   <string name="purachse_error_verify_card_button">KARTE ÜBERPRÜFEN</string>
   <string name="purchase_eskills_sku">Ticket eingeben</string>
   <string name="purchase_paytmupi_install_disclaimer">Sie müssen die die Paytm UPI App installieren.</string>
+  <string name="purchase_app_needed_body">You need the following app to complete your purchase.</string>
+  <string name="purchase_apps_needed_body">You need one of the following apps to complete your purchase.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">Rechnungsadresse</string>
   <string name="purchase_address_address_field">Adresse</string>
@@ -1042,23 +1045,23 @@
   <string name="nfts_transact_tip">Wallet-Adresse ihres Freundes eingeben</string>
   <string name="nfts_transact_input_tip">Wallet-Adresse hier eingeben...</string>
   <string name="nfts_transact_done_mensage">%s erfolgreich gesendet!</string>
-  <string name="nfts_generic_error">Oops! Something went wrong!</string>
-  <string name="nfts_transact_gas_title">Are you in a hurry?</string>
-  <string name="nfts_transact_gas_description">Choose how much you want to pay in fees. The higher the fee, the faster the transaction.</string>
-  <string name="nfts_transact_gas_price">Gas Price</string>
-  <string name="nfts_transact_gas_limit">Gas Limit</string>
-  <string name="nfts_transact_gas_fee_message">Transaction Fee</string>
-  <string name="nfts_transact_error_no_funds">Not enough funds! You don\'t have enough ETH to pay for the fees.</string>
-  <string name="nfts_transact_error_low_gas">Gas is too low! Increase your gas for the network to accept your transaction.</string>
-  <string name="nfts_transact_error_already_in_progress">This NFT is already being sent! A previous transaction is currently in progress.</string>
+  <string name="nfts_generic_error">Upps! Etwas ist schief gelaufen!</string>
+  <string name="nfts_transact_gas_title">Haben Sie es eilig?</string>
+  <string name="nfts_transact_gas_description">Wählen Sie, wie hoch die Gebühren sein sollen, die Sie zahlen möchten. Je höher die Gebühr, desto schneller die Transaktion.</string>
+  <string name="nfts_transact_gas_price">Gaspreis</string>
+  <string name="nfts_transact_gas_limit">Gas-Limit</string>
+  <string name="nfts_transact_gas_fee_message">Transaktionsgebühr</string>
+  <string name="nfts_transact_error_no_funds">Nicht genug Guthaben! Sie haben nicht genug ETH, um die Gebühren zu bezahlen.</string>
+  <string name="nfts_transact_error_low_gas">Das Gas ist zu niedrig! Erhöhen Sie ihr Gas, damit das Netzwerk ihre Transaktion akzeptiert.</string>
+  <string name="nfts_transact_error_already_in_progress">Diese NFT wird bereits versendet! Eine frühere Transaktion ist bereits im Gange.</string>
   <!-- Gift Card -->
-  <string name="gift_card_title">Redeem your gift card code</string>
-  <string name="gift_card_field">Card code here...</string>
-  <string name="gift_card_done_title">Code redeemed!</string>
-  <string name="gift_card_done_body">Check your transactions list.</string>
-  <string name="gift_card_error_general_title">Something went wrong!</string>
-  <string name="gift_card_error_general_body">Please try again or use a different code.</string>
-  <string name="gift_card_error_used_title">This code has already been used!</string>
+  <string name="gift_card_title">Lösen Sie ihren Geschenkkartencode ein</string>
+  <string name="gift_card_field">Den Code der Karte finden Sie hier...</string>
+  <string name="gift_card_done_title">Code eingelöst!</string>
+  <string name="gift_card_done_body">Überprüfen Sie ihre Transaktionsliste.</string>
+  <string name="gift_card_error_general_title">Etwas ist schief gelaufen!</string>
+  <string name="gift_card_error_general_body">Bitte versuchen Sie es erneut oder verwenden Sie einen anderen Code.</string>
+  <string name="gift_card_error_used_title">Dieser Code wurde bereits verwendet!</string>
   <string name="gift_card_error_new_users_title">Dieser Code gilt nur für neue Benutzer!</string>
   <string name="gift_card_error_try_with_different_body">Beitte verwenden Sie einen anderen.</string>
 </resources>

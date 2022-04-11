@@ -444,6 +444,7 @@
   <string name="understood_button">သိပါၿပီ။</string>
   <string name="skip_button">ေလာေလာဆယ္ ေက်ာ္သြားမည္</string>
   <string name="understand_button">နားလည္ပါသည္</string>
+  <string name="install_button">Install</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">AppCoins Wallet ၏ %1$s ႏွင့္ %2$s ကို သေဘာတူပါသည္။</string>
   <string name="terms_and_conditions_error">ဆက္လုပ္ႏိုင္ရန္ ကၽြႏ္ုပ္တို႔၏ စည္းမ်ဥ္းစည္းကမ္းမ်ားႏွင့္ ကုိယ္ေရးလံုၿခံဳမႈ မူ၀ါဒကို လက္ခံေပးပါ</string>
@@ -556,6 +557,8 @@
   <string name="purachse_error_verify_card_button">ကဒ္ကို အတည္ျပဳမည္</string>
   <string name="purchase_eskills_sku">ဝင္ေရာက္ခြင့္လက္မွတ္</string>
   <string name="purchase_paytmupi_install_disclaimer">Paytm UPI အက္ပ္ကို ထည့္သြင္းရန္ လိုအပ္ပါသည္။</string>
+  <string name="purchase_app_needed_body">You need the following app to complete your purchase.</string>
+  <string name="purchase_apps_needed_body">You need one of the following apps to complete your purchase.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">က်သင့္ေငြေကာက္ခံရန္လိပ္စာ</string>
   <string name="purchase_address_address_field">လိပ္စာ</string>

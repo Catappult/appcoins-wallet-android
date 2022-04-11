@@ -444,6 +444,7 @@
   <string name="understood_button">Compris !</string>
   <string name="skip_button">Sauter pour le moment</string>
   <string name="understand_button">Je comprends</string>
+  <string name="install_button">Install</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">J\'accepte les %1$s et %2$s du portefeuille AppCoins.</string>
   <string name="terms_and_conditions_error">Veuillez accepter nos Termes et Conditions et la Politique de Confidentialité afin de poursuivre</string>
@@ -556,6 +557,8 @@
   <string name="purachse_error_verify_card_button">VALIDER LA CARTE</string>
   <string name="purchase_eskills_sku">Ticket d\'entrée</string>
   <string name="purchase_paytmupi_install_disclaimer">Vous devez installer l\'application Paytm UPI.</string>
+  <string name="purchase_app_needed_body">You need the following app to complete your purchase.</string>
+  <string name="purchase_apps_needed_body">You need one of the following apps to complete your purchase.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">Adresse de facturation</string>
   <string name="purchase_address_address_field">Adresse</string>

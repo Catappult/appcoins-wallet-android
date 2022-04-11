@@ -444,6 +444,7 @@
   <string name="understood_button">이해했습니다!</string>
   <string name="skip_button">건너뛰기</string>
   <string name="understand_button">이해했습니다</string>
+  <string name="install_button">Install</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">AppCoins 지갑의 %1$s 그리고 %2$s 에 동의합니다.</string>
   <string name="terms_and_conditions_error">계속하시려면 당사의 이용 약관과 개인 정보 보호 정책에 동의하여 주십시오</string>
@@ -556,6 +557,8 @@
   <string name="purachse_error_verify_card_button">카드 확인</string>
   <string name="purchase_eskills_sku">입장권</string>
   <string name="purchase_paytmupi_install_disclaimer">Paytm UPI 앱을 설치해야 합니다.</string>
+  <string name="purchase_app_needed_body">You need the following app to complete your purchase.</string>
+  <string name="purchase_apps_needed_body">You need one of the following apps to complete your purchase.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">청구지 주소</string>
   <string name="purchase_address_address_field">주소</string>

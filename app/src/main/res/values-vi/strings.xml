@@ -444,6 +444,7 @@
   <string name="understood_button">Đã hiểu!</string>
   <string name="skip_button">Bỏ qua bây giờ</string>
   <string name="understand_button">Tôi hiểu</string>
+  <string name="install_button">Install</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Tôi đồng ý với %1$s và %2$s của Ví AppCoins.</string>
   <string name="terms_and_conditions_error">Vui lòng chấp nhận Điều khoản và Điều kiện và Chính sách bảo mật của chúng tôi để tiếp tục</string>
@@ -556,6 +557,8 @@
   <string name="purachse_error_verify_card_button">XÁC THỰC THẺ</string>
   <string name="purchase_eskills_sku">Vé tham gia</string>
   <string name="purchase_paytmupi_install_disclaimer">Bạn sẽ cần cài đặt ứng dụng Paytm UPI.</string>
+  <string name="purchase_app_needed_body">You need the following app to complete your purchase.</string>
+  <string name="purchase_apps_needed_body">You need one of the following apps to complete your purchase.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">Địa chỉ thanh toán</string>
   <string name="purchase_address_address_field">Địa chỉ</string>

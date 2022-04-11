@@ -444,6 +444,7 @@
   <string name="understood_button">متوجه!</string>
   <string name="skip_button">پریدن</string>
   <string name="understand_button">متوجه‌ام</string>
+  <string name="install_button">Install</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">با %1$s و %2$s کیف پول AppCoins موافقم.</string>
   <string name="terms_and_conditions_error">برای ادامه، لطفا شرایط، مقررات و قوانین حریم خصوصی را تایید کنید</string>
@@ -556,6 +557,8 @@
   <string name="purachse_error_verify_card_button">معتبرسازی کارت</string>
   <string name="purchase_eskills_sku">بلیت ورود</string>
   <string name="purchase_paytmupi_install_disclaimer">شما باید اپلیکیشن Paytm UPI را نصب کنید.</string>
+  <string name="purchase_app_needed_body">You need the following app to complete your purchase.</string>
+  <string name="purchase_apps_needed_body">You need one of the following apps to complete your purchase.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">نشانی پرداخت</string>
   <string name="purchase_address_address_field">نشانی</string>
