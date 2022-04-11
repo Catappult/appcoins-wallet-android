@@ -331,10 +331,8 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
   override fun setPrivacyPolicyPreference() {
     val privacyPolicyPreference = findPreference<Preference>("pref_privacy_policy")
     privacyPolicyPreference?.setOnPreferenceClickListener {
-      // NOTE - if this gets moved to myappcoins domain, don't forget to add "lang" parameter
-      //  just like it is done for setRedeemCodePreference (this class)
       startBrowserActivity(
-        Uri.parse("https://catappult.io/appcoins-wallet/privacy-policy"),
+        Uri.parse("https://myappcoins.com/legal?section=privacy"),
         false
       )
       false
@@ -344,10 +342,8 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
   override fun setTermsConditionsPreference() {
     val termsConditionsPreference = findPreference<Preference>("pref_terms_condition")
     termsConditionsPreference?.setOnPreferenceClickListener {
-      // NOTE - if this gets moved to myappcoins domain, don't forget to add "lang" parameter
-      //  just like it is done for setRedeemCodePreference (this class)
       startBrowserActivity(
-        Uri.parse("https://catappult.io/appcoins-wallet/terms-conditions"),
+        Uri.parse("https://myappcoins.com/legal?section=terms"),
         false
       )
       false

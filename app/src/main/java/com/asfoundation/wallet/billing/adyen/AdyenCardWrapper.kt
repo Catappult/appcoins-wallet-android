@@ -1,6 +1,6 @@
 package com.asfoundation.wallet.billing.adyen
 
-import com.adyen.checkout.base.model.payments.request.CardPaymentMethod
+import com.adyen.checkout.components.model.payments.request.CardPaymentMethod
 
 data class AdyenCardWrapper(
     val cardPaymentMethod: CardPaymentMethod,

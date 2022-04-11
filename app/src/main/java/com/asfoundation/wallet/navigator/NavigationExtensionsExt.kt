@@ -1,9 +1,9 @@
 package com.asfoundation.wallet.navigator
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.util.SparseArray
 import androidx.core.util.forEach
-import androidx.core.util.set
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -21,6 +21,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
  * From https://github.com/android/architecture-components-samples/
  * See https://issuetracker.google.com/issues/80029773#comment136
  */
+@SuppressLint("RestrictedApi")
 fun BottomNavigationView.setupWithNavController(
     navGraphIds: List<Int>,
     fragmentManager: FragmentManager,
@@ -90,14 +91,15 @@ fun BottomNavigationView.setupWithNavController(
 
         // Exclude the first fragment tag because it's always in the back stack.
         if (firstFragmentTag != newlySelectedItemTag) {
+          // If the newly selected item is the my wallets one, clear the backStack
+          if (newlySelectedItemTag == "bottomNavigation#2") {
+            selectedFragment.navController.backStack.clear()
+          }
           // Commit a transaction that cleans the back stack and adds the first fragment
           // to it, creating the fixed started destination.
           fragmentManager.beginTransaction()
-              .setCustomAnimations(
-                  R.anim.nav_default_enter_anim,
-                  R.anim.nav_default_exit_anim,
-                  R.anim.nav_default_pop_enter_anim,
-                  R.anim.nav_default_pop_exit_anim)
+              .setCustomAnimations(R.anim.nav_default_enter_anim, R.anim.nav_default_exit_anim,
+                  R.anim.nav_default_pop_enter_anim, R.anim.nav_default_pop_exit_anim)
               .attach(selectedFragment)
               .setPrimaryNavigationFragment(selectedFragment)
               .apply {

@@ -255,7 +255,7 @@
   <string name="transaction_onchain_completed_title">거래 중입니다!</string>
   <string name="transaction_onchain_completed_body">이더스캔에서 추적할 수 있습니다.</string>
   <string name="transaction_type_p2p">@string/transaction_type_standard</string>
-  <string name="transaction_details_brand_txt">Etherinum을 기반으로 합니다</string>
+  <string name="transaction_details_brand_txt">Etherinum 기반</string>
   <string name="transaction_close_channel_btn_txt">close channel</string>
   <string name="miuraiden_trans_details_open">µRaiden channel open</string>
   <string name="miuraiden_trans_details_topup">µRaiden channel top up</string>
@@ -444,6 +444,7 @@
   <string name="understood_button">이해했습니다!</string>
   <string name="skip_button">건너뛰기</string>
   <string name="understand_button">이해했습니다</string>
+  <string name="install_button">Install</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">AppCoins 지갑의 %1$s 그리고 %2$s 에 동의합니다.</string>
   <string name="terms_and_conditions_error">계속하시려면 당사의 이용 약관과 개인 정보 보호 정책에 동의하여 주십시오</string>
@@ -556,6 +557,8 @@
   <string name="purachse_error_verify_card_button">카드 확인</string>
   <string name="purchase_eskills_sku">입장권</string>
   <string name="purchase_paytmupi_install_disclaimer">Paytm UPI 앱을 설치해야 합니다.</string>
+  <string name="purchase_app_needed_body">You need the following app to complete your purchase.</string>
+  <string name="purchase_apps_needed_body">You need one of the following apps to complete your purchase.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">청구지 주소</string>
   <string name="purchase_address_address_field">주소</string>
@@ -650,14 +653,14 @@
   <string name="backup_additional_security_title">추가 보안(선택)</string>
   <string name="backup_additional_security_body">비밀번호 선택</string>
   <string name="backup_button">지갑 백업</string>
-  <string name="backup_ready_title">백업이 준비되었습니다!\n안전하게 보관합니다.</string>
-  <string name="backup_ready_save_on_email">이메일 저장</string>
-  <string name="backup_ready_email_button">이메일 보내기</string>
-  <string name="backup_ready_device_button">디바이스에 저장</string>
+  <string name="backup_ready_title">백업이 준비되었습니다!\n안전하게 보관하세요.</string>
+  <string name="backup_ready_save_on_email">이메일로 저장합니다</string>
+  <string name="backup_ready_email_button">이메일로 전송합니다</string>
+  <string name="backup_ready_device_button">디바이스에 저장합니다</string>
   <string name="backup_confirmation_tips_title">파일을 안전하게 보관하세요:</string>
   <string name="backup_confirmation_tips_1"><b>출력</b>하고 다른 안전한 곳에 보관하세요.</string>
-  <string name="backup_confirmation_tips_2">USB 드라이브에 <b>저장</b>하세요.</string>
-  <string name="backup_confirmation_tips_3">개인적이고 안전한 클라우드 저장소에 <b>복사</b>하세요.</string>
+  <string name="backup_confirmation_tips_2">USB 드라이브에 <b>저장</b>합니다.</string>
+  <string name="backup_confirmation_tips_3">개인적이고 안전한 클라우드 저장소에 <b>복사</b>합니다</string>
   <string name="backup_tooltip_body">지갑의 백업 만들기</string>
   <string name="backup_tooltip_later_button">나중에요</string>
   <string name="backup_tooltip_backup_button">백업</string>
@@ -987,7 +990,7 @@
   <string name="e_skills_withdraw_minimum_amount_error_message">인출할 수 있는 최소 금액은 $%1$.2f입니다</string>
   <string name="e_skills_withdraw_max_amount_part_1">인출할 수 있습니다:</string>
   <string name="e_skills_withdraw_max_amount_part_2">$%1$.2f</string>
-  <string name="e_skills_know_more_about">e-스킬에 대해 자세히 알고 있습니다</string>
+  <string name="e_skills_know_more_about">e-스킬에 대해 자세히 알아보기</string>
   <string name="e_skills_know_more_about_tmp">e-Skills 게임에서 벌어들인 자금만 인출할 수 있습니다.</string>
   <string name="e_skills_withdraw_started">$%1$.2f의 인출이 \n시작되었습니다</string>
   <string name="e_skills_withdraw_generic_error">일반 오류 메시지</string>
@@ -1025,8 +1028,8 @@
   <!--  NFTs -->
   <string name="nfts_title">NFTs</string>
   <string name="nfts_no_nfts">이 지갑에는 아직 NFT가 없습니다!</string>
-  <string name="nfts_transact_button">이 NFT를 보냅니다</string>
-  <string name="nfts_transact_button_send">보내기</string>
+  <string name="nfts_transact_button">이 NFT 전송</string>
+  <string name="nfts_transact_button_send">전송</string>
   <string name="nfts_transact_button_next">다음</string>
   <string name="nfts_transact_button_done">완료</string>
   <string name="nfts_transact_button_success">알겠습니다</string>
@@ -1037,16 +1040,16 @@
   <string name="nfts_transact_gas_title">급하신가요?</string>
   <string name="nfts_transact_gas_description">얼마를 수수료로 지불할지 선택하세요. 수수료가 높을수록 거래 속도가 빨라집니다.</string>
   <string name="nfts_transact_gas_price">가스 가격</string>
-  <string name="nfts_transact_gas_limit">가스 제한</string>
+  <string name="nfts_transact_gas_limit">가스 한도</string>
   <string name="nfts_transact_gas_fee_message">거래 수수료</string>
   <string name="nfts_transact_error_no_funds">자금이 부족합니다! ETH가 부족하여 수수료를 지불할 수 없습니다.</string>
-  <string name="nfts_transact_error_low_gas">가스가 너무 낮아요! 네트워크가 거래를 수락할 수 있도록 가스를 늘립니다.</string>
+  <string name="nfts_transact_error_low_gas">가스가 너무 적습니다! 네트워크가 거래를 수락할 수 있도록 가스를 늘립니다.</string>
   <string name="nfts_transact_error_already_in_progress">이 NFT는 이미 전송 중입니다! 이전 거래가 현재 진행 중입니다.</string>
   <!-- Gift Card -->
   <string name="gift_card_title">기프트 카드 코드를 사용하세요</string>
   <string name="gift_card_field">카드 코드 입력...</string>
   <string name="gift_card_done_title">코드 교환!</string>
-  <string name="gift_card_done_body">환산 목록을 확인하세요.</string>
+  <string name="gift_card_done_body">거래 목록을 확인하세요.</string>
   <string name="gift_card_error_general_title">무엇인가 잘못 되었습니다!</string>
   <string name="gift_card_error_general_body">다시 시도하거나 다른 코드를 사용하십시오.</string>
   <string name="gift_card_error_used_title">이 코드는 이미 사용되었습니다!</string>
