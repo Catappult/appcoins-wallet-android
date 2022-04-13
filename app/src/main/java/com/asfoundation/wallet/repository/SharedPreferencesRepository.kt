@@ -8,7 +8,7 @@ import javax.inject.Inject
 
 @BoundTo(supertype = PreferencesRepositoryType::class)
 class SharedPreferencesRepository @Inject constructor(private val pref: SharedPreferences) :
-    PreferencesRepositoryType {
+  PreferencesRepositoryType {
 
   companion object {
 
@@ -32,16 +32,16 @@ class SharedPreferencesRepository @Inject constructor(private val pref: SharedPr
 
   override fun setOnboardingComplete() {
     pref.edit()
-        .putBoolean(ONBOARDING_COMPLETE_KEY, true)
-        .apply()
+      .putBoolean(ONBOARDING_COMPLETE_KEY, true)
+      .apply()
   }
 
   override fun hasClickedSkipOnboarding() = pref.getBoolean(ONBOARDING_SKIP_CLICKED_KEY, false)
 
   override fun setOnboardingSkipClicked() {
     pref.edit()
-        .putBoolean(ONBOARDING_SKIP_CLICKED_KEY, true)
-        .apply()
+      .putBoolean(ONBOARDING_SKIP_CLICKED_KEY, true)
+      .apply()
   }
 
   override fun getCurrentWalletAddress(): String? {
@@ -49,19 +49,21 @@ class SharedPreferencesRepository @Inject constructor(private val pref: SharedPr
   }
 
   override fun addChangeListener(
-      onSharedPreferenceChangeListener: SharedPreferences.OnSharedPreferenceChangeListener) {
+    onSharedPreferenceChangeListener: SharedPreferences.OnSharedPreferenceChangeListener
+  ) {
     pref.registerOnSharedPreferenceChangeListener(onSharedPreferenceChangeListener)
   }
 
   override fun removeChangeListener(
-      onSharedPreferenceChangeListener: SharedPreferences.OnSharedPreferenceChangeListener) {
+    onSharedPreferenceChangeListener: SharedPreferences.OnSharedPreferenceChangeListener
+  ) {
     pref.unregisterOnSharedPreferenceChangeListener(onSharedPreferenceChangeListener)
   }
 
   override fun setCurrentWalletAddress(address: String) {
     pref.edit()
-        .putString(CURRENT_ACCOUNT_ADDRESS_KEY, address)
-        .apply()
+      .putString(CURRENT_ACCOUNT_ADDRESS_KEY, address)
+      .apply()
   }
 
   override fun hasSeenPromotionTooltip(): Boolean {
@@ -70,15 +72,15 @@ class SharedPreferencesRepository @Inject constructor(private val pref: SharedPr
 
   override fun setHasSeenPromotionTooltip() {
     pref.edit()
-        .putBoolean(HAS_SEEN_PROMOTION_TOOLTIP, true)
-        .apply()
+      .putBoolean(HAS_SEEN_PROMOTION_TOOLTIP, true)
+      .apply()
   }
 
   override fun saveAutoUpdateCardDismiss(updateVersionCode: Int): Completable {
     return Completable.fromCallable {
       pref.edit()
-          .putInt(AUTO_UPDATE_VERSION, updateVersionCode)
-          .apply()
+        .putInt(AUTO_UPDATE_VERSION, updateVersionCode)
+        .apply()
     }
   }
 
@@ -88,50 +90,50 @@ class SharedPreferencesRepository @Inject constructor(private val pref: SharedPr
 
   override fun clearPoaNotificationSeenTime() {
     pref.edit()
-        .remove(POA_LIMIT_SEEN_TIME)
-        .apply()
+      .remove(POA_LIMIT_SEEN_TIME)
+      .apply()
   }
 
   override fun getPoaNotificationSeenTime() = pref.getLong(POA_LIMIT_SEEN_TIME, -1)
 
   override fun setPoaNotificationSeenTime(currentTimeInMillis: Long) {
     pref.edit()
-        .putLong(POA_LIMIT_SEEN_TIME, currentTimeInMillis)
-        .apply()
+      .putLong(POA_LIMIT_SEEN_TIME, currentTimeInMillis)
+      .apply()
   }
 
   override fun setUpdateNotificationSeenTime(currentTimeMillis: Long) {
     pref.edit()
-        .putLong(UPDATE_SEEN_TIME, currentTimeMillis)
-        .apply()
+      .putLong(UPDATE_SEEN_TIME, currentTimeMillis)
+      .apply()
   }
 
   override fun getUpdateNotificationSeenTime() = pref.getLong(UPDATE_SEEN_TIME, -1)
 
   override fun getAndroidId() = pref.getString(ANDROID_ID, "")
-      .orEmpty()
+    .orEmpty()
 
 
   override fun setAndroidId(androidId: String) {
     pref.edit()
-        .putString(ANDROID_ID, androidId)
-        .apply()
+      .putString(ANDROID_ID, androidId)
+      .apply()
   }
 
   override fun getWalletPurchasesCount(walletAddress: String) =
-      pref.getInt(WALLET_PURCHASES_COUNT + walletAddress, 0)
+    pref.getInt(WALLET_PURCHASES_COUNT + walletAddress, 0)
 
   override fun incrementWalletPurchasesCount(walletAddress: String, count: Int) =
-      Completable.fromAction {
-        pref.edit()
-            .putInt(WALLET_PURCHASES_COUNT + walletAddress, count)
-            .apply()
-      }
+    Completable.fromAction {
+      pref.edit()
+        .putInt(WALLET_PURCHASES_COUNT + walletAddress, count)
+        .apply()
+    }
 
   override fun setWalletId(walletId: String) {
     pref.edit()
-        .putString(WALLET_ID, walletId)
-        .apply()
+      .putString(WALLET_ID, walletId)
+      .apply()
   }
 
   override fun getWalletId() = pref.getString(WALLET_ID, null)
@@ -140,14 +142,14 @@ class SharedPreferencesRepository @Inject constructor(private val pref: SharedPr
 
   override fun setBeenInSettings() {
     pref.edit()
-        .putBoolean(HAS_BEEN_IN_SETTINGS, true)
-        .apply()
+      .putBoolean(HAS_BEEN_IN_SETTINGS, true)
+      .apply()
   }
 
   override fun increaseTimesOnHome() {
     pref.edit()
-        .putInt(NUMBER_OF_TIMES_IN_HOME, pref.getInt(NUMBER_OF_TIMES_IN_HOME, 0) + 1)
-        .apply()
+      .putInt(NUMBER_OF_TIMES_IN_HOME, pref.getInt(NUMBER_OF_TIMES_IN_HOME, 0) + 1)
+      .apply()
   }
 
   override fun getNumberOfTimesOnHome(): Int = pref.getInt(NUMBER_OF_TIMES_IN_HOME, 0)

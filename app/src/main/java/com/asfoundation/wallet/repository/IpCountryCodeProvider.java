@@ -8,8 +8,8 @@ import it.czerwinski.android.hilt.annotations.BoundTo;
 import javax.inject.Inject;
 import retrofit2.http.GET;
 
-@BoundTo(supertype = CountryCodeProvider.class)
-public class IpCountryCodeProvider implements CountryCodeProvider {
+@BoundTo(supertype = CountryCodeProvider.class) public class IpCountryCodeProvider
+    implements CountryCodeProvider {
   public static String ENDPOINT = com.asf.wallet.BuildConfig.BACKEND_HOST;
   private final IpApi ipApi;
 

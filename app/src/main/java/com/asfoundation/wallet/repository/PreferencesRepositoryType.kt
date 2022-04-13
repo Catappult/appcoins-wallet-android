@@ -17,10 +17,12 @@ interface PreferencesRepositoryType {
   fun getCurrentWalletAddress(): String?
 
   fun addChangeListener(
-      onSharedPreferenceChangeListener: SharedPreferences.OnSharedPreferenceChangeListener)
+    onSharedPreferenceChangeListener: SharedPreferences.OnSharedPreferenceChangeListener
+  )
 
   fun removeChangeListener(
-      onSharedPreferenceChangeListener: SharedPreferences.OnSharedPreferenceChangeListener)
+    onSharedPreferenceChangeListener: SharedPreferences.OnSharedPreferenceChangeListener
+  )
 
   fun setCurrentWalletAddress(address: String)
 

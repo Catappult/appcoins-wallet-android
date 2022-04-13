@@ -14,7 +14,7 @@ import javax.inject.Inject;
 
 public class BlockchainErrorMapper {
 
-  public @Inject BlockchainErrorMapper(){
+  public @Inject BlockchainErrorMapper() {
   }
 
   private static final String INSUFFICIENT_ERROR_MESSAGE =

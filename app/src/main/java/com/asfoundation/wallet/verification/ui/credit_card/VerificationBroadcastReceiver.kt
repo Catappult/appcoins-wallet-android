@@ -24,16 +24,16 @@ class VerificationBroadcastReceiver : BroadcastReceiver() {
 
   override fun onReceive(context: Context, intent: Intent) {
     notificationManager =
-        context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+      context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
     notificationManager.cancel(VERIFICATION_SERVICE_ID)
     context.sendBroadcast(Intent(Intent.ACTION_CLOSE_SYSTEM_DIALOGS))
 
     if (intent.getStringExtra(ACTION_KEY) == ACTION_START_VERIFICATION) {
       val verificationIntent = VerificationCreditCardActivity.newIntent(context)
-          .apply {
-            flags = Intent.FLAG_ACTIVITY_SINGLE_TOP
-          }
+        .apply {
+          flags = Intent.FLAG_ACTIVITY_SINGLE_TOP
+        }
       context.startActivity(verificationIntent)
     } else if (intent.getStringExtra(ACTION_KEY) == ACTION_DISMISS) return
   }

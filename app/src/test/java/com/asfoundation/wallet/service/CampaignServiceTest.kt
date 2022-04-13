@@ -38,30 +38,59 @@ class CampaignServiceTest {
   @Throws(Exception::class)
   fun setUp() {
     `when`(api.getCampaign(ELIGIBLE_ADDRESS, PACKAGE_WITH_CAMPAIGN, VERSION_CODE)).thenReturn(
-        Observable.just(
-            GetCampaignResponse(GetCampaignResponse.EligibleResponseStatus.ELIGIBLE, CAMPAIGN_ID, 0,
-                0)))
+      Observable.just(
+        GetCampaignResponse(
+          GetCampaignResponse.EligibleResponseStatus.ELIGIBLE, CAMPAIGN_ID, 0,
+          0
+        )
+      )
+    )
     `when`(api.getCampaign(NOT_ELIGIBLE_ADDRESS, PACKAGE_WITH_CAMPAIGN, VERSION_CODE)).thenReturn(
-        Observable.just(GetCampaignResponse(GetCampaignResponse.EligibleResponseStatus.NOT_ELIGIBLE,
-            CAMPAIGN_ID, 0, 0)))
-    `when`(api.getCampaign(REQUIRES_VALIDATION_ADDRESS, PACKAGE_WITH_CAMPAIGN,
-        VERSION_CODE)).thenReturn(
-        Observable.just(
-            GetCampaignResponse(GetCampaignResponse.EligibleResponseStatus.REQUIRES_VALIDATION,
-                CAMPAIGN_ID, 0, 0)))
+      Observable.just(
+        GetCampaignResponse(
+          GetCampaignResponse.EligibleResponseStatus.NOT_ELIGIBLE,
+          CAMPAIGN_ID, 0, 0
+        )
+      )
+    )
+    `when`(
+      api.getCampaign(
+        REQUIRES_VALIDATION_ADDRESS, PACKAGE_WITH_CAMPAIGN,
+        VERSION_CODE
+      )
+    ).thenReturn(
+      Observable.just(
+        GetCampaignResponse(
+          GetCampaignResponse.EligibleResponseStatus.REQUIRES_VALIDATION,
+          CAMPAIGN_ID, 0, 0
+        )
+      )
+    )
     `when`(api.getCampaign(ELIGIBLE_ADDRESS, PACKAGE_WITHOUT_CAMPAIGN, VERSION_CODE)).thenReturn(
-        Observable.just(
-            GetCampaignResponse(GetCampaignResponse.EligibleResponseStatus.ELIGIBLE, null, 0, 0)))
+      Observable.just(
+        GetCampaignResponse(GetCampaignResponse.EligibleResponseStatus.ELIGIBLE, null, 0, 0)
+      )
+    )
     `when`(
-        api.getCampaign(POA_LIMIT_REACHED_ADDRESS, PACKAGE_WITH_CAMPAIGN,
-            VERSION_CODE)).thenReturn(Observable.just(
-        GetCampaignResponse(GetCampaignResponse.EligibleResponseStatus.NOT_ELIGIBLE, null, 1, 5)))
+      api.getCampaign(
+        POA_LIMIT_REACHED_ADDRESS, PACKAGE_WITH_CAMPAIGN,
+        VERSION_CODE
+      )
+    ).thenReturn(
+      Observable.just(
+        GetCampaignResponse(GetCampaignResponse.EligibleResponseStatus.NOT_ELIGIBLE, null, 1, 5)
+      )
+    )
     `when`(
-        api.getPoaInformation(POA_LIMIT_REACHED_ADDRESS)).thenReturn(
-        Observable.just(PoaInformationResponse(1, 0, 5)))
+      api.getPoaInformation(POA_LIMIT_REACHED_ADDRESS)
+    ).thenReturn(
+      Observable.just(PoaInformationResponse(1, 0, 5))
+    )
     `when`(
-        api.getPoaInformation(ELIGIBLE_ADDRESS)).thenReturn(
-        Observable.just(PoaInformationResponse(0, 3, 0)))
+      api.getPoaInformation(ELIGIBLE_ADDRESS)
+    ).thenReturn(
+      Observable.just(PoaInformationResponse(0, 3, 0))
+    )
     campaignService = CampaignService(api, BuildConfig.VERSION_CODE, fakeSchedulers)
   }
 
@@ -70,13 +99,13 @@ class CampaignServiceTest {
   fun testUserEligible() {
     val observer = TestObserver<String>()
     campaignService.getCampaign(ELIGIBLE_ADDRESS, PACKAGE_WITH_CAMPAIGN, VERSION_CODE)
-        .map { it.campaignId }
-        .subscribe(observer)
+      .map { it.campaignId }
+      .subscribe(observer)
     scheduler.triggerActions()
     observer.awaitTerminalEvent()
 
     observer.assertNoErrors()
-        .assertValue(CAMPAIGN_ID)
+      .assertValue(CAMPAIGN_ID)
 
   }
 
@@ -84,13 +113,13 @@ class CampaignServiceTest {
   fun testUserNotEligible() {
     val observer = TestObserver<CampaignStatus>()
     campaignService.getCampaign(NOT_ELIGIBLE_ADDRESS, PACKAGE_WITH_CAMPAIGN, VERSION_CODE)
-        .map { it.campaignStatus }
-        .subscribe(observer)
+      .map { it.campaignStatus }
+      .subscribe(observer)
     scheduler.triggerActions()
     observer.awaitTerminalEvent()
 
     observer.assertNoErrors()
-        .assertValue(CampaignStatus.NOT_ELIGIBLE)
+      .assertValue(CampaignStatus.NOT_ELIGIBLE)
 
   }
 
@@ -98,13 +127,13 @@ class CampaignServiceTest {
   fun testUserRequiresValidation() {
     val observer = TestObserver<String>()
     campaignService.getCampaign(REQUIRES_VALIDATION_ADDRESS, PACKAGE_WITH_CAMPAIGN, VERSION_CODE)
-        .map { it.campaignId }
-        .subscribe(observer)
+      .map { it.campaignId }
+      .subscribe(observer)
     scheduler.triggerActions()
     observer.awaitTerminalEvent()
 
     observer.assertNoErrors()
-        .assertValue(CAMPAIGN_ID)
+      .assertValue(CAMPAIGN_ID)
 
   }
 
@@ -112,13 +141,13 @@ class CampaignServiceTest {
   fun testNoCampaignAvailable() {
     val observer = TestObserver<CampaignStatus>()
     campaignService.getCampaign(ELIGIBLE_ADDRESS, PACKAGE_WITHOUT_CAMPAIGN, VERSION_CODE)
-        .map { it.campaignStatus }
-        .subscribe(observer)
+      .map { it.campaignStatus }
+      .subscribe(observer)
     scheduler.triggerActions()
     observer.awaitTerminalEvent()
 
     observer.assertNoErrors()
-        .assertValue(CampaignStatus.NOT_ELIGIBLE)
+      .assertValue(CampaignStatus.NOT_ELIGIBLE)
 
   }
 
@@ -126,38 +155,38 @@ class CampaignServiceTest {
   fun testPoaLimitReached() {
     val observer = TestObserver<Pair<Int, Int>>()
     campaignService.getCampaign(POA_LIMIT_REACHED_ADDRESS, PACKAGE_WITH_CAMPAIGN, VERSION_CODE)
-        .map { Pair(it.hoursRemaining, it.minutesRemaining) }
-        .subscribe(observer)
+      .map { Pair(it.hoursRemaining, it.minutesRemaining) }
+      .subscribe(observer)
     scheduler.triggerActions()
     observer.awaitTerminalEvent()
 
     observer.assertNoErrors()
-        .assertValue(Pair(1, 5))
+      .assertValue(Pair(1, 5))
   }
 
   @Test
   fun testPoaRetriveInformationLimitReached() {
     val observer = TestObserver<Triple<Int, Int, Int>>()
     campaignService.retrievePoaInformation(POA_LIMIT_REACHED_ADDRESS)
-        .map { Triple(it.remainingHours, it.remainingMinutes, it.remainingPoa) }
-        .subscribe(observer)
+      .map { Triple(it.remainingHours, it.remainingMinutes, it.remainingPoa) }
+      .subscribe(observer)
     scheduler.triggerActions()
     observer.awaitTerminalEvent()
 
     observer.assertNoErrors()
-        .assertValue(Triple(1, 5, 0))
+      .assertValue(Triple(1, 5, 0))
   }
 
   @Test
   fun testPoaRetrieveInformationNoLimitReached() {
     val observer = TestObserver<Triple<Int, Int, Int>>()
     campaignService.retrievePoaInformation(ELIGIBLE_ADDRESS)
-        .map { Triple(it.remainingHours, it.remainingMinutes, it.remainingPoa) }
-        .subscribe(observer)
+      .map { Triple(it.remainingHours, it.remainingMinutes, it.remainingPoa) }
+      .subscribe(observer)
     scheduler.triggerActions()
     observer.awaitTerminalEvent()
 
     observer.assertNoErrors()
-        .assertValue(Triple(0, 0, 3))
+      .assertValue(Triple(0, 0, 3))
   }
 }
