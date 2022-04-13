@@ -46,10 +46,7 @@ open class BillingErrorMapper @Inject constructor(private val gson: Gson) {
           105 -> {
             ErrorInfo.ErrorType.CARD_SECURITY_VALIDATION
           }
-          172 -> {
-            ErrorInfo.ErrorType.OUTDATED_CARD
-          }
-          422 -> {
+          172, 174, 422, 800 -> {
             ErrorInfo.ErrorType.OUTDATED_CARD
           }
           704 -> {
