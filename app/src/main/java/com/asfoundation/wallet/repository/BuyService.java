@@ -6,8 +6,8 @@ import com.asfoundation.wallet.billing.partners.AddressService;
 import com.asfoundation.wallet.entity.TokenInfo;
 import com.asfoundation.wallet.entity.TransactionBuilder;
 import com.asfoundation.wallet.interact.DefaultTokenProvider;
-import com.asfoundation.wallet.poa.CountryCodeProvider;
-import com.asfoundation.wallet.poa.DataMapper;
+import com.asfoundation.wallet.util.CountryCodeProvider;
+import com.asfoundation.wallet.util.CountryCodeProviderKt;
 import io.reactivex.Completable;
 import io.reactivex.Observable;
 import io.reactivex.Single;
@@ -23,20 +23,17 @@ public class BuyService {
   private final TransactionValidator transactionValidator;
   private final DefaultTokenProvider defaultTokenProvider;
   private final CountryCodeProvider countryCodeProvider;
-  private final DataMapper dataMapper;
   private final AddressService partnerAddressService;
   private final BillingPaymentProofSubmission billingPaymentProofSubmission;
 
   public BuyService(WatchedTransactionService transactionService,
       TransactionValidator transactionValidator, DefaultTokenProvider defaultTokenProvider,
-      CountryCodeProvider countryCodeProvider, DataMapper dataMapper,
-      AddressService partnerAddressService,
+      CountryCodeProvider countryCodeProvider, AddressService partnerAddressService,
       BillingPaymentProofSubmission billingPaymentProofSubmission) {
     this.transactionService = transactionService;
     this.transactionValidator = transactionValidator;
     this.defaultTokenProvider = defaultTokenProvider;
     this.countryCodeProvider = countryCodeProvider;
-    this.dataMapper = dataMapper;
     this.partnerAddressService = partnerAddressService;
     this.billingPaymentProofSubmission = billingPaymentProofSubmission;
   }
@@ -115,7 +112,7 @@ public class BuyService {
     return TokenRepository.buyData(transactionBuilder.toAddress(), storeAddress, oemAddress,
         transactionBuilder.getSkuId(), transactionBuilder.amount()
             .multiply(new BigDecimal("10").pow(transactionBuilder.decimals())), tokenInfo.address,
-        packageName, dataMapper.convertCountryCode(countryCode));
+        packageName, CountryCodeProviderKt.convertCountryCode(countryCode));
   }
 
   private BuyTransaction mapTransaction(Transaction transaction) {

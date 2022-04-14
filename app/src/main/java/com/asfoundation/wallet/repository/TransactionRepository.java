@@ -4,7 +4,6 @@ import com.asfoundation.wallet.base.RxSchedulers;
 import com.asfoundation.wallet.entity.NetworkInfo;
 import com.asfoundation.wallet.entity.TransactionBuilder;
 import com.asfoundation.wallet.interact.DefaultTokenProvider;
-import com.asfoundation.wallet.poa.BlockchainErrorMapper;
 import com.asfoundation.wallet.service.AccountKeystoreService;
 import com.asfoundation.wallet.ui.iab.raiden.MultiWalletNonceObtainer;
 import io.reactivex.Flowable;

@@ -19,7 +19,6 @@ class SharedPreferencesRepository @Inject constructor(private val pref: SharedPr
     //String was kept the same for legacy purposes
     private const val HAS_SEEN_PROMOTION_TOOLTIP = "first_time_on_transaction_activity"
     private const val AUTO_UPDATE_VERSION = "auto_update_version"
-    private const val POA_LIMIT_SEEN_TIME = "poa_limit_seen_time"
     private const val UPDATE_SEEN_TIME = "update_seen_time"
     private const val ANDROID_ID = "android_id"
     private const val WALLET_PURCHASES_COUNT = "wallet_purchases_count_"
@@ -86,20 +85,6 @@ class SharedPreferencesRepository @Inject constructor(private val pref: SharedPr
 
   override fun getAutoUpdateCardDismissedVersion(): Single<Int> {
     return Single.fromCallable { pref.getInt(AUTO_UPDATE_VERSION, 0) }
-  }
-
-  override fun clearPoaNotificationSeenTime() {
-    pref.edit()
-      .remove(POA_LIMIT_SEEN_TIME)
-      .apply()
-  }
-
-  override fun getPoaNotificationSeenTime() = pref.getLong(POA_LIMIT_SEEN_TIME, -1)
-
-  override fun setPoaNotificationSeenTime(currentTimeInMillis: Long) {
-    pref.edit()
-      .putLong(POA_LIMIT_SEEN_TIME, currentTimeInMillis)
-      .apply()
   }
 
   override fun setUpdateNotificationSeenTime(currentTimeMillis: Long) {

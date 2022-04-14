@@ -276,37 +276,8 @@
     </service>
 
     <service
-        android:name="com.asfoundation.wallet.advertise.WalletPoAService"
-        android:enabled="true"
-        android:exported="true"
-        tools:ignore="ExportedService">
-      <intent-filter>
-        <action android:name="com.asf.appcoins.service.ACTION_BIND" />
-      </intent-filter>
-    </service>
-    <service
-        android:name="com.asfoundation.wallet.advertise.AdvertisingService"
-        android:enabled="true"
-        android:exported="true"
-        tools:ignore="ExportedService">
-      <intent-filter>
-        <action android:name="com.appcoins.wallet.advertising.action.BIND" />
-      </intent-filter>
-    </service>
-
-    <service
         android:name="com.asfoundation.wallet.transactions.PerkBonusAndGamificationService"
         android:exported="false" />
-
-    <receiver
-        android:name="com.asfoundation.wallet.advertise.PoAHandshakeReceiver"
-        android:enabled="true"
-        android:exported="true"
-        tools:ignore="ExportedReceiver">
-      <intent-filter>
-        <action android:name="com.asf.appcoins.service.ACTION_START_HANDSHAKE" />
-      </intent-filter>
-    </receiver>
 
     <provider
         android:name="androidx.work.impl.WorkManagerInitializer"

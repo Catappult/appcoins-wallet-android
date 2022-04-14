@@ -1,6 +1,7 @@
 package com.asfoundation.wallet.repository;
 
-import com.asfoundation.wallet.poa.CountryCodeProvider;
+import androidx.annotation.NonNull;
+import com.asfoundation.wallet.util.CountryCodeProvider;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.reactivex.Single;
@@ -17,7 +18,7 @@ import retrofit2.http.GET;
     this.ipApi = ipApi;
   }
 
-  @Override public Single<String> getCountryCode() {
+  @NonNull @Override public Single<String> getCountryCode() {
     return ipApi.myIp()
         .map(IpResponse::getCountryCode);
   }

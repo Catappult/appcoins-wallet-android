@@ -1,17 +1,14 @@
 package com.asfoundation.wallet.di
 
 import com.appcoins.wallet.bdsbilling.BillingPaymentProofSubmission
-import com.appcoins.wallet.bdsbilling.WalletService
 import com.appcoins.wallet.commons.MemoryCache
-import com.asf.wallet.BuildConfig
-import com.asfoundation.wallet.advertise.CampaignInteract
 import com.asfoundation.wallet.base.RxSchedulers
 import com.asfoundation.wallet.billing.partners.AddressService
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.interact.DefaultTokenProvider
 import com.asfoundation.wallet.interact.SendTransactionInteract
-import com.asfoundation.wallet.poa.*
 import com.asfoundation.wallet.repository.*
+import com.asfoundation.wallet.util.CountryCodeProvider
 import com.asfoundation.wallet.wallets.usecases.HasEnoughBalanceUseCase
 import dagger.Module
 import dagger.Provides
@@ -36,7 +33,7 @@ class ServiceModule {
     paymentErrorMapper: PaymentErrorMapper,
     pendingTransactionService: PendingTransactionService,
     defaultTokenProvider: DefaultTokenProvider,
-    countryCodeProvider: CountryCodeProvider, dataMapper: DataMapper,
+    countryCodeProvider: CountryCodeProvider,
     addressService: AddressService,
     billingPaymentProofSubmission: BillingPaymentProofSubmission
   ): BuyService {
@@ -50,7 +47,7 @@ class ServiceModule {
         Schedulers.io(),
         pendingTransactionService
       ), NoValidateTransactionValidator(), defaultTokenProvider,
-      countryCodeProvider, dataMapper, addressService, billingPaymentProofSubmission
+      countryCodeProvider, addressService, billingPaymentProofSubmission
     )
   }
 
@@ -62,7 +59,7 @@ class ServiceModule {
     bdsPendingTransactionService: BdsPendingTransactionService,
     billingPaymentProofSubmission: BillingPaymentProofSubmission,
     defaultTokenProvider: DefaultTokenProvider,
-    countryCodeProvider: CountryCodeProvider, dataMapper: DataMapper,
+    countryCodeProvider: CountryCodeProvider,
     addressService: AddressService
   ): BuyService {
     return BuyService(
@@ -78,8 +75,7 @@ class ServiceModule {
       BuyTransactionValidatorBds(
         sendTransactionInteract, billingPaymentProofSubmission,
         defaultTokenProvider, addressService
-      ), defaultTokenProvider, countryCodeProvider,
-      dataMapper, addressService, billingPaymentProofSubmission
+      ), defaultTokenProvider, countryCodeProvider, addressService, billingPaymentProofSubmission
     )
   }
 
@@ -126,26 +122,6 @@ class ServiceModule {
     return BdsTransactionService(
       rxSchedulers, MemoryCache(BehaviorSubject.create(), HashMap()),
       CompositeDisposable(), bdsPendingTransactionService
-    )
-  }
-
-  @Singleton
-  @Provides
-  fun provideProofOfAttentionService(
-    hashCalculator: HashCalculator, proofWriter: ProofWriter,
-    disposables: TaggedCompositeDisposable,
-    @Named("MAX_NUMBER_PROOF_COMPONENTS") maxNumberProofComponents: Int,
-    countryCodeProvider: CountryCodeProvider,
-    addressService: AddressService,
-    walletService: WalletService,
-    campaignInteract: CampaignInteract
-  ): ProofOfAttentionService {
-    return ProofOfAttentionService(
-      MemoryCache(BehaviorSubject.create(), HashMap()),
-      BuildConfig.APPLICATION_ID, hashCalculator, CompositeDisposable(), proofWriter,
-      Schedulers.computation(), maxNumberProofComponents, BackEndErrorMapper(), disposables,
-      countryCodeProvider, addressService, walletService,
-      campaignInteract
     )
   }
 

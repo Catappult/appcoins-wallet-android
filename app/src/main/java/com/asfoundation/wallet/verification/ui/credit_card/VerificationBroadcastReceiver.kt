@@ -4,7 +4,6 @@ import android.app.NotificationManager
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
-import com.asfoundation.wallet.advertise.WalletPoAService.VERIFICATION_SERVICE_ID
 
 class VerificationBroadcastReceiver : BroadcastReceiver() {
 
@@ -26,7 +25,6 @@ class VerificationBroadcastReceiver : BroadcastReceiver() {
     notificationManager =
       context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
-    notificationManager.cancel(VERIFICATION_SERVICE_ID)
     context.sendBroadcast(Intent(Intent.ACTION_CLOSE_SYSTEM_DIALOGS))
 
     if (intent.getStringExtra(ACTION_KEY) == ACTION_START_VERIFICATION) {

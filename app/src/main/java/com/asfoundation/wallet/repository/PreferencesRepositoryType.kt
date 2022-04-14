@@ -30,12 +30,6 @@ interface PreferencesRepositoryType {
 
   fun setHasSeenPromotionTooltip()
 
-  fun getPoaNotificationSeenTime(): Long
-
-  fun clearPoaNotificationSeenTime()
-
-  fun setPoaNotificationSeenTime(currentTimeInMillis: Long)
-
   fun saveAutoUpdateCardDismiss(updateVersionCode: Int): Completable
 
   fun getAutoUpdateCardDismissedVersion(): Single<Int>

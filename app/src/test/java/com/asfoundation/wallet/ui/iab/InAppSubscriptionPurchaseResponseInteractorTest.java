@@ -19,9 +19,6 @@ import com.asfoundation.wallet.entity.Wallet;
 import com.asfoundation.wallet.interact.DefaultTokenProvider;
 import com.asfoundation.wallet.interact.FetchGasSettingsInteract;
 import com.asfoundation.wallet.interact.SendTransactionInteract;
-import com.asfoundation.wallet.poa.CountryCodeProvider;
-import com.asfoundation.wallet.poa.DataMapper;
-import com.asfoundation.wallet.poa.ProofOfAttentionService;
 import com.asfoundation.wallet.repository.AllowanceService;
 import com.asfoundation.wallet.repository.ApproveService;
 import com.asfoundation.wallet.repository.BdsPendingTransactionService;
@@ -38,6 +35,7 @@ import com.asfoundation.wallet.repository.WatchedTransactionService;
 import com.asfoundation.wallet.service.TokenRateService;
 import com.asfoundation.wallet.service.currencies.LocalCurrencyConversionService;
 import com.asfoundation.wallet.ui.iab.database.AppCoinsOperationEntity;
+import com.asfoundation.wallet.util.CountryCodeProvider;
 import com.asfoundation.wallet.util.EIPTransactionParser;
 import com.asfoundation.wallet.util.FakeSchedulers;
 import com.asfoundation.wallet.util.OneStepTransactionParser;
@@ -88,7 +86,6 @@ public class InAppSubscriptionPurchaseResponseInteractorTest {
   @Mock PendingTransactionService pendingTransactionService;
   @Mock FindDefaultWalletInteract defaultWalletInteract;
   @Mock AppInfoProvider appInfoProvider;
-  @Mock ProofOfAttentionService proofOfAttentionService;
   @Mock TransactionSender transactionSender;
   @Mock TransactionValidator transactionValidator;
   @Mock DefaultTokenProvider defaultTokenProvider;
@@ -158,11 +155,8 @@ public class InAppSubscriptionPurchaseResponseInteractorTest {
         new InAppPurchaseService(new MemoryCache<>(BehaviorSubject.create(), new HashMap<>()),
             new ApproveService(approveTransactionService, transactionValidator), allowanceService,
             new BuyService(buyTransactionService, transactionValidator, defaultTokenProvider,
-                countryCodeProvider, new DataMapper(), addressService,
-                billingPaymentProofSubmission), scheduler, new PaymentErrorMapper(new Gson()),
-            hasEnoughBalanceUseCase, defaultTokenProvider);
-
-    when(proofOfAttentionService.get()).thenReturn(PublishSubject.create());
+                countryCodeProvider, addressService, billingPaymentProofSubmission), scheduler,
+            new PaymentErrorMapper(new Gson()), hasEnoughBalanceUseCase, defaultTokenProvider);
 
     when(appInfoProvider.get(anyString(), anyString(), anyString())).thenAnswer(invocation -> {
       Object[] arguments = invocation.getArguments();

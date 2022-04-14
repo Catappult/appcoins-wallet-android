@@ -8,8 +8,7 @@ import com.asfoundation.wallet.entity.PendingTransaction;
 import com.asfoundation.wallet.entity.TokenInfo;
 import com.asfoundation.wallet.entity.TransactionBuilder;
 import com.asfoundation.wallet.interact.DefaultTokenProvider;
-import com.asfoundation.wallet.poa.CountryCodeProvider;
-import com.asfoundation.wallet.poa.DataMapper;
+import com.asfoundation.wallet.util.CountryCodeProvider;
 import com.google.gson.Gson;
 import io.reactivex.Observable;
 import io.reactivex.Single;
@@ -56,7 +55,6 @@ import static org.mockito.Mockito.when;
   private TransactionBuilder transactionBuilder;
   private BuyService buyService;
   private String uri;
-  private DataMapper dataMapper;
 
   @Before public void setup() {
 
@@ -76,7 +74,6 @@ import static org.mockito.Mockito.when;
     when(transactionSender.send(transactionBuilder)).thenReturn(Single.just("hash"));
     when(defaultTokenProvider.getDefaultToken()).thenReturn(Single.just(tokenInfo));
     when(countryCodeProvider.getCountryCode()).thenReturn(Single.just("PT"));
-    dataMapper = new DataMapper();
 
     Observable<PendingTransaction> pendingTransactionState =
         Observable.just(new PendingTransaction("hash", true),
@@ -89,7 +86,7 @@ import static org.mockito.Mockito.when;
     when(addressService.getOemAddress(any())).thenReturn(OEM_ADDRESS);
 
     buyService = new BuyService(transactionService, transactionValidator, defaultTokenProvider,
-        countryCodeProvider, dataMapper, addressService, billingPaymentProofSubmission);
+        countryCodeProvider, addressService, billingPaymentProofSubmission);
     uri = "uri";
   }
 
@@ -123,7 +120,7 @@ import static org.mockito.Mockito.when;
 
     BuyService buyService =
         new BuyService(transactionService, transactionValidator, defaultTokenProvider,
-            countryCodeProvider, dataMapper, addressService, billingPaymentProofSubmission);
+            countryCodeProvider, addressService, billingPaymentProofSubmission);
     buyService.start();
     TestObserver<BuyService.BuyTransaction> observer = new TestObserver<>();
     buyService.getBuy(uri)

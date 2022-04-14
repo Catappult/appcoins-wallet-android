@@ -1,9 +1,5 @@
-package com.asfoundation.wallet.poa;
+package com.asfoundation.wallet.repository;
 
-import com.asfoundation.wallet.repository.TransactionException;
-import com.asfoundation.wallet.repository.TransactionNotFoundException;
-import com.asfoundation.wallet.repository.WalletNotFoundException;
-import com.asfoundation.wallet.repository.WrongNetworkException;
 import com.asfoundation.wallet.util.UnknownTokenException;
 import java.net.UnknownHostException;
 import javax.inject.Inject;

@@ -15,7 +15,6 @@ import com.asfoundation.wallet.redeem_gift.repository.RedeemGiftRepository
 import com.asfoundation.wallet.repository.IpCountryCodeProvider
 import com.asfoundation.wallet.repository.OffChainTransactionsRepository
 import com.asfoundation.wallet.service.AutoUpdateService
-import com.asfoundation.wallet.service.CampaignService
 import com.asfoundation.wallet.service.GasService
 import com.asfoundation.wallet.service.TokenRateService
 import com.asfoundation.wallet.wallets.repository.WalletInfoRepository
@@ -175,14 +174,6 @@ class BackendApiModule {
     @BackendBlockchainRetrofit retrofit: Retrofit
   ): TokenRateService.TokenToFiatApi {
     return retrofit.create(TokenRateService.TokenToFiatApi::class.java)
-  }
-
-  @Singleton
-  @Provides
-  fun provideCampaignServiceApi(
-    @BackendBlockchainRetrofit retrofit: Retrofit
-  ): CampaignService.CampaignApi {
-    return retrofit.create(CampaignService.CampaignApi::class.java)
   }
 
   @Singleton

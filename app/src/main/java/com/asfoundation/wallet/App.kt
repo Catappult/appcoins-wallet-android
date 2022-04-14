@@ -19,7 +19,6 @@ import com.asfoundation.wallet.analytics.RakamAnalytics
 import com.asfoundation.wallet.analytics.SentryAnalytics
 import com.asfoundation.wallet.identification.IdsRepository
 import com.asfoundation.wallet.logging.FlurryReceiver
-import com.asfoundation.wallet.poa.ProofOfAttentionService
 import com.asfoundation.wallet.repository.PreferencesRepositoryType
 import com.asfoundation.wallet.support.AlarmManagerBroadcastReceiver
 import com.asfoundation.wallet.ui.iab.AppcoinsOperationsDataSaver
@@ -42,9 +41,6 @@ import javax.inject.Inject
 
 @HiltAndroidApp
 class App : MultiDexApplication(), BillingDependenciesProvider {
-
-  @Inject
-  lateinit var proofOfAttentionService: ProofOfAttentionService
 
   @Inject
   lateinit var inAppPurchaseInteractor: InAppPurchaseInteractor
@@ -114,7 +110,6 @@ class App : MultiDexApplication(), BillingDependenciesProvider {
     if (gpsAvailable.not()) setupSupportNotificationAlarm()
     initiateFlurry()
     inAppPurchaseInteractor.start()
-    proofOfAttentionService.start()
     appcoinsOperationsDataSaver.start()
     appcoinsRewards.start()
     initializeIndicative()
