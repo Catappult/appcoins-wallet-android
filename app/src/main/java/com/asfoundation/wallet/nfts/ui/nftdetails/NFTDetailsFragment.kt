@@ -82,7 +82,7 @@ class NFTDetailsFragment : BasePageViewFragment(),
     views.nftImage.load(state.data.imageURL) {
       views.nftImageSkeleton.root.visibility = View.GONE
     }
-    if (state.data.schema != "ERC721") {
+    if (state.data.schema != "ERC721" && state.data.schema != "ERC1155") {
       views.nftTransactButton.visibility = View.GONE
     }
   }
