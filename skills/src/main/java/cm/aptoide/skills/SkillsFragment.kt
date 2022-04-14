@@ -79,11 +79,10 @@ class SkillsFragment : Fragment(), PaymentView {
   }
 
   private fun showPurchaseTicketLayout() {
-    val eSkillsPaymentData = getEskillsUri()
-    if (eSkillsPaymentData is UriValidationResult.Invalid) {
-      finishWithError(eSkillsPaymentData.requestCode)
+    when(val eSkillsPaymentData = getEskillsUri()){
+      is UriValidationResult.Invalid -> showError(eSkillsPaymentData.requestCode)
+      is UriValidationResult.Valid -> setupPurchaseTicketLayout(eSkillsPaymentData.paymentData)
     }
-    setupPurchaseTicketLayout((eSkillsPaymentData as UriValidationResult.Valid).paymentData)
     binding.payTicketLayout.root.visibility = View.VISIBLE
   }
 
@@ -235,7 +234,7 @@ class SkillsFragment : Fragment(), PaymentView {
     when (ticket.status) {
       ErrorStatus.REGION_NOT_SUPPORTED -> showRegionNotSupportedError()
       ErrorStatus.NO_NETWORK -> showNoNetworkError()
-      ErrorStatus.GENERIC -> showError()
+      ErrorStatus.GENERIC -> showError(SkillsViewModel.RESULT_ERROR)
     }
   }
 
@@ -254,7 +253,7 @@ class SkillsFragment : Fragment(), PaymentView {
       UserData.Status.IN_QUEUE, UserData.Status.PAYING -> showRoomLoading(true, userData.queueId)
       UserData.Status.REFUNDED -> showRefundedLayout()
       UserData.Status.COMPLETED -> postbackUserData(SkillsViewModel.RESULT_OK, userData)
-      UserData.Status.FAILED -> showError()
+      UserData.Status.FAILED -> showError(SkillsViewModel.RESULT_ERROR)
     }
   }
 
@@ -378,13 +377,13 @@ class SkillsFragment : Fragment(), PaymentView {
     showRoomLoading(false)
   }
 
-  override fun showError() {
+  override fun showError(errorCode: Int) {
     binding.loadingTicketLayout.root.visibility = View.GONE
     binding.refundTicketLayout.root.visibility = View.GONE
     binding.geofencingLayout.root.visibility = View.GONE
     binding.errorLayout.root.visibility = View.VISIBLE
     binding.errorLayout.errorOkButton.setOnClickListener {
-      finishWithError(SkillsViewModel.RESULT_ERROR)
+      finishWithError(errorCode)
     }
   }
 
@@ -393,7 +392,7 @@ class SkillsFragment : Fragment(), PaymentView {
       viewModel.sendUserToVerificationFlow(requireContext())
       finishWithError(SkillsViewModel.RESULT_ERROR)
     } else {
-      showError()
+      showError(SkillsViewModel.RESULT_ERROR)
     }
   }
 

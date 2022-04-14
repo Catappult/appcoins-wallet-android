@@ -1,6 +1,6 @@
 package com.appcoins.wallet.billing.adyen
 
-import com.adyen.checkout.base.model.payments.response.Action
+import com.adyen.checkout.components.model.payments.response.Action
 import com.appcoins.wallet.billing.common.response.TransactionResponse
 import com.appcoins.wallet.billing.util.Error
 

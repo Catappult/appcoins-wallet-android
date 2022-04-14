@@ -444,6 +444,7 @@
   <string name="understood_button">明白了！</string>
   <string name="skip_button">暂时跳过</string>
   <string name="understand_button">我明白</string>
+  <string name="install_button">Install</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">我同意AppCoins Wallet的%1$s和%2$s。</string>
   <string name="terms_and_conditions_error">请接受我们的条款和条件以及隐私政策以继续</string>
@@ -556,6 +557,8 @@
   <string name="purachse_error_verify_card_button">验证卡</string>
   <string name="purchase_eskills_sku">入场券</string>
   <string name="purchase_paytmupi_install_disclaimer">你需要安装Paytm UPI应用。</string>
+  <string name="purchase_app_needed_body">You need the following app to complete your purchase.</string>
+  <string name="purchase_apps_needed_body">You need one of the following apps to complete your purchase.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">帐单地址</string>
   <string name="purchase_address_address_field">地址</string>
@@ -1046,7 +1049,7 @@
   <string name="gift_card_title">兑换礼品卡代码</string>
   <string name="gift_card_field">卡代码在这里输入......</string>
   <string name="gift_card_done_title">代码已兑换！</string>
-  <string name="gift_card_done_body">检查交易列表。</string>
+  <string name="gift_card_done_body">Check your transactions list.</string>
   <string name="gift_card_error_general_title">出错了！</string>
   <string name="gift_card_error_general_body">请重试或使用不同的代码。</string>
   <string name="gift_card_error_used_title">这个代码已经被使用！</string>

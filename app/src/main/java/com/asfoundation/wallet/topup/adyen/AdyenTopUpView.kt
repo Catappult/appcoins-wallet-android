@@ -1,8 +1,7 @@
 package com.asfoundation.wallet.topup.adyen
 
 import android.net.Uri
-import android.os.Bundle
-import com.adyen.checkout.base.model.payments.response.Action
+import com.adyen.checkout.components.model.payments.response.Action
 import com.appcoins.wallet.billing.adyen.PaymentInfoModel
 import com.asfoundation.wallet.billing.address.BillingAddressModel
 import com.asfoundation.wallet.billing.adyen.AdyenCardWrapper
@@ -36,11 +35,7 @@ interface AdyenTopUpView {
 
   fun setFinishingPurchase(newState: Boolean)
 
-  fun finishCardConfiguration(
-    paymentInfoModel: PaymentInfoModel,
-    forget: Boolean,
-    savedInstanceState: Bundle?
-  )
+  fun finishCardConfiguration(paymentInfoModel: PaymentInfoModel, forget: Boolean)
 
   fun setupRedirectComponent()
 

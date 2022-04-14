@@ -79,9 +79,9 @@ class AdyenTopUpPresenter(
     retrieveSavedInstance(savedInstanceState)
     view.setup3DSComponent()
     view.setupRedirectComponent()
-    handleViewState(savedInstanceState)
+    handleViewState()
     handleForgetCardClick()
-    handleRetryClick(savedInstanceState)
+    handleRetryClick()
     handleRedirectResponse()
     handleSupportClicks()
     handleTryAgainClicks()
@@ -90,13 +90,13 @@ class AdyenTopUpPresenter(
     handleVerificationClick()
   }
 
-  private fun handleViewState(savedInstanceState: Bundle?) {
+  private fun handleViewState() {
     if (currentError != 0) {
       view.showSpecificError(currentError)
-      if (paymentType == PaymentType.CARD.name) loadPaymentMethodInfo(savedInstanceState)
+      if (paymentType == PaymentType.CARD.name) loadPaymentMethodInfo()
     } else {
       if (waitingResult) view.showLoading()
-      else loadPaymentMethodInfo(savedInstanceState)
+      else loadPaymentMethodInfo()
     }
   }
 
@@ -106,7 +106,7 @@ class AdyenTopUpPresenter(
     }
   }
 
-  private fun handleRetryClick(savedInstanceState: Bundle?) {
+  private fun handleRetryClick() {
     disposables.add(view.retryClick()
       .observeOn(viewScheduler)
       .doOnNext { view.showRetryAnimation() }
@@ -115,7 +115,7 @@ class AdyenTopUpPresenter(
         if (waitingResult) {
           navigator.navigateBack()
         } else {
-          loadPaymentMethodInfo(savedInstanceState, true)
+          loadPaymentMethodInfo(true)
         }
       }
       .subscribe({}, { it.printStackTrace() })
@@ -144,7 +144,7 @@ class AdyenTopUpPresenter(
     )
   }
 
-  private fun loadPaymentMethodInfo(savedInstanceState: Bundle?, fromError: Boolean = false) {
+  private fun loadPaymentMethodInfo(fromError: Boolean = false) {
     disposables.add(convertAmount()
       .flatMap {
         adyenPaymentInteractor.loadPaymentInfo(
@@ -166,7 +166,7 @@ class AdyenTopUpPresenter(
           retrievedAmount = it.priceAmount.toString()
           retrievedCurrency = it.priceCurrency
           if (paymentType == PaymentType.CARD.name) {
-            view.finishCardConfiguration(it, false, savedInstanceState)
+            view.finishCardConfiguration(it, false)
             handleTopUpClick()
           } else if (paymentType == PaymentType.PAYPAL.name) {
             launchPaypal(it.paymentMethod!!)
@@ -265,7 +265,7 @@ class AdyenTopUpPresenter(
                 )
               }
             } else {
-              view.finishCardConfiguration(it, true, null)
+              view.finishCardConfiguration(it, true)
             }
           }
       }

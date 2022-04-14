@@ -444,6 +444,7 @@
   <string name="understood_button">Understood!</string>
   <string name="skip_button">Skip for now</string>
   <string name="understand_button">I understand</string>
+  <string name="install_button">Install</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">I agree to AppCoins Wallet\'s %1$s and %2$s.</string>
   <string name="terms_and_conditions_error">Please accept our Terms and Conditions and Privacy Policy to continue</string>
@@ -556,6 +557,8 @@
   <string name="purachse_error_verify_card_button">VALIDATE CARD</string>
   <string name="purchase_eskills_sku">Entry ticket</string>
   <string name="purchase_paytmupi_install_disclaimer">You\'ll need to install Paytm UPI app.</string>
+  <string name="purchase_app_needed_body">You need the following app to complete your purchase.</string>
+  <string name="purchase_apps_needed_body">You need one of the following apps to complete your purchase.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">Billing address</string>
   <string name="purchase_address_address_field">Address</string>
@@ -1046,7 +1049,7 @@
   <string name="gift_card_title">Redeem your gift card code</string>
   <string name="gift_card_field">Card code here...</string>
   <string name="gift_card_done_title">Code redeemed!</string>
-  <string name="gift_card_done_body">Check your transacions list.</string>
+  <string name="gift_card_done_body">Check your transactions list.</string>
   <string name="gift_card_error_general_title">Something went wrong!</string>
   <string name="gift_card_error_general_body">Please try again or use a different code.</string>
   <string name="gift_card_error_used_title">This code has already been used!</string>

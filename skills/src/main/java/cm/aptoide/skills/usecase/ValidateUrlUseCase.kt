@@ -14,12 +14,13 @@ class ValidateUrlUseCase @Inject constructor(
 
   operator fun invoke(uriString: String): UriValidationResult {
     val uri: Uri = Uri.parse(uriString)
-    if (hasInvalidRequestStructure(uriString, uri)) {
-      return UriValidationResult.Invalid(SkillsViewModel.RESULT_INVALID_URL)
-    }
-    if (usernameContainsInvalidCharacters(uri)) {
-      return UriValidationResult.Invalid(SkillsViewModel.RESULT_INVALID_USERNAME)
-    }
+//    Commented since this two verifications were giving problems, especially the username verification
+//    if (hasInvalidRequestStructure(uriString, uri)) {
+//      return UriValidationResult.Invalid(SkillsViewModel.RESULT_INVALID_URL)
+//    }
+//    if (usernameContainsInvalidCharacters(uri)) {
+//      return UriValidationResult.Invalid(SkillsViewModel.RESULT_INVALID_USERNAME)
+//    }
     val paymentData = eskillsUriParser.parse(uri)
     return UriValidationResult.Valid(paymentData)
   }

@@ -1,4 +1,4 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
   <!-- Base application theme. -->
   <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
     <!-- Customize your theme here. -->
@@ -38,23 +38,6 @@
   <style name="AppModalStyle" parent="Widget.Design.BottomSheet.Modal">
     <item name="android:background">@drawable/rounded_dialog</item>
   </style>
-
-  <style name="AdyenMaterialAppTheme" parent="MaterialAppTheme">
-    <item name="colorPrimary">#000000</item>
-  </style>
-
-  <style name="ThreeDS2Theme" parent="AppTheme" tools:override="true">
-    <!-- Customize the SDK theme here. -->
-    <item name="colorPrimary">@color/adyen_3DS_color</item>
-    <item name="colorPrimaryDark">@color/adyen_3DS_color</item>
-    <item name="colorAccent">@color/adyen_3DS_color</item>
-  </style>
-
-  <style name="AdyenCheckout.SwitchTheme" parent="Widget.AppCompat.CompoundButton.Switch">
-    <item name="colorControlActivated">@color/pinkish_orange</item>
-  </style>
-
-  <style name="AdyenCheckout.TextInputLayout" parent="AppcoinsTextInputLayout" />
 
   <style name="AppTheme.NoActionBar" parent="AppTheme">
     <item name="windowActionBar">false</item>
@@ -204,6 +187,11 @@
 
   <style name="ButtonStyle.Alternative" parent="ButtonStyle">
     <item name="android:background">@drawable/button_snd_background</item>
+    <item name="android:textColor">@color/btn_text_enable_color</item>
+  </style>
+
+  <style name="ButtonStyle.Blue" parent="ButtonStyle">
+    <item name="android:background">@drawable/button_dark_background</item>
     <item name="android:textColor">@color/btn_text_enable_color</item>
   </style>
 
@@ -658,25 +646,6 @@
 
   <style name="BillingAddressTextInputLayout" parent="AppcoinsTextInputLayout">
     <item name="android:textSize">14sp</item>
-  </style>
-
-  <style name="BackupRestoreTextInputLayout" parent="AppcoinsTextInputLayout">
-    <item name="android:textSize">16sp</item>
-  </style>
-
-  <style name="RecoverWalletTextInputLayout" parent="AppcoinsTextInputLayout">
-    <item name="background">@color/white</item>
-    <item name="android:textColor">@color/white</item>
-    <item name="android:textSize">16sp</item>
-  </style>
-
-  <style name="PasswordTextInputLayout" parent="BackupRestoreTextInputLayout">
-    <item name="boxStrokeErrorColor">@color/colorPrimaryDark</item>
-    <item name="errorIconDrawable">@null</item>
-    <item name="errorTextColor">@color/colorPrimaryDark</item>
-    <item name="android:hint">@string/backup_password</item>
-    <item name="passwordToggleEnabled">true</item>
-    <item name="passwordToggleTint">@color/password_toggle_selector</item>
   </style>
 
   <style name="BillingAddressInputEditText">
@@ -1424,6 +1393,13 @@
     <item name="android:textColor">@color/black</item>
     <item name="android:textSize">16sp</item>
     <item name="android:lineSpacingExtra">2sp</item>
+  </style>
+
+  <style name="WebviewWarningText" parent="TextAppearance.AppCompat.Body1.Roboto.Regular">
+    <item name="android:textSize">@dimen/backup_description_normal_text_size</item>
+    <item name="android:color">@color/black</item>
+    <item name="android:textStyle">bold</item>
+    <item name="android:lineSpacingExtra">6sp</item>
   </style>
 
 </resources>

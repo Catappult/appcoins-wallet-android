@@ -12,16 +12,14 @@ import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.view.ViewGroup
-import android.view.inputmethod.EditorInfo
-import android.widget.LinearLayout
 import androidx.annotation.StringRes
-import androidx.appcompat.widget.SwitchCompat
 import com.adyen.checkout.adyen3ds2.Adyen3DS2Component
-import com.adyen.checkout.base.model.payments.response.Action
-import com.adyen.checkout.base.ui.view.RoundCornerImageView
+import com.adyen.checkout.adyen3ds2.Adyen3DS2Configuration
 import com.adyen.checkout.card.CardConfiguration
+import com.adyen.checkout.components.model.payments.response.Action
 import com.adyen.checkout.core.api.Environment
 import com.adyen.checkout.redirect.RedirectComponent
+import com.adyen.checkout.redirect.RedirectConfiguration
 import com.airbnb.lottie.FontAssetDelegate
 import com.airbnb.lottie.TextDelegate
 import com.appcoins.wallet.bdsbilling.Billing
@@ -40,12 +38,8 @@ import com.asfoundation.wallet.ui.iab.IabActivity.Companion.BILLING_ADDRESS_SUCC
 import com.asfoundation.wallet.ui.iab.IabNavigator
 import com.asfoundation.wallet.ui.iab.IabView
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
-import com.asfoundation.wallet.util.CurrencyFormatUtils
-import com.asfoundation.wallet.util.KeyboardUtils
-import com.asfoundation.wallet.util.Period
-import com.asfoundation.wallet.util.WalletCurrency
+import com.asfoundation.wallet.util.*
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
-import com.google.android.material.textfield.TextInputLayout
 import com.jakewharton.rxbinding2.view.RxView
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.Observable
@@ -104,17 +98,15 @@ class AdyenPaymentFragment : BasePageViewFragment(), AdyenPaymentView {
   private lateinit var iabView: IabView
   private lateinit var presenter: AdyenPaymentPresenter
   private lateinit var cardConfiguration: CardConfiguration
+  private lateinit var redirectConfiguration: RedirectConfiguration
+  private lateinit var adyen3DS2Configuration: Adyen3DS2Configuration
   private lateinit var compositeDisposable: CompositeDisposable
   private lateinit var redirectComponent: RedirectComponent
   private lateinit var adyen3DS2Component: Adyen3DS2Component
+  private lateinit var adyenCardView: AdyenCardView
   private var paymentDataSubject: ReplaySubject<AdyenCardWrapper>? = null
   private var paymentDetailsSubject: PublishSubject<AdyenComponentResponseModel>? = null
   private var adyen3DSErrorSubject: PublishSubject<String>? = null
-  private lateinit var adyenCardNumberLayout: TextInputLayout
-  private lateinit var adyenExpiryDateLayout: TextInputLayout
-  private lateinit var adyenSecurityCodeLayout: TextInputLayout
-  private var adyenCardImageLayout: RoundCornerImageView? = null
-  private var adyenSaveDetailsSwitch: SwitchCompat? = null
   private var isStored = false
   private var billingAddressInput: PublishSubject<Boolean>? = null
   private var billingAddressModel: BillingAddressModel? = null
@@ -156,20 +148,24 @@ class AdyenPaymentFragment : BasePageViewFragment(), AdyenPaymentView {
   }
 
   override fun setup3DSComponent() {
-    adyen3DS2Component = Adyen3DS2Component.PROVIDER.get(this)
-    adyen3DS2Component.observe(this) {
-      paymentDetailsSubject?.onNext(AdyenComponentResponseModel(it.details, it.paymentData))
-    }
-    adyen3DS2Component.observeErrors(this) {
-      adyen3DSErrorSubject?.onNext(it.errorMessage)
+    activity?.application?.let {
+      adyen3DS2Component = Adyen3DS2Component.PROVIDER.get(this, it, adyen3DS2Configuration)
+      adyen3DS2Component.observe(this) {
+        paymentDetailsSubject?.onNext(AdyenComponentResponseModel(it.details, it.paymentData))
+      }
+      adyen3DS2Component.observeErrors(this) {
+        adyen3DSErrorSubject?.onNext(it.errorMessage)
+      }
     }
   }
 
   private fun setupUi() {
-    setupAdyenLayouts()
+    adyenCardView = AdyenCardView(adyen_card_form_pre_selected ?: adyen_card_form)
     setupTransactionCompleteAnimation()
     handleBuyButtonText()
     if (paymentType == PaymentType.CARD.name) setupCardConfiguration()
+    setupRedirectConfiguration()
+    setupAdyen3DS2ConfigurationBuilder()
 
     handlePreSelectedView()
     handleBonusAnimation()
@@ -177,17 +173,13 @@ class AdyenPaymentFragment : BasePageViewFragment(), AdyenPaymentView {
     showProduct()
   }
 
-  override fun finishCardConfiguration(
-    paymentInfoModel: PaymentInfoModel,
-    forget: Boolean,
-    savedInstance: Bundle?
-  ) {
+  override fun finishCardConfiguration(paymentInfoModel: PaymentInfoModel, forget: Boolean) {
     this.isStored = paymentInfoModel.isStored
     buy_button.visibility = VISIBLE
     cancel_button.visibility = VISIBLE
 
     handleLayoutVisibility(isStored)
-    prepareCardComponent(paymentInfoModel, forget, savedInstance)
+    prepareCardComponent(paymentInfoModel, forget)
     setStoredPaymentInformation(isStored)
   }
 
@@ -195,12 +187,6 @@ class AdyenPaymentFragment : BasePageViewFragment(), AdyenPaymentView {
 
   override fun onSaveInstanceState(outState: Bundle) {
     super.onSaveInstanceState(outState)
-    outState.apply {
-      putString(CARD_NUMBER_KEY, adyenCardNumberLayout.editText?.text.toString())
-      putString(EXPIRY_DATE_KEY, adyenExpiryDateLayout.editText?.text.toString())
-      putString(CVV_KEY, adyenSecurityCodeLayout.editText?.text.toString())
-      putBoolean(SAVE_DETAILS_KEY, adyenSaveDetailsSwitch?.isChecked ?: false)
-    }
     presenter.onSaveInstanceState(outState)
   }
 
@@ -331,8 +317,7 @@ class AdyenPaymentFragment : BasePageViewFragment(), AdyenPaymentView {
     main_view?.visibility = GONE
     main_view_pre_selected?.visibility = GONE
     iabView.showBillingAddress(
-      value, currency, bonus, appcAmount, this,
-      adyenSaveDetailsSwitch?.isChecked ?: true, isStored
+      value, currency, bonus, appcAmount, this, adyenCardView.cardSave, isStored
     )
   }
 
@@ -384,7 +369,7 @@ class AdyenPaymentFragment : BasePageViewFragment(), AdyenPaymentView {
     }
     buy_button?.visibility = VISIBLE
     buy_button?.isEnabled = false
-    adyenSecurityCodeLayout.error = getString(R.string.purchase_card_error_CVV)
+    adyenCardView.setError(getString(R.string.purchase_card_error_CVV))
   }
 
   override fun getMorePaymentMethodsClicks() = RxView.clicks(more_payment_methods)
@@ -397,9 +382,11 @@ class AdyenPaymentFragment : BasePageViewFragment(), AdyenPaymentView {
   }
 
   override fun setupRedirectComponent() {
-    redirectComponent = RedirectComponent.PROVIDER.get(this)
-    redirectComponent.observe(this) {
-      paymentDetailsSubject?.onNext(AdyenComponentResponseModel(it.details, it.paymentData))
+    activity?.application?.let {
+      redirectComponent = RedirectComponent.PROVIDER.get(this, it, redirectConfiguration)
+      redirectComponent.observe(this) {
+        paymentDetailsSubject?.onNext(AdyenComponentResponseModel(it.details, it.paymentData))
+      }
     }
   }
 
@@ -441,7 +428,9 @@ class AdyenPaymentFragment : BasePageViewFragment(), AdyenPaymentView {
 
   override fun close(bundle: Bundle?) = iabView.close(bundle)
 
-  override fun submitUriResult(uri: Uri) = redirectComponent.handleRedirectResponse(uri)
+  // TODO: Refactor this to pass the whole Intent.
+  // TODO: Currently this relies on the fact that Adyen 4.4.0 internally uses only Intent.getData().
+  override fun submitUriResult(uri: Uri) = redirectComponent.handleIntent(Intent("", uri))
 
   override fun getPaymentDetails(): Observable<AdyenComponentResponseModel> =
     paymentDetailsSubject!!
@@ -450,9 +439,10 @@ class AdyenPaymentFragment : BasePageViewFragment(), AdyenPaymentView {
 
   override fun getAdyenSupportIconClicks() = RxView.clicks(layout_support_icn)
 
-  override fun getVerificationClicks() = Observable.merge(RxView.clicks(error_verify_wallet_button)
-    .map { false }, RxView.clicks(error_verify_card_button)
-    .map { true })
+  override fun getVerificationClicks() = Observable.merge(
+    RxView.clicks(error_verify_wallet_button)
+      .map { false }, RxView.clicks(error_verify_card_button)
+      .map { true })
 
   override fun lockRotation() = iabView.lockRotation()
 
@@ -460,53 +450,25 @@ class AdyenPaymentFragment : BasePageViewFragment(), AdyenPaymentView {
     view?.let { KeyboardUtils.hideKeyboard(view) }
   }
 
-  private fun setupAdyenLayouts() {
-    adyenCardNumberLayout =
-      adyen_card_form_pre_selected?.findViewById(R.id.textInputLayout_cardNumber)
-        ?: adyen_card_form.findViewById(R.id.textInputLayout_cardNumber)
-    adyenExpiryDateLayout =
-      adyen_card_form_pre_selected?.findViewById(R.id.textInputLayout_expiryDate)
-        ?: adyen_card_form.findViewById(R.id.textInputLayout_expiryDate)
-    adyenSecurityCodeLayout =
-      adyen_card_form_pre_selected?.findViewById(R.id.textInputLayout_securityCode)
-        ?: adyen_card_form.findViewById(R.id.textInputLayout_securityCode)
-    adyenCardImageLayout = adyen_card_form_pre_selected?.findViewById(R.id.cardBrandLogo_imageView)
-      ?: adyen_card_form?.findViewById(R.id.cardBrandLogo_imageView)
-    adyenSaveDetailsSwitch =
-      adyen_card_form_pre_selected?.findViewById(R.id.switch_storePaymentMethod)
-        ?: adyen_card_form?.findViewById(R.id.switch_storePaymentMethod)
-
-    adyenCardNumberLayout.editText?.imeOptions = EditorInfo.IME_FLAG_NO_EXTRACT_UI
-    adyenExpiryDateLayout.editText?.imeOptions = EditorInfo.IME_FLAG_NO_EXTRACT_UI
-    adyenSecurityCodeLayout.editText?.imeOptions = EditorInfo.IME_FLAG_NO_EXTRACT_UI
-
-    adyenSaveDetailsSwitch?.run {
-
-      val params: LinearLayout.LayoutParams = this.layoutParams as LinearLayout.LayoutParams
-      params.topMargin = 2
-
-      layoutParams = params
-      isChecked = true
-      textSize = 14f
-      text = getString(R.string.dialog_credit_card_remember)
-    }
-
-    val height = resources.getDimensionPixelSize(R.dimen.adyen_text_input_layout_height)
-
-    adyenCardNumberLayout.minimumHeight = height
-    adyenCardNumberLayout.errorIconDrawable = null
-    adyenExpiryDateLayout.minimumHeight = height
-    adyenSecurityCodeLayout.minimumHeight = height
+  private fun setupCardConfiguration() {
+    cardConfiguration = CardConfiguration
+      .Builder(activity as Context, BuildConfig.ADYEN_PUBLIC_KEY)
+      .setEnvironment(adyenEnvironment)
+      .build()
   }
 
-  private fun setupCardConfiguration() {
-    val cardConfigurationBuilder =
-      CardConfiguration.Builder(activity as Context, BuildConfig.ADYEN_PUBLIC_KEY)
+  private fun setupRedirectConfiguration() {
+    redirectConfiguration = RedirectConfiguration
+      .Builder(activity as Context, BuildConfig.ADYEN_PUBLIC_KEY)
+      .setEnvironment(adyenEnvironment)
+      .build()
+  }
 
-    cardConfiguration = cardConfigurationBuilder.let {
-      it.setEnvironment(adyenEnvironment)
-      it.build()
-    }
+  private fun setupAdyen3DS2ConfigurationBuilder() {
+    adyen3DS2Configuration = Adyen3DS2Configuration
+      .Builder(activity as Context, BuildConfig.ADYEN_PUBLIC_KEY)
+      .setEnvironment(adyenEnvironment)
+      .build()
   }
 
   @Throws(PackageManager.NameNotFoundException::class)
@@ -551,34 +513,23 @@ class AdyenPaymentFragment : BasePageViewFragment(), AdyenPaymentView {
   }
 
   private fun handleLayoutVisibility(isStored: Boolean) {
+    adyenCardView.showInputFields(!isStored)
+    change_card_button?.visibility = if (isStored) VISIBLE else GONE
+    change_card_button_pre_selected?.visibility = if (isStored) VISIBLE else GONE
     if (isStored) {
-      adyenCardNumberLayout.visibility = GONE
-      adyenExpiryDateLayout.visibility = GONE
-      adyenCardImageLayout?.visibility = GONE
-      change_card_button?.visibility = VISIBLE
-      change_card_button_pre_selected?.visibility = VISIBLE
       view?.let { KeyboardUtils.showKeyboard(it) }
-    } else {
-      adyenCardNumberLayout.visibility = VISIBLE
-      adyenExpiryDateLayout.visibility = VISIBLE
-      adyenCardImageLayout?.visibility = VISIBLE
-      change_card_button?.visibility = GONE
-      change_card_button_pre_selected?.visibility = GONE
     }
-
   }
 
   private fun prepareCardComponent(
     paymentInfoModel: PaymentInfoModel,
-    forget: Boolean,
-    savedInstanceState: Bundle?
+    forget: Boolean
   ) {
-    if (forget) viewModelStore.clear()
+    if (forget) adyenCardView.clear(this)
     val cardComponent = paymentInfoModel.cardComponent!!(this, cardConfiguration)
-    if (forget) clearFields()
     adyen_card_form_pre_selected?.attach(cardComponent, this)
     cardComponent.observe(this) {
-      adyenSecurityCodeLayout.error = null
+      adyenCardView.setError(null)
       if (it != null && it.isValid) {
         buy_button?.isEnabled = true
         view?.let { view -> KeyboardUtils.hideKeyboard(view) }
@@ -586,7 +537,9 @@ class AdyenPaymentFragment : BasePageViewFragment(), AdyenPaymentView {
           val hasCvc = !paymentMethod.encryptedSecurityCode.isNullOrEmpty()
           paymentDataSubject?.onNext(
             AdyenCardWrapper(
-              paymentMethod, adyenSaveDetailsSwitch?.isChecked ?: false, hasCvc,
+              paymentMethod,
+              adyenCardView.cardSave,
+              hasCvc,
               paymentInfoModel.supportedShopperInteractions
             )
           )
@@ -595,40 +548,17 @@ class AdyenPaymentFragment : BasePageViewFragment(), AdyenPaymentView {
         buy_button?.isEnabled = false
       }
     }
-    if (!forget) {
-      getFieldValues(savedInstanceState)
-    }
-  }
-
-  private fun getFieldValues(savedInstanceState: Bundle?) {
-    savedInstanceState?.let {
-      adyenCardNumberLayout.editText?.setText(it.getString(CARD_NUMBER_KEY, ""))
-      adyenExpiryDateLayout.editText?.setText(it.getString(EXPIRY_DATE_KEY, ""))
-      adyenSecurityCodeLayout.editText?.setText(it.getString(CVV_KEY, ""))
-      adyenSaveDetailsSwitch?.isChecked = it.getBoolean(SAVE_DETAILS_KEY, false)
-      it.clear()
-    }
   }
 
   private fun setStoredPaymentInformation(isStored: Boolean) {
     if (isStored) {
-      adyen_card_form_pre_selected_number?.text = adyenCardNumberLayout.editText?.text
+      adyen_card_form_pre_selected_number?.text = adyenCardView.cardNumber
       adyen_card_form_pre_selected_number?.visibility = VISIBLE
-      payment_method_ic?.setImageDrawable(adyenCardImageLayout?.drawable)
+      payment_method_ic?.setImageDrawable(adyenCardView.cardImage)
     } else {
       adyen_card_form_pre_selected_number?.visibility = GONE
       payment_method_ic?.visibility = GONE
     }
-  }
-
-  private fun clearFields() {
-    adyenCardNumberLayout.editText?.text = null
-    adyenCardNumberLayout.editText?.isEnabled = true
-    adyenExpiryDateLayout.editText?.text = null
-    adyenExpiryDateLayout.editText?.isEnabled = true
-    adyenSecurityCodeLayout.editText?.text = null
-    adyenCardNumberLayout.requestFocus()
-    adyenSecurityCodeLayout.error = null
   }
 
   private fun handleBonusAnimation() {
@@ -699,10 +629,6 @@ class AdyenPaymentFragment : BasePageViewFragment(), AdyenPaymentView {
     private const val PRE_SELECTED_KEY = "pre_selected"
     private const val IS_SUBSCRIPTION = "is_subscription"
     private const val FREQUENCY = "frequency"
-    private const val CARD_NUMBER_KEY = "card_number"
-    private const val EXPIRY_DATE_KEY = "expiry_date"
-    private const val CVV_KEY = "cvv_key"
-    private const val SAVE_DETAILS_KEY = "save_details"
     private const val GAMIFICATION_LEVEL = "gamification_level"
     private const val SKU_DESCRIPTION = "sku_description"
     private const val PRODUCT_TOKEN = "product_token"

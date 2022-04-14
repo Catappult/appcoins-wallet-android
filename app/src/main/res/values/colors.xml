@@ -34,6 +34,7 @@
 
   <color name="iab_activity_gray">#8a000000</color>
   <color name="black_87_alpha">#de000000</color>
+  <color name="black_50_alpha">#80000000</color>
   <color name="grey">#757575</color>
   <color name="grey_86">#868686</color>
   <color name="grey_8B">#8B959B</color>
@@ -223,4 +224,8 @@
   <color name="grey_blue_medium">#5F6E78</color>
   <color name="grey_70">#707070</color>
   <color name="red_light">#E02D3E</color>
+
+  <!-- External Apps -->
+  <color name="gojek_green">#00B55D</color>
+
 </resources>

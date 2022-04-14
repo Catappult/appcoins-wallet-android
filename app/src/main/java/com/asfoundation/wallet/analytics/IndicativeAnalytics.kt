@@ -17,8 +17,10 @@ import io.reactivex.Completable
 import io.reactivex.Single
 import it.czerwinski.android.hilt.annotations.BoundTo
 import javax.inject.Inject
+import javax.inject.Singleton
 
 @BoundTo(supertype = AnalyticsSetup::class)
+@Singleton
 class IndicativeAnalytics @Inject constructor(
   @ApplicationContext private val context: Context,
   private val idsRepository: IdsRepository,
@@ -54,13 +56,15 @@ class IndicativeAnalytics @Inject constructor(
     Indicative.launch(context, BuildConfig.INDICATIVE_API_KEY);
     return Single.just(idsRepository.getAndroidId())
       .flatMap { deviceId: String ->
-        Single.zip(idsRepository.getInstallerPackage(BuildConfig.APPLICATION_ID),
+        Single.zip(
+          idsRepository.getInstallerPackage(BuildConfig.APPLICATION_ID),
           Single.just(idsRepository.getGamificationLevel()), Single.just(hasGms()),
           Single.just(idsRepository.getActiveWalletAddress()),
-          promoCodeLocalDataSource.getSavedPromoCode())
-          { installerPackage: String, level: Int, hasGms: Boolean, walletAddress: String, promoCode: PromoCode ->
+          promoCodeLocalDataSource.getSavedPromoCode()
+        )
+        { installerPackage: String, level: Int, hasGms: Boolean, walletAddress: String, promoCode: PromoCode ->
           IndicativeInitializeWrapper(installerPackage, level, hasGms, walletAddress, promoCode)
-          }
+        }
           .flatMap {
             promotionsRepository.getWalletOrigin(
               it.walletAddress,
