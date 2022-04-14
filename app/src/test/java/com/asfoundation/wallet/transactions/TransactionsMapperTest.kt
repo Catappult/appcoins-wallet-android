@@ -105,7 +105,7 @@ class TransactionsMapperTest {
         "0x1bbbed2930395229b8f20fe1bad356b50a6b3f6f",
         TransactionDetailsEntity(TransactionDetailsEntity.Icon(
             TransactionDetailsEntity.Type.URL,
-            "https://apichain.dev.catappult.ioappc/icons/bonus.png"),
+            "https://apichain.dev.catappult.io/appc/icons/bonus.png"),
             "10", null), Collections.emptyList(), "1637599586285")
   }
 
