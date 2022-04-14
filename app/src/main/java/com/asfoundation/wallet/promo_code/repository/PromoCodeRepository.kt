@@ -39,6 +39,19 @@ class PromoCodeRepository @Inject constructor(
   fun observeCurrentPromoCode(): Observable<PromoCode> =
     promoCodeLocalDataSource.observeSavedPromoCode()
 
+  fun observePromoCodeState() : Observable<PromoCode> {
+    return promoCodeLocalDataSource.observeSavedPromoCode()
+      .doOnNext {
+        if (it.expired == false){
+          setPromoCode(it.code!!)
+        }
+      }
+      .doOnNext {
+        promoCodeLocalDataSource.observeSavedPromoCode()
+      }
+      .subscribeOn(rxSchedulers.io)
+  }
+
   fun removePromoCode(): Completable = promoCodeLocalDataSource.removePromoCode()
 
   interface PromoCodeBrokerApi {
