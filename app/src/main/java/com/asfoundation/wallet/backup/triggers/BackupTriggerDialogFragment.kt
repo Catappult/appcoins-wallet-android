@@ -58,24 +58,14 @@ class BackupTriggerDialogFragment : BottomSheetDialogFragment(),
     setListeners()
   }
 
+  //TODO design doesn't include string context for each trigger source, so its commented for now
   private fun setUIContext() {
-    Log.d(
-      "APPC-2782",
-      "BackupTriggerDialogFragment: onViewCreated: source -> ${
-        requireArguments().getSerializable(TRIGGER_SOURCE)!!
-      } "
-    )
-
-    views.triggerDialogWallet.text =
-      requireArguments().getString(WALLET_ADDRESS_KEY)!!
-
-    //TODO
     when (requireArguments().getSerializable(TRIGGER_SOURCE)!!) {
-      BackupTriggerPreferences.TriggerSource.NEW_LEVEL -> views.triggerDialogMessage.text =
-        "(Example) Congrats on reaching a new level, we recommend you to backup your wallet to avoid losing your progress."
-      BackupTriggerPreferences.TriggerSource.FIRST_PURCHASE -> views.triggerDialogMessage.text =
-        "(Example) Congrats on your first purchase, we recommend you to backup your wallet to avoid the bonus your received"
-      else -> views.triggerDialogMessage.text = ""
+//      BackupTriggerPreferences.TriggerSource.NEW_LEVEL -> views.triggerDialogMessage.text =
+//        getString(R.string.backup_skip_title)
+//      BackupTriggerPreferences.TriggerSource.FIRST_PURCHASE -> views.triggerDialogMessage.text =
+//        getString(R.string.backup_skip_title)
+      else -> {}
     }
   }
 
