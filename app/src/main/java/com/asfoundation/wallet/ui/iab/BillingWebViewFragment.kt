@@ -178,9 +178,15 @@ class BillingWebViewFragment : BasePageViewFragment() {
 
   private fun openDownloadExternalApp(appInfo: ExternalAppEnum) {
     try {
+      // try to open in an app store for download:
       startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(appInfo.marketUri)))
     } catch (e: ActivityNotFoundException) {
-      startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(appInfo.googlePlayUrl)))
+      try {
+        // try to open google play web page:
+        startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(appInfo.googlePlayUrl)))
+      } catch (e: ActivityNotFoundException) {
+        logger.log(TAG, "Unable to open app store or GP page to download: ${appInfo.appName}")
+      }
     }
   }
 
