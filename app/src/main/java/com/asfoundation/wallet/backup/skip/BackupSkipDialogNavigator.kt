@@ -19,7 +19,10 @@ class BackupSkipDialogNavigator @Inject constructor(
   }
 
   fun finishBackup() {
-    backupTriggerPreferences.setTriggerState(active = false)
+    backupTriggerPreferences.setTriggerState(
+      active = false,
+      triggerSource = BackupTriggerPreferences.TriggerSource.DISABLED
+    )
     (fragment as BottomSheetDialogFragment).dismiss()
   }
 }

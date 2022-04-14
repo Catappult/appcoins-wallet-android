@@ -50,7 +50,10 @@ class BackupSuccessFragment : BasePageViewFragment(),
 
     views.closeButton.setOnClickListener {
       this.activity?.finish()
-      backupTriggerPreferences.setTriggerState(active = false)
+      backupTriggerPreferences.setTriggerState(
+        active = false,
+        triggerSource = BackupTriggerPreferences.TriggerSource.DISABLED
+      )
     }
 
     setSuccessInfo()

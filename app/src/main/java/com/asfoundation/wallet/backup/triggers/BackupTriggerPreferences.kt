@@ -12,7 +12,7 @@ class BackupTriggerPreferences @Inject constructor(private val pref: SharedPrefe
     private const val BACKUP_TRIGGER_SOURCE = "backup_trigger_source"
   }
 
-  fun setTriggerState(active: Boolean, triggerSource: TriggerSource? = TriggerSource.DISABLED) {
+  fun setTriggerState(active: Boolean, triggerSource: TriggerSource) {
     pref.edit()
       .putBoolean(BACKUP_TRIGGER_STATE, active)
       .putString(BACKUP_TRIGGER_SOURCE, Gson().toJson(triggerSource))
@@ -24,10 +24,13 @@ class BackupTriggerPreferences @Inject constructor(private val pref: SharedPrefe
   }
 
   fun getTriggerSource(): TriggerSource {
-    return Gson().fromJson(pref.getString(BACKUP_TRIGGER_SOURCE, ""), TriggerSource::class.java)
+    return Gson().fromJson(
+      pref.getString(BACKUP_TRIGGER_SOURCE, TriggerSource.NOT_SEEN.toString()),
+      TriggerSource::class.java
+    )
   }
 
   enum class TriggerSource {
-    NEW_LEVEL, FIRST_PURCHASE, DISABLED
+    NEW_LEVEL, FIRST_PURCHASE, DISABLED, NOT_SEEN
   }
 }

@@ -3,7 +3,6 @@ package com.asfoundation.wallet.home.ui
 import android.content.Intent
 import android.net.Uri
 import android.text.format.DateUtils
-import android.util.Log
 import com.appcoins.wallet.gamification.repository.Levels
 import com.asf.wallet.BuildConfig
 import com.asfoundation.wallet.backup.triggers.BackupTriggerPreferences
@@ -228,6 +227,14 @@ class HomeViewModel @Inject constructor(
     notifications: List<CardNotification>, maxBonus: Double,
     transactionsWalletModel: TransactionsWalletModel
   ): TransactionsModel {
+    if (transactions.isNotEmpty() &&
+      backupTriggerPreferences.getTriggerSource() == BackupTriggerPreferences.TriggerSource.NOT_SEEN
+    ) {
+      backupTriggerPreferences.setTriggerState(
+        active = true,
+        triggerSource = BackupTriggerPreferences.TriggerSource.FIRST_PURCHASE
+      )
+    }
     return TransactionsModel(transactions, notifications, maxBonus, transactionsWalletModel)
   }
 
@@ -255,21 +262,11 @@ class HomeViewModel @Inject constructor(
     return getLevelsUseCase()
       .subscribeOn(rxSchedulers.io)
       .flatMap { (status, list) ->
-        Log.d("Hilt-", "getMaxBonus: status -> $status -- list -> $list")
-        if (status
-          == Levels.Status.OK
-        ) {
-          return@flatMap Single.just(
-            list[list
-              .size - 1]
-              .bonus
-          )
+        if (status == Levels.Status.OK) {
+          return@flatMap Single.just(list[list.size - 1].bonus)
         }
         Single.error(
-          IllegalStateException(
-            status
-              .name
-          )
+          IllegalStateException(status.name)
         )
       }
       .toObservable()
@@ -418,10 +415,6 @@ class HomeViewModel @Inject constructor(
   }
 
   private fun handleNewLevelBackupTrigger() {
-    backupTriggerPreferences.setTriggerState(
-      active = true,
-      triggerSource = BackupTriggerPreferences.TriggerSource.FIRST_PURCHASE
-    ) //TODO temp for debug only, remove after
     getWalletInfoUseCase(null, cached = false, updateFiat = false)
       .doOnSuccess {
         if (backupTriggerPreferences.getTriggerState()) {
