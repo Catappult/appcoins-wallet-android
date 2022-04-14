@@ -35,12 +35,9 @@ public class BlockchainErrorMapper {
       return BlockchainError.UNKNOWN_TOKEN;
     }
     if (throwable instanceof TransactionException) {
-      switch (throwable.getMessage()) {
-        case INSUFFICIENT_ERROR_MESSAGE:
-          return BlockchainError.NO_FUNDS;
-        case NONCE_TOO_LOW_ERROR_MESSAGE:
-          return BlockchainError.NONCE_ERROR;
-      }
+      String message = throwable.getMessage();
+      if (INSUFFICIENT_ERROR_MESSAGE.equals(message)) return BlockchainError.NO_FUNDS;
+      if (NONCE_TOO_LOW_ERROR_MESSAGE.equals(message)) return BlockchainError.NONCE_ERROR;
     }
     if (throwable instanceof WalletNotFoundException) {
       return BlockchainError.NO_WALLET;

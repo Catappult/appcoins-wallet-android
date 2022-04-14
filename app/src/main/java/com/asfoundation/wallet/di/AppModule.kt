@@ -8,9 +8,9 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.os.Build
-import android.preference.PreferenceManager
 import androidx.biometric.BiometricManager
 import androidx.core.app.NotificationCompat
+import androidx.preference.PreferenceManager
 import com.adyen.checkout.core.api.Environment
 import com.appcoins.wallet.bdsbilling.WalletService
 import com.appcoins.wallet.commons.LogReceiver
@@ -191,6 +191,7 @@ internal class AppModule {
     @ApplicationContext context: Context,
     packageManager: PackageManager
   ): Int {
+    @Suppress("DEPRECATION")
     return try {
       packageManager.getPackageInfo(context.packageName, 0).versionCode
     } catch (e: PackageManager.NameNotFoundException) {

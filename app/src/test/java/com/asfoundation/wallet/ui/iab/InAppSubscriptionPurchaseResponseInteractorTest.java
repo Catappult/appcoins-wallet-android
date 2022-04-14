@@ -74,19 +74,13 @@ import static org.mockito.Mockito.when;
  */
 public class InAppSubscriptionPurchaseResponseInteractorTest {
 
-  private static final String CONTRACT_ADDRESS = "0xab949343E6C369C6B17C7ae302c1dEbD4B7B61c3";
   private static final String APPROVE_HASH = "approve_hash";
   private static final String BUY_HASH = "buy_hash";
   private static final String PACKAGE_NAME = "package_name";
-  private static final String PRODUCT_NAME = "product_name";
   private static final String APPLICATION_NAME = "application_name";
   private static final String ICON_PATH = "icon_path";
   private static final String SKU = "sku";
   private static final String UID = "uid";
-  private static final String TYPE = "inapp";
-  private static final String DEVELOPER_PAYLOAD = "developer_payload";
-  private static final String STORE_ADDRESS = "0xc41b4160b63d1f9488937f7b66640d2babdbf8ad";
-  private static final String OEM_ADDRESS = "0x0965b2a3e664690315ad20b9e5b0336c19cf172e";
 
   @Mock FetchGasSettingsInteract gasSettingsInteract;
   @Mock BdsTransactionProvider transactionProvider;
@@ -107,11 +101,6 @@ public class InAppSubscriptionPurchaseResponseInteractorTest {
   @Mock AllowanceService allowanceService;
   @Mock HasEnoughBalanceUseCase hasEnoughBalanceUseCase;
   private BdsInAppPurchaseInteractor inAppPurchaseInteractor;
-  private PublishSubject<PendingTransaction> pendingApproveState;
-  private PublishSubject<PendingTransaction> pendingBuyState;
-  private TestScheduler scheduler;
-  private RxSchedulers fakeSchedulers;
-  private InAppPurchaseService inAppPurchaseService;
 
   @Before public void before()
       throws AppInfoProvider.UnknownApplicationException, ImageSaver.SaveException {
@@ -136,16 +125,16 @@ public class InAppSubscriptionPurchaseResponseInteractorTest {
         new TokenInfo("0xab949343E6C369C6B17C7ae302c1dEbD4B7B61c3", "Appcoins", "APPC", 18);
     when(defaultTokenProvider.getDefaultToken()).thenReturn(Single.just(tokenInfo));
 
-    pendingApproveState = PublishSubject.create();
-    pendingBuyState = PublishSubject.create();
+    PublishSubject<PendingTransaction> pendingApproveState = PublishSubject.create();
+    PublishSubject<PendingTransaction> pendingBuyState = PublishSubject.create();
     when(pendingTransactionService.checkTransactionState(APPROVE_HASH)).thenReturn(
         pendingApproveState);
     when(pendingTransactionService.checkTransactionState(BUY_HASH)).thenReturn(pendingBuyState);
 
     when(defaultWalletInteract.find()).thenReturn(Single.just(new Wallet("wallet_address")));
 
-    scheduler = new TestScheduler();
-    fakeSchedulers = new FakeSchedulers();
+    TestScheduler scheduler = new TestScheduler();
+    RxSchedulers fakeSchedulers = new FakeSchedulers();
 
     when(transactionSender.send(any(TransactionBuilder.class))).thenReturn(Single.just(BUY_HASH));
 
@@ -165,7 +154,7 @@ public class InAppSubscriptionPurchaseResponseInteractorTest {
     when(allowanceService.checkAllowance(any(), any(), any())).thenReturn(
         Single.just(BigDecimal.ZERO));
 
-    inAppPurchaseService =
+    InAppPurchaseService inAppPurchaseService =
         new InAppPurchaseService(new MemoryCache<>(BehaviorSubject.create(), new HashMap<>()),
             new ApproveService(approveTransactionService, transactionValidator), allowanceService,
             new BuyService(buyTransactionService, transactionValidator, defaultTokenProvider,
@@ -181,6 +170,7 @@ public class InAppSubscriptionPurchaseResponseInteractorTest {
           ((String) arguments[1]), APPLICATION_NAME, ICON_PATH, ((String) arguments[2]));
     });
 
+    //noinspection unchecked
     when(transactionProvider.get(PACKAGE_NAME, SKU)).thenReturn(Single.just(
         new Transaction(UID, Transaction.Status.PROCESSING,
             new Gateway(Gateway.Name.appcoins, "", ""), null, null, "orderReference", null, "",
@@ -199,7 +189,7 @@ public class InAppSubscriptionPurchaseResponseInteractorTest {
     when(proxyService.getIabAddress(anyBoolean())).thenReturn(
         Single.just("0xab949343E6C369C6B17C7ae302c1dEbD4B7B61c3"));
     when(conversionService.getAppcRate(anyString())).thenReturn(
-        Single.just(new FiatValue(new BigDecimal(2.0), "EUR", "")));
+        Single.just(new FiatValue(new BigDecimal(2), "EUR", "")));
 
     EIPTransactionParser eipTransactionParser = new EIPTransactionParser(defaultTokenProvider);
     OneStepTransactionParser oneStepTransactionParser =

@@ -70,8 +70,7 @@ public abstract class TransactionRepository implements TransactionRepositoryType
     return createRawTransaction(transactionBuilder, password, transactionBuilder.approveData(),
         transactionBuilder.contractAddress(), BigDecimal.ZERO,
         nonceObtainer.getNonce(new Address(transactionBuilder.fromAddress()),
-            getChainId(transactionBuilder))).map(
-        signedTransaction -> calculateHashFromSigned(signedTransaction));
+            getChainId(transactionBuilder))).map(this::calculateHashFromSigned);
   }
 
   @Override public Single<String> computeBuyTransactionHash(TransactionBuilder transactionBuilder,
@@ -82,7 +81,7 @@ public abstract class TransactionRepository implements TransactionRepositoryType
             transactionBuilder.appcoinsData(), transactionBuilder.getIabContract(), BigDecimal.ZERO,
             nonceObtainer.getNonce(new Address(transactionBuilder.fromAddress()),
                 getChainId(transactionBuilder))))
-        .map(signedTransaction -> calculateHashFromSigned(signedTransaction));
+        .map(this::calculateHashFromSigned);
   }
 
   private Single<String> createTransactionAndSend(TransactionBuilder transactionBuilder,
