@@ -7,13 +7,17 @@ import android.view.ViewGroup
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.asf.wallet.R
 import com.asf.wallet.databinding.BackupSkipDialogFragmentBinding
+import com.asfoundation.wallet.backup.triggers.BackupTriggerDialogFragment
+import com.asfoundation.wallet.backup.triggers.BackupTriggerPreferences
 import com.asfoundation.wallet.base.SideEffect
 import com.asfoundation.wallet.base.SingleStateFragment
 import com.asfoundation.wallet.base.ViewState
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class BackupSkipDialogFragment : BottomSheetDialogFragment(),
   SingleStateFragment<ViewState, SideEffect> {
 
@@ -25,13 +29,24 @@ class BackupSkipDialogFragment : BottomSheetDialogFragment(),
 
   companion object {
     @JvmStatic
-    fun newInstance(): BackupSkipDialogFragment {
+    fun newInstance(
+      walletAddress: String,
+      triggerSource: BackupTriggerPreferences.TriggerSource
+    ): BackupSkipDialogFragment {
       return BackupSkipDialogFragment()
+        .apply {
+          arguments = Bundle().apply {
+            putString(BackupTriggerDialogFragment.WALLET_ADDRESS_KEY, walletAddress)
+            putSerializable(BackupTriggerDialogFragment.TRIGGER_SOURCE, triggerSource)
+          }
+        }
     }
   }
 
-  override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                            savedInstanceState: Bundle?): View? {
+  override fun onCreateView(
+    inflater: LayoutInflater, container: ViewGroup?,
+    savedInstanceState: Bundle?
+  ): View? {
     return inflater.inflate(R.layout.backup_skip_dialog_fragment, container, false)
   }
 
@@ -41,7 +56,10 @@ class BackupSkipDialogFragment : BottomSheetDialogFragment(),
       navigator.finishBackup()
     }
     views.cancel.setOnClickListener {
-      navigator.navigateBack()
+      navigator.navigateBack(
+        requireArguments().getString(BackupTriggerDialogFragment.WALLET_ADDRESS_KEY)!!,
+        requireArguments().getSerializable(BackupTriggerDialogFragment.TRIGGER_SOURCE)!! as BackupTriggerPreferences.TriggerSource
+      )
     }
   }
 

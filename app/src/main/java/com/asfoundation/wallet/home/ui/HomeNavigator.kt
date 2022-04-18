@@ -9,6 +9,8 @@ import androidx.fragment.app.Fragment
 import com.asf.wallet.R
 import com.asfoundation.wallet.C
 import com.asfoundation.wallet.backup.BackupActivity
+import com.asfoundation.wallet.backup.triggers.BackupTriggerDialogFragment
+import com.asfoundation.wallet.backup.triggers.BackupTriggerPreferences
 import com.asfoundation.wallet.base.Navigator
 import com.asfoundation.wallet.change_currency.ChangeFiatCurrencyActivity
 import com.asfoundation.wallet.entity.Wallet
@@ -22,8 +24,10 @@ import com.asfoundation.wallet.ui.settings.SettingsActivity
 import com.asfoundation.wallet.ui.transact.TransferActivity.Companion.newIntent
 import javax.inject.Inject
 
-class HomeNavigator @Inject constructor(private val fragment: Fragment,
-                    private val mainActivityNavigator: MainActivityNavigator) : Navigator {
+class HomeNavigator @Inject constructor(
+  private val fragment: Fragment,
+  private val mainActivityNavigator: MainActivityNavigator
+) : Navigator {
 
   fun navigateToRateUs(shouldNavigate: Boolean) {
     if (shouldNavigate) {
@@ -65,50 +69,59 @@ class HomeNavigator @Inject constructor(private val fragment: Fragment,
       val launchBrowser = Intent(Intent.ACTION_VIEW, uri)
       launchBrowser.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
       fragment.requireContext()
-          .startActivity(launchBrowser)
+        .startActivity(launchBrowser)
     } catch (exception: ActivityNotFoundException) {
       exception.printStackTrace()
       Toast.makeText(fragment.requireContext(), R.string.unknown_error, Toast.LENGTH_SHORT)
-          .show()
+        .show()
     }
   }
 
   fun handleShare(link: String) {
     ShareCompat.IntentBuilder.from(fragment.activity as BaseActivity)
-        .setText(link)
-        .setType("text/plain")
-        .setChooserTitle(fragment.resources.getString(R.string.referral_share_sheet_title))
-        .startChooser()
+      .setText(link)
+      .setType("text/plain")
+      .setChooserTitle(fragment.resources.getString(R.string.referral_share_sheet_title))
+      .startChooser()
   }
 
   fun navigateToTransactionDetails(transaction: Transaction, globalBalanceCurrency: String) {
     with(fragment.requireContext()) {
       val intent = Intent(this, TransactionDetailActivity::class.java)
-          .apply {
-            putExtra(C.Key.TRANSACTION, transaction)
-            putExtra(C.Key.GLOBAL_BALANCE_CURRENCY, globalBalanceCurrency)
-          }
+        .apply {
+          putExtra(C.Key.TRANSACTION, transaction)
+          putExtra(C.Key.GLOBAL_BALANCE_CURRENCY, globalBalanceCurrency)
+        }
       startActivity(intent)
     }
   }
 
   fun navigateToBackup(walletAddress: String) {
-    val intent = BackupActivity.newIntent(fragment.requireContext(), walletAddress)
+    val intent =
+      BackupActivity.newIntent(fragment.requireContext(), walletAddress, isBackupTrigger = false)
         .apply {
           flags = Intent.FLAG_ACTIVITY_SINGLE_TOP
         }
     openIntent(intent)
   }
 
+  fun navigateToBackupTrigger(
+    walletAddress: String,
+    triggerSource: BackupTriggerPreferences.TriggerSource
+  ) {
+    val bottomSheet = BackupTriggerDialogFragment.newInstance(walletAddress, triggerSource)
+    bottomSheet.isCancelable = false
+    bottomSheet.show(fragment.parentFragmentManager, "BackupTrigger")
+  }
 
   fun navigateToCurrencySelector() {
     val intent = ChangeFiatCurrencyActivity.newIntent(fragment.requireContext())
-        .apply {
-          flags = Intent.FLAG_ACTIVITY_SINGLE_TOP
-        }
+      .apply {
+        flags = Intent.FLAG_ACTIVITY_SINGLE_TOP
+      }
     openIntent(intent)
   }
 
   fun openIntent(intent: Intent) = fragment.requireContext()
-      .startActivity(intent)
+    .startActivity(intent)
 }

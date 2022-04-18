@@ -26,16 +26,16 @@ class BackupBroadcastReceiver : BroadcastReceiver() {
 
     @JvmStatic
     fun newIntent(context: Context, walletAddress: String, action: String) =
-        Intent(context, BackupBroadcastReceiver::class.java).apply {
-          putExtra(WALLET_ADDRESS, walletAddress)
-          putExtra(ACTION, action)
-          flags = FLAG_ACTIVITY_NEW_TASK
-        }
+      Intent(context, BackupBroadcastReceiver::class.java).apply {
+        putExtra(WALLET_ADDRESS, walletAddress)
+        putExtra(ACTION, action)
+        flags = FLAG_ACTIVITY_NEW_TASK
+      }
   }
 
   override fun onReceive(context: Context, intent: Intent) {
     notificationManager =
-        context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+      context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
     notificationManager.cancel(NOTIFICATION_SERVICE_ID)
     context.sendBroadcast(Intent(Intent.ACTION_CLOSE_SYSTEM_DIALOGS))
@@ -45,10 +45,10 @@ class BackupBroadcastReceiver : BroadcastReceiver() {
       backupInteract.saveDismissSystemNotification(it)
 
       if (intent.getStringExtra(ACTION) == ACTION_BACKUP) {
-        val backupIntent = BackupActivity.newIntent(context, it)
-            .apply {
-              flags = Intent.FLAG_ACTIVITY_NEW_TASK
-            }
+        val backupIntent = BackupActivity.newIntent(context, it, isBackupTrigger = true)
+          .apply {
+            flags = Intent.FLAG_ACTIVITY_NEW_TASK
+          }
         context.startActivity(backupIntent)
       } else if (intent.getStringExtra(ACTION) == ACTION_DISMISS) return
     }

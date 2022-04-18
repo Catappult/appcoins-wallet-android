@@ -23,7 +23,7 @@ data class RecoverEntryState(
   ViewState
 
 @HiltViewModel
-class RecoverWalletViewModel @Inject constructor(
+class RecoverEntryViewModel @Inject constructor(
   private val getFilePathUseCase: GetFilePathUseCase,
   private val readFileUseCase: ReadFileUseCase,
   private val setDefaultWalletUseCase: SetDefaultWalletUseCase,
