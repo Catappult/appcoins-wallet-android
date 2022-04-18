@@ -11,7 +11,6 @@ import android.os.Bundle
 import android.view.Surface
 import androidx.appcompat.app.AppCompatActivity
 import com.asf.wallet.R
-import com.asfoundation.wallet.analytics.UxCamUtils
 import com.asfoundation.wallet.util.Log
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -33,19 +32,13 @@ class WebViewActivity() : AppCompatActivity() {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.web_view_activity)
     lockCurrentPosition()
-    UxCamUtils.hideScreen(true)
     if (savedInstanceState == null) {
       val url = intent.getStringExtra(URL)
       billingWebViewFragment = BillingWebViewFragment.newInstance(url)
       supportFragmentManager.beginTransaction()
-          .add(R.id.container, billingWebViewFragment)
-          .commit()
+        .add(R.id.container, billingWebViewFragment)
+        .commit()
     }
-  }
-
-  override fun onStop() {
-    super.onStop()
-    UxCamUtils.hideScreen(false)
   }
 
   override fun onBackPressed() {
@@ -58,7 +51,7 @@ class WebViewActivity() : AppCompatActivity() {
   private fun lockCurrentPosition() {
     //setRequestedOrientation requires translucent and floating to be false to work in API 26
     val rotation = windowManager.defaultDisplay
-        .rotation
+      .rotation
     val orientation = resources.configuration.orientation
 
     if (rotation == Surface.ROTATION_0 || rotation == Surface.ROTATION_90) {
