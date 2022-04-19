@@ -675,19 +675,8 @@
   <string name="backup_wallet_button">Dompet sandaran</string>
   <string name="backup_success_save_on_email">Fail sandaran anda ada dalam e-mel anda.</string>
   <string name="backup_success_save_on_device">Fail sandaran anda disimpan dalam peranti anda.</string>
-  <!--Backup DELETE-->
-  <string name="backup_confirmation_body"></string>
-  <string name="backup_confirmation_no"></string>
-  <string name="backup_confirmation_no_share_body"></string>
-  <string name="backup_confirmation_title"></string>
-  <string name="backup_confirmation_yes"></string>
-  <string name="backup_done_body"></string>
-  <string name="backup_done_title"></string>
-  <string name="backup_password"></string>
-  <string name="backup_password_title"></string>
-  <string name="backup_save_button"></string>
-  <string name="backup_send_button"></string>
-  <string name="backup_send_via_title"></string>
+  <string name="backup_popup_title">Back up your wallet now!</string>
+  <string name="backup_popup_body">Keep your funds safe at all times.</string>
   <!--Wallets Management-->
   <string name="wallets_title">Dompet</string>
   <string name="wallets_total_balance_title">Jumlah baki dalam %s</string>
