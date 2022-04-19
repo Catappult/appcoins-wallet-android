@@ -7,24 +7,26 @@ import com.asfoundation.wallet.change_currency.use_cases.GetChangeFiatCurrencyMo
 import com.asfoundation.wallet.logging.send_logs.use_cases.ObserveSendLogsStateUseCase
 import com.asfoundation.wallet.logging.send_logs.use_cases.ResetSendLogsStateUseCase
 import com.asfoundation.wallet.logging.send_logs.use_cases.SendLogsUseCase
-import com.asfoundation.wallet.promo_code.use_cases.ObservePromoCodeStateUseCase
+import com.asfoundation.wallet.promo_code.use_cases.ObserveCurrentPromoCodeUseCase
 import com.asfoundation.wallet.ui.wallets.WalletsModel
 import io.reactivex.Scheduler
 import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable
 
-class SettingsPresenter(private val view: SettingsView,
-                        private val navigator: SettingsNavigator,
-                        private val networkScheduler: Scheduler,
-                        private val viewScheduler: Scheduler,
-                        private val disposables: CompositeDisposable,
-                        private val settingsInteractor: SettingsInteractor,
-                        private val settingsData: SettingsData,
-                        private val getChangeFiatCurrencyModelUseCase: GetChangeFiatCurrencyModelUseCase,
-                        private val observeSendLogsStateUseCase: ObserveSendLogsStateUseCase,
-                        private val resetSendLogsStateUseCase: ResetSendLogsStateUseCase,
-                        private val sendLogsUseCase: SendLogsUseCase,
-                        private val observePromoCodeStateUseCase: ObservePromoCodeStateUseCase) {
+class SettingsPresenter(
+  private val view: SettingsView,
+  private val navigator: SettingsNavigator,
+  private val networkScheduler: Scheduler,
+  private val viewScheduler: Scheduler,
+  private val disposables: CompositeDisposable,
+  private val settingsInteractor: SettingsInteractor,
+  private val settingsData: SettingsData,
+  private val getChangeFiatCurrencyModelUseCase: GetChangeFiatCurrencyModelUseCase,
+  private val observeSendLogsStateUseCase: ObserveSendLogsStateUseCase,
+  private val resetSendLogsStateUseCase: ResetSendLogsStateUseCase,
+  private val sendLogsUseCase: SendLogsUseCase,
+  private val observeCurrentPromoCodeUseCase: ObserveCurrentPromoCodeUseCase
+) {
 
 
   fun present(savedInstanceState: Bundle?) {
@@ -64,7 +66,8 @@ class SettingsPresenter(private val view: SettingsView,
   fun setFingerPrintPreference() {
     when (settingsInteractor.retrieveFingerPrintAvailability()) {
       BiometricManager.BIOMETRIC_SUCCESS -> view.setFingerprintPreference(
-          settingsInteractor.hasAuthenticationPermission())
+        settingsInteractor.hasAuthenticationPermission()
+      )
       BiometricManager.BIOMETRIC_ERROR_NO_HARDWARE, BiometricManager.BIOMETRIC_ERROR_HW_UNAVAILABLE -> {
         settingsInteractor.changeAuthorizationPermission(false)
         view.removeFingerprintPreference()
@@ -107,29 +110,32 @@ class SettingsPresenter(private val view: SettingsView,
 
   private fun handleAuthenticationResult() {
     disposables.add(view.authenticationResult()
-        .filter { it }
-        .doOnNext {
-          val hasPermission = settingsInteractor.hasAuthenticationPermission()
-          settingsInteractor.changeAuthorizationPermission(!hasPermission)
-          view.toggleFingerprint(!hasPermission)
-        }
-        .subscribe({}, { it.printStackTrace() }))
+      .filter { it }
+      .doOnNext {
+        val hasPermission = settingsInteractor.hasAuthenticationPermission()
+        settingsInteractor.changeAuthorizationPermission(!hasPermission)
+        view.toggleFingerprint(!hasPermission)
+      }
+      .subscribe({}, { it.printStackTrace() })
+    )
   }
 
   fun stop() = disposables.dispose()
 
   private fun handleRedeemPreferenceSetup() {
     disposables.add(settingsInteractor.findWallet()
-        .doOnSuccess { view.setRedeemCodePreference(it) }
-        .subscribe({}, { it.printStackTrace() }))
+      .doOnSuccess { view.setRedeemCodePreference(it) }
+      .subscribe({}, { it.printStackTrace() })
+    )
   }
 
   fun onBackupPreferenceClick() {
     disposables.add(settingsInteractor.retrieveWallets()
-        .subscribeOn(networkScheduler)
-        .observeOn(viewScheduler)
-        .doOnSuccess { handleWalletModel(it) }
-        .subscribe({}, { handleError(it) }))
+      .subscribeOn(networkScheduler)
+      .observeOn(viewScheduler)
+      .doOnSuccess { handleWalletModel(it) }
+      .subscribe({}, { handleError(it) })
+    )
   }
 
   private fun handleWalletModel(walletModel: WalletsModel) {
@@ -162,9 +168,10 @@ class SettingsPresenter(private val view: SettingsView,
 
   fun redirectToStore() {
     disposables.add(
-        Single.create<Intent> { it.onSuccess(settingsInteractor.retrieveUpdateIntent()) }
-            .doOnSuccess { view.navigateToIntent(it) }
-            .subscribe({}, { handleError(it) }))
+      Single.create<Intent> { it.onSuccess(settingsInteractor.retrieveUpdateIntent()) }
+        .doOnSuccess { view.navigateToIntent(it) }
+        .subscribe({}, { handleError(it) })
+    )
   }
 
   private fun handleError(throwable: Throwable) {
@@ -174,8 +181,8 @@ class SettingsPresenter(private val view: SettingsView,
 
   private fun onFingerPrintPreferenceChange() {
     disposables.add(view.switchPreferenceChange()
-        .doOnNext { navigator.showAuthentication() }
-        .subscribe({}, { it.printStackTrace() })
+      .doOnNext { navigator.showAuthentication() }
+      .subscribe({}, { it.printStackTrace() })
     )
   }
 
@@ -185,32 +192,34 @@ class SettingsPresenter(private val view: SettingsView,
 
   fun setCurrencyPreference() {
     disposables.add(getChangeFiatCurrencyModelUseCase()
-        .observeOn(viewScheduler)
-        .doOnSuccess {
-          for (fiatCurrency in it.list) {
-            if (fiatCurrency.currency == it.selectedCurrency) {
-              view.setCurrencyPreference(fiatCurrency)
-              break
-            }
+      .observeOn(viewScheduler)
+      .doOnSuccess {
+        for (fiatCurrency in it.list) {
+          if (fiatCurrency.currency == it.selectedCurrency) {
+            view.setCurrencyPreference(fiatCurrency)
+            break
           }
         }
-        .subscribeOn(networkScheduler)
-        .subscribe())
+      }
+      .subscribeOn(networkScheduler)
+      .subscribe())
   }
 
   fun setSendLogsPreference() {
     disposables.add(observeSendLogsStateUseCase()
-        .observeOn(viewScheduler)
-        .doOnNext {
-          view.setSendLogsPreference(it)
-        }
-        .subscribe())
+      .observeOn(viewScheduler)
+      .doOnNext {
+        view.setSendLogsPreference(it)
+      }
+      .subscribe())
   }
 
   fun onSendLogsClicked() {
-    disposables.add(sendLogsUseCase()
+    disposables.add(
+      sendLogsUseCase()
         .observeOn(viewScheduler)
-        .subscribe())
+        .subscribe()
+    )
   }
 
   fun resetSendLogsState() {
@@ -218,13 +227,14 @@ class SettingsPresenter(private val view: SettingsView,
   }
 
   fun setPromoCodeState() {
-    disposables.add(observePromoCodeStateUseCase()
-        .observeOn(viewScheduler)
-        .doOnNext {
-          view.setPromoCodePreference(it)
-        }
-        .subscribeOn(networkScheduler)
-        .subscribe({}, { it.printStackTrace() }))
+    disposables.add(observeCurrentPromoCodeUseCase()
+      .observeOn(viewScheduler)
+      .doOnNext {
+        view.setPromoCodePreference(it)
+      }
+      .subscribeOn(networkScheduler)
+      .subscribe({}, { it.printStackTrace() })
+    )
   }
 }
 
