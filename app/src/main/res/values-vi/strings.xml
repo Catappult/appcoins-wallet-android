@@ -676,7 +676,8 @@
   <string name="backup_success_save_on_email">Tập tin sao lưu nằm trong email của bạn.</string>
   <string name="backup_success_save_on_device">Tập tin sao lưu được lưu trữ trong thiết bị của bạn.</string>
   <string name="backup_popup_title">Back up your wallet now!</string>
-  <string name="backup_popup_body">Keep your funds safe at all times.</string>
+  <string name="backup_popup_purchase_body">Keep your funds safe at all times.</string>
+  <string name="backup_popup_gamification_body">Keep your bonus level safe at all times.</string>
   <!--Wallets Management-->
   <string name="wallets_title">Ví</string>
   <string name="wallets_total_balance_title">Tổng số dư bằng %s</string>
