@@ -676,7 +676,8 @@
   <string name="backup_success_save_on_email">आपली बॅकअप फाईल आपल्या ईमेलमध्ये आहे.</string>
   <string name="backup_success_save_on_device">आपली बॅकअप फाईल आपल्या डिव्हाईसवर साठवली आहे.</string>
   <string name="backup_popup_title">Back up your wallet now!</string>
-  <string name="backup_popup_body">Keep your funds safe at all times.</string>
+  <string name="backup_popup_purchase_body">Keep your funds safe at all times.</string>
+  <string name="backup_popup_gamification_body">Keep your bonus level safe at all times.</string>
   <!--Wallets Management-->
   <string name="wallets_title">वॉलेट्स</string>
   <string name="wallets_total_balance_title">%s तील एकुण शिल्लक</string>
