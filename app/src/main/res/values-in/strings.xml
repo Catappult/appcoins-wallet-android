@@ -676,7 +676,8 @@
   <string name="backup_success_save_on_email">File cadangan ada di email Anda.</string>
   <string name="backup_success_save_on_device">File cadangan Anda disimpan di perangkat Anda.</string>
   <string name="backup_popup_title">Back up your wallet now!</string>
-  <string name="backup_popup_body">Keep your funds safe at all times.</string>
+  <string name="backup_popup_purchase_body">Keep your funds safe at all times.</string>
+  <string name="backup_popup_gamification_body">Keep your bonus level safe at all times.</string>
   <!--Wallets Management-->
   <string name="wallets_title">Dompet</string>
   <string name="wallets_total_balance_title">Total saldo dalam %s</string>
