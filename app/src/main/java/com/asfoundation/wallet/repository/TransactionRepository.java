@@ -4,7 +4,6 @@ import com.asfoundation.wallet.base.RxSchedulers;
 import com.asfoundation.wallet.entity.NetworkInfo;
 import com.asfoundation.wallet.entity.TransactionBuilder;
 import com.asfoundation.wallet.interact.DefaultTokenProvider;
-import com.asfoundation.wallet.poa.BlockchainErrorMapper;
 import com.asfoundation.wallet.service.AccountKeystoreService;
 import com.asfoundation.wallet.ui.iab.raiden.MultiWalletNonceObtainer;
 import io.reactivex.Flowable;
@@ -70,8 +69,7 @@ public abstract class TransactionRepository implements TransactionRepositoryType
     return createRawTransaction(transactionBuilder, password, transactionBuilder.approveData(),
         transactionBuilder.contractAddress(), BigDecimal.ZERO,
         nonceObtainer.getNonce(new Address(transactionBuilder.fromAddress()),
-            getChainId(transactionBuilder))).map(
-        signedTransaction -> calculateHashFromSigned(signedTransaction));
+            getChainId(transactionBuilder))).map(this::calculateHashFromSigned);
   }
 
   @Override public Single<String> computeBuyTransactionHash(TransactionBuilder transactionBuilder,
@@ -82,7 +80,7 @@ public abstract class TransactionRepository implements TransactionRepositoryType
             transactionBuilder.appcoinsData(), transactionBuilder.getIabContract(), BigDecimal.ZERO,
             nonceObtainer.getNonce(new Address(transactionBuilder.fromAddress()),
                 getChainId(transactionBuilder))))
-        .map(signedTransaction -> calculateHashFromSigned(signedTransaction));
+        .map(this::calculateHashFromSigned);
   }
 
   private Single<String> createTransactionAndSend(TransactionBuilder transactionBuilder,

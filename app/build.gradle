@@ -49,7 +49,6 @@ android {
     buildConfigField 'String', 'ROPSTEN_DEFAULT_TOKEN_NAME', project.ROPSTEN_DEFAULT_TOKEN_NAME
     buildConfigField 'int', 'MAIN_NETWORK_DEFAULT_TOKEN_DECIMALS',
         project.MAIN_NETWORK_DEFAULT_TOKEN_DECIMALS
-    buildConfigField 'String', 'REGISTER_PROOF_GAS_LIMIT', project.REGISTER_PROOF_GAS_LIMIT
     buildConfigField 'String', 'PAYMENT_GAS_LIMIT', project.PAYMENT_GAS_LIMIT
     buildConfigField 'String', 'FLURRY_APK_KEY', project.FLURRY_APK_KEY
     buildConfigField 'String', 'PAYMENT_HOST_ROPSTEN_NETWORK', project.PAYMENT_HOST_DEV

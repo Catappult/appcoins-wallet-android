@@ -8,9 +8,9 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.os.Build
-import android.preference.PreferenceManager
 import androidx.biometric.BiometricManager
 import androidx.core.app.NotificationCompat
+import androidx.preference.PreferenceManager
 import com.adyen.checkout.core.api.Environment
 import com.appcoins.wallet.bdsbilling.WalletService
 import com.appcoins.wallet.commons.LogReceiver
@@ -30,8 +30,6 @@ import com.asfoundation.wallet.logging.DebugReceiver
 import com.asfoundation.wallet.logging.WalletLogger
 import com.asfoundation.wallet.logging.send_logs.SendLogsReceiver
 import com.asfoundation.wallet.logging.send_logs.SendLogsRepository
-import com.asfoundation.wallet.poa.Calculator
-import com.asfoundation.wallet.poa.HashCalculator
 import com.asfoundation.wallet.repository.Web3jProvider
 import com.asfoundation.wallet.ui.iab.AppCoinsOperationRepository
 import com.asfoundation.wallet.ui.iab.AppInfoProvider
@@ -90,22 +88,8 @@ internal class AppModule {
 
   @Singleton
   @Provides
-  @Named("REGISTER_PROOF_GAS_LIMIT")
-  fun provideRegisterPoaGasLimit() = BigDecimal(BuildConfig.REGISTER_PROOF_GAS_LIMIT)
-
-  @Singleton
-  @Provides
   fun provideAdsContractAddressSdk(): AppCoinsAddressProxySdk =
     AppCoinsAddressProxyBuilder().createAddressProxySdk()  //read only?
-
-  @Singleton
-  @Provides
-  fun provideHashCalculator(calculator: Calculator) =
-    HashCalculator(BuildConfig.LEADING_ZEROS_ON_PROOF_OF_ATTENTION, calculator)
-
-  @Provides
-  @Named("MAX_NUMBER_PROOF_COMPONENTS")
-  fun provideMaxNumberProofComponents() = 12
 
   @Provides
   @Singleton
@@ -191,6 +175,7 @@ internal class AppModule {
     @ApplicationContext context: Context,
     packageManager: PackageManager
   ): Int {
+    @Suppress("DEPRECATION")
     return try {
       packageManager.getPackageInfo(context.packageName, 0).versionCode
     } catch (e: PackageManager.NameNotFoundException) {

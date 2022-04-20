@@ -1,6 +1,7 @@
 package com.asfoundation.wallet.repository;
 
-import com.asfoundation.wallet.poa.CountryCodeProvider;
+import androidx.annotation.NonNull;
+import com.asfoundation.wallet.util.CountryCodeProvider;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.reactivex.Single;
@@ -8,8 +9,8 @@ import it.czerwinski.android.hilt.annotations.BoundTo;
 import javax.inject.Inject;
 import retrofit2.http.GET;
 
-@BoundTo(supertype = CountryCodeProvider.class)
-public class IpCountryCodeProvider implements CountryCodeProvider {
+@BoundTo(supertype = CountryCodeProvider.class) public class IpCountryCodeProvider
+    implements CountryCodeProvider {
   public static String ENDPOINT = com.asf.wallet.BuildConfig.BACKEND_HOST;
   private final IpApi ipApi;
 
@@ -17,7 +18,7 @@ public class IpCountryCodeProvider implements CountryCodeProvider {
     this.ipApi = ipApi;
   }
 
-  @Override public Single<String> getCountryCode() {
+  @NonNull @Override public Single<String> getCountryCode() {
     return ipApi.myIp()
         .map(IpResponse::getCountryCode);
   }

@@ -19,7 +19,6 @@ import com.asfoundation.wallet.analytics.RakamAnalytics
 import com.asfoundation.wallet.analytics.SentryAnalytics
 import com.asfoundation.wallet.identification.IdsRepository
 import com.asfoundation.wallet.logging.FlurryReceiver
-import com.asfoundation.wallet.poa.ProofOfAttentionService
 import com.asfoundation.wallet.repository.PreferencesRepositoryType
 import com.asfoundation.wallet.support.AlarmManagerBroadcastReceiver
 import com.asfoundation.wallet.ui.iab.AppcoinsOperationsDataSaver
@@ -42,9 +41,6 @@ import javax.inject.Inject
 
 @HiltAndroidApp
 class App : MultiDexApplication(), BillingDependenciesProvider {
-
-  @Inject
-  lateinit var proofOfAttentionService: ProofOfAttentionService
 
   @Inject
   lateinit var inAppPurchaseInteractor: InAppPurchaseInteractor
@@ -114,7 +110,6 @@ class App : MultiDexApplication(), BillingDependenciesProvider {
     if (gpsAvailable.not()) setupSupportNotificationAlarm()
     initiateFlurry()
     inAppPurchaseInteractor.start()
-    proofOfAttentionService.start()
     appcoinsOperationsDataSaver.start()
     appcoinsRewards.start()
     initializeIndicative()
@@ -127,15 +122,16 @@ class App : MultiDexApplication(), BillingDependenciesProvider {
 
   private fun initializeRakam() {
     rakamAnalytics.initialize()
-        // Hacky way to wait for rakam initialization.. For some reason Rakam is initializing
-        // in another thread internally, and there's no callback for us to wait for that
-        .delay(3000, TimeUnit.MILLISECONDS)
-        .andThen(Completable.fromAction {
-          launchInteractor.sendFirstLaunchEvent()
-        })
-        .subscribeOn(Schedulers.io())
-        .subscribe()
+      // Hacky way to wait for rakam initialization.. For some reason Rakam is initializing
+      // in another thread internally, and there's no callback for us to wait for that
+      .delay(3000, TimeUnit.MILLISECONDS)
+      .andThen(Completable.fromAction {
+        launchInteractor.sendFirstLaunchEvent()
+      })
+      .subscribeOn(Schedulers.io())
+      .subscribe()
   }
+
   private fun initializeIndicative() {
     indicativeAnalytics.initialize()
       .subscribeOn(Schedulers.io())
@@ -160,7 +156,9 @@ class App : MultiDexApplication(), BillingDependenciesProvider {
   // https://github.com/web3j/web3j/issues/915
   private fun setupBouncyCastle() {
     val provider: Provider = Security.getProvider(BouncyCastleProvider.PROVIDER_NAME) ?: return
-    if (provider.equals(BouncyCastleProvider::class.java)) { return }
+    if (provider.equals(BouncyCastleProvider::class.java)) {
+      return
+    }
     Security.removeProvider(BouncyCastleProvider.PROVIDER_NAME)
     Security.insertProviderAt(BouncyCastleProvider(), 1)
   }
@@ -177,8 +175,8 @@ class App : MultiDexApplication(), BillingDependenciesProvider {
   private fun initiateFlurry() {
     if (!BuildConfig.DEBUG) {
       FlurryAgent.Builder()
-          .withLogEnabled(false)
-          .build(this, BuildConfig.FLURRY_APK_KEY)
+        .withLogEnabled(false)
+        .build(this, BuildConfig.FLURRY_APK_KEY)
       logger.addReceiver(FlurryReceiver())
     }
   }
@@ -190,13 +188,13 @@ class App : MultiDexApplication(), BillingDependenciesProvider {
   private fun initiateIntercom() {
     Intercom.initialize(this, BuildConfig.INTERCOM_API_KEY, BuildConfig.INTERCOM_APP_ID)
     Intercom.client()
-        .setInAppMessageVisibility(Intercom.Visibility.GONE)
+      .setInAppMessageVisibility(Intercom.Visibility.GONE)
   }
 
   private fun initializeWalletId() {
     if (preferencesRepositoryType.getWalletId() == null) {
       val id = UUID.randomUUID()
-          .toString()
+        .toString()
       preferencesRepositoryType.setWalletId(id)
     }
   }

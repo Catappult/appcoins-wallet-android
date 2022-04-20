@@ -5,7 +5,6 @@ import com.asfoundation.wallet.abtesting.experiments.topup.TopUpABTestingAnalyti
 import com.asfoundation.wallet.analytics.*
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics
 import com.asfoundation.wallet.billing.analytics.PageViewAnalytics
-import com.asfoundation.wallet.billing.analytics.PoaAnalytics
 import com.asfoundation.wallet.billing.analytics.WalletsAnalytics
 import com.asfoundation.wallet.di.annotations.DefaultHttpClient
 import com.asfoundation.wallet.home.ui.HomeAnalytics
@@ -30,8 +29,9 @@ class AnalyticsModule {
   @Named("bi_event_list")
   fun provideBiEventList() =
     listOf(
-      BillingAnalytics.PURCHASE_DETAILS, BillingAnalytics.PAYMENT_METHOD_DETAILS,
-      BillingAnalytics.PAYMENT, PoaAnalytics.POA_STARTED, PoaAnalytics.POA_COMPLETED
+      BillingAnalytics.PURCHASE_DETAILS,
+      BillingAnalytics.PAYMENT_METHOD_DETAILS,
+      BillingAnalytics.PAYMENT,
     )
 
   @Singleton
@@ -47,7 +47,7 @@ class AnalyticsModule {
       TopUpAnalytics.WALLET_TOP_UP_START, TopUpAnalytics.WALLET_TOP_UP_SELECTION,
       TopUpAnalytics.WALLET_TOP_UP_CONFIRMATION, TopUpAnalytics.WALLET_TOP_UP_CONCLUSION,
       TopUpAnalytics.WALLET_TOP_UP_PAYPAL_URL, TopUpAnalytics.RAKAM_TOP_UP_BILLING,
-      PoaAnalytics.RAKAM_POA_EVENT, WalletsAnalytics.WALLET_CREATE_BACKUP,
+      WalletsAnalytics.WALLET_CREATE_BACKUP,
       WalletsAnalytics.WALLET_SAVE_BACKUP, WalletsAnalytics.WALLET_CONFIRMATION_BACKUP,
       WalletsAnalytics.WALLET_SAVE_FILE, WalletsAnalytics.WALLET_IMPORT_RESTORE,
       WalletsAnalytics.WALLET_MY_WALLETS_INTERACTION_EVENT,
@@ -75,7 +75,7 @@ class AnalyticsModule {
       TopUpAnalytics.WALLET_TOP_UP_START, TopUpAnalytics.WALLET_TOP_UP_SELECTION,
       TopUpAnalytics.WALLET_TOP_UP_CONFIRMATION, TopUpAnalytics.WALLET_TOP_UP_CONCLUSION,
       TopUpAnalytics.WALLET_TOP_UP_PAYPAL_URL, TopUpAnalytics.RAKAM_TOP_UP_BILLING,
-      PoaAnalytics.RAKAM_POA_EVENT, WalletsAnalytics.WALLET_CREATE_BACKUP,
+      WalletsAnalytics.WALLET_CREATE_BACKUP,
       WalletsAnalytics.WALLET_SAVE_BACKUP, WalletsAnalytics.WALLET_CONFIRMATION_BACKUP,
       WalletsAnalytics.WALLET_SAVE_FILE, WalletsAnalytics.WALLET_IMPORT_RESTORE,
       WalletsAnalytics.WALLET_MY_WALLETS_INTERACTION_EVENT,
@@ -103,7 +103,7 @@ class AnalyticsModule {
       TopUpAnalytics.WALLET_TOP_UP_START, TopUpAnalytics.WALLET_TOP_UP_SELECTION,
       TopUpAnalytics.WALLET_TOP_UP_CONFIRMATION, TopUpAnalytics.WALLET_TOP_UP_CONCLUSION,
       TopUpAnalytics.WALLET_TOP_UP_PAYPAL_URL, TopUpAnalytics.RAKAM_TOP_UP_BILLING,
-      PoaAnalytics.RAKAM_POA_EVENT, WalletsAnalytics.WALLET_CREATE_BACKUP,
+      WalletsAnalytics.WALLET_CREATE_BACKUP,
       WalletsAnalytics.WALLET_SAVE_BACKUP, WalletsAnalytics.WALLET_CONFIRMATION_BACKUP,
       WalletsAnalytics.WALLET_SAVE_FILE, WalletsAnalytics.WALLET_IMPORT_RESTORE,
       WalletsAnalytics.WALLET_MY_WALLETS_INTERACTION_EVENT,
