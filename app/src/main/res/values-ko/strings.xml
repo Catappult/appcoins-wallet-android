@@ -676,7 +676,8 @@
   <string name="backup_success_save_on_email">백업 파일이 이메일에 있습니다.</string>
   <string name="backup_success_save_on_device">백업 파일이 디바이스에 저장됩니다.</string>
   <string name="backup_popup_title">Back up your wallet now!</string>
-  <string name="backup_popup_body">Keep your funds safe at all times.</string>
+  <string name="backup_popup_purchase_body">Keep your funds safe at all times.</string>
+  <string name="backup_popup_gamification_body">Keep your bonus level safe at all times.</string>
   <!--Wallets Management-->
   <string name="wallets_title">지갑</string>
   <string name="wallets_total_balance_title">%s의 총 잔액</string>
