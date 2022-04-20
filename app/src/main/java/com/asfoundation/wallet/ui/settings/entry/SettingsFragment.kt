@@ -332,7 +332,7 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
     val privacyPolicyPreference = findPreference<Preference>("pref_privacy_policy")
     privacyPolicyPreference?.setOnPreferenceClickListener {
       startBrowserActivity(
-        Uri.parse("https://myappcoins.com/legal?section=privacy"),
+        Uri.parse("https://wallet.appcoins.io/legal?section=privacy"),
         false
       )
       false
@@ -343,7 +343,7 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
     val termsConditionsPreference = findPreference<Preference>("pref_terms_condition")
     termsConditionsPreference?.setOnPreferenceClickListener {
       startBrowserActivity(
-        Uri.parse("https://myappcoins.com/legal?section=terms"),
+        Uri.parse("https://wallet.appcoins.io/legal?section=terms"),
         false
       )
       false
