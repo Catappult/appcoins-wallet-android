@@ -3,6 +3,7 @@ package com.asfoundation.wallet.home.ui
 import android.content.Intent
 import android.net.Uri
 import android.text.format.DateUtils
+import android.util.Log
 import com.appcoins.wallet.gamification.repository.Levels
 import com.asf.wallet.BuildConfig
 import com.asfoundation.wallet.backup.triggers.BackupTriggerPreferences
@@ -106,7 +107,7 @@ class HomeViewModel @Inject constructor(
     handleUnreadConversationCount()
     handleRateUsDialogVisibility()
     handleFingerprintTooltipVisibility()
-    handleNewLevelBackupTrigger()
+    handleBackupTrigger()
   }
 
   private fun handleWalletData() {
@@ -227,14 +228,6 @@ class HomeViewModel @Inject constructor(
     notifications: List<CardNotification>, maxBonus: Double,
     transactionsWalletModel: TransactionsWalletModel
   ): TransactionsModel {
-    if (transactions.isNotEmpty() &&
-      backupTriggerPreferences.getTriggerSource() == BackupTriggerPreferences.TriggerSource.NOT_SEEN
-    ) {
-      backupTriggerPreferences.setTriggerState(
-        active = true,
-        triggerSource = BackupTriggerPreferences.TriggerSource.FIRST_PURCHASE
-      )
-    }
     return TransactionsModel(transactions, notifications, maxBonus, transactionsWalletModel)
   }
 
@@ -247,6 +240,17 @@ class HomeViewModel @Inject constructor(
       .flatMap { observeRefreshData() }
       .switchMap {
         fetchTransactionsUseCase(wallet.address)
+      }
+      .doOnNext {
+        if (it.isNotEmpty() &&
+          backupTriggerPreferences.getTriggerSource(wallet.address) == BackupTriggerPreferences.TriggerSource.NOT_SEEN
+        ) {
+          backupTriggerPreferences.setTriggerState(
+            walletAddress = wallet.address,
+            active = true,
+            triggerSource = BackupTriggerPreferences.TriggerSource.FIRST_PURCHASE
+          )
+        }
       }
       .subscribeOn(rxSchedulers.io)
       .onErrorReturnItem(emptyList())
@@ -414,14 +418,14 @@ class HomeViewModel @Inject constructor(
     }
   }
 
-  private fun handleNewLevelBackupTrigger() {
+  private fun handleBackupTrigger() {
     getWalletInfoUseCase(null, cached = false, updateFiat = false)
       .doOnSuccess {
-        if (backupTriggerPreferences.getTriggerState()) {
+        if (backupTriggerPreferences.getTriggerState(it.wallet)) {
           sendSideEffect {
             HomeSideEffect.ShowBackupTrigger(
               it.wallet,
-              backupTriggerPreferences.getTriggerSource()
+              backupTriggerPreferences.getTriggerSource(it.wallet)
             )
           }
         }

@@ -125,6 +125,7 @@ class PerkBonusAndGamificationService :
       )
     ) {
       backupTriggerPreferences.setTriggerState(
+        walletAddress = address,
         active = true,
         triggerSource = BackupTriggerPreferences.TriggerSource.NEW_LEVEL
       )

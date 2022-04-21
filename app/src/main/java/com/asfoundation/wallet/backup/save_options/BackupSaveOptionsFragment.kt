@@ -48,8 +48,10 @@ class BackupSaveOptionsFragment : BasePageViewFragment(),
   }
 
 
-  override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                            savedInstanceState: Bundle?): View? {
+  override fun onCreateView(
+    inflater: LayoutInflater, container: ViewGroup?,
+    savedInstanceState: Bundle?
+  ): View? {
     return inflater.inflate(R.layout.backup_save_options_fragment, container, false)
   }
 
@@ -59,8 +61,8 @@ class BackupSaveOptionsFragment : BasePageViewFragment(),
       override fun beforeTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) = Unit
       override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
         views.emailButton.isEnabled =
-            s.isNotEmpty() && android.util.Patterns.EMAIL_ADDRESS.matcher(s)
-                .matches()
+          s.isNotEmpty() && android.util.Patterns.EMAIL_ADDRESS.matcher(s)
+            .matches()
       }
 
       override fun afterTextChanged(s: Editable) = Unit
@@ -69,7 +71,7 @@ class BackupSaveOptionsFragment : BasePageViewFragment(),
       viewModel.sendBackupToEmail(views.emailInput.getText())
     }
     views.emailButton.isEnabled =
-        false // this needs to be after setOnClickListener, otherwise button will be clickable
+      false // this needs to be after setOnClickListener, otherwise button will be clickable
     views.deviceButton.setOnClickListener {
       navigator.navigateToSaveOnDeviceScreen(
         requireArguments().getString(WALLET_ADDRESS_KEY)!!,
@@ -89,8 +91,11 @@ class BackupSaveOptionsFragment : BasePageViewFragment(),
 
   override fun onStateChanged(state: BackupSaveOptionsState) = Unit
 
-  override fun onSideEffect(sideEffect: BackupSaveOptionsSideEffect) = when (sideEffect) {
-    BackupSaveOptionsSideEffect.ShowError -> showError()
-    BackupSaveOptionsSideEffect.NavigateToSuccess -> navigator.navigateToSuccessScreen()
-  }
+  override fun onSideEffect(sideEffect: BackupSaveOptionsSideEffect) =
+    when (sideEffect) {
+      is BackupSaveOptionsSideEffect.NavigateToSuccess -> navigator.navigateToSuccessScreen(
+        sideEffect.walletAddress
+      )
+      BackupSaveOptionsSideEffect.ShowError -> showError()
+    }
 }

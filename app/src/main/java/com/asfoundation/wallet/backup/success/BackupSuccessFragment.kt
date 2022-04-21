@@ -26,12 +26,14 @@ class BackupSuccessFragment : BasePageViewFragment(),
 
   companion object {
     const val EMAIL_KEY = "email"
+    const val WALLET_ADDRESS_KEY = "wallet_address_key"
 
     @JvmStatic
-    fun newInstance(email: Boolean): BackupSuccessFragment {
+    fun newInstance(walletAddress: String, email: Boolean): BackupSuccessFragment {
       return BackupSuccessFragment()
         .apply {
           arguments = Bundle().apply {
+            putString(WALLET_ADDRESS_KEY, walletAddress)
             putBoolean(EMAIL_KEY, email)
           }
         }
@@ -51,6 +53,7 @@ class BackupSuccessFragment : BasePageViewFragment(),
     views.closeButton.setOnClickListener {
       this.activity?.finish()
       backupTriggerPreferences.setTriggerState(
+        walletAddress = requireArguments().getString(WALLET_ADDRESS_KEY, ""),
         active = false,
         triggerSource = BackupTriggerPreferences.TriggerSource.DISABLED
       )

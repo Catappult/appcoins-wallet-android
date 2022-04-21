@@ -9,7 +9,7 @@ import com.asfoundation.wallet.base.ViewState
 import java.io.File
 
 sealed class BackupSaveOnDeviceDialogSideEffect : SideEffect {
-  object NavigateToSuccess : BackupSaveOnDeviceDialogSideEffect()
+  data class NavigateToSuccess(val walletAddress: String) : BackupSaveOnDeviceDialogSideEffect()
   object ShowError : BackupSaveOnDeviceDialogSideEffect()
 }
 
@@ -38,13 +38,15 @@ class BackupSaveOnDeviceDialogViewModel(
     }
   }
 
-  fun saveBackupFile(fileName: String, filePath: DocumentFile? = downloadsPath?.let {
-    DocumentFile.fromFile(it)
-  }) {
+  fun saveBackupFile(
+    fileName: String, filePath: DocumentFile? = downloadsPath?.let {
+      DocumentFile.fromFile(it)
+    }
+  ) {
     saveBackupFileUseCase(data.walletAddress, data.password, fileName, filePath)
       .andThen(backupSuccessLogUseCase(data.walletAddress))
-      .doOnComplete { sendSideEffect { BackupSaveOnDeviceDialogSideEffect.NavigateToSuccess } }
-        .scopedSubscribe { showError(it) }
+      .doOnComplete { sendSideEffect { BackupSaveOnDeviceDialogSideEffect.NavigateToSuccess(data.walletAddress) } }
+      .scopedSubscribe { showError(it) }
   }
 
   private fun showError(throwable: Throwable) {
