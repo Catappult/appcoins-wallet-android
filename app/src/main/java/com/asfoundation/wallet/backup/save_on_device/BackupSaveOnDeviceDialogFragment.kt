@@ -65,7 +65,8 @@ class BackupSaveOnDeviceDialogFragment : BottomSheetDialogFragment(),
 
   private fun createLaunchers() {
     openDocumentTreeResultLauncher = registerForActivityResult(
-      ActivityResultContracts.StartActivityForResult()) { activityResult ->
+      ActivityResultContracts.StartActivityForResult()
+    ) { activityResult ->
       val data = activityResult.data
       if (activityResult.resultCode == Activity.RESULT_OK && data != null) {
         data.data?.let {
@@ -75,15 +76,18 @@ class BackupSaveOnDeviceDialogFragment : BottomSheetDialogFragment(),
       }
     }
     requestPermissionsLauncher = registerForActivityResult(
-      ActivityResultContracts.RequestPermission()) { isGranted ->
+      ActivityResultContracts.RequestPermission()
+    ) { isGranted ->
       if (isGranted) {
         viewModel.saveBackupFile(views.fileNameInput.getText())
       }
     }
   }
 
-  override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                            savedInstanceState: Bundle?): View? {
+  override fun onCreateView(
+    inflater: LayoutInflater, container: ViewGroup?,
+    savedInstanceState: Bundle?
+  ): View? {
     return inflater.inflate(R.layout.backup_save_on_device_dialog_fragment, container, false)
   }
 
@@ -134,10 +138,13 @@ class BackupSaveOnDeviceDialogFragment : BottomSheetDialogFragment(),
     }
   }
 
-  override fun onSideEffect(sideEffect: BackupSaveOnDeviceDialogSideEffect) = when (sideEffect) {
-    BackupSaveOnDeviceDialogSideEffect.NavigateToSuccess -> navigator.navigateToSuccessScreen()
-    BackupSaveOnDeviceDialogSideEffect.ShowError -> showError()
-  }
+  override fun onSideEffect(sideEffect: BackupSaveOnDeviceDialogSideEffect) =
+    when (sideEffect) {
+      is BackupSaveOnDeviceDialogSideEffect.NavigateToSuccess -> navigator.navigateToSuccessScreen(
+        sideEffect.walletAddress
+      )
+      BackupSaveOnDeviceDialogSideEffect.ShowError -> showError()
+    }
 
   fun showError() {
     Toast.makeText(context, R.string.error_export, Toast.LENGTH_LONG)

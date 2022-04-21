@@ -1,7 +1,6 @@
 package com.asfoundation.wallet.backup.triggers
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -58,13 +57,12 @@ class BackupTriggerDialogFragment : BottomSheetDialogFragment(),
     setListeners()
   }
 
-  //TODO design doesn't include string context for each trigger source, so its commented for now
   private fun setUIContext() {
     when (requireArguments().getSerializable(TRIGGER_SOURCE)!!) {
-//      BackupTriggerPreferences.TriggerSource.NEW_LEVEL -> views.triggerDialogMessage.text =
-//        getString(R.string.backup_skip_title)
-//      BackupTriggerPreferences.TriggerSource.FIRST_PURCHASE -> views.triggerDialogMessage.text =
-//        getString(R.string.backup_skip_title)
+      BackupTriggerPreferences.TriggerSource.NEW_LEVEL -> views.triggerDialogMessage.text =
+        getString(R.string.backup_popup_gamification_body)
+      BackupTriggerPreferences.TriggerSource.FIRST_PURCHASE -> views.triggerDialogMessage.text =
+        getString(R.string.backup_popup_purchase_body)
       else -> {}
     }
   }

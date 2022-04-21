@@ -8,7 +8,7 @@ import com.asfoundation.wallet.base.SideEffect
 import com.asfoundation.wallet.base.ViewState
 
 sealed class BackupSaveOptionsSideEffect : SideEffect {
-  object NavigateToSuccess : BackupSaveOptionsSideEffect()
+  data class NavigateToSuccess(val walletAddress: String) : BackupSaveOptionsSideEffect()
   object ShowError : BackupSaveOptionsSideEffect()
 }
 
@@ -35,8 +35,8 @@ class BackupSaveOptionsViewModel(
   fun sendBackupToEmail(text: String) {
     sendBackupToEmailUseCase(data.walletAddress, data.password, text)
       .andThen(backupSuccessLogUseCase(data.walletAddress))
-      .doOnComplete { sendSideEffect { BackupSaveOptionsSideEffect.NavigateToSuccess } }
-        .scopedSubscribe { showError(it) }
+      .doOnComplete { sendSideEffect { BackupSaveOptionsSideEffect.NavigateToSuccess(data.walletAddress) } }
+      .scopedSubscribe { showError(it) }
   }
 
   private fun showError(throwable: Throwable) {

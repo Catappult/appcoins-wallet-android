@@ -53,7 +53,9 @@ class BackupSkipDialogFragment : BottomSheetDialogFragment(),
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
     views.confirm.setOnClickListener {
-      navigator.finishBackup()
+      navigator.finishBackup(
+        requireArguments().getString(BackupTriggerDialogFragment.WALLET_ADDRESS_KEY)!!
+      )
     }
     views.cancel.setOnClickListener {
       navigator.navigateBack(

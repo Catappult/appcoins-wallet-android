@@ -18,8 +18,9 @@ class BackupSkipDialogNavigator @Inject constructor(
     bottomSheet.show(fragment.parentFragmentManager, "BackupTriggerFromSkip")
   }
 
-  fun finishBackup() {
+  fun finishBackup(walletAddress: String) {
     backupTriggerPreferences.setTriggerState(
+      walletAddress = walletAddress,
       active = false,
       triggerSource = BackupTriggerPreferences.TriggerSource.DISABLED
     )
