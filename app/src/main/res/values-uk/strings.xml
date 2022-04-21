@@ -678,7 +678,8 @@
   <string name="backup_success_save_on_email">Файл резервної копії знаходиться у вашій електронній пошті.</string>
   <string name="backup_success_save_on_device">Файл резервної копії зберігається на вашому пристрої.</string>
   <string name="backup_popup_title">Back up your wallet now!</string>
-  <string name="backup_popup_body">Keep your funds safe at all times.</string>
+  <string name="backup_popup_purchase_body">Keep your funds safe at all times.</string>
+  <string name="backup_popup_gamification_body">Keep your bonus level safe at all times.</string>
   <!--Wallets Management-->
   <string name="wallets_title">Гаманці</string>
   <string name="wallets_total_balance_title">Загальний баланс у %s</string>

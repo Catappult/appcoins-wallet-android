@@ -676,7 +676,8 @@
   <string name="backup_success_save_on_email">فایل بک‌آپ شما در ایمیل شماست.</string>
   <string name="backup_success_save_on_device">فایل بک‌آپ شما در دستگاه شما ذخیره شده‌است.</string>
   <string name="backup_popup_title">Back up your wallet now!</string>
-  <string name="backup_popup_body">Keep your funds safe at all times.</string>
+  <string name="backup_popup_purchase_body">Keep your funds safe at all times.</string>
+  <string name="backup_popup_gamification_body">Keep your bonus level safe at all times.</string>
   <!--Wallets Management-->
   <string name="wallets_title">کیف‌پول‌ها</string>
   <string name="wallets_total_balance_title">تراز کلی در %s</string>
