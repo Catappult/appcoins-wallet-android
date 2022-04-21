@@ -7,7 +7,8 @@ import com.asfoundation.wallet.change_currency.use_cases.GetChangeFiatCurrencyMo
 import com.asfoundation.wallet.logging.send_logs.use_cases.ObserveSendLogsStateUseCase
 import com.asfoundation.wallet.logging.send_logs.use_cases.ResetSendLogsStateUseCase
 import com.asfoundation.wallet.logging.send_logs.use_cases.SendLogsUseCase
-import com.asfoundation.wallet.promo_code.use_cases.ObserveCurrentPromoCodeUseCase
+import com.asfoundation.wallet.promo_code.use_cases.GetUpdatedPromoCodeUseCase
+import com.asfoundation.wallet.promo_code.use_cases.ObservePromoCodeUseCase
 import com.asfoundation.wallet.ui.wallets.WalletsModel
 import io.reactivex.Scheduler
 import io.reactivex.Single
@@ -25,7 +26,8 @@ class SettingsPresenter(
   private val observeSendLogsStateUseCase: ObserveSendLogsStateUseCase,
   private val resetSendLogsStateUseCase: ResetSendLogsStateUseCase,
   private val sendLogsUseCase: SendLogsUseCase,
-  private val observeCurrentPromoCodeUseCase: ObserveCurrentPromoCodeUseCase
+  private val getUpdatedPromoCodeUseCase: GetUpdatedPromoCodeUseCase,
+  private val observePromoCodeUseCase: ObservePromoCodeUseCase
 ) {
 
 
@@ -227,7 +229,8 @@ class SettingsPresenter(
   }
 
   fun setPromoCodeState() {
-    disposables.add(observeCurrentPromoCodeUseCase()
+    disposables.add(getUpdatedPromoCodeUseCase()
+      .flatMapObservable { observePromoCodeUseCase() }
       .observeOn(viewScheduler)
       .doOnNext {
         view.setPromoCodePreference(it)

@@ -5,7 +5,8 @@ import com.asfoundation.wallet.change_currency.use_cases.GetChangeFiatCurrencyMo
 import com.asfoundation.wallet.logging.send_logs.use_cases.ObserveSendLogsStateUseCase
 import com.asfoundation.wallet.logging.send_logs.use_cases.ResetSendLogsStateUseCase
 import com.asfoundation.wallet.logging.send_logs.use_cases.SendLogsUseCase
-import com.asfoundation.wallet.promo_code.use_cases.ObserveCurrentPromoCodeUseCase
+import com.asfoundation.wallet.promo_code.use_cases.GetUpdatedPromoCodeUseCase
+import com.asfoundation.wallet.promo_code.use_cases.ObservePromoCodeUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -26,11 +27,12 @@ class SettingsModule {
                                 observeSendLogsStateUseCase: ObserveSendLogsStateUseCase,
                                 resetSendLogsStateUseCase: ResetSendLogsStateUseCase,
                                 sendLogsUseCase: SendLogsUseCase,
-                                observeCurrentPromoCodeUseCase: ObserveCurrentPromoCodeUseCase): SettingsPresenter {
+                                getUpdatedPromoCodeUseCase: GetUpdatedPromoCodeUseCase,
+                                observePromoCodeUseCase: ObservePromoCodeUseCase): SettingsPresenter {
     return SettingsPresenter(settingsFragment as SettingsView, navigator, Schedulers.io(),
         AndroidSchedulers.mainThread(), CompositeDisposable(), interactor, data,
         getChangeFiatCurrencyModelUseCase,observeSendLogsStateUseCase, resetSendLogsStateUseCase,
-        sendLogsUseCase, observeCurrentPromoCodeUseCase)
+        sendLogsUseCase, getUpdatedPromoCodeUseCase, observePromoCodeUseCase)
   }
 
   @Provides
