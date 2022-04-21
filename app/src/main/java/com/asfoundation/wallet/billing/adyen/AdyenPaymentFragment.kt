@@ -178,8 +178,8 @@ class AdyenPaymentFragment : BasePageViewFragment(), AdyenPaymentView {
     buy_button.visibility = VISIBLE
     cancel_button.visibility = VISIBLE
 
-    handleLayoutVisibility(isStored)
     prepareCardComponent(paymentInfoModel, forget)
+    handleLayoutVisibility(isStored)
     setStoredPaymentInformation(isStored)
   }
 

@@ -320,8 +320,8 @@ class AdyenTopUpFragment : BasePageViewFragment(), AdyenTopUpView {
 
   override fun finishCardConfiguration(paymentInfoModel: PaymentInfoModel, forget: Boolean) {
     this.isStored = paymentInfoModel.isStored
-    handleLayoutVisibility(isStored)
     prepareCardComponent(paymentInfoModel, forget)
+    handleLayoutVisibility(isStored)
     setStoredPaymentInformation(isStored)
   }
 
