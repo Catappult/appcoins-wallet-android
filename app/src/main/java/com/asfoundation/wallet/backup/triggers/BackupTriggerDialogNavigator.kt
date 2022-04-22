@@ -10,6 +10,7 @@ import javax.inject.Inject
 class BackupTriggerDialogNavigator @Inject constructor(val fragment: Fragment) {
 
   fun navigateToBackupActivity(walletAddress: String) {
+    (fragment as BottomSheetDialogFragment).dismiss()
     val intent =
       BackupActivity.newIntent(fragment.requireContext(), walletAddress, isBackupTrigger = true)
         .apply {
