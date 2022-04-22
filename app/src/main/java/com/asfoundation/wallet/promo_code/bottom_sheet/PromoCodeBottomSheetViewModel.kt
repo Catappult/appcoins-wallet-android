@@ -5,10 +5,7 @@ import com.asfoundation.wallet.base.BaseViewModel
 import com.asfoundation.wallet.base.SideEffect
 import com.asfoundation.wallet.base.ViewState
 import com.asfoundation.wallet.promo_code.repository.PromoCode
-import com.asfoundation.wallet.promo_code.use_cases.DeletePromoCodeUseCase
-import com.asfoundation.wallet.promo_code.use_cases.GetCurrentPromoCodeUseCase
-import com.asfoundation.wallet.promo_code.use_cases.GetUpdatedPromoCodeUseCase
-import com.asfoundation.wallet.promo_code.use_cases.SetPromoCodeUseCase
+import com.asfoundation.wallet.promo_code.use_cases.*
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
@@ -22,7 +19,7 @@ data class PromoCodeBottomSheetState(val promoCodeAsync: Async<PromoCode> = Asyn
 
 @HiltViewModel
 class PromoCodeBottomSheetViewModel @Inject constructor(
-  private val getCurrentPromoCodeUseCase: GetCurrentPromoCodeUseCase,
+  private val observePromoCodeUseCase: ObservePromoCodeUseCase,
   private val setPromoCodeUseCase: SetPromoCodeUseCase,
   private val deletePromoCodeUseCase: DeletePromoCodeUseCase) :
     BaseViewModel<PromoCodeBottomSheetState, PromoCodeBottomSheetSideEffect>(initialState()) {
@@ -38,7 +35,7 @@ class PromoCodeBottomSheetViewModel @Inject constructor(
   }
 
   private fun getCurrentPromoCode() {
-    getCurrentPromoCodeUseCase()
+    observePromoCodeUseCase()
         .asAsyncToState { copy(promoCodeAsync = it) }
         .repeatableScopedSubscribe(PromoCodeBottomSheetState::promoCodeAsync.name) { e ->
           e.printStackTrace()
