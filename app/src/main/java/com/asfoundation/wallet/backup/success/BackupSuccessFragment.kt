@@ -49,14 +49,14 @@ class BackupSuccessFragment : BasePageViewFragment(),
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
+    backupTriggerPreferences.setTriggerState(
+      walletAddress = requireArguments().getString(WALLET_ADDRESS_KEY, ""),
+      active = false,
+      triggerSource = BackupTriggerPreferences.TriggerSource.DISABLED
+    )
 
     views.closeButton.setOnClickListener {
       this.activity?.finish()
-      backupTriggerPreferences.setTriggerState(
-        walletAddress = requireArguments().getString(WALLET_ADDRESS_KEY, ""),
-        active = false,
-        triggerSource = BackupTriggerPreferences.TriggerSource.DISABLED
-      )
     }
 
     setSuccessInfo()
