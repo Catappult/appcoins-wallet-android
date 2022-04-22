@@ -16,17 +16,19 @@ import java.util.*
 import javax.inject.Inject
 
 class WalletInfoRepository @Inject constructor(
-    private val api: WalletInfoApi,
-    private val walletInfoDao: WalletInfoDao,
-    private val balanceRepository: BalanceRepository,
-    private val sentryEventLogger: SentryEventLogger,
-    private val rxSchedulers: RxSchedulers
+  private val api: WalletInfoApi,
+  private val walletInfoDao: WalletInfoDao,
+  private val balanceRepository: BalanceRepository,
+  private val sentryEventLogger: SentryEventLogger,
+  private val rxSchedulers: RxSchedulers
 ) {
 
-  fun getLatestWalletInfo(walletAddress: String,
-                          updateFiatValues: Boolean): Single<WalletInfo> {
+  fun getLatestWalletInfo(
+    walletAddress: String,
+    updateFiatValues: Boolean
+  ): Single<WalletInfo> {
     return updateWalletInfo(walletAddress, updateFiatValues)
-        .andThen(observeWalletInfo(walletAddress).firstOrError())
+      .andThen(observeWalletInfo(walletAddress).firstOrError())
   }
 
   /**
@@ -36,35 +38,45 @@ class WalletInfoRepository @Inject constructor(
    */
   fun getCachedWalletInfo(walletAddress: String): Single<WalletInfo> {
     return walletInfoDao.getWalletInfo(walletAddress)
-        .flatMap { list ->
-          if (list.isNotEmpty()) {
-            return@flatMap Single.just(
-                WalletInfo(list[0].wallet, getWalletBalance(list[0]), list[0].blocked,
-                    list[0].verified, list[0].logging))
-          }
-          return@flatMap fetchWalletInfo(walletAddress, updateFiatValues = true)
-              .map { entity ->
-                return@map WalletInfo(entity.wallet, getWalletBalance(entity), entity.blocked,
-                    entity.verified, entity.logging)
-              }
+      .flatMap { list ->
+        if (list.isNotEmpty()) {
+          return@flatMap Single.just(
+            WalletInfo(
+              list[0].wallet, getWalletBalance(list[0]), list[0].blocked,
+              list[0].verified, list[0].logging
+            )
+          )
         }
+        return@flatMap fetchWalletInfo(walletAddress, updateFiatValues = true)
+          .map { entity ->
+            return@map WalletInfo(
+              entity.wallet, getWalletBalance(entity), entity.blocked,
+              entity.verified, entity.logging
+            )
+          }
+      }
   }
 
-  fun observeUpdatedWalletInfo(walletAddress: String,
-                               updateFiatValues: Boolean): Observable<WalletInfo> {
-    return Observable.merge(observeWalletInfo(walletAddress),
-        updateWalletInfo(walletAddress, updateFiatValues).toObservable())
+  fun observeUpdatedWalletInfo(
+    walletAddress: String,
+    updateFiatValues: Boolean
+  ): Observable<WalletInfo> {
+    return Observable.merge(
+      observeWalletInfo(walletAddress),
+      updateWalletInfo(walletAddress, updateFiatValues).toObservable()
+    )
   }
 
   fun observeWalletInfo(walletAddress: String): Observable<WalletInfo> {
     return walletInfoDao.observeWalletInfo(walletAddress.normalize())
-        .map { entity ->
-          return@map WalletInfo(entity.wallet, getWalletBalance(entity), entity.blocked,
-              entity.verified, entity.logging
-          )
-        }
-        .doOnError { e -> e.printStackTrace() }
-        .subscribeOn(rxSchedulers.io)
+      .map { entity ->
+        return@map WalletInfo(
+          entity.wallet, getWalletBalance(entity), entity.blocked,
+          entity.verified, entity.logging
+        )
+      }
+      .doOnError { e -> e.printStackTrace() }
+      .subscribeOn(rxSchedulers.io)
   }
 
   /**
@@ -74,44 +86,49 @@ class WalletInfoRepository @Inject constructor(
    */
   fun updateWalletInfo(walletAddress: String, updateFiatValues: Boolean): Completable {
     return fetchWalletInfo(walletAddress, updateFiatValues)
-        .ignoreElement()
-        .onErrorComplete()
-        .subscribeOn(rxSchedulers.io)
+      .ignoreElement()
+      .onErrorComplete()
+      .subscribeOn(rxSchedulers.io)
   }
 
-  private fun fetchWalletInfo(walletAddress: String,
-                              updateFiatValues: Boolean): Single<WalletInfoEntity> {
+  private fun fetchWalletInfo(
+    walletAddress: String,
+    updateFiatValues: Boolean
+  ): Single<WalletInfoEntity> {
     return api.getWalletInfo(walletAddress)
-        .flatMap { walletInfoResponse ->
-          sentryEventLogger.enabled.set(walletInfoResponse.breadcrumbs == 1)
-          if (updateFiatValues) {
-            return@flatMap balanceRepository.getWalletBalance(
-                walletInfoResponse.appcCreditsBalanceWei, walletInfoResponse.appcBalanceWei,
-                walletInfoResponse.ethBalanceWei)
-                .map { walletBalance ->
-                  val fiat = walletBalance.creditsBalance.fiat
-                  WalletInfoEntity(
-                      walletInfoResponse.wallet.normalize(),
-                      walletInfoResponse.appcCreditsBalanceWei,
-                      walletInfoResponse.appcBalanceWei, walletInfoResponse.ethBalanceWei,
-                      walletInfoResponse.blocked, walletInfoResponse.verified,
-                      walletInfoResponse.logging, walletBalance.creditsBalance.fiat.amount,
-                      walletBalance.appcBalance.fiat.amount, walletBalance.ethBalance.fiat.amount,
-                      fiat.currency, fiat.symbol
-                  )
-                }
-                .doOnSuccess { entity -> walletInfoDao.insertWalletInfoWithFiat(entity) }
-          }
-          return@flatMap Single.just(
-              WalletInfoEntity(walletInfoResponse.wallet.normalize(),
-                  walletInfoResponse.ethBalanceWei,
-                  walletInfoResponse.appcBalanceWei, walletInfoResponse.appcCreditsBalanceWei,
-                  walletInfoResponse.blocked, walletInfoResponse.verified,
-                  walletInfoResponse.logging, null, null, null, null, null
-              ))
-              .doOnSuccess { entity -> walletInfoDao.insertOrUpdateNoFiat(entity) }
+      .flatMap { walletInfoResponse ->
+        sentryEventLogger.enabled.set(walletInfoResponse.breadcrumbs == 1)
+        if (updateFiatValues) {
+          return@flatMap balanceRepository.getWalletBalance(
+            walletInfoResponse.appcCreditsBalanceWei, walletInfoResponse.appcBalanceWei,
+            walletInfoResponse.ethBalanceWei
+          )
+            .map { walletBalance ->
+              val fiat = walletBalance.creditsBalance.fiat
+              WalletInfoEntity(
+                walletInfoResponse.wallet.normalize(),
+                walletInfoResponse.appcCreditsBalanceWei,
+                walletInfoResponse.appcBalanceWei, walletInfoResponse.ethBalanceWei,
+                walletInfoResponse.blocked, walletInfoResponse.verified,
+                walletInfoResponse.logging, walletBalance.creditsBalance.fiat.amount,
+                walletBalance.appcBalance.fiat.amount, walletBalance.ethBalance.fiat.amount,
+                fiat.currency, fiat.symbol
+              )
+            }
+            .doOnSuccess { entity -> walletInfoDao.insertWalletInfoWithFiat(entity) }
         }
-        .doOnError { e -> e.printStackTrace() }
+        return@flatMap Single.just(
+          WalletInfoEntity(
+            walletInfoResponse.wallet.normalize(),
+            walletInfoResponse.ethBalanceWei,
+            walletInfoResponse.appcBalanceWei, walletInfoResponse.appcCreditsBalanceWei,
+            walletInfoResponse.blocked, walletInfoResponse.verified,
+            walletInfoResponse.logging, null, null, null, null, null
+          )
+        )
+          .doOnSuccess { entity -> walletInfoDao.insertOrUpdateNoFiat(entity) }
+      }
+      .doOnError { e -> e.printStackTrace() }
   }
 
   // This normalization is important as wallet addresses can be received with mixed case
@@ -126,8 +143,10 @@ class WalletInfoRepository @Inject constructor(
     val appcFiatAmount = entity.appcBalanceFiat ?: BigDecimal.ZERO
     val eth = balanceRepository.roundToEth(entity.ethBalanceWei)
     val ethFiatAmount = entity.ethBalanceFiat ?: BigDecimal.ZERO
-    return balanceRepository.mapToWalletBalance(credits, creditsFiatAmount, appc,
-        appcFiatAmount, eth, ethFiatAmount, entity.fiatCurrency ?: "", entity.fiatSymbol ?: "")
+    return balanceRepository.mapToWalletBalance(
+      credits, creditsFiatAmount, appc,
+      appcFiatAmount, eth, ethFiatAmount, entity.fiatCurrency ?: "", entity.fiatSymbol ?: ""
+    )
   }
 
   interface WalletInfoApi {
