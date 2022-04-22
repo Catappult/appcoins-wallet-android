@@ -43,7 +43,7 @@ class WalletInfoRepository @Inject constructor(
           return@flatMap Single.just(
             WalletInfo(
               list[0].wallet, getWalletBalance(list[0]), list[0].blocked,
-              list[0].verified, list[0].logging
+              list[0].verified, list[0].logging, list[0].hasBackup
             )
           )
         }
@@ -51,7 +51,7 @@ class WalletInfoRepository @Inject constructor(
           .map { entity ->
             return@map WalletInfo(
               entity.wallet, getWalletBalance(entity), entity.blocked,
-              entity.verified, entity.logging
+              entity.verified, entity.logging, list[0].hasBackup
             )
           }
       }
@@ -72,7 +72,7 @@ class WalletInfoRepository @Inject constructor(
       .map { entity ->
         return@map WalletInfo(
           entity.wallet, getWalletBalance(entity), entity.blocked,
-          entity.verified, entity.logging
+          entity.verified, entity.logging, entity.hasBackup
         )
       }
       .doOnError { e -> e.printStackTrace() }
@@ -108,11 +108,17 @@ class WalletInfoRepository @Inject constructor(
               WalletInfoEntity(
                 walletInfoResponse.wallet.normalize(),
                 walletInfoResponse.appcCreditsBalanceWei,
-                walletInfoResponse.appcBalanceWei, walletInfoResponse.ethBalanceWei,
-                walletInfoResponse.blocked, walletInfoResponse.verified,
-                walletInfoResponse.logging, walletBalance.creditsBalance.fiat.amount,
-                walletBalance.appcBalance.fiat.amount, walletBalance.ethBalance.fiat.amount,
-                fiat.currency, fiat.symbol
+                walletInfoResponse.appcBalanceWei,
+                walletInfoResponse.ethBalanceWei,
+                walletInfoResponse.blocked,
+                walletInfoResponse.verified,
+                walletInfoResponse.logging,
+                walletInfoResponse.hasBackup,
+                walletBalance.creditsBalance.fiat.amount,
+                walletBalance.appcBalance.fiat.amount,
+                walletBalance.ethBalance.fiat.amount,
+                fiat.currency,
+                fiat.symbol
               )
             }
             .doOnSuccess { entity -> walletInfoDao.insertWalletInfoWithFiat(entity) }
@@ -123,7 +129,7 @@ class WalletInfoRepository @Inject constructor(
             walletInfoResponse.ethBalanceWei,
             walletInfoResponse.appcBalanceWei, walletInfoResponse.appcCreditsBalanceWei,
             walletInfoResponse.blocked, walletInfoResponse.verified,
-            walletInfoResponse.logging, null, null, null, null, null
+            walletInfoResponse.logging, walletInfoResponse.hasBackup, null, null, null, null, null
           )
         )
           .doOnSuccess { entity -> walletInfoDao.insertOrUpdateNoFiat(entity) }

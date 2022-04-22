@@ -6,4 +6,5 @@ data class WalletInfo(
   val blocked: Boolean,
   val verified: Boolean,
   val logging: Boolean,
+  val hasBackup : Boolean
 )

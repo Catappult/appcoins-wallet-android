@@ -30,7 +30,7 @@ interface WalletInfoDao {
         WalletInfoUpdate(
           walletInfo.wallet, walletInfo.appcCreditsBalanceWei,
           walletInfo.appcBalanceWei, walletInfo.ethBalanceWei, walletInfo.blocked,
-          walletInfo.verified, walletInfo.logging
+          walletInfo.verified, walletInfo.logging, walletInfo.hasBackup
         )
       )
     }

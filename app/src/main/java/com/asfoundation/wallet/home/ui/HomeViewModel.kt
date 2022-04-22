@@ -421,7 +421,8 @@ class HomeViewModel @Inject constructor(
   private fun handleBackupTrigger() {
     getWalletInfoUseCase(null, cached = false, updateFiat = false)
       .doOnSuccess {
-        if (backupTriggerPreferences.getTriggerState(it.wallet)) {
+        Log.d("APPC-3056", "handleBackupTrigger: hasBackup -> ${it.hasBackup}")
+        if (backupTriggerPreferences.getTriggerState(it.wallet) && !it.hasBackup) {
           sendSideEffect {
             HomeSideEffect.ShowBackupTrigger(
               it.wallet,

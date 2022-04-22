@@ -11,5 +11,6 @@ data class WalletInfoResponse(
   val blocked: Boolean,
   val verified: Boolean,
   val logging: Boolean,
+  @SerializedName("has_backup") val hasBackup: Boolean,
   @SerializedName("sentry_breadcrumbs") val breadcrumbs: Int
 )

@@ -9,5 +9,6 @@ data class WalletInfoUpdate(
   val ethBalanceWei: BigInteger,
   val blocked: Boolean,
   val verified: Boolean,
-  val logging: Boolean
+  val logging: Boolean,
+  val hasBackup: Boolean
 )
