@@ -43,7 +43,6 @@ class AdyenCardView(view: View?) {
 
   fun showInputFields(show: Boolean) {
     adyenCardNumberLayout?.visibility = if (show) View.VISIBLE else View.GONE
-    adyenExpiryDateLayout?.visibility = if (show) View.VISIBLE else View.GONE
     adyenCardImageLayout?.visibility = if (show) View.VISIBLE else View.GONE
   }
 

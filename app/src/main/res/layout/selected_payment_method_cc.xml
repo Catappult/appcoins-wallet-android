@@ -6,13 +6,24 @@
     android:layout_height="wrap_content"
     >
 
+  <com.adyen.checkout.card.CardView
+      android:id="@+id/adyen_card_form_pre_selected"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:inputType="numberDecimal"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      />
+
   <ImageView
       android:id="@+id/payment_method_ic"
       android:layout_width="40dp"
       android:layout_height="40dp"
-      android:layout_marginStart="8dp"
+      android:contentDescription="@null"
       android:scaleType="centerInside"
-      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toStartOf="@id/adyen_card_form_pre_selected_number"
+      app:layout_constraintHorizontal_chainStyle="packed"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent"
       tools:src="@drawable/ic_payment_method_credit_card"
@@ -26,21 +37,11 @@
       android:layout_marginStart="16dp"
       android:textSize="16sp"
       app:layout_constraintBottom_toBottomOf="@+id/payment_method_ic"
+      app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toEndOf="@id/payment_method_ic"
       app:layout_constraintTop_toTopOf="@id/payment_method_ic"
       tools:text="**** 7153"
       tools:visibility="gone"
-      />
-
-  <com.adyen.checkout.card.CardView
-      android:id="@+id/adyen_card_form_pre_selected"
-      android:layout_width="0dp"
-      android:layout_height="wrap_content"
-      android:inputType="numberDecimal"
-      app:layout_constraintBottom_toBottomOf="@id/payment_method_ic"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintStart_toEndOf="@id/adyen_card_form_pre_selected_number"
-      app:layout_constraintTop_toTopOf="@id/payment_method_ic"
       />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
