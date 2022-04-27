@@ -20,7 +20,7 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class OnboardingFragment : BasePageViewFragment(),
-    SingleStateFragment<OnboardingState, OnboardingSideEffect> {
+  SingleStateFragment<OnboardingState, OnboardingSideEffect> {
 
   @Inject
   lateinit var navigator: OnboardingNavigator
@@ -36,30 +36,32 @@ class OnboardingFragment : BasePageViewFragment(),
 
   private fun handleBackPress() {
     requireActivity().onBackPressedDispatcher.addCallback(this,
-        object : OnBackPressedCallback(true) {
-          override fun handleOnBackPressed() {
-            when (viewModel.state.pageNumber) {
-              0 -> {
-                isEnabled = false
-                activity?.onBackPressed()
-              }
-              1 -> viewModel.handleBackButtonClick()
+      object : OnBackPressedCallback(true) {
+        override fun handleOnBackPressed() {
+          when (viewModel.state.pageNumber) {
+            0 -> {
+              isEnabled = false
+              activity?.onBackPressed()
             }
+            1 -> viewModel.handleBackButtonClick()
           }
-        })
+        }
+      })
   }
 
   private fun handleFragmentResult() {
     parentFragmentManager.setFragmentResultListener(
-        CreateWalletDialogFragment.RESULT_REQUEST_KEY,
-        this
+      CreateWalletDialogFragment.RESULT_REQUEST_KEY,
+      this
     ) { _, _ ->
       navigator.navigateToMainActivity(fromSupportNotification = false)
     }
   }
 
-  override fun onCreateView(inflater: LayoutInflater, @Nullable container: ViewGroup?,
-                            @Nullable savedInstanceState: Bundle?): View? {
+  override fun onCreateView(
+    inflater: LayoutInflater, @Nullable container: ViewGroup?,
+    @Nullable savedInstanceState: Bundle?
+  ): View? {
     return inflater.inflate(R.layout.fragment_onboarding, container, false)
   }
 

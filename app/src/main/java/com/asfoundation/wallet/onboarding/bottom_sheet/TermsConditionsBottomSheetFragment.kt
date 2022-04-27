@@ -27,7 +27,7 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class TermsConditionsBottomSheetFragment : BottomSheetDialogFragment(),
-    SingleStateFragment<TermsConditionsBottomSheetState, TermsConditionsBottomSheetSideEffect> {
+  SingleStateFragment<TermsConditionsBottomSheetState, TermsConditionsBottomSheetSideEffect> {
 
 
   @Inject
@@ -49,8 +49,10 @@ class TermsConditionsBottomSheetFragment : BottomSheetDialogFragment(),
     super.onStart()
   }
 
-  override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                            savedInstanceState: Bundle?): View? {
+  override fun onCreateView(
+    inflater: LayoutInflater, container: ViewGroup?,
+    savedInstanceState: Bundle?
+  ): View? {
     return inflater.inflate(R.layout.terms_conditions_bottom_sheet, container, false)
   }
 
@@ -75,16 +77,19 @@ class TermsConditionsBottomSheetFragment : BottomSheetDialogFragment(),
       TermsConditionsBottomSheetSideEffect.NavigateBack -> navigator.navigateBack()
       TermsConditionsBottomSheetSideEffect.NavigateToWalletCreationAnimation -> navigator.navigateToCreateWalletDialog()
       is TermsConditionsBottomSheetSideEffect.NavigateToLink -> navigator.navigateToBrowser(
-          sideEffect.uri)
+        sideEffect.uri
+      )
     }
   }
 
-  fun setStringWithLinks() {
+  private fun setStringWithLinks() {
     val termsConditions = resources.getString(R.string.terms_and_conditions)
     val privacyPolicy = resources.getString(R.string.privacy_policy)
     val termsPolicyTickBox =
-        resources.getString(R.string.terms_and_conditions_tickbox, termsConditions,
-            privacyPolicy)
+      resources.getString(
+        R.string.terms_and_conditions_tickbox, termsConditions,
+        privacyPolicy
+      )
 
     val spannableString = SpannableString(termsPolicyTickBox)
     setLinkToString(spannableString, termsConditions, Uri.parse(BuildConfig.TERMS_CONDITIONS_URL))
@@ -95,8 +100,10 @@ class TermsConditionsBottomSheetFragment : BottomSheetDialogFragment(),
     views.termsConditionsBody.movementMethod = LinkMovementMethod.getInstance()
   }
 
-  private fun setLinkToString(spannableString: SpannableString, highlightString: String,
-                              uri: Uri) {
+  private fun setLinkToString(
+    spannableString: SpannableString, highlightString: String,
+    uri: Uri
+  ) {
     val clickableSpan = object : ClickableSpan() {
       override fun onClick(widget: View) {
         viewModel.handleLinkClick(uri = uri)
@@ -108,11 +115,15 @@ class TermsConditionsBottomSheetFragment : BottomSheetDialogFragment(),
       }
     }
     val indexHighlightString = spannableString.toString()
-        .indexOf(highlightString)
+      .indexOf(highlightString)
     val highlightStringLength = highlightString.length
-    spannableString.setSpan(clickableSpan, indexHighlightString,
-        indexHighlightString + highlightStringLength, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
-    spannableString.setSpan(StyleSpan(Typeface.BOLD), indexHighlightString,
-        indexHighlightString + highlightStringLength, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+    spannableString.setSpan(
+      clickableSpan, indexHighlightString,
+      indexHighlightString + highlightStringLength, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+    )
+    spannableString.setSpan(
+      StyleSpan(Typeface.BOLD), indexHighlightString,
+      indexHighlightString + highlightStringLength, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+    )
   }
 }
