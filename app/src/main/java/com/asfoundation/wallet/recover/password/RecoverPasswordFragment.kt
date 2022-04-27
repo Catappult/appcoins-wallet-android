@@ -12,9 +12,11 @@ import com.asf.wallet.R
 import com.asf.wallet.databinding.RecoverPasswordFragmentBinding
 import com.asfoundation.wallet.base.Async
 import com.asfoundation.wallet.base.SingleStateFragment
-import com.asfoundation.wallet.my_wallets.create_wallet.CreateWalletDialogFragment
+import com.asfoundation.wallet.onboarding.OnboardingFragment
 import com.asfoundation.wallet.recover.entry.RecoverEntryFragment
-import com.asfoundation.wallet.recover.result.*
+import com.asfoundation.wallet.recover.result.FailedPasswordRecover
+import com.asfoundation.wallet.recover.result.RecoverPasswordResult
+import com.asfoundation.wallet.recover.result.SuccessfulPasswordRecover
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -103,7 +105,7 @@ class RecoverPasswordFragment : BasePageViewFragment(),
 
   private fun handleFragmentResult() {
     parentFragmentManager.setFragmentResultListener(
-      CreateWalletDialogFragment.RESULT_REQUEST_KEY,
+      OnboardingFragment.ONBOARDING_FINISHED_KEY,
       this
     ) { _, _ ->
       navigator.navigateToMainActivity(fromSupportNotification = false)

@@ -3,7 +3,6 @@ package com.asfoundation.wallet.my_wallets.create_wallet
 import android.animation.Animator
 import android.app.Dialog
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,6 +16,7 @@ import com.asf.wallet.R
 import com.asf.wallet.databinding.FragmentCreateWalletDialogLayoutBinding
 import com.asfoundation.wallet.base.Async
 import com.asfoundation.wallet.base.SingleStateFragment
+import com.asfoundation.wallet.onboarding.OnboardingFragment.Companion.ONBOARDING_FINISHED_KEY
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -54,7 +54,7 @@ class CreateWalletDialogFragment : DialogFragment(),
   }
 
   override fun onDestroy() {
-    setFragmentResult(RESULT_REQUEST_KEY, bundleOf("fragmentEnded" to "result"))
+    setFragmentResult(ONBOARDING_FINISHED_KEY, bundleOf("fragmentEnded" to "result"))
     super.onDestroy()
   }
 
@@ -90,7 +90,6 @@ class CreateWalletDialogFragment : DialogFragment(),
   override fun onSideEffect(sideEffect: CreateWalletSideEffect) = Unit
 
   companion object {
-    const val RESULT_REQUEST_KEY = "CreateWalletDialogFragment"
     const val NEEDS_WALLET_CREATION = "needs_wallet_creation"
   }
 

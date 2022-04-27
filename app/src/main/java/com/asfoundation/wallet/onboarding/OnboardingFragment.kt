@@ -13,7 +13,6 @@ import by.kirich1409.viewbindingdelegate.viewBinding
 import com.asf.wallet.R
 import com.asf.wallet.databinding.FragmentOnboardingBinding
 import com.asfoundation.wallet.base.SingleStateFragment
-import com.asfoundation.wallet.my_wallets.create_wallet.CreateWalletDialogFragment
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -50,10 +49,7 @@ class OnboardingFragment : BasePageViewFragment(),
   }
 
   private fun handleFragmentResult() {
-    parentFragmentManager.setFragmentResultListener(
-      CreateWalletDialogFragment.RESULT_REQUEST_KEY,
-      this
-    ) { _, _ ->
+    parentFragmentManager.setFragmentResultListener(ONBOARDING_FINISHED_KEY, this) { _, _ ->
       navigator.navigateToMainActivity(fromSupportNotification = false)
     }
   }
@@ -113,6 +109,7 @@ class OnboardingFragment : BasePageViewFragment(),
   }
 
   companion object {
+    const val ONBOARDING_FINISHED_KEY = "OnboardingFinished"
     fun newInstance() = OnboardingFragment()
   }
 }
