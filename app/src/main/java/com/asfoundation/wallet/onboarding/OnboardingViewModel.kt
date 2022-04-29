@@ -8,6 +8,8 @@ import javax.inject.Inject
 
 sealed class OnboardingSideEffect : SideEffect {
   object NavigateToRecoverWallet : OnboardingSideEffect()
+  object NavigateToLegalsConsent : OnboardingSideEffect()
+  object NavigateToExit : OnboardingSideEffect()
 }
 
 data class OnboardingState(val pageNumber: Int = 0) : ViewState
@@ -23,11 +25,19 @@ class OnboardingViewModel @Inject constructor() :
   }
 
   fun handleBackButtonClick() {
-    setState { copy(pageNumber = 0) }
+    if (state.pageNumber > 0) {
+      setState { copy(pageNumber = 0) }
+    } else {
+      sendSideEffect { OnboardingSideEffect.NavigateToExit }
+    }
   }
 
   fun handleNextClick() {
     setState { copy(pageNumber = 1) }
+  }
+
+  fun handleGetStartedClick() {
+    sendSideEffect { OnboardingSideEffect.NavigateToLegalsConsent }
   }
 
   fun handleRecoverClick() {

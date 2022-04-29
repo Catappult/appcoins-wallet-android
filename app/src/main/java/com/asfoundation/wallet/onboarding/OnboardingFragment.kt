@@ -26,6 +26,9 @@ class OnboardingFragment : BasePageViewFragment(),
 
   private val viewModel: OnboardingViewModel by viewModels()
   private val views by viewBinding(FragmentOnboardingBinding::bind)
+  private val onBackPressedCallback = object : OnBackPressedCallback(true) {
+    override fun handleOnBackPressed() = viewModel.handleBackButtonClick()
+  }
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
@@ -34,18 +37,7 @@ class OnboardingFragment : BasePageViewFragment(),
   }
 
   private fun handleBackPress() {
-    requireActivity().onBackPressedDispatcher.addCallback(this,
-      object : OnBackPressedCallback(true) {
-        override fun handleOnBackPressed() {
-          when (viewModel.state.pageNumber) {
-            0 -> {
-              isEnabled = false
-              activity?.onBackPressed()
-            }
-            1 -> viewModel.handleBackButtonClick()
-          }
-        }
-      })
+    requireActivity().onBackPressedDispatcher.addCallback(this, onBackPressedCallback)
   }
 
   private fun handleFragmentResult() {
@@ -72,7 +64,7 @@ class OnboardingFragment : BasePageViewFragment(),
     views.onboardingWelcomeButtons.onboardingExistentWalletButton.setOnClickListener { viewModel.handleRecoverClick() }
 
     views.onboardingValuesButtons.onboardingBackButton.setOnClickListener { viewModel.handleBackButtonClick() }
-    views.onboardingValuesButtons.onboardingGetStartedButton.setOnClickListener { navigator.navigateToTermsBottomSheet() }
+    views.onboardingValuesButtons.onboardingGetStartedButton.setOnClickListener { viewModel.handleGetStartedClick() }
   }
 
   override fun onStateChanged(state: OnboardingState) {
@@ -84,7 +76,12 @@ class OnboardingFragment : BasePageViewFragment(),
 
   override fun onSideEffect(sideEffect: OnboardingSideEffect) {
     when (sideEffect) {
+      OnboardingSideEffect.NavigateToLegalsConsent -> navigator.navigateToTermsBottomSheet()
       OnboardingSideEffect.NavigateToRecoverWallet -> navigator.navigateToRecoverActivity()
+      OnboardingSideEffect.NavigateToExit -> {
+        onBackPressedCallback.isEnabled = false
+        activity?.onBackPressed()
+      }
     }
   }
 
