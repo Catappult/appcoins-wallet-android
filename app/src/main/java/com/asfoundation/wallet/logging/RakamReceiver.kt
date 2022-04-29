@@ -18,7 +18,7 @@ class RakamReceiver : LogReceiver {
         .logEvent(LOG_EVENT_TYPE, map(tag, null, throwable))
   }
 
-  override fun log(tag: String?, message: String?) {
+  override fun log(tag: String?, message: String?, asError: Boolean) {
     Rakam.getInstance()
         .logEvent(LOG_EVENT_TYPE, map(tag, message, null))
   }

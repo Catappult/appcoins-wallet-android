@@ -9,7 +9,7 @@ class SendLogsReceiver(private var sendLogsRepository: SendLogsRepository) : Log
         .subscribe()
   }
 
-  override fun log(tag: String?, message: String?) = Unit
+  override fun log(tag: String?, message: String?, asError: Boolean) = Unit
 
   override fun log(tag: String?, message: String?, throwable: Throwable?) {
     sendLogsRepository.saveLog(tag, map(message = message, throwable = throwable))

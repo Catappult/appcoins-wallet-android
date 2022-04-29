@@ -6,8 +6,8 @@ import javax.inject.Inject
 
 class WalletLogger @Inject constructor(private var logReceivers: ArrayList<LogReceiver>): Logger {
 
-  override fun log(tag: String?, message: String?) {
-    logReceivers.forEach { receiver -> message?.let { message -> receiver.log(tag, message) } }
+  override fun log(tag: String?, message: String?, asError: Boolean) {
+    logReceivers.forEach { receiver -> message?.let { message -> receiver.log(tag, message, asError) } }
   }
 
   override fun log(tag: String?, throwable: Throwable?) {

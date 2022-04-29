@@ -8,6 +8,6 @@ interface LogReceiver {
     const val DEFAULT_THROWABLE_STATCKTRACE = "default_throwable_stacktrace"
   }
   fun log(tag: String?, throwable: Throwable?)
-  fun log(tag: String?, message: String?)
+  fun log(tag: String?, message: String?, asError: Boolean = false)
   fun log(tag: String?, message: String?, throwable: Throwable?)
 }
