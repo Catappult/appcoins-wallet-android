@@ -6,10 +6,10 @@
   <string name="title_request">Primite</string>
   <string name="title_import">Oporavite novčanik</string>
   <!--Bottom navigation-->
-  <string name="bottom_navigation_my_wallets">My Wallets</string>
+  <string name="bottom_navigation_my_wallets">Moji novčanici</string>
   <!-- Strings relatedwalletount creation -->
   <string name="prompt_password">Lozinka</string>
-  <string name="action_sign_in_short">Create</string>
+  <string name="action_sign_in_short">Kreiraj</string>
   <!-- String related to sending -->
   <string name="prompt_to">Za</string>
   <string name="action_send">Pošalji</string>
@@ -20,19 +20,19 @@
   <string name="confirm_delete_account">Proverite da li ste napravili rezervnu kopiju ovog novčanika.</string>
   <string name="action_import">Oporavi</string>
   <string name="copy">Kopiraj u ostavu</string>
-  <string name="copied">Copied!</string>
+  <string name="copied">Kopirano!</string>
   <string name="close">Zatvori</string>
   <string name="title_activity_settings">Podešavanja</string>
   <string name="network_label">Mreža</string>
   <string name="credits">Autori</string>
   <string name="label_new">Novo</string>
   <string name="got_it_button">RAZUMEM</string>
-  <string name="change_button">CHANGE</string>
+  <string name="change_button">PROMENI</string>
   <string name="vip">VIP</string>
   <string name="low_storage_error">Nema dovoljno prostora u memoriji</string>
   <string name="no_camera_permission_title">Dozvola za kameru</string>
   <string name="no_camera_permission">Aplikaciji AppCoins BDS Wallet je potrebna dozvola za pristup kameri kako bi skenirala QR kodove.</string>
-  <string name="no_camera_available">No camera available!</string>
+  <string name="no_camera_available">Kamera nije dostupna!</string>
   <string name="ok">U redu</string>
   <string name="barcode_error_format">Neispravan format bar-koda: %s</string>
   <string name="title_delete_account">Da li ste sigurni da želite da uklonite ovaj novčanik?</string>
