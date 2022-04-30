@@ -50,7 +50,7 @@
   <string name="error_import">Greška pri uvozu skladišta ključeva</string>
   <string name="message_this_is_your_address">Javna adresa mog Ethereum novčanika</string>
   <string name="backup_warning_text">Pošto samo vi kontrolišete svoj novac, moraćete da sačuvate rezervnu kopiju svog skladišta ključeva za slučaj da ova aplikacija bude izbrisana.\n\nVaš novčanik se nikad ne čuva u memoriji na oblaku ili kao standardna rezervna kopija sa uređaja.</string>
-  <string name="backup_wallet_tooltip">Keep a copy of your wallet to keep it safe.</string>
+  <string name="backup_wallet_tooltip">Napravite kopiju novčanika da bi bio bezbedan.</string>
   <string name="message_no_backup">Bez rezervne kopije, ništa od Ethereuma</string>
   <string name="error_deleting_account">Greška prilikom brisanja novčanika</string>
   <string name="title_privacy_policy">Smernice za privatnost</string>
@@ -100,7 +100,7 @@
   <string name="title_dialog_error">Greška</string>
   <string name="title_dialog_handling">Obrada…</string>
   <string name="title_dialog_add_account">Dodajte novčanik</string>
-  <string name="title_dialog_deposit">How would you like to buy?</string>
+  <string name="title_dialog_deposit">Kako želite da izvršite kupovinu?</string>
   <string name="title_dialog_close_channel">Close channel</string>
   <!-- Dialog messages-->
   <string name="dialog_message">Podesite lozinku za šifrovanje novčanika</string>
