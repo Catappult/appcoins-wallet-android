@@ -120,20 +120,20 @@
   <string name="intro_2_title">Igrajte više, platite manje</string>
   <string name="intro_2_body">Dobijte nagrade za kupovinu u svojim omiljenim aplikacijama i igrama.</string>
   <string name="intro_3_title">Jednostavno i lako</string>
-  <string name="intro_3_body">Keep the AppCoins Wallet installed to directly purchase in your games.</string>
+  <string name="intro_3_body">Ostavite aplikaciju AppCoins Wallet instaliranu kako bi kupovali direktno u igrama.</string>
   <string name="intro_4_title">Bezbedno i privatno</string>
   <string name="intro_4_body">Vaši privatni ključevi nikad neće napuštati uređaj, tako da su vaši AppCoins uvek bezbedni.</string>
-  <string name="intro_4_body_2">All your transactions are always safe thanks to the latest technology.</string>
+  <string name="intro_4_body_2">Sve vaše transkacije su uvek bezbedne zahvaljujući najnovijoj tehnologiji.</string>
   <string name="intro_5_title">Dobijte besplatne AppCoins Credits!</string>
   <string name="intro_5_body">Zaradićete besplatne AppCoins Credits ako isprobate ove aplikacije i igre.</string>
   <string name="intro_creating_wallet_short">Podešavamo vam novčanik&#8230;</string>
   <string name="intro_wallet_created_short">Novčanik je napravljen!</string>
   <string name="intro_agree_terms_and_conditions_body">Ako dodirnete Preskoči, prihvatate %1$s i %2$s aplikacije AppCoins Wallet</string>
   <string name="intro_skip_button">PRESKOČI</string>
-  <string name="intro_welcome_header">Welcome to the AppCoins Wallet</string>
-  <string name="intro_welcome_body">Your app for in-app purchases.</string>
-  <string name="intro_already_have_wallet_button">I already have a wallet</string>
-  <string name="intro_get_started_button">Get started</string>
+  <string name="intro_welcome_header">Dobro došli u AppCoins Wallet</string>
+  <string name="intro_welcome_body">Vaša aplikacija za kupovine u aplikacijama.</string>
+  <string name="intro_already_have_wallet_button">Već imam novčanik</string>
+  <string name="intro_get_started_button">Počnite</string>
   <!-- Menus -->
   <!-- Labels -->
   <string name="label_from">Od</string>
@@ -158,7 +158,7 @@
   <string name="action_more_details">Više</string>
   <string name="action_add_wallet">Dodaj novčanik</string>
   <string name="action_coinbase">Coinbase</string>
-  <string name="action_shapeshift">Shapeshift (Crypto only)</string>
+  <string name="action_shapeshift">Shapeshift (samo za kripto)</string>
   <string name="action_changelly">Changelly</string>
   <string name="action_wallets">Novčanici</string>
   <string name="action_next">Sledeće</string>
@@ -235,25 +235,25 @@
   <string name="transaction_status_success">Uspelo</string>
   <string name="transaction_status_pending">Na čekanju</string>
   <string name="transaction_status_failed">Nije uspelo</string>
-  <string name="transaction_status_reverted">Reverted</string>
+  <string name="transaction_status_reverted">Vraćeno</string>
   <string name="transaction_type_iab">Kupovina u aplikaciji</string>
   <string name="transaction_type_poa">Nagrada</string>
   <string name="transaction_type_poa_offchain">@string/transaction_type_poa</string>
   <string name="transaction_type_standard">Prenos</string>
   <string name="transaction_type_bonus">Bonus</string>
   <string name="transaction_type_eskills_reward">Eskills Reward</string>
-  <string name="transaction_type_eskills">e-Skills Purchase</string>
-  <string name="transaction_type_voucher">e-Voucher</string>
-  <string name="transaction_type_voucher_title">Voucher for %s</string>
+  <string name="transaction_type_eskills">e-Skills kupovina</string>
+  <string name="transaction_type_voucher">e-Vaučer</string>
+  <string name="transaction_type_voucher_title">Vaučer za %s</string>
   <string name="transaction_type_reverted_bonus_title">Vraćanje bonusa</string>
   <string name="transaction_type_reverted_bonus_body">Bonus koji ste dobili %s je vraćen. Obratite se podršci za više informacija.</string>
   <string name="transaction_type_reverted_topup_title">Refundacija dopune</string>
   <string name="transaction_type_reverted_topup_body">Dopuna koju ste uplatili %s je vraćena. Obratite se podršci za više informacija.</string>
   <string name="transaction_type_reverted_purchase_title">Refundacija kupovine</string>
   <string name="transaction_type_reverted_purchase_body">Kupovina koju ste obavili %s je vraćena. Obratite se podršci za više informacija.</string>
-  <string name="transaction_reverted_view_original_header">Original Transaction</string>
-  <string name="transaction_onchain_completed_title">Transaction on the way!</string>
-  <string name="transaction_onchain_completed_body">You can track it on Etherscan.</string>
+  <string name="transaction_reverted_view_original_header">Prvobitna transakcija</string>
+  <string name="transaction_onchain_completed_title">Transakcija je u putu!</string>
+  <string name="transaction_onchain_completed_body">Možete je pratiti preko platforme Etherscan.</string>
   <string name="transaction_type_p2p">@string/transaction_type_standard</string>
   <string name="transaction_details_brand_txt">Omogućuje Ethereum</string>
   <string name="transaction_close_channel_btn_txt">close channel</string>
@@ -263,7 +263,7 @@
   <string name="ellipsize">\u0020• • •</string>
   <string name="transaction_status_label">Status</string>
   <string name="transaction_category_label">Kategorija</string>
-  <string name="transaction_order_reference_label">Order ID</string>
+  <string name="transaction_order_reference_label">ID porudžbenice</string>
   <string name="transaction_details_label">Detalji</string>
   <string name="transaction_to_label">Za</string>
   <string name="dialog_credit_card_remember">Zapamti karticu</string>
@@ -271,7 +271,7 @@
   <string name="dialog_credit_card_number">Broj kartice</string>
   <string name="dialog_credit_card_expiration">Datum isteka</string>
   <string name="dialog_credit_card_cvv">CVV</string>
-  <string name="dialog_bank_card">Credit/debit card</string>
+  <string name="dialog_bank_card">Kreditna/debitna kartica</string>
   <string name="dialog_expiry_date">Datum isteka</string>
   <string name="activity_airdrop_title">Potvrdite da ste ljudsko biće da biste primili AppCoins</string>
   <string name="activity_airdrop_details">Ovo je samo iz bezbednosnih razloga.</string>
@@ -288,7 +288,7 @@
   <string name="iab_activity_raiden_amount_label">Select Amount</string>
   <string name="iab_activity_raiden_channel_info_message">You’ll not pay fees for the transactions made with this developer until the amount you choose is reached. The amount will be withdrawn and stored, and you can close this channel anytime.</string>
   <string name="iab_activity_raiden_channel_info_title">µRaiden Channel</string>
-  <string name="proceed">proceed</string>
+  <string name="proceed">nastavi</string>
   <string name="iab_activity_raiden_channel_no_funds_message">You don\'t have enough funds on your µRainden payment channel. Go to your wallet and close the channel to create a new one.  Do you still want to complete this purchase with a standard payment?</string>
   <string name="iab_activity_raiden_channel_no_funds_title">Payment Channel Funds</string>
   <string name="spend_your_appcoins">Potrošite AppCoins</string>
@@ -331,7 +331,7 @@
   <string name="gamification_star_subtitle">Sjajna, velika i puna života!</string>
   <string name="gamification_galaxy_subtitle">Najveći sistem koji postoji!</string>
   <string name="gamification_transaction_title">@string/gamification_level_bonus</string>
-  <string name="gamification_purchase_header">This purchase has a bonus!</string>
+  <string name="gamification_purchase_header">Ova kupovina ima bonus!</string>
   <string name="gamification_purchase_header_part_1">Bonus za kupovinu:</string>
   <string name="gamification_purchase_header_part_2">%s APPC Credits</string>
   <string name="gamification_purchase_body">Ovaj bonus možete da upotrebite prilikom sledeće kupovine.</string>
@@ -348,12 +348,12 @@
   <string name="gamification_leveled_up_body">Od sada ćete dobijati bonus od %s za svaku kupovinu. Kupujte i dalje da biste zaradili još više!</string>
   <string name="gamification_leveled_up_notification_title">Dostigli ste sledeći nivo!</string>
   <string name="gamification_leveled_up_notification_body">Čestitamo, od sada ćete dobijati bonus od %s za svaku kupovinu!</string>
-  <string name="gamification_how_max_level_notification_title">You Made It!</string>
-  <string name="gamification_how_max_level_body">You\'ve reached the highest level: %s Bonus on every purchase!</string>
-  <string name="gamification_level_up_notification_title">Almost there!</string>
+  <string name="gamification_how_max_level_notification_title">Uspeli ste!</string>
+  <string name="gamification_how_max_level_body">Dostigli ste najviši nivo: %s Bonus pri svakoj kupovini!</string>
+  <string name="gamification_level_up_notification_title">Skoro ste završili!</string>
   <string name="gamification_level_up_notification_body">Potrošite još %s AppCoins da biste dostigli sledeći nivo.</string>
-  <string name="gamification_bonus_plus_perk_title">You\'ve got extra bonus!</string>
-  <string name="gamification_bonus_plus_perk_body">Enjoy a %1$s bonus and %2$s AppCoins Credits extra.</string>
+  <string name="gamification_bonus_plus_perk_title">Dobili ste dodatni bonus!</string>
+  <string name="gamification_bonus_plus_perk_body">Uživajte u dodatnih %1$s bonusa i %2$s AppCoins Credits.</string>
   <!-- Provide wallet address -->
   <string name="provide_wallet_body">Dozvolite aplikaciji AppCoins Wallet da adresu vašeg novčanika pošalje aplikaciji %s.</string>
   <string name="provide_wallet_body_placeholders">Dozvolite aplikaciji %1$s da adresu vašeg novčanika pošalje aplikaciji %2$s.</string>
@@ -388,11 +388,11 @@
   <string name="balance_ethereum_body">Ethereum je kriptovaluta na kojoj su zasnovani AppCoins. Možete da je kupite i prodate na većini berzi – veoma je popularna!</string>
   <string name="balance_appcoins_body">AppCoins je kriptovaluta za ekonomiju aplikacija. Možete da je kupite i prodate na nekoliko berzi i koristite je za kupovine u aplikacijama.</string>
   <string name="balance_appccreditos_body">Token za kupovine u aplikacijama! Dopunite APPC-C iz novčanika ili ih dobijte besplatno tako što ćete koristiti aplikacije. Možete i da ih prenesete prijateljima, kao i oni vama!</string>
-  <string name="my_wallets_action_new_wallet">New wallet</string>
-  <string name="my_wallets_action_recover_wallet">Recover wallet</string>
+  <string name="my_wallets_action_new_wallet">Novi novčanik</string>
+  <string name="my_wallets_action_recover_wallet">Oporavite novčanik</string>
   <string name="my_wallets_action_backup_wallet">Napravite rezervnu kopiju novčanika</string>
-  <string name="my_wallets_action_verify_new_card">Validate new card</string>
-  <string name="my_wallets_action_delete_wallet">Delete wallet</string>
+  <string name="my_wallets_action_verify_new_card">Potvrdite novu karticu</string>
+  <string name="my_wallets_action_delete_wallet">Obrišite novčanik</string>
   <!--Ask a friend for funds-->
   <string name="askafriend_payment_option_button">Zatražite od nekoga da plati</string>
   <string name="askafriend_generating_link_message">Generišemo vam link za plaćanje&#8230;</string>
@@ -401,7 +401,7 @@
   <string name="askafriend_share_add_message_body">Dodajte poruku (izborno)</string>
   <string name="askafriend_share_button">Podeli</string>
   <string name="askafriend_share_popup_title">Zatražite preko:</string>
-  <string name="askafriend_received_body">You just received %s AppCoins Credits</string>
+  <string name="askafriend_received_body">Upravo ste dobili %s AppCoins Credits</string>
   <string name="askafriend_notification_received_title">Novi prenos je primljen</string>
   <string name="askafriend_notification_received_body">U vaš novčanik je dodato %1$s %2$s.</string>
   <string name="askafriend_received_title">Prenos je primljen</string>
@@ -433,28 +433,28 @@
   <string name="common_or">ILI</string>
   <string name="share_via">Podeli preko:</string>
   <string name="password">Lozinka</string>
-  <string name="repeat_password">Repeat password</string>
-  <string name="turn_on_button">Turn on</string>
-  <string name="no_thanks_button">No, thanks</string>
-  <string name="remind_later_button">Remind me later</string>
-  <string name="get_code_button">Get code</string>
+  <string name="repeat_password">Ponovite lozinku</string>
+  <string name="turn_on_button">Uključi</string>
+  <string name="no_thanks_button">Ne, hvala</string>
+  <string name="remind_later_button">Podseti me kasnije</string>
+  <string name="get_code_button">Preuzmite kod</string>
   <string name="confirm_button">Potvrdi</string>
-  <string name="withdraw_button">withdraw</string>
-  <string name="email_here_field">Your email here&#8230;</string>
-  <string name="understood_button">Understood!</string>
-  <string name="skip_button">Skip for now</string>
-  <string name="understand_button">I understand</string>
-  <string name="install_button">Install</string>
+  <string name="withdraw_button">podigni</string>
+  <string name="email_here_field">Vaša e-pošta ovde&#8230;</string>
+  <string name="understood_button">Jasno!</string>
+  <string name="skip_button">Preskoči za sada</string>
+  <string name="understand_button">Razumem</string>
+  <string name="install_button">Instaliraj</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Prihvatam dokumente %1$s i %2$s aplikacije AppCoins Wallet.</string>
   <string name="terms_and_conditions_error">Prihvatite naše Uslove i odredbe i Smernice za privatnost da biste nastavili</string>
   <string name="terms_and_conditions">Uslovi i odredbe</string>
   <string name="privacy_policy">Smernice za privatnost</string>
-  <string name="decline_button">Reject</string>
-  <string name="get_started">Get Started</string>
-  <string name="existent_wallet">I already have a wallet</string>
+  <string name="decline_button">Odbaci</string>
+  <string name="get_started">Počnite</string>
+  <string name="existent_wallet">Već imam novčanik</string>
   <!--Home-->
-  <string name="home_empty_discover_apps_body">Make a purchase on your favorite game and we\'ll handle everything.</string>
+  <string name="home_empty_discover_apps_body">Obavite kupovinu u omiljenoj igri a mi ćemo se pobrinuti za sve ostalo.</string>
   <string name="home_empty_discover_apps_button">OTKRIJTE NAJPOPULARNIJE APLIKACIJE</string>
   <!--Tokens-->
   <!--Settings-->
