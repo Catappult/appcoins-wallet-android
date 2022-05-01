@@ -491,7 +491,7 @@
   <string name="verification_settings_unverified_title">Potvrdite novčanik</string>
   <string name="verification_settings_unverified_body">Osvojite nagrade i pozovite prijatelje</string>
   <string name="verification_settings_verified_title">Novčanik je potvrđen</string>
-  <string name="verification_settings_verifying_title">Verifying wallet…</string>
+  <string name="verification_settings_verifying_title">Potvrđivanje novčanika…</string>
   <string name="verification_verified_paypal_description">You will be refunded immediately. Your wallet will be verified shortly.</string>
   <string name="verification_verify_paypal_description">A minimal transaction of %s will be made to confirm your account. It will be refunded immediately.</string>
   <string name="verification_verify_paypal_button">Verify Now</string>
@@ -671,13 +671,13 @@
   <string name="backup_additional_security_disclaimer_body">There is no password recovery.</string>
   <string name="backup_additional_security_password_not_march">The passwords don\'t match.</string>
   <string name="import_wallet_recovering_body">Recovering wallet...</string>
-  <string name="backup_skip_title">I understand that I may loose my funds if I don\'t backup my wallet key.</string>
-  <string name="backup_wallet_button">Backup wallet</string>
-  <string name="backup_success_save_on_email">Your backup file is in your email.</string>
-  <string name="backup_success_save_on_device">Your backup file is stored in your device.</string>
-  <string name="backup_popup_title">Back up your wallet now!</string>
-  <string name="backup_popup_purchase_body">Keep your funds safe at all times.</string>
-  <string name="backup_popup_gamification_body">Keep your bonus level safe at all times.</string>
+  <string name="backup_skip_title">Jasno mi je da mogu izgubiti sredstva ukoliko ne napravim rezervnu kopiju ključa novčanika.</string>
+  <string name="backup_wallet_button">Napravi rezervnu kopiju novčanika</string>
+  <string name="backup_success_save_on_email">Fajl rezervne kopije novčanika je u vašoj e-pošti.</string>
+  <string name="backup_success_save_on_device">Fajl rezervne kopije je sačuvan na vašem uređaju.</string>
+  <string name="backup_popup_title">Napravite rezervnu kopiju novčanika odmah!</string>
+  <string name="backup_popup_purchase_body">Neka vaša sredstva budu sigurna u svako doba.</string>
+  <string name="backup_popup_gamification_body">Neka vaš nivo bonusa bude siguran u svako doba.</string>
   <!--Wallets Management-->
   <string name="wallets_title">Novčanici</string>
   <string name="wallets_total_balance_title">Ukupno stanje u %s</string>
@@ -730,7 +730,7 @@
   <string name="pioneer_gamification_title">Vi ste pionir</string>
   <string name="pioneer_gamification_body">Pioniri su prvi korisnici koji dobijaju veće bonuse.</string>
   <!--Check for Updates-->
-  <string name="check_updates_settings_current_title">Current version</string>
+  <string name="check_updates_settings_current_title">Aktuelna verzija</string>
   <string name="check_updates_settings_title">Potraži ažuriranja</string>
   <string name="check_updates_settings_subtitle">Aktuelna verzija %s</string>
   <string name="check_updates_checking_body">Traži se nova verzija</string>
@@ -742,9 +742,9 @@
   <!--Subscriptions-->
   <string name="subscriptions_settings_title">Upravljanje pretplatama</string>
   <string name="subscriptions_title">Pretplate</string>
-  <string name="subscriptions_subscribe_button">Subscribe</string>
+  <string name="subscriptions_subscribe_button">Pretplatite se</string>
   <string name="subscriptions_active_title">Aktivne</string>
-  <string name="subscriptions_expired_title">Expired</string>
+  <string name="subscriptions_expired_title">Istekla</string>
   <string name="subscriptions_inactive_title">Neaktivne</string>
   <string name="subscriptions_empty_title">Još nema pretplata</string>
   <string name="subscriptions_empty_body">Pretplatite se na usluge u svojim omiljenim aplikacijama i igrama, a mi ćemo obraditi periodična plaćanja.</string>
@@ -758,10 +758,10 @@
   <string name="subscriptions_canceled_body">Otkazano</string>
   <string name="subscriptions_details_disclaimer">Vrednost sledeće uplate u AppCoins mogla bi da se razlikuje zbog kursa.</string>
   <string name="subscriptions_details_button">DETALJI</string>
-  <string name="subscriptions_manage_button">MANAGE SUBSCRIPTIONS</string>
+  <string name="subscriptions_manage_button">UPRAVLJAJTE PRETPLATAMA</string>
   <string name="subscriptions_cancel_button">OTKAŽI PRETPLATU</string>
-  <string name="subscriptions_renew_subscription_button">RENEW SUBSCRIPTION</string>
-  <string name="subscriptions_renewed_confirmation_title">Subscription Renewed!</string>
+  <string name="subscriptions_renew_subscription_button">OBNOVI PRETPLATU</string>
+  <string name="subscriptions_renewed_confirmation_title">Pretplata je obnovljena!</string>
   <string name="subscriptions_cancel_title">Otkaži pretplatu</string>
   <string name="subscriptions_cancel_body">Da li ste sigurni da želite da otkažete ovu pretplatu?</string>
   <string name="subscriptions_cancel_no_button">NE, VRATI SE</string>
@@ -774,11 +774,11 @@
   <string name="subscriptions_per_week">%1$s nedeljno</string>
   <string name="subscriptions_per_month">%1$s mesečno</string>
   <string name="subscriptions_per_year">%1$s godišnje</string>
-  <string name="subscriptions_per_several_day">%1$s every %2$s days</string>
-  <string name="subscriptions_per_several_week">%1$s every %2$s weeks</string>
-  <string name="subscriptions_per_several_month">%1$s every %2$s months</string>
-  <string name="subscriptions_per_several_year">%1$s every %2$s years</string>
-  <string name="subscriptions_error_already_subscribed">Oops, you\'re already subscribed to this service! Feel free to contact us.</string>
+  <string name="subscriptions_per_several_day">%1$s na svakih %2$s dana</string>
+  <string name="subscriptions_per_several_week">%1$s na svakih %2$s nedelja</string>
+  <string name="subscriptions_per_several_month">%1$s na svakih %2$s meseci</string>
+  <string name="subscriptions_per_several_year">%1$s na svakih %2$s godina</string>
+  <string name="subscriptions_error_already_subscribed">Ups, izgleda da ste već pretplaćeni na ovu uslugu! Slobodno nas kontaktirajte.</string>
   <!--New Gamification-->
   <string name="gamif_title">Do %s%% bonusa!</string>
   <string name="gamif_bonus_received">bounsa je dobijeno</string>
@@ -831,23 +831,23 @@
   <string name="carrier_billing_payment_method_title">Naplata preko operatera</string>
   <string name="carrier_billing_fees_disclaimer">Možda se primenjuju dodatne naknade</string>
   <string name="carrier_billing_insert_phone_body">Unesite svoj broj telefona</string>
-  <string name="carrier_billing_insert_phone_previously_used">Continue with previously used number</string>
+  <string name="carrier_billing_insert_phone_previously_used">Nastavite sa brojem koji ste prethodno koristili</string>
   <string name="carrier_billing_phone_field">Vaš broj telefona...</string>
-  <string name="carrier_billing_carrier_fees_body">A %1$s fee will be charged</string>
+  <string name="carrier_billing_carrier_fees_body">Biće naplaćena naknada od %1$s</string>
   <string name="carrier_billing_purchase_info_body">%1$s u aplikaciji %2$s.</string>
   <string name="carrier_billing_phone_confirmation_body">Vaš broj telefona je %s.</string>
   <string name="carrier_billing_enter_pin_body">Unesite PIN kod koji ste dobili u SMS poruci.</string>
   <string name="carrier_billing_code_field">Vaš kod...</string>
   <string name="carrier_billing_code_resend_button">PONOVO POŠALJI KOD</string>
   <string name="carrier_billing_submit_button">POŠALJI</string>
-  <string name="carrier_billing_number_not_supported">It seems your number isn\'t compatible with this payment method.</string>
+  <string name="carrier_billing_number_not_supported">Izgleda da vaš broj nije kompatibilan sa ovim načinom plaćanja.</string>
   <string name="carrier_billing_terms_disclaimer">Ako dodirnete dugme Pošalji, potvrđujete da prihvatate Uslove i odredbe i Smernice za privatnost.</string>
   <string name="carrier_billing_help_1">Potrebna vam je pomoć?</string>
   <string name="carrier_billing_help_2_button">Obratite se podršci</string>
   <string name="carrier_billing_terms_button">Uslovi i odredbe</string>
   <string name="carrier_billing_privacy_button">Smernice za privatnost</string>
   <!--Manage Cards-->
-  <string name="manage_cards_settings_add_title">Add credit/debit card</string>
+  <string name="manage_cards_settings_add_title">Dodajte kreditnu/debitnu karticu</string>
   <string name="manage_cards_settings_manage_title">Upravljanje karticama</string>
   <string name="manage_cards_view_title">Upravljanje karticama</string>
   <string name="manage_cards_view_manage_subtitle">Upravljajte svojim platnim karticama</string>
@@ -861,7 +861,7 @@
   <string name="manage_cards_select_title">Izaberite platnu karticu</string>
   <string name="manage_cards_remember">Zapamti karticu</string>
   <!--Perks-->
-  <string name="perks_gamif_title">Earn up to %s%% Bonus on every purchase</string>
+  <string name="perks_gamif_title">Zaradite do %s%% bonusa za svaku kupovinu</string>
   <string name="perks_gamif_subtitle">Što više potrošite u omiljenim aplikacijama, bonus će biti veći!</string>
   <string name="perks_title">Promocije</string>
   <string name="perks_body">Pratite nas! Pripremili smo vam posebne promocije.</string>
@@ -871,9 +871,9 @@
     <item quantity="other">Promocija se završava za %s dana.</item>
   </plurals>
   <plurals name="promotion_ends_short">
-    <item quantity="one">It ends in %s day.</item>
+    <item quantity="one">Završava se za %s dan.</item>
     <item quantity="few">It ends in %s days.</item>
-    <item quantity="other">It ends in %s days.</item>
+    <item quantity="other">Završava se za %s dana.</item>
   </plurals>
   <string name="perks_end_in_date">Promocija će se završiti %s.</string>
   <plurals name="promotion_ends_hours">
@@ -882,9 +882,9 @@
     <item quantity="other">Promocija se završava za %s sati.</item>
   </plurals>
   <plurals name="promotion_ends_hours_short">
-    <item quantity="one">It ends in %s hour.</item>
+    <item quantity="one">Završava se za %s sat.</item>
     <item quantity="few">It ends in %s hours.</item>
-    <item quantity="other">It ends in %s hours.</item>
+    <item quantity="other">Završava se za %s sata/sati.</item>
   </plurals>
   <plurals name="promotion_ends_minutes">
     <item quantity="one">Promocija se završava za %s minut.</item>
@@ -892,21 +892,21 @@
     <item quantity="other">Promocija se završava za %s minuta.</item>
   </plurals>
   <plurals name="promotion_ends_minutes_short">
-    <item quantity="one">It ends in %s minute.</item>
+    <item quantity="one">Završava se za %s minut.</item>
     <item quantity="few">It ends in %s minutes.</item>
-    <item quantity="other">It ends in %s minutes.</item>
+    <item quantity="other">Završava se za %s minuta.</item>
   </plurals>
   <string name="perks_end_today">Promocija se završava danas.</string>
-  <string name="perks_end_today_short">It ends today.</string>
+  <string name="perks_end_today_short">Završava se danas.</string>
   <string name="perks_available_soon">Promocija će uskoro biti dostupna</string>
-  <string name="perks_available_soon_short">Available soon</string>
+  <string name="perks_available_soon_short">Dostupno uskoro</string>
   <string name="perks_next_level_reward">Pređite na sledeći nivo da biste dobili %s AppCoins Credits!</string>
   <string name="perks_notification">Upravo ste dobili %s AppCoins Credits kao bonus</string>
   <string name="perks_level_up_on_this_purchase">Dostignite sledeći nivo pomoću ove kupovine</string>
   <string name="perks_level_up_amount_left">Nedostaje vam još %1$s %2$s do sledećeg nivoa!</string>
   <string name="perks_level_up_level_tag">N.</string>
   <string name="perks_bonus_purchase_flow">%1$s bonusa: %2$s u AppCoins Credits</string>
-  <string name="perks_purchases_disclaimer_body">All purchases and top-ups made with any payment method apart from AppCoins Credits will qualify to increase your level and receive rewards.</string>
+  <string name="perks_purchases_disclaimer_body">Sve kupovine i dopune obavljene uz pomoć bilo kog načina plaćanja osim AppCoins Credits se kvalifikuju za povećanje nivoa i dobijanje nagrada.</string>
   <string name="perks_empty_state_first_purchase_body">Make your first purchase in an AppCoins compatible app to unlock the promotions we\'ve got for you!</string>
   <string name="perks_empty_body">No promotions available at the moment.</string>
   <!--Fingerprint Authentication-->
