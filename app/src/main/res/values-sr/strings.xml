@@ -907,35 +907,35 @@
   <string name="perks_level_up_level_tag">N.</string>
   <string name="perks_bonus_purchase_flow">%1$s bonusa: %2$s u AppCoins Credits</string>
   <string name="perks_purchases_disclaimer_body">Sve kupovine i dopune obavljene uz pomoć bilo kog načina plaćanja osim AppCoins Credits se kvalifikuju za povećanje nivoa i dobijanje nagrada.</string>
-  <string name="perks_empty_state_first_purchase_body">Make your first purchase in an AppCoins compatible app to unlock the promotions we\'ve got for you!</string>
-  <string name="perks_empty_body">No promotions available at the moment.</string>
+  <string name="perks_empty_state_first_purchase_body">Obavite prvu kupovinu u aplikaciji koja je kompatibilna sa AppCoins kako bi otključali promocije koje smo spremili za vas!</string>
+  <string name="perks_empty_body">Trenutno nema dostupnih promocija.</string>
   <!--Fingerprint Authentication-->
   <string name="fingerprint_settings">Zaključavanje pomoću otiska prsta</string>
   <string name="fingerprint_failed_title">Potvrda autentičnosti nije uspela!</string>
   <string name="fingerprint_failed_body">Pokušajte ponovo za %s sek.</string>
   <string name="fingerprint_authentication_required_title">Potrebna je potvrda autentičnosti!</string>
   <string name="fingerprint_authentication_required_body">Upotrebite otisak prsta ili lozinku da biste nastavili.</string>
-  <string name="fingerprint_popup_body">Fingerprint authentication is now available!</string>
+  <string name="fingerprint_popup_body">Dostupna je potvrda identiteta pomoću otiska prsta!</string>
   <!--Send Logs to Support-->
   <string name="send_logs_settings">Pošaljite evidenciju timu korisničke podrške</string>
   <string name="send_logs_sending">Slanje&#8230;</string>
   <string name="send_logs_sent">Poslato!</string>
-  <string name="send_logs_error">Error!</string>
+  <string name="send_logs_error">Greška!</string>
   <!--Rate us-->
-  <string name="rate_us_question_title">Enjoying the AppCoins Wallet?</string>
-  <string name="rate_us_no">Not really</string>
-  <string name="rate_us_yes">Yes!</string>
-  <string name="rate_us_improve_title">What can we improve?</string>
-  <string name="rate_us_improve_field">Let us know what went wrong and we\'ll work on it.</string>
-  <string name="rate_us_improve_field__empty_error">Please write something</string>
-  <string name="rate_us_possitive_thanks_title">Thank you!</string>
-  <string name="rate_us_possitive_thanks_body">We\'re glad you like our app. Can you help us by rating us on the app store?</string>
-  <string name="rate_us_possitive_rate_button">RATE APPCOINS WALLET</string>
-  <string name="rate_us_possitive_done_title">Thanks for your feedback!</string>
-  <string name="rate_us_back_title">Wanna help us?</string>
-  <string name="rate_us_back_body">Rate the AppCoins Wallet on the app store so we can improve it.</string>
+  <string name="rate_us_question_title">Da li uživate koristeći AppCoins Wallet?</string>
+  <string name="rate_us_no">Ne baš</string>
+  <string name="rate_us_yes">Da!</string>
+  <string name="rate_us_improve_title">Šta možemo da unapreditmo?</string>
+  <string name="rate_us_improve_field">Recite nam gde je došlo do greške i rešićemo.</string>
+  <string name="rate_us_improve_field__empty_error">Napišite nešto</string>
+  <string name="rate_us_possitive_thanks_title">Hvala!</string>
+  <string name="rate_us_possitive_thanks_body">Drago nam je da vam se dopada naša aplikacija. Možete li nam pomoći tako što ćete je oceniti u app store?</string>
+  <string name="rate_us_possitive_rate_button">OCENITE APPCOINS WALLET</string>
+  <string name="rate_us_possitive_done_title">Hvala vam na povratnim informacijama!</string>
+  <string name="rate_us_back_title">Želite da nam pomognete?</string>
+  <string name="rate_us_back_body">Ocenite AppCoins Wallet na app store kako bismo mogli da je unapredimo.</string>
   <!--Card verification-->
-  <string name="card_verification_body">Validate your credit/debit card to make payments.</string>
+  <string name="card_verification_body">Potvrdite svoju kreditnu/debitnu karticu kako bi mogli da obavljate kupovine.</string>
   <string name="card_verification_charde_disclaimer">We\'ll charge %s to your card, and we\'ll refund it once you confirm the code. Depending on your bank, it can take between minutes and up to a few days.</string>
   <string name="card_verification_code_title">Check the code in the transaction details</string>
   <string name="card_verification_code_body">A unique code will appear in the summary of the transaction provided by your card issuer.</string>
