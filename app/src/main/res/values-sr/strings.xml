@@ -540,11 +540,11 @@
   <string name="purchase_card_error_CVV">Pogrešan CVV/CVC</string>
   <string name="error_contac_us_body">Ako se problem i dalje javlja, obratite nam se.</string>
   <string name="purchase_error_unverified_wallet">Pokušajte da dovršite kupovinu nakon što potvrdite novčanik.</string>
-  <string name="purchase_error_try_other_method">Ups&#8230; Došlo je do greške! Pokušajte sa drugom metodom plaćanja ili nas kontaktirajte.</string>
+  <string name="purchase_error_try_other_method">Ups&#8230; Došlo je do greške! Pokušajte sa drugim načinom plaćanja ili nas kontaktirajte.</string>
   <string name="purchase_error_try_other_amount">Izgleda da je iznos za dopunu previsok! Pokušajte sa manjim iznosom ili nas kontaktirajte!</string>
-  <string name="purchase_error_try_other_amount_or_method">Ups&#8230; Došlo je do greške! Pokušajte sa drugom metodom plaćanja ili iznosom za dopunu.</string>
+  <string name="purchase_error_try_other_amount_or_method">Ups&#8230; Došlo je do greške! Pokušajte sa drugim načinom plaćanja ili iznosom za dopunu.</string>
   <string name="purchase_error_try_cheaper_item">Ovo je prilično skupo! Pokušajte da kupite stavku manje vrednosti.</string>
-  <string name="purchase_error_try_cheaper_item_or_method">Ovo je prilično skupo! Pokušajte da kupite jeftiniju stavku ili pokušajte sa drugom metodom plaćanja.</string>
+  <string name="purchase_error_try_cheaper_item_or_method">Ovo je prilično skupo! Pokušajte da kupite jeftiniju stavku ili pokušajte sa drugim načinom plaćanja.</string>
   <string name="transfer_appc_error_no_eth_title">Potreban vam je Ether!</string>
   <string name="transfer_appc_error_no_eth_body">AppCoins naknade za transfere se plaćaju u valuti Ethereum, tako da će vam biti potreban ETH za transfer APPC.</string>
   <string name="purchase_error_invalid_credit_card">Nevažeći broj bankovne kartice. Proverite da li su sve cifre ispravne.</string>
