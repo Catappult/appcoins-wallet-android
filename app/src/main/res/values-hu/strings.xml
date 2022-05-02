@@ -997,6 +997,9 @@
   <string name="e_skills_room_create_title">Szoba létrehozása vagy csatlakozás</string>
   <string name="e_skills_room_create_body">Hozz létre egy új szobát és oszd meg az ellenfeleiddel vagy csatlakozz egy már létező szobához.</string>
   <string name="e_skills_room_field">Add meg a szoba nevét...</string>
+  <string name="e_skills_withdraw_confirmation_title">A $%s withdrawal has been requested!</string>
+  <string name="e_skills_withdraw_confirmation_body">This may take between 2 and 3 weeks to be processed.</string>
+  <string name="e_skills_withdraw_minimum_body">The minimum amount to withdraw is $%s.</string>
   <!--Promo Code-->
   <string name="promo_code_settings_title">Promóciós kód</string>
   <string name="promo_code_view_title">Promóciós kód</string>
@@ -1012,6 +1015,8 @@
   <string name="promo_code_success_body">Minden vásárlás után %s%% bónuszt fog kapni.</string>
   <string name="promo_code_success_body_specific_app">%1$s%% extra bónusz minden jár %2$s vásárlás után.</string>
   <string name="promo_code_promotions_tag">Promóciós kód</string>
+  <string name="promo_code_error_not_available">This promo code is no longer available.</string>
+  <string name="promo_code_error_invalid_user">Oops! This code couldn\'t be applied.</string>
   <!--AppCoins Info Page-->
   <string name="appcoins_info_title">Az AppCoins-ról</string>
   <string name="appcoins_info_prince_title">AppCoins ár (APPC)</string>
