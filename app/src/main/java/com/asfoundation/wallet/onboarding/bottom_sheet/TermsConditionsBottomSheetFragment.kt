@@ -13,6 +13,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.res.ResourcesCompat
+import androidx.core.os.bundleOf
+import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import by.kirich1409.viewbindingdelegate.viewBinding
@@ -20,6 +22,7 @@ import com.asf.wallet.BuildConfig
 import com.asf.wallet.R
 import com.asf.wallet.databinding.TermsConditionsBottomSheetBinding
 import com.asfoundation.wallet.base.SingleStateFragment
+import com.asfoundation.wallet.onboarding.OnboardingFragment
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
@@ -75,6 +78,13 @@ class TermsConditionsBottomSheetFragment : BottomSheetDialogFragment(),
   override fun onSideEffect(sideEffect: TermsConditionsBottomSheetSideEffect) {
     when (sideEffect) {
       TermsConditionsBottomSheetSideEffect.NavigateBack -> navigator.navigateBack()
+      TermsConditionsBottomSheetSideEffect.NavigateToFinish -> {
+        navigator.navigateBack()
+        setFragmentResult(
+          OnboardingFragment.ONBOARDING_FINISHED_KEY,
+          bundleOf("fragmentEnded" to "result")
+        )
+      }
       TermsConditionsBottomSheetSideEffect.NavigateToWalletCreationAnimation -> navigator.navigateToCreateWalletDialog()
       is TermsConditionsBottomSheetSideEffect.NavigateToLink -> navigator.navigateToBrowser(
         sideEffect.uri

@@ -4,13 +4,16 @@ import android.net.Uri
 import com.asfoundation.wallet.base.BaseViewModel
 import com.asfoundation.wallet.base.SideEffect
 import com.asfoundation.wallet.base.ViewState
+import com.asfoundation.wallet.onboarding.use_cases.HasWalletUseCase
 import com.asfoundation.wallet.onboarding.use_cases.SetOnboardingCompletedUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import io.reactivex.android.schedulers.AndroidSchedulers
 import javax.inject.Inject
 
 sealed class TermsConditionsBottomSheetSideEffect : SideEffect {
   data class NavigateToLink(val uri: Uri) : TermsConditionsBottomSheetSideEffect()
   object NavigateToWalletCreationAnimation : TermsConditionsBottomSheetSideEffect()
+  object NavigateToFinish : TermsConditionsBottomSheetSideEffect()
   object NavigateBack : TermsConditionsBottomSheetSideEffect()
 }
 
@@ -18,9 +21,12 @@ object TermsConditionsBottomSheetState : ViewState
 
 @HiltViewModel
 class TermsConditionsBottomSheetViewModel @Inject constructor(
-    private val setOnboardingCompletedUseCase: SetOnboardingCompletedUseCase) :
-    BaseViewModel<TermsConditionsBottomSheetState, TermsConditionsBottomSheetSideEffect>(
-        initialState()) {
+  private val setOnboardingCompletedUseCase: SetOnboardingCompletedUseCase,
+  private val hasWalletUseCase: HasWalletUseCase,
+) :
+  BaseViewModel<TermsConditionsBottomSheetState, TermsConditionsBottomSheetSideEffect>(
+    initialState()
+  ) {
 
   companion object {
     fun initialState(): TermsConditionsBottomSheetState {
@@ -33,8 +39,20 @@ class TermsConditionsBottomSheetViewModel @Inject constructor(
   }
 
   fun handleCreateWallet() {
-    setOnboardingCompletedUseCase()
-    sendSideEffect { TermsConditionsBottomSheetSideEffect.NavigateToWalletCreationAnimation }
+    hasWalletUseCase()
+      .observeOn(AndroidSchedulers.mainThread())
+      .doOnSuccess {
+        setOnboardingCompletedUseCase()
+
+        sendSideEffect {
+          if (it) {
+            TermsConditionsBottomSheetSideEffect.NavigateToFinish
+          } else {
+            TermsConditionsBottomSheetSideEffect.NavigateToWalletCreationAnimation
+          }
+        }
+      }
+      .scopedSubscribe { it.printStackTrace() }
   }
 
   fun handleLinkClick(uri: Uri) {
