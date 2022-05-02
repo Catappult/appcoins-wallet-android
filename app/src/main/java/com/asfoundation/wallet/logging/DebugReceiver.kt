@@ -13,7 +13,7 @@ class DebugReceiver : LogReceiver {
     }
   }
 
-  override fun log(tag: String?, message: String?, asError: Boolean) {
+  override fun log(tag: String?, message: String?, asError: Boolean, addToBreadcrumbs: Boolean) {
     if (BuildConfig.DEBUG && message != null) {
       Log.e(tag ?: "Logger", message)
     }

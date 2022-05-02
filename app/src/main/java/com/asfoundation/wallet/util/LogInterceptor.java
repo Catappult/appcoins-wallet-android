@@ -133,14 +133,27 @@ public class LogInterceptor implements Interceptor {
 
   private void sendErrorLogString(Response response, Request request) throws IOException {
     StringBuilder logBuilder = new StringBuilder();
+    logBuilder.append("HTTP ")
+        .append(response.code())
+        .append(" ")
+        .append(request.method())
+        .append(" ")
+        .append(request.url())
+        .append("\n")
 
-    logBuilder.append("HTTP " + response.code() + "\n");
-    logBuilder.append("" + request.method() + " " + request.url() + "\n");
-    logBuilder.append("Request: " + formatRequestBody(response.request().body()) + "\n");
-    logBuilder.append("Response: " + formatResponseBody(response.body()) + "\n");
-    logBuilder.append("Message: " + response.message() + "\n");
+        .append("Request: ")
+        .append(formatRequestBody(response.request().body()))
+        .append("\n")
 
-    logger.log("HTTP " + response.code(), logBuilder.toString(), true);
+        .append("Response: ")
+        .append(formatResponseBody(response.body()))
+        .append("\n")
+
+        .append("Message: ")
+        .append(response.message())
+        .append("\n");
+
+    logger.log("HTTP " + response.code(), logBuilder.toString(), true, true);
   }
 
   private String formatResponseBody(ResponseBody responseBody) throws IOException {
