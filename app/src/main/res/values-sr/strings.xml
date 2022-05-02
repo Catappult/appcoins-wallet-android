@@ -872,7 +872,7 @@
   </plurals>
   <plurals name="promotion_ends_short">
     <item quantity="one">Završava se za %s dan.</item>
-    <item quantity="few">It ends in %s days.</item>
+    <item quantity="few">Završava se za %s dana.</item>
     <item quantity="other">Završava se za %s dana.</item>
   </plurals>
   <string name="perks_end_in_date">Promocija će se završiti %s.</string>
@@ -883,8 +883,8 @@
   </plurals>
   <plurals name="promotion_ends_hours_short">
     <item quantity="one">Završava se za %s sat.</item>
-    <item quantity="few">It ends in %s hours.</item>
-    <item quantity="other">Završava se za %s sata/sati.</item>
+    <item quantity="few">Završava se za %s sata.</item>
+    <item quantity="other">Završava se za %s sati.</item>
   </plurals>
   <plurals name="promotion_ends_minutes">
     <item quantity="one">Promocija se završava za %s minut.</item>
@@ -893,7 +893,7 @@
   </plurals>
   <plurals name="promotion_ends_minutes_short">
     <item quantity="one">Završava se za %s minut.</item>
-    <item quantity="few">It ends in %s minutes.</item>
+    <item quantity="few">Završava se za %s minuta.</item>
     <item quantity="other">Završava se za %s minuta.</item>
   </plurals>
   <string name="perks_end_today">Promocija se završava danas.</string>
@@ -947,12 +947,12 @@
   <string name="card_verification_code_enter_title">Unesite kod od %s cifre/cifara</string>
   <plurals name="card_verification_code_enter_hours_body">
     <item quantity="one">%1$s će vam biti refundirano %2$s sat nakon što potvrdite kod.</item>
-    <item quantity="few">%1$s will be refunded within %2$s hours after you confirm the code.</item>
-    <item quantity="other">%1$s će vam biti refundirano %2$s sata/sati nakon što potvrdite kod.</item>
+    <item quantity="few">%1$s će vam biti refundirano %2$s sata nakon što potvrdite kod.</item>
+    <item quantity="other">%1$s će vam biti refundirano %2$s sati nakon što potvrdite kod.</item>
   </plurals>
   <plurals name="card_verification_code_enter_days_body">
     <item quantity="one">%1$s će vam biti refundirano %2$s dan nakon što potvrdite kod.</item>
-    <item quantity="few">%1$s will be refunded within %2$s days after you confirm the code.</item>
+    <item quantity="few">%1$s će vam biti refundirano %2$s dana nakon što potvrdite kod.</item>
     <item quantity="other">%1$s će vam biti refundirano %2$s dana nakon što potvrdite kod.</item>
   </plurals>
   <string name="card_verification_code_other_card_button">Pokušajte sa drugom karticom</string>
