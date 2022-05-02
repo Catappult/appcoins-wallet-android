@@ -997,6 +997,9 @@
   <string name="e_skills_room_create_title">Créer ou rejoindre une salle</string>
   <string name="e_skills_room_create_body">Créez une nouvelle salle et partagez-la avec vos adversaires ou rejoignez une salle existante.</string>
   <string name="e_skills_room_field">Le nom de votre salle ici...</string>
+  <string name="e_skills_withdraw_confirmation_title">A $%s withdrawal has been requested!</string>
+  <string name="e_skills_withdraw_confirmation_body">This may take between 2 and 3 weeks to be processed.</string>
+  <string name="e_skills_withdraw_minimum_body">The minimum amount to withdraw is $%s.</string>
   <!--Promo Code-->
   <string name="promo_code_settings_title">Code Promo</string>
   <string name="promo_code_view_title">Code Promo</string>
@@ -1012,6 +1015,8 @@
   <string name="promo_code_success_body">Vous obtiendrez %s%% de bonus supplémentaire sur tous vos achats.</string>
   <string name="promo_code_success_body_specific_app">Vous obtiendrez un bonus supplémentaire de %1$s%% sur tous vos achats en %2$s.</string>
   <string name="promo_code_promotions_tag">Code promotionnel</string>
+  <string name="promo_code_error_not_available">This promo code is no longer available.</string>
+  <string name="promo_code_error_invalid_user">Oops! This code couldn\'t be applied.</string>
   <!--AppCoins Info Page-->
   <string name="appcoins_info_title">A propos d\'AppCoins</string>
   <string name="appcoins_info_prince_title">Prix des AppCoins (APPC)</string>
