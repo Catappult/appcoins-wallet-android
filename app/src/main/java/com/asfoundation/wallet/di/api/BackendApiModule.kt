@@ -8,7 +8,6 @@ import com.asf.wallet.BuildConfig
 import com.asfoundation.wallet.backup.repository.BackupRepository
 import com.asfoundation.wallet.di.annotations.*
 import com.asfoundation.wallet.eskills.withdraw.repository.WithdrawApi
-import com.asfoundation.wallet.logging.send_logs.SendLogsRepository
 import com.asfoundation.wallet.nfts.repository.NftApi
 import com.asfoundation.wallet.promo_code.repository.PromoCodeRepository
 import com.asfoundation.wallet.redeem_gift.repository.RedeemGiftRepository
@@ -134,14 +133,6 @@ class BackendApiModule {
     @BackendDefaultRetrofit retrofit: Retrofit
   ): RedeemGiftRepository.RedeemGiftBackendApi {
     return retrofit.create(RedeemGiftRepository.RedeemGiftBackendApi::class.java)
-  }
-
-  @Singleton
-  @Provides
-  fun providesSendLogsApi(
-    @BackendDefaultRetrofit retrofit: Retrofit
-  ): SendLogsRepository.SendLogsApi {
-    return retrofit.create(SendLogsRepository.SendLogsApi::class.java)
   }
 
   @Singleton
