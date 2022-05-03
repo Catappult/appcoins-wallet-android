@@ -29,6 +29,7 @@ import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.preference_fingerprint.*
 import kotlinx.android.synthetic.main.preference_fingerprint_off.*
+import java.util.*
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -332,7 +333,11 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
     val privacyPolicyPreference = findPreference<Preference>("pref_privacy_policy")
     privacyPolicyPreference?.setOnPreferenceClickListener {
       startBrowserActivity(
-        Uri.parse("https://myappcoins.com/legal?section=privacy"),
+        Uri.parse(
+          "https://wallet.appcoins.io/legal?section=privacy&lang=${
+            Locale.getDefault().toLanguageTag()
+          }"
+        ),
         false
       )
       false
@@ -343,7 +348,11 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
     val termsConditionsPreference = findPreference<Preference>("pref_terms_condition")
     termsConditionsPreference?.setOnPreferenceClickListener {
       startBrowserActivity(
-        Uri.parse("https://myappcoins.com/legal?section=terms"),
+        Uri.parse(
+          "https://wallet.appcoins.io/legal?section=terms&lang=${
+            Locale.getDefault().toLanguageTag()
+          }"
+        ),
         false
       )
       false

@@ -79,6 +79,8 @@ class HomeViewModel @Inject constructor(
   private val setSeenFingerprintTooltipUseCase: SetSeenFingerprintTooltipUseCase,
   private val getLevelsUseCase: GetLevelsUseCase,
   private val getUserLevelUseCase: GetUserLevelUseCase,
+  private val getLastShownUserLevelUseCase: GetLastShownUserLevelUseCase,
+  private val updateLastShownUserLevelUseCase: UpdateLastShownUserLevelUseCase,
   private val getCardNotificationsUseCase: GetCardNotificationsUseCase,
   private val registerSupportUserUseCase: RegisterSupportUserUseCase,
   private val getUnreadConversationsCountEventsUseCase: GetUnreadConversationsCountEventsUseCase,
@@ -278,12 +280,21 @@ class HomeViewModel @Inject constructor(
 
   private fun verifyUserLevel() {
     findDefaultWalletUseCase()
-      .subscribeOn(rxSchedulers.io)
-      .flatMap {
+      .flatMap { wallet ->
         getUserLevelUseCase()
-          .subscribeOn(rxSchedulers.io)
-          .doOnSuccess { userLevel: Int ->
+          .flatMap { userLevel ->
             setState { copy(showVipBadge = (userLevel == 9 || userLevel == 10)) }
+            getLastShownUserLevelUseCase(wallet.address)
+              .doOnSuccess { lastShownLevel ->
+                if (userLevel > lastShownLevel) {
+                  updateLastShownUserLevelUseCase(wallet.address, userLevel)
+                  backupTriggerPreferences.setTriggerState(
+                    walletAddress = wallet.address,
+                    active = true,
+                    triggerSource = BackupTriggerPreferences.TriggerSource.NEW_LEVEL
+                  )
+                }
+              }
           }
       }
       .scopedSubscribe() { e ->

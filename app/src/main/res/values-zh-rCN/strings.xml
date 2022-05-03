@@ -988,6 +988,9 @@
   <string name="e_skills_room_create_title">创建或加入房间</string>
   <string name="e_skills_room_create_body">创建新房间并与对手分享房间或加入现有房间。</string>
   <string name="e_skills_room_field">此处是你的房间名称……</string>
+  <string name="e_skills_withdraw_confirmation_title">A $%s withdrawal has been requested!</string>
+  <string name="e_skills_withdraw_confirmation_body">This may take between 2 and 3 weeks to be processed.</string>
+  <string name="e_skills_withdraw_minimum_body">The minimum amount to withdraw is $%s.</string>
   <!--Promo Code-->
   <string name="promo_code_settings_title">促销码</string>
   <string name="promo_code_view_title">促销代码</string>
@@ -1003,6 +1006,8 @@
   <string name="promo_code_success_body">你的所有消费都将获得%s%%的额外奖励。</string>
   <string name="promo_code_success_body_specific_app">你在%2$s中的所有购买都将获得%1$s%%的额外奖励。</string>
   <string name="promo_code_promotions_tag">优惠码</string>
+  <string name="promo_code_error_not_available">This promo code is no longer available.</string>
+  <string name="promo_code_error_invalid_user">Oops! This code couldn\'t be applied.</string>
   <!--AppCoins Info Page-->
   <string name="appcoins_info_title">关于AppCoins</string>
   <string name="appcoins_info_prince_title">AppCoins价格(APPC)</string>

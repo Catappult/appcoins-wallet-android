@@ -988,6 +988,9 @@
   <string name="e_skills_room_create_title">룸 생성 또는 가입</string>
   <string name="e_skills_room_create_body">새 룸을 만들어 상대방과 공유하거나 기존 룸에 가입합니다.</string>
   <string name="e_skills_room_field">룸 이름 입력...</string>
+  <string name="e_skills_withdraw_confirmation_title">A $%s withdrawal has been requested!</string>
+  <string name="e_skills_withdraw_confirmation_body">This may take between 2 and 3 weeks to be processed.</string>
+  <string name="e_skills_withdraw_minimum_body">The minimum amount to withdraw is $%s.</string>
   <!--Promo Code-->
   <string name="promo_code_settings_title">프로모션 코드</string>
   <string name="promo_code_view_title">프로모션 코드</string>
@@ -1003,6 +1006,8 @@
   <string name="promo_code_success_body">모든 구매에 대해서 %s%% 추가 보너스를 받게됩니다.</string>
   <string name="promo_code_success_body_specific_app">%2$s의 모든 구매에 대해서 %1$s%%의 추가 보너스를 받게됩니다.</string>
   <string name="promo_code_promotions_tag">프로모션 코드</string>
+  <string name="promo_code_error_not_available">This promo code is no longer available.</string>
+  <string name="promo_code_error_invalid_user">Oops! This code couldn\'t be applied.</string>
   <!--AppCoins Info Page-->
   <string name="appcoins_info_title">AppCoins 소개</string>
   <string name="appcoins_info_prince_title">AppCoins 가격 (APPC)</string>

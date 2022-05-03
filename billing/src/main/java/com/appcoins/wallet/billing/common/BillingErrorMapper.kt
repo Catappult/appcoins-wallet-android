@@ -38,18 +38,15 @@ open class BillingErrorMapper @Inject constructor(private val gson: Gson) {
       messageCode == NOT_ALLOWED_CODE -> ErrorInfo.ErrorType.SUB_ALREADY_OWNED
       messageCode == FORBIDDEN_CODE -> ErrorInfo.ErrorType.BLOCKED
       httpCode == CONFLICT_HTTP_CODE -> ErrorInfo.ErrorType.CONFLICT
-      messageCode == ADYEN_V2_ERROR && data is Int -> {
-        when (data) {
+      messageCode == ADYEN_V2_ERROR && (data is Number) -> {
+        when (data.toInt()) {
           101 -> {
             ErrorInfo.ErrorType.INVALID_CARD
           }
           105 -> {
             ErrorInfo.ErrorType.CARD_SECURITY_VALIDATION
           }
-          172 -> {
-            ErrorInfo.ErrorType.OUTDATED_CARD
-          }
-          422 -> {
+          172, 174, 422, 800 -> {
             ErrorInfo.ErrorType.OUTDATED_CARD
           }
           704 -> {
