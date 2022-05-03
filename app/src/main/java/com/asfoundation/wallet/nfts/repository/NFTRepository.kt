@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.nfts.repository
 
+import com.asf.wallet.BuildConfig
 import com.asfoundation.wallet.base.RxSchedulers
 import com.asfoundation.wallet.nfts.domain.GasInfo
 import com.asfoundation.wallet.nfts.domain.NFTItem
@@ -61,8 +62,10 @@ class NFTRepository @Inject constructor(
       val estimatedGas = web3j.ethEstimateGas(estimateGasTransaction)
         .send()
       var gasLimit = BigInteger.ZERO
+      //To increase the gas for a small bit just to assure that the transaction will be accept
       val gasPrice = web3j.ethGasPrice()
-        .send().gasPrice
+          .send().gasPrice.multiply(BigInteger("3"))
+          .divide(BigInteger("2"))
       if (!estimatedGas.hasError()) {
         gasLimit = estimatedGas.amountUsed
       }
@@ -142,14 +145,14 @@ class NFTRepository @Inject constructor(
       else -> error("Contract not handled")
     }
     val ethGetTransactionCount =
-      web3j.ethGetTransactionCount(fromAddress, DefaultBlockParameterName.LATEST)
-        .sendAsync()
-        .get()
+        web3j.ethGetTransactionCount(fromAddress, DefaultBlockParameterName.LATEST)
+            .sendAsync()
+            .get()
     val nonce = ethGetTransactionCount.transactionCount
-    return RawTransaction.createTransaction(
-      nonce, gasPrice, gasLimit, contractAddress,
-      Numeric.toHexString(data)
-    )
+    val chainID = if (BuildConfig.DEBUG) 4L else 1L
+
+    return RawTransaction.createTransaction(chainID, nonce, gasLimit, contractAddress,
+        BigInteger.ZERO, Numeric.toHexString(data), BigInteger.valueOf(1_500_000_000L), gasPrice)
   }
 
   private fun signAndSendTransaction(fromAddress: String, toAddress: String, tokenID: BigDecimal,
