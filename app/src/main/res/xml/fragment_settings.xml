@@ -76,13 +76,6 @@
         android:layout="@layout/preference_without_summary_layout"
         android:title="@string/settings_item_support" />
 
-    <com.asfoundation.wallet.logging.send_logs.SettingsSendLogsPreference
-        android:icon="@drawable/ic_send_logs"
-        android:key="pref_send_logs"
-        android:layout="@layout/preferences_with_send_logs_layout"
-        android:title="@string/send_logs_settings"/>
-
-
   </PreferenceCategory>
 
   <PreferenceCategory

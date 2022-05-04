@@ -1,7 +1,6 @@
 package com.asfoundation.wallet.di.api
 
 import com.asfoundation.wallet.di.annotations.DefaultHttpClient
-import com.asfoundation.wallet.logging.send_logs.SendLogsRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -31,10 +30,4 @@ class LocalhostApiModule {
       .build()
   }
 
-  @Singleton
-  @Provides
-  fun providesAwsUploadFilesApi(
-      @Named("localhost-default") retrofit: Retrofit): SendLogsRepository.AwsUploadFilesApi {
-    return retrofit.create(SendLogsRepository.AwsUploadFilesApi::class.java)
-  }
 }

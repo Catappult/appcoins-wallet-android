@@ -28,8 +28,6 @@ import com.asfoundation.wallet.entity.NetworkInfo
 import com.asfoundation.wallet.ewt.EwtAuthenticatorService
 import com.asfoundation.wallet.logging.DebugReceiver
 import com.asfoundation.wallet.logging.WalletLogger
-import com.asfoundation.wallet.logging.send_logs.SendLogsReceiver
-import com.asfoundation.wallet.logging.send_logs.SendLogsRepository
 import com.asfoundation.wallet.repository.Web3jProvider
 import com.asfoundation.wallet.ui.iab.AppCoinsOperationRepository
 import com.asfoundation.wallet.ui.iab.AppInfoProvider

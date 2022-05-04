@@ -16,8 +16,6 @@ import com.asfoundation.wallet.billing.analytics.PageViewAnalytics
 import com.asfoundation.wallet.change_currency.ChangeFiatCurrencyActivity
 import com.asfoundation.wallet.change_currency.FiatCurrencyEntity
 import com.asfoundation.wallet.change_currency.SettingsCurrencyPreference
-import com.asfoundation.wallet.logging.send_logs.SendLogsState
-import com.asfoundation.wallet.logging.send_logs.SettingsSendLogsPreference
 import com.asfoundation.wallet.permissions.manage.view.ManagePermissionsActivity
 import com.asfoundation.wallet.promo_code.SettingsPreferencePromoCodeState
 import com.asfoundation.wallet.promo_code.repository.PromoCode
@@ -93,7 +91,6 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
 
   override fun onDestroy() {
     switchSubject = null
-    presenter.resetSendLogsState()
     super.onDestroy()
   }
 
@@ -259,16 +256,6 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
     val bugReportPreference = findPreference<Preference>("pref_contact_support")
     bugReportPreference?.setOnPreferenceClickListener {
       presenter.onBugReportClicked()
-      false
-    }
-  }
-
-  override fun setSendLogsPreference(sendLogsState: SendLogsState) {
-    val settingsSendLogsPreference = findPreference<SettingsSendLogsPreference>("pref_send_logs")
-    settingsSendLogsPreference?.isVisible = sendLogsState.shouldShow
-    settingsSendLogsPreference?.setSendLogsState(sendLogsState)
-    settingsSendLogsPreference?.setOnPreferenceClickListener {
-      presenter.onSendLogsClicked()
       false
     }
   }

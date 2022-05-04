@@ -116,7 +116,6 @@ public class LogInterceptor implements Interceptor {
       Log.d(TAG, logBuilder.toString());
 
       if (response.code() >= 400) {
-        saveLog(logBuilder.toString());
         sendErrorLogString(response, request);
       }
       return response;
@@ -188,10 +187,6 @@ public class LogInterceptor implements Interceptor {
       return buffer.readString(UTF8);
     }
     return "";
-  }
-
-  private void saveLog(String log) {
-    //logsDao.saveLog(new LogEntity(null, Instant.now(), TAG, log, false), 15);
   }
 
   private String requestDecodedPath(HttpUrl url) {
