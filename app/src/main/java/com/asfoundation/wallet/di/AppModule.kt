@@ -72,12 +72,11 @@ internal class AppModule {
 
   @Singleton
   @Provides
-  fun provideLogger(sendLogsRepository: SendLogsRepository): Logger {
+  fun provideLogger(): Logger {
     val receivers = ArrayList<LogReceiver>()
     if (BuildConfig.DEBUG) {
       receivers.add(DebugReceiver())
     }
-    receivers.add(SendLogsReceiver(sendLogsRepository))
     return WalletLogger(receivers)
   }
 

@@ -19,7 +19,7 @@ class FlurryReceiver : LogReceiver {
     }
   }
 
-  override fun log(tag: String?, message: String?) {
+  override fun log(tag: String?, message: String?, asError: Boolean, addToBreadcrumbs: Boolean) {
     message?.let {
       if (!BuildConfig.DEBUG) {
         FlurryAgent.onError(tag ?: DEFAULT_ERROR_ID, message, Throwable())

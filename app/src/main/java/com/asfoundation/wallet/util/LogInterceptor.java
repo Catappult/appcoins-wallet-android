@@ -2,13 +2,11 @@ package com.asfoundation.wallet.util;
 
 import android.text.TextUtils;
 import androidx.annotation.NonNull;
-import com.asfoundation.wallet.logging.send_logs.db.LogEntity;
-import com.asfoundation.wallet.logging.send_logs.db.LogsDao;
+import com.appcoins.wallet.commons.Logger;
 import java.io.IOException;
 import java.net.URLDecoder;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
-import java.time.Instant;
 import java.util.concurrent.TimeUnit;
 import javax.inject.Inject;
 import okhttp3.Headers;
@@ -28,10 +26,11 @@ public class LogInterceptor implements Interceptor {
   private static final Charset UTF8 = StandardCharsets.UTF_8;
 
   // Dao is being used directly because otherwise we'll have a cyclic dependency with Repository
-  private LogsDao logsDao;
+  //private LogsDao logsDao;
+  @Inject Logger logger;
 
-  public @Inject LogInterceptor(LogsDao logsDao) {
-    this.logsDao = logsDao;
+  public @Inject LogInterceptor() {
+    //this.logger = logger;
   }
 
   private static String requestPath(HttpUrl url) {
@@ -72,15 +71,8 @@ public class LogInterceptor implements Interceptor {
       logBuilder.append("\n=============== END Headers ===============\n");
 
       if (requestBody != null) {
-        Buffer buffer = new Buffer();
-        requestBody.writeTo(buffer);
-
-        MediaType contentType = requestBody.contentType();
-        if (contentType != null) {
-          contentType.charset(UTF8);
-        }
-
-        logBuilder.append(buffer.readString(UTF8));
+        String requestSting = formatRequestBody(requestBody);
+        logBuilder.append(requestSting);
       }
       long startNs = System.nanoTime();
       Response response = chain.proceed(request);
@@ -99,27 +91,14 @@ public class LogInterceptor implements Interceptor {
           .append(response.code());
 
       if (responseBody != null) {
-        BufferedSource source = responseBody.source();
-        source.request(Long.MAX_VALUE); // Buffer the entire body.
-        Buffer buffer = source.getBuffer();
-
-        Charset charset = null;
-        MediaType contentType = responseBody.contentType();
-        if (contentType != null) {
-          charset = contentType.charset(UTF8);
-        }
-
-        if (charset == null) {
-          charset = UTF8;
-        }
-
+        String responseString = formatResponseBody(responseBody);
         if (responseBody.contentLength() != 0) {
           logBuilder.append("\n");
           logBuilder.append("Response body: \n")
-              .append(buffer.clone()
-                  .readString(charset));
+              .append(responseString);
         }
       }
+
       headers = response.headers();
       logBuilder.append("\n=============== Headers ===============\n");
       for (int i = headers.size() - 1; i > -1; i--) {
@@ -138,6 +117,7 @@ public class LogInterceptor implements Interceptor {
 
       if (response.code() >= 400) {
         saveLog(logBuilder.toString());
+        sendErrorLogString(response, request);
       }
       return response;
     } catch (Exception exception) {
@@ -151,8 +131,67 @@ public class LogInterceptor implements Interceptor {
     }
   }
 
+  private void sendErrorLogString(Response response, Request request) throws IOException {
+    StringBuilder logBuilder = new StringBuilder();
+    logBuilder.append("HTTP ")
+        .append(response.code())
+        .append(" ")
+        .append(request.method())
+        .append(" ")
+        .append(request.url())
+        .append("\n")
+
+        .append("Request: ")
+        .append(formatRequestBody(response.request().body()))
+        .append("\n")
+
+        .append("Response: ")
+        .append(formatResponseBody(response.body()))
+        .append("\n")
+
+        .append("Message: ")
+        .append(response.message())
+        .append("\n");
+
+    logger.log("HTTP " + response.code(), logBuilder.toString(), true, true);
+  }
+
+  private String formatResponseBody(ResponseBody responseBody) throws IOException {
+    if (responseBody != null) {
+      BufferedSource source = responseBody.source();
+      source.request(Long.MAX_VALUE);
+      Buffer buffer = source.getBuffer();
+      Charset charset = null;
+      MediaType contentType = responseBody.contentType();
+      if (contentType != null) {
+        charset = contentType.charset(UTF8);
+      }
+      if (charset == null) {
+        charset = UTF8;
+      }
+      return buffer.clone().readString(charset);
+    } else {
+      return "";
+    }
+  }
+
+  private String formatRequestBody(RequestBody requestBody) throws IOException {
+    if (requestBody != null) {
+      Buffer buffer = new Buffer();
+      requestBody.writeTo(buffer);
+
+      MediaType contentType = requestBody.contentType();
+      if (contentType != null) {
+        contentType.charset(UTF8);
+      }
+
+      return buffer.readString(UTF8);
+    }
+    return "";
+  }
+
   private void saveLog(String log) {
-    logsDao.saveLog(new LogEntity(null, Instant.now(), TAG, log, false), 15);
+    //logsDao.saveLog(new LogEntity(null, Instant.now(), TAG, log, false), 15);
   }
 
   private String requestDecodedPath(HttpUrl url) {
