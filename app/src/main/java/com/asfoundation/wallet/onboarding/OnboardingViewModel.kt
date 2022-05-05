@@ -1,11 +1,11 @@
 package com.asfoundation.wallet.onboarding
 
 import com.asfoundation.wallet.base.BaseViewModel
+import com.asfoundation.wallet.base.RxSchedulers
 import com.asfoundation.wallet.base.SideEffect
 import com.asfoundation.wallet.base.ViewState
 import com.asfoundation.wallet.onboarding.use_cases.HasWalletUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
-import io.reactivex.android.schedulers.AndroidSchedulers
 import javax.inject.Inject
 
 sealed class OnboardingSideEffect : SideEffect {
@@ -17,7 +17,10 @@ sealed class OnboardingSideEffect : SideEffect {
 data class OnboardingState(val pageNumber: Int = 0) : ViewState
 
 @HiltViewModel
-class OnboardingViewModel @Inject constructor(hasWalletUseCase: HasWalletUseCase) :
+class OnboardingViewModel @Inject constructor(
+  private val hasWalletUseCase: HasWalletUseCase,
+  private val rxSchedulers: RxSchedulers
+) :
   BaseViewModel<OnboardingState, OnboardingSideEffect>(initialState()) {
 
   companion object {
@@ -29,8 +32,12 @@ class OnboardingViewModel @Inject constructor(hasWalletUseCase: HasWalletUseCase
   var rootPage = 0
 
   init {
+    checkWallets()
+  }
+
+  private fun checkWallets() {
     hasWalletUseCase()
-      .observeOn(AndroidSchedulers.mainThread())
+      .observeOn(rxSchedulers.main)
       .doOnSuccess {
         if (it) {
           rootPage = 1

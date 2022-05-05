@@ -2,12 +2,12 @@ package com.asfoundation.wallet.onboarding.bottom_sheet
 
 import android.net.Uri
 import com.asfoundation.wallet.base.BaseViewModel
+import com.asfoundation.wallet.base.RxSchedulers
 import com.asfoundation.wallet.base.SideEffect
 import com.asfoundation.wallet.base.ViewState
 import com.asfoundation.wallet.onboarding.use_cases.HasWalletUseCase
 import com.asfoundation.wallet.onboarding.use_cases.SetOnboardingCompletedUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
-import io.reactivex.android.schedulers.AndroidSchedulers
 import javax.inject.Inject
 
 sealed class TermsConditionsBottomSheetSideEffect : SideEffect {
@@ -23,6 +23,7 @@ object TermsConditionsBottomSheetState : ViewState
 class TermsConditionsBottomSheetViewModel @Inject constructor(
   private val setOnboardingCompletedUseCase: SetOnboardingCompletedUseCase,
   private val hasWalletUseCase: HasWalletUseCase,
+  private val rxSchedulers: RxSchedulers
 ) :
   BaseViewModel<TermsConditionsBottomSheetState, TermsConditionsBottomSheetSideEffect>(
     initialState()
@@ -40,7 +41,7 @@ class TermsConditionsBottomSheetViewModel @Inject constructor(
 
   fun handleCreateWallet() {
     hasWalletUseCase()
-      .observeOn(AndroidSchedulers.mainThread())
+      .observeOn(rxSchedulers.main)
       .doOnSuccess {
         setOnboardingCompletedUseCase()
 
