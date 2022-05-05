@@ -105,6 +105,7 @@ class WalletsInteract @Inject constructor(
   }
 
   private fun getTotalBalance(walletBalance: List<WalletBalance>): FiatValue {
+    if (walletBalance.isEmpty()) return FiatValue()
     val totalBalance = walletBalance.sumByBigDecimal { it.balance.amount }
     val wallet = walletBalance[0]
     return FiatValue(totalBalance, wallet.balance.currency, wallet.balance.symbol)
