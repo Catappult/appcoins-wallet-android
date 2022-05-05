@@ -7,8 +7,8 @@ import android.view.ViewGroup
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.asf.wallet.R
 import com.asf.wallet.databinding.BackupSkipDialogFragmentBinding
+import com.asfoundation.wallet.backup.repository.preferences.BackupTriggerPreferences
 import com.asfoundation.wallet.backup.triggers.BackupTriggerDialogFragment
-import com.asfoundation.wallet.backup.triggers.BackupTriggerPreferences
 import com.asfoundation.wallet.base.SideEffect
 import com.asfoundation.wallet.base.SingleStateFragment
 import com.asfoundation.wallet.base.ViewState
@@ -24,6 +24,9 @@ class BackupSkipDialogFragment : BottomSheetDialogFragment(),
 
   @Inject
   lateinit var navigator: BackupSkipDialogNavigator
+
+  @Inject
+  lateinit var backupTriggerPreferences: BackupTriggerPreferences
 
   private val views by viewBinding(BackupSkipDialogFragmentBinding::bind)
 
@@ -53,9 +56,10 @@ class BackupSkipDialogFragment : BottomSheetDialogFragment(),
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
     views.confirm.setOnClickListener {
-      navigator.finishBackup(
+      val walletAddress =
         requireArguments().getString(BackupTriggerDialogFragment.WALLET_ADDRESS_KEY)!!
-      )
+      backupTriggerPreferences.setBackupTriggerSeenTime(walletAddress, System.currentTimeMillis())
+      navigator.finishBackup(walletAddress)
     }
     views.cancel.setOnClickListener {
       navigator.navigateBack(

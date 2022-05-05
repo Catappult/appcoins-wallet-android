@@ -7,7 +7,7 @@ import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
 import com.asf.wallet.R
-import com.asfoundation.wallet.backup.BackupActivity.Companion.newIntent
+import com.asfoundation.wallet.backup.BackupActivity
 import com.asfoundation.wallet.ui.AuthenticationPromptActivity
 import com.asfoundation.wallet.ui.BaseActivity
 import dagger.hilt.android.AndroidEntryPoint
@@ -81,7 +81,7 @@ class RemoveWalletActivity : BaseActivity(), RemoveWalletActivityView {
   }
 
   override fun navigateToBackUp(walletAddress: String) =
-    startActivity(newIntent(this, walletAddress, false))
+    startActivity(BackupActivity.newIntent(this, walletAddress, false))
 
   override fun showRemoveWalletAnimation() {
     requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LOCKED

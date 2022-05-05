@@ -153,7 +153,7 @@ class MyWalletsFragment : BasePageViewFragment(),
   override fun onStateChanged(state: MyWalletsState) {
     walletsController.setData(
       state.walletsAsync, state.walletVerifiedAsync,
-      state.walletInfoAsync, state.backedUpOnceAsync
+      state.walletInfoAsync
     )
   }
 

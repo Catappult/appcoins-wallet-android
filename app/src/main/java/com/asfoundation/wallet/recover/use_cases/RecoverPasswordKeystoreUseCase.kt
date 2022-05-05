@@ -10,7 +10,6 @@ import javax.inject.Inject
 class RecoverPasswordKeystoreUseCase @Inject constructor(
   private val walletRepository: WalletRepositoryType,
   private val passwordStore: PasswordStore,
-  private val backupRestorePreferencesRepository: BackupRestorePreferencesRepository
 ) {
 
   operator fun invoke(keystore: String, password: String = ""): Single<RecoverPasswordResult> {
@@ -21,14 +20,5 @@ class RecoverPasswordKeystoreUseCase @Inject constructor(
       .flatMap {
         RecoverPasswordResultMapper().map(it)
       }
-      .doOnSuccess {
-        when (it) {
-          is SuccessfulPasswordRecover -> backupRestorePreferencesRepository.setWalletRestoreBackup(
-            it.address
-          )
-          else -> Unit
-        }
-      }
-
   }
 }
