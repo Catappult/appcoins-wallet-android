@@ -18,7 +18,7 @@ import com.asf.wallet.R
 import com.asf.wallet.databinding.RecoverEntryFragmentBinding
 import com.asfoundation.wallet.base.Async
 import com.asfoundation.wallet.base.SingleStateFragment
-import com.asfoundation.wallet.my_wallets.create_wallet.CreateWalletDialogFragment
+import com.asfoundation.wallet.onboarding.OnboardingFragment
 import com.asfoundation.wallet.recover.result.FailedEntryRecover
 import com.asfoundation.wallet.recover.result.RecoverEntryResult
 import com.asfoundation.wallet.recover.result.SuccessfulEntryRecover
@@ -149,7 +149,7 @@ class RecoverEntryFragment : BasePageViewFragment(),
 
   private fun handleFragmentResult() {
     parentFragmentManager.setFragmentResultListener(
-      CreateWalletDialogFragment.RESULT_REQUEST_KEY,
+      OnboardingFragment.ONBOARDING_FINISHED_KEY,
       this
     ) { _, _ ->
       navigator.navigateToMainActivity(fromSupportNotification = false)

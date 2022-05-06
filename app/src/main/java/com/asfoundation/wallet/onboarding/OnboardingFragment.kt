@@ -13,20 +13,22 @@ import by.kirich1409.viewbindingdelegate.viewBinding
 import com.asf.wallet.R
 import com.asf.wallet.databinding.FragmentOnboardingBinding
 import com.asfoundation.wallet.base.SingleStateFragment
-import com.asfoundation.wallet.my_wallets.create_wallet.CreateWalletDialogFragment
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
 class OnboardingFragment : BasePageViewFragment(),
-    SingleStateFragment<OnboardingState, OnboardingSideEffect> {
+  SingleStateFragment<OnboardingState, OnboardingSideEffect> {
 
   @Inject
   lateinit var navigator: OnboardingNavigator
 
   private val viewModel: OnboardingViewModel by viewModels()
   private val views by viewBinding(FragmentOnboardingBinding::bind)
+  private val onBackPressedCallback = object : OnBackPressedCallback(true) {
+    override fun handleOnBackPressed() = viewModel.handleBackButtonClick()
+  }
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
@@ -35,31 +37,19 @@ class OnboardingFragment : BasePageViewFragment(),
   }
 
   private fun handleBackPress() {
-    requireActivity().onBackPressedDispatcher.addCallback(this,
-        object : OnBackPressedCallback(true) {
-          override fun handleOnBackPressed() {
-            when (viewModel.state.pageNumber) {
-              0 -> {
-                isEnabled = false
-                activity?.onBackPressed()
-              }
-              1 -> viewModel.handleBackButtonClick()
-            }
-          }
-        })
+    requireActivity().onBackPressedDispatcher.addCallback(this, onBackPressedCallback)
   }
 
   private fun handleFragmentResult() {
-    parentFragmentManager.setFragmentResultListener(
-        CreateWalletDialogFragment.RESULT_REQUEST_KEY,
-        this
-    ) { _, _ ->
+    parentFragmentManager.setFragmentResultListener(ONBOARDING_FINISHED_KEY, this) { _, _ ->
       navigator.navigateToMainActivity(fromSupportNotification = false)
     }
   }
 
-  override fun onCreateView(inflater: LayoutInflater, @Nullable container: ViewGroup?,
-                            @Nullable savedInstanceState: Bundle?): View? {
+  override fun onCreateView(
+    inflater: LayoutInflater, @Nullable container: ViewGroup?,
+    @Nullable savedInstanceState: Bundle?
+  ): View? {
     return inflater.inflate(R.layout.fragment_onboarding, container, false)
   }
 
@@ -74,7 +64,7 @@ class OnboardingFragment : BasePageViewFragment(),
     views.onboardingWelcomeButtons.onboardingExistentWalletButton.setOnClickListener { viewModel.handleRecoverClick() }
 
     views.onboardingValuesButtons.onboardingBackButton.setOnClickListener { viewModel.handleBackButtonClick() }
-    views.onboardingValuesButtons.onboardingGetStartedButton.setOnClickListener { navigator.navigateToTermsBottomSheet() }
+    views.onboardingValuesButtons.onboardingGetStartedButton.setOnClickListener { viewModel.handleGetStartedClick() }
   }
 
   override fun onStateChanged(state: OnboardingState) {
@@ -86,7 +76,12 @@ class OnboardingFragment : BasePageViewFragment(),
 
   override fun onSideEffect(sideEffect: OnboardingSideEffect) {
     when (sideEffect) {
+      OnboardingSideEffect.NavigateToLegalsConsent -> navigator.navigateToTermsBottomSheet()
       OnboardingSideEffect.NavigateToRecoverWallet -> navigator.navigateToRecoverActivity()
+      OnboardingSideEffect.NavigateToExit -> {
+        onBackPressedCallback.isEnabled = false
+        activity?.onBackPressed()
+      }
     }
   }
 
@@ -111,6 +106,7 @@ class OnboardingFragment : BasePageViewFragment(),
   }
 
   companion object {
+    const val ONBOARDING_FINISHED_KEY = "OnboardingFinished"
     fun newInstance() = OnboardingFragment()
   }
 }
