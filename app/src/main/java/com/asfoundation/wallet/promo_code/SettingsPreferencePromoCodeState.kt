@@ -10,7 +10,7 @@ import androidx.preference.PreferenceViewHolder
 import com.asf.wallet.R
 import com.asfoundation.wallet.promo_code.repository.PromoCode
 
-class SettingsPreferencePromoCodeState(context: Context?, attrs: AttributeSet?) :
+class SettingsPreferencePromoCodeState(context: Context, attrs: AttributeSet?) :
     Preference(context, attrs) {
   private var promoCode: PromoCode? = null
   private var promoCodeState: TextView? = null

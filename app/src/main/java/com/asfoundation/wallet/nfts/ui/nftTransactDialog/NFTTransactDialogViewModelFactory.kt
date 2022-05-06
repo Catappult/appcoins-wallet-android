@@ -11,7 +11,7 @@ class NFTTransactDialogViewModelFactory(val data: NFTItem,
                                         private val sendNFTUseCase: SendNFTUseCase) :
     ViewModelProvider.Factory {
 
-  override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+  override fun <T : ViewModel> create(modelClass: Class<T>): T {
     return NFTTransactDialogViewModel(data, estimateNFTSendGasUseCase, sendNFTUseCase) as T
   }
 }

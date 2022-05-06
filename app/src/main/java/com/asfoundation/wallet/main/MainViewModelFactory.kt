@@ -15,7 +15,7 @@ class MainViewModelFactory(private val data: MainData,
                            private val displayConversationListOrChatUseCase: DisplayConversationListOrChatUseCase) :
     ViewModelProvider.Factory {
 
-  override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+  override fun <T : ViewModel> create(modelClass: Class<T>): T {
     return MainViewModel(data, hasSeenPromotionTooltipUseCase, increaseLaunchCountUseCase,
         promotionsInteractor, displayConversationListOrChatUseCase) as T
   }

@@ -7,7 +7,7 @@ class TokenInfoDialogViewModelFactory(
     val data: TokenInfoDialogData,
 ) : ViewModelProvider.Factory {
 
-  override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+  override fun <T : ViewModel> create(modelClass: Class<T>): T {
     return TokenInfoDialogViewModel(data) as T
   }
 }

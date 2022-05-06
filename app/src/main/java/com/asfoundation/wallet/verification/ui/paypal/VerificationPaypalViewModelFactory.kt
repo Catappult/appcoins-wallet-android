@@ -11,7 +11,7 @@ class VerificationPaypalViewModelFactory(private val data: VerificationPaypalDat
                                          private val makeVerificationPaymentUseCase: MakeVerificationPaymentUseCase,
                                          private val setCachedVerificationUseCase: SetCachedVerificationUseCase) : ViewModelProvider.Factory {
 
-  override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+  override fun <T : ViewModel> create(modelClass: Class<T>): T {
     return VerificationPaypalViewModel(data, getVerificationInfoUseCase,
         makeVerificationPaymentUseCase, setCachedVerificationUseCase) as T
   }

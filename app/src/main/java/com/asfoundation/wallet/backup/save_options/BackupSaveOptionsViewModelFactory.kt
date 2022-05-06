@@ -13,7 +13,7 @@ class BackupSaveOptionsViewModelFactory(
   private val logger: Logger
 ) :
   ViewModelProvider.Factory {
-  override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+  override fun <T : ViewModel> create(modelClass: Class<T>): T {
     return BackupSaveOptionsViewModel(
       data, sendBackupToEmailUseCase, backupSuccessLogUseCase,
       logger

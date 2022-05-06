@@ -47,7 +47,7 @@ class TransactionDetailViewModelFactory(
 ) : ViewModelProvider.Factory {
 
   @NonNull
-  override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+  override fun <T : ViewModel> create(modelClass: Class<T>): T {
     return TransactionDetailViewModel(
       findDefaultWalletUseCase, findNetworkInfoUseCase,
       externalBrowserRouter, compositeDisposable, displayChatUseCase, transactionDetailRouter,
