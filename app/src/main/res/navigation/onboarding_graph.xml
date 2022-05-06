@@ -18,11 +18,10 @@
         android:id="@+id/action_navigate_terms_conditions"
         app:destination="@id/onboarding_terms_conditions_dialog" />
 
+    <!-- removed the 'popUpTo' because backstack wasn't being cleared when navigating to home -->
     <action
         android:id="@+id/action_navigate_to_main_activity"
-        app:destination="@id/main_activity"
-        app:popUpTo="@+id/main_nav_graph"
-        app:popUpToInclusive="true" />
+        app:destination="@id/main_activity"/>
   </fragment>
 
   <dialog
