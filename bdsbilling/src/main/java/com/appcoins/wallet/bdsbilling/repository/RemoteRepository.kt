@@ -28,7 +28,7 @@ class RemoteRepository(
 
   internal fun isBillingSupported(packageName: String): Single<Boolean> =
     inappBdsApi.getPackage(packageName, BillingSupportedType.INAPP.name.toLowerCase(Locale.ROOT))
-      .map { true } // If it's not supported it returns an error that is handle in BdsBilling.kt
+      .map { it.toBoolean() } // If it's not supported it returns an error that is handle in BdsBilling.kt
 
   internal fun isBillingSupportedSubs(packageName: String): Single<Boolean> =
     subsApi.getPackage(packageName) // If it's not supported it returns an error that is handle in BdsBilling.kt
@@ -44,10 +44,10 @@ class RemoteRepository(
     skus: List<String>
   ): Single<DetailsResponseBody> =
     if (skus.size <= SKUS_DETAILS_REQUEST_LIMIT) {
-      inappBdsApi.getPackages(packageName, skus.joinToString(separator = ","))
+      inappBdsApi.getConsumables(packageName, skus.joinToString(separator = ","))
     } else {
       Single.zip(
-        inappBdsApi.getPackages(
+        inappBdsApi.getConsumables(
           packageName,
           skus.take(SKUS_DETAILS_REQUEST_LIMIT).joinToString(separator = ",")
         ), requestSkusDetails(packageName, skus.drop(SKUS_DETAILS_REQUEST_LIMIT))
@@ -72,26 +72,12 @@ class RemoteRepository(
 
   internal fun getSkuPurchase(
     packageName: String,
-    skuId: String?,
+    purchaseUid: String,
     walletAddress: String,
     walletSignature: String
   ): Single<Purchase> =
-    inappBdsApi.getSkuPurchase(packageName, skuId, walletAddress, walletSignature)
-      .map { inAppPurchase ->
-        // TODO: Review this later, the actual response doesn't matter for now
-        Purchase(
-          inAppPurchase.uid,
-          RemoteProduct(inAppPurchase.product.name),
-          State.PENDING,
-          false,
-          null,
-          Package(inAppPurchase.packageName.name),
-          Signature(
-            inAppPurchase.signature.value,
-            billingSerializer.serializeSignatureData(inAppPurchase)
-          )
-        )
-      }
+    inappBdsApi.getUidPurchase(packageName, purchaseUid, walletAddress, walletSignature)
+      .map { responseMapper.map(packageName, it) }
 
   internal fun getSkuPurchaseSubs(
     packageName: String,
@@ -142,19 +128,22 @@ class RemoteRepository(
     subsApi.getPurchases(packageName, walletAddress, walletSignature)
       .map { responseMapper.map(packageName, it) }
 
+  @Suppress("unused")
+  internal fun acknowledgePurchase(
+    packageName: String, purchaseToken: String,
+    walletAddress: String,
+    walletSignature: String
+  ): Single<Boolean> =
+    inappBdsApi.acknowledgePurchase(packageName, purchaseToken, walletAddress, walletSignature)
+      .toSingle { true }
+
   internal fun consumePurchase(
     packageName: String,
     purchaseToken: String,
     walletAddress: String,
     walletSignature: String
   ): Single<Boolean> =
-    inappBdsApi.consumePurchase(
-      packageName,
-      purchaseToken,
-      walletAddress,
-      walletSignature,
-      Consumed()
-    )
+    inappBdsApi.consumePurchase(packageName, purchaseToken, walletAddress, walletSignature)
       .toSingle { true }
 
   internal fun getSubscriptionToken(
@@ -166,7 +155,7 @@ class RemoteRepository(
     subsApi.getSkuSubscriptionToken(domain, skuId, null, walletAddress, walletSignature)
 
   @Suppress("unused")
-  internal fun acknowledgePurchase(
+  internal fun acknowledgePurchaseSubs(
     packageName: String,
     purchaseToken: String,
     walletAddress: String,
@@ -402,27 +391,27 @@ class RemoteRepository(
 
   interface InappBdsApi {
 
-    @GET("8.20180518/packages/{packageName}")
+    @GET("8.20180518/applications/{packageName}/inapp")
     fun getPackage(
       @Path("packageName") packageName: String,
       @Query("type") type: String
-    ): Single<GetPackageResponse>
+    ): Single<String>
 
-    @GET("8.20180518/packages/{packageName}/products")
-    fun getPackages(
+    @GET("8.20180518/applications/{packageName}/inapp/consumables")
+    fun getConsumables(
       @Path("packageName") packageName: String,
-      @Query("names") names: String
+      @Query("skus") names: String
     ): Single<DetailsResponseBody>
 
-    @GET("8.20180518/packages/{packageName}/products/{skuId}/purchase")
-    fun getSkuPurchase(
+    @GET("8.20180518/applications/{packageName}/inapp/consumable/purchases/{uid}")
+    fun getUidPurchase(
       @Path("packageName") packageName: String,
-      @Path("skuId") skuId: String?,
+      @Path("uid") uid: String?,
       @Query("wallet.address") walletAddress: String,
       @Query("wallet.signature") walletSignature: String
     ): Single<InappPurchaseResponse>
 
-    @GET("8.20180518/packages/{packageName}/purchases")
+    @GET("8.20180518/applications/{packageName}/inapp/consumable/purchases")
     fun getPurchases(
       @Path("packageName") packageName: String,
       @Query("wallet.address") walletAddress: String,
@@ -431,13 +420,23 @@ class RemoteRepository(
     ): Single<GetPurchasesResponse>
 
     @Headers("Content-Type: application/json")
-    @PATCH("8.20180518/packages/{packageName}/purchases/{purchaseId}")
+    @POST("8.20180518/applications/{packageName}/inapp/purchases/{uid}/consume")
     fun consumePurchase(
       @Path("packageName") packageName: String,
-      @Path("purchaseId") purchaseToken: String,
+      @Path("uid") purchaseToken: String,
       @Query("wallet.address") walletAddress: String,
       @Query("wallet.signature") walletSignature: String,
-      @Body data: Consumed
+      @Query("payload") payload: String? = null
+    ): Completable
+
+    @Headers("Content-Type: application/json")
+    @POST("8.20180518/applications/{packageName}/inapp/purchases/{uid}/acknowledge")
+    fun acknowledgePurchase(
+      @Path("packageName") packageName: String,
+      @Path("uid") purchaseToken: String,
+      @Query("wallet.address") walletAddress: String,
+      @Query("wallet.signature") walletSignature: String,
+      @Query("payload") payload: String? = null
     ): Completable
 
   }
@@ -599,6 +598,4 @@ class RemoteRepository(
       @Query("wallet.signature") walletSignature: String
     ): Single<Transaction>
   }
-
-  data class Consumed(val status: String = "CONSUMED")
 }

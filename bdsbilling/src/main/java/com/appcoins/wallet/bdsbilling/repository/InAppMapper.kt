@@ -7,34 +7,36 @@ class InAppMapper(private val serializer: ExternalBillingSerializer) {
   fun map(productDetails: DetailsResponseBody): List<Product> =
     ArrayList(productDetails.items.map {
       InAppProduct(
-        it.name,
-        it.label,
+        it.sku,
+        it.title,
         it.description,
         TransactionPrice(
-          it.price.base,
-          it.price.appc,
-          it.price.fiat.value,
-          it.price.fiat.currency.code,
-          it.price.fiat.currency.symbol
+          it.price.currency,
+          it.price.appc.value.toDouble(),
+          it.price.value.toDouble(),
+          it.price.currency,
+          it.price.symbol
         ),
         BillingSupportedType.INAPP.name
       )
     })
 
-  //As of right now any purchase that is returned in the inapp endpoint is not consumed and since
-  // inapp purchase can't be ACKNOWLEDGE, to avoid null checks in the end the state is set as pending
-  fun map(packageName: String, inAppPurchaseResponse: InappPurchaseResponse): Purchase {
-    val signatureEntity = inAppPurchaseResponse.signature
-    val signatureMessage = serializer.serializeSignatureData(inAppPurchaseResponse)
-    return Purchase(
-      inAppPurchaseResponse.uid,
-      RemoteProduct(inAppPurchaseResponse.product.name),
-      State.PENDING,
-      false,
-      null,
-      Package(packageName),
-      Signature(signatureEntity.value, signatureMessage)
-    )
+  fun map(packageName: String, inAppPurchaseResponse: InappPurchaseResponse): Purchase = Purchase(
+    inAppPurchaseResponse.uid,
+    RemoteProduct(inAppPurchaseResponse.sku),
+    mapPurchaseState(inAppPurchaseResponse.state),
+    false,
+    null,
+    Package(packageName),
+    Signature(inAppPurchaseResponse.verification.signature, inAppPurchaseResponse.verification.data)
+  )
+
+  private fun mapPurchaseState(state: PurchaseState): State {
+    return when (state) {
+      PurchaseState.CONSUMED -> State.CONSUMED
+      PurchaseState.PENDING -> State.PENDING
+      PurchaseState.ACKNOWLEDGED -> State.ACKNOWLEDGED
+    }
   }
 
   fun map(packageName: String, purchasesResponse: GetPurchasesResponse): List<Purchase> =

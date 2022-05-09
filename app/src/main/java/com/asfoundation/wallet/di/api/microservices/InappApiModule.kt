@@ -18,7 +18,7 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 @Module
 class InappApiModule {
-  private val inappUrl: String = "${BuildConfig.BASE_HOST}/inapp/"
+  private val inappUrl: String = "${BuildConfig.BASE_HOST}/productv2/"
 
   @Singleton
   @Provides

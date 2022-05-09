@@ -1,19 +1,25 @@
 package com.appcoins.wallet.bdsbilling.repository.entity
 
+import java.math.BigDecimal
+
 data class DetailsResponseBody(val items: List<ResponseProduct>) {
   data class ResponseProduct(
-    val name: String,
-    val label: String,
-    val description: String,
-    val `package`: PackageResponse,
+    val sku: String,
+    val title: String,
+    val description: String = "",
     val price: Price
   )
 
-  data class Price(val base: String?, val appc: Double, val fiat: Fiat)
-  data class Fiat(val value: Double, val currency: Currency)
-  data class Currency(val code: String, val symbol: String)
+  data class Price(
+    val currency: String,
+    val value: BigDecimal,
+    val label: String,
+    val symbol: String,
+    val micros: Long,
+    val appc: AppcPrice
+  )
 
-  data class PackageResponse(val name: String)
+  data class AppcPrice(val value: BigDecimal, val label: String, val micros: Long)
 }
 
 fun DetailsResponseBody.merge(other: DetailsResponseBody): DetailsResponseBody {

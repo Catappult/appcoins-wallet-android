@@ -91,7 +91,7 @@ class BdsRepository(private val remoteRepository: RemoteRepository) : BillingRep
     type: BillingSupportedType
   ): Single<Purchase> =
     if (BillingSupportedType.mapToProductType(type) == BillingSupportedType.INAPP) {
-      remoteRepository.getSkuPurchase(packageName, skuId, walletAddress, walletSignature)
+      remoteRepository.getSkuPurchase(packageName, purchaseUid!!, walletAddress, walletSignature)
     } else {
       remoteRepository.getSkuPurchaseSubs(
         packageName,
