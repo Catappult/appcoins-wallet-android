@@ -32,6 +32,7 @@ class RecoverEntryViewModel @Inject constructor(
   private val recoverEntryPrivateKeyUseCase: RecoverEntryPrivateKeyUseCase,
   private val updateWalletInfoUseCase: UpdateWalletInfoUseCase,
   private val setOnboardingCompletedUseCase: SetOnboardingCompletedUseCase,
+  private val updateBackupStateFromRecoverUseCase: UpdateBackupStateFromRecoverUseCase,
   private val walletsEventSender: WalletsEventSender,
   private val rxSchedulers: RxSchedulers
 ) :
@@ -98,6 +99,7 @@ class RecoverEntryViewModel @Inject constructor(
   private fun handleRecoverResult(recoverResult: RecoverEntryResult) {
     when (recoverResult) {
       is SuccessfulEntryRecover -> {
+        updateWalletBackupState()
         walletsEventSender.sendWalletRestoreEvent(
           WalletsAnalytics.ACTION_IMPORT,
           WalletsAnalytics.STATUS_SUCCESS
@@ -113,5 +115,10 @@ class RecoverEntryViewModel @Inject constructor(
         )
       }
     }
+  }
+
+  private fun updateWalletBackupState() {
+    updateBackupStateFromRecoverUseCase()
+      .scopedSubscribe()
   }
 }

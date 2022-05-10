@@ -28,6 +28,7 @@ class RecoverPasswordViewModel @Inject constructor(
   private val walletsEventSender: WalletsEventSender,
   private val recoverPasswordKeystoreUseCase: RecoverPasswordKeystoreUseCase,
   private val setOnboardingCompletedUseCase: SetOnboardingCompletedUseCase,
+  private val updateBackupStateFromRecoverUseCase: UpdateBackupStateFromRecoverUseCase,
   private val savedStateHandle: SavedStateHandle,
 ) :
   BaseViewModel<RecoverPasswordState, RecoverPasswordSideEffect>(initialState()) {
@@ -69,6 +70,7 @@ class RecoverPasswordViewModel @Inject constructor(
   private fun handleRecoverResult(recoverResult: RecoverPasswordResult) {
     when (recoverResult) {
       is SuccessfulPasswordRecover -> {
+        updateWalletBackupState()
         walletsEventSender.sendWalletPasswordRestoreEvent(
           WalletsAnalytics.ACTION_IMPORT,
           WalletsAnalytics.STATUS_SUCCESS
@@ -87,5 +89,10 @@ class RecoverPasswordViewModel @Inject constructor(
         )
       }
     }
+  }
+
+  private fun updateWalletBackupState() {
+    updateBackupStateFromRecoverUseCase()
+      .scopedSubscribe()
   }
 }

@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.asf.wallet.R
 import com.asf.wallet.databinding.BackupTriggerDialogFragmentBinding
+import com.asfoundation.wallet.backup.repository.preferences.BackupTriggerPreferences
 import com.asfoundation.wallet.base.SideEffect
 import com.asfoundation.wallet.base.SingleStateFragment
 import com.asfoundation.wallet.base.ViewState
@@ -63,7 +64,8 @@ class BackupTriggerDialogFragment : BottomSheetDialogFragment(),
         getString(R.string.backup_popup_gamification_body)
       BackupTriggerPreferences.TriggerSource.FIRST_PURCHASE -> views.triggerDialogMessage.text =
         getString(R.string.backup_popup_purchase_body)
-      else -> {}
+      else -> {
+      }
     }
   }
 

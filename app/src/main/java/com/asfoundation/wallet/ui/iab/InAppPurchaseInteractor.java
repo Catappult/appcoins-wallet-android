@@ -15,8 +15,9 @@ import com.appcoins.wallet.billing.BillingMessagesMapper;
 import com.appcoins.wallet.billing.repository.entity.TransactionData;
 import com.asf.wallet.BuildConfig;
 import com.asf.wallet.R;
-import com.asfoundation.wallet.backup.BackupInteractContract;
 import com.asfoundation.wallet.backup.NotificationNeeded;
+import com.asfoundation.wallet.backup.use_cases.ShouldShowSystemNotificationUseCase;
+import com.asfoundation.wallet.backup.use_cases.UpdateWalletPurchasesCountUseCase;
 import com.asfoundation.wallet.billing.adyen.PurchaseBundleModel;
 import com.asfoundation.wallet.entity.TransactionBuilder;
 import com.asfoundation.wallet.repository.InAppPurchaseService;
@@ -53,34 +54,39 @@ public class InAppPurchaseInteractor {
   private final Billing billing;
   private final SharedPreferences sharedPreferences;
   private final PackageManager packageManager;
-  private final BackupInteractContract backupInteract;
+  private final ShouldShowSystemNotificationUseCase shouldShowSystemNotificationUseCase;
+  private final UpdateWalletPurchasesCountUseCase updateWalletPurchasesCountUseCase;
   private final BillingMessagesMapper billingMessagesMapper;
 
-  public @Inject InAppPurchaseInteractor(@Named("ASF_IN_APP_INTERACTOR") AsfInAppPurchaseInteractor asfInAppPurchaseInteractor,
+  public @Inject InAppPurchaseInteractor(
+      @Named("ASF_IN_APP_INTERACTOR") AsfInAppPurchaseInteractor asfInAppPurchaseInteractor,
       BdsInAppPurchaseInteractor bdsInAppPurchaseInteractor,
       GetWalletInfoUseCase getWalletInfoUseCase, Billing billing,
       SharedPreferences sharedPreferences, PackageManager packageManager,
-      BackupInteractContract backupInteract, BillingMessagesMapper billingMessagesMapper) {
+      ShouldShowSystemNotificationUseCase shouldShowSystemNotificationUseCase,
+      UpdateWalletPurchasesCountUseCase updateWalletPurchasesCountUseCase,
+      BillingMessagesMapper billingMessagesMapper) {
     this.asfInAppPurchaseInteractor = asfInAppPurchaseInteractor;
     this.bdsInAppPurchaseInteractor = bdsInAppPurchaseInteractor;
     this.getWalletInfoUseCase = getWalletInfoUseCase;
     this.billing = billing;
     this.sharedPreferences = sharedPreferences;
     this.packageManager = packageManager;
-    this.backupInteract = backupInteract;
+    this.shouldShowSystemNotificationUseCase = shouldShowSystemNotificationUseCase;
+    this.updateWalletPurchasesCountUseCase = updateWalletPurchasesCountUseCase;
     this.billingMessagesMapper = billingMessagesMapper;
   }
 
   public Single<NotificationNeeded> incrementAndValidateNotificationNeeded() {
     return asfInAppPurchaseInteractor.getWalletAddress()
-        .flatMap(walletAddress -> backupInteract.updateWalletPurchasesCount(walletAddress)
+        .flatMap(walletAddress -> updateWalletPurchasesCountUseCase.invoke(walletAddress)
             .andThen(shouldShowSystemNotification(walletAddress).map(
                 needed -> new NotificationNeeded(needed, walletAddress))));
   }
 
   private Single<Boolean> shouldShowSystemNotification(String walletAddress) {
     return Single.create(emitter -> {
-      boolean shouldShow = backupInteract.shouldShowSystemNotification(walletAddress);
+      boolean shouldShow = shouldShowSystemNotificationUseCase.invoke(walletAddress);
       emitter.onSuccess(shouldShow);
     });
   }

@@ -16,18 +16,17 @@ import io.reactivex.Completable
 import javax.inject.Inject
 
 class DismissCardNotificationUseCase @Inject constructor(
-    private val findDefaultWalletUseCase: FindDefaultWalletUseCase,
-    private val preferences: SharedPreferencesReferralLocalData,
-    private val autoUpdateRepository: AutoUpdateRepository,
-    private val sharedPreferencesRepository: PreferencesRepositoryType,
-    private val backupRestorePreferencesRepository: BackupRestorePreferencesRepository,
-    private val promotionsRepo: PromotionsRepository) {
+  private val findDefaultWalletUseCase: FindDefaultWalletUseCase,
+  private val preferences: SharedPreferencesReferralLocalData,
+  private val autoUpdateRepository: AutoUpdateRepository,
+  private val sharedPreferencesRepository: PreferencesRepositoryType,
+  private val promotionsRepo: PromotionsRepository
+) {
 
   operator fun invoke(cardNotification: CardNotification): Completable {
     return when (cardNotification) {
       is ReferralNotification -> referralDismiss(cardNotification)
       is UpdateNotification -> autoUpdateDismiss()
-      is BackupNotification -> backupDismiss()
       is PromotionNotification -> promotionsDismiss(cardNotification.id)
       else -> Completable.complete()
     }
@@ -35,27 +34,19 @@ class DismissCardNotificationUseCase @Inject constructor(
 
   private fun referralDismiss(referralNotification: ReferralNotification): Completable {
     return findDefaultWalletUseCase()
-        .flatMapCompletable {
-          preferences.savePendingAmountNotification(it.address,
-              referralNotification.pendingAmount.scaleToString(2))
-        }
+      .flatMapCompletable {
+        preferences.savePendingAmountNotification(
+          it.address,
+          referralNotification.pendingAmount.scaleToString(2)
+        )
+      }
   }
 
   private fun autoUpdateDismiss(): Completable {
     return autoUpdateRepository.loadAutoUpdateModel(false)
-        .flatMapCompletable {
-          sharedPreferencesRepository.saveAutoUpdateCardDismiss(it.updateVersionCode)
-        }
-  }
-
-  private fun backupDismiss(): Completable {
-    return findDefaultWalletUseCase()
-        .flatMapCompletable {
-          Completable.fromAction {
-            backupRestorePreferencesRepository.setBackupNotificationSeenTime(it.address,
-                System.currentTimeMillis())
-          }
-        }
+      .flatMapCompletable {
+        sharedPreferencesRepository.saveAutoUpdateCardDismiss(it.updateVersionCode)
+      }
   }
 
   private fun promotionsDismiss(id: String): Completable {

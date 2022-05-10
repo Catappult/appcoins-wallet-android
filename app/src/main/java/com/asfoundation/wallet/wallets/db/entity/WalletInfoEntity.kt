@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.wallets.db.entity
 
+import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import java.math.BigDecimal
@@ -14,6 +15,7 @@ data class WalletInfoEntity(
   val blocked: Boolean,
   val verified: Boolean,
   val logging: Boolean,
+  val hasBackup: Boolean,
   // Populated from exchanges conversion
   val appcCreditsBalanceFiat: BigDecimal?,
   val appcBalanceFiat: BigDecimal?,

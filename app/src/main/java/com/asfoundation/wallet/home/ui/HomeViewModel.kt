@@ -3,10 +3,10 @@ package com.asfoundation.wallet.home.ui
 import android.content.Intent
 import android.net.Uri
 import android.text.format.DateUtils
-import android.util.Log
 import com.appcoins.wallet.gamification.repository.Levels
 import com.asf.wallet.BuildConfig
-import com.asfoundation.wallet.backup.triggers.BackupTriggerPreferences
+import com.asfoundation.wallet.backup.repository.preferences.BackupTriggerPreferences
+import com.asfoundation.wallet.backup.use_cases.ShouldShowBackupTriggerUseCase
 import com.asfoundation.wallet.base.*
 import com.asfoundation.wallet.billing.analytics.WalletsAnalytics
 import com.asfoundation.wallet.billing.analytics.WalletsEventSender
@@ -66,6 +66,7 @@ data class HomeState(
 class HomeViewModel @Inject constructor(
   private val analytics: HomeAnalytics,
   private val backupTriggerPreferences: BackupTriggerPreferences,
+  private val shouldShowBackupTriggerUseCase: ShouldShowBackupTriggerUseCase,
   private val observeWalletInfoUseCase: ObserveWalletInfoUseCase,
   private val getWalletInfoUseCase: GetWalletInfoUseCase,
   private val shouldOpenRatingDialogUseCase: ShouldOpenRatingDialogUseCase,
@@ -431,17 +432,19 @@ class HomeViewModel @Inject constructor(
 
   private fun handleBackupTrigger() {
     getWalletInfoUseCase(null, cached = false, updateFiat = false)
-      .doOnSuccess {
-        if (backupTriggerPreferences.getTriggerState(it.wallet)) {
-          sendSideEffect {
-            HomeSideEffect.ShowBackupTrigger(
-              it.wallet,
-              backupTriggerPreferences.getTriggerSource(it.wallet)
-            )
+      .flatMap { walletInfo ->
+        shouldShowBackupTriggerUseCase(walletInfo.wallet)
+          .map { shouldShow ->
+            if (shouldShow && backupTriggerPreferences.getTriggerState(walletInfo.wallet) && !walletInfo.hasBackup) {
+              sendSideEffect {
+                HomeSideEffect.ShowBackupTrigger(
+                  walletInfo.wallet,
+                  backupTriggerPreferences.getTriggerSource(walletInfo.wallet)
+                )
+              }
+            }
           }
-        }
-      }
-      .scopedSubscribe()
+      }.scopedSubscribe()
   }
 
   private fun buildAutoUpdateIntent(): Intent {

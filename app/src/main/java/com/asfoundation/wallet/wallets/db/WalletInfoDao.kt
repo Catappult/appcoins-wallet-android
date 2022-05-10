@@ -26,9 +26,13 @@ interface WalletInfoDao {
     try {
       insertWalletInfo(walletInfo)
     } catch (e: Exception) {
-      updateWalletInfo(WalletInfoUpdate(walletInfo.wallet, walletInfo.appcCreditsBalanceWei,
+      updateWalletInfo(
+        WalletInfoUpdate(
+          walletInfo.wallet, walletInfo.appcCreditsBalanceWei,
           walletInfo.appcBalanceWei, walletInfo.ethBalanceWei, walletInfo.blocked,
-          walletInfo.verified, walletInfo.logging))
+          walletInfo.verified, walletInfo.logging, walletInfo.hasBackup
+        )
+      )
     }
   }
 

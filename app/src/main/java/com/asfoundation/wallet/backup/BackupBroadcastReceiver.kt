@@ -6,6 +6,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.Intent.FLAG_ACTIVITY_NEW_TASK
 import com.asfoundation.wallet.backup.BackupNotificationUtils.NOTIFICATION_SERVICE_ID
+import com.asfoundation.wallet.backup.use_cases.SaveDismissSystemNotificationUseCase
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -13,7 +14,7 @@ import javax.inject.Inject
 class BackupBroadcastReceiver : BroadcastReceiver() {
 
   @Inject
-  lateinit var backupInteract: BackupInteractContract
+  lateinit var saveDismissSystemNotificationUseCase: SaveDismissSystemNotificationUseCase
 
   private lateinit var notificationManager: NotificationManager
 
@@ -42,16 +43,18 @@ class BackupBroadcastReceiver : BroadcastReceiver() {
 
     val wallet = intent.getStringExtra(WALLET_ADDRESS)
     wallet?.let {
-      backupInteract.saveDismissSystemNotification(it)
-
-      if (intent.getStringExtra(ACTION) == ACTION_BACKUP) {
-        val backupIntent = BackupActivity.newIntent(context, it, isBackupTrigger = true)
-          .apply {
-            flags = Intent.FLAG_ACTIVITY_NEW_TASK
-          }
-        context.startActivity(backupIntent)
-      } else if (intent.getStringExtra(ACTION) == ACTION_DISMISS) return
+      when (intent.getStringExtra(ACTION)) {
+        ACTION_BACKUP -> {
+          val backupIntent = BackupActivity.newIntent(context, it, isBackupTrigger = true)
+            .apply {
+              flags = Intent.FLAG_ACTIVITY_NEW_TASK
+            }
+          context.startActivity(backupIntent)
+        }
+        ACTION_DISMISS -> {
+          saveDismissSystemNotificationUseCase(it)
+        }
+      }
     }
   }
-
 }
