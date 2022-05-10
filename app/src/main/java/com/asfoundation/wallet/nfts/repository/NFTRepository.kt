@@ -1,6 +1,5 @@
 package com.asfoundation.wallet.nfts.repository
 
-import com.asf.wallet.BuildConfig
 import com.asfoundation.wallet.base.RxSchedulers
 import com.asfoundation.wallet.nfts.domain.GasInfo
 import com.asfoundation.wallet.nfts.domain.NFTItem
@@ -26,10 +25,11 @@ import java.math.BigInteger
 import javax.inject.Inject
 
 class NFTRepository @Inject constructor(
-  private val nftApi: NftApi,
-  private val rxSchedulers: RxSchedulers,
-  private val web3j: Web3j,
-  private val localCurrencyConversionService: LocalCurrencyConversionService
+    private val nftApi: NftApi,
+    private val rxSchedulers: RxSchedulers,
+    private val web3j: Web3j,
+    private val localCurrencyConversionService: LocalCurrencyConversionService,
+    private val chainID: Long,
 ) {
 
   fun getNFTAssetList(address: String): Single<List<NFTItem>> {
@@ -149,7 +149,6 @@ class NFTRepository @Inject constructor(
             .sendAsync()
             .get()
     val nonce = ethGetTransactionCount.transactionCount
-    val chainID = if (BuildConfig.DEBUG) 4L else 1L
 
     return RawTransaction.createTransaction(chainID, nonce, gasLimit, contractAddress,
         BigInteger.ZERO, Numeric.toHexString(data), BigInteger.valueOf(1_500_000_000L), gasPrice)
