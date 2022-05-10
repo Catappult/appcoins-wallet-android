@@ -60,7 +60,7 @@ class NFTTransactDialogFragment : BottomSheetDialogFragment(),
       is Async.Uninitialized -> setGasPrice(state.gasPriceAsync)
       is Async.Loading -> showLoading()
       is Async.Fail -> showError(getString(R.string.nfts_generic_error))
-      is Async.Success -> transactionResult.value?.let { showResult(it, state.data.name) }
+      is Async.Success -> transactionResult.value?.let { showResult(it, state.data.name ?: "NFT") }
     }
   }
 
@@ -136,7 +136,7 @@ class NFTTransactDialogFragment : BottomSheetDialogFragment(),
   private fun showSuccess(nftName: String) {
 
     views.layoutNftTransactDone.doneMensage.text =
-        getString(R.string.nfts_transact_done_mensage, nftName)
+        String.format(getString(R.string.nfts_transact_done_mensage), nftName)
     views.layoutNftTransactEntry.root.visibility = View.INVISIBLE
     views.layoutNftTransactLoading.root.visibility = View.INVISIBLE
     views.layoutNftTransactPickGas.root.visibility = View.GONE

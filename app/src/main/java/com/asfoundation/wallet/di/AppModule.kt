@@ -229,6 +229,16 @@ internal class AppModule {
 
   @Singleton
   @Provides
+  fun providesChainID(): Long {
+    return if (BuildConfig.DEBUG) {
+      4L //Rinkeby Chain ID
+    } else {
+      1L //Mainnet Chain ID
+    }
+  }
+
+  @Singleton
+  @Provides
   fun providesExecutorScheduler() = ExecutorScheduler(SyncExecutor(1), false)
 
   @Singleton

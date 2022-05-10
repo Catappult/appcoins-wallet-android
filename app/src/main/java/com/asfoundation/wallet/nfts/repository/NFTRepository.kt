@@ -25,10 +25,11 @@ import java.math.BigInteger
 import javax.inject.Inject
 
 class NFTRepository @Inject constructor(
-  private val nftApi: NftApi,
-  private val rxSchedulers: RxSchedulers,
-  private val web3j: Web3j,
-  private val localCurrencyConversionService: LocalCurrencyConversionService
+    private val nftApi: NftApi,
+    private val rxSchedulers: RxSchedulers,
+    private val web3j: Web3j,
+    private val localCurrencyConversionService: LocalCurrencyConversionService,
+    private val chainID: Long,
 ) {
 
   fun getNFTAssetList(address: String): Single<List<NFTItem>> {
@@ -61,8 +62,10 @@ class NFTRepository @Inject constructor(
       val estimatedGas = web3j.ethEstimateGas(estimateGasTransaction)
         .send()
       var gasLimit = BigInteger.ZERO
+      //To increase the gas for a small bit just to assure that the transaction will be accept
       val gasPrice = web3j.ethGasPrice()
-        .send().gasPrice
+          .send().gasPrice.multiply(BigInteger("3"))
+          .divide(BigInteger("2"))
       if (!estimatedGas.hasError()) {
         gasLimit = estimatedGas.amountUsed
       }
@@ -142,14 +145,13 @@ class NFTRepository @Inject constructor(
       else -> error("Contract not handled")
     }
     val ethGetTransactionCount =
-      web3j.ethGetTransactionCount(fromAddress, DefaultBlockParameterName.LATEST)
-        .sendAsync()
-        .get()
+        web3j.ethGetTransactionCount(fromAddress, DefaultBlockParameterName.LATEST)
+            .sendAsync()
+            .get()
     val nonce = ethGetTransactionCount.transactionCount
-    return RawTransaction.createTransaction(
-      nonce, gasPrice, gasLimit, contractAddress,
-      Numeric.toHexString(data)
-    )
+
+    return RawTransaction.createTransaction(chainID, nonce, gasLimit, contractAddress,
+        BigInteger.ZERO, Numeric.toHexString(data), BigInteger.valueOf(1_500_000_000L), gasPrice)
   }
 
   private fun signAndSendTransaction(fromAddress: String, toAddress: String, tokenID: BigDecimal,
