@@ -19,54 +19,57 @@ class BillingPaymentProofSubmissionImpl internal constructor(
   private val transactionIdsFromBuy: MutableMap<String, String>
 ) : BillingPaymentProofSubmission {
 
-  override fun processPurchaseProof(paymentProof: PaymentProof): Single<Transaction> {
-    return transactionFromApprove[paymentProof.approveProof]?.let { transaction ->
-      registerPaymentProof(transaction.uid, paymentProof.paymentProof, paymentProof.paymentType)
-        .andThen(Single.just(transaction))
-    } ?: Single.error(
-      IllegalArgumentException("No payment id for {${paymentProof.approveProof}}")
-    )
-  }
+  override fun processPurchaseProof(paymentProof: PaymentProof): Single<Transaction> =
+    transactionFromApprove[paymentProof.approveProof]?.let { transaction ->
+      registerPaymentProof(
+        transaction.uid,
+        paymentProof.paymentProof,
+        paymentProof.paymentType
+      ).andThen(Single.just(transaction))
+    } ?: Single.error(IllegalArgumentException("No payment id for {${paymentProof.approveProof}}"))
 
-  override fun processAuthorizationProof(
-    authorizationProof: AuthorizationProof
-  ): Single<Transaction> {
-    return registerAuthorizationProof(
-      authorizationProof.id, authorizationProof.paymentType,
-      authorizationProof.productName, authorizationProof.packageName,
-      authorizationProof.priceValue, authorizationProof.developerAddress,
-      authorizationProof.entityOemId, authorizationProof.entityDomain, authorizationProof.origin,
+  override fun processAuthorizationProof(authorizationProof: AuthorizationProof): Single<Transaction> =
+    registerAuthorizationProof(
+      authorizationProof.id,
+      authorizationProof.paymentType,
+      authorizationProof.productName,
+      authorizationProof.packageName,
+      authorizationProof.priceValue,
+      authorizationProof.developerAddress,
+      authorizationProof.entityOemId,
+      authorizationProof.entityDomain,
+      authorizationProof.origin,
       authorizationProof.type,
       authorizationProof.developerPayload,
-      authorizationProof.callback, authorizationProof.orderReference,
+      authorizationProof.callback,
+      authorizationProof.orderReference,
       authorizationProof.referrerUrl
     )
-      .doOnSuccess { transaction ->
-        transactionFromApprove[authorizationProof.id] = transaction
-      }
-  }
+      .doOnSuccess { transaction -> transactionFromApprove[authorizationProof.id] = transaction }
 
   override fun registerPaymentProof(
-    paymentId: String, paymentProof: String,
+    paymentId: String,
+    paymentProof: String,
     paymentType: String
-  ): Completable {
-    return walletService.getWalletAddress()
-      .observeOn(networkScheduler)
+  ): Completable =
+    walletService.getWalletAddress().observeOn(networkScheduler)
       .flatMapCompletable { walletAddress ->
-        walletService.signContent(walletAddress)
-          .observeOn(networkScheduler)
+        walletService.signContent(walletAddress).observeOn(networkScheduler)
           .flatMapCompletable { signedData ->
             repository.registerPaymentProof(
-              paymentId, paymentType, walletAddress, signedData,
+              paymentId,
+              paymentType,
+              walletAddress,
+              signedData,
               paymentProof
             )
           }
       }
       .andThen(Completable.fromAction { transactionIdsFromBuy[paymentProof] = paymentId })
-  }
 
   override fun registerAuthorizationProof(
-    id: String, paymentType: String,
+    id: String,
+    paymentType: String,
     productName: String?,
     packageName: String,
     priceValue: BigDecimal,
@@ -79,39 +82,40 @@ class BillingPaymentProofSubmissionImpl internal constructor(
     callback: String?,
     orderReference: String?,
     referrerUrl: String?
-  ): Single<Transaction> {
-    return walletService.getWalletAddress()
-      .observeOn(networkScheduler)
-      .flatMap { walletAddress ->
-        walletService.signContent(walletAddress)
-          .observeOn(networkScheduler)
-          .flatMap { signedData ->
-            repository.registerAuthorizationProof(
-              id, paymentType, walletAddress, signedData,
-              productName, packageName, priceValue, developerWallet, entityOemId,
-              entityDomain,
-              origin, type, developerPayload, callback, orderReference, referrerUrl
-            )
-          }
+  ): Single<Transaction> =
+    walletService.getWalletAddress().observeOn(networkScheduler).flatMap { walletAddress ->
+      walletService.signContent(walletAddress).observeOn(networkScheduler).flatMap { signedData ->
+        repository.registerAuthorizationProof(
+          id,
+          paymentType,
+          walletAddress,
+          signedData,
+          productName,
+          packageName,
+          priceValue,
+          developerWallet,
+          entityOemId,
+          entityDomain,
+          origin,
+          type,
+          developerPayload,
+          callback,
+          orderReference,
+          referrerUrl
+        )
       }
-  }
+    }
 
   override fun saveTransactionId(transaction: Transaction) {
     transactionFromApprove[transaction.uid] = transaction
   }
 
-  override fun getTransactionFromUid(uid: String): Transaction? {
-    return transactionFromApprove[uid]
-  }
+  override fun getTransactionFromUid(uid: String): Transaction? = transactionFromApprove[uid]
 
-  override fun getTransactionId(buyHash: String): String? {
-    return transactionIdsFromBuy[buyHash]
-  }
+  override fun getTransactionId(buyHash: String): String? = transactionIdsFromBuy[buyHash]
 
   companion object {
-    inline fun build(block: Builder.() -> Unit) =
-      Builder().apply(block)
-        .build()
+    inline fun build(block: Builder.() -> Unit) = Builder().apply(block).build()
   }
 
   class Builder {
@@ -132,34 +136,43 @@ class BillingPaymentProofSubmissionImpl internal constructor(
     fun setBillingSerializer(billingSerializer: ExternalBillingSerializer) =
       apply { this.billingSerializer = billingSerializer }
 
-    fun setBdsApiSecondary(bdsApi: BdsApiSecondary) = apply { bdsApiSecondary = bdsApi }
+    fun setBdsApiSecondary(bdsApi: BdsApiSecondary) =
+      apply { bdsApiSecondary = bdsApi }
 
     fun setSubscriptionBillingService(subscriptionBillingApi: SubscriptionBillingApi) =
       apply { subscriptionApi = subscriptionBillingApi }
 
-    fun setScheduler(scheduler: Scheduler) = apply { this.networkScheduler = scheduler }
+    fun setScheduler(scheduler: Scheduler) =
+      apply { this.networkScheduler = scheduler }
 
     fun setWalletService(walletService: WalletService) =
       apply { this.walletService = walletService }
 
-    fun build(): BillingPaymentProofSubmissionImpl {
-      return walletService?.let { walletService ->
+    fun build(): BillingPaymentProofSubmissionImpl =
+      walletService?.let { walletService ->
         brokerBdsApi?.let { brokerBdsApi ->
           inappBdsApi?.let { inappBdsApi ->
             bdsApiSecondary?.let { bdsApiSecondary ->
               subscriptionApi?.let { subscriptionApi ->
                 billingSerializer?.let { billingSerializer ->
                   BillingPaymentProofSubmissionImpl(
-                    walletService, BdsRepository(
+                    walletService,
+                    BdsRepository(
                       RemoteRepository(
-                        brokerBdsApi, inappBdsApi, BdsApiResponseMapper(
-                          SubscriptionsMapper(), InAppMapper(
-                            ExternalBillingSerializer()
-                          )
-                        ), bdsApiSecondary, subscriptionApi, billingSerializer
+                        brokerBdsApi,
+                        inappBdsApi,
+                        BdsApiResponseMapper(
+                          SubscriptionsMapper(),
+                          InAppMapper(ExternalBillingSerializer())
+                        ),
+                        bdsApiSecondary,
+                        subscriptionApi,
+                        billingSerializer
                       )
                     ),
-                    networkScheduler, ConcurrentHashMap(), ConcurrentHashMap()
+                    networkScheduler,
+                    ConcurrentHashMap(),
+                    ConcurrentHashMap()
                   )
                 } ?: throw IllegalArgumentException("BillingSerializer not defined")
               } ?: throw IllegalArgumentException("SubscriptionBillingService not defined")
@@ -167,7 +180,6 @@ class BillingPaymentProofSubmissionImpl internal constructor(
           } ?: throw IllegalArgumentException("InappBdsApi not defined")
         } ?: throw IllegalArgumentException("BrokerBdsApi not defined")
       } ?: throw IllegalArgumentException("WalletService not defined")
-    }
   }
 
 }

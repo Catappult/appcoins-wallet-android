@@ -3,7 +3,6 @@ package com.asfoundation.wallet.di.api.microservices
 import com.appcoins.wallet.bdsbilling.repository.RemoteRepository
 import com.asf.wallet.BuildConfig
 import com.asfoundation.wallet.di.annotations.BlockchainHttpClient
-import com.asfoundation.wallet.di.annotations.BrokerBlockchainRetrofit
 import com.asfoundation.wallet.di.annotations.InappBlockchainRetrofit
 import dagger.Module
 import dagger.Provides
@@ -24,21 +23,18 @@ class InappApiModule {
   @Singleton
   @Provides
   @InappBlockchainRetrofit
-  fun provideInappBlockchainRetrofit(@BlockchainHttpClient client: OkHttpClient): Retrofit {
-    return Retrofit.Builder()
+  fun provideInappBlockchainRetrofit(@BlockchainHttpClient client: OkHttpClient): Retrofit =
+    Retrofit.Builder()
       .baseUrl(inappUrl)
       .client(client)
       .addConverterFactory(GsonConverterFactory.create())
       .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
       .build()
-  }
 
   @Singleton
   @Provides
   fun providesInappBdsApi(
     @InappBlockchainRetrofit retrofit: Retrofit
-  ): RemoteRepository.InappBdsApi {
-    return retrofit.create(RemoteRepository.InappBdsApi::class.java)
-  }
+  ): RemoteRepository.InappBdsApi = retrofit.create(RemoteRepository.InappBdsApi::class.java)
 
 }

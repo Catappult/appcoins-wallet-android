@@ -7,11 +7,14 @@ import com.google.gson.JsonSerializer
 import com.google.gson.annotations.SerializedName
 import java.lang.reflect.Type
 
-data class InappPurchaseResponse(val uid: String, val product: RemoteProductEntity,
-                                 val status: String,
-                                 @SerializedName("package")
-                                 val packageName: PackageEntity,
-                                 val signature: SignatureEntity)
+data class InappPurchaseResponse(
+  val uid: String,
+  val product: RemoteProductEntity,
+  val status: String,
+  @SerializedName("package")
+  val packageName: PackageEntity,
+  val signature: SignatureEntity
+)
 
 data class RemoteProductEntity(val name: String)
 
@@ -20,9 +23,11 @@ data class PackageEntity(val name: String)
 data class SignatureEntity(val value: String, val message: DeveloperPurchase)
 
 class PurchaseSignatureEntitySerializer : JsonSerializer<InappPurchaseResponse> {
-  override fun serialize(purchase: InappPurchaseResponse?, typeOfSrc: Type?,
-                         context: JsonSerializationContext?): JsonElement {
-
+  override fun serialize(
+    purchase: InappPurchaseResponse?,
+    typeOfSrc: Type?,
+    context: JsonSerializationContext?
+  ): JsonElement {
     val json = JsonObject()
     val signature = purchase?.signature?.message
     json.add("orderId", context?.serialize(signature?.orderId))

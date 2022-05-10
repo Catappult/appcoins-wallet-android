@@ -60,36 +60,75 @@ class BillingPaymentProofSubmissionTest {
     scheduler = TestScheduler()
 
     billing = BillingPaymentProofSubmissionImpl.Builder()
-        .setBrokerBdsApi(brokerBdsApi)
-        .setInappBdsApi(inappBdsApi)
-        .setScheduler(scheduler)
-        .setWalletService(object : WalletService {
-          override fun getWalletAddress(): Single<String> = Single.just(walletAddress)
-          override fun signContent(content: String): Single<String> = Single.just(signedContent)
-          override fun getAndSignCurrentWalletAddress(): Single<WalletAddressModel> =
-              Single.just(WalletAddressModel(walletAddress, signedContent))
+      .setBrokerBdsApi(brokerBdsApi)
+      .setInappBdsApi(inappBdsApi)
+      .setScheduler(scheduler)
+      .setWalletService(object : WalletService {
+        override fun getWalletAddress(): Single<String> = Single.just(walletAddress)
+        override fun signContent(content: String): Single<String> = Single.just(signedContent)
+        override fun getAndSignCurrentWalletAddress(): Single<WalletAddressModel> =
+          Single.just(WalletAddressModel(walletAddress, signedContent))
 
-          override fun getWalletOrCreate(): Single<String> = Single.just(walletAddress)
-          override fun findWalletOrCreate(): Observable<String> = Observable.just(walletAddress)
-        })
-        .setBdsApiSecondary(object : BdsApiSecondary {
-          override fun getWallet(packageName: String): Single<GetWalletResponse> {
-            return Single.just(GetWalletResponse(Data("developer_address")))
-          }
-        })
-        .setBillingSerializer(ExternalBillingSerializer())
-        .setSubscriptionBillingService(subscriptionBillingApi)
-        .build()
+        override fun getWalletOrCreate(): Single<String> = Single.just(walletAddress)
+        override fun findWalletOrCreate(): Observable<String> = Observable.just(walletAddress)
+      })
+      .setBdsApiSecondary(object : BdsApiSecondary {
+        override fun getWallet(packageName: String): Single<GetWalletResponse> {
+          return Single.just(GetWalletResponse(Data("developer_address")))
+        }
+      })
+      .setBillingSerializer(ExternalBillingSerializer())
+      .setSubscriptionBillingService(subscriptionBillingApi)
+      .build()
 
     `when`(
-        brokerBdsApi.createTransaction(paymentType, origin, packageName, priceValue, currency, productName,
-            type, null, developerAddress, storeAddress, oemAddress, null, paymentId,
-            developerPayload, callback, orderReference, referrerUrl, walletAddress, signedContent)).thenReturn(Single.just(Transaction(paymentId, Transaction.Status.FAILED,
-        Gateway(Gateway.Name.appcoins_credits, "APPC C", "icon"), null,
-        null, "orderReference", null, "", null, "")))
+      brokerBdsApi.createTransaction(
+        paymentType,
+        origin,
+        packageName,
+        priceValue,
+        currency,
+        productName,
+        type,
+        null,
+        developerAddress,
+        storeAddress,
+        oemAddress,
+        null,
+        paymentId,
+        developerPayload,
+        callback,
+        orderReference,
+        referrerUrl,
+        walletAddress,
+        signedContent
+      )
+    ).thenReturn(
+      Single.just(
+        Transaction(
+          paymentId,
+          Transaction.Status.FAILED,
+          Gateway(Gateway.Name.appcoins_credits, "APPC C", "icon"),
+          null,
+          null,
+          "orderReference",
+          null,
+          "",
+          null,
+          ""
+        )
+      )
+    )
 
-    `when`(brokerBdsApi.patchTransaction(paymentType, paymentId, walletAddress, signedContent,
-        paymentToken)).thenReturn(Completable.complete())
+    `when`(
+      brokerBdsApi.patchTransaction(
+        paymentType,
+        paymentId,
+        walletAddress,
+        signedContent,
+        paymentToken
+      )
+    ).thenReturn(Completable.complete())
   }
 
   @Test
@@ -97,27 +136,68 @@ class BillingPaymentProofSubmissionTest {
     val authorizationDisposable = TestObserver<Any>()
     val purchaseDisposable = TestObserver<Any>()
     billing.processAuthorizationProof(
-        AuthorizationProof(paymentType, paymentId, productName, packageName, BigDecimal.ONE,
-            storeAddress, oemAddress, developerAddress, type, origin, developerPayload, callback,
-            orderReference, referrerUrl))
-        .subscribe(authorizationDisposable)
+      AuthorizationProof(
+        paymentType,
+        paymentId,
+        productName,
+        packageName,
+        BigDecimal.ONE,
+        storeAddress,
+        oemAddress,
+        developerAddress,
+        type,
+        origin,
+        developerPayload,
+        callback,
+        orderReference,
+        referrerUrl
+      )
+    ).subscribe(authorizationDisposable)
     scheduler.triggerActions()
 
-    billing.processPurchaseProof(PaymentProof(paymentType, paymentId, paymentToken, productName,
-        packageName, storeAddress, oemAddress))
-        .subscribe(purchaseDisposable)
+    billing.processPurchaseProof(
+      PaymentProof(
+        paymentType,
+        paymentId,
+        paymentToken,
+        productName,
+        packageName,
+        storeAddress,
+        oemAddress
+      )
+    ).subscribe(purchaseDisposable)
     scheduler.triggerActions()
 
 
-    authorizationDisposable.assertNoErrors()
-        .assertComplete()
-    purchaseDisposable.assertNoErrors()
-        .assertComplete()
-    verify(brokerBdsApi, times(1)).createTransaction(paymentType, origin, packageName, priceValue, currency,
-        productName, type, null, developerAddress, storeAddress, oemAddress, null, paymentId,
-        developerPayload, callback, orderReference, referrerUrl, walletAddress, signedContent)
-    verify(brokerBdsApi, times(1)).patchTransaction(paymentType, paymentId,
-        walletAddress, signedContent, paymentToken)
-
+    authorizationDisposable.assertNoErrors().assertComplete()
+    purchaseDisposable.assertNoErrors().assertComplete()
+    verify(brokerBdsApi, times(1)).createTransaction(
+      paymentType,
+      origin,
+      packageName,
+      priceValue,
+      currency,
+      productName,
+      type,
+      null,
+      developerAddress,
+      storeAddress,
+      oemAddress,
+      null,
+      paymentId,
+      developerPayload,
+      callback,
+      orderReference,
+      referrerUrl,
+      walletAddress,
+      signedContent
+    )
+    verify(brokerBdsApi, times(1)).patchTransaction(
+      paymentType,
+      paymentId,
+      walletAddress,
+      signedContent,
+      paymentToken
+    )
   }
 }
