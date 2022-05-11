@@ -29,8 +29,8 @@ class RecoverPasswordFragment : BasePageViewFragment(),
   private val viewModel: RecoverPasswordViewModel by viewModels()
   private val views by viewBinding(RecoverPasswordFragmentBinding::bind)
 
-  override fun onCreate(savedInstanceState: Bundle?) {
-    super.onCreate(savedInstanceState)
+  override fun onResume() {
+    super.onResume()
     handleFragmentResult()
   }
 
