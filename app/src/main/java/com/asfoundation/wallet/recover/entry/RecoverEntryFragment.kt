@@ -49,6 +49,10 @@ class RecoverEntryFragment : BasePageViewFragment(),
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     createLaunchers()
+  }
+
+  override fun onResume() {
+    super.onResume()
     handleFragmentResult()
   }
 
