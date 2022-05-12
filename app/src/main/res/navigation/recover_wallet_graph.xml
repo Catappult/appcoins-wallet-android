@@ -46,9 +46,7 @@
         app:argType="string" />
     <action
         android:id="@+id/action_navigate_create_wallet_dialog"
-        app:destination="@id/create_wallet_dialog_fragment"
-        app:popUpTo="@+id/onboarding_terms_conditions_dialog"
-        app:popUpToInclusive="true" />
+        app:destination="@id/create_wallet_dialog_fragment" />
 
     <action
         android:id="@+id/action_navigate_to_main_activity"
