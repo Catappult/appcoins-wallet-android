@@ -5,9 +5,9 @@ import android.content.pm.PackageManager
 import com.asf.wallet.BuildConfig
 import javax.inject.Inject
 
-class LaunchInteractor @Inject constructor(private val launchAnalytics: LaunchAnalytics,
-                                           private val sharedPreferences: SharedPreferences,
-                                           private val packageManager: PackageManager) {
+class LaunchInteractor @Inject constructor(private val sharedPreferences: SharedPreferences,
+                                           private val packageManager: PackageManager,
+                                           private val installReferrerAnalytics: InstallReferrerAnalytics ) {
 
   companion object {
     const val FIRST_LAUNCH_KEY = "first_launch"
@@ -15,7 +15,7 @@ class LaunchInteractor @Inject constructor(private val launchAnalytics: LaunchAn
 
   fun sendFirstLaunchEvent() {
     if (isFirstInstall() && sharedPreferences.getBoolean(FIRST_LAUNCH_KEY, true)) {
-      launchAnalytics.sendFirstLaunchEvent()
+      installReferrerAnalytics.sendFirstInstallInfo()
       sharedPreferences.edit()
           .putBoolean(FIRST_LAUNCH_KEY, false)
           .apply()

@@ -23,18 +23,20 @@ class SplashActivity : BaseActivity(), SplashView {
 
   fun checkFirstRun() {
     val isFirstRun = getSharedPreferences("PREFERENCE", 0)
-        .getBoolean("isFirstRun", true)
+      .getBoolean("isFirstRun", true)
     if (isFirstRun) {
       ApkOriginVerification(this)
       getSharedPreferences("PREFERENCE", 0)
-          .edit()
-          .putBoolean("isFirstRun", false)
-          .apply()
+        .edit()
+        .putBoolean("isFirstRun", false)
+        .apply()
     }
   }
 
-  public override fun onActivityResult(requestCode: Int, resultCode: Int,
-                                       data: Intent?) {
+  public override fun onActivityResult(
+    requestCode: Int, resultCode: Int,
+    data: Intent?
+  ) {
     super.onActivityResult(requestCode, resultCode, data)
     presenter.onActivityResult(requestCode, resultCode, data)
   }
