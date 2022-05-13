@@ -8,6 +8,6 @@ class SaveDismissSystemNotificationUseCase @Inject constructor(
 ) {
 
   operator fun invoke(walletAddress: String) {
-    backupSystemNotificationPreferences.setDismissedBackupSystemNotification(walletAddress)
+    backupSystemNotificationPreferences.setDismissedBackupSystemNotificationSeenTime(walletAddress, System.currentTimeMillis())
   }
 }

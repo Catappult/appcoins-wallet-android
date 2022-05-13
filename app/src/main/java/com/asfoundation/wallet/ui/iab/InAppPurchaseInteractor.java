@@ -78,17 +78,10 @@ public class InAppPurchaseInteractor {
   }
 
   public Single<NotificationNeeded> incrementAndValidateNotificationNeeded() {
-    return asfInAppPurchaseInteractor.getWalletAddress()
-        .flatMap(walletAddress -> updateWalletPurchasesCountUseCase.invoke(walletAddress)
-            .andThen(shouldShowSystemNotification(walletAddress).map(
-                needed -> new NotificationNeeded(needed, walletAddress))));
-  }
-
-  private Single<Boolean> shouldShowSystemNotification(String walletAddress) {
-    return Single.create(emitter -> {
-      boolean shouldShow = shouldShowSystemNotificationUseCase.invoke(walletAddress);
-      emitter.onSuccess(shouldShow);
-    });
+    return getWalletInfoUseCase.invoke(null, true, false)
+        .flatMap(walletInfo -> updateWalletPurchasesCountUseCase.invoke(walletInfo)
+            .andThen(shouldShowSystemNotificationUseCase.invoke(walletInfo).flatMap(
+                needed -> Single.just(new NotificationNeeded(needed, walletInfo.getWallet())))));
   }
 
   public Single<TransactionBuilder> parseTransaction(String uri, boolean isBds) {
