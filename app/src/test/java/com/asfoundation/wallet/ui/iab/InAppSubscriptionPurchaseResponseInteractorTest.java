@@ -3,7 +3,6 @@ package com.asfoundation.wallet.ui.iab;
 import com.appcoins.wallet.bdsbilling.Billing;
 import com.appcoins.wallet.bdsbilling.BillingPaymentProofSubmission;
 import com.appcoins.wallet.bdsbilling.ProxyService;
-import com.appcoins.wallet.bdsbilling.mappers.ExternalBillingSerializer;
 import com.appcoins.wallet.bdsbilling.repository.BillingSupportedType;
 import com.appcoins.wallet.bdsbilling.repository.entity.Gateway;
 import com.appcoins.wallet.bdsbilling.repository.entity.Transaction;
@@ -193,7 +192,7 @@ public class InAppSubscriptionPurchaseResponseInteractorTest {
         new AsfInAppPurchaseInteractor(inAppPurchaseService, defaultWalletInteract,
             gasSettingsInteract, BigDecimal.ONE,
             new TransferParser(eipTransactionParser, oneStepTransactionParser),
-            new BillingMessagesMapper(new ExternalBillingSerializer()), billing,
+            new BillingMessagesMapper(), billing,
             new CurrencyConversionService(Mockito.mock(TokenRateService.class),
                 Mockito.mock(LocalCurrencyConversionService.class)),
             new BdsTransactionService(fakeSchedulers,

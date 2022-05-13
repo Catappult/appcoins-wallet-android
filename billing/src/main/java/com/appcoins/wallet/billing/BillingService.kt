@@ -34,10 +34,9 @@ class BillingService : Service() {
             RemoteRepository(
               dependenciesProvider.brokerBdsApi(),
               dependenciesProvider.inappBdsApi(),
-              BdsApiResponseMapper(SubscriptionsMapper(), InAppMapper(serializer)),
+              BdsApiResponseMapper(SubscriptionsMapper(), InAppMapper()),
               dependenciesProvider.bdsApiSecondary(),
-              dependenciesProvider.subscriptionBillingService(),
-              dependenciesProvider.billingSerializer()
+              dependenciesProvider.subscriptionBillingService()
             )
           ),
           dependenciesProvider.walletService(),

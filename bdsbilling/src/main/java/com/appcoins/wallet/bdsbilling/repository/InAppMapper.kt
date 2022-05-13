@@ -1,9 +1,8 @@
 package com.appcoins.wallet.bdsbilling.repository
 
-import com.appcoins.wallet.bdsbilling.mappers.ExternalBillingSerializer
 import com.appcoins.wallet.bdsbilling.repository.entity.*
 
-class InAppMapper(private val serializer: ExternalBillingSerializer) {
+class InAppMapper {
   fun map(productDetails: DetailsResponseBody): List<Product> =
     ArrayList(productDetails.items.map {
       InAppProduct(

@@ -1,6 +1,5 @@
 package com.appcoins.wallet.bdsbilling
 
-import com.appcoins.wallet.bdsbilling.mappers.ExternalBillingSerializer
 import com.appcoins.wallet.bdsbilling.repository.*
 import com.appcoins.wallet.bdsbilling.repository.entity.Transaction
 import com.appcoins.wallet.bdsbilling.subscriptions.SubscriptionBillingApi
@@ -125,16 +124,12 @@ class BillingPaymentProofSubmissionImpl internal constructor(
     private var inappBdsApi: RemoteRepository.InappBdsApi? = null
     private var bdsApiSecondary: BdsApiSecondary? = null
     private var subscriptionApi: SubscriptionBillingApi? = null
-    private var billingSerializer: ExternalBillingSerializer? = null
 
     fun setBrokerBdsApi(brokerBdsApi: RemoteRepository.BrokerBdsApi) =
       apply { this.brokerBdsApi = brokerBdsApi }
 
     fun setInappBdsApi(inappBdsApi: RemoteRepository.InappBdsApi) =
       apply { this.inappBdsApi = inappBdsApi }
-
-    fun setBillingSerializer(billingSerializer: ExternalBillingSerializer) =
-      apply { this.billingSerializer = billingSerializer }
 
     fun setBdsApiSecondary(bdsApi: BdsApiSecondary) =
       apply { bdsApiSecondary = bdsApi }
@@ -154,27 +149,21 @@ class BillingPaymentProofSubmissionImpl internal constructor(
           inappBdsApi?.let { inappBdsApi ->
             bdsApiSecondary?.let { bdsApiSecondary ->
               subscriptionApi?.let { subscriptionApi ->
-                billingSerializer?.let { billingSerializer ->
-                  BillingPaymentProofSubmissionImpl(
-                    walletService,
-                    BdsRepository(
-                      RemoteRepository(
-                        brokerBdsApi,
-                        inappBdsApi,
-                        BdsApiResponseMapper(
-                          SubscriptionsMapper(),
-                          InAppMapper(ExternalBillingSerializer())
-                        ),
-                        bdsApiSecondary,
-                        subscriptionApi,
-                        billingSerializer
-                      )
-                    ),
-                    networkScheduler,
-                    ConcurrentHashMap(),
-                    ConcurrentHashMap()
-                  )
-                } ?: throw IllegalArgumentException("BillingSerializer not defined")
+                BillingPaymentProofSubmissionImpl(
+                  walletService,
+                  BdsRepository(
+                    RemoteRepository(
+                      brokerBdsApi,
+                      inappBdsApi,
+                      BdsApiResponseMapper(SubscriptionsMapper(), InAppMapper()),
+                      bdsApiSecondary,
+                      subscriptionApi
+                    )
+                  ),
+                  networkScheduler,
+                  ConcurrentHashMap(),
+                  ConcurrentHashMap()
+                )
               } ?: throw IllegalArgumentException("SubscriptionBillingService not defined")
             } ?: throw IllegalArgumentException("BdsApiSecondary not defined")
           } ?: throw IllegalArgumentException("InappBdsApi not defined")

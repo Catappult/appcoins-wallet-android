@@ -1,6 +1,5 @@
 package com.appcoins.wallet.bdsbilling
 
-import com.appcoins.wallet.bdsbilling.mappers.ExternalBillingSerializer
 import com.appcoins.wallet.bdsbilling.repository.BdsApiSecondary
 import com.appcoins.wallet.bdsbilling.repository.Data
 import com.appcoins.wallet.bdsbilling.repository.GetWalletResponse
@@ -77,7 +76,6 @@ class BillingPaymentProofSubmissionTest {
           return Single.just(GetWalletResponse(Data("developer_address")))
         }
       })
-      .setBillingSerializer(ExternalBillingSerializer())
       .setSubscriptionBillingService(subscriptionBillingApi)
       .build()
 

@@ -6,7 +6,6 @@ import com.appcoins.wallet.bdsbilling.exceptions.ApiException
 import com.appcoins.wallet.bdsbilling.exceptions.BillingException
 import com.appcoins.wallet.bdsbilling.exceptions.ServiceUnavailableException
 import com.appcoins.wallet.bdsbilling.exceptions.UnknownException
-import com.appcoins.wallet.bdsbilling.mappers.ExternalBillingSerializer
 import com.appcoins.wallet.bdsbilling.repository.entity.Purchase
 import com.appcoins.wallet.billing.AppcoinsBillingBinder.Companion.INAPP_DATA_SIGNATURE
 import com.appcoins.wallet.billing.AppcoinsBillingBinder.Companion.INAPP_PURCHASE_DATA
@@ -15,8 +14,7 @@ import retrofit2.HttpException
 import java.io.IOException
 import javax.inject.Inject
 
-class BillingMessagesMapper @Inject constructor(
-    private val billingSerializer: ExternalBillingSerializer) {
+class BillingMessagesMapper @Inject constructor() {
 
   companion object {
     internal const val TRANSACTION_HASH = "transaction_hash"

@@ -1,7 +1,6 @@
 package com.asfoundation.wallet.di.temp_gradle_modules
 
 import com.appcoins.wallet.bdsbilling.*
-import com.appcoins.wallet.bdsbilling.mappers.ExternalBillingSerializer
 import com.appcoins.wallet.bdsbilling.repository.*
 import com.appcoins.wallet.bdsbilling.subscriptions.SubscriptionBillingApi
 import com.asf.appcoins.sdk.contractproxy.AppCoinsAddressProxySdk
@@ -22,13 +21,11 @@ class BdsBillingModule {
     inappBdsApi: RemoteRepository.InappBdsApi,
     walletService: WalletService,
     subscriptionBillingApi: SubscriptionBillingApi,
-    bdsApi: BdsApiSecondary,
-    billingSerializer: ExternalBillingSerializer
+    bdsApi: BdsApiSecondary
   ): BillingPaymentProofSubmission =
     BillingPaymentProofSubmissionImpl.Builder()
       .setBrokerBdsApi(brokerBdsApi)
       .setInappBdsApi(inappBdsApi)
-      .setBillingSerializer(billingSerializer)
       .setBdsApiSecondary(bdsApi)
       .setWalletService(walletService)
       .setSubscriptionBillingService(subscriptionBillingApi)
@@ -42,10 +39,6 @@ class BdsBillingModule {
 
   @Singleton
   @Provides
-  fun provideBillingSerializer() = ExternalBillingSerializer()
-
-  @Singleton
-  @Provides
   fun provideRemoteRepository(
     subscriptionBillingApi: SubscriptionBillingApi,
     brokerBdsApi: RemoteRepository.BrokerBdsApi,
@@ -55,10 +48,9 @@ class BdsBillingModule {
     RemoteRepository(
       brokerBdsApi,
       inappBdsApi,
-      BdsApiResponseMapper(SubscriptionsMapper(), InAppMapper(ExternalBillingSerializer())),
+      BdsApiResponseMapper(SubscriptionsMapper(), InAppMapper()),
       api,
-      subscriptionBillingApi,
-      ExternalBillingSerializer()
+      subscriptionBillingApi
     )
 
   @Singleton
