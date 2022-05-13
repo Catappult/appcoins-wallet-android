@@ -20,15 +20,11 @@
 
     <action
         android:id="@+id/action_navigate_create_wallet_dialog"
-        app:destination="@id/create_wallet_dialog_fragment"
-        app:popUpTo="@+id/onboarding_terms_conditions_dialog"
-        app:popUpToInclusive="true" />
+        app:destination="@id/create_wallet_dialog_fragment" />
 
     <action
         android:id="@+id/action_navigate_to_main_activity"
-        app:destination="@id/main_activity"
-        app:popUpTo="@+id/main_nav_graph"
-        app:popUpToInclusive="true" />
+        app:destination="@id/main_activity" />
   </fragment>
 
   <fragment
@@ -50,19 +46,17 @@
 
     <action
         android:id="@+id/action_navigate_to_main_activity"
-        app:destination="@id/main_activity"
-        app:popUpTo="@+id/main_nav_graph"
-        app:popUpToInclusive="true" />
+        app:destination="@id/main_activity" />
   </fragment>
 
   <dialog
       android:id="@+id/create_wallet_dialog_fragment"
       android:name="com.asfoundation.wallet.my_wallets.create_wallet.CreateWalletDialogFragment"
-      tools:layout="@layout/fragment_create_wallet_dialog_layout" >
+      tools:layout="@layout/fragment_create_wallet_dialog_layout">
     <!-- temporary argument to differentiate the recover from a creation -->
     <argument
-      android:name="needs_wallet_creation"
-      app:argType="boolean" />
+        android:name="needs_wallet_creation"
+        app:argType="boolean" />
   </dialog>
 
   <activity
