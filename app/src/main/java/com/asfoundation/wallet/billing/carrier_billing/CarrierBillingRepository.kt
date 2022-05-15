@@ -8,6 +8,7 @@ import com.appcoins.wallet.billing.carrierbilling.response.CarrierCreateTransact
 import com.appcoins.wallet.billing.carrierbilling.response.CountryListResponse
 import com.appcoins.wallet.billing.common.response.TransactionResponse
 import com.appcoins.wallet.commons.Logger
+import com.asf.wallet.BuildConfig
 import io.reactivex.Observable
 import io.reactivex.Single
 import retrofit2.http.*
@@ -22,8 +23,7 @@ class CarrierBillingRepository @Inject constructor(private val api: CarrierBilli
     private const val METHOD = "onebip"
   }
 
-  private val packageName = "com.appcoins.wallet.dev"
-  private val RETURN_URL = "https://${packageName}/return/carrier_billing"
+  private val RETURN_URL = "https://${BuildConfig.APPLICATION_ID}/return/carrier_billing"
 
   fun makePayment(walletAddress: String, walletSignature: String,
                   phoneNumber: String, packageName: String, origin: String?, sku: String?,
