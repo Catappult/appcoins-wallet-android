@@ -1,11 +1,9 @@
 package com.asfoundation.wallet.analytics
 
-import javax.inject.Inject
-
 /**
  * Utility class to measure the duration of a task (measured to millis)
  */
-class TaskTimer @Inject constructor() {
+class TaskTimer {
 
   private val taskHashMap = HashMap<String, Long>()
 
