@@ -5,6 +5,7 @@ import cm.aptoide.analytics.AnalyticsManager
 import com.android.installreferrer.api.InstallReferrerClient
 import com.android.installreferrer.api.InstallReferrerStateListener
 import com.android.installreferrer.api.ReferrerDetails
+import com.asfoundation.wallet.util.Log
 import com.asfoundation.wallet.util.UrlUtmParser
 import dagger.hilt.android.qualifiers.ApplicationContext
 import java.net.URLDecoder
@@ -21,7 +22,6 @@ class InstallReferrerAnalytics @Inject constructor(
   fun sendFirstInstallInfo() {
     referrerClient = InstallReferrerClient.newBuilder(context).build()
     referrerClient.startConnection(object : InstallReferrerStateListener {
-
       override fun onInstallReferrerSetupFinished(responseCode: Int) {
         when (responseCode) {
           InstallReferrerClient.InstallReferrerResponse.OK -> {
@@ -30,16 +30,16 @@ class InstallReferrerAnalytics @Inject constructor(
             val referrerUrl: String = response.installReferrer
             val referrerClickTime: Long = response.referrerClickTimestampSeconds
             val appInstallTime: Long = response.installBeginTimestampSeconds
-            val instantExperienceLaunched: Boolean = response.googlePlayInstantParam
-
             sendFirstLaunchEvent(referrerUrl)
 
           }
           InstallReferrerClient.InstallReferrerResponse.FEATURE_NOT_SUPPORTED -> {
-            //TODO not googlePlay
+            Log.d("Referrer", "not supported")
+            sendFirstLaunchEvent("")
           }
           InstallReferrerClient.InstallReferrerResponse.SERVICE_UNAVAILABLE -> {
-            //TODO not googlePlay
+            Log.d("Referrer", "unavailable")
+            sendFirstLaunchEvent("")
           }
         }
       }
@@ -50,15 +50,23 @@ class InstallReferrerAnalytics @Inject constructor(
   }
 
   private fun sendFirstLaunchEvent(referrerUrl: String) {
+    Log.d("Referrer", referrerUrl)
 
     val decodedReferrer = URLDecoder.decode(referrerUrl, "UTF-8")
     val urlParams = UrlUtmParser.splitQuery(decodedReferrer)
 
     val firstLaunchData: MutableMap<String, Any> = HashMap()
-    firstLaunchData[PACKAGE_NAME] = urlParams?.get(UTM_MEDIUM)?.get(0) ?: ""
-    firstLaunchData[INTEGRATION_FLOW] = urlParams?.get(UTM_TERM)?.get(0) ?: ""
-    firstLaunchData[SOURCE] = urlParams?.get(UTM_SOURCE)?.get(0) ?: ""
-    firstLaunchData[SKU] = urlParams?.get(UTM_CONTENT)?.get(0) ?: ""
+    if (isIntegrationFlowIAB(referrerUrl)) {
+      firstLaunchData[PACKAGE_NAME] = urlParams?.get(UTM_MEDIUM)?.get(0) ?: ""
+      firstLaunchData[INTEGRATION_FLOW] = urlParams?.get(UTM_TERM)?.get(0) ?: ""
+      firstLaunchData[SOURCE] = urlParams?.get(UTM_SOURCE)?.get(0) ?: ""
+      firstLaunchData[SKU] = urlParams?.get(UTM_CONTENT)?.get(0) ?: ""
+    } else { // when the installation is not from an iab, this fields are not meaningful
+      firstLaunchData[PACKAGE_NAME] = ""
+      firstLaunchData[INTEGRATION_FLOW] = ""
+      firstLaunchData[SOURCE] = ""
+      firstLaunchData[SKU] = ""
+    }
 
     analyticsManager.logEvent(
       firstLaunchData,
@@ -67,6 +75,17 @@ class InstallReferrerAnalytics @Inject constructor(
       WALLET
     )
 
+  }
+
+  /**
+   * Checks if the first launch of the app was made from an IAB (either from sdk or osp)
+   * Only osp are considered for now
+   */
+  fun isIntegrationFlowIAB(referrerUrl: String): Boolean {
+    val decodedReferrer = URLDecoder.decode(referrerUrl, "UTF-8")
+    val urlParams: Map<String, MutableList<String?>>? = UrlUtmParser.splitQuery(decodedReferrer)
+    val integrationFlow = (urlParams?.get(UTM_TERM)?.get(0) ?: "").toLowerCase(Locale.ENGLISH)
+    return (integrationFlow == "sdk" || integrationFlow == "osp")
   }
 
   companion object {
