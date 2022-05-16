@@ -51,38 +51,38 @@ class OneStepPaymentReceiver : BaseActivity() {
     if (isEskillsUri(intent.dataString!!)) {
       val skillsActivityIntent = Intent(this, SkillsActivity::class.java)
       skillsActivityIntent.putExtra(ESKILLS_URI_KEY, intent.dataString)
+      @Suppress("DEPRECATION")
       startActivityForResult(skillsActivityIntent, REQUEST_CODE)
     } else {
       setContentView(R.layout.activity_iab_wallet_creation)
       walletCreationCard = findViewById(R.id.create_wallet_card)
       walletCreationAnimation =
-          findViewById(R.id.create_wallet_animation)
+        findViewById(R.id.create_wallet_animation)
       walletCreationText = findViewById(R.id.create_wallet_text)
       if (savedInstanceState == null) {
         disposable = handleWalletCreationIfNeeded()
-            .takeUntil { it != WalletGetterStatus.CREATING.toString() }
-            .filter { it != WalletGetterStatus.CREATING.toString() }
-            .flatMap {
-              transferParser.parse(intent.dataString!!)
-                  .flatMap { transaction: TransactionBuilder ->
-                    inAppPurchaseInteractor.isWalletFromBds(transaction.domain,
-                        transaction.toAddress())
-                        .doOnSuccess { isBds: Boolean ->
-                          startOneStepTransfer(transaction, isBds)
-                        }
+          .takeUntil { it != WalletGetterStatus.CREATING.toString() }
+          .filter { it != WalletGetterStatus.CREATING.toString() }
+          .flatMap {
+            transferParser.parse(intent.dataString!!)
+              .flatMap { transaction: TransactionBuilder ->
+                inAppPurchaseInteractor.isWalletFromBds(transaction.domain, transaction.toAddress())
+                  .doOnSuccess { isBds: Boolean ->
+                    startOneStepTransfer(transaction, isBds)
                   }
-                  .toObservable()
-            }
-            .subscribe({ }, { throwable: Throwable ->
-              logger.log("OneStepPaymentReceiver", throwable)
-              startApp(throwable)
-            })
+              }
+              .toObservable()
+          }
+          .subscribe({ }, { throwable: Throwable ->
+            logger.log("OneStepPaymentReceiver", throwable)
+            startApp(throwable)
+          })
       }
     }
   }
 
-  override fun onActivityResult(requestCode: Int, resultCode: Int,
-                                data: Intent?) {
+  @Suppress("DEPRECATION")
+  override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
     super.onActivityResult(requestCode, resultCode, data)
     if (requestCode == REQUEST_CODE) {
       setResult(resultCode, data)
@@ -90,10 +90,9 @@ class OneStepPaymentReceiver : BaseActivity() {
     }
   }
 
-  private fun isEskillsUri(uri: String): Boolean {
-    return uri.toLowerCase(Locale.ROOT)
-        .contains("/transaction/eskills")
-  }
+  private fun isEskillsUri(uri: String): Boolean = uri
+    .toLowerCase(Locale.ROOT)
+    .contains("/transaction/eskills")
 
   private fun startApp(throwable: Throwable) {
     throwable.printStackTrace()
@@ -101,11 +100,11 @@ class OneStepPaymentReceiver : BaseActivity() {
     finish()
   }
 
-  private fun startOneStepTransfer(transaction: TransactionBuilder,
-                                   isBds: Boolean) {
+  private fun startOneStepTransfer(transaction: TransactionBuilder, isBds: Boolean) {
     val intent =
-        newIntent(this, intent, transaction, isBds, transaction.payload)
+      newIntent(this, intent, transaction, isBds, transaction.payload)
     intent.putExtra(IabActivity.PRODUCT_NAME, transaction.skuId)
+    @Suppress("DEPRECATION")
     startActivityForResult(intent, REQUEST_CODE)
   }
 
@@ -123,20 +122,19 @@ class OneStepPaymentReceiver : BaseActivity() {
     walletCreationText = null
   }
 
-  private fun handleWalletCreationIfNeeded(): Observable<String> {
-    return walletService.findWalletOrCreate()
-        .observeOn(AndroidSchedulers.mainThread())
-        .doOnNext {
-          if (it == WalletGetterStatus.CREATING.toString()) {
-            showLoadingAnimation()
-          }
+  private fun handleWalletCreationIfNeeded(): Observable<String> =
+    walletService.findWalletOrCreate()
+      .observeOn(AndroidSchedulers.mainThread())
+      .doOnNext {
+        if (it == WalletGetterStatus.CREATING.toString()) {
+          showLoadingAnimation()
         }
-        .filter { it != WalletGetterStatus.CREATING.toString() }
-        .map {
-          endAnimation()
-          it
-        }
-  }
+      }
+      .filter { it != WalletGetterStatus.CREATING.toString() }
+      .map {
+        endAnimation()
+        it
+      }
 
   private fun endAnimation() {
     walletCreationAnimation!!.visibility = View.INVISIBLE

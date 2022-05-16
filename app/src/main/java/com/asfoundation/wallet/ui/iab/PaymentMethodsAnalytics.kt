@@ -5,9 +5,10 @@ import com.asfoundation.wallet.analytics.AnalyticsSetup
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics
 import javax.inject.Inject
 
-class PaymentMethodsAnalytics @Inject constructor(private val analyticsManager: AnalyticsManager,
-                              private val billingAnalytics: BillingAnalytics,
-                              private val analyticsSetup: AnalyticsSetup
+class PaymentMethodsAnalytics @Inject constructor(
+  private val analyticsManager: AnalyticsManager,
+  private val billingAnalytics: BillingAnalytics,
+  private val analyticsSetup: AnalyticsSetup
 ) {
 
   companion object {
@@ -30,34 +31,48 @@ class PaymentMethodsAnalytics @Inject constructor(private val analyticsManager: 
     analyticsSetup.setGamificationLevel(cachedGamificationLevel)
   }
 
-  fun sendPurchaseDetailsEvent(appPackage: String, skuId: String?, amount: String,
-                               type: String?) {
+  fun sendPurchaseDetailsEvent(appPackage: String, skuId: String?, amount: String, type: String?) {
     billingAnalytics.sendPurchaseDetailsEvent(appPackage, skuId, amount, type)
   }
 
-  fun sendPaymentMethodEvent(appPackage: String, skuId: String?, amount: String,
-                             paymentId: String, type: String?, action: String,
-                             isPreselected: Boolean = false) {
+  fun sendPaymentMethodEvent(
+    appPackage: String,
+    skuId: String?,
+    amount: String,
+    paymentId: String,
+    type: String?,
+    action: String,
+    isPreselected: Boolean = false
+  ) {
     if (isPreselected) {
-      billingAnalytics.sendPreSelectedPaymentMethodEvent(appPackage, skuId, amount, paymentId, type,
-          action)
+      billingAnalytics.sendPreSelectedPaymentMethodEvent(
+        appPackage,
+        skuId,
+        amount,
+        paymentId,
+        type,
+        action
+      )
     } else {
       billingAnalytics.sendPaymentMethodEvent(appPackage, skuId, amount, paymentId, type, action)
     }
   }
 
   fun sendTimeToLoadTotalEvent(duration: Long) {
-    val data = HashMap<String, Any>()
-    data[DURATION] = duration
-    analyticsManager.logEvent(data, WALLET_PAYMENT_LOADING_TOTAL,
-        AnalyticsManager.Action.IMPRESSION, WALLET)
+    analyticsManager.logEvent(
+      hashMapOf<String, Any>(DURATION to duration),
+      WALLET_PAYMENT_LOADING_TOTAL,
+      AnalyticsManager.Action.IMPRESSION,
+      WALLET
+    )
   }
 
   fun sendTimeToLoadStepEvent(stepId: String, duration: Long) {
-    val data = HashMap<String, Any>()
-    data[DURATION] = duration
-    data[STEP_ID] = stepId
-    analyticsManager.logEvent(data, WALLET_PAYMENT_LOADING_STEP,
-        AnalyticsManager.Action.IMPRESSION, WALLET)
+    analyticsManager.logEvent(
+      hashMapOf<String, Any>(DURATION to duration, STEP_ID to stepId),
+      WALLET_PAYMENT_LOADING_STEP,
+      AnalyticsManager.Action.IMPRESSION,
+      WALLET
+    )
   }
 }

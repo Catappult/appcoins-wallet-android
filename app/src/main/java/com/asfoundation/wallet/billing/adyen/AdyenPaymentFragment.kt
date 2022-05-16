@@ -120,25 +120,40 @@ class AdyenPaymentFragment : BasePageViewFragment(), AdyenPaymentView {
     val navigator = IabNavigator(parentFragmentManager, activity as UriNavigator?, iabView)
     compositeDisposable = CompositeDisposable()
     presenter = AdyenPaymentPresenter(
-      this, compositeDisposable, AndroidSchedulers.mainThread(),
-      Schedulers.io(), RedirectComponent.getReturnUrl(requireContext()), analytics, domain,
-      origin,
-      adyenPaymentInteractor, skillsPaymentInteractor,
-      inAppPurchaseInteractor.parseTransaction(transactionData, true), navigator, paymentType,
-      transactionType, amount, currency, skills, isPreSelected, AdyenErrorCodeMapper(),
-      servicesErrorMapper, gamificationLevel, formatter, logger
+      view = this,
+      disposables = compositeDisposable,
+      viewScheduler = AndroidSchedulers.mainThread(),
+      networkScheduler = Schedulers.io(),
+      returnUrl = RedirectComponent.getReturnUrl(requireContext()),
+      analytics = analytics,
+      domain = domain,
+      origin = origin,
+      adyenPaymentInteractor = adyenPaymentInteractor,
+      skillsPaymentInteractor = skillsPaymentInteractor,
+      transactionBuilder = inAppPurchaseInteractor.parseTransaction(transactionData, true),
+      navigator = navigator,
+      paymentType = paymentType,
+      transactionType = transactionType,
+      amount = amount,
+      currency = currency,
+      skills = skills,
+      isPreSelected = isPreSelected,
+      adyenErrorCodeMapper = AdyenErrorCodeMapper(),
+      servicesErrorCodeMapper = servicesErrorMapper,
+      gamificationLevel = gamificationLevel,
+      formatter = formatter,
+      logger = logger
     )
   }
 
   override fun onCreateView(
-    inflater: LayoutInflater, container: ViewGroup?,
+    inflater: LayoutInflater,
+    container: ViewGroup?,
     savedInstanceState: Bundle?
-  ): View? {
-    return if (isPreSelected) {
-      inflater.inflate(R.layout.adyen_credit_card_pre_selected, container, false)
-    } else {
-      inflater.inflate(R.layout.adyen_credit_card_layout, container, false)
-    }
+  ): View? = if (isPreSelected) {
+    inflater.inflate(R.layout.adyen_credit_card_pre_selected, container, false)
+  } else {
+    inflater.inflate(R.layout.adyen_credit_card_layout, container, false)
   }
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -148,8 +163,9 @@ class AdyenPaymentFragment : BasePageViewFragment(), AdyenPaymentView {
   }
 
   override fun setup3DSComponent() {
-    activity?.application?.let {
-      adyen3DS2Component = Adyen3DS2Component.PROVIDER.get(this, it, adyen3DS2Configuration)
+    activity?.application?.let { application ->
+      adyen3DS2Component =
+        Adyen3DS2Component.PROVIDER.get(this, application, adyen3DS2Configuration)
       adyen3DS2Component.observe(this) {
         paymentDetailsSubject?.onNext(AdyenComponentResponseModel(it.details, it.paymentData))
       }
@@ -209,9 +225,7 @@ class AdyenPaymentFragment : BasePageViewFragment(), AdyenPaymentView {
     }
   }
 
-  override fun billingAddressInput(): Observable<Boolean> {
-    return billingAddressInput!!
-  }
+  override fun billingAddressInput(): Observable<Boolean> = billingAddressInput!!
 
   override fun retrieveBillingAddressData() = billingAddressModel
 
@@ -258,14 +272,10 @@ class AdyenPaymentFragment : BasePageViewFragment(), AdyenPaymentView {
     }
   }
 
-  override fun showNetworkError() {
-    showSpecificError(R.string.notification_no_network_poa)
-  }
+  override fun showNetworkError() = showSpecificError(R.string.notification_no_network_poa)
 
-  override fun backEvent(): Observable<Any> {
-    return RxView.clicks(cancel_button)
-      .mergeWith(iabView.backButtonPress())
-  }
+  override fun backEvent(): Observable<Any> =
+    RxView.clicks(cancel_button).mergeWith(iabView.backButtonPress())
 
   override fun showSuccess(renewal: Date?) {
     iab_activity_transaction_completed.visibility = VISIBLE
@@ -286,29 +296,20 @@ class AdyenPaymentFragment : BasePageViewFragment(), AdyenPaymentView {
     }
   }
 
-  override fun showGenericError() {
-    showSpecificError(R.string.unknown_error)
-  }
+  override fun showGenericError() = showSpecificError(R.string.unknown_error)
 
-  override fun showInvalidCardError() {
+  override fun showInvalidCardError() =
     showSpecificError(R.string.purchase_error_invalid_credit_card)
-  }
 
-  override fun showSecurityValidationError() {
+  override fun showSecurityValidationError() =
     showSpecificError(R.string.purchase_error_card_security_validation)
-  }
 
-  override fun showOutdatedCardError() {
-    showSpecificError(R.string.purchase_card_error_re_insert)
-  }
+  override fun showOutdatedCardError() = showSpecificError(R.string.purchase_card_error_re_insert)
 
-  override fun showAlreadyProcessedError() {
+  override fun showAlreadyProcessedError() =
     showSpecificError(R.string.purchase_error_card_already_in_progress)
-  }
 
-  override fun showPaymentError() {
-    showSpecificError(R.string.purchase_error_payment_rejected)
-  }
+  override fun showPaymentError() = showSpecificError(R.string.purchase_error_payment_rejected)
 
   override fun showVerification(isWalletVerified: Boolean) =
     iabView.showVerification(isWalletVerified)
@@ -317,7 +318,13 @@ class AdyenPaymentFragment : BasePageViewFragment(), AdyenPaymentView {
     main_view?.visibility = GONE
     main_view_pre_selected?.visibility = GONE
     iabView.showBillingAddress(
-      value, currency, bonus, appcAmount, this, adyenCardView.cardSave, isStored
+      value,
+      currency,
+      bonus,
+      appcAmount,
+      this,
+      adyenCardView.cardSave,
+      isStored
     )
   }
 
@@ -382,8 +389,8 @@ class AdyenPaymentFragment : BasePageViewFragment(), AdyenPaymentView {
   }
 
   override fun setupRedirectComponent() {
-    activity?.application?.let {
-      redirectComponent = RedirectComponent.PROVIDER.get(this, it, redirectConfiguration)
+    activity?.application?.let { application ->
+      redirectComponent = RedirectComponent.PROVIDER.get(this, application, redirectConfiguration)
       redirectComponent.observe(this) {
         paymentDetailsSubject?.onNext(AdyenComponentResponseModel(it.details, it.paymentData))
       }
@@ -439,10 +446,11 @@ class AdyenPaymentFragment : BasePageViewFragment(), AdyenPaymentView {
 
   override fun getAdyenSupportIconClicks() = RxView.clicks(layout_support_icn)
 
-  override fun getVerificationClicks() = Observable.merge(
-    RxView.clicks(error_verify_wallet_button)
-      .map { false }, RxView.clicks(error_verify_card_button)
-      .map { true })
+  override fun getVerificationClicks(): Observable<Boolean> =
+    Observable.merge(
+      RxView.clicks(error_verify_wallet_button).map { false },
+      RxView.clicks(error_verify_card_button).map { true }
+    )
 
   override fun lockRotation() = iabView.lockRotation()
 
@@ -451,24 +459,20 @@ class AdyenPaymentFragment : BasePageViewFragment(), AdyenPaymentView {
   }
 
   private fun setupCardConfiguration() {
-    cardConfiguration = CardConfiguration
-      .Builder(activity as Context, BuildConfig.ADYEN_PUBLIC_KEY)
-      .setEnvironment(adyenEnvironment)
-      .build()
+    cardConfiguration = CardConfiguration.Builder(activity as Context, BuildConfig.ADYEN_PUBLIC_KEY)
+      .setEnvironment(adyenEnvironment).build()
   }
 
   private fun setupRedirectConfiguration() {
-    redirectConfiguration = RedirectConfiguration
-      .Builder(activity as Context, BuildConfig.ADYEN_PUBLIC_KEY)
-      .setEnvironment(adyenEnvironment)
-      .build()
+    redirectConfiguration =
+      RedirectConfiguration.Builder(activity as Context, BuildConfig.ADYEN_PUBLIC_KEY)
+        .setEnvironment(adyenEnvironment).build()
   }
 
   private fun setupAdyen3DS2ConfigurationBuilder() {
-    adyen3DS2Configuration = Adyen3DS2Configuration
-      .Builder(activity as Context, BuildConfig.ADYEN_PUBLIC_KEY)
-      .setEnvironment(adyenEnvironment)
-      .build()
+    adyen3DS2Configuration =
+      Adyen3DS2Configuration.Builder(activity as Context, BuildConfig.ADYEN_PUBLIC_KEY)
+        .setEnvironment(adyenEnvironment).build()
   }
 
   @Throws(PackageManager.NameNotFoundException::class)
@@ -521,10 +525,7 @@ class AdyenPaymentFragment : BasePageViewFragment(), AdyenPaymentView {
     }
   }
 
-  private fun prepareCardComponent(
-    paymentInfoModel: PaymentInfoModel,
-    forget: Boolean
-  ) {
+  private fun prepareCardComponent(paymentInfoModel: PaymentInfoModel, forget: Boolean) {
     if (forget) adyenCardView.clear(this)
     val cardComponent = paymentInfoModel.cardComponent!!(this, cardConfiguration)
     adyen_card_form_pre_selected?.attach(cardComponent, this)
@@ -635,14 +636,23 @@ class AdyenPaymentFragment : BasePageViewFragment(), AdyenPaymentView {
 
     @JvmStatic
     fun newInstance(
-      transactionType: String, paymentType: PaymentType, domain: String,
-      origin: String?, transactionData: String?, appcAmount: BigDecimal,
-      amount: BigDecimal, currency: String?, bonus: String?, isPreSelected: Boolean,
-      gamificationLevel: Int, skuDescription: String, productToken: String?,
-      isSubscription: Boolean, frequency: String?
-    ): AdyenPaymentFragment {
-      val fragment = AdyenPaymentFragment()
-      fragment.arguments = Bundle().apply {
+      transactionType: String,
+      paymentType: PaymentType,
+      domain: String,
+      origin: String?,
+      transactionData: String?,
+      appcAmount: BigDecimal,
+      amount: BigDecimal,
+      currency: String?,
+      bonus: String?,
+      isPreSelected: Boolean,
+      gamificationLevel: Int,
+      skuDescription: String,
+      productToken: String?,
+      isSubscription: Boolean,
+      frequency: String?
+    ): AdyenPaymentFragment = AdyenPaymentFragment().apply {
+      arguments = Bundle().apply {
         putString(TRANSACTION_TYPE_KEY, transactionType)
         putString(PAYMENT_TYPE_KEY, paymentType.name)
         putString(DOMAIN_KEY, domain)
@@ -659,7 +669,6 @@ class AdyenPaymentFragment : BasePageViewFragment(), AdyenPaymentView {
         putBoolean(IS_SUBSCRIPTION, isSubscription)
         putString(FREQUENCY, frequency)
       }
-      return fragment
     }
   }
 

@@ -56,19 +56,27 @@ class AppcoinsRewardsBuyFragment : BasePageViewFragment(), AppcoinsRewardsBuyVie
   private lateinit var iabView: IabView
 
   override fun onCreateView(
-    inflater: LayoutInflater, container: ViewGroup?,
+    inflater: LayoutInflater,
+    container: ViewGroup?,
     savedInstanceState: Bundle?
-  ): View? {
-    return inflater.inflate(R.layout.reward_payment_layout, container, false)
-  }
+  ): View? = inflater.inflate(R.layout.reward_payment_layout, container, false)
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
     presenter = AppcoinsRewardsBuyPresenter(
-      this, rewardsManager, AndroidSchedulers.mainThread(),
-      Schedulers.io(), CompositeDisposable(), transactionBuilder.domain,
-      isBds, analytics, transactionBuilder, formatter, gamificationLevel,
-      appcoinsRewardsBuyInteract, logger
+      view = this,
+      rewardsManager = rewardsManager,
+      viewScheduler = AndroidSchedulers.mainThread(),
+      networkScheduler = Schedulers.io(),
+      disposables = CompositeDisposable(),
+      packageName = transactionBuilder.domain,
+      isBds = isBds,
+      analytics = analytics,
+      transactionBuilder = transactionBuilder,
+      formatter = formatter,
+      gamificationLevel = gamificationLevel,
+      appcoinsRewardsBuyInteract = appcoinsRewardsBuyInteract,
+      logger = logger
     )
     setupTransactionCompleteAnimation()
     presenter.present()
@@ -160,22 +168,6 @@ class AppcoinsRewardsBuyFragment : BasePageViewFragment(), AppcoinsRewardsBuyVie
   private fun setupTransactionCompleteAnimation() =
     lottie_transaction_success.setAnimation(R.raw.success_animation)
 
-  private val amount: BigDecimal by lazy {
-    if (requireArguments().containsKey(AMOUNT_KEY)) {
-      requireArguments().getSerializable(AMOUNT_KEY) as BigDecimal
-    } else {
-      throw IllegalArgumentException("amount data not found")
-    }
-  }
-
-  private val uri: String by lazy {
-    if (requireArguments().containsKey(URI_KEY)) {
-      requireArguments().getString(URI_KEY, "")
-    } else {
-      throw IllegalArgumentException("uri not found")
-    }
-  }
-
   private val isBds: Boolean by lazy {
     if (requireArguments().containsKey(IS_BDS)) {
       requireArguments().getBoolean(IS_BDS)
@@ -208,18 +200,18 @@ class AppcoinsRewardsBuyFragment : BasePageViewFragment(), AppcoinsRewardsBuyVie
     private const val GAMIFICATION_LEVEL = "gamification_level"
 
     fun newInstance(
-      amount: BigDecimal, transactionBuilder: TransactionBuilder,
-      uri: String?, isBds: Boolean,
+      amount: BigDecimal,
+      transactionBuilder: TransactionBuilder,
+      uri: String?,
+      isBds: Boolean,
       gamificationLevel: Int
-    ): Fragment {
-      return AppcoinsRewardsBuyFragment().apply {
-        arguments = Bundle().apply {
-          putSerializable(AMOUNT_KEY, amount)
-          putParcelable(TRANSACTION_KEY, transactionBuilder)
-          putString(URI_KEY, uri)
-          putBoolean(IS_BDS, isBds)
-          putInt(GAMIFICATION_LEVEL, gamificationLevel)
-        }
+    ): Fragment = AppcoinsRewardsBuyFragment().apply {
+      arguments = Bundle().apply {
+        putSerializable(AMOUNT_KEY, amount)
+        putParcelable(TRANSACTION_KEY, transactionBuilder)
+        putString(URI_KEY, uri)
+        putBoolean(IS_BDS, isBds)
+        putInt(GAMIFICATION_LEVEL, gamificationLevel)
       }
     }
   }

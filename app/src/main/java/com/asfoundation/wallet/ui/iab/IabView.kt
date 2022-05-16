@@ -30,41 +30,94 @@ interface IabView {
 
   fun navigateToWebViewAuthorization(url: String)
 
-  fun showOnChain(amount: BigDecimal, isBds: Boolean, bonus: String, gamificationLevel: Int,
-                  transactionBuilder: TransactionBuilder)
+  fun showOnChain(
+    amount: BigDecimal,
+    isBds: Boolean,
+    bonus: String,
+    gamificationLevel: Int,
+    transactionBuilder: TransactionBuilder
+  )
 
-  fun showAdyenPayment(amount: BigDecimal, currency: String?, isBds: Boolean,
-                       paymentType: PaymentType, bonus: String?, isPreselected: Boolean,
-                       iconUrl: String?, gamificationLevel: Int, isSubscription: Boolean,
-                       frequency: String?)
+  fun showAdyenPayment(
+    amount: BigDecimal,
+    currency: String?,
+    isBds: Boolean,
+    paymentType: PaymentType,
+    bonus: String?,
+    isPreselected: Boolean,
+    iconUrl: String?,
+    gamificationLevel: Int,
+    isSubscription: Boolean,
+    frequency: String?
+  )
 
-  fun showCarrierBilling(currency: String?, amount: BigDecimal, bonus: BigDecimal?,
-                         isPreselected: Boolean)
+  fun showCarrierBilling(
+    currency: String?,
+    amount: BigDecimal,
+    bonus: BigDecimal?,
+    isPreselected: Boolean
+  )
 
-  fun showAppcoinsCreditsPayment(appcAmount: BigDecimal, gamificationLevel: Int,
-                                 transactionBuilder: TransactionBuilder)
+  fun showAppcoinsCreditsPayment(
+    appcAmount: BigDecimal,
+    gamificationLevel: Int,
+    transactionBuilder: TransactionBuilder
+  )
 
-  fun showLocalPayment(domain: String, skuId: String?, originalAmount: String?, currency: String?,
-                       bonus: String?, selectedPaymentMethod: String, developerAddress: String,
-                       type: String, amount: BigDecimal, callbackUrl: String?,
-                       orderReference: String?, payload: String?, origin: String?,
-                       paymentMethodIconUrl: String, paymentMethodLabel: String, async: Boolean,
-                       referralUrl: String?, gamificationLevel: Int)
+  fun showLocalPayment(
+    domain: String,
+    skuId: String?,
+    originalAmount: String?,
+    currency: String?,
+    bonus: String?,
+    selectedPaymentMethod: String,
+    developerAddress: String,
+    type: String,
+    amount: BigDecimal,
+    callbackUrl: String?,
+    orderReference: String?,
+    payload: String?,
+    origin: String?,
+    paymentMethodIconUrl: String,
+    paymentMethodLabel: String,
+    async: Boolean,
+    referralUrl: String?,
+    gamificationLevel: Int
+  )
 
   fun showPaymentMethodsView()
 
-  fun showShareLinkPayment(domain: String, skuId: String?, originalAmount: String?,
-                           originalCurrency: String?, amount: BigDecimal, type: String,
-                           selectedPaymentMethod: String)
+  fun showShareLinkPayment(
+    domain: String,
+    skuId: String?,
+    originalAmount: String?,
+    originalCurrency: String?,
+    amount: BigDecimal,
+    type: String,
+    selectedPaymentMethod: String
+  )
 
-  fun showMergedAppcoins(fiatAmount: BigDecimal, currency: String, bonus: String,
-                         isBds: Boolean, isDonation: Boolean, gamificationLevel: Int,
-                         transaction: TransactionBuilder, isSubscription: Boolean,
-                         frequency: String?)
+  fun showMergedAppcoins(
+    fiatAmount: BigDecimal,
+    currency: String,
+    bonus: String,
+    isBds: Boolean,
+    isDonation: Boolean,
+    gamificationLevel: Int,
+    transaction: TransactionBuilder,
+    isSubscription: Boolean,
+    frequency: String?
+  )
 
-  fun showBillingAddress(value: BigDecimal, currency: String, bonus: String,
-                         appcAmount: BigDecimal, targetFragment: Fragment, shouldStoreCard: Boolean,
-                         isStored: Boolean)
+  fun showBillingAddress(
+    value: BigDecimal,
+    currency: String,
+    bonus: String,
+    appcAmount: BigDecimal,
+    targetFragment: Fragment,
+    shouldStoreCard: Boolean,
+    isStored: Boolean
+  )
 
   fun lockRotation()
 

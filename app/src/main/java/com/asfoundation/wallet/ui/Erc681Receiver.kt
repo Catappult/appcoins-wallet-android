@@ -46,14 +46,21 @@ class Erc681Receiver : BaseActivity(), Erc681ReceiverView {
     setContentView(R.layout.activity_iab_wallet_creation)
     val productName = intent.extras?.getString(PRODUCT_NAME, "")
     presenter =
-      Erc681ReceiverPresenter(this, transferParser, inAppPurchaseInteractor, walletService,
+      Erc681ReceiverPresenter(
+        this,
+        transferParser,
+        inAppPurchaseInteractor,
+        walletService,
         intent.dataString!!,
-        AndroidSchedulers.mainThread(), CompositeDisposable(), productName)
+        AndroidSchedulers.mainThread(),
+        CompositeDisposable(),
+        productName
+      )
     presenter.present(savedInstanceState)
   }
 
-  override fun onActivityResult(requestCode: Int, resultCode: Int,
-                                data: Intent?) {
+  @Suppress("DEPRECATION")
+  override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
     super.onActivityResult(requestCode, resultCode, data)
     if (requestCode == REQUEST_CODE) {
       setResult(resultCode, data)
@@ -61,17 +68,17 @@ class Erc681Receiver : BaseActivity(), Erc681ReceiverView {
     }
   }
 
-  override fun getCallingPackage(): String? {
-    return super.getCallingPackage()
-  }
+  override fun getCallingPackage(): String? = super.getCallingPackage()
 
   override fun startEipTransfer(transactionBuilder: TransactionBuilder, isBds: Boolean) {
     val intent: Intent = if (intent.data != null && intent.data.toString()
-        .contains("/buy?")) {
+        .contains("/buy?")
+    ) {
       newIntent(this, intent, transactionBuilder, isBds, transactionBuilder.payload)
     } else {
       SendActivity.newIntent(this, intent)
     }
+    @Suppress("DEPRECATION")
     startActivityForResult(intent, REQUEST_CODE)
   }
 
