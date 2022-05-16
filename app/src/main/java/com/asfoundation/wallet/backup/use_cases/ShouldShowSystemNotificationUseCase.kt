@@ -17,13 +17,11 @@ class ShouldShowSystemNotificationUseCase @Inject constructor(
     private const val DISMISS_PERIOD = 30L
   }
 
-  operator fun invoke(walletInfo: WalletInfo): Single<Boolean> {
-    return if (walletInfo.hasBackup.not()) {
-      Single.just(meetsLastDismissCondition(walletInfo.wallet) && meetsCountConditions(walletInfo.wallet))
-    } else {
-      Single.just(false)
-    }
-  }
+  operator fun invoke(walletInfo: WalletInfo): Single<Boolean> = Single.just(
+    walletInfo.hasBackup.not()
+        && meetsLastDismissCondition(walletInfo.wallet)
+        && meetsCountConditions(walletInfo.wallet)
+  )
 
   private fun meetsLastDismissCondition(walletAddress: String): Boolean {
     val savedTime =
