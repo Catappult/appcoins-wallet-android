@@ -21,12 +21,12 @@ class ShouldShowBackupTriggerUseCase @Inject constructor(
         if (it.hasBackup) {
           Single.just(false)
         } else {
-          meetsLastDismissConditions(walletAddress)
+          meetsLastDismissCondition(walletAddress)
         }
       }
   }
 
-  private fun meetsLastDismissConditions(walletAddress: String): Single<Boolean> {
+  private fun meetsLastDismissCondition(walletAddress: String): Single<Boolean> {
     return Single.create {
       val savedTime =
         backupTriggerPreferences.getBackupTriggerSeenTime(walletAddress)
