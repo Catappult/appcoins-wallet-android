@@ -18,9 +18,8 @@ class ShouldShowSystemNotificationUseCase @Inject constructor(
   }
 
   operator fun invoke(walletInfo: WalletInfo): Single<Boolean> {
-    val meetsAllNotificationConditions = meetsLastDismissCondition(walletInfo.wallet) && meetsCountConditions(walletInfo.wallet)
     return if (walletInfo.hasBackup.not()) {
-      Single.just(meetsAllNotificationConditions)
+      Single.just(meetsLastDismissCondition(walletInfo.wallet) && meetsCountConditions(walletInfo.wallet))
     } else {
       Single.just(false)
     }
