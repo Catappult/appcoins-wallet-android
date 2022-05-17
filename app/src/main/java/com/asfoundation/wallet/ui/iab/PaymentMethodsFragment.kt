@@ -17,7 +17,6 @@ import com.appcoins.wallet.commons.Logger
 import com.asf.wallet.R
 import com.asfoundation.wallet.C.Key.TRANSACTION
 import com.asfoundation.wallet.GlideApp
-import com.asfoundation.wallet.analytics.TaskTimer
 import com.asfoundation.wallet.billing.adyen.PaymentType
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.ui.iab.PaymentMethodsView.PaymentMethodId
@@ -90,9 +89,6 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
   }
 
   @Inject
-  lateinit var taskTimer: TaskTimer
-
-  @Inject
   lateinit var paymentMethodsAnalytics: PaymentMethodsAnalytics
 
   @Inject
@@ -159,8 +155,7 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
       getWalletInfoUseCase = getWalletInfoUseCase,
       logger = logger,
       interactor = paymentMethodsInteractor,
-      paymentMethodsData = paymentMethodsData,
-      taskTimer = taskTimer
+      paymentMethodsData = paymentMethodsData
     )
   }
 

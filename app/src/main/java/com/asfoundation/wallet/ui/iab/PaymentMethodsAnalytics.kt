@@ -2,13 +2,15 @@ package com.asfoundation.wallet.ui.iab
 
 import cm.aptoide.analytics.AnalyticsManager
 import com.asfoundation.wallet.analytics.AnalyticsSetup
+import com.asfoundation.wallet.analytics.TaskTimer
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics
 import javax.inject.Inject
 
 class PaymentMethodsAnalytics @Inject constructor(
   private val analyticsManager: AnalyticsManager,
   private val billingAnalytics: BillingAnalytics,
-  private val analyticsSetup: AnalyticsSetup
+  private val analyticsSetup: AnalyticsSetup,
+  private val taskTimer: TaskTimer
 ) {
 
   companion object {
@@ -58,7 +60,12 @@ class PaymentMethodsAnalytics @Inject constructor(
     }
   }
 
-  fun sendTimeToLoadTotalEvent(duration: Long) {
+  fun startTimingForTotalEvent() = taskTimer.start(WALLET_PAYMENT_LOADING_TOTAL)
+
+  fun startTimingForStepEvent(stepId: String) = taskTimer.start(stepId)
+
+  fun stopTimingForTotalEvent() {
+    val duration = taskTimer.end(WALLET_PAYMENT_LOADING_TOTAL) ?: return
     analyticsManager.logEvent(
       hashMapOf<String, Any>(DURATION to duration),
       WALLET_PAYMENT_LOADING_TOTAL,
@@ -67,7 +74,8 @@ class PaymentMethodsAnalytics @Inject constructor(
     )
   }
 
-  fun sendTimeToLoadStepEvent(stepId: String, duration: Long) {
+  fun stopTimingForStepEvent(stepId: String) {
+    val duration = taskTimer.end(stepId) ?: return
     analyticsManager.logEvent(
       hashMapOf<String, Any>(DURATION to duration, STEP_ID to stepId),
       WALLET_PAYMENT_LOADING_STEP,

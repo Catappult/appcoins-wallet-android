@@ -9,7 +9,6 @@ import com.appcoins.wallet.bdsbilling.repository.entity.Transaction
 import com.appcoins.wallet.commons.Logger
 import com.appcoins.wallet.gamification.repository.ForecastBonusAndLevel
 import com.asf.wallet.R
-import com.asfoundation.wallet.analytics.TaskTimer
 import com.asfoundation.wallet.billing.adyen.PaymentType
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.ui.PaymentNavigationData
@@ -42,8 +41,7 @@ class PaymentMethodsPresenter(
   private val getWalletInfoUseCase: GetWalletInfoUseCase,
   private val logger: Logger,
   private val interactor: PaymentMethodsInteractor,
-  private val paymentMethodsData: PaymentMethodsData,
-  private val taskTimer: TaskTimer
+  private val paymentMethodsData: PaymentMethodsData
 ) {
 
   private var cachedGamificationLevel = 0
@@ -87,7 +85,7 @@ class PaymentMethodsPresenter(
   }
 
   fun onResume(firstRun: Boolean) {
-    startMeasure(PaymentMethodsAnalytics.WALLET_PAYMENT_LOADING_TOTAL, firstRun)
+    analytics.startTimingForTotalEvent()
     if (firstRun.not()) view.showPaymentsSkeletonLoading()
     setupUi(firstRun)
   }
@@ -399,7 +397,7 @@ class PaymentMethodsPresenter(
 
   private fun setupUi(firstRun: Boolean) {
     disposables.add(Completable.fromAction {
-      startMeasure(PaymentMethodsAnalytics.LOADING_STEP_WALLET_INFO, firstRun)
+      if (firstRun) analytics.startTimingForStepEvent(PaymentMethodsAnalytics.LOADING_STEP_WALLET_INFO)
     }
       .andThen(
         getWalletInfoUseCase(null, cached = false, updateFiat = true)
@@ -408,24 +406,28 @@ class PaymentMethodsPresenter(
           .onErrorReturnItem("")
       )
       .flatMap {
-        endMeasure(PaymentMethodsAnalytics.LOADING_STEP_WALLET_INFO, firstRun)
-        startMeasure(PaymentMethodsAnalytics.LOADING_STEP_CONVERT_TO_FIAT, firstRun)
+        if (firstRun) {
+          analytics.stopTimingForStepEvent(PaymentMethodsAnalytics.LOADING_STEP_WALLET_INFO)
+          analytics.startTimingForStepEvent(PaymentMethodsAnalytics.LOADING_STEP_CONVERT_TO_FIAT)
+        }
         return@flatMap getPurchaseFiatValue()
       }
       .flatMapCompletable { fiatValue ->
-        endMeasure(PaymentMethodsAnalytics.LOADING_STEP_CONVERT_TO_FIAT, firstRun)
+        if (firstRun) analytics.stopTimingForStepEvent(PaymentMethodsAnalytics.LOADING_STEP_CONVERT_TO_FIAT)
         this.cachedFiatValue = fiatValue
-        startMeasure(PaymentMethodsAnalytics.LOADING_STEP_GET_PAYMENT_METHODS, firstRun)
+        if (firstRun) analytics.startTimingForStepEvent(PaymentMethodsAnalytics.LOADING_STEP_GET_PAYMENT_METHODS)
         getPaymentMethods(fiatValue)
           .flatMapCompletable { paymentMethods ->
-            endMeasure(PaymentMethodsAnalytics.LOADING_STEP_GET_PAYMENT_METHODS, firstRun)
-            startMeasure(PaymentMethodsAnalytics.LOADING_STEP_GET_EARNING_BONUS, firstRun)
+            if (firstRun) {
+              analytics.stopTimingForStepEvent(PaymentMethodsAnalytics.LOADING_STEP_GET_PAYMENT_METHODS)
+              analytics.startTimingForStepEvent(PaymentMethodsAnalytics.LOADING_STEP_GET_EARNING_BONUS)
+            }
             interactor.getEarningBonus(transaction.domain, transaction.amount())
               .observeOn(viewScheduler)
               .flatMapCompletable {
-                endMeasure(PaymentMethodsAnalytics.LOADING_STEP_GET_EARNING_BONUS, firstRun)
+                if (firstRun) analytics.stopTimingForStepEvent(PaymentMethodsAnalytics.LOADING_STEP_GET_EARNING_BONUS)
                 Completable.fromAction {
-                  startMeasure(PaymentMethodsAnalytics.LOADING_STEP_GET_PROCESSING_DATA, firstRun)
+                  if (firstRun) analytics.startTimingForStepEvent(PaymentMethodsAnalytics.LOADING_STEP_GET_PROCESSING_DATA)
                   view.updateProductName()
                   setupBonusInformation(it)
                   selectPaymentMethod(
@@ -433,7 +435,7 @@ class PaymentMethodsPresenter(
                     fiatValue,
                     interactor.isBonusActiveAndValid(it)
                   )
-                  endMeasure(PaymentMethodsAnalytics.LOADING_STEP_GET_PROCESSING_DATA, firstRun)
+                  if (firstRun) analytics.stopTimingForStepEvent(PaymentMethodsAnalytics.LOADING_STEP_GET_PROCESSING_DATA)
                 }
               }
           }
@@ -443,7 +445,7 @@ class PaymentMethodsPresenter(
       .doOnComplete {
         //If first run we should rely on the hideLoading of the handleOnGoingPurchases method
         if (!firstRun) view.hideLoading()
-        endMeasure(PaymentMethodsAnalytics.WALLET_PAYMENT_LOADING_TOTAL, firstRun)
+        else analytics.stopTimingForTotalEvent()
       }
       .subscribe({ }, { this.showError(it) }))
   }
@@ -458,23 +460,6 @@ class PaymentMethodsPresenter(
         view.showItemAlreadyOwnedError()
       }
       else -> view.showError(R.string.activity_iab_error_message)
-    }
-  }
-
-  private fun startMeasure(id: String, firstRun: Boolean) {
-    if (firstRun) {
-      taskTimer.start(id)
-    }
-  }
-
-  private fun endMeasure(id: String, firstRun: Boolean) {
-    val duration = taskTimer.end(id)
-    if (firstRun && duration != -1L) {
-      if (id == PaymentMethodsAnalytics.WALLET_PAYMENT_LOADING_TOTAL) {
-        analytics.sendTimeToLoadTotalEvent(duration)
-      } else {
-        analytics.sendTimeToLoadStepEvent(id, duration)
-      }
     }
   }
 

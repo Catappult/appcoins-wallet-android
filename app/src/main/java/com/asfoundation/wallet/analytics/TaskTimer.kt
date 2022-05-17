@@ -19,8 +19,8 @@ class TaskTimer {
    *
    * @return duration of the task in milliseconds, or -1 if the task was not previously initialized
    */
-  fun end(id: String): Long {
-    val startTime = taskHashMap.remove(id) ?: return -1L
+  fun end(id: String): Long? {
+    val startTime = taskHashMap.remove(id) ?: return null
     return System.currentTimeMillis() - startTime
   }
 }
