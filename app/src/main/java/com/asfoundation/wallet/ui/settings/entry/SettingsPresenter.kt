@@ -200,7 +200,7 @@ class SettingsPresenter(
       .subscribe())
   }
 
-  fun setPromoCodeState() {
+  private fun setPromoCodeState() {
     disposables.add(getUpdatedPromoCodeUseCase()
       .flatMapObservable { observePromoCodeUseCase() }
       .observeOn(viewScheduler)
