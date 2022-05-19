@@ -27,11 +27,6 @@ class SettingsInteractor @Inject constructor(private val findDefaultWalletIntera
 
   fun retrieveWallets() = walletsInteract.getWalletsModel()
 
-  fun sendCreateSuccessEvent() {
-    walletsEventSender.sendCreateBackupEvent(WalletsAnalytics.ACTION_CREATE,
-        WalletsAnalytics.CONTEXT_WALLET_SETTINGS, WalletsAnalytics.STATUS_SUCCESS)
-  }
-
   fun sendCreateErrorEvent() {
     walletsEventSender.sendCreateBackupEvent(WalletsAnalytics.ACTION_CREATE,
         WalletsAnalytics.CONTEXT_WALLET_SETTINGS, WalletsAnalytics.STATUS_FAIL)

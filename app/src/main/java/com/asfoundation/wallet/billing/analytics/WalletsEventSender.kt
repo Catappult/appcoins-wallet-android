@@ -6,15 +6,17 @@ interface WalletsEventSender {
 
   fun sendVerifyAction(action: String, status: String)
 
-  fun sendCreateBackupEvent(action: String, context: String,
-                            status: String)
+  fun sendCreateBackupEvent(action: String?, context: String,
+                            status: String?)
 
-  fun sendCreateBackupEvent(action: String, context: String,
-                            status: String, errorDetails: String? = null)
+  fun sendCreateBackupEvent(action: String?, context: String,
+                            status: String?, errorDetails: String? = null)
 
-  fun sendSaveBackupEvent(action: String)
+  fun sendBackupInfoEvent(action: String, option: String)
 
-  fun sendWalletConfirmationBackupEvent(action: String)
+  fun sendBackupConfirmationEvent(action: String)
+
+  fun sendBackupConclusionEvent(action: String)
 
   fun sendWalletSaveFileEvent(action: String, status: String,
                               errorDetails: String? = null)

@@ -16,6 +16,8 @@ import com.asf.wallet.R
 import com.asf.wallet.databinding.BackupEntryFragmentBinding
 import com.asfoundation.wallet.base.Async
 import com.asfoundation.wallet.base.SingleStateFragment
+import com.asfoundation.wallet.billing.analytics.WalletsAnalytics
+import com.asfoundation.wallet.billing.analytics.WalletsEventSender
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -29,6 +31,9 @@ class BackupEntryFragment : BasePageViewFragment(),
 
   @Inject
   lateinit var navigator: BackupEntryNavigator
+
+  @Inject
+  lateinit var walletsEventSender: WalletsEventSender
 
   private val viewModel: BackupEntryViewModel by viewModels { backupEntryViewModelFactory }
   private val views by viewBinding(BackupEntryFragmentBinding::bind)
@@ -66,6 +71,10 @@ class BackupEntryFragment : BasePageViewFragment(),
       if (views.passwordToggle?.backupPasswordToggle?.isChecked == true) {
         password = views.passwordToggle!!.backupPasswordInput.getText()
       }
+      walletsEventSender.sendBackupInfoEvent(
+        WalletsAnalytics.ACTION_NEXT,
+        if (password.isNotEmpty()) WalletsAnalytics.PASSWORD else WalletsAnalytics.NO_PASSWORD,
+      )
       navigator.showBackupCreationScreen(
         requireArguments().getString(WALLET_ADDRESS_KEY)!!, password
       )

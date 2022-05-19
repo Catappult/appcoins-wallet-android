@@ -11,6 +11,8 @@ import com.asf.wallet.R
 import com.asf.wallet.databinding.FragmentMyWalletsMoreBinding
 import com.asfoundation.wallet.backup.BackupActivity
 import com.asfoundation.wallet.base.SingleStateFragment
+import com.asfoundation.wallet.billing.analytics.WalletsAnalytics
+import com.asfoundation.wallet.billing.analytics.WalletsEventSender
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
@@ -25,6 +27,9 @@ class MoreDialogFragment : BottomSheetDialogFragment(),
 
   @Inject
   lateinit var navigator: MoreDialogNavigator
+
+  @Inject
+  lateinit var walletsEventSender: WalletsEventSender
 
   private val viewModel: MoreDialogViewModel by viewModels { viewModelFactory }
   private val views by viewBinding(FragmentMyWalletsMoreBinding::bind)
@@ -59,6 +64,11 @@ class MoreDialogFragment : BottomSheetDialogFragment(),
     views.newWalletCardView.setOnClickListener { navigator.navigateToCreateNewWallet() }
     views.recoverWalletCardView.setOnClickListener { navigator.navigateToRestoreWallet() }
     views.backupWalletCardView.setOnClickListener {
+      walletsEventSender.sendCreateBackupEvent(
+        null,
+        WalletsAnalytics.OVERFLOW,
+        null
+      )
       navigator.navigateToBackupWallet(viewModel.state.walletAddress)
     }
     views.verifyCardCardView.setOnClickListener { navigator.navigateToVerifyNewCard() }

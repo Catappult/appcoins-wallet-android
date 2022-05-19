@@ -11,6 +11,8 @@ import com.asfoundation.wallet.backup.repository.preferences.BackupTriggerPrefer
 import com.asfoundation.wallet.base.SideEffect
 import com.asfoundation.wallet.base.SingleStateFragment
 import com.asfoundation.wallet.base.ViewState
+import com.asfoundation.wallet.billing.analytics.WalletsAnalytics
+import com.asfoundation.wallet.billing.analytics.WalletsEventSender
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -21,6 +23,9 @@ class BackupSuccessFragment : BasePageViewFragment(),
 
   @Inject
   lateinit var backupTriggerPreferences: BackupTriggerPreferences
+
+  @Inject
+  lateinit var walletsEventSender: WalletsEventSender
 
   private val views by viewBinding(BackupSuccessFragmentBinding::bind)
 
@@ -56,6 +61,9 @@ class BackupSuccessFragment : BasePageViewFragment(),
     )
 
     views.closeButton.setOnClickListener {
+      walletsEventSender.sendBackupConclusionEvent(
+        WalletsAnalytics.ACTION_UNDERSTAND
+      )
       this.activity?.finish()
     }
 

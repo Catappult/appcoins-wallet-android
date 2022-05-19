@@ -13,6 +13,8 @@ import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.SwitchPreferenceCompat
 import com.asf.wallet.R
 import com.asfoundation.wallet.billing.analytics.PageViewAnalytics
+import com.asfoundation.wallet.billing.analytics.WalletsAnalytics
+import com.asfoundation.wallet.billing.analytics.WalletsEventSender
 import com.asfoundation.wallet.change_currency.ChangeFiatCurrencyActivity
 import com.asfoundation.wallet.change_currency.FiatCurrencyEntity
 import com.asfoundation.wallet.change_currency.SettingsCurrencyPreference
@@ -35,6 +37,9 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
 
   @Inject
   lateinit var pageViewAnalytics: PageViewAnalytics
+
+  @Inject
+  lateinit var walletsEventSender: WalletsEventSender
 
   @Inject
   lateinit var presenter: SettingsPresenter
@@ -149,6 +154,11 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
   override fun setBackupPreference() {
     val backupPreference = findPreference<Preference>("pref_backup")
     backupPreference?.setOnPreferenceClickListener {
+      walletsEventSender.sendCreateBackupEvent(
+        null,
+        WalletsAnalytics.SETTINGS,
+        null
+      )
       presenter.onBackupPreferenceClick()
       false
     }

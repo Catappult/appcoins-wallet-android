@@ -13,6 +13,8 @@ import by.kirich1409.viewbindingdelegate.viewBinding
 import com.asf.wallet.R
 import com.asf.wallet.databinding.BackupSaveOptionsOptionsBinding
 import com.asfoundation.wallet.base.SingleStateFragment
+import com.asfoundation.wallet.billing.analytics.WalletsAnalytics
+import com.asfoundation.wallet.billing.analytics.WalletsEventSender
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -26,6 +28,9 @@ class BackupSaveOptionsFragment : BasePageViewFragment(),
 
   @Inject
   lateinit var navigator: BackupSaveOptionsNavigator
+
+  @Inject
+  lateinit var walletsEventSender: WalletsEventSender
 
   private val viewModel: BackupSaveOptionsViewModel by viewModels { backupSaveOptionsViewModelFactory }
   private val views by viewBinding(BackupSaveOptionsOptionsBinding::bind)
@@ -68,11 +73,17 @@ class BackupSaveOptionsFragment : BasePageViewFragment(),
       override fun afterTextChanged(s: Editable) = Unit
     })
     views.emailButton.setOnClickListener {
+      walletsEventSender.sendBackupConfirmationEvent(
+        WalletsAnalytics.ACTION_SEND_EMAIL
+      )
       viewModel.sendBackupToEmail(views.emailInput.getText())
     }
     views.emailButton.isEnabled =
       false // this needs to be after setOnClickListener, otherwise button will be clickable
     views.deviceButton.setOnClickListener {
+      walletsEventSender.sendBackupConfirmationEvent(
+        WalletsAnalytics.ACTION_SAVE
+      )
       navigator.navigateToSaveOnDeviceScreen(
         requireArguments().getString(WALLET_ADDRESS_KEY)!!,
         requireArguments().getString(
