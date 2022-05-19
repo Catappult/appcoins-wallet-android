@@ -39,7 +39,7 @@ class AnalyticsModule {
   @Named("rakam_event_list")
   fun provideRakamEventList() =
     listOf(
-      LaunchAnalytics.FIRST_LAUNCH, HomeAnalytics.WALLET_HOME_INTERACTION_EVENT,
+      InstallReferrerAnalytics.FIRST_LAUNCH, HomeAnalytics.WALLET_HOME_INTERACTION_EVENT,
       BillingAnalytics.RAKAM_PRESELECTED_PAYMENT_METHOD, BillingAnalytics.RAKAM_PAYMENT_METHOD,
       BillingAnalytics.RAKAM_PAYMENT_CONFIRMATION, BillingAnalytics.RAKAM_PAYMENT_CONCLUSION,
       BillingAnalytics.RAKAM_PAYMENT_START, BillingAnalytics.RAKAM_PAYPAL_URL,
@@ -67,7 +67,7 @@ class AnalyticsModule {
   @Named("indicative_event_list")
   fun provideIndicativeEventList() =
     listOf(
-      LaunchAnalytics.FIRST_LAUNCH, HomeAnalytics.WALLET_HOME_INTERACTION_EVENT,
+      InstallReferrerAnalytics.FIRST_LAUNCH, HomeAnalytics.WALLET_HOME_INTERACTION_EVENT,
       BillingAnalytics.RAKAM_PRESELECTED_PAYMENT_METHOD, BillingAnalytics.RAKAM_PAYMENT_METHOD,
       BillingAnalytics.RAKAM_PAYMENT_CONFIRMATION, BillingAnalytics.RAKAM_PAYMENT_CONCLUSION,
       BillingAnalytics.RAKAM_PAYMENT_START, BillingAnalytics.RAKAM_PAYPAL_URL,
@@ -95,7 +95,7 @@ class AnalyticsModule {
   @Named("sentry_event_list")
   fun provideSentryEventList() =
     listOf(
-      LaunchAnalytics.FIRST_LAUNCH, HomeAnalytics.WALLET_HOME_INTERACTION_EVENT,
+      InstallReferrerAnalytics.FIRST_LAUNCH, HomeAnalytics.WALLET_HOME_INTERACTION_EVENT,
       BillingAnalytics.RAKAM_PRESELECTED_PAYMENT_METHOD, BillingAnalytics.RAKAM_PAYMENT_METHOD,
       BillingAnalytics.RAKAM_PAYMENT_CONFIRMATION, BillingAnalytics.RAKAM_PAYMENT_CONCLUSION,
       BillingAnalytics.RAKAM_PAYMENT_START, BillingAnalytics.RAKAM_PAYPAL_URL,

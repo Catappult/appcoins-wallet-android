@@ -284,6 +284,8 @@ dependencies {
 
   implementation "com.indicative.client.android:Indicative-Android:$project.indicative_version"
 
+  implementation "com.android.installreferrer:installreferrer:$project.referrer_version"
+
   testImplementation "junit:junit:$project.junit_version"
   testImplementation "org.mockito:mockito-core:$project.mockito_version"
   androidTestImplementation "androidx.test.ext:junit:$project.test_ext_version"
