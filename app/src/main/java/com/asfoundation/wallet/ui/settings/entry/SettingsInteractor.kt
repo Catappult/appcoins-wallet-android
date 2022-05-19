@@ -11,25 +11,29 @@ import com.asfoundation.wallet.ui.wallets.WalletsInteract
 import com.asfoundation.wallet.wallets.FindDefaultWalletInteract
 import javax.inject.Inject
 
-class SettingsInteractor @Inject constructor(private val findDefaultWalletInteract: FindDefaultWalletInteract,
-                         private val supportInteractor: SupportInteractor,
-                         private val walletsInteract: WalletsInteract,
-                         private val autoUpdateInteract: AutoUpdateInteract,
-                         private val fingerprintInteractor: FingerprintInteractor,
-                         private val walletsEventSender: WalletsEventSender,
-                         private val preferenceRepository: PreferencesRepositoryType,
-                         private val fingerprintPreferences: FingerprintPreferencesRepositoryContract) {
+class SettingsInteractor @Inject constructor(
+  private val findDefaultWalletInteract: FindDefaultWalletInteract,
+  private val supportInteractor: SupportInteractor,
+  private val walletsInteract: WalletsInteract,
+  private val autoUpdateInteract: AutoUpdateInteract,
+  private val fingerprintInteractor: FingerprintInteractor,
+  private val walletsEventSender: WalletsEventSender,
+  private val preferenceRepository: PreferencesRepositoryType,
+  private val fingerprintPreferences: FingerprintPreferencesRepositoryContract
+) {
 
   private var fingerPrintAvailability: Int = -1
 
   fun findWallet() = findDefaultWalletInteract.find()
-      .map { it.address }
+    .map { it.address }
 
   fun retrieveWallets() = walletsInteract.getWalletsModel()
 
   fun sendCreateErrorEvent() {
-    walletsEventSender.sendCreateBackupEvent(WalletsAnalytics.ACTION_CREATE,
-        WalletsAnalytics.CONTEXT_WALLET_SETTINGS, WalletsAnalytics.STATUS_FAIL)
+    walletsEventSender.sendCreateBackupEvent(
+      WalletsAnalytics.ACTION_CREATE,
+      WalletsAnalytics.CONTEXT_WALLET_SETTINGS, WalletsAnalytics.STATUS_FAIL
+    )
   }
 
   fun displaySupportScreen() = supportInteractor.displayChatScreen()
@@ -44,7 +48,7 @@ class SettingsInteractor @Inject constructor(private val findDefaultWalletIntera
   fun retrievePreviousFingerPrintAvailability() = fingerPrintAvailability
 
   fun changeAuthorizationPermission(value: Boolean) =
-      fingerprintPreferences.setAuthenticationPermission(value)
+    fingerprintPreferences.setAuthenticationPermission(value)
 
   fun hasAuthenticationPermission() = fingerprintPreferences.hasAuthenticationPermission()
 

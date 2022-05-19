@@ -9,7 +9,6 @@ import androidx.lifecycle.lifecycleScope
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.asf.wallet.R
 import com.asf.wallet.databinding.FragmentMyWalletsMoreBinding
-import com.asfoundation.wallet.backup.BackupActivity
 import com.asfoundation.wallet.base.SingleStateFragment
 import com.asfoundation.wallet.billing.analytics.WalletsAnalytics
 import com.asfoundation.wallet.billing.analytics.WalletsEventSender
@@ -20,7 +19,7 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class MoreDialogFragment : BottomSheetDialogFragment(),
-    SingleStateFragment<MoreDialogState, MoreDialogSideEffect> {
+  SingleStateFragment<MoreDialogState, MoreDialogSideEffect> {
 
   @Inject
   lateinit var viewModelFactory: MoreDialogViewModelFactory
@@ -34,8 +33,10 @@ class MoreDialogFragment : BottomSheetDialogFragment(),
   private val viewModel: MoreDialogViewModel by viewModels { viewModelFactory }
   private val views by viewBinding(FragmentMyWalletsMoreBinding::bind)
 
-  override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                            savedInstanceState: Bundle?): View? {
+  override fun onCreateView(
+    inflater: LayoutInflater, container: ViewGroup?,
+    savedInstanceState: Bundle?
+  ): View? {
     return inflater.inflate(R.layout.fragment_my_wallets_more, container, false)
   }
 
@@ -73,10 +74,12 @@ class MoreDialogFragment : BottomSheetDialogFragment(),
     }
     views.verifyCardCardView.setOnClickListener { navigator.navigateToVerifyNewCard() }
     views.deleteWalletCardView.setOnClickListener {
-      navigator.navigateToRemoveWallet(viewModel.state.walletAddress,
-          viewModel.state.totalFiatBalance,
-          viewModel.state.appcoinsBalance, viewModel.state.creditsBalance,
-          viewModel.state.ethereumBalance)
+      navigator.navigateToRemoveWallet(
+        viewModel.state.walletAddress,
+        viewModel.state.totalFiatBalance,
+        viewModel.state.appcoinsBalance, viewModel.state.creditsBalance,
+        viewModel.state.ethereumBalance
+      )
     }
   }
 
