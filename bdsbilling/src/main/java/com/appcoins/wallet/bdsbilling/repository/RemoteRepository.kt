@@ -7,6 +7,10 @@ import com.appcoins.wallet.bdsbilling.repository.entity.*
 import com.appcoins.wallet.bdsbilling.subscriptions.SubscriptionBillingApi
 import io.reactivex.Completable
 import io.reactivex.Single
+import okhttp3.MediaType
+import okhttp3.ResponseBody
+import retrofit2.HttpException
+import retrofit2.Response
 import retrofit2.http.*
 import java.math.BigDecimal
 import java.util.*
@@ -70,12 +74,28 @@ class RemoteRepository(
 
   internal fun getSkuPurchase(
     packageName: String,
-    purchaseUid: String,
+    skuId: String?,
     walletAddress: String,
     walletSignature: String
   ): Single<Purchase> =
-    inappBdsApi.getUidPurchase(packageName, purchaseUid, walletAddress, walletSignature)
-      .map { responseMapper.map(packageName, it) }
+    inappBdsApi.getPurchases(
+      packageName,
+      walletAddress,
+      walletSignature,
+      type = BillingSupportedType.INAPP.name.toLowerCase(Locale.ROOT),
+      sku = skuId
+    )
+      .map {
+        if (it.items.isEmpty()) {
+          throw HttpException(
+            Response.error<GetPurchasesResponse>(
+              404,
+              ResponseBody.create(MediaType.get("application/json"), "{}")
+            )
+          )
+        }
+        responseMapper.map(packageName, it)[0]
+      }
 
   internal fun getSkuPurchaseSubs(
     packageName: String,
@@ -401,6 +421,7 @@ class RemoteRepository(
       @Query("skus") names: String
     ): Single<DetailsResponseBody>
 
+    @Suppress("unused")
     @GET("8.20180518/applications/{packageName}/inapp/consumable/purchases/{uid}")
     fun getUidPurchase(
       @Path("packageName") packageName: String,
@@ -414,7 +435,9 @@ class RemoteRepository(
       @Path("packageName") packageName: String,
       @Query("wallet.address") walletAddress: String,
       @Query("wallet.signature") walletSignature: String,
-      @Query("type") type: String
+      @Query("type") type: String,
+      @Query("state") state: String = "PENDING",
+      @Query("sku") sku: String? = null,
     ): Single<GetPurchasesResponse>
 
     @Headers("Content-Type: application/json")
