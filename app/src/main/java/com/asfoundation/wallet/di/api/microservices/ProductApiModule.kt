@@ -21,64 +21,46 @@ import javax.inject.Singleton
 @Module
 class ProductApiModule {
 
-  private val productV1Url = "${BuildConfig.BASE_HOST}/product/"
-  private val productV2Url = "${BuildConfig.SUBS_BASE_HOST}/productv2/"
-
-  @Singleton
-  @Provides
-  @Named("product-v1-default")
-  fun provideProductV1DefaultRetrofit(@DefaultHttpClient client: OkHttpClient): Retrofit {
-    return Retrofit.Builder()
-      .baseUrl(productV1Url)
-      .client(client)
-      .addConverterFactory(GsonConverterFactory.create())
-      .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-      .build()
-  }
+  private val productUrl = "${BuildConfig.BASE_HOST}/productv2/"
 
   @Singleton
   @Provides
   @Named("product-v2-blockchain")
-  fun provideSubscriptionsBlockchainRetrofit(@BlockchainHttpClient client: OkHttpClient): Retrofit {
-    return Retrofit.Builder()
-      .baseUrl(productV2Url)
+  fun provideSubscriptionsBlockchainRetrofit(@BlockchainHttpClient client: OkHttpClient): Retrofit =
+    Retrofit.Builder()
+      .baseUrl(productUrl)
       .client(client)
       .addConverterFactory(GsonConverterFactory.create())
       .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
       .build()
-  }
 
   @Singleton
   @Provides
   @Named("product-v2-default")
-  fun provideSubscriptionsDefaultRetrofit(@DefaultHttpClient client: OkHttpClient): Retrofit {
-    return Retrofit.Builder()
-      .baseUrl(productV2Url)
+  fun provideSubscriptionsDefaultRetrofit(@DefaultHttpClient client: OkHttpClient): Retrofit =
+    Retrofit.Builder()
+      .baseUrl(productUrl)
       .client(client)
       .addConverterFactory(GsonConverterFactory.create())
       .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
       .build()
-  }
 
   @Singleton
   @Provides
   fun providesTopUpValuesApi(
-    @Named("product-v1-default") retrofit: Retrofit
-  ): TopUpValuesService.TopUpValuesApi {
-    return retrofit.create(TopUpValuesService.TopUpValuesApi::class.java)
-  }
+    @Named("product-v2-default") retrofit: Retrofit
+  ): TopUpValuesService.TopUpValuesApi =
+    retrofit.create(TopUpValuesService.TopUpValuesApi::class.java)
 
   @Provides
   fun providesSubscriptionBillingApi(
     @Named("product-v2-blockchain") retrofit: Retrofit
-  ): SubscriptionBillingApi {
-    return retrofit.create(SubscriptionBillingApi::class.java)
-  }
+  ): SubscriptionBillingApi =
+    retrofit.create(SubscriptionBillingApi::class.java)
 
   @Provides
   fun providesUserSubscriptionApi(
     @Named("product-v2-default") retrofit: Retrofit
-  ): UserSubscriptionApi {
-    return retrofit.create(UserSubscriptionApi::class.java)
-  }
+  ): UserSubscriptionApi =
+    retrofit.create(UserSubscriptionApi::class.java)
 }

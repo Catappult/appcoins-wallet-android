@@ -1,11 +1,8 @@
 package com.appcoins.wallet.bdsbilling.mappers
 
-import com.appcoins.wallet.bdsbilling.repository.entity.InappPurchaseResponse
 import com.appcoins.wallet.bdsbilling.repository.entity.Product
-import com.appcoins.wallet.bdsbilling.repository.entity.PurchaseSignatureEntitySerializer
 import com.appcoins.wallet.bdsbilling.repository.entity.SKU
 import com.google.gson.Gson
-import com.google.gson.GsonBuilder
 import java.util.*
 
 class ExternalBillingSerializer {
@@ -22,59 +19,72 @@ class ExternalBillingSerializer {
     return serializedProducts
   }
 
-  private fun mapProduct(product: Product): SKU {
-    return SKU(product.sku, product.billingType, getBasePrice(product), getBaseCurrency(product),
-        getBasePriceInMicro(product), getAppcPrice(product), APPC,
-        getAppcPriceInMicro(product), getFiatPrice(product), product.transactionPrice.currency,
-        getFiatPriceInMicro(product), product.title, product.description,
-        product.subscriptionPeriod, product.trialPeriod)
-  }
+  private fun mapProduct(product: Product): SKU = SKU(
+    product.sku,
+    product.billingType,
+    getBasePrice(product),
+    getBaseCurrency(product),
+    getBasePriceInMicro(product),
+    getAppcPrice(product),
+    APPC,
+    getAppcPriceInMicro(product),
+    getFiatPrice(product),
+    product.transactionPrice.currency,
+    getFiatPriceInMicro(product),
+    product.title,
+    product.description,
+    product.subscriptionPeriod,
+    product.trialPeriod
+  )
 
-  private fun getBasePrice(product: Product): String {
-    return if ((APPC.equals(product.transactionPrice.base, true)) && product.transactionPrice.base != null)
+  private fun getBasePrice(product: Product): String =
+    if ((APPC.equals(
+        product.transactionPrice.base,
+        true
+      )) && product.transactionPrice.base != null
+    ) {
       getAppcPrice(product)
-    else
+    } else {
       getFiatPrice(product)
-  }
+    }
 
-  private fun getBasePriceInMicro(product: Product): Long {
-    return if ((APPC.equals(product.transactionPrice.base, true)) && product.transactionPrice.base != null)
+  private fun getBasePriceInMicro(product: Product): Long =
+    if ((APPC.equals(
+        product.transactionPrice.base,
+        true
+      )) && product.transactionPrice.base != null
+    ) {
       getAppcPriceInMicro(product)
-    else
+    } else {
       getFiatPriceInMicro(product)
-  }
+    }
 
-  private fun getBaseCurrency(product: Product): String {
-    return if ((APPC.equals(product.transactionPrice.base, true)) && product.transactionPrice.base != null)
+  private fun getBaseCurrency(product: Product): String =
+    if ((APPC.equals(
+        product.transactionPrice.base,
+        true
+      )) && product.transactionPrice.base != null
+    ) {
       APPC
-    else
+    } else {
       product.transactionPrice.currency
-  }
+    }
 
-  private fun getFiatPrice(product: Product): String {
-    return String.format(Locale.US, "%s %s", product.transactionPrice
-        .currencySymbol, product.transactionPrice
-        .amount)
-  }
+  private fun getFiatPrice(product: Product): String =
+    String.format(
+      Locale.US,
+      "%s %s",
+      product.transactionPrice.currencySymbol,
+      product.transactionPrice.amount
+    )
 
-  private fun getFiatPriceInMicro(product: Product): Long {
-    return (product.transactionPrice.amount * 1000000).toLong()
-  }
+  private fun getFiatPriceInMicro(product: Product): Long =
+    (product.transactionPrice.amount * 1000000).toLong()
 
-  private fun getAppcPrice(product: Product): String {
-    return String.format("%s %s", APPC, product.transactionPrice.appcoinsAmount)
-  }
+  private fun getAppcPrice(product: Product): String =
+    String.format("%s %s", APPC, product.transactionPrice.appcoinsAmount)
 
-  private fun getAppcPriceInMicro(product: Product): Long {
-    return (product.transactionPrice.appcoinsAmount * 1000000).toLong()
-  }
-
-  fun serializeSignatureData(purchase: InappPurchaseResponse): String {
-    return GsonBuilder().registerTypeAdapter(InappPurchaseResponse::class.java,
-        PurchaseSignatureEntitySerializer())
-        .disableHtmlEscaping()
-        .create()
-        .toJson(purchase)
-  }
+  private fun getAppcPriceInMicro(product: Product): Long =
+    (product.transactionPrice.appcoinsAmount * 1000000).toLong()
 
 }
