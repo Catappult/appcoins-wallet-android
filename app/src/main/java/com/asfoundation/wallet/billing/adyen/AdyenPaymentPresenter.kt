@@ -21,6 +21,7 @@ import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.service.ServicesErrorCodeMapper
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
 import com.asfoundation.wallet.ui.iab.Navigator
+import com.asfoundation.wallet.ui.iab.PaymentMethodsAnalytics
 import com.asfoundation.wallet.ui.iab.PaymentMethodsView
 import com.asfoundation.wallet.util.CurrencyFormatUtils
 import com.asfoundation.wallet.util.WalletCurrency
@@ -41,6 +42,7 @@ class AdyenPaymentPresenter(
   private val networkScheduler: Scheduler,
   private val returnUrl: String,
   private val analytics: BillingAnalytics,
+  private val paymentAnalytics: PaymentMethodsAnalytics,
   private val domain: String,
   private val origin: String?,
   private val adyenPaymentInteractor: AdyenPaymentInteractor,
@@ -151,6 +153,7 @@ class AdyenPaymentPresenter(
             sendPaymentMethodDetailsEvent(BillingAnalytics.PAYMENT_METHOD_CC)
             view.finishCardConfiguration(it, false)
             handleBuyClick(it.priceAmount, it.priceCurrency)
+            paymentAnalytics.stopTimingForTotalEvent(PaymentMethodsAnalytics.PAYMENT_METHOD_CC)
           } else if (paymentType == PaymentType.PAYPAL.name) {
             launchPaypal(it.paymentMethod!!, it.priceAmount, it.priceCurrency)
           }
@@ -209,6 +212,7 @@ class AdyenPaymentPresenter(
       view.showLoading()
       view.lockRotation()
       sendPaymentMethodDetailsEvent(mapPaymentToAnalytics(paymentType))
+      paymentAnalytics.stopTimingForTotalEvent(PaymentMethodsAnalytics.PAYMENT_METHOD_PP)
       handleAdyenAction(paymentModel)
     }
   }

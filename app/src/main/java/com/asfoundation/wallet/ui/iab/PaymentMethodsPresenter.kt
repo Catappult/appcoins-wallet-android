@@ -49,6 +49,7 @@ class PaymentMethodsPresenter(
   private var cachedPaymentNavigationData: PaymentNavigationData? = null
   private var viewState: ViewState = ViewState.DEFAULT
   private var hasStartedAuth = false
+  private var loadedPaymentMethodEvent: String? = null
 
   companion object {
     private val TAG = PaymentMethodsPresenter::class.java.name
@@ -85,7 +86,6 @@ class PaymentMethodsPresenter(
   }
 
   fun onResume(firstRun: Boolean) {
-    analytics.startTimingForTotalEvent()
     if (firstRun.not()) view.showPaymentsSkeletonLoading()
     setupUi(firstRun)
   }
@@ -219,13 +219,13 @@ class PaymentMethodsPresenter(
       disposables.add(isSetupCompleted()
         .doOnComplete { view.hideLoading() }
         .subscribeOn(viewScheduler)
-        .subscribe({}, { it.printStackTrace() })
+        .subscribe({ stopTimingForTotalEvent() }, { it.printStackTrace() })
       )
     } else {
       disposables.add(waitForUi(transaction.skuId, billingSupportedType)
         .observeOn(viewScheduler)
         .doOnComplete { view.hideLoading() }
-        .subscribe({ }, { showError(it) })
+        .subscribe({ stopTimingForTotalEvent() }, { showError(it) })
       )
     }
   }
@@ -442,12 +442,11 @@ class PaymentMethodsPresenter(
       }
       .subscribeOn(networkThread)
       .observeOn(viewScheduler)
-      .doOnComplete {
+      .subscribe({
         //If first run we should rely on the hideLoading of the handleOnGoingPurchases method
         if (!firstRun) view.hideLoading()
-        else analytics.stopTimingForTotalEvent()
-      }
-      .subscribe({ }, { this.showError(it) }))
+        else stopTimingForTotalEvent()
+      }, { this.showError(it) }))
   }
 
   private fun showError(t: Throwable) {
@@ -636,6 +635,7 @@ class PaymentMethodsPresenter(
         .filter { it.id == paymentMethodsMapper.map(APPC) }
         .toMutableList()
     }
+    setLoadedPayment("")
     view.showPaymentMethods(
       paymentList,
       symbol,
@@ -658,6 +658,7 @@ class PaymentMethodsPresenter(
     isBonusActive: Boolean,
     frequency: String?
   ) {
+    setLoadedPayment(paymentMethod.id)
     view.showPreSelectedPaymentMethod(
       paymentMethod,
       mapCurrencyCodeToSymbol(fiatValue.currency),
@@ -1004,6 +1005,25 @@ class PaymentMethodsPresenter(
     } else {
       Single.just(FiatValue(transaction.amount(), "APPC"))
     }
+
+  private fun setLoadedPayment(paymentMethodId: String) {
+    loadedPaymentMethodEvent = when (paymentMethodId) {
+      PaymentMethodId.PAYPAL.id -> PaymentMethodsAnalytics.PAYMENT_METHOD_PP
+      PaymentMethodId.APPC.id -> PaymentMethodsAnalytics.PAYMENT_METHOD_APPC
+      PaymentMethodId.APPC_CREDITS.id -> PaymentMethodsAnalytics.PAYMENT_METHOD_APPC
+      PaymentMethodId.MERGED_APPC.id -> PaymentMethodsAnalytics.PAYMENT_METHOD_APPC
+      PaymentMethodId.CREDIT_CARD.id -> PaymentMethodsAnalytics.PAYMENT_METHOD_CC
+      PaymentMethodId.CARRIER_BILLING.id -> PaymentMethodsAnalytics.PAYMENT_METHOD_LOCAL
+      PaymentMethodId.ASK_FRIEND.id -> PaymentMethodsAnalytics.PAYMENT_METHOD_ASK_FRIEND
+      else -> PaymentMethodsAnalytics.PAYMENT_METHOD_SELECTION
+    }
+  }
+
+  private fun stopTimingForTotalEvent() {
+    val paymentMethod = loadedPaymentMethodEvent ?: return
+    loadedPaymentMethodEvent = null
+    analytics.stopTimingForTotalEvent(paymentMethod)
+  }
 
   enum class ViewState {
     DEFAULT, ITEM_ALREADY_OWNED, ERROR

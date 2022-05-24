@@ -13,6 +13,7 @@ import com.asfoundation.wallet.service.WalletGetterStatus
 import com.asfoundation.wallet.ui.iab.IabActivity
 import com.asfoundation.wallet.ui.iab.IabActivity.Companion.newIntent
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
+import com.asfoundation.wallet.ui.iab.PaymentMethodsAnalytics
 import com.asfoundation.wallet.ui.splash.SplashActivity
 import com.asfoundation.wallet.util.TransferParser
 import dagger.hilt.android.AndroidEntryPoint
@@ -35,6 +36,10 @@ class OneStepPaymentReceiver : BaseActivity() {
 
   @Inject
   lateinit var transferParser: TransferParser
+
+  @Inject
+  lateinit var analytics: PaymentMethodsAnalytics
+
   private var disposable: Disposable? = null
   private var walletCreationCard: View? = null
   private var walletCreationAnimation: LottieAnimationView? = null
@@ -48,6 +53,7 @@ class OneStepPaymentReceiver : BaseActivity() {
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
 
+    if (savedInstanceState == null) analytics.startTimingForOspTotalEvent()
     if (isEskillsUri(intent.dataString!!)) {
       val skillsActivityIntent = Intent(this, SkillsActivity::class.java)
       skillsActivityIntent.putExtra(ESKILLS_URI_KEY, intent.dataString)

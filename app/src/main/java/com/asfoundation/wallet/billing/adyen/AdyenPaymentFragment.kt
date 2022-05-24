@@ -38,6 +38,7 @@ import com.asfoundation.wallet.ui.iab.IabActivity.Companion.BILLING_ADDRESS_SUCC
 import com.asfoundation.wallet.ui.iab.IabNavigator
 import com.asfoundation.wallet.ui.iab.IabView
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
+import com.asfoundation.wallet.ui.iab.PaymentMethodsAnalytics
 import com.asfoundation.wallet.util.*
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import com.jakewharton.rxbinding2.view.RxView
@@ -77,6 +78,9 @@ class AdyenPaymentFragment : BasePageViewFragment(), AdyenPaymentView {
 
   @Inject
   lateinit var analytics: BillingAnalytics
+
+  @Inject
+  lateinit var paymentAnalytics: PaymentMethodsAnalytics
 
   @Inject
   lateinit var adyenPaymentInteractor: AdyenPaymentInteractor
@@ -126,6 +130,7 @@ class AdyenPaymentFragment : BasePageViewFragment(), AdyenPaymentView {
       networkScheduler = Schedulers.io(),
       returnUrl = RedirectComponent.getReturnUrl(requireContext()),
       analytics = analytics,
+      paymentAnalytics = paymentAnalytics,
       domain = domain,
       origin = origin,
       adyenPaymentInteractor = adyenPaymentInteractor,
