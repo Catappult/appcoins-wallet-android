@@ -6,28 +6,44 @@ interface WalletsEventSender {
 
   fun sendVerifyAction(action: String, status: String)
 
-  fun sendCreateBackupEvent(action: String, context: String,
-                            status: String)
+  fun sendCreateBackupEvent(
+    action: String?, context: String,
+    status: String?
+  )
 
-  fun sendCreateBackupEvent(action: String, context: String,
-                            status: String, errorDetails: String? = null)
+  fun sendCreateBackupEvent(
+    action: String?, context: String,
+    status: String?, errorDetails: String? = null
+  )
 
-  fun sendSaveBackupEvent(action: String)
+  fun sendBackupInfoEvent(action: String, option: String)
 
-  fun sendWalletConfirmationBackupEvent(action: String)
+  fun sendBackupConfirmationEvent(action: String)
 
-  fun sendWalletSaveFileEvent(action: String, status: String,
-                              errorDetails: String? = null)
+  fun sendBackupConclusionEvent(action: String)
 
-  fun sendWalletRestoreEvent(action: String, status: String,
-                             errorDetails: String? = null)
+  fun sendWalletSaveFileEvent(
+    action: String, status: String,
+    errorDetails: String? = null
+  )
 
-  fun sendWalletPasswordRestoreEvent(action: String,
-                                     status: String)
+  fun sendWalletRestoreEvent(
+    action: String, status: String,
+    errorDetails: String? = null
+  )
 
-  fun sendWalletPasswordRestoreEvent(action: String, status: String,
-                                     errorDetails: String? = null)
+  fun sendWalletPasswordRestoreEvent(
+    action: String,
+    status: String
+  )
 
-  fun sendWalletCompleteRestoreEvent(status: String,
-                                     errorDetails: String? = null)
+  fun sendWalletPasswordRestoreEvent(
+    action: String, status: String,
+    errorDetails: String? = null
+  )
+
+  fun sendWalletCompleteRestoreEvent(
+    status: String,
+    errorDetails: String? = null
+  )
 }

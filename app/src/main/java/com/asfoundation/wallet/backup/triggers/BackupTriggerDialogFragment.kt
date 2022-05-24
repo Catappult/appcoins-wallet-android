@@ -11,6 +11,8 @@ import com.asfoundation.wallet.backup.repository.preferences.BackupTriggerPrefer
 import com.asfoundation.wallet.base.SideEffect
 import com.asfoundation.wallet.base.SingleStateFragment
 import com.asfoundation.wallet.base.ViewState
+import com.asfoundation.wallet.billing.analytics.WalletsAnalytics
+import com.asfoundation.wallet.billing.analytics.WalletsEventSender
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
@@ -22,6 +24,9 @@ class BackupTriggerDialogFragment : BottomSheetDialogFragment(),
 
   @Inject
   lateinit var navigator: BackupTriggerDialogNavigator
+
+  @Inject
+  lateinit var walletsEventSender: WalletsEventSender
 
   private val views by viewBinding(BackupTriggerDialogFragmentBinding::bind)
 
@@ -71,6 +76,11 @@ class BackupTriggerDialogFragment : BottomSheetDialogFragment(),
 
   private fun setListeners() {
     views.triggerBackupBtn.setOnClickListener {
+      walletsEventSender.sendCreateBackupEvent(
+        null,
+        WalletsAnalytics.BACKUP_TRIGGER,
+        null
+      )
       navigator.navigateToBackupActivity(
         requireArguments().getString(WALLET_ADDRESS_KEY)!!
       )

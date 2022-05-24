@@ -14,6 +14,8 @@ import com.airbnb.epoxy.EpoxyVisibilityTracker
 import com.asf.wallet.R
 import com.asf.wallet.databinding.FragmentMyWalletsBinding
 import com.asfoundation.wallet.base.SingleStateFragment
+import com.asfoundation.wallet.billing.analytics.WalletsAnalytics
+import com.asfoundation.wallet.billing.analytics.WalletsEventSender
 import com.asfoundation.wallet.my_wallets.main.list.WalletsController
 import com.asfoundation.wallet.my_wallets.main.list.WalletsListEvent
 import com.asfoundation.wallet.ui.MyAddressActivity
@@ -40,6 +42,9 @@ class MyWalletsFragment : BasePageViewFragment(),
 
   @Inject
   lateinit var navigator: MyWalletsNavigator
+
+  @Inject
+  lateinit var walletsEventSender: WalletsEventSender
 
   private val viewModel: MyWalletsViewModel by viewModels()
 
@@ -89,6 +94,11 @@ class MyWalletsFragment : BasePageViewFragment(),
           viewModel.state.walletInfoAsync()
             ?.let { walletInfo ->
               navigator.navigateToBackupWallet(walletInfo.wallet)
+              walletsEventSender.sendCreateBackupEvent(
+                null,
+                WalletsAnalytics.MY_WALLETS,
+                null
+              )
             }
         }
         WalletsListEvent.VerifyWalletClick -> navigator.navigateToVerifyPicker()
