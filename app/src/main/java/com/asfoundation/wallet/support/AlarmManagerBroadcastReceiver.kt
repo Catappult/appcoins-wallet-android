@@ -38,7 +38,15 @@ class AlarmManagerBroadcastReceiver : BroadcastReceiver() {
       val intent = Intent(context, AlarmManagerBroadcastReceiver::class.java)
 
       val pendingIntent =
-          PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_CANCEL_CURRENT)
+          PendingIntent.getBroadcast(
+            context,
+            0,
+            intent,
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
+              PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+            else
+              PendingIntent.FLAG_UPDATE_CURRENT
+          )
 
       val repeatInterval = TimeUnit.MINUTES.toMillis(15)
       val triggerTime: Long = SystemClock.elapsedRealtime() + repeatInterval
@@ -81,12 +89,28 @@ class AlarmManagerBroadcastReceiver : BroadcastReceiver() {
   private fun createNotificationClickIntent(context: Context): PendingIntent {
     val intent = SupportNotificationBroadcastReceiver.newIntent(context)
     intent.putExtra(ACTION_KEY, ACTION_CHECK_MESSAGES)
-    return PendingIntent.getBroadcast(context, 0, intent, 0)
+    return PendingIntent.getBroadcast(
+      context,
+      0,
+      intent,
+      if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
+        PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+      else
+        PendingIntent.FLAG_UPDATE_CURRENT
+    )
   }
 
   private fun createNotificationDismissIntent(context: Context): PendingIntent {
     val intent = SupportNotificationBroadcastReceiver.newIntent(context)
     intent.putExtra(ACTION_KEY, ACTION_DISMISS)
-    return PendingIntent.getBroadcast(context, 1, intent, 0)
+    return PendingIntent.getBroadcast(
+      context,
+      1,
+      intent,
+      if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
+        PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+      else
+        PendingIntent.FLAG_UPDATE_CURRENT
+    )
   }
 }

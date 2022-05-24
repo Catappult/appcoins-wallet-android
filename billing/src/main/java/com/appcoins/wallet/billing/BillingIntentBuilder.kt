@@ -4,6 +4,7 @@ import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import com.appcoins.wallet.billing.AppcoinsBillingBinder.Companion.EXTRA_BDS_IAP
 import com.appcoins.wallet.billing.AppcoinsBillingBinder.Companion.EXTRA_DEVELOPER_PAYLOAD
@@ -41,7 +42,15 @@ class BillingIntentBuilder(val context: Context) {
   }
 
   private fun buildPaymentPendingIntent(intent: Intent): PendingIntent {
-    return PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
+    return PendingIntent.getActivity(
+      context,
+      0,
+      intent,
+      if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
+        PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+      else
+        PendingIntent.FLAG_UPDATE_CURRENT
+    )
   }
 
   private fun buildPaymentIntent(type: String, amount: BigDecimal,
