@@ -10,7 +10,7 @@ class ChooseCurrencyBottomSheetViewModelFactory(private val data: ChooseCurrency
                                                 private val setSelectedCurrencyUseCase: SetSelectedCurrencyUseCase) :
     ViewModelProvider.Factory {
 
-  override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+  override fun <T : ViewModel> create(modelClass: Class<T>): T {
     return ChooseCurrencyBottomSheetViewModel(data, networkScheduler,
         setSelectedCurrencyUseCase) as T
   }

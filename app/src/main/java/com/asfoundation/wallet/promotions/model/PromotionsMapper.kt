@@ -31,7 +31,7 @@ class PromotionsMapper @Inject constructor(private val gamificationMapper: Gamif
               gamificationAvailable = it.status == PromotionsResponse.Status.ACTIVE
 
               if (levels.isActive) {
-                maxBonus = levels.list.maxBy { level -> level.bonus }?.bonus ?: 0.0
+                maxBonus = levels.list.maxByOrNull { level -> level.bonus }?.bonus ?: 0.0
               }
 
               if (gamificationAvailable) {
@@ -164,7 +164,7 @@ class PromotionsMapper @Inject constructor(private val gamificationMapper: Gamif
   }
 
   private fun getMaxBonus(levels: Levels): Double {
-    if (levels.isActive) return levels.list.maxBy { level -> level.bonus }?.bonus ?: 0.0
+    if (levels.isActive) return levels.list.maxByOrNull { level -> level.bonus }?.bonus ?: 0.0
     return 0.0
   }
 

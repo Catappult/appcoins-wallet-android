@@ -87,7 +87,7 @@ class PerkBonusAndGamificationService :
           handlePerkBonusNotificationPartnerUser(bonusTransactionValue)
           return@Function5
         }
-        val maxLevel = allLevels.maxBy { level -> level.level }!!.level
+        val maxLevel = allLevels.maxByOrNull { level -> level.level }!!.level
         val currentLevel = stats.level
         val currentLevelStartAmount = allLevels[currentLevel].amount
         handlePerkAndLevelUpNotification(

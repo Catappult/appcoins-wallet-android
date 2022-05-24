@@ -13,7 +13,7 @@ import com.asfoundation.wallet.GlideApp
 import com.asfoundation.wallet.util.safeLet
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 
-class SettingsCurrencyPreference(context: Context?, attrs: AttributeSet?) :
+class SettingsCurrencyPreference(context: Context, attrs: AttributeSet?) :
     Preference(context, attrs) {
   private var selectedCurrency: FiatCurrencyEntity? = null
   private var currency: TextView? = null

@@ -13,7 +13,7 @@ class BackupSaveOnDeviceDialogViewModelFactory(
   private val downloadsPath: File?
 ) :
   ViewModelProvider.Factory {
-  override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+  override fun <T : ViewModel> create(modelClass: Class<T>): T {
     return BackupSaveOnDeviceDialogViewModel(
       data, saveBackupFileUseCase, backupSuccessLogUseCase,
       downloadsPath

@@ -9,7 +9,7 @@ class ChangeActiveWalletDialogViewModelFactory(
     val walletDetailsInteractor: WalletDetailsInteractor
 ) : ViewModelProvider.Factory {
 
-  override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+  override fun <T : ViewModel> create(modelClass: Class<T>): T {
     return ChangeActiveWalletDialogViewModel(data, walletDetailsInteractor) as T
   }
 }
