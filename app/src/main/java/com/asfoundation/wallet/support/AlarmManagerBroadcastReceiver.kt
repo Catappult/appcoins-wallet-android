@@ -43,9 +43,9 @@ class AlarmManagerBroadcastReceiver : BroadcastReceiver() {
             0,
             intent,
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
-              PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+              PendingIntent.FLAG_CANCEL_CURRENT or PendingIntent.FLAG_IMMUTABLE
             else
-              PendingIntent.FLAG_UPDATE_CURRENT
+              PendingIntent.FLAG_CANCEL_CURRENT
           )
 
       val repeatInterval = TimeUnit.MINUTES.toMillis(15)
@@ -94,9 +94,9 @@ class AlarmManagerBroadcastReceiver : BroadcastReceiver() {
       0,
       intent,
       if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
-        PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+        PendingIntent.FLAG_IMMUTABLE
       else
-        PendingIntent.FLAG_UPDATE_CURRENT
+        0
     )
   }
 
@@ -108,9 +108,9 @@ class AlarmManagerBroadcastReceiver : BroadcastReceiver() {
       1,
       intent,
       if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
-        PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+        PendingIntent.FLAG_IMMUTABLE
       else
-        PendingIntent.FLAG_UPDATE_CURRENT
+        0
     )
   }
 }
