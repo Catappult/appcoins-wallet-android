@@ -88,7 +88,13 @@ class BackgroundGameService : Service(), GameStateListener {
   private fun createNotificationDismissIntent(): PendingIntent {
     val intent = Intent(this, BackgroundGameService::class.java)
     intent.action = ACTION_DISMISS
-    return PendingIntent.getService(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
+    return PendingIntent.getService(this,
+      0,
+      intent,
+      if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
+        PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+      else
+        PendingIntent.FLAG_UPDATE_CURRENT)
   }
 
   override fun onUpdate(gameUpdate: GameUpdate) {

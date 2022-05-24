@@ -64,13 +64,29 @@ class SupportMessagingService : FirebaseMessagingService() {
   private fun createNotificationClickIntent(context: Context): PendingIntent {
     val intent = SupportNotificationBroadcastReceiver.newIntent(context)
     intent.putExtra(ACTION_KEY, ACTION_CHECK_MESSAGES)
-    return PendingIntent.getBroadcast(context, 0, intent, 0)
+    return PendingIntent.getBroadcast(
+      context,
+      0,
+      intent,
+      if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
+        PendingIntent.FLAG_IMMUTABLE
+      else
+        0
+    )
   }
 
   private fun createNotificationDismissIntent(context: Context): PendingIntent {
     val intent = SupportNotificationBroadcastReceiver.newIntent(context)
     intent.putExtra(ACTION_KEY, ACTION_DISMISS)
-    return PendingIntent.getBroadcast(context, 1, intent, 0)
+    return PendingIntent.getBroadcast(
+      context,
+      1,
+      intent,
+      if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
+        PendingIntent.FLAG_IMMUTABLE
+      else
+        0
+    )
   }
 
   private fun isSupportMessage(data: MutableMap<String, String>): Boolean {
