@@ -83,7 +83,8 @@ class WalletTextFieldView : FrameLayout {
       }
       Type.OUTLINED -> {
         views.textInputEditText.setReadOnly(value = false, inputType = InputType.TYPE_CLASS_TEXT)
-        views.textInputLayout.boxBackgroundColor = color
+        views.textInputLayout.boxBackgroundColor =
+          ContextCompat.getColor(this.context, R.color.transparent)
         views.textInputLayout.boxStrokeColor =
           ContextCompat.getColor(this.context, R.color.grey_70)
         views.textInputLayout.endIconMode = END_ICON_NONE
