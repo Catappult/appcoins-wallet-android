@@ -84,10 +84,8 @@ class WalletTextFieldView : FrameLayout {
       Type.OUTLINED -> {
         views.textInputEditText.setReadOnly(value = false, inputType = InputType.TYPE_CLASS_TEXT)
         views.textInputLayout.boxBackgroundColor = color
-        views.textInputLayout.boxStrokeColor = color
-        if (views.textInputLayout.isFocused)
-          views.textInputLayout.boxBackgroundColor = ContextCompat.getColor(this.context, R.color.red)
-
+        views.textInputLayout.boxStrokeColor =
+          ContextCompat.getColor(this.context, R.color.grey_70)
         views.textInputLayout.endIconMode = END_ICON_NONE
       }
       Type.PASSWORD -> {
