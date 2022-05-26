@@ -71,6 +71,7 @@ class AppcoinsRewardsBuyFragment : BasePageViewFragment(), AppcoinsRewardsBuyVie
       disposables = CompositeDisposable(),
       packageName = transactionBuilder.domain,
       isBds = isBds,
+      isPreSelected = isPreSelected,
       analytics = analytics,
       transactionBuilder = transactionBuilder,
       formatter = formatter,
@@ -176,6 +177,14 @@ class AppcoinsRewardsBuyFragment : BasePageViewFragment(), AppcoinsRewardsBuyVie
     }
   }
 
+  private val isPreSelected: Boolean by lazy {
+    if (requireArguments().containsKey(PRE_SELECTED_KEY)) {
+      requireArguments().getBoolean(PRE_SELECTED_KEY)
+    } else {
+      throw IllegalArgumentException("pre selected data not found")
+    }
+  }
+
   private val gamificationLevel: Int by lazy {
     if (requireArguments().containsKey(GAMIFICATION_LEVEL)) {
       requireArguments().getInt(GAMIFICATION_LEVEL)
@@ -198,12 +207,14 @@ class AppcoinsRewardsBuyFragment : BasePageViewFragment(), AppcoinsRewardsBuyVie
     private const val IS_BDS = "is_bds"
     private const val TRANSACTION_KEY = "transaction_key"
     private const val GAMIFICATION_LEVEL = "gamification_level"
+    private const val PRE_SELECTED_KEY = "pre_selected"
 
     fun newInstance(
       amount: BigDecimal,
       transactionBuilder: TransactionBuilder,
       uri: String?,
       isBds: Boolean,
+      isPreSelected: Boolean,
       gamificationLevel: Int
     ): Fragment = AppcoinsRewardsBuyFragment().apply {
       arguments = Bundle().apply {
@@ -211,6 +222,7 @@ class AppcoinsRewardsBuyFragment : BasePageViewFragment(), AppcoinsRewardsBuyVie
         putParcelable(TRANSACTION_KEY, transactionBuilder)
         putString(URI_KEY, uri)
         putBoolean(IS_BDS, isBds)
+        putBoolean(PRE_SELECTED_KEY, isPreSelected)
         putInt(GAMIFICATION_LEVEL, gamificationLevel)
       }
     }

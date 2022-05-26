@@ -263,6 +263,7 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
 
   override fun showAppcoinsCreditsPayment(
     appcAmount: BigDecimal,
+    isPreselected: Boolean,
     gamificationLevel: Int,
     transactionBuilder: TransactionBuilder
   ) {
@@ -273,6 +274,7 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
         transactionBuilder,
         intent.data!!.toString(),
         isBds,
+        isPreselected,
         gamificationLevel
       )
     )

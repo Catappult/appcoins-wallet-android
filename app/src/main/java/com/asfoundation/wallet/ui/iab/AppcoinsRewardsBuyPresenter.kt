@@ -23,6 +23,7 @@ class AppcoinsRewardsBuyPresenter(
   private val disposables: CompositeDisposable,
   private val packageName: String,
   private val isBds: Boolean,
+  private val isPreSelected: Boolean,
   private val analytics: BillingAnalytics,
   private val transactionBuilder: TransactionBuilder,
   private val formatter: CurrencyFormatUtils,

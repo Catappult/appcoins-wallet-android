@@ -60,6 +60,7 @@ interface IabView {
 
   fun showAppcoinsCreditsPayment(
     appcAmount: BigDecimal,
+    isPreselected: Boolean,
     gamificationLevel: Int,
     transactionBuilder: TransactionBuilder
   )

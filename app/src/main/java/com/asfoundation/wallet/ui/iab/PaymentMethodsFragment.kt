@@ -526,7 +526,12 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
     )
 
   override fun showCredits(gamificationLevel: Int, transaction: TransactionBuilder) =
-    iabView.showAppcoinsCreditsPayment(transaction.amount(), gamificationLevel, transaction)
+    iabView.showAppcoinsCreditsPayment(
+      transaction.amount(),
+      isPreSelected,
+      gamificationLevel,
+      transaction
+    )
 
   override fun showSubscribe() {
     buy_button.text = getString(R.string.subscriptions_subscribe_button)
