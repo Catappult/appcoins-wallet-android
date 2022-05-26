@@ -25,6 +25,7 @@ class AppcoinsRewardsBuyPresenter(
   private val isBds: Boolean,
   private val isPreSelected: Boolean,
   private val analytics: BillingAnalytics,
+  private val paymentAnalytics: PaymentMethodsAnalytics,
   private val transactionBuilder: TransactionBuilder,
   private val formatter: CurrencyFormatUtils,
   private val gamificationLevel: Int,
@@ -80,7 +81,10 @@ class AppcoinsRewardsBuyPresenter(
         handlePaymentStatus(it, transactionBuilder.skuId, transactionBuilder.amount())
       }
       .observeOn(viewScheduler)
-      .doOnSubscribe { view.showLoading() }
+      .doOnSubscribe {
+        paymentAnalytics.startTimingForPurchaseEvent()
+        view.showLoading()
+      }
       .doOnError {
         logger.log(TAG, it)
         view.showError(null)
@@ -207,6 +211,11 @@ class AppcoinsRewardsBuyPresenter(
   }
 
   fun sendPaymentSuccessEvent() {
+    paymentAnalytics.stopTimingForPurchaseEvent(
+      PaymentMethodsAnalytics.PAYMENT_METHOD_APPC,
+      true,
+      isPreSelected
+    )
     analytics.sendPaymentSuccessEvent(
       packageName,
       transactionBuilder.skuId,
@@ -219,6 +228,11 @@ class AppcoinsRewardsBuyPresenter(
   private fun sendPaymentErrorEvent(transaction: RewardPayment) {
     val status = transaction.status
     if (isErrorStatus(status)) {
+      paymentAnalytics.stopTimingForPurchaseEvent(
+        PaymentMethodsAnalytics.PAYMENT_METHOD_APPC,
+        true,
+        isPreSelected
+      )
       if (transaction.errorCode == null && transaction.errorMessage == null) {
         analytics.sendPaymentErrorEvent(
           packageName,

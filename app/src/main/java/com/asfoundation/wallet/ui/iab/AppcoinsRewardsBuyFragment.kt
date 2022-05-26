@@ -44,6 +44,9 @@ class AppcoinsRewardsBuyFragment : BasePageViewFragment(), AppcoinsRewardsBuyVie
   lateinit var analytics: BillingAnalytics
 
   @Inject
+  lateinit var paymentAnalytics: PaymentMethodsAnalytics
+
+  @Inject
   lateinit var formatter: CurrencyFormatUtils
 
   @Inject
@@ -73,6 +76,7 @@ class AppcoinsRewardsBuyFragment : BasePageViewFragment(), AppcoinsRewardsBuyVie
       isBds = isBds,
       isPreSelected = isPreSelected,
       analytics = analytics,
+      paymentAnalytics = paymentAnalytics,
       transactionBuilder = transactionBuilder,
       formatter = formatter,
       gamificationLevel = gamificationLevel,

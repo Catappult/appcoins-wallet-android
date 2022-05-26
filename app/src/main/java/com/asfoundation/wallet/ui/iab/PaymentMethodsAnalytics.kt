@@ -20,6 +20,7 @@ class PaymentMethodsAnalytics @Inject constructor(
 
     const val WALLET_PAYMENT_LOADING_TOTAL = "wallet_payment_loading_total"
     const val WALLET_PAYMENT_LOADING_STEP = "wallet_payment_loading_step"
+    const val WALLET_PAYMENT_PROCESSING_TOTAL = "wallet_payment_processing_total"
 
     const val INTEGRATION_SDK = "sdk"
     const val INTEGRATION_OSP = "osp"
@@ -40,7 +41,9 @@ class PaymentMethodsAnalytics @Inject constructor(
     private const val STEP_ID = "step_id"
     private const val INTEGRATION = "integration"
     private const val PAYMENT_METHOD = "payment_method"
+    private const val PRESELECTED = "preselected"
     private const val DURATION = "duration"
+    private const val SUCCESSFUL = "successful"
   }
 
   var startedIntegration: String? = null
@@ -88,6 +91,8 @@ class PaymentMethodsAnalytics @Inject constructor(
 
   fun startTimingForStepEvent(stepId: String) = taskTimer.start(stepId)
 
+  fun startTimingForPurchaseEvent() = taskTimer.start(WALLET_PAYMENT_PROCESSING_TOTAL)
+
   fun stopTimingForTotalEvent(paymentMethod: String) {
     val duration = taskTimer.end(WALLET_PAYMENT_LOADING_TOTAL) ?: return
     val integration = startedIntegration ?: return
@@ -108,6 +113,23 @@ class PaymentMethodsAnalytics @Inject constructor(
     analyticsManager.logEvent(
       hashMapOf<String, Any>(DURATION to duration, STEP_ID to stepId),
       WALLET_PAYMENT_LOADING_STEP,
+      AnalyticsManager.Action.IMPRESSION,
+      WALLET
+    )
+  }
+
+  fun stopTimingForPurchaseEvent(paymentMethod: String, success: Boolean, isPreselected: Boolean) {
+    val duration = taskTimer.end(WALLET_PAYMENT_PROCESSING_TOTAL) ?: return
+    val integration = startedIntegration ?: return
+    analyticsManager.logEvent(
+      hashMapOf<String, Any>(
+        DURATION to duration,
+        PAYMENT_METHOD to paymentMethod,
+        INTEGRATION to integration,
+        PRESELECTED to isPreselected,
+        SUCCESSFUL to success
+      ),
+      WALLET_PAYMENT_PROCESSING_TOTAL,
       AnalyticsManager.Action.IMPRESSION,
       WALLET
     )

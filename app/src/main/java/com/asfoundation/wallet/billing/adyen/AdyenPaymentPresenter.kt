@@ -213,6 +213,7 @@ class AdyenPaymentPresenter(
       view.lockRotation()
       sendPaymentMethodDetailsEvent(mapPaymentToAnalytics(paymentType))
       paymentAnalytics.stopTimingForTotalEvent(PaymentMethodsAnalytics.PAYMENT_METHOD_PP)
+      paymentAnalytics.startTimingForPurchaseEvent()
       handleAdyenAction(paymentModel)
     }
   }
@@ -220,6 +221,7 @@ class AdyenPaymentPresenter(
   private fun handleBuyClick(priceAmount: BigDecimal, priceCurrency: String) {
     disposables.add(Observable.merge(view.buyButtonClicked(), view.billingAddressInput())
       .flatMapSingle {
+        paymentAnalytics.startTimingForPurchaseEvent()
         view.retrievePaymentData()
           .firstOrError()
       }
@@ -584,6 +586,7 @@ class AdyenPaymentPresenter(
       .subscribeOn(networkScheduler)
       .observeOn(viewScheduler)
       .subscribe { transactionBuilder: TransactionBuilder ->
+        stopTimingForPurchaseEvent(true)
         analytics.sendPaymentEvent(
           domain,
           transactionBuilder.skuId,
@@ -639,6 +642,7 @@ class AdyenPaymentPresenter(
     disposables.add(transactionBuilder
       .observeOn(networkScheduler)
       .doOnSuccess { transaction ->
+        stopTimingForPurchaseEvent(false)
         analytics.sendPaymentErrorWithDetailsAndRiskEvent(
           domain,
           transaction.skuId,
@@ -810,5 +814,14 @@ class AdyenPaymentPresenter(
       }
       else -> view.showGenericError()
     }
+  }
+
+  private fun stopTimingForPurchaseEvent(success: Boolean) {
+    val paymentMethod = when (paymentType) {
+      PaymentType.PAYPAL.name -> PaymentMethodsAnalytics.PAYMENT_METHOD_PP
+      PaymentType.CARD.name -> PaymentMethodsAnalytics.PAYMENT_METHOD_CC
+      else -> return
+    }
+    paymentAnalytics.stopTimingForPurchaseEvent(paymentMethod, success, isPreSelected)
   }
 }
