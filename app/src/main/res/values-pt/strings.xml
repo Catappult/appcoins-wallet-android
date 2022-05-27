@@ -444,7 +444,7 @@
   <string name="understood_button">Entendido!</string>
   <string name="skip_button">Saltar por agora</string>
   <string name="understand_button">Compreendo</string>
-  <string name="install_button">Install</string>
+  <string name="install_button">Instalar</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Eu concordo com os %1$s e a %2$s da AppCoins Wallet.</string>
   <string name="terms_and_conditions_error">Por favor aceita os nossos Termos e Condições e a Política de Privacidade para continuar</string>
@@ -999,7 +999,7 @@
   <string name="e_skills_room_field">O nome da tua sala aqui...</string>
   <string name="e_skills_withdraw_confirmation_title">A $%s withdrawal has been requested!</string>
   <string name="e_skills_withdraw_confirmation_body">This may take between 2 and 3 weeks to be processed.</string>
-  <string name="e_skills_withdraw_minimum_body">The minimum amount to withdraw is $%s.</string>
+  <string name="e_skills_withdraw_minimum_body">O montante mínimo a levantar é de $%s.</string>
   <!--Promo Code-->
   <string name="promo_code_settings_title">Código Promocional</string>
   <string name="promo_code_view_title">Código Promocional</string>
