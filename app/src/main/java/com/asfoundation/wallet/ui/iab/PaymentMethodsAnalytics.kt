@@ -44,9 +44,11 @@ class PaymentMethodsAnalytics @Inject constructor(
     private const val PRESELECTED = "preselected"
     private const val DURATION = "duration"
     private const val SUCCESSFUL = "successful"
+    private const val AUTH_DURATION = "auth_duration"
   }
 
   var startedIntegration: String? = null
+  var authDuration: Long? = null
 
   fun setGamificationLevel(cachedGamificationLevel: Int) {
     analyticsSetup.setGamificationLevel(cachedGamificationLevel)
@@ -93,14 +95,19 @@ class PaymentMethodsAnalytics @Inject constructor(
 
   fun startTimingForPurchaseEvent() = taskTimer.start(WALLET_PAYMENT_PROCESSING_TOTAL)
 
+  fun startTimingForAuthEvent() = taskTimer.start(AUTH_DURATION)
+
   fun stopTimingForTotalEvent(paymentMethod: String) {
     val duration = taskTimer.end(WALLET_PAYMENT_LOADING_TOTAL) ?: return
     val integration = startedIntegration ?: return
+    val aDuration = authDuration ?: 0L
+    authDuration = null
     analyticsManager.logEvent(
       hashMapOf<String, Any>(
-        DURATION to duration,
+        DURATION to duration - aDuration,
         PAYMENT_METHOD to paymentMethod,
-        INTEGRATION to integration
+        INTEGRATION to integration,
+        AUTH_DURATION to aDuration
       ),
       WALLET_PAYMENT_LOADING_TOTAL,
       AnalyticsManager.Action.IMPRESSION,
@@ -133,5 +140,9 @@ class PaymentMethodsAnalytics @Inject constructor(
       AnalyticsManager.Action.IMPRESSION,
       WALLET
     )
+  }
+
+  fun stopTimingForAuthEvent() {
+    authDuration = taskTimer.end(AUTH_DURATION)
   }
 }

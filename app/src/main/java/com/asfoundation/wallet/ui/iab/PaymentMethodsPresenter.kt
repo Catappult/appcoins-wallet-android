@@ -169,6 +169,7 @@ class PaymentMethodsPresenter(
     disposables.add(view.onAuthenticationResult()
       .observeOn(viewScheduler)
       .doOnNext {
+        analytics.stopTimingForAuthEvent()
         if (cachedPaymentNavigationData == null) {
           close()
         } else if (!it) {
@@ -929,6 +930,7 @@ class PaymentMethodsPresenter(
     purchase.product.name == sku && purchase.state != State.CONSUMED && purchase.state != State.ACKNOWLEDGED
 
   private fun showAuthenticationActivity(paymentMethod: PaymentMethod, isPreselected: Boolean) {
+    analytics.startTimingForAuthEvent()
     cachedPaymentNavigationData =
       PaymentNavigationData(
         paymentMethod.id,
