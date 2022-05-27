@@ -32,6 +32,20 @@ class PromoCodeRepository @Inject constructor(
           PromoCode(it.code, it.bonus, it.expiryDate, it.expired, it.appName)
         )
       }
+      .doOnError {
+        promoCodeLocalDataSource.savePromoCode(
+          PromoCodeResponse(
+            promoCodeString,
+            null,
+            expired = true
+          ),
+          PromoCodeBonusResponse(
+            promoCodeString,
+            null,
+            PromoCodeBonusResponse.App(null, null, null)
+          )
+        ).subscribe()
+      }
       .ignoreElement()
       .subscribeOn(rxSchedulers.io)
   }

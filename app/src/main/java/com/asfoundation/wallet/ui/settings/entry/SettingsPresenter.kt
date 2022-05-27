@@ -184,7 +184,7 @@ class SettingsPresenter(
     navigator.navigateToWithdrawScreen()
   }
 
-  fun setCurrencyPreference() {
+  private fun setCurrencyPreference() {
     disposables.add(getChangeFiatCurrencyModelUseCase()
       .observeOn(viewScheduler)
       .doOnSuccess {
@@ -199,7 +199,7 @@ class SettingsPresenter(
       .subscribe())
   }
 
-  fun setPromoCodeState() {
+  private fun setPromoCodeState() {
     disposables.add(getUpdatedPromoCodeUseCase()
       .flatMapObservable { observePromoCodeUseCase() }
       .observeOn(viewScheduler)
