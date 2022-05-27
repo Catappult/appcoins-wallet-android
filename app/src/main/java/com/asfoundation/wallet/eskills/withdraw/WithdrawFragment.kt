@@ -59,25 +59,28 @@ class WithdrawFragment : BasePageViewFragment(),
   private fun setOnClickListeners() {
     views.layoutWithdrawEntry.withdrawButton.setOnClickListener { withdrawToFiat() }
     views.layoutWithdrawEntry.cancelButton.setOnClickListener { navigator.navigateBack() }
-    views.layoutWithdrawError.tryAgainButton.setOnClickListener { withdrawToFiat() }
+    views.layoutWithdrawError.tryAgainButton.setOnClickListener { showEntryLayout() }
     views.layoutWithdrawError.laterButton.setOnClickListener { navigator.navigateBack() }
     views.layoutWithdrawSuccess.gotItButton.setOnClickListener { navigator.navigateBack() }
   }
 
   private fun withdrawToFiat() {
     val paypalEmail: String = views.layoutWithdrawEntry.paypalEmail.text.toString()
+    val amount: String = views.layoutWithdrawEntry.amount.text.toString()
     if (paypalEmail.isEmpty()) {
       views.layoutWithdrawEntry.paypalEmail.error = getString(R.string.error_field_required)
+      return
     }
-
-    val amount: String = views.layoutWithdrawEntry.amount.text.toString()
     if (amount.isEmpty()) {
       views.layoutWithdrawEntry.amount.error = getString(R.string.error_field_required)
+      return
+    }
+    if (amount.toFloatOrNull() ?: 0F <= 0F) {
+      views.layoutWithdrawEntry.amount.error = getString(R.string.error_field_required)
+      return
     }
 
-    if (paypalEmail.isNotEmpty() && amount.isNotEmpty()) {
-      viewModel.withdrawToFiat(paypalEmail, BigDecimal(amount))
-    }
+    viewModel.withdrawToFiat(paypalEmail, BigDecimal(amount))
   }
 
   override fun onSideEffect(sideEffect: WithdrawSideEffect) = Unit

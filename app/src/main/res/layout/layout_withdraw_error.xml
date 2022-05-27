@@ -10,7 +10,7 @@
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:orientation="horizontal"
-      app:layout_constraintGuide_percent="0.15"
+      app:layout_constraintGuide_percent="0.2"
       />
 
   <com.airbnb.lottie.LottieAnimationView
@@ -47,7 +47,7 @@
       android:layout_marginTop="16dp"
       android:layout_marginEnd="32dp"
       android:gravity="center"
-      android:text="@string/e_skills_withdraw_generic_error"
+      android:text="@string/activity_iab_error_message"
       android:textColor="@color/withdraw_error_description_grey"
       android:textSize="16sp"
       app:layout_constraintEnd_toEndOf="parent"
