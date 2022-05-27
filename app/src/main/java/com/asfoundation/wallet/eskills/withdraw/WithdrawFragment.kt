@@ -23,7 +23,7 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class WithdrawFragment : BasePageViewFragment(),
-    SingleStateFragment<WithdrawState, WithdrawSideEffect> {
+  SingleStateFragment<WithdrawState, WithdrawSideEffect> {
 
 
   @Inject
@@ -37,9 +37,9 @@ class WithdrawFragment : BasePageViewFragment(),
   }
 
   override fun onCreateView(
-      inflater: LayoutInflater,
-      container: ViewGroup?,
-      savedInstanceState: Bundle?
+    inflater: LayoutInflater,
+    container: ViewGroup?,
+    savedInstanceState: Bundle?
   ): View? {
     return inflater.inflate(R.layout.fragment_withdraw, container, false)
   }
@@ -117,7 +117,8 @@ class WithdrawFragment : BasePageViewFragment(),
     views.layoutWithdrawEntry.availableAmountSkeleton.visibility = View.GONE
     views.layoutWithdrawEntry.withdrawAvailableAmount.visibility = View.VISIBLE
     views.layoutWithdrawEntry.withdrawAvailableAmount.text = getString(
-        R.string.e_skills_withdraw_max_amount_part_2, availableAmount)
+      R.string.e_skills_withdraw_max_amount_part_2, availableAmount
+    )
   }
 
   private fun handleWithdrawChangedState(asyncWithdrawResult: Async<WithdrawResult>) {
@@ -155,10 +156,12 @@ class WithdrawFragment : BasePageViewFragment(),
   private fun hideErrorMessages() {
     views.layoutWithdrawEntry.amountErrorText.visibility = View.GONE
     views.layoutWithdrawEntry.amountTextLayout.setBackgroundResource(
-        R.drawable.rectangle_outline_grey_radius_8dp)
+      R.drawable.rectangle_outline_grey_radius_8dp
+    )
     views.layoutWithdrawEntry.emailErrorText.visibility = View.GONE
     views.layoutWithdrawEntry.emailTextLayout.setBackgroundResource(
-        R.drawable.rectangle_outline_grey_radius_8dp)
+      R.drawable.rectangle_outline_grey_radius_8dp
+    )
   }
 
   private fun handleSuccessState(withdrawResult: WithdrawResult) {
@@ -167,7 +170,7 @@ class WithdrawFragment : BasePageViewFragment(),
     when (withdrawResult) {
       is SuccessfulWithdraw -> {
         views.layoutWithdrawSuccess.withdrawSuccessMessage.text =
-            getString(R.string.e_skills_withdraw_started, withdrawResult.amount)
+          getString(R.string.e_skills_withdraw_started, withdrawResult.amount)
         showSuccessLayout()
       }
       else -> handleErrorState(withdrawResult)
@@ -186,28 +189,30 @@ class WithdrawFragment : BasePageViewFragment(),
     when (withdrawResult) {
       is FailedWithdraw.NotEnoughEarningError -> {
         views.layoutWithdrawEntry.amountErrorText.text =
-            getString(R.string.e_skills_withdraw_not_enough_earnings_error_message)
+          getString(R.string.e_skills_withdraw_not_enough_earnings_error_message)
         showAmountErrorMessage()
       }
       is FailedWithdraw.NotEnoughBalanceError -> {
         views.layoutWithdrawEntry.amountErrorText.text =
-            getString(R.string.e_skills_withdraw_not_enough_balance_error_message)
+          getString(R.string.e_skills_withdraw_not_enough_balance_error_message)
         showAmountErrorMessage()
       }
       is FailedWithdraw.MinAmountRequiredError -> {
         views.layoutWithdrawEntry.amountErrorText.text =
-            getString(R.string.e_skills_withdraw_minimum_amount_error_message,
-                withdrawResult.amount)
+          getString(
+            R.string.e_skills_withdraw_minimum_amount_error_message,
+            withdrawResult.amount
+          )
         showAmountErrorMessage()
       }
       is FailedWithdraw.InvalidEmailError -> {
         views.layoutWithdrawEntry.emailErrorText.text =
-            getString(R.string.e_skills_withdraw_invalid_email_error_message)
+          getString(R.string.e_skills_withdraw_invalid_email_error_message)
         showEmailErrorMessage()
       }
       is FailedWithdraw.NoNetworkError -> {
         views.layoutWithdrawError.withdrawErrorMessage.text =
-            getString(R.string.activity_iab_no_network_message)
+          getString(R.string.activity_iab_no_network_message)
         showErrorLayout()
       }
       is FailedWithdraw.GenericError -> showErrorLayout()
@@ -218,14 +223,16 @@ class WithdrawFragment : BasePageViewFragment(),
   private fun showAmountErrorMessage() {
     views.layoutWithdrawEntry.amountErrorText.visibility = View.VISIBLE
     views.layoutWithdrawEntry.amountTextLayout.setBackgroundResource(
-        R.drawable.rectangle_outline_red_radius_8dp)
+      R.drawable.rectangle_outline_red_radius_8dp
+    )
     showEntryLayout()
   }
 
   private fun showEmailErrorMessage() {
     views.layoutWithdrawEntry.emailErrorText.visibility = View.VISIBLE
     views.layoutWithdrawEntry.emailTextLayout.setBackgroundResource(
-        R.drawable.rectangle_outline_red_radius_8dp)
+      R.drawable.rectangle_outline_red_radius_8dp
+    )
     showEntryLayout()
   }
 
