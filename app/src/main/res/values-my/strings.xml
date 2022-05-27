@@ -991,6 +991,9 @@
   <string name="e_skills_withdraw_confirmation_title">A $%s withdrawal has been requested!</string>
   <string name="e_skills_withdraw_confirmation_body">This may take between 2 and 3 weeks to be processed.</string>
   <string name="e_skills_withdraw_minimum_body">The minimum amount to withdraw is $%s.</string>
+  <string name="e_skills_withdraw_started_title">A withdrawal request of $%s has been started.</string>
+  <string name="e_skills_withdraw_started_body">This request may take 2-3 weeks to be processed.</string>
+  <string name="e_skills_withdraw_error_not_funds">Make sure you have enough funds to be withdrawn.</string>
   <!--Promo Code-->
   <string name="promo_code_settings_title">ပ႐ိုမိုကုဒ္</string>
   <string name="promo_code_view_title">ပ႐ိုမိုကုဒ္</string>
