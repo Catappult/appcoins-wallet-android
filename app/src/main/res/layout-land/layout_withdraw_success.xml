@@ -29,14 +29,28 @@
       android:id="@+id/withdraw_success_message"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:layout_marginTop="32dp"
+      android:layout_marginTop="16dp"
       android:gravity="center"
-      android:text="@string/e_skills_withdraw_started"
+      android:text="@string/e_skills_withdraw_started_title"
       android:textColor="@color/withdraw_title_color_black"
       android:textSize="19sp"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toBottomOf="@+id/withdraw_success_animation"
+      />
+
+  <TextView
+      android:id="@+id/withdraw_success_sub_message"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="16dp"
+      android:gravity="center"
+      android:text="@string/e_skills_withdraw_started_body"
+      android:textColor="@color/withdraw_error_description_grey"
+      android:textSize="16sp"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/withdraw_success_message"
       />
 
 

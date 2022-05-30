@@ -10,18 +10,18 @@ import java.math.BigDecimal
 import javax.inject.Inject
 
 class WithdrawToFiatUseCase @Inject constructor(
-    private val ewtObtainer: EwtAuthenticatorService,
-    private val withdrawRepository: WithdrawRepository,
+  private val ewtObtainer: EwtAuthenticatorService,
+  private val withdrawRepository: WithdrawRepository,
 ) {
 
   operator fun invoke(email: String, amount: BigDecimal): Single<WithdrawResult> {
     return ewtObtainer.getEwtAuthentication()
-        .flatMap {
-          return@flatMap if (email.isEmailValid()) {
-            withdrawRepository.withdrawAppcCredits(it, email, amount)
-          } else {
-            Single.just(FailedWithdraw.InvalidEmailError)
-          }
+      .flatMap {
+        return@flatMap if (email.isEmailValid()) {
+          withdrawRepository.withdrawAppcCredits(it, email, amount)
+        } else {
+          Single.just(FailedWithdraw.InvalidEmailError)
         }
+      }
   }
 }

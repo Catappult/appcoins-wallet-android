@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     >
@@ -29,9 +30,9 @@
       android:id="@+id/withdraw_success_message"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:layout_marginTop="32dp"
+      android:layout_marginTop="24dp"
       android:gravity="center"
-      android:text="@string/e_skills_withdraw_started"
+      android:text="@string/e_skills_withdraw_started_title"
       android:textColor="@color/withdraw_title_color_black"
       android:textSize="19sp"
       app:layout_constraintEnd_toEndOf="parent"
@@ -40,6 +41,19 @@
       />
 
 
+  <TextView
+      android:id="@+id/withdraw_success_sub_message"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="24dp"
+      android:gravity="center"
+      android:text="@string/e_skills_withdraw_started_body"
+      android:textColor="@color/withdraw_error_description_grey"
+      android:textSize="16sp"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/withdraw_success_message"
+      />
   <Button
       android:id="@+id/got_it_button"
       style="@style/ButtonStyle"
