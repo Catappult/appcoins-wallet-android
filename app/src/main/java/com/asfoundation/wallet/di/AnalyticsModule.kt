@@ -59,7 +59,8 @@ class AnalyticsModule {
       VerificationAnalytics.REQUEST_CONCLUSION_EVENT, VerificationAnalytics.CONFIRM_EVENT,
       VerificationAnalytics.CONCLUSION_EVENT,
       PaymentMethodsAnalytics.WALLET_PAYMENT_LOADING_TOTAL,
-      PaymentMethodsAnalytics.WALLET_PAYMENT_LOADING_STEP
+      PaymentMethodsAnalytics.WALLET_PAYMENT_LOADING_STEP,
+      PaymentMethodsAnalytics.WALLET_PAYMENT_PROCESSING_TOTAL
     )
 
   @Singleton
@@ -87,7 +88,8 @@ class AnalyticsModule {
       VerificationAnalytics.REQUEST_CONCLUSION_EVENT, VerificationAnalytics.CONFIRM_EVENT,
       VerificationAnalytics.CONCLUSION_EVENT,
       PaymentMethodsAnalytics.WALLET_PAYMENT_LOADING_TOTAL,
-      PaymentMethodsAnalytics.WALLET_PAYMENT_LOADING_STEP
+      PaymentMethodsAnalytics.WALLET_PAYMENT_LOADING_STEP,
+      PaymentMethodsAnalytics.WALLET_PAYMENT_PROCESSING_TOTAL
     )
 
   @Singleton
@@ -115,7 +117,8 @@ class AnalyticsModule {
       VerificationAnalytics.REQUEST_CONCLUSION_EVENT, VerificationAnalytics.CONFIRM_EVENT,
       VerificationAnalytics.CONCLUSION_EVENT,
       PaymentMethodsAnalytics.WALLET_PAYMENT_LOADING_TOTAL,
-      PaymentMethodsAnalytics.WALLET_PAYMENT_LOADING_STEP
+      PaymentMethodsAnalytics.WALLET_PAYMENT_LOADING_STEP,
+      PaymentMethodsAnalytics.WALLET_PAYMENT_PROCESSING_TOTAL
     )
 
   @Singleton

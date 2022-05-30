@@ -70,12 +70,22 @@ class MergedAppcoinsFragment : BasePageViewFragment(), MergedAppcoinsView {
     const val CREDITS = "credits"
 
     @JvmStatic
-    fun newInstance(fiatAmount: BigDecimal, currency: String, bonus: String, appName: String,
-                    productName: String?, appcAmount: BigDecimal, isBds: Boolean,
-                    isDonation: Boolean, skuId: String?,
-                    transactionType: String, gamificationLevel: Int,
-                    transactionBuilder: TransactionBuilder, isSubscription: Boolean,
-                    frequency: String?): Fragment {
+    fun newInstance(
+      fiatAmount: BigDecimal,
+      currency: String,
+      bonus: String,
+      appName: String,
+      productName: String?,
+      appcAmount: BigDecimal,
+      isBds: Boolean,
+      isDonation: Boolean,
+      skuId: String?,
+      transactionType: String,
+      gamificationLevel: Int,
+      transactionBuilder: TransactionBuilder,
+      isSubscription: Boolean,
+      frequency: String?
+    ): Fragment {
       val fragment = MergedAppcoinsFragment()
       val bundle = Bundle().apply {
         putSerializable(FIAT_AMOUNT_KEY, fiatAmount)
@@ -229,13 +239,27 @@ class MergedAppcoinsFragment : BasePageViewFragment(), MergedAppcoinsView {
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
+    @Suppress("DEPRECATION")
     val navigator = IabNavigator(requireFragmentManager(), activity as UriNavigator?, iabView)
     paymentSelectionSubject = PublishSubject.create()
     mergedAppcoinsPresenter =
-        MergedAppcoinsPresenter(this, CompositeDisposable(), CompositeDisposable(),
-            AndroidSchedulers.mainThread(), Schedulers.io(), billingAnalytics, formatter,
-            getWalletInfoUseCase, mergedAppcoinsInteractor, gamificationLevel, navigator,
-            logger, transactionBuilder, paymentMethodsMapper, isSubscription)
+      MergedAppcoinsPresenter(
+        view = this,
+        disposables = CompositeDisposable(),
+        resumeDisposables = CompositeDisposable(),
+        viewScheduler = AndroidSchedulers.mainThread(),
+        networkScheduler = Schedulers.io(),
+        analytics = billingAnalytics,
+        formatter = formatter,
+        getWalletInfoUseCase = getWalletInfoUseCase,
+        mergedAppcoinsInteractor = mergedAppcoinsInteractor,
+        gamificationLevel = gamificationLevel,
+        navigator = navigator,
+        logger = logger,
+        transactionBuilder = transactionBuilder,
+        paymentMethodsMapper = paymentMethodsMapper,
+        isSubscription = isSubscription
+      )
   }
 
   override fun onAttach(context: Context) {
@@ -244,10 +268,11 @@ class MergedAppcoinsFragment : BasePageViewFragment(), MergedAppcoinsView {
     iabView = context
   }
 
-  override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                            savedInstanceState: Bundle?): View? {
-    return inflater.inflate(R.layout.merged_appcoins_layout, container, false)
-  }
+  override fun onCreateView(
+    inflater: LayoutInflater,
+    container: ViewGroup?,
+    savedInstanceState: Bundle?
+  ): View? = inflater.inflate(R.layout.merged_appcoins_layout, container, false)
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
@@ -268,18 +293,17 @@ class MergedAppcoinsFragment : BasePageViewFragment(), MergedAppcoinsView {
     payment_methods.visibility = VISIBLE
   }
 
-  private fun setBuyButtonText(): String {
-    return if (isSubscription) getString(R.string.subscriptions_subscribe_button)
-    else {
-      if (isDonation) getString(R.string.action_donate) else getString(R.string.action_buy)
-    }
+  private fun setBuyButtonText(): String = when {
+    isSubscription -> getString(R.string.subscriptions_subscribe_button)
+    isDonation -> getString(R.string.action_donate)
+    else -> getString(R.string.action_buy)
   }
 
   private fun setBonus() {
     if (bonus.isNotEmpty()) {
       //Build string for both landscape (header) and portrait (radio button) bonus layout
       appcoins_radio?.bonus_value?.text =
-          getString(R.string.gamification_purchase_header_part_2, bonus)
+        getString(R.string.gamification_purchase_header_part_2, bonus)
       bonus_value?.text = getString(R.string.gamification_purchase_header_part_2, bonus)
 
       //Set visibility for both landscape (header) and portrait (radio button) bonus layout
@@ -299,40 +323,83 @@ class MergedAppcoinsFragment : BasePageViewFragment(), MergedAppcoinsView {
     setPriceInformation()
   }
 
-  override fun setPaymentsInformation(hasCredits: Boolean, creditsDisableReason: Int?,
-                                      hasAppc: Boolean, appcDisabledReason: Int?) {
-
+  override fun setPaymentsInformation(
+    hasCredits: Boolean,
+    creditsDisableReason: Int?,
+    hasAppc: Boolean,
+    appcDisabledReason: Int?
+  ) {
     if (hasAppc) {
-      setEnabledRadio(appcoins_radio, appcoins_radio_button, credits_radio_button,
-          appcoins_radio.title, appcoins_radio.message, appcoins_radio.icon, appcoins_bonus_layout,
-          appc_balances_group, APPC)
+      setEnabledRadio(
+        view = appcoins_radio,
+        selectedRadioButton = appcoins_radio_button,
+        unSelectedRadioButton = credits_radio_button,
+        title = appcoins_radio.title,
+        message = appcoins_radio.message,
+        icon = appcoins_radio.icon,
+        bonusView = appcoins_bonus_layout,
+        balanceGroup = appc_balances_group,
+        method = APPC
+      )
     } else {
-      setDisabledRadio(appcoins_radio, appcoins_radio_button, appcoins_radio.title,
-          appcoins_radio.message, appcoins_radio.icon, appcoins_bonus_layout, appc_balances_group,
-          appcDisabledReason, R.string.purchase_appcoins_noavailable_body)
+      setDisabledRadio(
+        view = appcoins_radio,
+        radioButton = appcoins_radio_button,
+        title = appcoins_radio.title,
+        message = appcoins_radio.message,
+        icon = appcoins_radio.icon,
+        bonusLayout = appcoins_bonus_layout,
+        balanceGroup = appc_balances_group,
+        disabledReason = appcDisabledReason,
+        defaultDisabledReason = R.string.purchase_appcoins_noavailable_body
+      )
     }
     if (hasCredits) {
-      setEnabledRadio(credits_radio, credits_radio_button, appcoins_radio_button,
-          credits_radio.title, credits_radio.message, credits_radio.icon, null,
-          credits_balances_group, CREDITS)
+      setEnabledRadio(
+        view = credits_radio,
+        selectedRadioButton = credits_radio_button,
+        unSelectedRadioButton = appcoins_radio_button,
+        title = credits_radio.title,
+        message = credits_radio.message,
+        icon = credits_radio.icon,
+        bonusView = null,
+        balanceGroup = credits_balances_group,
+        method = CREDITS
+      )
       credits_radio_button.isChecked = true
     } else {
-      setDisabledRadio(credits_radio, credits_radio_button, credits_radio.title,
-          credits_radio.message, credits_radio.icon, null, credits_balances_group,
-          creditsDisableReason, R.string.purchase_appcoins_credits_noavailable_body)
+      setDisabledRadio(
+        view = credits_radio,
+        radioButton = credits_radio_button,
+        title = credits_radio.title,
+        message = credits_radio.message,
+        icon = credits_radio.icon,
+        bonusLayout = null,
+        balanceGroup = credits_balances_group,
+        disabledReason = creditsDisableReason,
+        defaultDisabledReason = R.string.purchase_appcoins_credits_noavailable_body
+      )
       appcoins_radio_button.isChecked = hasAppc
     }
-    if (hasAppc || hasCredits) buy_button.isEnabled = true
-    else {
+    if (hasAppc || hasCredits) {
+      buy_button.isEnabled = true
+    } else {
       bonus_layout?.visibility = INVISIBLE
       bonus_msg?.visibility = INVISIBLE
     }
   }
 
-  private fun setDisabledRadio(view: View, radioButton: AppCompatRadioButton, title: TextView,
-                               message: TextView, icon: ImageView, bonusLayout: View?,
-                               balanceGroup: Group, disabledReason: Int?,
-                               defaultDisabledReason: Int) {
+  private fun setDisabledRadio(
+    view: View,
+    radioButton: AppCompatRadioButton,
+    title: TextView,
+    message: TextView,
+    icon: ImageView,
+    bonusLayout: View?,
+    balanceGroup: Group,
+    disabledReason: Int?,
+    defaultDisabledReason: Int
+  ) {
     view.setOnClickListener(null)
     radioButton.setOnCheckedChangeListener(null)
     val reason = disabledReason ?: defaultDisabledReason
@@ -349,10 +416,17 @@ class MergedAppcoinsFragment : BasePageViewFragment(), MergedAppcoinsView {
     applyAlphaScale(icon)
   }
 
-  private fun setEnabledRadio(view: View, selectedRadioButton: AppCompatRadioButton,
-                              unSelectedRadioButton: AppCompatRadioButton, title: TextView,
-                              message: TextView, icon: ImageView, bonusView: View?,
-                              balanceGroup: Group, method: String) {
+  private fun setEnabledRadio(
+    view: View,
+    selectedRadioButton: AppCompatRadioButton,
+    unSelectedRadioButton: AppCompatRadioButton,
+    title: TextView,
+    message: TextView,
+    icon: ImageView,
+    bonusView: View?,
+    balanceGroup: Group,
+    method: String
+  ) {
     view.setOnClickListener { selectedRadioButton.isChecked = true }
     selectedRadioButton.setOnCheckedChangeListener { _, checked ->
       if (checked) paymentSelectionSubject?.onNext(method)
@@ -372,11 +446,11 @@ class MergedAppcoinsFragment : BasePageViewFragment(), MergedAppcoinsView {
   private fun setTitle(checked: Boolean, title: TextView) {
     if (checked) {
       title.setTextColor(
-          ContextCompat.getColor(requireContext(), R.color.details_address_text_color))
+        ContextCompat.getColor(requireContext(), R.color.details_address_text_color)
+      )
       title.typeface = Typeface.create("sans-serif-medium", Typeface.NORMAL)
     } else {
-      title.setTextColor(
-          ContextCompat.getColor(requireContext(), R.color.grey_alpha_active_54))
+      title.setTextColor(ContextCompat.getColor(requireContext(), R.color.grey_alpha_active_54))
       title.typeface = Typeface.create("sans-serif", Typeface.NORMAL)
     }
   }
@@ -394,36 +468,44 @@ class MergedAppcoinsFragment : BasePageViewFragment(), MergedAppcoinsView {
     return packageManager.getApplicationLabel(packageInfo)
   }
 
-  private fun getSelectedPaymentMethod(): String {
-    var selectedPaymentMethod = ""
-    if (appcoins_radio_button.isChecked) selectedPaymentMethod = APPC
-    if (credits_radio_button.isChecked) selectedPaymentMethod = CREDITS
-    return selectedPaymentMethod
+  private fun getSelectedPaymentMethod(): String = when {
+    appcoins_radio_button.isChecked -> APPC
+    credits_radio_button.isChecked -> CREDITS
+    else -> ""
   }
 
-  override fun buyClick(): Observable<PaymentInfoWrapper> {
-    return RxView.clicks(buy_button)
-        .map {
-          PaymentInfoWrapper(appName, skuId, appcAmount.toString(), getSelectedPaymentMethod(),
-              transactionType)
-        }
-  }
+  override fun buyClick(): Observable<PaymentInfoWrapper> = RxView.clicks(buy_button)
+    .map {
+      PaymentInfoWrapper(
+        packageName = appName,
+        skuDetails = skuId,
+        value = appcAmount.toString(),
+        purchaseDetails = getSelectedPaymentMethod(),
+        transactionType = transactionType
+      )
+    }
 
-  override fun backClick(): Observable<PaymentInfoWrapper> {
-    return RxView.clicks(cancel_button)
-        .map {
-          PaymentInfoWrapper(appName, skuId, appcAmount.toString(), getSelectedPaymentMethod(),
-              transactionType)
-        }
-  }
+  override fun backClick(): Observable<PaymentInfoWrapper> = RxView.clicks(cancel_button)
+    .map {
+      PaymentInfoWrapper(
+        packageName = appName,
+        skuDetails = skuId,
+        value = appcAmount.toString(),
+        purchaseDetails = getSelectedPaymentMethod(),
+        transactionType = transactionType
+      )
+    }
 
-  override fun backPressed(): Observable<PaymentInfoWrapper> {
-    return iabView.backButtonPress()
-        .map {
-          PaymentInfoWrapper(appName, skuId, appcAmount.toString(), getSelectedPaymentMethod(),
-              transactionType)
-        }
-  }
+  override fun backPressed(): Observable<PaymentInfoWrapper> = iabView.backButtonPress()
+    .map {
+      PaymentInfoWrapper(
+        packageName = appName,
+        skuDetails = skuId,
+        value = appcAmount.toString(),
+        purchaseDetails = getSelectedPaymentMethod(),
+        transactionType = transactionType
+      )
+    }
 
   override fun getPaymentSelection() = paymentSelectionSubject!!
 
@@ -469,38 +551,34 @@ class MergedAppcoinsFragment : BasePageViewFragment(), MergedAppcoinsView {
 
   override fun getSupportIconClicks() = RxView.clicks(layout_support_icn)
 
-  override fun showAuthenticationActivity() {
-    iabView.showAuthenticationActivity()
-  }
+  override fun showAuthenticationActivity() = iabView.showAuthenticationActivity()
 
   override fun navigateToAppcPayment(transactionBuilder: TransactionBuilder) =
-      iabView.showOnChain(fiatAmount, isBds, bonus, gamificationLevel, transactionBuilder)
+    iabView.showOnChain(fiatAmount, isBds, bonus, gamificationLevel, transactionBuilder)
 
   override fun navigateToCreditsPayment(transactionBuilder: TransactionBuilder) =
-      iabView.showAppcoinsCreditsPayment(appcAmount, gamificationLevel, transactionBuilder)
+    iabView.showAppcoinsCreditsPayment(appcAmount, true, gamificationLevel, transactionBuilder)
 
   override fun updateBalanceValues(appcFiat: String, creditsFiat: String, currency: String) {
     balance_fiat_appc_eth.text =
-        getString(R.string.purchase_current_balance_appc_eth_body, "$appcFiat $currency")
+      getString(R.string.purchase_current_balance_appc_eth_body, "$appcFiat $currency")
     credits_fiat_balance.text =
-        getString(R.string.purchase_current_balance_appcc_body, "$creditsFiat $currency")
+      getString(R.string.purchase_current_balance_appcc_body, "$creditsFiat $currency")
   }
 
   override fun toggleSkeletons(show: Boolean) {
     if (show) {
-      skeleton_appcoins.visibility = VISIBLE
+      skeleton_appcoins?.visibility = VISIBLE
       skeleton_credits.visibility = VISIBLE
       payment_methods_group.visibility = INVISIBLE
     } else {
-      skeleton_appcoins.visibility = GONE
+      skeleton_appcoins?.visibility = GONE
       skeleton_credits.visibility = GONE
       payment_methods_group.visibility = VISIBLE
     }
   }
 
-  override fun onAuthenticationResult(): Observable<Boolean> {
-    return iabView.onAuthenticationResult()
-  }
+  override fun onAuthenticationResult(): Observable<Boolean> = iabView.onAuthenticationResult()
 
   override fun showPaymentMethodsView() = iabView.showPaymentMethodsView()
 
@@ -547,8 +625,7 @@ class MergedAppcoinsFragment : BasePageViewFragment(), MergedAppcoinsView {
 
   private fun setAppIcon() {
     try {
-      app_icon.setImageDrawable(requireContext().packageManager
-          .getApplicationIcon(appName))
+      app_icon.setImageDrawable(requireContext().packageManager.getApplicationIcon(appName))
     } catch (e: PackageManager.NameNotFoundException) {
       e.printStackTrace()
     }
@@ -557,13 +634,13 @@ class MergedAppcoinsFragment : BasePageViewFragment(), MergedAppcoinsView {
 
   private fun setPriceInformation() {
     var appcText = formatter.formatPaymentCurrency(appcAmount, WalletCurrency.APPCOINS)
-        .plus(" " + WalletCurrency.APPCOINS.symbol)
-    var fiatText = formatter.formatPaymentCurrency(fiatAmount, WalletCurrency.FIAT)
-        .plus(" $currency")
+      .plus(" " + WalletCurrency.APPCOINS.symbol)
+    var fiatText =
+      formatter.formatPaymentCurrency(fiatAmount, WalletCurrency.FIAT).plus(" $currency")
     if (isSubscription) {
       val period = Period.parse(frequency!!)
       period?.mapToSubsFrequency(requireContext(), fiatText)
-          ?.let { fiatText = it }
+        ?.let { fiatText = it }
       appcText = "~$appcText"
     }
     fiat_price.text = fiatText

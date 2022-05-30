@@ -1,11 +1,9 @@
 package com.asfoundation.wallet.analytics
 
-import javax.inject.Inject
-
 /**
  * Utility class to measure the duration of a task (measured to millis)
  */
-class TaskTimer @Inject constructor() {
+class TaskTimer {
 
   private val taskHashMap = HashMap<String, Long>()
 
@@ -21,8 +19,8 @@ class TaskTimer @Inject constructor() {
    *
    * @return duration of the task in milliseconds, or -1 if the task was not previously initialized
    */
-  fun end(id: String): Long {
-    val startTime = taskHashMap.remove(id) ?: return -1L
+  fun end(id: String): Long? {
+    val startTime = taskHashMap.remove(id) ?: return null
     return System.currentTimeMillis() - startTime
   }
 }
