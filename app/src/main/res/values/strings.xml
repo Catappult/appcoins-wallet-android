@@ -1164,4 +1164,16 @@
   <string name="gift_card_error_try_with_different_body">Please try again with a different one.</string>
 
 
+<!-- My Wallet -->
+  <string name="mywallet_unverified_title">Unverified Wallet</string>
+  <string name="mywallet_unverified_body">Verify a payment method to avoid blockages.</string>
+  <string name="mywallet_backed_up_date">You backed up your wallet on %s.</string>
+  <string name="mywallet_backup_again_button">BACK UP AGAIN</string>
+  <string name="mywallet_verify_payment_method_button">VERIFY NEW PAYMENT METHOD</string>
+  <string name="mywallet_choose_name_header">Choose a name for your wallet</string>
+  <string name="mywallet_choose_name_field">Wallet name here...</string>
+  <string name="mywallet_choose_name_confirmed">Wallet name changed</string>
+  <string name="mywallet_unnamed_wallet">No name wallet %s</string>
+  <string name="mywallet_swithing_wallets_title">Switching wallets...</string>
+
 </resources>
