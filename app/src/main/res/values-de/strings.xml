@@ -1062,4 +1062,20 @@
   <string name="gift_card_error_used_title">Dieser Code wurde bereits verwendet!</string>
   <string name="gift_card_error_new_users_title">Dieser Code gilt nur für neue Benutzer!</string>
   <string name="gift_card_error_try_with_different_body">Beitte verwenden Sie einen anderen.</string>
+  <!-- My Wallet -->
+  <string name="mywallet_unverified_title">Unverified Wallet</string>
+  <string name="mywallet_unverified_body">Verify a payment method to avoid blockages.</string>
+  <string name="mywallet_backed_up_date">You backed up your wallet on %s.</string>
+  <string name="mywallet_backup_again_button">BACK UP AGAIN</string>
+  <string name="mywallet_verify_payment_method_button">VERIFY NEW PAYMENT METHOD</string>
+  <string name="mywallet_choose_name_header">Choose a name for your wallet</string>
+  <string name="mywallet_choose_name_field">Wallet name here...</string>
+  <string name="mywallet_choose_name_confirmed">Wallet name changed</string>
+  <string name="mywallet_unnamed_wallet">No name wallet %s</string>
+  <string name="mywallet_swithing_wallets_title">Switching wallets...</string>
+  <!-- Onboarding for new users coming from an iap -->
+  <string name="onboarding_1st_title">Congrats! You\'ve installed the AppCoins Wallet.</string>
+  <string name="onboarding_1st_body">Go back to the game to complete your purchase.</string>
+  <string name="onboarding_1st_back_to_game_button">Go back to the game</string>
+  <string name="onboarding_1st_explore_wallet_button">Or explore the AppCoins Wallet</string>
 </resources>
