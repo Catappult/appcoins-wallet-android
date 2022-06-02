@@ -6,7 +6,7 @@ import androidx.fragment.app.FragmentManager
 import com.asf.wallet.R
 import com.asfoundation.wallet.backup.BackupActivity
 import com.asfoundation.wallet.eskills.withdraw.WithdrawActivity
-import com.asfoundation.wallet.promo_code.bottom_sheet.PromoCodeBottomSheetFragment
+import com.asfoundation.wallet.promo_code.bottom_sheet.entry.PromoCodeBottomSheetFragment
 import com.asfoundation.wallet.recover.RecoverActivity
 import com.asfoundation.wallet.ui.AuthenticationPromptActivity
 import com.asfoundation.wallet.ui.settings.wallets.SettingsWalletsFragment

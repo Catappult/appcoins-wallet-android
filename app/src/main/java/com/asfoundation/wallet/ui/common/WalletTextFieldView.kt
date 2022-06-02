@@ -11,12 +11,13 @@ import androidx.core.content.ContextCompat
 import com.asf.wallet.R
 import com.asf.wallet.databinding.LayoutWalletTextFieldViewBinding
 import com.asfoundation.wallet.util.convertDpToPx
+import com.asfoundation.wallet.util.setReadOnly
 import com.google.android.material.textfield.TextInputLayout.END_ICON_NONE
 
 class WalletTextFieldView : FrameLayout {
 
   private val views =
-      LayoutWalletTextFieldViewBinding.inflate(LayoutInflater.from(context), this, true)
+    LayoutWalletTextFieldViewBinding.inflate(LayoutInflater.from(context), this, true)
 
   private var type = Type.FILLED
 
@@ -25,15 +26,15 @@ class WalletTextFieldView : FrameLayout {
   constructor(context: Context) : this(context, null)
   constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0)
   constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(
-      context, attrs,
-      defStyleAttr
+    context, attrs,
+    defStyleAttr
   ) {
     retrievePreferences(attrs, defStyleAttr)
   }
 
   private fun retrievePreferences(attrs: AttributeSet?, defStyleAttr: Int) {
     val typedArray =
-        context.obtainStyledAttributes(attrs, R.styleable.WalletTextFieldView, defStyleAttr, 0)
+      context.obtainStyledAttributes(attrs, R.styleable.WalletTextFieldView, defStyleAttr, 0)
     val type = Type.values()[typedArray.getInt(R.styleable.WalletTextFieldView_textFieldType, 0)]
     setType(type)
     val hint = typedArray.getString(R.styleable.WalletTextFieldView_textFieldHint) ?: ""
@@ -73,28 +74,38 @@ class WalletTextFieldView : FrameLayout {
   private fun applyType() {
     when (type) {
       Type.FILLED -> {
+        views.textInputEditText.setReadOnly(value = false, inputType = InputType.TYPE_CLASS_TEXT)
         views.textInputLayout.boxBackgroundColor = color
         views.textInputLayout.boxStrokeColor =
-            ContextCompat.getColor(this.context, R.color.transparent)
+          ContextCompat.getColor(this.context, R.color.transparent)
         views.textInputLayout.boxStrokeWidth = 0
         views.textInputLayout.endIconMode = END_ICON_NONE
-        views.textInputEditText.inputType = InputType.TYPE_CLASS_TEXT
       }
       Type.OUTLINED -> {
+        views.textInputEditText.setReadOnly(value = false, inputType = InputType.TYPE_CLASS_TEXT)
         views.textInputLayout.boxBackgroundColor =
-            ContextCompat.getColor(this.context, R.color.transparent)
-        views.textInputLayout.boxStrokeColor = color
-        views.textInputLayout.boxStrokeWidth = 1.convertDpToPx(resources)
+          ContextCompat.getColor(this.context, R.color.transparent)
+        views.textInputLayout.boxStrokeColor =
+          ContextCompat.getColor(this.context, R.color.grey_70)
         views.textInputLayout.endIconMode = END_ICON_NONE
-        views.textInputEditText.inputType = InputType.TYPE_CLASS_TEXT
       }
       Type.PASSWORD -> {
+        views.textInputEditText.setReadOnly(
+          value = false,
+          inputType = InputType.TYPE_TEXT_VARIATION_PASSWORD
+        )
         views.textInputLayout.boxBackgroundColor = color
         views.textInputLayout.boxStrokeColor =
-            ContextCompat.getColor(this.context, R.color.transparent)
+          ContextCompat.getColor(this.context, R.color.transparent)
         views.textInputLayout.boxStrokeWidth = 0
-        views.textInputEditText.inputType = InputType.TYPE_TEXT_VARIATION_PASSWORD
         views.textInputLayout.isPasswordVisibilityToggleEnabled = true
+      }
+      Type.READ_ONLY -> {
+        views.textInputEditText.setReadOnly(value = true)
+        views.textInputLayout.boxBackgroundColor =
+          ContextCompat.getColor(this.context, R.color.promo_code_text_box_active_background)
+        views.textInputLayout.boxStrokeColor = color
+        views.textInputLayout.boxStrokeWidth = 1.convertDpToPx(resources)
       }
     }
   }
@@ -103,5 +114,5 @@ class WalletTextFieldView : FrameLayout {
     return views.textInputEditText.addTextChangedListener(watcher)
   }
 
-  enum class Type { FILLED, OUTLINED, PASSWORD }
+  enum class Type { FILLED, OUTLINED, PASSWORD, READ_ONLY }
 }
