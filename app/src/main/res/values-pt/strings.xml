@@ -557,7 +557,7 @@
   <string name="purachse_error_verify_card_button">VALIDAR CARTÃO</string>
   <string name="purchase_eskills_sku">Bilhete de entrada</string>
   <string name="purchase_paytmupi_install_disclaimer">Terás de instalar a app Paytm UPI.</string>
-  <string name="purchase_app_needed_body">You need the following app to complete your purchase.</string>
+  <string name="purchase_app_needed_body">Precisas da seguinte app para completar a tua compra.</string>
   <string name="purchase_apps_needed_body">You need one of the following apps to complete your purchase.</string>
   <string name="purchase_error_no_connection">It seems you have don\'t have an internet connection! Please check it and try again.</string>
   <!--Billing address in purchase flow-->
