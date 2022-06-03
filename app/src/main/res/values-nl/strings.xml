@@ -1068,15 +1068,15 @@
   <string name="mywallet_unverified_body">Verifieer een betaalmethode om blokkades te voorkomen.</string>
   <string name="mywallet_backed_up_date">Je hebt op %s een back-up van je wallet gemaakt.</string>
   <string name="mywallet_backup_again_button">OPNIEUW EEN BACK-UP MAKEN</string>
-  <string name="mywallet_verify_payment_method_button">VERIFY NEW PAYMENT METHOD</string>
-  <string name="mywallet_choose_name_header">Choose a name for your wallet</string>
-  <string name="mywallet_choose_name_field">Wallet name here...</string>
-  <string name="mywallet_choose_name_confirmed">Wallet name changed</string>
-  <string name="mywallet_unnamed_wallet">No name wallet %s</string>
-  <string name="mywallet_swithing_wallets_title">Switching wallets...</string>
+  <string name="mywallet_verify_payment_method_button">NIEUWE BETAALMETHODE VERIFIËREN</string>
+  <string name="mywallet_choose_name_header">Kies een naam voor je wallet</string>
+  <string name="mywallet_choose_name_field">Voer hier de naam van je wallet in...</string>
+  <string name="mywallet_choose_name_confirmed">Naam van de wallet is gewijzigd</string>
+  <string name="mywallet_unnamed_wallet">Wallet %s heeft geen naam</string>
+  <string name="mywallet_swithing_wallets_title">Wallet wijzigen...</string>
   <!-- Onboarding for new users coming from an iap -->
-  <string name="onboarding_1st_title">Congrats! You\'ve installed the AppCoins Wallet.</string>
-  <string name="onboarding_1st_body">Go back to the game to complete your purchase.</string>
-  <string name="onboarding_1st_back_to_game_button">Go back to the game</string>
-  <string name="onboarding_1st_explore_wallet_button">Or explore the AppCoins Wallet</string>
+  <string name="onboarding_1st_title">Gefeliciteerd! Je hebt de AppCoins Wallet geïnstalleerd.</string>
+  <string name="onboarding_1st_body">Ga terug naar de game om je aankoop te voltooien.</string>
+  <string name="onboarding_1st_back_to_game_button">Ga terug naar de game</string>
+  <string name="onboarding_1st_explore_wallet_button">Of ontdek de AppCoins Wallet</string>
 </resources>
