@@ -559,7 +559,7 @@
   <string name="purchase_paytmupi_install_disclaimer">Potrebno je da instalirate aplikaciju Paytm UPI.</string>
   <string name="purchase_app_needed_body">Potrebna vam je sledeća aplikacija da biste dovršili kupovinu.</string>
   <string name="purchase_apps_needed_body">Potrebna vam je jedna od sledećih aplikacija da biste dovršili kupovinu.</string>
-  <string name="purchase_error_no_connection">It seems you have don\'t have an internet connection! Please check it and try again.</string>
+  <string name="purchase_error_no_connection">Izgleda da niste povezani na internet! Proverite vezu i pokušajte ponovo.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">Adresa za naplatu</string>
   <string name="purchase_address_address_field">Adresa</string>
@@ -1010,9 +1010,9 @@
   <string name="e_skills_withdraw_confirmation_title">Zatraženo je podizanje od %s$!</string>
   <string name="e_skills_withdraw_confirmation_body">Obrada može potrajati između 2 i 3 nedelje.</string>
   <string name="e_skills_withdraw_minimum_body">Minimalni iznos za podizanje je %s$.</string>
-  <string name="e_skills_withdraw_started_title">A withdrawal request of $%s has been started.</string>
-  <string name="e_skills_withdraw_started_body">This request may take 2-3 weeks to be processed.</string>
-  <string name="e_skills_withdraw_error_not_funds">Make sure you have enough funds to be withdrawn.</string>
+  <string name="e_skills_withdraw_started_title">Započet je zahtev za podizanjem od %s$.</string>
+  <string name="e_skills_withdraw_started_body">Može biti potrebno 2-3 nedelje da ovaj zahtev bude obrađen.</string>
+  <string name="e_skills_withdraw_error_not_funds">Proverite da li imate dovoljno sredstava za povlačenje.</string>
   <!--Promo Code-->
   <string name="promo_code_settings_title">Promo kod</string>
   <string name="promo_code_view_title">Promo kod</string>
@@ -1073,14 +1073,14 @@
   <string name="gift_card_error_new_users_title">Ovaj kod je samo za nove korisnike!</string>
   <string name="gift_card_error_try_with_different_body">Pokušajte ponovo sa drugim kodom.</string>
   <!-- My Wallet -->
-  <string name="mywallet_unverified_title">Unverified Wallet</string>
-  <string name="mywallet_unverified_body">Verify a payment method to avoid blockages.</string>
-  <string name="mywallet_backed_up_date">You backed up your wallet on %s.</string>
-  <string name="mywallet_backup_again_button">BACK UP AGAIN</string>
-  <string name="mywallet_verify_payment_method_button">VERIFY NEW PAYMENT METHOD</string>
-  <string name="mywallet_choose_name_header">Choose a name for your wallet</string>
-  <string name="mywallet_choose_name_field">Wallet name here...</string>
-  <string name="mywallet_choose_name_confirmed">Wallet name changed</string>
+  <string name="mywallet_unverified_title">Nepotvrđeni novčanik</string>
+  <string name="mywallet_unverified_body">Potvrdite način plaćanja da biste izbegli blokiranja.</string>
+  <string name="mywallet_backed_up_date">Napravili ste rezervnu kopiju novčanika dana %s.</string>
+  <string name="mywallet_backup_again_button">NAPRAVITE REZERVNU KOPIJU PONOVO</string>
+  <string name="mywallet_verify_payment_method_button">POTVRDITE NOVI NAČIN PLAĆANJA</string>
+  <string name="mywallet_choose_name_header">Izaberite naziv za vaš novčanik</string>
+  <string name="mywallet_choose_name_field">Naziv novčanika ovde...</string>
+  <string name="mywallet_choose_name_confirmed">Promenjen je naziv novčanika</string>
   <string name="mywallet_unnamed_wallet">No name wallet %s</string>
   <string name="mywallet_swithing_wallets_title">Switching wallets...</string>
   <!-- Onboarding for new users coming from an iap -->
