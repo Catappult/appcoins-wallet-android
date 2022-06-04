@@ -444,7 +444,7 @@
   <string name="understood_button">Am înțeles!</string>
   <string name="skip_button">Omite pentru moment</string>
   <string name="understand_button">Înțeleg</string>
-  <string name="install_button">Install</string>
+  <string name="install_button">Instalează</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Sunt de acord cu %1$s și %2$s AppCoins Wallet.</string>
   <string name="terms_and_conditions_error">Te rugăm să accepți Termenii și condițiile și Politica de confidențialitate pentru a continua</string>
@@ -557,9 +557,9 @@
   <string name="purachse_error_verify_card_button">VALIDEAZĂ CARD</string>
   <string name="purchase_eskills_sku">Tichet de intrare</string>
   <string name="purchase_paytmupi_install_disclaimer">Trebuie să instalezi aplicația Paytm UPI.</string>
-  <string name="purchase_app_needed_body">You need the following app to complete your purchase.</string>
-  <string name="purchase_apps_needed_body">You need one of the following apps to complete your purchase.</string>
-  <string name="purchase_error_no_connection">It seems you have don\'t have an internet connection! Please check it and try again.</string>
+  <string name="purchase_app_needed_body">Ai nevoie de următoarea aplicație pentru a finaliza achiziția.</string>
+  <string name="purchase_apps_needed_body">Ai nevoie de următoarele aplicații pentru a finaliza achiziția.</string>
+  <string name="purchase_error_no_connection">Se pare că nu ai o conexiune la internet! Te rugăm să verifici conexiunea și să încerci din nou.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">Adresă de facturare</string>
   <string name="purchase_address_address_field">Adresă</string>
@@ -676,9 +676,9 @@
   <string name="backup_wallet_button">Copie de rezervă portofel</string>
   <string name="backup_success_save_on_email">Fișierul copiei de rezervă este în e-mailul tău.</string>
   <string name="backup_success_save_on_device">Fișierul copiei de rezervă este stocat în dispozitivul tău.</string>
-  <string name="backup_popup_title">Back up your wallet now!</string>
-  <string name="backup_popup_purchase_body">Keep your funds safe at all times.</string>
-  <string name="backup_popup_gamification_body">Keep your bonus level safe at all times.</string>
+  <string name="backup_popup_title">Fă o copie de rezervă a portofelului acum!</string>
+  <string name="backup_popup_purchase_body">Păstrează-ți fondurile în siguranță tot timpul.</string>
+  <string name="backup_popup_gamification_body">Păstrează-ți nivelul bonusului în siguranță tot timpul.</string>
   <!--Wallets Management-->
   <string name="wallets_title">Portofele</string>
   <string name="wallets_total_balance_title">Balanță totală în %s</string>
