@@ -1063,11 +1063,11 @@
   <string name="mywallet_choose_name_header">지갑 이름을 선택하세요.</string>
   <string name="mywallet_choose_name_field">여기에 지갑 이름 입력...</string>
   <string name="mywallet_choose_name_confirmed">지갑 이름이 변경되었습니다</string>
-  <string name="mywallet_unnamed_wallet">No name wallet %s</string>
-  <string name="mywallet_swithing_wallets_title">Switching wallets...</string>
+  <string name="mywallet_unnamed_wallet">이름 없는 지갑 %s</string>
+  <string name="mywallet_swithing_wallets_title">지갑 변경중...</string>
   <!-- Onboarding for new users coming from an iap -->
-  <string name="onboarding_1st_title">Congrats! You\'ve installed the AppCoins Wallet.</string>
-  <string name="onboarding_1st_body">Go back to the game to complete your purchase.</string>
-  <string name="onboarding_1st_back_to_game_button">Go back to the game</string>
-  <string name="onboarding_1st_explore_wallet_button">Or explore the AppCoins Wallet</string>
+  <string name="onboarding_1st_title">축하합니다! AppCoins 지갑을 설치하셨습니다.</string>
+  <string name="onboarding_1st_body">구매 완료를 위해서 게임으로 돌아가세요.</string>
+  <string name="onboarding_1st_back_to_game_button">게임으로 돌아가기</string>
+  <string name="onboarding_1st_explore_wallet_button">또는 AppCoins 지갑 탐색</string>
 </resources>
