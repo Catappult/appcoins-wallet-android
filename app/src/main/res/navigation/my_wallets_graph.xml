@@ -96,9 +96,6 @@
         android:name="ethereum_balance"
         app:argType="string" />
     <argument
-        android:name="show_verify_card"
-        app:argType="boolean" />
-    <argument
         android:name="show_delete_wallet"
         app:argType="boolean" />
     <action
@@ -112,18 +109,10 @@
         app:popUpTo="@id/more_dialog_fragment"
         app:popUpToInclusive="true" />
     <action
-        android:id="@+id/action_navigate_to_backup_wallet"
-        app:destination="@id/backup_wallet_activity"
-        app:popUpTo="@id/more_dialog_fragment"
-        app:popUpToInclusive="true" />
-    <action
         android:id="@+id/action_navigate_to_remove_wallet"
         app:destination="@id/remove_wallet_activity"
         app:popUpTo="@id/more_dialog_fragment"
         app:popUpToInclusive="true" />
-    <action
-        android:id="@+id/action_navigate_to_verify_new_card"
-        app:destination="@id/verify_credit_card_wallet_activity" />
   </dialog>
 
   <dialog

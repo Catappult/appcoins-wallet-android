@@ -12,7 +12,6 @@ data class MoreDialogState(
   val appcoinsBalance: String,
   val creditsBalance: String,
   val ethereumBalance: String,
-  val showVerifyCard: Boolean,
   val showDeleteWallet: Boolean
 ) : ViewState
 
@@ -26,7 +25,6 @@ class MoreDialogViewModel(data: MoreDialogData) :
       data.appcoinsBalance,
       data.creditsBalance,
       data.ethereumBalance,
-      data.showVerifyCard,
       data.showDeleteWallet
     )
   }

@@ -44,7 +44,6 @@ class MyWalletsNavigator @Inject constructor(
     appcoinsBalance: String,
     creditsBalance: String,
     ethereumBalance: String,
-    showVerifyCard: Boolean,
     showDeleteWallet: Boolean
   ) {
     navigate(
@@ -55,7 +54,6 @@ class MyWalletsNavigator @Inject constructor(
         appcoinsBalance,
         creditsBalance,
         ethereumBalance,
-        showVerifyCard,
         showDeleteWallet
       )
     )

@@ -10,8 +10,6 @@ import by.kirich1409.viewbindingdelegate.viewBinding
 import com.asf.wallet.R
 import com.asf.wallet.databinding.FragmentMyWalletsMoreBinding
 import com.asfoundation.wallet.base.SingleStateFragment
-import com.asfoundation.wallet.billing.analytics.WalletsAnalytics
-import com.asfoundation.wallet.billing.analytics.WalletsEventSender
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
@@ -26,9 +24,6 @@ class MoreDialogFragment : BottomSheetDialogFragment(),
 
   @Inject
   lateinit var navigator: MoreDialogNavigator
-
-  @Inject
-  lateinit var walletsEventSender: WalletsEventSender
 
   private val viewModel: MoreDialogViewModel by viewModels { viewModelFactory }
   private val views by viewBinding(FragmentMyWalletsMoreBinding::bind)
@@ -55,7 +50,6 @@ class MoreDialogFragment : BottomSheetDialogFragment(),
 
   override fun onStateChanged(state: MoreDialogState) {
     views.deleteWalletCardView.visibility = if (state.showDeleteWallet) View.VISIBLE else View.GONE
-    views.verifyCardCardView.visibility = if (state.showVerifyCard) View.VISIBLE else View.GONE
   }
 
   override fun onSideEffect(sideEffect: MoreDialogSideEffect) = Unit
@@ -63,11 +57,6 @@ class MoreDialogFragment : BottomSheetDialogFragment(),
   private fun setListeners() {
     views.newWalletCardView.setOnClickListener { navigator.navigateToCreateNewWallet() }
     views.recoverWalletCardView.setOnClickListener { navigator.navigateToRestoreWallet() }
-    views.backupWalletCardView.setOnClickListener {
-      walletsEventSender.sendCreateBackupEvent(null, WalletsAnalytics.OVERFLOW, null)
-      navigator.navigateToBackupWallet(viewModel.state.walletAddress)
-    }
-    views.verifyCardCardView.setOnClickListener { navigator.navigateToVerifyNewCard() }
     views.deleteWalletCardView.setOnClickListener {
       navigator.navigateToRemoveWallet(
         viewModel.state.walletAddress,
@@ -85,7 +74,6 @@ class MoreDialogFragment : BottomSheetDialogFragment(),
     internal const val APPC_BALANCE_KEY = "appc_balance"
     internal const val CREDITS_BALANCE_KEY = "credits_balance"
     internal const val ETHEREUM_BALANCE_KEY = "ethereum_balance"
-    internal const val SHOW_VERIFY_CARD_KEY = "show_verify_card"
     internal const val SHOW_DELETE_WALLET_KEY = "show_delete_wallet"
   }
 }

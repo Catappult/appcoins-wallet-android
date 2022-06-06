@@ -212,7 +212,6 @@ class MyWalletsFragment : BasePageViewFragment(),
         appcoinsValue,
         creditsValue,
         ethValue,
-        verified,
         walletsModel.wallets.size > 1
       )
     }

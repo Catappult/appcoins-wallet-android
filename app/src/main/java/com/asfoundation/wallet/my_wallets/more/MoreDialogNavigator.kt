@@ -20,13 +20,6 @@ class MoreDialogNavigator(private val navController: NavController) : Navigator 
     )
   }
 
-  fun navigateToBackupWallet(walletAddress: String) {
-    navigate(
-      navController,
-      MoreDialogFragmentDirections.actionNavigateToBackupWallet(walletAddress)
-    )
-  }
-
   fun navigateToRemoveWallet(
     walletAddress: String,
     totalFiatBalance: String,
@@ -44,9 +37,5 @@ class MoreDialogNavigator(private val navController: NavController) : Navigator 
         ethereumBalance
       )
     )
-  }
-
-  fun navigateToVerifyNewCard() {
-    navigate(navController, MoreDialogFragmentDirections.actionNavigateToVerifyNewCard(true))
   }
 }
