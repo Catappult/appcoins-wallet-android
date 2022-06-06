@@ -558,8 +558,8 @@
   <string name="purchase_eskills_sku">Tiket masuk</string>
   <string name="purchase_paytmupi_install_disclaimer">Anda harus menginstal aplikasi Paytm UPI.</string>
   <string name="purchase_app_needed_body">Anda membutuhkan aplikasi berikut untuk menyelesaikan pembelian.</string>
-  <string name="purchase_apps_needed_body">You need one of the following apps to complete your purchase.</string>
-  <string name="purchase_error_no_connection">It seems you have don\'t have an internet connection! Please check it and try again.</string>
+  <string name="purchase_apps_needed_body">Anda membutuhkan salah satu aplikasi berikut untuk menyelesaikan pembelian.</string>
+  <string name="purchase_error_no_connection">Sepertinya tidak ada koneksi internet! Silakan periksa lalu coba lagi.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">Alamat penagihan</string>
   <string name="purchase_address_address_field">Alamat</string>
@@ -676,9 +676,9 @@
   <string name="backup_wallet_button">Cadangkan dompet</string>
   <string name="backup_success_save_on_email">File cadangan ada di email Anda.</string>
   <string name="backup_success_save_on_device">File cadangan Anda disimpan di perangkat Anda.</string>
-  <string name="backup_popup_title">Back up your wallet now!</string>
-  <string name="backup_popup_purchase_body">Keep your funds safe at all times.</string>
-  <string name="backup_popup_gamification_body">Keep your bonus level safe at all times.</string>
+  <string name="backup_popup_title">Cadangkan dompet Anda sekarang!</string>
+  <string name="backup_popup_purchase_body">Jaga keamanan dana Anda setiap saat.</string>
+  <string name="backup_popup_gamification_body">Jaga keamanan level bonus Anda setiap saat.</string>
   <!--Wallets Management-->
   <string name="wallets_title">Dompet</string>
   <string name="wallets_total_balance_title">Total saldo dalam %s</string>
@@ -989,11 +989,11 @@
   <string name="e_skills_room_create_title">Buat atau gabung ke ruang</string>
   <string name="e_skills_room_create_body">Buat ruang baru dan bagikan dengan lawan Anda atau bergabung dengan ruang yang sudah ada.</string>
   <string name="e_skills_room_field">Nama ruang Anda di sini...</string>
-  <string name="e_skills_withdraw_confirmation_title">A $%s withdrawal has been requested!</string>
-  <string name="e_skills_withdraw_confirmation_body">This may take between 2 and 3 weeks to be processed.</string>
-  <string name="e_skills_withdraw_minimum_body">The minimum amount to withdraw is $%s.</string>
-  <string name="e_skills_withdraw_started_title">A withdrawal request of $%s has been started.</string>
-  <string name="e_skills_withdraw_started_body">This request may take 2-3 weeks to be processed.</string>
+  <string name="e_skills_withdraw_confirmation_title">Penarikan sebesar $%s sudah diminta!</string>
+  <string name="e_skills_withdraw_confirmation_body">Prosesnya mungkin memerlukan waktu antara 2 sampai 3 minggu.</string>
+  <string name="e_skills_withdraw_minimum_body">Jumlah minimal yang bisa ditarik adalah $%s.</string>
+  <string name="e_skills_withdraw_started_title">Penarikan sebesar $%s sudah dimulai.</string>
+  <string name="e_skills_withdraw_started_body">Permintaan ini mungkin memerlukan waktu 2-3 minggu untuk diproses.</string>
   <string name="e_skills_withdraw_error_not_funds">Make sure you have enough funds to be withdrawn.</string>
   <!--Promo Code-->
   <string name="promo_code_settings_title">Kode Promo</string>
