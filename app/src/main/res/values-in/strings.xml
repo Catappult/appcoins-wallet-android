@@ -444,7 +444,7 @@
   <string name="understood_button">Mengerti!</string>
   <string name="skip_button">Lewati untuk saat ini</string>
   <string name="understand_button">Saya mengerti</string>
-  <string name="install_button">Install</string>
+  <string name="install_button">Instal</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Saya setuju dengan %1$s dan %2$s AppCoins Wallet.</string>
   <string name="terms_and_conditions_error">Harap menerima Syarat dan Ketentuan serta Kebijakan Privasi kami untuk melanjutkan</string>
@@ -557,7 +557,7 @@
   <string name="purachse_error_verify_card_button">VALIDASI KARTU</string>
   <string name="purchase_eskills_sku">Tiket masuk</string>
   <string name="purchase_paytmupi_install_disclaimer">Anda harus menginstal aplikasi Paytm UPI.</string>
-  <string name="purchase_app_needed_body">You need the following app to complete your purchase.</string>
+  <string name="purchase_app_needed_body">Anda membutuhkan aplikasi berikut untuk menyelesaikan pembelian.</string>
   <string name="purchase_apps_needed_body">You need one of the following apps to complete your purchase.</string>
   <string name="purchase_error_no_connection">It seems you have don\'t have an internet connection! Please check it and try again.</string>
   <!--Billing address in purchase flow-->
