@@ -7,24 +7,43 @@ import com.asfoundation.wallet.base.navigate
 class MoreDialogNavigator(private val navController: NavController) : Navigator {
 
   fun navigateToCreateNewWallet() {
-    navigate(navController, MoreDialogFragmentDirections.actionNavigateToCreateWallet(needsWalletCreation = true))
+    navigate(
+      navController,
+      MoreDialogFragmentDirections.actionNavigateToCreateWallet(needsWalletCreation = true)
+    )
   }
 
   fun navigateToRestoreWallet() {
-    navigate(navController, MoreDialogFragmentDirections.actionNavigateToRecoverWallet(onboardingLayout = false))
+    navigate(
+      navController,
+      MoreDialogFragmentDirections.actionNavigateToRecoverWallet(onboardingLayout = false)
+    )
   }
 
   fun navigateToBackupWallet(walletAddress: String) {
-    navigate(navController,
-        MoreDialogFragmentDirections.actionNavigateToBackupWallet(walletAddress))
+    navigate(
+      navController,
+      MoreDialogFragmentDirections.actionNavigateToBackupWallet(walletAddress)
+    )
   }
 
-  fun navigateToRemoveWallet(walletAddress: String, totalFiatBalance: String,
-                             appcoinsBalance: String, creditsBalance: String,
-                             ethereumBalance: String) {
-    navigate(navController,
-        MoreDialogFragmentDirections.actionNavigateToRemoveWallet(walletAddress, totalFiatBalance,
-            appcoinsBalance, creditsBalance, ethereumBalance))
+  fun navigateToRemoveWallet(
+    walletAddress: String,
+    totalFiatBalance: String,
+    appcoinsBalance: String,
+    creditsBalance: String,
+    ethereumBalance: String
+  ) {
+    navigate(
+      navController,
+      MoreDialogFragmentDirections.actionNavigateToRemoveWallet(
+        walletAddress,
+        totalFiatBalance,
+        appcoinsBalance,
+        creditsBalance,
+        ethereumBalance
+      )
+    )
   }
 
   fun navigateToVerifyNewCard() {

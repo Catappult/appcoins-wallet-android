@@ -32,9 +32,7 @@ class MyWalletsViewModel @Inject constructor(
 ) : BaseViewModel<MyWalletsState, MyWalletsSideEffect>(initialState()) {
 
   companion object {
-    fun initialState(): MyWalletsState {
-      return MyWalletsState()
-    }
+    fun initialState(): MyWalletsState = MyWalletsState()
   }
 
   init {

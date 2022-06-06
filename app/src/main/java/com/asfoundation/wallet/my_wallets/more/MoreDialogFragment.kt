@@ -34,11 +34,10 @@ class MoreDialogFragment : BottomSheetDialogFragment(),
   private val views by viewBinding(FragmentMyWalletsMoreBinding::bind)
 
   override fun onCreateView(
-    inflater: LayoutInflater, container: ViewGroup?,
+    inflater: LayoutInflater,
+    container: ViewGroup?,
     savedInstanceState: Bundle?
-  ): View? {
-    return inflater.inflate(R.layout.fragment_my_wallets_more, container, false)
-  }
+  ): View? = inflater.inflate(R.layout.fragment_my_wallets_more, container, false)
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
@@ -65,11 +64,7 @@ class MoreDialogFragment : BottomSheetDialogFragment(),
     views.newWalletCardView.setOnClickListener { navigator.navigateToCreateNewWallet() }
     views.recoverWalletCardView.setOnClickListener { navigator.navigateToRestoreWallet() }
     views.backupWalletCardView.setOnClickListener {
-      walletsEventSender.sendCreateBackupEvent(
-        null,
-        WalletsAnalytics.OVERFLOW,
-        null
-      )
+      walletsEventSender.sendCreateBackupEvent(null, WalletsAnalytics.OVERFLOW, null)
       navigator.navigateToBackupWallet(viewModel.state.walletAddress)
     }
     views.verifyCardCardView.setOnClickListener { navigator.navigateToVerifyNewCard() }
@@ -77,7 +72,8 @@ class MoreDialogFragment : BottomSheetDialogFragment(),
       navigator.navigateToRemoveWallet(
         viewModel.state.walletAddress,
         viewModel.state.totalFiatBalance,
-        viewModel.state.appcoinsBalance, viewModel.state.creditsBalance,
+        viewModel.state.appcoinsBalance,
+        viewModel.state.creditsBalance,
         viewModel.state.ethereumBalance
       )
     }

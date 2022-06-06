@@ -37,7 +37,6 @@
           android:layout_marginStart="15dp"
           android:layout_marginEnd="15dp"
           android:fontFamily="sans-serif-medium"
-
           android:text="@string/my_wallets_action_new_wallet"
           android:textColor="@color/darker_navy_blue"
           android:textSize="16sp"

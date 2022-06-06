@@ -138,7 +138,7 @@
   <dialog
       android:id="@+id/create_wallet_dialog_fragment"
       android:name="com.asfoundation.wallet.my_wallets.create_wallet.CreateWalletDialogFragment"
-      tools:layout="@layout/fragment_create_wallet_dialog_layout" >
+      tools:layout="@layout/fragment_create_wallet_dialog_layout">
     <!-- temporary argument to differentiate the recover from a creation -->
     <argument
         android:name="needs_wallet_creation"
@@ -174,12 +174,12 @@
       tools:layout="@layout/fragment_verify_picker">
     <action
         android:id="@+id/action_navigate_to_verify_card"
-        app:popUpTo="@id/my_wallets_fragment"
-        app:destination="@id/verify_credit_card_wallet_activity" />
+        app:destination="@id/verify_credit_card_wallet_activity"
+        app:popUpTo="@id/my_wallets_fragment" />
     <action
         android:id="@+id/action_navigate_to_verify_paypal"
-        app:popUpTo="@id/my_wallets_fragment"
-        app:destination="@id/verify_paypal_wallet_activity" />
+        app:destination="@id/verify_paypal_wallet_activity"
+        app:popUpTo="@id/my_wallets_fragment" />
   </dialog>
 
   <activity
@@ -193,7 +193,7 @@
   <activity
       android:id="@+id/verify_paypal_wallet_activity"
       android:name="com.asfoundation.wallet.verification.ui.paypal.VerificationPaypalActivity"
-      tools:layout="@layout/activity_wallet_paypal_verification"/>
+      tools:layout="@layout/activity_wallet_paypal_verification" />
 
   <activity
       android:id="@+id/recover_wallet_activity"
