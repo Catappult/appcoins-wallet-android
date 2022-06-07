@@ -444,7 +444,7 @@
   <string name="understood_button">Entendido!</string>
   <string name="skip_button">Pular por enquanto</string>
   <string name="understand_button">Eu entendo</string>
-  <string name="install_button">Install</string>
+  <string name="install_button">Instalar</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Eu concordo com os %1$s e %2$s da AppCoins Wallet.</string>
   <string name="terms_and_conditions_error">Por favor, aceite nossos Termos e Condições e Política de Privacidade para continuar</string>
@@ -557,9 +557,9 @@
   <string name="purachse_error_verify_card_button">VALIDAR CARTÃO</string>
   <string name="purchase_eskills_sku">Ingresso</string>
   <string name="purchase_paytmupi_install_disclaimer">Você precisará instalar o aplicativo Paytm UPI.</string>
-  <string name="purchase_app_needed_body">You need the following app to complete your purchase.</string>
-  <string name="purchase_apps_needed_body">You need one of the following apps to complete your purchase.</string>
-  <string name="purchase_error_no_connection">It seems you have don\'t have an internet connection! Please check it and try again.</string>
+  <string name="purchase_app_needed_body">Você precisa do seguinte app para concluir sua compra.</string>
+  <string name="purchase_apps_needed_body">Você precisa de um dos seguintes apps para concluir sua compra.</string>
+  <string name="purchase_error_no_connection">Parece que você não está conectado com a internet! Por favor verifique e tente novamente.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">Endereço de cobrança</string>
   <string name="purchase_address_address_field">Endereço</string>
@@ -676,7 +676,7 @@
   <string name="backup_wallet_button">Backup da wallet</string>
   <string name="backup_success_save_on_email">Seu arquivo de backup está em seu e-mail.</string>
   <string name="backup_success_save_on_device">Seu arquivo de backup está armazenado em seu dispositivo.</string>
-  <string name="backup_popup_title">Back up your wallet now!</string>
+  <string name="backup_popup_title">Faça o backup de sua carteira agora!</string>
   <string name="backup_popup_purchase_body">Keep your funds safe at all times.</string>
   <string name="backup_popup_gamification_body">Keep your bonus level safe at all times.</string>
   <!--Wallets Management-->
