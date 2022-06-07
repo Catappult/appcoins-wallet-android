@@ -991,10 +991,10 @@
   <string name="e_skills_room_field">Nama bilik anda di sini...</string>
   <string name="e_skills_withdraw_confirmation_title">Permohonan untuk pengeluaran RM%s telah dibuat!</string>
   <string name="e_skills_withdraw_confirmation_body">Ini mungkin mengambil masa 2 hingga 3 minggu untuk diproses.</string>
-  <string name="e_skills_withdraw_minimum_body">The minimum amount to withdraw is $%s.</string>
-  <string name="e_skills_withdraw_started_title">A withdrawal request of $%s has been started.</string>
-  <string name="e_skills_withdraw_started_body">This request may take 2-3 weeks to be processed.</string>
-  <string name="e_skills_withdraw_error_not_funds">Make sure you have enough funds to be withdrawn.</string>
+  <string name="e_skills_withdraw_minimum_body">Amaun minimum untuk dikeluarkan ialah RM%s.</string>
+  <string name="e_skills_withdraw_started_title">Permohonan pengeluaran sebanyak RM%s telah dimulakan.</string>
+  <string name="e_skills_withdraw_started_body">Permohonan mungkin mengambil masa 2-3 minggu untuk diproses.</string>
+  <string name="e_skills_withdraw_error_not_funds">Pastikan anda ada dana yang cukup untuk dikeluarkan.</string>
   <!--Promo Code-->
   <string name="promo_code_settings_title">Kod Promo</string>
   <string name="promo_code_view_title">Kod Promo</string>
@@ -1010,8 +1010,8 @@
   <string name="promo_code_success_body">Anda akan terima %s%% bonus ekstra untuk semua pembelian anda.</string>
   <string name="promo_code_success_body_specific_app">Anda akan dapat bonus ekstra sebanyak %1$s%% bagi semua pembelian dalam %2$s.</string>
   <string name="promo_code_promotions_tag">Kod promosi</string>
-  <string name="promo_code_error_not_available">This promo code is no longer available.</string>
-  <string name="promo_code_error_invalid_user">Oops! This code couldn\'t be applied.</string>
+  <string name="promo_code_error_not_available">Kod promo ini tidak lagi tersedia.</string>
+  <string name="promo_code_error_invalid_user">Alamak! Kod ini tidak boleh digunakan.</string>
   <!--AppCoins Info Page-->
   <string name="appcoins_info_title">Perihal AppCoins</string>
   <string name="appcoins_info_prince_title">Harga AppCoins (APPC)</string>
@@ -1048,26 +1048,26 @@
   <string name="gift_card_title">Tebus kod kad hadiah anda</string>
   <string name="gift_card_field">Kod kad di sini...</string>
   <string name="gift_card_done_title">Kod telah ditebus!</string>
-  <string name="gift_card_done_body">Check your transactions list.</string>
+  <string name="gift_card_done_body">Semak senarai transaksi anda.</string>
   <string name="gift_card_error_general_title">Ada yang tak kena!</string>
   <string name="gift_card_error_general_body">Cuba sekali lagi atau cuba kod lain.</string>
   <string name="gift_card_error_used_title">Kod ini telah digunakan!</string>
   <string name="gift_card_error_new_users_title">Kod ini hanya untuk pengguna baru!</string>
   <string name="gift_card_error_try_with_different_body">Cuba sekali lagi dengan kod lain.</string>
   <!-- My Wallet -->
-  <string name="mywallet_unverified_title">Unverified Wallet</string>
-  <string name="mywallet_unverified_body">Verify a payment method to avoid blockages.</string>
-  <string name="mywallet_backed_up_date">You backed up your wallet on %s.</string>
-  <string name="mywallet_backup_again_button">BACK UP AGAIN</string>
-  <string name="mywallet_verify_payment_method_button">VERIFY NEW PAYMENT METHOD</string>
-  <string name="mywallet_choose_name_header">Choose a name for your wallet</string>
-  <string name="mywallet_choose_name_field">Wallet name here...</string>
-  <string name="mywallet_choose_name_confirmed">Wallet name changed</string>
-  <string name="mywallet_unnamed_wallet">No name wallet %s</string>
-  <string name="mywallet_swithing_wallets_title">Switching wallets...</string>
+  <string name="mywallet_unverified_title">Dompet Tidak Disahkan</string>
+  <string name="mywallet_unverified_body">Sahkan kaedah pembayaran untuk elak sekatan.</string>
+  <string name="mywallet_backed_up_date">Anda telah sandarkan dompet anda di %s.</string>
+  <string name="mywallet_backup_again_button">SANDAR SEKALI LAGI</string>
+  <string name="mywallet_verify_payment_method_button">SAHKAN KAEDAH BAYARAN BARU</string>
+  <string name="mywallet_choose_name_header">Pilih nama untuk dompet anda</string>
+  <string name="mywallet_choose_name_field">Nama dompet di sini...</string>
+  <string name="mywallet_choose_name_confirmed">Nama dompet diubah</string>
+  <string name="mywallet_unnamed_wallet">Dompet tanpa nama %s</string>
+  <string name="mywallet_swithing_wallets_title">Menukar dompet...</string>
   <!-- Onboarding for new users coming from an iap -->
-  <string name="onboarding_1st_title">Congrats! You\'ve installed the AppCoins Wallet.</string>
-  <string name="onboarding_1st_body">Go back to the game to complete your purchase.</string>
-  <string name="onboarding_1st_back_to_game_button">Go back to the game</string>
-  <string name="onboarding_1st_explore_wallet_button">Or explore the AppCoins Wallet</string>
+  <string name="onboarding_1st_title">Tahniah! Anda sudah pasang Dompet AppCoins.</string>
+  <string name="onboarding_1st_body">Kembali ke permainan untuk lengkapkan pembelian anda.</string>
+  <string name="onboarding_1st_back_to_game_button">Kembali ke permainan</string>
+  <string name="onboarding_1st_explore_wallet_button">Atau terokai Dompet AppCoins</string>
 </resources>
