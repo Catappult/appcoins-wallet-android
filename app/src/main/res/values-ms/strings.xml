@@ -557,9 +557,9 @@
   <string name="purachse_error_verify_card_button">SAHKAN KAD</string>
   <string name="purchase_eskills_sku">Tiket masuk</string>
   <string name="purchase_paytmupi_install_disclaimer">Anda perlu memasang aplikasi Paytm UPI.</string>
-  <string name="purchase_app_needed_body">You need the following app to complete your purchase.</string>
-  <string name="purchase_apps_needed_body">You need one of the following apps to complete your purchase.</string>
-  <string name="purchase_error_no_connection">It seems you have don\'t have an internet connection! Please check it and try again.</string>
+  <string name="purchase_app_needed_body">Anda perlukan aplikasi berikut untuk lengkapkan pembelian.</string>
+  <string name="purchase_apps_needed_body">Anda perlukan salah satu aplikasi berikut untuk lengkapkan pembelian.</string>
+  <string name="purchase_error_no_connection">Nampaknya anda tiada capaian internet! Sila semak dan cuba semula.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">Alamat bil</string>
   <string name="purchase_address_address_field">Alamat</string>
@@ -677,8 +677,8 @@
   <string name="backup_success_save_on_email">Fail sandaran anda ada dalam e-mel anda.</string>
   <string name="backup_success_save_on_device">Fail sandaran anda disimpan dalam peranti anda.</string>
   <string name="backup_popup_title">Sandar dompet anda sekarang!</string>
-  <string name="backup_popup_purchase_body">Keep your funds safe at all times.</string>
-  <string name="backup_popup_gamification_body">Keep your bonus level safe at all times.</string>
+  <string name="backup_popup_purchase_body">Pastikan dana anda selamat sepanjang masa.</string>
+  <string name="backup_popup_gamification_body">Pastikan tahap bonus anda selamat sepanjang masa.</string>
   <!--Wallets Management-->
   <string name="wallets_title">Dompet</string>
   <string name="wallets_total_balance_title">Jumlah baki dalam %s</string>
@@ -989,8 +989,8 @@
   <string name="e_skills_room_create_title">Cipta atau sertai bilik</string>
   <string name="e_skills_room_create_body">Cipta bilik baru dan kongsikannya dengan lawan anda atau sertai bilik sedia ada.</string>
   <string name="e_skills_room_field">Nama bilik anda di sini...</string>
-  <string name="e_skills_withdraw_confirmation_title">A $%s withdrawal has been requested!</string>
-  <string name="e_skills_withdraw_confirmation_body">This may take between 2 and 3 weeks to be processed.</string>
+  <string name="e_skills_withdraw_confirmation_title">Permohonan untuk pengeluaran RM%s telah dibuat!</string>
+  <string name="e_skills_withdraw_confirmation_body">Ini mungkin mengambil masa 2 hingga 3 minggu untuk diproses.</string>
   <string name="e_skills_withdraw_minimum_body">The minimum amount to withdraw is $%s.</string>
   <string name="e_skills_withdraw_started_title">A withdrawal request of $%s has been started.</string>
   <string name="e_skills_withdraw_started_body">This request may take 2-3 weeks to be processed.</string>
