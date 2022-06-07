@@ -444,7 +444,7 @@
   <string name="understood_button">Értem!</string>
   <string name="skip_button">Kihagyom</string>
   <string name="understand_button">Megértettem</string>
-  <string name="install_button">Install</string>
+  <string name="install_button">Telepítés</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Beleegyezem a következőbe: AppCoins Wallet %1$s és %2$s.</string>
   <string name="terms_and_conditions_error">A folytatáshoz kérjük, fogadd el a Felhasználási feltételeket és az Adatvédelmi szabályzatot</string>
@@ -557,9 +557,9 @@
   <string name="purachse_error_verify_card_button">KÁRTYA MEGERŐSÍTÉSE</string>
   <string name="purchase_eskills_sku">Belépőjegy</string>
   <string name="purchase_paytmupi_install_disclaimer">Telepítsd a Paytm UPI appot.</string>
-  <string name="purchase_app_needed_body">You need the following app to complete your purchase.</string>
-  <string name="purchase_apps_needed_body">You need one of the following apps to complete your purchase.</string>
-  <string name="purchase_error_no_connection">It seems you have don\'t have an internet connection! Please check it and try again.</string>
+  <string name="purchase_app_needed_body">A vásárlás befejezéséhez a következő appra lesz szükséged.</string>
+  <string name="purchase_apps_needed_body">A vásárlás befejezéséhez a következő appok egyikére lesz szükséged.</string>
+  <string name="purchase_error_no_connection">Úgy tűnik, megszűnt az internetkapcsolat. Ellenőrizd a kapcsolatot és próbáld újra.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">Számlázási cím</string>
   <string name="purchase_address_address_field">Cím</string>
@@ -676,9 +676,9 @@
   <string name="backup_wallet_button">Wallet biztonsági mentése</string>
   <string name="backup_success_save_on_email">A biztonsági mentés fájl megérkezett emailben.</string>
   <string name="backup_success_save_on_device">A biztonsági mentés fájl az eszközödön található.</string>
-  <string name="backup_popup_title">Back up your wallet now!</string>
-  <string name="backup_popup_purchase_body">Keep your funds safe at all times.</string>
-  <string name="backup_popup_gamification_body">Keep your bonus level safe at all times.</string>
+  <string name="backup_popup_title">Wallet biztonsági mentés!</string>
+  <string name="backup_popup_purchase_body">Mindig tartsd biztonságban a pénzed.</string>
+  <string name="backup_popup_gamification_body">Mindig tartsd biztonságban a bónuszszinted.</string>
   <!--Wallets Management-->
   <string name="wallets_title">Tárcák</string>
   <string name="wallets_total_balance_title">Teljes egyenleg %s pénznemben</string>
@@ -998,7 +998,7 @@
   <string name="e_skills_room_create_title">Szoba létrehozása vagy csatlakozás</string>
   <string name="e_skills_room_create_body">Hozz létre egy új szobát és oszd meg az ellenfeleiddel vagy csatlakozz egy már létező szobához.</string>
   <string name="e_skills_room_field">Add meg a szoba nevét...</string>
-  <string name="e_skills_withdraw_confirmation_title">A $%s withdrawal has been requested!</string>
+  <string name="e_skills_withdraw_confirmation_title">$%s összegű kifizetés lekérve!</string>
   <string name="e_skills_withdraw_confirmation_body">This may take between 2 and 3 weeks to be processed.</string>
   <string name="e_skills_withdraw_minimum_body">The minimum amount to withdraw is $%s.</string>
   <string name="e_skills_withdraw_started_title">A withdrawal request of $%s has been started.</string>
