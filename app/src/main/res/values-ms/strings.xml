@@ -444,7 +444,7 @@
   <string name="understood_button">Faham!</string>
   <string name="skip_button">Langkau buat sekarang</string>
   <string name="understand_button">Saya faham</string>
-  <string name="install_button">Install</string>
+  <string name="install_button">Pasang</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Saya setuju dengan %1$s dan %2$s Dompet AppCoins.</string>
   <string name="terms_and_conditions_error">Sila terima Terma dan Syarat serta Dasar Privasi kami untuk teruskan</string>
@@ -676,7 +676,7 @@
   <string name="backup_wallet_button">Dompet sandaran</string>
   <string name="backup_success_save_on_email">Fail sandaran anda ada dalam e-mel anda.</string>
   <string name="backup_success_save_on_device">Fail sandaran anda disimpan dalam peranti anda.</string>
-  <string name="backup_popup_title">Back up your wallet now!</string>
+  <string name="backup_popup_title">Sandar dompet anda sekarang!</string>
   <string name="backup_popup_purchase_body">Keep your funds safe at all times.</string>
   <string name="backup_popup_gamification_body">Keep your bonus level safe at all times.</string>
   <!--Wallets Management-->
