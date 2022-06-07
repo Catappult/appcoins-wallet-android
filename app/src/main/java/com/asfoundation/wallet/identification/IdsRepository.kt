@@ -63,13 +63,13 @@ class IdsRepository @Inject constructor(
             || Build.MODEL.contains("google_sdk")
             || Build.MODEL.contains("Emulator")
             || Build.MODEL.contains("Android SDK built for x86")
-            || "QC_Reference_Phone" == Build.BOARD && !"Xiaomi".equals(
-              Build.MANUFACTURER,
-              ignoreCase = true
-            ) //bluestacks
+            || ("QC_Reference_Phone" == Build.BOARD && !"Xiaomi".equals(
+                  Build.MANUFACTURER,
+                  ignoreCase = true
+                )) //bluestacks
             || Build.MANUFACTURER.contains("Genymotion")
             || Build.HOST.startsWith("Build") //MSI App Player
-            || Build.BRAND.startsWith("generic") && Build.DEVICE.startsWith("generic")
+            || (Build.BRAND.startsWith("generic") && Build.DEVICE.startsWith("generic"))
             || Build.PRODUCT == "google_sdk"
         )
   }
