@@ -5,6 +5,5 @@ data class MoreDialogData(
   val totalFiatBalance: String,
   val appcoinsBalance: String,
   val creditsBalance: String,
-  val ethereumBalance: String,
-  val showDeleteWallet: Boolean
+  val ethereumBalance: String
 )

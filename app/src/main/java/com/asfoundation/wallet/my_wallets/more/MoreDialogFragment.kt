@@ -1,17 +1,30 @@
 package com.asfoundation.wallet.my_wallets.more
 
+import android.graphics.Color
+import android.graphics.Typeface
 import android.os.Bundle
+import android.text.TextUtils
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.ViewGroup.*
+import android.widget.ImageView
+import android.widget.TextView
+import androidx.appcompat.widget.LinearLayoutCompat
+import androidx.core.view.updatePadding
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.asf.wallet.R
 import com.asf.wallet.databinding.FragmentMyWalletsMoreBinding
 import com.asfoundation.wallet.base.SingleStateFragment
+import com.asfoundation.wallet.ui.wallets.WalletBalance
+import com.asfoundation.wallet.util.CurrencyFormatUtils
+import com.asfoundation.wallet.util.convertDpToPx
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.google.android.material.card.MaterialCardView
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -46,10 +59,24 @@ class MoreDialogFragment : BottomSheetDialogFragment(),
     super.onStart()
   }
 
+  override fun onResume() {
+    super.onResume()
+    viewModel.refreshData(flushAsync = false)
+  }
+
   override fun getTheme(): Int = R.style.AppBottomSheetDialogTheme
 
   override fun onStateChanged(state: MoreDialogState) {
-    views.deleteWalletCardView.visibility = if (state.showDeleteWallet) View.VISIBLE else View.GONE
+    val wallets = state.walletsAsync()?.wallets
+    views.deleteWalletCardView.visibility =
+      if (wallets?.isEmpty() == false) View.VISIBLE else View.GONE
+    views.walletsView.apply {
+      removeAllViews()
+      val selected = state.walletInfoAsync()?.wallet
+      wallets?.forEach {
+        addView(buildWalletView(it, it.walletAddress == selected))
+      }
+    }
   }
 
   override fun onSideEffect(sideEffect: MoreDialogSideEffect) = Unit
@@ -68,12 +95,80 @@ class MoreDialogFragment : BottomSheetDialogFragment(),
     }
   }
 
+  private fun buildWalletView(
+    wallet: WalletBalance,
+    isSelected: Boolean,
+    onClick: ((View) -> Unit)? = null
+  ): View = MaterialCardView(context).apply {
+    layoutParams = MarginLayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT)
+      .apply {
+        topMargin = 8.dp
+      }
+    elevation = 0F
+    radius = 14.dp.toFloat()
+    rippleColor = resources.getColorStateList(R.color.grey_8B, null)
+    onClick?.let { setOnClickListener(onClick) }
+    val bColor = if (isSelected) resources.getColor(R.color.bottom_nav_top_up_blue, null)
+    else Color.parseColor("#F2F2F2")
+    addView(
+      LinearLayoutCompat(context).apply {
+        layoutParams = LayoutParams(LayoutParams.MATCH_PARENT, 40.dp)
+        orientation = LinearLayoutCompat.HORIZONTAL
+        setBackgroundColor(bColor)
+        gravity = Gravity.CENTER_VERTICAL
+        updatePadding(left = 13.dp, right = 32.dp)
+        addView(
+          ImageView(context).apply {
+            layoutParams = LinearLayoutCompat.LayoutParams(15.dp, LayoutParams.WRAP_CONTENT)
+            scaleType = ImageView.ScaleType.CENTER_INSIDE
+            setImageResource(R.drawable.ic_check_mark)
+            visibility = if (isSelected) VISIBLE else INVISIBLE
+          }
+        )
+        val tColor = resources.getColor(
+          if (isSelected) R.color.white else R.color.bottom_nav_top_up_blue,
+          null
+        )
+        addView(
+          TextView(context).apply {
+            layoutParams = LinearLayoutCompat.LayoutParams(0, LayoutParams.WRAP_CONTENT, 1F)
+              .apply {
+                marginStart = 12.dp
+                marginEnd = 24.dp
+              }
+            setTextColor(tColor)
+            typeface = Typeface.create("sans-serif-medium", STYLE_NORMAL)
+            textSize = 14.toFloat()
+            ellipsize = TextUtils.TruncateAt.END
+            maxLines = 1
+            text = wallet.walletAddress
+          }
+        )
+        addView(
+          TextView(context).apply {
+            layoutParams = LinearLayoutCompat.LayoutParams(
+              LayoutParams.WRAP_CONTENT,
+              LayoutParams.WRAP_CONTENT
+            )
+            setTextColor(tColor)
+            typeface = Typeface.create("sans-serif-medium", STYLE_NORMAL)
+            textSize = 14.toFloat()
+            maxLines = 1
+            text = wallet.balance.symbol + currencyFormatUtils.formatCurrency(wallet.balance.amount)
+          }
+        )
+      }
+    )
+  }
+
+  private val currencyFormatUtils = CurrencyFormatUtils()
+  private val Int.dp get() = this.convertDpToPx(resources)
+
   companion object {
     internal const val WALLET_ADDRESS_KEY = "wallet_address"
     internal const val FIAT_BALANCE_KEY = "fiat_balance"
     internal const val APPC_BALANCE_KEY = "appc_balance"
     internal const val CREDITS_BALANCE_KEY = "credits_balance"
     internal const val ETHEREUM_BALANCE_KEY = "ethereum_balance"
-    internal const val SHOW_DELETE_WALLET_KEY = "show_delete_wallet"
   }
 }
