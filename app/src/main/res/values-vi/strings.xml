@@ -990,11 +990,11 @@
   <string name="e_skills_room_create_body">Tạo một phòng mới và chia sẻ nó với đối thủ của bạn hoặc tham gia một phòng hiện có.</string>
   <string name="e_skills_room_field">Tên phòng của bạn ở đây...</string>
   <string name="e_skills_withdraw_confirmation_title">Một khoản rút $%s đã được yêu cầu!</string>
-  <string name="e_skills_withdraw_confirmation_body">This may take between 2 and 3 weeks to be processed.</string>
-  <string name="e_skills_withdraw_minimum_body">The minimum amount to withdraw is $%s.</string>
-  <string name="e_skills_withdraw_started_title">A withdrawal request of $%s has been started.</string>
-  <string name="e_skills_withdraw_started_body">This request may take 2-3 weeks to be processed.</string>
-  <string name="e_skills_withdraw_error_not_funds">Make sure you have enough funds to be withdrawn.</string>
+  <string name="e_skills_withdraw_confirmation_body">Quá trình này có thể mất từ 2 đến 3 tuần để được xử lý.</string>
+  <string name="e_skills_withdraw_minimum_body">Số tiền rút tối thiểu là %s.</string>
+  <string name="e_skills_withdraw_started_title">Yêu cầu rút $%s đã được bắt đầu.</string>
+  <string name="e_skills_withdraw_started_body">Yêu cầu này có thể mất 2-3 tuần để được xử lý.</string>
+  <string name="e_skills_withdraw_error_not_funds">Hãy đảm bảo rằng bạn có đủ tiền để rút.</string>
   <!--Promo Code-->
   <string name="promo_code_settings_title">Mã khuyến mãi</string>
   <string name="promo_code_view_title">Mã khuyến mãi</string>
@@ -1010,8 +1010,8 @@
   <string name="promo_code_success_body">Bạn sẽ nhận được thêm %s%% tiền thưởng cho tất cả các giao dịch mua của mình.</string>
   <string name="promo_code_success_body_specific_app">Bạn sẽ nhận được thêm %1$s%% tiền thưởng cho tất cả các giao dịch mua của mình trong %2$s.</string>
   <string name="promo_code_promotions_tag">Mã khuyến mãi</string>
-  <string name="promo_code_error_not_available">This promo code is no longer available.</string>
-  <string name="promo_code_error_invalid_user">Oops! This code couldn\'t be applied.</string>
+  <string name="promo_code_error_not_available">Mã khuyến mãi này không còn khả dụng.</string>
+  <string name="promo_code_error_invalid_user">Rất tiếc! Không thể áp dụng mã này.</string>
   <!--AppCoins Info Page-->
   <string name="appcoins_info_title">Giới thiệu AppCoins</string>
   <string name="appcoins_info_prince_title">Giá AppCoins (APPC)</string>
@@ -1055,19 +1055,19 @@
   <string name="gift_card_error_new_users_title">Mã này chỉ dành cho người dùng mới!</string>
   <string name="gift_card_error_try_with_different_body">Vui lòng thử lại với một cái khác.</string>
   <!-- My Wallet -->
-  <string name="mywallet_unverified_title">Unverified Wallet</string>
-  <string name="mywallet_unverified_body">Verify a payment method to avoid blockages.</string>
-  <string name="mywallet_backed_up_date">You backed up your wallet on %s.</string>
-  <string name="mywallet_backup_again_button">BACK UP AGAIN</string>
-  <string name="mywallet_verify_payment_method_button">VERIFY NEW PAYMENT METHOD</string>
-  <string name="mywallet_choose_name_header">Choose a name for your wallet</string>
-  <string name="mywallet_choose_name_field">Wallet name here...</string>
-  <string name="mywallet_choose_name_confirmed">Wallet name changed</string>
-  <string name="mywallet_unnamed_wallet">No name wallet %s</string>
-  <string name="mywallet_swithing_wallets_title">Switching wallets...</string>
+  <string name="mywallet_unverified_title">Ví chưa xác minh</string>
+  <string name="mywallet_unverified_body">Xác minh phương thức thanh toán để tránh bị tắc nghẽn.</string>
+  <string name="mywallet_backed_up_date">Bạn đã sao lưu ví của mình trên %s.</string>
+  <string name="mywallet_backup_again_button">SAO LƯU MỘT LẦN NỮA</string>
+  <string name="mywallet_verify_payment_method_button">XÁC MINH PHƯƠNG THỨC THANH TOÁN</string>
+  <string name="mywallet_choose_name_header">Chọn tên cho ví của bạn</string>
+  <string name="mywallet_choose_name_field">Tên ví tại đây...</string>
+  <string name="mywallet_choose_name_confirmed">Tên ví đã được thay đổi</string>
+  <string name="mywallet_unnamed_wallet">Ví không tên %s</string>
+  <string name="mywallet_swithing_wallets_title">Đang chuyển đổi ví...</string>
   <!-- Onboarding for new users coming from an iap -->
-  <string name="onboarding_1st_title">Congrats! You\'ve installed the AppCoins Wallet.</string>
-  <string name="onboarding_1st_body">Go back to the game to complete your purchase.</string>
-  <string name="onboarding_1st_back_to_game_button">Go back to the game</string>
-  <string name="onboarding_1st_explore_wallet_button">Or explore the AppCoins Wallet</string>
+  <string name="onboarding_1st_title">Xin chúc mừng! Bạn đã cài đặt được Ví AppCoins.</string>
+  <string name="onboarding_1st_body">Quay lại trò chơi để hoàn tất giao dịch mua của mình.</string>
+  <string name="onboarding_1st_back_to_game_button">Quay lại trò chơi</string>
+  <string name="onboarding_1st_explore_wallet_button">Hoặc khám phá Ví AppCoins</string>
 </resources>
