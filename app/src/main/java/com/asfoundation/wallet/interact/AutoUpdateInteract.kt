@@ -27,46 +27,52 @@ class AutoUpdateInteract @Inject constructor(private val autoUpdateRepository: A
                                              private val packageManager: PackageManager,
                                              private val sharedPreferencesRepository: PreferencesRepositoryType) {
 
+  //uc
   fun getAutoUpdateModel(invalidateCache: Boolean = true): Single<AutoUpdateModel> {
     return autoUpdateRepository.loadAutoUpdateModel(invalidateCache)
   }
 
+  //uc
   fun hasSoftUpdate(updateVersionCode: Int, updatedMinSdk: Int): Boolean {
     return walletVersionCode < updateVersionCode && deviceSdk >= updatedMinSdk
   }
 
+  //uc
   fun isHardUpdateRequired(blackList: List<Int>, updateVersionCode: Int,
                            updateMinSdk: Int): Boolean {
     return blackList.contains(walletVersionCode) && hasSoftUpdate(updateVersionCode, updateMinSdk)
   }
 
-  fun retrieveRedirectUrl(): String {
-    return String.format(PLAY_APP_VIEW_URL, packageName)
-  }
+//  //uc
+//  fun retrieveRedirectUrl(): String {
+//    return String.format(PLAY_APP_VIEW_URL, packageName)
+//  }
 
-  fun buildUpdateIntent(): Intent {
-    val intent = Intent(Intent.ACTION_VIEW, Uri.parse(retrieveRedirectUrl()))
-    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-    return intent
-  }
+//  //uc
+//  fun buildUpdateIntent(): Intent {
+//    val intent = Intent(Intent.ACTION_VIEW, Uri.parse(retrieveRedirectUrl()))
+//    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+//    return intent
+//  }
 
-  fun getUnwatchedUpdateNotification(): Single<CardNotification> {
-    return getAutoUpdateModel(false)
-        .flatMap { updateModel ->
-          sharedPreferencesRepository.getAutoUpdateCardDismissedVersion()
-              .map {
-                hasSoftUpdate(updateModel.updateVersionCode,
-                    updateModel.updateMinSdk) && updateModel.updateVersionCode != it
-              }
-        }
-        .map { shouldShow ->
-          UpdateNotification(
-              R.string.update_wallet_soft_title,
-              R.string.update_wallet_soft_body,
-              R.string.update_button, CardNotificationAction.UPDATE,
-              R.raw.soft_hard_update_animation).takeIf { shouldShow } ?: EmptyNotification()
-        }
-  }
+//  //uc
+//  fun getUnwatchedUpdateNotification(): Single<CardNotification> {
+//    return getAutoUpdateModel(false)
+//        .flatMap { updateModel ->
+//          sharedPreferencesRepository.getAutoUpdateCardDismissedVersion()
+//              .map {
+//                hasSoftUpdate(updateModel.updateVersionCode,
+//                    updateModel.updateMinSdk) && updateModel.updateVersionCode != it
+//              }
+//        }
+//        .map { shouldShow ->
+//          UpdateNotification(
+//              R.string.update_wallet_soft_title,
+//              R.string.update_wallet_soft_body,
+//              R.string.update_button, CardNotificationAction.UPDATE,
+//              R.raw.soft_hard_update_animation).takeIf { shouldShow } ?: EmptyNotification()
+//        }
+//  }
 
   private fun isAptoideInstalled(): Boolean {
     return try {

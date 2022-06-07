@@ -25,9 +25,8 @@
       style="@style/TextAppearance.AppCompat.Body1.Roboto.Medium"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:layout_marginStart="29dp"
+      android:layout_marginHorizontal="@dimen/half_large_margin"
       android:layout_marginTop="16dp"
-      android:layout_marginEnd="29dp"
       android:gravity="center_horizontal"
       android:letterSpacing="0.01"
       android:text="@string/update_wallet_purchase_title"
@@ -42,9 +41,8 @@
       style="@style/TextAppearance.AppCompat.Body1.Roboto.Regular"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:layout_marginStart="29dp"
+      android:layout_marginHorizontal="@dimen/half_large_margin"
       android:layout_marginTop="4dp"
-      android:layout_marginEnd="29dp"
       android:gravity="center_horizontal"
       android:letterSpacing="0.02"
       android:text="@string/update_wallet_hard_body"
@@ -55,17 +53,18 @@
       app:layout_constraintTop_toBottomOf="@id/update_title"
       />
 
-  <Button
+  <com.asfoundation.wallet.ui.common.WalletButtonView
       android:id="@+id/update_button"
-      style="@style/ButtonStyle"
-      android:layout_width="match_parent"
-      android:layout_height="36dp"
-      android:layout_marginStart="32dp"
-      android:layout_marginTop="44dp"
-      android:layout_marginEnd="32dp"
-      android:text="@string/update_button"
+      android:layout_width="0dp"
+      android:layout_height="@dimen/onboarding_button_height"
+      android:layout_marginTop="@dimen/half_large_padding"
+      android:layout_marginHorizontal="@dimen/half_large_margin"
+      android:layout_marginBottom="30dp"
+      app:buttonText="@string/update_button"
+      app:buttonType="filled"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toBottomOf="@id/update_description"
       />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

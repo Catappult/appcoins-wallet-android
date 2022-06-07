@@ -19,6 +19,8 @@ import com.asfoundation.wallet.billing.adyen.AdyenPaymentFragment
 import com.asfoundation.wallet.billing.adyen.PaymentType
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics
 import com.asfoundation.wallet.entity.TransactionBuilder
+import com.asfoundation.wallet.update_required.use_cases.GetAutoUpdateModelUseCase
+import com.asfoundation.wallet.update_required.use_cases.HasRequiredHardUpdateUseCase
 import com.asfoundation.wallet.navigator.UriNavigator
 import com.asfoundation.wallet.topup.TopUpActivity
 import com.asfoundation.wallet.transactions.PerkBonusAndGamificationService
@@ -58,6 +60,12 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
   lateinit var walletBlockedInteract: WalletBlockedInteract
 
   @Inject
+  lateinit var autoUpdateModelUseCase: GetAutoUpdateModelUseCase
+
+  @Inject
+  lateinit var hasRequiredHardUpdateUseCase: HasRequiredHardUpdateUseCase
+
+  @Inject
   lateinit var logger: Logger
 
   private lateinit var presenter: IabPresenter
@@ -89,6 +97,8 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
       CompositeDisposable(),
       billingAnalytics,
       iabInteract,
+      autoUpdateModelUseCase,
+      hasRequiredHardUpdateUseCase,
       logger,
       transaction
     )

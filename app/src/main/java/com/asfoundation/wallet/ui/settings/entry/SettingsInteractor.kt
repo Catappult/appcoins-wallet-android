@@ -38,8 +38,6 @@ class SettingsInteractor @Inject constructor(
 
   fun displaySupportScreen() = supportInteractor.displayChatScreen()
 
-  fun retrieveUpdateIntent() = autoUpdateInteract.buildUpdateIntent()
-
   fun retrieveFingerPrintAvailability(): Int {
     fingerPrintAvailability = fingerprintInteractor.getDeviceCompatibility()
     return fingerPrintAvailability

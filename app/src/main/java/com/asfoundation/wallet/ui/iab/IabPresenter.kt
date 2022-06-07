@@ -6,6 +6,8 @@ import android.os.Bundle
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.appcoins.wallet.commons.Logger
+import com.asfoundation.wallet.update_required.use_cases.GetAutoUpdateModelUseCase
+import com.asfoundation.wallet.update_required.use_cases.HasRequiredHardUpdateUseCase
 import com.asfoundation.wallet.ui.AuthenticationPromptActivity
 import com.asfoundation.wallet.ui.iab.IabInteract.Companion.PRE_SELECTED_PAYMENT_METHOD_KEY
 import io.reactivex.Completable
@@ -19,6 +21,8 @@ class IabPresenter(private val view: IabView,
                    private val disposable: CompositeDisposable,
                    private val billingAnalytics: BillingAnalytics,
                    private val iabInteract: IabInteract,
+                   private val getAutoUpdateModelUseCase: GetAutoUpdateModelUseCase,
+                   private val hasRequiredHardUpdateUseCase: HasRequiredHardUpdateUseCase,
                    private val logger: Logger,
                    private val transaction: TransactionBuilder?) {
 
@@ -115,11 +119,11 @@ class IabPresenter(private val view: IabView,
   }
 
   private fun handleAutoUpdate() {
-    disposable.add(iabInteract.getAutoUpdateModel()
+    disposable.add(getAutoUpdateModelUseCase()
         .subscribeOn(networkScheduler)
         .observeOn(viewScheduler)
         .filter {
-          iabInteract.isHardUpdateRequired(it.blackList, it.updateVersionCode, it.updateMinSdk)
+          hasRequiredHardUpdateUseCase(it.blackList, it.updateVersionCode, it.updateMinSdk)
         }
         .doOnSuccess { view.showUpdateRequiredView() }
         .subscribe({}, { it.printStackTrace() }))

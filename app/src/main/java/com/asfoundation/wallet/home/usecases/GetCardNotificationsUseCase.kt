@@ -1,7 +1,7 @@
 package com.asfoundation.wallet.home.usecases
 
-import com.asfoundation.wallet.interact.AutoUpdateInteract
 import com.asfoundation.wallet.interact.EmptyNotification
+import com.asfoundation.wallet.update_required.use_cases.GetUnwatchedUpdateNotificationUseCase
 import com.asfoundation.wallet.promotions.PromotionsInteractor
 import com.asfoundation.wallet.referrals.CardNotification
 import com.asfoundation.wallet.referrals.ReferralInteractorContract
@@ -11,7 +11,7 @@ import javax.inject.Inject
 
 class GetCardNotificationsUseCase @Inject constructor(
   private val referralInteractor: ReferralInteractorContract,
-  private val autoUpdateInteract: AutoUpdateInteract,
+  private val getUnwatchedUpdateNotificationUseCase: GetUnwatchedUpdateNotificationUseCase,
   private val promotionsInteractor: PromotionsInteractor
 ) {
 
@@ -19,7 +19,7 @@ class GetCardNotificationsUseCase @Inject constructor(
     val getUnwatchedPendingBonusNotification =
       referralInteractor.getUnwatchedPendingBonusNotification()
         .subscribeOn(Schedulers.io())
-    val getUnwatchedUpdateNotification = autoUpdateInteract.getUnwatchedUpdateNotification()
+    val getUnwatchedUpdateNotification = getUnwatchedUpdateNotificationUseCase()
       .subscribeOn(Schedulers.io())
     val getUnwatchedPromotionNotification = promotionsInteractor.getUnwatchedPromotionNotification()
       .subscribeOn(Schedulers.io())

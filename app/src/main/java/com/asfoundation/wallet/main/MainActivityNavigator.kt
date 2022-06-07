@@ -3,21 +3,46 @@ package com.asfoundation.wallet.main
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
+import androidx.activity.result.ActivityResultLauncher
 import androidx.navigation.NavDeepLinkBuilder
 import com.asf.wallet.R
+import com.asfoundation.wallet.onboarding.OnboardingActivity
 import com.asfoundation.wallet.topup.TopUpActivity
+import com.asfoundation.wallet.ui.AuthenticationPromptActivity
 import com.asfoundation.wallet.ui.overlay.OverlayFragment
+import com.asfoundation.wallet.update_required.UpdateRequiredActivity
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 
 class MainActivityNavigator @Inject constructor(@ApplicationContext val context: Context) {
 
+  fun navigateToOnboarding(mainActivity: MainActivity, fromSupportNotification: Boolean = false) {
+    val intent = OnboardingActivity.newIntent(context, fromSupportNotification)
+      .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+      .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+    mainActivity.startActivity(intent)
+  }
+
+  fun showAuthenticationActivity(authenticationResultLauncher: ActivityResultLauncher<Intent>) {
+    val intent = AuthenticationPromptActivity.newIntent(context)
+      .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+    authenticationResultLauncher.launch(intent)
+  }
+
+  fun navigateToAutoUpdate(mainActivity: MainActivity) {
+    val intent = UpdateRequiredActivity.newIntent(context)
+      .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
+      .addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT)
+      .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+    mainActivity.startActivity(intent)
+  }
+
   fun getHomePendingIntent(): PendingIntent {
     return NavDeepLinkBuilder(context)
-        .setGraph(R.navigation.home_graph)
-        .setDestination(R.id.home_fragment)
-        .setComponentName(MainActivity::class.java)
-        .createPendingIntent()
+      .setGraph(R.navigation.home_graph)
+      .setDestination(R.id.home_fragment)
+      .setComponentName(MainActivity::class.java)
+      .createPendingIntent()
   }
 
   fun navigateToHome() {
@@ -31,10 +56,10 @@ class MainActivityNavigator @Inject constructor(@ApplicationContext val context:
 
   fun getPromotionsPendingIntent(): PendingIntent {
     return NavDeepLinkBuilder(context)
-        .setGraph(R.navigation.promotions_graph)
-        .setDestination(R.id.promotions_fragment)
-        .setComponentName(MainActivity::class.java)
-        .createPendingIntent()
+      .setGraph(R.navigation.promotions_graph)
+      .setDestination(R.id.promotions_fragment)
+      .setComponentName(MainActivity::class.java)
+      .createPendingIntent()
   }
 
   fun navigateToPromotions() {
@@ -48,10 +73,10 @@ class MainActivityNavigator @Inject constructor(@ApplicationContext val context:
 
   fun getMyWalletsPendingIntent(): PendingIntent {
     return NavDeepLinkBuilder(context)
-        .setGraph(R.navigation.my_wallets_graph)
-        .setDestination(R.id.my_wallets_fragment)
-        .setComponentName(MainActivity::class.java)
-        .createPendingIntent()
+      .setGraph(R.navigation.my_wallets_graph)
+      .setDestination(R.id.my_wallets_fragment)
+      .setComponentName(MainActivity::class.java)
+      .createPendingIntent()
   }
 
   fun navigateToMyWallets() {
@@ -65,20 +90,24 @@ class MainActivityNavigator @Inject constructor(@ApplicationContext val context:
 
   fun navigateToTopUp() {
     val intent = TopUpActivity.newIntent(context)
-        .apply { flags = Intent.FLAG_ACTIVITY_SINGLE_TOP or Intent.FLAG_ACTIVITY_NEW_TASK}
+      .apply { flags = Intent.FLAG_ACTIVITY_SINGLE_TOP or Intent.FLAG_ACTIVITY_NEW_TASK }
     context.startActivity(intent)
   }
 
   fun showPromotionsOverlay(index: Int) {
     if (context is MainActivity) {
       context.supportFragmentManager.beginTransaction()
-          .setCustomAnimations(R.anim.fragment_fade_in_animation,
-              R.anim.fragment_fade_out_animation, R.anim.fragment_fade_in_animation,
-              R.anim.fragment_fade_out_animation)
-          .add(R.id.tooltip_container,
-              OverlayFragment.newInstance(index))
-          .addToBackStack(OverlayFragment::class.java.name)
-          .commit()
+        .setCustomAnimations(
+          R.anim.fragment_fade_in_animation,
+          R.anim.fragment_fade_out_animation, R.anim.fragment_fade_in_animation,
+          R.anim.fragment_fade_out_animation
+        )
+        .add(
+          R.id.tooltip_container,
+          OverlayFragment.newInstance(index)
+        )
+        .addToBackStack(OverlayFragment::class.java.name)
+        .commit()
     }
   }
 }

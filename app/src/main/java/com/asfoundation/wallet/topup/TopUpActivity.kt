@@ -51,7 +51,9 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, ToolbarManager, UriNavi
   @Inject
   lateinit var walletBlockedInteract: WalletBlockedInteract
 
-  private var mainActivityNavigator: MainActivityNavigator = MainActivityNavigator(this)
+  @Inject
+  lateinit var mainActivityNavigator: MainActivityNavigator
+
   private lateinit var results: PublishRelay<Uri>
   private lateinit var presenter: TopUpActivityPresenter
   private var isFinishingPurchase = false
