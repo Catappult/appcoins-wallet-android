@@ -444,7 +444,7 @@
   <string name="understood_button">Đã hiểu!</string>
   <string name="skip_button">Bỏ qua bây giờ</string>
   <string name="understand_button">Tôi hiểu</string>
-  <string name="install_button">Install</string>
+  <string name="install_button">Cài đặt</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Tôi đồng ý với %1$s và %2$s của Ví AppCoins.</string>
   <string name="terms_and_conditions_error">Vui lòng chấp nhận Điều khoản và Điều kiện và Chính sách bảo mật của chúng tôi để tiếp tục</string>
@@ -557,9 +557,9 @@
   <string name="purachse_error_verify_card_button">XÁC THỰC THẺ</string>
   <string name="purchase_eskills_sku">Vé tham gia</string>
   <string name="purchase_paytmupi_install_disclaimer">Bạn sẽ cần cài đặt ứng dụng Paytm UPI.</string>
-  <string name="purchase_app_needed_body">You need the following app to complete your purchase.</string>
-  <string name="purchase_apps_needed_body">You need one of the following apps to complete your purchase.</string>
-  <string name="purchase_error_no_connection">It seems you have don\'t have an internet connection! Please check it and try again.</string>
+  <string name="purchase_app_needed_body">Bạn cần ứng dụng sau để hoàn tất giao dịch mua của mình.</string>
+  <string name="purchase_apps_needed_body">Bạn cần một trong các ứng dụng sau để hoàn tất giao dịch mua của mình.</string>
+  <string name="purchase_error_no_connection">Có vẻ như bạn không có kết nối internet! Vui lòng kiểm tra nó và thử lại.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">Địa chỉ thanh toán</string>
   <string name="purchase_address_address_field">Địa chỉ</string>
@@ -676,9 +676,9 @@
   <string name="backup_wallet_button">Sao lưu ví</string>
   <string name="backup_success_save_on_email">Tập tin sao lưu nằm trong email của bạn.</string>
   <string name="backup_success_save_on_device">Tập tin sao lưu được lưu trữ trong thiết bị của bạn.</string>
-  <string name="backup_popup_title">Back up your wallet now!</string>
-  <string name="backup_popup_purchase_body">Keep your funds safe at all times.</string>
-  <string name="backup_popup_gamification_body">Keep your bonus level safe at all times.</string>
+  <string name="backup_popup_title">Sao lưu ví của bạn ngay bây giờ!</string>
+  <string name="backup_popup_purchase_body">Giữ tiền của bạn an toàn mọi lúc.</string>
+  <string name="backup_popup_gamification_body">Giữ mức tiền thưởng của bạn an toàn mọi lúc.</string>
   <!--Wallets Management-->
   <string name="wallets_title">Ví</string>
   <string name="wallets_total_balance_title">Tổng số dư bằng %s</string>
@@ -989,7 +989,7 @@
   <string name="e_skills_room_create_title">Tạo hoặc tham gia một phòng</string>
   <string name="e_skills_room_create_body">Tạo một phòng mới và chia sẻ nó với đối thủ của bạn hoặc tham gia một phòng hiện có.</string>
   <string name="e_skills_room_field">Tên phòng của bạn ở đây...</string>
-  <string name="e_skills_withdraw_confirmation_title">A $%s withdrawal has been requested!</string>
+  <string name="e_skills_withdraw_confirmation_title">Một khoản rút $%s đã được yêu cầu!</string>
   <string name="e_skills_withdraw_confirmation_body">This may take between 2 and 3 weeks to be processed.</string>
   <string name="e_skills_withdraw_minimum_body">The minimum amount to withdraw is $%s.</string>
   <string name="e_skills_withdraw_started_title">A withdrawal request of $%s has been started.</string>
