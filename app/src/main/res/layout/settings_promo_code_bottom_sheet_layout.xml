@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/promo_code_bottom_sheet_layout"
+    android:theme="@style/MaterialAppTheme"
     android:layout_width="match_parent"
     android:layout_height="@dimen/bottom_sheet_small_height"
     android:background="@drawable/rounded_dialog"
@@ -23,33 +24,19 @@
       app:layout_constraintTop_toTopOf="parent"
       />
 
-  <androidx.constraintlayout.widget.ConstraintLayout
-      android:id="@+id/promo_code_bottom_sheet_text_rectangle"
-      android:layout_width="match_parent"
-      android:layout_height="49dp"
-      android:layout_marginTop="14dp"
-      android:background="@drawable/rectangle_text_default_promo_code"
-      android:paddingHorizontal="16dp"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@id/promo_code_bottom_sheet_title"
-      >
-
-    <EditText
+    <com.asfoundation.wallet.ui.common.WalletTextFieldView
         android:id="@+id/promo_code_bottom_sheet_string"
-        android:layout_width="250dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@android:color/transparent"
-        android:hint="@string/promo_code_view_field"
-        android:imeActionLabel="@string/prompt_to"
-        android:imeOptions="actionUnspecified|flagNoFullscreen|flagNoExtractUi"
-        android:inputType="text"
+        android:layout_marginTop="14dp"
         android:maxLines="1"
         android:maxLength="16"
-        android:paddingEnd="@dimen/large_margin"
-        app:layout_constraintBottom_toBottomOf="@id/promo_code_bottom_sheet_text_rectangle"
+        app:textFieldColor="@color/white"
+        app:textFieldHint="@string/promo_code_view_field"
+        app:textFieldType="outlined"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/promo_code_bottom_sheet_text_rectangle"
+        app:layout_constraintTop_toBottomOf="@id/promo_code_bottom_sheet_title"
         />
 
     <ImageView
@@ -58,60 +45,49 @@
         android:layout_height="14dp"
         android:background="@drawable/ic_check_mark_dark"
         android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="@id/promo_code_bottom_sheet_text_rectangle"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/promo_code_bottom_sheet_text_rectangle"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintBottom_toBottomOf="@id/promo_code_bottom_sheet_string"
+        app:layout_constraintEnd_toEndOf="@id/promo_code_bottom_sheet_string"
+        app:layout_constraintTop_toTopOf="@id/promo_code_bottom_sheet_string"
         />
 
-  </androidx.constraintlayout.widget.ConstraintLayout>
-
-  <TextView
-      android:id="@+id/promo_code_bottom_sheet_error_message"
-      style="@style/PromoCodeErrorMessage"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:text="@string/promo_code_view_error"
-      android:visibility="gone"
-      android:layout_marginTop="8dp"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@id/promo_code_bottom_sheet_text_rectangle"
-      />
-
-  <Button
+  <com.asfoundation.wallet.ui.common.WalletButtonView
       android:id="@+id/promo_code_bottom_sheet_submit_button"
-      style="@style/ButtonStyle"
-      android:layout_width="match_parent"
-      android:layout_height="40dp"
-      android:layout_marginTop="35dp"
-      android:text="@string/carrier_billing_submit_button"
+      android:layout_width="0dp"
+      android:layout_height="@dimen/onboarding_button_height"
+      android:layout_marginTop="30dp"
+      app:buttonText="@string/carrier_billing_submit_button"
+      app:buttonType="filled"
+      app:layout_constraintTop_toBottomOf="@id/promo_code_bottom_sheet_string"
       app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintTop_toBottomOf="@id/promo_code_bottom_sheet_text_rectangle"
+      app:layout_constraintStart_toStartOf="parent"
       />
 
-  <Button
+  <com.asfoundation.wallet.ui.common.WalletButtonView
       android:id="@+id/promo_code_bottom_sheet_delete_button"
-      style="@style/ButtonStyle.Light"
-      android:layout_width="wrap_content"
-      android:layout_height="40dp"
-      android:layout_marginTop="35dp"
+      android:layout_width="0dp"
+      android:layout_height="@dimen/onboarding_button_height"
+      android:layout_marginTop="30dp"
       android:layout_marginEnd="16dp"
-      android:text="@string/promo_code_delete_button"
+      app:buttonText="@string/promo_code_delete_button"
+      app:buttonType="outlined"
       android:visibility="gone"
       app:layout_constraintEnd_toStartOf="@id/promo_code_bottom_sheet_replace_button"
-      app:layout_constraintTop_toBottomOf="@id/promo_code_bottom_sheet_text_rectangle"
+      app:layout_constraintTop_toBottomOf="@id/promo_code_bottom_sheet_string"
       />
 
-  <Button
+  <com.asfoundation.wallet.ui.common.WalletButtonView
       android:id="@+id/promo_code_bottom_sheet_replace_button"
-      style="@style/ButtonStyle"
-      android:layout_width="wrap_content"
-      android:layout_height="40dp"
-      android:layout_marginTop="35dp"
-      android:text="@string/promo_code_replace_button"
+      android:layout_width="0dp"
+      android:layout_height="@dimen/onboarding_button_height"
+      android:layout_marginTop="30dp"
+      app:buttonText="@string/promo_code_replace_button"
+      app:buttonType="filled"
       android:visibility="gone"
       app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintTop_toBottomOf="@id/promo_code_bottom_sheet_text_rectangle"
+      app:layout_constraintTop_toBottomOf="@id/promo_code_bottom_sheet_string"
       />
+
 
   <com.asfoundation.wallet.widget.SystemView
       android:id="@+id/promo_code_bottom_sheet_system_view"
@@ -123,62 +99,5 @@
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent"
-      />
-
-  <com.airbnb.lottie.LottieAnimationView
-      android:id="@+id/promo_code_bottom_sheet_success_animation"
-      android:layout_width="100dp"
-      android:layout_height="100dp"
-      android:layout_centerInParent="true"
-      app:lottie_enableMergePathsForKitKatAndAbove="true"
-      app:lottie_loop="true"
-      app:lottie_rawRes="@raw/fade_in_create_wallet"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@id/promo_code_bottom_sheet_success_title"
-      app:layout_constraintTop_toTopOf="parent"
-      />
-
-  <TextView
-      android:id="@+id/promo_code_bottom_sheet_success_title"
-      style="@style/PromoCodeSuccessTitle"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_marginTop="10dp"
-      android:text="@string/promo_code_success_title"
-      android:visibility="gone"
-      app:layout_constraintBottom_toTopOf="@id/promo_code_bottom_sheet_success_subtitle"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@id/promo_code_bottom_sheet_success_animation"
-      />
-
-  <TextView
-      android:id="@+id/promo_code_bottom_sheet_success_subtitle"
-      style="@style/PromoCodeSuccessSubtitle"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_marginTop="10dp"
-      android:text="@string/promo_code_success_body"
-      android:textAlignment="center"
-      android:visibility="gone"
-      app:layout_constraintBottom_toTopOf="@id/promo_code_bottom_sheet_success_got_it_button"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@id/promo_code_bottom_sheet_success_title"
-      />
-
-  <Button
-      android:id="@+id/promo_code_bottom_sheet_success_got_it_button"
-      style="@style/ButtonStyle"
-      android:layout_width="match_parent"
-      android:layout_height="40dp"
-      android:layout_marginTop="10dp"
-      android:text="@string/got_it_button"
-      android:visibility="gone"
-      app:layout_constraintBottom_toBottomOf="parent"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@id/promo_code_bottom_sheet_success_subtitle"
       />
 </androidx.constraintlayout.widget.ConstraintLayout>

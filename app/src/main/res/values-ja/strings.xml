@@ -445,7 +445,7 @@
   <string name="understood_button">了解！</string>
   <string name="skip_button">今はスキップ</string>
   <string name="understand_button">了承</string>
-  <string name="install_button">Install</string>
+  <string name="install_button">インストール</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">AppCoins Walletの%1$sと%2$sに同意します。</string>
   <string name="terms_and_conditions_error">ご利用規約とプライバシーポリシーに同意の上、お進みください。</string>
@@ -558,8 +558,9 @@
   <string name="purachse_error_verify_card_button">カードの確認</string>
   <string name="purchase_eskills_sku">エントリーチケット</string>
   <string name="purchase_paytmupi_install_disclaimer">Paytm UPIアプリをインストールする必要があります。</string>
-  <string name="purchase_app_needed_body">You need the following app to complete your purchase.</string>
-  <string name="purchase_apps_needed_body">You need one of the following apps to complete your purchase.</string>
+  <string name="purchase_app_needed_body">購入手続きには、以下のアプリが必要です。</string>
+  <string name="purchase_apps_needed_body">購入手続きには、以下のアプリのいずれかが必要です。</string>
+  <string name="purchase_error_no_connection">インターネットに接続されていないようです。ご確認の上、再度お試しください。</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">請求先住所</string>
   <string name="purchase_address_address_field">住所</string>
@@ -676,9 +677,9 @@
   <string name="backup_wallet_button">ウォレットをバックアップ</string>
   <string name="backup_success_save_on_email">バックアップファイルはメールの中にあります。</string>
   <string name="backup_success_save_on_device">バックアップファイルは、お使いの端末に保存されています。</string>
-  <string name="backup_popup_title">Back up your wallet now!</string>
-  <string name="backup_popup_purchase_body">Keep your funds safe at all times.</string>
-  <string name="backup_popup_gamification_body">Keep your bonus level safe at all times.</string>
+  <string name="backup_popup_title">今すぐウォレットをバックアップ！</string>
+  <string name="backup_popup_purchase_body">資金を常に安全に管理する。</string>
+  <string name="backup_popup_gamification_body">ボーナスレベルを常に安全に保つ。</string>
   <!--Wallets Management-->
   <string name="wallets_title">ウォレット</string>
   <string name="wallets_total_balance_title">%sでの総残高</string>
@@ -989,12 +990,12 @@
   <string name="e_skills_room_create_title">ルームの作成・参加</string>
   <string name="e_skills_room_create_body">新しいルームを作成して対戦相手と共有したり、既存のルームに参加したりすることができます。</string>
   <string name="e_skills_room_field">あなたのルーム名...</string>
-  <string name="e_skills_withdraw_confirmation_title">A $%s withdrawal has been requested!</string>
-  <string name="e_skills_withdraw_confirmation_body">This may take between 2 and 3 weeks to be processed.</string>
-  <string name="e_skills_withdraw_minimum_body">The minimum amount to withdraw is $%s.</string>
-  <string name="e_skills_withdraw_started_title">A withdrawal request of $%s has been started.</string>
-  <string name="e_skills_withdraw_started_body">This request may take 2-3 weeks to be processed.</string>
-  <string name="e_skills_withdraw_error_not_funds">Make sure you have enough funds to be withdrawn.</string>
+  <string name="e_skills_withdraw_confirmation_title">$%s の引き出しがリクエストされました!</string>
+  <string name="e_skills_withdraw_confirmation_body">処理に2週間から3週間かかることがあります。</string>
+  <string name="e_skills_withdraw_minimum_body">最低引出額は$%sです。</string>
+  <string name="e_skills_withdraw_started_title">$%sの出金手続きが開始されました</string>
+  <string name="e_skills_withdraw_started_body">このリクエストは、処理に2-3週間かかる場合があります。</string>
+  <string name="e_skills_withdraw_error_not_funds">出金される資金が十分にあるかどうか確認してください。</string>
   <!--Promo Code-->
   <string name="promo_code_settings_title">プロモーションコード</string>
   <string name="promo_code_view_title">プロモーションコード</string>
@@ -1010,8 +1011,8 @@
   <string name="promo_code_success_body">購入で%s%%の追加ボーナスをゲット。</string>
   <string name="promo_code_success_body_specific_app">%2$sでの購入全てに、%1$s%%のボーナスが追加されます。</string>
   <string name="promo_code_promotions_tag">プロモーション・コード</string>
-  <string name="promo_code_error_not_available">This promo code is no longer available.</string>
-  <string name="promo_code_error_invalid_user">Oops! This code couldn\'t be applied.</string>
+  <string name="promo_code_error_not_available">このプロモコードの使用は終了しました。</string>
+  <string name="promo_code_error_invalid_user">このコードは適用できませんでした。</string>
   <!--AppCoins Info Page-->
   <string name="appcoins_info_title">AppCoinsについて</string>
   <string name="appcoins_info_prince_title">AppCoins 価格(APPC)</string>
@@ -1048,10 +1049,26 @@
   <string name="gift_card_title">ギフトカードコードを利用</string>
   <string name="gift_card_field">カードコードをここに入力...</string>
   <string name="gift_card_done_title">コード使用可能！</string>
-  <string name="gift_card_done_body">Check your transactions list.</string>
+  <string name="gift_card_done_body">トランザクション・リストを確認</string>
   <string name="gift_card_error_general_title">問題が発生しました！</string>
   <string name="gift_card_error_general_body">もう一度試すか、別のコードを使用してください。</string>
   <string name="gift_card_error_used_title">このコードはすでに使用されています！</string>
   <string name="gift_card_error_new_users_title">このコードは新規ユーザー限定です！</string>
   <string name="gift_card_error_try_with_different_body">別のもので再度お試しください。</string>
+  <!-- My Wallet -->
+  <string name="mywallet_unverified_title">未認証のウォレット</string>
+  <string name="mywallet_unverified_body">支払い方法を確認することで、詰まりを回避することができます。</string>
+  <string name="mywallet_backed_up_date">%sにウォレットをバックアップしました。</string>
+  <string name="mywallet_backup_again_button">再度バックアップ</string>
+  <string name="mywallet_verify_payment_method_button">新しい支払方法を確認</string>
+  <string name="mywallet_choose_name_header">ウォレットの名前を決める</string>
+  <string name="mywallet_choose_name_field">ここにウォレットの名前...</string>
+  <string name="mywallet_choose_name_confirmed">ウォレット名が変更されました</string>
+  <string name="mywallet_unnamed_wallet">名前なしウォレット %s</string>
+  <string name="mywallet_swithing_wallets_title">ウォレットの入れ替え中...</string>
+  <!-- Onboarding for new users coming from an iap -->
+  <string name="onboarding_1st_title">おめでとうございます。AppCoins Walletのインストールが完了しました。</string>
+  <string name="onboarding_1st_body">ゲームに戻り、購入を完了させてください。</string>
+  <string name="onboarding_1st_back_to_game_button">ゲームに戻る</string>
+  <string name="onboarding_1st_explore_wallet_button">またはAppCoins Walletを探索する</string>
 </resources>

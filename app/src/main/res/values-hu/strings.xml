@@ -444,7 +444,7 @@
   <string name="understood_button">Értem!</string>
   <string name="skip_button">Kihagyom</string>
   <string name="understand_button">Megértettem</string>
-  <string name="install_button">Install</string>
+  <string name="install_button">Telepítés</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Beleegyezem a következőbe: AppCoins Wallet %1$s és %2$s.</string>
   <string name="terms_and_conditions_error">A folytatáshoz kérjük, fogadd el a Felhasználási feltételeket és az Adatvédelmi szabályzatot</string>
@@ -557,8 +557,9 @@
   <string name="purachse_error_verify_card_button">KÁRTYA MEGERŐSÍTÉSE</string>
   <string name="purchase_eskills_sku">Belépőjegy</string>
   <string name="purchase_paytmupi_install_disclaimer">Telepítsd a Paytm UPI appot.</string>
-  <string name="purchase_app_needed_body">You need the following app to complete your purchase.</string>
-  <string name="purchase_apps_needed_body">You need one of the following apps to complete your purchase.</string>
+  <string name="purchase_app_needed_body">A vásárlás befejezéséhez a következő appra lesz szükséged.</string>
+  <string name="purchase_apps_needed_body">A vásárlás befejezéséhez a következő appok egyikére lesz szükséged.</string>
+  <string name="purchase_error_no_connection">Úgy tűnik, megszűnt az internetkapcsolat. Ellenőrizd a kapcsolatot és próbáld újra.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">Számlázási cím</string>
   <string name="purchase_address_address_field">Cím</string>
@@ -675,9 +676,9 @@
   <string name="backup_wallet_button">Wallet biztonsági mentése</string>
   <string name="backup_success_save_on_email">A biztonsági mentés fájl megérkezett emailben.</string>
   <string name="backup_success_save_on_device">A biztonsági mentés fájl az eszközödön található.</string>
-  <string name="backup_popup_title">Back up your wallet now!</string>
-  <string name="backup_popup_purchase_body">Keep your funds safe at all times.</string>
-  <string name="backup_popup_gamification_body">Keep your bonus level safe at all times.</string>
+  <string name="backup_popup_title">Wallet biztonsági mentés!</string>
+  <string name="backup_popup_purchase_body">Mindig tartsd biztonságban a pénzed.</string>
+  <string name="backup_popup_gamification_body">Mindig tartsd biztonságban a bónuszszinted.</string>
   <!--Wallets Management-->
   <string name="wallets_title">Tárcák</string>
   <string name="wallets_total_balance_title">Teljes egyenleg %s pénznemben</string>
@@ -997,12 +998,12 @@
   <string name="e_skills_room_create_title">Szoba létrehozása vagy csatlakozás</string>
   <string name="e_skills_room_create_body">Hozz létre egy új szobát és oszd meg az ellenfeleiddel vagy csatlakozz egy már létező szobához.</string>
   <string name="e_skills_room_field">Add meg a szoba nevét...</string>
-  <string name="e_skills_withdraw_confirmation_title">A $%s withdrawal has been requested!</string>
-  <string name="e_skills_withdraw_confirmation_body">This may take between 2 and 3 weeks to be processed.</string>
-  <string name="e_skills_withdraw_minimum_body">The minimum amount to withdraw is $%s.</string>
-  <string name="e_skills_withdraw_started_title">A withdrawal request of $%s has been started.</string>
-  <string name="e_skills_withdraw_started_body">This request may take 2-3 weeks to be processed.</string>
-  <string name="e_skills_withdraw_error_not_funds">Make sure you have enough funds to be withdrawn.</string>
+  <string name="e_skills_withdraw_confirmation_title">$%s összegű kifizetés lekérve!</string>
+  <string name="e_skills_withdraw_confirmation_body">A feldolgozás akár 2-3 hetet is igénybe vehet.</string>
+  <string name="e_skills_withdraw_minimum_body">A legkisebb lehívható összeg $%s.</string>
+  <string name="e_skills_withdraw_started_title">Megkezdődött a(z) $%s összeg lehívási kérelme.</string>
+  <string name="e_skills_withdraw_started_body">A kérelem feldolgozása akár 2-3 hetet is igénybe vehet.</string>
+  <string name="e_skills_withdraw_error_not_funds">Győződj meg róla, hogy elegendő fedezettel rendelkezel.</string>
   <!--Promo Code-->
   <string name="promo_code_settings_title">Promóciós kód</string>
   <string name="promo_code_view_title">Promóciós kód</string>
@@ -1018,8 +1019,8 @@
   <string name="promo_code_success_body">Minden vásárlás után %s%% bónuszt fog kapni.</string>
   <string name="promo_code_success_body_specific_app">%1$s%% extra bónusz minden jár %2$s vásárlás után.</string>
   <string name="promo_code_promotions_tag">Promóciós kód</string>
-  <string name="promo_code_error_not_available">This promo code is no longer available.</string>
-  <string name="promo_code_error_invalid_user">Oops! This code couldn\'t be applied.</string>
+  <string name="promo_code_error_not_available">Ez a promóciós kód már nem érhető el.</string>
+  <string name="promo_code_error_invalid_user">Hoppá! A kódot nem lehet alkalmazni.</string>
   <!--AppCoins Info Page-->
   <string name="appcoins_info_title">Az AppCoins-ról</string>
   <string name="appcoins_info_prince_title">AppCoins ár (APPC)</string>
@@ -1062,4 +1063,20 @@
   <string name="gift_card_error_used_title">Ezt a kódot már beváltották!</string>
   <string name="gift_card_error_new_users_title">A kód csak új felhasználók számára érvényes!</string>
   <string name="gift_card_error_try_with_different_body">Próbáld újra egy másik kóddal.</string>
+  <!-- My Wallet -->
+  <string name="mywallet_unverified_title">Hitelesítetlen wallet</string>
+  <string name="mywallet_unverified_body">Hitelesíts egy fizetési módot a blokkolások elkerülése érdekében.</string>
+  <string name="mywallet_backed_up_date">A wallet biztonsági mentése kész a következőn: %s.</string>
+  <string name="mywallet_backup_again_button">ÚJ BIZTONSÁGI MENTÉS</string>
+  <string name="mywallet_verify_payment_method_button">ÚJ FIZETÉSI MÓD HITELESÍTÉSE</string>
+  <string name="mywallet_choose_name_header">Nevezd el a walletod</string>
+  <string name="mywallet_choose_name_field">A wallet neve ide...</string>
+  <string name="mywallet_choose_name_confirmed">Megváltozott a wallet neve</string>
+  <string name="mywallet_unnamed_wallet">A(z) %s walletnek nincs neve</string>
+  <string name="mywallet_swithing_wallets_title">Másik wallet kiválasztása...</string>
+  <!-- Onboarding for new users coming from an iap -->
+  <string name="onboarding_1st_title">Gratulálunk! Telepítetted az AppCoins Walletet.</string>
+  <string name="onboarding_1st_body">A vásárlás befejezéséhez menj vissza a játékba.</string>
+  <string name="onboarding_1st_back_to_game_button">Menj vissza a játékba</string>
+  <string name="onboarding_1st_explore_wallet_button">Vagy fedezd fel az AppCoins Walletet</string>
 </resources>
