@@ -1072,11 +1072,11 @@
   <string name="mywallet_choose_name_header">Escolha um nome para sua carteira</string>
   <string name="mywallet_choose_name_field">Nome da carteira aqui...</string>
   <string name="mywallet_choose_name_confirmed">Nome da carteira alterado</string>
-  <string name="mywallet_unnamed_wallet">No name wallet %s</string>
-  <string name="mywallet_swithing_wallets_title">Switching wallets...</string>
+  <string name="mywallet_unnamed_wallet">Sem nome na carteira %s</string>
+  <string name="mywallet_swithing_wallets_title">Trocando de carteira...</string>
   <!-- Onboarding for new users coming from an iap -->
-  <string name="onboarding_1st_title">Congrats! You\'ve installed the AppCoins Wallet.</string>
-  <string name="onboarding_1st_body">Go back to the game to complete your purchase.</string>
-  <string name="onboarding_1st_back_to_game_button">Go back to the game</string>
-  <string name="onboarding_1st_explore_wallet_button">Or explore the AppCoins Wallet</string>
+  <string name="onboarding_1st_title">Parabéns! Você instalou a AppCoins Wallet.</string>
+  <string name="onboarding_1st_body">Volte ao jogo para concluir sua compra.</string>
+  <string name="onboarding_1st_back_to_game_button">Voltar ao jogo</string>
+  <string name="onboarding_1st_explore_wallet_button">Ou explorar a AppCoins Wallet</string>
 </resources>
