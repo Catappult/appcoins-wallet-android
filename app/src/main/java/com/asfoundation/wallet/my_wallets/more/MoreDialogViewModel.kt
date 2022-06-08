@@ -5,13 +5,17 @@ import com.asfoundation.wallet.base.BaseViewModel
 import com.asfoundation.wallet.base.SideEffect
 import com.asfoundation.wallet.base.ViewState
 import com.asfoundation.wallet.home.usecases.ObserveDefaultWalletUseCase
+import com.asfoundation.wallet.ui.wallets.WalletBalance
+import com.asfoundation.wallet.ui.wallets.WalletDetailsInteractor
 import com.asfoundation.wallet.ui.wallets.WalletsInteract
 import com.asfoundation.wallet.ui.wallets.WalletsModel
 import com.asfoundation.wallet.wallets.domain.WalletInfo
 import com.asfoundation.wallet.wallets.usecases.ObserveWalletInfoUseCase
 import io.reactivex.schedulers.Schedulers
 
-sealed class MoreDialogSideEffect : SideEffect
+sealed class MoreDialogSideEffect : SideEffect {
+  object NavigateBack : MoreDialogSideEffect()
+}
 
 data class MoreDialogState(
   val walletAddress: String,
@@ -26,6 +30,7 @@ data class MoreDialogState(
 class MoreDialogViewModel(
   data: MoreDialogData,
   private val walletsInteract: WalletsInteract,
+  private val walletDetailsInteractor: WalletDetailsInteractor,
   private val observeWalletInfoUseCase: ObserveWalletInfoUseCase,
   private val observeDefaultWalletUseCase: ObserveDefaultWalletUseCase
 ) :
@@ -48,6 +53,12 @@ class MoreDialogViewModel(
   fun refreshData(flushAsync: Boolean) {
     fetchWallets(flushAsync)
     fetchWalletInfo(flushAsync)
+  }
+
+  fun changeActiveWallet(wallet: WalletBalance) {
+    walletDetailsInteractor.setActiveWallet(wallet.walletAddress)
+      .doOnComplete { sendSideEffect { MoreDialogSideEffect.NavigateBack } }
+      .scopedSubscribe { it.printStackTrace() }
   }
 
   private fun observeCurrentWallet() {

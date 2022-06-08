@@ -3,6 +3,7 @@ package com.asfoundation.wallet.my_wallets.more
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.asfoundation.wallet.home.usecases.ObserveDefaultWalletUseCase
+import com.asfoundation.wallet.ui.wallets.WalletDetailsInteractor
 import com.asfoundation.wallet.ui.wallets.WalletsInteract
 import com.asfoundation.wallet.wallets.usecases.ObserveWalletInfoUseCase
 import dagger.Module
@@ -18,12 +19,14 @@ class MoreDialogModule {
   fun provideMoreDialogViewModelFactory(
     data: MoreDialogData,
     walletsInteract: WalletsInteract,
+    walletDetailsInteractor: WalletDetailsInteractor,
     observeWalletInfoUseCase: ObserveWalletInfoUseCase,
     observeDefaultWalletUseCase: ObserveDefaultWalletUseCase
   ): MoreDialogViewModelFactory =
     MoreDialogViewModelFactory(
       data,
       walletsInteract,
+      walletDetailsInteractor,
       observeWalletInfoUseCase,
       observeDefaultWalletUseCase
     )

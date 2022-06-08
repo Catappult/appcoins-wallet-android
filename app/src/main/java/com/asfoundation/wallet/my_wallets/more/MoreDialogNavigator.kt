@@ -38,4 +38,8 @@ class MoreDialogNavigator(private val navController: NavController) : Navigator 
       )
     )
   }
+
+  fun navigateBack() {
+    navController.popBackStack()
+  }
 }

@@ -3,12 +3,14 @@ package com.asfoundation.wallet.my_wallets.more
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.asfoundation.wallet.home.usecases.ObserveDefaultWalletUseCase
+import com.asfoundation.wallet.ui.wallets.WalletDetailsInteractor
 import com.asfoundation.wallet.ui.wallets.WalletsInteract
 import com.asfoundation.wallet.wallets.usecases.ObserveWalletInfoUseCase
 
 class MoreDialogViewModelFactory(
   val data: MoreDialogData,
   private val walletsInteract: WalletsInteract,
+  private val walletDetailsInteractor: WalletDetailsInteractor,
   private val observeWalletInfoUseCase: ObserveWalletInfoUseCase,
   private val observeDefaultWalletUseCase: ObserveDefaultWalletUseCase
 ) : ViewModelProvider.Factory {
@@ -18,6 +20,7 @@ class MoreDialogViewModelFactory(
     return MoreDialogViewModel(
       data,
       walletsInteract,
+      walletDetailsInteractor,
       observeWalletInfoUseCase,
       observeDefaultWalletUseCase
     ) as T

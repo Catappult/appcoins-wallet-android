@@ -73,13 +73,25 @@ class MoreDialogFragment : BottomSheetDialogFragment(),
     views.walletsView.apply {
       removeAllViews()
       val selected = state.walletInfoAsync()?.wallet
-      wallets?.forEach {
-        addView(buildWalletView(it, it.walletAddress == selected))
+      wallets?.forEach { wallet ->
+        addView(
+          buildWalletView(
+            wallet,
+            wallet.walletAddress == selected,
+            if (wallet.walletAddress == selected) null else ({
+              viewModel.changeActiveWallet(wallet)
+            }),
+          )
+        )
       }
     }
   }
 
-  override fun onSideEffect(sideEffect: MoreDialogSideEffect) = Unit
+  override fun onSideEffect(sideEffect: MoreDialogSideEffect) {
+    when (sideEffect) {
+      MoreDialogSideEffect.NavigateBack -> navigator.navigateBack()
+    }
+  }
 
   private fun setListeners() {
     views.newWalletCardView.setOnClickListener { navigator.navigateToCreateNewWallet() }
