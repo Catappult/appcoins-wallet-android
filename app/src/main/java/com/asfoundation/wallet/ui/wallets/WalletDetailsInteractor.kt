@@ -14,9 +14,12 @@ class WalletDetailsInteractor @Inject constructor(
   private val getCurrentPromoCodeUseCase: GetCurrentPromoCodeUseCase
 ) {
 
-  fun setActiveWallet(address: String): Completable = getCurrentPromoCodeUseCase()
-    .flatMap { setDefaultWalletInteractor.set(address).toSingleDefault(it.code) }
-    .flatMap { gamificationRepository.getUserLevel(address, it) }
+  fun setActiveWallet(address: String): Completable = setDefaultWalletInteractor.set(address)
+
+  fun setActiveWalletSupport(address: String): Completable = getCurrentPromoCodeUseCase()
+    .flatMap { gamificationRepository.getUserLevel(address, it.code) }
     .doOnSuccess { supportInteractor.registerUser(it, address) }
+    .doOnError(Throwable::printStackTrace)
     .ignoreElement()
+    .onErrorComplete()
 }

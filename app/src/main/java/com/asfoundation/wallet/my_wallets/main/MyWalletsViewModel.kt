@@ -7,6 +7,7 @@ import com.asfoundation.wallet.base.ViewState
 import com.asfoundation.wallet.home.usecases.ObserveDefaultWalletUseCase
 import com.asfoundation.wallet.ui.balance.BalanceInteractor
 import com.asfoundation.wallet.ui.balance.BalanceVerificationModel
+import com.asfoundation.wallet.ui.wallets.WalletDetailsInteractor
 import com.asfoundation.wallet.ui.wallets.WalletsInteract
 import com.asfoundation.wallet.ui.wallets.WalletsModel
 import com.asfoundation.wallet.wallets.domain.WalletInfo
@@ -27,6 +28,7 @@ data class MyWalletsState(
 class MyWalletsViewModel @Inject constructor(
   private val balanceInteractor: BalanceInteractor,
   private val walletsInteract: WalletsInteract,
+  private val walletDetailsInteractor: WalletDetailsInteractor,
   private val observeWalletInfoUseCase: ObserveWalletInfoUseCase,
   private val observeDefaultWalletUseCase: ObserveDefaultWalletUseCase
 ) : BaseViewModel<MyWalletsState, MyWalletsSideEffect>(initialState()) {
@@ -58,7 +60,10 @@ class MyWalletsViewModel @Inject constructor(
           refreshData(flushAsync = true)
         }
       }
-      .repeatableScopedSubscribe("ObserveCurrentWallet") { e -> e.printStackTrace() }
+      .map { it.address }
+      .distinctUntilChanged { old, new -> old == new }
+      .flatMapCompletable { walletDetailsInteractor.setActiveWalletSupport(it) }
+      .repeatableScopedSubscribe("ObserveCurrentWallet", Throwable::printStackTrace)
   }
 
   private fun fetchWallets(flushAsync: Boolean) {
