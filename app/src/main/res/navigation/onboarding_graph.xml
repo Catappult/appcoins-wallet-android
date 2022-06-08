@@ -24,6 +24,22 @@
         app:destination="@id/main_activity"/>
   </fragment>
 
+  <fragment
+      android:id="@+id/onboarding_iap_fragment"
+      android:name="com.asfoundation.wallet.onboarding.iap.OnboardingIapFragment"
+      tools:layout="@layout/onboarding_iap_fragment">
+
+    <action
+        android:id="@+id/action_navigate_create_wallet_dialog"
+        app:destination="@id/create_wallet_dialog_fragment"
+        app:popUpTo="@+id/onboarding_terms_conditions_dialog"
+        app:popUpToInclusive="true" />
+
+    <action
+        android:id="@+id/action_navigate_terms_conditions"
+        app:destination="@id/onboarding_terms_conditions_dialog" />
+  </fragment>
+
   <dialog
       android:id="@+id/onboarding_terms_conditions_dialog"
       android:name="com.asfoundation.wallet.onboarding.bottom_sheet.TermsConditionsBottomSheetFragment"

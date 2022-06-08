@@ -14,6 +14,7 @@ class SharedPreferencesRepository @Inject constructor(private val pref: SharedPr
 
     const val CURRENT_ACCOUNT_ADDRESS_KEY = "current_account_address"
     private const val ONBOARDING_COMPLETE_KEY = "onboarding_complete"
+    private const val ONBOARDING_FROM_IAP_KEY = "onboarding_from_iap"
     private const val ONBOARDING_SKIP_CLICKED_KEY = "onboarding_skip_clicked"
 
     //String was kept the same for legacy purposes
@@ -34,6 +35,15 @@ class SharedPreferencesRepository @Inject constructor(private val pref: SharedPr
       .putBoolean(ONBOARDING_COMPLETE_KEY, true)
       .apply()
   }
+
+  override fun isOnboardingFromIap() = pref.getBoolean(ONBOARDING_FROM_IAP_KEY, false)
+
+  override fun setOnboardingFromIap() {
+    pref.edit()
+      .putBoolean(ONBOARDING_FROM_IAP_KEY, true)
+      .apply()
+  }
+
 
   override fun hasClickedSkipOnboarding() = pref.getBoolean(ONBOARDING_SKIP_CLICKED_KEY, false)
 

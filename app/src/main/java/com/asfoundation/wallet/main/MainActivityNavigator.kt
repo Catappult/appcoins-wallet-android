@@ -16,24 +16,23 @@ import javax.inject.Inject
 
 class MainActivityNavigator @Inject constructor(@ApplicationContext val context: Context) {
 
-  fun navigateToOnboarding(mainActivity: MainActivity, fromSupportNotification: Boolean = false) {
-    val intent = OnboardingActivity.newIntent(context, fromSupportNotification)
+  fun navigateToAutoUpdate(mainActivity: MainActivity) {
+    val intent = UpdateRequiredActivity.newIntent(context)
+      .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
+      .addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT)
       .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-      .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
     mainActivity.startActivity(intent)
   }
-
   fun showAuthenticationActivity(authenticationResultLauncher: ActivityResultLauncher<Intent>) {
     val intent = AuthenticationPromptActivity.newIntent(context)
       .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
     authenticationResultLauncher.launch(intent)
   }
 
-  fun navigateToAutoUpdate(mainActivity: MainActivity) {
-    val intent = UpdateRequiredActivity.newIntent(context)
-      .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
-      .addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT)
+  fun navigateToOnboarding(mainActivity: MainActivity, fromIap: Boolean, fromSupportNotification: Boolean = false) {
+    val intent = OnboardingActivity.newIntent(context, fromIap, fromSupportNotification)
       .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+      .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
     mainActivity.startActivity(intent)
   }
 

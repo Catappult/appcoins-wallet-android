@@ -9,6 +9,7 @@ import com.asfoundation.wallet.home.usecases.DisplayConversationListOrChatUseCas
 import com.asfoundation.wallet.main.use_cases.HasAuthenticationPermissionUseCase
 import com.asfoundation.wallet.main.use_cases.HasSeenPromotionTooltipUseCase
 import com.asfoundation.wallet.main.use_cases.IncreaseLaunchCountUseCase
+import com.asfoundation.wallet.onboarding.use_cases.IsOnboardingFromIapUseCase
 import com.asfoundation.wallet.onboarding.use_cases.ShouldShowOnboardingUseCase
 import com.asfoundation.wallet.promotions.PromotionUpdateScreen
 import com.asfoundation.wallet.promotions.PromotionsInteractor
@@ -20,6 +21,7 @@ import javax.inject.Inject
 
 sealed class MainSideEffect : SideEffect {
   object NavigateToOnboarding : MainSideEffect()
+  object NavigateToOnboardingIap : MainSideEffect()
   object NavigateToHome : MainSideEffect()
   object NavigateToAutoUpdate : MainSideEffect()
   object NavigateToFingerprintAuthentication : MainSideEffect()
@@ -38,6 +40,7 @@ class MainViewModel @Inject constructor(
   private val hasRequiredHardUpdateUseCase: HasRequiredHardUpdateUseCase,
   private val hasAuthenticationPermissionUseCase: HasAuthenticationPermissionUseCase,
   private val shouldShowOnboardingUseCase: ShouldShowOnboardingUseCase,
+  private val isOnboardingFromIapUseCase: IsOnboardingFromIapUseCase,
   private val savedStateHandle: SavedStateHandle,
   private val rxSchedulers: RxSchedulers
 ) : BaseViewModel<MainState, MainSideEffect>(MainState()) {
@@ -59,6 +62,8 @@ class MainViewModel @Inject constructor(
           hasAuthenticationPermissionUseCase() && !authComplete -> {
             sendSideEffect { MainSideEffect.NavigateToFingerprintAuthentication }
           }
+          isOnboardingFromIapUseCase() && shouldShowOnboardingUseCase()->
+            sendSideEffect { MainSideEffect.NavigateToOnboardingIap }
           shouldShowOnboardingUseCase() ->
             sendSideEffect { MainSideEffect.NavigateToOnboarding }
           else ->

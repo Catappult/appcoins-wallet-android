@@ -219,6 +219,7 @@
 
   <!-- Backup 2.0 -->
   <color name="blue_dark">#001728</color>
+  <color name="blue_dark_transparent_90">#E6001728</color>
   <color name="white_transparent_4">#0AFFFFFF</color>
   <color name="white_transparent_10">#1AFFFFFF</color>
   <color name="grey_blue_medium">#5F6E78</color>

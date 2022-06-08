@@ -20,6 +20,7 @@ import com.asf.wallet.databinding.ActivityMainBinding
 import com.asfoundation.wallet.base.SingleStateFragment
 import com.asfoundation.wallet.main.appsflyer.ApkOriginVerification
 import com.asfoundation.wallet.navigator.setupWithNavController
+import com.asfoundation.wallet.onboarding.use_cases.SetOnboardingFromIapUseCase
 import com.asfoundation.wallet.support.SupportNotificationProperties.SUPPORT_NOTIFICATION_CLICK
 import com.asfoundation.wallet.ui.AuthenticationPromptActivity
 import com.asfoundation.wallet.util.Log
@@ -49,6 +50,10 @@ class MainActivity : AppCompatActivity(), SingleStateFragment<MainState, MainSid
   @Inject
   lateinit var navigator: MainActivityNavigator
 
+  //TODO remove usecase usage, only for testing
+  @Inject
+  lateinit var setOnboardingFromIapUseCase: SetOnboardingFromIapUseCase
+
   private val views by viewBinding(ActivityMainBinding::bind)
 
   private val viewModel: MainViewModel by viewModels()
@@ -69,6 +74,10 @@ class MainActivity : AppCompatActivity(), SingleStateFragment<MainState, MainSid
     if (savedInstanceState == null) {
       appsflyerFirstRun()
     }
+
+    //TODO remove usecase usage, only for testing
+    setOnboardingFromIapUseCase()
+
     handleAuthenticationResult()
     viewModel.collectStateAndEvents(lifecycle, lifecycleScope)
   }
@@ -116,7 +125,10 @@ class MainActivity : AppCompatActivity(), SingleStateFragment<MainState, MainSid
       MainSideEffect.NavigateToAutoUpdate -> navigator.navigateToAutoUpdate(this)
       MainSideEffect.NavigateToFingerprintAuthentication ->
         navigator.showAuthenticationActivity(authenticationResultLauncher)
-      MainSideEffect.NavigateToOnboarding -> navigator.navigateToOnboarding(this)
+      MainSideEffect.NavigateToOnboarding -> navigator.navigateToOnboarding(this, fromIap = false)
+      MainSideEffect.NavigateToOnboardingIap -> {
+        navigator.navigateToOnboarding(this, fromIap = true)
+      }
       MainSideEffect.NavigateToHome -> showHomeContent()
     }
   }

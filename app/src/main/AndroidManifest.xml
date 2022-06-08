@@ -71,7 +71,8 @@
 
     <activity
         android:name="com.asfoundation.wallet.onboarding.OnboardingActivity"
-        android:label="" />
+        android:label=""
+        android:theme="@style/AppTheme.Transparent"/>
 
     <activity
         android:name="com.asfoundation.wallet.main.MainActivity"

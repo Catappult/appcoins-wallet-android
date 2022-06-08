@@ -67,7 +67,7 @@
     <item name="android:fitsSystemWindows">true</item>
   </style>
 
-  <style name="AppTheme.Transparent" parent="AppTheme">
+  <style name="AppTheme.Transparent" parent="MaterialAppTheme">
     <item name="windowActionBar">false</item>
     <item name="windowNoTitle">true</item>
     <item name="android:windowIsTranslucent">true</item>
