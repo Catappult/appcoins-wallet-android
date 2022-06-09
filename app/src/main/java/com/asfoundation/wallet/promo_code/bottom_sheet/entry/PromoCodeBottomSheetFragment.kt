@@ -15,10 +15,10 @@ import com.asf.wallet.R
 import com.asf.wallet.databinding.SettingsPromoCodeBottomSheetLayoutBinding
 import com.asfoundation.wallet.base.Async
 import com.asfoundation.wallet.base.SingleStateFragment
-import com.asfoundation.wallet.promo_code.bottom_sheet.FailedPromoCode
+import com.asfoundation.wallet.promo_code.FailedPromoCode
 import com.asfoundation.wallet.promo_code.bottom_sheet.PromoCodeBottomSheetNavigator
-import com.asfoundation.wallet.promo_code.bottom_sheet.PromoCodeResult
-import com.asfoundation.wallet.promo_code.bottom_sheet.SuccessfulPromoCode
+import com.asfoundation.wallet.promo_code.PromoCodeResult
+import com.asfoundation.wallet.promo_code.SuccessfulPromoCode
 import com.asfoundation.wallet.ui.common.WalletTextFieldView
 import com.asfoundation.wallet.util.KeyboardUtils
 import com.google.android.material.bottomsheet.BottomSheetBehavior
@@ -70,7 +70,7 @@ class PromoCodeBottomSheetFragment : BottomSheetDialogFragment(),
 
   private fun setListeners() {
     views.promoCodeBottomSheetSubmitButton.setOnClickListener {
-      viewModel.submitClick(views.promoCodeBottomSheetString.getText())
+      viewModel.submitClick(views.promoCodeBottomSheetString.getText().trim())
     }
     views.promoCodeBottomSheetReplaceButton.setOnClickListener {
       viewModel.replaceClick()
@@ -96,7 +96,7 @@ class PromoCodeBottomSheetFragment : BottomSheetDialogFragment(),
         }
       }
       is Async.Fail -> {
-        handleErrorState(FailedPromoCode.GenericError(clickAsync.error.throwable))
+        handleErrorState(FailedPromoCode.InvalidCode(clickAsync.error.throwable))
       }
       is Async.Success -> {
         state.promoCodeAsync.value?.let { handleClickSuccessState(it) }
