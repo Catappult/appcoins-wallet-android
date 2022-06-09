@@ -26,6 +26,7 @@ class EtherTransactionBottomSheetNavigator @Inject constructor(val fragmentManag
   }
 
   fun goBackToTransactions() {
-    mainActivityNavigator.navigateToHome()
+//    mainActivityNavigator.navigateToHome()
+    fragment.activity?.finish()
   }
 }
