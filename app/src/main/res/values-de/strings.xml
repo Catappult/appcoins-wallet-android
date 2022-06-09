@@ -444,7 +444,7 @@
   <string name="understood_button">Verstanden!</string>
   <string name="skip_button">Jetzt überspringen</string>
   <string name="understand_button">Ich verstehe</string>
-  <string name="install_button">Install</string>
+  <string name="install_button">Installieren</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Ich stimme den %1$s und der %2$s des AppCoins Wallets zu.</string>
   <string name="terms_and_conditions_error">Um fortzufahren, akzeptieren Sie bitte unsere AGBs und unsere Datenschutzrichtlinie</string>
@@ -557,9 +557,9 @@
   <string name="purachse_error_verify_card_button">KARTE ÜBERPRÜFEN</string>
   <string name="purchase_eskills_sku">Ticket eingeben</string>
   <string name="purchase_paytmupi_install_disclaimer">Sie müssen die die Paytm UPI App installieren.</string>
-  <string name="purchase_app_needed_body">You need the following app to complete your purchase.</string>
-  <string name="purchase_apps_needed_body">You need one of the following apps to complete your purchase.</string>
-  <string name="purchase_error_no_connection">It seems you have don\'t have an internet connection! Please check it and try again.</string>
+  <string name="purchase_app_needed_body">Um ihren Einkauf abschließen zu können, benötigen Sie die folgende App.</string>
+  <string name="purchase_apps_needed_body">Um ihren Einkauf abschließen zu können, benötigen Sie die folgenden Apps.</string>
+  <string name="purchase_error_no_connection">Sie haben offensichtlich keine Internetverbindung! Bitte prüfen Sie die Verbindung und versuchen Sie es erneut.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">Rechnungsadresse</string>
   <string name="purchase_address_address_field">Adresse</string>
@@ -676,9 +676,9 @@
   <string name="backup_wallet_button">Wallet-Backup erstellen</string>
   <string name="backup_success_save_on_email">Ihre Backup-Datei befindet sich in Ihrer E-Mail.</string>
   <string name="backup_success_save_on_device">Ihre Backup-Datei wurde auf Ihrem Gerät gespeichert.</string>
-  <string name="backup_popup_title">Back up your wallet now!</string>
-  <string name="backup_popup_purchase_body">Keep your funds safe at all times.</string>
-  <string name="backup_popup_gamification_body">Keep your bonus level safe at all times.</string>
+  <string name="backup_popup_title">Jetzt Backup für ihr Wallet durchführen!</string>
+  <string name="backup_popup_purchase_body">Bewahren Sie Ihr Guthaben jederzeit sicher auf.</string>
+  <string name="backup_popup_gamification_body">Bewahren Sie Ihr Bonus-Level jederzeit sicher auf.</string>
   <!--Wallets Management-->
   <string name="wallets_title">Wallets</string>
   <string name="wallets_total_balance_title">Gesamtguthaben in %s</string>
@@ -998,10 +998,10 @@
   <string name="e_skills_room_create_title">Einem Raum beitreten oder erstellen</string>
   <string name="e_skills_room_create_body">Erstellen Sie einen Raum und teilen Sie ihn mit ihren Gegenspielern oder treten Sie einem existierenden Raum bei.</string>
   <string name="e_skills_room_field">Geben Sie den Namen ihres Raumes hier ein...</string>
-  <string name="e_skills_withdraw_confirmation_title">A $%s withdrawal has been requested!</string>
-  <string name="e_skills_withdraw_confirmation_body">This may take between 2 and 3 weeks to be processed.</string>
-  <string name="e_skills_withdraw_minimum_body">The minimum amount to withdraw is $%s.</string>
-  <string name="e_skills_withdraw_started_title">A withdrawal request of $%s has been started.</string>
+  <string name="e_skills_withdraw_confirmation_title">Es wurde eine Abhebung über $%s beantragt!</string>
+  <string name="e_skills_withdraw_confirmation_body">Die Verarbeitung kann 2 bis 3 Wochen dauern.</string>
+  <string name="e_skills_withdraw_minimum_body">Der Mindestbetrag für eine Abhebung beträgt $%s.</string>
+  <string name="e_skills_withdraw_started_title">Eine Abhebungsanfrage von $%s wurde gestartet.</string>
   <string name="e_skills_withdraw_started_body">This request may take 2-3 weeks to be processed.</string>
   <string name="e_skills_withdraw_error_not_funds">Make sure you have enough funds to be withdrawn.</string>
   <!--Promo Code-->
