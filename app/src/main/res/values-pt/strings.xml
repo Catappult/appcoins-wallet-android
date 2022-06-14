@@ -1076,6 +1076,7 @@
   <string name="mywallet_choose_name_confirmed">Nome da wallet mudado</string>
   <string name="mywallet_unnamed_wallet">Wallet sem nome %s</string>
   <string name="mywallet_swithing_wallets_title">A trocar de wallets...</string>
+  <string name="mywallet_address_title">Address:</string>
   <!-- Onboarding for new users coming from an iap -->
   <string name="onboarding_1st_title">Parabéns! Instalaste a AppCoins Wallet.</string>
   <string name="onboarding_1st_body">Volta ao jogo para completares a tua compra.</string>
