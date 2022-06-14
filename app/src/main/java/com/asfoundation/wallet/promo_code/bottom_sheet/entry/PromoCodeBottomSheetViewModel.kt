@@ -4,8 +4,8 @@ import com.asfoundation.wallet.base.Async
 import com.asfoundation.wallet.base.BaseViewModel
 import com.asfoundation.wallet.base.SideEffect
 import com.asfoundation.wallet.base.ViewState
-import com.asfoundation.wallet.promo_code.bottom_sheet.FailedPromoCode
-import com.asfoundation.wallet.promo_code.bottom_sheet.PromoCodeResult
+import com.asfoundation.wallet.promo_code.FailedPromoCode
+import com.asfoundation.wallet.promo_code.PromoCodeResult
 import com.asfoundation.wallet.promo_code.use_cases.*
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
