@@ -1085,6 +1085,7 @@
   <string name="mywallet_choose_name_confirmed">Promenjen je naziv novčanika</string>
   <string name="mywallet_unnamed_wallet">Novčanik nema naziv %s</string>
   <string name="mywallet_swithing_wallets_title">Prebacivanje na drugi novčanik...</string>
+  <string name="mywallet_address_title">Address:</string>
   <!-- Onboarding for new users coming from an iap -->
   <string name="onboarding_1st_title">Čestitamo! Instalirali ste AppCoins Wallet.</string>
   <string name="onboarding_1st_body">Vratite se u igru da biste dovršili svoju kupovinu.</string>
