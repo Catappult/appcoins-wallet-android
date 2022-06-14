@@ -1069,6 +1069,7 @@
   <string name="mywallet_choose_name_confirmed">เปลี่ยนชื่อกระเป๋าสตางค์</string>
   <string name="mywallet_unnamed_wallet">กระเป๋าเงินไม่มีชื่อ %s</string>
   <string name="mywallet_swithing_wallets_title">เปลี่ยนกระเป๋าสตางค์...</string>
+  <string name="mywallet_address_title">Address:</string>
   <!-- Onboarding for new users coming from an iap -->
   <string name="onboarding_1st_title">ยินดีด้วย! คุณได้ติดตั้ง AppCoins Wallet แล้ว</string>
   <string name="onboarding_1st_body">กลับไปที่เกมเพื่อทำการสั่งซื้อให้เสร็จสิ้น</string>
