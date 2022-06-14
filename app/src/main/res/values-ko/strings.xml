@@ -1067,6 +1067,7 @@
   <string name="mywallet_choose_name_confirmed">지갑 이름이 변경되었습니다</string>
   <string name="mywallet_unnamed_wallet">이름 없는 지갑 %s</string>
   <string name="mywallet_swithing_wallets_title">지갑 변경중...</string>
+  <string name="mywallet_address_title">Address:</string>
   <!-- Onboarding for new users coming from an iap -->
   <string name="onboarding_1st_title">축하합니다! AppCoins 지갑을 설치하셨습니다.</string>
   <string name="onboarding_1st_body">구매 완료를 위해서 게임으로 돌아가세요.</string>
