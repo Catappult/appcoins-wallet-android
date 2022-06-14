@@ -381,6 +381,8 @@
   <string name="topup_bonus_body">ਤੁਸੀਂ ਇਸ ਬੋਨਸ ਨੂੰ ਆਪਣੀ ਅਗਲੀ ਖਰੀਦ ਵਿਚ ਵਰਤ ਸਕਦੇ ਹੋ|</string>
   <string name="topup_minimum_value">ਪੈਸੇ ਭਰਨ ਦਾ ਨਿਊਨਤਮ ਮੁੱਲ %s ਹੈ|</string>
   <string name="topup_maximum_value">ਪੈਸੇ ਭਰਨ ਦਾ ਅਧਿਕਤਮ ਮੁੱਲ %s ਹੈ|</string>
+  <string name="topup_no_method_available_title">No payment methods!</string>
+  <string name="topup_no_method_available_body">There are no payment methods available to top up in your country at the moment. Stay tuned!</string>
   <!--Balance-->
   <string name="balance_title">ਰਕਮ</string>
   <string name="balance_total_body">%s ਵਿੱਚ ਕੁੱਲ ਰਕਮ</string>

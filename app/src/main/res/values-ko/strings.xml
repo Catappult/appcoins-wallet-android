@@ -381,6 +381,8 @@
   <string name="topup_bonus_body">다음 구매에서 이 보너스를 사용하실 수 있습니다.</string>
   <string name="topup_minimum_value">최소 탑-업 레벨은 %s 입니다</string>
   <string name="topup_maximum_value">최대 탑-업 레벨은 %s 입니다</string>
+  <string name="topup_no_method_available_title">No payment methods!</string>
+  <string name="topup_no_method_available_body">There are no payment methods available to top up in your country at the moment. Stay tuned!</string>
   <!--Balance-->
   <string name="balance_title">잔액</string>
   <string name="balance_total_body">%s의 총 잔액</string>
