@@ -1085,6 +1085,7 @@
   <string name="mywallet_choose_name_confirmed">Numele portofelului a fost schimbat</string>
   <string name="mywallet_unnamed_wallet">Portofel fără nume %s</string>
   <string name="mywallet_swithing_wallets_title">Se schimbă portofelele...</string>
+  <string name="mywallet_address_title">Address:</string>
   <!-- Onboarding for new users coming from an iap -->
   <string name="onboarding_1st_title">Felicitări! Ai instalat un AppCoins Wallet.</string>
   <string name="onboarding_1st_body">Du-te înapoi la joc pentru a finaliza achiziția.</string>
