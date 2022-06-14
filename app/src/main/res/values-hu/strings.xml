@@ -1076,6 +1076,7 @@
   <string name="mywallet_choose_name_confirmed">Megváltozott a wallet neve</string>
   <string name="mywallet_unnamed_wallet">A(z) %s walletnek nincs neve</string>
   <string name="mywallet_swithing_wallets_title">Másik wallet kiválasztása...</string>
+  <string name="mywallet_address_title">Address:</string>
   <!-- Onboarding for new users coming from an iap -->
   <string name="onboarding_1st_title">Gratulálunk! Telepítetted az AppCoins Walletet.</string>
   <string name="onboarding_1st_body">A vásárlás befejezéséhez menj vissza a játékba.</string>
