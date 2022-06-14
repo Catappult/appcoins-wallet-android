@@ -12,7 +12,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.airbnb.epoxy.EpoxyVisibilityTracker
 import com.asf.wallet.R
-import com.asf.wallet.databinding.FragmentMyWalletsBinding
+import com.asf.wallet.databinding.FragmentOldMyWalletsBinding
 import com.asfoundation.wallet.base.SingleStateFragment
 import com.asfoundation.wallet.billing.analytics.WalletsAnalytics
 import com.asfoundation.wallet.billing.analytics.WalletsEventSender
@@ -34,8 +34,8 @@ import java.math.BigDecimal
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class MyWalletsFragment : BasePageViewFragment(),
-  SingleStateFragment<MyWalletsState, MyWalletsSideEffect> {
+class OldMyWalletsFragment : BasePageViewFragment(),
+  SingleStateFragment<OldMyWalletsState, OldMyWalletsSideEffect> {
 
   @Inject
   lateinit var formatter: CurrencyFormatUtils
@@ -46,9 +46,9 @@ class MyWalletsFragment : BasePageViewFragment(),
   @Inject
   lateinit var walletsEventSender: WalletsEventSender
 
-  private val viewModel: MyWalletsViewModel by viewModels()
+  private val viewModel: OldMyWalletsViewModel by viewModels()
 
-  private var binding: FragmentMyWalletsBinding? = null
+  private var binding: FragmentOldMyWalletsBinding? = null
   private val views get() = binding!!
 
   private lateinit var walletsController: WalletsController
@@ -59,7 +59,7 @@ class MyWalletsFragment : BasePageViewFragment(),
     container: ViewGroup?,
     savedInstanceState: Bundle?
   ): View {
-    binding = FragmentMyWalletsBinding.inflate(inflater, container, false)
+    binding = FragmentOldMyWalletsBinding.inflate(inflater, container, false)
     return views.root
   }
 
@@ -164,10 +164,10 @@ class MyWalletsFragment : BasePageViewFragment(),
     views.actionButtonNfts.setOnClickListener { navigator.navigateToNfts() }
   }
 
-  override fun onStateChanged(state: MyWalletsState) =
+  override fun onStateChanged(state: OldMyWalletsState) =
     walletsController.setData(state.walletsAsync, state.walletVerifiedAsync, state.walletInfoAsync)
 
-  override fun onSideEffect(sideEffect: MyWalletsSideEffect) = Unit
+  override fun onSideEffect(sideEffect: OldMyWalletsSideEffect) = Unit
 
   private fun getFiatBalanceText(balance: FiatValue): String {
     var overallBalance = "-1"

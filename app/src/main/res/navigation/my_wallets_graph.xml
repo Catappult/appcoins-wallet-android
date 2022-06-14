@@ -7,8 +7,8 @@
 
   <fragment
       android:id="@+id/my_wallets_fragment"
-      android:name="com.asfoundation.wallet.my_wallets.main.MyWalletsFragment"
-      tools:layout="@layout/fragment_my_wallets">
+      android:name="com.asfoundation.wallet.my_wallets.main.OldMyWalletsFragment"
+      tools:layout="@layout/fragment_old_my_wallets">
     <action
         android:id="@+id/action_navigate_to_more"
         app:destination="@id/more_dialog_fragment" />
