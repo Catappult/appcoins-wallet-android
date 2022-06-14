@@ -1067,6 +1067,7 @@
   <string name="mywallet_choose_name_confirmed">Nama dompet diubah</string>
   <string name="mywallet_unnamed_wallet">Dompet tanpa nama %s</string>
   <string name="mywallet_swithing_wallets_title">Menukar dompet...</string>
+  <string name="mywallet_address_title">Address:</string>
   <!-- Onboarding for new users coming from an iap -->
   <string name="onboarding_1st_title">Tahniah! Anda sudah pasang Dompet AppCoins.</string>
   <string name="onboarding_1st_body">Kembali ke permainan untuk lengkapkan pembelian anda.</string>
