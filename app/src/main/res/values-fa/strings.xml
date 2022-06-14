@@ -1076,6 +1076,7 @@
   <string name="mywallet_choose_name_confirmed">نام کیف‌پول تغییر کرد</string>
   <string name="mywallet_unnamed_wallet">کیف پول بی نام %s</string>
   <string name="mywallet_swithing_wallets_title">تعویض کیف‌پول‌ها...</string>
+  <string name="mywallet_address_title">Address:</string>
   <!-- Onboarding for new users coming from an iap -->
   <string name="onboarding_1st_title">تبریک! شما AppCoins Wallet را نصب کردید.</string>
   <string name="onboarding_1st_body">برای تکمیل خرید به بازی برگردید.</string>
