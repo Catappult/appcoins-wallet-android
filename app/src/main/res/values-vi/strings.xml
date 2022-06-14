@@ -1067,6 +1067,7 @@
   <string name="mywallet_choose_name_confirmed">Tên ví đã được thay đổi</string>
   <string name="mywallet_unnamed_wallet">Ví không tên %s</string>
   <string name="mywallet_swithing_wallets_title">Đang chuyển đổi ví...</string>
+  <string name="mywallet_address_title">Address:</string>
   <!-- Onboarding for new users coming from an iap -->
   <string name="onboarding_1st_title">Xin chúc mừng! Bạn đã cài đặt được Ví AppCoins.</string>
   <string name="onboarding_1st_body">Quay lại trò chơi để hoàn tất giao dịch mua của mình.</string>
