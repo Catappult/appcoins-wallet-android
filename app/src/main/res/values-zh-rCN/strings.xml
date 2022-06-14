@@ -1067,6 +1067,7 @@
   <string name="mywallet_choose_name_confirmed">钱包名称已更改</string>
   <string name="mywallet_unnamed_wallet">无名称钱包%s</string>
   <string name="mywallet_swithing_wallets_title">更换钱包...</string>
+  <string name="mywallet_address_title">Address:</string>
   <!-- Onboarding for new users coming from an iap -->
   <string name="onboarding_1st_title">恭喜！你已安装AppCoins钱包。</string>
   <string name="onboarding_1st_body">返回游戏以完成购买。</string>
