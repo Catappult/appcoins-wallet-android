@@ -1113,6 +1113,7 @@
   <string name="mywallet_choose_name_confirmed">اسم المحفظة تغيّر</string>
   <string name="mywallet_unnamed_wallet">محفظة بلا اسم %s</string>
   <string name="mywallet_swithing_wallets_title">تبديل المَحافظ...</string>
+  <string name="mywallet_address_title">Address:</string>
   <!-- Onboarding for new users coming from an iap -->
   <string name="onboarding_1st_title">مبروك! لقد ثبتَّ AppCoins Wallet.</string>
   <string name="onboarding_1st_body">عد إلى اللعبة لإتمام عملية الشراء.</string>
