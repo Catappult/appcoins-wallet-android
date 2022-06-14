@@ -76,7 +76,8 @@ class WithdrawFragment : BasePageViewFragment(),
       return
     }
     if (amount.toFloatOrNull() ?: 0F <= 0F) {
-      views.layoutWithdrawEntry.amount.error = getString(R.string.error_field_required)
+      // the minimum withdraw amount (server side) is required here
+      viewModel.withdrawToFiat(paypalEmail, BigDecimal("0.00001"))
       return
     }
 
