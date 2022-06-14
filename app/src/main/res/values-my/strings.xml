@@ -1067,6 +1067,7 @@
   <string name="mywallet_choose_name_confirmed">ပိုက္ဆံအိတ္အမည္ ေျပာင္းလဲလိုက္ပါသည္</string>
   <string name="mywallet_unnamed_wallet">အမည္မရွိ ပိုက္ဆံအိတ္ %s</string>
   <string name="mywallet_swithing_wallets_title">ပိုက္ဆံအိတ္မ်ား ေျပာင္းသုံးေနပါသည္...</string>
+  <string name="mywallet_address_title">Address:</string>
   <!-- Onboarding for new users coming from an iap -->
   <string name="onboarding_1st_title">ဂုဏ္ယူပါသည္။ AppCoins Wallet ကို ထည့္သြင္းလိုက္ပါၿပီ။</string>
   <string name="onboarding_1st_body">သင့္ဝယ္ယူမႈကို အၿပီးသတ္ရန္ ဂိမ္းသို႔ျပန္သြားပါ။</string>
