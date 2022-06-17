@@ -639,7 +639,7 @@
   <!--Backup and Import-->
   <string name="backup_home_notification_title">ウォレットのバックアップ</string>
   <string name="backup_home_notification_body">携帯電話を紛失したことはありませんか？今すぐウォレットをバックアップしましょう！</string>
-  <string name="backup_confirmation_no_share_title">バックアップ完了！</string>
+  <string name="backup_confirmation_no_share_title">Backup Done!</string>
   <string name="backup_save_dialogue_title">バックアップファイルの保存</string>
   <string name="backup_save_dialogue_body">バックアップファイルの名前を決めてください。</string>
   <string name="import_wallet_title">ウォレットの復元</string>
@@ -1062,7 +1062,7 @@
   <string name="mywallet_unverified_body">支払い方法を確認することで、詰まりを回避することができます。</string>
   <string name="mywallet_backed_up_date">%sにウォレットをバックアップしました。</string>
   <string name="mywallet_backup_again_button">再度バックアップ</string>
-  <string name="mywallet_verify_payment_method_button">新しい支払方法を確認</string>
+  <string name="mywallet_verify_payment_method_button">VERIFY NEW CARD</string>
   <string name="mywallet_choose_name_header">ウォレットの名前を決める</string>
   <string name="mywallet_choose_name_field">ここにウォレットの名前...</string>
   <string name="mywallet_choose_name_confirmed">ウォレット名が変更されました</string>
