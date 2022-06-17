@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/appbar_background_my_wallets"
+    android:orientation="vertical"
+    >
+  <include
+      android:id="@+id/toolbar"
+      layout="@layout/fragment_my_wallets_toolbar"
+      />
+  <include
+      android:id="@+id/my_wallets_content"
+      layout="@layout/fragment_my_wallets_content"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:layout_marginTop="16dp"
+      />
+</LinearLayout>
