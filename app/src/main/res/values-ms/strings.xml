@@ -638,7 +638,7 @@
   <!--Backup and Import-->
   <string name="backup_home_notification_title">Sandar Dompet Anda</string>
   <string name="backup_home_notification_body">Anda pernah hilang telefon? Buat sandaran dompet anda sekarang!</string>
-  <string name="backup_confirmation_no_share_title">Sandaran selesai!</string>
+  <string name="backup_confirmation_no_share_title">Backup Done!</string>
   <string name="backup_save_dialogue_title">Simpan fail sandaran</string>
   <string name="backup_save_dialogue_body">Pilih nama untuk fail sandaran anda.</string>
   <string name="import_wallet_title">Dapatkan Semula Dompet</string>
@@ -1061,7 +1061,7 @@
   <string name="mywallet_unverified_body">Sahkan kaedah pembayaran untuk elak sekatan.</string>
   <string name="mywallet_backed_up_date">Anda telah sandarkan dompet anda di %s.</string>
   <string name="mywallet_backup_again_button">SANDAR SEKALI LAGI</string>
-  <string name="mywallet_verify_payment_method_button">SAHKAN KAEDAH BAYARAN BARU</string>
+  <string name="mywallet_verify_payment_method_button">VERIFY NEW CARD</string>
   <string name="mywallet_choose_name_header">Pilih nama untuk dompet anda</string>
   <string name="mywallet_choose_name_field">Nama dompet di sini...</string>
   <string name="mywallet_choose_name_confirmed">Nama dompet diubah</string>
