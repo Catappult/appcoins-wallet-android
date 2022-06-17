@@ -638,7 +638,7 @@
   <!--Backup and Import-->
   <string name="backup_home_notification_title">Napravite rezervnu kopiju novčanika</string>
   <string name="backup_home_notification_body">Da li ste ikada izgubili telefon? Odmah napravite rezervnu kopiju novčanika!</string>
-  <string name="backup_confirmation_no_share_title">Rezervna kopija je napravljena!</string>
+  <string name="backup_confirmation_no_share_title">Backup Done!</string>
   <string name="backup_save_dialogue_title">Sačuvaj datoteku sa rezervnom kopijom</string>
   <string name="backup_save_dialogue_body">Izaberite naziv za datoteku sa rezervnom kopijom.</string>
   <string name="import_wallet_title">Oporavite novčanik</string>
@@ -1079,7 +1079,7 @@
   <string name="mywallet_unverified_body">Potvrdite način plaćanja da biste izbegli blokiranja.</string>
   <string name="mywallet_backed_up_date">Napravili ste rezervnu kopiju novčanika dana %s.</string>
   <string name="mywallet_backup_again_button">NAPRAVITE REZERVNU KOPIJU PONOVO</string>
-  <string name="mywallet_verify_payment_method_button">POTVRDITE NOVI NAČIN PLAĆANJA</string>
+  <string name="mywallet_verify_payment_method_button">VERIFY NEW CARD</string>
   <string name="mywallet_choose_name_header">Izaberite naziv za vaš novčanik</string>
   <string name="mywallet_choose_name_field">Naziv novčanika ovde...</string>
   <string name="mywallet_choose_name_confirmed">Promenjen je naziv novčanika</string>
