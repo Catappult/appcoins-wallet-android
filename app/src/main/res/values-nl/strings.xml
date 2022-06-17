@@ -638,7 +638,7 @@
   <!--Backup and Import-->
   <string name="backup_home_notification_title">Back-up van je wallet maken</string>
   <string name="backup_home_notification_body">Ben je je telefoon wel eens kwijtgeraakt? Maak nu een back-up van je wallet!</string>
-  <string name="backup_confirmation_no_share_title">Back-up gereed!</string>
+  <string name="backup_confirmation_no_share_title">Backup Done!</string>
   <string name="backup_save_dialogue_title">Back-upbestand opslaan</string>
   <string name="backup_save_dialogue_body">Kies een naam voor je back-upbestand.</string>
   <string name="import_wallet_title">Wallet herstellen</string>
@@ -1070,7 +1070,7 @@
   <string name="mywallet_unverified_body">Verifieer een betaalmethode om blokkades te voorkomen.</string>
   <string name="mywallet_backed_up_date">Je hebt op %s een back-up van je wallet gemaakt.</string>
   <string name="mywallet_backup_again_button">OPNIEUW EEN BACK-UP MAKEN</string>
-  <string name="mywallet_verify_payment_method_button">NIEUWE BETAALMETHODE VERIFIËREN</string>
+  <string name="mywallet_verify_payment_method_button">VERIFY NEW CARD</string>
   <string name="mywallet_choose_name_header">Kies een naam voor je wallet</string>
   <string name="mywallet_choose_name_field">Voer hier de naam van je wallet in...</string>
   <string name="mywallet_choose_name_confirmed">Naam van de wallet is gewijzigd</string>
