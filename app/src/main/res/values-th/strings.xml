@@ -640,7 +640,7 @@
   <!--Backup and Import-->
   <string name="backup_home_notification_title">สำรองกระเป๋าสตางค์ของคุณ</string>
   <string name="backup_home_notification_body">คุณเคยทำโทรศัพท์หายหรือไม่? สำรองกระเป๋าสตางค์ของคุณตอนนี้!</string>
-  <string name="backup_confirmation_no_share_title">สำรองสำเร็จ!</string>
+  <string name="backup_confirmation_no_share_title">Backup Done!</string>
   <string name="backup_save_dialogue_title">บันทึกไฟล์สำรอง</string>
   <string name="backup_save_dialogue_body">เลือกชื่อสำหรับไฟล์สำรองของคุณ</string>
   <string name="import_wallet_title">กู้คืน Wallet</string>
@@ -1063,7 +1063,7 @@
   <string name="mywallet_unverified_body">ตรวจสอบวิธีการชำระเงินเพื่อหลีกเลี่ยงการปิดกั้น</string>
   <string name="mywallet_backed_up_date">คุณสำรองข้อมูลกระเป๋าสตางค์ของคุณใน %s</string>
   <string name="mywallet_backup_again_button">สำรองข้อมูลอีกครั้ง</string>
-  <string name="mywallet_verify_payment_method_button">ยืนยันวิธีการชำระเงินใหม่</string>
+  <string name="mywallet_verify_payment_method_button">VERIFY NEW CARD</string>
   <string name="mywallet_choose_name_header">เลือกชื่อสำหรับกระเป๋าสตางค์ของคุณ</string>
   <string name="mywallet_choose_name_field">ชื่อกระเป๋าเงินที่นี่...</string>
   <string name="mywallet_choose_name_confirmed">เปลี่ยนชื่อกระเป๋าสตางค์</string>
