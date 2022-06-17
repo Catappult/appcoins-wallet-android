@@ -5,6 +5,7 @@ import cm.aptoide.analytics.AnalyticsManager
 import com.android.installreferrer.api.InstallReferrerClient
 import com.android.installreferrer.api.InstallReferrerStateListener
 import com.android.installreferrer.api.ReferrerDetails
+import com.asfoundation.wallet.onboarding.use_cases.SetOnboardingFromIapUseCase
 import com.asfoundation.wallet.util.Log
 import com.asfoundation.wallet.util.UrlUtmParser
 import dagger.hilt.android.qualifiers.ApplicationContext
@@ -14,12 +15,13 @@ import javax.inject.Inject
 
 class InstallReferrerAnalytics @Inject constructor(
   @ApplicationContext val context: Context,
-  private val analyticsManager: AnalyticsManager
+  private val analyticsManager: AnalyticsManager,
+  private val onboardingFromIapUseCase: SetOnboardingFromIapUseCase
 ) {
 
   private lateinit var referrerClient: InstallReferrerClient
 
-  fun sendFirstInstallInfo() {
+  fun sendFirstInstallInfo(sendEvent: Boolean = false) {
     referrerClient = InstallReferrerClient.newBuilder(context).build()
     referrerClient.startConnection(object : InstallReferrerStateListener {
       override fun onInstallReferrerSetupFinished(responseCode: Int) {
@@ -30,16 +32,18 @@ class InstallReferrerAnalytics @Inject constructor(
             val referrerUrl: String = response.installReferrer
             val referrerClickTime: Long = response.referrerClickTimestampSeconds
             val appInstallTime: Long = response.installBeginTimestampSeconds
-            sendFirstLaunchEvent(referrerUrl)
-
+            if (sendEvent) sendFirstLaunchEvent(referrerUrl)
+            onboardingFromIapUseCase(true)
           }
           InstallReferrerClient.InstallReferrerResponse.FEATURE_NOT_SUPPORTED -> {
             Log.d("Referrer", "not supported")
-            sendFirstLaunchEvent("")
+            if (sendEvent) sendFirstLaunchEvent("")
+            onboardingFromIapUseCase(false)
           }
           InstallReferrerClient.InstallReferrerResponse.SERVICE_UNAVAILABLE -> {
             Log.d("Referrer", "unavailable")
-            sendFirstLaunchEvent("")
+            if (sendEvent) sendFirstLaunchEvent("")
+            onboardingFromIapUseCase(false)
           }
         }
       }

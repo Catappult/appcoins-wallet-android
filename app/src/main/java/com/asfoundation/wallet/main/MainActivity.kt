@@ -3,6 +3,8 @@ package com.asfoundation.wallet.main
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import androidx.activity.result.ActivityResultLauncher
@@ -17,8 +19,10 @@ import androidx.navigation.NavController
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.asf.wallet.R
 import com.asf.wallet.databinding.ActivityMainBinding
+import com.asfoundation.wallet.analytics.InstallReferrerAnalytics
 import com.asfoundation.wallet.base.SingleStateFragment
 import com.asfoundation.wallet.main.appsflyer.ApkOriginVerification
+import com.asfoundation.wallet.my_wallets.create_wallet.CreateWalletDialogFragment
 import com.asfoundation.wallet.navigator.setupWithNavController
 import com.asfoundation.wallet.onboarding.use_cases.SetOnboardingFromIapUseCase
 import com.asfoundation.wallet.support.SupportNotificationProperties.SUPPORT_NOTIFICATION_CLICK
@@ -50,6 +54,9 @@ class MainActivity : AppCompatActivity(), SingleStateFragment<MainState, MainSid
   @Inject
   lateinit var navigator: MainActivityNavigator
 
+  @Inject
+  lateinit var installReferrerAnalytics: InstallReferrerAnalytics
+
   //TODO remove usecase usage, only for testing
   @Inject
   lateinit var setOnboardingFromIapUseCase: SetOnboardingFromIapUseCase
@@ -65,21 +72,36 @@ class MainActivity : AppCompatActivity(), SingleStateFragment<MainState, MainSid
   override fun onCreate(savedInstanceState: Bundle?) {
     setTheme(R.style.MaterialAppTheme)
     super.onCreate(savedInstanceState)
+    handleFirstRun()
 
+    //TODO add a callback to wait for the referrer result
     viewModel.handleInitialNavigation()
+    handleAuthenticationResult()
+
     setContentView(R.layout.activity_main)
     views.root.background =
       ContextCompat.getDrawable(this, R.drawable.splash_background)
 
-    if (savedInstanceState == null) {
-      appsflyerFirstRun()
-    }
-
-    //TODO remove usecase usage, only for testing
-    setOnboardingFromIapUseCase()
-
-    handleAuthenticationResult()
     viewModel.collectStateAndEvents(lifecycle, lifecycleScope)
+  }
+
+  private fun handleFirstRun() {
+    val isFirstRun = getSharedPreferences("PREFERENCE", 0)
+      .getBoolean("isFirstRun", true)
+    if (isFirstRun) {
+
+      handleCreateWalletFragmentResult()
+      //TODO remove usecase usage, only for testing
+      setOnboardingFromIapUseCase(true)
+
+      installReferrerAnalytics.sendFirstInstallInfo(sendEvent = false)
+      ApkOriginVerification(this)
+
+      getSharedPreferences("PREFERENCE", 0)
+        .edit()
+        .putBoolean("isFirstRun", false)
+        .apply()
+    }
   }
 
   private fun handleAuthenticationResult() {
@@ -93,15 +115,13 @@ class MainActivity : AppCompatActivity(), SingleStateFragment<MainState, MainSid
       }
   }
 
-  private fun appsflyerFirstRun() {
-    val isFirstRun = getSharedPreferences("PREFERENCE", 0)
-      .getBoolean("isFirstRun", true)
-    if (isFirstRun) {
-      ApkOriginVerification(this)
-      getSharedPreferences("PREFERENCE", 0)
-        .edit()
-        .putBoolean("isFirstRun", false)
-        .apply()
+  private fun handleCreateWalletFragmentResult() {
+    supportFragmentManager.setFragmentResultListener(
+      CreateWalletDialogFragment.CREATE_WALLET_DIALOG_COMPLETE_TO_MAIN, this
+    ) { _, _ ->
+      Handler(Looper.getMainLooper()).post{
+        showHomeContent()
+      }
     }
   }
 
@@ -125,12 +145,20 @@ class MainActivity : AppCompatActivity(), SingleStateFragment<MainState, MainSid
       MainSideEffect.NavigateToAutoUpdate -> navigator.navigateToAutoUpdate(this)
       MainSideEffect.NavigateToFingerprintAuthentication ->
         navigator.showAuthenticationActivity(authenticationResultLauncher)
-      MainSideEffect.NavigateToOnboarding -> navigator.navigateToOnboarding(this, fromIap = false)
+      MainSideEffect.NavigateToOnboarding -> {
+        showOnboardingContent(fromIap = false)
+      }
       MainSideEffect.NavigateToOnboardingIap -> {
-        navigator.navigateToOnboarding(this, fromIap = true)
+        showOnboardingContent(fromIap = true)
       }
       MainSideEffect.NavigateToHome -> showHomeContent()
     }
+  }
+
+  private fun showOnboardingContent(fromIap : Boolean){
+    views.fragmentContainer.visibility = View.VISIBLE
+    if (viewModel.hasWalletCreated()) showHomeContent()
+    navigator.navigateToOnboarding(this, fromIap = fromIap)
   }
 
   private fun showHomeContent() {

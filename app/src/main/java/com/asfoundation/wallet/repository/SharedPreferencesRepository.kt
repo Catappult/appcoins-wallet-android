@@ -38,9 +38,9 @@ class SharedPreferencesRepository @Inject constructor(private val pref: SharedPr
 
   override fun isOnboardingFromIap() = pref.getBoolean(ONBOARDING_FROM_IAP_KEY, false)
 
-  override fun setOnboardingFromIap() {
+  override fun setOnboardingFromIap(state : Boolean) {
     pref.edit()
-      .putBoolean(ONBOARDING_FROM_IAP_KEY, true)
+      .putBoolean(ONBOARDING_FROM_IAP_KEY, state)
       .apply()
   }
 

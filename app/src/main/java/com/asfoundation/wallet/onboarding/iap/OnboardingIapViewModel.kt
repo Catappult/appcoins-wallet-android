@@ -1,18 +1,19 @@
 package com.asfoundation.wallet.onboarding.iap
 
-import android.content.Intent
 import com.asfoundation.wallet.base.BaseViewModel
 import com.asfoundation.wallet.base.RxSchedulers
 import com.asfoundation.wallet.base.SideEffect
 import com.asfoundation.wallet.base.ViewState
-import com.asfoundation.wallet.onboarding.bottom_sheet.TermsConditionsBottomSheetSideEffect
 import com.asfoundation.wallet.onboarding.use_cases.HasWalletUseCase
-import com.asfoundation.wallet.update_required.use_cases.BuildUpdateIntentUseCase
+import com.asfoundation.wallet.onboarding.use_cases.SetOnboardingCompletedUseCase
+import com.asfoundation.wallet.onboarding.use_cases.SetOnboardingFromIapUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 sealed class OnboardingIapSideEffect : SideEffect {
   object NavigateToWalletCreationAnimation : OnboardingIapSideEffect()
+  object NavigateBackToGame : OnboardingIapSideEffect()
+  object NavigateToTermsConditions : OnboardingIapSideEffect()
   object ShowContent : OnboardingIapSideEffect()
 }
 
@@ -22,7 +23,8 @@ object OnboardingIapState : ViewState
 class OnboardingIapViewModel @Inject constructor(
   private val hasWalletUseCase: HasWalletUseCase,
   private val rxSchedulers: RxSchedulers,
-  private val buildUpdateIntentUseCase: BuildUpdateIntentUseCase
+  private val setOnboardingCompletedUseCase: SetOnboardingCompletedUseCase,
+  private val setOnboardingFromIapUseCase: SetOnboardingFromIapUseCase
 ) : BaseViewModel<OnboardingIapState, OnboardingIapSideEffect>(initialState()) {
 
   companion object {
@@ -36,6 +38,7 @@ class OnboardingIapViewModel @Inject constructor(
       .observeOn(rxSchedulers.main)
       .doOnSuccess {
         sendSideEffect {
+          setOnboardingFromIapUseCase(state = false)
           if (it) {
             OnboardingIapSideEffect.ShowContent
           } else {
@@ -46,6 +49,12 @@ class OnboardingIapViewModel @Inject constructor(
       .scopedSubscribe { it.printStackTrace() }
   }
 
-  fun handleUpdateClick() {
+  fun handleBackToGameClick() {
+    sendSideEffect { OnboardingIapSideEffect.NavigateBackToGame }
+  }
+
+  fun handleExploreWalletClick() {
+    setOnboardingCompletedUseCase()
+    sendSideEffect { OnboardingIapSideEffect.NavigateToTermsConditions }
   }
 }

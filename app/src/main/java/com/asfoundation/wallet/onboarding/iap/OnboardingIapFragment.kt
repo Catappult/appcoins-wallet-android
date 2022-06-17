@@ -1,11 +1,13 @@
 package com.asfoundation.wallet.onboarding.iap
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import by.kirich1409.viewbindingdelegate.viewBinding
@@ -56,10 +58,10 @@ class OnboardingIapFragment : BasePageViewFragment(),
     handleTermsConditionsFragmentResult()
 
     views.onboardingIapBackToGameButton.setOnClickListener {
-      navigator.navigateBackToGame()
+      viewModel.handleBackToGameClick()
     }
     views.onboardingExploreWalletButton.setOnClickListener {
-      navigator.navigateToTermsBottomSheet()
+      viewModel.handleExploreWalletClick()
     }
     viewModel.collectStateAndEvents(lifecycle, viewLifecycleOwner.lifecycleScope)
   }
@@ -69,17 +71,13 @@ class OnboardingIapFragment : BasePageViewFragment(),
   }
 
   private fun handleCreateWalletFragmentResult() {
-    parentFragmentManager.setFragmentResultListener(
-      CreateWalletDialogFragment.CREATE_WALLET_DIALOG_COMPLETE, this
-    ) { _, _ ->
+    setFragmentResultListener(CreateWalletDialogFragment.CREATE_WALLET_DIALOG_COMPLETE) { _, _ ->
       showContent()
     }
   }
 
   private fun handleTermsConditionsFragmentResult() {
-    parentFragmentManager.setFragmentResultListener(
-      TermsConditionsBottomSheetFragment.TERMS_CONDITIONS_COMPLETE, this
-    ) { _, _ ->
+    setFragmentResultListener(TermsConditionsBottomSheetFragment.TERMS_CONDITIONS_COMPLETE) { _, _ ->
       navigator.closeOnboarding()
     }
   }
@@ -89,6 +87,8 @@ class OnboardingIapFragment : BasePageViewFragment(),
   override fun onSideEffect(sideEffect: OnboardingIapSideEffect) {
     when (sideEffect) {
       OnboardingIapSideEffect.NavigateToWalletCreationAnimation -> navigator.navigateToCreateWalletDialog()
+      OnboardingIapSideEffect.NavigateBackToGame -> navigator.navigateBackToGame()
+      OnboardingIapSideEffect.NavigateToTermsConditions -> navigator.navigateToTermsConditionsBottomSheet()
       OnboardingIapSideEffect.ShowContent -> showContent()
     }
   }

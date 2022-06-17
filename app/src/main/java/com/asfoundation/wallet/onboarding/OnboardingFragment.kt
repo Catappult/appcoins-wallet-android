@@ -44,13 +44,22 @@ class OnboardingFragment : BasePageViewFragment(),
   }
 
   private fun handleWalletCreationFragmentResult() {
-    parentFragmentManager.setFragmentResultListener(CreateWalletDialogFragment.CREATE_WALLET_DIALOG_COMPLETE, this) { _, _ ->
-      navigator.navigateToMainActivity(fromSupportNotification = false)
+    parentFragmentManager.setFragmentResultListener(
+      CreateWalletDialogFragment.CREATE_WALLET_DIALOG_COMPLETE,
+      this
+    ) { _, _ ->
+      navigator.closeOnboarding()
     }
   }
+
   private fun handleTermsConditionsFragmentResult() {
-    parentFragmentManager.setFragmentResultListener(TermsConditionsBottomSheetFragment.TERMS_CONDITIONS_COMPLETE, this) { _, _ ->
-      navigator.navigateToMainActivity(fromSupportNotification = false)
+    parentFragmentManager.setFragmentResultListener(
+      TermsConditionsBottomSheetFragment.TERMS_CONDITIONS_COMPLETE,
+      this
+    ) { _, _ ->
+//      views.root.visibility = View.GONE
+      navigator.closeOnboarding()
+
     }
   }
 

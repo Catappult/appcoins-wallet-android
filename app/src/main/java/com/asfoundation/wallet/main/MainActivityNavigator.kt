@@ -4,9 +4,11 @@ import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import androidx.activity.result.ActivityResultLauncher
+import androidx.fragment.app.commit
 import androidx.navigation.NavDeepLinkBuilder
 import com.asf.wallet.R
-import com.asfoundation.wallet.onboarding.OnboardingActivity
+import com.asfoundation.wallet.onboarding.OnboardingFragment
+import com.asfoundation.wallet.onboarding.iap.OnboardingIapFragment
 import com.asfoundation.wallet.topup.TopUpActivity
 import com.asfoundation.wallet.ui.AuthenticationPromptActivity
 import com.asfoundation.wallet.ui.overlay.OverlayFragment
@@ -23,17 +25,21 @@ class MainActivityNavigator @Inject constructor(@ApplicationContext val context:
       .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
     mainActivity.startActivity(intent)
   }
+
   fun showAuthenticationActivity(authenticationResultLauncher: ActivityResultLauncher<Intent>) {
     val intent = AuthenticationPromptActivity.newIntent(context)
       .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
     authenticationResultLauncher.launch(intent)
   }
 
-  fun navigateToOnboarding(mainActivity: MainActivity, fromIap: Boolean, fromSupportNotification: Boolean = false) {
-    val intent = OnboardingActivity.newIntent(context, fromIap, fromSupportNotification)
-      .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-      .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-    mainActivity.startActivity(intent)
+  fun navigateToOnboarding(mainActivity: MainActivity, fromIap: Boolean) {
+    mainActivity.supportFragmentManager.commit {
+      when (fromIap) {
+        true -> replace(R.id.fragment_container, OnboardingIapFragment.newInstance())
+        false -> replace(R.id.fragment_container, OnboardingFragment.newInstance())
+      }
+      addToBackStack("OnboardingFragment")
+    }
   }
 
   fun getHomePendingIntent(): PendingIntent {

@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.main
 
+import android.util.Log
 import androidx.lifecycle.SavedStateHandle
 import com.asfoundation.wallet.base.BaseViewModel
 import com.asfoundation.wallet.base.RxSchedulers
@@ -9,6 +10,7 @@ import com.asfoundation.wallet.home.usecases.DisplayConversationListOrChatUseCas
 import com.asfoundation.wallet.main.use_cases.HasAuthenticationPermissionUseCase
 import com.asfoundation.wallet.main.use_cases.HasSeenPromotionTooltipUseCase
 import com.asfoundation.wallet.main.use_cases.IncreaseLaunchCountUseCase
+import com.asfoundation.wallet.onboarding.use_cases.HasWalletUseCase
 import com.asfoundation.wallet.onboarding.use_cases.IsOnboardingFromIapUseCase
 import com.asfoundation.wallet.onboarding.use_cases.ShouldShowOnboardingUseCase
 import com.asfoundation.wallet.promotions.PromotionUpdateScreen
@@ -41,6 +43,7 @@ class MainViewModel @Inject constructor(
   private val hasAuthenticationPermissionUseCase: HasAuthenticationPermissionUseCase,
   private val shouldShowOnboardingUseCase: ShouldShowOnboardingUseCase,
   private val isOnboardingFromIapUseCase: IsOnboardingFromIapUseCase,
+  private val hasWalletUseCase: HasWalletUseCase,
   private val savedStateHandle: SavedStateHandle,
   private val rxSchedulers: RxSchedulers
 ) : BaseViewModel<MainState, MainSideEffect>(MainState()) {
@@ -51,7 +54,7 @@ class MainViewModel @Inject constructor(
     handlePromotionUpdateNotification()
   }
 
-  fun handleInitialNavigation(authComplete : Boolean = false) {
+  fun handleInitialNavigation(authComplete: Boolean = false) {
     getAutoUpdateModelUseCase()
       .subscribeOn(rxSchedulers.io)
       .observeOn(rxSchedulers.main)
@@ -73,6 +76,9 @@ class MainViewModel @Inject constructor(
       .scopedSubscribe()
   }
 
+  fun hasWalletCreated(): Boolean {
+    return hasWalletUseCase().blockingGet()
+  }
 
   private fun handleSupportNotificationClick() {
     val fromSupportNotification = savedStateHandle.get<Boolean>(SUPPORT_NOTIFICATION_CLICK)

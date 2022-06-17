@@ -12,7 +12,7 @@ interface PreferencesRepositoryType {
 
   fun isOnboardingFromIap(): Boolean
 
-  fun setOnboardingFromIap()
+  fun setOnboardingFromIap(state : Boolean)
 
   fun hasClickedSkipOnboarding(): Boolean
 

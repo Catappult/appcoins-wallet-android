@@ -15,7 +15,7 @@ class LaunchInteractor @Inject constructor(private val sharedPreferences: Shared
 
   fun sendFirstLaunchEvent() {
     if (isFirstInstall() && sharedPreferences.getBoolean(FIRST_LAUNCH_KEY, true)) {
-      installReferrerAnalytics.sendFirstInstallInfo()
+      installReferrerAnalytics.sendFirstInstallInfo(sendEvent = true)
       sharedPreferences.edit()
           .putBoolean(FIRST_LAUNCH_KEY, false)
           .apply()

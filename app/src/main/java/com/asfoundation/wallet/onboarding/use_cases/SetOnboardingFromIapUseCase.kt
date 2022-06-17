@@ -6,7 +6,7 @@ import javax.inject.Inject
 class SetOnboardingFromIapUseCase @Inject constructor(
     private val preferencesRepositoryType: PreferencesRepositoryType) {
 
-  operator fun invoke() {
-    preferencesRepositoryType.setOnboardingFromIap()
+  operator fun invoke(state :Boolean) {
+    preferencesRepositoryType.setOnboardingFromIap(state)
   }
 }
