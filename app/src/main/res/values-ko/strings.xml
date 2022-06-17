@@ -638,7 +638,7 @@
   <!--Backup and Import-->
   <string name="backup_home_notification_title">지갑 백업하기</string>
   <string name="backup_home_notification_body">전화기를 분실하셨나요? 지금 지갑을 백업하세요!</string>
-  <string name="backup_confirmation_no_share_title">백업 완료!</string>
+  <string name="backup_confirmation_no_share_title">Backup Done!</string>
   <string name="backup_save_dialogue_title">백업 파일 저장</string>
   <string name="backup_save_dialogue_body">백업 파일 이름을 선택하세요.</string>
   <string name="import_wallet_title">지갑 복구</string>
@@ -1061,7 +1061,7 @@
   <string name="mywallet_unverified_body">차단을 방지하려면 결제 방법을 확인하십시오.</string>
   <string name="mywallet_backed_up_date">%s에 지갑을 백업하셨습니다.</string>
   <string name="mywallet_backup_again_button">다시 백업하기</string>
-  <string name="mywallet_verify_payment_method_button">새로운 지불 방법 검증</string>
+  <string name="mywallet_verify_payment_method_button">VERIFY NEW CARD</string>
   <string name="mywallet_choose_name_header">지갑 이름을 선택하세요.</string>
   <string name="mywallet_choose_name_field">여기에 지갑 이름 입력...</string>
   <string name="mywallet_choose_name_confirmed">지갑 이름이 변경되었습니다</string>
