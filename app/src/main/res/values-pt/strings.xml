@@ -638,7 +638,7 @@
   <!--Backup and Import-->
   <string name="backup_home_notification_title">Faz backup da Wallet</string>
   <string name="backup_home_notification_body">Alguma vez perdeste o telefone? Faz já o backup da tua wallet!</string>
-  <string name="backup_confirmation_no_share_title">Backup feito!</string>
+  <string name="backup_confirmation_no_share_title">Backup Done!</string>
   <string name="backup_save_dialogue_title">Guardar ficheiro de backup</string>
   <string name="backup_save_dialogue_body">Escolhe um nome para o teu ficheiro de backup.</string>
   <string name="import_wallet_title">Recuperar Wallet</string>
@@ -1070,7 +1070,7 @@
   <string name="mywallet_unverified_body">Verifica um método de pagamento para evitar bloqueios.</string>
   <string name="mywallet_backed_up_date">Fizeste o back up da tua wallet em %s.</string>
   <string name="mywallet_backup_again_button">FAZ BACK UP NOVAMENTE</string>
-  <string name="mywallet_verify_payment_method_button">VERIFICA NOVO MÉTODO DE PAGAMENTO</string>
+  <string name="mywallet_verify_payment_method_button">VERIFY NEW CARD</string>
   <string name="mywallet_choose_name_header">Escolhe um nome para a tua wallet</string>
   <string name="mywallet_choose_name_field">Nome da wallet aqui...</string>
   <string name="mywallet_choose_name_confirmed">Nome da wallet mudado</string>
