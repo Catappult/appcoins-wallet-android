@@ -638,7 +638,7 @@
   <!--Backup and Import-->
   <string name="backup_home_notification_title">वॉलेट बॅकअप करा</string>
   <string name="backup_home_notification_body">आपला फोन हरवला आहे का? आपले वॉलेट आत्ताच बॅकअप करा!</string>
-  <string name="backup_confirmation_no_share_title">बॅकअप झाला!</string>
+  <string name="backup_confirmation_no_share_title">Backup Done!</string>
   <string name="backup_save_dialogue_title">बॅकअप फाईल सेव्ह करा</string>
   <string name="backup_save_dialogue_body">आपल्या बॅकअप फाईलचे नाव निवडा.</string>
   <string name="import_wallet_title">वॉलेट परत मिळवा</string>
@@ -1091,7 +1091,7 @@
   <string name="mywallet_unverified_body">अडथळे टाळण्यासाठी पेमेंट पद्धत सत्यापित करा.</string>
   <string name="mywallet_backed_up_date">आपण आपले वॉलेट %s ला बॅकअप केलेत.</string>
   <string name="mywallet_backup_again_button">परत बॅकअप करा</string>
-  <string name="mywallet_verify_payment_method_button">नविन पेमेंट पद्धत सत्यापित करा</string>
+  <string name="mywallet_verify_payment_method_button">VERIFY NEW CARD</string>
   <string name="mywallet_choose_name_header">आपल्या वॉलेटसाठी नाव निवडा</string>
   <string name="mywallet_choose_name_field">वॉलेटचे नाव इथे...</string>
   <string name="mywallet_choose_name_confirmed">वॉलेटचे नाव बदलले</string>
