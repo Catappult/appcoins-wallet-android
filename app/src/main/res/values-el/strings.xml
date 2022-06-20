@@ -456,7 +456,7 @@
   <string name="get_started">Ξεκινήστε</string>
   <string name="existent_wallet">Έχω ήδη ένα wallet</string>
   <!--Home-->
-  <string name="home_empty_discover_apps_body">Make a purchase on your favorite game and we\'ll handle everything.</string>
+  <string name="home_empty_discover_apps_body">Κάντε μία αγορά στο αγαπημένο σας παιχνίδι κι εμείς θα αναλάβουμε τα πάντα.</string>
   <string name="home_empty_discover_apps_button">ΑΝΑΚΑΛΥΨΤΕ ΚΟΡΥΦΑΙΕΣ ΕΦΑΡΜΟΓΕΣ</string>
   <!--Tokens-->
   <!--Settings-->
@@ -931,8 +931,8 @@
   <string name="rate_us_back_title">Θέλετε να μας βοηθήσετε;</string>
   <string name="rate_us_back_body">Αξιολογήστε το AppCoins Wallet στο store εφαρμογών, ώστε να το βελτιώσουμε.</string>
   <!--Card verification-->
-  <string name="card_verification_body">Validate your credit/debit card to make payments.</string>
-  <string name="card_verification_charde_disclaimer">We\'ll charge %s to your card, and we\'ll refund it once you confirm the code. Depending on your bank, it can take between minutes and up to a few days.</string>
+  <string name="card_verification_body">Επαληθεύστε την πιστωτική/χρεωστική κάρτα σας για να κάνετε πληρωμές.</string>
+  <string name="card_verification_charde_disclaimer">Θα χρεώσουμε %s στην κάρτα σας και θα τα επιστρέψουμε μόλις επιβεβαιώσετε τον κωδικό. Ανάλογα με την τράπεζά σας, μπορεί να πάρει από λίγα λεπτά μέχρι μερικές μέρες.</string>
   <string name="card_verification_code_title">Ελέγξτε τον κωδικό στις λεπτομέρειες συναλλαγής</string>
   <string name="card_verification_code_body">Ένας μοναδικός κωδικός θα εμφανιστεί στη σύνοψη συναλλαγής που παρέχεται από τον εκδότη της κάρτας σας.</string>
   <string name="card_verification_code_example_title">Παράδειγμα Σύνοψης Συναλλαγής</string>
@@ -956,8 +956,8 @@
   <string name="card_verification_wallets_insert_bode_button">Εισαγάγετε τον κωδικό</string>
   <string name="card_verification_no_attempts_title">Φαίνεται πως έχετε εισαγάγει επανειλημμένα λανθασμένο κωδικό. %1$s θα επιστραφούν στην κάρτα σας.</string>
   <string name="card_verification_no_attempts_body">Παρακαλούμε, ξεκινήστε εκ νέου τη διαδικασία επαλήθευσης.</string>
-  <string name="wallet_verify_header">Validate at least one payment method</string>
-  <string name="verify_card_title">Validate Card</string>
+  <string name="wallet_verify_header">Επαληθεύστε τουλάχιστον μία μέθοδο πληρωμής</string>
+  <string name="verify_card_title">Επαλήθευση κάρτας</string>
   <!--Vouchers-->
   <string name="voucher_card_body_1">Αγοράστε αυτό το voucher και λάβετε</string>
   <string name="voucher_card_body_2"> έως %s%% bonus.</string>
@@ -973,60 +973,60 @@
   <string name="voucher_empty_more_title">Voucher για Παιχνίδια</string>
   <string name="voucher_empty_more_body">Ανακαλύψτε τις καλύτερες προσφορές για τα αγαπημένα σας παιχνίδια!</string>
   <!--Change Currency-->
-  <string name="change_currency_title">Change currency</string>
-  <string name="change_currency_settings_title">Currency</string>
-  <string name="change_currency_choose_button">Choose currency</string>
+  <string name="change_currency_title">Αλλαγή νομίσματος</string>
+  <string name="change_currency_settings_title">Νόμισμα</string>
+  <string name="change_currency_choose_button">Επιλογή νομίσματος</string>
   <!--Blockchain transactions-->
-  <string name="block_transaction_disclaimer_title">Transaction on the way!</string>
-  <string name="block_transaction_disclaimer_body">You can track it on Etherscan.</string>
+  <string name="block_transaction_disclaimer_title">Συναλλαγή καθ\' οδόν!</string>
+  <string name="block_transaction_disclaimer_body">Μπορείτε να την εντοπίσετε στο Etherscan.</string>
   <!-- e-Skills -->
-  <string name="e_skills_withdraw_settings_title">e-Skills Withdrawal</string>
-  <string name="e_skills_withdraw_email">PayPal e-mail address</string>
-  <string name="e_skills_withdraw_amount">Amount (USD)</string>
-  <string name="e_skills_withdraw_email_hint">Your e-mail address here</string>
+  <string name="e_skills_withdraw_settings_title">Ανάληψη e-Skills</string>
+  <string name="e_skills_withdraw_email">Διεύθυνση e-mail για PayPal</string>
+  <string name="e_skills_withdraw_amount">Ποσό (USD)</string>
+  <string name="e_skills_withdraw_email_hint">Η διεύθυνση e-mail σας εδώ</string>
   <string name="e_skills_withdraw_amount_hint">0 USD</string>
-  <string name="e_skills_withdraw_title">e-Skills Withdrawal</string>
-  <string name="e_skills_withdraw_invalid_email_error_message">Invalid e-mail</string>
-  <string name="e_skills_withdraw_not_enough_balance_error_message">Not enough balance</string>
-  <string name="e_skills_withdraw_not_enough_earnings_error_message">You haven\'t won enough e-Skills games to withdraw that amount</string>
-  <string name="e_skills_withdraw_minimum_amount_error_message">Minimum amount to withdraw is $%1$.2f</string>
-  <string name="e_skills_withdraw_max_amount_part_1">You can withdraw:</string>
+  <string name="e_skills_withdraw_title">Ανάληψη e-Skills</string>
+  <string name="e_skills_withdraw_invalid_email_error_message">Άκυρο e-mail</string>
+  <string name="e_skills_withdraw_not_enough_balance_error_message">Ανεπαρκές υπόλοιπο</string>
+  <string name="e_skills_withdraw_not_enough_earnings_error_message">Δεν έχετε κερδίσει αρκετά παιχνίδια e-Skills για να κάνετε ανάληψη αυτού του ποσού</string>
+  <string name="e_skills_withdraw_minimum_amount_error_message">Το ελάχιστο ποσό ανάληψης είναι $%1$.2f</string>
+  <string name="e_skills_withdraw_max_amount_part_1">Μπορείτε να κάνετε ανάληψη:</string>
   <string name="e_skills_withdraw_max_amount_part_2">$%1$.2f</string>
-  <string name="e_skills_know_more_about">know more about e-Skills</string>
-  <string name="e_skills_know_more_about_tmp">you can only withdraw the funds earned in e-Skills games</string>
-  <string name="e_skills_withdraw_started">A withdraw of $%1$.2f \nhas been started</string>
-  <string name="e_skills_withdraw_generic_error">Generic error message</string>
-  <string name="e_skills_withdraw_maybe_later">Maybe later</string>
-  <string name="e_skills_room_create_title">Create or join a room</string>
-  <string name="e_skills_room_create_body">Create a new room and share it with your opponents or join an existing room.</string>
-  <string name="e_skills_room_field">Your room name here...</string>
-  <string name="e_skills_withdraw_confirmation_title">A $%s withdrawal has been requested!</string>
-  <string name="e_skills_withdraw_confirmation_body">This may take between 2 and 3 weeks to be processed.</string>
-  <string name="e_skills_withdraw_minimum_body">The minimum amount to withdraw is $%s.</string>
-  <string name="e_skills_withdraw_started_title">A withdrawal request of $%s has been started.</string>
-  <string name="e_skills_withdraw_started_body">This request may take 2-3 weeks to be processed.</string>
-  <string name="e_skills_withdraw_error_not_funds">Make sure you have enough funds to be withdrawn.</string>
+  <string name="e_skills_know_more_about">μάθετε περισσότερα σχετικά με τα e-Skills</string>
+  <string name="e_skills_know_more_about_tmp">μπορείτε να κάνετε μόνο ανάληψη των ποσών που κερδίσατε σε παιχνίδια e-Skills</string>
+  <string name="e_skills_withdraw_started">Μία ανάληψη ποσού $%1$.2f \n ξεκίνησε</string>
+  <string name="e_skills_withdraw_generic_error">Μήνυμα γενικού σφάλματος</string>
+  <string name="e_skills_withdraw_maybe_later">Ίσως αργότερα</string>
+  <string name="e_skills_room_create_title">Δημιουργήστε ή μπείτε σε ένα δωμάτιο</string>
+  <string name="e_skills_room_create_body">Δημιουργήστε ένα νέο δωμάτιο και μοιραστείτε το με τους αντιπάλους σας ή μπείτε σε ένα υπάρχον δωμάτιο.</string>
+  <string name="e_skills_room_field">Το όνομα του δωματίου σας εδώ...</string>
+  <string name="e_skills_withdraw_confirmation_title">Ζητήθηκε μία ανάληψη ποσού %s $!</string>
+  <string name="e_skills_withdraw_confirmation_body">Η επεξεργασία αυτού του αιτήματος μπορεί να διαρκέσει από 2 έως 3 εβδομάδες.</string>
+  <string name="e_skills_withdraw_minimum_body">Το ελάχιστο ποσό ανάληψης είναι %s $.</string>
+  <string name="e_skills_withdraw_started_title">Μία ανάληψη ποσού %s $ ξεκίνησε.</string>
+  <string name="e_skills_withdraw_started_body">Η επεξεργασία αυτού του αιτήματος μπορεί να διαρκέσει από 2 έως 3 εβδομάδες.</string>
+  <string name="e_skills_withdraw_error_not_funds">Βεβαιωθείτε ότι έχετε αρκετή πίστωση για να κάνετε ανάληψη.</string>
   <!--Promo Code-->
-  <string name="promo_code_settings_title">Promo Code</string>
-  <string name="promo_code_view_title">Promo Code</string>
-  <string name="promo_code_view_body">Insert a Promo Code to get special deals!</string>
-  <string name="promo_code_view_field">Promo Code here...</string>
-  <string name="promo_code_view_error">Invalid code. Try with another one!</string>
-  <string name="promo_code_activated">Promo code activated!</string>
-  <string name="promo_code_delete_button">DELETE</string>
-  <string name="promo_code_replace_button">REPLACE</string>
+  <string name="promo_code_settings_title">Κωδικός Προσφοράς</string>
+  <string name="promo_code_view_title">Κωδικός Προσφοράς</string>
+  <string name="promo_code_view_body">Συμπληρώστε έναν κωδικό προσφοράς για να λάβετε ειδικές προσφορές!</string>
+  <string name="promo_code_view_field">Κωδικός προσφοράς εδώ...</string>
+  <string name="promo_code_view_error">Άκυρος κωδικός. Δοκιμάστε έναν άλλο!</string>
+  <string name="promo_code_activated">Ο κωδικός προσφοράς ενεργοποιήθηκε!</string>
+  <string name="promo_code_delete_button">ΔΙΑΓΡΑΦΗ</string>
+  <string name="promo_code_replace_button">ΑΝΤΙΚΑΤΑΣΤΑΣΗ</string>
   <string name="promo_code_active_tag">Ενεργές</string>
   <string name="promo_code_expired_tag">Έληξε</string>
   <string name="promo_code_success_title">Τέλος!</string>
-  <string name="promo_code_success_body">You\'ll get %s%% extra bonus in all your purchases.</string>
-  <string name="promo_code_success_body_specific_app">You\'ll get %1$s%% extra bonus in all your purchases in %2$s.</string>
-  <string name="promo_code_promotions_tag">Promotional code</string>
-  <string name="promo_code_error_not_available">This promo code is no longer available.</string>
-  <string name="promo_code_error_invalid_user">Oops! This code couldn\'t be applied.</string>
+  <string name="promo_code_success_body">Θα λάβετε %s%% επιπρόσθετο μπόνους σε όλες τις αγορές σας.</string>
+  <string name="promo_code_success_body_specific_app">Θα λάβετε %1$s%% επιπρόσθετο μπόνους σε όλες τις αγορές σας σε %2$s.</string>
+  <string name="promo_code_promotions_tag">Κωδικός προσφοράς</string>
+  <string name="promo_code_error_not_available">Αυτός ο κωδικός προσφοράς δεν είναι πλέον διαθέσιμος.</string>
+  <string name="promo_code_error_invalid_user">Ωχ! Αυτός ο κωδικός δεν εφαρμόζεται.</string>
   <!--AppCoins Info Page-->
   <string name="appcoins_info_title">Σχετικά με το AppCoins</string>
-  <string name="appcoins_info_prince_title">AppCoins Price (APPC)</string>
-  <string name="appcoins_info_title_1">What are AppCoins?</string>
+  <string name="appcoins_info_prince_title">Τιμή AppCoins (APPC)</string>
+  <string name="appcoins_info_title_1">Τι είναι τα AppCoins;</string>
   <string name="appcoins_info_body_1">AppCoins is a digital token created by Aptoide and used by more than 200 million users worldwide. The main goal of this innovative payment solution is to provide trust in the apps economy and to remove intermediaries.</string>
   <string name="appcoins_info_title_1b">Like all digital tokens, AppCoins value changes constantly in relation to your preferred currency (EUR, USD...). You can track these changes over time in the graphic above.</string>
   <string name="appcoins_info_title_2">What are AppCoins for?</string>
@@ -1081,5 +1081,5 @@
   <string name="onboarding_1st_title">Congrats! You\'ve installed the AppCoins Wallet.</string>
   <string name="onboarding_1st_body">Go back to the game to complete your purchase.</string>
   <string name="onboarding_1st_back_to_game_button">Go back to the game</string>
-  <string name="onboarding_1st_explore_wallet_button">Or explore the AppCoins Wallet</string>
+  <string name="onboarding_1st_explore_wallet_button">Ή εξερευνήστε το AppCoins Wallet</string>
 </resources>
