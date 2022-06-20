@@ -6,6 +6,7 @@ import android.os.Bundle
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.appcoins.wallet.commons.Logger
+import com.asf.wallet.R
 import com.asfoundation.wallet.ui.AuthenticationPromptActivity
 import com.asfoundation.wallet.ui.iab.IabInteract.Companion.PRE_SELECTED_PAYMENT_METHOD_KEY
 import io.reactivex.Completable
@@ -20,7 +21,9 @@ class IabPresenter(private val view: IabView,
                    private val billingAnalytics: BillingAnalytics,
                    private val iabInteract: IabInteract,
                    private val logger: Logger,
-                   private val transaction: TransactionBuilder?) {
+                   private val transaction: TransactionBuilder?,
+                   private val errorFromReceiver: String? = null
+                   ) {
 
   private var firstImpression = true
 
@@ -32,6 +35,10 @@ class IabPresenter(private val view: IabView,
   fun present(savedInstanceState: Bundle?) {
     savedInstanceState?.let {
       firstImpression = it.getBoolean(FIRST_IMPRESSION, firstImpression)
+    }
+    if (errorFromReceiver != null) {
+      view.showError(R.string.purchase_error_no_connection)
+      return
     }
     if (savedInstanceState == null) {
       handlePurchaseStartAnalytics(transaction)

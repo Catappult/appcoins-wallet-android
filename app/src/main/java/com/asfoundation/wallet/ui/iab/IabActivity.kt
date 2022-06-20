@@ -69,6 +69,7 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
   private var developerPayload: String? = null
   private var uri: String? = null
   private var authenticationResultSubject: PublishSubject<Boolean>? = null
+  private var errorFromReceiver: String? = null
 
 
   override fun onCreate(savedInstanceState: Bundle?) {
@@ -81,6 +82,7 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
     developerPayload = intent.getStringExtra(DEVELOPER_PAYLOAD)
     uri = intent.getStringExtra(URI)
     transaction = intent.getParcelableExtra(TRANSACTION_EXTRA)
+    errorFromReceiver = intent.getStringExtra(ERROR_RECEIVER)
     isBackEnable = true
     presenter = IabPresenter(
       this,
@@ -90,7 +92,8 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
       billingAnalytics,
       iabInteract,
       logger,
-      transaction
+      transaction,
+      errorFromReceiver
     )
     presenter.present(savedInstanceState)
   }
@@ -573,6 +576,9 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
     const val BLOCKED_WARNING_REQUEST_CODE = 12345
     const val AUTHENTICATION_REQUEST_CODE = 33
     const val IS_BDS_EXTRA = "is_bds_extra"
+    const val ERROR_RECEIVER = "error_receiver"
+    const val ERROR_RECEIVER_NETWORK = "error_receiver_network"
+    const val ERROR_RECEIVER_GENERIC = "error_receiver_generic"
 
     @JvmStatic
     fun newIntent(
@@ -592,6 +598,20 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
         putExtra(DEVELOPER_PAYLOAD, developerPayload)
         putExtra(URI, data!!.toString())
         putExtra(APP_PACKAGE, transaction.domain)
+      }
+
+    @JvmStatic
+    fun newIntent(
+      activity: Activity,
+      previousIntent: Intent,
+      errorFromReceiver: String?
+    ): Intent = Intent(activity, IabActivity::class.java)
+      .apply {
+        data = previousIntent.data
+        if (previousIntent.extras != null) {
+          putExtras(previousIntent.extras!!)
+        }
+        putExtra(ERROR_RECEIVER, (errorFromReceiver ?: ERROR_RECEIVER_GENERIC))
       }
   }
 }
