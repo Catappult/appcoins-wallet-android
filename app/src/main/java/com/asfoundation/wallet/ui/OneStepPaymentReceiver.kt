@@ -81,7 +81,6 @@ class OneStepPaymentReceiver : BaseActivity() {
           .subscribe({ }, { throwable: Throwable ->
             logger.log("OneStepPaymentReceiver", throwable)
             startOneStepWithError(IabActivity.ERROR_RECEIVER_NETWORK)
-            startApp(throwable)
           })
       }
     }

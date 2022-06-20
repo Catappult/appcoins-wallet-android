@@ -474,6 +474,7 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
     fragment_container.visibility = View.GONE
     layout_error.visibility = View.VISIBLE
     error_message.text = getText(error)
+    wallet_logo_layout.visibility = View.GONE
   }
 
   override fun getSupportClicks(): Observable<Any> =
