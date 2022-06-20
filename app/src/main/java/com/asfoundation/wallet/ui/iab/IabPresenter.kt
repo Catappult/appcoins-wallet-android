@@ -3,10 +3,10 @@ package com.asfoundation.wallet.ui.iab
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import com.asfoundation.wallet.billing.analytics.BillingAnalytics
-import com.asfoundation.wallet.entity.TransactionBuilder
 import com.appcoins.wallet.commons.Logger
 import com.asf.wallet.R
+import com.asfoundation.wallet.billing.analytics.BillingAnalytics
+import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.ui.AuthenticationPromptActivity
 import com.asfoundation.wallet.ui.iab.IabInteract.Companion.PRE_SELECTED_PAYMENT_METHOD_KEY
 import io.reactivex.Completable
@@ -14,16 +14,17 @@ import io.reactivex.Scheduler
 import io.reactivex.disposables.CompositeDisposable
 import java.util.concurrent.TimeUnit
 
-class IabPresenter(private val view: IabView,
-                   private val networkScheduler: Scheduler,
-                   private val viewScheduler: Scheduler,
-                   private val disposable: CompositeDisposable,
-                   private val billingAnalytics: BillingAnalytics,
-                   private val iabInteract: IabInteract,
-                   private val logger: Logger,
-                   private val transaction: TransactionBuilder?,
-                   private val errorFromReceiver: String? = null
-                   ) {
+class IabPresenter(
+  private val view: IabView,
+  private val networkScheduler: Scheduler,
+  private val viewScheduler: Scheduler,
+  private val disposable: CompositeDisposable,
+  private val billingAnalytics: BillingAnalytics,
+  private val iabInteract: IabInteract,
+  private val logger: Logger,
+  private val transaction: TransactionBuilder?,
+  private val errorFromReceiver: String? = null
+) {
 
   private var firstImpression = true
 
@@ -55,16 +56,17 @@ class IabPresenter(private val view: IabView,
 
   private fun handleErrorDismisses() {
     disposable.add(view.errorDismisses()
-        .doOnNext { view.close(Bundle()) }
-        .subscribe({ }, { view.close(Bundle()) }))
+      .doOnNext { view.close(Bundle()) }
+      .subscribe({ }, { view.close(Bundle()) })
+    )
   }
 
   private fun handleSupportClicks() {
     disposable.add(view.getSupportClicks()
-        .throttleFirst(50, TimeUnit.MILLISECONDS)
-        .observeOn(viewScheduler)
-        .doOnNext { iabInteract.showSupport() }
-        .subscribe({}, { it.printStackTrace() })
+      .throttleFirst(50, TimeUnit.MILLISECONDS)
+      .observeOn(viewScheduler)
+      .doOnNext { iabInteract.showSupport() }
+      .subscribe({}, { it.printStackTrace() })
     )
   }
 
@@ -75,28 +77,29 @@ class IabPresenter(private val view: IabView,
 
   fun handlePerkNotifications(bundle: Bundle) {
     disposable.add(iabInteract.getWalletAddress()
-        .subscribeOn(networkScheduler)
-        .observeOn(viewScheduler)
-        .doOnSuccess {
-          view.launchPerkBonusAndGamificationService(it)
-          view.finishActivity(bundle)
-        }
-        .doOnError { view.finishActivity(bundle) }
-        .subscribe({}, { it.printStackTrace() }))
+      .subscribeOn(networkScheduler)
+      .observeOn(viewScheduler)
+      .doOnSuccess {
+        view.launchPerkBonusAndGamificationService(it)
+        view.finishActivity(bundle)
+      }
+      .doOnError { view.finishActivity(bundle) }
+      .subscribe({}, { it.printStackTrace() })
+    )
   }
 
   fun handleBackupNotifications(bundle: Bundle) {
     disposable.add(iabInteract.incrementAndValidateNotificationNeeded()
-        .subscribeOn(networkScheduler)
-        .observeOn(viewScheduler)
-        .doOnSuccess { notificationNeeded ->
-          if (notificationNeeded.isNeeded) {
-            view.showBackupNotification(notificationNeeded.walletAddress)
-          }
-          view.finishActivity(bundle)
+      .subscribeOn(networkScheduler)
+      .observeOn(viewScheduler)
+      .doOnSuccess { notificationNeeded ->
+        if (notificationNeeded.isNeeded) {
+          view.showBackupNotification(notificationNeeded.walletAddress)
         }
-        .doOnError { view.finish(bundle) }
-        .subscribe({ }, { it.printStackTrace() })
+        view.finishActivity(bundle)
+      }
+      .doOnError { view.finish(bundle) }
+      .subscribe({ }, { it.printStackTrace() })
     )
   }
 
@@ -104,38 +107,44 @@ class IabPresenter(private val view: IabView,
     disposable.add(Completable.fromAction {
       if (firstImpression) {
         if (iabInteract.hasPreSelectedPaymentMethod()) {
-          billingAnalytics.sendPurchaseStartEvent(transaction?.domain, transaction?.skuId,
-              transaction?.amount()
-                  .toString(), iabInteract.getPreSelectedPaymentMethod(),
-              transaction?.type, BillingAnalytics.RAKAM_PRESELECTED_PAYMENT_METHOD)
+          billingAnalytics.sendPurchaseStartEvent(
+            transaction?.domain, transaction?.skuId,
+            transaction?.amount()
+              .toString(), iabInteract.getPreSelectedPaymentMethod(),
+            transaction?.type, BillingAnalytics.RAKAM_PRESELECTED_PAYMENT_METHOD
+          )
         } else {
-          billingAnalytics.sendPurchaseStartWithoutDetailsEvent(transaction?.domain,
-              transaction?.skuId, transaction?.amount()
+          billingAnalytics.sendPurchaseStartWithoutDetailsEvent(
+            transaction?.domain,
+            transaction?.skuId, transaction?.amount()
               .toString(), transaction?.type,
-              BillingAnalytics.RAKAM_PAYMENT_METHOD)
+            BillingAnalytics.RAKAM_PAYMENT_METHOD
+          )
         }
         firstImpression = false
       }
     }
-        .subscribeOn(networkScheduler)
-        .subscribe({}, { it.printStackTrace() }))
+      .subscribeOn(networkScheduler)
+      .subscribe({}, { it.printStackTrace() }))
   }
 
   private fun handleAutoUpdate() {
     disposable.add(iabInteract.getAutoUpdateModel()
-        .subscribeOn(networkScheduler)
-        .observeOn(viewScheduler)
-        .filter {
-          iabInteract.isHardUpdateRequired(it.blackList, it.updateVersionCode, it.updateMinSdk)
-        }
-        .doOnSuccess { view.showUpdateRequiredView() }
-        .subscribe({}, { it.printStackTrace() }))
+      .subscribeOn(networkScheduler)
+      .observeOn(viewScheduler)
+      .filter {
+        iabInteract.isHardUpdateRequired(it.blackList, it.updateVersionCode, it.updateMinSdk)
+      }
+      .doOnSuccess { view.showUpdateRequiredView() }
+      .subscribe({}, { it.printStackTrace() })
+    )
   }
 
   private fun handleUserRegistration() {
     disposable.add(iabInteract.registerUser()
-        .subscribeOn(networkScheduler)
-        .subscribe({}, { it.printStackTrace() }))
+      .subscribeOn(networkScheduler)
+      .subscribe({}, { it.printStackTrace() })
+    )
   }
 
   fun stop() = disposable.clear()
@@ -146,34 +155,40 @@ class IabPresenter(private val view: IabView,
 
   fun savePreselectedPaymentMethod(bundle: Bundle) {
     bundle.getString(PRE_SELECTED_PAYMENT_METHOD_KEY)
-        ?.let { iabInteract.savePreSelectedPaymentMethod(it) }
+      ?.let { iabInteract.savePreSelectedPaymentMethod(it) }
   }
 
   private fun sendPayPalConfirmationEvent(action: String) {
-    billingAnalytics.sendPaymentConfirmationEvent(transaction?.domain, transaction?.skuId,
-        transaction?.amount()
-            .toString(), "paypal",
-        transaction?.type, action)
+    billingAnalytics.sendPaymentConfirmationEvent(
+      transaction?.domain, transaction?.skuId,
+      transaction?.amount()
+        .toString(), "paypal",
+      transaction?.type, action
+    )
   }
 
   private fun sendCarrierBillingConfirmationEvent(action: String) {
-    billingAnalytics.sendPaymentConfirmationEvent(transaction?.domain, transaction?.skuId,
-        transaction?.amount()
-            .toString(), BillingAnalytics.PAYMENT_METHOD_CARRIER,
-        transaction?.type, action)
+    billingAnalytics.sendPaymentConfirmationEvent(
+      transaction?.domain, transaction?.skuId,
+      transaction?.amount()
+        .toString(), BillingAnalytics.PAYMENT_METHOD_CARRIER,
+      transaction?.type, action
+    )
   }
 
   private fun sendPaypalUrlEvent(data: Intent) {
     val amountString = transaction?.amount()
-        .toString()
-    billingAnalytics.sendPaypalUrlEvent(transaction?.domain, transaction?.skuId,
-        amountString, "PAYPAL", getQueryParameter(data, "type"),
-        getQueryParameter(data, "resultCode"), data.dataString)
+      .toString()
+    billingAnalytics.sendPaypalUrlEvent(
+      transaction?.domain, transaction?.skuId,
+      amountString, "PAYPAL", getQueryParameter(data, "type"),
+      getQueryParameter(data, "resultCode"), data.dataString
+    )
   }
 
   private fun getQueryParameter(data: Intent, parameter: String): String? {
     return Uri.parse(data.dataString)
-        .getQueryParameter(parameter)
+      .getQueryParameter(parameter)
   }
 
   fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -187,7 +202,9 @@ class IabPresenter(private val view: IabView,
     if (resultCode == WebViewActivity.FAIL) {
       if (data?.dataString?.contains("codapayments") != true) {
         if (data?.dataString?.contains(
-                BillingWebViewFragment.CARRIER_BILLING_ONE_BIP_SCHEMA) == true) {
+            BillingWebViewFragment.CARRIER_BILLING_ONE_BIP_SCHEMA
+          ) == true
+        ) {
           sendCarrierBillingConfirmationEvent("cancel")
         } else {
           sendPayPalConfirmationEvent("cancel")

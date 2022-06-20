@@ -105,8 +105,9 @@ class OneStepPaymentReceiver : BaseActivity() {
     finish()
   }
 
-  private fun startOneStepTransfer(transaction: TransactionBuilder,
-                                   isBds: Boolean
+  private fun startOneStepTransfer(
+    transaction: TransactionBuilder,
+    isBds: Boolean
   ) {
     val intent =
       newIntent(this, intent, transaction, isBds, transaction.payload)
