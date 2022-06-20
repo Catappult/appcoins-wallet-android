@@ -9,7 +9,7 @@
   <string name="bottom_navigation_my_wallets">Τα Wallet Μου</string>
   <!-- Strings relatedwalletount creation -->
   <string name="prompt_password">Κωδικός πρόσβασης</string>
-  <string name="action_sign_in_short">Create</string>
+  <string name="action_sign_in_short">Δημιουργία</string>
   <!-- String related to sending -->
   <string name="prompt_to">Προς</string>
   <string name="action_send">Αποστολή</string>
@@ -20,7 +20,7 @@
   <string name="confirm_delete_account">Βεβαιωθείτε ότι έχετε ένα αντίγραφο ασφαλείας αυτού του wallet.</string>
   <string name="action_import">Ανάκτηση</string>
   <string name="copy">Αντιγραφή στο πρόχειρο</string>
-  <string name="copied">Copied!</string>
+  <string name="copied">Αντιγράφηκε!</string>
   <string name="close">Κλείσιμο</string>
   <string name="title_activity_settings">Ρυθμίσεις</string>
   <string name="network_label">Δίκτυο</string>
@@ -33,7 +33,7 @@
   <string name="no_camera_permission_title">Δικαίωμα Κάμερας</string>
   <string name="no_camera_permission">Το AppCoins BDS Wallet χρειάζεται άδεια πρόσβασης στην κάμερα για τη σάρωση κωδικών QR.</string>
   <string name="no_camera_available">Δεν υπάρχει κάμερα!</string>
-  <string name="ok">Ok</string>
+  <string name="ok">Οκ</string>
   <string name="barcode_error_format">Μη έγκυρη μορφή barcode: %s</string>
   <string name="title_delete_account">Είστε σίγουροι ότι θέλετε να αφαιρέσετε αυτό το wallet;</string>
   <string name="twitter">Twitter</string>
@@ -50,7 +50,7 @@
   <string name="error_import">Σφάλμα κατά την εισαγωγή keystore</string>
   <string name="message_this_is_your_address">Η δημόσια διεύθυνσή μου Ethereum wallet</string>
   <string name="backup_warning_text">Καθώς μόνο εσείς διαχειρίζεστε τα χρήματά σας, θα πρέπει να αποθηκεύσετε ένα αντίγραφο ασφαλείας του keystore σας, σε περίπτωση που διαγραφεί αυτή η εφαρμογή.\n\nΤο wallet σας δεν αποθηκεύεται ποτέ στο cloud ή στα συνηθισμένα αντίγραφα ασφαλείας της συσκευής.</string>
-  <string name="backup_wallet_tooltip">Keep a copy of your wallet to keep it safe.</string>
+  <string name="backup_wallet_tooltip">Κρατήστε ένα αντίγραφο του wallet σας για λόγους ασφαλείας.</string>
   <string name="message_no_backup">Χωρίς backup, δεν υπάρχει Ethereum</string>
   <string name="error_deleting_account">Σφάλμα κατά τη διαγραφή του wallet</string>
   <string name="title_privacy_policy">Πολιτική Απορρήτου</string>
@@ -100,7 +100,7 @@
   <string name="title_dialog_error">Σφάλμα</string>
   <string name="title_dialog_handling">Επεξεργασία…</string>
   <string name="title_dialog_add_account">Προσθήκη wallet</string>
-  <string name="title_dialog_deposit">How would you like to buy?</string>
+  <string name="title_dialog_deposit">Πώς θα θέλατε να αγοράσετε;</string>
   <string name="title_dialog_close_channel">Close channel</string>
   <!-- Dialog messages-->
   <string name="dialog_message">Ορίστε έναν κωδικό πρόσβασης για να κρυπτογραφήστε το wallet σας</string>
@@ -120,7 +120,7 @@
   <string name="intro_2_title">Παίξτε Περισσότερο, Πληρώστε Λιγότερα</string>
   <string name="intro_2_body">Λάβετε ανταμοιβές για την αγορά αντικειμένων στις αγαπημένες σας εφαρμογές και παιχνίδια.</string>
   <string name="intro_3_title">Απλό και Εύκολο</string>
-  <string name="intro_3_body">Keep the AppCoins Wallet installed to directly purchase in your games.</string>
+  <string name="intro_3_body">Κρατήστε το AppCoins Wallet εγκατεστημένο για να αγοράζετε άμεσα στα παιχνίδια σας.</string>
   <string name="intro_4_title">Ασφαλές και Ιδιωτικό</string>
   <string name="intro_4_body">Τα ιδιωτικά σας κλειδιά δε θα φύγουν ποτέ από τη συσκευή σας, επομένως τα AppCoins σας θα είναι πάντα ασφαλή.</string>
   <string name="intro_4_body_2">Όλες οι συναλλαγές σας είναι πάντα ασφαλείς, χάρις στη χρήση τεχνολογιών αιχμής.</string>
@@ -130,10 +130,10 @@
   <string name="intro_wallet_created_short">Το wallet δημιουργήθηκε!</string>
   <string name="intro_agree_terms_and_conditions_body">Εάν πατήσετε Παράλειψη, συμφωνείτε με %1$s και %2$s του AppCoins Wallet</string>
   <string name="intro_skip_button">ΠΑΡΑΛΕΙΨΗ</string>
-  <string name="intro_welcome_header">Welcome to the AppCoins Wallet</string>
-  <string name="intro_welcome_body">Your app for in-app purchases.</string>
-  <string name="intro_already_have_wallet_button">I already have a wallet</string>
-  <string name="intro_get_started_button">Get started</string>
+  <string name="intro_welcome_header">Καλώς ήρθατε στο AppCoins Wallet</string>
+  <string name="intro_welcome_body">Η εφαρμογή σας για αγορές εντός εφαρμογών.</string>
+  <string name="intro_already_have_wallet_button">Έχω ήδη ένα wallet</string>
+  <string name="intro_get_started_button">Ξεκινήστε</string>
   <!-- Menus -->
   <!-- Labels -->
   <string name="label_from">Από</string>
@@ -141,7 +141,7 @@
   <string name="label_gas_limit">Όριο Gas</string>
   <string name="label_gas_price">Τιμή Gas</string>
   <string name="label_network_fee">Χρέωση Δικτύου</string>
-  <string name="button_ok">OK</string>
+  <string name="button_ok">ΟΚ</string>
   <string name="hint_recipient_address">Διεύθυνση Παραλήπτη</string>
   <string name="hint_amount">Ποσό</string>
   <string name="hint_amount_with_token">Ποσό %s</string>
@@ -158,7 +158,7 @@
   <string name="action_more_details">Περισσότερα</string>
   <string name="action_add_wallet">Προσθήκη wallet</string>
   <string name="action_coinbase">Coinbase</string>
-  <string name="action_shapeshift">Shapeshift (Crypto only)</string>
+  <string name="action_shapeshift">Shapeshift (μόνο Crypto)</string>
   <string name="action_changelly">Changelly</string>
   <string name="action_wallets">Wallets</string>
   <string name="action_next">Επόμενο</string>
@@ -242,7 +242,7 @@
   <string name="transaction_type_standard">Μεταφορά</string>
   <string name="transaction_type_bonus">Bonus</string>
   <string name="transaction_type_eskills_reward">Eskills Reward</string>
-  <string name="transaction_type_eskills">e-Skills Purchase</string>
+  <string name="transaction_type_eskills">Αγορά e-Skills</string>
   <string name="transaction_type_voucher">e-Voucher</string>
   <string name="transaction_type_voucher_title">Voucher για %s</string>
   <string name="transaction_type_reverted_bonus_title">Bonus που υπέστη επαναφορά</string>
@@ -252,10 +252,10 @@
   <string name="transaction_type_reverted_purchase_title">Επιστροφή Αγοράς</string>
   <string name="transaction_type_reverted_purchase_body">Η αγορά που πραγματοποιήσατε στις %s έχει υποστεί επαναφορά. Επικοινωνήστε με την Υποστήριξη για περισσότερες πληροφορίες.</string>
   <string name="transaction_reverted_view_original_header">Αρχική Συναλλαγή</string>
-  <string name="transaction_onchain_completed_title">Transaction on the way!</string>
-  <string name="transaction_onchain_completed_body">You can track it on Etherscan.</string>
+  <string name="transaction_onchain_completed_title">Συναλλαγή καθ\' οδόν!</string>
+  <string name="transaction_onchain_completed_body">Μπορείτε να την εντοπίσετε στο Etherscan.</string>
   <string name="transaction_type_p2p">@string/transaction_type_standard</string>
-  <string name="transaction_details_brand_txt">Powered By Ethereum</string>
+  <string name="transaction_details_brand_txt">Με την υποστήριξη του Ethereum</string>
   <string name="transaction_close_channel_btn_txt">close channel</string>
   <string name="miuraiden_trans_details_open">µRaiden channel open</string>
   <string name="miuraiden_trans_details_topup">µRaiden channel top up</string>
@@ -263,7 +263,7 @@
   <string name="ellipsize">\u0020• • •</string>
   <string name="transaction_status_label">Κατάσταση</string>
   <string name="transaction_category_label">Κατηγορία</string>
-  <string name="transaction_order_reference_label">Order ID</string>
+  <string name="transaction_order_reference_label">Αναγνωριστικό παραγγελίας</string>
   <string name="transaction_details_label">Λεπτομέρειες</string>
   <string name="transaction_to_label">Προς</string>
   <string name="dialog_credit_card_remember">Αποθήκευση Στοιχείων Κάρτας</string>
@@ -271,14 +271,14 @@
   <string name="dialog_credit_card_number">Αριθμός Κάρτας</string>
   <string name="dialog_credit_card_expiration">Ημερομηνία Λήξης</string>
   <string name="dialog_credit_card_cvv">CVV</string>
-  <string name="dialog_bank_card">Credit/debit card</string>
+  <string name="dialog_bank_card">Πιστωτική/χρεωστική κάρτα</string>
   <string name="dialog_expiry_date">Ημερομηνία λήξης</string>
   <string name="activity_airdrop_title">Επιβεβαιώστε ότι είστε άνθρωπος για να λάβετε AppCoins</string>
   <string name="activity_airdrop_details">Αυτό γίνεται για λόγους ασφαλείας.</string>
   <string name="activity_airdrop_hint">Πληκτρολογήστε ό,τι βλέπετε στην εικόνα</string>
   <string name="activity_airdrop_submit_btn">Υποβολή</string>
   <string name="activity_airdrop_wrong_captcha">Λάθος captcha</string>
-  <string name="activity_airdrop_ok">ok</string>
+  <string name="activity_airdrop_ok">οκ</string>
   <string name="activity_airdrop_message_title">Airdrop</string>
   <string name="activity_airdrop_success_message">Το Airdrop ολοκληρώθηκε</string>
   <string name="activity_airdrop_generic_error_message">Παρουσιάστηκε ένα σφάλμα</string>
@@ -288,7 +288,7 @@
   <string name="iab_activity_raiden_amount_label">Select Amount</string>
   <string name="iab_activity_raiden_channel_info_message">You’ll not pay fees for the transactions made with this developer until the amount you choose is reached. The amount will be withdrawn and stored, and you can close this channel anytime.</string>
   <string name="iab_activity_raiden_channel_info_title">µRaiden Channel</string>
-  <string name="proceed">proceed</string>
+  <string name="proceed">συνέχεια</string>
   <string name="iab_activity_raiden_channel_no_funds_message">You don\'t have enough funds on your µRainden payment channel. Go to your wallet and close the channel to create a new one.  Do you still want to complete this purchase with a standard payment?</string>
   <string name="iab_activity_raiden_channel_no_funds_title">Payment Channel Funds</string>
   <string name="spend_your_appcoins">Ξοδέψτε τα AppCoins σας</string>
@@ -331,7 +331,7 @@
   <string name="gamification_star_subtitle">Λαμπερό, μεγάλο και γεμάτο ζωή!</string>
   <string name="gamification_galaxy_subtitle">Το μεγαλύτερο σύστημα εκεί έξω!</string>
   <string name="gamification_transaction_title">@string/gamification_level_bonus</string>
-  <string name="gamification_purchase_header">This purchase has a bonus!</string>
+  <string name="gamification_purchase_header">Αυτή η αγορά έχει ένα bonus!</string>
   <string name="gamification_purchase_header_part_1">Bonus Αγοράς:</string>
   <string name="gamification_purchase_header_part_2">%s σε APPC Credits</string>
   <string name="gamification_purchase_body">Μπορείτε να χρησιμοποιήσετε αυτό το bonus στην επόμενη αγορά σας.</string>
@@ -381,8 +381,8 @@
   <string name="topup_bonus_body">Μπορείτε να χρησιμοποιήσετε αυτό το bonus στην επόμενη αγορά σας.</string>
   <string name="topup_minimum_value">Η ελάχιστη τιμή φόρτισης είναι %s</string>
   <string name="topup_maximum_value">Η μέγιστη τιμή φόρτισης είναι %s</string>
-  <string name="topup_no_method_available_title">No payment methods!</string>
-  <string name="topup_no_method_available_body">There are no payment methods available to top up in your country at the moment. Stay tuned!</string>
+  <string name="topup_no_method_available_title">Καμία μέθοδος πληρωμής!</string>
+  <string name="topup_no_method_available_body">Επί του παρόντος δεν υπάρχουν στη χώρα σας διαθέσιμες μέθοδοι πληρωμής για να γεμίσετε το πορτοφόλι. Μείνετε συντονισμένοι!</string>
   <!--Balance-->
   <string name="balance_title">Υπόλοιπο</string>
   <string name="balance_total_body">Συνολικό Υπόλοιπο σε %s</string>
@@ -390,11 +390,11 @@
   <string name="balance_ethereum_body">Το Ethereum είναι το κρυπτονόμισμα στο οποίο βασίζονται τα AppCoins. Μπορείτε να το αγοράζετε και να το πουλάτε στα περισσότερα ανταλλακτήρια. Είναι πολύ δημοφιλές!</string>
   <string name="balance_appcoins_body">Τα AppCoins αποτελούν το κρυπτονόμισμα της οικονομίας των εφαρμογών. Μπορείτε να τα αγοράζετε και να τα πουλάτε σε διάφορα ανταλλακτήρια και να τα χρησιμοποιείτε για αγορές εντός εφαρμογών.</string>
   <string name="balance_appccreditos_body">Το token για την αγορά αντικειμένων εντός εφαρμογών! Λάβετε APPC-C από το wallet σας ή πραγματοποιήστε δωρεάν λήψη μέσω της χρήσης εφαρμογών. Επίσης, υπάρχει δυνατότητα μεταφοράς μεταξύ φίλων!</string>
-  <string name="my_wallets_action_new_wallet">New wallet</string>
-  <string name="my_wallets_action_recover_wallet">Recover wallet</string>
+  <string name="my_wallets_action_new_wallet">Νέο wallet</string>
+  <string name="my_wallets_action_recover_wallet">Ανάκτηση wallet</string>
   <string name="my_wallets_action_backup_wallet">Αντίγραφο Ασφαλείας Wallet</string>
-  <string name="my_wallets_action_verify_new_card">Validate new card</string>
-  <string name="my_wallets_action_delete_wallet">Delete wallet</string>
+  <string name="my_wallets_action_verify_new_card">Επαλήθευση νέας κάρτας</string>
+  <string name="my_wallets_action_delete_wallet">Διαγραφή wallet</string>
   <!--Ask a friend for funds-->
   <string name="askafriend_payment_option_button">Ζητήστε από άλλον να πληρώσει</string>
   <string name="askafriend_generating_link_message">Δημιουργούμε τον σύνδεσμο πληρωμής σας&#8230;</string>
@@ -403,7 +403,7 @@
   <string name="askafriend_share_add_message_body">Προσθήκη μηνύματος (προαιρετικά)</string>
   <string name="askafriend_share_button">Κοινοποίηση</string>
   <string name="askafriend_share_popup_title">Ρωτήστε κάποιον μέσω:</string>
-  <string name="askafriend_received_body">You just received %s AppCoins Credits</string>
+  <string name="askafriend_received_body">Μόλις λάβατε %s AppCoins Credits</string>
   <string name="askafriend_notification_received_title">Πραγματοποιήθηκε νέα μεταφορά</string>
   <string name="askafriend_notification_received_body">%1$s %2$s πιστώθηκαν στο wallet σας.</string>
   <string name="askafriend_received_title">Η Μεταφορά Πραγματοποιήθηκε</string>
@@ -441,20 +441,20 @@
   <string name="remind_later_button">Υπενθύμιση αργότερα</string>
   <string name="get_code_button">Λάβετε κωδικό</string>
   <string name="confirm_button">Επιβεβαίωση</string>
-  <string name="withdraw_button">withdraw</string>
-  <string name="email_here_field">Your email here&#8230;</string>
-  <string name="understood_button">Understood!</string>
-  <string name="skip_button">Skip for now</string>
-  <string name="understand_button">I understand</string>
-  <string name="install_button">Install</string>
+  <string name="withdraw_button">ανάληψη</string>
+  <string name="email_here_field">Το e-mail σας εδώ&#8230;</string>
+  <string name="understood_button">Το κατάλαβα!</string>
+  <string name="skip_button">Παράλειψη για την ώρα</string>
+  <string name="understand_button">Καταλαβαίνω</string>
+  <string name="install_button">Εγκατάσταση</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Συμφωνώ με %1$s και %2$s του AppCoins Wallet.</string>
   <string name="terms_and_conditions_error">Παρακαλούμε αποδεχτείτε τους Όρους και Προϋποθέσεις και την Πολιτική Απορρήτου για να συνεχίσετε</string>
   <string name="terms_and_conditions">Όροι και Προϋποθέσεις</string>
   <string name="privacy_policy">Πολιτική Απορρήτου</string>
-  <string name="decline_button">Reject</string>
-  <string name="get_started">Get Started</string>
-  <string name="existent_wallet">I already have a wallet</string>
+  <string name="decline_button">Απόρριψη</string>
+  <string name="get_started">Ξεκινήστε</string>
+  <string name="existent_wallet">Έχω ήδη ένα wallet</string>
   <!--Home-->
   <string name="home_empty_discover_apps_body">Make a purchase on your favorite game and we\'ll handle everything.</string>
   <string name="home_empty_discover_apps_button">ΑΝΑΚΑΛΥΨΤΕ ΚΟΡΥΦΑΙΕΣ ΕΦΑΡΜΟΓΕΣ</string>
