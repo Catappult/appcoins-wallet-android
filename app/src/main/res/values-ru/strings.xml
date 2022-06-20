@@ -1091,13 +1091,13 @@
   <string name="mywallet_verify_payment_method_button">ПОДТВЕРДИТЬ НОВУЮ КАРТУ</string>
   <string name="mywallet_choose_name_header">Выберите название для своего кошелька</string>
   <string name="mywallet_choose_name_field">Название кошелька здесь...</string>
-  <string name="mywallet_choose_name_confirmed">Wallet name changed</string>
-  <string name="mywallet_unnamed_wallet">No name wallet %s</string>
-  <string name="mywallet_swithing_wallets_title">Switching wallets...</string>
-  <string name="mywallet_address_title">Address:</string>
+  <string name="mywallet_choose_name_confirmed">Название кошелька изменено</string>
+  <string name="mywallet_unnamed_wallet">Безымянный кошелёк %s</string>
+  <string name="mywallet_swithing_wallets_title">Переключение кошельков...</string>
+  <string name="mywallet_address_title">Адрес:</string>
   <!-- Onboarding for new users coming from an iap -->
-  <string name="onboarding_1st_title">Congrats! You\'ve installed the AppCoins Wallet.</string>
-  <string name="onboarding_1st_body">Go back to the game to complete your purchase.</string>
-  <string name="onboarding_1st_back_to_game_button">Go back to the game</string>
-  <string name="onboarding_1st_explore_wallet_button">Or explore the AppCoins Wallet</string>
+  <string name="onboarding_1st_title">Поздравляю! Вы установили AppCoins Wallet.</string>
+  <string name="onboarding_1st_body">Вернитесь в игру, чтобы завершить вашу покупку.</string>
+  <string name="onboarding_1st_back_to_game_button">Вернуться в игру</string>
+  <string name="onboarding_1st_explore_wallet_button">Или познакомьтесь с AppCoins Wallet</string>
 </resources>
