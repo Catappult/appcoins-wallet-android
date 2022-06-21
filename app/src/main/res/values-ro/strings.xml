@@ -638,7 +638,7 @@
   <!--Backup and Import-->
   <string name="backup_home_notification_title">Fă o copie de rezervă a portofelului</string>
   <string name="backup_home_notification_body">Ți-ai pierdut vreodată telefonul? Fă o copie de rezervă a portofelului tău acum!</string>
-  <string name="backup_confirmation_no_share_title">Copie de rezervă efectuată!</string>
+  <string name="backup_confirmation_no_share_title">Backup Done!</string>
   <string name="backup_save_dialogue_title">Salvează fișier de rezervă</string>
   <string name="backup_save_dialogue_body">Alege un nume pentru fișierul de rezervă.</string>
   <string name="import_wallet_title">Recuperează Portofel</string>
@@ -1079,12 +1079,13 @@
   <string name="mywallet_unverified_body">Verifică o metodă de plată pentru a evita blocaje.</string>
   <string name="mywallet_backed_up_date">Ai făcut o copie de rezervă a portofelului tău pe %s.</string>
   <string name="mywallet_backup_again_button">FĂ O COPIE DE REZERVĂ NOUĂ</string>
-  <string name="mywallet_verify_payment_method_button">VERIFICĂ NOUA METODA DE PLATĂ</string>
+  <string name="mywallet_verify_payment_method_button">VERIFY NEW CARD</string>
   <string name="mywallet_choose_name_header">Alege un nume pentru portofelul tău</string>
   <string name="mywallet_choose_name_field">Numele portofelului aici...</string>
   <string name="mywallet_choose_name_confirmed">Numele portofelului a fost schimbat</string>
   <string name="mywallet_unnamed_wallet">Portofel fără nume %s</string>
   <string name="mywallet_swithing_wallets_title">Se schimbă portofelele...</string>
+  <string name="mywallet_address_title">Address:</string>
   <!-- Onboarding for new users coming from an iap -->
   <string name="onboarding_1st_title">Felicitări! Ai instalat un AppCoins Wallet.</string>
   <string name="onboarding_1st_body">Du-te înapoi la joc pentru a finaliza achiziția.</string>

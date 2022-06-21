@@ -638,7 +638,7 @@
   <!--Backup and Import-->
   <string name="backup_home_notification_title">Utwórz kopię zapasową portfela</string>
   <string name="backup_home_notification_body">Zgubiłeś/aś kiedyś telefon? Zrób kopię zapasową portfela teraz!</string>
-  <string name="backup_confirmation_no_share_title">Kopia utworzona!</string>
+  <string name="backup_confirmation_no_share_title">Backup Done!</string>
   <string name="backup_save_dialogue_title">Zapisz kopię zapasową</string>
   <string name="backup_save_dialogue_body">Nazwij plik z kopią zapasową.</string>
   <string name="import_wallet_title">Odzyskaj portfel</string>
@@ -1088,12 +1088,13 @@
   <string name="mywallet_unverified_body">Sprawdź metodę płatności, aby uniknąć blokad.</string>
   <string name="mywallet_backed_up_date">Utworzono kopię zapasową na %s.</string>
   <string name="mywallet_backup_again_button">PONÓW</string>
-  <string name="mywallet_verify_payment_method_button">ZWERYFIKUJ NOWĄ METODĘ PŁATNOŚCI</string>
+  <string name="mywallet_verify_payment_method_button">VERIFY NEW CARD</string>
   <string name="mywallet_choose_name_header">Nazwij kopię zapasową portfela</string>
   <string name="mywallet_choose_name_field">Nazwa portfela...</string>
   <string name="mywallet_choose_name_confirmed">Zmieniono nazwę</string>
   <string name="mywallet_unnamed_wallet">Portfel %s bez nazwy</string>
   <string name="mywallet_swithing_wallets_title">Zamiana portfeli...</string>
+  <string name="mywallet_address_title">Address:</string>
   <!-- Onboarding for new users coming from an iap -->
   <string name="onboarding_1st_title">Gratulacje! Zainstalowałeś portfel AppCoins.</string>
   <string name="onboarding_1st_body">Wróć do gry, by zakończyć zakup.</string>

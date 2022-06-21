@@ -638,7 +638,7 @@
   <!--Backup and Import-->
   <string name="backup_home_notification_title">Wallet biztonsági mentés</string>
   <string name="backup_home_notification_body">Vesztetted már el a telefonod? Készíts biztonsági másolatot a tárcádról most!</string>
-  <string name="backup_confirmation_no_share_title">Kész a biztonsági mentés!</string>
+  <string name="backup_confirmation_no_share_title">Backup Done!</string>
   <string name="backup_save_dialogue_title">Biztonságimásolat-fájl mentése</string>
   <string name="backup_save_dialogue_body">Add meg a biztonságimásolat-fájl nevét.</string>
   <string name="import_wallet_title">Pénztárca helyreállítása</string>
@@ -1070,12 +1070,13 @@
   <string name="mywallet_unverified_body">Hitelesíts egy fizetési módot a blokkolások elkerülése érdekében.</string>
   <string name="mywallet_backed_up_date">A wallet biztonsági mentése kész a következőn: %s.</string>
   <string name="mywallet_backup_again_button">ÚJ BIZTONSÁGI MENTÉS</string>
-  <string name="mywallet_verify_payment_method_button">ÚJ FIZETÉSI MÓD HITELESÍTÉSE</string>
+  <string name="mywallet_verify_payment_method_button">VERIFY NEW CARD</string>
   <string name="mywallet_choose_name_header">Nevezd el a walletod</string>
   <string name="mywallet_choose_name_field">A wallet neve ide...</string>
   <string name="mywallet_choose_name_confirmed">Megváltozott a wallet neve</string>
   <string name="mywallet_unnamed_wallet">A(z) %s walletnek nincs neve</string>
   <string name="mywallet_swithing_wallets_title">Másik wallet kiválasztása...</string>
+  <string name="mywallet_address_title">Address:</string>
   <!-- Onboarding for new users coming from an iap -->
   <string name="onboarding_1st_title">Gratulálunk! Telepítetted az AppCoins Walletet.</string>
   <string name="onboarding_1st_body">A vásárlás befejezéséhez menj vissza a játékba.</string>

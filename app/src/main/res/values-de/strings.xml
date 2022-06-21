@@ -381,8 +381,8 @@
   <string name="topup_bonus_body">Sie können diese Prämie bei ihren nächsten Einkauf verwenden.</string>
   <string name="topup_minimum_value">Der Mindest Top-Up Betrag beträgt %s</string>
   <string name="topup_maximum_value">Der maximale Top-Up Betrag beträgt %s</string>
-  <string name="topup_no_method_available_title">No payment methods!</string>
-  <string name="topup_no_method_available_body">There are no payment methods available to top up in your country at the moment. Stay tuned!</string>
+  <string name="topup_no_method_available_title">Keine Bezahlmethoden!</string>
+  <string name="topup_no_method_available_body">Zurzeit gibt es in Ihrem Land zum Aufladen keine Zahlungsmöglichkeiten. Bleiben Sie dran!</string>
   <!--Balance-->
   <string name="balance_title">Guthaben</string>
   <string name="balance_total_body">Gesamguthaben in %s</string>
@@ -638,7 +638,7 @@
   <!--Backup and Import-->
   <string name="backup_home_notification_title">Backup für ihr Wallet durchführen</string>
   <string name="backup_home_notification_body">Haben Sie schon nal ihr Smartphone verloren? Machen Sie jetzt ein Backup von ihrem Wallet!</string>
-  <string name="backup_confirmation_no_share_title">Backup erledigt!</string>
+  <string name="backup_confirmation_no_share_title">Backup Erledigt!</string>
   <string name="backup_save_dialogue_title">Backup-Datei speichern</string>
   <string name="backup_save_dialogue_body">Einen Namen für die Backup-Datei auswählen.</string>
   <string name="import_wallet_title">Wallet wiederherstellen</string>
@@ -1004,8 +1004,8 @@
   <string name="e_skills_withdraw_confirmation_body">Die Verarbeitung kann 2 bis 3 Wochen dauern.</string>
   <string name="e_skills_withdraw_minimum_body">Der Mindestbetrag für eine Abhebung beträgt $%s.</string>
   <string name="e_skills_withdraw_started_title">Eine Abhebungsanfrage von $%s wurde gestartet.</string>
-  <string name="e_skills_withdraw_started_body">This request may take 2-3 weeks to be processed.</string>
-  <string name="e_skills_withdraw_error_not_funds">Make sure you have enough funds to be withdrawn.</string>
+  <string name="e_skills_withdraw_started_body">Die Bearbeitung dieses Antrags kann 2-3 Wochen dauern.</string>
+  <string name="e_skills_withdraw_error_not_funds">Vergewissern Sie sich, dass Sie über genügend Geldmittel verfügen, die Sie abheben können.</string>
   <!--Promo Code-->
   <string name="promo_code_settings_title">Promotion-Code</string>
   <string name="promo_code_view_title">Promotion-Code</string>
@@ -1021,8 +1021,8 @@
   <string name="promo_code_success_body">Sie erhalten %s%% zusätzlichen Bonus auf all ihre Einkäufe.</string>
   <string name="promo_code_success_body_specific_app">Sie erhalten %1$s%% zusätzlichen Bonus auf all ihre Einkäufe bei %2$s.</string>
   <string name="promo_code_promotions_tag">Aktionscode</string>
-  <string name="promo_code_error_not_available">This promo code is no longer available.</string>
-  <string name="promo_code_error_invalid_user">Oops! This code couldn\'t be applied.</string>
+  <string name="promo_code_error_not_available">Dieser Promo-Code ist nicht mehr verfügbar.</string>
+  <string name="promo_code_error_invalid_user">Ups! Dieser Code konnte nicht angewandt werden.</string>
   <!--AppCoins Info Page-->
   <string name="appcoins_info_title">Über AppCoins</string>
   <string name="appcoins_info_prince_title">AppCoins Kurs (APPC)</string>
@@ -1066,19 +1066,20 @@
   <string name="gift_card_error_new_users_title">Dieser Code gilt nur für neue Benutzer!</string>
   <string name="gift_card_error_try_with_different_body">Beitte verwenden Sie einen anderen.</string>
   <!-- My Wallet -->
-  <string name="mywallet_unverified_title">Unverified Wallet</string>
-  <string name="mywallet_unverified_body">Verify a payment method to avoid blockages.</string>
-  <string name="mywallet_backed_up_date">You backed up your wallet on %s.</string>
-  <string name="mywallet_backup_again_button">BACK UP AGAIN</string>
-  <string name="mywallet_verify_payment_method_button">VERIFY NEW PAYMENT METHOD</string>
-  <string name="mywallet_choose_name_header">Choose a name for your wallet</string>
-  <string name="mywallet_choose_name_field">Wallet name here...</string>
-  <string name="mywallet_choose_name_confirmed">Wallet name changed</string>
-  <string name="mywallet_unnamed_wallet">No name wallet %s</string>
-  <string name="mywallet_swithing_wallets_title">Switching wallets...</string>
+  <string name="mywallet_unverified_title">Nicht verifiziertes Wallet</string>
+  <string name="mywallet_unverified_body">Verifizieren Sie eine Zahlungsmethode, dadurch werden Blockierungen zu vermeiden.</string>
+  <string name="mywallet_backed_up_date">Sie haben ihr Wallet am %s gesichert.</string>
+  <string name="mywallet_backup_again_button">BACKUP ERNEUT AUSFÜHREN</string>
+  <string name="mywallet_verify_payment_method_button">NEUE KREDITKARTE VERIFIZIEREN</string>
+  <string name="mywallet_choose_name_header">Wählen Sie einen Namen für ihr Wallet</string>
+  <string name="mywallet_choose_name_field">Wallet-Name hier eingeben...</string>
+  <string name="mywallet_choose_name_confirmed">Wallet-Name wurde geändert</string>
+  <string name="mywallet_unnamed_wallet">Kein Wallet-Name %s</string>
+  <string name="mywallet_swithing_wallets_title">Wallet wechseln...</string>
+  <string name="mywallet_address_title">Adresse:</string>
   <!-- Onboarding for new users coming from an iap -->
-  <string name="onboarding_1st_title">Congrats! You\'ve installed the AppCoins Wallet.</string>
-  <string name="onboarding_1st_body">Go back to the game to complete your purchase.</string>
-  <string name="onboarding_1st_back_to_game_button">Go back to the game</string>
-  <string name="onboarding_1st_explore_wallet_button">Or explore the AppCoins Wallet</string>
+  <string name="onboarding_1st_title">Herzlichen Glückwunsch! Sie haben das AppCoins Wallet installiert.</string>
+  <string name="onboarding_1st_body">Gehen Sie zurück zum Spiel, um ihren Kauf abzuschließen.</string>
+  <string name="onboarding_1st_back_to_game_button">Zurück zum Spiel</string>
+  <string name="onboarding_1st_explore_wallet_button">Oder erkunden Sie das AppCoins Wallet</string>
 </resources>

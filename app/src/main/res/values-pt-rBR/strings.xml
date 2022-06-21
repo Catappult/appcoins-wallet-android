@@ -638,7 +638,7 @@
   <!--Backup and Import-->
   <string name="backup_home_notification_title">Fazer Backup da Wallet</string>
   <string name="backup_home_notification_body">Você já perdeu seu telefone? Faça o backup de sua wallet agora!</string>
-  <string name="backup_confirmation_no_share_title">Backup concluído!</string>
+  <string name="backup_confirmation_no_share_title">Backup Done!</string>
   <string name="backup_save_dialogue_title">Salvar arquivo de backup</string>
   <string name="backup_save_dialogue_body">Escolha um nome para seu arquivo de backup.</string>
   <string name="import_wallet_title">Recuperar Wallet</string>
@@ -1070,12 +1070,13 @@
   <string name="mywallet_unverified_body">Verifique uma forma de pagamento para evitar bloqueios.</string>
   <string name="mywallet_backed_up_date">Você fez backup de sua carteira em %s.</string>
   <string name="mywallet_backup_again_button">FAZER BACKUP NOVAMENTE</string>
-  <string name="mywallet_verify_payment_method_button">VERIFICAR NOVA FORMA DE PAGAMENTO</string>
+  <string name="mywallet_verify_payment_method_button">VERIFY NEW CARD</string>
   <string name="mywallet_choose_name_header">Escolha um nome para sua carteira</string>
   <string name="mywallet_choose_name_field">Nome da carteira aqui...</string>
   <string name="mywallet_choose_name_confirmed">Nome da carteira alterado</string>
   <string name="mywallet_unnamed_wallet">Sem nome na carteira %s</string>
   <string name="mywallet_swithing_wallets_title">Trocando de carteira...</string>
+  <string name="mywallet_address_title">Address:</string>
   <!-- Onboarding for new users coming from an iap -->
   <string name="onboarding_1st_title">Parabéns! Você instalou a AppCoins Wallet.</string>
   <string name="onboarding_1st_body">Volte ao jogo para concluir sua compra.</string>

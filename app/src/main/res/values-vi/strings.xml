@@ -638,7 +638,7 @@
   <!--Backup and Import-->
   <string name="backup_home_notification_title">Sao lưu Ví của bạn</string>
   <string name="backup_home_notification_body">Bạn đã bao giờ bị mất điện thoại chưa? Hãy sao lưu ví của mình ngay!</string>
-  <string name="backup_confirmation_no_share_title">Sao lưu hoàn tất!</string>
+  <string name="backup_confirmation_no_share_title">Backup Done!</string>
   <string name="backup_save_dialogue_title">Lưu tập tin sao lưu</string>
   <string name="backup_save_dialogue_body">Chọn tên cho tập tin sao lưu của bạn.</string>
   <string name="import_wallet_title">Khôi phục ví</string>
@@ -1061,12 +1061,13 @@
   <string name="mywallet_unverified_body">Xác minh phương thức thanh toán để tránh bị tắc nghẽn.</string>
   <string name="mywallet_backed_up_date">Bạn đã sao lưu ví của mình trên %s.</string>
   <string name="mywallet_backup_again_button">SAO LƯU MỘT LẦN NỮA</string>
-  <string name="mywallet_verify_payment_method_button">XÁC MINH PHƯƠNG THỨC THANH TOÁN</string>
+  <string name="mywallet_verify_payment_method_button">VERIFY NEW CARD</string>
   <string name="mywallet_choose_name_header">Chọn tên cho ví của bạn</string>
   <string name="mywallet_choose_name_field">Tên ví tại đây...</string>
   <string name="mywallet_choose_name_confirmed">Tên ví đã được thay đổi</string>
   <string name="mywallet_unnamed_wallet">Ví không tên %s</string>
   <string name="mywallet_swithing_wallets_title">Đang chuyển đổi ví...</string>
+  <string name="mywallet_address_title">Address:</string>
   <!-- Onboarding for new users coming from an iap -->
   <string name="onboarding_1st_title">Xin chúc mừng! Bạn đã cài đặt được Ví AppCoins.</string>
   <string name="onboarding_1st_body">Quay lại trò chơi để hoàn tất giao dịch mua của mình.</string>

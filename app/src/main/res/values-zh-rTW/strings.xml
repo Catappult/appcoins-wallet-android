@@ -638,7 +638,7 @@
   <!--Backup and Import-->
   <string name="backup_home_notification_title">備份您的錢包</string>
   <string name="backup_home_notification_body">你有丟過手機嗎？現在就備份錢包吧！</string>
-  <string name="backup_confirmation_no_share_title">備份完成！</string>
+  <string name="backup_confirmation_no_share_title">Backup Done!</string>
   <string name="backup_save_dialogue_title">儲存備份檔案</string>
   <string name="backup_save_dialogue_body">輸入備份資料的名稱。</string>
   <string name="import_wallet_title">恢復錢包</string>
@@ -1061,12 +1061,13 @@
   <string name="mywallet_unverified_body">Verify a payment method to avoid blockages.</string>
   <string name="mywallet_backed_up_date">You backed up your wallet on %s.</string>
   <string name="mywallet_backup_again_button">BACK UP AGAIN</string>
-  <string name="mywallet_verify_payment_method_button">VERIFY NEW PAYMENT METHOD</string>
+  <string name="mywallet_verify_payment_method_button">VERIFY NEW CARD</string>
   <string name="mywallet_choose_name_header">Choose a name for your wallet</string>
   <string name="mywallet_choose_name_field">Wallet name here...</string>
   <string name="mywallet_choose_name_confirmed">Wallet name changed</string>
   <string name="mywallet_unnamed_wallet">No name wallet %s</string>
   <string name="mywallet_swithing_wallets_title">Switching wallets...</string>
+  <string name="mywallet_address_title">Address:</string>
   <!-- Onboarding for new users coming from an iap -->
   <string name="onboarding_1st_title">Congrats! You\'ve installed the AppCoins Wallet.</string>
   <string name="onboarding_1st_body">Go back to the game to complete your purchase.</string>

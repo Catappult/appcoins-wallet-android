@@ -638,7 +638,7 @@
   <!--Backup and Import-->
   <string name="backup_home_notification_title">Cadangkan Dompet Anda</string>
   <string name="backup_home_notification_body">Apakah Anda pernah kehilangan HP? Cadangkan dompet Anda sekarang!</string>
-  <string name="backup_confirmation_no_share_title">Pencadangan selesai!</string>
+  <string name="backup_confirmation_no_share_title">Backup Done!</string>
   <string name="backup_save_dialogue_title">Simpan file cadangan</string>
   <string name="backup_save_dialogue_body">Pilih nama untuk file cadangan Anda.</string>
   <string name="import_wallet_title">Pulihkan Dompet</string>
@@ -1061,12 +1061,13 @@
   <string name="mywallet_unverified_body">Verifikasi metode pembayaran untuk menghindari penahanan.</string>
   <string name="mywallet_backed_up_date">Anda mencadangkan dompet Anda pada %s.</string>
   <string name="mywallet_backup_again_button">CADANGKAN LAGI</string>
-  <string name="mywallet_verify_payment_method_button">VERIFIKASI METODE PEMBAYARAN BARU</string>
+  <string name="mywallet_verify_payment_method_button">VERIFY NEW CARD</string>
   <string name="mywallet_choose_name_header">Pilih nama untuk dompet Anda</string>
   <string name="mywallet_choose_name_field">Tulis nama dompet disini...</string>
   <string name="mywallet_choose_name_confirmed">Nama dompet sudah berubah</string>
   <string name="mywallet_unnamed_wallet">Dompet tanpa nama %s</string>
   <string name="mywallet_swithing_wallets_title">Berganti dompet...</string>
+  <string name="mywallet_address_title">Address:</string>
   <!-- Onboarding for new users coming from an iap -->
   <string name="onboarding_1st_title">Selamat! Anda sudah menginstal Dompet AppCoins.</string>
   <string name="onboarding_1st_body">Kembali ke game untuk menyelesaikan pembelian.</string>

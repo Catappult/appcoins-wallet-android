@@ -381,8 +381,8 @@
   <string name="topup_bonus_body">Вы можете использовать этот бонус при вашей следующей покупке.</string>
   <string name="topup_minimum_value">Минимальный размер бонуса – %s</string>
   <string name="topup_maximum_value">Максимальный размер бонуса – %s</string>
-  <string name="topup_no_method_available_title">No payment methods!</string>
-  <string name="topup_no_method_available_body">There are no payment methods available to top up in your country at the moment. Stay tuned!</string>
+  <string name="topup_no_method_available_title">Нет способов оплаты!</string>
+  <string name="topup_no_method_available_body">В настоящее время в вашей стране нет способов пополнения счета. Следите за обновлениями!</string>
   <!--Balance-->
   <string name="balance_title">Баланс</string>
   <string name="balance_total_body">Общий баланс в %s</string>
@@ -446,7 +446,7 @@
   <string name="understood_button">Ясно!</string>
   <string name="skip_button">Пока пропустить</string>
   <string name="understand_button">Я понимаю</string>
-  <string name="install_button">Install</string>
+  <string name="install_button">Установить</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Я согласен с %1$s и %2$s AppCoins Wallet.</string>
   <string name="terms_and_conditions_error">Пожалуйста, примите наши условия использования и политику конфиденциальности, чтобы продолжить</string>
@@ -559,9 +559,9 @@
   <string name="purachse_error_verify_card_button">ПОДТВЕРДИТЬ КАРТУ</string>
   <string name="purchase_eskills_sku">Входной билет</string>
   <string name="purchase_paytmupi_install_disclaimer">Вам необходимо установить приложение Paytm UPI.</string>
-  <string name="purchase_app_needed_body">You need the following app to complete your purchase.</string>
-  <string name="purchase_apps_needed_body">You need one of the following apps to complete your purchase.</string>
-  <string name="purchase_error_no_connection">It seems you have don\'t have an internet connection! Please check it and try again.</string>
+  <string name="purchase_app_needed_body">Вам нужно следующее приложение, чтобы завершить эту покупку.</string>
+  <string name="purchase_apps_needed_body">Для совершения покупки вам потребуется одно из следующих приложений.</string>
+  <string name="purchase_error_no_connection">Кажется, у вас нет подключения к Интернету! Пожалуйста, проверьте его и повторите попытку.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">Адрес для счёта</string>
   <string name="purchase_address_address_field">Адрес</string>
@@ -678,9 +678,9 @@
   <string name="backup_wallet_button">Сделать бэкап кошелька</string>
   <string name="backup_success_save_on_email">Ваша резервная копия отправлена по почте.</string>
   <string name="backup_success_save_on_device">Ваша резервная копия на вашем устройстве.</string>
-  <string name="backup_popup_title">Back up your wallet now!</string>
-  <string name="backup_popup_purchase_body">Keep your funds safe at all times.</string>
-  <string name="backup_popup_gamification_body">Keep your bonus level safe at all times.</string>
+  <string name="backup_popup_title">Сделайте бэкап кошелька!</string>
+  <string name="backup_popup_purchase_body">Всегда держите свои средства в безопасности.</string>
+  <string name="backup_popup_gamification_body">Всегда держите свой уровень бонуса в безопасности.</string>
   <!--Wallets Management-->
   <string name="wallets_title">Кошельки</string>
   <string name="wallets_total_balance_title">Общий баланс в %s</string>
@@ -1018,12 +1018,12 @@
   <string name="e_skills_room_create_title">Создать комнату или присоединиться</string>
   <string name="e_skills_room_create_body">Создайте новую комнату и пригласите в неё оппонентов, либо присоединитесь к существующей комнате.</string>
   <string name="e_skills_room_field">Название вашей комнаты...</string>
-  <string name="e_skills_withdraw_confirmation_title">A $%s withdrawal has been requested!</string>
-  <string name="e_skills_withdraw_confirmation_body">This may take between 2 and 3 weeks to be processed.</string>
-  <string name="e_skills_withdraw_minimum_body">The minimum amount to withdraw is $%s.</string>
-  <string name="e_skills_withdraw_started_title">A withdrawal request of $%s has been started.</string>
-  <string name="e_skills_withdraw_started_body">This request may take 2-3 weeks to be processed.</string>
-  <string name="e_skills_withdraw_error_not_funds">Make sure you have enough funds to be withdrawn.</string>
+  <string name="e_skills_withdraw_confirmation_title">Запрос на снятие $%s был отправлен!</string>
+  <string name="e_skills_withdraw_confirmation_body">Обработка может занять от 2 до 3 недель.</string>
+  <string name="e_skills_withdraw_minimum_body">Минимальная сумма для снятия средств $%s.</string>
+  <string name="e_skills_withdraw_started_title">Обработка запроса на снятие $%s начата.</string>
+  <string name="e_skills_withdraw_started_body">Обработка запроса может занять от 2 до 3 недель.</string>
+  <string name="e_skills_withdraw_error_not_funds">Убедитесь, что у вас достаточно средств для вывода.</string>
   <!--Promo Code-->
   <string name="promo_code_settings_title">Промо-код</string>
   <string name="promo_code_view_title">Промо-код</string>
@@ -1039,8 +1039,8 @@
   <string name="promo_code_success_body">Вы получите бонус %s%% на все ваши покупки.</string>
   <string name="promo_code_success_body_specific_app">Вы получите бонус %1$s%% на все ваши покупки в %2$s.</string>
   <string name="promo_code_promotions_tag">Промо-код</string>
-  <string name="promo_code_error_not_available">This promo code is no longer available.</string>
-  <string name="promo_code_error_invalid_user">Oops! This code couldn\'t be applied.</string>
+  <string name="promo_code_error_not_available">Этот промо-код больше не доступен.</string>
+  <string name="promo_code_error_invalid_user">Ой! Этот код не может быть применен.</string>
   <!--AppCoins Info Page-->
   <string name="appcoins_info_title">Об AppCoins</string>
   <string name="appcoins_info_prince_title">Цена в AppCoins (APPC)</string>
@@ -1077,26 +1077,27 @@
   <string name="gift_card_title">Погасите ваш подарочный код</string>
   <string name="gift_card_field">Подарочный код здесь...</string>
   <string name="gift_card_done_title">Код погашен!</string>
-  <string name="gift_card_done_body">Check your transactions list.</string>
+  <string name="gift_card_done_body">Проверьте ваш список транзакций.</string>
   <string name="gift_card_error_general_title">Что-то пошло неправильно!</string>
   <string name="gift_card_error_general_body">Пожалуйста, попробуйте снова или используйте другой код.</string>
   <string name="gift_card_error_used_title">Этот код уже был использован!</string>
   <string name="gift_card_error_new_users_title">Этот код только для новых пользователей!</string>
   <string name="gift_card_error_try_with_different_body">Пожалуйста, попробуйте снова с другим кодом.</string>
   <!-- My Wallet -->
-  <string name="mywallet_unverified_title">Unverified Wallet</string>
-  <string name="mywallet_unverified_body">Verify a payment method to avoid blockages.</string>
-  <string name="mywallet_backed_up_date">You backed up your wallet on %s.</string>
-  <string name="mywallet_backup_again_button">BACK UP AGAIN</string>
-  <string name="mywallet_verify_payment_method_button">VERIFY NEW PAYMENT METHOD</string>
-  <string name="mywallet_choose_name_header">Choose a name for your wallet</string>
-  <string name="mywallet_choose_name_field">Wallet name here...</string>
-  <string name="mywallet_choose_name_confirmed">Wallet name changed</string>
-  <string name="mywallet_unnamed_wallet">No name wallet %s</string>
-  <string name="mywallet_swithing_wallets_title">Switching wallets...</string>
+  <string name="mywallet_unverified_title">Неподтвержденный кошелёк</string>
+  <string name="mywallet_unverified_body">Подтвердите способ оплаты, чтобы избежать блокировки.</string>
+  <string name="mywallet_backed_up_date">Вы создали резервную копию своего кошелька на %s.</string>
+  <string name="mywallet_backup_again_button">СДЕЛАТЬ БЭКАП СНОВА</string>
+  <string name="mywallet_verify_payment_method_button">ПОДТВЕРДИТЬ НОВУЮ КАРТУ</string>
+  <string name="mywallet_choose_name_header">Выберите название для своего кошелька</string>
+  <string name="mywallet_choose_name_field">Название кошелька здесь...</string>
+  <string name="mywallet_choose_name_confirmed">Название кошелька изменено</string>
+  <string name="mywallet_unnamed_wallet">Безымянный кошелёк %s</string>
+  <string name="mywallet_swithing_wallets_title">Переключение кошельков...</string>
+  <string name="mywallet_address_title">Адрес:</string>
   <!-- Onboarding for new users coming from an iap -->
-  <string name="onboarding_1st_title">Congrats! You\'ve installed the AppCoins Wallet.</string>
-  <string name="onboarding_1st_body">Go back to the game to complete your purchase.</string>
-  <string name="onboarding_1st_back_to_game_button">Go back to the game</string>
-  <string name="onboarding_1st_explore_wallet_button">Or explore the AppCoins Wallet</string>
+  <string name="onboarding_1st_title">Поздравляю! Вы установили AppCoins Wallet.</string>
+  <string name="onboarding_1st_body">Вернитесь в игру, чтобы завершить вашу покупку.</string>
+  <string name="onboarding_1st_back_to_game_button">Вернуться в игру</string>
+  <string name="onboarding_1st_explore_wallet_button">Или познакомьтесь с AppCoins Wallet</string>
 </resources>

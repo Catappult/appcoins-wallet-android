@@ -638,7 +638,7 @@
   <!--Backup and Import-->
   <string name="backup_home_notification_title">Effettua il backup del tuo wallet</string>
   <string name="backup_home_notification_body">Hai perso il telefono? Fai subito il backup del tuo wallet!</string>
-  <string name="backup_confirmation_no_share_title">Backup completato!</string>
+  <string name="backup_confirmation_no_share_title">Backup Done!</string>
   <string name="backup_save_dialogue_title">Salva file di backup</string>
   <string name="backup_save_dialogue_body">Scegli un nome per il tuo file di backup.</string>
   <string name="import_wallet_title">Recupera wallet</string>
@@ -1070,12 +1070,13 @@
   <string name="mywallet_unverified_body">Verifica un metodo di pagamento per evitare blocchi.</string>
   <string name="mywallet_backed_up_date">Hai effettuato il backup del tuo wallet il giorno %s.</string>
   <string name="mywallet_backup_again_button">RIPETI BACKUP</string>
-  <string name="mywallet_verify_payment_method_button">VERIFICA NUOVO METODO DI PAGAMENTO</string>
+  <string name="mywallet_verify_payment_method_button">VERIFY NEW CARD</string>
   <string name="mywallet_choose_name_header">Scegli un nome per il tuo wallet</string>
   <string name="mywallet_choose_name_field">Nome del wallet qui...</string>
   <string name="mywallet_choose_name_confirmed">Nome del walleta aggiornato</string>
   <string name="mywallet_unnamed_wallet">Wallet senza nome %s</string>
   <string name="mywallet_swithing_wallets_title">Switching wallets...</string>
+  <string name="mywallet_address_title">Address:</string>
   <!-- Onboarding for new users coming from an iap -->
   <string name="onboarding_1st_title">Congratulazioni! L\'AppCoins Wallet è stato installato con successo.</string>
   <string name="onboarding_1st_body">Torna al gioco per completare il tuo acquisto.</string>
