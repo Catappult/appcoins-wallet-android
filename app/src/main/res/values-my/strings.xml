@@ -381,6 +381,8 @@
   <string name="topup_bonus_body">ယင္းေဘာနပ္စ္ကို သင့္ေနာက္္ထပ္ ၀ယ္ယူမႈတြင္ အသံုးျပဳႏိုင္္ပါသည္။</string>
   <string name="topup_minimum_value">အနည္းဆံုး ေငြျဖည့္ရမည့္ ပမာဏမွာ %s ျဖစ္ပါသည္</string>
   <string name="topup_maximum_value">အမ်ားဆံုး ေငြျဖည့္ရမည့္ ပမာဏမွာ %s ျဖစ္ပါသည္</string>
+  <string name="topup_no_method_available_title">No payment methods!</string>
+  <string name="topup_no_method_available_body">There are no payment methods available to top up in your country at the moment. Stay tuned!</string>
   <!--Balance-->
   <string name="balance_title">လက္က်န္ေငြ</string>
   <string name="balance_total_body">%s တြင္ စုစုေပါင္း လက္က်န္ေငြ</string>
@@ -636,7 +638,7 @@
   <!--Backup and Import-->
   <string name="backup_home_notification_title">သင့္ပိုက္ဆံအိတ္ကို အရန္သိမ္းဆည္းထားပါ</string>
   <string name="backup_home_notification_body">သင့္ဖုန္းကို ေပ်ာက္ဖူးပါသလား။ ယခုပင္ သင့္ပိုက္ဆံအိတ္ကို အရန္သိမ္းဆည္းထားလိုက္ပါ။</string>
-  <string name="backup_confirmation_no_share_title">အရံသိမ္းဆည္းမႈ ၿပီးစီးပါၿပီ။</string>
+  <string name="backup_confirmation_no_share_title">Backup Done!</string>
   <string name="backup_save_dialogue_title">အရံသိမ္းဆည္းမႈဖိုင္ကို သိမ္းမည္</string>
   <string name="backup_save_dialogue_body">သင့္အရံသိမ္းဆည္းမႈဖိုင္အတြက္ အမည္တစ္ခုကို ေရြးခ်ယ္ပါ။</string>
   <string name="import_wallet_title">ပိုက္ဆံအိတ္ကို ျပန္လည္ရယူမည္</string>
@@ -1059,12 +1061,13 @@
   <string name="mywallet_unverified_body">ပိတ္ပင္မႈမ်ားကို ေရွာင္ၾကဥ္ရန္ ေငြေပးေခ်သည့္ နည္းလမ္းတစ္ခုကို အတည္ျပဳပါ။</string>
   <string name="mywallet_backed_up_date">%s တြင္ သင့္ပိုက္ဆံအိတ္ကို အရန္သိမ္းဆည္းလိုက္ပါသည္။</string>
   <string name="mywallet_backup_again_button">အရန္သိမ္းဆည္းမႈ ထပ္လုပ္မည္</string>
-  <string name="mywallet_verify_payment_method_button">ေငြေပးေခ်သည့္ နည္းလမ္းအသစ္ကို အတည္ျပဳမည္</string>
+  <string name="mywallet_verify_payment_method_button">VERIFY NEW CARD</string>
   <string name="mywallet_choose_name_header">သင့္ပိုက္ဆံအိတ္အတြက္ အမည္တစ္ခုကို ေ႐ြးခ်ယ္ပါ</string>
   <string name="mywallet_choose_name_field">ပိုက္ဆံအိတ္အမည္ကို ဤေနရာတြင္...</string>
   <string name="mywallet_choose_name_confirmed">ပိုက္ဆံအိတ္အမည္ ေျပာင္းလဲလိုက္ပါသည္</string>
   <string name="mywallet_unnamed_wallet">အမည္မရွိ ပိုက္ဆံအိတ္ %s</string>
   <string name="mywallet_swithing_wallets_title">ပိုက္ဆံအိတ္မ်ား ေျပာင္းသုံးေနပါသည္...</string>
+  <string name="mywallet_address_title">Address:</string>
   <!-- Onboarding for new users coming from an iap -->
   <string name="onboarding_1st_title">ဂုဏ္ယူပါသည္။ AppCoins Wallet ကို ထည့္သြင္းလိုက္ပါၿပီ။</string>
   <string name="onboarding_1st_body">သင့္ဝယ္ယူမႈကို အၿပီးသတ္ရန္ ဂိမ္းသို႔ျပန္သြားပါ။</string>

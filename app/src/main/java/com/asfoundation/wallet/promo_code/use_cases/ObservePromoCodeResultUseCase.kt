@@ -1,7 +1,7 @@
 package com.asfoundation.wallet.promo_code.use_cases
 
-import com.asfoundation.wallet.promo_code.bottom_sheet.PromoCodeMapper
-import com.asfoundation.wallet.promo_code.bottom_sheet.PromoCodeResult
+import com.asfoundation.wallet.promo_code.PromoCodeMapper
+import com.asfoundation.wallet.promo_code.PromoCodeResult
 import com.asfoundation.wallet.promo_code.repository.PromoCodeRepository
 import io.reactivex.Observable
 import javax.inject.Inject

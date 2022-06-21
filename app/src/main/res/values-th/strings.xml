@@ -381,6 +381,8 @@
   <string name="topup_bonus_body">คุณสามารถใช้โบนัสนี้ในการซื้อครั้งต่อไป</string>
   <string name="topup_minimum_value">การเติมเงินอย่างต่ำคือ %s</string>
   <string name="topup_maximum_value">การเติมเงินสูงสุดคือ %s</string>
+  <string name="topup_no_method_available_title">No payment methods!</string>
+  <string name="topup_no_method_available_body">There are no payment methods available to top up in your country at the moment. Stay tuned!</string>
   <!--Balance-->
   <string name="balance_title">ยอดคงเหลือ</string>
   <string name="balance_total_body">ยอดดุลรวมใน %s</string>
@@ -444,7 +446,7 @@
   <string name="understood_button">เข้าใจแล้ว!</string>
   <string name="skip_button">ข้ามไปก่อน</string>
   <string name="understand_button">ฉันเข้าใจ</string>
-  <string name="install_button">Install</string>
+  <string name="install_button">ติดตั้ง</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">ฉันตกลงใน %1$s และ %2$sของกระเป่าสตางค์ AppCoins</string>
   <string name="terms_and_conditions_error">โปรดยอมรับข้อตกลงและเงื่อนไขเพื่อดำเนินการต่อ</string>
@@ -557,9 +559,9 @@
   <string name="purachse_error_verify_card_button">ตรวจสอบบัตร</string>
   <string name="purchase_eskills_sku">ตั๋วเข้า</string>
   <string name="purchase_paytmupi_install_disclaimer">คุณจะต้องติดตั้งแอป Paytm UPI</string>
-  <string name="purchase_app_needed_body">You need the following app to complete your purchase.</string>
-  <string name="purchase_apps_needed_body">You need one of the following apps to complete your purchase.</string>
-  <string name="purchase_error_no_connection">It seems you have don\'t have an internet connection! Please check it and try again.</string>
+  <string name="purchase_app_needed_body">คุณจำเป็นต้องซื้อแอปให้สำเร็จ</string>
+  <string name="purchase_apps_needed_body">คุณจำเป็นต้องซื้อแอปต่อไปนี้ให้สำเร็จ</string>
+  <string name="purchase_error_no_connection">ดูเหมือนว่าคุณยังไม่ได้เชื่อมต่ออินตอร์เน็ต! โปรดตรวจสอบและลองอีกครั้ง</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">ที่อยู่เรียกเก็บเงิน</string>
   <string name="purchase_address_address_field">ที่อยู่</string>
@@ -638,7 +640,7 @@
   <!--Backup and Import-->
   <string name="backup_home_notification_title">สำรองกระเป๋าสตางค์ของคุณ</string>
   <string name="backup_home_notification_body">คุณเคยทำโทรศัพท์หายหรือไม่? สำรองกระเป๋าสตางค์ของคุณตอนนี้!</string>
-  <string name="backup_confirmation_no_share_title">สำรองสำเร็จ!</string>
+  <string name="backup_confirmation_no_share_title">Backup Done!</string>
   <string name="backup_save_dialogue_title">บันทึกไฟล์สำรอง</string>
   <string name="backup_save_dialogue_body">เลือกชื่อสำหรับไฟล์สำรองของคุณ</string>
   <string name="import_wallet_title">กู้คืน Wallet</string>
@@ -678,9 +680,9 @@
   <string name="backup_wallet_button">กระเป๋าสตางค์สำรอง</string>
   <string name="backup_success_save_on_email">ไฟล์สำรองของคุณอยู่ในอีเมลของคุณ</string>
   <string name="backup_success_save_on_device">ไฟล์สำรองของคุณถูกเก็บไว้ในอุปกรณ์ของคุณ</string>
-  <string name="backup_popup_title">Back up your wallet now!</string>
-  <string name="backup_popup_purchase_body">Keep your funds safe at all times.</string>
-  <string name="backup_popup_gamification_body">Keep your bonus level safe at all times.</string>
+  <string name="backup_popup_title">สำรองกระเป๋าสตางค์ของคุณตอนนี้!</string>
+  <string name="backup_popup_purchase_body">เก็บเงินของคุณในที่ปลอกภัยตลอดเวลา</string>
+  <string name="backup_popup_gamification_body">เก็บโบนัสของคุณในที่ปลอกภัยตลอดเวลา</string>
   <!--Wallets Management-->
   <string name="wallets_title">กระเป๋าสตางค์</string>
   <string name="wallets_total_balance_title">ยอดคงเหลือทั้งหมดใน %s</string>
@@ -991,12 +993,12 @@
   <string name="e_skills_room_create_title">สร้างหรือเข้าร่วมห้อง</string>
   <string name="e_skills_room_create_body">สร้างห้องใหม่และแชร์กับฝ่ายตรงข้ามหรือเข้าร่วมห้องที่มีอยู่</string>
   <string name="e_skills_room_field">ชื่อห้องของคุณที่นี่...</string>
-  <string name="e_skills_withdraw_confirmation_title">A $%s withdrawal has been requested!</string>
-  <string name="e_skills_withdraw_confirmation_body">This may take between 2 and 3 weeks to be processed.</string>
-  <string name="e_skills_withdraw_minimum_body">The minimum amount to withdraw is $%s.</string>
-  <string name="e_skills_withdraw_started_title">A withdrawal request of $%s has been started.</string>
-  <string name="e_skills_withdraw_started_body">This request may take 2-3 weeks to be processed.</string>
-  <string name="e_skills_withdraw_error_not_funds">Make sure you have enough funds to be withdrawn.</string>
+  <string name="e_skills_withdraw_confirmation_title">มีการขอถอนเงิน $%s แล้ว!</string>
+  <string name="e_skills_withdraw_confirmation_body">การดำเนินการนี้อาจใช้เวลาระหว่าง 2 ถึง 3 สัปดาห์</string>
+  <string name="e_skills_withdraw_minimum_body">จำนวนเงินขั้นต่ำในการถอนคือ $%s</string>
+  <string name="e_skills_withdraw_started_title">คำขอถอนเงิน $%s เริ่มต้นขึ้นแล้ว</string>
+  <string name="e_skills_withdraw_started_body">คำขอนี้อาจใช้เวลาดำเนินการ 2-3 สัปดาห์</string>
+  <string name="e_skills_withdraw_error_not_funds">ตรวจสอบให้แน่ใจว่าคุณมีเงินเพียงพอที่จะถอนออก</string>
   <!--Promo Code-->
   <string name="promo_code_settings_title">Promo Code</string>
   <string name="promo_code_view_title">Promo Code</string>
@@ -1012,8 +1014,8 @@
   <string name="promo_code_success_body">คุณจะได้รับโบนัสพิเศษ %s%% จากการซื้อทั้งหมดของคุณ</string>
   <string name="promo_code_success_body_specific_app">คุณจะได้รับโบนัสพิเศษ %1$s%% จากการซื้อทั้งหมดของคุณใน %2$s</string>
   <string name="promo_code_promotions_tag">รหัสโปรโมชั่น</string>
-  <string name="promo_code_error_not_available">This promo code is no longer available.</string>
-  <string name="promo_code_error_invalid_user">Oops! This code couldn\'t be applied.</string>
+  <string name="promo_code_error_not_available">รหัสโปรโมชั่นนี้ไม่สามารถใช้ได้อีก</string>
+  <string name="promo_code_error_invalid_user">อ๊ะ! รหัสนี้ใช้ไม่ได้</string>
   <!--AppCoins Info Page-->
   <string name="appcoins_info_title">เกี่ยวกับ AppCoins</string>
   <string name="appcoins_info_prince_title">AppCoins Price (APPC)</string>
@@ -1050,26 +1052,27 @@
   <string name="gift_card_title">แลกรหัสบัตรของขวัญของคุณ</string>
   <string name="gift_card_field">รหัสการ์ดที่นี่...</string>
   <string name="gift_card_done_title">แลกรหัส!</string>
-  <string name="gift_card_done_body">Check your transactions list.</string>
+  <string name="gift_card_done_body">ตรวจสอบรายการธุรกรรมของคุณ</string>
   <string name="gift_card_error_general_title">มีบางสิ่งที่ผิด!</string>
   <string name="gift_card_error_general_body">โปรดลองอีกครั้งหรือใช้รหัสอื่น</string>
   <string name="gift_card_error_used_title">รหัสนี้ถูกใช้ไปแล้ว!</string>
   <string name="gift_card_error_new_users_title">รหัสนี้สำหรับผู้ใช้ใหม่เท่านั้น!</string>
   <string name="gift_card_error_try_with_different_body">โปรดลองอีกครั้งโดยใช้อันอื่น</string>
   <!-- My Wallet -->
-  <string name="mywallet_unverified_title">Unverified Wallet</string>
-  <string name="mywallet_unverified_body">Verify a payment method to avoid blockages.</string>
-  <string name="mywallet_backed_up_date">You backed up your wallet on %s.</string>
-  <string name="mywallet_backup_again_button">BACK UP AGAIN</string>
-  <string name="mywallet_verify_payment_method_button">VERIFY NEW PAYMENT METHOD</string>
-  <string name="mywallet_choose_name_header">Choose a name for your wallet</string>
-  <string name="mywallet_choose_name_field">Wallet name here...</string>
-  <string name="mywallet_choose_name_confirmed">Wallet name changed</string>
-  <string name="mywallet_unnamed_wallet">No name wallet %s</string>
-  <string name="mywallet_swithing_wallets_title">Switching wallets...</string>
+  <string name="mywallet_unverified_title">กระเป๋าเงินที่ไม่ได้รับการยืนยัน</string>
+  <string name="mywallet_unverified_body">ตรวจสอบวิธีการชำระเงินเพื่อหลีกเลี่ยงการปิดกั้น</string>
+  <string name="mywallet_backed_up_date">คุณสำรองข้อมูลกระเป๋าสตางค์ของคุณใน %s</string>
+  <string name="mywallet_backup_again_button">สำรองข้อมูลอีกครั้ง</string>
+  <string name="mywallet_verify_payment_method_button">VERIFY NEW CARD</string>
+  <string name="mywallet_choose_name_header">เลือกชื่อสำหรับกระเป๋าสตางค์ของคุณ</string>
+  <string name="mywallet_choose_name_field">ชื่อกระเป๋าเงินที่นี่...</string>
+  <string name="mywallet_choose_name_confirmed">เปลี่ยนชื่อกระเป๋าสตางค์</string>
+  <string name="mywallet_unnamed_wallet">กระเป๋าเงินไม่มีชื่อ %s</string>
+  <string name="mywallet_swithing_wallets_title">เปลี่ยนกระเป๋าสตางค์...</string>
+  <string name="mywallet_address_title">Address:</string>
   <!-- Onboarding for new users coming from an iap -->
-  <string name="onboarding_1st_title">Congrats! You\'ve installed the AppCoins Wallet.</string>
-  <string name="onboarding_1st_body">Go back to the game to complete your purchase.</string>
-  <string name="onboarding_1st_back_to_game_button">Go back to the game</string>
-  <string name="onboarding_1st_explore_wallet_button">Or explore the AppCoins Wallet</string>
+  <string name="onboarding_1st_title">ยินดีด้วย! คุณได้ติดตั้ง AppCoins Wallet แล้ว</string>
+  <string name="onboarding_1st_body">กลับไปที่เกมเพื่อทำการสั่งซื้อให้เสร็จสิ้น</string>
+  <string name="onboarding_1st_back_to_game_button">กลับไปยังเกมส์</string>
+  <string name="onboarding_1st_explore_wallet_button">หรือสำรวจ AppCoins Wallet</string>
 </resources>

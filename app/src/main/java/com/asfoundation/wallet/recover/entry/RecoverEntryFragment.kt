@@ -75,7 +75,7 @@ class RecoverEntryFragment : BasePageViewFragment(),
     }
     views.recoverWalletButton.setOnClickListener {
       viewModel.handleRecoverClick(
-        views.recoverWalletOptions.recoverKeystoreInput.getText()
+        views.recoverWalletOptions.recoverKeystoreInput.getText().trim()
       )
     }
     viewModel.collectStateAndEvents(lifecycle, viewLifecycleOwner.lifecycleScope)

@@ -381,6 +381,8 @@
   <string name="topup_bonus_body">Anda boleh gunakan bonus ini dalam pembelian anda yang seterusnya.</string>
   <string name="topup_minimum_value">Tambah nilai minimum ialah %s</string>
   <string name="topup_maximum_value">Tambah nilai maksimum ialah %s</string>
+  <string name="topup_no_method_available_title">No payment methods!</string>
+  <string name="topup_no_method_available_body">There are no payment methods available to top up in your country at the moment. Stay tuned!</string>
   <!--Balance-->
   <string name="balance_title">Baki</string>
   <string name="balance_total_body">Jumlah Baki dalam %s</string>
@@ -636,7 +638,7 @@
   <!--Backup and Import-->
   <string name="backup_home_notification_title">Sandar Dompet Anda</string>
   <string name="backup_home_notification_body">Anda pernah hilang telefon? Buat sandaran dompet anda sekarang!</string>
-  <string name="backup_confirmation_no_share_title">Sandaran selesai!</string>
+  <string name="backup_confirmation_no_share_title">Backup Done!</string>
   <string name="backup_save_dialogue_title">Simpan fail sandaran</string>
   <string name="backup_save_dialogue_body">Pilih nama untuk fail sandaran anda.</string>
   <string name="import_wallet_title">Dapatkan Semula Dompet</string>
@@ -1059,12 +1061,13 @@
   <string name="mywallet_unverified_body">Sahkan kaedah pembayaran untuk elak sekatan.</string>
   <string name="mywallet_backed_up_date">Anda telah sandarkan dompet anda di %s.</string>
   <string name="mywallet_backup_again_button">SANDAR SEKALI LAGI</string>
-  <string name="mywallet_verify_payment_method_button">SAHKAN KAEDAH BAYARAN BARU</string>
+  <string name="mywallet_verify_payment_method_button">VERIFY NEW CARD</string>
   <string name="mywallet_choose_name_header">Pilih nama untuk dompet anda</string>
   <string name="mywallet_choose_name_field">Nama dompet di sini...</string>
   <string name="mywallet_choose_name_confirmed">Nama dompet diubah</string>
   <string name="mywallet_unnamed_wallet">Dompet tanpa nama %s</string>
   <string name="mywallet_swithing_wallets_title">Menukar dompet...</string>
+  <string name="mywallet_address_title">Address:</string>
   <!-- Onboarding for new users coming from an iap -->
   <string name="onboarding_1st_title">Tahniah! Anda sudah pasang Dompet AppCoins.</string>
   <string name="onboarding_1st_body">Kembali ke permainan untuk lengkapkan pembelian anda.</string>

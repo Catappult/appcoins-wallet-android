@@ -39,7 +39,7 @@
   <string name="cancel_button">ΑΚΥΡΟ</string>
   <string name="buy_button">ΑΓΟΡΑ</string>
   <string name="iab_wallet_not_installed_popup_close_install">ΕΓΚΑΤΑΣΤΑΣΗ WALLET</string>
-  <string name="button_ok">OK</string>
+  <string name="button_ok">ΟΚ</string>
   <string name="install_button">Εγκατάσταση</string>
   <!-- Error messages -->
   <string name="title_dialog_error">Σφάλμα</string>

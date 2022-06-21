@@ -5,6 +5,7 @@ import com.appcoins.wallet.commons.Logger
 import com.appcoins.wallet.gamification.repository.PromotionsRepository
 import com.appcoins.wallet.gamification.repository.entity.WalletOrigin
 import com.asf.wallet.BuildConfig
+import com.asfoundation.wallet.identification.DeviceInformation
 import com.asfoundation.wallet.identification.IdsRepository
 import com.asfoundation.wallet.promo_code.repository.PromoCode
 import com.asfoundation.wallet.promo_code.repository.PromoCodeLocalDataSource
@@ -58,12 +59,14 @@ class IndicativeAnalytics @Inject constructor(
       .flatMap { deviceId: String ->
         Single.zip(
           idsRepository.getInstallerPackage(BuildConfig.APPLICATION_ID),
-          Single.just(idsRepository.getGamificationLevel()), Single.just(hasGms()),
+          Single.just(idsRepository.getGamificationLevel()),
+          Single.just(hasGms()),
           Single.just(idsRepository.getActiveWalletAddress()),
-          promoCodeLocalDataSource.getSavedPromoCode()
+          promoCodeLocalDataSource.getSavedPromoCode(),
+          Single.just(idsRepository.getDeviceInfo())
         )
-        { installerPackage: String, level: Int, hasGms: Boolean, walletAddress: String, promoCode: PromoCode ->
-          IndicativeInitializeWrapper(installerPackage, level, hasGms, walletAddress, promoCode)
+        { installerPackage: String, level: Int, hasGms: Boolean, walletAddress: String, promoCode: PromoCode, deviceInfo: DeviceInformation ->
+          IndicativeInitializeWrapper(installerPackage, level, hasGms, walletAddress, promoCode, deviceInfo)
         }
           .flatMap {
             promotionsRepository.getWalletOrigin(
@@ -73,7 +76,7 @@ class IndicativeAnalytics @Inject constructor(
               .doOnSuccess { walletOrigin ->
                 setIndicativeSuperProperties(
                   it.installerPackage,
-                  it.level, it.walletAddress, it.hasGms, walletOrigin
+                  it.level, it.walletAddress, it.hasGms, walletOrigin, it.deviceInfo
                 )
               }
           }
@@ -90,7 +93,7 @@ class IndicativeAnalytics @Inject constructor(
   private fun setIndicativeSuperProperties(
     installerPackage: String,
     userLevel: Int,
-    userId: String, hasGms: Boolean, walletOrigin: WalletOrigin
+    userId: String, hasGms: Boolean, walletOrigin: WalletOrigin, deviceInfo: DeviceInformation
   ) {
 
     superProperties.put(
@@ -105,6 +108,13 @@ class IndicativeAnalytics @Inject constructor(
     superProperties.put(AnalyticsLabels.HAS_GMS, hasGms)
     superProperties.put(AnalyticsLabels.WALLET_ORIGIN, walletOrigin)
 
+    // device information:
+    superProperties.put(AnalyticsLabels.OS_VERSION, deviceInfo.osVersion)
+    superProperties.put(AnalyticsLabels.BRAND, deviceInfo.brand)
+    superProperties.put(AnalyticsLabels.MODEL, deviceInfo.model)
+    superProperties.put(AnalyticsLabels.LANGUAGE, deviceInfo.language)
+    superProperties.put(AnalyticsLabels.IS_EMULATOR, deviceInfo.isProbablyEmulator)
+
     if (userId.isNotEmpty()) this.usrId = userId
   }
 
@@ -113,5 +123,5 @@ class IndicativeAnalytics @Inject constructor(
 private data class IndicativeInitializeWrapper(
   val installerPackage: String, val level: Int,
   val hasGms: Boolean, val walletAddress: String,
-  val promoCode: PromoCode
+  val promoCode: PromoCode, val deviceInfo: DeviceInformation
 )

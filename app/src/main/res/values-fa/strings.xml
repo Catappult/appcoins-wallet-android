@@ -381,6 +381,8 @@
   <string name="topup_bonus_body">شما می‌توانید از این پاداش در خرید بعدی خود استفاده کنید.</string>
   <string name="topup_minimum_value">حداقل مقدار افزایش برابر %s است</string>
   <string name="topup_maximum_value">حداکثر مقدار افزایش برابر %s است</string>
+  <string name="topup_no_method_available_title">No payment methods!</string>
+  <string name="topup_no_method_available_body">There are no payment methods available to top up in your country at the moment. Stay tuned!</string>
   <!--Balance-->
   <string name="balance_title">بالانس</string>
   <string name="balance_total_body">بالانس کلی در %s</string>
@@ -636,7 +638,7 @@
   <!--Backup and Import-->
   <string name="backup_home_notification_title">پشتیبان‌گیری از کیف پول خود</string>
   <string name="backup_home_notification_body">آیا موبایل خود را گم‌کرده‌اید؟ از کیف پول خود همین حالا پشتیان‌گیری کنید!</string>
-  <string name="backup_confirmation_no_share_title">بک‌آپ تکمیل شد!</string>
+  <string name="backup_confirmation_no_share_title">Backup Done!</string>
   <string name="backup_save_dialogue_title">ذخیره فایل بک‌آپ</string>
   <string name="backup_save_dialogue_body">نامی برای فایل بک‌آپ خود انتخاب کنید.</string>
   <string name="import_wallet_title">بازیابی کیف‌پول</string>
@@ -1068,12 +1070,13 @@
   <string name="mywallet_unverified_body">یک روش پرداخت را برای جلوگیری از بلوکه شدن تایید کنید.</string>
   <string name="mywallet_backed_up_date">شما از کیف پول خود را در %s بک‌آپ گرفته‌اید.</string>
   <string name="mywallet_backup_again_button">بک‌آپ دوباره</string>
-  <string name="mywallet_verify_payment_method_button">یک روش پرداخت جدید را تایید کنید</string>
+  <string name="mywallet_verify_payment_method_button">VERIFY NEW CARD</string>
   <string name="mywallet_choose_name_header">نامی برای فایل کیف پول خود انتخاب کنید</string>
   <string name="mywallet_choose_name_field">نام کیف‌پول در اینجا...</string>
   <string name="mywallet_choose_name_confirmed">نام کیف‌پول تغییر کرد</string>
   <string name="mywallet_unnamed_wallet">کیف پول بی نام %s</string>
   <string name="mywallet_swithing_wallets_title">تعویض کیف‌پول‌ها...</string>
+  <string name="mywallet_address_title">Address:</string>
   <!-- Onboarding for new users coming from an iap -->
   <string name="onboarding_1st_title">تبریک! شما AppCoins Wallet را نصب کردید.</string>
   <string name="onboarding_1st_body">برای تکمیل خرید به بازی برگردید.</string>

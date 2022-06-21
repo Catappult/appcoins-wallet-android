@@ -213,7 +213,8 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, ToolbarManager, UriNavi
   override fun close(navigateToTransactions: Boolean) {
     if (supportFragmentManager.findFragmentByTag(
             TopUpSuccessFragment::class.java.simpleName) != null && navigateToTransactions) {
-      mainActivityNavigator.navigateToHome()
+//      mainActivityNavigator.navigateToHome()
+      this.finish()
     }
     finish()
   }

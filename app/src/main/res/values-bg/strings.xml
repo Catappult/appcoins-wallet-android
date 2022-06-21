@@ -381,6 +381,8 @@
   <string name="topup_bonus_body">Можеш да използваш този бонус при следващата си покупка.</string>
   <string name="topup_minimum_value">Минималната стойност за допълване е %s</string>
   <string name="topup_maximum_value">Максималната стойност за допълване е %s</string>
+  <string name="topup_no_method_available_title">No payment methods!</string>
+  <string name="topup_no_method_available_body">There are no payment methods available to top up in your country at the moment. Stay tuned!</string>
   <!--Balance-->
   <string name="balance_title">Баланс</string>
   <string name="balance_total_body">Общ баланс в %s</string>
@@ -636,7 +638,7 @@
   <!--Backup and Import-->
   <string name="backup_home_notification_title">Направи бекъп на портфейла си</string>
   <string name="backup_home_notification_body">Някога архивирал ли си си телефона? Архивирай портфейла си сега!</string>
-  <string name="backup_confirmation_no_share_title">Бекъп завършен!</string>
+  <string name="backup_confirmation_no_share_title">Backup Done!</string>
   <string name="backup_save_dialogue_title">Запамети бекъп файл</string>
   <string name="backup_save_dialogue_body">Избери име за своя бекъп файл.</string>
   <string name="import_wallet_title">Възстанови портфейла</string>
@@ -1068,12 +1070,13 @@
   <string name="mywallet_unverified_body">Verify a payment method to avoid blockages.</string>
   <string name="mywallet_backed_up_date">You backed up your wallet on %s.</string>
   <string name="mywallet_backup_again_button">BACK UP AGAIN</string>
-  <string name="mywallet_verify_payment_method_button">VERIFY NEW PAYMENT METHOD</string>
+  <string name="mywallet_verify_payment_method_button">VERIFY NEW CARD</string>
   <string name="mywallet_choose_name_header">Choose a name for your wallet</string>
   <string name="mywallet_choose_name_field">Wallet name here...</string>
   <string name="mywallet_choose_name_confirmed">Wallet name changed</string>
   <string name="mywallet_unnamed_wallet">No name wallet %s</string>
   <string name="mywallet_swithing_wallets_title">Switching wallets...</string>
+  <string name="mywallet_address_title">Address:</string>
   <!-- Onboarding for new users coming from an iap -->
   <string name="onboarding_1st_title">Congrats! You\'ve installed the AppCoins Wallet.</string>
   <string name="onboarding_1st_body">Go back to the game to complete your purchase.</string>

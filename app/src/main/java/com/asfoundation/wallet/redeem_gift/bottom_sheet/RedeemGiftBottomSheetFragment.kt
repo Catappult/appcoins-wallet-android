@@ -50,7 +50,7 @@ class RedeemGiftBottomSheetFragment : BottomSheetDialogFragment(),
     super.onViewCreated(view, savedInstanceState)
 
     views.redeemGiftBottomSheetSubmitButton.setOnClickListener {
-      viewModel.submitClick(views.redeemGiftBottomSheetString.text.toString())
+      viewModel.submitClick(views.redeemGiftBottomSheetString.text.toString().trim())
     }
     views.redeemGiftBottomSheetSuccessGotItButton.setOnClickListener {
       viewModel.successGotItClick()
