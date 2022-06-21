@@ -9,6 +9,7 @@ import com.appcoins.wallet.billing.BillingMessagesMapper;
 import com.asfoundation.wallet.base.RxSchedulers;
 import com.asfoundation.wallet.entity.GasSettings;
 import com.asfoundation.wallet.entity.TransactionBuilder;
+import com.asfoundation.wallet.entity.Wallet;
 import com.asfoundation.wallet.interact.FetchGasSettingsInteract;
 import com.asfoundation.wallet.repository.BdsTransactionService;
 import com.asfoundation.wallet.repository.CurrencyConversionService;
@@ -194,9 +195,9 @@ public class AsfInAppPurchaseInteractor {
   private Single<PaymentTransaction> buildPaymentTransaction(String uri, String packageName,
       String productName, String developerPayload, BigDecimal amount) {
     return Single.zip(parseTransaction(uri).observeOn(rxSchedulers.getIo()),
-        defaultWalletInteract.find()
-            .observeOn(rxSchedulers.getIo()),
-        (transaction, wallet) -> transaction.fromAddress(wallet.address))
+            defaultWalletInteract.find()
+                .observeOn(rxSchedulers.getIo()),
+            (transaction, wallet) -> transaction.fromAddress(wallet.getAddress()))
         .flatMap(transactionBuilder -> gasSettingsInteract.fetch(true)
             .map(gasSettings -> {
               transactionBuilder.gasSettings(new GasSettings(
@@ -240,7 +241,7 @@ public class AsfInAppPurchaseInteractor {
 
   public Single<String> getWalletAddress() {
     return defaultWalletInteract.find()
-        .map(wallet -> wallet.address);
+        .map(Wallet::getAddress);
   }
 
   Single<CurrentPaymentStep> getCurrentPaymentStep(String packageName,
