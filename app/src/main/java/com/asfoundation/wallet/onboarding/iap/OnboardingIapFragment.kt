@@ -1,7 +1,7 @@
 package com.asfoundation.wallet.onboarding.iap
 
+import android.content.pm.PackageManager
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,8 +18,8 @@ import com.asfoundation.wallet.my_wallets.create_wallet.CreateWalletDialogFragme
 import com.asfoundation.wallet.onboarding.bottom_sheet.TermsConditionsBottomSheetFragment
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.payment_methods_header.*
 import javax.inject.Inject
+
 
 @AndroidEntryPoint
 class OnboardingIapFragment : BasePageViewFragment(),
@@ -97,9 +97,12 @@ class OnboardingIapFragment : BasePageViewFragment(),
   }
 
   private fun loadPackageNameIcon(appPackageName: String) {
-    views.onboardingIapGameIcon.setImageDrawable(
-      requireContext().packageManager.getApplicationIcon(appPackageName)
-    )
+    try {
+      val appIcon = requireContext().packageManager.getApplicationIcon(appPackageName)
+      views.onboardingIapGameIcon.setImageDrawable(appIcon)
+    } catch (e: PackageManager.NameNotFoundException) {
+      e.printStackTrace()
+    }
   }
 
   private fun showContent() {
