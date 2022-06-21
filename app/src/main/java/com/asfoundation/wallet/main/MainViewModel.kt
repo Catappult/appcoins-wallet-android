@@ -1,6 +1,5 @@
 package com.asfoundation.wallet.main
 
-import android.util.Log
 import androidx.lifecycle.SavedStateHandle
 import com.asfoundation.wallet.base.BaseViewModel
 import com.asfoundation.wallet.base.RxSchedulers

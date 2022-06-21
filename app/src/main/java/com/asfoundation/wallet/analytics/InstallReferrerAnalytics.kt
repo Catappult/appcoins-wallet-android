@@ -36,7 +36,7 @@ class InstallReferrerAnalytics @Inject constructor(
             val referrerClickTime: Long = response.referrerClickTimestampSeconds
             val appInstallTime: Long = response.installBeginTimestampSeconds
 
-            val referrerData = getReferrerData(referrerUrl)
+            val referrerData = getReferrerData(referrerUrl, sendEvent)
             if (sendEvent) sendFirstLaunchEvent(referrerData)
           }
           InstallReferrerClient.InstallReferrerResponse.FEATURE_NOT_SUPPORTED -> {
@@ -57,7 +57,7 @@ class InstallReferrerAnalytics @Inject constructor(
     })
   }
 
-  private fun getReferrerData(referrerUrl: String) : MutableMap<String, Any> {
+  private fun getReferrerData(referrerUrl: String, sendEvent: Boolean) : MutableMap<String, Any> {
     Log.d("Referrer", referrerUrl)
 
     val decodedReferrer = URLDecoder.decode(referrerUrl, "UTF-8")
@@ -76,7 +76,7 @@ class InstallReferrerAnalytics @Inject constructor(
       firstLaunchData[SKU] = ""
     }
     val appPackageName = firstLaunchData[PACKAGE_NAME].toString()
-    if(appPackageName.isNotBlank()){
+    if(appPackageName.isNotBlank() && !sendEvent){
       setOnboardingFromIapStateUseCase(true)
       setOnboardingFromIapPackageNameUseCase(appPackageName)
     }
