@@ -1,10 +1,10 @@
 package com.asfoundation.wallet.ui.widget.adapter;
 
 import android.os.Bundle;
-import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import androidx.recyclerview.widget.RecyclerView;
 import com.asf.wallet.R;
 import com.asfoundation.wallet.entity.NetworkInfo;
 import com.asfoundation.wallet.entity.Wallet;
@@ -52,7 +52,7 @@ public class TransactionsDetailsAdapter extends RecyclerView.Adapter<BinderViewH
   @Override public void onBindViewHolder(BinderViewHolder holder, int position) {
     if (network != null) {
       Bundle addition = new Bundle();
-      addition.putString(TransactionHolder.DEFAULT_ADDRESS_ADDITIONAL, wallet.address);
+      addition.putString(TransactionHolder.DEFAULT_ADDRESS_ADDITIONAL, wallet.getAddress());
       addition.putString(TransactionHolder.DEFAULT_SYMBOL_ADDITIONAL, network.symbol);
       holder.bind(items.get(position), addition);
     }

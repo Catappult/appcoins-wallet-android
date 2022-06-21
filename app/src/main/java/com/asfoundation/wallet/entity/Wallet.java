@@ -13,7 +13,12 @@ public class Wallet implements Parcelable {
       return new Wallet[size];
     }
   };
-  public final String address;
+
+  public String getAddress() {
+    return address;
+  }
+
+  private final String address;
 
   public Wallet(String address) {
     this.address = address;
@@ -23,7 +28,7 @@ public class Wallet implements Parcelable {
     address = in.readString();
   }
 
-  public boolean sameAddress(String address) {
+  public boolean hasSameAddress(String address) {
     return this.address.equals(address);
   }
 

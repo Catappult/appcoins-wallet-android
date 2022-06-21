@@ -22,8 +22,8 @@ public class SavePasswordOperator implements SingleTransformer<Wallet, Wallet> {
   }
 
   @Override public Single<Wallet> apply(Single<Wallet> upstream) {
-    return upstream.flatMap(wallet -> passwordStore.setPassword(wallet.address, password)
-        .onErrorResumeNext(err -> walletRepository.deleteWallet(wallet.address, password)
+    return upstream.flatMap(wallet -> passwordStore.setPassword(wallet.getAddress(), password)
+        .onErrorResumeNext(err -> walletRepository.deleteWallet(wallet.getAddress(), password)
             .lift(completableErrorProxy(err)))
         .toSingle(() -> wallet));
   }

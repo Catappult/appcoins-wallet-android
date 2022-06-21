@@ -5,7 +5,6 @@ import com.asfoundation.wallet.interact.rx.operator.Operators;
 import com.asfoundation.wallet.repository.PasswordStore;
 import com.asfoundation.wallet.repository.WalletRepositoryType;
 import io.reactivex.Completable;
-import io.reactivex.Scheduler;
 import io.reactivex.Single;
 import javax.inject.Inject;
 
@@ -30,11 +29,11 @@ public class WalletCreatorInteract {
   }
 
   private Single<Wallet> passwordVerification(Wallet wallet, String masterPassword) {
-    return passwordStore.getPassword(wallet.address)
-        .flatMap(password -> walletRepository.exportWallet(wallet.address, password, password)
-            .flatMap(keyStore -> walletRepository.findWallet(wallet.address)))
+    return passwordStore.getPassword(wallet.getAddress())
+        .flatMap(password -> walletRepository.exportWallet(wallet.getAddress(), password, password)
+            .flatMap(keyStore -> walletRepository.findWallet(wallet.getAddress())))
         .onErrorResumeNext(
-            throwable -> walletRepository.deleteWallet(wallet.address, masterPassword)
+            throwable -> walletRepository.deleteWallet(wallet.getAddress(), masterPassword)
                 .lift(completableErrorProxy(throwable))
                 .toSingle(() -> wallet));
   }
