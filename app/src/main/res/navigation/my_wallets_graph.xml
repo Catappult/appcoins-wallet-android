@@ -22,6 +22,9 @@
         android:id="@+id/action_navigate_to_token_info"
         app:destination="@id/token_info_dialog_fragment" />
     <action
+        android:id="@+id/action_navigate_to_balance_details"
+        app:destination="@id/balance_details_fragment" />
+    <action
         android:id="@+id/action_navigate_to_verify_credit_card"
         app:destination="@id/verify_credit_card_wallet_activity" />
     <action
@@ -33,7 +36,6 @@
     <action
         android:id="@+id/action_navigate_to_qr_code"
         app:destination="@id/qr_code_activity" />
-
     <action
         android:id="@+id/action_navigate_to_nfts"
         app:destination="@id/nfts_fragment" />
@@ -113,6 +115,27 @@
         app:destination="@id/remove_wallet_activity"
         app:popUpTo="@id/more_dialog_fragment"
         app:popUpToInclusive="true" />
+  </dialog>
+
+  <dialog
+      android:id="@+id/balance_details_fragment"
+      android:name="com.asfoundation.wallet.my_wallets.balance_details.BalanceDetailsFragment"
+      tools:layout="@layout/fragment_my_wallets_more">
+    <argument
+        android:name="fiat_balance"
+        app:argType="string" />
+    <argument
+        android:name="appc_balance"
+        app:argType="string" />
+    <argument
+        android:name="credits_balance"
+        app:argType="string" />
+    <argument
+        android:name="ethereum_balance"
+        app:argType="string" />
+    <action
+        android:id="@+id/action_navigate_to_token_info"
+        app:destination="@id/token_info_dialog_fragment" />
   </dialog>
 
   <dialog

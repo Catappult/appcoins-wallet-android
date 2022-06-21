@@ -64,6 +64,23 @@ class MyWalletsNavigator @Inject constructor(
     )
   }
 
+  fun navigateToBalanceDetails(
+    totalFiatBalance: String,
+    appcoinsBalance: String,
+    creditsBalance: String,
+    ethereumBalance: String
+  ) {
+    navigate(
+      navController,
+      MyWalletsFragmentDirections.actionNavigateToBalanceDetails(
+        totalFiatBalance,
+        appcoinsBalance,
+        creditsBalance,
+        ethereumBalance
+      )
+    )
+  }
+
   fun navigateToSend() {
     val intent = TransferActivity.newIntent(fragment.requireContext())
     intent.flags = Intent.FLAG_ACTIVITY_SINGLE_TOP

@@ -193,6 +193,15 @@ class MyWalletsFragment : BasePageViewFragment(),
       views.myWalletsContent.totalBalanceTextView.visibility = View.VISIBLE
     }
 
+    views.myWalletsContent.balanceButton.setOnClickListener {
+      navigator.navigateToBalanceDetails(
+        walletBalance.overallFiat.getFiatBalanceText(),
+        walletBalance.appcBalance.getTokenValueText(WalletCurrency.APPCOINS),
+        walletBalance.creditsBalance.getTokenValueText(WalletCurrency.CREDITS),
+        walletBalance.ethBalance.getTokenValueText(WalletCurrency.ETHEREUM)
+      )
+    }
+
     val appccBalance = walletBalance.creditsBalance.getTokenValueText(WalletCurrency.CREDITS)
     if (appccBalance != "-1") {
       views.myWalletsContent.appcBalanceSkeleton.visibility = View.GONE
