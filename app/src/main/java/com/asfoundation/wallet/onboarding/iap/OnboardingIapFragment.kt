@@ -18,6 +18,7 @@ import com.asfoundation.wallet.my_wallets.create_wallet.CreateWalletDialogFragme
 import com.asfoundation.wallet.onboarding.bottom_sheet.TermsConditionsBottomSheetFragment
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.android.synthetic.main.payment_methods_header.*
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -89,8 +90,16 @@ class OnboardingIapFragment : BasePageViewFragment(),
       OnboardingIapSideEffect.NavigateToWalletCreationAnimation -> navigator.navigateToCreateWalletDialog()
       OnboardingIapSideEffect.NavigateBackToGame -> navigator.navigateBackToGame()
       OnboardingIapSideEffect.NavigateToTermsConditions -> navigator.navigateToTermsConditionsBottomSheet()
-      OnboardingIapSideEffect.ShowContent -> showContent()
+      is OnboardingIapSideEffect.LoadPackageNameIcon -> sideEffect.appPackageName?.let {
+        loadPackageNameIcon(it)
+      }
     }
+  }
+
+  private fun loadPackageNameIcon(appPackageName: String) {
+    views.onboardingIapGameIcon.setImageDrawable(
+      requireContext().packageManager.getApplicationIcon(appPackageName)
+    )
   }
 
   private fun showContent() {

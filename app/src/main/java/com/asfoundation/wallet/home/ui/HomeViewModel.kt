@@ -13,12 +13,12 @@ import com.asfoundation.wallet.billing.analytics.WalletsEventSender
 import com.asfoundation.wallet.entity.GlobalBalance
 import com.asfoundation.wallet.entity.Wallet
 import com.asfoundation.wallet.home.usecases.*
-import com.asfoundation.wallet.interact.AutoUpdateInteract
 import com.asfoundation.wallet.referrals.CardNotification
 import com.asfoundation.wallet.transactions.Transaction
 import com.asfoundation.wallet.ui.balance.TokenBalance
 import com.asfoundation.wallet.ui.widget.entity.TransactionsModel
 import com.asfoundation.wallet.ui.widget.holder.CardNotificationAction
+import com.asfoundation.wallet.update_required.use_cases.BuildUpdateIntentUseCase.Companion.PLAY_APP_VIEW_URL
 import com.asfoundation.wallet.viewmodel.TransactionsWalletModel
 import com.asfoundation.wallet.wallets.domain.WalletBalance
 import com.asfoundation.wallet.wallets.usecases.GetWalletInfoUseCase
@@ -451,7 +451,7 @@ class HomeViewModel @Inject constructor(
     val intent =
       Intent(
         Intent.ACTION_VIEW,
-        Uri.parse(String.format(AutoUpdateInteract.PLAY_APP_VIEW_URL, walletPackageName))
+        Uri.parse(String.format(PLAY_APP_VIEW_URL, walletPackageName))
       )
     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
     return intent

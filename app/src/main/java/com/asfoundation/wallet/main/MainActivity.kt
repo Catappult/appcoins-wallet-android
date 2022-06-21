@@ -24,7 +24,6 @@ import com.asfoundation.wallet.base.SingleStateFragment
 import com.asfoundation.wallet.main.appsflyer.ApkOriginVerification
 import com.asfoundation.wallet.my_wallets.create_wallet.CreateWalletDialogFragment
 import com.asfoundation.wallet.navigator.setupWithNavController
-import com.asfoundation.wallet.onboarding.use_cases.SetOnboardingFromIapUseCase
 import com.asfoundation.wallet.support.SupportNotificationProperties.SUPPORT_NOTIFICATION_CLICK
 import com.asfoundation.wallet.ui.AuthenticationPromptActivity
 import com.asfoundation.wallet.util.Log
@@ -57,10 +56,6 @@ class MainActivity : AppCompatActivity(), SingleStateFragment<MainState, MainSid
   @Inject
   lateinit var installReferrerAnalytics: InstallReferrerAnalytics
 
-  //TODO remove usecase usage, only for testing
-  @Inject
-  lateinit var setOnboardingFromIapUseCase: SetOnboardingFromIapUseCase
-
   private val views by viewBinding(ActivityMainBinding::bind)
 
   private val viewModel: MainViewModel by viewModels()
@@ -89,12 +84,8 @@ class MainActivity : AppCompatActivity(), SingleStateFragment<MainState, MainSid
     val isFirstRun = getSharedPreferences("PREFERENCE", 0)
       .getBoolean("isFirstRun", true)
     if (isFirstRun) {
-
-      handleCreateWalletFragmentResult()
-      //TODO remove usecase usage, only for testing
-      setOnboardingFromIapUseCase(true)
-
       installReferrerAnalytics.sendFirstInstallInfo(sendEvent = false)
+      handleCreateWalletFragmentResult()
       ApkOriginVerification(this)
 
       getSharedPreferences("PREFERENCE", 0)
