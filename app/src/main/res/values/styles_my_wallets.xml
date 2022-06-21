@@ -4,10 +4,6 @@
 
   <style name="MyWallets" />
 
-  <style name="test_theme">
-    <item name="android:windowSharedElementsUseOverlay">false</item>
-  </style>
-
   <style name="MyWallets.Title">
     <item name="android:fontFamily">sans-serif-medium</item>
     <item name="android:textSize">14sp</item>

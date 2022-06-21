@@ -14,7 +14,6 @@ import com.asfoundation.wallet.base.navigate
 import com.asfoundation.wallet.entity.Wallet
 import com.asfoundation.wallet.ui.MyAddressActivity
 import com.asfoundation.wallet.ui.transact.TransferActivity
-import com.asfoundation.wallet.ui.wallets.WalletBalance
 import javax.inject.Inject
 
 class MyWalletsNavigator @Inject constructor(
@@ -22,34 +21,12 @@ class MyWalletsNavigator @Inject constructor(
   private val navController: NavController
 ) : Navigator {
 
-  fun navigateToChangeActiveWallet(walletBalance: WalletBalance) {
-    navigate(
-      navController,
-      MyWalletsFragmentDirections.actionNavigateToChangeActiveWallet(walletBalance)
-    )
-  }
-
-  fun navigateToCreateNewWallet() {
-    navigate(
-      navController,
-      MyWalletsFragmentDirections.actionNavigateToCreateWallet(needsWalletCreation = true)
-    )
-  }
-
-  fun navigateToTokenInfo(title: String, image: String, description: String, showTopUp: Boolean) {
-    navigate(
-      navController,
-      MyWalletsFragmentDirections.actionNavigateToTokenInfo(title, image, description, showTopUp)
-    )
-  }
-
   fun navigateToMore(
     walletAddress: String,
     totalFiatBalance: String,
     appcoinsBalance: String,
     creditsBalance: String,
-    ethereumBalance: String,
-    showDeleteWallet: Boolean
+    ethereumBalance: String
   ) {
     navigate(
       navController,
@@ -58,8 +35,7 @@ class MyWalletsNavigator @Inject constructor(
         totalFiatBalance,
         appcoinsBalance,
         creditsBalance,
-        ethereumBalance,
-        showDeleteWallet
+        ethereumBalance
       )
     )
   }

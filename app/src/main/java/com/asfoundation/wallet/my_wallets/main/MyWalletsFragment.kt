@@ -376,8 +376,7 @@ class MyWalletsFragment : BasePageViewFragment(),
         walletBalance.overallFiat.getFiatBalanceText(),
         walletBalance.appcBalance.getTokenValueText(WalletCurrency.APPCOINS),
         walletBalance.creditsBalance.getTokenValueText(WalletCurrency.CREDITS),
-        walletBalance.ethBalance.getTokenValueText(WalletCurrency.ETHEREUM),
-        false
+        walletBalance.ethBalance.getTokenValueText(WalletCurrency.ETHEREUM)
       )
     }
   }

@@ -8,19 +8,10 @@
   <fragment
       android:id="@+id/my_wallets_fragment"
       android:name="com.asfoundation.wallet.my_wallets.main.MyWalletsFragment"
-      tools:layout="@layout/fragment_old_my_wallets">
+      tools:layout="@layout/fragment_my_wallets">
     <action
         android:id="@+id/action_navigate_to_more"
         app:destination="@id/more_dialog_fragment" />
-    <action
-        android:id="@+id/action_navigate_to_change_active_wallet"
-        app:destination="@id/change_active_wallet_dialog_fragment" />
-    <action
-        android:id="@+id/action_navigate_to_create_wallet"
-        app:destination="@id/create_wallet_dialog_fragment" />
-    <action
-        android:id="@+id/action_navigate_to_token_info"
-        app:destination="@id/token_info_dialog_fragment" />
     <action
         android:id="@+id/action_navigate_to_balance_details"
         app:destination="@id/balance_details_fragment" />
@@ -97,9 +88,6 @@
     <argument
         android:name="ethereum_balance"
         app:argType="string" />
-    <argument
-        android:name="show_delete_wallet"
-        app:argType="boolean" />
     <action
         android:id="@+id/action_navigate_to_create_wallet"
         app:destination="@id/create_wallet_dialog_fragment"
@@ -136,15 +124,6 @@
     <action
         android:id="@+id/action_navigate_to_token_info"
         app:destination="@id/token_info_dialog_fragment" />
-  </dialog>
-
-  <dialog
-      android:id="@+id/change_active_wallet_dialog_fragment"
-      android:name="com.asfoundation.wallet.my_wallets.change_wallet.ChangeActiveWalletDialogFragment"
-      tools:layout="@layout/fragment_change_active_wallet">
-    <argument
-        android:name="wallet_balance"
-        app:argType="com.asfoundation.wallet.ui.wallets.WalletBalance" />
   </dialog>
 
   <dialog
