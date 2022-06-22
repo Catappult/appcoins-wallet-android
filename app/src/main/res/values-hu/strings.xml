@@ -561,7 +561,7 @@
   <string name="purchase_paytmupi_install_disclaimer">Telepítsd a Paytm UPI appot.</string>
   <string name="purchase_app_needed_body">A vásárlás befejezéséhez a következő appra lesz szükséged.</string>
   <string name="purchase_apps_needed_body">A vásárlás befejezéséhez a következő appok egyikére lesz szükséged.</string>
-  <string name="purchase_error_no_connection">Úgy tűnik, megszűnt az internetkapcsolat. Ellenőrizd a kapcsolatot és próbáld újra.</string>
+  <string name="purchase_error_connection_issue">It seems there is a problem with your internet connection! Please check it and try again.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">Számlázási cím</string>
   <string name="purchase_address_address_field">Cím</string>
