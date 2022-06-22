@@ -16,7 +16,6 @@ import com.asfoundation.wallet.ui.balance.TokenBalance
 import com.asfoundation.wallet.ui.common.BaseViewHolder
 import com.asfoundation.wallet.util.CurrencyFormatUtils
 import com.asfoundation.wallet.util.WalletCurrency
-import com.google.android.material.button.MaterialButton
 import java.math.BigDecimal
 
 @EpoxyModelClass
@@ -45,10 +44,6 @@ abstract class HomeWalletInfoModel : EpoxyModelWithHolder<HomeWalletInfoModel.Wa
         holder.setWalletBalance(balAsync())
       }
       else -> Unit
-    }
-    holder.sendButton.setOnClickListener { clickListener?.invoke(HomeListClick.SendButtonClick) }
-    holder.receiveButton.setOnClickListener {
-      clickListener?.invoke(HomeListClick.ReceiveButtonClick)
     }
     holder.balanceClickableView.setOnClickListener {
       clickListener?.invoke(HomeListClick.BalanceClick)
@@ -130,7 +125,5 @@ abstract class HomeWalletInfoModel : EpoxyModelWithHolder<HomeWalletInfoModel.Wa
     val balanceSkeleton by bind<LottieAnimationView>(R.id.balance_skeleton)
     val balanceClickableView by bind<View>(R.id.balance_empty_clickable_view)
     val currencyClickableView by bind<View>(R.id.currency_empty_clickable_view)
-    val sendButton by bind<MaterialButton>(R.id.send_button)
-    val receiveButton by bind<MaterialButton>(R.id.receive_button)
   }
 }

@@ -110,8 +110,6 @@ class HomeFragment : BasePageViewFragment(),
       when (homeClick) {
         HomeListClick.BalanceClick -> viewModel.onBalanceClick()
         HomeListClick.ChangeCurrencyClick -> viewModel.onCurrencySelectorClick()
-        HomeListClick.ReceiveButtonClick -> viewModel.onReceiveClick()
-        HomeListClick.SendButtonClick -> viewModel.onSendClick()
         is HomeListClick.EmptyStateClick -> {
           if (homeClick.id == CAROUSEL_GAMIFICATION) navigator.navigateToPromotions()
         }
