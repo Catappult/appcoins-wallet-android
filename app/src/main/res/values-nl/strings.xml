@@ -561,7 +561,7 @@
   <string name="purchase_paytmupi_install_disclaimer">Je moet de Paytm UPI-app installeren.</string>
   <string name="purchase_app_needed_body">Je hebt de volgende app nodig om je aankoop te voltooien.</string>
   <string name="purchase_apps_needed_body">Je hebt een van de volgende apps nodig om je aankoop te voltooien.</string>
-  <string name="purchase_error_no_connection">Het lijkt erop dat je geen internetverbinding hebt! Controleer de verbinding en probeer het opnieuw.</string>
+  <string name="purchase_error_connection_issue">It seems there is a problem with your internet connection! Please check it and try again.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">Factuuradres</string>
   <string name="purchase_address_address_field">Adres</string>

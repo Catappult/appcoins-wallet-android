@@ -561,7 +561,7 @@
   <string name="purchase_paytmupi_install_disclaimer">Bạn sẽ cần cài đặt ứng dụng Paytm UPI.</string>
   <string name="purchase_app_needed_body">Bạn cần ứng dụng sau để hoàn tất giao dịch mua của mình.</string>
   <string name="purchase_apps_needed_body">Bạn cần một trong các ứng dụng sau để hoàn tất giao dịch mua của mình.</string>
-  <string name="purchase_error_no_connection">Có vẻ như bạn không có kết nối internet! Vui lòng kiểm tra nó và thử lại.</string>
+  <string name="purchase_error_connection_issue">It seems there is a problem with your internet connection! Please check it and try again.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">Địa chỉ thanh toán</string>
   <string name="purchase_address_address_field">Địa chỉ</string>

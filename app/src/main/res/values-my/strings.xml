@@ -561,7 +561,7 @@
   <string name="purchase_paytmupi_install_disclaimer">Paytm UPI အက္ပ္ကို ထည့္သြင္းရန္ လိုအပ္ပါသည္။</string>
   <string name="purchase_app_needed_body">သင့္ဝယ္ယူမႈ ၿပီးစီးေစရန္ ေအာက္ပါအက္ပ္ကို လိုအပ္ပါသည္။</string>
   <string name="purchase_apps_needed_body">သင့္ဝယ္ယူမႈ ၿပီးစီးေစရန္ ေအာက္ပါအက္ပ္မ်ားအနက္ တစ္ခုကို လိုအပ္ပါသည္။</string>
-  <string name="purchase_error_no_connection">သင့္တြင္ အင္တာနက္ခ်ိတ္ဆက္မႈ မရွိပုံရပါသည္။ စစ္ေဆးကာ ျပန္ႀကိဳးစားေပးပါ။</string>
+  <string name="purchase_error_connection_issue">It seems there is a problem with your internet connection! Please check it and try again.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">က်သင့္ေငြေကာက္ခံရန္လိပ္စာ</string>
   <string name="purchase_address_address_field">လိပ္စာ</string>

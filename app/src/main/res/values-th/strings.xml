@@ -561,7 +561,7 @@
   <string name="purchase_paytmupi_install_disclaimer">คุณจะต้องติดตั้งแอป Paytm UPI</string>
   <string name="purchase_app_needed_body">คุณจำเป็นต้องซื้อแอปให้สำเร็จ</string>
   <string name="purchase_apps_needed_body">คุณจำเป็นต้องซื้อแอปต่อไปนี้ให้สำเร็จ</string>
-  <string name="purchase_error_no_connection">ดูเหมือนว่าคุณยังไม่ได้เชื่อมต่ออินตอร์เน็ต! โปรดตรวจสอบและลองอีกครั้ง</string>
+  <string name="purchase_error_connection_issue">It seems there is a problem with your internet connection! Please check it and try again.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">ที่อยู่เรียกเก็บเงิน</string>
   <string name="purchase_address_address_field">ที่อยู่</string>

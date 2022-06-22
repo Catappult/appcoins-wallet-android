@@ -561,7 +561,7 @@
   <string name="purchase_paytmupi_install_disclaimer">Paytm UPI 앱을 설치해야 합니다.</string>
   <string name="purchase_app_needed_body">구매를 완료하기 위해서 다음의 앱이 필요합니다.</string>
   <string name="purchase_apps_needed_body">구매를 완료하기 위해서 다음의 앱중 하나가 필요합니다.</string>
-  <string name="purchase_error_no_connection">인터넷에 연결되어 있지 않은것 같습니다! 인터넷 연결 후 다시 시도해 주세요.</string>
+  <string name="purchase_error_connection_issue">It seems there is a problem with your internet connection! Please check it and try again.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">청구지 주소</string>
   <string name="purchase_address_address_field">주소</string>

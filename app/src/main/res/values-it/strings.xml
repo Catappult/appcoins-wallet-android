@@ -561,7 +561,7 @@
   <string name="purchase_paytmupi_install_disclaimer">Dovrai installare l\'app Paytm UPI.</string>
   <string name="purchase_app_needed_body">Per completare questo acquisto è necessaria l\'app di seguito.</string>
   <string name="purchase_apps_needed_body">Per completare questo acquisto è necessaria una delle app di seguito.</string>
-  <string name="purchase_error_no_connection">Non è stata rilevata una connessione internet! Controlla e ritenta.</string>
+  <string name="purchase_error_connection_issue">It seems there is a problem with your internet connection! Please check it and try again.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">Indirizzo di fatturazione</string>
   <string name="purchase_address_address_field">Indirizzo</string>

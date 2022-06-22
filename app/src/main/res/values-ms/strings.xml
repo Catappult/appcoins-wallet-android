@@ -561,7 +561,7 @@
   <string name="purchase_paytmupi_install_disclaimer">Anda perlu memasang aplikasi Paytm UPI.</string>
   <string name="purchase_app_needed_body">Anda perlukan aplikasi berikut untuk lengkapkan pembelian.</string>
   <string name="purchase_apps_needed_body">Anda perlukan salah satu aplikasi berikut untuk lengkapkan pembelian.</string>
-  <string name="purchase_error_no_connection">Nampaknya anda tiada capaian internet! Sila semak dan cuba semula.</string>
+  <string name="purchase_error_connection_issue">It seems there is a problem with your internet connection! Please check it and try again.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">Alamat bil</string>
   <string name="purchase_address_address_field">Alamat</string>

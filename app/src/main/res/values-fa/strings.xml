@@ -561,7 +561,7 @@
   <string name="purchase_paytmupi_install_disclaimer">شما باید اپلیکیشن Paytm UPI را نصب کنید.</string>
   <string name="purchase_app_needed_body">برای تکمیل خرید باید اپلیکیشن را دنبال کنید.</string>
   <string name="purchase_apps_needed_body">برای تکمیل خرید باید اپلیکیشن‌ها را دنبال کنید.</string>
-  <string name="purchase_error_no_connection">به نظر می‌رسد که اتصال اینترنت ندارید! لطفا بررسی کنید و دوباره امتحان کنید.</string>
+  <string name="purchase_error_connection_issue">It seems there is a problem with your internet connection! Please check it and try again.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">نشانی پرداخت</string>
   <string name="purchase_address_address_field">نشانی</string>
