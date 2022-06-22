@@ -561,7 +561,7 @@
   <string name="purchase_paytmupi_install_disclaimer">Trebuie să instalezi aplicația Paytm UPI.</string>
   <string name="purchase_app_needed_body">Ai nevoie de următoarea aplicație pentru a finaliza achiziția.</string>
   <string name="purchase_apps_needed_body">Ai nevoie de una dintre următoarele aplicații pentru a finaliza achiziția.</string>
-  <string name="purchase_error_no_connection">Se pare că nu ai o conexiune la internet! Te rugăm să verifici conexiunea și să încerci din nou.</string>
+  <string name="purchase_error_connection_issue">It seems there is a problem with your internet connection! Please check it and try again.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">Adresă de facturare</string>
   <string name="purchase_address_address_field">Adresă</string>
