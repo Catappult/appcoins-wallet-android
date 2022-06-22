@@ -38,7 +38,7 @@ class IabPresenter(
       firstImpression = it.getBoolean(FIRST_IMPRESSION, firstImpression)
     }
     if (errorFromReceiver != null) {
-      view.showError(R.string.purchase_error_no_connection)
+      view.showError(R.string.purchase_error_connection_issue)
       return
     }
     if (savedInstanceState == null) {
