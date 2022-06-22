@@ -381,6 +381,8 @@
   <string name="topup_bonus_body">Poți folosi acest bonus la următoarea ta cumpărătură.</string>
   <string name="topup_minimum_value">Valoarea minimă de alimentare este %s</string>
   <string name="topup_maximum_value">Valoarea maximă de alimentare este %s</string>
+  <string name="topup_no_method_available_title">No payment methods!</string>
+  <string name="topup_no_method_available_body">There are no payment methods available to top up in your country at the moment. Stay tuned!</string>
   <!--Balance-->
   <string name="balance_title">Balanță</string>
   <string name="balance_total_body">Balanță totală în %s</string>
@@ -559,7 +561,7 @@
   <string name="purchase_paytmupi_install_disclaimer">Trebuie să instalezi aplicația Paytm UPI.</string>
   <string name="purchase_app_needed_body">Ai nevoie de următoarea aplicație pentru a finaliza achiziția.</string>
   <string name="purchase_apps_needed_body">Ai nevoie de una dintre următoarele aplicații pentru a finaliza achiziția.</string>
-  <string name="purchase_error_no_connection">Se pare că nu ai o conexiune la internet! Te rugăm să verifici conexiunea și să încerci din nou.</string>
+  <string name="purchase_error_connection_issue">It seems there is a problem with your internet connection! Please check it and try again.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">Adresă de facturare</string>
   <string name="purchase_address_address_field">Adresă</string>
@@ -636,7 +638,7 @@
   <!--Backup and Import-->
   <string name="backup_home_notification_title">Fă o copie de rezervă a portofelului</string>
   <string name="backup_home_notification_body">Ți-ai pierdut vreodată telefonul? Fă o copie de rezervă a portofelului tău acum!</string>
-  <string name="backup_confirmation_no_share_title">Copie de rezervă efectuată!</string>
+  <string name="backup_confirmation_no_share_title">Backup Done!</string>
   <string name="backup_save_dialogue_title">Salvează fișier de rezervă</string>
   <string name="backup_save_dialogue_body">Alege un nume pentru fișierul de rezervă.</string>
   <string name="import_wallet_title">Recuperează Portofel</string>
@@ -1077,12 +1079,13 @@
   <string name="mywallet_unverified_body">Verifică o metodă de plată pentru a evita blocaje.</string>
   <string name="mywallet_backed_up_date">Ai făcut o copie de rezervă a portofelului tău pe %s.</string>
   <string name="mywallet_backup_again_button">FĂ O COPIE DE REZERVĂ NOUĂ</string>
-  <string name="mywallet_verify_payment_method_button">VERIFICĂ NOUA METODA DE PLATĂ</string>
+  <string name="mywallet_verify_payment_method_button">VERIFY NEW CARD</string>
   <string name="mywallet_choose_name_header">Alege un nume pentru portofelul tău</string>
   <string name="mywallet_choose_name_field">Numele portofelului aici...</string>
   <string name="mywallet_choose_name_confirmed">Numele portofelului a fost schimbat</string>
   <string name="mywallet_unnamed_wallet">Portofel fără nume %s</string>
   <string name="mywallet_swithing_wallets_title">Se schimbă portofelele...</string>
+  <string name="mywallet_address_title">Address:</string>
   <!-- Onboarding for new users coming from an iap -->
   <string name="onboarding_1st_title">Felicitări! Ai instalat un AppCoins Wallet.</string>
   <string name="onboarding_1st_body">Du-te înapoi la joc pentru a finaliza achiziția.</string>

@@ -381,6 +381,8 @@
   <string name="topup_bonus_body">你可以在下次购买中使用此奖金。</string>
   <string name="topup_minimum_value">最低充值额为%s</string>
   <string name="topup_maximum_value">最高充值额为%s</string>
+  <string name="topup_no_method_available_title">No payment methods!</string>
+  <string name="topup_no_method_available_body">There are no payment methods available to top up in your country at the moment. Stay tuned!</string>
   <!--Balance-->
   <string name="balance_title">余额</string>
   <string name="balance_total_body">总余额(%s)</string>
@@ -559,7 +561,7 @@
   <string name="purchase_paytmupi_install_disclaimer">你需要安装Paytm UPI应用。</string>
   <string name="purchase_app_needed_body">你需要以下应用才能完成购买。</string>
   <string name="purchase_apps_needed_body">你需要以下一个应用才能完成购买。</string>
-  <string name="purchase_error_no_connection">似乎没有互联网连接！请检查并重试。</string>
+  <string name="purchase_error_connection_issue">It seems there is a problem with your internet connection! Please check it and try again.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">帐单地址</string>
   <string name="purchase_address_address_field">地址</string>
@@ -636,7 +638,7 @@
   <!--Backup and Import-->
   <string name="backup_home_notification_title">备份你的钱包</string>
   <string name="backup_home_notification_body">丢过手机吗？立即备份你的钱包！</string>
-  <string name="backup_confirmation_no_share_title">备份完成！</string>
+  <string name="backup_confirmation_no_share_title">Backup Done!</string>
   <string name="backup_save_dialogue_title">保存备份文件</string>
   <string name="backup_save_dialogue_body">选择备份文件的名称。</string>
   <string name="import_wallet_title">恢复钱包</string>
@@ -1059,12 +1061,13 @@
   <string name="mywallet_unverified_body">验证付款方式以避免收到阻拦。</string>
   <string name="mywallet_backed_up_date">你在%s上备份了钱包。</string>
   <string name="mywallet_backup_again_button">再次备份</string>
-  <string name="mywallet_verify_payment_method_button">验证新的付款方式</string>
+  <string name="mywallet_verify_payment_method_button">VERIFY NEW CARD</string>
   <string name="mywallet_choose_name_header">为钱包选择名称</string>
   <string name="mywallet_choose_name_field">钱包名称在这里输入......</string>
   <string name="mywallet_choose_name_confirmed">钱包名称已更改</string>
   <string name="mywallet_unnamed_wallet">无名称钱包%s</string>
   <string name="mywallet_swithing_wallets_title">更换钱包...</string>
+  <string name="mywallet_address_title">Address:</string>
   <!-- Onboarding for new users coming from an iap -->
   <string name="onboarding_1st_title">恭喜！你已安装AppCoins钱包。</string>
   <string name="onboarding_1st_body">返回游戏以完成购买。</string>

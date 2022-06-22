@@ -381,6 +381,8 @@
   <string name="topup_bonus_body">يمكنك استخدام هذه المكافأة في عميلة الشراء القادمة.</string>
   <string name="topup_minimum_value">أقل قيمة يمكن إضافتها هي %s</string>
   <string name="topup_maximum_value">أعلى قيمة يمكن إضافتها هي %s</string>
+  <string name="topup_no_method_available_title">No payment methods!</string>
+  <string name="topup_no_method_available_body">There are no payment methods available to top up in your country at the moment. Stay tuned!</string>
   <!--Balance-->
   <string name="balance_title">الرصيد</string>
   <string name="balance_total_body">الرصيد الكلّي بعملة %s</string>
@@ -560,7 +562,7 @@
   <string name="purchase_paytmupi_install_disclaimer">أنت بحاجة إلى تثبيت تطبيق Paytm UPI.</string>
   <string name="purchase_app_needed_body">أنت بحاجة إلى التطبيق التالي لإتمام عملية الشراء.</string>
   <string name="purchase_apps_needed_body">أنت بحاجة إلى أحد التطبيقات التالية لإتمام عملية الشراء.</string>
-  <string name="purchase_error_no_connection">يبدو أن ليس لديك اتصال بالإنترنت الآن! يرجى التأكد والمحاولة مرة أخرى.</string>
+  <string name="purchase_error_connection_issue">It seems there is a problem with your internet connection! Please check it and try again.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">عنوان الفوترة</string>
   <string name="purchase_address_address_field">العنوان</string>
@@ -637,7 +639,7 @@
   <!--Backup and Import-->
   <string name="backup_home_notification_title">حفظ نسخة احتياطية لمحفظتك</string>
   <string name="backup_home_notification_body">هل أضعت هاتفك في يوم من الأيام؟ احتفظ بنسخة احتياطية من محفظتك الآن!</string>
-  <string name="backup_confirmation_no_share_title">تم النسخ الاحتياطي!</string>
+  <string name="backup_confirmation_no_share_title">Backup Done!</string>
   <string name="backup_save_dialogue_title">احفظ ملفات النسخ الاحتياطي</string>
   <string name="backup_save_dialogue_body">اختر اسمًا لملف النسخ الاحتياطي.</string>
   <string name="import_wallet_title">استعادة المحفظة</string>
@@ -1105,12 +1107,13 @@
   <string name="mywallet_unverified_body">وثّق وسيلة دفع لتتجنب الاعتراضات.</string>
   <string name="mywallet_backed_up_date">حفظت نسخة احتياطية لمحفظتك في %s.</string>
   <string name="mywallet_backup_again_button">احفظ نسخة ثانية</string>
-  <string name="mywallet_verify_payment_method_button">وثق وسيلة دفع جديدة</string>
+  <string name="mywallet_verify_payment_method_button">VERIFY NEW CARD</string>
   <string name="mywallet_choose_name_header">اختر اسمًا لمحفظتك</string>
   <string name="mywallet_choose_name_field">اسم المحفظة هنا...</string>
   <string name="mywallet_choose_name_confirmed">اسم المحفظة تغيّر</string>
   <string name="mywallet_unnamed_wallet">محفظة بلا اسم %s</string>
   <string name="mywallet_swithing_wallets_title">تبديل المَحافظ...</string>
+  <string name="mywallet_address_title">Address:</string>
   <!-- Onboarding for new users coming from an iap -->
   <string name="onboarding_1st_title">مبروك! لقد ثبتَّ AppCoins Wallet.</string>
   <string name="onboarding_1st_body">عد إلى اللعبة لإتمام عملية الشراء.</string>

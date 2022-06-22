@@ -1,4 +1,4 @@
-package com.asfoundation.wallet.promo_code.bottom_sheet
+package com.asfoundation.wallet.promo_code
 
 import com.asfoundation.wallet.promo_code.repository.PromoCode
 import io.reactivex.Observable
@@ -18,7 +18,7 @@ class PromoCodeMapper {
   fun map(promoCode: PromoCode): Observable<PromoCodeResult> {
     return when (promoCode.expired) {
       false -> {
-        (Observable.just(SuccessfulPromoCode(promoCode)))
+        Observable.just(SuccessfulPromoCode(promoCode))
       }
       true -> {
         Observable.just(FailedPromoCode.ExpiredCode())

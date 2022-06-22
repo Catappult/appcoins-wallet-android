@@ -18,6 +18,9 @@ class MainActivityNavigator @Inject constructor(@ApplicationContext val context:
         .setDestination(R.id.home_fragment)
         .setComponentName(MainActivity::class.java)
         .createPendingIntent()
+    // PendingIntents from androidx.navigation are not working on android 12.
+    // Was used for the "got it" button after completing a eth transfer and on the "ok" button after a topup.
+    // The solution is to update the androidx.navigation to 2.4.0 or higher.
   }
 
   fun navigateToHome() {
