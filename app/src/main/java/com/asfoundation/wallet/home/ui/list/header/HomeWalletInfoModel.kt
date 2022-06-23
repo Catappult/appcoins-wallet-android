@@ -1,6 +1,6 @@
 package com.asfoundation.wallet.home.ui.list.header
 
-import android.text.Html
+import android.annotation.SuppressLint
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
@@ -53,6 +53,7 @@ abstract class HomeWalletInfoModel : EpoxyModelWithHolder<HomeWalletInfoModel.Wa
     }
   }
 
+  @SuppressLint("SetTextI18n")
   private fun WalletInfoHolder.setWalletBalance(globalBalance: GlobalBalance) {
     val overallBalanceFiat = globalBalance.walletBalance.overallFiat
     val overallAmount = formatter.formatCurrency(overallBalanceFiat.amount, WalletCurrency.FIAT)
@@ -68,10 +69,18 @@ abstract class HomeWalletInfoModel : EpoxyModelWithHolder<HomeWalletInfoModel.Wa
 
   private fun WalletInfoHolder.setSubtitle(globalBalance: GlobalBalance) {
     val walletBalance = globalBalance.walletBalance
-    val subtitle = buildCurrencyString(walletBalance.appcBalance, walletBalance.creditsBalance,
-        walletBalance.ethBalance, globalBalance.showAppcoins,
-        globalBalance.showCredits, globalBalance.showEthereum)
-    balanceSubtitle.text = Html.fromHtml(subtitle)
+    val subtitle = creditsString(walletBalance.appcBalance)
+    balanceSubtitle.text = subtitle
+  }
+
+  private fun creditsString(creditsBalance: TokenBalance): String {
+    val stringBuilder = StringBuilder()
+    val creditsString =
+      (formatter.formatCurrency(creditsBalance.token.amount, WalletCurrency.CREDITS)
+          + " "
+          + WalletCurrency.CREDITS.symbol)
+    stringBuilder.append(creditsString)
+    return stringBuilder.toString()
   }
 
   private fun WalletInfoHolder.showSkeleton() {
@@ -80,42 +89,6 @@ abstract class HomeWalletInfoModel : EpoxyModelWithHolder<HomeWalletInfoModel.Wa
     currencySelector.visibility = View.INVISIBLE
     balanceSkeleton.visibility = View.VISIBLE
     balanceSkeleton.playAnimation()
-  }
-
-  private fun buildCurrencyString(appcoinsBalance: TokenBalance, creditsBalance: TokenBalance,
-                                  ethereumBalance: TokenBalance, showAppcoins: Boolean,
-                                  showCredits: Boolean, showEthereum: Boolean): String {
-    val stringBuilder = StringBuilder()
-    val bullet = "\u00A0\u00A0\u00A0\u2022\u00A0\u00A0\u00A0"
-    if (showCredits) {
-      val creditsString =
-          (formatter.formatCurrency(creditsBalance.token.amount, WalletCurrency.CREDITS)
-              + " "
-              + WalletCurrency.CREDITS.symbol)
-      stringBuilder.append(creditsString)
-          .append(bullet)
-    }
-    if (showAppcoins) {
-      val appcString =
-          (formatter.formatCurrency(appcoinsBalance.token.amount, WalletCurrency.APPCOINS)
-              + " "
-              + WalletCurrency.APPCOINS.symbol)
-      stringBuilder.append(appcString)
-          .append(bullet)
-    }
-    if (showEthereum) {
-      val ethString =
-          (formatter.formatCurrency(ethereumBalance.token.amount, WalletCurrency.ETHEREUM)
-              + " "
-              + WalletCurrency.ETHEREUM.symbol)
-      stringBuilder.append(ethString)
-          .append(bullet)
-    }
-    var subtitle = stringBuilder.toString()
-    if (stringBuilder.length > bullet.length) {
-      subtitle = stringBuilder.substring(0, stringBuilder.length - bullet.length)
-    }
-    return subtitle.replace(bullet, "<font color='#ffffff'>$bullet</font>")
   }
 
   class WalletInfoHolder : BaseViewHolder() {
