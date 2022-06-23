@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.my_wallets.more
 
+import androidx.lifecycle.SavedStateHandle
 import com.asfoundation.wallet.base.Async
 import com.asfoundation.wallet.base.BaseViewModel
 import com.asfoundation.wallet.base.SideEffect
@@ -11,7 +12,9 @@ import com.asfoundation.wallet.ui.wallets.WalletsInteract
 import com.asfoundation.wallet.ui.wallets.WalletsModel
 import com.asfoundation.wallet.wallets.domain.WalletInfo
 import com.asfoundation.wallet.wallets.usecases.ObserveWalletInfoUseCase
+import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.schedulers.Schedulers
+import javax.inject.Inject
 
 sealed class MoreDialogSideEffect : SideEffect {
   object NavigateBack : MoreDialogSideEffect()
@@ -27,22 +30,23 @@ data class MoreDialogState(
   val walletInfoAsync: Async<WalletInfo> = Async.Uninitialized
 ) : ViewState
 
-class MoreDialogViewModel(
-  data: MoreDialogData,
+@HiltViewModel
+class MoreDialogViewModel @Inject constructor(
+  savedStateHandle: SavedStateHandle,
   private val walletsInteract: WalletsInteract,
   private val walletDetailsInteractor: WalletDetailsInteractor,
   private val observeWalletInfoUseCase: ObserveWalletInfoUseCase,
   private val observeDefaultWalletUseCase: ObserveDefaultWalletUseCase
 ) :
-  BaseViewModel<MoreDialogState, MoreDialogSideEffect>(initialState(data)) {
+  BaseViewModel<MoreDialogState, MoreDialogSideEffect>(initialState(savedStateHandle)) {
 
   companion object {
-    fun initialState(data: MoreDialogData): MoreDialogState = MoreDialogState(
-      data.walletAddress,
-      data.totalFiatBalance,
-      data.appcoinsBalance,
-      data.creditsBalance,
-      data.ethereumBalance
+    fun initialState(savedStateHandle: SavedStateHandle): MoreDialogState = MoreDialogState(
+      savedStateHandle.get<String>(MoreDialogFragment.WALLET_ADDRESS_KEY)!!,
+      savedStateHandle.get<String>(MoreDialogFragment.FIAT_BALANCE_KEY)!!,
+      savedStateHandle.get<String>(MoreDialogFragment.APPC_BALANCE_KEY)!!,
+      savedStateHandle.get<String>(MoreDialogFragment.CREDITS_BALANCE_KEY)!!,
+      savedStateHandle.get<String>(MoreDialogFragment.ETHEREUM_BALANCE_KEY)!!,
     )
   }
 

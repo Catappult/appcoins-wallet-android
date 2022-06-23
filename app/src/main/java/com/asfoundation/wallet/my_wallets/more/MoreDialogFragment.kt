@@ -33,12 +33,9 @@ class MoreDialogFragment : BottomSheetDialogFragment(),
   SingleStateFragment<MoreDialogState, MoreDialogSideEffect> {
 
   @Inject
-  lateinit var viewModelFactory: MoreDialogViewModelFactory
-
-  @Inject
   lateinit var navigator: MoreDialogNavigator
 
-  private val viewModel: MoreDialogViewModel by viewModels { viewModelFactory }
+  private val viewModel: MoreDialogViewModel by viewModels()
   private val views by viewBinding(FragmentMyWalletsMoreBinding::bind)
 
   override fun onCreateView(

@@ -3,8 +3,10 @@ package com.asfoundation.wallet.my_wallets.more
 import androidx.navigation.NavController
 import com.asfoundation.wallet.base.Navigator
 import com.asfoundation.wallet.base.navigate
+import javax.inject.Inject
 
-class MoreDialogNavigator(private val navController: NavController) : Navigator {
+class MoreDialogNavigator @Inject constructor(private val navController: NavController) :
+  Navigator {
 
   fun navigateToCreateNewWallet() {
     navigate(
