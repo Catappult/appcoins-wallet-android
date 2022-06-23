@@ -19,8 +19,6 @@ import by.kirich1409.viewbindingdelegate.viewBinding
 import com.asf.wallet.R
 import com.asf.wallet.databinding.FragmentMyWalletsMoreBinding
 import com.asfoundation.wallet.base.SingleStateFragment
-import com.asfoundation.wallet.ui.wallets.WalletBalance
-import com.asfoundation.wallet.util.CurrencyFormatUtils
 import com.asfoundation.wallet.util.convertDpToPx
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -58,25 +56,25 @@ class MoreDialogFragment : BottomSheetDialogFragment(),
 
   override fun onResume() {
     super.onResume()
-    viewModel.refreshData(flushAsync = false)
+    viewModel.refreshData()
   }
 
   override fun getTheme(): Int = R.style.AppBottomSheetDialogTheme
 
   override fun onStateChanged(state: MoreDialogState) {
-    val wallets = state.walletsAsync()?.wallets
+    val wallets = state.walletsAsync()
     views.deleteWalletCardView.visibility =
       if (wallets?.isEmpty() == false) View.VISIBLE else View.GONE
     views.walletsView.apply {
       removeAllViews()
-      val selected = state.walletInfoAsync()?.wallet
       wallets?.forEach { wallet ->
         addView(
           buildWalletView(
-            wallet,
-            wallet.walletAddress == selected,
-            if (wallet.walletAddress == selected) null else ({
-              viewModel.changeActiveWallet(wallet)
+            wallet.isSelected,
+            wallet.walletName,
+            wallet.fiatBalance,
+            if (wallet.isSelected) null else ({
+              viewModel.changeActiveWallet(wallet.walletAddress)
             }),
           )
         )
@@ -105,8 +103,9 @@ class MoreDialogFragment : BottomSheetDialogFragment(),
   }
 
   private fun buildWalletView(
-    wallet: WalletBalance,
     isSelected: Boolean,
+    name: String,
+    balance: String,
     onClick: ((View) -> Unit)? = null
   ): View = MaterialCardView(context).apply {
     layoutParams = MarginLayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT)
@@ -150,7 +149,7 @@ class MoreDialogFragment : BottomSheetDialogFragment(),
             textSize = 14.toFloat()
             ellipsize = TextUtils.TruncateAt.END
             maxLines = 1
-            text = wallet.walletAddress
+            text = name
           }
         )
         addView(
@@ -163,14 +162,13 @@ class MoreDialogFragment : BottomSheetDialogFragment(),
             typeface = Typeface.create("sans-serif-medium", STYLE_NORMAL)
             textSize = 14.toFloat()
             maxLines = 1
-            text = wallet.balance.symbol + currencyFormatUtils.formatCurrency(wallet.balance.amount)
+            text = balance
           }
         )
       }
     )
   }
 
-  private val currencyFormatUtils = CurrencyFormatUtils()
   private val Int.dp get() = this.convertDpToPx(resources)
 
   companion object {
