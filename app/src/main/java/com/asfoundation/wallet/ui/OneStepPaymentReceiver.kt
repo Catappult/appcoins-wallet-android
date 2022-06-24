@@ -62,8 +62,7 @@ class OneStepPaymentReceiver : BaseActivity() {
     } else {
       setContentView(R.layout.activity_iab_wallet_creation)
       walletCreationCard = findViewById(R.id.create_wallet_card)
-      walletCreationAnimation =
-        findViewById(R.id.create_wallet_animation)
+      walletCreationAnimation = findViewById(R.id.create_wallet_animation)
       walletCreationText = findViewById(R.id.create_wallet_text)
       if (savedInstanceState == null) {
         disposable = handleWalletCreationIfNeeded()
@@ -81,7 +80,7 @@ class OneStepPaymentReceiver : BaseActivity() {
           }
           .subscribe({ }, { throwable: Throwable ->
             logger.log("OneStepPaymentReceiver", throwable)
-            startApp(throwable)
+            startOneStepWithError(IabActivity.ERROR_RECEIVER_NETWORK)
           })
       }
     }
@@ -106,10 +105,20 @@ class OneStepPaymentReceiver : BaseActivity() {
     finish()
   }
 
-  private fun startOneStepTransfer(transaction: TransactionBuilder, isBds: Boolean) {
+  private fun startOneStepTransfer(
+    transaction: TransactionBuilder,
+    isBds: Boolean
+  ) {
     val intent =
       newIntent(this, intent, transaction, isBds, transaction.payload)
     intent.putExtra(IabActivity.PRODUCT_NAME, transaction.skuId)
+    @Suppress("DEPRECATION")
+    startActivityForResult(intent, REQUEST_CODE)
+  }
+
+  private fun startOneStepWithError(errorFromReceiver: String?) {
+    val intent =
+      newIntent(this, intent, errorFromReceiver)
     @Suppress("DEPRECATION")
     startActivityForResult(intent, REQUEST_CODE)
   }
