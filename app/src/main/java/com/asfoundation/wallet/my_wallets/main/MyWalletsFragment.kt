@@ -4,6 +4,7 @@ import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
 import android.os.Bundle
+import android.text.format.DateFormat
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -31,6 +32,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import java.math.BigDecimal
+import java.util.*
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -239,8 +241,12 @@ class MyWalletsFragment : BasePageViewFragment(),
     } else {
       R.string.my_wallets_action_backup_wallet
     }
-    val text = if (hasBackup) {
-      getString(R.string.mywallet_backed_up_date, "Unknown date")
+    // If the date is 0 or 1, then either wallet was not backup yet or the backup date is unknown
+    val text = if (backupDate > 1) {
+      getString(
+        R.string.mywallet_backed_up_date,
+        DateFormat.format("dd/MMM/yyyy", Date(backupDate)).toString()
+      )
     } else {
       getString(R.string.backup_wallet_tooltip)
     }

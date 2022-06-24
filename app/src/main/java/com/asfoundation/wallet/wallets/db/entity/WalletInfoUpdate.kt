@@ -10,5 +10,5 @@ data class WalletInfoUpdate(
   val blocked: Boolean,
   val verified: Boolean,
   val logging: Boolean,
-  val hasBackup: Boolean
+  val hasBackup: Long
 )

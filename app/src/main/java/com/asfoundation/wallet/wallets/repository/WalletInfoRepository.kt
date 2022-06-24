@@ -108,7 +108,7 @@ class WalletInfoRepository @Inject constructor(
       blocked = blocked,
       verified = verified,
       logging = logging,
-      hasBackup = hasBackup
+      backupDate = hasBackup
     )
 
   private fun WalletInfoResponse.toWalletInfoEntity(walletBalance: WalletBalance? = null) =
@@ -120,7 +120,7 @@ class WalletInfoRepository @Inject constructor(
       blocked = blocked,
       verified = verified,
       logging = logging,
-      hasBackup = hasBackup,
+      hasBackup = syntheticBackupDate,
       appcCreditsBalanceFiat = walletBalance?.creditsBalance?.fiat?.amount,
       appcBalanceFiat = walletBalance?.creditsBalance?.fiat?.amount,
       ethBalanceFiat = walletBalance?.creditsBalance?.fiat?.amount,
