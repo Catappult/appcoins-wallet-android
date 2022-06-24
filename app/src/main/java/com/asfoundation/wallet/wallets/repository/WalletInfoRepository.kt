@@ -55,7 +55,7 @@ class WalletInfoRepository @Inject constructor(
                 blocked = it.blocked,
                 verified = it.verified,
                 logging = it.logging,
-                hasBackup = list[0].hasBackup
+                hasBackup = it.hasBackup
               )
             }
         }
