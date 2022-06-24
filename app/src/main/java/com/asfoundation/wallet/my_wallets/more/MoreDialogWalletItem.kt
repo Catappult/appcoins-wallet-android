@@ -1,9 +1,7 @@
 package com.asfoundation.wallet.my_wallets.more
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.content.res.Resources
-import android.graphics.Color
 import android.graphics.Typeface
 import android.text.TextUtils
 import android.view.Gravity
@@ -15,7 +13,9 @@ import android.widget.ImageView
 import android.widget.Space
 import android.widget.TextView
 import androidx.annotation.ColorInt
+import androidx.annotation.ColorRes
 import androidx.appcompat.widget.LinearLayoutCompat
+import androidx.core.content.ContextCompat
 import androidx.core.view.updatePadding
 import com.asf.wallet.R
 import com.asfoundation.wallet.util.convertDpToPx
@@ -28,21 +28,21 @@ fun MoreDialogStateItem.toWalletItemView(context: Context, action: (String) -> U
     ItemCard(
       onTap = onTap(action),
       child = ItemRow(
-        color = backgroundColor(resources),
+        color = backgroundColor(this),
         children = arrayOf(
           Checkmark(visibility = checkMarkVisibility),
           Space(width = 12),
           Text(
             height = WRAP_CONTENT,
             weight = 1F,
-            color = textColor(resources),
+            color = textColor(this),
             text = walletName
           ),
           Space(width = 24),
           Text(
             width = WRAP_CONTENT,
             height = WRAP_CONTENT,
-            color = textColor(resources),
+            color = textColor(this),
             text = fiatBalance
           )
         )
@@ -56,14 +56,14 @@ fun MoreDialogStateItem.toWalletItemView(view: View, action: (String) -> Unit) =
   (view as MaterialCardView).run {
     setOnClickListener(onTap(action))
     (getChildAt(0) as LinearLayoutCompat).run {
-      setBackgroundColor(backgroundColor(resources))
+      setBackgroundColor(backgroundColor(context))
       getChildAt(0).visibility = checkMarkVisibility
       (getChildAt(2) as TextView).run {
-        setTextColor(textColor(resources))
+        setTextColor(textColor(context))
         text = walletName
       }
       (getChildAt(4) as TextView).run {
-        setTextColor(textColor(resources))
+        setTextColor(textColor(context))
         text = fiatBalance
       }
     }
@@ -72,22 +72,11 @@ fun MoreDialogStateItem.toWalletItemView(view: View, action: (String) -> Unit) =
 
 // Mapping ta the actual UI values
 
-@Suppress("DEPRECATION")
-private fun MoreDialogStateItem.backgroundColor(resources: Resources) = if (isSelected) {
-  resources.getColor(R.color.bottom_nav_top_up_blue)
-} else {
-  Color.parseColor("#F2F2F2")
-}
+private fun MoreDialogStateItem.backgroundColor(context: Context) =
+  context.getCColor(if (isSelected) R.color.bottom_nav_top_up_blue else R.color.grey_f2)
 
-@Suppress("DEPRECATION")
-private fun MoreDialogStateItem.textColor(resources: Resources) =
-  resources.getColor(
-    if (isSelected) {
-      R.color.white
-    } else {
-      R.color.bottom_nav_top_up_blue
-    }
-  )
+private fun MoreDialogStateItem.textColor(context: Context) =
+  context.getCColor(if (isSelected) R.color.white else R.color.bottom_nav_top_up_blue)
 
 private val MoreDialogStateItem.checkMarkVisibility get() = if (isSelected) VISIBLE else INVISIBLE
 
@@ -100,15 +89,14 @@ private fun MoreDialogStateItem.onTap(action: (String) -> Unit): ((View) -> Unit
 
 // Card component
 
-@Suppress("DEPRECATION", "FunctionName")
-@SuppressLint("UseCompatLoadingForColorStateLists")
+@Suppress("FunctionName")
 private fun Context.ItemCard(onTap: ((View) -> Unit)?, child: View) =
   MaterialCardView(this).apply {
     layoutParams = MarginLayoutParams(MATCH_PARENT, WRAP_CONTENT)
       .apply { topMargin = resources.dpToPx(8) }
     elevation = 0F
     radius = resources.dpToPx(14).toFloat()
-    rippleColor = resources.getColorStateList(R.color.grey_8B)
+    rippleColor = context.getCColorStateList(R.color.grey_8B)
     setOnClickListener(onTap)
     addView(child)
   }
@@ -181,3 +169,8 @@ private fun Resources.dpSizeToPx(value: Int): Int = when (value) {
   WRAP_CONTENT, MATCH_PARENT -> value
   else -> dpToPx(value)
 }
+
+private fun Context.getCColor(@ColorRes id: Int) = ContextCompat.getColor(this, id)
+
+private fun Context.getCColorStateList(@ColorRes id: Int) =
+  ContextCompat.getColorStateList(this, id)
