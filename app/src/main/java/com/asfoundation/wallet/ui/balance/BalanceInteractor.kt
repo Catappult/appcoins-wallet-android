@@ -28,10 +28,11 @@ class BalanceInteractor @Inject constructor(
 
   fun observeCurrentWalletVerified(): Observable<BalanceVerificationModel> {
     return getSignedCurrentWalletAddress().flatMapObservable { addressModel ->
-      Observable.mergeDelayError(Observable.just(getCachedVerificationStatus(addressModel.address))
-        .map { verificationStatus ->
-          mapToBalanceVerificationModel(addressModel.address, verificationStatus, null)
-        }, observeWalletVerification(addressModel.address, addressModel.signedAddress)
+      Observable.mergeDelayError(
+        Observable.just(getCachedVerificationStatus(addressModel.address))
+          .map { verificationStatus ->
+            mapToBalanceVerificationModel(addressModel.address, verificationStatus, null)
+          }, observeWalletVerification(addressModel.address, addressModel.signedAddress)
       )
     }
   }

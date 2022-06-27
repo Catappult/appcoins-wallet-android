@@ -17,9 +17,10 @@ import java.math.RoundingMode
 import javax.inject.Inject
 
 class BalanceRepository @Inject constructor(
-    private val getSelectedCurrencyUseCase: GetSelectedCurrencyUseCase,
-    private val localCurrencyConversionService: LocalCurrencyConversionService,
-    private val rxSchedulers: RxSchedulers) {
+  private val getSelectedCurrencyUseCase: GetSelectedCurrencyUseCase,
+  private val localCurrencyConversionService: LocalCurrencyConversionService,
+  private val rxSchedulers: RxSchedulers
+) {
 
   companion object {
     const val APPC_CURRENCY = "APPC_CURRENCY"
@@ -29,50 +30,68 @@ class BalanceRepository @Inject constructor(
     const val FIAT_SCALE = 4
   }
 
-  fun getWalletBalance(appcCreditsWei: BigInteger,
-                       appcWei: BigInteger,
-                       ethWei: BigInteger): Single<WalletBalance> {
+  fun getWalletBalance(
+    appcCreditsWei: BigInteger,
+    appcWei: BigInteger,
+    ethWei: BigInteger
+  ): Single<WalletBalance> {
     val credits = BalanceUtils.weiToEth(appcCreditsWei.toBigDecimal())
-        .setScale(FIAT_SCALE, RoundingMode.FLOOR)
+      .setScale(FIAT_SCALE, RoundingMode.FLOOR)
     val appc = BalanceUtils.weiToEth(appcWei.toBigDecimal())
-        .setScale(FIAT_SCALE, RoundingMode.FLOOR)
+      .setScale(FIAT_SCALE, RoundingMode.FLOOR)
     val eth = BalanceUtils.weiToEth(ethWei.toBigDecimal())
-        .setScale(FIAT_SCALE, RoundingMode.FLOOR)
+      .setScale(FIAT_SCALE, RoundingMode.FLOOR)
 
     return getSelectedCurrencyUseCase(bypass = false)
-        .flatMap { targetCurrency ->
-          Single.zip(
-              localCurrencyConversionService.getValueToFiat(credits.toString(), "APPC",
-                  targetCurrency, FIAT_SCALE)
-                  .subscribeOn(rxSchedulers.io),
-              localCurrencyConversionService.getValueToFiat(appc.toString(), "APPC", targetCurrency,
-                  FIAT_SCALE)
-                  .subscribeOn(rxSchedulers.io),
-              localCurrencyConversionService.getValueToFiat(eth.toString(), "ETH", targetCurrency,
-                  FIAT_SCALE)
-                  .subscribeOn(rxSchedulers.io),
-              { creditsFiat, appcFiat, ethFiat ->
-                return@zip mapToWalletBalance(credits, creditsFiat.amount, appc, appcFiat.amount,
-                    eth, ethFiat.amount, creditsFiat.currency, creditsFiat.symbol)
-              }
+      .flatMap { targetCurrency ->
+        Single.zip(
+          localCurrencyConversionService.getValueToFiat(
+            credits.toString(), "APPC",
+            targetCurrency, FIAT_SCALE
           )
-        }
-        .subscribeOn(rxSchedulers.io)
+            .subscribeOn(rxSchedulers.io),
+          localCurrencyConversionService.getValueToFiat(
+            appc.toString(), "APPC", targetCurrency,
+            FIAT_SCALE
+          )
+            .subscribeOn(rxSchedulers.io),
+          localCurrencyConversionService.getValueToFiat(
+            eth.toString(), "ETH", targetCurrency,
+            FIAT_SCALE
+          )
+            .subscribeOn(rxSchedulers.io),
+          { creditsFiat, appcFiat, ethFiat ->
+            return@zip mapToWalletBalance(
+              credits, creditsFiat.amount, appc, appcFiat.amount,
+              eth, ethFiat.amount, creditsFiat.currency, creditsFiat.symbol
+            )
+          }
+        )
+      }
+      .subscribeOn(rxSchedulers.io)
   }
 
-  fun mapToWalletBalance(creditsValue: BigDecimal, creditsFiatAmount: BigDecimal,
-                         appcValue: BigDecimal, appcFiatAmount: BigDecimal,
-                         ethValue: BigDecimal, ethFiatAmount: BigDecimal,
-                         fiatCurrency: String, fiatSymbol: String): WalletBalance {
+  fun mapToWalletBalance(
+    creditsValue: BigDecimal, creditsFiatAmount: BigDecimal,
+    appcValue: BigDecimal, appcFiatAmount: BigDecimal,
+    ethValue: BigDecimal, ethFiatAmount: BigDecimal,
+    fiatCurrency: String, fiatSymbol: String
+  ): WalletBalance {
     val creditsToken =
-        mapToTokenBalance(creditsValue, APPC_C_CURRENCY, WalletCurrency.CREDITS.symbol,
-            FiatValue(creditsFiatAmount, fiatCurrency, fiatSymbol))
+      mapToTokenBalance(
+        creditsValue, APPC_C_CURRENCY, WalletCurrency.CREDITS.symbol,
+        FiatValue(creditsFiatAmount, fiatCurrency, fiatSymbol)
+      )
     val appcToken =
-        mapToTokenBalance(appcValue, APPC_CURRENCY, WalletCurrency.APPCOINS.symbol,
-            FiatValue(appcFiatAmount, fiatCurrency, fiatSymbol))
+      mapToTokenBalance(
+        appcValue, APPC_CURRENCY, WalletCurrency.APPCOINS.symbol,
+        FiatValue(appcFiatAmount, fiatCurrency, fiatSymbol)
+      )
     val ethToken =
-        mapToTokenBalance(ethValue, ETH_CURRENCY, WalletCurrency.ETHEREUM.symbol,
-            FiatValue(ethFiatAmount, fiatCurrency, fiatSymbol))
+      mapToTokenBalance(
+        ethValue, ETH_CURRENCY, WalletCurrency.ETHEREUM.symbol,
+        FiatValue(ethFiatAmount, fiatCurrency, fiatSymbol)
+      )
     val balance = getOverrallBalance(creditsToken, appcToken, ethToken)
     val creditsFiat = getCreditsFiatBalance(creditsToken, appcToken)
     return WalletBalance(balance, creditsFiat, creditsToken, appcToken, ethToken)
@@ -81,18 +100,22 @@ class BalanceRepository @Inject constructor(
 
   fun roundToEth(tokenAmount: BigInteger): BigDecimal {
     return BalanceUtils.weiToEth(tokenAmount.toBigDecimal())
-        .setScale(FIAT_SCALE, RoundingMode.FLOOR)
+      .setScale(FIAT_SCALE, RoundingMode.FLOOR)
   }
 
-  private fun mapToTokenBalance(tokenValue: BigDecimal,
-                                tokenCurrency: String,
-                                tokenSymbol: String,
-                                fiatValue: FiatValue): TokenBalance {
+  private fun mapToTokenBalance(
+    tokenValue: BigDecimal,
+    tokenCurrency: String,
+    tokenSymbol: String,
+    fiatValue: FiatValue
+  ): TokenBalance {
     return TokenBalance(TokenValue(tokenValue, tokenCurrency, tokenSymbol), fiatValue)
   }
 
-  private fun getOverrallBalance(creditsBalance: TokenBalance, appcBalance: TokenBalance,
-                                 ethBalance: TokenBalance): FiatValue {
+  private fun getOverrallBalance(
+    creditsBalance: TokenBalance, appcBalance: TokenBalance,
+    ethBalance: TokenBalance
+  ): FiatValue {
     var balance =
       getAddBalanceValue(BalanceInteractor.BIG_DECIMAL_MINUS_ONE, creditsBalance.fiat.amount)
     balance = getAddBalanceValue(balance, appcBalance.fiat.amount)
@@ -100,7 +123,10 @@ class BalanceRepository @Inject constructor(
     return FiatValue(balance, appcBalance.fiat.currency, appcBalance.fiat.symbol)
   }
 
-  private fun getCreditsFiatBalance(creditsBalance: TokenBalance, appcBalance: TokenBalance): FiatValue {
+  private fun getCreditsFiatBalance(
+    creditsBalance: TokenBalance,
+    appcBalance: TokenBalance
+  ): FiatValue {
     val balance =
       getAddBalanceValue(BalanceInteractor.BIG_DECIMAL_MINUS_ONE, creditsBalance.fiat.amount)
     return FiatValue(balance, appcBalance.fiat.currency, appcBalance.fiat.symbol)

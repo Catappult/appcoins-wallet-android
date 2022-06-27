@@ -56,7 +56,8 @@ abstract class HomeWalletInfoModel : EpoxyModelWithHolder<HomeWalletInfoModel.Wa
   @SuppressLint("SetTextI18n")
   private fun WalletInfoHolder.setWalletBalance(globalBalance: GlobalBalance) {
     val creditsBalanceFiat = globalBalance.walletBalance.creditsOnlyFiat
-    val creditsBalanceFiatAmount = formatter.formatCurrency(creditsBalanceFiat.amount, WalletCurrency.FIAT)
+    val creditsBalanceFiatAmount =
+      formatter.formatCurrency(creditsBalanceFiat.amount, WalletCurrency.FIAT)
     if (creditsBalanceFiat.amount > BigDecimal("-1") && creditsBalanceFiat.symbol.isNotEmpty()) {
       balanceSkeleton.visibility = View.INVISIBLE
       balance.visibility = View.VISIBLE
