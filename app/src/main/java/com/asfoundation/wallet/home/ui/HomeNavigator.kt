@@ -3,6 +3,7 @@ package com.asfoundation.wallet.home.ui
 import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.net.Uri
+import android.view.View
 import android.widget.Toast
 import androidx.core.app.ShareCompat
 import androidx.fragment.app.Fragment
@@ -22,6 +23,7 @@ import com.asfoundation.wallet.ui.MyAddressActivity
 import com.asfoundation.wallet.ui.balance.TransactionDetailActivity
 import com.asfoundation.wallet.ui.settings.SettingsActivity
 import com.asfoundation.wallet.ui.transact.TransferActivity.Companion.newIntent
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import javax.inject.Inject
 
 class HomeNavigator @Inject constructor(
@@ -42,7 +44,10 @@ class HomeNavigator @Inject constructor(
   }
 
   fun navigateToMyWallets() {
-    mainActivityNavigator.navigateToMyWallets()
+    val bottomNavView: BottomNavigationView =
+      fragment.requireActivity().findViewById(R.id.bottom_nav)
+    val view: View = bottomNavView.findViewById(R.id.balance)
+    view.performClick()
   }
 
   fun navigateToPromotions() {

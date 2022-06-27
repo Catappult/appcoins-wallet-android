@@ -74,7 +74,8 @@ class BalanceRepository @Inject constructor(
         mapToTokenBalance(ethValue, ETH_CURRENCY, WalletCurrency.ETHEREUM.symbol,
             FiatValue(ethFiatAmount, fiatCurrency, fiatSymbol))
     val balance = getOverrallBalance(creditsToken, appcToken, ethToken)
-    return WalletBalance(balance, creditsToken, appcToken, ethToken)
+    val creditsFiat = getCreditsFiatBalance(creditsToken, appcToken)
+    return WalletBalance(balance, creditsFiat, creditsToken, appcToken, ethToken)
 
   }
 
@@ -93,9 +94,15 @@ class BalanceRepository @Inject constructor(
   private fun getOverrallBalance(creditsBalance: TokenBalance, appcBalance: TokenBalance,
                                  ethBalance: TokenBalance): FiatValue {
     var balance =
-        getAddBalanceValue(BalanceInteractor.BIG_DECIMAL_MINUS_ONE, creditsBalance.fiat.amount)
+      getAddBalanceValue(BalanceInteractor.BIG_DECIMAL_MINUS_ONE, creditsBalance.fiat.amount)
     balance = getAddBalanceValue(balance, appcBalance.fiat.amount)
     balance = getAddBalanceValue(balance, ethBalance.fiat.amount)
+    return FiatValue(balance, appcBalance.fiat.currency, appcBalance.fiat.symbol)
+  }
+
+  private fun getCreditsFiatBalance(creditsBalance: TokenBalance, appcBalance: TokenBalance): FiatValue {
+    val balance =
+      getAddBalanceValue(BalanceInteractor.BIG_DECIMAL_MINUS_ONE, creditsBalance.fiat.amount)
     return FiatValue(balance, appcBalance.fiat.currency, appcBalance.fiat.symbol)
   }
 

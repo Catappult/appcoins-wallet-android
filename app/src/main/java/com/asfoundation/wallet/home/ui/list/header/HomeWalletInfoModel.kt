@@ -55,32 +55,31 @@ abstract class HomeWalletInfoModel : EpoxyModelWithHolder<HomeWalletInfoModel.Wa
 
   @SuppressLint("SetTextI18n")
   private fun WalletInfoHolder.setWalletBalance(globalBalance: GlobalBalance) {
-    val overallBalanceFiat = globalBalance.walletBalance.overallFiat
-    val overallAmount = formatter.formatCurrency(overallBalanceFiat.amount, WalletCurrency.FIAT)
-    if (overallBalanceFiat.amount > BigDecimal("-1") && overallBalanceFiat.symbol.isNotEmpty()) {
+    val creditsBalanceFiat = globalBalance.walletBalance.creditsOnlyFiat
+    val creditsBalanceFiatAmount = formatter.formatCurrency(creditsBalanceFiat.amount, WalletCurrency.FIAT)
+    if (creditsBalanceFiat.amount > BigDecimal("-1") && creditsBalanceFiat.symbol.isNotEmpty()) {
       balanceSkeleton.visibility = View.INVISIBLE
       balance.visibility = View.VISIBLE
       balanceSubtitle.visibility = View.VISIBLE
       currencySelector.visibility = View.VISIBLE
-      balance.text = overallBalanceFiat.symbol + overallAmount
+      balance.text = creditsBalanceFiat.symbol + creditsBalanceFiatAmount
       setSubtitle(globalBalance)
     }
   }
 
   private fun WalletInfoHolder.setSubtitle(globalBalance: GlobalBalance) {
     val walletBalance = globalBalance.walletBalance
-    val subtitle = creditsString(walletBalance.appcBalance)
+    val subtitle = creditsString(walletBalance.creditsBalance)
     balanceSubtitle.text = subtitle
   }
 
   private fun creditsString(creditsBalance: TokenBalance): String {
-    val stringBuilder = StringBuilder()
-    val creditsString =
-      (formatter.formatCurrency(creditsBalance.token.amount, WalletCurrency.CREDITS)
-          + " "
-          + WalletCurrency.CREDITS.symbol)
-    stringBuilder.append(creditsString)
-    return stringBuilder.toString()
+    return "${
+      formatter.formatCurrency(
+        creditsBalance.token.amount,
+        WalletCurrency.CREDITS
+      )
+    } ${WalletCurrency.CREDITS.symbol}"
   }
 
   private fun WalletInfoHolder.showSkeleton() {

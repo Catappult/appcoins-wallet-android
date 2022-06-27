@@ -22,12 +22,6 @@
 
   <style name="MyWallets.HeaderShape" />
 
-  <!--  <style name="MyWallets.HeaderShape">-->
-  <!--    <item name="cornerFamily">rounded</item>-->
-  <!--    <item name="cornerSizeBottomLeft">16dp</item>-->
-  <!--    <item name="cornerSizeBottomRight">16dp</item>-->
-  <!--  </style>-->
-
   <style name="MyWallets.Shapes" />
 
   <style name="MyWallets.Shapes.Pill">
