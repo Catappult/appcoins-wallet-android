@@ -402,7 +402,6 @@
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_marginEnd="16dp"
-      android:layout_marginBottom="16dp"
       android:text="@string/referral_view_verify_button"
       android:textColor="@color/wild_watermelon"
       android:textSize="12sp"
