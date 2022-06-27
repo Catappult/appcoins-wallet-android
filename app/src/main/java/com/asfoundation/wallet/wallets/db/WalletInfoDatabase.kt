@@ -17,9 +17,8 @@ abstract class WalletInfoDatabase : RoomDatabase() {
 
   companion object {
     val MIGRATION_1_2: Migration = object : Migration(1, 2) {
-      override fun migrate(database: SupportSQLiteDatabase) {
+      override fun migrate(database: SupportSQLiteDatabase) =
         database.execSQL("ALTER TABLE WalletInfoEntity ADD COLUMN hasBackup INTEGER DEFAULT 0 NOT NULL")
-      }
     }
   }
 

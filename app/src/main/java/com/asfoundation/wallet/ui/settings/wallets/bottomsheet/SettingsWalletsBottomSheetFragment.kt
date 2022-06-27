@@ -28,7 +28,6 @@ class SettingsWalletsBottomSheetFragment : BasePageViewFragment(), SettingsWalle
   @Inject
   lateinit var presenter: SettingsWalletsBottomSheetPresenter
 
-  private lateinit var adapter: WalletsAdapter
   private var uiEventListener: PublishSubject<String>? = null
 
   companion object {
@@ -36,13 +35,12 @@ class SettingsWalletsBottomSheetFragment : BasePageViewFragment(), SettingsWalle
     const val WALLET_MODEL_KEY = "wallet_model"
 
     @JvmStatic
-    fun newInstance(walletsModel: WalletsModel): SettingsWalletsBottomSheetFragment {
-      return SettingsWalletsBottomSheetFragment().apply {
+    fun newInstance(walletsModel: WalletsModel) =
+      SettingsWalletsBottomSheetFragment().apply {
         arguments = Bundle().apply {
           putSerializable(WALLET_MODEL_KEY, walletsModel)
         }
       }
-    }
   }
 
   override fun onCreate(savedInstanceState: Bundle?) {
@@ -50,10 +48,11 @@ class SettingsWalletsBottomSheetFragment : BasePageViewFragment(), SettingsWalle
     uiEventListener = PublishSubject.create()
   }
 
-  override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                            savedInstanceState: Bundle?): View? {
-    return inflater.inflate(R.layout.settings_wallet_bottom_sheet_layout, container, false)
-  }
+  override fun onCreateView(
+    inflater: LayoutInflater,
+    container: ViewGroup?,
+    savedInstanceState: Bundle?
+  ): View? = inflater.inflate(R.layout.settings_wallet_bottom_sheet_layout, container, false)
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
@@ -61,26 +60,25 @@ class SettingsWalletsBottomSheetFragment : BasePageViewFragment(), SettingsWalle
   }
 
   override fun setupUi(walletsBalance: List<WalletBalance>) {
-    val layoutManager = LinearLayoutManager(context)
-    layoutManager.orientation = RecyclerView.VERTICAL
-    adapter = WalletsAdapter(requireContext(), walletsBalance, uiEventListener!!, currencyFormatter)
-    bottom_sheet_wallets_cards.addBottomItemDecoration(
-        resources.getDimension(R.dimen.wallets_card_margin))
-    bottom_sheet_wallets_cards.isNestedScrollingEnabled = false
-    bottom_sheet_wallets_cards.layoutManager = layoutManager
-    bottom_sheet_wallets_cards.adapter = adapter
-    val parent = provideParentFragment()
-    parent?.showBottomSheet()
+    with(bottom_sheet_wallets_cards) {
+      addBottomItemDecoration(resources.getDimension(R.dimen.wallets_card_margin))
+      isNestedScrollingEnabled = false
+      layoutManager = LinearLayoutManager(context).apply {
+        orientation = RecyclerView.VERTICAL
+      }
+      adapter = WalletsAdapter(walletsBalance, uiEventListener!!, currencyFormatter)
+    }
+    provideParentFragment()?.showBottomSheet()
   }
 
   override fun walletCardClicked() = uiEventListener!!
 
-  private fun provideParentFragment(): SettingsWalletsView? {
+  private fun provideParentFragment(): SettingsWalletsView? =
     if (parentFragment !is SettingsWalletsView) {
-      return null
+      null
+    } else {
+      parentFragment as SettingsWalletsView
     }
-    return parentFragment as SettingsWalletsView
-  }
 
   override fun onDestroyView() {
     super.onDestroyView()
