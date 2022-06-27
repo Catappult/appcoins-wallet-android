@@ -19,8 +19,7 @@ sealed class RecoverEntrySideEffect : SideEffect
 
 data class RecoverEntryState(
   val recoverResultAsync: Async<RecoverEntryResult> = Async.Uninitialized
-) :
-  ViewState
+) : ViewState
 
 @HiltViewModel
 class RecoverEntryViewModel @Inject constructor(
@@ -35,18 +34,13 @@ class RecoverEntryViewModel @Inject constructor(
   private val updateBackupStateFromRecoverUseCase: UpdateBackupStateFromRecoverUseCase,
   private val walletsEventSender: WalletsEventSender,
   private val rxSchedulers: RxSchedulers
-) :
-  BaseViewModel<RecoverEntryState, RecoverEntrySideEffect>(initialState()) {
+) : BaseViewModel<RecoverEntryState, RecoverEntrySideEffect>(initialState()) {
 
   companion object {
-    fun initialState(): RecoverEntryState {
-      return RecoverEntryState()
-    }
+    fun initialState(): RecoverEntryState = RecoverEntryState()
   }
 
-  fun filePath(): Uri? {
-    return getFilePathUseCase()
-  }
+  fun filePath(): Uri? = getFilePathUseCase()
 
   fun handleFileChosen(uri: Uri) {
     readFileUseCase(uri)
@@ -54,38 +48,31 @@ class RecoverEntryViewModel @Inject constructor(
       .flatMap { fetchWallet(it) }
       .flatMap { setDefaultWallet(it) }
       .observeOn(rxSchedulers.main)
-      .asAsyncToState {
-        copy(recoverResultAsync = it)
-      }
+      .asAsyncToState { copy(recoverResultAsync = it) }
       .doOnSuccess { handleRecoverResult(it) }
       .scopedSubscribe()
   }
 
-  private fun fetchWallet(key: String): Single<RecoverEntryResult> {
-    return if (isKeystoreUseCase(key = key)) recoverEntryKeystoreUseCase(keystore = key)
-    else {
-      if (key.length == 64) recoverEntryPrivateKeyUseCase(privateKey = key)
-      else Single.just(FailedEntryRecover.InvalidPrivateKey())
+  private fun fetchWallet(key: String): Single<RecoverEntryResult> =
+    when {
+      isKeystoreUseCase(key = key) -> recoverEntryKeystoreUseCase(keystore = key)
+      key.length == 64 -> recoverEntryPrivateKeyUseCase(privateKey = key)
+      else -> Single.just(FailedEntryRecover.InvalidPrivateKey())
     }
-  }
 
-  private fun setDefaultWallet(recoverResult: RecoverEntryResult): Single<RecoverEntryResult> {
-    return when (recoverResult) {
+  private fun setDefaultWallet(recoverResult: RecoverEntryResult): Single<RecoverEntryResult> =
+    when (recoverResult) {
       is FailedEntryRecover -> Single.just(recoverResult)
-      is SuccessfulEntryRecover -> Completable.mergeArray(
-        setDefaultWalletUseCase(recoverResult.address),
-        updateWalletInfoUseCase(recoverResult.address, updateFiat = true)
-      ).andThen(Completable.fromAction { setOnboardingCompletedUseCase() })
+      is SuccessfulEntryRecover -> setDefaultWalletUseCase(recoverResult.address)
+        .mergeWith(updateWalletInfoUseCase(recoverResult.address, updateFiat = true))
+        .andThen(Completable.fromAction { setOnboardingCompletedUseCase() })
         .andThen(Single.just(recoverResult))
     }
-  }
 
   fun handleRecoverClick(keystore: String) {
     fetchWallet(keystore)
       .flatMap { setDefaultWallet(it) }
-      .asAsyncToState {
-        copy(recoverResultAsync = it)
-      }
+      .asAsyncToState { copy(recoverResultAsync = it) }
       .doOnSuccess { handleRecoverResult(it) }
       .doOnError {
         walletsEventSender.sendWalletCompleteRestoreEvent(
@@ -96,7 +83,7 @@ class RecoverEntryViewModel @Inject constructor(
       .scopedSubscribe()
   }
 
-  private fun handleRecoverResult(recoverResult: RecoverEntryResult) {
+  private fun handleRecoverResult(recoverResult: RecoverEntryResult) =
     when (recoverResult) {
       is SuccessfulEntryRecover -> {
         updateWalletBackupState()
@@ -115,10 +102,8 @@ class RecoverEntryViewModel @Inject constructor(
         )
       }
     }
-  }
 
   private fun updateWalletBackupState() {
-    updateBackupStateFromRecoverUseCase()
-      .scopedSubscribe()
+    updateBackupStateFromRecoverUseCase().scopedSubscribe()
   }
 }

@@ -28,9 +28,14 @@ interface WalletInfoDao {
     } catch (e: Exception) {
       updateWalletInfo(
         WalletInfoUpdate(
-          walletInfo.wallet, walletInfo.appcCreditsBalanceWei,
-          walletInfo.appcBalanceWei, walletInfo.ethBalanceWei, walletInfo.blocked,
-          walletInfo.verified, walletInfo.logging, walletInfo.hasBackup
+          walletInfo.wallet,
+          walletInfo.appcCreditsBalanceWei,
+          walletInfo.appcBalanceWei,
+          walletInfo.ethBalanceWei,
+          walletInfo.blocked,
+          walletInfo.verified,
+          walletInfo.logging,
+          walletInfo.hasBackup
         )
       )
     }

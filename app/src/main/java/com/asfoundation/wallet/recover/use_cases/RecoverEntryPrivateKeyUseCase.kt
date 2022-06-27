@@ -16,13 +16,10 @@ class RecoverEntryPrivateKeyUseCase @Inject constructor(
   private val currencyFormatUtils: CurrencyFormatUtils
 ) {
 
-  operator fun invoke(privateKey: String): Single<RecoverEntryResult> {
-    return passwordStore.generatePassword()
-      .flatMap { newPassword ->
-        walletRepository.restorePrivateKeyToWallet(privateKey, newPassword)
-      }
+  operator fun invoke(privateKey: String): Single<RecoverEntryResult> =
+    passwordStore.generatePassword()
+      .flatMap { walletRepository.restorePrivateKeyToWallet(privateKey, it) }
       .flatMap {
         RecoverEntryResultMapper(getWalletInfoUseCase, currencyFormatUtils, privateKey).map(it)
       }
-  }
 }

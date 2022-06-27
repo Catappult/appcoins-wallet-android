@@ -69,7 +69,9 @@ class MoreDialogViewModel @Inject constructor(
   fun refreshData() {
     walletsInteract.observeWalletsModel()
       .subscribeOn(Schedulers.io())
-      .map { it.wallets.map { MoreDialogStateItem(state.walletAddress, it) } }
+      .map { walletsModel ->
+        walletsModel.wallets.map { MoreDialogStateItem(state.walletAddress, it) }
+      }
       .asAsyncToState(MoreDialogState::walletsAsync) { wallets -> copy(walletsAsync = wallets) }
       .repeatableScopedSubscribe(MoreDialogState::walletsAsync.name) { e ->
         e.printStackTrace()
