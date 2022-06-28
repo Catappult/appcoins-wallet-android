@@ -81,7 +81,7 @@ class WalletInfoRepository @Inject constructor(
           walletInfoResponse.ethBalanceWei
         )
           .map { walletInfoResponse.toWalletInfoEntity(it) }
-          .doOnSuccess(walletInfoDao::insertWalletInfoWithFiat)
+          .doOnSuccess(walletInfoDao::insertOrUpdateWithFiat)
       } else {
         Single.just(walletInfoResponse.toWalletInfoEntity())
           .doOnSuccess(walletInfoDao::insertOrUpdateNoFiat)
