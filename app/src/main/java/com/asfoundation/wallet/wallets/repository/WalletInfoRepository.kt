@@ -12,6 +12,7 @@ import io.reactivex.Single
 import retrofit2.http.GET
 import retrofit2.http.Path
 import java.math.BigDecimal
+import java.math.BigInteger
 import java.util.*
 import javax.inject.Inject
 
@@ -68,6 +69,30 @@ class WalletInfoRepository @Inject constructor(
       .onErrorComplete()
       .subscribeOn(rxSchedulers.io)
 
+  fun updateWalletName(walletAddress: String, name: String?): Completable =
+    Completable.fromAction {
+      walletInfoDao.insertOrUpdateName(
+        WalletInfoEntity(
+          wallet = walletAddress.normalize(),
+          name = name,
+          appcCreditsBalanceWei = BigInteger.valueOf(0),
+          appcBalanceWei = BigInteger.valueOf(0),
+          ethBalanceWei = BigInteger.valueOf(0),
+          blocked = false,
+          verified = false,
+          logging = false,
+          hasBackup = 0,
+          appcCreditsBalanceFiat = null,
+          appcBalanceFiat = null,
+          ethBalanceFiat = null,
+          fiatCurrency = null,
+          fiatSymbol = null
+        )
+      )
+    }.subscribeOn(rxSchedulers.io)
+      .doOnError(Throwable::printStackTrace)
+      .onErrorComplete()
+
   private fun fetchWalletInfo(
     walletAddress: String,
     updateFiatValues: Boolean
@@ -95,6 +120,7 @@ class WalletInfoRepository @Inject constructor(
   private fun WalletInfoEntity.toWalletInfo() =
     WalletInfo(
       wallet = wallet,
+      name = name?.ifEmpty { null } ?: wallet.replaceRange(IntRange(6, wallet.length - 5), " ··· "),
       walletBalance = balanceRepository.mapToWalletBalance(
         creditsValue = balanceRepository.roundToEth(appcCreditsBalanceWei),
         creditsFiatAmount = appcCreditsBalanceFiat ?: BigDecimal.ZERO,
@@ -114,6 +140,7 @@ class WalletInfoRepository @Inject constructor(
   private fun WalletInfoResponse.toWalletInfoEntity(walletBalance: WalletBalance? = null) =
     WalletInfoEntity(
       wallet = wallet.normalize(),
+      name = null,
       appcCreditsBalanceWei = appcCreditsBalanceWei,
       appcBalanceWei = appcBalanceWei,
       ethBalanceWei = ethBalanceWei,

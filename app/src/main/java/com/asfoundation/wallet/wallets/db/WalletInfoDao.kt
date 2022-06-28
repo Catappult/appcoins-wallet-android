@@ -3,6 +3,7 @@ package com.asfoundation.wallet.wallets.db
 import androidx.room.*
 import com.asfoundation.wallet.wallets.db.entity.WalletInfoEntity
 import com.asfoundation.wallet.wallets.db.entity.WalletInfoUpdate
+import com.asfoundation.wallet.wallets.db.entity.WalletInfoUpdateName
 import com.asfoundation.wallet.wallets.db.entity.WalletInfoUpdateWithBalance
 import io.reactivex.Observable
 import io.reactivex.Single
@@ -17,6 +18,9 @@ interface WalletInfoDao {
 
   @Update(entity = WalletInfoEntity::class)
   fun updateWalletInfo(walletInfoUpdateWithBalance: WalletInfoUpdateWithBalance)
+
+  @Update(entity = WalletInfoEntity::class)
+  fun updateWalletInfo(walletInfoUpdateName: WalletInfoUpdateName)
 
   /**
    * Attempts to insert a WalletInfoEntity without fiat values. If it already exists, it just
@@ -64,6 +68,23 @@ interface WalletInfoDao {
           ethBalanceFiat = walletInfo.ethBalanceFiat,
           fiatCurrency = walletInfo.fiatCurrency,
           fiatSymbol = walletInfo.fiatSymbol,
+        )
+      )
+    }
+  }
+
+  /**
+   * Attempts to insert a WalletInfoEntity with fiat values. If it already exists, it just
+   * updates the relevant fields.
+   */
+  fun insertOrUpdateName(walletInfo: WalletInfoEntity) {
+    try {
+      insertWalletInfo(walletInfo)
+    } catch (e: Exception) {
+      updateWalletInfo(
+        WalletInfoUpdateName(
+          wallet = walletInfo.wallet,
+          name = walletInfo.name
         )
       )
     }

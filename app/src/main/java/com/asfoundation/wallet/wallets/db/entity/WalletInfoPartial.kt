@@ -29,3 +29,5 @@ data class WalletInfoUpdateWithBalance(
   val fiatCurrency: String?,
   val fiatSymbol: String?,
 )
+
+data class WalletInfoUpdateName(val wallet: String, val name: String?)
