@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/wallet_info_root_layout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingBottom="15dp"
-    android:paddingTop="56dp"
-    android:id="@+id/wallet_info_root_layout"
     android:animateLayoutChanges="true"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:paddingTop="32dp"
+    android:paddingBottom="32dp"
     >
 
   <com.airbnb.lottie.LottieAnimationView
@@ -46,10 +46,10 @@
       android:id="@+id/currency_empty_clickable_view"
       android:layout_width="40dp"
       android:layout_height="40dp"
-      app:layout_constraintStart_toEndOf="@id/currency_selector"
-      app:layout_constraintEnd_toEndOf="@id/currency_selector"
-      app:layout_constraintTop_toTopOf="@id/currency_selector"
       app:layout_constraintBottom_toBottomOf="@id/currency_selector"
+      app:layout_constraintEnd_toEndOf="@id/currency_selector"
+      app:layout_constraintStart_toEndOf="@id/currency_selector"
+      app:layout_constraintTop_toTopOf="@id/currency_selector"
       />
 
   <ImageView
@@ -58,9 +58,9 @@
       android:layout_height="wrap_content"
       android:layout_marginStart="12dp"
       android:layout_marginTop="3dp"
+      android:src="@drawable/ic_home_currency_selection"
       app:layout_constraintStart_toEndOf="@id/balance"
       app:layout_constraintTop_toTopOf="@id/balance"
-      android:src="@drawable/ic_home_currency_selection"
       />
 
   <TextView
@@ -69,41 +69,14 @@
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_gravity="center"
+      android:layout_marginBottom="32dp"
       android:ellipsize="end"
       android:maxLines="1"
       android:paddingStart="15dp"
       android:paddingEnd="15dp"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toBottomOf="@id/balance"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintStart_toStartOf="parent"
-      />
-
-  <com.google.android.material.button.MaterialButton
-      android:id="@+id/send_button"
-      style="@style/Home.SendReceiveButton"
-      android:layout_width="122dp"
-      android:layout_height="wrap_content"
-      android:layout_marginEnd="8dp"
-      android:layout_marginTop="15dp"
-      android:text="@string/title_send"
-      app:icon="@drawable/ic_bottom_nav_send"
-      app:layout_constraintTop_toBottomOf="@id/balance_subtitle"
-      app:layout_constraintEnd_toStartOf="@id/receive_button"
-      app:layout_constraintHorizontal_chainStyle="packed"
-      app:layout_constraintStart_toStartOf="parent"
-      />
-  <com.google.android.material.button.MaterialButton
-      android:id="@+id/receive_button"
-      style="@style/Home.SendReceiveButton"
-      android:layout_width="122dp"
-      android:layout_height="wrap_content"
-      android:layout_marginStart="8dp"
-      android:layout_marginTop="15dp"
-      android:text="@string/title_request"
-      app:icon="@drawable/ic_bottom_nav_receive"
-      app:layout_constraintTop_toBottomOf="@id/balance_subtitle"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintStart_toEndOf="@id/send_button"
       />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

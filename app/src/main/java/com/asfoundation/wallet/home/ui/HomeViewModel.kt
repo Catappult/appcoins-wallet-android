@@ -391,7 +391,7 @@ class HomeViewModel @Inject constructor(
   fun onTransactionDetailsClick(transaction: Transaction) {
     sendSideEffect {
       state.defaultWalletBalanceAsync.value?.let {
-        HomeSideEffect.NavigateToDetails(transaction, it.walletBalance.overallFiat.currency)
+        HomeSideEffect.NavigateToDetails(transaction, it.walletBalance.creditsOnlyFiat.currency)
       }
     }
   }

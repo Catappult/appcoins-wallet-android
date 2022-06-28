@@ -12,8 +12,6 @@ sealed class HomeListClick {
 
   data class ChangedBalanceVisibility(val balanceVisible: Boolean) : HomeListClick()
 
-  object SendButtonClick : HomeListClick()
-  object ReceiveButtonClick : HomeListClick()
   object BalanceClick : HomeListClick()
   object ChangeCurrencyClick : HomeListClick()
 }

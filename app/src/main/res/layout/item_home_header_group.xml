@@ -9,11 +9,11 @@
       android:id="@+id/shapeableImageView"
       android:layout_width="0dp"
       android:layout_height="0dp"
-      android:src="@drawable/appbar_background_large"
-      app:layout_constraintTop_toTopOf="@id/epoxy_model_group_child_container"
-      app:layout_constraintBottom_toBottomOf="@id/epoxy_model_group_child_container"
+      android:src="@drawable/appbar_background_large_new"
+      app:layout_constraintBottom_toBottomOf="@id/home_corner_separator"
       app:layout_constraintEnd_toEndOf="@id/epoxy_model_group_child_container"
       app:layout_constraintStart_toStartOf="@id/epoxy_model_group_child_container"
+      app:layout_constraintTop_toTopOf="@id/epoxy_model_group_child_container"
       app:shapeAppearance="@style/MyWallets.HeaderShape"
       />
 
@@ -21,12 +21,35 @@
       android:id="@+id/epoxy_model_group_child_container"
       android:layout_width="0dp"
       android:layout_height="wrap_content"
-      android:orientation="vertical"
       android:animateLayoutChanges="true"
+      android:orientation="vertical"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent"
+      />
+
+  <com.google.android.material.imageview.ShapeableImageView
+      android:id="@+id/home_corner_separator"
+      android:layout_width="0dp"
+      android:layout_height="22dp"
+      android:layout_marginTop="8dp"
+      android:src="@drawable/home_bar_separator_corner"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/epoxy_model_group_child_container"
+      app:shapeAppearance="@style/MyWallets.HeaderShape"
+      />
+  <com.google.android.material.imageview.ShapeableImageView
+      android:id="@+id/pull_indicator"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:src="@drawable/pull_up_home_bar"
+      app:layout_constraintBottom_toBottomOf="@+id/home_corner_separator"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="@+id/home_corner_separator"
+      app:shapeAppearance="@style/MyWallets.HeaderShape"
       />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

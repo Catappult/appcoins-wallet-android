@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.home.ui
 
+import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.os.Bundle
 import android.preference.PreferenceManager
@@ -30,6 +31,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import io.intercom.android.sdk.Intercom
 import java.math.BigDecimal
 import javax.inject.Inject
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
 @AndroidEntryPoint
 class HomeFragment : BasePageViewFragment(),
@@ -110,8 +112,6 @@ class HomeFragment : BasePageViewFragment(),
       when (homeClick) {
         HomeListClick.BalanceClick -> viewModel.onBalanceClick()
         HomeListClick.ChangeCurrencyClick -> viewModel.onCurrencySelectorClick()
-        HomeListClick.ReceiveButtonClick -> viewModel.onReceiveClick()
-        HomeListClick.SendButtonClick -> viewModel.onSendClick()
         is HomeListClick.EmptyStateClick -> {
           if (homeClick.id == CAROUSEL_GAMIFICATION) navigator.navigateToPromotions()
         }
@@ -145,6 +145,7 @@ class HomeFragment : BasePageViewFragment(),
     updateSupportIcon(state.unreadMessages)
   }
 
+  @SuppressLint("SetTextI18n")
   private fun setToolbarBalance(balanceAsync: Async<GlobalBalance>) {
     when (balanceAsync) {
       Async.Uninitialized,
@@ -156,15 +157,15 @@ class HomeFragment : BasePageViewFragment(),
         }
       }
       is Async.Success -> {
-        val overallBalanceFiat = balanceAsync().walletBalance.overallFiat
-        val overallAmount = formatter.formatCurrency(overallBalanceFiat.amount, WalletCurrency.FIAT)
-        if (overallBalanceFiat.amount > BigDecimal(
+        val creditsBalanceFiat = balanceAsync().walletBalance.creditsOnlyFiat
+        val creditsFiatAmount = formatter.formatCurrency(creditsBalanceFiat.amount, WalletCurrency.FIAT)
+        if (creditsBalanceFiat.amount > BigDecimal(
             "-1"
-          ) && overallBalanceFiat.symbol.isNotEmpty()
+          ) && creditsBalanceFiat.symbol.isNotEmpty()
         ) {
           views.balance.visibility = View.VISIBLE
           views.balanceSkeleton.visibility = View.INVISIBLE
-          views.balance.text = overallBalanceFiat.symbol + overallAmount
+          views.balance.text = creditsBalanceFiat.symbol + creditsFiatAmount
         }
       }
       else -> Unit

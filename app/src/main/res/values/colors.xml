@@ -18,7 +18,8 @@
   <color name="colorAccent">#e44b46</color>
   <color name="primaryColor">#000000</color>
   <color name="pinkish_orange">#fe6446</color>
-  <color name="statusBarColor">#154868</color>
+  <color name="statusBarColor">#000910</color>
+  <!--  <color name="statusBarColor">#154868</color>-->
   <color name="activity_background_color">#fafafa</color>
 
   <color name="bottom_dialog_title">#89000000</color>
@@ -54,10 +55,16 @@
   <color name="grey_alpha_active_54">#8a000000</color>
   <color name="grey_8a_alpha">#8a000000</color>
 
+  <color name="home_start_gradient_color">#000910</color>
+  <color name="home_end_gradient_color">#001D31</color>
+
+  <color name="pull_up_bar_color">#3F989FA3</color>
+
   <color name="gray_alpha_8a">#8a000000</color>
   <color name="gray_alpha_61">#61000000</color>
   <color name="grey_alpha_6b">#6b000000</color>
   <color name="light_grey_alpha_8d">#8d393939</color>
+  <color name="light_grey_alpha_78">#78393939</color>
   <color name="light_grey_alpha_73">#73393939</color>
 
   <color name="transaction_item_text_color">#de000000</color>

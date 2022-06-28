@@ -1,6 +1,6 @@
 package com.asfoundation.wallet.home.ui.list.header
 
-import android.text.Html
+import android.annotation.SuppressLint
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
@@ -16,7 +16,6 @@ import com.asfoundation.wallet.ui.balance.TokenBalance
 import com.asfoundation.wallet.ui.common.BaseViewHolder
 import com.asfoundation.wallet.util.CurrencyFormatUtils
 import com.asfoundation.wallet.util.WalletCurrency
-import com.google.android.material.button.MaterialButton
 import java.math.BigDecimal
 
 @EpoxyModelClass
@@ -46,10 +45,6 @@ abstract class HomeWalletInfoModel : EpoxyModelWithHolder<HomeWalletInfoModel.Wa
       }
       else -> Unit
     }
-    holder.sendButton.setOnClickListener { clickListener?.invoke(HomeListClick.SendButtonClick) }
-    holder.receiveButton.setOnClickListener {
-      clickListener?.invoke(HomeListClick.ReceiveButtonClick)
-    }
     holder.balanceClickableView.setOnClickListener {
       clickListener?.invoke(HomeListClick.BalanceClick)
     }
@@ -58,25 +53,34 @@ abstract class HomeWalletInfoModel : EpoxyModelWithHolder<HomeWalletInfoModel.Wa
     }
   }
 
+  @SuppressLint("SetTextI18n")
   private fun WalletInfoHolder.setWalletBalance(globalBalance: GlobalBalance) {
-    val overallBalanceFiat = globalBalance.walletBalance.overallFiat
-    val overallAmount = formatter.formatCurrency(overallBalanceFiat.amount, WalletCurrency.FIAT)
-    if (overallBalanceFiat.amount > BigDecimal("-1") && overallBalanceFiat.symbol.isNotEmpty()) {
+    val creditsBalanceFiat = globalBalance.walletBalance.creditsOnlyFiat
+    val creditsBalanceFiatAmount =
+      formatter.formatCurrency(creditsBalanceFiat.amount, WalletCurrency.FIAT)
+    if (creditsBalanceFiat.amount > BigDecimal("-1") && creditsBalanceFiat.symbol.isNotEmpty()) {
       balanceSkeleton.visibility = View.INVISIBLE
       balance.visibility = View.VISIBLE
       balanceSubtitle.visibility = View.VISIBLE
       currencySelector.visibility = View.VISIBLE
-      balance.text = overallBalanceFiat.symbol + overallAmount
+      balance.text = creditsBalanceFiat.symbol + creditsBalanceFiatAmount
       setSubtitle(globalBalance)
     }
   }
 
   private fun WalletInfoHolder.setSubtitle(globalBalance: GlobalBalance) {
     val walletBalance = globalBalance.walletBalance
-    val subtitle = buildCurrencyString(walletBalance.appcBalance, walletBalance.creditsBalance,
-        walletBalance.ethBalance, globalBalance.showAppcoins,
-        globalBalance.showCredits, globalBalance.showEthereum)
-    balanceSubtitle.text = Html.fromHtml(subtitle)
+    val subtitle = creditsString(walletBalance.creditsBalance)
+    balanceSubtitle.text = subtitle
+  }
+
+  private fun creditsString(creditsBalance: TokenBalance): String {
+    return "${
+      formatter.formatCurrency(
+        creditsBalance.token.amount,
+        WalletCurrency.CREDITS
+      )
+    } ${WalletCurrency.CREDITS.symbol}"
   }
 
   private fun WalletInfoHolder.showSkeleton() {
@@ -87,42 +91,6 @@ abstract class HomeWalletInfoModel : EpoxyModelWithHolder<HomeWalletInfoModel.Wa
     balanceSkeleton.playAnimation()
   }
 
-  private fun buildCurrencyString(appcoinsBalance: TokenBalance, creditsBalance: TokenBalance,
-                                  ethereumBalance: TokenBalance, showAppcoins: Boolean,
-                                  showCredits: Boolean, showEthereum: Boolean): String {
-    val stringBuilder = StringBuilder()
-    val bullet = "\u00A0\u00A0\u00A0\u2022\u00A0\u00A0\u00A0"
-    if (showCredits) {
-      val creditsString =
-          (formatter.formatCurrency(creditsBalance.token.amount, WalletCurrency.CREDITS)
-              + " "
-              + WalletCurrency.CREDITS.symbol)
-      stringBuilder.append(creditsString)
-          .append(bullet)
-    }
-    if (showAppcoins) {
-      val appcString =
-          (formatter.formatCurrency(appcoinsBalance.token.amount, WalletCurrency.APPCOINS)
-              + " "
-              + WalletCurrency.APPCOINS.symbol)
-      stringBuilder.append(appcString)
-          .append(bullet)
-    }
-    if (showEthereum) {
-      val ethString =
-          (formatter.formatCurrency(ethereumBalance.token.amount, WalletCurrency.ETHEREUM)
-              + " "
-              + WalletCurrency.ETHEREUM.symbol)
-      stringBuilder.append(ethString)
-          .append(bullet)
-    }
-    var subtitle = stringBuilder.toString()
-    if (stringBuilder.length > bullet.length) {
-      subtitle = stringBuilder.substring(0, stringBuilder.length - bullet.length)
-    }
-    return subtitle.replace(bullet, "<font color='#ffffff'>$bullet</font>")
-  }
-
   class WalletInfoHolder : BaseViewHolder() {
     val balance by bind<TextView>(R.id.balance)
     val balanceSubtitle by bind<TextView>(R.id.balance_subtitle)
@@ -130,7 +98,5 @@ abstract class HomeWalletInfoModel : EpoxyModelWithHolder<HomeWalletInfoModel.Wa
     val balanceSkeleton by bind<LottieAnimationView>(R.id.balance_skeleton)
     val balanceClickableView by bind<View>(R.id.balance_empty_clickable_view)
     val currencyClickableView by bind<View>(R.id.currency_empty_clickable_view)
-    val sendButton by bind<MaterialButton>(R.id.send_button)
-    val receiveButton by bind<MaterialButton>(R.id.receive_button)
   }
 }
