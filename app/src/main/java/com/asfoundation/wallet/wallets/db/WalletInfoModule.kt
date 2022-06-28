@@ -18,6 +18,7 @@ class WalletInfoModule {
   fun providesWalletInfoDatabase(@ApplicationContext context: Context) =
     Room.databaseBuilder(context, WalletInfoDatabase::class.java, "wallet_info_database")
       .addMigrations(WalletInfoDatabase.MIGRATION_1_2)
+      .addMigrations(WalletInfoDatabase.MIGRATION_2_3)
       .build()
 
   @Singleton

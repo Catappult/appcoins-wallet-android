@@ -8,6 +8,7 @@ import java.math.BigInteger
 @Entity
 data class WalletInfoEntity(
   @PrimaryKey val wallet: String,
+  val name: String?,
   val appcCreditsBalanceWei: BigInteger,
   val appcBalanceWei: BigInteger,
   val ethBalanceWei: BigInteger,
