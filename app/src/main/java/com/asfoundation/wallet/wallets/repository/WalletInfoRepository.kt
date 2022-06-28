@@ -130,9 +130,9 @@ class WalletInfoRepository @Inject constructor(
         Single.just(
           WalletInfoEntity(
             wallet = walletInfoResponse.wallet.normalize(),
-            appcCreditsBalanceWei = walletInfoResponse.ethBalanceWei,
+            appcCreditsBalanceWei = walletInfoResponse.appcCreditsBalanceWei,
             appcBalanceWei = walletInfoResponse.appcBalanceWei,
-            ethBalanceWei = walletInfoResponse.appcCreditsBalanceWei,
+            ethBalanceWei = walletInfoResponse.ethBalanceWei,
             blocked = walletInfoResponse.blocked,
             verified = walletInfoResponse.verified,
             logging = walletInfoResponse.logging,
