@@ -36,28 +36,10 @@ class WalletInfoRepository @Inject constructor(
     walletInfoDao.getWalletInfo(walletAddress)
       .flatMap { list ->
         if (list.isNotEmpty()) {
-          Single.just(
-            WalletInfo(
-              wallet = list[0].wallet,
-              walletBalance = getWalletBalance(list[0]),
-              blocked = list[0].blocked,
-              verified = list[0].verified,
-              logging = list[0].logging,
-              hasBackup = list[0].hasBackup
-            )
-          )
+          Single.just(list[0].toWalletInfo())
         } else {
           fetchWalletInfo(walletAddress, updateFiatValues = true)
-            .map {
-              WalletInfo(
-                wallet = it.wallet,
-                walletBalance = getWalletBalance(it),
-                blocked = it.blocked,
-                verified = it.verified,
-                logging = it.logging,
-                hasBackup = it.hasBackup
-              )
-            }
+            .map { it.toWalletInfo() }
         }
       }
 
@@ -71,16 +53,7 @@ class WalletInfoRepository @Inject constructor(
 
   fun observeWalletInfo(walletAddress: String): Observable<WalletInfo> =
     walletInfoDao.observeWalletInfo(walletAddress.normalize())
-      .map {
-        WalletInfo(
-          wallet = it.wallet,
-          walletBalance = getWalletBalance(it),
-          blocked = it.blocked,
-          verified = it.verified,
-          logging = it.logging,
-          hasBackup = it.hasBackup
-        )
-      }
+      .map { it.toWalletInfo() }
       .doOnError(Throwable::printStackTrace)
       .subscribeOn(rxSchedulers.io)
 
@@ -107,43 +80,10 @@ class WalletInfoRepository @Inject constructor(
           walletInfoResponse.appcBalanceWei,
           walletInfoResponse.ethBalanceWei
         )
-          .map { walletBalance ->
-            val fiat = walletBalance.creditsBalance.fiat
-            WalletInfoEntity(
-              wallet = walletInfoResponse.wallet.normalize(),
-              appcCreditsBalanceWei = walletInfoResponse.appcCreditsBalanceWei,
-              appcBalanceWei = walletInfoResponse.appcBalanceWei,
-              ethBalanceWei = walletInfoResponse.ethBalanceWei,
-              blocked = walletInfoResponse.blocked,
-              verified = walletInfoResponse.verified,
-              logging = walletInfoResponse.logging,
-              hasBackup = walletInfoResponse.hasBackup,
-              appcCreditsBalanceFiat = walletBalance.creditsBalance.fiat.amount,
-              appcBalanceFiat = walletBalance.appcBalance.fiat.amount,
-              ethBalanceFiat = walletBalance.ethBalance.fiat.amount,
-              fiatCurrency = fiat.currency,
-              fiatSymbol = fiat.symbol
-            )
-          }
+          .map { walletInfoResponse.toWalletInfoEntity(it) }
           .doOnSuccess(walletInfoDao::insertWalletInfoWithFiat)
       } else {
-        Single.just(
-          WalletInfoEntity(
-            wallet = walletInfoResponse.wallet.normalize(),
-            appcCreditsBalanceWei = walletInfoResponse.appcCreditsBalanceWei,
-            appcBalanceWei = walletInfoResponse.appcBalanceWei,
-            ethBalanceWei = walletInfoResponse.ethBalanceWei,
-            blocked = walletInfoResponse.blocked,
-            verified = walletInfoResponse.verified,
-            logging = walletInfoResponse.logging,
-            hasBackup = walletInfoResponse.hasBackup,
-            appcCreditsBalanceFiat = null,
-            appcBalanceFiat = null,
-            ethBalanceFiat = null,
-            fiatCurrency = null,
-            fiatSymbol = null
-          )
-        )
+        Single.just(walletInfoResponse.toWalletInfoEntity())
           .doOnSuccess(walletInfoDao::insertOrUpdateNoFiat)
       }
     }
@@ -152,16 +92,40 @@ class WalletInfoRepository @Inject constructor(
   // This normalization is important as wallet addresses can be received with mixed case
   private fun String.normalize(): String = this.lowercase(Locale.ROOT)
 
-  private fun getWalletBalance(entity: WalletInfoEntity): WalletBalance =
-    balanceRepository.mapToWalletBalance(
-      creditsValue = balanceRepository.roundToEth(entity.appcCreditsBalanceWei),
-      creditsFiatAmount = entity.appcCreditsBalanceFiat ?: BigDecimal.ZERO,
-      appcValue = balanceRepository.roundToEth(entity.appcBalanceWei),
-      appcFiatAmount = entity.appcBalanceFiat ?: BigDecimal.ZERO,
-      ethValue = balanceRepository.roundToEth(entity.ethBalanceWei),
-      ethFiatAmount = entity.ethBalanceFiat ?: BigDecimal.ZERO,
-      fiatCurrency = entity.fiatCurrency ?: "",
-      fiatSymbol = entity.fiatSymbol ?: ""
+  private fun WalletInfoEntity.toWalletInfo() =
+    WalletInfo(
+      wallet = wallet,
+      walletBalance = balanceRepository.mapToWalletBalance(
+        creditsValue = balanceRepository.roundToEth(appcCreditsBalanceWei),
+        creditsFiatAmount = appcCreditsBalanceFiat ?: BigDecimal.ZERO,
+        appcValue = balanceRepository.roundToEth(appcBalanceWei),
+        appcFiatAmount = appcBalanceFiat ?: BigDecimal.ZERO,
+        ethValue = balanceRepository.roundToEth(ethBalanceWei),
+        ethFiatAmount = ethBalanceFiat ?: BigDecimal.ZERO,
+        fiatCurrency = fiatCurrency ?: "",
+        fiatSymbol = fiatSymbol ?: ""
+      ),
+      blocked = blocked,
+      verified = verified,
+      logging = logging,
+      hasBackup = hasBackup
+    )
+
+  private fun WalletInfoResponse.toWalletInfoEntity(walletBalance: WalletBalance? = null) =
+    WalletInfoEntity(
+      wallet = wallet.normalize(),
+      appcCreditsBalanceWei = appcCreditsBalanceWei,
+      appcBalanceWei = appcBalanceWei,
+      ethBalanceWei = ethBalanceWei,
+      blocked = blocked,
+      verified = verified,
+      logging = logging,
+      hasBackup = hasBackup,
+      appcCreditsBalanceFiat = walletBalance?.creditsBalance?.fiat?.amount,
+      appcBalanceFiat = walletBalance?.creditsBalance?.fiat?.amount,
+      ethBalanceFiat = walletBalance?.creditsBalance?.fiat?.amount,
+      fiatCurrency = walletBalance?.creditsBalance?.fiat?.currency,
+      fiatSymbol = walletBalance?.creditsBalance?.fiat?.symbol
     )
 
   interface WalletInfoApi {
