@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:paddingTop="16dp"
+    android:paddingBottom="24dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    >
+  <TextView
+      android:id="@+id/total_balance_text_view"
+      style="@style/MyWallets.TotalBalance.Dark"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginEnd="16dp"
+      android:textStyle="bold"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      tools:text="€30.12"
+      />
+
+  <TextView
+      android:id="@+id/appc_balance_text_view"
+      style="@style/MyWallets.TotalAppc"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginEnd="16dp"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/total_balance_text_view"
+      tools:text="5244 APPC-C"
+      />
+
+  <TextView
+      android:id="@+id/total_balance_label_text_view"
+      style="@style/MyWallets.Title.Dark"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="16dp"
+      android:layout_marginBottom="8dp"
+      android:text="@string/wallet_view_total_balance_title"
+      app:layout_constraintBottom_toBottomOf="@id/appc_balance_text_view"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="@id/total_balance_text_view"
+      app:layout_constraintVertical_chainStyle="spread_inside"
+      />
+
+  <View
+      android:id="@+id/appc_frame"
+      android:layout_width="0dp"
+      android:layout_height="80dp"
+      android:layout_marginStart="16dp"
+      android:layout_marginTop="16dp"
+      android:background="@drawable/rectangle_outline_grey_radius_8dp"
+      app:layout_constraintEnd_toStartOf="@id/appcc_frame"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/appc_balance_text_view"
+      />
+
+  <ImageView
+      android:id="@+id/appc_icon"
+      android:layout_width="24dp"
+      android:layout_height="24dp"
+      android:contentDescription="@null"
+      android:scaleType="fitCenter"
+      android:src="@drawable/ic_appc_token"
+      android:transitionName="token_icon_transition"
+      app:layout_constraintBottom_toTopOf="@id/appc_name"
+      app:layout_constraintEnd_toEndOf="@id/appc_frame"
+      app:layout_constraintStart_toStartOf="@id/appc_frame"
+      app:layout_constraintTop_toTopOf="@id/appc_frame"
+      app:layout_constraintVertical_chainStyle="packed"
+      />
+
+  <TextView
+      android:id="@+id/appc_name"
+      style="@style/MyWallets.TotalAppc.Dark"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginVertical="4dp"
+      android:text="@string/appc_token_name"
+      android:transitionName="token_name_transition"
+      app:layout_constraintBottom_toBottomOf="@id/appc_value"
+      app:layout_constraintEnd_toEndOf="@id/appc_frame"
+      app:layout_constraintStart_toStartOf="@id/appc_frame"
+      app:layout_constraintTop_toBottomOf="@id/appc_icon"
+      />
+
+  <TextView
+      android:id="@+id/appc_value"
+      style="@style/MyWallets.TotalAppc"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:transitionName="token_name_transition"
+      app:layout_constraintBottom_toBottomOf="@id/appc_frame"
+      app:layout_constraintEnd_toEndOf="@id/appc_frame"
+      app:layout_constraintStart_toStartOf="@id/appc_frame"
+      app:layout_constraintTop_toBottomOf="@id/appc_name"
+      tools:text="5244 APPC"
+      />
+
+  <View
+      android:id="@+id/appcc_frame"
+      android:layout_width="0dp"
+      android:layout_height="80dp"
+      android:layout_marginHorizontal="8dp"
+      android:layout_marginTop="16dp"
+      android:background="@drawable/rectangle_outline_grey_radius_8dp"
+      app:layout_constraintEnd_toStartOf="@id/eth_frame"
+      app:layout_constraintStart_toEndOf="@id/appc_frame"
+      app:layout_constraintTop_toBottomOf="@id/appc_balance_text_view"
+      />
+
+  <ImageView
+      android:id="@+id/appcc_icon"
+      android:layout_width="24dp"
+      android:layout_height="24dp"
+      android:contentDescription="@null"
+      android:scaleType="fitCenter"
+      android:src="@drawable/ic_appc_c_token"
+      android:transitionName="token_icon_transition"
+      app:layout_constraintBottom_toTopOf="@id/appcc_name"
+      app:layout_constraintEnd_toEndOf="@id/appcc_frame"
+      app:layout_constraintStart_toStartOf="@id/appcc_frame"
+      app:layout_constraintTop_toTopOf="@id/appcc_frame"
+      app:layout_constraintVertical_chainStyle="packed"
+      />
+
+  <TextView
+      android:id="@+id/appcc_name"
+      style="@style/MyWallets.TotalAppc.Dark"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginVertical="4dp"
+      android:text="@string/appc_credits_token_name"
+      android:transitionName="token_name_transition"
+      app:layout_constraintBottom_toBottomOf="@id/appcc_value"
+      app:layout_constraintEnd_toEndOf="@id/appcc_frame"
+      app:layout_constraintStart_toStartOf="@id/appcc_frame"
+      app:layout_constraintTop_toBottomOf="@id/appcc_icon"
+      />
+
+  <TextView
+      android:id="@+id/appcc_value"
+      style="@style/MyWallets.TotalAppc"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:transitionName="token_name_transition"
+      app:layout_constraintBottom_toBottomOf="@id/appcc_frame"
+      app:layout_constraintEnd_toEndOf="@id/appcc_frame"
+      app:layout_constraintStart_toStartOf="@id/appcc_frame"
+      app:layout_constraintTop_toBottomOf="@id/appcc_name"
+      tools:text="5244 APPC-C"
+      />
+
+  <View
+      android:id="@+id/eth_frame"
+      android:layout_width="0dp"
+      android:layout_height="80dp"
+      android:layout_marginTop="16dp"
+      android:layout_marginEnd="16dp"
+      android:background="@drawable/rectangle_outline_grey_radius_8dp"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toEndOf="@id/appcc_frame"
+      app:layout_constraintTop_toBottomOf="@id/appc_balance_text_view"
+      />
+
+  <ImageView
+      android:id="@+id/eth_icon"
+      android:layout_width="24dp"
+      android:layout_height="24dp"
+      android:contentDescription="@null"
+      android:scaleType="fitCenter"
+      android:src="@drawable/ic_eth_token"
+      android:transitionName="token_icon_transition"
+      app:layout_constraintBottom_toTopOf="@id/eth_name"
+      app:layout_constraintEnd_toEndOf="@id/eth_frame"
+      app:layout_constraintStart_toStartOf="@id/eth_frame"
+      app:layout_constraintTop_toTopOf="@id/eth_frame"
+      app:layout_constraintVertical_chainStyle="packed"
+      />
+
+  <TextView
+      android:id="@+id/eth_name"
+      style="@style/MyWallets.TotalAppc.Dark"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginVertical="4dp"
+      android:text="@string/ethereum_token_name"
+      android:transitionName="token_name_transition"
+      app:layout_constraintBottom_toBottomOf="@id/eth_value"
+      app:layout_constraintEnd_toEndOf="@id/eth_frame"
+      app:layout_constraintStart_toStartOf="@id/eth_frame"
+      app:layout_constraintTop_toBottomOf="@id/eth_icon"
+      />
+
+  <TextView
+      android:id="@+id/eth_value"
+      style="@style/MyWallets.TotalAppc"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:transitionName="token_name_transition"
+      app:layout_constraintBottom_toBottomOf="@id/eth_frame"
+      app:layout_constraintEnd_toEndOf="@id/eth_frame"
+      app:layout_constraintStart_toStartOf="@id/eth_frame"
+      app:layout_constraintTop_toBottomOf="@id/eth_name"
+      tools:text="5244 ETH"
+      />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

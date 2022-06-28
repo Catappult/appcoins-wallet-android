@@ -4,33 +4,35 @@ import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
 import android.os.Bundle
+import android.text.format.DateFormat
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.app.ShareCompat
+import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import com.airbnb.epoxy.EpoxyVisibilityTracker
 import com.asf.wallet.R
 import com.asf.wallet.databinding.FragmentMyWalletsBinding
+import com.asfoundation.wallet.base.Async
 import com.asfoundation.wallet.base.SingleStateFragment
 import com.asfoundation.wallet.billing.analytics.WalletsAnalytics
 import com.asfoundation.wallet.billing.analytics.WalletsEventSender
-import com.asfoundation.wallet.my_wallets.main.list.WalletsController
-import com.asfoundation.wallet.my_wallets.main.list.WalletsListEvent
+import com.asfoundation.wallet.entity.Wallet
 import com.asfoundation.wallet.ui.MyAddressActivity
 import com.asfoundation.wallet.ui.balance.BalanceVerificationStatus
 import com.asfoundation.wallet.ui.balance.TokenBalance
 import com.asfoundation.wallet.ui.iab.FiatValue
 import com.asfoundation.wallet.util.CurrencyFormatUtils
 import com.asfoundation.wallet.util.WalletCurrency
-import com.asfoundation.wallet.util.getDrawableURI
-import com.asfoundation.wallet.util.safeLet
+import com.asfoundation.wallet.util.generateQrCode
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
+import com.asfoundation.wallet.wallets.domain.WalletInfo
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import java.math.BigDecimal
+import java.util.*
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -51,9 +53,6 @@ class MyWalletsFragment : BasePageViewFragment(),
   private var binding: FragmentMyWalletsBinding? = null
   private val views get() = binding!!
 
-  private lateinit var walletsController: WalletsController
-  private val epoxyVisibilityTracker = EpoxyVisibilityTracker()
-
   override fun onCreateView(
     inflater: LayoutInflater,
     container: ViewGroup?,
@@ -65,7 +64,6 @@ class MyWalletsFragment : BasePageViewFragment(),
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
-    initializeView()
     setListeners()
     viewModel.collectStateAndEvents(lifecycle, viewLifecycleOwner.lifecycleScope)
   }
@@ -76,143 +74,315 @@ class MyWalletsFragment : BasePageViewFragment(),
   }
 
   override fun onDestroyView() {
-    epoxyVisibilityTracker.detach(views.otherWalletsRecyclerView)
     super.onDestroyView()
     binding = null
   }
 
-  private fun initializeView() {
-    walletsController = WalletsController()
-    walletsController.walletClickListener = { click ->
-      when (click) {
-        WalletsListEvent.CreateNewWalletClick -> navigator.navigateToCreateNewWallet()
-        is WalletsListEvent.OtherWalletClick -> navigator.navigateToChangeActiveWallet(click.walletBalance)
-        is WalletsListEvent.CopyWalletClick -> setAddressToClipBoard(click.walletAddress)
-        is WalletsListEvent.ShareWalletClick -> showShare(click.walletAddress)
-        WalletsListEvent.BackupClick -> {
-          viewModel.state.walletInfoAsync()
-            ?.let { walletInfo ->
-              navigator.navigateToBackupWallet(walletInfo.wallet)
-              walletsEventSender.sendCreateBackupEvent(null, WalletsAnalytics.MY_WALLETS, null)
-            }
-        }
-        WalletsListEvent.VerifyWalletClick -> navigator.navigateToVerifyPicker()
-        WalletsListEvent.VerifyInsertCodeClick -> navigator.navigateToVerifyCreditCard()
-        is WalletsListEvent.QrCodeClick -> navigator.navigateToQrCode(click.view)
-        is WalletsListEvent.TokenClick -> {
-          when (click.token) {
-            WalletsListEvent.TokenClick.Token.APPC -> {
-              navigateToTokenInfo(
-                R.string.appc_token_name,
-                R.string.p2p_send_currency_appc,
-                R.drawable.ic_appc,
-                R.string.balance_appcoins_body,
-                false
-              )
-            }
-            WalletsListEvent.TokenClick.Token.APPC_C -> {
-              navigateToTokenInfo(
-                R.string.appc_credits_token_name,
-                R.string.p2p_send_currency_appc_c,
-                R.drawable.ic_appc_c_token,
-                R.string.balance_appccreditos_body,
-                true
-              )
-            }
-            WalletsListEvent.TokenClick.Token.ETH -> {
-              navigateToTokenInfo(
-                R.string.ethereum_token_name,
-                R.string.p2p_send_currency_eth,
-                R.drawable.ic_eth_token,
-                R.string.balance_ethereum_body,
-                false
-              )
+  private fun setListeners() {
+    views.toolbar.actionButtonMore.setOnClickListener { navigateToMore() }
+    views.toolbar.actionButtonNfts.setOnClickListener { navigator.navigateToNfts() }
+  }
+
+  override fun onStateChanged(state: MyWalletsState) {
+    when (val asyncValue = state.walletInfoAsync) {
+      Async.Uninitialized,
+      is Async.Loading -> {
+        showWalletInfoLoading()
+        showBackupLoading()
+      }
+      is Async.Fail -> Unit
+      is Async.Success -> asyncValue().run {
+        showWalletInfo()
+        showBackup()
+      }
+    }
+    when (val asyncValue = state.walletVerifiedAsync) {
+      Async.Uninitialized,
+      is Async.Loading -> showVerifyLoading()
+      is Async.Fail -> Unit
+      is Async.Success -> asyncValue().run {
+        when (status) {
+          BalanceVerificationStatus.VERIFIED -> showVerified(false)
+          BalanceVerificationStatus.UNVERIFIED -> showUnverified(false)
+          BalanceVerificationStatus.CODE_REQUESTED -> showUnverifiedInsertCode(false)
+          BalanceVerificationStatus.NO_NETWORK, BalanceVerificationStatus.ERROR -> {
+            when (cachedStatus) {
+              BalanceVerificationStatus.VERIFIED -> showVerified(true)
+              BalanceVerificationStatus.UNVERIFIED -> showUnverified(true)
+              BalanceVerificationStatus.CODE_REQUESTED -> showUnverifiedInsertCode(true)
+              else -> showUnverified(true)
             }
           }
-        }
-        is WalletsListEvent.ChangedBalanceVisibility -> {
-          if (click.balanceVisible) {
-            binding?.titleSwitcher?.setText(getString(R.string.wallets_active_wallet_title))
-          } else {
-            viewModel.state.walletInfoAsync()
-              ?.let { balance ->
-                binding?.titleSwitcher?.setText(getFiatBalanceText(balance.walletBalance.overallFiat))
-              }
+          else -> {
+            when (cachedStatus) {
+              BalanceVerificationStatus.VERIFIED -> showVerified(false)
+              BalanceVerificationStatus.UNVERIFIED -> showUnverified(false)
+              BalanceVerificationStatus.CODE_REQUESTED -> showUnverifiedInsertCode(false)
+              BalanceVerificationStatus.VERIFYING -> showVerifying()
+              else -> showUnverified(true)
+            }
           }
         }
       }
     }
-    epoxyVisibilityTracker.attach(views.otherWalletsRecyclerView)
-    views.otherWalletsRecyclerView.setController(walletsController)
   }
 
-  private fun navigateToTokenInfo(
-    tokenNameRes: Int,
-    tokenSymbolRes: Int,
-    tokenImageRes: Int,
-    tokenDescriptionRes: Int,
-    showTopUp: Boolean
-  ) {
-    val title = "${getString(tokenNameRes)} (${getString(tokenSymbolRes)})"
-    val image = requireContext().getDrawableURI(tokenImageRes)
-    val description = getString(tokenDescriptionRes)
-    navigator.navigateToTokenInfo(title, image, description, showTopUp)
+  private fun showWalletInfoLoading() {
+    views.myWalletsContent.qrImage.setImageResource(R.drawable.background_card)
+    views.myWalletsContent.qrImage.isEnabled = false
+
+    views.myWalletsContent.walletNameSkeleton.visibility = View.VISIBLE
+    views.myWalletsContent.walletNameSkeleton.playAnimation()
+    views.myWalletsContent.walletNameTextView.visibility = View.GONE
+
+    views.myWalletsContent.walletAddressSkeleton.visibility = View.VISIBLE
+    views.myWalletsContent.walletAddressSkeleton.playAnimation()
+    views.myWalletsContent.walletAddressTextView.visibility = View.GONE
+
+    views.myWalletsContent.totalBalanceSkeleton.visibility = View.VISIBLE
+    views.myWalletsContent.totalBalanceSkeleton.playAnimation()
+    views.myWalletsContent.totalBalanceTextView.visibility = View.GONE
+
+    views.myWalletsContent.appcBalanceSkeleton.visibility = View.VISIBLE
+    views.myWalletsContent.appcBalanceSkeleton.playAnimation()
+    views.myWalletsContent.appcBalanceTextView.visibility = View.GONE
+
+    views.myWalletsContent.actionButtonEditName.isEnabled = false
+    views.myWalletsContent.actionButtonShareAddress.isEnabled = false
+    views.myWalletsContent.actionButtonCopyAddress.isEnabled = false
   }
 
-  private fun setListeners() {
-    views.actionButtonMore.setOnClickListener { navigateToMore() }
-    views.actionButtonNfts.setOnClickListener { navigator.navigateToNfts() }
+  private fun WalletInfo.showWalletInfo() {
+    try {
+      val logo = ResourcesCompat.getDrawable(resources, R.drawable.ic_appc_token, null)
+      val mergedQrCode = wallet.generateQrCode(requireActivity().windowManager, logo!!)
+      views.myWalletsContent.qrImage.setImageBitmap(mergedQrCode)
+    } catch (e: Exception) {
+      Snackbar.make(
+        views.myWalletsContent.qrImage,
+        getString(R.string.error_fail_generate_qr),
+        Snackbar.LENGTH_SHORT
+      ).show()
+    }
+    views.myWalletsContent.qrImage.isEnabled = true
+    views.myWalletsContent.qrImage.setOnClickListener {
+      navigator.navigateToQrCode(views.myWalletsContent.qrImage)
+    }
+
+    views.myWalletsContent.sendButton.setOnClickListener { navigator.navigateToSend() }
+    views.myWalletsContent.receiveButton.setOnClickListener {
+      navigator.navigateToReceive(Wallet(wallet))
+    }
+
+    val name = wallet.replaceRange(IntRange(6, wallet.length - 5), " ··· ")
+    val address = wallet.replaceRange(IntRange(6, wallet.length - 5), " ··· ")
+
+    views.myWalletsContent.walletNameSkeleton.visibility = View.GONE
+    views.myWalletsContent.walletNameSkeleton.playAnimation()
+    views.myWalletsContent.walletNameTextView.text = name
+    views.myWalletsContent.walletNameTextView.visibility = View.VISIBLE
+
+    views.myWalletsContent.walletAddressSkeleton.visibility = View.GONE
+    views.myWalletsContent.walletAddressSkeleton.playAnimation()
+    views.myWalletsContent.walletAddressTextView.text = address
+    views.myWalletsContent.walletAddressTextView.visibility = View.VISIBLE
+
+    val overallBalance = walletBalance.overallFiat.getFiatBalanceText()
+    if (overallBalance != "-1") {
+      views.myWalletsContent.totalBalanceSkeleton.visibility = View.GONE
+      views.myWalletsContent.totalBalanceSkeleton.cancelAnimation()
+      views.myWalletsContent.totalBalanceTextView.text = overallBalance
+      views.myWalletsContent.totalBalanceTextView.visibility = View.VISIBLE
+    }
+
+    views.myWalletsContent.balanceButton.setOnClickListener {
+      navigator.navigateToBalanceDetails(
+        walletBalance.overallFiat.getFiatBalanceText(),
+        walletBalance.appcBalance.getTokenValueText(WalletCurrency.APPCOINS),
+        walletBalance.creditsBalance.getTokenValueText(WalletCurrency.CREDITS),
+        walletBalance.ethBalance.getTokenValueText(WalletCurrency.ETHEREUM)
+      )
+    }
+
+    val appccBalance = walletBalance.creditsBalance.getTokenValueText(WalletCurrency.CREDITS)
+    if (appccBalance != "-1") {
+      views.myWalletsContent.appcBalanceSkeleton.visibility = View.GONE
+      views.myWalletsContent.appcBalanceSkeleton.cancelAnimation()
+      views.myWalletsContent.appcBalanceTextView.text = appccBalance
+      views.myWalletsContent.appcBalanceTextView.visibility = View.VISIBLE
+    }
+
+    views.myWalletsContent.actionButtonEditName.isEnabled = true
+
+    views.myWalletsContent.actionButtonShareAddress.isEnabled = true
+    views.myWalletsContent.actionButtonShareAddress.setOnClickListener {
+      showShare(wallet)
+    }
+
+    views.myWalletsContent.actionButtonCopyAddress.isEnabled = true
+    views.myWalletsContent.actionButtonCopyAddress.setOnClickListener {
+      setAddressToClipBoard(wallet)
+    }
   }
 
-  override fun onStateChanged(state: MyWalletsState) =
-    walletsController.setData(state.walletsAsync, state.walletVerifiedAsync, state.walletInfoAsync)
+  private fun showBackupLoading() {
+    views.myWalletsContent.backupLoading.visibility = View.VISIBLE
+    views.myWalletsContent.backupAlertIcon.visibility = View.GONE
+    views.myWalletsContent.backupWalletTitle.visibility = View.GONE
+    views.myWalletsContent.backupWalletText.visibility = View.GONE
+    views.myWalletsContent.backupButton.visibility = View.GONE
+  }
+
+  private fun WalletInfo.showBackup() {
+    val imageRes = if (hasBackup) R.drawable.ic_check_circle else R.drawable.ic_alert_circle
+    val colorRes = if (hasBackup) R.color.white else R.color.wild_watermelon
+    val titleRes = if (hasBackup) {
+      R.string.backup_confirmation_no_share_title
+    } else {
+      R.string.my_wallets_action_backup_wallet
+    }
+    // If the date is 0 or 1, then either wallet was not backup yet or the backup date is unknown
+    val text = if (backupDate > 1) {
+      getString(
+        R.string.mywallet_backed_up_date,
+        DateFormat.format("dd/MMM/yyyy", Date(backupDate)).toString()
+      )
+    } else {
+      getString(R.string.backup_wallet_tooltip)
+    }
+    val buttonTextRes = if (hasBackup) {
+      R.string.mywallet_backup_again_button
+    } else {
+      R.string.my_wallets_action_backup_wallet
+    }
+    views.myWalletsContent.backupLoading.visibility = View.GONE
+    views.myWalletsContent.backupAlertIcon.visibility = View.VISIBLE
+    views.myWalletsContent.backupAlertIcon.setImageResource(imageRes)
+    views.myWalletsContent.backupWalletTitle.visibility = View.VISIBLE
+    views.myWalletsContent.backupWalletTitle.setText(titleRes)
+    views.myWalletsContent.backupWalletText.visibility = View.VISIBLE
+    views.myWalletsContent.backupWalletText.text = text
+    views.myWalletsContent.backupButton.visibility = View.VISIBLE
+    views.myWalletsContent.backupButton.setText(buttonTextRes)
+    views.myWalletsContent.backupButton.setTextColor(resources.getColor(colorRes, null))
+    views.myWalletsContent.backupButton.setRippleColorResource(colorRes)
+    views.myWalletsContent.backupButton.setOnClickListener {
+      navigator.navigateToBackupWallet(wallet)
+      walletsEventSender.sendCreateBackupEvent(null, WalletsAnalytics.MY_WALLETS, null)
+    }
+  }
+
+  private fun showVerifyLoading() {
+    views.myWalletsContent.verifyLoading.visibility = View.VISIBLE
+    views.myWalletsContent.verifyLoadingText.visibility = View.GONE
+    views.myWalletsContent.verifyAlertIcon.visibility = View.GONE
+    views.myWalletsContent.verifyWalletTitle.visibility = View.GONE
+    views.myWalletsContent.verifyWalletText.visibility = View.GONE
+    views.myWalletsContent.verifyButton.visibility = View.GONE
+  }
+
+  private fun showVerified(disableButton: Boolean) {
+    views.myWalletsContent.verifyLoading.visibility = View.GONE
+    views.myWalletsContent.verifyLoadingText.visibility = View.GONE
+    views.myWalletsContent.verifyAlertIcon.visibility = View.VISIBLE
+    views.myWalletsContent.verifyAlertIcon.setImageResource(R.drawable.ic_check_circle)
+    views.myWalletsContent.verifyWalletTitle.visibility = View.VISIBLE
+    views.myWalletsContent.verifyWalletTitle.setText(R.string.verification_settings_verified_title)
+    views.myWalletsContent.verifyWalletText.visibility = View.VISIBLE
+    views.myWalletsContent.verifyWalletText.setText(R.string.mywallet_unverified_body)
+    views.myWalletsContent.verifyButton.visibility = View.VISIBLE
+    views.myWalletsContent.verifyButton.isEnabled = !disableButton
+    views.myWalletsContent.verifyButton.setText(R.string.mywallet_verify_payment_method_button)
+    views.myWalletsContent.verifyButton.setTextColor(resources.getColor(R.color.white, null))
+    views.myWalletsContent.verifyButton.setRippleColorResource(R.color.white)
+    views.myWalletsContent.verifyButton.setOnClickListener {
+      navigator.navigateToVerifyPicker()
+    }
+  }
+
+  private fun showUnverified(disableButton: Boolean) {
+    views.myWalletsContent.verifyLoading.visibility = View.GONE
+    views.myWalletsContent.verifyLoadingText.visibility = View.GONE
+    views.myWalletsContent.verifyAlertIcon.visibility = View.VISIBLE
+    views.myWalletsContent.verifyAlertIcon.setImageResource(R.drawable.ic_alert_circle)
+    views.myWalletsContent.verifyWalletTitle.visibility = View.VISIBLE
+    views.myWalletsContent.verifyWalletTitle.setText(R.string.mywallet_unverified_title)
+    views.myWalletsContent.verifyWalletText.visibility = View.VISIBLE
+    views.myWalletsContent.verifyWalletText.setText(R.string.mywallet_unverified_body)
+    views.myWalletsContent.verifyButton.visibility = View.VISIBLE
+    views.myWalletsContent.verifyButton.isEnabled = !disableButton
+    views.myWalletsContent.verifyButton.setText(R.string.referral_view_verify_button)
+    views.myWalletsContent.verifyButton.setTextColor(
+      resources.getColor(
+        R.color.wild_watermelon,
+        null
+      )
+    )
+    views.myWalletsContent.verifyButton.setRippleColorResource(R.color.wild_watermelon)
+    views.myWalletsContent.verifyButton.setOnClickListener {
+      navigator.navigateToVerifyPicker()
+    }
+  }
+
+  private fun showUnverifiedInsertCode(disableButton: Boolean) {
+    views.myWalletsContent.verifyLoading.visibility = View.GONE
+    views.myWalletsContent.verifyLoadingText.visibility = View.GONE
+    views.myWalletsContent.verifyAlertIcon.visibility = View.VISIBLE
+    views.myWalletsContent.verifyAlertIcon.setImageResource(R.drawable.ic_alert_circle)
+    views.myWalletsContent.verifyWalletTitle.visibility = View.VISIBLE
+    views.myWalletsContent.verifyWalletTitle.setText(R.string.card_verification_wallets_one_step_title)
+    views.myWalletsContent.verifyWalletText.visibility = View.VISIBLE
+    views.myWalletsContent.verifyWalletText.setText(R.string.card_verification_wallets_one_step_body)
+    views.myWalletsContent.verifyButton.visibility = View.VISIBLE
+    views.myWalletsContent.verifyButton.isEnabled = !disableButton
+    views.myWalletsContent.verifyButton.setText(R.string.card_verification_wallets_insert_bode_button)
+    views.myWalletsContent.verifyButton.setTextColor(
+      resources.getColor(
+        R.color.wild_watermelon,
+        null
+      )
+    )
+    views.myWalletsContent.verifyButton.setRippleColorResource(R.color.wild_watermelon)
+    views.myWalletsContent.verifyButton.setOnClickListener {
+      navigator.navigateToVerifyCreditCard()
+    }
+  }
+
+  private fun showVerifying() {
+    views.myWalletsContent.verifyLoading.visibility = View.VISIBLE
+    views.myWalletsContent.verifyLoadingText.visibility = View.VISIBLE
+    views.myWalletsContent.verifyAlertIcon.visibility = View.GONE
+    views.myWalletsContent.verifyWalletTitle.visibility = View.GONE
+    views.myWalletsContent.verifyWalletText.visibility = View.GONE
+    views.myWalletsContent.verifyButton.visibility = View.GONE
+  }
 
   override fun onSideEffect(sideEffect: MyWalletsSideEffect) = Unit
 
-  private fun getFiatBalanceText(balance: FiatValue): String {
-    var overallBalance = "-1"
-    if (balance.amount.compareTo(BigDecimal("-1")) == 1) {
-      overallBalance = formatter.formatCurrency(balance.amount)
+  private fun FiatValue.getFiatBalanceText(): String =
+    if (amount.compareTo(BigDecimal("-1")) == 1) {
+      symbol + formatter.formatCurrency(amount)
+    } else {
+      "-1"
     }
-    if (overallBalance != "-1") {
-      return balance.symbol + overallBalance
-    }
-    return overallBalance
-  }
 
-  private fun getTokenValueText(balance: TokenBalance, tokenCurrency: WalletCurrency): String {
-    var tokenBalance = "-1"
-    if (balance.token.amount.compareTo(BigDecimal("-1")) == 1) {
-      tokenBalance = formatter.formatCurrency(balance.token.amount, tokenCurrency)
-    }
-    return tokenBalance
-  }
+  private fun TokenBalance.getTokenValueText(tokenCurrency: WalletCurrency): String =
+    "${
+      if (token.amount.compareTo(BigDecimal("-1")) == 1) {
+        formatter.formatCurrency(token.amount, tokenCurrency)
+      } else {
+        "-1"
+      }
+    } ${token.symbol}"
 
   private fun navigateToMore() {
-    safeLet(
-      viewModel.state.walletInfoAsync(),
-      viewModel.state.walletsAsync(),
-      viewModel.state.walletVerifiedAsync()
-    ) { walletInfo, walletsModel, verifyModel ->
-      val verifyStatus = verifyModel.status ?: verifyModel.cachedStatus
-      val verified = verifyStatus == BalanceVerificationStatus.VERIFIED
-      val overallFiatValue = getFiatBalanceText(walletInfo.walletBalance.overallFiat)
-      val appcoinsValue = "${
-        getTokenValueText(walletInfo.walletBalance.appcBalance, WalletCurrency.APPCOINS)
-      } ${walletInfo.walletBalance.appcBalance.token.symbol}"
-      val creditsValue = "${
-        getTokenValueText(walletInfo.walletBalance.creditsBalance, WalletCurrency.CREDITS)
-      } ${walletInfo.walletBalance.creditsBalance.token.symbol}"
-      val ethValue = "${
-        getTokenValueText(walletInfo.walletBalance.ethBalance, WalletCurrency.ETHEREUM)
-      } ${walletInfo.walletBalance.ethBalance.token.symbol}"
+    viewModel.state.walletInfoAsync()?.run {
       navigator.navigateToMore(
-        walletInfo.wallet,
-        overallFiatValue,
-        appcoinsValue,
-        creditsValue,
-        ethValue,
-        walletsModel.wallets.size > 1
+        wallet,
+        walletBalance.overallFiat.getFiatBalanceText(),
+        walletBalance.appcBalance.getTokenValueText(WalletCurrency.APPCOINS),
+        walletBalance.creditsBalance.getTokenValueText(WalletCurrency.CREDITS),
+        walletBalance.ethBalance.getTokenValueText(WalletCurrency.ETHEREUM)
       )
     }
   }

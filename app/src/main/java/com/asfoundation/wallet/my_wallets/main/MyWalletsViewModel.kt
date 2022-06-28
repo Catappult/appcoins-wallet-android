@@ -8,8 +8,6 @@ import com.asfoundation.wallet.home.usecases.ObserveDefaultWalletUseCase
 import com.asfoundation.wallet.ui.balance.BalanceInteractor
 import com.asfoundation.wallet.ui.balance.BalanceVerificationModel
 import com.asfoundation.wallet.ui.wallets.WalletDetailsInteractor
-import com.asfoundation.wallet.ui.wallets.WalletsInteract
-import com.asfoundation.wallet.ui.wallets.WalletsModel
 import com.asfoundation.wallet.wallets.domain.WalletInfo
 import com.asfoundation.wallet.wallets.usecases.ObserveWalletInfoUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -19,7 +17,6 @@ import javax.inject.Inject
 object MyWalletsSideEffect : SideEffect
 
 data class MyWalletsState(
-  val walletsAsync: Async<WalletsModel> = Async.Uninitialized,
   val walletVerifiedAsync: Async<BalanceVerificationModel> = Async.Uninitialized,
   val walletInfoAsync: Async<WalletInfo> = Async.Uninitialized
 ) : ViewState
@@ -27,7 +24,6 @@ data class MyWalletsState(
 @HiltViewModel
 class MyWalletsViewModel @Inject constructor(
   private val balanceInteractor: BalanceInteractor,
-  private val walletsInteract: WalletsInteract,
   private val walletDetailsInteractor: WalletDetailsInteractor,
   private val observeWalletInfoUseCase: ObserveWalletInfoUseCase,
   private val observeDefaultWalletUseCase: ObserveDefaultWalletUseCase
@@ -47,7 +43,6 @@ class MyWalletsViewModel @Inject constructor(
    * up-to-date.
    */
   fun refreshData(flushAsync: Boolean) {
-    fetchWallets(flushAsync)
     fetchWalletVerified(flushAsync)
     fetchWalletInfo(flushAsync)
   }
@@ -64,16 +59,6 @@ class MyWalletsViewModel @Inject constructor(
       .distinctUntilChanged { old, new -> old == new }
       .flatMapCompletable { walletDetailsInteractor.setActiveWalletSupport(it) }
       .repeatableScopedSubscribe("ObserveCurrentWallet", Throwable::printStackTrace)
-  }
-
-  private fun fetchWallets(flushAsync: Boolean) {
-    val retainValue = if (flushAsync) null else MyWalletsState::walletsAsync
-    walletsInteract.observeWalletsModel()
-      .subscribeOn(Schedulers.io())
-      .asAsyncToState(retainValue) { wallet -> copy(walletsAsync = wallet) }
-      .repeatableScopedSubscribe(MyWalletsState::walletsAsync.name) { e ->
-        e.printStackTrace()
-      }
   }
 
   private fun fetchWalletVerified(flushAsync: Boolean) {

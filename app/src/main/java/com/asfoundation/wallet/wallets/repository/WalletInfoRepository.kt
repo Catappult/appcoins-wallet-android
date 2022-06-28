@@ -23,137 +23,110 @@ class WalletInfoRepository @Inject constructor(
   private val rxSchedulers: RxSchedulers
 ) {
 
-  fun getLatestWalletInfo(
-    walletAddress: String,
-    updateFiatValues: Boolean
-  ): Single<WalletInfo> {
-    return updateWalletInfo(walletAddress, updateFiatValues)
+  fun getLatestWalletInfo(walletAddress: String, updateFiatValues: Boolean): Single<WalletInfo> =
+    updateWalletInfo(walletAddress, updateFiatValues)
       .andThen(observeWalletInfo(walletAddress).firstOrError())
-  }
 
   /**
    * Note that this will fetch from network if no cached value exists, so it is not a true
    * cached value for every case.
    * If you always want to fetch from network, see [observeUpdatedWalletInfo]
    */
-  fun getCachedWalletInfo(walletAddress: String): Single<WalletInfo> {
-    return walletInfoDao.getWalletInfo(walletAddress)
+  fun getCachedWalletInfo(walletAddress: String): Single<WalletInfo> =
+    walletInfoDao.getWalletInfo(walletAddress)
       .flatMap { list ->
         if (list.isNotEmpty()) {
-          return@flatMap Single.just(
-            WalletInfo(
-              list[0].wallet, getWalletBalance(list[0]), list[0].blocked,
-              list[0].verified, list[0].logging, list[0].hasBackup
-            )
-          )
+          Single.just(list[0].toWalletInfo())
+        } else {
+          fetchWalletInfo(walletAddress, updateFiatValues = true)
+            .map { it.toWalletInfo() }
         }
-        return@flatMap fetchWalletInfo(walletAddress, updateFiatValues = true)
-          .map { entity ->
-            return@map WalletInfo(
-              entity.wallet, getWalletBalance(entity), entity.blocked,
-              entity.verified, entity.logging, list[0].hasBackup
-            )
-          }
       }
-  }
 
   fun observeUpdatedWalletInfo(
     walletAddress: String,
     updateFiatValues: Boolean
-  ): Observable<WalletInfo> {
-    return Observable.merge(
-      observeWalletInfo(walletAddress),
-      updateWalletInfo(walletAddress, updateFiatValues).toObservable()
-    )
-  }
+  ): Observable<WalletInfo> = Observable.merge(
+    observeWalletInfo(walletAddress),
+    updateWalletInfo(walletAddress, updateFiatValues).toObservable()
+  )
 
-  fun observeWalletInfo(walletAddress: String): Observable<WalletInfo> {
-    return walletInfoDao.observeWalletInfo(walletAddress.normalize())
-      .map { entity ->
-        return@map WalletInfo(
-          entity.wallet, getWalletBalance(entity), entity.blocked,
-          entity.verified, entity.logging, entity.hasBackup
-        )
-      }
-      .doOnError { e -> e.printStackTrace() }
+  fun observeWalletInfo(walletAddress: String): Observable<WalletInfo> =
+    walletInfoDao.observeWalletInfo(walletAddress.normalize())
+      .map { it.toWalletInfo() }
+      .doOnError(Throwable::printStackTrace)
       .subscribeOn(rxSchedulers.io)
-  }
 
   /**
    * Retrieves Wallet Info and fiat values (if specified), saving it to DB.
    * Fiat values is optional because it involves 3 requests, and it really only is useful in
    * My Wallets for now.
    */
-  fun updateWalletInfo(walletAddress: String, updateFiatValues: Boolean): Completable {
-    return fetchWalletInfo(walletAddress, updateFiatValues)
+  fun updateWalletInfo(walletAddress: String, updateFiatValues: Boolean): Completable =
+    fetchWalletInfo(walletAddress, updateFiatValues)
       .ignoreElement()
       .onErrorComplete()
       .subscribeOn(rxSchedulers.io)
-  }
 
   private fun fetchWalletInfo(
     walletAddress: String,
     updateFiatValues: Boolean
-  ): Single<WalletInfoEntity> {
-    return api.getWalletInfo(walletAddress)
-      .flatMap { walletInfoResponse ->
-        sentryEventLogger.enabled.set(walletInfoResponse.breadcrumbs == 1)
-        if (updateFiatValues) {
-          return@flatMap balanceRepository.getWalletBalance(
-            walletInfoResponse.appcCreditsBalanceWei, walletInfoResponse.appcBalanceWei,
-            walletInfoResponse.ethBalanceWei
-          )
-            .map { walletBalance ->
-              val fiat = walletBalance.creditsBalance.fiat
-              WalletInfoEntity(
-                walletInfoResponse.wallet.normalize(),
-                walletInfoResponse.appcCreditsBalanceWei,
-                walletInfoResponse.appcBalanceWei,
-                walletInfoResponse.ethBalanceWei,
-                walletInfoResponse.blocked,
-                walletInfoResponse.verified,
-                walletInfoResponse.logging,
-                walletInfoResponse.hasBackup,
-                walletBalance.creditsBalance.fiat.amount,
-                walletBalance.appcBalance.fiat.amount,
-                walletBalance.ethBalance.fiat.amount,
-                fiat.currency,
-                fiat.symbol
-              )
-            }
-            .doOnSuccess { entity -> walletInfoDao.insertWalletInfoWithFiat(entity) }
-        }
-        return@flatMap Single.just(
-          WalletInfoEntity(
-            walletInfoResponse.wallet.normalize(),
-            walletInfoResponse.ethBalanceWei,
-            walletInfoResponse.appcBalanceWei, walletInfoResponse.appcCreditsBalanceWei,
-            walletInfoResponse.blocked, walletInfoResponse.verified,
-            walletInfoResponse.logging, walletInfoResponse.hasBackup, null, null, null, null, null
-          )
+  ): Single<WalletInfoEntity> = api.getWalletInfo(walletAddress)
+    .flatMap { walletInfoResponse ->
+      sentryEventLogger.enabled.set(walletInfoResponse.breadcrumbs == 1)
+      if (updateFiatValues) {
+        balanceRepository.getWalletBalance(
+          walletInfoResponse.appcCreditsBalanceWei,
+          walletInfoResponse.appcBalanceWei,
+          walletInfoResponse.ethBalanceWei
         )
-          .doOnSuccess { entity -> walletInfoDao.insertOrUpdateNoFiat(entity) }
+          .map { walletInfoResponse.toWalletInfoEntity(it) }
+          .doOnSuccess(walletInfoDao::insertWalletInfoWithFiat)
+      } else {
+        Single.just(walletInfoResponse.toWalletInfoEntity())
+          .doOnSuccess(walletInfoDao::insertOrUpdateNoFiat)
       }
-      .doOnError { e -> e.printStackTrace() }
-  }
+    }
+    .doOnError(Throwable::printStackTrace)
 
   // This normalization is important as wallet addresses can be received with mixed case
-  private fun String.normalize(): String {
-    return this.toLowerCase(Locale.ROOT)
-  }
+  private fun String.normalize(): String = this.lowercase(Locale.ROOT)
 
-  private fun getWalletBalance(entity: WalletInfoEntity): WalletBalance {
-    val credits = balanceRepository.roundToEth(entity.appcCreditsBalanceWei)
-    val creditsFiatAmount = entity.appcCreditsBalanceFiat ?: BigDecimal.ZERO
-    val appc = balanceRepository.roundToEth(entity.appcBalanceWei)
-    val appcFiatAmount = entity.appcBalanceFiat ?: BigDecimal.ZERO
-    val eth = balanceRepository.roundToEth(entity.ethBalanceWei)
-    val ethFiatAmount = entity.ethBalanceFiat ?: BigDecimal.ZERO
-    return balanceRepository.mapToWalletBalance(
-      credits, creditsFiatAmount, appc,
-      appcFiatAmount, eth, ethFiatAmount, entity.fiatCurrency ?: "", entity.fiatSymbol ?: ""
+  private fun WalletInfoEntity.toWalletInfo() =
+    WalletInfo(
+      wallet = wallet,
+      walletBalance = balanceRepository.mapToWalletBalance(
+        creditsValue = balanceRepository.roundToEth(appcCreditsBalanceWei),
+        creditsFiatAmount = appcCreditsBalanceFiat ?: BigDecimal.ZERO,
+        appcValue = balanceRepository.roundToEth(appcBalanceWei),
+        appcFiatAmount = appcBalanceFiat ?: BigDecimal.ZERO,
+        ethValue = balanceRepository.roundToEth(ethBalanceWei),
+        ethFiatAmount = ethBalanceFiat ?: BigDecimal.ZERO,
+        fiatCurrency = fiatCurrency ?: "",
+        fiatSymbol = fiatSymbol ?: ""
+      ),
+      blocked = blocked,
+      verified = verified,
+      logging = logging,
+      backupDate = hasBackup
     )
-  }
+
+  private fun WalletInfoResponse.toWalletInfoEntity(walletBalance: WalletBalance? = null) =
+    WalletInfoEntity(
+      wallet = wallet.normalize(),
+      appcCreditsBalanceWei = appcCreditsBalanceWei,
+      appcBalanceWei = appcBalanceWei,
+      ethBalanceWei = ethBalanceWei,
+      blocked = blocked,
+      verified = verified,
+      logging = logging,
+      hasBackup = syntheticBackupDate,
+      appcCreditsBalanceFiat = walletBalance?.creditsBalance?.fiat?.amount,
+      appcBalanceFiat = walletBalance?.creditsBalance?.fiat?.amount,
+      ethBalanceFiat = walletBalance?.creditsBalance?.fiat?.amount,
+      fiatCurrency = walletBalance?.creditsBalance?.fiat?.currency,
+      fiatSymbol = walletBalance?.creditsBalance?.fiat?.symbol
+    )
 
   interface WalletInfoApi {
     @GET("/transaction/wallet/{address}/info")

@@ -13,14 +13,8 @@
         android:id="@+id/action_navigate_to_more"
         app:destination="@id/more_dialog_fragment" />
     <action
-        android:id="@+id/action_navigate_to_change_active_wallet"
-        app:destination="@id/change_active_wallet_dialog_fragment" />
-    <action
-        android:id="@+id/action_navigate_to_create_wallet"
-        app:destination="@id/create_wallet_dialog_fragment" />
-    <action
-        android:id="@+id/action_navigate_to_token_info"
-        app:destination="@id/token_info_dialog_fragment" />
+        android:id="@+id/action_navigate_to_balance_details"
+        app:destination="@id/balance_details_fragment" />
     <action
         android:id="@+id/action_navigate_to_verify_credit_card"
         app:destination="@id/verify_credit_card_wallet_activity" />
@@ -33,7 +27,6 @@
     <action
         android:id="@+id/action_navigate_to_qr_code"
         app:destination="@id/qr_code_activity" />
-
     <action
         android:id="@+id/action_navigate_to_nfts"
         app:destination="@id/nfts_fragment" />
@@ -95,9 +88,6 @@
     <argument
         android:name="ethereum_balance"
         app:argType="string" />
-    <argument
-        android:name="show_delete_wallet"
-        app:argType="boolean" />
     <action
         android:id="@+id/action_navigate_to_create_wallet"
         app:destination="@id/create_wallet_dialog_fragment"
@@ -116,12 +106,24 @@
   </dialog>
 
   <dialog
-      android:id="@+id/change_active_wallet_dialog_fragment"
-      android:name="com.asfoundation.wallet.my_wallets.change_wallet.ChangeActiveWalletDialogFragment"
-      tools:layout="@layout/fragment_change_active_wallet">
+      android:id="@+id/balance_details_fragment"
+      android:name="com.asfoundation.wallet.my_wallets.balance_details.BalanceDetailsFragment"
+      tools:layout="@layout/fragment_my_wallets_more">
     <argument
-        android:name="wallet_balance"
-        app:argType="com.asfoundation.wallet.ui.wallets.WalletBalance" />
+        android:name="fiat_balance"
+        app:argType="string" />
+    <argument
+        android:name="appc_balance"
+        app:argType="string" />
+    <argument
+        android:name="credits_balance"
+        app:argType="string" />
+    <argument
+        android:name="ethereum_balance"
+        app:argType="string" />
+    <action
+        android:id="@+id/action_navigate_to_token_info"
+        app:destination="@id/token_info_dialog_fragment" />
   </dialog>
 
   <dialog
