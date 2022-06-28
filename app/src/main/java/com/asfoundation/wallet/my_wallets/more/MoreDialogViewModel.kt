@@ -1,23 +1,84 @@
 package com.asfoundation.wallet.my_wallets.more
 
+import androidx.lifecycle.SavedStateHandle
+import com.asfoundation.wallet.base.Async
 import com.asfoundation.wallet.base.BaseViewModel
 import com.asfoundation.wallet.base.SideEffect
 import com.asfoundation.wallet.base.ViewState
+import com.asfoundation.wallet.ui.wallets.WalletBalance
+import com.asfoundation.wallet.ui.wallets.WalletDetailsInteractor
+import com.asfoundation.wallet.ui.wallets.WalletsInteract
+import com.asfoundation.wallet.util.CurrencyFormatUtils
+import dagger.hilt.android.lifecycle.HiltViewModel
+import io.reactivex.schedulers.Schedulers
+import javax.inject.Inject
 
-sealed class MoreDialogSideEffect : SideEffect
+sealed class MoreDialogSideEffect : SideEffect {
+  object NavigateBack : MoreDialogSideEffect()
+}
 
-data class MoreDialogState(val walletAddress: String, val totalFiatBalance: String,
-                           val appcoinsBalance: String, val creditsBalance: String,
-                           val ethereumBalance: String, val showVerifyCard: Boolean,
-                           val showDeleteWallet: Boolean) : ViewState
-
-class MoreDialogViewModel(private val data: MoreDialogData) :
-    BaseViewModel<MoreDialogState, MoreDialogSideEffect>(initialState(data)) {
+data class MoreDialogStateItem constructor(
+  val isSelected: Boolean,
+  val walletName: String,
+  val walletAddress: String,
+  val fiatBalance: String
+) {
+  constructor(walletAddress: String, walletBalance: WalletBalance) : this(
+    walletAddress == walletBalance.walletAddress,
+    walletBalance.walletAddress,
+    walletBalance.walletAddress,
+    walletBalance.balance.symbol + currencyFormatUtils.formatCurrency(walletBalance.balance.amount)
+  )
 
   companion object {
-    fun initialState(data: MoreDialogData): MoreDialogState {
-      return MoreDialogState(data.walletAddress, data.totalFiatBalance, data.appcoinsBalance,
-          data.creditsBalance, data.ethereumBalance, data.showVerifyCard, data.showDeleteWallet)
-    }
+    private val currencyFormatUtils = CurrencyFormatUtils()
+  }
+}
+
+data class MoreDialogState(
+  val walletAddress: String,
+  val totalFiatBalance: String,
+  val appcoinsBalance: String,
+  val creditsBalance: String,
+  val ethereumBalance: String,
+  val walletsAsync: Async<List<MoreDialogStateItem>> = Async.Uninitialized
+) : ViewState
+
+@HiltViewModel
+class MoreDialogViewModel @Inject constructor(
+  savedStateHandle: SavedStateHandle,
+  private val walletsInteract: WalletsInteract,
+  private val walletDetailsInteractor: WalletDetailsInteractor,
+) :
+  BaseViewModel<MoreDialogState, MoreDialogSideEffect>(initialState(savedStateHandle)) {
+
+  companion object {
+    fun initialState(savedStateHandle: SavedStateHandle): MoreDialogState = MoreDialogState(
+      savedStateHandle.get<String>(MoreDialogFragment.WALLET_ADDRESS_KEY)!!,
+      savedStateHandle.get<String>(MoreDialogFragment.FIAT_BALANCE_KEY)!!,
+      savedStateHandle.get<String>(MoreDialogFragment.APPC_BALANCE_KEY)!!,
+      savedStateHandle.get<String>(MoreDialogFragment.CREDITS_BALANCE_KEY)!!,
+      savedStateHandle.get<String>(MoreDialogFragment.ETHEREUM_BALANCE_KEY)!!,
+    )
+  }
+
+  init {
+    refreshData()
+  }
+
+  fun refreshData() {
+    walletsInteract.observeWalletsModel()
+      .subscribeOn(Schedulers.io())
+      .map { it.wallets.map { MoreDialogStateItem(state.walletAddress, it) } }
+      .asAsyncToState(MoreDialogState::walletsAsync) { wallets -> copy(walletsAsync = wallets) }
+      .repeatableScopedSubscribe(MoreDialogState::walletsAsync.name) { e ->
+        e.printStackTrace()
+      }
+  }
+
+  fun changeActiveWallet(wallet: String) {
+    walletDetailsInteractor.setActiveWallet(wallet)
+      .doOnComplete { sendSideEffect { MoreDialogSideEffect.NavigateBack } }
+      .scopedSubscribe { it.printStackTrace() }
   }
 }

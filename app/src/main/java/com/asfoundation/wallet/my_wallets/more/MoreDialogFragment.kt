@@ -4,14 +4,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.children
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.asf.wallet.R
 import com.asf.wallet.databinding.FragmentMyWalletsMoreBinding
 import com.asfoundation.wallet.base.SingleStateFragment
-import com.asfoundation.wallet.billing.analytics.WalletsAnalytics
-import com.asfoundation.wallet.billing.analytics.WalletsEventSender
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
@@ -22,23 +21,16 @@ class MoreDialogFragment : BottomSheetDialogFragment(),
   SingleStateFragment<MoreDialogState, MoreDialogSideEffect> {
 
   @Inject
-  lateinit var viewModelFactory: MoreDialogViewModelFactory
-
-  @Inject
   lateinit var navigator: MoreDialogNavigator
 
-  @Inject
-  lateinit var walletsEventSender: WalletsEventSender
-
-  private val viewModel: MoreDialogViewModel by viewModels { viewModelFactory }
+  private val viewModel: MoreDialogViewModel by viewModels()
   private val views by viewBinding(FragmentMyWalletsMoreBinding::bind)
 
   override fun onCreateView(
-    inflater: LayoutInflater, container: ViewGroup?,
+    inflater: LayoutInflater,
+    container: ViewGroup?,
     savedInstanceState: Bundle?
-  ): View? {
-    return inflater.inflate(R.layout.fragment_my_wallets_more, container, false)
-  }
+  ): View? = inflater.inflate(R.layout.fragment_my_wallets_more, container, false)
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
@@ -52,32 +44,50 @@ class MoreDialogFragment : BottomSheetDialogFragment(),
     super.onStart()
   }
 
+  override fun onResume() {
+    super.onResume()
+    viewModel.refreshData()
+  }
+
   override fun getTheme(): Int = R.style.AppBottomSheetDialogTheme
 
   override fun onStateChanged(state: MoreDialogState) {
-    views.deleteWalletCardView.visibility = if (state.showDeleteWallet) View.VISIBLE else View.GONE
-    views.verifyCardCardView.visibility = if (state.showVerifyCard) View.VISIBLE else View.GONE
+    val wallets = state.walletsAsync()
+    views.deleteWalletCardView.visibility =
+      if (wallets?.isEmpty() == false) View.VISIBLE else View.GONE
+    views.walletsView.apply {
+      if (wallets.isNullOrEmpty()) {
+        removeAllViews()
+      } else {
+        val difference = wallets.size - childCount
+        if (difference < 0) removeViews(childCount, -difference)
+        children.toList().zip(wallets).forEach {
+          it.second.toWalletItemView(it.first, viewModel::changeActiveWallet)
+        }
+        if (difference > 0) {
+          wallets.listIterator(wallets.size - difference).forEach {
+            addView(it.toWalletItemView(context, viewModel::changeActiveWallet))
+          }
+        }
+      }
+    }
   }
 
-  override fun onSideEffect(sideEffect: MoreDialogSideEffect) = Unit
+  override fun onSideEffect(sideEffect: MoreDialogSideEffect) {
+    when (sideEffect) {
+      MoreDialogSideEffect.NavigateBack -> navigator.navigateBack()
+    }
+  }
 
   private fun setListeners() {
     views.newWalletCardView.setOnClickListener { navigator.navigateToCreateNewWallet() }
     views.recoverWalletCardView.setOnClickListener { navigator.navigateToRestoreWallet() }
-    views.backupWalletCardView.setOnClickListener {
-      walletsEventSender.sendCreateBackupEvent(
-        null,
-        WalletsAnalytics.OVERFLOW,
-        null
-      )
-      navigator.navigateToBackupWallet(viewModel.state.walletAddress)
-    }
-    views.verifyCardCardView.setOnClickListener { navigator.navigateToVerifyNewCard() }
     views.deleteWalletCardView.setOnClickListener {
       navigator.navigateToRemoveWallet(
         viewModel.state.walletAddress,
         viewModel.state.totalFiatBalance,
-        viewModel.state.appcoinsBalance, viewModel.state.creditsBalance,
+        viewModel.state.appcoinsBalance,
+        viewModel.state.creditsBalance,
         viewModel.state.ethereumBalance
       )
     }
@@ -89,7 +99,5 @@ class MoreDialogFragment : BottomSheetDialogFragment(),
     internal const val APPC_BALANCE_KEY = "appc_balance"
     internal const val CREDITS_BALANCE_KEY = "credits_balance"
     internal const val ETHEREUM_BALANCE_KEY = "ethereum_balance"
-    internal const val SHOW_VERIFY_CARD_KEY = "show_verify_card"
-    internal const val SHOW_DELETE_WALLET_KEY = "show_delete_wallet"
   }
 }

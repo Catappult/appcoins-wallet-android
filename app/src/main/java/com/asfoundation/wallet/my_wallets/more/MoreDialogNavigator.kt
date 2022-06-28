@@ -3,31 +3,45 @@ package com.asfoundation.wallet.my_wallets.more
 import androidx.navigation.NavController
 import com.asfoundation.wallet.base.Navigator
 import com.asfoundation.wallet.base.navigate
+import javax.inject.Inject
 
-class MoreDialogNavigator(private val navController: NavController) : Navigator {
+class MoreDialogNavigator @Inject constructor(private val navController: NavController) :
+  Navigator {
 
   fun navigateToCreateNewWallet() {
-    navigate(navController, MoreDialogFragmentDirections.actionNavigateToCreateWallet(needsWalletCreation = true))
+    navigate(
+      navController,
+      MoreDialogFragmentDirections.actionNavigateToCreateWallet(needsWalletCreation = true)
+    )
   }
 
   fun navigateToRestoreWallet() {
-    navigate(navController, MoreDialogFragmentDirections.actionNavigateToRecoverWallet(onboardingLayout = false))
+    navigate(
+      navController,
+      MoreDialogFragmentDirections.actionNavigateToRecoverWallet(onboardingLayout = false)
+    )
   }
 
-  fun navigateToBackupWallet(walletAddress: String) {
-    navigate(navController,
-        MoreDialogFragmentDirections.actionNavigateToBackupWallet(walletAddress))
+  fun navigateToRemoveWallet(
+    walletAddress: String,
+    totalFiatBalance: String,
+    appcoinsBalance: String,
+    creditsBalance: String,
+    ethereumBalance: String
+  ) {
+    navigate(
+      navController,
+      MoreDialogFragmentDirections.actionNavigateToRemoveWallet(
+        walletAddress,
+        totalFiatBalance,
+        appcoinsBalance,
+        creditsBalance,
+        ethereumBalance
+      )
+    )
   }
 
-  fun navigateToRemoveWallet(walletAddress: String, totalFiatBalance: String,
-                             appcoinsBalance: String, creditsBalance: String,
-                             ethereumBalance: String) {
-    navigate(navController,
-        MoreDialogFragmentDirections.actionNavigateToRemoveWallet(walletAddress, totalFiatBalance,
-            appcoinsBalance, creditsBalance, ethereumBalance))
-  }
-
-  fun navigateToVerifyNewCard() {
-    navigate(navController, MoreDialogFragmentDirections.actionNavigateToVerifyNewCard(true))
+  fun navigateBack() {
+    navController.popBackStack()
   }
 }
