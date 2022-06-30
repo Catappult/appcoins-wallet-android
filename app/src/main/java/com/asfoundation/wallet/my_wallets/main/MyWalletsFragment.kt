@@ -170,7 +170,6 @@ class MyWalletsFragment : BasePageViewFragment(),
       navigator.navigateToReceive(Wallet(wallet))
     }
 
-    val name = wallet.replaceRange(IntRange(6, wallet.length - 5), " ··· ")
     val address = wallet.replaceRange(IntRange(6, wallet.length - 5), " ··· ")
 
     views.myWalletsContent.walletNameSkeleton.visibility = View.GONE

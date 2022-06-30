@@ -38,6 +38,7 @@ class WalletsInteract @Inject constructor(
       .map {
         listOf(
           WalletBalance(
+            it.name,
             it.wallet,
             it.walletBalance.overallFiat,
             preferencesRepository.getCurrentWalletAddress() == it.wallet
@@ -61,6 +62,7 @@ class WalletsInteract @Inject constructor(
     .flatMap { getWalletInfoUseCase(it.address, cached = true, updateFiat = false).toObservable() }
     .map {
       WalletBalance(
+        it.name,
         it.wallet,
         it.walletBalance.overallFiat,
         preferencesRepository.getCurrentWalletAddress() == it.wallet
