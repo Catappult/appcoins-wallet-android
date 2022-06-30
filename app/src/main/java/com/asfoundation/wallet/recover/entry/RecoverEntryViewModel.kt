@@ -4,11 +4,13 @@ import android.net.Uri
 import com.asfoundation.wallet.base.*
 import com.asfoundation.wallet.billing.analytics.WalletsAnalytics
 import com.asfoundation.wallet.billing.analytics.WalletsEventSender
+import com.asfoundation.wallet.entity.WalletKeyStore
 import com.asfoundation.wallet.onboarding.use_cases.SetOnboardingCompletedUseCase
 import com.asfoundation.wallet.recover.result.FailedEntryRecover
 import com.asfoundation.wallet.recover.result.RecoverEntryResult
 import com.asfoundation.wallet.recover.result.SuccessfulEntryRecover
 import com.asfoundation.wallet.recover.use_cases.*
+import com.asfoundation.wallet.wallets.repository.WalletInfoRepository
 import com.asfoundation.wallet.wallets.usecases.UpdateWalletInfoUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.Completable
@@ -32,6 +34,7 @@ class RecoverEntryViewModel @Inject constructor(
   private val updateWalletInfoUseCase: UpdateWalletInfoUseCase,
   private val setOnboardingCompletedUseCase: SetOnboardingCompletedUseCase,
   private val updateBackupStateFromRecoverUseCase: UpdateBackupStateFromRecoverUseCase,
+  private val walletInfoRepository: WalletInfoRepository,
   private val walletsEventSender: WalletsEventSender,
   private val rxSchedulers: RxSchedulers
 ) : BaseViewModel<RecoverEntryState, RecoverEntrySideEffect>(initialState()) {
@@ -53,10 +56,10 @@ class RecoverEntryViewModel @Inject constructor(
       .scopedSubscribe()
   }
 
-  private fun fetchWallet(key: String): Single<RecoverEntryResult> =
+  private fun fetchWallet(keyStore: WalletKeyStore): Single<RecoverEntryResult> =
     when {
-      isKeystoreUseCase(key = key) -> recoverEntryKeystoreUseCase(keystore = key)
-      key.length == 64 -> recoverEntryPrivateKeyUseCase(privateKey = key)
+      isKeystoreUseCase(key = keyStore.contents) -> recoverEntryKeystoreUseCase(keyStore = keyStore)
+      keyStore.contents.length == 64 -> recoverEntryPrivateKeyUseCase(keyStore = keyStore)
       else -> Single.just(FailedEntryRecover.InvalidPrivateKey())
     }
 
@@ -66,11 +69,14 @@ class RecoverEntryViewModel @Inject constructor(
       is SuccessfulEntryRecover -> setDefaultWalletUseCase(recoverResult.address)
         .mergeWith(updateWalletInfoUseCase(recoverResult.address, updateFiat = true))
         .andThen(Completable.fromAction { setOnboardingCompletedUseCase() })
-        .andThen(Single.just(recoverResult))
+        .andThen(
+          walletInfoRepository.updateWalletName(recoverResult.address, recoverResult.name)
+        )
+        .toSingleDefault(recoverResult)
     }
 
   fun handleRecoverClick(keystore: String) {
-    fetchWallet(keystore)
+    fetchWallet(WalletKeyStore(null, keystore))
       .flatMap { setDefaultWallet(it) }
       .asAsyncToState { copy(recoverResultAsync = it) }
       .doOnSuccess { handleRecoverResult(it) }
