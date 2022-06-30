@@ -25,7 +25,7 @@ data class MoreDialogStateItem constructor(
 ) {
   constructor(walletAddress: String, walletBalance: WalletBalance) : this(
     walletAddress == walletBalance.walletAddress,
-    walletBalance.walletAddress,
+    walletBalance.walletName,
     walletBalance.walletAddress,
     walletBalance.balance.symbol + currencyFormatUtils.formatCurrency(walletBalance.balance.amount)
   )
