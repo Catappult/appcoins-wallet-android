@@ -11,11 +11,12 @@ import androidx.core.view.get
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
+import by.kirich1409.viewbindingdelegate.viewBinding
 import com.asf.wallet.R
+import com.asf.wallet.databinding.ActivityMainBinding
 import com.asfoundation.wallet.base.SingleStateFragment
 import com.asfoundation.wallet.navigator.setupWithNavController
 import com.asfoundation.wallet.support.SupportNotificationProperties.SUPPORT_NOTIFICATION_CLICK
-import com.asfoundation.wallet.ui.BaseActivity
 import com.asfoundation.wallet.util.Log
 import com.google.android.material.bottomnavigation.BottomNavigationItemView
 import com.google.android.material.bottomnavigation.BottomNavigationMenuView
@@ -36,19 +37,19 @@ class MainActivity : AppCompatActivity(), SingleStateFragment<MainState, MainSid
   }
 
   private val bottomNavItems =
-      listOf(BottomNavItem.HOME, BottomNavItem.PROMOTIONS, BottomNavItem.MY_WALLETS)
+    listOf(BottomNavItem.HOME, BottomNavItem.PROMOTIONS, BottomNavItem.MY_WALLETS)
 
   private var promotionBadge: View? = null
 
   @Inject
   lateinit var navigator: MainActivityNavigator
 
-  @Inject
-  lateinit var mainViewModelFactory: MainViewModelFactory
-  private val viewModel: MainViewModel by viewModels { mainViewModelFactory }
+  private val viewModel: MainViewModel by viewModels()
+  private val views by viewBinding(ActivityMainBinding::bind)
 
   private var currentNavController: LiveData<NavController>? = null
   private var bottomNavigationView: BottomNavigationView? = null
+  private var isFromIap: Boolean = false
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
@@ -60,10 +61,19 @@ class MainActivity : AppCompatActivity(), SingleStateFragment<MainState, MainSid
     viewModel.collectStateAndEvents(lifecycle, lifecycleScope)
   }
 
+  override fun onSaveInstanceState(outState: Bundle) {
+    super.onSaveInstanceState(outState)
+    outState.putBoolean(IS_FROM_IAP, isFromIap)
+  }
+
   override fun onRestoreInstanceState(savedInstanceState: Bundle) {
     super.onRestoreInstanceState(savedInstanceState)
     setupBottomNavigationBar()
     addPromotionNotificationBadge()
+    isFromIap = savedInstanceState.getBoolean(IS_FROM_IAP, false)
+    if (isFromIap) {
+      views.fragmentContainer.visibility = View.VISIBLE
+    }
   }
 
   override fun onStateChanged(state: MainState) {
@@ -77,7 +87,14 @@ class MainActivity : AppCompatActivity(), SingleStateFragment<MainState, MainSid
   override fun onSideEffect(sideEffect: MainSideEffect) {
     when (sideEffect) {
       MainSideEffect.ShowPromotionsTooltip -> showPromotionsOverlay()
+      MainSideEffect.ShowOnboardingIapScreen -> showOnboardingIapScreen()
     }
+  }
+
+  private fun showOnboardingIapScreen() {
+    isFromIap = true
+    views.fragmentContainer.visibility = View.VISIBLE
+    navigator.showOnboardingIapScreen(this)
   }
 
   private fun showPromotionsOverlay() {
@@ -96,15 +113,15 @@ class MainActivity : AppCompatActivity(), SingleStateFragment<MainState, MainSid
     val navGraphIds = bottomNavItems.map { it.navGraphIdRes }
 
     val controller = bottomNavigationView?.setupWithNavController(
-        navGraphIds = navGraphIds,
-        fragmentManager = supportFragmentManager,
-        containerId = R.id.nav_host_container,
-        intent = intent,
-        onSelectedItem = { index ->
-          if (index == bottomNavItems.indexOf(BottomNavItem.PROMOTIONS)) {
-            viewModel.navigatedToPromotions()
-          }
+      navGraphIds = navGraphIds,
+      fragmentManager = supportFragmentManager,
+      containerId = R.id.nav_host_container,
+      intent = intent,
+      onSelectedItem = { index ->
+        if (index == bottomNavItems.indexOf(BottomNavItem.PROMOTIONS)) {
+          viewModel.navigatedToPromotions()
         }
+      }
     )
     setupTopUpItem(bottomNavigationView)
 
@@ -125,7 +142,7 @@ class MainActivity : AppCompatActivity(), SingleStateFragment<MainState, MainSid
     val menuView = bottomNavigationView?.getChildAt(0) as BottomNavigationMenuView
     val topUpItemView = menuView.getChildAt(bottomNavItems.size) as BottomNavigationItemView
     val topUpCustomView = LayoutInflater.from(this)
-        .inflate(R.layout.bottom_nav_top_up_item, menuView, false)
+      .inflate(R.layout.bottom_nav_top_up_item, menuView, false)
     topUpCustomView.setOnClickListener {
       navigator.navigateToTopUp()
     }
@@ -137,7 +154,7 @@ class MainActivity : AppCompatActivity(), SingleStateFragment<MainState, MainSid
     val promotionsIcon = menuView.getChildAt(bottomNavItems.indexOf(BottomNavItem.PROMOTIONS))
     val itemView = promotionsIcon as BottomNavigationItemView
     promotionBadge = LayoutInflater.from(this)
-        .inflate(R.layout.notification_badge, menuView, false)
+      .inflate(R.layout.notification_badge, menuView, false)
     promotionBadge?.visibility = View.INVISIBLE
     itemView.addView(promotionBadge)
   }
@@ -148,6 +165,7 @@ class MainActivity : AppCompatActivity(), SingleStateFragment<MainState, MainSid
 
   companion object {
     private const val TAG = "MainActivity"
+    private const val IS_FROM_IAP = "is_from_iap"
 
     fun newIntent(context: Context, supportNotificationClicked: Boolean): Intent {
       return Intent(context, MainActivity::class.java).apply {

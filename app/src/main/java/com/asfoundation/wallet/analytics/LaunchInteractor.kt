@@ -5,9 +5,11 @@ import android.content.pm.PackageManager
 import com.asf.wallet.BuildConfig
 import javax.inject.Inject
 
-class LaunchInteractor @Inject constructor(private val sharedPreferences: SharedPreferences,
-                                           private val packageManager: PackageManager,
-                                           private val installReferrerAnalytics: InstallReferrerAnalytics ) {
+class LaunchInteractor @Inject constructor(
+  private val sharedPreferences: SharedPreferences,
+  private val packageManager: PackageManager,
+  private val installReferrerAnalytics: InstallReferrerAnalytics
+) {
 
   companion object {
     const val FIRST_LAUNCH_KEY = "first_launch"
@@ -15,19 +17,19 @@ class LaunchInteractor @Inject constructor(private val sharedPreferences: Shared
 
   fun sendFirstLaunchEvent() {
     if (isFirstInstall() && sharedPreferences.getBoolean(FIRST_LAUNCH_KEY, true)) {
-      installReferrerAnalytics.sendFirstInstallInfo()
+      installReferrerAnalytics.sendFirstInstallInfo(sendEvent = true)
       sharedPreferences.edit()
-          .putBoolean(FIRST_LAUNCH_KEY, false)
-          .apply()
+        .putBoolean(FIRST_LAUNCH_KEY, false)
+        .apply()
     }
   }
 
   private fun isFirstInstall(): Boolean {
     return try {
       val firstInstallTime: Long =
-          packageManager.getPackageInfo(BuildConfig.APPLICATION_ID, 0).firstInstallTime
+        packageManager.getPackageInfo(BuildConfig.APPLICATION_ID, 0).firstInstallTime
       val lastUpdateTime: Long =
-          packageManager.getPackageInfo(BuildConfig.APPLICATION_ID, 0).lastUpdateTime
+        packageManager.getPackageInfo(BuildConfig.APPLICATION_ID, 0).lastUpdateTime
       firstInstallTime == lastUpdateTime
     } catch (e: PackageManager.NameNotFoundException) {
       e.printStackTrace()

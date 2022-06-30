@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.Intent
 import androidx.navigation.NavDeepLinkBuilder
 import com.asf.wallet.R
+import com.asfoundation.wallet.onboarding.iap.OnboardingIapFragment
 import com.asfoundation.wallet.topup.TopUpActivity
 import com.asfoundation.wallet.ui.overlay.OverlayFragment
 import dagger.hilt.android.qualifiers.ApplicationContext
@@ -14,10 +15,10 @@ class MainActivityNavigator @Inject constructor(@ApplicationContext val context:
 
   fun getHomePendingIntent(): PendingIntent {
     return NavDeepLinkBuilder(context)
-        .setGraph(R.navigation.home_graph)
-        .setDestination(R.id.home_fragment)
-        .setComponentName(MainActivity::class.java)
-        .createPendingIntent()
+      .setGraph(R.navigation.home_graph)
+      .setDestination(R.id.home_fragment)
+      .setComponentName(MainActivity::class.java)
+      .createPendingIntent()
     // PendingIntents from androidx.navigation are not working on android 12.
     // Was used for the "got it" button after completing a eth transfer and on the "ok" button after a topup.
     // The solution is to update the androidx.navigation to 2.4.0 or higher.
@@ -34,10 +35,10 @@ class MainActivityNavigator @Inject constructor(@ApplicationContext val context:
 
   fun getPromotionsPendingIntent(): PendingIntent {
     return NavDeepLinkBuilder(context)
-        .setGraph(R.navigation.promotions_graph)
-        .setDestination(R.id.promotions_fragment)
-        .setComponentName(MainActivity::class.java)
-        .createPendingIntent()
+      .setGraph(R.navigation.promotions_graph)
+      .setDestination(R.id.promotions_fragment)
+      .setComponentName(MainActivity::class.java)
+      .createPendingIntent()
   }
 
   fun navigateToPromotions() {
@@ -51,10 +52,10 @@ class MainActivityNavigator @Inject constructor(@ApplicationContext val context:
 
   fun getMyWalletsPendingIntent(): PendingIntent {
     return NavDeepLinkBuilder(context)
-        .setGraph(R.navigation.my_wallets_graph)
-        .setDestination(R.id.my_wallets_fragment)
-        .setComponentName(MainActivity::class.java)
-        .createPendingIntent()
+      .setGraph(R.navigation.my_wallets_graph)
+      .setDestination(R.id.my_wallets_fragment)
+      .setComponentName(MainActivity::class.java)
+      .createPendingIntent()
   }
 
   fun navigateToMyWallets() {
@@ -68,20 +69,34 @@ class MainActivityNavigator @Inject constructor(@ApplicationContext val context:
 
   fun navigateToTopUp() {
     val intent = TopUpActivity.newIntent(context)
-        .apply { flags = Intent.FLAG_ACTIVITY_SINGLE_TOP or Intent.FLAG_ACTIVITY_NEW_TASK}
+      .apply { flags = Intent.FLAG_ACTIVITY_SINGLE_TOP or Intent.FLAG_ACTIVITY_NEW_TASK }
     context.startActivity(intent)
   }
 
   fun showPromotionsOverlay(index: Int) {
     if (context is MainActivity) {
       context.supportFragmentManager.beginTransaction()
-          .setCustomAnimations(R.anim.fragment_fade_in_animation,
-              R.anim.fragment_fade_out_animation, R.anim.fragment_fade_in_animation,
-              R.anim.fragment_fade_out_animation)
-          .add(R.id.tooltip_container,
-              OverlayFragment.newInstance(index))
-          .addToBackStack(OverlayFragment::class.java.name)
-          .commit()
+        .setCustomAnimations(
+          R.anim.fragment_fade_in_animation,
+          R.anim.fragment_fade_out_animation, R.anim.fragment_fade_in_animation,
+          R.anim.fragment_fade_out_animation
+        )
+        .add(
+          R.id.tooltip_container,
+          OverlayFragment.newInstance(index)
+        )
+        .addToBackStack(OverlayFragment::class.java.name)
+        .commit()
     }
+  }
+
+  fun showOnboardingIapScreen(mainActivity: MainActivity) {
+    mainActivity.supportFragmentManager.beginTransaction()
+      .add(
+        R.id.fragment_container,
+        OnboardingIapFragment.newInstance()
+      )
+      .addToBackStack(OnboardingIapFragment::class.java.name)
+      .commit()
   }
 }

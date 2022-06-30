@@ -3,6 +3,7 @@ package com.asfoundation.wallet.ui.splash
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import com.asfoundation.wallet.analytics.InstallReferrerAnalytics
 import com.asfoundation.wallet.support.SupportNotificationProperties.SUPPORT_NOTIFICATION_CLICK
 import com.asfoundation.wallet.ui.BaseActivity
 import dagger.hilt.android.AndroidEntryPoint
@@ -14,17 +15,21 @@ class SplashActivity : BaseActivity(), SplashView {
   @Inject
   lateinit var presenter: SplashPresenter
 
+  @Inject
+  lateinit var installReferrerAnalytics: InstallReferrerAnalytics
+
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     presenter.present(savedInstanceState)
 
-    checkFirstRun()
+    handleFirstRun()
   }
 
-  fun checkFirstRun() {
+  fun handleFirstRun() {
     val isFirstRun = getSharedPreferences("PREFERENCE", 0)
       .getBoolean("isFirstRun", true)
     if (isFirstRun) {
+      installReferrerAnalytics.sendFirstInstallInfo(sendEvent = false)
       ApkOriginVerification(this)
       getSharedPreferences("PREFERENCE", 0)
         .edit()

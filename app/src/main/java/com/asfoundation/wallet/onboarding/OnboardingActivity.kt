@@ -11,13 +11,14 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class OnboardingActivity : BaseActivity() {
   companion object {
+    private const val FROM_IAP = "from_iap"
+
     @JvmStatic
-    fun newIntent(context: Context, fromSupportNotification: Boolean = false): Intent {
-      val intent = Intent(context, OnboardingActivity::class.java)
-      intent.putExtra(SupportNotificationProperties.SUPPORT_NOTIFICATION_CLICK,
-          fromSupportNotification)
-      return intent
-    }
+    fun newIntent(context: Context, fromIap : Boolean, fromSupportNotification: Boolean = false) =
+      Intent(context, OnboardingActivity::class.java).apply {
+        putExtra(SupportNotificationProperties.SUPPORT_NOTIFICATION_CLICK, fromSupportNotification)
+        putExtra(FROM_IAP, fromIap)
+      }
   }
 
   override fun onCreate(savedInstanceState: Bundle?) {
