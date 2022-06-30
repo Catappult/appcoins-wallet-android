@@ -31,3 +31,5 @@ data class WalletInfoUpdateWithBalance(
 )
 
 data class WalletInfoUpdateName(val wallet: String, val name: String?)
+
+data class WalletInfoDelete(val wallet: String)

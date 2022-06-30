@@ -93,6 +93,11 @@ class WalletInfoRepository @Inject constructor(
       .doOnError(Throwable::printStackTrace)
       .onErrorComplete()
 
+  fun deleteWalletInfo(walletAddress: String): Completable =
+    Completable.fromAction { walletInfoDao.deleteByAddress(walletAddress) }
+      .onErrorComplete()
+      .subscribeOn(rxSchedulers.io)
+
   private fun fetchWalletInfo(
     walletAddress: String,
     updateFiatValues: Boolean

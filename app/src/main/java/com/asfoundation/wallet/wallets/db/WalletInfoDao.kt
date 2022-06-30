@@ -1,10 +1,7 @@
 package com.asfoundation.wallet.wallets.db
 
 import androidx.room.*
-import com.asfoundation.wallet.wallets.db.entity.WalletInfoEntity
-import com.asfoundation.wallet.wallets.db.entity.WalletInfoUpdate
-import com.asfoundation.wallet.wallets.db.entity.WalletInfoUpdateName
-import com.asfoundation.wallet.wallets.db.entity.WalletInfoUpdateWithBalance
+import com.asfoundation.wallet.wallets.db.entity.*
 import io.reactivex.Observable
 import io.reactivex.Single
 
@@ -21,6 +18,9 @@ interface WalletInfoDao {
 
   @Update(entity = WalletInfoEntity::class)
   fun updateWalletInfo(walletInfoUpdateName: WalletInfoUpdateName)
+
+  @Delete(entity = WalletInfoEntity::class)
+  fun deleteWalletInfo(walletInfoDelete: WalletInfoDelete)
 
   /**
    * Attempts to insert a WalletInfoEntity without fiat values. If it already exists, it just
@@ -89,6 +89,9 @@ interface WalletInfoDao {
       )
     }
   }
+
+  @Transaction
+  fun deleteByAddress(walletAddress: String) = deleteWalletInfo(WalletInfoDelete(walletAddress))
 
   @Query("SELECT * FROM WalletInfoEntity WHERE wallet = :walletAddress LIMIT 1")
   fun observeWalletInfo(walletAddress: String): Observable<WalletInfoEntity>
