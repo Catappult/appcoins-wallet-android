@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.recover.use_cases
 
+import com.asfoundation.wallet.entity.WalletKeyStore
 import com.asfoundation.wallet.recover.result.RecoverEntryResult
 import com.asfoundation.wallet.recover.result.RecoverEntryResultMapper
 import com.asfoundation.wallet.repository.PasswordStore
@@ -16,10 +17,10 @@ class RecoverEntryPrivateKeyUseCase @Inject constructor(
   private val currencyFormatUtils: CurrencyFormatUtils
 ) {
 
-  operator fun invoke(privateKey: String): Single<RecoverEntryResult> =
+  operator fun invoke(keyStore: WalletKeyStore): Single<RecoverEntryResult> =
     passwordStore.generatePassword()
-      .flatMap { walletRepository.restorePrivateKeyToWallet(privateKey, it) }
+      .flatMap { walletRepository.restorePrivateKeyToWallet(keyStore.contents, it) }
       .flatMap {
-        RecoverEntryResultMapper(getWalletInfoUseCase, currencyFormatUtils, privateKey).map(it)
+        RecoverEntryResultMapper(getWalletInfoUseCase, currencyFormatUtils, keyStore).map(it)
       }
 }

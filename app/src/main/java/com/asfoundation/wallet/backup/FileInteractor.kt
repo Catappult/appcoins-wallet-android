@@ -5,8 +5,11 @@ import android.content.Context
 import android.net.Uri
 import android.os.Build
 import android.os.Environment
+import android.provider.OpenableColumns
 import androidx.core.content.FileProvider
+import androidx.core.database.getStringOrNull
 import com.asf.wallet.BuildConfig
+import com.asfoundation.wallet.entity.WalletKeyStore
 import dagger.hilt.android.qualifiers.ApplicationContext
 import io.reactivex.Single
 import java.io.File
@@ -29,13 +32,23 @@ class FileInteractor @Inject constructor(
   fun getUriFromFile(file: File): Uri =
     FileProvider.getUriForFile(context, BuildConfig.APPLICATION_ID + ".provider", file)
 
-  fun readFile(fileUri: Uri?): Single<String> = Single
+  fun readFile(fileUri: Uri?): Single<WalletKeyStore> = Single
     .fromCallable {
       if (fileUri == null || fileUri.path == null) throw Throwable("Error retrieving file")
-      contentResolver.openInputStream(fileUri)
-        ?.reader()
-        ?.useLines { it.joinToString(separator = "\n", postfix = "\n") }
-        ?: ""
+      WalletKeyStore(
+        name = contentResolver.query(fileUri, null, null, null, null)
+          ?.run {
+            moveToFirst()
+            val name = getStringOrNull(getColumnIndexOrThrow(OpenableColumns.DISPLAY_NAME))
+            close()
+            name
+          }
+          ?.replace(Regex(".bck$"), ""),
+        contents = contentResolver.openInputStream(fileUri)
+          ?.reader()
+          ?.useLines { it.joinToString(separator = "\n", postfix = "\n") }
+          ?: ""
+      )
     }
     .doOnError(Throwable::printStackTrace)
 }
