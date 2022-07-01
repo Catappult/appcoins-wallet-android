@@ -40,6 +40,16 @@ class MyWalletsNavigator @Inject constructor(
     )
   }
 
+  fun navigateToName(
+    walletAddress: String,
+    walletName: String,
+  ) {
+    navigate(
+      navController,
+      MyWalletsFragmentDirections.actionNavigateToName(walletAddress, walletName)
+    )
+  }
+
   fun navigateToBalanceDetails(
     totalFiatBalance: String,
     appcoinsBalance: String,

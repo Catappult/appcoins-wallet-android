@@ -200,6 +200,9 @@ class MyWalletsFragment : BasePageViewFragment(),
     }
 
     views.myWalletsContent.actionButtonEditName.isEnabled = true
+    views.myWalletsContent.actionButtonEditName.setOnClickListener {
+      navigator.navigateToName(wallet, name)
+    }
 
     views.myWalletsContent.actionButtonShareAddress.isEnabled = true
     views.myWalletsContent.actionButtonShareAddress.setOnClickListener {
