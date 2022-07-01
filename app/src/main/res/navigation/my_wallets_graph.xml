@@ -13,6 +13,9 @@
         android:id="@+id/action_navigate_to_more"
         app:destination="@id/more_dialog_fragment" />
     <action
+        android:id="@+id/action_navigate_to_name"
+        app:destination="@id/name_dialog_fragment" />
+    <action
         android:id="@+id/action_navigate_to_balance_details"
         app:destination="@id/balance_details_fragment" />
     <action
@@ -103,6 +106,18 @@
         app:destination="@id/remove_wallet_activity"
         app:popUpTo="@id/more_dialog_fragment"
         app:popUpToInclusive="true" />
+  </dialog>
+
+  <dialog
+      android:id="@+id/name_dialog_fragment"
+      android:name="com.asfoundation.wallet.my_wallets.name.NameDialogFragment"
+      tools:layout="@layout/fragment_my_wallets_name">
+    <argument
+        android:name="wallet_address"
+        app:argType="string" />
+    <argument
+        android:name="wallet_name"
+        app:argType="string" />
   </dialog>
 
   <dialog
