@@ -43,7 +43,6 @@ class BalanceDetailsFragment : BottomSheetDialogFragment() {
 
   private fun setData() = requireArguments().run {
     views.totalBalanceTextView.text = getString(FIAT_BALANCE_KEY)
-    views.appcBalanceTextView.text = getString(APPC_BALANCE_KEY)
     views.appcValue.text = getString(APPC_BALANCE_KEY)
     views.appccValue.text = getString(CREDITS_BALANCE_KEY)
     views.ethValue.text = getString(ETHEREUM_BALANCE_KEY)
