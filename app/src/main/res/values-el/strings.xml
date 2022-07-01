@@ -1082,5 +1082,5 @@ Wallets</item>
   <string name="onboarding_1st_title">Συγχαρητήρια! Εγκαταστήσατε το AppCoins Wallet.</string>
   <string name="onboarding_1st_body">Επιστρέψτε στο παιχνίδι για να ολοκληρώσετε την αγορά σας.</string>
   <string name="onboarding_1st_back_to_game_button">Επιστρέψτε στο παιχνίδι</string>
-  <string name="onboarding_1st_explore_wallet_button">Ή εξερευνήστε το AppCoins Wallet</string>
+  <string name="onboarding_1st_explore_wallet_button">Or explore the Wallet</string>
 </resources>

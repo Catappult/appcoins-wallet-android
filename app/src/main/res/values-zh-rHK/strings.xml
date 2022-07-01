@@ -1072,5 +1072,5 @@
   <string name="onboarding_1st_title">Congrats! You\'ve installed the AppCoins Wallet.</string>
   <string name="onboarding_1st_body">Go back to the game to complete your purchase.</string>
   <string name="onboarding_1st_back_to_game_button">Go back to the game</string>
-  <string name="onboarding_1st_explore_wallet_button">Or explore the AppCoins Wallet</string>
+  <string name="onboarding_1st_explore_wallet_button">Or explore the Wallet</string>
 </resources>

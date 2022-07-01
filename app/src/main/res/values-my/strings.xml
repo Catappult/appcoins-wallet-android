@@ -1072,5 +1072,5 @@
   <string name="onboarding_1st_title">ဂုဏ္ယူပါသည္။ AppCoins Wallet ကို ထည့္သြင္းလိုက္ပါၿပီ။</string>
   <string name="onboarding_1st_body">သင့္ဝယ္ယူမႈကို အၿပီးသတ္ရန္ ဂိမ္းသို႔ျပန္သြားပါ။</string>
   <string name="onboarding_1st_back_to_game_button">ဂိမ္းသို႔ျပန္သြားမည္</string>
-  <string name="onboarding_1st_explore_wallet_button">သို႔မဟုတ္ AppCoins Wallet ကို လိုက္ၾကည့္မည္</string>
+  <string name="onboarding_1st_explore_wallet_button">Or explore the Wallet</string>
 </resources>
