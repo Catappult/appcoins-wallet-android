@@ -1090,5 +1090,5 @@
   <string name="onboarding_1st_title">Čestitamo! Instalirali ste AppCoins Wallet.</string>
   <string name="onboarding_1st_body">Vratite se u igru da biste dovršili svoju kupovinu.</string>
   <string name="onboarding_1st_back_to_game_button">Vratite se u igru</string>
-  <string name="onboarding_1st_explore_wallet_button">Ili istražite AppCoins Wallet</string>
+  <string name="onboarding_1st_explore_wallet_button">Or explore the Wallet</string>
 </resources>
