@@ -143,10 +143,6 @@ class MyWalletsFragment : BasePageViewFragment(),
     views.myWalletsContent.totalBalanceSkeleton.playAnimation()
     views.myWalletsContent.totalBalanceTextView.visibility = View.GONE
 
-    views.myWalletsContent.appcBalanceSkeleton.visibility = View.VISIBLE
-    views.myWalletsContent.appcBalanceSkeleton.playAnimation()
-    views.myWalletsContent.appcBalanceTextView.visibility = View.GONE
-
     views.myWalletsContent.actionButtonEditName.isEnabled = false
     views.myWalletsContent.actionButtonShareAddress.isEnabled = false
     views.myWalletsContent.actionButtonCopyAddress.isEnabled = false
@@ -202,14 +198,6 @@ class MyWalletsFragment : BasePageViewFragment(),
         walletBalance.creditsBalance.getTokenValueText(WalletCurrency.CREDITS),
         walletBalance.ethBalance.getTokenValueText(WalletCurrency.ETHEREUM)
       )
-    }
-
-    val appccBalance = walletBalance.creditsBalance.getTokenValueText(WalletCurrency.CREDITS)
-    if (appccBalance != "-1") {
-      views.myWalletsContent.appcBalanceSkeleton.visibility = View.GONE
-      views.myWalletsContent.appcBalanceSkeleton.cancelAnimation()
-      views.myWalletsContent.appcBalanceTextView.text = appccBalance
-      views.myWalletsContent.appcBalanceTextView.visibility = View.VISIBLE
     }
 
     views.myWalletsContent.actionButtonEditName.isEnabled = true

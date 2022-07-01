@@ -20,28 +20,15 @@
       />
 
   <TextView
-      android:id="@+id/appc_balance_text_view"
-      style="@style/MyWallets.TotalAppc"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_marginEnd="16dp"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintTop_toBottomOf="@id/total_balance_text_view"
-      tools:text="5244 APPC-C"
-      />
-
-  <TextView
       android:id="@+id/total_balance_label_text_view"
       style="@style/MyWallets.Title.Dark"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_marginStart="16dp"
-      android:layout_marginBottom="8dp"
       android:text="@string/wallet_view_total_balance_title"
-      app:layout_constraintBottom_toBottomOf="@id/appc_balance_text_view"
+      app:layout_constraintBottom_toBottomOf="@id/total_balance_text_view"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="@id/total_balance_text_view"
-      app:layout_constraintVertical_chainStyle="spread_inside"
       />
 
   <View
@@ -53,7 +40,7 @@
       android:background="@drawable/rectangle_outline_grey_radius_8dp"
       app:layout_constraintEnd_toStartOf="@id/appcc_frame"
       app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@id/appc_balance_text_view"
+      app:layout_constraintTop_toBottomOf="@id/total_balance_text_view"
       />
 
   <ImageView
@@ -107,7 +94,7 @@
       android:background="@drawable/rectangle_outline_grey_radius_8dp"
       app:layout_constraintEnd_toStartOf="@id/eth_frame"
       app:layout_constraintStart_toEndOf="@id/appc_frame"
-      app:layout_constraintTop_toBottomOf="@id/appc_balance_text_view"
+      app:layout_constraintTop_toBottomOf="@id/total_balance_text_view"
       />
 
   <ImageView
@@ -161,7 +148,7 @@
       android:background="@drawable/rectangle_outline_grey_radius_8dp"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toEndOf="@id/appcc_frame"
-      app:layout_constraintTop_toBottomOf="@id/appc_balance_text_view"
+      app:layout_constraintTop_toBottomOf="@id/total_balance_text_view"
       />
 
   <ImageView
