@@ -27,17 +27,13 @@ import javax.inject.Inject
 class BackupSaveOnDeviceDialogFragment : BottomSheetDialogFragment(),
   SingleStateFragment<BackupSaveOnDeviceDialogState, BackupSaveOnDeviceDialogSideEffect> {
 
-
-  @Inject
-  lateinit var backupSaveOnDeviceDialogViewModelFactory: BackupSaveOnDeviceDialogViewModelFactory
-
   @Inject
   lateinit var navigator: BackupSaveOnDeviceDialogNavigator
 
   private lateinit var requestPermissionsLauncher: ActivityResultLauncher<String>
   private lateinit var openDocumentTreeResultLauncher: ActivityResultLauncher<Intent>
 
-  private val viewModel: BackupSaveOnDeviceDialogViewModel by viewModels { backupSaveOnDeviceDialogViewModelFactory }
+  private val viewModel: BackupSaveOnDeviceDialogViewModel by viewModels()
   private val views by viewBinding(BackupSaveOnDeviceDialogFragmentBinding::bind)
 
   companion object {
@@ -46,16 +42,14 @@ class BackupSaveOnDeviceDialogFragment : BottomSheetDialogFragment(),
     private const val FILE_NAME_EXTRA_KEY = "file_name"
 
     @JvmStatic
-    fun newInstance(walletAddress: String, password: String): BackupSaveOnDeviceDialogFragment {
-      return BackupSaveOnDeviceDialogFragment()
+    fun newInstance(walletAddress: String, password: String) =
+      BackupSaveOnDeviceDialogFragment()
         .apply {
           arguments = Bundle().apply {
             putString(WALLET_ADDRESS_KEY, walletAddress)
             putString(PASSWORD_KEY, password)
           }
         }
-    }
-
   }
 
   override fun onCreate(savedInstanceState: Bundle?) {
@@ -87,9 +81,7 @@ class BackupSaveOnDeviceDialogFragment : BottomSheetDialogFragment(),
   override fun onCreateView(
     inflater: LayoutInflater, container: ViewGroup?,
     savedInstanceState: Bundle?
-  ): View? {
-    return inflater.inflate(R.layout.backup_save_on_device_dialog_fragment, container, false)
-  }
+  ): View? = inflater.inflate(R.layout.backup_save_on_device_dialog_fragment, container, false)
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
@@ -116,18 +108,14 @@ class BackupSaveOnDeviceDialogFragment : BottomSheetDialogFragment(),
     super.onStart()
   }
 
-  override fun getTheme(): Int {
-    return R.style.AppBottomSheetDialogThemeNoFloating
-  }
+  override fun getTheme(): Int = R.style.AppBottomSheetDialogThemeNoFloating
 
   override fun onStateChanged(state: BackupSaveOnDeviceDialogState) {
     setFileName(state.fileName)
     setFilePath(state.downloadsPath)
   }
 
-  private fun setFileName(fileName: String) {
-    views.fileNameInput.setText(fileName)
-  }
+  private fun setFileName(fileName: String) = views.fileNameInput.setText(fileName)
 
   private fun setFilePath(downloadsPath: String?) {
     if (downloadsPath != null) {
@@ -140,15 +128,13 @@ class BackupSaveOnDeviceDialogFragment : BottomSheetDialogFragment(),
 
   override fun onSideEffect(sideEffect: BackupSaveOnDeviceDialogSideEffect) =
     when (sideEffect) {
-      is BackupSaveOnDeviceDialogSideEffect.NavigateToSuccess -> navigator.navigateToSuccessScreen(
-        sideEffect.walletAddress
-      )
+      is BackupSaveOnDeviceDialogSideEffect.NavigateToSuccess ->
+        navigator.navigateToSuccessScreen(sideEffect.walletAddress)
       BackupSaveOnDeviceDialogSideEffect.ShowError -> showError()
     }
 
   fun showError() {
-    Toast.makeText(context, R.string.error_export, Toast.LENGTH_LONG)
-      .show()
+    Toast.makeText(context, R.string.error_export, Toast.LENGTH_LONG).show()
     requireActivity().finish()
   }
 }
