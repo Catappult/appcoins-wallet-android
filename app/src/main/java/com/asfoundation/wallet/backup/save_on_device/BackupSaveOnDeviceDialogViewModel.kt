@@ -6,9 +6,8 @@ import androidx.documentfile.provider.DocumentFile
 import androidx.lifecycle.SavedStateHandle
 import com.asfoundation.wallet.backup.use_cases.BackupSuccessLogUseCase
 import com.asfoundation.wallet.backup.use_cases.SaveBackupFileUseCase
-import com.asfoundation.wallet.base.BaseViewModel
-import com.asfoundation.wallet.base.SideEffect
-import com.asfoundation.wallet.base.ViewState
+import com.asfoundation.wallet.base.*
+import com.asfoundation.wallet.wallets.usecases.GetWalletInfoUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
@@ -18,7 +17,7 @@ sealed class BackupSaveOnDeviceDialogSideEffect : SideEffect {
 }
 
 data class BackupSaveOnDeviceDialogState(
-  val fileName: String,
+  val fileName: Async<String> = Async.Uninitialized,
   val walletAddress: String,
   val walletPassword: String,
   val downloadsPath: String?,
@@ -28,7 +27,9 @@ data class BackupSaveOnDeviceDialogState(
 class BackupSaveOnDeviceDialogViewModel @Inject constructor(
   savedStateHandle: SavedStateHandle,
   private val saveBackupFileUseCase: SaveBackupFileUseCase,
-  private val backupSuccessLogUseCase: BackupSuccessLogUseCase
+  private val backupSuccessLogUseCase: BackupSuccessLogUseCase,
+  walletInfoUseCase: GetWalletInfoUseCase,
+  rxSchedulers: RxSchedulers
 ) :
   BaseViewModel<BackupSaveOnDeviceDialogState, BackupSaveOnDeviceDialogSideEffect>(
     initialState(savedStateHandle)
@@ -47,12 +48,20 @@ class BackupSaveOnDeviceDialogViewModel @Inject constructor(
         val address = get<String>(BackupSaveOnDeviceDialogFragment.WALLET_ADDRESS_KEY)!!
         val password = get<String>(BackupSaveOnDeviceDialogFragment.PASSWORD_KEY)!!
         BackupSaveOnDeviceDialogState(
-          "walletbackup${address}",
+          Async.Loading("walletbackup${address}"),
           address,
           password,
           downloadsPath?.absolutePath
         )
       }
+  }
+
+  init {
+    walletInfoUseCase(state.walletAddress, cached = true, updateFiat = false)
+      .map { it.name }
+      .subscribeOn(rxSchedulers.io)
+      .asAsyncToState(BackupSaveOnDeviceDialogState::fileName) { copy(fileName = it) }
+      .scopedSubscribe(Throwable::printStackTrace)
   }
 
   fun saveBackupFile(
