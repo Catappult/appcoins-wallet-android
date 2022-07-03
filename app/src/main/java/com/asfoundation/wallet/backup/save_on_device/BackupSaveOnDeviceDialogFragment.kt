@@ -111,7 +111,7 @@ class BackupSaveOnDeviceDialogFragment : BottomSheetDialogFragment(),
   override fun getTheme(): Int = R.style.AppBottomSheetDialogThemeNoFloating
 
   override fun onStateChanged(state: BackupSaveOnDeviceDialogState) {
-    setFileName(state.fileName)
+    state.fileName()?.also { setFileName(it) }
     setFilePath(state.downloadsPath)
   }
 
