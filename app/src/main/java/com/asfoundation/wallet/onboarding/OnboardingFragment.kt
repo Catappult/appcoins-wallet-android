@@ -2,7 +2,6 @@ package com.asfoundation.wallet.onboarding
 
 import android.content.res.Configuration
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,7 +13,6 @@ import by.kirich1409.viewbindingdelegate.viewBinding
 import com.asf.wallet.R
 import com.asf.wallet.databinding.FragmentOnboardingBinding
 import com.asfoundation.wallet.base.SingleStateFragment
-import com.asfoundation.wallet.recover.entry.RecoverEntryFragment
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -76,10 +74,10 @@ class OnboardingFragment : BasePageViewFragment(),
   }
 
   override fun onStateChanged(state: OnboardingState) {
-    when (state.pageNumber) {
-      0 -> hideContent()
-      1 -> showWelcomeScreen()
-      2 -> showValuesScreen()
+    when (state.pageContent) {
+      OnboardingContent.EMPTY -> hideContent()
+      OnboardingContent.WELCOME -> showWelcomeScreen()
+      OnboardingContent.VALUES -> showValuesScreen()
     }
   }
 
