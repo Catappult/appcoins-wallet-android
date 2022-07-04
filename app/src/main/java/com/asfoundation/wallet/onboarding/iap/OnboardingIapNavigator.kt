@@ -7,6 +7,7 @@ import com.asfoundation.wallet.base.Navigator
 import com.asfoundation.wallet.onboarding.bottom_sheet.TermsConditionsBottomSheetFragment
 import com.asfoundation.wallet.onboarding.use_cases.GetOnboardingFromIapPackageNameUseCase
 import javax.inject.Inject
+import kotlin.system.exitProcess
 
 
 class OnboardingIapNavigator @Inject constructor(
@@ -16,13 +17,14 @@ class OnboardingIapNavigator @Inject constructor(
 ) : Navigator {
 
   fun navigateBackToGame() {
-    val launchIntent: Intent? = onboardingFromIapPackageNameUseCase()?.let {
-      packageManager.getLaunchIntentForPackage(it)
-    }
     try {
+      val launchIntent: Intent? = onboardingFromIapPackageNameUseCase()?.let {
+        packageManager.getLaunchIntentForPackage(it)
+      }
       fragment.startActivity(launchIntent)
     } catch (e: PackageManager.NameNotFoundException) {
       e.printStackTrace()
+      fragment.activity?.finishAffinity()
     }
   }
 
