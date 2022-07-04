@@ -17,7 +17,7 @@ sealed class OnboardingSideEffect : SideEffect {
   object NavigateToExit : OnboardingSideEffect()
 }
 
-data class OnboardingState(val pageNumber: Int = 0) : ViewState
+data class OnboardingState(val pageContent: OnboardingContent = OnboardingContent.EMPTY) : ViewState
 
 @HiltViewModel
 class OnboardingViewModel @Inject constructor(
@@ -33,13 +33,13 @@ class OnboardingViewModel @Inject constructor(
     }
   }
 
-  var rootPage = 0
+  var rootPage = OnboardingContent.EMPTY
 
   init {
     val isFromIap = savedStateHandle.get<Boolean>(ONBOARDING_FROM_IAP)!!
     rootPage = when (isFromIap) {
-      true -> 0
-      false -> 1
+      true -> OnboardingContent.EMPTY
+      false -> OnboardingContent.WELCOME
     }
     checkWallets(isFromIap)
   }
@@ -49,32 +49,32 @@ class OnboardingViewModel @Inject constructor(
       .observeOn(rxSchedulers.main)
       .doOnSuccess {
         if (!it) {
+          rootPage = OnboardingContent.WELCOME
           if (isFromIap) {
             sendSideEffect {
               OnboardingSideEffect.NavigateToWalletCreationAnimation
             }
           } else {
-            rootPage = 1
-            setState { copy(pageNumber = 1) }
+            setState { copy(pageContent = OnboardingContent.WELCOME) }
           }
         } else {
-          rootPage = 2
-          setState { copy(pageNumber = 2) }
+          rootPage = OnboardingContent.VALUES
+          setState { copy(pageContent = OnboardingContent.VALUES) }
         }
       }
       .scopedSubscribe { it.printStackTrace() }
   }
 
-  fun handleBackButtonClick() = state.pageNumber.run {
+  fun handleBackButtonClick() = state.pageContent.run {
     if (this == rootPage) {
       sendSideEffect { OnboardingSideEffect.NavigateToExit }
     } else {
-      setState { copy(pageNumber = pageNumber - 2) }
+      setState { copy(pageContent = OnboardingContent.WELCOME) }
     }
   }
 
   fun handleNextClick() {
-    setState { copy(pageNumber = 2) }
+    setState { copy(pageContent = OnboardingContent.VALUES) }
   }
 
   fun handleGetStartedClick() {

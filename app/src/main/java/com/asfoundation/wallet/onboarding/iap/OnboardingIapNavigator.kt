@@ -19,7 +19,11 @@ class OnboardingIapNavigator @Inject constructor(
     val launchIntent: Intent? = onboardingFromIapPackageNameUseCase()?.let {
       packageManager.getLaunchIntentForPackage(it)
     }
-    fragment.startActivity(launchIntent)
+    try {
+      fragment.startActivity(launchIntent)
+    } catch (e: PackageManager.NameNotFoundException) {
+      e.printStackTrace()
+    }
   }
 
   fun navigateToTermsConditionsBottomSheet() {
