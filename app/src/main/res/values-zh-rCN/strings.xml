@@ -1072,5 +1072,5 @@
   <string name="onboarding_1st_title">恭喜！你已安装AppCoins钱包。</string>
   <string name="onboarding_1st_body">返回游戏以完成购买。</string>
   <string name="onboarding_1st_back_to_game_button">返回游戏</string>
-  <string name="onboarding_1st_explore_wallet_button">或探索AppCoins钱包</string>
+  <string name="onboarding_1st_explore_wallet_button">Or explore the Wallet</string>
 </resources>

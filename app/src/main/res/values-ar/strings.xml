@@ -1118,5 +1118,5 @@
   <string name="onboarding_1st_title">مبروك! لقد ثبتَّ AppCoins Wallet.</string>
   <string name="onboarding_1st_body">عد إلى اللعبة لإتمام عملية الشراء.</string>
   <string name="onboarding_1st_back_to_game_button">عد إلى اللعبة</string>
-  <string name="onboarding_1st_explore_wallet_button">أو استكشف AppCoins Wallet</string>
+  <string name="onboarding_1st_explore_wallet_button">Or explore the Wallet</string>
 </resources>

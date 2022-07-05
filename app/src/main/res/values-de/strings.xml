@@ -1081,5 +1081,5 @@
   <string name="onboarding_1st_title">Herzlichen Glückwunsch! Sie haben das AppCoins Wallet installiert.</string>
   <string name="onboarding_1st_body">Gehen Sie zurück zum Spiel, um ihren Kauf abzuschließen.</string>
   <string name="onboarding_1st_back_to_game_button">Zurück zum Spiel</string>
-  <string name="onboarding_1st_explore_wallet_button">Oder erkunden Sie das AppCoins Wallet</string>
+  <string name="onboarding_1st_explore_wallet_button">Or explore the Wallet</string>
 </resources>

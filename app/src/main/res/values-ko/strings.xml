@@ -1072,5 +1072,5 @@
   <string name="onboarding_1st_title">축하합니다! AppCoins 지갑을 설치하셨습니다.</string>
   <string name="onboarding_1st_body">구매 완료를 위해서 게임으로 돌아가세요.</string>
   <string name="onboarding_1st_back_to_game_button">게임으로 돌아가기</string>
-  <string name="onboarding_1st_explore_wallet_button">또는 AppCoins 지갑 탐색</string>
+  <string name="onboarding_1st_explore_wallet_button">Or explore the Wallet</string>
 </resources>

@@ -1073,5 +1073,5 @@
   <string name="onboarding_1st_title">おめでとうございます。AppCoins Walletのインストールが完了しました。</string>
   <string name="onboarding_1st_body">ゲームに戻り、購入を完了させてください。</string>
   <string name="onboarding_1st_back_to_game_button">ゲームに戻る</string>
-  <string name="onboarding_1st_explore_wallet_button">またはAppCoins Walletを探索する</string>
+  <string name="onboarding_1st_explore_wallet_button">Or explore the Wallet</string>
 </resources>

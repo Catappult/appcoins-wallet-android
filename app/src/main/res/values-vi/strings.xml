@@ -1072,5 +1072,5 @@
   <string name="onboarding_1st_title">Xin chúc mừng! Bạn đã cài đặt được Ví AppCoins.</string>
   <string name="onboarding_1st_body">Quay lại trò chơi để hoàn tất giao dịch mua của mình.</string>
   <string name="onboarding_1st_back_to_game_button">Quay lại trò chơi</string>
-  <string name="onboarding_1st_explore_wallet_button">Hoặc khám phá Ví AppCoins</string>
+  <string name="onboarding_1st_explore_wallet_button">Or explore the Wallet</string>
 </resources>

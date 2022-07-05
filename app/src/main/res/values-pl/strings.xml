@@ -1099,5 +1099,5 @@
   <string name="onboarding_1st_title">Gratulacje! Zainstalowałeś portfel AppCoins.</string>
   <string name="onboarding_1st_body">Wróć do gry, by zakończyć zakup.</string>
   <string name="onboarding_1st_back_to_game_button">Wróć do gry</string>
-  <string name="onboarding_1st_explore_wallet_button">Lub poznaj portfel AppCoins</string>
+  <string name="onboarding_1st_explore_wallet_button">Or explore the Wallet</string>
 </resources>
