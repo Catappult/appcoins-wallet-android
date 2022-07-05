@@ -1,4 +1,4 @@
-package com.asfoundation.wallet.ui.splash;
+package com.asfoundation.wallet.main.appsflyer;
 
 import android.annotation.SuppressLint;
 import android.content.Context;

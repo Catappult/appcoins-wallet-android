@@ -18,7 +18,7 @@ import com.asf.wallet.R
 import com.asf.wallet.databinding.RecoverEntryFragmentBinding
 import com.asfoundation.wallet.base.Async
 import com.asfoundation.wallet.base.SingleStateFragment
-import com.asfoundation.wallet.onboarding.OnboardingFragment
+import com.asfoundation.wallet.my_wallets.create_wallet.CreateWalletDialogFragment
 import com.asfoundation.wallet.recover.result.FailedEntryRecover
 import com.asfoundation.wallet.recover.result.RecoverEntryResult
 import com.asfoundation.wallet.recover.result.SuccessfulEntryRecover
@@ -58,11 +58,17 @@ class RecoverEntryFragment : BasePageViewFragment(),
 
   override fun onViewCreated(view: View, @Nullable savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
-    if (!requireActivity().intent.getBooleanExtra(ONBOARDING_LAYOUT, false)) {
+    //TODO remove this after RecoverActivity removal
+    val isOnboardingLayout = requireArguments().getBoolean(ONBOARDING_LAYOUT, false)
+    if (!isOnboardingLayout) {
+      views.recoverWalletBackButton.visibility = View.GONE
+    }
+    //needed to handle the removal of activity usage from onboarding
+    if (!requireArguments().getBoolean(ONBOARDING_LAYOUT, false)) {
       views.recoverWalletBackButton.visibility = View.GONE
     }
     views.recoverWalletBackButton.setOnClickListener {
-      navigator.navigateBack()
+      navigator.navigateBack(fromActivity = !isOnboardingLayout)
     }
     views.recoverWalletOptions.recoverFromFileButton.setOnClickListener {
       requestPermissionsLauncher.launch(Manifest.permission.READ_EXTERNAL_STORAGE)
@@ -153,7 +159,7 @@ class RecoverEntryFragment : BasePageViewFragment(),
 
   private fun handleFragmentResult() {
     parentFragmentManager.setFragmentResultListener(
-      OnboardingFragment.ONBOARDING_FINISHED_KEY,
+      CreateWalletDialogFragment.CREATE_WALLET_DIALOG_COMPLETE,
       this
     ) { _, _ ->
       navigator.navigateToMainActivity(fromSupportNotification = false)
@@ -162,5 +168,10 @@ class RecoverEntryFragment : BasePageViewFragment(),
 
   companion object {
     const val ONBOARDING_LAYOUT = "onboarding_layout"
+    fun newInstance(onboardingLayout: Boolean) = RecoverEntryFragment().apply {
+      arguments = Bundle().apply {
+        putBoolean(ONBOARDING_LAYOUT, onboardingLayout)
+      }
+    }
   }
 }

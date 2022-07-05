@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -13,7 +14,8 @@ import by.kirich1409.viewbindingdelegate.viewBinding
 import com.asf.wallet.R
 import com.asf.wallet.databinding.OnboardingIapFragmentBinding
 import com.asfoundation.wallet.base.SingleStateFragment
-import com.asfoundation.wallet.onboarding.OnboardingFragment
+import com.asfoundation.wallet.my_wallets.create_wallet.CreateWalletDialogFragment
+import com.asfoundation.wallet.onboarding.bottom_sheet.TermsConditionsBottomSheetFragment
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -50,9 +52,13 @@ class OnboardingIapFragment : BasePageViewFragment(),
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
-
     handleTermsConditionsFragmentResult()
     viewModel.handleLoadIcon()
+    views.onboardingIapContent.visibility = View.GONE
+
+    viewModel.handleCreateWallet()
+    handleCreateWalletFragmentResult()
+    handleTermsConditionsFragmentResult()
 
     views.onboardingIapBackToGameButton.setOnClickListener {
       viewModel.handleBackToGameClick()
@@ -67,8 +73,14 @@ class OnboardingIapFragment : BasePageViewFragment(),
     requireActivity().onBackPressedDispatcher.addCallback(this, onBackPressedCallback)
   }
 
+  private fun handleCreateWalletFragmentResult() {
+    setFragmentResultListener(CreateWalletDialogFragment.CREATE_WALLET_DIALOG_COMPLETE) { _, _ ->
+      showContent()
+    }
+  }
+
   private fun handleTermsConditionsFragmentResult() {
-    setFragmentResultListener(OnboardingFragment.ONBOARDING_FINISHED_KEY) { _, _ ->
+    setFragmentResultListener(TermsConditionsBottomSheetFragment.TERMS_CONDITIONS_COMPLETE) { _, _ ->
       navigator.closeOnboarding()
     }
   }
@@ -77,6 +89,7 @@ class OnboardingIapFragment : BasePageViewFragment(),
 
   override fun onSideEffect(sideEffect: OnboardingIapSideEffect) {
     when (sideEffect) {
+      OnboardingIapSideEffect.NavigateToWalletCreationAnimation -> navigator.navigateToCreateWalletDialog()
       OnboardingIapSideEffect.NavigateBackToGame -> navigator.navigateBackToGame()
       OnboardingIapSideEffect.NavigateToTermsConditions -> navigator.navigateToTermsConditionsBottomSheet()
       is OnboardingIapSideEffect.LoadPackageNameIcon -> sideEffect.appPackageName?.let {
@@ -92,6 +105,12 @@ class OnboardingIapFragment : BasePageViewFragment(),
     } catch (e: PackageManager.NameNotFoundException) {
       e.printStackTrace()
     }
+  }
+
+  private fun showContent() {
+    views.root.background =
+      ContextCompat.getDrawable(requireContext(), R.color.blue_dark_transparent_90)
+    views.onboardingIapContent.visibility = View.VISIBLE
   }
 
   companion object {

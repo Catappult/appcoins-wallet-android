@@ -2,7 +2,6 @@ package com.asfoundation.wallet.ui.iab
 
 import com.appcoins.wallet.gamification.Gamification
 import com.asfoundation.wallet.backup.NotificationNeeded
-import com.asfoundation.wallet.interact.AutoUpdateInteract
 import com.asfoundation.wallet.promo_code.use_cases.GetCurrentPromoCodeUseCase
 import com.asfoundation.wallet.support.SupportInteractor
 import com.asfoundation.wallet.wallet_blocked.WalletBlockedInteract
@@ -10,7 +9,6 @@ import io.reactivex.Single
 import javax.inject.Inject
 
 class IabInteract @Inject constructor(private val inAppPurchaseInteractor: InAppPurchaseInteractor,
-                                      private val autoUpdateInteract: AutoUpdateInteract,
                                       private val supportInteractor: SupportInteractor,
                                       private val gamificationRepository: Gamification,
                                       private val walletBlockedInteract: WalletBlockedInteract,
@@ -27,12 +25,6 @@ class IabInteract @Inject constructor(private val inAppPurchaseInteractor: InApp
   fun getPreSelectedPaymentMethod(): String = inAppPurchaseInteractor.preSelectedPaymentMethod
 
   fun getWalletAddress(): Single<String> = inAppPurchaseInteractor.walletAddress
-
-  fun getAutoUpdateModel(invalidateCache: Boolean = true) =
-      autoUpdateInteract.getAutoUpdateModel(invalidateCache)
-
-  fun isHardUpdateRequired(blackList: List<Int>, updateVersionCode: Int, updateMinSdk: Int) =
-      autoUpdateInteract.isHardUpdateRequired(blackList, updateVersionCode, updateMinSdk)
 
   fun registerUser() =
       inAppPurchaseInteractor.walletAddress.flatMap { address ->

@@ -3,20 +3,29 @@ package com.asfoundation.wallet.main
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.core.view.get
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.asf.wallet.R
+import com.asfoundation.wallet.analytics.InstallReferrerAnalytics
 import com.asf.wallet.databinding.ActivityMainBinding
 import com.asfoundation.wallet.base.SingleStateFragment
+import com.asfoundation.wallet.main.appsflyer.ApkOriginVerification
+import com.asfoundation.wallet.my_wallets.create_wallet.CreateWalletDialogFragment
 import com.asfoundation.wallet.navigator.setupWithNavController
 import com.asfoundation.wallet.support.SupportNotificationProperties.SUPPORT_NOTIFICATION_CLICK
+import com.asfoundation.wallet.ui.AuthenticationPromptActivity
 import com.asfoundation.wallet.util.Log
 import com.google.android.material.bottomnavigation.BottomNavigationItemView
 import com.google.android.material.bottomnavigation.BottomNavigationMenuView
@@ -43,6 +52,8 @@ class MainActivity : AppCompatActivity(), SingleStateFragment<MainState, MainSid
 
   @Inject
   lateinit var navigator: MainActivityNavigator
+  @Inject
+  lateinit var installReferrerAnalytics: InstallReferrerAnalytics
 
   private val viewModel: MainViewModel by viewModels()
   private val views by viewBinding(ActivityMainBinding::bind)
@@ -51,19 +62,63 @@ class MainActivity : AppCompatActivity(), SingleStateFragment<MainState, MainSid
   private var bottomNavigationView: BottomNavigationView? = null
   private var isFromIap: Boolean = false
 
+  private lateinit var authenticationResultLauncher: ActivityResultLauncher<Intent>
+
   override fun onCreate(savedInstanceState: Bundle?) {
+    setTheme(R.style.MaterialAppTheme)
     super.onCreate(savedInstanceState)
+    handleFirstRun()
+
+    //TODO add a callback to wait for the referrer result
+    viewModel.handleInitialNavigation()
+    handleAuthenticationResult()
+
     setContentView(R.layout.activity_main)
-    if (savedInstanceState == null) {
-      setupBottomNavigationBar()
-      addPromotionNotificationBadge()
-    }
+    views.root.background =
+      ContextCompat.getDrawable(this, R.drawable.splash_background)
+
     viewModel.collectStateAndEvents(lifecycle, lifecycleScope)
   }
 
   override fun onSaveInstanceState(outState: Bundle) {
     super.onSaveInstanceState(outState)
     outState.putBoolean(IS_FROM_IAP, isFromIap)
+  }
+
+  private fun handleFirstRun() {
+    val isFirstRun = getSharedPreferences("PREFERENCE", 0)
+      .getBoolean("isFirstRun", true)
+    if (isFirstRun) {
+      installReferrerAnalytics.sendFirstInstallInfo(sendEvent = false)
+      handleCreateWalletFragmentResult()
+      ApkOriginVerification(this)
+
+      getSharedPreferences("PREFERENCE", 0)
+        .edit()
+        .putBoolean("isFirstRun", false)
+        .apply()
+    }
+  }
+
+  private fun handleAuthenticationResult() {
+    authenticationResultLauncher =
+      registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+        if (result.resultCode == AuthenticationPromptActivity.RESULT_OK) {
+          viewModel.handleInitialNavigation(authComplete = true)
+        } else {
+          finish()
+        }
+      }
+  }
+
+  private fun handleCreateWalletFragmentResult() {
+    supportFragmentManager.setFragmentResultListener(
+      CreateWalletDialogFragment.CREATE_WALLET_DIALOG_COMPLETE_TO_MAIN, this
+    ) { _, _ ->
+      Handler(Looper.getMainLooper()).post{
+        showHomeContent()
+      }
+    }
   }
 
   override fun onRestoreInstanceState(savedInstanceState: Bundle) {
@@ -88,6 +143,16 @@ class MainActivity : AppCompatActivity(), SingleStateFragment<MainState, MainSid
     when (sideEffect) {
       MainSideEffect.ShowPromotionsTooltip -> showPromotionsOverlay()
       MainSideEffect.ShowOnboardingIapScreen -> showOnboardingIapScreen()
+      MainSideEffect.NavigateToAutoUpdate -> navigator.navigateToAutoUpdate(this)
+      MainSideEffect.NavigateToFingerprintAuthentication ->
+        navigator.showAuthenticationActivity(authenticationResultLauncher)
+      MainSideEffect.NavigateToOnboarding -> {
+        showOnboardingContent(fromIap = false)
+      }
+      MainSideEffect.NavigateToOnboardingIap -> {
+        showOnboardingContent(fromIap = true)
+      }
+      MainSideEffect.NavigateToHome -> showHomeContent()
     }
   }
 
@@ -95,6 +160,19 @@ class MainActivity : AppCompatActivity(), SingleStateFragment<MainState, MainSid
     isFromIap = true
     views.fragmentContainer.visibility = View.VISIBLE
     navigator.showOnboardingIapScreen(this)
+  }
+
+  private fun showOnboardingContent(fromIap : Boolean){
+    views.fragmentContainer.visibility = View.VISIBLE
+    if (viewModel.hasWalletCreated()) showHomeContent()
+    navigator.navigateToOnboarding(this, fromIap = fromIap)
+  }
+
+  private fun showHomeContent() {
+    views.root.background =
+      ContextCompat.getDrawable(this, R.color.white)
+    setupBottomNavigationBar()
+    addPromotionNotificationBadge()
   }
 
   private fun showPromotionsOverlay() {
@@ -108,11 +186,11 @@ class MainActivity : AppCompatActivity(), SingleStateFragment<MainState, MainSid
    * Issue here https://issuetracker.google.com/issues/80029773#comment136
    */
   private fun setupBottomNavigationBar() {
-    bottomNavigationView = findViewById(R.id.bottom_nav)
+    views.bottomNav.visibility = View.VISIBLE
 
     val navGraphIds = bottomNavItems.map { it.navGraphIdRes }
 
-    val controller = bottomNavigationView?.setupWithNavController(
+    val controller = views.bottomNav.setupWithNavController(
       navGraphIds = navGraphIds,
       fragmentManager = supportFragmentManager,
       containerId = R.id.nav_host_container,
@@ -123,7 +201,7 @@ class MainActivity : AppCompatActivity(), SingleStateFragment<MainState, MainSid
         }
       }
     )
-    setupTopUpItem(bottomNavigationView)
+    setupTopUpItem(views.bottomNav)
 
     currentNavController = controller
   }
@@ -131,8 +209,8 @@ class MainActivity : AppCompatActivity(), SingleStateFragment<MainState, MainSid
   fun setSelectedBottomNavItem(bottomNavItem: BottomNavItem) {
     try {
       val index = bottomNavItems.indexOf(bottomNavItem)
-      val menuItemId = bottomNavigationView?.menu?.get(index)?.itemId
-      menuItemId?.let { bottomNavigationView?.selectedItemId = it }
+      val menuItemId = views.bottomNav.menu[index].itemId
+      menuItemId.let { views.bottomNav.selectedItemId = it }
     } catch (e: Exception) {
       Log.e(TAG, "Couldn't select nav item. " + e.message)
     }
@@ -150,7 +228,7 @@ class MainActivity : AppCompatActivity(), SingleStateFragment<MainState, MainSid
   }
 
   private fun addPromotionNotificationBadge() {
-    val menuView = bottomNavigationView?.getChildAt(0) as BottomNavigationMenuView
+    val menuView = views.bottomNav.getChildAt(0) as BottomNavigationMenuView
     val promotionsIcon = menuView.getChildAt(bottomNavItems.indexOf(BottomNavItem.PROMOTIONS))
     val itemView = promotionsIcon as BottomNavigationItemView
     promotionBadge = LayoutInflater.from(this)

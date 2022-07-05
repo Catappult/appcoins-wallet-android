@@ -13,6 +13,8 @@ import by.kirich1409.viewbindingdelegate.viewBinding
 import com.asf.wallet.R
 import com.asf.wallet.databinding.FragmentOnboardingBinding
 import com.asfoundation.wallet.base.SingleStateFragment
+import com.asfoundation.wallet.my_wallets.create_wallet.CreateWalletDialogFragment
+import com.asfoundation.wallet.onboarding.bottom_sheet.TermsConditionsBottomSheetFragment
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -40,6 +42,8 @@ class OnboardingFragment : BasePageViewFragment(),
     }
     handleBackPress()
     handleFragmentResult()
+    handleWalletCreationFragmentResult()
+    handleTermsConditionsFragmentResult()
   }
 
   private fun handleBackPress() {
@@ -49,6 +53,26 @@ class OnboardingFragment : BasePageViewFragment(),
   private fun handleFragmentResult() {
     parentFragmentManager.setFragmentResultListener(ONBOARDING_FINISHED_KEY, this) { _, _ ->
       navigator.navigateToMainActivity(fromSupportNotification = false)
+    }
+  }
+
+  private fun handleWalletCreationFragmentResult() {
+    parentFragmentManager.setFragmentResultListener(
+      CreateWalletDialogFragment.CREATE_WALLET_DIALOG_COMPLETE,
+      this
+    ) { _, _ ->
+      navigator.closeOnboarding()
+    }
+  }
+
+  private fun handleTermsConditionsFragmentResult() {
+    parentFragmentManager.setFragmentResultListener(
+      TermsConditionsBottomSheetFragment.TERMS_CONDITIONS_COMPLETE,
+      this
+    ) { _, _ ->
+//      views.root.visibility = View.GONE
+      navigator.closeOnboarding()
+
     }
   }
 
@@ -89,6 +113,7 @@ class OnboardingFragment : BasePageViewFragment(),
       OnboardingSideEffect.NavigateToExit -> {
         onBackPressedCallback.isEnabled = false
         activity?.onBackPressed()
+        activity?.finishAffinity()
       }
     }
   }
@@ -124,5 +149,6 @@ class OnboardingFragment : BasePageViewFragment(),
   companion object {
     const val ONBOARDING_FINISHED_KEY = "OnboardingFinished"
     const val ONBOARDING_FROM_IAP = "from_iap"
+    fun newInstance() = OnboardingFragment()
   }
 }

@@ -58,7 +58,7 @@ class InstallReferrerAnalytics @Inject constructor(
     })
   }
 
-  private fun getReferrerData(referrerUrl: String, sendEvent: Boolean): MutableMap<String, Any> {
+  private fun getReferrerData(referrerUrl: String, sendEvent: Boolean) : MutableMap<String, Any> {
     Log.d("Referrer", referrerUrl)
 
     val decodedReferrer = URLDecoder.decode(referrerUrl, "UTF-8")
@@ -85,7 +85,7 @@ class InstallReferrerAnalytics @Inject constructor(
     return firstLaunchData
   }
 
-  private fun sendFirstLaunchEvent(firstLaunchData: MutableMap<String, Any>) {
+  private fun sendFirstLaunchEvent(firstLaunchData : MutableMap<String, Any>) {
     analyticsManager.logEvent(
       firstLaunchData,
       FIRST_LAUNCH,

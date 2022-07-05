@@ -4,10 +4,10 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import androidx.fragment.app.Fragment
 import com.asfoundation.wallet.base.Navigator
+import com.asfoundation.wallet.my_wallets.create_wallet.CreateWalletDialogFragment
 import com.asfoundation.wallet.onboarding.bottom_sheet.TermsConditionsBottomSheetFragment
 import com.asfoundation.wallet.onboarding.use_cases.GetOnboardingFromIapPackageNameUseCase
 import javax.inject.Inject
-import kotlin.system.exitProcess
 
 
 class OnboardingIapNavigator @Inject constructor(
@@ -26,6 +26,11 @@ class OnboardingIapNavigator @Inject constructor(
       e.printStackTrace()
       fragment.activity?.finishAffinity()
     }
+  }
+
+  fun navigateToCreateWalletDialog() {
+    CreateWalletDialogFragment.newInstance(needsWalletCreation = true)
+      .show(fragment.parentFragmentManager, "CreateWalletDialogFragment")
   }
 
   fun navigateToTermsConditionsBottomSheet() {

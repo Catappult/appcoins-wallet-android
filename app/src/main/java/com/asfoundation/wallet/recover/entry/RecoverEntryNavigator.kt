@@ -55,8 +55,12 @@ class RecoverEntryNavigator @Inject constructor(val fragment: Fragment) : Naviga
     )
   }
 
-  fun navigateBack() {
-    fragment.requireActivity().finish()
+  fun navigateBack(fromActivity: Boolean) {
+    if (fromActivity) {
+      fragment.requireActivity().finish()
+    } else {
+      fragment.parentFragmentManager.popBackStack()
+    }
   }
 
   //when navigation component doesn't have this limitation anymore, this extras should be removed and this should work with popUpTo

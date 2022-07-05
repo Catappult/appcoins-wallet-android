@@ -8,8 +8,9 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.asf.wallet.R
 import com.asfoundation.wallet.base.Navigator
-import com.asfoundation.wallet.base.navigate
+import com.asfoundation.wallet.my_wallets.create_wallet.CreateWalletDialogFragment
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.asfoundation.wallet.base.navigate
 import javax.inject.Inject
 
 class TermsConditionsBottomSheetNavigator @Inject constructor(private val fragment: Fragment) :
@@ -43,5 +44,8 @@ class TermsConditionsBottomSheetNavigator @Inject constructor(private val fragme
         needsWalletCreation = true
       )
     )
+//    navigateBack()
+//    CreateWalletDialogFragment.newInstance(needsWalletCreation = true)
+//      .show(fragment.parentFragmentManager, "CreateWalletDialogFragment")
   }
 }

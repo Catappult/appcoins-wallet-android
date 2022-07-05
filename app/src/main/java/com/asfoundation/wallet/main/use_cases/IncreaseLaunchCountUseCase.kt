@@ -1,4 +1,4 @@
-package com.asfoundation.wallet.main.usecases
+package com.asfoundation.wallet.main.use_cases
 
 import com.asfoundation.wallet.repository.PreferencesRepositoryType
 import javax.inject.Inject

@@ -12,6 +12,7 @@
 
   <style name="MaterialAppTheme" parent="Theme.MaterialComponents.Light.DarkActionBar">
     <!-- Customize your theme here. -->
+    <item name="android:windowBackground">@color/white</item>
     <item name="colorPrimary">@color/colorPrimary</item>
     <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
     <item name="colorAccent">@color/colorAccent</item>
@@ -52,12 +53,19 @@
 
   <!-- Splash Screen theme. -->
 
-  <style name="SplashTheme" parent="Theme.AppCompat.NoActionBar">
+  <style name="SplashThemeOld" parent="Theme.AppCompat.NoActionBar">
     <item name="android:windowBackground">@drawable/splash_background</item>
     <item name="android:windowTranslucentStatus">true</item>
     <item name="android:fitsSystemWindows">true</item>
   </style>
 
+  <!-- Splash Screen theme. -->
+
+  <style name="SplashTheme" parent="MaterialAppTheme">
+    <item name="android:windowBackground">@drawable/splash_background</item>
+    <item name="android:windowTranslucentStatus">true</item>
+    <item name="android:fitsSystemWindows">true</item>
+  </style>
 
   <style name="AppTheme.Transparent" parent="MaterialAppTheme">
     <item name="windowActionBar">false</item>

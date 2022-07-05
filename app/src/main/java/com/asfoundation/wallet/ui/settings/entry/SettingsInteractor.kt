@@ -3,7 +3,6 @@ package com.asfoundation.wallet.ui.settings.entry
 import com.asfoundation.wallet.billing.analytics.WalletsAnalytics
 import com.asfoundation.wallet.billing.analytics.WalletsEventSender
 import com.asfoundation.wallet.fingerprint.FingerprintPreferencesRepositoryContract
-import com.asfoundation.wallet.interact.AutoUpdateInteract
 import com.asfoundation.wallet.repository.PreferencesRepositoryType
 import com.asfoundation.wallet.support.SupportInteractor
 import com.asfoundation.wallet.ui.FingerprintInteractor
@@ -15,7 +14,6 @@ class SettingsInteractor @Inject constructor(
   private val findDefaultWalletInteract: FindDefaultWalletInteract,
   private val supportInteractor: SupportInteractor,
   private val walletsInteract: WalletsInteract,
-  private val autoUpdateInteract: AutoUpdateInteract,
   private val fingerprintInteractor: FingerprintInteractor,
   private val walletsEventSender: WalletsEventSender,
   private val preferenceRepository: PreferencesRepositoryType,
@@ -37,8 +35,6 @@ class SettingsInteractor @Inject constructor(
   }
 
   fun displaySupportScreen() = supportInteractor.displayChatScreen()
-
-  fun retrieveUpdateIntent() = autoUpdateInteract.buildUpdateIntent()
 
   fun retrieveFingerPrintAvailability(): Int {
     fingerPrintAvailability = fingerprintInteractor.getDeviceCompatibility()

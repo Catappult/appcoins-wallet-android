@@ -28,6 +28,20 @@
       app:layout_constraintStart_toStartOf="parent"
       />
 
+  <androidx.fragment.app.FragmentContainerView
+      android:id="@+id/fragment_container"
+      android:name="androidx.navigation.fragment.NavHostFragment"
+      app:defaultNavHost="true"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:elevation="10dp"
+      android:visibility="gone"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      />
+
   <com.google.android.material.bottomnavigation.BottomNavigationView
       android:id="@+id/bottom_nav"
       android:layout_width="0dp"
@@ -38,6 +52,7 @@
       app:itemRippleColor="@color/button_borderless_ripple_color"
       app:itemTextColor="@color/bottom_nav_color_state"
       app:labelVisibilityMode="labeled"
+      android:visibility="gone"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
