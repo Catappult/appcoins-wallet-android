@@ -32,6 +32,12 @@ class OnboardingFragment : BasePageViewFragment(),
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
+    arguments = Bundle().apply {
+      putBoolean(
+        ONBOARDING_FROM_IAP,
+        requireActivity().intent.getBooleanExtra(ONBOARDING_FROM_IAP, false)
+      )
+    }
     handleBackPress()
     handleFragmentResult()
   }
@@ -68,9 +74,10 @@ class OnboardingFragment : BasePageViewFragment(),
   }
 
   override fun onStateChanged(state: OnboardingState) {
-    when (state.pageNumber) {
-      0 -> showWelcomeScreen()
-      1 -> showValuesScreen()
+    when (state.pageContent) {
+      OnboardingContent.EMPTY -> hideContent()
+      OnboardingContent.WELCOME -> showWelcomeScreen()
+      OnboardingContent.VALUES -> showValuesScreen()
     }
   }
 
@@ -78,6 +85,7 @@ class OnboardingFragment : BasePageViewFragment(),
     when (sideEffect) {
       OnboardingSideEffect.NavigateToLegalsConsent -> navigator.navigateToTermsBottomSheet()
       OnboardingSideEffect.NavigateToRecoverWallet -> navigator.navigateToRecoverActivity()
+      OnboardingSideEffect.NavigateToWalletCreationAnimation -> navigator.navigateToCreateWalletDialog()
       OnboardingSideEffect.NavigateToExit -> {
         onBackPressedCallback.isEnabled = false
         activity?.onBackPressed()
@@ -105,8 +113,16 @@ class OnboardingFragment : BasePageViewFragment(),
     views.onboardingValuesButtons.root.visibility = View.VISIBLE
   }
 
+  private fun hideContent() {
+    views.onboardingValuePropositions.root.visibility = View.GONE
+    views.onboardingValuesButtons.root.visibility = View.GONE
+    views.onboardingWalletIcon.visibility = View.GONE
+    views.onboardingWelcomeMessage.root.visibility = View.GONE
+    views.onboardingWelcomeButtons.root.visibility = View.GONE
+  }
+
   companion object {
     const val ONBOARDING_FINISHED_KEY = "OnboardingFinished"
-    fun newInstance() = OnboardingFragment()
+    const val ONBOARDING_FROM_IAP = "from_iap"
   }
 }

@@ -9,30 +9,39 @@ import androidx.navigation.fragment.findNavController
 import com.asf.wallet.R
 import com.asfoundation.wallet.base.Navigator
 import com.asfoundation.wallet.base.navigate
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import javax.inject.Inject
 
-class TermsConditionsBottomSheetNavigator @Inject constructor(private val fragment: Fragment) : Navigator {
+class TermsConditionsBottomSheetNavigator @Inject constructor(private val fragment: Fragment) :
+  Navigator {
 
   fun navigateToBrowser(uri: Uri) {
     try {
       val launchBrowser = Intent(Intent.ACTION_VIEW, uri)
       launchBrowser.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
       fragment.requireContext()
-          .startActivity(launchBrowser)
+        .startActivity(launchBrowser)
     } catch (exception: ActivityNotFoundException) {
       exception.printStackTrace()
       Toast.makeText(fragment.requireContext(), R.string.unknown_error, Toast.LENGTH_SHORT)
-          .show()
+        .show()
     }
   }
 
   fun navigateBack() {
     fragment.findNavController()
-        .popBackStack()
+      .popBackStack()
+    //if the bottom sheet is not opened from a fragment that is part of a nav graph then the
+    // fragment.findNavController().popBackStack() wont work, we need to dismiss it
+    (fragment as BottomSheetDialogFragment).dismiss()
   }
 
   fun navigateToCreateWalletDialog() {
-    navigate(fragment.findNavController(),
-        TermsConditionsBottomSheetFragmentDirections.actionNavigateCreateWalletDialog(needsWalletCreation = true))
+    navigate(
+      fragment.findNavController(),
+      TermsConditionsBottomSheetFragmentDirections.actionNavigateCreateWalletDialog(
+        needsWalletCreation = true
+      )
+    )
   }
 }

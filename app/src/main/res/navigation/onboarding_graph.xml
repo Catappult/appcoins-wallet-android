@@ -10,9 +10,19 @@
       android:name="com.asfoundation.wallet.onboarding.OnboardingFragment"
       tools:layout="@layout/fragment_onboarding">
 
+    <argument
+        android:name="from_iap"
+        app:argType="boolean" />
+
     <action
         android:id="@+id/action_navigate_to_recover_wallet_activity"
         app:destination="@id/recover_wallet_activity" />
+
+    <action
+        android:id="@+id/action_navigate_create_wallet_dialog"
+        app:destination="@id/create_wallet_dialog_fragment"
+        app:popUpTo="@+id/onboarding_terms_conditions_dialog"
+        app:popUpToInclusive="true" />
 
     <action
         android:id="@+id/action_navigate_terms_conditions"

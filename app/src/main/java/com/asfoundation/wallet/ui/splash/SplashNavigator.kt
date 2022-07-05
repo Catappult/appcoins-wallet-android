@@ -11,11 +11,11 @@ import javax.inject.Inject
 
 class SplashNavigator @Inject constructor(private val activity: Activity) {
 
-  fun firstScreenNavigation(shouldShowOnboarding: Boolean) {
+  fun firstScreenNavigation(shouldShowOnboarding: Boolean, isOnboardingFromIap: Boolean) {
     val fromSupportNotification =
       activity.intent.getBooleanExtra(SUPPORT_NOTIFICATION_CLICK, false)
     if (shouldShowOnboarding) {
-      OnboardingRouter().open(activity, true, fromSupportNotification)
+      OnboardingRouter().open(activity, true, isOnboardingFromIap, fromSupportNotification)
     } else {
       TransactionsRouter().navigateFromSplash(activity, fromSupportNotification)
     }

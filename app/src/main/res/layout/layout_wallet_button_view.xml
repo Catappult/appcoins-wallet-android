@@ -25,6 +25,7 @@
       android:layout_gravity="center"
       android:fontFamily="sans-serif-medium"
       android:paddingHorizontal="@dimen/half_large_margin"
+      android:gravity="center_horizontal"
       android:textColor="@color/white"
       android:textSize="14sp"
       tools:text="Get started"

@@ -1,5 +1,7 @@
 package com.asfoundation.wallet.ui.splash
 
+import com.asfoundation.wallet.onboarding.use_cases.IsOnboardingFromIapUseCase
+import com.asfoundation.wallet.onboarding.use_cases.SetOnboardingFromIapStateUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -15,11 +17,12 @@ class SplashModule {
   @Provides
   fun providesSplashPresenter(
     interactor: SplashInteractor,
-    navigator: SplashNavigator
+    navigator: SplashNavigator,
+    isOnboardingFromIapUseCase: IsOnboardingFromIapUseCase
   ): SplashPresenter {
     return SplashPresenter(
       interactor, navigator, AndroidSchedulers.mainThread(), Schedulers.io(),
-      CompositeDisposable()
+      CompositeDisposable(), isOnboardingFromIapUseCase
     )
   }
 }
