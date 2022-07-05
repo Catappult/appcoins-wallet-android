@@ -55,7 +55,7 @@
   <RelativeLayout
       android:id="@+id/button_layout"
       android:layout_width="match_parent"
-      android:layout_height="64dp"
+      android:layout_height="96dp"
       android:clipChildren="false"
       android:clipToPadding="false"
       app:layout_constraintBottom_toBottomOf="parent"
@@ -68,16 +68,18 @@
         android:layout_alignParentTop="true"
         android:background="@color/list_separator_color"
         />
-    <androidx.appcompat.widget.AppCompatButton
+
+    <com.asfoundation.wallet.ui.common.WalletButtonView
         android:id="@+id/close_btn"
-        style="@style/MaterialButtonStyle"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/large_button_height"
         android:layout_alignParentBottom="true"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
-        android:text="@string/got_it_button"
+        android:layout_marginStart="@dimen/big_margin"
+        android:layout_marginTop="@dimen/big_margin"
+        android:layout_marginEnd="@dimen/big_margin"
+        android:layout_marginBottom="@dimen/half_large_margin"
+        app:buttonText="@string/got_it_button"
+        app:buttonType="filled"
         />
 
   </RelativeLayout>
