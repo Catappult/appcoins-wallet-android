@@ -10,8 +10,8 @@ import com.asfoundation.wallet.recover.result.FailedEntryRecover
 import com.asfoundation.wallet.recover.result.RecoverEntryResult
 import com.asfoundation.wallet.recover.result.SuccessfulEntryRecover
 import com.asfoundation.wallet.recover.use_cases.*
-import com.asfoundation.wallet.wallets.repository.WalletInfoRepository
 import com.asfoundation.wallet.wallets.usecases.UpdateWalletInfoUseCase
+import com.asfoundation.wallet.wallets.usecases.UpdateWalletNameUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.Completable
 import io.reactivex.Single
@@ -34,7 +34,7 @@ class RecoverEntryViewModel @Inject constructor(
   private val updateWalletInfoUseCase: UpdateWalletInfoUseCase,
   private val setOnboardingCompletedUseCase: SetOnboardingCompletedUseCase,
   private val updateBackupStateFromRecoverUseCase: UpdateBackupStateFromRecoverUseCase,
-  private val walletInfoRepository: WalletInfoRepository,
+  private val updateWalletNameUseCase: UpdateWalletNameUseCase,
   private val walletsEventSender: WalletsEventSender,
   private val rxSchedulers: RxSchedulers
 ) : BaseViewModel<RecoverEntryState, RecoverEntrySideEffect>(initialState()) {
@@ -69,9 +69,7 @@ class RecoverEntryViewModel @Inject constructor(
       is SuccessfulEntryRecover -> setDefaultWalletUseCase(recoverResult.address)
         .mergeWith(updateWalletInfoUseCase(recoverResult.address, updateFiat = true))
         .andThen(Completable.fromAction { setOnboardingCompletedUseCase() })
-        .andThen(
-          walletInfoRepository.updateWalletName(recoverResult.address, recoverResult.name)
-        )
+        .andThen(updateWalletNameUseCase(recoverResult.address, recoverResult.name))
         .toSingleDefault(recoverResult)
     }
 

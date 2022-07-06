@@ -5,7 +5,7 @@ import com.asfoundation.wallet.base.Async
 import com.asfoundation.wallet.base.BaseViewModel
 import com.asfoundation.wallet.base.SideEffect
 import com.asfoundation.wallet.base.ViewState
-import com.asfoundation.wallet.wallets.repository.WalletInfoRepository
+import com.asfoundation.wallet.wallets.usecases.UpdateWalletNameUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
@@ -22,7 +22,7 @@ data class NameDialogState(
 @HiltViewModel
 class NameDialogViewModel @Inject constructor(
   savedStateHandle: SavedStateHandle,
-  private val walletInfoRepository: WalletInfoRepository,
+  private val updateWalletNameUseCase: UpdateWalletNameUseCase,
 ) :
   BaseViewModel<NameDialogState, NameDialogSideEffect>(initialState(savedStateHandle)) {
 
@@ -36,7 +36,7 @@ class NameDialogViewModel @Inject constructor(
   fun setName(name: String) {
     val retainValue = NameDialogState::walletNameAsync
     state.walletNameAsync()?.also {
-      walletInfoRepository.updateWalletName(state.walletAddress, name)
+      updateWalletNameUseCase(state.walletAddress, name)
         .toSingleDefault(it)
         .delay(500, TimeUnit.MILLISECONDS) // for progress showing
         .asAsyncToState(retainValue) { walletName -> copy(walletNameAsync = walletName) }
