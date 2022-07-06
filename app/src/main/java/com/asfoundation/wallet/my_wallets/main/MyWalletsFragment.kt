@@ -143,10 +143,6 @@ class MyWalletsFragment : BasePageViewFragment(),
     views.myWalletsContent.totalBalanceSkeleton.playAnimation()
     views.myWalletsContent.totalBalanceTextView.visibility = View.GONE
 
-    views.myWalletsContent.appcBalanceSkeleton.visibility = View.VISIBLE
-    views.myWalletsContent.appcBalanceSkeleton.playAnimation()
-    views.myWalletsContent.appcBalanceTextView.visibility = View.GONE
-
     views.myWalletsContent.actionButtonEditName.isEnabled = false
     views.myWalletsContent.actionButtonShareAddress.isEnabled = false
     views.myWalletsContent.actionButtonCopyAddress.isEnabled = false
@@ -174,7 +170,6 @@ class MyWalletsFragment : BasePageViewFragment(),
       navigator.navigateToReceive(Wallet(wallet))
     }
 
-    val name = wallet.replaceRange(IntRange(6, wallet.length - 5), " ··· ")
     val address = wallet.replaceRange(IntRange(6, wallet.length - 5), " ··· ")
 
     views.myWalletsContent.walletNameSkeleton.visibility = View.GONE
@@ -204,15 +199,10 @@ class MyWalletsFragment : BasePageViewFragment(),
       )
     }
 
-    val appccBalance = walletBalance.creditsBalance.getTokenValueText(WalletCurrency.CREDITS)
-    if (appccBalance != "-1") {
-      views.myWalletsContent.appcBalanceSkeleton.visibility = View.GONE
-      views.myWalletsContent.appcBalanceSkeleton.cancelAnimation()
-      views.myWalletsContent.appcBalanceTextView.text = appccBalance
-      views.myWalletsContent.appcBalanceTextView.visibility = View.VISIBLE
-    }
-
     views.myWalletsContent.actionButtonEditName.isEnabled = true
+    views.myWalletsContent.actionButtonEditName.setOnClickListener {
+      navigator.navigateToName(wallet, name)
+    }
 
     views.myWalletsContent.actionButtonShareAddress.isEnabled = true
     views.myWalletsContent.actionButtonShareAddress.setOnClickListener {

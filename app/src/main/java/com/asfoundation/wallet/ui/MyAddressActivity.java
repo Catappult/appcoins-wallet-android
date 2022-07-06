@@ -43,9 +43,9 @@ import static com.asfoundation.wallet.C.Key.WALLET;
     wallet = getIntent().getParcelableExtra(WALLET);
     String suggestion = getString(R.string.suggestion_this_is_your_address, defaultNetwork.name);
     ((TextView) findViewById(R.id.address_suggestion)).setText(suggestion);
-    ((TextView) findViewById(R.id.address)).setText(wallet.address);
+    ((TextView) findViewById(R.id.address)).setText(wallet.getAddress());
     findViewById(R.id.copy_action).setOnClickListener(this);
-    final Bitmap qrCode = createQRImage(wallet.address);
+    final Bitmap qrCode = createQRImage(wallet.getAddress());
     ((ImageView) findViewById(R.id.qr_image)).setImageBitmap(qrCode);
   }
 
@@ -81,7 +81,7 @@ import static com.asfoundation.wallet.C.Key.WALLET;
 
   @Override public void onClick(View v) {
     ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
-    ClipData clip = ClipData.newPlainText(KEY_ADDRESS, wallet.address);
+    ClipData clip = ClipData.newPlainText(KEY_ADDRESS, wallet.getAddress());
     if (clipboard != null) {
       clipboard.setPrimaryClip(clip);
     }
