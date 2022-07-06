@@ -154,8 +154,8 @@ class WalletInfoRepository @Inject constructor(
       logging = logging,
       hasBackup = syntheticBackupDate,
       appcCreditsBalanceFiat = walletBalance?.creditsBalance?.fiat?.amount,
-      appcBalanceFiat = walletBalance?.creditsBalance?.fiat?.amount,
-      ethBalanceFiat = walletBalance?.creditsBalance?.fiat?.amount,
+      appcBalanceFiat = walletBalance?.appcBalance?.fiat?.amount,
+      ethBalanceFiat = walletBalance?.ethBalance?.fiat?.amount,
       fiatCurrency = walletBalance?.creditsBalance?.fiat?.currency,
       fiatSymbol = walletBalance?.creditsBalance?.fiat?.symbol
     )
