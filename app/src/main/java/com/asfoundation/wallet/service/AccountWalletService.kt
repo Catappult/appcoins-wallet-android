@@ -35,7 +35,7 @@ class AccountWalletService @Inject constructor(
 
   override fun getWalletOrCreate(): Single<String> = find()
     .subscribeOn(syncScheduler)
-    .onErrorResumeNext { walletCreatorInteract.create() }
+    .onErrorResumeNext { walletCreatorInteract.create("Main Wallet") }
     .map { toChecksumAddress(it.address) }
 
   override fun findWalletOrCreate(): Observable<String> = find()
@@ -44,7 +44,7 @@ class AccountWalletService @Inject constructor(
     .map { wallet -> wallet.address }
     .onErrorResumeNext { _: Throwable ->
       Observable.just(WalletGetterStatus.CREATING.toString())
-        .mergeWith(walletCreatorInteract.create().map { it.address }.toObservable())
+        .mergeWith(walletCreatorInteract.create("Main Wallet").map { it.address }.toObservable())
     }
 
   override fun signContent(content: String): Single<String> = find()

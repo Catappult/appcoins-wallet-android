@@ -29,7 +29,7 @@ class CreateWalletPresenter(
     disposables.add(
       view.getOnCreateWalletClick()
         .doOnNext { view.showLoading() }
-        .flatMapSingle { interactor.create() }
+        .flatMapSingle { interactor.create("Main Wallet") }
         .delay(1, TimeUnit.SECONDS)
         .observeOn(viewScheduler)
         .subscribe { view.showFinishAnimation() })

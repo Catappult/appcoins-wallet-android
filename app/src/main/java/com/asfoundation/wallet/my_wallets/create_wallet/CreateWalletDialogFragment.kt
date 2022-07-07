@@ -48,7 +48,7 @@ class CreateWalletDialogFragment : DialogFragment(),
     viewModel.collectStateAndEvents(lifecycle, viewLifecycleOwner.lifecycleScope)
     //Temporary solution until this animation is refactored to the new design
     if (requireArguments().getBoolean(NEEDS_WALLET_CREATION)) {
-      viewModel.createNewWallet()
+      viewModel.createNewWallet(requireArguments().getBoolean(IS_FROM_ONBOARDING))
     } else {
       viewModel.recoverWallet()
     }
@@ -90,6 +90,7 @@ class CreateWalletDialogFragment : DialogFragment(),
 
   companion object {
     const val NEEDS_WALLET_CREATION = "needs_wallet_creation"
+    const val IS_FROM_ONBOARDING = "is_from_onboarding"
   }
 
 }

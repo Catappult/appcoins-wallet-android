@@ -77,7 +77,7 @@ class WalletsInteract @Inject constructor(
       WalletsModel(totalBalance, walletsSorted.size, walletsSorted)
     }
 
-  fun createWallet(): Completable = walletCreatorInteract.create()
+  fun createWallet(name: String?): Completable = walletCreatorInteract.create(name)
     .subscribeOn(Schedulers.io())
     .flatMapCompletable { wallet ->
       getCurrentPromoCodeUseCase()

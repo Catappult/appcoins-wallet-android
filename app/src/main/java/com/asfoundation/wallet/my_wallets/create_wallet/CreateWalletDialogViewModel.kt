@@ -24,8 +24,8 @@ class CreateWalletDialogViewModel @Inject constructor(
     fun initialState(): CreateWalletState = CreateWalletState()
   }
 
-  fun createNewWallet() {
-    walletsInteract.createWallet()
+  fun createNewWallet(fromOnBoarding: Boolean) {
+    walletsInteract.createWallet(if (fromOnBoarding) "Main Wallet" else null)
       .asAsyncToState { copy(walletCreationAsync = it) }
       .repeatableScopedSubscribe(
         CreateWalletState::walletCreationAsync.name,
