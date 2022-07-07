@@ -84,34 +84,36 @@
           tools:text="@string/card_verification_charde_disclaimer"
           />
 
-      <Button
+      <com.asfoundation.wallet.ui.common.WalletButtonView
           android:id="@+id/submit"
-          style="@style/VerifyWallet.Submit.Button"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
+          android:layout_width="0dp"
+          android:layout_height="@dimen/small_button_height"
+          android:layout_alignParentBottom="true"
+          android:layout_gravity="center_vertical"
           android:layout_marginEnd="24dp"
+          android:layout_marginBottom="18dp"
           android:enabled="false"
-          android:text="@string/get_code_button"
-          app:layout_constraintBaseline_toBaselineOf="@id/cancel"
+          app:buttonText="@string/get_code_button"
+          app:buttonType="filled"
           app:layout_constraintBottom_toBottomOf="parent"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintTop_toBottomOf="@id/description"
-          app:layout_constraintVertical_bias="0"
+          app:layout_constraintVertical_bias="1"
           />
 
-      <com.google.android.material.button.MaterialButton
+
+      <com.asfoundation.wallet.ui.common.WalletButtonView
           android:id="@+id/cancel"
-          style="@style/VerifyWallet.Cancel.Button"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:layout_marginTop="56dp"
+          android:layout_width="0dp"
+          android:layout_height="@dimen/small_button_height"
+          android:layout_marginBottom="18dp"
+          android:layout_gravity="center_vertical"
           android:layout_marginEnd="@dimen/normal_margin"
-          android:text="@string/cancel"
+          android:enabled="false"
+          app:buttonText="@string/cancel"
+          app:buttonType="outlined"
           app:layout_constraintBottom_toBottomOf="parent"
           app:layout_constraintEnd_toStartOf="@id/submit"
-          app:layout_constraintHorizontal_bias="1"
-          app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toBottomOf="@id/description"
           app:layout_constraintVertical_bias="0"
           />
 

@@ -111,19 +111,22 @@
       app:layout_constraintTop_toTopOf="@id/layout_support_logo"
       />
 
-  <Button
+  <com.asfoundation.wallet.ui.common.WalletButtonView
       android:id="@+id/try_again"
-      style="@style/ButtonStyle.Alternative"
       android:layout_width="match_parent"
-      android:layout_height="@dimen/button_height"
-      android:layout_marginStart="32dp"
-      android:layout_marginEnd="32dp"
+      android:layout_height="@dimen/large_button_height"
+      android:layout_alignParentBottom="true"
+      android:layout_marginStart="@dimen/big_margin"
+      android:layout_marginTop="32dp"
+      android:layout_marginEnd="@dimen/big_margin"
       android:layout_marginBottom="76dp"
-      android:text="@string/try_again"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintTop_toBottomOf="@id/layout_support_logo"
       app:layout_constraintVertical_bias="1"
+      app:buttonText="@string/try_again"
+      app:buttonType="filled"
       />
+
   <androidx.constraintlayout.widget.Guideline
       android:id="@+id/guideline_top"
       android:layout_width="match_parent"

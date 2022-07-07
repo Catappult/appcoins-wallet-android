@@ -150,32 +150,34 @@
           app:layout_constraintVertical_bias="1"
           />
 
-      <Button
+      <com.asfoundation.wallet.ui.common.WalletButtonView
           android:id="@+id/confirm"
-          style="@style/VerifyWallet.Submit.Button"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
+          android:layout_width="0dp"
+          android:layout_height="@dimen/small_button_height"
+          android:layout_alignParentBottom="true"
+          android:layout_gravity="center_vertical"
           android:layout_marginEnd="24dp"
+          android:layout_marginBottom="18dp"
           android:enabled="false"
-          android:text="@string/confirm_button"
-          app:layout_constraintBaseline_toBaselineOf="@id/maybe_later"
+          app:buttonText="@string/confirm_button"
+          app:buttonType="filled"
           app:layout_constraintBottom_toBottomOf="parent"
           app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintVertical_bias="1"
           />
 
-      <com.google.android.material.button.MaterialButton
+      <com.asfoundation.wallet.ui.common.WalletButtonView
           android:id="@+id/maybe_later"
-          style="@style/VerifyWallet.Cancel.Button"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:layout_marginTop="56dp"
+          android:layout_width="0dp"
+          android:layout_height="@dimen/small_button_height"
+          android:layout_marginBottom="18dp"
+          android:layout_gravity="center_vertical"
           android:layout_marginEnd="@dimen/normal_margin"
-          android:layout_marginBottom="22dp"
-          android:text="@string/backup_tooltip_later_button"
+          android:enabled="false"
+          app:buttonText="@string/backup_tooltip_later_button"
+          app:buttonType="outlined"
           app:layout_constraintBottom_toBottomOf="parent"
           app:layout_constraintEnd_toStartOf="@id/confirm"
-          app:layout_constraintHorizontal_bias="1"
-          app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintVertical_bias="0"
           />
 
@@ -186,6 +188,7 @@
           android:orientation="vertical"
           app:layout_constraintGuide_percent="0.5"
           />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
   </ScrollView>
