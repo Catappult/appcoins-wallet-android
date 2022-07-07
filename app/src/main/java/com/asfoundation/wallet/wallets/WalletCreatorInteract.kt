@@ -15,14 +15,14 @@ class WalletCreatorInteract @Inject constructor(
   private val updateWalletNameUseCase: UpdateWalletNameUseCase,
 ) {
 
-  fun create(): Single<Wallet> = passwordStore.generatePassword()
+  fun create(name: String? = null): Single<Wallet> = passwordStore.generatePassword()
     .flatMap { passwordStore.setBackUpPassword(it).toSingleDefault(it) }
     .flatMap {
       walletRepository.createWallet(it)
         .compose(Operators.savePassword(passwordStore, walletRepository, it))
         .flatMap { wallet: Wallet -> passwordVerification(wallet, it) }
         .flatMap { wallet: Wallet ->
-          updateWalletNameUseCase(wallet.address, "Main Wallet")
+          updateWalletNameUseCase(wallet.address, name)
             .toSingleDefault(wallet)
         }
     }

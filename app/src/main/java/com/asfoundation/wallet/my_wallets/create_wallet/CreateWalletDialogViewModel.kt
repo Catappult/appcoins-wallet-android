@@ -21,17 +21,16 @@ class CreateWalletDialogViewModel @Inject constructor(
 ) : BaseViewModel<CreateWalletState, CreateWalletSideEffect>(initialState()) {
 
   companion object {
-    fun initialState(): CreateWalletState {
-      return CreateWalletState()
-    }
+    fun initialState(): CreateWalletState = CreateWalletState()
   }
 
-  fun createNewWallet() {
-    walletsInteract.createWallet()
+  fun createNewWallet(fromOnBoarding: Boolean) {
+    walletsInteract.createWallet(if (fromOnBoarding) "Main Wallet" else null)
       .asAsyncToState { copy(walletCreationAsync = it) }
-      .repeatableScopedSubscribe(CreateWalletState::walletCreationAsync.name) { e ->
-        e.printStackTrace()
-      }
+      .repeatableScopedSubscribe(
+        CreateWalletState::walletCreationAsync.name,
+        Throwable::printStackTrace
+      )
   }
 
   //Temporary bad code until this flow is refactored to the new design

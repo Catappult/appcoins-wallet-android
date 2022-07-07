@@ -53,6 +53,10 @@
     <argument
         android:name="needs_wallet_creation"
         app:argType="boolean" />
+    <argument
+        android:name="is_from_onboarding"
+        android:defaultValue="true"
+        app:argType="boolean" />
   </dialog>
 
   <activity

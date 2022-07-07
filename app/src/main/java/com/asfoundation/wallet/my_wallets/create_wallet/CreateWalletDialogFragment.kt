@@ -31,26 +31,27 @@ class CreateWalletDialogFragment : DialogFragment(),
   private val viewModel: CreateWalletDialogViewModel by viewModels()
   private val views by viewBinding(FragmentCreateWalletDialogLayoutBinding::bind)
 
-  override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-    return object : Dialog(requireContext(), theme) {
+  override fun onCreateDialog(savedInstanceState: Bundle?): Dialog =
+    object : Dialog(requireContext(), theme) {
       override fun onBackPressed() {
         // Do nothing
       }
     }
-  }
 
   override fun onCreateView(
     inflater: LayoutInflater, container: ViewGroup?,
     savedInstanceState: Bundle?
-  ): View? {
-    return inflater.inflate(R.layout.fragment_create_wallet_dialog_layout, container, false)
-  }
+  ): View? = inflater.inflate(R.layout.fragment_create_wallet_dialog_layout, container, false)
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
     viewModel.collectStateAndEvents(lifecycle, viewLifecycleOwner.lifecycleScope)
     //Temporary solution until this animation is refactored to the new design
-    if (requireArguments().getBoolean(NEEDS_WALLET_CREATION)) viewModel.createNewWallet() else viewModel.recoverWallet()
+    if (requireArguments().getBoolean(NEEDS_WALLET_CREATION)) {
+      viewModel.createNewWallet(requireArguments().getBoolean(IS_FROM_ONBOARDING))
+    } else {
+      viewModel.recoverWallet()
+    }
   }
 
   override fun onDestroy() {
@@ -60,37 +61,36 @@ class CreateWalletDialogFragment : DialogFragment(),
 
   override fun getTheme(): Int = R.style.NoBackgroundDialog
 
-  override fun onStateChanged(state: CreateWalletState) {
-    when (state.walletCreationAsync) {
-      Async.Uninitialized,
-      is Async.Loading -> {
-        views.walletCreationAnimation.visibility = View.VISIBLE
-        views.createWalletAnimation.playAnimation()
-      }
-      is Async.Success -> {
-        views.createWalletAnimation.setAnimation(R.raw.success_animation)
-        if (requireArguments().getBoolean(NEEDS_WALLET_CREATION)) {
-          views.createWalletText.text = getText(R.string.provide_wallet_created_header)
-        } else {
-          views.createWalletText.text = getText(R.string.wallets_imported_body)
-        }
-        views.createWalletAnimation.addAnimatorListener(object : Animator.AnimatorListener {
-          override fun onAnimationRepeat(animation: Animator?) = Unit
-          override fun onAnimationEnd(animation: Animator?) = navigator.navigateBack()
-          override fun onAnimationCancel(animation: Animator?) = Unit
-          override fun onAnimationStart(animation: Animator?) = Unit
-        })
-        views.createWalletAnimation.repeatCount = 0
-        views.createWalletAnimation.playAnimation()
-      }
-      else -> Unit
+  override fun onStateChanged(state: CreateWalletState) = when (state.walletCreationAsync) {
+    Async.Uninitialized,
+    is Async.Loading -> {
+      views.walletCreationAnimation.visibility = View.VISIBLE
+      views.createWalletAnimation.playAnimation()
     }
+    is Async.Success -> {
+      views.createWalletAnimation.setAnimation(R.raw.success_animation)
+      if (requireArguments().getBoolean(NEEDS_WALLET_CREATION)) {
+        views.createWalletText.text = getText(R.string.provide_wallet_created_header)
+      } else {
+        views.createWalletText.text = getText(R.string.wallets_imported_body)
+      }
+      views.createWalletAnimation.addAnimatorListener(object : Animator.AnimatorListener {
+        override fun onAnimationRepeat(animation: Animator?) = Unit
+        override fun onAnimationEnd(animation: Animator?) = navigator.navigateBack()
+        override fun onAnimationCancel(animation: Animator?) = Unit
+        override fun onAnimationStart(animation: Animator?) = Unit
+      })
+      views.createWalletAnimation.repeatCount = 0
+      views.createWalletAnimation.playAnimation()
+    }
+    else -> Unit
   }
 
   override fun onSideEffect(sideEffect: CreateWalletSideEffect) = Unit
 
   companion object {
     const val NEEDS_WALLET_CREATION = "needs_wallet_creation"
+    const val IS_FROM_ONBOARDING = "is_from_onboarding"
   }
 
 }
