@@ -54,30 +54,31 @@
         android:textColorHint="@color/grey_alpha_6b"
         />
 
-    <Button
-        android:id="@+id/share_btn"
-        style="@style/ButtonStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="36dp"
-        android:layout_below="@id/note"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="36dp"
-        android:drawableStart="@drawable/ic_share_white"
-        android:drawablePadding="8dp"
-        android:text="@string/askafriend_share_button"
-        />
-
-    <Button
+    <com.asfoundation.wallet.ui.common.WalletButtonView
         android:id="@+id/close_btn"
-        style="@style/CancelButtonStyle"
         android:layout_width="wrap_content"
-        android:layout_height="36dp"
-        android:layout_below="@id/note"
+        android:layout_height="@dimen/small_button_height"
+        android:layout_gravity="center_vertical"
         android:layout_marginTop="36dp"
         android:layout_marginEnd="16dp"
+        android:layout_below="@id/note"
         android:layout_toStartOf="@id/share_btn"
-        android:text="@string/close"
+        app:buttonText="@string/close"
+        app:buttonType="outlined"
+        />
+
+    <com.asfoundation.wallet.ui.common.WalletButtonView
+        android:id="@+id/share_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/small_button_height"
+        android:layout_gravity="center_vertical"
+        android:layout_below="@id/note"
+        android:layout_marginTop="36dp"
+        android:layout_alignParentEnd="true"
+        app:buttonText="@string/askafriend_share_button"
+        app:buttonType="filled"
         />
 
   </RelativeLayout>
+
 </ScrollView>

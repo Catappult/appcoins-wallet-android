@@ -37,8 +37,8 @@ class IabErrorFragment : BasePageViewFragment(), IabErrorView {
   }
 
   private fun setupUi() {
-    buy_button.text = getString(R.string.back_button)
-    cancel_button.text = getString(R.string.button_cancel)
+    buy_button.setText(getString(R.string.back_button))
+    cancel_button.setText(getString(R.string.button_cancel))
   }
 
   override fun cancelClickEvent(): Observable<Any> = RxView.clicks(cancel_button)

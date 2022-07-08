@@ -652,7 +652,7 @@ class MergedAppcoinsFragment : BasePageViewFragment(), MergedAppcoinsView {
   }
 
   private fun setButtonsText() {
-    buy_button.text = setBuyButtonText()
-    cancel_button.text = getString(R.string.back_button)
+    buy_button.setText(setBuyButtonText())
+    cancel_button.setText(getString(R.string.back_button))
   }
 }

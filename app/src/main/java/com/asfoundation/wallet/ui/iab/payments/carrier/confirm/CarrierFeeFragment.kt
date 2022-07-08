@@ -64,10 +64,10 @@ class CarrierFeeFragment : BasePageViewFragment(), CarrierFeeView {
   private fun setupUi() {
     iabView.disableBack()
 
-    cancel_button.setText(R.string.back_button)
+    cancel_button.setText(getString(R.string.back_button))
     cancel_button.visibility = View.VISIBLE
 
-    buy_button.setText(R.string.action_next)
+    buy_button.setText(getString(R.string.action_next))
     buy_button.visibility = View.VISIBLE
     buy_button.isEnabled = false
   }

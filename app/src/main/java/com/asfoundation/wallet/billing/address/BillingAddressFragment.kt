@@ -114,10 +114,10 @@ class BillingAddressFragment : BasePageViewFragment(), BillingAddressView {
   }
 
   private fun showButtons(isDonation: Boolean) {
-    cancel_button.setText(R.string.back_button)
+    cancel_button.setText(getString(R.string.back_button))
 
-    if (isDonation) buy_button.setText(R.string.action_donate)
-    else buy_button.setText(R.string.action_buy)
+    if (isDonation) buy_button.setText(getString(R.string.action_donate))
+    else buy_button.setText(getString(R.string.action_buy))
 
     buy_button.isEnabled = true
     buy_button.visibility = VISIBLE

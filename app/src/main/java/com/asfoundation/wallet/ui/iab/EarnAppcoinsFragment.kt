@@ -44,8 +44,8 @@ class EarnAppcoinsFragment : BasePageViewFragment(), EarnAppcoinsView {
   }
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-    dialog_buy_buttons_payment_methods.buy_button.text = getString(R.string.discover_button)
-    dialog_buy_buttons_payment_methods.cancel_button.text = getString(R.string.back_button)
+    dialog_buy_buttons_payment_methods.buy_button.setText(getString(R.string.discover_button))
+    dialog_buy_buttons_payment_methods.cancel_button.setText(getString(R.string.back_button))
     iabView.disableBack()
     presenter.present()
     super.onViewCreated(view, savedInstanceState)
