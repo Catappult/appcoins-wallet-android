@@ -265,11 +265,11 @@
           android:layout_marginEnd="@dimen/big_margin"
           android:layout_marginBottom="80dp"
           android:enabled="false"
+          app:buttonText="@string/action_next"
+          app:buttonType="filled"
           app:layout_constraintBottom_toBottomOf="parent"
           app:layout_constraintTop_toBottomOf="@id/bonus_msg"
           app:layout_constraintVertical_bias="1.0"
-          app:buttonText="@string/action_next"
-          app:buttonType="filled"
           />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

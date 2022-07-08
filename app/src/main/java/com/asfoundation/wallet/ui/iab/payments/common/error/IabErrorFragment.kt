@@ -20,8 +20,10 @@ class IabErrorFragment : BasePageViewFragment(), IabErrorView {
   @Inject
   lateinit var presenter: IabErrorPresenter
 
-  override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                            savedInstanceState: Bundle?): View? {
+  override fun onCreateView(
+    inflater: LayoutInflater, container: ViewGroup?,
+    savedInstanceState: Bundle?
+  ): View? {
     return inflater.inflate(R.layout.fragment_iab_error, container, false)
   }
 
@@ -83,8 +85,10 @@ class IabErrorFragment : BasePageViewFragment(), IabErrorView {
     }
 
     @JvmStatic
-    fun newInstance(@StringRes errorMessageResource: Int,
-                    entryBackStackName: String): IabErrorFragment {
+    fun newInstance(
+      @StringRes errorMessageResource: Int,
+      entryBackStackName: String
+    ): IabErrorFragment {
       val fragment = IabErrorFragment()
 
       fragment.arguments = Bundle().apply {
