@@ -353,7 +353,7 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
 
   override fun showError(message: Int) {
     payment_method_main_view.visibility = View.GONE
-    error_message.error_dismiss.text = getString(R.string.ok)
+    error_message.error_dismiss.setText(getString(R.string.ok))
     error_message.visibility = View.VISIBLE
     error_message.generic_error_layout.error_message.setText(message)
   }
@@ -361,7 +361,7 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
   override fun showItemAlreadyOwnedError() {
     payment_method_main_view.visibility = View.GONE
     iabView.disableBack()
-    error_dismiss.text = getString(R.string.ok)
+    error_dismiss.setText(getString(R.string.ok))
     error_message.visibility = View.VISIBLE
     generic_error_layout.error_message.setText(R.string.purchase_error_incomplete_transaction_body)
     layout_support_icn.visibility = View.GONE

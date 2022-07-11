@@ -185,11 +185,6 @@
     <item name="android:minHeight">48dp</item>
   </style>
 
-  <style name="ButtonStyle.Alternative" parent="ButtonStyle">
-    <item name="android:background">@drawable/button_snd_background</item>
-    <item name="android:textColor">@color/btn_text_enable_color</item>
-  </style>
-
   <style name="ButtonStyle.Blue" parent="ButtonStyle">
     <item name="android:background">@drawable/button_dark_background</item>
     <item name="android:textColor">@color/btn_text_enable_color</item>

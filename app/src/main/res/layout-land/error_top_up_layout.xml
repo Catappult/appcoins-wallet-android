@@ -59,23 +59,23 @@
       tools:text="@string/purchase_card_error_general_2"
       />
 
-  <Button
+  <com.asfoundation.wallet.ui.common.WalletButtonView
       android:id="@+id/error_verify_wallet_button"
-      style="@style/ButtonStyle.Light"
       android:layout_width="220dp"
-      android:layout_height="@dimen/button_height"
+      android:layout_height="@dimen/small_button_height"
+      android:layout_alignParentBottom="true"
       android:layout_marginStart="32dp"
       android:layout_marginTop="20dp"
       android:layout_marginEnd="32dp"
       android:layout_marginBottom="42dp"
-      android:text="@string/referral_view_verify_button"
       android:visibility="gone"
+      app:buttonText="@string/referral_view_verify_button"
+      app:buttonType="outlined"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toBottomOf="@id/error_message"
       app:layout_constraintVertical_bias="1"
       />
-
 
   <androidx.constraintlayout.widget.Guideline
       android:id="@+id/end_guideline"

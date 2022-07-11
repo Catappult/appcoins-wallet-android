@@ -415,14 +415,15 @@
 
       </RelativeLayout>
 
-      <Button
+      <com.asfoundation.wallet.ui.common.WalletButtonView
           android:id="@+id/close_channel_btn"
-          style="@style/ButtonStyle.Light"
           android:layout_width="wrap_content"
-          android:layout_height="32dp"
+          android:layout_height="@dimen/small_button_height"
+          android:layout_gravity="center_vertical"
           android:layout_marginTop="@dimen/half_large_margin"
-          android:text="@string/transaction_close_channel_btn_txt"
           android:visibility="gone"
+          app:buttonText="@string/transaction_close_channel_btn_txt"
+          app:buttonType="outlined"
           app:layout_constraintBottom_toTopOf="@id/logo"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="parent"

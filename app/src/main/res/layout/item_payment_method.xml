@@ -72,20 +72,20 @@
       tools:text="You need ETH to pay for the gas."
       />
 
-  <Button
+  <com.asfoundation.wallet.ui.common.WalletButtonView
       android:id="@+id/checkout_topup_button"
       android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
+      android:layout_height="@dimen/small_button_height"
+      android:layout_gravity="center_vertical"
       android:layout_marginStart="8dp"
-      style="@style/ButtonStyle"
-      app:layout_constraintHorizontal_bias="1"
-      app:iconTint="#ffffff"
-      android:text="@string/topup_home_button"
+      android:visibility="gone"
+      app:buttonText="@string/topup_home_button"
+      app:buttonType="filled"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toEndOf="@+id/payment_method_description"
       app:layout_constraintTop_toTopOf="parent"
-      android:visibility="gone"
+      tools:visibility="visible"
       />
 
   <LinearLayout

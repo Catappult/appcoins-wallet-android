@@ -143,47 +143,50 @@
       app:layout_constraintTop_toTopOf="@id/layout_support_logo"
       />
 
-
-  <Button
-      android:id="@+id/try_again"
-      style="@style/ButtonStyle.Alternative"
+  <com.asfoundation.wallet.ui.common.WalletButtonView
+      android:id="@+id/maybe_later"
       android:layout_width="0dp"
-      android:layout_height="wrap_content"
+      android:layout_height="@dimen/large_button_height"
+      android:layout_alignParentBottom="true"
+      android:layout_marginStart="68dp"
+      android:layout_marginEnd="16dp"
+      android:layout_marginBottom="23dp"
+      app:buttonText="@string/backup_tooltip_later_button"
+      app:buttonType="outlined"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="@id/mid_guideline"
+      app:layout_constraintHorizontal_bias="1"
+      app:layout_constraintStart_toStartOf="parent"
+      />
+
+  <com.asfoundation.wallet.ui.common.WalletButtonView
+      android:id="@+id/try_again"
+      android:layout_width="0dp"
+      android:layout_height="@dimen/large_button_height"
+      android:layout_alignParentBottom="true"
       android:layout_marginStart="8dp"
       android:layout_marginEnd="23dp"
       android:layout_marginBottom="23dp"
-      android:text="@string/try_again"
+      app:buttonText="@string/try_again"
+      app:buttonType="filled"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toEndOf="@id/end_guideline"
       app:layout_constraintTop_toTopOf="@+id/layout_support_logo"
       />
-  <Button
+
+  <com.asfoundation.wallet.ui.common.WalletButtonView
       android:id="@+id/try_again_attempts"
-      style="@style/MaterialButtonStyle"
       android:layout_width="0dp"
-      android:layout_height="wrap_content"
+      android:layout_height="@dimen/large_button_height"
+      android:layout_alignParentBottom="true"
       android:layout_marginStart="16dp"
       android:layout_marginEnd="64dp"
-      android:text="@string/try_again"
+      app:buttonText="@string/try_again"
+      app:buttonType="filled"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="@id/mid_guideline"
       app:layout_constraintTop_toTopOf="@id/maybe_later"
-      />
-
-  <Button
-      android:id="@+id/maybe_later"
-      style="@style/MaterialButtonStyle.Light"
-      android:layout_width="0dp"
-      android:layout_height="wrap_content"
-      android:layout_marginStart="68dp"
-      android:layout_marginEnd="16dp"
-      android:layout_marginBottom="23dp"
-      android:text="@string/backup_tooltip_later_button"
-      app:layout_constraintBottom_toBottomOf="parent"
-      app:layout_constraintEnd_toEndOf="@id/mid_guideline"
-      app:layout_constraintHorizontal_bias="1"
-      app:layout_constraintStart_toStartOf="parent"
       />
 
   <View

@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     >
-  <include layout="@layout/layout_app_bar"/>
+  <include layout="@layout/layout_app_bar" />
   <FrameLayout
       android:layout_width="match_parent"
       android:layout_height="match_parent"
@@ -45,15 +44,23 @@
           android:gravity="center"
           android:textSize="12sp"
           />
-      <Button
+
+      <com.asfoundation.wallet.ui.common.WalletButtonView
           android:id="@+id/copy_action"
           android:layout_width="match_parent"
-          android:layout_height="@dimen/button_height"
-          android:layout_gravity="center_horizontal"
-          android:layout_marginTop="@dimen/big_margin"
-          android:text="@string/copy"
-          style="@style/ButtonStyle"
+          android:layout_height="@dimen/large_button_height"
+          android:layout_marginStart="16dp"
+          android:layout_marginTop="16dp"
+          android:layout_marginEnd="16dp"
+          android:layout_marginBottom="16dp"
+          app:buttonText="@string/copy"
+          app:buttonType="filled"
+          app:layout_constraintBottom_toBottomOf="parent"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toBottomOf="@id/authentication_error_message"
           />
+
     </LinearLayout>
   </FrameLayout>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

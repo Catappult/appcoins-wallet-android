@@ -40,34 +40,35 @@
       style="@style/TextAppearance.AppCompat.Body1.Roboto.Medium"
       />
 
-  <Button
+  <com.asfoundation.wallet.ui.common.WalletButtonView
       android:id="@+id/provide_wallet_create_wallet_button"
       android:layout_width="wrap_content"
-      android:layout_height="@dimen/button_height"
+      android:layout_height="@dimen/small_button_height"
+      android:layout_gravity="center_vertical"
       android:layout_marginEnd="16dp"
       android:layout_marginTop="32dp"
-      android:text="@string/provide_wallet_create_wallet_button"
+      app:buttonText="@string/provide_wallet_create_wallet_button"
+      app:buttonType="filled"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintHorizontal_bias="1"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toBottomOf="@+id/provide_wallet_create_body"
-      style="@style/ButtonStyle"
       />
 
-  <Button
+  <com.asfoundation.wallet.ui.common.WalletButtonView
       android:id="@+id/provide_wallet_cancel"
       android:layout_width="wrap_content"
-      android:layout_height="@dimen/button_height"
-      android:layout_marginEnd="8dp"
-      android:text="@string/cancel"
-      app:layout_constraintBottom_toBottomOf="@id/provide_wallet_create_wallet_button"
+      android:layout_height="@dimen/small_button_height"
+      android:layout_gravity="center_vertical"
+      android:layout_marginEnd="@dimen/big_margin"
+      app:buttonText="@string/cancel"
+      app:buttonType="outlined"
+      app:layout_constraintBottom_toBottomOf="@+id/provide_wallet_create_wallet_button"
       app:layout_constraintEnd_toStartOf="@id/provide_wallet_create_wallet_button"
-      app:layout_constraintHorizontal_bias="1"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toTopOf="@id/provide_wallet_create_wallet_button"
-      style="@style/CancelButtonStyle"
+      app:layout_constraintTop_toTopOf="@+id/provide_wallet_create_wallet_button"
       />
+
   <androidx.constraintlayout.widget.Group
       android:id="@+id/create_wallet_group"
       android:layout_width="wrap_content"

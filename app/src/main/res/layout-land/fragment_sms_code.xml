@@ -74,36 +74,31 @@
       app:layout_constraintTop_toBottomOf="@+id/error"
       />
 
-  <Button
-      android:id="@+id/back_button"
-      style="@style/CancelBorderlessButtonStyle"
-      android:layout_width="wrap_content"
-      android:layout_height="@dimen/button_height"
-      android:layout_marginEnd="8dp"
-      android:maxWidth="126dp"
-      android:minWidth="80dp"
-      android:text="@string/back_button"
-      android:textSize="14sp"
-      app:layout_constraintBottom_toBottomOf="@+id/submit_button"
-      app:layout_constraintEnd_toStartOf="@id/submit_button"
-      app:layout_constraintTop_toTopOf="@+id/submit_button"
-      />
-
-  <Button
+  <com.asfoundation.wallet.ui.common.WalletButtonView
       android:id="@+id/submit_button"
-      style="@style/ButtonStyle.Alternative"
       android:layout_width="wrap_content"
-      android:layout_height="@dimen/button_height"
+      android:layout_height="@dimen/small_button_height"
+      android:layout_gravity="center_vertical"
       android:layout_marginTop="16dp"
       android:layout_marginEnd="@dimen/big_margin"
-      android:maxWidth="126dp"
-      android:minWidth="80dp"
-      android:text="@string/submit_button"
-      android:textColor="@color/white"
-      android:textSize="14sp"
+      app:buttonText="@string/submit_button"
+      app:buttonType="filled"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintTop_toBottomOf="@+id/resend_code"
+      />
+
+  <com.asfoundation.wallet.ui.common.WalletButtonView
+      android:id="@+id/back_button"
+      android:layout_width="wrap_content"
+      android:layout_height="@dimen/small_button_height"
+      android:layout_gravity="center_vertical"
+      android:layout_marginEnd="@dimen/big_margin"
+      app:buttonText="@string/back_button"
+      app:buttonType="outlined"
+      app:layout_constraintBottom_toBottomOf="@+id/submit_button"
+      app:layout_constraintEnd_toStartOf="@id/submit_button"
+      app:layout_constraintTop_toTopOf="@+id/submit_button"
       />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

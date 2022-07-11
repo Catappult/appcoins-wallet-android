@@ -91,13 +91,15 @@
 
     </com.google.android.material.textfield.TextInputLayout>
 
-    <Button
+    <com.asfoundation.wallet.ui.common.WalletButtonView
         android:id="@+id/submit_btn"
-        style="@style/ButtonStyle"
+        android:enabled="true"
         android:layout_width="wrap_content"
-        android:layout_height="@dimen/button_height"
-        android:enabled="false"
-        android:text="@string/activity_airdrop_submit_btn"
+        android:layout_height="@dimen/small_button_height"
+        android:layout_gravity="center_vertical"
+        android:layout_marginEnd="@dimen/big_margin"
+        app:buttonText="@string/activity_airdrop_submit_btn"
+        app:buttonType="filled"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/captcha_text"
         />

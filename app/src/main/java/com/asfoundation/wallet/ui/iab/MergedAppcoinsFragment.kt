@@ -540,7 +540,7 @@ class MergedAppcoinsFragment : BasePageViewFragment(), MergedAppcoinsView {
 
   override fun showError(@StringRes errorMessage: Int) {
     payment_method_main_view.visibility = GONE
-    error_dismiss.text = getString(R.string.ok)
+    error_dismiss.setText(getString(R.string.ok))
     error_message.text = getString(errorMessage)
     merged_error_layout.visibility = VISIBLE
   }

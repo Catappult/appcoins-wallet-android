@@ -117,21 +117,16 @@
       tools:visibility="visible"
       />
 
-  <Button
+  <com.asfoundation.wallet.ui.common.WalletButtonView
       android:id="@+id/got_it_button"
-      style="@style/ButtonStyle"
       android:layout_width="wrap_content"
-      android:layout_height="@dimen/button_height"
+      android:layout_height="@dimen/small_button_height"
       android:layout_gravity="center_vertical"
       android:layout_marginTop="32dp"
       android:layout_marginEnd="16dp"
       android:layout_marginBottom="16dp"
-      android:alpha="0.2"
-      android:maxWidth="126dp"
-      android:minWidth="80dp"
-      android:text="@string/got_it_button"
-      android:textColor="@color/white"
-      android:textSize="14sp"
+      app:buttonText="@string/got_it_button"
+      app:buttonType="filled"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintHorizontal_bias="1"

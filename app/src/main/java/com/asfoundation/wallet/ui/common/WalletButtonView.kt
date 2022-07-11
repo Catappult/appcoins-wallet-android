@@ -15,7 +15,7 @@ import com.asfoundation.wallet.util.convertDpToPx
 class WalletButtonView : FrameLayout {
 
   private val views =
-      LayoutWalletButtonViewBinding.inflate(LayoutInflater.from(context), this, true)
+    LayoutWalletButtonViewBinding.inflate(LayoutInflater.from(context), this, true)
 
   private var type = Type.FILLED
 
@@ -26,15 +26,15 @@ class WalletButtonView : FrameLayout {
   constructor(context: Context) : this(context, null)
   constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0)
   constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(
-      context, attrs,
-      defStyleAttr
+    context, attrs,
+    defStyleAttr
   ) {
     retrievePreferences(attrs, defStyleAttr)
   }
 
   private fun retrievePreferences(attrs: AttributeSet?, defStyleAttr: Int) {
     val typedArray =
-        context.obtainStyledAttributes(attrs, R.styleable.WalletButtonView, defStyleAttr, 0)
+      context.obtainStyledAttributes(attrs, R.styleable.WalletButtonView, defStyleAttr, 0)
     val type = Type.values()[typedArray.getInt(R.styleable.WalletButtonView_buttonType, 0)]
     setType(type)
     val string = typedArray.getString(R.styleable.WalletButtonView_buttonText) ?: ""
@@ -81,7 +81,8 @@ class WalletButtonView : FrameLayout {
         }
         Type.OUTLINED -> {
           views.root.setCardBackgroundColor(
-              ContextCompat.getColor(this.context, R.color.transparent))
+            ContextCompat.getColor(this.context, R.color.transparent)
+          )
           views.root.strokeColor = color
           views.root.strokeWidth = 1.convertDpToPx(resources)
           views.root.rippleColor = ColorStateList.valueOf(color)
@@ -89,11 +90,22 @@ class WalletButtonView : FrameLayout {
         }
         Type.TEXT -> {
           views.root.setCardBackgroundColor(
-              ContextCompat.getColor(this.context, R.color.transparent))
+            ContextCompat.getColor(this.context, R.color.transparent)
+          )
           views.root.strokeColor = ContextCompat.getColor(this.context, R.color.transparent)
           views.root.strokeWidth = 0
           views.root.setRippleColorResource(R.color.transparent)
           views.text.setTextColor(color)
+        }
+        Type.TEXT_UPPERCASE -> {
+          views.root.setCardBackgroundColor(
+            ContextCompat.getColor(this.context, R.color.transparent)
+          )
+          views.root.strokeColor = ContextCompat.getColor(this.context, R.color.transparent)
+          views.root.strokeWidth = 0
+          views.root.setRippleColorResource(R.color.transparent)
+          views.text.setTextColor(color)
+          views.text.isAllCaps = true
         }
       }
     } else {
@@ -110,5 +122,5 @@ class WalletButtonView : FrameLayout {
     views.root.setOnClickListener(l)
   }
 
-  enum class Type { FILLED, OUTLINED, TEXT }
+  enum class Type { FILLED, OUTLINED, TEXT, DISABLE, TEXT_UPPERCASE }
 }
