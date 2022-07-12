@@ -16,6 +16,7 @@ class Parameters {
     const val TYPE = "type"
     const val CALLBACK_URL = "callback_url"
     const val PRODUCT_TOKEN = "product_token"
+    const val ORDER_REFERENCE = "order_reference"
     const val SKILLS = "skills"
     const val SCHEME = "https"
     const val LEGACY_HOST = BuildConfig.LEGACY_PAYMENT_HOST

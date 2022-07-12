@@ -63,7 +63,7 @@ class OneStepTransactionParser @Inject constructor(private val proxyService: Pro
   }
 
   private fun getOrderReference(uri: OneStepUri): String? {
-    return uri.parameters["order_reference"]
+    return uri.parameters[Parameters.ORDER_REFERENCE]
   }
 
   private fun getOriginAmount(uri: OneStepUri): String {
