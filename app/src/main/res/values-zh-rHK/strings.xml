@@ -16,7 +16,7 @@
   <string name="error_field_required">This field is required</string>
   <string name="action_settings">Settings</string>
   <string name="title_account_list">Wallets</string>
-  <string name="cancel">cancel</string>
+  <string name="cancel">Cancel</string>
   <string name="confirm_delete_account">Make sure that you have a backup of this wallet.</string>
   <string name="action_import">Recover</string>
   <string name="copy">Copy to clipboard</string>
@@ -26,8 +26,8 @@
   <string name="network_label">Network</string>
   <string name="credits">Credits</string>
   <string name="label_new">New</string>
-  <string name="got_it_button">GOT IT</string>
-  <string name="change_button">CHANGE</string>
+  <string name="got_it_button">Got it</string>
+  <string name="change_button">Change</string>
   <string name="vip">VIP</string>
   <string name="low_storage_error">Not enough storage space</string>
   <string name="no_camera_permission_title">Camera Permission</string>
@@ -361,7 +361,7 @@
   <string name="provide_wallet_allow_once_button">Allow once</string>
   <string name="provide_wallet_completed_header">Wallet associated to Aptoide!</string>
   <string name="provide_wallet_create_body">You need a wallet address! Follow these steps to create one in the AppCoins Wallet.</string>
-  <string name="provide_wallet_create_wallet_button">CREATE</string>
+  <string name="provide_wallet_create_wallet_button">Create</string>
   <string name="provide_wallet_creating_wallet_header">Creating wallet address&#8230;</string>
   <string name="provide_wallet_created_header">Wallet address created!</string>
   <string name="provide_wallet_empty_state">You haven\'t allowed AppCoins Wallet to provide your address to any other app yet.</string>
@@ -441,7 +441,7 @@
   <string name="remind_later_button">Remind me later</string>
   <string name="get_code_button">Get code</string>
   <string name="confirm_button">Confirm</string>
-  <string name="withdraw_button">withdraw</string>
+  <string name="withdraw_button">Withdraw</string>
   <string name="email_here_field">Your email here&#8230;</string>
   <string name="understood_button">Understood!</string>
   <string name="skip_button">Skip for now</string>
@@ -595,12 +595,12 @@
   <string name="referral_view_title">Invite Friends</string>
   <string name="referral_view_title_1">Invite Friends and Earn More!</string>
   <string name="referral_view_verified_body">Receive %s worth of AppCoins Credits for each friend. Just share the link!</string>
-  <string name="referral_view_share_link_button">SHARE INVITE LINK</string>
+  <string name="referral_view_share_link_button">Share invite link</string>
   <string name="referral_view_notifications_title">Notifications</string>
   <string name="referral_share_sheet_title">Share invite link via:</string>
   <string name="referral_view_unverified_body">Receive %s worth of AppCoins Credits for each friend. You first need to verify your wallet.</string>
-  <string name="referral_view_verify_button">VERIFY WALLET</string>
-  <string name="referral_view_i_have_been_invited_button">I\'VE BEEN INVITED</string>
+  <string name="referral_view_verify_button">Verify wallet</string>
+  <string name="referral_view_i_have_been_invited_button">I\'ve been invited</string>
   <string name="referral_view_dropup_menu_friends_invited">Friends invited</string>
   <string name="referral_view_dropup_menu_earned">Earned</string>
   <string name="referral_dropup_menu_friends_title_1">Friends Invited</string>
@@ -634,7 +634,7 @@
   <string name="update_wallet_hard_body">It seems you\'re using an old version of the AppCoins Wallet. Please update it to guarantee the best experience and security.</string>
   <string name="update_wallet_soft_title">Don\'t get left behind!</string>
   <string name="update_wallet_soft_body">Keeping the AppCoins Wallet updated guarantees the best experience.</string>
-  <string name="update_button">UPDATE</string>
+  <string name="update_button">Update</string>
   <!--Backup and Import-->
   <string name="backup_home_notification_title">Backup Your Wallet</string>
   <string name="backup_home_notification_body">Have you ever lost your phone? Backup your wallet now!</string>
@@ -645,8 +645,8 @@
   <string name="import_wallet_body">Paste your wallet\'s backup below.</string>
   <string name="import_wallet_keystore_private_keys">Keystore or private keys</string>
   <string name="import_wallet_from_file_title">Or recover from file</string>
-  <string name="import_wallet_file_button">RECOVER FROM FILE</string>
-  <string name="import_wallet_button">RECOVER WALLET</string>
+  <string name="import_wallet_file_button">Recover from file</string>
+  <string name="import_wallet_button">Recover wallet</string>
   <string name="import_wallet_password_body">This wallet is password protected!</string>
   <string name="import_wallet_wrong_password_body">Oops, wrong password!</string>
   <string name="error_invalid_private_key">Invalid private key</string>
@@ -655,7 +655,7 @@
   <string name="backup_body">We don\'t store your private keys or any other access method. It\'s important to keep your wallet\'s backup (keystore) safe.</string>
   <string name="backup_additional_security_title">Additional Security (optional)</string>
   <string name="backup_additional_security_body">Choose a password</string>
-  <string name="backup_button">BACKUP WALLET</string>
+  <string name="backup_button">Back up wallet</string>
   <string name="backup_ready_title">Your backup is ready!\nKeep it safe.</string>
   <string name="backup_ready_save_on_email">Save it on your email</string>
   <string name="backup_ready_email_button">Send to email</string>
@@ -665,8 +665,8 @@
   <string name="backup_confirmation_tips_2"><b>Save it</b> on a USB drive.</string>
   <string name="backup_confirmation_tips_3"><b>Copy it</b> to a private and secure cloud storage.</string>
   <string name="backup_tooltip_body">Make a backup of your wallet!</string>
-  <string name="backup_tooltip_later_button">MAYBE LATER</string>
-  <string name="backup_tooltip_backup_button">BACKUP</string>
+  <string name="backup_tooltip_later_button">Maybe later</string>
+  <string name="backup_tooltip_backup_button">Back up</string>
   <string name="backup_notification_title">Make a backup of your wallet!</string>
   <string name="backup_notification_body">Keep your funds safe and make sure you can always access your wallet.</string>
   <string name="backup_choose_wallet_title">Choose a wallet to backup</string>
@@ -693,23 +693,23 @@
   <string name="wallets_imported_body">Wallet successfuly recovered</string>
   <string name="wallets_2nd_view_balance_title">Balance:</string>
   <string name="wallets_2nd_view_other_wallets_title">Other Wallets</string>
-  <string name="wallets_2nd_view_import_button">RECOVER WALLET</string>
-  <string name="wallets_2nd_view_create_button">CREATE NEW</string>
-  <string name="wallet_view_copy_button">COPY</string>
-  <string name="wallet_view_share_button">SHARE</string>
+  <string name="wallets_2nd_view_import_button">Recover wallet</string>
+  <string name="wallets_2nd_view_create_button">Create new</string>
+  <string name="wallet_view_copy_button">Copy</string>
+  <string name="wallet_view_share_button">Share</string>
   <string name="wallet_view_total_balance_title">Total Balance</string>
-  <string name="wallet_view_remove_button">REMOVE WALLET</string>
-  <string name="wallet_view_backup_button">BACKUP WALLET</string>
-  <string name="wallet_view_activate_button">MAKE THIS WALLET ACTIVE</string>
+  <string name="wallet_view_remove_button">Remove wallet</string>
+  <string name="wallet_view_backup_button">Back up wallet</string>
+  <string name="wallet_view_activate_button">Make this wallet active</string>
   <string name="wallet_view_active_body">This is your active wallet.</string>
   <!--Remove Wallet-->
   <string name="remove_wallet_title">Remove Wallet</string>
   <string name="remove_wallet_body">We strongly recommend to backup a wallet before removing it. You\'ll not be able to access it again unless you\'ve got a backup.</string>
-  <string name="remove_wallet_backup_button">BACKUP WALLET</string>
-  <string name="remove_wallet_no_backup_button">REMOVE WALLET</string>
+  <string name="remove_wallet_backup_button">Back up wallet</string>
+  <string name="remove_wallet_no_backup_button">Remove wallet</string>
   <string name="remove_wallet_confirm_body">Are you sure you want to remove this wallet?</string>
-  <string name="remove_wallet_no_button">NO, GO BACK</string>
-  <string name="remove_wallet_yes_button">YES, REMOVE WALLET</string>
+  <string name="remove_wallet_no_button">No, go back</string>
+  <string name="remove_wallet_yes_button">Yes, remove wallet</string>
   <string name="remove_wallet_removed_body">Wallet removed!</string>
   <!--Tranfer-->
   <string name="tranfer_bottom_navigation">Transfer</string>
@@ -721,7 +721,7 @@
   <string name="transfer_send_token_title">Token:</string>
   <string name="transfer_send_amount_title">Amount</string>
   <string name="transfer_send_current_balance_title">Current Balance:</string>
-  <string name="transfer_send_button">SEND</string>
+  <string name="transfer_send_button">Send</string>
   <string name="transfer_receive_body">Share your wallet address to receive funds.</string>
   <!--Support Notifications-->
   <string name="support_new_message_title">You\'ve got a new message!</string>
@@ -758,15 +758,15 @@
   <string name="subscriptions_expiration_body">It expires on %s</string>
   <string name="subscriptions_canceled_body">Canceled</string>
   <string name="subscriptions_details_disclaimer">The value in AppCoins may vary for next payment due to exchange rate.</string>
-  <string name="subscriptions_details_button">DETAILS</string>
-  <string name="subscriptions_manage_button">MANAGE SUBSCRIPTIONS</string>
-  <string name="subscriptions_cancel_button">CANCEL SUBSCRIPTION</string>
-  <string name="subscriptions_renew_subscription_button">RENEW SUBSCRIPTION</string>
+  <string name="subscriptions_details_button">Details</string>
+  <string name="subscriptions_manage_button">Manage subscription</string>
+  <string name="subscriptions_cancel_button">Cancel subscription</string>
+  <string name="subscriptions_renew_subscription_button">Renew subscription</string>
   <string name="subscriptions_renewed_confirmation_title">Subscription Renewed!</string>
   <string name="subscriptions_cancel_title">Cancel Subscription</string>
   <string name="subscriptions_cancel_body">Are you sure you want to cancel this subscription?</string>
-  <string name="subscriptions_cancel_no_button">NO, GO BACK</string>
-  <string name="subscriptions_cancel_yes_button">YES, CANCEL SUBSCRIPTION</string>
+  <string name="subscriptions_cancel_no_button">No, go back</string>
+  <string name="subscriptions_cancel_yes_button">Yes, cancel subscription</string>
   <string name="subscriptions_cancel_confirmation_title">Subscription Canceled!</string>
   <string name="subscriptions_cancel_confirmation_body">You won\'t be charged anymore for this subscription, and you can use it until %s.</string>
   <string name="subscriptions_category_title">Subscription</string>
@@ -839,8 +839,8 @@
   <string name="carrier_billing_phone_confirmation_body">Your phone number is %s.</string>
   <string name="carrier_billing_enter_pin_body">Please enter the PIN received via SMS.</string>
   <string name="carrier_billing_code_field">Your code...</string>
-  <string name="carrier_billing_code_resend_button">RESEND CODE</string>
-  <string name="carrier_billing_submit_button">SUBMIT</string>
+  <string name="carrier_billing_code_resend_button">Resend code</string>
+  <string name="carrier_billing_submit_button">Submit</string>
   <string name="carrier_billing_number_not_supported">It seems your number isn\'t compatible with this payment method.</string>
   <string name="carrier_billing_terms_disclaimer">By tapping on Submit, you confirm you accept the Terms and Conditions and the Privacy Policy.</string>
   <string name="carrier_billing_help_1">Need help?</string>
@@ -919,7 +919,7 @@
   <string name="rate_us_improve_field__empty_error">Please write something</string>
   <string name="rate_us_possitive_thanks_title">Thank you!</string>
   <string name="rate_us_possitive_thanks_body">We\'re glad you like our app. Can you help us by rating us on the app store?</string>
-  <string name="rate_us_possitive_rate_button">RATE APPCOINS WALLET</string>
+  <string name="rate_us_possitive_rate_button">Rate the AppCoins Wallet</string>
   <string name="rate_us_possitive_done_title">Thanks for your feedback!</string>
   <string name="rate_us_back_title">Wanna help us?</string>
   <string name="rate_us_back_body">Rate the AppCoins Wallet on the app store so we can improve it.</string>
@@ -955,7 +955,7 @@
   <string name="voucher_buy_header">Voucher for %s</string>
   <string name="voucher_buy_short_header">Voucher:</string>
   <string name="voucher_buy_no_game_title">Don\'t you have %s?</string>
-  <string name="voucher_buy_no_game_install_button">DOWNLOAD NOW</string>
+  <string name="voucher_buy_no_game_install_button">Download now</string>
   <string name="voucher_code_title">Voucher Code</string>
   <string name="voucher_instructions_body">Go to %s and use the code to redeem your voucher.</string>
   <string name="voucher_instructions_transactions">You can always find the voucher code in the transaction history.</string>
@@ -1004,8 +1004,8 @@
   <string name="promo_code_view_field">Promo Code here...</string>
   <string name="promo_code_view_error">Invalid code. Try with another one!</string>
   <string name="promo_code_activated">Promo code activated!</string>
-  <string name="promo_code_delete_button">DELETE</string>
-  <string name="promo_code_replace_button">REPLACE</string>
+  <string name="promo_code_delete_button">Delete</string>
+  <string name="promo_code_replace_button">Replace</string>
   <string name="promo_code_active_tag">Active</string>
   <string name="promo_code_expired_tag">Expired</string>
   <string name="promo_code_success_title">Done!</string>
@@ -1060,8 +1060,8 @@
   <string name="mywallet_unverified_title">Unverified Wallet</string>
   <string name="mywallet_unverified_body">Verify a payment method to avoid blockages.</string>
   <string name="mywallet_backed_up_date">You backed up your wallet on %s.</string>
-  <string name="mywallet_backup_again_button">BACK UP AGAIN</string>
-  <string name="mywallet_verify_payment_method_button">VERIFY NEW CARD</string>
+  <string name="mywallet_backup_again_button">Back up again</string>
+  <string name="mywallet_verify_payment_method_button">Verify new card</string>
   <string name="mywallet_choose_name_header">Choose a name for your wallet</string>
   <string name="mywallet_choose_name_field">Wallet name here...</string>
   <string name="mywallet_choose_name_confirmed">Wallet name changed</string>
