@@ -16,7 +16,7 @@
   <string name="error_field_required">Dit veld is verplicht</string>
   <string name="action_settings">Instellingen</string>
   <string name="title_account_list">Wallets</string>
-  <string name="cancel">annuleren</string>
+  <string name="cancel">Cancel</string>
   <string name="confirm_delete_account">Zorg ervoor dat je een back-up van deze wallet hebt.</string>
   <string name="action_import">Herstellen</string>
   <string name="copy">Naar klembord kopiëren</string>
@@ -26,8 +26,8 @@
   <string name="network_label">Netwerk</string>
   <string name="credits">Credits</string>
   <string name="label_new">Nieuw</string>
-  <string name="got_it_button">BEGREPEN</string>
-  <string name="change_button">WIJZIGEN</string>
+  <string name="got_it_button">Got it</string>
+  <string name="change_button">Change</string>
   <string name="vip">VIP</string>
   <string name="low_storage_error">Er is onvoldoende opslagruimte</string>
   <string name="no_camera_permission_title">Toestemming voor camera</string>
@@ -361,7 +361,7 @@
   <string name="provide_wallet_allow_once_button">Eenmalig toestaan</string>
   <string name="provide_wallet_completed_header">Wallet is aan Aptoide gekoppeld!</string>
   <string name="provide_wallet_create_body">Je hebt een wallet-adres nodig! Volg deze stappen om via de AppCoins Wallet een adres aan te maken.</string>
-  <string name="provide_wallet_create_wallet_button">AANMAKEN</string>
+  <string name="provide_wallet_create_wallet_button">Create</string>
   <string name="provide_wallet_creating_wallet_header">Wallet-adres wordt aangemaakt&#8230;</string>
   <string name="provide_wallet_created_header">Wallet-adres is aangemaakt!</string>
   <string name="provide_wallet_empty_state">Je hebt AppCoins Wallet nog geen toestemming gegeven om je adres aan een andere app door te geven.</string>
@@ -441,7 +441,7 @@
   <string name="remind_later_button">Herinner me later</string>
   <string name="get_code_button">Code aanvragen</string>
   <string name="confirm_button">Bevestigen</string>
-  <string name="withdraw_button">uitbetalen</string>
+  <string name="withdraw_button">Withdraw</string>
   <string name="email_here_field">Voer hier je e-mailadres in&#8230;</string>
   <string name="understood_button">Ik begrijp het!</string>
   <string name="skip_button">Voorlopig overslaan</string>
@@ -595,12 +595,12 @@
   <string name="referral_view_title">Vrienden uitnodigen</string>
   <string name="referral_view_title_1">Nodig vrienden uit en verdien meer!</string>
   <string name="referral_view_verified_body">Ontvang voor elke vriend %s AppCoins Credits. Je hoeft alleen maar de link te delen!</string>
-  <string name="referral_view_share_link_button">DEEL DE LINK MET DE UITNODIGING</string>
+  <string name="referral_view_share_link_button">Share invite link</string>
   <string name="referral_view_notifications_title">Meldingen</string>
   <string name="referral_share_sheet_title">Deel de link met de uitnodiging via:</string>
   <string name="referral_view_unverified_body">Receive %s worth of AppCoins Credits for each friend. Your first need to verify your wallet.</string>
-  <string name="referral_view_verify_button">WALLET VERIFIËREN</string>
-  <string name="referral_view_i_have_been_invited_button">IK BEN UITGENODIGD</string>
+  <string name="referral_view_verify_button">Verify wallet</string>
+  <string name="referral_view_i_have_been_invited_button">I\'ve been invited</string>
   <string name="referral_view_dropup_menu_friends_invited">Vrienden uitgenodigd</string>
   <string name="referral_view_dropup_menu_earned">Verdiend</string>
   <string name="referral_dropup_menu_friends_title_1">Vrienden uitgenodigd</string>
@@ -634,7 +634,7 @@
   <string name="update_wallet_hard_body">Het lijkt erop dat je een oude versie van de AppCoins Wallet gebruikt. Werk de AppCoins Wallet bij om de beste ervaring en veiligheid te garanderen.</string>
   <string name="update_wallet_soft_title">Blijf niet achter!</string>
   <string name="update_wallet_soft_body">Door de AppCoins Wallet up-to-date te houden, krijg je de beste ervaring.</string>
-  <string name="update_button">BIJWERKEN</string>
+  <string name="update_button">Update</string>
   <!--Backup and Import-->
   <string name="backup_home_notification_title">Back-up van je wallet maken</string>
   <string name="backup_home_notification_body">Ben je je telefoon wel eens kwijtgeraakt? Maak nu een back-up van je wallet!</string>
@@ -645,8 +645,8 @@
   <string name="import_wallet_body">Plak hieronder de back-up van je wallet.</string>
   <string name="import_wallet_keystore_private_keys">Keystore of privésleutels</string>
   <string name="import_wallet_from_file_title">Of vanuit bestand herstellen</string>
-  <string name="import_wallet_file_button">VIA BESTAND HERSTELLEN</string>
-  <string name="import_wallet_button">WALLET HERSTELLEN</string>
+  <string name="import_wallet_file_button">Recover from file</string>
+  <string name="import_wallet_button">Recover wallet</string>
   <string name="import_wallet_password_body">Deze wallet is met een wachtwoord beveiligd!</string>
   <string name="import_wallet_wrong_password_body">Oeps, verkeerd wachtwoord!</string>
   <string name="error_invalid_private_key">Ongeldige privésleutel</string>
@@ -655,7 +655,7 @@
   <string name="backup_body">We slaan je privésleutels of andere toegangsmethoden niet op. Het is belangrijk om de back-up van je wallet (keystore) veilig te houden.</string>
   <string name="backup_additional_security_title">Extra beveiliging (optioneel)</string>
   <string name="backup_additional_security_body">Kies een wachtwoord</string>
-  <string name="backup_button">BACK-UP VAN WALLET MAKEN</string>
+  <string name="backup_button">Back up wallet</string>
   <string name="backup_ready_title">Je back-up is klaar!\nSla de back-up veilig op.</string>
   <string name="backup_ready_save_on_email">Opslaan in je mailbox</string>
   <string name="backup_ready_email_button">Naar mailbox verzenden</string>
@@ -665,8 +665,8 @@
   <string name="backup_confirmation_tips_2"><b>Bestand opslaan</b> op een USB-stick.</string>
   <string name="backup_confirmation_tips_3"><b>Bestand kopiëren</b> naar een persoonlijke en veilige cloudopslag.</string>
   <string name="backup_tooltip_body">Maak een back-up van je wallet!</string>
-  <string name="backup_tooltip_later_button">MISSCHIEN LATER</string>
-  <string name="backup_tooltip_backup_button">BACK-UP</string>
+  <string name="backup_tooltip_later_button">Maybe later</string>
+  <string name="backup_tooltip_backup_button">Back up</string>
   <string name="backup_notification_title">Maak een back-up van je wallet!</string>
   <string name="backup_notification_body">Beveilig je saldo en zorg ervoor dat je altijd toegang tot je wallet hebt.</string>
   <string name="backup_choose_wallet_title">Kies een wallet om een back-up te maken</string>
@@ -694,23 +694,23 @@
   <string name="wallets_imported_body">Wallet is met succes hersteld</string>
   <string name="wallets_2nd_view_balance_title">Saldo:</string>
   <string name="wallets_2nd_view_other_wallets_title">Andere wallets</string>
-  <string name="wallets_2nd_view_import_button">WALLET HERSTELLEN</string>
-  <string name="wallets_2nd_view_create_button">NIEUWE AANMAKEN</string>
-  <string name="wallet_view_copy_button">KOPIËREN</string>
-  <string name="wallet_view_share_button">DELEN</string>
+  <string name="wallets_2nd_view_import_button">Recover wallet</string>
+  <string name="wallets_2nd_view_create_button">Create new</string>
+  <string name="wallet_view_copy_button">Copy</string>
+  <string name="wallet_view_share_button">Share</string>
   <string name="wallet_view_total_balance_title">Totale saldo</string>
-  <string name="wallet_view_remove_button">WALLET VERWIJDEREN</string>
-  <string name="wallet_view_backup_button">BACK-UP VAN WALLET MAKEN</string>
-  <string name="wallet_view_activate_button">DEZE WALLET ACTIVEREN</string>
+  <string name="wallet_view_remove_button">Remove wallet</string>
+  <string name="wallet_view_backup_button">Back up wallet</string>
+  <string name="wallet_view_activate_button">Make this wallet active</string>
   <string name="wallet_view_active_body">Dit is je actieve wallet.</string>
   <!--Remove Wallet-->
   <string name="remove_wallet_title">Wallet verwijderen</string>
   <string name="remove_wallet_body">We willen je sterk aanraden om een back-up van de wallet te maken voordat je deze verwijdert. Je kunt alleen opnieuw toegang tot de wallet krijgen als je een back-up hebt.</string>
-  <string name="remove_wallet_backup_button">BACK-UP VAN WALLET MAKEN</string>
-  <string name="remove_wallet_no_backup_button">WALLET VERWIJDEREN</string>
+  <string name="remove_wallet_backup_button">Back up wallet</string>
+  <string name="remove_wallet_no_backup_button">Remove wallet</string>
   <string name="remove_wallet_confirm_body">Weet je zeker dat je deze wallet wilt verwijderen?</string>
-  <string name="remove_wallet_no_button">NEE, GA TERUG</string>
-  <string name="remove_wallet_yes_button">JA, WALLET VERWIJDEREN</string>
+  <string name="remove_wallet_no_button">No, go back</string>
+  <string name="remove_wallet_yes_button">Yes, remove wallet</string>
   <string name="remove_wallet_removed_body">Wallet is verwijderd!</string>
   <!--Tranfer-->
   <string name="tranfer_bottom_navigation">Overschrijven</string>
@@ -722,7 +722,7 @@
   <string name="transfer_send_token_title">Token:</string>
   <string name="transfer_send_amount_title">Bedrag</string>
   <string name="transfer_send_current_balance_title">Huidige saldo:</string>
-  <string name="transfer_send_button">VERZEND</string>
+  <string name="transfer_send_button">Send</string>
   <string name="transfer_receive_body">Deel je wallet-adres om saldo te ontvangen.</string>
   <!--Support Notifications-->
   <string name="support_new_message_title">Je hebt een nieuw bericht!</string>
@@ -759,15 +759,15 @@
   <string name="subscriptions_expiration_body">Dit verloopt op %s</string>
   <string name="subscriptions_canceled_body">Geannuleerd</string>
   <string name="subscriptions_details_disclaimer">Vanwege de wisselkoers kan de waarde in AppCoins voor de volgende betaling variëren.</string>
-  <string name="subscriptions_details_button">DETAILS</string>
-  <string name="subscriptions_manage_button">ABONNEMENTEN BEHEREN</string>
-  <string name="subscriptions_cancel_button">ABONNEMENT ANNULEREN</string>
-  <string name="subscriptions_renew_subscription_button">ABONNEMENT VERNIEUWEN</string>
+  <string name="subscriptions_details_button">Details</string>
+  <string name="subscriptions_manage_button">Manage subscription</string>
+  <string name="subscriptions_cancel_button">Cancel subscription</string>
+  <string name="subscriptions_renew_subscription_button">Renew subscription</string>
   <string name="subscriptions_renewed_confirmation_title">Abonnement is vernieuwd!</string>
   <string name="subscriptions_cancel_title">Abonnement annuleren</string>
   <string name="subscriptions_cancel_body">Weet je zeker dat je dit abonnement wilt annuleren?</string>
-  <string name="subscriptions_cancel_no_button">NEE, GA TERUG</string>
-  <string name="subscriptions_cancel_yes_button">JA, ABONNEMENT ANNULEREN</string>
+  <string name="subscriptions_cancel_no_button">No, go back</string>
+  <string name="subscriptions_cancel_yes_button">Yes, cancel subscription</string>
   <string name="subscriptions_cancel_confirmation_title">Abonnement geannuleerd!</string>
   <string name="subscriptions_cancel_confirmation_body">Er worden geen kosten meer in rekening gebracht voor dit abonnement en je kunt het abonnement gebruiken tot %s.</string>
   <string name="subscriptions_category_title">Abonnement</string>
@@ -840,8 +840,8 @@
   <string name="carrier_billing_phone_confirmation_body">Je telefoonnummer is %s.</string>
   <string name="carrier_billing_enter_pin_body">Voer de pincode in die je via sms hebt ontvangen.</string>
   <string name="carrier_billing_code_field">Je code...</string>
-  <string name="carrier_billing_code_resend_button">CODE OPNIEUW VERSTUREN</string>
-  <string name="carrier_billing_submit_button">VERZENDEN</string>
+  <string name="carrier_billing_code_resend_button">Resend code</string>
+  <string name="carrier_billing_submit_button">Submit</string>
   <string name="carrier_billing_number_not_supported">Het lijkt erop dat je telefoonnummer niet compatibel met deze betaalmethode is.</string>
   <string name="carrier_billing_terms_disclaimer">Door op \'verzenden\' te tikken, bevestig je dat je de algemene voorwaarden en het privacybeleid accepteert.</string>
   <string name="carrier_billing_help_1">Hulp nodig?</string>
@@ -926,7 +926,7 @@
   <string name="rate_us_improve_field__empty_error">Schrijf een bericht</string>
   <string name="rate_us_possitive_thanks_title">Bedankt!</string>
   <string name="rate_us_possitive_thanks_body">We zijn blij dat je van onze app geniet. Wil je ons helpen door ons in de App Store te beoordelen?</string>
-  <string name="rate_us_possitive_rate_button">APPCOINS WALLET BEOORDELEN</string>
+  <string name="rate_us_possitive_rate_button">Rate the AppCoins Wallet</string>
   <string name="rate_us_possitive_done_title">Bedankt voor je feedback!</string>
   <string name="rate_us_back_title">Wil je ons helpen?</string>
   <string name="rate_us_back_body">Beoordeel de AppCoins Wallet in de App Store zodat we de wallet kunnen verbeteren.</string>
@@ -964,7 +964,7 @@
   <string name="voucher_buy_header">Voucher voor %s</string>
   <string name="voucher_buy_short_header">Voucher:</string>
   <string name="voucher_buy_no_game_title">Heb je geen %s?</string>
-  <string name="voucher_buy_no_game_install_button">NU DOWNLOADEN</string>
+  <string name="voucher_buy_no_game_install_button">Download now</string>
   <string name="voucher_code_title">Vouchercode</string>
   <string name="voucher_instructions_body">Ga naar %s en gebruik de code om je voucher in te wisselen.</string>
   <string name="voucher_instructions_transactions">Je kunt de vouchercode altijd in de transactiegeschiedenis terugvinden.</string>
@@ -1013,8 +1013,8 @@
   <string name="promo_code_view_field">Voer hier je actiecode in...</string>
   <string name="promo_code_view_error">Ongeldige code. Probeer een andere code!</string>
   <string name="promo_code_activated">Actiecode is geactiveerd!</string>
-  <string name="promo_code_delete_button">VERWIJDEREN</string>
-  <string name="promo_code_replace_button">VERVANGEN</string>
+  <string name="promo_code_delete_button">Delete</string>
+  <string name="promo_code_replace_button">Replace</string>
   <string name="promo_code_active_tag">Actief</string>
   <string name="promo_code_expired_tag">Verlopen</string>
   <string name="promo_code_success_title">Gelukt!</string>
@@ -1069,8 +1069,8 @@
   <string name="mywallet_unverified_title">Ongeverifieerde wallet</string>
   <string name="mywallet_unverified_body">Verifieer een betaalmethode om blokkades te voorkomen.</string>
   <string name="mywallet_backed_up_date">Je hebt op %s een back-up van je wallet gemaakt.</string>
-  <string name="mywallet_backup_again_button">OPNIEUW EEN BACK-UP MAKEN</string>
-  <string name="mywallet_verify_payment_method_button">VERIFY NEW CARD</string>
+  <string name="mywallet_backup_again_button">Back up again</string>
+  <string name="mywallet_verify_payment_method_button">Verify new card</string>
   <string name="mywallet_choose_name_header">Kies een naam voor je wallet</string>
   <string name="mywallet_choose_name_field">Voer hier de naam van je wallet in...</string>
   <string name="mywallet_choose_name_confirmed">Naam van de wallet is gewijzigd</string>
