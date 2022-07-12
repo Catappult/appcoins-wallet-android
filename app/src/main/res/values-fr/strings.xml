@@ -16,7 +16,7 @@
   <string name="error_field_required">Ce champ est obligatoire</string>
   <string name="action_settings">Paramètres</string>
   <string name="title_account_list">Portefeuilles</string>
-  <string name="cancel">annuler</string>
+  <string name="cancel">Cancel</string>
   <string name="confirm_delete_account">Assurez-vous que vous disposez d’une sauvegarde de ce portefeuille.</string>
   <string name="action_import">Récupération</string>
   <string name="copy">Copier dans le Presse-papiers</string>
@@ -26,8 +26,8 @@
   <string name="network_label">Réseau</string>
   <string name="credits">Crédits</string>
   <string name="label_new">Nouveau</string>
-  <string name="got_it_button">COMPRIS</string>
-  <string name="change_button">CHANGER</string>
+  <string name="got_it_button">Got it</string>
+  <string name="change_button">Change</string>
   <string name="vip">VIP</string>
   <string name="low_storage_error">Pas assez d\'espace de stockage</string>
   <string name="no_camera_permission_title">Autorisation de la caméra</string>
@@ -361,7 +361,7 @@
   <string name="provide_wallet_allow_once_button">Autoriser une fois</string>
   <string name="provide_wallet_completed_header">Portefeuille associé à Aptoide !</string>
   <string name="provide_wallet_create_body">Vous avez besoin d’une adresse de portefeuille ! Suivez ces étapes pour en créer un dans le Portefeuille AppCoins.</string>
-  <string name="provide_wallet_create_wallet_button">CRÉER</string>
+  <string name="provide_wallet_create_wallet_button">Create</string>
   <string name="provide_wallet_creating_wallet_header">Création de l\'adresse du portefeuille adresse&#8230;</string>
   <string name="provide_wallet_created_header">Adresse de portefeuille créé !</string>
   <string name="provide_wallet_empty_state">Vous n’avez pas encore autorisé le portefeuille AppCoins à fournir votre adresse à n’importe quelle autre application.</string>
@@ -441,7 +441,7 @@
   <string name="remind_later_button">Rappelez-moi plus tard</string>
   <string name="get_code_button">Obtenir un code</string>
   <string name="confirm_button">Confirmer</string>
-  <string name="withdraw_button">retirer</string>
+  <string name="withdraw_button">Withdraw</string>
   <string name="email_here_field">Votre adresse courriel ici&#8230;</string>
   <string name="understood_button">Compris !</string>
   <string name="skip_button">Sauter pour le moment</string>
@@ -595,12 +595,12 @@
   <string name="referral_view_title">Invitez des amis</string>
   <string name="referral_view_title_1">Invitez des amis et gagnez plus !</string>
   <string name="referral_view_verified_body">Recevez %s de crédits AppCoins pour chaque ami. Il suffit de partager le lien !</string>
-  <string name="referral_view_share_link_button">PARTAGER LE LIEN D\'INVITATION</string>
+  <string name="referral_view_share_link_button">Share invite link</string>
   <string name="referral_view_notifications_title">Notifications</string>
   <string name="referral_share_sheet_title">Partager le lien d\'invitation via :</string>
   <string name="referral_view_unverified_body">Recevez %s de crédits AppCoins pour chaque ami. Vous devez d\'abord vérifier votre portefeuille.</string>
-  <string name="referral_view_verify_button">VERIFIER LE PORTEFEUILLE</string>
-  <string name="referral_view_i_have_been_invited_button">J\'AI ETE INVITE</string>
+  <string name="referral_view_verify_button">Verify wallet</string>
+  <string name="referral_view_i_have_been_invited_button">I\'ve been invited</string>
   <string name="referral_view_dropup_menu_friends_invited">Amis invités</string>
   <string name="referral_view_dropup_menu_earned">Gagnés</string>
   <string name="referral_dropup_menu_friends_title_1">Amis invités</string>
@@ -634,7 +634,7 @@
   <string name="update_wallet_hard_body">Il semble que vous utilisez une ancienne version du Portefeuille AppCoins. Veuillez le mettre à jour pour garantir la meilleure expérience et la meilleure sécurité.</string>
   <string name="update_wallet_soft_title">Ne vous laissez pas distancer !</string>
   <string name="update_wallet_soft_body">La mise à jour du portefeuille AppCoins garantit la meilleure expérience possible.</string>
-  <string name="update_button">MISE A JOUR</string>
+  <string name="update_button">Update</string>
   <!--Backup and Import-->
   <string name="backup_home_notification_title">Sauvegarder votre portefeuille</string>
   <string name="backup_home_notification_body">Avez-vous déjà perdu votre téléphone ? Sauvegardez votre portefeuille maintenant !</string>
@@ -645,8 +645,8 @@
   <string name="import_wallet_body">Collez la sauvegarde de votre portefeuille ci-dessous.</string>
   <string name="import_wallet_keystore_private_keys">Keystore ou clés privées</string>
   <string name="import_wallet_from_file_title">Ou récupérer à partir d\'un fichier</string>
-  <string name="import_wallet_file_button">RÉCUPÉRER À PARTIR D\'UN FICHIER</string>
-  <string name="import_wallet_button">RECUPERER LE PORTEFEUILLE</string>
+  <string name="import_wallet_file_button">Recover from file</string>
+  <string name="import_wallet_button">Recover wallet</string>
   <string name="import_wallet_password_body">Ce portefeuille est protégé par un mot de passe !</string>
   <string name="import_wallet_wrong_password_body">Oups, mauvais mot de passe !</string>
   <string name="error_invalid_private_key">Clé privée invalide</string>
@@ -655,7 +655,7 @@
   <string name="backup_body">Nous ne conservons pas vos clés privées ni aucune autre méthode d\'accès. Il est important de conserver la sauvegarde (keystore) de votre portefeuille en sécurité.</string>
   <string name="backup_additional_security_title">Sécurité supplémentaire (facultatif)</string>
   <string name="backup_additional_security_body">Choisissez un mot de passe</string>
-  <string name="backup_button">SAUVEGARDE DU PORTEFEUILLE</string>
+  <string name="backup_button">Back up wallet</string>
   <string name="backup_ready_title">Votre sauvegarde est prête !\nConservez-la en sécurité.</string>
   <string name="backup_ready_save_on_email">Enregistrez-la sur votre courrier électronique</string>
   <string name="backup_ready_email_button">Envoyer au courriel</string>
@@ -665,8 +665,8 @@
   <string name="backup_confirmation_tips_2"><b>Enregistrez-le</b> sur une clé USB.</string>
   <string name="backup_confirmation_tips_3"><b>Copiez-le</b> sur un stockage cloud privé et sécurisé.</string>
   <string name="backup_tooltip_body">Faites une sauvegarde de votre portefeuille !</string>
-  <string name="backup_tooltip_later_button">PEUT ÊTRE PLUS TARD</string>
-  <string name="backup_tooltip_backup_button">SAUVEGARDE</string>
+  <string name="backup_tooltip_later_button">Maybe later</string>
+  <string name="backup_tooltip_backup_button">Back up</string>
   <string name="backup_notification_title">Faites une sauvegarde de votre portefeuille !</string>
   <string name="backup_notification_body">Gardez vos fonds en sécurité et assurez-vous que vous pouvez toujours accéder à votre portefeuille.</string>
   <string name="backup_choose_wallet_title">Choisissez un portefeuille à sauvegarder</string>
@@ -694,23 +694,23 @@
   <string name="wallets_imported_body">Portefeuille récupéré avec succès</string>
   <string name="wallets_2nd_view_balance_title">Solde :</string>
   <string name="wallets_2nd_view_other_wallets_title">Autres portefeuilles</string>
-  <string name="wallets_2nd_view_import_button">RECUPERER LE PORTEFEUILLE</string>
-  <string name="wallets_2nd_view_create_button">CRÉER UN NOUVEAU</string>
-  <string name="wallet_view_copy_button">COPIER</string>
-  <string name="wallet_view_share_button">PARTAGER</string>
+  <string name="wallets_2nd_view_import_button">Recover wallet</string>
+  <string name="wallets_2nd_view_create_button">Create new</string>
+  <string name="wallet_view_copy_button">Copy</string>
+  <string name="wallet_view_share_button">Share</string>
   <string name="wallet_view_total_balance_title">Solde total</string>
-  <string name="wallet_view_remove_button">SUPPRIMER LE PORTEFEUILLE</string>
-  <string name="wallet_view_backup_button">SAUVEGARDE DU PORTEFEUILLE</string>
-  <string name="wallet_view_activate_button">RENDRE CE PORTEFEUILLE ACTIF</string>
+  <string name="wallet_view_remove_button">Remove wallet</string>
+  <string name="wallet_view_backup_button">Back up wallet</string>
+  <string name="wallet_view_activate_button">Make this wallet active</string>
   <string name="wallet_view_active_body">Ceci est votre portefeuille actif.</string>
   <!--Remove Wallet-->
   <string name="remove_wallet_title">Supprimer le portefeuille</string>
   <string name="remove_wallet_body">Nous vous recommandons fortement de sauvegarder un portefeuille avant de le retirer. Vous ne pourrez pas y accéder à nouveau à moins d\'avoir une sauvegarde.</string>
-  <string name="remove_wallet_backup_button">SAUVEGARDE DU PORTEFEUILLE</string>
-  <string name="remove_wallet_no_backup_button">SUPPRIMER LE PORTEFEUILLE</string>
+  <string name="remove_wallet_backup_button">Back up wallet</string>
+  <string name="remove_wallet_no_backup_button">Remove wallet</string>
   <string name="remove_wallet_confirm_body">Etes-vous sûr de vouloir supprimer ce portefeuille ?</string>
-  <string name="remove_wallet_no_button">NON, RETOURNER EN ARRIÈRE</string>
-  <string name="remove_wallet_yes_button">OUI, SUPPRIMER LE PORTEFEUILLE</string>
+  <string name="remove_wallet_no_button">No, go back</string>
+  <string name="remove_wallet_yes_button">Yes, remove wallet</string>
   <string name="remove_wallet_removed_body">Portefeuille supprimé !</string>
   <!--Tranfer-->
   <string name="tranfer_bottom_navigation">Transfert</string>
@@ -722,7 +722,7 @@
   <string name="transfer_send_token_title">Jeton :</string>
   <string name="transfer_send_amount_title">Montant</string>
   <string name="transfer_send_current_balance_title">Solde actuel :</string>
-  <string name="transfer_send_button">ENVOYER</string>
+  <string name="transfer_send_button">Send</string>
   <string name="transfer_receive_body">Partagez l\'adresse de votre portefeuille pour recevoir des fonds.</string>
   <!--Support Notifications-->
   <string name="support_new_message_title">Vous avez un nouveau message !</string>
@@ -759,15 +759,15 @@
   <string name="subscriptions_expiration_body">Expire le %s</string>
   <string name="subscriptions_canceled_body">Annulé</string>
   <string name="subscriptions_details_disclaimer">La valeur des AppCoins peut varier pour le prochain paiement en raison du taux de change.</string>
-  <string name="subscriptions_details_button">DETAILS</string>
-  <string name="subscriptions_manage_button">GÉRER LES ABONNEMENTS</string>
-  <string name="subscriptions_cancel_button">ANNULER L\'ABONNEMENT</string>
-  <string name="subscriptions_renew_subscription_button">RENOUVELER L\'ABONNEMENT</string>
+  <string name="subscriptions_details_button">Details</string>
+  <string name="subscriptions_manage_button">Manage subscription</string>
+  <string name="subscriptions_cancel_button">Cancel subscription</string>
+  <string name="subscriptions_renew_subscription_button">Renew subscription</string>
   <string name="subscriptions_renewed_confirmation_title">Abonnement renouvelé !</string>
   <string name="subscriptions_cancel_title">Annuler l\'abonnement</string>
   <string name="subscriptions_cancel_body">Êtes-vous sûr de vouloir annuler cet abonnement ?</string>
-  <string name="subscriptions_cancel_no_button">NON, RETOUR</string>
-  <string name="subscriptions_cancel_yes_button">OUI, ANNULER L\'ABONNEMENT</string>
+  <string name="subscriptions_cancel_no_button">No, go back</string>
+  <string name="subscriptions_cancel_yes_button">Yes, cancel subscription</string>
   <string name="subscriptions_cancel_confirmation_title">Abonnement annulé !</string>
   <string name="subscriptions_cancel_confirmation_body">Vous ne serez plus facturé pour cet abonnement et vous pourrez l\'utiliser jusqu\'au %s.</string>
   <string name="subscriptions_category_title">Abonnement</string>
@@ -840,8 +840,8 @@
   <string name="carrier_billing_phone_confirmation_body">Votre numéro de téléphone est le %s.</string>
   <string name="carrier_billing_enter_pin_body">Veuillez saisir le code PIN reçu par SMS.</string>
   <string name="carrier_billing_code_field">Votre code...</string>
-  <string name="carrier_billing_code_resend_button">RENVOYER CODE</string>
-  <string name="carrier_billing_submit_button">SOUMETTRE</string>
+  <string name="carrier_billing_code_resend_button">Resend code</string>
+  <string name="carrier_billing_submit_button">Submit</string>
   <string name="carrier_billing_number_not_supported">Il semble que votre numéro ne soit pas compatible avec ce mode de paiement.</string>
   <string name="carrier_billing_terms_disclaimer">En cliquant sur \"Soumettre\", vous confirmez que vous acceptez les conditions générales et la politique de confidentialité.</string>
   <string name="carrier_billing_help_1">Besoin d\'aide ?</string>
@@ -926,7 +926,7 @@
   <string name="rate_us_improve_field__empty_error">Veuillez écrire quelque chose</string>
   <string name="rate_us_possitive_thanks_title">Merci !</string>
   <string name="rate_us_possitive_thanks_body">Nous sommes heureux que vous aimiez notre application. Pouvez-vous nous aider en nous notant sur l\'app store ?</string>
-  <string name="rate_us_possitive_rate_button">EVALUER LE PORTEFEUILLE APPCOINS</string>
+  <string name="rate_us_possitive_rate_button">Rate the AppCoins Wallet</string>
   <string name="rate_us_possitive_done_title">Merci pour vos commentaires !</string>
   <string name="rate_us_back_title">Vous voulez nous aider ?</string>
   <string name="rate_us_back_body">Evaluez le portefeuille AppCoins sur l\'app store afin que nous puissions l\'améliorer.</string>
@@ -964,7 +964,7 @@
   <string name="voucher_buy_header">Bon pour %s</string>
   <string name="voucher_buy_short_header">Bon d\'achat :</string>
   <string name="voucher_buy_no_game_title">Vous n\'avez pas %s ?</string>
-  <string name="voucher_buy_no_game_install_button">TÉLÉCHARGER MAINTENANT</string>
+  <string name="voucher_buy_no_game_install_button">Download now</string>
   <string name="voucher_code_title">Code du bon</string>
   <string name="voucher_instructions_body">Allez à %s et utilisez le code pour échanger votre bon.</string>
   <string name="voucher_instructions_transactions">Vous pouvez toujours trouver le code du bon dans l\'historique des transactions.</string>
@@ -1013,8 +1013,8 @@
   <string name="promo_code_view_field">Code promo ici...</string>
   <string name="promo_code_view_error">Code invalide. Essayez avec un autre !</string>
   <string name="promo_code_activated">Code promo activé !</string>
-  <string name="promo_code_delete_button">SUPPRIMER</string>
-  <string name="promo_code_replace_button">REMPLACER</string>
+  <string name="promo_code_delete_button">Delete</string>
+  <string name="promo_code_replace_button">Replace</string>
   <string name="promo_code_active_tag">Activer</string>
   <string name="promo_code_expired_tag">Expiré</string>
   <string name="promo_code_success_title">Terminé !</string>
@@ -1069,8 +1069,8 @@
   <string name="mywallet_unverified_title">Unverified Wallet</string>
   <string name="mywallet_unverified_body">Verify a payment method to avoid blockages.</string>
   <string name="mywallet_backed_up_date">You backed up your wallet on %s.</string>
-  <string name="mywallet_backup_again_button">BACK UP AGAIN</string>
-  <string name="mywallet_verify_payment_method_button">VERIFY NEW CARD</string>
+  <string name="mywallet_backup_again_button">Back up again</string>
+  <string name="mywallet_verify_payment_method_button">Verify new card</string>
   <string name="mywallet_choose_name_header">Choose a name for your wallet</string>
   <string name="mywallet_choose_name_field">Wallet name here...</string>
   <string name="mywallet_choose_name_confirmed">Wallet name changed</string>
