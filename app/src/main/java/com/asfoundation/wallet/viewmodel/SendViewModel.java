@@ -142,7 +142,7 @@ public class SendViewModel extends BaseViewModel {
   }
 
   private void onDefaultWallet(Wallet wallet) {
-    transactionBuilder.fromAddress(wallet.address);
+    transactionBuilder.fromAddress(wallet.getAddress());
   }
 
   public boolean onActivityResult(int requestCode, int resultCode, Intent data) {

@@ -23,13 +23,13 @@ public class AirdropInteractor {
   Single<String> requestCaptcha() {
     return findDefaultWalletInteract.find()
         .observeOn(Schedulers.io())
-        .flatMap(wallet -> airdrop.requestCaptcha(wallet.address));
+        .flatMap(wallet -> airdrop.requestCaptcha(wallet.getAddress()));
   }
 
   Completable requestAirdrop(String captchaAnswer) {
     return findDefaultWalletInteract.find()
         .flatMap(wallet -> airdropChainIdMapper.getAirdropChainId()
-            .doOnSuccess(chainId -> airdrop.request(wallet.address, chainId, captchaAnswer)))
+            .doOnSuccess(chainId -> airdrop.request(wallet.getAddress(), chainId, captchaAnswer)))
         .ignoreElement();
   }
 

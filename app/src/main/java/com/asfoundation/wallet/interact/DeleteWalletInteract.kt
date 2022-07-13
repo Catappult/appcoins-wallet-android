@@ -7,6 +7,7 @@ import com.asfoundation.wallet.fingerprint.FingerprintPreferencesRepositoryContr
 import com.asfoundation.wallet.repository.PasswordStore
 import com.asfoundation.wallet.repository.WalletRepositoryType
 import com.asfoundation.wallet.verification.ui.credit_card.WalletVerificationInteractor
+import com.asfoundation.wallet.wallets.repository.WalletInfoRepository
 import io.reactivex.Completable
 import javax.inject.Inject
 
@@ -19,28 +20,24 @@ class DeleteWalletInteract @Inject constructor(
   private val walletVerificationInteractor: WalletVerificationInteractor,
   private val backupTriggerPreferences: BackupTriggerPreferences,
   private val backupSystemNotificationPreferences: BackupSystemNotificationPreferences,
-  private val fingerprintPreferences: FingerprintPreferencesRepositoryContract
+  private val fingerprintPreferences: FingerprintPreferencesRepositoryContract,
+  private val walletInfoRepository: WalletInfoRepository
 ) {
 
-  fun delete(address: String): Completable {
-    return passwordStore.getPassword(address)
-      .flatMapCompletable { walletRepository.deleteWallet(address, it) }
-      .andThen(walletVerificationInteractor.removeWalletVerificationStatus(address))
-      .andThen(backupTriggerPreferences.removeBackupTriggerSeenTime(address))
-      .andThen(backupSystemNotificationPreferences.removeDismissedBackupSystemNotificationSeenTime(address))
-      .andThen(setNewWallet())
-  }
+  fun delete(address: String): Completable = passwordStore.getPassword(address)
+    .flatMapCompletable { walletRepository.deleteWallet(address, it) }
+    .andThen(walletVerificationInteractor.removeWalletVerificationStatus(address))
+    .andThen(backupTriggerPreferences.removeBackupTriggerSeenTime(address))
+    .andThen(
+      backupSystemNotificationPreferences.removeDismissedBackupSystemNotificationSeenTime(address)
+    )
+    .andThen(walletInfoRepository.deleteWalletInfo(address))
+    .andThen(setNewWallet())
 
-  fun setNewWallet(): Completable {
-    return walletRepository.fetchWallets()
-      .filter { wallets -> wallets.isNotEmpty() }
-      .map { wallets: Array<Wallet> ->
-        wallets[0]
-      }
-      .flatMapCompletable { wallet: Wallet ->
-        walletRepository.setDefaultWallet(wallet.address)
-      }
-  }
+  private fun setNewWallet(): Completable = walletRepository.fetchWallets()
+    .filter(Array<Wallet>::isNotEmpty)
+    .map { it[0] }
+    .flatMapCompletable { walletRepository.setDefaultWallet(it.address) }
 
   fun hasAuthenticationPermission() = fingerprintPreferences.hasAuthenticationPermission()
 }

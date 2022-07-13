@@ -16,7 +16,7 @@
   <string name="error_field_required">ဤအကြက္ကို လိုအပ္ပါသည္</string>
   <string name="action_settings">ဆက္တင္</string>
   <string name="title_account_list">ပိုက္ဆံအိတ္မ်ား</string>
-  <string name="cancel">ပယ္ဖ်က္မည္</string>
+  <string name="cancel">Cancel</string>
   <string name="confirm_delete_account">သင့္တြင္ ဤပိုက္ဆံအိတ္ကို အရန္ျပဳလုပ္ထားေၾကာင္း ေသခ်ာေအာင္ စစ္ေဆးပါ။</string>
   <string name="action_import">ျပန္လည္ရယူမည္</string>
   <string name="copy">ကလစ္ဘုတ္သို႔ ကူးမည္</string>
@@ -26,8 +26,8 @@
   <string name="network_label">ကြန္ရက္</string>
   <string name="credits">ခရက္ဒစ္မ်ား</string>
   <string name="label_new">အသစ္</string>
-  <string name="got_it_button">ရပါၿပီ</string>
-  <string name="change_button">ေျပာင္းလဲမည္</string>
+  <string name="got_it_button">Got it</string>
+  <string name="change_button">Change</string>
   <string name="vip">VIP</string>
   <string name="low_storage_error">သိမ္းဆည္းရန္ေနရာ မလံုေလာက္ပါ</string>
   <string name="no_camera_permission_title">ကင္မရာ ခြင့္ျပဳခ်က္</string>
@@ -361,7 +361,7 @@
   <string name="provide_wallet_allow_once_button">တစ္ႀကိမ္သာ ခြင့္ျပဳမည္</string>
   <string name="provide_wallet_completed_header">ပိုက္ဆံအိတ္ကို Aptoide နွင့္ တြဲဖက္လိုက္ပါၿပီ။</string>
   <string name="provide_wallet_create_body">ပိုက္ဆံအိတ္ လိပ္စာတစ္ခုကို သင္လိုအပ္ပါသည္။ AppCoins ပိုက္ဆံအိတ္တြင္ လိပ္္စာတစ္ခုို ျပဳလုပ္ရန္ ဤအဆင့္မ်ားကို လိုက္္လုပ္ပါ။</string>
-  <string name="provide_wallet_create_wallet_button">ျပဳလုပ္မည္</string>
+  <string name="provide_wallet_create_wallet_button">Create</string>
   <string name="provide_wallet_creating_wallet_header">ပိုက္ဆံအိတ္လိပ္စာကို ျပဳလုပ္ေနပါသည္&#8230;</string>
   <string name="provide_wallet_created_header">ပိုက္ဆံအိတ္လိပ္စာကို ျပဳလုပ္ၿပီးပါၿပီ။</string>
   <string name="provide_wallet_empty_state">သင့္လိပ္စာကို အျခားမည္သည့္ အက္ပ္သို႔မဆိုေပးရန္ AppCoins ပိုက္ဆံအိတ္ကို သင္ခြင့္မျပဳရေသးပါ။</string>
@@ -441,7 +441,7 @@
   <string name="remind_later_button">ေနာက္မွသတိေပးပါ</string>
   <string name="get_code_button">ကုဒ္ရယူမည္</string>
   <string name="confirm_button">အတည္ျပဳမည္</string>
-  <string name="withdraw_button">ထုတ္ယူမည္</string>
+  <string name="withdraw_button">Withdraw</string>
   <string name="email_here_field">သင့္အီးေမးလ္ကို ဤေနရာတြင္&#8230;</string>
   <string name="understood_button">သိပါၿပီ။</string>
   <string name="skip_button">ေလာေလာဆယ္ ေက်ာ္သြားမည္</string>
@@ -595,12 +595,12 @@
   <string name="referral_view_title">သူငယ္ခ်င္းမ်ားကို ဖိတ္ေခၚပါ</string>
   <string name="referral_view_title_1">သူငယ္ခ်င္းမ်ားကို ဖိတ္ေခၚကာ ပိုမိုရယူလိုက္ပါ။</string>
   <string name="referral_view_verified_body">သူငယ္ခ်င္းတစ္ဦးစီအတြက္ %s တန္ဖိုးရွိ AppCoins Credits မ်ားကို ရယူလိုက္ပါ။ လင့္ခ္ကိုသာ မွ်ေ၀လိုက္ပါ။</string>
-  <string name="referral_view_share_link_button">ဖိတ္ေခၚသည့္လင့္ခ္ကို မွ်ေ၀မည္</string>
+  <string name="referral_view_share_link_button">Share invite link</string>
   <string name="referral_view_notifications_title">အသိေပးခ်က္မ်ား</string>
   <string name="referral_share_sheet_title">ဖိတ္ေခၚသည့္လင့္ခ္ကို ေအာက္ပါမွတဆင့္ မွ်ေ၀မည္ -</string>
   <string name="referral_view_unverified_body">Receive %s worth of AppCoins Credits for each friend. Your first need to verify your wallet.</string>
-  <string name="referral_view_verify_button">ပိုက္ဆံအိတ္ကို အတည္ျပဳမည္</string>
-  <string name="referral_view_i_have_been_invited_button">ကၽြႏ္ုပ္တို႔ ဖိ္တ္ေခၚထားပါသည္</string>
+  <string name="referral_view_verify_button">Verify wallet</string>
+  <string name="referral_view_i_have_been_invited_button">I\'ve been invited</string>
   <string name="referral_view_dropup_menu_friends_invited">သူငယ္ခ်င္းမ်ားကို ဖိတ္ေခၚထားပါသည္</string>
   <string name="referral_view_dropup_menu_earned">ရရွိခဲ့သည္</string>
   <string name="referral_dropup_menu_friends_title_1">သူငယ္ခ်င္းမ်ားကို ဖိတ္ေခၚခဲ့သည္</string>
@@ -634,7 +634,7 @@
   <string name="update_wallet_hard_body">သင္သည္ AppCoins Wallet ဗားရွင္းအေဟာင္းတစ္ခုကို အသံုးျပဳေနပံု ရပါသည္။ အေကာင္းဆံုး အေတြ႕အႀကံဳႏွင့္ လံုၿခံဳမႈကို ရရွိေစရန္ အပ္ဒိတ္လုပ္ေပးပါ။</string>
   <string name="update_wallet_soft_title">ေနာက္က်မက်န္ခဲ့ပါေစႏွင့္။</string>
   <string name="update_wallet_soft_body">AppCoins Wallet ကို အပ္ဒိတ္လုပ္ထားျခင္းျဖင့္ အေကာင္းဆံုး အေတြ႕အႀကံဳကို ရရွိႏိုင္ေစပါသည္။</string>
-  <string name="update_button">အပ္ဒိတ္</string>
+  <string name="update_button">Update</string>
   <!--Backup and Import-->
   <string name="backup_home_notification_title">သင့္ပိုက္ဆံအိတ္ကို အရန္သိမ္းဆည္းထားပါ</string>
   <string name="backup_home_notification_body">သင့္ဖုန္းကို ေပ်ာက္ဖူးပါသလား။ ယခုပင္ သင့္ပိုက္ဆံအိတ္ကို အရန္သိမ္းဆည္းထားလိုက္ပါ။</string>
@@ -645,8 +645,8 @@
   <string name="import_wallet_body">သင့္ပိုက္ဆံအိတ္၏ အရန္သိမ္းဆည္းမႈကို ေအာက္တြင္ထည့္လိုက္ပါ။</string>
   <string name="import_wallet_keystore_private_keys">ကီးစတိုး သို႔မဟုတ္ ကိုယ္ပိုင္ကီးမ်ား</string>
   <string name="import_wallet_from_file_title">သို႔မဟုတ္ ဖိုင္မွ ျပန္လည္ရယူပါ</string>
-  <string name="import_wallet_file_button">ဖိုင္မွ ျပန္လည္ရယူမည္</string>
-  <string name="import_wallet_button">ပိုက္ဆံအိတ္ကို ျပန္လည္ရယူမည္</string>
+  <string name="import_wallet_file_button">Recover from file</string>
+  <string name="import_wallet_button">Recover wallet</string>
   <string name="import_wallet_password_body">ဤပိုက္ဆံအိတ္ကို စကား၀ွက္ျဖင့္ ကာကြယ္ထားပါသည္။</string>
   <string name="import_wallet_wrong_password_body">အိုး စကား၀ွက္မွားေနပါသည္။</string>
   <string name="error_invalid_private_key">သီးျခားကီး မမွန္ကန္ပါ</string>
@@ -655,7 +655,7 @@
   <string name="backup_body">သင့္ကိုယ္ပိုင္ကီးမ်ား သို႔မဟုတ္ အျခား၀င္ေရာက္ခြင့္နည္းလမ္းမ်ားကို ကၽြႏ္ုပ္တို႔ မသိမ္းဆည္းထားပါ။ သင့္ပိုက္ဆံအိတ္၏ ဘက္ခ္ကပ္ (ကီးစတိုး) ကို လံုၿခံဳေအာင္ထားရန္ အေရးႀကီးပါသည္။</string>
   <string name="backup_additional_security_title">ေနာက္ထပ္လံုျခံဳေရး (ေရြးခ်ယ္ႏိုင္ပါသည္)</string>
   <string name="backup_additional_security_body">စကားဝွက္တစ္ခု ေရြးခ်ယ္ပါ</string>
-  <string name="backup_button">ပိုက္ဆံအိတ္ကို အရန္သိမ္းဆည္းမည္</string>
+  <string name="backup_button">Back up wallet</string>
   <string name="backup_ready_title">အရန္သိမ္းဆည္းမႈ အသင့္ျဖစ္ပါၿပီ။\nလုံၿခဳံေအာင္ ထားလိုက္ပါ။</string>
   <string name="backup_ready_save_on_email">သင့္အီးေမးလ္တြင္ သိမ္းလိုက္ပါ</string>
   <string name="backup_ready_email_button">အီးေမးလ္သို႔ပို႔မည္</string>
@@ -665,8 +665,8 @@
   <string name="backup_confirmation_tips_2">ယူအက္စ္ဘီ ဒ႐ိုက္ဗ္တစ္ခုေပၚတြင္ <b>သိမ္းဆည္းပါ။</b></string>
   <string name="backup_confirmation_tips_3">သီးသန႔္ျဖစ္ၿပီး လုံၿခဳံေသာ cloud သိမ္းဆည္းမႈတစ္ခုတြင္ <b>ကူးယူထားပါ။</b></string>
   <string name="backup_tooltip_body">သင့္ပိုက္ဆံအိတ္အတြက္ အရံသိမ္းဆည္းမႈတစ္ခု ျပဳလုပ္လိုက္ပါ။</string>
-  <string name="backup_tooltip_later_button">ေနာက္မွလုပ္မည္</string>
-  <string name="backup_tooltip_backup_button">အရံသိမ္းဆည္းမည္</string>
+  <string name="backup_tooltip_later_button">Maybe later</string>
+  <string name="backup_tooltip_backup_button">Back up</string>
   <string name="backup_notification_title">သင့္ပိုက္ဆံအိတ္အတြက္ အရံသိမ္းဆည္းမႈတစ္ခု ျပဳလုပ္လိုက္ပါ။</string>
   <string name="backup_notification_body">သင့္ေငြမ်ားကို ေဘးကင္းေအာင္ထားရွိကာ သင့္ပိုက္ဆံအိတ္ကို အၿမဲတမ္း ၀င္ေရာက္အသံုးျပဳႏိုင္ေအာင္ ျပဳလုပ္ထားပါ။</string>
   <string name="backup_choose_wallet_title">အရံသိမ္းဆည္းရန္အတြက္ ပိုက္ဆံအိတ္တစ္ခုကို ေရြးခ်ယ္ပါ</string>
@@ -693,23 +693,23 @@
   <string name="wallets_imported_body">ပိုက္ဆံအိတ္ကို ေအာင္ျမင္စြာ ျပန္လည္ရယူလိုက္ပါသည္</string>
   <string name="wallets_2nd_view_balance_title">လက္က်န္ေငြ -</string>
   <string name="wallets_2nd_view_other_wallets_title">အျခား ပိုက္ဆံအိတ္မ်ား</string>
-  <string name="wallets_2nd_view_import_button">ပိုက္ဆံအိတ္ကို ျပန္လည္ရယူမည္</string>
-  <string name="wallets_2nd_view_create_button">အသစ္ဖန္တီးမည္</string>
-  <string name="wallet_view_copy_button">ကူးမည္</string>
-  <string name="wallet_view_share_button">မွ်ေ၀မည္</string>
+  <string name="wallets_2nd_view_import_button">Recover wallet</string>
+  <string name="wallets_2nd_view_create_button">Create new</string>
+  <string name="wallet_view_copy_button">Copy</string>
+  <string name="wallet_view_share_button">Share</string>
   <string name="wallet_view_total_balance_title">စုစုေပါင္း လက္က်န္ေငြ</string>
-  <string name="wallet_view_remove_button">ပိုက္ဆံအိတ္ကို ဖယ္ထုတ္မည္</string>
-  <string name="wallet_view_backup_button">ပိုက္ဆံအိတ္ကို အရန္သိမ္းဆည္းမည္</string>
-  <string name="wallet_view_activate_button">ဤပိုက္ဆံအိတ္ကို လက္ရွိအသံုးျပဳရန္ သတ္မွတ္မည္</string>
+  <string name="wallet_view_remove_button">Remove wallet</string>
+  <string name="wallet_view_backup_button">Back up wallet</string>
+  <string name="wallet_view_activate_button">Make this wallet active</string>
   <string name="wallet_view_active_body">ယင္းသည္ သင္လက္ရွိ အသံုးျပဳေနေသာ ပိုက္ဆံအိတ္ ျဖစ္ပါသည္။</string>
   <!--Remove Wallet-->
   <string name="remove_wallet_title">ပိုက္ဆံအိတ္ကို ဖယ္ထုတ္မည္</string>
   <string name="remove_wallet_body">ပိုက္ဆံအိတ္ကို မဖယ္ထုတ္မီတြင္ အရန္သိမ္းဆည္းထားရန္ ကၽြႏ္ုပ္တုိ႔ အေလးအနက္ တိုက္တြန္းပါသည္။ သင့္တြင္ အရန္သိမ္းဆည္းမႈ မရွိပါက ယင္းကိုျပန္လည္ရယူႏိုင္လိမ့္မည္ မဟုတ္ပါ။</string>
-  <string name="remove_wallet_backup_button">ပိုက္ဆံအိတ္ကို အရန္သိမ္းဆည္းမည္</string>
-  <string name="remove_wallet_no_backup_button">ပိုက္ဆံအိတ္ကို ဖယ္ထုတ္မည္</string>
+  <string name="remove_wallet_backup_button">Back up wallet</string>
+  <string name="remove_wallet_no_backup_button">Remove wallet</string>
   <string name="remove_wallet_confirm_body">ဤပိုက္ဆံအိတ္ကို ဖယ္ထုတ္လိုသည္မွာ ေသခ်ာပါသလား။</string>
-  <string name="remove_wallet_no_button">မဟုတ္ပါ။ ေနာက္သို႔ျပန္သြားမည္</string>
-  <string name="remove_wallet_yes_button">ဟုတ္ပါသည္။ ပိုက္ဆံအိတ္ကို ဖယ္ထုတ္မည္</string>
+  <string name="remove_wallet_no_button">No, go back</string>
+  <string name="remove_wallet_yes_button">Yes, remove wallet</string>
   <string name="remove_wallet_removed_body">ပိုက္ဆံအိတ္ကို ဖယ္ထုတ္လိုက္ပါၿပီ။</string>
   <!--Tranfer-->
   <string name="tranfer_bottom_navigation">လႊဲေျပာင္းမည္</string>
@@ -721,7 +721,7 @@
   <string name="transfer_send_token_title">တိုကင္ -</string>
   <string name="transfer_send_amount_title">ပမာဏ</string>
   <string name="transfer_send_current_balance_title">လက္ရွိလက္က်န္ေငြ -</string>
-  <string name="transfer_send_button">ေပးပို႔မည္</string>
+  <string name="transfer_send_button">Send</string>
   <string name="transfer_receive_body">ေငြကိုလက္ခံယူရန္ သင့္ပိုက္ဆံအိတ္လိပ္စာကို မွ်ေ၀ပါ။</string>
   <!--Support Notifications-->
   <string name="support_new_message_title">သင့္အတြက္ မက္ေဆ့ဂ်္အသစ္တစ္ခု ရွိပါသည္။</string>
@@ -758,15 +758,15 @@
   <string name="subscriptions_expiration_body">%s တြင္ သက္တမ္းကုန္ပါမည္</string>
   <string name="subscriptions_canceled_body">ပယ္ဖ်က္လိုက္ပါသည္</string>
   <string name="subscriptions_details_disclaimer">ေငြလဲႏႈန္းေၾကာင့္ ေနာက္ထပ္ေငြေပးေခ်မႈအတြက္ AppCoins တန္ဖိုးသည္ ကြဲျပားျခင္းရွိႏိုင္ပါသည္။</string>
-  <string name="subscriptions_details_button">အေသးစိတ္မ်ား</string>
-  <string name="subscriptions_manage_button">ပံုမွန္၀ယ္ယူမႈမ်ားကို စီမံမည္</string>
-  <string name="subscriptions_cancel_button">ပံုမွန္၀ယ္ယူမႈကို ပယ္ဖ်က္မည္</string>
-  <string name="subscriptions_renew_subscription_button">ပုံမွန္ရယူမႈကို သက္တမ္းတိုးမည္</string>
+  <string name="subscriptions_details_button">Details</string>
+  <string name="subscriptions_manage_button">Manage subscription</string>
+  <string name="subscriptions_cancel_button">Cancel subscription</string>
+  <string name="subscriptions_renew_subscription_button">Renew subscription</string>
   <string name="subscriptions_renewed_confirmation_title">ပုံမွန္ရယူမႈကို သက္တမ္းတိုးလိုက္ပါၿပီ။</string>
   <string name="subscriptions_cancel_title">ပံုမွန္၀ယ္ယူမႈကို ပယ္ဖ်က္မည္</string>
   <string name="subscriptions_cancel_body">ဤပံုမွန္၀ယ္ယူမႈကို ပယ္ဖ်က္လိုပါသလား။</string>
-  <string name="subscriptions_cancel_no_button">မဟုတ္ပါ။ ေနာက္သို႔ျပန္သြားမည္</string>
-  <string name="subscriptions_cancel_yes_button">ဟုတ္ပါသည္။ ပံုမွန္၀ယ္ယူမႈကို ပယ္ဖ်က္မည္</string>
+  <string name="subscriptions_cancel_no_button">No, go back</string>
+  <string name="subscriptions_cancel_yes_button">Yes, cancel subscription</string>
   <string name="subscriptions_cancel_confirmation_title">ပံုမွန္၀ယ္ယူမႈကို ပယ္ဖ်က္လိုက္ပါၿပီ။</string>
   <string name="subscriptions_cancel_confirmation_body">ဤပံုမွန္၀ယ္ယူမႈအတြက္ သင့္အားေငြေကာက္ခံေတာ့မည္ မဟုတ္ဘဲ %s အထိ သင္အသံုးျပဳနိုင္ပါသည္။</string>
   <string name="subscriptions_category_title">ပံုမွန္၀ယ္ယူမႈ</string>
@@ -839,8 +839,8 @@
   <string name="carrier_billing_phone_confirmation_body">သင့္ဖုန္းနံပါတ္မွာ %s ျဖစ္ပါသည္။</string>
   <string name="carrier_billing_enter_pin_body">SMS မွတဆင့္ရရွိေသာ PIN ကို ထည့္ေပးပါ။</string>
   <string name="carrier_billing_code_field">သင့္ကုဒ္...</string>
-  <string name="carrier_billing_code_resend_button">ကုဒ္ျပန္ပို႔ပါ</string>
-  <string name="carrier_billing_submit_button">ေပးပို႔မည္</string>
+  <string name="carrier_billing_code_resend_button">Resend code</string>
+  <string name="carrier_billing_submit_button">Submit</string>
   <string name="carrier_billing_number_not_supported">သင့္နံပါတ္သည္ ဤေငြေပးေခ်မႈနည္းလမ္းျဖင့္ မကိုက္ညီျခင္း ျဖစ္ပံုရပါသည္။</string>
   <string name="carrier_billing_terms_disclaimer">ေပးပို႔မည္တြင္ ႏွိပ္ျခင္းျဖင့္ စည္းမ်ဥ္းစည္းကမ္းမ်ားႏွင့္ ကိုယ္ေရးလံုျခံဳမႈ မူ၀ါဒတို႔ကို သင္လက္ခံေၾကာင္း အတည္ျပဳျခင္း ျဖစ္ပါသည္။</string>
   <string name="carrier_billing_help_1">အကူအညီ လိုအပ္ပါသလား။</string>
@@ -919,7 +919,7 @@
   <string name="rate_us_improve_field__empty_error">တစ္ခုခု ေရးေပးပါ</string>
   <string name="rate_us_possitive_thanks_title">ေက်းဇူးတင္ပါသည္။</string>
   <string name="rate_us_possitive_thanks_body">ကၽြႏ္ုပ္တို႔၏အက္ပ္ကို သင္ႏွစ္သက္ျခင္းအတြက္ ဂုဏ္ယူပါသည္။ အက္ပ္စတိုးတြင္ အဆင့္သတ္မွတ္ေပးျခင္းျဖင့္ ကူညီေပးႏိုင္မလား။</string>
-  <string name="rate_us_possitive_rate_button">APPCOINS WALLET ကို အဆင့္သတ္မွတ္မည္</string>
+  <string name="rate_us_possitive_rate_button">Rate the AppCoins Wallet</string>
   <string name="rate_us_possitive_done_title">သင့္ေျဖၾကားမႈအတြက္ ေက်းဇူးတင္ပါသည္။</string>
   <string name="rate_us_back_title">ကၽြႏ္ုပ္တို႔ကို ကူညီလိုပါသလား။</string>
   <string name="rate_us_back_body">AppCoins Wallet ကို ပိုမိုေကာင္းမြန္ေအာင္ ကၽြႏ္ုပ္တို႔ျပဳလုပ္ႏိုင္ေစရန္ အက္ပ္စတိုးတြင္ အဆင့္သတ္မွတ္ေပးပါ။</string>
@@ -955,7 +955,7 @@
   <string name="voucher_buy_header">%s အတြက္ ေဘာက္ခ်ာ</string>
   <string name="voucher_buy_short_header">ေဘာက္ခ်ာ -</string>
   <string name="voucher_buy_no_game_title">သင့္တြင္ %s မရွိဘူးလား။</string>
-  <string name="voucher_buy_no_game_install_button">ယခုပင္ ေဒါင္းလုဒ္ဆြဲလိုက္ပါ</string>
+  <string name="voucher_buy_no_game_install_button">Download now</string>
   <string name="voucher_code_title">ေဘာက္ခ်ာကုဒ္</string>
   <string name="voucher_instructions_body">သင့္ေဘာက္ခ်ာကို လဲလွယ္ရန္ %s သို႔သြားကာ ကုဒ္ကိုအသံုးျပဳပါ။</string>
   <string name="voucher_instructions_transactions">ေငြလႊဲေျပာင္းမႈ ရာဇဝင္တြင္ ေဘာက္ခ်ာကုဒ္ကို အၿမဲတမ္းေတြ႕ႏိုင္ပါသည္။</string>
@@ -1004,8 +1004,8 @@
   <string name="promo_code_view_field">ဤေနရာတြင္ ပ႐ိုမိုကုဒ္ကိုထည့္ပါ...</string>
   <string name="promo_code_view_error">ကုဒ္မမွန္ကန္ပါ။ ေနာက္ထပ္တစ္ခုျဖင့္ ႀကိဳးစားပါ။</string>
   <string name="promo_code_activated">ပ႐ိုမိုကုဒ္ကို သုံးလိုက္ပါၿပီ။</string>
-  <string name="promo_code_delete_button">ဖ်က္မည္</string>
-  <string name="promo_code_replace_button">လဲလွယ္မည္</string>
+  <string name="promo_code_delete_button">Delete</string>
+  <string name="promo_code_replace_button">Replace</string>
   <string name="promo_code_active_tag">သုံးႏိုင္ေသာ</string>
   <string name="promo_code_expired_tag">သက္တမ္းကုန္သြားပါၿပီ</string>
   <string name="promo_code_success_title">ၿပီးပါၿပီ။</string>
@@ -1060,8 +1060,8 @@
   <string name="mywallet_unverified_title">အတည္မျပဳထားေသာ ပိုက္ဆံအိတ္</string>
   <string name="mywallet_unverified_body">ပိတ္ပင္မႈမ်ားကို ေရွာင္ၾကဥ္ရန္ ေငြေပးေခ်သည့္ နည္းလမ္းတစ္ခုကို အတည္ျပဳပါ။</string>
   <string name="mywallet_backed_up_date">%s တြင္ သင့္ပိုက္ဆံအိတ္ကို အရန္သိမ္းဆည္းလိုက္ပါသည္။</string>
-  <string name="mywallet_backup_again_button">အရန္သိမ္းဆည္းမႈ ထပ္လုပ္မည္</string>
-  <string name="mywallet_verify_payment_method_button">VERIFY NEW CARD</string>
+  <string name="mywallet_backup_again_button">Back up again</string>
+  <string name="mywallet_verify_payment_method_button">Verify new card</string>
   <string name="mywallet_choose_name_header">သင့္ပိုက္ဆံအိတ္အတြက္ အမည္တစ္ခုကို ေ႐ြးခ်ယ္ပါ</string>
   <string name="mywallet_choose_name_field">ပိုက္ဆံအိတ္အမည္ကို ဤေနရာတြင္...</string>
   <string name="mywallet_choose_name_confirmed">ပိုက္ဆံအိတ္အမည္ ေျပာင္းလဲလိုက္ပါသည္</string>

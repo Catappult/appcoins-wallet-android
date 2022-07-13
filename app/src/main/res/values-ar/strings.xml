@@ -16,7 +16,7 @@
   <string name="error_field_required">هذا الحقل مطلوب</string>
   <string name="action_settings">الإعدادات</string>
   <string name="title_account_list">المَحافظ</string>
-  <string name="cancel">إلغاء</string>
+  <string name="cancel">Cancel</string>
   <string name="confirm_delete_account">تأكد من أن لديك نسخة احتاطية من هذه المحفظة.</string>
   <string name="action_import">استعادة</string>
   <string name="copy">نسخ إلى الحافظة</string>
@@ -26,8 +26,8 @@
   <string name="network_label">الشبكة</string>
   <string name="credits">الأرصدة</string>
   <string name="label_new">جديد</string>
-  <string name="got_it_button">مفهوم</string>
-  <string name="change_button">تغيير</string>
+  <string name="got_it_button">Got it</string>
+  <string name="change_button">Change</string>
   <string name="vip">VIP</string>
   <string name="low_storage_error">لا توجد مساحة كافية للتخزين</string>
   <string name="no_camera_permission_title">تفعيل إذن الكاميرا</string>
@@ -361,7 +361,7 @@
   <string name="provide_wallet_allow_once_button">السماح مرة واحدة</string>
   <string name="provide_wallet_completed_header">المحفظة المرتبطة بـAptoide!</string>
   <string name="provide_wallet_create_body">تحتاج لعنوان محفظة! اتبع هذه الخطوات لإنشاء واحدٍ في محفظة AppCoins.</string>
-  <string name="provide_wallet_create_wallet_button">إنشاء</string>
+  <string name="provide_wallet_create_wallet_button">Create</string>
   <string name="provide_wallet_creating_wallet_header">إنشاء عنوان محفظة&#8230;</string>
   <string name="provide_wallet_created_header">تم إنشاء عنوان محفظة!</string>
   <string name="provide_wallet_empty_state">لم تسمح لمحفظة AppCoins بإعطاء عنوان محفظتك لأي تطبيقات أخرى بعد.</string>
@@ -441,7 +441,7 @@
   <string name="remind_later_button">ذكرني لاحقًا</string>
   <string name="get_code_button">احصل على الرمز</string>
   <string name="confirm_button">تأكيد</string>
-  <string name="withdraw_button">سحب</string>
+  <string name="withdraw_button">Withdraw</string>
   <string name="email_here_field">بريدك الإلكتروني هنا&#8230;</string>
   <string name="understood_button">مفهوم!</string>
   <string name="skip_button">تجاهل الآن</string>
@@ -596,12 +596,12 @@
   <string name="referral_view_title">دعوة الأصدقاء</string>
   <string name="referral_view_title_1">ادعُ الأصدقاء واكسب المزيد!</string>
   <string name="referral_view_verified_body">استقبل ما قيمته %s من رصيد AppCoins لكل صديق. شارك الرابط وحسب!</string>
-  <string name="referral_view_share_link_button">شارك رابط الدعوة</string>
+  <string name="referral_view_share_link_button">Share invite link</string>
   <string name="referral_view_notifications_title">الإشعارات</string>
   <string name="referral_share_sheet_title">شارك رابط الدعوة بواسطة:</string>
   <string name="referral_view_unverified_body">Receive %s worth of AppCoins Credits for each friend. Your first need to verify your wallet.</string>
-  <string name="referral_view_verify_button">توثيق المحفظة</string>
-  <string name="referral_view_i_have_been_invited_button">لقد دُعيت</string>
+  <string name="referral_view_verify_button">Verify wallet</string>
+  <string name="referral_view_i_have_been_invited_button">I\'ve been invited</string>
   <string name="referral_view_dropup_menu_friends_invited">الأصدقاء المدعوون</string>
   <string name="referral_view_dropup_menu_earned">المكسب</string>
   <string name="referral_dropup_menu_friends_title_1">الأصدقاء المدعوون</string>
@@ -635,7 +635,7 @@
   <string name="update_wallet_hard_body">يبدو أنك تستخدم نسخة قديمة من محفظة AppCoins. يرجى تحديثها لضمان التجربة والأمان الأفضل.</string>
   <string name="update_wallet_soft_title">لا تبقَ مع النسخة القديمة!</string>
   <string name="update_wallet_soft_body">إن الحفاظ على محفظة AppCoins محدّثة باستمرار يضمن لك أفضل تجربة.</string>
-  <string name="update_button">تحديث</string>
+  <string name="update_button">Update</string>
   <!--Backup and Import-->
   <string name="backup_home_notification_title">حفظ نسخة احتياطية لمحفظتك</string>
   <string name="backup_home_notification_body">هل أضعت هاتفك في يوم من الأيام؟ احتفظ بنسخة احتياطية من محفظتك الآن!</string>
@@ -646,8 +646,8 @@
   <string name="import_wallet_body">ألصق النسخ الاحتياطي للمحفظة في الأسفل.</string>
   <string name="import_wallet_keystore_private_keys">مخزن المفاتيح أو المفاتيح الخاصة</string>
   <string name="import_wallet_from_file_title">أو استرجعه من ملف</string>
-  <string name="import_wallet_file_button">استعادة من ملف</string>
-  <string name="import_wallet_button">استعادة المحفظة</string>
+  <string name="import_wallet_file_button">Recover from file</string>
+  <string name="import_wallet_button">Recover wallet</string>
   <string name="import_wallet_password_body">هذه المحفظة محمية بكلمة مرور!</string>
   <string name="import_wallet_wrong_password_body">يوه، كلمة مرور خاطئة!</string>
   <string name="error_invalid_private_key">مفتاح خاص غير صالح</string>
@@ -656,7 +656,7 @@
   <string name="backup_body">نحن لا نحتفظ بمفاتيحك الخاصة أو أيٍّ من وسائل الدخولا أخرى. من المهم أن يبقى النسخ الاحتياطي لمحفظتك (keystore) بأمان.</string>
   <string name="backup_additional_security_title">أمان إضافي (اختياري)</string>
   <string name="backup_additional_security_body">اختر كلمة مرور</string>
-  <string name="backup_button">نسخ احتياطي للمحفظة</string>
+  <string name="backup_button">Back up wallet</string>
   <string name="backup_ready_title">نسختك الاحتياطية جاهزة\nحافظ عليها.</string>
   <string name="backup_ready_save_on_email">احفظها في بريدك الإلكتروني</string>
   <string name="backup_ready_email_button">أرسل إلى البريد الإلكتروني</string>
@@ -666,8 +666,8 @@
   <string name="backup_confirmation_tips_2"><b>احفظها</b> على مشغل USB.</string>
   <string name="backup_confirmation_tips_3"><b>انسخها</b> إلى سحابة تخزين خاصة وآمنة.</string>
   <string name="backup_tooltip_body">أنشئ نسخًا احتياطيًا لمحفظتك!</string>
-  <string name="backup_tooltip_later_button">ربما لاحقًا</string>
-  <string name="backup_tooltip_backup_button">نسخ احتياطي</string>
+  <string name="backup_tooltip_later_button">Maybe later</string>
+  <string name="backup_tooltip_backup_button">Back up</string>
   <string name="backup_notification_title">أنشئ نسخًا احتياطًا لمحفظتك!</string>
   <string name="backup_notification_body">احتفظ بأموالك بأمان وتأكد من أنك تستطيع دومًا الدخول إلى محفظتك.</string>
   <string name="backup_choose_wallet_title">اختر محفظة لإنشاء نسخ احتياطي لها</string>
@@ -699,23 +699,23 @@
   <string name="wallets_imported_body">تمت استعادة المحفظة بنجاح</string>
   <string name="wallets_2nd_view_balance_title">الرصيد:</string>
   <string name="wallets_2nd_view_other_wallets_title">المَحافظ الأخرى</string>
-  <string name="wallets_2nd_view_import_button">استعادة المحفظة</string>
-  <string name="wallets_2nd_view_create_button">إنشاء محفظة جديدة</string>
-  <string name="wallet_view_copy_button">نسخ</string>
-  <string name="wallet_view_share_button">مشاركة</string>
+  <string name="wallets_2nd_view_import_button">Recover wallet</string>
+  <string name="wallets_2nd_view_create_button">Create new</string>
+  <string name="wallet_view_copy_button">Copy</string>
+  <string name="wallet_view_share_button">Share</string>
   <string name="wallet_view_total_balance_title">الرصيد الكلي</string>
-  <string name="wallet_view_remove_button">إزالة المحفظة</string>
-  <string name="wallet_view_backup_button">نسخ احتياطي للمحفظة</string>
-  <string name="wallet_view_activate_button">تنشيط هذه المحفظة</string>
+  <string name="wallet_view_remove_button">Remove wallet</string>
+  <string name="wallet_view_backup_button">Back up wallet</string>
+  <string name="wallet_view_activate_button">Make this wallet active</string>
   <string name="wallet_view_active_body">هذه هي محفظتك النشطة.</string>
   <!--Remove Wallet-->
   <string name="remove_wallet_title">إزالة المحفظة</string>
   <string name="remove_wallet_body">نحن نوصيك بأهمية حفظ نسخة احتياطية لمحفظتك قبل إزالتها. لن تتمكن من الدخول إليها مجددًا ما لم تنشئ لها نسخة احتياطية.</string>
-  <string name="remove_wallet_backup_button">نسخ احتياطي للمحفظة</string>
-  <string name="remove_wallet_no_backup_button">حذف المحفظة</string>
+  <string name="remove_wallet_backup_button">Back up wallet</string>
+  <string name="remove_wallet_no_backup_button">Remove wallet</string>
   <string name="remove_wallet_confirm_body">هل انت متأكد من أنك تود إزالة هذه المحفظة؟</string>
-  <string name="remove_wallet_no_button">لا، عودة إلى الخلف</string>
-  <string name="remove_wallet_yes_button">نعم، إزالة المحفظة</string>
+  <string name="remove_wallet_no_button">No, go back</string>
+  <string name="remove_wallet_yes_button">Yes, remove wallet</string>
   <string name="remove_wallet_removed_body">تمت إزالة المحفظة!</string>
   <!--Tranfer-->
   <string name="tranfer_bottom_navigation">تحويل</string>
@@ -727,7 +727,7 @@
   <string name="transfer_send_token_title">العملة:</string>
   <string name="transfer_send_amount_title">المبلغ</string>
   <string name="transfer_send_current_balance_title">الرصيد الحالي:</string>
-  <string name="transfer_send_button">إرسال</string>
+  <string name="transfer_send_button">Send</string>
   <string name="transfer_receive_body">شارك عنوان محفظتك لاستقبال الأموال.</string>
   <!--Support Notifications-->
   <string name="support_new_message_title">وصلتك رسالة جديدة!</string>
@@ -764,15 +764,15 @@
   <string name="subscriptions_expiration_body">تنتهي صلاحيتها في %s</string>
   <string name="subscriptions_canceled_body">ملغية</string>
   <string name="subscriptions_details_disclaimer">قد تتغير القيمة في AppCoins للدفعة المقبلة بناء على سعر الصرف.</string>
-  <string name="subscriptions_details_button">التفاصيل</string>
-  <string name="subscriptions_manage_button">إدارة الاشتراكات</string>
-  <string name="subscriptions_cancel_button">إلغاء الاشتراك</string>
-  <string name="subscriptions_renew_subscription_button">تجديد الاشتراك</string>
+  <string name="subscriptions_details_button">Details</string>
+  <string name="subscriptions_manage_button">Manage subscription</string>
+  <string name="subscriptions_cancel_button">Cancel subscription</string>
+  <string name="subscriptions_renew_subscription_button">Renew subscription</string>
   <string name="subscriptions_renewed_confirmation_title">تم تجديد الاشتراك!</string>
   <string name="subscriptions_cancel_title">إلغاء الاشتراك</string>
   <string name="subscriptions_cancel_body">هل أنت متأكد أنك تريد إلغاء الاشتراك؟</string>
-  <string name="subscriptions_cancel_no_button">لا، عُد للخلف</string>
-  <string name="subscriptions_cancel_yes_button">نعم، ألغِ الاشتراك</string>
+  <string name="subscriptions_cancel_no_button">No, go back</string>
+  <string name="subscriptions_cancel_yes_button">Yes, cancel subscription</string>
   <string name="subscriptions_cancel_confirmation_title">ألغينا الاشتراك!</string>
   <string name="subscriptions_cancel_confirmation_body">لن تتكلف مزيدًا من الدفعات بعد الآن لهذا الاشتراك، ويمكنك استخدامه حتى %s.</string>
   <string name="subscriptions_category_title">الاشتراك</string>
@@ -845,8 +845,8 @@
   <string name="carrier_billing_phone_confirmation_body">رقم هاتفك هو %s.</string>
   <string name="carrier_billing_enter_pin_body">يرجى إدخال الرمز الذي تلقيته في رسالة SMS.</string>
   <string name="carrier_billing_code_field">رمزك هو...</string>
-  <string name="carrier_billing_code_resend_button">أعد إرسال الرمز</string>
-  <string name="carrier_billing_submit_button">اعتمِد</string>
+  <string name="carrier_billing_code_resend_button">Resend code</string>
+  <string name="carrier_billing_submit_button">Submit</string>
   <string name="carrier_billing_number_not_supported">يبدو أن رقمك غير متوافق مع وسيلة الدفع هذه.</string>
   <string name="carrier_billing_terms_disclaimer">بالضغط على اعتمِد، أنت تُقرّ بأنك تقبل الأحكام والشروط وسياسة الخصوصية.</string>
   <string name="carrier_billing_help_1">تحتاج مساعدة؟</string>
@@ -955,7 +955,7 @@
   <string name="rate_us_improve_field__empty_error">يرجى كتابة أي شيء</string>
   <string name="rate_us_possitive_thanks_title">شكرًا لك!</string>
   <string name="rate_us_possitive_thanks_body">نحن سعداء بأنك تحب التطبيق. هل يمكنك مساعدتنا بتقييمنا على متجر التطبيقات؟</string>
-  <string name="rate_us_possitive_rate_button">تقييم محفظة AppCoins</string>
+  <string name="rate_us_possitive_rate_button">Rate the AppCoins Wallet</string>
   <string name="rate_us_possitive_done_title">نشكرك على تقييمك!</string>
   <string name="rate_us_back_title">تريد مساعدتنا؟</string>
   <string name="rate_us_back_body">أضف تقيمك لمحفظة AppCoins على متجر التطبيقات لنعمل على تحسينه.</string>
@@ -1001,7 +1001,7 @@
   <string name="voucher_buy_header">القسيمة لـ %s</string>
   <string name="voucher_buy_short_header">بطاقة هدية:</string>
   <string name="voucher_buy_no_game_title">أليس لديك %s؟</string>
-  <string name="voucher_buy_no_game_install_button">نزّله الآن</string>
+  <string name="voucher_buy_no_game_install_button">Download now</string>
   <string name="voucher_code_title">رمز القسيمة</string>
   <string name="voucher_instructions_body">اذهب إلى %s واستخدم الرمز لاسترداد قسيمتك.</string>
   <string name="voucher_instructions_transactions">يمكنك دائمًا إيجاد رمز القسيمة في سجل التحويلات.</string>
@@ -1050,8 +1050,8 @@
   <string name="promo_code_view_field">الرمز الترويجي هنا...</string>
   <string name="promo_code_view_error">رمز غير صالح. جرب رمزًا آخر!</string>
   <string name="promo_code_activated">تم تنشيط الرمز الترويجي!</string>
-  <string name="promo_code_delete_button">حذف</string>
-  <string name="promo_code_replace_button">استبدال</string>
+  <string name="promo_code_delete_button">Delete</string>
+  <string name="promo_code_replace_button">Replace</string>
   <string name="promo_code_active_tag">نشط</string>
   <string name="promo_code_expired_tag">منتهي الصلاحية</string>
   <string name="promo_code_success_title">تم!</string>
@@ -1106,8 +1106,8 @@
   <string name="mywallet_unverified_title">محفظة غير موثّقة</string>
   <string name="mywallet_unverified_body">وثّق وسيلة دفع لتتجنب الاعتراضات.</string>
   <string name="mywallet_backed_up_date">حفظت نسخة احتياطية لمحفظتك في %s.</string>
-  <string name="mywallet_backup_again_button">احفظ نسخة ثانية</string>
-  <string name="mywallet_verify_payment_method_button">VERIFY NEW CARD</string>
+  <string name="mywallet_backup_again_button">Back up again</string>
+  <string name="mywallet_verify_payment_method_button">Verify new card</string>
   <string name="mywallet_choose_name_header">اختر اسمًا لمحفظتك</string>
   <string name="mywallet_choose_name_field">اسم المحفظة هنا...</string>
   <string name="mywallet_choose_name_confirmed">اسم المحفظة تغيّر</string>

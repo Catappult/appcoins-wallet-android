@@ -16,7 +16,7 @@
   <string name="error_field_required">此字段必填</string>
   <string name="action_settings">设置</string>
   <string name="title_account_list">钱包</string>
-  <string name="cancel">取消</string>
+  <string name="cancel">Cancel</string>
   <string name="confirm_delete_account">请一定要保留此钱包的备份。</string>
   <string name="action_import">恢复</string>
   <string name="copy">复制到剪贴板</string>
@@ -26,8 +26,8 @@
   <string name="network_label">网络</string>
   <string name="credits">制作组</string>
   <string name="label_new">新</string>
-  <string name="got_it_button">明白了</string>
-  <string name="change_button">更改</string>
+  <string name="got_it_button">Got it</string>
+  <string name="change_button">Change</string>
   <string name="vip">VIP</string>
   <string name="low_storage_error">存储空间不足</string>
   <string name="no_camera_permission_title">相机权限</string>
@@ -361,7 +361,7 @@
   <string name="provide_wallet_allow_once_button">允许一次</string>
   <string name="provide_wallet_completed_header">钱包已关联到Aptoide！</string>
   <string name="provide_wallet_create_body">你需要一个钱包地址！请按照以下步骤在AppCoins Wallet中创建一个钱包地址。</string>
-  <string name="provide_wallet_create_wallet_button">创建</string>
+  <string name="provide_wallet_create_wallet_button">Create</string>
   <string name="provide_wallet_creating_wallet_header">正在创建钱包地址&#8230;</string>
   <string name="provide_wallet_created_header">钱包地址已创建！</string>
   <string name="provide_wallet_empty_state">你还没有允许AppCoins Wallet向任何其他应用提供你的地址。</string>
@@ -441,7 +441,7 @@
   <string name="remind_later_button">稍后提醒我</string>
   <string name="get_code_button">获取代码</string>
   <string name="confirm_button">确认</string>
-  <string name="withdraw_button">取款</string>
+  <string name="withdraw_button">Withdraw</string>
   <string name="email_here_field">你的电子邮件&#8230;</string>
   <string name="understood_button">明白了！</string>
   <string name="skip_button">暂时跳过</string>
@@ -595,12 +595,12 @@
   <string name="referral_view_title">邀请好友</string>
   <string name="referral_view_title_1">邀请好友，获取更多奖励！</string>
   <string name="referral_view_verified_body">每成功邀请一位好友可获取%s的AppCoins积金。分享链接吧！</string>
-  <string name="referral_view_share_link_button">分享邀请链接</string>
+  <string name="referral_view_share_link_button">Share invite link</string>
   <string name="referral_view_notifications_title">通知</string>
   <string name="referral_share_sheet_title">分享链接到：</string>
   <string name="referral_view_unverified_body">Receive %s worth of AppCoins Credits for each friend. Your first need to verify your wallet.</string>
-  <string name="referral_view_verify_button">验证钱包</string>
-  <string name="referral_view_i_have_been_invited_button">我已获得了邀请</string>
+  <string name="referral_view_verify_button">Verify wallet</string>
+  <string name="referral_view_i_have_been_invited_button">I\'ve been invited</string>
   <string name="referral_view_dropup_menu_friends_invited">已邀请好友</string>
   <string name="referral_view_dropup_menu_earned">已获取</string>
   <string name="referral_dropup_menu_friends_title_1">已邀请好友</string>
@@ -634,7 +634,7 @@
   <string name="update_wallet_hard_body">你似乎在使用旧版本的AppCoins Wallet。请对其进行更新，以确保获得最佳的体验和最高的安全性。</string>
   <string name="update_wallet_soft_title">不要落在后面！</string>
   <string name="update_wallet_soft_body">随时更新AppCoins Wallet可确保你获得最佳的体验。</string>
-  <string name="update_button">更新</string>
+  <string name="update_button">Update</string>
   <!--Backup and Import-->
   <string name="backup_home_notification_title">备份你的钱包</string>
   <string name="backup_home_notification_body">丢过手机吗？立即备份你的钱包！</string>
@@ -645,8 +645,8 @@
   <string name="import_wallet_body">将你的钱包备份粘贴在下方。</string>
   <string name="import_wallet_keystore_private_keys">密钥库或私钥</string>
   <string name="import_wallet_from_file_title">或者从文件恢复</string>
-  <string name="import_wallet_file_button">从文件恢复</string>
-  <string name="import_wallet_button">恢复钱包</string>
+  <string name="import_wallet_file_button">Recover from file</string>
+  <string name="import_wallet_button">Recover wallet</string>
   <string name="import_wallet_password_body">此钱包受密码保护！</string>
   <string name="import_wallet_wrong_password_body">糟糕，密码错误！</string>
   <string name="error_invalid_private_key">无效的私钥</string>
@@ -655,7 +655,7 @@
   <string name="backup_body">我们不会存储你的私钥或任何其他访问方法。请务必确保你的钱包备份（密钥库）安全无虞。</string>
   <string name="backup_additional_security_title">额外安全性（可选）</string>
   <string name="backup_additional_security_body">选择密码</string>
-  <string name="backup_button">备份钱包</string>
+  <string name="backup_button">Back up wallet</string>
   <string name="backup_ready_title">你的备份已就绪！\n请保障其安全。</string>
   <string name="backup_ready_save_on_email">保存在你的电子邮件中</string>
   <string name="backup_ready_email_button">发送至电子邮件</string>
@@ -665,8 +665,8 @@
   <string name="backup_confirmation_tips_2">将其<b>保存</b>在 USB 驱动器上。</string>
   <string name="backup_confirmation_tips_3">将其<b>复制</b>到安全的私有云存储中。</string>
   <string name="backup_tooltip_body">备份您的钱包！</string>
-  <string name="backup_tooltip_later_button">以后再说</string>
-  <string name="backup_tooltip_backup_button">备份</string>
+  <string name="backup_tooltip_later_button">Maybe later</string>
+  <string name="backup_tooltip_backup_button">Back up</string>
   <string name="backup_notification_title">备份您的钱包！</string>
   <string name="backup_notification_body">确保资金安全，确保您随时均可访问钱包。</string>
   <string name="backup_choose_wallet_title">选择要备份的钱包</string>
@@ -693,23 +693,23 @@
   <string name="wallets_imported_body">已成功恢复钱包</string>
   <string name="wallets_2nd_view_balance_title">余额：</string>
   <string name="wallets_2nd_view_other_wallets_title">其他钱包</string>
-  <string name="wallets_2nd_view_import_button">恢复钱包</string>
-  <string name="wallets_2nd_view_create_button">新建</string>
-  <string name="wallet_view_copy_button">复制</string>
-  <string name="wallet_view_share_button">分享</string>
+  <string name="wallets_2nd_view_import_button">Recover wallet</string>
+  <string name="wallets_2nd_view_create_button">Create new</string>
+  <string name="wallet_view_copy_button">Copy</string>
+  <string name="wallet_view_share_button">Share</string>
   <string name="wallet_view_total_balance_title">总余额</string>
-  <string name="wallet_view_remove_button">删除钱包</string>
-  <string name="wallet_view_backup_button">备份钱包</string>
-  <string name="wallet_view_activate_button">将此钱包设为有效钱包</string>
+  <string name="wallet_view_remove_button">Remove wallet</string>
+  <string name="wallet_view_backup_button">Back up wallet</string>
+  <string name="wallet_view_activate_button">Make this wallet active</string>
   <string name="wallet_view_active_body">这是你的有效钱包。</string>
   <!--Remove Wallet-->
   <string name="remove_wallet_title">删除钱包</string>
   <string name="remove_wallet_body">我们强烈建议在删除钱包之前对钱包进行备份。除非留有备份，否则你将无法再次访问该钱包。</string>
-  <string name="remove_wallet_backup_button">备份钱包</string>
-  <string name="remove_wallet_no_backup_button">删除钱包</string>
+  <string name="remove_wallet_backup_button">Back up wallet</string>
+  <string name="remove_wallet_no_backup_button">Remove wallet</string>
   <string name="remove_wallet_confirm_body">确实要删除此钱包？</string>
-  <string name="remove_wallet_no_button">不，返回</string>
-  <string name="remove_wallet_yes_button">是，删除钱包</string>
+  <string name="remove_wallet_no_button">No, go back</string>
+  <string name="remove_wallet_yes_button">Yes, remove wallet</string>
   <string name="remove_wallet_removed_body">钱包已删除！</string>
   <!--Tranfer-->
   <string name="tranfer_bottom_navigation">转账</string>
@@ -721,7 +721,7 @@
   <string name="transfer_send_token_title">代币：</string>
   <string name="transfer_send_amount_title">金额</string>
   <string name="transfer_send_current_balance_title">当前余额：</string>
-  <string name="transfer_send_button">发送</string>
+  <string name="transfer_send_button">Send</string>
   <string name="transfer_receive_body">分享你的钱包地址以收款。</string>
   <!--Support Notifications-->
   <string name="support_new_message_title">您有新消息！</string>
@@ -758,15 +758,15 @@
   <string name="subscriptions_expiration_body">到期日期%s</string>
   <string name="subscriptions_canceled_body">已取消</string>
   <string name="subscriptions_details_disclaimer">AppCoins下次付款的价值可能因汇率而有所不同。</string>
-  <string name="subscriptions_details_button">详情</string>
-  <string name="subscriptions_manage_button">管理订购</string>
-  <string name="subscriptions_cancel_button">取消订购</string>
-  <string name="subscriptions_renew_subscription_button">更新订阅</string>
+  <string name="subscriptions_details_button">Details</string>
+  <string name="subscriptions_manage_button">Manage subscription</string>
+  <string name="subscriptions_cancel_button">Cancel subscription</string>
+  <string name="subscriptions_renew_subscription_button">Renew subscription</string>
   <string name="subscriptions_renewed_confirmation_title">订阅已更新！</string>
   <string name="subscriptions_cancel_title">取消订购</string>
   <string name="subscriptions_cancel_body">是否确定要取消此订购？</string>
-  <string name="subscriptions_cancel_no_button">否，返回</string>
-  <string name="subscriptions_cancel_yes_button">是，取消订购</string>
+  <string name="subscriptions_cancel_no_button">No, go back</string>
+  <string name="subscriptions_cancel_yes_button">Yes, cancel subscription</string>
   <string name="subscriptions_cancel_confirmation_title">已取消订购！</string>
   <string name="subscriptions_cancel_confirmation_body">你不会再为此订购付款，你可以用到%s。</string>
   <string name="subscriptions_category_title">订购</string>
@@ -839,8 +839,8 @@
   <string name="carrier_billing_phone_confirmation_body">您的电话号码是%s。</string>
   <string name="carrier_billing_enter_pin_body">请输入通过短信收到的PIN码。</string>
   <string name="carrier_billing_code_field">您的代码...</string>
-  <string name="carrier_billing_code_resend_button">重新发送代码</string>
-  <string name="carrier_billing_submit_button">提交</string>
+  <string name="carrier_billing_code_resend_button">Resend code</string>
+  <string name="carrier_billing_submit_button">Submit</string>
   <string name="carrier_billing_number_not_supported">您的号码似乎与此付款方式不兼容。</string>
   <string name="carrier_billing_terms_disclaimer">点击“提交”即表示，您确认接受条款与条件以及隐私政策。</string>
   <string name="carrier_billing_help_1">需要帮助？</string>
@@ -919,7 +919,7 @@
   <string name="rate_us_improve_field__empty_error">请输入内容</string>
   <string name="rate_us_possitive_thanks_title">谢谢！</string>
   <string name="rate_us_possitive_thanks_body">很高兴您喜欢我们的应用。您能帮忙在应用商店上给我们评分吗？</string>
-  <string name="rate_us_possitive_rate_button">给APPCOINS WALLET评分</string>
+  <string name="rate_us_possitive_rate_button">Rate the AppCoins Wallet</string>
   <string name="rate_us_possitive_done_title">感谢您的反馈！</string>
   <string name="rate_us_back_title">想帮助我们吗？</string>
   <string name="rate_us_back_body">在应用商店上给AppCoins Wallet评分，以便我们对其进行改进。</string>
@@ -955,7 +955,7 @@
   <string name="voucher_buy_header">%s优惠券</string>
   <string name="voucher_buy_short_header"> 优惠券</string>
   <string name="voucher_buy_no_game_title">您没有%s吗？</string>
-  <string name="voucher_buy_no_game_install_button">立即下载</string>
+  <string name="voucher_buy_no_game_install_button">Download now</string>
   <string name="voucher_code_title">优惠券代码</string>
   <string name="voucher_instructions_body">转到%s并使用代码兑换优惠券。</string>
   <string name="voucher_instructions_transactions">您始终可以在交易历史记录中找到优惠券代码。</string>
@@ -1004,8 +1004,8 @@
   <string name="promo_code_view_field">在这里输入促销代码...</string>
   <string name="promo_code_view_error">无效代码。再试试！</string>
   <string name="promo_code_activated">促销代码已激活！</string>
-  <string name="promo_code_delete_button">删除</string>
-  <string name="promo_code_replace_button">替换</string>
+  <string name="promo_code_delete_button">Delete</string>
+  <string name="promo_code_replace_button">Replace</string>
   <string name="promo_code_active_tag">激活</string>
   <string name="promo_code_expired_tag">已到期</string>
   <string name="promo_code_success_title">完成！</string>
@@ -1060,8 +1060,8 @@
   <string name="mywallet_unverified_title">钱包未验证</string>
   <string name="mywallet_unverified_body">验证付款方式以避免收到阻拦。</string>
   <string name="mywallet_backed_up_date">你在%s上备份了钱包。</string>
-  <string name="mywallet_backup_again_button">再次备份</string>
-  <string name="mywallet_verify_payment_method_button">VERIFY NEW CARD</string>
+  <string name="mywallet_backup_again_button">Back up again</string>
+  <string name="mywallet_verify_payment_method_button">Verify new card</string>
   <string name="mywallet_choose_name_header">为钱包选择名称</string>
   <string name="mywallet_choose_name_field">钱包名称在这里输入......</string>
   <string name="mywallet_choose_name_confirmed">钱包名称已更改</string>

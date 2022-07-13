@@ -11,7 +11,7 @@
   <View
       android:id="@+id/active_wallet_info"
       android:layout_width="0dp"
-      android:layout_height="328dp"
+      android:layout_height="320dp"
       android:layout_marginHorizontal="16dp"
       android:layout_marginTop="16dp"
       android:background="@drawable/background_card_active_wallet"
@@ -219,27 +219,6 @@
       app:layout_constraintEnd_toEndOf="@id/active_wallet_info"
       app:layout_constraintTop_toBottomOf="@id/active_wallet_separator"
       tools:text="€30.12"
-      />
-  <com.airbnb.lottie.LottieAnimationView
-      android:id="@+id/appc_balance_skeleton"
-      android:layout_width="50dp"
-      android:layout_height="14dp"
-      android:layout_marginEnd="16dp"
-      android:visibility="visible"
-      app:layout_constraintEnd_toEndOf="@id/active_wallet_info"
-      app:layout_constraintTop_toBottomOf="@id/total_balance_skeleton"
-      app:lottie_loop="true"
-      app:lottie_rawRes="@raw/balance_overall_animation"
-      />
-  <TextView
-      android:id="@+id/appc_balance_text_view"
-      style="@style/MyWallets.TotalAppc"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_marginEnd="16dp"
-      app:layout_constraintEnd_toEndOf="@id/active_wallet_info"
-      app:layout_constraintTop_toBottomOf="@id/total_balance_text_view"
-      tools:text="5244 APPC-C"
       />
   <com.google.android.material.button.MaterialButton
       android:id="@+id/balance_button"

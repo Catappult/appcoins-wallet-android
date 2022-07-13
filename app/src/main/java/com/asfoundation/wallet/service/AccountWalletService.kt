@@ -20,100 +20,69 @@ import javax.inject.Inject
 
 @BoundTo(supertype = WalletService::class)
 class AccountWalletService @Inject constructor(
-    private val accountKeyService: AccountKeystoreService,
-    private val passwordStore: PasswordStore,
-    private val walletCreatorInteract: WalletCreatorInteract,
-    private val walletRepository: WalletRepositoryType,
-    private val syncScheduler: ExecutorScheduler) : WalletService {
+  private val accountKeyService: AccountKeystoreService,
+  private val passwordStore: PasswordStore,
+  private val walletCreatorInteract: WalletCreatorInteract,
+  private val walletRepository: WalletRepositoryType,
+  private val syncScheduler: ExecutorScheduler
+) : WalletService {
 
   private val normalizer = SignDataStandardNormalizer()
   private var stringECKeyPair: Pair<String, ECKey>? = null
 
-  override fun getWalletAddress(): Single<String> {
-    return find()
-        .map { wallet -> toChecksumAddress(wallet.address) }
-  }
+  override fun getWalletAddress(): Single<String> = find()
+    .map { toChecksumAddress(it.address) }
 
-  override fun getWalletOrCreate(): Single<String> {
-    return find()
-        .subscribeOn(syncScheduler)
-        .onErrorResumeNext {
-          walletCreatorInteract.create()
-        }
-        .map { wallet -> toChecksumAddress(wallet.address) }
-  }
+  override fun getWalletOrCreate(): Single<String> = find()
+    .subscribeOn(syncScheduler)
+    .onErrorResumeNext { walletCreatorInteract.create("Main Wallet") }
+    .map { toChecksumAddress(it.address) }
 
-  override fun findWalletOrCreate(): Observable<String> {
-    return find()
-        .toObservable()
-        .subscribeOn(syncScheduler)
-        .map { wallet -> wallet.address }
-        .onErrorResumeNext { _: Throwable ->
-          Observable.just(WalletGetterStatus.CREATING.toString())
-              .mergeWith(
-                  walletCreatorInteract.create()
-                      .toObservable()
-                      .map { wallet -> wallet.address })
-        }
-  }
+  override fun findWalletOrCreate(): Observable<String> = find()
+    .toObservable()
+    .subscribeOn(syncScheduler)
+    .map { wallet -> wallet.address }
+    .onErrorResumeNext { _: Throwable ->
+      Observable.just(WalletGetterStatus.CREATING.toString())
+        .mergeWith(walletCreatorInteract.create("Main Wallet").map { it.address }.toObservable())
+    }
 
-  override fun signContent(content: String): Single<String> {
-    return find()
-        .flatMap { wallet ->
-          getPrivateKey(wallet).map { ecKey ->
-            sign(normalizer.normalize(content), ecKey)
-          }
-        }
-  }
+  override fun signContent(content: String): Single<String> = find()
+    .flatMap { wallet -> getPrivateKey(wallet).map { sign(normalizer.normalize(content), it) } }
 
-  override fun getAndSignCurrentWalletAddress(): Single<WalletAddressModel> {
-    return find()
-        .flatMap { wallet ->
-          getPrivateKey(wallet).map { ecKey ->
-            sign(normalizer.normalize(toChecksumAddress(wallet.address)), ecKey)
-          }
-              .map { WalletAddressModel(wallet.address, it) }
-        }
-  }
+  override fun getAndSignCurrentWalletAddress(): Single<WalletAddressModel> = find()
+    .flatMap { wallet ->
+      getPrivateKey(wallet)
+        .map { sign(normalizer.normalize(toChecksumAddress(wallet.address)), it) }
+        .map { WalletAddressModel(wallet.address, it) }
+    }
 
   @Throws(Exception::class)
-  fun sign(plainText: String, ecKey: ECKey): String {
-    val signature = ecKey.sign(sha3(plainText.toByteArray()))
-    return signature.toHex()
-  }
+  private fun sign(plainText: String, ecKey: ECKey): String =
+    ecKey.sign(sha3(plainText.toByteArray())).toHex()
 
-  fun find(): Single<Wallet> {
-    return walletRepository.getDefaultWallet()
-        .onErrorResumeNext {
-          walletRepository.fetchWallets()
-              .filter { wallets -> wallets.isNotEmpty() }
-              .map { wallets: Array<Wallet> ->
-                wallets[0]
-              }
-              .flatMapCompletable { wallet: Wallet ->
-                walletRepository.setDefaultWallet(wallet.address)
-              }
-              .andThen(walletRepository.getDefaultWallet())
-        }
-  }
-
-  fun create(): Single<Wallet> = walletCreatorInteract.create()
-
-  private fun getPrivateKey(wallet: Wallet): Single<ECKey> {
-    if (stringECKeyPair != null && stringECKeyPair!!.first.equals(wallet.address, true)) {
-      return Single.just(stringECKeyPair!!.second)
+  private fun find(): Single<Wallet> = walletRepository.getDefaultWallet()
+    .onErrorResumeNext {
+      walletRepository.fetchWallets()
+        .filter { it.isNotEmpty() }
+        .map { it[0] }
+        .flatMapCompletable { walletRepository.setDefaultWallet(it.address) }
+        .andThen(walletRepository.getDefaultWallet())
     }
-    return passwordStore.getPassword(wallet.address)
+
+  private fun getPrivateKey(wallet: Wallet): Single<ECKey> =
+    if (stringECKeyPair?.first?.equals(wallet.address, true) == true) {
+      Single.just(stringECKeyPair!!.second)
+    } else {
+      passwordStore.getPassword(wallet.address)
         .flatMap { password ->
           accountKeyService.exportAccount(wallet.address, password, password)
-              .map { json ->
-                ECKey.fromPrivate(WalletUtils.loadCredentials(password, json)
-                    .ecKeyPair
-                    .privateKey)
-              }
+            .map { json ->
+              ECKey.fromPrivate(WalletUtils.loadCredentials(password, json).ecKeyPair.privateKey)
+            }
         }
         .doOnSuccess { ecKey -> stringECKeyPair = Pair(wallet.address, ecKey) }
-  }
+    }
 
   interface ContentNormalizer {
     fun normalize(content: String): String

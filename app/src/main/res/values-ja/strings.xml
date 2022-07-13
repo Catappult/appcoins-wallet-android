@@ -16,7 +16,7 @@
   <string name="error_field_required">このフィールドは必須です</string>
   <string name="action_settings">設定</string>
   <string name="title_account_list">ウォレット</string>
-  <string name="cancel">キャンセルする</string>
+  <string name="cancel">Cancel</string>
   <string name="confirm_delete_account">このウォレットのバックアップがあることを確認してください。</string>
   <string name="action_import">復元</string>
   <string name="copy">クリップボードにコピーする</string>
@@ -26,8 +26,8 @@
   <string name="network_label">ネットワーク</string>
   <string name="credits">クレジット</string>
   <string name="label_new">新しい</string>
-  <string name="got_it_button">了解</string>
-  <string name="change_button">変更</string>
+  <string name="got_it_button">Got it</string>
+  <string name="change_button">Change</string>
   <string name="vip">VIP</string>
   <string name="low_storage_error">空き容量が不足しています</string>
   <string name="no_camera_permission_title">カメラのアクセス許可</string>
@@ -362,7 +362,7 @@
   <string name="provide_wallet_allow_once_button">一度許可する</string>
   <string name="provide_wallet_completed_header">ウォレットがAptoideと結合しました！</string>
   <string name="provide_wallet_create_body">あなたはウォレットアドレスが必要です！ AppCoins ウォレットで作成するには、次の手順に従ってください。</string>
-  <string name="provide_wallet_create_wallet_button">作成する</string>
+  <string name="provide_wallet_create_wallet_button">Create</string>
   <string name="provide_wallet_creating_wallet_header">ウォレットアドレスを作成中です&#8230;</string>
   <string name="provide_wallet_created_header">ウォレットアドレスが作成されました！</string>
   <string name="provide_wallet_empty_state">あなたはまだAppCoins ウォレットによりアドレスを他のアプリに提供することを許可していません。</string>
@@ -442,7 +442,7 @@
   <string name="remind_later_button">後で通知</string>
   <string name="get_code_button">コードを入手</string>
   <string name="confirm_button">承認する</string>
-  <string name="withdraw_button">出金</string>
+  <string name="withdraw_button">Withdraw</string>
   <string name="email_here_field">メールアドレス&#8230;</string>
   <string name="understood_button">了解！</string>
   <string name="skip_button">今はスキップ</string>
@@ -596,12 +596,12 @@
   <string name="referral_view_title">友達を招待</string>
   <string name="referral_view_title_1">友達を誘って、もっと稼ごう！</string>
   <string name="referral_view_verified_body">友達1人につき、%s分のAppCoinsクレジットがもらえます。リンクを共有しましょう！</string>
-  <string name="referral_view_share_link_button">招待リンクの共有</string>
+  <string name="referral_view_share_link_button">Share invite link</string>
   <string name="referral_view_notifications_title">通知</string>
   <string name="referral_share_sheet_title">招待リンクを共有：</string>
   <string name="referral_view_unverified_body">友達1人につき%s相当のAppCoinsクレジットを受け取ることができます。まず、あなたのウォレットを確認する必要があります。</string>
-  <string name="referral_view_verify_button">ウォレットの認証</string>
-  <string name="referral_view_i_have_been_invited_button">すでに招待されている</string>
+  <string name="referral_view_verify_button">Verify wallet</string>
+  <string name="referral_view_i_have_been_invited_button">I\'ve been invited</string>
   <string name="referral_view_dropup_menu_friends_invited">招待済みの友達</string>
   <string name="referral_view_dropup_menu_earned">獲得額</string>
   <string name="referral_dropup_menu_friends_title_1">招待済みの友達</string>
@@ -635,7 +635,7 @@
   <string name="update_wallet_hard_body">古いバージョンのAppCoins Walletを使用しているようです。ベストなユーザーエクスペリエンスと安全性を確保するために、アップデートしてください。</string>
   <string name="update_wallet_soft_title">置いていかれないようにしましょう！</string>
   <string name="update_wallet_soft_body">AppCoins Walletを常に最新の状態にしておくことで、より快適にご利用いただけます。</string>
-  <string name="update_button">アップデート</string>
+  <string name="update_button">Update</string>
   <!--Backup and Import-->
   <string name="backup_home_notification_title">ウォレットのバックアップ</string>
   <string name="backup_home_notification_body">携帯電話を紛失したことはありませんか？今すぐウォレットをバックアップしましょう！</string>
@@ -646,8 +646,8 @@
   <string name="import_wallet_body">ウォレットのバックアップを以下に貼り付けてください。</string>
   <string name="import_wallet_keystore_private_keys">キーストアまたは秘密鍵</string>
   <string name="import_wallet_from_file_title">またはファイルからの復元</string>
-  <string name="import_wallet_file_button">ファイルからの復元</string>
-  <string name="import_wallet_button">ウォレットの復元</string>
+  <string name="import_wallet_file_button">Recover from file</string>
+  <string name="import_wallet_button">Recover wallet</string>
   <string name="import_wallet_password_body">このウォレットはパスワードで保護されています！</string>
   <string name="import_wallet_wrong_password_body">間違ったパスワードです！</string>
   <string name="error_invalid_private_key">無効な秘密鍵です</string>
@@ -656,7 +656,7 @@
   <string name="backup_body">当方があなたの秘密鍵やその他のアクセス方法を保存することはありません。ウォレットのバックアップ (キーストア) を安全に保管することが重要です。</string>
   <string name="backup_additional_security_title">追加のセキュリティ (オプション)</string>
   <string name="backup_additional_security_body">パスワードの入力</string>
-  <string name="backup_button">ウォレットのバックアップ</string>
+  <string name="backup_button">Back up wallet</string>
   <string name="backup_ready_title">バックアップの準備は完了！\n大切に保管してください。</string>
   <string name="backup_ready_save_on_email">メールに保存する</string>
   <string name="backup_ready_email_button">メールに送信</string>
@@ -666,8 +666,8 @@
   <string name="backup_confirmation_tips_2"><b>USBメモリ</b>に保存する。</string>
   <string name="backup_confirmation_tips_3">安全なプライベートクラウドストレージに<b>コピー</b>する。</string>
   <string name="backup_tooltip_body">ウォレットのバックアップを取っておきましょう！</string>
-  <string name="backup_tooltip_later_button">あとで</string>
-  <string name="backup_tooltip_backup_button">バックアップ</string>
+  <string name="backup_tooltip_later_button">Maybe later</string>
+  <string name="backup_tooltip_backup_button">Back up</string>
   <string name="backup_notification_title">ウォレットのバックアップを取っておきましょう！</string>
   <string name="backup_notification_body">資金を安全に保管し、常にウォレットにアクセスできるようにしておきましょう。</string>
   <string name="backup_choose_wallet_title">バックアップするウォレットを選択</string>
@@ -694,23 +694,23 @@
   <string name="wallets_imported_body">ウォレットの復元に成功しました</string>
   <string name="wallets_2nd_view_balance_title">残高:</string>
   <string name="wallets_2nd_view_other_wallets_title">他のウォレット</string>
-  <string name="wallets_2nd_view_import_button">ウォレットの復元</string>
-  <string name="wallets_2nd_view_create_button">新規作成</string>
-  <string name="wallet_view_copy_button">コピー</string>
-  <string name="wallet_view_share_button">共有</string>
+  <string name="wallets_2nd_view_import_button">Recover wallet</string>
+  <string name="wallets_2nd_view_create_button">Create new</string>
+  <string name="wallet_view_copy_button">Copy</string>
+  <string name="wallet_view_share_button">Share</string>
   <string name="wallet_view_total_balance_title">合計残高</string>
-  <string name="wallet_view_remove_button">ウォレットの削除</string>
-  <string name="wallet_view_backup_button">ウォレットのバックアップ</string>
-  <string name="wallet_view_activate_button">このウォレットをアクティブにする</string>
+  <string name="wallet_view_remove_button">Remove wallet</string>
+  <string name="wallet_view_backup_button">Back up wallet</string>
+  <string name="wallet_view_activate_button">Make this wallet active</string>
   <string name="wallet_view_active_body">これはあなたのアクティブなウォレットです。</string>
   <!--Remove Wallet-->
   <string name="remove_wallet_title">ウォレットの削除</string>
   <string name="remove_wallet_body">ウォレットを削除する前に、バックアップを取ることを強くお勧めします。バックアップを取っておかないと、再びアクセスできなくなります。</string>
-  <string name="remove_wallet_backup_button">ウォレットのバックアップ</string>
-  <string name="remove_wallet_no_backup_button">ウォレットの削除</string>
+  <string name="remove_wallet_backup_button">Back up wallet</string>
+  <string name="remove_wallet_no_backup_button">Remove wallet</string>
   <string name="remove_wallet_confirm_body">本当にこのウォレットを削除しますか？</string>
-  <string name="remove_wallet_no_button">いいえ、戻ってください</string>
-  <string name="remove_wallet_yes_button">はい、ウォレットを削除します</string>
+  <string name="remove_wallet_no_button">No, go back</string>
+  <string name="remove_wallet_yes_button">Yes, remove wallet</string>
   <string name="remove_wallet_removed_body">ウォレットが削除されました！</string>
   <!--Tranfer-->
   <string name="tranfer_bottom_navigation">移動</string>
@@ -722,7 +722,7 @@
   <string name="transfer_send_token_title">トークン：</string>
   <string name="transfer_send_amount_title">量</string>
   <string name="transfer_send_current_balance_title">現在の残高：</string>
-  <string name="transfer_send_button">送金</string>
+  <string name="transfer_send_button">Send</string>
   <string name="transfer_receive_body">資金を受け取るにはウォレットのアドレスを共有してください。</string>
   <!--Support Notifications-->
   <string name="support_new_message_title">新しいメッセージを受け取りました！</string>
@@ -759,15 +759,15 @@
   <string name="subscriptions_expiration_body">%sに期限切れ</string>
   <string name="subscriptions_canceled_body">キャンセル済み</string>
   <string name="subscriptions_details_disclaimer">次回のお支払い時には、為替レートによりAppCoinの価値が変動する場合があります。</string>
-  <string name="subscriptions_details_button">詳細</string>
-  <string name="subscriptions_manage_button">購読を管理</string>
-  <string name="subscriptions_cancel_button">購読をキャンセル</string>
-  <string name="subscriptions_renew_subscription_button">サブスクリプションの更新</string>
+  <string name="subscriptions_details_button">Details</string>
+  <string name="subscriptions_manage_button">Manage subscription</string>
+  <string name="subscriptions_cancel_button">Cancel subscription</string>
+  <string name="subscriptions_renew_subscription_button">Renew subscription</string>
   <string name="subscriptions_renewed_confirmation_title">サブスクリプションが更新されました！</string>
   <string name="subscriptions_cancel_title">購読をキャンセル</string>
   <string name="subscriptions_cancel_body">この購読をキャンセルしてもよろしいですか？</string>
-  <string name="subscriptions_cancel_no_button">いいえ、戻ってください</string>
-  <string name="subscriptions_cancel_yes_button">はい、購読をキャンセル</string>
+  <string name="subscriptions_cancel_no_button">No, go back</string>
+  <string name="subscriptions_cancel_yes_button">Yes, cancel subscription</string>
   <string name="subscriptions_cancel_confirmation_title">購読がキャンセルされました！</string>
   <string name="subscriptions_cancel_confirmation_body">この購読には今後課金されませんが、%sまでお使いいただけます。</string>
   <string name="subscriptions_category_title">購読</string>
@@ -840,8 +840,8 @@
   <string name="carrier_billing_phone_confirmation_body">あなたの電話番号：%s</string>
   <string name="carrier_billing_enter_pin_body">SMSで受け取ったPINを入力してください。</string>
   <string name="carrier_billing_code_field">コードを入力...</string>
-  <string name="carrier_billing_code_resend_button">コードを再送信</string>
-  <string name="carrier_billing_submit_button">送信</string>
+  <string name="carrier_billing_code_resend_button">Resend code</string>
+  <string name="carrier_billing_submit_button">Submit</string>
   <string name="carrier_billing_number_not_supported">あなたの番号は、この支払い方法に対応していないようです。</string>
   <string name="carrier_billing_terms_disclaimer">「送信」をタップすることで「利用規約」と「プライバシーポリシー」に同意したことになります。</string>
   <string name="carrier_billing_help_1">ヘルプが必要ですか？</string>
@@ -920,7 +920,7 @@
   <string name="rate_us_improve_field__empty_error">内容を入力してください</string>
   <string name="rate_us_possitive_thanks_title">ありがとうございました！</string>
   <string name="rate_us_possitive_thanks_body">私たちのアプリを気に入っていただけて嬉しいです。App Storeでの評価にご協力いただけますか？</string>
-  <string name="rate_us_possitive_rate_button">Appcoins Walletを評価</string>
+  <string name="rate_us_possitive_rate_button">Rate the AppCoins Wallet</string>
   <string name="rate_us_possitive_done_title">ご意見ありがとうございました。</string>
   <string name="rate_us_back_title">ご協力していただけますか？</string>
   <string name="rate_us_back_body">改善のため、アプリストアでAppCoins Walletを評価する。</string>
@@ -956,7 +956,7 @@
   <string name="voucher_buy_header">%sのクーポン</string>
   <string name="voucher_buy_short_header">クーポン:</string>
   <string name="voucher_buy_no_game_title">%sを使っていますか？</string>
-  <string name="voucher_buy_no_game_install_button">今すぐダウンロード</string>
+  <string name="voucher_buy_no_game_install_button">Download now</string>
   <string name="voucher_code_title">クーポンコード</string>
   <string name="voucher_instructions_body">%sにアクセスし、コードを使用してクーポンをご利用ください。</string>
   <string name="voucher_instructions_transactions">クーポンコードは、取引履歴でいつでも確認できます。</string>
@@ -1005,8 +1005,8 @@
   <string name="promo_code_view_field">プロモーションコードをここに入力...</string>
   <string name="promo_code_view_error">無効なコードです。別のコードでお試しください。</string>
   <string name="promo_code_activated">プロモーションコードが有効になりました！</string>
-  <string name="promo_code_delete_button">削除</string>
-  <string name="promo_code_replace_button">別のコード</string>
+  <string name="promo_code_delete_button">Delete</string>
+  <string name="promo_code_replace_button">Replace</string>
   <string name="promo_code_active_tag">有効</string>
   <string name="promo_code_expired_tag">期限切れ</string>
   <string name="promo_code_success_title">完了！</string>
@@ -1061,8 +1061,8 @@
   <string name="mywallet_unverified_title">未認証のウォレット</string>
   <string name="mywallet_unverified_body">支払い方法を確認することで、詰まりを回避することができます。</string>
   <string name="mywallet_backed_up_date">%sにウォレットをバックアップしました。</string>
-  <string name="mywallet_backup_again_button">再度バックアップ</string>
-  <string name="mywallet_verify_payment_method_button">VERIFY NEW CARD</string>
+  <string name="mywallet_backup_again_button">Back up again</string>
+  <string name="mywallet_verify_payment_method_button">Verify new card</string>
   <string name="mywallet_choose_name_header">ウォレットの名前を決める</string>
   <string name="mywallet_choose_name_field">ここにウォレットの名前...</string>
   <string name="mywallet_choose_name_confirmed">ウォレット名が変更されました</string>

@@ -24,7 +24,9 @@ import com.asfoundation.wallet.wallets.domain.WalletBalance
 import com.asfoundation.wallet.wallets.usecases.GetWalletInfoUseCase
 import com.asfoundation.wallet.wallets.usecases.ObserveWalletInfoUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
-import io.reactivex.*
+import io.reactivex.Completable
+import io.reactivex.Observable
+import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.subjects.BehaviorSubject
 import java.math.BigDecimal
@@ -116,7 +118,7 @@ class HomeViewModel @Inject constructor(
   private fun handleWalletData() {
     observeRefreshData().switchMap { observeNetworkAndWallet() }
       .switchMap { observeWalletData(it) }
-      .scopedSubscribe() { e ->
+      .scopedSubscribe { e ->
         e.printStackTrace()
       }
   }
@@ -141,7 +143,7 @@ class HomeViewModel @Inject constructor(
       val previousModel: TransactionsWalletModel? =
         state.transactionsModelAsync.value?.transactionsWalletModel
       val isNewWallet = previousModel == null || !previousModel.wallet
-        .sameAddress(wallet.address)
+        .hasSameAddress(wallet.address)
       TransactionsWalletModel(networkInfo, wallet, isNewWallet)
     }
   }
@@ -298,7 +300,7 @@ class HomeViewModel @Inject constructor(
               }
           }
       }
-      .scopedSubscribe() { e ->
+      .scopedSubscribe { e ->
         e.printStackTrace()
       }
   }
@@ -317,7 +319,7 @@ class HomeViewModel @Inject constructor(
           setState { copy(unreadMessages = (count != null && count != 0)) }
         }
     }
-      .scopedSubscribe() { e ->
+      .scopedSubscribe { e ->
         e.printStackTrace()
       }
   }
@@ -328,7 +330,7 @@ class HomeViewModel @Inject constructor(
       .doOnSuccess { shouldShow ->
         sendSideEffect { HomeSideEffect.NavigateToRateUs(shouldShow) }
       }
-      .scopedSubscribe() { e ->
+      .scopedSubscribe { e ->
         e.printStackTrace()
       }
   }
@@ -340,7 +342,7 @@ class HomeViewModel @Inject constructor(
           sendSideEffect { HomeSideEffect.ShowFingerprintTooltip }
         }
       }
-      .scopedSubscribe() { e ->
+      .scopedSubscribe { e ->
         e.printStackTrace()
       }
   }
@@ -461,7 +463,7 @@ class HomeViewModel @Inject constructor(
     dismissCardNotificationUseCase(cardNotification)
       .subscribeOn(rxSchedulers.main)
       .doOnComplete { refreshCardNotifications.onNext(true) }
-      .scopedSubscribe() { e ->
+      .scopedSubscribe { e ->
         e.printStackTrace()
       }
   }
