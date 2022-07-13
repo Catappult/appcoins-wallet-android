@@ -16,7 +16,7 @@
   <string name="error_field_required">Trường này là bắt buộc</string>
   <string name="action_settings">Cài đặt</string>
   <string name="title_account_list">Ví</string>
-  <string name="cancel">hủy</string>
+  <string name="cancel">Cancel</string>
   <string name="confirm_delete_account">Hãy chắc rằng bạn có một bản sao lưu của ví này.</string>
   <string name="action_import">Khôi phục</string>
   <string name="copy">Sao chép vào bộ nhớ tạm</string>
@@ -26,8 +26,8 @@
   <string name="network_label">Mạng lưới</string>
   <string name="credits">Thông tin</string>
   <string name="label_new">Mới</string>
-  <string name="got_it_button">TÔI HIỂU</string>
-  <string name="change_button">THAY ĐỔI</string>
+  <string name="got_it_button">Got it</string>
+  <string name="change_button">Change</string>
   <string name="vip">VIP</string>
   <string name="low_storage_error">Không đủ dung lượng lưu trữ</string>
   <string name="no_camera_permission_title">Quyền truy cập máy ảnh</string>
@@ -361,7 +361,7 @@
   <string name="provide_wallet_allow_once_button">Cho phép một lần</string>
   <string name="provide_wallet_completed_header">Ví đã được liên kết với Aptoide!</string>
   <string name="provide_wallet_create_body">Bạn cần một địa chỉ ví! Thực hiện theo các bước sau để tạo một địa chỉ ví trong AppCoins Wallet.</string>
-  <string name="provide_wallet_create_wallet_button">TẠO</string>
+  <string name="provide_wallet_create_wallet_button">Create</string>
   <string name="provide_wallet_creating_wallet_header">Đang tạo địa chỉ ví&#8230;</string>
   <string name="provide_wallet_created_header">Đã tạo địa chỉ ví!</string>
   <string name="provide_wallet_empty_state">Bạn chưa cho phép AppCoins Wallet cung cấp địa chỉ của bạn cho bất kỳ ứng dụng nào khác.</string>
@@ -441,7 +441,7 @@
   <string name="remind_later_button">Nhắc lại sau</string>
   <string name="get_code_button">Lấy mã</string>
   <string name="confirm_button">Xác nhận</string>
-  <string name="withdraw_button">rút</string>
+  <string name="withdraw_button">Withdraw</string>
   <string name="email_here_field">Nhập email của bạn tại đây&#8230;</string>
   <string name="understood_button">Đã hiểu!</string>
   <string name="skip_button">Bỏ qua bây giờ</string>
@@ -595,12 +595,12 @@
   <string name="referral_view_title">Mời bạn bè</string>
   <string name="referral_view_title_1">Mời bạn bè và Nhận thêm nhiều phần thưởng!</string>
   <string name="referral_view_verified_body">Nhận %s bằng AppCoins Credits cho mỗi người bạn. Bạn chỉ cần chia sẻ liên kết!</string>
-  <string name="referral_view_share_link_button">CHIA SẺ LIÊN KẾT MỜI</string>
+  <string name="referral_view_share_link_button">Share invite link</string>
   <string name="referral_view_notifications_title">Thông báo</string>
   <string name="referral_share_sheet_title">Chia sẻ liên kết mời qua:</string>
   <string name="referral_view_unverified_body">Nhận %s AppCoins Credits cho mỗi người bạn. Trước tiên, bạn cần xác minh ví của mình.</string>
-  <string name="referral_view_verify_button">XÁC MINH VÍ</string>
-  <string name="referral_view_i_have_been_invited_button">TÔI ĐÃ ĐƯỢC MỜI</string>
+  <string name="referral_view_verify_button">Verify wallet</string>
+  <string name="referral_view_i_have_been_invited_button">I\'ve been invited</string>
   <string name="referral_view_dropup_menu_friends_invited">Bạn bè đã mời</string>
   <string name="referral_view_dropup_menu_earned">Đã nhận</string>
   <string name="referral_dropup_menu_friends_title_1">Bạn bè đã mời</string>
@@ -634,7 +634,7 @@
   <string name="update_wallet_hard_body">Có vẻ như bạn đang sử dụng một phiên bản cũ của Ví AppCoins. Vui lòng cập nhật lại để đảm bảo có được trải nghiệm tốt nhất và tính bảo mật cao nhất.</string>
   <string name="update_wallet_soft_title">Đừng để mình bị bỏ lại phía sau!</string>
   <string name="update_wallet_soft_body">Luôn cập nhật Ví AppCoins để đảm bảo có được trải nghiệm tốt nhất.</string>
-  <string name="update_button">CẬP NHẬT</string>
+  <string name="update_button">Update</string>
   <!--Backup and Import-->
   <string name="backup_home_notification_title">Sao lưu Ví của bạn</string>
   <string name="backup_home_notification_body">Bạn đã bao giờ bị mất điện thoại chưa? Hãy sao lưu ví của mình ngay!</string>
@@ -645,8 +645,8 @@
   <string name="import_wallet_body">Dán sao lưu ví của bạn dưới đây.</string>
   <string name="import_wallet_keystore_private_keys">Kho khóa hoặc khóa cá nhân</string>
   <string name="import_wallet_from_file_title">Hoặc khôi phục từ tập tin</string>
-  <string name="import_wallet_file_button">KHÔI PHỤC TỪ TẬP TIN</string>
-  <string name="import_wallet_button">KHÔI PHỤC VÍ</string>
+  <string name="import_wallet_file_button">Recover from file</string>
+  <string name="import_wallet_button">Recover wallet</string>
   <string name="import_wallet_password_body">Ví này được bảo vệ bằng mật khẩu!</string>
   <string name="import_wallet_wrong_password_body">Rất tiếc, sai mật khẩu!</string>
   <string name="error_invalid_private_key">Khóa cá nhân không hợp lệ</string>
@@ -655,7 +655,7 @@
   <string name="backup_body">Chúng tôi không lưu trữ khóa cá nhân hoặc bất kỳ phương thức truy cập nào khác của bạn. Điều quan trọng hơn cả là giữ cho bản sao lưu ví (kho khóa) của bạn được an toàn.</string>
   <string name="backup_additional_security_title">Bảo mật bổ sung (tùy chọn)</string>
   <string name="backup_additional_security_body">Chọn mật khẩu</string>
-  <string name="backup_button">SAO LƯU VÍ</string>
+  <string name="backup_button">Back up wallet</string>
   <string name="backup_ready_title">Bản sao lưu của bạn đã sẵn sàng!\nHãy giữ nó an toàn.</string>
   <string name="backup_ready_save_on_email">Lưu nó vào email của bạn</string>
   <string name="backup_ready_email_button">Gửi đến email</string>
@@ -665,8 +665,8 @@
   <string name="backup_confirmation_tips_2"><b>Lưu</b> trên ổ USB.</string>
   <string name="backup_confirmation_tips_3"><b>Sao chép</b> vào một bộ nhớ đám mây riêng tư và an toàn.</string>
   <string name="backup_tooltip_body">Tạo bản sao lưu cho ví của bạn!</string>
-  <string name="backup_tooltip_later_button">ĐỂ SAU</string>
-  <string name="backup_tooltip_backup_button">SAO LƯU</string>
+  <string name="backup_tooltip_later_button">Maybe later</string>
+  <string name="backup_tooltip_backup_button">Back up</string>
   <string name="backup_notification_title">Tạo bản sao lưu cho ví của bạn!</string>
   <string name="backup_notification_body">Giữ tiền của bạn an toàn và đảm bảo bạn luôn có thể truy cập vào ví của mình.</string>
   <string name="backup_choose_wallet_title">Chọn một ví để sao lưu</string>
@@ -693,23 +693,23 @@
   <string name="wallets_imported_body">Ví đã khôi phục thành công</string>
   <string name="wallets_2nd_view_balance_title">Số dư:</string>
   <string name="wallets_2nd_view_other_wallets_title">Ví khác</string>
-  <string name="wallets_2nd_view_import_button">KHÔI PHỤC VÍ</string>
-  <string name="wallets_2nd_view_create_button">TẠO MỚI</string>
-  <string name="wallet_view_copy_button">SAO CHÉP</string>
-  <string name="wallet_view_share_button">CHIA SẺ</string>
+  <string name="wallets_2nd_view_import_button">Recover wallet</string>
+  <string name="wallets_2nd_view_create_button">Create new</string>
+  <string name="wallet_view_copy_button">Copy</string>
+  <string name="wallet_view_share_button">Share</string>
   <string name="wallet_view_total_balance_title">Tổng số dư</string>
-  <string name="wallet_view_remove_button">XÓA VÍ</string>
-  <string name="wallet_view_backup_button">SAO LƯU VÍ</string>
-  <string name="wallet_view_activate_button">KÍCH HOẠT VÍ NÀY</string>
+  <string name="wallet_view_remove_button">Remove wallet</string>
+  <string name="wallet_view_backup_button">Back up wallet</string>
+  <string name="wallet_view_activate_button">Make this wallet active</string>
   <string name="wallet_view_active_body">Đây là ví đang hoạt động của bạn.</string>
   <!--Remove Wallet-->
   <string name="remove_wallet_title">Xóa ví</string>
   <string name="remove_wallet_body">Chúng tôi thực sự khuyên bạn nên sao lưu ví trước khi xóa nó vì bạn sẽ không thể truy cập lại trừ khi có bản sao lưu.</string>
-  <string name="remove_wallet_backup_button">SAO LƯU VÍ</string>
-  <string name="remove_wallet_no_backup_button">XÓA VÍ</string>
+  <string name="remove_wallet_backup_button">Back up wallet</string>
+  <string name="remove_wallet_no_backup_button">Remove wallet</string>
   <string name="remove_wallet_confirm_body">Bạn có chắc chắn muốn xóa ví này không?</string>
-  <string name="remove_wallet_no_button">KHÔNG, QUAY LẠI</string>
-  <string name="remove_wallet_yes_button">CÓ, XÓA VÍ</string>
+  <string name="remove_wallet_no_button">No, go back</string>
+  <string name="remove_wallet_yes_button">Yes, remove wallet</string>
   <string name="remove_wallet_removed_body">Đã xóa ví!</string>
   <!--Tranfer-->
   <string name="tranfer_bottom_navigation">Chuyển khoản</string>
@@ -721,7 +721,7 @@
   <string name="transfer_send_token_title">Mã thông báo:</string>
   <string name="transfer_send_amount_title">Số tiền</string>
   <string name="transfer_send_current_balance_title">Số dư hiện tại:</string>
-  <string name="transfer_send_button">GỬI</string>
+  <string name="transfer_send_button">Send</string>
   <string name="transfer_receive_body">Chia sẻ địa chỉ ví của bạn để nhận tiền.</string>
   <!--Support Notifications-->
   <string name="support_new_message_title">Bạn có một tin nhắn mới!</string>
@@ -758,15 +758,15 @@
   <string name="subscriptions_expiration_body">Đã hết hạn vào ngày %s</string>
   <string name="subscriptions_canceled_body">Đã hủy</string>
   <string name="subscriptions_details_disclaimer">Giá trị bằng AppCoin có thể thay đổi cho lần thanh toán tiếp theo tùy thuộc vào tỷ giá hối đoái.</string>
-  <string name="subscriptions_details_button">CHI TIẾT</string>
-  <string name="subscriptions_manage_button">QUẢN LÝ GÓI ĐĂNG KÝ</string>
-  <string name="subscriptions_cancel_button">HỦY GÓI ĐĂNG KÝ</string>
-  <string name="subscriptions_renew_subscription_button">GIA HẠN ĐĂNG KÝ</string>
+  <string name="subscriptions_details_button">Details</string>
+  <string name="subscriptions_manage_button">Manage subscription</string>
+  <string name="subscriptions_cancel_button">Cancel subscription</string>
+  <string name="subscriptions_renew_subscription_button">Renew subscription</string>
   <string name="subscriptions_renewed_confirmation_title">Đăng ký đã được gia hạn!</string>
   <string name="subscriptions_cancel_title">Hủy gói đăng ký</string>
   <string name="subscriptions_cancel_body">Bạn có chắc chắn muốn hủy gói đăng ký này?</string>
-  <string name="subscriptions_cancel_no_button">KHÔNG, QUAY LẠI</string>
-  <string name="subscriptions_cancel_yes_button">CÓ, HỦY GÓI ĐĂNG KÝ</string>
+  <string name="subscriptions_cancel_no_button">No, go back</string>
+  <string name="subscriptions_cancel_yes_button">Yes, cancel subscription</string>
   <string name="subscriptions_cancel_confirmation_title">Gói đăng ký đã bị hủy!</string>
   <string name="subscriptions_cancel_confirmation_body">Bạn sẽ không bị tính phí cho gói đăng ký này nữa và có thể sử dụng nó cho đến %s.</string>
   <string name="subscriptions_category_title">Gói đăng ký</string>
@@ -839,8 +839,8 @@
   <string name="carrier_billing_phone_confirmation_body">Số điện thoại của bạn là %s.</string>
   <string name="carrier_billing_enter_pin_body">Vui lòng nhập mã PIN nhận được qua SMS.</string>
   <string name="carrier_billing_code_field">Mã của bạn...</string>
-  <string name="carrier_billing_code_resend_button">GỬI LẠI MÃ</string>
-  <string name="carrier_billing_submit_button">GỬI</string>
+  <string name="carrier_billing_code_resend_button">Resend code</string>
+  <string name="carrier_billing_submit_button">Submit</string>
   <string name="carrier_billing_number_not_supported">Có vẻ như số của bạn không tương thích với phương thức thanh toán này.</string>
   <string name="carrier_billing_terms_disclaimer">Bằng việc nhấn vào Gửi, bạn xác nhận rằng bạn chấp nhận Điều khoản và Điều kiện và Chính sách Quyền riêng tư.</string>
   <string name="carrier_billing_help_1">Cần trợ giúp?</string>
@@ -919,7 +919,7 @@
   <string name="rate_us_improve_field__empty_error">Xin vui lòng viết vài dòng</string>
   <string name="rate_us_possitive_thanks_title">Cảm ơn bạn!</string>
   <string name="rate_us_possitive_thanks_body">Chúng tôi rất vui vì bạn thích ứng dụng này. Bạn có thể giúp chúng tôi bằng cách xếp hạng chúng tôi trên cửa hàng ứng dụng không?</string>
-  <string name="rate_us_possitive_rate_button">XẾP HẠNG VÍ APPCOINS</string>
+  <string name="rate_us_possitive_rate_button">Rate the AppCoins Wallet</string>
   <string name="rate_us_possitive_done_title">Cảm ơn phản hồi của bạn!</string>
   <string name="rate_us_back_title">Bạn muốn giúp chúng tôi?</string>
   <string name="rate_us_back_body">Xếp hạng Ví AppCoins trên cửa hàng ứng dụng để chúng tôi có thể cải thiện nó.</string>
@@ -955,7 +955,7 @@
   <string name="voucher_buy_header">Phiếu mua hàng dành cho %s</string>
   <string name="voucher_buy_short_header">Phiếu mua hàng:</string>
   <string name="voucher_buy_no_game_title">Bạn không có %s?</string>
-  <string name="voucher_buy_no_game_install_button">TẢI NGAY</string>
+  <string name="voucher_buy_no_game_install_button">Download now</string>
   <string name="voucher_code_title">Mã phiếu mua hàng</string>
   <string name="voucher_instructions_body">Truy cập %s và sử dụng mã để đổi phiếu mua hàng của bạn.</string>
   <string name="voucher_instructions_transactions">Bạn luôn có thể tìm thấy mã phiếu mua hàng trong lịch sử giao dịch.</string>
@@ -1004,8 +1004,8 @@
   <string name="promo_code_view_field">Nhập mã khuyến mãi tại đây...</string>
   <string name="promo_code_view_error">Mã không hợp lệ. Vui lòng thử một mã khác!</string>
   <string name="promo_code_activated">Mã khuyến mãi đã được kích hoạt!</string>
-  <string name="promo_code_delete_button">XÓA</string>
-  <string name="promo_code_replace_button">THAY THẾ</string>
+  <string name="promo_code_delete_button">Delete</string>
+  <string name="promo_code_replace_button">Replace</string>
   <string name="promo_code_active_tag">Đã kích hoạt</string>
   <string name="promo_code_expired_tag">Đã hết hạn</string>
   <string name="promo_code_success_title">Hoàn thành!</string>
@@ -1060,8 +1060,8 @@
   <string name="mywallet_unverified_title">Ví chưa xác minh</string>
   <string name="mywallet_unverified_body">Xác minh phương thức thanh toán để tránh bị tắc nghẽn.</string>
   <string name="mywallet_backed_up_date">Bạn đã sao lưu ví của mình trên %s.</string>
-  <string name="mywallet_backup_again_button">SAO LƯU MỘT LẦN NỮA</string>
-  <string name="mywallet_verify_payment_method_button">VERIFY NEW CARD</string>
+  <string name="mywallet_backup_again_button">Back up again</string>
+  <string name="mywallet_verify_payment_method_button">Verify new card</string>
   <string name="mywallet_choose_name_header">Chọn tên cho ví của bạn</string>
   <string name="mywallet_choose_name_field">Tên ví tại đây...</string>
   <string name="mywallet_choose_name_confirmed">Tên ví đã được thay đổi</string>
