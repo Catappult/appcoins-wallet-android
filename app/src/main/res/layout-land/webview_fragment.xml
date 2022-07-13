@@ -31,6 +31,7 @@
       android:focusable="true"
       android:focusableInTouchMode="true"
       android:visibility="gone"
+      tools:visibility="visible"
       >
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -104,24 +105,23 @@
           app:layout_constraintTop_toBottomOf="@+id/warning_app_iv"
           />
 
-
-      <Button
+      <com.asfoundation.wallet.ui.common.WalletButtonView
           android:id="@+id/warning_get_bt"
-          style="@style/ButtonStyle.Blue"
           android:layout_width="wrap_content"
-          android:layout_height="40dp"
-          android:enabled="true"
-          android:maxWidth="150dp"
-          android:minWidth="120dp"
-          android:text="@string/install_button"
-          android:textColor="@color/white"
-          android:textSize="14sp"
+          android:layout_height="@dimen/small_button_height"
+          android:layout_marginHorizontal="16dp"
+          android:layout_marginTop="16dp"
+          android:layout_marginBottom="27dp"
+          app:buttonText="@string/install_button"
+          app:buttonType="filled"
+          app:buttonColor="@color/btn_enabled_dark"
           app:layout_constraintBottom_toTopOf="@+id/line_separator"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toBottomOf="@id/warning_name_tv"
           app:layout_constraintVertical_bias="0.333333"
           />
+
       <com.asfoundation.wallet.ui.common.SeparatorView
           android:id="@+id/line_separator"
           android:layout_width="match_parent"
@@ -136,26 +136,22 @@
           app:line_type="solid"
           />
 
-      <Button
+      <com.asfoundation.wallet.ui.common.WalletButtonView
           android:id="@+id/warning_cancel_bt"
-          style="@style/CancelBorderlessButtonStyle"
           android:layout_width="wrap_content"
-          android:layout_height="40dp"
+          android:layout_height="@dimen/small_button_height"
+          android:layout_marginTop="@dimen/normal_margin"
           android:layout_marginBottom="12dp"
-          android:maxWidth="150dp"
-          android:minWidth="120dp"
-          android:text="@string/cancel"
-          android:textColor="@color/dialog_buy_value_text"
-          android:textSize="14sp"
+          app:buttonColor="@color/btn_cancel_text"
+          app:buttonText="@string/cancel"
+          app:buttonType="text_uppercase_old"
           app:layout_constraintBottom_toBottomOf="parent"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="parent"
           />
 
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 
   </androidx.constraintlayout.widget.ConstraintLayout>
-
 
 </RelativeLayout>

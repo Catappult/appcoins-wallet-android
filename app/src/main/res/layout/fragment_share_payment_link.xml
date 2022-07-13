@@ -61,10 +61,10 @@
         android:layout_below="@id/note"
         android:layout_gravity="center_vertical"
         android:layout_marginTop="36dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginEnd="6dp"
         android:layout_toStartOf="@id/share_btn"
         app:buttonText="@string/close"
-        app:buttonType="outlined"
+        app:buttonType="text"
         />
 
     <com.asfoundation.wallet.ui.common.WalletButtonView
@@ -75,6 +75,7 @@
         android:layout_alignParentEnd="true"
         android:layout_gravity="center_vertical"
         android:layout_marginTop="36dp"
+        app:buttonImageLeft="@drawable/ic_share_black"
         app:buttonText="@string/askafriend_share_button"
         app:buttonType="filled"
         />

@@ -105,7 +105,7 @@ abstract class CardNotificationModel :
       holder.positiveButton.setOnClickListener { }
     } else {
       notification.positiveButtonText?.let {
-        holder.itemView.notification_positive_button.setText(it)
+        holder.itemView.notification_positive_button.setTextRes(it)
       }
       holder.itemView.setOnClickListener { }
       holder.positiveButton.setOnClickListener {

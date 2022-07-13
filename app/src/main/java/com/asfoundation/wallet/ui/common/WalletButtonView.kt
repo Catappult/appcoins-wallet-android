@@ -2,11 +2,14 @@ package com.asfoundation.wallet.ui.common
 
 import android.content.Context
 import android.content.res.ColorStateList
+import android.graphics.drawable.Drawable
 import android.util.AttributeSet
 import android.view.LayoutInflater
+import android.view.View
 import android.widget.FrameLayout
 import androidx.annotation.ColorInt
 import androidx.annotation.ColorRes
+import androidx.annotation.StringRes
 import androidx.core.content.ContextCompat
 import com.asf.wallet.R
 import com.asf.wallet.databinding.LayoutWalletButtonViewBinding
@@ -22,6 +25,12 @@ class WalletButtonView : FrameLayout {
   private var color = ContextCompat.getColor(this.context, R.color.wild_watermelon)
 
   private var enabled = true
+
+  private var isAllCaps = false
+
+  private var imageRight: Drawable? = null
+
+  private var imageLeft: Drawable? = null
 
   constructor(context: Context) : this(context, null)
   constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0)
@@ -41,6 +50,12 @@ class WalletButtonView : FrameLayout {
     setText(string)
     val buttonColor = typedArray.getColor(R.styleable.WalletButtonView_buttonColor, color)
     setColor(buttonColor)
+    val caps = typedArray.getBoolean(R.styleable.WalletButtonView_buttonIsAllCaps, false)
+    setIsAllCaps(caps)
+    val imgLeft = typedArray.getDrawable(R.styleable.WalletButtonView_buttonImageLeft)
+    setImageLeft(imgLeft)
+    val imgRight = typedArray.getDrawable(R.styleable.WalletButtonView_buttonImageRight)
+    setImageRight(imgRight)
     typedArray.recycle()
   }
 
@@ -53,6 +68,10 @@ class WalletButtonView : FrameLayout {
     views.text.text = text
   }
 
+  fun setTextRes(@StringRes textRes: Int) {
+    views.text.text = context.getString(textRes)
+  }
+
   fun setColor(@ColorInt color: Int) {
     this.color = color
     applyType()
@@ -60,6 +79,21 @@ class WalletButtonView : FrameLayout {
 
   override fun setEnabled(enabled: Boolean) {
     this.enabled = enabled
+    applyType()
+  }
+
+  fun setIsAllCaps(enabled: Boolean) {
+    this.isAllCaps = enabled
+    applyType()
+  }
+
+  fun setImageLeft(image: Drawable?) {
+    this.imageLeft = image
+    applyType()
+  }
+
+  fun setImageRight(image: Drawable?) {
+    this.imageRight = image
     applyType()
   }
 
@@ -78,6 +112,19 @@ class WalletButtonView : FrameLayout {
           views.root.strokeWidth = 0
           views.root.setRippleColorResource(R.color.white)
           views.text.setTextColor(ContextCompat.getColor(this.context, R.color.white))
+          views.text.isAllCaps = isAllCaps
+          imageLeft?.let { image ->
+            views.imageLeft.setImageDrawable(image)
+            views.imageLeft.visibility = View.VISIBLE
+            views.imageLeft.imageTintList =
+              ColorStateList.valueOf(ContextCompat.getColor(this.context, R.color.white))
+          }
+          imageRight?.let { image ->
+            views.imageRight.setImageDrawable(image)
+            views.imageRight.visibility = View.VISIBLE
+            views.imageRight.imageTintList =
+              ColorStateList.valueOf(ContextCompat.getColor(this.context, R.color.white))
+          }
         }
         Type.OUTLINED -> {
           views.root.setCardBackgroundColor(
@@ -87,6 +134,17 @@ class WalletButtonView : FrameLayout {
           views.root.strokeWidth = 1.convertDpToPx(resources)
           views.root.rippleColor = ColorStateList.valueOf(color)
           views.text.setTextColor(color)
+          views.text.isAllCaps = isAllCaps
+          imageLeft?.let { image ->
+            views.imageLeft.setImageDrawable(image)
+            views.imageLeft.visibility = View.VISIBLE
+            views.imageLeft.imageTintList = ColorStateList.valueOf(color)
+          }
+          imageRight?.let { image ->
+            views.imageRight.setImageDrawable(image)
+            views.imageRight.visibility = View.VISIBLE
+            views.imageRight.imageTintList = ColorStateList.valueOf(color)
+          }
         }
         Type.TEXT -> {
           views.root.setCardBackgroundColor(
@@ -94,18 +152,71 @@ class WalletButtonView : FrameLayout {
           )
           views.root.strokeColor = ContextCompat.getColor(this.context, R.color.transparent)
           views.root.strokeWidth = 0
-          views.root.setRippleColorResource(R.color.transparent)
+          views.root.setRippleColorResource(R.color.grey_f4)
           views.text.setTextColor(color)
+          views.text.isAllCaps = isAllCaps
+          imageLeft?.let { image ->
+            views.imageLeft.setImageDrawable(image)
+            views.imageLeft.visibility = View.VISIBLE
+            views.imageLeft.imageTintList = ColorStateList.valueOf(color)
+          }
+          imageRight?.let { image ->
+            views.imageRight.setImageDrawable(image)
+            views.imageRight.visibility = View.VISIBLE
+            views.imageRight.imageTintList = ColorStateList.valueOf(color)
+          }
         }
-        Type.TEXT_UPPERCASE -> {
+        Type.TEXT_UPPERCASE_OLD -> {
           views.root.setCardBackgroundColor(
             ContextCompat.getColor(this.context, R.color.transparent)
           )
           views.root.strokeColor = ContextCompat.getColor(this.context, R.color.transparent)
           views.root.strokeWidth = 0
-          views.root.setRippleColorResource(R.color.transparent)
+          views.root.setRippleColorResource(R.color.white)
           views.text.setTextColor(color)
           views.text.isAllCaps = true
+          views.text.textSize = 12F
+          imageLeft?.let { image ->
+            views.imageLeft.setImageDrawable(image)
+            views.imageLeft.visibility = View.VISIBLE
+            views.imageLeft.imageTintList = ColorStateList.valueOf(color)
+          }
+          imageRight?.let { image ->
+            views.text.setMargins(16, 0, 8, 0)
+            views.text.setPadding(0, 0, 0, 0)
+            views.imageRight.setImageDrawable(image)
+            views.imageRight.visibility = View.VISIBLE
+            views.imageRight.imageTintList = ColorStateList.valueOf(color)
+          }
+        }
+        Type.FILLED_GRAY_PINK -> {
+          views.root.setCardBackgroundColor(
+            ContextCompat.getColor(
+              this.context,
+              R.color.light_grey_alpha_73
+            )
+          )
+          views.root.strokeColor = ContextCompat.getColor(this.context, R.color.transparent)
+          views.root.strokeWidth = 0
+          views.root.setRippleColorResource(R.color.white)
+          views.text.setTextColor(ContextCompat.getColor(this.context, R.color.white))
+          views.text.isAllCaps = isAllCaps
+          views.text.setPadding(0, 0, 0, 0)
+          views.text.setMargins(16, 0, 8, 0)
+          imageLeft?.let { image ->
+            views.imageLeft.setImageDrawable(image)
+            views.imageLeft.visibility = View.VISIBLE
+            views.imageLeft.imageTintList =
+              ColorStateList.valueOf(ContextCompat.getColor(this.context, R.color.wild_watermelon))
+            views.imageLeft.setMargins(0, 0, 0, 0)
+          }
+          imageRight?.let { image ->
+            views.imageRight.setImageDrawable(image)
+            views.imageRight.visibility = View.VISIBLE
+            views.imageRight.imageTintList =
+              ColorStateList.valueOf(ContextCompat.getColor(this.context, R.color.wild_watermelon))
+            views.imageRight.setMargins(0, 0, 0, 0)
+          }
         }
       }
     } else {
@@ -122,5 +233,5 @@ class WalletButtonView : FrameLayout {
     views.root.setOnClickListener(l)
   }
 
-  enum class Type { FILLED, OUTLINED, TEXT, DISABLE, TEXT_UPPERCASE }
+  enum class Type { FILLED, OUTLINED, TEXT, DISABLE, TEXT_UPPERCASE_OLD, FILLED_GRAY_PINK }
 }

@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:animateLayoutChanges="true"
+    android:paddingBottom="16dp"
     >
 
   <ScrollView
@@ -236,7 +237,7 @@
       android:layout_alignParentBottom="true"
       android:layout_marginStart="@dimen/big_margin"
       android:layout_marginEnd="@dimen/big_margin"
-      android:layout_marginBottom="24dp"
+      android:layout_marginBottom="8dp"
       android:visibility="gone"
       app:buttonText="@string/subscriptions_renew_subscription_button"
       app:buttonType="filled"

@@ -166,19 +166,19 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 />
-            <Button
+            <com.asfoundation.wallet.ui.common.WalletButtonView
                 android:id="@+id/change_card_button"
-                style="?android:attr/borderlessButtonStyle"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/small_button_height"
                 android:layout_below="@id/adyen_card_form"
                 android:layout_alignParentEnd="true"
-                android:fontFamily="sans-serif-medium"
-                android:lineSpacingExtra="5sp"
-                android:text="@string/activity_iab_change_card"
-                android:textColor="@color/btn_cancel_text"
-                android:textSize="12sp"
+                android:layout_marginTop="6dp"
+                android:layout_marginEnd="-16dp"
                 android:visibility="gone"
+                app:buttonText="@string/activity_iab_change_card"
+                app:buttonType="text_uppercase_old"
+                app:buttonColor="@color/btn_cancel_text"
+                tools:visibility="visible"
                 />
           </RelativeLayout>
 

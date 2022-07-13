@@ -15,22 +15,22 @@
       android:layout_marginBottom="13dp"
       android:ellipsize="end"
       android:maxLines="1"
-      app:layout_constraintTop_toTopOf="parent"
+      android:text="@string/nfts_transact_tip"
+      app:layout_constraintBottom_toTopOf="@id/to_input_layout"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintBottom_toTopOf="@id/to_input_layout"
-      android:text="@string/nfts_transact_tip"
+      app:layout_constraintTop_toTopOf="parent"
       />
 
   <com.google.android.material.textfield.TextInputLayout
       android:id="@+id/to_input_layout"
+      style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      app:layout_constraintTop_toTopOf="parent"
-      app:layout_constraintBottom_toBottomOf="parent"
-      android:layout_marginBottom="23dp"
       android:layout_marginHorizontal="16dp"
-      style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+      android:layout_marginBottom="23dp"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
       >
     <EditText
         android:id="@+id/send_to_address"
@@ -43,16 +43,15 @@
         />
   </com.google.android.material.textfield.TextInputLayout>
 
-
-  <android.widget.Button
+  <com.asfoundation.wallet.ui.common.WalletButtonView
       android:id="@+id/send_button"
-      style="@style/ButtonStyle"
       android:layout_width="match_parent"
-      android:layout_height="40dp"
+      android:layout_height="@dimen/large_button_height"
       android:layout_gravity="center_horizontal"
-      android:layout_marginBottom="27dp"
       android:layout_marginHorizontal="16dp"
-      android:text="@string/nfts_transact_button_next"
+      android:layout_marginBottom="27dp"
+      app:buttonText="@string/nfts_transact_button_next"
+      app:buttonType="filled"
       app:layout_constraintBottom_toBottomOf="parent"
       />
 

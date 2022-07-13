@@ -73,22 +73,19 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="-26dp"
                 />
-            <Button
+            <com.asfoundation.wallet.ui.common.WalletButtonView
                 android:id="@+id/change_card_button_pre_selected"
-                style="?android:attr/borderlessButtonStyle"
                 android:layout_width="wrap_content"
-                android:layout_height="@dimen/button_height"
+                android:layout_height="@dimen/small_button_height"
                 android:layout_below="@id/layout_pre_selected"
                 android:layout_alignParentEnd="true"
                 android:layout_marginTop="@dimen/big_margin"
-                android:fontFamily="sans-serif-medium"
-                android:lineSpacingExtra="5sp"
-                android:text="@string/activity_iab_change_card"
-                android:textColor="@color/btn_cancel_text"
-                android:textSize="12sp"
                 android:visibility="gone"
+                app:buttonColor="@color/btn_cancel_text"
+                app:buttonText="@string/activity_iab_change_card"
+                app:buttonType="text_uppercase_old"
+                tools:visibility="visible"
                 />
-
             <include
                 android:id="@+id/fragment_adyen_error_pre_selected"
                 layout="@layout/support_error_layout"
@@ -99,16 +96,14 @@
           </RelativeLayout>
         </ScrollView>
 
-        <Button
+        <com.asfoundation.wallet.ui.common.WalletButtonView
             android:id="@+id/more_payment_methods"
-            style="?android:attr/borderlessButtonStyle"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="4dp"
-            android:drawableEnd="@drawable/ic_arrow_right"
-            android:text="@string/purchase_more_payment_methods_button"
-            android:textColor="@color/text_button_color"
-            android:textSize="12sp"
+            android:layout_height="@dimen/small_button_height"
+            android:layout_marginTop="@dimen/normal_margin"
+            app:buttonText="@string/purchase_more_payment_methods_button"
+            app:buttonType="text_uppercase_old"
+            app:buttonImageRight="@drawable/ic_arrow_right"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/payment_scroll"
             />

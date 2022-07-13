@@ -37,23 +37,29 @@
       app:layout_constraintTop_toBottomOf="@+id/animation"
       />
 
-
-  <Button
-      android:id="@+id/yes_button"
-      style="@style/Rating.ActionButton"
-      android:layout_marginTop="22dp"
-      android:layout_marginEnd="10dp"
-      android:text="@string/rate_us_yes"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintTop_toBottomOf="@+id/title"
-      />
-
-  <Button
+  <com.asfoundation.wallet.ui.common.WalletButtonView
       android:id="@+id/no_button"
-      style="@style/Rating.ActionButton"
-      android:text="@string/rate_us_no"
+      android:layout_width="wrap_content"
+      android:layout_height="@dimen/small_button_height"
+      app:buttonColor="@color/dialog_buy_value_text"
+      app:buttonText="@string/rate_us_no"
+      app:buttonType="text"
       app:layout_constraintEnd_toStartOf="@+id/yes_button"
       app:layout_constraintTop_toTopOf="@+id/yes_button"
       />
 
+  <com.asfoundation.wallet.ui.common.WalletButtonView
+      android:id="@+id/yes_button"
+      android:layout_width="wrap_content"
+      android:layout_height="@dimen/small_button_height"
+      android:layout_marginTop="22dp"
+      android:layout_marginEnd="10dp"
+      app:buttonColor="@color/dialog_buy_value_text"
+      app:buttonText="@string/rate_us_yes"
+      app:buttonType="text"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/title"
+      />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
+

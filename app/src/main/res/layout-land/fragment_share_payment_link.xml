@@ -110,6 +110,7 @@
       android:layout_marginTop="@dimen/normal_margin"
       android:layout_marginEnd="@dimen/big_margin"
       android:layout_marginBottom="@dimen/normal_margin"
+      app:buttonImageLeft="@drawable/ic_share_black"
       app:buttonText="@string/askafriend_share_button"
       app:buttonType="filled"
       app:layout_constraintBottom_toBottomOf="parent"

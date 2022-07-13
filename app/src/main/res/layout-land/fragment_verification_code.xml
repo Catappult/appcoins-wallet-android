@@ -125,13 +125,14 @@
           tools:text="%1$s will be refunded within %2$s hour after you confirm the code."
           />
 
-      <Button
+      <com.asfoundation.wallet.ui.common.WalletButtonView
           android:id="@+id/change_card_button"
-          style="@style/VerifyWallet.ChangeCard.Button"
           android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:layout_marginTop="20dp"
-          android:text="@string/card_verification_code_other_card_button"
+          android:layout_height="@dimen/small_button_height"
+          android:layout_gravity="end"
+          android:layout_marginTop="26dp"
+          app:buttonText="@string/card_verification_code_other_card_button"
+          app:buttonType="text_uppercase_old"
           app:layout_constraintStart_toStartOf="@+id/code"
           app:layout_constraintTop_toBottomOf="@+id/code_disclaimer"
           />

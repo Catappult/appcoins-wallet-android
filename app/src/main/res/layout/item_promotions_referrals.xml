@@ -74,18 +74,9 @@
           android:layout_marginTop="8dp"
           android:layout_marginEnd="2dp"
           android:layout_marginBottom="8dp"
+          app:buttonImageRight="@drawable/ic_share_selector"
           app:buttonText="@string/referral_view_share_link_button"
           app:buttonType="text"
-          />
-
-      <ImageView
-          android:id="@+id/share_button"
-          style="?android:attr/borderlessButtonStyle"
-          android:layout_width="40dp"
-          android:layout_height="40dp"
-          android:layout_gravity="center_vertical"
-          android:src="@drawable/ic_share_selector"
-          app:tint="@color/wild_watermelon"
           />
 
     </LinearLayout>

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:clipChildren="false"
@@ -15,10 +16,11 @@
       android:layout_width="wrap_content"
       android:layout_height="@dimen/small_button_height"
       android:layout_gravity="center_vertical"
-      android:layout_marginEnd="@dimen/big_margin"
+      android:layout_marginEnd="6dp"
       android:visibility="gone"
       app:buttonText="@string/cancel"
-      app:buttonType="outlined"
+      app:buttonType="text"
+      tools:visibility="visible"
       />
 
   <com.asfoundation.wallet.ui.common.WalletButtonView
@@ -29,6 +31,7 @@
       android:visibility="gone"
       app:buttonText="@string/buy_button"
       app:buttonType="filled"
+      tools:visibility="visible"
       />
 
 </LinearLayout>

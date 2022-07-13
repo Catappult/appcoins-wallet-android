@@ -88,38 +88,32 @@
         app:layout_constraintTop_toBottomOf="@+id/notification_description"
 
         >
-      <com.google.android.material.button.MaterialButton
-          android:id="@+id/notification_positive_button"
-          style="@style/Widget.MaterialComponents.Button.TextButton"
-          android:layout_width="wrap_content"
-          android:layout_height="@dimen/button_height"
-          android:fontFamily="sans-serif-medium"
-          android:letterSpacing="0.09"
-          android:lineSpacingExtra="0sp"
-          android:maxWidth="252dp"
-          android:minWidth="80dp"
-          android:textColor="@color/text_button_color"
-          android:textSize="12sp"
-          app:layout_constraintBottom_toBottomOf="parent"
-          app:layout_constraintEnd_toEndOf="parent"
-          app:rippleColor="@color/button_borderless_ripple_color"
-          tools:text="@string/gamification_APPCapps_button"
-          />
 
-      <com.google.android.material.button.MaterialButton
+      <com.asfoundation.wallet.ui.common.WalletButtonView
           android:id="@+id/notification_dismiss_button"
-          style="@style/Widget.MaterialComponents.Button.TextButton"
           android:layout_width="wrap_content"
-          android:layout_height="@dimen/button_height"
-          android:maxWidth="252dp"
-          android:minWidth="80dp"
-          android:text="@string/dismiss_button"
-          android:textColor="@color/white"
-          android:textSize="12sp"
+          android:layout_height="@dimen/small_button_height"
+          android:layout_gravity="center_vertical"
+          app:buttonText="@string/dismiss_button"
+          app:buttonType="text"
+          app:buttonColor="@color/white"
           app:layout_constraintBottom_toBottomOf="parent"
           app:layout_constraintEnd_toStartOf="@id/notification_positive_button"
-          app:rippleColor="@color/button_borderless_ripple_color"
           />
+
+      <com.asfoundation.wallet.ui.common.WalletButtonView
+          android:id="@+id/notification_positive_button"
+          android:layout_width="wrap_content"
+          android:layout_height="@dimen/small_button_height"
+          android:layout_gravity="center_vertical"
+          app:buttonText="@string/gamification_APPCapps_button"
+          app:buttonType="text"
+          app:layout_constraintBottom_toBottomOf="parent"
+          app:layout_constraintEnd_toEndOf="parent"
+          />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
+
   </androidx.constraintlayout.widget.ConstraintLayout>
+
 </androidx.cardview.widget.CardView>

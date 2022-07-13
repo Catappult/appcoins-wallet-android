@@ -97,12 +97,12 @@
           android:id="@+id/vertical_separator"
           android:layout_width="1dp"
           android:layout_height="16dp"
-          android:visibility="gone"
           android:layout_marginStart="12dp"
           android:layout_marginEnd="12dp"
+          android:visibility="gone"
+          app:layout_constraintEnd_toStartOf="@id/local_fiat_amount"
           app:layout_constraintHorizontal_chainStyle="packed"
           app:layout_constraintStart_toEndOf="@id/amount"
-          app:layout_constraintEnd_toStartOf="@id/local_fiat_amount"
           app:layout_constraintTop_toBottomOf="@id/paid_amount"
           />
 
@@ -130,9 +130,9 @@
           android:ellipsize="end"
           android:maxLines="1"
           app:layout_constrainedWidth="true"
-          app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintEnd_toEndOf="@id/local_fiat_amount"
           app:layout_constraintHorizontal_bias="0.0"
+          app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toBottomOf="@id/amount"
           />
       <TextView
@@ -147,8 +147,8 @@
           android:visibility="invisible"
           app:layout_constrainedWidth="true"
           app:layout_constraintEnd_toEndOf="parent"
-          app:layout_constraintStart_toEndOf="@id/local_fiat_amount"
           app:layout_constraintHorizontal_bias="1.0"
+          app:layout_constraintStart_toEndOf="@id/local_fiat_amount"
           app:layout_constraintTop_toBottomOf="@id/amount"
           />
       <TextView
@@ -267,10 +267,10 @@
           android:singleLine="true"
           android:visibility="gone"
           app:layout_constrainedWidth="true"
-          app:layout_constraintTop_toTopOf="@id/order_reference_label"
           app:layout_constraintBottom_toBottomOf="@id/order_reference_label"
-          app:layout_constraintStart_toEndOf="@id/guideline_mid"
           app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toEndOf="@id/guideline_mid"
+          app:layout_constraintTop_toTopOf="@id/order_reference_label"
           tools:text="orderID_ESOANPCOC_orderID_ESOANPCOC"
           />
       <ImageView
@@ -279,11 +279,11 @@
           android:layout_height="16dp"
           android:layout_marginEnd="@dimen/normal_margin"
           android:contentDescription="@string/empty"
+          android:src="@drawable/ic_copy_to_clip"
           android:visibility="gone"
           app:layout_constraintBottom_toBottomOf="@id/order_reference_name"
           app:layout_constraintEnd_toStartOf="@id/order_reference_name"
           app:layout_constraintTop_toTopOf="@id/order_reference_name"
-          android:src="@drawable/ic_copy_to_clip"
           app:tint="@color/color_grey_9e"
           />
 
@@ -431,42 +431,32 @@
           app:layout_constraintVertical_bias="1.0"
           />
 
-      <Button
-          android:id="@+id/more_detail"
-          style="@style/TransactionDetailsButtonStyle"
+      <com.asfoundation.wallet.ui.common.WalletButtonView
+          android:id="@+id/manage_subscriptions"
           android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:layout_gravity="center"
+          android:layout_height="@dimen/small_button_height"
           android:layout_marginStart="@dimen/half_large_margin"
           android:layout_marginTop="@dimen/big_margin"
-          android:layout_marginEnd="@dimen/half_large_margin"
-          android:autoLink="web"
-          android:clickable="true"
-          android:focusable="true"
-          android:linksClickable="true"
-          android:minWidth="64dp"
-          android:minHeight="36dp"
-          android:text="@string/transaction_details_label"
-          app:layout_constraintEnd_toStartOf="@id/manage_subscriptions"
+          android:layout_marginEnd="12dp"
+          android:visibility="gone"
+          app:buttonText="@string/subscriptions_manage_button"
+          app:buttonType="text"
+          app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintTop_toBottomOf="@id/bottom_separator"
+          tools:visibility="visible"
           />
 
-      <Button
-          android:id="@+id/manage_subscriptions"
-          style="@style/TransactionDetailsButtonStyle"
+      <com.asfoundation.wallet.ui.common.WalletButtonView
+          android:id="@+id/more_detail"
           android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:layout_gravity="center"
+          android:layout_height="@dimen/small_button_height"
           android:layout_marginStart="@dimen/half_large_margin"
           android:layout_marginTop="@dimen/big_margin"
-          android:layout_marginEnd="@dimen/half_large_margin"
-          android:clickable="true"
-          android:focusable="true"
-          android:minWidth="64dp"
-          android:minHeight="36dp"
-          android:text="@string/subscriptions_manage_button"
+          android:layout_marginEnd="12dp"
           android:visibility="gone"
-          app:layout_constraintEnd_toEndOf="parent"
+          app:buttonText="@string/transaction_details_label"
+          app:buttonType="text"
+          app:layout_constraintEnd_toStartOf="@id/manage_subscriptions"
           app:layout_constraintTop_toBottomOf="@id/bottom_separator"
           tools:visibility="visible"
           />
