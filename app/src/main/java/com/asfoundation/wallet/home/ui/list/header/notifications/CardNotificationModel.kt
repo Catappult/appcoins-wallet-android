@@ -15,8 +15,8 @@ import com.asfoundation.wallet.promotions.PromotionNotification
 import com.asfoundation.wallet.referrals.CardNotification
 import com.asfoundation.wallet.referrals.ReferralNotification
 import com.asfoundation.wallet.ui.common.BaseViewHolder
+import com.asfoundation.wallet.ui.common.WalletButtonView
 import com.asfoundation.wallet.ui.widget.holder.CardNotificationAction
-import com.google.android.material.button.MaterialButton
 import kotlinx.android.synthetic.main.item_card_notification.view.*
 
 @EpoxyModelClass
@@ -120,8 +120,8 @@ abstract class CardNotificationModel :
     val animation by bind<LottieAnimationView>(R.id.notification_animation)
     val title by bind<TextView>(R.id.notification_title)
     val description by bind<TextView>(R.id.notification_description)
-    val positiveButton by bind<MaterialButton>(R.id.notification_positive_button)
-    val dismissButton by bind<MaterialButton>(R.id.notification_dismiss_button)
+    val positiveButton by bind<WalletButtonView>(R.id.notification_positive_button)
+    val dismissButton by bind<WalletButtonView>(R.id.notification_dismiss_button)
   }
 
 }
