@@ -3,6 +3,7 @@ package com.asfoundation.wallet.ui
 import android.net.Uri
 import android.os.Bundle
 import com.asfoundation.wallet.entity.TransactionBuilder
+import java.math.BigDecimal
 
 interface _ViewState
 object _CreatingWalletViewState : _ViewState
@@ -12,7 +13,19 @@ object _AuthenticationSuccessViewState : _ViewState
 object _AuthenticationFailViewState : _ViewState
 object _PaymentMethodsViewState : _ViewState
 object _UpdateRequiredViewState : _ViewState
-data class  _WebViewResult(val data: Uri?) : _ViewState
+data class _WebViewResult(val data: Uri?) : _ViewState
+object _NoFundsErrorViewState : _ViewState
+object _WrongNetworkErrorViewState : _ViewState
+object _NoTokenFundsErrorViewState : _ViewState
+object _NoEtherFundsErrorViewState : _ViewState
+object _NoNetworkErrorViewState : _ViewState
+object _NonceErrorViewState : _ViewState
+object _ApprovingViewState : _ViewState
+object _BuyingViewState : _ViewState
+object _TransactionCompletedViewState : _ViewState
+data class _RaidenChannelValuesViewState(val data: List<BigDecimal>?) : _ViewState
+object _ForbiddenErrorViewState : _ViewState
+object _VerificationViewState : _ViewState
 
 interface _Navigation
 data class _StartTransfer(

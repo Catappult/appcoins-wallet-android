@@ -639,10 +639,10 @@ class _IabLogic(
   }
 
   companion object {
-    private const val CURRENT_ACCOUNT_ADDRESS_KEY = "current_account_address"
+    const val CURRENT_ACCOUNT_ADDRESS_KEY = "current_account_address"
     private const val WALLET_PURCHASES_COUNT = "wallet_purchases_count_"
     private const val BACKUP_SYSTEM_NOTIFICATION_SEEN_TIME = "backup_system_notification_seen_time_"
-    private const val PRE_SELECTED_PAYMENT_METHOD_KEY = "PRE_SELECTED_PAYMENT_METHOD_KEY"
+    const val PRE_SELECTED_PAYMENT_METHOD_KEY = "PRE_SELECTED_PAYMENT_METHOD_KEY"
     private const val LAST_USED_PAYMENT_METHOD_KEY = "LAST_USED_PAYMENT_METHOD_KEY"
     private const val PURCHASE_NOTIFICATION_THRESHOLD = 2
     private const val DISMISS_PERIOD = 30L

@@ -40,7 +40,7 @@ public class TokenRepository {
     return Numeric.hexStringToByteArray(Numeric.cleanHexPrefix(encodedFunction));
   }
 
-  static byte[] buyData(String developerAddress, String storeAddress, String oemAddress,
+  public static byte[] buyData(String developerAddress, String storeAddress, String oemAddress,
       String data, BigDecimal amount, String tokenAddress, String packageName, byte[] countryCode) {
     Uint256 amountParam = new Uint256(amount.toBigInteger());
     Utf8String packageNameType = new Utf8String(packageName);

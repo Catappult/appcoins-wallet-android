@@ -48,10 +48,10 @@ class AppcoinsBillingBinder(private val supportedApiVersion: Int,
     internal const val INAPP_DATA_SIGNATURE_LIST = "INAPP_DATA_SIGNATURE_LIST"
     internal const val INAPP_PURCHASE_ID_LIST = "INAPP_PURCHASE_ID_LIST"
 
-    internal const val INAPP_PURCHASE_DATA = "INAPP_PURCHASE_DATA"
-    internal const val INAPP_DATA_SIGNATURE = "INAPP_DATA_SIGNATURE"
-    internal const val INAPP_ORDER_REFERENCE = "order_reference"
-    internal const val INAPP_PURCHASE_ID = "INAPP_PURCHASE_ID"
+    const val INAPP_PURCHASE_DATA = "INAPP_PURCHASE_DATA"
+    const val INAPP_DATA_SIGNATURE = "INAPP_DATA_SIGNATURE"
+    const val INAPP_ORDER_REFERENCE = "order_reference"
+    const val INAPP_PURCHASE_ID = "INAPP_PURCHASE_ID"
 
     internal const val ITEM_TYPE_INAPP = "inapp"
     internal const val ITEM_TYPE_SUBS = "subs"
