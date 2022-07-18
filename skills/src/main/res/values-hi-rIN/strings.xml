@@ -9,8 +9,8 @@
   <string name="refunded">Your money has been refunded.</string>
   <string name="ok">ठीक</string>
   <string name="cancel">रद्द करें</string>
-  <string name="buy_button">Buy</string>
-  <string name="topup_button">Top Up</string>
+  <string name="buy_button">खरीदें</string>
+  <string name="topup_button">टॉप अप</string>
   <string name="connection_error_body">शायद आप इंटरनेट से नहीं जुड़े हैं। अपना कनेक्शन जांचें और पुनः प्रयास करें!</string>
   <string name="playing_game_notification_title">Currently playing e-Skills</string>
   <string name="playing_game_notification_body">Getting game info…</string>
@@ -24,10 +24,10 @@
   <string name="e_skills_room_create_body">Create a new room and share it with your opponents or join an existing room.</string>
   <string name="e_skills_room_field">Your room name here…</string>
   <string name="e_skills_payment_title">Payment with</string>
-  <string name="e_skills_payment_body">AppCoins Credits</string>
+  <string name="e_skills_payment_body">AppCoins क्रेडिट</string>
   <string name="copied_to_clipboard">Copied to the clipboard</string>
   <string name="processing_payment_title">Processing your payment</string>
-  <string name="purchase_error_title">Oops, something went wrong.</string>
+  <string name="purchase_error_title">अरे, कुछ गलत हो गया है।</string>
   <string name="purchase_eskills_sku">Entry ticket</string>
   <string name="shared_room_waiting">Waiting for opponents to join %s</string>
 </resources>
