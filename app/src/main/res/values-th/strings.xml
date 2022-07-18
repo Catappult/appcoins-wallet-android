@@ -16,7 +16,7 @@
   <string name="error_field_required">ฟิลด์นี้จำเป็น</string>
   <string name="action_settings">การตั้งค่า</string>
   <string name="title_account_list">กระเป๋าสตางค์</string>
-  <string name="cancel">Cancel</string>
+  <string name="cancel">ยกเลิก</string>
   <string name="confirm_delete_account">ตรวจสอบว่า คุณมีสำเนาสำรองนี้กระเป๋าสตางค์</string>
   <string name="action_import">กู้คืน</string>
   <string name="copy">คัดลอกลงคลิปบอร์ด</string>
@@ -26,7 +26,7 @@
   <string name="network_label">เครือข่าย</string>
   <string name="credits">เครดิต</string>
   <string name="label_new">ใหม่</string>
-  <string name="got_it_button">Got it</string>
+  <string name="got_it_button">ได้รับ</string>
   <string name="change_button">Change</string>
   <string name="vip">VIP</string>
   <string name="low_storage_error">พื้นที่จัดเก็บไม่เพียงพอ</string>
@@ -361,7 +361,7 @@
   <string name="provide_wallet_allow_once_button">อนุญาตให้ครั้งเดียว</string>
   <string name="provide_wallet_completed_header">กระเป๋าสตางค์ที่เกี่ยวข้องกับ Aptoide!</string>
   <string name="provide_wallet_create_body">คุณต้องมีที่อยู่กระเป๋าสตางค์! ทำตามขั้นตอนเหล่านี้เพื่อกระเป๋าสตางค์ AppCoins ใบเดียว</string>
-  <string name="provide_wallet_create_wallet_button">Create</string>
+  <string name="provide_wallet_create_wallet_button">สร้าง</string>
   <string name="provide_wallet_creating_wallet_header">สร้างที่อยู่กระเป๋าสตางค์ &#8230;</string>
   <string name="provide_wallet_created_header">ที่อยู่กระเป๋าสตางค์ที่สร้าง!</string>
   <string name="provide_wallet_empty_state">คุณไม่อนุญาตให้ AppCoins Wallet ใที่ห้อยู่ของคุณกับแอปอื่นๆ ได้</string>
@@ -600,7 +600,7 @@
   <string name="referral_share_sheet_title">แชร์ลิงค์เชิญ:</string>
   <string name="referral_view_unverified_body">รับเครดิต AppCoins มูลค่า %s สำหรับเพื่อนแต่ละคน คุณต้องยืนยันกระเป๋าสตางค์ของคุณก่อน</string>
   <string name="referral_view_verify_button">Verify wallet</string>
-  <string name="referral_view_i_have_been_invited_button">I\'ve been invited</string>
+  <string name="referral_view_i_have_been_invited_button">ฉันถูกเชิญแล้ว</string>
   <string name="referral_view_dropup_menu_friends_invited">เพื่อนที่เชิญ</string>
   <string name="referral_view_dropup_menu_earned">รับ</string>
   <string name="referral_dropup_menu_friends_title_1">เพื่อนที่เชิญ</string>
@@ -648,7 +648,7 @@
   <string name="import_wallet_keystore_private_keys">Keystore หรือคีย์ส่วนตัว</string>
   <string name="import_wallet_from_file_title">หรือกู้คืนจากไฟล์</string>
   <string name="import_wallet_file_button">Recover from file</string>
-  <string name="import_wallet_button">Recover wallet</string>
+  <string name="import_wallet_button">กู้คืนวอลเล็ต</string>
   <string name="import_wallet_password_body">กระเป๋าสตางค์นี้ได้รับการป้องกันด้วยรหัสผ่าน!</string>
   <string name="import_wallet_wrong_password_body">อุ๊ปส์ รหัสผ่านไม่ถูกต้อง!</string>
   <string name="error_invalid_private_key">ไม่มีไพรเวทคีย์</string>
@@ -667,7 +667,7 @@
   <string name="backup_confirmation_tips_2"><b>บันทึก</b>ลงในไดรฟ์ USB</string>
   <string name="backup_confirmation_tips_3"><b>คัดลอก</b>เป็นส่วนตัวและเก็บรักษาในคลาวน์</string>
   <string name="backup_tooltip_body">สำรองกระเป๋าสตางค์</string>
-  <string name="backup_tooltip_later_button">Maybe later</string>
+  <string name="backup_tooltip_later_button">ไว้ก่อน</string>
   <string name="backup_tooltip_backup_button">Back up</string>
   <string name="backup_notification_title">สำรองกระเป๋าสตางค์!</string>
   <string name="backup_notification_body">เก็บเงินของคุณอย่างปลอดภัยและแน่ใจว่าสามารุเข้าถึงกระเป๋าสตางค์</string>
@@ -695,10 +695,10 @@
   <string name="wallets_imported_body">กู้คืนกระเป๋าสตางค์ได้สำเร็จ</string>
   <string name="wallets_2nd_view_balance_title">ยอดคงเหลือ:</string>
   <string name="wallets_2nd_view_other_wallets_title">กระเป๋าสตางค์อื่นๆ</string>
-  <string name="wallets_2nd_view_import_button">Recover wallet</string>
+  <string name="wallets_2nd_view_import_button">กู้คืนวอลเล็ต</string>
   <string name="wallets_2nd_view_create_button">Create new</string>
   <string name="wallet_view_copy_button">Copy</string>
-  <string name="wallet_view_share_button">Share</string>
+  <string name="wallet_view_share_button">ใช้ร่วมกัน</string>
   <string name="wallet_view_total_balance_title">ยอดทั้งหมด</string>
   <string name="wallet_view_remove_button">Remove wallet</string>
   <string name="wallet_view_backup_button">Back up wallet</string>
@@ -723,7 +723,7 @@
   <string name="transfer_send_token_title">โทเค่น:</string>
   <string name="transfer_send_amount_title">จำนวน</string>
   <string name="transfer_send_current_balance_title">ยอดคงเหลือปัจจุบัน:</string>
-  <string name="transfer_send_button">Send</string>
+  <string name="transfer_send_button">ส่ง</string>
   <string name="transfer_receive_body">แบ่งปันที่อยู่กระเป๋าสตางค์ของคุณเพื่อรับเงิน</string>
   <!--Support Notifications-->
   <string name="support_new_message_title">คุณได้รับข้อความใหม่!</string>
@@ -760,7 +760,7 @@
   <string name="subscriptions_expiration_body">หมดอายุเมื่อ %s</string>
   <string name="subscriptions_canceled_body">ยกเลิก</string>
   <string name="subscriptions_details_disclaimer">มูลค่าใน AppCoins อาจเปลี่ยนแปลงสำหรับการชำระเงินครั้งถัดไปซึ่งขึ้นอยู่กับอัตราแลกเปลี่ยน</string>
-  <string name="subscriptions_details_button">Details</string>
+  <string name="subscriptions_details_button">รายละเอียด</string>
   <string name="subscriptions_manage_button">Manage subscription</string>
   <string name="subscriptions_cancel_button">Cancel subscription</string>
   <string name="subscriptions_renew_subscription_button">Renew subscription</string>
@@ -842,7 +842,7 @@
   <string name="carrier_billing_enter_pin_body">โปรดใส่ PIN ที่ได้รับทาง SMS</string>
   <string name="carrier_billing_code_field">รหัสของคุณ...</string>
   <string name="carrier_billing_code_resend_button">Resend code</string>
-  <string name="carrier_billing_submit_button">Submit</string>
+  <string name="carrier_billing_submit_button">ส่ง</string>
   <string name="carrier_billing_number_not_supported">ดูเหมือนว่าหมายเลขโทรศัพท์ใช้ไม่ได้สำหรับการชำระเงินนี้</string>
   <string name="carrier_billing_terms_disclaimer">กดส่ง คุณยืนยันว่าคุณยอมรับข้อกำหนดและเงื่อนไขและนโยบายความเป็นส่วนตัว</string>
   <string name="carrier_billing_help_1">ต้องการความช่วนเหลือ?</string>
@@ -1063,7 +1063,7 @@
   <string name="mywallet_unverified_body">ตรวจสอบวิธีการชำระเงินเพื่อหลีกเลี่ยงการปิดกั้น</string>
   <string name="mywallet_backed_up_date">คุณสำรองข้อมูลกระเป๋าสตางค์ของคุณใน %s</string>
   <string name="mywallet_backup_again_button">Back up again</string>
-  <string name="mywallet_verify_payment_method_button">Verify new card</string>
+  <string name="mywallet_verify_payment_method_button">ยืนยันบัตรใหม่</string>
   <string name="mywallet_choose_name_header">เลือกชื่อสำหรับกระเป๋าสตางค์ของคุณ</string>
   <string name="mywallet_choose_name_field">ชื่อกระเป๋าเงินที่นี่...</string>
   <string name="mywallet_choose_name_confirmed">เปลี่ยนชื่อกระเป๋าสตางค์</string>
