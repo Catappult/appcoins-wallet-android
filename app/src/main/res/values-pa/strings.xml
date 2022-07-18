@@ -16,7 +16,7 @@
   <string name="error_field_required">ਇਸ ਦੀ ਲੋੜ ਹੈ</string>
   <string name="action_settings">ਸੈਟਿੰਗਾਂ</string>
   <string name="title_account_list">ਬਟੂਏ</string>
-  <string name="cancel">Cancel</string>
+  <string name="cancel">ਕੈਂਸਲ</string>
   <string name="confirm_delete_account">ਇਹ ਪੱਕਾ ਕਰੋ ਕਿ ਤੁਹਾਡੇ ਕੋਲ ਇਸ ਬਟੂਏ ਦਾ ਬੈਕਅੱਪ ਹੈ|</string>
   <string name="action_import">ਮੁੜ ਪ੍ਰਾਪਤ ਕਰੋ</string>
   <string name="copy">ਕਲਿੱਪਬੋਰਡ ਤੇ ਕਾਪੀ ਕਰੋ</string>
@@ -361,7 +361,7 @@
   <string name="provide_wallet_allow_once_button">ਇੱਕ ਵਾਰ ਮਨਜ਼ੂਰੀ ਦਿਓ</string>
   <string name="provide_wallet_completed_header">ਬਟੂਆ ਐਪਟਾਇਡ ਨਾਲ ਜੋੜਿਆ ਗਿਆ!</string>
   <string name="provide_wallet_create_body">ਤੁਹਾਨੂੰ ਬਟੂਏ ਦੇ ਇੱਕ ਪਤੇ ਦੀ ਲੋੜ ਹੈ! ਐਪ ਸਿੱਕੇ ਬਟੂਏ ਵਿੱਚ ਇੱਕ ਬਣਾਉਣ ਲਈ ਇਨ੍ਹਾਂ ਚਰਣਾਂ ​​ਦੀ ਪਾਲਣਾ ਕਰੋ|</string>
-  <string name="provide_wallet_create_wallet_button">Create</string>
+  <string name="provide_wallet_create_wallet_button">ਬਣਾਓ</string>
   <string name="provide_wallet_creating_wallet_header">ਬਟੂਏ ਦਾ ਪਤਾ ਬਣਾਇਆ ਜਾ ਰਿਹਾ ਹੈ&#8230;</string>
   <string name="provide_wallet_created_header">ਬਟੂਏ ਦਾ ਪਤਾ ਬਣਾਇਆ ਗਿਆ!</string>
   <string name="provide_wallet_empty_state">ਤੁਸੀ ਐਪ ਸਿੱਕੇ ਬਟੂਏ ਨੂੰ ਕਿਸੇ ਵੀ ਹੋਰ ਐਪ ਨੂੰ ਐਪ ਸਿੱਕੇ ਬਟੂਏ ਦਾ ਪਤਾ ਦੱਸਣ ਦੀ ਆਗਿਆ ਨਹੀਂ ਦਿੱਤੀ|</string>
@@ -446,7 +446,7 @@
   <string name="understood_button">ਸਮਝਿਆ!</string>
   <string name="skip_button">Skip for now</string>
   <string name="understand_button">I understand</string>
-  <string name="install_button">Install</string>
+  <string name="install_button">ਇੰਸਟਾਲ</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">ਮੈਂ ਐਪ ਸਿੱਕੇ ਬਟੂਏ %1$s ਅਤੇ %2$s ਨਾਲ ਸਹਿਮਤ ਹਾਂ|</string>
   <string name="terms_and_conditions_error">ਜਾਰੀ ਰੱਖਣ ਲਈ ਕਿਰਪਾ ਕਰਕੇ ਸਾਡੇ ਨਿਯਮਾਂ ਅਤੇ ਸ਼ਰਤਾਂ ਅਤੇ ਨੀਜੀ ਨੀਤੀ ਨੂੰ ਸਵੀਕਾਰ ਕਰੋ</string>
@@ -600,7 +600,7 @@
   <string name="referral_share_sheet_title">ਸੱਦੇ ਵਾਲੇ ਲਿੰਕ ਨੂੰ ਇਸ ਰਾਹੀਂ ਸਾਂਝਾ ਕਰੋ:</string>
   <string name="referral_view_unverified_body">ਹਰ ਇੱਕ ਦੋਸਤ ਲਈ %s ਮੁੱਲ ਦੇ ਐਪ ਸਿੱਕੇ ਕ੍ਰੈਡਿਟ ਪ੍ਰਾਪਤ ਕਰੋ। ਤੁਹਾਨੂੰ ਪਹਿਲਾਂ ਆਪਣੇ ਬਟੂਏ ਦੀ ਪੁਸ਼ਟੀ ਕਰਨ ਦੀ ਲੋੜ ਹੈ।</string>
   <string name="referral_view_verify_button">Verify wallet</string>
-  <string name="referral_view_i_have_been_invited_button">I\'ve been invited</string>
+  <string name="referral_view_i_have_been_invited_button">ਮੈਨੂੰ ਬੁਲਾਇਆ ਗਿਆ ਹੈ</string>
   <string name="referral_view_dropup_menu_friends_invited">ਦੋਸਤ ਬੁਲਾਏ ਗਏ</string>
   <string name="referral_view_dropup_menu_earned">ਕਮਾਏ</string>
   <string name="referral_dropup_menu_friends_title_1">ਦੋਸਤ ਬੁਲਾਏ ਗਏ</string>
@@ -646,7 +646,7 @@
   <string name="import_wallet_keystore_private_keys">ਚਾਬੀ ਸਟੋਰ ਜਾਂ ਨਿਜੀ ਕੁੰਜੀਆਂ</string>
   <string name="import_wallet_from_file_title">ਜਾਂ ਫਾਈਲ ਤੋਂ ਰਿਕਵਰ ਕਰੋ</string>
   <string name="import_wallet_file_button">Recover from file</string>
-  <string name="import_wallet_button">Recover wallet</string>
+  <string name="import_wallet_button">ਬਟੂਆ ਮੁੜ ਪ੍ਰਾਪਤ ਕਰੋ</string>
   <string name="import_wallet_password_body">ਇਹ ਬਟੂਆ ਪਾਸਵਰਡ ਨਾਲ ਸੁਰੱਖਿਅਤ ਹੈ!</string>
   <string name="import_wallet_wrong_password_body">ਓਹ ਹੋ, ਗਲਤ ਪਾਸਵਰਡ!</string>
   <string name="error_invalid_private_key">ਗਲਤ ਨਿਜੀ ਚਾਬੀ</string>
@@ -665,7 +665,7 @@
   <string name="backup_confirmation_tips_2"><b>Save it</b> on a USB drive.</string>
   <string name="backup_confirmation_tips_3"><b>Copy it</b> to a private and secure cloud storage.</string>
   <string name="backup_tooltip_body">ਆਪਣੇ ਬਟੂਏ ਦਾ ਬੈਕਅਪ ਬਣਾਓ!</string>
-  <string name="backup_tooltip_later_button">Maybe later</string>
+  <string name="backup_tooltip_later_button">ਫੇਰ ਕਦੇ</string>
   <string name="backup_tooltip_backup_button">Back up</string>
   <string name="backup_notification_title">ਆਪਣੇ ਬਟੂਏ ਦਾ ਬੈਕਅਪ ਬਣਾਓ!</string>
   <string name="backup_notification_body">ਆਪਣੇ ਫੰਡਾਂ ਨੂੰ ਸੁਰੱਖਿਅਤ ਰੱਖੋ ਅਤੇ ਇਹ ਸੁਨਿਸ਼ਚਿਤ ਕਰੋ ਕਿ ਤੁਸੀਂ ਹਮੇਸ਼ਾਂ ਆਪਣੇ ਬਟੂਏ ਨੂੰ ਵਰਤ ਕਰ ਸਕਦੇ ਹੋ|</string>
@@ -675,7 +675,7 @@
   <string name="backup_additional_security_password_not_march">ਪਾਸਵਰਡ ਮੇਲ ਨਹੀਂ ਖਾਂਦੇ|</string>
   <string name="import_wallet_recovering_body">ਬਟੂਆ ਮੁੜ ਪ੍ਰਾਪਤ ਹੋ ਰਿਹਾ ਹੈ...</string>
   <string name="backup_skip_title">I understand that I may loose my funds if I don\'t backup my wallet key.</string>
-  <string name="backup_wallet_button">Backup wallet</string>
+  <string name="backup_wallet_button">ਬੈਕਅਪ ਬਟੂਆ</string>
   <string name="backup_success_save_on_email">Your backup file is in your email.</string>
   <string name="backup_success_save_on_device">Your backup file is stored in your device.</string>
   <string name="backup_popup_title">Back up your wallet now!</string>
@@ -694,10 +694,10 @@
   <string name="wallets_imported_body">ਬਟੂਆ ਸਫਲਤਾਪੂਰਵਕ ਠੀਕ ਹੋ ਗਿਆ</string>
   <string name="wallets_2nd_view_balance_title">ਰਕਮ:</string>
   <string name="wallets_2nd_view_other_wallets_title">ਹੋਰ ਬਟੂਏ</string>
-  <string name="wallets_2nd_view_import_button">Recover wallet</string>
+  <string name="wallets_2nd_view_import_button">ਬਟੂਆ ਮੁੜ ਪ੍ਰਾਪਤ ਕਰੋ</string>
   <string name="wallets_2nd_view_create_button">Create new</string>
   <string name="wallet_view_copy_button">Copy</string>
-  <string name="wallet_view_share_button">Share</string>
+  <string name="wallet_view_share_button">ਸ਼ੇਅਰ</string>
   <string name="wallet_view_total_balance_title">ਕੁੱਲ ਰਕਮ</string>
   <string name="wallet_view_remove_button">Remove wallet</string>
   <string name="wallet_view_backup_button">Back up wallet</string>
@@ -722,7 +722,7 @@
   <string name="transfer_send_token_title">ਟੋਕਨ:</string>
   <string name="transfer_send_amount_title">ਰਕਮ</string>
   <string name="transfer_send_current_balance_title">ਮੌਜੂਦਾ ਬਕਾਇਆ:</string>
-  <string name="transfer_send_button">Send</string>
+  <string name="transfer_send_button">ਭੇਜੋ</string>
   <string name="transfer_receive_body">ਪੈਸੇ ਪ੍ਰਾਪਤ ਕਰਨ ਲਈ ਆਪਣੇ ਬਟੂਏ ਦਾ ਪਤਾ ਸਾਂਝਾ ਕਰੋ|</string>
   <!--Support Notifications-->
   <string name="support_new_message_title">ਤੁਹਾਨੂੰ ਇੱਕ ਨਵਾਂ ਮੈਸਜ ਆਇਆ ਹੈ!</string>
@@ -759,7 +759,7 @@
   <string name="subscriptions_expiration_body">%s ਨੂੰ ਇਹ ਖਤਮ ਹੁੰਦਾ ਹੈ</string>
   <string name="subscriptions_canceled_body">ਰੱਦ</string>
   <string name="subscriptions_details_disclaimer">ਐਕਸਚੇਂਜ ਰੇਟ ਕਾਰਨ ਅਗਲੇ ਭੁਗਤਾਨ ਲਈ ਮੁੱਲ ਵੱਖਰਾ ਹੋ ਸਕਦਾ ਹੈ|</string>
-  <string name="subscriptions_details_button">Details</string>
+  <string name="subscriptions_details_button">ਵੇਰਵਾ</string>
   <string name="subscriptions_manage_button">Manage subscription</string>
   <string name="subscriptions_cancel_button">Cancel subscription</string>
   <string name="subscriptions_renew_subscription_button">Renew subscription</string>
@@ -841,7 +841,7 @@
   <string name="carrier_billing_enter_pin_body">ਕਿਰਪਾ ਕਰਕੇ ਐਸਐਮਐਸ ਦੁਆਰਾ ਪ੍ਰਾਪਤ ਕੀਤਾ ਕੋਡ ਭਰੋ|</string>
   <string name="carrier_billing_code_field">ਤੁਹਾਡਾ ਕੋਡ...</string>
   <string name="carrier_billing_code_resend_button">Resend code</string>
-  <string name="carrier_billing_submit_button">Submit</string>
+  <string name="carrier_billing_submit_button">ਜਮ੍ਹਾਂ ਕਰੋ</string>
   <string name="carrier_billing_number_not_supported">ਅਜਿਹਾ ਲਗਦਾ ਹੈ ਕਿ ਤੁਹਾਡਾ ਫੋਨ ਨੰਬਰ ਇਸ ਭੁਗਤਾਨ ਵਿਧੀ ਦੇ ਅਨੁਕੂਲ ਨਹੀਂ ਹੈ|</string>
   <string name="carrier_billing_terms_disclaimer">ਜਮ੍ਹਾਂ ਕਰੋ ਤੇ ਦੱਬ ਕੇ, ਤੁਸੀਂ ਪੁਸ਼ਟੀ ਕਰਦੇ ਹੋ ਕਿ ਤੁਸੀਂ ਨਿਯਮ ਅਤੇ ਸ਼ਰਤਾਂ ਅਤੇ ਗੋਪਨੀਯਤਾ ਨੀਤੀ ਨੂੰ ਸਵੀਕਾਰਦੇ ਹੋ|</string>
   <string name="carrier_billing_help_1">ਮਦਦ ਦੀ ਲੋੜ ਹੈ?</string>
@@ -1039,9 +1039,9 @@
   <string name="nfts_title">ਐਨਐਫਟੀ</string>
   <string name="nfts_no_nfts">ਤੁਹਾਡੇ ਕੋਲ ਇਸ ਬਟੂਏ ਵਿੱਚ ਕੋਈ ਐਨਐਫਟੀ ਨਹੀਂ ਹੈ!</string>
   <string name="nfts_transact_button">Send this NFT</string>
-  <string name="nfts_transact_button_send">Send</string>
-  <string name="nfts_transact_button_next">Next</string>
-  <string name="nfts_transact_button_done">Done</string>
+  <string name="nfts_transact_button_send">ਭੇਜੋ</string>
+  <string name="nfts_transact_button_next">ਅਗਲਾ</string>
+  <string name="nfts_transact_button_done">ਹੋ ਗਿਆ</string>
   <string name="nfts_transact_button_success">Got it</string>
   <string name="nfts_transact_tip">Enter your friend\'s wallet address</string>
   <string name="nfts_transact_input_tip">Wallet address here...</string>
@@ -1049,8 +1049,8 @@
   <string name="nfts_generic_error">Oops! Something went wrong!</string>
   <string name="nfts_transact_gas_title">Are you in a hurry?</string>
   <string name="nfts_transact_gas_description">Choose how much you want to pay in fees. The higher the fee, the faster the transaction.</string>
-  <string name="nfts_transact_gas_price">Gas Price</string>
-  <string name="nfts_transact_gas_limit">Gas Limit</string>
+  <string name="nfts_transact_gas_price">ਗੈਸ ਦਾ ਮੁੱਲ</string>
+  <string name="nfts_transact_gas_limit">ਗੈਸ ਦੀ ਸੀਮਾ</string>
   <string name="nfts_transact_gas_fee_message">Transaction Fee</string>
   <string name="nfts_transact_error_no_funds">Not enough funds! You don\'t have enough ETH to pay for the fees.</string>
   <string name="nfts_transact_error_low_gas">Gas is too low! Increase your gas for the network to accept your transaction.</string>
@@ -1060,7 +1060,7 @@
   <string name="gift_card_field">Card code here...</string>
   <string name="gift_card_done_title">Code redeemed!</string>
   <string name="gift_card_done_body">Check your transactions list.</string>
-  <string name="gift_card_error_general_title">Something went wrong!</string>
+  <string name="gift_card_error_general_title">ਕੁੱਝ ਗਲਤ ਹੋ ਗਿਆ!</string>
   <string name="gift_card_error_general_body">Please try again or use a different code.</string>
   <string name="gift_card_error_used_title">This code has already been used!</string>
   <string name="gift_card_error_new_users_title">This code is only for new users!</string>
@@ -1070,7 +1070,7 @@
   <string name="mywallet_unverified_body">Verify a payment method to avoid blockages.</string>
   <string name="mywallet_backed_up_date">You backed up your wallet on %s.</string>
   <string name="mywallet_backup_again_button">Back up again</string>
-  <string name="mywallet_verify_payment_method_button">Verify new card</string>
+  <string name="mywallet_verify_payment_method_button">ਨਵੇਂ ਕਾਰਡ ਦੀ ਤਸਦੀਕ ਕਰੋ</string>
   <string name="mywallet_choose_name_header">Choose a name for your wallet</string>
   <string name="mywallet_choose_name_field">Wallet name here...</string>
   <string name="mywallet_choose_name_confirmed">Wallet name changed</string>
