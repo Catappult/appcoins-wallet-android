@@ -60,8 +60,9 @@
             android:layout_alignParentEnd="true"
             android:layout_marginTop="6dp"
             android:visibility="gone"
+            app:buttonIsAllCaps="true"
             app:buttonText="@string/activity_iab_change_card"
-            app:buttonType="text_uppercase_old"
+            app:buttonType="text"
             tools:visibility="visible"
             />
 

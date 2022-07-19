@@ -118,8 +118,9 @@
               android:layout_marginTop="@dimen/normal_margin"
               android:visibility="gone"
               app:buttonColor="@color/btn_cancel_text"
+              app:buttonIsAllCaps="true"
               app:buttonText="@string/activity_iab_change_card"
-              app:buttonType="text_uppercase_old"
+              app:buttonType="text"
               tools:visibility="visible"
               />
           <include
@@ -137,9 +138,10 @@
           android:layout_width="wrap_content"
           android:layout_height="@dimen/small_button_height"
           android:layout_marginTop="@dimen/normal_margin"
-          app:buttonText="@string/purchase_more_payment_methods_button"
-          app:buttonType="text_uppercase_old"
           app:buttonImageRight="@drawable/ic_arrow_right"
+          app:buttonIsAllCaps="true"
+          app:buttonText="@string/purchase_more_payment_methods_button"
+          app:buttonType="text"
           app:layout_constraintBottom_toTopOf="@+id/dialog_buy_buttons_payment_methods"
           app:layout_constraintEnd_toEndOf="parent"
           />

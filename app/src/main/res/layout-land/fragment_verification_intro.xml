@@ -59,8 +59,9 @@
             android:layout_alignParentEnd="true"
             android:layout_marginTop="6dp"
             android:visibility="gone"
+            app:buttonIsAllCaps="true"
             app:buttonText="@string/activity_iab_change_card"
-            app:buttonType="text_uppercase_old"
+            app:buttonType="text"
             tools:visibility="visible"
             />
 
@@ -121,9 +122,9 @@
           android:id="@+id/cancel"
           android:layout_width="0dp"
           android:layout_height="@dimen/small_button_height"
-          android:layout_marginBottom="18dp"
           android:layout_gravity="center_vertical"
           android:layout_marginEnd="6dp"
+          android:layout_marginBottom="18dp"
           android:enabled="false"
           app:buttonText="@string/cancel"
           app:buttonType="text"

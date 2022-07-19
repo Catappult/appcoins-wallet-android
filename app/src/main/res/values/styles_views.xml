@@ -18,12 +18,11 @@
       <enum name="outlined" value="1" />
       <enum name="text" value="2" />
       <enum name="disabled" value="3" />
-      <enum name="text_uppercase_old" value="4" />
-      <enum name="filled_gray_pink" value="5" />
+      <enum name="filled_gray_pink" value="4" />
     </attr>
     <attr format="string" name="buttonText" />
     <attr format="color" name="buttonColor" />
-    <attr format="reference" name="buttonIsAllCaps"  />
+    <attr format="boolean" name="buttonIsAllCaps"  />
     <attr format="reference" name="buttonImageRight"  />
     <attr format="reference" name="buttonImageLeft"  />
   </declare-styleable>

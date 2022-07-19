@@ -75,11 +75,11 @@
           android:layout_marginTop="8dp"
           android:layout_marginEnd="32dp"
           android:visibility="invisible"
-          app:line_type="solid"
-          app:line_orientation="horizontal"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toBottomOf="@id/value_warning_text"
+          app:line_orientation="horizontal"
+          app:line_type="solid"
           />
 
       <TextView
@@ -138,9 +138,10 @@
                 android:layout_marginTop="6dp"
                 android:layout_marginEnd="-16dp"
                 android:visibility="gone"
-                app:buttonText="@string/activity_iab_change_card"
-                app:buttonType="text_uppercase_old"
                 app:buttonColor="@color/btn_cancel_text"
+                app:buttonIsAllCaps="true"
+                app:buttonText="@string/activity_iab_change_card"
+                app:buttonType="text"
                 tools:visibility="visible"
                 />
           </RelativeLayout>
@@ -205,13 +206,13 @@
           android:layout_marginTop="16dp"
           android:layout_marginEnd="@dimen/big_margin"
           android:layout_marginBottom="80dp"
+          android:enabled="false"
+          android:visibility="invisible"
+          app:buttonText="@string/action_next"
+          app:buttonType="filled"
           app:layout_constraintBottom_toBottomOf="parent"
           app:layout_constraintTop_toBottomOf="@id/bonus_msg"
           app:layout_constraintVertical_bias="1.0"
-          app:buttonText="@string/action_next"
-          app:buttonType="filled"
-          android:visibility="invisible"
-          android:enabled="false"
           />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

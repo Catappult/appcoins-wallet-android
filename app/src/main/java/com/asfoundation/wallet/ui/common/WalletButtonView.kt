@@ -166,29 +166,6 @@ class WalletButtonView : FrameLayout {
             views.imageRight.imageTintList = ColorStateList.valueOf(color)
           }
         }
-        Type.TEXT_UPPERCASE_OLD -> {
-          views.root.setCardBackgroundColor(
-            ContextCompat.getColor(this.context, R.color.transparent)
-          )
-          views.root.strokeColor = ContextCompat.getColor(this.context, R.color.transparent)
-          views.root.strokeWidth = 0
-          views.root.setRippleColorResource(R.color.white)
-          views.text.setTextColor(color)
-          views.text.isAllCaps = true
-          views.text.textSize = 12F
-          imageLeft?.let { image ->
-            views.imageLeft.setImageDrawable(image)
-            views.imageLeft.visibility = View.VISIBLE
-            views.imageLeft.imageTintList = ColorStateList.valueOf(color)
-          }
-          imageRight?.let { image ->
-            views.text.setMargins(16, 0, 8, 0)
-            views.text.setPadding(0, 0, 0, 0)
-            views.imageRight.setImageDrawable(image)
-            views.imageRight.visibility = View.VISIBLE
-            views.imageRight.imageTintList = ColorStateList.valueOf(color)
-          }
-        }
         Type.FILLED_GRAY_PINK -> {
           views.root.setCardBackgroundColor(
             ContextCompat.getColor(
@@ -233,5 +210,5 @@ class WalletButtonView : FrameLayout {
     views.root.setOnClickListener(l)
   }
 
-  enum class Type { FILLED, OUTLINED, TEXT, DISABLE, TEXT_UPPERCASE_OLD, FILLED_GRAY_PINK }
+  enum class Type { FILLED, OUTLINED, TEXT, DISABLE, FILLED_GRAY_PINK }
 }
