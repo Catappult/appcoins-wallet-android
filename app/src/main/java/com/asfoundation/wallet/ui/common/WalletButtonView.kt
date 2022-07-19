@@ -161,6 +161,8 @@ class WalletButtonView : FrameLayout {
             views.imageLeft.imageTintList = ColorStateList.valueOf(color)
           }
           imageRight?.let { image ->
+            views.text.setMargins(16, 0, 8, 0)
+            views.text.setPadding(0, 0, 0, 0)
             views.imageRight.setImageDrawable(image)
             views.imageRight.visibility = View.VISIBLE
             views.imageRight.imageTintList = ColorStateList.valueOf(color)
