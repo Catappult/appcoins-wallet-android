@@ -52,8 +52,8 @@ import io.reactivex.subjects.ReplaySubject
 import kotlinx.android.synthetic.main.adyen_credit_card_layout.*
 import kotlinx.android.synthetic.main.adyen_credit_card_layout.fragment_credit_card_authorization_progress_bar
 import kotlinx.android.synthetic.main.adyen_credit_card_pre_selected.*
+import kotlinx.android.synthetic.main.dialog_buy_buttons.*
 import kotlinx.android.synthetic.main.dialog_buy_buttons_adyen_error.*
-import kotlinx.android.synthetic.main.dialog_buy_buttons_payment_methods.*
 import kotlinx.android.synthetic.main.fragment_iab_transaction_completed.*
 import kotlinx.android.synthetic.main.iab_error_layout.*
 import kotlinx.android.synthetic.main.payment_methods_header.*
@@ -578,7 +578,7 @@ class AdyenPaymentFragment : BasePageViewFragment(), AdyenPaymentView {
 
   private fun handlePreSelectedView() {
     if (!isPreSelected) {
-      cancel_button.setText(R.string.back_button)
+      cancel_button.setText(getString(R.string.back_button))
       iabView.disableBack()
     }
     showBonus()
@@ -595,14 +595,14 @@ class AdyenPaymentFragment : BasePageViewFragment(), AdyenPaymentView {
   private fun handleBuyButtonText() {
     when {
       transactionType.equals(TransactionData.TransactionType.DONATION.name, ignoreCase = true) -> {
-        buy_button.setText(R.string.action_donate)
+        buy_button.setText(getString(R.string.action_donate))
       }
       transactionType.equals(
         TransactionData.TransactionType.INAPP_SUBSCRIPTION.name,
         ignoreCase = true
-      ) -> buy_button.text = getString(R.string.subscriptions_subscribe_button)
+      ) -> buy_button.setText(getString(R.string.subscriptions_subscribe_button))
       else -> {
-        buy_button.setText(R.string.action_buy)
+        buy_button.setText(getString(R.string.action_buy))
       }
     }
   }

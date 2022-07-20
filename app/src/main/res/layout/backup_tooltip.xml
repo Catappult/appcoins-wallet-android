@@ -3,8 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingStart="20dp"
-    android:paddingEnd="20dp"
+    android:paddingStart="10dp"
+    android:paddingEnd="10dp"
     >
 
   <androidx.cardview.widget.CardView
@@ -43,25 +43,28 @@
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintTop_toBottomOf="@id/dialog_message"
           >
-        <Button
+
+        <com.asfoundation.wallet.ui.common.WalletButtonView
             android:id="@+id/tooltip_later_button"
-            style="@style/TooltipButtonStyle.Negative"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/small_button_height"
             android:layout_gravity="center_vertical"
             android:layout_marginStart="13dp"
             android:layout_marginEnd="13dp"
-            android:text="@string/backup_tooltip_later_button"
+            app:buttonText="@string/backup_tooltip_later_button"
+            app:buttonType="outlined"
             />
-        <Button
+
+        <com.asfoundation.wallet.ui.common.WalletButtonView
             android:id="@+id/tooltip_backup_button"
-            style="@style/TooltipButtonStyle.Positive"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/small_button_height"
             android:layout_gravity="center_vertical"
-            android:backgroundTint="@color/white"
-            android:text="@string/backup_tooltip_backup_button"
+            android:layout_marginEnd="@dimen/big_margin"
+            app:buttonText="@string/backup_tooltip_backup_button"
+            app:buttonType="filled"
             />
+
       </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
   </androidx.cardview.widget.CardView>

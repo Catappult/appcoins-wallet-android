@@ -45,21 +45,24 @@
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintTop_toBottomOf="@id/dialog_message"
           >
-        <Button
-            android:id="@+id/dismiss_button"
-            style="@style/TooltipButtonStyle.Negative"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:text="@string/dismiss_button"
-            />
-        <Button
+        <com.asfoundation.wallet.ui.common.WalletButtonView
             android:id="@+id/discover_button"
-            style="@style/TooltipButtonStyle.Positive"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:text="@string/discover_button"
+            android:layout_height="@dimen/small_button_height"
+            android:layout_marginTop="6dp"
+            android:layout_marginBottom="6dp"
+            app:buttonText="@string/discover_button"
+            app:buttonType="text"
+            />
+        <com.asfoundation.wallet.ui.common.WalletButtonView
+            android:id="@+id/dismiss_button"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/small_button_height"
+            android:layout_marginTop="6dp"
+            android:layout_marginBottom="6dp"
+            app:buttonColor="@color/dialog_buy_value_text"
+            app:buttonText="@string/dismiss_button"
+            app:buttonType="text"
             />
       </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -103,8 +106,8 @@
       android:layout_width="match_parent"
       android:layout_height="69dp"
       android:background="@color/transparent"
-      app:itemHorizontalTranslationEnabled="false"
       app:elevation="0dp"
+      app:itemHorizontalTranslationEnabled="false"
       app:itemIconTint="@color/white"
       app:itemRippleColor="@color/transparent"
       app:itemTextColor="@color/white"

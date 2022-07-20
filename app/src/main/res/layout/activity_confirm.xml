@@ -188,17 +188,21 @@
           app:layout_constraintTop_toBottomOf="@id/text_network_fee"
           />
 
-      <Button
+      <com.asfoundation.wallet.ui.common.WalletButtonView
           android:id="@+id/send_button"
           android:layout_width="match_parent"
-          android:layout_height="@dimen/button_height"
-          android:layout_marginBottom="12dp"
-          android:layout_marginTop="47dp"
-          android:text="@string/action_send"
+          android:layout_height="@dimen/large_button_height"
+          android:layout_alignParentBottom="true"
+          android:layout_marginTop="48dp"
+          android:layout_marginBottom="16dp"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintBottom_toBottomOf="parent"
           app:layout_constraintTop_toBottomOf="@id/divider2"
-          style="@style/ButtonStyle"
+          app:buttonText="@string/action_send"
+          app:buttonType="filled"
           />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
   </ScrollView>
 </LinearLayout>

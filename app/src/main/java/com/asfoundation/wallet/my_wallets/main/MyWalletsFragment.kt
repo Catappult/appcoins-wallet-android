@@ -3,12 +3,14 @@ package com.asfoundation.wallet.my_wallets.main
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
+import android.os.Build
 import android.os.Bundle
 import android.text.format.DateFormat
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.app.ShareCompat
+import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -253,9 +255,8 @@ class MyWalletsFragment : BasePageViewFragment(),
     views.myWalletsContent.backupWalletText.visibility = View.VISIBLE
     views.myWalletsContent.backupWalletText.text = text
     views.myWalletsContent.backupButton.visibility = View.VISIBLE
-    views.myWalletsContent.backupButton.setText(buttonTextRes)
-    views.myWalletsContent.backupButton.setTextColor(resources.getColor(colorRes, null))
-    views.myWalletsContent.backupButton.setRippleColorResource(colorRes)
+    views.myWalletsContent.backupButton.setText(getString(buttonTextRes))
+    views.myWalletsContent.backupButton.setColor(ContextCompat.getColor(requireContext(), colorRes))
     views.myWalletsContent.backupButton.setOnClickListener {
       navigator.navigateToBackupWallet(wallet)
       walletsEventSender.sendCreateBackupEvent(null, WalletsAnalytics.MY_WALLETS, null)
@@ -282,9 +283,8 @@ class MyWalletsFragment : BasePageViewFragment(),
     views.myWalletsContent.verifyWalletText.setText(R.string.mywallet_unverified_body)
     views.myWalletsContent.verifyButton.visibility = View.VISIBLE
     views.myWalletsContent.verifyButton.isEnabled = !disableButton
-    views.myWalletsContent.verifyButton.setText(R.string.mywallet_verify_payment_method_button)
-    views.myWalletsContent.verifyButton.setTextColor(resources.getColor(R.color.white, null))
-    views.myWalletsContent.verifyButton.setRippleColorResource(R.color.white)
+    views.myWalletsContent.verifyButton.setText(getString(R.string.mywallet_verify_payment_method_button))
+    views.myWalletsContent.verifyButton.setColor(ContextCompat.getColor(requireContext(), R.color.white))
     views.myWalletsContent.verifyButton.setOnClickListener {
       navigator.navigateToVerifyPicker()
     }
@@ -301,14 +301,13 @@ class MyWalletsFragment : BasePageViewFragment(),
     views.myWalletsContent.verifyWalletText.setText(R.string.mywallet_unverified_body)
     views.myWalletsContent.verifyButton.visibility = View.VISIBLE
     views.myWalletsContent.verifyButton.isEnabled = !disableButton
-    views.myWalletsContent.verifyButton.setText(R.string.referral_view_verify_button)
-    views.myWalletsContent.verifyButton.setTextColor(
-      resources.getColor(
-        R.color.wild_watermelon,
-        null
+    views.myWalletsContent.verifyButton.setText(getString(R.string.referral_view_verify_button))
+      views.myWalletsContent.verifyButton.setColor(
+        ContextCompat.getColor(
+          requireContext(),
+          R.color.wild_watermelon
+        )
       )
-    )
-    views.myWalletsContent.verifyButton.setRippleColorResource(R.color.wild_watermelon)
     views.myWalletsContent.verifyButton.setOnClickListener {
       navigator.navigateToVerifyPicker()
     }
@@ -325,14 +324,13 @@ class MyWalletsFragment : BasePageViewFragment(),
     views.myWalletsContent.verifyWalletText.setText(R.string.card_verification_wallets_one_step_body)
     views.myWalletsContent.verifyButton.visibility = View.VISIBLE
     views.myWalletsContent.verifyButton.isEnabled = !disableButton
-    views.myWalletsContent.verifyButton.setText(R.string.card_verification_wallets_insert_bode_button)
-    views.myWalletsContent.verifyButton.setTextColor(
-      resources.getColor(
-        R.color.wild_watermelon,
-        null
+    views.myWalletsContent.verifyButton.setText(getString(R.string.card_verification_wallets_insert_bode_button))
+    views.myWalletsContent.verifyButton.setColor(
+      ContextCompat.getColor(
+        requireContext(),
+        R.color.wild_watermelon
       )
     )
-    views.myWalletsContent.verifyButton.setRippleColorResource(R.color.wild_watermelon)
     views.myWalletsContent.verifyButton.setOnClickListener {
       navigator.navigateToVerifyCreditCard()
     }

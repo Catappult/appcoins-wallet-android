@@ -353,7 +353,7 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
 
   override fun showError(message: Int) {
     payment_method_main_view.visibility = View.GONE
-    error_message.error_dismiss.text = getString(R.string.ok)
+    error_message.error_dismiss.setText(getString(R.string.ok))
     error_message.visibility = View.VISIBLE
     error_message.generic_error_layout.error_message.setText(message)
   }
@@ -361,7 +361,7 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
   override fun showItemAlreadyOwnedError() {
     payment_method_main_view.visibility = View.GONE
     iabView.disableBack()
-    error_dismiss.text = getString(R.string.ok)
+    error_dismiss.setText(getString(R.string.ok))
     error_message.visibility = View.VISIBLE
     generic_error_layout.error_message.setText(R.string.purchase_error_incomplete_transaction_body)
     layout_support_icn.visibility = View.GONE
@@ -534,7 +534,7 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
     )
 
   override fun showSubscribe() {
-    buy_button.text = getString(R.string.subscriptions_subscribe_button)
+    buy_button.setText(getString(R.string.subscriptions_subscribe_button))
   }
 
   override fun showShareLink(selectedPaymentMethod: String) {
@@ -607,12 +607,12 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
   override fun onBackPressed(): Observable<Any> =
     iabView.backButtonPress().map { itemAlreadyOwnedError }
 
-  override fun showNext() = buy_button.setText(R.string.action_next)
+  override fun showNext() = buy_button.setText(getString(R.string.action_next))
 
   override fun showBuy() = setBuyButtonText()
 
   private fun setBuyButtonText() {
-    val buyButtonText = if (isDonation) R.string.action_donate else R.string.action_buy
+    val buyButtonText = if (isDonation) getString(R.string.action_donate) else getString(R.string.action_buy)
     buy_button.setText(buyButtonText)
   }
 

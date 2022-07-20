@@ -20,16 +20,6 @@
     <item name="android:textColor">@color/grey_9d</item>
   </style>
 
-  <style name="MyWallets.SendReceiveButton">
-    <item name="android:textAllCaps">false</item>
-    <item name="android:textSize">14sp</item>
-    <item name="android:fontFamily">sans-serif</item>
-    <item name="backgroundTint">@color/wild_watermelon</item>
-    <item name="iconGravity">end</item>
-    <item name="iconPadding">0dp</item>
-    <item name="shapeAppearance">@style/MyWallets.Shapes.Pill</item>
-  </style>
-
   <style name="MyWallets.TotalBalance">
     <item name="android:fontFamily">sans-serif-medium</item>
     <item name="android:textSize">18sp</item>

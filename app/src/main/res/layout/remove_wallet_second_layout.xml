@@ -58,37 +58,35 @@
       </RelativeLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
   </ScrollView>
-  <Button
-      android:id="@+id/no_remove_wallet_button"
-      style="@style/ButtonStyle.Alternative"
+
+  <com.asfoundation.wallet.ui.common.WalletButtonView
+      android:id="@+id/yes_remove_wallet_button"
       android:layout_width="match_parent"
-      android:layout_height="@dimen/button_height"
+      android:layout_height="@dimen/large_button_height"
+      android:layout_alignParentBottom="true"
+      android:layout_marginStart="16dp"
+      android:layout_marginEnd="16dp"
+      android:layout_marginBottom="20dp"
+      app:buttonText="@string/remove_wallet_yes_button"
+      app:buttonType="outlined"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      />
+
+  <com.asfoundation.wallet.ui.common.WalletButtonView
+      android:id="@+id/no_remove_wallet_button"
+      android:layout_width="match_parent"
+      android:layout_height="@dimen/large_button_height"
+      android:layout_alignParentBottom="true"
       android:layout_marginStart="16dp"
       android:layout_marginEnd="16dp"
       android:layout_marginBottom="16dp"
-      android:letterSpacing="0.09"
-      android:lineSpacingExtra="2sp"
-      android:text="@string/remove_wallet_no_button"
-      android:textSize="14sp"
+      app:buttonText="@string/remove_wallet_no_button"
+      app:buttonType="filled"
       app:layout_constraintBottom_toTopOf="@id/yes_remove_wallet_button"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       />
 
-  <Button
-      android:id="@+id/yes_remove_wallet_button"
-      style="@style/ButtonStyle.Alternative"
-      android:layout_width="match_parent"
-      android:layout_height="@dimen/button_height"
-      android:layout_marginStart="16dp"
-      android:layout_marginEnd="16dp"
-      android:layout_marginBottom="20dp"
-      android:letterSpacing="0.09"
-      android:lineSpacingExtra="2sp"
-      android:text="@string/remove_wallet_yes_button"
-      android:textSize="14sp"
-      app:layout_constraintBottom_toBottomOf="parent"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintStart_toStartOf="parent"
-      />
 </androidx.constraintlayout.widget.ConstraintLayout>

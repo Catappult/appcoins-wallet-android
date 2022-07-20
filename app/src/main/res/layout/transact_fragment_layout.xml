@@ -84,6 +84,7 @@
           android:inputType="numberDecimal"
           />
     </com.google.android.material.textfield.TextInputLayout>
+
     <include layout="@layout/currency_choose_layout" />
 
     <TextView
@@ -99,20 +100,24 @@
         app:layout_constraintTop_toBottomOf="@id/currency_selector"
         tools:text="Current balance: 867 APPC-C"
         />
-    <Button
+
+    <com.asfoundation.wallet.ui.common.WalletButtonView
         android:id="@+id/send_button"
-        style="@style/ButtonStyle"
-        android:layout_width="0dp"
-        android:layout_height="36dp"
-        android:layout_marginStart="32dp"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/large_button_height"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="@dimen/big_margin"
         android:layout_marginTop="48dp"
-        android:layout_marginEnd="32dp"
+        android:layout_marginEnd="@dimen/big_margin"
         android:layout_marginBottom="16dp"
-        android:text="@string/action_send"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/transact_fragment_balance"
+        app:buttonText="@string/action_send"
+        app:buttonType="filled"
         />
+
   </androidx.constraintlayout.widget.ConstraintLayout>
+
 </ScrollView>

@@ -82,7 +82,7 @@ class BillingAddressTopUpFragment : BasePageViewFragment(), BillingAddressTopUpV
     savedBillingAddress?.let { setupSavedBillingAddress(savedBillingAddress) }
     setupFieldsListener()
     setupStateAdapter()
-    button.setText(R.string.topup_home_button)
+    button.setText(getString(R.string.topup_home_button))
   }
 
   private fun setupSavedBillingAddress(savedBillingAddress: BillingAddressModel) {

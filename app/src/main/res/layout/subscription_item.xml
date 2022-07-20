@@ -80,17 +80,12 @@
 
   </LinearLayout>
 
-  <Button
+  <com.asfoundation.wallet.ui.common.WalletButtonView
       android:id="@+id/more_button"
-      style="@style/CancelBorderlessButtonStyle"
       android:layout_width="wrap_content"
-      android:layout_height="0dp"
-      android:layout_marginEnd="@dimen/big_margin"
-      android:maxWidth="360dp"
-      android:minWidth="80dp"
-      android:text="@string/action_more_details"
-      android:textColor="@color/text_button_color"
-      android:textSize="12sp"
+      android:layout_height="@dimen/small_button_height"
+      app:buttonText="@string/action_more_details"
+      app:buttonType="text"
       app:layout_constraintBottom_toBottomOf="@id/app_icon"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintHorizontal_bias="1"

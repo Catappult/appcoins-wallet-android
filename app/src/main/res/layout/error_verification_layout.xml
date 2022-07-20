@@ -134,44 +134,48 @@
       app:layout_constraintTop_toTopOf="@id/layout_support_logo"
       />
 
-  <Button
-      android:id="@+id/try_again"
-      style="@style/ButtonStyle.Alternative"
-      android:layout_width="match_parent"
-      android:layout_height="@dimen/button_height"
-      android:layout_marginStart="32dp"
-      android:layout_marginEnd="32dp"
-      android:layout_marginBottom="76dp"
-      android:text="@string/try_again"
-      app:layout_constraintBottom_toBottomOf="parent"
-      app:layout_constraintTop_toBottomOf="@id/layout_support_logo"
-      app:layout_constraintVertical_bias="1"
-      />
-
-  <Button
-      android:id="@+id/try_again_attempts"
-      style="@style/ButtonStyle.Alternative"
-      android:layout_width="match_parent"
-      android:layout_height="@dimen/button_height"
-      android:layout_marginStart="32dp"
-      android:layout_marginEnd="32dp"
-      android:layout_marginBottom="76dp"
-      android:text="@string/try_again"
-      app:layout_constraintBottom_toBottomOf="parent"
-      app:layout_constraintTop_toBottomOf="@id/layout_support_logo"
-      app:layout_constraintVertical_bias="1"
-      />
-
-  <Button
+  <com.asfoundation.wallet.ui.common.WalletButtonView
       android:id="@+id/maybe_later"
-      style="@style/MaterialButtonStyle.Light"
       android:layout_width="match_parent"
-      android:layout_height="@dimen/button_height"
-      android:layout_marginStart="32dp"
-      android:layout_marginTop="12dp"
-      android:layout_marginEnd="32dp"
-      android:text="@string/backup_tooltip_later_button"
+      android:layout_height="@dimen/large_button_height"
+      android:layout_alignParentBottom="true"
+      android:layout_marginStart="@dimen/big_margin"
+      android:layout_marginTop="6dp"
+      android:layout_marginEnd="@dimen/big_margin"
+      android:layout_marginBottom="63dp"
+      app:buttonText="@string/backup_tooltip_later_button"
+      app:buttonType="outlined"
       app:layout_constraintTop_toBottomOf="@+id/try_again_attempts"
+      app:layout_constraintVertical_bias="1"
+      />
+
+  <com.asfoundation.wallet.ui.common.WalletButtonView
+      android:id="@+id/try_again"
+      android:layout_width="match_parent"
+      android:layout_height="@dimen/large_button_height"
+      android:layout_alignParentBottom="true"
+      android:layout_marginStart="@dimen/big_margin"
+      android:layout_marginEnd="@dimen/big_margin"
+      android:layout_marginBottom="86dp"
+      app:buttonText="@string/try_again"
+      app:buttonType="filled"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/layout_support_logo"
+      app:layout_constraintVertical_bias="1"
+      />
+
+  <com.asfoundation.wallet.ui.common.WalletButtonView
+      android:id="@+id/try_again_attempts"
+      android:layout_width="match_parent"
+      android:layout_height="@dimen/large_button_height"
+      android:layout_alignParentBottom="true"
+      android:layout_marginStart="@dimen/big_margin"
+      android:layout_marginEnd="@dimen/big_margin"
+      android:layout_marginBottom="86dp"
+      app:buttonText="@string/try_again"
+      app:buttonType="filled"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/layout_support_logo"
       app:layout_constraintVertical_bias="1"
       />
 

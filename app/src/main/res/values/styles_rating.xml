@@ -17,14 +17,4 @@
     <item name="android:textColor">@color/black</item>
   </style>
 
-  <style name="Rating.ActionButton" parent="@style/CancelBorderlessButtonStyle">
-    <item name="android:layout_width">wrap_content</item>
-    <item name="android:layout_height">@dimen/button_height</item>
-    <item name="android:layout_gravity">center_vertical</item>
-    <item name="android:maxWidth">150dp</item>
-    <item name="android:minWidth">80dp</item>
-    <item name="android:textColor">@color/dialog_buy_value_text</item>
-    <item name="android:textSize">14sp</item>
-  </style>
-
 </resources>

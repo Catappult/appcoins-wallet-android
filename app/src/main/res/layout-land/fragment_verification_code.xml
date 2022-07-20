@@ -13,9 +13,9 @@
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:indeterminateDrawable="@drawable/gradient_progress"
-      app:layout_constraintHorizontal_bias="0.75"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintHorizontal_bias="0.75"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent"
       />
@@ -125,13 +125,15 @@
           tools:text="%1$s will be refunded within %2$s hour after you confirm the code."
           />
 
-      <Button
+      <com.asfoundation.wallet.ui.common.WalletButtonView
           android:id="@+id/change_card_button"
-          style="@style/VerifyWallet.ChangeCard.Button"
           android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:layout_marginTop="20dp"
-          android:text="@string/card_verification_code_other_card_button"
+          android:layout_height="@dimen/small_button_height"
+          android:layout_gravity="end"
+          android:layout_marginTop="26dp"
+          app:buttonIsAllCaps="true"
+          app:buttonText="@string/card_verification_code_other_card_button"
+          app:buttonType="text"
           app:layout_constraintStart_toStartOf="@+id/code"
           app:layout_constraintTop_toBottomOf="@+id/code_disclaimer"
           />
@@ -150,32 +152,34 @@
           app:layout_constraintVertical_bias="1"
           />
 
-      <Button
+      <com.asfoundation.wallet.ui.common.WalletButtonView
           android:id="@+id/confirm"
-          style="@style/VerifyWallet.Submit.Button"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
+          android:layout_width="0dp"
+          android:layout_height="@dimen/small_button_height"
+          android:layout_alignParentBottom="true"
+          android:layout_gravity="center_vertical"
           android:layout_marginEnd="24dp"
+          android:layout_marginBottom="18dp"
           android:enabled="false"
-          android:text="@string/confirm_button"
-          app:layout_constraintBaseline_toBaselineOf="@id/maybe_later"
+          app:buttonText="@string/confirm_button"
+          app:buttonType="filled"
           app:layout_constraintBottom_toBottomOf="parent"
           app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintVertical_bias="1"
           />
 
-      <com.google.android.material.button.MaterialButton
+      <com.asfoundation.wallet.ui.common.WalletButtonView
           android:id="@+id/maybe_later"
-          style="@style/VerifyWallet.Cancel.Button"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:layout_marginTop="56dp"
+          android:layout_width="0dp"
+          android:layout_height="@dimen/small_button_height"
+          android:layout_gravity="center_vertical"
           android:layout_marginEnd="@dimen/normal_margin"
-          android:layout_marginBottom="22dp"
-          android:text="@string/backup_tooltip_later_button"
+          android:layout_marginBottom="18dp"
+          android:enabled="false"
+          app:buttonText="@string/backup_tooltip_later_button"
+          app:buttonType="outlined"
           app:layout_constraintBottom_toBottomOf="parent"
           app:layout_constraintEnd_toStartOf="@id/confirm"
-          app:layout_constraintHorizontal_bias="1"
-          app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintVertical_bias="0"
           />
 
@@ -186,6 +190,7 @@
           android:orientation="vertical"
           app:layout_constraintGuide_percent="0.5"
           />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
   </ScrollView>

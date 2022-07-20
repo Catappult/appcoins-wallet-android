@@ -131,36 +131,31 @@
 
   </LinearLayout>
 
-  <Button
-      android:id="@+id/cancel_button"
-      style="@style/CancelBorderlessButtonStyle"
-      android:layout_width="wrap_content"
-      android:layout_height="@dimen/button_height"
-      android:layout_marginEnd="8dp"
-      android:maxWidth="126dp"
-      android:minWidth="80dp"
-      android:text="@string/cancel"
-      android:textSize="12sp"
-      app:layout_constraintBottom_toBottomOf="@+id/submit_button"
-      app:layout_constraintEnd_toStartOf="@id/submit_button"
-      app:layout_constraintTop_toTopOf="@+id/submit_button"
-      />
-
-  <Button
+  <com.asfoundation.wallet.ui.common.WalletButtonView
       android:id="@+id/submit_button"
-      style="@style/ButtonStyle.Alternative"
       android:layout_width="wrap_content"
-      android:layout_height="@dimen/button_height"
-      android:layout_marginTop="15dp"
+      android:layout_height="@dimen/small_button_height"
+      android:layout_gravity="center_vertical"
+      android:layout_marginTop="36dp"
       android:layout_marginEnd="@dimen/big_margin"
-      android:maxWidth="126dp"
-      android:minWidth="80dp"
-      android:text="@string/submit_button"
-      android:textColor="@color/white"
-      android:textSize="14sp"
+      app:buttonText="@string/submit_button"
+      app:buttonType="filled"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintTop_toBottomOf="@+id/disclaimer_layout"
+      />
+
+  <com.asfoundation.wallet.ui.common.WalletButtonView
+      android:id="@+id/cancel_button"
+      android:layout_width="wrap_content"
+      android:layout_height="@dimen/small_button_height"
+      android:layout_gravity="center_vertical"
+      android:layout_marginEnd="16dp"
+      app:buttonText="@string/cancel"
+      app:buttonType="outlined"
+      app:layout_constraintBottom_toBottomOf="@+id/submit_button"
+      app:layout_constraintEnd_toStartOf="@id/submit_button"
+      app:layout_constraintTop_toTopOf="@+id/submit_button"
       />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

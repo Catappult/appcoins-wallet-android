@@ -20,10 +20,11 @@
       />
 
   <com.airbnb.lottie.LottieAnimationView
-      android:layout_marginTop="16dp"
       android:id="@+id/error_animation"
       android:layout_width="wrap_content"
       android:layout_height="96dp"
+      android:layout_marginTop="16dp"
+      android:visibility="gone"
       app:layout_constraintBottom_toTopOf="@id/done_mensage"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
@@ -31,7 +32,6 @@
       app:lottie_autoPlay="true"
       app:lottie_enableMergePathsForKitKatAndAbove="true"
       app:lottie_rawRes="@raw/adyen_error_animation"
-      android:visibility="gone"
       />
 
   <TextView
@@ -42,25 +42,25 @@
       android:layout_marginHorizontal="16dp"
       android:layout_marginTop="13dp"
       android:layout_marginBottom="16dp"
-      android:textAlignment="center"
       android:ellipsize="end"
       android:maxLines="3"
-      app:layout_constraintTop_toBottomOf="@id/success_animation"
+      android:text="@string/nfts_transact_tip"
+      android:textAlignment="center"
+      app:layout_constraintBottom_toTopOf="@id/done_button"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintBottom_toTopOf="@id/done_button"
-      android:text="@string/nfts_transact_tip"
+      app:layout_constraintTop_toBottomOf="@id/success_animation"
       />
 
-  <android.widget.Button
+  <com.asfoundation.wallet.ui.common.WalletButtonView
       android:id="@+id/done_button"
-      style="@style/ButtonStyle"
       android:layout_width="match_parent"
-      android:layout_height="40dp"
+      android:layout_height="@dimen/large_button_height"
       android:layout_gravity="center_horizontal"
-      android:layout_marginBottom="27dp"
       android:layout_marginHorizontal="16dp"
-      android:text="@string/nfts_transact_button_done"
+      android:layout_marginBottom="27dp"
+      app:buttonText="@string/nfts_transact_button_done"
+      app:buttonType="filled"
       app:layout_constraintBottom_toBottomOf="parent"
       />
 

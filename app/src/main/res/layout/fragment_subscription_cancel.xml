@@ -91,38 +91,31 @@
       tools:visibility="visible"
       />
 
-  <Button
+  <com.asfoundation.wallet.ui.common.WalletButtonView
       android:id="@+id/back_button"
-      style="@style/ButtonStyle.Light"
       android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:layout_gravity="center"
+      android:layout_height="@dimen/large_button_height"
+      android:layout_alignParentBottom="true"
       android:layout_marginStart="@dimen/big_margin"
       android:layout_marginEnd="@dimen/big_margin"
       android:layout_marginBottom="8dp"
-      android:clickable="true"
-      android:focusable="true"
-      android:minWidth="64dp"
-      android:minHeight="36dp"
-      android:text="@string/subscriptions_cancel_no_button"
+      app:buttonText="@string/subscriptions_cancel_no_button"
+      app:buttonType="filled"
       app:layout_constraintBottom_toTopOf="@id/cancel_subscription"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       />
 
-  <Button
+  <com.asfoundation.wallet.ui.common.WalletButtonView
       android:id="@+id/cancel_subscription"
-      style="@style/ButtonStyle.Light"
       android:layout_width="match_parent"
-      android:layout_height="35dp"
-      android:layout_gravity="center_vertical"
+      android:layout_height="@dimen/large_button_height"
+      android:layout_alignParentBottom="true"
       android:layout_marginStart="@dimen/big_margin"
       android:layout_marginEnd="@dimen/big_margin"
       android:layout_marginBottom="24dp"
-      android:maxWidth="126dp"
-      android:minWidth="80dp"
-      android:text="@string/subscriptions_cancel_yes_button"
-      android:textSize="14sp"
+      app:buttonText="@string/subscriptions_cancel_yes_button"
+      app:buttonType="outlined"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
       />

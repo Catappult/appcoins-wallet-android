@@ -35,21 +35,23 @@
         app:layout_constraintTop_toBottomOf="@id/generic_error_layout"
         />
 
-    <Button
+    <com.asfoundation.wallet.ui.common.WalletButtonView
         android:id="@+id/error_dismiss"
-        style="@style/ButtonStyle.Alternative"
-        android:layout_width="96dp"
-        android:layout_height="@dimen/button_height"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/small_button_height"
+        android:layout_gravity="center_vertical"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="8dp"
-        android:text="@string/button_ok"
+        app:buttonText="@string/button_ok"
+        app:buttonType="filled"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/separator"
         />
 
   </androidx.constraintlayout.widget.ConstraintLayout>
+
 </androidx.cardview.widget.CardView>
 
   
