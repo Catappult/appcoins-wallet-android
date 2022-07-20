@@ -393,6 +393,18 @@
     <item name="android:fontFamily">sans-serif</item>
   </style>
 
+  <style name="TextAppearance.AppCompat.Body1.Roboto.Bold.Title" parent="TextAppearance.AppCompat.Body1">
+    <item name="android:textSize">18sp</item>
+    <item name="android:textColor">#001726</item>
+    <item name="android:fontFamily">@font/roboto_bolt</item>
+  </style>
+
+  <style name="TextAppearance.AppCompat.Body1.Roboto.Bold.Message" parent="TextAppearance.AppCompat.Body1">
+    <item name="android:textSize">14sp</item>
+    <item name="android:textColor">#001726</item>
+    <item name="android:fontFamily">@font/roboto_bolt</item>
+  </style>
+
   <style name="TextAppearance.AppCompat.Body1.Roboto.Regular.Transparency">
     <item name="android:textColor">#ccffffff</item>
   </style>

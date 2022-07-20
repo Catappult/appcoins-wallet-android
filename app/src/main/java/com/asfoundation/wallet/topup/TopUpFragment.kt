@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.view.ViewTreeObserver
 import android.view.animation.AccelerateDecelerateInterpolator
 import android.view.animation.Animation
+import android.view.animation.AnimationUtils
 import android.view.animation.RotateAnimation
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
@@ -491,6 +492,15 @@ class TopUpFragment : BasePageViewFragment(), TopUpFragmentView {
     retry_button.visibility = View.GONE
     retry_animation.visibility = View.GONE
     top_up_container.visibility = View.VISIBLE
+  }
+
+  override fun showGenericError() {
+    hideKeyboard()
+    retry_animation.visibility = View.GONE
+    top_up_container.visibility = View.GONE
+    rv_default_values.visibility = View.GONE
+    error_topup.startAnimation(AnimationUtils.loadAnimation(context,R.anim.pop_in_animation))
+    error_topup.visibility = View.VISIBLE
   }
 
   private fun hideKeyboard() {

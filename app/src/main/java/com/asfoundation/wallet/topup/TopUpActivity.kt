@@ -64,7 +64,6 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, ToolbarManager, UriNavi
     const val WEB_VIEW_REQUEST_CODE = 1234
     const val BILLING_ADDRESS_REQUEST_CODE = 1236
     const val BILLING_ADDRESS_SUCCESS_CODE = 1000
-    const val ERROR_MESSAGE = "error_message"
     private const val TOP_UP_AMOUNT = "top_up_amount"
     private const val TOP_UP_CURRENCY = "currency"
     private const val TOP_UP_CURRENCY_SYMBOL = "currency_symbol"
