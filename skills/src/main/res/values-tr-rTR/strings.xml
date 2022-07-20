@@ -9,8 +9,8 @@
   <string name="refunded">Paranız iade edildi.</string>
   <string name="ok">Tamam</string>
   <string name="cancel">İptal et</string>
-  <string name="buy_button">Buy</string>
-  <string name="topup_button">Top Up</string>
+  <string name="buy_button">Satın Al</string>
+  <string name="topup_button">Yükle</string>
   <string name="connection_error_body">İnternete bağlı değilsiniz gibi görünüyor. Bağlantınızı kontrol edip tekrar deneyin!</string>
   <string name="playing_game_notification_title">Şu anda e-Skills\'le oynanıyor</string>
   <string name="playing_game_notification_body">Oyun bilgileri alınıyor…</string>
@@ -24,10 +24,10 @@
   <string name="e_skills_room_create_body">Yeni bir oda yaratın ve rakiplerinizle paylaşın ya da mevcut bir odaya katılın.</string>
   <string name="e_skills_room_field">Your room name here…</string>
   <string name="e_skills_payment_title">Payment with</string>
-  <string name="e_skills_payment_body">AppCoins Credits</string>
+  <string name="e_skills_payment_body">AppCoins Kredileri</string>
   <string name="copied_to_clipboard">Copied to the clipboard</string>
   <string name="processing_payment_title">Processing your payment</string>
-  <string name="purchase_error_title">Oops, something went wrong.</string>
+  <string name="purchase_error_title">Hay aksi, bir şeyler ters gitti.</string>
   <string name="purchase_eskills_sku">Giriş bileti</string>
   <string name="shared_room_waiting">Rakiplerin %s adlı odaya katılmaları bekleniyor</string>
 </resources>

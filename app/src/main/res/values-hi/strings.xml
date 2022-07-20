@@ -16,7 +16,7 @@
   <string name="error_field_required">यह क्षेत्र आवश्यक है</string>
   <string name="action_settings">सेटिंग्स</string>
   <string name="title_account_list">वॉलेट</string>
-  <string name="cancel">Cancel</string>
+  <string name="cancel">रद्द करें</string>
   <string name="confirm_delete_account">सुनिश्चित करें कि आपके पास इस वॉलेट का बैकअप है।</string>
   <string name="action_import">Recover</string>
   <string name="copy">क्लिपबोर्ड पर कॉपी करें</string>
@@ -131,7 +131,7 @@
   <string name="intro_agree_terms_and_conditions_body">छोड़ें पर टैप करते हुए, आप AppCoins Wallet के %1$s और %2$s से सहमत हैं</string>
   <string name="intro_skip_button">छोड़ें</string>
   <string name="intro_welcome_header">Welcome to the AppCoins Wallet</string>
-  <string name="intro_welcome_body">Your app for in-app purchases.</string>
+  <string name="intro_welcome_body">इन-एप्प खरीद के लिए आपकी एप्प।</string>
   <string name="intro_already_have_wallet_button">I already have a wallet</string>
   <string name="intro_get_started_button">Get started</string>
   <!-- Menus -->
@@ -446,7 +446,7 @@
   <string name="understood_button">Understood!</string>
   <string name="skip_button">Skip for now</string>
   <string name="understand_button">I understand</string>
-  <string name="install_button">Install</string>
+  <string name="install_button">स्थापित करें</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">मैं AppCoins Wallet के %1$s और %2$s से सहमत हूँ।</string>
   <string name="terms_and_conditions_error">जारी रखने के लिए कृपया हमारे नियम एवं शर्तों तथा गोपनीयता नीति को स्वीकार करें</string>
@@ -600,7 +600,7 @@
   <string name="referral_share_sheet_title">आमंत्रण लिंक साझा करें:</string>
   <string name="referral_view_unverified_body">प्रत्येक मित्र के लिए %s मूल्य के AppCoins Credits पाएँ। आपको पहले अपना वॉलेट सत्यापित करने की जरूरत है!</string>
   <string name="referral_view_verify_button">Verify wallet</string>
-  <string name="referral_view_i_have_been_invited_button">I\'ve been invited</string>
+  <string name="referral_view_i_have_been_invited_button">मुझे आमंत्रित किया गया है</string>
   <string name="referral_view_dropup_menu_friends_invited">मित्र आमंत्रित किये</string>
   <string name="referral_view_dropup_menu_earned">अर्जित किये</string>
   <string name="referral_dropup_menu_friends_title_1">मित्र आमंत्रित किये</string>
@@ -675,7 +675,7 @@
   <string name="backup_additional_security_password_not_march">The passwords don\'t match.</string>
   <string name="import_wallet_recovering_body">Recovering wallet...</string>
   <string name="backup_skip_title">I understand that I may loose my funds if I don\'t backup my wallet key.</string>
-  <string name="backup_wallet_button">Backup wallet</string>
+  <string name="backup_wallet_button">वॉलेट का बैकअप लें</string>
   <string name="backup_success_save_on_email">Your backup file is in your email.</string>
   <string name="backup_success_save_on_device">Your backup file is stored in your device.</string>
   <string name="backup_popup_title">Back up your wallet now!</string>
@@ -697,7 +697,7 @@
   <string name="wallets_2nd_view_import_button">Recover wallet</string>
   <string name="wallets_2nd_view_create_button">Create new</string>
   <string name="wallet_view_copy_button">Copy</string>
-  <string name="wallet_view_share_button">Share</string>
+  <string name="wallet_view_share_button">साझा करें</string>
   <string name="wallet_view_total_balance_title">कुल बैलेंस</string>
   <string name="wallet_view_remove_button">Remove wallet</string>
   <string name="wallet_view_backup_button">Back up wallet</string>
@@ -722,7 +722,7 @@
   <string name="transfer_send_token_title">टोकन:</string>
   <string name="transfer_send_amount_title">राशि</string>
   <string name="transfer_send_current_balance_title">वर्तमान बैलेंस:</string>
-  <string name="transfer_send_button">Send</string>
+  <string name="transfer_send_button">भेजें</string>
   <string name="transfer_receive_body">फंड पाने के लिए अपना वॉलेट पता साझा करें।</string>
   <!--Support Notifications-->
   <string name="support_new_message_title">आपको एक नया संदेश मिला है!</string>
@@ -759,7 +759,7 @@
   <string name="subscriptions_expiration_body">It expires on %s</string>
   <string name="subscriptions_canceled_body">Canceled</string>
   <string name="subscriptions_details_disclaimer">The value in AppCoins may vary for next payment due to exchange rate.</string>
-  <string name="subscriptions_details_button">Details</string>
+  <string name="subscriptions_details_button">विवरण</string>
   <string name="subscriptions_manage_button">Manage subscription</string>
   <string name="subscriptions_cancel_button">Cancel subscription</string>
   <string name="subscriptions_renew_subscription_button">Renew subscription</string>
@@ -794,6 +794,7 @@
   <string name="gamif_card_start">You\'re still on Earth</string>
   <string name="gamif_card_title">You\'re on %s</string>
   <string name="gamif_card_body">Spend %s AppCoins more to reach the next level.</string>
+  <string name="gamif_card_maximum_body">Spend %s AppCoins more to reach the maximum level.</string>
   <string name="gamif_bonus">%s%% Bonus</string>
   <string name="gamif_placeholder_earth">Earth</string>
   <string name="gamif_quote_earth">\"The Earth is what we all have in common\" – Wendell Berry</string>
@@ -841,7 +842,7 @@
   <string name="carrier_billing_enter_pin_body">Please enter the PIN received via SMS.</string>
   <string name="carrier_billing_code_field">Your code...</string>
   <string name="carrier_billing_code_resend_button">Resend code</string>
-  <string name="carrier_billing_submit_button">Submit</string>
+  <string name="carrier_billing_submit_button">जमा करें</string>
   <string name="carrier_billing_number_not_supported">It seems your number isn\'t compatible with this payment method.</string>
   <string name="carrier_billing_terms_disclaimer">By tapping on Submit, you confirm you accept the Terms and Conditions and the Privacy Policy.</string>
   <string name="carrier_billing_help_1">मदद चाहिए?</string>
@@ -1039,9 +1040,9 @@
   <string name="nfts_title">NFTs</string>
   <string name="nfts_no_nfts">You don\'t have any NFTs in this wallet yet!</string>
   <string name="nfts_transact_button">Send this NFT</string>
-  <string name="nfts_transact_button_send">Send</string>
-  <string name="nfts_transact_button_next">Next</string>
-  <string name="nfts_transact_button_done">Done</string>
+  <string name="nfts_transact_button_send">भेजें</string>
+  <string name="nfts_transact_button_next">आगे</string>
+  <string name="nfts_transact_button_done">पूर्ण</string>
   <string name="nfts_transact_button_success">Got it</string>
   <string name="nfts_transact_tip">Enter your friend\'s wallet address</string>
   <string name="nfts_transact_input_tip">Wallet address here...</string>
@@ -1049,8 +1050,8 @@
   <string name="nfts_generic_error">Oops! Something went wrong!</string>
   <string name="nfts_transact_gas_title">Are you in a hurry?</string>
   <string name="nfts_transact_gas_description">Choose how much you want to pay in fees. The higher the fee, the faster the transaction.</string>
-  <string name="nfts_transact_gas_price">Gas Price</string>
-  <string name="nfts_transact_gas_limit">Gas Limit</string>
+  <string name="nfts_transact_gas_price">गैस मूल्य</string>
+  <string name="nfts_transact_gas_limit">गैस सीमा</string>
   <string name="nfts_transact_gas_fee_message">Transaction Fee</string>
   <string name="nfts_transact_error_no_funds">Not enough funds! You don\'t have enough ETH to pay for the fees.</string>
   <string name="nfts_transact_error_low_gas">Gas is too low! Increase your gas for the network to accept your transaction.</string>
@@ -1082,4 +1083,31 @@
   <string name="onboarding_1st_body">Go back to the game to complete your purchase.</string>
   <string name="onboarding_1st_back_to_game_button">Go back to the game</string>
   <string name="onboarding_1st_explore_wallet_button">Or explore the Wallet</string>
+  <!-- VIP Program -->
+  <string name="vip_program_reached_notification_title">Welcome to the VIP Program</string>
+  <string name="vip_program_reached_notification_body">You\'re now a VIP user with access to special promotions and deals. Tap for more details!</string>
+  <string name="vip_program_almost_notification_title">Almost there!</string>
+  <string name="vip_program_almost_notification_body">You\'re about to become a VIP user. Tap for more details!</string>
+  <string name="vip_program_almost_onboarding_title">You\'re about to become a VIP user!</string>
+  <string name="vip_program_almost_onboarding_body">Continue playing and making purchases to access exclusive promotions and deals. Ready to become the ultimate player?</string>
+  <string name="vip_program_onboarding_header_1">Congratulations!</string>
+  <string name="vip_program_onboarding_header_2">You\'re now a VIP user</string>
+  <string name="vip_program_onboarding_body">Our VIP Program is tailored for our most valued members... like yourself! You have now access to the best promotions and referral programs to earn more rewards.</string>
+  <string name="vip_program_promotions_tab_1">You\'re now a VIP user.</string>
+  <string name="vip_program_promotions_tab_2">Check the promotions we have have just for you!</string>
+  <string name="vip_program_exclusivity_tag">Only for VIP</string>
+  <string name="vip_program_referral_button_title">VIP Referral Program</string>
+  <string name="vip_program_referral_button_body">%s%% Bonus for you and your friends.</string>
+  <string name="vip_program_promotions_list_title">Special promotions for you</string>
+  <string name="vip_program_promo_code_tag">Promo code</string>
+  <string name="vip_program_referral_page_title">VIP Referral Program</string>
+  <string name="vip_program_referral_page_body">Share this promo code with your community and friends for everyone to earn while playing. For every in-app purchase they make, both <b>you and your friends will receive %s%% bonus</b> on top of other active promotions and for an entire month!</string>
+  <string name="vip_program_referral_page_share_title">Share this code with your friends</string>
+  <string name="vip_program_referral_page_earned_body">%1$s%2$s earned from %3$s referrals</string>
+  <string name="vip_program_gamification_title">What\'s my bonus level?</string>
+  <string name="vip_program_gamification_amount_purchases_bonus">Bonus received from your purchases.</string>
+  <string name="vip_program_gamification_amoung_referral_bonus">Bonus received from referrals</string>
+  <string name="vip_program_max_bonus_title">Enjoy your %s%% Bonus on every purchase</string>
+  <string name="vip_program_max_bonus_body">You\'ve reached the limits of the solar system.</string>
+  <string name="vip_program_max_bonus_short">%s%% Bonus on every purchase.</string>
 </resources>

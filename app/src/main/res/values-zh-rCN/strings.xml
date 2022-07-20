@@ -16,7 +16,7 @@
   <string name="error_field_required">此字段必填</string>
   <string name="action_settings">设置</string>
   <string name="title_account_list">钱包</string>
-  <string name="cancel">Cancel</string>
+  <string name="cancel">取消</string>
   <string name="confirm_delete_account">请一定要保留此钱包的备份。</string>
   <string name="action_import">恢复</string>
   <string name="copy">复制到剪贴板</string>
@@ -26,7 +26,7 @@
   <string name="network_label">网络</string>
   <string name="credits">制作组</string>
   <string name="label_new">新</string>
-  <string name="got_it_button">Got it</string>
+  <string name="got_it_button">明白了</string>
   <string name="change_button">Change</string>
   <string name="vip">VIP</string>
   <string name="low_storage_error">存储空间不足</string>
@@ -361,7 +361,7 @@
   <string name="provide_wallet_allow_once_button">允许一次</string>
   <string name="provide_wallet_completed_header">钱包已关联到Aptoide！</string>
   <string name="provide_wallet_create_body">你需要一个钱包地址！请按照以下步骤在AppCoins Wallet中创建一个钱包地址。</string>
-  <string name="provide_wallet_create_wallet_button">Create</string>
+  <string name="provide_wallet_create_wallet_button">创建</string>
   <string name="provide_wallet_creating_wallet_header">正在创建钱包地址&#8230;</string>
   <string name="provide_wallet_created_header">钱包地址已创建！</string>
   <string name="provide_wallet_empty_state">你还没有允许AppCoins Wallet向任何其他应用提供你的地址。</string>
@@ -600,7 +600,7 @@
   <string name="referral_share_sheet_title">分享链接到：</string>
   <string name="referral_view_unverified_body">Receive %s worth of AppCoins Credits for each friend. Your first need to verify your wallet.</string>
   <string name="referral_view_verify_button">Verify wallet</string>
-  <string name="referral_view_i_have_been_invited_button">I\'ve been invited</string>
+  <string name="referral_view_i_have_been_invited_button">我已被邀请</string>
   <string name="referral_view_dropup_menu_friends_invited">已邀请好友</string>
   <string name="referral_view_dropup_menu_earned">已获取</string>
   <string name="referral_dropup_menu_friends_title_1">已邀请好友</string>
@@ -646,7 +646,7 @@
   <string name="import_wallet_keystore_private_keys">密钥库或私钥</string>
   <string name="import_wallet_from_file_title">或者从文件恢复</string>
   <string name="import_wallet_file_button">Recover from file</string>
-  <string name="import_wallet_button">Recover wallet</string>
+  <string name="import_wallet_button">恢复钱包</string>
   <string name="import_wallet_password_body">此钱包受密码保护！</string>
   <string name="import_wallet_wrong_password_body">糟糕，密码错误！</string>
   <string name="error_invalid_private_key">无效的私钥</string>
@@ -665,7 +665,7 @@
   <string name="backup_confirmation_tips_2">将其<b>保存</b>在 USB 驱动器上。</string>
   <string name="backup_confirmation_tips_3">将其<b>复制</b>到安全的私有云存储中。</string>
   <string name="backup_tooltip_body">备份您的钱包！</string>
-  <string name="backup_tooltip_later_button">Maybe later</string>
+  <string name="backup_tooltip_later_button">以后再说</string>
   <string name="backup_tooltip_backup_button">Back up</string>
   <string name="backup_notification_title">备份您的钱包！</string>
   <string name="backup_notification_body">确保资金安全，确保您随时均可访问钱包。</string>
@@ -693,10 +693,10 @@
   <string name="wallets_imported_body">已成功恢复钱包</string>
   <string name="wallets_2nd_view_balance_title">余额：</string>
   <string name="wallets_2nd_view_other_wallets_title">其他钱包</string>
-  <string name="wallets_2nd_view_import_button">Recover wallet</string>
+  <string name="wallets_2nd_view_import_button">恢复钱包</string>
   <string name="wallets_2nd_view_create_button">Create new</string>
   <string name="wallet_view_copy_button">Copy</string>
-  <string name="wallet_view_share_button">Share</string>
+  <string name="wallet_view_share_button">分享</string>
   <string name="wallet_view_total_balance_title">总余额</string>
   <string name="wallet_view_remove_button">Remove wallet</string>
   <string name="wallet_view_backup_button">Back up wallet</string>
@@ -721,7 +721,7 @@
   <string name="transfer_send_token_title">代币：</string>
   <string name="transfer_send_amount_title">金额</string>
   <string name="transfer_send_current_balance_title">当前余额：</string>
-  <string name="transfer_send_button">Send</string>
+  <string name="transfer_send_button">发送</string>
   <string name="transfer_receive_body">分享你的钱包地址以收款。</string>
   <!--Support Notifications-->
   <string name="support_new_message_title">您有新消息！</string>
@@ -758,7 +758,7 @@
   <string name="subscriptions_expiration_body">到期日期%s</string>
   <string name="subscriptions_canceled_body">已取消</string>
   <string name="subscriptions_details_disclaimer">AppCoins下次付款的价值可能因汇率而有所不同。</string>
-  <string name="subscriptions_details_button">Details</string>
+  <string name="subscriptions_details_button">详情</string>
   <string name="subscriptions_manage_button">Manage subscription</string>
   <string name="subscriptions_cancel_button">Cancel subscription</string>
   <string name="subscriptions_renew_subscription_button">Renew subscription</string>
@@ -793,6 +793,7 @@
   <string name="gamif_card_start">您还在地球上</string>
   <string name="gamif_card_title">您目前在 %s</string>
   <string name="gamif_card_body">再花费 %s AppCoins 可达到下一级。</string>
+  <string name="gamif_card_maximum_body">Spend %s AppCoins more to reach the maximum level.</string>
   <string name="gamif_bonus">%s%% 奖金</string>
   <string name="gamif_placeholder_earth">地球</string>
   <string name="gamif_quote_earth">“地球是我们大家共有的家园”– Wendell Berry</string>
@@ -840,7 +841,7 @@
   <string name="carrier_billing_enter_pin_body">请输入通过短信收到的PIN码。</string>
   <string name="carrier_billing_code_field">您的代码...</string>
   <string name="carrier_billing_code_resend_button">Resend code</string>
-  <string name="carrier_billing_submit_button">Submit</string>
+  <string name="carrier_billing_submit_button">提交</string>
   <string name="carrier_billing_number_not_supported">您的号码似乎与此付款方式不兼容。</string>
   <string name="carrier_billing_terms_disclaimer">点击“提交”即表示，您确认接受条款与条件以及隐私政策。</string>
   <string name="carrier_billing_help_1">需要帮助？</string>
@@ -1061,16 +1062,43 @@
   <string name="mywallet_unverified_body">验证付款方式以避免收到阻拦。</string>
   <string name="mywallet_backed_up_date">你在%s上备份了钱包。</string>
   <string name="mywallet_backup_again_button">Back up again</string>
-  <string name="mywallet_verify_payment_method_button">Verify new card</string>
+  <string name="mywallet_verify_payment_method_button">验证新卡</string>
   <string name="mywallet_choose_name_header">为钱包选择名称</string>
   <string name="mywallet_choose_name_field">钱包名称在这里输入......</string>
   <string name="mywallet_choose_name_confirmed">钱包名称已更改</string>
   <string name="mywallet_unnamed_wallet">无名称钱包%s</string>
   <string name="mywallet_swithing_wallets_title">更换钱包...</string>
-  <string name="mywallet_address_title">Address:</string>
+  <string name="mywallet_address_title">地址:</string>
   <!-- Onboarding for new users coming from an iap -->
   <string name="onboarding_1st_title">恭喜！你已安装AppCoins钱包。</string>
   <string name="onboarding_1st_body">返回游戏以完成购买。</string>
   <string name="onboarding_1st_back_to_game_button">返回游戏</string>
   <string name="onboarding_1st_explore_wallet_button">Or explore the Wallet</string>
+  <!-- VIP Program -->
+  <string name="vip_program_reached_notification_title">Welcome to the VIP Program</string>
+  <string name="vip_program_reached_notification_body">You\'re now a VIP user with access to special promotions and deals. Tap for more details!</string>
+  <string name="vip_program_almost_notification_title">Almost there!</string>
+  <string name="vip_program_almost_notification_body">You\'re about to become a VIP user. Tap for more details!</string>
+  <string name="vip_program_almost_onboarding_title">You\'re about to become a VIP user!</string>
+  <string name="vip_program_almost_onboarding_body">Continue playing and making purchases to access exclusive promotions and deals. Ready to become the ultimate player?</string>
+  <string name="vip_program_onboarding_header_1">Congratulations!</string>
+  <string name="vip_program_onboarding_header_2">You\'re now a VIP user</string>
+  <string name="vip_program_onboarding_body">Our VIP Program is tailored for our most valued members... like yourself! You have now access to the best promotions and referral programs to earn more rewards.</string>
+  <string name="vip_program_promotions_tab_1">You\'re now a VIP user.</string>
+  <string name="vip_program_promotions_tab_2">Check the promotions we have have just for you!</string>
+  <string name="vip_program_exclusivity_tag">Only for VIP</string>
+  <string name="vip_program_referral_button_title">VIP Referral Program</string>
+  <string name="vip_program_referral_button_body">%s%% Bonus for you and your friends.</string>
+  <string name="vip_program_promotions_list_title">Special promotions for you</string>
+  <string name="vip_program_promo_code_tag">Promo code</string>
+  <string name="vip_program_referral_page_title">VIP Referral Program</string>
+  <string name="vip_program_referral_page_body">Share this promo code with your community and friends for everyone to earn while playing. For every in-app purchase they make, both <b>you and your friends will receive %s%% bonus</b> on top of other active promotions and for an entire month!</string>
+  <string name="vip_program_referral_page_share_title">Share this code with your friends</string>
+  <string name="vip_program_referral_page_earned_body">%1$s%2$s earned from %3$s referrals</string>
+  <string name="vip_program_gamification_title">What\'s my bonus level?</string>
+  <string name="vip_program_gamification_amount_purchases_bonus">Bonus received from your purchases.</string>
+  <string name="vip_program_gamification_amoung_referral_bonus">Bonus received from referrals</string>
+  <string name="vip_program_max_bonus_title">Enjoy your %s%% Bonus on every purchase</string>
+  <string name="vip_program_max_bonus_body">You\'ve reached the limits of the solar system.</string>
+  <string name="vip_program_max_bonus_short">%s%% Bonus on every purchase.</string>
 </resources>
