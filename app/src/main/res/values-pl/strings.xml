@@ -16,7 +16,7 @@
   <string name="error_field_required">To pole jest wymagane</string>
   <string name="action_settings">Ustawienia</string>
   <string name="title_account_list">Portfele</string>
-  <string name="cancel">Cancel</string>
+  <string name="cancel">Anuluj</string>
   <string name="confirm_delete_account">Upewnij się, że masz kopię zapasową tego portfela.</string>
   <string name="action_import">Odzyskaj</string>
   <string name="copy">Kopiuj do schowka</string>
@@ -26,7 +26,7 @@
   <string name="network_label">Sieć</string>
   <string name="credits">Kredyty</string>
   <string name="label_new">Nowość</string>
-  <string name="got_it_button">Got it</string>
+  <string name="got_it_button">Rozumiem</string>
   <string name="change_button">Change</string>
   <string name="vip">VIP</string>
   <string name="low_storage_error">Nie ma wystarczająco dużo miejsca</string>
@@ -361,7 +361,7 @@
   <string name="provide_wallet_allow_once_button">Zezwól raz</string>
   <string name="provide_wallet_completed_header">Portfel powiązany z Aptoide!</string>
   <string name="provide_wallet_create_body">Potrzebujesz adresu portfela! Wykonaj następujące kroki, by utworzyć portfel AppCoins.</string>
-  <string name="provide_wallet_create_wallet_button">Create</string>
+  <string name="provide_wallet_create_wallet_button">Stwórz</string>
   <string name="provide_wallet_creating_wallet_header">Tworzenie adresu portfela&#8230;</string>
   <string name="provide_wallet_created_header">Adres portfela stworzony!</string>
   <string name="provide_wallet_empty_state">Dotąd nie zezwoliłeś/łaś portfelowi AppCoins aby udostępnił Twój adres jakiejkolwiek innej aplikacji.</string>
@@ -600,7 +600,7 @@
   <string name="referral_share_sheet_title">Udostępnij link przez:</string>
   <string name="referral_view_unverified_body">Otrzymaj %s AppCoins Credits dla każdego znajomego. Najpierw zweryfikuj swój portfel.</string>
   <string name="referral_view_verify_button">Verify wallet</string>
-  <string name="referral_view_i_have_been_invited_button">I\'ve been invited</string>
+  <string name="referral_view_i_have_been_invited_button">Zostałem zaproszony</string>
   <string name="referral_view_dropup_menu_friends_invited">Zaproszonych Znajomych</string>
   <string name="referral_view_dropup_menu_earned">Zarobione</string>
   <string name="referral_dropup_menu_friends_title_1">Zaproszonych Znajomych</string>
@@ -646,7 +646,7 @@
   <string name="import_wallet_keystore_private_keys">Prywatne klucze lub keystore</string>
   <string name="import_wallet_from_file_title">Lub odzyskaj z pliku</string>
   <string name="import_wallet_file_button">Recover from file</string>
-  <string name="import_wallet_button">Recover wallet</string>
+  <string name="import_wallet_button">Odzyskaj portfel</string>
   <string name="import_wallet_password_body">Ten portfel jest chroniony hasłem!</string>
   <string name="import_wallet_wrong_password_body">Oj, niepoprawne hasło!</string>
   <string name="error_invalid_private_key">Niewłaściwy klucz</string>
@@ -665,7 +665,7 @@
   <string name="backup_confirmation_tips_2"><b>Zapisz go</b> na pendrivie.</string>
   <string name="backup_confirmation_tips_3"><b>Umieść kopię</b> w bezpiecznej prywatnej chmurze.</string>
   <string name="backup_tooltip_body">Stwórz backup portfela!</string>
-  <string name="backup_tooltip_later_button">Maybe later</string>
+  <string name="backup_tooltip_later_button">Może później</string>
   <string name="backup_tooltip_backup_button">Back up</string>
   <string name="backup_notification_title">Stwórz backup portfela!</string>
   <string name="backup_notification_body">Dbaj o bezpieczeństwo swoich środków i upewnij się, że masz dostęp do portfela.</string>
@@ -696,10 +696,10 @@
   <string name="wallets_imported_body">Portfel odzyskany pomyślnie</string>
   <string name="wallets_2nd_view_balance_title">Stan konta:</string>
   <string name="wallets_2nd_view_other_wallets_title">Inne portfele</string>
-  <string name="wallets_2nd_view_import_button">Recover wallet</string>
+  <string name="wallets_2nd_view_import_button">Odzyskaj portfel</string>
   <string name="wallets_2nd_view_create_button">Create new</string>
   <string name="wallet_view_copy_button">Copy</string>
-  <string name="wallet_view_share_button">Share</string>
+  <string name="wallet_view_share_button">Udostępnij</string>
   <string name="wallet_view_total_balance_title">Łączne saldo</string>
   <string name="wallet_view_remove_button">Remove wallet</string>
   <string name="wallet_view_backup_button">Back up wallet</string>
@@ -724,7 +724,7 @@
   <string name="transfer_send_token_title">Token:</string>
   <string name="transfer_send_amount_title">Kwota</string>
   <string name="transfer_send_current_balance_title">Aktualne saldo:</string>
-  <string name="transfer_send_button">Send</string>
+  <string name="transfer_send_button">Wyślij</string>
   <string name="transfer_receive_body">Udostępnij adres portfela aby otrzymywać środki.</string>
   <!--Support Notifications-->
   <string name="support_new_message_title">Masz nową wiadomość!</string>
@@ -761,7 +761,7 @@
   <string name="subscriptions_expiration_body">Wygasa %s</string>
   <string name="subscriptions_canceled_body">Anulowano</string>
   <string name="subscriptions_details_disclaimer">Wartość w AppCoins różnić się od poprzedniej ze względu na kurs walut.</string>
-  <string name="subscriptions_details_button">Details</string>
+  <string name="subscriptions_details_button">Szczegóły</string>
   <string name="subscriptions_manage_button">Manage subscription</string>
   <string name="subscriptions_cancel_button">Cancel subscription</string>
   <string name="subscriptions_renew_subscription_button">Renew subscription</string>
@@ -796,6 +796,7 @@
   <string name="gamif_card_start">Wciąż jesteś na Ziemi</string>
   <string name="gamif_card_title">Jesteś na %s</string>
   <string name="gamif_card_body">Wydaj jeszcze %s AppCoins, by przejść wyżej.</string>
+  <string name="gamif_card_maximum_body">Spend %s AppCoins more to reach the maximum level.</string>
   <string name="gamif_bonus">%s%% Bonusu</string>
   <string name="gamif_placeholder_earth">Ziemia</string>
   <string name="gamif_quote_earth">\"Łączy nas Ziemia\" – Wendell Berry</string>
@@ -843,7 +844,7 @@
   <string name="carrier_billing_enter_pin_body">Wpisz PIN otrzymany w wiadomości SMS.</string>
   <string name="carrier_billing_code_field">Twój kod...</string>
   <string name="carrier_billing_code_resend_button">Resend code</string>
-  <string name="carrier_billing_submit_button">Submit</string>
+  <string name="carrier_billing_submit_button">Wyślij</string>
   <string name="carrier_billing_number_not_supported">Hm, twój numer telefonu nie jest kompatybilny z metodą płatności.</string>
   <string name="carrier_billing_terms_disclaimer">Klikając Wyślij potwierdzasz, że akceptujesz Warunki korzystania z usługi i Politykę Prywatności.</string>
   <string name="carrier_billing_help_1">Potrzebujesz pomocy?</string>
@@ -982,7 +983,7 @@
   <string name="voucher_buy_header">Voucher na %s</string>
   <string name="voucher_buy_short_header">Voucher:</string>
   <string name="voucher_buy_no_game_title">Nie masz %s?</string>
-  <string name="voucher_buy_no_game_install_button">Download now</string>
+  <string name="voucher_buy_no_game_install_button">Pobierz teraz</string>
   <string name="voucher_code_title">Kod vouchera</string>
   <string name="voucher_instructions_body">Wejdź na %s i użyj kodu, by zrealizować voucher.</string>
   <string name="voucher_instructions_transactions">Kod vouchera znajdziesz w historii transakcji.</string>
@@ -1088,16 +1089,43 @@
   <string name="mywallet_unverified_body">Sprawdź metodę płatności, aby uniknąć blokad.</string>
   <string name="mywallet_backed_up_date">Utworzono kopię zapasową na %s.</string>
   <string name="mywallet_backup_again_button">Back up again</string>
-  <string name="mywallet_verify_payment_method_button">Verify new card</string>
+  <string name="mywallet_verify_payment_method_button">Zweryfikuj nową kartę</string>
   <string name="mywallet_choose_name_header">Nazwij kopię zapasową portfela</string>
   <string name="mywallet_choose_name_field">Nazwa portfela...</string>
   <string name="mywallet_choose_name_confirmed">Zmieniono nazwę</string>
   <string name="mywallet_unnamed_wallet">Portfel %s bez nazwy</string>
   <string name="mywallet_swithing_wallets_title">Zamiana portfeli...</string>
-  <string name="mywallet_address_title">Address:</string>
+  <string name="mywallet_address_title">Adres:</string>
   <!-- Onboarding for new users coming from an iap -->
   <string name="onboarding_1st_title">Gratulacje! Zainstalowałeś portfel AppCoins.</string>
   <string name="onboarding_1st_body">Wróć do gry, by zakończyć zakup.</string>
   <string name="onboarding_1st_back_to_game_button">Wróć do gry</string>
   <string name="onboarding_1st_explore_wallet_button">Or explore the Wallet</string>
+  <!-- VIP Program -->
+  <string name="vip_program_reached_notification_title">Welcome to the VIP Program</string>
+  <string name="vip_program_reached_notification_body">You\'re now a VIP user with access to special promotions and deals. Tap for more details!</string>
+  <string name="vip_program_almost_notification_title">Almost there!</string>
+  <string name="vip_program_almost_notification_body">You\'re about to become a VIP user. Tap for more details!</string>
+  <string name="vip_program_almost_onboarding_title">You\'re about to become a VIP user!</string>
+  <string name="vip_program_almost_onboarding_body">Continue playing and making purchases to access exclusive promotions and deals. Ready to become the ultimate player?</string>
+  <string name="vip_program_onboarding_header_1">Congratulations!</string>
+  <string name="vip_program_onboarding_header_2">You\'re now a VIP user</string>
+  <string name="vip_program_onboarding_body">Our VIP Program is tailored for our most valued members... like yourself! You have now access to the best promotions and referral programs to earn more rewards.</string>
+  <string name="vip_program_promotions_tab_1">You\'re now a VIP user.</string>
+  <string name="vip_program_promotions_tab_2">Check the promotions we have have just for you!</string>
+  <string name="vip_program_exclusivity_tag">Only for VIP</string>
+  <string name="vip_program_referral_button_title">VIP Referral Program</string>
+  <string name="vip_program_referral_button_body">%s%% Bonus for you and your friends.</string>
+  <string name="vip_program_promotions_list_title">Special promotions for you</string>
+  <string name="vip_program_promo_code_tag">Promo code</string>
+  <string name="vip_program_referral_page_title">VIP Referral Program</string>
+  <string name="vip_program_referral_page_body">Share this promo code with your community and friends for everyone to earn while playing. For every in-app purchase they make, both <b>you and your friends will receive %s%% bonus</b> on top of other active promotions and for an entire month!</string>
+  <string name="vip_program_referral_page_share_title">Share this code with your friends</string>
+  <string name="vip_program_referral_page_earned_body">%1$s%2$s earned from %3$s referrals</string>
+  <string name="vip_program_gamification_title">What\'s my bonus level?</string>
+  <string name="vip_program_gamification_amount_purchases_bonus">Bonus received from your purchases.</string>
+  <string name="vip_program_gamification_amoung_referral_bonus">Bonus received from referrals</string>
+  <string name="vip_program_max_bonus_title">Enjoy your %s%% Bonus on every purchase</string>
+  <string name="vip_program_max_bonus_body">You\'ve reached the limits of the solar system.</string>
+  <string name="vip_program_max_bonus_short">%s%% Bonus on every purchase.</string>
 </resources>

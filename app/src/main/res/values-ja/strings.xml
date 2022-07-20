@@ -16,7 +16,7 @@
   <string name="error_field_required">このフィールドは必須です</string>
   <string name="action_settings">設定</string>
   <string name="title_account_list">ウォレット</string>
-  <string name="cancel">Cancel</string>
+  <string name="cancel">キャンセルする</string>
   <string name="confirm_delete_account">このウォレットのバックアップがあることを確認してください。</string>
   <string name="action_import">復元</string>
   <string name="copy">クリップボードにコピーする</string>
@@ -26,7 +26,7 @@
   <string name="network_label">ネットワーク</string>
   <string name="credits">クレジット</string>
   <string name="label_new">新しい</string>
-  <string name="got_it_button">Got it</string>
+  <string name="got_it_button">了解</string>
   <string name="change_button">Change</string>
   <string name="vip">VIP</string>
   <string name="low_storage_error">空き容量が不足しています</string>
@@ -362,7 +362,7 @@
   <string name="provide_wallet_allow_once_button">一度許可する</string>
   <string name="provide_wallet_completed_header">ウォレットがAptoideと結合しました！</string>
   <string name="provide_wallet_create_body">あなたはウォレットアドレスが必要です！ AppCoins ウォレットで作成するには、次の手順に従ってください。</string>
-  <string name="provide_wallet_create_wallet_button">Create</string>
+  <string name="provide_wallet_create_wallet_button">作成</string>
   <string name="provide_wallet_creating_wallet_header">ウォレットアドレスを作成中です&#8230;</string>
   <string name="provide_wallet_created_header">ウォレットアドレスが作成されました！</string>
   <string name="provide_wallet_empty_state">あなたはまだAppCoins ウォレットによりアドレスを他のアプリに提供することを許可していません。</string>
@@ -601,7 +601,7 @@
   <string name="referral_share_sheet_title">招待リンクを共有：</string>
   <string name="referral_view_unverified_body">友達1人につき%s相当のAppCoinsクレジットを受け取ることができます。まず、あなたのウォレットを確認する必要があります。</string>
   <string name="referral_view_verify_button">Verify wallet</string>
-  <string name="referral_view_i_have_been_invited_button">I\'ve been invited</string>
+  <string name="referral_view_i_have_been_invited_button">すでに招待されている方</string>
   <string name="referral_view_dropup_menu_friends_invited">招待済みの友達</string>
   <string name="referral_view_dropup_menu_earned">獲得額</string>
   <string name="referral_dropup_menu_friends_title_1">招待済みの友達</string>
@@ -647,7 +647,7 @@
   <string name="import_wallet_keystore_private_keys">キーストアまたは秘密鍵</string>
   <string name="import_wallet_from_file_title">またはファイルからの復元</string>
   <string name="import_wallet_file_button">Recover from file</string>
-  <string name="import_wallet_button">Recover wallet</string>
+  <string name="import_wallet_button">ウォレットの復元</string>
   <string name="import_wallet_password_body">このウォレットはパスワードで保護されています！</string>
   <string name="import_wallet_wrong_password_body">間違ったパスワードです！</string>
   <string name="error_invalid_private_key">無効な秘密鍵です</string>
@@ -666,7 +666,7 @@
   <string name="backup_confirmation_tips_2"><b>USBメモリ</b>に保存する。</string>
   <string name="backup_confirmation_tips_3">安全なプライベートクラウドストレージに<b>コピー</b>する。</string>
   <string name="backup_tooltip_body">ウォレットのバックアップを取っておきましょう！</string>
-  <string name="backup_tooltip_later_button">Maybe later</string>
+  <string name="backup_tooltip_later_button">後で</string>
   <string name="backup_tooltip_backup_button">Back up</string>
   <string name="backup_notification_title">ウォレットのバックアップを取っておきましょう！</string>
   <string name="backup_notification_body">資金を安全に保管し、常にウォレットにアクセスできるようにしておきましょう。</string>
@@ -694,10 +694,10 @@
   <string name="wallets_imported_body">ウォレットの復元に成功しました</string>
   <string name="wallets_2nd_view_balance_title">残高:</string>
   <string name="wallets_2nd_view_other_wallets_title">他のウォレット</string>
-  <string name="wallets_2nd_view_import_button">Recover wallet</string>
+  <string name="wallets_2nd_view_import_button">ウォレットの復元</string>
   <string name="wallets_2nd_view_create_button">Create new</string>
   <string name="wallet_view_copy_button">Copy</string>
-  <string name="wallet_view_share_button">Share</string>
+  <string name="wallet_view_share_button">共有する</string>
   <string name="wallet_view_total_balance_title">合計残高</string>
   <string name="wallet_view_remove_button">Remove wallet</string>
   <string name="wallet_view_backup_button">Back up wallet</string>
@@ -722,7 +722,7 @@
   <string name="transfer_send_token_title">トークン：</string>
   <string name="transfer_send_amount_title">量</string>
   <string name="transfer_send_current_balance_title">現在の残高：</string>
-  <string name="transfer_send_button">Send</string>
+  <string name="transfer_send_button">送信する</string>
   <string name="transfer_receive_body">資金を受け取るにはウォレットのアドレスを共有してください。</string>
   <!--Support Notifications-->
   <string name="support_new_message_title">新しいメッセージを受け取りました！</string>
@@ -759,7 +759,7 @@
   <string name="subscriptions_expiration_body">%sに期限切れ</string>
   <string name="subscriptions_canceled_body">キャンセル済み</string>
   <string name="subscriptions_details_disclaimer">次回のお支払い時には、為替レートによりAppCoinの価値が変動する場合があります。</string>
-  <string name="subscriptions_details_button">Details</string>
+  <string name="subscriptions_details_button">詳細</string>
   <string name="subscriptions_manage_button">Manage subscription</string>
   <string name="subscriptions_cancel_button">Cancel subscription</string>
   <string name="subscriptions_renew_subscription_button">Renew subscription</string>
@@ -794,6 +794,7 @@
   <string name="gamif_card_start">あなたはまだ地球にいます</string>
   <string name="gamif_card_title">あなたは%sにいます</string>
   <string name="gamif_card_body">%sのAppCoinを使って次のレベルに到達.</string>
+  <string name="gamif_card_maximum_body">Spend %s AppCoins more to reach the maximum level.</string>
   <string name="gamif_bonus">%s%%のボーナス</string>
   <string name="gamif_placeholder_earth">地球</string>
   <string name="gamif_quote_earth">「地球は私たちの共通の財産」– ウェンデル・ベリー</string>
@@ -841,7 +842,7 @@
   <string name="carrier_billing_enter_pin_body">SMSで受け取ったPINを入力してください。</string>
   <string name="carrier_billing_code_field">コードを入力...</string>
   <string name="carrier_billing_code_resend_button">Resend code</string>
-  <string name="carrier_billing_submit_button">Submit</string>
+  <string name="carrier_billing_submit_button">提出する</string>
   <string name="carrier_billing_number_not_supported">あなたの番号は、この支払い方法に対応していないようです。</string>
   <string name="carrier_billing_terms_disclaimer">「送信」をタップすることで「利用規約」と「プライバシーポリシー」に同意したことになります。</string>
   <string name="carrier_billing_help_1">ヘルプが必要ですか？</string>
@@ -1062,16 +1063,43 @@
   <string name="mywallet_unverified_body">支払い方法を確認することで、詰まりを回避することができます。</string>
   <string name="mywallet_backed_up_date">%sにウォレットをバックアップしました。</string>
   <string name="mywallet_backup_again_button">Back up again</string>
-  <string name="mywallet_verify_payment_method_button">Verify new card</string>
+  <string name="mywallet_verify_payment_method_button">新しいカードの認証</string>
   <string name="mywallet_choose_name_header">ウォレットの名前を決める</string>
   <string name="mywallet_choose_name_field">ここにウォレットの名前...</string>
   <string name="mywallet_choose_name_confirmed">ウォレット名が変更されました</string>
   <string name="mywallet_unnamed_wallet">名前なしウォレット %s</string>
   <string name="mywallet_swithing_wallets_title">ウォレットの入れ替え中...</string>
-  <string name="mywallet_address_title">Address:</string>
+  <string name="mywallet_address_title">住所:</string>
   <!-- Onboarding for new users coming from an iap -->
   <string name="onboarding_1st_title">おめでとうございます。AppCoins Walletのインストールが完了しました。</string>
   <string name="onboarding_1st_body">ゲームに戻り、購入を完了させてください。</string>
   <string name="onboarding_1st_back_to_game_button">ゲームに戻る</string>
   <string name="onboarding_1st_explore_wallet_button">Or explore the Wallet</string>
+  <!-- VIP Program -->
+  <string name="vip_program_reached_notification_title">Welcome to the VIP Program</string>
+  <string name="vip_program_reached_notification_body">You\'re now a VIP user with access to special promotions and deals. Tap for more details!</string>
+  <string name="vip_program_almost_notification_title">Almost there!</string>
+  <string name="vip_program_almost_notification_body">You\'re about to become a VIP user. Tap for more details!</string>
+  <string name="vip_program_almost_onboarding_title">You\'re about to become a VIP user!</string>
+  <string name="vip_program_almost_onboarding_body">Continue playing and making purchases to access exclusive promotions and deals. Ready to become the ultimate player?</string>
+  <string name="vip_program_onboarding_header_1">Congratulations!</string>
+  <string name="vip_program_onboarding_header_2">You\'re now a VIP user</string>
+  <string name="vip_program_onboarding_body">Our VIP Program is tailored for our most valued members... like yourself! You have now access to the best promotions and referral programs to earn more rewards.</string>
+  <string name="vip_program_promotions_tab_1">You\'re now a VIP user.</string>
+  <string name="vip_program_promotions_tab_2">Check the promotions we have have just for you!</string>
+  <string name="vip_program_exclusivity_tag">Only for VIP</string>
+  <string name="vip_program_referral_button_title">VIP Referral Program</string>
+  <string name="vip_program_referral_button_body">%s%% Bonus for you and your friends.</string>
+  <string name="vip_program_promotions_list_title">Special promotions for you</string>
+  <string name="vip_program_promo_code_tag">Promo code</string>
+  <string name="vip_program_referral_page_title">VIP Referral Program</string>
+  <string name="vip_program_referral_page_body">Share this promo code with your community and friends for everyone to earn while playing. For every in-app purchase they make, both <b>you and your friends will receive %s%% bonus</b> on top of other active promotions and for an entire month!</string>
+  <string name="vip_program_referral_page_share_title">Share this code with your friends</string>
+  <string name="vip_program_referral_page_earned_body">%1$s%2$s earned from %3$s referrals</string>
+  <string name="vip_program_gamification_title">What\'s my bonus level?</string>
+  <string name="vip_program_gamification_amount_purchases_bonus">Bonus received from your purchases.</string>
+  <string name="vip_program_gamification_amoung_referral_bonus">Bonus received from referrals</string>
+  <string name="vip_program_max_bonus_title">Enjoy your %s%% Bonus on every purchase</string>
+  <string name="vip_program_max_bonus_body">You\'ve reached the limits of the solar system.</string>
+  <string name="vip_program_max_bonus_short">%s%% Bonus on every purchase.</string>
 </resources>

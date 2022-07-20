@@ -16,7 +16,7 @@
   <string name="error_field_required">ဤအကြက္ကို လိုအပ္ပါသည္</string>
   <string name="action_settings">ဆက္တင္</string>
   <string name="title_account_list">ပိုက္ဆံအိတ္မ်ား</string>
-  <string name="cancel">Cancel</string>
+  <string name="cancel">ပယ္ဖ်က္မည္</string>
   <string name="confirm_delete_account">သင့္တြင္ ဤပိုက္ဆံအိတ္ကို အရန္ျပဳလုပ္ထားေၾကာင္း ေသခ်ာေအာင္ စစ္ေဆးပါ။</string>
   <string name="action_import">ျပန္လည္ရယူမည္</string>
   <string name="copy">ကလစ္ဘုတ္သို႔ ကူးမည္</string>
@@ -26,7 +26,7 @@
   <string name="network_label">ကြန္ရက္</string>
   <string name="credits">ခရက္ဒစ္မ်ား</string>
   <string name="label_new">အသစ္</string>
-  <string name="got_it_button">Got it</string>
+  <string name="got_it_button">သိပါၿပီ</string>
   <string name="change_button">Change</string>
   <string name="vip">VIP</string>
   <string name="low_storage_error">သိမ္းဆည္းရန္ေနရာ မလံုေလာက္ပါ</string>
@@ -361,7 +361,7 @@
   <string name="provide_wallet_allow_once_button">တစ္ႀကိမ္သာ ခြင့္ျပဳမည္</string>
   <string name="provide_wallet_completed_header">ပိုက္ဆံအိတ္ကို Aptoide နွင့္ တြဲဖက္လိုက္ပါၿပီ။</string>
   <string name="provide_wallet_create_body">ပိုက္ဆံအိတ္ လိပ္စာတစ္ခုကို သင္လိုအပ္ပါသည္။ AppCoins ပိုက္ဆံအိတ္တြင္ လိပ္္စာတစ္ခုို ျပဳလုပ္ရန္ ဤအဆင့္မ်ားကို လိုက္္လုပ္ပါ။</string>
-  <string name="provide_wallet_create_wallet_button">Create</string>
+  <string name="provide_wallet_create_wallet_button">ျပဳလုပ္မည္</string>
   <string name="provide_wallet_creating_wallet_header">ပိုက္ဆံအိတ္လိပ္စာကို ျပဳလုပ္ေနပါသည္&#8230;</string>
   <string name="provide_wallet_created_header">ပိုက္ဆံအိတ္လိပ္စာကို ျပဳလုပ္ၿပီးပါၿပီ။</string>
   <string name="provide_wallet_empty_state">သင့္လိပ္စာကို အျခားမည္သည့္ အက္ပ္သို႔မဆိုေပးရန္ AppCoins ပိုက္ဆံအိတ္ကို သင္ခြင့္မျပဳရေသးပါ။</string>
@@ -600,7 +600,7 @@
   <string name="referral_share_sheet_title">ဖိတ္ေခၚသည့္လင့္ခ္ကို ေအာက္ပါမွတဆင့္ မွ်ေ၀မည္ -</string>
   <string name="referral_view_unverified_body">Receive %s worth of AppCoins Credits for each friend. Your first need to verify your wallet.</string>
   <string name="referral_view_verify_button">Verify wallet</string>
-  <string name="referral_view_i_have_been_invited_button">I\'ve been invited</string>
+  <string name="referral_view_i_have_been_invited_button">ကၽြႏ္ုပ္ကို ဖိတ္ေခၚထားပါသည္</string>
   <string name="referral_view_dropup_menu_friends_invited">သူငယ္ခ်င္းမ်ားကို ဖိတ္ေခၚထားပါသည္</string>
   <string name="referral_view_dropup_menu_earned">ရရွိခဲ့သည္</string>
   <string name="referral_dropup_menu_friends_title_1">သူငယ္ခ်င္းမ်ားကို ဖိတ္ေခၚခဲ့သည္</string>
@@ -646,7 +646,7 @@
   <string name="import_wallet_keystore_private_keys">ကီးစတိုး သို႔မဟုတ္ ကိုယ္ပိုင္ကီးမ်ား</string>
   <string name="import_wallet_from_file_title">သို႔မဟုတ္ ဖိုင္မွ ျပန္လည္ရယူပါ</string>
   <string name="import_wallet_file_button">Recover from file</string>
-  <string name="import_wallet_button">Recover wallet</string>
+  <string name="import_wallet_button">ပိုက္ဆံအိတ္ကို ျပန္လည္ရယူမည္</string>
   <string name="import_wallet_password_body">ဤပိုက္ဆံအိတ္ကို စကား၀ွက္ျဖင့္ ကာကြယ္ထားပါသည္။</string>
   <string name="import_wallet_wrong_password_body">အိုး စကား၀ွက္မွားေနပါသည္။</string>
   <string name="error_invalid_private_key">သီးျခားကီး မမွန္ကန္ပါ</string>
@@ -665,7 +665,7 @@
   <string name="backup_confirmation_tips_2">ယူအက္စ္ဘီ ဒ႐ိုက္ဗ္တစ္ခုေပၚတြင္ <b>သိမ္းဆည္းပါ။</b></string>
   <string name="backup_confirmation_tips_3">သီးသန႔္ျဖစ္ၿပီး လုံၿခဳံေသာ cloud သိမ္းဆည္းမႈတစ္ခုတြင္ <b>ကူးယူထားပါ။</b></string>
   <string name="backup_tooltip_body">သင့္ပိုက္ဆံအိတ္အတြက္ အရံသိမ္းဆည္းမႈတစ္ခု ျပဳလုပ္လိုက္ပါ။</string>
-  <string name="backup_tooltip_later_button">Maybe later</string>
+  <string name="backup_tooltip_later_button">ေနာက္မွလုပ္မည္</string>
   <string name="backup_tooltip_backup_button">Back up</string>
   <string name="backup_notification_title">သင့္ပိုက္ဆံအိတ္အတြက္ အရံသိမ္းဆည္းမႈတစ္ခု ျပဳလုပ္လိုက္ပါ။</string>
   <string name="backup_notification_body">သင့္ေငြမ်ားကို ေဘးကင္းေအာင္ထားရွိကာ သင့္ပိုက္ဆံအိတ္ကို အၿမဲတမ္း ၀င္ေရာက္အသံုးျပဳႏိုင္ေအာင္ ျပဳလုပ္ထားပါ။</string>
@@ -693,10 +693,10 @@
   <string name="wallets_imported_body">ပိုက္ဆံအိတ္ကို ေအာင္ျမင္စြာ ျပန္လည္ရယူလိုက္ပါသည္</string>
   <string name="wallets_2nd_view_balance_title">လက္က်န္ေငြ -</string>
   <string name="wallets_2nd_view_other_wallets_title">အျခား ပိုက္ဆံအိတ္မ်ား</string>
-  <string name="wallets_2nd_view_import_button">Recover wallet</string>
+  <string name="wallets_2nd_view_import_button">ပိုက္ဆံအိတ္ကို ျပန္လည္ရယူမည္</string>
   <string name="wallets_2nd_view_create_button">Create new</string>
   <string name="wallet_view_copy_button">Copy</string>
-  <string name="wallet_view_share_button">Share</string>
+  <string name="wallet_view_share_button">မွ်ေဝမည္</string>
   <string name="wallet_view_total_balance_title">စုစုေပါင္း လက္က်န္ေငြ</string>
   <string name="wallet_view_remove_button">Remove wallet</string>
   <string name="wallet_view_backup_button">Back up wallet</string>
@@ -721,7 +721,7 @@
   <string name="transfer_send_token_title">တိုကင္ -</string>
   <string name="transfer_send_amount_title">ပမာဏ</string>
   <string name="transfer_send_current_balance_title">လက္ရွိလက္က်န္ေငြ -</string>
-  <string name="transfer_send_button">Send</string>
+  <string name="transfer_send_button">ေပးပို႔မည္</string>
   <string name="transfer_receive_body">ေငြကိုလက္ခံယူရန္ သင့္ပိုက္ဆံအိတ္လိပ္စာကို မွ်ေ၀ပါ။</string>
   <!--Support Notifications-->
   <string name="support_new_message_title">သင့္အတြက္ မက္ေဆ့ဂ်္အသစ္တစ္ခု ရွိပါသည္။</string>
@@ -758,7 +758,7 @@
   <string name="subscriptions_expiration_body">%s တြင္ သက္တမ္းကုန္ပါမည္</string>
   <string name="subscriptions_canceled_body">ပယ္ဖ်က္လိုက္ပါသည္</string>
   <string name="subscriptions_details_disclaimer">ေငြလဲႏႈန္းေၾကာင့္ ေနာက္ထပ္ေငြေပးေခ်မႈအတြက္ AppCoins တန္ဖိုးသည္ ကြဲျပားျခင္းရွိႏိုင္ပါသည္။</string>
-  <string name="subscriptions_details_button">Details</string>
+  <string name="subscriptions_details_button">အေသးစိတ္မ်ား</string>
   <string name="subscriptions_manage_button">Manage subscription</string>
   <string name="subscriptions_cancel_button">Cancel subscription</string>
   <string name="subscriptions_renew_subscription_button">Renew subscription</string>
@@ -793,6 +793,7 @@
   <string name="gamif_card_start">ကမာၻေပၚတြင္သာ သင္ရွိေနပါေသးသည္</string>
   <string name="gamif_card_title">သင္က %s ေပၚတြင္ ျဖစ္ပါသည္</string>
   <string name="gamif_card_body">ေနာက္အဆင့္သို႔ေရာက္ရန္ AppCoins %s ကို အသံုးျပဳပါ။</string>
+  <string name="gamif_card_maximum_body">Spend %s AppCoins more to reach the maximum level.</string>
   <string name="gamif_bonus">%s%% ေဘာနပ္စ္</string>
   <string name="gamif_placeholder_earth">ကမာၻ</string>
   <string name="gamif_quote_earth">\"ကမာၻဆုိသည္မွာ ကၽြႏ္ုပ္တို႔အားလံုးတြင္ ဘံုပိုင္ဆိုင္ေသာအရာ ျဖစ္သည္\" – ၀န္ဒဲလ္ဘယ္ရီ</string>
@@ -840,7 +841,7 @@
   <string name="carrier_billing_enter_pin_body">SMS မွတဆင့္ရရွိေသာ PIN ကို ထည့္ေပးပါ။</string>
   <string name="carrier_billing_code_field">သင့္ကုဒ္...</string>
   <string name="carrier_billing_code_resend_button">Resend code</string>
-  <string name="carrier_billing_submit_button">Submit</string>
+  <string name="carrier_billing_submit_button">ေပးပို႔မည္</string>
   <string name="carrier_billing_number_not_supported">သင့္နံပါတ္သည္ ဤေငြေပးေခ်မႈနည္းလမ္းျဖင့္ မကိုက္ညီျခင္း ျဖစ္ပံုရပါသည္။</string>
   <string name="carrier_billing_terms_disclaimer">ေပးပို႔မည္တြင္ ႏွိပ္ျခင္းျဖင့္ စည္းမ်ဥ္းစည္းကမ္းမ်ားႏွင့္ ကိုယ္ေရးလံုျခံဳမႈ မူ၀ါဒတို႔ကို သင္လက္ခံေၾကာင္း အတည္ျပဳျခင္း ျဖစ္ပါသည္။</string>
   <string name="carrier_billing_help_1">အကူအညီ လိုအပ္ပါသလား။</string>
@@ -1061,7 +1062,7 @@
   <string name="mywallet_unverified_body">ပိတ္ပင္မႈမ်ားကို ေရွာင္ၾကဥ္ရန္ ေငြေပးေခ်သည့္ နည္းလမ္းတစ္ခုကို အတည္ျပဳပါ။</string>
   <string name="mywallet_backed_up_date">%s တြင္ သင့္ပိုက္ဆံအိတ္ကို အရန္သိမ္းဆည္းလိုက္ပါသည္။</string>
   <string name="mywallet_backup_again_button">Back up again</string>
-  <string name="mywallet_verify_payment_method_button">Verify new card</string>
+  <string name="mywallet_verify_payment_method_button">ကဒ္အသစ္ကို အတည္ျပဳမည္</string>
   <string name="mywallet_choose_name_header">သင့္ပိုက္ဆံအိတ္အတြက္ အမည္တစ္ခုကို ေ႐ြးခ်ယ္ပါ</string>
   <string name="mywallet_choose_name_field">ပိုက္ဆံအိတ္အမည္ကို ဤေနရာတြင္...</string>
   <string name="mywallet_choose_name_confirmed">ပိုက္ဆံအိတ္အမည္ ေျပာင္းလဲလိုက္ပါသည္</string>
@@ -1073,4 +1074,31 @@
   <string name="onboarding_1st_body">သင့္ဝယ္ယူမႈကို အၿပီးသတ္ရန္ ဂိမ္းသို႔ျပန္သြားပါ။</string>
   <string name="onboarding_1st_back_to_game_button">ဂိမ္းသို႔ျပန္သြားမည္</string>
   <string name="onboarding_1st_explore_wallet_button">Or explore the Wallet</string>
+  <!-- VIP Program -->
+  <string name="vip_program_reached_notification_title">Welcome to the VIP Program</string>
+  <string name="vip_program_reached_notification_body">You\'re now a VIP user with access to special promotions and deals. Tap for more details!</string>
+  <string name="vip_program_almost_notification_title">Almost there!</string>
+  <string name="vip_program_almost_notification_body">You\'re about to become a VIP user. Tap for more details!</string>
+  <string name="vip_program_almost_onboarding_title">You\'re about to become a VIP user!</string>
+  <string name="vip_program_almost_onboarding_body">Continue playing and making purchases to access exclusive promotions and deals. Ready to become the ultimate player?</string>
+  <string name="vip_program_onboarding_header_1">Congratulations!</string>
+  <string name="vip_program_onboarding_header_2">You\'re now a VIP user</string>
+  <string name="vip_program_onboarding_body">Our VIP Program is tailored for our most valued members... like yourself! You have now access to the best promotions and referral programs to earn more rewards.</string>
+  <string name="vip_program_promotions_tab_1">You\'re now a VIP user.</string>
+  <string name="vip_program_promotions_tab_2">Check the promotions we have have just for you!</string>
+  <string name="vip_program_exclusivity_tag">Only for VIP</string>
+  <string name="vip_program_referral_button_title">VIP Referral Program</string>
+  <string name="vip_program_referral_button_body">%s%% Bonus for you and your friends.</string>
+  <string name="vip_program_promotions_list_title">Special promotions for you</string>
+  <string name="vip_program_promo_code_tag">Promo code</string>
+  <string name="vip_program_referral_page_title">VIP Referral Program</string>
+  <string name="vip_program_referral_page_body">Share this promo code with your community and friends for everyone to earn while playing. For every in-app purchase they make, both <b>you and your friends will receive %s%% bonus</b> on top of other active promotions and for an entire month!</string>
+  <string name="vip_program_referral_page_share_title">Share this code with your friends</string>
+  <string name="vip_program_referral_page_earned_body">%1$s%2$s earned from %3$s referrals</string>
+  <string name="vip_program_gamification_title">What\'s my bonus level?</string>
+  <string name="vip_program_gamification_amount_purchases_bonus">Bonus received from your purchases.</string>
+  <string name="vip_program_gamification_amoung_referral_bonus">Bonus received from referrals</string>
+  <string name="vip_program_max_bonus_title">Enjoy your %s%% Bonus on every purchase</string>
+  <string name="vip_program_max_bonus_body">You\'ve reached the limits of the solar system.</string>
+  <string name="vip_program_max_bonus_short">%s%% Bonus on every purchase.</string>
 </resources>
