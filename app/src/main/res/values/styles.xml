@@ -405,6 +405,12 @@
     <item name="android:fontFamily">@font/roboto_bolt</item>
   </style>
 
+  <style name="TextAppearance.AppCompat.Body1.Roboto.Bold.Secondary" parent="TextAppearance.AppCompat.Body1">
+    <item name="android:textSize">12sp</item>
+    <item name="android:textColor">#001726</item>
+    <item name="android:fontFamily">@font/roboto_regular</item>
+  </style>
+
   <style name="TextAppearance.AppCompat.Body1.Roboto.Regular.Transparency">
     <item name="android:textColor">#ccffffff</item>
   </style>

@@ -30,7 +30,7 @@
       android:layout_marginStart="@dimen/big_margin"
       android:layout_marginEnd="@dimen/big_margin"
       android:textAlignment="center"
-      android:textSize="16sp"
+      android:textSize="18sp"
       android:textColor="@color/navy_blue"
       android:text="@string/topup_no_method_available_title"
       app:layout_constraintEnd_toEndOf="parent"

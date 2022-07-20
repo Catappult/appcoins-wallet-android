@@ -86,7 +86,7 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
           if (it.isNotEmpty()) {
             view.setupPaymentMethods(it)
           } else {
-            view.showGenericError()
+            view.showNoMethodsError()
           }
         }
         .ignoreElement()

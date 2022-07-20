@@ -494,7 +494,7 @@ class TopUpFragment : BasePageViewFragment(), TopUpFragmentView {
     top_up_container.visibility = View.VISIBLE
   }
 
-  override fun showGenericError() {
+  override fun showNoMethodsError() {
     hideKeyboard()
     retry_animation.visibility = View.GONE
     top_up_container.visibility = View.GONE
