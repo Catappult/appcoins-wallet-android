@@ -1196,7 +1196,7 @@
   <string name="vip_program_reached_notification_body">You\'re now a VIP user with access to special promotions and deals. Tap for more details!</string>
   <string name="vip_program_almost_notification_title">Almost there!</string>
   <string name="vip_program_almost_notification_body">You\'re about to become a VIP user. Tap for more details!</string>
-  <string name="vip_program_almost_onboarding_title">You're about to become a VIP user!</string>
+  <string name="vip_program_almost_onboarding_title">You\'re about to become a VIP user!</string>
   <string name="vip_program_almost_onboarding_body">Continue playing and making purchases to access exclusive promotions and deals. Ready to become the ultimate player?</string>
   <string name="vip_program_onboarding_header_1">Congratulations!</string>
   <string name="vip_program_onboarding_header_2">You\'re now a VIP user</string>
