@@ -1122,6 +1122,9 @@
   <string name="vip_program_referral_page_body">Share this promo code with your community and friends for everyone to earn while playing. For every in-app purchase they make, both <b>you and your friends will receive %s%% bonus</b> on top of other active promotions and for an entire month!</string>
   <string name="vip_program_referral_page_share_title">Share this code with your friends</string>
   <string name="vip_program_referral_page_earned_body">%1$s%2$s earned from %3$s referrals</string>
+  <string name="vip_program_gamification_title">What\'s my bonus level?</string>
+  <string name="vip_program_gamification_amount_purchases_bonus">Bonus received from your purchases.</string>
+  <string name="vip_program_gamification_amoung_referral_bonus">Bonus received from referrals</string>
   <string name="vip_program_max_bonus_title">Enjoy your %s%% Bonus on every purchase</string>
   <string name="vip_program_max_bonus_body">You\'ve reached the limits of the solar system.</string>
   <string name="vip_program_max_bonus_short">%s%% Bonus on every purchase.</string>
