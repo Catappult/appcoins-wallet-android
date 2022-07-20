@@ -5,8 +5,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/background_card"
     >
-  <androidx.constraintlayout.widget.ConstraintLayout
-      xmlns:app="http://schemas.android.com/apk/res-auto"
+  <androidx.constraintlayout.widget.ConstraintLayout xmlns:app="http://schemas.android.com/apk/res-auto"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       >
@@ -32,11 +31,12 @@
 
     <TextView
         android:id="@+id/transfer_success_message"
+        style="@style/TextAppearance.AppCompat.Headline.Roboto.Medium"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="32dp"
         android:layout_marginStart="32dp"
         android:layout_marginTop="64dp"
+        android:layout_marginEnd="32dp"
         android:gravity="center"
         android:text="@string/p2p_send_confirmation_message"
         app:layout_constraintBottom_toTopOf="@id/transfer_success_wallet"
@@ -44,15 +44,14 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/transfer_success_animation"
         app:layout_constraintVertical_bias="0"
-        style="@style/TextAppearance.AppCompat.Headline.Roboto.Medium"
         />
 
     <TextView
         android:id="@+id/transfer_success_wallet"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="32dp"
         android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
         android:gravity="center"
         app:layout_constraintBottom_toTopOf="@+id/transfer_success_ok_button"
         app:layout_constraintEnd_toEndOf="parent"
@@ -61,17 +60,20 @@
         tools:text="0xf38d317a43876565eaa135f0589730de669ac599"
         />
 
-    <Button
+    <com.asfoundation.wallet.ui.common.WalletButtonView
         android:id="@+id/transfer_success_ok_button"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/large_button_height"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="@dimen/big_margin"
+        android:layout_marginEnd="@dimen/big_margin"
         android:layout_margin="32dp"
-        android:text="@string/ok"
+        app:buttonText="@string/ok"
+        app:buttonType="filled"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/transfer_success_wallet"
-        style="@style/ButtonStyle"
         />
 
   </androidx.constraintlayout.widget.ConstraintLayout>

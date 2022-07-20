@@ -8,7 +8,7 @@
       android:layout_width="match_parent"
       android:layout_height="match_parent"
       >
-    <include layout="@layout/layout_app_bar"/>
+    <include layout="@layout/layout_app_bar" />
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -48,15 +48,24 @@
             android:gravity="center"
             android:textSize="12sp"
             />
-        <Button
+
+        <com.asfoundation.wallet.ui.common.WalletButtonView
             android:id="@+id/copy_action"
-            style="@style/ButtonStyle"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/button_height"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="@dimen/big_margin"
-            android:text="@string/copy"
+            android:layout_height="@dimen/large_button_height"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            app:buttonText="@string/copy"
+            app:buttonType="filled"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/authentication_error_message"
             />
+
       </LinearLayout>
     </LinearLayout>
   </FrameLayout>

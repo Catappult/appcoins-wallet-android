@@ -38,8 +38,10 @@ class CarrierFeeFragment : BasePageViewFragment(), CarrierFeeView {
 
   lateinit var iabView: IabView
 
-  override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                            savedInstanceState: Bundle?): View? {
+  override fun onCreateView(
+    inflater: LayoutInflater, container: ViewGroup?,
+    savedInstanceState: Bundle?
+  ): View? {
     return inflater.inflate(R.layout.fragment_carrier_confirm, container, false)
   }
 
@@ -64,31 +66,36 @@ class CarrierFeeFragment : BasePageViewFragment(), CarrierFeeView {
   private fun setupUi() {
     iabView.disableBack()
 
-    cancel_button.setText(R.string.back_button)
+    cancel_button.setText(getString(R.string.back_button))
     cancel_button.visibility = View.VISIBLE
 
-    buy_button.setText(R.string.action_next)
+    buy_button.setText(getString(R.string.action_next))
     buy_button.visibility = View.VISIBLE
     buy_button.isEnabled = false
   }
 
-  override fun initializeView(currency: String, fiatAmount: BigDecimal,
-                              appcAmount: BigDecimal, skuDescription: String,
-                              bonusAmount: BigDecimal?, carrierName: String,
-                              carrierImage: String, carrierFeeFiat: BigDecimal) {
+  override fun initializeView(
+    currency: String, fiatAmount: BigDecimal,
+    appcAmount: BigDecimal, skuDescription: String,
+    bonusAmount: BigDecimal?, carrierName: String,
+    carrierImage: String, carrierFeeFiat: BigDecimal
+  ) {
     buy_button.isEnabled = true
     payment_methods_header.setDescription(skuDescription)
     payment_methods_header.hidePrice(
-        resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT)
+      resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT
+    )
     payment_methods_header.hideSkeleton()
 
     val fiat =
-        "${
-          formatter.formatPaymentCurrency(fiatAmount + carrierFeeFiat, WalletCurrency.FIAT)
-        } $currency"
+      "${
+        formatter.formatPaymentCurrency(fiatAmount + carrierFeeFiat, WalletCurrency.FIAT)
+      } $currency"
     val appc = "${
-      formatter.formatPaymentCurrency(appcAmount,
-          WalletCurrency.APPCOINS)
+      formatter.formatPaymentCurrency(
+        appcAmount,
+        WalletCurrency.APPCOINS
+      )
     } ${WalletCurrency.APPCOINS.symbol}"
     fiat_price_text.text = fiat
     appc_price_text.text = appc
@@ -99,11 +106,11 @@ class CarrierFeeFragment : BasePageViewFragment(), CarrierFeeView {
       }
     }
     fee_title.text =
-        context?.getStringSpanned(R.string.carrier_billing_carrier_fees_body, feeString)
+      context?.getStringSpanned(R.string.carrier_billing_carrier_fees_body, feeString)
 
     GlideApp.with(requireContext())
-        .load(carrierImage)
-        .into(carrier_image)
+      .load(carrierImage)
+      .into(carrier_image)
 
     purchase_bonus.withNoLayoutTransition {
       if (bonusAmount != null) {
@@ -126,7 +133,7 @@ class CarrierFeeFragment : BasePageViewFragment(), CarrierFeeView {
       currencyCode
     else
       Currency.getInstance(currencyCode)
-          .symbol
+        .symbol
   }
 
   override fun cancelButtonEvent(): Observable<Any> {
@@ -159,11 +166,13 @@ class CarrierFeeFragment : BasePageViewFragment(), CarrierFeeView {
     internal const val PHONE_NUMBER_KEY = "phone_number"
 
     @JvmStatic
-    fun newInstance(uid: String, domain: String, transactionData: String, transactionType: String,
-                    paymentUrl: String?, currency: String?, amount: BigDecimal,
-                    appcAmount: BigDecimal, bonus: BigDecimal?, skuDescription: String,
-                    skuId: String?, feeFiatAmount: BigDecimal, carrierName: String,
-                    carrierImage: String, phoneNumber: String): CarrierFeeFragment {
+    fun newInstance(
+      uid: String, domain: String, transactionData: String, transactionType: String,
+      paymentUrl: String?, currency: String?, amount: BigDecimal,
+      appcAmount: BigDecimal, bonus: BigDecimal?, skuDescription: String,
+      skuId: String?, feeFiatAmount: BigDecimal, carrierName: String,
+      carrierImage: String, phoneNumber: String
+    ): CarrierFeeFragment {
       val fragment = CarrierFeeFragment()
       fragment.arguments = Bundle().apply {
         putString(UID_KEY, uid)

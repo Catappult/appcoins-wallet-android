@@ -55,17 +55,19 @@
       app:layout_constraintTop_toBottomOf="@id/update_title"
       />
 
-  <Button
+  <com.asfoundation.wallet.ui.common.WalletButtonView
       android:id="@+id/update_button"
-      style="@style/ButtonStyle"
       android:layout_width="match_parent"
-      android:layout_height="36dp"
+      android:layout_height="@dimen/large_button_height"
+      android:layout_alignParentBottom="true"
       android:layout_marginStart="32dp"
       android:layout_marginTop="44dp"
       android:layout_marginEnd="32dp"
-      android:text="@string/update_button"
+      app:buttonText="@string/update_button"
+      app:buttonType="filled"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toBottomOf="@id/update_description"
       />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

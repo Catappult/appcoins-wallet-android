@@ -47,20 +47,6 @@
       tools:text="Euro"
       />
 
-
-  <Button
-      android:id="@+id/choose_currency_confirmation_button"
-      style="@style/ButtonStyle"
-      android:layout_width="292dp"
-      android:layout_height="wrap_content"
-      android:layout_marginTop="18dp"
-      android:text="CHOOSE CURRENCY"
-      app:layout_constraintBottom_toBottomOf="parent"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintTop_toBottomOf="@id/choose_currency_label"
-      />
-
   <com.asfoundation.wallet.widget.SystemView
       android:id="@+id/choose_currency_system_view"
       android:layout_width="match_parent"
@@ -72,4 +58,21 @@
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent"
       />
+
+  <com.asfoundation.wallet.ui.common.WalletButtonView
+      android:id="@+id/choose_currency_confirmation_button"
+      android:layout_width="match_parent"
+      android:layout_height="@dimen/small_button_height"
+      android:layout_alignParentBottom="true"
+      android:layout_marginStart="@dimen/big_margin"
+      android:layout_marginTop="@dimen/big_margin"
+      android:layout_marginEnd="@dimen/big_margin"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/choose_currency_label"
+      app:buttonText="@string/change_currency_choose_button"
+      app:buttonType="filled"
+      />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

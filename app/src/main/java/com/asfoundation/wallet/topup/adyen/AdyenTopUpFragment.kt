@@ -432,8 +432,7 @@ class AdyenTopUpFragment : BasePageViewFragment(), AdyenTopUpView {
     button.isEnabled = false
 
     if (paymentType == PaymentType.CARD.name) {
-      button.setText(R.string.topup_home_button)
-
+      button.setText(getString(R.string.topup_home_button))
       adyenCardView = AdyenCardView(adyen_card_form_pre_selected ?: adyen_card_form)
       setupCardConfiguration()
     }

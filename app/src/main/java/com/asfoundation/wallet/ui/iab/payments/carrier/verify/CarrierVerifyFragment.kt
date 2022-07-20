@@ -61,10 +61,10 @@ class CarrierVerifyFragment : BasePageViewFragment(), CarrierVerifyView {
   }
 
   private fun setupUi() {
-    cancel_button.setText(R.string.back_button)
+    cancel_button.setText(getString(R.string.back_button))
     cancel_button.visibility = View.VISIBLE
 
-    buy_button.setText(R.string.action_next)
+    buy_button.setText(getString(R.string.action_next))
     buy_button.visibility = View.VISIBLE
     buy_button.isEnabled = false
 
@@ -104,7 +104,7 @@ class CarrierVerifyFragment : BasePageViewFragment(), CarrierVerifyView {
       other_payments_button.withNoLayoutTransition {
         other_payments_button.visibility = View.VISIBLE
       }
-      cancel_button.setText(R.string.cancel_button)
+      cancel_button.setText(getString(R.string.cancel_button))
       if (resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT) {
         val marginParams = purchase_bonus.layoutParams as ViewGroup.MarginLayoutParams
         marginParams.topMargin = 0

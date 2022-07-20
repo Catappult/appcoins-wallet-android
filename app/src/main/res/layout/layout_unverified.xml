@@ -20,15 +20,17 @@
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent"
       />
-  <Button
+
+  <com.asfoundation.wallet.ui.common.WalletButtonView
       android:id="@+id/verify_wallet_button"
-      style="@style/VerifyButtonStyle"
-      android:layout_width="0dp"
-      android:layout_height="wrap_content"
+      android:layout_width="wrap_content"
+      android:layout_height="@dimen/small_button_height"
+      android:layout_gravity="center_vertical"
       android:layout_marginTop="6dp"
       android:layout_marginEnd="@dimen/big_margin"
       android:layout_marginBottom="6dp"
-      android:text="@string/verification_wallets_verify_button"
+      app:buttonText="@string/verification_wallets_verify_button"
+      app:buttonType="outlined"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintHorizontal_bias="1"
@@ -36,6 +38,7 @@
       app:layout_constraintTop_toTopOf="parent"
       app:layout_constraintWidth_default="wrap"
       />
+
   <androidx.constraintlayout.widget.Guideline
       android:id="@+id/vertical_guideline"
       android:layout_width="wrap_content"

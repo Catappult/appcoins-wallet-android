@@ -101,8 +101,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
-            android:layout_marginEnd="16dp"
             android:layout_marginTop="32dp"
+            android:layout_marginEnd="16dp"
             android:fontFamily="@font/roboto_bolt"
             android:textColor="#000B14"
             android:textSize="24sp"
@@ -116,8 +116,8 @@
             android:id="@+id/nft_subtitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
             android:layout_marginStart="32dp"
+            android:layout_marginTop="8dp"
             android:layout_marginEnd="16dp"
             android:fontFamily="@font/roboto_regular"
             android:textColor="#000B14"
@@ -126,20 +126,22 @@
             tools:text="Sub-Title"
             />
 
-        <android.widget.Button
+        <com.asfoundation.wallet.ui.common.WalletButtonView
             android:id="@+id/nft_transact_button"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:layout_marginBottom="27dp"
-            android:layout_marginTop="16dp"
+            android:layout_height="@dimen/large_button_height"
             android:layout_marginHorizontal="16dp"
-            style="@style/ButtonStyle"
-            android:text="@string/nfts_transact_button"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="27dp"
+            app:buttonText="@string/nfts_transact_button"
+            app:buttonType="filled"
             app:layout_constraintTop_toBottomOf="@id/nft_subtitle"
-            ></android.widget.Button>
+            />
+
       </androidx.constraintlayout.widget.ConstraintLayout>
+
     </ScrollView>
+
   </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

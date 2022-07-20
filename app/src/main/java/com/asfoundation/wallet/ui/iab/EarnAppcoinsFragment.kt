@@ -30,8 +30,10 @@ class EarnAppcoinsFragment : BasePageViewFragment(), EarnAppcoinsView {
 
   override fun onCreate(savedInstanceState: Bundle?) {
     if (savedInstanceState == null) {
-      analytics.sendPaymentEvent(domain, skuId, amount.toString(),
-          PAYMENT_METHOD_NAME, type)
+      analytics.sendPaymentEvent(
+        domain, skuId, amount.toString(),
+        PAYMENT_METHOD_NAME, type
+      )
     }
     presenter = EarnAppcoinsPresenter(this, CompositeDisposable(), AndroidSchedulers.mainThread())
     super.onCreate(savedInstanceState)
@@ -44,15 +46,17 @@ class EarnAppcoinsFragment : BasePageViewFragment(), EarnAppcoinsView {
   }
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-    dialog_buy_buttons_payment_methods.buy_button.text = getString(R.string.discover_button)
-    dialog_buy_buttons_payment_methods.cancel_button.text = getString(R.string.back_button)
+    dialog_buy_buttons_payment_methods.buy_button.setText(getString(R.string.discover_button))
+    dialog_buy_buttons_payment_methods.cancel_button.setText(getString(R.string.back_button))
     iabView.disableBack()
     presenter.present()
     super.onViewCreated(view, savedInstanceState)
   }
 
-  override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                            savedInstanceState: Bundle?): View? {
+  override fun onCreateView(
+    inflater: LayoutInflater, container: ViewGroup?,
+    savedInstanceState: Bundle?
+  ): View? {
     return inflater.inflate(R.layout.earn_appcoins_layout, container, false)
   }
 
@@ -113,8 +117,10 @@ class EarnAppcoinsFragment : BasePageViewFragment(), EarnAppcoinsView {
   companion object {
 
     @JvmStatic
-    fun newInstance(domain: String, skuId: String?, amount: BigDecimal,
-                    type: String): EarnAppcoinsFragment = EarnAppcoinsFragment().apply {
+    fun newInstance(
+      domain: String, skuId: String?, amount: BigDecimal,
+      type: String
+    ): EarnAppcoinsFragment = EarnAppcoinsFragment().apply {
       arguments = Bundle().apply {
         putString(PARAM_DOMAIN, domain)
         putString(PARAM_SKUID, skuId)
@@ -124,7 +130,7 @@ class EarnAppcoinsFragment : BasePageViewFragment(), EarnAppcoinsView {
     }
 
     private const val APTOIDE_EARN_APPCOINS_DEEP_LINK =
-        "aptoide://cm.aptoide.pt/deeplink?name=appcoins_ads"
+      "aptoide://cm.aptoide.pt/deeplink?name=appcoins_ads"
     private const val PARAM_DOMAIN = "AMOUNT_DOMAIN"
     private const val PARAM_SKUID = "AMOUNT_SKUID"
     private const val PARAM_AMOUNT = "PARAM_AMOUNT"

@@ -131,10 +131,10 @@
           android:paddingEnd="16dp"
           app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
           app:layout_constrainedHeight="true"
-          app:layout_constraintHeight_max="216dp"
-          app:layout_constraintHeight_min="60dp"
           app:layout_constraintBottom_toTopOf="@id/bottom_separator_buttons"
           app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintHeight_max="216dp"
+          app:layout_constraintHeight_min="60dp"
           app:layout_constraintStart_toStartOf="@id/mid_guideline"
           app:layout_constraintTop_toTopOf="parent"
           tools:listitem="@layout/item_payment_method"
@@ -191,16 +191,16 @@
           app:layout_constraintVertical_bias="0.4"
           />
 
-      <Button
+      <com.asfoundation.wallet.ui.common.WalletButtonView
           android:id="@+id/more_payment_methods"
-          style="?android:attr/borderlessButtonStyle"
           android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:layout_marginEnd="4dp"
-          android:drawableEnd="@drawable/ic_arrow_right"
-          android:text="@string/purchase_more_payment_methods_button"
-          android:textColor="@color/text_button_color"
-          android:textSize="12sp"
+          android:layout_height="@dimen/small_button_height"
+          android:layout_gravity="center_vertical"
+          android:layout_marginTop="6dp"
+          app:buttonImageRight="@drawable/ic_arrow_right"
+          app:buttonIsAllCaps="true"
+          app:buttonText="@string/purchase_more_payment_methods_button"
+          app:buttonType="text"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintTop_toBottomOf="@+id/layout_pre_selected"
           />
@@ -252,6 +252,7 @@
           android:layout_height="wrap_content"
           android:visibility="gone"
           app:constraint_referenced_ids="layout_pre_selected,more_payment_methods"
+          tools:visibility="visible"
           />
     </androidx.constraintlayout.widget.ConstraintLayout>
 

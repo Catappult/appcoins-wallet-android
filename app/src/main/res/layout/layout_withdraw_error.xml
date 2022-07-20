@@ -55,31 +55,32 @@
       app:layout_constraintTop_toBottomOf="@+id/withdraw_error_title"
       />
 
-
-  <Button
-      android:id="@+id/try_again_button"
-      style="@style/ButtonStyle"
+  <com.asfoundation.wallet.ui.common.WalletButtonView
+      android:id="@+id/later_button"
       android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:layout_marginStart="32dp"
-      android:layout_marginEnd="32dp"
-      android:layout_marginBottom="16dp"
-      android:text="@string/try_again"
-      app:layout_constraintBottom_toTopOf="@+id/later_button"
+      android:layout_height="@dimen/large_button_height"
+      android:layout_alignParentBottom="true"
+      android:layout_marginStart="@dimen/big_margin"
+      android:layout_marginEnd="@dimen/big_margin"
+      android:layout_marginBottom="72dp"
+      app:buttonText="@string/e_skills_withdraw_maybe_later"
+      app:buttonType="outlined"
+      app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       />
 
-  <Button
-      android:id="@+id/later_button"
-      style="@style/ButtonStyle.Light"
+  <com.asfoundation.wallet.ui.common.WalletButtonView
+      android:id="@+id/try_again_button"
       android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:layout_marginStart="32dp"
-      android:layout_marginEnd="32dp"
-      android:layout_marginBottom="72dp"
-      android:text="@string/e_skills_withdraw_maybe_later"
-      app:layout_constraintBottom_toBottomOf="parent"
+      android:layout_height="@dimen/large_button_height"
+      android:layout_alignParentBottom="true"
+      android:layout_marginStart="@dimen/big_margin"
+      android:layout_marginEnd="@dimen/big_margin"
+      android:layout_marginBottom="16dp"
+      app:buttonText="@string/try_again"
+      app:buttonType="filled"
+      app:layout_constraintBottom_toTopOf="@+id/later_button"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       />
