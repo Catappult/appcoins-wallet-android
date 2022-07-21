@@ -9,8 +9,8 @@
   <string name="refunded">Your money has been refunded.</string>
   <string name="ok">好的</string>
   <string name="cancel">取消</string>
-  <string name="buy_button">Buy</string>
-  <string name="topup_button">Top Up</string>
+  <string name="buy_button">購買</string>
+  <string name="topup_button">儲值</string>
   <string name="connection_error_body">可能您未連接至網路。請檢查您的網絡連線狀態，再試一次。</string>
   <string name="playing_game_notification_title">Currently playing e-Skills</string>
   <string name="playing_game_notification_body">Getting game info…</string>
@@ -27,7 +27,7 @@
   <string name="e_skills_payment_body">AppCoins Credits</string>
   <string name="copied_to_clipboard">Copied to the clipboard</string>
   <string name="processing_payment_title">Processing your payment</string>
-  <string name="purchase_error_title">Oops, something went wrong.</string>
+  <string name="purchase_error_title">糟糕，發生了錯誤。</string>
   <string name="purchase_eskills_sku">Entry ticket</string>
   <string name="shared_room_waiting">Waiting for opponents to join %s</string>
 </resources>

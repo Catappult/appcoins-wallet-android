@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:clipChildren="false"
@@ -12,30 +12,24 @@
     android:paddingEnd="@dimen/big_margin"
     android:paddingBottom="@dimen/big_margin"
     >
-  <Button
+
+  <com.asfoundation.wallet.ui.common.WalletButtonView
       android:id="@+id/cancel_button"
-      style="@style/CancelBorderlessButtonStyle"
       android:layout_width="wrap_content"
-      android:layout_height="@dimen/button_height"
+      android:layout_height="@dimen/small_button_height"
       android:layout_gravity="center_vertical"
-      android:layout_marginEnd="@dimen/big_margin"
-      android:maxWidth="150dp"
-      android:minWidth="80dp"
-      android:text="@string/cancel"
-      android:textColor="@color/dialog_buy_value_text"
-      android:textSize="14sp"
+      android:layout_marginEnd="6dp"
+      app:buttonText="@string/cancel"
+      app:buttonType="text"
       />
 
-  <Button
+  <com.asfoundation.wallet.ui.common.WalletButtonView
       android:id="@+id/buy_button"
-      style="@style/ButtonStyle.Alternative"
       android:layout_width="wrap_content"
-      android:layout_height="35dp"
+      android:layout_height="@dimen/small_button_height"
       android:layout_gravity="center_vertical"
-      android:maxWidth="150dp"
-      android:minWidth="80dp"
-      android:textColor="@color/white"
-      android:textSize="14sp"
-      tools:text="Comprar"
+      app:buttonText="@string/buy_button"
+      app:buttonType="filled"
       />
+
 </LinearLayout>

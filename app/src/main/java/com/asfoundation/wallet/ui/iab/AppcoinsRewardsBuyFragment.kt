@@ -106,7 +106,7 @@ class AppcoinsRewardsBuyFragment : BasePageViewFragment(), AppcoinsRewardsBuyVie
 
   override fun showNoNetworkError() {
     hideLoading()
-    error_dismiss.setText(R.string.ok)
+    error_dismiss.setText(getString(R.string.ok))
     error_message.setText(R.string.activity_iab_no_network_message)
     generic_error_layout.visibility = View.VISIBLE
   }
@@ -120,7 +120,7 @@ class AppcoinsRewardsBuyFragment : BasePageViewFragment(), AppcoinsRewardsBuyVie
   override fun close() = iabView.close(billingMessagesMapper.mapCancellation())
 
   override fun showError(message: Int?) {
-    error_dismiss.setText(R.string.ok)
+    error_dismiss.setText(getString(R.string.ok))
     error_message.text = getString(message ?: R.string.activity_iab_error_message)
     generic_error_layout.visibility = View.VISIBLE
     hideLoading()

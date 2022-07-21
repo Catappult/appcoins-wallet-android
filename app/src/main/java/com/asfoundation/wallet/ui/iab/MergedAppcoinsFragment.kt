@@ -540,7 +540,7 @@ class MergedAppcoinsFragment : BasePageViewFragment(), MergedAppcoinsView {
 
   override fun showError(@StringRes errorMessage: Int) {
     payment_method_main_view.visibility = GONE
-    error_dismiss.text = getString(R.string.ok)
+    error_dismiss.setText(getString(R.string.ok))
     error_message.text = getString(errorMessage)
     merged_error_layout.visibility = VISIBLE
   }
@@ -652,7 +652,7 @@ class MergedAppcoinsFragment : BasePageViewFragment(), MergedAppcoinsView {
   }
 
   private fun setButtonsText() {
-    buy_button.text = setBuyButtonText()
-    cancel_button.text = getString(R.string.back_button)
+    buy_button.setText(setBuyButtonText())
+    cancel_button.setText(getString(R.string.back_button))
   }
 }

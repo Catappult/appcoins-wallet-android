@@ -60,10 +60,13 @@
       app:line_type="solid"
       />
 
-  <Button
+  <com.asfoundation.wallet.ui.common.WalletButtonView
       android:id="@+id/rate_app_button"
-      style="@style/ListButtonStyle.Highlight"
-      android:text="@string/rate_us_possitive_rate_button"
+      android:layout_width="wrap_content"
+      android:layout_height="@dimen/button_list_height"
+      android:layout_gravity="center_vertical"
+      app:buttonText="@string/rate_us_possitive_rate_button"
+      app:buttonType="text"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintTop_toBottomOf="@+id/separator1"
       />
@@ -79,10 +82,14 @@
       app:line_type="solid"
       />
 
-  <Button
+  <com.asfoundation.wallet.ui.common.WalletButtonView
       android:id="@+id/remind_me_later_button"
-      style="@style/ListButtonStyle"
-      android:text="@string/remind_later_button"
+      android:layout_width="wrap_content"
+      android:layout_height="@dimen/button_list_height"
+      android:layout_gravity="center_vertical"
+      app:buttonColor="@color/btn_cancel_text"
+      app:buttonText="@string/remind_later_button"
+      app:buttonType="text"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintTop_toBottomOf="@+id/separator2"
       />
@@ -98,12 +105,17 @@
       app:line_type="solid"
       />
 
-  <Button
+  <com.asfoundation.wallet.ui.common.WalletButtonView
       android:id="@+id/no_button"
-      style="@style/ListButtonStyle"
-      android:text="@string/no_thanks_button"
+      android:layout_width="wrap_content"
+      android:layout_height="@dimen/button_list_height"
+      android:layout_gravity="center_vertical"
+      app:buttonColor="@color/btn_cancel_text"
+      app:buttonText="@string/no_thanks_button"
+      app:buttonType="text"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintTop_toBottomOf="@+id/separator3"
       />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+

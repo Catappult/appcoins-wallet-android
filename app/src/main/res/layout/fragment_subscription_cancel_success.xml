@@ -32,20 +32,16 @@
       app:layout_constraintTop_toBottomOf="@id/success_animation"
       />
 
-  <Button
+  <com.asfoundation.wallet.ui.common.WalletButtonView
       android:id="@+id/continue_button"
-      style="@style/ButtonStyle"
       android:layout_width="match_parent"
-      android:layout_height="35dp"
-      android:layout_gravity="center_vertical"
+      android:layout_height="@dimen/large_button_height"
+      android:layout_alignParentBottom="true"
       android:layout_marginStart="@dimen/big_margin"
       android:layout_marginEnd="@dimen/big_margin"
-      android:layout_marginBottom="24dp"
-      android:maxWidth="126dp"
-      android:minWidth="80dp"
-      android:text="Continue"
-      android:textColor="@color/white"
-      android:textSize="14sp"
+      android:layout_marginBottom="16dp"
+      app:buttonText="@string/ok"
+      app:buttonType="filled"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
       />

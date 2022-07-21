@@ -43,24 +43,28 @@
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintTop_toBottomOf="@id/dialog_message"
           >
-        <Button
+
+        <com.asfoundation.wallet.ui.common.WalletButtonView
             android:id="@+id/tooltip_later_button"
-            style="@style/TooltipButtonStyle.Negative"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/small_button_height"
             android:layout_gravity="center_vertical"
             android:layout_marginStart="13dp"
             android:layout_marginEnd="13dp"
-            android:text="@string/dismiss_button"
+            app:buttonColor="@color/btn_cancel_text"
+            app:buttonText="@string/dismiss_button"
+            app:buttonType="text"
             />
-        <Button
+
+        <com.asfoundation.wallet.ui.common.WalletButtonView
             android:id="@+id/tooltip_turn_on_button"
-            style="@style/TooltipButtonStyle.Positive"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/small_button_height"
             android:layout_gravity="center_vertical"
-            android:text="@string/turn_on_button"
+            app:buttonText="@string/turn_on_button"
+            app:buttonType="text"
             />
+
       </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
   </androidx.cardview.widget.CardView>

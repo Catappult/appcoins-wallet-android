@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:animateLayoutChanges="true"
+    android:paddingBottom="16dp"
     >
 
   <ScrollView
@@ -85,17 +86,17 @@
           android:layout_height="14dp"
           android:layout_marginTop="5dp"
           app:layout_constraintEnd_toStartOf="@+id/status"
+          app:layout_constraintHorizontal_chainStyle="packed"
           app:layout_constraintStart_toStartOf="@+id/app_name"
           app:layout_constraintTop_toBottomOf="@+id/sku_name"
-          app:layout_constraintHorizontal_chainStyle="packed"
           />
       <TextView
           android:id="@+id/status"
           style="@style/TextAppearance.AppCompat.Body1.Roboto.Medium"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:textColor="@color/green"
           android:layout_marginStart="5dp"
+          android:textColor="@color/green"
           android:textSize="12sp"
           app:layout_constraintBottom_toBottomOf="@+id/status_icon"
           app:layout_constraintEnd_toEndOf="@id/app_name"
@@ -214,40 +215,32 @@
 
   </ScrollView>
 
-  <Button
+  <com.asfoundation.wallet.ui.common.WalletButtonView
       android:id="@+id/cancel_subscription"
-      style="@style/ButtonStyle.Light"
       android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:layout_gravity="center"
+      android:layout_height="@dimen/large_button_height"
+      android:layout_alignParentBottom="true"
       android:layout_marginStart="@dimen/big_margin"
-      android:layout_marginTop="@dimen/normal_margin"
       android:layout_marginEnd="@dimen/big_margin"
-      android:layout_marginBottom="15dp"
-      android:minWidth="64dp"
-      android:minHeight="36dp"
-      android:orientation="vertical"
-      android:text="@string/subscriptions_cancel_button"
+      android:layout_marginBottom="8dp"
       android:visibility="gone"
+      app:buttonText="@string/subscriptions_cancel_button"
+      app:buttonType="outlined"
       app:layout_constraintBottom_toTopOf="@id/renew_subscription"
       tools:visibility="visible"
       />
 
-  <Button
+  <com.asfoundation.wallet.ui.common.WalletButtonView
       android:id="@+id/renew_subscription"
-      style="@style/ButtonStyle"
       android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:layout_gravity="center"
+      android:layout_height="@dimen/large_button_height"
+      android:layout_alignParentBottom="true"
       android:layout_marginStart="@dimen/big_margin"
-      android:layout_marginTop="@dimen/normal_margin"
       android:layout_marginEnd="@dimen/big_margin"
-      android:layout_marginBottom="24dp"
-      android:minWidth="64dp"
-      android:minHeight="36dp"
-      android:orientation="vertical"
-      android:text="@string/subscriptions_renew_subscription_button"
+      android:layout_marginBottom="8dp"
       android:visibility="gone"
+      app:buttonText="@string/subscriptions_renew_subscription_button"
+      app:buttonType="filled"
       app:layout_constraintBottom_toBottomOf="parent"
       tools:visibility="visible"
       />
@@ -282,11 +275,11 @@
       android:id="@+id/loading_animation"
       android:layout_width="140dp"
       android:layout_height="wrap_content"
+      android:visibility="gone"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent"
-      android:visibility="gone"
       app:lottie_autoPlay="true"
       app:lottie_enableMergePathsForKitKatAndAbove="true"
       app:lottie_loop="true"

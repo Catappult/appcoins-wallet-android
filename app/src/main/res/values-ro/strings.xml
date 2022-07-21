@@ -16,7 +16,7 @@
   <string name="error_field_required">Acest câmp este obligatoriu</string>
   <string name="action_settings">Setări</string>
   <string name="title_account_list">Portofele</string>
-  <string name="cancel">anulează</string>
+  <string name="cancel">Anulează</string>
   <string name="confirm_delete_account">Asigură-te că ai o copie de rezervă a acestui portofel.</string>
   <string name="action_import">Recuperează</string>
   <string name="copy">Copiază în clipboard</string>
@@ -26,8 +26,8 @@
   <string name="network_label">Rețea</string>
   <string name="credits">Credite</string>
   <string name="label_new">Nou</string>
-  <string name="got_it_button">AM ÎNȚELES</string>
-  <string name="change_button">MODIFICĂ</string>
+  <string name="got_it_button">Am înțeles</string>
+  <string name="change_button">Change</string>
   <string name="vip">VIP</string>
   <string name="low_storage_error">Spațiu de stocare insuficient</string>
   <string name="no_camera_permission_title">Permisiune cameră foto</string>
@@ -361,7 +361,7 @@
   <string name="provide_wallet_allow_once_button">Permite o dată</string>
   <string name="provide_wallet_completed_header">Portofel asociat cu Aptoide!</string>
   <string name="provide_wallet_create_body">Ai nevoie de o adresă de portofel! Urmează acești pași să creezi una în Portofelul AppCoins.</string>
-  <string name="provide_wallet_create_wallet_button">CREEAZĂ</string>
+  <string name="provide_wallet_create_wallet_button">Creează</string>
   <string name="provide_wallet_creating_wallet_header">Se creează adresă portofel&#8230;</string>
   <string name="provide_wallet_created_header">Adresă portofel creată!</string>
   <string name="provide_wallet_empty_state">Nu ai permis AppCoins Wallet să furnizeze adresa ta către nici o altă aplicație.</string>
@@ -441,7 +441,7 @@
   <string name="remind_later_button">Amintește-mi mai târziu</string>
   <string name="get_code_button">Obține cod</string>
   <string name="confirm_button">Confirmă</string>
-  <string name="withdraw_button">retrage</string>
+  <string name="withdraw_button">Withdraw</string>
   <string name="email_here_field">E-mailul tău aici&#8230;</string>
   <string name="understood_button">Am înțeles!</string>
   <string name="skip_button">Omite pentru moment</string>
@@ -595,12 +595,12 @@
   <string name="referral_view_title">Invită prieteni</string>
   <string name="referral_view_title_1">Invită prieteni și câștigă mai mult!</string>
   <string name="referral_view_verified_body">Primești AppCoins Credits în valoare de %s pentru fiecare prieten. Distribuie linkul!</string>
-  <string name="referral_view_share_link_button">DISTRIBUIE LINK DE INVITAȚIE</string>
+  <string name="referral_view_share_link_button">Share invite link</string>
   <string name="referral_view_notifications_title">Notificări</string>
   <string name="referral_share_sheet_title">Distribuie link de invitația via:</string>
   <string name="referral_view_unverified_body">Vei primi AppCoins Credits în valoare de %s pentru fiecare prieten. Dar, mai întâi, trebuie să îți verifici portofelul.</string>
-  <string name="referral_view_verify_button">VERIFICĂ PORTOFEL</string>
-  <string name="referral_view_i_have_been_invited_button">AM FOST INVITAT</string>
+  <string name="referral_view_verify_button">Verify wallet</string>
+  <string name="referral_view_i_have_been_invited_button">Am fost invitat</string>
   <string name="referral_view_dropup_menu_friends_invited">Prieteni invitați</string>
   <string name="referral_view_dropup_menu_earned">Câștigați</string>
   <string name="referral_dropup_menu_friends_title_1">Prieteni invitați</string>
@@ -634,7 +634,7 @@
   <string name="update_wallet_hard_body">Se pare că folosești o versiune veche a AppCoins Wallet. Actualizează pentru a garanta cea mai bună experiență și securitate.</string>
   <string name="update_wallet_soft_title">Nu rămâne în urmă!</string>
   <string name="update_wallet_soft_body">Un AppCoins Wallet actualizat îți garantează cea mai bună experiență.</string>
-  <string name="update_button">ACTUALIZEAZĂ</string>
+  <string name="update_button">Update</string>
   <!--Backup and Import-->
   <string name="backup_home_notification_title">Fă o copie de rezervă a portofelului</string>
   <string name="backup_home_notification_body">Ți-ai pierdut vreodată telefonul? Fă o copie de rezervă a portofelului tău acum!</string>
@@ -645,8 +645,8 @@
   <string name="import_wallet_body">Lipește copia de rezervă a portofelului tău mai jos.</string>
   <string name="import_wallet_keystore_private_keys">Keystore sau chei private</string>
   <string name="import_wallet_from_file_title">Sau recuperează din fișier</string>
-  <string name="import_wallet_file_button">RECUPEREAZĂ DIN FIȘIER</string>
-  <string name="import_wallet_button">RECUPEREAZĂ PORTOFEL</string>
+  <string name="import_wallet_file_button">Recover from file</string>
+  <string name="import_wallet_button">Recuperează portofel</string>
   <string name="import_wallet_password_body">Acest portofel este protejat cu parolă!</string>
   <string name="import_wallet_wrong_password_body">Ups, parolă greșită!</string>
   <string name="error_invalid_private_key">Cheie privată nevalidă</string>
@@ -655,7 +655,7 @@
   <string name="backup_body">Nu îți stocăm cheile private sau orice alte metode de acces. Este important să păstrezi copia de rezervă a portofelului (keystore) în siguranță.</string>
   <string name="backup_additional_security_title">Securitate suplimentară (opțional)</string>
   <string name="backup_additional_security_body">Alege o parolă</string>
-  <string name="backup_button">COPIE DE REZERVĂ PORTOFEL</string>
+  <string name="backup_button">Back up wallet</string>
   <string name="backup_ready_title">Copia ta de rezervă este pregătită!\nPăstreaz-o în siguranță.</string>
   <string name="backup_ready_save_on_email">Salveaz-o în e-mailul tău</string>
   <string name="backup_ready_email_button">Trimite-o pe e-mail</string>
@@ -665,8 +665,8 @@
   <string name="backup_confirmation_tips_2"><b>Salvează-o</b> pe un drive USB.</string>
   <string name="backup_confirmation_tips_3"><b>Copiaz-o</b> într-un cloud de stocare privat și securizat.</string>
   <string name="backup_tooltip_body">Fă-ți o copie de rezervă a portofelului tău!</string>
-  <string name="backup_tooltip_later_button">POATE MAI TÂRZIU</string>
-  <string name="backup_tooltip_backup_button">FĂ COPIE</string>
+  <string name="backup_tooltip_later_button">Poate mai târziu</string>
+  <string name="backup_tooltip_backup_button">Back up</string>
   <string name="backup_notification_title">Fă o copie de rezervă a portofelului tău!</string>
   <string name="backup_notification_body">Păstrează-ți fondurile în siguranță și asigură-te că ai mereu acces la portofelul tău.</string>
   <string name="backup_choose_wallet_title">Alege portofelul pentru care vrei să faci o copie de rezervă</string>
@@ -695,23 +695,23 @@
   <string name="wallets_imported_body">Portofel recuperat cu succes</string>
   <string name="wallets_2nd_view_balance_title">Balanță:</string>
   <string name="wallets_2nd_view_other_wallets_title">Alte portofele</string>
-  <string name="wallets_2nd_view_import_button">RECUPEREAZĂ PORTOFEL</string>
-  <string name="wallets_2nd_view_create_button">CREEAZĂ NOU</string>
-  <string name="wallet_view_copy_button">COPIAZĂ</string>
-  <string name="wallet_view_share_button">DISTRIBUIE</string>
+  <string name="wallets_2nd_view_import_button">Recuperează portofel</string>
+  <string name="wallets_2nd_view_create_button">Create new</string>
+  <string name="wallet_view_copy_button">Copy</string>
+  <string name="wallet_view_share_button">Distribuie</string>
   <string name="wallet_view_total_balance_title">Balanță totală</string>
-  <string name="wallet_view_remove_button">ELIMINĂ PORTOFEL</string>
-  <string name="wallet_view_backup_button">COPIE DE REZERVĂ PORTOFEL</string>
-  <string name="wallet_view_activate_button">ACTIVEAZĂ ACEST PORTOFEL</string>
+  <string name="wallet_view_remove_button">Remove wallet</string>
+  <string name="wallet_view_backup_button">Back up wallet</string>
+  <string name="wallet_view_activate_button">Make this wallet active</string>
   <string name="wallet_view_active_body">Acesta este portofelul tău activ.</string>
   <!--Remove Wallet-->
   <string name="remove_wallet_title">Elimină portofel</string>
   <string name="remove_wallet_body">Îți recomandăm să faci o copie de rezervă a portofelului înainte de a-l elimina. Nu vei mai putea să îl accesezi dacă nu ai o copie de rezervă.</string>
-  <string name="remove_wallet_backup_button">COPIE DE REZERVĂ PORTOFEL</string>
-  <string name="remove_wallet_no_backup_button">ELIMINĂ PORTOFEL</string>
+  <string name="remove_wallet_backup_button">Back up wallet</string>
+  <string name="remove_wallet_no_backup_button">Remove wallet</string>
   <string name="remove_wallet_confirm_body">Ești sigur că vrei să elimini acest portofel?</string>
-  <string name="remove_wallet_no_button">NU, DU-TE ÎNAPOI</string>
-  <string name="remove_wallet_yes_button">DA, ELIMINĂ PORTOFEL</string>
+  <string name="remove_wallet_no_button">No, go back</string>
+  <string name="remove_wallet_yes_button">Yes, remove wallet</string>
   <string name="remove_wallet_removed_body">Portofel eliminat!</string>
   <!--Tranfer-->
   <string name="tranfer_bottom_navigation">Transfer</string>
@@ -723,7 +723,7 @@
   <string name="transfer_send_token_title">Token:</string>
   <string name="transfer_send_amount_title">Sumă</string>
   <string name="transfer_send_current_balance_title">Balanță curentă:</string>
-  <string name="transfer_send_button">TRIMITE</string>
+  <string name="transfer_send_button">Trimite</string>
   <string name="transfer_receive_body">Distribuie adresa portofelului tău pentru a primi fonduri.</string>
   <!--Support Notifications-->
   <string name="support_new_message_title">Ai un mesaj nou!</string>
@@ -760,15 +760,15 @@
   <string name="subscriptions_expiration_body">Expiră pe %s</string>
   <string name="subscriptions_canceled_body">Anulată</string>
   <string name="subscriptions_details_disclaimer">Valoarea în AppCoins poate varia pentru următoarea plată din cauza cursului de schimb.</string>
-  <string name="subscriptions_details_button">DETALII</string>
-  <string name="subscriptions_manage_button">GESTIONEAZĂ ABONAMENTE</string>
-  <string name="subscriptions_cancel_button">ANULEAZĂ ABONAMENT</string>
-  <string name="subscriptions_renew_subscription_button">REÎNNOIEȘTE ABONAMENT</string>
+  <string name="subscriptions_details_button">Detalii</string>
+  <string name="subscriptions_manage_button">Manage subscription</string>
+  <string name="subscriptions_cancel_button">Cancel subscription</string>
+  <string name="subscriptions_renew_subscription_button">Renew subscription</string>
   <string name="subscriptions_renewed_confirmation_title">Abonament reînnoit!</string>
   <string name="subscriptions_cancel_title">Anulează Abonament</string>
   <string name="subscriptions_cancel_body">Ești sigur că vrei să anulezi acest abonament?</string>
-  <string name="subscriptions_cancel_no_button">NU, DU-TE ÎNAPOI</string>
-  <string name="subscriptions_cancel_yes_button">DA, ANULEAZĂ ABONAMENT</string>
+  <string name="subscriptions_cancel_no_button">No, go back</string>
+  <string name="subscriptions_cancel_yes_button">Yes, cancel subscription</string>
   <string name="subscriptions_cancel_confirmation_title">Abonament anulat!</string>
   <string name="subscriptions_cancel_confirmation_body">Nu vei mai fi taxat pentru acest abonament și îl poți folosi până pe %s.</string>
   <string name="subscriptions_category_title">Abonament</string>
@@ -795,6 +795,7 @@
   <string name="gamif_card_start">Ești încă pe Pământ</string>
   <string name="gamif_card_title">Ești pe %s</string>
   <string name="gamif_card_body">Cheltuiește încă %s AppCoins ca să atingi nivelul următor.</string>
+  <string name="gamif_card_maximum_body">Spend %s AppCoins more to reach the maximum level.</string>
   <string name="gamif_bonus">Bonus %s%%</string>
   <string name="gamif_placeholder_earth">Pământ</string>
   <string name="gamif_quote_earth">„Pământul este ceea ce avem toți în comun” - Wendell Berry</string>
@@ -841,8 +842,8 @@
   <string name="carrier_billing_phone_confirmation_body">Numărul tău de telefon este %s.</string>
   <string name="carrier_billing_enter_pin_body">Introdu PIN-ul primit prin SMS.</string>
   <string name="carrier_billing_code_field">Codul tău...</string>
-  <string name="carrier_billing_code_resend_button">RETRIMITE COD</string>
-  <string name="carrier_billing_submit_button">TRIMITE</string>
+  <string name="carrier_billing_code_resend_button">Resend code</string>
+  <string name="carrier_billing_submit_button">Trimite</string>
   <string name="carrier_billing_number_not_supported">Se pare că numărul tău nu este compatibil cu această metodă de plată.</string>
   <string name="carrier_billing_terms_disclaimer">Apăsând Trimite, confirmi că accepți Termenii și condițiile și Politica de confidențialitate.</string>
   <string name="carrier_billing_help_1">Ai nevoie de ajutor?</string>
@@ -933,7 +934,7 @@
   <string name="rate_us_improve_field__empty_error">Te rugăm să scrii ceva</string>
   <string name="rate_us_possitive_thanks_title">Îți mulțumim!</string>
   <string name="rate_us_possitive_thanks_body">Ne pare bine că îți place aplicația noastră. Ne poți ajuta cu o evaluare în App Store?</string>
-  <string name="rate_us_possitive_rate_button">EVALUEAZĂ APPCOINS WALLET</string>
+  <string name="rate_us_possitive_rate_button">Rate the AppCoins Wallet</string>
   <string name="rate_us_possitive_done_title">Îți mulțumim pentru părerea ta!</string>
   <string name="rate_us_back_title">Vrei să ne dai o mână de ajutor?</string>
   <string name="rate_us_back_body">Evaluează AppCoins Wallet în App Store pentru a ne ajuta să îl îmbunătățim.</string>
@@ -973,7 +974,7 @@
   <string name="voucher_buy_header">Voucher pentru %s</string>
   <string name="voucher_buy_short_header">Voucher:</string>
   <string name="voucher_buy_no_game_title">Nu ai %s?</string>
-  <string name="voucher_buy_no_game_install_button">DESCARCĂ ACUM</string>
+  <string name="voucher_buy_no_game_install_button">Descarcă acum</string>
   <string name="voucher_code_title">Cod voucher</string>
   <string name="voucher_instructions_body">Du-te la %s și folosește codul pentru a-ți revendica voucherul.</string>
   <string name="voucher_instructions_transactions">Vei găsi codul voucherului în istoricul tranzacțiilor.</string>
@@ -1022,8 +1023,8 @@
   <string name="promo_code_view_field">Cod Promo aici...</string>
   <string name="promo_code_view_error">Cod nevalid. Încearcă cu un alt cod!</string>
   <string name="promo_code_activated">Cod Promo activat!</string>
-  <string name="promo_code_delete_button">ȘTERGE</string>
-  <string name="promo_code_replace_button">ÎNLOCUIEȘTE</string>
+  <string name="promo_code_delete_button">Delete</string>
+  <string name="promo_code_replace_button">Replace</string>
   <string name="promo_code_active_tag">Activ</string>
   <string name="promo_code_expired_tag">Expirat</string>
   <string name="promo_code_success_title">Gata!</string>
@@ -1078,17 +1079,44 @@
   <string name="mywallet_unverified_title">Portofel neverificat</string>
   <string name="mywallet_unverified_body">Verifică o metodă de plată pentru a evita blocaje.</string>
   <string name="mywallet_backed_up_date">Ai făcut o copie de rezervă a portofelului tău pe %s.</string>
-  <string name="mywallet_backup_again_button">FĂ O COPIE DE REZERVĂ NOUĂ</string>
-  <string name="mywallet_verify_payment_method_button">VERIFY NEW CARD</string>
+  <string name="mywallet_backup_again_button">Back up again</string>
+  <string name="mywallet_verify_payment_method_button">Verifică un card nou</string>
   <string name="mywallet_choose_name_header">Alege un nume pentru portofelul tău</string>
   <string name="mywallet_choose_name_field">Numele portofelului aici...</string>
   <string name="mywallet_choose_name_confirmed">Numele portofelului a fost schimbat</string>
   <string name="mywallet_unnamed_wallet">Portofel fără nume %s</string>
   <string name="mywallet_swithing_wallets_title">Se schimbă portofelele...</string>
-  <string name="mywallet_address_title">Address:</string>
+  <string name="mywallet_address_title">Adresă:</string>
   <!-- Onboarding for new users coming from an iap -->
   <string name="onboarding_1st_title">Felicitări! Ai instalat un AppCoins Wallet.</string>
   <string name="onboarding_1st_body">Du-te înapoi la joc pentru a finaliza achiziția.</string>
   <string name="onboarding_1st_back_to_game_button">Du-te înapoi la joc</string>
   <string name="onboarding_1st_explore_wallet_button">Or explore the Wallet</string>
+  <!-- VIP Program -->
+  <string name="vip_program_reached_notification_title">Welcome to the VIP Program</string>
+  <string name="vip_program_reached_notification_body">You\'re now a VIP user with access to special promotions and deals. Tap for more details!</string>
+  <string name="vip_program_almost_notification_title">Almost there!</string>
+  <string name="vip_program_almost_notification_body">You\'re about to become a VIP user. Tap for more details!</string>
+  <string name="vip_program_almost_onboarding_title">You\'re about to become a VIP user!</string>
+  <string name="vip_program_almost_onboarding_body">Continue playing and making purchases to access exclusive promotions and deals. Ready to become the ultimate player?</string>
+  <string name="vip_program_onboarding_header_1">Congratulations!</string>
+  <string name="vip_program_onboarding_header_2">You\'re now a VIP user</string>
+  <string name="vip_program_onboarding_body">Our VIP Program is tailored for our most valued members... like yourself! You have now access to the best promotions and referral programs to earn more rewards.</string>
+  <string name="vip_program_promotions_tab_1">You\'re now a VIP user.</string>
+  <string name="vip_program_promotions_tab_2">Check the promotions we have have just for you!</string>
+  <string name="vip_program_exclusivity_tag">Only for VIP</string>
+  <string name="vip_program_referral_button_title">VIP Referral Program</string>
+  <string name="vip_program_referral_button_body">%s%% Bonus for you and your friends.</string>
+  <string name="vip_program_promotions_list_title">Special promotions for you</string>
+  <string name="vip_program_promo_code_tag">Promo code</string>
+  <string name="vip_program_referral_page_title">VIP Referral Program</string>
+  <string name="vip_program_referral_page_body">Share this promo code with your community and friends for everyone to earn while playing. For every in-app purchase they make, both <b>you and your friends will receive %s%% bonus</b> on top of other active promotions and for an entire month!</string>
+  <string name="vip_program_referral_page_share_title">Share this code with your friends</string>
+  <string name="vip_program_referral_page_earned_body">%1$s%2$s earned from %3$s referrals</string>
+  <string name="vip_program_gamification_title">What\'s my bonus level?</string>
+  <string name="vip_program_gamification_amount_purchases_bonus">Bonus received from your purchases.</string>
+  <string name="vip_program_gamification_amoung_referral_bonus">Bonus received from referrals</string>
+  <string name="vip_program_max_bonus_title">Enjoy your %s%% Bonus on every purchase</string>
+  <string name="vip_program_max_bonus_body">You\'ve reached the limits of the solar system.</string>
+  <string name="vip_program_max_bonus_short">%s%% Bonus on every purchase.</string>
 </resources>

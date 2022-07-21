@@ -1,13 +1,9 @@
 package com.asfoundation.wallet.transfers;
 
-import static com.asfoundation.wallet.C.EXTRA_GAS_SETTINGS;
-import static com.asfoundation.wallet.C.EXTRA_TRANSACTION_BUILDER;
-import static com.asfoundation.wallet.C.GWEI_UNIT;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import androidx.annotation.Nullable;
@@ -21,6 +17,7 @@ import com.asfoundation.wallet.entity.GasSettings;
 import com.asfoundation.wallet.entity.PendingTransaction;
 import com.asfoundation.wallet.entity.TransactionBuilder;
 import com.asfoundation.wallet.ui.BaseActivity;
+import com.asfoundation.wallet.ui.common.WalletButtonView;
 import com.asfoundation.wallet.util.BalanceUtils;
 import com.asfoundation.wallet.util.CurrencyFormatUtils;
 import com.asfoundation.wallet.util.Log;
@@ -30,6 +27,10 @@ import com.asfoundation.wallet.viewmodel.TransferConfirmationViewModel;
 import com.asfoundation.wallet.viewmodel.TransferConfirmationViewModelFactory;
 import dagger.hilt.android.AndroidEntryPoint;
 import javax.inject.Inject;
+
+import static com.asfoundation.wallet.C.EXTRA_GAS_SETTINGS;
+import static com.asfoundation.wallet.C.EXTRA_TRANSACTION_BUILDER;
+import static com.asfoundation.wallet.C.GWEI_UNIT;
 
 @AndroidEntryPoint public class TransferConfirmationActivity extends BaseActivity {
   private static final String TAG = TransferConfirmationActivity.class.getSimpleName();
@@ -44,7 +45,7 @@ import javax.inject.Inject;
   private TextView gasPriceText;
   private TextView gasLimitText;
   private TextView networkFeeText;
-  private Button sendButton;
+  private WalletButtonView sendButton;
 
   @Override protected void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -61,8 +62,8 @@ import javax.inject.Inject;
     sendButton = findViewById(R.id.send_button);
     sendButton.setOnClickListener(view -> onSend());
 
-    viewModel = new ViewModelProvider(this, viewModelFactory)
-        .get(TransferConfirmationViewModel.class);
+    viewModel =
+        new ViewModelProvider(this, viewModelFactory).get(TransferConfirmationViewModel.class);
     viewModel.transactionBuilder()
         .observe(this, this::onTransactionBuilder);
     viewModel.transactionHash()
@@ -106,7 +107,8 @@ import javax.inject.Inject;
     int color = getResources().getColor(R.color.color_grey_9e);
     valueText.setText(BalanceUtils.formatBalance(value, symbol, smallTitleSize, color));
     final GasSettings gasSettings =
-        viewModel.handleSavedGasSettings(transactionBuilder.gasSettings().gasPrice, transactionBuilder.gasSettings().gasLimit);
+        viewModel.handleSavedGasSettings(transactionBuilder.gasSettings().gasPrice,
+            transactionBuilder.gasSettings().gasLimit);
 
     String formattedGasPrice = getString(R.string.gas_price_value,
         currencyFormatUtils.formatTransferCurrency(gasSettings.gasPrice, WalletCurrency.ETHEREUM),

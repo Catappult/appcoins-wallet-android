@@ -16,7 +16,7 @@
   <string name="error_field_required">Това поле е задължително</string>
   <string name="action_settings">Настройки</string>
   <string name="title_account_list">Портфейли</string>
-  <string name="cancel">отказ</string>
+  <string name="cancel">Отказ</string>
   <string name="confirm_delete_account">Увери се, че имаш бекъп на този портфейл.</string>
   <string name="action_import">Възстанови</string>
   <string name="copy">Копиране в клипборда</string>
@@ -26,8 +26,8 @@
   <string name="network_label">Мрежа</string>
   <string name="credits">Кредити</string>
   <string name="label_new">Ново</string>
-  <string name="got_it_button">РАЗБРАХ</string>
-  <string name="change_button">CHANGE</string>
+  <string name="got_it_button">Got it</string>
+  <string name="change_button">Change</string>
   <string name="vip">VIP</string>
   <string name="low_storage_error">Няма достатъчно място за съхранение</string>
   <string name="no_camera_permission_title">Разрешение за камера</string>
@@ -131,7 +131,7 @@
   <string name="intro_agree_terms_and_conditions_body">Кликвайки на Пропусни, ти се съгласяваш с  %1$s и %2$s на AppCoins портфейла</string>
   <string name="intro_skip_button">ПРОПУСНИ</string>
   <string name="intro_welcome_header">Welcome to the AppCoins Wallet</string>
-  <string name="intro_welcome_body">Your app for in-app purchases.</string>
+  <string name="intro_welcome_body">Твоето приложение за ин-ап покупки.</string>
   <string name="intro_already_have_wallet_button">I already have a wallet</string>
   <string name="intro_get_started_button">Get started</string>
   <!-- Menus -->
@@ -361,7 +361,7 @@
   <string name="provide_wallet_allow_once_button">Позволи веднъж</string>
   <string name="provide_wallet_completed_header">Портфейл, свързан с Aptoide!</string>
   <string name="provide_wallet_create_body">Имаш нужда от адрес на портфейла. Следвай тези стъпки, за да си създадеш такъв в AppCoins портфейла.</string>
-  <string name="provide_wallet_create_wallet_button">СЪЗДАЙ</string>
+  <string name="provide_wallet_create_wallet_button">Create</string>
   <string name="provide_wallet_creating_wallet_header">Създаване на адрес на портфейла&#8230;</string>
   <string name="provide_wallet_created_header">Адрес на портфейла създаден!</string>
   <string name="provide_wallet_empty_state">Не си разрешил на AppCoins портфейла да предостави твоя адрес на никое друго приложение все още.</string>
@@ -441,7 +441,7 @@
   <string name="remind_later_button">Remind me later</string>
   <string name="get_code_button">Get code</string>
   <string name="confirm_button">Потвърди</string>
-  <string name="withdraw_button">withdraw</string>
+  <string name="withdraw_button">Withdraw</string>
   <string name="email_here_field">Your email here&#8230;</string>
   <string name="understood_button">Understood!</string>
   <string name="skip_button">Skip for now</string>
@@ -460,7 +460,7 @@
   <string name="home_empty_discover_apps_button">ОТКРИЙ ТОП ПРИЛОЖЕНИЯ</string>
   <!--Tokens-->
   <!--Settings-->
-  <string name="title_redeem">Redeem Code</string>
+  <string name="title_redeem">Осребри кода</string>
   <string name="settings_item_support">Свържи се със съпорт отдела</string>
   <string name="settings_subheader_support">Поддръжка</string>
   <string name="settings_subheader_about_us">За нас</string>
@@ -595,12 +595,12 @@
   <string name="referral_view_title">Покани приятели</string>
   <string name="referral_view_title_1">Покани приятели и спечели още!</string>
   <string name="referral_view_verified_body">Получи %s като стойност в AppCoins Credits за всеки приятел. Просто сподели линка!</string>
-  <string name="referral_view_share_link_button">СПОДЕЛИ ЛИНКА ЗА ПОКАНА</string>
+  <string name="referral_view_share_link_button">Share invite link</string>
   <string name="referral_view_notifications_title">Известия</string>
   <string name="referral_share_sheet_title">Сподели линка за покана през:</string>
   <string name="referral_view_unverified_body">Receive %s worth of AppCoins Credits for each friend. You first need to verify your wallet.</string>
-  <string name="referral_view_verify_button">ВЕРИФИЦИРАЙ ПОРТФЕЙЛА</string>
-  <string name="referral_view_i_have_been_invited_button">БЯХ ПОКАНЕН</string>
+  <string name="referral_view_verify_button">Verify wallet</string>
+  <string name="referral_view_i_have_been_invited_button">Бях поканен</string>
   <string name="referral_view_dropup_menu_friends_invited">Поканени приятели</string>
   <string name="referral_view_dropup_menu_earned">Спечелени</string>
   <string name="referral_dropup_menu_friends_title_1">Поканени приятели</string>
@@ -634,7 +634,7 @@
   <string name="update_wallet_hard_body">Изглежда, че използва[ стара версия на AppCoins Wallet. Моля, актуализирай го, за да си гарантираш най-доброто изживяване и сигурност.</string>
   <string name="update_wallet_soft_title">Не изоставай!</string>
   <string name="update_wallet_soft_body">Поддържането на актуализиран AppCoins Wallet гарантира най-доброто изживяване.</string>
-  <string name="update_button">АКТУАЛИЗИРАЙ</string>
+  <string name="update_button">Update</string>
   <!--Backup and Import-->
   <string name="backup_home_notification_title">Направи бекъп на портфейла си</string>
   <string name="backup_home_notification_body">Някога архивирал ли си си телефона? Архивирай портфейла си сега!</string>
@@ -645,8 +645,8 @@
   <string name="import_wallet_body">Постави бекъп-а на портфейла си по-долу.</string>
   <string name="import_wallet_keystore_private_keys">Хранилище или лични ключове</string>
   <string name="import_wallet_from_file_title">Or recover from file</string>
-  <string name="import_wallet_file_button">ВЪЗСТАНОВИ ОТ ФАЙЛ</string>
-  <string name="import_wallet_button">ВЪЗСТАНОВИ ПОРТФЕЙЛА</string>
+  <string name="import_wallet_file_button">Recover from file</string>
+  <string name="import_wallet_button">Recover wallet</string>
   <string name="import_wallet_password_body">Този портфейл е защитен с парола!</string>
   <string name="import_wallet_wrong_password_body">Опа, грешна парола!</string>
   <string name="error_invalid_private_key">Невалиден частен ключ</string>
@@ -655,7 +655,7 @@
   <string name="backup_body">Ние не съхраняваме твоите лични ключове или друг метод за достъп. Важно е да запазиш резервното копие (хранилище) на портфейла си.</string>
   <string name="backup_additional_security_title">Additional Security (optional)</string>
   <string name="backup_additional_security_body">Choose a password</string>
-  <string name="backup_button">BACKUP WALLET</string>
+  <string name="backup_button">Back up wallet</string>
   <string name="backup_ready_title">Your backup is ready!\nKeep it safe.</string>
   <string name="backup_ready_save_on_email">Save it on your email</string>
   <string name="backup_ready_email_button">Send to email</string>
@@ -665,8 +665,8 @@
   <string name="backup_confirmation_tips_2"><b>Save it</b> on a USB drive.</string>
   <string name="backup_confirmation_tips_3"><b>Copy it</b> to a private and secure cloud storage.</string>
   <string name="backup_tooltip_body">Направи бекъп на портфейла си!</string>
-  <string name="backup_tooltip_later_button">МОЖЕ БИ ПО-КЪСНО</string>
-  <string name="backup_tooltip_backup_button">БЕКЪП</string>
+  <string name="backup_tooltip_later_button">Maybe later</string>
+  <string name="backup_tooltip_backup_button">Back up</string>
   <string name="backup_notification_title">Направи бекъп на портфейла си!</string>
   <string name="backup_notification_body">Пази средствата си и бъди сигурен, че винаги имаш достъп до портфейла си.</string>
   <string name="backup_choose_wallet_title">Избери портфейл за бекъп</string>
@@ -694,23 +694,23 @@
   <string name="wallets_imported_body">Портфейлът беше успешно възстановен</string>
   <string name="wallets_2nd_view_balance_title">Баланс:</string>
   <string name="wallets_2nd_view_other_wallets_title">Други портфейли</string>
-  <string name="wallets_2nd_view_import_button">ВЪЗСТАНОВИ ПОРТФЕЙЛА</string>
-  <string name="wallets_2nd_view_create_button">СЪЗДАЙ НОВ</string>
-  <string name="wallet_view_copy_button">КОПИРАЙ</string>
-  <string name="wallet_view_share_button">СПОДЕЛИ</string>
+  <string name="wallets_2nd_view_import_button">Recover wallet</string>
+  <string name="wallets_2nd_view_create_button">Create new</string>
+  <string name="wallet_view_copy_button">Copy</string>
+  <string name="wallet_view_share_button">Сподели</string>
   <string name="wallet_view_total_balance_title">Общ баланс</string>
-  <string name="wallet_view_remove_button">МАХНИ ПОРТФЕЙЛ</string>
-  <string name="wallet_view_backup_button">БЕКЪП НА ПОРТФЕЙЛ</string>
-  <string name="wallet_view_activate_button">НАПРАВИ ТОЗИ ПОРТФЕЙЛ АКТИВЕН</string>
+  <string name="wallet_view_remove_button">Remove wallet</string>
+  <string name="wallet_view_backup_button">Back up wallet</string>
+  <string name="wallet_view_activate_button">Make this wallet active</string>
   <string name="wallet_view_active_body">Това е твоя активен портфейл.</string>
   <!--Remove Wallet-->
   <string name="remove_wallet_title">Премахни портфейла</string>
   <string name="remove_wallet_body">Силно препоръчваме да направиш резервно копие на портфейла си преди да го премахнеш. Няма да можеш да получиш достъп до него отново, освен ако нямаш резервно копие.</string>
-  <string name="remove_wallet_backup_button">БЕКЪП НА ПОРТФЕЙЛ</string>
-  <string name="remove_wallet_no_backup_button">ПРЕМАХНИ ПОРТФЕЙЛА</string>
+  <string name="remove_wallet_backup_button">Back up wallet</string>
+  <string name="remove_wallet_no_backup_button">Remove wallet</string>
   <string name="remove_wallet_confirm_body">Наистина ли искаш да премахнеш този портфейл?</string>
-  <string name="remove_wallet_no_button">НЕ, ВЪРНИ СЕ</string>
-  <string name="remove_wallet_yes_button">ДА, МАХНИ ПОРТФЕЙЛА</string>
+  <string name="remove_wallet_no_button">No, go back</string>
+  <string name="remove_wallet_yes_button">Yes, remove wallet</string>
   <string name="remove_wallet_removed_body">Портфейлът е премахнат!</string>
   <!--Tranfer-->
   <string name="tranfer_bottom_navigation">Трансфер</string>
@@ -722,7 +722,7 @@
   <string name="transfer_send_token_title">Токен:</string>
   <string name="transfer_send_amount_title">Сума</string>
   <string name="transfer_send_current_balance_title">Текущ баланс:</string>
-  <string name="transfer_send_button">ИЗПРАТИ</string>
+  <string name="transfer_send_button">Изпрати</string>
   <string name="transfer_receive_body">Сподели адреса на портфейла си, за да получиш средства.</string>
   <!--Support Notifications-->
   <string name="support_new_message_title">Имаш ново съобщение!</string>
@@ -759,15 +759,15 @@
   <string name="subscriptions_expiration_body">Изтича на %s</string>
   <string name="subscriptions_canceled_body">Отменено</string>
   <string name="subscriptions_details_disclaimer">Стойността в AppCoins може да варира при следващото плащане поради валутния курс.</string>
-  <string name="subscriptions_details_button">ДЕТАЙЛИ</string>
-  <string name="subscriptions_manage_button">MANAGE SUBSCRIPTIONS</string>
-  <string name="subscriptions_cancel_button">ПРЕКРАТИ АБОНАМЕНТ</string>
-  <string name="subscriptions_renew_subscription_button">RENEW SUBSCRIPTION</string>
+  <string name="subscriptions_details_button">Детайли</string>
+  <string name="subscriptions_manage_button">Manage subscription</string>
+  <string name="subscriptions_cancel_button">Cancel subscription</string>
+  <string name="subscriptions_renew_subscription_button">Renew subscription</string>
   <string name="subscriptions_renewed_confirmation_title">Subscription Renewed!</string>
   <string name="subscriptions_cancel_title">Прекрати абонамент</string>
   <string name="subscriptions_cancel_body">Сигурен ли си, че искаш да прекратиш абонамента?</string>
-  <string name="subscriptions_cancel_no_button">НЕ, ВЪРНИ СЕ</string>
-  <string name="subscriptions_cancel_yes_button">ДА, СПРИ АБОНАМЕНТА</string>
+  <string name="subscriptions_cancel_no_button">No, go back</string>
+  <string name="subscriptions_cancel_yes_button">Yes, cancel subscription</string>
   <string name="subscriptions_cancel_confirmation_title">Абонаментът е прекратен!</string>
   <string name="subscriptions_cancel_confirmation_body">Няма да бъдеш таксуван повече за този абонамент и можеш да го използваш до %s.</string>
   <string name="subscriptions_category_title">Абонамент</string>
@@ -794,6 +794,7 @@
   <string name="gamif_card_start">Все още си на Земята</string>
   <string name="gamif_card_title">Ти си на %s</string>
   <string name="gamif_card_body">Похарчи %s AppCoins, за да достигнеш следващото ниво.</string>
+  <string name="gamif_card_maximum_body">Spend %s AppCoins more to reach the maximum level.</string>
   <string name="gamif_bonus">%s%% Бонус</string>
   <string name="gamif_placeholder_earth">Земята</string>
   <string name="gamif_quote_earth">\"Земята е това, което всички имаме общо помежду си\" - Уендел Бери</string>
@@ -840,8 +841,8 @@
   <string name="carrier_billing_phone_confirmation_body">Your phone number is %s.</string>
   <string name="carrier_billing_enter_pin_body">Please enter the PIN received via SMS.</string>
   <string name="carrier_billing_code_field">Your code...</string>
-  <string name="carrier_billing_code_resend_button">ПОВТОРНО ИЗПРАЩАНЕ НА КОД</string>
-  <string name="carrier_billing_submit_button">SUBMIT</string>
+  <string name="carrier_billing_code_resend_button">Resend code</string>
+  <string name="carrier_billing_submit_button">Предай</string>
   <string name="carrier_billing_number_not_supported">It seems your number isn\'t compatible with this payment method.</string>
   <string name="carrier_billing_terms_disclaimer">By tapping on Submit, you confirm you accept the Terms and Conditions and the Privacy Policy.</string>
   <string name="carrier_billing_help_1">Need help?</string>
@@ -916,7 +917,7 @@
   <string name="send_logs_settings">Send logs to Support Team</string>
   <string name="send_logs_sending">Sending&#8230;</string>
   <string name="send_logs_sent">Sent!</string>
-  <string name="send_logs_error">Error!</string>
+  <string name="send_logs_error">Грешка!</string>
   <!--Rate us-->
   <string name="rate_us_question_title">Enjoying the AppCoins Wallet?</string>
   <string name="rate_us_no">Not really</string>
@@ -926,7 +927,7 @@
   <string name="rate_us_improve_field__empty_error">Please write something</string>
   <string name="rate_us_possitive_thanks_title">Thank you!</string>
   <string name="rate_us_possitive_thanks_body">We\'re glad you like our app. Can you help us by rating us on the app store?</string>
-  <string name="rate_us_possitive_rate_button">RATE APPCOINS WALLET</string>
+  <string name="rate_us_possitive_rate_button">Rate the AppCoins Wallet</string>
   <string name="rate_us_possitive_done_title">Thanks for your feedback!</string>
   <string name="rate_us_back_title">Wanna help us?</string>
   <string name="rate_us_back_body">Rate the AppCoins Wallet on the app store so we can improve it.</string>
@@ -964,7 +965,7 @@
   <string name="voucher_buy_header">Voucher for %s</string>
   <string name="voucher_buy_short_header">Voucher:</string>
   <string name="voucher_buy_no_game_title">Don\'t you have %s?</string>
-  <string name="voucher_buy_no_game_install_button">DOWNLOAD NOW</string>
+  <string name="voucher_buy_no_game_install_button">Download now</string>
   <string name="voucher_code_title">Voucher Code</string>
   <string name="voucher_instructions_body">Go to %s and use the code to redeem your voucher.</string>
   <string name="voucher_instructions_transactions">You can always find the voucher code in the transaction history.</string>
@@ -1013,8 +1014,8 @@
   <string name="promo_code_view_field">Promo Code here...</string>
   <string name="promo_code_view_error">Invalid code. Try with another one!</string>
   <string name="promo_code_activated">Promo code activated!</string>
-  <string name="promo_code_delete_button">DELETE</string>
-  <string name="promo_code_replace_button">REPLACE</string>
+  <string name="promo_code_delete_button">Delete</string>
+  <string name="promo_code_replace_button">Replace</string>
   <string name="promo_code_active_tag">Активни</string>
   <string name="promo_code_expired_tag">Expired</string>
   <string name="promo_code_success_title">Готово!</string>
@@ -1039,9 +1040,9 @@
   <string name="nfts_title">NFTs</string>
   <string name="nfts_no_nfts">You don\'t have any NFTs in this wallet yet!</string>
   <string name="nfts_transact_button">Send this NFT</string>
-  <string name="nfts_transact_button_send">Send</string>
-  <string name="nfts_transact_button_next">Next</string>
-  <string name="nfts_transact_button_done">Done</string>
+  <string name="nfts_transact_button_send">Изпрати</string>
+  <string name="nfts_transact_button_next">Напред</string>
+  <string name="nfts_transact_button_done">Готово</string>
   <string name="nfts_transact_button_success">Got it</string>
   <string name="nfts_transact_tip">Enter your friend\'s wallet address</string>
   <string name="nfts_transact_input_tip">Wallet address here...</string>
@@ -1049,8 +1050,8 @@
   <string name="nfts_generic_error">Oops! Something went wrong!</string>
   <string name="nfts_transact_gas_title">Are you in a hurry?</string>
   <string name="nfts_transact_gas_description">Choose how much you want to pay in fees. The higher the fee, the faster the transaction.</string>
-  <string name="nfts_transact_gas_price">Gas Price</string>
-  <string name="nfts_transact_gas_limit">Gas Limit</string>
+  <string name="nfts_transact_gas_price">Цена на петрола</string>
+  <string name="nfts_transact_gas_limit">Лимит на петрола</string>
   <string name="nfts_transact_gas_fee_message">Transaction Fee</string>
   <string name="nfts_transact_error_no_funds">Not enough funds! You don\'t have enough ETH to pay for the fees.</string>
   <string name="nfts_transact_error_low_gas">Gas is too low! Increase your gas for the network to accept your transaction.</string>
@@ -1060,7 +1061,7 @@
   <string name="gift_card_field">Card code here...</string>
   <string name="gift_card_done_title">Code redeemed!</string>
   <string name="gift_card_done_body">Check your transactions list.</string>
-  <string name="gift_card_error_general_title">Something went wrong!</string>
+  <string name="gift_card_error_general_title">Нещо се обърка!</string>
   <string name="gift_card_error_general_body">Please try again or use a different code.</string>
   <string name="gift_card_error_used_title">This code has already been used!</string>
   <string name="gift_card_error_new_users_title">This code is only for new users!</string>
@@ -1069,8 +1070,8 @@
   <string name="mywallet_unverified_title">Unverified Wallet</string>
   <string name="mywallet_unverified_body">Verify a payment method to avoid blockages.</string>
   <string name="mywallet_backed_up_date">You backed up your wallet on %s.</string>
-  <string name="mywallet_backup_again_button">BACK UP AGAIN</string>
-  <string name="mywallet_verify_payment_method_button">VERIFY NEW CARD</string>
+  <string name="mywallet_backup_again_button">Back up again</string>
+  <string name="mywallet_verify_payment_method_button">Verify new card</string>
   <string name="mywallet_choose_name_header">Choose a name for your wallet</string>
   <string name="mywallet_choose_name_field">Wallet name here...</string>
   <string name="mywallet_choose_name_confirmed">Wallet name changed</string>
@@ -1082,4 +1083,31 @@
   <string name="onboarding_1st_body">Go back to the game to complete your purchase.</string>
   <string name="onboarding_1st_back_to_game_button">Go back to the game</string>
   <string name="onboarding_1st_explore_wallet_button">Or explore the Wallet</string>
+  <!-- VIP Program -->
+  <string name="vip_program_reached_notification_title">Welcome to the VIP Program</string>
+  <string name="vip_program_reached_notification_body">You\'re now a VIP user with access to special promotions and deals. Tap for more details!</string>
+  <string name="vip_program_almost_notification_title">Almost there!</string>
+  <string name="vip_program_almost_notification_body">You\'re about to become a VIP user. Tap for more details!</string>
+  <string name="vip_program_almost_onboarding_title">You\'re about to become a VIP user!</string>
+  <string name="vip_program_almost_onboarding_body">Continue playing and making purchases to access exclusive promotions and deals. Ready to become the ultimate player?</string>
+  <string name="vip_program_onboarding_header_1">Congratulations!</string>
+  <string name="vip_program_onboarding_header_2">You\'re now a VIP user</string>
+  <string name="vip_program_onboarding_body">Our VIP Program is tailored for our most valued members... like yourself! You have now access to the best promotions and referral programs to earn more rewards.</string>
+  <string name="vip_program_promotions_tab_1">You\'re now a VIP user.</string>
+  <string name="vip_program_promotions_tab_2">Check the promotions we have have just for you!</string>
+  <string name="vip_program_exclusivity_tag">Only for VIP</string>
+  <string name="vip_program_referral_button_title">VIP Referral Program</string>
+  <string name="vip_program_referral_button_body">%s%% Bonus for you and your friends.</string>
+  <string name="vip_program_promotions_list_title">Special promotions for you</string>
+  <string name="vip_program_promo_code_tag">Promo code</string>
+  <string name="vip_program_referral_page_title">VIP Referral Program</string>
+  <string name="vip_program_referral_page_body">Share this promo code with your community and friends for everyone to earn while playing. For every in-app purchase they make, both <b>you and your friends will receive %s%% bonus</b> on top of other active promotions and for an entire month!</string>
+  <string name="vip_program_referral_page_share_title">Share this code with your friends</string>
+  <string name="vip_program_referral_page_earned_body">%1$s%2$s earned from %3$s referrals</string>
+  <string name="vip_program_gamification_title">What\'s my bonus level?</string>
+  <string name="vip_program_gamification_amount_purchases_bonus">Bonus received from your purchases.</string>
+  <string name="vip_program_gamification_amoung_referral_bonus">Bonus received from referrals</string>
+  <string name="vip_program_max_bonus_title">Enjoy your %s%% Bonus on every purchase</string>
+  <string name="vip_program_max_bonus_body">You\'ve reached the limits of the solar system.</string>
+  <string name="vip_program_max_bonus_short">%s%% Bonus on every purchase.</string>
 </resources>

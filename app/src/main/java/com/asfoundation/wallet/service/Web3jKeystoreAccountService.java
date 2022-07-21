@@ -70,7 +70,7 @@ import static org.web3j.crypto.Wallet.create;
             return importKeystoreInternal(store, password, newPassword);
           }
         })
-        .map(wallet -> (RestoreResult) new SuccessfulRestore(wallet.address))
+        .map(wallet -> (RestoreResult) new SuccessfulRestore(wallet.getAddress()))
         .onErrorReturn(throwable -> new RestoreResultErrorMapper().map(throwable,
             extractAddressFromStore(store)));
   }

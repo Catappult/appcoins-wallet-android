@@ -3,12 +3,14 @@ package com.asfoundation.wallet.my_wallets.main
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
+import android.os.Build
 import android.os.Bundle
 import android.text.format.DateFormat
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.app.ShareCompat
+import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -143,10 +145,6 @@ class MyWalletsFragment : BasePageViewFragment(),
     views.myWalletsContent.totalBalanceSkeleton.playAnimation()
     views.myWalletsContent.totalBalanceTextView.visibility = View.GONE
 
-    views.myWalletsContent.appcBalanceSkeleton.visibility = View.VISIBLE
-    views.myWalletsContent.appcBalanceSkeleton.playAnimation()
-    views.myWalletsContent.appcBalanceTextView.visibility = View.GONE
-
     views.myWalletsContent.actionButtonEditName.isEnabled = false
     views.myWalletsContent.actionButtonShareAddress.isEnabled = false
     views.myWalletsContent.actionButtonCopyAddress.isEnabled = false
@@ -174,7 +172,6 @@ class MyWalletsFragment : BasePageViewFragment(),
       navigator.navigateToReceive(Wallet(wallet))
     }
 
-    val name = wallet.replaceRange(IntRange(6, wallet.length - 5), " ··· ")
     val address = wallet.replaceRange(IntRange(6, wallet.length - 5), " ··· ")
 
     views.myWalletsContent.walletNameSkeleton.visibility = View.GONE
@@ -204,15 +201,10 @@ class MyWalletsFragment : BasePageViewFragment(),
       )
     }
 
-    val appccBalance = walletBalance.creditsBalance.getTokenValueText(WalletCurrency.CREDITS)
-    if (appccBalance != "-1") {
-      views.myWalletsContent.appcBalanceSkeleton.visibility = View.GONE
-      views.myWalletsContent.appcBalanceSkeleton.cancelAnimation()
-      views.myWalletsContent.appcBalanceTextView.text = appccBalance
-      views.myWalletsContent.appcBalanceTextView.visibility = View.VISIBLE
-    }
-
     views.myWalletsContent.actionButtonEditName.isEnabled = true
+    views.myWalletsContent.actionButtonEditName.setOnClickListener {
+      navigator.navigateToName(wallet, name)
+    }
 
     views.myWalletsContent.actionButtonShareAddress.isEnabled = true
     views.myWalletsContent.actionButtonShareAddress.setOnClickListener {
@@ -263,9 +255,8 @@ class MyWalletsFragment : BasePageViewFragment(),
     views.myWalletsContent.backupWalletText.visibility = View.VISIBLE
     views.myWalletsContent.backupWalletText.text = text
     views.myWalletsContent.backupButton.visibility = View.VISIBLE
-    views.myWalletsContent.backupButton.setText(buttonTextRes)
-    views.myWalletsContent.backupButton.setTextColor(resources.getColor(colorRes, null))
-    views.myWalletsContent.backupButton.setRippleColorResource(colorRes)
+    views.myWalletsContent.backupButton.setText(getString(buttonTextRes))
+    views.myWalletsContent.backupButton.setColor(ContextCompat.getColor(requireContext(), colorRes))
     views.myWalletsContent.backupButton.setOnClickListener {
       navigator.navigateToBackupWallet(wallet)
       walletsEventSender.sendCreateBackupEvent(null, WalletsAnalytics.MY_WALLETS, null)
@@ -292,9 +283,8 @@ class MyWalletsFragment : BasePageViewFragment(),
     views.myWalletsContent.verifyWalletText.setText(R.string.mywallet_unverified_body)
     views.myWalletsContent.verifyButton.visibility = View.VISIBLE
     views.myWalletsContent.verifyButton.isEnabled = !disableButton
-    views.myWalletsContent.verifyButton.setText(R.string.mywallet_verify_payment_method_button)
-    views.myWalletsContent.verifyButton.setTextColor(resources.getColor(R.color.white, null))
-    views.myWalletsContent.verifyButton.setRippleColorResource(R.color.white)
+    views.myWalletsContent.verifyButton.setText(getString(R.string.mywallet_verify_payment_method_button))
+    views.myWalletsContent.verifyButton.setColor(ContextCompat.getColor(requireContext(), R.color.white))
     views.myWalletsContent.verifyButton.setOnClickListener {
       navigator.navigateToVerifyPicker()
     }
@@ -311,14 +301,13 @@ class MyWalletsFragment : BasePageViewFragment(),
     views.myWalletsContent.verifyWalletText.setText(R.string.mywallet_unverified_body)
     views.myWalletsContent.verifyButton.visibility = View.VISIBLE
     views.myWalletsContent.verifyButton.isEnabled = !disableButton
-    views.myWalletsContent.verifyButton.setText(R.string.referral_view_verify_button)
-    views.myWalletsContent.verifyButton.setTextColor(
-      resources.getColor(
-        R.color.wild_watermelon,
-        null
+    views.myWalletsContent.verifyButton.setText(getString(R.string.referral_view_verify_button))
+      views.myWalletsContent.verifyButton.setColor(
+        ContextCompat.getColor(
+          requireContext(),
+          R.color.wild_watermelon
+        )
       )
-    )
-    views.myWalletsContent.verifyButton.setRippleColorResource(R.color.wild_watermelon)
     views.myWalletsContent.verifyButton.setOnClickListener {
       navigator.navigateToVerifyPicker()
     }
@@ -335,14 +324,13 @@ class MyWalletsFragment : BasePageViewFragment(),
     views.myWalletsContent.verifyWalletText.setText(R.string.card_verification_wallets_one_step_body)
     views.myWalletsContent.verifyButton.visibility = View.VISIBLE
     views.myWalletsContent.verifyButton.isEnabled = !disableButton
-    views.myWalletsContent.verifyButton.setText(R.string.card_verification_wallets_insert_bode_button)
-    views.myWalletsContent.verifyButton.setTextColor(
-      resources.getColor(
-        R.color.wild_watermelon,
-        null
+    views.myWalletsContent.verifyButton.setText(getString(R.string.card_verification_wallets_insert_bode_button))
+    views.myWalletsContent.verifyButton.setColor(
+      ContextCompat.getColor(
+        requireContext(),
+        R.color.wild_watermelon
       )
     )
-    views.myWalletsContent.verifyButton.setRippleColorResource(R.color.wild_watermelon)
     views.myWalletsContent.verifyButton.setOnClickListener {
       navigator.navigateToVerifyCreditCard()
     }

@@ -23,18 +23,15 @@
       android:layout_height="match_parent"
       android:layout_weight="1"
       />
-  <com.google.android.material.button.MaterialButton
+  <com.asfoundation.wallet.ui.common.WalletButtonView
       android:id="@+id/action_button_nfts"
-      style="@style/NFTs.GoToNFTS"
       android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
+      android:layout_height="@dimen/small_button_height"
+      android:layout_gravity="center_vertical"
       android:layout_marginStart="8dp"
-      android:paddingVertical="10dp"
-      android:paddingStart="20dp"
-      android:paddingEnd="10dp"
-      android:text="@string/nfts_title"
-      android:textColor="@color/white"
-      app:icon="@drawable/ic_arrow_right"
+      app:buttonText="@string/nfts_title"
+      app:buttonType="filled_gray_pink"
+      app:buttonImageRight="@drawable/ic_arrow_right"
       />
   <ImageButton
       android:id="@+id/action_button_more"

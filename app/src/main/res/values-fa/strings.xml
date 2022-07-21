@@ -27,7 +27,7 @@
   <string name="credits">اعتبارات</string>
   <string name="label_new">جدید</string>
   <string name="got_it_button">متوجه شدم</string>
-  <string name="change_button">تغییر</string>
+  <string name="change_button">Change</string>
   <string name="vip">VIP</string>
   <string name="low_storage_error">فضای ذخیره سازی کافی نیست</string>
   <string name="no_camera_permission_title">اجازه دوربین</string>
@@ -441,7 +441,7 @@
   <string name="remind_later_button">بعدا یادآوری کن</string>
   <string name="get_code_button">دریافت کد</string>
   <string name="confirm_button">تایید</string>
-  <string name="withdraw_button">خارج‌کردن</string>
+  <string name="withdraw_button">Withdraw</string>
   <string name="email_here_field">نشانی ایمیل شما در اینجا&#8230;</string>
   <string name="understood_button">متوجه!</string>
   <string name="skip_button">پریدن</string>
@@ -595,11 +595,11 @@
   <string name="referral_view_title">دوستان را دعوت کنید</string>
   <string name="referral_view_title_1">دوستان را دعوت کنید و بیشتر کسب درآمد کنید!</string>
   <string name="referral_view_verified_body">به ارزش %s برای هر دوست، اعتبار AppCoins دریافت کنید. کافی است لینک را به اشتراک بگذارید!</string>
-  <string name="referral_view_share_link_button">لینک دعوت را به اشتراک بگذارید</string>
+  <string name="referral_view_share_link_button">Share invite link</string>
   <string name="referral_view_notifications_title">اعلانات</string>
   <string name="referral_share_sheet_title">لینک دعوت را به اشتراک بگذارید:</string>
   <string name="referral_view_unverified_body">برای هر دوست به ارزش %s AppCoins Credits دریافت کنید. ابتدا باید کیف پول خود را معتبرسازی کنید.</string>
-  <string name="referral_view_verify_button">تایید کیف پول</string>
+  <string name="referral_view_verify_button">Verify wallet</string>
   <string name="referral_view_i_have_been_invited_button">دعوت شده‌ام</string>
   <string name="referral_view_dropup_menu_friends_invited">دوستان دعوت‌شده</string>
   <string name="referral_view_dropup_menu_earned">کسب شده</string>
@@ -634,7 +634,7 @@
   <string name="update_wallet_hard_body">به نظر می‌رسد که از نسخه قدیمی AppCoins Wallet استفاده می‌کنید. لطفا بروزرسانی کنید تا بتوانید بهترین تجربه و امنیت را داشته باشید.</string>
   <string name="update_wallet_soft_title">عقب نیافتید!</string>
   <string name="update_wallet_soft_body">AppCoins Wallet را بروز نگه دارید و بهترین تجربه را داشته باشید.</string>
-  <string name="update_button">بروزرسانی</string>
+  <string name="update_button">Update</string>
   <!--Backup and Import-->
   <string name="backup_home_notification_title">پشتیبان‌گیری از کیف پول خود</string>
   <string name="backup_home_notification_body">آیا موبایل خود را گم‌کرده‌اید؟ از کیف پول خود همین حالا پشتیان‌گیری کنید!</string>
@@ -645,7 +645,7 @@
   <string name="import_wallet_body">پشتیبان‌گیری کیف‌ پول خود را در زیر قرار دهید.</string>
   <string name="import_wallet_keystore_private_keys">Keystore یا private keys</string>
   <string name="import_wallet_from_file_title">یا بازیابی از فایل</string>
-  <string name="import_wallet_file_button">بازیابی از فایل</string>
+  <string name="import_wallet_file_button">Recover from file</string>
   <string name="import_wallet_button">بازیابی کیف‌پول</string>
   <string name="import_wallet_password_body">این کیف‌پول با رمز، محافظت شده‌است!</string>
   <string name="import_wallet_wrong_password_body">اوه، رمز عبور اشتباه است!</string>
@@ -655,7 +655,7 @@
   <string name="backup_body">ما کلید خصوصی و سایر روش‌های دسترسی شما را ذخیره نمی‌کنیم. مهم است که پشتیبان‌گیری کیف‌پول (keystore) خود در جای امنی ذخیره کنید.</string>
   <string name="backup_additional_security_title">افزایش امنیت (اختیاری)</string>
   <string name="backup_additional_security_body">انتخاب رمزعبور</string>
-  <string name="backup_button">کیف پول پشتیبان</string>
+  <string name="backup_button">Back up wallet</string>
   <string name="backup_ready_title">بک‌آپ شما آماده است!\nاز آن محافظت کنید.</string>
   <string name="backup_ready_save_on_email">روی ایمیل خود آن را ذخیره کنید</string>
   <string name="backup_ready_email_button">به ایمیل ارسال کنید</string>
@@ -666,7 +666,7 @@
   <string name="backup_confirmation_tips_3">آن را به یک ذخیره ابری شخصی و امن <b>منتقل کنید.</b></string>
   <string name="backup_tooltip_body">از کیف پول خود یک بک‌آپ بگیرید!</string>
   <string name="backup_tooltip_later_button">شاید بعدا</string>
-  <string name="backup_tooltip_backup_button">بک‌آپ</string>
+  <string name="backup_tooltip_backup_button">Back up</string>
   <string name="backup_notification_title">از کیف پول خود یک بک‌آپ بگیرید!</string>
   <string name="backup_notification_body">پول‌های خود را امن نگه دارید و مطمئن شوید که همیشه قادر به دسترسی به کیف پول خود هستید.</string>
   <string name="backup_choose_wallet_title">یک کیف پول برای بک‌آپ انتخاب کنید</string>
@@ -695,22 +695,22 @@
   <string name="wallets_2nd_view_balance_title">تراز:</string>
   <string name="wallets_2nd_view_other_wallets_title">سایر کیف‌پول‌ها</string>
   <string name="wallets_2nd_view_import_button">بازیابی کیف‌پول</string>
-  <string name="wallets_2nd_view_create_button">تولید جدید</string>
-  <string name="wallet_view_copy_button">کپی</string>
-  <string name="wallet_view_share_button">به‌اشتراک گذاری</string>
+  <string name="wallets_2nd_view_create_button">Create new</string>
+  <string name="wallet_view_copy_button">Copy</string>
+  <string name="wallet_view_share_button">اشتراک‌گذاری</string>
   <string name="wallet_view_total_balance_title">تراز کلی</string>
-  <string name="wallet_view_remove_button">حذف کیف‌پول</string>
-  <string name="wallet_view_backup_button">پشتیبان‌گیری از کیف‌پول</string>
-  <string name="wallet_view_activate_button">این کیف‌پول را فعال کنید</string>
+  <string name="wallet_view_remove_button">Remove wallet</string>
+  <string name="wallet_view_backup_button">Back up wallet</string>
+  <string name="wallet_view_activate_button">Make this wallet active</string>
   <string name="wallet_view_active_body">این کیف‌پول فعال شماست.</string>
   <!--Remove Wallet-->
   <string name="remove_wallet_title">حذف کیف‌پول</string>
   <string name="remove_wallet_body">قویا توصیه می‌کنیم که قبل از حذف کیف‌پول از آن پشتیبان‌گیری کنید. دیگر فادر به دسترسی به آن نخواهید بود جز با داشتن پشتیانی.</string>
-  <string name="remove_wallet_backup_button">پشتیبان‌گیری از کیف‌پول</string>
-  <string name="remove_wallet_no_backup_button">حذف کیف‌پول</string>
+  <string name="remove_wallet_backup_button">Back up wallet</string>
+  <string name="remove_wallet_no_backup_button">Remove wallet</string>
   <string name="remove_wallet_confirm_body">آیا مطمئن هستید که می‌خواهید این کیف‌پول را حذف کنید؟</string>
-  <string name="remove_wallet_no_button">نه، به عقب برو</string>
-  <string name="remove_wallet_yes_button">بله، حذف کیف‌پول</string>
+  <string name="remove_wallet_no_button">No, go back</string>
+  <string name="remove_wallet_yes_button">Yes, remove wallet</string>
   <string name="remove_wallet_removed_body">کیف‌پول حذف شد!</string>
   <!--Tranfer-->
   <string name="tranfer_bottom_navigation">انتقال</string>
@@ -759,15 +759,15 @@
   <string name="subscriptions_expiration_body">در %s منقضی می‌شود</string>
   <string name="subscriptions_canceled_body">لغو شده‌</string>
   <string name="subscriptions_details_disclaimer">ارزش در AppCoins ممکن است با توجه به نرخ تبدیل برای پرداخت بعدی شما تغییر کند.</string>
-  <string name="subscriptions_details_button">جزییات</string>
-  <string name="subscriptions_manage_button">مدیریت آبونمان‌ها</string>
-  <string name="subscriptions_cancel_button">لغو آبونمان</string>
-  <string name="subscriptions_renew_subscription_button">تمدید آبونمان</string>
+  <string name="subscriptions_details_button">جزئیات</string>
+  <string name="subscriptions_manage_button">Manage subscription</string>
+  <string name="subscriptions_cancel_button">Cancel subscription</string>
+  <string name="subscriptions_renew_subscription_button">Renew subscription</string>
   <string name="subscriptions_renewed_confirmation_title">آبونمان تمدید شد!</string>
   <string name="subscriptions_cancel_title">لغو آبونمان</string>
   <string name="subscriptions_cancel_body">آیا مطمئن هستید که می‌خواهید این آبونمان را لغو کنید؟</string>
-  <string name="subscriptions_cancel_no_button">نه، برمی‌گردم</string>
-  <string name="subscriptions_cancel_yes_button">بله، لغو آبونمان</string>
+  <string name="subscriptions_cancel_no_button">No, go back</string>
+  <string name="subscriptions_cancel_yes_button">Yes, cancel subscription</string>
   <string name="subscriptions_cancel_confirmation_title">آبونمان لغو شد!</string>
   <string name="subscriptions_cancel_confirmation_body">دیگر برای این آبونمان پرداختی نخواهید داشت، تا %s می‌توانید آن را استفاده کنید.</string>
   <string name="subscriptions_category_title">آبونمان</string>
@@ -794,6 +794,7 @@
   <string name="gamif_card_start">هنوز روی زمین هستید</string>
   <string name="gamif_card_title">روی %s هستید</string>
   <string name="gamif_card_body">%s AppCoins بیشتری پرداخت کنید تا به مرحله بعدی برسید.</string>
+  <string name="gamif_card_maximum_body">Spend %s AppCoins more to reach the maximum level.</string>
   <string name="gamif_bonus">%s%% پاداش</string>
   <string name="gamif_placeholder_earth">زمین</string>
   <string name="gamif_quote_earth">\"زمین همان نقطه اشتراک همه ماست.\" - وندل بری</string>
@@ -840,7 +841,7 @@
   <string name="carrier_billing_phone_confirmation_body">شماره تلفن شما %s است.</string>
   <string name="carrier_billing_enter_pin_body">لطفا PIN را که از طریق SMS دریافت کردید وارد کنید.</string>
   <string name="carrier_billing_code_field">کد شما...</string>
-  <string name="carrier_billing_code_resend_button">ارسال مجدد کد</string>
+  <string name="carrier_billing_code_resend_button">Resend code</string>
   <string name="carrier_billing_submit_button">ارسال</string>
   <string name="carrier_billing_number_not_supported">به نظر می‌رسد شماره شما با روش پرداخت مطابقت ندارد.</string>
   <string name="carrier_billing_terms_disclaimer">با کلیک روی ارسال، تایید می‌کنید که شرایط و ضوابط سیاست حفظ حریم خصوصی را قبول کرده‌اید.</string>
@@ -926,7 +927,7 @@
   <string name="rate_us_improve_field__empty_error">لطفا چیزی بنویسید</string>
   <string name="rate_us_possitive_thanks_title">تشکر!</string>
   <string name="rate_us_possitive_thanks_body">خوشحالیم که اپلیکیشن ما را دوست دارید. آیا می‌توانید با رتبه بندی ما در فروشگاه اپلیکیشن به ما کمک کنید؟</string>
-  <string name="rate_us_possitive_rate_button">رتبه‌بندی APPCOINS WALLET</string>
+  <string name="rate_us_possitive_rate_button">Rate the AppCoins Wallet</string>
   <string name="rate_us_possitive_done_title">از بازخورد شما متشکریم!</string>
   <string name="rate_us_back_title">آیا می‌خواهید به ما کمک کنید؟</string>
   <string name="rate_us_back_body">AppCoins Wallet را در فروشگاه اپلیکیشن رتبه بندی کنید تا بتوانیم آن را بهتر کنیم.</string>
@@ -1013,8 +1014,8 @@
   <string name="promo_code_view_field">کد پرومو در اینجا...</string>
   <string name="promo_code_view_error">کد معتبر نیست. لطفا با کد دیگری امتحان کنید!</string>
   <string name="promo_code_activated">کد پرومو فعال شد!</string>
-  <string name="promo_code_delete_button">پاک کردن</string>
-  <string name="promo_code_replace_button">جایگزینی</string>
+  <string name="promo_code_delete_button">Delete</string>
+  <string name="promo_code_replace_button">Replace</string>
   <string name="promo_code_active_tag">فعال</string>
   <string name="promo_code_expired_tag">منقضی</string>
   <string name="promo_code_success_title">تمام!</string>
@@ -1069,17 +1070,44 @@
   <string name="mywallet_unverified_title">کیف پول تاییدنشده</string>
   <string name="mywallet_unverified_body">یک روش پرداخت را برای جلوگیری از بلوکه شدن تایید کنید.</string>
   <string name="mywallet_backed_up_date">شما از کیف پول خود را در %s بک‌آپ گرفته‌اید.</string>
-  <string name="mywallet_backup_again_button">بک‌آپ دوباره</string>
-  <string name="mywallet_verify_payment_method_button">VERIFY NEW CARD</string>
+  <string name="mywallet_backup_again_button">Back up again</string>
+  <string name="mywallet_verify_payment_method_button">تایید کارت جدید</string>
   <string name="mywallet_choose_name_header">نامی برای فایل کیف پول خود انتخاب کنید</string>
   <string name="mywallet_choose_name_field">نام کیف‌پول در اینجا...</string>
   <string name="mywallet_choose_name_confirmed">نام کیف‌پول تغییر کرد</string>
   <string name="mywallet_unnamed_wallet">کیف پول بی نام %s</string>
   <string name="mywallet_swithing_wallets_title">تعویض کیف‌پول‌ها...</string>
-  <string name="mywallet_address_title">Address:</string>
+  <string name="mywallet_address_title">نشانی:</string>
   <!-- Onboarding for new users coming from an iap -->
   <string name="onboarding_1st_title">تبریک! شما AppCoins Wallet را نصب کردید.</string>
   <string name="onboarding_1st_body">برای تکمیل خرید به بازی برگردید.</string>
   <string name="onboarding_1st_back_to_game_button">بازگشت به بازی</string>
   <string name="onboarding_1st_explore_wallet_button">Or explore the Wallet</string>
+  <!-- VIP Program -->
+  <string name="vip_program_reached_notification_title">Welcome to the VIP Program</string>
+  <string name="vip_program_reached_notification_body">You\'re now a VIP user with access to special promotions and deals. Tap for more details!</string>
+  <string name="vip_program_almost_notification_title">Almost there!</string>
+  <string name="vip_program_almost_notification_body">You\'re about to become a VIP user. Tap for more details!</string>
+  <string name="vip_program_almost_onboarding_title">You\'re about to become a VIP user!</string>
+  <string name="vip_program_almost_onboarding_body">Continue playing and making purchases to access exclusive promotions and deals. Ready to become the ultimate player?</string>
+  <string name="vip_program_onboarding_header_1">Congratulations!</string>
+  <string name="vip_program_onboarding_header_2">You\'re now a VIP user</string>
+  <string name="vip_program_onboarding_body">Our VIP Program is tailored for our most valued members... like yourself! You have now access to the best promotions and referral programs to earn more rewards.</string>
+  <string name="vip_program_promotions_tab_1">You\'re now a VIP user.</string>
+  <string name="vip_program_promotions_tab_2">Check the promotions we have have just for you!</string>
+  <string name="vip_program_exclusivity_tag">Only for VIP</string>
+  <string name="vip_program_referral_button_title">VIP Referral Program</string>
+  <string name="vip_program_referral_button_body">%s%% Bonus for you and your friends.</string>
+  <string name="vip_program_promotions_list_title">Special promotions for you</string>
+  <string name="vip_program_promo_code_tag">Promo code</string>
+  <string name="vip_program_referral_page_title">VIP Referral Program</string>
+  <string name="vip_program_referral_page_body">Share this promo code with your community and friends for everyone to earn while playing. For every in-app purchase they make, both <b>you and your friends will receive %s%% bonus</b> on top of other active promotions and for an entire month!</string>
+  <string name="vip_program_referral_page_share_title">Share this code with your friends</string>
+  <string name="vip_program_referral_page_earned_body">%1$s%2$s earned from %3$s referrals</string>
+  <string name="vip_program_gamification_title">What\'s my bonus level?</string>
+  <string name="vip_program_gamification_amount_purchases_bonus">Bonus received from your purchases.</string>
+  <string name="vip_program_gamification_amoung_referral_bonus">Bonus received from referrals</string>
+  <string name="vip_program_max_bonus_title">Enjoy your %s%% Bonus on every purchase</string>
+  <string name="vip_program_max_bonus_body">You\'ve reached the limits of the solar system.</string>
+  <string name="vip_program_max_bonus_short">%s%% Bonus on every purchase.</string>
 </resources>

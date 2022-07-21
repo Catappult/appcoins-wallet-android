@@ -4,6 +4,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.asfoundation.wallet.base.Navigator
 import com.asfoundation.wallet.base.navigate
+import com.asfoundation.wallet.onboarding.bottom_sheet.TermsConditionsBottomSheetFragmentDirections
 import javax.inject.Inject
 
 class OnboardingNavigator @Inject constructor(private val fragment: Fragment) : Navigator {
@@ -30,6 +31,15 @@ class OnboardingNavigator @Inject constructor(private val fragment: Fragment) : 
     navigate(
       fragment.findNavController(),
       OnboardingFragmentDirections.actionNavigateCreateWalletDialog(
+        needsWalletCreation = true
+      )
+    )
+  }
+
+  fun navigateToCreateWalletDialog() {
+    navigate(
+      fragment.findNavController(),
+      TermsConditionsBottomSheetFragmentDirections.actionNavigateCreateWalletDialog(
         needsWalletCreation = true
       )
     )

@@ -16,7 +16,7 @@
   <string name="error_field_required">Ovo polje je obavezno</string>
   <string name="action_settings">Podešavanja</string>
   <string name="title_account_list">Novčanici</string>
-  <string name="cancel">otkaži</string>
+  <string name="cancel">Otkaži</string>
   <string name="confirm_delete_account">Proverite da li ste napravili rezervnu kopiju ovog novčanika.</string>
   <string name="action_import">Oporavi</string>
   <string name="copy">Kopiraj u ostavu</string>
@@ -26,8 +26,8 @@
   <string name="network_label">Mreža</string>
   <string name="credits">Autori</string>
   <string name="label_new">Novo</string>
-  <string name="got_it_button">RAZUMEM</string>
-  <string name="change_button">PROMENI</string>
+  <string name="got_it_button">Jasno</string>
+  <string name="change_button">Change</string>
   <string name="vip">VIP</string>
   <string name="low_storage_error">Nema dovoljno prostora u memoriji</string>
   <string name="no_camera_permission_title">Dozvola za kameru</string>
@@ -361,7 +361,7 @@
   <string name="provide_wallet_allow_once_button">Dozvoli jednom</string>
   <string name="provide_wallet_completed_header">Novčanik je povezan sa aplikacijom Aptoide!</string>
   <string name="provide_wallet_create_body">Treba vam adresa novčanika! Pratite ove korake da biste je napravili u aplikaciji AppCoins Wallet.</string>
-  <string name="provide_wallet_create_wallet_button">NAPRAVI</string>
+  <string name="provide_wallet_create_wallet_button">Kreiraj</string>
   <string name="provide_wallet_creating_wallet_header">Pravljenje adrese novčanika&#8230;</string>
   <string name="provide_wallet_created_header">Adresa novčanika je napravljena!</string>
   <string name="provide_wallet_empty_state">Još niste dozvolili aplikaciji AppCoins Wallet da vašu adresu pošalje bilo kojoj drugoj aplikaciji.</string>
@@ -441,7 +441,7 @@
   <string name="remind_later_button">Podseti me kasnije</string>
   <string name="get_code_button">Preuzmite kod</string>
   <string name="confirm_button">Potvrdi</string>
-  <string name="withdraw_button">podigni</string>
+  <string name="withdraw_button">Withdraw</string>
   <string name="email_here_field">Vaša e-pošta ovde&#8230;</string>
   <string name="understood_button">Jasno!</string>
   <string name="skip_button">Preskoči za sada</string>
@@ -595,12 +595,12 @@
   <string name="referral_view_title">Pozovite prijatelje</string>
   <string name="referral_view_title_1">Pozovite prijatelje i dodatno zaradite!</string>
   <string name="referral_view_verified_body">Za svakog prijatelja ćete dobiti AppCoins Credits u vrednosti od %s. Jednostavno podelite link!</string>
-  <string name="referral_view_share_link_button">PODELI LINK KA POZIVU</string>
+  <string name="referral_view_share_link_button">Share invite link</string>
   <string name="referral_view_notifications_title">Obaveštenja</string>
   <string name="referral_share_sheet_title">Podeli pozivni link preko:</string>
   <string name="referral_view_unverified_body">Dobićete AppCoins Credits u vrednosti od %s za svakog prijatelja. Prvo je potrebno da potvrdite novčanik.</string>
-  <string name="referral_view_verify_button">POTVRDITE NOVČANIK</string>
-  <string name="referral_view_i_have_been_invited_button">POZVAN/A SAM</string>
+  <string name="referral_view_verify_button">Verify wallet</string>
+  <string name="referral_view_i_have_been_invited_button">Pozvan/a sam</string>
   <string name="referral_view_dropup_menu_friends_invited">Pozvani prijatelji</string>
   <string name="referral_view_dropup_menu_earned">Zarađeno</string>
   <string name="referral_dropup_menu_friends_title_1">Pozvani prijatelji</string>
@@ -634,7 +634,7 @@
   <string name="update_wallet_hard_body">Izgleda da koristite staru verziju aplikacije AppCoins Wallet. Ažurirajte je za najbolji korisnički doživljaj i bezbednost.</string>
   <string name="update_wallet_soft_title">Ne zaostajte!</string>
   <string name="update_wallet_soft_body">Ažurirani AppCoins Wallet garantuje vam najbolji korisnički doživljaj.</string>
-  <string name="update_button">AŽURIRAJ</string>
+  <string name="update_button">Update</string>
   <!--Backup and Import-->
   <string name="backup_home_notification_title">Napravite rezervnu kopiju novčanika</string>
   <string name="backup_home_notification_body">Da li ste ikada izgubili telefon? Odmah napravite rezervnu kopiju novčanika!</string>
@@ -645,8 +645,8 @@
   <string name="import_wallet_body">Nalepite rezervnu kopiju svog novčanika ispod.</string>
   <string name="import_wallet_keystore_private_keys">Skladište ključeva ili privatni ključevi</string>
   <string name="import_wallet_from_file_title">Ili ga obnovite iz datoteke</string>
-  <string name="import_wallet_file_button">OPORAVITE IZ DATOTEKE</string>
-  <string name="import_wallet_button">OPORAVI NOVČANIK</string>
+  <string name="import_wallet_file_button">Recover from file</string>
+  <string name="import_wallet_button">Oporavite novčanik</string>
   <string name="import_wallet_password_body">Ovaj novčanik je zaštićen lozinkom!</string>
   <string name="import_wallet_wrong_password_body">Ups, pogrešna lozinka!</string>
   <string name="error_invalid_private_key">Neispravan privatni ključ</string>
@@ -655,7 +655,7 @@
   <string name="backup_body">Ne čuvamo vaše privatne ključeve ni ostale načine pristupa. Važno je da rezervna kopija (skladište ključeva) vašeg novčanika bude na sigurnom.</string>
   <string name="backup_additional_security_title">Dodatna sigurnost (opciono)</string>
   <string name="backup_additional_security_body">Izaberite lozinku</string>
-  <string name="backup_button">NAPRAVITE REZERVNU KOPIJU NOVČANIKA</string>
+  <string name="backup_button">Back up wallet</string>
   <string name="backup_ready_title">Vaša reervna kopija je spremna!\nDržite je na sigurnom.</string>
   <string name="backup_ready_save_on_email">Sačuvajte je u svojoj e-pošti</string>
   <string name="backup_ready_email_button">Pošaljite na e-poštu</string>
@@ -665,8 +665,8 @@
   <string name="backup_confirmation_tips_2"><b>Sačuvajte je</b> na USB disku.</string>
   <string name="backup_confirmation_tips_3"><b>Kopirajte je</b> u privatnu, bezbednu memoriju na oblaku.</string>
   <string name="backup_tooltip_body">Napravite rezervnu kopiju novčanika!</string>
-  <string name="backup_tooltip_later_button">MOŽDA KASNIJE</string>
-  <string name="backup_tooltip_backup_button">REZERVNA KOPIJA</string>
+  <string name="backup_tooltip_later_button">Možda kasnije</string>
+  <string name="backup_tooltip_backup_button">Back up</string>
   <string name="backup_notification_title">Napravite rezervnu kopiju novčanika!</string>
   <string name="backup_notification_body">Zaštitite svoja sredstva i pristupite novčaniku kad god želite.</string>
   <string name="backup_choose_wallet_title">Odaberite novčanik za pravljenje rezervne kopije</string>
@@ -695,23 +695,23 @@
   <string name="wallets_imported_body">Oporavak novčanika je uspeo</string>
   <string name="wallets_2nd_view_balance_title">Stanje:</string>
   <string name="wallets_2nd_view_other_wallets_title">Drugi novčanici</string>
-  <string name="wallets_2nd_view_import_button">OPORAVI NOVČANIK</string>
-  <string name="wallets_2nd_view_create_button">NAPRAVITE NOVI</string>
-  <string name="wallet_view_copy_button">KOPIRAJ</string>
-  <string name="wallet_view_share_button">PODELI</string>
+  <string name="wallets_2nd_view_import_button">Oporavite novčanik</string>
+  <string name="wallets_2nd_view_create_button">Create new</string>
+  <string name="wallet_view_copy_button">Copy</string>
+  <string name="wallet_view_share_button">Podeli</string>
   <string name="wallet_view_total_balance_title">Ukupno stanje</string>
-  <string name="wallet_view_remove_button">UKLONI NOVČANIK</string>
-  <string name="wallet_view_backup_button">REZERVNA KOPIJA</string>
-  <string name="wallet_view_activate_button">POSTAVI OVAJ NOVČANIK KAO AKTIVAN</string>
+  <string name="wallet_view_remove_button">Remove wallet</string>
+  <string name="wallet_view_backup_button">Back up wallet</string>
+  <string name="wallet_view_activate_button">Make this wallet active</string>
   <string name="wallet_view_active_body">Ovo je vaš aktivni novčanik.</string>
   <!--Remove Wallet-->
   <string name="remove_wallet_title">Ukloni novčanik</string>
   <string name="remove_wallet_body">Preporučujemo vam da napravite rezervnu kopiju novčanika pre nego što ga uklonite. Ako ne budete imali rezervnu kopiju više nećete moći da mu pristupite.</string>
-  <string name="remove_wallet_backup_button">NAPRAVI REZERVNU KOPIJU</string>
-  <string name="remove_wallet_no_backup_button">UKLONI NOVČANIK</string>
+  <string name="remove_wallet_backup_button">Back up wallet</string>
+  <string name="remove_wallet_no_backup_button">Remove wallet</string>
   <string name="remove_wallet_confirm_body">Da li ste sigurni da želite da uklonite ovaj novčanik?</string>
-  <string name="remove_wallet_no_button">NE, VRATI SE</string>
-  <string name="remove_wallet_yes_button">DA, UKLONI NOVČANIK</string>
+  <string name="remove_wallet_no_button">No, go back</string>
+  <string name="remove_wallet_yes_button">Yes, remove wallet</string>
   <string name="remove_wallet_removed_body">Novčanik je uklonjen!</string>
   <!--Tranfer-->
   <string name="tranfer_bottom_navigation">Prenos</string>
@@ -723,7 +723,7 @@
   <string name="transfer_send_token_title">Token:</string>
   <string name="transfer_send_amount_title">Iznos</string>
   <string name="transfer_send_current_balance_title">Trenutno stanje:</string>
-  <string name="transfer_send_button">POŠALJI</string>
+  <string name="transfer_send_button">Pošaljite</string>
   <string name="transfer_receive_body">Podelite adresu svog novčanika da biste dobili sredstva.</string>
   <!--Support Notifications-->
   <string name="support_new_message_title">Dobili ste novu poruku!</string>
@@ -760,15 +760,15 @@
   <string name="subscriptions_expiration_body">Ističe: %s</string>
   <string name="subscriptions_canceled_body">Otkazano</string>
   <string name="subscriptions_details_disclaimer">Vrednost sledeće uplate u AppCoins mogla bi da se razlikuje zbog kursa.</string>
-  <string name="subscriptions_details_button">DETALJI</string>
-  <string name="subscriptions_manage_button">UPRAVLJAJTE PRETPLATAMA</string>
-  <string name="subscriptions_cancel_button">OTKAŽI PRETPLATU</string>
-  <string name="subscriptions_renew_subscription_button">OBNOVI PRETPLATU</string>
+  <string name="subscriptions_details_button">Detalji</string>
+  <string name="subscriptions_manage_button">Manage subscription</string>
+  <string name="subscriptions_cancel_button">Cancel subscription</string>
+  <string name="subscriptions_renew_subscription_button">Renew subscription</string>
   <string name="subscriptions_renewed_confirmation_title">Pretplata je obnovljena!</string>
   <string name="subscriptions_cancel_title">Otkaži pretplatu</string>
   <string name="subscriptions_cancel_body">Da li ste sigurni da želite da otkažete ovu pretplatu?</string>
-  <string name="subscriptions_cancel_no_button">NE, VRATI SE</string>
-  <string name="subscriptions_cancel_yes_button">DA, OTKAŽI PRETPLATU</string>
+  <string name="subscriptions_cancel_no_button">No, go back</string>
+  <string name="subscriptions_cancel_yes_button">Yes, cancel subscription</string>
   <string name="subscriptions_cancel_confirmation_title">Pretplata je otkazana!</string>
   <string name="subscriptions_cancel_confirmation_body">Više vam se neće naplaćivati ova pretplata, a možete da je koristite do dana %s.</string>
   <string name="subscriptions_category_title">Pretplata</string>
@@ -795,6 +795,7 @@
   <string name="gamif_card_start">Još ste na Zemlji</string>
   <string name="gamif_card_title">Vaša lokacija je %s</string>
   <string name="gamif_card_body">Potrošite još %s AppCoins da biste dostigli sledeći nivo.</string>
+  <string name="gamif_card_maximum_body">Spend %s AppCoins more to reach the maximum level.</string>
   <string name="gamif_bonus">%s%% bonusa</string>
   <string name="gamif_placeholder_earth">Zemlja</string>
   <string name="gamif_quote_earth">„Ono što nam je svima zajedničko jeste Zemlja“, Vendel Beri</string>
@@ -841,8 +842,8 @@
   <string name="carrier_billing_phone_confirmation_body">Vaš broj telefona je %s.</string>
   <string name="carrier_billing_enter_pin_body">Unesite PIN kod koji ste dobili u SMS poruci.</string>
   <string name="carrier_billing_code_field">Vaš kod...</string>
-  <string name="carrier_billing_code_resend_button">PONOVO POŠALJI KOD</string>
-  <string name="carrier_billing_submit_button">POŠALJI</string>
+  <string name="carrier_billing_code_resend_button">Resend code</string>
+  <string name="carrier_billing_submit_button">Pošalji</string>
   <string name="carrier_billing_number_not_supported">Izgleda da vaš broj nije kompatibilan sa ovim načinom plaćanja.</string>
   <string name="carrier_billing_terms_disclaimer">Ako dodirnete dugme Pošalji, potvrđujete da prihvatate Uslove i odredbe i Smernice za privatnost.</string>
   <string name="carrier_billing_help_1">Potrebna vam je pomoć?</string>
@@ -933,7 +934,7 @@
   <string name="rate_us_improve_field__empty_error">Napišite nešto</string>
   <string name="rate_us_possitive_thanks_title">Hvala!</string>
   <string name="rate_us_possitive_thanks_body">Drago nam je da vam se dopada naša aplikacija. Možete li nam pomoći tako što ćete je oceniti u app store?</string>
-  <string name="rate_us_possitive_rate_button">OCENITE APPCOINS WALLET</string>
+  <string name="rate_us_possitive_rate_button">Rate the AppCoins Wallet</string>
   <string name="rate_us_possitive_done_title">Hvala vam na povratnim informacijama!</string>
   <string name="rate_us_back_title">Želite da nam pomognete?</string>
   <string name="rate_us_back_body">Ocenite AppCoins Wallet na app store kako bismo mogli da je unapredimo.</string>
@@ -973,7 +974,7 @@
   <string name="voucher_buy_header">Vaučer za %s</string>
   <string name="voucher_buy_short_header">Vaučer:</string>
   <string name="voucher_buy_no_game_title">Zar nemate %s?</string>
-  <string name="voucher_buy_no_game_install_button">PREUZMITE SADA</string>
+  <string name="voucher_buy_no_game_install_button">Download now</string>
   <string name="voucher_code_title">Kod vaučera</string>
   <string name="voucher_instructions_body">Idite na %s i unesite kod da biste iskoristili vaučer.</string>
   <string name="voucher_instructions_transactions">Kod vaučera uvek možete videti u istoriji transakcija.</string>
@@ -1022,8 +1023,8 @@
   <string name="promo_code_view_field">Promo kod ovde...</string>
   <string name="promo_code_view_error">Kod je nevažeći. Pokušajte drugi kod!</string>
   <string name="promo_code_activated">Promo kod je aktiviran!</string>
-  <string name="promo_code_delete_button">OBRIŠI</string>
-  <string name="promo_code_replace_button">ZAMENI</string>
+  <string name="promo_code_delete_button">Delete</string>
+  <string name="promo_code_replace_button">Replace</string>
   <string name="promo_code_active_tag">Aktivne</string>
   <string name="promo_code_expired_tag">Istekao</string>
   <string name="promo_code_success_title">Gotovo!</string>
@@ -1078,17 +1079,44 @@
   <string name="mywallet_unverified_title">Nepotvrđeni novčanik</string>
   <string name="mywallet_unverified_body">Potvrdite način plaćanja da biste izbegli blokiranja.</string>
   <string name="mywallet_backed_up_date">Napravili ste rezervnu kopiju novčanika dana %s.</string>
-  <string name="mywallet_backup_again_button">NAPRAVITE REZERVNU KOPIJU PONOVO</string>
-  <string name="mywallet_verify_payment_method_button">VERIFY NEW CARD</string>
+  <string name="mywallet_backup_again_button">Back up again</string>
+  <string name="mywallet_verify_payment_method_button">Verify new card</string>
   <string name="mywallet_choose_name_header">Izaberite naziv za vaš novčanik</string>
   <string name="mywallet_choose_name_field">Naziv novčanika ovde...</string>
   <string name="mywallet_choose_name_confirmed">Promenjen je naziv novčanika</string>
   <string name="mywallet_unnamed_wallet">Novčanik nema naziv %s</string>
   <string name="mywallet_swithing_wallets_title">Prebacivanje na drugi novčanik...</string>
-  <string name="mywallet_address_title">Address:</string>
+  <string name="mywallet_address_title">Adresa:</string>
   <!-- Onboarding for new users coming from an iap -->
   <string name="onboarding_1st_title">Čestitamo! Instalirali ste AppCoins Wallet.</string>
   <string name="onboarding_1st_body">Vratite se u igru da biste dovršili svoju kupovinu.</string>
   <string name="onboarding_1st_back_to_game_button">Vratite se u igru</string>
   <string name="onboarding_1st_explore_wallet_button">Or explore the Wallet</string>
+  <!-- VIP Program -->
+  <string name="vip_program_reached_notification_title">Welcome to the VIP Program</string>
+  <string name="vip_program_reached_notification_body">You\'re now a VIP user with access to special promotions and deals. Tap for more details!</string>
+  <string name="vip_program_almost_notification_title">Almost there!</string>
+  <string name="vip_program_almost_notification_body">You\'re about to become a VIP user. Tap for more details!</string>
+  <string name="vip_program_almost_onboarding_title">You\'re about to become a VIP user!</string>
+  <string name="vip_program_almost_onboarding_body">Continue playing and making purchases to access exclusive promotions and deals. Ready to become the ultimate player?</string>
+  <string name="vip_program_onboarding_header_1">Congratulations!</string>
+  <string name="vip_program_onboarding_header_2">You\'re now a VIP user</string>
+  <string name="vip_program_onboarding_body">Our VIP Program is tailored for our most valued members... like yourself! You have now access to the best promotions and referral programs to earn more rewards.</string>
+  <string name="vip_program_promotions_tab_1">You\'re now a VIP user.</string>
+  <string name="vip_program_promotions_tab_2">Check the promotions we have have just for you!</string>
+  <string name="vip_program_exclusivity_tag">Only for VIP</string>
+  <string name="vip_program_referral_button_title">VIP Referral Program</string>
+  <string name="vip_program_referral_button_body">%s%% Bonus for you and your friends.</string>
+  <string name="vip_program_promotions_list_title">Special promotions for you</string>
+  <string name="vip_program_promo_code_tag">Promo code</string>
+  <string name="vip_program_referral_page_title">VIP Referral Program</string>
+  <string name="vip_program_referral_page_body">Share this promo code with your community and friends for everyone to earn while playing. For every in-app purchase they make, both <b>you and your friends will receive %s%% bonus</b> on top of other active promotions and for an entire month!</string>
+  <string name="vip_program_referral_page_share_title">Share this code with your friends</string>
+  <string name="vip_program_referral_page_earned_body">%1$s%2$s earned from %3$s referrals</string>
+  <string name="vip_program_gamification_title">What\'s my bonus level?</string>
+  <string name="vip_program_gamification_amount_purchases_bonus">Bonus received from your purchases.</string>
+  <string name="vip_program_gamification_amoung_referral_bonus">Bonus received from referrals</string>
+  <string name="vip_program_max_bonus_title">Enjoy your %s%% Bonus on every purchase</string>
+  <string name="vip_program_max_bonus_body">You\'ve reached the limits of the solar system.</string>
+  <string name="vip_program_max_bonus_short">%s%% Bonus on every purchase.</string>
 </resources>

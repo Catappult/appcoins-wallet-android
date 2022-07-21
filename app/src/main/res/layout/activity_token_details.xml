@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/root"
@@ -47,10 +46,10 @@
         android:transitionName="token_name_transition"
         app:layout_constraintBottom_toTopOf="@+id/token_description"
         app:layout_constraintEnd_toStartOf="@id/token_symbol"
+        app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/token_icon"
         app:layout_constraintVertical_bias="0"
-        app:layout_constraintHorizontal_chainStyle="packed"
         />
 
     <TextView
@@ -88,39 +87,44 @@
         app:layout_constraintVertical_bias="0"
         />
 
-    <Button
-        android:id="@+id/close_btn"
-        style="@style/ButtonStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="36dp"
-        android:layout_marginTop="21dp"
-        android:minWidth="104dp"
-        android:text="@string/button_ok"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/token_description"
-        app:layout_constraintVertical_bias="1"
-        />
-
-    <Button
+    <com.asfoundation.wallet.ui.common.WalletButtonView
         android:id="@+id/topup_btn"
-        style="@style/ButtonStyle.Light"
         android:layout_width="wrap_content"
-        android:layout_height="36dp"
+        android:layout_height="@dimen/small_button_height"
+        android:layout_gravity="center_vertical"
         android:layout_marginTop="21dp"
         android:layout_marginEnd="20dp"
-        android:minWidth="104dp"
-        android:text="@string/topup_home_button"
         android:visibility="invisible"
+        app:buttonText="@string/topup_home_button"
+        app:buttonType="outlined"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/close_btn"
         app:layout_constraintHorizontal_bias="1"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/token_description"
         app:layout_constraintVertical_bias="1"
+        tools:visibility="visible"
         />
+
+    <com.asfoundation.wallet.ui.common.WalletButtonView
+        android:id="@+id/close_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/small_button_height"
+        android:layout_gravity="center_vertical"
+        android:layout_marginTop="21dp"
+        android:visibility="invisible"
+        app:buttonText="@string/button_ok"
+        app:buttonType="filled"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/token_description"
+        app:layout_constraintVertical_bias="1"
+        tools:visibility="visible"
+        />
+
   </androidx.constraintlayout.widget.ConstraintLayout>
+
 </LinearLayout>
+

@@ -12,7 +12,6 @@
 
   <style name="MaterialAppTheme" parent="Theme.MaterialComponents.Light.DarkActionBar">
     <!-- Customize your theme here. -->
-    <item name="android:windowBackground">@color/white</item>
     <item name="colorPrimary">@color/colorPrimary</item>
     <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
     <item name="colorAccent">@color/colorAccent</item>
@@ -53,11 +52,12 @@
 
   <!-- Splash Screen theme. -->
 
-  <style name="SplashTheme" parent="MaterialAppTheme">
+  <style name="SplashTheme" parent="Theme.AppCompat.NoActionBar">
     <item name="android:windowBackground">@drawable/splash_background</item>
     <item name="android:windowTranslucentStatus">true</item>
     <item name="android:fitsSystemWindows">true</item>
   </style>
+
 
   <style name="AppTheme.Transparent" parent="MaterialAppTheme">
     <item name="windowActionBar">false</item>
@@ -138,92 +138,6 @@
     <item name="textAllCaps">true</item>
   </style>
 
-  <style name="ButtonStyle" parent="Base.Widget.AppCompat.ImageButton">
-    <item name="android:background">@drawable/button_background</item>
-    <item name="android:textAllCaps">true</item>
-    <item name="android:textColor">@drawable/btn_text_color</item>
-    <item name="android:fontFamily">sans-serif-medium</item>
-    <item name="android:textSize">14sp</item>
-    <item name="android:paddingStart">@dimen/big_padding</item>
-    <item name="android:paddingEnd">@dimen/big_padding</item>
-    <item name="android:minWidth">64dp</item>
-    <item name="android:minHeight">36dp</item>
-    <item name="android:letterSpacing">.09</item>
-  </style>
-
-  <style name="MaterialButtonStyle" parent="Widget.AppCompat.Button.Borderless">
-    <item name="android:background">@drawable/button_background</item>
-    <item name="android:textAllCaps">true</item>
-    <item name="android:textColor">@drawable/btn_text_color</item>
-    <item name="android:fontFamily">sans-serif-medium</item>
-    <item name="android:textSize">14sp</item>
-    <item name="android:paddingStart">@dimen/big_padding</item>
-    <item name="android:paddingEnd">@dimen/big_padding</item>
-    <item name="android:minHeight">36dp</item>
-    <item name="android:letterSpacing">.09</item>
-    <item name="android:elevation">2dp</item>
-  </style>
-
-  <style name="MaterialButtonStyle.Backup" parent="MaterialButtonStyle">
-    <item name="android:paddingStart">@dimen/half_large_padding</item>
-    <item name="android:paddingEnd">@dimen/half_large_padding</item>
-  </style>
-
-  <style name="MaterialButtonStyle.Backup.Large" parent="MaterialButtonStyle.Backup">
-    <item name="android:minWidth">240dp</item>
-  </style>
-
-  <style name="MaterialButtonStyle.Light">
-    <item name="android:background">@drawable/button_light_background</item>
-    <item name="android:textColor">@drawable/btn_light_text_color</item>
-    <item name="android:elevation">0dp</item>
-  </style>
-
-  <style name="MaterialButtonStyle.Light.White">
-    <item name="android:textColor">@color/white</item>
-    <item name="android:textAllCaps">false</item>
-    <item name="android:minHeight">48dp</item>
-  </style>
-
-  <style name="ButtonStyle.Alternative" parent="ButtonStyle">
-    <item name="android:background">@drawable/button_snd_background</item>
-    <item name="android:textColor">@color/btn_text_enable_color</item>
-  </style>
-
-  <style name="ButtonStyle.Blue" parent="ButtonStyle">
-    <item name="android:background">@drawable/button_dark_background</item>
-    <item name="android:textColor">@color/btn_text_enable_color</item>
-  </style>
-
-  <style name="ButtonStyle.Dark" parent="ButtonStyle">
-    <item name="android:background">@drawable/button_dark_background</item>
-    <item name="android:textColor">@color/button_dark_text_color</item>
-    <item name="android:letterSpacing">0.04</item>
-    <item name="android:fontFamily">sans-serif-medium</item>
-    <item name="android:textSize">12sp</item>
-    <item name="android:lineSpacingExtra">2sp</item>
-  </style>
-
-  <style name="ButtonStyle.Alternative.Backup" parent="ButtonStyle.Alternative">
-    <item name="android:gravity">center</item>
-    <item name="android:minWidth">80dp</item>
-    <item name="android:minHeight">48dp</item>
-    <item name="android:paddingStart">@dimen/half_large_padding</item>
-    <item name="android:paddingEnd">@dimen/half_large_padding</item>
-    <item name="android:textAllCaps">false</item>
-  </style>
-
-  <style name="FloatingButtonStyle" parent="Widget.MaterialComponents.Button.TextButton">
-    <item name="android:fontFamily">@font/roboto_regular</item>
-    <item name="android:textSize">14sp</item>
-    <item name="android:minWidth">64dp</item>
-    <item name="android:textColor">@color/grey_blue_medium</item>
-    <item name="android:paddingStart">@dimen/half_large_padding</item>
-    <item name="android:paddingEnd">@dimen/half_large_padding</item>
-    <item name="android:textAllCaps">false</item>
-    <item name="android:textStyle">bold</item>
-  </style>
-
   <style name="TransactionDetailsTextStyle">
     <item name="android:fontFamily">@font/roboto_regular</item>
     <item name="android:textColor">@color/color_grey_9e</item>
@@ -257,91 +171,6 @@
     <item name="android:lineSpacingExtra">6sp</item>
   </style>
 
-  <style name="ButtonStyle.Light" parent="Base.Widget.AppCompat.ImageButton">
-    <item name="android:background">@drawable/button_light_background</item>
-    <item name="android:textAllCaps">true</item>
-    <item name="android:textColor">@drawable/btn_light_text_color</item>
-    <item name="android:fontFamily">sans-serif-medium</item>
-    <item name="android:textSize">14sp</item>
-    <item name="android:paddingStart">@dimen/big_padding</item>
-    <item name="android:paddingEnd">@dimen/big_padding</item>
-    <item name="android:minWidth">64dp</item>
-    <item name="android:minHeight">36dp</item>
-    <item name="android:letterSpacing">.09</item>
-  </style>
-
-  <style name="ButtonStyle.NoBorder" parent="Base.Widget.AppCompat.ImageButton">
-    <item name="android:background">@drawable/flag_transparent</item>
-    <item name="android:textAllCaps">true</item>
-    <item name="android:fontFamily">sans-serif-medium</item>
-    <item name="android:textSize">14sp</item>
-    <item name="android:paddingStart">@dimen/big_padding</item>
-    <item name="android:paddingEnd">@dimen/big_padding</item>
-    <item name="android:minWidth">64dp</item>
-    <item name="android:minHeight">36dp</item>
-    <item name="android:letterSpacing">.09</item>
-  </style>
-
-  <style name="VerifyButtonStyle" parent="ButtonStyle.Light">
-    <item name="android:background">@drawable/button_light_background</item>
-    <item name="android:textAllCaps">true</item>
-    <item name="android:textStyle">bold</item>
-    <item name="android:fontFamily">sans-serif</item>
-    <item name="android:textSize">12sp</item>
-    <item name="android:paddingStart">@dimen/big_padding</item>
-    <item name="android:paddingEnd">@dimen/big_padding</item>
-    <item name="android:minHeight">28dp</item>
-    <item name="android:lineSpacingExtra">-3sp</item>
-  </style>
-
-  <style name="CancelButtonStyle" parent="Base.Widget.AppCompat.ImageButton">
-    <item name="android:background">@drawable/borderless_button_background</item>
-    <item name="android:textAllCaps">true</item>
-    <item name="android:textColor">@color/btn_cancel_text</item>
-    <item name="android:fontFamily">sans-serif-medium</item>
-    <item name="android:textSize">14sp</item>
-    <item name="android:textStyle">bold</item>
-    <item name="android:paddingStart">@dimen/big_padding</item>
-    <item name="android:paddingEnd">@dimen/big_padding</item>
-    <item name="android:minWidth">64dp</item>
-    <item name="android:letterSpacing">.09</item>
-  </style>
-
-  <style name="CancelBorderlessButtonStyle" parent="CancelButtonStyle">
-    <item name="android:textStyle">normal</item>
-  </style>
-
-  <style name="CancelBorderlessHighlightButtonStyle" parent="CancelBorderlessButtonStyle">
-    <item name="android:textColor">@color/text_button_color</item>
-  </style>
-
-  <style name="ListButtonStyle" parent="Base.Widget.AppCompat.ImageButton">
-    <item name="android:background">@drawable/borderless_list_button_background</item>
-    <item name="android:textAllCaps">true</item>
-    <item name="android:textColor">@color/dialog_buy_value_text</item>
-    <item name="android:fontFamily">sans-serif-medium</item>
-    <item name="android:textSize">14sp</item>
-    <item name="android:textStyle">normal</item>
-    <item name="android:minWidth">64dp</item>
-    <item name="android:letterSpacing">.09</item>
-    <item name="android:gravity">center_vertical|end</item>
-    <item name="android:layout_height">@dimen/button_list_height</item>
-    <item name="android:layout_width">match_parent</item>
-    <item name="android:paddingStart">25dp</item>
-    <item name="android:paddingEnd">25dp</item>
-  </style>
-
-  <style name="ChangeButtonStyle" parent="ButtonStyle.Light">
-    <item name="android:background">@drawable/borderless_button_background</item>
-    <item name="android:textSize">12sp</item>
-    <item name="android:letterSpacing">0</item>
-    <item name="android:fontFamily">@font/roboto_medium</item>
-  </style>
-
-  <style name="ListButtonStyle.Highlight">
-    <item name="android:textColor">@color/text_button_color</item>
-  </style>
-
   <style name="TransactionDetailsTextStyle.Subtitle">
     <item name="android:textColor">@color/gray_alpha_8a</item>
   </style>
@@ -358,11 +187,6 @@
 
   <style name="TransactionDetailsTextStyle.Footer">
     <item name="android:textColor">@color/gray_alpha_61</item>
-  </style>
-
-  <style name="TransactionDetailsButtonStyle" parent="@style/Widget.AppCompat.Button.Borderless.Colored">
-    <item name="android:textColor">@color/text_button_color</item>
-    <item name="android:textSize">12sp</item>
   </style>
 
   <style name="DialogTextStyle">
@@ -561,18 +385,6 @@
     <item name="android:fontFamily">@font/roboto_regular</item>
     <item name="android:textSize">12sp</item>
     <item name="android:textColor">@color/white</item>
-  </style>
-
-  <style name="ButtonStyle.Onboarding" parent="ButtonStyle">
-    <item name="android:background">@drawable/onboarding_button_background</item>
-  </style>
-
-  <style name="ButtonStyle.Onboarding.ExistentWallet" parent="ButtonStyle">
-    <item name="android:background">@drawable/onboarding_empty_background_with_border</item>
-  </style>
-
-  <style name="ButtonStyle.BackButton" parent="ButtonStyle">
-    <item name="android:background">@drawable/ic_back_button</item>
   </style>
 
   <style name="OnboardingTermsConditionsTextStyle">
@@ -1060,29 +872,6 @@
     <item name="android:textStyle">bold</item>
   </style>
 
-  <style name="TooltipButtonStyle" parent="@style/Widget.AppCompat.Button.Borderless">
-    <item name="android:backgroundTint">@color/white</item>
-    <item name="android:minWidth">80dp</item>
-    <item name="android:textSize">12sp</item>
-    <item name="android:fontFamily">sans-serif-medium</item>
-    <item name="android:letterSpacing">0.09</item>
-    <item name="android:lineSpacingExtra">2sp</item>
-  </style>
-
-  <style name="TooltipButtonStyle.Negative">
-    <item name="android:maxWidth">126dp</item>
-    <item name="android:paddingStart">6dp</item>
-    <item name="android:paddingEnd">6dp</item>
-    <item name="android:textColor">@color/btn_cancel_text</item>
-  </style>
-
-  <style name="TooltipButtonStyle.Positive">
-    <item name="android:maxWidth">160dp</item>
-    <item name="android:paddingStart">2dp</item>
-    <item name="android:paddingEnd">2dp</item>
-    <item name="android:textColor">@color/text_button_color</item>
-  </style>
-
   <style name="TooltipTextStyle" parent="TextAppearance.AppCompat.Body1.Roboto.Regular">
     <item name="android:textSize">14sp</item>
     <item name="android:textColor">@color/fakeBlack</item>
@@ -1188,8 +977,6 @@
     <item name="android:lineSpacingExtra">3sp</item>
     <item name="android:letterSpacing">0.01</item>
   </style>
-
-  <style name="VerifyWallet.Submit.Button" parent="@style/MaterialButtonStyle" />
 
   <style name="VerifyWallet.Cancel.Button" parent="@style/Widget.MaterialComponents.Button.TextButton">
     <item name="android:textColor">@color/verify_wallet_cancel</item>

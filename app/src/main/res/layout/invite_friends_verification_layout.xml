@@ -53,35 +53,30 @@
       app:layout_constraintTop_toBottomOf="@id/verification_title"
       />
 
-  <Button
+  <com.asfoundation.wallet.ui.common.WalletButtonView
       android:id="@+id/verify_button"
-      style="@style/ButtonStyle"
       android:layout_width="wrap_content"
-      android:layout_height="@dimen/button_height"
+      android:layout_height="@dimen/small_button_height"
+      android:layout_alignParentBottom="true"
       android:layout_marginTop="18dp"
-      android:maxWidth="360dp"
-      android:minWidth="80dp"
-      android:text="@string/referral_view_verify_button"
-      android:textColor="@color/white"
-      android:textSize="14sp"
+      app:buttonText="@string/referral_view_verify_button"
+      app:buttonType="outlined"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toBottomOf="@id/verification_description"
       />
 
-  <Button
+  <com.asfoundation.wallet.ui.common.WalletButtonView
       android:id="@+id/invited_button"
-      style="@style/CancelBorderlessButtonStyle"
       android:layout_width="wrap_content"
-      android:layout_height="@dimen/button_height"
+      android:layout_height="@dimen/small_button_height"
+      android:layout_alignParentBottom="true"
       android:layout_marginTop="8dp"
-      android:maxWidth="360dp"
-      android:minWidth="80dp"
-      android:text="@string/referral_view_i_have_been_invited_button"
-      android:textColor="@color/text_button_color"
-      android:textSize="14sp"
+      app:buttonText="@string/referral_view_i_have_been_invited_button"
+      app:buttonType="filled"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toBottomOf="@id/verify_button"
       />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

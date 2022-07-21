@@ -40,13 +40,15 @@ class IabUpdateRequiredFragment : BasePageViewFragment(), IabUpdateRequiredView 
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
-    update_dialog_buttons.buy_button.text = getString(R.string.update_button)
-    update_dialog_buttons.cancel_button.text = getString(R.string.cancel_button)
+    update_dialog_buttons.buy_button.setText(getString(R.string.update_button))
+    update_dialog_buttons.cancel_button.setText(getString(R.string.cancel_button))
     presenter.present()
   }
 
-  override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                            savedInstanceState: Bundle?): View? {
+  override fun onCreateView(
+    inflater: LayoutInflater, container: ViewGroup?,
+    savedInstanceState: Bundle?
+  ): View? {
     return inflater.inflate(R.layout.iab_update_required_layout, container, false)
   }
 
@@ -59,7 +61,7 @@ class IabUpdateRequiredFragment : BasePageViewFragment(), IabUpdateRequiredView 
   override fun close() = iabView.close(Bundle())
 
   override fun showError() =
-      Snackbar.make(main_layout, R.string.unknown_error, Snackbar.LENGTH_SHORT)
+    Snackbar.make(main_layout, R.string.unknown_error, Snackbar.LENGTH_SHORT)
 
   override fun onDestroyView() {
     super.onDestroyView()

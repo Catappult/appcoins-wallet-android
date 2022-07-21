@@ -195,20 +195,14 @@
           app:layout_constraintTop_toTopOf="@id/layout_support_logo"
           />
 
-      <Button
+      <com.asfoundation.wallet.ui.common.WalletButtonView
           android:id="@+id/reverted_more_detail"
-          style="@style/TransactionDetailsButtonStyle"
           android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:layout_gravity="center"
-          android:layout_marginEnd="@dimen/half_large_margin"
-          android:autoLink="web"
-          android:clickable="true"
-          android:focusable="true"
-          android:linksClickable="true"
-          android:minWidth="64dp"
-          android:minHeight="36dp"
-          android:text="@string/transaction_details_label"
+          android:layout_height="@dimen/small_button_height"
+          android:layout_marginStart="@dimen/half_large_margin"
+          android:layout_marginEnd="12dp"
+          app:buttonText="@string/transaction_details_label"
+          app:buttonType="text"
           app:layout_constraintBottom_toBottomOf="@id/layout_support_logo"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintHorizontal_bias="1"

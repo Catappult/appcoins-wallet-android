@@ -45,10 +45,12 @@ class BillingAddressFragment : BasePageViewFragment(), BillingAddressView {
     internal const val IS_STORED_KEY = "is_stored"
 
     @JvmStatic
-    fun newInstance(skuId: String, skuDescription: String, transactionType: String, domain: String,
-                    appcAmount: BigDecimal, bonus: String, fiatAmount: BigDecimal,
-                    fiatCurrency: String, isDonation: Boolean, shouldStoreCard: Boolean,
-                    isStored: Boolean): BillingAddressFragment {
+    fun newInstance(
+      skuId: String, skuDescription: String, transactionType: String, domain: String,
+      appcAmount: BigDecimal, bonus: String, fiatAmount: BigDecimal,
+      fiatCurrency: String, isDonation: Boolean, shouldStoreCard: Boolean,
+      isStored: Boolean
+    ): BillingAddressFragment {
       return BillingAddressFragment().apply {
         arguments = Bundle().apply {
           putString(SKU_DESCRIPTION, skuDescription)
@@ -78,8 +80,10 @@ class BillingAddressFragment : BasePageViewFragment(), BillingAddressView {
 
   private lateinit var iabView: IabView
 
-  override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                            savedInstanceState: Bundle?): View? {
+  override fun onCreateView(
+    inflater: LayoutInflater, container: ViewGroup?,
+    savedInstanceState: Bundle?
+  ): View? {
     return inflater.inflate(R.layout.fragment_billing_address, container, false)
   }
 
@@ -88,13 +92,15 @@ class BillingAddressFragment : BasePageViewFragment(), BillingAddressView {
     presenter.present()
   }
 
-  override fun initializeView(bonus: String?, isDonation: Boolean,
-                              domain: String,
-                              skuDescription: String,
-                              appcAmount: BigDecimal, fiatAmount: BigDecimal,
-                              fiatCurrency: String, isStored: Boolean,
-                              shouldStoreCard: Boolean,
-                              savedBillingAddress: BillingAddressModel?) {
+  override fun initializeView(
+    bonus: String?, isDonation: Boolean,
+    domain: String,
+    skuDescription: String,
+    appcAmount: BigDecimal, fiatAmount: BigDecimal,
+    fiatCurrency: String, isStored: Boolean,
+    shouldStoreCard: Boolean,
+    savedBillingAddress: BillingAddressModel?
+  ) {
     iabView.unlockRotation()
     showButtons(isDonation)
     setHeaderInformation(isDonation, domain, skuDescription, appcAmount, fiatAmount, fiatCurrency)
@@ -114,10 +120,10 @@ class BillingAddressFragment : BasePageViewFragment(), BillingAddressView {
   }
 
   private fun showButtons(isDonation: Boolean) {
-    cancel_button.setText(R.string.back_button)
+    cancel_button.setText(getString(R.string.back_button))
 
-    if (isDonation) buy_button.setText(R.string.action_donate)
-    else buy_button.setText(R.string.action_buy)
+    if (isDonation) buy_button.setText(getString(R.string.action_donate))
+    else buy_button.setText(getString(R.string.action_buy))
 
     buy_button.isEnabled = true
     buy_button.visibility = VISIBLE
@@ -139,18 +145,18 @@ class BillingAddressFragment : BasePageViewFragment(), BillingAddressView {
 
   override fun submitClicks(): Observable<BillingAddressModel> {
     return RxView.clicks(buy_button)
-        .filter { validateFields() }
-        .map {
-          BillingAddressModel(
-              address.text.toString(),
-              city.text.toString(),
-              zipcode.text.toString(),
-              state.text.toString(),
-              country.text.toString(),
-              number.text.toString(),
-              false
-          )
-        }
+      .filter { validateFields() }
+      .map {
+        BillingAddressModel(
+          address.text.toString(),
+          city.text.toString(),
+          zipcode.text.toString(),
+          state.text.toString(),
+          country.text.toString(),
+          number.text.toString(),
+          false
+        )
+      }
   }
 
   private fun validateFields(): Boolean {
@@ -190,9 +196,11 @@ class BillingAddressFragment : BasePageViewFragment(), BillingAddressView {
 
   override fun backClicks() = RxView.clicks(cancel_button)
 
-  private fun setHeaderInformation(isDonation: Boolean, domain: String, skuDescription: String,
-                                   appcAmount: BigDecimal, fiatAmount: BigDecimal,
-                                   fiatCurrency: String) {
+  private fun setHeaderInformation(
+    isDonation: Boolean, domain: String, skuDescription: String,
+    appcAmount: BigDecimal, fiatAmount: BigDecimal,
+    fiatCurrency: String
+  ) {
     if (isDonation) {
       app_name.text = getString(R.string.item_donation)
       app_sku_description.text = getString(R.string.item_donation)
@@ -201,15 +209,17 @@ class BillingAddressFragment : BasePageViewFragment(), BillingAddressView {
       app_sku_description.text = skuDescription
     }
     try {
-      app_icon.setImageDrawable(requireContext().packageManager
-          .getApplicationIcon(domain))
+      app_icon.setImageDrawable(
+        requireContext().packageManager
+          .getApplicationIcon(domain)
+      )
     } catch (e: PackageManager.NameNotFoundException) {
       e.printStackTrace()
     }
     val appcText = formatter.formatCurrency(appcAmount, WalletCurrency.APPCOINS)
-        .plus(" " + WalletCurrency.APPCOINS.symbol)
+      .plus(" " + WalletCurrency.APPCOINS.symbol)
     val fiatText = formatter.formatCurrency(fiatAmount, WalletCurrency.FIAT)
-        .plus(" $fiatCurrency")
+      .plus(" $fiatCurrency")
     fiat_price.text = fiatText
     appc_price.text = appcText
     fiat_price_skeleton.visibility = GONE

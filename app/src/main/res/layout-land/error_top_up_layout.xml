@@ -59,23 +59,23 @@
       tools:text="@string/purchase_card_error_general_2"
       />
 
-  <Button
+  <com.asfoundation.wallet.ui.common.WalletButtonView
       android:id="@+id/error_verify_wallet_button"
-      style="@style/ButtonStyle.Light"
       android:layout_width="220dp"
-      android:layout_height="@dimen/button_height"
-      android:layout_marginTop="20dp"
+      android:layout_height="@dimen/small_button_height"
+      android:layout_alignParentBottom="true"
       android:layout_marginStart="32dp"
+      android:layout_marginTop="20dp"
       android:layout_marginEnd="32dp"
       android:layout_marginBottom="42dp"
-      android:text="@string/referral_view_verify_button"
+      android:visibility="gone"
+      app:buttonText="@string/referral_view_verify_button"
+      app:buttonType="outlined"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toBottomOf="@id/error_message"
       app:layout_constraintVertical_bias="1"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintEnd_toEndOf="parent"
-      android:visibility="gone"
       />
-
 
   <androidx.constraintlayout.widget.Guideline
       android:id="@+id/end_guideline"
@@ -134,15 +134,15 @@
       app:layout_constraintTop_toTopOf="@id/layout_support_logo"
       />
 
-
-  <Button
+  <com.asfoundation.wallet.ui.common.WalletButtonView
       android:id="@+id/try_again"
-      style="@style/ButtonStyle.Alternative"
       android:layout_width="0dp"
-      android:layout_height="wrap_content"
+      android:layout_height="@dimen/large_button_height"
+      android:layout_alignParentBottom="true"
       android:layout_marginStart="8dp"
       android:layout_marginEnd="23dp"
-      android:text="@string/try_again"
+      app:buttonText="@string/try_again"
+      app:buttonType="filled"
       app:layout_constraintBottom_toBottomOf="@+id/layout_support_logo"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toEndOf="@id/end_guideline"

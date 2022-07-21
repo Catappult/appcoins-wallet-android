@@ -129,7 +129,8 @@ import static com.asfoundation.wallet.C.Key.TRANSACTION;
 
     isSent = transaction.getFrom()
         .toLowerCase()
-        .equals(transactionsDetailsModel.getWallet().address);
+        .equals(transactionsDetailsModel.getWallet()
+            .getAddress());
 
     String symbol =
         transaction.getCurrency() == null ? (transactionsDetailsModel.getNetworkInfo() == null ? ""
@@ -356,7 +357,8 @@ import static com.asfoundation.wallet.C.Key.TRANSACTION;
             .toString(), localFiatCurrency, icon, id, description, typeStr, typeIcon, statusStr,
         statusColor, transaction.getOrderReference(), to, from, isSent, isRevertTransaction,
         isRevertedTransaction, revertedDescription, descriptionColor,
-        transactionsDetailsModel.getWallet().address);
+        transactionsDetailsModel.getWallet()
+            .getAddress());
   }
 
   private String getScaledValue(String valueStr, long decimals, String currencySymbol,
