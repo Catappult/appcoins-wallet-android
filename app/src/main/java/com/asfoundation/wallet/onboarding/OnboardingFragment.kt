@@ -34,14 +34,7 @@ class OnboardingFragment : BasePageViewFragment(),
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-    arguments = Bundle().apply {
-      putBoolean(
-        ONBOARDING_FROM_IAP,
-        requireActivity().intent.getBooleanExtra(ONBOARDING_FROM_IAP, false)
-      )
-    }
     handleBackPress()
-    handleFragmentResult()
     handleWalletCreationFragmentResult()
     handleTermsConditionsFragmentResult()
   }
@@ -50,18 +43,12 @@ class OnboardingFragment : BasePageViewFragment(),
     requireActivity().onBackPressedDispatcher.addCallback(this, onBackPressedCallback)
   }
 
-  private fun handleFragmentResult() {
-    parentFragmentManager.setFragmentResultListener(ONBOARDING_FINISHED_KEY, this) { _, _ ->
-      navigator.navigateToMainActivity(fromSupportNotification = false)
-    }
-  }
-
   private fun handleWalletCreationFragmentResult() {
     parentFragmentManager.setFragmentResultListener(
       CreateWalletDialogFragment.CREATE_WALLET_DIALOG_COMPLETE,
       this
     ) { _, _ ->
-      navigator.closeOnboarding()
+      navigator.navigateToNavBar()
     }
   }
 
@@ -70,9 +57,7 @@ class OnboardingFragment : BasePageViewFragment(),
       TermsConditionsBottomSheetFragment.TERMS_CONDITIONS_COMPLETE,
       this
     ) { _, _ ->
-//      views.root.visibility = View.GONE
-      navigator.closeOnboarding()
-
+      navigator.navigateToNavBar()
     }
   }
 
@@ -108,7 +93,7 @@ class OnboardingFragment : BasePageViewFragment(),
   override fun onSideEffect(sideEffect: OnboardingSideEffect) {
     when (sideEffect) {
       OnboardingSideEffect.NavigateToLegalsConsent -> navigator.navigateToTermsBottomSheet()
-      OnboardingSideEffect.NavigateToRecoverWallet -> navigator.navigateToRecoverActivity()
+      OnboardingSideEffect.NavigateToRecoverWallet -> navigator.navigateToRecover()
       OnboardingSideEffect.NavigateToWalletCreationAnimation -> navigator.navigateToCreateWalletDialog()
       OnboardingSideEffect.NavigateToExit -> {
         onBackPressedCallback.isEnabled = false
@@ -147,8 +132,6 @@ class OnboardingFragment : BasePageViewFragment(),
   }
 
   companion object {
-    const val ONBOARDING_FINISHED_KEY = "OnboardingFinished"
     const val ONBOARDING_FROM_IAP = "from_iap"
-    fun newInstance() = OnboardingFragment()
   }
 }

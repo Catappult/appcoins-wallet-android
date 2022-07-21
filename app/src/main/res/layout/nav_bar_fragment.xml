@@ -4,11 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.asfoundation.wallet.main.MainActivity"
     >
 
   <androidx.fragment.app.FragmentContainerView
       android:id="@+id/nav_host_container"
+      android:name="androidx.navigation.fragment.NavHostFragment"
+      app:navGraph="@navigation/nav_bar_graph"
+      app:defaultNavHost="true"
       android:layout_width="0dp"
       android:layout_height="0dp"
       app:layout_constraintBottom_toTopOf="@+id/bottom_nav"
@@ -16,25 +18,14 @@
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       />
-  <androidx.fragment.app.FragmentContainerView
-      android:id="@+id/fragment_container"
-      android:layout_width="match_parent"
-      android:layout_height="match_parent"
-      android:elevation="10dp"
-      android:visibility="gone"
-      app:layout_constraintBottom_toBottomOf="parent"
-      app:layout_constraintTop_toTopOf="parent"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintStart_toStartOf="parent"
-      />
 
   <androidx.fragment.app.FragmentContainerView
-      android:id="@+id/fragment_container"
+      android:id="@+id/full_host_container"
       android:name="androidx.navigation.fragment.NavHostFragment"
-      app:defaultNavHost="true"
+      app:navGraph="@navigation/nav_bar_graph"
       android:layout_width="match_parent"
       android:layout_height="match_parent"
-      android:elevation="10dp"
+      android:elevation="99dp"
       android:visibility="gone"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintTop_toTopOf="parent"
@@ -52,11 +43,10 @@
       app:itemRippleColor="@color/button_borderless_ripple_color"
       app:itemTextColor="@color/bottom_nav_color_state"
       app:labelVisibilityMode="labeled"
-      android:visibility="gone"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
-      app:menu="@menu/new_bottom_navigation_menu"
+      app:menu="@menu/bottom_navigation_menu"
       />
 
   <FrameLayout

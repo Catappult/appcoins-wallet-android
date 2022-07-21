@@ -40,16 +40,5 @@
       app:layout_constraintTop_toBottomOf="@id/epoxy_model_group_child_container"
       app:shapeAppearance="@style/MyWallets.HeaderShape"
       />
-  <com.google.android.material.imageview.ShapeableImageView
-      android:id="@+id/pull_indicator"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:src="@drawable/pull_up_home_bar"
-      app:layout_constraintBottom_toBottomOf="@+id/home_corner_separator"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toTopOf="@+id/home_corner_separator"
-      app:shapeAppearance="@style/MyWallets.HeaderShape"
-      />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

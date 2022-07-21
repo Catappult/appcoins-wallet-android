@@ -54,12 +54,6 @@ class CreateWalletDialogFragment : DialogFragment(),
 
   override fun onDestroy() {
     setFragmentResult(CREATE_WALLET_DIALOG_COMPLETE, bundleOf("fragmentEnded" to "result"))
-    //temp solution to be able to have the MainActivity listening to the dialog ending result
-    //at the same time the Onboarding listens to it
-    requireActivity().supportFragmentManager.setFragmentResult(
-      CREATE_WALLET_DIALOG_COMPLETE_TO_MAIN,
-      bundleOf("fragmentEnded" to "result")
-    )
     super.onDestroy()
   }
 
@@ -96,14 +90,6 @@ class CreateWalletDialogFragment : DialogFragment(),
 
   companion object {
     const val CREATE_WALLET_DIALOG_COMPLETE = "create_wallet_dialog_complete"
-    const val CREATE_WALLET_DIALOG_COMPLETE_TO_MAIN = "create_wallet_dialog_complete_to_main"
     const val NEEDS_WALLET_CREATION = "needs_wallet_creation"
-
-    fun newInstance(needsWalletCreation: Boolean): CreateWalletDialogFragment =
-      CreateWalletDialogFragment().apply {
-        arguments = Bundle().apply {
-          putBoolean(NEEDS_WALLET_CREATION, needsWalletCreation)
-        }
-      }
   }
 }

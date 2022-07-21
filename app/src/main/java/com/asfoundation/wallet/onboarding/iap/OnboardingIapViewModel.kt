@@ -6,14 +6,11 @@ import com.asfoundation.wallet.base.ViewState
 import com.asfoundation.wallet.onboarding.use_cases.GetOnboardingFromIapPackageNameUseCase
 import com.asfoundation.wallet.onboarding.use_cases.SetOnboardingCompletedUseCase
 import com.asfoundation.wallet.onboarding.use_cases.SetOnboardingFromIapStateUseCase
-import com.asfoundation.wallet.base.RxSchedulers
-import com.asfoundation.wallet.onboarding.use_cases.*
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 sealed class OnboardingIapSideEffect : SideEffect {
   data class LoadPackageNameIcon(val appPackageName: String?) : OnboardingIapSideEffect()
-  object NavigateToWalletCreationAnimation : OnboardingIapSideEffect()
   object NavigateBackToGame : OnboardingIapSideEffect()
   object NavigateToTermsConditions : OnboardingIapSideEffect()
 }
@@ -22,8 +19,6 @@ object OnboardingIapState : ViewState
 
 @HiltViewModel
 class OnboardingIapViewModel @Inject constructor(
-  private val hasWalletUseCase: HasWalletUseCase,
-  private val rxSchedulers: RxSchedulers,
   private val setOnboardingCompletedUseCase: SetOnboardingCompletedUseCase,
   private val setOnboardingFromIapStateUseCase: SetOnboardingFromIapStateUseCase,
   private val getOnboardingFromIapPackageNameUseCase: GetOnboardingFromIapPackageNameUseCase
@@ -43,23 +38,6 @@ class OnboardingIapViewModel @Inject constructor(
     sendSideEffect {
       OnboardingIapSideEffect.LoadPackageNameIcon(getOnboardingFromIapPackageNameUseCase())
     }
-  }
-
-  fun handleCreateWallet() {
-    hasWalletUseCase()
-      .observeOn(rxSchedulers.main)
-      .doOnSuccess {
-        if (!it) {
-          setOnboardingFromIapStateUseCase(state = false)
-          sendSideEffect {
-            OnboardingIapSideEffect.LoadPackageNameIcon(getOnboardingFromIapPackageNameUseCase())
-          }
-          sendSideEffect {
-            OnboardingIapSideEffect.NavigateToWalletCreationAnimation
-          }
-        }
-      }
-      .scopedSubscribe { it.printStackTrace() }
   }
 
   fun handleBackToGameClick() {

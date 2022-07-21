@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import android.view.ViewTreeObserver
 import androidx.fragment.app.Fragment
 import com.asf.wallet.R
-import com.asfoundation.wallet.main.MainActivityNavigator
+import com.asfoundation.wallet.main.nav_bar.NavBarFragmentNavigator
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import com.google.android.material.bottomnavigation.BottomNavigationItemView
 import com.google.android.material.bottomnavigation.BottomNavigationMenuView
@@ -26,7 +26,7 @@ class OverlayFragment : BasePageViewFragment(), OverlayView {
   lateinit var presenter: OverlayPresenter
 
   @Inject
-  lateinit var mainActivityNavigator: MainActivityNavigator
+  lateinit var navBarFragmentNavigator: NavBarFragmentNavigator
 
   private val item: Int by lazy {
     if (requireArguments().containsKey(ITEM_KEY)) {
@@ -102,7 +102,7 @@ class OverlayFragment : BasePageViewFragment(), OverlayView {
   }
 
   override fun navigateToPromotions() {
-    mainActivityNavigator.navigateToPromotions()
+    navBarFragmentNavigator.navigateToPromotions()
   }
 
   override fun onDestroyView() {

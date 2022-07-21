@@ -86,7 +86,13 @@ class TermsConditionsBottomSheetFragment : BottomSheetDialogFragment(),
           bundleOf("fragmentEnded" to "result")
         )
       }
-      TermsConditionsBottomSheetSideEffect.NavigateToWalletCreationAnimation -> navigator.navigateToCreateWalletDialog()
+      TermsConditionsBottomSheetSideEffect.NavigateToWalletCreationAnimation ->{
+        navigator.navigateToCreateWalletDialog()
+        setFragmentResult(
+          TERMS_CONDITIONS_COMPLETE,
+          bundleOf("fragmentEnded" to "result")
+        )
+      }
       is TermsConditionsBottomSheetSideEffect.NavigateToLink -> navigator.navigateToBrowser(
         sideEffect.uri
       )

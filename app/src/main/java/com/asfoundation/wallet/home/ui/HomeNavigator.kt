@@ -3,7 +3,6 @@ package com.asfoundation.wallet.home.ui
 import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.net.Uri
-import android.view.View
 import android.widget.Toast
 import androidx.core.app.ShareCompat
 import androidx.fragment.app.Fragment
@@ -14,21 +13,17 @@ import com.asfoundation.wallet.backup.repository.preferences.BackupTriggerPrefer
 import com.asfoundation.wallet.backup.triggers.BackupTriggerDialogFragment
 import com.asfoundation.wallet.base.Navigator
 import com.asfoundation.wallet.change_currency.ChangeFiatCurrencyActivity
-import com.asfoundation.wallet.entity.Wallet
-import com.asfoundation.wallet.main.MainActivityNavigator
+import com.asfoundation.wallet.main.nav_bar.NavBarFragmentNavigator
 import com.asfoundation.wallet.rating.RatingActivity
 import com.asfoundation.wallet.transactions.Transaction
 import com.asfoundation.wallet.ui.BaseActivity
-import com.asfoundation.wallet.ui.MyAddressActivity
 import com.asfoundation.wallet.ui.balance.TransactionDetailActivity
 import com.asfoundation.wallet.ui.settings.SettingsActivity
-import com.asfoundation.wallet.ui.transact.TransferActivity.Companion.newIntent
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import javax.inject.Inject
 
 class HomeNavigator @Inject constructor(
   private val fragment: Fragment,
-  private val mainActivityNavigator: MainActivityNavigator
+  private val navBarFragmentNavigator: NavBarFragmentNavigator
 ) : Navigator {
 
   fun navigateToRateUs(shouldNavigate: Boolean) {
@@ -44,29 +39,11 @@ class HomeNavigator @Inject constructor(
   }
 
   fun navigateToMyWallets() {
-    val bottomNavView: BottomNavigationView =
-      fragment.requireActivity().findViewById(R.id.bottom_nav)
-    val view: View = bottomNavView.findViewById(R.id.balance)
-    view.performClick()
+    navBarFragmentNavigator.navigateToMyWallets()
   }
 
   fun navigateToPromotions() {
-    mainActivityNavigator.navigateToPromotions()
-  }
-
-  fun navigateToSend() {
-    val intent = newIntent(fragment.requireContext())
-    intent.flags = Intent.FLAG_ACTIVITY_SINGLE_TOP
-    openIntent(intent)
-  }
-
-  fun navigateToReceive(wallet: Wallet?) {
-    if (wallet != null) {
-      val intent = Intent(fragment.requireContext(), MyAddressActivity::class.java)
-      intent.putExtra(C.Key.WALLET, wallet)
-      intent.flags = Intent.FLAG_ACTIVITY_SINGLE_TOP
-      openIntent(intent)
-    }
+    navBarFragmentNavigator.navigateToPromotions()
   }
 
   fun navigateToBrowser(uri: Uri) {

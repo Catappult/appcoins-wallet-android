@@ -54,10 +54,6 @@ class OnboardingIapFragment : BasePageViewFragment(),
     super.onViewCreated(view, savedInstanceState)
     handleTermsConditionsFragmentResult()
     viewModel.handleLoadIcon()
-    views.onboardingIapContent.visibility = View.GONE
-
-    viewModel.handleCreateWallet()
-    handleCreateWalletFragmentResult()
     handleTermsConditionsFragmentResult()
 
     views.onboardingIapBackToGameButton.setOnClickListener {
@@ -73,15 +69,9 @@ class OnboardingIapFragment : BasePageViewFragment(),
     requireActivity().onBackPressedDispatcher.addCallback(this, onBackPressedCallback)
   }
 
-  private fun handleCreateWalletFragmentResult() {
-    setFragmentResultListener(CreateWalletDialogFragment.CREATE_WALLET_DIALOG_COMPLETE) { _, _ ->
-      showContent()
-    }
-  }
-
   private fun handleTermsConditionsFragmentResult() {
     setFragmentResultListener(TermsConditionsBottomSheetFragment.TERMS_CONDITIONS_COMPLETE) { _, _ ->
-      navigator.closeOnboarding()
+      views.root.visibility = View.GONE
     }
   }
 
@@ -89,7 +79,6 @@ class OnboardingIapFragment : BasePageViewFragment(),
 
   override fun onSideEffect(sideEffect: OnboardingIapSideEffect) {
     when (sideEffect) {
-      OnboardingIapSideEffect.NavigateToWalletCreationAnimation -> navigator.navigateToCreateWalletDialog()
       OnboardingIapSideEffect.NavigateBackToGame -> navigator.navigateBackToGame()
       OnboardingIapSideEffect.NavigateToTermsConditions -> navigator.navigateToTermsConditionsBottomSheet()
       is OnboardingIapSideEffect.LoadPackageNameIcon -> sideEffect.appPackageName?.let {
@@ -105,17 +94,6 @@ class OnboardingIapFragment : BasePageViewFragment(),
     } catch (e: PackageManager.NameNotFoundException) {
       e.printStackTrace()
     }
-  }
-
-  private fun showContent() {
-    views.root.background =
-      ContextCompat.getDrawable(requireContext(), R.color.blue_dark_transparent_90)
-    views.onboardingIapContent.visibility = View.VISIBLE
-  }
-
-  companion object {
-    @JvmStatic
-    fun newInstance(): OnboardingIapFragment = OnboardingIapFragment()
   }
 }
 

@@ -53,14 +53,6 @@
 
   <!-- Splash Screen theme. -->
 
-  <style name="SplashThemeOld" parent="Theme.AppCompat.NoActionBar">
-    <item name="android:windowBackground">@drawable/splash_background</item>
-    <item name="android:windowTranslucentStatus">true</item>
-    <item name="android:fitsSystemWindows">true</item>
-  </style>
-
-  <!-- Splash Screen theme. -->
-
   <style name="SplashTheme" parent="MaterialAppTheme">
     <item name="android:windowBackground">@drawable/splash_background</item>
     <item name="android:windowTranslucentStatus">true</item>

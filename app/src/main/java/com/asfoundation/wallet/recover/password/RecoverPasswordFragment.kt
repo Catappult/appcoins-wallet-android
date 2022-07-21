@@ -13,7 +13,7 @@ import com.asf.wallet.databinding.RecoverPasswordFragmentBinding
 import com.asfoundation.wallet.base.Async
 import com.asfoundation.wallet.base.SingleStateFragment
 import com.asfoundation.wallet.my_wallets.create_wallet.CreateWalletDialogFragment
-import com.asfoundation.wallet.recover.entry.RecoverEntryFragment
+import com.asfoundation.wallet.recover.RecoverActivity.Companion.ONBOARDING_LAYOUT
 import com.asfoundation.wallet.recover.result.FailedPasswordRecover
 import com.asfoundation.wallet.recover.result.RecoverPasswordResult
 import com.asfoundation.wallet.recover.result.SuccessfulPasswordRecover
@@ -45,7 +45,7 @@ class RecoverPasswordFragment : BasePageViewFragment(),
 
   override fun onViewCreated(view: View, @Nullable savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
-    if (!requireActivity().intent.getBooleanExtra(RecoverEntryFragment.ONBOARDING_LAYOUT, false)) {
+    if (!requireActivity().intent.getBooleanExtra(ONBOARDING_LAYOUT, false)) {
       views.recoverWalletBackButton.visibility = View.GONE
     }
     views.recoverWalletBackButton.setOnClickListener {
@@ -108,7 +108,7 @@ class RecoverPasswordFragment : BasePageViewFragment(),
       CreateWalletDialogFragment.CREATE_WALLET_DIALOG_COMPLETE,
       this
     ) { _, _ ->
-      navigator.navigateToMainActivity(fromSupportNotification = false)
+      navigator.navigateToNavigationBar()
     }
   }
 

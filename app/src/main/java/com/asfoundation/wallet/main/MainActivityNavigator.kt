@@ -1,131 +1,36 @@
 package com.asfoundation.wallet.main
 
-import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import androidx.activity.result.ActivityResultLauncher
-import androidx.fragment.app.commit
-import androidx.navigation.NavDeepLinkBuilder
-import com.asf.wallet.R
-import com.asfoundation.wallet.onboarding.OnboardingFragment
-import com.asfoundation.wallet.onboarding.iap.OnboardingIapFragment
-import com.asfoundation.wallet.topup.TopUpActivity
+import androidx.navigation.NavController
+import com.asfoundation.wallet.base.Navigator
+import com.asfoundation.wallet.base.navigate
+import com.asfoundation.wallet.main.splash.SplashExtenderFragmentDirections
 import com.asfoundation.wallet.ui.AuthenticationPromptActivity
-import com.asfoundation.wallet.ui.overlay.OverlayFragment
-import com.asfoundation.wallet.update_required.UpdateRequiredActivity
-import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 
-class MainActivityNavigator @Inject constructor(@ApplicationContext val context: Context) {
+class MainActivityNavigator @Inject constructor() :
+  Navigator {
 
-  fun navigateToAutoUpdate(mainActivity: MainActivity) {
-    val intent = UpdateRequiredActivity.newIntent(context)
-      .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
-      .addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT)
-      .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-    mainActivity.startActivity(intent)
+  fun navigateToOnboarding(navController: NavController) {
+    navigate(navController, SplashExtenderFragmentDirections.actionNavigateToOnboardingGraph())
   }
 
-  fun showAuthenticationActivity(authenticationResultLauncher: ActivityResultLauncher<Intent>) {
+  fun showAuthenticationActivity(
+    context: Context,
+    authenticationResultLauncher: ActivityResultLauncher<Intent>
+  ) {
     val intent = AuthenticationPromptActivity.newIntent(context)
       .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
     authenticationResultLauncher.launch(intent)
   }
 
-  fun navigateToOnboarding(mainActivity: MainActivity, fromIap: Boolean) {
-    mainActivity.supportFragmentManager.commit {
-      when (fromIap) {
-        true -> replace(R.id.fragment_container, OnboardingIapFragment.newInstance())
-        false -> replace(R.id.fragment_container, OnboardingFragment.newInstance())
-      }
-      addToBackStack("OnboardingFragment")
-    }
+  fun navigateToAutoUpdate(navController: NavController) {
+    navigate(navController, SplashExtenderFragmentDirections.actionNavigateToUpdateRequiredGraph())
   }
 
-  fun getHomePendingIntent(): PendingIntent {
-    return NavDeepLinkBuilder(context)
-      .setGraph(R.navigation.home_graph)
-      .setDestination(R.id.home_fragment)
-      .setComponentName(MainActivity::class.java)
-      .createPendingIntent()
-    // PendingIntents from androidx.navigation are not working on android 12.
-    // Was used for the "got it" button after completing a eth transfer and on the "ok" button after a topup.
-    // The solution is to update the androidx.navigation to 2.4.0 or higher.
-  }
-
-  fun navigateToHome() {
-    val ctxt = context
-    if (ctxt is MainActivity) {
-      ctxt.setSelectedBottomNavItem(MainActivity.BottomNavItem.HOME)
-    } else {
-      getHomePendingIntent().send()
-    }
-  }
-
-  fun getPromotionsPendingIntent(): PendingIntent {
-    return NavDeepLinkBuilder(context)
-      .setGraph(R.navigation.promotions_graph)
-      .setDestination(R.id.promotions_fragment)
-      .setComponentName(MainActivity::class.java)
-      .createPendingIntent()
-  }
-
-  fun navigateToPromotions() {
-    val ctxt = context
-    if (ctxt is MainActivity) {
-      ctxt.setSelectedBottomNavItem(MainActivity.BottomNavItem.PROMOTIONS)
-    } else {
-      getPromotionsPendingIntent().send()
-    }
-  }
-
-  fun getMyWalletsPendingIntent(): PendingIntent {
-    return NavDeepLinkBuilder(context)
-      .setGraph(R.navigation.my_wallets_graph)
-      .setDestination(R.id.my_wallets_fragment)
-      .setComponentName(MainActivity::class.java)
-      .createPendingIntent()
-  }
-
-  fun navigateToMyWallets() {
-    val ctxt = context
-    if (ctxt is MainActivity) {
-      ctxt.setSelectedBottomNavItem(MainActivity.BottomNavItem.MY_WALLETS)
-    } else {
-      getMyWalletsPendingIntent().send()
-    }
-  }
-
-  fun navigateToTopUp() {
-    val intent = TopUpActivity.newIntent(context)
-      .apply { flags = Intent.FLAG_ACTIVITY_SINGLE_TOP or Intent.FLAG_ACTIVITY_NEW_TASK }
-    context.startActivity(intent)
-  }
-
-  fun showPromotionsOverlay(index: Int) {
-    if (context is MainActivity) {
-      context.supportFragmentManager.beginTransaction()
-        .setCustomAnimations(
-          R.anim.fragment_fade_in_animation,
-          R.anim.fragment_fade_out_animation, R.anim.fragment_fade_in_animation,
-          R.anim.fragment_fade_out_animation
-        )
-        .add(
-          R.id.tooltip_container,
-          OverlayFragment.newInstance(index)
-        )
-        .addToBackStack(OverlayFragment::class.java.name)
-        .commit()
-    }
-  }
-
-  fun showOnboardingIapScreen(mainActivity: MainActivity) {
-    mainActivity.supportFragmentManager.beginTransaction()
-      .add(
-        R.id.fragment_container,
-        OnboardingIapFragment.newInstance()
-      )
-      .addToBackStack(OnboardingIapFragment::class.java.name)
-      .commit()
+  fun navigateToNavBarFragment(navController: NavController) {
+    navigate(navController, SplashExtenderFragmentDirections.actionNavigateToNavBarGraph())
   }
 }

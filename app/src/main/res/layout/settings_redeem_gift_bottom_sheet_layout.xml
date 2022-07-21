@@ -1,16 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/redeem_gift_bottom_sheet_layout"
+    android:theme="@style/MaterialAppTheme"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/bottom_sheet_small_height"
+    android:layout_height="wrap_content"
     android:background="@drawable/rounded_dialog"
     android:clipChildren="false"
     android:clipToPadding="false"
     android:orientation="vertical"
-    android:paddingHorizontal="32dp"
-    android:paddingTop="32dp"
-    android:paddingBottom="36dp"
+    android:paddingVertical="@dimen/half_large_margin"
+    android:paddingHorizontal="@dimen/half_large_margin"
     >
 
   <!--  Insert gift code: -->

@@ -35,7 +35,6 @@ import javax.inject.Named
 sealed class HomeSideEffect : SideEffect {
   data class NavigateToBrowser(val uri: Uri) : HomeSideEffect()
   data class NavigateToRateUs(val shouldNavigate: Boolean) : HomeSideEffect()
-  data class NavigateToReceive(val wallet: Wallet?) : HomeSideEffect()
   data class NavigateToSettings(val turnOnFingerprint: Boolean = false) : HomeSideEffect()
   data class NavigateToShare(val url: String) : HomeSideEffect()
   data class NavigateToDetails(val transaction: Transaction, val balanceCurrency: String) :
@@ -50,9 +49,7 @@ sealed class HomeSideEffect : SideEffect {
     HomeSideEffect()
 
   object NavigateToMyWallets : HomeSideEffect()
-  object NavigateToSend : HomeSideEffect()
   object NavigateToChangeCurrency : HomeSideEffect()
-  object ShowFingerprintTooltip : HomeSideEffect()
 }
 
 data class HomeState(
@@ -109,7 +106,6 @@ class HomeViewModel @Inject constructor(
     verifyUserLevel()
     handleUnreadConversationCount()
     handleRateUsDialogVisibility()
-    handleFingerprintTooltipVisibility()
     handleBackupTrigger()
   }
 
@@ -333,27 +329,6 @@ class HomeViewModel @Inject constructor(
       }
   }
 
-  private fun handleFingerprintTooltipVisibility() {
-    shouldShowFingerprintTooltipUseCase(BuildConfig.APPLICATION_ID)
-      .doOnSuccess { value ->
-        if (value == true) {
-          sendSideEffect { HomeSideEffect.ShowFingerprintTooltip }
-        }
-      }
-      .scopedSubscribe() { e ->
-        e.printStackTrace()
-      }
-  }
-
-  fun onTurnFingerprintOnClick() {
-    sendSideEffect { HomeSideEffect.NavigateToSettings(turnOnFingerprint = true) }
-    setSeenFingerprintTooltipUseCase()
-  }
-
-  fun onFingerprintDismissed() {
-    setSeenFingerprintTooltipUseCase()
-  }
-
   fun showSupportScreen(fromNotification: Boolean) {
     if (fromNotification) {
       displayConversationListOrChatUseCase
@@ -372,20 +347,6 @@ class HomeViewModel @Inject constructor(
 
   fun onBalanceClick() {
     sendSideEffect { HomeSideEffect.NavigateToMyWallets }
-  }
-
-  fun onSendClick() {
-    sendSideEffect { HomeSideEffect.NavigateToSend }
-  }
-
-  fun onReceiveClick() {
-    sendSideEffect {
-      state.transactionsModelAsync.value?.transactionsWalletModel?.let {
-        HomeSideEffect.NavigateToReceive(
-          it.wallet
-        )
-      }
-    }
   }
 
   fun onTransactionDetailsClick(transaction: Transaction) {

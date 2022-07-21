@@ -1,14 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:animateLayoutChanges="true"
     android:background="@drawable/background_dark_gradient"
     >
+
   <ScrollView
+      android:id="@+id/onboarding_content_scroll_view"
       android:layout_width="match_parent"
-      android:layout_height="match_parent">
+      android:layout_height="0dp"
+      android:layout_marginBottom="@dimen/half_large_margin"
+      app:layout_constraintTop_toTopOf="parent"
+      app:layout_constraintBottom_toTopOf="@id/onboarding_buttons"
+      >
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -27,12 +34,13 @@
           />
 
       <include
-          layout="@layout/onboarding_welcome_message"
           android:id="@+id/onboarding_welcome_message"
+          layout="@layout/onboarding_welcome_message"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:layout_marginHorizontal="@dimen/half_large_margin"
           android:layout_marginTop="@dimen/onboarding_container_margin_top"
+          android:visibility="visible"
           app:layout_constraintBottom_toBottomOf="parent"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="parent"
@@ -41,46 +49,46 @@
           />
 
       <include
-          layout="@layout/onboarding_value_propositions"
           android:id="@+id/onboarding_value_propositions"
+          layout="@layout/onboarding_value_propositions"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:layout_marginHorizontal="@dimen/half_large_margin"
           android:layout_marginTop="@dimen/onboarding_container_margin_top"
-          android:visibility="invisible"
-          app:layout_constraintBottom_toBottomOf="parent"
+          android:visibility="gone"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toBottomOf="@id/onboarding_wallet_icon"
           app:tint="@color/white"
           />
-
     </androidx.constraintlayout.widget.ConstraintLayout>
   </ScrollView>
-
-  <include
-      layout="@layout/onboarding_welcome_buttons"
-      android:id="@+id/onboarding_welcome_buttons"
+  <androidx.constraintlayout.widget.ConstraintLayout
+      android:id="@+id/onboarding_buttons"
       android:layout_width="match_parent"
-      android:layout_height="0dp"
-      android:layout_marginHorizontal="@dimen/half_large_margin"
+      android:layout_height="wrap_content"
       app:layout_constraintBottom_toBottomOf="parent"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintStart_toStartOf="parent"
-      app:tint="@color/white"
-      />
+      app:layout_constraintTop_toBottomOf="@id/onboarding_content_scroll_view"
+      >
 
-  <include
-      layout="@layout/onboarding_values_buttons"
-      android:id="@+id/onboarding_values_buttons"
-      android:layout_width="match_parent"
-      android:layout_height="0dp"
-      android:layout_marginEnd="@dimen/onboarding_padding"
-      android:layout_marginStart="@dimen/onboarding_padding"
-      android:visibility="invisible"
-      app:layout_constraintBottom_toBottomOf="parent"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintStart_toStartOf="parent"
-      app:tint="@color/white"
-      />
+    <include
+        android:id="@+id/onboarding_welcome_buttons"
+        layout="@layout/onboarding_welcome_buttons"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/half_large_margin"
+        android:visibility="visible"
+        app:tint="@color/white"
+        />
+
+    <include
+        android:id="@+id/onboarding_values_buttons"
+        layout="@layout/onboarding_values_buttons"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/half_large_margin"
+        android:visibility="gone"
+        app:tint="@color/white"
+        />
+  </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

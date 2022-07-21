@@ -2,7 +2,7 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/onboarding"
+    android:id="@+id/onboarding_graph"
     app:startDestination="@id/onboarding_fragment">
 
   <fragment
@@ -10,45 +10,33 @@
       android:name="com.asfoundation.wallet.onboarding.OnboardingFragment"
       tools:layout="@layout/fragment_onboarding">
 
-    <argument
-        android:name="from_iap"
-        app:argType="boolean" />
-
     <action
-        android:id="@+id/action_navigate_to_recover_wallet_activity"
-        app:destination="@id/recover_wallet_activity" />
+        android:id="@+id/action_navigate_to_recover_wallet_graph"
+        app:destination="@id/recover_wallet_graph" >
+      <argument
+          android:name="onboarding_layout"
+          app:argType="boolean" />
+    </action>
 
     <action
         android:id="@+id/action_navigate_create_wallet_dialog"
-        app:destination="@id/create_wallet_dialog_fragment"
-        app:popUpTo="@+id/onboarding_terms_conditions_dialog"
-        app:popUpToInclusive="true" />
+        app:destination="@id/create_wallet_dialog_fragment" />
 
     <action
         android:id="@+id/action_navigate_terms_conditions"
         app:destination="@id/onboarding_terms_conditions_dialog" />
 
-    <!-- removed the 'popUpTo' because backstack wasn't being cleared when navigating to home -->
     <action
-        android:id="@+id/action_navigate_to_main_activity"
-        app:destination="@id/main_activity"/>
+        android:id="@+id/action_navigate_to_nav_bar_fragment"
+        app:destination="@id/nav_bar_fragment"
+        app:popUpTo="@+id/onboarding_fragment"
+        app:popUpToInclusive="true" />
   </fragment>
 
   <fragment
-      android:id="@+id/onboarding_iap_fragment"
-      android:name="com.asfoundation.wallet.onboarding.iap.OnboardingIapFragment"
-      tools:layout="@layout/onboarding_iap_fragment">
-
-    <action
-        android:id="@+id/action_navigate_create_wallet_dialog"
-        app:destination="@id/create_wallet_dialog_fragment"
-        app:popUpTo="@+id/onboarding_terms_conditions_dialog"
-        app:popUpToInclusive="true" />
-
-    <action
-        android:id="@+id/action_navigate_terms_conditions"
-        app:destination="@id/onboarding_terms_conditions_dialog" />
-  </fragment>
+      android:id="@+id/nav_bar_fragment"
+      android:name="com.asfoundation.wallet.main.nav_bar.NavBarFragment"
+      tools:layout="@layout/nav_bar_fragment"/>
 
   <dialog
       android:id="@+id/onboarding_terms_conditions_dialog"
@@ -71,21 +59,12 @@
         app:argType="boolean" />
   </dialog>
 
-  <activity
-      android:id="@+id/main_activity"
-      android:name="com.asfoundation.wallet.main.MainActivity"
-      tools:layout="@layout/qr_code_layout">
-    <argument
-        android:name="wallet_addr"
-        app:argType="boolean" />
-  </activity>
+  <include
+      android:id="@+id/recover_wallet_graph"
+      app:graph="@navigation/recover_wallet_graph" />
 
-  <activity
-      android:id="@+id/recover_wallet_activity"
-      android:name="com.asfoundation.wallet.recover.RecoverActivity"
-      tools:layout="@layout/recover_wallet_activity" >
-    <argument
-        android:name="onboarding_layout"
-        app:argType="boolean" />
-  </activity>
+  <fragment
+      android:id="@id/recover_entry_fragment"
+      android:name="com.asfoundation.wallet.recover.entry.RecoverEntryFragment"
+      tools:layout="@layout/recover_entry_fragment"/>
 </navigation>

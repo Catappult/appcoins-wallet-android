@@ -8,9 +8,8 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.asf.wallet.R
 import com.asfoundation.wallet.base.Navigator
-import com.asfoundation.wallet.my_wallets.create_wallet.CreateWalletDialogFragment
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.asfoundation.wallet.base.navigate
+import com.asfoundation.wallet.onboarding.OnboardingFragmentDirections
 import javax.inject.Inject
 
 class TermsConditionsBottomSheetNavigator @Inject constructor(private val fragment: Fragment) :
@@ -32,20 +31,14 @@ class TermsConditionsBottomSheetNavigator @Inject constructor(private val fragme
   fun navigateBack() {
     fragment.findNavController()
       .popBackStack()
-    //if the bottom sheet is not opened from a fragment that is part of a nav graph then the
-    // fragment.findNavController().popBackStack() wont work, we need to dismiss it
-    (fragment as BottomSheetDialogFragment).dismiss()
   }
 
   fun navigateToCreateWalletDialog() {
     navigate(
       fragment.findNavController(),
-      TermsConditionsBottomSheetFragmentDirections.actionNavigateCreateWalletDialog(
+      OnboardingFragmentDirections.actionNavigateCreateWalletDialog(
         needsWalletCreation = true
       )
     )
-//    navigateBack()
-//    CreateWalletDialogFragment.newInstance(needsWalletCreation = true)
-//      .show(fragment.parentFragmentManager, "CreateWalletDialogFragment")
   }
 }

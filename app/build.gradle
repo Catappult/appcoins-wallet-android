@@ -189,8 +189,6 @@ dependencies {
   kapt "androidx.room:room-compiler:$project.room_version"
   implementation "androidx.browser:browser:$project.androidx_browser_version"
 
-  implementation "android.arch.lifecycle:runtime:$project.lifecycle_version"
-  implementation "android.arch.lifecycle:extensions:$project.lifecycle_version"
   implementation "androidx.lifecycle:lifecycle-extensions:$project.lifecycle_version"
   implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:${project.ktx_lifecycle_version}"
   implementation "androidx.lifecycle:lifecycle-runtime-ktx:$project.ktx_lifecycle_version"
