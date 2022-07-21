@@ -35,13 +35,4 @@ class OnboardingNavigator @Inject constructor(private val fragment: Fragment) : 
       )
     )
   }
-
-  fun navigateToCreateWalletDialog() {
-    navigate(
-      fragment.findNavController(),
-      TermsConditionsBottomSheetFragmentDirections.actionNavigateCreateWalletDialog(
-        needsWalletCreation = true
-      )
-    )
-  }
 }
