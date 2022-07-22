@@ -439,7 +439,7 @@ class AdyenTopUpFragment : BasePageViewFragment(), AdyenTopUpView {
     setupRedirectConfiguration()
     setupAdyen3DS2ConfigurationBuilder()
 
-    topUpView.showToolbar()
+//    topUpView.showToolbar()
     main_value.visibility = INVISIBLE
     button.visibility = VISIBLE
   }

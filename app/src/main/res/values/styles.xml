@@ -1102,6 +1102,11 @@
     <item name="cornerSizeBottomLeft">0dp</item>
   </style>
 
+  <style name="TopupTheme" parent="Theme.AppCompat.Light.NoActionBar">
+<!--    <item name="windowActionBar">false</item>-->
+    <item name="windowNoTitle">true</item>
+    <item name="windowActionBar">false</item>
+  </style>
 
   <style name="SubscriptionsAppNameText" parent="TextAppearance.AppCompat.Headline.Roboto.Medium">
     <item name="android:ellipsize">end</item>

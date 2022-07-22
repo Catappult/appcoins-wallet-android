@@ -40,7 +40,7 @@ import java.util.*
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class TopUpActivity : BaseActivity(), TopUpActivityView, ToolbarManager, UriNavigator {
+class TopUpActivity : BaseActivity(), TopUpActivityView, /*ToolbarManager,*/ UriNavigator {
 
   @Inject
   lateinit var topUpInteractor: TopUpInteractor
@@ -90,7 +90,7 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, ToolbarManager, UriNavi
   }
 
   override fun showTopUpScreen() {
-    toolbar()
+//    toolbar()
     handleTopUpStartAnalytics()
     supportFragmentManager.beginTransaction()
         .replace(R.id.fragment_container, TopUpFragment.newInstance(packageName))
@@ -170,9 +170,9 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, ToolbarManager, UriNavi
     return super.onOptionsItemSelected(item)
   }
 
-  override fun setupToolbar() {
-    toolbar()
-  }
+//  override fun setupToolbar() {
+//    toolbar()
+//  }
 
   override fun popBackStack() {
     if (supportFragmentManager.backStackEntryCount != 0) {
@@ -225,7 +225,7 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, ToolbarManager, UriNavi
     startActivityForResult(WebViewActivity.newIntent(this, url), WEB_VIEW_REQUEST_CODE)
   }
 
-  override fun showToolbar() = setupToolbar()
+//  override fun showToolbar() = setupToolbar()
 
   override fun uriResults() = results
 
