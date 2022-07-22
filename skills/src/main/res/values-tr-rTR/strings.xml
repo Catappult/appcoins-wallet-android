@@ -30,4 +30,5 @@
   <string name="purchase_error_title">Hay aksi, bir şeyler ters gitti.</string>
   <string name="purchase_eskills_sku">Giriş bileti</string>
   <string name="shared_room_waiting">Rakiplerin %s adlı odaya katılmaları bekleniyor</string>
+  <string name="rooted_device_blocked_body">Unfortunately, you cannot play e-Skills games with a rooted device.\"</string>
 </resources>
