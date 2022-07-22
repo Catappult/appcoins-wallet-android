@@ -30,4 +30,5 @@
   <string name="purchase_error_title">Упс. Щось пішло не так.</string>
   <string name="purchase_eskills_sku">Вхідний квиток</string>
   <string name="shared_room_waiting">Чекаємо, поки опоненти приєднаються до %s</string>
+  <string name="rooted_device_blocked_body">Unfortunately, you cannot play e-Skills games with a rooted device.\"</string>
 </resources>
