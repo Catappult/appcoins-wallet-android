@@ -27,7 +27,7 @@
   <string name="credits">ခရက္ဒစ္မ်ား</string>
   <string name="label_new">အသစ္</string>
   <string name="got_it_button">သိပါၿပီ</string>
-  <string name="change_button">Change</string>
+  <string name="change_button">ေျပာင္းမည္</string>
   <string name="vip">VIP</string>
   <string name="low_storage_error">သိမ္းဆည္းရန္ေနရာ မလံုေလာက္ပါ</string>
   <string name="no_camera_permission_title">ကင္မရာ ခြင့္ျပဳခ်က္</string>
@@ -381,8 +381,8 @@
   <string name="topup_bonus_body">ယင္းေဘာနပ္စ္ကို သင့္ေနာက္္ထပ္ ၀ယ္ယူမႈတြင္ အသံုးျပဳႏိုင္္ပါသည္။</string>
   <string name="topup_minimum_value">အနည္းဆံုး ေငြျဖည့္ရမည့္ ပမာဏမွာ %s ျဖစ္ပါသည္</string>
   <string name="topup_maximum_value">အမ်ားဆံုး ေငြျဖည့္ရမည့္ ပမာဏမွာ %s ျဖစ္ပါသည္</string>
-  <string name="topup_no_method_available_title">No payment methods!</string>
-  <string name="topup_no_method_available_body">There are no payment methods available to top up in your country at the moment. Stay tuned!</string>
+  <string name="topup_no_method_available_title">ေငြေပးေခ်မႈနည္းလမ္း မရွိပါ။</string>
+  <string name="topup_no_method_available_body">လက္ရွိတြင္ သင့္ႏိုင္ငံအတြက္ ေငြျဖည့္ႏိုင္ရန္ ေငြေပးေခ်မႈနည္းလမ္းမ်ား မရွိေသးပါ။ နားစြင့္ထားလိုက္ပါ။</string>
   <!--Balance-->
   <string name="balance_title">လက္က်န္ေငြ</string>
   <string name="balance_total_body">%s တြင္ စုစုေပါင္း လက္က်န္ေငြ</string>
@@ -441,7 +441,7 @@
   <string name="remind_later_button">ေနာက္မွသတိေပးပါ</string>
   <string name="get_code_button">ကုဒ္ရယူမည္</string>
   <string name="confirm_button">အတည္ျပဳမည္</string>
-  <string name="withdraw_button">Withdraw</string>
+  <string name="withdraw_button">ထုတ္ယူမည္</string>
   <string name="email_here_field">သင့္အီးေမးလ္ကို ဤေနရာတြင္&#8230;</string>
   <string name="understood_button">သိပါၿပီ။</string>
   <string name="skip_button">ေလာေလာဆယ္ ေက်ာ္သြားမည္</string>
@@ -561,7 +561,7 @@
   <string name="purchase_paytmupi_install_disclaimer">Paytm UPI အက္ပ္ကို ထည့္သြင္းရန္ လိုအပ္ပါသည္။</string>
   <string name="purchase_app_needed_body">သင့္ဝယ္ယူမႈ ၿပီးစီးေစရန္ ေအာက္ပါအက္ပ္ကို လိုအပ္ပါသည္။</string>
   <string name="purchase_apps_needed_body">သင့္ဝယ္ယူမႈ ၿပီးစီးေစရန္ ေအာက္ပါအက္ပ္မ်ားအနက္ တစ္ခုကို လိုအပ္ပါသည္။</string>
-  <string name="purchase_error_connection_issue">It seems there is a problem with your internet connection! Please check it and try again.</string>
+  <string name="purchase_error_connection_issue">သင့္အင္တာနက္ ခ်ိတ္ဆက္မႈတြင္ ျပႆနာတစ္ခု ရွိပုံရပါသည္။ စစ္ေဆးကာ ျပန္ႀကိဳးစားေပးပါ။</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">က်သင့္ေငြေကာက္ခံရန္လိပ္စာ</string>
   <string name="purchase_address_address_field">လိပ္စာ</string>
@@ -595,11 +595,11 @@
   <string name="referral_view_title">သူငယ္ခ်င္းမ်ားကို ဖိတ္ေခၚပါ</string>
   <string name="referral_view_title_1">သူငယ္ခ်င္းမ်ားကို ဖိတ္ေခၚကာ ပိုမိုရယူလိုက္ပါ။</string>
   <string name="referral_view_verified_body">သူငယ္ခ်င္းတစ္ဦးစီအတြက္ %s တန္ဖိုးရွိ AppCoins Credits မ်ားကို ရယူလိုက္ပါ။ လင့္ခ္ကိုသာ မွ်ေ၀လိုက္ပါ။</string>
-  <string name="referral_view_share_link_button">Share invite link</string>
+  <string name="referral_view_share_link_button">ဖိတ္ေခၚသည့္လင့္ခ္ကို မွ်ေဝမည္</string>
   <string name="referral_view_notifications_title">အသိေပးခ်က္မ်ား</string>
   <string name="referral_share_sheet_title">ဖိတ္ေခၚသည့္လင့္ခ္ကို ေအာက္ပါမွတဆင့္ မွ်ေ၀မည္ -</string>
   <string name="referral_view_unverified_body">Receive %s worth of AppCoins Credits for each friend. Your first need to verify your wallet.</string>
-  <string name="referral_view_verify_button">Verify wallet</string>
+  <string name="referral_view_verify_button">ပိုက္ဆံအိတ္ကို အတည္ျပဳမည္</string>
   <string name="referral_view_i_have_been_invited_button">ကၽြႏ္ုပ္ကို ဖိတ္ေခၚထားပါသည္</string>
   <string name="referral_view_dropup_menu_friends_invited">သူငယ္ခ်င္းမ်ားကို ဖိတ္ေခၚထားပါသည္</string>
   <string name="referral_view_dropup_menu_earned">ရရွိခဲ့သည္</string>
@@ -634,18 +634,18 @@
   <string name="update_wallet_hard_body">သင္သည္ AppCoins Wallet ဗားရွင္းအေဟာင္းတစ္ခုကို အသံုးျပဳေနပံု ရပါသည္။ အေကာင္းဆံုး အေတြ႕အႀကံဳႏွင့္ လံုၿခံဳမႈကို ရရွိေစရန္ အပ္ဒိတ္လုပ္ေပးပါ။</string>
   <string name="update_wallet_soft_title">ေနာက္က်မက်န္ခဲ့ပါေစႏွင့္။</string>
   <string name="update_wallet_soft_body">AppCoins Wallet ကို အပ္ဒိတ္လုပ္ထားျခင္းျဖင့္ အေကာင္းဆံုး အေတြ႕အႀကံဳကို ရရွိႏိုင္ေစပါသည္။</string>
-  <string name="update_button">Update</string>
+  <string name="update_button">အပ္ဒိတ္လုပ္မည္</string>
   <!--Backup and Import-->
   <string name="backup_home_notification_title">သင့္ပိုက္ဆံအိတ္ကို အရန္သိမ္းဆည္းထားပါ</string>
   <string name="backup_home_notification_body">သင့္ဖုန္းကို ေပ်ာက္ဖူးပါသလား။ ယခုပင္ သင့္ပိုက္ဆံအိတ္ကို အရန္သိမ္းဆည္းထားလိုက္ပါ။</string>
-  <string name="backup_confirmation_no_share_title">Backup Done!</string>
+  <string name="backup_confirmation_no_share_title">အရံသိမ္းဆည္းမႈ ၿပီးစီးပါၿပီ။</string>
   <string name="backup_save_dialogue_title">အရံသိမ္းဆည္းမႈဖိုင္ကို သိမ္းမည္</string>
   <string name="backup_save_dialogue_body">သင့္အရံသိမ္းဆည္းမႈဖိုင္အတြက္ အမည္တစ္ခုကို ေရြးခ်ယ္ပါ။</string>
   <string name="import_wallet_title">ပိုက္ဆံအိတ္ကို ျပန္လည္ရယူမည္</string>
   <string name="import_wallet_body">သင့္ပိုက္ဆံအိတ္၏ အရန္သိမ္းဆည္းမႈကို ေအာက္တြင္ထည့္လိုက္ပါ။</string>
   <string name="import_wallet_keystore_private_keys">ကီးစတိုး သို႔မဟုတ္ ကိုယ္ပိုင္ကီးမ်ား</string>
   <string name="import_wallet_from_file_title">သို႔မဟုတ္ ဖိုင္မွ ျပန္လည္ရယူပါ</string>
-  <string name="import_wallet_file_button">Recover from file</string>
+  <string name="import_wallet_file_button">ဖိုင္မွ ျပန္လည္ရယူမည္</string>
   <string name="import_wallet_button">ပိုက္ဆံအိတ္ကို ျပန္လည္ရယူမည္</string>
   <string name="import_wallet_password_body">ဤပိုက္ဆံအိတ္ကို စကား၀ွက္ျဖင့္ ကာကြယ္ထားပါသည္။</string>
   <string name="import_wallet_wrong_password_body">အိုး စကား၀ွက္မွားေနပါသည္။</string>
@@ -655,7 +655,7 @@
   <string name="backup_body">သင့္ကိုယ္ပိုင္ကီးမ်ား သို႔မဟုတ္ အျခား၀င္ေရာက္ခြင့္နည္းလမ္းမ်ားကို ကၽြႏ္ုပ္တို႔ မသိမ္းဆည္းထားပါ။ သင့္ပိုက္ဆံအိတ္၏ ဘက္ခ္ကပ္ (ကီးစတိုး) ကို လံုၿခံဳေအာင္ထားရန္ အေရးႀကီးပါသည္။</string>
   <string name="backup_additional_security_title">ေနာက္ထပ္လံုျခံဳေရး (ေရြးခ်ယ္ႏိုင္ပါသည္)</string>
   <string name="backup_additional_security_body">စကားဝွက္တစ္ခု ေရြးခ်ယ္ပါ</string>
-  <string name="backup_button">Back up wallet</string>
+  <string name="backup_button">ပိုက္ဆံအိတ္ကို အရန္ထားရွိမည္</string>
   <string name="backup_ready_title">အရန္သိမ္းဆည္းမႈ အသင့္ျဖစ္ပါၿပီ။\nလုံၿခဳံေအာင္ ထားလိုက္ပါ။</string>
   <string name="backup_ready_save_on_email">သင့္အီးေမးလ္တြင္ သိမ္းလိုက္ပါ</string>
   <string name="backup_ready_email_button">အီးေမးလ္သို႔ပို႔မည္</string>
@@ -666,7 +666,7 @@
   <string name="backup_confirmation_tips_3">သီးသန႔္ျဖစ္ၿပီး လုံၿခဳံေသာ cloud သိမ္းဆည္းမႈတစ္ခုတြင္ <b>ကူးယူထားပါ။</b></string>
   <string name="backup_tooltip_body">သင့္ပိုက္ဆံအိတ္အတြက္ အရံသိမ္းဆည္းမႈတစ္ခု ျပဳလုပ္လိုက္ပါ။</string>
   <string name="backup_tooltip_later_button">ေနာက္မွလုပ္မည္</string>
-  <string name="backup_tooltip_backup_button">Back up</string>
+  <string name="backup_tooltip_backup_button">အရန္သိမ္းဆည္းမည္</string>
   <string name="backup_notification_title">သင့္ပိုက္ဆံအိတ္အတြက္ အရံသိမ္းဆည္းမႈတစ္ခု ျပဳလုပ္လိုက္ပါ။</string>
   <string name="backup_notification_body">သင့္ေငြမ်ားကို ေဘးကင္းေအာင္ထားရွိကာ သင့္ပိုက္ဆံအိတ္ကို အၿမဲတမ္း ၀င္ေရာက္အသံုးျပဳႏိုင္ေအာင္ ျပဳလုပ္ထားပါ။</string>
   <string name="backup_choose_wallet_title">အရံသိမ္းဆည္းရန္အတြက္ ပိုက္ဆံအိတ္တစ္ခုကို ေရြးခ်ယ္ပါ</string>
@@ -694,19 +694,19 @@
   <string name="wallets_2nd_view_balance_title">လက္က်န္ေငြ -</string>
   <string name="wallets_2nd_view_other_wallets_title">အျခား ပိုက္ဆံအိတ္မ်ား</string>
   <string name="wallets_2nd_view_import_button">ပိုက္ဆံအိတ္ကို ျပန္လည္ရယူမည္</string>
-  <string name="wallets_2nd_view_create_button">Create new</string>
-  <string name="wallet_view_copy_button">Copy</string>
+  <string name="wallets_2nd_view_create_button">အသစ္ျပဳလုပ္မည္</string>
+  <string name="wallet_view_copy_button">ကူးယူမည္</string>
   <string name="wallet_view_share_button">မွ်ေဝမည္</string>
   <string name="wallet_view_total_balance_title">စုစုေပါင္း လက္က်န္ေငြ</string>
-  <string name="wallet_view_remove_button">Remove wallet</string>
-  <string name="wallet_view_backup_button">Back up wallet</string>
-  <string name="wallet_view_activate_button">Make this wallet active</string>
+  <string name="wallet_view_remove_button">ပိုက္ဆံအိတ္ကို ဖယ္ထုတ္မည္</string>
+  <string name="wallet_view_backup_button">ပိုက္ဆံအိတ္ကို အရန္ထားရွိမည္</string>
+  <string name="wallet_view_activate_button">ဤပိုက္ဆံအိတ္ကိုသုံးမည္</string>
   <string name="wallet_view_active_body">ယင္းသည္ သင္လက္ရွိ အသံုးျပဳေနေသာ ပိုက္ဆံအိတ္ ျဖစ္ပါသည္။</string>
   <!--Remove Wallet-->
   <string name="remove_wallet_title">ပိုက္ဆံအိတ္ကို ဖယ္ထုတ္မည္</string>
   <string name="remove_wallet_body">ပိုက္ဆံအိတ္ကို မဖယ္ထုတ္မီတြင္ အရန္သိမ္းဆည္းထားရန္ ကၽြႏ္ုပ္တုိ႔ အေလးအနက္ တိုက္တြန္းပါသည္။ သင့္တြင္ အရန္သိမ္းဆည္းမႈ မရွိပါက ယင္းကိုျပန္လည္ရယူႏိုင္လိမ့္မည္ မဟုတ္ပါ။</string>
-  <string name="remove_wallet_backup_button">Back up wallet</string>
-  <string name="remove_wallet_no_backup_button">Remove wallet</string>
+  <string name="remove_wallet_backup_button">ပိုက္ဆံအိတ္ကို အရန္ထားရွိမည္</string>
+  <string name="remove_wallet_no_backup_button">ပိုက္ဆံအိတ္ကို ဖယ္ထုတ္မည္</string>
   <string name="remove_wallet_confirm_body">ဤပိုက္ဆံအိတ္ကို ဖယ္ထုတ္လိုသည္မွာ ေသခ်ာပါသလား။</string>
   <string name="remove_wallet_no_button">No, go back</string>
   <string name="remove_wallet_yes_button">Yes, remove wallet</string>
