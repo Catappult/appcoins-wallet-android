@@ -30,5 +30,5 @@
   <string name="purchase_error_title">အိုး တစ္ခုခု မွားသြားပါသည္။</string>
   <string name="purchase_eskills_sku">ဝင္ေရာက္ခြင့္လက္မွတ္</string>
   <string name="shared_room_waiting">%s တြင္ ပါဝင္မည့္ ၿပိဳင္ဖက္မ်ားကို ေစာင့္ေနပါသည္</string>
-  <string name="rooted_device_blocked_body">Unfortunately, you cannot play e-Skills games with a rooted device.\"</string>
+  <string name="rooted_device_blocked_body">ကံမေကာင္းစြာျဖင့္ Root လုပ္ထားေသာ ကိရိယာတစ္ခုတြင္ e-Skills ဂိမ္းမ်ားကို သင္မကစားႏိုင္ပါ။\"</string>
 </resources>
