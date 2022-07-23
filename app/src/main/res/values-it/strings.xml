@@ -27,7 +27,7 @@
   <string name="credits">Crediti</string>
   <string name="label_new">Novità</string>
   <string name="got_it_button">Ricevuto</string>
-  <string name="change_button">Change</string>
+  <string name="change_button">Cambia</string>
   <string name="vip">VIP</string>
   <string name="low_storage_error">Spazio di archiviazione non sufficiente</string>
   <string name="no_camera_permission_title">Autorizzazione fotocamera</string>
@@ -441,7 +441,7 @@
   <string name="remind_later_button">Ricordamelo dopo</string>
   <string name="get_code_button">Ottieni un codice</string>
   <string name="confirm_button">Conferma</string>
-  <string name="withdraw_button">Withdraw</string>
+  <string name="withdraw_button">Preleva</string>
   <string name="email_here_field">Inserisci il tuo indirizzo email qui&#8230;</string>
   <string name="understood_button">Tutto chiaro!</string>
   <string name="skip_button">Ignora per ora</string>
@@ -561,7 +561,7 @@
   <string name="purchase_paytmupi_install_disclaimer">Dovrai installare l\'app Paytm UPI.</string>
   <string name="purchase_app_needed_body">Per completare questo acquisto è necessaria l\'app di seguito.</string>
   <string name="purchase_apps_needed_body">Per completare questo acquisto è necessaria una delle app di seguito.</string>
-  <string name="purchase_error_connection_issue">It seems there is a problem with your internet connection! Please check it and try again.</string>
+  <string name="purchase_error_connection_issue">Si è verificato un problema con la tua connessione internet. Controlla e ritenta.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">Indirizzo di fatturazione</string>
   <string name="purchase_address_address_field">Indirizzo</string>
