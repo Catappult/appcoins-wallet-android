@@ -27,7 +27,7 @@
   <string name="credits">الأرصدة</string>
   <string name="label_new">جديد</string>
   <string name="got_it_button">تمام</string>
-  <string name="change_button">Change</string>
+  <string name="change_button">تغيير</string>
   <string name="vip">VIP</string>
   <string name="low_storage_error">لا توجد مساحة كافية للتخزين</string>
   <string name="no_camera_permission_title">تفعيل إذن الكاميرا</string>
@@ -381,8 +381,8 @@
   <string name="topup_bonus_body">يمكنك استخدام هذه المكافأة في عميلة الشراء القادمة.</string>
   <string name="topup_minimum_value">أقل قيمة يمكن إضافتها هي %s</string>
   <string name="topup_maximum_value">أعلى قيمة يمكن إضافتها هي %s</string>
-  <string name="topup_no_method_available_title">No payment methods!</string>
-  <string name="topup_no_method_available_body">There are no payment methods available to top up in your country at the moment. Stay tuned!</string>
+  <string name="topup_no_method_available_title">لا توجد وسيلة دفع!</string>
+  <string name="topup_no_method_available_body">لا تتوفر حاليًا أي وسائل دفع في بلدك لزيادة رصيدك. تابع باستمرار!</string>
   <!--Balance-->
   <string name="balance_title">الرصيد</string>
   <string name="balance_total_body">الرصيد الكلّي بعملة %s</string>
@@ -441,7 +441,7 @@
   <string name="remind_later_button">ذكرني لاحقًا</string>
   <string name="get_code_button">احصل على الرمز</string>
   <string name="confirm_button">تأكيد</string>
-  <string name="withdraw_button">Withdraw</string>
+  <string name="withdraw_button">سحب</string>
   <string name="email_here_field">بريدك الإلكتروني هنا&#8230;</string>
   <string name="understood_button">مفهوم!</string>
   <string name="skip_button">تجاهل الآن</string>
@@ -562,7 +562,7 @@
   <string name="purchase_paytmupi_install_disclaimer">أنت بحاجة إلى تثبيت تطبيق Paytm UPI.</string>
   <string name="purchase_app_needed_body">أنت بحاجة إلى التطبيق التالي لإتمام عملية الشراء.</string>
   <string name="purchase_apps_needed_body">أنت بحاجة إلى أحد التطبيقات التالية لإتمام عملية الشراء.</string>
-  <string name="purchase_error_connection_issue">It seems there is a problem with your internet connection! Please check it and try again.</string>
+  <string name="purchase_error_connection_issue">يبدو أن هناك مشكلة في اتصال الإنترنت! يرجى تفقد الاتصال والمحاولة مجددًا.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">عنوان الفوترة</string>
   <string name="purchase_address_address_field">العنوان</string>
@@ -596,11 +596,11 @@
   <string name="referral_view_title">دعوة الأصدقاء</string>
   <string name="referral_view_title_1">ادعُ الأصدقاء واكسب المزيد!</string>
   <string name="referral_view_verified_body">استقبل ما قيمته %s من رصيد AppCoins لكل صديق. شارك الرابط وحسب!</string>
-  <string name="referral_view_share_link_button">Share invite link</string>
+  <string name="referral_view_share_link_button">شارك رابط الدعوة</string>
   <string name="referral_view_notifications_title">الإشعارات</string>
   <string name="referral_share_sheet_title">شارك رابط الدعوة بواسطة:</string>
   <string name="referral_view_unverified_body">Receive %s worth of AppCoins Credits for each friend. Your first need to verify your wallet.</string>
-  <string name="referral_view_verify_button">Verify wallet</string>
+  <string name="referral_view_verify_button">توثيق المحفظة</string>
   <string name="referral_view_i_have_been_invited_button">لقد دُعيتُ</string>
   <string name="referral_view_dropup_menu_friends_invited">الأصدقاء المدعوون</string>
   <string name="referral_view_dropup_menu_earned">المكسب</string>
@@ -635,11 +635,11 @@
   <string name="update_wallet_hard_body">يبدو أنك تستخدم نسخة قديمة من محفظة AppCoins. يرجى تحديثها لضمان التجربة والأمان الأفضل.</string>
   <string name="update_wallet_soft_title">لا تبقَ مع النسخة القديمة!</string>
   <string name="update_wallet_soft_body">إن الحفاظ على محفظة AppCoins محدّثة باستمرار يضمن لك أفضل تجربة.</string>
-  <string name="update_button">Update</string>
+  <string name="update_button">تحديث</string>
   <!--Backup and Import-->
   <string name="backup_home_notification_title">حفظ نسخة احتياطية لمحفظتك</string>
   <string name="backup_home_notification_body">هل أضعت هاتفك في يوم من الأيام؟ احتفظ بنسخة احتياطية من محفظتك الآن!</string>
-  <string name="backup_confirmation_no_share_title">Backup Done!</string>
+  <string name="backup_confirmation_no_share_title">تم نسخ احتياطي!</string>
   <string name="backup_save_dialogue_title">احفظ ملفات النسخ الاحتياطي</string>
   <string name="backup_save_dialogue_body">اختر اسمًا لملف النسخ الاحتياطي.</string>
   <string name="import_wallet_title">استعادة المحفظة</string>
