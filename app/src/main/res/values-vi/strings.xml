@@ -1092,13 +1092,13 @@
   <string name="vip_program_promotions_list_title">Khuyến mãi đặc biệt dành cho bạn</string>
   <string name="vip_program_promo_code_tag">Mã khuyến mãi</string>
   <string name="vip_program_referral_page_title">Chương trình giới thiệu VIP</string>
-  <string name="vip_program_referral_page_body">Chia sẻ mã khuyến mãi này với cộng đồng và bạn bè của bạn để mọi người nhận được phần thưởng khi chơi. Đối với mỗi giao dịch mua hàng trong ứng dụng mà họ thực hiện, cả <b>bạn và bạn của mình đều sẽ nhận được %s%% tiền thưởng</b> cùng với các chương trình khuyến mãi khả dụng khác và trong cả tháng!</string>
-  <string name="vip_program_referral_page_share_title">Chia sẻ mã này với bạn bè của bạn</string>
+  <string name="vip_program_referral_page_body">Chia sẻ mã khuyến mãi này đến cộng đồng và bạn bè của mình để mọi người đều nhận được phần thưởng khi chơi. Đối với mỗi giao dịch mua hàng trong ứng dụng mà họ thực hiện, cả <b>bạn và bạn của bạn đều sẽ nhận được %s%% tiền thưởng</b> cùng với các chương trình khuyến mãi khả dụng khác và trong suốt cả tháng!</string>
+  <string name="vip_program_referral_page_share_title">Chia sẻ mã này với bạn bè của mình</string>
   <string name="vip_program_referral_page_earned_body">Nhận được %1$s%2$s từ %3$s giới thiệu</string>
   <string name="vip_program_gamification_title">Mức tiền thưởng của tôi là bao nhiêu?</string>
   <string name="vip_program_gamification_amount_purchases_bonus">Tiền thưởng nhận được từ việc mua hàng của bạn.</string>
   <string name="vip_program_gamification_amoung_referral_bonus">Tiền thưởng nhận được từ giới thiệu</string>
   <string name="vip_program_max_bonus_title">Tận hưởng %s%% tiền thưởng của bạn trên mỗi giao dịch mua</string>
-  <string name="vip_program_max_bonus_body">Bạn đã đạt đến hạn mức.</string>
+  <string name="vip_program_max_bonus_body">Bạn đã đạt đến hạn mức của hệ thống.</string>
   <string name="vip_program_max_bonus_short">%s%% tiền thưởng trên mỗi giao dịch mua.</string>
 </resources>
