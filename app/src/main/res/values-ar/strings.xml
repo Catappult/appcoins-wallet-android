@@ -1138,13 +1138,13 @@
   <string name="vip_program_promotions_list_title">ترقيات مميزة من أجلك</string>
   <string name="vip_program_promo_code_tag">رمز ترويجي</string>
   <string name="vip_program_referral_page_title">برنامج الإحالة VIP</string>
-  <string name="vip_program_referral_page_body">Share this promo code with your community and friends for everyone to earn while playing. For every in-app purchase they make, both <b>you and your friends will receive %s%% bonus</b> on top of other active promotions and for an entire month!</string>
-  <string name="vip_program_referral_page_share_title">Share this code with your friends</string>
-  <string name="vip_program_referral_page_earned_body">%1$s%2$s earned from %3$s referrals</string>
-  <string name="vip_program_gamification_title">What\'s my bonus level?</string>
-  <string name="vip_program_gamification_amount_purchases_bonus">Bonus received from your purchases.</string>
-  <string name="vip_program_gamification_amoung_referral_bonus">Bonus received from referrals</string>
-  <string name="vip_program_max_bonus_title">Enjoy your %s%% Bonus on every purchase</string>
-  <string name="vip_program_max_bonus_body">You\'ve reached the limits of the solar system.</string>
-  <string name="vip_program_max_bonus_short">%s%% Bonus on every purchase.</string>
+  <string name="vip_program_referral_page_body">شارك هذا الرمز الترويجي مع معارفك وأصدقائك ليربح الجميع بينما يلعبون. في كل عملية شراء يُجرونها داخل التطبيق، ستصلك <b>أنت وأصدقاءك %s%% مكافأة</b> إضافية مع كل الترقيات المفعّلة ولمدة شهر كامل!</string>
+  <string name="vip_program_referral_page_share_title">شارك هذا الرمز مع أصدقائك</string>
+  <string name="vip_program_referral_page_earned_body">%1$s%2$s كسبتها من إحالات %3$s</string>
+  <string name="vip_program_gamification_title">ما هو مستوى مكافآتي؟</string>
+  <string name="vip_program_gamification_amount_purchases_bonus">المكافآت التي حصلت عليها من مشترياتك.</string>
+  <string name="vip_program_gamification_amoung_referral_bonus">المكافآت التي حصلت عليها من الإحالات</string>
+  <string name="vip_program_max_bonus_title">تمتع بمكافآتك %s%% في كل عملية شراء</string>
+  <string name="vip_program_max_bonus_body">وصلت إلى الحد المسموح به من الطاقة الشمسية.</string>
+  <string name="vip_program_max_bonus_short">%s%% مكافأة في كل عملية شراء.</string>
 </resources>
