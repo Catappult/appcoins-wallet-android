@@ -30,5 +30,5 @@
   <string name="purchase_error_title">Ωχ, κάτι πήγε στραβά.</string>
   <string name="purchase_eskills_sku">Εισιτήριο εισόδου</string>
   <string name="shared_room_waiting">Αναμονή αντιπάλων για να μπουν στο %s</string>
-  <string name="rooted_device_blocked_body">Unfortunately, you cannot play e-Skills games with a rooted device.\"</string>
+  <string name="rooted_device_blocked_body">Δυστυχώς δεν μπορείτε να παίξετε παιχνίδια e-Skills με συσκευή \"rooted.\"</string>
 </resources>
