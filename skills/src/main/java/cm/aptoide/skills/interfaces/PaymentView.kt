@@ -6,5 +6,6 @@ interface PaymentView {
   fun showError(errorCode : Int)
   fun showFraudError(isVerified: Boolean)
   fun showNoNetworkError()
+  fun showRootError()
   fun showFingerprintAuthentication()
 }
