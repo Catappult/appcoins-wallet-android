@@ -5,6 +5,9 @@ import io.reactivex.Completable
 import io.reactivex.Single
 
 interface PreferencesRepositoryType {
+  fun hasSentFirstLaunchEvent(): Boolean
+
+  fun setFirstLaunchEvent()
 
   fun hasCompletedOnboarding(): Boolean
 
@@ -12,9 +15,9 @@ interface PreferencesRepositoryType {
 
   fun isOnboardingFromIap(): Boolean
 
-  fun setOnboardingFromIapState(state : Boolean)
+  fun setOnboardingFromIapState(state: Boolean)
 
-  fun getOnboardingFromIapPackageName() : String?
+  fun getOnboardingFromIapPackageName(): String?
 
   fun setOnboardingFromIapPackageName(appPackageName: String)
 

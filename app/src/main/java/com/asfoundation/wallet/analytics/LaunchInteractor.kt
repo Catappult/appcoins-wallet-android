@@ -8,7 +8,7 @@ import javax.inject.Inject
 class LaunchInteractor @Inject constructor(
   private val sharedPreferences: SharedPreferences,
   private val packageManager: PackageManager,
-  private val installReferrerAnalytics: InstallReferrerAnalytics
+  private val firstInstallAnalytics: FirstInstallAnalytics
 ) {
 
   companion object {
@@ -17,7 +17,7 @@ class LaunchInteractor @Inject constructor(
 
   fun sendFirstLaunchEvent() {
     if (isFirstInstall() && sharedPreferences.getBoolean(FIRST_LAUNCH_KEY, true)) {
-      installReferrerAnalytics.sendFirstInstallInfo(sendEvent = true)
+      firstInstallAnalytics.sendFirstInstallInfo(sendEvent = true)
       sharedPreferences.edit()
         .putBoolean(FIRST_LAUNCH_KEY, false)
         .apply()

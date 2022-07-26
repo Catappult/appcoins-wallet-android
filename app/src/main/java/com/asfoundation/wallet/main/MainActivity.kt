@@ -11,7 +11,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import com.asf.wallet.R
-import com.asfoundation.wallet.analytics.InstallReferrerAnalytics
+import com.asfoundation.wallet.analytics.FirstInstallAnalytics
 import com.asfoundation.wallet.base.SingleStateFragment
 import com.asfoundation.wallet.main.appsflyer.ApkOriginVerification
 import com.asfoundation.wallet.support.SupportNotificationProperties.SUPPORT_NOTIFICATION_CLICK
@@ -31,7 +31,7 @@ class MainActivity : AppCompatActivity(),
   lateinit var navController: NavController
 
   @Inject
-  lateinit var installReferrerAnalytics: InstallReferrerAnalytics
+  lateinit var firstInstallAnalytics: FirstInstallAnalytics
 
   private val viewModel: MainActivityViewModel by viewModels()
 
@@ -78,7 +78,7 @@ class MainActivity : AppCompatActivity(),
     val isFirstRun = getSharedPreferences("PREFERENCE", 0)
       .getBoolean("isFirstRun", true)
     if (isFirstRun) {
-      installReferrerAnalytics.sendFirstInstallInfo(sendEvent = false)
+      firstInstallAnalytics.sendFirstInstallInfo(sendEvent = false)
       ApkOriginVerification(this)
       getSharedPreferences("PREFERENCE", 0)
         .edit()
