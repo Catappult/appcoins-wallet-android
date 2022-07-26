@@ -6,39 +6,38 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     >
-  <!--  <include-->
-  <!--      layout="@layout/layout_app_bar"-->
-  <!--      android:layout_width="match_parent"-->
-  <!--      android:layout_height="wrap_content"-->
-  <!--      />-->
 
-  <com.google.android.material.imageview.ShapeableImageView
-      android:id="@+id/home_corner_separator"
+  <include
+      android:id="@+id/top_bar"
+      layout="@layout/topup_bar_layout"
       android:layout_width="match_parent"
-      android:layout_height="24dp"
-      android:src="@drawable/topup_bar"
+      android:layout_height="wrap_content"
+      android:elevation="2dp"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent"
-      app:shapeAppearance="@style/MyWallets.HeaderShape"
       />
 
   <include
       android:id="@+id/layout_error"
       layout="@layout/error_top_up_layout"
       android:layout_width="match_parent"
-      android:layout_height="match_parent"
+      android:layout_height="0dp"
+      android:layout_marginTop="-24dp"
       android:visibility="gone"
       app:layout_constraintBottom_toBottomOf="parent"
-      app:layout_constraintTop_toTopOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/top_bar"
       tools:visibility="visible"
       />
 
   <FrameLayout
       android:id="@+id/fragment_container"
       android:layout_width="match_parent"
-      android:layout_height="match_parent"
+      android:layout_height="0dp"
+      android:layout_marginTop="-24dp"
       app:layout_constraintBottom_toBottomOf="parent"
-      app:layout_constraintTop_toTopOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/top_bar"
       />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
+

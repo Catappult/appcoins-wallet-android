@@ -343,6 +343,13 @@
     <item name="android:textColor">@color/share_link_error_text_color</item>
   </style>
 
+  <style name="TopUpBarText">
+    <item name="android:fontFamily">@font/roboto_bolt</item>
+    <item name="android:maxLines">1</item>
+    <item name="android:textSize">18sp</item>
+    <item name="android:textColor">@color/white</item>
+  </style>
+
   <style name="TransferAddressTextStyle">
     <item name="android:fontFamily">sans-serif</item>
     <item name="android:gravity">center</item>
@@ -1103,9 +1110,9 @@
   </style>
 
   <style name="TopupTheme" parent="Theme.AppCompat.Light.NoActionBar">
-<!--    <item name="windowActionBar">false</item>-->
     <item name="windowNoTitle">true</item>
     <item name="windowActionBar">false</item>
+    <item name="android:statusBarColor">@color/statusBarColor</item>
   </style>
 
   <style name="SubscriptionsAppNameText" parent="TextAppearance.AppCompat.Headline.Roboto.Medium">
