@@ -8,17 +8,6 @@
     >
 
   <include
-      android:id="@+id/top_bar"
-      layout="@layout/topup_bar_layout"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:elevation="2dp"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toTopOf="parent"
-      />
-
-  <include
       android:id="@+id/layout_error"
       layout="@layout/error_top_up_layout"
       android:layout_width="match_parent"
@@ -39,5 +28,15 @@
       app:layout_constraintTop_toBottomOf="@+id/top_bar"
       />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+  <include
+      android:id="@+id/top_bar"
+      layout="@layout/topup_bar_layout"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:elevation="2dp"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      />
 
+</androidx.constraintlayout.widget.ConstraintLayout>

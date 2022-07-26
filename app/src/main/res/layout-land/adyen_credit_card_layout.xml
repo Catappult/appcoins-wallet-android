@@ -60,17 +60,21 @@
           app:layout_constraintTop_toTopOf="parent"
           />
 
-
-      <ProgressBar
+      <com.airbnb.lottie.LottieAnimationView
           android:id="@+id/fragment_credit_card_authorization_progress_bar"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:indeterminateDrawable="@drawable/gradient_progress"
+          android:layout_width="64dp"
+          android:layout_height="64dp"
           app:layout_constraintBottom_toTopOf="@id/bottom_separator"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="@id/mid_guideline"
           app:layout_constraintTop_toTopOf="parent"
+          app:lottie_autoPlay="true"
+          app:lottie_enableMergePathsForKitKatAndAbove="true"
+          app:lottie_loop="true"
+          app:lottie_rawRes="@raw/loading_regular_animation"
+          tools:visibility="visible"
           />
+
       <include
           android:id="@+id/bonus_layout"
           layout="@layout/view_purchase_bonus"

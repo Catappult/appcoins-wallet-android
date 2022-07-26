@@ -4,17 +4,17 @@
     <shape android:shape="rectangle">
 
       <padding
-          android:bottom="-20dp"
-          android:left="-13dp"
-          android:right="-13dp"
-          android:top="-13dp" />
+          android:bottom="-40dp"
+          android:left="-15dp"
+          android:right="-15dp"
+          android:top="-14dp" />
     </shape>
   </item>
   <item>
     <shape android:shape="rectangle">
-      <corners android:radius="36dp" />
+      <corners android:radius="40dp" />
       <stroke
-          android:width="12dp"
+          android:width="14dp"
           android:color="@color/blue_dark" />
     </shape>
   </item>
