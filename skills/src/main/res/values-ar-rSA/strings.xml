@@ -30,4 +30,5 @@
   <string name="purchase_error_title">ييي، حدث خطأ.</string>
   <string name="purchase_eskills_sku">بطاقة الدخول</string>
   <string name="shared_room_waiting">في انتظار خصومك للانضمام إلى %s</string>
+  <string name="rooted_device_blocked_body">لسوء الحظ، لا يمكنك التمتع بألعاب e_Skills بجهاز خضع للتجذير (روت).\"</string>
 </resources>

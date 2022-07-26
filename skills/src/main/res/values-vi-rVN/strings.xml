@@ -30,4 +30,5 @@
   <string name="purchase_error_title">Rất tiếc, đã xảy ra lỗi.</string>
   <string name="purchase_eskills_sku">Vé tham gia</string>
   <string name="shared_room_waiting">Đang đợi đối thủ tham gia %s</string>
+  <string name="rooted_device_blocked_body">Rất tiếc, bạn không thể chơi trò chơi e-Skills bằng thiết bị đã root.\"</string>
 </resources>
