@@ -24,6 +24,7 @@ import com.asfoundation.wallet.recover.result.FailedEntryRecover
 import com.asfoundation.wallet.recover.result.RecoverEntryResult
 import com.asfoundation.wallet.recover.result.SuccessfulEntryRecover
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
+import com.google.android.material.appbar.AppBarLayout
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -159,6 +160,8 @@ class RecoverEntryFragment : BasePageViewFragment(),
       CreateWalletDialogFragment.CREATE_WALLET_DIALOG_COMPLETE,
       this
     ) { _, _ ->
+      requireActivity().findViewById<AppBarLayout>(R.id.recover_wallet_app_bar)
+        .visibility = View.GONE
       navigator.navigateToNavigationBar()
     }
   }

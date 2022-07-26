@@ -18,6 +18,7 @@ import com.asfoundation.wallet.recover.result.FailedPasswordRecover
 import com.asfoundation.wallet.recover.result.RecoverPasswordResult
 import com.asfoundation.wallet.recover.result.SuccessfulPasswordRecover
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
+import com.google.android.material.appbar.AppBarLayout
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -108,6 +109,8 @@ class RecoverPasswordFragment : BasePageViewFragment(),
       CreateWalletDialogFragment.CREATE_WALLET_DIALOG_COMPLETE,
       this
     ) { _, _ ->
+      requireActivity().findViewById<AppBarLayout>(R.id.recover_wallet_app_bar)
+        .visibility = View.GONE
       navigator.navigateToNavigationBar()
     }
   }
