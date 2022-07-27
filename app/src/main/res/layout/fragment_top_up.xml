@@ -287,6 +287,19 @@
       app:layout_constraintTop_toTopOf="parent"
       />
 
+  <include
+      android:id="@+id/error_topup"
+      layout="@layout/topup_error_layout"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:visibility="gone"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      app:layout_constraintVertical_bias="0.25"
+      tools:visibility="visible"
+      />
+
   <View
       android:id="@+id/bottom_separator"
       android:layout_width="match_parent"

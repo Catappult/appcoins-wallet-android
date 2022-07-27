@@ -44,4 +44,5 @@ interface TopUpFragmentView {
   fun showSkeletons()
   fun showBonusSkeletons()
   fun hidePaymentMethods()
+  fun showNoMethodsError()
 }
