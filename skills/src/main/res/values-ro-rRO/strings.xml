@@ -30,4 +30,5 @@
   <string name="purchase_error_title">Ups, ceva nu a mers cum trebuie.</string>
   <string name="purchase_eskills_sku">Tichet de intrare</string>
   <string name="shared_room_waiting">Se așteaptă adversari să participe la %s</string>
+  <string name="rooted_device_blocked_body">Unfortunately, you cannot play e-Skills games with a rooted device.\"</string>
 </resources>

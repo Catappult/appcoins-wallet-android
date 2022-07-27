@@ -9,29 +9,24 @@
 
   <com.airbnb.lottie.LottieAnimationView
       android:id="@+id/topup_error_animation"
-      android:layout_width="66dp"
-      android:layout_height="66dp"
+      android:layout_width="100dp"
+      android:layout_height="100dp"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="@+id/guideline_top"
       app:lottie_autoPlay="true"
       app:lottie_enableMergePathsForKitKatAndAbove="true"
-      app:lottie_rawRes="@raw/adyen_error_animation"
+      app:lottie_rawRes="@raw/topup_error_animation"
       />
 
   <TextView
       android:id="@+id/error_title"
+      style="@style/TextXL"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_marginTop="20dp"
-      android:fontFamily="sans-serif"
-      android:letterSpacing="0.03"
-      android:lineSpacingExtra="4sp"
       android:text="@string/error_general"
       android:textAlignment="center"
-      android:textColor="@color/btn_light_enabled_color"
-      android:textSize="20sp"
-      android:textStyle="bold"
       android:visibility="gone"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
@@ -41,7 +36,7 @@
 
   <TextView
       android:id="@+id/error_message"
-      style="@style/TextAppearance.AppCompat.Body1.Roboto.Regular"
+      style="@style/TextM"
       android:layout_width="0dp"
       android:layout_height="wrap_content"
       android:layout_marginStart="16dp"
@@ -49,8 +44,6 @@
       android:layout_marginEnd="16dp"
       android:layout_marginBottom="8dp"
       android:textAlignment="center"
-      android:textColor="@color/pending_payment_text_color"
-      android:textSize="16sp"
       app:layout_constraintBottom_toTopOf="@+id/contact_us"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
@@ -96,14 +89,12 @@
 
   <TextView
       android:id="@+id/contact_us"
-      style="@style/TextAppearance.AppCompat.Body1.Roboto.Regular"
+      style="@style/TextS"
       android:layout_width="0dp"
       android:layout_height="wrap_content"
       android:layout_marginStart="40dp"
       android:layout_marginEnd="40dp"
       android:text="@string/error_contac_us_body"
-      android:textColor="@color/grey_8a_alpha"
-      android:textSize="12sp"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toStartOf="@+id/start_guideline"
       app:layout_constraintStart_toStartOf="parent"

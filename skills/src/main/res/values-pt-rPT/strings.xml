@@ -30,4 +30,5 @@
   <string name="purchase_error_title">Ups, algo correu mal.</string>
   <string name="purchase_eskills_sku">Bilhete de entrada</string>
   <string name="shared_room_waiting">À espera que adversários se juntem a %s</string>
+  <string name="rooted_device_blocked_body">Unfortunately, you cannot play e-Skills games with a rooted device.\"</string>
 </resources>

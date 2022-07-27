@@ -30,4 +30,5 @@
   <string name="purchase_error_title">अरेरे, काहीतरी चूक झाली.</string>
   <string name="purchase_eskills_sku">प्रवेश तिकिट</string>
   <string name="shared_room_waiting">प्रतिस्पर्ध्यांनी जुडण्यासाठी थांबलो आहोत %s</string>
+  <string name="rooted_device_blocked_body">Unfortunately, you cannot play e-Skills games with a rooted device.\"</string>
 </resources>
