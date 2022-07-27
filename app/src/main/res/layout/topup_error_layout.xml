@@ -23,7 +23,7 @@
 
   <TextView
       android:id="@+id/error_title"
-      style="@style/TextAppearance.AppCompat.Body1.Roboto.XL"
+      style="@style/TextXL"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_marginTop="8dp"
@@ -39,7 +39,7 @@
 
   <TextView
       android:id="@+id/error_message"
-      style="@style/TextAppearance.AppCompat.Body1.Roboto.M"
+      style="@style/TextM"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_marginTop="22dp"

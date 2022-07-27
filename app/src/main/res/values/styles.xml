@@ -222,37 +222,37 @@
     <item name="android:lineSpacingExtra">8sp</item>
   </style>
 
-  <style name="TextAppearance.AppCompat.Body1.Roboto.XXXL" parent="TextAppearance.AppCompat.Body1.Roboto">
+  <style name="TextXXXL" parent="TextAppearance.AppCompat.Body1.Roboto">
     <item name="android:textSize">30sp</item>
     <item name="android:fontFamily">@font/roboto_bolt</item>
   </style>
 
-  <style name="TextAppearance.AppCompat.Body1.Roboto.XXL" parent="TextAppearance.AppCompat.Body1.Roboto">
+  <style name="TextXXL" parent="TextAppearance.AppCompat.Body1.Roboto">
     <item name="android:textSize">22sp</item>
     <item name="android:fontFamily">@font/roboto_bolt</item>
   </style>
 
-  <style name="TextAppearance.AppCompat.Body1.Roboto.XL" parent="TextAppearance.AppCompat.Body1.Roboto">
+  <style name="TextXL" parent="TextAppearance.AppCompat.Body1.Roboto">
     <item name="android:textSize">18sp</item>
     <item name="android:fontFamily">@font/roboto_bolt</item>
   </style>
 
-  <style name="TextAppearance.AppCompat.Body1.Roboto.L" parent="TextAppearance.AppCompat.Body1.Roboto">
+  <style name="TextL" parent="TextAppearance.AppCompat.Body1.Roboto">
     <item name="android:textSize">16sp</item>
     <item name="android:fontFamily">@font/roboto_medium</item>
   </style>
 
-  <style name="TextAppearance.AppCompat.Body1.Roboto.M" parent="TextAppearance.AppCompat.Body1.Roboto">
+  <style name="TextM" parent="TextAppearance.AppCompat.Body1.Roboto">
     <item name="android:textSize">14sp</item>
     <item name="android:fontFamily">@font/roboto_medium</item>
   </style>
 
-  <style name="TextAppearance.AppCompat.Body1.Roboto.S" parent="TextAppearance.AppCompat.Body1.Roboto">
+  <style name="TextS" parent="TextAppearance.AppCompat.Body1.Roboto">
     <item name="android:textSize">12sp</item>
     <item name="android:fontFamily">@font/roboto_regular</item>
   </style>
 
-  <style name="TextAppearance.AppCompat.Body1.Roboto.XS" parent="TextAppearance.AppCompat.Body1.Roboto">
+  <style name="TextXS" parent="TextAppearance.AppCompat.Body1.Roboto">
     <item name="android:textSize">10sp</item>
     <item name="android:fontFamily">@font/roboto_regular</item>
   </style>

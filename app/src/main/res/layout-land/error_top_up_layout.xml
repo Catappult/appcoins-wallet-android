@@ -21,7 +21,7 @@
 
   <TextView
       android:id="@+id/error_title"
-      style="@style/TextAppearance.AppCompat.Body1.Roboto.XL"
+      style="@style/TextXL"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_marginTop="20dp"
@@ -36,7 +36,7 @@
 
   <TextView
       android:id="@+id/error_message"
-      style="@style/TextAppearance.AppCompat.Body1.Roboto.M"
+      style="@style/TextM"
       android:layout_width="0dp"
       android:layout_height="wrap_content"
       android:layout_marginStart="16dp"
@@ -89,7 +89,7 @@
 
   <TextView
       android:id="@+id/contact_us"
-      style="@style/TextAppearance.AppCompat.Body1.Roboto.S"
+      style="@style/TextS"
       android:layout_width="0dp"
       android:layout_height="wrap_content"
       android:layout_marginStart="40dp"
