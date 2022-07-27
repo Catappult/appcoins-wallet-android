@@ -109,6 +109,10 @@ class RecoverPasswordFragment : BasePageViewFragment(),
       CreateWalletDialogFragment.CREATE_WALLET_DIALOG_COMPLETE,
       this
     ) { _, _ ->
+      /*
+      * Temporary workaround because we still have the RecoverActivity from the MyWallets flow and Settings flow
+      * After the RecoverActivity removal, we can remove this workaround for the toolbar visibility
+      * */
       requireActivity().findViewById<AppBarLayout>(R.id.recover_wallet_app_bar)
         .visibility = View.GONE
       navigator.navigateToNavigationBar()

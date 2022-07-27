@@ -1,10 +1,14 @@
 package com.asfoundation.wallet.analytics
 
 import android.content.Context
+import android.content.pm.PackageManager
+import android.os.Handler
+import android.os.Looper
 import cm.aptoide.analytics.AnalyticsManager
 import com.android.installreferrer.api.InstallReferrerClient
 import com.android.installreferrer.api.InstallReferrerStateListener
 import com.android.installreferrer.api.ReferrerDetails
+import com.asf.wallet.BuildConfig
 import com.asfoundation.wallet.onboarding.use_cases.SetOnboardingFromIapPackageNameUseCase
 import com.asfoundation.wallet.onboarding.use_cases.SetOnboardingFromIapStateUseCase
 import com.asfoundation.wallet.repository.PreferencesRepositoryType
@@ -20,7 +24,8 @@ class FirstInstallAnalytics @Inject constructor(
   private val analyticsManager: AnalyticsManager,
   private val setOnboardingFromIapStateUseCase: SetOnboardingFromIapStateUseCase,
   private val setOnboardingFromIapPackageNameUseCase: SetOnboardingFromIapPackageNameUseCase,
-  private val preferencesRepositoryType: PreferencesRepositoryType
+  private val preferencesRepositoryType: PreferencesRepositoryType,
+  private val packageManager: PackageManager
 ) {
 
   private lateinit var referrerClient: InstallReferrerClient
@@ -39,9 +44,10 @@ class FirstInstallAnalytics @Inject constructor(
             val appInstallTime: Long = response.installBeginTimestampSeconds
 
             val referrerData = getReferrerData(referrerUrl, sendEvent)
-            if (!preferencesRepositoryType.hasSentFirstLaunchEvent() && sendEvent) {
+            if (!preferencesRepositoryType.hasSentFirstLaunchEvent()) {
               sendFirstLaunchEvent(referrerData)
             }
+            referrerClient.endConnection()
           }
           InstallReferrerClient.InstallReferrerResponse.FEATURE_NOT_SUPPORTED -> {
             Log.d("Referrer", "not supported")
@@ -58,9 +64,12 @@ class FirstInstallAnalytics @Inject constructor(
 
       }
     })
-    if (!preferencesRepositoryType.hasSentFirstLaunchEvent()) {
-      sendFirstLaunchEvent(firstLaunchEmptyData)
-    }
+    //Handler to avoid this event being called before the referrerClient finishes for the IAP callback
+    Handler(Looper.getMainLooper()).postDelayed({
+      if (!preferencesRepositoryType.hasSentFirstLaunchEvent()) {
+        sendFirstLaunchEvent(firstLaunchEmptyData)
+      }
+    }, 1000)
   }
 
   private fun getReferrerData(referrerUrl: String, sendEvent: Boolean): MutableMap<String, Any> {
@@ -82,22 +91,26 @@ class FirstInstallAnalytics @Inject constructor(
       firstLaunchData[SKU] = ""
     }
     val appPackageName = firstLaunchData[PACKAGE_NAME].toString()
-    if (appPackageName.isNotBlank() && !sendEvent) {
+    if (appPackageName.isNotBlank()) {
       setOnboardingFromIapStateUseCase(true)
       setOnboardingFromIapPackageNameUseCase(appPackageName)
     }
-    referrerClient.endConnection()
     return firstLaunchData
   }
 
   private fun sendFirstLaunchEvent(firstLaunchData: MutableMap<String, Any>) {
-    analyticsManager.logEvent(
-      firstLaunchData,
-      FIRST_LAUNCH,
-      AnalyticsManager.Action.OPEN,
-      WALLET
-    )
-    preferencesRepositoryType.setFirstLaunchEvent()
+    if (isFirstInstall()) {
+      //Handler to avoid this event being called before the analytics are ready
+      Handler(Looper.getMainLooper()).postDelayed({
+        analyticsManager.logEvent(
+          firstLaunchData,
+          FIRST_LAUNCH,
+          AnalyticsManager.Action.OPEN,
+          WALLET
+        )
+      }, 1000)
+      preferencesRepositoryType.setFirstLaunchEvent()
+    }
   }
 
   /**
@@ -109,6 +122,19 @@ class FirstInstallAnalytics @Inject constructor(
     val urlParams: Map<String, MutableList<String?>> = UrlUtmParser.splitQuery(decodedReferrer)
     val integrationFlow = (urlParams[UTM_TERM]?.get(0) ?: "").toLowerCase(Locale.ENGLISH)
     return (integrationFlow == "sdk" || integrationFlow == "osp")
+  }
+
+  private fun isFirstInstall(): Boolean {
+    return try {
+      val firstInstallTime: Long =
+        packageManager.getPackageInfo(BuildConfig.APPLICATION_ID, 0).firstInstallTime
+      val lastUpdateTime: Long =
+        packageManager.getPackageInfo(BuildConfig.APPLICATION_ID, 0).lastUpdateTime
+      firstInstallTime == lastUpdateTime
+    } catch (e: PackageManager.NameNotFoundException) {
+      e.printStackTrace()
+      true
+    }
   }
 
   companion object {
