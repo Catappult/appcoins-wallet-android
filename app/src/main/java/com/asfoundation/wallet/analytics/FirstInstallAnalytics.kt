@@ -30,7 +30,7 @@ class FirstInstallAnalytics @Inject constructor(
 
   private lateinit var referrerClient: InstallReferrerClient
 
-  fun sendFirstInstallInfo(sendEvent: Boolean = false) {
+  fun sendFirstInstallInfo() {
     val firstLaunchEmptyData: MutableMap<String, Any> = HashMap()
     referrerClient = InstallReferrerClient.newBuilder(context).build()
     referrerClient.startConnection(object : InstallReferrerStateListener {
@@ -43,7 +43,7 @@ class FirstInstallAnalytics @Inject constructor(
             val referrerClickTime: Long = response.referrerClickTimestampSeconds
             val appInstallTime: Long = response.installBeginTimestampSeconds
 
-            val referrerData = getReferrerData(referrerUrl, sendEvent)
+            val referrerData = getReferrerData(referrerUrl)
             if (!preferencesRepositoryType.hasSentFirstLaunchEvent()) {
               sendFirstLaunchEvent(referrerData)
             }
@@ -72,7 +72,7 @@ class FirstInstallAnalytics @Inject constructor(
     }, 1000)
   }
 
-  private fun getReferrerData(referrerUrl: String, sendEvent: Boolean): MutableMap<String, Any> {
+  private fun getReferrerData(referrerUrl: String): MutableMap<String, Any> {
     Log.d("Referrer", referrerUrl)
 
     val decodedReferrer = URLDecoder.decode(referrerUrl, "UTF-8")

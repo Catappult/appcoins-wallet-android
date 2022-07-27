@@ -78,7 +78,7 @@ class MainActivity : AppCompatActivity(),
     val isFirstRun = getSharedPreferences("PREFERENCE", 0)
       .getBoolean("isFirstRun", true)
     if (isFirstRun) {
-      firstInstallAnalytics.sendFirstInstallInfo(sendEvent = false)
+      firstInstallAnalytics.sendFirstInstallInfo()
       ApkOriginVerification(this)
       getSharedPreferences("PREFERENCE", 0)
         .edit()
