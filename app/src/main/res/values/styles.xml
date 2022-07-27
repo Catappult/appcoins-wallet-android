@@ -1201,9 +1201,4 @@
     <item name="android:lineSpacingExtra">6sp</item>
   </style>
 
-<!--  <style name="AppTheme.Checkout" parent="Theme.AppCompat.Light.DarkActionBar">-->
-<!--    <item name="colorPrimary">@color/wild_watermelon</item>-->
-<!--    <item name="colorAccent">@color/wild_watermelon</item>-->
-<!--  </style>-->
-
 </resources>

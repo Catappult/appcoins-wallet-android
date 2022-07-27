@@ -62,8 +62,8 @@
 
       <com.airbnb.lottie.LottieAnimationView
           android:id="@+id/fragment_credit_card_authorization_progress_bar"
-          android:layout_width="64dp"
-          android:layout_height="64dp"
+          android:layout_width="56dp"
+          android:layout_height="56dp"
           app:layout_constraintBottom_toTopOf="@id/bottom_separator"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="@id/mid_guideline"

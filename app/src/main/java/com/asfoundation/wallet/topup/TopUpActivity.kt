@@ -40,7 +40,7 @@ import java.util.*
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class TopUpActivity : BaseActivity(), TopUpActivityView, /*ToolbarManager,*/ UriNavigator {
+class TopUpActivity : BaseActivity(), TopUpActivityView, UriNavigator {
 
   @Inject
   lateinit var topUpInteractor: TopUpInteractor
