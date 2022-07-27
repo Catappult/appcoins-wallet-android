@@ -14,7 +14,7 @@
       android:visibility="gone"/>
 
   <androidx.fragment.app.FragmentContainerView
-      android:id="@+id/nav_fragment_container"
+      android:id="@+id/nav_host_container"
       android:name="androidx.navigation.fragment.NavHostFragment"
       app:navGraph="@navigation/recover_wallet_graph"
       app:defaultNavHost="true"

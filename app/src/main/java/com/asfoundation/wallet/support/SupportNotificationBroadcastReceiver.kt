@@ -4,11 +4,11 @@ import android.app.NotificationManager
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
+import com.asfoundation.wallet.main.MainActivity
 import com.asfoundation.wallet.support.SupportNotificationProperties.ACTION_CHECK_MESSAGES
 import com.asfoundation.wallet.support.SupportNotificationProperties.ACTION_DISMISS
 import com.asfoundation.wallet.support.SupportNotificationProperties.ACTION_KEY
 import com.asfoundation.wallet.support.SupportNotificationProperties.NOTIFICATION_SERVICE_ID
-import com.asfoundation.wallet.ui.splash.SplashActivity
 
 class SupportNotificationBroadcastReceiver : BroadcastReceiver() {
 
@@ -39,7 +39,7 @@ class SupportNotificationBroadcastReceiver : BroadcastReceiver() {
   }
 
   private fun navigateToIntercomScreen(context: Context) {
-    val transactionsIntent = SplashActivity.newIntent(context, true)
+    val transactionsIntent = MainActivity.newIntent(context, true)
         .apply {
           addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
           addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT)

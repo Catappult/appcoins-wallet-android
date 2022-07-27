@@ -1,12 +1,11 @@
 package com.asfoundation.wallet.onboarding
 
-import androidx.lifecycle.SavedStateHandle
 import com.asfoundation.wallet.base.BaseViewModel
 import com.asfoundation.wallet.base.RxSchedulers
 import com.asfoundation.wallet.base.SideEffect
 import com.asfoundation.wallet.base.ViewState
-import com.asfoundation.wallet.onboarding.OnboardingFragment.Companion.ONBOARDING_FROM_IAP
 import com.asfoundation.wallet.onboarding.use_cases.HasWalletUseCase
+import com.asfoundation.wallet.onboarding.use_cases.IsOnboardingFromIapUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
@@ -23,7 +22,7 @@ data class OnboardingState(val pageContent: OnboardingContent = OnboardingConten
 class OnboardingViewModel @Inject constructor(
   private val hasWalletUseCase: HasWalletUseCase,
   private val rxSchedulers: RxSchedulers,
-  private val savedStateHandle: SavedStateHandle
+  private val isOnboardingFromIapUseCase: IsOnboardingFromIapUseCase
 ) :
   BaseViewModel<OnboardingState, OnboardingSideEffect>(initialState()) {
 
@@ -36,21 +35,21 @@ class OnboardingViewModel @Inject constructor(
   var rootPage = OnboardingContent.EMPTY
 
   init {
-    val isFromIap = savedStateHandle.get<Boolean>(ONBOARDING_FROM_IAP)!!
-    rootPage = when (isFromIap) {
+    val fromIap = isOnboardingFromIapUseCase()
+    rootPage = when (fromIap) {
       true -> OnboardingContent.EMPTY
       false -> OnboardingContent.WELCOME
     }
-    checkWallets(isFromIap)
+    checkWallets(fromIap)
   }
 
-  private fun checkWallets(isFromIap: Boolean) {
+  private fun checkWallets(fromIap: Boolean) {
     hasWalletUseCase()
       .observeOn(rxSchedulers.main)
       .doOnSuccess {
         if (!it) {
           rootPage = OnboardingContent.WELCOME
-          if (isFromIap) {
+          if (fromIap) {
             sendSideEffect {
               OnboardingSideEffect.NavigateToWalletCreationAnimation
             }

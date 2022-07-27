@@ -13,6 +13,7 @@ class SharedPreferencesRepository @Inject constructor(private val pref: SharedPr
   companion object {
 
     const val CURRENT_ACCOUNT_ADDRESS_KEY = "current_account_address"
+    private const val FIRST_LAUNCH_EVENT = "first_launch_event"
     private const val ONBOARDING_COMPLETE_KEY = "onboarding_complete"
     private const val ONBOARDING_FROM_IAP_STATE = "onboarding_from_iap_state"
     private const val ONBOARDING_FROM_IAP_PACKAGE_NAME = "onboarding_from_iap_package_name"
@@ -27,6 +28,14 @@ class SharedPreferencesRepository @Inject constructor(private val pref: SharedPr
     private const val WALLET_ID = "wallet_id"
     private const val HAS_BEEN_IN_SETTINGS = "has_been_in_settings"
     private const val NUMBER_OF_TIMES_IN_HOME = "number_of_times_in_home"
+  }
+
+  override fun hasSentFirstLaunchEvent() = pref.getBoolean(FIRST_LAUNCH_EVENT, false)
+
+  override fun setFirstLaunchEvent() {
+    pref.edit()
+      .putBoolean(FIRST_LAUNCH_EVENT, true)
+      .apply()
   }
 
   override fun hasCompletedOnboarding() = pref.getBoolean(ONBOARDING_COMPLETE_KEY, false)

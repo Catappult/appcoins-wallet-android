@@ -1,20 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
   <item
-      android:id="@+id/action_promotions"
-      android:icon="@drawable/ic_promotions"
+      android:id="@+id/home_graph"
+      android:icon="@drawable/ic_home"
+      android:title="Home" />
+  <item
+      android:id="@+id/promotions_graph"
+      android:icon="@drawable/ic_promotions_v2"
       android:title="@string/bottom_navigation_promotions" />
   <item
-      android:id="@+id/action_send"
-      android:icon="@drawable/ic_bottom_nav_send"
-      android:title="@string/title_send" />
-  <item
-      android:id="@+id/action_my_address"
-      android:icon="@drawable/ic_bottom_nav_receive"
-      android:title="@string/title_request" />
-  <item
-      android:id="@+id/action_balance"
-      android:icon="@drawable/ic_bottom_nav_tokens"
+      android:id="@+id/my_wallets_graph"
+      android:icon="@drawable/ic_balance"
       android:title="@string/bottom_navigation_my_wallets" />
+  <item
+      android:id="@+id/top_up_activity"
+      android:icon="@drawable/ic_topup"
+      android:title="@string/topup_title"
+      android:actionLayout="@layout/bottom_nav_top_up_item"/>
 </menu>
 

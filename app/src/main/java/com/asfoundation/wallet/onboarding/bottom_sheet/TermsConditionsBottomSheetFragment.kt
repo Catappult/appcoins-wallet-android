@@ -22,7 +22,6 @@ import com.asf.wallet.BuildConfig
 import com.asf.wallet.R
 import com.asf.wallet.databinding.TermsConditionsBottomSheetBinding
 import com.asfoundation.wallet.base.SingleStateFragment
-import com.asfoundation.wallet.onboarding.OnboardingFragment
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
@@ -40,6 +39,8 @@ class TermsConditionsBottomSheetFragment : BottomSheetDialogFragment(),
   private val views by viewBinding(TermsConditionsBottomSheetBinding::bind)
 
   companion object {
+    const val TERMS_CONDITIONS_COMPLETE = "terms_conditions_complete"
+
     @JvmStatic
     fun newInstance(): TermsConditionsBottomSheetFragment {
       return TermsConditionsBottomSheetFragment()
@@ -81,11 +82,17 @@ class TermsConditionsBottomSheetFragment : BottomSheetDialogFragment(),
       TermsConditionsBottomSheetSideEffect.NavigateToFinish -> {
         navigator.navigateBack()
         setFragmentResult(
-          OnboardingFragment.ONBOARDING_FINISHED_KEY,
+          TERMS_CONDITIONS_COMPLETE,
           bundleOf("fragmentEnded" to "result")
         )
       }
-      TermsConditionsBottomSheetSideEffect.NavigateToWalletCreationAnimation -> navigator.navigateToCreateWalletDialog()
+      TermsConditionsBottomSheetSideEffect.NavigateToWalletCreationAnimation ->{
+        navigator.navigateToCreateWalletDialog()
+        setFragmentResult(
+          TERMS_CONDITIONS_COMPLETE,
+          bundleOf("fragmentEnded" to "result")
+        )
+      }
       is TermsConditionsBottomSheetSideEffect.NavigateToLink -> navigator.navigateToBrowser(
         sideEffect.uri
       )

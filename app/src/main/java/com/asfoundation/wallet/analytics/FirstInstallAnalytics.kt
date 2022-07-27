@@ -1,12 +1,17 @@
 package com.asfoundation.wallet.analytics
 
 import android.content.Context
+import android.content.pm.PackageManager
+import android.os.Handler
+import android.os.Looper
 import cm.aptoide.analytics.AnalyticsManager
 import com.android.installreferrer.api.InstallReferrerClient
 import com.android.installreferrer.api.InstallReferrerStateListener
 import com.android.installreferrer.api.ReferrerDetails
+import com.asf.wallet.BuildConfig
 import com.asfoundation.wallet.onboarding.use_cases.SetOnboardingFromIapPackageNameUseCase
 import com.asfoundation.wallet.onboarding.use_cases.SetOnboardingFromIapStateUseCase
+import com.asfoundation.wallet.repository.PreferencesRepositoryType
 import com.asfoundation.wallet.util.Log
 import com.asfoundation.wallet.util.UrlUtmParser
 import dagger.hilt.android.qualifiers.ApplicationContext
@@ -14,19 +19,21 @@ import java.net.URLDecoder
 import java.util.*
 import javax.inject.Inject
 
-class InstallReferrerAnalytics @Inject constructor(
+class FirstInstallAnalytics @Inject constructor(
   @ApplicationContext val context: Context,
   private val analyticsManager: AnalyticsManager,
   private val setOnboardingFromIapStateUseCase: SetOnboardingFromIapStateUseCase,
-  private val setOnboardingFromIapPackageNameUseCase: SetOnboardingFromIapPackageNameUseCase
+  private val setOnboardingFromIapPackageNameUseCase: SetOnboardingFromIapPackageNameUseCase,
+  private val preferencesRepositoryType: PreferencesRepositoryType,
+  private val packageManager: PackageManager
 ) {
 
   private lateinit var referrerClient: InstallReferrerClient
 
-  fun sendFirstInstallInfo(sendEvent: Boolean = false) {
+  fun sendFirstInstallInfo() {
+    val firstLaunchEmptyData: MutableMap<String, Any> = HashMap()
     referrerClient = InstallReferrerClient.newBuilder(context).build()
     referrerClient.startConnection(object : InstallReferrerStateListener {
-      val firstLaunchEmptyData: MutableMap<String, Any> = HashMap()
       override fun onInstallReferrerSetupFinished(responseCode: Int) {
         when (responseCode) {
           InstallReferrerClient.InstallReferrerResponse.OK -> {
@@ -36,17 +43,18 @@ class InstallReferrerAnalytics @Inject constructor(
             val referrerClickTime: Long = response.referrerClickTimestampSeconds
             val appInstallTime: Long = response.installBeginTimestampSeconds
 
-            val referrerData = getReferrerData(referrerUrl, sendEvent)
-            if (sendEvent) sendFirstLaunchEvent(referrerData)
+            val referrerData = getReferrerData(referrerUrl)
+            if (!preferencesRepositoryType.hasSentFirstLaunchEvent()) {
+              sendFirstLaunchEvent(referrerData)
+            }
+            referrerClient.endConnection()
           }
           InstallReferrerClient.InstallReferrerResponse.FEATURE_NOT_SUPPORTED -> {
             Log.d("Referrer", "not supported")
-            if (sendEvent) sendFirstLaunchEvent(firstLaunchEmptyData)
             setOnboardingFromIapStateUseCase(false)
           }
           InstallReferrerClient.InstallReferrerResponse.SERVICE_UNAVAILABLE -> {
             Log.d("Referrer", "unavailable")
-            if (sendEvent) sendFirstLaunchEvent(firstLaunchEmptyData)
             setOnboardingFromIapStateUseCase(false)
           }
         }
@@ -56,9 +64,15 @@ class InstallReferrerAnalytics @Inject constructor(
 
       }
     })
+    //Handler to avoid this event being called before the referrerClient finishes for the IAP callback
+    Handler(Looper.getMainLooper()).postDelayed({
+      if (!preferencesRepositoryType.hasSentFirstLaunchEvent()) {
+        sendFirstLaunchEvent(firstLaunchEmptyData)
+      }
+    }, 1000)
   }
 
-  private fun getReferrerData(referrerUrl: String, sendEvent: Boolean): MutableMap<String, Any> {
+  private fun getReferrerData(referrerUrl: String): MutableMap<String, Any> {
     Log.d("Referrer", referrerUrl)
 
     val decodedReferrer = URLDecoder.decode(referrerUrl, "UTF-8")
@@ -77,21 +91,26 @@ class InstallReferrerAnalytics @Inject constructor(
       firstLaunchData[SKU] = ""
     }
     val appPackageName = firstLaunchData[PACKAGE_NAME].toString()
-    if (appPackageName.isNotBlank() && !sendEvent) {
+    if (appPackageName.isNotBlank()) {
       setOnboardingFromIapStateUseCase(true)
       setOnboardingFromIapPackageNameUseCase(appPackageName)
     }
-    referrerClient.endConnection()
     return firstLaunchData
   }
 
   private fun sendFirstLaunchEvent(firstLaunchData: MutableMap<String, Any>) {
-    analyticsManager.logEvent(
-      firstLaunchData,
-      FIRST_LAUNCH,
-      AnalyticsManager.Action.OPEN,
-      WALLET
-    )
+    if (isFirstInstall()) {
+      //Handler to avoid this event being called before the analytics are ready
+      Handler(Looper.getMainLooper()).postDelayed({
+        analyticsManager.logEvent(
+          firstLaunchData,
+          FIRST_LAUNCH,
+          AnalyticsManager.Action.OPEN,
+          WALLET
+        )
+      }, 1000)
+      preferencesRepositoryType.setFirstLaunchEvent()
+    }
   }
 
   /**
@@ -103,6 +122,19 @@ class InstallReferrerAnalytics @Inject constructor(
     val urlParams: Map<String, MutableList<String?>> = UrlUtmParser.splitQuery(decodedReferrer)
     val integrationFlow = (urlParams[UTM_TERM]?.get(0) ?: "").toLowerCase(Locale.ENGLISH)
     return (integrationFlow == "sdk" || integrationFlow == "osp")
+  }
+
+  private fun isFirstInstall(): Boolean {
+    return try {
+      val firstInstallTime: Long =
+        packageManager.getPackageInfo(BuildConfig.APPLICATION_ID, 0).firstInstallTime
+      val lastUpdateTime: Long =
+        packageManager.getPackageInfo(BuildConfig.APPLICATION_ID, 0).lastUpdateTime
+      firstInstallTime == lastUpdateTime
+    } catch (e: PackageManager.NameNotFoundException) {
+      e.printStackTrace()
+      true
+    }
   }
 
   companion object {

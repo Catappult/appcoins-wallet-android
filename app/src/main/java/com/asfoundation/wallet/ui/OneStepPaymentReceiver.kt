@@ -9,12 +9,12 @@ import com.appcoins.wallet.bdsbilling.WalletService
 import com.appcoins.wallet.commons.Logger
 import com.asf.wallet.R
 import com.asfoundation.wallet.entity.TransactionBuilder
+import com.asfoundation.wallet.main.MainActivity
 import com.asfoundation.wallet.service.WalletGetterStatus
 import com.asfoundation.wallet.ui.iab.IabActivity
 import com.asfoundation.wallet.ui.iab.IabActivity.Companion.newIntent
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
 import com.asfoundation.wallet.ui.iab.PaymentMethodsAnalytics
-import com.asfoundation.wallet.ui.splash.SplashActivity
 import com.asfoundation.wallet.util.TransferParser
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.Observable
@@ -101,7 +101,7 @@ class OneStepPaymentReceiver : BaseActivity() {
 
   private fun startApp(throwable: Throwable) {
     throwable.printStackTrace()
-    startActivity(SplashActivity.newIntent(this))
+    startActivity(MainActivity.newIntent(this, supportNotificationClicked = false))
     finish()
   }
 

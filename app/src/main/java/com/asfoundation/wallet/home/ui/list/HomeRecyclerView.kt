@@ -3,18 +3,20 @@ package com.asfoundation.wallet.home.ui.list
 import android.content.Context
 import android.util.AttributeSet
 import android.view.View
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.airbnb.epoxy.EpoxyRecyclerView
 import com.asf.wallet.R
 
 class HomeRecyclerView @JvmOverloads constructor(
-    context: Context, attrs: AttributeSet? = null,
-    defStyleAttr: Int = 0
+  context: Context, attrs: AttributeSet? = null,
+  defStyleAttr: Int = 0
 ) : EpoxyRecyclerView(context, attrs, defStyleAttr) {
 
   init {
     // This layout manager centers the selected items (Loading, Empty state)
     // if there's available space to do so
+    this.setBackgroundColor(ContextCompat.getColor(context, R.color.white))
     layoutManager = object : LinearLayoutManager(context) {
 
       override fun layoutDecoratedWithMargins(child: View, left: Int, top: Int, right: Int,

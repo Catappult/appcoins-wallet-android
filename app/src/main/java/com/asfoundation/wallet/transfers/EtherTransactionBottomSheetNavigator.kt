@@ -5,19 +5,21 @@ import androidx.browser.customtabs.CustomTabsIntent
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import com.asfoundation.wallet.entity.NetworkInfo
-import com.asfoundation.wallet.main.MainActivityNavigator
+import com.asfoundation.wallet.main.nav_bar.NavBarFragmentNavigator
 import javax.inject.Inject
 
-class EtherTransactionBottomSheetNavigator @Inject constructor(val fragmentManager: FragmentManager,
-                                           val fragment: Fragment,
-                                           val mainActivityNavigator: MainActivityNavigator,
-                                           val networkInfo: NetworkInfo) {
+class EtherTransactionBottomSheetNavigator @Inject constructor(
+  val fragmentManager: FragmentManager,
+  val fragment: Fragment,
+  val networkInfo: NetworkInfo,
+  val navBarFragmentNavigator: NavBarFragmentNavigator
+) {
 
   private fun openUrl(url: String) {
     CustomTabsIntent.Builder()
-        .addDefaultShareMenuItem()
-        .build()
-        .launchUrl(fragment.requireContext(), Uri.parse(url))
+      .addDefaultShareMenuItem()
+      .build()
+      .launchUrl(fragment.requireContext(), Uri.parse(url))
   }
 
   fun navigateToEtherScanTransaction(transactionHash: String) {
@@ -26,7 +28,7 @@ class EtherTransactionBottomSheetNavigator @Inject constructor(val fragmentManag
   }
 
   fun goBackToTransactions() {
-//    mainActivityNavigator.navigateToHome()
+//    navBarFragmentNavigator.navigateToHome()
     fragment.activity?.finish()
   }
 }

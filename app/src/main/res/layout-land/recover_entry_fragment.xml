@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:animateLayoutChanges="true"
+    android:orientation="vertical"
     android:background="@color/blue_dark"
     android:theme="@style/MaterialAppTheme"
+
     >
 
   <ScrollView
@@ -44,7 +46,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/big_margin"
-            android:layout_marginHorizontal="@dimen/large_margin"
+            android:layout_marginHorizontal="@dimen/half_large_margin"
             android:text="@string/my_wallets_action_recover_wallet"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -57,7 +59,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/normal_margin"
-            android:layout_marginHorizontal="@dimen/large_margin"
+            android:layout_marginHorizontal="@dimen/half_large_margin"
             android:text="@string/import_wallet_body"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -72,7 +74,7 @@
           layout="@layout/recover_entry_options"
           android:layout_width="0dp"
           android:layout_height="wrap_content"
-          android:layout_marginHorizontal="@dimen/big_margin"
+          android:layout_marginEnd="@dimen/half_large_margin"
           android:layout_marginTop="@dimen/big_margin"
           android:visibility="visible"
           app:layout_constraintBottom_toBottomOf="parent"
@@ -85,20 +87,22 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
   </ScrollView>
 
+  <Space
+      android:layout_width="0dp"
+      android:layout_height="0dp"
+      android:layout_weight="1"
+      />
+
   <androidx.constraintlayout.widget.ConstraintLayout
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_marginHorizontal="@dimen/half_large_margin"
       app:layout_constraintBottom_toBottomOf="parent"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toBottomOf="@id/recover_entry_scroll_view"
-      app:layout_constraintVertical_bias="1"
-
       >
     <com.asfoundation.wallet.ui.common.WalletButtonView
         android:id="@+id/recover_wallet_button"
-        android:layout_width="0dp"
+        android:layout_width="207dp"
         android:layout_height="@dimen/onboarding_button_height"
         android:layout_marginTop="@dimen/onboarding_button_existent_margin_top"
         android:layout_marginBottom="30dp"
@@ -106,20 +110,20 @@
         app:buttonType="filled"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/recover_wallet_back_button"
+
         />
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/recover_wallet_back_button"
         android:layout_width="48dp"
         android:layout_height="@dimen/onboarding_button_height"
-        android:layout_marginEnd="27dp"
+        android:layout_marginEnd="30dp"
         android:background="@color/transparent"
         app:cardBackgroundColor="@color/transparent"
         app:cardElevation="0dp"
         android:visibility="visible"
         app:layout_constraintEnd_toStartOf="@+id/recover_wallet_button"
-        app:layout_constraintStart_toStartOf="parent"
+
         app:layout_constraintTop_toTopOf="@+id/recover_wallet_button"
         app:rippleColor="@color/white"
         app:shapeAppearance="@style/Home.PillShape"
@@ -135,4 +139,4 @@
     </com.google.android.material.card.MaterialCardView>
 
   </androidx.constraintlayout.widget.ConstraintLayout>
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

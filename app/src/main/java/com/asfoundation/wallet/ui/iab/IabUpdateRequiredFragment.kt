@@ -7,7 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.asf.wallet.R
-import com.asfoundation.wallet.interact.AutoUpdateInteract
+import com.asfoundation.wallet.update_required.use_cases.BuildUpdateIntentUseCase
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import com.google.android.material.snackbar.Snackbar
 import com.jakewharton.rxbinding2.view.RxView
@@ -24,11 +24,11 @@ class IabUpdateRequiredFragment : BasePageViewFragment(), IabUpdateRequiredView 
   private lateinit var iabView: IabView
 
   @Inject
-  lateinit var autoUpdateInteract: AutoUpdateInteract
+  lateinit var buildUpdateIntentUseCase: BuildUpdateIntentUseCase
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-    presenter = IabUpdateRequiredPresenter(this, CompositeDisposable(), autoUpdateInteract)
+    presenter = IabUpdateRequiredPresenter(this, CompositeDisposable(), buildUpdateIntentUseCase)
   }
 
   override fun onAttach(context: Context) {

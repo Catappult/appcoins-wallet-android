@@ -4,6 +4,7 @@ import android.content.Intent
 import android.hardware.biometrics.BiometricManager
 import android.os.Bundle
 import com.asfoundation.wallet.change_currency.use_cases.GetChangeFiatCurrencyModelUseCase
+import com.asfoundation.wallet.update_required.use_cases.BuildUpdateIntentUseCase
 import com.asfoundation.wallet.promo_code.use_cases.GetUpdatedPromoCodeUseCase
 import com.asfoundation.wallet.promo_code.use_cases.ObservePromoCodeUseCase
 import com.asfoundation.wallet.ui.wallets.WalletsModel
@@ -19,6 +20,7 @@ class SettingsPresenter(
   private val disposables: CompositeDisposable,
   private val settingsInteractor: SettingsInteractor,
   private val settingsData: SettingsData,
+  private val buildUpdateIntentUseCase: BuildUpdateIntentUseCase,
   private val getChangeFiatCurrencyModelUseCase: GetChangeFiatCurrencyModelUseCase,
   private val getUpdatedPromoCodeUseCase: GetUpdatedPromoCodeUseCase,
   private val observePromoCodeUseCase: ObservePromoCodeUseCase
@@ -162,7 +164,7 @@ class SettingsPresenter(
 
   fun redirectToStore() {
     disposables.add(
-      Single.create<Intent> { it.onSuccess(settingsInteractor.retrieveUpdateIntent()) }
+      Single.create<Intent> { it.onSuccess(buildUpdateIntentUseCase()) }
         .doOnSuccess { view.navigateToIntent(it) }
         .subscribe({}, { handleError(it) })
     )

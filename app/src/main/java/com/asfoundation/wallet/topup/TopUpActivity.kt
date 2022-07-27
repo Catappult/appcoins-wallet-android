@@ -13,7 +13,6 @@ import com.appcoins.wallet.billing.AppcoinsBillingBinder
 import com.asf.wallet.R
 import com.asfoundation.wallet.backup.BackupNotificationUtils
 import com.asfoundation.wallet.billing.adyen.PaymentType
-import com.asfoundation.wallet.main.MainActivityNavigator
 import com.asfoundation.wallet.navigator.UriNavigator
 import com.asfoundation.wallet.topup.address.BillingAddressTopUpFragment
 import com.asfoundation.wallet.topup.adyen.AdyenTopUpFragment
@@ -51,7 +50,6 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, UriNavigator {
   @Inject
   lateinit var walletBlockedInteract: WalletBlockedInteract
 
-  private var mainActivityNavigator: MainActivityNavigator = MainActivityNavigator(this)
   private lateinit var results: PublishRelay<Uri>
   private lateinit var presenter: TopUpActivityPresenter
   private var isFinishingPurchase = false

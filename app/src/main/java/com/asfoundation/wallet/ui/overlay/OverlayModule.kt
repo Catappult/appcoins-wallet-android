@@ -1,8 +1,6 @@
 package com.asfoundation.wallet.ui.overlay
 
 import androidx.fragment.app.Fragment
-import com.asfoundation.wallet.main.MainActivityNavigator
-import com.asfoundation.wallet.repository.PreferencesRepositoryType
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
