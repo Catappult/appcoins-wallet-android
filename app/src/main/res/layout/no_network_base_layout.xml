@@ -23,7 +23,7 @@
 
   <TextView
       android:id="@+id/no_network_message"
-      style="@style/TextAppearance.AppCompat.Body1.Roboto.Bold.Message"
+      style="@style/TextAppearance.AppCompat.Body1.Roboto.M"
       android:layout_width="0dp"
       android:layout_height="wrap_content"
       android:layout_marginStart="44dp"

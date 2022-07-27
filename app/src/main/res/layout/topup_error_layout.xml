@@ -23,15 +23,13 @@
 
   <TextView
       android:id="@+id/error_title"
-      style="@style/TextAppearance.AppCompat.Body1.Roboto.Bold.Title"
+      style="@style/TextAppearance.AppCompat.Body1.Roboto.XL"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_marginTop="8dp"
       android:layout_marginStart="@dimen/big_margin"
       android:layout_marginEnd="@dimen/big_margin"
       android:textAlignment="center"
-      android:textSize="18sp"
-      android:textColor="@color/navy_blue"
       android:text="@string/topup_no_method_available_title"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
@@ -41,7 +39,7 @@
 
   <TextView
       android:id="@+id/error_message"
-      style="@style/TextAppearance.AppCompat.Body1.Roboto.Bold.Message"
+      style="@style/TextAppearance.AppCompat.Body1.Roboto.M"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_marginTop="22dp"
@@ -49,8 +47,6 @@
       android:layout_marginEnd="@dimen/big_margin"
       android:text="@string/topup_no_method_available_body"
       android:textAlignment="center"
-      android:textSize="12sp"
-      android:textColor="@color/navy_blue"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toBottomOf="@+id/error_title"
