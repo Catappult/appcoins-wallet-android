@@ -144,7 +144,6 @@ class TopUpFragment : BasePageViewFragment(), TopUpFragmentView {
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
-    topUpActivityView?.showToolbar()
     savedInstanceState?.let {
       if (savedInstanceState.containsKey(SELECTED_CURRENCY_PARAM)) {
         selectedCurrency = savedInstanceState.getString(SELECTED_CURRENCY_PARAM) ?: FIAT_CURRENCY

@@ -195,7 +195,9 @@
     <activity
         android:name="com.asfoundation.wallet.topup.TopUpActivity"
         android:exported="true"
-        android:label="@string/topup_title">
+        android:label="@string/topup_title"
+        android:theme="@style/TopupTheme"
+        >
       <intent-filter>
         <action android:name="android.intent.action.VIEW" />
 

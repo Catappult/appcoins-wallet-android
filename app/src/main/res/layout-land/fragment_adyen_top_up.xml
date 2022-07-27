@@ -187,16 +187,22 @@
 
       </RelativeLayout>
 
-      <ProgressBar
+      <com.airbnb.lottie.LottieAnimationView
           android:id="@+id/loading"
-          android:layout_width="@dimen/button_height"
-          android:layout_height="@dimen/button_height"
-          android:indeterminateDrawable="@drawable/gradient_progress"
-          android:visibility="gone"
+          android:layout_width="64dp"
+          android:layout_height="64dp"
+          android:layout_marginTop="50dp"
+          android:layout_marginBottom="50dp"
           app:layout_constraintBottom_toBottomOf="@id/container"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toEndOf="@id/mid_guideline"
           app:layout_constraintTop_toTopOf="@id/container"
+          app:lottie_enableMergePathsForKitKatAndAbove="true"
+          app:lottie_autoPlay="true"
+          app:lottie_loop="true"
+          app:lottie_rawRes="@raw/loading_regular_animation"
+          android:visibility="gone"
+          tools:visibility="visible"
           />
 
       <com.asfoundation.wallet.ui.common.WalletButtonView
