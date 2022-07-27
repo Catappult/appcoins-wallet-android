@@ -1108,6 +1108,6 @@
   <string name="vip_program_gamification_amount_purchases_bonus">Megkaptad a vásárlásod után járó bónuszt.</string>
   <string name="vip_program_gamification_amoung_referral_bonus">Az ajánlásokból befolyó bónusz</string>
   <string name="vip_program_max_bonus_title">Élvezd ki a %s%% bónuszt minden vásárlás után</string>
-  <string name="vip_program_max_bonus_body">You\'ve reached the limits of the solar system.</string>
+  <string name="vip_program_max_bonus_body">Elérted a naprendszer határait.</string>
   <string name="vip_program_max_bonus_short">%s%% bónusz minden vásárlás után.</string>
 </resources>
