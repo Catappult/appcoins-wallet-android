@@ -24,7 +24,7 @@ import javax.inject.Inject
  */
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity(),
-  SingleStateFragment<MainActivityState, MainActivitySideEffect> { //aaa
+  SingleStateFragment<MainActivityState, MainActivitySideEffect> { //aaa123
 
   @Inject
   lateinit var navigator: MainActivityNavigator
