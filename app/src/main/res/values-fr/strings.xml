@@ -27,7 +27,7 @@
   <string name="credits">Crédits</string>
   <string name="label_new">Nouveau</string>
   <string name="got_it_button">Je l\'ai eu</string>
-  <string name="change_button">Change</string>
+  <string name="change_button">Changer</string>
   <string name="vip">VIP</string>
   <string name="low_storage_error">Pas assez d\'espace de stockage</string>
   <string name="no_camera_permission_title">Autorisation de la caméra</string>
@@ -381,8 +381,8 @@
   <string name="topup_bonus_body">Vous pouvez utiliser ce bonus pour votre prochain achat.</string>
   <string name="topup_minimum_value">La valeur minimale de la recharge est de %s</string>
   <string name="topup_maximum_value">La valeur maximale de la recharge est de %s</string>
-  <string name="topup_no_method_available_title">No payment methods!</string>
-  <string name="topup_no_method_available_body">There are no payment methods available to top up in your country at the moment. Stay tuned!</string>
+  <string name="topup_no_method_available_title">Aucune méthode de paiement !</string>
+  <string name="topup_no_method_available_body">Il n\'y a pas de méthode de paiement disponible pour recharger dans votre pays pour le moment. Restez informé !</string>
   <!--Balance-->
   <string name="balance_title">Solde</string>
   <string name="balance_total_body">Solde final %s</string>
@@ -441,7 +441,7 @@
   <string name="remind_later_button">Rappelez-moi plus tard</string>
   <string name="get_code_button">Obtenir un code</string>
   <string name="confirm_button">Confirmer</string>
-  <string name="withdraw_button">Withdraw</string>
+  <string name="withdraw_button">Retirer</string>
   <string name="email_here_field">Votre adresse courriel ici&#8230;</string>
   <string name="understood_button">Compris !</string>
   <string name="skip_button">Sauter pour le moment</string>
@@ -559,9 +559,9 @@
   <string name="purachse_error_verify_card_button">VALIDER LA CARTE</string>
   <string name="purchase_eskills_sku">Ticket d\'entrée</string>
   <string name="purchase_paytmupi_install_disclaimer">Vous devez installer l\'application Paytm UPI.</string>
-  <string name="purchase_app_needed_body">You need the following app to complete your purchase.</string>
-  <string name="purchase_apps_needed_body">You need one of the following apps to complete your purchase.</string>
-  <string name="purchase_error_connection_issue">It seems there is a problem with your internet connection! Please check it and try again.</string>
+  <string name="purchase_app_needed_body">Vous avez besoin de l\'application suivante pour terminer votre achat.</string>
+  <string name="purchase_apps_needed_body">Vous avez besoin de l\'une des applications suivantes pour terminer votre achat.</string>
+  <string name="purchase_error_connection_issue">Il semble qu\'il y ait un problème avec votre connexion internet ! Veuillez la vérifier et réessayer.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">Adresse de facturation</string>
   <string name="purchase_address_address_field">Adresse</string>
@@ -595,11 +595,11 @@
   <string name="referral_view_title">Invitez des amis</string>
   <string name="referral_view_title_1">Invitez des amis et gagnez plus !</string>
   <string name="referral_view_verified_body">Recevez %s de crédits AppCoins pour chaque ami. Il suffit de partager le lien !</string>
-  <string name="referral_view_share_link_button">Share invite link</string>
+  <string name="referral_view_share_link_button">Partager le lien d\'invitation</string>
   <string name="referral_view_notifications_title">Notifications</string>
   <string name="referral_share_sheet_title">Partager le lien d\'invitation via :</string>
   <string name="referral_view_unverified_body">Recevez %s de crédits AppCoins pour chaque ami. Vous devez d\'abord vérifier votre portefeuille.</string>
-  <string name="referral_view_verify_button">Verify wallet</string>
+  <string name="referral_view_verify_button">Vérifier le portefeuille</string>
   <string name="referral_view_i_have_been_invited_button">J\'ai été invité</string>
   <string name="referral_view_dropup_menu_friends_invited">Amis invités</string>
   <string name="referral_view_dropup_menu_earned">Gagnés</string>
@@ -634,18 +634,18 @@
   <string name="update_wallet_hard_body">Il semble que vous utilisez une ancienne version du Portefeuille AppCoins. Veuillez le mettre à jour pour garantir la meilleure expérience et la meilleure sécurité.</string>
   <string name="update_wallet_soft_title">Ne vous laissez pas distancer !</string>
   <string name="update_wallet_soft_body">La mise à jour du portefeuille AppCoins garantit la meilleure expérience possible.</string>
-  <string name="update_button">Update</string>
+  <string name="update_button">Mise à jour</string>
   <!--Backup and Import-->
   <string name="backup_home_notification_title">Sauvegarder votre portefeuille</string>
   <string name="backup_home_notification_body">Avez-vous déjà perdu votre téléphone ? Sauvegardez votre portefeuille maintenant !</string>
-  <string name="backup_confirmation_no_share_title">Backup Done!</string>
+  <string name="backup_confirmation_no_share_title">Sauvegarde effectuée !</string>
   <string name="backup_save_dialogue_title">Enregistrez le fichier de sauvegarde</string>
   <string name="backup_save_dialogue_body">Choisissez un nom pour votre fichier de sauvegarde.</string>
   <string name="import_wallet_title">Récupérer le portefeuille</string>
   <string name="import_wallet_body">Collez la sauvegarde de votre portefeuille ci-dessous.</string>
   <string name="import_wallet_keystore_private_keys">Keystore ou clés privées</string>
   <string name="import_wallet_from_file_title">Ou récupérer à partir d\'un fichier</string>
-  <string name="import_wallet_file_button">Recover from file</string>
+  <string name="import_wallet_file_button">Récupérer à partir d\'un fichier</string>
   <string name="import_wallet_button">Récupérer le portefeuille</string>
   <string name="import_wallet_password_body">Ce portefeuille est protégé par un mot de passe !</string>
   <string name="import_wallet_wrong_password_body">Oups, mauvais mot de passe !</string>
@@ -655,7 +655,7 @@
   <string name="backup_body">Nous ne conservons pas vos clés privées ni aucune autre méthode d\'accès. Il est important de conserver la sauvegarde (keystore) de votre portefeuille en sécurité.</string>
   <string name="backup_additional_security_title">Sécurité supplémentaire (facultatif)</string>
   <string name="backup_additional_security_body">Choisissez un mot de passe</string>
-  <string name="backup_button">Back up wallet</string>
+  <string name="backup_button">Sauvegarde portefeuille</string>
   <string name="backup_ready_title">Votre sauvegarde est prête !\nConservez-la en sécurité.</string>
   <string name="backup_ready_save_on_email">Enregistrez-la sur votre courrier électronique</string>
   <string name="backup_ready_email_button">Envoyer au courriel</string>
@@ -666,7 +666,7 @@
   <string name="backup_confirmation_tips_3"><b>Copiez-le</b> sur un stockage cloud privé et sécurisé.</string>
   <string name="backup_tooltip_body">Faites une sauvegarde de votre portefeuille !</string>
   <string name="backup_tooltip_later_button">Peut-être plus tard</string>
-  <string name="backup_tooltip_backup_button">Back up</string>
+  <string name="backup_tooltip_backup_button">Sauvegarde</string>
   <string name="backup_notification_title">Faites une sauvegarde de votre portefeuille !</string>
   <string name="backup_notification_body">Gardez vos fonds en sécurité et assurez-vous que vous pouvez toujours accéder à votre portefeuille.</string>
   <string name="backup_choose_wallet_title">Choisissez un portefeuille à sauvegarder</string>
@@ -678,9 +678,9 @@
   <string name="backup_wallet_button">Sauvegarde portefeuille</string>
   <string name="backup_success_save_on_email">Votre fichier de sauvegarde est dans votre courriel.</string>
   <string name="backup_success_save_on_device">Votre fichier de sauvegarde est stocké dans votre appareil.</string>
-  <string name="backup_popup_title">Back up your wallet now!</string>
-  <string name="backup_popup_purchase_body">Keep your funds safe at all times.</string>
-  <string name="backup_popup_gamification_body">Keep your bonus level safe at all times.</string>
+  <string name="backup_popup_title">Sauvegardez votre portefeuille !</string>
+  <string name="backup_popup_purchase_body">Gardez vos fonds en sécurité à tout moment.</string>
+  <string name="backup_popup_gamification_body">Gardez tout le temps votre niveau de bonus en sécurité.</string>
   <!--Wallets Management-->
   <string name="wallets_title">Portefeuilles</string>
   <string name="wallets_total_balance_title">Solde total en %s</string>
