@@ -146,6 +146,7 @@
   <color name="etherscan_transaction_clipboard">#FF5F84</color>
 
   <color name="vip_badge_background_color">#4DEC9B1A</color>
+  <color name="only_for_vip_background_color">#EFA226</color>
 
   <!-- Backup -->
 
