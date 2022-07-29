@@ -599,7 +599,7 @@
   <string name="referral_view_notifications_title">Pemberitahuan</string>
   <string name="referral_share_sheet_title">Kongsi pautan jemputan melalui:</string>
   <string name="referral_view_unverified_body">Dapatkan Kredit AppCoins sebanyak %s bagi setiap rakan. Anda perlu sahkan dompet terlebih dahulu.</string>
-  <string name="referral_view_verify_button">Verify wallet</string>
+  <string name="referral_view_verify_button">Sahkan dompet</string>
   <string name="referral_view_i_have_been_invited_button">Saya telah dijemput</string>
   <string name="referral_view_dropup_menu_friends_invited">Rakan telah dijemput</string>
   <string name="referral_view_dropup_menu_earned">Diperoleh</string>
@@ -634,7 +634,7 @@
   <string name="update_wallet_hard_body">Nampaknya, anda menggunakan versi Dompet AppCoins yang lama. Sila kemas kini untuk menikmati pengalaman dan keselamatan terbaik.</string>
   <string name="update_wallet_soft_title">Jangan ketinggalan!</string>
   <string name="update_wallet_soft_body">Memastikan Dompet AppCoins sentiasa dikemas kini menjamin pengalaman terbaik.</string>
-  <string name="update_button">Update</string>
+  <string name="update_button">Kemas kini</string>
   <!--Backup and Import-->
   <string name="backup_home_notification_title">Sandar Dompet Anda</string>
   <string name="backup_home_notification_body">Anda pernah hilang telefon? Buat sandaran dompet anda sekarang!</string>
@@ -695,20 +695,20 @@
   <string name="wallets_2nd_view_other_wallets_title">Dompet Lain</string>
   <string name="wallets_2nd_view_import_button">Dapatkan semula dompet</string>
   <string name="wallets_2nd_view_create_button">Create new</string>
-  <string name="wallet_view_copy_button">Copy</string>
+  <string name="wallet_view_copy_button">Salin</string>
   <string name="wallet_view_share_button">Kongsi</string>
   <string name="wallet_view_total_balance_title">Jumlah Baki</string>
-  <string name="wallet_view_remove_button">Remove wallet</string>
-  <string name="wallet_view_backup_button">Back up wallet</string>
-  <string name="wallet_view_activate_button">Make this wallet active</string>
+  <string name="wallet_view_remove_button">Alih keluar dompet</string>
+  <string name="wallet_view_backup_button">Buat sandaran dompet</string>
+  <string name="wallet_view_activate_button">Aktifkan dompet ini</string>
   <string name="wallet_view_active_body">Ini dompet aktif anda.</string>
   <!--Remove Wallet-->
   <string name="remove_wallet_title">Alih Keluar Dompet</string>
   <string name="remove_wallet_body">Kami amat mengesyorkan supaya anda buat sandaran dompet sebelum mengalih ia keluar. Anda tidak boleh mengaksesnya semula melainkan anda mempunyai sandaran.</string>
-  <string name="remove_wallet_backup_button">Back up wallet</string>
-  <string name="remove_wallet_no_backup_button">Remove wallet</string>
+  <string name="remove_wallet_backup_button">Buat sandaran dompet</string>
+  <string name="remove_wallet_no_backup_button">Alih keluar dompet</string>
   <string name="remove_wallet_confirm_body">Anda pasti anda mahu alih keluar dompet ini?</string>
-  <string name="remove_wallet_no_button">No, go back</string>
+  <string name="remove_wallet_no_button">Kembali</string>
   <string name="remove_wallet_yes_button">Yes, remove wallet</string>
   <string name="remove_wallet_removed_body">Dompet sudah dialih keluar!</string>
   <!--Tranfer-->
