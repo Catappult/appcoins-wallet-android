@@ -27,7 +27,7 @@
   <string name="credits">Kredyty</string>
   <string name="label_new">Nowość</string>
   <string name="got_it_button">Rozumiem</string>
-  <string name="change_button">Change</string>
+  <string name="change_button">Zmień</string>
   <string name="vip">VIP</string>
   <string name="low_storage_error">Nie ma wystarczająco dużo miejsca</string>
   <string name="no_camera_permission_title">Zezwolenie na używanie aparatu</string>
@@ -381,8 +381,8 @@
   <string name="topup_bonus_body">Możesz wykorzystać ten bonus przy następnych zakupach.</string>
   <string name="topup_minimum_value">Minimalne doładowanie to %s</string>
   <string name="topup_maximum_value">Maksymalne doładowanie to %s</string>
-  <string name="topup_no_method_available_title">No payment methods!</string>
-  <string name="topup_no_method_available_body">There are no payment methods available to top up in your country at the moment. Stay tuned!</string>
+  <string name="topup_no_method_available_title">Brak metod płatności!</string>
+  <string name="topup_no_method_available_body">W tym momencie nie ma metod płatności pozwalających na doładowanie w Twoim kraju. Niebawem!</string>
   <!--Balance-->
   <string name="balance_title">Stan konta</string>
   <string name="balance_total_body">Saldo w %s</string>
@@ -441,7 +441,7 @@
   <string name="remind_later_button">Przypomnij później</string>
   <string name="get_code_button">Kod</string>
   <string name="confirm_button">Potwierdź</string>
-  <string name="withdraw_button">Withdraw</string>
+  <string name="withdraw_button">Wypłać</string>
   <string name="email_here_field">Twój adres email&#8230;</string>
   <string name="understood_button">Rozumiem!</string>
   <string name="skip_button">Pomiń</string>
@@ -561,7 +561,7 @@
   <string name="purchase_paytmupi_install_disclaimer">Musisz zainstalować Paytm UPI.</string>
   <string name="purchase_app_needed_body">By zrealizować zakup, potrzebujesz tej aplikacji.</string>
   <string name="purchase_apps_needed_body">By zrealizować zakup, potrzebujesz jednej z tych aplikacji.</string>
-  <string name="purchase_error_connection_issue">It seems there is a problem with your internet connection! Please check it and try again.</string>
+  <string name="purchase_error_connection_issue">Wygląda na to, że masz problem z połączeniem z internetem! Sprawdź to i spróbuj ponownie.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">Adres rozliczeniowy</string>
   <string name="purchase_address_address_field">Adres</string>
@@ -595,11 +595,11 @@
   <string name="referral_view_title">Zaproś Znajomych</string>
   <string name="referral_view_title_1">Zaproś Znajomych i Zarób Więcej!</string>
   <string name="referral_view_verified_body">Otrzymuj %s Kredytów AppCoins za każdego znajomego. Po prostu udostępnij link!</string>
-  <string name="referral_view_share_link_button">Share invite link</string>
+  <string name="referral_view_share_link_button">Udostępnij link</string>
   <string name="referral_view_notifications_title">Powiadomienia</string>
   <string name="referral_share_sheet_title">Udostępnij link przez:</string>
   <string name="referral_view_unverified_body">Otrzymaj %s AppCoins Credits dla każdego znajomego. Najpierw zweryfikuj swój portfel.</string>
-  <string name="referral_view_verify_button">Verify wallet</string>
+  <string name="referral_view_verify_button">Zweryfikuj portfel</string>
   <string name="referral_view_i_have_been_invited_button">Zostałem zaproszony</string>
   <string name="referral_view_dropup_menu_friends_invited">Zaproszonych Znajomych</string>
   <string name="referral_view_dropup_menu_earned">Zarobione</string>
@@ -634,18 +634,18 @@
   <string name="update_wallet_hard_body">Korzystasz ze starej wersji portfela AppCoins. Zaktualizuj ją do najnowszej wersji aby zapewnić bezpieczeństwo i łatwość użytkowania.</string>
   <string name="update_wallet_soft_title">Nie zostań w tyle!</string>
   <string name="update_wallet_soft_body">Posiadanie aktualnej wersji portfela AppCoins gwarantuje najlepsze doznania.</string>
-  <string name="update_button">Update</string>
+  <string name="update_button">Aktualizuj</string>
   <!--Backup and Import-->
   <string name="backup_home_notification_title">Utwórz kopię zapasową portfela</string>
   <string name="backup_home_notification_body">Zgubiłeś/aś kiedyś telefon? Zrób kopię zapasową portfela teraz!</string>
-  <string name="backup_confirmation_no_share_title">Backup Done!</string>
+  <string name="backup_confirmation_no_share_title">Kopia utworzona!</string>
   <string name="backup_save_dialogue_title">Zapisz kopię zapasową</string>
   <string name="backup_save_dialogue_body">Nazwij plik z kopią zapasową.</string>
   <string name="import_wallet_title">Odzyskaj portfel</string>
   <string name="import_wallet_body">Wklej kopię zapasową portfela poniżej.</string>
   <string name="import_wallet_keystore_private_keys">Prywatne klucze lub keystore</string>
   <string name="import_wallet_from_file_title">Lub odzyskaj z pliku</string>
-  <string name="import_wallet_file_button">Recover from file</string>
+  <string name="import_wallet_file_button">Odzyskaj z pliku</string>
   <string name="import_wallet_button">Odzyskaj portfel</string>
   <string name="import_wallet_password_body">Ten portfel jest chroniony hasłem!</string>
   <string name="import_wallet_wrong_password_body">Oj, niepoprawne hasło!</string>
@@ -655,7 +655,7 @@
   <string name="backup_body">Nie przechowujemy Twoich prywatnych kluczy lub innych metod dostępu. Ważne jest aby kopia zapasowa Twojego portfela była bezpieczna.</string>
   <string name="backup_additional_security_title">Ekstra bezpiecznie (opcjonalnie)</string>
   <string name="backup_additional_security_body">Stwórz hasło</string>
-  <string name="backup_button">Back up wallet</string>
+  <string name="backup_button">Utwórz kopię zapasową</string>
   <string name="backup_ready_title">Backup gotowy!\nDbaj o niego.</string>
   <string name="backup_ready_save_on_email">Zapisz na emailu</string>
   <string name="backup_ready_email_button">Wyślij na maila</string>
@@ -666,7 +666,7 @@
   <string name="backup_confirmation_tips_3"><b>Umieść kopię</b> w bezpiecznej prywatnej chmurze.</string>
   <string name="backup_tooltip_body">Stwórz backup portfela!</string>
   <string name="backup_tooltip_later_button">Może później</string>
-  <string name="backup_tooltip_backup_button">Back up</string>
+  <string name="backup_tooltip_backup_button">Kopia zapasowa</string>
   <string name="backup_notification_title">Stwórz backup portfela!</string>
   <string name="backup_notification_body">Dbaj o bezpieczeństwo swoich środków i upewnij się, że masz dostęp do portfela.</string>
   <string name="backup_choose_wallet_title">Wybierz portfel</string>
@@ -697,18 +697,18 @@
   <string name="wallets_2nd_view_balance_title">Stan konta:</string>
   <string name="wallets_2nd_view_other_wallets_title">Inne portfele</string>
   <string name="wallets_2nd_view_import_button">Odzyskaj portfel</string>
-  <string name="wallets_2nd_view_create_button">Create new</string>
-  <string name="wallet_view_copy_button">Copy</string>
+  <string name="wallets_2nd_view_create_button">Stwórz nowy</string>
+  <string name="wallet_view_copy_button">Kopiuj</string>
   <string name="wallet_view_share_button">Udostępnij</string>
   <string name="wallet_view_total_balance_title">Łączne saldo</string>
-  <string name="wallet_view_remove_button">Remove wallet</string>
-  <string name="wallet_view_backup_button">Back up wallet</string>
-  <string name="wallet_view_activate_button">Make this wallet active</string>
+  <string name="wallet_view_remove_button">Usuń portfel</string>
+  <string name="wallet_view_backup_button">Utwórz kopię zapasową</string>
+  <string name="wallet_view_activate_button">Aktywuj ten portfel</string>
   <string name="wallet_view_active_body">To Twój aktywny portfel.</string>
   <!--Remove Wallet-->
   <string name="remove_wallet_title">Usuń portfel</string>
   <string name="remove_wallet_body">Mocno rekomendujemy stworzenie kopii zapasowej portfela przed usunięciem. Nie uzyskasz już do niego dostępu bez kopii zapasowej.</string>
-  <string name="remove_wallet_backup_button">Back up wallet</string>
+  <string name="remove_wallet_backup_button">Utwórz kopię zapasową</string>
   <string name="remove_wallet_no_backup_button">Remove wallet</string>
   <string name="remove_wallet_confirm_body">Czy na pewno chcesz usunąć ten portfel?</string>
   <string name="remove_wallet_no_button">No, go back</string>
