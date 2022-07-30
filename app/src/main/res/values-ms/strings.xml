@@ -382,7 +382,7 @@
   <string name="topup_minimum_value">Tambah nilai minimum ialah %s</string>
   <string name="topup_maximum_value">Tambah nilai maksimum ialah %s</string>
   <string name="topup_no_method_available_title">Tiada kaedah pembayaran!</string>
-  <string name="topup_no_method_available_body">There are no payment methods available to top up in your country at the moment. Stay tuned!</string>
+  <string name="topup_no_method_available_body">Tiada kaedah pembayaran tersedia untuk tambah nilai di negara anda buat masa ini. Ikuti perkembangan seterusnya!</string>
   <!--Balance-->
   <string name="balance_title">Baki</string>
   <string name="balance_total_body">Jumlah Baki dalam %s</string>
@@ -1076,14 +1076,14 @@
   <string name="onboarding_1st_explore_wallet_button">Atau terokai Dompet</string>
   <!-- VIP Program -->
   <string name="vip_program_reached_notification_title">Selamat datang ke Program VIP</string>
-  <string name="vip_program_reached_notification_body">You\'re now a VIP user with access to special promotions and deals. Tap for more details!</string>
+  <string name="vip_program_reached_notification_body">Anda kini pengguna VIP dengan akses promosi dan tawaran khas. Ketik untuk maklumat lanjut!</string>
   <string name="vip_program_almost_notification_title">Hampir selesai!</string>
-  <string name="vip_program_almost_notification_body">You\'re about to become a VIP user. Tap for more details!</string>
-  <string name="vip_program_almost_onboarding_title">You\'re about to become a VIP user!</string>
-  <string name="vip_program_almost_onboarding_body">Continue playing and making purchases to access exclusive promotions and deals. Ready to become the ultimate player?</string>
+  <string name="vip_program_almost_notification_body">Anda bakal jadi pengguna VIP. Ketik untuk maklumat lanjut!</string>
+  <string name="vip_program_almost_onboarding_title">Anda bakal jadi pengguna VIP!</string>
+  <string name="vip_program_almost_onboarding_body">Teruskan bermain dan buat pembelian untuk mengakses promosi dan tawaran khas. Dah sedia untuk jadi pemain ulung?</string>
   <string name="vip_program_onboarding_header_1">Tahniah!</string>
   <string name="vip_program_onboarding_header_2">Kini anda pengguna VIP</string>
-  <string name="vip_program_onboarding_body">Our VIP Program is tailored for our most valued members... like yourself! You have now access to the best promotions and referral programs to earn more rewards.</string>
+  <string name="vip_program_onboarding_body">Program VIP kami dikhususkan untuk ahli kami yang paling dihargai... macam anda! Anda kini boleh akses promosi terbaik dan program rujukan untuk dapat lebih banyak ganjaran.</string>
   <string name="vip_program_promotions_tab_1">Kini anda pengguna VIP.</string>
   <string name="vip_program_promotions_tab_2">Semak promosi yang kami sediakan khas untuk anda!</string>
   <string name="vip_program_exclusivity_tag">Hanya untuk VIP</string>
@@ -1092,13 +1092,13 @@
   <string name="vip_program_promotions_list_title">Promosi istimewa untuk anda</string>
   <string name="vip_program_promo_code_tag">Kod promo</string>
   <string name="vip_program_referral_page_title">Program Rujukan VIP</string>
-  <string name="vip_program_referral_page_body">Share this promo code with your community and friends for everyone to earn while playing. For every in-app purchase they make, both <b>you and your friends will receive %s%% bonus</b> on top of other active promotions and for an entire month!</string>
-  <string name="vip_program_referral_page_share_title">Share this code with your friends</string>
-  <string name="vip_program_referral_page_earned_body">%1$s%2$s earned from %3$s referrals</string>
+  <string name="vip_program_referral_page_body">Kongsi kod promo ini dengan komuniti dan rakan anda agar mereka dapat manfaat sambil bermain. Bagi setiap pembelian dalam aplikasi yang dibuat, <b>anda dan rakan anda akan dapat bonus %s%%</b> dan juga nikmati promosi aktif lain sepanjang bulan!</string>
+  <string name="vip_program_referral_page_share_title">Kongsi kod ini dengan rakan anda</string>
+  <string name="vip_program_referral_page_earned_body">%1$s%2$s diperoleh daripada rujukan %3$s</string>
   <string name="vip_program_gamification_title">Apa tahap bonus saya?</string>
   <string name="vip_program_gamification_amount_purchases_bonus">Bonus diterima hasil pembelian anda.</string>
   <string name="vip_program_gamification_amoung_referral_bonus">Bonus diterima daripada rujukan</string>
   <string name="vip_program_max_bonus_title">Nikmati Bonus %s%% bagi setiap pembelian anda</string>
   <string name="vip_program_max_bonus_body">Anda sudah di hujung benua.</string>
-  <string name="vip_program_max_bonus_short">%s%% Bonus on every purchase.</string>
+  <string name="vip_program_max_bonus_short">Bonus %s%% bagi setiap pembelian.</string>
 </resources>
