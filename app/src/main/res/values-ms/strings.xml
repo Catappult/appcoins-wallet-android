@@ -1061,7 +1061,7 @@
   <string name="mywallet_unverified_title">Dompet Tidak Disahkan</string>
   <string name="mywallet_unverified_body">Sahkan kaedah pembayaran untuk elak sekatan.</string>
   <string name="mywallet_backed_up_date">Anda telah sandarkan dompet anda di %s.</string>
-  <string name="mywallet_backup_again_button">Back up again</string>
+  <string name="mywallet_backup_again_button">Sandar semula</string>
   <string name="mywallet_verify_payment_method_button">Sahkan kad baru</string>
   <string name="mywallet_choose_name_header">Pilih nama untuk dompet anda</string>
   <string name="mywallet_choose_name_field">Nama dompet di sini...</string>
@@ -1073,7 +1073,7 @@
   <string name="onboarding_1st_title">Tahniah! Anda sudah pasang Dompet AppCoins.</string>
   <string name="onboarding_1st_body">Kembali ke permainan untuk lengkapkan pembelian anda.</string>
   <string name="onboarding_1st_back_to_game_button">Kembali ke permainan</string>
-  <string name="onboarding_1st_explore_wallet_button">Or explore the Wallet</string>
+  <string name="onboarding_1st_explore_wallet_button">Atau terokai Dompet</string>
   <!-- VIP Program -->
   <string name="vip_program_reached_notification_title">Selamat datang ke Program VIP</string>
   <string name="vip_program_reached_notification_body">You\'re now a VIP user with access to special promotions and deals. Tap for more details!</string>
@@ -1082,23 +1082,23 @@
   <string name="vip_program_almost_onboarding_title">You\'re about to become a VIP user!</string>
   <string name="vip_program_almost_onboarding_body">Continue playing and making purchases to access exclusive promotions and deals. Ready to become the ultimate player?</string>
   <string name="vip_program_onboarding_header_1">Tahniah!</string>
-  <string name="vip_program_onboarding_header_2">You\'re now a VIP user</string>
+  <string name="vip_program_onboarding_header_2">Kini anda pengguna VIP</string>
   <string name="vip_program_onboarding_body">Our VIP Program is tailored for our most valued members... like yourself! You have now access to the best promotions and referral programs to earn more rewards.</string>
-  <string name="vip_program_promotions_tab_1">You\'re now a VIP user.</string>
-  <string name="vip_program_promotions_tab_2">Check the promotions we have have just for you!</string>
+  <string name="vip_program_promotions_tab_1">Kini anda pengguna VIP.</string>
+  <string name="vip_program_promotions_tab_2">Semak promosi yang kami sediakan khas untuk anda!</string>
   <string name="vip_program_exclusivity_tag">Hanya untuk VIP</string>
-  <string name="vip_program_referral_button_title">VIP Referral Program</string>
-  <string name="vip_program_referral_button_body">%s%% Bonus for you and your friends.</string>
-  <string name="vip_program_promotions_list_title">Special promotions for you</string>
+  <string name="vip_program_referral_button_title">Program Rujukan VIP</string>
+  <string name="vip_program_referral_button_body">Bonus %s%% untuk anda dan rakan.</string>
+  <string name="vip_program_promotions_list_title">Promosi istimewa untuk anda</string>
   <string name="vip_program_promo_code_tag">Kod promo</string>
   <string name="vip_program_referral_page_title">Program Rujukan VIP</string>
   <string name="vip_program_referral_page_body">Share this promo code with your community and friends for everyone to earn while playing. For every in-app purchase they make, both <b>you and your friends will receive %s%% bonus</b> on top of other active promotions and for an entire month!</string>
   <string name="vip_program_referral_page_share_title">Share this code with your friends</string>
   <string name="vip_program_referral_page_earned_body">%1$s%2$s earned from %3$s referrals</string>
-  <string name="vip_program_gamification_title">What\'s my bonus level?</string>
-  <string name="vip_program_gamification_amount_purchases_bonus">Bonus received from your purchases.</string>
-  <string name="vip_program_gamification_amoung_referral_bonus">Bonus received from referrals</string>
-  <string name="vip_program_max_bonus_title">Enjoy your %s%% Bonus on every purchase</string>
-  <string name="vip_program_max_bonus_body">You\'ve reached the limits of the solar system.</string>
+  <string name="vip_program_gamification_title">Apa tahap bonus saya?</string>
+  <string name="vip_program_gamification_amount_purchases_bonus">Bonus diterima hasil pembelian anda.</string>
+  <string name="vip_program_gamification_amoung_referral_bonus">Bonus diterima daripada rujukan</string>
+  <string name="vip_program_max_bonus_title">Nikmati Bonus %s%% bagi setiap pembelian anda</string>
+  <string name="vip_program_max_bonus_body">Anda sudah di hujung benua.</string>
   <string name="vip_program_max_bonus_short">%s%% Bonus on every purchase.</string>
 </resources>
