@@ -709,10 +709,10 @@
   <string name="remove_wallet_title">Usuń portfel</string>
   <string name="remove_wallet_body">Mocno rekomendujemy stworzenie kopii zapasowej portfela przed usunięciem. Nie uzyskasz już do niego dostępu bez kopii zapasowej.</string>
   <string name="remove_wallet_backup_button">Utwórz kopię zapasową</string>
-  <string name="remove_wallet_no_backup_button">Remove wallet</string>
+  <string name="remove_wallet_no_backup_button">Usuń portfel</string>
   <string name="remove_wallet_confirm_body">Czy na pewno chcesz usunąć ten portfel?</string>
-  <string name="remove_wallet_no_button">No, go back</string>
-  <string name="remove_wallet_yes_button">Yes, remove wallet</string>
+  <string name="remove_wallet_no_button">Nie, wróć</string>
+  <string name="remove_wallet_yes_button">Tak, usuń portfel</string>
   <string name="remove_wallet_removed_body">Usunięto portfel!</string>
   <!--Tranfer-->
   <string name="tranfer_bottom_navigation">Przelewy</string>
@@ -762,14 +762,14 @@
   <string name="subscriptions_canceled_body">Anulowano</string>
   <string name="subscriptions_details_disclaimer">Wartość w AppCoins różnić się od poprzedniej ze względu na kurs walut.</string>
   <string name="subscriptions_details_button">Szczegóły</string>
-  <string name="subscriptions_manage_button">Manage subscription</string>
-  <string name="subscriptions_cancel_button">Cancel subscription</string>
-  <string name="subscriptions_renew_subscription_button">Renew subscription</string>
+  <string name="subscriptions_manage_button">Zarządzaj subskrypcją</string>
+  <string name="subscriptions_cancel_button">Rezygnuj</string>
+  <string name="subscriptions_renew_subscription_button">Odnów subskrybcję</string>
   <string name="subscriptions_renewed_confirmation_title">Subskrypcja odnowiona!</string>
   <string name="subscriptions_cancel_title">Rezygnuj z subskrypcji</string>
   <string name="subscriptions_cancel_body">Na pewno chcesz zrezygnować z subskrypcji?</string>
-  <string name="subscriptions_cancel_no_button">No, go back</string>
-  <string name="subscriptions_cancel_yes_button">Yes, cancel subscription</string>
+  <string name="subscriptions_cancel_no_button">Nie, wróć</string>
+  <string name="subscriptions_cancel_yes_button">Tak, zrezygnuj</string>
   <string name="subscriptions_cancel_confirmation_title">Subskrypcja anulowana!</string>
   <string name="subscriptions_cancel_confirmation_body">Za tę subskrypcję nie będzie już naliczana opłata i można z niej korzystać do %s.</string>
   <string name="subscriptions_category_title">Subskrypcja</string>
@@ -796,7 +796,7 @@
   <string name="gamif_card_start">Wciąż jesteś na Ziemi</string>
   <string name="gamif_card_title">Jesteś na %s</string>
   <string name="gamif_card_body">Wydaj jeszcze %s AppCoins, by przejść wyżej.</string>
-  <string name="gamif_card_maximum_body">Spend %s AppCoins more to reach the maximum level.</string>
+  <string name="gamif_card_maximum_body">Wydaj jeszcze %s AppCoins, by osiągnąć max poziom.</string>
   <string name="gamif_bonus">%s%% Bonusu</string>
   <string name="gamif_placeholder_earth">Ziemia</string>
   <string name="gamif_quote_earth">\"Łączy nas Ziemia\" – Wendell Berry</string>
@@ -843,7 +843,7 @@
   <string name="carrier_billing_phone_confirmation_body">Twój numer telefonu to%s.</string>
   <string name="carrier_billing_enter_pin_body">Wpisz PIN otrzymany w wiadomości SMS.</string>
   <string name="carrier_billing_code_field">Twój kod...</string>
-  <string name="carrier_billing_code_resend_button">Resend code</string>
+  <string name="carrier_billing_code_resend_button">Wyśłij kod ponownie</string>
   <string name="carrier_billing_submit_button">Wyślij</string>
   <string name="carrier_billing_number_not_supported">Hm, twój numer telefonu nie jest kompatybilny z metodą płatności.</string>
   <string name="carrier_billing_terms_disclaimer">Klikając Wyślij potwierdzasz, że akceptujesz Warunki korzystania z usługi i Politykę Prywatności.</string>
@@ -941,7 +941,7 @@
   <string name="rate_us_improve_field__empty_error">Napisz coś</string>
   <string name="rate_us_possitive_thanks_title">Dziękujemy!</string>
   <string name="rate_us_possitive_thanks_body">Fajnie, że podoba ci się nasza aplikacja. Może ocenisz ją w app storze?</string>
-  <string name="rate_us_possitive_rate_button">Rate the AppCoins Wallet</string>
+  <string name="rate_us_possitive_rate_button">Oceń AppCoins Wallet</string>
   <string name="rate_us_possitive_done_title">Dziękujemy za opinię!</string>
   <string name="rate_us_back_title">Pomożesz nam?</string>
   <string name="rate_us_back_body">Oceń AppCoins Wallet, żebyśmy wiedzieli co w nim ulepszyć.</string>
@@ -1032,8 +1032,8 @@
   <string name="promo_code_view_field">Tu wpisz kod...</string>
   <string name="promo_code_view_error">Kod nieważny. Spróbuj wpisać inny!</string>
   <string name="promo_code_activated">Kod promocyjny aktywowany!</string>
-  <string name="promo_code_delete_button">Delete</string>
-  <string name="promo_code_replace_button">Replace</string>
+  <string name="promo_code_delete_button">Usuń</string>
+  <string name="promo_code_replace_button">Zastąp</string>
   <string name="promo_code_active_tag">Aktywny</string>
   <string name="promo_code_expired_tag">Wygasł</string>
   <string name="promo_code_success_title">Zrobione!</string>
@@ -1088,7 +1088,7 @@
   <string name="mywallet_unverified_title">Portfel niezweryfikowany</string>
   <string name="mywallet_unverified_body">Sprawdź metodę płatności, aby uniknąć blokad.</string>
   <string name="mywallet_backed_up_date">Utworzono kopię zapasową na %s.</string>
-  <string name="mywallet_backup_again_button">Back up again</string>
+  <string name="mywallet_backup_again_button">Ponownie utwórz kopię</string>
   <string name="mywallet_verify_payment_method_button">Zweryfikuj nową kartę</string>
   <string name="mywallet_choose_name_header">Nazwij kopię zapasową portfela</string>
   <string name="mywallet_choose_name_field">Nazwa portfela...</string>
@@ -1100,9 +1100,9 @@
   <string name="onboarding_1st_title">Gratulacje! Zainstalowałeś portfel AppCoins.</string>
   <string name="onboarding_1st_body">Wróć do gry, by zakończyć zakup.</string>
   <string name="onboarding_1st_back_to_game_button">Wróć do gry</string>
-  <string name="onboarding_1st_explore_wallet_button">Or explore the Wallet</string>
+  <string name="onboarding_1st_explore_wallet_button">Lub poznaj Portfel</string>
   <!-- VIP Program -->
-  <string name="vip_program_reached_notification_title">Welcome to the VIP Program</string>
+  <string name="vip_program_reached_notification_title">Witaj w Programie VIP</string>
   <string name="vip_program_reached_notification_body">You\'re now a VIP user with access to special promotions and deals. Tap for more details!</string>
   <string name="vip_program_almost_notification_title">Almost there!</string>
   <string name="vip_program_almost_notification_body">You\'re about to become a VIP user. Tap for more details!</string>
