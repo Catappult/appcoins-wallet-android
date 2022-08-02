@@ -92,17 +92,29 @@ class SharedPreferencesUserStatsLocalData @Inject constructor(
     return promotions.map {
       when (it.id) {
         GAMIFICATION_ID ->
-          GamificationResponse(it.id, it.priority, it.bonus!!, it.totalSpend!!, it.totalEarned!!,
+          GamificationResponse(it.id, it.priority, it.gamificationType, it.bonus!!, it.totalSpend!!, it.totalEarned!!,
               it.level!!, it.nextLevelAmount, it.status!!, it.bundle!!)
-        REFERRAL_ID -> ReferralResponse(it.id, it.priority, it.maxAmount!!, it.available!!,
+        REFERRAL_ID -> ReferralResponse(it.id, it.priority, it.gamificationType, it.maxAmount!!, it.available!!,
             it.bundle!!, it.completed!!, it.currency!!, it.symbol!!, it.invited!!, it.link,
             it.pendingAmount!!, it.receivedAmount!!, it.userStatus, it.minAmount!!, it.status!!,
             it.amount!!)
         else ->
-          GenericResponse(it.id, it.priority, it.currentProgress, it.notificationDescription,
-              it.perkDescription, it.appName, it.endDate!!, it.icon, it.linkedPromotionId,
-              it.objectiveProgress,
-              it.startDate, it.notificationTitle!!, it.viewType!!, it.detailsLink)
+          GenericResponse(
+            id = it.id,
+            priority = it.priority,
+            gamificationType = it.gamificationType,
+            currentProgress = it.currentProgress,
+            notificationDescription = it.notificationDescription,
+            perkDescription = it.perkDescription,
+            appName = it.appName,
+            endDate = it.endDate!!,
+            icon = it.icon,
+            linkedPromotionId = it.linkedPromotionId,
+            objectiveProgress = it.objectiveProgress,
+            startDate = it.startDate,
+            notificationTitle = it.notificationTitle!!,
+            viewType = it.viewType!!,
+            detailsLink = it.detailsLink)
       }
     }
   }
@@ -112,11 +124,11 @@ class SharedPreferencesUserStatsLocalData @Inject constructor(
       val results: List<PromotionEntity> = promotions.map {
         when (it) {
           is GamificationResponse ->
-            PromotionEntity(id = it.id, priority = it.priority, bonus = it.bonus,
+            PromotionEntity(id = it.id, priority = it.priority,  gamificationType = it.gamificationType, bonus = it.bonus,
                 totalSpend = it.totalSpend, totalEarned = it.totalEarned, level = it.level,
                 nextLevelAmount = it.nextLevelAmount, status = it.status, bundle = it.bundle)
           is ReferralResponse -> {
-            PromotionEntity(id = it.id, priority = it.priority, maxAmount = it.maxAmount,
+            PromotionEntity(id = it.id, priority = it.priority,  gamificationType = it.gamificationType, maxAmount = it.maxAmount,
                 available = it.available, bundle = it.bundle, completed = it.completed,
                 currency = it.currency, symbol = it.symbol, invited = it.invited, link = it.link,
                 pendingAmount = it.pendingAmount, receivedAmount = it.receivedAmount,
@@ -126,6 +138,7 @@ class SharedPreferencesUserStatsLocalData @Inject constructor(
           else -> {
             val genericResponse = it as GenericResponse
             PromotionEntity(id = genericResponse.id, priority = genericResponse.priority,
+                gamificationType = it.gamificationType,
                 currentProgress = genericResponse.currentProgress,
                 notificationDescription = genericResponse.notificationDescription,
                 perkDescription = genericResponse.perkDescription,

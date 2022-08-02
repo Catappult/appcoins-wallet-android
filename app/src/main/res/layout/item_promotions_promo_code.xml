@@ -12,18 +12,43 @@
       android:id="@+id/default_container"
       android:layout_width="match_parent"
       android:layout_height="match_parent"
-      android:background="@drawable/rectangle_promotions_promo_code"
+      android:paddingBottom="14dp"
       >
 
     <ImageView
+        android:id="@+id/active_icon_border"
+        android:layout_width="66dp"
+        android:layout_height="66dp"
+        app:layout_constraintBottom_toBottomOf="@id/active_icon"
+        app:layout_constraintEnd_toEndOf="@id/active_icon"
+        app:layout_constraintStart_toStartOf="@id/active_icon"
+        app:layout_constraintTop_toTopOf="@id/active_icon"
+        android:background="@drawable/promo_icon_border_background"
+        />
+
+    <ImageView
         android:id="@+id/active_icon"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:layout_marginStart="@dimen/normal_margin"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="19dp"
+        android:layout_marginBottom="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toTopOf="@id/active_app_name"
         tools:srcCompat="@drawable/ic_promotions_default"
+        />
+
+    <ImageView
+        android:id="@+id/active_icon_border_vip"
+        android:layout_width="78dp"
+        android:layout_height="78dp"
+        app:layout_constraintBottom_toBottomOf="@id/active_icon"
+        app:layout_constraintEnd_toEndOf="@id/active_icon"
+        app:layout_constraintStart_toStartOf="@id/active_icon"
+        app:layout_constraintTop_toTopOf="@id/active_icon"
+        android:layout_marginStart="0dp"
+
+        android:src="@drawable/frame_vip_ic"
         />
 
     <TextView
@@ -31,11 +56,12 @@
         style="@style/Promotions.TextStyle.AppName"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/normal_margin"
+        android:layout_marginStart="16dp"
         android:layout_marginEnd="@dimen/normal_margin"
+        android:layout_marginTop="14dp"
         app:layout_constraintStart_toEndOf="@id/active_icon"
         app:layout_constraintBottom_toTopOf="@id/active_title"
-        app:layout_constraintTop_toBottomOf="@id/active_container_date"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_chainStyle="spread_inside"
         tools:text="Trivial Drive Sample"
         />
@@ -45,66 +71,90 @@
         style="@style/Promotions.TextStyle.Title"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/normal_margin"
         android:layout_marginEnd="@dimen/normal_margin"
         android:layout_marginTop="@dimen/small_margin"
-        app:layout_constraintStart_toEndOf="@id/active_icon"
+        android:layout_marginBottom="14dp"
+        app:layout_constraintStart_toStartOf="@id/active_app_name"
         app:layout_constraintTop_toBottomOf="@id/active_app_name"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/promotions_promo_code_tag"
         app:layout_constraintVertical_chainStyle="packed"
         tools:text="Spend 200 Appcoins in 5 days and earn a bonus of 120 AppCoins Credits"
         />
 
     <LinearLayout
-        android:id="@+id/active_container_date"
+        android:id="@+id/properties_container"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/big_margin"
-        android:background="@drawable/promotions_promo_code_date_background"
+        android:orientation="horizontal"
+        android:layout_marginTop="14dp"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintStart_toStartOf="@id/active_app_name"
+        app:layout_constraintTop_toBottomOf="@id/active_title"
+        >
+
+      <TextView
+          android:id="@+id/only_for_vip"
+          style="@style/Promotions.TextStyle.Date"
+          android:textColor="@color/promotions_dark_text"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:paddingVertical="2dp"
+          android:paddingHorizontal="4dp"
+          android:background="@drawable/only_for_vip_background"
+          android:visibility="visible"
+          android:layout_gravity="center_vertical"
+          android:text="@string/vip_program_exclusivity_tag"
+          />
+
+      <com.asfoundation.wallet.ui.common.SeparatorView
+          android:id="@+id/separator"
+          android:layout_width="1dp"
+          android:layout_height="12dp"
+          android:layout_marginHorizontal="@dimen/big_margin"
+          android:layout_gravity="center_vertical"
+          android:visibility="visible"
+          app:line_orientation="vertical"
+          app:line_type="solid"
+          />
+
+      <LinearLayout
+          android:id="@+id/active_container_date"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:orientation="horizontal"
+          android:layout_gravity="center_vertical"
+          >
+
+        <ImageView
+            android:layout_width="8dp"
+            android:layout_height="8dp"
+            android:layout_gravity="center_vertical"
+            app:srcCompat="@drawable/ic_clock"
+            />
+
+        <TextView
+            android:id="@+id/active_expiry_date"
+            style="@style/Promotions.TextStyle.Date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="@dimen/small_margin"
+            tools:text="ends in 2 days"
+            />
+      </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/promotions_promo_code_tag"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="0dp"
+        android:background="@drawable/promotions_promo_code_tag_background"
         android:orientation="horizontal"
         android:paddingTop="2dp"
         android:paddingBottom="2dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        >
-
-      <ImageView
-          android:layout_width="8dp"
-          android:layout_height="8dp"
-          android:layout_gravity="center_vertical"
-          android:layout_marginStart="7dp"
-          app:srcCompat="@drawable/ic_clock"
-          app:tint="@color/promotions_active_background"
-          />
-
-      <TextView
-          android:id="@+id/active_expiry_date"
-          style="@style/Promotions.PromoCode.TextStyle.Date"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:layout_gravity="center_vertical"
-          android:layout_marginStart="@dimen/small_margin"
-          android:layout_marginEnd="6dp"
-          android:layout_marginBottom="1dp"
-          tools:text="ends in 2 days"
-          />
-
-    </LinearLayout>
-    <LinearLayout
-        android:id="@+id/promotions_promo_code_tag"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:background="@drawable/promotions_promo_code_tag_background"
-        android:orientation="horizontal"
-        android:paddingStart="2dp"
-        android:paddingTop="2dp"
-        android:paddingEnd="2dp"
-        android:paddingBottom="2dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/active_title"
         >
 
       <TextView
@@ -117,7 +167,55 @@
           android:layout_marginEnd="@dimen/normal_margin"
           android:text="@string/promo_code_promotions_tag"
           />
+
+<!--      <ImageView-->
+<!--          android:layout_width="8dp"-->
+<!--          android:layout_height="8dp"-->
+<!--          android:layout_gravity="center_vertical"-->
+<!--          android:layout_marginStart="7dp"-->
+<!--          app:srcCompat="@drawable/ic_clock"-->
+<!--          app:tint="@color/promotions_active_background"-->
+<!--          />-->
+
+<!--      <TextView-->
+<!--          android:id="@+id/active_expiry_date"-->
+<!--          style="@style/Promotions.PromoCode.TextStyle.Date"-->
+<!--          android:layout_width="wrap_content"-->
+<!--          android:layout_height="wrap_content"-->
+<!--          android:layout_gravity="center_vertical"-->
+<!--          android:layout_marginStart="@dimen/small_margin"-->
+<!--          android:layout_marginEnd="6dp"-->
+<!--          android:layout_marginBottom="1dp"-->
+<!--          tools:text="ends in 2 days"-->
+<!--          />-->
+
     </LinearLayout>
+<!--    <LinearLayout-->
+<!--        android:id="@+id/promotions_promo_code_tag"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginTop="8dp"-->
+<!--        android:background="@drawable/promotions_promo_code_tag_background"-->
+<!--        android:orientation="horizontal"-->
+<!--        android:paddingStart="2dp"-->
+<!--        android:paddingTop="2dp"-->
+<!--        android:paddingEnd="2dp"-->
+<!--        android:paddingBottom="2dp"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@id/active_title"-->
+<!--        >-->
+
+<!--      <TextView-->
+<!--          android:id="@+id/promotions_promo_code_tag_string"-->
+<!--          style="@style/Promotions.PromoCode.TextStyle.Date"-->
+<!--          android:layout_width="wrap_content"-->
+<!--          android:layout_height="wrap_content"-->
+<!--          android:layout_gravity="center_vertical"-->
+<!--          android:layout_marginStart="@dimen/normal_margin"-->
+<!--          android:layout_marginEnd="@dimen/normal_margin"-->
+<!--          android:text="@string/promo_code_promotions_tag"-->
+<!--          />-->
+<!--    </LinearLayout>-->
   </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>
-

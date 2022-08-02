@@ -3,5 +3,5 @@
   <solid android:color="@color/promo_code_promotions_border" />
   <corners
       android:bottomLeftRadius="8dp"
-      android:bottomRightRadius="8dp" />
+      />
 </shape>

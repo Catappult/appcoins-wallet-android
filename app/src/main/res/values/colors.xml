@@ -160,10 +160,11 @@
 
   <!-- Promotions -->
 
-  <color name="promotions_active_background">#00131f</color>
+  <color name="promotions_active_background">#192025</color>
   <color name="promotions_future_background">#26a69ead</color>
   <color name="promotions_future_text_color">#a69ead</color>
   <color name="vouchers_card_bottom_color">#002b4b</color>
+  <color name="promotions_dark_text">#192025</color>
 
   <!-- Gamification -->
 
