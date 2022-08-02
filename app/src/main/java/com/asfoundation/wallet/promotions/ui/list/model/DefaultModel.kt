@@ -55,10 +55,10 @@ abstract class DefaultModel : EpoxyModelWithHolder<DefaultModel.DefaultHolder>()
 
   private fun DefaultHolder.loadIcon(icon: String?) {
     GlideApp.with(itemView.context)
-        .load(icon)
-        .error(R.drawable.ic_promotions_default)
-        .circleCrop()
-        .into(activeIcon)
+      .load(icon)
+      .error(R.drawable.ic_promotions_default)
+      .circleCrop()
+      .into(activeIcon)
   }
 
   private fun DefaultHolder.handleExpiryDate(endDate: Long) {
@@ -80,11 +80,11 @@ abstract class DefaultModel : EpoxyModelWithHolder<DefaultModel.DefaultHolder>()
   private fun DefaultHolder.updateDate(time: Long, @PluralsRes text: Int) {
     activeContainerDate.visibility = View.VISIBLE
     activeExpiryDate.text =
-        itemView.context.resources.getQuantityString(text, time.toInt(), time.toString())
+      itemView.context.resources.getQuantityString(text, time.toInt(), time.toString())
   }
 
   private fun DefaultHolder.handleVip(gamificationType: String?) {
-    when (gamificationType){
+    when (gamificationType) {
       "VIP" -> {
         onlyForVip.visibility = View.VISIBLE
         activeIconBorderVip.visibility = View.VISIBLE

@@ -7,6 +7,6 @@
     android:layout_marginEnd="@dimen/normal_margin"
     >
 
-    <include layout="@layout/item_perks_content" />
+  <include layout="@layout/item_perks_content" />
 </androidx.cardview.widget.CardView>
 

@@ -13,21 +13,21 @@
       android:id="@+id/active_icon_border"
       android:layout_width="66dp"
       android:layout_height="66dp"
+      android:background="@drawable/promo_icon_border_background"
       app:layout_constraintBottom_toBottomOf="@id/active_icon"
       app:layout_constraintEnd_toEndOf="@id/active_icon"
       app:layout_constraintStart_toStartOf="@id/active_icon"
       app:layout_constraintTop_toTopOf="@id/active_icon"
-      android:background="@drawable/promo_icon_border_background"
       />
 
   <ImageView
       android:id="@+id/active_icon"
       android:layout_width="60dp"
       android:layout_height="60dp"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toTopOf="@id/active_app_name"
       android:layout_marginStart="7dp"
       android:layout_marginTop="7dp"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="@id/active_app_name"
       tools:srcCompat="@drawable/ic_promotions_default"
       />
 
@@ -35,13 +35,13 @@
       android:id="@+id/active_icon_border_vip"
       android:layout_width="78dp"
       android:layout_height="78dp"
+      android:layout_marginStart="0dp"
+      android:src="@drawable/frame_vip_ic"
       app:layout_constraintBottom_toBottomOf="@id/active_icon"
       app:layout_constraintEnd_toEndOf="@id/active_icon"
       app:layout_constraintStart_toStartOf="@id/active_icon"
-      app:layout_constraintTop_toTopOf="@id/active_icon"
-      android:layout_marginStart="0dp"
 
-      android:src="@drawable/frame_vip_ic"
+      app:layout_constraintTop_toTopOf="@id/active_icon"
       />
 
   <TextView
@@ -49,9 +49,9 @@
       style="@style/Promotions.TextStyle.AppName"
       android:layout_width="0dp"
       android:layout_height="wrap_content"
-      app:layout_constraintTop_toTopOf="parent"
       app:layout_constraintBottom_toTopOf="@id/active_title"
       app:layout_constraintStart_toEndOf="@id/vertical_guideline"
+      app:layout_constraintTop_toTopOf="parent"
       app:layout_constraintVertical_chainStyle="spread_inside"
       tools:text="Trivial Drive Sample"
       />
@@ -73,9 +73,9 @@
       android:id="@+id/properties_container"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:orientation="horizontal"
       android:layout_marginTop="14dp"
       android:layout_marginBottom="16dp"
+      android:orientation="horizontal"
       app:layout_constraintStart_toStartOf="@id/active_app_name"
       app:layout_constraintTop_toBottomOf="@id/active_title"
       >
@@ -83,23 +83,23 @@
     <TextView
         android:id="@+id/only_for_vip"
         style="@style/Promotions.TextStyle.Date"
-        android:textColor="@color/promotions_dark_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingVertical="2dp"
-        android:paddingHorizontal="4dp"
-        android:background="@drawable/only_for_vip_background"
-        android:visibility="visible"
         android:layout_gravity="center_vertical"
+        android:background="@drawable/only_for_vip_background"
+        android:paddingHorizontal="4dp"
+        android:paddingVertical="2dp"
         android:text="@string/vip_program_exclusivity_tag"
+        android:textColor="@color/promotions_dark_text"
+        android:visibility="visible"
         />
 
     <com.asfoundation.wallet.ui.common.SeparatorView
         android:id="@+id/separator"
         android:layout_width="1dp"
         android:layout_height="12dp"
-        android:layout_marginHorizontal="@dimen/big_margin"
         android:layout_gravity="center_vertical"
+        android:layout_marginHorizontal="@dimen/big_margin"
         android:visibility="visible"
         app:line_orientation="vertical"
         app:line_type="solid"
@@ -109,8 +109,8 @@
         android:id="@+id/active_container_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
         android:layout_gravity="center_vertical"
+        android:orientation="horizontal"
         >
 
       <ImageView
