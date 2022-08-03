@@ -325,8 +325,7 @@ class MyWalletsFragment : BasePageViewFragment(),
     views.myWalletsContent.verifyWalletTitle.setText(R.string.card_verification_wallets_one_step_title)
     views.myWalletsContent.verifyWalletText.visibility = View.VISIBLE
     views.myWalletsContent.verifyWalletText.setText(R.string.card_verification_wallets_one_step_body)
-    views.myWalletsContent.verifyButton.visibility = View.VISIBLE
-    views.myWalletsContent.verifyButton.isEnabled = !disableButton
+    views.myWalletsContent.verifyButton.visibility = if (!disableButton) View.VISIBLE else View.GONE
     views.myWalletsContent.verifyButton.setText(getString(R.string.card_verification_wallets_insert_bode_button))
     views.myWalletsContent.verifyButton.setColor(
       ContextCompat.getColor(
