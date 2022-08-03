@@ -6,6 +6,7 @@ import android.widget.LinearLayout
 import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.annotation.PluralsRes
+import androidx.core.view.isVisible
 import com.airbnb.epoxy.EpoxyAttribute
 import com.airbnb.epoxy.EpoxyModelClass
 import com.airbnb.epoxy.EpoxyModelWithHolder
@@ -15,6 +16,7 @@ import com.asfoundation.wallet.promotions.model.ProgressItem
 import com.asfoundation.wallet.promotions.ui.PromotionsViewModel.Companion.DETAILS_URL_EXTRA
 import com.asfoundation.wallet.promotions.ui.list.PromotionClick
 import com.asfoundation.wallet.ui.common.BaseViewHolder
+import com.asfoundation.wallet.ui.common.SeparatorView
 import java.time.LocalDateTime
 import java.time.ZoneOffset
 import java.util.concurrent.TimeUnit
@@ -46,6 +48,8 @@ abstract class ProgressModel : EpoxyModelWithHolder<ProgressModel.ProgressHolder
     holder.handleExpiryDate(progressItem.endDate)
     holder.activeAppName.text = progressItem.appName
     holder.activeAppName.visibility = if (progressItem.appName != null) View.VISIBLE else View.GONE
+    holder.handleVip(progressItem.gamificationType)
+    holder.handleSeparator()
 
     if (progressItem.objective != null) {
       holder.setProgressWithObjective(progressItem)
@@ -69,10 +73,32 @@ abstract class ProgressModel : EpoxyModelWithHolder<ProgressModel.ProgressHolder
 
   private fun ProgressHolder.loadIcon(icon: String?) {
     GlideApp.with(itemView.context)
-        .load(icon)
-        .error(R.drawable.ic_promotions_default)
-        .circleCrop()
-        .into(activeIcon)
+      .load(icon)
+      .error(R.drawable.ic_promotions_default)
+      .circleCrop()
+      .into(activeIcon)
+  }
+
+  private fun ProgressHolder.handleVip(gamificationType: String?) {
+    when (gamificationType) {
+      "VIP" -> {
+        onlyForVip.visibility = View.VISIBLE
+        activeIconBorderVip.visibility = View.VISIBLE
+        activeIconBorder.visibility = View.GONE
+      }
+      else -> {
+        onlyForVip.visibility = View.GONE
+        activeIconBorderVip.visibility = View.GONE
+        activeIconBorder.visibility = View.VISIBLE
+      }
+    }
+  }
+
+  private fun ProgressHolder.handleSeparator() {
+    if (activeContainerDate.isVisible && onlyForVip.isVisible)
+      separator.visibility = View.VISIBLE
+    else
+      separator.visibility = View.GONE
   }
 
   private fun ProgressHolder.handleExpiryDate(endDate: Long) {
@@ -94,16 +120,20 @@ abstract class ProgressModel : EpoxyModelWithHolder<ProgressModel.ProgressHolder
   private fun ProgressHolder.updateDate(time: Long, @PluralsRes text: Int) {
     activeContainerDate.visibility = View.VISIBLE
     activeExpiryDate.text =
-        itemView.context.resources.getQuantityString(text, time.toInt(), time.toString())
+      itemView.context.resources.getQuantityString(text, time.toInt(), time.toString())
   }
 
   class ProgressHolder : BaseViewHolder() {
     val activeIcon by bind<ImageView>(R.id.active_icon)
+    val activeIconBorder by bind<ImageView>(R.id.active_icon_border)
+    val activeIconBorderVip by bind<ImageView>(R.id.active_icon_border_vip)
     val activeTitle by bind<TextView>(R.id.active_title)
     val activeAppName by bind<TextView>(R.id.active_app_name)
     val activeContainerDate by bind<LinearLayout>(R.id.active_container_date)
     val activeExpiryDate by bind<TextView>(R.id.active_expiry_date)
     val progressCurrent by bind<ProgressBar>(R.id.progress_current)
     val progressLabel by bind<TextView>(R.id.progress_label)
+    val onlyForVip by bind<TextView>(R.id.only_for_vip)
+    val separator by bind<SeparatorView>(R.id.separator)
   }
 }
