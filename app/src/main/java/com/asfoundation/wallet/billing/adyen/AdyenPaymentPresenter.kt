@@ -7,6 +7,7 @@ import com.appcoins.wallet.billing.ErrorInfo.ErrorType
 import com.appcoins.wallet.billing.adyen.AdyenBillingAddress
 import com.appcoins.wallet.billing.adyen.AdyenPaymentRepository
 import com.appcoins.wallet.billing.adyen.AdyenResponseMapper.Companion.REDIRECT
+import com.appcoins.wallet.billing.adyen.AdyenResponseMapper.Companion.THREEDS2
 import com.appcoins.wallet.billing.adyen.AdyenResponseMapper.Companion.THREEDS2CHALLENGE
 import com.appcoins.wallet.billing.adyen.AdyenResponseMapper.Companion.THREEDS2FINGERPRINT
 import com.appcoins.wallet.billing.adyen.PaymentModel
@@ -768,7 +769,7 @@ class AdyenPaymentPresenter(
           navigator.navigateToUriForResult(paymentModel.redirectUrl)
           waitingResult = true
         }
-        THREEDS2FINGERPRINT, THREEDS2CHALLENGE -> {
+        THREEDS2, THREEDS2FINGERPRINT, THREEDS2CHALLENGE -> {
           cachedUid = paymentModel.uid
           view.handle3DSAction(paymentModel.action!!)
           waitingResult = true

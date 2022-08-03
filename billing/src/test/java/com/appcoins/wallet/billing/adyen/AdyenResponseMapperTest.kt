@@ -4,6 +4,7 @@ import com.adyen.checkout.components.model.PaymentMethodsApiResponse
 import com.adyen.checkout.components.model.paymentmethods.PaymentMethod
 import com.adyen.checkout.components.model.paymentmethods.StoredPaymentMethod
 import com.adyen.checkout.components.model.payments.response.RedirectAction
+import com.adyen.checkout.components.model.payments.response.Threeds2Action
 import com.adyen.checkout.components.model.payments.response.Threeds2ChallengeAction
 import com.adyen.checkout.components.model.payments.response.Threeds2FingerprintAction
 import com.appcoins.wallet.bdsbilling.repository.entity.Gateway
@@ -261,6 +262,78 @@ class AdyenResponseMapperTest {
     expectedAction.paymentData = "data"
     Mockito.`when`(adyenSerializer.deserialize3DSChallenge(action))
       .thenReturn(expectedAction)
+
+    val expectedModel =
+      PaymentModel(
+        TEST_RESULT_CODE,
+        TEST_REFUSAL_REASON, 20, expectedAction, null, "data",
+        TEST_UID, null,
+        TEST_HASH,
+        TEST_REFERENCE, emptyList(), PaymentModel.Status.COMPLETED,
+        "errorMessage", 30
+      )
+    val model = mapper.map(response)
+    Assert.assertEquals(expectedModel, model)
+  }
+
+  @Test
+  fun mapAdyenTransactionResponse3DSActionTypeFingerPrintTest() {
+    val action = JsonObject()
+    action.addProperty("type", AdyenResponseMapper.THREEDS2)
+    action.addProperty("subtype", "fingerprint")
+    val payment = MakePaymentResponse(
+      "psp",
+      TEST_RESULT_CODE, action,
+      TEST_REFUSAL_REASON,
+      TEST_REFUSAL_REASON_CODE, null
+    )
+    val response =
+      AdyenTransactionResponse(
+        TEST_UID,
+        TEST_HASH,
+        TEST_REFERENCE, TransactionStatus.COMPLETED,
+        payment, TransactionMetadata("errorMessage", 30, null)
+      )
+
+    val expectedAction = Threeds2Action()
+    expectedAction.paymentData = "data"
+    Mockito.`when`(adyenSerializer.deserialize3DS(action)).thenReturn(expectedAction)
+
+    val expectedModel =
+      PaymentModel(
+        TEST_RESULT_CODE,
+        TEST_REFUSAL_REASON, 20, expectedAction, null, "data",
+        TEST_UID, null,
+        TEST_HASH,
+        TEST_REFERENCE, emptyList(), PaymentModel.Status.COMPLETED,
+        "errorMessage", 30
+      )
+    val model = mapper.map(response)
+    Assert.assertEquals(expectedModel, model)
+  }
+
+  @Test
+  fun mapAdyenTransactionResponse3DSActionTypeChallengeTest() {
+    val action = JsonObject()
+    action.addProperty("type", AdyenResponseMapper.THREEDS2)
+    action.addProperty("subtype", "challenge")
+    val payment = MakePaymentResponse(
+      "psp",
+      TEST_RESULT_CODE, action,
+      TEST_REFUSAL_REASON,
+      TEST_REFUSAL_REASON_CODE, null
+    )
+    val response =
+      AdyenTransactionResponse(
+        TEST_UID,
+        TEST_HASH,
+        TEST_REFERENCE, TransactionStatus.COMPLETED,
+        payment, TransactionMetadata("errorMessage", 30, null)
+      )
+
+    val expectedAction = Threeds2Action()
+    expectedAction.paymentData = "data"
+    Mockito.`when`(adyenSerializer.deserialize3DS(action)).thenReturn(expectedAction)
 
     val expectedModel =
       PaymentModel(
