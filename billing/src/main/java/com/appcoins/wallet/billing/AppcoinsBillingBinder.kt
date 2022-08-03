@@ -32,7 +32,7 @@ class AppcoinsBillingBinder(private val supportedApiVersion: Int,
   : AppcoinsBilling.Stub() {
   companion object {
     const val RESULT_OK = 0 // success
-    internal const val RESULT_USER_CANCELED = 1 // user pressed back or canceled a dialog
+    const val RESULT_USER_CANCELED = 1 // user pressed back or canceled a dialog
     internal const val RESULT_SERVICE_UNAVAILABLE = 2 // The network connection is down
     internal const val RESULT_BILLING_UNAVAILABLE =
         3 // this billing API version is not supported for the type requested

@@ -390,7 +390,7 @@ class _OnChainBuyLogic(
               if (verified) {
                 view.setState(_ForbiddenErrorViewState)
               } else {
-                view.setState(_VerificationViewState)
+                view.setState(_VerificationViewState())
               }
             }
         } else {
