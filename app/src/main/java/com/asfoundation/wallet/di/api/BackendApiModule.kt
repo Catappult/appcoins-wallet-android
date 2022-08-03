@@ -58,7 +58,11 @@ class BackendApiModule {
     return Retrofit.Builder()
       .baseUrl(backendUrl)
       .client(client)
-      .addConverterFactory(GsonConverterFactory.create())
+      .addConverterFactory(
+        GsonConverterFactory.create(
+          GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss.SSS").create()
+        )
+      )
       .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
       .build()
   }
