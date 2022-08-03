@@ -53,8 +53,8 @@ class MoreDialogFragment : BottomSheetDialogFragment(),
 
   override fun onStateChanged(state: MoreDialogState) {
     val wallets = state.walletsAsync()
-    views.deleteWalletCardView.visibility =
-      if (wallets?.isEmpty() == false) View.VISIBLE else View.GONE
+    val lastWallet: Boolean = wallets?.let { it.size > 1 } == false
+    views.deleteWalletCardView.visibility = if (lastWallet) View.GONE else View.VISIBLE
     views.walletsView.apply {
       if (wallets.isNullOrEmpty()) {
         removeAllViews()
