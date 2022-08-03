@@ -23,6 +23,7 @@ import java.util.concurrent.TimeUnit
 
 @EpoxyModelClass
 abstract class ProgressModel : EpoxyModelWithHolder<ProgressModel.ProgressHolder>() {
+  // progress items are not working currently. ProgressItem has not been initialized
 
   @EpoxyAttribute
   lateinit var progressItem: ProgressItem

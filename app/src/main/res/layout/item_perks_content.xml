@@ -147,4 +147,5 @@
       android:orientation="vertical"
       app:layout_constraintGuide_begin="82dp"
       />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

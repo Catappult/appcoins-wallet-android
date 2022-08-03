@@ -7,6 +7,7 @@
     android:layout_marginStart="@dimen/normal_margin"
     android:layout_marginEnd="@dimen/normal_margin"
     >
+
   <androidx.constraintlayout.widget.ConstraintLayout
       android:id="@+id/default_container"
       android:layout_width="match_parent"
@@ -42,54 +43,8 @@
           android:text="@string/promo_code_promotions_tag"
           />
 
-      <!--      <ImageView-->
-      <!--          android:layout_width="8dp"-->
-      <!--          android:layout_height="8dp"-->
-      <!--          android:layout_gravity="center_vertical"-->
-      <!--          android:layout_marginStart="7dp"-->
-      <!--          app:srcCompat="@drawable/ic_clock"-->
-      <!--          app:tint="@color/promotions_active_background"-->
-      <!--          />-->
-
-      <!--      <TextView-->
-      <!--          android:id="@+id/active_expiry_date"-->
-      <!--          style="@style/Promotions.PromoCode.TextStyle.Date"-->
-      <!--          android:layout_width="wrap_content"-->
-      <!--          android:layout_height="wrap_content"-->
-      <!--          android:layout_gravity="center_vertical"-->
-      <!--          android:layout_marginStart="@dimen/small_margin"-->
-      <!--          android:layout_marginEnd="6dp"-->
-      <!--          android:layout_marginBottom="1dp"-->
-      <!--          tools:text="ends in 2 days"-->
-      <!--          />-->
-
     </LinearLayout>
-    <!--    <LinearLayout-->
-    <!--        android:id="@+id/promotions_promo_code_tag"-->
-    <!--        android:layout_width="wrap_content"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:layout_marginTop="8dp"-->
-    <!--        android:background="@drawable/promotions_promo_code_tag_background"-->
-    <!--        android:orientation="horizontal"-->
-    <!--        android:paddingStart="2dp"-->
-    <!--        android:paddingTop="2dp"-->
-    <!--        android:paddingEnd="2dp"-->
-    <!--        android:paddingBottom="2dp"-->
-    <!--        app:layout_constraintBottom_toBottomOf="parent"-->
-    <!--        app:layout_constraintEnd_toEndOf="parent"-->
-    <!--        app:layout_constraintTop_toBottomOf="@id/active_title"-->
-    <!--        >-->
 
-    <!--      <TextView-->
-    <!--          android:id="@+id/promotions_promo_code_tag_string"-->
-    <!--          style="@style/Promotions.PromoCode.TextStyle.Date"-->
-    <!--          android:layout_width="wrap_content"-->
-    <!--          android:layout_height="wrap_content"-->
-    <!--          android:layout_gravity="center_vertical"-->
-    <!--          android:layout_marginStart="@dimen/normal_margin"-->
-    <!--          android:layout_marginEnd="@dimen/normal_margin"-->
-    <!--          android:text="@string/promo_code_promotions_tag"-->
-    <!--          />-->
-    <!--    </LinearLayout>-->
   </androidx.constraintlayout.widget.ConstraintLayout>
+
 </androidx.cardview.widget.CardView>
