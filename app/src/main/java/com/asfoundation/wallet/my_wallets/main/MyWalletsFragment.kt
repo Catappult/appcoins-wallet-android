@@ -237,7 +237,7 @@ class MyWalletsFragment : BasePageViewFragment(),
     val text = if (backupDate > 1) {
       getString(
         R.string.mywallet_backed_up_date,
-        DateFormat.format("dd/MMM/yyyy", Date(backupDate)).toString()
+        DateFormat.format("dd/MM/yyyy", Date(backupDate)).toString()
       )
     } else {
       getString(R.string.backup_wallet_tooltip)
