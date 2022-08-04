@@ -31,4 +31,5 @@
   <string name="purchase_eskills_sku">Bilhete de entrada</string>
   <string name="shared_room_waiting">À espera que adversários se juntem a %s</string>
   <string name="rooted_device_blocked_body">Infelizmente, não podes jogar jogos de e-Skills com um dispositivo enraizado.</string>
+  <string name="top_up_needed_body">For security reasons, you need to make at least one top-up in your wallet to play e-Skills games.</string>
 </resources>
