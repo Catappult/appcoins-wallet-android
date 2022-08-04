@@ -27,7 +27,7 @@
   <string name="credits">اعتبارات</string>
   <string name="label_new">جدید</string>
   <string name="got_it_button">متوجه شدم</string>
-  <string name="change_button">Change</string>
+  <string name="change_button">تغییر</string>
   <string name="vip">VIP</string>
   <string name="low_storage_error">فضای ذخیره سازی کافی نیست</string>
   <string name="no_camera_permission_title">اجازه دوربین</string>
@@ -381,8 +381,8 @@
   <string name="topup_bonus_body">شما می‌توانید از این پاداش در خرید بعدی خود استفاده کنید.</string>
   <string name="topup_minimum_value">حداقل مقدار افزایش برابر %s است</string>
   <string name="topup_maximum_value">حداکثر مقدار افزایش برابر %s است</string>
-  <string name="topup_no_method_available_title">No payment methods!</string>
-  <string name="topup_no_method_available_body">There are no payment methods available to top up in your country at the moment. Stay tuned!</string>
+  <string name="topup_no_method_available_title">بدون روش پرداخت!</string>
+  <string name="topup_no_method_available_body">هیچ روش پرداختی در حال حاضر برای کشور شما موجود نیست. در تماس بمانید!</string>
   <!--Balance-->
   <string name="balance_title">بالانس</string>
   <string name="balance_total_body">بالانس کلی در %s</string>
@@ -441,7 +441,7 @@
   <string name="remind_later_button">بعدا یادآوری کن</string>
   <string name="get_code_button">دریافت کد</string>
   <string name="confirm_button">تایید</string>
-  <string name="withdraw_button">Withdraw</string>
+  <string name="withdraw_button">برداشت</string>
   <string name="email_here_field">نشانی ایمیل شما در اینجا&#8230;</string>
   <string name="understood_button">متوجه!</string>
   <string name="skip_button">پریدن</string>
@@ -561,7 +561,7 @@
   <string name="purchase_paytmupi_install_disclaimer">شما باید اپلیکیشن Paytm UPI را نصب کنید.</string>
   <string name="purchase_app_needed_body">برای تکمیل خرید باید اپلیکیشن را دنبال کنید.</string>
   <string name="purchase_apps_needed_body">برای تکمیل خرید باید اپلیکیشن‌ها را دنبال کنید.</string>
-  <string name="purchase_error_connection_issue">It seems there is a problem with your internet connection! Please check it and try again.</string>
+  <string name="purchase_error_connection_issue">به نظر می‌رسد که مشکلی با اتصال اینترنت شما بوجود آمده است! لطفا بررسی کنید و دوباره امتحان کنید.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">نشانی پرداخت</string>
   <string name="purchase_address_address_field">نشانی</string>
@@ -595,11 +595,11 @@
   <string name="referral_view_title">دوستان را دعوت کنید</string>
   <string name="referral_view_title_1">دوستان را دعوت کنید و بیشتر کسب درآمد کنید!</string>
   <string name="referral_view_verified_body">به ارزش %s برای هر دوست، اعتبار AppCoins دریافت کنید. کافی است لینک را به اشتراک بگذارید!</string>
-  <string name="referral_view_share_link_button">Share invite link</string>
+  <string name="referral_view_share_link_button">لینک دعوت را به اشتراک بگذارید</string>
   <string name="referral_view_notifications_title">اعلانات</string>
   <string name="referral_share_sheet_title">لینک دعوت را به اشتراک بگذارید:</string>
   <string name="referral_view_unverified_body">برای هر دوست به ارزش %s AppCoins Credits دریافت کنید. ابتدا باید کیف پول خود را معتبرسازی کنید.</string>
-  <string name="referral_view_verify_button">Verify wallet</string>
+  <string name="referral_view_verify_button">تایید کیف پول</string>
   <string name="referral_view_i_have_been_invited_button">دعوت شده‌ام</string>
   <string name="referral_view_dropup_menu_friends_invited">دوستان دعوت‌شده</string>
   <string name="referral_view_dropup_menu_earned">کسب شده</string>
@@ -634,18 +634,18 @@
   <string name="update_wallet_hard_body">به نظر می‌رسد که از نسخه قدیمی AppCoins Wallet استفاده می‌کنید. لطفا بروزرسانی کنید تا بتوانید بهترین تجربه و امنیت را داشته باشید.</string>
   <string name="update_wallet_soft_title">عقب نیافتید!</string>
   <string name="update_wallet_soft_body">AppCoins Wallet را بروز نگه دارید و بهترین تجربه را داشته باشید.</string>
-  <string name="update_button">Update</string>
+  <string name="update_button">بروزرسانی</string>
   <!--Backup and Import-->
   <string name="backup_home_notification_title">پشتیبان‌گیری از کیف پول خود</string>
   <string name="backup_home_notification_body">آیا موبایل خود را گم‌کرده‌اید؟ از کیف پول خود همین حالا پشتیان‌گیری کنید!</string>
-  <string name="backup_confirmation_no_share_title">Backup Done!</string>
+  <string name="backup_confirmation_no_share_title">بک‌آپ تکمیل شد!</string>
   <string name="backup_save_dialogue_title">ذخیره فایل بک‌آپ</string>
   <string name="backup_save_dialogue_body">نامی برای فایل بک‌آپ خود انتخاب کنید.</string>
   <string name="import_wallet_title">بازیابی کیف‌پول</string>
   <string name="import_wallet_body">پشتیبان‌گیری کیف‌ پول خود را در زیر قرار دهید.</string>
   <string name="import_wallet_keystore_private_keys">Keystore یا private keys</string>
   <string name="import_wallet_from_file_title">یا بازیابی از فایل</string>
-  <string name="import_wallet_file_button">Recover from file</string>
+  <string name="import_wallet_file_button">بازیابی از فایل</string>
   <string name="import_wallet_button">بازیابی کیف‌پول</string>
   <string name="import_wallet_password_body">این کیف‌پول با رمز، محافظت شده‌است!</string>
   <string name="import_wallet_wrong_password_body">اوه، رمز عبور اشتباه است!</string>
@@ -655,7 +655,7 @@
   <string name="backup_body">ما کلید خصوصی و سایر روش‌های دسترسی شما را ذخیره نمی‌کنیم. مهم است که پشتیبان‌گیری کیف‌پول (keystore) خود در جای امنی ذخیره کنید.</string>
   <string name="backup_additional_security_title">افزایش امنیت (اختیاری)</string>
   <string name="backup_additional_security_body">انتخاب رمزعبور</string>
-  <string name="backup_button">Back up wallet</string>
+  <string name="backup_button">بک‌آپ کیف پول</string>
   <string name="backup_ready_title">بک‌آپ شما آماده است!\nاز آن محافظت کنید.</string>
   <string name="backup_ready_save_on_email">روی ایمیل خود آن را ذخیره کنید</string>
   <string name="backup_ready_email_button">به ایمیل ارسال کنید</string>
@@ -666,7 +666,7 @@
   <string name="backup_confirmation_tips_3">آن را به یک ذخیره ابری شخصی و امن <b>منتقل کنید.</b></string>
   <string name="backup_tooltip_body">از کیف پول خود یک بک‌آپ بگیرید!</string>
   <string name="backup_tooltip_later_button">شاید بعدا</string>
-  <string name="backup_tooltip_backup_button">Back up</string>
+  <string name="backup_tooltip_backup_button">بک‌آپ</string>
   <string name="backup_notification_title">از کیف پول خود یک بک‌آپ بگیرید!</string>
   <string name="backup_notification_body">پول‌های خود را امن نگه دارید و مطمئن شوید که همیشه قادر به دسترسی به کیف پول خود هستید.</string>
   <string name="backup_choose_wallet_title">یک کیف پول برای بک‌آپ انتخاب کنید</string>
@@ -695,18 +695,18 @@
   <string name="wallets_2nd_view_balance_title">تراز:</string>
   <string name="wallets_2nd_view_other_wallets_title">سایر کیف‌پول‌ها</string>
   <string name="wallets_2nd_view_import_button">بازیابی کیف‌پول</string>
-  <string name="wallets_2nd_view_create_button">Create new</string>
-  <string name="wallet_view_copy_button">Copy</string>
+  <string name="wallets_2nd_view_create_button">ساختن</string>
+  <string name="wallet_view_copy_button">کپی</string>
   <string name="wallet_view_share_button">اشتراک‌گذاری</string>
   <string name="wallet_view_total_balance_title">تراز کلی</string>
-  <string name="wallet_view_remove_button">Remove wallet</string>
-  <string name="wallet_view_backup_button">Back up wallet</string>
-  <string name="wallet_view_activate_button">Make this wallet active</string>
+  <string name="wallet_view_remove_button">حذف کیف‌پول</string>
+  <string name="wallet_view_backup_button">بک‌آپ کیف پول</string>
+  <string name="wallet_view_activate_button">فعالسازی این کیف پول</string>
   <string name="wallet_view_active_body">این کیف‌پول فعال شماست.</string>
   <!--Remove Wallet-->
   <string name="remove_wallet_title">حذف کیف‌پول</string>
   <string name="remove_wallet_body">قویا توصیه می‌کنیم که قبل از حذف کیف‌پول از آن پشتیبان‌گیری کنید. دیگر فادر به دسترسی به آن نخواهید بود جز با داشتن پشتیانی.</string>
-  <string name="remove_wallet_backup_button">Back up wallet</string>
+  <string name="remove_wallet_backup_button">بک‌آپ کیف پول</string>
   <string name="remove_wallet_no_backup_button">Remove wallet</string>
   <string name="remove_wallet_confirm_body">آیا مطمئن هستید که می‌خواهید این کیف‌پول را حذف کنید؟</string>
   <string name="remove_wallet_no_button">No, go back</string>
