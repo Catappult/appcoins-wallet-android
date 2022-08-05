@@ -42,7 +42,7 @@ data class _SetCardDataViewState(
 
 object _NetworkErrorViewState : _ViewState
 object _CvvErrorViewState : _ViewState
-data class _ErrorCodeViewState(val errorCode: Int) : _ViewState
+data class _ErrorCodeViewState(val errorCode: Int = 0) : _ViewState
 object _InvalidCardErrorViewState : _ViewState
 object _SecurityValidationErrorViewState : _ViewState
 object _OutdatedCardErrorViewState : _ViewState
