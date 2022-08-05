@@ -65,6 +65,7 @@ open class AdyenResponseMapper @Inject constructor(
           action = adyenSerializer.deserializeRedirectAction(jsonAction)
           redirectUrl = action.url
         }
+        THREEDS2 -> action = adyenSerializer.deserialize3DS(jsonAction)
         THREEDS2FINGERPRINT -> action = adyenSerializer.deserialize3DSFingerprint(jsonAction)
         THREEDS2CHALLENGE -> action = adyenSerializer.deserialize3DSChallenge(jsonAction)
       }
@@ -204,6 +205,7 @@ open class AdyenResponseMapper @Inject constructor(
 
   companion object {
     const val REDIRECT = "redirect"
+    const val THREEDS2 = "threeDS2"
     const val THREEDS2FINGERPRINT = "threeDS2Fingerprint"
     const val THREEDS2CHALLENGE = "threeDS2Challenge"
   }

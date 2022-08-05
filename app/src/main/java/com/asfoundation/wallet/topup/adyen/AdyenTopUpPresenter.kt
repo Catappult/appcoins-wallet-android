@@ -8,6 +8,7 @@ import com.appcoins.wallet.billing.ErrorInfo.ErrorType
 import com.appcoins.wallet.billing.adyen.AdyenBillingAddress
 import com.appcoins.wallet.billing.adyen.AdyenPaymentRepository
 import com.appcoins.wallet.billing.adyen.AdyenResponseMapper.Companion.REDIRECT
+import com.appcoins.wallet.billing.adyen.AdyenResponseMapper.Companion.THREEDS2
 import com.appcoins.wallet.billing.adyen.AdyenResponseMapper.Companion.THREEDS2CHALLENGE
 import com.appcoins.wallet.billing.adyen.AdyenResponseMapper.Companion.THREEDS2FINGERPRINT
 import com.appcoins.wallet.billing.adyen.PaymentModel
@@ -559,7 +560,7 @@ class AdyenTopUpPresenter(
         cachedUid = paymentModel.uid
         navigator.navigateToUriForResult(paymentModel.redirectUrl)
         waitingResult = true
-      } else if (type == THREEDS2FINGERPRINT || type == THREEDS2CHALLENGE) {
+      } else if (type == THREEDS2 || type == THREEDS2FINGERPRINT || type == THREEDS2CHALLENGE) {
         cachedUid = paymentModel.uid
         view.handle3DSAction(paymentModel.action!!)
         waitingResult = true

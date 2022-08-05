@@ -30,5 +30,6 @@
   <string name="purchase_error_title">糟糕，出错了。</string>
   <string name="purchase_eskills_sku">入场券</string>
   <string name="shared_room_waiting">正在等待对手加入%s</string>
-  <string name="rooted_device_blocked_body">Unfortunately, you cannot play e-Skills games with a rooted device.\"</string>
+  <string name="rooted_device_blocked_body">很遗憾，你不能使用根设备游玩e-Skills游戏。</string>
+  <string name="top_up_needed_body">For security reasons, you need to make at least one top-up in your wallet to play e-Skills games.</string>
 </resources>
