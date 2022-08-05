@@ -44,8 +44,8 @@ class BackupRepository @Inject constructor(
 
   private fun getDefaultBackupFileExtension() = ".bck"
 
-  fun sendBackupEmail(keystore: String, email: String): Completable {
-    return walletService.getAndSignCurrentWalletAddress()
+  fun sendBackupEmail(walletAddress: String, keystore: String, email: String): Completable {
+    return walletService.getAndSignSpecificWalletAddress(walletAddress)
         .flatMapCompletable {
           backupEmailApi.sendBackupEmail(
             it.address, it.signedAddress,

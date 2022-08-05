@@ -57,6 +57,14 @@ class AccountWalletService @Inject constructor(
         .map { WalletAddressModel(wallet.address, it) }
     }
 
+  override fun getAndSignSpecificWalletAddress(walletAddress: String): Single<WalletAddressModel> =
+    walletRepository.findWallet(walletAddress)
+      .flatMap { wallet ->
+        getPrivateKey(wallet)
+          .map { sign(normalizer.normalize(toChecksumAddress(wallet.address)), it) }
+          .map { WalletAddressModel(wallet.address, it) }
+      }
+
   @Throws(Exception::class)
   private fun sign(plainText: String, ecKey: ECKey): String =
     ecKey.sign(sha3(plainText.toByteArray())).toHex()
