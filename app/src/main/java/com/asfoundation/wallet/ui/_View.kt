@@ -1,11 +1,14 @@
 package com.asfoundation.wallet.ui
 
+import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.Bundle
+import androidx.annotation.StringRes
 import com.adyen.checkout.components.model.payments.response.Action
 import com.appcoins.wallet.billing.adyen.PaymentInfoModel
 import com.asfoundation.wallet.billing.adyen.AdyenCardWrapper
 import com.asfoundation.wallet.entity.TransactionBuilder
+import com.asfoundation.wallet.ui.iab.payments.carrier.verify.CarrierVerifyData
 import java.math.BigDecimal
 import java.util.*
 
@@ -53,6 +56,11 @@ data class _SuccessViewState(val date: Date?) : _ViewState
 data class _VerificationErrorViewState(val verified: Boolean) : _ViewState
 data class _SubmitUriResultViewState(val uri: Uri) : _ViewState
 data class _Handle3DSActionViewState(val action: Action) : _ViewState
+data class _FilterCountriesViewState(val countryList: String, val defaultCountry: String?) : _ViewState
+object _PhoneNumberLayoutViewState : _ViewState
+data class _CarrierVerifyDataViewState(val carrierVerifyData: CarrierVerifyData) : _ViewState
+data class _AppDetailsViewState(val appName: String, val icon: Drawable) : _ViewState
+object _InvalidPhoneNumberViewState : _ViewState
 
 interface _Navigation
 data class _StartTransfer(
@@ -78,6 +86,30 @@ data class _BackupNotification(val address: String) : _Navigation
 data class _Close(val bundle: Bundle?) : _Navigation
 
 data class _GoToUriForResult(val redirectUrl: String) : _Navigation
+
+data class _GoToCarrierFee(
+  val uid: String,
+  val domain: String,
+  val transactionData: String,
+  val transactionType: String,
+  val paymentUrl: String,
+  val currency: String,
+  val amount: BigDecimal,
+  val appcAmount: BigDecimal,
+  val bonus: BigDecimal?,
+  val skuDescription: String,
+  val skuId: String?,
+  val feeFiatAmount: BigDecimal,
+  val carrierName: String,
+  val carrierImage: String,
+  val phoneNumber: String
+) : _Navigation
+
+data class _GoToError(@StringRes val error: Int, val arg: String? = null) : _Navigation
+
+object _FinishWithError : _Navigation
+
+object _Back : _Navigation
 
 interface _View {
   fun setState(state: _ViewState)
