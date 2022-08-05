@@ -32,7 +32,8 @@ class BackupRepository @Inject constructor(
     val outputStream = contentResolver.openOutputStream(file.uri)
     try {
       outputStream?.run { write(content.toByteArray()) } ?: return Completable.error(
-          Throwable("Null outputStream"))
+        Throwable("Null outputStream")
+      )
     } catch (e: IOException) {
       e.printStackTrace()
       return Completable.error(Throwable(e))
@@ -44,20 +45,20 @@ class BackupRepository @Inject constructor(
 
   private fun getDefaultBackupFileExtension() = ".bck"
 
-  fun sendBackupEmail(keystore: String, email: String): Completable {
-    return walletService.getAndSignCurrentWalletAddress()
-        .flatMapCompletable {
-          backupEmailApi.sendBackupEmail(
-            it.address, it.signedAddress,
-            EmailBody(email, keystore.convertToBase64())
-          )
-        }
-        .subscribeOn(rxSchedulers.io)
+  fun sendBackupEmail(walletAddress: String, keystore: String, email: String): Completable {
+    return walletService.getAndSignSpecificWalletAddress(walletAddress)
+      .flatMapCompletable {
+        backupEmailApi.sendBackupEmail(
+          it.address, it.signedAddress,
+          EmailBody(email, keystore.convertToBase64())
+        )
+      }
+      .subscribeOn(rxSchedulers.io)
   }
 
   fun logBackupSuccess(ewt: String): Completable {
     return backupLogApi.logBackupSuccess(ewt)
-        .subscribeOn(rxSchedulers.io)
+      .subscribeOn(rxSchedulers.io)
   }
 
   interface BackupEmailApi {
@@ -72,6 +73,7 @@ class BackupRepository @Inject constructor(
   interface BackupLogApi {
     @POST("/transaction/wallet/backup/")
     fun logBackupSuccess(
-        @Header("authorization") authorization: String): Completable
+      @Header("authorization") authorization: String
+    ): Completable
   }
 }
