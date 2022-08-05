@@ -3,7 +3,6 @@ package com.asfoundation.wallet.my_wallets.main
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
-import android.os.Build
 import android.os.Bundle
 import android.text.format.DateFormat
 import android.view.LayoutInflater
@@ -281,10 +280,14 @@ class MyWalletsFragment : BasePageViewFragment(),
     views.myWalletsContent.verifyWalletTitle.setText(R.string.verification_settings_verified_title)
     views.myWalletsContent.verifyWalletText.visibility = View.VISIBLE
     views.myWalletsContent.verifyWalletText.setText(R.string.mywallet_unverified_body)
-    views.myWalletsContent.verifyButton.visibility = View.VISIBLE
-    views.myWalletsContent.verifyButton.isEnabled = !disableButton
+    views.myWalletsContent.verifyButton.visibility = if (!disableButton) View.VISIBLE else View.GONE
     views.myWalletsContent.verifyButton.setText(getString(R.string.mywallet_verify_payment_method_button))
-    views.myWalletsContent.verifyButton.setColor(ContextCompat.getColor(requireContext(), R.color.white))
+    views.myWalletsContent.verifyButton.setColor(
+      ContextCompat.getColor(
+        requireContext(),
+        R.color.white
+      )
+    )
     views.myWalletsContent.verifyButton.setOnClickListener {
       navigator.navigateToVerifyPicker()
     }
@@ -299,15 +302,14 @@ class MyWalletsFragment : BasePageViewFragment(),
     views.myWalletsContent.verifyWalletTitle.setText(R.string.mywallet_unverified_title)
     views.myWalletsContent.verifyWalletText.visibility = View.VISIBLE
     views.myWalletsContent.verifyWalletText.setText(R.string.mywallet_unverified_body)
-    views.myWalletsContent.verifyButton.visibility = View.VISIBLE
-    views.myWalletsContent.verifyButton.isEnabled = !disableButton
+    views.myWalletsContent.verifyButton.visibility = if (!disableButton) View.VISIBLE else View.GONE
     views.myWalletsContent.verifyButton.setText(getString(R.string.referral_view_verify_button))
-      views.myWalletsContent.verifyButton.setColor(
-        ContextCompat.getColor(
-          requireContext(),
-          R.color.wild_watermelon
-        )
+    views.myWalletsContent.verifyButton.setColor(
+      ContextCompat.getColor(
+        requireContext(),
+        R.color.wild_watermelon
       )
+    )
     views.myWalletsContent.verifyButton.setOnClickListener {
       navigator.navigateToVerifyPicker()
     }
@@ -322,8 +324,7 @@ class MyWalletsFragment : BasePageViewFragment(),
     views.myWalletsContent.verifyWalletTitle.setText(R.string.card_verification_wallets_one_step_title)
     views.myWalletsContent.verifyWalletText.visibility = View.VISIBLE
     views.myWalletsContent.verifyWalletText.setText(R.string.card_verification_wallets_one_step_body)
-    views.myWalletsContent.verifyButton.visibility = View.VISIBLE
-    views.myWalletsContent.verifyButton.isEnabled = !disableButton
+    views.myWalletsContent.verifyButton.visibility = if (!disableButton) View.VISIBLE else View.GONE
     views.myWalletsContent.verifyButton.setText(getString(R.string.card_verification_wallets_insert_bode_button))
     views.myWalletsContent.verifyButton.setColor(
       ContextCompat.getColor(
