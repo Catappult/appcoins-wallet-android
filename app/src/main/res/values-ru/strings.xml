@@ -27,7 +27,7 @@
   <string name="credits">Информация</string>
   <string name="label_new">Новое</string>
   <string name="got_it_button">Ясно</string>
-  <string name="change_button">Change</string>
+  <string name="change_button">Изменить</string>
   <string name="vip">VIP</string>
   <string name="low_storage_error">Недостаточно места для хранения</string>
   <string name="no_camera_permission_title">Разрешение использовать камеру</string>
@@ -441,7 +441,7 @@
   <string name="remind_later_button">Напомнить позже</string>
   <string name="get_code_button">Получить код</string>
   <string name="confirm_button">Подтвердить</string>
-  <string name="withdraw_button">Withdraw</string>
+  <string name="withdraw_button">Вывести</string>
   <string name="email_here_field">Ваш e-mail здесь&#8230;</string>
   <string name="understood_button">Ясно!</string>
   <string name="skip_button">Пока пропустить</string>
@@ -561,7 +561,7 @@
   <string name="purchase_paytmupi_install_disclaimer">Вам необходимо установить приложение Paytm UPI.</string>
   <string name="purchase_app_needed_body">Вам нужно следующее приложение, чтобы завершить эту покупку.</string>
   <string name="purchase_apps_needed_body">Для совершения покупки вам потребуется одно из следующих приложений.</string>
-  <string name="purchase_error_connection_issue">It seems there is a problem with your internet connection! Please check it and try again.</string>
+  <string name="purchase_error_connection_issue">Кажется, с вашим подключением к Интернету что-то не так! Пожалуйста, проверьте его и повторите попытку.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">Адрес для счёта</string>
   <string name="purchase_address_address_field">Адрес</string>
