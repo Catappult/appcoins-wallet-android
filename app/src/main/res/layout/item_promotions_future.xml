@@ -39,11 +39,12 @@
         />
 
     <ImageView
+        android:antialias="true"
         android:id="@+id/future_icon_border_vip"
-        android:layout_width="78dp"
-        android:layout_height="78dp"
+        android:layout_width="77dp"
+        android:layout_height="77dp"
         android:layout_marginStart="0dp"
-        android:src="@drawable/frame_vip_ic"
+        android:src="@drawable/frame_vip_img"
         app:layout_constraintBottom_toBottomOf="@id/future_icon"
         app:layout_constraintEnd_toEndOf="@id/future_icon"
         app:layout_constraintStart_toStartOf="@id/future_icon"
