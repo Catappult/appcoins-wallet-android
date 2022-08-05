@@ -30,5 +30,6 @@
   <string name="purchase_error_title">اوه، مشکلی پیش آمده است.</string>
   <string name="purchase_eskills_sku">بلیت ورود</string>
   <string name="shared_room_waiting">درحال انتظار برای عضو شدن در %s</string>
-  <string name="rooted_device_blocked_body">Unfortunately, you cannot play e-Skills games with a rooted device.\"</string>
+  <string name="rooted_device_blocked_body">متاسفانه نمی‌توانید با یک دستگاه rooted بازی‌های e-Skills انجام دهید.</string>
+  <string name="top_up_needed_body">به دلایل امنیتی، برای بازی‌های e-Skills باید حداقل یک بار کیف پول خود را شارژ کنید.</string>
 </resources>

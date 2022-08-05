@@ -31,4 +31,5 @@
   <string name="purchase_eskills_sku">Вхідний квиток</string>
   <string name="shared_room_waiting">Чекаємо, поки опоненти приєднаються до %s</string>
   <string name="rooted_device_blocked_body">На жаль, ви не можете грати в ігри e-Skills на пристрої, який отримав рутинг.\"</string>
+  <string name="top_up_needed_body">For security reasons, you need to make at least one top-up in your wallet to play e-Skills games.</string>
 </resources>
