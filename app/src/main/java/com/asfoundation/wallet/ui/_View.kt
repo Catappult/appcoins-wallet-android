@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.ui
 
+import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.Bundle
@@ -61,6 +62,14 @@ object _PhoneNumberLayoutViewState : _ViewState
 data class _CarrierVerifyDataViewState(val carrierVerifyData: CarrierVerifyData) : _ViewState
 data class _AppDetailsViewState(val appName: String, val icon: Drawable) : _ViewState
 object _InvalidPhoneNumberViewState : _ViewState
+object _ProcessingLoadingViewState : _ViewState
+data class _PendingUserPaymentViewState(
+  val label: String?,
+  val paymentMethod: Bitmap,
+  val application: Bitmap
+) : _ViewState
+data class _BonusUiViewState(val bonus: String?) : _ViewState
+object _CompletedPaymentViewState : _ViewState
 
 interface _Navigation
 data class _StartTransfer(
