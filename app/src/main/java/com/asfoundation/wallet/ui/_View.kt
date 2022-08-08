@@ -7,6 +7,7 @@ import android.os.Bundle
 import androidx.annotation.StringRes
 import com.adyen.checkout.components.model.payments.response.Action
 import com.appcoins.wallet.billing.adyen.PaymentInfoModel
+import com.asfoundation.wallet.billing.address.BillingAddressModel
 import com.asfoundation.wallet.billing.adyen.AdyenCardWrapper
 import com.asfoundation.wallet.billing.adyen.PaymentType
 import com.asfoundation.wallet.entity.TransactionBuilder
@@ -166,6 +167,19 @@ data class _PreSelectedPaymentMethodViewState(
   val isBonusActive: Boolean,
   val frequency: String?,
   val isSubscription: Boolean
+) : _ViewState
+
+data class _BillingAddress2ViewState(
+  val bonus: String?,
+  val isDonation: Boolean,
+  val domain: String,
+  val skuDescription: String,
+  val appcAmount: BigDecimal,
+  val fiatAmount: BigDecimal,
+  val fiatCurrency: String,
+  val isStored: Boolean,
+  val shouldStoreCard: Boolean,
+  val savedBillingAddress: BillingAddressModel?
 ) : _ViewState
 
 interface _Navigation
