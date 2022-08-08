@@ -1,11 +1,11 @@
 package com.asfoundation.wallet.promotions.ui.list.model
 
-import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.annotation.PluralsRes
+import androidx.core.view.isVisible
 import com.airbnb.epoxy.EpoxyAttribute
 import com.airbnb.epoxy.EpoxyModelClass
 import com.airbnb.epoxy.EpoxyModelWithHolder
@@ -15,6 +15,7 @@ import com.asfoundation.wallet.promotions.model.PromoCodeItem
 import com.asfoundation.wallet.promotions.ui.PromotionsViewModel.Companion.DETAILS_URL_EXTRA
 import com.asfoundation.wallet.promotions.ui.list.PromotionClick
 import com.asfoundation.wallet.ui.common.BaseViewHolder
+import com.asfoundation.wallet.ui.common.SeparatorView
 import java.time.LocalDateTime
 import java.time.ZoneOffset
 import java.util.concurrent.TimeUnit
@@ -47,14 +48,16 @@ abstract class PromoCodeModel : EpoxyModelWithHolder<PromoCodeModel.PromoCodeHol
     holder.activeTitle.text = promoCodeItem.description
     holder.loadIcon(promoCodeItem.icon)
     holder.handleExpiryDate(promoCodeItem.endDate)
+    holder.handleVip(promoCodeItem.gamificationType)
+    holder.handleSeparator()
   }
 
   private fun PromoCodeHolder.loadIcon(icon: String?) {
     GlideApp.with(itemView.context)
-        .load(icon)
-        .error(R.drawable.ic_promotions_default)
-        .circleCrop()
-        .into(activeIcon)
+      .load(icon)
+      .error(R.drawable.ic_promotions_default)
+      .circleCrop()
+      .into(activeIcon)
   }
 
   private fun PromoCodeHolder.handleExpiryDate(endDate: Long) {
@@ -73,18 +76,44 @@ abstract class PromoCodeModel : EpoxyModelWithHolder<PromoCodeModel.PromoCodeHol
     }
   }
 
+  private fun PromoCodeHolder.handleVip(gamificationType: String?) {
+    when (gamificationType) {
+      "VIP" -> {
+        onlyForVip.visibility = View.VISIBLE
+        activeIconBorderVip.visibility = View.VISIBLE
+        activeIconBorder.visibility = View.GONE
+      }
+      else -> {
+        onlyForVip.visibility = View.GONE
+        activeIconBorderVip.visibility = View.GONE
+        activeIconBorder.visibility = View.VISIBLE
+      }
+    }
+  }
+
+  private fun PromoCodeHolder.handleSeparator() {
+    if (activeContainerDate.isVisible && onlyForVip.isVisible)
+      separator.visibility = View.VISIBLE
+    else
+      separator.visibility = View.GONE
+  }
+
   private fun PromoCodeHolder.updateDate(time: Long, @PluralsRes text: Int) {
     activeContainerDate.visibility = View.VISIBLE
     activeExpiryDate.text =
-        itemView.context.resources.getQuantityString(text, time.toInt(), time.toString())
+      itemView.context.resources.getQuantityString(text, time.toInt(), time.toString())
   }
 
 
   class PromoCodeHolder : BaseViewHolder() {
     val activeIcon by bind<ImageView>(R.id.active_icon)
+    val activeIconBorder by bind<ImageView>(R.id.active_icon_border)
+    val activeIconBorderVip by bind<ImageView>(R.id.active_icon_border_vip)
     val activeAppName by bind<TextView>(R.id.active_app_name)
     val activeTitle by bind<TextView>(R.id.active_title)
     val activeContainerDate by bind<LinearLayout>(R.id.active_container_date)
     val activeExpiryDate by bind<TextView>(R.id.active_expiry_date)
+    val onlyForVip by bind<TextView>(R.id.only_for_vip)
+    val separator by bind<SeparatorView>(R.id.separator)
   }
 }

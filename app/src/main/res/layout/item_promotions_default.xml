@@ -7,16 +7,6 @@
     android:layout_marginEnd="@dimen/normal_margin"
     >
 
-  <androidx.constraintlayout.widget.ConstraintLayout
-      android:id="@+id/default_container"
-      android:layout_width="match_parent"
-      android:layout_height="match_parent"
-      android:background="@color/promotions_active_background"
-      >
-
-    <include layout="@layout/perks_content" />
-
-  </androidx.constraintlayout.widget.ConstraintLayout>
-
+  <include layout="@layout/item_perks_content" />
 </androidx.cardview.widget.CardView>
 

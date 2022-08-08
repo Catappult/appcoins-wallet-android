@@ -17,27 +17,62 @@
       >
 
     <ImageView
+        android:id="@+id/future_icon_border"
+        android:layout_width="66dp"
+        android:layout_height="66dp"
+        android:background="@drawable/promo_icon_future_border_background"
+        app:layout_constraintBottom_toBottomOf="@id/future_icon"
+        app:layout_constraintEnd_toEndOf="@id/future_icon"
+        app:layout_constraintStart_toStartOf="@id/future_icon"
+        app:layout_constraintTop_toTopOf="@id/future_icon"
+        />
+
+    <ImageView
         android:id="@+id/future_icon"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:layout_marginStart="@dimen/normal_margin"
-        android:layout_marginTop="10dp"
-        android:alpha="0.55"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="19dp"
+        android:layout_marginTop="7dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toTopOf="@id/future_app_name"
         tools:srcCompat="@drawable/ic_promotions_default"
         />
+
+    <ImageView
+        android:antialias="true"
+        android:id="@+id/future_icon_border_vip"
+        android:layout_width="77dp"
+        android:layout_height="77dp"
+        android:layout_marginStart="0dp"
+        android:src="@drawable/frame_vip_img"
+        app:layout_constraintBottom_toBottomOf="@id/future_icon"
+        app:layout_constraintEnd_toEndOf="@id/future_icon"
+        app:layout_constraintStart_toStartOf="@id/future_icon"
+        app:layout_constraintTop_toTopOf="@id/future_icon"
+        />
+
+    <ImageView
+        android:id="@+id/future_icon_greyed"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:alpha="0.45"
+        android:background="@drawable/promo_icon_future_greyed_overlay"
+        app:layout_constraintBottom_toBottomOf="@id/future_icon"
+        app:layout_constraintEnd_toEndOf="@id/future_icon"
+        app:layout_constraintStart_toStartOf="@id/future_icon"
+        app:layout_constraintTop_toTopOf="@id/future_icon"
+        />
+
     <TextView
         android:id="@+id/future_app_name"
         style="@style/Promotions.TextStyle.AppName.Future"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/normal_margin"
-        android:layout_marginTop="2dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="14dp"
         android:layout_marginEnd="@dimen/normal_margin"
-        app:layout_constraintEnd_toStartOf="@id/future_container_date"
         app:layout_constraintStart_toEndOf="@id/future_icon"
-        app:layout_constraintTop_toTopOf="@+id/future_icon"
+        app:layout_constraintTop_toTopOf="parent"
         tools:text="Trivial Drive Sample"
         />
 
@@ -55,37 +90,69 @@
         />
 
     <LinearLayout
-        android:id="@+id/future_container_date"
+        android:id="@+id/properties_container"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/big_margin"
-        android:background="@drawable/promotions_date_future_background"
+        android:layout_marginTop="14dp"
+        android:layout_marginBottom="16dp"
         android:orientation="horizontal"
-        android:paddingTop="2dp"
-        android:paddingBottom="2dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="@id/future_app_name"
+        app:layout_constraintTop_toBottomOf="@id/future_title"
         >
 
-      <ImageView
-          android:layout_width="8dp"
-          android:layout_height="8dp"
-          android:layout_gravity="center_vertical"
-          android:layout_marginStart="7dp"
-          app:srcCompat="@drawable/ic_clock"
-          />
-
       <TextView
-          android:id="@+id/future_expiry_date"
+          android:id="@+id/only_for_vip"
           style="@style/Promotions.TextStyle.Date"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:layout_gravity="center_vertical"
-          android:layout_marginStart="@dimen/small_margin"
-          android:layout_marginEnd="6dp"
-          android:layout_marginBottom="1dp"
-          android:text="@string/perks_available_soon_short"
+          android:alpha="0.55"
+          android:background="@drawable/only_for_vip_background"
+          android:paddingHorizontal="4dp"
+          android:paddingVertical="2dp"
+          android:text="@string/vip_program_exclusivity_tag"
+          android:textColor="@color/promotions_dark_text"
+          android:visibility="visible"
           />
+
+      <com.asfoundation.wallet.ui.common.SeparatorView
+          android:id="@+id/separator"
+          android:layout_width="1dp"
+          android:layout_height="12dp"
+          android:layout_gravity="center_vertical"
+          android:layout_marginHorizontal="@dimen/big_margin"
+          android:visibility="visible"
+          app:line_orientation="vertical"
+          app:line_type="solid"
+          />
+
+      <LinearLayout
+          android:id="@+id/future_container_date"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_gravity="center_vertical"
+          android:orientation="horizontal"
+          >
+
+        <ImageView
+            android:layout_width="8dp"
+            android:layout_height="8dp"
+            android:layout_gravity="center_vertical"
+            app:srcCompat="@drawable/ic_clock"
+            app:tint="@color/promotions_future_text_color"
+            />
+
+        <TextView
+            android:id="@+id/future_expiry_date"
+            style="@style/Promotions.TextStyle.Date.Future"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="@dimen/small_margin"
+            android:text="@string/perks_available_soon_short"
+            />
+      </LinearLayout>
     </LinearLayout>
+
   </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

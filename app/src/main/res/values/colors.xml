@@ -146,6 +146,7 @@
   <color name="etherscan_transaction_clipboard">#FF5F84</color>
 
   <color name="vip_badge_background_color">#4DEC9B1A</color>
+  <color name="only_for_vip_background_color">#EFA226</color>
 
   <!-- Backup -->
 
@@ -159,10 +160,11 @@
 
   <!-- Promotions -->
 
-  <color name="promotions_active_background">#00131f</color>
-  <color name="promotions_future_background">#26a69ead</color>
-  <color name="promotions_future_text_color">#a69ead</color>
+  <color name="promotions_active_background">#192025</color>
+  <color name="promotions_future_background">#F2F1F3</color>
+  <color name="promotions_future_text_color">#4A4A4A</color>
   <color name="vouchers_card_bottom_color">#002b4b</color>
+  <color name="promotions_dark_text">#192025</color>
 
   <!-- Gamification -->
 

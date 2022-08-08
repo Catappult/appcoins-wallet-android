@@ -13,10 +13,12 @@ import javax.inject.Inject
 
 class PromotionsMapper @Inject constructor(private val gamificationMapper: GamificationMapper) {
 
-  fun mapToPromotionsModel(userStats: UserStats,
-                           levels: Levels,
-                           wallet: Wallet,
-                           vouchersListModel: VoucherListModel): PromotionsModel {
+  fun mapToPromotionsModel(
+    userStats: UserStats,
+    levels: Levels,
+    wallet: Wallet,
+    vouchersListModel: VoucherListModel
+  ): PromotionsModel {
     var gamificationAvailable = false
     var referralAvailable = false
     var perksAvailable = false
@@ -25,56 +27,66 @@ class PromotionsMapper @Inject constructor(private val gamificationMapper: Gamif
     val perks = mutableListOf<PerkPromotion>()
     val vouchers = handleVouchers(vouchersListModel, maxBonus)
     userStats.promotions.sortedByDescending { it.priority }
-        .forEach {
-          when (it) {
-            is GamificationResponse -> {
-              gamificationAvailable = it.status == PromotionsResponse.Status.ACTIVE
+      .forEach {
+        when (it) {
+          is GamificationResponse -> {
+            gamificationAvailable = it.status == PromotionsResponse.Status.ACTIVE
 
-              if (levels.isActive) {
-                maxBonus = levels.list.maxByOrNull { level -> level.bonus }?.bonus ?: 0.0
-              }
+            if (levels.isActive) {
+              maxBonus = levels.list.maxByOrNull { level -> level.bonus }?.bonus ?: 0.0
+            }
 
-              if (gamificationAvailable) {
-                promotions.add(0,
-                    TitleItem(R.string.perks_gamif_title, R.string.perks_gamif_subtitle, true,
-                        maxBonus.toString()))
-                promotions.add(1, mapToGamificationItem(it))
+            if (gamificationAvailable) {
+              promotions.add(
+                0,
+                TitleItem(
+                  R.string.perks_gamif_title, R.string.perks_gamif_subtitle, true,
+                  maxBonus.toString()
+                )
+              )
+              promotions.add(1, mapToGamificationItem(it))
+            }
+          }
+          is ReferralResponse -> {
+            referralAvailable = it.status == PromotionsResponse.Status.ACTIVE
+            if (referralAvailable) {
+              val index = if (gamificationAvailable) 2 else 0
+              promotions.add(index, mapToReferralItem(it))
+            }
+          }
+          is GenericResponse -> {
+            if (isPerk(it.linkedPromotionId)) {
+              perksAvailable = true
+              when {
+                isFuturePromotion(it) -> perks.add(mapToFutureItem(it))
+                it.viewType == PromotionsInteractor.PROGRESS_VIEW_TYPE -> perks.add(
+                  mapToProgressItem(it)
+                )
+                it.id == PromotionsInteractor.PROMO_CODE_PERK -> perks.add(mapToPromoCodeItem(it))
+                else -> perks.add(mapToDefaultItem(it))
               }
             }
-            is ReferralResponse -> {
-              referralAvailable = it.status == PromotionsResponse.Status.ACTIVE
-              if (referralAvailable) {
-                val index = if (gamificationAvailable) 2 else 0
-                promotions.add(index, mapToReferralItem(it))
-              }
-            }
-            is GenericResponse -> {
-              if (isPerk(it.linkedPromotionId)) {
-                perksAvailable = true
-                when {
-                  isFuturePromotion(it) -> perks.add(mapToFutureItem(it))
-                  it.viewType == PromotionsInteractor.PROGRESS_VIEW_TYPE -> perks.add(
-                      mapToProgressItem(it))
-                  it.id == PromotionsInteractor.PROMO_CODE_PERK -> perks.add(mapToPromoCodeItem(it))
-                  else -> perks.add(mapToDefaultItem(it))
-                }
-              }
-              if (isValidGamificationLink(it.linkedPromotionId, gamificationAvailable,
-                      it.startDate ?: 0)) {
-                mapToGamificationLinkItem(promotions, it)
-              }
+            if (isValidGamificationLink(
+                it.linkedPromotionId, gamificationAvailable,
+                it.startDate ?: 0
+              )
+            ) {
+              mapToGamificationLinkItem(promotions, it)
             }
           }
         }
+      }
 
     if (perksAvailable) {
       val perksIndex = getPerksIndex(gamificationAvailable, referralAvailable)
       promotions.add(perksIndex, TitleItem(R.string.perks_title, R.string.perks_body, false))
     }
 
-    return PromotionsModel(promotions, vouchers, perks, maxBonus, wallet,
-        map(userStats.walletOrigin),
-        map(userStats.error), levels.fromCache && userStats.fromCache)
+    return PromotionsModel(
+      promotions, vouchers, perks, maxBonus, wallet,
+      map(userStats.walletOrigin),
+      map(userStats.error), levels.fromCache && userStats.fromCache
+    )
   }
 
   private fun getPerksIndex(gamificationAvailable: Boolean, referralAvailable: Boolean): Int {
@@ -87,7 +99,8 @@ class PromotionsMapper @Inject constructor(private val gamificationMapper: Gamif
   }
 
   private fun map(
-      walletOrigin: WalletOrigin): PromotionsModel.WalletOrigin {
+    walletOrigin: WalletOrigin
+  ): PromotionsModel.WalletOrigin {
     return when (walletOrigin) {
       WalletOrigin.UNKNOWN -> PromotionsModel.WalletOrigin.UNKNOWN
       WalletOrigin.APTOIDE -> PromotionsModel.WalletOrigin.APTOIDE
@@ -103,57 +116,106 @@ class PromotionsMapper @Inject constructor(private val gamificationMapper: Gamif
     }
   }
 
-  private fun mapToGamificationLinkItem(promotions: MutableList<Promotion>,
-                                        genericResponse: GenericResponse) {
+  private fun mapToGamificationLinkItem(
+    promotions: MutableList<Promotion>,
+    genericResponse: GenericResponse
+  ) {
     val gamificationItem = promotions[1] as GamificationItem
     gamificationItem.links.add(
-        GamificationLinkItem(genericResponse.id, genericResponse.perkDescription,
-            genericResponse.icon, genericResponse.startDate, genericResponse.endDate))
+      GamificationLinkItem(
+        genericResponse.id,
+        genericResponse.gamificationType,
+        genericResponse.perkDescription,
+        genericResponse.icon,
+        genericResponse.startDate,
+        genericResponse.endDate
+      )
+    )
   }
 
   private fun mapToProgressItem(genericResponse: GenericResponse): ProgressItem {
-    return ProgressItem(genericResponse.id, genericResponse.perkDescription, genericResponse.icon,
-        genericResponse.appName, genericResponse.startDate, genericResponse.endDate,
-        genericResponse.currentProgress!!, genericResponse.objectiveProgress,
-        genericResponse.detailsLink)
+    return ProgressItem(
+      genericResponse.id,
+      genericResponse.gamificationType,
+      genericResponse.perkDescription,
+      genericResponse.icon,
+      genericResponse.appName,
+      genericResponse.startDate,
+      genericResponse.endDate,
+      genericResponse.currentProgress!!,
+      genericResponse.objectiveProgress,
+      genericResponse.detailsLink
+    )
   }
 
   private fun mapToDefaultItem(genericResponse: GenericResponse): DefaultItem {
-    return DefaultItem(genericResponse.id, genericResponse.perkDescription, genericResponse.icon,
-        genericResponse.appName, genericResponse.startDate, genericResponse.endDate,
-        genericResponse.detailsLink)
+    return DefaultItem(
+      genericResponse.id,
+      genericResponse.gamificationType,
+      genericResponse.perkDescription,
+      genericResponse.icon,
+      genericResponse.appName,
+      genericResponse.startDate,
+      genericResponse.endDate,
+      genericResponse.detailsLink
+    )
   }
 
   private fun mapToGamificationItem(
-      gamificationResponse: GamificationResponse): GamificationItem {
+    gamificationResponse: GamificationResponse
+  ): GamificationItem {
     val currentLevelInfo = gamificationMapper.mapCurrentLevelInfo(gamificationResponse.level)
     val toNextLevelAmount =
-        gamificationResponse.nextLevelAmount?.minus(gamificationResponse.totalSpend)
+      gamificationResponse.nextLevelAmount?.minus(gamificationResponse.totalSpend)
 
-    return GamificationItem(gamificationResponse.id, currentLevelInfo.planet,
-        gamificationResponse.level, currentLevelInfo.levelColor, currentLevelInfo.title,
-        toNextLevelAmount, gamificationResponse.bonus, mutableListOf())
+    return GamificationItem(
+      gamificationResponse.id,
+      currentLevelInfo.planet,
+      gamificationResponse.level,
+      currentLevelInfo.levelColor,
+      currentLevelInfo.title,
+      toNextLevelAmount,
+      gamificationResponse.bonus,
+      mutableListOf()
+    )
   }
 
   private fun mapToReferralItem(referralResponse: ReferralResponse): ReferralItem {
-    return ReferralItem(referralResponse.id, referralResponse.amount, referralResponse.currency,
-        referralResponse.link.orEmpty())
+    return ReferralItem(
+      referralResponse.id, referralResponse.amount, referralResponse.currency,
+      referralResponse.link.orEmpty()
+    )
   }
 
   private fun mapToFutureItem(genericResponse: GenericResponse): FutureItem {
-    return FutureItem(genericResponse.id, genericResponse.perkDescription, genericResponse.icon,
-        genericResponse.appName, genericResponse.startDate, genericResponse.endDate,
-        genericResponse.detailsLink)
+    return FutureItem(
+      genericResponse.id,
+      genericResponse.gamificationType,
+      genericResponse.perkDescription,
+      genericResponse.icon,
+      genericResponse.appName,
+      genericResponse.startDate,
+      genericResponse.endDate,
+      genericResponse.detailsLink
+    )
   }
 
   private fun mapToPromoCodeItem(genericResponse: GenericResponse): PromoCodeItem {
-    return PromoCodeItem(genericResponse.id, genericResponse.perkDescription,
-        genericResponse.appName, genericResponse.icon, genericResponse.startDate,
-        genericResponse.endDate)
+    return PromoCodeItem(
+      genericResponse.id,
+      genericResponse.gamificationType,
+      genericResponse.perkDescription,
+      genericResponse.appName,
+      genericResponse.icon,
+      genericResponse.startDate,
+      genericResponse.endDate
+    )
   }
 
-  private fun isValidGamificationLink(linkedPromotionId: String?,
-                                      gamificationAvailable: Boolean, startDate: Long): Boolean {
+  private fun isValidGamificationLink(
+    linkedPromotionId: String?,
+    gamificationAvailable: Boolean, startDate: Long
+  ): Boolean {
     val currentTime = TimeUnit.SECONDS.convert(System.currentTimeMillis(), TimeUnit.MILLISECONDS)
     return linkedPromotionId != null && linkedPromotionId == PromotionsInteractor.GAMIFICATION_ID && gamificationAvailable && startDate < currentTime
   }
@@ -168,16 +230,22 @@ class PromotionsMapper @Inject constructor(private val gamificationMapper: Gamif
     return 0.0
   }
 
-  private fun handleVouchers(vouchersListModel: VoucherListModel,
-                             maxBonus: Double): List<VoucherItem> {
+  private fun handleVouchers(
+    vouchersListModel: VoucherListModel,
+    maxBonus: Double
+  ): List<VoucherItem> {
     val list = ArrayList<VoucherItem>()
     vouchersListModel.vouchers.forEach {
-      list.add(VoucherItem(PromotionsInteractor.VOUCHER_ID, it.packageName, it.title, it.icon,
-          it.hasAppcoins, maxBonus))
+      list.add(
+        VoucherItem(
+          PromotionsInteractor.VOUCHER_ID, it.packageName, it.title, it.icon,
+          it.hasAppcoins, maxBonus
+        )
+      )
     }
     return list
   }
 
   private fun isPerk(linkedPromotionId: String?): Boolean =
-      linkedPromotionId != PromotionsInteractor.GAMIFICATION_ID
+    linkedPromotionId != PromotionsInteractor.GAMIFICATION_ID
 }

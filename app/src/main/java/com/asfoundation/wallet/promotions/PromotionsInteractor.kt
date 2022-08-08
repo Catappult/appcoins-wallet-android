@@ -106,9 +106,13 @@ class PromotionsInteractor @Inject constructor(
     return unwatchedPromotion?.let { res ->
       if (!isFuturePromotion(res)) {
         PromotionNotification(
-          CardNotificationAction.NONE, res.notificationTitle,
-          res.notificationDescription, res.icon,
-          getPromotionIdKey(res.id, res.startDate, res.endDate), res.detailsLink
+          CardNotificationAction.NONE,
+          res.notificationTitle,
+          res.notificationDescription,
+          res.icon,
+          getPromotionIdKey(res.id, res.startDate, res.endDate),
+          res.detailsLink,
+          res.gamificationType
         )
       } else {
         EmptyNotification()

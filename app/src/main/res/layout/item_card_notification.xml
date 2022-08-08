@@ -20,14 +20,38 @@
       >
 
     <ImageView
+        android:id="@+id/active_icon_border"
+        android:layout_width="66dp"
+        android:layout_height="66dp"
+        android:background="@drawable/promo_icon_border_background"
+        app:layout_constraintBottom_toBottomOf="@id/notification_image"
+        app:layout_constraintEnd_toEndOf="@id/notification_image"
+        app:layout_constraintStart_toStartOf="@id/notification_image"
+        app:layout_constraintTop_toTopOf="@id/notification_image"
+        />
+
+    <ImageView
         android:id="@+id/notification_image"
-        android:layout_width="56dp"
-        android:layout_height="56dp"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="19dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:src="@drawable/ic_bonus_pending"
+        tools:srcCompat="@drawable/ic_promotions_default"
+        />
+
+    <ImageView
+        android:antialias="true"
+        android:id="@+id/active_icon_border_vip"
+        android:layout_width="77dp"
+        android:layout_height="77dp"
+        android:layout_marginStart="0dp"
+        android:src="@drawable/frame_vip_img"
+        app:layout_constraintBottom_toBottomOf="@id/notification_image"
+        app:layout_constraintEnd_toEndOf="@id/notification_image"
+        app:layout_constraintStart_toStartOf="@id/notification_image"
+        app:layout_constraintTop_toTopOf="@id/notification_image"
         />
 
     <com.airbnb.lottie.LottieAnimationView
@@ -49,6 +73,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
+        android:layout_marginTop="-3dp"
         android:layout_marginEnd="16dp"
         android:ellipsize="end"
         android:fontFamily="@font/roboto_medium"
@@ -72,7 +97,7 @@
         android:layout_marginEnd="16dp"
         android:ellipsize="end"
         android:maxLines="3"
-        android:minLines="3"
+        android:minLines="1"
         android:text="@string/referral_notification_bonus_pending_body"
         android:textColor="@color/white_99"
         android:textSize="12sp"
@@ -80,12 +105,40 @@
         app:layout_constraintStart_toStartOf="@id/notification_title"
         app:layout_constraintTop_toBottomOf="@id/notification_title"
         />
+
+    <LinearLayout
+        android:id="@+id/properties_container"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
+        android:layout_marginBottom="16dp"
+        android:orientation="horizontal"
+        app:layout_constraintStart_toStartOf="@id/notification_description"
+        app:layout_constraintTop_toBottomOf="@id/notification_description"
+        >
+
+      <TextView
+          android:id="@+id/only_for_vip"
+          style="@style/Promotions.TextStyle.Date"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_gravity="center_vertical"
+          android:background="@drawable/only_for_vip_background"
+          android:paddingHorizontal="4dp"
+          android:paddingVertical="2dp"
+          android:text="@string/vip_program_exclusivity_tag"
+          android:textColor="@color/promotions_dark_text"
+          android:visibility="visible"
+          />
+
+    </LinearLayout>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="0dp"
         android:layout_marginEnd="@dimen/big_margin"
-        app:layout_constraintTop_toBottomOf="@+id/notification_description"
+        app:layout_constraintTop_toBottomOf="@+id/properties_container"
 
         >
 
