@@ -8,4 +8,5 @@ interface PaymentView {
   fun showNoNetworkError()
   fun showRootError()
   fun showFingerprintAuthentication()
+  fun showNeedsTopUpWarning()
 }

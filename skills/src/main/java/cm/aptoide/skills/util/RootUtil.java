@@ -4,7 +4,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.InputStreamReader;
 
-/** Class copied from asfoundation.wallet.util.RootUtil */
+/** Class copied from com.asfoundation.wallet.util.RootUtil */
 public class RootUtil {
     public static boolean isDeviceRooted() {
         return checkRootMethod1() || checkRootMethod2() || checkRootMethod3();

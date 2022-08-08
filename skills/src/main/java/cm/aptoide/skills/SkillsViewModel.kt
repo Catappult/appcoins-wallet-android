@@ -3,6 +3,7 @@ package cm.aptoide.skills
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import cm.aptoide.skills.entity.UserData
 import cm.aptoide.skills.interfaces.PaymentView
@@ -41,7 +42,8 @@ class SkillsViewModel @Inject constructor(
     private val getCachedPaymentUseCase: GetCachedPaymentUseCase,
     private val sendUserVerificationFlowUseCase: SendUserVerificationFlowUseCase,
     private val isWalletVerifiedUseCase: IsWalletVerifiedUseCase,
-    private val validateUrlUseCase: ValidateUrlUseCase
+    private val validateUrlUseCase: ValidateUrlUseCase,
+    private val isTopUpListEmptyUseCase: IsTopUpListEmptyUseCase
 ) : ViewModel() {
   lateinit var ticketId: String
   private val closeView: PublishSubject<Pair<Int, UserData>> = PublishSubject.create()
@@ -211,6 +213,10 @@ class SkillsViewModel @Inject constructor(
 
   fun getAuthenticationIntent(context: Context): Intent {
     return getAuthenticationIntentUseCase(context)
+  }
+
+  fun isTopUpListEmpty(): Boolean {
+    return isTopUpListEmptyUseCase(TransactionType.TOPUP, TopUpStatus.COMPLETED).blockingGet()
   }
 
   fun restorePurchase(view: PaymentView): Single<Ticket> {
