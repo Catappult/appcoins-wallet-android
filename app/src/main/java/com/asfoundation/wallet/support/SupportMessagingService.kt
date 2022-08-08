@@ -57,7 +57,7 @@ class SupportMessagingService : FirebaseMessagingService() {
         .setAutoCancel(true)
         .setContentIntent(okPendingIntent)
         .addAction(0, context.getString(R.string.dismiss_button), dismissPendingIntent)
-        .setSmallIcon(R.drawable.ic_launcher_foreground)
+        .setSmallIcon(R.drawable.ic_appcoins_notification_icon)
         .setContentText(context.getString(R.string.support_new_message_button))
   }
 

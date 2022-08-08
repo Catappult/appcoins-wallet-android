@@ -39,7 +39,7 @@ object BackupNotificationUtils {
           .setContentIntent(backupIntent)
           .addAction(0, context.getString(R.string.dismiss_button), dismissIntent)
           .addAction(0, context.getString(R.string.action_backup_wallet), backupIntent)
-            .setSmallIcon(R.drawable.ic_launcher_foreground)
+            .setSmallIcon(R.drawable.ic_appcoins_notification_icon)
             .setDeleteIntent(dismissIntent)
             .setContentText(context.getString(R.string.backup_notification_body))
             .build()

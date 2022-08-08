@@ -151,7 +151,7 @@ internal class AppModule {
       builder.setVibrate(LongArray(0))
     }
     return builder.setContentTitle(context.getString(R.string.app_name))
-      .setSmallIcon(R.drawable.ic_launcher_foreground)
+      .setSmallIcon(R.drawable.ic_appcoins_notification_icon)
       .setPriority(NotificationCompat.PRIORITY_MAX)
       .setAutoCancel(true)
   }

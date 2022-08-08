@@ -79,7 +79,7 @@ class BackgroundGameService : Service(), GameStateListener {
     val dismissIntent = createNotificationDismissIntent()
     return notificationBuilder.setContentTitle(title)
         .addAction(0, getString(R.string.dismiss_button), dismissIntent)
-        .setSmallIcon(R.drawable.ic_launcher_foreground)
+        .setSmallIcon(R.drawable.ic_appcoins_notification_icon)
         .setDeleteIntent(dismissIntent)
         .setContentText(text)
         .build()

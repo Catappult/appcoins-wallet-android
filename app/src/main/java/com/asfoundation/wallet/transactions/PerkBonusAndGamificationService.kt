@@ -294,7 +294,7 @@ class PerkBonusAndGamificationService :
     return builder.setAutoCancel(true)
       .setContentIntent(intent)
       .setPriority(NotificationCompat.PRIORITY_HIGH)
-      .setSmallIcon(R.drawable.ic_launcher_foreground)
+      .setSmallIcon(R.drawable.ic_appcoins_notification_icon)
   }
 
   private fun createPerkBonusNotification(value: String): NotificationCompat.Builder {
