@@ -182,6 +182,9 @@ data class _BillingAddress2ViewState(
   val savedBillingAddress: BillingAddressModel?
 ) : _ViewState
 
+object _FetchingLinkInfoViewState : _ViewState
+data class _ShareLink2ViewState(val url: String) : _ViewState
+
 interface _Navigation
 data class _StartTransfer(
   val transactionBuilder: TransactionBuilder,
