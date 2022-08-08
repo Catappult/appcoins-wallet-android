@@ -13,12 +13,12 @@ import com.asfoundation.wallet.billing.analytics.WalletsEventSender
 import com.asfoundation.wallet.entity.GlobalBalance
 import com.asfoundation.wallet.entity.Wallet
 import com.asfoundation.wallet.home.usecases.*
-import com.asfoundation.wallet.interact.AutoUpdateInteract
 import com.asfoundation.wallet.referrals.CardNotification
 import com.asfoundation.wallet.transactions.Transaction
 import com.asfoundation.wallet.ui.balance.TokenBalance
 import com.asfoundation.wallet.ui.widget.entity.TransactionsModel
 import com.asfoundation.wallet.ui.widget.holder.CardNotificationAction
+import com.asfoundation.wallet.update_required.use_cases.BuildUpdateIntentUseCase.Companion.PLAY_APP_VIEW_URL
 import com.asfoundation.wallet.viewmodel.TransactionsWalletModel
 import com.asfoundation.wallet.wallets.domain.WalletBalance
 import com.asfoundation.wallet.wallets.usecases.GetWalletInfoUseCase
@@ -37,7 +37,6 @@ import javax.inject.Named
 sealed class HomeSideEffect : SideEffect {
   data class NavigateToBrowser(val uri: Uri) : HomeSideEffect()
   data class NavigateToRateUs(val shouldNavigate: Boolean) : HomeSideEffect()
-  data class NavigateToReceive(val wallet: Wallet?) : HomeSideEffect()
   data class NavigateToSettings(val turnOnFingerprint: Boolean = false) : HomeSideEffect()
   data class NavigateToShare(val url: String) : HomeSideEffect()
   data class NavigateToDetails(val transaction: Transaction, val balanceCurrency: String) :
@@ -52,9 +51,7 @@ sealed class HomeSideEffect : SideEffect {
     HomeSideEffect()
 
   object NavigateToMyWallets : HomeSideEffect()
-  object NavigateToSend : HomeSideEffect()
   object NavigateToChangeCurrency : HomeSideEffect()
-  object ShowFingerprintTooltip : HomeSideEffect()
 }
 
 data class HomeState(
@@ -111,7 +108,6 @@ class HomeViewModel @Inject constructor(
     verifyUserLevel()
     handleUnreadConversationCount()
     handleRateUsDialogVisibility()
-    handleFingerprintTooltipVisibility()
     handleBackupTrigger()
   }
 
@@ -335,27 +331,6 @@ class HomeViewModel @Inject constructor(
       }
   }
 
-  private fun handleFingerprintTooltipVisibility() {
-    shouldShowFingerprintTooltipUseCase(BuildConfig.APPLICATION_ID)
-      .doOnSuccess { value ->
-        if (value == true) {
-          sendSideEffect { HomeSideEffect.ShowFingerprintTooltip }
-        }
-      }
-      .scopedSubscribe { e ->
-        e.printStackTrace()
-      }
-  }
-
-  fun onTurnFingerprintOnClick() {
-    sendSideEffect { HomeSideEffect.NavigateToSettings(turnOnFingerprint = true) }
-    setSeenFingerprintTooltipUseCase()
-  }
-
-  fun onFingerprintDismissed() {
-    setSeenFingerprintTooltipUseCase()
-  }
-
   fun showSupportScreen(fromNotification: Boolean) {
     if (fromNotification) {
       displayConversationListOrChatUseCase
@@ -374,20 +349,6 @@ class HomeViewModel @Inject constructor(
 
   fun onBalanceClick() {
     sendSideEffect { HomeSideEffect.NavigateToMyWallets }
-  }
-
-  fun onSendClick() {
-    sendSideEffect { HomeSideEffect.NavigateToSend }
-  }
-
-  fun onReceiveClick() {
-    sendSideEffect {
-      state.transactionsModelAsync.value?.transactionsWalletModel?.let {
-        HomeSideEffect.NavigateToReceive(
-          it.wallet
-        )
-      }
-    }
   }
 
   fun onTransactionDetailsClick(transaction: Transaction) {
@@ -453,7 +414,7 @@ class HomeViewModel @Inject constructor(
     val intent =
       Intent(
         Intent.ACTION_VIEW,
-        Uri.parse(String.format(AutoUpdateInteract.PLAY_APP_VIEW_URL, walletPackageName))
+        Uri.parse(String.format(PLAY_APP_VIEW_URL, walletPackageName))
       )
     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
     return intent

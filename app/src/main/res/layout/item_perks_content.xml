@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingHorizontal="12dp"
+    android:paddingVertical="14dp"
+    tools:background="@color/promotions_active_background"
+    >
+
+  <ImageView
+      android:id="@+id/active_icon_border"
+      android:layout_width="66dp"
+      android:layout_height="66dp"
+      android:background="@drawable/promo_icon_border_background"
+      app:layout_constraintBottom_toBottomOf="@id/active_icon"
+      app:layout_constraintEnd_toEndOf="@id/active_icon"
+      app:layout_constraintStart_toStartOf="@id/active_icon"
+      app:layout_constraintTop_toTopOf="@id/active_icon"
+      />
+
+  <ImageView
+      android:id="@+id/active_icon"
+      android:layout_width="60dp"
+      android:layout_height="60dp"
+      android:layout_marginStart="7dp"
+      android:layout_marginTop="7dp"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="@id/active_app_name"
+      tools:srcCompat="@drawable/ic_promotions_default"
+      />
+
+  <ImageView
+      android:antialias="true"
+      android:id="@+id/active_icon_border_vip"
+      android:layout_width="77dp"
+      android:layout_height="77dp"
+      android:layout_marginStart="0dp"
+      android:src="@drawable/frame_vip_img"
+      android:adjustViewBounds="true"
+      app:layout_constraintBottom_toBottomOf="@id/active_icon"
+      app:layout_constraintEnd_toEndOf="@id/active_icon"
+      app:layout_constraintStart_toStartOf="@id/active_icon"
+
+      app:layout_constraintTop_toTopOf="@id/active_icon"
+      />
+
+  <TextView
+      android:id="@+id/active_app_name"
+      style="@style/Promotions.TextStyle.AppName"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      app:layout_constraintBottom_toTopOf="@id/active_title"
+      app:layout_constraintStart_toEndOf="@id/vertical_guideline"
+      app:layout_constraintTop_toTopOf="parent"
+      app:layout_constraintVertical_chainStyle="spread_inside"
+      tools:text="Trivial Drive Sample"
+      />
+
+  <TextView
+      android:id="@+id/active_title"
+      style="@style/Promotions.TextStyle.Title"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="@dimen/small_margin"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toEndOf="@id/vertical_guideline"
+      app:layout_constraintTop_toBottomOf="@id/active_app_name"
+      app:layout_constraintVertical_chainStyle="packed"
+      tools:text="Spend 200 Appcoins in 5 days and earn a bonus of 120 AppCoins Credits"
+      />
+
+  <LinearLayout
+      android:id="@+id/properties_container"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="14dp"
+      android:layout_marginBottom="16dp"
+      android:orientation="horizontal"
+      app:layout_constraintStart_toStartOf="@id/active_app_name"
+      app:layout_constraintTop_toBottomOf="@id/active_title"
+      >
+
+    <TextView
+        android:id="@+id/only_for_vip"
+        style="@style/Promotions.TextStyle.Date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:background="@drawable/only_for_vip_background"
+        android:paddingHorizontal="4dp"
+        android:paddingVertical="2dp"
+        android:text="@string/vip_program_exclusivity_tag"
+        android:textColor="@color/promotions_dark_text"
+        android:visibility="visible"
+        />
+
+    <com.asfoundation.wallet.ui.common.SeparatorView
+        android:id="@+id/separator"
+        android:layout_width="1dp"
+        android:layout_height="12dp"
+        android:layout_gravity="center_vertical"
+        android:layout_marginHorizontal="@dimen/big_margin"
+        android:visibility="visible"
+        app:line_orientation="vertical"
+        app:line_type="solid"
+        />
+
+    <LinearLayout
+        android:id="@+id/active_container_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:orientation="horizontal"
+        >
+
+      <ImageView
+          android:layout_width="8dp"
+          android:layout_height="8dp"
+          android:layout_gravity="center_vertical"
+          app:srcCompat="@drawable/ic_clock"
+          />
+
+      <TextView
+          android:id="@+id/active_expiry_date"
+          style="@style/Promotions.TextStyle.Date"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_gravity="center_vertical"
+          android:layout_marginStart="@dimen/small_margin"
+          tools:text="ends in 2 days"
+          />
+    </LinearLayout>
+  </LinearLayout>
+
+  <androidx.constraintlayout.widget.Guideline
+      android:id="@+id/horizontal_guideline"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:orientation="horizontal"
+      app:layout_constraintGuide_begin="65dp"
+      />
+
+  <androidx.constraintlayout.widget.Guideline
+      android:id="@+id/vertical_guideline"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:orientation="vertical"
+      app:layout_constraintGuide_begin="82dp"
+      />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

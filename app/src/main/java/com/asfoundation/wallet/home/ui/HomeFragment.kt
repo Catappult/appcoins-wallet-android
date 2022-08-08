@@ -31,7 +31,6 @@ import dagger.hilt.android.AndroidEntryPoint
 import io.intercom.android.sdk.Intercom
 import java.math.BigDecimal
 import javax.inject.Inject
-import com.google.android.material.bottomnavigation.BottomNavigationView
 
 @AndroidEntryPoint
 class HomeFragment : BasePageViewFragment(),
@@ -158,7 +157,8 @@ class HomeFragment : BasePageViewFragment(),
       }
       is Async.Success -> {
         val creditsBalanceFiat = balanceAsync().walletBalance.creditsOnlyFiat
-        val creditsFiatAmount = formatter.formatCurrency(creditsBalanceFiat.amount, WalletCurrency.FIAT)
+        val creditsFiatAmount =
+          formatter.formatCurrency(creditsBalanceFiat.amount, WalletCurrency.FIAT)
         if (creditsBalanceFiat.amount > BigDecimal(
             "-1"
           ) && creditsBalanceFiat.symbol.isNotEmpty()
@@ -194,8 +194,6 @@ class HomeFragment : BasePageViewFragment(),
       is HomeSideEffect.NavigateToBrowser -> navigator.navigateToBrowser(sideEffect.uri)
       is HomeSideEffect.NavigateToRateUs -> navigator.navigateToRateUs(sideEffect.shouldNavigate)
       HomeSideEffect.NavigateToMyWallets -> navigator.navigateToMyWallets()
-      is HomeSideEffect.NavigateToReceive -> navigator.navigateToReceive(sideEffect.wallet)
-      HomeSideEffect.NavigateToSend -> navigator.navigateToSend()
       is HomeSideEffect.NavigateToSettings -> navigator.navigateToSettings(
         sideEffect.turnOnFingerprint
       )
@@ -211,7 +209,6 @@ class HomeFragment : BasePageViewFragment(),
         sideEffect.walletAddress,
         sideEffect.triggerSource
       )
-      HomeSideEffect.ShowFingerprintTooltip -> setFingerprintTooltip()
       HomeSideEffect.NavigateToChangeCurrency -> navigator.navigateToCurrencySelector()
     }
   }
@@ -250,37 +247,4 @@ class HomeFragment : BasePageViewFragment(),
   private fun onTransactionClick(transaction: Transaction) {
     viewModel.onTransactionDetailsClick(transaction)
   }
-
-  private fun setFingerprintTooltip() {
-    popup = PopupWindow(tooltip)
-    popup.height = ViewGroup.LayoutParams.WRAP_CONTENT
-    popup.width = ViewGroup.LayoutParams.MATCH_PARENT
-    val yOffset = 36.convertDpToPx(resources)
-    views.fadedBackground.visibility = View.VISIBLE
-    views.actionButtonSettings.post {
-      popup.showAsDropDown(views.actionButtonSettings, 0, -yOffset)
-    }
-    setTooltipListeners()
-  }
-
-  private fun setTooltipListeners() {
-    tooltip.findViewById<View>(R.id.tooltip_later_button)
-      .setOnClickListener { dismissPopup() }
-    tooltip.findViewById<View>(R.id.tooltip_turn_on_button)
-      .setOnClickListener {
-        dismissPopup()
-        viewModel.onTurnFingerprintOnClick()
-      }
-  }
-
-  private fun dismissPopup() {
-    viewModel.onFingerprintDismissed()
-    views.fadedBackground.visibility = View.GONE
-    popup.dismiss()
-  }
-
-  companion object {
-    fun newInstance() = HomeFragment()
-  }
-
 }

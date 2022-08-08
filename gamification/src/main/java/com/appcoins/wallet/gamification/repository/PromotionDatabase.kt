@@ -12,7 +12,7 @@ import com.appcoins.wallet.gamification.repository.entity.WalletOriginEntity
 
 @Database(
     entities = [PromotionEntity::class, LevelsEntity::class, LevelEntity::class, WalletOriginEntity::class],
-    version = 6)
+    version = 7)
 @TypeConverters(PromotionConverter::class)
 abstract class PromotionDatabase : RoomDatabase() {
 
@@ -73,6 +73,14 @@ abstract class PromotionDatabase : RoomDatabase() {
         database.execSQL("ALTER TABLE PromotionEntity ADD COLUMN app_name TEXT")
       }
     }
+
+    //Adds the gamification type field to the promotions entity object
+    val MIGRATION_6_7: Migration = object : Migration(6, 7) {
+      override fun migrate(database: SupportSQLiteDatabase) {
+        database.execSQL("ALTER TABLE PromotionEntity ADD COLUMN gamification_type TEXT")
+      }
+    }
+
   }
 
   abstract fun promotionDao(): PromotionDao

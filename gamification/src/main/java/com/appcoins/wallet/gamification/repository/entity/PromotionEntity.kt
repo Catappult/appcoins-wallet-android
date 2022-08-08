@@ -12,6 +12,8 @@ data class PromotionEntity(
     @PrimaryKey(autoGenerate = true) val uid: Long = 0,
     val id: String,
     val priority: Int,
+    @ColumnInfo(name = "gamification_type")
+    val gamificationType: String?,
     val bonus: Double? = null,
     @ColumnInfo(name = "total_spend")
     val totalSpend: BigDecimal? = null,

@@ -7,8 +7,7 @@ import android.util.DisplayMetrics
 import android.view.WindowManager
 import com.asf.wallet.BuildConfig
 import com.asfoundation.wallet.repository.PreferencesRepositoryType
-import okhttp3.Interceptor
-import okhttp3.Response
+import okhttp3.*
 import java.io.IOException
 import java.util.*
 
@@ -55,8 +54,8 @@ class UserAgentInterceptor(private val context: Context,
   override fun intercept(chain: Interceptor.Chain): Response {
     val originalRequest = chain.request()
     val requestWithUserAgent = originalRequest.newBuilder()
-        .header("User-Agent", userAgent)
-        .build()
+      .header("User-Agent", userAgent)
+      .build()
     return chain.proceed(requestWithUserAgent)
   }
 

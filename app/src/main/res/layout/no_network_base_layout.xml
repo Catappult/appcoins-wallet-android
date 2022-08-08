@@ -23,6 +23,7 @@
 
   <TextView
       android:id="@+id/no_network_message"
+      style="@style/TextM"
       android:layout_width="0dp"
       android:layout_height="wrap_content"
       android:layout_marginStart="44dp"
@@ -32,8 +33,6 @@
       android:gravity="center"
       android:lineSpacingExtra="4sp"
       android:text="@string/connection_error_body"
-      android:textColor="@color/grey_alpha_active_54"
-      android:textSize="12sp"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toBottomOf="@id/no_network_animation"

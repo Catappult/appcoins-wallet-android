@@ -15,6 +15,6 @@ class SendBackupToEmailUseCase @Inject constructor(
     email: String
   ): Completable {
     return createBackupUseCase(walletAddress, password)
-      .flatMapCompletable { backupRepository.sendBackupEmail(it, email) }
+      .flatMapCompletable { backupRepository.sendBackupEmail(walletAddress, it, email) }
   }
 }

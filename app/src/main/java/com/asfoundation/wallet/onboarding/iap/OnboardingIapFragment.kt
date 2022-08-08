@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -13,7 +14,8 @@ import by.kirich1409.viewbindingdelegate.viewBinding
 import com.asf.wallet.R
 import com.asf.wallet.databinding.OnboardingIapFragmentBinding
 import com.asfoundation.wallet.base.SingleStateFragment
-import com.asfoundation.wallet.onboarding.OnboardingFragment
+import com.asfoundation.wallet.my_wallets.create_wallet.CreateWalletDialogFragment
+import com.asfoundation.wallet.onboarding.bottom_sheet.TermsConditionsBottomSheetFragment
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -50,9 +52,9 @@ class OnboardingIapFragment : BasePageViewFragment(),
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
-
     handleTermsConditionsFragmentResult()
     viewModel.handleLoadIcon()
+    handleTermsConditionsFragmentResult()
 
     views.onboardingIapBackToGameButton.setOnClickListener {
       viewModel.handleBackToGameClick()
@@ -68,8 +70,8 @@ class OnboardingIapFragment : BasePageViewFragment(),
   }
 
   private fun handleTermsConditionsFragmentResult() {
-    setFragmentResultListener(OnboardingFragment.ONBOARDING_FINISHED_KEY) { _, _ ->
-      navigator.closeOnboarding()
+    setFragmentResultListener(TermsConditionsBottomSheetFragment.TERMS_CONDITIONS_COMPLETE) { _, _ ->
+      views.root.visibility = View.GONE
     }
   }
 
@@ -92,11 +94,6 @@ class OnboardingIapFragment : BasePageViewFragment(),
     } catch (e: PackageManager.NameNotFoundException) {
       e.printStackTrace()
     }
-  }
-
-  companion object {
-    @JvmStatic
-    fun newInstance(): OnboardingIapFragment = OnboardingIapFragment()
   }
 }
 

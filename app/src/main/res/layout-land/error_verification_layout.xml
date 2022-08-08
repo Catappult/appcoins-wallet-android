@@ -137,7 +137,7 @@
       android:layout_height="wrap_content"
       android:layout_gravity="center_vertical"
       android:layout_marginStart="8dp"
-      android:src="@drawable/ic_open_in_new_24"
+      android:src="@drawable/ic_open_in_24"
       app:layout_constraintBottom_toBottomOf="@id/layout_support_logo"
       app:layout_constraintStart_toEndOf="@id/layout_support_logo"
       app:layout_constraintTop_toTopOf="@id/layout_support_logo"

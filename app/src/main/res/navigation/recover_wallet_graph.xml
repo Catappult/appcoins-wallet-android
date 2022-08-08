@@ -2,7 +2,7 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/recover_wallet"
+    android:id="@+id/recover_wallet_graph"
     app:startDestination="@id/recover_entry_fragment">
 
   <fragment
@@ -23,8 +23,10 @@
         app:destination="@id/create_wallet_dialog_fragment" />
 
     <action
-        android:id="@+id/action_navigate_to_main_activity"
-        app:destination="@id/main_activity" />
+        android:id="@+id/action_navigate_to_nav_bar_fragment"
+        app:destination="@id/nav_bar_fragment"
+        app:popUpTo="@id/recover_entry_fragment"
+        app:popUpToInclusive="true"/>
   </fragment>
 
   <fragment
@@ -45,8 +47,10 @@
         app:destination="@id/create_wallet_dialog_fragment" />
 
     <action
-        android:id="@+id/action_navigate_to_main_activity"
-        app:destination="@id/main_activity" />
+        android:id="@+id/action_navigate_to_nav_bar_fragment"
+        app:destination="@id/nav_bar_fragment"
+        app:popUpTo="@id/recover_entry_fragment"
+        app:popUpToInclusive="true"/>
   </fragment>
 
   <dialog
@@ -59,12 +63,8 @@
         app:argType="boolean" />
   </dialog>
 
-  <activity
-      android:id="@+id/main_activity"
-      android:name="com.asfoundation.wallet.main.MainActivity"
-      tools:layout="@layout/qr_code_layout">
-    <argument
-        android:name="wallet_addr"
-        app:argType="boolean" />
-  </activity>
+  <fragment
+      android:id="@+id/nav_bar_fragment"
+      android:name="com.asfoundation.wallet.main.nav_bar.NavBarFragment"
+      tools:layout="@layout/nav_bar_fragment"/>
 </navigation>

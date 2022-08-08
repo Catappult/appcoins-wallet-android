@@ -30,4 +30,6 @@
   <string name="purchase_error_title">Ой, что-то пошло не так.</string>
   <string name="purchase_eskills_sku">Входной билет</string>
   <string name="shared_room_waiting">Ожидание противников в %s</string>
+  <string name="rooted_device_blocked_body">Unfortunately, you cannot play e-Skills games with a rooted device.\"</string>
+  <string name="top_up_needed_body">For security reasons, you need to make at least one top-up in your wallet to play e-Skills games.</string>
 </resources>

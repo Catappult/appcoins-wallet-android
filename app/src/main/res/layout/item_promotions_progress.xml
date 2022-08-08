@@ -19,7 +19,7 @@
 
     <include
         android:id="@+id/perk_content"
-        layout="@layout/perks_content"
+        layout="@layout/item_perks_content"
         />
 
     <ProgressBar

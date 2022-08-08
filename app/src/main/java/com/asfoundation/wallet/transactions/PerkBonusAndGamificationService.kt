@@ -16,7 +16,7 @@ import com.appcoins.wallet.gamification.repository.PromotionsRepository
 import com.asf.wallet.R
 import com.asfoundation.wallet.C
 import com.asfoundation.wallet.backup.repository.preferences.BackupTriggerPreferences
-import com.asfoundation.wallet.main.MainActivityNavigator
+import com.asfoundation.wallet.main.PendingIntentNavigator
 import com.asfoundation.wallet.promo_code.use_cases.GetCurrentPromoCodeUseCase
 import com.asfoundation.wallet.repository.TransactionRepositoryType
 import com.asfoundation.wallet.ui.gamification.GamificationMapper
@@ -50,7 +50,7 @@ class PerkBonusAndGamificationService :
   lateinit var gamificationMapper: GamificationMapper
 
   @Inject
-  lateinit var mainActivityNavigator: MainActivityNavigator
+  lateinit var pendingIntentNavigator: PendingIntentNavigator
 
   private lateinit var notificationManager: NotificationManager
 
@@ -300,7 +300,7 @@ class PerkBonusAndGamificationService :
   private fun createPerkBonusNotification(value: String): NotificationCompat.Builder {
     return initializeNotificationBuilder(
       PERK_CHANNEL_ID, PERK_CHANNEL_NAME,
-      mainActivityNavigator.getHomePendingIntent()
+      pendingIntentNavigator.getHomePendingIntent()
     )
       .setContentTitle(getString(R.string.perks_notification, value))
       .setContentText(getString(R.string.support_new_message_button))
@@ -319,7 +319,7 @@ class PerkBonusAndGamificationService :
     val builder =
       initializeNotificationBuilder(
         LEVEL_UP_CHANNEL_ID, LEVEL_UP_CHANNEL_NAME,
-        mainActivityNavigator.getPromotionsPendingIntent()
+        pendingIntentNavigator.getPromotionsPendingIntent()
       )
         .setContentTitle(reachedLevelInfo.reachedTitle)
     val levelBitmap = reachedLevelInfo.planet?.toBitmap()
@@ -349,7 +349,7 @@ class PerkBonusAndGamificationService :
       NotificationCompat.Builder {
     return initializeNotificationBuilder(
       LEVEL_UP_CHANNEL_ID,
-      LEVEL_UP_CHANNEL_NAME, mainActivityNavigator.getPromotionsPendingIntent()
+      LEVEL_UP_CHANNEL_NAME, pendingIntentNavigator.getPromotionsPendingIntent()
     )
       .setContentTitle(getString(R.string.gamification_level_up_notification_title))
       .setContentText(

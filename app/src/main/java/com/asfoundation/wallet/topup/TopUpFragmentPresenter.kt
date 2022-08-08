@@ -83,7 +83,11 @@ class TopUpFragmentPresenter(private val view: TopUpFragmentView,
         .subscribeOn(networkScheduler)
         .observeOn(viewScheduler)
         .doOnSuccess {
-          if (it.isNotEmpty()) view.setupPaymentMethods(it)
+          if (it.isNotEmpty()) {
+            view.setupPaymentMethods(it)
+          } else {
+            view.showNoMethodsError()
+          }
         }
         .ignoreElement()
   }

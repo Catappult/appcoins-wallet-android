@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/update_required_graph"
+    app:startDestination="@id/update_required_fragment">
+
+  <fragment
+      android:id="@+id/update_required_fragment"
+      android:name="com.asfoundation.wallet.update_required.UpdateRequiredFragment"
+      tools:layout="@layout/update_required_fragment" />
+</navigation>

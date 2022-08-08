@@ -13,7 +13,6 @@ import com.appcoins.wallet.billing.BillingMessagesMapper
 import com.appcoins.wallet.commons.Logger
 import com.asf.wallet.BuildConfig
 import com.asfoundation.wallet.analytics.IndicativeAnalytics
-import com.asfoundation.wallet.analytics.LaunchInteractor
 import com.asfoundation.wallet.analytics.RakamAnalytics
 import com.asfoundation.wallet.analytics.SentryAnalytics
 import com.asfoundation.wallet.identification.IdsRepository
@@ -27,7 +26,6 @@ import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.GoogleApiAvailability
 import dagger.hilt.android.HiltAndroidApp
 import io.intercom.android.sdk.Intercom
-import io.reactivex.Completable
 import io.reactivex.exceptions.UndeliverableException
 import io.reactivex.plugins.RxJavaPlugins
 import io.reactivex.schedulers.Schedulers
@@ -35,7 +33,6 @@ import org.bouncycastle.jce.provider.BouncyCastleProvider
 import java.security.Provider
 import java.security.Security
 import java.util.*
-import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 @HiltAndroidApp
@@ -90,9 +87,6 @@ class App : MultiDexApplication(), BillingDependenciesProvider {
   lateinit var analyticsManager: AnalyticsManager
 
   @Inject
-  lateinit var launchInteractor: LaunchInteractor
-
-  @Inject
   lateinit var subscriptionBillingApi: SubscriptionBillingApi
 
   companion object {
@@ -118,12 +112,6 @@ class App : MultiDexApplication(), BillingDependenciesProvider {
 
   private fun initializeRakam() {
     rakamAnalytics.initialize()
-      // Hacky way to wait for rakam initialization.. For some reason Rakam is initializing
-      // in another thread internally, and there's no callback for us to wait for that
-      .delay(3000, TimeUnit.MILLISECONDS)
-      .andThen(Completable.fromAction {
-        launchInteractor.sendFirstLaunchEvent()
-      })
       .subscribeOn(Schedulers.io())
       .subscribe()
   }

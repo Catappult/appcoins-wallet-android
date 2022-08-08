@@ -6,13 +6,11 @@ import java.math.BigDecimal
 class GamificationResponse(
     id: String,
     priority: Int,
+    gamificationType: String?,
     val bonus: Double,
-    @SerializedName("current_amount")
-    val totalSpend: BigDecimal,
-    @SerializedName("bonus_earned")
-    val totalEarned: BigDecimal,
+    @SerializedName("current_amount") val totalSpend: BigDecimal,
+    @SerializedName("bonus_earned") val totalEarned: BigDecimal,
     val level: Int,
-    @SerializedName("next_level_amount")
-    val nextLevelAmount: BigDecimal?,
+    @SerializedName("next_level_amount") val nextLevelAmount: BigDecimal?,
     val status: Status,
-    val bundle: Boolean) : PromotionsResponse(id, priority)
+    val bundle: Boolean) : PromotionsResponse(id, priority, gamificationType)

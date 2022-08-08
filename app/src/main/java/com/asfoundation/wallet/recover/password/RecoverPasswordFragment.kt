@@ -12,12 +12,13 @@ import com.asf.wallet.R
 import com.asf.wallet.databinding.RecoverPasswordFragmentBinding
 import com.asfoundation.wallet.base.Async
 import com.asfoundation.wallet.base.SingleStateFragment
-import com.asfoundation.wallet.onboarding.OnboardingFragment
-import com.asfoundation.wallet.recover.entry.RecoverEntryFragment
+import com.asfoundation.wallet.my_wallets.create_wallet.CreateWalletDialogFragment
+import com.asfoundation.wallet.recover.RecoverActivity.Companion.ONBOARDING_LAYOUT
 import com.asfoundation.wallet.recover.result.FailedPasswordRecover
 import com.asfoundation.wallet.recover.result.RecoverPasswordResult
 import com.asfoundation.wallet.recover.result.SuccessfulPasswordRecover
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
+import com.google.android.material.appbar.AppBarLayout
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -45,7 +46,7 @@ class RecoverPasswordFragment : BasePageViewFragment(),
 
   override fun onViewCreated(view: View, @Nullable savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
-    if (!requireActivity().intent.getBooleanExtra(RecoverEntryFragment.ONBOARDING_LAYOUT, false)) {
+    if (!requireActivity().intent.getBooleanExtra(ONBOARDING_LAYOUT, false)) {
       views.recoverWalletBackButton.visibility = View.GONE
     }
     views.recoverWalletBackButton.setOnClickListener {
@@ -105,10 +106,16 @@ class RecoverPasswordFragment : BasePageViewFragment(),
 
   private fun handleFragmentResult() {
     parentFragmentManager.setFragmentResultListener(
-      OnboardingFragment.ONBOARDING_FINISHED_KEY,
+      CreateWalletDialogFragment.CREATE_WALLET_DIALOG_COMPLETE,
       this
     ) { _, _ ->
-      navigator.navigateToMainActivity(fromSupportNotification = false)
+      /*
+      * Temporary workaround because we still have the RecoverActivity from the MyWallets flow and Settings flow
+      * After the RecoverActivity removal, we can remove this workaround for the toolbar visibility
+      * */
+      requireActivity().findViewById<AppBarLayout>(R.id.recover_wallet_app_bar)
+        .visibility = View.GONE
+      navigator.navigateToNavigationBar()
     }
   }
 

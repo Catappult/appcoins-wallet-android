@@ -30,4 +30,6 @@
   <string name="purchase_error_title">Ωχ, κάτι πήγε στραβά.</string>
   <string name="purchase_eskills_sku">Εισιτήριο εισόδου</string>
   <string name="shared_room_waiting">Αναμονή αντιπάλων για να μπουν στο %s</string>
+  <string name="rooted_device_blocked_body">Δυστυχώς δεν μπορείτε να παίξετε παιχνίδια e-Skills με συσκευή \"rooted.\"</string>
+  <string name="top_up_needed_body">For security reasons, you need to make at least one top-up in your wallet to play e-Skills games.</string>
 </resources>

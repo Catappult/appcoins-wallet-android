@@ -30,4 +30,6 @@
   <string name="purchase_error_title">Opa, algo deu errado.</string>
   <string name="purchase_eskills_sku">Ingresso</string>
   <string name="shared_room_waiting">Aguardando oponentes para entrar em %s</string>
+  <string name="rooted_device_blocked_body">Unfortunately, you cannot play e-Skills games with a rooted device.\"</string>
+  <string name="top_up_needed_body">For security reasons, you need to make at least one top-up in your wallet to play e-Skills games.</string>
 </resources>

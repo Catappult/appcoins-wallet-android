@@ -30,4 +30,6 @@
   <string name="purchase_error_title">Ups, ada kesalahan.</string>
   <string name="purchase_eskills_sku">Tiket masuk</string>
   <string name="shared_room_waiting">Menunggu lawan untuk bergabung di %s</string>
+  <string name="rooted_device_blocked_body">Sayangnya, Anda tidak bisa memainkan game e-Skills pada perangkat yang sudah di-root.\"</string>
+  <string name="top_up_needed_body">For security reasons, you need to make at least one top-up in your wallet to play e-Skills games.</string>
 </resources>

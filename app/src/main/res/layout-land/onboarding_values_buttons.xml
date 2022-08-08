@@ -11,7 +11,6 @@
       android:layout_width="207dp"
       android:layout_height="@dimen/onboarding_button_height"
       android:layout_marginBottom="30dp"
-      android:layout_marginStart="27dp"
       android:layout_marginTop="@dimen/onboarding_button_existent_margin_top"
       app:buttonText="@string/get_started"
       app:buttonType="filled"

@@ -7,7 +7,6 @@ import android.os.Build
 import android.provider.DocumentsContract
 import androidx.activity.result.ActivityResultLauncher
 import androidx.fragment.app.Fragment
-import androidx.navigation.ActivityNavigator
 import androidx.navigation.fragment.findNavController
 import com.asfoundation.wallet.base.Navigator
 import com.asfoundation.wallet.base.navigate
@@ -55,22 +54,18 @@ class RecoverEntryNavigator @Inject constructor(val fragment: Fragment) : Naviga
     )
   }
 
-  fun navigateBack() {
-    fragment.requireActivity().finish()
+  fun navigateBack(fromActivity: Boolean) {
+    if (fromActivity) {
+      fragment.requireActivity().finish()
+    } else {
+      fragment.parentFragmentManager.popBackStack()
+    }
   }
 
-  //when navigation component doesn't have this limitation anymore, this extras should be removed and this should work with popUpTo
-  fun navigateToMainActivity(fromSupportNotification: Boolean) {
-    val clearBackStackExtras = ActivityNavigator.Extras.Builder()
-      .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
-      .addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT)
-      .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-      .build()
-
+  fun navigateToNavigationBar() {
     navigate(
       fragment.findNavController(),
-      RecoverEntryFragmentDirections.actionNavigateToMainActivity(fromSupportNotification),
-      extras = clearBackStackExtras
+      RecoverEntryFragmentDirections.actionNavigateToNavBarFragment()
     )
   }
 }

@@ -30,4 +30,6 @@
   <string name="purchase_error_title">이런, 무언가 잘못되었습니다.</string>
   <string name="purchase_eskills_sku">입장권</string>
   <string name="shared_room_waiting">상대가 %s에 합류하기를 기다리는 중입니다</string>
+  <string name="rooted_device_blocked_body">아쉽게도 루팅된 기기로 e-스킬 게임을 플레이하실 수 없습니다.\"</string>
+  <string name="top_up_needed_body">For security reasons, you need to make at least one top-up in your wallet to play e-Skills games.</string>
 </resources>

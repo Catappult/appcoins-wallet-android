@@ -50,12 +50,26 @@ class AccountWalletService @Inject constructor(
   override fun signContent(content: String): Single<String> = find()
     .flatMap { wallet -> getPrivateKey(wallet).map { sign(normalizer.normalize(content), it) } }
 
+  override fun signSpecificWalletAddressContent(
+    walletAddress: String,
+    content: String
+  ): Single<String> = walletRepository.findWallet(walletAddress)
+    .flatMap { wallet -> getPrivateKey(wallet).map { sign(normalizer.normalize(content), it) } }
+
   override fun getAndSignCurrentWalletAddress(): Single<WalletAddressModel> = find()
     .flatMap { wallet ->
       getPrivateKey(wallet)
         .map { sign(normalizer.normalize(toChecksumAddress(wallet.address)), it) }
         .map { WalletAddressModel(wallet.address, it) }
     }
+
+  override fun getAndSignSpecificWalletAddress(walletAddress: String): Single<WalletAddressModel> =
+    walletRepository.findWallet(walletAddress)
+      .flatMap { wallet ->
+        getPrivateKey(wallet)
+          .map { sign(normalizer.normalize(toChecksumAddress(wallet.address)), it) }
+          .map { WalletAddressModel(wallet.address, it) }
+      }
 
   @Throws(Exception::class)
   private fun sign(plainText: String, ecKey: ECKey): String =

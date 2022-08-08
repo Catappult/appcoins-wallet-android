@@ -1,8 +1,6 @@
 package com.asfoundation.wallet.transfers
 
 import androidx.fragment.app.Fragment
-import com.asfoundation.wallet.entity.NetworkInfo
-import com.asfoundation.wallet.main.MainActivityNavigator
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

@@ -10,14 +10,16 @@ import io.reactivex.Single
  **/
 private const val TTL_IN_SECONDS = 3600
 
-class EwtAuthenticatorService(private val walletService: WalletService,
-                              private val header: String) {
+class EwtAuthenticatorService(
+  private val walletService: WalletService,
+  private val header: String
+) {
 
   private var cachedAuth: MutableMap<String, Pair<String, Long>> = HashMap()
 
   fun getEwtAuthentication(): Single<String> {
     return walletService.getWalletAddress()
-        .map { address -> getEwtAuthentication(address) }
+      .map { address -> getEwtAuthentication(address) }
   }
 
   fun getEwtAuthenticationWithAddress(address: String): Single<String> {
@@ -43,8 +45,10 @@ class EwtAuthenticatorService(private val walletService: WalletService,
 
   private fun shouldBuildEwtAuth(address: String): Boolean {
     val currentUnixTime = System.currentTimeMillis() / 1000L
-    return !cachedAuth.containsKey(address) || hasExpired(currentUnixTime,
-        cachedAuth[address]?.second)
+    return !cachedAuth.containsKey(address) || hasExpired(
+      currentUnixTime,
+      cachedAuth[address]?.second
+    )
   }
 
   private fun hasExpired(currentUnixTime: Long, ttlUnixTime: Long?): Boolean {
@@ -54,8 +58,8 @@ class EwtAuthenticatorService(private val walletService: WalletService,
   private fun buildEwtString(address: String, currentUnixTime: Long): String {
     val header = replaceInvalidCharacters(header.convertToBase64())
     val payload = replaceInvalidCharacters(getPayload(address, currentUnixTime))
-    val signedContent = walletService.signContent(payload)
-        .blockingGet()
+    val signedContent = walletService.signSpecificWalletAddressContent(address, payload)
+      .blockingGet()
     return "Bearer $header.$payload.$signedContent".replace("[\n\r]", "")
   }
 
@@ -65,12 +69,12 @@ class EwtAuthenticatorService(private val walletService: WalletService,
     val unixTimeWithTTL: Long = currentUnixTime + TTL_IN_SECONDS
     payloadJson.addProperty("exp", unixTimeWithTTL)
     return payloadJson.toString()
-        .convertToBase64()
+      .convertToBase64()
   }
 
   private fun replaceInvalidCharacters(ewtString: String): String {
     return ewtString.replace("=", "")
-        .replace("+", "-")
-        .replace("/", "_")
+      .replace("+", "-")
+      .replace("/", "_")
   }
 } 
