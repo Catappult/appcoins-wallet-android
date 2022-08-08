@@ -39,7 +39,7 @@ class AppcoinsBillingBinder(private val supportedApiVersion: Int,
     internal const val RESULT_ITEM_UNAVAILABLE = 4 // requested SKU is not available for purchase
     internal const val RESULT_DEVELOPER_ERROR = 5 // invalid arguments provided to the API
     internal const val RESULT_ERROR = 6 // Fatal error during the API action
-    internal const val RESULT_ITEM_ALREADY_OWNED =
+    const val RESULT_ITEM_ALREADY_OWNED =
         7 // Failure to purchase since item is already owned
 
     const val RESPONSE_CODE = "RESPONSE_CODE"

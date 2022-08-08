@@ -8,7 +8,10 @@ import androidx.annotation.StringRes
 import com.adyen.checkout.components.model.payments.response.Action
 import com.appcoins.wallet.billing.adyen.PaymentInfoModel
 import com.asfoundation.wallet.billing.adyen.AdyenCardWrapper
+import com.asfoundation.wallet.billing.adyen.PaymentType
 import com.asfoundation.wallet.entity.TransactionBuilder
+import com.asfoundation.wallet.ui.iab.FiatValue
+import com.asfoundation.wallet.ui.iab.PaymentMethod
 import com.asfoundation.wallet.ui.iab.payments.carrier.verify.CarrierVerifyData
 import java.math.BigDecimal
 import java.util.*
@@ -17,6 +20,7 @@ interface _ViewState
 object _CreatingWalletViewState : _ViewState
 object _WalletCreatedViewState : _ViewState
 data class _ErrorViewState(val message: Int? = null) : _ViewState
+object _AuthenticationViewState : _ViewState
 object _AuthenticationSuccessViewState : _ViewState
 object _AuthenticationFailViewState : _ViewState
 object _PaymentMethodsViewState : _ViewState
@@ -57,7 +61,9 @@ data class _SuccessViewState(val date: Date?) : _ViewState
 data class _VerificationErrorViewState(val verified: Boolean) : _ViewState
 data class _SubmitUriResultViewState(val uri: Uri) : _ViewState
 data class _Handle3DSActionViewState(val action: Action) : _ViewState
-data class _FilterCountriesViewState(val countryList: String, val defaultCountry: String?) : _ViewState
+data class _FilterCountriesViewState(val countryList: String, val defaultCountry: String?) :
+  _ViewState
+
 object _PhoneNumberLayoutViewState : _ViewState
 data class _CarrierVerifyDataViewState(val carrierVerifyData: CarrierVerifyData) : _ViewState
 data class _AppDetailsViewState(val appName: String, val icon: Drawable) : _ViewState
@@ -68,8 +74,99 @@ data class _PendingUserPaymentViewState(
   val paymentMethod: Bitmap,
   val application: Bitmap
 ) : _ViewState
+
 data class _BonusUiViewState(val bonus: String?) : _ViewState
+
 object _CompletedPaymentViewState : _ViewState
+object _TopupFlowViewState : _ViewState
+object _SkeletonLoadingViewState : _ViewState
+object _PaymentsSkeletonLoadingViewState : _ViewState
+object _NoBonusViewState : _ViewState
+data class _PurchaseBonusViewState(
+  val bonus: BigDecimal,
+  val currency: String,
+  @StringRes val bonusText: Int
+) : _ViewState
+
+data class _MergedAppcoinsViewState(
+  val gamificationLevel: Int,
+  val fiatValue: FiatValue,
+  val transaction: TransactionBuilder,
+  val frequency: String?,
+  val isSubscription: Boolean
+) : _ViewState
+
+data class _PaypalViewState(
+  val gamificationLevel: Int,
+  val fiatValue: FiatValue,
+  val frequency: String?,
+  val isSubscription: Boolean
+) : _ViewState
+
+data class _CreditCardViewState(
+  val gamificationLevel: Int,
+  val fiatValue: FiatValue,
+  val frequency: String?,
+  val isSubscription: Boolean
+) : _ViewState
+
+data class _AppCoinsViewState(val gamificationLevel: Int, val transaction: TransactionBuilder) :
+  _ViewState
+
+data class _ShareLinkViewState(val selectedPaymentMethod: String) : _ViewState
+
+data class _LocalPaymentViewState(
+  val selectedPaymentMethod: String,
+  val iconUrl: String,
+  val label: String,
+  val async: Boolean,
+  val fiatAmount: String,
+  val fiatCurrency: String,
+  val gamificationLevel: Int
+) : _ViewState
+
+data class _CarrierBillingViewState(val fiatValue: FiatValue, val isPreselected: Boolean) :
+  _ViewState
+
+data class _CreditsViewState(val gamificationLevel: Int, val transaction: TransactionBuilder) :
+  _ViewState
+
+data class _BonusViewState(@StringRes val bonusText: Int) : _ViewState
+
+object _HideBonusViewState : _ViewState
+object _ReplaceBonusViewState : _ViewState
+object _ItemAlreadyOwnedErrorErrorViewState : _ViewState
+data class _AdyenAppcoinsViewState(
+  val fiatAmount: BigDecimal,
+  val fiatCurrency: String,
+  val paymentType: PaymentType,
+  val iconUrl: String?,
+  val gamificationLevel: Int,
+  val frequency: String?,
+  val isSubscription: Boolean
+) : _ViewState
+
+data class _PaymentMethodsDataViewState(
+  val paymentMethods: MutableList<PaymentMethod>,
+  val currency: String,
+  val paymentMethodId: String,
+  val fiatAmount: String,
+  val appcAmount: String,
+  val appcEnabled: Boolean,
+  val creditsEnabled: Boolean,
+  val frequency: String?,
+  val isSubscription: Boolean
+) : _ViewState
+
+data class _PreSelectedPaymentMethodViewState(
+  val paymentMethod: PaymentMethod,
+  val currency: String,
+  val fiatAmount: String,
+  val appcAmount: String,
+  val isBonusActive: Boolean,
+  val frequency: String?,
+  val isSubscription: Boolean
+) : _ViewState
 
 interface _Navigation
 data class _StartTransfer(
