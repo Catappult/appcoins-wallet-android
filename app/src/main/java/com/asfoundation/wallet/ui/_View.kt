@@ -184,6 +184,23 @@ data class _BillingAddress2ViewState(
 
 object _FetchingLinkInfoViewState : _ViewState
 data class _ShareLink2ViewState(val url: String) : _ViewState
+object _VolatilityInfoState : _ViewState
+object _HideVolatilityInfoState : _ViewState
+data class _AppcPaymentViewState(val transactionBuilder: TransactionBuilder) : _ViewState
+data class _CreditsPaymentViewState(val transactionBuilder: TransactionBuilder) : _ViewState
+
+data class _BalanceValuesViewState(
+  val appcFiat: String,
+  val creditsFiat: String,
+  val currency: String
+) : _ViewState
+
+data class _PaymentsInformationViewState(
+  val hasCredits: Boolean,
+  val creditsDisableReason: Int?,
+  val hasAppc: Boolean,
+  val appcDisabledReason: Int?
+) : _ViewState
 
 interface _Navigation
 data class _StartTransfer(
