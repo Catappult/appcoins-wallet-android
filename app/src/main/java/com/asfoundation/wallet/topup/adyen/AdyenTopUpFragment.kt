@@ -33,10 +33,7 @@ import com.asfoundation.wallet.topup.TopUpData.Companion.FIAT_CURRENCY
 import com.asfoundation.wallet.topup.TopUpPaymentData
 import com.asfoundation.wallet.topup.address.BillingAddressTopUpFragment.Companion.BILLING_ADDRESS_MODEL
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
-import com.asfoundation.wallet.util.AdyenCardView
-import com.asfoundation.wallet.util.CurrencyFormatUtils
-import com.asfoundation.wallet.util.KeyboardUtils
-import com.asfoundation.wallet.util.WalletCurrency
+import com.asfoundation.wallet.util.*
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import com.jakewharton.rxbinding2.view.RxView
 import dagger.hilt.android.AndroidEntryPoint
@@ -331,7 +328,13 @@ class AdyenTopUpFragment : BasePageViewFragment(), AdyenTopUpView {
     paymentInfoModel: PaymentInfoModel,
     forget: Boolean
   ) {
-    if (forget) adyenCardView.clear(this)
+    if (forget) {
+      adyenCardView.clear(this)
+      unregisterProvider(Adyen3DS2Component::class.java.canonicalName)
+      setup3DSComponent()
+      unregisterProvider(RedirectComponent::class.java.canonicalName)
+      setupRedirectComponent()
+    }
     val cardComponent = paymentInfoModel.cardComponent!!(this, cardConfiguration)
     adyen_card_form_pre_selected?.attach(cardComponent, this)
     cardComponent.observe(this) {
