@@ -30,6 +30,6 @@
   <string name="purchase_error_title">問題が発生しました。</string>
   <string name="purchase_eskills_sku">エントリーチケット</string>
   <string name="shared_room_waiting">対戦相手が%sに参加するのを待っています</string>
-  <string name="rooted_device_blocked_body">Unfortunately, you cannot play e-Skills games with a rooted device.\"</string>
-  <string name="top_up_needed_body">For security reasons, you need to make at least one top-up in your wallet to play e-Skills games.</string>
+  <string name="rooted_device_blocked_body">残念ながら、ルート化されたデバイスではe-Skillsのゲームをプレイすることはできません。</string>
+  <string name="top_up_needed_body">セキュリティ上の理由から、e-Skillsのゲームをプレイするには、ウォレットに少なくとも1回のトップアップを行う必要があります。</string>
 </resources>
