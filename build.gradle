@@ -40,7 +40,7 @@ project.ext {
   compile_sdk_version = 31
   target_sdk_version = 31
   build_tools_version = '30.0.3'
-  adyen_version = '4.5.0'
+  adyen_version = '4.7.1'
   androidx_browser_version = "1.4.0"
   appcompat_version = '1.4.1'
   aptoide_analytics_version = '1.0.3'
