@@ -262,6 +262,28 @@
         android:name="com.asfoundation.wallet.eskills.withdraw.WithdrawActivity"
         android:label="@string/e_skills_withdraw_title" />
 
+<!--    Copy pasted from the Adyen lib to resolve the navigation issue in the payments    -->
+<!--    "taskAffinity" and "excludeFromRecents" added to overcome the issue    -->
+    <activity
+        android:name="com.adyen.threeds2.internal.ui.activity.ChallengeActivity"
+        android:exported="true"
+        android:taskAffinity=".challenge"
+        android:excludeFromRecents="true"
+        android:launchMode="singleTask"
+        android:theme="@style/ThreeDS2Theme.Internal"
+        android:windowSoftInputMode="stateHidden" >
+      <intent-filter>
+        <action android:name="android.intent.action.VIEW" />
+
+        <category android:name="android.intent.category.DEFAULT" />
+        <category android:name="android.intent.category.BROWSABLE" />
+
+        <data
+            android:host="${applicationId}"
+            android:scheme="adyen3ds2" />
+      </intent-filter>
+    </activity>
+
     <service
         android:name="com.asfoundation.wallet.support.SupportMessagingService"
         android:enabled="true"
