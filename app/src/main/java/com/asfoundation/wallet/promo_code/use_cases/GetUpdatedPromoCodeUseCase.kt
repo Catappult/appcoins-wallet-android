@@ -22,7 +22,7 @@ class GetUpdatedPromoCodeUseCase @Inject constructor(
         return@flatMap Single.just(promoCode)
       }
       .onErrorReturn {
-        return@onErrorReturn PromoCode(null, null, null, null, null)
+        return@onErrorReturn PromoCode(null, null, null, null)
       }
   }
 }

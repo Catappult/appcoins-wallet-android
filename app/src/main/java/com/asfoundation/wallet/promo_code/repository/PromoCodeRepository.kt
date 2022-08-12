@@ -2,6 +2,8 @@ package com.asfoundation.wallet.promo_code.repository
 
 import com.asfoundation.wallet.analytics.AnalyticsSetup
 import com.asfoundation.wallet.base.RxSchedulers
+import com.asfoundation.wallet.promo_code.PromoCodeResult
+import com.asfoundation.wallet.redeem_gift.repository.RedeemCode
 import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Single
@@ -10,43 +12,50 @@ import retrofit2.http.Path
 import javax.inject.Inject
 
 class PromoCodeRepository @Inject constructor(
-  private val promoCodeBrokerApi: PromoCodeBrokerApi,
   private val promoCodeBackendApi: PromoCodeBackendApi,
   private val promoCodeLocalDataSource: PromoCodeLocalDataSource,
   private val analyticsSetup: AnalyticsSetup,
   private val rxSchedulers: RxSchedulers
 ) {
 
-  fun setPromoCode(promoCodeString: String): Completable {
-    return Single.zip(
-      promoCodeBrokerApi.getPromoCode(promoCodeString),
-      promoCodeBackendApi.getPromoCodeBonus(promoCodeString)
-    ) { promoCode, bonus ->
-      Pair(promoCode, bonus)
-    }
-      .flatMap { promoCodePair ->
-        promoCodeLocalDataSource.savePromoCode(promoCodePair.first, promoCodePair.second)
-      }
-      .doOnSuccess {
+  fun setPromoCode(promoCodeString: String): Single<PromoCode> {
+    return promoCodeBackendApi.getPromoCodeBonus(promoCodeString)
+      .doOnSuccess { response ->
         analyticsSetup.setPromoCode(
-          PromoCode(it.code, it.bonus, it.expiryDate, it.expired, it.appName)
+          PromoCode(
+            response.code,
+            response.bonus,
+            expired = false,
+            response.app.appName
+          )
         )
+        promoCodeLocalDataSource.savePromoCode(response, expired = false)
       }
-      .doOnError {
+      .onErrorReturn {
+        it.message
         promoCodeLocalDataSource.savePromoCode(
-          PromoCodeResponse(
-            promoCodeString,
-            null,
-            expired = true
-          ),
           PromoCodeBonusResponse(
             promoCodeString,
             null,
             PromoCodeBonusResponse.App(null, null, null)
-          )
+          ),
+          expired = true  //TODO new error
         ).subscribe()
+        PromoCodeBonusResponse(
+          promoCodeString,
+          null,
+          expired = true,  //TODO new error
+          PromoCodeBonusResponse.App(null, null, null)
+        )
       }
-      .ignoreElement()
+      .map {
+        PromoCode(
+          it.code,
+          it.bonus,
+          expired = false,
+          it.app.appName
+        )
+      }
       .subscribeOn(rxSchedulers.io)
   }
 
@@ -54,11 +63,6 @@ class PromoCodeRepository @Inject constructor(
     promoCodeLocalDataSource.observeSavedPromoCode()
 
   fun removePromoCode(): Completable = promoCodeLocalDataSource.removePromoCode()
-
-  interface PromoCodeBrokerApi {
-    @GET("8.20220101/entity/promo-code/{promoCodeString}")
-    fun getPromoCode(@Path("promoCodeString") promoCodeString: String): Single<PromoCodeResponse>
-  }
 
   interface PromoCodeBackendApi {
     @GET("gamification/perks/promo_code/{promoCodeString}/")

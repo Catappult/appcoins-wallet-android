@@ -9,13 +9,11 @@ import com.asfoundation.wallet.base.RxSchedulers
 import com.asfoundation.wallet.billing.carrier_billing.CarrierBillingRepository
 import com.asfoundation.wallet.billing.carrier_billing.CarrierErrorResponse
 import com.asfoundation.wallet.billing.carrier_billing.CarrierErrorResponseTypeAdapter
-import com.asfoundation.wallet.billing.share.BdsShareLinkRepository
 import com.asfoundation.wallet.change_currency.FiatCurrenciesRepository
 import com.asfoundation.wallet.di.annotations.BlockchainHttpClient
 import com.asfoundation.wallet.di.annotations.BrokerBlockchainRetrofit
 import com.asfoundation.wallet.di.annotations.BrokerDefaultRetrofit
 import com.asfoundation.wallet.di.annotations.DefaultHttpClient
-import com.asfoundation.wallet.promo_code.repository.PromoCodeRepository
 import com.asfoundation.wallet.service.currencies.LocalCurrencyConversionService
 import com.asfoundation.wallet.verification.repository.BrokerVerificationRepository
 import com.google.gson.GsonBuilder
@@ -108,14 +106,6 @@ class BrokerApiModule {
     @BrokerDefaultRetrofit retrofit: Retrofit
   ): FiatCurrenciesRepository.FiatCurrenciesApi {
     return retrofit.create(FiatCurrenciesRepository.FiatCurrenciesApi::class.java)
-  }
-
-  @Singleton
-  @Provides
-  fun providesPromoCodeBrokerApi(
-    @BrokerDefaultRetrofit retrofit: Retrofit
-  ): PromoCodeRepository.PromoCodeBrokerApi {
-    return retrofit.create(PromoCodeRepository.PromoCodeBrokerApi::class.java)
   }
 
   @Singleton

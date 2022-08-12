@@ -17,8 +17,9 @@ class PromoCodeModule {
   @Provides
   fun providePromoCodeDatabase(@ApplicationContext context: Context): PromoCodeDatabase {
     return Room.databaseBuilder(context, PromoCodeDatabase::class.java, "promo_code_database")
-        .addMigrations(PromoCodeDatabase.MIGRATION_1_2)
-        .build()
+      .addMigrations(PromoCodeDatabase.MIGRATION_1_2)
+      .addMigrations(PromoCodeDatabase.MIGRATION_2_3)
+      .build()
   }
 
   @Singleton

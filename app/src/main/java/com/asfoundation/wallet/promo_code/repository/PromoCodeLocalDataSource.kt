@@ -9,11 +9,16 @@ import javax.inject.Inject
 class PromoCodeLocalDataSource @Inject constructor(private val promoCodeDao: PromoCodeDao,
                                                    private val rxSchedulers: RxSchedulers) {
 
-  fun savePromoCode(promoCode: PromoCodeResponse,
-                    promoCodeBonus: PromoCodeBonusResponse): Single<PromoCodeEntity> {
+  fun savePromoCode(promoCodeBonus: PromoCodeBonusResponse, expired: Boolean): Single<PromoCodeEntity> {
     return Single.just(
-        PromoCodeEntity(promoCode.code, promoCodeBonus.bonus, promoCode.expiry, promoCode.expired,
-            promoCodeBonus.app.appName, promoCodeBonus.app.packageName, promoCodeBonus.app.appIcon))
+        PromoCodeEntity(
+          promoCodeBonus.code,
+          promoCodeBonus.bonus,
+          expired,
+          promoCodeBonus.app.appName,
+          promoCodeBonus.app.packageName,
+          promoCodeBonus.app.appIcon
+        ))
         .doOnSuccess { promoCodeEntity ->
           promoCodeDao.replaceSavedPromoCodeBy(promoCodeEntity)
         }
@@ -23,8 +28,8 @@ class PromoCodeLocalDataSource @Inject constructor(private val promoCodeDao: Pro
   fun observeSavedPromoCode(): Observable<PromoCode> {
     return promoCodeDao.getSavedPromoCode()
         .map {
-          if (it.isEmpty()) PromoCode(null, null, null, null, null)
-          else PromoCode(it[0].code, it[0].bonus, it[0].expiryDate, it[0].expired, it[0].appName)
+          if (it.isEmpty()) PromoCode(null, null, null, null)
+          else PromoCode(it[0].code, it[0].bonus, it[0].expired, it[0].appName)
         }
         .subscribeOn(rxSchedulers.io)
   }
