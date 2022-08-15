@@ -21,8 +21,6 @@ import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
-import org.kethereum.erc681.isEthereumURLString
-import org.kethereum.erc681.parseERC681
 import java.util.*
 
 
@@ -34,7 +32,6 @@ import java.util.*
 class _OneStepPaymentLogic(
   private val view: _View,
   private val navigator: _Navigator,
-  private val eipTransactionParser: _EIPTransactionParser,
   private val oneStepTransactionParser: _OneStepTransactionParser,
   private val bdsApiSecondary: BdsApiSecondary,
   private val pref: SharedPreferences,
@@ -87,16 +84,12 @@ class _OneStepPaymentLogic(
       }
   }
 
-  private fun parse(data: String): Single<TransactionBuilder> = if (data.isEthereumURLString()) {
-    Single.just(parseERC681(data))
-      .map { erc681 -> eipTransactionParser.buildTransaction(erc681) }
-  } else {
-    if (Uri.parse(data).isOneStepURLString()) {
-      Single.just(parseOneStep(Uri.parse(data)))
-        .map { oneStepUri -> oneStepTransactionParser.buildTransaction(oneStepUri, data) }
-    } else {
-      Single.error(RuntimeException("is not an supported URI"))
-    }
+  private fun parse(data: String): Single<TransactionBuilder> = Single.fromCallable {
+    Uri.parse(data)
+      .takeIf { it.isOneStepURLString() }
+      ?.let { parseOneStep(it) }
+      ?.let { oneStepTransactionParser.buildTransaction(it, data) }
+      ?: throw RuntimeException("is not an supported URI")
   }
 
   private fun createWallet(password: String): Single<Wallet> =
