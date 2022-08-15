@@ -533,7 +533,7 @@ class _CarrierVerifyLogic(
   } else {
     if (Uri.parse(data).isOneStepURLString()) {
       Single.just(parseOneStep(Uri.parse(data)))
-        .flatMap { oneStepUri -> oneStepTransactionParser.buildTransaction(oneStepUri, data) }
+        .map { oneStepUri -> oneStepTransactionParser.buildTransaction(oneStepUri, data) }
     } else {
       Single.error(RuntimeException("is not an supported URI"))
     }

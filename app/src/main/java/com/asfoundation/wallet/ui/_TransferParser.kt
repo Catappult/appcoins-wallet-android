@@ -9,8 +9,6 @@ import com.asfoundation.wallet.util.OneStepUri
 import com.asfoundation.wallet.util.Parameters
 import com.asfoundation.wallet.util.UnknownTokenException
 import com.google.gson.Gson
-import io.reactivex.Single
-import io.reactivex.schedulers.Schedulers
 import org.bouncycastle.util.encoders.Hex
 import org.kethereum.erc681.ERC681
 import java.math.BigDecimal
@@ -108,82 +106,70 @@ class _OneStepTransactionParser @Inject constructor(
   private val tokenInfo = defaultTokenRepository.tokenInfo
   private val cache: MutableMap<String, TransactionBuilder> = mutableMapOf()
 
-  fun buildTransaction(uri: OneStepUri, referrerUrl: String): Single<TransactionBuilder> =
-    Single.fromCallable { OneStepData(uri) }
-      .subscribeOn(Schedulers.io())
-      .flatMap { oneStepData ->
-        Single.fromCallable { cache[uri.toString()] ?: throw NullPointerException() }
-          .onErrorResumeNext {
-            val networkId = if (BuildConfig.DEBUG) NETWORK_ID_ROPSTEN else NETWORK_ID_MAIN
-            Single.zip(
-              oneStepData.getWallet(),
-              proxySdk.getIabAddress(networkId).subscribeOn(Schedulers.io()),
-              proxySdk.getAppCoinsAddress(networkId).subscribeOn(Schedulers.io())
-            ) { walletAddress, iabContract, tokenContract ->
-              TransactionBuilder(
-                tokenInfo.symbol,
-                tokenContract,
-                oneStepData.chainId,
-                walletAddress,
-                oneStepData.appcAmount,
-                oneStepData.product,
-                tokenInfo.decimals,
-                iabContract,
-                oneStepData.paymentType,
-                null,
-                oneStepData.domain,
-                oneStepData.payload,
-                oneStepData.callbackUrl,
-                oneStepData.orderReference,
-                oneStepData.productToken,
-                oneStepData.amount,
-                oneStepData.currency,
-                referrerUrl,
-                ""
-              ).shouldSendToken(true)
-            }
-              .doOnSuccess { cache[uri.toString()] = it }
-          }
+  fun buildTransaction(oneStepUri: OneStepUri, referrerUrl: String): TransactionBuilder =
+    cache[oneStepUri.toString()] ?: run {
+      val chainId = if (oneStepUri.host == BuildConfig.PAYMENT_HOST_ROPSTEN_NETWORK) {
+        Parameters.NETWORK_ID_ROPSTEN
+      } else {
+        Parameters.NETWORK_ID_MAIN
       }
+      val domain = oneStepUri.parameters[Parameters.DOMAIN]
 
-  private fun OneStepData.getWallet(): Single<String> =
-    Single.fromCallable { domain ?: throw NullPointerException() }
-      .flatMap { bdsApiSecondary.getWallet(it).subscribeOn(Schedulers.io()) }
-      .map { it.data.address }
-      .onErrorReturn { toAddressWallet ?: throw _MissingWalletException() }
+      val walletAddress = domain
+        ?.let {
+          bdsApiSecondary.getWallet(it).blockingGet().data.address
+        }
+        ?: oneStepUri.parameters[Parameters.TO]
+        ?: throw _MissingWalletException()
 
-  private class OneStepData(oneStepUri: OneStepUri) {
-    val chainId = if (oneStepUri.host == BuildConfig.PAYMENT_HOST_ROPSTEN_NETWORK) {
-      Parameters.NETWORK_ID_ROPSTEN
-    } else {
-      Parameters.NETWORK_ID_MAIN
+      val paymentType = if (oneStepUri.parameters.containsKey(Parameters.SKILLS)) {
+        Parameters.ESKILLS
+      } else {
+        Parameters.PAYMENT_TYPE_INAPP_UNMANAGED
+      }
+      val currency = oneStepUri.parameters[Parameters.CURRENCY] ?: "APPC"
+      val amount = oneStepUri.parameters[Parameters.VALUE] ?: throw _MissingAmountException()
+      val product = oneStepUri.parameters[Parameters.PRODUCT]
+      val payload = oneStepUri.parameters[Parameters.DATA]
+      val callbackUrl = oneStepUri.parameters[Parameters.CALLBACK_URL]
+      val orderReference = oneStepUri.parameters[Parameters.ORDER_REFERENCE]
+      val productToken = oneStepUri.parameters[Parameters.PRODUCT_TOKEN]
+
+      // To avoid spending time, during the parse, getting the appc value by calling the conversion of
+      // fiat to appc, we are setting the amount to zero. Later when this value is zero we should make
+      // the request to get the conversion and set it on the transaction builder.
+      val appcAmount: BigDecimal? =
+        if (currency.uppercase() == "APPC") BigDecimal(amount).setScale(18)
+        else BigDecimal.ZERO
+
+
+      val networkId = if (BuildConfig.DEBUG) NETWORK_ID_ROPSTEN else NETWORK_ID_MAIN
+      val iabContract = proxySdk.getIabAddress(networkId).blockingGet()
+      val tokenContract = proxySdk.getAppCoinsAddress(networkId).blockingGet()
+      TransactionBuilder(
+        tokenInfo.symbol,
+        tokenContract,
+        chainId,
+        walletAddress,
+        appcAmount,
+        product,
+        tokenInfo.decimals,
+        iabContract,
+        paymentType,
+        null,
+        domain,
+        payload,
+        callbackUrl,
+        orderReference,
+        productToken,
+        amount,
+        currency,
+        referrerUrl,
+        ""
+      ).shouldSendToken(true)
+    }.also {
+      cache[oneStepUri.toString()] = it
     }
-    val domain = oneStepUri.parameters[Parameters.DOMAIN]
-    val toAddressWallet = oneStepUri.parameters[Parameters.TO]
-    val paymentType = if (oneStepUri.parameters.containsKey(Parameters.SKILLS)) {
-      Parameters.ESKILLS
-    } else {
-      Parameters.PAYMENT_TYPE_INAPP_UNMANAGED
-    }
-    val currency = oneStepUri.parameters[Parameters.CURRENCY] ?: "APPC"
-    val amount = oneStepUri.parameters[Parameters.VALUE] ?: throw _MissingAmountException()
-    val product = oneStepUri.parameters[Parameters.PRODUCT]
-    val payload = oneStepUri.parameters[Parameters.DATA]
-    val callbackUrl = oneStepUri.parameters[Parameters.CALLBACK_URL]
-    val orderReference = oneStepUri.parameters[Parameters.ORDER_REFERENCE]
-    val productToken = oneStepUri.parameters[Parameters.PRODUCT_TOKEN]
-
-    // To avoid spending time, during the parse, getting the appc value by calling the conversion of
-    // fiat to appc, we are setting the amount to zero. Later when this value is zero we should make
-    // the request to get the conversion and set it on the transaction builder.
-    val appcAmount: BigDecimal? =
-      if (currency.uppercase() == "APPC") BigDecimal(amount).setScale(18)
-      else BigDecimal.ZERO
-
-    init {
-      if (domain == null && toAddressWallet == null) throw _MissingWalletException()
-    }
-  }
 
   companion object {
     private const val NETWORK_ID_ROPSTEN = 3
