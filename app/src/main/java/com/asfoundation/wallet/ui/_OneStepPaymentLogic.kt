@@ -11,16 +11,10 @@ import com.asfoundation.wallet.repository.PasswordStore
 import com.asfoundation.wallet.repository.SharedPreferencesRepository
 import com.asfoundation.wallet.repository.WalletNotFoundException
 import com.asfoundation.wallet.service.AccountKeystoreService
-import com.asfoundation.wallet.service.WalletGetterStatus
 import com.asfoundation.wallet.ui.iab.PaymentMethodsAnalytics
 import com.asfoundation.wallet.util.isOneStepURLString
 import com.asfoundation.wallet.util.parseOneStep
 import com.asfoundation.wallet.wallets.repository.WalletInfoRepository
-import io.reactivex.Completable
-import io.reactivex.Observable
-import io.reactivex.Single
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
 import java.util.*
 
 
@@ -51,101 +45,86 @@ class _OneStepPaymentLogic(
     if (data.lowercase(Locale.ROOT).contains("/transaction/eskills")) {
       navigator.navigate(_StartESkills(data, callerPackage, productName))
     } else {
-      handleWalletCreationIfNeeded()
-        .takeUntil { it != WalletGetterStatus.CREATING.toString() }
-        .filter { it != WalletGetterStatus.CREATING.toString() }
-        .flatMap {
-          parse(data)
-            .flatMap { transaction: TransactionBuilder ->
-              isWalletFromBds(transaction.domain, transaction.toAddress())
-                .doOnSuccess { navigator.navigate(_StartTransfer(transaction, it)) }
-            }
-            .toObservable()
-        }
-        .observeOn(AndroidSchedulers.mainThread())
-        .subscribe({ }, {
-          logger.log("OneStepPaymentReceiver", it)
-          view.setState(_ErrorViewState())
-        })
-        .isDisposed
+      try {
+        handleWalletCreationIfNeeded()
+        val transaction = parse(data)
+        val isBds = transaction.domain
+          ?.run {
+            isWalletFromBds(
+              transaction.domain,
+              transaction.toAddress()
+            )
+          } ?: false
+        navigator.navigate(_StartTransfer(transaction, isBds))
+      } catch (it: Throwable) {
+        logger.log("OneStepPaymentReceiver", it)
+        view.setState(_ErrorViewState())
+      }
     }
   }
 
-  private fun handleWalletCreationIfNeeded(): Observable<String> {
-    return findWalletOrCreate()
-      .observeOn(AndroidSchedulers.mainThread())
-      .doOnNext {
-        if (it == WalletGetterStatus.CREATING.toString()) view.setState(_CreatingWalletViewState)
-      }
-      .filter { it != WalletGetterStatus.CREATING.toString() }
-      .map {
+  private fun handleWalletCreationIfNeeded(): String {
+    return try {
+      find()
+    } catch (e: Throwable) {
+      view.setState(_CreatingWalletViewState)
+      create("Main Wallet")
+    }
+      .address
+      .also {
         view.setState(_WalletCreatedViewState)
-        it
       }
   }
 
-  private fun parse(data: String): Single<TransactionBuilder> = Single.fromCallable {
+  private fun parse(data: String): TransactionBuilder =
     Uri.parse(data)
       .takeIf { it.isOneStepURLString() }
       ?.let { parseOneStep(it) }
       ?.let { oneStepTransactionParser.buildTransaction(it, data) }
       ?: throw RuntimeException("is not an supported URI")
-  }
 
-  private fun createWallet(password: String): Single<Wallet> =
-    accountKeystoreService.createAccount(password)
+  private fun createWallet(password: String): Wallet =
+    accountKeystoreService.createAccount(password).blockingGet()
 
-  private fun deleteWallet(address: String, password: String): Completable =
-    accountKeystoreService.deleteAccount(address, password)
+  private fun deleteWallet(address: String, password: String) =
+    accountKeystoreService.deleteAccount(address, password).blockingAwait()
 
   private fun exportWallet(
     address: String,
     password: String,
     newPassword: String?
-  ): Single<String> =
-    accountKeystoreService.exportAccount(address, password, newPassword)
+  ): String =
+    accountKeystoreService.exportAccount(address, password, newPassword).blockingGet()
 
-  private fun findWalletOrCreate(): Observable<String> = find()
-    .toObservable()
-    .subscribeOn(Schedulers.single())
-    .map { wallet -> wallet.address }
-    .onErrorResumeNext { _: Throwable ->
-      Observable.just(WalletGetterStatus.CREATING.toString())
-        .mergeWith(create("Main Wallet").map { it.address }.toObservable())
-    }
-
-  private fun find(): Single<Wallet> = getDefaultWallet()
-    .onErrorResumeNext {
-      fetchWallets()
-        .filter { it.isNotEmpty() }
-        .map { it[0] }
-        .flatMapCompletable { setDefaultWallet(it.address) }
-        .andThen(getDefaultWallet())
-    }
-
-  private fun getDefaultWallet(): Single<Wallet> =
-    Single.fromCallable { getDefaultWalletAddress() }
-      .flatMap { address -> findWallet(address) }
-
-  private fun getDefaultWalletAddress(): String {
-    val currentWalletAddress = getCurrentWalletAddress()
-    return currentWalletAddress ?: throw WalletNotFoundException()
+  private fun find(): Wallet = try {
+    getDefaultWallet()
+  } catch (e: Throwable) {
+    fetchWallets()[0]
+      .let {
+        setDefaultWallet(it.address)
+        getDefaultWallet()
+      }
   }
 
-  private fun findWallet(address: String): Single<Wallet> {
-    return fetchWallets().flatMap { accounts ->
+  private fun getDefaultWallet(): Wallet =
+    findWallet(getDefaultWalletAddress())
+
+  private fun getDefaultWalletAddress(): String =
+    getCurrentWalletAddress() ?: throw WalletNotFoundException()
+
+  private fun findWallet(address: String): Wallet = fetchWallets()
+    .let { accounts ->
       for (wallet in accounts) {
         if (wallet.hasSameAddress(address)) {
-          return@flatMap Single.just(wallet)
+          return wallet
         }
       }
-      null
+      throw WalletNotFoundException()
     }
-  }
 
-  private fun fetchWallets(): Single<Array<Wallet>> = accountKeystoreService.fetchAccounts()
+  private fun fetchWallets(): Array<Wallet> = accountKeystoreService.fetchAccounts().blockingGet()
 
-  private fun setDefaultWallet(address: String) = Completable.fromAction {
+  private fun setDefaultWallet(address: String) {
     analyticsSetUp.setUserId(address)
     setCurrentWalletAddress(address)
   }
@@ -156,45 +135,46 @@ class _OneStepPaymentLogic(
     .putString(SharedPreferencesRepository.CURRENT_ACCOUNT_ADDRESS_KEY, address)
     .apply()
 
-  private fun isWalletFromBds(packageName: String?, wallet: String): Single<Boolean> {
-    return if (packageName == null) {
-      Single.just(false)
-    } else getWallet(packageName)
-      .map { anotherString: String? -> wallet.equals(anotherString, ignoreCase = true) }
-      .onErrorReturn { throwable: Throwable -> false }
-  }
+  private fun isWalletFromBds(packageName: String, wallet: String): Boolean =
+    try {
+      getWallet(packageName)
+        .let { wallet.equals(it, ignoreCase = true) }
+    } catch (e: Throwable) {
+      false
+    }
 
-  private fun create(name: String? = null): Single<Wallet> = passwordStore.generatePassword()
-    .flatMap { passwordStore.setBackUpPassword(it).toSingleDefault(it) }
-    .flatMap {
+  private fun create(name: String): Wallet = passwordStore.generatePassword()
+    .blockingGet()
+    .let {
+      passwordStore.setBackUpPassword(it).blockingAwait()
       createWallet(it)
-        .flatMap { wallet: Wallet ->
-          passwordStore.setPassword(wallet.address, it)
-            .toSingleDefault(wallet)
-            .onErrorResumeNext { err: Throwable ->
-              deleteWallet(wallet.address, it)
-                .toSingle { throw err }
-            }
+        .let { wallet: Wallet ->
+          try {
+            passwordStore.setPassword(wallet.address, it).blockingAwait()
+            wallet
+          } catch (throwable: Throwable) {
+            deleteWallet(wallet.address, it)
+            throw throwable
+          }
         }
-        .flatMap { wallet: Wallet -> passwordVerification(wallet, it) }
-        .flatMap { wallet: Wallet ->
-          walletInfoRepository.updateWalletName(wallet.address, name)
-            .toSingleDefault(wallet)
+        .let { wallet -> passwordVerification(wallet, it) }
+        .let { wallet ->
+          walletInfoRepository.updateWalletName(wallet.address, name).blockingAwait()
+          wallet
         }
     }
 
-  private fun passwordVerification(wallet: Wallet, masterPassword: String): Single<Wallet> =
-    passwordStore.getPassword(wallet.address)
-      .flatMap { exportWallet(wallet.address, it, it) }
-      .flatMap { findWallet(wallet.address) }
-      .onErrorResumeNext { throwable: Throwable ->
-        deleteWallet(wallet.address, masterPassword)
-          .toSingle { throw throwable }
-      }
-
-  private fun getWallet(packageName: String): Single<String?> {
-    return bdsApiSecondary.getWallet(packageName).map { it.data.address }
+  private fun passwordVerification(wallet: Wallet, masterPassword: String): Wallet = try {
+    passwordStore.getPassword(wallet.address).blockingGet()
+      .let { exportWallet(wallet.address, it, it) }
+      .let { findWallet(wallet.address) }
+  } catch (throwable: Throwable) {
+    deleteWallet(wallet.address, masterPassword)
+    throw throwable
   }
+
+  private fun getWallet(packageName: String): String =
+    bdsApiSecondary.getWallet(packageName).blockingGet().data.address
 
   companion object {
     const val CURRENT_ACCOUNT_ADDRESS_KEY = "current_account_address"
