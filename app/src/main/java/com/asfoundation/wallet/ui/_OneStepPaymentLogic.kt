@@ -16,15 +16,14 @@ import com.asfoundation.wallet.ui.iab.PaymentMethodsAnalytics
 import com.asfoundation.wallet.util.isOneStepURLString
 import com.asfoundation.wallet.util.parseOneStep
 import com.asfoundation.wallet.wallets.repository.WalletInfoRepository
-import io.reactivex.*
+import io.reactivex.Completable
 import io.reactivex.Observable
+import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.observers.DisposableCompletableObserver
 import io.reactivex.schedulers.Schedulers
 import org.kethereum.erc681.isEthereumURLString
 import org.kethereum.erc681.parseERC681
 import java.util.*
-import kotlin.reflect.KFunction2
 
 
 /**
@@ -176,7 +175,14 @@ class _OneStepPaymentLogic(
     .flatMap { passwordStore.setBackUpPassword(it).toSingleDefault(it) }
     .flatMap {
       createWallet(it)
-        .compose(savePassword(passwordStore, this::deleteWallet, it))
+        .flatMap { wallet: Wallet ->
+          passwordStore.setPassword(wallet.address, it)
+            .toSingleDefault(wallet)
+            .onErrorResumeNext { err: Throwable ->
+              deleteWallet(wallet.address, it)
+                .toSingle { throw err }
+            }
+        }
         .flatMap { wallet: Wallet -> passwordVerification(wallet, it) }
         .flatMap { wallet: Wallet ->
           walletInfoRepository.updateWalletName(wallet.address, name)
@@ -190,66 +196,11 @@ class _OneStepPaymentLogic(
       .flatMap { findWallet(wallet.address) }
       .onErrorResumeNext { throwable: Throwable ->
         deleteWallet(wallet.address, masterPassword)
-          .lift(completableErrorProxy(throwable))
-          .toSingle { wallet }
+          .toSingle { throw throwable }
       }
-
 
   private fun getWallet(packageName: String): Single<String?> {
     return bdsApiSecondary.getWallet(packageName).map { it.data.address }
-  }
-
-  private fun savePassword(
-    passwordStore: PasswordStore,
-    deleteWallet: KFunction2<String, String, Completable>,
-    password: String
-  ): SingleTransformer<Wallet, Wallet> {
-    return SavePasswordOperator(passwordStore, deleteWallet, password)
-  }
-
-  private fun completableErrorProxy(throwable: Throwable): CompletableOperator {
-    return CompletableErrorProxyOperator(throwable)
-  }
-
-  private class SavePasswordOperator(
-    private val passwordStore: PasswordStore,
-    private val deleteWallet: KFunction2<String, String, Completable>,
-    private val password: String
-  ) : SingleTransformer<Wallet, Wallet> {
-    override fun apply(upstream: Single<Wallet>): Single<Wallet> {
-      return upstream.flatMap { wallet: Wallet ->
-        passwordStore.setPassword(wallet.address, password)
-          .onErrorResumeNext { err: Throwable ->
-            deleteWallet(wallet.address, password)
-              .lift(CompletableErrorProxyOperator(err))
-          }
-          .toSingle { wallet }
-      }
-    }
-  }
-
-  private class CompletableErrorProxyOperator(throwable: Throwable) :
-    CompletableOperator {
-    private val throwable: Throwable
-    override fun apply(observer: CompletableObserver): CompletableObserver {
-      return object : DisposableCompletableObserver() {
-        override fun onComplete() {
-          if (!isDisposed) {
-            observer.onError(throwable)
-          }
-        }
-
-        override fun onError(ex: Throwable) {
-          if (!isDisposed) {
-            observer.onError(ex)
-          }
-        }
-      }
-    }
-
-    init {
-      this.throwable = throwable
-    }
   }
 
   companion object {
