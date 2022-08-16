@@ -16,12 +16,12 @@ class GetUpdatedPromoCodeUseCase @Inject constructor(
         promoCode.code?.let {
           if (promoCode.expired == false) {
             return@flatMap promoCodeRepository.setPromoCode(it)
-              .andThen(Single.just(promoCode))
+//              .andThen(Single.just(promoCode))
           }
         }
         return@flatMap Single.just(promoCode)
       }
-      .onErrorReturn {
+      .onErrorReturn {  //TODO alterar para ter o erro pelo sucesso?
         return@onErrorReturn PromoCode(null, null, null, null)
       }
   }

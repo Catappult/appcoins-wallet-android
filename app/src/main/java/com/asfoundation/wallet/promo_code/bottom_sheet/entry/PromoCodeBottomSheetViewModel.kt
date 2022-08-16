@@ -6,6 +6,7 @@ import com.asfoundation.wallet.base.SideEffect
 import com.asfoundation.wallet.base.ViewState
 import com.asfoundation.wallet.promo_code.FailedPromoCode
 import com.asfoundation.wallet.promo_code.PromoCodeResult
+import com.asfoundation.wallet.promo_code.repository.PromoCode
 import com.asfoundation.wallet.promo_code.use_cases.*
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
@@ -16,7 +17,7 @@ sealed class PromoCodeBottomSheetSideEffect : SideEffect {
 
 data class PromoCodeBottomSheetState(
   val promoCodeAsync: Async<PromoCodeResult> = Async.Uninitialized,
-  val submitClickAsync: Async<Unit> = Async.Uninitialized,
+  val submitClickAsync: Async<PromoCode> = Async.Uninitialized,
   val shouldShowDefault: Boolean = false
 ) : ViewState
 

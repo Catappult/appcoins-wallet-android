@@ -7,6 +7,7 @@ import com.asfoundation.wallet.redeem_gift.repository.RedeemCode
 import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Single
+import retrofit2.HttpException
 import retrofit2.http.GET
 import retrofit2.http.Path
 import javax.inject.Inject
@@ -20,6 +21,7 @@ class PromoCodeRepository @Inject constructor(
 
   fun setPromoCode(promoCodeString: String): Single<PromoCode> {
     return promoCodeBackendApi.getPromoCodeBonus(promoCodeString)
+      .subscribeOn(rxSchedulers.io)
       .doOnSuccess { response ->
         analyticsSetup.setPromoCode(
           PromoCode(
@@ -29,26 +31,13 @@ class PromoCodeRepository @Inject constructor(
             response.app.appName
           )
         )
-        promoCodeLocalDataSource.savePromoCode(response, expired = false)
+        promoCodeLocalDataSource.savePromoCode(response, expired = false).subscribe()
       }
       .onErrorReturn {
-        it.message
-        promoCodeLocalDataSource.savePromoCode(
-          PromoCodeBonusResponse(
-            promoCodeString,
-            null,
-            PromoCodeBonusResponse.App(null, null, null)
-          ),
-          expired = true  //TODO new error
-        ).subscribe()
-        PromoCodeBonusResponse(
-          promoCodeString,
-          null,
-          expired = true,  //TODO new error
-          PromoCodeBonusResponse.App(null, null, null)
-        )
+        val errorCode = (it as? HttpException)?.code()
+        handleErrorCodes(errorCode, promoCodeString)
       }
-      .map {
+      .map {  // redundant
         PromoCode(
           it.code,
           it.bonus,
@@ -56,7 +45,22 @@ class PromoCodeRepository @Inject constructor(
           it.app.appName
         )
       }
-      .subscribeOn(rxSchedulers.io)
+  }
+
+  fun handleErrorCodes(errorCode: Int?, promoCodeString: String): PromoCodeBonusResponse{
+    promoCodeLocalDataSource.savePromoCode(
+      PromoCodeBonusResponse(
+        promoCodeString,
+        null,
+        PromoCodeBonusResponse.App(null, null, null)
+      ),
+      expired = (errorCode == 409)
+    ).subscribe()
+    return PromoCodeBonusResponse(
+      promoCodeString,
+      null,
+      PromoCodeBonusResponse.App(null, null, null)
+    )
   }
 
   fun observeCurrentPromoCode(): Observable<PromoCode> =

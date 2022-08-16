@@ -22,6 +22,7 @@ class PromoCodeLocalDataSource @Inject constructor(private val promoCodeDao: Pro
         .doOnSuccess { promoCodeEntity ->
           promoCodeDao.replaceSavedPromoCodeBy(promoCodeEntity)
         }
+
         .subscribeOn(rxSchedulers.io)
   }
 
