@@ -12,8 +12,6 @@ import com.google.android.material.textfield.TextInputLayout
 
 class AdyenCardView(view: View?) {
 
-  private val DEFAULT_KEY = "androidx.lifecycle.ViewModelProvider.DefaultKey"
-
   private val cardView: CardView? = view?.findViewById(R.id.adyen_card_form_pre_selected)
   private val adyenCardNumberLayout: TextInputLayout? =
     cardView?.findViewById(R.id.textInputLayout_cardNumber)
@@ -56,6 +54,11 @@ class AdyenCardView(view: View?) {
     adyenSecurityCodeLayout?.error = null
     adyenSaveDetailsSwitch?.isChecked = true
     owner.viewModelStore.clear()
-    owner.savedStateRegistry.unregisterSavedStateProvider(DEFAULT_KEY + ":" + CardComponent::class.java.canonicalName)
+    owner.unregisterProvider(CardComponent::class.java.canonicalName)
   }
 }
+
+fun SavedStateRegistryOwner.unregisterProvider(className: String?) =
+  savedStateRegistry.unregisterSavedStateProvider(
+    "androidx.lifecycle.ViewModelProvider.DefaultKey:$className"
+  )

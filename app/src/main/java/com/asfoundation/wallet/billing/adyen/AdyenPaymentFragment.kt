@@ -531,7 +531,13 @@ class AdyenPaymentFragment : BasePageViewFragment(), AdyenPaymentView {
   }
 
   private fun prepareCardComponent(paymentInfoModel: PaymentInfoModel, forget: Boolean) {
-    if (forget) adyenCardView.clear(this)
+    if (forget) {
+      adyenCardView.clear(this)
+      unregisterProvider(Adyen3DS2Component::class.java.canonicalName)
+      setup3DSComponent()
+      unregisterProvider(RedirectComponent::class.java.canonicalName)
+      setupRedirectComponent()
+    }
     val cardComponent = paymentInfoModel.cardComponent!!(this, cardConfiguration)
     adyen_card_form_pre_selected?.attach(cardComponent, this)
     cardComponent.observe(this) {
