@@ -2,8 +2,6 @@ package com.asfoundation.wallet.promo_code.repository
 
 import com.asfoundation.wallet.analytics.AnalyticsSetup
 import com.asfoundation.wallet.base.RxSchedulers
-import com.asfoundation.wallet.promo_code.PromoCodeResult
-import com.asfoundation.wallet.redeem_gift.repository.RedeemCode
 import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Single
@@ -27,39 +25,47 @@ class PromoCodeRepository @Inject constructor(
           PromoCode(
             response.code,
             response.bonus,
-            expired = false,
+            validity = ValidityState.ACTIVE,
             response.app.appName
           )
         )
-        promoCodeLocalDataSource.savePromoCode(response, expired = false).subscribe()
+        promoCodeLocalDataSource.savePromoCode(response, ValidityState.ACTIVE).subscribe()
+      }
+      .map {
+        PromoCode(
+          it.code,
+          it.bonus,
+          validity = ValidityState.ACTIVE,
+          it.app.appName
+        )
       }
       .onErrorReturn {
         val errorCode = (it as? HttpException)?.code()
         handleErrorCodes(errorCode, promoCodeString)
       }
-      .map {  // redundant
-        PromoCode(
-          it.code,
-          it.bonus,
-          expired = false,
-          it.app.appName
-        )
-      }
   }
 
-  fun handleErrorCodes(errorCode: Int?, promoCodeString: String): PromoCodeBonusResponse{
-    promoCodeLocalDataSource.savePromoCode(
-      PromoCodeBonusResponse(
-        promoCodeString,
-        null,
-        PromoCodeBonusResponse.App(null, null, null)
-      ),
-      expired = (errorCode == 409)
-    ).subscribe()
-    return PromoCodeBonusResponse(
+  fun handleErrorCodes(errorCode: Int?, promoCodeString: String): PromoCode {
+    val validity = when (errorCode) {
+      409 -> {
+        promoCodeLocalDataSource.savePromoCode(
+          PromoCodeBonusResponse(
+            promoCodeString,
+            null,
+            PromoCodeBonusResponse.App(null, null, null)
+          ),
+          ValidityState.EXPIRED
+        ).subscribe()
+        ValidityState.EXPIRED
+      }
+      404 -> ValidityState.ERROR
+      else -> ValidityState.ERROR
+    }
+    return PromoCode(
       promoCodeString,
       null,
-      PromoCodeBonusResponse.App(null, null, null)
+      validity = validity,
+      null
     )
   }
 

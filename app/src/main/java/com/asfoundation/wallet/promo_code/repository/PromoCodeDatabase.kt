@@ -21,11 +21,12 @@ abstract class PromoCodeDatabase : RoomDatabase() {
 
     val MIGRATION_2_3: Migration = object : Migration(2, 3) {
       override fun migrate(database: SupportSQLiteDatabase) {
-        // to remove the expiry_date field:
-        database.execSQL("CREATE TABLE PromoCodeEntity_new (code TEXT NOT NULL, bonus REAL, expired INTEGER, appName TEXT, appPackageName TEXT, appIcon TEXT, PRIMARY KEY(code))");
-        database.execSQL("INSERT INTO PromoCodeEntity_new (code, bonus, expired, appName, appPackageName, appIcon) SELECT code, bonus, expired, appName, appPackageName, appIcon FROM PromoCodeEntity");
-        database.execSQL("DROP TABLE PromoCodeEntity");
-        database.execSQL("ALTER TABLE PromoCodeEntity_new RENAME TO PromoCodeEntity");
+        // to remove expiry_date and expired fields
+        // add validity field
+        database.execSQL("CREATE TABLE PromoCodeEntity_new (code TEXT NOT NULL, bonus REAL, validity INTEGER, appName TEXT, appPackageName TEXT, appIcon TEXT, PRIMARY KEY(code))")
+        database.execSQL("INSERT INTO PromoCodeEntity_new (code, bonus, validity, appName, appPackageName, appIcon) SELECT code, bonus, expired, appName, appPackageName, appIcon FROM PromoCodeEntity")
+        database.execSQL("DROP TABLE PromoCodeEntity")
+        database.execSQL("ALTER TABLE PromoCodeEntity_new RENAME TO PromoCodeEntity")
       }
     }
   }
