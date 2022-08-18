@@ -19,8 +19,6 @@ import com.asfoundation.wallet.billing.adyen.AdyenPaymentFragment
 import com.asfoundation.wallet.billing.adyen.PaymentType
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics
 import com.asfoundation.wallet.entity.TransactionBuilder
-import com.asfoundation.wallet.update_required.use_cases.GetAutoUpdateModelUseCase
-import com.asfoundation.wallet.update_required.use_cases.HasRequiredHardUpdateUseCase
 import com.asfoundation.wallet.navigator.UriNavigator
 import com.asfoundation.wallet.topup.TopUpActivity
 import com.asfoundation.wallet.transactions.PerkBonusAndGamificationService
@@ -30,6 +28,8 @@ import com.asfoundation.wallet.ui.iab.IabInteract.Companion.PRE_SELECTED_PAYMENT
 import com.asfoundation.wallet.ui.iab.localpayments.LocalPaymentFragment
 import com.asfoundation.wallet.ui.iab.payments.carrier.verify.CarrierVerifyFragment
 import com.asfoundation.wallet.ui.iab.share.SharePaymentLinkFragment
+import com.asfoundation.wallet.update_required.use_cases.GetAutoUpdateModelUseCase
+import com.asfoundation.wallet.update_required.use_cases.HasRequiredHardUpdateUseCase
 import com.asfoundation.wallet.verification.ui.credit_card.VerificationCreditCardActivity
 import com.asfoundation.wallet.wallet_blocked.WalletBlockedInteract
 import com.jakewharton.rxbinding2.view.RxView
@@ -227,21 +227,18 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
       .replace(
         R.id.fragment_container,
         AdyenPaymentFragment.newInstance(
-          transaction!!.type,
-          paymentType,
-          transaction!!.domain,
-          getOrigin(isBds),
-          intent.dataString,
-          transaction!!.amount(),
-          amount,
-          currency,
-          bonus,
-          isPreselected,
-          gamificationLevel,
-          getSkuDescription(),
-          transaction!!.productToken,
-          isSubscription,
-          frequency
+          paymentType = paymentType,
+          origin = getOrigin(isBds),
+          transactionBuilder = transaction!!,
+          amount = amount,
+          currency = currency,
+          bonus = bonus,
+          isPreSelected = isPreselected,
+          gamificationLevel = gamificationLevel,
+          skuDescription = getSkuDescription(),
+          isSubscription = isSubscription,
+          isSkills = intent.dataString?.contains("&skills") ?: false,
+          frequency = frequency,
         )
       )
       .commit()
