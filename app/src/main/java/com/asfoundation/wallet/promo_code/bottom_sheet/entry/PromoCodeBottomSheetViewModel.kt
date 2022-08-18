@@ -19,7 +19,7 @@ sealed class PromoCodeBottomSheetSideEffect : SideEffect {
 
 data class PromoCodeBottomSheetState(
   val storedPromoCodeAsync: Async<PromoCodeResult> = Async.Uninitialized,
-  val submitPromoCodeAsync: Async<PromoCode> = Async.Uninitialized,
+  val submitPromoCodeAsync: Async<PromoCodeResult> = Async.Uninitialized,
   val shouldShowDefault: Boolean = false
 ) : ViewState
 

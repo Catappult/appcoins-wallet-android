@@ -14,6 +14,7 @@ import com.asf.wallet.R
 import com.asf.wallet.databinding.SettingsPromoCodeBottomSheetLayoutBinding
 import com.asfoundation.wallet.base.Async
 import com.asfoundation.wallet.base.SingleStateFragment
+import com.asfoundation.wallet.promo_code.FailedPromoCode
 import com.asfoundation.wallet.promo_code.PromoCodeResult
 import com.asfoundation.wallet.promo_code.SuccessfulPromoCode
 import com.asfoundation.wallet.promo_code.bottom_sheet.PromoCodeBottomSheetNavigator
@@ -96,7 +97,7 @@ class PromoCodeBottomSheetFragment : BottomSheetDialogFragment(),
         }
       }
       is Async.Fail -> {
-        handleErrorState(ValidityState.NOT_ADDED)
+        handleErrorState(FailedPromoCode.InvalidCode(clickAsync.error.throwable))
       }
       is Async.Success -> {
         handleClickSuccessState(state.submitPromoCodeAsync.value)
@@ -121,7 +122,7 @@ class PromoCodeBottomSheetFragment : BottomSheetDialogFragment(),
       }
       is Async.Fail -> {
         if (storedPromoCodeAsync.value != null) {
-          handleErrorState(ValidityState.NOT_ADDED)
+          handleErrorState(FailedPromoCode.GenericError(storedPromoCodeAsync.error.throwable))
         }
       }
       is Async.Success -> {
@@ -130,18 +131,18 @@ class PromoCodeBottomSheetFragment : BottomSheetDialogFragment(),
     }
   }
 
-  private fun handleClickSuccessState(promoCode: PromoCode?) {
-    when (promoCode?.validity) {
-      ValidityState.ACTIVE -> {
-        promoCode.code?.let {
+  private fun handleClickSuccessState(promoCode: PromoCodeResult?) {
+    when (promoCode) {
+      is SuccessfulPromoCode -> {
+        promoCode.promoCode.code?.let {
           if (viewModel.isFirstSuccess) {
             KeyboardUtils.hideKeyboard(view)
-            navigator.navigateToSuccess(promoCode)
+            navigator.navigateToSuccess(promoCode.promoCode)
             viewModel.isFirstSuccess = false
           }
         }
       }
-      else -> handleErrorState(promoCode?.validity)
+      else -> handleErrorState(promoCode)
     }
   }
 
@@ -161,17 +162,17 @@ class PromoCodeBottomSheetFragment : BottomSheetDialogFragment(),
     }
   }
 
-  private fun handleErrorState(validity: ValidityState?) {
+  private fun handleErrorState(promoCodeResult: PromoCodeResult?) {
     showDefaultScreen()
     views.promoCodeBottomSheetSubmitButton.isEnabled = false
-    when (validity) {
-      ValidityState.ERROR -> {
+    when (promoCodeResult) {
+      is FailedPromoCode.InvalidCode -> {
         views.promoCodeBottomSheetString.setError(getString(R.string.promo_code_view_error))
       }
-      ValidityState.EXPIRED -> {
+      is FailedPromoCode.ExpiredCode -> {
         views.promoCodeBottomSheetString.setError(getString(R.string.promo_code_error_not_available))
       }
-      ValidityState.NOT_ADDED -> {
+      is FailedPromoCode.GenericError -> {
         views.promoCodeBottomSheetString.setError(getString(R.string.promo_code_error_invalid_user))
       }
       else -> return
