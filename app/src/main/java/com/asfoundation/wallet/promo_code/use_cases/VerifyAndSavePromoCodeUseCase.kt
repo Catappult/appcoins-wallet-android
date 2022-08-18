@@ -5,11 +5,11 @@ import com.asfoundation.wallet.promo_code.repository.PromoCodeRepository
 import io.reactivex.Single
 import javax.inject.Inject
 
-class SetPromoCodeUseCase @Inject constructor(
+class VerifyAndSavePromoCodeUseCase @Inject constructor(
   private val promoCodeRepository: PromoCodeRepository
 ) {
 
   operator fun invoke(promoCodeString: String): Single<PromoCode> {
-    return promoCodeRepository.setPromoCode(promoCodeString)
+    return promoCodeRepository.verifyAndSavePromoCode(promoCodeString)
   }
 }

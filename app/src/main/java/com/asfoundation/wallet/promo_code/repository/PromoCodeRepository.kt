@@ -17,7 +17,7 @@ class PromoCodeRepository @Inject constructor(
   private val rxSchedulers: RxSchedulers
 ) {
 
-  fun setPromoCode(promoCodeString: String): Single<PromoCode> {
+  fun verifyAndSavePromoCode(promoCodeString: String): Single<PromoCode> {
     return promoCodeBackendApi.getPromoCodeBonus(promoCodeString)
       .subscribeOn(rxSchedulers.io)
       .doOnSuccess { response ->

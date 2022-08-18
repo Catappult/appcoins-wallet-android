@@ -88,8 +88,8 @@ class PromoCodeBottomSheetFragment : BottomSheetDialogFragment(),
   }
 
   override fun onStateChanged(state: PromoCodeBottomSheetState) {
-    when (val clickAsync = state.submitClickAsync) {
-      is Async.Uninitialized -> setPromoCode(state.promoCodeAsync, state.shouldShowDefault)
+    when (val clickAsync = state.submitPromoCodeAsync) {
+      is Async.Uninitialized -> initializePromoCode(state.storedPromoCodeAsync, state.shouldShowDefault)
       is Async.Loading -> {
         if (clickAsync.value == null) {
           showLoading()
@@ -99,7 +99,7 @@ class PromoCodeBottomSheetFragment : BottomSheetDialogFragment(),
         handleErrorState(ValidityState.NOT_ADDED)
       }
       is Async.Success -> {
-        handleClickSuccessState(state.submitClickAsync.value)
+        handleClickSuccessState(state.submitPromoCodeAsync.value)
       }
     }
   }
@@ -110,38 +110,38 @@ class PromoCodeBottomSheetFragment : BottomSheetDialogFragment(),
     }
   }
 
-  fun setPromoCode(
-    promoCodeAsync: Async<PromoCodeResult>,
+  fun initializePromoCode(
+    storedPromoCodeAsync: Async<PromoCodeResult>,
     shouldShowDefault: Boolean
   ) {
-    when (promoCodeAsync) {
+    when (storedPromoCodeAsync) {
       is Async.Uninitialized,
       is Async.Loading -> {
         showDefaultScreen()
       }
       is Async.Fail -> {
-        if (promoCodeAsync.value != null) {
+        if (storedPromoCodeAsync.value != null) {
           handleErrorState(ValidityState.NOT_ADDED)
         }
       }
       is Async.Success -> {
-        promoCodeAsync.value?.let { handlePromoCodeSuccessState(it, shouldShowDefault) }
+        storedPromoCodeAsync.value?.let { handlePromoCodeSuccessState(it, shouldShowDefault) }
       }
     }
   }
 
-  private fun handleClickSuccessState(promoCodeResult: PromoCode?) {
-    when (promoCodeResult?.validity) {
+  private fun handleClickSuccessState(promoCode: PromoCode?) {
+    when (promoCode?.validity) {
       ValidityState.ACTIVE -> {
-        promoCodeResult.code?.let {
+        promoCode.code?.let {
           if (viewModel.isFirstSuccess) {
             KeyboardUtils.hideKeyboard(view)
-            navigator.navigateToSuccess(promoCodeResult)
+            navigator.navigateToSuccess(promoCode)
             viewModel.isFirstSuccess = false
           }
         }
       }
-      else -> handleErrorState(promoCodeResult?.validity)
+      else -> handleErrorState(promoCode?.validity)
     }
   }
 

@@ -16,7 +16,7 @@ class GetUpdatedPromoCodeUseCase @Inject constructor(
       .flatMap { promoCode ->
         promoCode.code?.let {
           if (promoCode.validity == ValidityState.ACTIVE) {
-            return@flatMap promoCodeRepository.setPromoCode(it)
+            return@flatMap promoCodeRepository.verifyAndSavePromoCode(it)
           }
         }
         return@flatMap Single.just(promoCode)

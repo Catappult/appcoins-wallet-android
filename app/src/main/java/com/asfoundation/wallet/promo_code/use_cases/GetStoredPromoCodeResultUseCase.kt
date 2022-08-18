@@ -6,12 +6,12 @@ import com.asfoundation.wallet.promo_code.repository.PromoCodeRepository
 import io.reactivex.Observable
 import javax.inject.Inject
 
-class ObservePromoCodeResultUseCase @Inject constructor(
+class GetStoredPromoCodeResultUseCase @Inject constructor(
   private val promoCodeRepository: PromoCodeRepository
 ) {
 
   operator fun invoke(): Observable<PromoCodeResult> {
     return promoCodeRepository.observeCurrentPromoCode()
-      .flatMap { PromoCodeMapper().map(it) }
+      .map { PromoCodeMapper().map(it) }
   }
 }

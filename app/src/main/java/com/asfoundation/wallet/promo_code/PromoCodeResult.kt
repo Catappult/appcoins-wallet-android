@@ -16,13 +16,13 @@ sealed class FailedPromoCode : PromoCodeResult() {
 }
 
 class PromoCodeMapper {
-  fun map(promoCode: PromoCode): Observable<PromoCodeResult> {
+  fun map(promoCode: PromoCode): PromoCodeResult {
     return when (promoCode.validity) {
-      ValidityState.ACTIVE -> Observable.just(SuccessfulPromoCode(promoCode))
-      ValidityState.EXPIRED -> Observable.just(FailedPromoCode.ExpiredCode())
-      ValidityState.ERROR -> Observable.just(FailedPromoCode.InvalidCode())
-      ValidityState.NOT_ADDED -> Observable.just(FailedPromoCode.CodeNotAdded())
-      else -> Observable.just(FailedPromoCode.CodeNotAdded())
+      ValidityState.ACTIVE -> SuccessfulPromoCode(promoCode)
+      ValidityState.EXPIRED -> FailedPromoCode.ExpiredCode()
+      ValidityState.ERROR -> FailedPromoCode.InvalidCode()
+      ValidityState.NOT_ADDED -> FailedPromoCode.CodeNotAdded()
+      else -> FailedPromoCode.CodeNotAdded()
     }
   }
 }
