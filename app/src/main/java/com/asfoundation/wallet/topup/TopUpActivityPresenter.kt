@@ -9,11 +9,13 @@ import io.reactivex.Scheduler
 import io.reactivex.disposables.CompositeDisposable
 import java.util.concurrent.TimeUnit
 
-class TopUpActivityPresenter(private val view: TopUpActivityView,
-                             private val topUpInteractor: TopUpInteractor,
-                             private val viewScheduler: Scheduler,
-                             private val networkScheduler: Scheduler,
-                             private val disposables: CompositeDisposable) {
+class TopUpActivityPresenter(
+  private val view: TopUpActivityView,
+  private val topUpInteractor: TopUpInteractor,
+  private val viewScheduler: Scheduler,
+  private val networkScheduler: Scheduler,
+  private val disposables: CompositeDisposable
+) {
   fun present(isCreating: Boolean) {
     if (isCreating) {
       view.showTopUpScreen()
@@ -24,19 +26,19 @@ class TopUpActivityPresenter(private val view: TopUpActivityView,
 
   private fun handleSupportClicks() {
     disposables.add(view.getSupportClicks()
-        .throttleFirst(50, TimeUnit.MILLISECONDS)
-        .observeOn(viewScheduler)
-        .flatMapCompletable { topUpInteractor.showSupport() }
-        .subscribe({}, { handleError(it) })
+      .throttleFirst(50, TimeUnit.MILLISECONDS)
+      .observeOn(viewScheduler)
+      .flatMapCompletable { topUpInteractor.showSupport() }
+      .subscribe({}, { handleError(it) })
     )
   }
 
   private fun handleTryAgainClicks() {
     disposables.add(view.getTryAgainClicks()
-        .throttleFirst(50, TimeUnit.MILLISECONDS)
-        .observeOn(viewScheduler)
-        .doOnNext { view.showTopUpScreen() }
-        .subscribe({}, { handleError(it) })
+      .throttleFirst(50, TimeUnit.MILLISECONDS)
+      .observeOn(viewScheduler)
+      .doOnNext { view.showTopUpScreen() }
+      .subscribe({}, { handleError(it) })
     )
   }
 
@@ -56,10 +58,11 @@ class TopUpActivityPresenter(private val view: TopUpActivityView,
 
   private fun cancelPaymentAndShowSupport() {
     disposables.add(topUpInteractor.showSupport()
-        .subscribeOn(networkScheduler)
-        .observeOn(viewScheduler)
-        .doOnComplete { view.cancelPayment() }
-        .subscribe({}, { it.printStackTrace() }))
+      .subscribeOn(networkScheduler)
+      .observeOn(viewScheduler)
+      .doOnComplete { view.cancelPayment() }
+      .subscribe({}, { it.printStackTrace() })
+    )
   }
 
   private fun handleError(throwable: Throwable) {
@@ -69,29 +72,30 @@ class TopUpActivityPresenter(private val view: TopUpActivityView,
 
   fun handlePerkNotifications(bundle: Bundle) {
     disposables.add(topUpInteractor.getWalletAddress()
-        .subscribeOn(networkScheduler)
-        .observeOn(viewScheduler)
-        .doOnSuccess {
-          view.launchPerkBonusAndGamificationService(it)
-          view.finishActivity(bundle)
-        }
-        .doOnError { view.finishActivity(bundle) }
-        .subscribe({}, { it.printStackTrace() }))
+      .subscribeOn(networkScheduler)
+      .observeOn(viewScheduler)
+      .doOnSuccess {
+        view.launchPerkBonusAndGamificationService(it)
+        view.finishActivity(bundle)
+      }
+      .doOnError { view.finishActivity(bundle) }
+      .subscribe({}, { it.printStackTrace() })
+    )
   }
 
 
   fun handleBackupNotifications(bundle: Bundle) {
     disposables.add(topUpInteractor.incrementAndValidateNotificationNeeded()
-        .subscribeOn(networkScheduler)
-        .observeOn(viewScheduler)
-        .doOnSuccess { notificationNeeded ->
-          if (notificationNeeded.isNeeded) {
-            view.showBackupNotification(notificationNeeded.walletAddress)
-          }
-          view.finishActivity(bundle)
+      .subscribeOn(networkScheduler)
+      .observeOn(viewScheduler)
+      .doOnSuccess { notificationNeeded ->
+        if (notificationNeeded.isNeeded) {
+          view.showBackupNotification(notificationNeeded.walletAddress)
         }
-        .doOnError { view.finish(bundle) }
-        .subscribe({ }, { it.printStackTrace() })
+        view.finishActivity(bundle)
+      }
+      .doOnError { view.finish(bundle) }
+      .subscribe({ }, { it.printStackTrace() })
     )
   }
 }

@@ -7,10 +7,10 @@ import com.appcoins.wallet.commons.Logger
 import com.asf.wallet.R
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics
 import com.asfoundation.wallet.entity.TransactionBuilder
-import com.asfoundation.wallet.update_required.use_cases.GetAutoUpdateModelUseCase
-import com.asfoundation.wallet.update_required.use_cases.HasRequiredHardUpdateUseCase
 import com.asfoundation.wallet.ui.AuthenticationPromptActivity
 import com.asfoundation.wallet.ui.iab.IabInteract.Companion.PRE_SELECTED_PAYMENT_METHOD_KEY
+import com.asfoundation.wallet.update_required.use_cases.GetAutoUpdateModelUseCase
+import com.asfoundation.wallet.update_required.use_cases.HasRequiredHardUpdateUseCase
 import io.reactivex.Completable
 import io.reactivex.Scheduler
 import io.reactivex.disposables.CompositeDisposable

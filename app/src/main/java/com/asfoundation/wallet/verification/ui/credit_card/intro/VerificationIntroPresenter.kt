@@ -101,8 +101,8 @@ class VerificationIntroPresenter(
       view.getTryAgainClicks()
         .throttleFirst(50, TimeUnit.MILLISECONDS)
         .doOnNext { loadModel(true) }
-      .observeOn(viewScheduler)
-      .subscribe({}, { it.printStackTrace() })
+        .observeOn(viewScheduler)
+        .subscribe({}, { it.printStackTrace() })
     )
   }
 
