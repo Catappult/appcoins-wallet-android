@@ -23,7 +23,7 @@ class GamificationModelGroup(private val gamificationItem: GamificationItem,
   override fun bind(holder: ModelGroupHolder) {
     super.bind(holder)
     val context = holder.rootView.context
-    val gamificationMapper = GamificationMapper(context)
+    val gamificationMapper = GamificationMapper(context, currencyFormatUtils)
     val planet = holder.rootView.findViewById<ImageView>(R.id.planet)
     val currentLevelBonus = holder.rootView.findViewById<TextView>(R.id.current_level_bonus)
     val planetTitle = holder.rootView.findViewById<TextView>(R.id.planet_title)

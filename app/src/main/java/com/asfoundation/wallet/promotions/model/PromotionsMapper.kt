@@ -37,20 +37,13 @@ class PromotionsMapper @Inject constructor(private val gamificationMapper: Gamif
             }
 
             if (gamificationAvailable) {
-              promotions.add(
-                0,
-                TitleItem(
-                  R.string.perks_gamif_title, R.string.perks_gamif_subtitle, true,
-                  maxBonus.toString()
-                )
-              )
-              promotions.add(1, mapToGamificationItem(it))
+              promotions.add(0, mapToGamificationItem(it))
             }
           }
           is ReferralResponse -> {
             referralAvailable = it.status == PromotionsResponse.Status.ACTIVE
             if (referralAvailable) {
-              val index = if (gamificationAvailable) 2 else 0
+              val index = if (gamificationAvailable) 1 else 0
               promotions.add(index, mapToReferralItem(it))
             }
           }
@@ -91,9 +84,8 @@ class PromotionsMapper @Inject constructor(private val gamificationMapper: Gamif
 
   private fun getPerksIndex(gamificationAvailable: Boolean, referralAvailable: Boolean): Int {
     return when {
-      gamificationAvailable && referralAvailable -> 3
-      gamificationAvailable && !referralAvailable -> 2
-      !gamificationAvailable && referralAvailable -> 1
+      gamificationAvailable && referralAvailable -> 2
+      gamificationAvailable && !referralAvailable || !gamificationAvailable && referralAvailable -> 1
       else -> 0
     }
   }

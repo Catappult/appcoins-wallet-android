@@ -106,6 +106,7 @@ android {
     }
     staging {
       initWith release
+      debuggable true
       versionNameSuffix ".staging"
     }
     debug {

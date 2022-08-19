@@ -11,51 +11,48 @@ class PromotionsController : TypedEpoxyController<PromotionsModel>() {
 
   var clickListener: ((PromotionClick) -> Unit)? = null
 
-  override fun buildModels(data: PromotionsModel) {
+  override fun buildModels(promotionsModel: PromotionsModel) {
 
-    for (promotion in data.promotions) {
+    for (promotion in promotionsModel.promotions) {
       when (promotion) {
         is TitleItem -> add(
-            TitleModel_()
-                .id("gamification_title_model")
-                .titleItem(promotion)
-                .currencyFormatUtils(currencyFormatUtils)
-        )
-        is GamificationItem -> add(
-            GamificationModelGroup(promotion, currencyFormatUtils, clickListener)
+          TitleModel_()
+            .id("gamification_title_model")
+            .titleItem(promotion)
+            .currencyFormatUtils(currencyFormatUtils)
         )
         is ReferralItem -> add(
-            ReferralModel_()
-                .id(promotion.id, promotion.link)
-                .clickListener(clickListener)
+          ReferralModel_()
+            .id(promotion.id, promotion.link)
+            .clickListener(clickListener)
         )
         else -> Unit
       }
     }
 
-    for (perk in data.perks) {
+    for (perk in promotionsModel.perks) {
       when (perk) {
         is PromoCodeItem -> add(
-            PromoCodeModel_()
-                .id(perk.id, perk.detailsLink, perk.startDate.toString(), perk.endDate.toString())
-                .promoCodeItem(perk)
-                .clickListener(clickListener)
+          PromoCodeModel_()
+            .id(perk.id, perk.detailsLink, perk.startDate.toString(), perk.endDate.toString())
+            .promoCodeItem(perk)
+            .clickListener(clickListener)
         )
         is DefaultItem -> add(
-            DefaultModel_()
-                .id(perk.id, perk.detailsLink, perk.startDate.toString(), perk.endDate.toString())
-                .defaultItem(perk)
-                .clickListener(clickListener)
+          DefaultModel_()
+            .id(perk.id, perk.detailsLink, perk.startDate.toString(), perk.endDate.toString())
+            .defaultItem(perk)
+            .clickListener(clickListener)
         )
         is FutureItem -> add(
-            FutureModel_()
-                .id(perk.id, perk.detailsLink, perk.startDate.toString(), perk.endDate.toString())
-                .futureItem(perk)
-                .clickListener(clickListener)
+          FutureModel_()
+            .id(perk.id, perk.detailsLink, perk.startDate.toString(), perk.endDate.toString())
+            .futureItem(perk)
+            .clickListener(clickListener)
         )
         is ProgressItem -> add(
-            ProgressModel_()
-                .id(perk.id, perk.detailsLink, perk.startDate.toString(), perk.endDate.toString())
+          ProgressModel_()
+            .id(perk.id, perk.detailsLink, perk.startDate.toString(), perk.endDate.toString())
         )
         else -> Unit
       }
