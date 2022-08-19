@@ -168,15 +168,24 @@ class VerificationIntroPresenter(
           when (code) {
             AdyenErrorCodeMapper.CVC_DECLINED -> view.showCvvError()
             else -> {
+              logger.log(
+                TAG,
+                Exception("PaymentResult code=$code reason=${paymentModel.refusalReason}")
+              )
               handleErrors(errorString = adyenErrorCodeMapper.map(code))
             }
           }
         }
       }
       paymentModel.error.hasError -> Completable.fromAction {
+        if (!paymentModel.error.isNetworkError) logger.log(
+          TAG,
+          Exception("PaymentResult type=${paymentModel.error.errorInfo?.errorType} code=${paymentModel.error.errorInfo?.httpCode}")
+        )
         handleErrors(paymentModel.error.isNetworkError, paymentModel.errorType)
       }
       else -> Completable.fromAction {
+        logger.log(TAG, Exception("PaymentResult code=${paymentModel.refusalCode}"))
         handleErrors()
       }
     }
@@ -221,6 +230,7 @@ class VerificationIntroPresenter(
       .doOnNext { success ->
         if (!success) {
           hideLoading()
+          logger.log(TAG, Exception("ForgetCardClick"))
           handleErrors()
         }
       }

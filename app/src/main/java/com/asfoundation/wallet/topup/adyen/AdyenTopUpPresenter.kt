@@ -160,7 +160,12 @@ class AdyenTopUpPresenter(
         if (fromError) view.hideErrorViews()
         if (it.error.hasError) {
           if (it.error.isNetworkError) view.showNetworkError()
-          else handleSpecificError(R.string.unknown_error)
+          else handleSpecificError(
+            R.string.unknown_error,
+            it.error.errorInfo?.run {
+              Exception("PaymentMethodInfo type=$errorType code=$httpCode mCode=$messageCode")
+            } ?: Exception("PaymentMethodInfo")
+          )
         } else {
           val priceAmount = formatter.formatCurrency(it.priceAmount, WalletCurrency.FIAT)
           view.showValues(priceAmount, it.priceCurrency)
@@ -367,7 +372,10 @@ class AdyenTopUpPresenter(
               riskRules = paymentModel.fraudResultIds.sorted()
                 .joinToString(separator = "-")
             }
-            else -> handleSpecificError(adyenErrorCodeMapper.map(code))
+            else -> handleSpecificError(
+              adyenErrorCodeMapper.map(code),
+              Exception("PaymentResult paymentType=$paymentType code=$code reason=${paymentModel.refusalReason}")
+            )
           }
         }
         topUpAnalytics.sendErrorEvent(
@@ -408,7 +416,10 @@ class AdyenTopUpPresenter(
           errorCode = paymentModel.refusalCode.toString(),
           errorDetails = "${paymentModel.status}: Generic Error"
         )
-        handleSpecificError(R.string.unknown_error)
+        handleSpecificError(
+          R.string.unknown_error,
+          Exception("PaymentResult paymentType=$paymentType code=${paymentModel.refusalCode}")
+        )
       }
     }
   }
@@ -428,7 +439,10 @@ class AdyenTopUpPresenter(
           )
           val message = if (it.errorCode != null) adyenErrorCodeMapper.map(it.errorCode!!)
           else R.string.unknown_error
-          handleSpecificError(message)
+          handleSpecificError(
+            message,
+            Exception("FailedReason code=${it.errorCode} paymentType=$paymentType status=${it.status}")
+          )
         }
       }
   }
@@ -461,9 +475,14 @@ class AdyenTopUpPresenter(
             amountRuleBroken -> R.string.purchase_error_try_other_amount
             else -> error
           }
-          handleSpecificError(fraudError)
-
-        } else view.showVerificationError()
+          handleSpecificError(
+            fraudError,
+            Exception("FraudFlow paymentMethod=$paymentMethodRuleBroken amount=$amountRuleBroken")
+          )
+        } else {
+          logger.log(TAG, Exception("FraudFlow unverified"))
+          view.showVerificationError()
+        }
       }
       .subscribe({}, { handleSpecificError(error, it) })
     )
@@ -549,12 +568,15 @@ class AdyenTopUpPresenter(
     }
   }
 
-  private fun handleSpecificError(
-    @StringRes message: Int, throwable: Throwable? = null,
-    logMessage: String? = null
-  ) {
-    if (throwable != null) logger.log(TAG, throwable)
-    if (logMessage != null) logger.log(TAG, logMessage)
+  private fun handleSpecificError(@StringRes message: Int, throwable: Throwable) {
+    logger.log(TAG, throwable)
+    currentError = message
+    waitingResult = false
+    view.showSpecificError(message)
+  }
+
+  private fun handleSpecificError(@StringRes message: Int, logMessage: String) {
+    logger.log(TAG, logMessage)
     currentError = message
     waitingResult = false
     view.showSpecificError(message)
@@ -604,15 +626,45 @@ class AdyenTopUpPresenter(
         )
         view.showNetworkError()
       }
-      paymentModel.error.errorInfo?.errorType == ErrorType.INVALID_CARD -> view.showInvalidCardError()
+      paymentModel.error.errorInfo?.errorType == ErrorType.INVALID_CARD -> {
+        logger.log(
+          TAG,
+          Exception("Errors paymentType=$paymentType type=${paymentModel.error.errorInfo?.errorType} code=${paymentModel.error.errorInfo?.httpCode}")
+        )
+        view.showInvalidCardError()
+      }
 
-      paymentModel.error.errorInfo?.errorType == ErrorType.CARD_SECURITY_VALIDATION -> view.showSecurityValidationError()
+      paymentModel.error.errorInfo?.errorType == ErrorType.CARD_SECURITY_VALIDATION -> {
+        logger.log(
+          TAG,
+          Exception("Errors paymentType=$paymentType type=${paymentModel.error.errorInfo?.errorType} code=${paymentModel.error.errorInfo?.httpCode}")
+        )
+        view.showSecurityValidationError()
+      }
 
-      paymentModel.error.errorInfo?.errorType == ErrorType.OUTDATED_CARD -> view.showOutdatedCardError()
+      paymentModel.error.errorInfo?.errorType == ErrorType.OUTDATED_CARD -> {
+        logger.log(
+          TAG,
+          Exception("Errors paymentType=$paymentType type=${paymentModel.error.errorInfo?.errorType} code=${paymentModel.error.errorInfo?.httpCode}")
+        )
+        view.showOutdatedCardError()
+      }
 
-      paymentModel.error.errorInfo?.errorType == ErrorType.ALREADY_PROCESSED -> view.showAlreadyProcessedError()
+      paymentModel.error.errorInfo?.errorType == ErrorType.ALREADY_PROCESSED -> {
+        logger.log(
+          TAG,
+          Exception("Errors paymentType=$paymentType type=${paymentModel.error.errorInfo?.errorType} code=${paymentModel.error.errorInfo?.httpCode}")
+        )
+        view.showAlreadyProcessedError()
+      }
 
-      paymentModel.error.errorInfo?.errorType == ErrorType.PAYMENT_ERROR -> view.showPaymentError()
+      paymentModel.error.errorInfo?.errorType == ErrorType.PAYMENT_ERROR -> {
+        logger.log(
+          TAG,
+          Exception("Errors paymentType=$paymentType type=${paymentModel.error.errorInfo?.errorType} code=${paymentModel.error.errorInfo?.httpCode}")
+        )
+        view.showPaymentError()
+      }
 
       paymentModel.error.errorInfo?.httpCode != null -> {
         topUpAnalytics.sendErrorEvent(
@@ -627,7 +679,13 @@ class AdyenTopUpPresenter(
           resId,
           emptyList()
         )
-        else view.showSpecificError(resId)
+        else {
+          logger.log(
+            TAG,
+            Exception("Errors paymentType=$paymentType type=${paymentModel.error.errorInfo?.errorType} code=${paymentModel.error.errorInfo?.httpCode}")
+          )
+          view.showSpecificError(resId)
+        }
       }
       else -> {
         topUpAnalytics.sendErrorEvent(
@@ -637,7 +695,10 @@ class AdyenTopUpPresenter(
           errorCode = paymentModel.error.errorInfo?.httpCode.toString(),
           errorDetails = buildRefusalReason(paymentModel.status, paymentModel.error.errorInfo?.text)
         )
-        handleSpecificError(R.string.unknown_error)
+        handleSpecificError(
+          R.string.unknown_error,
+          Exception("Errors paymentType=$paymentType type=${paymentModel.error.errorInfo?.errorType} code=${paymentModel.error.errorInfo?.httpCode}")
+        )
       }
     }
   }

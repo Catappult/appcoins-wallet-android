@@ -2,6 +2,7 @@ package com.asfoundation.wallet.topup
 
 import android.content.Intent
 import android.os.Bundle
+import com.appcoins.wallet.commons.Logger
 import com.asf.wallet.R
 import com.asfoundation.wallet.ui.iab.BillingWebViewFragment
 import com.asfoundation.wallet.ui.iab.WebViewActivity
@@ -14,7 +15,8 @@ class TopUpActivityPresenter(
   private val topUpInteractor: TopUpInteractor,
   private val viewScheduler: Scheduler,
   private val networkScheduler: Scheduler,
-  private val disposables: CompositeDisposable
+  private val disposables: CompositeDisposable,
+  private val logger: Logger
 ) {
   fun present(isCreating: Boolean) {
     if (isCreating) {
@@ -48,6 +50,7 @@ class TopUpActivityPresenter(
         data.data?.let { view.acceptResult(it) } ?: view.cancelPayment()
       } else if (resultCode == WebViewActivity.FAIL) {
         if (data?.dataString?.contains(BillingWebViewFragment.OPEN_SUPPORT) == true) {
+          logger.log(TAG, Exception("ActivityResult ${data.dataString}"))
           cancelPaymentAndShowSupport()
         } else {
           view.cancelPayment()
@@ -66,7 +69,7 @@ class TopUpActivityPresenter(
   }
 
   private fun handleError(throwable: Throwable) {
-    throwable.printStackTrace()
+    logger.log(TAG, throwable)
     view.showError(R.string.unknown_error)
   }
 
@@ -97,5 +100,9 @@ class TopUpActivityPresenter(
       .doOnError { view.finish(bundle) }
       .subscribe({ }, { it.printStackTrace() })
     )
+  }
+
+  companion object {
+    private val TAG = TopUpActivityPresenter::class.java.name
   }
 }

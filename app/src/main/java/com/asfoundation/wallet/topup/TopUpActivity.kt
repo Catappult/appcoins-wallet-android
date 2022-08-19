@@ -10,6 +10,7 @@ import android.view.View
 import androidx.annotation.StringRes
 import androidx.fragment.app.Fragment
 import com.appcoins.wallet.billing.AppcoinsBillingBinder
+import com.appcoins.wallet.commons.Logger
 import com.asf.wallet.R
 import com.asfoundation.wallet.backup.BackupNotificationUtils
 import com.asfoundation.wallet.billing.adyen.PaymentType
@@ -50,6 +51,9 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, UriNavigator {
   @Inject
   lateinit var walletBlockedInteract: WalletBlockedInteract
 
+  @Inject
+  lateinit var logger: Logger
+
   private lateinit var results: PublishRelay<Uri>
   private lateinit var presenter: TopUpActivityPresenter
   private var isFinishingPurchase = false
@@ -73,7 +77,7 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, UriNavigator {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.top_up_activity_layout)
     presenter = TopUpActivityPresenter(this, topUpInteractor, AndroidSchedulers.mainThread(),
-        Schedulers.io(), CompositeDisposable())
+        Schedulers.io(), CompositeDisposable(), logger)
     results = PublishRelay.create()
     presenter.present(savedInstanceState == null)
     if (savedInstanceState != null && savedInstanceState.containsKey(FIRST_IMPRESSION)) {

@@ -216,6 +216,7 @@ class IabPresenter(
         }
       }
       if (data?.dataString?.contains(BillingWebViewFragment.OPEN_SUPPORT) == true) {
+        logger.log(TAG, Exception("WebViewResult ${data.dataString}"))
         iabInteract.showSupport()
       }
       view.showPaymentMethodsView()
