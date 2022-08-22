@@ -27,7 +27,7 @@
   <string name="credits">Das Team</string>
   <string name="label_new">Neu</string>
   <string name="got_it_button">Verstanden</string>
-  <string name="change_button">Change</string>
+  <string name="change_button">Ändern</string>
   <string name="vip">VIP</string>
   <string name="low_storage_error">Nicht genügend Speicherplatz</string>
   <string name="no_camera_permission_title">Kamera-Berechtigung</string>
@@ -441,7 +441,7 @@
   <string name="remind_later_button">Erinnern Sie mich später daran</string>
   <string name="get_code_button">Einen Code erhalten</string>
   <string name="confirm_button">Bestätigen</string>
-  <string name="withdraw_button">Withdraw</string>
+  <string name="withdraw_button">Abheben</string>
   <string name="email_here_field">Ihre E-Mail hier&#8230;</string>
   <string name="understood_button">Verstanden!</string>
   <string name="skip_button">Jetzt überspringen</string>
@@ -561,7 +561,7 @@
   <string name="purchase_paytmupi_install_disclaimer">Sie müssen die die Paytm UPI App installieren.</string>
   <string name="purchase_app_needed_body">Um ihren Einkauf abschließen zu können, benötigen Sie die folgende App.</string>
   <string name="purchase_apps_needed_body">Um ihren Einkauf abschließen zu können, benötigen Sie die folgenden Apps.</string>
-  <string name="purchase_error_connection_issue">It seems there is a problem with your internet connection! Please check it and try again.</string>
+  <string name="purchase_error_connection_issue">Sie haben offensichtlich keine Internetverbindung! Bitte prüfen Sie die Verbindung und versuchen Sie es erneut.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">Rechnungsadresse</string>
   <string name="purchase_address_address_field">Adresse</string>
@@ -599,7 +599,7 @@
   <string name="referral_view_notifications_title">Benachrichtigungen</string>
   <string name="referral_share_sheet_title">Link teilen über:</string>
   <string name="referral_view_unverified_body">Erhalten Sie für jeden Freund AppCoins Credits im Wert von %s. Sie müssen zuerst ihr Wallet verifizieren.</string>
-  <string name="referral_view_verify_button">Verify wallet</string>
+  <string name="referral_view_verify_button">Wallet verifizieren</string>
   <string name="referral_view_i_have_been_invited_button">Ich wurde eingeladen</string>
   <string name="referral_view_dropup_menu_friends_invited">Freunde eingeladen</string>
   <string name="referral_view_dropup_menu_earned">Verdient</string>
