@@ -5,60 +5,74 @@ import com.asfoundation.wallet.base.RxSchedulers
 import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Single
+import retrofit2.HttpException
 import retrofit2.http.GET
 import retrofit2.http.Path
 import javax.inject.Inject
 
 class PromoCodeRepository @Inject constructor(
-  private val promoCodeBrokerApi: PromoCodeBrokerApi,
   private val promoCodeBackendApi: PromoCodeBackendApi,
   private val promoCodeLocalDataSource: PromoCodeLocalDataSource,
   private val analyticsSetup: AnalyticsSetup,
   private val rxSchedulers: RxSchedulers
 ) {
 
-  fun setPromoCode(promoCodeString: String): Completable {
-    return Single.zip(
-      promoCodeBrokerApi.getPromoCode(promoCodeString),
-      promoCodeBackendApi.getPromoCodeBonus(promoCodeString)
-    ) { promoCode, bonus ->
-      Pair(promoCode, bonus)
-    }
-      .flatMap { promoCodePair ->
-        promoCodeLocalDataSource.savePromoCode(promoCodePair.first, promoCodePair.second)
-      }
-      .doOnSuccess {
+  fun verifyAndSavePromoCode(promoCodeString: String): Single<PromoCode> {
+    return promoCodeBackendApi.getPromoCodeBonus(promoCodeString)
+      .subscribeOn(rxSchedulers.io)
+      .doOnSuccess { response ->
         analyticsSetup.setPromoCode(
-          PromoCode(it.code, it.bonus, it.expiryDate, it.expired, it.appName)
+          PromoCode(
+            response.code,
+            response.bonus,
+            validity = ValidityState.ACTIVE,
+            response.app.appName
+          )
+        )
+        promoCodeLocalDataSource.savePromoCode(response, ValidityState.ACTIVE).subscribe()
+      }
+      .map {
+        PromoCode(
+          it.code,
+          it.bonus,
+          validity = ValidityState.ACTIVE,
+          it.app.appName
         )
       }
-      .doOnError {
+      .onErrorReturn {
+        val errorCode = (it as? HttpException)?.code()
+        handleErrorCodes(errorCode, promoCodeString)
+      }
+  }
+
+  fun handleErrorCodes(errorCode: Int?, promoCodeString: String): PromoCode {
+    val validity = when (errorCode) {
+      409 -> {
         promoCodeLocalDataSource.savePromoCode(
-          PromoCodeResponse(
-            promoCodeString,
-            null,
-            expired = true
-          ),
           PromoCodeBonusResponse(
             promoCodeString,
             null,
             PromoCodeBonusResponse.App(null, null, null)
-          )
+          ),
+          ValidityState.EXPIRED
         ).subscribe()
+        ValidityState.EXPIRED
       }
-      .ignoreElement()
-      .subscribeOn(rxSchedulers.io)
+      404 -> ValidityState.ERROR
+      else -> ValidityState.ERROR
+    }
+    return PromoCode(
+      promoCodeString,
+      null,
+      validity = validity,
+      null
+    )
   }
 
   fun observeCurrentPromoCode(): Observable<PromoCode> =
     promoCodeLocalDataSource.observeSavedPromoCode()
 
   fun removePromoCode(): Completable = promoCodeLocalDataSource.removePromoCode()
-
-  interface PromoCodeBrokerApi {
-    @GET("8.20220101/entity/promo-code/{promoCodeString}")
-    fun getPromoCode(@Path("promoCodeString") promoCodeString: String): Single<PromoCodeResponse>
-  }
 
   interface PromoCodeBackendApi {
     @GET("gamification/perks/promo_code/{promoCodeString}/")
