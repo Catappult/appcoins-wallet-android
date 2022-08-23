@@ -827,6 +827,13 @@
     <item name="android:lineSpacingExtra">1sp</item>
   </style>
 
+  <style name="VipRefBarText">
+    <item name="android:fontFamily">@font/roboto_bolt</item>
+    <item name="android:maxLines">1</item>
+    <item name="android:textSize">18sp</item>
+    <item name="android:textColor">@color/white</item>
+  </style>
+
   <style name="VoucherAppcText" parent="TextAppearance.AppCompat.Body1.Roboto.Medium">
     <item name="android:textSize">10sp</item>
     <item name="android:textColor">@color/white_99</item>

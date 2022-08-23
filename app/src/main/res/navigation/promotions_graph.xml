@@ -11,9 +11,18 @@
       tools:layout="@layout/fragment_promotions">
 
     <action
-        android:id="@+id/action_navigate_to_info"
-        app:destination="@id/promotions_info_dialog_fragment" />
+      android:id="@+id/action_navigate_to_info"
+
+      app:destination="@id/promotions_info_dialog_fragment" />
+
   </fragment>
+
+<!--  <fragment-->
+<!--      android:id="@+id/promotions_vip_referral_fragment"-->
+<!--      android:name="com.asfoundation.wallet.promotions.ui.vip_referral.PromotionsVipReferralFragment"-->
+<!--      tools:layout="@layout/fragment_vip_referral">-->
+
+<!--  </fragment>-->
 
   <dialog
       android:id="@+id/promotions_info_dialog_fragment"
