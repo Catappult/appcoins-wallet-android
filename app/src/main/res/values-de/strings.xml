@@ -1101,13 +1101,13 @@
   <string name="vip_program_promotions_list_title">Sonderaktionen für Dich</string>
   <string name="vip_program_promo_code_tag">Promotion-Code</string>
   <string name="vip_program_referral_page_title">VIP-Empfehlungsprogramm</string>
-  <string name="vip_program_referral_page_body">Share this promo code with your community and friends for everyone to earn while playing. For every in-app purchase they make, both <b>you and your friends will receive %s%% bonus</b> on top of other active promotions and for an entire month!</string>
-  <string name="vip_program_referral_page_share_title">Share this code with your friends</string>
-  <string name="vip_program_referral_page_earned_body">%1$s%2$s earned from %3$s referrals</string>
-  <string name="vip_program_gamification_title">What\'s my bonus level?</string>
-  <string name="vip_program_gamification_amount_purchases_bonus">Bonus received from your purchases.</string>
-  <string name="vip_program_gamification_amoung_referral_bonus">Bonus received from referrals</string>
-  <string name="vip_program_max_bonus_title">Enjoy your %s%% Bonus on every purchase</string>
-  <string name="vip_program_max_bonus_body">You\'ve reached the limits of the solar system.</string>
+  <string name="vip_program_referral_page_body">Teilen Sie diesen Promo-Code mit ihrer Community und ihren Freunden, so kann jeder beim Spielen etwas verdienen. Für jeden In-App Einkauf den sie machen erhalten <b>Du und deine Freunde %s%% Bonus</b> zusätzlich zu den anderen Aktionen und das für den ganzen Monat!</string>
+  <string name="vip_program_referral_page_share_title">Teile diesen Code mit deinen Freunden</string>
+  <string name="vip_program_referral_page_earned_body">%1$s%2$s erhalten für %3$s Referenzen</string>
+  <string name="vip_program_gamification_title">Wie hoch ist mein Bonus-Level?</string>
+  <string name="vip_program_gamification_amount_purchases_bonus">Bonus den du für deine Einkäufe erhalten hast.</string>
+  <string name="vip_program_gamification_amoung_referral_bonus">Bonus den du für Referenzen erhalten hast</string>
+  <string name="vip_program_max_bonus_title">Freuen Sie sich über %s%% Bonus über jeden Einkauf</string>
+  <string name="vip_program_max_bonus_body">Sie haben die Grenzen des Sonnensystems erreicht.</string>
   <string name="vip_program_max_bonus_short">%s%% Bonus für jeden Einkauf.</string>
 </resources>
