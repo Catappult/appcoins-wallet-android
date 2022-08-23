@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/bottom_nav_top_up_blue"
-    android:paddingVertical="@dimen/big_margin"
+    android:paddingTop="@dimen/big_margin"
+    android:paddingBottom="@dimen/large_margin"
     android:paddingHorizontal="@dimen/big_margin"
     >
 
