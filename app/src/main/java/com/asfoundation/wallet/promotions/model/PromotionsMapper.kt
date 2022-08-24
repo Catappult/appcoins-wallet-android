@@ -4,7 +4,6 @@ import com.appcoins.wallet.gamification.repository.Levels
 import com.appcoins.wallet.gamification.repository.Status
 import com.appcoins.wallet.gamification.repository.UserStats
 import com.appcoins.wallet.gamification.repository.entity.*
-import com.asf.wallet.R
 import com.asfoundation.wallet.entity.Wallet
 import com.asfoundation.wallet.promotions.PromotionsInteractor
 import com.asfoundation.wallet.ui.gamification.GamificationMapper
@@ -69,11 +68,6 @@ class PromotionsMapper @Inject constructor(private val gamificationMapper: Gamif
           }
         }
       }
-
-    if (perksAvailable) {
-      val perksIndex = getPerksIndex(gamificationAvailable, referralAvailable)
-      promotions.add(perksIndex, TitleItem(R.string.perks_title, R.string.perks_body, false))
-    }
 
     return PromotionsModel(
       promotions, vouchers, perks, maxBonus, wallet,

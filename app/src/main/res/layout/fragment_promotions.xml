@@ -4,14 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/bottom_nav_top_up_blue"
     >
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/promotions_header_appbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-
         >
 
       <com.google.android.material.appbar.CollapsingToolbarLayout
@@ -19,6 +17,7 @@
           android:layout_width="match_parent"
           android:layout_height="match_parent"
           android:minHeight="?attr/actionBarSize"
+          android:background="@color/bottom_nav_top_up_blue"
           app:layout_scrollFlags="scroll|exitUntilCollapsed"
           app:titleEnabled="false"
           >
@@ -35,26 +34,28 @@
             app:layout_collapseParallaxMultiplier="1"
             />
 
-        <View
+        <androidx.coordinatorlayout.widget.CoordinatorLayout
+            android:id="@+id/promotions_list_title"
             android:layout_width="match_parent"
-            android:layout_height="28dp"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/big_margin"
+            android:paddingHorizontal="@dimen/big_margin"
             android:layout_gravity="bottom"
             android:background="@drawable/background_active_wallet"
-            app:layout_collapseMode="none"
-            />
-        <include
-            android:id="@+id/toolbar"
-            layout="@layout/fragment_promotions_toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            app:layout_collapseMode="pin"
-            />
+            app:layout_collapseMode="none">
+
+          <include
+              layout="@layout/item_promotions_title"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              />
+        </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
         <androidx.coordinatorlayout.widget.CoordinatorLayout
             android:id="@+id/header_loading_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="?attr/actionBarSize"
+            android:layout_marginVertical="?attr/actionBarSize"
             android:paddingVertical="@dimen/large_margin"
             android:background="@color/bottom_nav_top_up_blue"
             android:visibility="gone"
@@ -70,6 +71,14 @@
               app:lottie_rawRes="@raw/loading_dark_animation"
               />
         </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+        <include
+            android:id="@+id/toolbar"
+            layout="@layout/fragment_promotions_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:layout_collapseMode="pin"
+            />
       </com.google.android.material.appbar.CollapsingToolbarLayout>
     </com.google.android.material.appbar.AppBarLayout>
 

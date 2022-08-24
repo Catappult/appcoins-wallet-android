@@ -17,7 +17,6 @@ import com.asfoundation.wallet.base.Async
 import com.asfoundation.wallet.base.SingleStateFragment
 import com.asfoundation.wallet.promotions.model.GamificationItem
 import com.asfoundation.wallet.promotions.model.PromotionsModel
-import com.asfoundation.wallet.promotions.model.TitleItem
 import com.asfoundation.wallet.promotions.ui.list.PromotionClick
 import com.asfoundation.wallet.promotions.ui.list.PromotionsController
 import com.asfoundation.wallet.ui.gamification.GamificationMapper
@@ -25,6 +24,7 @@ import com.asfoundation.wallet.ui.widget.MarginItemDecoration
 import com.asfoundation.wallet.util.CurrencyFormatUtils
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.android.synthetic.main.item_promotions_title.view.*
 import kotlinx.android.synthetic.main.promotions_header_current_level.view.*
 import java.text.DecimalFormat
 import javax.inject.Inject
@@ -154,14 +154,7 @@ class PromotionsFragment : BasePageViewFragment(),
         showLockedPromotionsScreen()
       }
     } else {
-      if (!promotionsModel.promotions.contains(
-          TitleItem(
-            R.string.perks_title,
-            R.string.perks_body,
-            false
-          )
-        )
-      ) {
+      if (promotionsModel.perks.isEmpty()) {
         showNoPromotionsScreen(promotionsModel, gamificationStats)
       } else {
         showPromotions(promotionsModel, gamificationStats)
@@ -200,6 +193,7 @@ class PromotionsFragment : BasePageViewFragment(),
 
     showGamificationHeaderText(gamificationHeader)
     showGamificationHeaderProgress(gamificationStats)
+    showPromotionsTitle()
   }
 
   private fun showGamificationHeaderText(gamificationHeader: GamificationItem) {
@@ -231,6 +225,11 @@ class PromotionsFragment : BasePageViewFragment(),
         gamificationStats.totalSpend,
         gamificationStats.nextLevelAmount
       )
+  }
+
+  private fun showPromotionsTitle() {
+    views.promotionsListTitle.promotions_title.text = getString(R.string.perks_title)
+    views.promotionsListTitle.promotions_subtitle.text = getString(R.string.perks_body)
   }
 
   private fun showNoPromotionsScreen(
