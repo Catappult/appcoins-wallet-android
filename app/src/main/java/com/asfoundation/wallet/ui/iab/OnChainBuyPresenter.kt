@@ -97,7 +97,10 @@ class OnChainBuyPresenter(
               CurrentPaymentStep.READY -> Completable.fromAction { setup(appcAmount) }
                 .subscribeOn(viewScheduler)
 
-              CurrentPaymentStep.NO_FUNDS -> Completable.fromAction { view.showNoFundsError() }
+              CurrentPaymentStep.NO_FUNDS -> Completable.fromAction {
+                logger.log(TAG, Exception("SetupUi no funds"))
+                view.showNoFundsError()
+              }
                 .subscribeOn(viewScheduler)
 
               CurrentPaymentStep.PAUSED_CC_PAYMENT, CurrentPaymentStep.PAUSED_LOCAL_PAYMENT, CurrentPaymentStep.PAUSED_CREDITS ->
@@ -131,22 +134,40 @@ class OnChainBuyPresenter(
           .flatMapCompletable { bundle -> handleSuccessTransaction(bundle) }
           .onErrorResumeNext { Completable.fromAction { showError(it) } }
       }
-      Payment.Status.NO_FUNDS -> Completable.fromAction { view.showNoFundsError() }
+      Payment.Status.NO_FUNDS -> Completable.fromAction {
+        logger.log(TAG, Exception("PendingTransaction no funds"))
+        view.showNoFundsError()
+      }
         .andThen(onChainBuyInteract.remove(transaction.uri))
 
-      Payment.Status.NETWORK_ERROR -> Completable.fromAction { view.showWrongNetworkError() }
+      Payment.Status.NETWORK_ERROR -> Completable.fromAction {
+        logger.log(TAG, Exception("PendingTransaction wrong network"))
+        view.showWrongNetworkError()
+      }
         .andThen(onChainBuyInteract.remove(transaction.uri))
 
-      Payment.Status.NO_TOKENS -> Completable.fromAction { view.showNoTokenFundsError() }
+      Payment.Status.NO_TOKENS -> Completable.fromAction {
+        logger.log(TAG, Exception("PendingTransaction no tokens"))
+        view.showNoTokenFundsError()
+      }
         .andThen(onChainBuyInteract.remove(transaction.uri))
 
-      Payment.Status.NO_ETHER -> Completable.fromAction { view.showNoEtherFundsError() }
+      Payment.Status.NO_ETHER -> Completable.fromAction {
+        logger.log(TAG, Exception("PendingTransaction no ether"))
+        view.showNoEtherFundsError()
+      }
         .andThen(onChainBuyInteract.remove(transaction.uri))
 
-      Payment.Status.NO_INTERNET -> Completable.fromAction { view.showNoNetworkError() }
+      Payment.Status.NO_INTERNET -> Completable.fromAction {
+        logger.log(TAG, Exception("PendingTransaction no internet"))
+        view.showNoNetworkError()
+      }
         .andThen(onChainBuyInteract.remove(transaction.uri))
 
-      Payment.Status.NONCE_ERROR -> Completable.fromAction { view.showNonceError() }
+      Payment.Status.NONCE_ERROR -> Completable.fromAction {
+        logger.log(TAG, Exception("PendingTransaction nonce error"))
+        view.showNonceError()
+      }
         .andThen(onChainBuyInteract.remove(transaction.uri))
 
       Payment.Status.APPROVING -> {
@@ -265,6 +286,7 @@ class OnChainBuyPresenter(
             .observeOn(viewScheduler)
             .doOnSuccess { verified ->
               if (verified) {
+                logger.log(TAG, Exception("FraudFlow blocked"))
                 view.showForbiddenError()
               } else {
                 view.showVerification()
@@ -273,7 +295,10 @@ class OnChainBuyPresenter(
         } else {
           Single.just(true)
             .observeOn(viewScheduler)
-            .doOnSuccess { view.showForbiddenError() }
+            .doOnSuccess {
+              logger.log(TAG, Exception("FraudFlow not blocked"))
+              view.showForbiddenError()
+            }
         }
       }
       .observeOn(viewScheduler)

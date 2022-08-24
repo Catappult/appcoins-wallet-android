@@ -14,7 +14,6 @@ import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.GoogleApiAvailability
 import dagger.hilt.android.qualifiers.ApplicationContext
 import io.reactivex.Completable
-import io.reactivex.Single
 import io.sentry.Sentry
 import io.sentry.android.AndroidSentryClientFactory
 import io.sentry.event.Breadcrumb
@@ -60,34 +59,28 @@ class SentryAnalytics @Inject constructor(
       BuildConfig.SENTRY_DSN_KEY,
       AndroidSentryClientFactory(context.applicationContext as Application)
     )
-    return Single.zip(
-      idsRepository.getInstallerPackage(BuildConfig.APPLICATION_ID),
-      Single.just(idsRepository.getGamificationLevel()),
-      Single.just(hasGms()),
-      Single.just(idsRepository.getActiveWalletAddress()),
-      promoCodeLocalDataSource.getSavedPromoCode()
-    ) { installerPackage: String, level: Int, hasGms: Boolean, walletAddress: String, promoCode: PromoCode ->
-      SentryInitializeWrapper(installerPackage, level, hasGms, walletAddress, promoCode)
+    val walletAddress = idsRepository.getActiveWalletAddress()
+    Sentry.getContext().apply {
+      user = User(walletAddress, null, null, null)
+      addExtra(AnalyticsLabels.USER_LEVEL, idsRepository.getGamificationLevel())
+      addExtra(AnalyticsLabels.HAS_GMS, hasGms())
     }
-      .flatMap {
-        promotionsRepository.getWalletOrigin(
-          it.walletAddress,
-          it.promoCode.code
-        )
-          .doOnSuccess { walletOrigin ->
-            Sentry.getContext().apply {
-              user = User(it.walletAddress, null, null, null)
-              addExtra(AnalyticsLabels.ENTRY_POINT, it.installerPackage.ifEmpty { "other" })
-              addExtra(AnalyticsLabels.USER_LEVEL, it.level)
-              addExtra(AnalyticsLabels.HAS_GMS, it.hasGms)
-              addExtra(AnalyticsLabels.WALLET_ORIGIN, walletOrigin)
-            }
-            if (!BuildConfig.DEBUG) {
-              logger.addReceiver(SentryReceiver())
-            }
-          }
-      }
-      .ignoreElement()
+    logger.addReceiver(SentryReceiver())
+    return Completable.mergeArray(
+      idsRepository.getInstallerPackage(BuildConfig.APPLICATION_ID)
+        .doOnSuccess {
+          Sentry.getContext().addExtra(AnalyticsLabels.ENTRY_POINT, it.ifEmpty { "other" })
+        }
+        .ignoreElement()
+        .onErrorComplete(),
+      promoCodeLocalDataSource.getSavedPromoCode()
+        .flatMap {
+          promotionsRepository.getWalletOrigin(walletAddress, it.code)
+        }
+        .doOnSuccess { Sentry.getContext().addExtra(AnalyticsLabels.WALLET_ORIGIN, it) }
+        .ignoreElement()
+        .onErrorComplete()
+    )
   }
 
   private fun hasGms(): Boolean {
@@ -95,9 +88,3 @@ class SentryAnalytics @Inject constructor(
       .isGooglePlayServicesAvailable(context) == ConnectionResult.SUCCESS
   }
 }
-
-private data class SentryInitializeWrapper(
-  val installerPackage: String, val level: Int,
-  val hasGms: Boolean, val walletAddress: String,
-  val promoCode: PromoCode
-)

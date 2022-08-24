@@ -152,6 +152,7 @@ class AppcoinsRewardsBuyPresenter(
         view.showError(R.string.subscriptions_error_already_subscribed)
       }.subscribeOn(viewScheduler)
       Status.NO_NETWORK -> Completable.fromAction {
+        logger.log(TAG, Exception("PaymentStatus no network"))
         view.showNoNetworkError()
         view.hideLoading()
       }.subscribeOn(viewScheduler)
@@ -169,13 +170,20 @@ class AppcoinsRewardsBuyPresenter(
               .isWalletVerified()
               .observeOn(viewScheduler)
               .doOnSuccess {
-                if (it) view.showError(R.string.purchase_error_wallet_block_code_403)
-                else view.showVerification()
+                if (it) {
+                  logger.log(TAG, Exception("FraudFlow blocked"))
+                  view.showError(R.string.purchase_error_wallet_block_code_403)
+                } else {
+                  view.showVerification()
+                }
               }
           } else {
             Single.just(true)
               .observeOn(viewScheduler)
-              .doOnSuccess { view.showError(R.string.purchase_error_wallet_block_code_403) }
+              .doOnSuccess {
+                logger.log(TAG, Exception("FraudFlow not blocked"))
+                view.showError(R.string.purchase_error_wallet_block_code_403)
+              }
           }
         }
         .observeOn(viewScheduler)
