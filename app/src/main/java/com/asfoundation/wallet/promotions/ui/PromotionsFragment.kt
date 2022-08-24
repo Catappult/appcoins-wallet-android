@@ -167,7 +167,7 @@ class PromotionsFragment : BasePageViewFragment(),
     gamificationStats: GamificationStats
   ) {
     promotionsController.setData(promotionsModel)
-    showGamificationHeader(promotionsModel, gamificationStats)
+    showGamificationHeader(promotionsModel, gamificationStats, hasPerksAvailable = true)
     views.rvPromotions.visibility = View.VISIBLE
     views.noNetwork.root.visibility = View.GONE
     views.lockedPromotions.root.visibility = View.GONE
@@ -176,7 +176,8 @@ class PromotionsFragment : BasePageViewFragment(),
 
   private fun showGamificationHeader(
     promotionsModel: PromotionsModel,
-    gamificationStats: GamificationStats
+    gamificationStats: GamificationStats,
+    hasPerksAvailable: Boolean
   ) {
     val gamificationHeader: GamificationItem = (promotionsModel.promotions[0] as GamificationItem)
     views.currentLevelHeader.root.visibility = View.VISIBLE
@@ -193,7 +194,12 @@ class PromotionsFragment : BasePageViewFragment(),
 
     showGamificationHeaderText(gamificationHeader)
     showGamificationHeaderProgress(gamificationStats)
-    showPromotionsTitle()
+    if (hasPerksAvailable) {
+      showPromotionsTitle()
+    } else {
+      views.promotionsListTitleLayout.root.visibility =
+        View.GONE
+    }
   }
 
   private fun showGamificationHeaderText(gamificationHeader: GamificationItem) {
@@ -228,15 +234,16 @@ class PromotionsFragment : BasePageViewFragment(),
   }
 
   private fun showPromotionsTitle() {
-    views.promotionsListTitle.promotions_title.text = getString(R.string.perks_title)
-    views.promotionsListTitle.promotions_subtitle.text = getString(R.string.perks_body)
+    views.promotionsListTitleLayout.root.visibility = View.VISIBLE
+    views.promotionsListTitleLayout.promotionsTitle.text = getString(R.string.perks_title)
+    views.promotionsListTitleLayout.promotionsSubtitle.text = getString(R.string.perks_body)
   }
 
   private fun showNoPromotionsScreen(
     promotionsModel: PromotionsModel,
     gamificationStats: GamificationStats
   ) {
-    showGamificationHeader(promotionsModel, gamificationStats)
+    showGamificationHeader(promotionsModel, gamificationStats, hasPerksAvailable = false)
     views.noNetwork.root.visibility = View.GONE
     views.noNetwork.retryAnimation.visibility = View.GONE
     views.noPromotions.root.visibility = View.VISIBLE

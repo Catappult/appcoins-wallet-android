@@ -35,23 +35,6 @@
             />
 
         <androidx.coordinatorlayout.widget.CoordinatorLayout
-            android:id="@+id/promotions_list_title"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingTop="@dimen/big_margin"
-            android:paddingHorizontal="@dimen/big_margin"
-            android:layout_gravity="bottom"
-            android:background="@drawable/background_active_wallet"
-            app:layout_collapseMode="none">
-
-          <include
-              layout="@layout/item_promotions_title"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              />
-        </androidx.coordinatorlayout.widget.CoordinatorLayout>
-
-        <androidx.coordinatorlayout.widget.CoordinatorLayout
             android:id="@+id/header_loading_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -69,6 +52,25 @@
               app:lottie_autoPlay="true"
               app:lottie_loop="true"
               app:lottie_rawRes="@raw/loading_dark_animation"
+              />
+        </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+        <androidx.coordinatorlayout.widget.CoordinatorLayout
+            android:id="@+id/promotions_list_title_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="28dp"
+            android:layout_gravity="bottom"
+            android:paddingTop="@dimen/big_margin"
+            android:paddingHorizontal="@dimen/big_margin"
+            android:background="@drawable/background_active_wallet"
+            app:layout_collapseMode="none">
+
+          <include
+              android:id="@+id/promotions_list_title_layout"
+              layout="@layout/item_promotions_title"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
               />
         </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
