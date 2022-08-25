@@ -1,0 +1,87 @@
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:animateLayoutChanges="true"
+    android:id="@+id/toolbar"
+    android:background="@color/bottom_nav_top_up_blue"
+    >
+
+  <com.google.android.material.imageview.ShapeableImageView
+      android:id="@+id/backgroundView"
+      android:layout_width="0dp"
+      android:layout_height="0dp"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintLeft_toLeftOf="parent"
+      app:layout_constraintRight_toRightOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      />
+
+  <ImageView
+      android:id="@+id/toolbar_layout_logo"
+      android:layout_width="67dp"
+      android:layout_height="24dp"
+      android:layout_margin="16dp"
+      android:src="@drawable/ic_app_logo"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      />
+
+  <ImageButton
+      android:id="@+id/gamification_info_btn"
+      android:layout_width="36dp"
+      android:layout_height="36dp"
+      android:layout_marginEnd="14dp"
+      android:background="?android:attr/selectableItemBackgroundBorderless"
+      android:clickable="true"
+      android:elevation="10dp"
+      android:focusable="true"
+      android:padding="6dp"
+      android:scaleType="fitCenter"
+      android:src="@drawable/ic_info"
+      app:layout_constraintBottom_toBottomOf="@id/toolbar"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintTop_toTopOf="@id/toolbar"
+      />
+
+<!--  <FrameLayout-->
+<!--      android:id="@+id/action_button_support"-->
+<!--      style="@style/Widget.AppCompat.ActionButton"-->
+<!--      android:layout_width="42dp"-->
+<!--      android:layout_height="48dp"-->
+<!--      android:clickable="true"-->
+<!--      android:focusable="true"-->
+<!--      app:layout_constraintBottom_toBottomOf="@id/toolbar"-->
+<!--      app:layout_constraintEnd_toStartOf="@id/action_button_settings"-->
+<!--      app:layout_constraintTop_toTopOf="@id/toolbar"-->
+<!--      >-->
+<!--    <com.airbnb.lottie.LottieAnimationView-->
+<!--        android:id="@+id/intercom_animation"-->
+<!--        android:layout_width="26dp"-->
+<!--        android:layout_height="26dp"-->
+<!--        android:layout_gravity="center"-->
+<!--        app:layout_constraintBottom_toBottomOf="@id/toolbar"-->
+<!--        app:layout_constraintEnd_toStartOf="@id/action_button_settings"-->
+<!--        app:layout_constraintTop_toTopOf="@id/toolbar"-->
+<!--        app:lottie_enableMergePathsForKitKatAndAbove="true"-->
+<!--        app:lottie_rawRes="@raw/intercom_unread_animation"-->
+<!--        app:lottie_repeatCount="2"-->
+<!--        />-->
+<!--  </FrameLayout>-->
+
+<!--  <ImageButton-->
+<!--      android:id="@+id/action_button_settings"-->
+<!--      style="@style/Widget.AppCompat.ActionButton"-->
+<!--      android:layout_width="42dp"-->
+<!--      android:layout_height="48dp"-->
+<!--      android:layout_marginEnd="5dp"-->
+<!--      android:src="@drawable/ic_settings_white_24dp"-->
+<!--      app:layout_constraintBottom_toBottomOf="@id/toolbar"-->
+<!--      app:layout_constraintEnd_toEndOf="parent"-->
+<!--      app:layout_constraintTop_toTopOf="@id/toolbar"-->
+<!--      />-->
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -4,7 +4,6 @@ import com.appcoins.wallet.gamification.repository.Levels
 import com.appcoins.wallet.gamification.repository.Status
 import com.appcoins.wallet.gamification.repository.UserStats
 import com.appcoins.wallet.gamification.repository.entity.*
-import com.asf.wallet.R
 import com.asfoundation.wallet.entity.Wallet
 import com.asfoundation.wallet.promotions.PromotionsInteractor
 import com.asfoundation.wallet.ui.gamification.GamificationMapper
@@ -37,20 +36,13 @@ class PromotionsMapper @Inject constructor(private val gamificationMapper: Gamif
             }
 
             if (gamificationAvailable) {
-              promotions.add(
-                0,
-                TitleItem(
-                  R.string.perks_gamif_title, R.string.perks_gamif_subtitle, true,
-                  maxBonus.toString()
-                )
-              )
-              promotions.add(1, mapToGamificationItem(it))
+              promotions.add(0, mapToGamificationItem(it))
             }
           }
           is ReferralResponse -> {
             referralAvailable = it.status == PromotionsResponse.Status.ACTIVE
             if (referralAvailable) {
-              val index = if (gamificationAvailable) 2 else 0
+              val index = if (gamificationAvailable) 1 else 0
               promotions.add(index, mapToReferralItem(it))
             }
           }
@@ -77,11 +69,6 @@ class PromotionsMapper @Inject constructor(private val gamificationMapper: Gamif
         }
       }
 
-    if (perksAvailable) {
-      val perksIndex = getPerksIndex(gamificationAvailable, referralAvailable)
-      promotions.add(perksIndex, TitleItem(R.string.perks_title, R.string.perks_body, false))
-    }
-
     return PromotionsModel(
       promotions, vouchers, perks, maxBonus, wallet,
       map(userStats.walletOrigin),
@@ -91,9 +78,8 @@ class PromotionsMapper @Inject constructor(private val gamificationMapper: Gamif
 
   private fun getPerksIndex(gamificationAvailable: Boolean, referralAvailable: Boolean): Int {
     return when {
-      gamificationAvailable && referralAvailable -> 3
-      gamificationAvailable && !referralAvailable -> 2
-      !gamificationAvailable && referralAvailable -> 1
+      gamificationAvailable && referralAvailable -> 2
+      gamificationAvailable && !referralAvailable || !gamificationAvailable && referralAvailable -> 1
       else -> 0
     }
   }
