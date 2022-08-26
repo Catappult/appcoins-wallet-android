@@ -6,6 +6,7 @@ import android.net.Uri
 import android.util.Log
 import androidx.core.app.ShareCompat
 import androidx.fragment.app.Fragment
+import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.asf.wallet.R
 import com.asfoundation.wallet.base.Navigator
@@ -17,7 +18,9 @@ import javax.inject.Inject
 
 class PromotionsNavigator @Inject constructor(private val fragment: Fragment) : Navigator {
 
-  fun navigateToInfo() {
+  //TODO remove
+  fun navigateToInfo(/*aaa: NavController*/) {
+//    aaa.navigate(R.id.action_navigate_to_info)
     navigate(fragment.findNavController(), PromotionsFragmentDirections.actionNavigateToInfo())
   }
 

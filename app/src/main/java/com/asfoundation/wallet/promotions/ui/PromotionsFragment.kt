@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.NavHostFragment
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.asf.wallet.R
 import com.asf.wallet.databinding.FragmentPromotionsBinding
@@ -66,7 +67,14 @@ class PromotionsFragment : BasePageViewFragment(),
       is PromotionsSideEffect.NavigateToGamification -> navigator.navigateToGamification(
           sideEffect.cachedBonus)
       is PromotionsSideEffect.NavigateToShare -> navigator.handleShare(sideEffect.url)
-      PromotionsSideEffect.NavigateToInfo -> navigator.navigateToInfo()
+      PromotionsSideEffect.NavigateToInfo -> {
+        //TODO remove nav:
+//        val aaa: NavHostFragment = requireActivity().supportFragmentManager.findFragmentById(
+//          R.id.full_host_container
+//        ) as NavHostFragment
+//        navigator.navigateToInfo(aaa.navController)
+        navigator.navigateToInfo()
+      }
       PromotionsSideEffect.NavigateToInviteFriends -> navigator.navigateToInviteFriends()
       PromotionsSideEffect.ShowErrorToast -> showErrorToast()
     }
