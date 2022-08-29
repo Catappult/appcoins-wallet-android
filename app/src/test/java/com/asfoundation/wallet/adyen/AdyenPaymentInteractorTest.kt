@@ -8,7 +8,6 @@ import com.appcoins.wallet.billing.BillingMessagesMapper
 import com.appcoins.wallet.billing.adyen.AdyenPaymentRepository
 import com.appcoins.wallet.billing.adyen.PaymentInfoModel
 import com.appcoins.wallet.billing.adyen.PaymentModel
-import com.asfoundation.wallet.base.RxSchedulers
 import com.asfoundation.wallet.billing.address.BillingAddressRepository
 import com.asfoundation.wallet.billing.adyen.AdyenPaymentInteractor
 import com.asfoundation.wallet.billing.adyen.PurchaseBundleModel
@@ -26,7 +25,6 @@ import com.google.gson.JsonObject
 import io.reactivex.Completable
 import io.reactivex.Single
 import io.reactivex.observers.TestObserver
-import io.reactivex.schedulers.TestScheduler
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
@@ -183,7 +181,7 @@ class AdyenPaymentInteractorTest {
     Mockito.`when`(partnerAddressService.getAttributionEntity("package"))
         .thenReturn(Single.just(AttributionEntity("store_address", "oem_address")))
     Mockito.`when`(getCurrentPromoCodeUseCase())
-        .thenReturn(Single.just(PromoCode(null, null, null, null, null)))
+        .thenReturn(Single.just(PromoCode(null, null, null, null)))
     Mockito.`when`(repository.makePayment(payment, false, false, emptyList(), "", TEST_FIAT_VALUE,
         TEST_FIAT_CURRENCY, null, "", TEST_WALLET_ADDRESS, "", "package", null, "sku", null,
         "INAPP", null, "store_address", "oem_address", null, TEST_WALLET_ADDRESS,

@@ -63,14 +63,14 @@ class HomeFragment : BasePageViewFragment(),
     super.onViewCreated(view, savedInstanceState)
     tooltip = layoutInflater.inflate(R.layout.fingerprint_tooltip, null)
 
-    views.actionButtonVip.root.visibility = View.GONE
-    views.actionButtonVip.root
+    views.toolbar.actionButtonVip.root.visibility = View.GONE
+    views.toolbar.actionButtonVip.root
       .setOnClickListener { viewModel.goToVipLink() }
     initializeLists()
     views.refreshLayout.setOnRefreshListener { viewModel.updateData() }
     views.refreshLayout.setProgressViewOffset(false, 0, 68.convertDpToPx(resources))
-    views.actionButtonSupport.setOnClickListener { viewModel.showSupportScreen(false) }
-    views.actionButtonSettings.setOnClickListener { viewModel.onSettingsClick() }
+    views.toolbar.actionButtonSupport.setOnClickListener { viewModel.showSupportScreen(false) }
+    views.toolbar.actionButtonSettings.setOnClickListener { viewModel.onSettingsClick() }
     viewModel.collectStateAndEvents(lifecycle, viewLifecycleOwner.lifecycleScope)
   }
 
@@ -98,9 +98,9 @@ class HomeFragment : BasePageViewFragment(),
   }
 
   override fun onDestroyView() {
-    views.balanceSkeleton.removeAllAnimatorListeners()
-    views.balanceSkeleton.removeAllUpdateListeners()
-    views.balanceSkeleton.removeAllLottieOnCompositionLoadedListener()
+    views.toolbar.balanceSkeleton.removeAllAnimatorListeners()
+    views.toolbar.balanceSkeleton.removeAllUpdateListeners()
+    views.toolbar.balanceSkeleton.removeAllLottieOnCompositionLoadedListener()
     super.onDestroyView()
     _views = null
   }
@@ -125,9 +125,9 @@ class HomeFragment : BasePageViewFragment(),
         }
         is HomeListClick.ChangedBalanceVisibility -> {
           if (homeClick.balanceVisible) {
-            views.toolbarViewSwitcher.showFirstView()
+            views.toolbar.toolbarViewSwitcher.showFirstView()
           } else {
-            views.toolbarViewSwitcher.showSecondView()
+            views.toolbar.toolbarViewSwitcher.showSecondView()
           }
         }
       }
@@ -150,9 +150,9 @@ class HomeFragment : BasePageViewFragment(),
       Async.Uninitialized,
       is Async.Loading -> {
         if (balanceAsync() == null) {
-          views.balance.visibility = View.INVISIBLE
-          views.balanceSkeleton.visibility = View.VISIBLE
-          views.balanceSkeleton.playAnimation()
+          views.toolbar.balance.visibility = View.INVISIBLE
+          views.toolbar.balanceSkeleton.visibility = View.VISIBLE
+          views.toolbar.balanceSkeleton.playAnimation()
         }
       }
       is Async.Success -> {
@@ -163,9 +163,9 @@ class HomeFragment : BasePageViewFragment(),
             "-1"
           ) && creditsBalanceFiat.symbol.isNotEmpty()
         ) {
-          views.balance.visibility = View.VISIBLE
-          views.balanceSkeleton.visibility = View.INVISIBLE
-          views.balance.text = creditsBalanceFiat.symbol + creditsFiatAmount
+          views.toolbar.balance.visibility = View.VISIBLE
+          views.toolbar.balanceSkeleton.visibility = View.INVISIBLE
+          views.toolbar.balance.text = creditsBalanceFiat.symbol + creditsFiatAmount
         }
       }
       else -> Unit
@@ -214,15 +214,15 @@ class HomeFragment : BasePageViewFragment(),
   }
 
   private fun showVipBadge(shouldShow: Boolean) {
-    views.actionButtonVip.root.visibility = if (shouldShow) View.VISIBLE else View.GONE
+    views.toolbar.actionButtonVip.root.visibility = if (shouldShow) View.VISIBLE else View.GONE
   }
 
   private fun updateSupportIcon(hasMessages: Boolean) {
-    if (hasMessages && !views.intercomAnimation.isAnimating) {
-      views.intercomAnimation.playAnimation()
+    if (hasMessages && !views.toolbar.intercomAnimation.isAnimating) {
+      views.toolbar.intercomAnimation.playAnimation()
     } else {
-      views.intercomAnimation.cancelAnimation()
-      views.intercomAnimation.progress = 0F
+      views.toolbar.intercomAnimation.cancelAnimation()
+      views.toolbar.intercomAnimation.progress = 0F
     }
   }
 

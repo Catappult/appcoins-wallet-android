@@ -31,6 +31,7 @@ import com.asf.wallet.R
 import com.asfoundation.wallet.billing.address.BillingAddressFragment.Companion.BILLING_ADDRESS_MODEL
 import com.asfoundation.wallet.billing.address.BillingAddressModel
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics
+import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.navigator.UriNavigator
 import com.asfoundation.wallet.service.ServicesErrorCodeMapper
 import com.asfoundation.wallet.ui.iab.IabActivity.Companion.BILLING_ADDRESS_REQUEST_CODE
@@ -131,14 +132,12 @@ class AdyenPaymentFragment : BasePageViewFragment(), AdyenPaymentView {
       returnUrl = RedirectComponent.getReturnUrl(requireContext()),
       analytics = analytics,
       paymentAnalytics = paymentAnalytics,
-      domain = domain,
       origin = origin,
       adyenPaymentInteractor = adyenPaymentInteractor,
       skillsPaymentInteractor = skillsPaymentInteractor,
-      transactionBuilder = inAppPurchaseInteractor.parseTransaction(transactionData, true),
+      transactionBuilder = transactionBuilder,
       navigator = navigator,
       paymentType = paymentType,
-      transactionType = transactionType,
       amount = amount,
       currency = currency,
       skills = skills,
@@ -238,13 +237,18 @@ class AdyenPaymentFragment : BasePageViewFragment(), AdyenPaymentView {
 
   override fun showProduct() {
     try {
-      app_icon?.setImageDrawable(requireContext().packageManager.getApplicationIcon(domain))
-      app_name?.text = getApplicationName(domain)
+      app_icon?.setImageDrawable(
+        requireContext().packageManager.getApplicationIcon(
+          transactionBuilder.domain
+        )
+      )
+      app_name?.text = getApplicationName(transactionBuilder.domain)
     } catch (e: Exception) {
       e.printStackTrace()
     }
     app_sku_description?.text = skuDescription
-    val appcValue = formatter.formatPaymentCurrency(appcAmount, WalletCurrency.APPCOINS)
+    val appcValue =
+      formatter.formatPaymentCurrency(transactionBuilder.amount(), WalletCurrency.APPCOINS)
     appc_price.text = appcValue.plus(" " + WalletCurrency.APPCOINS.symbol)
   }
 
@@ -326,7 +330,7 @@ class AdyenPaymentFragment : BasePageViewFragment(), AdyenPaymentView {
       value,
       currency,
       bonus,
-      appcAmount,
+      transactionBuilder.amount(),
       this,
       adyenCardView.cardSave,
       isStored
@@ -600,10 +604,13 @@ class AdyenPaymentFragment : BasePageViewFragment(), AdyenPaymentView {
 
   private fun handleBuyButtonText() {
     when {
-      transactionType.equals(TransactionData.TransactionType.DONATION.name, ignoreCase = true) -> {
+      transactionBuilder.type.equals(
+        TransactionData.TransactionType.DONATION.name,
+        ignoreCase = true
+      ) -> {
         buy_button.setText(getString(R.string.action_donate))
       }
-      transactionType.equals(
+      transactionBuilder.type.equals(
         TransactionData.TransactionType.INAPP_SUBSCRIPTION.name,
         ignoreCase = true
       ) -> buy_button.setText(getString(R.string.subscriptions_subscribe_button))
@@ -629,65 +636,48 @@ class AdyenPaymentFragment : BasePageViewFragment(), AdyenPaymentView {
 
   companion object {
 
-    private const val TRANSACTION_TYPE_KEY = "type"
     private const val PAYMENT_TYPE_KEY = "payment_type"
-    private const val DOMAIN_KEY = "domain"
     private const val ORIGIN_KEY = "origin"
     private const val TRANSACTION_DATA_KEY = "transaction_data"
-    private const val APPC_AMOUNT_KEY = "appc_amount"
     private const val AMOUNT_KEY = "amount"
     private const val CURRENCY_KEY = "currency"
     private const val BONUS_KEY = "bonus"
     private const val PRE_SELECTED_KEY = "pre_selected"
     private const val IS_SUBSCRIPTION = "is_subscription"
+    private const val IS_SKILLS = "is_skills"
     private const val FREQUENCY = "frequency"
     private const val GAMIFICATION_LEVEL = "gamification_level"
     private const val SKU_DESCRIPTION = "sku_description"
-    private const val PRODUCT_TOKEN = "product_token"
 
     @JvmStatic
     fun newInstance(
-      transactionType: String,
       paymentType: PaymentType,
-      domain: String,
       origin: String?,
-      transactionData: String?,
-      appcAmount: BigDecimal,
+      transactionBuilder: TransactionBuilder,
       amount: BigDecimal,
       currency: String?,
       bonus: String?,
       isPreSelected: Boolean,
       gamificationLevel: Int,
       skuDescription: String,
-      productToken: String?,
       isSubscription: Boolean,
+      isSkills: Boolean,
       frequency: String?
     ): AdyenPaymentFragment = AdyenPaymentFragment().apply {
       arguments = Bundle().apply {
-        putString(TRANSACTION_TYPE_KEY, transactionType)
         putString(PAYMENT_TYPE_KEY, paymentType.name)
-        putString(DOMAIN_KEY, domain)
         putString(ORIGIN_KEY, origin)
-        putString(TRANSACTION_DATA_KEY, transactionData)
-        putSerializable(APPC_AMOUNT_KEY, appcAmount)
+        putParcelable(TRANSACTION_DATA_KEY, transactionBuilder)
         putSerializable(AMOUNT_KEY, amount)
         putString(CURRENCY_KEY, currency)
         putString(BONUS_KEY, bonus)
         putBoolean(PRE_SELECTED_KEY, isPreSelected)
         putInt(GAMIFICATION_LEVEL, gamificationLevel)
         putString(SKU_DESCRIPTION, skuDescription)
-        putString(PRODUCT_TOKEN, productToken)
         putBoolean(IS_SUBSCRIPTION, isSubscription)
+        putBoolean(IS_SKILLS, isSkills)
         putString(FREQUENCY, frequency)
       }
-    }
-  }
-
-  private val transactionType: String by lazy {
-    if (requireArguments().containsKey(TRANSACTION_TYPE_KEY)) {
-      requireArguments().getString(TRANSACTION_TYPE_KEY, "")
-    } else {
-      throw IllegalArgumentException("transaction type data not found")
     }
   }
 
@@ -699,14 +689,6 @@ class AdyenPaymentFragment : BasePageViewFragment(), AdyenPaymentView {
     }
   }
 
-  private val domain: String by lazy {
-    if (requireArguments().containsKey(DOMAIN_KEY)) {
-      requireArguments().getString(DOMAIN_KEY, "")
-    } else {
-      throw IllegalArgumentException("domain data not found")
-    }
-  }
-
   private val origin: String? by lazy {
     if (requireArguments().containsKey(ORIGIN_KEY)) {
       requireArguments().getString(ORIGIN_KEY)
@@ -715,19 +697,11 @@ class AdyenPaymentFragment : BasePageViewFragment(), AdyenPaymentView {
     }
   }
 
-  private val transactionData: String by lazy {
+  private val transactionBuilder: TransactionBuilder by lazy {
     if (requireArguments().containsKey(TRANSACTION_DATA_KEY)) {
-      requireArguments().getString(TRANSACTION_DATA_KEY, "")
+      requireArguments().getParcelable<TransactionBuilder>(TRANSACTION_DATA_KEY)!!
     } else {
       throw IllegalArgumentException("transaction data not found")
-    }
-  }
-
-  private val appcAmount: BigDecimal by lazy {
-    if (requireArguments().containsKey(APPC_AMOUNT_KEY)) {
-      requireArguments().getSerializable(APPC_AMOUNT_KEY) as BigDecimal
-    } else {
-      throw IllegalArgumentException("appc amount data not found")
     }
   }
 
@@ -780,7 +754,11 @@ class AdyenPaymentFragment : BasePageViewFragment(), AdyenPaymentView {
   }
 
   private val skills: Boolean by lazy {
-    transactionData.contains("&skills")
+    if (requireArguments().containsKey(IS_SKILLS)) {
+      requireArguments().getBoolean(IS_SKILLS)
+    } else {
+      throw IllegalArgumentException("isSkills data not found")
+    }
   }
 
   private val isSubscription: Boolean by lazy {

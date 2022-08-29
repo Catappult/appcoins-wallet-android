@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.asfoundation.wallet.base.Navigator
 import com.asfoundation.wallet.base.navigate
+import com.asfoundation.wallet.recover.RecoverActivity
 import javax.inject.Inject
 
 class RecoverEntryNavigator @Inject constructor(val fragment: Fragment) : Navigator {
@@ -63,9 +64,12 @@ class RecoverEntryNavigator @Inject constructor(val fragment: Fragment) : Naviga
   }
 
   fun navigateToNavigationBar() {
-    navigate(
-      fragment.findNavController(),
-      RecoverEntryFragmentDirections.actionNavigateToNavBarFragment()
-    )
+    /* Temporary workaround for the RecoverActivity */
+    fragment.requireActivity()
+      .takeIf { it is RecoverActivity }?.finish()
+      ?: navigate(
+        fragment.findNavController(),
+        RecoverEntryFragmentDirections.actionNavigateToNavBarFragment()
+      )
   }
 }

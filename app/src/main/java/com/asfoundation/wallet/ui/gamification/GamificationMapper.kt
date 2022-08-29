@@ -8,10 +8,13 @@ import androidx.annotation.StringRes
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.graphics.drawable.DrawableCompat
 import com.asf.wallet.R
+import com.asfoundation.wallet.util.CurrencyFormatUtils
 import dagger.hilt.android.qualifiers.ApplicationContext
+import java.math.BigDecimal
+import java.math.RoundingMode
 import javax.inject.Inject
 
-class GamificationMapper @Inject constructor(@ApplicationContext private val context: Context) {
+class GamificationMapper @Inject constructor(@ApplicationContext private val context: Context, val currencyFormatUtils: CurrencyFormatUtils) {
 
   fun mapCurrentLevelInfo(level: Int): CurrentLevelInfo {
     return when (level) {
@@ -169,6 +172,30 @@ class GamificationMapper @Inject constructor(@ApplicationContext private val con
       DrawableCompat.setTint(drawable.mutate(), levelColor)
     }
     return ovalBackground
+  }
+
+  fun getProgressPercentage(
+    amountSpent: BigDecimal,
+    nextLevelAmount: BigDecimal?
+  ): BigDecimal {
+    return if (nextLevelAmount != null) {
+      val levelRange = nextLevelAmount.max(BigDecimal.ONE)
+      amountSpent.multiply(BigDecimal(100)).divide(levelRange, 2, RoundingMode.DOWN)
+    } else {
+      BigDecimal(100)
+    }
+  }
+
+  fun validateAndGetProgressString(
+    spent: BigDecimal,
+    next: BigDecimal?
+  ): String {
+    return if (spent >= BigDecimal.ZERO && spent <= next ?: BigDecimal.ZERO) {
+      val format = currencyFormatUtils.formatShortGamificationValues
+      "${format(spent)} / ${format(next ?: BigDecimal.ZERO)}"
+    } else {
+      ""
+    }
   }
 
   private fun getDrawable(@DrawableRes drawable: Int) =

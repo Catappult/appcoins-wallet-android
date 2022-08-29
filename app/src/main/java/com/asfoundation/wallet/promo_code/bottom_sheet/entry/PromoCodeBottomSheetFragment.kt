@@ -4,7 +4,6 @@ package com.asfoundation.wallet.promo_code.bottom_sheet.entry
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,9 +15,11 @@ import com.asf.wallet.databinding.SettingsPromoCodeBottomSheetLayoutBinding
 import com.asfoundation.wallet.base.Async
 import com.asfoundation.wallet.base.SingleStateFragment
 import com.asfoundation.wallet.promo_code.FailedPromoCode
-import com.asfoundation.wallet.promo_code.bottom_sheet.PromoCodeBottomSheetNavigator
 import com.asfoundation.wallet.promo_code.PromoCodeResult
 import com.asfoundation.wallet.promo_code.SuccessfulPromoCode
+import com.asfoundation.wallet.promo_code.bottom_sheet.PromoCodeBottomSheetNavigator
+import com.asfoundation.wallet.promo_code.repository.PromoCode
+import com.asfoundation.wallet.promo_code.repository.ValidityState
 import com.asfoundation.wallet.ui.common.WalletTextFieldView
 import com.asfoundation.wallet.util.KeyboardUtils
 import com.google.android.material.bottomsheet.BottomSheetBehavior
@@ -88,8 +89,8 @@ class PromoCodeBottomSheetFragment : BottomSheetDialogFragment(),
   }
 
   override fun onStateChanged(state: PromoCodeBottomSheetState) {
-    when (val clickAsync = state.submitClickAsync) {
-      is Async.Uninitialized -> setPromoCode(state.promoCodeAsync, state.shouldShowDefault)
+    when (val clickAsync = state.submitPromoCodeAsync) {
+      is Async.Uninitialized -> initializePromoCode(state.storedPromoCodeAsync, state.shouldShowDefault)
       is Async.Loading -> {
         if (clickAsync.value == null) {
           showLoading()
@@ -99,7 +100,7 @@ class PromoCodeBottomSheetFragment : BottomSheetDialogFragment(),
         handleErrorState(FailedPromoCode.InvalidCode(clickAsync.error.throwable))
       }
       is Async.Success -> {
-        state.promoCodeAsync.value?.let { handleClickSuccessState(it) }
+        handleClickSuccessState(state.submitPromoCodeAsync.value)
       }
     }
   }
@@ -110,35 +111,38 @@ class PromoCodeBottomSheetFragment : BottomSheetDialogFragment(),
     }
   }
 
-  fun setPromoCode(
-    promoCodeAsync: Async<PromoCodeResult>,
+  fun initializePromoCode(
+    storedPromoCodeAsync: Async<PromoCodeResult>,
     shouldShowDefault: Boolean
   ) {
-    when (promoCodeAsync) {
+    when (storedPromoCodeAsync) {
       is Async.Uninitialized,
       is Async.Loading -> {
         showDefaultScreen()
       }
       is Async.Fail -> {
-        if (promoCodeAsync.value != null) {
-          handleErrorState(FailedPromoCode.GenericError(promoCodeAsync.error.throwable))
+        if (storedPromoCodeAsync.value != null) {
+          handleErrorState(FailedPromoCode.GenericError(storedPromoCodeAsync.error.throwable))
         }
       }
       is Async.Success -> {
-        promoCodeAsync.value?.let { handlePromoCodeSuccessState(it, shouldShowDefault) }
+        storedPromoCodeAsync.value?.let { handlePromoCodeSuccessState(it, shouldShowDefault) }
       }
     }
   }
 
-  private fun handleClickSuccessState(promoCodeResult: PromoCodeResult) {
-    when (promoCodeResult) {
+  private fun handleClickSuccessState(promoCode: PromoCodeResult?) {
+    when (promoCode) {
       is SuccessfulPromoCode -> {
-        promoCodeResult.promoCode.code?.let {
-          KeyboardUtils.hideKeyboard(view)
-          navigator.navigateToSuccess(promoCodeResult.promoCode)
+        promoCode.promoCode.code?.let {
+          if (viewModel.isFirstSuccess) {
+            KeyboardUtils.hideKeyboard(view)
+            navigator.navigateToSuccess(promoCode.promoCode)
+            viewModel.isFirstSuccess = false
+          }
         }
       }
-      else -> handleErrorState(promoCodeResult)
+      else -> handleErrorState(promoCode)
     }
   }
 
@@ -154,11 +158,11 @@ class PromoCodeBottomSheetFragment : BottomSheetDialogFragment(),
           promoCodeResult.promoCode.code?.let { showCurrentCodeScreen(it) }
         }
       }
-      else -> handleErrorState(promoCodeResult)
+      else -> handleErrorState(null)
     }
   }
 
-  private fun handleErrorState(promoCodeResult: PromoCodeResult) {
+  private fun handleErrorState(promoCodeResult: PromoCodeResult?) {
     showDefaultScreen()
     views.promoCodeBottomSheetSubmitButton.isEnabled = false
     when (promoCodeResult) {

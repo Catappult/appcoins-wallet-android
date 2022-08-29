@@ -2,8 +2,6 @@ package com.asfoundation.wallet.ui.iab.database
 
 import android.content.Context
 import androidx.room.Room
-import com.asfoundation.wallet.promo_code.repository.PromoCodeDao
-import com.asfoundation.wallet.promo_code.repository.PromoCodeDatabase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

@@ -321,6 +321,7 @@ class PaymentMethodsPresenter(
   private fun handleSubscriptionAvailability(status: SubscriptionStatus) = status
     .takeUnless { it.isAvailable }
     ?.run {
+      logger.log(TAG, Exception("SubscriptionAvailability"))
       if (isAlreadySubscribed) {
         showError(R.string.subscriptions_error_already_subscribed)
       } else {

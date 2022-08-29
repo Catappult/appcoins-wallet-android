@@ -44,14 +44,12 @@ class AdyenPaymentPresenter(
   private val returnUrl: String,
   private val analytics: BillingAnalytics,
   private val paymentAnalytics: PaymentMethodsAnalytics,
-  private val domain: String,
   private val origin: String?,
   private val adyenPaymentInteractor: AdyenPaymentInteractor,
   private val skillsPaymentInteractor: SkillsPaymentInteractor,
-  private val transactionBuilder: Single<TransactionBuilder>,
+  private val transactionBuilder: TransactionBuilder,
   private val navigator: Navigator,
   private val paymentType: String,
-  private val transactionType: String,
   private val amount: BigDecimal,
   private val currency: String,
   private val skills: Boolean,
@@ -172,7 +170,7 @@ class AdyenPaymentPresenter(
     priceAmount: BigDecimal,
     priceCurrency: String
   ) {
-    disposables.add(transactionBuilder.flatMap {
+    disposables.add(
       adyenPaymentInteractor.makePayment(
         adyenPaymentMethod = paymentMethodInfo,
         shouldStoreMethod = false,
@@ -181,29 +179,29 @@ class AdyenPaymentPresenter(
         returnUrl = returnUrl,
         value = priceAmount.toString(),
         currency = priceCurrency,
-        reference = it.orderReference,
+        reference = transactionBuilder.orderReference,
         paymentType = mapPaymentToService(paymentType).transactionType,
         origin = origin,
-        packageName = domain,
-        metadata = it.payload,
-        sku = it.skuId,
-        callbackUrl = it.callbackUrl,
-        transactionType = it.type,
-        developerWallet = it.toAddress(),
-        referrerUrl = it.referrerUrl
+        packageName = transactionBuilder.domain,
+        metadata = transactionBuilder.payload,
+        sku = transactionBuilder.skuId,
+        callbackUrl = transactionBuilder.callbackUrl,
+        transactionType = transactionBuilder.type,
+        developerWallet = transactionBuilder.toAddress(),
+        referrerUrl = transactionBuilder.referrerUrl
       )
-    }
-      .subscribeOn(networkScheduler)
-      .observeOn(viewScheduler)
-      .filter { !waitingResult }
-      .doOnSuccess {
-        view.hideLoadingAndShowView()
-        handlePaymentModel(it)
-      }
-      .subscribe({}, {
-        logger.log(TAG, it)
-        view.showGenericError()
-      }))
+        .subscribeOn(networkScheduler)
+        .observeOn(viewScheduler)
+        .filter { !waitingResult }
+        .doOnSuccess {
+          view.hideLoadingAndShowView()
+          handlePaymentModel(it)
+        }
+        .subscribe({}, {
+          logger.log(TAG, it)
+          view.showGenericError()
+        })
+    )
   }
 
   private fun handlePaymentModel(paymentModel: PaymentModel) {
@@ -234,43 +232,40 @@ class AdyenPaymentPresenter(
       }
       .observeOn(networkScheduler)
       .flatMapSingle { adyenCard ->
-        transactionBuilder
-          .flatMap {
-            handleBuyAnalytics(it)
-            val billingAddressModel = view.retrieveBillingAddressData()
-            val shouldStore = billingAddressModel?.remember ?: adyenCard.shouldStoreCard
-            if (skills) {
-              skillsPaymentInteractor.makeSkillsPayment(
-                returnUrl,
-                it.productToken,
-                adyenCard.cardPaymentMethod.encryptedCardNumber,
-                adyenCard.cardPaymentMethod.encryptedExpiryMonth,
-                adyenCard.cardPaymentMethod.encryptedExpiryYear,
-                adyenCard.cardPaymentMethod.encryptedSecurityCode!!
-              )
-            } else {
-              adyenPaymentInteractor.makePayment(
-                adyenPaymentMethod = adyenCard.cardPaymentMethod,
-                shouldStoreMethod = shouldStore,
-                hasCvc = adyenCard.hasCvc,
-                supportedShopperInteraction = adyenCard.supportedShopperInteractions,
-                returnUrl = returnUrl,
-                value = priceAmount.toString(),
-                currency = priceCurrency,
-                reference = it.orderReference,
-                paymentType = mapPaymentToService(paymentType).transactionType,
-                origin = origin,
-                packageName = domain,
-                metadata = it.payload,
-                sku = it.skuId,
-                callbackUrl = it.callbackUrl,
-                transactionType = it.type,
-                developerWallet = it.toAddress(),
-                referrerUrl = it.referrerUrl,
-                billingAddress = mapToAdyenBillingAddress(billingAddressModel)
-              )
-            }
-          }
+        handleBuyAnalytics(transactionBuilder)
+        val billingAddressModel = view.retrieveBillingAddressData()
+        val shouldStore = billingAddressModel?.remember ?: adyenCard.shouldStoreCard
+        if (skills) {
+          skillsPaymentInteractor.makeSkillsPayment(
+            returnUrl,
+            transactionBuilder.productToken,
+            adyenCard.cardPaymentMethod.encryptedCardNumber,
+            adyenCard.cardPaymentMethod.encryptedExpiryMonth,
+            adyenCard.cardPaymentMethod.encryptedExpiryYear,
+            adyenCard.cardPaymentMethod.encryptedSecurityCode!!
+          )
+        } else {
+          adyenPaymentInteractor.makePayment(
+            adyenPaymentMethod = adyenCard.cardPaymentMethod,
+            shouldStoreMethod = shouldStore,
+            hasCvc = adyenCard.hasCvc,
+            supportedShopperInteraction = adyenCard.supportedShopperInteractions,
+            returnUrl = returnUrl,
+            value = priceAmount.toString(),
+            currency = priceCurrency,
+            reference = transactionBuilder.orderReference,
+            paymentType = mapPaymentToService(paymentType).transactionType,
+            origin = origin,
+            packageName = transactionBuilder.domain,
+            metadata = transactionBuilder.payload,
+            sku = transactionBuilder.skuId,
+            callbackUrl = transactionBuilder.callbackUrl,
+            transactionType = transactionBuilder.type,
+            developerWallet = transactionBuilder.toAddress(),
+            referrerUrl = transactionBuilder.referrerUrl,
+            billingAddress = mapToAdyenBillingAddress(billingAddressModel)
+          )
+        }
       }
       .observeOn(viewScheduler)
       .flatMapCompletable { handlePaymentResult(it, priceAmount, priceCurrency) }
@@ -489,11 +484,11 @@ class AdyenPaymentPresenter(
   }
 
   private fun sendPaymentMethodDetailsEvent(paymentMethod: String) {
-    disposables.add(transactionBuilder
+    disposables.add(Single.just(transactionBuilder)
       .observeOn(networkScheduler)
       .doOnSuccess { transactionBuilder ->
         analytics.sendPaymentMethodDetailsEvent(
-          domain,
+          transactionBuilder.domain,
           transactionBuilder.skuId,
           transactionBuilder.amount().toString(),
           paymentMethod,
@@ -515,8 +510,7 @@ class AdyenPaymentPresenter(
   private fun handleBack() {
     disposables.add(view.backEvent()
       .observeOn(networkScheduler)
-      .flatMapSingle { transactionBuilder }
-      .doOnNext { handlePaymentMethodAnalytics(it) }
+      .doOnNext { handlePaymentMethodAnalytics(transactionBuilder) }
       .subscribe({}, { it.printStackTrace() })
     )
   }
@@ -524,7 +518,7 @@ class AdyenPaymentPresenter(
   private fun handlePaymentMethodAnalytics(transaction: TransactionBuilder) {
     if (isPreSelected) {
       analytics.sendPreSelectedPaymentMethodEvent(
-        domain,
+        transactionBuilder.domain,
         transaction.skuId,
         transaction.amount().toString(),
         mapPaymentToService(paymentType).transactionType,
@@ -534,7 +528,7 @@ class AdyenPaymentPresenter(
       view.close(adyenPaymentInteractor.mapCancellation())
     } else {
       analytics.sendPaymentConfirmationEvent(
-        domain,
+        transactionBuilder.domain,
         transaction.skuId,
         transaction.amount().toString(),
         mapPaymentToService(paymentType).transactionType,
@@ -548,8 +542,7 @@ class AdyenPaymentPresenter(
   private fun handleMorePaymentsClick() {
     disposables.add(view.getMorePaymentMethodsClicks()
       .observeOn(networkScheduler)
-      .flatMapSingle { transactionBuilder }
-      .doOnNext { handleMorePaymentsAnalytics(it) }
+      .doOnNext { handleMorePaymentsAnalytics(transactionBuilder) }
       .observeOn(viewScheduler)
       .doOnNext { showMoreMethods() }
       .subscribe({}, { it.printStackTrace() })
@@ -558,7 +551,7 @@ class AdyenPaymentPresenter(
 
   private fun handleMorePaymentsAnalytics(transaction: TransactionBuilder): Unit =
     analytics.sendPreSelectedPaymentMethodEvent(
-      domain,
+      transactionBuilder.domain,
       transaction.skuId,
       transaction.amount().toString(),
       mapPaymentToService(paymentType).transactionType,
@@ -583,13 +576,13 @@ class AdyenPaymentPresenter(
   }
 
   private fun sendPaymentEvent() {
-    disposables.add(transactionBuilder
+    disposables.add(Single.just(transactionBuilder)
       .subscribeOn(networkScheduler)
       .observeOn(viewScheduler)
-      .subscribe { transactionBuilder: TransactionBuilder ->
+      .subscribe { transactionBuilder ->
         stopTimingForPurchaseEvent(true)
         analytics.sendPaymentEvent(
-          domain,
+          transactionBuilder.domain,
           transactionBuilder.skuId,
           transactionBuilder.amount().toString(),
           mapPaymentToAnalytics(paymentType),
@@ -599,7 +592,7 @@ class AdyenPaymentPresenter(
   }
 
   private fun sendRevenueEvent() {
-    disposables.add(transactionBuilder
+    disposables.add(Single.just(transactionBuilder)
       .observeOn(networkScheduler)
       .doOnSuccess { transactionBuilder ->
         analytics.sendRevenueEvent(
@@ -620,11 +613,11 @@ class AdyenPaymentPresenter(
   }
 
   private fun sendPaymentSuccessEvent() {
-    disposables.add(transactionBuilder
+    disposables.add(Single.just(transactionBuilder)
       .observeOn(networkScheduler)
       .doOnSuccess { transaction ->
         analytics.sendPaymentSuccessEvent(
-          domain,
+          transactionBuilder.domain,
           transaction.skuId,
           transaction.amount().toString(),
           mapPaymentToAnalytics(paymentType),
@@ -640,12 +633,12 @@ class AdyenPaymentPresenter(
     refusalReason: String?,
     riskRules: String? = null
   ) {
-    disposables.add(transactionBuilder
+    disposables.add(Single.just(transactionBuilder)
       .observeOn(networkScheduler)
       .doOnSuccess { transaction ->
         stopTimingForPurchaseEvent(false)
         analytics.sendPaymentErrorWithDetailsAndRiskEvent(
-          domain,
+          transactionBuilder.domain,
           transaction.skuId,
           transaction.amount().toString(),
           mapPaymentToAnalytics(paymentType),
@@ -682,19 +675,18 @@ class AdyenPaymentPresenter(
     hash: String?,
     orderReference: String?,
     purchaseUid: String?
-  ): Single<PurchaseBundleModel> = transactionBuilder
-    .flatMap {
-      adyenPaymentInteractor.getCompletePurchaseBundle(
-        transactionType,
-        domain,
-        it.skuId,
+  ): Single<PurchaseBundleModel> =
+    adyenPaymentInteractor
+      .getCompletePurchaseBundle(
+        transactionBuilder.type,
+        transactionBuilder.domain,
+        transactionBuilder.skuId,
         purchaseUid,
         orderReference,
         hash,
         networkScheduler
       )
-    }
-    .map { mapPaymentMethodId(it) }
+      .map { mapPaymentMethodId(it) }
 
   private fun mapPaymentMethodId(purchaseBundleModel: PurchaseBundleModel): PurchaseBundleModel {
     val bundle = purchaseBundleModel.bundle
@@ -714,7 +706,7 @@ class AdyenPaymentPresenter(
 
   private fun handleBuyAnalytics(transactionBuilder: TransactionBuilder) = if (isPreSelected) {
     analytics.sendPreSelectedPaymentMethodEvent(
-      domain,
+      transactionBuilder.domain,
       transactionBuilder.skuId,
       transactionBuilder.amount().toString(),
       mapPaymentToService(paymentType).transactionType,
@@ -723,7 +715,7 @@ class AdyenPaymentPresenter(
     )
   } else {
     analytics.sendPaymentConfirmationEvent(
-      domain,
+      transactionBuilder.domain,
       transactionBuilder.skuId,
       transactionBuilder.amount().toString(),
       mapPaymentToService(paymentType).transactionType,

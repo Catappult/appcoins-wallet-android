@@ -1,6 +1,7 @@
 package com.asfoundation.wallet.promo_code
 
 import com.asfoundation.wallet.promo_code.repository.PromoCode
+import com.asfoundation.wallet.promo_code.repository.ValidityState
 import io.reactivex.Observable
 
 sealed class PromoCodeResult
@@ -15,17 +16,13 @@ sealed class FailedPromoCode : PromoCodeResult() {
 }
 
 class PromoCodeMapper {
-  fun map(promoCode: PromoCode): Observable<PromoCodeResult> {
-    return when (promoCode.expired) {
-      false -> {
-        Observable.just(SuccessfulPromoCode(promoCode))
-      }
-      true -> {
-        Observable.just(FailedPromoCode.ExpiredCode())
-      }
-      else -> {
-        Observable.just(FailedPromoCode.CodeNotAdded())
-      }
+  fun map(promoCode: PromoCode): PromoCodeResult {
+    return when (promoCode.validity) {
+      ValidityState.ACTIVE -> SuccessfulPromoCode(promoCode)
+      ValidityState.EXPIRED -> FailedPromoCode.ExpiredCode()
+      ValidityState.ERROR -> FailedPromoCode.InvalidCode()
+      ValidityState.NOT_ADDED -> FailedPromoCode.CodeNotAdded()
+      else -> FailedPromoCode.CodeNotAdded()
     }
   }
 }

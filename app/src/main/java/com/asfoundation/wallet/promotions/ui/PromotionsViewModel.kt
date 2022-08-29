@@ -2,6 +2,7 @@ package com.asfoundation.wallet.promotions.ui
 
 
 import android.content.ActivityNotFoundException
+import com.appcoins.wallet.gamification.repository.GamificationStats
 import com.asfoundation.wallet.analytics.AnalyticsSetup
 import com.asfoundation.wallet.base.*
 import com.asfoundation.wallet.promotions.PromotionsInteractor
@@ -10,8 +11,8 @@ import com.asfoundation.wallet.promotions.ui.list.PromotionClick
 import com.asfoundation.wallet.promotions.usecases.GetPromotionsUseCase
 import com.asfoundation.wallet.promotions.usecases.SetSeenPromotionsUseCase
 import com.asfoundation.wallet.promotions.usecases.SetSeenWalletOriginUseCase
+import com.asfoundation.wallet.ui.gamification.GamificationInteractor
 import dagger.hilt.android.lifecycle.HiltViewModel
-import io.reactivex.Scheduler
 import javax.inject.Inject
 
 sealed class PromotionsSideEffect : SideEffect {
@@ -24,16 +25,22 @@ sealed class PromotionsSideEffect : SideEffect {
   object ShowErrorToast : PromotionsSideEffect()
 }
 
-data class PromotionsState(val promotionsModelAsync: Async<PromotionsModel> = Async.Uninitialized) :
-    ViewState
+data class PromotionsState(
+  val promotionsModelAsync: Async<PromotionsModel> = Async.Uninitialized,
+  val gamificationStatsAsync: Async<GamificationStats> = Async.Uninitialized
+) :
+  ViewState
 
 @HiltViewModel
-class PromotionsViewModel @Inject constructor(private val getPromotions: GetPromotionsUseCase,
-                          private val analyticsSetup: AnalyticsSetup,
-                          private val setSeenPromotions: SetSeenPromotionsUseCase,
-                          private val setSeenWalletOrigin: SetSeenWalletOriginUseCase,
-                          private val rxSchedulers: RxSchedulers) :
-    BaseViewModel<PromotionsState, PromotionsSideEffect>(initialState()) {
+class PromotionsViewModel @Inject constructor(
+  private val getPromotions: GetPromotionsUseCase,
+  private val analyticsSetup: AnalyticsSetup,
+  private val setSeenPromotions: SetSeenPromotionsUseCase,
+  private val setSeenWalletOrigin: SetSeenWalletOriginUseCase,
+  private val gamificationInteractor: GamificationInteractor,
+  private val rxSchedulers: RxSchedulers
+) :
+  BaseViewModel<PromotionsState, PromotionsSideEffect>(initialState()) {
 
 
   companion object {
@@ -52,20 +59,27 @@ class PromotionsViewModel @Inject constructor(private val getPromotions: GetProm
 
   fun fetchPromotions() {
     getPromotions()
-        .subscribeOn(rxSchedulers.io)
-        .asAsyncToState(PromotionsState::promotionsModelAsync) {
-          copy(promotionsModelAsync = it)
+      .subscribeOn(rxSchedulers.io)
+      .asAsyncToState(PromotionsState::promotionsModelAsync) {
+        copy(promotionsModelAsync = it)
+      }
+      .doOnNext { promotionsModel ->
+        if (promotionsModel.error == null) {
+          analyticsSetup.setWalletOrigin(promotionsModel.walletOrigin)
+          setSeenWalletOrigin(promotionsModel.wallet.address, promotionsModel.walletOrigin.name)
+          setSeenPromotions(promotionsModel.promotions, promotionsModel.wallet.address)
         }
-        .doOnNext { promotionsModel ->
-          if (promotionsModel.error == null) {
-            analyticsSetup.setWalletOrigin(promotionsModel.walletOrigin)
-            setSeenWalletOrigin(promotionsModel.wallet.address, promotionsModel.walletOrigin.name)
-            setSeenPromotions(promotionsModel.promotions, promotionsModel.wallet.address)
-          }
-        }
-        .repeatableScopedSubscribe(PromotionsState::promotionsModelAsync.name) { e ->
-          e.printStackTrace()
-        }
+      }
+      .repeatableScopedSubscribe(PromotionsState::promotionsModelAsync.name) { e ->
+        e.printStackTrace()
+      }
+  }
+
+  fun fetchGamificationStats() {
+    gamificationInteractor.getUserStats()
+      .subscribeOn(rxSchedulers.io)
+      .asAsyncToState { copy(gamificationStatsAsync = it) }
+      .scopedSubscribe()
   }
 
   fun gamificationInfoClicked() {
@@ -80,7 +94,8 @@ class PromotionsViewModel @Inject constructor(private val getPromotions: GetProm
       PromotionsInteractor.REFERRAL_ID -> handleReferralClick(promotionClick.extras)
       PromotionsInteractor.VOUCHER_ID -> sendSideEffect {
         PromotionsSideEffect.NavigateToVoucherDetails(
-            promotionClick.extras!!.getValue(PACKAGE_NAME_EXTRA))
+          promotionClick.extras!!.getValue(PACKAGE_NAME_EXTRA)
+        )
       }
       else -> mapPackagePerkClick(promotionClick.extras)
     }
