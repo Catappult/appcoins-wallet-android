@@ -1,17 +1,18 @@
 package com.asfoundation.wallet.backup
 
 import android.app.NotificationManager
-import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.Intent.FLAG_ACTIVITY_NEW_TASK
+import android.os.Bundle
+import androidx.activity.ComponentActivity
 import com.asfoundation.wallet.backup.BackupNotificationUtils.NOTIFICATION_SERVICE_ID
 import com.asfoundation.wallet.backup.use_cases.SaveDismissSystemNotificationUseCase
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class BackupBroadcastReceiver : BroadcastReceiver() {
+class BackupBroadcastReceiver : ComponentActivity() {
 
   @Inject
   lateinit var saveDismissSystemNotificationUseCase: SaveDismissSystemNotificationUseCase
@@ -34,9 +35,9 @@ class BackupBroadcastReceiver : BroadcastReceiver() {
       }
   }
 
-  override fun onReceive(context: Context, intent: Intent) {
-    notificationManager =
-      context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+  override fun onCreate(savedInstanceState: Bundle?) {
+    super.onCreate(savedInstanceState)
+    notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
     notificationManager.cancel(NOTIFICATION_SERVICE_ID)
 
@@ -44,16 +45,17 @@ class BackupBroadcastReceiver : BroadcastReceiver() {
     wallet?.let {
       when (intent.getStringExtra(ACTION)) {
         ACTION_BACKUP -> {
-          val backupIntent = BackupActivity.newIntent(context, it, isBackupTrigger = true)
+          val backupIntent = BackupActivity.newIntent(this, it, isBackupTrigger = true)
             .apply {
-              flags = Intent.FLAG_ACTIVITY_NEW_TASK
+              flags = FLAG_ACTIVITY_NEW_TASK
             }
-          context.startActivity(backupIntent)
+          startActivity(backupIntent)
         }
         ACTION_DISMISS -> {
           saveDismissSystemNotificationUseCase(it)
         }
       }
     }
+    finishAffinity()
   }
 }

@@ -64,7 +64,7 @@ class SupportMessagingService : FirebaseMessagingService() {
   private fun createNotificationClickIntent(context: Context): PendingIntent {
     val intent = SupportNotificationBroadcastReceiver.newIntent(context)
     intent.putExtra(ACTION_KEY, ACTION_CHECK_MESSAGES)
-    return PendingIntent.getBroadcast(
+    return PendingIntent.getActivity(
       context,
       0,
       intent,
@@ -78,7 +78,7 @@ class SupportMessagingService : FirebaseMessagingService() {
   private fun createNotificationDismissIntent(context: Context): PendingIntent {
     val intent = SupportNotificationBroadcastReceiver.newIntent(context)
     intent.putExtra(ACTION_KEY, ACTION_DISMISS)
-    return PendingIntent.getBroadcast(
+    return PendingIntent.getActivity(
       context,
       1,
       intent,

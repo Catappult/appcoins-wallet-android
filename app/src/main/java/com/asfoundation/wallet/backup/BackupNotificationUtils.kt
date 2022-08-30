@@ -52,7 +52,7 @@ object BackupNotificationUtils {
     walletAddress: String
   ): PendingIntent {
     val intent = BackupBroadcastReceiver.newIntent(context, walletAddress, ACTION_BACKUP)
-    return PendingIntent.getBroadcast(
+    return PendingIntent.getActivity(
       context,
       0,
       intent,
@@ -68,7 +68,7 @@ object BackupNotificationUtils {
     walletAddress: String
   ): PendingIntent {
     val intent = BackupBroadcastReceiver.newIntent(context, walletAddress, ACTION_DISMISS)
-    return PendingIntent.getBroadcast(
+    return PendingIntent.getActivity(
       context,
       1,
       intent,

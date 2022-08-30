@@ -51,7 +51,10 @@
         android:enabled="true"
         android:exported="false" />
 
-    <receiver
+    <activity
+        android:taskAffinity=".invisible"
+        android:excludeFromRecents="true"
+        android:launchMode="singleTask"
         android:name="com.asfoundation.wallet.backup.BackupBroadcastReceiver"
         android:enabled="true"
         android:exported="false" />
@@ -65,7 +68,10 @@
       </intent-filter>
     </receiver>
 
-    <receiver
+    <activity
+        android:taskAffinity=".invisible"
+        android:excludeFromRecents="true"
+        android:launchMode="singleTask"
         android:name="com.asfoundation.wallet.support.SupportNotificationBroadcastReceiver"
         android:enabled="true"
         android:exported="false" />
