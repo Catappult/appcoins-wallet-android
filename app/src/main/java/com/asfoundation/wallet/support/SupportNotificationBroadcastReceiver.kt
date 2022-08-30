@@ -18,12 +18,12 @@ class SupportNotificationBroadcastReceiver : BroadcastReceiver() {
 
     @JvmStatic
     fun newIntent(context: Context) =
-        Intent(context, SupportNotificationBroadcastReceiver::class.java)
+      Intent(context, SupportNotificationBroadcastReceiver::class.java)
   }
 
   override fun onReceive(context: Context, intent: Intent) {
     notificationManager =
-        context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+      context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
     notificationManager.cancel(NOTIFICATION_SERVICE_ID)
     context.sendBroadcast(Intent(Intent.ACTION_CLOSE_SYSTEM_DIALOGS))
@@ -40,11 +40,11 @@ class SupportNotificationBroadcastReceiver : BroadcastReceiver() {
 
   private fun navigateToIntercomScreen(context: Context) {
     val transactionsIntent = MainActivity.newIntent(context, true)
-        .apply {
-          addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
-          addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT)
-          addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-        }
+      .apply {
+        addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
+        addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT)
+        addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+      }
     context.startActivity(transactionsIntent)
   }
 }

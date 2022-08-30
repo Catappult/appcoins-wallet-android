@@ -20,7 +20,7 @@ object BackupNotificationUtils {
 
   fun showBackupNotification(context: Context, walletAddress: String) {
     notificationManager =
-        context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+      context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
     val backupIntent = createNotificationBackupIntent(context, walletAddress)
     val dismissIntent = createNotificationDismissIntent(context, walletAddress)
     val builder: NotificationCompat.Builder
@@ -34,21 +34,23 @@ object BackupNotificationUtils {
     }
 
     val notification =
-        builder.setContentTitle(context.getString(R.string.backup_notification_title))
-          .setAutoCancel(true)
-          .setContentIntent(backupIntent)
-          .addAction(0, context.getString(R.string.dismiss_button), dismissIntent)
-          .addAction(0, context.getString(R.string.action_backup_wallet), backupIntent)
-            .setSmallIcon(R.drawable.ic_appcoins_notification_icon)
-            .setDeleteIntent(dismissIntent)
-            .setContentText(context.getString(R.string.backup_notification_body))
-            .build()
+      builder.setContentTitle(context.getString(R.string.backup_notification_title))
+        .setAutoCancel(true)
+        .setContentIntent(backupIntent)
+        .addAction(0, context.getString(R.string.dismiss_button), dismissIntent)
+        .addAction(0, context.getString(R.string.action_backup_wallet), backupIntent)
+        .setSmallIcon(R.drawable.ic_appcoins_notification_icon)
+        .setDeleteIntent(dismissIntent)
+        .setContentText(context.getString(R.string.backup_notification_body))
+        .build()
 
     notificationManager.notify(NOTIFICATION_SERVICE_ID, notification)
   }
 
-  private fun createNotificationBackupIntent(context: Context,
-                                             walletAddress: String): PendingIntent {
+  private fun createNotificationBackupIntent(
+    context: Context,
+    walletAddress: String
+  ): PendingIntent {
     val intent = BackupBroadcastReceiver.newIntent(context, walletAddress, ACTION_BACKUP)
     return PendingIntent.getBroadcast(
       context,
@@ -57,11 +59,14 @@ object BackupNotificationUtils {
       if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
         PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
       else
-        PendingIntent.FLAG_UPDATE_CURRENT)
+        PendingIntent.FLAG_UPDATE_CURRENT
+    )
   }
 
-  private fun createNotificationDismissIntent(context: Context,
-                                              walletAddress: String): PendingIntent {
+  private fun createNotificationDismissIntent(
+    context: Context,
+    walletAddress: String
+  ): PendingIntent {
     val intent = BackupBroadcastReceiver.newIntent(context, walletAddress, ACTION_DISMISS)
     return PendingIntent.getBroadcast(
       context,
@@ -70,7 +75,8 @@ object BackupNotificationUtils {
       if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
         PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
       else
-        PendingIntent.FLAG_UPDATE_CURRENT)
+        PendingIntent.FLAG_UPDATE_CURRENT
+    )
   }
 
 }
