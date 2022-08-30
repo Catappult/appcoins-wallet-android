@@ -102,8 +102,17 @@ class PromotionsFragment : BasePageViewFragment(),
 //        navigator.navigateToInfo(aaa.navController)
         navigator.navigateToInfo()
       }
+      is PromotionsSideEffect.NavigateToVipReferral -> {
+        navigator.navigateToVipReferral(
+          sideEffect.bonus,
+          sideEffect.promoCodeVip,
+          sideEffect.totalEarned,
+          sideEffect.numberReferrals
+        )
+      }
       PromotionsSideEffect.NavigateToInviteFriends -> navigator.navigateToInviteFriends()
       PromotionsSideEffect.ShowErrorToast -> showErrorToast()
+      else -> {}
     }
   }
 
@@ -191,6 +200,9 @@ class PromotionsFragment : BasePageViewFragment(),
     views.currentLevelHeader.root.visibility = View.VISIBLE
     views.currentLevelHeader.root.setOnClickListener {
       viewModel.promotionClicked(PromotionClick(gamificationHeader.id))
+    }
+    views.currentLevelHeader.vipReferralBt.root.setOnClickListener {
+      viewModel.vipReferralClicked()
     }
 
     views.currentLevelHeader.root.current_level_image.setImageDrawable(gamificationHeader.planet)

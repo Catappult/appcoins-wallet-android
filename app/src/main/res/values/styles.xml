@@ -834,6 +834,18 @@
     <item name="android:textColor">@color/white</item>
   </style>
 
+  <style name="VipRefButton" parent="Widget.MaterialComponents.CardView">
+    <item name="cardBackgroundColor">@color/promotions_vip_transparent</item>
+    <item name="cardCornerRadius">14dp</item>
+  </style>
+  <style name="VipRefButtonText" parent="TextM">
+    <item name="android:fontFamily">@font/roboto_medium</item>
+    <item name="android:textColor">#EEA125</item>
+  </style>
+  <style name="VipRefButtonSubText" parent="TextS">
+    <item name="android:textColor">#FFFFFF</item>
+  </style>
+
   <style name="VoucherAppcText" parent="TextAppearance.AppCompat.Body1.Roboto.Medium">
     <item name="android:textSize">10sp</item>
     <item name="android:textColor">@color/white_99</item>

@@ -79,11 +79,22 @@
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_marginVertical="@dimen/small_margin"
-      tools:text="65k / 150k"
       android:textColor="@color/white"
+      app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="@id/current_level_progress_bar"
       app:layout_constraintTop_toBottomOf="@id/current_level_progress_bar"
-      app:layout_constraintBottom_toBottomOf="parent"
+      tools:text="65k / 150k"
+      />
+
+  <include
+      android:id="@+id/vip_referral_bt"
+      layout="@layout/button_vip_referral"
+      android:layout_width="match_parent"
+      android:layout_height="76dp"
+      android:visibility="visible"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/percentage_left"
       />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

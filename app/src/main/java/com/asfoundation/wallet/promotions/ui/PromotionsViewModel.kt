@@ -20,6 +20,12 @@ sealed class PromotionsSideEffect : SideEffect {
   data class NavigateToVoucherDetails(val packageName: String) : PromotionsSideEffect()
   data class NavigateToOpenDetails(val link: String) : PromotionsSideEffect()
   data class NavigateToShare(val url: String) : PromotionsSideEffect()
+  data class NavigateToVipReferral(
+    val bonus: String,
+    val promoCodeVip: String,
+    val totalEarned: String,
+    val numberReferrals: String
+  ) : PromotionsSideEffect()
   object NavigateToInviteFriends : PromotionsSideEffect()
   object NavigateToInfo : PromotionsSideEffect()
   object ShowErrorToast : PromotionsSideEffect()
@@ -98,6 +104,19 @@ class PromotionsViewModel @Inject constructor(
         )
       }
       else -> mapPackagePerkClick(promotionClick.extras)
+    }
+  }
+
+  fun vipReferralClicked() {
+    if (true) {  //TODO
+      sendSideEffect {
+        PromotionsSideEffect.NavigateToVipReferral(
+          "5",
+          "123456789",
+          "9.51",
+          "10"
+        )
+      }
     }
   }
 

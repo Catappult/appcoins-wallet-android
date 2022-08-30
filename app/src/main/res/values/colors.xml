@@ -170,6 +170,7 @@
   <color name="promotions_vip_desc">#4A4A4A</color>
   <color name="promotions_vip_grey">#F5F5F5</color>
   <color name="promotions_vip_orange">#EFA01F</color>
+  <color name="promotions_vip_transparent">#88000000</color>
 
   <!-- Gamification -->
 

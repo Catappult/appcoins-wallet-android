@@ -57,10 +57,10 @@ class PromotionsVipReferralFragment: BasePageViewFragment() ,
   }
 
   private fun setupView() = requireArguments().run {
-    val bonusPercent = getString(BONUS_PERCENT) ?: "5"    //TODO
-    promoReferral = getString(PROMO_REFERRAL) ?: "123456789"  //TODO
-    earnedValue = getString(EARNED_VALUE) ?: "9.54"//TODO
-    earnedTotal = getString(EARNED_TOTAL) ?: "10"//TODO
+    val bonusPercent = getString(BONUS_PERCENT) ?: ""
+    promoReferral = getString(PROMO_REFERRAL) ?: ""
+    earnedValue = getString(EARNED_VALUE) ?: ""
+    earnedTotal = getString(EARNED_TOTAL) ?: ""
     views.descriptionTv.text = context?.getString(R.string.vip_program_referral_page_body, bonusPercent)
     views.codeTv?.text = promoReferral
     views.earnedTv?.text = context?.getString(R.string.vip_program_referral_page_earned_body, "$", earnedValue, earnedTotal)
@@ -123,10 +123,10 @@ class PromotionsVipReferralFragment: BasePageViewFragment() ,
   override fun onSideEffect(sideEffect: PromotionsVipReferralSideEffect) = Unit
 
   companion object {
-    internal const val BONUS_PERCENT = "bonus_percent"
-    internal const val PROMO_REFERRAL = "promo_referral"
-    internal const val EARNED_VALUE = "earned_value"
-    internal const val EARNED_TOTAL = "earned_total"
+    internal const val BONUS_PERCENT = "vip_bonus"
+    internal const val PROMO_REFERRAL = "vip_code"
+    internal const val EARNED_VALUE = "total_earned"
+    internal const val EARNED_TOTAL = "number_referrals"
   }
 
 }

@@ -33,6 +33,17 @@ class PromotionsNavigator @Inject constructor(private val fragment: Fragment) : 
     fragment.startActivity(intent)
   }
 
+  fun navigateToVipReferral(bonus: String, code: String, totalEarned: String, numberReferrals: String/*aaa: NavController*/) {
+    fragment.findNavController().navigate(PromotionsFragmentDirections.actionNavigateToVipReferral(
+      bonus,
+      code,
+      totalEarned,
+      numberReferrals
+    ))
+//    aaa.navigate(R.id.action_navigate_to_info)
+//    navigate(fragment.findNavController(), PromotionsFragmentDirections.actionNavigateToInfo())
+  }
+
   fun handleShare(link: String) {
     ShareCompat.IntentBuilder.from(fragment.activity as BaseActivity)
         .setText(link)
