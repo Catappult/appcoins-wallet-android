@@ -26,7 +26,6 @@ class SupportNotificationBroadcastReceiver : BroadcastReceiver() {
       context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
     notificationManager.cancel(NOTIFICATION_SERVICE_ID)
-    context.sendBroadcast(Intent(Intent.ACTION_CLOSE_SYSTEM_DIALOGS))
 
     when (intent.getStringExtra(ACTION_KEY)) {
       ACTION_CHECK_MESSAGES -> onNotificationClicked(context)

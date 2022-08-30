@@ -39,7 +39,6 @@ class BackupBroadcastReceiver : BroadcastReceiver() {
       context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
     notificationManager.cancel(NOTIFICATION_SERVICE_ID)
-    context.sendBroadcast(Intent(Intent.ACTION_CLOSE_SYSTEM_DIALOGS))
 
     val wallet = intent.getStringExtra(WALLET_ADDRESS)
     wallet?.let {
