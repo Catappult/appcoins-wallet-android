@@ -1101,7 +1101,7 @@
   <string name="vip_program_promotions_list_title">Promoções especiais para você</string>
   <string name="vip_program_promo_code_tag">Código promocional</string>
   <string name="vip_program_referral_page_title">Programa de Indicação para VIPs</string>
-  <string name="vip_program_referral_page_body">Compartilhe este código promocional com sua comunidade e amigos para que todos ganhem enquanto jogam. Para cada compra que eles fizerem dentro do aplicativo, <b>você e seus amigos receberão um bônus de %s%</b> sobre outras promoções ativas e por um mês inteiro!</string>
+  <string name="vip_program_referral_page_body">Compartilhe este código promocional com sua comunidade e amigos para que todos ganhem enquanto jogam. Para cada compra que eles fizerem dentro do aplicativo, <b>você e seus amigos receberão um bônus de %s%%</b> sobre outras promoções ativas e por um mês inteiro!</string>
   <string name="vip_program_referral_page_share_title">Compartilhe esse código com seus amigos</string>
   <string name="vip_program_referral_page_earned_body">%1$s%2$s recebidos de %3$s indicações</string>
   <string name="vip_program_gamification_title">Qual o meu nível de bônus?</string>
