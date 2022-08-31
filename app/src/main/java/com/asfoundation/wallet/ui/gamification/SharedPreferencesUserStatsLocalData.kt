@@ -15,12 +15,13 @@ import javax.inject.Inject
 
 @BoundTo(supertype = UserStatsLocalData::class)
 class SharedPreferencesUserStatsLocalData @Inject constructor(
-    private val preferences: SharedPreferences,
-    private val promotionDao: PromotionDao,
-    private val levelsDao: LevelsDao,
-    private val levelDao: LevelDao,
-    private val walletOriginDao: WalletOriginDao) :
-    UserStatsLocalData {
+  private val preferences: SharedPreferences,
+  private val promotionDao: PromotionDao,
+  private val levelsDao: LevelsDao,
+  private val levelDao: LevelDao,
+  private val walletOriginDao: WalletOriginDao
+) :
+  UserStatsLocalData {
 
   companion object {
     private const val SHOWN_LEVEL = "shown_level"
@@ -35,16 +36,20 @@ class SharedPreferencesUserStatsLocalData @Inject constructor(
   override fun getLastShownLevel(wallet: String, gamificationContext: GamificationContext):
       Single<Int> {
     return Single.fromCallable {
-      preferences.getInt(getKey(wallet, gamificationContext.toString()),
-          GamificationStats.INVALID_LEVEL)
+      preferences.getInt(
+        getKey(wallet, gamificationContext.toString()),
+        GamificationStats.INVALID_LEVEL
+      )
     }
   }
 
-  override fun saveShownLevel(wallet: String, level: Int,
-                              gamificationContext: GamificationContext) {
+  override fun saveShownLevel(
+    wallet: String, level: Int,
+    gamificationContext: GamificationContext
+  ) {
     return preferences.edit()
-        .putInt(getKey(wallet, gamificationContext.toString()), level)
-        .apply()
+      .putInt(getKey(wallet, gamificationContext.toString()), level)
+      .apply()
   }
 
   override fun getSeenGenericPromotion(id: String, screen: String): Boolean {
@@ -53,18 +58,18 @@ class SharedPreferencesUserStatsLocalData @Inject constructor(
 
   override fun setSeenGenericPromotion(id: String, screen: String) {
     return preferences.edit()
-        .putBoolean(getKeyGeneric(screen, id), true)
-        .apply()
+      .putBoolean(getKeyGeneric(screen, id), true)
+      .apply()
   }
 
   override fun setGamificationLevel(gamificationLevel: Int) {
     return preferences.edit()
-        .putInt(GAMIFICATION_LEVEL, gamificationLevel)
-        .apply()
+      .putInt(GAMIFICATION_LEVEL, gamificationLevel)
+      .apply()
   }
 
   override fun getGamificationLevel() =
-      preferences.getInt(GAMIFICATION_LEVEL, GamificationStats.INVALID_LEVEL)
+    preferences.getInt(GAMIFICATION_LEVEL, GamificationStats.INVALID_LEVEL)
 
   private fun getKey(wallet: String, screen: String): String {
     return if (screen == GamificationContext.SCREEN_MY_LEVEL.toString()) {
@@ -75,12 +80,12 @@ class SharedPreferencesUserStatsLocalData @Inject constructor(
   }
 
   private fun getKeyGeneric(screen: String, id: String) =
-      SHOWN_GENERIC + SCREEN + screen + ID + id
+    SHOWN_GENERIC + SCREEN + screen + ID + id
 
   override fun getPromotions(): Single<List<PromotionsResponse>> {
     return promotionDao.getPromotions()
-        .map { filterByDate(it) }
-        .map { mapToPromotionResponse(it) }
+      .map { filterByDate(it) }
+      .map { mapToPromotionResponse(it) }
   }
 
   private fun filterByDate(promotions: List<PromotionEntity>): List<PromotionEntity> {
@@ -92,17 +97,42 @@ class SharedPreferencesUserStatsLocalData @Inject constructor(
     return promotions.map {
       when (it.id) {
         GAMIFICATION_ID ->
-          GamificationResponse(it.id, it.priority, it.gamificationType, it.bonus!!, it.totalSpend!!, it.totalEarned!!,
-              it.level!!, it.nextLevelAmount, it.status!!, it.bundle!!)
-        REFERRAL_ID -> ReferralResponse(it.id, it.priority, it.gamificationType, it.maxAmount!!, it.available!!,
-            it.bundle!!, it.completed!!, it.currency!!, it.symbol!!, it.invited!!, it.link,
-            it.pendingAmount!!, it.receivedAmount!!, it.userStatus, it.minAmount!!, it.status!!,
-            it.amount!!)
+          GamificationResponse(
+            it.id,
+            it.priority,
+            it.gamificationStatus?.toGamificationStatus(),
+            it.bonus!!,
+            it.totalSpend!!,
+            it.totalEarned!!,
+            it.level!!,
+            it.nextLevelAmount,
+            it.status!!,
+            it.bundle!!
+          )
+        REFERRAL_ID -> ReferralResponse(
+          it.id,
+          it.priority,
+          it.gamificationStatus?.toGamificationStatus(),
+          it.maxAmount!!,
+          it.available!!,
+          it.bundle!!,
+          it.completed!!,
+          it.currency!!,
+          it.symbol!!,
+          it.invited!!,
+          it.link,
+          it.pendingAmount!!,
+          it.receivedAmount!!,
+          it.userStatus,
+          it.minAmount!!,
+          it.status!!,
+          it.amount!!
+        )
         else ->
           GenericResponse(
             id = it.id,
             priority = it.priority,
-            gamificationType = it.gamificationType,
+            gamificationStatus = it.gamificationStatus?.toGamificationStatus(),
             currentProgress = it.currentProgress,
             notificationDescription = it.notificationDescription,
             perkDescription = it.perkDescription,
@@ -114,7 +144,8 @@ class SharedPreferencesUserStatsLocalData @Inject constructor(
             startDate = it.startDate,
             notificationTitle = it.notificationTitle!!,
             viewType = it.viewType!!,
-            detailsLink = it.detailsLink)
+            detailsLink = it.detailsLink
+          )
       }
     }
   }
@@ -124,67 +155,104 @@ class SharedPreferencesUserStatsLocalData @Inject constructor(
       val results: List<PromotionEntity> = promotions.map {
         when (it) {
           is GamificationResponse ->
-            PromotionEntity(id = it.id, priority = it.priority,  gamificationType = it.gamificationType, bonus = it.bonus,
-                totalSpend = it.totalSpend, totalEarned = it.totalEarned, level = it.level,
-                nextLevelAmount = it.nextLevelAmount, status = it.status, bundle = it.bundle)
+            PromotionEntity(
+              id = it.id,
+              priority = it.priority,
+              gamificationStatus = it.gamificationStatus.toString(),
+              bonus = it.bonus,
+              totalSpend = it.totalSpend,
+              totalEarned = it.totalEarned,
+              level = it.level,
+              nextLevelAmount = it.nextLevelAmount,
+              status = it.status,
+              bundle = it.bundle
+            )
           is ReferralResponse -> {
-            PromotionEntity(id = it.id, priority = it.priority,  gamificationType = it.gamificationType, maxAmount = it.maxAmount,
-                available = it.available, bundle = it.bundle, completed = it.completed,
-                currency = it.currency, symbol = it.symbol, invited = it.invited, link = it.link,
-                pendingAmount = it.pendingAmount, receivedAmount = it.receivedAmount,
-                userStatus = it.userStatus, minAmount = it.minAmount, status = it.status,
-                amount = it.amount)
+            PromotionEntity(
+              id = it.id,
+              priority = it.priority,
+              gamificationStatus = it.gamificationStatus.toString(),
+              maxAmount = it.maxAmount,
+              available = it.available,
+              bundle = it.bundle,
+              completed = it.completed,
+              currency = it.currency,
+              symbol = it.symbol,
+              invited = it.invited,
+              link = it.link,
+              pendingAmount = it.pendingAmount,
+              receivedAmount = it.receivedAmount,
+              userStatus = it.userStatus,
+              minAmount = it.minAmount,
+              status = it.status,
+              amount = it.amount
+            )
           }
           else -> {
             val genericResponse = it as GenericResponse
-            PromotionEntity(id = genericResponse.id, priority = genericResponse.priority,
-                gamificationType = it.gamificationType,
-                currentProgress = genericResponse.currentProgress,
-                notificationDescription = genericResponse.notificationDescription,
-                perkDescription = genericResponse.perkDescription,
-                appName = genericResponse.appName,
-                endDate = genericResponse.endDate, icon = genericResponse.icon,
-                linkedPromotionId = genericResponse.linkedPromotionId,
-                objectiveProgress = genericResponse.objectiveProgress,
-                startDate = genericResponse.startDate,
-                notificationTitle = genericResponse.notificationTitle,
-                viewType = genericResponse.viewType, detailsLink = genericResponse.detailsLink)
+            PromotionEntity(
+              id = genericResponse.id, priority = genericResponse.priority,
+              gamificationStatus = it.gamificationStatus.toString(),
+              currentProgress = genericResponse.currentProgress,
+              notificationDescription = genericResponse.notificationDescription,
+              perkDescription = genericResponse.perkDescription,
+              appName = genericResponse.appName,
+              endDate = genericResponse.endDate, icon = genericResponse.icon,
+              linkedPromotionId = genericResponse.linkedPromotionId,
+              objectiveProgress = genericResponse.objectiveProgress,
+              startDate = genericResponse.startDate,
+              notificationTitle = genericResponse.notificationTitle,
+              viewType = genericResponse.viewType, detailsLink = genericResponse.detailsLink
+            )
           }
         }
       }
       emitter.onSuccess(results)
     }
-        .flatMapCompletable { Completable.fromAction { promotionDao.deleteAndInsert(it) } }
+      .flatMapCompletable { Completable.fromAction { promotionDao.deleteAndInsert(it) } }
+  }
+
+  fun String.toGamificationStatus(): GamificationStatus {
+    return when (this) {
+      "STANDARD" -> GamificationStatus.STANDARD
+      "APPROACHING_NEXT_LEVEL" -> GamificationStatus.APPROACHING_NEXT_LEVEL
+      "APPROACHING_VIP" -> GamificationStatus.APPROACHING_VIP
+      "VIP" -> GamificationStatus.VIP
+      "APPROACHING_VIP_MAX" -> GamificationStatus.APPROACHING_VIP_MAX
+      "VIP_MAX" -> GamificationStatus.VIP_MAX
+      else -> GamificationStatus.NONE
+    }
   }
 
   override fun deleteLevels(): Completable {
     return levelDao.deleteLevels()
-        .andThen(levelsDao.deleteLevels())
+      .andThen(levelsDao.deleteLevels())
   }
 
   override fun getLevels(): Single<LevelsResponse> {
     return Single.zip(
-        levelDao.getLevels(),
-        levelsDao.getLevels(),
-        BiFunction { levelList, levels -> mapToLevelsResponse(levelList, levels) }
+      levelDao.getLevels(),
+      levelsDao.getLevels(),
+      BiFunction { levelList, levels -> mapToLevelsResponse(levelList, levels) }
     )
   }
 
   override fun insertLevels(levels: LevelsResponse): Completable {
     val levelsEntity = LevelsEntity(null, levels.status, levels.updateDate)
     val levelEntityList =
-        levels.list.map { LevelEntity(null, it.amount, it.bonus, it.level) }
+      levels.list.map { LevelEntity(null, it.amount, it.bonus, it.level) }
     return levelsDao.insertLevels(levelsEntity)
-        .andThen(levelDao.insertLevels(levelEntityList))
+      .andThen(levelDao.insertLevels(levelEntityList))
   }
 
   override fun shouldShowGamificationDisclaimer() = preferences.getBoolean(
-      SHOW_GAMIFICATION_DISCLAIMER, true)
+    SHOW_GAMIFICATION_DISCLAIMER, true
+  )
 
   override fun setGamificationDisclaimerShown() {
     preferences.edit()
-        .putBoolean(SHOW_GAMIFICATION_DISCLAIMER, false)
-        .apply()
+      .putBoolean(SHOW_GAMIFICATION_DISCLAIMER, false)
+      .apply()
   }
 
   override fun insertWalletOrigin(wallet: String, walletOrigin: WalletOrigin): Completable {
@@ -193,21 +261,23 @@ class SharedPreferencesUserStatsLocalData @Inject constructor(
 
   override fun retrieveWalletOrigin(wallet: String): Single<WalletOrigin> {
     return walletOriginDao.getWalletOrigin(wallet)
-        .map { it.walletOrigin }
+      .map { it.walletOrigin }
   }
 
   override fun setSeenWalletOrigin(wallet: String, walletOrigin: String) {
     return preferences.edit()
-        .putString(WALLET_ORIGIN + wallet, walletOrigin)
-        .apply()
+      .putString(WALLET_ORIGIN + wallet, walletOrigin)
+      .apply()
   }
 
   override fun getSeenWalletOrigin(wallet: String): String {
     return preferences.getString(WALLET_ORIGIN + wallet, "")!!
   }
 
-  private fun mapToLevelsResponse(levelEntity: List<LevelEntity>,
-                                  levelsEntity: LevelsEntity): LevelsResponse {
+  private fun mapToLevelsResponse(
+    levelEntity: List<LevelEntity>,
+    levelsEntity: LevelsEntity
+  ): LevelsResponse {
     val levels = levelEntity.map { Level(it.amount, it.bonus, it.level) }
     return LevelsResponse(levels, levelsEntity.status, levelsEntity.updateDate)
   }

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/gamification_header"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    >
+
+  <include
+      android:id="@+id/regular_level_header"
+      layout="@layout/promotions_regular_level_header"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      />
+
+  <include
+      android:id="@+id/almost_vip_level_header"
+      layout="@layout/promotions_almost_vip_level_header"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      />
+
+  <include
+      android:id="@+id/vip_level_header"
+      layout="@layout/promotions_vip_level_header"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      />
+
+  <include
+      android:id="@+id/vip_max_level_header"
+      layout="@layout/promotions_vip_max_level_header"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      />
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

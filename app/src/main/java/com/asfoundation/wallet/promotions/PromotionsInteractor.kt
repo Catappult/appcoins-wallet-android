@@ -112,7 +112,7 @@ class PromotionsInteractor @Inject constructor(
           res.icon,
           getPromotionIdKey(res.id, res.startDate, res.endDate),
           res.detailsLink,
-          res.gamificationType
+          res.gamificationStatus.toString()
         )
       } else {
         EmptyNotification()

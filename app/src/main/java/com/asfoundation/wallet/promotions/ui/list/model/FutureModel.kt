@@ -8,6 +8,7 @@ import androidx.core.view.isVisible
 import com.airbnb.epoxy.EpoxyAttribute
 import com.airbnb.epoxy.EpoxyModelClass
 import com.airbnb.epoxy.EpoxyModelWithHolder
+import com.appcoins.wallet.gamification.repository.entity.GamificationStatus
 import com.asf.wallet.R
 import com.asfoundation.wallet.GlideApp
 import com.asfoundation.wallet.promotions.model.FutureItem
@@ -42,7 +43,7 @@ abstract class FutureModel : EpoxyModelWithHolder<FutureModel.FutureHolder>() {
     holder.loadIcon(futureItem.icon)
 
     holder.futureTitle.text = futureItem.description
-    holder.handleVip(futureItem.gamificationType)
+    holder.handleVip(futureItem.gamificationStatus)
     holder.handleSeparator()
   }
 
@@ -54,9 +55,9 @@ abstract class FutureModel : EpoxyModelWithHolder<FutureModel.FutureHolder>() {
       .into(futureIcon)
   }
 
-  private fun FutureHolder.handleVip(gamificationType: String?) {
-    when (gamificationType) {
-      "VIP" -> {
+  private fun FutureHolder.handleVip(gamificationStatus: GamificationStatus?) {
+    when (gamificationStatus) {
+      GamificationStatus.VIP -> {
         onlyForVip.visibility = View.VISIBLE
         futureIconBorderVip.visibility = View.VISIBLE
         futureIconBorder.visibility = View.GONE
