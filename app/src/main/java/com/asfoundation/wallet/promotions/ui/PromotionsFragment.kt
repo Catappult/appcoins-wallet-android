@@ -3,11 +3,11 @@ package com.asfoundation.wallet.promotions.ui
 import android.content.res.ColorStateList
 import android.os.Build
 import android.os.Bundle
-import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.widget.AppCompatTextView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -280,13 +280,15 @@ class PromotionsFragment : BasePageViewFragment(),
 
     when (gamificationHeaderItem.gamificationStatus) {
       GamificationStatus.VIP_MAX -> {
-        gamificationHeaderLayout.currentLevelTitle?.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 20F)
-        gamificationHeaderLayout.currentLevelSubtitle?.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 11F)
-
         gamificationHeaderLayout.currentLevelTitle?.text =
           getString(R.string.vip_program_max_bonus_title, df.format(gamificationHeaderItem.bonus))
         gamificationHeaderLayout.currentLevelSubtitle?.text =
           getString(R.string.vip_program_max_bonus_body)
+
+        setMaxVipTextAppearance(
+          gamificationHeaderLayout.currentLevelTitle,
+          gamificationHeaderLayout.currentLevelSubtitle
+        )
       }
       else -> {
         gamificationHeaderLayout.currentLevelTitle?.text = gamificationHeaderItem.title
@@ -299,6 +301,19 @@ class PromotionsFragment : BasePageViewFragment(),
           gamificationHeaderLayout.currentLevelSubtitle?.visibility = View.INVISIBLE
         }
       }
+    }
+  }
+
+  private fun setMaxVipTextAppearance(
+    title: AppCompatTextView?,
+    subtitle: AppCompatTextView?
+  ) {
+    if (Build.VERSION.SDK_INT < 23) {
+      title?.setTextAppearance(context, R.style.TextXL);
+      subtitle?.setTextAppearance(context, R.style.TextS);
+    } else {
+      title?.setTextAppearance(R.style.TextXL);
+      subtitle?.setTextAppearance(context, R.style.TextS);
     }
   }
 
