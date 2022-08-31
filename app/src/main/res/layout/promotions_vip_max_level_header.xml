@@ -52,7 +52,8 @@
       app:layout_constraintTop_toTopOf="@id/current_level_image"
       app:lottie_enableMergePathsForKitKatAndAbove="true"
       app:lottie_rawRes="@raw/astronaut_animation"
-      app:lottie_repeatCount="2"
+      app:lottie_autoPlay="true"
+      app:lottie_repeatCount="1"
       />
 
   <androidx.appcompat.widget.AppCompatTextView

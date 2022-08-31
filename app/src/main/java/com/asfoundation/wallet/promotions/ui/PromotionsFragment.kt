@@ -315,6 +315,8 @@ class PromotionsFragment : BasePageViewFragment(),
       title?.setTextAppearance(R.style.TextXL);
       subtitle?.setTextAppearance(context, R.style.TextS);
     }
+    title?.setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
+    subtitle?.setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
   }
 
   private fun showGamificationHeaderProgress(
