@@ -25,7 +25,7 @@
 
         <include
             android:id="@+id/current_level_header"
-            layout="@layout/promotions_header_current_level"
+            layout="@layout/promotions_gamification_header"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="?attr/actionBarSize"

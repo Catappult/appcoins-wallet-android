@@ -23,6 +23,7 @@ class PromotionsDbModule {
       .addMigrations(PromotionDatabase.MIGRATION_4_5)
       .addMigrations(PromotionDatabase.MIGRATION_5_6)
       .addMigrations(PromotionDatabase.MIGRATION_6_7)
+      .addMigrations(PromotionDatabase.MIGRATION_7_8)
       .build()
   }
 

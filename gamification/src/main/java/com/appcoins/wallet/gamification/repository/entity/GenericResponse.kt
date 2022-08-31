@@ -6,7 +6,7 @@ import java.math.BigDecimal
 class GenericResponse(
   id: String,
   priority: Int,
-  gamificationType: String?,
+  gamificationStatus: GamificationStatus?,
   @SerializedName("current_progress") val currentProgress: BigDecimal?,
   @SerializedName("notification_description") val notificationDescription: String?,
   @SerializedName("perk_description") val perkDescription: String?,
@@ -18,4 +18,4 @@ class GenericResponse(
   @SerializedName("notification_title") val notificationTitle: String?,
   @SerializedName("view_type") val viewType: String,
   @SerializedName("details_link") val detailsLink: String?
-) : PromotionsResponse(id, priority, gamificationType)
+) : PromotionsResponse(id, priority, gamificationStatus)

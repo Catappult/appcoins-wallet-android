@@ -6,84 +6,77 @@
     android:layout_height="wrap_content"
     android:background="@color/bottom_nav_top_up_blue"
     android:paddingTop="@dimen/big_margin"
-    android:paddingBottom="@dimen/large_margin"
-    android:paddingHorizontal="@dimen/big_margin"
+    android:paddingStart="@dimen/big_margin"
+    android:visibility="gone"
+    tools:visibility="visible"
     >
 
   <TextView
       android:id="@+id/current_level_bonus"
-      style="@style/TextAppearance.AppCompat.Body1.Roboto.Regular"
+      style="@style/TextS"
+      android:fontFamily="@font/roboto_bolt"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_marginTop="@dimen/big_margin"
-      android:background="@drawable/oval_grey_background"
+      android:background="@drawable/oval_vip_background"
       android:maxLines="1"
       android:paddingHorizontal="12dp"
       android:paddingVertical="5dp"
-      tools:text="14% Bonus"
+      tools:text="20% Bonus"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent"
       />
 
   <ImageView
       android:id="@+id/current_level_image"
-      android:layout_width="130dp"
-      android:layout_height="110dp"
+      android:layout_width="230dp"
+      android:layout_height="230dp"
+      android:layout_marginStart="@dimen/large_margin"
+      android:layout_marginEnd="-88dp"
+      android:layout_marginTop="@dimen/half_large_margin"
+      android:layout_marginBottom="-30dp"
+      android:adjustViewBounds="true"
+      android:cropToPadding="true"
       android:src="@drawable/gamification_unknown_planet_purple"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintStart_toEndOf="@id/spend_amount_text"
       app:layout_constraintTop_toTopOf="parent"
+      app:layout_constraintVertical_bias="0.0"
       />
-  <TextView
+  <com.airbnb.lottie.LottieAnimationView
+      android:id="@+id/astronaut_animation"
+      android:layout_width="120dp"
+      android:layout_height="170dp"
+      android:layout_gravity="center"
+      app:layout_constraintStart_toStartOf="@id/current_level_image"
+      app:layout_constraintTop_toTopOf="@id/current_level_image"
+      app:lottie_enableMergePathsForKitKatAndAbove="true"
+      app:lottie_rawRes="@raw/astronaut_animation"
+      app:lottie_autoPlay="true"
+      app:lottie_repeatCount="1"
+      />
+
+  <androidx.appcompat.widget.AppCompatTextView
       android:id="@+id/current_level_title"
+      style="@style/TextL"
       android:layout_width="200dp"
       android:layout_height="wrap_content"
       android:layout_marginTop="8dp"
-      android:fontFamily="sans-serif-medium"
       tools:text="You are on Mars"
       android:textColor="@color/white"
-      android:textSize="16sp"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toBottomOf="@id/current_level_bonus"
       />
 
-  <TextView
-      android:id="@+id/spend_amount_text"
+  <androidx.appcompat.widget.AppCompatTextView
+    android:id="@+id/current_level_subtitle"
+      style="@style/TextS"
       android:layout_width="200dp"
       android:layout_height="wrap_content"
       android:layout_marginTop="4dp"
-      android:fontFamily="sans-serif"
-      android:lineSpacingExtra="9sp"
-      tools:text="Spend this amount to reach next level"
+      android:text="@string/vip_program_max_bonus_body"
       android:textColor="@color/white"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toBottomOf="@id/current_level_title"
       />
-
-  <ProgressBar
-      android:id="@+id/current_level_progress_bar"
-      style="@style/Base.Widget.AppCompat.ProgressBar.Horizontal"
-      android:layout_width="200dp"
-      android:layout_height="8dp"
-      android:layout_marginTop="10dp"
-      android:max="100"
-      android:progressDrawable="@drawable/generic_progress_bar"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@id/spend_amount_text"
-      />
-
-  <TextView
-      android:id="@+id/percentage_left"
-      style="@style/TextAppearance.AppCompat.Body1.Roboto.Regular"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_marginVertical="@dimen/small_margin"
-      tools:text="65k / 150k"
-      android:textColor="@color/white"
-      app:layout_constraintEnd_toEndOf="@id/current_level_progress_bar"
-      app:layout_constraintTop_toBottomOf="@id/current_level_progress_bar"
-      app:layout_constraintBottom_toBottomOf="parent"
-      />
-
 </androidx.constraintlayout.widget.ConstraintLayout>

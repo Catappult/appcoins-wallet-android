@@ -10,6 +10,7 @@ import androidx.core.view.isVisible
 import com.airbnb.epoxy.EpoxyAttribute
 import com.airbnb.epoxy.EpoxyModelClass
 import com.airbnb.epoxy.EpoxyModelWithHolder
+import com.appcoins.wallet.gamification.repository.entity.GamificationStatus
 import com.asf.wallet.R
 import com.asfoundation.wallet.GlideApp
 import com.asfoundation.wallet.promotions.model.ProgressItem
@@ -49,7 +50,7 @@ abstract class ProgressModel : EpoxyModelWithHolder<ProgressModel.ProgressHolder
     holder.handleExpiryDate(progressItem.endDate)
     holder.activeAppName.text = progressItem.appName
     holder.activeAppName.visibility = if (progressItem.appName != null) View.VISIBLE else View.GONE
-    holder.handleVip(progressItem.gamificationType)
+    holder.handleVip(progressItem.gamificationStatus)
     holder.handleSeparator()
 
     if (progressItem.objective != null) {
@@ -80,9 +81,9 @@ abstract class ProgressModel : EpoxyModelWithHolder<ProgressModel.ProgressHolder
       .into(activeIcon)
   }
 
-  private fun ProgressHolder.handleVip(gamificationType: String?) {
-    when (gamificationType) {
-      "VIP" -> {
+  private fun ProgressHolder.handleVip(gamificationStatus: GamificationStatus?) {
+    when (gamificationStatus) {
+      GamificationStatus.VIP -> {
         onlyForVip.visibility = View.VISIBLE
         activeIconBorderVip.visibility = View.VISIBLE
         activeIconBorder.visibility = View.GONE

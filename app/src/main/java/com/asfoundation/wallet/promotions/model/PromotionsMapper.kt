@@ -76,14 +76,6 @@ class PromotionsMapper @Inject constructor(private val gamificationMapper: Gamif
     )
   }
 
-  private fun getPerksIndex(gamificationAvailable: Boolean, referralAvailable: Boolean): Int {
-    return when {
-      gamificationAvailable && referralAvailable -> 2
-      gamificationAvailable && !referralAvailable || !gamificationAvailable && referralAvailable -> 1
-      else -> 0
-    }
-  }
-
   private fun map(
     walletOrigin: WalletOrigin
   ): PromotionsModel.WalletOrigin {
@@ -110,7 +102,7 @@ class PromotionsMapper @Inject constructor(private val gamificationMapper: Gamif
     gamificationItem.links.add(
       GamificationLinkItem(
         genericResponse.id,
-        genericResponse.gamificationType,
+        genericResponse.gamificationStatus,
         genericResponse.perkDescription,
         genericResponse.icon,
         genericResponse.startDate,
@@ -122,7 +114,7 @@ class PromotionsMapper @Inject constructor(private val gamificationMapper: Gamif
   private fun mapToProgressItem(genericResponse: GenericResponse): ProgressItem {
     return ProgressItem(
       genericResponse.id,
-      genericResponse.gamificationType,
+      genericResponse.gamificationStatus,
       genericResponse.perkDescription,
       genericResponse.icon,
       genericResponse.appName,
@@ -137,7 +129,7 @@ class PromotionsMapper @Inject constructor(private val gamificationMapper: Gamif
   private fun mapToDefaultItem(genericResponse: GenericResponse): DefaultItem {
     return DefaultItem(
       genericResponse.id,
-      genericResponse.gamificationType,
+      genericResponse.gamificationStatus,
       genericResponse.perkDescription,
       genericResponse.icon,
       genericResponse.appName,
@@ -158,6 +150,7 @@ class PromotionsMapper @Inject constructor(private val gamificationMapper: Gamif
       gamificationResponse.id,
       currentLevelInfo.planet,
       gamificationResponse.level,
+      gamificationResponse.gamificationStatus,
       currentLevelInfo.levelColor,
       currentLevelInfo.title,
       toNextLevelAmount,
@@ -176,7 +169,7 @@ class PromotionsMapper @Inject constructor(private val gamificationMapper: Gamif
   private fun mapToFutureItem(genericResponse: GenericResponse): FutureItem {
     return FutureItem(
       genericResponse.id,
-      genericResponse.gamificationType,
+      genericResponse.gamificationStatus,
       genericResponse.perkDescription,
       genericResponse.icon,
       genericResponse.appName,
@@ -189,7 +182,7 @@ class PromotionsMapper @Inject constructor(private val gamificationMapper: Gamif
   private fun mapToPromoCodeItem(genericResponse: GenericResponse): PromoCodeItem {
     return PromoCodeItem(
       genericResponse.id,
-      genericResponse.gamificationType,
+      genericResponse.gamificationStatus,
       genericResponse.perkDescription,
       genericResponse.appName,
       genericResponse.icon,
