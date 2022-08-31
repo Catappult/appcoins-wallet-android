@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.asfoundation.wallet.base.Navigator
 import com.asfoundation.wallet.base.navigate
+import com.asfoundation.wallet.entity.WalletKeyStore
 import com.asfoundation.wallet.recover.RecoverActivity
 import javax.inject.Inject
 
@@ -34,7 +35,7 @@ class RecoverEntryNavigator @Inject constructor(val fragment: Fragment) : Naviga
   }
 
   fun navigateToRecoverPasswordFragment(
-    keystore: String,
+    keystore: WalletKeyStore,
     walletBalance: String,
     walletAddress: String
   ) {

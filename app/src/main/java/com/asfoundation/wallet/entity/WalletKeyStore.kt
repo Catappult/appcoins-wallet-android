@@ -1,3 +1,5 @@
 package com.asfoundation.wallet.entity
 
-data class WalletKeyStore(val name: String?, val contents: String)
+import java.io.Serializable
+
+data class WalletKeyStore(val name: String?, val contents: String) : Serializable
