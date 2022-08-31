@@ -35,7 +35,7 @@
       tools:layout="@layout/recover_password_fragment">
     <argument
         android:name="keystore"
-        app:argType="string" />
+        app:argType="com.asfoundation.wallet.entity.WalletKeyStore" />
     <argument
         android:name="wallet_balance"
         app:argType="string" />

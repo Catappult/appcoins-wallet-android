@@ -9,6 +9,7 @@ import androidx.core.view.isVisible
 import com.airbnb.epoxy.EpoxyAttribute
 import com.airbnb.epoxy.EpoxyModelClass
 import com.airbnb.epoxy.EpoxyModelWithHolder
+import com.appcoins.wallet.gamification.repository.entity.GamificationStatus
 import com.asf.wallet.R
 import com.asfoundation.wallet.GlideApp
 import com.asfoundation.wallet.promotions.model.DefaultItem
@@ -49,7 +50,7 @@ abstract class DefaultModel : EpoxyModelWithHolder<DefaultModel.DefaultHolder>()
     holder.activeTitle.text = defaultItem.description
     holder.loadIcon(defaultItem.icon)
     holder.handleExpiryDate(defaultItem.endDate)
-    holder.handleVip(defaultItem.gamificationType)
+    holder.handleVip(defaultItem.gamificationStatus)
     holder.handleSeparator()
   }
 
@@ -83,9 +84,9 @@ abstract class DefaultModel : EpoxyModelWithHolder<DefaultModel.DefaultHolder>()
       itemView.context.resources.getQuantityString(text, time.toInt(), time.toString())
   }
 
-  private fun DefaultHolder.handleVip(gamificationType: String?) {
-    when (gamificationType) {
-      "VIP" -> {
+  private fun DefaultHolder.handleVip(gamificationStatus: GamificationStatus?) {
+    when (gamificationStatus) {
+      GamificationStatus.VIP -> {
         onlyForVip.visibility = View.VISIBLE
         activeIconBorderVip.visibility = View.VISIBLE
         activeIconBorder.visibility = View.GONE

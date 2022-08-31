@@ -139,7 +139,7 @@ class RecoverEntryFragment : BasePageViewFragment(),
       }
       is FailedEntryRecover.InvalidPassword -> {
         navigator.navigateToRecoverPasswordFragment(
-          keystore = recoverResult.key,
+          keystore = recoverResult.keyStore,
           walletBalance = recoverResult.symbol + recoverResult.amount,
           walletAddress = recoverResult.address
         )

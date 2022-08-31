@@ -13,7 +13,7 @@ sealed class FailedEntryRecover : RecoverEntryResult() {
   data class GenericError(val throwable: Throwable? = null) : FailedEntryRecover()
   data class InvalidPassword(
     val throwable: Throwable? = null,
-    val key: String,
+    val keyStore: WalletKeyStore,
     val address: String,
     val amount: String,
     val symbol: String
@@ -46,7 +46,7 @@ class RecoverEntryResultMapper(
       .map {
         FailedEntryRecover.InvalidPassword(
           throwable = restoreResult.throwable,
-          key = walletKeyStore.contents,
+          keyStore = walletKeyStore,
           address = it.wallet,
           amount = currencyFormatUtils.formatCurrency(it.walletBalance.overallFiat.amount),
           symbol = it.walletBalance.overallFiat.symbol

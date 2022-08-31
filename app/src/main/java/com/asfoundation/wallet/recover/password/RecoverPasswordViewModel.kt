@@ -4,11 +4,13 @@ import androidx.lifecycle.SavedStateHandle
 import com.asfoundation.wallet.base.*
 import com.asfoundation.wallet.billing.analytics.WalletsAnalytics
 import com.asfoundation.wallet.billing.analytics.WalletsEventSender
+import com.asfoundation.wallet.entity.WalletKeyStore
 import com.asfoundation.wallet.onboarding.use_cases.SetOnboardingCompletedUseCase
 import com.asfoundation.wallet.recover.password.RecoverPasswordFragment.Companion.KEYSTORE_KEY
 import com.asfoundation.wallet.recover.result.*
 import com.asfoundation.wallet.recover.use_cases.*
 import com.asfoundation.wallet.wallets.usecases.UpdateWalletInfoUseCase
+import com.asfoundation.wallet.wallets.usecases.UpdateWalletNameUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.Completable
 import io.reactivex.Single
@@ -29,6 +31,7 @@ class RecoverPasswordViewModel @Inject constructor(
   private val recoverPasswordKeystoreUseCase: RecoverPasswordKeystoreUseCase,
   private val setOnboardingCompletedUseCase: SetOnboardingCompletedUseCase,
   private val updateBackupStateFromRecoverUseCase: UpdateBackupStateFromRecoverUseCase,
+  private val updateWalletNameUseCase: UpdateWalletNameUseCase,
   private val savedStateHandle: SavedStateHandle,
 ) :
   BaseViewModel<RecoverPasswordState, RecoverPasswordSideEffect>(initialState()) {
@@ -46,13 +49,14 @@ class RecoverPasswordViewModel @Inject constructor(
         setDefaultWalletUseCase(recoverResult.address),
         updateWalletInfoUseCase(recoverResult.address, updateFiat = true)
       ).andThen(Completable.fromAction { setOnboardingCompletedUseCase() })
+        .andThen(updateWalletNameUseCase(recoverResult.address, recoverResult.name))
         .andThen(Single.just(recoverResult))
     }
   }
 
   fun handleRecoverPasswordClick(password: String) {
-    val keystore = savedStateHandle.get<String>(KEYSTORE_KEY)
-    recoverPasswordKeystoreUseCase(keystore = keystore!!, password = password)
+    val keystore = savedStateHandle.get<WalletKeyStore>(KEYSTORE_KEY)
+    recoverPasswordKeystoreUseCase(keyStore = keystore!!, password = password)
       .flatMap { setDefaultWallet(it) }
       .asAsyncToState {
         copy(recoverResultAsync = it)

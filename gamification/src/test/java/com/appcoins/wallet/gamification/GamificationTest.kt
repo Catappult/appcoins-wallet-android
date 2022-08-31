@@ -33,13 +33,13 @@ class GamificationTest {
   fun getUserStats() {
     val userStatsGamification =
       GamificationResponse(
-        "GAMIFICATION", 100, "REGULAR", 2.2, BigDecimal.ONE, BigDecimal.ZERO, 1,
+        "GAMIFICATION", 100, GamificationStatus.STANDARD, 2.2, BigDecimal.ONE, BigDecimal.ZERO, 1,
         BigDecimal.TEN,
         PromotionsResponse.Status.ACTIVE, true
       )
     val referralResponse =
       ReferralResponse(
-        "REFERRAL", 99, "REGULAR", BigDecimal(2.2), 3, true, 2, "EUR", "€", false, "link",
+        "REFERRAL", 99, GamificationStatus.STANDARD, BigDecimal(2.2), 3, true, 2, "EUR", "€", false, "link",
         BigDecimal.ONE, BigDecimal.ZERO, ReferralResponse.UserStatus.REDEEMED, BigDecimal.ZERO,
         PromotionsResponse.Status.ACTIVE, BigDecimal.ONE
       )
@@ -69,7 +69,7 @@ class GamificationTest {
     local.userStatusResponse = Single.just(
       listOf(
         GamificationResponse(
-          "GAMIFICATION", 100, "REGULAR", 15.0,
+          "GAMIFICATION", 100, GamificationStatus.STANDARD, 15.0,
           BigDecimal(25000.0), BigDecimal(5000.0), 5, BigDecimal(60000.0),
           PromotionsResponse.Status.ACTIVE, false
         )
@@ -115,7 +115,7 @@ class GamificationTest {
     local.userStatusResponse = Single.just(
       listOf(
         GamificationResponse(
-          "GAMIFICATION", 100, "REGULAR", 15.0,
+          "GAMIFICATION", 100, GamificationStatus.STANDARD, 15.0,
           BigDecimal(25000.0), BigDecimal(5000.0), 5, BigDecimal(60000.0),
           PromotionsResponse.Status.ACTIVE, false
         )
@@ -123,13 +123,13 @@ class GamificationTest {
     )
     val userStatsGamification =
       GamificationResponse(
-        "GAMIFICATION", 100, "REGULAR", 2.2, BigDecimal.ONE, BigDecimal.ZERO, 4,
+        "GAMIFICATION", 100, GamificationStatus.STANDARD, 2.2, BigDecimal.ONE, BigDecimal.ZERO, 4,
         BigDecimal.TEN,
         PromotionsResponse.Status.ACTIVE, true
       )
     val referralResponse =
       ReferralResponse(
-        "REFERRAL", 99, "REGULAR", BigDecimal(2.2), 3, true, 2, "EUR", "€", false, "link",
+        "REFERRAL", 99, GamificationStatus.STANDARD, BigDecimal(2.2), 3, true, 2, "EUR", "€", false, "link",
         BigDecimal.ONE, BigDecimal.ZERO, ReferralResponse.UserStatus.REDEEMED, BigDecimal.ZERO,
         PromotionsResponse.Status.ACTIVE, BigDecimal.ONE
       )
@@ -152,7 +152,7 @@ class GamificationTest {
     local.userStatusResponse = Single.just(
       listOf(
         GamificationResponse(
-          "GAMIFICATION", 100, "REGULAR", 15.0,
+          "GAMIFICATION", 100, GamificationStatus.STANDARD, 15.0,
           BigDecimal(25000.0), BigDecimal(5000.0), 4, BigDecimal(60000.0),
           PromotionsResponse.Status.ACTIVE, false
         )
@@ -160,13 +160,13 @@ class GamificationTest {
     )
     val userStatsGamification =
       GamificationResponse(
-        "GAMIFICATION", 100, "REGULAR", 2.2, BigDecimal.ONE, BigDecimal.ZERO, 5,
+        "GAMIFICATION", 100, GamificationStatus.STANDARD, 2.2, BigDecimal.ONE, BigDecimal.ZERO, 5,
         BigDecimal.TEN,
         PromotionsResponse.Status.ACTIVE, true
       )
     val referralResponse =
       ReferralResponse(
-        "REFERRAL", 99, "REGULAR", BigDecimal(2.2), 3, true, 2, "EUR", "€", false, "link",
+        "REFERRAL", 99, GamificationStatus.STANDARD, BigDecimal(2.2), 3, true, 2, "EUR", "€", false, "link",
         BigDecimal.ONE, BigDecimal.ZERO, ReferralResponse.UserStatus.REDEEMED, BigDecimal.ZERO,
         PromotionsResponse.Status.ACTIVE, BigDecimal.ONE
       )
@@ -190,7 +190,7 @@ class GamificationTest {
     local.userStatusResponse = Single.just(
       listOf(
         GamificationResponse(
-          "GAMIFICATION", 100, "REGULAR", 15.0,
+          "GAMIFICATION", 100, GamificationStatus.STANDARD, 15.0,
           BigDecimal(25000.0), BigDecimal(5000.0), 4, BigDecimal(60000.0),
           PromotionsResponse.Status.ACTIVE, false
         )
@@ -209,7 +209,7 @@ class GamificationTest {
     local.userStatusResponse = Single.just(
       listOf(
         GamificationResponse(
-          "GAMIFICATION", 100, "REGULAR", 15.0,
+          "GAMIFICATION", 100, GamificationStatus.STANDARD, 15.0,
           BigDecimal(25000.0), BigDecimal(5000.0), 5, BigDecimal(60000.0),
           PromotionsResponse.Status.ACTIVE, false
         )
@@ -364,7 +364,7 @@ class GamificationTest {
   fun hasNewLevelNoNewLevel() {
     val userStatsGamification =
       GamificationResponse(
-        GAMIFICATION_ID, 100, "REGULAR", 2.2, BigDecimal.ONE, BigDecimal.ZERO, 0,
+        GAMIFICATION_ID, 100, GamificationStatus.STANDARD, 2.2, BigDecimal.ONE, BigDecimal.ZERO, 0,
         BigDecimal.TEN, PromotionsResponse.Status.ACTIVE, true
       )
 
@@ -383,7 +383,7 @@ class GamificationTest {
   fun hasNewLevelNewLevel() {
     val userStatsGamification =
       GamificationResponse(
-        GAMIFICATION_ID, 100, "REGULAR", 2.2, BigDecimal.ONE, BigDecimal.ZERO, 0,
+        GAMIFICATION_ID, 100, GamificationStatus.STANDARD, 2.2, BigDecimal.ONE, BigDecimal.ZERO, 0,
         BigDecimal.TEN,
         PromotionsResponse.Status.ACTIVE, true
       )
