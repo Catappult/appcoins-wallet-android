@@ -11,6 +11,7 @@ import androidx.appcompat.widget.AppCompatTextView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.NavHostFragment
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.appcoins.wallet.gamification.repository.GamificationStats
 import com.appcoins.wallet.gamification.repository.entity.GamificationStatus
@@ -99,19 +100,18 @@ class PromotionsFragment : BasePageViewFragment(),
       )
       is PromotionsSideEffect.NavigateToShare -> navigator.handleShare(sideEffect.url)
       PromotionsSideEffect.NavigateToInfo -> {
-        //TODO remove nav:
-//        val aaa: NavHostFragment = requireActivity().supportFragmentManager.findFragmentById(
-//          R.id.full_host_container
-//        ) as NavHostFragment
-//        navigator.navigateToInfo(aaa.navController)
         navigator.navigateToInfo()
       }
       is PromotionsSideEffect.NavigateToVipReferral -> {
+        val mainNav: NavHostFragment = requireActivity().supportFragmentManager.findFragmentById(
+          R.id.full_host_container
+        ) as NavHostFragment
         navigator.navigateToVipReferral(
           sideEffect.bonus,
           sideEffect.promoCodeVip,
           sideEffect.totalEarned,
-          sideEffect.numberReferrals
+          sideEffect.numberReferrals,
+          mainNav.navController
         )
       }
       PromotionsSideEffect.NavigateToInviteFriends -> navigator.navigateToInviteFriends()
@@ -193,6 +193,12 @@ class PromotionsFragment : BasePageViewFragment(),
       View.VISIBLE
     else
       View.GONE
+
+    gamificationHeaderLayout.vipReferralButton?.subTitleRefTv?.text =
+      context?.getString(
+        R.string.vip_program_referral_button_body,
+        vipReferralInfo?.vipBonus ?: ""
+      )
   }
 
   private fun showPromotions(

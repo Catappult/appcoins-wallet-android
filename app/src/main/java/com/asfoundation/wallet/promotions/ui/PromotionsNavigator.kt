@@ -15,12 +15,14 @@ import com.asfoundation.wallet.referrals.InviteFriendsActivity
 import com.asfoundation.wallet.ui.BaseActivity
 import com.asfoundation.wallet.ui.gamification.GamificationActivity
 import javax.inject.Inject
+import android.os.Bundle
+import com.asfoundation.wallet.promotions.ui.vip_referral.PromotionsVipReferralFragment
+import com.asfoundation.wallet.promotions.ui.vip_referral.PromotionsVipReferralFragmentDirections
+
 
 class PromotionsNavigator @Inject constructor(private val fragment: Fragment) : Navigator {
 
-  //TODO remove
-  fun navigateToInfo(/*aaa: NavController*/) {
-//    aaa.navigate(R.id.action_navigate_to_info)
+  fun navigateToInfo() {
     navigate(fragment.findNavController(), PromotionsFragmentDirections.actionNavigateToInfo())
   }
 
@@ -33,23 +35,40 @@ class PromotionsNavigator @Inject constructor(private val fragment: Fragment) : 
     fragment.startActivity(intent)
   }
 
-  fun navigateToVipReferral(bonus: String, code: String, totalEarned: String, numberReferrals: String/*aaa: NavController*/) {
-    fragment.findNavController().navigate(PromotionsFragmentDirections.actionNavigateToVipReferral(
-      bonus,
-      code,
-      totalEarned,
-      numberReferrals
-    ))
-//    aaa.navigate(R.id.action_navigate_to_info)
+  fun navigateToVipReferral(
+    bonus: String,
+    code: String,
+    totalEarned: String,
+    numberReferrals: String,
+    mainNavController: NavController
+  ) {
+    //TODO remove
+//    fragment.findNavController().navigate(
+//      PromotionsFragmentDirections.actionNavigateToVipReferral(
+//        bonus,
+//        code,
+//        totalEarned,
+//        numberReferrals
+//      )
+//    )
+    val bundle = Bundle()
+    bundle.putString(PromotionsVipReferralFragment.BONUS_PERCENT, bonus)
+    bundle.putString(PromotionsVipReferralFragment.PROMO_REFERRAL, code)
+    bundle.putString(PromotionsVipReferralFragment.EARNED_VALUE, totalEarned)
+    bundle.putString(PromotionsVipReferralFragment.EARNED_TOTAL, numberReferrals)
+    mainNavController.navigate(R.id.action_navigate_to_vip_referral, bundle)
+
+//    mainNavController.navigate(R.id.action_navigate_to_info)
+
 //    navigate(fragment.findNavController(), PromotionsFragmentDirections.actionNavigateToInfo())
   }
 
   fun handleShare(link: String) {
     ShareCompat.IntentBuilder.from(fragment.activity as BaseActivity)
-        .setText(link)
-        .setType("text/plain")
-        .setChooserTitle(fragment.resources.getString(R.string.referral_share_sheet_title))
-        .startChooser()
+      .setText(link)
+      .setType("text/plain")
+      .setChooserTitle(fragment.resources.getString(R.string.referral_share_sheet_title))
+      .startChooser()
   }
 
   @Throws(ActivityNotFoundException::class)

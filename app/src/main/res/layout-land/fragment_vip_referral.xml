@@ -1,30 +1,199 @@
-<?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/window"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     >
 
-  <TextView
-      android:id="@+id/title_tv"
-      android:layout_width="wrap_content"
+  <ScrollView
+      android:layout_width="match_parent"
+      android:layout_height="0dp"
+      app:layout_constraintBottom_toTopOf="@+id/bottom_earned_cl"
+      app:layout_constraintTop_toBottomOf="@+id/top_bar"
+      >
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+
+      <View
+          android:id="@+id/view"
+          android:layout_width="match_parent"
+          android:layout_height="0dp"
+          android:background="@drawable/top_round_background"
+          app:layout_constraintBottom_toTopOf="@+id/guideline3"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toTopOf="parent"
+          />
+
+      <ImageView
+          android:layout_width="100dp"
+          android:layout_height="100dp"
+          android:src="@drawable/ic_vip_rp"
+          app:layout_constraintBottom_toBottomOf="@+id/view"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintHorizontal_bias="0.53"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toTopOf="parent"
+          />
+
+      <TextView
+          android:id="@+id/title_tv"
+          style="@style/TextXXXL"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="6dp"
+          android:text="@string/vip_program_referral_page_title"
+          android:textColor="@color/promotions_vip_title"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toTopOf="@+id/guideline3"
+          tools:text="@string/vip_program_referral_page_title"
+          />
+
+      <TextView
+          android:id="@+id/description_tv"
+          style="@style/TextM"
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="@dimen/standard_double_margin"
+          android:layout_marginTop="6dp"
+          android:layout_marginEnd="@dimen/standard_double_margin"
+          android:text="@string/vip_program_referral_page_body"
+          android:textColor="@color/promotions_vip_desc"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toBottomOf="@+id/title_tv"
+          />
+
+      <TextView
+          android:id="@+id/title_code_tv"
+          style="@style/TextS"
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="@dimen/standard_double_margin"
+          android:layout_marginTop="8dp"
+          android:layout_marginEnd="@dimen/standard_double_margin"
+          android:text="@string/vip_program_referral_page_share_title"
+          android:textColor="@color/promotions_vip_desc"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toBottomOf="@+id/description_tv"
+          />
+
+      <com.google.android.material.card.MaterialCardView
+          android:id="@+id/code_mcv"
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="@dimen/standard_double_margin"
+          android:layout_marginTop="2dp"
+          android:layout_marginEnd="@dimen/standard_double_margin"
+          android:background="@color/transparent"
+          app:cardBackgroundColor="@color/promotions_vip_grey"
+          app:cardElevation="0dp"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toBottomOf="@+id/title_code_tv"
+          app:layout_constraintBottom_toBottomOf="parent"
+          app:rippleColor="@color/white"
+          app:shapeAppearance="@style/Home.PillShape"
+
+          >
+
+        <TextView
+            android:id="@+id/code_tv"
+            style="@style/TextXL"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="22dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:fontFamily="sans-serif-medium"
+            android:textColor="@color/promotions_vip_title"
+            tools:text="123456789"
+            />
+
+      </com.google.android.material.card.MaterialCardView>
+
+      <com.asfoundation.wallet.ui.common.WalletButtonView
+          android:id="@+id/share_bt"
+          android:layout_width="wrap_content"
+          android:layout_height="38dp"
+          android:layout_alignParentBottom="true"
+          android:layout_marginEnd="5dp"
+          android:enabled="true"
+          app:buttonColor="@color/promotions_vip_orange"
+          app:buttonText="@string/askafriend_share_button"
+          app:buttonType="filled"
+          app:layout_constraintBottom_toBottomOf="@id/code_mcv"
+          app:layout_constraintEnd_toEndOf="@+id/code_mcv"
+          app:layout_constraintTop_toTopOf="@id/code_mcv"
+          app:layout_constraintVertical_bias="0.56"
+          />
+
+      <androidx.constraintlayout.widget.Guideline
+          android:id="@+id/guideline3"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:orientation="horizontal"
+          app:layout_constraintGuide_percent="0.38"
+          />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+  </ScrollView>
+
+  <androidx.constraintlayout.widget.ConstraintLayout
+      android:id="@+id/bottom_earned_cl"
+      android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:text="TextView"
       app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      android:paddingVertical="2dp"
+      android:background="@color/promotions_vip_grey"
+      >
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="@dimen/big_margin"
+        android:src="@drawable/ic_vip_ref_coins"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+
+    <TextView
+        android:id="@+id/earned_tv"
+        style="@style/TextM"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginStart="@dimen/big_margin"
+        android:fontFamily="sans-serif-medium"
+        android:textColor="@color/promotions_vip_title"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/imageView"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="@string/vip_program_referral_page_earned_body"
+        />
+
+  </androidx.constraintlayout.widget.ConstraintLayout>
+
+  <include
+      android:id="@+id/top_bar"
+      layout="@layout/vip_ref_bar_layout"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:elevation="2dp"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent"
-      />
-
-  <TextView
-      android:id="@+id/description_tv"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:text="TextView"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@+id/title_tv"
       />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

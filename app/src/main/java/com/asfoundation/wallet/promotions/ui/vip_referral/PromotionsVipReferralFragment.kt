@@ -115,8 +115,8 @@ class PromotionsVipReferralFragment: BasePageViewFragment() ,
     val clipboard = requireActivity().getSystemService(CLIPBOARD_SERVICE) as ClipboardManager?
     val clip = ClipData.newPlainText("Referral Code", promoReferral)
     clipboard?.setPrimaryClip(clip)
-    Snackbar.make(views.bottomEarnedCl as View, R.string.copied, Snackbar.LENGTH_SHORT)
-      .apply { anchorView = views.bottomEarnedCl as View }
+    Snackbar.make(views.window as View, R.string.copied, Snackbar.LENGTH_SHORT)
+//      .apply { anchorView = views.window as View }
       .show()
   }
 

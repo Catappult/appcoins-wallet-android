@@ -7,6 +7,7 @@ import com.asfoundation.wallet.analytics.AnalyticsSetup
 import com.asfoundation.wallet.base.*
 import com.asfoundation.wallet.promotions.PromotionsInteractor
 import com.asfoundation.wallet.promotions.model.PromotionsModel
+import com.asfoundation.wallet.promotions.model.VipReferralInfo
 import com.asfoundation.wallet.promotions.ui.list.PromotionClick
 import com.asfoundation.wallet.promotions.usecases.GetPromotionsUseCase
 import com.asfoundation.wallet.promotions.usecases.SetSeenPromotionsUseCase
@@ -48,6 +49,7 @@ class PromotionsViewModel @Inject constructor(
 ) :
   BaseViewModel<PromotionsState, PromotionsSideEffect>(initialState()) {
 
+  var vipReferral: VipReferralInfo? = null
 
   companion object {
     const val DETAILS_URL_EXTRA = "DETAILS_URL_EXTRA"
@@ -108,13 +110,14 @@ class PromotionsViewModel @Inject constructor(
   }
 
   fun vipReferralClicked() {
-    if (true) {  //TODO
+    val vipReferral = state.promotionsModelAsync()?.vipReferralInfo
+    vipReferral?.let {
       sendSideEffect {
         PromotionsSideEffect.NavigateToVipReferral(
-          "5",
-          "123456789",
-          "9.51",
-          "10"
+          it.vipBonus,
+          it.vipCode,
+          it.totalEarned,
+          it.numberReferrals
         )
       }
     }

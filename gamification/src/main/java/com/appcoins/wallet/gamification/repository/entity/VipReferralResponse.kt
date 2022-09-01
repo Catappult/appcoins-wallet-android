@@ -3,10 +3,10 @@ package com.appcoins.wallet.gamification.repository.entity
 import com.google.gson.annotations.SerializedName
 
 data class VipReferralResponse(
-  val code: String?,
+  @SerializedName("code") val code: String?,
   @SerializedName("earned_usd_amount") val earnedUsdAmount: String?,
-  val referrals: String?,
-  val active: Boolean?,
+  @SerializedName("referrals") val referrals: String?,
+  @SerializedName("active") val active: Boolean?,
   @SerializedName("revenue_share") val vipBonus: String?
 ) {
 
