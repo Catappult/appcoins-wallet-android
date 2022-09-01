@@ -5,8 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/bottom_nav_top_up_blue"
-    android:paddingTop="@dimen/big_margin"
     android:paddingStart="@dimen/big_margin"
+    android:paddingTop="@dimen/big_margin"
     android:visibility="gone"
     tools:visibility="visible"
     >
@@ -14,17 +14,17 @@
   <TextView
       android:id="@+id/current_level_bonus"
       style="@style/TextS"
-      android:fontFamily="@font/roboto_bolt"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_marginTop="@dimen/big_margin"
       android:background="@drawable/oval_vip_background"
+      android:fontFamily="@font/roboto_bolt"
       android:maxLines="1"
       android:paddingHorizontal="12dp"
       android:paddingVertical="5dp"
-      tools:text="20% Bonus"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent"
+      tools:text="20% Bonus"
       />
 
   <ImageView
@@ -32,8 +32,8 @@
       android:layout_width="230dp"
       android:layout_height="230dp"
       android:layout_marginStart="@dimen/large_margin"
-      android:layout_marginEnd="-88dp"
       android:layout_marginTop="@dimen/half_large_margin"
+      android:layout_marginEnd="-88dp"
       android:layout_marginBottom="-30dp"
       android:adjustViewBounds="true"
       android:cropToPadding="true"
@@ -50,9 +50,9 @@
       android:layout_gravity="center"
       app:layout_constraintStart_toStartOf="@id/current_level_image"
       app:layout_constraintTop_toTopOf="@id/current_level_image"
+      app:lottie_autoPlay="true"
       app:lottie_enableMergePathsForKitKatAndAbove="true"
       app:lottie_rawRes="@raw/astronaut_animation"
-      app:lottie_autoPlay="true"
       app:lottie_repeatCount="1"
       />
 
@@ -62,14 +62,14 @@
       android:layout_width="200dp"
       android:layout_height="wrap_content"
       android:layout_marginTop="8dp"
-      tools:text="You are on Mars"
       android:textColor="@color/white"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toBottomOf="@id/current_level_bonus"
+      tools:text="You are on Mars"
       />
 
   <androidx.appcompat.widget.AppCompatTextView
-    android:id="@+id/current_level_subtitle"
+      android:id="@+id/current_level_subtitle"
       style="@style/TextS"
       android:layout_width="200dp"
       android:layout_height="wrap_content"
@@ -79,4 +79,20 @@
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toBottomOf="@id/current_level_title"
       />
+
+  <include
+      android:id="@+id/vip_referral_bt"
+      layout="@layout/button_vip_referral"
+      android:layout_width="match_parent"
+      android:layout_height="160dp"
+      android:layout_marginTop="-22dp"
+      android:layout_marginEnd="@dimen/big_margin"
+      android:visibility="gone"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/astronaut_animation"
+      app:layout_constraintVertical_bias="0.0"
+      />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -87,15 +87,4 @@
       app:layout_constraintTop_toBottomOf="@id/current_level_progress_bar"
       />
 
-  <include
-      android:id="@+id/vip_referral_bt"
-      layout="@layout/button_vip_referral"
-      android:layout_width="match_parent"
-      android:layout_height="76dp"
-      android:visibility="visible"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@+id/percentage_left"
-      />
-
 </androidx.constraintlayout.widget.ConstraintLayout>

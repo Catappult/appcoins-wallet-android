@@ -281,4 +281,12 @@ class BdsPromotionsRepository @Inject constructor(private val api: GamificationA
         throwable is UnknownHostException
   }
 
+  override fun getVipReferral(wallet: String): Observable<VipReferralResponse> {
+    return api.getVipReferral(wallet)
+      .toObservable()
+      .onErrorReturn {
+        VipReferralResponse.invalidReferral
+      }
+  }
+
 }

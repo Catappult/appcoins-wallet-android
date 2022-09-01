@@ -16,7 +16,8 @@ class PromotionsMapper @Inject constructor(private val gamificationMapper: Gamif
     userStats: UserStats,
     levels: Levels,
     wallet: Wallet,
-    vouchersListModel: VoucherListModel
+    vouchersListModel: VoucherListModel,
+    vipReferralResponse: VipReferralResponse
   ): PromotionsModel {
     var gamificationAvailable = false
     var referralAvailable = false
@@ -72,7 +73,9 @@ class PromotionsMapper @Inject constructor(private val gamificationMapper: Gamif
     return PromotionsModel(
       promotions, vouchers, perks, maxBonus, wallet,
       map(userStats.walletOrigin),
-      map(userStats.error), levels.fromCache && userStats.fromCache
+      map(userStats.error),
+      levels.fromCache && userStats.fromCache,
+      map(vipReferralResponse)
     )
   }
 
@@ -92,6 +95,17 @@ class PromotionsMapper @Inject constructor(private val gamificationMapper: Gamif
       Status.NO_NETWORK -> PromotionsModel.Status.NO_NETWORK
       Status.UNKNOWN_ERROR -> PromotionsModel.Status.UNKNOWN_ERROR
     }
+  }
+
+  private fun map(vipReferralResponse: VipReferralResponse): VipReferralInfo?{
+    return if (vipReferralResponse.isValid()) VipReferralInfo(
+        vipReferralResponse.vipBonus ?: "",
+        vipReferralResponse.code ?: "",
+        vipReferralResponse.earnedUsdAmount ?: "",
+        vipReferralResponse.referrals ?: ""
+      )
+    else
+      null
   }
 
   private fun mapToGamificationLinkItem(

@@ -51,4 +51,10 @@ class GamificationHeaderBindingAdapter(
     regularLevel?.percentageLeft
       ?: almostVipLevel?.percentageLeft
       ?: vipLevelHeader?.percentageLeft
+
+  val vipReferralButton =
+    if (regularLevel == null && almostVipLevel == null) {
+      vipLevelHeader?.vipReferralBt ?: maxLevelHeader?.vipReferralBt
+    } else null
+
 }

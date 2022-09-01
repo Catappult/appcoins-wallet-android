@@ -11,7 +11,6 @@ import androidx.appcompat.widget.AppCompatTextView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.fragment.NavHostFragment
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.appcoins.wallet.gamification.repository.GamificationStats
 import com.appcoins.wallet.gamification.repository.entity.GamificationStatus
@@ -21,6 +20,7 @@ import com.asfoundation.wallet.base.Async
 import com.asfoundation.wallet.base.SingleStateFragment
 import com.asfoundation.wallet.promotions.model.GamificationItem
 import com.asfoundation.wallet.promotions.model.PromotionsModel
+import com.asfoundation.wallet.promotions.model.VipReferralInfo
 import com.asfoundation.wallet.promotions.ui.list.PromotionClick
 import com.asfoundation.wallet.promotions.ui.list.PromotionsController
 import com.asfoundation.wallet.ui.gamification.GamificationMapper
@@ -144,7 +144,8 @@ class PromotionsFragment : BasePageViewFragment(),
           setPromotions(
             asyncPromotionsModel(),
             asyncPromotionsModel.previousValue,
-            it
+            it,
+            asyncPromotionsModel.value?.vipReferralInfo
           )
         }
       }
@@ -154,7 +155,8 @@ class PromotionsFragment : BasePageViewFragment(),
   private fun setPromotions(
     promotionsModel: PromotionsModel,
     previousModel: PromotionsModel?,
-    gamificationStats: GamificationStats
+    gamificationStats: GamificationStats,
+    vipReferralInfo: VipReferralInfo?
   ) {
     hideLoading()
     if (promotionsModel.hasError() && !promotionsModel.fromCache) {
@@ -167,7 +169,7 @@ class PromotionsFragment : BasePageViewFragment(),
           // In case of error that is not "no network", this screen will be shown. This was already
           // like this. I think a general error screen was implemented with vouchers, so on merge
           // we should check this out.
-          showNoPromotionsScreen(promotionsModel, gamificationStats)
+          showNoPromotionsScreen(promotionsModel, gamificationStats, vipReferralInfo)
         }
       }
     } else if (promotionsModel.walletOrigin == PromotionsModel.WalletOrigin.UNKNOWN) {
@@ -176,19 +178,30 @@ class PromotionsFragment : BasePageViewFragment(),
       }
     } else {
       if (promotionsModel.perks.isEmpty()) {
-        showNoPromotionsScreen(promotionsModel, gamificationStats)
+        showNoPromotionsScreen(promotionsModel, gamificationStats, vipReferralInfo)
       } else {
-        showPromotions(promotionsModel, gamificationStats)
+        showPromotions(promotionsModel, gamificationStats, vipReferralInfo)
       }
     }
   }
 
+  private fun setVipReferral(
+    vipReferralInfo: VipReferralInfo?,
+    gamificationHeaderLayout: GamificationHeaderBindingAdapter
+  ) {
+    gamificationHeaderLayout.vipReferralButton?.root?.visibility = if (vipReferralInfo != null)
+      View.VISIBLE
+    else
+      View.GONE
+  }
+
   private fun showPromotions(
     promotionsModel: PromotionsModel,
-    gamificationStats: GamificationStats
+    gamificationStats: GamificationStats,
+    vipReferralInfo: VipReferralInfo?
   ) {
     promotionsController.setData(promotionsModel)
-    showPromotionsHeader(promotionsModel, gamificationStats, hasPerksAvailable = true)
+    showPromotionsHeader(promotionsModel, gamificationStats, hasPerksAvailable = true, vipReferralInfo)
     views.rvPromotions.visibility = View.VISIBLE
     views.noNetwork.root.visibility = View.GONE
     views.lockedPromotions.root.visibility = View.GONE
@@ -198,7 +211,8 @@ class PromotionsFragment : BasePageViewFragment(),
   private fun showPromotionsHeader(
     promotionsModel: PromotionsModel,
     gamificationStats: GamificationStats,
-    hasPerksAvailable: Boolean
+    hasPerksAvailable: Boolean,
+    vipReferralInfo: VipReferralInfo?
   ) {
     views.currentLevelHeader.root.visibility = View.VISIBLE
 
@@ -210,7 +224,7 @@ class PromotionsFragment : BasePageViewFragment(),
     gamificationHeaderLayout.type?.root?.setOnClickListener {
       viewModel.promotionClicked(PromotionClick(gamificationHeaderItem.id))
     }
-    views.currentLevelHeader.vipReferralBt.root.setOnClickListener {
+    gamificationHeaderLayout.vipReferralButton?.root?.setOnClickListener {
       viewModel.vipReferralClicked()
     }
 
@@ -224,6 +238,7 @@ class PromotionsFragment : BasePageViewFragment(),
       views.promotionsListTitleLayout.root.visibility =
         View.GONE
     }
+    setVipReferral(vipReferralInfo, gamificationHeaderLayout)
   }
 
   private fun getGamificationHeaderBinding(gamificationHeaderItem: GamificationItem): GamificationHeaderBindingAdapter {
@@ -367,9 +382,10 @@ class PromotionsFragment : BasePageViewFragment(),
 
   private fun showNoPromotionsScreen(
     promotionsModel: PromotionsModel,
-    gamificationStats: GamificationStats
+    gamificationStats: GamificationStats,
+    vipReferralInfo: VipReferralInfo?
   ) {
-    showPromotionsHeader(promotionsModel, gamificationStats, hasPerksAvailable = false)
+    showPromotionsHeader(promotionsModel, gamificationStats, hasPerksAvailable = false, vipReferralInfo)
     views.noNetwork.root.visibility = View.GONE
     views.noNetwork.retryAnimation.visibility = View.GONE
     views.noPromotions.root.visibility = View.VISIBLE

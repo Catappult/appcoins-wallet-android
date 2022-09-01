@@ -3,6 +3,7 @@ package com.asfoundation.wallet.promotions.usecases
 import com.appcoins.wallet.gamification.repository.Levels
 import com.appcoins.wallet.gamification.repository.PromotionsRepository
 import com.appcoins.wallet.gamification.repository.UserStats
+import com.appcoins.wallet.gamification.repository.entity.VipReferralResponse
 import com.asfoundation.wallet.gamification.ObserveLevelsUseCase
 import com.asfoundation.wallet.promo_code.use_cases.GetCurrentPromoCodeUseCase
 import com.asfoundation.wallet.promotions.model.PromotionsMapper
@@ -27,9 +28,10 @@ class GetPromotionsUseCase @Inject constructor(
               .flatMapObservable {
                 Observable.zip(observeLevels(),
                     promotionsRepository.getUserStats(it.address, promoCode.code),
-                    { levels: Levels, userStatsResponse: UserStats ->
+                    promotionsRepository.getVipReferral(it.address),
+                    { levels: Levels, userStatsResponse: UserStats, vipReferralResponse: VipReferralResponse ->
                       promotionsMapper.mapToPromotionsModel(userStatsResponse, levels, it,
-                          getMockedVouchers())
+                          getMockedVouchers(), vipReferralResponse)
                     })
               }
         }

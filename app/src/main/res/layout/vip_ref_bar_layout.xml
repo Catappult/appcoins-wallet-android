@@ -10,7 +10,7 @@
       android:id="@+id/top_bar"
       android:layout_width="match_parent"
       android:layout_height="64dp"
-      android:background="@color/navy_blue"
+      android:background="@color/promotions_vip_top_blue"
       android:gravity="center_vertical"
       android:orientation="horizontal"
       app:layout_constraintEnd_toEndOf="parent"

@@ -2,6 +2,7 @@ package com.appcoins.wallet.gamification.repository
 
 import com.appcoins.wallet.gamification.GamificationContext
 import com.appcoins.wallet.gamification.repository.entity.ReferralResponse
+import com.appcoins.wallet.gamification.repository.entity.VipReferralResponse
 import com.appcoins.wallet.gamification.repository.entity.WalletOrigin
 import io.reactivex.Observable
 import io.reactivex.Single
@@ -34,4 +35,6 @@ interface PromotionsRepository {
   fun getReferralUserStatus(wallet: String, promoCodeString: String?): Single<ReferralResponse>
 
   fun getReferralInfo(): Single<ReferralResponse>
+
+  fun getVipReferral(wallet: String): Observable<VipReferralResponse>
 }
