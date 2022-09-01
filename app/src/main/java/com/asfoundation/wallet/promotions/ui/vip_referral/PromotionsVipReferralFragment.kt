@@ -116,7 +116,6 @@ class PromotionsVipReferralFragment: BasePageViewFragment() ,
     val clip = ClipData.newPlainText("Referral Code", promoReferral)
     clipboard?.setPrimaryClip(clip)
     Snackbar.make(views.window as View, R.string.copied, Snackbar.LENGTH_SHORT)
-//      .apply { anchorView = views.window as View }
       .show()
   }
 

@@ -3,6 +3,7 @@ package com.asfoundation.wallet.promotions.ui
 import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.net.Uri
+import android.os.Bundle
 import android.util.Log
 import androidx.core.app.ShareCompat
 import androidx.fragment.app.Fragment
@@ -11,13 +12,11 @@ import androidx.navigation.fragment.findNavController
 import com.asf.wallet.R
 import com.asfoundation.wallet.base.Navigator
 import com.asfoundation.wallet.base.navigate
+import com.asfoundation.wallet.promotions.ui.vip_referral.PromotionsVipReferralFragment
 import com.asfoundation.wallet.referrals.InviteFriendsActivity
 import com.asfoundation.wallet.ui.BaseActivity
 import com.asfoundation.wallet.ui.gamification.GamificationActivity
 import javax.inject.Inject
-import android.os.Bundle
-import com.asfoundation.wallet.promotions.ui.vip_referral.PromotionsVipReferralFragment
-import com.asfoundation.wallet.promotions.ui.vip_referral.PromotionsVipReferralFragmentDirections
 
 
 class PromotionsNavigator @Inject constructor(private val fragment: Fragment) : Navigator {
@@ -42,25 +41,12 @@ class PromotionsNavigator @Inject constructor(private val fragment: Fragment) : 
     numberReferrals: String,
     mainNavController: NavController
   ) {
-    //TODO remove
-//    fragment.findNavController().navigate(
-//      PromotionsFragmentDirections.actionNavigateToVipReferral(
-//        bonus,
-//        code,
-//        totalEarned,
-//        numberReferrals
-//      )
-//    )
     val bundle = Bundle()
     bundle.putString(PromotionsVipReferralFragment.BONUS_PERCENT, bonus)
     bundle.putString(PromotionsVipReferralFragment.PROMO_REFERRAL, code)
     bundle.putString(PromotionsVipReferralFragment.EARNED_VALUE, totalEarned)
     bundle.putString(PromotionsVipReferralFragment.EARNED_TOTAL, numberReferrals)
     mainNavController.navigate(R.id.action_navigate_to_vip_referral, bundle)
-
-//    mainNavController.navigate(R.id.action_navigate_to_info)
-
-//    navigate(fragment.findNavController(), PromotionsFragmentDirections.actionNavigateToInfo())
   }
 
   fun handleShare(link: String) {

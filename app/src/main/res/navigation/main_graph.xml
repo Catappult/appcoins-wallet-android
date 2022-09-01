@@ -53,7 +53,7 @@
       android:id="@+id/update_required_graph"
       app:graph="@navigation/update_required_graph" />
 
-  <!-- global action to display outside the nav_bar_fragment as fullscreen-->
+  <!-- global action to display outside the nav_bar_fragment, over the bottom nav bar-->
   <action
       android:id="@+id/action_navigate_to_vip_referral"
       app:destination="@id/promotions_vip_referral_fragment"

@@ -10,8 +10,10 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 
-data class PromotionsVipReferralState(val convertTotalAsync: Async<FiatValue> = Async.Uninitialized,
-                                      val shouldShowDefault: Boolean = false) : ViewState
+data class PromotionsVipReferralState(
+  val convertTotalAsync: Async<FiatValue> = Async.Uninitialized,
+  val shouldShowDefault: Boolean = false
+) : ViewState
 
 sealed class PromotionsVipReferralSideEffect : SideEffect {
   object NavigateBack : PromotionsVipReferralSideEffect()
@@ -38,7 +40,5 @@ class PromotionsVipReferralViewModel @Inject constructor(
         e.printStackTrace()
       }
   }
-
-//  fun successGotItClick() = sendSideEffect { PromotionsVipReferralSideEffect.NavigateBack }
 
 }
