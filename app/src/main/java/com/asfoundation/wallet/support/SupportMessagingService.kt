@@ -29,7 +29,7 @@ class SupportMessagingService : FirebaseMessagingService() {
   }
 
   override fun onNewToken(token: String) =
-      intercomPushClient.sendTokenToIntercom(application, token)
+    intercomPushClient.sendTokenToIntercom(application, token)
 
   override fun onMessageReceived(remoteMessage: RemoteMessage) {
     notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
@@ -54,17 +54,17 @@ class SupportMessagingService : FirebaseMessagingService() {
       builder = NotificationCompat.Builder(context, CHANNEL_ID)
     }
     return builder.setContentTitle(context.getString(R.string.support_new_message_title))
-        .setAutoCancel(true)
-        .setContentIntent(okPendingIntent)
-        .addAction(0, context.getString(R.string.dismiss_button), dismissPendingIntent)
-        .setSmallIcon(R.drawable.ic_appcoins_notification_icon)
-        .setContentText(context.getString(R.string.support_new_message_button))
+      .setAutoCancel(true)
+      .setContentIntent(okPendingIntent)
+      .addAction(0, context.getString(R.string.dismiss_button), dismissPendingIntent)
+      .setSmallIcon(R.drawable.ic_appcoins_notification_icon)
+      .setContentText(context.getString(R.string.support_new_message_button))
   }
 
   private fun createNotificationClickIntent(context: Context): PendingIntent {
     val intent = SupportNotificationBroadcastReceiver.newIntent(context)
     intent.putExtra(ACTION_KEY, ACTION_CHECK_MESSAGES)
-    return PendingIntent.getBroadcast(
+    return PendingIntent.getActivity(
       context,
       0,
       intent,
@@ -78,7 +78,7 @@ class SupportMessagingService : FirebaseMessagingService() {
   private fun createNotificationDismissIntent(context: Context): PendingIntent {
     val intent = SupportNotificationBroadcastReceiver.newIntent(context)
     intent.putExtra(ACTION_KEY, ACTION_DISMISS)
-    return PendingIntent.getBroadcast(
+    return PendingIntent.getActivity(
       context,
       1,
       intent,

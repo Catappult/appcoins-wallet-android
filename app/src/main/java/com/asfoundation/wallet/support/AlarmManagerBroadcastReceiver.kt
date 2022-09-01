@@ -38,27 +38,29 @@ class AlarmManagerBroadcastReceiver : BroadcastReceiver() {
       val intent = Intent(context, AlarmManagerBroadcastReceiver::class.java)
 
       val pendingIntent =
-          PendingIntent.getBroadcast(
-            context,
-            0,
-            intent,
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
-              PendingIntent.FLAG_CANCEL_CURRENT or PendingIntent.FLAG_IMMUTABLE
-            else
-              PendingIntent.FLAG_CANCEL_CURRENT
-          )
+        PendingIntent.getBroadcast(
+          context,
+          0,
+          intent,
+          if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
+            PendingIntent.FLAG_CANCEL_CURRENT or PendingIntent.FLAG_IMMUTABLE
+          else
+            PendingIntent.FLAG_CANCEL_CURRENT
+        )
 
       val repeatInterval = TimeUnit.MINUTES.toMillis(15)
       val triggerTime: Long = SystemClock.elapsedRealtime() + repeatInterval
-      alarmManager.setInexactRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP, triggerTime,
-          repeatInterval, pendingIntent)
+      alarmManager.setInexactRepeating(
+        AlarmManager.ELAPSED_REALTIME_WAKEUP, triggerTime,
+        repeatInterval, pendingIntent
+      )
     }
 
   }
 
   override fun onReceive(context: Context, intent: Intent) {
     notificationManager =
-        context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+      context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
     if (supportInteractor.hasNewUnreadConversations()) {
       supportInteractor.updateUnreadConversations()
@@ -79,17 +81,17 @@ class AlarmManagerBroadcastReceiver : BroadcastReceiver() {
       builder = NotificationCompat.Builder(context, CHANNEL_ID)
     }
     return builder.setContentTitle(context.getString(R.string.support_new_message_title))
-        .setAutoCancel(true)
-        .setContentIntent(okPendingIntent)
-        .addAction(0, context.getString(R.string.dismiss_button), dismissPendingIntent)
-        .setSmallIcon(R.drawable.ic_appcoins_notification_icon)
-        .setContentText(context.getString(R.string.support_new_message_button))
+      .setAutoCancel(true)
+      .setContentIntent(okPendingIntent)
+      .addAction(0, context.getString(R.string.dismiss_button), dismissPendingIntent)
+      .setSmallIcon(R.drawable.ic_appcoins_notification_icon)
+      .setContentText(context.getString(R.string.support_new_message_button))
   }
 
   private fun createNotificationClickIntent(context: Context): PendingIntent {
     val intent = SupportNotificationBroadcastReceiver.newIntent(context)
     intent.putExtra(ACTION_KEY, ACTION_CHECK_MESSAGES)
-    return PendingIntent.getBroadcast(
+    return PendingIntent.getActivity(
       context,
       0,
       intent,
@@ -103,7 +105,7 @@ class AlarmManagerBroadcastReceiver : BroadcastReceiver() {
   private fun createNotificationDismissIntent(context: Context): PendingIntent {
     val intent = SupportNotificationBroadcastReceiver.newIntent(context)
     intent.putExtra(ACTION_KEY, ACTION_DISMISS)
-    return PendingIntent.getBroadcast(
+    return PendingIntent.getActivity(
       context,
       1,
       intent,
