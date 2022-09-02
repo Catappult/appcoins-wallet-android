@@ -11,7 +11,7 @@ data class PromotionsModel(
   val walletOrigin: WalletOrigin,
   val error: Status? = null,
   val fromCache: Boolean = false,
-  val vipReferralInfo: VipReferralInfo? /*= null TODO*/
+  val vipReferralInfo: VipReferralInfo?
 ) {
 
   fun hasError() = error != null
