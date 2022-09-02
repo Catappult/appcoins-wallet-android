@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.di.api.microservices
 
+import cm.aptoide.skills.api.TopUpApi
 import com.appcoins.wallet.bdsbilling.repository.RemoteRepository
 import com.appcoins.wallet.billing.adyen.AdyenPaymentRepository
 import com.appcoins.wallet.billing.skills.SkillsPaymentRepository
@@ -130,5 +131,13 @@ class BrokerApiModule {
     @BrokerDefaultRetrofit retrofit: Retrofit
   ): BackupRepository.BackupEmailApi {
     return retrofit.create(BackupRepository.BackupEmailApi::class.java)
+  }
+
+  @Singleton
+  @Provides
+  fun providesTopUpApi(
+          @BrokerDefaultRetrofit retrofit: Retrofit
+  ): TopUpApi {
+    return retrofit.create(TopUpApi::class.java)
   }
 }
