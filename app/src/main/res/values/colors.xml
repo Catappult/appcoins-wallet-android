@@ -165,6 +165,12 @@
   <color name="promotions_future_text_color">#4A4A4A</color>
   <color name="vouchers_card_bottom_color">#002b4b</color>
   <color name="promotions_dark_text">#192025</color>
+  <color name="promotions_vip_top_blue">#111B39</color>
+  <color name="promotions_vip_title">#00111D</color>
+  <color name="promotions_vip_desc">#4A4A4A</color>
+  <color name="promotions_vip_grey">#F5F5F5</color>
+  <color name="promotions_vip_orange">#EFA01F</color>
+  <color name="promotions_vip_transparent">#88000000</color>
 
   <!-- Gamification -->
 

@@ -13,6 +13,35 @@
     <action
         android:id="@+id/action_navigate_to_info"
         app:destination="@id/promotions_info_dialog_fragment" />
+
+    <action
+        android:id="@+id/action_navigate_to_vip_referral"
+        app:destination="@id/promotions_vip_referral_fragment">
+
+      <argument
+          android:name="vip_bonus"
+          app:argType="string" />
+
+      <argument
+          android:name="vip_code"
+          app:argType="string" />
+
+      <argument
+          android:name="total_earned"
+          app:argType="string" />
+
+      <argument
+          android:name="number_referrals"
+          app:argType="string" />
+
+    </action>
+
+  </fragment>
+
+  <fragment
+      android:id="@+id/promotions_vip_referral_fragment"
+      android:name="com.asfoundation.wallet.promotions.ui.vip_referral.PromotionsVipReferralFragment"
+      tools:layout="@layout/fragment_vip_referral">
   </fragment>
 
   <dialog

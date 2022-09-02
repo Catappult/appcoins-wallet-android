@@ -13,7 +13,7 @@
         android:id="@+id/action_navigate_to_nav_bar_graph"
         app:destination="@id/nav_bar_fragment"
         app:popUpTo="@+id/splash_extender_fragment"
-        app:popUpToInclusive="true"/>
+        app:popUpToInclusive="true" />
     <action
         android:id="@+id/action_navigate_to_onboarding_graph"
         app:destination="@id/onboarding_graph"
@@ -34,7 +34,7 @@
   <fragment
       android:id="@+id/nav_bar_fragment"
       android:name="com.asfoundation.wallet.main.nav_bar.NavBarFragment"
-      tools:layout="@layout/nav_bar_fragment"/>
+      tools:layout="@layout/nav_bar_fragment" />
 
   <activity
       android:id="@+id/authentication_prompt_activity"
@@ -52,5 +52,32 @@
   <include
       android:id="@+id/update_required_graph"
       app:graph="@navigation/update_required_graph" />
+
+  <!-- global action to display outside the nav_bar_fragment, over the bottom nav bar-->
+  <action
+      android:id="@+id/action_navigate_to_vip_referral"
+      app:destination="@id/promotions_vip_referral_fragment"
+      app:enterAnim="@anim/fragment_fade_in_animation"
+      app:exitAnim="@anim/fragment_fade_out_animation">
+    <argument
+        android:name="vip_bonus"
+        app:argType="string" />
+    <argument
+        android:name="vip_code"
+        app:argType="string" />
+    <argument
+        android:name="total_earned"
+        app:argType="string" />
+    <argument
+        android:name="number_referrals"
+        app:argType="string" />
+  </action>
+
+  <fragment
+      android:id="@+id/promotions_vip_referral_fragment"
+      android:name="com.asfoundation.wallet.promotions.ui.vip_referral.PromotionsVipReferralFragment"
+      tools:layout="@layout/fragment_vip_referral">
+
+  </fragment>
 
 </navigation>
