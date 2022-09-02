@@ -98,11 +98,11 @@ class PromotionsMapper @Inject constructor(private val gamificationMapper: Gamif
   }
 
   private fun map(vipReferralResponse: VipReferralResponse): VipReferralInfo?{
-    return if (vipReferralResponse.isValid()) VipReferralInfo(
-        vipReferralResponse.vipBonus ?: "",
+    return if (vipReferralResponse.active) VipReferralInfo(
+        vipReferralResponse.vipBonus,
         vipReferralResponse.code,
-        vipReferralResponse.earnedUsdAmount ?: "",
-        vipReferralResponse.referrals ?: ""
+        vipReferralResponse.earnedUsdAmount,
+        vipReferralResponse.referrals
       )
     else
       null
