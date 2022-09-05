@@ -1,12 +1,16 @@
 package com.asfoundation.wallet.onboarding
 
+import androidx.lifecycle.viewModelScope
+import com.asfoundation.wallet.app_start.AppStartUseCase
+import com.asfoundation.wallet.app_start.StartMode
 import com.asfoundation.wallet.base.BaseViewModel
 import com.asfoundation.wallet.base.RxSchedulers
 import com.asfoundation.wallet.base.SideEffect
 import com.asfoundation.wallet.base.ViewState
 import com.asfoundation.wallet.onboarding.use_cases.HasWalletUseCase
-import com.asfoundation.wallet.onboarding.use_cases.IsOnboardingFromIapUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 sealed class OnboardingSideEffect : SideEffect {
@@ -22,7 +26,7 @@ data class OnboardingState(val pageContent: OnboardingContent = OnboardingConten
 class OnboardingViewModel @Inject constructor(
   private val hasWalletUseCase: HasWalletUseCase,
   private val rxSchedulers: RxSchedulers,
-  private val isOnboardingFromIapUseCase: IsOnboardingFromIapUseCase
+  appStartUseCase: AppStartUseCase
 ) :
   BaseViewModel<OnboardingState, OnboardingSideEffect>(initialState()) {
 
@@ -35,33 +39,27 @@ class OnboardingViewModel @Inject constructor(
   var rootPage = OnboardingContent.EMPTY
 
   init {
-    val fromIap = isOnboardingFromIapUseCase()
-    rootPage = when (fromIap) {
-      true -> OnboardingContent.EMPTY
-      false -> OnboardingContent.WELCOME
-    }
-    checkWallets(fromIap)
-  }
-
-  private fun checkWallets(fromIap: Boolean) {
-    hasWalletUseCase()
-      .observeOn(rxSchedulers.main)
-      .doOnSuccess {
-        if (!it) {
-          rootPage = OnboardingContent.WELCOME
-          if (fromIap) {
-            sendSideEffect {
-              OnboardingSideEffect.NavigateToWalletCreationAnimation
+    viewModelScope.launch {
+      val mode = appStartUseCase.startModes.first()
+      hasWalletUseCase()
+        .observeOn(rxSchedulers.main)
+        .doOnSuccess {
+          if (!it) {
+            rootPage = OnboardingContent.WELCOME
+            if (mode is StartMode.FirstUtm) {
+              sendSideEffect {
+                OnboardingSideEffect.NavigateToWalletCreationAnimation
+              }
+            } else {
+              setState { copy(pageContent = OnboardingContent.WELCOME) }
             }
           } else {
-            setState { copy(pageContent = OnboardingContent.WELCOME) }
+            rootPage = OnboardingContent.VALUES
+            setState { copy(pageContent = OnboardingContent.VALUES) }
           }
-        } else {
-          rootPage = OnboardingContent.VALUES
-          setState { copy(pageContent = OnboardingContent.VALUES) }
         }
-      }
-      .scopedSubscribe { it.printStackTrace() }
+        .scopedSubscribe { it.printStackTrace() }
+    }
   }
 
   fun handleBackButtonClick() = state.pageContent.run {

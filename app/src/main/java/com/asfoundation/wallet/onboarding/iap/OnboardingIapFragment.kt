@@ -77,11 +77,9 @@ class OnboardingIapFragment : BasePageViewFragment(),
 
   override fun onSideEffect(sideEffect: OnboardingIapSideEffect) {
     when (sideEffect) {
-      OnboardingIapSideEffect.NavigateBackToGame -> navigator.navigateBackToGame()
+      is OnboardingIapSideEffect.NavigateBackToGame -> navigator.navigateBackToGame(sideEffect.appPackageName)
       OnboardingIapSideEffect.NavigateToTermsConditions -> navigator.navigateToTermsConditionsBottomSheet()
-      is OnboardingIapSideEffect.LoadPackageNameIcon -> sideEffect.appPackageName?.let {
-        loadPackageNameIcon(it)
-      }
+      is OnboardingIapSideEffect.LoadPackageNameIcon -> loadPackageNameIcon(sideEffect.appPackageName)
     }
   }
 
