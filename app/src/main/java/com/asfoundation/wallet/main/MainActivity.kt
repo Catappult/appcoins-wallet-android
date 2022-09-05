@@ -79,7 +79,6 @@ class MainActivity : AppCompatActivity(),
       .getBoolean("isFirstRun", true)
     if (isFirstRun) {
       firstInstallAnalytics.sendFirstInstallInfo()
-      ApkOriginVerification(this)
       getSharedPreferences("PREFERENCE", 0)
         .edit()
         .putBoolean("isFirstRun", false)

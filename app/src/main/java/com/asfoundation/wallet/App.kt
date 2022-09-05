@@ -15,9 +15,12 @@ import com.asf.wallet.BuildConfig
 import com.asfoundation.wallet.analytics.IndicativeAnalytics
 import com.asfoundation.wallet.analytics.RakamAnalytics
 import com.asfoundation.wallet.analytics.SentryAnalytics
+import com.asfoundation.wallet.app_start.AppStartProbe
 import com.asfoundation.wallet.app_start.AppStartUseCase
+import com.asfoundation.wallet.app_start.StartMode
 import com.asfoundation.wallet.identification.IdsRepository
 import com.asfoundation.wallet.logging.FlurryReceiver
+import com.asfoundation.wallet.main.appsflyer.ApkOriginVerification
 import com.asfoundation.wallet.repository.PreferencesRepositoryType
 import com.asfoundation.wallet.support.AlarmManagerBroadcastReceiver
 import com.asfoundation.wallet.ui.iab.AppcoinsOperationsDataSaver
@@ -32,7 +35,6 @@ import io.reactivex.plugins.RxJavaPlugins
 import io.reactivex.schedulers.Schedulers
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import org.bouncycastle.jce.provider.BouncyCastleProvider
 import java.security.Provider
@@ -45,6 +47,9 @@ class App : MultiDexApplication(), BillingDependenciesProvider {
 
   @Inject
   lateinit var appStartUseCase: AppStartUseCase
+
+  @Inject
+  lateinit var appStartProbe: AppStartProbe
 
   @Inject
   lateinit var inAppPurchaseInteractor: InAppPurchaseInteractor
@@ -118,9 +123,9 @@ class App : MultiDexApplication(), BillingDependenciesProvider {
     initializeWalletId()
     appStartUseCase.registerAppStart()
     MainScope().launch {
-      appStartUseCase.startModes
-        .onEach { println("Boom $it") }
-        .first()
+      val mode = appStartUseCase.startModes.first()
+      appStartProbe(mode)
+      if (mode != StartMode.Subsequent) ApkOriginVerification(applicationContext)
     }
   }
 
