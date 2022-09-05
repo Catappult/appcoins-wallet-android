@@ -308,12 +308,8 @@ class SkillsFragment : Fragment(), PaymentView {
     binding.payTicketLayout.payTicketHeader.appcCreditsIcon?.visibility = View.GONE
     binding.payTicketLayout.payTicketHeader.paymentTitle?.visibility  = View.GONE
     binding.payTicketLayout.payTicketHeader.paymentBody?.visibility = View.GONE
-    //binding.payTicketLayout.payTicketHeader.fiatPriceSkeleton.visibility = View.GONE
-    binding.payTicketLayout.payTicketHeader.fiatPrice.text = "0.00"
     binding.payTicketLayout.payTicketHeader.fiatPrice.visibility = View.GONE
-    binding.payTicketLayout.payTicketHeader.appcPrice.text = "0"
     binding.payTicketLayout.payTicketHeader.appcPrice.visibility = View.GONE
-    //binding.payTicketLayout.payTicketHeader.appcPriceSkeleton.visibility = View.GONE
     binding.payTicketLayout.dialogBuyButtonsPaymentMethods.buyButton.text = getString(R.string.ok)
   }
 
