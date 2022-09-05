@@ -88,4 +88,8 @@ interface AppStartRepository {
   suspend fun getFirstInstallTime(): Long
   suspend fun getLastUpdateTime(): Long
   suspend fun getReferrerUrl(): String?
+
+  companion object {
+    internal const val RUNS_COUNT = "AppStartRepository.RunsCount"
+  }
 }
