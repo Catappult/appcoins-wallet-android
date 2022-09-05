@@ -84,6 +84,10 @@ class SkillsFragment : Fragment(), PaymentView {
         .subscribe { postbackUserData(it.first, it.second) })
 
     showPurchaseTicketLayout()
+
+    binding.payTicketLayout.dialogBuyButtonsPaymentMethods.cancelButton.setOnClickListener {
+      viewModel.cancelPayment()
+    }
   }
 
   private fun showPurchaseTicketLayout() {
@@ -94,13 +98,6 @@ class SkillsFragment : Fragment(), PaymentView {
     binding.payTicketLayout.root.visibility = View.VISIBLE
   }
 
-  private fun setupPurchaseTicketLayout(
-      eSkillsPaymentData: EskillsPaymentData) {
-    setupQueueIdLayout()
-    setupPurchaseTicketButtons(eSkillsPaymentData)
-    setupAppNameAndIcon(eSkillsPaymentData.packageName)
-    updateHeaderInfo(eSkillsPaymentData)
-  }
 
   private fun setupQueueIdLayout() {
     binding.payTicketLayout.payTicketRoomDetails.openCardButton.setOnClickListener {
@@ -126,6 +123,37 @@ class SkillsFragment : Fragment(), PaymentView {
         }
         binding.payTicketLayout.payTicketRoomDetails.openCardButton.rotation = 0F
         binding.payTicketLayout.payTicketRoomDetails.roomCreateBody.visibility = View.GONE
+      }
+    }
+  }
+
+
+  private fun setupPurchaseTicketLayout(
+          eSkillsPaymentData: EskillsPaymentData) {
+    setupQueueIdLayout()
+    if (eSkillsPaymentData.environment == EskillsPaymentData.MatchEnvironment.SANDBOX){
+      setupSandboxTicketButtons(eSkillsPaymentData)
+    }
+    else{
+      updateHeaderInfo(eSkillsPaymentData)
+      setupPurchaseTicketButtons(eSkillsPaymentData)
+    }
+    setupAppNameAndIcon(eSkillsPaymentData.packageName)
+  }
+
+  private fun setupSandboxTicketButtons(eSkillsPaymentData: EskillsPaymentData){
+    if (false/*RootUtil.isDeviceRooted()*/) {
+      showRootError()
+    }
+    else {
+      hidePaymentRelatedText()
+      binding.payTicketLayout.dialogBuyButtonsPaymentMethods.buyButton.setOnClickListener {
+        val queueId = binding.payTicketLayout.payTicketRoomDetails.roomId.text.toString()
+        if (queueId.isNotBlank()) {
+          eSkillsPaymentData.queueId = QueueIdentifier(queueId.trim(), true)
+        }
+        binding.payTicketLayout.root.visibility = View.GONE
+        createAndPayTicket(eSkillsPaymentData)
       }
     }
   }
@@ -176,9 +204,6 @@ class SkillsFragment : Fragment(), PaymentView {
             }
           }
           .subscribe())
-        binding.payTicketLayout.dialogBuyButtonsPaymentMethods.cancelButton.setOnClickListener {
-          viewModel.cancelPayment()
-        }
     }
   }
 
@@ -277,6 +302,19 @@ class SkillsFragment : Fragment(), PaymentView {
       UserData.Status.COMPLETED -> postbackUserData(SkillsViewModel.RESULT_OK, userData)
       UserData.Status.FAILED -> showError(SkillsViewModel.RESULT_ERROR)
     }
+  }
+
+  private fun hidePaymentRelatedText() {
+    binding.payTicketLayout.payTicketHeader.appcCreditsIcon?.visibility = View.GONE
+    binding.payTicketLayout.payTicketHeader.paymentTitle?.visibility  = View.GONE
+    binding.payTicketLayout.payTicketHeader.paymentBody?.visibility = View.GONE
+    //binding.payTicketLayout.payTicketHeader.fiatPriceSkeleton.visibility = View.GONE
+    binding.payTicketLayout.payTicketHeader.fiatPrice.text = "0.00"
+    binding.payTicketLayout.payTicketHeader.fiatPrice.visibility = View.GONE
+    binding.payTicketLayout.payTicketHeader.appcPrice.text = "0"
+    binding.payTicketLayout.payTicketHeader.appcPrice.visibility = View.GONE
+    //binding.payTicketLayout.payTicketHeader.appcPriceSkeleton.visibility = View.GONE
+    binding.payTicketLayout.dialogBuyButtonsPaymentMethods.buyButton.text = getString(R.string.ok)
   }
 
   private fun showRegionNotSupportedError() {
