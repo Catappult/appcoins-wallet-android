@@ -142,7 +142,7 @@ class SkillsFragment : Fragment(), PaymentView {
   }
 
   private fun setupSandboxTicketButtons(eSkillsPaymentData: EskillsPaymentData){
-    if (false/*RootUtil.isDeviceRooted()*/) {
+    if (RootUtil.isDeviceRooted()) {
       showRootError()
     }
     else {
