@@ -15,6 +15,7 @@ import com.asf.wallet.BuildConfig
 import com.asfoundation.wallet.analytics.IndicativeAnalytics
 import com.asfoundation.wallet.analytics.RakamAnalytics
 import com.asfoundation.wallet.analytics.SentryAnalytics
+import com.asfoundation.wallet.app_start.AppStartUseCase
 import com.asfoundation.wallet.identification.IdsRepository
 import com.asfoundation.wallet.logging.FlurryReceiver
 import com.asfoundation.wallet.repository.PreferencesRepositoryType
@@ -29,6 +30,10 @@ import io.intercom.android.sdk.Intercom
 import io.reactivex.exceptions.UndeliverableException
 import io.reactivex.plugins.RxJavaPlugins
 import io.reactivex.schedulers.Schedulers
+import kotlinx.coroutines.MainScope
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.launch
 import org.bouncycastle.jce.provider.BouncyCastleProvider
 import java.security.Provider
 import java.security.Security
@@ -37,6 +42,9 @@ import javax.inject.Inject
 
 @HiltAndroidApp
 class App : MultiDexApplication(), BillingDependenciesProvider {
+
+  @Inject
+  lateinit var appStartUseCase: AppStartUseCase
 
   @Inject
   lateinit var inAppPurchaseInteractor: InAppPurchaseInteractor
@@ -108,6 +116,12 @@ class App : MultiDexApplication(), BillingDependenciesProvider {
     initiateSentry()
     setupBouncyCastle()
     initializeWalletId()
+    appStartUseCase.registerAppStart()
+    MainScope().launch {
+      appStartUseCase.startModes
+        .onEach { println("Boom $it") }
+        .first()
+    }
   }
 
   private fun initializeRakam() {

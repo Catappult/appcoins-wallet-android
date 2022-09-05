@@ -8,9 +8,11 @@ import com.android.installreferrer.api.InstallReferrerStateListener
 import com.asf.wallet.BuildConfig
 import com.asfoundation.wallet.app_start.AppStartRepository.Companion.RUNS_COUNT
 import dagger.hilt.android.qualifiers.ApplicationContext
+import it.czerwinski.android.hilt.annotations.BoundTo
 import javax.inject.Inject
 import kotlin.coroutines.suspendCoroutine
 
+@BoundTo(supertype = AppStartRepository::class)
 class AppStartRepositoryImpl @Inject constructor(
   @ApplicationContext val context: Context,
   private val packageManager: PackageManager,

@@ -1,13 +1,15 @@
 package com.asfoundation.wallet.app_start
 
+import com.asfoundation.wallet.di.IoDispatcher
+import dagger.Reusable
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.launch
 import java.net.URLDecoder
+import javax.inject.Inject
 
 sealed class StartMode {
   object First : StartMode()
@@ -21,9 +23,10 @@ sealed class StartMode {
   object Subsequent : StartMode()
 }
 
-class AppStartUseCase(
+@Reusable
+class AppStartUseCase @Inject constructor(
   private val repository: AppStartRepository,
-  ioDispatcher: CoroutineDispatcher = Dispatchers.IO
+  @IoDispatcher ioDispatcher: CoroutineDispatcher
 ) {
   private val scope = CoroutineScope(ioDispatcher)
 
