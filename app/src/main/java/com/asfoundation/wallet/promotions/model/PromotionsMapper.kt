@@ -21,12 +21,11 @@ class PromotionsMapper @Inject constructor(private val gamificationMapper: Gamif
   ): PromotionsModel {
     var gamificationAvailable = false
     var referralAvailable = false
-    var perksAvailable = false
     var maxBonus = getMaxBonus(levels)
     val promotions = mutableListOf<Promotion>()
     val perks = mutableListOf<PerkPromotion>()
     val vouchers = handleVouchers(vouchersListModel, maxBonus)
-    userStats.promotions.sortedByDescending { it.priority }
+    userStats.promotions.sortPerks()
       .forEach {
         when (it) {
           is GamificationResponse -> {
@@ -49,13 +48,16 @@ class PromotionsMapper @Inject constructor(private val gamificationMapper: Gamif
           }
           is GenericResponse -> {
             if (isPerk(it.linkedPromotionId)) {
-              perksAvailable = true
               when {
                 isFuturePromotion(it) -> perks.add(mapToFutureItem(it))
                 it.viewType == PromotionsInteractor.PROGRESS_VIEW_TYPE -> perks.add(
                   mapToProgressItem(it)
                 )
-                it.id == PromotionsInteractor.PROMO_CODE_PERK -> perks.add(mapToPromoCodeItem(it))
+                it.id == PromotionsInteractor.PROMO_CODE_PERK -> perks.add(
+                  mapToPromoCodeItem(
+                    it
+                  )
+                )
                 else -> perks.add(mapToDefaultItem(it))
               }
             }
@@ -97,13 +99,13 @@ class PromotionsMapper @Inject constructor(private val gamificationMapper: Gamif
     }
   }
 
-  private fun map(vipReferralResponse: VipReferralResponse): VipReferralInfo?{
+  private fun map(vipReferralResponse: VipReferralResponse): VipReferralInfo? {
     return if (vipReferralResponse.active) VipReferralInfo(
-        vipReferralResponse.vipBonus,
-        vipReferralResponse.code,
-        vipReferralResponse.earnedUsdAmount,
-        vipReferralResponse.referrals
-      )
+      vipReferralResponse.vipBonus,
+      vipReferralResponse.code,
+      vipReferralResponse.earnedUsdAmount,
+      vipReferralResponse.referrals
+    )
     else
       null
   }
@@ -241,4 +243,38 @@ class PromotionsMapper @Inject constructor(private val gamificationMapper: Gamif
 
   private fun isPerk(linkedPromotionId: String?): Boolean =
     linkedPromotionId != PromotionsInteractor.GAMIFICATION_ID
+
+  // sorting perks by: priority > type > start date/end date
+  private fun List<PromotionsResponse>.sortPerks(): List<PromotionsResponse> =
+    this.sortedWith { first, second ->
+      if (first.priority > second.priority) {
+        return@sortedWith -1
+      }
+      if (first.priority < second.priority) {
+        return@sortedWith 1
+      }
+      if (first is GenericResponse && second is GenericResponse) {
+        if (isFuturePromotion(first) && !isFuturePromotion(second)) {
+          return@sortedWith 1
+        } else if (!isFuturePromotion(first) && isFuturePromotion(second)) {
+          return@sortedWith -1
+        } else if (isFuturePromotion(first) && isFuturePromotion(second)) {
+          if (first.startDate ?: 0 > second.startDate ?: 0) {
+            return@sortedWith 1
+          }
+          if (first.startDate ?: 0 < second.startDate ?: 0) {
+            return@sortedWith -1
+          }
+        } else if (!isFuturePromotion(first) && !isFuturePromotion(second)) {
+          if (first.endDate > second.endDate) {
+            return@sortedWith 1
+          }
+          if (first.endDate < second.endDate) {
+            return@sortedWith -1
+          }
+        }
+      }
+      return@sortedWith 0
+    }
+
 }
