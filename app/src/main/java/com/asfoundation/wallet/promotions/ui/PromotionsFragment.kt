@@ -173,9 +173,7 @@ class PromotionsFragment : BasePageViewFragment(),
         }
       }
     } else if (promotionsModel.walletOrigin == PromotionsModel.WalletOrigin.UNKNOWN) {
-      if (!promotionsModel.fromCache) {
         showLockedPromotionsScreen()
-      }
     } else {
       if (promotionsModel.perks.isEmpty()) {
         showNoPromotionsScreen(promotionsModel, gamificationStats, vipReferralInfo)
