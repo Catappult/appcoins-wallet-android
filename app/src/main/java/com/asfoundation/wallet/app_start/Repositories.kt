@@ -19,12 +19,6 @@ class AppStartRepositoryImpl @Inject constructor(
   private val pref: SharedPreferences
 ) : AppStartRepository {
 
-  private val referrerClient: InstallReferrerClient by lazy {
-    InstallReferrerClient.newBuilder(
-      context
-    ).build()
-  }
-
   override suspend fun getRunCount(): Int = pref.getInt(RUNS_COUNT, 0)
 
   override suspend fun saveRunCount(count: Int) = pref.edit()
@@ -36,6 +30,18 @@ class AppStartRepositoryImpl @Inject constructor(
 
   override suspend fun getLastUpdateTime() =
     packageManager.getPackageInfo(BuildConfig.APPLICATION_ID, 0).lastUpdateTime
+}
+
+@BoundTo(supertype = FirstUtmRepository::class)
+class FirstUtmRepositoryImpl @Inject constructor(
+  @ApplicationContext val context: Context,
+) : FirstUtmRepository {
+
+  private val referrerClient: InstallReferrerClient by lazy {
+    InstallReferrerClient.newBuilder(
+      context
+    ).build()
+  }
 
   override suspend fun getReferrerUrl(): String? = suspendCoroutine { cont ->
     referrerClient.startConnection(object : InstallReferrerStateListener {
