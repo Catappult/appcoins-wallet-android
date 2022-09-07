@@ -10,7 +10,7 @@ import java.math.BigDecimal
 
 interface PromotionsRepository {
 
-  fun getGamificationStats(wallet: String, promoCodeString: String?): Observable<GamificationStats>
+  fun getGamificationStats(wallet: String, promoCodeString: String?): Observable<PromotionsGamificationStats>
 
   fun getGamificationLevel(wallet: String, promoCodeString: String?): Single<Int>
 

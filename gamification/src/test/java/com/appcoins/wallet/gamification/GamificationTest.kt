@@ -54,9 +54,9 @@ class GamificationTest {
     val testObserver = gamification.getUserStats(WALLET, null)
       .test()
     testObserver.assertResult(
-      GamificationStats(GamificationStats.Status.UNKNOWN_ERROR, fromCache = true),
-      GamificationStats(
-        GamificationStats.Status.OK, 1, BigDecimal.TEN, 2.2, BigDecimal.ONE,
+      PromotionsGamificationStats(PromotionsGamificationStats.Status.UNKNOWN_ERROR, fromCache = true),
+      PromotionsGamificationStats(
+        PromotionsGamificationStats.Status.OK, 1, BigDecimal.TEN, 2.2, BigDecimal.ONE,
         BigDecimal.ZERO, isActive = true, fromCache = false
       )
     )
@@ -79,12 +79,12 @@ class GamificationTest {
     val testObserver = gamification.getUserStats(WALLET, null)
       .test()
     testObserver.assertResult(
-      GamificationStats(
-        GamificationStats.Status.OK, 5, BigDecimal(60000.0), 15.0,
+      PromotionsGamificationStats(
+        PromotionsGamificationStats.Status.OK, 5, BigDecimal(60000.0), 15.0,
         BigDecimal(25000.0), BigDecimal(5000.0), isActive = true, fromCache = true
       ),
-      GamificationStats(
-        GamificationStats.Status.NO_NETWORK, GamificationStats.INVALID_LEVEL,
+      PromotionsGamificationStats(
+        PromotionsGamificationStats.Status.NO_NETWORK, PromotionsGamificationStats.INVALID_LEVEL,
         BigDecimal.ZERO, -1.0, BigDecimal.ZERO, BigDecimal.ZERO, false, fromCache = false
       )
     )
@@ -98,12 +98,12 @@ class GamificationTest {
     val testObserver = gamification.getUserStats(WALLET, null)
       .test()
     testObserver.assertResult(
-      GamificationStats(
-        GamificationStats.Status.UNKNOWN_ERROR, -1, BigDecimal.ZERO, -1.0,
+      PromotionsGamificationStats(
+        PromotionsGamificationStats.Status.UNKNOWN_ERROR, -1, BigDecimal.ZERO, -1.0,
         BigDecimal.ZERO, BigDecimal.ZERO, isActive = false, fromCache = true
       ),
-      GamificationStats(
-        GamificationStats.Status.NO_NETWORK, GamificationStats.INVALID_LEVEL,
+      PromotionsGamificationStats(
+        PromotionsGamificationStats.Status.NO_NETWORK, PromotionsGamificationStats.INVALID_LEVEL,
         BigDecimal.ZERO, -1.0, BigDecimal.ZERO, BigDecimal.ZERO, false, fromCache = false
       )
     )
@@ -200,7 +200,7 @@ class GamificationTest {
       Single.just(UserStatusResponse(emptyList(), WalletOrigin.PARTNER))
     val testObserver = gamification.getUserLevel(WALLET, null)
       .test()
-    testObserver.assertValue(GamificationStats.INVALID_LEVEL)
+    testObserver.assertValue(PromotionsGamificationStats.INVALID_LEVEL)
   }
 
   @Test
@@ -228,7 +228,7 @@ class GamificationTest {
     api.userStatusResponse = Single.error(UnknownHostException())
     val testObserver = gamification.getUserLevel(WALLET, null)
       .test()
-    testObserver.assertValue(GamificationStats.INVALID_LEVEL)
+    testObserver.assertValue(PromotionsGamificationStats.INVALID_LEVEL)
   }
 
   @Test
@@ -388,7 +388,7 @@ class GamificationTest {
         PromotionsResponse.Status.ACTIVE, true
       )
 
-    local.lastShownLevelResponse = Single.just(GamificationStats.INVALID_LEVEL)
+    local.lastShownLevelResponse = Single.just(PromotionsGamificationStats.INVALID_LEVEL)
     val test = gamification.hasNewLevel(
       WALLET, GamificationContext.SCREEN_MY_LEVEL,
       userStatsGamification.level

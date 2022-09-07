@@ -13,7 +13,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.NavHostFragment
 import by.kirich1409.viewbindingdelegate.viewBinding
-import com.appcoins.wallet.gamification.repository.GamificationStats
+import com.appcoins.wallet.gamification.repository.PromotionsGamificationStats
 import com.appcoins.wallet.gamification.repository.entity.GamificationStatus
 import com.asf.wallet.R
 import com.asf.wallet.databinding.FragmentPromotionsBinding
@@ -90,7 +90,7 @@ class PromotionsFragment : BasePageViewFragment(),
   }
 
   override fun onStateChanged(state: PromotionsState) {
-    setPromotionsModel(state.promotionsModelAsync, state.gamificationStatsAsync)
+    setPromotionsModel(state.promotionsModelAsync, state.promotionsGamificationStatsAsync)
   }
 
   override fun onSideEffect(sideEffect: PromotionsSideEffect) {
@@ -122,7 +122,7 @@ class PromotionsFragment : BasePageViewFragment(),
 
   private fun setPromotionsModel(
     asyncPromotionsModel: Async<PromotionsModel>,
-    asyncGamificationStats: Async<GamificationStats>
+    asyncPromotionsGamificationStats: Async<PromotionsGamificationStats>
   ) {
     when (asyncPromotionsModel) {
       Async.Uninitialized,
@@ -140,7 +140,7 @@ class PromotionsFragment : BasePageViewFragment(),
       // PromotionsModel has the errors mapped into the object itself, so expected errors will be
       // on success... In the future errors should just be thrown so they're handled with Async.Fail
       is Async.Success -> {
-        asyncGamificationStats()?.let {
+        asyncPromotionsGamificationStats()?.let {
           setPromotions(
             asyncPromotionsModel(),
             asyncPromotionsModel.previousValue,
@@ -155,7 +155,7 @@ class PromotionsFragment : BasePageViewFragment(),
   private fun setPromotions(
     promotionsModel: PromotionsModel,
     previousModel: PromotionsModel?,
-    gamificationStats: GamificationStats,
+    promotionsGamificationStats: PromotionsGamificationStats,
     vipReferralInfo: VipReferralInfo?
   ) {
     hideLoading()
@@ -169,7 +169,7 @@ class PromotionsFragment : BasePageViewFragment(),
           // In case of error that is not "no network", this screen will be shown. This was already
           // like this. I think a general error screen was implemented with vouchers, so on merge
           // we should check this out.
-          showNoPromotionsScreen(promotionsModel, gamificationStats, vipReferralInfo)
+          showNoPromotionsScreen(promotionsModel, promotionsGamificationStats, vipReferralInfo)
         }
       }
     } else if (promotionsModel.walletOrigin == PromotionsModel.WalletOrigin.UNKNOWN) {
@@ -178,9 +178,9 @@ class PromotionsFragment : BasePageViewFragment(),
       }
     } else {
       if (promotionsModel.perks.isEmpty()) {
-        showNoPromotionsScreen(promotionsModel, gamificationStats, vipReferralInfo)
+        showNoPromotionsScreen(promotionsModel, promotionsGamificationStats, vipReferralInfo)
       } else {
-        showPromotions(promotionsModel, gamificationStats, vipReferralInfo)
+        showPromotions(promotionsModel, promotionsGamificationStats, vipReferralInfo)
       }
     }
   }
@@ -203,11 +203,11 @@ class PromotionsFragment : BasePageViewFragment(),
 
   private fun showPromotions(
     promotionsModel: PromotionsModel,
-    gamificationStats: GamificationStats,
+    promotionsGamificationStats: PromotionsGamificationStats,
     vipReferralInfo: VipReferralInfo?
   ) {
     promotionsController.setData(promotionsModel)
-    showPromotionsHeader(promotionsModel, gamificationStats, hasPerksAvailable = true, vipReferralInfo)
+    showPromotionsHeader(promotionsModel, promotionsGamificationStats, hasPerksAvailable = true, vipReferralInfo)
     views.rvPromotions.visibility = View.VISIBLE
     views.noNetwork.root.visibility = View.GONE
     views.lockedPromotions.root.visibility = View.GONE
@@ -216,7 +216,7 @@ class PromotionsFragment : BasePageViewFragment(),
 
   private fun showPromotionsHeader(
     promotionsModel: PromotionsModel,
-    gamificationStats: GamificationStats,
+    promotionsGamificationStats: PromotionsGamificationStats,
     hasPerksAvailable: Boolean,
     vipReferralInfo: VipReferralInfo?
   ) {
@@ -236,7 +236,7 @@ class PromotionsFragment : BasePageViewFragment(),
 
     showGamificationHeaderColors(gamificationHeaderLayout, gamificationHeaderItem)
     showGamificationHeaderText(gamificationHeaderLayout, gamificationHeaderItem)
-    showGamificationHeaderProgress(gamificationHeaderLayout, gamificationStats)
+    showGamificationHeaderProgress(gamificationHeaderLayout, promotionsGamificationStats)
 
     if (hasPerksAvailable) {
       showPromotionsTitle()
@@ -362,11 +362,11 @@ class PromotionsFragment : BasePageViewFragment(),
 
   private fun showGamificationHeaderProgress(
     gamificationHeaderLayout: GamificationHeaderBindingAdapter,
-    gamificationStats: GamificationStats
+    promotionsGamificationStats: PromotionsGamificationStats
   ) {
     val progress = gamificationMapper.getProgressPercentage(
-      gamificationStats.totalSpend,
-      gamificationStats.nextLevelAmount
+      promotionsGamificationStats.totalSpend,
+      promotionsGamificationStats.nextLevelAmount
     )
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
       gamificationHeaderLayout.currentLevelProgressBar?.setProgress(progress.toInt(), true)
@@ -375,8 +375,8 @@ class PromotionsFragment : BasePageViewFragment(),
     }
     gamificationHeaderLayout.currentLevelProgressLeft?.text =
       gamificationMapper.validateAndGetProgressString(
-        gamificationStats.totalSpend,
-        gamificationStats.nextLevelAmount
+        promotionsGamificationStats.totalSpend,
+        promotionsGamificationStats.nextLevelAmount
       )
   }
 
@@ -388,10 +388,10 @@ class PromotionsFragment : BasePageViewFragment(),
 
   private fun showNoPromotionsScreen(
     promotionsModel: PromotionsModel,
-    gamificationStats: GamificationStats,
+    promotionsGamificationStats: PromotionsGamificationStats,
     vipReferralInfo: VipReferralInfo?
   ) {
-    showPromotionsHeader(promotionsModel, gamificationStats, hasPerksAvailable = false, vipReferralInfo)
+    showPromotionsHeader(promotionsModel, promotionsGamificationStats, hasPerksAvailable = false, vipReferralInfo)
     views.noNetwork.root.visibility = View.GONE
     views.noNetwork.retryAnimation.visibility = View.GONE
     views.noPromotions.root.visibility = View.VISIBLE

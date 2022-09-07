@@ -138,22 +138,6 @@ class GamificationMapper @Inject constructor(@ApplicationContext private val con
     }
   }
 
-  fun mapAlmostNextLevelUpPercentage(level: Int): Int {
-    // NOTE - These percentages were obtained considering reasonable values for which
-    // the user may need to make a few purchases / topups only to reach the next level
-    // with the actual value in AppCoins the user needs to spend doubling around every level (a bit
-    // less than double for later levels)
-    return when (level) {
-      0, 1, 2, 3 -> 80
-      4 -> 90
-      5 -> 93
-      6 -> 95
-      7 -> 96
-      8, 9 -> 95
-      else -> 98
-    }
-  }
-
   fun mapNotificationMaxLevelReached(): ReachedLevelInfo {
     // NOTE - this is specific to notification for reaching max level, since what should be
     // displayed in notification for max level is different than what is shown on promotions screen

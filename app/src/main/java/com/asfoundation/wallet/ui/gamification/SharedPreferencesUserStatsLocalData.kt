@@ -38,7 +38,7 @@ class SharedPreferencesUserStatsLocalData @Inject constructor(
     return Single.fromCallable {
       preferences.getInt(
         getKey(wallet, gamificationContext.toString()),
-        GamificationStats.INVALID_LEVEL
+        PromotionsGamificationStats.INVALID_LEVEL
       )
     }
   }
@@ -69,7 +69,7 @@ class SharedPreferencesUserStatsLocalData @Inject constructor(
   }
 
   override fun getGamificationLevel() =
-    preferences.getInt(GAMIFICATION_LEVEL, GamificationStats.INVALID_LEVEL)
+    preferences.getInt(GAMIFICATION_LEVEL, PromotionsGamificationStats.INVALID_LEVEL)
 
   private fun getKey(wallet: String, screen: String): String {
     return if (screen == GamificationContext.SCREEN_MY_LEVEL.toString()) {
