@@ -1103,6 +1103,9 @@
   <string name="onboarding_1st_body">Поверніться до гри, щоб завершити покупку.</string>
   <string name="onboarding_1st_back_to_game_button">Повернутися до гри</string>
   <string name="onboarding_1st_explore_wallet_button">Або перевірте Гаманець</string>
+  <string name="onboarding_1st_back_to_unknown_game_body">One of the games you\'ve got installed is AppCoins compatible! Do you want to open it?</string>
+  <string name="onboarding_1st_back_to_unknown_game_button">Go to the game</string>
+  <string name="onboarding_1st_explore_wallet_alternative_button">Explore the AppCoins Wallet</string>
   <!-- VIP Program -->
   <string name="vip_program_reached_notification_title">Ласкаво просимо до VIP-програми</string>
   <string name="vip_program_reached_notification_body">Тепер ви VIP-користувач із доступом до спеціальних акцій і пропозицій. Натисніть, щоб дізнатися більше!</string>
@@ -1130,4 +1133,6 @@
   <string name="vip_program_max_bonus_title">Насолоджуйтеся бонусом %s%% за кожну покупку</string>
   <string name="vip_program_max_bonus_body">Ви досягли меж сонячної системи.</string>
   <string name="vip_program_max_bonus_short">%s%% Бонус за кожну покупку.</string>
+  <string name="vip_program_referral_notification_title">VIP Referral Code Available!</string>
+  <string name="vip_program_referral_notification_body">Share your code with your community so you all earn while playing!</string>
 </resources>
