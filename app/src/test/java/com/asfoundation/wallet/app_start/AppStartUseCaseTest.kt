@@ -29,10 +29,11 @@ internal class AppStartUseCaseTest {
   @MethodSource("testDataProvider")
   fun `Listen before job started`(data: TestData) = coScenario { scope ->
 
-    m Given "use case with the given repository and FirstUtmUseCase mocks"
+    m Given "use case with the given repository, FirstUtmUseCase and FirstTopAppUseCase mocks"
     val useCase = AppStartUseCase(
       data.givenData.repository,
       data.givenData.firstUtmUseCase,
+      data.givenData.firstTopAppUseCase,
       StandardTestDispatcher(scope.testScheduler)
     )
     m And "subscribed for modes"
@@ -55,10 +56,11 @@ internal class AppStartUseCaseTest {
   @MethodSource("testDataProvider")
   fun `Listen before job finished`(data: TestData) = coScenario { scope ->
 
-    m Given "use case with the given repository and FirstUtmUseCase mocks"
+    m Given "use case with the given repository, FirstUtmUseCase and FirstTopAppUseCase mocks"
     val useCase = AppStartUseCase(
       data.givenData.repository,
       data.givenData.firstUtmUseCase,
+      data.givenData.firstTopAppUseCase,
       StandardTestDispatcher(scope.testScheduler)
     )
 
@@ -83,10 +85,11 @@ internal class AppStartUseCaseTest {
   @MethodSource("testDataProvider")
   fun `Listen after job finished`(data: TestData) = coScenario { scope ->
 
-    m Given "use case with the given repository and FirstUtmUseCase mocks"
+    m Given "use case with the given repository, FirstUtmUseCase and FirstTopAppUseCase mocks"
     val useCase = AppStartUseCase(
       data.givenData.repository,
       data.givenData.firstUtmUseCase,
+      data.givenData.firstTopAppUseCase,
       StandardTestDispatcher(scope.testScheduler)
     )
 
@@ -113,6 +116,9 @@ internal class AppStartUseCaseTest {
       integration: String = "osp"
     ) = StartMode.FirstUtm(sku, source, packageName, integration)
 
+    private fun firstTopApp(packageName: String = "com.igg.android.lordsmobile") =
+      StartMode.FirstTopApp(packageName)
+
     @JvmStatic
     fun testDataProvider(): List<TestData> = listOf(
       TestData(
@@ -126,6 +132,19 @@ internal class AppStartUseCaseTest {
         thenData = ThenData(mode = firstUtm())
       ),
       TestData(
+        scenario = "App started with top app -> FirstTopApp",
+        givenData = GivenData(firstTopAppUseCase = FirstTopAppUseCaseMock(firstTopApp())),
+        thenData = ThenData(mode = firstTopApp())
+      ),
+      TestData(
+        scenario = "App started with UTM and top app -> FirstUtm",
+        givenData = GivenData(
+          firstUtmUseCase = FirstUtmUseCaseMock(firstUtm()),
+          firstTopAppUseCase = FirstTopAppUseCaseMock(firstTopApp())
+        ),
+        thenData = ThenData(mode = firstUtm())
+      ),
+      TestData(
         scenario = "App started after update -> Subsequent",
         givenData = GivenData(repository = AppStartRepositoryMock(updatedAfter = 5.days())),
         thenData = ThenData(mode = StartMode.Subsequent)
@@ -135,6 +154,23 @@ internal class AppStartUseCaseTest {
         givenData = GivenData(
           repository = AppStartRepositoryMock(updatedAfter = 5.days()),
           firstUtmUseCase = FirstUtmUseCaseMock(firstUtm())
+        ),
+        thenData = ThenData(mode = StartMode.Subsequent)
+      ),
+      TestData(
+        scenario = "App started after update with top app -> Subsequent",
+        givenData = GivenData(
+          repository = AppStartRepositoryMock(updatedAfter = 5.days()),
+          firstTopAppUseCase = FirstTopAppUseCaseMock(firstTopApp())
+        ),
+        thenData = ThenData(mode = StartMode.Subsequent)
+      ),
+      TestData(
+        scenario = "App started after update with UTM and top app -> Subsequent",
+        givenData = GivenData(
+          repository = AppStartRepositoryMock(updatedAfter = 5.days()),
+          firstUtmUseCase = FirstUtmUseCaseMock(firstUtm()),
+          firstTopAppUseCase = FirstTopAppUseCaseMock(firstTopApp())
         ),
         thenData = ThenData(mode = StartMode.Subsequent)
       ),
@@ -152,6 +188,23 @@ internal class AppStartUseCaseTest {
         thenData = ThenData(mode = StartMode.Subsequent, runCount = 2)
       ),
       TestData(
+        scenario = "App started for the second time with top app -> Subsequent",
+        givenData = GivenData(
+          repository = AppStartRepositoryMock(runCount = 1),
+          firstTopAppUseCase = FirstTopAppUseCaseMock(firstTopApp())
+        ),
+        thenData = ThenData(mode = StartMode.Subsequent, runCount = 2)
+      ),
+      TestData(
+        scenario = "App started for the second time with UTM and top app -> Subsequent",
+        givenData = GivenData(
+          repository = AppStartRepositoryMock(runCount = 1),
+          firstUtmUseCase = FirstUtmUseCaseMock(firstUtm()),
+          firstTopAppUseCase = FirstTopAppUseCaseMock(firstTopApp())
+        ),
+        thenData = ThenData(mode = StartMode.Subsequent, runCount = 2)
+      ),
+      TestData(
         scenario = "App started for the second time after update -> Subsequent",
         givenData = GivenData(
           repository = AppStartRepositoryMock(runCount = 1, updatedAfter = 5.days())
@@ -163,6 +216,23 @@ internal class AppStartUseCaseTest {
         givenData = GivenData(
           repository = AppStartRepositoryMock(runCount = 1, updatedAfter = 5.days()),
           firstUtmUseCase = FirstUtmUseCaseMock(firstUtm())
+        ),
+        thenData = ThenData(mode = StartMode.Subsequent, runCount = 2)
+      ),
+      TestData(
+        scenario = "App started for the second time after update with top app -> Subsequent",
+        givenData = GivenData(
+          repository = AppStartRepositoryMock(runCount = 1, updatedAfter = 5.days()),
+          firstTopAppUseCase = FirstTopAppUseCaseMock(firstTopApp())
+        ),
+        thenData = ThenData(mode = StartMode.Subsequent, runCount = 2)
+      ),
+      TestData(
+        scenario = "App started for the second time after update with UTM and top app -> Subsequent",
+        givenData = GivenData(
+          repository = AppStartRepositoryMock(runCount = 1, updatedAfter = 5.days()),
+          firstUtmUseCase = FirstUtmUseCaseMock(firstUtm()),
+          firstTopAppUseCase = FirstTopAppUseCaseMock(firstTopApp())
         ),
         thenData = ThenData(mode = StartMode.Subsequent, runCount = 2)
       )
@@ -179,6 +249,7 @@ internal class AppStartUseCaseTest {
   internal data class GivenData(
     val repository: AppStartRepositoryMock = AppStartRepositoryMock(),
     val firstUtmUseCase: FirstUtmUseCase = FirstUtmUseCaseMock(),
+    val firstTopAppUseCase: FirstTopAppUseCase = FirstTopAppUseCaseMock(),
   )
 
   internal data class ThenData(
@@ -221,6 +292,16 @@ class FirstUtmUseCaseMock(
 ) : FirstUtmUseCase {
   override suspend operator fun invoke(): StartMode.FirstUtm? {
     delay(800)
+    return firstUtm
+  }
+}
+
+class FirstTopAppUseCaseMock(
+  private val firstUtm: StartMode.FirstTopApp? = null
+) : FirstTopAppUseCase {
+
+  override suspend operator fun invoke(): StartMode.FirstTopApp? {
+    delay(400)
     return firstUtm
   }
 }

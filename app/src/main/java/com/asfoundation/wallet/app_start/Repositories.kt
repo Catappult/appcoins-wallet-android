@@ -59,3 +59,12 @@ class FirstUtmRepositoryImpl @Inject constructor(
     })
   }
 }
+
+@BoundTo(supertype = FirstTopAppRepository::class)
+class FirstTopAppRepositoryImpl @Inject constructor(
+  @ApplicationContext val context: Context,
+) : FirstTopAppRepository {
+
+  override suspend fun getInstalledPackages() =
+    context.packageManager.getInstalledPackages(0).map { it.packageName }
+}

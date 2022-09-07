@@ -18,7 +18,7 @@ sealed class StartMode {
     val packageName: String,
     val integrationFlow: String,
   ) : StartMode()
-
+  data class FirstTopApp(val packageName: String) : StartMode()
   object Subsequent : StartMode()
 }
 
@@ -26,6 +26,7 @@ sealed class StartMode {
 class AppStartUseCase @Inject constructor(
   private val repository: AppStartRepository,
   private val firstUtmUseCase: FirstUtmUseCase,
+  private val firstTopAppUseCase: FirstTopAppUseCase,
   @IoDispatcher ioDispatcher: CoroutineDispatcher
 ) {
   private val scope = CoroutineScope(ioDispatcher)
@@ -40,7 +41,9 @@ class AppStartUseCase @Inject constructor(
     repository.saveRunCount(runs)
 
     val mode = if (firstInstallTime == lastUpdateTime && runs == 1) {
-      firstUtmUseCase.invoke() ?: StartMode.First
+      firstUtmUseCase.invoke()
+        ?: firstTopAppUseCase.invoke()
+        ?: StartMode.First
     } else {
       StartMode.Subsequent
     }
