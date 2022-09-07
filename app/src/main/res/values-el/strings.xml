@@ -1084,6 +1084,9 @@ Wallets</item>
   <string name="onboarding_1st_body">Επιστρέψτε στο παιχνίδι για να ολοκληρώσετε την αγορά σας.</string>
   <string name="onboarding_1st_back_to_game_button">Επιστρέψτε στο παιχνίδι</string>
   <string name="onboarding_1st_explore_wallet_button">Ή εξερευνήστε το AppCoins Wallet</string>
+  <string name="onboarding_1st_back_to_unknown_game_body">One of the games you\'ve got installed is AppCoins compatible! Do you want to open it?</string>
+  <string name="onboarding_1st_back_to_unknown_game_button">Go to the game</string>
+  <string name="onboarding_1st_explore_wallet_alternative_button">Explore the AppCoins Wallet</string>
   <!-- VIP Program -->
   <string name="vip_program_reached_notification_title">Καλώς ορίσατε στο πρόγραμμα VIP</string>
   <string name="vip_program_reached_notification_body">Είστε πλέον χρήστης VIP με πρόσβαση σε ειδικές προσφορές. Πατήστε για περισσότερες λεπτομέρειες!</string>
@@ -1111,4 +1114,6 @@ Wallets</item>
   <string name="vip_program_max_bonus_title">Απολαύστε το %s%% bonus σας σε κάθε αγορά</string>
   <string name="vip_program_max_bonus_body">Φτάσατε στα όρια του ηλιακού συστήματος.</string>
   <string name="vip_program_max_bonus_short">%s%% bonus σε κάθε αγορά.</string>
+  <string name="vip_program_referral_notification_title">VIP Referral Code Available!</string>
+  <string name="vip_program_referral_notification_body">Share your code with your community so you all earn while playing!</string>
 </resources>
