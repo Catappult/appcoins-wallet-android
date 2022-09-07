@@ -1074,6 +1074,9 @@
   <string name="onboarding_1st_body">구매 완료를 위해서 게임으로 돌아가세요.</string>
   <string name="onboarding_1st_back_to_game_button">게임으로 돌아가기</string>
   <string name="onboarding_1st_explore_wallet_button">또는 지갑 탐색</string>
+  <string name="onboarding_1st_back_to_unknown_game_body">One of the games you\'ve got installed is AppCoins compatible! Do you want to open it?</string>
+  <string name="onboarding_1st_back_to_unknown_game_button">Go to the game</string>
+  <string name="onboarding_1st_explore_wallet_alternative_button">Explore the AppCoins Wallet</string>
   <!-- VIP Program -->
   <string name="vip_program_reached_notification_title">VIP 프로그램에 오신것을 환영합니다</string>
   <string name="vip_program_reached_notification_body">귀하는 이제 특별 프로모션 및 거래를 할 수 있는 VIP 사용자입니다. 자세한 내용을 보려면 누르세요!</string>
@@ -1101,4 +1104,6 @@
   <string name="vip_program_max_bonus_title">모든 구매에서 %s%% 보너스를 받으세요</string>
   <string name="vip_program_max_bonus_body">솔라 시스템의 최대치에 도달했습니다.</string>
   <string name="vip_program_max_bonus_short">모든 구매 시마다 %s%% 보너스.</string>
+  <string name="vip_program_referral_notification_title">VIP Referral Code Available!</string>
+  <string name="vip_program_referral_notification_body">Share your code with your community so you all earn while playing!</string>
 </resources>
