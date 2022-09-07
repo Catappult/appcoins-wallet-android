@@ -14,14 +14,18 @@ class TicketApiMapper @Inject constructor(private val jsonMapper: Gson) {
 
   fun map(ticketResponse: TicketResponse, queueId: QueueIdentifier?): Ticket {
     return when (ticketResponse.ticketStatus) {
-      TicketStatus.COMPLETED -> PurchasedTicket(ticketResponse.ticketId,
-          WalletAddress.fromValue(ticketResponse.walletAddress), ticketResponse.userId,
-          ticketResponse.roomId!!, queueId ?: QueueIdentifier(ticketResponse.queueId, false))
-      else -> CreatedTicket(ticketResponse.ticketId,
-          ProcessingStatus.fromTicketStatus(ticketResponse.ticketStatus),
-          WalletAddress.fromValue(ticketResponse.walletAddress), ticketResponse.callbackUrl,
-          ticketResponse.ticketPrice, ticketResponse.priceCurrency, ticketResponse.productToken,
-          queueId ?: QueueIdentifier(ticketResponse.queueId, false))
+      TicketStatus.COMPLETED -> PurchasedTicket(
+        ticketResponse.ticketId,
+        WalletAddress.fromValue(ticketResponse.walletAddress), ticketResponse.userId,
+        ticketResponse.roomId!!, queueId ?: QueueIdentifier(ticketResponse.queueId, false)
+      )
+      else -> CreatedTicket(
+        ticketResponse.ticketId,
+        ProcessingStatus.fromTicketStatus(ticketResponse.ticketStatus),
+        WalletAddress.fromValue(ticketResponse.walletAddress), ticketResponse.callbackUrl,
+        ticketResponse.ticketPrice, ticketResponse.priceCurrency, ticketResponse.productToken,
+        queueId ?: QueueIdentifier(ticketResponse.queueId, false)
+      )
     }
   }
 

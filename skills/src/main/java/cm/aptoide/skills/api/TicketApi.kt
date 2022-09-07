@@ -8,17 +8,23 @@ import retrofit2.http.*
 interface TicketApi {
 
   @POST("queue/ticket/")
-  fun postTicket(@Header("authorization") authorization: String,
-                 @Body ticketRequest: TicketRequest): Single<TicketResponse>
+  fun postTicket(
+    @Header("authorization") authorization: String,
+    @Body ticketRequest: TicketRequest
+  ): Single<TicketResponse>
 
   @GET("queue/ticket/{ticket_id}")
-  fun getTicket(@Header("authorization") authorization: String,
-                @Path("ticket_id") ticketId: String): Single<TicketResponse>
+  fun getTicket(
+    @Header("authorization") authorization: String,
+    @Path("ticket_id") ticketId: String
+  ): Single<TicketResponse>
 
   @PATCH("queue/ticket/{ticket_id}/status")
-  fun cancelTicket(@Header("authorization") authorization: String,
-                   @Path("ticket_id") ticketId: String,
-                   @Body data: Refunded): Single<TicketResponse>
+  fun cancelTicket(
+    @Header("authorization") authorization: String,
+    @Path("ticket_id") ticketId: String,
+    @Body data: Refunded
+  ): Single<TicketResponse>
 
   data class Refunded(val status: String = "REFUNDED")
 }

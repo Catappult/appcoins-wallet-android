@@ -5,14 +5,14 @@ import java.math.BigDecimal
 sealed class Ticket
 
 data class CreatedTicket(
-    val ticketId: String,
-    val processingStatus: ProcessingStatus,
-    val walletAddress: WalletAddress,
-    val callbackUrl: String,
-    val ticketPrice: BigDecimal,
-    val priceCurrency: String,
-    val productToken: String,
-    val queueId: QueueIdentifier
+  val ticketId: String,
+  val processingStatus: ProcessingStatus,
+  val walletAddress: WalletAddress,
+  val callbackUrl: String,
+  val ticketPrice: BigDecimal,
+  val priceCurrency: String,
+  val productToken: String,
+  val queueId: QueueIdentifier
 ) : Ticket()
 
 enum class ProcessingStatus {
@@ -32,7 +32,7 @@ enum class ProcessingStatus {
 }
 
 data class FailedTicket(
-    val status: ErrorStatus
+  val status: ErrorStatus
 ) : Ticket()
 
 enum class ErrorStatus {
@@ -40,9 +40,9 @@ enum class ErrorStatus {
 }
 
 data class PurchasedTicket(
-    val ticketId: String,
-    val walletAddress: WalletAddress,
-    val userId: String,
-    val roomId: String,
-    val queueId: QueueIdentifier
+  val ticketId: String,
+  val walletAddress: WalletAddress,
+  val userId: String,
+  val roomId: String,
+  val queueId: QueueIdentifier
 ) : Ticket()

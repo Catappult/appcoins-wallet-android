@@ -13,8 +13,8 @@ class SkillsActivity : AppCompatActivity() {
     setContentView(R.layout.activity_skills)
     if (savedInstanceState == null) {
       supportFragmentManager.beginTransaction()
-          .add(R.id.fragment_container, SkillsFragment.newInstance())
-          .commit()
+        .add(R.id.fragment_container, SkillsFragment.newInstance())
+        .commit()
     }
 
   }
