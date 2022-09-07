@@ -1222,5 +1222,7 @@
   <string name="vip_program_max_bonus_title">Enjoy your %s%% Bonus on every purchase</string>
   <string name="vip_program_max_bonus_body">You\'ve reached the limits of the solar system.</string>
   <string name="vip_program_max_bonus_short">%s%% Bonus on every purchase.</string>
+  <string name="vip_program_referral_notification_title">VIP Referral Code Available!</string>
+  <string name="vip_program_referral_notification_body">Share your code with your community so you all earn while playing!</string>
 
 </resources>
