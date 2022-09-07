@@ -10,14 +10,23 @@ class AppStartProbe @Inject constructor(
 
   operator fun invoke(startMode: StartMode) {
     if (startMode is StartMode.Subsequent) return
-    val utmData = if (startMode is StartMode.FirstUtm) startMode else null
+    val data = when (startMode) {
+      is StartMode.FirstUtm -> mapOf(
+        PACKAGE_NAME to startMode.packageName,
+        INTEGRATION_FLOW to startMode.integrationFlow,
+        SOURCE to startMode.source,
+        SKU to startMode.sku,
+      )
+      is StartMode.FirstTopApp -> mapOf(
+        PACKAGE_NAME to startMode.packageName,
+        INTEGRATION_FLOW to "",
+        SOURCE to "",
+        SKU to "",
+      )
+      else -> mapOf(PACKAGE_NAME to "", INTEGRATION_FLOW to "", SOURCE to "", SKU to "")
+    }
     analyticsManager.logEvent(
-      mapOf(
-        PACKAGE_NAME to (utmData?.packageName ?: ""),
-        INTEGRATION_FLOW to (utmData?.integrationFlow ?: ""),
-        SOURCE to (utmData?.source ?: ""),
-        SKU to (utmData?.sku ?: ""),
-      ),
+      data,
       FIRST_LAUNCH,
       AnalyticsManager.Action.OPEN,
       WALLET
