@@ -1120,6 +1120,9 @@
   <string name="onboarding_1st_body">عد إلى اللعبة لإتمام عملية الشراء.</string>
   <string name="onboarding_1st_back_to_game_button">عد إلى اللعبة</string>
   <string name="onboarding_1st_explore_wallet_button">أو استكشف المحفظة</string>
+  <string name="onboarding_1st_back_to_unknown_game_body">One of the games you\'ve got installed is AppCoins compatible! Do you want to open it?</string>
+  <string name="onboarding_1st_back_to_unknown_game_button">Go to the game</string>
+  <string name="onboarding_1st_explore_wallet_alternative_button">Explore the AppCoins Wallet</string>
   <!-- VIP Program -->
   <string name="vip_program_reached_notification_title">أهلا بك في برنامج VIP</string>
   <string name="vip_program_reached_notification_body">أنت الآن مستخدم VIP معك إذن الوصول إلى ترقيات وصفقات مميزة. اضغط لمزيد من التفاصيل!</string>
@@ -1147,4 +1150,6 @@
   <string name="vip_program_max_bonus_title">تمتع بمكافآتك %s%% في كل عملية شراء</string>
   <string name="vip_program_max_bonus_body">وصلت إلى الحد المسموح به من الطاقة الشمسية.</string>
   <string name="vip_program_max_bonus_short">%s%% مكافأة في كل عملية شراء.</string>
+  <string name="vip_program_referral_notification_title">VIP Referral Code Available!</string>
+  <string name="vip_program_referral_notification_body">Share your code with your community so you all earn while playing!</string>
 </resources>
