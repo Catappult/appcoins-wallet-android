@@ -1,5 +1,7 @@
 package com.asfoundation.wallet
 
+import android.app.Activity
+import android.os.Bundle
 import androidx.multidex.MultiDexApplication
 import cm.aptoide.analytics.AnalyticsManager
 import com.appcoins.wallet.appcoins.rewards.AppcoinsRewards
@@ -121,12 +123,28 @@ class App : MultiDexApplication(), BillingDependenciesProvider {
     initiateSentry()
     setupBouncyCastle()
     initializeWalletId()
-    appStartUseCase.registerAppStart()
     MainScope().launch {
       val mode = appStartUseCase.startModes.first()
       appStartProbe(mode)
       if (mode != StartMode.Subsequent) ApkOriginVerification(applicationContext)
     }
+    registerActivityLifecycleCallbacks(object : ActivityLifecycleCallbacks {
+      private var runningCount = 0
+      override fun onActivityCreated(activity: Activity, savedInstanceState: Bundle?) {
+        if (savedInstanceState == null) {
+          if (runningCount++ == 0) appStartUseCase.registerAppStart()
+        }
+      }
+
+      override fun onActivityStarted(activity: Activity) {}
+      override fun onActivityResumed(activity: Activity) {}
+      override fun onActivityPaused(activity: Activity) {}
+      override fun onActivityStopped(activity: Activity) {}
+      override fun onActivitySaveInstanceState(activity: Activity, outState: Bundle) {}
+      override fun onActivityDestroyed(activity: Activity) {
+        if (activity.isChangingConfigurations.not()) runningCount--
+      }
+    })
   }
 
   private fun initializeRakam() {
