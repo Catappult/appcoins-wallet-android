@@ -24,6 +24,10 @@
       android:id="@+id/action_navigate_to_onboarding_iap_fragment"
       app:destination="@id/onboarding_iap_fragment" />
 
+  <action
+      android:id="@+id/action_navigate_to_onboarding_top_app_fragment"
+      app:destination="@id/onboarding_top_app_fragment" />
+
   <fragment
       android:id="@+id/onboarding_iap_fragment"
       android:name="com.asfoundation.wallet.onboarding.iap.OnboardingIapFragment"
@@ -33,8 +37,22 @@
         app:destination="@id/onboarding_iap_terms_conditions_dialog" />
   </fragment>
 
+  <fragment
+      android:id="@+id/onboarding_top_app_fragment"
+      android:name="com.asfoundation.wallet.onboarding.iap.OnboardingIapFragment"
+      tools:layout="@layout/onboarding_iap_fragment">
+    <action
+        android:id="@+id/action_navigate_game_terms_conditions"
+        app:destination="@id/onboarding_top_app_terms_conditions_dialog" />
+  </fragment>
+
   <dialog
       android:id="@+id/onboarding_iap_terms_conditions_dialog"
+      android:name="com.asfoundation.wallet.onboarding.bottom_sheet.TermsConditionsBottomSheetFragment"
+      tools:layout="@layout/terms_conditions_bottom_sheet" />
+
+  <dialog
+      android:id="@+id/onboarding_top_app_terms_conditions_dialog"
       android:name="com.asfoundation.wallet.onboarding.bottom_sheet.TermsConditionsBottomSheetFragment"
       tools:layout="@layout/terms_conditions_bottom_sheet" />
 </navigation>

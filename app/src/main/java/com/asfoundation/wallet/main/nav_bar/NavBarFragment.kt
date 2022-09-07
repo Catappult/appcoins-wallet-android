@@ -65,6 +65,7 @@ class NavBarFragment : BasePageViewFragment(),
     when (sideEffect) {
       NavBarSideEffect.ShowPromotionsTooltip -> showPromotionsOverlay()
       NavBarSideEffect.ShowOnboardingIap -> showOnboardingIap()
+      NavBarSideEffect.ShowOnboardingTopApp -> showOnboardingTopApp()
     }
   }
 
@@ -84,6 +85,11 @@ class NavBarFragment : BasePageViewFragment(),
   private fun showOnboardingIap() {
     views.fullHostContainer.visibility = View.VISIBLE
     navigator.showOnboardingIapScreen(fullHostFragment.navController)
+  }
+
+  private fun showOnboardingTopApp() {
+    views.fullHostContainer.visibility = View.VISIBLE
+    navigator.showOnboardingTopAppScreen(fullHostFragment.navController)
   }
 
   private fun setupTopUpItem() {
