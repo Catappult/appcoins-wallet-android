@@ -7,6 +7,7 @@ apply plugin: 'kotlin-kapt'
 apply plugin: 'com.google.gms.google-services'
 apply plugin: 'androidx.navigation.safeargs.kotlin'
 apply plugin: 'dagger.hilt.android.plugin'
+apply plugin: "de.mannodermaus.android-junit5"
 
 android {
   buildToolsVersion project.build_tools_version
@@ -169,6 +170,7 @@ dependencies {
 
   coreLibraryDesugaring "com.android.tools:desugar_jdk_libs:$project.desugar_version"
   implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+  implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines_version"
 
   implementation "com.github.kirich1409:viewbindingpropertydelegate-noreflection:$project.viewBindingDelegate"
   implementation "androidx.navigation:navigation-fragment-ktx:$project.nav_version"
@@ -286,6 +288,14 @@ dependencies {
   testImplementation "junit:junit:$project.junit_version"
   testImplementation "org.mockito:mockito-core:$project.mockito_version"
   androidTestImplementation "androidx.test.ext:junit:$project.test_ext_version"
+
+  // New TDD dependencies
+  testImplementation "org.junit.jupiter:junit-jupiter-api:$project.junit5_version"
+  testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:$project.junit5_version"
+  testImplementation "org.junit.jupiter:junit-jupiter-params:$project.junit5_version"
+  testImplementation "org.junit.vintage:junit-vintage-engine:$project.junit5_version"
+  testImplementation "app.cash.turbine:turbine:$project.turbine_version"
+  testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutines_version"
 }
 
 def renameArtifact(defaultConfig) {
