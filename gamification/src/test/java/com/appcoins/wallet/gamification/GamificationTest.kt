@@ -39,7 +39,7 @@ class GamificationTest {
       )
     val referralResponse =
       ReferralResponse(
-        "REFERRAL", 99, GamificationStatus.STANDARD, BigDecimal(2.2), 3, true, 2, "EUR", "€", false, "link",
+        "REFERRAL", 99, GamificationStatus.NONE, BigDecimal(2.2), 3, true, 2, "EUR", "€", false, "link",
         BigDecimal.ONE, BigDecimal.ZERO, ReferralResponse.UserStatus.REDEEMED, BigDecimal.ZERO,
         PromotionsResponse.Status.ACTIVE, BigDecimal.ONE
       )
@@ -54,10 +54,13 @@ class GamificationTest {
     val testObserver = gamification.getUserStats(WALLET, null)
       .test()
     testObserver.assertResult(
-      PromotionsGamificationStats(PromotionsGamificationStats.Status.UNKNOWN_ERROR, fromCache = true),
+      PromotionsGamificationStats(PromotionsGamificationStats.ResultState.UNKNOWN_ERROR,
+        fromCache = true,
+        gamificationStatus = GamificationStatus.NONE
+      ),
       PromotionsGamificationStats(
-        PromotionsGamificationStats.Status.OK, 1, BigDecimal.TEN, 2.2, BigDecimal.ONE,
-        BigDecimal.ZERO, isActive = true, fromCache = false
+        PromotionsGamificationStats.ResultState.OK, 1, BigDecimal.TEN, 2.2, BigDecimal.ONE,
+        BigDecimal.ZERO, isActive = true, fromCache = false, gamificationStatus = GamificationStatus.STANDARD
       )
     )
     testObserver.assertComplete()
@@ -80,12 +83,14 @@ class GamificationTest {
       .test()
     testObserver.assertResult(
       PromotionsGamificationStats(
-        PromotionsGamificationStats.Status.OK, 5, BigDecimal(60000.0), 15.0,
-        BigDecimal(25000.0), BigDecimal(5000.0), isActive = true, fromCache = true
+        PromotionsGamificationStats.ResultState.OK, 5, BigDecimal(60000.0), 15.0,
+        BigDecimal(25000.0), BigDecimal(5000.0), isActive = true, fromCache = true,
+        gamificationStatus = GamificationStatus.STANDARD
       ),
       PromotionsGamificationStats(
-        PromotionsGamificationStats.Status.NO_NETWORK, PromotionsGamificationStats.INVALID_LEVEL,
-        BigDecimal.ZERO, -1.0, BigDecimal.ZERO, BigDecimal.ZERO, false, fromCache = false
+        PromotionsGamificationStats.ResultState.NO_NETWORK, PromotionsGamificationStats.INVALID_LEVEL,
+        BigDecimal.ZERO, -1.0, BigDecimal.ZERO, BigDecimal.ZERO, false, fromCache = false,
+        gamificationStatus = GamificationStatus.NONE
       )
     )
   }
@@ -99,12 +104,13 @@ class GamificationTest {
       .test()
     testObserver.assertResult(
       PromotionsGamificationStats(
-        PromotionsGamificationStats.Status.UNKNOWN_ERROR, -1, BigDecimal.ZERO, -1.0,
-        BigDecimal.ZERO, BigDecimal.ZERO, isActive = false, fromCache = true
+        PromotionsGamificationStats.ResultState.UNKNOWN_ERROR, -1, BigDecimal.ZERO, -1.0,
+        BigDecimal.ZERO, BigDecimal.ZERO, isActive = false, fromCache = true, gamificationStatus = GamificationStatus.NONE
       ),
       PromotionsGamificationStats(
-        PromotionsGamificationStats.Status.NO_NETWORK, PromotionsGamificationStats.INVALID_LEVEL,
-        BigDecimal.ZERO, -1.0, BigDecimal.ZERO, BigDecimal.ZERO, false, fromCache = false
+        PromotionsGamificationStats.ResultState.NO_NETWORK, PromotionsGamificationStats.INVALID_LEVEL,
+        BigDecimal.ZERO, -1.0, BigDecimal.ZERO, BigDecimal.ZERO, false, fromCache = false,
+        gamificationStatus = GamificationStatus.NONE
       )
     )
   }

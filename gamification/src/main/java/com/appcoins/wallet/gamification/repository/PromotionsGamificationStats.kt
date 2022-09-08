@@ -21,12 +21,6 @@ data class PromotionsGamificationStats(
     UNKNOWN_ERROR
   }
 
-//  enum class GamificationStatus(response: String) {
-//    APPROACHING_NEXT_LEVEL ("APPROACHING_NEXT_LEVEL"),
-//    STANDARD ("STANDARD"),
-//    UNDEFINED ("")
-//  }
-
   companion object {
     const val INVALID_LEVEL = -1
     const val INVALID_BONUS = -1.0
