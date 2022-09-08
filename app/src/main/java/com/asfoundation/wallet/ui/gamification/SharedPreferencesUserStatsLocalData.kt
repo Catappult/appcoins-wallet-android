@@ -100,7 +100,7 @@ class SharedPreferencesUserStatsLocalData @Inject constructor(
           GamificationResponse(
             it.id,
             it.priority,
-            it.gamificationStatus?.toGamificationStatus(),
+            GamificationStatus.toEnum(it.gamificationStatus),
             it.bonus!!,
             it.totalSpend!!,
             it.totalEarned!!,
@@ -112,7 +112,7 @@ class SharedPreferencesUserStatsLocalData @Inject constructor(
         REFERRAL_ID -> ReferralResponse(
           it.id,
           it.priority,
-          it.gamificationStatus?.toGamificationStatus(),
+          GamificationStatus.toEnum(it.gamificationStatus),
           it.maxAmount!!,
           it.available!!,
           it.bundle!!,
@@ -132,7 +132,7 @@ class SharedPreferencesUserStatsLocalData @Inject constructor(
           GenericResponse(
             id = it.id,
             priority = it.priority,
-            gamificationStatus = it.gamificationStatus?.toGamificationStatus(),
+            gamificationStatus = GamificationStatus.toEnum(it.gamificationStatus),
             currentProgress = it.currentProgress,
             notificationDescription = it.notificationDescription,
             perkDescription = it.perkDescription,
@@ -210,18 +210,6 @@ class SharedPreferencesUserStatsLocalData @Inject constructor(
       emitter.onSuccess(results)
     }
       .flatMapCompletable { Completable.fromAction { promotionDao.deleteAndInsert(it) } }
-  }
-
-  fun String.toGamificationStatus(): GamificationStatus {
-    return when (this) {
-      "STANDARD" -> GamificationStatus.STANDARD
-      "APPROACHING_NEXT_LEVEL" -> GamificationStatus.APPROACHING_NEXT_LEVEL
-      "APPROACHING_VIP" -> GamificationStatus.APPROACHING_VIP
-      "VIP" -> GamificationStatus.VIP
-      "APPROACHING_VIP_MAX" -> GamificationStatus.APPROACHING_VIP_MAX
-      "VIP_MAX" -> GamificationStatus.VIP_MAX
-      else -> GamificationStatus.NONE
-    }
   }
 
   override fun deleteLevels(): Completable {

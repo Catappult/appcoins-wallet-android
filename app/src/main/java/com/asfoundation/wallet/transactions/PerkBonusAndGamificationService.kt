@@ -13,6 +13,7 @@ import com.appcoins.wallet.gamification.GamificationContext.NOTIFICATIONS_LEVEL_
 import com.appcoins.wallet.gamification.repository.Levels
 import com.appcoins.wallet.gamification.repository.PromotionsGamificationStats
 import com.appcoins.wallet.gamification.repository.PromotionsRepository
+import com.appcoins.wallet.gamification.repository.entity.GamificationStatus
 import com.asf.wallet.R
 import com.asfoundation.wallet.C
 import com.asfoundation.wallet.backup.repository.preferences.BackupTriggerPreferences
@@ -152,11 +153,14 @@ class PerkBonusAndGamificationService :
     maxLevel: Int
   ) {
     if (showAlmostNextLevelNotification(currentLevel, almostNextLevelLastShown, maxLevel)) {
-//      val almostNextLevelPercent = gamificationMapper.mapAlmostNextLevelUpPercentage(stats.level)
       val totalAppCoinsAmountThisLevel =
         statsPromotions.nextLevelAmount!!.minus(currentLevelStartAmount)
       val currentAppCoinsAmountThisLevel = statsPromotions.totalSpend.minus(currentLevelStartAmount)
-      if (statsPromotions.gamificationStatus == PromotionsGamificationStats.GamificationStatus.APPROACHING_NEXT_LEVEL) {
+      if (  // TODO differentiate notifications for vips
+        statsPromotions.gamificationStatus == GamificationStatus.APPROACHING_NEXT_LEVEL ||
+        statsPromotions.gamificationStatus == GamificationStatus.APPROACHING_VIP ||
+        statsPromotions.gamificationStatus == GamificationStatus.APPROACHING_VIP_MAX
+      ) {
         promotionsRepository.shownLevel(address, currentLevel, NOTIFICATIONS_ALMOST_NEXT_LEVEL)
         buildNotification(
           createAlmostNextLevelNotification(
