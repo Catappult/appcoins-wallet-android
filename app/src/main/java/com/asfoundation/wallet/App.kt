@@ -1,5 +1,7 @@
 package com.asfoundation.wallet
 
+import android.app.Activity
+import android.os.Bundle
 import androidx.multidex.MultiDexApplication
 import cm.aptoide.analytics.AnalyticsManager
 import com.appcoins.wallet.appcoins.rewards.AppcoinsRewards
@@ -15,8 +17,12 @@ import com.asf.wallet.BuildConfig
 import com.asfoundation.wallet.analytics.IndicativeAnalytics
 import com.asfoundation.wallet.analytics.RakamAnalytics
 import com.asfoundation.wallet.analytics.SentryAnalytics
+import com.asfoundation.wallet.app_start.AppStartProbe
+import com.asfoundation.wallet.app_start.AppStartUseCase
+import com.asfoundation.wallet.app_start.StartMode
 import com.asfoundation.wallet.identification.IdsRepository
 import com.asfoundation.wallet.logging.FlurryReceiver
+import com.asfoundation.wallet.main.appsflyer.ApkOriginVerification
 import com.asfoundation.wallet.repository.PreferencesRepositoryType
 import com.asfoundation.wallet.support.AlarmManagerBroadcastReceiver
 import com.asfoundation.wallet.ui.iab.AppcoinsOperationsDataSaver
@@ -29,6 +35,9 @@ import io.intercom.android.sdk.Intercom
 import io.reactivex.exceptions.UndeliverableException
 import io.reactivex.plugins.RxJavaPlugins
 import io.reactivex.schedulers.Schedulers
+import kotlinx.coroutines.MainScope
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.launch
 import org.bouncycastle.jce.provider.BouncyCastleProvider
 import java.security.Provider
 import java.security.Security
@@ -37,6 +46,12 @@ import javax.inject.Inject
 
 @HiltAndroidApp
 class App : MultiDexApplication(), BillingDependenciesProvider {
+
+  @Inject
+  lateinit var appStartUseCase: AppStartUseCase
+
+  @Inject
+  lateinit var appStartProbe: AppStartProbe
 
   @Inject
   lateinit var inAppPurchaseInteractor: InAppPurchaseInteractor
@@ -108,6 +123,28 @@ class App : MultiDexApplication(), BillingDependenciesProvider {
     initiateSentry()
     setupBouncyCastle()
     initializeWalletId()
+    MainScope().launch {
+      val mode = appStartUseCase.startModes.first()
+      appStartProbe(mode)
+      if (mode != StartMode.Subsequent) ApkOriginVerification(applicationContext)
+    }
+    registerActivityLifecycleCallbacks(object : ActivityLifecycleCallbacks {
+      private var runningCount = 0
+      override fun onActivityCreated(activity: Activity, savedInstanceState: Bundle?) {
+        if (savedInstanceState == null) {
+          if (runningCount++ == 0) appStartUseCase.registerAppStart()
+        }
+      }
+
+      override fun onActivityStarted(activity: Activity) {}
+      override fun onActivityResumed(activity: Activity) {}
+      override fun onActivityPaused(activity: Activity) {}
+      override fun onActivityStopped(activity: Activity) {}
+      override fun onActivitySaveInstanceState(activity: Activity, outState: Bundle) {}
+      override fun onActivityDestroyed(activity: Activity) {
+        if (activity.isChangingConfigurations.not()) runningCount--
+      }
+    })
   }
 
   private fun initializeRakam() {

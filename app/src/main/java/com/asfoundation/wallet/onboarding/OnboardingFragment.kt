@@ -130,8 +130,4 @@ class OnboardingFragment : BasePageViewFragment(),
     views.onboardingWelcomeMessage.root.visibility = View.GONE
     views.onboardingWelcomeButtons.root.visibility = View.GONE
   }
-
-  companion object {
-    const val ONBOARDING_FROM_IAP = "from_iap"
-  }
 }

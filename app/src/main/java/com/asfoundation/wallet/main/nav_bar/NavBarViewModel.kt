@@ -1,13 +1,17 @@
 package com.asfoundation.wallet.main.nav_bar
 
+import androidx.lifecycle.viewModelScope
+import com.asfoundation.wallet.app_start.AppStartUseCase
+import com.asfoundation.wallet.app_start.StartMode
 import com.asfoundation.wallet.base.BaseViewModel
 import com.asfoundation.wallet.base.SideEffect
 import com.asfoundation.wallet.base.ViewState
 import com.asfoundation.wallet.main.use_cases.HasSeenPromotionTooltipUseCase
-import com.asfoundation.wallet.onboarding.use_cases.IsOnboardingFromIapUseCase
 import com.asfoundation.wallet.promotions.PromotionUpdateScreen
 import com.asfoundation.wallet.promotions.PromotionsInteractor
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 sealed class NavBarSideEffect : SideEffect {
@@ -21,12 +25,12 @@ data class NavBarState(val showPromotionsBadge: Boolean = false) : ViewState
 class NavBarViewModel @Inject constructor(
   private val hasSeenPromotionTooltip: HasSeenPromotionTooltipUseCase,
   private val promotionsInteractor: PromotionsInteractor,
-  private val isOnboardingFromIapUseCase: IsOnboardingFromIapUseCase
+  private val appStartUseCase: AppStartUseCase
 ) : BaseViewModel<NavBarState, NavBarSideEffect>(NavBarState()) {
 
   init {
     handlePromotionUpdateNotification()
-    handleOnboardingFromIapScreen()
+    handleOnboardingFromGameScreen()
   }
 
   /**
@@ -58,9 +62,12 @@ class NavBarViewModel @Inject constructor(
     setState { copy(showPromotionsBadge = false) }
   }
 
-  private fun handleOnboardingFromIapScreen() {
-    if (isOnboardingFromIapUseCase()) {
-      sendSideEffect { NavBarSideEffect.ShowOnboardingIap }
+  private fun handleOnboardingFromGameScreen() {
+    viewModelScope.launch {
+      val mode = appStartUseCase.startModes.first()
+      if (mode is StartMode.FirstUtm) {
+        sendSideEffect { NavBarSideEffect.ShowOnboardingIap }
+      }
     }
   }
 }
