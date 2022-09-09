@@ -31,8 +31,8 @@
   <ImageView
       android:id="@+id/current_level_image"
       android:layout_width="130dp"
-      android:layout_height="110dp"
-      android:src="@drawable/gamification_unknown_planet_purple"
+      android:layout_height="130dp"
+      android:src="@drawable/gamification_earth"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toEndOf="@id/spend_amount_text"
