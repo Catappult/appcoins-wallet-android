@@ -63,4 +63,8 @@ class NavBarFragmentNavigator @Inject constructor(
   fun showOnboardingIapScreen(navController: NavController) {
     navigate(navController, NavBarGraphDirections.actionNavigateToOnboardingIapFragment())
   }
+
+  fun showOnboardingTopAppScreen(navController: NavController) {
+    navigate(navController, NavBarGraphDirections.actionNavigateToOnboardingTopAppFragment())
+  }
 }

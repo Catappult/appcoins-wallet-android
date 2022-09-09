@@ -46,12 +46,10 @@ class OnboardingViewModel @Inject constructor(
         .doOnSuccess {
           if (!it) {
             rootPage = OnboardingContent.WELCOME
-            if (mode is StartMode.FirstUtm) {
-              sendSideEffect {
-                OnboardingSideEffect.NavigateToWalletCreationAnimation
-              }
-            } else {
-              setState { copy(pageContent = OnboardingContent.WELCOME) }
+            when (mode) {
+              is StartMode.FirstUtm -> sendSideEffect { OnboardingSideEffect.NavigateToWalletCreationAnimation }
+              is StartMode.FirstTopApp -> sendSideEffect { OnboardingSideEffect.NavigateToWalletCreationAnimation }
+              else -> setState { copy(pageContent = OnboardingContent.WELCOME) }
             }
           } else {
             rootPage = OnboardingContent.VALUES

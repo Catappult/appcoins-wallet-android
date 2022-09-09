@@ -17,6 +17,7 @@ import javax.inject.Inject
 sealed class NavBarSideEffect : SideEffect {
   object ShowPromotionsTooltip : NavBarSideEffect()
   object ShowOnboardingIap : NavBarSideEffect()
+  object ShowOnboardingTopApp : NavBarSideEffect()
 }
 
 data class NavBarState(val showPromotionsBadge: Boolean = false) : ViewState
@@ -30,7 +31,7 @@ class NavBarViewModel @Inject constructor(
 
   init {
     handlePromotionUpdateNotification()
-    handleOnboardingFromGameScreen()
+    handleOnboardingFromGameOrAppScreen()
   }
 
   /**
@@ -62,11 +63,16 @@ class NavBarViewModel @Inject constructor(
     setState { copy(showPromotionsBadge = false) }
   }
 
-  private fun handleOnboardingFromGameScreen() {
+  private fun handleOnboardingFromGameOrAppScreen() {
     viewModelScope.launch {
-      val mode = appStartUseCase.startModes.first()
-      if (mode is StartMode.FirstUtm) {
-        sendSideEffect { NavBarSideEffect.ShowOnboardingIap }
+      when (appStartUseCase.startModes.first()) {
+        is StartMode.FirstUtm -> {
+          sendSideEffect { NavBarSideEffect.ShowOnboardingIap }
+        }
+        is StartMode.FirstTopApp -> {
+          sendSideEffect { NavBarSideEffect.ShowOnboardingTopApp }
+        }
+        else -> Unit
       }
     }
   }

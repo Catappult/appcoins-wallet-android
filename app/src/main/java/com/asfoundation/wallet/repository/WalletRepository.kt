@@ -22,13 +22,13 @@ class WalletRepository @Inject constructor(private val preferencesRepositoryType
   }
 
   override fun findWallet(address: String): Single<Wallet> {
-    return fetchWallets().flatMap { accounts ->
+    return fetchWallets().map { accounts ->
       for (wallet in accounts) {
         if (wallet.hasSameAddress(address)) {
-          return@flatMap Single.just(wallet)
+          return@map wallet
         }
       }
-      null
+      throw NullPointerException("No wallets found")
     }
   }
 
