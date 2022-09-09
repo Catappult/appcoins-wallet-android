@@ -1083,6 +1083,9 @@
   <string name="onboarding_1st_body">Ga terug naar de game om je aankoop te voltooien.</string>
   <string name="onboarding_1st_back_to_game_button">Ga terug naar de game</string>
   <string name="onboarding_1st_explore_wallet_button">Of ontdek de wallet</string>
+  <string name="onboarding_1st_back_to_unknown_game_body">One of the games you\'ve got installed is AppCoins compatible! Do you want to open it?</string>
+  <string name="onboarding_1st_back_to_unknown_game_button">Go to the game</string>
+  <string name="onboarding_1st_explore_wallet_alternative_button">Explore the AppCoins Wallet</string>
   <!-- VIP Program -->
   <string name="vip_program_reached_notification_title">Welkom bij het VIP-programma</string>
   <string name="vip_program_reached_notification_body">Je bent nu een VIP-gebruiker met toegang tot speciale acties en aanbiedingen. Tik voor meer informatie!</string>
@@ -1110,4 +1113,6 @@
   <string name="vip_program_max_bonus_title">Geniet van je %s%% bonus bij elke aankoop</string>
   <string name="vip_program_max_bonus_body">Je hebt de grens van het zonnestelsel bereikt.</string>
   <string name="vip_program_max_bonus_short">%s%% bonus bij elke aankoop.</string>
+  <string name="vip_program_referral_notification_title">VIP Referral Code Available!</string>
+  <string name="vip_program_referral_notification_body">Share your code with your community so you all earn while playing!</string>
 </resources>

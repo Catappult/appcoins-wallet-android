@@ -1101,6 +1101,9 @@
   <string name="onboarding_1st_body">Wróć do gry, by zakończyć zakup.</string>
   <string name="onboarding_1st_back_to_game_button">Wróć do gry</string>
   <string name="onboarding_1st_explore_wallet_button">Lub poznaj Portfel</string>
+  <string name="onboarding_1st_back_to_unknown_game_body">One of the games you\'ve got installed is AppCoins compatible! Do you want to open it?</string>
+  <string name="onboarding_1st_back_to_unknown_game_button">Go to the game</string>
+  <string name="onboarding_1st_explore_wallet_alternative_button">Explore the AppCoins Wallet</string>
   <!-- VIP Program -->
   <string name="vip_program_reached_notification_title">Witaj w Programie VIP</string>
   <string name="vip_program_reached_notification_body">Teraz jesteś użytkownikiem VIP i masz dostęp do specjalnych ofert. Szczegóły tutaj!</string>
@@ -1128,4 +1131,6 @@
   <string name="vip_program_max_bonus_title">Ciesz się %s%% Bonusu przy każdym zakupie</string>
   <string name="vip_program_max_bonus_body">To już są wartości astronomiczne.</string>
   <string name="vip_program_max_bonus_short">%s%% Bonusu przy każdym zakupie.</string>
+  <string name="vip_program_referral_notification_title">VIP Referral Code Available!</string>
+  <string name="vip_program_referral_notification_body">Share your code with your community so you all earn while playing!</string>
 </resources>

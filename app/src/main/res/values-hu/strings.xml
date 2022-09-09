@@ -1083,6 +1083,9 @@
   <string name="onboarding_1st_body">A vásárlás befejezéséhez menj vissza a játékba.</string>
   <string name="onboarding_1st_back_to_game_button">Menj vissza a játékba</string>
   <string name="onboarding_1st_explore_wallet_button">Vagy fedezd fel a Walletet</string>
+  <string name="onboarding_1st_back_to_unknown_game_body">One of the games you\'ve got installed is AppCoins compatible! Do you want to open it?</string>
+  <string name="onboarding_1st_back_to_unknown_game_button">Go to the game</string>
+  <string name="onboarding_1st_explore_wallet_alternative_button">Explore the AppCoins Wallet</string>
   <!-- VIP Program -->
   <string name="vip_program_reached_notification_title">Üdv a VIP programban</string>
   <string name="vip_program_reached_notification_body">Mostantól VIP felhasználó vagy és hozzáférést kapsz a különleges promóciókhoz és ajánlatokhoz. Pöccints a további részletekért!</string>
@@ -1110,4 +1113,6 @@
   <string name="vip_program_max_bonus_title">Élvezd ki a %s%% bónuszt minden vásárlás után</string>
   <string name="vip_program_max_bonus_body">Elérted a naprendszer határait.</string>
   <string name="vip_program_max_bonus_short">%s%% bónusz minden vásárlás után.</string>
+  <string name="vip_program_referral_notification_title">VIP Referral Code Available!</string>
+  <string name="vip_program_referral_notification_body">Share your code with your community so you all earn while playing!</string>
 </resources>

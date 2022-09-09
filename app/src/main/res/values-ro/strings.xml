@@ -1092,6 +1092,9 @@
   <string name="onboarding_1st_body">Du-te înapoi la joc pentru a finaliza achiziția.</string>
   <string name="onboarding_1st_back_to_game_button">Du-te înapoi la joc</string>
   <string name="onboarding_1st_explore_wallet_button">Sau explorează Wallet</string>
+  <string name="onboarding_1st_back_to_unknown_game_body">One of the games you\'ve got installed is AppCoins compatible! Do you want to open it?</string>
+  <string name="onboarding_1st_back_to_unknown_game_button">Go to the game</string>
+  <string name="onboarding_1st_explore_wallet_alternative_button">Explore the AppCoins Wallet</string>
   <!-- VIP Program -->
   <string name="vip_program_reached_notification_title">Bine ai venit la Programul VIP</string>
   <string name="vip_program_reached_notification_body">Ești acum un utilizator VIP cu acces la promoții speciale și oferte. Apasă pentru mai multe detalii!</string>
@@ -1119,4 +1122,6 @@
   <string name="vip_program_max_bonus_title">Bucură-te de bonusul tău de %s%% la fiecare achiziție</string>
   <string name="vip_program_max_bonus_body">Ai atins limitele sistemului solar.</string>
   <string name="vip_program_max_bonus_short">Bonus de %s%% la fiecare achiziție.</string>
+  <string name="vip_program_referral_notification_title">VIP Referral Code Available!</string>
+  <string name="vip_program_referral_notification_body">Share your code with your community so you all earn while playing!</string>
 </resources>

@@ -1083,6 +1083,9 @@
   <string name="onboarding_1st_body">برای تکمیل خرید به بازی برگردید.</string>
   <string name="onboarding_1st_back_to_game_button">بازگشت به بازی</string>
   <string name="onboarding_1st_explore_wallet_button">یا کشف Wallet</string>
+  <string name="onboarding_1st_back_to_unknown_game_body">One of the games you\'ve got installed is AppCoins compatible! Do you want to open it?</string>
+  <string name="onboarding_1st_back_to_unknown_game_button">Go to the game</string>
+  <string name="onboarding_1st_explore_wallet_alternative_button">Explore the AppCoins Wallet</string>
   <!-- VIP Program -->
   <string name="vip_program_reached_notification_title">به برنامه VIP خوش آمدید</string>
   <string name="vip_program_reached_notification_body">شما اکنون یک کاربر VIP با دسترسی ویژه به پیشنهادات تخفیفی هستید. برای اطلاعات بیشتر کلیک کنید!</string>
@@ -1110,4 +1113,6 @@
   <string name="vip_program_max_bonus_title">از %s%% پاداش برای هر خرید لذت ببرید</string>
   <string name="vip_program_max_bonus_body">شما به حد کیهانی ما رسیده اید.</string>
   <string name="vip_program_max_bonus_short">%s%% پاداش برای هر خرید</string>
+  <string name="vip_program_referral_notification_title">VIP Referral Code Available!</string>
+  <string name="vip_program_referral_notification_body">Share your code with your community so you all earn while playing!</string>
 </resources>
