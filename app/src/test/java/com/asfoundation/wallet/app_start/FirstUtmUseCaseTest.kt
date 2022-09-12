@@ -2,6 +2,7 @@ package com.asfoundation.wallet.app_start
 
 import com.asfoundation.wallet.gherkin.coScenario
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.delay
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertNull
 import org.junit.jupiter.api.Test
@@ -23,6 +24,27 @@ internal class FirstUtmUseCaseTest {
     m Given "Repository returns null UTM"
     repository = object : FirstUtmRepository {
       override suspend fun getReferrerUrl(): String? = null
+    }
+    useCase = FirstUtmUseCaseImpl(repository)
+
+    m When "Use case called for result"
+    val result = useCase()
+
+    m Then "result is null"
+    assertNull(result)
+  }
+
+  @Test
+  fun `OSP UTM after 5 seconds returns null`() = coScenario {
+    val repository: FirstUtmRepository
+    val useCase: FirstUtmUseCase
+
+    m Given "Repository returns OSP UTM after 5 seconds"
+    repository = object : FirstUtmRepository {
+      override suspend fun getReferrerUrl(): String {
+        delay(5000)
+        return UTM_OSP
+      }
     }
     useCase = FirstUtmUseCaseImpl(repository)
 
