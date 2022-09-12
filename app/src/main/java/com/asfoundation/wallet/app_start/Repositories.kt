@@ -9,8 +9,8 @@ import com.asf.wallet.BuildConfig
 import com.asfoundation.wallet.app_start.AppStartRepository.Companion.RUNS_COUNT
 import dagger.hilt.android.qualifiers.ApplicationContext
 import it.czerwinski.android.hilt.annotations.BoundTo
+import kotlinx.coroutines.suspendCancellableCoroutine
 import javax.inject.Inject
-import kotlin.coroutines.suspendCoroutine
 
 @BoundTo(supertype = AppStartRepository::class)
 class AppStartRepositoryImpl @Inject constructor(
@@ -43,7 +43,7 @@ class FirstUtmRepositoryImpl @Inject constructor(
     ).build()
   }
 
-  override suspend fun getReferrerUrl(): String? = suspendCoroutine { cont ->
+  override suspend fun getReferrerUrl(): String? = suspendCancellableCoroutine { cont ->
     referrerClient.startConnection(object : InstallReferrerStateListener {
       override fun onInstallReferrerSetupFinished(responseCode: Int) {
         val referrerUrl = if (responseCode == InstallReferrerClient.InstallReferrerResponse.OK) {
@@ -51,7 +51,8 @@ class FirstUtmRepositoryImpl @Inject constructor(
         } else {
           null
         }
-        cont.resumeWith(Result.success(referrerUrl))
+        if (cont.isActive)
+          cont.resumeWith(Result.success(referrerUrl))
         referrerClient.endConnection()
       }
 
