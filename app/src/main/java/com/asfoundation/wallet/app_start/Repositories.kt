@@ -14,7 +14,7 @@ import kotlin.coroutines.suspendCoroutine
 
 @BoundTo(supertype = AppStartRepository::class)
 class AppStartRepositoryImpl @Inject constructor(
-  @ApplicationContext val context: Context,
+  @ApplicationContext private val context: Context,
   private val packageManager: PackageManager,
   private val pref: SharedPreferences
 ) : AppStartRepository {
@@ -34,7 +34,7 @@ class AppStartRepositoryImpl @Inject constructor(
 
 @BoundTo(supertype = FirstUtmRepository::class)
 class FirstUtmRepositoryImpl @Inject constructor(
-  @ApplicationContext val context: Context,
+  @ApplicationContext private val context: Context,
 ) : FirstUtmRepository {
 
   private val referrerClient: InstallReferrerClient by lazy {

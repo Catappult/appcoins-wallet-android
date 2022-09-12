@@ -16,7 +16,7 @@ import org.junit.jupiter.api.Test
 internal class FirstUtmUseCaseTest {
 
   @Test
-  fun `No UTM returns null`() = coScenario { _ ->
+  fun `No UTM returns null`() = coScenario {
     val repository: FirstUtmRepository
     val useCase: FirstUtmUseCase
 
@@ -34,7 +34,7 @@ internal class FirstUtmUseCaseTest {
   }
 
   @Test
-  fun `OSP UTM returns FirstUtm`() = coScenario { _ ->
+  fun `OSP UTM returns FirstUtm`() = coScenario {
     val repository: FirstUtmRepository
     val useCase: FirstUtmUseCase
 
@@ -60,7 +60,7 @@ internal class FirstUtmUseCaseTest {
   }
 
   @Test
-  fun `SDK UTM returns FirstUtm`() = coScenario { _ ->
+  fun `SDK UTM returns FirstUtm`() = coScenario {
     val repository: FirstUtmRepository
     val useCase: FirstUtmUseCase
 
@@ -87,7 +87,7 @@ internal class FirstUtmUseCaseTest {
   }
 
   @Test
-  fun `Wrong term UTM returns null`() = coScenario { _ ->
+  fun `Wrong term UTM returns null`() = coScenario {
     val repository: FirstUtmRepository
     val useCase: FirstUtmUseCase
 
@@ -106,7 +106,7 @@ internal class FirstUtmUseCaseTest {
   }
 
   @Test
-  fun `UTM without medium returns null`() = coScenario { _ ->
+  fun `UTM without medium returns null`() = coScenario {
     val repository: FirstUtmRepository
     val useCase: FirstUtmUseCase
 
@@ -125,7 +125,7 @@ internal class FirstUtmUseCaseTest {
   }
 
   @Test
-  fun `Invalid UTM returns null`() = coScenario { _ ->
+  fun `Invalid UTM returns null`() = coScenario {
     val repository: FirstUtmRepository
     val useCase: FirstUtmUseCase
 
