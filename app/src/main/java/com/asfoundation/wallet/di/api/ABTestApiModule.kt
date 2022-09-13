@@ -2,7 +2,7 @@ package com.asfoundation.wallet.di.api
 
 import com.asf.wallet.BuildConfig
 import com.asfoundation.wallet.abtesting.ABTestApi
-import com.asfoundation.wallet.di.annotations.LowTimerHttpClient
+import com.asfoundation.wallet.di.annotations.ShortTimeoutHttpClient
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -23,7 +23,7 @@ class ABTestApiModule {
   @Singleton
   @Provides
   @Named("abtest-low-timer")
-  fun provideABTestDefaultRetrofit(@LowTimerHttpClient client: OkHttpClient): Retrofit {
+  fun provideABTestDefaultRetrofit(@ShortTimeoutHttpClient client: OkHttpClient): Retrofit {
     return Retrofit.Builder()
       .baseUrl(abTestUrl)
       .client(client)

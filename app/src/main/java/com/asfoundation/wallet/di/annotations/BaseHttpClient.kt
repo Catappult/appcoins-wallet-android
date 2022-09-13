@@ -40,4 +40,4 @@ annotation class DefaultHttpClient
   AnnotationTarget.FUNCTION,
   AnnotationTarget.VALUE_PARAMETER
 )
-annotation class LowTimerHttpClient
+annotation class ShortTimeoutHttpClient
