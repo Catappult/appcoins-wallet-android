@@ -225,6 +225,8 @@ class PromotionsFragment : BasePageViewFragment(),
 
     val gamificationHeaderItem: GamificationItem =
       (promotionsModel.promotions[0] as GamificationItem)
+
+    hideAllGamificationHeaderLayouts()
     val gamificationHeaderLayout = getGamificationHeaderBinding(gamificationHeaderItem)
 
     gamificationHeaderLayout.type?.root?.visibility = View.VISIBLE
@@ -249,7 +251,6 @@ class PromotionsFragment : BasePageViewFragment(),
   }
 
   private fun getGamificationHeaderBinding(gamificationHeaderItem: GamificationItem): GamificationHeaderBindingAdapter {
-    hideAllGamificationLayouts()
     return when (gamificationHeaderItem.gamificationStatus) {
       GamificationStatus.APPROACHING_VIP -> {
         GamificationHeaderBindingAdapter(
@@ -286,7 +287,7 @@ class PromotionsFragment : BasePageViewFragment(),
     }
   }
 
-  private fun hideAllGamificationLayouts() {
+  private fun hideAllGamificationHeaderLayouts() {
     views.currentLevelHeader.almostVipLevelHeader.root.visibility = View.GONE
     views.currentLevelHeader.vipLevelHeader.root.visibility = View.GONE
     views.currentLevelHeader.vipMaxLevelHeader.root.visibility = View.GONE
