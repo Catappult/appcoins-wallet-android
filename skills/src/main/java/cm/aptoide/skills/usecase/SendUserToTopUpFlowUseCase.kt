@@ -5,7 +5,8 @@ import cm.aptoide.skills.interfaces.ExternalSkillsPaymentProvider
 import javax.inject.Inject
 
 class SendUserToTopUpFlowUseCase @Inject constructor(
-    private val externalSkillsPaymentProvider: ExternalSkillsPaymentProvider) {
+  private val externalSkillsPaymentProvider: ExternalSkillsPaymentProvider
+) {
   operator fun invoke(context: Context) {
     externalSkillsPaymentProvider.sendUserToTopUpFlow(context)
   }

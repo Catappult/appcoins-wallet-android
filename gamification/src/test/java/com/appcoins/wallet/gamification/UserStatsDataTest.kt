@@ -1,6 +1,6 @@
 package com.appcoins.wallet.gamification
 
-import com.appcoins.wallet.gamification.repository.GamificationStats
+import com.appcoins.wallet.gamification.repository.PromotionsGamificationStats
 import com.appcoins.wallet.gamification.repository.UserStatsLocalData
 import com.appcoins.wallet.gamification.repository.entity.LevelsResponse
 import com.appcoins.wallet.gamification.repository.entity.PromotionsResponse
@@ -16,7 +16,7 @@ class UserStatsDataTest : UserStatsLocalData {
   var walletOriginResponse: Single<WalletOrigin>? = null
   var levelsResponse: Single<LevelsResponse>? = null
   private var wallet: String? = null
-  private var gamificationLevel: Int? = GamificationStats.INVALID_LEVEL
+  private var gamificationLevel: Int? = PromotionsGamificationStats.INVALID_LEVEL
 
   override fun saveShownLevel(wallet: String, level: Int,
                               gamificationContext: GamificationContext) {
@@ -51,7 +51,7 @@ class UserStatsDataTest : UserStatsLocalData {
     this.gamificationLevel = gamificationLevel
   }
 
-  override fun getGamificationLevel(): Int = GamificationStats.INVALID_LEVEL
+  override fun getGamificationLevel(): Int = PromotionsGamificationStats.INVALID_LEVEL
 
 
   override fun getPromotions(): Single<List<PromotionsResponse>> {

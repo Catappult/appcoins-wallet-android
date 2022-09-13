@@ -69,11 +69,11 @@ dependencies {
   kapt 'com.google.dagger:hilt-compiler:2.40.5'
   //hilt-extensions to allow injecting an implementation that has an interface
   implementation 'it.czerwinski.android.hilt:hilt-extensions:1.2.0'
-  kapt'it.czerwinski.android.hilt:hilt-processor:1.2.0'
+  kapt 'it.czerwinski.android.hilt:hilt-processor:1.2.0'
 
   implementation "com.airbnb.android:lottie:$project.lottie_version"
   implementation "com.facebook.shimmer:shimmer:$project.shimmer_version"
-  implementation ("org.web3j:core:$project.web3j_version"){
+  implementation("org.web3j:core:$project.web3j_version") {
     // To resolve the bouncycastle version conflict with the adyen (1.68 vs 1.69)
     exclude group: 'org.bouncycastle', module: 'bcprov-jdk15to18'
   }

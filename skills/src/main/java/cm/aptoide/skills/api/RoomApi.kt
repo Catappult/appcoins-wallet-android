@@ -12,6 +12,8 @@ interface RoomApi {
   fun getRoom(@Header("authorization") authorization: String): Single<RoomResponse>
 
   @POST("room/authorization/login")
-  fun login(@Header("authorization") authorization: String,
-            @Body loginRequest: LoginRequest): Single<LoginResponse>
+  fun login(
+    @Header("authorization") authorization: String,
+    @Body loginRequest: LoginRequest
+  ): Single<LoginResponse>
 }

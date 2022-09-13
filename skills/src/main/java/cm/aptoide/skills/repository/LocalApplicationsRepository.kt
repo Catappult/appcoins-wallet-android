@@ -8,7 +8,7 @@ class LocalApplicationsRepository @Inject constructor(private val packageManager
   fun getApplicationName(packageName: String): String {
     val packageInfo = packageManager.getApplicationInfo(packageName, 0)
     return packageManager.getApplicationLabel(packageInfo)
-        .toString()
+      .toString()
   }
 
   fun getApplicationIcon(packageName: String): Drawable {

@@ -4,7 +4,7 @@ import com.appcoins.wallet.gamification.Gamification
 import com.appcoins.wallet.gamification.GamificationContext
 import com.appcoins.wallet.gamification.repository.ForecastBonus
 import com.appcoins.wallet.gamification.repository.ForecastBonusAndLevel
-import com.appcoins.wallet.gamification.repository.GamificationStats
+import com.appcoins.wallet.gamification.repository.PromotionsGamificationStats
 import com.appcoins.wallet.gamification.repository.Levels
 import com.appcoins.wallet.gamification.repository.entity.GamificationResponse
 import com.appcoins.wallet.gamification.repository.entity.PromotionsResponse
@@ -32,7 +32,7 @@ class GamificationInteractor @Inject constructor(private val gamification: Gamif
         .flatMapObservable { gamification.getLevels(it.address, offlineFirst) }
   }
 
-  fun getUserStats(): Observable<GamificationStats> {
+  fun getUserStats(): Observable<PromotionsGamificationStats> {
     return getCurrentPromoCodeUseCase()
         .flatMapObservable { promoCode ->
           defaultWallet.find()
