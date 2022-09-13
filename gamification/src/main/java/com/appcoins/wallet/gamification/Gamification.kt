@@ -17,7 +17,7 @@ class Gamification @Inject constructor(private val repository: PromotionsReposit
     const val REFERRAL_ID = "REFERRAL"
   }
 
-  fun getUserStats(wallet: String, promoCodeString: String?): Observable<GamificationStats> {
+  fun getUserStats(wallet: String, promoCodeString: String?): Observable<PromotionsGamificationStats> {
     return repository.getGamificationStats(wallet, promoCodeString)
   }
 

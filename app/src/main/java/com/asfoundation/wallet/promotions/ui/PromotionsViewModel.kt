@@ -2,7 +2,7 @@ package com.asfoundation.wallet.promotions.ui
 
 
 import android.content.ActivityNotFoundException
-import com.appcoins.wallet.gamification.repository.GamificationStats
+import com.appcoins.wallet.gamification.repository.PromotionsGamificationStats
 import com.asfoundation.wallet.analytics.AnalyticsSetup
 import com.asfoundation.wallet.base.*
 import com.asfoundation.wallet.promotions.PromotionsInteractor
@@ -34,7 +34,7 @@ sealed class PromotionsSideEffect : SideEffect {
 
 data class PromotionsState(
   val promotionsModelAsync: Async<PromotionsModel> = Async.Uninitialized,
-  val gamificationStatsAsync: Async<GamificationStats> = Async.Uninitialized
+  val promotionsGamificationStatsAsync: Async<PromotionsGamificationStats> = Async.Uninitialized
 ) :
   ViewState
 
@@ -86,7 +86,7 @@ class PromotionsViewModel @Inject constructor(
   fun fetchGamificationStats() {
     gamificationInteractor.getUserStats()
       .subscribeOn(rxSchedulers.io)
-      .asAsyncToState { copy(gamificationStatsAsync = it) }
+      .asAsyncToState { copy(promotionsGamificationStatsAsync = it) }
       .scopedSubscribe()
   }
 

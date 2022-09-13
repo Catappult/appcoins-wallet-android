@@ -117,7 +117,7 @@ class BdsPromotionsRepository @Inject constructor(private val api: GamificationA
   }
 
   override fun getGamificationStats(wallet: String,
-                                    promoCodeString: String?): Observable<GamificationStats> {
+                                    promoCodeString: String?): Observable<PromotionsGamificationStats> {
     return getUserStatsFromResponses(wallet, promoCodeString)
         .map {
           val gamificationStats = mapToGamificationStats(it)
@@ -131,14 +131,22 @@ class BdsPromotionsRepository @Inject constructor(private val api: GamificationA
         .filter { it.error == null }
         .map { mapToGamificationStats(it).level }
         .lastOrError()
-        .onErrorReturn { GamificationStats.INVALID_LEVEL }
+        .onErrorReturn { PromotionsGamificationStats.INVALID_LEVEL }
   }
 
-  private fun map(status: Status, fromCache: Boolean = false): GamificationStats {
+  private fun map(status: Status, fromCache: Boolean = false): PromotionsGamificationStats {
     return if (status == Status.NO_NETWORK) {
-      GamificationStats(GamificationStats.Status.NO_NETWORK, fromCache = fromCache)
+      PromotionsGamificationStats(
+        PromotionsGamificationStats.ResultState.NO_NETWORK,
+        fromCache = fromCache,
+        gamificationStatus = GamificationStatus.NONE
+      )
     } else {
-      GamificationStats(GamificationStats.Status.UNKNOWN_ERROR, fromCache = fromCache)
+      PromotionsGamificationStats(
+        PromotionsGamificationStats.ResultState.UNKNOWN_ERROR,
+        fromCache = fromCache,
+        gamificationStatus = GamificationStatus.NONE
+      )
     }
   }
 
@@ -166,19 +174,30 @@ class BdsPromotionsRepository @Inject constructor(private val api: GamificationA
     }
   }
 
-  private fun mapToGamificationStats(stats: UserStats): GamificationStats {
+  private fun mapToGamificationStats(stats: UserStats): PromotionsGamificationStats {
     return if (stats.error != null) {
       map(stats.error, stats.fromCache)
     } else {
       val gamification =
           stats.promotions.firstOrNull { it is GamificationResponse } as GamificationResponse?
       if (gamification == null) {
-        GamificationStats(GamificationStats.Status.UNKNOWN_ERROR, fromCache = stats.fromCache)
+        PromotionsGamificationStats(
+          PromotionsGamificationStats.ResultState.UNKNOWN_ERROR,
+          fromCache = stats.fromCache,
+          gamificationStatus = GamificationStatus.NONE
+        )
       } else {
-        GamificationStats(GamificationStats.Status.OK, gamification.level,
-            gamification.nextLevelAmount, gamification.bonus, gamification.totalSpend,
-            gamification.totalEarned, PromotionsResponse.Status.ACTIVE == gamification.status,
-            stats.fromCache)
+        PromotionsGamificationStats(
+          PromotionsGamificationStats.ResultState.OK,
+          gamification.level,
+          gamification.nextLevelAmount,
+          gamification.bonus,
+          gamification.totalSpend,
+          gamification.totalEarned,
+          PromotionsResponse.Status.ACTIVE == gamification.status,
+          stats.fromCache,
+          gamification.gamificationStatus ?: GamificationStatus.NONE
+        )
       }
     }
   }
@@ -239,7 +258,7 @@ class BdsPromotionsRepository @Inject constructor(private val api: GamificationA
           val gamification =
               userStatusResponse.promotions.firstOrNull { it is GamificationResponse } as GamificationResponse?
           if (userStatusResponse.error == null && !userStatusResponse.fromCache) {
-            local.setGamificationLevel(gamification?.level ?: GamificationStats.INVALID_LEVEL)
+            local.setGamificationLevel(gamification?.level ?: PromotionsGamificationStats.INVALID_LEVEL)
           }
           Observable.just(userStatusResponse)
         }
