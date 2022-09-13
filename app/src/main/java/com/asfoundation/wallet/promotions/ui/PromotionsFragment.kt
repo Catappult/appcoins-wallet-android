@@ -45,9 +45,6 @@ class PromotionsFragment : BasePageViewFragment(),
   @Inject
   lateinit var currencyFormatUtils: CurrencyFormatUtils
 
-  private lateinit var gamificationHeaderBinding: GamificationHeaderBindingAdapter
-
-
   val df = DecimalFormat("###.#")
 
   private lateinit var promotionsController: PromotionsController
@@ -116,7 +113,8 @@ class PromotionsFragment : BasePageViewFragment(),
       }
       PromotionsSideEffect.NavigateToInviteFriends -> navigator.navigateToInviteFriends()
       PromotionsSideEffect.ShowErrorToast -> showErrorToast()
-      else -> {}
+      else -> {
+      }
     }
   }
 
@@ -173,7 +171,7 @@ class PromotionsFragment : BasePageViewFragment(),
         }
       }
     } else if (promotionsModel.walletOrigin == PromotionsModel.WalletOrigin.UNKNOWN) {
-        showLockedPromotionsScreen()
+      showLockedPromotionsScreen()
     } else {
       if (promotionsModel.perks.isEmpty()) {
         showNoPromotionsScreen(promotionsModel, gamificationStats, vipReferralInfo)
@@ -205,7 +203,12 @@ class PromotionsFragment : BasePageViewFragment(),
     vipReferralInfo: VipReferralInfo?
   ) {
     promotionsController.setData(promotionsModel)
-    showPromotionsHeader(promotionsModel, gamificationStats, hasPerksAvailable = true, vipReferralInfo)
+    showPromotionsHeader(
+      promotionsModel,
+      gamificationStats,
+      hasPerksAvailable = true,
+      vipReferralInfo
+    )
     views.rvPromotions.visibility = View.VISIBLE
     views.noNetwork.root.visibility = View.GONE
     views.lockedPromotions.root.visibility = View.GONE
@@ -246,6 +249,7 @@ class PromotionsFragment : BasePageViewFragment(),
   }
 
   private fun getGamificationHeaderBinding(gamificationHeaderItem: GamificationItem): GamificationHeaderBindingAdapter {
+    hideAllGamificationLayouts()
     return when (gamificationHeaderItem.gamificationStatus) {
       GamificationStatus.APPROACHING_VIP -> {
         GamificationHeaderBindingAdapter(
@@ -280,6 +284,13 @@ class PromotionsFragment : BasePageViewFragment(),
         )
       }
     }
+  }
+
+  private fun hideAllGamificationLayouts() {
+    views.currentLevelHeader.almostVipLevelHeader.root.visibility = View.GONE
+    views.currentLevelHeader.vipLevelHeader.root.visibility = View.GONE
+    views.currentLevelHeader.vipMaxLevelHeader.root.visibility = View.GONE
+    views.currentLevelHeader.regularLevelHeader.root.visibility = View.GONE
   }
 
   private fun showGamificationHeaderColors(
@@ -389,7 +400,13 @@ class PromotionsFragment : BasePageViewFragment(),
     gamificationStats: GamificationStats,
     vipReferralInfo: VipReferralInfo?
   ) {
-    showPromotionsHeader(promotionsModel, gamificationStats, hasPerksAvailable = false, vipReferralInfo)
+    promotionsController.setData(promotionsModel)
+    showPromotionsHeader(
+      promotionsModel,
+      gamificationStats,
+      hasPerksAvailable = false,
+      vipReferralInfo
+    )
     views.noNetwork.root.visibility = View.GONE
     views.noNetwork.retryAnimation.visibility = View.GONE
     views.noPromotions.root.visibility = View.VISIBLE
