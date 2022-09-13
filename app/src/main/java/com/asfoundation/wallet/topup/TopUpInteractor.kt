@@ -19,93 +19,83 @@ import com.asfoundation.wallet.wallet_blocked.WalletBlockedInteract
 import io.reactivex.Completable
 import io.reactivex.Single
 import java.math.BigDecimal
-import java.util.*
 import javax.inject.Inject
-import kotlin.collections.ArrayList
 
-class TopUpInteractor @Inject constructor(private val repository: BdsRepository,
-                      private val conversionService: LocalCurrencyConversionService,
-                      private val gamificationInteractor: GamificationInteractor,
-                      private val topUpValuesService: TopUpValuesService,
-                      private var walletBlockedInteract: WalletBlockedInteract,
-                      private var inAppPurchaseInteractor: InAppPurchaseInteractor,
-                      private var supportInteractor: SupportInteractor,
-                      private var topUpDefaultValueExperiment: TopUpDefaultValueExperiment,
-                      private val getCurrentPromoCodeUseCase: GetCurrentPromoCodeUseCase) {
+class TopUpInteractor @Inject constructor(
+  private val repository: BdsRepository,
+  private val conversionService: LocalCurrencyConversionService,
+  private val gamificationInteractor: GamificationInteractor,
+  private val topUpValuesService: TopUpValuesService,
+  private var walletBlockedInteract: WalletBlockedInteract,
+  private var inAppPurchaseInteractor: InAppPurchaseInteractor,
+  private var supportInteractor: SupportInteractor,
+  private var topUpDefaultValueExperiment: TopUpDefaultValueExperiment,
+  private val getCurrentPromoCodeUseCase: GetCurrentPromoCodeUseCase
+) {
 
   private val chipValueIndexMap: LinkedHashMap<FiatValue, Int> = LinkedHashMap()
   private var limitValues: TopUpLimitValues = TopUpLimitValues()
 
-  fun getPaymentMethods(value: String, currency: String): Single<List<PaymentMethod>> {
-    return repository.getPaymentMethods(value, currency, "fiat", true, "TOPUP")
-        .map { mapPaymentMethods(it) }
-  }
+  fun getPaymentMethods(value: String, currency: String): Single<List<PaymentMethod>> =
+    repository.getPaymentMethods(value, currency, "fiat", true, "TOPUP")
+      .map { mapPaymentMethods(it) }
 
   fun isWalletBlocked() = walletBlockedInteract.isWalletBlocked()
 
   fun incrementAndValidateNotificationNeeded(): Single<NotificationNeeded> =
-      inAppPurchaseInteractor.incrementAndValidateNotificationNeeded()
+    inAppPurchaseInteractor.incrementAndValidateNotificationNeeded()
 
-  fun showSupport(): Completable {
-    return gamificationInteractor.getUserLevel()
-        .flatMapCompletable { level ->
-          inAppPurchaseInteractor.walletAddress
-              .flatMapCompletable { wallet ->
-                supportInteractor.showSupport(wallet, level)
-              }
+  fun showSupport(): Completable = gamificationInteractor.getUserLevel()
+    .flatMapCompletable { level ->
+      inAppPurchaseInteractor.walletAddress
+        .flatMapCompletable { wallet ->
+          supportInteractor.showSupport(wallet, level)
         }
-  }
+    }
 
-  fun convertAppc(value: String): Single<FiatValue> {
-    return conversionService.getAppcToLocalFiat(value, 2)
-  }
+  fun convertAppc(value: String): Single<FiatValue> =
+    conversionService.getAppcToLocalFiat(value, 2)
 
-  fun convertLocal(currency: String, value: String, scale: Int): Single<FiatValue> {
-    return conversionService.getFiatToAppc(currency, value, scale)
-  }
+  fun convertLocal(currency: String, value: String, scale: Int): Single<FiatValue> =
+    conversionService.getFiatToAppc(currency, value, scale)
 
   private fun mapPaymentMethods(
-      paymentMethods: List<PaymentMethodEntity>): List<PaymentMethod> {
-    return paymentMethods.map {
-      PaymentMethod(it.id, it.label, it.iconUrl, it.async,
-          mapPaymentMethodFee(it.fee), it.isAvailable(), null)
+    paymentMethods: List<PaymentMethodEntity>
+  ): List<PaymentMethod> = paymentMethods.map {
+    PaymentMethod(
+      it.id, it.label, it.iconUrl, it.async,
+      mapPaymentMethodFee(it.fee), it.isAvailable(), null
+    )
+  }
+
+  private fun mapPaymentMethodFee(feeEntity: FeeEntity?): PaymentMethodFee? = feeEntity?.let {
+    if (feeEntity.type === FeeType.EXACT) {
+      PaymentMethodFee(true, feeEntity.cost?.value, feeEntity.cost?.currency)
+    } else {
+      PaymentMethodFee(false, null, null)
     }
   }
 
-  private fun mapPaymentMethodFee(feeEntity: FeeEntity?): PaymentMethodFee? {
-    return feeEntity?.let {
-      if (feeEntity.type === FeeType.EXACT) {
-        PaymentMethodFee(true, feeEntity.cost?.value, feeEntity.cost?.currency)
-      } else {
-        PaymentMethodFee(false, null, null)
-      }
-    }
-  }
-
-  fun getEarningBonus(packageName: String, amount: BigDecimal): Single<ForecastBonusAndLevel> {
-    return getCurrentPromoCodeUseCase().flatMap {
-       gamificationInteractor.getEarningBonus(packageName, amount, it.code)
+  fun getEarningBonus(packageName: String, amount: BigDecimal): Single<ForecastBonusAndLevel> =
+    getCurrentPromoCodeUseCase().flatMap {
+      gamificationInteractor.getEarningBonus(packageName, amount, it.code)
     }
 
-  }
-
-  fun getLimitTopUpValues(): Single<TopUpLimitValues> {
-    return if (limitValues.maxValue != TopUpLimitValues.INITIAL_LIMIT_VALUE &&
-        limitValues.minValue != TopUpLimitValues.INITIAL_LIMIT_VALUE) {
+  fun getLimitTopUpValues(): Single<TopUpLimitValues> =
+    if (limitValues.maxValue != TopUpLimitValues.INITIAL_LIMIT_VALUE &&
+      limitValues.minValue != TopUpLimitValues.INITIAL_LIMIT_VALUE
+    ) {
       Single.just(limitValues)
     } else {
       topUpValuesService.getLimitValues()
-          .doOnSuccess { if (!it.error.hasError) cacheLimitValues(it) }
+        .doOnSuccess { if (!it.error.hasError) cacheLimitValues(it) }
     }
-  }
 
-  fun getDefaultValues(): Single<TopUpValuesModel> {
-    return if (chipValueIndexMap.isNotEmpty()) {
-      Single.just(TopUpValuesModel(ArrayList(chipValueIndexMap.keys)))
-    } else {
-      topUpValuesService.getDefaultValues()
-          .doOnSuccess { if (!it.error.hasError) cacheChipValues(it.values) }
-    }
+  fun getDefaultValues(): Single<TopUpValuesModel> = if (chipValueIndexMap.isNotEmpty()) {
+    Single.just(TopUpValuesModel(ArrayList(chipValueIndexMap.keys)))
+  } else {
+    topUpValuesService.getDefaultValues()
+      .doOnSuccess { if (!it.error.hasError) cacheChipValues(it.values) }
   }
 
   fun cleanCachedValues() {
@@ -113,13 +103,10 @@ class TopUpInteractor @Inject constructor(private val repository: BdsRepository,
     chipValueIndexMap.clear()
   }
 
-  fun isBonusValidAndActive(): Boolean {
-    return gamificationInteractor.isBonusActiveAndValid()
-  }
+  fun isBonusValidAndActive(): Boolean = gamificationInteractor.isBonusActiveAndValid()
 
-  fun isBonusValidAndActive(forecastBonusAndLevel: ForecastBonusAndLevel): Boolean {
-    return gamificationInteractor.isBonusActiveAndValid(forecastBonusAndLevel)
-  }
+  fun isBonusValidAndActive(forecastBonusAndLevel: ForecastBonusAndLevel): Boolean =
+    gamificationInteractor.isBonusActiveAndValid(forecastBonusAndLevel)
 
   private fun cacheChipValues(chipValues: List<FiatValue>) {
     for (index in chipValues.indices) {
@@ -136,5 +123,5 @@ class TopUpInteractor @Inject constructor(private val repository: BdsRepository,
   fun getABTestingExperiment(): Single<String> = topUpDefaultValueExperiment.getConfiguration()
 
   fun mapABTestingExperiment(experiment: String): Int =
-      topUpDefaultValueExperiment.mapConfiguration(experiment)
+    topUpDefaultValueExperiment.mapConfiguration(experiment)
 }

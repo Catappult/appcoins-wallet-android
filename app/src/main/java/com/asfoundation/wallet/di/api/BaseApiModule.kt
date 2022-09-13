@@ -24,13 +24,15 @@ class BaseApiModule {
   @Singleton
   @Provides
   @BaseHttpClient
-  fun provideOkHttpClient(@ApplicationContext context: Context,
-                          preferencesRepositoryType: PreferencesRepositoryType,
-                          logInterceptor: LogInterceptor): OkHttpClient {
+  fun provideOkHttpClient(
+    @ApplicationContext context: Context,
+    preferencesRepositoryType: PreferencesRepositoryType,
+    logInterceptor: LogInterceptor
+  ): OkHttpClient {
     return OkHttpClient.Builder()
-        .addInterceptor(UserAgentInterceptor(context, preferencesRepositoryType))
-        .addInterceptor(logInterceptor)
-        .build()
+      .addInterceptor(UserAgentInterceptor(context, preferencesRepositoryType))
+      .addInterceptor(logInterceptor)
+      .build()
   }
 
   @Singleton
@@ -38,10 +40,10 @@ class BaseApiModule {
   @BlockchainHttpClient
   fun provideBlockchainOkHttpClient(@BaseHttpClient client: OkHttpClient): OkHttpClient {
     return client.newBuilder()
-        .connectTimeout(15, TimeUnit.MINUTES)
-        .readTimeout(30, TimeUnit.MINUTES)
-        .writeTimeout(30, TimeUnit.MINUTES)
-        .build()
+      .connectTimeout(15, TimeUnit.MINUTES)
+      .readTimeout(30, TimeUnit.MINUTES)
+      .writeTimeout(30, TimeUnit.MINUTES)
+      .build()
   }
 
   @Singleton
@@ -49,10 +51,10 @@ class BaseApiModule {
   @DefaultHttpClient
   fun provideDefaultOkHttpClient(@BaseHttpClient client: OkHttpClient): OkHttpClient {
     return client.newBuilder()
-        .connectTimeout(45, TimeUnit.SECONDS)
-        .readTimeout(60, TimeUnit.SECONDS)
-        .writeTimeout(60, TimeUnit.SECONDS)
-        .build()
+      .connectTimeout(45, TimeUnit.SECONDS)
+      .readTimeout(60, TimeUnit.SECONDS)
+      .writeTimeout(60, TimeUnit.SECONDS)
+      .build()
   }
 
   @Singleton
@@ -60,9 +62,9 @@ class BaseApiModule {
   @LowTimerHttpClient
   fun provideLowTimerOkHttpClient(@BaseHttpClient client: OkHttpClient): OkHttpClient {
     return client.newBuilder()
-        .connectTimeout(10, TimeUnit.SECONDS)
-        .readTimeout(20, TimeUnit.SECONDS)
-        .writeTimeout(20, TimeUnit.SECONDS)
-        .build()
+      .connectTimeout(10, TimeUnit.SECONDS)
+      .readTimeout(20, TimeUnit.SECONDS)
+      .writeTimeout(20, TimeUnit.SECONDS)
+      .build()
   }
 }
