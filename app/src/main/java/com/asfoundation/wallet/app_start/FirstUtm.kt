@@ -1,6 +1,7 @@
 package com.asfoundation.wallet.app_start
 
 import it.czerwinski.android.hilt.annotations.BoundTo
+import kotlinx.coroutines.withTimeoutOrNull
 import java.net.URLDecoder
 import javax.inject.Inject
 
@@ -13,7 +14,8 @@ class FirstUtmUseCaseImpl @Inject constructor(
   private val repository: FirstUtmRepository
 ) : FirstUtmUseCase {
   override suspend operator fun invoke(): StartMode.FirstUtm? {
-    val referrer = repository.getReferrerUrl()?.splitQuery()
+    val referrer = withTimeoutOrNull(5000) { repository.getReferrerUrl() }
+      ?.splitQuery()
     return if (referrer.isCorrectUtm()) {
       StartMode.FirstUtm(
         sku = referrer?.get(UTM_CONTENT)?.get(0) ?: "",

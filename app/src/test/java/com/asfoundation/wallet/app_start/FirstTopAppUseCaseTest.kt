@@ -20,7 +20,7 @@ import kotlin.streams.toList
 internal class FirstTopAppUseCaseTest {
 
   @Test
-  fun `On system without top apps returns null`() = coScenario { _ ->
+  fun `On system without top apps returns null`() = coScenario {
     val repository: FirstTopAppRepository
     val useCase: FirstTopAppUseCase
 
@@ -36,7 +36,7 @@ internal class FirstTopAppUseCaseTest {
   }
 
   @Test
-  fun `On system with 1 top app returns FirstTopApp`() = coScenario { _ ->
+  fun `On system with 1 top app returns FirstTopApp`() = coScenario {
     val repository: FirstTopAppRepository
     val useCase: FirstTopAppUseCase
 
@@ -55,7 +55,7 @@ internal class FirstTopAppUseCaseTest {
   }
 
   @Test
-  fun `On system with 2 top apps returns null`() = coScenario { _ ->
+  fun `On system with 2 top apps returns null`() = coScenario {
     val repository: FirstTopAppRepository
     val useCase: FirstTopAppUseCase
 
@@ -73,7 +73,7 @@ internal class FirstTopAppUseCaseTest {
   }
 
   @Test
-  fun `On system with 3 top apps returns null`() = coScenario { _ ->
+  fun `On system with 3 top apps returns null`() = coScenario {
     val repository: FirstTopAppRepository
     val useCase: FirstTopAppUseCase
 
@@ -91,7 +91,7 @@ internal class FirstTopAppUseCaseTest {
   }
 
   @Test
-  fun `On system with 4 top apps returns null`() = coScenario { _ ->
+  fun `On system with 4 top apps returns null`() = coScenario {
     val repository: FirstTopAppRepository
     val useCase: FirstTopAppUseCase
 
@@ -114,7 +114,7 @@ internal class FirstTopAppUseCaseTest {
   }
 
   @Test
-  fun `On system with all top apps returns null`() = coScenario { _ ->
+  fun `On system with all top apps returns null`() = coScenario {
     val repository: FirstTopAppRepository
     val useCase: FirstTopAppUseCase
 

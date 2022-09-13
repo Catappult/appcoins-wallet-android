@@ -2,6 +2,7 @@ package com.asfoundation.wallet.app_start
 
 import com.asfoundation.wallet.gherkin.coScenario
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.delay
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertNull
 import org.junit.jupiter.api.Test
@@ -16,7 +17,7 @@ import org.junit.jupiter.api.Test
 internal class FirstUtmUseCaseTest {
 
   @Test
-  fun `No UTM returns null`() = coScenario { _ ->
+  fun `No UTM returns null`() = coScenario {
     val repository: FirstUtmRepository
     val useCase: FirstUtmUseCase
 
@@ -34,7 +35,28 @@ internal class FirstUtmUseCaseTest {
   }
 
   @Test
-  fun `OSP UTM returns FirstUtm`() = coScenario { _ ->
+  fun `OSP UTM after 5 seconds returns null`() = coScenario {
+    val repository: FirstUtmRepository
+    val useCase: FirstUtmUseCase
+
+    m Given "Repository returns OSP UTM after 5 seconds"
+    repository = object : FirstUtmRepository {
+      override suspend fun getReferrerUrl(): String {
+        delay(5000)
+        return UTM_OSP
+      }
+    }
+    useCase = FirstUtmUseCaseImpl(repository)
+
+    m When "Use case called for result"
+    val result = useCase()
+
+    m Then "result is null"
+    assertNull(result)
+  }
+
+  @Test
+  fun `OSP UTM returns FirstUtm`() = coScenario {
     val repository: FirstUtmRepository
     val useCase: FirstUtmUseCase
 
@@ -60,7 +82,7 @@ internal class FirstUtmUseCaseTest {
   }
 
   @Test
-  fun `SDK UTM returns FirstUtm`() = coScenario { _ ->
+  fun `SDK UTM returns FirstUtm`() = coScenario {
     val repository: FirstUtmRepository
     val useCase: FirstUtmUseCase
 
@@ -87,7 +109,7 @@ internal class FirstUtmUseCaseTest {
   }
 
   @Test
-  fun `Wrong term UTM returns null`() = coScenario { _ ->
+  fun `Wrong term UTM returns null`() = coScenario {
     val repository: FirstUtmRepository
     val useCase: FirstUtmUseCase
 
@@ -106,7 +128,7 @@ internal class FirstUtmUseCaseTest {
   }
 
   @Test
-  fun `UTM without medium returns null`() = coScenario { _ ->
+  fun `UTM without medium returns null`() = coScenario {
     val repository: FirstUtmRepository
     val useCase: FirstUtmUseCase
 
@@ -125,7 +147,7 @@ internal class FirstUtmUseCaseTest {
   }
 
   @Test
-  fun `Invalid UTM returns null`() = coScenario { _ ->
+  fun `Invalid UTM returns null`() = coScenario {
     val repository: FirstUtmRepository
     val useCase: FirstUtmUseCase
 

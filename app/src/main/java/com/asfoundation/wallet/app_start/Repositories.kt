@@ -5,16 +5,18 @@ import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import com.android.installreferrer.api.InstallReferrerClient
 import com.android.installreferrer.api.InstallReferrerStateListener
+import com.appcoins.wallet.commons.Logger
 import com.asf.wallet.BuildConfig
 import com.asfoundation.wallet.app_start.AppStartRepository.Companion.RUNS_COUNT
 import dagger.hilt.android.qualifiers.ApplicationContext
 import it.czerwinski.android.hilt.annotations.BoundTo
+import kotlinx.coroutines.suspendCancellableCoroutine
+import java.util.concurrent.TimeoutException
 import javax.inject.Inject
-import kotlin.coroutines.suspendCoroutine
 
 @BoundTo(supertype = AppStartRepository::class)
 class AppStartRepositoryImpl @Inject constructor(
-  @ApplicationContext val context: Context,
+  @ApplicationContext private val context: Context,
   private val packageManager: PackageManager,
   private val pref: SharedPreferences
 ) : AppStartRepository {
@@ -34,7 +36,8 @@ class AppStartRepositoryImpl @Inject constructor(
 
 @BoundTo(supertype = FirstUtmRepository::class)
 class FirstUtmRepositoryImpl @Inject constructor(
-  @ApplicationContext val context: Context,
+  @ApplicationContext private val context: Context,
+  private val logger: Logger
 ) : FirstUtmRepository {
 
   private val referrerClient: InstallReferrerClient by lazy {
@@ -43,7 +46,7 @@ class FirstUtmRepositoryImpl @Inject constructor(
     ).build()
   }
 
-  override suspend fun getReferrerUrl(): String? = suspendCoroutine { cont ->
+  override suspend fun getReferrerUrl(): String? = suspendCancellableCoroutine { cont ->
     referrerClient.startConnection(object : InstallReferrerStateListener {
       override fun onInstallReferrerSetupFinished(responseCode: Int) {
         val referrerUrl = if (responseCode == InstallReferrerClient.InstallReferrerResponse.OK) {
@@ -51,12 +54,20 @@ class FirstUtmRepositoryImpl @Inject constructor(
         } else {
           null
         }
-        cont.resumeWith(Result.success(referrerUrl))
+        if (cont.isActive) {
+          cont.resumeWith(Result.success(referrerUrl))
+        } else {
+          logger.log(TAG, TimeoutException("Install referrer cancelled on timeout"))
+        }
         referrerClient.endConnection()
       }
 
       override fun onInstallReferrerServiceDisconnected() {}
     })
+  }
+
+  companion object {
+    private const val TAG = "FirstUtmRepository"
   }
 }
 
