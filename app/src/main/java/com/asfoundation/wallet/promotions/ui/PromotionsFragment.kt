@@ -113,7 +113,8 @@ class PromotionsFragment : BasePageViewFragment(),
       }
       PromotionsSideEffect.NavigateToInviteFriends -> navigator.navigateToInviteFriends()
       PromotionsSideEffect.ShowErrorToast -> showErrorToast()
-      else -> {}
+      else -> {
+      }
     }
   }
 
@@ -202,7 +203,12 @@ class PromotionsFragment : BasePageViewFragment(),
     vipReferralInfo: VipReferralInfo?
   ) {
     promotionsController.setData(promotionsModel)
-    showPromotionsHeader(promotionsModel, promotionsGamificationStats, hasPerksAvailable = true, vipReferralInfo)
+    showPromotionsHeader(
+      promotionsModel,
+      promotionsGamificationStats,
+      hasPerksAvailable = true,
+      vipReferralInfo
+    )
     views.rvPromotions.visibility = View.VISIBLE
     views.noNetwork.root.visibility = View.GONE
     views.lockedPromotions.root.visibility = View.GONE
@@ -395,7 +401,12 @@ class PromotionsFragment : BasePageViewFragment(),
     vipReferralInfo: VipReferralInfo?
   ) {
     promotionsController.setData(promotionsModel)
-    showPromotionsHeader(promotionsModel, promotionsGamificationStats, hasPerksAvailable = false, vipReferralInfo)
+    showPromotionsHeader(
+      promotionsModel,
+      promotionsGamificationStats,
+      hasPerksAvailable = false,
+      vipReferralInfo
+    )
     views.noNetwork.root.visibility = View.GONE
     views.noNetwork.retryAnimation.visibility = View.GONE
     views.noPromotions.root.visibility = View.VISIBLE
