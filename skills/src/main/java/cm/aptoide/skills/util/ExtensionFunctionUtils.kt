@@ -17,8 +17,8 @@ fun HttpException.getMessage(): String {
   var message: String? = null
   try {
     val reader = this.response()
-        ?.errorBody()
-        ?.charStream()
+      ?.errorBody()
+      ?.charStream()
     message = reader?.readText()
     reader?.close()
   } catch (e: Exception) {

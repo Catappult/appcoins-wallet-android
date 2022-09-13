@@ -62,8 +62,8 @@ class SkillsFragment : Fragment(), PaymentView {
   private lateinit var binding: FragmentSkillsBinding
 
   override fun onCreateView(
-      inflater: LayoutInflater, container: ViewGroup?,
-      savedInstanceState: Bundle?
+    inflater: LayoutInflater, container: ViewGroup?,
+    savedInstanceState: Bundle?
   ): View {
     binding = FragmentSkillsBinding.inflate(inflater, container, false)
     return binding.root
@@ -74,55 +74,56 @@ class SkillsFragment : Fragment(), PaymentView {
     disposable = CompositeDisposable()
 
     requireActivity().onBackPressedDispatcher
-        .addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
-          override fun handleOnBackPressed() {
-            disposable.add(viewModel.cancelTicket()
-                .subscribe { _, _ -> })
-          }
-        })
+      .addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
+        override fun handleOnBackPressed() {
+          disposable.add(viewModel.cancelTicket()
+            .subscribe { _, _ -> })
+        }
+      })
     disposable.add(viewModel.closeView()
-        .subscribe { postbackUserData(it.first, it.second) })
+      .subscribe { postbackUserData(it.first, it.second) })
 
     showPurchaseTicketLayout()
+
+    binding.payTicketLayout.dialogBuyButtonsPaymentMethods.cancelButton.setOnClickListener {
+      viewModel.cancelPayment()
+    }
   }
 
   private fun showPurchaseTicketLayout() {
-    when(val eSkillsPaymentData = getEskillsUri()){
+    when (val eSkillsPaymentData = getEskillsUri()) {
       is UriValidationResult.Invalid -> showError(eSkillsPaymentData.requestCode)
       is UriValidationResult.Valid -> setupPurchaseTicketLayout(eSkillsPaymentData.paymentData)
     }
     binding.payTicketLayout.root.visibility = View.VISIBLE
   }
 
-  private fun setupPurchaseTicketLayout(
-      eSkillsPaymentData: EskillsPaymentData) {
-    setupQueueIdLayout()
-    setupPurchaseTicketButtons(eSkillsPaymentData)
-    setupAppNameAndIcon(eSkillsPaymentData.packageName)
-    updateHeaderInfo(eSkillsPaymentData)
-  }
 
   private fun setupQueueIdLayout() {
     binding.payTicketLayout.payTicketRoomDetails.openCardButton.setOnClickListener {
       if (binding.payTicketLayout.payTicketRoomDetails.roomCreateBody.visibility == View.GONE) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
           binding.payTicketLayout.payTicketRoomDetails.createRoomTitle.setTextAppearance(
-              R.style.DialogTitleStyle)
+            R.style.DialogTitleStyle
+          )
         } else {
           binding.payTicketLayout.payTicketRoomDetails.createRoomTitle.setTextAppearance(
-              requireContext(),
-              R.style.DialogTitleStyle)
+            requireContext(),
+            R.style.DialogTitleStyle
+          )
         }
         binding.payTicketLayout.payTicketRoomDetails.openCardButton.rotation = 180F
         binding.payTicketLayout.payTicketRoomDetails.roomCreateBody.visibility = View.VISIBLE
       } else {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
           binding.payTicketLayout.payTicketRoomDetails.createRoomTitle.setTextAppearance(
-              R.style.DialogTextStyle)
+            R.style.DialogTextStyle
+          )
         } else {
           binding.payTicketLayout.payTicketRoomDetails.createRoomTitle.setTextAppearance(
-              requireContext(),
-              R.style.DialogTextStyle)
+            requireContext(),
+            R.style.DialogTextStyle
+          )
         }
         binding.payTicketLayout.payTicketRoomDetails.openCardButton.rotation = 0F
         binding.payTicketLayout.payTicketRoomDetails.roomCreateBody.visibility = View.GONE
@@ -130,8 +131,39 @@ class SkillsFragment : Fragment(), PaymentView {
     }
   }
 
+
+  private fun setupPurchaseTicketLayout(
+    eSkillsPaymentData: EskillsPaymentData
+  ) {
+    setupQueueIdLayout()
+    if (eSkillsPaymentData.environment == EskillsPaymentData.MatchEnvironment.SANDBOX) {
+      setupSandboxTicketButtons(eSkillsPaymentData)
+    } else {
+      updateHeaderInfo(eSkillsPaymentData)
+      setupPurchaseTicketButtons(eSkillsPaymentData)
+    }
+    setupAppNameAndIcon(eSkillsPaymentData.packageName)
+  }
+
+  private fun setupSandboxTicketButtons(eSkillsPaymentData: EskillsPaymentData) {
+    if (RootUtil.isDeviceRooted()) {
+      showRootError()
+    } else {
+      hidePaymentRelatedText()
+      binding.payTicketLayout.dialogBuyButtonsPaymentMethods.buyButton.setOnClickListener {
+        val queueId = binding.payTicketLayout.payTicketRoomDetails.roomId.text.toString()
+        if (queueId.isNotBlank()) {
+          eSkillsPaymentData.queueId = QueueIdentifier(queueId.trim(), true)
+        }
+        binding.payTicketLayout.root.visibility = View.GONE
+        createAndPayTicket(eSkillsPaymentData)
+      }
+    }
+  }
+
   private fun setupPurchaseTicketButtons(
-      eSkillsPaymentData: EskillsPaymentData) {
+    eSkillsPaymentData: EskillsPaymentData
+  ) {
     if (RootUtil.isDeviceRooted()) {
       showRootError()
     } else {
@@ -146,39 +178,36 @@ class SkillsFragment : Fragment(), PaymentView {
       }
 
       disposable.add(Single.zip(
-          viewModel.getCreditsBalance(),
-          viewModel.getFiatToAppcAmount(eSkillsPaymentData.price!!, eSkillsPaymentData.currency!!),
-          { balance, appcAmount -> Pair(balance, appcAmount) })
-          .observeOn(AndroidSchedulers.mainThread())
-          .map {
-            if (it.first < it.second.amount) { // Not enough funds
-              binding.payTicketLayout.dialogBuyButtonsPaymentMethods.buyButton.text =
-                  getString(R.string.topup_button)
-              binding.payTicketLayout.dialogBuyButtonsPaymentMethods.buyButton.setOnClickListener {
-                sendUserToTopUpFlow()
+        viewModel.getCreditsBalance(),
+        viewModel.getFiatToAppcAmount(eSkillsPaymentData.price!!, eSkillsPaymentData.currency!!),
+        { balance, appcAmount -> Pair(balance, appcAmount) })
+        .observeOn(AndroidSchedulers.mainThread())
+        .map {
+          if (it.first < it.second.amount) { // Not enough funds
+            binding.payTicketLayout.dialogBuyButtonsPaymentMethods.buyButton.text =
+              getString(R.string.topup_button)
+            binding.payTicketLayout.dialogBuyButtonsPaymentMethods.buyButton.setOnClickListener {
+              sendUserToTopUpFlow()
+            }
+          } else if (needsTopUp()) { // TopUp stuff
+            showNeedsTopUpWarning()
+            binding.payTicketLayout.dialogBuyButtonsPaymentMethods.buyButton.text =
+              getString(R.string.topup_button)
+            binding.payTicketLayout.dialogBuyButtonsPaymentMethods.buyButton.setOnClickListener {
+              sendUserToTopUpFlow()
+            }
+          } else {
+            binding.payTicketLayout.dialogBuyButtonsPaymentMethods.buyButton.setOnClickListener {
+              val queueId = binding.payTicketLayout.payTicketRoomDetails.roomId.text.toString()
+              if (queueId.isNotBlank()) {
+                eSkillsPaymentData.queueId = QueueIdentifier(queueId.trim(), true)
               }
-            } else if (needsTopUp()) { // TopUp stuff
-              showNeedsTopUpWarning()
-              binding.payTicketLayout.dialogBuyButtonsPaymentMethods.buyButton.text =
-                      getString(R.string.topup_button)
-              binding.payTicketLayout.dialogBuyButtonsPaymentMethods.buyButton.setOnClickListener {
-                sendUserToTopUpFlow()
-              }
-            } else {
-              binding.payTicketLayout.dialogBuyButtonsPaymentMethods.buyButton.setOnClickListener {
-                val queueId = binding.payTicketLayout.payTicketRoomDetails.roomId.text.toString()
-                if (queueId.isNotBlank()) {
-                  eSkillsPaymentData.queueId = QueueIdentifier(queueId.trim(), true)
-                }
-                binding.payTicketLayout.root.visibility = View.GONE
-                createAndPayTicket(eSkillsPaymentData)
-              }
+              binding.payTicketLayout.root.visibility = View.GONE
+              createAndPayTicket(eSkillsPaymentData)
             }
           }
-          .subscribe())
-        binding.payTicketLayout.dialogBuyButtonsPaymentMethods.cancelButton.setOnClickListener {
-          viewModel.cancelPayment()
         }
+        .subscribe())
     }
   }
 
@@ -194,8 +223,8 @@ class SkillsFragment : Fragment(), PaymentView {
     disposable.add(Single.fromCallable {
       viewModel.getApplicationInfo(packageName)
     }
-        .observeOn(AndroidSchedulers.mainThread())
-        .subscribe({ setHeaderInfo(it) }) { it.printStackTrace() })
+      .observeOn(AndroidSchedulers.mainThread())
+      .subscribe({ setHeaderInfo(it) }) { it.printStackTrace() })
   }
 
   private fun setHeaderInfo(applicationInfo: ApplicationInfo) {
@@ -207,43 +236,45 @@ class SkillsFragment : Fragment(), PaymentView {
   private fun updateHeaderInfo(eSkillsPaymentData: EskillsPaymentData) {
     val header = binding.payTicketLayout.payTicketHeader
     disposable.addAll(
-        viewModel.getLocalFiatAmount(eSkillsPaymentData.price!!, eSkillsPaymentData.currency!!)
-            .observeOn(AndroidSchedulers.mainThread())
-            .map {
-              header.fiatPrice.text = "${it.amount} ${it.currency}"
-              header.fiatPriceSkeleton.visibility = View.GONE
-              header.fiatPrice.visibility = View.VISIBLE
-            }
-            .subscribe(),
-        viewModel.getFormattedAppcAmount(eSkillsPaymentData.price!!,
-            eSkillsPaymentData.currency!!)
-            .observeOn(AndroidSchedulers.mainThread())
-            .map {
-              header.appcPrice.text = "$it APPC"
-              header.appcPriceSkeleton.visibility = View.GONE
-              header.appcPrice.visibility = View.VISIBLE
-            }
-            .subscribe()
+      viewModel.getLocalFiatAmount(eSkillsPaymentData.price!!, eSkillsPaymentData.currency!!)
+        .observeOn(AndroidSchedulers.mainThread())
+        .map {
+          header.fiatPrice.text = "${it.amount} ${it.currency}"
+          header.fiatPriceSkeleton.visibility = View.GONE
+          header.fiatPrice.visibility = View.VISIBLE
+        }
+        .subscribe(),
+      viewModel.getFormattedAppcAmount(
+        eSkillsPaymentData.price!!,
+        eSkillsPaymentData.currency!!
+      )
+        .observeOn(AndroidSchedulers.mainThread())
+        .map {
+          header.appcPrice.text = "$it APPC"
+          header.appcPriceSkeleton.visibility = View.GONE
+          header.appcPrice.visibility = View.VISIBLE
+        }
+        .subscribe()
     )
   }
 
   private fun createAndPayTicket(eskillsPaymentData: EskillsPaymentData) {
     disposable.add(
-        handleWalletCreationIfNeeded()
-            .takeUntil { it != WALLET_CREATING_STATUS }
-            .flatMapCompletable {
-              viewModel.joinQueue(eskillsPaymentData)
-                  .observeOn(AndroidSchedulers.mainThread())
-                  .doOnSubscribe { showRoomLoading(false) }
-                  .flatMapCompletable { handleTicketCreationResult(eskillsPaymentData, it) }
-            }
-            .subscribe()
+      handleWalletCreationIfNeeded()
+        .takeUntil { it != WALLET_CREATING_STATUS }
+        .flatMapCompletable {
+          viewModel.joinQueue(eskillsPaymentData)
+            .observeOn(AndroidSchedulers.mainThread())
+            .doOnSubscribe { showRoomLoading(false) }
+            .flatMapCompletable { handleTicketCreationResult(eskillsPaymentData, it) }
+        }
+        .subscribe()
     )
   }
 
   private fun handleTicketCreationResult(
-      eskillsUri: EskillsPaymentData,
-      ticket: Ticket
+    eskillsUri: EskillsPaymentData,
+    ticket: Ticket
   ): Completable {
     return when (ticket) {
       is CreatedTicket -> purchaseTicket(eskillsUri, ticket)
@@ -261,13 +292,13 @@ class SkillsFragment : Fragment(), PaymentView {
   }
 
   private fun purchaseTicket(
-      eskillsUri: EskillsPaymentData,
-      ticket: CreatedTicket
+    eskillsUri: EskillsPaymentData,
+    ticket: CreatedTicket
   ): Completable {
     return viewModel.getRoom(eskillsUri, ticket, this)
-        .observeOn(AndroidSchedulers.mainThread())
-        .doOnNext { userData -> handleUserDataStatus(userData) }
-        .ignoreElements()
+      .observeOn(AndroidSchedulers.mainThread())
+      .doOnNext { userData -> handleUserDataStatus(userData) }
+      .ignoreElements()
   }
 
   private fun handleUserDataStatus(userData: UserData) {
@@ -277,6 +308,15 @@ class SkillsFragment : Fragment(), PaymentView {
       UserData.Status.COMPLETED -> postbackUserData(SkillsViewModel.RESULT_OK, userData)
       UserData.Status.FAILED -> showError(SkillsViewModel.RESULT_ERROR)
     }
+  }
+
+  private fun hidePaymentRelatedText() {
+    binding.payTicketLayout.payTicketHeader.appcCreditsIcon?.visibility = View.GONE
+    binding.payTicketLayout.payTicketHeader.paymentTitle?.visibility = View.GONE
+    binding.payTicketLayout.payTicketHeader.paymentBody?.visibility = View.GONE
+    binding.payTicketLayout.payTicketHeader.fiatPrice.visibility = View.GONE
+    binding.payTicketLayout.payTicketHeader.appcPrice.visibility = View.GONE
+    binding.payTicketLayout.dialogBuyButtonsPaymentMethods.buyButton.text = getString(R.string.ok)
   }
 
   private fun showRegionNotSupportedError() {
@@ -320,17 +360,17 @@ class SkillsFragment : Fragment(), PaymentView {
 
   private fun handleWalletCreationIfNeeded(): Observable<String> {
     return viewModel.handleWalletCreationIfNeeded()
-        .observeOn(AndroidSchedulers.mainThread())
-        .doOnNext {
-          if (it == WALLET_CREATING_STATUS) {
-            showWalletCreationLoadingAnimation()
-          }
+      .observeOn(AndroidSchedulers.mainThread())
+      .doOnNext {
+        if (it == WALLET_CREATING_STATUS) {
+          showWalletCreationLoadingAnimation()
         }
-        .filter { it != WALLET_CREATING_STATUS }
-        .map {
-          endWalletCreationLoadingAnimation()
-          it
-        }
+      }
+      .filter { it != WALLET_CREATING_STATUS }
+      .map {
+        endWalletCreationLoadingAnimation()
+        it
+      }
   }
 
   private fun showWalletCreationLoadingAnimation() {
@@ -346,16 +386,16 @@ class SkillsFragment : Fragment(), PaymentView {
     if (isCancelActive) {
       if (queueIdentifier != null && queueIdentifier.setByUser) {
         binding.loadingTicketLayout.loadingTitle.text = SpannableStringBuilder()
-            .append(getString(R.string.finding_room_name_loading_title))
-            .bold { append(" ${queueIdentifier.id}") }
+          .append(getString(R.string.finding_room_name_loading_title))
+          .bold { append(" ${queueIdentifier.id}") }
       } else {
         binding.loadingTicketLayout.loadingTitle.text =
-            getString(R.string.finding_room_loading_title)
+          getString(R.string.finding_room_loading_title)
       }
       binding.loadingTicketLayout.cancelButton.isEnabled = true
       binding.loadingTicketLayout.cancelButton.setOnClickListener {
         disposable.add(viewModel.cancelTicket()
-            .subscribe { _, _ -> })
+          .subscribe { _, _ -> })
       }
     } else {
       binding.loadingTicketLayout.loadingTitle.text = getString(R.string.processing_loading_title)
@@ -453,7 +493,7 @@ class SkillsFragment : Fragment(), PaymentView {
   private fun handleAuthenticationResult(resultCode: Int) {
     if (resultCode == SkillsViewModel.RESULT_OK) {
       viewModel.restorePurchase(this)
-          .subscribe()
+        .subscribe()
     } else if (resultCode == SkillsViewModel.RESULT_USER_CANCELED) {
       viewModel.closeView()
     }

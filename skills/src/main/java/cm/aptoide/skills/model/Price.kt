@@ -4,7 +4,7 @@ import java.io.Serializable
 import java.math.BigDecimal
 
 data class Price(val amount: BigDecimal, val currency: String, val symbol: String = "") :
-    Serializable {
+  Serializable {
 
   constructor() : this(BigDecimal.ZERO, "", "")
 

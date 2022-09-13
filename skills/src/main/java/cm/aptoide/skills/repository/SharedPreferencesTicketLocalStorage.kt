@@ -8,7 +8,7 @@ import io.reactivex.Single
 import it.czerwinski.android.hilt.annotations.BoundTo
 import javax.inject.Inject
 
-@BoundTo (supertype = TicketLocalStorage::class)
+@BoundTo(supertype = TicketLocalStorage::class)
 class SharedPreferencesTicketLocalStorage @Inject constructor(
   private val preferences: SharedPreferences,
   private val mapper: Gson
@@ -19,7 +19,7 @@ class SharedPreferencesTicketLocalStorage @Inject constructor(
   }
 
   override fun getTicketInQueue(
-      walletAddress: WalletAddress,
+    walletAddress: WalletAddress,
     eskillsPaymentData: EskillsPaymentData
   ): Single<StoredTicket> {
     return Single.fromCallable {

@@ -17,64 +17,65 @@ import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
 class JoinQueueUseCase @Inject constructor(
-    private val walletAddressObtainer: WalletAddressObtainer,
-    private val ewtObtainer: EwtObtainer,
-    private val ticketRepository: TicketRepository,
+  private val walletAddressObtainer: WalletAddressObtainer,
+  private val ewtObtainer: EwtObtainer,
+  private val ticketRepository: TicketRepository,
 ) {
 
   operator fun invoke(eskillsPaymentData: EskillsPaymentData): Single<Ticket> {
     return walletAddressObtainer.getWalletAddress()
-        .subscribeOn(Schedulers.io())
-        .flatMap { walletAddress ->
-          ewtObtainer.getEWT()
-              .flatMap { ewt ->
-                ticketRepository.getInQueueTicket(walletAddress, eskillsPaymentData)
-                    .flatMap {
-                      createOrResumeTicket(it, eskillsPaymentData, ewt, walletAddress)
-                    }
+      .subscribeOn(Schedulers.io())
+      .flatMap { walletAddress ->
+        ewtObtainer.getEWT()
+          .flatMap { ewt ->
+            ticketRepository.getInQueueTicket(walletAddress, eskillsPaymentData)
+              .flatMap {
+                createOrResumeTicket(it, eskillsPaymentData, ewt, walletAddress)
               }
-        }
-        .doOnSuccess { ticket: Ticket ->
-          if (ticket is CreatedTicket) {
-            ticketRepository.cacheTicket(
-                ticket.walletAddress, ticket.ticketId, eskillsPaymentData
-            )
           }
+      }
+      .doOnSuccess { ticket: Ticket ->
+        if (ticket is CreatedTicket) {
+          ticketRepository.cacheTicket(
+            ticket.walletAddress, ticket.ticketId, eskillsPaymentData
+          )
         }
+      }
   }
 
   private fun createOrResumeTicket(
-      storedTicket: StoredTicket,
-      eskillsPaymentData: EskillsPaymentData,
-      ewt: String,
-      walletAddress: WalletAddress): Single<Ticket> {
+    storedTicket: StoredTicket,
+    eskillsPaymentData: EskillsPaymentData,
+    ewt: String,
+    walletAddress: WalletAddress
+  ): Single<Ticket> {
     return when (storedTicket) {
       EmptyStoredTicket -> ticketRepository.createTicket(
-          eskillsPaymentData, ewt, walletAddress
+        eskillsPaymentData, ewt, walletAddress
       )
       is StoredTicketInQueue -> resumeTicketIfPossible(
-          ewt, storedTicket, eskillsPaymentData, walletAddress
+        ewt, storedTicket, eskillsPaymentData, walletAddress
       )
     }
   }
 
   private fun resumeTicketIfPossible(
-      ewt: String,
-      ticketInQueue: StoredTicketInQueue,
-      eskillsPaymentData: EskillsPaymentData,
-      walletAddress: WalletAddress,
+    ewt: String,
+    ticketInQueue: StoredTicketInQueue,
+    eskillsPaymentData: EskillsPaymentData,
+    walletAddress: WalletAddress,
   ): Single<Ticket> {
     return ticketRepository.getTicket(ewt, ticketInQueue.ticketId, eskillsPaymentData.queueId)
-        .flatMap {
-          if (it is CreatedTicket && it.processingStatus == ProcessingStatus.IN_QUEUE) {
-            Single.just(it)
-          } else {
-            ticketRepository.createTicket(eskillsPaymentData, ewt, walletAddress)
-          }
-        }
-        .onErrorResumeNext {
+      .flatMap {
+        if (it is CreatedTicket && it.processingStatus == ProcessingStatus.IN_QUEUE) {
+          Single.just(it)
+        } else {
           ticketRepository.createTicket(eskillsPaymentData, ewt, walletAddress)
         }
+      }
+      .onErrorResumeNext {
+        ticketRepository.createTicket(eskillsPaymentData, ewt, walletAddress)
+      }
   }
 }
 

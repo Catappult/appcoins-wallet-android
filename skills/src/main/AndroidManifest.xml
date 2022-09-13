@@ -14,8 +14,9 @@
       </intent-filter>
     </activity>
 
-    <service android:name="cm.aptoide.skills.games.BackgroundGameService"
-      android:exported="false" />
+    <service
+        android:name="cm.aptoide.skills.games.BackgroundGameService"
+        android:exported="false" />
   </application>
 
 </manifest>

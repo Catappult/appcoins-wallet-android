@@ -8,8 +8,12 @@ import cm.aptoide.skills.model.TransactionType
 import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
 
-public class TopUpRepository @Inject constructor(private val topUpApi:TopUpApi) {
-    fun getTopUpHistory(type: TransactionType, status: TopUpStatus, wallet: String): Single<TopUpResponse> {
-        return topUpApi.getTopUpHistory(type, status, wallet).subscribeOn(Schedulers.io())
-    }
+public class TopUpRepository @Inject constructor(private val topUpApi: TopUpApi) {
+  fun getTopUpHistory(
+    type: TransactionType,
+    status: TopUpStatus,
+    wallet: String
+  ): Single<TopUpResponse> {
+    return topUpApi.getTopUpHistory(type, status, wallet).subscribeOn(Schedulers.io())
+  }
 }

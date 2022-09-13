@@ -9,7 +9,7 @@ import java.util.regex.Pattern
 import javax.inject.Inject
 
 class ValidateUrlUseCase @Inject constructor(
-    private val eskillsUriParser: EskillsUriParser
+  private val eskillsUriParser: EskillsUriParser
 ) {
 
   operator fun invoke(uriString: String): UriValidationResult {

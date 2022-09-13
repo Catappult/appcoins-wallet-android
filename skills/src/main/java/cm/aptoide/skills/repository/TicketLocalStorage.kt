@@ -7,13 +7,13 @@ import io.reactivex.Single
 interface TicketLocalStorage {
 
   fun getTicketInQueue(
-      walletAddress: WalletAddress,
-      eskillsPaymentData: EskillsPaymentData
+    walletAddress: WalletAddress,
+    eskillsPaymentData: EskillsPaymentData
   ): Single<StoredTicket>
 
   fun saveTicketInQueue(
-      walletAddress: WalletAddress,
-      ticketId: String,
-      eskillsPaymentData: EskillsPaymentData
+    walletAddress: WalletAddress,
+    ticketId: String,
+    eskillsPaymentData: EskillsPaymentData
   )
 }
