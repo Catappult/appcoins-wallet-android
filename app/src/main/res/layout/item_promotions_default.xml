@@ -3,8 +3,8 @@
     style="@style/Promotions.CardView"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginStart="@dimen/normal_margin"
-    android:layout_marginEnd="@dimen/normal_margin"
+    android:layout_marginStart="@dimen/big_margin"
+    android:layout_marginEnd="@dimen/big_margin"
     >
 
   <include layout="@layout/item_perks_content" />

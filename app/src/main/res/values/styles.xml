@@ -738,10 +738,9 @@
   </style>
 
   <style name="Promotions.CardView" parent="Widget.MaterialComponents.CardView">
-    <item name="cardBackgroundColor">@color/promotions_active_background</item>
+    <item name="cardBackgroundColor">@color/bottom_nav_top_up_blue</item>
     <item name="cardCornerRadius">14dp</item>
     <item name="cardElevation">4dp</item>
-    <item name="cardUseCompatPadding">true</item>
   </style>
 
   <style name="Promotions.TextStyle.Category.Title" parent="TextAppearance.AppCompat.Body1.Roboto.Medium">
