@@ -392,8 +392,7 @@ class PromotionsFragment : BasePageViewFragment(),
 
   private fun showPromotionsTitle() {
     views.promotionsListTitleLayout.root.visibility = View.VISIBLE
-    views.promotionsListTitleLayout.promotionsTitle.text = getString(R.string.perks_title)
-    views.promotionsListTitleLayout.promotionsSubtitle.text = getString(R.string.perks_body)
+    views.promotionsListTitleLayout.promotionsTitle.text = getString(R.string.vip_program_promotions_list_title)
   }
 
   private fun showNoPromotionsScreen(

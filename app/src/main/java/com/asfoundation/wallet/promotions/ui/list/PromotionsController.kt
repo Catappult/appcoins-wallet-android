@@ -7,20 +7,12 @@ import com.asfoundation.wallet.util.CurrencyFormatUtils
 
 class PromotionsController : TypedEpoxyController<PromotionsModel>() {
 
-  private val currencyFormatUtils = CurrencyFormatUtils()
-
   var clickListener: ((PromotionClick) -> Unit)? = null
 
   override fun buildModels(promotionsModel: PromotionsModel) {
 
     for (promotion in promotionsModel.promotions) {
       when (promotion) {
-        is TitleItem -> add(
-          TitleModel_()
-            .id("gamification_title_model")
-            .titleItem(promotion)
-            .currencyFormatUtils(currencyFormatUtils)
-        )
         is ReferralItem -> add(
           ReferralModel_()
             .id(promotion.id, promotion.link)

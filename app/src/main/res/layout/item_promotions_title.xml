@@ -9,24 +9,13 @@
 
   <TextView
       android:id="@+id/promotions_title"
-      style="@style/Promotions.TextStyle.Category.Title"
+      style="@style/TextL"
       android:layout_width="0dp"
       android:layout_height="wrap_content"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent"
       tools:text="@string/perks_gamif_title"
-      />
-  <TextView
-      android:id="@+id/promotions_subtitle"
-      style="@style/Promotions.TextStyle.Category.Subtitle"
-      android:layout_width="0dp"
-      android:layout_height="wrap_content"
-      android:layout_marginTop="2dp"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@id/promotions_title"
-      tools:text="@string/perks_gamif_subtitle"
       />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
