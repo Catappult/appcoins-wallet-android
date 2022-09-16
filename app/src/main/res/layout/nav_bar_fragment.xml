@@ -44,6 +44,15 @@
       app:layout_constraintStart_toStartOf="parent"
       />
 
+  <include
+      android:id="@+id/vip_promotions_callout"
+      layout="@layout/layout_vip_callout"
+      android:layout_width="match_parent"
+      android:layout_height="76dp"
+      app:layout_constraintBottom_toTopOf="@+id/bottom_nav"
+      android:visibility="visible"
+    />
+
   <com.google.android.material.bottomnavigation.BottomNavigationView
       android:id="@+id/bottom_nav"
       android:layout_width="0dp"

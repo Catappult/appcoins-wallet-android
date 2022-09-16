@@ -1,23 +1,29 @@
 package com.asfoundation.wallet.main.nav_bar
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.NavigationUI.onNavDestinationSelected
 import androidx.navigation.ui.setupWithNavController
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.asf.wallet.R
 import com.asf.wallet.databinding.NavBarFragmentBinding
 import com.asfoundation.wallet.base.SingleStateFragment
 import com.asfoundation.wallet.main.MainActivity
+import com.asfoundation.wallet.util.createColoredString
+import com.asfoundation.wallet.util.setTextFromColored
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import com.google.android.material.bottomnavigation.BottomNavigationItemView
 import com.google.android.material.bottomnavigation.BottomNavigationMenuView
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.android.synthetic.main.fragment_vip_referral.view.*
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -46,6 +52,8 @@ class NavBarFragment : BasePageViewFragment(),
     views.bottomNav.setupWithNavController(navHostFragment.navController)
     setupTopUpItem()
     viewModel.collectStateAndEvents(lifecycle, viewLifecycleOwner.lifecycleScope)
+    setBottomNavListener()
+    setVipCalloutClickListener()
   }
 
   private fun initHostFragments() {
@@ -59,6 +67,7 @@ class NavBarFragment : BasePageViewFragment(),
 
   override fun onStateChanged(state: NavBarState) {
     setPromotionBadge(state.showPromotionsBadge)
+    setVipCallout(state.showVipCallout)
   }
 
   override fun onSideEffect(sideEffect: NavBarSideEffect) {
@@ -78,6 +87,13 @@ class NavBarFragment : BasePageViewFragment(),
     }
   }
 
+  private fun setVipCallout(showVipCallout: Boolean) {
+    if (showVipCallout)
+      showVipCallout()
+    else
+      hideVipCallout()
+  }
+
   private fun showPromotionsOverlay() {
     navigator.showPromotionsOverlay(requireActivity() as MainActivity, 1)
   }
@@ -90,6 +106,54 @@ class NavBarFragment : BasePageViewFragment(),
   private fun showOnboardingTopApp() {
     views.fullHostContainer.visibility = View.VISIBLE
     navigator.showOnboardingTopAppScreen(fullHostFragment.navController)
+  }
+
+  @SuppressLint("SetTextI18n", "ResourceType")
+  private fun showVipCallout() {
+    views.vipPromotionsCallout.vipCalloutLayout.visibility = View.VISIBLE
+    val htmlColoredText =
+      "${
+        getString(R.string.vip_program_promotions_tab_1).createColoredString(
+          getString(R.color.only_for_vip_background_color)
+        )
+      } ${
+        getString(R.string.vip_program_promotions_tab_2).createColoredString(
+          getString(R.color.whiteNoAlpha)
+        )
+      }"
+    views.vipPromotionsCallout.desciptionTv.setTextFromColored(htmlColoredText)
+  }
+
+  private fun hideVipCallout() {
+    views.vipPromotionsCallout.vipCalloutLayout.visibility = View.GONE
+  }
+
+  private fun setBottomNavListener() {
+    views.bottomNav.setOnItemSelectedListener { menuItem ->
+      when (menuItem.itemId) {
+        R.id.home_graph -> {}
+        R.id.promotions_graph -> {
+          if (views.vipPromotionsCallout.vipCalloutLayout.isVisible) {
+            hideVipCallout()
+            viewModel.vipPromotionsSeen()
+          }
+        }
+        R.id.my_wallets_graph -> {}
+        else -> {}
+      }
+
+      // proceed with the default navigation behaviour:
+      onNavDestinationSelected(menuItem, navHostFragment.navController)
+      return@setOnItemSelectedListener true
+    }
+  }
+
+  private fun setVipCalloutClickListener() {
+    views.vipPromotionsCallout.vipCalloutLayout.setOnClickListener {
+      val menuView = views.bottomNav.getChildAt(0) as BottomNavigationMenuView
+      val promoItemView = menuView.getChildAt(1) as BottomNavigationItemView
+      promoItemView.performClick()
+    }
   }
 
   private fun setupTopUpItem() {

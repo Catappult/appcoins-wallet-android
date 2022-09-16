@@ -44,4 +44,8 @@ interface UserStatsLocalData {
   fun setSeenWalletOrigin(wallet: String, walletOrigin: String)
 
   fun getSeenWalletOrigin(wallet: String): String
+
+  fun isVipCalloutAlreadySeen(): Boolean
+
+  fun setVipCalloutAlreadySeen(isSeen: Boolean)
 }

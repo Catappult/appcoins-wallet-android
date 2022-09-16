@@ -7,6 +7,8 @@ import com.asfoundation.wallet.base.BaseViewModel
 import com.asfoundation.wallet.base.SideEffect
 import com.asfoundation.wallet.base.ViewState
 import com.asfoundation.wallet.main.use_cases.HasSeenPromotionTooltipUseCase
+import com.asfoundation.wallet.main.use_cases.IsNewVipUseCase
+import com.asfoundation.wallet.main.use_cases.SetVipPromotionsSeenUseCase
 import com.asfoundation.wallet.promotions.PromotionUpdateScreen
 import com.asfoundation.wallet.promotions.PromotionsInteractor
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -20,18 +22,24 @@ sealed class NavBarSideEffect : SideEffect {
   object ShowOnboardingTopApp : NavBarSideEffect()
 }
 
-data class NavBarState(val showPromotionsBadge: Boolean = false) : ViewState
+data class NavBarState(
+  val showPromotionsBadge: Boolean = false,
+  val showVipCallout: Boolean = false,
+) : ViewState
 
 @HiltViewModel
 class NavBarViewModel @Inject constructor(
   private val hasSeenPromotionTooltip: HasSeenPromotionTooltipUseCase,
   private val promotionsInteractor: PromotionsInteractor,
+  private val isNewVipUseCase: IsNewVipUseCase,
+  private val setVipPromotionsSeenUseCase: SetVipPromotionsSeenUseCase,
   private val appStartUseCase: AppStartUseCase
 ) : BaseViewModel<NavBarState, NavBarSideEffect>(NavBarState()) {
 
   init {
     handlePromotionUpdateNotification()
     handleOnboardingFromGameOrAppScreen()
+    handleVipCallout()
   }
 
   /**
@@ -76,4 +84,18 @@ class NavBarViewModel @Inject constructor(
       }
     }
   }
+
+  private fun handleVipCallout() {
+    isNewVipUseCase()
+      .doOnSuccess { isNewVip ->
+        setState { copy(showVipCallout = isNewVip) }
+      }
+      .toObservable()
+      .repeatableScopedSubscribe(NavBarState::showPromotionsBadge.name)
+  }
+
+  fun vipPromotionsSeen() {
+    setVipPromotionsSeenUseCase(true)
+  }
+
 }
