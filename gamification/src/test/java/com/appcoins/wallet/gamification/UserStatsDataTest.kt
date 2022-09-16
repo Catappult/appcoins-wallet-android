@@ -91,4 +91,8 @@ class UserStatsDataTest : UserStatsLocalData {
   override fun setSeenWalletOrigin(wallet: String, walletOrigin: String) = Unit
 
   override fun getSeenWalletOrigin(wallet: String): String = "APTOIDE"
+
+  override fun isVipCalloutAlreadySeen(): Boolean = false
+
+  override fun setVipCalloutAlreadySeen(isSeen: Boolean) = Unit
 }

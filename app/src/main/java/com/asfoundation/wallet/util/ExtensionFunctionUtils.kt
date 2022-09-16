@@ -12,6 +12,7 @@ import android.graphics.Point
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
 import android.net.Uri
+import android.text.Html
 import android.text.InputType
 import android.util.Base64
 import android.util.Log
@@ -20,9 +21,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
 import android.widget.EditText
+import android.widget.TextView
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat.requestPermissions
 import androidx.core.content.ContextCompat
+import androidx.core.text.HtmlCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.asfoundation.wallet.ui.widget.MarginItemDecoration
@@ -201,4 +204,19 @@ inline fun Fragment.requestPermission(permission: String,
       else -> explained.invoke(permission)
     }
   }.launch(permission)
+}
+
+fun String.createColoredString(color: String): String {
+  val parcedColor = when (color.length) {
+    9 -> StringBuilder(color)
+      .deleteCharAt(1)  // remove alpha channel
+      .deleteCharAt(2)  // remove alpha channel
+    7 -> color
+    else -> "#ffffff"
+  }
+  return "<font color='${parcedColor}'>$this</font>"
+}
+
+fun TextView.setTextFromColored(coloredString: String) {
+  this.text = HtmlCompat.fromHtml(coloredString, HtmlCompat.FROM_HTML_MODE_LEGACY)
 }

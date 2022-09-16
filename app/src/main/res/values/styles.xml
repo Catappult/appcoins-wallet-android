@@ -252,6 +252,10 @@
     <item name="android:fontFamily">@font/roboto_regular</item>
   </style>
 
+  <style name="TextSMedium" parent="TextS">
+    <item name="android:fontFamily">@font/roboto_medium</item>
+  </style>
+
   <style name="TextXS" parent="TextAppearance.AppCompat.Body1.Roboto">
     <item name="android:textSize">10sp</item>
     <item name="android:fontFamily">@font/roboto_regular</item>

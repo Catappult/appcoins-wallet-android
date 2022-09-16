@@ -37,4 +37,9 @@ interface PromotionsRepository {
   fun getReferralInfo(): Single<ReferralResponse>
 
   fun getVipReferral(wallet: String): Observable<VipReferralResponse>
+
+  fun isVipCalloutAlreadySeen(): Boolean
+
+  fun setVipCalloutAlreadySeen(isSeen: Boolean)
+
 }
