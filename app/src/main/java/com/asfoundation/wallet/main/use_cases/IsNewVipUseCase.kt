@@ -17,7 +17,6 @@ class IsNewVipUseCase @Inject constructor(
         promotionsRepository.getGamificationStats(wallet.address, null)
           .map { stats ->
             val isVipCalloutAlreadySeen = promotionsRepository.isVipCalloutAlreadySeen()
-            System.out.println("AAAAAAAAAAAAAAA ${stats.gamificationStatus == GamificationStatus.VIP} ${isVipCalloutAlreadySeen}")
             stats.gamificationStatus == GamificationStatus.VIP && !isVipCalloutAlreadySeen
           }
           .firstOrError()
