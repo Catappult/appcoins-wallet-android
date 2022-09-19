@@ -1,5 +1,6 @@
 package com.appcoins.wallet.gamification.repository
 
+import android.content.SharedPreferences
 import com.appcoins.wallet.gamification.GamificationContext
 import com.appcoins.wallet.gamification.repository.entity.*
 import io.reactivex.Observable
@@ -306,6 +307,14 @@ class BdsPromotionsRepository @Inject constructor(private val api: GamificationA
       .onErrorReturn {
         VipReferralResponse.invalidReferral
       }
+  }
+
+  override fun isVipCalloutAlreadySeen(): Boolean  {
+    return local.isVipCalloutAlreadySeen()
+  }
+
+  override fun setVipCalloutAlreadySeen(isSeen: Boolean) {
+    local.setVipCalloutAlreadySeen(isSeen)
   }
 
 }

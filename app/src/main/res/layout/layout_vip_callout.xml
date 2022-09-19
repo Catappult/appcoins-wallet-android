@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/vip_callout_layout"
+    android:layout_width="match_parent"
+    android:layout_height="76dp"
+    android:background="@color/promotions_vip_top_blue"
+    >
+
+  <ImageView
+      android:id="@+id/vip_badge"
+      android:layout_width="60dp"
+      android:layout_height="60dp"
+      android:layout_marginStart="@dimen/normal_margin"
+      android:src="@drawable/ic_vip_badge"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      />
+
+  <TextView
+      android:id="@+id/desciption_tv"
+      style="@style/TextSMedium"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_gravity="center"
+      android:layout_marginStart="18dp"
+      android:layout_marginTop="12dp"
+      android:layout_marginEnd="@dimen/normal_margin"
+      android:lineSpacingMultiplier="0.8"
+      android:lines="2"
+      android:text="@string/vip_program_promotions_tab_1"
+      android:textColor="@color/white"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintHorizontal_bias="0.0"
+      app:layout_constraintStart_toEndOf="@+id/vip_badge"
+      app:layout_constraintTop_toTopOf="parent"
+      tools:text="aaa aaa aaa aaa aaa aaa"
+      />
+
+  <com.airbnb.lottie.LottieAnimationView
+      android:id="@+id/arrow_down_animation"
+      android:layout_width="30dp"
+      android:layout_height="30dp"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintHorizontal_bias="0.36"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      app:layout_constraintVertical_bias="1.0"
+      app:lottie_enableMergePathsForKitKatAndAbove="true"
+      app:lottie_rawRes="@raw/arrow_down_animation"
+      app:lottie_loop="true"
+      app:lottie_autoPlay="true"
+      />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
