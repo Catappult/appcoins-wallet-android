@@ -1,15 +1,15 @@
 package com.asfoundation.wallet.topup
 
 import cm.aptoide.analytics.AnalyticsManager
-import com.asfoundation.wallet.abtesting.experiments.topup.TopUpABTestingAnalytics
 import javax.inject.Inject
 
-class TopUpAnalytics @Inject constructor(private val analyticsManager: AnalyticsManager,
-                                         private val abTestingAnalytics: TopUpABTestingAnalytics) {
+class TopUpAnalytics @Inject constructor(private val analyticsManager: AnalyticsManager) {
 
   fun sendStartEvent() {
-    analyticsManager.logEvent(HashMap<String, Any>(), WALLET_TOP_UP_START,
-        AnalyticsManager.Action.CLICK, WALLET)
+    analyticsManager.logEvent(
+      HashMap<String, Any>(), WALLET_TOP_UP_START,
+      AnalyticsManager.Action.CLICK, WALLET
+    )
   }
 
   fun sendSelectionEvent(value: Double, action: String, paymentMethod: String) {
@@ -76,9 +76,6 @@ class TopUpAnalytics @Inject constructor(private val analyticsManager: Analytics
     analyticsManager.logEvent(map, RAKAM_TOP_UP_BILLING, AnalyticsManager.Action.CLICK,
         WALLET)
   }
-
-  fun sendAbTestImpressionEvent(assignment: String) =
-      abTestingAnalytics.sendAbTestParticipatingEvent(assignment)
 
   private fun topUpBaseMap(value: Double, paymentMethod: String): HashMap<String, Any> {
     val map = HashMap<String, Any>()
