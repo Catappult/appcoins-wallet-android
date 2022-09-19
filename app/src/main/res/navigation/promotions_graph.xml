@@ -49,9 +49,9 @@
       android:name="com.asfoundation.wallet.promotions.info.PromotionsInfoDialogFragment"
       tools:layout="@layout/gamification_info_bottom_sheet" />
 
-  <fragment
+  <dialog
       android:id="@+id/promotions_almost_vip_fragment"
       android:name="com.asfoundation.wallet.promotions.ui.from_notification.AlmostVipFragment"
       tools:layout="@layout/almost_vip_fragment">
-  </fragment>
+  </dialog>
 </navigation>

@@ -1272,4 +1272,8 @@
     <item name="android:lineSpacingExtra">6sp</item>
   </style>
 
+  <style name="FullScreenDialogStyle">
+    <item name="android:windowIsFloating">false</item>
+    <item name="android:windowFrame">@null</item>
+  </style>
 </resources>

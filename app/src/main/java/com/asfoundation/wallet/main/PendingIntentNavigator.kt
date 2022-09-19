@@ -38,7 +38,7 @@ class PendingIntentNavigator @Inject constructor(
 
   fun getAlmostVipPendingIntent(): PendingIntent {
     return NavDeepLinkBuilder(context)
-      .setGraph(R.navigation.promotions_graph)
+      .setGraph(R.navigation.nav_bar_graph)
       .setDestination(R.id.promotions_almost_vip_fragment)
       .setComponentName(MainActivity::class.java)
       .createPendingIntent()
