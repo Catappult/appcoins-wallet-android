@@ -14,7 +14,7 @@ class PendingIntentNavigator @Inject constructor(
 
   fun getHomePendingIntent(): PendingIntent {
     return NavDeepLinkBuilder(context)
-      .setGraph(R.navigation.home_graph)
+      .setGraph(R.navigation.nav_bar_graph)
       .setDestination(R.id.home_fragment)
       .setComponentName(MainActivity::class.java)
       .createPendingIntent()
@@ -22,7 +22,7 @@ class PendingIntentNavigator @Inject constructor(
 
   fun getPromotionsPendingIntent(): PendingIntent {
     return NavDeepLinkBuilder(context)
-      .setGraph(R.navigation.promotions_graph)
+      .setGraph(R.navigation.nav_bar_graph)
       .setDestination(R.id.promotions_fragment)
       .setComponentName(MainActivity::class.java)
       .createPendingIntent()
@@ -30,7 +30,7 @@ class PendingIntentNavigator @Inject constructor(
 
   fun getMyWalletsPendingIntent(): PendingIntent {
     return NavDeepLinkBuilder(context)
-      .setGraph(R.navigation.my_wallets_graph)
+      .setGraph(R.navigation.nav_bar_graph)
       .setDestination(R.id.my_wallets_fragment)
       .setComponentName(MainActivity::class.java)
       .createPendingIntent()
