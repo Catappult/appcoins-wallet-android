@@ -5,8 +5,8 @@ import com.appcoins.wallet.bdsbilling.repository.entity.FeeEntity
 import com.appcoins.wallet.bdsbilling.repository.entity.FeeType
 import com.appcoins.wallet.bdsbilling.repository.entity.PaymentMethodEntity
 import com.appcoins.wallet.gamification.repository.ForecastBonusAndLevel
-import com.asfoundation.wallet.abtesting.experiments.topup.TopUpDefaultValueExperiment
 import com.asfoundation.wallet.backup.NotificationNeeded
+import com.asfoundation.wallet.feature_flags.topup.TopUpDefaultValueUseCase
 import com.asfoundation.wallet.promo_code.use_cases.GetCurrentPromoCodeUseCase
 import com.asfoundation.wallet.service.currencies.LocalCurrencyConversionService
 import com.asfoundation.wallet.support.SupportInteractor
@@ -18,6 +18,8 @@ import com.asfoundation.wallet.ui.iab.PaymentMethodFee
 import com.asfoundation.wallet.wallet_blocked.WalletBlockedInteract
 import io.reactivex.Completable
 import io.reactivex.Single
+import kotlinx.coroutines.MainScope
+import kotlinx.coroutines.launch
 import java.math.BigDecimal
 import javax.inject.Inject
 
@@ -29,7 +31,7 @@ class TopUpInteractor @Inject constructor(
   private var walletBlockedInteract: WalletBlockedInteract,
   private var inAppPurchaseInteractor: InAppPurchaseInteractor,
   private var supportInteractor: SupportInteractor,
-  private var topUpDefaultValueExperiment: TopUpDefaultValueExperiment,
+  private var topUpDefaultValueUseCase: TopUpDefaultValueUseCase,
   private val getCurrentPromoCodeUseCase: GetCurrentPromoCodeUseCase
 ) {
 
@@ -120,8 +122,13 @@ class TopUpInteractor @Inject constructor(
 
   fun getWalletAddress(): Single<String> = inAppPurchaseInteractor.walletAddress
 
-  fun getABTestingExperiment(): Single<String> = topUpDefaultValueExperiment.getConfiguration()
+  fun getABTestingExperiment(): Single<Int> = Single.create {
+    MainScope().launch {
+      it.onSuccess(topUpDefaultValueUseCase.getVariant() ?: 1)
+    }
+  }
 
-  fun mapABTestingExperiment(experiment: String): Int =
-    topUpDefaultValueExperiment.mapConfiguration(experiment)
+  fun setABTestingExperimentImpression() = MainScope().launch {
+    topUpDefaultValueUseCase.setImpressed()
+  }
 }

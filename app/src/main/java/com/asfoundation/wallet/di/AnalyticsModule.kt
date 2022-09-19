@@ -1,13 +1,13 @@
 package com.asfoundation.wallet.di
 
 import cm.aptoide.analytics.AnalyticsManager
-import com.asfoundation.wallet.abtesting.experiments.topup.TopUpABTestingAnalytics
 import com.asfoundation.wallet.analytics.*
 import com.asfoundation.wallet.app_start.AppStartProbe
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics
 import com.asfoundation.wallet.billing.analytics.PageViewAnalytics
 import com.asfoundation.wallet.billing.analytics.WalletsAnalytics
 import com.asfoundation.wallet.di.annotations.DefaultHttpClient
+import com.asfoundation.wallet.feature_flags.topup.TopUpDefaultValueProbe
 import com.asfoundation.wallet.home.ui.HomeAnalytics
 import com.asfoundation.wallet.rating.RatingAnalytics
 import com.asfoundation.wallet.topup.TopUpAnalytics
@@ -53,7 +53,7 @@ class AnalyticsModule {
       WalletsAnalytics.WALLET_IMPORT_RESTORE,
       WalletsAnalytics.WALLET_MY_WALLETS_INTERACTION_EVENT,
       WalletsAnalytics.WALLET_PASSWORD_RESTORE, PageViewAnalytics.WALLET_PAGE_VIEW,
-      TopUpABTestingAnalytics.TOPUP_DEFAULT_VALUE_PARTICIPATING_EVENT,
+      TopUpDefaultValueProbe.TOPUP_DEFAULT_VALUE_PARTICIPATING_EVENT,
       RatingAnalytics.WALLET_RATING_WELCOME_EVENT, RatingAnalytics.WALLET_RATING_POSITIVE_EVENT,
       RatingAnalytics.WALLET_RATING_NEGATIVE_EVENT, RatingAnalytics.WALLET_RATING_FINISH_EVENT,
       VerificationAnalytics.START_EVENT, VerificationAnalytics.INSERT_CARD_EVENT,
@@ -82,7 +82,7 @@ class AnalyticsModule {
       WalletsAnalytics.WALLET_IMPORT_RESTORE,
       WalletsAnalytics.WALLET_MY_WALLETS_INTERACTION_EVENT,
       WalletsAnalytics.WALLET_PASSWORD_RESTORE, PageViewAnalytics.WALLET_PAGE_VIEW,
-      TopUpABTestingAnalytics.TOPUP_DEFAULT_VALUE_PARTICIPATING_EVENT,
+      TopUpDefaultValueProbe.TOPUP_DEFAULT_VALUE_PARTICIPATING_EVENT,
       RatingAnalytics.WALLET_RATING_WELCOME_EVENT, RatingAnalytics.WALLET_RATING_POSITIVE_EVENT,
       RatingAnalytics.WALLET_RATING_NEGATIVE_EVENT, RatingAnalytics.WALLET_RATING_FINISH_EVENT,
       VerificationAnalytics.START_EVENT, VerificationAnalytics.INSERT_CARD_EVENT,
@@ -111,7 +111,7 @@ class AnalyticsModule {
       WalletsAnalytics.WALLET_IMPORT_RESTORE,
       WalletsAnalytics.WALLET_MY_WALLETS_INTERACTION_EVENT,
       WalletsAnalytics.WALLET_PASSWORD_RESTORE, PageViewAnalytics.WALLET_PAGE_VIEW,
-      TopUpABTestingAnalytics.TOPUP_DEFAULT_VALUE_PARTICIPATING_EVENT,
+      TopUpDefaultValueProbe.TOPUP_DEFAULT_VALUE_PARTICIPATING_EVENT,
       RatingAnalytics.WALLET_RATING_WELCOME_EVENT, RatingAnalytics.WALLET_RATING_POSITIVE_EVENT,
       RatingAnalytics.WALLET_RATING_NEGATIVE_EVENT, RatingAnalytics.WALLET_RATING_FINISH_EVENT,
       VerificationAnalytics.START_EVENT, VerificationAnalytics.INSERT_CARD_EVENT,

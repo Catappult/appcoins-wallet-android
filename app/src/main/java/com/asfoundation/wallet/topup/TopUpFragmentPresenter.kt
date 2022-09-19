@@ -65,15 +65,15 @@ class TopUpFragmentPresenter(
       interactor.getABTestingExperiment()
         .subscribeOn(networkScheduler)
         .observeOn(viewScheduler)
-    ) { values: TopUpLimitValues, defaultValues: TopUpValuesModel, experiment: String ->
+    ) { values: TopUpLimitValues, defaultValues: TopUpValuesModel, experiment: Int ->
       if (values.error.hasError || defaultValues.error.hasError &&
         (values.error.isNoNetwork || defaultValues.error.isNoNetwork)
       ) {
         view.showNoNetworkError()
       } else {
         view.setupCurrency(LocalCurrency(values.maxValue.symbol, values.maxValue.currency))
-        topUpAnalytics.sendAbTestImpressionEvent(experiment)
-        updateDefaultValues(defaultValues, interactor.mapABTestingExperiment(experiment))
+        interactor.setABTestingExperimentImpression()
+        updateDefaultValues(defaultValues, experiment)
       }
     }
       .subscribe({}, { handleError(it) })
