@@ -35,4 +35,12 @@ class PendingIntentNavigator @Inject constructor(
       .setComponentName(MainActivity::class.java)
       .createPendingIntent()
   }
+
+  fun getAlmostVipPendingIntent(): PendingIntent {
+    return NavDeepLinkBuilder(context)
+      .setGraph(R.navigation.promotions_graph)
+      .setDestination(R.id.promotions_almost_vip_fragment)
+      .setComponentName(MainActivity::class.java)
+      .createPendingIntent()
+  }
 }

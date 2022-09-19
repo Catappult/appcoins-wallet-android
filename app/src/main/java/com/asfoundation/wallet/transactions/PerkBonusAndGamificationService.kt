@@ -156,20 +156,28 @@ class PerkBonusAndGamificationService :
       val totalAppCoinsAmountThisLevel =
         statsPromotions.nextLevelAmount!!.minus(currentLevelStartAmount)
       val currentAppCoinsAmountThisLevel = statsPromotions.totalSpend.minus(currentLevelStartAmount)
-      if (  // TODO differentiate notifications for vips
-        statsPromotions.gamificationStatus == GamificationStatus.APPROACHING_NEXT_LEVEL ||
-        statsPromotions.gamificationStatus == GamificationStatus.APPROACHING_VIP ||
-        statsPromotions.gamificationStatus == GamificationStatus.APPROACHING_VIP_MAX
-      ) {
-        promotionsRepository.shownLevel(address, currentLevel, NOTIFICATIONS_ALMOST_NEXT_LEVEL)
-        buildNotification(
-          createAlmostNextLevelNotification(
-            formatter.formatGamificationValues(
-              totalAppCoinsAmountThisLevel
-                .minus(currentAppCoinsAmountThisLevel)
-            )
-          ), NOTIFICATION_SERVICE_ID_ALMOST_LEVEL_UP
-        )
+      promotionsRepository.shownLevel(address, currentLevel, NOTIFICATIONS_ALMOST_NEXT_LEVEL)
+
+      when (statsPromotions.gamificationStatus) {
+        GamificationStatus.APPROACHING_NEXT_LEVEL,
+        GamificationStatus.APPROACHING_VIP_MAX -> {
+          buildNotification(
+            createAlmostNextLevelNotification(
+              formatter.formatGamificationValues(
+                totalAppCoinsAmountThisLevel
+                  .minus(currentAppCoinsAmountThisLevel)
+              )
+            ), NOTIFICATION_SERVICE_ID_ALMOST_LEVEL_UP
+          )
+        }
+        GamificationStatus.APPROACHING_VIP -> {
+          buildNotification(
+            createAlmostVipNotification(),
+            NOTIFICATION_SERVICE_ID_ALMOST_LEVEL_UP
+          )
+        }
+        else -> {
+        }
       }
     }
   }
@@ -347,6 +355,16 @@ class PerkBonusAndGamificationService :
       )
   }
 
+  private fun createAlmostVipNotification():
+      NotificationCompat.Builder {
+    return initializeNotificationBuilder(
+      LEVEL_UP_CHANNEL_ID,
+      LEVEL_UP_CHANNEL_NAME, pendingIntentNavigator.getAlmostVipPendingIntent()
+    )
+      .setContentTitle(getString(R.string.vip_program_almost_notification_title))
+      .setContentText(getString(R.string.vip_program_almost_notification_body))
+  }
+
   private fun getScaledValue(valueStr: String?): String? {
     if (valueStr == null) return null
     var value = BigDecimal(valueStr)
@@ -368,6 +386,7 @@ class PerkBonusAndGamificationService :
     private const val TRANSACTION_TIME_WAIT_FOR_ALL_IN_MILLIS = 500L
     private const val NOTIFICATION_SERVICE_ID_PERK_AND_LEVEL_UP = 77796
     private const val NOTIFICATION_SERVICE_ID_ALMOST_LEVEL_UP = 77797
+    private const val NOTIFICATION_SERVICE_ID_ALMOST_VIP = 77798
     private const val ADDRESS_KEY = "ADDRESS_KEY"
     private const val PERK_CHANNEL_ID = "notification_channel_perk_bonus"
     private const val PERK_CHANNEL_NAME = "Promotion Bonuses Notification Channel"
