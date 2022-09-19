@@ -147,6 +147,7 @@ class TopUpFragmentPresenter(
           }
           .observeOn(viewScheduler)
           .doOnNext {
+            interactor.setABTestingExperimentTopUpEvent(topUpData.currency.appcValue.toDouble())
             topUpAnalytics.sendSelectionEvent(
               value = topUpData.currency.appcValue.toDouble(),
               action = "next",

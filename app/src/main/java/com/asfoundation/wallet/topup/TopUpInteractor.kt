@@ -131,4 +131,8 @@ class TopUpInteractor @Inject constructor(
   fun setABTestingExperimentImpression() = MainScope().launch {
     topUpDefaultValueUseCase.setImpressed()
   }
+
+  fun setABTestingExperimentTopUpEvent(appcValue: Double) = MainScope().launch {
+    topUpDefaultValueUseCase.setTopUpWith(appcValue)
+  }
 }
