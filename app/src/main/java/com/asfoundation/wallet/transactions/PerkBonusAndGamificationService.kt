@@ -156,11 +156,11 @@ class PerkBonusAndGamificationService :
       val totalAppCoinsAmountThisLevel =
         statsPromotions.nextLevelAmount!!.minus(currentLevelStartAmount)
       val currentAppCoinsAmountThisLevel = statsPromotions.totalSpend.minus(currentLevelStartAmount)
-      promotionsRepository.shownLevel(address, currentLevel, NOTIFICATIONS_ALMOST_NEXT_LEVEL)
 
       when (statsPromotions.gamificationStatus) {
         GamificationStatus.APPROACHING_NEXT_LEVEL,
         GamificationStatus.APPROACHING_VIP_MAX -> {
+          promotionsRepository.shownLevel(address, currentLevel, NOTIFICATIONS_ALMOST_NEXT_LEVEL)
           buildNotification(
             createAlmostNextLevelNotification(
               formatter.formatGamificationValues(
@@ -171,6 +171,7 @@ class PerkBonusAndGamificationService :
           )
         }
         GamificationStatus.APPROACHING_VIP -> {
+          promotionsRepository.shownLevel(address, currentLevel, NOTIFICATIONS_ALMOST_NEXT_LEVEL)
           buildNotification(
             createAlmostVipNotification(),
             NOTIFICATION_SERVICE_ID_ALMOST_LEVEL_UP
