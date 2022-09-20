@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.promotions.ui.from_notification
 
+import android.app.Dialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -19,6 +20,13 @@ class AlmostVipFragment : DialogFragment(),
 
   private val views by viewBinding(AlmostVipFragmentBinding::bind)
 
+  override fun onCreateDialog(savedInstanceState: Bundle?): Dialog =
+    object : Dialog(requireContext(), theme) {
+      override fun onBackPressed() {
+        // Do nothing
+      }
+    }
+
   override fun getTheme(): Int = R.style.FullScreenDialogStyle
 
   override fun onCreateView(
@@ -30,9 +38,8 @@ class AlmostVipFragment : DialogFragment(),
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
-    startPostponedEnterTransition()
     views.almostVipGotItButton.setOnClickListener {
-      this.dismiss()
+      dismiss()
     }
   }
 
