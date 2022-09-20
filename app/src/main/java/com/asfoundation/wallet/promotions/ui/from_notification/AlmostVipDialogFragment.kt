@@ -2,6 +2,7 @@ package com.asfoundation.wallet.promotions.ui.from_notification
 
 import android.app.Dialog
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,13 +13,18 @@ import com.asf.wallet.databinding.AlmostVipFragmentBinding
 import com.asfoundation.wallet.base.SingleStateFragment
 import com.asfoundation.wallet.promotions.ui.PromotionsSideEffect
 import com.asfoundation.wallet.promotions.ui.PromotionsState
+import com.asfoundation.wallet.viewmodel.BasePageViewDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class AlmostVipFragment : DialogFragment(),
+class AlmostVipDialogFragment : BasePageViewDialogFragment(),
   SingleStateFragment<PromotionsState, PromotionsSideEffect> {
 
   private val views by viewBinding(AlmostVipFragmentBinding::bind)
+
+  companion object {
+    var showing = false
+  }
 
   override fun onCreateDialog(savedInstanceState: Bundle?): Dialog =
     object : Dialog(requireContext(), theme) {
@@ -33,6 +39,7 @@ class AlmostVipFragment : DialogFragment(),
     inflater: LayoutInflater, container: ViewGroup?,
     savedInstanceState: Bundle?
   ): View? {
+    if (showing) dismiss() else showing = true
     return inflater.inflate(R.layout.almost_vip_fragment, container, false)
   }
 
@@ -40,6 +47,7 @@ class AlmostVipFragment : DialogFragment(),
     super.onViewCreated(view, savedInstanceState)
     views.almostVipGotItButton.setOnClickListener {
       dismiss()
+      showing = false
     }
   }
 

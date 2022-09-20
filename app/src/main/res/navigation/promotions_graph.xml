@@ -51,7 +51,7 @@
 
   <dialog
       android:id="@+id/promotions_almost_vip_fragment"
-      android:name="com.asfoundation.wallet.promotions.ui.from_notification.AlmostVipFragment"
+      android:name="com.asfoundation.wallet.promotions.ui.from_notification.AlmostVipDialogFragment"
       tools:layout="@layout/almost_vip_fragment">
   </dialog>
 </navigation>
