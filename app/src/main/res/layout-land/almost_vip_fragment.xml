@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/almost_vip_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bottom_nav_top_up_blue"
+    >
+
+  <ImageView
+      android:id="@+id/toolbar_layout_logo"
+      android:layout_width="67dp"
+      android:layout_height="24dp"
+      android:layout_margin="16dp"
+      android:src="@drawable/ic_app_logo"
+      app:layout_constraintLeft_toLeftOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      />
+
+  <com.airbnb.lottie.LottieAnimationView
+      android:id="@+id/almost_vip_astronaut_animation"
+      android:layout_width="260dp"
+      android:layout_height="260dp"
+      android:layout_marginStart="90dp"
+      android:layout_marginTop="90dp"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      app:lottie_autoPlay="true"
+      app:lottie_enableMergePathsForKitKatAndAbove="true"
+      app:lottie_rawRes="@raw/floating_astronaut_level8"
+      app:lottie_repeatCount="2"
+      />
+
+  <ImageView
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="-40dp"
+      android:src="@drawable/ic_almost_vip_planet_stars"
+      app:layout_constraintEnd_toEndOf="@id/almost_vip_astronaut_animation"
+      app:layout_constraintStart_toStartOf="@id/almost_vip_astronaut_animation"
+      app:layout_constraintTop_toTopOf="@id/almost_vip_astronaut_animation"
+      />
+
+  <ScrollView
+      android:id="@+id/almost_vip_scroll_view"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="@dimen/large_margin"
+      android:layout_marginHorizontal="@dimen/large_margin"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toEndOf="@id/almost_vip_astronaut_animation"
+      app:layout_constraintTop_toTopOf="parent"
+      >
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/almost_vip_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        >
+
+      <TextView
+          android:id="@+id/almost_vip_title"
+          style="@style/TextXXXL"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginHorizontal="52dp"
+          android:layout_marginTop="@dimen/normal_padding"
+          android:gravity="center_horizontal"
+
+          android:text="@string/vip_program_almost_onboarding_title"
+          android:textColor="@color/white"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toTopOf="parent"
+          />
+      <TextView
+          android:id="@+id/almost_vip_description"
+          style="@style/TextM"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginHorizontal="@dimen/half_large_margin"
+          android:layout_marginTop="@dimen/onboarding_subtitle_margin_top"
+          android:gravity="center_horizontal"
+          android:text="@string/vip_program_almost_onboarding_body"
+          android:textColor="@color/white"
+          android:textSize="16sp"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toBottomOf="@id/almost_vip_title"
+          />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+  </ScrollView>
+
+  <com.asfoundation.wallet.ui.common.WalletButtonView
+      android:id="@+id/almost_vip_got_it_button"
+      android:layout_width="0dp"
+      android:layout_height="@dimen/onboarding_button_height"
+      android:layout_marginHorizontal="@dimen/large_margin"
+      android:layout_marginVertical="@dimen/large_margin"
+      app:buttonText="@string/got_it_button"
+      app:buttonType="filled"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/almost_vip_scroll_view"
+      app:layout_constraintStart_toEndOf="@id/almost_vip_astronaut_animation"
+      />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
