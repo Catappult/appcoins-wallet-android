@@ -2,6 +2,8 @@ package com.asfoundation.wallet
 
 import android.app.Activity
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import androidx.multidex.MultiDexApplication
 import cm.aptoide.analytics.AnalyticsManager
 import com.appcoins.wallet.appcoins.rewards.AppcoinsRewards
@@ -125,7 +127,9 @@ class App : MultiDexApplication(), BillingDependenciesProvider {
     initializeWalletId()
     MainScope().launch {
       val mode = appStartUseCase.startModes.first()
-      appStartProbe(mode)
+      // OSP GP: Add enough delay to let wallet be created and set as user ID to the Analytics
+      // Should be refactored in order to remove the fixed delay
+      Handler(Looper.getMainLooper()).postDelayed({ appStartProbe(mode) }, 3000)
       if (mode != StartMode.Subsequent) ApkOriginVerification(applicationContext)
     }
     registerActivityLifecycleCallbacks(object : ActivityLifecycleCallbacks {
