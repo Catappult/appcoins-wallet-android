@@ -24,6 +24,7 @@ class PromotionsDbModule {
       .addMigrations(PromotionDatabase.MIGRATION_5_6)
       .addMigrations(PromotionDatabase.MIGRATION_6_7)
       .addMigrations(PromotionDatabase.MIGRATION_7_8)
+      .addMigrations(PromotionDatabase.MIGRATION_8_9)
       .build()
   }
 

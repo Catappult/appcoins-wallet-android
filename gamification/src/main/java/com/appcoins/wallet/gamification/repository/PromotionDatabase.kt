@@ -1,5 +1,6 @@
 package com.appcoins.wallet.gamification.repository
 
+import android.os.Build
 import androidx.room.Database
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
@@ -12,7 +13,7 @@ import com.appcoins.wallet.gamification.repository.entity.WalletOriginEntity
 
 @Database(
   entities = [PromotionEntity::class, LevelsEntity::class, LevelEntity::class, WalletOriginEntity::class],
-  version = 8
+  version = 9
 )
 @TypeConverters(PromotionConverter::class)
 abstract class PromotionDatabase : RoomDatabase() {
@@ -90,7 +91,18 @@ abstract class PromotionDatabase : RoomDatabase() {
     //Changes the gamification type field name
     val MIGRATION_7_8: Migration = object : Migration(7, 8) {
       override fun migrate(database: SupportSQLiteDatabase) {
-        database.execSQL("ALTER TABLE PromotionEntity RENAME COLUMN gamification_type to gamification_status")
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+          database.execSQL("ALTER TABLE PromotionEntity RENAME COLUMN gamification_type to gamification_status")
+        }
+      }
+    }
+
+    //Changes the gamification type field name
+    val MIGRATION_8_9: Migration = object : Migration(8, 9) {
+      override fun migrate(database: SupportSQLiteDatabase) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+          database.execSQL("ALTER TABLE PromotionEntity RENAME COLUMN gamification_status to gamification_type")
+        }
       }
     }
   }
