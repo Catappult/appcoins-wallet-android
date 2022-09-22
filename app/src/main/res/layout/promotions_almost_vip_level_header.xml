@@ -29,18 +29,19 @@
       />
 
   <ImageView
-      android:layout_width="220dp"
-      android:layout_height="wrap_content"
-      android:src="@drawable/ic_almost_vip_planet_stars"
-      android:layout_marginTop="-40dp"
+      android:layout_width="140dp"
+      android:layout_height="150dp"
+      android:src="@drawable/ic_almost_vip_planet_stars_promotions"
+      android:layout_marginTop="-30dp"
       app:layout_constraintTop_toTopOf="@id/current_level_image"
+      app:layout_constraintStart_toEndOf="@id/spend_amount_text"
       app:layout_constraintEnd_toEndOf="parent"
       />
 
   <com.airbnb.lottie.LottieAnimationView
       android:id="@+id/current_level_image"
       android:layout_width="200dp"
-      android:layout_height="120dp"
+      android:layout_height="150dp"
       android:layout_marginTop="@dimen/half_large_margin"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
