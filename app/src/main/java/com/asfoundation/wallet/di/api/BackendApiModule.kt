@@ -69,8 +69,8 @@ class BackendApiModule {
 
   @Singleton
   @Provides
-  @BackendLowTimerRetrofit
-  fun provideBackendLowTimerRetrofit(@LowTimerHttpClient client: OkHttpClient): Retrofit {
+  @BackendShortTimeoutRetrofit
+  fun provideBackendShortTimeoutRetrofit(@ShortTimeoutHttpClient client: OkHttpClient): Retrofit {
     return Retrofit.Builder()
       .baseUrl(backendUrl)
       .client(client)
@@ -182,7 +182,7 @@ class BackendApiModule {
   @Singleton
   @Provides
   fun provideAutoUpdateApi(
-    @BackendLowTimerRetrofit retrofit: Retrofit
+    @BackendShortTimeoutRetrofit retrofit: Retrofit
   ): AutoUpdateService.AutoUpdateApi {
     return retrofit.create(AutoUpdateService.AutoUpdateApi::class.java)
   }

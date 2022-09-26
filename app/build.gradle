@@ -188,6 +188,7 @@ dependencies {
   implementation "androidx.viewpager2:viewpager2:$project.viewpager_version"
   implementation "androidx.room:room-runtime:$project.room_version"
   implementation "androidx.room:room-rxjava2:$project.room_version"
+  implementation "androidx.room:room-ktx:$project.room_version"
   kapt "androidx.room:room-compiler:$project.room_version"
   implementation "androidx.browser:browser:$project.androidx_browser_version"
 

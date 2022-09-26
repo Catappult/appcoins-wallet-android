@@ -30,6 +30,6 @@ annotation class BackendDefaultRetrofit
   AnnotationTarget.FUNCTION,
   AnnotationTarget.VALUE_PARAMETER
 )
-annotation class BackendLowTimerRetrofit
+annotation class BackendShortTimeoutRetrofit
 
 

@@ -4,7 +4,7 @@ import android.content.Context
 import com.asfoundation.wallet.di.annotations.BaseHttpClient
 import com.asfoundation.wallet.di.annotations.BlockchainHttpClient
 import com.asfoundation.wallet.di.annotations.DefaultHttpClient
-import com.asfoundation.wallet.di.annotations.LowTimerHttpClient
+import com.asfoundation.wallet.di.annotations.ShortTimeoutHttpClient
 import com.asfoundation.wallet.repository.PreferencesRepositoryType
 import com.asfoundation.wallet.util.LogInterceptor
 import com.asfoundation.wallet.util.UserAgentInterceptor
@@ -24,13 +24,15 @@ class BaseApiModule {
   @Singleton
   @Provides
   @BaseHttpClient
-  fun provideOkHttpClient(@ApplicationContext context: Context,
-                          preferencesRepositoryType: PreferencesRepositoryType,
-                          logInterceptor: LogInterceptor): OkHttpClient {
+  fun provideOkHttpClient(
+    @ApplicationContext context: Context,
+    preferencesRepositoryType: PreferencesRepositoryType,
+    logInterceptor: LogInterceptor
+  ): OkHttpClient {
     return OkHttpClient.Builder()
-        .addInterceptor(UserAgentInterceptor(context, preferencesRepositoryType))
-        .addInterceptor(logInterceptor)
-        .build()
+      .addInterceptor(UserAgentInterceptor(context, preferencesRepositoryType))
+      .addInterceptor(logInterceptor)
+      .build()
   }
 
   @Singleton
@@ -38,10 +40,10 @@ class BaseApiModule {
   @BlockchainHttpClient
   fun provideBlockchainOkHttpClient(@BaseHttpClient client: OkHttpClient): OkHttpClient {
     return client.newBuilder()
-        .connectTimeout(15, TimeUnit.MINUTES)
-        .readTimeout(30, TimeUnit.MINUTES)
-        .writeTimeout(30, TimeUnit.MINUTES)
-        .build()
+      .connectTimeout(15, TimeUnit.MINUTES)
+      .readTimeout(30, TimeUnit.MINUTES)
+      .writeTimeout(30, TimeUnit.MINUTES)
+      .build()
   }
 
   @Singleton
@@ -49,20 +51,20 @@ class BaseApiModule {
   @DefaultHttpClient
   fun provideDefaultOkHttpClient(@BaseHttpClient client: OkHttpClient): OkHttpClient {
     return client.newBuilder()
-        .connectTimeout(45, TimeUnit.SECONDS)
-        .readTimeout(60, TimeUnit.SECONDS)
-        .writeTimeout(60, TimeUnit.SECONDS)
-        .build()
+      .connectTimeout(45, TimeUnit.SECONDS)
+      .readTimeout(60, TimeUnit.SECONDS)
+      .writeTimeout(60, TimeUnit.SECONDS)
+      .build()
   }
 
   @Singleton
   @Provides
-  @LowTimerHttpClient
-  fun provideLowTimerOkHttpClient(@BaseHttpClient client: OkHttpClient): OkHttpClient {
+  @ShortTimeoutHttpClient
+  fun provideShortTimeoutOkHttpClient(@BaseHttpClient client: OkHttpClient): OkHttpClient {
     return client.newBuilder()
-        .connectTimeout(10, TimeUnit.SECONDS)
-        .readTimeout(20, TimeUnit.SECONDS)
-        .writeTimeout(20, TimeUnit.SECONDS)
-        .build()
+      .connectTimeout(10, TimeUnit.SECONDS)
+      .readTimeout(20, TimeUnit.SECONDS)
+      .writeTimeout(20, TimeUnit.SECONDS)
+      .build()
   }
 }
