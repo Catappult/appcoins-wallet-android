@@ -2,23 +2,16 @@ package com.asfoundation.wallet.feature_flags.di
 
 import android.content.Context
 import androidx.room.Room
-import cm.aptoide.analytics.AnalyticsManager
 import com.asf.wallet.BuildConfig
-import com.asfoundation.wallet.di.IoDispatcher
 import com.asfoundation.wallet.di.annotations.ShortTimeoutHttpClient
-import com.asfoundation.wallet.feature_flags.FeatureFlagsRepository
 import com.asfoundation.wallet.feature_flags.api.ExperimentsApi
 import com.asfoundation.wallet.feature_flags.db.FeatureFlagsDao
 import com.asfoundation.wallet.feature_flags.db.FeatureFlagsDatabase
-import com.asfoundation.wallet.feature_flags.topup.AndroidIdRepository
-import com.asfoundation.wallet.feature_flags.topup.TopUpDefaultValueProbe
-import com.asfoundation.wallet.feature_flags.topup.TopUpDefaultValueUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
-import kotlinx.coroutines.CoroutineDispatcher
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
@@ -50,18 +43,4 @@ class FeatureFlagsModule {
   @Provides
   fun provideFeatureFlagsDao(featureFlagsDatabase: FeatureFlagsDatabase): FeatureFlagsDao =
     featureFlagsDatabase.getFeatureFlagsDao()
-
-  @Singleton
-  @Provides
-  fun provideTopUpDefaultValueUseCase(
-    featureFlagsRepository: FeatureFlagsRepository,
-    analyticsManager: AnalyticsManager,
-    androidIdRepository: AndroidIdRepository,
-    @IoDispatcher ioDispatcher: CoroutineDispatcher
-  ): TopUpDefaultValueUseCase =
-    TopUpDefaultValueUseCase(
-      TopUpDefaultValueProbe(featureFlagsRepository, analyticsManager),
-      androidIdRepository,
-      ioDispatcher
-    )
 }

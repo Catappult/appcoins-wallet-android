@@ -1,16 +1,19 @@
 package com.asfoundation.wallet.feature_flags.topup
 
+import com.asfoundation.wallet.di.IoDispatcher
 import com.asfoundation.wallet.feature_flags.FeatureFlagsRepository
 import com.asfoundation.wallet.feature_flags.VariantUseCase
+import com.asfoundation.wallet.feature_flags.di.TopUpProbe
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
-class TopUpDefaultValueUseCase constructor(
-  private val featureFlagsRepository: FeatureFlagsRepository,
+class TopUpDefaultValueUseCase @Inject constructor(
+  @TopUpProbe private val featureFlagsRepository: FeatureFlagsRepository,
   private val androidIdRepository: AndroidIdRepository,
-  private val ioDispatcher: CoroutineDispatcher
+  @IoDispatcher private val ioDispatcher: CoroutineDispatcher
 ) : VariantUseCase<Int> {
 
   private val mutex = Mutex()
