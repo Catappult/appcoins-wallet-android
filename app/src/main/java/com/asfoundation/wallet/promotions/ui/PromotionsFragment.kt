@@ -24,6 +24,7 @@ import com.asfoundation.wallet.promotions.model.PromotionsModel
 import com.asfoundation.wallet.promotions.model.VipReferralInfo
 import com.asfoundation.wallet.promotions.ui.list.PromotionClick
 import com.asfoundation.wallet.promotions.ui.list.PromotionsController
+import com.asfoundation.wallet.ui.common.setMargins
 import com.asfoundation.wallet.ui.gamification.GamificationMapper
 import com.asfoundation.wallet.ui.widget.MarginItemDecoration
 import com.asfoundation.wallet.util.CurrencyFormatUtils
@@ -221,33 +222,39 @@ class PromotionsFragment : BasePageViewFragment(),
     hasPerksAvailable: Boolean,
     vipReferralInfo: VipReferralInfo?
   ) {
-    views.currentLevelHeader.root.visibility = View.VISIBLE
-
-    val gamificationHeaderItem: GamificationItem =
-      (promotionsModel.promotions[0] as GamificationItem)
-
-    hideAllGamificationHeaderLayouts()
-    val gamificationHeaderLayout = getGamificationHeaderBinding(gamificationHeaderItem)
-
-    gamificationHeaderLayout.type?.root?.visibility = View.VISIBLE
-    gamificationHeaderLayout.type?.root?.setOnClickListener {
-      viewModel.promotionClicked(PromotionClick(gamificationHeaderItem.id))
-    }
-    gamificationHeaderLayout.vipReferralButton?.root?.setOnClickListener {
-      viewModel.vipReferralClicked()
-    }
-
-    showGamificationHeaderColors(gamificationHeaderLayout, gamificationHeaderItem)
-    showGamificationHeaderText(gamificationHeaderLayout, gamificationHeaderItem)
-    showGamificationHeaderProgress(gamificationHeaderLayout, promotionsGamificationStats)
-
     if (hasPerksAvailable) {
-      showPromotionsTitle()
+      views.promotionsListTitleLayout.root.visibility = View.VISIBLE
     } else {
       views.promotionsListTitleLayout.root.visibility =
         View.GONE
     }
-    setVipReferral(vipReferralInfo, gamificationHeaderLayout)
+
+    if (promotionsModel.promotions.isNotEmpty()) {
+      views.currentLevelHeader.root.visibility = View.VISIBLE
+
+      val gamificationHeaderItem: GamificationItem =
+        (promotionsModel.promotions[0] as GamificationItem)
+
+      hideAllGamificationHeaderLayouts()
+      val gamificationHeaderLayout = getGamificationHeaderBinding(gamificationHeaderItem)
+
+      gamificationHeaderLayout.type?.root?.visibility = View.VISIBLE
+      gamificationHeaderLayout.type?.root?.setOnClickListener {
+        viewModel.promotionClicked(PromotionClick(gamificationHeaderItem.id))
+      }
+      gamificationHeaderLayout.vipReferralButton?.root?.setOnClickListener {
+        viewModel.vipReferralClicked()
+      }
+
+      showGamificationHeaderColors(gamificationHeaderLayout, gamificationHeaderItem)
+      showGamificationHeaderText(gamificationHeaderLayout, gamificationHeaderItem)
+      showGamificationHeaderProgress(gamificationHeaderLayout, promotionsGamificationStats)
+
+      setVipReferral(vipReferralInfo, gamificationHeaderLayout)
+    } else {
+      views.currentLevelHeader.root.visibility = View.GONE
+      views.promotionsListTitleContainer.setMargins(topMarginDp = 60)
+    }
   }
 
   private fun getGamificationHeaderBinding(gamificationHeaderItem: GamificationItem): GamificationHeaderBindingAdapter {
@@ -400,8 +407,6 @@ class PromotionsFragment : BasePageViewFragment(),
 
   private fun showPromotionsTitle() {
     views.promotionsListTitleLayout.root.visibility = View.VISIBLE
-    views.promotionsListTitleLayout.promotionsTitle.text = getString(R.string.perks_title)
-    views.promotionsListTitleLayout.promotionsSubtitle.text = getString(R.string.perks_body)
   }
 
   private fun showNoPromotionsScreen(

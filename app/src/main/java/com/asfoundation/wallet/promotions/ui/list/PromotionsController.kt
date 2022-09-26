@@ -3,11 +3,8 @@ package com.asfoundation.wallet.promotions.ui.list
 import com.airbnb.epoxy.TypedEpoxyController
 import com.asfoundation.wallet.promotions.model.*
 import com.asfoundation.wallet.promotions.ui.list.model.*
-import com.asfoundation.wallet.util.CurrencyFormatUtils
 
 class PromotionsController : TypedEpoxyController<PromotionsModel>() {
-
-  private val currencyFormatUtils = CurrencyFormatUtils()
 
   var clickListener: ((PromotionClick) -> Unit)? = null
 
@@ -15,12 +12,6 @@ class PromotionsController : TypedEpoxyController<PromotionsModel>() {
 
     for (promotion in promotionsModel.promotions) {
       when (promotion) {
-        is TitleItem -> add(
-          TitleModel_()
-            .id("gamification_title_model")
-            .titleItem(promotion)
-            .currencyFormatUtils(currencyFormatUtils)
-        )
         is ReferralItem -> add(
           ReferralModel_()
             .id(promotion.id, promotion.link)
