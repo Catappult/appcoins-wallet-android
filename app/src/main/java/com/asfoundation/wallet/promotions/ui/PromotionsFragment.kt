@@ -301,6 +301,7 @@ class PromotionsFragment : BasePageViewFragment(),
     when (gamificationHeaderItem.gamificationStatus) {
       GamificationStatus.VIP,
       GamificationStatus.VIP_MAX -> {
+        gamificationHeaderLayout.currentLevelImage?.setImageDrawable(gamificationHeaderItem.planet)
         gamificationHeaderLayout.currentLevelProgressBar?.progressTintList =
           ColorStateList.valueOf(
             ContextCompat.getColor(
@@ -309,7 +310,16 @@ class PromotionsFragment : BasePageViewFragment(),
             )
           )
       }
+      GamificationStatus.APPROACHING_VIP -> {
+        gamificationHeaderLayout.currentLevelBonus?.background =
+          gamificationMapper.getOvalBackground(gamificationHeaderItem.levelColor)
+        gamificationHeaderLayout.currentLevelProgressBar?.progressTintList =
+          ColorStateList.valueOf(
+            gamificationHeaderItem.levelColor
+          )
+      }
       else -> {
+        gamificationHeaderLayout.currentLevelImage?.setImageDrawable(gamificationHeaderItem.planet)
         gamificationHeaderLayout.currentLevelBonus?.background =
           gamificationMapper.getOvalBackground(gamificationHeaderItem.levelColor)
         gamificationHeaderLayout.currentLevelProgressBar?.progressTintList =
@@ -318,8 +328,6 @@ class PromotionsFragment : BasePageViewFragment(),
           )
       }
     }
-
-    gamificationHeaderLayout.currentLevelImage?.setImageDrawable(gamificationHeaderItem.planet)
   }
 
   private fun showGamificationHeaderText(
