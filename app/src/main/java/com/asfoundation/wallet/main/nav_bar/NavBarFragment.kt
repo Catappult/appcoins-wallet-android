@@ -13,10 +13,12 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI.onNavDestinationSelected
 import androidx.navigation.ui.setupWithNavController
 import by.kirich1409.viewbindingdelegate.viewBinding
+import cm.aptoide.analytics.AnalyticsManager
 import com.asf.wallet.R
 import com.asf.wallet.databinding.NavBarFragmentBinding
 import com.asfoundation.wallet.base.SingleStateFragment
 import com.asfoundation.wallet.main.MainActivity
+import com.asfoundation.wallet.rating.RatingAnalytics
 import com.asfoundation.wallet.util.createColoredString
 import com.asfoundation.wallet.util.setTextFromColored
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
@@ -38,6 +40,9 @@ class NavBarFragment : BasePageViewFragment(),
 
   @Inject
   lateinit var navigator: NavBarFragmentNavigator
+
+  @Inject
+  lateinit var navBarAnalytics: NavBarAnalytics
 
   override fun onCreateView(
     inflater: LayoutInflater, container: ViewGroup?,
@@ -150,6 +155,7 @@ class NavBarFragment : BasePageViewFragment(),
 
   private fun setVipCalloutClickListener() {
     views.vipPromotionsCallout.vipCalloutLayout.setOnClickListener {
+       navBarAnalytics.sendCallOutEvent()
       val menuView = views.bottomNav.getChildAt(0) as BottomNavigationMenuView
       val promoItemView = menuView.getChildAt(1) as BottomNavigationItemView
       promoItemView.performClick()
