@@ -310,12 +310,9 @@ class BdsPromotionsRepository @Inject constructor(
   private fun isNoNetworkException(throwable: Throwable): Boolean = throwable is IOException ||
       throwable.cause != null && throwable.cause is IOException
 
-  override fun getVipReferral(wallet: String): Observable<VipReferralResponse> =
+  override fun getVipReferral(wallet: String): Single<VipReferralResponse> =
     api.getVipReferral(wallet)
-      .toObservable()
-      .onErrorReturn {
-        VipReferralResponse.invalidReferral
-      }
+      .onErrorReturn { VipReferralResponse.invalidReferral }
 
   override fun isVipCalloutAlreadySeen(): Boolean = local.isVipCalloutAlreadySeen()
 
