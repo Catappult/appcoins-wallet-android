@@ -9,6 +9,7 @@ import com.asfoundation.wallet.billing.analytics.WalletsAnalytics
 import com.asfoundation.wallet.di.annotations.DefaultHttpClient
 import com.asfoundation.wallet.feature_flags.topup.TopUpDefaultValueProbe
 import com.asfoundation.wallet.home.ui.HomeAnalytics
+import com.asfoundation.wallet.main.nav_bar.NavBarAnalytics
 import com.asfoundation.wallet.rating.RatingAnalytics
 import com.asfoundation.wallet.topup.TopUpAnalytics
 import com.asfoundation.wallet.ui.iab.PaymentMethodsAnalytics
@@ -61,7 +62,8 @@ class AnalyticsModule {
       VerificationAnalytics.CONCLUSION_EVENT,
       PaymentMethodsAnalytics.WALLET_PAYMENT_LOADING_TOTAL,
       PaymentMethodsAnalytics.WALLET_PAYMENT_LOADING_STEP,
-      PaymentMethodsAnalytics.WALLET_PAYMENT_PROCESSING_TOTAL
+      PaymentMethodsAnalytics.WALLET_PAYMENT_PROCESSING_TOTAL,
+      NavBarAnalytics.WALLET_CALLOUT_PROMOTIONS_CLICK
     )
 
   @Singleton
@@ -90,7 +92,8 @@ class AnalyticsModule {
       VerificationAnalytics.CONCLUSION_EVENT,
       PaymentMethodsAnalytics.WALLET_PAYMENT_LOADING_TOTAL,
       PaymentMethodsAnalytics.WALLET_PAYMENT_LOADING_STEP,
-      PaymentMethodsAnalytics.WALLET_PAYMENT_PROCESSING_TOTAL
+      PaymentMethodsAnalytics.WALLET_PAYMENT_PROCESSING_TOTAL,
+      NavBarAnalytics.WALLET_CALLOUT_PROMOTIONS_CLICK
     )
 
   @Singleton
@@ -119,7 +122,8 @@ class AnalyticsModule {
       VerificationAnalytics.CONCLUSION_EVENT,
       PaymentMethodsAnalytics.WALLET_PAYMENT_LOADING_TOTAL,
       PaymentMethodsAnalytics.WALLET_PAYMENT_LOADING_STEP,
-      PaymentMethodsAnalytics.WALLET_PAYMENT_PROCESSING_TOTAL
+      PaymentMethodsAnalytics.WALLET_PAYMENT_PROCESSING_TOTAL,
+      NavBarAnalytics.WALLET_CALLOUT_PROMOTIONS_CLICK
     )
 
   @Singleton

@@ -23,7 +23,6 @@ import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import com.google.android.material.bottomnavigation.BottomNavigationItemView
 import com.google.android.material.bottomnavigation.BottomNavigationMenuView
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.fragment_vip_referral.view.*
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -38,6 +37,9 @@ class NavBarFragment : BasePageViewFragment(),
 
   @Inject
   lateinit var navigator: NavBarFragmentNavigator
+
+  @Inject
+  lateinit var navBarAnalytics: NavBarAnalytics
 
   override fun onCreateView(
     inflater: LayoutInflater, container: ViewGroup?,
@@ -131,15 +133,18 @@ class NavBarFragment : BasePageViewFragment(),
   private fun setBottomNavListener() {
     views.bottomNav.setOnItemSelectedListener { menuItem ->
       when (menuItem.itemId) {
-        R.id.home_graph -> {}
+        R.id.home_graph -> {
+        }
         R.id.promotions_graph -> {
           if (views.vipPromotionsCallout.vipCalloutLayout.isVisible) {
             hideVipCallout()
             viewModel.vipPromotionsSeen()
           }
         }
-        R.id.my_wallets_graph -> {}
-        else -> {}
+        R.id.my_wallets_graph -> {
+        }
+        else -> {
+        }
       }
 
       // proceed with the default navigation behaviour:
@@ -150,6 +155,7 @@ class NavBarFragment : BasePageViewFragment(),
 
   private fun setVipCalloutClickListener() {
     views.vipPromotionsCallout.vipCalloutLayout.setOnClickListener {
+      navBarAnalytics.sendCallOutEvent()
       val menuView = views.bottomNav.getChildAt(0) as BottomNavigationMenuView
       val promoItemView = menuView.getChildAt(1) as BottomNavigationItemView
       promoItemView.performClick()
