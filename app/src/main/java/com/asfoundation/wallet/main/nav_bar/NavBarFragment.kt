@@ -13,19 +13,16 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI.onNavDestinationSelected
 import androidx.navigation.ui.setupWithNavController
 import by.kirich1409.viewbindingdelegate.viewBinding
-import cm.aptoide.analytics.AnalyticsManager
 import com.asf.wallet.R
 import com.asf.wallet.databinding.NavBarFragmentBinding
 import com.asfoundation.wallet.base.SingleStateFragment
 import com.asfoundation.wallet.main.MainActivity
-import com.asfoundation.wallet.rating.RatingAnalytics
 import com.asfoundation.wallet.util.createColoredString
 import com.asfoundation.wallet.util.setTextFromColored
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import com.google.android.material.bottomnavigation.BottomNavigationItemView
 import com.google.android.material.bottomnavigation.BottomNavigationMenuView
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.fragment_vip_referral.view.*
 import javax.inject.Inject
 
 @AndroidEntryPoint
