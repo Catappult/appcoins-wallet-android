@@ -4,6 +4,7 @@ import com.appcoins.wallet.gamification.GamificationContext
 import com.appcoins.wallet.gamification.repository.entity.*
 import io.reactivex.Observable
 import io.reactivex.Single
+import io.reactivex.schedulers.Schedulers
 import it.czerwinski.android.hilt.annotations.BoundTo
 import java.io.IOException
 import java.math.BigDecimal
@@ -312,6 +313,7 @@ class BdsPromotionsRepository @Inject constructor(
 
   override fun getVipReferral(wallet: String): Single<VipReferralResponse> =
     api.getVipReferral(wallet)
+      .subscribeOn(Schedulers.io())
       .onErrorReturn { VipReferralResponse.invalidReferral }
 
   override fun isVipCalloutAlreadySeen(): Boolean = local.isVipCalloutAlreadySeen()
