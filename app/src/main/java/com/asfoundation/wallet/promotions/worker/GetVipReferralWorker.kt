@@ -11,6 +11,7 @@ import androidx.work.*
 import com.appcoins.wallet.gamification.repository.entity.VipReferralResponse.Companion.invalidReferral
 import com.asf.wallet.R
 import com.asfoundation.wallet.base.RxSchedulers
+import com.asfoundation.wallet.entity.Wallet
 import com.asfoundation.wallet.main.PendingIntentNavigator
 import com.asfoundation.wallet.promotions.usecases.GetVipReferralUseCase
 import com.asfoundation.wallet.wallets.usecases.GetCurrentWalletUseCase
@@ -41,11 +42,14 @@ class GetVipReferralWorker(
   override fun getBackgroundScheduler() = rxSchedulers.io
 
   override fun createWork(): Single<Result> = getCurrentWallet()
-    .flatMap(getVipReferralUseCase::invoke)
+    .filter { it.address == inputData.getString(ADDRESS_DATA_KEY) }
+    .flatMapSingle(getVipReferralUseCase::invoke)
     .filter { it != invalidReferral }
-    .doOnSuccess { showNotification(it.code) }
-    .map { Result.success() }
     .toSingle()
+    .map {
+      showNotification(it.code)
+      Result.success()
+    }
     .onErrorReturn {
       if (runAttemptCount > RETRY_COUNTS) {
         Result.failure()
@@ -97,14 +101,17 @@ class GetVipReferralWorker(
 
 
   companion object {
-    const val NAME = "com.asfoundation.wallet.promotions.worker.GetVipReferralWorker"
+    private const val NAME = "GetVipReferralWorker"
     private const val RETRY_MINUTES = 5L
     private const val RETRY_COUNTS = 24
     private const val CHANNEL_NAME = "VIP Referral Notification Channel"
     private const val CHANNEL_ID = "notification_channel_vip_referral"
     private const val NOTIFICATION_SERVICE_ID = 77777
+    private const val ADDRESS_DATA_KEY = "address"
 
-    val workRequest by lazy {
+    fun getUniqueName(wallet: Wallet): String = "$NAME#${wallet.address}"
+
+    fun getWorkRequest(wallet: Wallet): OneTimeWorkRequest =
       OneTimeWorkRequestBuilder<GetVipReferralWorker>()
         .setInitialDelay(RETRY_MINUTES, TimeUnit.MINUTES)
         .setConstraints(
@@ -113,7 +120,7 @@ class GetVipReferralWorker(
             .build()
         )
         .setBackoffCriteria(BackoffPolicy.LINEAR, 5, TimeUnit.MINUTES)
+        .setInputData(workDataOf(ADDRESS_DATA_KEY to wallet.address))
         .build()
-    }
   }
 }
