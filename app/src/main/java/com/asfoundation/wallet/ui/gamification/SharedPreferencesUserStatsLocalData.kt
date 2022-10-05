@@ -263,12 +263,12 @@ class SharedPreferencesUserStatsLocalData @Inject constructor(
     return preferences.getString(WALLET_ORIGIN + wallet, "")!!
   }
 
-  override fun isVipCalloutAlreadySeen() =
-    preferences.getBoolean(VIP_CALLOUT_SEEN, false)
+  override fun isVipCalloutAlreadySeen(wallet: String) =
+    preferences.getBoolean(VIP_CALLOUT_SEEN + wallet, false)
 
-  override fun setVipCalloutAlreadySeen(isSeen: Boolean) {
+  override fun setVipCalloutAlreadySeen(wallet: String, isSeen: Boolean) {
     preferences.edit()
-      .putBoolean(VIP_CALLOUT_SEEN, isSeen)
+      .putBoolean(VIP_CALLOUT_SEEN + wallet, isSeen)
       .apply()
   }
 
