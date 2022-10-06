@@ -4,7 +4,6 @@ import android.util.Log
 import androidx.work.ExistingWorkPolicy
 import androidx.work.WorkManager
 import com.appcoins.wallet.gamification.repository.PromotionsRepository
-import com.appcoins.wallet.gamification.repository.entity.GamificationStatus
 import com.appcoins.wallet.gamification.repository.entity.VipReferralResponse
 import com.asfoundation.wallet.base.RxSchedulers
 import com.asfoundation.wallet.entity.Wallet
@@ -17,7 +16,6 @@ import javax.inject.Inject
 class VipReferralPollingUseCase @Inject constructor(
   private val getVipReferralUseCase: GetVipReferralUseCase,
   private val promotionsRepository: PromotionsRepository,
-  private val repository: VipReferralPollingRepository,
   private val workManager: WorkManager,
   private val rxSchedulers: RxSchedulers
 ) {
@@ -25,19 +23,18 @@ class VipReferralPollingUseCase @Inject constructor(
   operator fun invoke(wallet: Wallet): Single<VipReferralResponse> {
     return getVipReferralUseCase(wallet)
       .doOnSuccess {
-        if (it != VipReferralResponse.invalidReferral) {
+        if (it.active) {
           workManager.cancelUniqueWork(getUniqueName(wallet))
         }
       }
   }
 
   fun startPolling(wallet: Wallet): Completable =
-    promotionsRepository.getGamificationStats(wallet.address, null)
+    promotionsRepository.isReferralNotificationToShow(wallet.address)
       .subscribeOn(rxSchedulers.io)
-      .doOnNext {
-        val lastStatus =
-          repository.getLastGamificationStatus().let(GamificationStatus.Companion::toEnum)
-        if (lastStatus == GamificationStatus.APPROACHING_VIP && it.gamificationStatus == GamificationStatus.VIP) {
+      .doOnNext { isToStartPolling ->
+        if (isToStartPolling) {
+          promotionsRepository.setReferralNotificationSeen(wallet.address, true)
           workManager.enqueueUniqueWork(
             getUniqueName(wallet),
             ExistingWorkPolicy.KEEP,
@@ -46,7 +43,6 @@ class VipReferralPollingUseCase @Inject constructor(
             )
           )
         }
-        repository.saveLastGamificationStatus(it.gamificationStatus.toString())
       }
       .doOnError {
         Log.d("WorkerManager", it.toString())

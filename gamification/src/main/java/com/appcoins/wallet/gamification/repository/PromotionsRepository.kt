@@ -52,4 +52,8 @@ interface PromotionsRepository {
 
   fun setVipCalloutAlreadySeen(isSeen: Boolean)
 
+  fun isReferralNotificationToShow(wallet: String): Observable<Boolean>
+
+  fun setReferralNotificationSeen(wallet: String, isSeen: Boolean)
+
 }

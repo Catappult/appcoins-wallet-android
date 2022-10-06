@@ -48,4 +48,8 @@ interface UserStatsLocalData {
   fun isVipCalloutAlreadySeen(): Boolean
 
   fun setVipCalloutAlreadySeen(isSeen: Boolean)
+
+  fun isReferralNotificationSeen(wallet: String): Boolean
+
+  fun setReferralNotificationSeen(wallet: String, isSeen: Boolean)
 }

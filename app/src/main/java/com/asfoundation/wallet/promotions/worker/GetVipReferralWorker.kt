@@ -38,7 +38,7 @@ class GetVipReferralWorker @AssistedInject constructor(
   override fun createWork(): Single<Result> = getCurrentWallet()
     .filter { it.address == inputData.getString(ADDRESS_DATA_KEY) }
     .flatMapSingle(getVipReferralUseCase::invoke)
-    .filter { it != invalidReferral }
+    .filter { it.active && it.code.isNotEmpty() }
     .toSingle()
     .map {
       showNotification(it.code)
@@ -96,7 +96,8 @@ class GetVipReferralWorker @AssistedInject constructor(
 
   companion object {
     private const val NAME = "GetVipReferralWorker"
-    private const val RETRY_MINUTES = 1L // 5L // TODO
+    private const val INITIAL_DELAY_MINUTES = 1L
+    private const val RETRY_MINUTES = 5L
     private const val RETRY_COUNTS = 24
     private const val CHANNEL_NAME = "VIP Referral Notification Channel"
     private const val CHANNEL_ID = "notification_channel_vip_referral"
@@ -107,13 +108,13 @@ class GetVipReferralWorker @AssistedInject constructor(
 
     fun getWorkRequest(wallet: Wallet): OneTimeWorkRequest =
       OneTimeWorkRequestBuilder<GetVipReferralWorker>()
-        .setInitialDelay(RETRY_MINUTES, TimeUnit.MINUTES)
+        .setInitialDelay(INITIAL_DELAY_MINUTES, TimeUnit.MINUTES)
         .setConstraints(
           Constraints.Builder()
             .setRequiredNetworkType(NetworkType.CONNECTED)
             .build()
         )
-        .setBackoffCriteria(BackoffPolicy.LINEAR, 5, TimeUnit.MINUTES)
+        .setBackoffCriteria(BackoffPolicy.LINEAR, RETRY_MINUTES, TimeUnit.MINUTES)
         .setInputData(workDataOf(
             ADDRESS_DATA_KEY to wallet.address
           )

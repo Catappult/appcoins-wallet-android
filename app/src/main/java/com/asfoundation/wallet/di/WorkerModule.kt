@@ -27,7 +27,6 @@ class WorkerModule {
   @Provides
   fun providesWorkManager(
     @ApplicationContext context: Context,
-//    delegatingWorkerFactory: DelegatingWorkerFactory
     getVipReferralWorkerFactory: GetVipReferralWorkerFactory
   ): WorkManager {
     val config = Configuration.Builder()
