@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.promotions.usecases
 
+import android.util.Log
 import androidx.work.ExistingWorkPolicy
 import androidx.work.WorkManager
 import com.appcoins.wallet.gamification.repository.PromotionsRepository
@@ -40,10 +41,15 @@ class VipReferralPollingUseCase @Inject constructor(
           workManager.enqueueUniqueWork(
             getUniqueName(wallet),
             ExistingWorkPolicy.KEEP,
-            GetVipReferralWorker.getWorkRequest(wallet)
+            GetVipReferralWorker.getWorkRequest(
+              wallet
+            )
           )
         }
         repository.saveLastGamificationStatus(it.gamificationStatus.toString())
+      }
+      .doOnError {
+        Log.d("WorkerManager", it.toString())
       }
       .ignoreElements()
 }

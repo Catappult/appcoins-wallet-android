@@ -15,29 +15,23 @@ import com.asfoundation.wallet.entity.Wallet
 import com.asfoundation.wallet.main.PendingIntentNavigator
 import com.asfoundation.wallet.promotions.usecases.GetVipReferralUseCase
 import com.asfoundation.wallet.wallets.usecases.GetCurrentWalletUseCase
+import dagger.assisted.Assisted
+import dagger.assisted.AssistedFactory
+import dagger.assisted.AssistedInject
 import io.reactivex.Single
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
-class GetVipReferralWorker(
-  private val context: Context,
-  params: WorkerParameters
+class GetVipReferralWorker @AssistedInject constructor(
+  @Assisted private val context: Context,
+  @Assisted params: WorkerParameters,
+  private val getVipReferralUseCase: GetVipReferralUseCase,
+  private val getCurrentWallet: GetCurrentWalletUseCase,
+  private val pendingIntentNavigator: PendingIntentNavigator,
+  private val notificationManager: NotificationManager,
+  private val rxSchedulers: RxSchedulers
+
 ) : RxWorker(context, params) {
-
-  @Inject
-  lateinit var getVipReferralUseCase: GetVipReferralUseCase
-
-  @Inject
-  lateinit var getCurrentWallet: GetCurrentWalletUseCase
-
-  @Inject
-  lateinit var pendingIntentNavigator: PendingIntentNavigator
-
-  @Inject
-  lateinit var notificationManager: NotificationManager
-
-  @Inject
-  lateinit var rxSchedulers: RxSchedulers
 
   override fun getBackgroundScheduler() = rxSchedulers.io
 
@@ -102,7 +96,7 @@ class GetVipReferralWorker(
 
   companion object {
     private const val NAME = "GetVipReferralWorker"
-    private const val RETRY_MINUTES = 5L
+    private const val RETRY_MINUTES = 1L // 5L // TODO
     private const val RETRY_COUNTS = 24
     private const val CHANNEL_NAME = "VIP Referral Notification Channel"
     private const val CHANNEL_ID = "notification_channel_vip_referral"
@@ -120,7 +114,16 @@ class GetVipReferralWorker(
             .build()
         )
         .setBackoffCriteria(BackoffPolicy.LINEAR, 5, TimeUnit.MINUTES)
-        .setInputData(workDataOf(ADDRESS_DATA_KEY to wallet.address))
+        .setInputData(workDataOf(
+            ADDRESS_DATA_KEY to wallet.address
+          )
+        )
         .build()
   }
+
+  @AssistedFactory
+  interface Factory {
+    fun create(appContext: Context, params: WorkerParameters): GetVipReferralWorker
+  }
+
 }

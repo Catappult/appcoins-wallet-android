@@ -305,10 +305,10 @@
         android:exported="false" />
 
     <provider
-        android:name="androidx.work.impl.WorkManagerInitializer"
-        android:authorities="${applicationId}.workmanager-init"
-        android:exported="false"
-        tools:node="remove" />
+        android:name="androidx.startup.InitializationProvider"
+        android:authorities="${applicationId}.androidx-startup"
+        tools:node="remove">
+    </provider>
     <!--Needed to share file in android P and above -->
     <provider
         android:name="androidx.core.content.FileProvider"

@@ -15,6 +15,7 @@ import com.asf.wallet.R
 import com.asfoundation.wallet.backup.BackupNotificationUtils
 import com.asfoundation.wallet.billing.adyen.PaymentType
 import com.asfoundation.wallet.navigator.UriNavigator
+import com.asfoundation.wallet.promotions.usecases.VipReferralPollingUseCase
 import com.asfoundation.wallet.topup.address.BillingAddressTopUpFragment
 import com.asfoundation.wallet.topup.adyen.AdyenTopUpFragment
 import com.asfoundation.wallet.topup.localpayments.LocalTopUpPaymentFragment
@@ -44,6 +45,9 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, UriNavigator {
 
   @Inject
   lateinit var topUpInteractor: TopUpInteractor
+
+  @Inject
+  lateinit var vipReferralPollingUseCase: VipReferralPollingUseCase
 
   @Inject
   lateinit var topUpAnalytics: TopUpAnalytics
@@ -76,8 +80,15 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, UriNavigator {
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.top_up_activity_layout)
-    presenter = TopUpActivityPresenter(this, topUpInteractor, AndroidSchedulers.mainThread(),
-        Schedulers.io(), CompositeDisposable(), logger)
+    presenter = TopUpActivityPresenter(
+      this,
+      topUpInteractor,
+      vipReferralPollingUseCase,
+      AndroidSchedulers.mainThread(),
+      Schedulers.io(),
+      CompositeDisposable(),
+      logger
+    )
     results = PublishRelay.create()
     presenter.present(savedInstanceState == null)
     if (savedInstanceState != null && savedInstanceState.containsKey(FIRST_IMPRESSION)) {
@@ -94,8 +105,8 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, UriNavigator {
   override fun showTopUpScreen() {
     handleTopUpStartAnalytics()
     supportFragmentManager.beginTransaction()
-        .replace(R.id.fragment_container, TopUpFragment.newInstance(packageName))
-        .commit()
+      .replace(R.id.fragment_container, TopUpFragment.newInstance(packageName))
+      .commit()
     layout_error.visibility = View.GONE
     fragment_container.visibility = View.VISIBLE
   }
@@ -103,9 +114,9 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, UriNavigator {
   override fun showVerification() {
     fragment_container.visibility = View.GONE
     val intent = VerificationCreditCardActivity.newIntent(this)
-        .apply {
-          intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
-        }
+      .apply {
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
+      }
     startActivity(intent)
     finish()
   }
@@ -121,34 +132,46 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, UriNavigator {
 
   override fun navigateToAdyenPayment(paymentType: PaymentType, data: TopUpPaymentData) {
     supportFragmentManager.beginTransaction()
-        .add(R.id.fragment_container,
-            AdyenTopUpFragment.newInstance(paymentType, data))
-        .addToBackStack(AdyenTopUpFragment::class.java.simpleName)
-        .commit()
+      .add(
+        R.id.fragment_container,
+        AdyenTopUpFragment.newInstance(paymentType, data)
+      )
+      .addToBackStack(AdyenTopUpFragment::class.java.simpleName)
+      .commit()
   }
 
-  override fun navigateToLocalPayment(paymentId: String, icon: String, label: String,
-                                      async: Boolean, topUpData: TopUpPaymentData) {
+  override fun navigateToLocalPayment(
+    paymentId: String, icon: String, label: String,
+    async: Boolean, topUpData: TopUpPaymentData
+  ) {
     supportFragmentManager.beginTransaction()
-        .add(R.id.fragment_container,
-            LocalTopUpPaymentFragment.newInstance(paymentId, icon, label, async, packageName,
-                topUpData))
-        .addToBackStack(LocalTopUpPaymentFragment::class.java.simpleName)
-        .commit()
+      .add(
+        R.id.fragment_container,
+        LocalTopUpPaymentFragment.newInstance(
+          paymentId, icon, label, async, packageName,
+          topUpData
+        )
+      )
+      .addToBackStack(LocalTopUpPaymentFragment::class.java.simpleName)
+      .commit()
   }
 
-  override fun navigateToBillingAddress(topUpData: TopUpPaymentData, fiatAmount: String,
-                                        fiatCurrency: String, targetFragment: Fragment,
-                                        shouldStoreCard: Boolean, preSelected: Boolean) {
-    val fragment = BillingAddressTopUpFragment.newInstance(topUpData, fiatAmount, fiatCurrency,
-        shouldStoreCard, preSelected)
-        .apply {
-          setTargetFragment(targetFragment, BILLING_ADDRESS_REQUEST_CODE)
-        }
+  override fun navigateToBillingAddress(
+    topUpData: TopUpPaymentData, fiatAmount: String,
+    fiatCurrency: String, targetFragment: Fragment,
+    shouldStoreCard: Boolean, preSelected: Boolean
+  ) {
+    val fragment = BillingAddressTopUpFragment.newInstance(
+      topUpData, fiatAmount, fiatCurrency,
+      shouldStoreCard, preSelected
+    )
+      .apply {
+        setTargetFragment(targetFragment, BILLING_ADDRESS_REQUEST_CODE)
+      }
     supportFragmentManager.beginTransaction()
-        .add(R.id.fragment_container, fragment)
-        .addToBackStack(BillingAddressTopUpFragment::class.java.simpleName)
-        .commit()
+      .add(R.id.fragment_container, fragment)
+      .addToBackStack(BillingAddressTopUpFragment::class.java.simpleName)
+      .commit()
   }
 
   override fun onBackPressed() {
@@ -183,12 +206,16 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, UriNavigator {
 
   override fun finishActivity(data: Bundle) {
     supportFragmentManager.beginTransaction()
-        .replace(R.id.fragment_container,
-            TopUpSuccessFragment.newInstance(data.getString(TOP_UP_AMOUNT, ""),
-                data.getString(TOP_UP_CURRENCY, ""), data.getString(BONUS, ""),
-                data.getString(TOP_UP_CURRENCY_SYMBOL, "")),
-            TopUpSuccessFragment::class.java.simpleName)
-        .commit()
+      .replace(
+        R.id.fragment_container,
+        TopUpSuccessFragment.newInstance(
+          data.getString(TOP_UP_AMOUNT, ""),
+          data.getString(TOP_UP_CURRENCY, ""), data.getString(BONUS, ""),
+          data.getString(TOP_UP_CURRENCY_SYMBOL, "")
+        ),
+        TopUpSuccessFragment::class.java.simpleName
+      )
+      .commit()
     unlockRotation()
   }
 
@@ -207,7 +234,9 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, UriNavigator {
 
   override fun close(navigateToTransactions: Boolean) {
     if (supportFragmentManager.findFragmentByTag(
-            TopUpSuccessFragment::class.java.simpleName) != null && navigateToTransactions) {
+        TopUpSuccessFragment::class.java.simpleName
+      ) != null && navigateToTransactions
+    ) {
       this.finish()
     }
     finish()
