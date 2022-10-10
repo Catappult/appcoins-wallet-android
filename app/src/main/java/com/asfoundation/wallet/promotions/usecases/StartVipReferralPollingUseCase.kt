@@ -4,39 +4,26 @@ import android.util.Log
 import androidx.work.ExistingWorkPolicy
 import androidx.work.WorkManager
 import com.appcoins.wallet.gamification.repository.PromotionsRepository
-import com.appcoins.wallet.gamification.repository.entity.VipReferralResponse
 import com.asfoundation.wallet.base.RxSchedulers
 import com.asfoundation.wallet.entity.Wallet
 import com.asfoundation.wallet.promotions.worker.GetVipReferralWorker
-import com.asfoundation.wallet.promotions.worker.GetVipReferralWorker.Companion.getUniqueName
 import io.reactivex.Completable
-import io.reactivex.Single
 import javax.inject.Inject
 
-class VipReferralPollingUseCase @Inject constructor(
-  private val getVipReferralUseCase: GetVipReferralUseCase,
+class StartVipReferralPollingUseCase  @Inject constructor(
   private val promotionsRepository: PromotionsRepository,
   private val workManager: WorkManager,
   private val rxSchedulers: RxSchedulers
 ) {
 
-  operator fun invoke(wallet: Wallet): Single<VipReferralResponse> {
-    return getVipReferralUseCase(wallet)
-      .doOnSuccess {
-        if (it.active) {
-          workManager.cancelUniqueWork(getUniqueName(wallet))
-        }
-      }
-  }
-
-  fun startPolling(wallet: Wallet): Completable =
-    promotionsRepository.isReferralNotificationToShow(wallet.address)
+  operator fun invoke(wallet: Wallet): Completable {
+    return promotionsRepository.isReferralNotificationToShow(wallet.address)
       .subscribeOn(rxSchedulers.io)
       .doOnNext { isToStartPolling ->
         if (isToStartPolling) {
           promotionsRepository.setReferralNotificationSeen(wallet.address, true)
           workManager.enqueueUniqueWork(
-            getUniqueName(wallet),
+            GetVipReferralWorker.getUniqueName(wallet),
             ExistingWorkPolicy.KEEP,
             GetVipReferralWorker.getWorkRequest(
               wallet
@@ -48,4 +35,6 @@ class VipReferralPollingUseCase @Inject constructor(
         Log.d("WorkerManager", it.toString())
       }
       .ignoreElements()
+  }
+
 }

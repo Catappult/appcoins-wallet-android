@@ -5,7 +5,7 @@ import android.os.Bundle
 import com.appcoins.wallet.commons.Logger
 import com.asf.wallet.R
 import com.asfoundation.wallet.entity.Wallet
-import com.asfoundation.wallet.promotions.usecases.VipReferralPollingUseCase
+import com.asfoundation.wallet.promotions.usecases.StartVipReferralPollingUseCase
 import com.asfoundation.wallet.ui.iab.BillingWebViewFragment
 import com.asfoundation.wallet.ui.iab.WebViewActivity
 import io.reactivex.Scheduler
@@ -15,7 +15,7 @@ import java.util.concurrent.TimeUnit
 class TopUpActivityPresenter(
   private val view: TopUpActivityView,
   private val topUpInteractor: TopUpInteractor,
-  private val vipReferralPollingUseCase: VipReferralPollingUseCase,
+  private val startVipReferralPollingUseCase: StartVipReferralPollingUseCase,
   private val viewScheduler: Scheduler,
   private val networkScheduler: Scheduler,
   private val disposables: CompositeDisposable,
@@ -79,7 +79,7 @@ class TopUpActivityPresenter(
   fun handlePerkNotifications(bundle: Bundle) {
     disposables.add(topUpInteractor.getWalletAddress()
       .subscribeOn(networkScheduler)
-      .flatMap { vipReferralPollingUseCase.startPolling(Wallet(it)).toSingleDefault(it) }
+      .flatMap { startVipReferralPollingUseCase(Wallet(it)).toSingleDefault(it) }
       .observeOn(viewScheduler)
       .doOnSuccess {
         view.launchPerkBonusAndGamificationService(it)

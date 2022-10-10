@@ -15,7 +15,7 @@ import com.asf.wallet.R
 import com.asfoundation.wallet.backup.BackupNotificationUtils
 import com.asfoundation.wallet.billing.adyen.PaymentType
 import com.asfoundation.wallet.navigator.UriNavigator
-import com.asfoundation.wallet.promotions.usecases.VipReferralPollingUseCase
+import com.asfoundation.wallet.promotions.usecases.StartVipReferralPollingUseCase
 import com.asfoundation.wallet.topup.address.BillingAddressTopUpFragment
 import com.asfoundation.wallet.topup.adyen.AdyenTopUpFragment
 import com.asfoundation.wallet.topup.localpayments.LocalTopUpPaymentFragment
@@ -47,7 +47,7 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, UriNavigator {
   lateinit var topUpInteractor: TopUpInteractor
 
   @Inject
-  lateinit var vipReferralPollingUseCase: VipReferralPollingUseCase
+  lateinit var startVipReferralPollingUseCase: StartVipReferralPollingUseCase
 
   @Inject
   lateinit var topUpAnalytics: TopUpAnalytics
@@ -83,7 +83,7 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, UriNavigator {
     presenter = TopUpActivityPresenter(
       this,
       topUpInteractor,
-      vipReferralPollingUseCase,
+      startVipReferralPollingUseCase,
       AndroidSchedulers.mainThread(),
       Schedulers.io(),
       CompositeDisposable(),

@@ -20,7 +20,7 @@ class GetPromotionsUseCase @Inject constructor(
   private val promotionsMapper: PromotionsMapper,
   private val promotionsRepository: PromotionsRepository,
   private val getCurrentPromoCodeUseCase: GetCurrentPromoCodeUseCase,
-  private val vipReferralPollingUseCase: VipReferralPollingUseCase,
+  private val checkAndCancelVipPollingUseCase: CheckAndCancelVipPollingUseCase,
 ) {
 
   operator fun invoke(): Observable<PromotionsModel> {
@@ -31,7 +31,7 @@ class GetPromotionsUseCase @Inject constructor(
             Observable.zip(
               observeLevels(),
               promotionsRepository.getUserStats(it.address, promoCode.code),
-              vipReferralPollingUseCase(it).toObservable()
+              checkAndCancelVipPollingUseCase(it).toObservable()
             ) { levels: Levels, userStatsResponse: UserStats, vipReferralResponse: VipReferralResponse ->
               promotionsMapper.mapToPromotionsModel(
                 userStats = userStatsResponse,

@@ -312,7 +312,7 @@ class BdsPromotionsRepository @Inject constructor(
     return getGamificationStats(wallet, null)
       .subscribeOn(Schedulers.io())
       .map {
-        (!local.isReferralNotificationSeen(wallet)) && it.gamificationStatus == GamificationStatus.VIP
+        ( !local.isReferralNotificationSeen(wallet)) && it.gamificationStatus == GamificationStatus.VIP
       }
       .onErrorReturn {
         false
