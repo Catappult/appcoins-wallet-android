@@ -69,4 +69,7 @@ dependencies {
   implementation "com.squareup.retrofit2:converter-gson:$project.retrofit_version"
   testImplementation "junit:junit:$project.junit_version"
   testImplementation "org.mockito:mockito-core:$project.mockito_version"
+
+  implementation "io.reactivex.rxjava2:rxjava:$project.rxjava_version"
+  implementation "io.reactivex.rxjava2:rxandroid:$project.rxandroid_version"
 }

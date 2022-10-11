@@ -4,6 +4,9 @@ import androidx.room.EmptyResultSetException
 import com.appcoins.wallet.gamification.repository.*
 import com.appcoins.wallet.gamification.repository.entity.*
 import io.reactivex.Single
+import io.reactivex.android.plugins.RxAndroidPlugins
+import io.reactivex.plugins.RxJavaPlugins
+import io.reactivex.schedulers.Schedulers
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
@@ -26,6 +29,8 @@ class GamificationTest {
   @Before
   @Throws(Exception::class)
   fun setUp() {
+    RxJavaPlugins.setIoSchedulerHandler { Schedulers.trampoline() }
+    RxAndroidPlugins.setInitMainThreadSchedulerHandler { Schedulers.trampoline() }
     gamification = Gamification(BdsPromotionsRepository(api, local))
   }
 

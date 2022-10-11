@@ -4,6 +4,7 @@ import com.appcoins.wallet.gamification.GamificationContext
 import com.appcoins.wallet.gamification.repository.entity.*
 import io.reactivex.Observable
 import io.reactivex.Single
+import io.reactivex.functions.BiFunction
 import io.reactivex.schedulers.Schedulers
 import it.czerwinski.android.hilt.annotations.BoundTo
 import java.io.IOException
@@ -63,6 +64,7 @@ class BdsPromotionsRepository @Inject constructor(
     useDbOnError: Boolean = false
   ): Observable<UserStats> =
     api.getUserStats(wallet, Locale.getDefault().language, promoCodeString)
+      .subscribeOn(Schedulers.io())
       .map { filterByDate(it) }
       .flatMapObservable {
         local.deleteAndInsertPromotions(it.promotions)
@@ -94,7 +96,10 @@ class BdsPromotionsRepository @Inject constructor(
   override fun getLastShownLevel(
     wallet: String,
     gamificationContext: GamificationContext
-  ): Single<Int> = local.getLastShownLevel(wallet, gamificationContext)
+  ): Single<Int> {
+    return local.getLastShownLevel(wallet, gamificationContext)
+  }
+
 
   override fun shownLevel(wallet: String, level: Int, gamificationContext: GamificationContext) =
     local.saveShownLevel(wallet, level, gamificationContext)
@@ -147,8 +152,8 @@ class BdsPromotionsRepository @Inject constructor(
       .lastOrError()
       .onErrorReturn { PromotionsGamificationStats.INVALID_LEVEL }
 
-  private fun map(status: Status, fromCache: Boolean = false): PromotionsGamificationStats =
-    if (status == Status.NO_NETWORK) {
+  private fun map(status: Status, fromCache: Boolean = false): PromotionsGamificationStats {
+    return if (status == Status.NO_NETWORK) {
       PromotionsGamificationStats(
         PromotionsGamificationStats.ResultState.NO_NETWORK,
         fromCache = fromCache,
@@ -161,6 +166,7 @@ class BdsPromotionsRepository @Inject constructor(
         gamificationStatus = GamificationStatus.NONE
       )
     }
+  }
 
   private fun mapErrorToUserStatsModel(throwable: Throwable, fromCache: Boolean): UserStats =
     if (isNoNetworkException(throwable)) {
@@ -185,8 +191,8 @@ class BdsPromotionsRepository @Inject constructor(
     else -> UserStats(promotions, walletOrigin)
   }
 
-  private fun mapToGamificationStats(stats: UserStats): PromotionsGamificationStats =
-    if (stats.error != null) {
+  private fun mapToGamificationStats(stats: UserStats): PromotionsGamificationStats {
+    return if (stats.error != null) {
       map(stats.error, stats.fromCache)
     } else {
       val gamification =
@@ -199,18 +205,19 @@ class BdsPromotionsRepository @Inject constructor(
         )
       } else {
         PromotionsGamificationStats(
-          resultState = PromotionsGamificationStats.ResultState.OK,
-          level = gamification.level,
-          nextLevelAmount = gamification.nextLevelAmount,
-          bonus = gamification.bonus,
-          totalSpend = gamification.totalSpend,
-          totalEarned = gamification.totalEarned,
-          isActive = PromotionsResponse.Status.ACTIVE == gamification.status,
-          fromCache = stats.fromCache,
-          gamificationStatus = gamification.gamificationStatus ?: GamificationStatus.NONE
+          PromotionsGamificationStats.ResultState.OK,
+          gamification.level,
+          gamification.nextLevelAmount,
+          gamification.bonus,
+          gamification.totalSpend,
+          gamification.totalEarned,
+          PromotionsResponse.Status.ACTIVE == gamification.status,
+          stats.fromCache,
+          gamification.gamificationStatus ?: GamificationStatus.NONE
         )
       }
     }
+  }
 
   // NOTE: the use of the Boolean flag will be dropped once all usages in these repository follow
   //  offline first logic.
@@ -223,10 +230,12 @@ class BdsPromotionsRepository @Inject constructor(
 
   // NOTE: the use of the throwable parameter can be dropped once all usages in these repository
   //  follow offline first logic.
-  private fun getLevelsFromDB(throwable: Throwable? = null): Observable<Levels> = local.getLevels()
-    .toObservable()
-    .map { map(it, true) }
-    .onErrorReturn { mapLevelsError(throwable ?: it, throwable == null) }
+  private fun getLevelsFromDB(throwable: Throwable? = null): Observable<Levels> {
+    return local.getLevels()
+      .toObservable()
+      .map { map(it, true) }
+      .onErrorReturn { mapLevelsError(throwable ?: it, throwable == null) }
+  }
 
   // NOTE: the use of the Boolean flag will be dropped once all usages in these repository follow
   //  offline first logic.
@@ -306,7 +315,9 @@ class BdsPromotionsRepository @Inject constructor(
     }
     .map { it }
 
-  override fun getReferralInfo(): Single<ReferralResponse> = api.getReferralInfo()
+  override fun getReferralInfo(): Single<ReferralResponse> {
+    return api.getReferralInfo()
+  }
 
   override fun isReferralNotificationToShow(wallet: String): Observable<Boolean> {
     return getGamificationStats(wallet, null)
