@@ -341,8 +341,8 @@ class BdsPromotionsRepository @Inject constructor(
       .subscribeOn(Schedulers.io())
       .onErrorReturn { VipReferralResponse.invalidReferral }
 
-  override fun isVipCalloutAlreadySeen(): Boolean = local.isVipCalloutAlreadySeen()
+  override fun isVipCalloutAlreadySeen(wallet: String): Boolean = local.isVipCalloutAlreadySeen(wallet)
 
-  override fun setVipCalloutAlreadySeen(isSeen: Boolean) = local.setVipCalloutAlreadySeen(isSeen)
+  override fun setVipCalloutAlreadySeen(wallet: String, isSeen: Boolean) = local.setVipCalloutAlreadySeen(wallet, isSeen)
 
 }
