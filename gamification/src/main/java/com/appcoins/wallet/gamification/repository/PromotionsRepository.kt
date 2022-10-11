@@ -20,8 +20,10 @@ interface PromotionsRepository {
   fun getLevels(wallet: String, offlineFirst: Boolean = true): Observable<Levels>
 
   fun getForecastBonus(
-    wallet: String, packageName: String,
-    amount: BigDecimal, promoCodeString: String?
+    wallet: String,
+    packageName: String,
+    amount: BigDecimal,
+    promoCodeString: String?
   ): Single<ForecastBonus>
 
   fun getLastShownLevel(wallet: String, gamificationContext: GamificationContext): Single<Int>
@@ -33,7 +35,8 @@ interface PromotionsRepository {
   fun setSeenGenericPromotion(id: String, screen: String)
 
   fun getUserStats(
-    wallet: String, promoCodeString: String?,
+    wallet: String,
+    promoCodeString: String?,
     offlineFirst: Boolean = true
   ): Observable<UserStats>
 
@@ -43,10 +46,14 @@ interface PromotionsRepository {
 
   fun getReferralInfo(): Single<ReferralResponse>
 
-  fun getVipReferral(wallet: String): Observable<VipReferralResponse>
+  fun getVipReferral(wallet: String): Single<VipReferralResponse>
 
   fun isVipCalloutAlreadySeen(wallet: String): Boolean
 
   fun setVipCalloutAlreadySeen(wallet: String, isSeen: Boolean)
+
+  fun isReferralNotificationToShow(wallet: String): Observable<Boolean>
+
+  fun setReferralNotificationSeen(wallet: String, isSeen: Boolean)
 
 }

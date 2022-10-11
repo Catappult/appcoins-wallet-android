@@ -7,6 +7,8 @@ import com.appcoins.wallet.commons.Logger
 import com.asf.wallet.R
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics
 import com.asfoundation.wallet.entity.TransactionBuilder
+import com.asfoundation.wallet.entity.Wallet
+import com.asfoundation.wallet.promotions.usecases.StartVipReferralPollingUseCase
 import com.asfoundation.wallet.ui.AuthenticationPromptActivity
 import com.asfoundation.wallet.ui.iab.IabInteract.Companion.PRE_SELECTED_PAYMENT_METHOD_KEY
 import com.asfoundation.wallet.update_required.use_cases.GetAutoUpdateModelUseCase
@@ -25,6 +27,7 @@ class IabPresenter(
   private val iabInteract: IabInteract,
   private val getAutoUpdateModelUseCase: GetAutoUpdateModelUseCase,
   private val hasRequiredHardUpdateUseCase: HasRequiredHardUpdateUseCase,
+  private val startVipReferralPollingUseCase: StartVipReferralPollingUseCase,
   private val logger: Logger,
   private val transaction: TransactionBuilder?,
   private val errorFromReceiver: String? = null
@@ -83,6 +86,7 @@ class IabPresenter(
     disposable.add(iabInteract.getWalletAddress()
       .subscribeOn(networkScheduler)
       .observeOn(viewScheduler)
+      .flatMap { startVipReferralPollingUseCase(Wallet(it)).toSingleDefault(it) }
       .doOnSuccess {
         view.launchPerkBonusAndGamificationService(it)
         view.finishActivity(bundle)

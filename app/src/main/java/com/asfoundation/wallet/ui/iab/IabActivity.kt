@@ -20,6 +20,7 @@ import com.asfoundation.wallet.billing.adyen.PaymentType
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.navigator.UriNavigator
+import com.asfoundation.wallet.promotions.usecases.StartVipReferralPollingUseCase
 import com.asfoundation.wallet.topup.TopUpActivity
 import com.asfoundation.wallet.transactions.PerkBonusAndGamificationService
 import com.asfoundation.wallet.ui.AuthenticationPromptActivity
@@ -55,6 +56,9 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
 
   @Inject
   lateinit var iabInteract: IabInteract
+
+  @Inject
+  lateinit var startVipReferralPollingUseCase: StartVipReferralPollingUseCase
 
   @Inject
   lateinit var walletBlockedInteract: WalletBlockedInteract
@@ -101,6 +105,7 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
       iabInteract,
       autoUpdateModelUseCase,
       hasRequiredHardUpdateUseCase,
+      startVipReferralPollingUseCase,
       logger,
       transaction,
       errorFromReceiver
