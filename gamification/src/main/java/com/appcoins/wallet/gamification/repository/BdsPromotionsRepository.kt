@@ -136,7 +136,7 @@ class BdsPromotionsRepository @Inject constructor(
     wallet: String,
     promoCodeString: String?
   ): Observable<PromotionsGamificationStats> {
-    return getUserStatsFromResponses(wallet, promoCodeString, false)
+    return getUserStatsFromResponses(wallet, promoCodeString)
       .map {
         val gamificationStats = mapToGamificationStats(it)
         if (!it.fromCache && it.error == null) local.setGamificationLevel(gamificationStats.level)
