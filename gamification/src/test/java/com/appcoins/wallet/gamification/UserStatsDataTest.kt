@@ -92,7 +92,7 @@ class UserStatsDataTest : UserStatsLocalData {
 
   override fun getSeenWalletOrigin(wallet: String): String = "APTOIDE"
 
-  override fun isVipCalloutAlreadySeen(): Boolean = false
+  override fun isVipCalloutAlreadySeen(wallet: String): Boolean = false
 
-  override fun setVipCalloutAlreadySeen(isSeen: Boolean) = Unit
+  override fun setVipCalloutAlreadySeen(wallet: String, isSeen: Boolean) = Unit
 }

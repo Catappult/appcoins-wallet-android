@@ -6,6 +6,7 @@ import com.asfoundation.wallet.app_start.StartMode
 import com.asfoundation.wallet.base.BaseViewModel
 import com.asfoundation.wallet.base.SideEffect
 import com.asfoundation.wallet.base.ViewState
+import com.asfoundation.wallet.home.usecases.ObserveDefaultWalletUseCase
 import com.asfoundation.wallet.main.use_cases.HasSeenPromotionTooltipUseCase
 import com.asfoundation.wallet.main.use_cases.IsNewVipUseCase
 import com.asfoundation.wallet.main.use_cases.SetVipPromotionsSeenUseCase
@@ -24,11 +25,12 @@ sealed class NavBarSideEffect : SideEffect {
 
 data class NavBarState(
   val showPromotionsBadge: Boolean = false,
-  val showVipCallout: Boolean = false,
+  val shouldShowVipCallout: Boolean = false
 ) : ViewState
 
 @HiltViewModel
 class NavBarViewModel @Inject constructor(
+  private val observeDefaultWalletUseCase: ObserveDefaultWalletUseCase,
   private val hasSeenPromotionTooltip: HasSeenPromotionTooltipUseCase,
   private val promotionsInteractor: PromotionsInteractor,
   private val isNewVipUseCase: IsNewVipUseCase,
@@ -85,17 +87,16 @@ class NavBarViewModel @Inject constructor(
     }
   }
 
-  private fun handleVipCallout() {
+  fun handleVipCallout() {
     isNewVipUseCase()
-      .doOnSuccess { isNewVip ->
-        setState { copy(showVipCallout = isNewVip) }
+      .doOnNext { isNewVip ->
+        setState { copy(shouldShowVipCallout = isNewVip) }
       }
-      .toObservable()
-      .repeatableScopedSubscribe(NavBarState::showPromotionsBadge.name)
+      .repeatableScopedSubscribe(NavBarState::shouldShowVipCallout.name)
   }
 
   fun vipPromotionsSeen() {
     setVipPromotionsSeenUseCase(true)
+      .scopedSubscribe()
   }
-
 }

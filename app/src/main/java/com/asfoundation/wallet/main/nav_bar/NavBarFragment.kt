@@ -58,6 +58,11 @@ class NavBarFragment : BasePageViewFragment(),
     setVipCalloutClickListener()
   }
 
+  override fun onResume() {
+    super.onResume()
+    viewModel.handleVipCallout()
+  }
+
   private fun initHostFragments() {
     navHostFragment = childFragmentManager.findFragmentById(
       R.id.nav_host_container
@@ -69,7 +74,7 @@ class NavBarFragment : BasePageViewFragment(),
 
   override fun onStateChanged(state: NavBarState) {
     setPromotionBadge(state.showPromotionsBadge)
-    setVipCallout(state.showVipCallout)
+    setVipCallout(state.shouldShowVipCallout)
   }
 
   override fun onSideEffect(sideEffect: NavBarSideEffect) {
@@ -89,8 +94,8 @@ class NavBarFragment : BasePageViewFragment(),
     }
   }
 
-  private fun setVipCallout(showVipCallout: Boolean) {
-    if (showVipCallout)
+  private fun setVipCallout(shouldShowVipCallout: Boolean) {
+    if (shouldShowVipCallout)
       showVipCallout()
     else
       hideVipCallout()
@@ -136,6 +141,7 @@ class NavBarFragment : BasePageViewFragment(),
         R.id.home_graph -> {
         }
         R.id.promotions_graph -> {
+          viewModel.removePromotionsBadge()
           if (views.vipPromotionsCallout.vipCalloutLayout.isVisible) {
             hideVipCallout()
             viewModel.vipPromotionsSeen()
