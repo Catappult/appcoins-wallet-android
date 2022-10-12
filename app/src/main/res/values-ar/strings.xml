@@ -636,6 +636,8 @@
   <string name="update_wallet_soft_title">لا تبقَ مع النسخة القديمة!</string>
   <string name="update_wallet_soft_body">إن الحفاظ على محفظة AppCoins محدّثة باستمرار يضمن لك أفضل تجربة.</string>
   <string name="update_button">تحديث</string>
+  <string name="update_backup_title">Don\'t lose your funds!</string>
+  <string name="update_backup_body">Back up your wallet before updating.</string>
   <!--Backup and Import-->
   <string name="backup_home_notification_title">حفظ نسخة احتياطية لمحفظتك</string>
   <string name="backup_home_notification_body">هل أضعت هاتفك في يوم من الأيام؟ احتفظ بنسخة احتياطية من محفظتك الآن!</string>
