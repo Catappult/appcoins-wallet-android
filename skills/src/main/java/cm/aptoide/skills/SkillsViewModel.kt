@@ -57,6 +57,7 @@ class SkillsViewModel @Inject constructor(
     const val RESULT_INVALID_URL = 7
     const val RESULT_INVALID_USERNAME = 8
     const val RESULT_ROOT_ERROR = 9
+    const val RESULT_WALLET_VERSION_ERROR = 10
     const val GET_ROOM_RETRY_MILLIS = 3000L
     const val AUTHENTICATION_REQUEST_CODE = 33
   }

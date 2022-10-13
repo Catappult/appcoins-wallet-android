@@ -1,20 +1,16 @@
 package cm.aptoide.skills
 
 import android.content.Intent
-import android.content.pm.PackageManager
-import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.text.SpannableStringBuilder
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.core.text.bold
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import cm.aptoide.skills.api.TopUpApi
 import cm.aptoide.skills.databinding.FragmentSkillsBinding
 import cm.aptoide.skills.entity.UserData
 import cm.aptoide.skills.games.BackgroundGameService
@@ -30,10 +26,6 @@ import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
-import java.util.*
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -286,6 +278,7 @@ class SkillsFragment : Fragment(), PaymentView {
   private fun handleFailedTicketResult(ticket: FailedTicket) {
     when (ticket.status) {
       ErrorStatus.REGION_NOT_SUPPORTED -> showRegionNotSupportedError()
+      ErrorStatus.WALLET_VERSION_NOT_SUPPORTED -> showWalletVersionNotSupportedError()
       ErrorStatus.NO_NETWORK -> showNoNetworkError()
       ErrorStatus.GENERIC -> showError(SkillsViewModel.RESULT_ERROR)
     }
@@ -470,9 +463,13 @@ class SkillsFragment : Fragment(), PaymentView {
 
   override fun showRootError() {
     binding.errorLayout.errorMessage.text = getString(R.string.rooted_device_blocked_body)
-    showError(SkillsViewModel.RESULT_ROOT_ERROR)
+    showError(SkillsViewModel.RESULT_WALLET_VERSION_ERROR)
   }
 
+  override fun showWalletVersionNotSupportedError() {
+    binding.errorLayout.errorMessage.text = getString(R.string.rooted_device_blocked_body)
+    showError(SkillsViewModel.RESULT_ROOT_ERROR)
+  }
   // Only temporary
   override fun showNeedsTopUpWarning() {
     binding.errorLayout.errorMessage.text = getString(R.string.top_up_needed_body)
