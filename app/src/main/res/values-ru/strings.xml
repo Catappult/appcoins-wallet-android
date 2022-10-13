@@ -635,6 +635,8 @@
   <string name="update_wallet_soft_title">Не отставайте!</string>
   <string name="update_wallet_soft_body">Поддержание AppCoins Wallet в актуальном состоянии гарантирует наилучший пользовательский опыт.</string>
   <string name="update_button">Обновить</string>
+  <string name="update_backup_title">Don\'t lose your funds!</string>
+  <string name="update_backup_body">Back up your wallet before updating.</string>
   <!--Backup and Import-->
   <string name="backup_home_notification_title">Сделайте бэкап кошелька</string>
   <string name="backup_home_notification_body">Когда-нибудь теряли телефон? Сделайте резервную копию кошелька прямо сейчас!</string>

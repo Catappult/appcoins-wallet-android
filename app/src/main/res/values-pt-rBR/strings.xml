@@ -635,6 +635,8 @@
   <string name="update_wallet_soft_title">Não fique de fora!</string>
   <string name="update_wallet_soft_body">Mantenha sua AppCoins Wallet atualizada para garantir uma melhor experiência.</string>
   <string name="update_button">Atualizar</string>
+  <string name="update_backup_title">Don\'t lose your funds!</string>
+  <string name="update_backup_body">Back up your wallet before updating.</string>
   <!--Backup and Import-->
   <string name="backup_home_notification_title">Fazer Backup da Wallet</string>
   <string name="backup_home_notification_body">Você já perdeu seu telefone? Faça o backup de sua wallet agora!</string>

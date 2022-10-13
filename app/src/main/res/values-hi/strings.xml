@@ -635,6 +635,8 @@
   <string name="update_wallet_soft_title">पीछे न छूट जाएँ!</string>
   <string name="update_wallet_soft_body">AppCoins Wallet अपडेट रखने से सर्वोत्तम अनुभव की गारंटी मिलती है।</string>
   <string name="update_button">Update</string>
+  <string name="update_backup_title">Don\'t lose your funds!</string>
+  <string name="update_backup_body">Back up your wallet before updating.</string>
   <!--Backup and Import-->
   <string name="backup_home_notification_title">अपने वॉलेट का बैकअप लें</string>
   <string name="backup_home_notification_body">आपका फोन कभी गुम हुआ है? अभी अपने वॉलेट का बैकअप लें!</string>
