@@ -44,6 +44,7 @@ import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.activity_iab.*
 import kotlinx.android.synthetic.main.iab_error_layout.*
 import kotlinx.android.synthetic.main.support_error_layout.*
+import java.lang.Thread.sleep
 import java.math.BigDecimal
 import java.util.*
 import javax.inject.Inject
@@ -165,6 +166,7 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
   override fun finish(bundle: Bundle) =
     if (bundle.getInt(AppcoinsBillingBinder.RESPONSE_CODE) == AppcoinsBillingBinder.RESULT_OK) {
       presenter.handleBackupNotifications(bundle)
+      sleep(200)
       presenter.handlePerkNotifications(bundle)
     } else {
       finishActivity(bundle)
