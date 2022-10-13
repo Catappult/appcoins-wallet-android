@@ -7,8 +7,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.asf.wallet.R
+import com.asfoundation.wallet.backup.BackupActivity
 import com.asfoundation.wallet.update_required.use_cases.BuildUpdateIntentUseCase
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
+import com.asfoundation.wallet.wallets.usecases.GetCurrentWalletUseCase
 import com.google.android.material.snackbar.Snackbar
 import com.jakewharton.rxbinding2.view.RxView
 import dagger.hilt.android.AndroidEntryPoint
@@ -26,9 +28,17 @@ class IabUpdateRequiredFragment : BasePageViewFragment(), IabUpdateRequiredView 
   @Inject
   lateinit var buildUpdateIntentUseCase: BuildUpdateIntentUseCase
 
+  @Inject
+  lateinit var getCurrentWalletUseCase: GetCurrentWalletUseCase
+
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-    presenter = IabUpdateRequiredPresenter(this, CompositeDisposable(), buildUpdateIntentUseCase)
+    presenter = IabUpdateRequiredPresenter(
+      this,
+      CompositeDisposable(),
+      buildUpdateIntentUseCase,
+      getCurrentWalletUseCase
+    )
   }
 
   override fun onAttach(context: Context) {
@@ -57,6 +67,18 @@ class IabUpdateRequiredFragment : BasePageViewFragment(), IabUpdateRequiredView 
   override fun updateClick() = RxView.clicks(update_dialog_buttons.buy_button)
 
   override fun cancelClick() = RxView.clicks(update_dialog_buttons.cancel_button)
+
+  override fun backupClick() = RxView.clicks(update_required_backup_button)
+
+  override fun navigateToBackup(walletAddress: String) {
+    requireContext().startActivity(
+      BackupActivity.newIntent(
+        requireContext(),
+        walletAddress,
+        isBackupTrigger = false
+      )
+    )
+  }
 
   override fun close() = iabView.close(Bundle())
 

@@ -6,8 +6,8 @@
     android:layout_height="match_parent"
     >
   <ScrollView
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent"
       >
@@ -15,13 +15,14 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
         >
 
       <com.airbnb.lottie.LottieAnimationView
           android:id="@+id/update_animation"
-          android:layout_width="136dp"
-          android:layout_height="136dp"
-          android:layout_marginTop="137dp"
+          android:layout_width="94dp"
+          android:layout_height="94dp"
+          android:layout_marginTop="50dp"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toTopOf="parent"
@@ -66,13 +67,11 @@
 
       <androidx.constraintlayout.widget.ConstraintLayout
           android:id="@+id/update_required_backup_container"
-          android:layout_width="0dp"
+          android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:layout_marginHorizontal="@dimen/half_large_margin"
           android:layout_marginVertical="@dimen/half_large_margin"
           android:background="@drawable/update_required_backup_container"
-          app:layout_constraintBottom_toTopOf="@id/update_button"
-          app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toBottomOf="@id/update_description"
           >
@@ -82,8 +81,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/big_margin"
-            android:layout_marginTop="@dimen/big_margin"
             android:src="@drawable/ic_info_pink"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             />
@@ -96,9 +95,6 @@
             android:layout_marginHorizontal="@dimen/big_margin"
             android:layout_marginVertical="@dimen/big_margin"
             android:text="Don’t lose your funds"
-            app:layout_constrainedWidth="true"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toEndOf="@id/update_required_info_icon"
             app:layout_constraintTop_toTopOf="parent"
             />
@@ -109,10 +105,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/big_margin"
+            android:layout_marginBottom="@dimen/big_margin"
             android:lineSpacingMultiplier="0.5"
             android:text="Backup your wallet before updating!"
             app:layout_constrainedWidth="true"
-            app:layout_constraintEnd_toEndOf="parent"
+
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/update_required_backup_button"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toEndOf="@id/update_required_info_icon"
             app:layout_constraintTop_toBottomOf="@id/update_required_backup_title"
@@ -120,7 +119,7 @@
 
         <com.asfoundation.wallet.ui.common.WalletButtonView
             android:id="@+id/update_required_backup_button"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="36dp"
             android:layout_marginHorizontal="@dimen/big_margin"
             android:layout_marginVertical="@dimen/big_margin"
@@ -128,9 +127,8 @@
             app:buttonType="outlined"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/update_required_backup_subtitle"
-
+            app:layout_constraintStart_toEndOf="@id/update_required_backup_subtitle"
+            app:layout_constraintTop_toTopOf="parent"
             />
 
       </androidx.constraintlayout.widget.ConstraintLayout>
@@ -145,10 +143,12 @@
           android:layout_marginBottom="30dp"
           app:buttonText="@string/update_button"
           app:buttonType="filled"
+          app:layout_constraintBottom_toBottomOf="@id/update_required_backup_container"
           app:layout_constraintEnd_toEndOf="parent"
-          app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toBottomOf="@id/update_required_backup_container"
+          app:layout_constraintStart_toEndOf="@id/update_required_backup_container"
+          app:layout_constraintTop_toTopOf="@id/update_required_backup_container"
           />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
   </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

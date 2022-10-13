@@ -12,6 +12,10 @@ interface IabUpdateRequiredView {
 
   fun cancelClick(): Observable<Any>
 
+  fun backupClick(): Observable<Any>
+
+  fun navigateToBackup(walletAddress: String)
+
   fun close()
   fun showError(): Snackbar
 }

@@ -13,13 +13,14 @@ class BuildUpdateIntentUseCase @Inject constructor(
   companion object {
     const val PLAY_APP_VIEW_URL = "market://details?id=%s"
   }
+
   operator fun invoke(): Intent {
     val intent = Intent(Intent.ACTION_VIEW, Uri.parse(retrieveRedirectUrl()))
     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
     return intent
   }
 
-  fun retrieveRedirectUrl(): String {
+  private fun retrieveRedirectUrl(): String {
     return String.format(PLAY_APP_VIEW_URL, packageName)
   }
 }

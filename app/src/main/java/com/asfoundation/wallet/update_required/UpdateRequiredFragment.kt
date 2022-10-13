@@ -12,10 +12,14 @@ import com.asf.wallet.databinding.UpdateRequiredFragmentBinding
 import com.asfoundation.wallet.base.SingleStateFragment
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class UpdateRequiredFragment : BasePageViewFragment(),
   SingleStateFragment<UpdateRequiredState, UpdateRequiredSideEffect> {
+
+  @Inject
+  lateinit var navigator: UpdateRequiredNavigator
 
   private val views by viewBinding(UpdateRequiredFragmentBinding::bind)
 
@@ -38,15 +42,24 @@ class UpdateRequiredFragment : BasePageViewFragment(),
     views.updateButton.setOnClickListener {
       viewModel.handleUpdateClick()
     }
+    views.updateRequiredBackupButton.setOnClickListener {
+      viewModel.handleBackupClick()
+    }
     viewModel.collectStateAndEvents(lifecycle, viewLifecycleOwner.lifecycleScope)
   }
 
   override fun onStateChanged(state: UpdateRequiredState) = Unit
 
   override fun onSideEffect(sideEffect: UpdateRequiredSideEffect) {
-    when(sideEffect){
+    when (sideEffect) {
       is UpdateRequiredSideEffect.UpdateActionIntent -> startActivity(sideEffect.intent)
+      is UpdateRequiredSideEffect.NavigateToBackup -> navigator.navigateToBackup(sideEffect.walletAddress)
+      is UpdateRequiredSideEffect.ShowBackupOption -> shouldShowBackupOption(sideEffect.shouldShow)
     }
+  }
+
+  private fun shouldShowBackupOption(shouldShow: Boolean) {
+    views.updateRequiredBackupContainer.visibility = if (shouldShow) View.VISIBLE else View.GONE
   }
 }
 
