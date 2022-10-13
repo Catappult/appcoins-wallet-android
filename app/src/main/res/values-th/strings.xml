@@ -637,6 +637,8 @@
   <string name="update_wallet_soft_title">อย่างทิ้งไว้!</string>
   <string name="update_wallet_soft_body">คอยอัพเดต AppCoins Wallet เพื่อรับประกันประสบการณ์ที่ดีที่สุด</string>
   <string name="update_button">อัพเดต</string>
+  <string name="update_backup_title">Don\'t lose your funds!</string>
+  <string name="update_backup_body">Back up your wallet before updating.</string>
   <!--Backup and Import-->
   <string name="backup_home_notification_title">สำรองกระเป๋าสตางค์ของคุณ</string>
   <string name="backup_home_notification_body">คุณเคยทำโทรศัพท์หายหรือไม่? สำรองกระเป๋าสตางค์ของคุณตอนนี้!</string>

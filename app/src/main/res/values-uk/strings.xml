@@ -637,6 +637,8 @@
   <string name="update_wallet_soft_title">Не відставай!</string>
   <string name="update_wallet_soft_body">Оновлення AppCoins Wallet гарантує найкращий досвід.</string>
   <string name="update_button">Оновити</string>
+  <string name="update_backup_title">Don\'t lose your funds!</string>
+  <string name="update_backup_body">Back up your wallet before updating.</string>
   <!--Backup and Import-->
   <string name="backup_home_notification_title">Резервне копіювання вашого гаманця</string>
   <string name="backup_home_notification_body">Ви коли-небудь втрачали телефон? Створіть резервну копію гаманця зараз!</string>

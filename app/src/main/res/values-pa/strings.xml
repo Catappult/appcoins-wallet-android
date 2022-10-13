@@ -635,6 +635,8 @@
   <string name="update_wallet_soft_title">ਪਿੱਛੇ ਨਾ ਛੁੱਟੋ!</string>
   <string name="update_wallet_soft_body">ਐਪ ਸਿੱਕੇ ਬਟੂਏ ਨੂੰ ਅਪਡੇਟ ਰੱਖਣਾ ਵਧੀਆ ਤਜ਼ੁਰਬੇ ਦੀ ਗਰੰਟੀ ਦਿੰਦਾ ਹੈ|</string>
   <string name="update_button">Update</string>
+  <string name="update_backup_title">Don\'t lose your funds!</string>
+  <string name="update_backup_body">Back up your wallet before updating.</string>
   <!--Backup and Import-->
   <string name="backup_home_notification_title">ਆਪਣਾ ਬਟੂਆ ਬੈਕਅਪ ਕਰੋ</string>
   <string name="backup_home_notification_body">ਕੀ ਤੁਸੀਂ ਕਦੇ ਆਪਣਾ ਫੋਨ ਗੁਆਇਆ ਹੈ? ਹੁਣੇ ਆਪਣੇ ਬਟੂਏ ਦਾ ਬੈਕਅਪ ਲਓ!</string>
