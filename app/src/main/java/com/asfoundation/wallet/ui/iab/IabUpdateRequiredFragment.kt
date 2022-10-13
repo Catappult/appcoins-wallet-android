@@ -73,8 +73,8 @@ class IabUpdateRequiredFragment : BasePageViewFragment(), IabUpdateRequiredView 
   override fun navigateToBackup(walletAddress: String) {
     requireContext().startActivity(
       BackupActivity.newIntent(
-        requireContext(),
-        walletAddress,
+        context = requireContext(),
+        walletAddress = walletAddress,
         isBackupTrigger = false
       )
     )

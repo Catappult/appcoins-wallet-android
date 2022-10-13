@@ -10,8 +10,8 @@ class UpdateRequiredNavigator @Inject constructor(private val fragment: Fragment
   fun navigateToBackup(walletAddress: String) {
     fragment.startActivity(
       BackupActivity.newIntent(
-        fragment.requireContext(),
-        walletAddress,
+        context = fragment.requireContext(),
+        walletAddress = walletAddress,
         isBackupTrigger = false
       )
     )
