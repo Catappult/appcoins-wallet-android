@@ -86,7 +86,9 @@ class IabPresenter(
     disposable.add(iabInteract.getWalletAddress()
       .subscribeOn(networkScheduler)
       .observeOn(viewScheduler)
-      .flatMap { startVipReferralPollingUseCase(Wallet(it)).toSingleDefault(it) }
+      .flatMap {
+        startVipReferralPollingUseCase(Wallet(it)).toSingleDefault(it)
+      }
       .doOnSuccess {
         view.launchPerkBonusAndGamificationService(it)
         view.finishActivity(bundle)

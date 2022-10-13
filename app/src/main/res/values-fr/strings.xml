@@ -635,6 +635,8 @@
   <string name="update_wallet_soft_title">Ne vous laissez pas distancer !</string>
   <string name="update_wallet_soft_body">La mise à jour du portefeuille AppCoins garantit la meilleure expérience possible.</string>
   <string name="update_button">Mise à jour</string>
+  <string name="update_backup_title">Don\'t lose your funds!</string>
+  <string name="update_backup_body">Back up your wallet before updating.</string>
   <!--Backup and Import-->
   <string name="backup_home_notification_title">Sauvegarder votre portefeuille</string>
   <string name="backup_home_notification_body">Avez-vous déjà perdu votre téléphone ? Sauvegardez votre portefeuille maintenant !</string>
