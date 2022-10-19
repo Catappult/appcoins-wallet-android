@@ -32,4 +32,5 @@
   <string name="shared_room_waiting">ਵਿਰੋਧੀਆਂ ਦੀ %s ਵਿੱਚ ਸ਼ਾਮਲ ਹੋਣ ਦੀ ਉਡੀਕ ਕੀਤੀ ਜਾ ਰਹੀ ਹੈ</string>
   <string name="rooted_device_blocked_body">Unfortunately, you cannot play e-Skills games with a rooted device.\"</string>
   <string name="top_up_needed_body">For security reasons, you need to make at least one top-up in your wallet to play e-Skills games.</string>
+  <string name="not_enough_funds_body">You don\'t have enough funds! Please top up to buy the entry ticket.</string>
 </resources>
