@@ -32,4 +32,5 @@
   <string name="shared_room_waiting">対戦相手が%sに参加するのを待っています</string>
   <string name="rooted_device_blocked_body">残念ながら、ルート化されたデバイスではe-Skillsのゲームをプレイすることはできません。</string>
   <string name="top_up_needed_body">セキュリティ上の理由から、e-Skillsのゲームをプレイするには、ウォレットに少なくとも1回のトップアップを行う必要があります。</string>
+  <string name="not_enough_funds_body">You don\'t have enough funds! Please top up to buy the entry ticket.</string>
 </resources>
