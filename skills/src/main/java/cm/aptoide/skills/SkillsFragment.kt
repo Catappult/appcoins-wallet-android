@@ -90,6 +90,11 @@ class SkillsFragment : Fragment(), PaymentView {
     }
   }
 
+  override fun onResume() {
+    super.onResume()
+    showPurchaseTicketLayout()
+  }
+
   private fun showPurchaseTicketLayout() {
     when (val eSkillsPaymentData = getEskillsUri()) {
       is UriValidationResult.Invalid -> showError(eSkillsPaymentData.requestCode)
@@ -197,6 +202,8 @@ class SkillsFragment : Fragment(), PaymentView {
               sendUserToTopUpFlow()
             }
           } else {
+            binding.payTicketLayout.dialogBuyButtonsPaymentMethods.buyButton.text =
+                getString(R.string.buy_button)
             binding.payTicketLayout.dialogBuyButtonsPaymentMethods.buyButton.setOnClickListener {
               val queueId = binding.payTicketLayout.payTicketRoomDetails.roomId.text.toString()
               if (queueId.isNotBlank()) {
