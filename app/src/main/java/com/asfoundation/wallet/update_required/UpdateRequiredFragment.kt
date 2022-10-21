@@ -11,6 +11,7 @@ import androidx.lifecycle.lifecycleScope
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.asf.wallet.R
 import com.asf.wallet.databinding.UpdateRequiredFragmentBinding
+import com.asfoundation.wallet.base.Async
 import com.asfoundation.wallet.base.SingleStateFragment
 import com.asfoundation.wallet.ui.wallets.WalletsModel
 import com.asfoundation.wallet.update_required.wallets_list.WalletSelectionAdapter
@@ -56,13 +57,24 @@ class UpdateRequiredFragment : BasePageViewFragment(),
     viewModel.checkBackupOption()
   }
 
-  override fun onStateChanged(state: UpdateRequiredState) = Unit
-
   override fun onSideEffect(sideEffect: UpdateRequiredSideEffect) {
     when (sideEffect) {
       is UpdateRequiredSideEffect.UpdateActionIntent -> startActivity(sideEffect.intent)
       is UpdateRequiredSideEffect.NavigateToBackup -> navigator.navigateToBackup(sideEffect.walletAddress)
       is UpdateRequiredSideEffect.ShowBackupOption -> handleBackupOption(sideEffect.walletsModel)
+    }
+  }
+
+  override fun onStateChanged(state: UpdateRequiredState) {
+    when (val walletsModel = state.walletsModel) {
+      is Async.Uninitialized,
+      is Async.Loading -> Unit
+      is Async.Fail -> {
+        views.updateRequiredBackupContainer.visibility = View.GONE
+      }
+      is Async.Success -> {
+        handleBackupOption(walletsModel())
+      }
     }
   }
 
@@ -104,6 +116,7 @@ class UpdateRequiredFragment : BasePageViewFragment(),
 
     listPopupWindow.setOnItemClickListener { _, _, position, _ ->
       viewModel.handleBackupClick(walletsModel.wallets[position].walletAddress)
+      listPopupWindow.dismiss()
     }
     listPopupWindow.show()
   }
