@@ -72,8 +72,11 @@
           android:layout_marginHorizontal="@dimen/half_large_margin"
           android:layout_marginVertical="@dimen/half_large_margin"
           android:background="@drawable/update_required_backup_container"
+          android:visibility="gone"
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toBottomOf="@id/update_description"
+          app:layout_constraintBottom_toBottomOf="parent"
+
           >
 
         <ImageView
@@ -95,7 +98,9 @@
             android:layout_marginHorizontal="@dimen/big_margin"
             android:layout_marginVertical="@dimen/big_margin"
             android:text="@string/update_backup_title"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toEndOf="@id/update_required_info_icon"
+            app:layout_constraintEnd_toStartOf="@id/update_required_backup_button"
             app:layout_constraintTop_toTopOf="parent"
             />
 
@@ -142,10 +147,10 @@
           android:layout_marginBottom="30dp"
           app:buttonText="@string/update_button"
           app:buttonType="filled"
-          app:layout_constraintBottom_toBottomOf="@id/update_required_backup_container"
+          app:layout_constraintBottom_toBottomOf="parent"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toEndOf="@id/update_required_backup_container"
-          app:layout_constraintTop_toTopOf="@id/update_required_backup_container"
+          app:layout_constraintTop_toBottomOf="@id/update_description"
           />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

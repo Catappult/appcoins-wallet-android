@@ -72,6 +72,7 @@
           android:layout_marginHorizontal="@dimen/half_large_margin"
           android:layout_marginVertical="@dimen/half_large_margin"
           android:background="@drawable/update_required_backup_container"
+          android:visibility="gone"
           app:layout_constraintBottom_toTopOf="@id/update_button"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="parent"

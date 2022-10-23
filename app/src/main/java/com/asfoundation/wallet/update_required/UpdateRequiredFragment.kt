@@ -68,7 +68,7 @@ class UpdateRequiredFragment : BasePageViewFragment(),
   override fun onStateChanged(state: UpdateRequiredState) {
     when (val walletsModel = state.walletsModel) {
       is Async.Uninitialized,
-      is Async.Loading -> Unit
+      is Async.Loading,
       is Async.Fail -> {
         views.updateRequiredBackupContainer.visibility = View.GONE
       }

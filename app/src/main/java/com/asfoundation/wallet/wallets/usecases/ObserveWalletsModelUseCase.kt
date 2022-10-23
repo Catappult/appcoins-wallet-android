@@ -4,7 +4,6 @@ import com.asfoundation.wallet.base.RxSchedulers
 import com.asfoundation.wallet.ui.wallets.WalletsInteract
 import com.asfoundation.wallet.ui.wallets.WalletsModel
 import io.reactivex.Observable
-import io.reactivex.Single
 import javax.inject.Inject
 
 class ObserveWalletsModelUseCase @Inject constructor(
