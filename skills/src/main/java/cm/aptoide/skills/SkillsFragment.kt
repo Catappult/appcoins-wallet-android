@@ -184,6 +184,7 @@ class SkillsFragment : Fragment(), PaymentView {
         .observeOn(AndroidSchedulers.mainThread())
         .map {
           if (it.first < it.second.amount) { // Not enough funds
+            showNeedsTopUpWarning()
             binding.payTicketLayout.dialogBuyButtonsPaymentMethods.buyButton.text =
               getString(R.string.topup_button)
             binding.payTicketLayout.dialogBuyButtonsPaymentMethods.buyButton.setOnClickListener {
@@ -476,6 +477,17 @@ class SkillsFragment : Fragment(), PaymentView {
   // Only temporary
   override fun showNeedsTopUpWarning() {
     binding.errorLayout.errorMessage.text = getString(R.string.top_up_needed_body)
+    binding.loadingTicketLayout.root.visibility = View.GONE
+    binding.refundTicketLayout.root.visibility = View.GONE
+    binding.geofencingLayout.root.visibility = View.GONE
+    binding.errorLayout.root.visibility = View.VISIBLE
+    binding.errorLayout.errorOkButton.setOnClickListener {
+      binding.errorLayout.root.visibility = View.GONE
+    }
+  }
+
+  override fun showNoFundsWarning() {
+    binding.errorLayout.errorMessage.text = getString(R.string.not_enough_funds_body)
     binding.loadingTicketLayout.root.visibility = View.GONE
     binding.refundTicketLayout.root.visibility = View.GONE
     binding.geofencingLayout.root.visibility = View.GONE
