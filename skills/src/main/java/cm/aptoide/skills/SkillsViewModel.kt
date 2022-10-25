@@ -222,7 +222,7 @@ class SkillsViewModel @Inject constructor(
     return getAuthenticationIntentUseCase(context)
   }
 
-  fun isTopUpListEmpty(): Boolean {
+  fun isTopUpListEmpty(): Status {
     return isTopUpListEmptyUseCase(TransactionType.TOPUP, TopUpStatus.COMPLETED).blockingGet()
   }
 

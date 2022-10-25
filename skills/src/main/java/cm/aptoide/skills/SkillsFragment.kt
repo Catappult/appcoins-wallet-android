@@ -20,6 +20,7 @@ import cm.aptoide.skills.entity.UserData
 import cm.aptoide.skills.games.BackgroundGameService
 import cm.aptoide.skills.interfaces.PaymentView
 import cm.aptoide.skills.model.*
+import cm.aptoide.skills.usecase.Status
 import cm.aptoide.skills.util.EskillsPaymentData
 import cm.aptoide.skills.util.EskillsUriParser
 import cm.aptoide.skills.util.RootUtil
@@ -190,21 +191,30 @@ class SkillsFragment : Fragment(), PaymentView {
             binding.payTicketLayout.dialogBuyButtonsPaymentMethods.buyButton.setOnClickListener {
               sendUserToTopUpFlow()
             }
-          } else if (needsTopUp()) { // TopUp stuff
-            showNeedsTopUpWarning()
-            binding.payTicketLayout.dialogBuyButtonsPaymentMethods.buyButton.text =
-              getString(R.string.topup_button)
-            binding.payTicketLayout.dialogBuyButtonsPaymentMethods.buyButton.setOnClickListener {
-              sendUserToTopUpFlow()
-            }
-          } else {
-            binding.payTicketLayout.dialogBuyButtonsPaymentMethods.buyButton.setOnClickListener {
-              val queueId = binding.payTicketLayout.payTicketRoomDetails.roomId.text.toString()
-              if (queueId.isNotBlank()) {
-                eSkillsPaymentData.queueId = QueueIdentifier(queueId.trim(), true)
+          } else  {
+            when(needsTopUp()){
+              Status.AVAILABLE -> {
+                binding.payTicketLayout.dialogBuyButtonsPaymentMethods.buyButton.setOnClickListener {
+                  val queueId = binding.payTicketLayout.payTicketRoomDetails.roomId.text.toString()
+                  if (queueId.isNotBlank()) {
+                    eSkillsPaymentData.queueId = QueueIdentifier(queueId.trim(), true)
+                  }
+                  binding.payTicketLayout.root.visibility = View.GONE
+                  createAndPayTicket(eSkillsPaymentData)
+                }
               }
-              binding.payTicketLayout.root.visibility = View.GONE
-              createAndPayTicket(eSkillsPaymentData)
+              Status.NO_TOPUP -> {
+                showNoFundsWarning()
+                binding.payTicketLayout.dialogBuyButtonsPaymentMethods.buyButton.text =
+                  getString(R.string.topup_button)
+                binding.payTicketLayout.dialogBuyButtonsPaymentMethods.buyButton.setOnClickListener{
+                  sendUserToTopUpFlow()
+                }
+              }
+              Status.PAYMENT_METHOD_NOT_SUPPORTED -> {
+                showPaymentMethodNotSupported()
+                binding.payTicketLayout.dialogBuyButtonsPaymentMethods.buyButton.visibility = View.GONE
+              }
             }
           }
         }
@@ -212,7 +222,18 @@ class SkillsFragment : Fragment(), PaymentView {
     }
   }
 
-  private fun needsTopUp(): Boolean {
+  private fun showPaymentMethodNotSupported() {
+    binding.errorLayout.errorMessage.text = "Carregamentos locais diferentes de credit card e paypal não suportados, Criar nova wallet e utilizar métodos suportados."
+    binding.loadingTicketLayout.root.visibility = View.GONE
+    binding.refundTicketLayout.root.visibility = View.GONE
+    binding.geofencingLayout.root.visibility = View.GONE
+    binding.errorLayout.root.visibility = View.VISIBLE
+    binding.errorLayout.errorOkButton.setOnClickListener {
+      binding.errorLayout.root.visibility = View.GONE
+    }
+  }
+
+  private fun needsTopUp(): Status {
     return viewModel.isTopUpListEmpty()
   }
 
