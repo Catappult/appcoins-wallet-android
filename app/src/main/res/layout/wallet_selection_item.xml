@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/wallet_selection_item_root"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingHorizontal="@dimen/big_margin"
+    android:paddingVertical="@dimen/big_margin"
+    >
+
+  <TextView
+      android:id="@+id/wallet_selection_name"
+      style="@style/TextM"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      app:layout_constraintEnd_toStartOf="@id/wallet_selection_balance"
+      app:layout_constraintHorizontal_chainStyle="spread_inside"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      tools:text="My Game wallet"
+      />
+
+  <TextView
+      android:id="@+id/wallet_selection_backup_date"
+      style="@style/TextS"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:paddingTop="@dimen/small_margin"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintStart_toStartOf="@id/wallet_selection_name"
+      app:layout_constraintTop_toBottomOf="@id/wallet_selection_name"
+      app:layout_constraintHorizontal_bias="0.0"
+      app:layout_constraintEnd_toEndOf="parent"
+      tools:text="10/10/2022"
+      />
+
+  <TextView
+      android:id="@+id/wallet_selection_balance"
+      style="@style/TextM"
+      android:fontFamily="@font/roboto_bolt"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      app:layout_constraintVertical_bias="0.0"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toEndOf="@id/wallet_selection_name"
+      app:layout_constraintTop_toTopOf="@id/wallet_selection_name"
+      tools:text="$12.56"
+      />
+</androidx.constraintlayout.widget.ConstraintLayout>
