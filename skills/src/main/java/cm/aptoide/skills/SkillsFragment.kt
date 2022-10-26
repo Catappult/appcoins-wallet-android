@@ -227,17 +227,6 @@ class SkillsFragment : Fragment(), PaymentView {
     }
   }
 
-  private fun showPaymentMethodNotSupported() {
-    binding.errorLayout.errorMessage.text = "Carregamentos locais diferentes de credit card e paypal não suportados, Criar nova wallet e utilizar métodos suportados."
-    binding.loadingTicketLayout.root.visibility = View.GONE
-    binding.refundTicketLayout.root.visibility = View.GONE
-    binding.geofencingLayout.root.visibility = View.GONE
-    binding.errorLayout.root.visibility = View.VISIBLE
-    binding.errorLayout.errorOkButton.setOnClickListener {
-      binding.errorLayout.root.visibility = View.GONE
-    }
-  }
-
   private fun needsTopUp(): Status {
     return viewModel.isTopUpListEmpty()
   }
@@ -503,6 +492,17 @@ class SkillsFragment : Fragment(), PaymentView {
   // Only temporary
   override fun showNeedsTopUpWarning() {
     binding.errorLayout.errorMessage.text = getString(R.string.top_up_needed_body)
+    binding.loadingTicketLayout.root.visibility = View.GONE
+    binding.refundTicketLayout.root.visibility = View.GONE
+    binding.geofencingLayout.root.visibility = View.GONE
+    binding.errorLayout.root.visibility = View.VISIBLE
+    binding.errorLayout.errorOkButton.setOnClickListener {
+      binding.errorLayout.root.visibility = View.GONE
+    }
+  }
+
+  private fun showPaymentMethodNotSupported() {
+    binding.errorLayout.errorMessage.text = getString(R.string.error_message_local_payment_method_body)
     binding.loadingTicketLayout.root.visibility = View.GONE
     binding.refundTicketLayout.root.visibility = View.GONE
     binding.geofencingLayout.root.visibility = View.GONE
