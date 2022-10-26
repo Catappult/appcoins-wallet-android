@@ -1,20 +1,16 @@
 package cm.aptoide.skills
 
 import android.content.Intent
-import android.content.pm.PackageManager
-import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.text.SpannableStringBuilder
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.core.text.bold
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import cm.aptoide.skills.api.TopUpApi
 import cm.aptoide.skills.databinding.FragmentSkillsBinding
 import cm.aptoide.skills.entity.UserData
 import cm.aptoide.skills.games.BackgroundGameService
@@ -31,10 +27,6 @@ import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
-import java.util.*
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -197,7 +189,7 @@ class SkillsFragment : Fragment(), PaymentView {
               sendUserToTopUpFlow()
             }
           } else  {
-            when(needsTopUp()){
+            when(getTopUpListStatus()){
               Status.AVAILABLE -> {
                 binding.payTicketLayout.dialogBuyButtonsPaymentMethods.buyButton.text =
                   getString(R.string.buy_button)
@@ -227,8 +219,8 @@ class SkillsFragment : Fragment(), PaymentView {
     }
   }
 
-  private fun needsTopUp(): Status {
-    return viewModel.isTopUpListEmpty()
+  private fun getTopUpListStatus(): Status {
+    return viewModel.getTopUpListStatus()
   }
 
   private fun sendUserToTopUpFlow() {
@@ -501,7 +493,7 @@ class SkillsFragment : Fragment(), PaymentView {
     }
   }
 
-  private fun showPaymentMethodNotSupported() {
+  override fun showPaymentMethodNotSupported() {
     binding.errorLayout.errorMessage.text = getString(R.string.error_message_local_payment_method_body)
     binding.loadingTicketLayout.root.visibility = View.GONE
     binding.refundTicketLayout.root.visibility = View.GONE

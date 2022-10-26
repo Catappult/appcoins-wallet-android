@@ -2,8 +2,6 @@ package cm.aptoide.skills
 
 import android.content.Context
 import android.content.Intent
-import android.net.Uri
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import cm.aptoide.skills.entity.UserData
 import cm.aptoide.skills.interfaces.PaymentView
@@ -19,8 +17,6 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.subjects.PublishSubject
 import java.math.BigDecimal
 import java.util.concurrent.TimeUnit
-import java.util.regex.Matcher
-import java.util.regex.Pattern
 import javax.inject.Inject
 
 @HiltViewModel
@@ -43,7 +39,7 @@ class SkillsViewModel @Inject constructor(
   private val sendUserVerificationFlowUseCase: SendUserVerificationFlowUseCase,
   private val isWalletVerifiedUseCase: IsWalletVerifiedUseCase,
   private val validateUrlUseCase: ValidateUrlUseCase,
-  private val isTopUpListEmptyUseCase: IsTopUpListEmptyUseCase
+  private val getTopUpListStatus: GetTopUpListUseCase
 ) : ViewModel() {
   lateinit var ticketId: String
   private val closeView: PublishSubject<Pair<Int, UserData>> = PublishSubject.create()
@@ -222,8 +218,8 @@ class SkillsViewModel @Inject constructor(
     return getAuthenticationIntentUseCase(context)
   }
 
-  fun isTopUpListEmpty(): Status {
-    return isTopUpListEmptyUseCase(TransactionType.TOPUP, TopUpStatus.COMPLETED).blockingGet()
+  fun getTopUpListStatus(): Status {
+    return getTopUpListStatus(TransactionType.TOPUP, TopUpStatus.COMPLETED).blockingGet()
   }
 
   fun restorePurchase(view: PaymentView): Single<Ticket> {

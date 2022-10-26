@@ -10,4 +10,5 @@ interface PaymentView {
   fun showFingerprintAuthentication()
   fun showNeedsTopUpWarning()
   fun showNoFundsWarning()
+  fun showPaymentMethodNotSupported()
 }

@@ -8,7 +8,7 @@ import cm.aptoide.skills.repository.TopUpRepository
 import io.reactivex.Single
 import javax.inject.Inject
 
-class IsTopUpListEmptyUseCase @Inject constructor(
+class GetTopUpListUseCase @Inject constructor(
   private val topUpRepository: TopUpRepository,
   private val walletAddressObtainer: WalletAddressObtainer
 ) {
