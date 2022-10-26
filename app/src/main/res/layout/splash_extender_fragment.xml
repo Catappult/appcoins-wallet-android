@@ -14,13 +14,15 @@
       app:layout_constraintTop_toTopOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
+      tools:layout="@layout/splash_extender_fragment"
       />
 
   <ImageView
       android:id="@+id/splash_logo"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:src="@drawable/ic_app_icon"
+      android:layout_width="116dp"
+      android:layout_height="116dp"
+      android:layout_marginBottom="22dp"
+      android:src="@drawable/ic_app_logo_icon"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintTop_toTopOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
@@ -28,11 +30,14 @@
 
   <com.airbnb.lottie.LottieAnimationView
       android:id="@+id/splash_vip_animation"
-      android:layout_width="160dp"
-      android:layout_height="160dp"
+      android:layout_width="170dp"
+      android:layout_height="170dp"
+      android:layout_marginBottom="17dp"
+      android:layout_marginStart="1dp"
       app:lottie_autoPlay="true"
-      app:lottie_enableMergePathsForKitKatAndAbove="true"
       app:lottie_loop="false"
+      app:lottie_speed="2"
+      app:lottie_enableMergePathsForKitKatAndAbove="true"
       app:lottie_repeatCount="0"
       app:lottie_rawRes="@raw/vip_coin_flip"
       android:visibility="gone"
