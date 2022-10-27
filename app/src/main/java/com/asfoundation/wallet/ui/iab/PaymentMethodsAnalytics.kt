@@ -16,7 +16,7 @@ class PaymentMethodsAnalytics @Inject constructor(
 ) {
 
   companion object {
-    private const val WALLET = "WALLET"
+    const val WALLET = "WALLET"
 
     const val WALLET_PAYMENT_LOADING_TOTAL = "wallet_payment_loading_total"
     const val WALLET_PAYMENT_LOADING_STEP = "wallet_payment_loading_step"
@@ -46,11 +46,10 @@ class PaymentMethodsAnalytics @Inject constructor(
     private const val SUCCESSFUL = "successful"
     private const val AUTH_DURATION = "auth_duration"
 
-    private const val ERROR = "error"
-    private const val TYPE = "type"
+    const val ERROR = "error"
+    const val TYPE = "type"
 
     const val WALLET_3DS_START = "wallet_3ds_start"
-    const val WALLET_3DS_SUCCESS = "wallet_3ds_success"
     const val WALLET_3DS_CANCEL = "wallet_3ds_cancel"
     const val WALLET_3DS_ERROR = "wallet_3ds_error"
 
@@ -159,16 +158,7 @@ class PaymentMethodsAnalytics @Inject constructor(
     analyticsManager.logEvent(
       hashMapOf<String, Any>(TYPE to (type ?: "")),
       WALLET_3DS_START,
-      AnalyticsManager.Action.IMPRESSION,
-      WALLET
-    )
-  }
-
-  fun send3dsSuccess() {
-    analyticsManager.logEvent(
-      hashMapOf<String, Any>(),
-      WALLET_3DS_SUCCESS,
-      AnalyticsManager.Action.IMPRESSION,
+      AnalyticsManager.Action.CLICK,
       WALLET
     )
   }
@@ -177,7 +167,7 @@ class PaymentMethodsAnalytics @Inject constructor(
     analyticsManager.logEvent(
       hashMapOf<String, Any>(),
       WALLET_3DS_CANCEL,
-      AnalyticsManager.Action.IMPRESSION,
+      AnalyticsManager.Action.CLICK,
       WALLET
     )
   }
@@ -186,7 +176,7 @@ class PaymentMethodsAnalytics @Inject constructor(
     analyticsManager.logEvent(
       hashMapOf<String, Any>(ERROR to (error ?: "")),
       WALLET_3DS_ERROR,
-      AnalyticsManager.Action.IMPRESSION,
+      AnalyticsManager.Action.CLICK,
       WALLET
     )
   }

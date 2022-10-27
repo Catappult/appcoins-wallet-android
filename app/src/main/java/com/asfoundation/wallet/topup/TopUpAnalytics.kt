@@ -1,6 +1,7 @@
 package com.asfoundation.wallet.topup
 
 import cm.aptoide.analytics.AnalyticsManager
+import com.asfoundation.wallet.ui.iab.PaymentMethodsAnalytics
 import javax.inject.Inject
 
 class TopUpAnalytics @Inject constructor(private val analyticsManager: AnalyticsManager) {
@@ -84,6 +85,33 @@ class TopUpAnalytics @Inject constructor(private val analyticsManager: Analytics
     map[METHOD] = paymentMethod
 
     return map
+  }
+
+  fun send3dsStart(type: String?) {
+    analyticsManager.logEvent(
+      hashMapOf<String, Any>(PaymentMethodsAnalytics.TYPE to (type ?: "")),
+      PaymentMethodsAnalytics.WALLET_3DS_START,
+      AnalyticsManager.Action.CLICK,
+      PaymentMethodsAnalytics.WALLET
+    )
+  }
+
+  fun send3dsCancel() {
+    analyticsManager.logEvent(
+      hashMapOf<String, Any>(),
+      PaymentMethodsAnalytics.WALLET_3DS_CANCEL,
+      AnalyticsManager.Action.CLICK,
+      PaymentMethodsAnalytics.WALLET
+    )
+  }
+
+  fun send3dsError(error: String?) {
+    analyticsManager.logEvent(
+      hashMapOf<String, Any>(PaymentMethodsAnalytics.ERROR to (error ?: "")),
+      PaymentMethodsAnalytics.WALLET_3DS_ERROR,
+      AnalyticsManager.Action.CLICK,
+      PaymentMethodsAnalytics.WALLET
+    )
   }
 
   companion object {
