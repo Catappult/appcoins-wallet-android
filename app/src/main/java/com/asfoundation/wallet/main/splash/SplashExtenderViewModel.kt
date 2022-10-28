@@ -1,15 +1,17 @@
 package com.asfoundation.wallet.main.splash
 
+import com.appcoins.wallet.gamification.repository.entity.GamificationStatus
 import com.asfoundation.wallet.base.BaseViewModel
 import com.asfoundation.wallet.base.RxSchedulers
 import com.asfoundation.wallet.base.SideEffect
 import com.asfoundation.wallet.base.ViewState
+import com.asfoundation.wallet.gamification.ObserveUserStatsUseCase
 import com.asfoundation.wallet.home.usecases.GetUserLevelUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 sealed class SplashExtenderSideEffect : SideEffect {
-  data class ShowVipAnimation(val shouldShow : Boolean) : SplashExtenderSideEffect()
+  data class ShowVipAnimation(val shouldShow: Boolean) : SplashExtenderSideEffect()
 }
 
 object SplashExtenderState : ViewState
@@ -17,19 +19,22 @@ object SplashExtenderState : ViewState
 @HiltViewModel
 class SplashExtenderViewModel @Inject constructor(
   private val getUserLevelUseCase: GetUserLevelUseCase,
+  private val observeUserStatsUseCase: ObserveUserStatsUseCase,
   private val rxSchedulers: RxSchedulers
 ) : BaseViewModel<SplashExtenderState, SplashExtenderSideEffect>(SplashExtenderState) {
 
   init {
-    handleUserLevel()
+    handleVipStatus()
   }
 
-  private fun handleUserLevel() {
-    getUserLevelUseCase()
+  private fun handleVipStatus() {
+    observeUserStatsUseCase()
       .subscribeOn(rxSchedulers.io)
       .observeOn(rxSchedulers.main)
-      .doOnSuccess { userLevel ->
-        sendSideEffect { SplashExtenderSideEffect.ShowVipAnimation(userLevel == 9 || userLevel == 10) }
+      .doOnNext { gamificationStats ->
+        val isVipLevel =
+          gamificationStats.gamificationStatus == GamificationStatus.VIP || gamificationStats.gamificationStatus == GamificationStatus.VIP_MAX
+        sendSideEffect { SplashExtenderSideEffect.ShowVipAnimation(shouldShow = isVipLevel) }
       }
       .scopedSubscribe()
   }
