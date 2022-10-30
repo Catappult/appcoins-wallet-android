@@ -174,7 +174,6 @@ class SkillsFragment : Fragment(), PaymentView {
           view?.postDelayed({ tooltip.visibility = View.GONE }, CLIPBOARD_TOOLTIP_DELAY_SECONDS)
         }
       }
-
       disposable.add(Single.zip(
         viewModel.getCreditsBalance(),
         viewModel.getFiatToAppcAmount(eSkillsPaymentData.price!!, eSkillsPaymentData.currency!!),

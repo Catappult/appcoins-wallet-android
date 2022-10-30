@@ -18,7 +18,6 @@ class GetTopUpListUseCase @Inject constructor(
         topUpRepository.getTopUpHistory(type, status, wallet.address)
           .toObservable()
           .flatMapIterable { it.items }
-          .filter { it.gateway?.name != Gateway.Name.myappcoins }
           .toList().map { transaction ->
             if(transaction.isEmpty()){
               Status.NO_TOPUP
