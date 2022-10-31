@@ -37,7 +37,6 @@ class MainActivityViewModel @Inject constructor(
 ) : BaseViewModel<MainActivityState, MainActivitySideEffect>(MainActivityState) {
 
   init {
-    handleInitialNavigation()
     handleSupportNotificationClick()
   }
 
