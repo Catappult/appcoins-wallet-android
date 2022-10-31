@@ -18,7 +18,6 @@ object SplashExtenderState : ViewState
 
 @HiltViewModel
 class SplashExtenderViewModel @Inject constructor(
-  private val getUserLevelUseCase: GetUserLevelUseCase,
   private val observeUserStatsUseCase: ObserveUserStatsUseCase,
   private val rxSchedulers: RxSchedulers
 ) : BaseViewModel<SplashExtenderState, SplashExtenderSideEffect>(SplashExtenderState) {

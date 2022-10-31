@@ -2,6 +2,7 @@ package com.asfoundation.wallet.gamification
 
 import com.appcoins.wallet.gamification.Gamification
 import com.appcoins.wallet.gamification.repository.PromotionsGamificationStats
+import com.appcoins.wallet.gamification.repository.entity.GamificationStatus
 import com.asfoundation.wallet.home.usecases.FindDefaultWalletUseCase
 import com.asfoundation.wallet.promo_code.use_cases.GetCurrentPromoCodeUseCase
 import io.reactivex.Observable
@@ -18,6 +19,12 @@ class ObserveUserStatsUseCase @Inject constructor(
       .flatMapObservable { promoCode ->
         findDefaultWalletUseCase()
           .flatMapObservable { gamification.getUserStats(it.address, promoCode.code) }
+      }
+      .onErrorReturn {
+        PromotionsGamificationStats(
+          resultState = PromotionsGamificationStats.ResultState.UNKNOWN_ERROR,
+          gamificationStatus = GamificationStatus.NONE
+        )
       }
   }
 }
