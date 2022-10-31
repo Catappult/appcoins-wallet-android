@@ -18,6 +18,7 @@ import com.asfoundation.wallet.billing.address.BillingAddressFragment
 import com.asfoundation.wallet.billing.adyen.AdyenPaymentFragment
 import com.asfoundation.wallet.billing.adyen.PaymentType
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics
+import com.asfoundation.wallet.billing.paypal.PayPalIABFragment
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.navigator.UriNavigator
 import com.asfoundation.wallet.promotions.usecases.StartVipReferralPollingUseCase
@@ -236,6 +237,39 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
       .replace(
         R.id.fragment_container,
         AdyenPaymentFragment.newInstance(
+          paymentType = paymentType,
+          origin = getOrigin(isBds),
+          transactionBuilder = transaction!!,
+          amount = amount,
+          currency = currency,
+          bonus = bonus,
+          isPreSelected = isPreselected,
+          gamificationLevel = gamificationLevel,
+          skuDescription = getSkuDescription(),
+          isSubscription = isSubscription,
+          isSkills = intent.dataString?.contains("&skills") ?: false,
+          frequency = frequency,
+        )
+      )
+      .commit()
+  }
+
+  override fun showPayPalV2(
+    amount: BigDecimal,
+    currency: String?,
+    isBds: Boolean,
+    paymentType: PaymentType,
+    bonus: String?,
+    isPreselected: Boolean,
+    iconUrl: String?,
+    gamificationLevel: Int,
+    isSubscription: Boolean,
+    frequency: String?
+  ) {
+    supportFragmentManager.beginTransaction()
+      .replace(
+        R.id.fragment_container,
+        PayPalIABFragment.newInstance(
           paymentType = paymentType,
           origin = getOrigin(isBds),
           transactionBuilder = transaction!!,

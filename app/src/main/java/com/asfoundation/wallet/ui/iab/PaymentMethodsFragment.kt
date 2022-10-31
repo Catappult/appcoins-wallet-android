@@ -454,23 +454,42 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
   override fun showCarrierBilling(fiatValue: FiatValue, isPreselected: Boolean) =
     iabView.showCarrierBilling(fiatValue.currency, fiatValue.amount, bonusValue, isPreselected)
 
+  val payPalV2 = true // TODO
+
   override fun showPaypal(
     gamificationLevel: Int,
     fiatValue: FiatValue,
     frequency: String?,
     isSubscription: Boolean
-  ) = iabView.showAdyenPayment(
-    fiatValue.amount,
-    fiatValue.currency,
-    isBds,
-    PaymentType.PAYPAL,
-    bonusMessageValue,
-    false,
-    null,
-    gamificationLevel,
-    isSubscription,
-    frequency
-  )
+  ) {
+    if(payPalV2) {
+      iabView.showPayPalV2(
+        fiatValue.amount,
+        fiatValue.currency,
+        isBds,
+        PaymentType.PAYPAL,
+        bonusMessageValue,
+        false,
+        null,
+        gamificationLevel,
+        isSubscription,
+        frequency
+      )
+    } else {
+      iabView.showAdyenPayment(
+        fiatValue.amount,
+        fiatValue.currency,
+        isBds,
+        PaymentType.PAYPAL,
+        bonusMessageValue,
+        false,
+        null,
+        gamificationLevel,
+        isSubscription,
+        frequency
+      )
+    }
+  }
 
 
   override fun showAdyen(

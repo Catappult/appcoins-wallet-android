@@ -118,7 +118,7 @@ class BillingWebViewFragment : BasePageViewFragment() {
     view.webview.webViewClient = object : WebViewClient() {
       override fun shouldOverrideUrlLoading(view: WebView, clickUrl: String): Boolean {
         when {
-          clickUrl.contains(LOCAL_PAYMENTS_SCHEMA) || clickUrl.contains(ADYEN_PAYMENT_SCHEMA) -> {
+          clickUrl.contains(LOCAL_PAYMENTS_SCHEMA) || clickUrl.contains(ADYEN_PAYMENT_SCHEMA) -> {  //TODO add paypal schema
             currentUrl = clickUrl
             finishWithSuccess(clickUrl)
           }
