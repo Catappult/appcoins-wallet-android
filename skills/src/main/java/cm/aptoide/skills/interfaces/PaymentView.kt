@@ -9,4 +9,6 @@ interface PaymentView {
   fun showRootError()
   fun showFingerprintAuthentication()
   fun showNeedsTopUpWarning()
+  fun showNoFundsWarning()
+  fun showPaymentMethodNotSupported()
 }
