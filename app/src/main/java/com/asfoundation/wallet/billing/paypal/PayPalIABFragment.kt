@@ -1,10 +1,15 @@
 package com.asfoundation.wallet.billing.paypal
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.activity.result.registerForActivityResult
 import androidx.fragment.app.viewModels
 import com.asf.wallet.databinding.FragmentPaypalBinding
 import com.asfoundation.wallet.base.Async
@@ -12,6 +17,8 @@ import com.asfoundation.wallet.base.SingleStateFragment
 import com.asfoundation.wallet.billing.adyen.AdyenPaymentPresenter
 import com.asfoundation.wallet.billing.adyen.PaymentType
 import com.asfoundation.wallet.entity.TransactionBuilder
+import com.asfoundation.wallet.ui.iab.IabActivity
+import com.asfoundation.wallet.ui.iab.WebViewActivity
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -30,12 +37,16 @@ class PayPalIABFragment : BasePageViewFragment(),
   @Inject
   lateinit var createPaypalTransactionUseCase: CreatePaypalTransactionUseCase  //TODO
 
+  @Inject
+  lateinit var createPaypalTokenUseCase: CreatePaypalTokenUseCase  //TODO
+
   private val viewModel: PayPalIABViewModel by viewModels()
 
   private var binding: FragmentPaypalBinding? = null
   private val views get() = binding!!
   private lateinit var compositeDisposable: CompositeDisposable
 
+  private lateinit var resultAuthLauncher: ActivityResultLauncher<Intent>
 
   override fun onCreateView(
     inflater: LayoutInflater, container: ViewGroup?,
@@ -43,7 +54,25 @@ class PayPalIABFragment : BasePageViewFragment(),
   ): View {
     binding = FragmentPaypalBinding.inflate(inflater, container, false)
     compositeDisposable = CompositeDisposable()
+    registerWebViewResult()
     return views.root
+  }
+
+  private fun registerWebViewResult() {
+    resultAuthLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+      if (result.data?.dataString?.contains(PaypalReturnSchemas.RETURN.schema) == true) {   // TODO filter success and cancel results
+        Log.d(this.tag, "startWebViewAuthorization SUCCESS: ${result.data ?: ""}")
+        // TODO success token authentication
+
+      } else if (
+        result.resultCode == Activity.RESULT_CANCELED ||
+        (result.data?.dataString?.contains(PaypalReturnSchemas.CANCEL.schema) == true)
+          ) {
+        Log.d(this.tag, "startWebViewAuthorization CANCELED: ${result.data ?: ""}")
+        // TODO canceled login flow for token authentication
+
+      }
+    }
   }
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -93,22 +122,39 @@ class PayPalIABFragment : BasePageViewFragment(),
           .observeOn(AndroidSchedulers.mainThread())
 //          .filter { !waitingResult }     //TODO
           .doOnSuccess {
-            Log.d(this.tag, "Successful Paypal payment ")
+            Log.d(this.tag, "Successful Paypal payment ")  //TODO
           }
           .subscribe({}, {
-            Log.d(this.tag, it.toString())
+            Log.d(this.tag, it.toString())   //TODO
             //showGenericError()
           })
       )
 
     }
     views.createToken.setOnClickListener {
-
+      compositeDisposable.add(
+        createPaypalTokenUseCase()
+          .subscribeOn(Schedulers.io())
+          .observeOn(AndroidSchedulers.mainThread())
+          .doOnSuccess {
+            Log.d(this.tag, "Successful Token creation ")  //TODO
+            startWebViewAuthorization(it.redirect.url)
+          }
+          .subscribe({}, {
+            Log.d(this.tag, it.toString())    //TODO
+            //showGenericError()
+          })
+      )
     }
     views.createAgreement.setOnClickListener {
 
     }
 
+  }
+
+  fun startWebViewAuthorization(url: String) {
+    val intent = WebViewActivity.newIntent(requireActivity(), url)
+    resultAuthLauncher.launch(intent)
   }
 
   override fun onSideEffect(sideEffect: PayPalIABSideEffect) = Unit
