@@ -123,7 +123,7 @@ class BillingWebViewFragment : BasePageViewFragment() {
         when {
           clickUrl.contains(LOCAL_PAYMENTS_SCHEMA) ||
               clickUrl.contains(ADYEN_PAYMENT_SCHEMA) ||
-              clickUrl.contains(PAYPAL_SUCCESS_SCHEMA) -> {  //TODO add paypal cancel schema
+              clickUrl.contains(PAYPAL_SUCCESS_SCHEMA) -> {
             currentUrl = clickUrl
             finishWithSuccess(clickUrl)
           }

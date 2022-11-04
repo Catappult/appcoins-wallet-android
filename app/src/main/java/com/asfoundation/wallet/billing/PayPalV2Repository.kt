@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.billing
 
+import com.asfoundation.wallet.billing.paypal.PaypalV2CreateAgreementResponse
 import com.asfoundation.wallet.billing.paypal.PaypalV2CreateTokenResponse
 import com.asfoundation.wallet.billing.paypal.PaypalV2StartResponse
 import com.google.gson.annotations.SerializedName
@@ -72,6 +73,22 @@ class PayPalV2Repository @Inject constructor(
       }
   }
 
+  fun createBillingAgreement(
+    walletAddress: String,
+    walletSignature: String,
+    token: String
+  ): Single<PaypalV2CreateAgreementResponse> {
+    return paypalV2Api.createBillingAgreement(
+      walletAddress,
+      walletSignature,
+      token = token
+      )
+      .map { response: PaypalV2CreateAgreementResponse ->
+        response //TODO map
+        //TODO error
+      }
+  }
+
   interface PaypalV2Api {
 
     @POST("8.20200815/gateways/paypal/transactions")
@@ -87,6 +104,13 @@ class PayPalV2Repository @Inject constructor(
       @Query("wallet.signature") walletSignature: String,
       @Body createTokenRequest: CreateTokenRequest
     ): Single<PaypalV2CreateTokenResponse>
+
+    @POST("8.20200815/gateways/paypal/billing-agreement/create")
+    fun createBillingAgreement(
+      @Query("wallet.address") walletAddress: String,
+      @Query("wallet.signature") walletSignature: String,
+      @Body token: String
+    ): Single<PaypalV2CreateAgreementResponse>
 
   }
 

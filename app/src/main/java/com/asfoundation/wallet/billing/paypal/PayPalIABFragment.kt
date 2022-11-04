@@ -1,6 +1,7 @@
 package com.asfoundation.wallet.billing.paypal
 
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -11,14 +12,16 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.result.registerForActivityResult
 import androidx.fragment.app.viewModels
+import com.appcoins.wallet.billing.AppcoinsBillingBinder
+import com.appcoins.wallet.billing.BillingMessagesMapper
 import com.asf.wallet.databinding.FragmentPaypalBinding
 import com.asfoundation.wallet.base.Async
 import com.asfoundation.wallet.base.SingleStateFragment
 import com.asfoundation.wallet.billing.adyen.AdyenPaymentPresenter
 import com.asfoundation.wallet.billing.adyen.PaymentType
 import com.asfoundation.wallet.entity.TransactionBuilder
-import com.asfoundation.wallet.ui.iab.IabActivity
-import com.asfoundation.wallet.ui.iab.WebViewActivity
+import com.asfoundation.wallet.navigator.UriNavigator
+import com.asfoundation.wallet.ui.iab.*
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -28,7 +31,10 @@ import java.math.BigDecimal
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class PayPalIABFragment : BasePageViewFragment(),
+class PayPalIABFragment(
+//  val navigatorIAB: Navigator
+)
+  : BasePageViewFragment(),
   SingleStateFragment<PayPalIABState, PayPalIABSideEffect> {
 
   @Inject
@@ -40,6 +46,9 @@ class PayPalIABFragment : BasePageViewFragment(),
   @Inject
   lateinit var createPaypalTokenUseCase: CreatePaypalTokenUseCase  //TODO
 
+  @Inject
+  lateinit var createPaypalAgreementUseCase: CreatePaypalAgreementUseCase  //TODO
+
   private val viewModel: PayPalIABViewModel by viewModels()
 
   private var binding: FragmentPaypalBinding? = null
@@ -48,6 +57,9 @@ class PayPalIABFragment : BasePageViewFragment(),
 
   private lateinit var resultAuthLauncher: ActivityResultLauncher<Intent>
 
+  private lateinit var iabView: IabView
+  var navigatorIAB: Navigator? = null
+
   override fun onCreateView(
     inflater: LayoutInflater, container: ViewGroup?,
     savedInstanceState: Bundle?
@@ -55,15 +67,22 @@ class PayPalIABFragment : BasePageViewFragment(),
     binding = FragmentPaypalBinding.inflate(inflater, container, false)
     compositeDisposable = CompositeDisposable()
     registerWebViewResult()
+    navigatorIAB = IabNavigator(parentFragmentManager, activity as UriNavigator?, iabView)
     return views.root
   }
 
+  override fun onAttach(context: Context) {
+    super.onAttach(context)
+    check(context is IabView) { "Paypal payment fragment must be attached to IAB activity" }
+    iabView = context
+  }
+
+  private var authenticatedToken: String? = null
   private fun registerWebViewResult() {
     resultAuthLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
       if (result.data?.dataString?.contains(PaypalReturnSchemas.RETURN.schema) == true) {   // TODO filter success and cancel results
         Log.d(this.tag, "startWebViewAuthorization SUCCESS: ${result.data ?: ""}")
-        // TODO success token authentication
-
+        // TODO success token authentication. Store token
       } else if (
         result.resultCode == Activity.RESULT_CANCELED ||
         (result.data?.dataString?.contains(PaypalReturnSchemas.CANCEL.schema) == true)
@@ -102,7 +121,6 @@ class PayPalIABFragment : BasePageViewFragment(),
   }
 
   private fun setListeners() {
-    //views.topBar?.barBackButton?.setOnClickListener { navigator.navigateBack() }
     views.attemptTransaction.setOnClickListener {
       compositeDisposable.add(
         createPaypalTransactionUseCase(
@@ -123,6 +141,7 @@ class PayPalIABFragment : BasePageViewFragment(),
 //          .filter { !waitingResult }     //TODO
           .doOnSuccess {
             Log.d(this.tag, "Successful Paypal payment ")  //TODO
+            navigatorIAB?.popView(successBundle())
           }
           .subscribe({}, {
             Log.d(this.tag, it.toString())   //TODO
@@ -138,6 +157,7 @@ class PayPalIABFragment : BasePageViewFragment(),
           .observeOn(AndroidSchedulers.mainThread())
           .doOnSuccess {
             Log.d(this.tag, "Successful Token creation ")  //TODO
+            authenticatedToken = it.token
             startWebViewAuthorization(it.redirect.url)
           }
           .subscribe({}, {
@@ -147,9 +167,29 @@ class PayPalIABFragment : BasePageViewFragment(),
       )
     }
     views.createAgreement.setOnClickListener {
-
+      authenticatedToken?.let { authenticatedToken ->
+        compositeDisposable.add(
+          createPaypalAgreementUseCase(authenticatedToken)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .doOnSuccess {
+              Log.d(this.tag, "Successful Agreement creation: ${it.uid}")
+              //TODO
+            }
+            .subscribe({}, {
+              Log.d(this.tag, it.toString())    //TODO
+              //showGenericError()
+            })
+        )
+      }
     }
 
+  }
+
+  fun successBundle(): Bundle {
+    val bundle = Bundle()
+    bundle.putInt(AppcoinsBillingBinder.RESPONSE_CODE, AppcoinsBillingBinder.RESULT_OK)
+    return bundle
   }
 
   fun startWebViewAuthorization(url: String) {
@@ -206,6 +246,7 @@ class PayPalIABFragment : BasePageViewFragment(),
     private const val FREQUENCY = "frequency"
     private const val GAMIFICATION_LEVEL = "gamification_level"
     private const val SKU_DESCRIPTION = "sku_description"
+    private const val NAVIGATOR = "navigator"
 
     @JvmStatic
     fun newInstance(
@@ -220,7 +261,7 @@ class PayPalIABFragment : BasePageViewFragment(),
       skuDescription: String,
       isSubscription: Boolean,
       isSkills: Boolean,
-      frequency: String?
+      frequency: String?,
     ): PayPalIABFragment = PayPalIABFragment().apply {
       arguments = Bundle().apply {
         putString(PAYMENT_TYPE_KEY, paymentType.name)
