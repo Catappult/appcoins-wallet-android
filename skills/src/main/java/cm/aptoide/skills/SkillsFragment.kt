@@ -197,6 +197,8 @@ class SkillsFragment : Fragment(), PaymentView {
                   if (queueId.isNotBlank()) {
                     eSkillsPaymentData.queueId = QueueIdentifier(queueId.trim(), true)
                   }
+                  binding.payTicketLayout.root.visibility = View.GONE
+                  createAndPayTicket(eSkillsPaymentData)
                 }
               }
               Status.NO_TOPUP -> {
