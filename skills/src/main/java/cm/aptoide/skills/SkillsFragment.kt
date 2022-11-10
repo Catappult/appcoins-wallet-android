@@ -495,7 +495,7 @@ class SkillsFragment : Fragment(), PaymentView {
 
   override fun showRootError() {
     binding.errorLayout.errorMessage.text = getString(R.string.rooted_device_blocked_body)
-    showError(SkillsViewModel.RESULT_WALLET_VERSION_ERROR)
+    showError(SkillsViewModel.RESULT_ROOT_ERROR)
   }
 
   override fun showWalletVersionNotSupportedError() {
@@ -509,8 +509,6 @@ class SkillsFragment : Fragment(), PaymentView {
       finishWithError(SkillsViewModel.RESULT_WALLET_VERSION_ERROR)
     }
   }
-
-
 
   // Only temporary
   override fun showNeedsTopUpWarning() {
