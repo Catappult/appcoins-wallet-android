@@ -635,6 +635,10 @@
   <string name="update_wallet_soft_title">Μη μένετε πίσω!</string>
   <string name="update_wallet_soft_body">Διατηρώντας το AppCoins Wallet ενημερωμένο, εξασφαλίζεται η καλύτερη εμπειρία.</string>
   <string name="update_button">Ενημέρωση</string>
+  <string name="update_backup_title">Don\'t lose your funds!</string>
+  <string name="update_backup_body">Back up your wallet before updating.</string>
+  <string name="update_backup_date">Last backed up on %s.</string>
+  <string name="update_backup_never">Not backed up yet.</string>
   <!--Backup and Import-->
   <string name="backup_home_notification_title">Αντίγραφο Ασφαλείας του Wallet σας</string>
   <string name="backup_home_notification_body">Έχετε χάσει ποτέ το κινητό σας; Δημιουργήστε ένα αντίγραφο ασφαλείας του wallet σας τώρα!</string>

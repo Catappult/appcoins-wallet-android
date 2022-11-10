@@ -73,6 +73,7 @@ class AdyenTopUpPresenter(
   private var cachedPaymentData: String? = null
   private var retrievedAmount = amount
   private var retrievedCurrency = currency
+  private var action3ds: String? = null
 
   fun present(savedInstanceState: Bundle?) {
     view.setupUi()
@@ -492,8 +493,14 @@ class AdyenTopUpPresenter(
     disposables.add(view.onAdyen3DSError()
       .observeOn(viewScheduler)
       .doOnNext {
-        if (it == CHALLENGE_CANCELED) navigator.navigateBack()
-        else handleSpecificError(R.string.unknown_error, logMessage = it)
+        if (it == CHALLENGE_CANCELED) {
+          topUpAnalytics.send3dsCancel()
+          navigator.navigateBack()
+        }
+        else {
+          topUpAnalytics.send3dsError(it)
+          handleSpecificError(R.string.unknown_error, logMessage = it)
+        }
       }
       .subscribe({}, { it.printStackTrace() })
     )
@@ -600,11 +607,15 @@ class AdyenTopUpPresenter(
     if (paymentModel.action != null) {
       val type = paymentModel.action?.type
       if (type == REDIRECT) {
+        action3ds = type
+        topUpAnalytics.send3dsStart(action3ds)
         cachedPaymentData = paymentModel.paymentData
         cachedUid = paymentModel.uid
         navigator.navigateToUriForResult(paymentModel.redirectUrl)
         waitingResult = true
       } else if (type == THREEDS2 || type == THREEDS2FINGERPRINT || type == THREEDS2CHALLENGE) {
+        action3ds = type
+        topUpAnalytics.send3dsStart(action3ds)
         cachedUid = paymentModel.uid
         view.handle3DSAction(paymentModel.action!!)
         waitingResult = true

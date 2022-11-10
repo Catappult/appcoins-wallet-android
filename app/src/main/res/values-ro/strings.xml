@@ -635,6 +635,10 @@
   <string name="update_wallet_soft_title">Nu rămâne în urmă!</string>
   <string name="update_wallet_soft_body">Un AppCoins Wallet actualizat îți garantează cea mai bună experiență.</string>
   <string name="update_button">Actualizează</string>
+  <string name="update_backup_title">Don\'t lose your funds!</string>
+  <string name="update_backup_body">Back up your wallet before updating.</string>
+  <string name="update_backup_date">Last backed up on %s.</string>
+  <string name="update_backup_never">Not backed up yet.</string>
   <!--Backup and Import-->
   <string name="backup_home_notification_title">Fă o copie de rezervă a portofelului</string>
   <string name="backup_home_notification_body">Ți-ai pierdut vreodată telefonul? Fă o copie de rezervă a portofelului tău acum!</string>

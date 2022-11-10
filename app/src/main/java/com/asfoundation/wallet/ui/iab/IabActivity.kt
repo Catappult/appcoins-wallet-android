@@ -20,6 +20,7 @@ import com.asfoundation.wallet.billing.adyen.PaymentType
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.navigator.UriNavigator
+import com.asfoundation.wallet.promotions.usecases.StartVipReferralPollingUseCase
 import com.asfoundation.wallet.topup.TopUpActivity
 import com.asfoundation.wallet.transactions.PerkBonusAndGamificationService
 import com.asfoundation.wallet.ui.AuthenticationPromptActivity
@@ -43,6 +44,7 @@ import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.activity_iab.*
 import kotlinx.android.synthetic.main.iab_error_layout.*
 import kotlinx.android.synthetic.main.support_error_layout.*
+import java.lang.Thread.sleep
 import java.math.BigDecimal
 import java.util.*
 import javax.inject.Inject
@@ -55,6 +57,9 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
 
   @Inject
   lateinit var iabInteract: IabInteract
+
+  @Inject
+  lateinit var startVipReferralPollingUseCase: StartVipReferralPollingUseCase
 
   @Inject
   lateinit var walletBlockedInteract: WalletBlockedInteract
@@ -101,6 +106,7 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
       iabInteract,
       autoUpdateModelUseCase,
       hasRequiredHardUpdateUseCase,
+      startVipReferralPollingUseCase,
       logger,
       transaction,
       errorFromReceiver
@@ -160,6 +166,9 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
   override fun finish(bundle: Bundle) =
     if (bundle.getInt(AppcoinsBillingBinder.RESPONSE_CODE) == AppcoinsBillingBinder.RESULT_OK) {
       presenter.handleBackupNotifications(bundle)
+      // Sleep added as a temporary fix to launch the notifications separately.
+      // When both notifications are launched together then only one shows up
+      sleep(200)
       presenter.handlePerkNotifications(bundle)
     } else {
       finishActivity(bundle)

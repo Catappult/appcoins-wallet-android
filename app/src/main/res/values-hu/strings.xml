@@ -635,6 +635,10 @@
   <string name="update_wallet_soft_title">Ne maradj le!</string>
   <string name="update_wallet_soft_body">Ha az AppCoins Wallet legújabb verzióját használod, akkor garantált a legjobb élmény.</string>
   <string name="update_button">Frissítés</string>
+  <string name="update_backup_title">Don\'t lose your funds!</string>
+  <string name="update_backup_body">Back up your wallet before updating.</string>
+  <string name="update_backup_date">Last backed up on %s.</string>
+  <string name="update_backup_never">Not backed up yet.</string>
   <!--Backup and Import-->
   <string name="backup_home_notification_title">Wallet biztonsági mentés</string>
   <string name="backup_home_notification_body">Vesztetted már el a telefonod? Készíts biztonsági másolatot a tárcádról most!</string>

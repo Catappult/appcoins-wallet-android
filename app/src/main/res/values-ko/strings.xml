@@ -635,6 +635,10 @@
   <string name="update_wallet_soft_title">뒤처지지 마세요!</string>
   <string name="update_wallet_soft_body">최신의 AppCoins 지갑을 유지하여 최고의 경험을 보장받으세요.</string>
   <string name="update_button">업데이트</string>
+  <string name="update_backup_title">Don\'t lose your funds!</string>
+  <string name="update_backup_body">Back up your wallet before updating.</string>
+  <string name="update_backup_date">Last backed up on %s.</string>
+  <string name="update_backup_never">Not backed up yet.</string>
   <!--Backup and Import-->
   <string name="backup_home_notification_title">지갑 백업하기</string>
   <string name="backup_home_notification_body">전화기를 분실하셨나요? 지금 지갑을 백업하세요!</string>

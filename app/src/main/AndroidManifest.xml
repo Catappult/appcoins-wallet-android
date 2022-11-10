@@ -166,7 +166,7 @@
     <activity
         android:name="com.asfoundation.wallet.ui.iab.IabActivity"
         android:exported="true"
-        android:launchMode="singleInstance"
+        android:launchMode="singleTask"
         android:theme="@style/Theme.AppCompat.Transparent.FitAppWindow">
       <intent-filter>
         <action android:name="android.intent.action.VIEW" />
@@ -268,22 +268,19 @@
         android:name="com.asfoundation.wallet.eskills.withdraw.WithdrawActivity"
         android:label="@string/e_skills_withdraw_title" />
 
-<!--    Copy pasted from the Adyen lib to resolve the navigation issue in the payments    -->
-<!--    "taskAffinity" and "excludeFromRecents" added to overcome the issue    -->
+    <!-- Overrides adyen manifest to force the 3ds2 activity to run on the same task as the payment-->
+    <!-- The standard adyen behavior would open the 3ds2 activity in the "main" wallet task, -->
     <activity
         android:name="com.adyen.threeds2.internal.ui.activity.ChallengeActivity"
         android:exported="true"
-        android:taskAffinity=".challenge"
-        android:excludeFromRecents="true"
-        android:launchMode="singleTask"
+        android:launchMode="singleTop"
         android:theme="@style/ThreeDS2Theme.Internal"
-        android:windowSoftInputMode="stateHidden" >
+        android:windowSoftInputMode="stateHidden"
+        tools:replace="launchMode">
       <intent-filter>
         <action android:name="android.intent.action.VIEW" />
-
         <category android:name="android.intent.category.DEFAULT" />
         <category android:name="android.intent.category.BROWSABLE" />
-
         <data
             android:host="${applicationId}"
             android:scheme="adyen3ds2" />
@@ -305,10 +302,10 @@
         android:exported="false" />
 
     <provider
-        android:name="androidx.work.impl.WorkManagerInitializer"
-        android:authorities="${applicationId}.workmanager-init"
-        android:exported="false"
-        tools:node="remove" />
+        android:name="androidx.startup.InitializationProvider"
+        android:authorities="${applicationId}.androidx-startup"
+        tools:node="remove">
+    </provider>
     <!--Needed to share file in android P and above -->
     <provider
         android:name="androidx.core.content.FileProvider"

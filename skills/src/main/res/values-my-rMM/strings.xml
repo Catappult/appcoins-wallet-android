@@ -32,4 +32,6 @@
   <string name="shared_room_waiting">%s တြင္ ပါဝင္မည့္ ၿပိဳင္ဖက္မ်ားကို ေစာင့္ေနပါသည္</string>
   <string name="rooted_device_blocked_body">ကံမေကာင္းစြာျဖင့္ Root လုပ္ထားေသာ ကိရိယာတစ္ခုတြင္ e-Skills ဂိမ္းမ်ားကို သင္မကစားႏိုင္ပါ။\"</string>
   <string name="top_up_needed_body">For security reasons, you need to make at least one top-up in your wallet to play e-Skills games.</string>
+  <string name="not_enough_funds_body">You don\'t have enough funds! Please top up to buy the entry ticket.</string>
+  <string name="error_message_local_payment_method_body">Local payment methods aren\'t accepted to purchase an entry fee. Please create a new wallet and top it up with a bank card or PayPal!</string>
 </resources>

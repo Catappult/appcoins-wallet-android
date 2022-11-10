@@ -140,16 +140,16 @@ public class LogInterceptor implements Interceptor {
         .append(request.url())
         .append("\n")
 
+        .append("Message: ")
+        .append(response.message())
+        .append("\n")
+
         .append("Request: ")
         .append(formatRequestBody(response.request().body()))
         .append("\n")
 
         .append("Response: ")
         .append(formatResponseBody(response.body()))
-        .append("\n")
-
-        .append("Message: ")
-        .append(response.message())
         .append("\n");
 
     logger.log("HTTP " + response.code(), logBuilder.toString(), true, true);

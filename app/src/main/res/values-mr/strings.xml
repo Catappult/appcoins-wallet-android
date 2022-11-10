@@ -635,6 +635,10 @@
   <string name="update_wallet_soft_title">मागे राहू नका!</string>
   <string name="update_wallet_soft_body">अॅपकॉइन्स वॉलेट अद्यतन करीत रहाणे हे उत्कृष्ट अनुभवाची हमी देते.</string>
   <string name="update_button">Update</string>
+  <string name="update_backup_title">Don\'t lose your funds!</string>
+  <string name="update_backup_body">Back up your wallet before updating.</string>
+  <string name="update_backup_date">Last backed up on %s.</string>
+  <string name="update_backup_never">Not backed up yet.</string>
   <!--Backup and Import-->
   <string name="backup_home_notification_title">वॉलेट बॅकअप करा</string>
   <string name="backup_home_notification_body">आपला फोन हरवला आहे का? आपले वॉलेट आत्ताच बॅकअप करा!</string>

@@ -18,8 +18,10 @@ class UserStatsDataTest : UserStatsLocalData {
   private var wallet: String? = null
   private var gamificationLevel: Int? = PromotionsGamificationStats.INVALID_LEVEL
 
-  override fun saveShownLevel(wallet: String, level: Int,
-                              gamificationContext: GamificationContext) {
+  override fun saveShownLevel(
+    wallet: String, level: Int,
+    gamificationContext: GamificationContext
+  ) {
     this.wallet = wallet
     lastShownLevelResponse = Single.just(level)
   }
@@ -95,4 +97,9 @@ class UserStatsDataTest : UserStatsLocalData {
   override fun isVipCalloutAlreadySeen(wallet: String): Boolean = false
 
   override fun setVipCalloutAlreadySeen(wallet: String, isSeen: Boolean) = Unit
+
+  override fun isReferralNotificationSeen(wallet: String): Boolean = false
+
+  override fun setReferralNotificationSeen(wallet: String, isSeen: Boolean) = Unit
+
 }

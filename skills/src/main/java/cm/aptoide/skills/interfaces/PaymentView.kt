@@ -10,4 +10,6 @@ interface PaymentView {
   fun showWalletVersionNotSupportedError()
   fun showFingerprintAuthentication()
   fun showNeedsTopUpWarning()
+  fun showNoFundsWarning()
+  fun showPaymentMethodNotSupported()
 }

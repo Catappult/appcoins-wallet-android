@@ -635,6 +635,10 @@
   <string name="update_wallet_soft_title">Blijf niet achter!</string>
   <string name="update_wallet_soft_body">Door de AppCoins Wallet up-to-date te houden, krijg je de beste ervaring.</string>
   <string name="update_button">Bijwerken</string>
+  <string name="update_backup_title">Don\'t lose your funds!</string>
+  <string name="update_backup_body">Back up your wallet before updating.</string>
+  <string name="update_backup_date">Last backed up on %s.</string>
+  <string name="update_backup_never">Not backed up yet.</string>
   <!--Backup and Import-->
   <string name="backup_home_notification_title">Back-up van je wallet maken</string>
   <string name="backup_home_notification_body">Ben je je telefoon wel eens kwijtgeraakt? Maak nu een back-up van je wallet!</string>

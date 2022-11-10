@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.work.Configuration
 import androidx.work.DelegatingWorkerFactory
 import androidx.work.WorkManager
+import com.asfoundation.wallet.promotions.worker.GetVipReferralWorkerFactory
 import com.asfoundation.wallet.util.Log
 import dagger.Module
 import dagger.Provides
@@ -24,12 +25,14 @@ class WorkerModule {
    */
   @Singleton
   @Provides
-  fun providesWorkManager(@ApplicationContext context: Context,
-                          delegatingWorkerFactory: DelegatingWorkerFactory): WorkManager {
+  fun providesWorkManager(
+    @ApplicationContext context: Context,
+    getVipReferralWorkerFactory: GetVipReferralWorkerFactory
+  ): WorkManager {
     val config = Configuration.Builder()
-        .setWorkerFactory(delegatingWorkerFactory)
-        .setMinimumLoggingLevel(Log.DEBUG)
-        .build()
+      .setWorkerFactory(getVipReferralWorkerFactory)
+      .setMinimumLoggingLevel(Log.DEBUG)
+      .build()
 
     WorkManager.initialize(context, config)
 
