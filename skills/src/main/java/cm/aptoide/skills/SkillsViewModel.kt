@@ -3,7 +3,6 @@ package cm.aptoide.skills
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import cm.aptoide.skills.entity.UserData
 import cm.aptoide.skills.interfaces.PaymentView
@@ -19,12 +18,13 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.subjects.PublishSubject
 import java.math.BigDecimal
 import java.util.concurrent.TimeUnit
-import java.util.regex.Matcher
-import java.util.regex.Pattern
 import javax.inject.Inject
+import javax.inject.Named
 
 @HiltViewModel
 class SkillsViewModel @Inject constructor(
+  @Named("package-name")
+  private val packageName: String,
   private val walletAddressObtainer: WalletAddressObtainer,
   private val joinQueueUseCase: JoinQueueUseCase,
   private val getTicketUseCase: GetTicketUseCase,
@@ -60,6 +60,14 @@ class SkillsViewModel @Inject constructor(
     const val RESULT_WALLET_VERSION_ERROR = 10
     const val GET_ROOM_RETRY_MILLIS = 3000L
     const val AUTHENTICATION_REQUEST_CODE = 33
+  }
+
+  fun updateClick(): Intent {
+    val appPackageName: String = packageName
+    return Intent(
+      Intent.ACTION_VIEW,
+      Uri.parse("market://details?id=$appPackageName")
+    )
   }
 
   fun handleWalletCreationIfNeeded(): Observable<String> {
