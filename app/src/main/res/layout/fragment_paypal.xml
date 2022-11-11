@@ -3,8 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/window"
-    android:layout_width="340dp"
-    android:layout_height="420dp"
+    android:layout_width="@dimen/payment_methods_width"
+    android:layout_height="wrap_content"
+    android:minHeight="250dp"
     android:layout_gravity="center"
     >
 
@@ -41,6 +42,7 @@
       />
 
   <include
+      android:id="@+id/success_container"
       layout="@layout/fragment_iab_transaction_completed"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
@@ -49,6 +51,22 @@
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent"
       app:layout_constraintVertical_bias="0.32"
+      />
+
+  <com.airbnb.lottie.LottieAnimationView
+      android:id="@+id/loading_authorization_animation"
+      android:layout_width="56dp"
+      android:layout_height="56dp"
+      android:layout_centerInParent="true"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      app:lottie_autoPlay="true"
+      app:lottie_enableMergePathsForKitKatAndAbove="true"
+      app:lottie_loop="true"
+      app:lottie_rawRes="@raw/loading_regular_animation"
+      tools:visibility="visible"
       />
 
 

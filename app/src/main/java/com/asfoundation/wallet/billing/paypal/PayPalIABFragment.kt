@@ -11,31 +11,27 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.activity.result.registerForActivityResult
 import androidx.fragment.app.viewModels
 import com.airbnb.lottie.FontAssetDelegate
 import com.airbnb.lottie.TextDelegate
 import com.appcoins.wallet.billing.AppcoinsBillingBinder
-import com.appcoins.wallet.billing.BillingMessagesMapper
 import com.asf.wallet.R
 import com.asf.wallet.databinding.FragmentPaypalBinding
 import com.asfoundation.wallet.base.Async
 import com.asfoundation.wallet.base.SingleStateFragment
-import com.asfoundation.wallet.billing.adyen.AdyenPaymentFragment
-import com.asfoundation.wallet.billing.adyen.AdyenPaymentPresenter
 import com.asfoundation.wallet.billing.adyen.PaymentType
-import com.asfoundation.wallet.billing.adyen.PurchaseBundleModel
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.navigator.UriNavigator
-import com.asfoundation.wallet.ui.iab.*
+import com.asfoundation.wallet.ui.iab.IabNavigator
+import com.asfoundation.wallet.ui.iab.IabView
+import com.asfoundation.wallet.ui.iab.Navigator
+import com.asfoundation.wallet.ui.iab.WebViewActivity
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.Completable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
-import kotlinx.android.synthetic.main.fragment_iab_transaction_completed.*
-import kotlinx.android.synthetic.main.fragment_paypal.*
 import org.apache.commons.lang3.StringUtils
 import java.math.BigDecimal
 import java.util.concurrent.TimeUnit
@@ -93,6 +89,7 @@ class PayPalIABFragment(
     resultAuthLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
       if (result.data?.dataString?.contains(PaypalReturnSchemas.RETURN.schema) == true) {   // TODO filter success and cancel results
         Log.d(this.tag, "startWebViewAuthorization SUCCESS: ${result.data ?: ""}")
+        startBillingAgreement()
         // TODO success token authentication. Store token
       } else if (
         result.resultCode == Activity.RESULT_CANCELED ||
@@ -109,6 +106,9 @@ class PayPalIABFragment(
     super.onViewCreated(view, savedInstanceState)
     setListeners()
     handleBonusAnimation()
+    showLoadingAnimation()
+    startPayment()
+//    attemptTransaction()
   }
 
 
@@ -129,6 +129,71 @@ class PayPalIABFragment(
         }
       }
     }
+  }
+
+  fun startPayment() {
+    compositeDisposable.add(
+      createPaypalTokenUseCase()
+        .subscribeOn(Schedulers.io())
+        .observeOn(AndroidSchedulers.mainThread())
+        .doOnSuccess {
+          Log.d(this.tag, "Successful Token creation ")  //TODO
+          authenticatedToken = it.token
+          startWebViewAuthorization(it.redirect.url)
+        }
+        .subscribe({}, {
+          Log.d(this.tag, it.toString())    //TODO
+          //showGenericError()
+        })
+    )
+  }
+
+  fun startBillingAgreement() {
+    authenticatedToken?.let { authenticatedToken ->
+      compositeDisposable.add(
+        createPaypalAgreementUseCase(authenticatedToken)
+          .subscribeOn(Schedulers.io())
+          .observeOn(AndroidSchedulers.mainThread())
+          .doOnSuccess {
+            Log.d(this.tag, "Successful Agreement creation: ${it.uid}")
+            //TODO
+            attemptTransaction()
+          }
+          .subscribe({}, {
+            Log.d(this.tag, it.toString())    //TODO
+            //showGenericError()
+          })
+      )
+    }
+  }
+
+  private fun attemptTransaction() {
+    compositeDisposable.add(
+      createPaypalTransactionUseCase(
+        value = (amount.toString()),
+        currency = currency,
+        reference = transactionBuilder.orderReference,
+        origin = origin,
+        packageName = transactionBuilder.domain,
+        metadata = transactionBuilder.payload,
+        sku = transactionBuilder.skuId,
+        callbackUrl = transactionBuilder.callbackUrl,
+        transactionType = transactionBuilder.type,
+        developerWallet = transactionBuilder.toAddress(),
+        referrerUrl = transactionBuilder.referrerUrl
+      )
+        .subscribeOn(Schedulers.io())
+        .observeOn(AndroidSchedulers.mainThread())
+//          .filter { !waitingResult }     //TODO
+        .doOnSuccess {
+          Log.d(this.tag, "Successful Paypal payment ")  //TODO
+          handleSuccess()
+        }
+        .subscribe({}, {
+          Log.d(this.tag, it.toString())   //TODO
+          //showGenericError()
+        })
+    )
   }
 
   private fun setListeners() {
@@ -216,32 +281,41 @@ class PayPalIABFragment(
   }
 
   private fun showSuccessAnimation() {
-    iab_activity_transaction_completed.visibility = View.VISIBLE
-    attempt_transaction.visibility = View.GONE
-    create_token.visibility = View.GONE
-    create_agreement.visibility = View.GONE
+    views.successContainer.iabActivityTransactionCompleted.visibility = View.VISIBLE
+    views.loadingAuthorizationAnimation.visibility = View.GONE
+    views.attemptTransaction.visibility = View.GONE
+    views.createToken.visibility = View.GONE
+    views.createAgreement.visibility = View.GONE
   }
 
-  private fun getAnimationDuration() = lottie_transaction_success.duration
+  private fun showLoadingAnimation() {
+    views.successContainer.iabActivityTransactionCompleted.visibility = View.GONE
+    views.loadingAuthorizationAnimation.visibility = View.VISIBLE
+    views.attemptTransaction.visibility = View.GONE
+    views.createToken.visibility = View.GONE
+    views.createAgreement.visibility = View.GONE
+  }
+
+  private fun getAnimationDuration() = views.successContainer.lottieTransactionSuccess.duration
 
   private fun handleBonusAnimation() {
     if (StringUtils.isNotBlank(bonus)) {
-      lottie_transaction_success.setAnimation(R.raw.transaction_complete_bonus_animation)
+      views.successContainer.lottieTransactionSuccess.setAnimation(R.raw.transaction_complete_bonus_animation)
       setupTransactionCompleteAnimation()
     } else {
-      lottie_transaction_success.setAnimation(R.raw.success_animation)
+      views.successContainer.lottieTransactionSuccess.setAnimation(R.raw.success_animation)
     }
   }
 
   private fun setupTransactionCompleteAnimation() {
-    val textDelegate = TextDelegate(lottie_transaction_success)
+    val textDelegate = TextDelegate(views.successContainer.lottieTransactionSuccess)
     textDelegate.setText("bonus_value", bonus)
     textDelegate.setText(
       "bonus_received",
       resources.getString(R.string.gamification_purchase_completed_bonus_received)
     )
-    lottie_transaction_success.setTextDelegate(textDelegate)
-    lottie_transaction_success.setFontAssetDelegate(object : FontAssetDelegate() {
+    views.successContainer.lottieTransactionSuccess.setTextDelegate(textDelegate)
+    views.successContainer.lottieTransactionSuccess.setFontAssetDelegate(object : FontAssetDelegate() {
       override fun fetchFont(fontFamily: String): Typeface {
         return Typeface.create("sans-serif-medium", Typeface.BOLD)
       }
