@@ -2,6 +2,7 @@ package cm.aptoide.skills
 
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import androidx.lifecycle.ViewModel
 import cm.aptoide.skills.entity.UserData
 import cm.aptoide.skills.interfaces.PaymentView
