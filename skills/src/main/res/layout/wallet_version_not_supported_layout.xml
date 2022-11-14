@@ -75,7 +75,7 @@
         android:layout_marginTop="48dp"
         android:maxWidth="150dp"
         android:minWidth="80dp"
-        android:text="@string/update_wallet"
+        android:text="@string/update_button"
         android:textColor="@color/white"
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
