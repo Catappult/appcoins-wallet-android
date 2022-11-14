@@ -1,10 +1,15 @@
 package com.asfoundation.wallet.billing
 
+import com.asfoundation.wallet.billing.paypal.PaypalTransaction
 import com.asfoundation.wallet.billing.paypal.PaypalV2CreateAgreementResponse
 import com.asfoundation.wallet.billing.paypal.PaypalV2CreateTokenResponse
 import com.asfoundation.wallet.billing.paypal.PaypalV2StartResponse
+import com.asfoundation.wallet.promo_code.repository.PromoCode
+import com.asfoundation.wallet.promo_code.repository.PromoCodeBonusResponse
+import com.asfoundation.wallet.promo_code.repository.ValidityState
 import com.google.gson.annotations.SerializedName
 import io.reactivex.Single
+import retrofit2.HttpException
 import retrofit2.http.Body
 import retrofit2.http.POST
 import retrofit2.http.Query
@@ -23,7 +28,7 @@ class PayPalV2Repository @Inject constructor(
     userWallet: String?,
     walletSignature: String,
     referrerUrl: String?
-  ): Single<PaypalV2StartResponse> {
+  ): Single<PaypalTransaction> {
     return paypalV2Api.createTransaction(
       walletAddress,
       walletSignature,
@@ -46,8 +51,16 @@ class PayPalV2Repository @Inject constructor(
       )
     )
       .map { response: PaypalV2StartResponse ->
-        response //TODO map
-        //TODO error 404 processing to create token
+        PaypalTransaction(
+          response.uid,
+          response.hash,
+          response.status,
+          PaypalTransaction.PaypalValidityState.COMPLETED
+        )
+      }
+      .onErrorReturn {
+        val errorCode = (it as? HttpException)?.code()
+        handleCreateTransactionErrorCodes(errorCode)
       }
   }
 
@@ -87,6 +100,20 @@ class PayPalV2Repository @Inject constructor(
         response //TODO map
         //TODO error
       }
+  }
+
+  private fun handleCreateTransactionErrorCodes(errorCode: Int?): PaypalTransaction {
+    val validity = when (errorCode) {
+      404 -> PaypalTransaction.PaypalValidityState.NO_BILLING_AGREEMENT
+//    ... ->
+      else -> PaypalTransaction.PaypalValidityState.ERROR
+    }
+    return PaypalTransaction(
+      null,
+      null,
+      null,
+      validity
+    )
   }
 
   interface PaypalV2Api {

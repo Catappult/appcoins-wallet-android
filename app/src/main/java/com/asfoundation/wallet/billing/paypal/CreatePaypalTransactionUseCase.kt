@@ -26,7 +26,7 @@ class CreatePaypalTransactionUseCase @Inject constructor(
                   origin: String?, packageName: String, metadata: String?,
                   sku: String?, callbackUrl: String?, transactionType: String,
                   developerWallet: String?,
-                  referrerUrl: String?): Single<PaypalV2StartResponse> {
+                  referrerUrl: String?): Single<PaypalTransaction> {
     return Single.zip(walletService.getAndSignCurrentWalletAddress(),
       partnerAddressService.getAttributionEntity(packageName),
       { address, attributionEntity -> Pair(address, attributionEntity) })

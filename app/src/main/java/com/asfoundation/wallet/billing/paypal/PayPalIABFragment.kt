@@ -131,7 +131,13 @@ class PayPalIABFragment(
     }
   }
 
-  fun startPayment() {
+  private fun startPayment() {
+    attemptTransaction(
+      createTokenIfNeeded = true
+    )
+  }
+
+  private fun createToken() {
     compositeDisposable.add(
       createPaypalTokenUseCase()
         .subscribeOn(Schedulers.io())
@@ -148,7 +154,7 @@ class PayPalIABFragment(
     )
   }
 
-  fun startBillingAgreement() {
+  private fun startBillingAgreement() {
     authenticatedToken?.let { authenticatedToken ->
       compositeDisposable.add(
         createPaypalAgreementUseCase(authenticatedToken)
@@ -156,8 +162,8 @@ class PayPalIABFragment(
           .observeOn(AndroidSchedulers.mainThread())
           .doOnSuccess {
             Log.d(this.tag, "Successful Agreement creation: ${it.uid}")
-            //TODO
-            attemptTransaction()
+            // after creating the billing agreement, don't create a new token if it fails
+            attemptTransaction(createTokenIfNeeded = false)
           }
           .subscribe({}, {
             Log.d(this.tag, it.toString())    //TODO
@@ -167,7 +173,7 @@ class PayPalIABFragment(
     }
   }
 
-  private fun attemptTransaction() {
+  private fun attemptTransaction(createTokenIfNeeded: Boolean = true) {
     compositeDisposable.add(
       createPaypalTransactionUseCase(
         value = (amount.toString()),
@@ -186,8 +192,24 @@ class PayPalIABFragment(
         .observeOn(AndroidSchedulers.mainThread())
 //          .filter { !waitingResult }     //TODO
         .doOnSuccess {
-          Log.d(this.tag, "Successful Paypal payment ")  //TODO
-          handleSuccess()
+          when(it?.validity){
+            PaypalTransaction.PaypalValidityState.COMPLETED -> {
+              Log.d(this.tag, "Successful Paypal payment ") // TODO add event
+              handleSuccess()
+            }
+            PaypalTransaction.PaypalValidityState.NO_BILLING_AGREEMENT -> {
+              Log.d(this.tag, "No billing agreement. Create new token? $createTokenIfNeeded ")
+              if (createTokenIfNeeded) {
+                createToken()
+              } else {
+                //showGenericError()
+              }
+            }
+            else -> {
+              Log.d(this.tag, "No paypal billing agreement state ")
+            }
+          }
+
         }
         .subscribe({}, {
           Log.d(this.tag, it.toString())   //TODO
