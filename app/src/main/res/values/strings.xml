@@ -689,7 +689,6 @@
   <string name="update_backup_body">Back up your wallet before updating.</string>
   <string name="update_backup_date">Last backed up on %s.</string>
   <string name="update_backup_never">Not backed up yet.</string>
-
   
   
 <!--Backup and Import-->
