@@ -56,7 +56,14 @@ class UserAgentInterceptor(private val context: Context,
     val requestWithUserAgent = originalRequest.newBuilder()
       .header("User-Agent", userAgent)
       .build()
-    return chain.proceed(requestWithUserAgent)
+    val response = chain.proceed(requestWithUserAgent)
+
+    // Throw specific Exceptions on HTTP 204 and HTTP 205 response codes, since Retrofit can't handle them
+    // see retrofit issue: https://github.com/square/retrofit/issues/2867
+    if (response.code == 204) throw NoContentException("HTTP 204. There is no content")
+    if (response.code == 205) throw ResetContentException("HTTP 205. The content was reset")
+
+    return response
   }
 
   private fun getOrCreateWalletId(): String {
@@ -70,3 +77,6 @@ class UserAgentInterceptor(private val context: Context,
     return walletId
   }
 }
+
+class NoContentException(override val message: String) : Throwable()
+class ResetContentException(override val message: String) : Throwable()
