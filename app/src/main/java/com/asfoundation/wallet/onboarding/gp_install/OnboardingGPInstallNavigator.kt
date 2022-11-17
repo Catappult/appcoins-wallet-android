@@ -1,4 +1,4 @@
-package com.asfoundation.wallet.onboarding.iap
+package com.asfoundation.wallet.onboarding.gp_install
 
 import android.content.pm.PackageManager
 import androidx.fragment.app.Fragment
@@ -7,7 +7,7 @@ import com.asfoundation.wallet.base.Navigator
 import com.asfoundation.wallet.base.navigate
 import javax.inject.Inject
 
-class OnboardingIapNavigator @Inject constructor(
+class OnboardingGPInstallNavigator @Inject constructor(
   private val fragment: Fragment,
   private val packageManager: PackageManager,
 ) : Navigator {
@@ -26,7 +26,7 @@ class OnboardingIapNavigator @Inject constructor(
   fun navigateToTermsConditionsBottomSheet() {
     navigate(
       fragment.findNavController(),
-      OnboardingIapFragmentDirections.actionNavigateIapTermsConditions()
+      OnboardingGPInstallFragmentDirections.actionNavigateIapTermsConditions()
     )
   }
 }

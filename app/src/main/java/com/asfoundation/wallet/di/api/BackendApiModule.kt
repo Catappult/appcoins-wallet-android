@@ -9,6 +9,7 @@ import com.asfoundation.wallet.backup.repository.BackupRepository
 import com.asfoundation.wallet.di.annotations.*
 import com.asfoundation.wallet.eskills.withdraw.repository.WithdrawApi
 import com.asfoundation.wallet.nfts.repository.NftApi
+import com.asfoundation.wallet.onboarding.CachedTransactionRepository
 import com.asfoundation.wallet.promo_code.repository.PromoCodeRepository
 import com.asfoundation.wallet.redeem_gift.repository.RedeemGiftRepository
 import com.asfoundation.wallet.repository.IpCountryCodeProvider
@@ -153,6 +154,14 @@ class BackendApiModule {
     @BackendDefaultRetrofit retrofit: Retrofit
   ): WalletInfoRepository.WalletInfoApi {
     return retrofit.create(WalletInfoRepository.WalletInfoApi::class.java)
+  }
+
+  @Singleton
+  @Provides
+  fun providesCachedTransactionApi(
+    @BackendDefaultRetrofit retrofit: Retrofit
+  ): CachedTransactionRepository.CachedTransactionApi {
+    return retrofit.create(CachedTransactionRepository.CachedTransactionApi::class.java)
   }
 
   @Singleton

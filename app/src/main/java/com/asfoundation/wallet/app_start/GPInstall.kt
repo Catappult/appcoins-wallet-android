@@ -5,19 +5,19 @@ import kotlinx.coroutines.withTimeoutOrNull
 import java.net.URLDecoder
 import javax.inject.Inject
 
-interface FirstUtmUseCase {
-  suspend operator fun invoke(): StartMode.FirstUtm?
+interface GPInstallUseCase {
+  suspend operator fun invoke(): StartMode.GPInstall?
 }
 
-@BoundTo(supertype = FirstUtmUseCase::class)
-class FirstUtmUseCaseImpl @Inject constructor(
-  private val repository: FirstUtmRepository
-) : FirstUtmUseCase {
-  override suspend operator fun invoke(): StartMode.FirstUtm? {
+@BoundTo(supertype = GPInstallUseCase::class)
+class GPInstallUseCaseImpl @Inject constructor(
+  private val repository: GooglePlayInstallRepository
+) : GPInstallUseCase {
+  override suspend operator fun invoke(): StartMode.GPInstall? {
     val referrer = withTimeoutOrNull(5000) { repository.getReferrerUrl() }
       ?.splitQuery()
     return if (referrer.isCorrectUtm()) {
-      StartMode.FirstUtm(
+      StartMode.GPInstall(
         sku = referrer?.get(UTM_CONTENT)?.get(0) ?: "",
         source = referrer?.get(UTM_SOURCE)?.get(0) ?: "",
         packageName = referrer?.get(UTM_MEDIUM)?.get(0) ?: "",
@@ -53,6 +53,6 @@ class FirstUtmUseCaseImpl @Inject constructor(
   }
 }
 
-interface FirstUtmRepository {
+interface GooglePlayInstallRepository {
   suspend fun getReferrerUrl(): String?
 }
