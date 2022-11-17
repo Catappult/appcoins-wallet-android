@@ -11,12 +11,14 @@ data class PaypalTransaction(
 
   enum class PaypalValidityState(val value: Int) {
     COMPLETED(0),
-    NO_BILLING_AGREEMENT(1),  // Billing Agreement needed
-    ERROR(2);
+    PENDING(1),
+    NO_BILLING_AGREEMENT(2),  // Billing Agreement needed
+    ERROR(3);
 
     companion object {
       fun toEnum(value: Int) = values().firstOrNull { it.value == value }
     }
   }
+
 
 }

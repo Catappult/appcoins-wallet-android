@@ -1,22 +1,25 @@
 package com.asfoundation.wallet.billing
 
+import com.appcoins.wallet.bdsbilling.repository.RemoteRepository
+import com.appcoins.wallet.billing.adyen.AdyenResponseMapper
+import com.appcoins.wallet.billing.adyen.PaymentModel
+import com.appcoins.wallet.billing.common.response.TransactionResponse
+import com.appcoins.wallet.commons.Logger
 import com.asfoundation.wallet.billing.paypal.PaypalTransaction
 import com.asfoundation.wallet.billing.paypal.PaypalV2CreateAgreementResponse
 import com.asfoundation.wallet.billing.paypal.PaypalV2CreateTokenResponse
 import com.asfoundation.wallet.billing.paypal.PaypalV2StartResponse
-import com.asfoundation.wallet.promo_code.repository.PromoCode
-import com.asfoundation.wallet.promo_code.repository.PromoCodeBonusResponse
-import com.asfoundation.wallet.promo_code.repository.ValidityState
 import com.google.gson.annotations.SerializedName
 import io.reactivex.Single
 import retrofit2.HttpException
-import retrofit2.http.Body
-import retrofit2.http.POST
-import retrofit2.http.Query
+import retrofit2.http.*
 import javax.inject.Inject
 
 class PayPalV2Repository @Inject constructor(
-  private val paypalV2Api: PaypalV2Api
+  private val paypalV2Api: PaypalV2Api,
+  private val brokerBdsApi: RemoteRepository.BrokerBdsApi,
+  private val adyenResponseMapper: AdyenResponseMapper,
+  private val logger: Logger
 ) {
 
   fun createTransaction(
@@ -55,13 +58,14 @@ class PayPalV2Repository @Inject constructor(
           response.uid,
           response.hash,
           response.status,
-          PaypalTransaction.PaypalValidityState.COMPLETED
+          response.mapValidity()
         )
       }
       .onErrorReturn {
         val errorCode = (it as? HttpException)?.code()
         handleCreateTransactionErrorCodes(errorCode)
       }
+
   }
 
   fun createToken(
@@ -95,10 +99,20 @@ class PayPalV2Repository @Inject constructor(
       walletAddress,
       walletSignature,
       token = token
-      )
+    )
       .map { response: PaypalV2CreateAgreementResponse ->
         response //TODO map
         //TODO error
+      }
+  }
+
+  fun getTransaction(uid: String, walletAddress: String,
+                     signedWalletAddress: String): Single<PaymentModel> {
+    return brokerBdsApi.getAppcoinsTransaction(uid, walletAddress, signedWalletAddress)
+      .map { adyenResponseMapper.map(it) }
+      .onErrorReturn {
+        logger.log("AdyenPaymentRepository", it)
+        adyenResponseMapper.mapPaymentModelError(it)
       }
   }
 

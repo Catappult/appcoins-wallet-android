@@ -9,38 +9,6 @@
     android:layout_gravity="center"
     >
 
-  <Button
-      android:id="@+id/attempt_transaction"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_marginTop="@dimen/big_margin"
-      android:text="Attempt transaction"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toTopOf="parent"
-      />
-
-  <Button
-      android:id="@+id/create_token"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:text="Create token"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintHorizontal_bias="0.457"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@+id/attempt_transaction"
-      />
-  <Button
-      android:id="@+id/create_agreement"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:text="Create billing agreement"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintHorizontal_bias="0.43"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@+id/create_token"
-      />
-
   <include
       android:id="@+id/success_container"
       layout="@layout/fragment_iab_transaction_completed"

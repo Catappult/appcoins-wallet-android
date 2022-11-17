@@ -15,11 +15,13 @@ import androidx.fragment.app.viewModels
 import com.airbnb.lottie.FontAssetDelegate
 import com.airbnb.lottie.TextDelegate
 import com.appcoins.wallet.billing.AppcoinsBillingBinder
+import com.appcoins.wallet.billing.adyen.PaymentModel
 import com.asf.wallet.R
 import com.asf.wallet.databinding.FragmentPaypalBinding
 import com.asfoundation.wallet.base.Async
 import com.asfoundation.wallet.base.SingleStateFragment
 import com.asfoundation.wallet.billing.adyen.PaymentType
+import com.asfoundation.wallet.billing.adyen.PurchaseBundleModel
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.navigator.UriNavigator
 import com.asfoundation.wallet.ui.iab.IabNavigator
@@ -29,6 +31,8 @@ import com.asfoundation.wallet.ui.iab.WebViewActivity
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.Completable
+import io.reactivex.Scheduler
+import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
@@ -55,6 +59,17 @@ class PayPalIABFragment(
 
   @Inject
   lateinit var createPaypalAgreementUseCase: CreatePaypalAgreementUseCase  //TODO
+
+  @Inject
+  lateinit var waitForSuccessPaypalUseCase: WaitForSuccessPaypalUseCase  //TODO
+
+  @Inject
+  lateinit var createSuccessBundleUseCase: CreateSuccessBundleUseCase  //TODO
+
+  var networkScheduler = Schedulers.io()  //TODO
+
+  var viewScheduler = AndroidSchedulers.mainThread() //TODO
+
 
   private val viewModel: PayPalIABViewModel by viewModels()
 
@@ -104,7 +119,7 @@ class PayPalIABFragment(
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
-    setListeners()
+//    setListeners()
     handleBonusAnimation()
     showLoadingAnimation()
     startPayment()
@@ -192,10 +207,10 @@ class PayPalIABFragment(
         .observeOn(AndroidSchedulers.mainThread())
 //          .filter { !waitingResult }     //TODO
         .doOnSuccess {
-          when(it?.validity){
+          when(it?.validity) {
             PaypalTransaction.PaypalValidityState.COMPLETED -> {
               Log.d(this.tag, "Successful Paypal payment ") // TODO add event
-              handleSuccess()
+              handleSuccess(it.hash, it.uid)
             }
             PaypalTransaction.PaypalValidityState.NO_BILLING_AGREEMENT -> {
               Log.d(this.tag, "No billing agreement. Create new token? $createTokenIfNeeded ")
@@ -204,6 +219,9 @@ class PayPalIABFragment(
               } else {
                 //showGenericError()
               }
+            }
+            PaypalTransaction.PaypalValidityState.PENDING -> {
+              waitForSuccess(it.hash, it.uid)
             }
             else -> {
               Log.d(this.tag, "No paypal billing agreement state ")
@@ -218,76 +236,86 @@ class PayPalIABFragment(
     )
   }
 
-  private fun setListeners() {
-    views.attemptTransaction.setOnClickListener {
-      compositeDisposable.add(
-        createPaypalTransactionUseCase(
-          value = (amount.toString()),
-          currency = currency,
-          reference = transactionBuilder.orderReference,
-          origin = origin,
-          packageName = transactionBuilder.domain,
-          metadata = transactionBuilder.payload,
-          sku = transactionBuilder.skuId,
-          callbackUrl = transactionBuilder.callbackUrl,
-          transactionType = transactionBuilder.type,
-          developerWallet = transactionBuilder.toAddress(),
-          referrerUrl = transactionBuilder.referrerUrl
-        )
-          .subscribeOn(Schedulers.io())
-          .observeOn(AndroidSchedulers.mainThread())
-//          .filter { !waitingResult }     //TODO
-          .doOnSuccess {
-            Log.d(this.tag, "Successful Paypal payment ")  //TODO
-            handleSuccess()
-          }
-          .subscribe({}, {
-            Log.d(this.tag, it.toString())   //TODO
-            //showGenericError()
-          })
-      )
+//  private fun setListeners() {
+//    views.attemptTransaction.setOnClickListener {
+//      compositeDisposable.add(
+//        createPaypalTransactionUseCase(
+//          value = (amount.toString()),
+//          currency = currency,
+//          reference = transactionBuilder.orderReference,
+//          origin = origin,
+//          packageName = transactionBuilder.domain,
+//          metadata = transactionBuilder.payload,
+//          sku = transactionBuilder.skuId,
+//          callbackUrl = transactionBuilder.callbackUrl,
+//          transactionType = transactionBuilder.type,
+//          developerWallet = transactionBuilder.toAddress(),
+//          referrerUrl = transactionBuilder.referrerUrl
+//        )
+//          .subscribeOn(Schedulers.io())
+//          .observeOn(AndroidSchedulers.mainThread())
+////          .filter { !waitingResult }     //TODO
+//          .doOnSuccess {
+//            Log.d(this.tag, "Successful Paypal payment ")  //TODO
+//            handleSuccess()
+//          }
+//          .subscribe({}, {
+//            Log.d(this.tag, it.toString())   //TODO
+//            //showGenericError()
+//          })
+//      )
+//
+//    }
+//    views.createToken.setOnClickListener {
+//      compositeDisposable.add(
+//        createPaypalTokenUseCase()
+//          .subscribeOn(Schedulers.io())
+//          .observeOn(AndroidSchedulers.mainThread())
+//          .doOnSuccess {
+//            Log.d(this.tag, "Successful Token creation ")  //TODO
+//            authenticatedToken = it.token
+//            startWebViewAuthorization(it.redirect.url)
+//          }
+//          .subscribe({}, {
+//            Log.d(this.tag, it.toString())    //TODO
+//            //showGenericError()
+//          })
+//      )
+//    }
+//    views.createAgreement.setOnClickListener {
+//      authenticatedToken?.let { authenticatedToken ->
+//        compositeDisposable.add(
+//          createPaypalAgreementUseCase(authenticatedToken)
+//            .subscribeOn(Schedulers.io())
+//            .observeOn(AndroidSchedulers.mainThread())
+//            .doOnSuccess {
+//              Log.d(this.tag, "Successful Agreement creation: ${it.uid}")
+//              //TODO
+//            }
+//            .subscribe({}, {
+//              Log.d(this.tag, it.toString())    //TODO
+//              //showGenericError()
+//            })
+//        )
+//      }
+//    }
+//
+//  }
 
-    }
-    views.createToken.setOnClickListener {
-      compositeDisposable.add(
-        createPaypalTokenUseCase()
-          .subscribeOn(Schedulers.io())
-          .observeOn(AndroidSchedulers.mainThread())
-          .doOnSuccess {
-            Log.d(this.tag, "Successful Token creation ")  //TODO
-            authenticatedToken = it.token
-            startWebViewAuthorization(it.redirect.url)
-          }
-          .subscribe({}, {
-            Log.d(this.tag, it.toString())    //TODO
-            //showGenericError()
-          })
-      )
-    }
-    views.createAgreement.setOnClickListener {
-      authenticatedToken?.let { authenticatedToken ->
-        compositeDisposable.add(
-          createPaypalAgreementUseCase(authenticatedToken)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .doOnSuccess {
-              Log.d(this.tag, "Successful Agreement creation: ${it.uid}")
-              //TODO
-            }
-            .subscribe({}, {
-              Log.d(this.tag, it.toString())    //TODO
-              //showGenericError()
-            })
-        )
-      }
-    }
-
-  }
-
-  private fun successBundle(): Bundle {
-    val bundle = Bundle()
-    bundle.putInt(AppcoinsBillingBinder.RESPONSE_CODE, AppcoinsBillingBinder.RESULT_OK)
-    return bundle
+  private fun successBundle(
+    hash: String?,
+    orderReference: String?,
+    purchaseUid: String?
+  ): Single<PurchaseBundleModel> {
+    return createSuccessBundleUseCase(
+      transactionBuilder.type,
+      transactionBuilder.domain,
+      transactionBuilder.skuId,
+      purchaseUid,
+      orderReference,
+      hash,
+      networkScheduler
+    )
   }
 
   private fun startWebViewAuthorization(url: String) {
@@ -295,27 +323,54 @@ class PayPalIABFragment(
     resultAuthLauncher.launch(intent)
   }
 
-  private fun handleSuccess() {
-    Completable.fromAction { showSuccessAnimation() }
-      .andThen(Completable.timer(getAnimationDuration(), TimeUnit.MILLISECONDS))
-      .andThen(Completable.fromAction { navigatorIAB?.popView(successBundle()) })
-      .subscribe()
+  private fun waitForSuccess(hash: String?, uid: String?) {
+    compositeDisposable.add(waitForSuccessPaypalUseCase(uid ?: "")
+//    .subscribeOn(networkScheduler)
+//    .observeOn(viewScheduler)
+      .subscribe(
+        {
+          Log.d(this.tag, "Settled transaction polling completed")
+          handleSuccess(hash, uid)
+        },
+        {
+          Log.d(this.tag, "Error on Settled transaction polling")
+        }))
+  }
+
+  private fun handleSuccess(hash: String? , uid: String?) {
+
+    compositeDisposable.add(
+      successBundle(hash, null, uid)
+        .doOnSuccess {
+//              sendPaymentEvent()
+//              sendRevenueEvent()
+        }
+        .subscribeOn(networkScheduler)
+        .observeOn(viewScheduler)
+        .flatMapCompletable { bundle ->
+          Completable.fromAction { showSuccessAnimation() }
+            .andThen(Completable.timer(getAnimationDuration(), TimeUnit.MILLISECONDS))
+            .andThen(Completable.fromAction {
+              navigatorIAB?.popView(bundle.bundle)
+            })
+//        .doOnError { Log.d(this.tag, "error on success: ${it}") }
+            .subscribeOn(AndroidSchedulers.mainThread())
+//        .observeOn(AndroidSchedulers.mainThread())
+        }.subscribe()
+    )
+
   }
 
   private fun showSuccessAnimation() {
     views.successContainer.iabActivityTransactionCompleted.visibility = View.VISIBLE
     views.loadingAuthorizationAnimation.visibility = View.GONE
-    views.attemptTransaction.visibility = View.GONE
-    views.createToken.visibility = View.GONE
-    views.createAgreement.visibility = View.GONE
+
   }
 
   private fun showLoadingAnimation() {
     views.successContainer.iabActivityTransactionCompleted.visibility = View.GONE
     views.loadingAuthorizationAnimation.visibility = View.VISIBLE
-    views.attemptTransaction.visibility = View.GONE
-    views.createToken.visibility = View.GONE
-    views.createAgreement.visibility = View.GONE
+
   }
 
   private fun getAnimationDuration() = views.successContainer.lottieTransactionSuccess.duration
