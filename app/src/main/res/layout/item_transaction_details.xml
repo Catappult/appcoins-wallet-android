@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:layout_marginStart="@dimen/small_margin"
     android:layout_marginEnd="@dimen/small_margin"
-    android:background="@color/white"
+    android:background="@color/styleguide_white"
     android:elevation="@dimen/component_elevation"
     app:contentPaddingBottom="@dimen/normal_margin"
     app:contentPaddingLeft="@dimen/big_padding"

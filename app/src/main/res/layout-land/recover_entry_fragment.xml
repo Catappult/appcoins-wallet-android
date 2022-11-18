@@ -5,8 +5,7 @@
     android:layout_height="match_parent"
     android:animateLayoutChanges="true"
     android:orientation="vertical"
-    android:background="@color/blue_dark"
-    android:theme="@style/MaterialAppTheme"
+    android:background="@color/styleguide_blue"    android:theme="@style/MaterialAppTheme"
 
     >
 
@@ -38,7 +37,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:tint="@color/white"
+            app:tint="@color/styleguide_white"
             />
 
         <TextView
@@ -81,7 +80,7 @@
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintTop_toTopOf="parent"
           app:layout_constraintStart_toEndOf="@id/recover_intro"
-          app:tint="@color/white"
+          app:tint="@color/styleguide_white"
           />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -125,9 +124,9 @@
         app:layout_constraintEnd_toStartOf="@+id/recover_wallet_button"
 
         app:layout_constraintTop_toTopOf="@+id/recover_wallet_button"
-        app:rippleColor="@color/white"
+        app:rippleColor="@color/styleguide_white"
         app:shapeAppearance="@style/Home.PillShape"
-        app:strokeColor="@color/white"
+        app:strokeColor="@color/styleguide_white"
         app:strokeWidth="1dp"
         >
       <ImageView

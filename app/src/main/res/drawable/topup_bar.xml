@@ -15,7 +15,7 @@
       <corners android:radius="40dp" />
       <stroke
           android:width="14dp"
-          android:color="@color/blue_dark" />
+          android:color="@color/styleguide_blue" />
     </shape>
   </item>
 </layer-list>

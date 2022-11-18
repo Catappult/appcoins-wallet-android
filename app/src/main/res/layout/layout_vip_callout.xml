@@ -5,7 +5,7 @@
     android:id="@+id/vip_callout_layout"
     android:layout_width="match_parent"
     android:layout_height="76dp"
-    android:background="@color/promotions_vip_top_blue"
+    android:background="@color/styleguide_blue"
     >
 
   <ImageView
@@ -31,7 +31,7 @@
       android:lineSpacingMultiplier="0.8"
       android:lines="2"
       android:text="@string/vip_program_promotions_tab_1"
-      android:textColor="@color/white"
+      android:textColor="@color/styleguide_white"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintHorizontal_bias="0.0"
       app:layout_constraintStart_toEndOf="@+id/vip_badge"

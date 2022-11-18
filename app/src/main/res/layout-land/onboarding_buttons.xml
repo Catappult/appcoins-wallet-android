@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:theme="@style/MaterialAppTheme"
-    tools:background="@color/bottom_nav_top_up_blue"
+    tools:background="@color/styleguide_blue"
     >
 
   <com.asfoundation.wallet.ui.common.WalletButtonView
@@ -26,7 +26,7 @@
       android:layout_height="@dimen/onboarding_button_height"
       android:layout_marginBottom="@dimen/half_large_margin"
       android:layout_marginEnd="@dimen/normal_margin"
-      app:buttonColor="@color/white"
+      app:buttonColor="@color/styleguide_white"
       app:buttonText="@string/existent_wallet"
       app:buttonType="outlined"
       app:layout_constraintTop_toTopOf="parent"

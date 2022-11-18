@@ -4,7 +4,7 @@
     android:id="@+id/almost_vip_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/bottom_nav_top_up_blue"
+    android:background="@color/styleguide_blue"
     >
 
   <ImageView
@@ -65,7 +65,7 @@
           android:layout_marginTop="@dimen/normal_padding"
           android:gravity="center_horizontal"
           android:text="@string/vip_program_almost_onboarding_title"
-          android:textColor="@color/white"
+          android:textColor="@color/styleguide_white"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toBottomOf="@id/almost_vip_astronaut_animation"
@@ -79,7 +79,7 @@
           android:layout_marginTop="@dimen/onboarding_subtitle_margin_top"
           android:gravity="center_horizontal"
           android:text="@string/vip_program_almost_onboarding_body"
-          android:textColor="@color/white"
+          android:textColor="@color/styleguide_white"
           android:textSize="16sp"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="parent"

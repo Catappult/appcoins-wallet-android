@@ -6,7 +6,7 @@
     android:layout_height="wrap_content"
     android:clipToPadding="false"
     android:clipChildren="false"
-    android:background="@color/white"
+    android:background="@color/styleguide_white"
     android:elevation="@dimen/component_elevation"
     android:paddingTop="@dimen/normal_padding"
     >
@@ -35,7 +35,7 @@
       android:visibility="invisible"
       android:clipToPadding="false"
       android:clipChildren="false"
-      app:cardBackgroundColor="@color/white"
+      app:cardBackgroundColor="@color/styleguide_white"
       app:shapeAppearance="@style/Home.PillShape"
       app:cardElevation="8dp"
       app:layout_constraintStart_toStartOf="parent"

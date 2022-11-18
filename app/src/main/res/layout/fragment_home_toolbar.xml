@@ -5,18 +5,8 @@
     android:layout_height="wrap_content"
     android:animateLayoutChanges="true"
     android:id="@+id/toolbar"
+    android:background="@color/styleguide_blue"
     >
-
-  <com.google.android.material.imageview.ShapeableImageView
-      android:id="@+id/backgroundView"
-      android:layout_width="0dp"
-      android:layout_height="0dp"
-      android:src="@drawable/appbar_background_large_new"
-      app:layout_constraintBottom_toBottomOf="parent"
-      app:layout_constraintLeft_toLeftOf="parent"
-      app:layout_constraintRight_toRightOf="parent"
-      app:layout_constraintTop_toTopOf="parent"
-      />
 
   <com.asfoundation.wallet.ui.common.AnimatedViewSwitcher
       android:id="@+id/toolbar_view_switcher"

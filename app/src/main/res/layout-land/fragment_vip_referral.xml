@@ -91,13 +91,13 @@
           android:layout_marginTop="2dp"
           android:layout_marginEnd="@dimen/standard_double_margin"
           android:background="@color/transparent"
-          app:cardBackgroundColor="@color/promotions_vip_grey"
+          app:cardBackgroundColor="@color/styleguide_light_grey"
           app:cardElevation="0dp"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toBottomOf="@+id/title_code_tv"
           app:layout_constraintBottom_toBottomOf="parent"
-          app:rippleColor="@color/white"
+          app:rippleColor="@color/styleguide_white"
           app:shapeAppearance="@style/Home.PillShape"
 
           >
@@ -154,7 +154,7 @@
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
       android:paddingVertical="2dp"
-      android:background="@color/promotions_vip_grey"
+      android:background="@color/styleguide_light_grey"
       >
 
     <ImageView

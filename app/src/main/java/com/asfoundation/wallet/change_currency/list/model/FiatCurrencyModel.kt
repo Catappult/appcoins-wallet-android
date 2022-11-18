@@ -39,7 +39,7 @@ abstract class FiatCurrencyModel : EpoxyModelWithHolder<FiatCurrencyModel.FiatCu
     holder.longCurrency.text = fiatCurrency.label
 
     if (!selected) {
-      holder.currencyItem.setBackgroundColor(holder.itemView.resources.getColor(R.color.white))
+      holder.currencyItem.setBackgroundColor(holder.itemView.resources.getColor(R.color.styleguide_white))
       holder.shortCurrency.setTextColor(
           holder.itemView.resources.getColor(R.color.black))
       holder.fiatCheckmark.visibility = View.GONE

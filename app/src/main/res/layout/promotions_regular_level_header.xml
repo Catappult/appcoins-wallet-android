@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/bottom_nav_top_up_blue"
+    android:background="@color/styleguide_blue"
     android:paddingTop="@dimen/big_margin"
     android:paddingBottom="@dimen/large_margin"
     android:paddingHorizontal="@dimen/big_margin"
@@ -46,7 +46,7 @@
       android:layout_height="wrap_content"
       android:layout_marginTop="8dp"
       tools:text="You are on Mars"
-      android:textColor="@color/white"
+      android:textColor="@color/styleguide_white"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toBottomOf="@id/current_level_bonus"
       />
@@ -58,7 +58,7 @@
       android:layout_height="wrap_content"
       android:layout_marginTop="4dp"
       tools:text="Spend this amount to reach next level"
-      android:textColor="@color/white"
+      android:textColor="@color/styleguide_white"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toBottomOf="@id/current_level_title"
       />
@@ -82,7 +82,7 @@
       android:layout_height="wrap_content"
       android:layout_marginVertical="@dimen/small_margin"
       tools:text="65k / 150k"
-      android:textColor="@color/white"
+      android:textColor="@color/styleguide_white"
       app:layout_constraintEnd_toEndOf="@id/current_level_progress_bar"
       app:layout_constraintTop_toBottomOf="@id/current_level_progress_bar"
       />

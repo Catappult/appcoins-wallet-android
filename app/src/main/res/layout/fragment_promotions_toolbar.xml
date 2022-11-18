@@ -6,7 +6,7 @@
     android:layout_height="wrap_content"
     android:animateLayoutChanges="true"
     android:id="@+id/toolbar"
-    android:background="@color/bottom_nav_top_up_blue"
+    android:background="@color/styleguide_blue"
     >
 
   <com.google.android.material.imageview.ShapeableImageView

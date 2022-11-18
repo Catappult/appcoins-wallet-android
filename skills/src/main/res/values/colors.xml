@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <!-- Main style guide colors -->
+  <color name="styleguide_pink">#FF6381</color>
+  <color name="styleguide_blue">#111B39</color>
+  <color name="styleguide_medium_grey">#C9C9C9</color>
+  <color name="styleguide_light_grey">#F5F5F5</color>
+  <color name="styleguide_white">#FFFFFFFF</color>
+
   <color name="white">#FFFFFFFF</color>
   <color name="black">#000000</color>
   <color name="transparent">#00000000</color>
@@ -15,7 +22,6 @@
   <color name="btn_text_enable_color">#ffffff</color>
   <color name="btn_disable_color">#00000000</color>
   <color name="btn_cancel_text">#8f000000</color>
-  <color name="btn_disable_snd_color">#c9c9c9</color>
   <color name="dialog_buy_value_text">#4e4e4e</color>
 
   <color name="gray_alpha_8a">#8a000000</color>

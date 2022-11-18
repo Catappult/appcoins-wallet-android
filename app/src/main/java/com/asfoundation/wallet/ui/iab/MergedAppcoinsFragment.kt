@@ -406,7 +406,7 @@ class MergedAppcoinsFragment : BasePageViewFragment(), MergedAppcoinsView {
     radioButton.isEnabled = false
     radioButton.isChecked = false
     message.text = getString(reason)
-    title.setTextColor(ContextCompat.getColor(requireContext(), R.color.btn_disable_snd_color))
+    title.setTextColor(ContextCompat.getColor(requireContext(), R.color.styleguide_medium_grey))
     message.setTextColor(ContextCompat.getColor(requireContext(), R.color.disable_reason))
     bonusLayout?.setBackgroundResource(R.drawable.disable_bonus_img_background)
     message.visibility = VISIBLE

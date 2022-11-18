@@ -87,7 +87,7 @@ class NavBarFragment : BasePageViewFragment(),
   private fun setPromotionBadge(showPromotionsBadge: Boolean) {
     if (showPromotionsBadge) {
       views.bottomNav.getOrCreateBadge(R.id.promotions_graph).apply {
-        backgroundColor = ContextCompat.getColor(requireContext(), R.color.wild_watermelon)
+        backgroundColor = ContextCompat.getColor(requireContext(), R.color.styleguide_pink)
         isVisible = true
       }
     }

@@ -155,7 +155,7 @@ class SubscriptionDetailsFragment : BasePageViewFragment(), SubscriptionDetailsV
 
     renew_subscription.visibility = View.GONE
     status_icon.setImageResource(R.drawable.ic_forbidden)
-    status.setTextColor(ResourcesCompat.getColor(resources, R.color.grey_7f, null))
+    status.setTextColor(ResourcesCompat.getColor(resources, R.color.styleguide_medium_grey, null))
     status.text = getString(R.string.subscriptions_inactive_title)
     context?.let { loadImages(it, subscriptionItem.appIcon, subscriptionItem.paymentIcon) }
 

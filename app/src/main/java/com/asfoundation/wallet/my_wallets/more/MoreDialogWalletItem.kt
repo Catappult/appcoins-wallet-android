@@ -73,10 +73,10 @@ fun MoreDialogStateItem.toWalletItemView(view: View, action: (String) -> Unit) =
 // Mapping ta the actual UI values
 
 private fun MoreDialogStateItem.backgroundColor(context: Context) =
-  context.getCColor(if (isSelected) R.color.bottom_nav_top_up_blue else R.color.grey_f2)
+  context.getCColor(if (isSelected) R.color.styleguide_blue else R.color.styleguide_light_grey)
 
 private fun MoreDialogStateItem.textColor(context: Context) =
-  context.getCColor(if (isSelected) R.color.white else R.color.bottom_nav_top_up_blue)
+  context.getCColor(if (isSelected) R.color.styleguide_white else R.color.styleguide_blue)
 
 private val MoreDialogStateItem.checkMarkVisibility get() = if (isSelected) VISIBLE else INVISIBLE
 
@@ -96,7 +96,7 @@ private fun Context.ItemCard(onTap: ((View) -> Unit)?, child: View) =
       .apply { topMargin = resources.dpToPx(8) }
     elevation = 0F
     radius = resources.dpToPx(14).toFloat()
-    rippleColor = context.getCColorStateList(R.color.grey_8B)
+    rippleColor = context.getCColorStateList(R.color.styleguide_medium_grey)
     setOnClickListener(onTap)
     addView(child)
   }

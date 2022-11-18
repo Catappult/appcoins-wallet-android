@@ -4,7 +4,7 @@
 
   <stroke
       android:width="2dp"
-      android:color="@color/white" />
+      android:color="@color/styleguide_white" />
 
   <solid android:color="@color/level_icon_bg_color" />
   <size
