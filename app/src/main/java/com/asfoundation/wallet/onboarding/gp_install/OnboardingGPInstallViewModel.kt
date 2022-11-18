@@ -1,4 +1,4 @@
-package com.asfoundation.wallet.onboarding.iap
+package com.asfoundation.wallet.onboarding.gp_install
 
 import androidx.lifecycle.viewModelScope
 import com.asfoundation.wallet.app_start.AppStartUseCase
@@ -12,23 +12,23 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-sealed class OnboardingIapSideEffect : SideEffect {
-  data class LoadPackageNameIcon(val appPackageName: String) : OnboardingIapSideEffect()
-  data class NavigateBackToGame(val appPackageName: String) : OnboardingIapSideEffect()
-  object NavigateToTermsConditions : OnboardingIapSideEffect()
+sealed class OnboardingGPInstallSideEffect : SideEffect {
+  data class LoadPackageNameIcon(val appPackageName: String) : OnboardingGPInstallSideEffect()
+  data class NavigateBackToGame(val appPackageName: String) : OnboardingGPInstallSideEffect()
+  object NavigateToTermsConditions : OnboardingGPInstallSideEffect()
 }
 
-object OnboardingIapState : ViewState
+object OnboardingGPInstallState : ViewState
 
 @HiltViewModel
-class OnboardingIapViewModel @Inject constructor(
+class OnboardingGPInstallViewModel @Inject constructor(
   private val setOnboardingCompletedUseCase: SetOnboardingCompletedUseCase,
   private val appStartUseCase: AppStartUseCase
-) : BaseViewModel<OnboardingIapState, OnboardingIapSideEffect>(initialState()) {
+) : BaseViewModel<OnboardingGPInstallState, OnboardingGPInstallSideEffect>(initialState()) {
 
   companion object {
-    fun initialState(): OnboardingIapState {
-      return OnboardingIapState
+    fun initialState(): OnboardingGPInstallState {
+      return OnboardingGPInstallState
     }
   }
 
@@ -36,7 +36,7 @@ class OnboardingIapViewModel @Inject constructor(
     viewModelScope.launch {
       val mode = appStartUseCase.startModes.first()
       sendSideEffect {
-        OnboardingIapSideEffect.LoadPackageNameIcon((mode as StartMode.FirstUtm).packageName)
+        OnboardingGPInstallSideEffect.LoadPackageNameIcon((mode as StartMode.PendingPurchaseFlow).packageName)
       }
     }
   }
@@ -45,13 +45,13 @@ class OnboardingIapViewModel @Inject constructor(
     viewModelScope.launch {
       val mode = appStartUseCase.startModes.first()
       sendSideEffect {
-        OnboardingIapSideEffect.NavigateBackToGame((mode as StartMode.FirstUtm).packageName)
+        OnboardingGPInstallSideEffect.NavigateBackToGame((mode as StartMode.PendingPurchaseFlow).packageName)
       }
     }
   }
 
   fun handleExploreWalletClick() {
     setOnboardingCompletedUseCase()
-    sendSideEffect { OnboardingIapSideEffect.NavigateToTermsConditions }
+    sendSideEffect { OnboardingGPInstallSideEffect.NavigateToTermsConditions }
   }
 }

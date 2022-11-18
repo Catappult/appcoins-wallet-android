@@ -60,11 +60,7 @@ class NavBarFragmentNavigator @Inject constructor(
       .commit()
   }
 
-  fun showOnboardingIapScreen(navController: NavController) {
-    navigate(navController, NavBarGraphDirections.actionNavigateToOnboardingIapFragment())
-  }
-
-  fun showOnboardingTopAppScreen(navController: NavController) {
-    navigate(navController, NavBarGraphDirections.actionNavigateToOnboardingTopAppFragment())
+  fun showOnboardingGPInstallScreen(navController: NavController) {
+    navigate(navController, NavBarGraphDirections.actionNavigateToGpInstallFragment())
   }
 }

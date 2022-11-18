@@ -16,7 +16,6 @@ import javax.inject.Inject
 
 @BoundTo(supertype = AppStartRepository::class)
 class AppStartRepositoryImpl @Inject constructor(
-  @ApplicationContext private val context: Context,
   private val packageManager: PackageManager,
   private val pref: SharedPreferences
 ) : AppStartRepository {
@@ -34,11 +33,11 @@ class AppStartRepositoryImpl @Inject constructor(
     packageManager.getPackageInfo(BuildConfig.APPLICATION_ID, 0).lastUpdateTime
 }
 
-@BoundTo(supertype = FirstUtmRepository::class)
-class FirstUtmRepositoryImpl @Inject constructor(
+@BoundTo(supertype = GooglePlayInstallRepository::class)
+class GooglePlayInstallRepositoryImpl @Inject constructor(
   @ApplicationContext private val context: Context,
   private val logger: Logger
-) : FirstUtmRepository {
+) : GooglePlayInstallRepository {
 
   private val referrerClient: InstallReferrerClient by lazy {
     InstallReferrerClient.newBuilder(
@@ -67,15 +66,6 @@ class FirstUtmRepositoryImpl @Inject constructor(
   }
 
   companion object {
-    private const val TAG = "FirstUtmRepository"
+    private const val TAG = "GooglePlayInstallRepository"
   }
-}
-
-@BoundTo(supertype = FirstTopAppRepository::class)
-class FirstTopAppRepositoryImpl @Inject constructor(
-  @ApplicationContext val context: Context,
-) : FirstTopAppRepository {
-
-  override suspend fun getInstalledPackages() =
-    context.packageManager.getInstalledPackages(0).map { it.packageName }
 }

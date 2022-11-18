@@ -80,8 +80,7 @@ class NavBarFragment : BasePageViewFragment(),
   override fun onSideEffect(sideEffect: NavBarSideEffect) {
     when (sideEffect) {
       NavBarSideEffect.ShowPromotionsTooltip -> showPromotionsOverlay()
-      NavBarSideEffect.ShowOnboardingIap -> showOnboardingIap()
-      NavBarSideEffect.ShowOnboardingTopApp -> showOnboardingTopApp()
+      NavBarSideEffect.ShowOnboardingGPInstall -> showOnboardingIap()
     }
   }
 
@@ -107,12 +106,7 @@ class NavBarFragment : BasePageViewFragment(),
 
   private fun showOnboardingIap() {
     views.fullHostContainer.visibility = View.VISIBLE
-    navigator.showOnboardingIapScreen(fullHostFragment.navController)
-  }
-
-  private fun showOnboardingTopApp() {
-    views.fullHostContainer.visibility = View.VISIBLE
-    navigator.showOnboardingTopAppScreen(fullHostFragment.navController)
+    navigator.showOnboardingGPInstallScreen(fullHostFragment.navController)
   }
 
   @SuppressLint("SetTextI18n", "ResourceType")

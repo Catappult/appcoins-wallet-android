@@ -14,18 +14,18 @@ import org.junit.jupiter.api.Test
  */
 
 @ExperimentalCoroutinesApi
-internal class FirstUtmUseCaseTest {
+internal class GPInstallUseCaseTest {
 
   @Test
   fun `No UTM returns null`() = coScenario {
-    val repository: FirstUtmRepository
-    val useCase: FirstUtmUseCase
+    val repository: GooglePlayInstallRepository
+    val useCase: GPInstallUseCase
 
     m Given "Repository returns null UTM"
-    repository = object : FirstUtmRepository {
+    repository = object : GooglePlayInstallRepository {
       override suspend fun getReferrerUrl(): String? = null
     }
-    useCase = FirstUtmUseCaseImpl(repository)
+    useCase = GPInstallUseCaseImpl(repository)
 
     m When "Use case called for result"
     val result = useCase()
@@ -36,17 +36,17 @@ internal class FirstUtmUseCaseTest {
 
   @Test
   fun `OSP UTM after 5 seconds returns null`() = coScenario {
-    val repository: FirstUtmRepository
-    val useCase: FirstUtmUseCase
+    val repository: GooglePlayInstallRepository
+    val useCase: GPInstallUseCase
 
     m Given "Repository returns OSP UTM after 5 seconds"
-    repository = object : FirstUtmRepository {
+    repository = object : GooglePlayInstallRepository {
       override suspend fun getReferrerUrl(): String {
         delay(5000)
         return UTM_OSP
       }
     }
-    useCase = FirstUtmUseCaseImpl(repository)
+    useCase = GPInstallUseCaseImpl(repository)
 
     m When "Use case called for result"
     val result = useCase()
@@ -57,21 +57,21 @@ internal class FirstUtmUseCaseTest {
 
   @Test
   fun `OSP UTM returns FirstUtm`() = coScenario {
-    val repository: FirstUtmRepository
-    val useCase: FirstUtmUseCase
+    val repository: GooglePlayInstallRepository
+    val useCase: GPInstallUseCase
 
     m Given "Repository returns OSP UTM"
-    repository = object : FirstUtmRepository {
+    repository = object : GooglePlayInstallRepository {
       override suspend fun getReferrerUrl(): String = UTM_OSP
     }
-    useCase = FirstUtmUseCaseImpl(repository)
+    useCase = GPInstallUseCaseImpl(repository)
 
     m When "Use case called for result"
     val result = useCase()
 
     m Then "result is data"
     assertEquals(
-      StartMode.FirstUtm(
+      StartMode.GPInstall(
         sku = "13204",
         source = "aptoide",
         packageName = "com.igg.android.lordsmobile",
@@ -83,21 +83,21 @@ internal class FirstUtmUseCaseTest {
 
   @Test
   fun `SDK UTM returns FirstUtm`() = coScenario {
-    val repository: FirstUtmRepository
-    val useCase: FirstUtmUseCase
+    val repository: GooglePlayInstallRepository
+    val useCase: GPInstallUseCase
 
     m Given "Repository returns SDK UTM"
-    repository = object : FirstUtmRepository {
+    repository = object : GooglePlayInstallRepository {
       override suspend fun getReferrerUrl(): String = UTM_SDK
     }
-    useCase = FirstUtmUseCaseImpl(repository)
+    useCase = GPInstallUseCaseImpl(repository)
 
     m When "Use case called for result"
     val result = useCase()
 
     m Then "result is data"
     assertEquals(
-      StartMode.FirstUtm(
+      StartMode.GPInstall(
         sku = "13204",
         source = "aptoide",
         packageName = "com.igg.android.lordsmobile",
@@ -110,14 +110,14 @@ internal class FirstUtmUseCaseTest {
 
   @Test
   fun `Wrong term UTM returns null`() = coScenario {
-    val repository: FirstUtmRepository
-    val useCase: FirstUtmUseCase
+    val repository: GooglePlayInstallRepository
+    val useCase: GPInstallUseCase
 
     m Given "Repository returns wrong term UTM"
-    repository = object : FirstUtmRepository {
+    repository = object : GooglePlayInstallRepository {
       override suspend fun getReferrerUrl(): String = UTM_WRONG_TERM
     }
-    useCase = FirstUtmUseCaseImpl(repository)
+    useCase = GPInstallUseCaseImpl(repository)
 
     m When "Use case called for result"
     val result = useCase()
@@ -129,14 +129,14 @@ internal class FirstUtmUseCaseTest {
 
   @Test
   fun `UTM without medium returns null`() = coScenario {
-    val repository: FirstUtmRepository
-    val useCase: FirstUtmUseCase
+    val repository: GooglePlayInstallRepository
+    val useCase: GPInstallUseCase
 
     m Given "Repository returns UTM without medium"
-    repository = object : FirstUtmRepository {
+    repository = object : GooglePlayInstallRepository {
       override suspend fun getReferrerUrl(): String = UTM_NO_MEDIUM
     }
-    useCase = FirstUtmUseCaseImpl(repository)
+    useCase = GPInstallUseCaseImpl(repository)
 
     m When "Use case called for result"
     val result = useCase()
@@ -148,14 +148,14 @@ internal class FirstUtmUseCaseTest {
 
   @Test
   fun `Invalid UTM returns null`() = coScenario {
-    val repository: FirstUtmRepository
-    val useCase: FirstUtmUseCase
+    val repository: GooglePlayInstallRepository
+    val useCase: GPInstallUseCase
 
     m Given "Repository returns invalid UTM"
-    repository = object : FirstUtmRepository {
+    repository = object : GooglePlayInstallRepository {
       override suspend fun getReferrerUrl(): String = UTM_INVALID
     }
-    useCase = FirstUtmUseCaseImpl(repository)
+    useCase = GPInstallUseCaseImpl(repository)
 
     m When "Use case called for result"
     val result = useCase()

@@ -1,4 +1,4 @@
-package com.asfoundation.wallet.onboarding.top_app
+package com.asfoundation.wallet.onboarding.gp_install
 
 import android.content.pm.PackageManager
 import android.os.Bundle
@@ -11,7 +11,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.asf.wallet.R
-import com.asf.wallet.databinding.OnboardingTopAppFragmentBinding
+import com.asf.wallet.databinding.OnboardingGpInstallFragmentBinding
 import com.asfoundation.wallet.base.SingleStateFragment
 import com.asfoundation.wallet.onboarding.bottom_sheet.TermsConditionsBottomSheetFragment
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
@@ -20,15 +20,15 @@ import javax.inject.Inject
 
 
 @AndroidEntryPoint
-class OnboardingTopAppFragment : BasePageViewFragment(),
-  SingleStateFragment<OnboardingIapState, OnboardingGameSideEffect> {
+class OnboardingGPInstallFragment : BasePageViewFragment(),
+  SingleStateFragment<OnboardingGPInstallState, OnboardingGPInstallSideEffect> {
 
-  private val views by viewBinding(OnboardingTopAppFragmentBinding::bind)
+  private val views by viewBinding(OnboardingGpInstallFragmentBinding::bind)
 
-  private val viewModel: OnboardingIapViewModel by viewModels()
+  private val viewModel: OnboardingGPInstallViewModel by viewModels()
 
   @Inject
-  lateinit var navigator: OnboardingTopAppNavigator
+  lateinit var navigator: OnboardingGPInstallNavigator
 
   private val onBackPressedCallback = object : OnBackPressedCallback(true) {
     override fun handleOnBackPressed() {
@@ -45,7 +45,7 @@ class OnboardingTopAppFragment : BasePageViewFragment(),
     inflater: LayoutInflater, container: ViewGroup?,
     savedInstanceState: Bundle?
   ): View? {
-    return inflater.inflate(R.layout.onboarding_top_app_fragment, container, false)
+    return inflater.inflate(R.layout.onboarding_gp_install_fragment, container, false)
   }
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -73,13 +73,13 @@ class OnboardingTopAppFragment : BasePageViewFragment(),
     }
   }
 
-  override fun onStateChanged(state: OnboardingIapState) = Unit
+  override fun onStateChanged(state: OnboardingGPInstallState) = Unit
 
-  override fun onSideEffect(sideEffect: OnboardingGameSideEffect) {
+  override fun onSideEffect(sideEffect: OnboardingGPInstallSideEffect) {
     when (sideEffect) {
-      is OnboardingGameSideEffect.NavigateBackToGame -> navigator.navigateBackToGame(sideEffect.appPackageName)
-      OnboardingGameSideEffect.NavigateToTermsConditions -> navigator.navigateToTermsConditionsBottomSheet()
-      is OnboardingGameSideEffect.LoadPackageNameIcon -> loadPackageNameIcon(sideEffect.appPackageName)
+      is OnboardingGPInstallSideEffect.NavigateBackToGame -> navigator.navigateBackToGame(sideEffect.appPackageName)
+      OnboardingGPInstallSideEffect.NavigateToTermsConditions -> navigator.navigateToTermsConditionsBottomSheet()
+      is OnboardingGPInstallSideEffect.LoadPackageNameIcon -> loadPackageNameIcon(sideEffect.appPackageName)
     }
   }
 
