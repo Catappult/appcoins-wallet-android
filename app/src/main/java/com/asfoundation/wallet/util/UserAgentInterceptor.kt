@@ -11,9 +11,11 @@ import okhttp3.*
 import java.io.IOException
 import java.util.*
 
-class UserAgentInterceptor(private val context: Context,
-                           private val preferencesRepositoryType: PreferencesRepositoryType) :
-    Interceptor {
+class UserAgentInterceptor(
+  private val context: Context,
+  private val preferencesRepositoryType: PreferencesRepositoryType
+) :
+  Interceptor {
 
   private val userAgent: String
     get() {
@@ -58,11 +60,12 @@ class UserAgentInterceptor(private val context: Context,
       .build()
     val response = chain.proceed(requestWithUserAgent)
 
-    // Throw specific Exceptions on HTTP 204 and HTTP 205 response codes, since Retrofit can't handle them
-    // see retrofit issue: https://github.com/square/retrofit/issues/2867
-    if (response.code == 204) throw NoContentException("HTTP 204. There is no content")
-    if (response.code == 205) throw ResetContentException("HTTP 205. The content was reset")
-
+    /*
+      // Throw specific Exceptions on HTTP 204 and HTTP 205 response codes, since Retrofit can't handle them
+      // see retrofit issue: https://github.com/square/retrofit/issues/2867
+      if (response.code == 204) throw NoContentException("HTTP 204. There is no content")
+      if (response.code == 205) throw ResetContentException("HTTP 205. The content was reset")
+    */
     return response
   }
 
