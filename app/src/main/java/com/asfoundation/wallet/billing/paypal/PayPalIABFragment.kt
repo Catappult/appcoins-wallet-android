@@ -329,8 +329,18 @@ class PayPalIABFragment(
 //    .observeOn(viewScheduler)
       .subscribe(
         {
-          Log.d(this.tag, "Settled transaction polling completed")
-          handleSuccess(hash, uid)
+          when(it.status) {
+            PaymentModel.Status.COMPLETED -> {
+              Log.d(this.tag, "Settled transaction polling completed")
+              handleSuccess(hash, uid)
+            }
+            PaymentModel.Status.FAILED, PaymentModel.Status.FRAUD, PaymentModel.Status.CANCELED,
+            PaymentModel.Status.INVALID_TRANSACTION -> {
+              Log.d(this.tag, "Error on transaction on Settled transaction polling")
+            }
+            else -> {}
+          }
+
         },
         {
           Log.d(this.tag, "Error on Settled transaction polling")

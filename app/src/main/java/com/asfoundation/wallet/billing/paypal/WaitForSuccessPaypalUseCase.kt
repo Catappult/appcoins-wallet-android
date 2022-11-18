@@ -14,16 +14,20 @@ class WaitForSuccessPaypalUseCase @Inject constructor(
   private val rxSchedulers: RxSchedulers,
 
 ) {
-
-  operator fun invoke(uid: String): Observable<PaymentModel/*PaypalTransaction.PaypalValidityState*/> {
+  operator fun invoke(uid: String): Observable<PaymentModel> {
+    var lastPaymentCheck: PaymentModel? = null
     return walletService.getAndSignCurrentWalletAddress()
       .flatMapObservable { walletAddressModel ->
-        Observable.interval(0, 10, TimeUnit.SECONDS, rxSchedulers.io)  //TODO stop subscription
+        Observable.interval(0, 5, TimeUnit.SECONDS, rxSchedulers.io)
           .timeInterval()
           .switchMap {
-            payPalV2Repository.getTransaction(uid, walletAddressModel.address,
-              walletAddressModel.signedAddress)
-              .toObservable()
+            if(!isEndingState(lastPaymentCheck?.status))
+              payPalV2Repository.getTransaction(uid, walletAddressModel.address,
+                walletAddressModel.signedAddress)
+                .doOnSuccess { lastPaymentCheck = it }
+                .toObservable()
+            else
+              Observable.just(lastPaymentCheck)
           }
           .filter {
             isEndingState(it.status)
@@ -34,7 +38,7 @@ class WaitForSuccessPaypalUseCase @Inject constructor(
       }
   }
 
-  private fun isEndingState(status: PaymentModel.Status): Boolean {
+  private fun isEndingState(status: PaymentModel.Status?): Boolean {
     return (status == PaymentModel.Status.COMPLETED
         || status == PaymentModel.Status.FAILED
         || status == PaymentModel.Status.CANCELED
@@ -42,11 +46,11 @@ class WaitForSuccessPaypalUseCase @Inject constructor(
         || status == PaymentModel.Status.FRAUD)
   }
 
-  private fun isCompleted(status: PaymentModel.Status): Boolean {
+  private fun isCompleted(status: PaymentModel.Status?): Boolean {
     return status == PaymentModel.Status.COMPLETED
   }
 
-  private fun isFail(status: PaymentModel.Status): Boolean {
+  private fun isFail(status: PaymentModel.Status?): Boolean {
     return (status == PaymentModel.Status.FAILED
         || status == PaymentModel.Status.CANCELED
         || status == PaymentModel.Status.INVALID_TRANSACTION

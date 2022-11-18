@@ -454,41 +454,44 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
   override fun showCarrierBilling(fiatValue: FiatValue, isPreselected: Boolean) =
     iabView.showCarrierBilling(fiatValue.currency, fiatValue.amount, bonusValue, isPreselected)
 
-  val payPalV2 = true // TODO
-
   override fun showPaypal(
     gamificationLevel: Int,
     fiatValue: FiatValue,
     frequency: String?,
     isSubscription: Boolean
   ) {
-    if(payPalV2) {
-      iabView.showPayPalV2(
-        fiatValue.amount,
-        fiatValue.currency,
-        isBds,
-        PaymentType.PAYPAL,
-        bonusMessageValue,
-        false,
-        null,
-        gamificationLevel,
-        isSubscription,
-        frequency
-      )
-    } else {
-      iabView.showAdyenPayment(
-        fiatValue.amount,
-        fiatValue.currency,
-        isBds,
-        PaymentType.PAYPAL,
-        bonusMessageValue,
-        false,
-        null,
-        gamificationLevel,
-        isSubscription,
-        frequency
-      )
-    }
+    iabView.showAdyenPayment(
+      fiatValue.amount,
+      fiatValue.currency,
+      isBds,
+      PaymentType.PAYPAL,
+      bonusMessageValue,
+      false,
+      null,
+      gamificationLevel,
+      isSubscription,
+      frequency
+    )
+  }
+
+  override fun showPaypalV2(
+    gamificationLevel: Int,
+    fiatValue: FiatValue,
+    frequency: String?,
+    isSubscription: Boolean
+  ) {
+    iabView.showPayPalV2(
+      fiatValue.amount,
+      fiatValue.currency,
+      isBds,
+      PaymentType.PAYPAL,
+      bonusMessageValue,
+      false,
+      null,
+      gamificationLevel,
+      isSubscription,
+      frequency
+    )
   }
 
 
@@ -631,7 +634,8 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
   override fun showBuy() = setBuyButtonText()
 
   private fun setBuyButtonText() {
-    val buyButtonText = if (isDonation) getString(R.string.action_donate) else getString(R.string.action_buy)
+    val buyButtonText =
+      if (isDonation) getString(R.string.action_donate) else getString(R.string.action_buy)
     buy_button.setText(buyButtonText)
   }
 

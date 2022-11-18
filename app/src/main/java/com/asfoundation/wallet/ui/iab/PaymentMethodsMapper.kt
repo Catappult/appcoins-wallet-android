@@ -13,6 +13,7 @@ class PaymentMethodsMapper @Inject constructor(
     return when (paymentId) {
       "ask_friend" -> SelectedPaymentMethod.SHARE_LINK
       "paypal" -> SelectedPaymentMethod.PAYPAL
+      "paypal_v2" -> SelectedPaymentMethod.PAYPAL_V2
       "credit_card" -> SelectedPaymentMethod.CREDIT_CARD
       "appcoins" -> SelectedPaymentMethod.APPC
       "appcoins_credits" -> SelectedPaymentMethod.APPC_CREDITS
@@ -28,6 +29,7 @@ class PaymentMethodsMapper @Inject constructor(
     return when (selectedPaymentMethod) {
       SelectedPaymentMethod.SHARE_LINK -> "ask_friend"
       SelectedPaymentMethod.PAYPAL -> "paypal"
+      SelectedPaymentMethod.PAYPAL_V2 -> "paypal_v2"
       SelectedPaymentMethod.CREDIT_CARD -> "credit_card"
       SelectedPaymentMethod.APPC -> "appcoins"
       SelectedPaymentMethod.APPC_CREDITS -> "appcoins_credits"
