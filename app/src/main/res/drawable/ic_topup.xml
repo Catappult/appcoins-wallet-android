@@ -4,15 +4,15 @@
     android:viewportWidth="21"
     android:viewportHeight="21">
   <path
-      android:fillColor="@color/white"
+      android:fillColor="@color/styleguide_white"
       android:pathData="M10.5,10.5m-10.5,0a10.5,10.5 0,1 1,21 0a10.5,10.5 0,1 1,-21 0" />
   <path
-      android:fillColor="@color/bottom_nav_top_up_blue"
+      android:fillColor="@color/styleguide_blue"
       android:pathData="M10.5,4L10.5,4A1,1 0,0 1,11.5 5L11.5,16A1,1 0,0 1,10.5 17L10.5,17A1,1 0,0 1,9.5 16L9.5,5A1,1 0,0 1,10.5 4z"
       android:strokeWidth="2"
       android:strokeColor="#00000000" />
   <path
-      android:fillColor="@color/bottom_nav_top_up_blue"
+      android:fillColor="@color/styleguide_blue"
       android:pathData="M17,10.5L17,10.5A1,1 0,0 1,16 11.5L5,11.5A1,1 0,0 1,4 10.5L4,10.5A1,1 0,0 1,5 9.5L16,9.5A1,1 0,0 1,17 10.5z"
       android:strokeWidth="2"
       android:strokeColor="#00000000" />

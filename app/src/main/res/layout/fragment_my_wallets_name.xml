@@ -36,7 +36,7 @@
       android:maxHeight="170dp"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toBottomOf="@id/title"
-      app:textFieldColor="@color/white"
+      app:textFieldColor="@color/styleguide_white"
       app:textFieldHint="@string/mywallet_choose_name_field"
       app:textFieldType="outlined"
       />

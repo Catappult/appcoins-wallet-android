@@ -10,7 +10,7 @@
       android:id="@+id/toolbar"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:background="@color/blue_dark"
+      android:background="@color/styleguide_blue"
       android:minHeight="?attr/actionBarSize"
       app:popupTheme="@style/AppTheme.PopupOverlay"
       />

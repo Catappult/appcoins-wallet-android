@@ -226,7 +226,7 @@ class MyWalletsFragment : BasePageViewFragment(),
 
   private fun WalletInfo.showBackup() {
     val imageRes = if (hasBackup) R.drawable.ic_check_circle else R.drawable.ic_alert_circle
-    val colorRes = if (hasBackup) R.color.white else R.color.wild_watermelon
+    val colorRes = if (hasBackup) R.color.styleguide_white else R.color.styleguide_pink
     val titleRes = if (hasBackup) {
       R.string.backup_confirmation_no_share_title
     } else {
@@ -285,7 +285,7 @@ class MyWalletsFragment : BasePageViewFragment(),
     views.myWalletsContent.verifyButton.setColor(
       ContextCompat.getColor(
         requireContext(),
-        R.color.white
+        R.color.styleguide_white
       )
     )
     views.myWalletsContent.verifyButton.setOnClickListener {
@@ -307,7 +307,7 @@ class MyWalletsFragment : BasePageViewFragment(),
     views.myWalletsContent.verifyButton.setColor(
       ContextCompat.getColor(
         requireContext(),
-        R.color.wild_watermelon
+        R.color.styleguide_pink
       )
     )
     views.myWalletsContent.verifyButton.setOnClickListener {
@@ -329,7 +329,7 @@ class MyWalletsFragment : BasePageViewFragment(),
     views.myWalletsContent.verifyButton.setColor(
       ContextCompat.getColor(
         requireContext(),
-        R.color.wild_watermelon
+        R.color.styleguide_pink
       )
     )
     views.myWalletsContent.verifyButton.setOnClickListener {

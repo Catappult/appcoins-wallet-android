@@ -28,9 +28,9 @@
       app:cardElevation="0dp"
       app:layout_constraintEnd_toStartOf="@+id/onboarding_get_started_button"
       app:layout_constraintTop_toTopOf="@+id/onboarding_get_started_button"
-      app:rippleColor="@color/white"
+      app:rippleColor="@color/styleguide_white"
       app:shapeAppearance="@style/Home.PillShape"
-      app:strokeColor="@color/white"
+      app:strokeColor="@color/styleguide_white"
       app:strokeWidth="1dp"
       >
 

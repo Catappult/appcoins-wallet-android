@@ -23,7 +23,7 @@
       android:layout_height="@dimen/onboarding_button_height"
       android:layout_marginBottom="30dp"
       android:layout_marginTop="@dimen/onboarding_button_existent_margin_top"
-      app:buttonColor="@color/white"
+      app:buttonColor="@color/styleguide_white"
       app:buttonText="@string/existent_wallet"
       app:buttonType="outlined"
       app:layout_constraintBottom_toBottomOf="parent"

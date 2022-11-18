@@ -15,7 +15,7 @@ enum class ExternalAppEnum(val appName: String, val uriScheme: String, val appIc
     "PhonePe",
     "phonepe://",
     R.drawable.ic_phonepe,
-    R.color.blue_dark,
+    R.color.styleguide_blue,
     "market://details?id=com.phonepe.app",
     "https://play.google.com/store/apps/details?id=com.phonepe.app"
   ),
@@ -23,7 +23,7 @@ enum class ExternalAppEnum(val appName: String, val uriScheme: String, val appIc
     "PayTM UPI",
     "paytmmp://",
     R.drawable.ic_paytm,
-    R.color.blue_dark,
+    R.color.styleguide_blue,
     "market://details?id=net.one97.paytm",
     "https://play.google.com/store/apps/details?id=net.one97.paytm"
   ),
@@ -31,7 +31,7 @@ enum class ExternalAppEnum(val appName: String, val uriScheme: String, val appIc
     "BHIM",
     "bhim://",
     R.drawable.ic_bhim,
-    R.color.blue_dark,
+    R.color.styleguide_blue,
     "market://details?id=in.org.npci.upiapp",
     "https://play.google.com/store/apps/details?id=in.org.npci.upiapp"
   ),

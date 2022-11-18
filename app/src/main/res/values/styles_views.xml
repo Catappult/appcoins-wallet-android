@@ -47,7 +47,7 @@
   <style name="ToolbarTextSwitcher.Title">
     <item name="android:fontFamily">sans-serif-medium</item>
     <item name="android:textSize">20sp</item>
-    <item name="android:textColor">@color/white</item>
+    <item name="android:textColor">@color/styleguide_white</item>
   </style>
 
 </resources>

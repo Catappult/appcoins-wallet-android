@@ -70,7 +70,7 @@
       android:id="@+id/redeem_gift_bottom_sheet_system_view"
       android:layout_width="match_parent"
       android:layout_height="match_parent"
-      android:background="@color/white"
+      android:background="@color/styleguide_white"
       android:visibility="gone"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"

@@ -8,8 +8,8 @@
     android:layout_height="wrap_content"
     android:theme="@style/MaterialAppTheme"
     app:cardCornerRadius="0dp"
-    app:cardBackgroundColor="@color/white"
-    app:rippleColor="@color/grey_9d"
+    app:cardBackgroundColor="@color/styleguide_white"
+    app:rippleColor="@color/styleguide_medium_grey"
     >
   <androidx.constraintlayout.widget.ConstraintLayout
       android:id="@+id/fiat_currency_item"

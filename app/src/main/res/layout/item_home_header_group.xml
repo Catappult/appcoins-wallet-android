@@ -9,7 +9,7 @@
       android:id="@+id/shapeableImageView"
       android:layout_width="0dp"
       android:layout_height="0dp"
-      android:src="@drawable/appbar_background_large_new"
+      android:background="@color/styleguide_blue"
       app:layout_constraintBottom_toBottomOf="@id/home_corner_separator"
       app:layout_constraintEnd_toEndOf="@id/epoxy_model_group_child_container"
       app:layout_constraintStart_toStartOf="@id/epoxy_model_group_child_container"

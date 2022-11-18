@@ -78,9 +78,9 @@
       android:layout_height="wrap_content"
       android:layout_width="0dp"
       android:background="@color/transparent"
-      app:cardBackgroundColor="@color/promotions_vip_grey"
+      app:cardBackgroundColor="@color/styleguide_light_grey"
       app:cardElevation="0dp"
-      app:rippleColor="@color/white"
+      app:rippleColor="@color/styleguide_white"
       app:shapeAppearance="@style/Home.PillShape"
       android:layout_marginStart="@dimen/standard_double_margin"
       android:layout_marginEnd="@dimen/standard_double_margin"
@@ -139,7 +139,7 @@
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
       android:paddingVertical="8dp"
-      android:background="@color/promotions_vip_grey"
+      android:background="@color/styleguide_light_grey"
     >
 
     <ImageView

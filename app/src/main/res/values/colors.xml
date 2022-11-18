@@ -1,16 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <!-- Main style guide colors -->
+  <color name="styleguide_pink">#FF6381</color>
+  <color name="styleguide_blue">#111B39</color>
+  <color name="styleguide_medium_grey">#C9C9C9</color>
+  <color name="styleguide_light_grey">#F5F5F5</color>
+  <color name="styleguide_white">#FFFFFFFF</color>
+
+  <!-- Non style guide variants -->
+  <color name="styleguide_dark_grey">#757575</color>
+  <color name="styleguide_blue_transparent_90">#E6111B39</color>
+  <color name="styleguide_pink_transparent_7">#12FF6381</color>
+
   <color name="green">#4caf50</color>
   <color name="red">#d32f2f</color>
   <color name="orange">#ef6c00</color>
-  <color name="white">#FFFFFFFF</color>
   <color name="whiteNoAlpha">#FFFFFF</color>
   <color name="black">#000000</color>
   <color name="blueish_black">#000508</color>
   <color name="fakeBlack">#313849</color>
   <color name="appc_pink">#fe7073</color>
-  <color name="wild_watermelon">#FF6381</color>
-  <color name="wild_watermelon_transparent_7">#12FF6381</color>
   <color name="navy_blue">#001726</color>
   <color name="darker_navy_blue">#001625</color>
 
@@ -26,7 +35,6 @@
   <color name="bottom_dialog_title">#89000000</color>
   <color name="bottom_dialog_item">#dd000000</color>
 
-  <color name="bottom_nav_top_up_blue">#111B39</color>
   <color name="bottom_nav_selected_purple">#200E32</color>
   <color name="bottom_nav_unselected_grey">#A0A4B0</color>
 
@@ -38,18 +46,6 @@
   <color name="black_87_alpha">#de000000</color>
   <color name="black_50_alpha">#80000000</color>
   <color name="grey">#757575</color>
-  <color name="grey_86">#868686</color>
-  <color name="grey_8B">#8B959B</color>
-  <color name="grey_f4">#91f4f4f4</color>
-  <color name="grey_5a">#5a5a5a</color>
-  <color name="grey_58">#585858</color>
-  <color name="grey_e5">#e5e5e5</color>
-  <color name="grey_65">#656565</color>
-  <color name="grey_7f">#7F7F7F</color>
-  <color name="grey_9d">#9DA3A8</color>
-  <color name="grey_c9">#C9C9C9</color>
-  <color name="grey_f2">#F2F2F2</color>
-  <color name="white_99">#99FFFFFF</color>
 
   <color name="appbar_start_gradient_color">#000000</color>
   <color name="appbar_end_gradient_color">#012945</color>
@@ -77,7 +73,6 @@
   <color name="details_address_text_color">#000000</color>
   <color name="btn_disable_color">#00000000</color>
   <color name="btn_text_disable_color">#42000000</color>
-  <color name="btn_disable_snd_color">#c9c9c9</color>
   <color name="btn_text_enable_color">#ffffff</color>
   <color name="btn_cancel_text">#8f000000</color>
   <color name="btn_enabled_dark">#001320</color>
@@ -166,10 +161,8 @@
   <color name="promotions_future_text_color">#4A4A4A</color>
   <color name="vouchers_card_bottom_color">#002b4b</color>
   <color name="promotions_dark_text">#192025</color>
-  <color name="promotions_vip_top_blue">#111B39</color>
   <color name="promotions_vip_title">#00111D</color>
   <color name="promotions_vip_desc">#4A4A4A</color>
-  <color name="promotions_vip_grey">#F5F5F5</color>
   <color name="promotions_vip_orange">#EFA01F</color>
   <color name="promotions_vip_transparent">#88000000</color>
 
