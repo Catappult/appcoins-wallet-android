@@ -65,10 +65,10 @@
   <!--Onboarding -->
 
   <dimen name="onboarding_icon_size">108dp</dimen>
-  <dimen name="onboarding_icon_size_land">80dp</dimen>
+  <dimen name="onboarding_icon_size_land">70dp</dimen>
   <dimen name="onboarding_button_widht">278dp</dimen>
   <dimen name="onboarding_button_height">48dp</dimen>
-  <dimen name="onboarding_container_margin_top">90dp</dimen>
+  <dimen name="onboarding_container_margin_top">50dp</dimen>
   <dimen name="onboarding_title_margin_top">35dp</dimen>
   <dimen name="onboarding_subtitle_margin_top">15dp</dimen>
   <dimen name="onboarding_button_existent_margin_top">10dp</dimen>

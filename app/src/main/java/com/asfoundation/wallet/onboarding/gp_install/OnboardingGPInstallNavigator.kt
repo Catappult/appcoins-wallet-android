@@ -4,7 +4,6 @@ import android.content.pm.PackageManager
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.asfoundation.wallet.base.Navigator
-import com.asfoundation.wallet.base.navigate
 import javax.inject.Inject
 
 class OnboardingGPInstallNavigator @Inject constructor(
@@ -23,10 +22,7 @@ class OnboardingGPInstallNavigator @Inject constructor(
     }
   }
 
-  fun navigateToTermsConditionsBottomSheet() {
-    navigate(
-      fragment.findNavController(),
-      OnboardingGPInstallFragmentDirections.actionNavigateIapTermsConditions()
-    )
+  fun navigateToExploreWallet() {
+    fragment.findNavController().popBackStack()
   }
 }

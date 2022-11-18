@@ -6,14 +6,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
-import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.asf.wallet.R
 import com.asf.wallet.databinding.OnboardingGpInstallFragmentBinding
 import com.asfoundation.wallet.base.SingleStateFragment
-import com.asfoundation.wallet.onboarding.bottom_sheet.TermsConditionsBottomSheetFragment
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -50,9 +48,7 @@ class OnboardingGPInstallFragment : BasePageViewFragment(),
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
-    handleTermsConditionsFragmentResult()
     viewModel.handleLoadIcon()
-    handleTermsConditionsFragmentResult()
 
     views.onboardingIapBackToGameButton.setOnClickListener {
       viewModel.handleBackToGameClick()
@@ -67,18 +63,12 @@ class OnboardingGPInstallFragment : BasePageViewFragment(),
     requireActivity().onBackPressedDispatcher.addCallback(this, onBackPressedCallback)
   }
 
-  private fun handleTermsConditionsFragmentResult() {
-    setFragmentResultListener(TermsConditionsBottomSheetFragment.TERMS_CONDITIONS_COMPLETE) { _, _ ->
-      views.root.visibility = View.GONE
-    }
-  }
-
   override fun onStateChanged(state: OnboardingGPInstallState) = Unit
 
   override fun onSideEffect(sideEffect: OnboardingGPInstallSideEffect) {
     when (sideEffect) {
       is OnboardingGPInstallSideEffect.NavigateBackToGame -> navigator.navigateBackToGame(sideEffect.appPackageName)
-      OnboardingGPInstallSideEffect.NavigateToTermsConditions -> navigator.navigateToTermsConditionsBottomSheet()
+      OnboardingGPInstallSideEffect.NavigateToExploreWallet -> views.root.visibility = View.GONE
       is OnboardingGPInstallSideEffect.LoadPackageNameIcon -> loadPackageNameIcon(sideEffect.appPackageName)
     }
   }
