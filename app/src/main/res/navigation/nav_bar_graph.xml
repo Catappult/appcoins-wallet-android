@@ -28,13 +28,5 @@
       android:id="@+id/onboarding_gp_install_fragment"
       android:name="com.asfoundation.wallet.onboarding.gp_install.OnboardingGPInstallFragment"
       tools:layout="@layout/onboarding_gp_install_fragment">
-    <action
-        android:id="@+id/action_navigate_iap_terms_conditions"
-        app:destination="@id/onboarding_iap_terms_conditions_dialog" />
   </fragment>
-
-  <dialog
-      android:id="@+id/onboarding_iap_terms_conditions_dialog"
-      android:name="com.asfoundation.wallet.onboarding.bottom_sheet.TermsConditionsBottomSheetFragment"
-      tools:layout="@layout/terms_conditions_bottom_sheet" />
 </navigation>
