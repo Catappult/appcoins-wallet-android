@@ -128,12 +128,12 @@
   <string name="intro_5_body">앱과 게임을 사용하면서 무료 AppCoins 크레디트를 받습니다.</string>
   <string name="intro_creating_wallet_short">당신의 지갑 설정 중&#8230;</string>
   <string name="intro_wallet_created_short">지갑이 생성되었습니다!</string>
-  <string name="intro_agree_terms_and_conditions_body">건너뛰기를 탭하는 것으로, AppCoins 지갑의 %1$s 그리고 %2$s에 동의합니다</string>
+  <string name="intro_agree_terms_and_conditions_body">By entering the AppCoins Wallet, you agree to the %1$s and %2$s.</string>
   <string name="intro_skip_button">건너뛰기</string>
   <string name="intro_welcome_header">AppCoins 지갑에 오신 것을 환영합니다</string>
   <string name="intro_welcome_body">앱 내 구매 내역.</string>
   <string name="intro_already_have_wallet_button">지갑은 이미 있어요</string>
-  <string name="intro_get_started_button">지금 시작</string>
+  <string name="intro_get_started_button">Launch wallet</string>
   <!-- Menus -->
   <!-- Labels -->
   <string name="label_from">송신</string>
