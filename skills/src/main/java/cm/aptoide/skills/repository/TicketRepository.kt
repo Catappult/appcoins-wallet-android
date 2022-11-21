@@ -38,6 +38,10 @@ class TicketRepository @Inject constructor(
       .onErrorReturn { ticketApiMapper.map(it) }
   }
 
+  fun getVerification(ewt: String): Single<EskillsVerification>{
+    return ticketApi.getVerification(ewt)
+  }
+
   fun cancelTicket(ewt: String, ticketId: String): Single<TicketResponse> {
     return ticketApi.cancelTicket(ewt, ticketId, TicketApi.Refunded())
   }
