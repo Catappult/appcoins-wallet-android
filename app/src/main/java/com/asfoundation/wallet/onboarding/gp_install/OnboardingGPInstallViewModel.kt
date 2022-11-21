@@ -15,7 +15,7 @@ import javax.inject.Inject
 sealed class OnboardingGPInstallSideEffect : SideEffect {
   data class LoadPackageNameIcon(val appPackageName: String) : OnboardingGPInstallSideEffect()
   data class NavigateBackToGame(val appPackageName: String) : OnboardingGPInstallSideEffect()
-  object NavigateToTermsConditions : OnboardingGPInstallSideEffect()
+  object NavigateToExploreWallet : OnboardingGPInstallSideEffect()
 }
 
 object OnboardingGPInstallState : ViewState
@@ -52,6 +52,6 @@ class OnboardingGPInstallViewModel @Inject constructor(
 
   fun handleExploreWalletClick() {
     setOnboardingCompletedUseCase()
-    sendSideEffect { OnboardingGPInstallSideEffect.NavigateToTermsConditions }
+    sendSideEffect { OnboardingGPInstallSideEffect.NavigateToExploreWallet }
   }
 }
