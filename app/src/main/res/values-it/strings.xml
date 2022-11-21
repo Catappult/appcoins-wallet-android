@@ -128,12 +128,12 @@
   <string name="intro_5_body">Riceverai AppCoins Credits gratuitamente provando app e giochi.</string>
   <string name="intro_creating_wallet_short">Stiamo configurando il tuo wallet&#8230;</string>
   <string name="intro_wallet_created_short">Wallet creato!</string>
-  <string name="intro_agree_terms_and_conditions_body">Premendo \'Salta\' accetti i %1$s e l\'%2$s di AppCoins Wallet</string>
+  <string name="intro_agree_terms_and_conditions_body">By entering the AppCoins Wallet, you agree to the %1$s and %2$s.</string>
   <string name="intro_skip_button">SALTA</string>
   <string name="intro_welcome_header">Benvenuto nel tuo AppCoins Wallet</string>
   <string name="intro_welcome_body">La tua app per gli acquisti in-app.</string>
   <string name="intro_already_have_wallet_button">Ho già un wallet</string>
-  <string name="intro_get_started_button">Inizia</string>
+  <string name="intro_get_started_button">Launch wallet</string>
   <!-- Menus -->
   <!-- Labels -->
   <string name="label_from">Da</string>
