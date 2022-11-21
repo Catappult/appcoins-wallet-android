@@ -128,12 +128,12 @@
   <string name="intro_5_body">Zaradićete besplatne AppCoins Credits ako isprobate ove aplikacije i igre.</string>
   <string name="intro_creating_wallet_short">Podešavamo vam novčanik&#8230;</string>
   <string name="intro_wallet_created_short">Novčanik je napravljen!</string>
-  <string name="intro_agree_terms_and_conditions_body">Ako dodirnete Preskoči, prihvatate %1$s i %2$s aplikacije AppCoins Wallet</string>
+  <string name="intro_agree_terms_and_conditions_body">By entering the AppCoins Wallet, you agree to the %1$s and %2$s.</string>
   <string name="intro_skip_button">PRESKOČI</string>
   <string name="intro_welcome_header">Dobro došli u AppCoins Wallet</string>
   <string name="intro_welcome_body">Vaša aplikacija za kupovine u aplikacijama.</string>
   <string name="intro_already_have_wallet_button">Već imam novčanik</string>
-  <string name="intro_get_started_button">Počnite</string>
+  <string name="intro_get_started_button">Launch wallet</string>
   <!-- Menus -->
   <!-- Labels -->
   <string name="label_from">Od</string>
