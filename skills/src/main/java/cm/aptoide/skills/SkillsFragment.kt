@@ -162,7 +162,19 @@ class SkillsFragment : Fragment(), PaymentView {
   private fun setupPurchaseTicketButtons(
     eSkillsPaymentData: EskillsPaymentData
   ) {
-    if (RootUtil.isDeviceRooted()) {
+    if (viewModel.getVerification() == EskillsVerification.VERIFIED){
+      binding.payTicketLayout.dialogBuyButtonsPaymentMethods.buyButton.text =
+        getString(R.string.buy_button)
+      binding.payTicketLayout.dialogBuyButtonsPaymentMethods.buyButton.setOnClickListener {
+        val queueId = binding.payTicketLayout.payTicketRoomDetails.roomId.text.toString()
+        if (queueId.isNotBlank()) {
+          eSkillsPaymentData.queueId = QueueIdentifier(queueId.trim(), true)
+        }
+        binding.payTicketLayout.root.visibility = View.GONE
+        createAndPayTicket(eSkillsPaymentData)
+      }
+    }
+    else if (RootUtil.isDeviceRooted()) {
       showRootError()
     } else {
       binding.payTicketLayout.payTicketRoomDetails.copyButton.setOnClickListener {

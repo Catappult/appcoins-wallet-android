@@ -40,8 +40,9 @@ class SkillsViewModel @Inject constructor(
   private val isWalletVerifiedUseCase: IsWalletVerifiedUseCase,
   private val validateUrlUseCase: ValidateUrlUseCase,
   private val getTopUpListStatus: GetTopUpListUseCase,
+  private val getVerificationUseCase: GetVerificationUseCase,
   private val buildUpdateIntentUseCase: BuildUpdateIntentUseCase,
-) : ViewModel() {
+  ) : ViewModel() {
   lateinit var ticketId: String
   private val closeView: PublishSubject<Pair<Int, UserData>> = PublishSubject.create()
 
@@ -222,6 +223,10 @@ class SkillsViewModel @Inject constructor(
 
   fun getTopUpListStatus(): Status {
     return getTopUpListStatus(TransactionType.TOPUP, TopUpStatus.COMPLETED).blockingGet()
+  }
+
+  fun getVerification(): EskillsVerification{
+    return getVerificationUseCase().blockingGet()
   }
 
   fun buildUpdateIntent(): Intent {
