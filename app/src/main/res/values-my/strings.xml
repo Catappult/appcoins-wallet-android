@@ -128,12 +128,12 @@
   <string name="intro_5_body">အက္ပ္မ်ားႏွင့္ ဂိမ္းမ်ားကို စမ္းသံုးျခင္းျဖင့္ AppCoins Credits မ်ားကို သင္အခမဲ့ ရရွိပါမည္။</string>
   <string name="intro_creating_wallet_short">သင့္္အတြက္ ပိုက္ဆံအိတ္ကို ျပဳလုပ္ေနပါသည္&#8230;</string>
   <string name="intro_wallet_created_short">ပိုက္ဆံအိတ္ကို ျပဳလုပ္ၿပီးပါၿပီ။</string>
-  <string name="intro_agree_terms_and_conditions_body">ေက်ာ္မည္ကို နွိပ္ျခင္းျဖင့္ သင္သည္ AppCoins ပိုက္ဆံအိတ္၏ %1$s ႏွင့္ %2$s ကို သေဘာတူျခင္း ျဖစ္ပါသည္</string>
+  <string name="intro_agree_terms_and_conditions_body">By entering the AppCoins Wallet, you agree to the %1$s and %2$s.</string>
   <string name="intro_skip_button">ေက်ာ္မည္</string>
   <string name="intro_welcome_header">AppCoins Wallet မွ ႀကိဳဆိုပါသည္</string>
   <string name="intro_welcome_body">အက္ပ္အတြင္း ဝယ္ယူမႈမ်ားအတြက္ သင့္အက္ပ္</string>
   <string name="intro_already_have_wallet_button">ကြၽႏ္ုပ္တြင္ ပိုက္ဆံအိတ္တစ္အိတ္ ရွိၿပီးျဖစ္ပါသည္</string>
-  <string name="intro_get_started_button">စတင္မည္</string>
+  <string name="intro_get_started_button">Launch wallet</string>
   <!-- Menus -->
   <!-- Labels -->
   <string name="label_from">မွ</string>
