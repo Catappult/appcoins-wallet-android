@@ -128,12 +128,12 @@
   <string name="intro_5_body">Vous gagnerez des AppCoins Credits gratuits en essayant des applications et des jeux.</string>
   <string name="intro_creating_wallet_short">Configurer votre portefeuille pour vous&#8230;</string>
   <string name="intro_wallet_created_short">Portefeuille créé !</string>
-  <string name="intro_agree_terms_and_conditions_body">En tapant sur Passer, vous acceptez les %1$s et %2$s du portefeuille AppCoins</string>
+  <string name="intro_agree_terms_and_conditions_body">By entering the AppCoins Wallet, you agree to the %1$s and %2$s.</string>
   <string name="intro_skip_button">PASSER</string>
   <string name="intro_welcome_header">Bienvenue sur AppCoins Wallet</string>
   <string name="intro_welcome_body">Votre application pour les achats in-app.</string>
   <string name="intro_already_have_wallet_button">J\'ai déjà un portefeuille</string>
-  <string name="intro_get_started_button">Commencer</string>
+  <string name="intro_get_started_button">Launch wallet</string>
   <!-- Menus -->
   <!-- Labels -->
   <string name="label_from">De</string>
