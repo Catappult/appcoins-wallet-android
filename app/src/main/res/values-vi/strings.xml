@@ -128,12 +128,12 @@
   <string name="intro_5_body">Bạn sẽ kiếm được AppCoins Credits bằng cách trải nghiệm thử ứng dụng và trò chơi.</string>
   <string name="intro_creating_wallet_short">Cài đặt ví của bạn&#8230;</string>
   <string name="intro_wallet_created_short">Đã tạo ví!</string>
-  <string name="intro_agree_terms_and_conditions_body">Bằng cách nhấn vào Bỏ qua, bạn đã đồng ý với %1$s và %2$s của AppCoins Wallet</string>
+  <string name="intro_agree_terms_and_conditions_body">By entering the AppCoins Wallet, you agree to the %1$s and %2$s.</string>
   <string name="intro_skip_button">BỎ QUA</string>
   <string name="intro_welcome_header">Chào mừng bạn đến với Ví AppCoins</string>
   <string name="intro_welcome_body">Ứng dụng của bạn để mua hàng trong ứng dụng.</string>
   <string name="intro_already_have_wallet_button">Tôi đã có ví rồi</string>
-  <string name="intro_get_started_button">Bắt đầu nào</string>
+  <string name="intro_get_started_button">Launch wallet</string>
   <!-- Menus -->
   <!-- Labels -->
   <string name="label_from">Từ</string>
