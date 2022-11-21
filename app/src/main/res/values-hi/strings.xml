@@ -128,12 +128,12 @@
   <string name="intro_5_body">आप ऐप्स और गेम परख कर मुफ्त AppCoins Credits अर्जित करेंगे।</string>
   <string name="intro_creating_wallet_short">आपके लिए वॉलेट स्थापित कर रहा है&#8230;</string>
   <string name="intro_wallet_created_short">वॉलेट बनाया गया!</string>
-  <string name="intro_agree_terms_and_conditions_body">छोड़ें पर टैप करते हुए, आप AppCoins Wallet के %1$s और %2$s से सहमत हैं</string>
+  <string name="intro_agree_terms_and_conditions_body">By entering the AppCoins Wallet, you agree to the %1$s and %2$s.</string>
   <string name="intro_skip_button">छोड़ें</string>
   <string name="intro_welcome_header">Welcome to the AppCoins Wallet</string>
   <string name="intro_welcome_body">इन-एप्प खरीद के लिए आपकी एप्प।</string>
   <string name="intro_already_have_wallet_button">I already have a wallet</string>
-  <string name="intro_get_started_button">Get started</string>
+  <string name="intro_get_started_button">Launch wallet</string>
   <!-- Menus -->
   <!-- Labels -->
   <string name="label_from">से</string>
