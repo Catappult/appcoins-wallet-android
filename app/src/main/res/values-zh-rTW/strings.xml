@@ -128,12 +128,12 @@
   <string name="intro_5_body">嘗試應用程式和遊戲來獲得免費的AppCoins點數。</string>
   <string name="intro_creating_wallet_short">錢包設定中&#8230;</string>
   <string name="intro_wallet_created_short">成功創建錢包！</string>
-  <string name="intro_agree_terms_and_conditions_body">點選略過即代表您瞭解並同意AppCoins錢包的 %1$s 以及 %2$s。</string>
+  <string name="intro_agree_terms_and_conditions_body">By entering the AppCoins Wallet, you agree to the %1$s and %2$s.</string>
   <string name="intro_skip_button">略過</string>
   <string name="intro_welcome_header">Welcome to the AppCoins Wallet</string>
   <string name="intro_welcome_body">為您的應用程式內購而生。</string>
   <string name="intro_already_have_wallet_button">I already have a wallet</string>
-  <string name="intro_get_started_button">Get started</string>
+  <string name="intro_get_started_button">Launch wallet</string>
   <!-- Menus -->
   <!-- Labels -->
   <string name="label_from">發送方</string>
