@@ -11,7 +11,7 @@ class CreatePaypalTokenUseCase @Inject constructor(
   private val payPalV2Repository: PayPalV2Repository,
 ) {
 
-  operator fun invoke(): Single<PaypalV2CreateTokenResponse> {
+  operator fun invoke(): Single<PaypalCreateToken> {
     return walletService.getAndSignCurrentWalletAddress()
       .flatMap { addressModel ->
         val returnUrl = "${PaypalReturnSchemas.RETURN.schema}${BuildConfig.APPLICATION_ID}"

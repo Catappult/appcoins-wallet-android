@@ -11,7 +11,7 @@ class CreatePaypalAgreementUseCase @Inject constructor(
   private val payPalV2Repository: PayPalV2Repository,
 ) {
 
-  operator fun invoke(token: String): Single<PaypalV2CreateAgreementResponse> {
+  operator fun invoke(token: String): Single<PaypalCreateAgreement> {
     return walletService.getAndSignCurrentWalletAddress()
       .flatMap { addressModel ->
         payPalV2Repository.createBillingAgreement(

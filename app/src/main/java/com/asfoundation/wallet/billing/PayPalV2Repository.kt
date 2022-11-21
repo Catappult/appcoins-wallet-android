@@ -5,11 +5,9 @@ import com.appcoins.wallet.billing.adyen.AdyenResponseMapper
 import com.appcoins.wallet.billing.adyen.PaymentModel
 import com.appcoins.wallet.billing.common.response.TransactionResponse
 import com.appcoins.wallet.commons.Logger
-import com.asfoundation.wallet.billing.paypal.PaypalTransaction
-import com.asfoundation.wallet.billing.paypal.PaypalV2CreateAgreementResponse
-import com.asfoundation.wallet.billing.paypal.PaypalV2CreateTokenResponse
-import com.asfoundation.wallet.billing.paypal.PaypalV2StartResponse
+import com.asfoundation.wallet.billing.paypal.*
 import com.google.gson.annotations.SerializedName
+import io.reactivex.Completable
 import io.reactivex.Single
 import retrofit2.HttpException
 import retrofit2.http.*
@@ -73,7 +71,7 @@ class PayPalV2Repository @Inject constructor(
     walletSignature: String,
     returnUrl: String,
     cancelUrl: String
-  ): Single<PaypalV2CreateTokenResponse> {
+  ): Single<PaypalCreateToken> {
     return paypalV2Api.createToken(
       walletAddress,
       walletSignature,
@@ -85,8 +83,7 @@ class PayPalV2Repository @Inject constructor(
       )
     )
       .map { response: PaypalV2CreateTokenResponse ->
-        response //TODO map
-        //TODO error
+        PaypalCreateToken.map(response)
       }
   }
 
@@ -94,16 +91,28 @@ class PayPalV2Repository @Inject constructor(
     walletAddress: String,
     walletSignature: String,
     token: String
-  ): Single<PaypalV2CreateAgreementResponse> {
+  ): Single<PaypalCreateAgreement> {
     return paypalV2Api.createBillingAgreement(
       walletAddress,
       walletSignature,
       token = token
     )
       .map { response: PaypalV2CreateAgreementResponse ->
-        response //TODO map
-        //TODO error
+        PaypalCreateAgreement.map(response)
       }
+  }
+
+  fun cancelToken(
+    walletAddress: String,
+    walletSignature: String,
+    token: String
+  ): Completable {
+    return paypalV2Api.cancelToken(
+      walletAddress,
+      walletSignature,
+      token = token
+    )
+      .ignoreElement()
   }
 
   fun getTransaction(uid: String, walletAddress: String,
@@ -152,6 +161,13 @@ class PayPalV2Repository @Inject constructor(
       @Query("wallet.signature") walletSignature: String,
       @Body token: String
     ): Single<PaypalV2CreateAgreementResponse>
+
+    @POST("8.20200815/gateways/paypal/billing-agreement/token/cancel")
+    fun cancelToken(
+      @Query("wallet.address") walletAddress: String,
+      @Query("wallet.signature") walletSignature: String,
+      @Body token: String
+    ): Single<String?>
 
   }
 
