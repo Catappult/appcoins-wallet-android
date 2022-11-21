@@ -128,12 +128,12 @@
   <string name="intro_5_body">Вы получите бесплатные AppCoins Credits, пробуя приложения и игры.</string>
   <string name="intro_creating_wallet_short">Настраиваем ваш кошелёк&#8230;</string>
   <string name="intro_wallet_created_short">Кошелёк создан!</string>
-  <string name="intro_agree_terms_and_conditions_body">Нажимая на Пропустить, вы соглашаетесь с %1$s и %2$s AppCoins Wallet</string>
+  <string name="intro_agree_terms_and_conditions_body">By entering the AppCoins Wallet, you agree to the %1$s and %2$s.</string>
   <string name="intro_skip_button">ПРОПУСТИТЬ</string>
   <string name="intro_welcome_header">Добро пожаловать в AppCoins Wallet</string>
   <string name="intro_welcome_body">Ваше приложение для встроенных покупок.</string>
   <string name="intro_already_have_wallet_button">У меня уже есть кошелек</string>
-  <string name="intro_get_started_button">Начать</string>
+  <string name="intro_get_started_button">Launch wallet</string>
   <!-- Menus -->
   <!-- Labels -->
   <string name="label_from">От</string>
