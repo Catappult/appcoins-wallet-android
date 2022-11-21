@@ -128,12 +128,12 @@
   <string name="intro_5_body">You\'ll earn free AppCoins Credits by trying apps and games.</string>
   <string name="intro_creating_wallet_short">Setting up your wallet for you&#8230;</string>
   <string name="intro_wallet_created_short">Wallet created!</string>
-  <string name="intro_agree_terms_and_conditions_body">By tapping on Skip, you agree to AppCoins Wallet’s %1$s and %2$s</string>
+  <string name="intro_agree_terms_and_conditions_body">By entering the AppCoins Wallet, you agree to the %1$s and %2$s.</string>
   <string name="intro_skip_button">SKIP</string>
   <string name="intro_welcome_header">Welcome to the AppCoins Wallet</string>
   <string name="intro_welcome_body">Your app for in-app purchases.</string>
   <string name="intro_already_have_wallet_button">I already have a wallet</string>
-  <string name="intro_get_started_button">Get started</string>
+  <string name="intro_get_started_button">Launch wallet</string>
   <!-- Menus -->
   <!-- Labels -->
   <string name="label_from">থেকে</string>
