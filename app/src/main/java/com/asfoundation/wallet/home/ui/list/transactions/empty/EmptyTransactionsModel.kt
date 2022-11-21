@@ -20,8 +20,8 @@ abstract class EmptyTransactionsModel :
   companion object {
     const val CAROUSEL_TOP_APPS: String = "bundle"
     const val CAROUSEL_GAMIFICATION: String = "gamification"
-    const val SCROLL_DELAY: Long = 500
-    const val SCROLL_PERIOD: Long = 3000
+    const val SCROLL_DELAY: Long = 1000
+    const val SCROLL_PERIOD: Long = 4000
   }
 
   var currentPage = 0;
