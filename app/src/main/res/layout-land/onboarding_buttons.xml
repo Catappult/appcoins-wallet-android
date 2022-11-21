@@ -13,7 +13,7 @@
       android:layout_width="0dp"
       android:layout_height="@dimen/onboarding_button_height"
       android:layout_marginStart="8dp"
-      app:buttonText="@string/action_next"
+      app:buttonText="@string/intro_get_started_button"
       app:buttonType="filled"
       app:layout_constraintBottom_toBottomOf="@id/onboarding_existent_wallet_button"
       app:layout_constraintEnd_toEndOf="parent"

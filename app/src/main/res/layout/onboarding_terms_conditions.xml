@@ -29,7 +29,7 @@
       app:layout_constraintStart_toEndOf="@id/terms_conditions_checkmark"
       app:layout_constraintTop_toTopOf="parent"
       app:layout_constraintBottom_toBottomOf="parent"
-      tools:text="I agree to AppCoins Wallet’s Terms and Conditions and Privacy Policy"
+      android:text="@string/intro_agree_terms_and_conditions_body"
       style="@style/OnboardingValuesBodyTextStyle"
       />
 
