@@ -398,6 +398,11 @@ class TopUpFragmentPresenter(
         async = paymentMethod.async,
         topUpData = mapTopUpPaymentData(topUpData, gamificationLevel)
       )
+    } else if (paymentMethod.paymentType == PaymentType.PAYPALV2) {
+      activity?.navigateToPaypalV2(
+        paymentType = paymentMethod.paymentType,
+        data = mapTopUpPaymentData(topUpData, gamificationLevel)
+      )
     }
   }
 

@@ -16,7 +16,7 @@
       app:layout_constraintTop_toTopOf="parent"
       app:lottie_autoPlay="true"
       app:lottie_enableMergePathsForKitKatAndAbove="true"
-      app:lottie_rawRes="@raw/adyen_error_animation"
+      app:lottie_rawRes="@raw/topup_error_animation"
       />
 
   <TextView

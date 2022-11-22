@@ -17,12 +17,11 @@ import java.math.BigDecimal
 import javax.inject.Inject
 
 @HiltViewModel
-class PayPalIABViewModel @Inject constructor(
-  private val createPaypalTransactionUseCase: CreatePaypalTransactionUseCase,
+class PayPalTopupViewModel @Inject constructor(
+  private val createPaypalTransactionTopupUseCase: CreatePaypalTransactionTopupUseCase,
   private val createPaypalTokenUseCase: CreatePaypalTokenUseCase,
   private val createPaypalAgreementUseCase: CreatePaypalAgreementUseCase,
   private val waitForSuccessPaypalUseCase: WaitForSuccessPaypalUseCase,
-  private val createSuccessBundleUseCase: CreateSuccessBundleUseCase,
   private val cancelPaypalTokenUseCase: CancelPaypalTokenUseCase,
 ) : ViewModel() {
 
@@ -45,22 +44,12 @@ class PayPalIABViewModel @Inject constructor(
   var viewScheduler = AndroidSchedulers.mainThread()
 
   fun attemptTransaction(
-    createTokenIfNeeded: Boolean = true, amount: BigDecimal, currency: String,
-    transactionBuilder: TransactionBuilder, origin: String?
+    createTokenIfNeeded: Boolean = true, amount: String, currency: String
   ) {
     compositeDisposable.add(
-      createPaypalTransactionUseCase(
-        value = (amount.toString()),
-        currency = currency,
-        reference = transactionBuilder.orderReference,
-        origin = origin,
-        packageName = transactionBuilder.domain,
-        metadata = transactionBuilder.payload,
-        sku = transactionBuilder.skuId,
-        callbackUrl = transactionBuilder.callbackUrl,
-        transactionType = transactionBuilder.type,
-        developerWallet = transactionBuilder.toAddress(),
-        referrerUrl = transactionBuilder.referrerUrl
+      createPaypalTransactionTopupUseCase(
+        value = amount,
+        currency = currency
       )
         .subscribeOn(networkScheduler)
         .observeOn(viewScheduler)
@@ -117,8 +106,7 @@ class PayPalIABViewModel @Inject constructor(
   }
 
   fun startBillingAgreement(
-    amount: BigDecimal, currency: String,
-    transactionBuilder: TransactionBuilder, origin: String?
+    amount: String, currency: String
   ) {
     authenticatedToken?.let { authenticatedToken ->
       compositeDisposable.add(
@@ -131,9 +119,7 @@ class PayPalIABViewModel @Inject constructor(
             attemptTransaction(
               createTokenIfNeeded = false,
               amount,
-              currency,
-              transactionBuilder,
-              origin
+              currency
             )
           }
           .subscribe({}, {
@@ -180,25 +166,8 @@ class PayPalIABViewModel @Inject constructor(
     )
   }
 
-  fun successBundle(
-    hash: String?,
-    orderReference: String?,
-    purchaseUid: String?,
-    transactionBuilder: TransactionBuilder
-  ): Single<PurchaseBundleModel> {
-    return createSuccessBundleUseCase(
-      transactionBuilder.type,
-      transactionBuilder.domain,
-      transactionBuilder.skuId,
-      purchaseUid,
-      orderReference,
-      hash,
-      networkScheduler
-    )
-  }
-
   companion object {
-    private val TAG = PayPalIABViewModel::class.java.simpleName
+    private val TAG = PayPalTopupViewModel::class.java.simpleName
   }
 
 }

@@ -548,6 +548,8 @@ class TopUpFragment : BasePageViewFragment(), TopUpFragmentView {
       when {
         PaymentType.PAYPAL.subTypes.contains(data.id) ->
           PaymentTypeInfo(PaymentType.PAYPAL, data.id, data.label, data.iconUrl)
+        PaymentType.PAYPALV2.subTypes.contains(data.id) ->
+          PaymentTypeInfo(PaymentType.PAYPALV2, data.id, data.label, data.iconUrl)
         PaymentType.CARD.subTypes.contains(data.id) ->
           PaymentTypeInfo(PaymentType.CARD, data.id, data.label, data.iconUrl)
         else -> PaymentTypeInfo(PaymentType.LOCAL_PAYMENTS, data.id, data.label,
