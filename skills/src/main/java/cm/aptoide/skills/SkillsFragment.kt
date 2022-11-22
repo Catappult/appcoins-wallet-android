@@ -307,6 +307,7 @@ class SkillsFragment : Fragment(), PaymentView {
   private fun handleFailedTicketResult(ticket: FailedTicket) {
     when (ticket.status) {
       ErrorStatus.REGION_NOT_SUPPORTED -> showRegionNotSupportedError()
+      ErrorStatus.WALLET_VERSION_NOT_SUPPORTED -> showWalletVersionNotSupportedError()
       ErrorStatus.NO_NETWORK -> showNoNetworkError()
       ErrorStatus.GENERIC -> showError(SkillsViewModel.RESULT_ERROR)
     }
@@ -343,6 +344,7 @@ class SkillsFragment : Fragment(), PaymentView {
   private fun showRegionNotSupportedError() {
     binding.loadingTicketLayout.root.visibility = View.GONE
     binding.refundTicketLayout.root.visibility = View.GONE
+    binding.walletVersionNotSupportedLayout.root.visibility = View.GONE
     binding.errorLayout.root.visibility = View.GONE
     binding.geofencingLayout.root.visibility = View.VISIBLE
     binding.geofencingLayout.okButton.setOnClickListener {
@@ -450,6 +452,7 @@ class SkillsFragment : Fragment(), PaymentView {
 
   override fun showLoading() {
     binding.geofencingLayout.root.visibility = View.GONE
+    binding.walletVersionNotSupportedLayout.root.visibility = View.GONE
     binding.refundTicketLayout.root.visibility = View.GONE
     binding.errorLayout.root.visibility = View.GONE
     binding.loadingTicketLayout.loadingTitle.text = getString(R.string.processing_payment_title)
@@ -464,6 +467,7 @@ class SkillsFragment : Fragment(), PaymentView {
     binding.loadingTicketLayout.root.visibility = View.GONE
     binding.refundTicketLayout.root.visibility = View.GONE
     binding.geofencingLayout.root.visibility = View.GONE
+    binding.walletVersionNotSupportedLayout.root.visibility = View.GONE
     binding.errorLayout.root.visibility = View.VISIBLE
     binding.errorLayout.errorOkButton.setOnClickListener {
       finishWithError(errorCode)
@@ -494,12 +498,25 @@ class SkillsFragment : Fragment(), PaymentView {
     showError(SkillsViewModel.RESULT_ROOT_ERROR)
   }
 
+  override fun showWalletVersionNotSupportedError() {
+    binding.loadingTicketLayout.root.visibility = View.GONE
+    binding.refundTicketLayout.root.visibility = View.GONE
+    binding.errorLayout.root.visibility = View.GONE
+    binding.geofencingLayout.root.visibility = View.GONE
+    binding.walletVersionNotSupportedLayout.root.visibility = View.VISIBLE
+    binding.walletVersionNotSupportedLayout.updateButton.setOnClickListener {
+      startActivity(viewModel.buildUpdateIntent())
+      finishWithError(SkillsViewModel.RESULT_WALLET_VERSION_ERROR)
+    }
+  }
+
   // Only temporary
   override fun showNeedsTopUpWarning() {
     binding.errorLayout.errorMessage.text = getString(R.string.top_up_needed_body)
     binding.loadingTicketLayout.root.visibility = View.GONE
     binding.refundTicketLayout.root.visibility = View.GONE
     binding.geofencingLayout.root.visibility = View.GONE
+    binding.walletVersionNotSupportedLayout.root.visibility = View.GONE
     binding.errorLayout.root.visibility = View.VISIBLE
     binding.errorLayout.errorOkButton.setOnClickListener {
       binding.errorLayout.root.visibility = View.GONE
