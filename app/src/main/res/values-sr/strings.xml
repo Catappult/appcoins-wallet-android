@@ -67,7 +67,7 @@
   <string name="skip_with_arrow">Preskoči &gt;</string>
   <string name="root_title">BEZBEDNOST UREĐAJA JE UGROŽENA</string>
   <string name="root_body">Bilo koja „rutirana“ aplikacija može da pristupi privesku za ključeve za AppCoins Wallet i ukrade vam novčanik! Odmah obrišite ovaj novčanik i obnovite ga na bezbednom uređaju.</string>
-  <string name="credits_purchase_value">%s APPC Credits</string>
+  <string name="credits_purchase_value">%s AppCoins Credits</string>
   <string name="buying">Kupuje se %s</string>
   <string name="action_buy">Kupi</string>
   <string name="empty"></string>
@@ -114,7 +114,7 @@
   <string name="intro_title_third_page">Jednostavno i lako</string>
   <string name="intro_message_first_page">Dobro došli u revoluciju u ekonomiji aplikacija.</string>
   <string name="intro_message_second_page">Privatni ključevi nikad ne napuštaju vaš uređaj.</string>
-  <string name="intro_message_third_page">Obradite sva plaćanja u aplikacijama i nagrade u APPC.</string>
+  <string name="intro_message_third_page">Process all your in-app payments and rewards in AppCoins.</string>
   <string name="intro_1_title">AppCoins Wallet</string>
   <string name="intro_1_body">Vaša aplikacija za kupovine u aplikacijama.</string>
   <string name="intro_2_title">Igrajte više, platite manje</string>
@@ -207,7 +207,7 @@
   <string name="activity_iab_error_message">Došlo je do greške, pokušajte ponovo</string>
   <string name="action_try">isprobajte</string>
   <string name="activity_transactions_learn_more">Saznajte više</string>
-  <string name="activity_iab_no_funds_message">Nema dovoljno ETH i APPC</string>
+  <string name="activity_iab_no_funds_message">Not enough ETH and AppCoins</string>
   <string name="activity_iab_no_ethereum_funds_message">Nema dovoljno Ethereuma</string>
   <string name="activity_iab_no_token_funds_message">Nema dovoljno AppCoins</string>
   <string name="activity_iab_wrong_network_message">Pogrešna Ethereum mreža ili nepoznat token</string>
@@ -299,19 +299,19 @@
   <string name="gamification_home_body">Zaradite do %s%% bonusa u omiljenim aplikacijama i igrama!</string>
   <string name="gamification_home_button">POČNITE DA ZARAĐUJETE</string>
   <string name="gamification_level_title">Na kom sam nivou?</string>
-  <string name="gamification_level_title_new">Dobijte APPC Credits!</string>
+  <string name="gamification_level_title_new">Get AppCoins Credits!</string>
   <string name="gamification_level_on_graphic">%s. nivo</string>
   <string name="gamification_APPCapps_button">Aplikacije i igre</string>
   <string name="gamification_level_header">Čestitamo, vi ste %s!</string>
   <string name="gamification_level_to_next">Do sledećeg nivoa:</string>
   <string name="gamification_level_earned">ZARAĐENO:</string>
   <string name="gamification_level_next_lvl">DO SLEDEĆEG NIVOA:</string>
-  <string name="gamification_level_next_lvl_value">%s APPC</string>
+  <string name="gamification_level_next_lvl_value">%s AppCoins</string>
   <string name="gamification_level_bonus">%s%% BONUS</string>
   <string name="gamification_level_button_how">KAKO OVO FUNKCIONIŠE</string>
-  <string name="gamification_level_body">Zaradićete APPC Credits kada kupujete u omiljenim aplikacijama i igrama.</string>
+  <string name="gamification_level_body">You\'ll earn AppCoins Credits when buying items in your favorite apps and games.</string>
   <string name="gamification_how_header">Kako da pređem na viši nivo?</string>
-  <string name="gamification_how_body">Zaradićete APPC Credits kada kupujete u omiljenim aplikacijama i igrama.</string>
+  <string name="gamification_how_body">You\'ll earn AppCoins Credits when buying items in your favorite apps and games.</string>
   <string name="gamification_how_body_new">Što više potrošite u omiljenim aplikacijama, bonus će biti veći!</string>
   <string name="gamification_how_table_a1">POTROŠITE</string>
   <string name="gamification_how_table_b1">BONUS</string>
@@ -333,7 +333,7 @@
   <string name="gamification_transaction_title">@string/gamification_level_bonus</string>
   <string name="gamification_purchase_header">Ova kupovina ima bonus!</string>
   <string name="gamification_purchase_header_part_1">Bonus za kupovinu:</string>
-  <string name="gamification_purchase_header_part_2">%s APPC Credits</string>
+  <string name="gamification_purchase_header_part_2">%s in AppCoins Credits</string>
   <string name="gamification_purchase_body">Ovaj bonus možete da upotrebite prilikom sledeće kupovine.</string>
   <string name="gamification_purchase_completed_bonus_received_done">Gotovo!</string>
   <string name="gamification_purchase_completed_bonus_received">bounsa je dobijeno</string>
@@ -370,14 +370,14 @@
   <!-- Top Up -->
   <string name="topup_home_button">Dopunite</string>
   <string name="topup_title">Dopunite</string>
-  <string name="topup_amount">%s APPC-C</string>
+  <string name="topup_amount">%s AppCoins Credits</string>
   <string name="topup_bonus_header">Dobili ste bonus!</string>
-  <string name="topup_bonus_message">Dodatak od %s APPC-C će biti dodat u vaš novčanik.</string>
+  <string name="topup_bonus_message">%s AppCoins Credits extra will be credited in your wallet.</string>
   <string name="topup_completed_1">%s AppCoins Credits</string>
   <string name="topup_completed_2_with_bonus">je deponovano na vaš nalog... Zajedno sa bonusom!</string>
   <string name="topup_completed_2_without_bonus">dodato je na vaš nalog.</string>
   <string name="topup_bonus_header_part_1">Bonus za dopunu:</string>
-  <string name="topup_bonus_header_part_2">%s APPC Credits</string>
+  <string name="topup_bonus_header_part_2">%s in AppCoins Credits</string>
   <string name="topup_bonus_body">Ovaj bonus možete da upotrebite prilikom sledeće kupovine.</string>
   <string name="topup_minimum_value">Najmanja vrednost dopune je %s</string>
   <string name="topup_maximum_value">Najveća vrednost dopune je %s</string>
@@ -389,7 +389,7 @@
   <string name="balance_topup_body">Možete da dopunite novčanik pomoću AppCoins Credits.</string>
   <string name="balance_ethereum_body">Ethereum je kriptovaluta na kojoj su zasnovani AppCoins. Možete da je kupite i prodate na većini berzi – veoma je popularna!</string>
   <string name="balance_appcoins_body">AppCoins je kriptovaluta za ekonomiju aplikacija. Možete da je kupite i prodate na nekoliko berzi i koristite je za kupovine u aplikacijama.</string>
-  <string name="balance_appccreditos_body">Token za kupovine u aplikacijama! Dopunite APPC-C iz novčanika ili ih dobijte besplatno tako što ćete koristiti aplikacije. Možete i da ih prenesete prijateljima, kao i oni vama!</string>
+  <string name="balance_appccreditos_body">The token to buy in-app items! Top up AppCoins Credits from your wallet or get them for free by using apps. They can also be transferred between friends!</string>
   <string name="my_wallets_action_new_wallet">Novi novčanik</string>
   <string name="my_wallets_action_recover_wallet">Oporavite novčanik</string>
   <string name="my_wallets_action_backup_wallet">Napravite rezervnu kopiju novčanika</string>
@@ -548,7 +548,7 @@
   <string name="purchase_error_try_cheaper_item">Ovo je prilično skupo! Pokušajte da kupite stavku manje vrednosti.</string>
   <string name="purchase_error_try_cheaper_item_or_method">Ovo je prilično skupo! Pokušajte da kupite jeftiniju stavku ili pokušajte sa drugim načinom plaćanja.</string>
   <string name="transfer_appc_error_no_eth_title">Potreban vam je Ether!</string>
-  <string name="transfer_appc_error_no_eth_body">AppCoins naknade za transfere se plaćaju u valuti Ethereum, tako da će vam biti potreban ETH za transfer APPC.</string>
+  <string name="transfer_appc_error_no_eth_body">AppCoins transfers fees are paid in Ethereum, so you\'ll need ETH to transfer AppCoins.</string>
   <string name="purchase_error_invalid_credit_card">Nevažeći broj bankovne kartice. Proverite da li su sve cifre ispravne.</string>
   <string name="purchase_error_card_security_validation">Došlo je do greške na 2. nivou potvrde ove transakcije. Pokušajte ponovo.</string>
   <string name="purchase_error_transaction_timeout">Izgleda da vam je bilo potrebno previše vremena da dovršite transakciju. Pokušajte ponovo.</string>
