@@ -460,7 +460,7 @@
   <string name="home_empty_discover_apps_button">ОТКРИЙ ТОП ПРИЛОЖЕНИЯ</string>
   <!--Tokens-->
   <!--Settings-->
-  <string name="title_redeem">Осребри кода</string>
+  <string name="title_redeem">Redeem Gift Card</string>
   <string name="settings_item_support">Свържи се със съпорт отдела</string>
   <string name="settings_subheader_support">Поддръжка</string>
   <string name="settings_subheader_about_us">За нас</string>
