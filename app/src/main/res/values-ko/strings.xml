@@ -460,7 +460,7 @@
   <string name="home_empty_discover_apps_button">최고의 앱 찾아보기</string>
   <!--Tokens-->
   <!--Settings-->
-  <string name="title_redeem">리딤 코드</string>
+  <string name="title_redeem">Redeem Gift Card</string>
   <string name="settings_item_support">지원 팀으로 연락하기</string>
   <string name="settings_subheader_support">지원</string>
   <string name="settings_subheader_about_us">당사 소개</string>
