@@ -500,7 +500,7 @@
   <string name="ethereum_token_name" translatable="false">Ethereum</string>
 
   <!--Settings-->
-  <string name="title_redeem">Redeem Code</string>
+  <string name="title_redeem">Redeem Gift Card</string>
   <string name="settings_item_support">Contact Support Team</string>
   <string name="settings_subheader_support">Support</string>
   <string name="settings_subheader_about_us">About Us</string>
