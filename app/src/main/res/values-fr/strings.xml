@@ -460,7 +460,7 @@
   <string name="home_empty_discover_apps_button">DÉCOUVREZ LES APPLICATIONS AU TOP</string>
   <!--Tokens-->
   <!--Settings-->
-  <string name="title_redeem">Code d\'échange</string>
+  <string name="title_redeem">Redeem Gift Card</string>
   <string name="settings_item_support">Contacter le Support</string>
   <string name="settings_subheader_support">Support</string>
   <string name="settings_subheader_about_us">À propos de nous</string>
