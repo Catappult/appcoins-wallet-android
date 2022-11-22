@@ -460,7 +460,7 @@
   <string name="home_empty_discover_apps_button">OTKRIJTE NAJPOPULARNIJE APLIKACIJE</string>
   <!--Tokens-->
   <!--Settings-->
-  <string name="title_redeem">Iskoristite kod</string>
+  <string name="title_redeem">Redeem Gift Card</string>
   <string name="settings_item_support">Obratite se timu korisničke podrške</string>
   <string name="settings_subheader_support">Podrška</string>
   <string name="settings_subheader_about_us">O nama</string>
