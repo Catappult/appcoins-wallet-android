@@ -460,7 +460,7 @@
   <string name="home_empty_discover_apps_button">DESCUBRIR APPS</string>
   <!--Tokens-->
   <!--Settings-->
-  <string name="title_redeem">Canjear Tarjeta Regalo</string>
+  <string name="title_redeem">Redeem Gift Card</string>
   <string name="settings_item_support">Contacta con nosotros</string>
   <string name="settings_subheader_support">Apoyo</string>
   <string name="settings_subheader_about_us">Sobre nosotros</string>
