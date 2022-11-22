@@ -460,7 +460,7 @@
   <string name="home_empty_discover_apps_button">उच्चीची अॅप्स शोधा</string>
   <!--Tokens-->
   <!--Settings-->
-  <string name="title_redeem">रिडीम कोड</string>
+  <string name="title_redeem">Redeem Gift Card</string>
   <string name="settings_item_support">समर्थन गटाशी संपर्क साधा</string>
   <string name="settings_subheader_support">सपोर्ट</string>
   <string name="settings_subheader_about_us">आमच्याविषयी</string>
