@@ -460,7 +460,7 @@
   <string name="home_empty_discover_apps_button">FEDEZD FEL A LEGJOBB APPOKAT</string>
   <!--Tokens-->
   <!--Settings-->
-  <string name="title_redeem">Kód beváltása</string>
+  <string name="title_redeem">Redeem Gift Card</string>
   <string name="settings_item_support">Kapcsolatfelvétel az ügyfélszolgálattal</string>
   <string name="settings_subheader_support">Támogatás</string>
   <string name="settings_subheader_about_us">Rólunk</string>
