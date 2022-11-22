@@ -460,7 +460,7 @@
   <string name="home_empty_discover_apps_button">शीर्ष ऐप्स का पता लगाएँ</string>
   <!--Tokens-->
   <!--Settings-->
-  <string name="title_redeem">कोड भुनाएं</string>
+  <string name="title_redeem">Redeem Gift Card</string>
   <string name="settings_item_support">Contact Support Team</string>
   <string name="settings_subheader_support">सहायता</string>
   <string name="settings_subheader_about_us">हमारे बारे में</string>
