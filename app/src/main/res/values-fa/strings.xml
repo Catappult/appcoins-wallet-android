@@ -460,7 +460,7 @@
   <string name="home_empty_discover_apps_button">اپلیکیشن‌های برتر را کشف کنید</string>
   <!--Tokens-->
   <!--Settings-->
-  <string name="title_redeem">استفاده از کد</string>
+  <string name="title_redeem">Redeem Gift Card</string>
   <string name="settings_item_support">تماس با تیم پشتیبانی</string>
   <string name="settings_subheader_support">پشتیبانی</string>
   <string name="settings_subheader_about_us">درباره ما</string>
