@@ -460,7 +460,7 @@
   <string name="home_empty_discover_apps_button">KHÁM PHÁ CÁC ỨNG DỤNG HÀNG ĐẦU</string>
   <!--Tokens-->
   <!--Settings-->
-  <string name="title_redeem">Mã quà tặng</string>
+  <string name="title_redeem">Redeem Gift Card</string>
   <string name="settings_item_support">Liên hệ với Đội ngũ Hỗ trợ</string>
   <string name="settings_subheader_support">Hỗ trợ</string>
   <string name="settings_subheader_about_us">Giới thiệu</string>
