@@ -37,5 +37,4 @@
   <string name="update_button">Ενημέρωση</string>
   <string name="update_not_supported_title">Wallet version not supported!</string>
   <string name="update_not_supported_body">Update the AppCoins Wallet to the latest version.</string>
-  <string name="update_button">Ενημέρωση</string>
 </resources>
