@@ -460,7 +460,7 @@
   <string name="home_empty_discover_apps_button">トップアプリを発見</string>
   <!--Tokens-->
   <!--Settings-->
-  <string name="title_redeem">コードを利用</string>
+  <string name="title_redeem">Redeem Gift Card</string>
   <string name="settings_item_support">サポートチームへのお問い合わせ</string>
   <string name="settings_subheader_support">サポート</string>
   <string name="settings_subheader_about_us">About Us</string>
