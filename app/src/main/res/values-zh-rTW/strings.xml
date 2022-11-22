@@ -460,7 +460,7 @@
   <string name="home_empty_discover_apps_button">發現暢銷應用程式</string>
   <!--Tokens-->
   <!--Settings-->
-  <string name="title_redeem">兌換代碼</string>
+  <string name="title_redeem">Redeem Gift Card</string>
   <string name="settings_item_support">聯繫支援</string>
   <string name="settings_subheader_support">尋求支援</string>
   <string name="settings_subheader_about_us">關於我們</string>
