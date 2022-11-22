@@ -460,7 +460,7 @@
   <string name="home_empty_discover_apps_button">DESCOPERĂ APLICAȚII DE TOP</string>
   <!--Tokens-->
   <!--Settings-->
-  <string name="title_redeem">Revendică cod</string>
+  <string name="title_redeem">Redeem Gift Card</string>
   <string name="settings_item_support">Contactează echipa de asistență</string>
   <string name="settings_subheader_support">Asistență</string>
   <string name="settings_subheader_about_us">Despre noi</string>
