@@ -460,7 +460,7 @@
   <string name="home_empty_discover_apps_button">TEMUKAN APLIKASI TERATAS</string>
   <!--Tokens-->
   <!--Settings-->
-  <string name="title_redeem">Dapatkan Kode</string>
+  <string name="title_redeem">Redeem Gift Card</string>
   <string name="settings_item_support">Hubungi Tim Dukungan</string>
   <string name="settings_subheader_support">Dukungan</string>
   <string name="settings_subheader_about_us">Tentang Kami</string>
