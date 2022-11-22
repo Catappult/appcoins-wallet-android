@@ -460,7 +460,7 @@
   <string name="home_empty_discover_apps_button">ΑΝΑΚΑΛΥΨΤΕ ΚΟΡΥΦΑΙΕΣ ΕΦΑΡΜΟΓΕΣ</string>
   <!--Tokens-->
   <!--Settings-->
-  <string name="title_redeem">Εξαργύρωση Κωδικού</string>
+  <string name="title_redeem">Redeem Gift Card</string>
   <string name="settings_item_support">Επικοινωνήστε με την Ομάδα Υποστήριξης</string>
   <string name="settings_subheader_support">Υποστήριξη</string>
   <string name="settings_subheader_about_us">Σχετικά με εμάς</string>
