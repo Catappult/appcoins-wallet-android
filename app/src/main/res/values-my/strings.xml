@@ -460,7 +460,7 @@
   <string name="home_empty_discover_apps_button">ထိပ္တန္းအက္ပ္မ်ားကို ရွာေဖြလိုက္ပါ</string>
   <!--Tokens-->
   <!--Settings-->
-  <string name="title_redeem">လဲလွယ္ရန္ကုဒ္</string>
+  <string name="title_redeem">Redeem Gift Card</string>
   <string name="settings_item_support">ပံ့ပိုးေရးအဖြဲ့အား ဆက္သြယ္ပါ</string>
   <string name="settings_subheader_support">ပံ့ပိုးေရး</string>
   <string name="settings_subheader_about_us">ကၽြႏ္ုပ္တို႔အေၾကာင္း</string>
