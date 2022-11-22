@@ -24,7 +24,6 @@
         android:clipToPadding="false"
         android:overScrollMode="never"
         />
-
   </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
   <FrameLayout
@@ -32,21 +31,22 @@
       android:layout_width="match_parent"
       android:layout_height="match_parent"
       />
+
   <com.google.android.material.appbar.AppBarLayout
       android:id="@+id/home_appbar"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
+      app:elevation="0dp"
       app:layout_constraintLeft_toLeftOf="parent"
       app:layout_constraintRight_toRightOf="parent"
       app:layout_constraintTop_toTopOf="parent"
       >
-  <include
-      android:id="@+id/toolbar"
-      layout="@layout/fragment_home_toolbar"
-      android:layout_width="match_parent"
-      android:layout_height="56dp"
-      android:animateLayoutChanges="true"
-      />
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/fragment_home_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        />
   </com.google.android.material.appbar.AppBarLayout>
 
   <FrameLayout

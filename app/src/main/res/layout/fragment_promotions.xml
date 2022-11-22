@@ -22,7 +22,6 @@
           app:titleEnabled="false"
           >
 
-
         <include
             android:id="@+id/current_level_header"
             layout="@layout/promotions_gamification_header"
