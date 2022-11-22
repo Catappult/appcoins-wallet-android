@@ -462,7 +462,7 @@
   <string name="home_empty_discover_apps_button">ВІДКРАЙТЕ НАЙКРАЩІ ДОДАТКИ</string>
   <!--Tokens-->
   <!--Settings-->
-  <string name="title_redeem">Активувати код</string>
+  <string name="title_redeem">Redeem Gift Card</string>
   <string name="settings_item_support">Зв\'язатися зі службою підтримки</string>
   <string name="settings_subheader_support">Підтримка</string>
   <string name="settings_subheader_about_us">Про нас</string>
