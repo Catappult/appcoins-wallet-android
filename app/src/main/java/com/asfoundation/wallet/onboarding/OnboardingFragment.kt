@@ -141,7 +141,7 @@ class OnboardingFragment : BasePageViewFragment(),
       }
 
       override fun updateDrawState(ds: TextPaint) {
-        ds.color = ResourcesCompat.getColor(resources, R.color.appc_pink, null)
+        ds.color = ResourcesCompat.getColor(resources, R.color.styleguide_pink, null)
         ds.isUnderlineText = true
       }
     }
