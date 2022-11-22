@@ -493,7 +493,7 @@ class SkillsFragment : Fragment(), PaymentView {
     binding.geofencingLayout.root.visibility = View.GONE
     binding.walletVersionNotSupportedLayout.root.visibility = View.VISIBLE
     binding.walletVersionNotSupportedLayout.updateButton.setOnClickListener {
-      startActivity(viewModel.updateClick())
+      startActivity(viewModel.buildUpdateIntent())
       finishWithError(SkillsViewModel.RESULT_WALLET_VERSION_ERROR)
     }
   }
