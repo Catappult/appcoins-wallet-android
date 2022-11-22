@@ -89,7 +89,7 @@
           android:layout_marginStart="5dp"
           app:ccpDialog_background="@drawable/ccp_background"
           app:ccpDialog_textColor="#000000"
-          app:ccp_arrowColor="@color/black_87_alpha"
+          app:ccp_arrowColor="@color/styleguide_black_transparent_80"
           app:ccp_arrowSize="16dp"
           app:ccp_autoDetectCountry="true"
           app:ccp_rememberLastSelection="true"

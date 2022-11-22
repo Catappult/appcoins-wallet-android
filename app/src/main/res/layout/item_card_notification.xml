@@ -8,7 +8,7 @@
     android:clickable="true"
     android:focusable="true"
     android:maxWidth="328dp"
-    app:cardBackgroundColor="@color/light_grey_alpha_78"
+    app:cardBackgroundColor="@color/styleguide_dark_grey"
     app:cardCornerRadius="@dimen/notifications_card_view_corner_radius"
     app:cardElevation="0dp"
     >
@@ -127,7 +127,7 @@
           android:paddingHorizontal="4dp"
           android:paddingVertical="2dp"
           android:text="@string/vip_program_exclusivity_tag"
-          android:textColor="@color/promotions_dark_text"
+          android:textColor="@color/styleguide_blue"
           android:visibility="visible"
           />
 

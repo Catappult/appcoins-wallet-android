@@ -313,7 +313,7 @@ class PromotionsFragment : BasePageViewFragment(),
           ColorStateList.valueOf(
             ContextCompat.getColor(
               requireContext(),
-              R.color.only_for_vip_background_color
+              R.color.styleguide_vip_yellow
             )
           )
       }

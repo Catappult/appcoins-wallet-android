@@ -30,7 +30,7 @@
             android:gravity="center"
             android:lineSpacingExtra="4sp"
             android:text="@string/nfts_no_nfts"
-            android:textColor="@color/gray_alpha_8a"
+            android:textColor="@color/styleguide_black_transparent_80"
             android:textSize="14sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

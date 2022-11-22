@@ -172,7 +172,7 @@ class WalletButtonView : FrameLayout {
           views.root.setCardBackgroundColor(
             ContextCompat.getColor(
               this.context,
-              R.color.light_grey_alpha_73
+              R.color.styleguide_dark_grey
             )
           )
           views.root.strokeColor = ContextCompat.getColor(this.context, R.color.transparent)

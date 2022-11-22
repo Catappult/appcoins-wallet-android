@@ -11,7 +11,7 @@
   </style>
 
   <style name="MyWallets.Title.Dark">
-    <item name="android:textColor">#000D17</item>
+    <item name="android:textColor">@color/styleguide_black_transparent_80</item>
   </style>
 
   <style name="MyWallets.Subtitle">
@@ -58,13 +58,13 @@
   <style name="MyWallets.TokenInfo.Title">
     <item name="android:fontFamily">sans-serif-medium</item>
     <item name="android:textSize">18sp</item>
-    <item name="android:textColor">@color/blueish_black</item>
+    <item name="android:textColor">@color/styleguide_black_transparent_80</item>
   </style>
 
   <style name="MyWallets.TokenInfo.Description">
     <item name="android:fontFamily">sans-serif</item>
     <item name="android:textSize">14sp</item>
-    <item name="android:textColor">@color/blueish_black</item>
+    <item name="android:textColor">@color/styleguide_black_transparent_80</item>
   </style>
 
 

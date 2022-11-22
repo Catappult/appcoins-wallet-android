@@ -35,8 +35,8 @@
         app:piv_dynamicCount="true"
         app:piv_padding="14dp"
         app:piv_radius="4dp"
-        app:piv_selectedColor="@color/selection_dot_selected"
-        app:piv_unselectedColor="@color/selection_dot_unselected"
+        app:piv_selectedColor="@color/styleguide_pink"
+        app:piv_unselectedColor="@color/styleguide_light_grey"
         />
 
     <androidx.viewpager2.widget.ViewPager2

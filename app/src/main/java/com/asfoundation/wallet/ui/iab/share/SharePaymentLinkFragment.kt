@@ -189,7 +189,7 @@ class SharePaymentLinkFragment : BasePageViewFragment(),
   override fun showFetchingLinkInfo() {
     share_link_title.text = getString(R.string.askafriend_generating_link_message)
     share_link_title.setTextColor(
-        ResourcesCompat.getColor(resources, R.color.share_link_title_color, null))
+        ResourcesCompat.getColor(resources, R.color.styleguide_black, null))
     close_btn.visibility = View.INVISIBLE
     share_btn.visibility = View.INVISIBLE
   }
@@ -197,7 +197,7 @@ class SharePaymentLinkFragment : BasePageViewFragment(),
   override fun showErrorInfo() {
     share_link_title.text = getString(R.string.askafriend_generating_link_error_message)
     share_link_title.setTextColor(
-        ResourcesCompat.getColor(resources, R.color.share_link_error_text_color, null))
+        ResourcesCompat.getColor(resources, R.color.styleguide_red, null))
     close_btn.visibility = View.VISIBLE
     share_btn.visibility = View.VISIBLE
   }
@@ -205,7 +205,7 @@ class SharePaymentLinkFragment : BasePageViewFragment(),
   override fun shareLink(url: String) {
     share_link_title.text = getString(R.string.askafriend_share_body)
     share_link_title.setTextColor(
-        ResourcesCompat.getColor(resources, R.color.share_link_title_color, null))
+        ResourcesCompat.getColor(resources, R.color.styleguide_black, null))
     close_btn.visibility = View.VISIBLE
     share_btn.visibility = View.VISIBLE
 

@@ -92,7 +92,7 @@
         android:paddingHorizontal="4dp"
         android:paddingVertical="2dp"
         android:text="@string/vip_program_exclusivity_tag"
-        android:textColor="@color/promotions_dark_text"
+        android:textColor="@color/styleguide_blue"
         android:visibility="visible"
         />
 

@@ -21,7 +21,7 @@ class WalletTextFieldView : FrameLayout {
 
   private var type = Type.FILLED
 
-  private var color = ContextCompat.getColor(this.context, R.color.grey_70)
+  private var color = ContextCompat.getColor(this.context, R.color.styleguide_dark_grey)
 
   constructor(context: Context) : this(context, null)
   constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0)
@@ -86,7 +86,7 @@ class WalletTextFieldView : FrameLayout {
         views.textInputLayout.boxBackgroundColor =
           ContextCompat.getColor(this.context, R.color.transparent)
         views.textInputLayout.boxStrokeColor =
-          ContextCompat.getColor(this.context, R.color.grey_70)
+          ContextCompat.getColor(this.context, R.color.styleguide_dark_grey)
         views.textInputLayout.endIconMode = END_ICON_NONE
       }
       Type.PASSWORD -> {
@@ -103,7 +103,7 @@ class WalletTextFieldView : FrameLayout {
       Type.READ_ONLY -> {
         views.textInputEditText.setReadOnly(value = true)
         views.textInputLayout.boxBackgroundColor =
-          ContextCompat.getColor(this.context, R.color.promo_code_text_box_active_background)
+          ContextCompat.getColor(this.context, R.color.styleguide_white)
         views.textInputLayout.boxStrokeColor = color
         views.textInputLayout.boxStrokeWidth = 1.convertDpToPx(resources)
       }

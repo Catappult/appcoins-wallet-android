@@ -107,7 +107,7 @@
         android:layout_width="wrap_content"
         android:layout_height="16dp"
         android:layout_gravity="end"
-        android:textColor="@color/appc_pink"
+        android:textColor="@color/styleguide_pink"
         android:textSize="11sp"
         tools:text="23 €"
         />
@@ -118,7 +118,7 @@
         android:layout_height="16dp"
         android:layout_gravity="end"
         android:text="@string/activity_iab_fees"
-        android:textColor="@color/top_up_bonus_text"
+        android:textColor="@color/styleguide_dark_grey"
         android:textSize="11sp"
         />
 
