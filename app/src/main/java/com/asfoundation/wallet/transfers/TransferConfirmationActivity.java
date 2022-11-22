@@ -104,7 +104,7 @@ import static com.asfoundation.wallet.C.GWEI_UNIT;
         WalletCurrency.ETHEREUM);
     String symbol = transactionBuilder.symbol();
     int smallTitleSize = (int) getResources().getDimension(R.dimen.small_text);
-    int color = getResources().getColor(R.color.color_grey_9e);
+    int color = getResources().getColor(R.color.styleguide_medium_grey);
     valueText.setText(BalanceUtils.formatBalance(value, symbol, smallTitleSize, color));
     final GasSettings gasSettings =
         viewModel.handleSavedGasSettings(transactionBuilder.gasSettings().gasPrice,

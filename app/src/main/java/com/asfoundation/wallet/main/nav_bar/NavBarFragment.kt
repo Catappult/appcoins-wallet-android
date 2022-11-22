@@ -115,11 +115,11 @@ class NavBarFragment : BasePageViewFragment(),
     val htmlColoredText =
       "${
         getString(R.string.vip_program_promotions_tab_1).createColoredString(
-          getString(R.color.only_for_vip_background_color)
+          getString(R.color.styleguide_vip_yellow)
         )
       } ${
         getString(R.string.vip_program_promotions_tab_2).createColoredString(
-          getString(R.color.whiteNoAlpha)
+          getString(R.color.styleguide_white)
         )
       }"
     views.vipPromotionsCallout.desciptionTv.setTextFromColored(htmlColoredText)

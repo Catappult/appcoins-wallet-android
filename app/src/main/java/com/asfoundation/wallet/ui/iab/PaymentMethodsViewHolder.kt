@@ -64,12 +64,12 @@ class PaymentMethodsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemVie
     itemView.payment_method_description.text = data.label
     if (selected) {
       itemView.payment_method_description.setTextColor(
-          ContextCompat.getColor(itemView.context, R.color.details_address_text_color))
+          ContextCompat.getColor(itemView.context, R.color.styleguide_black_transparent_80))
       itemView.payment_method_description.typeface =
           Typeface.create("sans-serif-medium", Typeface.NORMAL)
     } else {
       itemView.payment_method_description.setTextColor(
-          ContextCompat.getColor(itemView.context, R.color.grey_alpha_active_54))
+          ContextCompat.getColor(itemView.context, R.color.styleguide_dark_grey))
       itemView.payment_method_description.typeface = Typeface.create("sans-serif", Typeface.NORMAL)
     }
   }
@@ -83,10 +83,10 @@ class PaymentMethodsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemVie
 
       itemView.payment_method_fee_value.apply {
         if (enabled) {
-          this.setTextColor(ContextCompat.getColor(itemView.context, R.color.appc_pink))
+          this.setTextColor(ContextCompat.getColor(itemView.context, R.color.styleguide_pink))
           this.typeface = Typeface.create("sans-serif-medium", Typeface.NORMAL)
         } else {
-          this.setTextColor(ContextCompat.getColor(itemView.context, R.color.grey_alpha_active_54))
+          this.setTextColor(ContextCompat.getColor(itemView.context, R.color.styleguide_black_transparent_80))
           this.typeface = Typeface.create("sans-serif", Typeface.NORMAL)
         }
       }

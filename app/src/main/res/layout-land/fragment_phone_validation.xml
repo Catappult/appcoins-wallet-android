@@ -20,7 +20,7 @@
       android:ellipsize="end"
       android:gravity="center"
       android:text="@string/verification_insert_phone_title"
-      android:textColor="@color/color_title"
+      android:textColor="@color/styleguide_dark_grey"
       android:textStyle="bold"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"

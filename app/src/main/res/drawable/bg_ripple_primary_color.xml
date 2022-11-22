@@ -1,7 +1,7 @@
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
   <item android:state_pressed="true">
     <shape>
-      <solid android:color="@color/semitransparentWhite" />
+      <solid android:color="@color/styleguide_white_transparent_80" />
     </shape>
   </item>
 

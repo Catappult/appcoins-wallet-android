@@ -9,7 +9,7 @@
       android:id="@+id/faded_background"
       android:layout_width="match_parent"
       android:layout_height="match_parent"
-      android:background="@color/faded_background_color"
+      android:background="@color/styleguide_black_transparent_80"
       android:clickable="true"
       android:focusable="true"
       />

@@ -145,7 +145,7 @@
       android:id="@+id/bottomsheet_coordinator_container"
       android:layout_width="0dp"
       android:layout_height="0dp"
-      android:background="@color/bottom_sheet_translucent_background"
+      android:background="@color/styleguide_black_transparent_80"
       android:clickable="true"
       android:elevation="2dp"
       android:focusable="true"

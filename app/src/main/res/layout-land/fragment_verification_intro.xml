@@ -92,7 +92,7 @@
           android:layout_height="1dp"
           android:layout_marginTop="@dimen/big_margin"
           android:layout_marginBottom="21dp"
-          android:background="@color/layout_separator_color"
+          android:background="@color/styleguide_light_grey"
           app:layout_constraintBottom_toTopOf="@id/cancel"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="parent"

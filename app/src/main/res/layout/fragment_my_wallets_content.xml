@@ -178,7 +178,7 @@
       android:layout_width="0dp"
       android:layout_height="1dp"
       android:layout_marginTop="15dp"
-      android:background="@color/white_transparent_10"
+      android:background="@color/styleguide_white_transparent_20"
       app:layout_constraintEnd_toEndOf="@id/active_wallet_info"
       app:layout_constraintStart_toStartOf="@id/active_wallet_info"
       app:layout_constraintTop_toBottomOf="@id/wallet_address_label_text_view"

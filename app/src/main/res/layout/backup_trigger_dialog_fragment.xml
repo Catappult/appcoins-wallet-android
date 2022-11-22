@@ -70,7 +70,7 @@
       android:layout_marginHorizontal="@dimen/big_margin"
       app:buttonText="@string/skip_button"
       app:buttonType="text"
-      app:buttonColor="@color/grey_blue_medium"
+      app:buttonColor="@color/styleguide_dark_grey"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"

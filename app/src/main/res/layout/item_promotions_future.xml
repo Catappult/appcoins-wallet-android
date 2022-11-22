@@ -12,7 +12,7 @@
   <androidx.constraintlayout.widget.ConstraintLayout
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:background="@color/promotions_future_background"
+      android:background="@color/styleguide_light_grey"
       android:paddingBottom="@dimen/normal_margin"
       >
 
@@ -111,7 +111,7 @@
           android:paddingHorizontal="4dp"
           android:paddingVertical="2dp"
           android:text="@string/vip_program_exclusivity_tag"
-          android:textColor="@color/promotions_dark_text"
+          android:textColor="@color/styleguide_blue"
           android:visibility="visible"
           />
 
@@ -139,7 +139,7 @@
             android:layout_height="8dp"
             android:layout_gravity="center_vertical"
             app:srcCompat="@drawable/ic_clock"
-            app:tint="@color/promotions_future_text_color"
+            app:tint="@color/styleguide_dark_grey"
             />
 
         <TextView

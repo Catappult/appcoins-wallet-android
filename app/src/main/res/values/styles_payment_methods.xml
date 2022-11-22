@@ -20,7 +20,7 @@
 
   <style name="PaymentMethods.Carrier.TextStyle">
     <item name="android:fontFamily">sans-serif-medium</item>
-    <item name="android:textColor">@color/black_87_alpha</item>
+    <item name="android:textColor">@color/styleguide_black_transparent_80</item>
   </style>
 
   <style name="PaymentMethods.CarrierBilling.Title" parent="PaymentMethods.Carrier.TextStyle">
@@ -29,22 +29,22 @@
 
   <style name="PaymentMethods.CarrierBilling.FiatValueText" parent="PaymentMethods.Carrier.TextStyle">
     <item name="android:textSize">15sp</item>
-    <item name="android:textColor">@color/dialog_buy_fiat_value</item>
+    <item name="android:textColor">@color/styleguide_black</item>
   </style>
 
   <style name="PaymentMethods.CarrierBilling.AppcValueText" parent="PaymentMethods.Carrier.TextStyle">
     <item name="android:textSize">12sp</item>
-    <item name="android:textColor">@color/dialog_secondary_price</item>
+    <item name="android:textColor">@color/styleguide_dark_grey</item>
     <item name="android:fontFamily">sans-serif</item>
   </style>
 
   <style name="PaymentMethods.CarrierBilling.Description" parent="PaymentMethods.Carrier.TextStyle">
-    <item name="android:textColor">@color/top_up_bonus_text</item>
+    <item name="android:textColor">@color/styleguide_dark_grey</item>
     <item name="android:textSize">12sp</item>
   </style>
 
   <style name="PaymentMethods.Carrier.PhoneFieldError">
-    <item name="android:textColor">@color/remove_wallet_red</item>
+    <item name="android:textColor">@color/styleguide_red</item>
     <item name="android:textSize">12sp</item>
     <item name="android:fontFamily">sans-serif</item>
     <item name="android:textStyle">normal</item>
@@ -52,8 +52,8 @@
 
   <style name="PaymentMethods.Carrier.PhoneNumberLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
     <item name="android:background">@null</item>
-    <item name="android:textColorHint">@color/grey</item>
-    <item name="android:textColor">@color/black_87_alpha</item>
+    <item name="android:textColorHint">@color/styleguide_dark_grey</item>
+    <item name="android:textColor">@color/styleguide_black_transparent_80</item>
     <item name="android:textCursorDrawable">@null</item>
     <item name="boxStrokeColor">@null</item>
     <item name="boxBackgroundMode">none</item>
@@ -85,7 +85,7 @@
   <style name="PaymentMethods.Error" />
 
   <style name="PaymentMethods.Error.OtherPaymentsButton" parent="@style/Widget.MaterialComponents.Button.TextButton">
-    <item name="android:textColor">@color/text_button_color</item>
+    <item name="android:textColor">@color/styleguide_pink</item>
     <item name="android:textSize">12sp</item>
     <item name="android:fontFamily">sans-serif-medium</item>
     <item name="android:lineSpacingExtra">4sp</item>
@@ -94,7 +94,7 @@
   </style>
 
   <style name="PaymentMethods.Error.Title">
-    <item name="android:textColor">@color/btn_light_enabled_color</item>
+    <item name="android:textColor">@color/styleguide_red</item>
     <item name="android:textSize">20sp</item>
     <item name="android:fontFamily">sans-serif</item>
     <item name="android:lineSpacingExtra">4sp</item>
@@ -103,12 +103,12 @@
   </style>
 
   <style name="PaymentMethods.Error.Message" parent="@style/TextAppearance.AppCompat.Body1.Roboto.Regular">
-    <item name="android:textColor">@color/pending_payment_text_color</item>
+    <item name="android:textColor">@color/styleguide_dark_grey</item>
     <item name="android:textSize">16sp</item>
   </style>
 
   <style name="PaymentMethods.Error.Disclaimer" parent="@style/TextAppearance.AppCompat.Body1.Roboto.Regular">
-    <item name="android:textColor">@color/grey_8a_alpha</item>
+    <item name="android:textColor">@color/styleguide_black_transparent_80</item>
     <item name="android:textSize">12sp</item>
   </style>
 

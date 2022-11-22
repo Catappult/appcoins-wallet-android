@@ -68,7 +68,7 @@
       android:layout_marginTop="0dp"
       app:buttonText="@string/no_thanks_button"
       app:buttonType="text"
-      app:buttonColor="@color/dialog_buy_value_text"
+      app:buttonColor="@color/styleguide_dark_grey"
       app:layout_constraintEnd_toStartOf="@+id/submit_button"
       app:layout_constraintTop_toTopOf="@+id/submit_button"
       />
@@ -81,7 +81,7 @@
       android:layout_marginEnd="10dp"
       app:buttonText="@string/submit_button"
       app:buttonType="text"
-      app:buttonColor="@color/dialog_buy_value_text"
+      app:buttonColor="@color/styleguide_dark_grey"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintTop_toBottomOf="@+id/feedback_input_text"
       />

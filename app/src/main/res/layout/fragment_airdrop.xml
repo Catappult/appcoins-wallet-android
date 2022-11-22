@@ -20,7 +20,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/activity_airdrop_title"
-        android:textColor="@color/black_87_alpha"
+        android:textColor="@color/styleguide_black_transparent_80"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -33,7 +33,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/normal_margin"
         android:text="@string/activity_airdrop_details"
-        android:textColor="@color/grey"
+        android:textColor="@color/styleguide_dark_grey"
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -84,8 +84,8 @@
           android:layout_height="wrap_content"
           android:hint="@string/activity_airdrop_hint"
           android:imeOptions="flagNoExtractUi|flagNoFullscreen"
-          android:textColorHighlight="@color/grey_alpha_6b"
-          android:textColorHint="@color/grey_alpha_6b"
+          android:textColorHighlight="@color/styleguide_black_transparent_80"
+          android:textColorHint="@color/styleguide_black_transparent_80"
           android:textSize="16sp"
           />
 

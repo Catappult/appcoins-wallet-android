@@ -138,7 +138,7 @@
       android:layout_height="wrap_content"
       android:layout_marginHorizontal="16dp"
       android:layout_marginBottom="20dp"
-      android:background="@color/nft_transferfee_bg"
+      android:background="@color/styleguide_light_grey"
       app:layout_constraintBottom_toTopOf="@id/send_button"
       app:layout_constraintTop_toBottomOf="@id/gas_inputs"
       >

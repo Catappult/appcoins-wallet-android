@@ -21,7 +21,7 @@
       android:layout_toEndOf="@id/app_icon"
       android:ellipsize="end"
       android:maxLines="1"
-      android:textColor="@color/black_87_alpha"
+      android:textColor="@color/styleguide_black_transparent_80"
       android:textSize="16sp"
       tools:text="App name and cenas"
       />
@@ -35,7 +35,7 @@
       android:layout_toEndOf="@id/app_icon"
       android:ellipsize="end"
       android:maxLines="1"
-      android:textColor="@color/grey_alpha_active_54"
+      android:textColor="@color/styleguide_black_transparent_80"
       android:textSize="12sp"
       tools:text="Buying gas"
       />

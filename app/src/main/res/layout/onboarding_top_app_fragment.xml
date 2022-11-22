@@ -89,7 +89,7 @@
           android:layout_height="@dimen/onboarding_button_height"
           android:layout_marginHorizontal="70dp"
           android:layout_marginTop="@dimen/big_padding"
-          app:buttonColor="@color/grey"
+          app:buttonColor="@color/styleguide_dark_grey"
           app:buttonText="@string/onboarding_1st_explore_wallet_alternative_button"
           app:buttonType="text"
           app:layout_constraintEnd_toEndOf="parent"

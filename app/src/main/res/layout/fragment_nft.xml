@@ -11,7 +11,7 @@
       android:id="@+id/header"
       android:layout_width="match_parent"
       android:layout_height="104dp"
-      android:background="@drawable/appbar_background_color"
+      android:background="@color/styleguide_blue"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent"

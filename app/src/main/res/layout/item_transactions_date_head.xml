@@ -12,7 +12,7 @@
       android:layout_height="match_parent"
       android:fontFamily="@font/roboto_regular"
       android:gravity="center_vertical"
-      android:textColor="@color/list_group_head"
+      android:textColor="@color/styleguide_black_transparent_80"
       android:textSize="@dimen/list_group_head"
       tools:text="Jan, 09 2017"
       />
