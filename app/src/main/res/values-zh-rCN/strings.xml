@@ -460,7 +460,7 @@
   <string name="home_empty_discover_apps_button">探索最佳应用</string>
   <!--Tokens-->
   <!--Settings-->
-  <string name="title_redeem">兑换码</string>
+  <string name="title_redeem">Redeem Gift Card</string>
   <string name="settings_item_support">联系支持团队</string>
   <string name="settings_subheader_support">支持</string>
   <string name="settings_subheader_about_us">关于我们</string>
