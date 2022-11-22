@@ -460,7 +460,7 @@
   <string name="home_empty_discover_apps_button">SCOPRI LE MIGLIORI APP</string>
   <!--Tokens-->
   <!--Settings-->
-  <string name="title_redeem">Riscatta il codice</string>
+  <string name="title_redeem">Redeem Gift Card</string>
   <string name="settings_item_support">Contatta l\'assistenza clienti</string>
   <string name="settings_subheader_support">Supporto</string>
   <string name="settings_subheader_about_us">Chi siamo</string>
