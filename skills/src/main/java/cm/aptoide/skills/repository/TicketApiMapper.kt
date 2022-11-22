@@ -42,7 +42,6 @@ class TicketApiMapper @Inject constructor(private val jsonMapper: Gson) {
       val response = jsonMapper.fromJson(exception.getMessage(), Response::class.java)
       return when (response.detail.code) {
         ErrorCode.REGION_NOT_SUPPORTED -> FailedTicket(ErrorStatus.REGION_NOT_SUPPORTED)
-        ErrorCode.WALLET_VERSION_NOT_SUPPORTED -> FailedTicket(ErrorStatus.WALLET_VERSION_NOT_SUPPORTED)
         ErrorCode.NOT_AUTHENTICATED -> FailedTicket(ErrorStatus.GENERIC)
       }
     } else {
@@ -56,5 +55,5 @@ data class Response(val detail: ErrorDetail)
 data class ErrorDetail(val code: ErrorCode, val message: String)
 
 enum class ErrorCode {
-  REGION_NOT_SUPPORTED, NOT_AUTHENTICATED, WALLET_VERSION_NOT_SUPPORTED
+  REGION_NOT_SUPPORTED, NOT_AUTHENTICATED
 }

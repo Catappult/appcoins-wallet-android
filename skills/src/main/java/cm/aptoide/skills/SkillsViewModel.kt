@@ -39,8 +39,7 @@ class SkillsViewModel @Inject constructor(
   private val sendUserVerificationFlowUseCase: SendUserVerificationFlowUseCase,
   private val isWalletVerifiedUseCase: IsWalletVerifiedUseCase,
   private val validateUrlUseCase: ValidateUrlUseCase,
-  private val getTopUpListStatus: GetTopUpListUseCase,
-  private val buildUpdateIntentUseCase: BuildUpdateIntentUseCase,
+  private val getTopUpListStatus: GetTopUpListUseCase
 ) : ViewModel() {
   lateinit var ticketId: String
   private val closeView: PublishSubject<Pair<Int, UserData>> = PublishSubject.create()
@@ -54,7 +53,6 @@ class SkillsViewModel @Inject constructor(
     const val RESULT_INVALID_URL = 7
     const val RESULT_INVALID_USERNAME = 8
     const val RESULT_ROOT_ERROR = 9
-    const val RESULT_WALLET_VERSION_ERROR = 10
     const val GET_ROOM_RETRY_MILLIS = 3000L
     const val AUTHENTICATION_REQUEST_CODE = 33
   }
@@ -222,10 +220,6 @@ class SkillsViewModel @Inject constructor(
 
   fun getTopUpListStatus(): Status {
     return getTopUpListStatus(TransactionType.TOPUP, TopUpStatus.COMPLETED).blockingGet()
-  }
-
-  fun buildUpdateIntent(): Intent {
-    return buildUpdateIntentUseCase()
   }
 
   fun restorePurchase(view: PaymentView): Single<Ticket> {
