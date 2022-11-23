@@ -60,7 +60,7 @@ class RecoverEntryNavigator @Inject constructor(val fragment: Fragment) : Naviga
     if (fromActivity) {
       fragment.requireActivity().finish()
     } else {
-      fragment.parentFragmentManager.popBackStack()
+      fragment.requireActivity().onBackPressed()
     }
   }
 

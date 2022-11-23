@@ -667,9 +667,15 @@
 
   <style name="WalletBackupTextStyle.NormalGrey" parent="TextAppearance.AppCompat.Body1.Roboto.Regular">
     <item name="android:textSize">@dimen/backup_description_normal_text_size</item>
-    <item name="android:textColor">@color/styleguide_dark_grey</item>
+    <item name="android:textColor">@color/styleguide_medium_grey</item>
     <item name="android:letterSpacing">0.01</item>
     <item name="android:lineSpacingExtra">2sp</item>
+  </style>
+
+  <style name="SwitchCompactStyle">
+    <item name="colorControlActivated">@color/styleguide_pink</item>
+    <item name="colorSwitchThumbNormal">@color/styleguide_medium_grey</item>
+    <item name="android:colorForeground">@color/styleguide_medium_grey</item>
   </style>
 
   <style name="WalletValidationTextStyle.Title" parent="TextAppearance.AppCompat.Body1.Roboto.Medium">

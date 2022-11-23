@@ -41,14 +41,13 @@
 
     <com.google.android.material.switchmaterial.SwitchMaterial
         android:id="@+id/pref_authentication_switch_off"
+        android:theme="@style/SwitchCompactStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="28dp"
         android:checked="false"
         android:clickable="false"
         android:focusable="false"
-        android:thumb="@drawable/round_thumb_white"
-        android:track="@drawable/round_track"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
