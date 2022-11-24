@@ -2,7 +2,6 @@ package com.asfoundation.wallet.home.ui.list.transactions.empty
 
 import android.os.Handler
 import android.os.Looper
-import android.widget.TextView
 import androidx.viewpager2.widget.ViewPager2
 import com.airbnb.epoxy.EpoxyAttribute
 import com.airbnb.epoxy.EpoxyModelClass
@@ -42,16 +41,19 @@ abstract class EmptyTransactionsModel :
     val data = listOf(
       EmptyItem(
         CAROUSEL_TOP_APPS, R.raw.carousel_empty_screen_animation,
-        ctx.getString(R.string.home_empty_discover_apps_body)
+        ctx.getString(R.string.intro_welcome_header),
+        ctx.getString(R.string.intro_welcome_body)
       ),
       EmptyItem(
         CAROUSEL_GAMIFICATION, R.raw.transactions_empty_screen_animation,
-        ctx.getString(R.string.gamification_home_body, bonus.toString())
+        ctx.getString(R.string.intro_welcome_header_2, bonus.toString()),
+        ctx.getString(R.string.intro_welcome_body_2)
       )
     )
     holder.pageIndicator.count = data.size
     holder.viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
       override fun onPageSelected(position: Int) {
+        currentPage = position
         holder.pageIndicator.selection = currentPage
       }
     })
@@ -76,7 +78,6 @@ abstract class EmptyTransactionsModel :
 
   class EmptyTransactionsHolder : BaseViewHolder() {
     val pageIndicator by bind<PageIndicatorView>(R.id.page_indicator)
-    val noTransactionsText by bind<TextView>(R.id.no_transactions_text)
     val viewPager by bind<ViewPager2>(R.id.empty_transactions_viewpager)
   }
 }

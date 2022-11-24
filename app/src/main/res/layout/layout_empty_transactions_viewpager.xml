@@ -15,7 +15,7 @@
       android:clickable="true"
       android:focusable="true"
       android:scaleType="centerInside"
-      app:layout_constraintBottom_toTopOf="@id/animation_guideline"
+      app:layout_constraintBottom_toTopOf="@id/empty_body_title"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent"
@@ -23,24 +23,32 @@
       app:lottie_enableMergePathsForKitKatAndAbove="true"
       app:lottie_loop="true"
       />
+
   <TextView
-      android:id="@+id/empty_body_text"
+      android:id="@+id/empty_body_title"
+      style="@style/TextXL"
       android:layout_width="0dp"
       android:layout_height="wrap_content"
-      android:layout_marginTop="14dp"
+      android:layout_marginTop="@dimen/big_margin"
       android:gravity="center"
       app:layout_constraintEnd_toEndOf="@id/vertical_guideline2"
       app:layout_constraintStart_toStartOf="@id/vertical_guideline1"
-      app:layout_constraintTop_toBottomOf="@id/animation_guideline"
-      tools:text="Earn up to 30.0% Bonus in your favorite apps and games!"
+      app:layout_constraintTop_toBottomOf="@id/transactions_empty_screen_animation"
+      tools:text="Welcome to the AppCoins Wallet"
       />
 
-  <androidx.constraintlayout.widget.Guideline
-      android:id="@+id/animation_guideline"
-      android:layout_width="match_parent"
-      android:layout_height="1dp"
-      android:orientation="horizontal"
-      app:layout_constraintGuide_percent="0.4"
+  <TextView
+      android:id="@+id/empty_body_text"
+      style="@style/TextM"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="@dimen/big_margin"
+      android:gravity="center"
+      app:layout_constraintEnd_toEndOf="@id/vertical_guideline2"
+      app:layout_constraintStart_toStartOf="@id/vertical_guideline1"
+      app:layout_constraintTop_toBottomOf="@id/empty_body_title"
+      app:layout_constraintBottom_toBottomOf="parent"
+      tools:text="Earn up to 30.0% Bonus in your favorite apps and games!"
       />
 
   <androidx.constraintlayout.widget.Guideline
@@ -48,7 +56,7 @@
       android:layout_width="match_parent"
       android:layout_height="1dp"
       android:orientation="vertical"
-      app:layout_constraintGuide_percent="0.2"
+      app:layout_constraintGuide_percent="0.1"
       />
 
   <androidx.constraintlayout.widget.Guideline
@@ -56,6 +64,6 @@
       android:layout_width="match_parent"
       android:layout_height="1dp"
       android:orientation="vertical"
-      app:layout_constraintGuide_percent="0.8"
+      app:layout_constraintGuide_percent="0.9"
       />
 </androidx.constraintlayout.widget.ConstraintLayout>

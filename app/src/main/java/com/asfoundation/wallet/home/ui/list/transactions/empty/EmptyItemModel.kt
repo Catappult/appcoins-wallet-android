@@ -11,7 +11,7 @@ import com.asfoundation.wallet.ui.common.BaseViewHolder
 
 @EpoxyModelClass
 abstract class EmptyItemModel :
-    EpoxyModelWithHolder<EmptyItemModel.EmptyItemHolder>() {
+  EpoxyModelWithHolder<EmptyItemModel.EmptyItemHolder>() {
 
   @EpoxyAttribute
   lateinit var emptyItem: EmptyItem
@@ -22,6 +22,7 @@ abstract class EmptyItemModel :
   override fun bind(holder: EmptyItemHolder) {
     super.bind(holder)
     holder.animation.setAnimation(emptyItem.animationRes)
+    holder.emptyBodyTitle.text = emptyItem.titleText
     holder.emptyBodyText.text = emptyItem.bodyText
 
     holder.animation.setOnClickListener {
@@ -33,6 +34,7 @@ abstract class EmptyItemModel :
 
   class EmptyItemHolder : BaseViewHolder() {
     val animation by bind<LottieAnimationView>(R.id.transactions_empty_screen_animation)
+    val emptyBodyTitle by bind<TextView>(R.id.empty_body_title)
     val emptyBodyText by bind<TextView>(R.id.empty_body_text)
   }
 }
