@@ -9,7 +9,6 @@
   <string name="refunded">Tiền của bạn đã được hoàn trả.</string>
   <string name="ok">OK</string>
   <string name="cancel">Hủy</string>
-  <string name="update_button">Update</string>
   <string name="buy_button">Mua</string>
   <string name="topup_button">Nạp tiền</string>
   <string name="connection_error_body">Có vẻ như bạn không kết nối Internet. Hãy kiểm tra kết nối của mình và thử lại!</string>
