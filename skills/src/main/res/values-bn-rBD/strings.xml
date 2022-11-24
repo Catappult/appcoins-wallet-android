@@ -9,6 +9,7 @@
   <string name="refunded">Your money has been refunded.</string>
   <string name="ok">ঠিক আছে</string>
   <string name="cancel">Cancel</string>
+  <string name="update_button">Update</string>
   <string name="buy_button">ক্রয়</string>
   <string name="topup_button">Top Up</string>
   <string name="connection_error_body">It seems your\'re not connected to the Internet. Check your connection and try again!</string>
