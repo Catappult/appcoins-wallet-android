@@ -9,7 +9,6 @@
   <string name="refunded">I tuoi fondi sono stati rimborsati.</string>
   <string name="ok">OK</string>
   <string name="cancel">Annulla</string>
-  <string name="update_button">Update</string>
   <string name="buy_button">Acquista</string>
   <string name="topup_button">Ricarica</string>
   <string name="connection_error_body">Sembra che tu non sia connesso a internet. Controlla la connessione e riprova!</string>
