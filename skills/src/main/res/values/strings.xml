@@ -50,6 +50,5 @@
   <string name="update_not_supported_title">Wallet version not supported!</string>
   <string name="update_not_supported_body">Update the AppCoins Wallet to the latest version.</string>
   <string name="update_button">Update</string>
-  <string name="wallet_version_not_supported_title" translatable="false">Wallet version not supported.</string>
-  <string name="wallet_version_not_supported_body" translatable="false">Please update your wallet to the latest version.</string>
+
 </resources>
