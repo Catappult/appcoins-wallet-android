@@ -118,11 +118,11 @@
   <string name="intro_1_title">AppCoins Wallet</string>
   <string name="intro_1_body">Aplikasi Anda untuk pembelian in-app.</string>
   <string name="intro_2_title">Mainkan Lebih Sering, Bayar Kurang</string>
-  <string name="intro_2_body">Dapatkan hadiah untuk pembelian item di aplikasi dan permainan favorit Anda.</string>
+  <string name="intro_2_body">The best payment wallet for apps and games.</string>
   <string name="intro_3_title">Sederhana dan Mudah</string>
-  <string name="intro_3_body">Tetap instal AppCoins Wallet agar bisa langsung membeli di game Anda.</string>
+  <string name="intro_3_body">Bonuses on all purchases.</string>
   <string name="intro_4_title">Aman dan Pribadi</string>
-  <string name="intro_4_body">Kunci pribadi Anda tidak akan pernah meninggalkan perangkat, jadi AppCoins Anda selalu aman.</string>
+  <string name="intro_4_body">Use bank card, PayPal and your favorite payment methods.</string>
   <string name="intro_4_body_2">Semua transaksi yang Anda lakukan selalu aman berkat teknologi terkini.</string>
   <string name="intro_5_title">Dapatkan Kredit AppCoins Gratis!</string>
   <string name="intro_5_body">Anda akan mendapatkan Kredit AppCoins gratis dengan mencoba aplikasi dan permainan.</string>
@@ -131,7 +131,9 @@
   <string name="intro_agree_terms_and_conditions_body">By entering the AppCoins Wallet, you agree to the %1$s and %2$s.</string>
   <string name="intro_skip_button">LEWATKAN</string>
   <string name="intro_welcome_header">Selamat Datang di Dompet AppCoins</string>
-  <string name="intro_welcome_body">Aplikasi Anda untuk pembelian in-app.</string>
+  <string name="intro_welcome_body">Top up your wallet or make a purchase in any AppCoins compatible app or game.</string>
+  <string name="intro_welcome_header_2">Up to %s%% Bonus!</string>
+  <string name="intro_welcome_body_2">Bonuses can be used in any app or game.</string>
   <string name="intro_already_have_wallet_button">Saya sudah punya dompet</string>
   <string name="intro_get_started_button">Launch wallet</string>
   <!-- Menus -->
@@ -333,7 +335,7 @@
   <string name="gamification_transaction_title">@string/gamification_level_bonus</string>
   <string name="gamification_purchase_header">Pembelian ini disertai bonus!</string>
   <string name="gamification_purchase_header_part_1">Bonus Pembelian:</string>
-  <string name="gamification_purchase_header_part_2">%s in AppCoins Credits</string>
+  <string name="gamification_purchase_header_part_2">%s dalam Kredit AppCoins</string>
   <string name="gamification_purchase_body">Anda bisa menggunakan bonus ini di pembelian berikutnya.</string>
   <string name="gamification_purchase_completed_bonus_received_done">Selesai!</string>
   <string name="gamification_purchase_completed_bonus_received">Bonus Diterima</string>
@@ -377,7 +379,7 @@
   <string name="topup_completed_2_with_bonus">disimpan di akun Anda... Bersama dengan bonus!</string>
   <string name="topup_completed_2_without_bonus">disimpan ke akun Anda.</string>
   <string name="topup_bonus_header_part_1">Bonus Isi Ulang:</string>
-  <string name="topup_bonus_header_part_2">%s in AppCoins Credits</string>
+  <string name="topup_bonus_header_part_2">%s dalam Kredit AppCoins</string>
   <string name="topup_bonus_body">Anda bisa menggunakan bonus ini di pembelian berikutnya.</string>
   <string name="topup_minimum_value">Nilai isi ulang minimal adalah %s</string>
   <string name="topup_maximum_value">Nilai isi ulang maksimal adalah %s</string>
