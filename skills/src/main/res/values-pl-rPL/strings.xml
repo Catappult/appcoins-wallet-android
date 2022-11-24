@@ -9,6 +9,7 @@
   <string name="refunded">Twoje pieniądze zostały zwrócone.</string>
   <string name="ok">Ok</string>
   <string name="cancel">Anuluj</string>
+  <string name="update_button">Update</string>
   <string name="buy_button">Kup</string>
   <string name="topup_button">Doładowanie</string>
   <string name="connection_error_body">Wygląda na to że nie jesteś podłączony do internetu. Sprawdź połączenie i spróbuj ponownie!</string>
