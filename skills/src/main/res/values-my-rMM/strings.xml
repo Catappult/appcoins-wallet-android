@@ -9,6 +9,7 @@
   <string name="refunded">သင့္ေငြကို ျပန္အမ္းေပးလိုက္ပါသည္။</string>
   <string name="ok">အိုေက</string>
   <string name="cancel">ပယ္ဖ်က္မည္</string>
+  <string name="update_button">Update</string>
   <string name="buy_button">ဝယ္မည္</string>
   <string name="topup_button">ေငြျဖည့္မည္</string>
   <string name="connection_error_body">သင္ အင္တာနက္ခ်ိတ္ဆက္ထားပံု မရပါ။ ခ်ိတ္ဆက္မႈကို စစ္ေဆးကာ ျပန္ႀကိဳးစားပါ။</string>
