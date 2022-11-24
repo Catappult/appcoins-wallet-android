@@ -9,7 +9,6 @@
   <string name="refunded">Your money has been refunded.</string>
   <string name="ok">ठीक</string>
   <string name="cancel">रद्द करें</string>
-  <string name="update_button">Update</string>
   <string name="buy_button">खरीदें</string>
   <string name="topup_button">टॉप अप</string>
   <string name="connection_error_body">शायद आप इंटरनेट से नहीं जुड़े हैं। अपना कनेक्शन जांचें और पुनः प्रयास करें!</string>
