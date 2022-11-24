@@ -9,6 +9,7 @@
   <string name="refunded">Your money has been refunded.</string>
   <string name="ok">OK</string>
   <string name="cancel">Отказ</string>
+  <string name="update_button">Update</string>
   <string name="buy_button">Купи</string>
   <string name="topup_button">Допълване</string>
   <string name="connection_error_body">Изглежда, че не си свързан с интернет. Провери връзката си и опитай отново!</string>
