@@ -9,7 +9,6 @@
   <string name="refunded">Your money has been refunded.</string>
   <string name="ok">好的</string>
   <string name="cancel">取消</string>
-  <string name="update_button">Update</string>
   <string name="buy_button">購買</string>
   <string name="topup_button">儲值</string>
   <string name="connection_error_body">可能您未連接至網路。請檢查您的網絡連線狀態，再試一次。</string>
