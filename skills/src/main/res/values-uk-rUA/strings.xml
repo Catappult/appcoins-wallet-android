@@ -9,6 +9,7 @@
   <string name="refunded">Ваші гроші повернуто.</string>
   <string name="ok">ОК</string>
   <string name="cancel">Скасувати</string>
+  <string name="update_button">Update</string>
   <string name="buy_button">Купити</string>
   <string name="topup_button">Поповнити</string>
   <string name="connection_error_body">Здається, ви не підключені до Інтернету. Перевірте з’єднання та спробуйте ще раз!</string>
