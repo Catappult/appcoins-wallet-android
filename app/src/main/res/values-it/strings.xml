@@ -118,11 +118,11 @@
   <string name="intro_1_title">AppCoins Wallet</string>
   <string name="intro_1_body">La tua app per gli acquisti in-app.</string>
   <string name="intro_2_title">Gioca di più, paga di meno</string>
-  <string name="intro_2_body">Fatti premiare per i tuoi acquisti sulle app e i giochi che preferisci.</string>
+  <string name="intro_2_body">The best payment wallet for apps and games.</string>
   <string name="intro_3_title">Semplice e lineare</string>
-  <string name="intro_3_body">Assicurati che l\'AppCoins Wallet sia installato per effettuare acquisti direttamente dai giochi.</string>
+  <string name="intro_3_body">Bonuses on all purchases.</string>
   <string name="intro_4_title">Sicuro e privato</string>
-  <string name="intro_4_body">Le tue chiavi private non lasceranno mai il tuo dispositivo, rendendo le AppCoins sicure in ogni momento.</string>
+  <string name="intro_4_body">Use bank card, PayPal and your favorite payment methods.</string>
   <string name="intro_4_body_2">Tutte le tue transazioni sono sempre sicure grazie alla nostra tecnologia d\'avanguardia.</string>
   <string name="intro_5_title">Ricevi AppCoins Credits gratis!</string>
   <string name="intro_5_body">Riceverai AppCoins Credits gratuitamente provando app e giochi.</string>
@@ -131,7 +131,9 @@
   <string name="intro_agree_terms_and_conditions_body">By entering the AppCoins Wallet, you agree to the %1$s and %2$s.</string>
   <string name="intro_skip_button">SALTA</string>
   <string name="intro_welcome_header">Benvenuto nel tuo AppCoins Wallet</string>
-  <string name="intro_welcome_body">La tua app per gli acquisti in-app.</string>
+  <string name="intro_welcome_body">Top up your wallet or make a purchase in any AppCoins compatible app or game.</string>
+  <string name="intro_welcome_header_2">Up to %s%% Bonus!</string>
+  <string name="intro_welcome_body_2">Bonuses can be used in any app or game.</string>
   <string name="intro_already_have_wallet_button">Ho già un wallet</string>
   <string name="intro_get_started_button">Launch wallet</string>
   <!-- Menus -->
