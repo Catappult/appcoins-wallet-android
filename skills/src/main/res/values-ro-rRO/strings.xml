@@ -9,6 +9,7 @@
   <string name="refunded">Banii tăi au fost rambursați.</string>
   <string name="ok">OK</string>
   <string name="cancel">Anulează</string>
+  <string name="update_button">Update</string>
   <string name="buy_button">Cumpără</string>
   <string name="topup_button">Alimentează</string>
   <string name="connection_error_body">Se pare că nu ești conectat la Internet. Verifică conexiunea și încearcă din nou!</string>
