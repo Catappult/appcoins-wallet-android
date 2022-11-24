@@ -9,6 +9,7 @@
   <string name="refunded">تمت استعادة أموالك.</string>
   <string name="ok">موافق</string>
   <string name="cancel">إلغاء</string>
+  <string name="update_button">Update</string>
   <string name="buy_button">شراء</string>
   <string name="topup_button">إضافة</string>
   <string name="connection_error_body">يبدو أنك غير متصل بالإنترنت. افحص اتصالك بالإنترنت وحاول مجددًا!</string>
