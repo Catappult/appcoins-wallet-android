@@ -9,6 +9,7 @@
   <string name="refunded">Uang Anda sudah dikembalikan.</string>
   <string name="ok">Oke</string>
   <string name="cancel">Batal</string>
+  <string name="update_button">Update</string>
   <string name="buy_button">Beli</string>
   <string name="topup_button">Isi Ulang</string>
   <string name="connection_error_body">Sepertinya Anda tidak terhubung ke Internet. Periksa koneksi Anda, lalu coba lagi!</string>
