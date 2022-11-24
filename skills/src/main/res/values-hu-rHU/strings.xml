@@ -9,6 +9,7 @@
   <string name="refunded">Visszautaltuk a pénzed.</string>
   <string name="ok">OKÉ</string>
   <string name="cancel">Mégse</string>
+  <string name="update_button">Update</string>
   <string name="buy_button">Vásárlás</string>
   <string name="topup_button">Befizetés</string>
   <string name="connection_error_body">Úgy tűnik nincs internetkapcsolat. Ellenőrizd a kapcsolatot és próbáld újra!</string>
