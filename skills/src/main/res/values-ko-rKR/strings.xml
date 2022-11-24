@@ -9,7 +9,6 @@
   <string name="refunded">귀하의 돈이 환불되었습니다.</string>
   <string name="ok">OK</string>
   <string name="cancel">취소</string>
-  <string name="update_button">Update</string>
   <string name="buy_button">구매</string>
   <string name="topup_button">충전</string>
   <string name="connection_error_body">인터넷에 연결되지 않은 것 같습니다. 인터넷 연결을 확인하시고 다시 시도해 주세요!</string>
