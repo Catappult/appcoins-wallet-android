@@ -118,11 +118,11 @@
   <string name="intro_1_title">AppCoins Wallet</string>
   <string name="intro_1_body">การซื้อของคุรในแอป</string>
   <string name="intro_2_title">เล่นเมาก จ่ายน้อยลง</string>
-  <string name="intro_2_body">รับรางวัลสำหรับการซื้อสินค้าในแอปพลิเคชันที่ชื่นชอบและเกมของคุณ</string>
+  <string name="intro_2_body">The best payment wallet for apps and games.</string>
   <string name="intro_3_title">ไม่ซับซ้อน ง่าย</string>
-  <string name="intro_3_body">ติดตั้ง AppCoins Wallet เพื่อใช้จ่ายแกมส์ได้โดยตรง</string>
+  <string name="intro_3_body">Bonuses on all purchases.</string>
   <string name="intro_4_title">ปลอดภัยและเป็นส่วนตัว</string>
-  <string name="intro_4_body">คีย์ส่วนตัวของคุณจะไม่เคยออกจากอุปกรณ์ของคุณ เพื่อ AppCoins ของคุณจะปลอดภัยตลอดเวลา</string>
+  <string name="intro_4_body">Use bank card, PayPal and your favorite payment methods.</string>
   <string name="intro_4_body_2">ธุรกรรมทั้งหมดของคุณปลอดภัยด้วยเทคโนโลยีล่าสุด</string>
   <string name="intro_5_title">รับเครดิต AppCoins ฟรี!</string>
   <string name="intro_5_body">คุณจะได้รับเครดิต AppCoins ฟรีโดยการทดลองแอปและเกมส์</string>
@@ -131,7 +131,9 @@
   <string name="intro_agree_terms_and_conditions_body">By entering the AppCoins Wallet, you agree to the %1$s and %2$s.</string>
   <string name="intro_skip_button">ข้าม</string>
   <string name="intro_welcome_header">ยินดีต้อนรับสู่ AppCoins Wallet</string>
-  <string name="intro_welcome_body">ซื้อในแอปของคุณ</string>
+  <string name="intro_welcome_body">Top up your wallet or make a purchase in any AppCoins compatible app or game.</string>
+  <string name="intro_welcome_header_2">Up to %s%% Bonus!</string>
+  <string name="intro_welcome_body_2">Bonuses can be used in any app or game.</string>
   <string name="intro_already_have_wallet_button">ฉันมีวอลเล็ตแล้ว</string>
   <string name="intro_get_started_button">Launch wallet</string>
   <!-- Menus -->
@@ -333,7 +335,7 @@
   <string name="gamification_transaction_title">@string/gamification_level_bonus</string>
   <string name="gamification_purchase_header">การซื้อนี้มีโบนัส!</string>
   <string name="gamification_purchase_header_part_1">โบนัสการซื้อ</string>
-  <string name="gamification_purchase_header_part_2">%s in AppCoins Credits</string>
+  <string name="gamification_purchase_header_part_2">%s ในเครดิต AppCoins</string>
   <string name="gamification_purchase_body">คุณสามารถใช้โบนัสนี้ในการซื้อครั้งต่อไป</string>
   <string name="gamification_purchase_completed_bonus_received_done">เสร็จสิ้น!</string>
   <string name="gamification_purchase_completed_bonus_received">โบนัสที่ได้รับ</string>
@@ -377,7 +379,7 @@
   <string name="topup_completed_2_with_bonus">ถูกฝากเข้าบัญชีของคุณ... พร้อมกับโบนัส!</string>
   <string name="topup_completed_2_without_bonus">มีในบัญชีของคุณ</string>
   <string name="topup_bonus_header_part_1">เติมโบนัส</string>
-  <string name="topup_bonus_header_part_2">%s in AppCoins Credits</string>
+  <string name="topup_bonus_header_part_2">%s ในเครดิต AppCoins</string>
   <string name="topup_bonus_body">คุณสามารถใช้โบนัสนี้ในการซื้อครั้งต่อไป</string>
   <string name="topup_minimum_value">การเติมเงินอย่างต่ำคือ %s</string>
   <string name="topup_maximum_value">การเติมเงินสูงสุดคือ %s</string>
