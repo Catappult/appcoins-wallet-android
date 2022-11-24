@@ -9,6 +9,7 @@
   <string name="refunded">پول شما بازگردانده شد.</string>
   <string name="ok">اوکی</string>
   <string name="cancel">لغو</string>
+  <string name="update_button">Update</string>
   <string name="buy_button">خرید</string>
   <string name="topup_button">افزایش اعتبار</string>
   <string name="connection_error_body">به نظر می‌رسد به اینترنت متصل نیستید. ارتباط خود را بررسی کنید و دوباره امتحان کنید!</string>
