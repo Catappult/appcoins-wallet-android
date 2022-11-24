@@ -118,11 +118,11 @@
   <string name="intro_1_title">AppCoins Wallet</string>
   <string name="intro_1_body">La app para compras in-app.</string>
   <string name="intro_2_title">Juega Más, Paga Menos</string>
-  <string name="intro_2_body">Obtén recompensas al hacer compras en tus juegos favoritos.</string>
+  <string name="intro_2_body">The best payment wallet for apps and games.</string>
   <string name="intro_3_title">Fácil y Sencillo</string>
-  <string name="intro_3_body">Mantén de AppCoins Wallet instalada para poder hacer compras directamente en los juegos.</string>
+  <string name="intro_3_body">Bonuses on all purchases.</string>
   <string name="intro_4_title">Seguro y Privado</string>
-  <string name="intro_4_body">Tus private keys no abandonan tu dispositivo, por lo que tus APPC siempre están seguras.</string>
+  <string name="intro_4_body">Use bank card, PayPal and your favorite payment methods.</string>
   <string name="intro_4_body_2">Todas tus transacciones están siempre seguras gracias a la última tecnología.</string>
   <string name="intro_5_title">¡Obtén AppCoins Credits Gratis!</string>
   <string name="intro_5_body">Ganarás AppCoins Credits gratis por probar apps y juegos.</string>
@@ -131,7 +131,9 @@
   <string name="intro_agree_terms_and_conditions_body">By entering the AppCoins Wallet, you agree to the %1$s and %2$s.</string>
   <string name="intro_skip_button">SALTAR</string>
   <string name="intro_welcome_header">Bienvenid@ a la AppCoins Wallet</string>
-  <string name="intro_welcome_body">La app para compras in-app.</string>
+  <string name="intro_welcome_body">Top up your wallet or make a purchase in any AppCoins compatible app or game.</string>
+  <string name="intro_welcome_header_2">Up to %s%% Bonus!</string>
+  <string name="intro_welcome_body_2">Bonuses can be used in any app or game.</string>
   <string name="intro_already_have_wallet_button">Ya tengo una wallet</string>
   <string name="intro_get_started_button">Launch wallet</string>
   <!-- Menus -->
@@ -333,7 +335,7 @@
   <string name="gamification_transaction_title">@string/gamification_level_bonus</string>
   <string name="gamification_purchase_header">¡Esta compra tiene un bonus!</string>
   <string name="gamification_purchase_header_part_1">Bonus de Compra:</string>
-  <string name="gamification_purchase_header_part_2">%s in AppCoins Credits</string>
+  <string name="gamification_purchase_header_part_2">%s en AppCoins Credits</string>
   <string name="gamification_purchase_body">Puedes usar este bonus en tu próxima compra.</string>
   <string name="gamification_purchase_completed_bonus_received_done">¡Hecho!</string>
   <string name="gamification_purchase_completed_bonus_received">Bonus recibido</string>
@@ -377,7 +379,7 @@
   <string name="topup_completed_2_with_bonus">se han abonado a tu cuenca... ¡Junto con un Bonus!</string>
   <string name="topup_completed_2_without_bonus">se han abonado a tu cuenta.</string>
   <string name="topup_bonus_header_part_1">Bonus de recarga:</string>
-  <string name="topup_bonus_header_part_2">%s in AppCoins Credits</string>
+  <string name="topup_bonus_header_part_2">%s en AppCoins Credits</string>
   <string name="topup_bonus_body">Puedes usar este bonus en tu próxima compra.</string>
   <string name="topup_minimum_value">El valor máximo de recarga es %s.</string>
   <string name="topup_maximum_value">El valor mínimo de recarga es %s.</string>
@@ -1093,7 +1095,7 @@
   <!-- VIP Program -->
   <string name="vip_program_reached_notification_title">Welcome to the VIP Program</string>
   <string name="vip_program_reached_notification_body">You\'re now a VIP user with access to special promotions and deals. Tap for more details!</string>
-  <string name="vip_program_almost_notification_title">Almost there!</string>
+  <string name="vip_program_almost_notification_title">¡Ya casi estás!</string>
   <string name="vip_program_almost_notification_body">You\'re about to become a VIP user. Tap for more details!</string>
   <string name="vip_program_almost_onboarding_title">You\'re about to become a VIP user!</string>
   <string name="vip_program_almost_onboarding_body">Continue playing and making purchases to access exclusive promotions and deals. Ready to become the ultimate player?</string>
