@@ -9,6 +9,7 @@
   <string name="refunded">你的金额已被退还。</string>
   <string name="ok">确定</string>
   <string name="cancel">取消</string>
+  <string name="update_button">Update</string>
   <string name="buy_button">购买</string>
   <string name="topup_button">充值</string>
   <string name="connection_error_body">你似乎没有连接到互联网。请检查你的连接并重试！</string>
