@@ -9,7 +9,6 @@
   <string name="refunded">Paranız iade edildi.</string>
   <string name="ok">Tamam</string>
   <string name="cancel">İptal et</string>
-  <string name="update_button">Update</string>
   <string name="buy_button">Satın Al</string>
   <string name="topup_button">Yükle</string>
   <string name="connection_error_body">İnternete bağlı değilsiniz gibi görünüyor. Bağlantınızı kontrol edip tekrar deneyin!</string>
