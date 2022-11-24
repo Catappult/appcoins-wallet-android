@@ -9,6 +9,7 @@
   <string name="refunded">Ihr Geld wurde ihnen wieder gutgeschrieben.</string>
   <string name="ok">OK</string>
   <string name="cancel">Abbrechen</string>
+  <string name="update_button">Update</string>
   <string name="buy_button">Kaufen</string>
   <string name="topup_button">Aufladen</string>
   <string name="connection_error_body">Scheinbar sind Sie nicht mit dem Internet verbunden. Überprüfen Sie ihrer Verbindung und überprüfen Sie es erneut!</string>
