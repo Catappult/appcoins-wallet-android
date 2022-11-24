@@ -406,8 +406,8 @@ class MergedAppcoinsFragment : BasePageViewFragment(), MergedAppcoinsView {
     radioButton.isEnabled = false
     radioButton.isChecked = false
     message.text = getString(reason)
-    title.setTextColor(ContextCompat.getColor(requireContext(), R.color.btn_disable_snd_color))
-    message.setTextColor(ContextCompat.getColor(requireContext(), R.color.disable_reason))
+    title.setTextColor(ContextCompat.getColor(requireContext(), R.color.styleguide_medium_grey))
+    message.setTextColor(ContextCompat.getColor(requireContext(), R.color.styleguide_pink))
     bonusLayout?.setBackgroundResource(R.drawable.disable_bonus_img_background)
     message.visibility = VISIBLE
     balanceGroup.visibility = INVISIBLE
@@ -435,7 +435,7 @@ class MergedAppcoinsFragment : BasePageViewFragment(), MergedAppcoinsView {
     }
     selectedRadioButton.isEnabled = true
     message.text = ""
-    title.setTextColor(ContextCompat.getColor(requireContext(), R.color.color_title))
+    title.setTextColor(ContextCompat.getColor(requireContext(), R.color.styleguide_dark_grey))
     bonusView?.setBackgroundResource(R.drawable.bonus_img_background)
     message.visibility = INVISIBLE
     balanceGroup.visibility = VISIBLE
@@ -446,11 +446,11 @@ class MergedAppcoinsFragment : BasePageViewFragment(), MergedAppcoinsView {
   private fun setTitle(checked: Boolean, title: TextView) {
     if (checked) {
       title.setTextColor(
-        ContextCompat.getColor(requireContext(), R.color.details_address_text_color)
+        ContextCompat.getColor(requireContext(), R.color.styleguide_black_transparent_80)
       )
       title.typeface = Typeface.create("sans-serif-medium", Typeface.NORMAL)
     } else {
-      title.setTextColor(ContextCompat.getColor(requireContext(), R.color.grey_alpha_active_54))
+      title.setTextColor(ContextCompat.getColor(requireContext(), R.color.styleguide_black_transparent_80))
       title.typeface = Typeface.create("sans-serif", Typeface.NORMAL)
     }
   }

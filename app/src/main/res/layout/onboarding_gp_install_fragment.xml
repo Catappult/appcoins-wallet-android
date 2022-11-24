@@ -4,7 +4,7 @@
     android:id="@+id/onboarding_iap_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/blue_dark_transparent_90"
+    android:background="@color/styleguide_blue_transparent_90"
     >
 
   <ImageView
@@ -48,7 +48,7 @@
           android:gravity="center_horizontal"
           android:letterSpacing="0.01"
           android:text="@string/onboarding_1st_title"
-          android:textColor="@color/white"
+          android:textColor="@color/styleguide_white"
           android:textSize="22sp"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="parent"
@@ -63,7 +63,7 @@
           android:layout_marginTop="@dimen/onboarding_subtitle_margin_top"
           android:gravity="center_horizontal"
           android:text="@string/onboarding_1st_body"
-          android:textColor="@color/white"
+          android:textColor="@color/styleguide_white"
           android:textSize="16sp"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="parent"
@@ -89,7 +89,7 @@
           android:layout_height="@dimen/onboarding_button_height"
           android:layout_marginHorizontal="70dp"
           android:layout_marginTop="@dimen/big_padding"
-          app:buttonColor="@color/grey"
+          app:buttonColor="@color/styleguide_dark_grey"
           app:buttonText="@string/onboarding_1st_explore_wallet_button"
           app:buttonType="text"
           app:layout_constraintEnd_toEndOf="parent"

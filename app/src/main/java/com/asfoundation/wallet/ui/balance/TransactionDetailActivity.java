@@ -151,8 +151,7 @@ import static com.asfoundation.wallet.C.Key.TRANSACTION;
     }
 
     @StringRes int statusStr = R.string.transaction_status_success;
-    @ColorRes int statusColor = R.color.green;
-    @ColorRes int descriptionColor = R.color.transaction_orange;
+    @ColorRes int statusColor = R.color.styleguide_green;
 
     @StringRes int typeStr = R.string.transaction_type_standard;
     @DrawableRes int typeIcon = R.drawable.ic_transaction_peer;
@@ -183,7 +182,6 @@ import static com.asfoundation.wallet.C.Key.TRANSACTION;
         typeStr = R.string.transaction_type_iab;
         typeIcon = R.drawable.ic_transaction_iab;
         revertedDescription = R.string.transaction_type_reverted_purchase_title;
-        descriptionColor = R.color.green;
         button.setVisibility(View.VISIBLE);
         button.setOnClickListener(
             view -> viewModel.showMoreDetailsBds(view.getContext(), transaction));
@@ -334,19 +332,19 @@ import static com.asfoundation.wallet.C.Key.TRANSACTION;
     switch (transaction.getStatus()) {
       case FAILED:
         statusStr = R.string.transaction_status_failed;
-        statusColor = R.color.red;
+        statusColor = R.color.styleguide_red;
         break;
       case PENDING:
         statusStr = R.string.transaction_status_pending;
-        statusColor = R.color.transaction_orange;
+        statusColor = R.color.styleguide_orange;
         break;
     }
 
     if (isRevertedTransaction) {
       statusStr = R.string.transaction_status_reverted;
-      statusColor = R.color.orange;
+      statusColor = R.color.styleguide_orange;
     } else if (isRevertTransaction) {
-      statusColor = R.color.green;
+      statusColor = R.color.styleguide_green;
     }
 
     String localFiatCurrency = globalBalanceCurrency;
@@ -356,7 +354,7 @@ import static com.asfoundation.wallet.C.Key.TRANSACTION;
             .getAmount()
             .toString(), localFiatCurrency, icon, id, description, typeStr, typeIcon, statusStr,
         statusColor, transaction.getOrderReference(), to, from, isSent, isRevertTransaction,
-        isRevertedTransaction, revertedDescription, descriptionColor,
+        isRevertedTransaction, revertedDescription, statusColor,
         transactionsDetailsModel.getWallet()
             .getAddress());
   }
@@ -610,7 +608,7 @@ import static com.asfoundation.wallet.C.Key.TRANSACTION;
     sourceDescriptionTv.setText(sourceDescription);
 
     int smallTitleSize = (int) getResources().getDimension(R.dimen.small_text);
-    int color = getResources().getColor(R.color.color_grey_9e);
+    int color = getResources().getColor(R.color.styleguide_medium_grey);
     valueTv.setText(BalanceUtils.formatBalance(value, symbol, smallTitleSize, color));
 
     if (icon != null) {
@@ -646,7 +644,7 @@ import static com.asfoundation.wallet.C.Key.TRANSACTION;
   private void formatValues(String value, String symbol, String paidAmount, String paidCurrency,
       String convertedAmount, String convertedCurrency) {
     int smallTitleSize = (int) getResources().getDimension(R.dimen.small_text);
-    int color = getResources().getColor(R.color.color_grey_9e);
+    int color = getResources().getColor(R.color.styleguide_medium_grey);
 
     if (paidAmount != null) {
       String formattedValue = value + " " + symbol.toUpperCase();

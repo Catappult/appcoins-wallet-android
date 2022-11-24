@@ -8,8 +8,8 @@
     android:layout_height="wrap_content"
     android:theme="@style/MaterialAppTheme"
     app:cardCornerRadius="0dp"
-    app:cardBackgroundColor="@color/white"
-    app:rippleColor="@color/grey_9d"
+    app:cardBackgroundColor="@color/styleguide_white"
+    app:rippleColor="@color/styleguide_medium_grey"
     >
   <androidx.constraintlayout.widget.ConstraintLayout
       android:id="@+id/fiat_currency_item"
@@ -41,7 +41,7 @@
         android:layout_marginStart="@dimen/big_margin"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="@dimen/big_margin"
-        android:textColor="@color/transaction_item_text_color"
+        android:textColor="@color/styleguide_black_transparent_80"
         android:textSize="20sp"
         app:layout_constraintEnd_toStartOf="@id/fiat_check_mark"
         app:layout_constraintHorizontal_bias="0.0"
@@ -56,7 +56,7 @@
         android:layout_marginStart="@dimen/big_margin"
         android:layout_marginEnd="@dimen/big_margin"
         android:layout_marginBottom="@dimen/big_margin"
-        android:textColor="@color/change_fiat_selected_item_long"
+        android:textColor="@color/styleguide_medium_grey"
         android:textSize="14sp"
         app:layout_constraintEnd_toStartOf="@id/fiat_check_mark"
         app:layout_constraintHorizontal_bias="0.0"

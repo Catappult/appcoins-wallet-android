@@ -6,7 +6,7 @@
     android:layout_height="wrap_content"
     android:paddingHorizontal="12dp"
     android:paddingVertical="14dp"
-    tools:background="@color/bottom_nav_top_up_blue"
+    tools:background="@color/styleguide_blue"
     >
 
   <ImageView
@@ -92,7 +92,7 @@
         android:paddingHorizontal="4dp"
         android:paddingVertical="2dp"
         android:text="@string/vip_program_exclusivity_tag"
-        android:textColor="@color/promotions_dark_text"
+        android:textColor="@color/styleguide_blue"
         android:visibility="visible"
         />
 

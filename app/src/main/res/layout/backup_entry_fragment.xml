@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/blue_dark"
+    android:background="@color/styleguide_blue"
     >
   <ScrollView
       android:id="@+id/backup_scroll_view"
@@ -71,7 +71,7 @@
         android:paddingHorizontal="@dimen/half_large_padding"
         app:buttonText="@string/skip_button"
         app:buttonType="text"
-        app:buttonColor="@color/grey_blue_medium"
+        app:buttonColor="@color/styleguide_dark_grey"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

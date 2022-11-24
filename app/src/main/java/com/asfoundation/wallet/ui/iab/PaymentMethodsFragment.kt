@@ -328,7 +328,7 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
       payment_method_fee_value.text = "$formattedValue ${fee.currency}"
 
       payment_method_fee_value.apply {
-        this.setTextColor(ContextCompat.getColor(requireContext(), R.color.appc_pink))
+        this.setTextColor(ContextCompat.getColor(requireContext(), R.color.styleguide_pink))
         this.typeface = Typeface.create("sans-serif-medium", Typeface.NORMAL)
       }
     } else {

@@ -16,7 +16,7 @@
       android:fontFamily="sans-serif-medium"
       android:paddingHorizontal="16dp"
       android:text="@string/bottom_navigation_my_wallets"
-      android:textColor="@color/darker_navy_blue"
+      android:textColor="@color/styleguide_blue"
       android:textSize="14sp"
       />
 
@@ -35,7 +35,7 @@
       android:layout_marginTop="10dp"
       android:layout_marginBottom="8dp"
       app:cardElevation="0dp"
-      app:rippleColor="@color/button_borderless_ripple_color"
+      app:rippleColor="@color/styleguide_dark_grey"
       app:shapeAppearance="@style/MyWallets.Shapes.Rounded8"
       >
 
@@ -60,7 +60,7 @@
           android:layout_marginHorizontal="22dp"
           android:fontFamily="sans-serif-medium"
           android:text="@string/my_wallets_action_new_wallet"
-          android:textColor="@color/darker_navy_blue"
+          android:textColor="@color/styleguide_blue"
           android:textSize="14sp"
           />
     </LinearLayout>
@@ -72,7 +72,7 @@
       android:layout_height="wrap_content"
       android:layout_marginBottom="8dp"
       app:cardElevation="0dp"
-      app:rippleColor="@color/button_borderless_ripple_color"
+      app:rippleColor="@color/styleguide_dark_grey"
       app:shapeAppearance="@style/MyWallets.Shapes.Rounded8"
       >
 
@@ -97,7 +97,7 @@
           android:layout_marginHorizontal="22dp"
           android:fontFamily="sans-serif-medium"
           android:text="@string/my_wallets_action_recover_wallet"
-          android:textColor="@color/darker_navy_blue"
+          android:textColor="@color/styleguide_blue"
           android:textSize="14sp"
           />
     </LinearLayout>
@@ -110,7 +110,7 @@
       android:layout_height="wrap_content"
       android:layout_marginBottom="4dp"
       app:cardElevation="0dp"
-      app:rippleColor="@color/button_borderless_ripple_color"
+      app:rippleColor="@color/styleguide_dark_grey"
       app:shapeAppearance="@style/MyWallets.Shapes.Rounded8"
       >
 
@@ -135,7 +135,7 @@
           android:layout_marginHorizontal="22dp"
           android:fontFamily="sans-serif-medium"
           android:text="@string/my_wallets_action_delete_wallet"
-          android:textColor="@color/darker_navy_blue"
+          android:textColor="@color/styleguide_blue"
           android:textSize="14sp"
           />
     </LinearLayout>

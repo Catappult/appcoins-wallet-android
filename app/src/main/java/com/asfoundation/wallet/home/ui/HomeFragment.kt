@@ -240,7 +240,7 @@ class HomeFragment : BasePageViewFragment(),
       alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE)
         .setBackgroundColor(ResourcesCompat.getColor(resources, R.color.transparent, null))
       alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE)
-        .setTextColor(ResourcesCompat.getColor(resources, R.color.text_button_color, null))
+        .setTextColor(ResourcesCompat.getColor(resources, R.color.styleguide_pink, null))
     }
   }
 

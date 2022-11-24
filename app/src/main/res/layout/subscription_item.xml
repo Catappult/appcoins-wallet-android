@@ -73,7 +73,7 @@
         android:layout_height="wrap_content"
         android:ellipsize="end"
         android:maxLines="1"
-        android:textColor="@color/red"
+        android:textColor="@color/styleguide_red"
         android:textSize="12sp"
         tools:text="It expires on Jan 19"
         />

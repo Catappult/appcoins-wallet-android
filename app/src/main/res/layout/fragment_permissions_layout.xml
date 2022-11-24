@@ -84,7 +84,7 @@
           android:layout_gravity="center_vertical"
           android:layout_marginTop="16dp"
           android:layout_marginEnd="2dp"
-          app:buttonColor="@color/btn_cancel_text"
+          app:buttonColor="@color/styleguide_dark_grey"
           app:buttonText="@string/provide_wallet_cancel"
           app:buttonType="text"
           app:layout_constraintEnd_toEndOf="parent"
@@ -133,7 +133,7 @@
           android:ellipsize="end"
           android:gravity="center_vertical"
           android:maxLines="1"
-          android:textColor="@color/grey_alpha_active_54"
+          android:textColor="@color/styleguide_black_transparent_80"
           android:textSize="12sp"
           tools:text="0x0eebe100e4866204497d78d93a1071941dce70a4"
           />

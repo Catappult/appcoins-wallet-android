@@ -22,7 +22,7 @@ class WalletButtonView : FrameLayout {
 
   private var type = Type.FILLED
 
-  private var color = ContextCompat.getColor(this.context, R.color.wild_watermelon)
+  private var color = ContextCompat.getColor(this.context, R.color.styleguide_pink)
 
   private var enabled = true
 
@@ -110,20 +110,20 @@ class WalletButtonView : FrameLayout {
           views.root.setCardBackgroundColor(color)
           views.root.strokeColor = ContextCompat.getColor(this.context, R.color.transparent)
           views.root.strokeWidth = 0
-          views.root.setRippleColorResource(R.color.white)
-          views.text.setTextColor(ContextCompat.getColor(this.context, R.color.white))
+          views.root.setRippleColorResource(R.color.styleguide_white)
+          views.text.setTextColor(ContextCompat.getColor(this.context, R.color.styleguide_white))
           views.text.isAllCaps = isAllCaps
           imageLeft?.let { image ->
             views.imageLeft.setImageDrawable(image)
             views.imageLeft.visibility = View.VISIBLE
             views.imageLeft.imageTintList =
-              ColorStateList.valueOf(ContextCompat.getColor(this.context, R.color.white))
+              ColorStateList.valueOf(ContextCompat.getColor(this.context, R.color.styleguide_white))
           }
           imageRight?.let { image ->
             views.imageRight.setImageDrawable(image)
             views.imageRight.visibility = View.VISIBLE
             views.imageRight.imageTintList =
-              ColorStateList.valueOf(ContextCompat.getColor(this.context, R.color.white))
+              ColorStateList.valueOf(ContextCompat.getColor(this.context, R.color.styleguide_white))
           }
         }
         Type.OUTLINED -> {
@@ -152,7 +152,7 @@ class WalletButtonView : FrameLayout {
           )
           views.root.strokeColor = ContextCompat.getColor(this.context, R.color.transparent)
           views.root.strokeWidth = 0
-          views.root.setRippleColorResource(R.color.grey_f4)
+          views.root.setRippleColorResource(R.color.styleguide_medium_grey)
           views.text.setTextColor(color)
           views.text.isAllCaps = isAllCaps
           imageLeft?.let { image ->
@@ -172,13 +172,13 @@ class WalletButtonView : FrameLayout {
           views.root.setCardBackgroundColor(
             ContextCompat.getColor(
               this.context,
-              R.color.light_grey_alpha_73
+              R.color.styleguide_dark_grey
             )
           )
           views.root.strokeColor = ContextCompat.getColor(this.context, R.color.transparent)
           views.root.strokeWidth = 0
-          views.root.setRippleColorResource(R.color.white)
-          views.text.setTextColor(ContextCompat.getColor(this.context, R.color.white))
+          views.root.setRippleColorResource(R.color.styleguide_white)
+          views.text.setTextColor(ContextCompat.getColor(this.context, R.color.styleguide_white))
           views.text.isAllCaps = isAllCaps
           views.text.setPadding(0, 0, 0, 0)
           views.text.setMargins(16, 0, 8, 0)
@@ -186,25 +186,25 @@ class WalletButtonView : FrameLayout {
             views.imageLeft.setImageDrawable(image)
             views.imageLeft.visibility = View.VISIBLE
             views.imageLeft.imageTintList =
-              ColorStateList.valueOf(ContextCompat.getColor(this.context, R.color.wild_watermelon))
+              ColorStateList.valueOf(ContextCompat.getColor(this.context, R.color.styleguide_pink))
             views.imageLeft.setMargins(0, 0, 0, 0)
           }
           imageRight?.let { image ->
             views.imageRight.setImageDrawable(image)
             views.imageRight.visibility = View.VISIBLE
             views.imageRight.imageTintList =
-              ColorStateList.valueOf(ContextCompat.getColor(this.context, R.color.wild_watermelon))
+              ColorStateList.valueOf(ContextCompat.getColor(this.context, R.color.styleguide_pink))
             views.imageRight.setMargins(0, 0, 0, 0)
           }
         }
       }
     } else {
       views.root.isClickable = false
-      views.root.setCardBackgroundColor(ContextCompat.getColor(this.context, R.color.grey_c9))
+      views.root.setCardBackgroundColor(ContextCompat.getColor(this.context, R.color.styleguide_medium_grey))
       views.root.strokeColor = ContextCompat.getColor(this.context, R.color.transparent)
       views.root.strokeWidth = 0
-      views.root.setRippleColorResource(R.color.white)
-      views.text.setTextColor(ContextCompat.getColor(this.context, R.color.white))
+      views.root.setRippleColorResource(R.color.styleguide_white)
+      views.text.setTextColor(ContextCompat.getColor(this.context, R.color.styleguide_white))
     }
   }
 

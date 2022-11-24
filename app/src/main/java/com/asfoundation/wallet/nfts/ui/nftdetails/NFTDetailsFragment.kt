@@ -53,7 +53,7 @@ class NFTDetailsFragment : BasePageViewFragment(),
                                 target: com.bumptech.glide.request.target.Target<Drawable>?,
                                 isFirstResource: Boolean): Boolean {
         onLoadingFinished()
-        this@load.setBackgroundColor(ContextCompat.getColor(context, R.color.black))
+        this@load.setBackgroundColor(ContextCompat.getColor(context, R.color.styleguide_black))
         return false
       }
 

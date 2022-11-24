@@ -15,7 +15,7 @@
       android:layout_marginStart="8dp"
       android:fontFamily="@font/roboto_regular"
       android:text="@string/spend_your_appcoins"
-      android:textColor="@color/white_99"
+      android:textColor="@color/styleguide_white"
       android:textSize="@dimen/list_group_head"
       app:layout_constraintHorizontal_bias="0"
       app:layout_constraintHorizontal_chainStyle="packed"

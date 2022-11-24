@@ -40,7 +40,7 @@
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:layout_marginTop="6dp"
-          android:background="@color/verify_wallet_example_background"
+          android:background="@color/styleguide_dark_grey"
           android:paddingBottom="9dp"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toStartOf="parent"

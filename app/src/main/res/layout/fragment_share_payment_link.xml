@@ -51,7 +51,7 @@
         android:inputType="text"
         android:maxLength="50"
         android:maxLines="2"
-        android:textColorHint="@color/grey_alpha_6b"
+        android:textColorHint="@color/styleguide_black_transparent_80"
         />
 
     <com.asfoundation.wallet.ui.common.WalletButtonView

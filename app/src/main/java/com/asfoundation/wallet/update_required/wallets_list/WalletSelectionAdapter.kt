@@ -46,7 +46,7 @@ class WalletSelectionAdapter(
 
     if (dateLong == 0L) {
       views.wallet_selection_backup_date?.setTextColor(
-        ContextCompat.getColor(context, R.color.wild_watermelon)
+        ContextCompat.getColor(context, R.color.styleguide_pink)
       )
     }
 

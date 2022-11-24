@@ -101,7 +101,7 @@ class CarrierFeeFragment : BasePageViewFragment(), CarrierFeeView {
     appc_price_text.text = appc
 
     val feeString: SpannedString = buildSpannedString {
-      color(ResourcesCompat.getColor(resources, R.color.disable_reason, null)) {
+      color(ResourcesCompat.getColor(resources, R.color.styleguide_pink, null)) {
         append("${formatter.formatPaymentCurrency(carrierFeeFiat, WalletCurrency.FIAT)} $currency")
       }
     }

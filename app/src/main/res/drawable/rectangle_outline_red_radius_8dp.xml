@@ -5,7 +5,7 @@
   <!-- View border color and width -->
   <stroke
       android:width="1dp"
-      android:color="@color/remove_wallet_red" />
+      android:color="@color/styleguide_red" />
 
   <!-- The radius makes the corners rounded -->
   <corners android:radius="8dp" />

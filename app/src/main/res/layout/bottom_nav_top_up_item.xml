@@ -5,8 +5,8 @@
     android:layout_height="match_parent"
     android:clickable="true"
     android:focusable="true"
-    app:cardBackgroundColor="@color/bottom_nav_top_up_blue"
-    app:rippleColor="@color/white"
+    app:cardBackgroundColor="@color/styleguide_blue"
+    app:rippleColor="@color/styleguide_white"
     app:shapeAppearance="@style/BottomNav.Home.TopUpShape"
     >
 
@@ -33,7 +33,7 @@
         android:layout_gravity="center"
         android:layout_marginTop="4dp"
         android:text="@string/topup_title"
-        android:textColor="@color/white"
+        android:textColor="@color/styleguide_white"
         android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

@@ -196,7 +196,7 @@
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:layout_marginEnd="@dimen/half_large_margin"
-          android:textColor="@color/green"
+          android:textColor="@color/styleguide_green"
           app:layout_constraintBottom_toBottomOf="@id/status_label"
           app:layout_constraintEnd_toEndOf="parent"
           tools:text="Success"
@@ -280,11 +280,11 @@
           android:layout_marginEnd="@dimen/normal_margin"
           android:contentDescription="@string/empty"
           android:src="@drawable/ic_copy_to_clip"
-          android:visibility="gone"
+          android:visibility="visible"
           app:layout_constraintBottom_toBottomOf="@id/order_reference_name"
           app:layout_constraintEnd_toStartOf="@id/order_reference_name"
           app:layout_constraintTop_toTopOf="@id/order_reference_name"
-          app:tint="@color/color_grey_9e"
+          app:tint="@color/styleguide_dark_grey"
           />
 
       <TextView
@@ -468,7 +468,7 @@
           android:layout_marginTop="40dp"
           android:layout_marginEnd="@dimen/normal_margin"
           android:layout_marginBottom="40dp"
-          android:src="@drawable/ic_ether_logo"
+          android:src="@drawable/ic_eth_token"
           app:layout_constrainedWidth="true"
           app:layout_constraintBottom_toBottomOf="parent"
           app:layout_constraintEnd_toEndOf="parent"

@@ -17,7 +17,7 @@
       android:minWidth="80dp"
       android:paddingStart="@dimen/normal_margin"
       android:paddingEnd="@dimen/normal_margin"
-      android:textColor="@color/color_title"
+      android:textColor="@color/styleguide_dark_grey"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"

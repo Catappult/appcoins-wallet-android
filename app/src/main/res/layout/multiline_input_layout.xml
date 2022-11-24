@@ -36,11 +36,11 @@
       android:id="@+id/error_layout"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:background="@drawable/background_error_bottom"
+      android:background="@color/styleguide_red_transparent_40"
       android:minHeight="24dp"
       android:paddingTop="3dp"
       android:paddingBottom="3dp"
-      android:visibility="gone"
+      android:visibility="visible"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
@@ -54,7 +54,7 @@
         android:maxLines="2"
         android:paddingStart="10dp"
         android:paddingEnd="10dp"
-        android:textColor="@color/warning_text_red"
+        android:textColor="@color/styleguide_red"
         />
   </LinearLayout>
 

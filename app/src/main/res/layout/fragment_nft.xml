@@ -4,14 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="@color/styleguide_white"
     >
 
   <androidx.constraintlayout.widget.ConstraintLayout
       android:id="@+id/header"
       android:layout_width="match_parent"
       android:layout_height="104dp"
-      android:background="@drawable/appbar_background_color"
+      android:background="@color/styleguide_blue"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent"
@@ -29,7 +29,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:tint="@color/white"
+        app:tint="@color/styleguide_white"
         />
 
     <TextView
@@ -58,11 +58,11 @@
         android:id="@+id/gamification_background"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:background="@color/white"
+        android:background="@color/styleguide_white"
         android:clipChildren="false"
         android:clipToPadding="false"
         android:paddingBottom="@dimen/normal_margin"
-        app:cardBackgroundColor="@color/white"
+        app:cardBackgroundColor="@color/styleguide_white"
         app:cardPreventCornerOverlap="false"
         app:layout_constraintTop_toBottomOf="@id/header"
         >
