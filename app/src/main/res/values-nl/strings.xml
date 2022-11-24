@@ -118,11 +118,11 @@
   <string name="intro_1_title">AppCoins Wallet</string>
   <string name="intro_1_body">Jouw app voor in-app aankopen.</string>
   <string name="intro_2_title">Speel meer, betaal minder</string>
-  <string name="intro_2_body">Krijg een beloning door items in je favoriete apps en games te kopen.</string>
+  <string name="intro_2_body">The best payment wallet for apps and games.</string>
   <string name="intro_3_title">Simpel en eenvoudig</string>
-  <string name="intro_3_body">Zorg ervoor dat je de AppCoins Wallet hebt geïnstalleerd om rechtstreeks in games aankopen te doen.</string>
+  <string name="intro_3_body">Bonuses on all purchases.</string>
   <string name="intro_4_title">Veilig en persoonlijk</string>
-  <string name="intro_4_body">Je privésleutels staan alleen op jouw apparaat waardoor je AppCoins altijd beveiligd zijn.</string>
+  <string name="intro_4_body">Use bank card, PayPal and your favorite payment methods.</string>
   <string name="intro_4_body_2">Al je transacties zijn altijd veilig dankzij de nieuwste technologie.</string>
   <string name="intro_5_title">Ontvang gratis AppCoins Credits!</string>
   <string name="intro_5_body">Je verdient gratis AppCoins Credits door apps en games te proberen.</string>
@@ -131,7 +131,9 @@
   <string name="intro_agree_terms_and_conditions_body">By entering the AppCoins Wallet, you agree to the %1$s and %2$s.</string>
   <string name="intro_skip_button">OVERSLAAN</string>
   <string name="intro_welcome_header">Welkom bij de AppCoins Wallet</string>
-  <string name="intro_welcome_body">Jouw app voor in-app aankopen.</string>
+  <string name="intro_welcome_body">Top up your wallet or make a purchase in any AppCoins compatible app or game.</string>
+  <string name="intro_welcome_header_2">Up to %s%% Bonus!</string>
+  <string name="intro_welcome_body_2">Bonuses can be used in any app or game.</string>
   <string name="intro_already_have_wallet_button">Ik heb al een wallet</string>
   <string name="intro_get_started_button">Launch wallet</string>
   <!-- Menus -->
