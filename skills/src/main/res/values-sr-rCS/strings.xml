@@ -9,7 +9,6 @@
   <string name="refunded">Vaš novac je refundiran.</string>
   <string name="ok">U redu</string>
   <string name="cancel">Otkaži</string>
-  <string name="update_button">Update</string>
   <string name="buy_button">Kupi</string>
   <string name="topup_button">Dopunite</string>
   <string name="connection_error_body">Izgleda da niste povezani na internet. Proverite vezu pa pokušajte ponovo!</string>
