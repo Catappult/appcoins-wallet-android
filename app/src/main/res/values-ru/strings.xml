@@ -118,11 +118,11 @@
   <string name="intro_1_title">AppCoins Wallet</string>
   <string name="intro_1_body">Ваше приложение для встроенных покупок.</string>
   <string name="intro_2_title">Играй больше, плати меньше</string>
-  <string name="intro_2_body">Получите награду для покупок в ваших любимых приложениях и играх.</string>
+  <string name="intro_2_body">The best payment wallet for apps and games.</string>
   <string name="intro_3_title">Простой в использовании</string>
-  <string name="intro_3_body">Сохраняйте AppCoins Wallet на устройстве, чтобы совершать покупки в ваших играх напрямую.</string>
+  <string name="intro_3_body">Bonuses on all purchases.</string>
   <string name="intro_4_title">Безопасно и конфиденциально</string>
-  <string name="intro_4_body">Ваши приватные ключи никогда не покидают устройство, поэтому ваши AppCoins всегда в безопасности.</string>
+  <string name="intro_4_body">Use bank card, PayPal and your favorite payment methods.</string>
   <string name="intro_4_body_2">Все ваши транзакции всегда в безопасности благодаря новейшим технологиям.</string>
   <string name="intro_5_title">Получите бесплатные AppCoins Credits!</string>
   <string name="intro_5_body">Вы получите бесплатные AppCoins Credits, пробуя приложения и игры.</string>
@@ -131,7 +131,9 @@
   <string name="intro_agree_terms_and_conditions_body">By entering the AppCoins Wallet, you agree to the %1$s and %2$s.</string>
   <string name="intro_skip_button">ПРОПУСТИТЬ</string>
   <string name="intro_welcome_header">Добро пожаловать в AppCoins Wallet</string>
-  <string name="intro_welcome_body">Ваше приложение для встроенных покупок.</string>
+  <string name="intro_welcome_body">Top up your wallet or make a purchase in any AppCoins compatible app or game.</string>
+  <string name="intro_welcome_header_2">Up to %s%% Bonus!</string>
+  <string name="intro_welcome_body_2">Bonuses can be used in any app or game.</string>
   <string name="intro_already_have_wallet_button">У меня уже есть кошелек</string>
   <string name="intro_get_started_button">Launch wallet</string>
   <!-- Menus -->
@@ -333,7 +335,7 @@
   <string name="gamification_transaction_title">@string/gamification_level_bonus</string>
   <string name="gamification_purchase_header">На эту покупку есть бонус!</string>
   <string name="gamification_purchase_header_part_1">Бонус за покупку:</string>
-  <string name="gamification_purchase_header_part_2">%s in AppCoins Credits</string>
+  <string name="gamification_purchase_header_part_2">%s в AppCoins Credits</string>
   <string name="gamification_purchase_body">Вы можете использовать этот бонус при вашей следующей покупке.</string>
   <string name="gamification_purchase_completed_bonus_received_done">Готово!</string>
   <string name="gamification_purchase_completed_bonus_received">Бонус получен</string>
@@ -377,7 +379,7 @@
   <string name="topup_completed_2_with_bonus">были размещены на вашем счёте... а также бонус!</string>
   <string name="topup_completed_2_without_bonus">были зачислены на ваш аккаунт.</string>
   <string name="topup_bonus_header_part_1">Дополнительный бонус:</string>
-  <string name="topup_bonus_header_part_2">%s in AppCoins Credits</string>
+  <string name="topup_bonus_header_part_2">%s в AppCoins Credits</string>
   <string name="topup_bonus_body">Вы можете использовать этот бонус при вашей следующей покупке.</string>
   <string name="topup_minimum_value">Минимальный размер бонуса – %s</string>
   <string name="topup_maximum_value">Максимальный размер бонуса – %s</string>
