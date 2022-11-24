@@ -9,6 +9,7 @@
   <string name="refunded">O teu dinheiro foi reembolsado.</string>
   <string name="ok">OK</string>
   <string name="cancel">Cancelar</string>
+  <string name="update_button">Update</string>
   <string name="buy_button">Comprar</string>
   <string name="topup_button">Carregar</string>
   <string name="connection_error_body">Parece que não estás ligado à Internet. Por favor verifica a ligação e tenta novamente!</string>
