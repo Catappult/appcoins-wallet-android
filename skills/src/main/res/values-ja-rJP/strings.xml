@@ -9,7 +9,6 @@
   <string name="refunded">返金されました。</string>
   <string name="ok">わかりました</string>
   <string name="cancel">キャンセルする</string>
-  <string name="update_button">Update</string>
   <string name="buy_button">購入</string>
   <string name="topup_button">トップアップ</string>
   <string name="connection_error_body">インターネットに接続されていないようです。接続を確認して、もう一度試してみてください</string>
