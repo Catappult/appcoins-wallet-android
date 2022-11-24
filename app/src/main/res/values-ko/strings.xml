@@ -118,11 +118,11 @@
   <string name="intro_1_title">AppCoins Wallet</string>
   <string name="intro_1_body">앱 내 구매 내역</string>
   <string name="intro_2_title">더 많이 플레이, 보다 적은 지불</string>
-  <string name="intro_2_body">좋아하는 앱과 게임에서 아이템을 구매하여 보상을 받으세요.</string>
+  <string name="intro_2_body">The best payment wallet for apps and games.</string>
   <string name="intro_3_title">간단하고 쉬움</string>
-  <string name="intro_3_body">AppCoins 지갑을 설치한 상태로 유지하여 게임에서 직접 구매하십시오.</string>
+  <string name="intro_3_body">Bonuses on all purchases.</string>
   <string name="intro_4_title">안전하고 비공개</string>
-  <string name="intro_4_body">개인 키는 기기에서 절대로 전송되지 않으므로, AppCoins는 항상 안전합니다.</string>
+  <string name="intro_4_body">Use bank card, PayPal and your favorite payment methods.</string>
   <string name="intro_4_body_2">최신 기술 덕분에 모든 거래는 항상 안전합니다.</string>
   <string name="intro_5_title">무료 AppCoins 크레디트 받기!</string>
   <string name="intro_5_body">앱과 게임을 사용하면서 무료 AppCoins 크레디트를 받습니다.</string>
@@ -131,7 +131,9 @@
   <string name="intro_agree_terms_and_conditions_body">By entering the AppCoins Wallet, you agree to the %1$s and %2$s.</string>
   <string name="intro_skip_button">건너뛰기</string>
   <string name="intro_welcome_header">AppCoins 지갑에 오신 것을 환영합니다</string>
-  <string name="intro_welcome_body">앱 내 구매 내역.</string>
+  <string name="intro_welcome_body">Top up your wallet or make a purchase in any AppCoins compatible app or game.</string>
+  <string name="intro_welcome_header_2">Up to %s%% Bonus!</string>
+  <string name="intro_welcome_body_2">Bonuses can be used in any app or game.</string>
   <string name="intro_already_have_wallet_button">지갑은 이미 있어요</string>
   <string name="intro_get_started_button">Launch wallet</string>
   <!-- Menus -->
@@ -333,7 +335,7 @@
   <string name="gamification_transaction_title">@string/gamification_level_bonus</string>
   <string name="gamification_purchase_header">이 구매에는 보너스가 있습니다!</string>
   <string name="gamification_purchase_header_part_1">보너스 구매</string>
-  <string name="gamification_purchase_header_part_2">%s in AppCoins Credits</string>
+  <string name="gamification_purchase_header_part_2">AppCoins 크레디트로 %s</string>
   <string name="gamification_purchase_body">다음 구매에서 이 보너스를 사용하실 수 있습니다.</string>
   <string name="gamification_purchase_completed_bonus_received_done">완료!</string>
   <string name="gamification_purchase_completed_bonus_received">받은 보너스</string>
@@ -377,7 +379,7 @@
   <string name="topup_completed_2_with_bonus">귀하의 계정에 입금되었습니다... 보너스도 같이요!</string>
   <string name="topup_completed_2_without_bonus">귀하의 계정에 입금되었습니다.</string>
   <string name="topup_bonus_header_part_1">탑-업 보너스:</string>
-  <string name="topup_bonus_header_part_2">%s in AppCoins Credits</string>
+  <string name="topup_bonus_header_part_2">AppCoins 크레디트로 %s</string>
   <string name="topup_bonus_body">다음 구매에서 이 보너스를 사용하실 수 있습니다.</string>
   <string name="topup_minimum_value">최소 탑-업 레벨은 %s 입니다</string>
   <string name="topup_maximum_value">최대 탑-업 레벨은 %s 입니다</string>
