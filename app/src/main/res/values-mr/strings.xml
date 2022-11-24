@@ -118,11 +118,11 @@
   <string name="intro_1_title">AppCoins Wallet</string>
   <string name="intro_1_body">अॅपमधील खरेदीसाठीचे आपले अॅप.</string>
   <string name="intro_2_title">जास्त खेळा, कमी पैसे भरा</string>
-  <string name="intro_2_body">आपल्या आवडत्या अॅप्स आणि खेळातील वस्तु खरेदी करुन बक्षिसे मिळवा.</string>
+  <string name="intro_2_body">The best payment wallet for apps and games.</string>
   <string name="intro_3_title">साधे आणि सोपे</string>
-  <string name="intro_3_body">आपल्या खेळात थेट खरेदी करण्यासाठी अॅपकॉईन्स वॉलेट इंस्टॉल केलेले असु द्यात.</string>
+  <string name="intro_3_body">Bonuses on all purchases.</string>
   <string name="intro_4_title">सुरक्षित आणि खासगी</string>
-  <string name="intro_4_body">आपल्या खासगी कीज आपल्या डिव्हाइसच्या बाहेर जाणार नाहीत. त्यामुळे आपल्या अॅपकॉइन्स नेहमीच सुरक्षित रहातील.</string>
+  <string name="intro_4_body">Use bank card, PayPal and your favorite payment methods.</string>
   <string name="intro_4_body_2">अत्याधुनिक तंत्रज्ञानामुळे आपले सर्व व्यवहार नेहमीच सुरक्षित असतील.</string>
   <string name="intro_5_title">मोफत अॅपकॉइन्स क्रेडीटस मिळवा!</string>
   <string name="intro_5_body">ही अॅप्स आणि खेळ खेळुन आपण मोफत अॅपकॉइन्स क्रेडीटस कमवाल.</string>
@@ -131,7 +131,9 @@
   <string name="intro_agree_terms_and_conditions_body">By entering the AppCoins Wallet, you agree to the %1$s and %2$s.</string>
   <string name="intro_skip_button">वगळा</string>
   <string name="intro_welcome_header">अॅपकॉईन्स वॉलेटमध्ये स्वागत आहे</string>
-  <string name="intro_welcome_body">अॅपमधील खरेदीसाठीचे आपले अॅप.</string>
+  <string name="intro_welcome_body">Top up your wallet or make a purchase in any AppCoins compatible app or game.</string>
+  <string name="intro_welcome_header_2">Up to %s%% Bonus!</string>
+  <string name="intro_welcome_body_2">Bonuses can be used in any app or game.</string>
   <string name="intro_already_have_wallet_button">माझ्याकडे आधीपासुनच वॉलेट आहे</string>
   <string name="intro_get_started_button">Launch wallet</string>
   <!-- Menus -->
@@ -333,7 +335,7 @@
   <string name="gamification_transaction_title">@string/gamification_level_bonus</string>
   <string name="gamification_purchase_header">ह्या खरेदीवर बोनस आहे!</string>
   <string name="gamification_purchase_header_part_1">खरेदी बोनस:</string>
-  <string name="gamification_purchase_header_part_2">%s in AppCoins Credits</string>
+  <string name="gamification_purchase_header_part_2">%s एपीपीसी क्रेडीटसमध्ये</string>
   <string name="gamification_purchase_body">आपल्या पुढच्या खरेदीत आपण हा बोनस वापरु शकता.</string>
   <string name="gamification_purchase_completed_bonus_received_done">झाले!</string>
   <string name="gamification_purchase_completed_bonus_received">बोनस मिळाला</string>
@@ -377,7 +379,7 @@
   <string name="topup_completed_2_with_bonus">आपल्या खात्यात जमा केले गेले... बोनससह!</string>
   <string name="topup_completed_2_without_bonus">आम्ही आपल्या खत्यात जमा केले.</string>
   <string name="topup_bonus_header_part_1">टॉप-अप बोनस:</string>
-  <string name="topup_bonus_header_part_2">%s in AppCoins Credits</string>
+  <string name="topup_bonus_header_part_2">%s एपीपीसी क्रेडीटसमध्ये</string>
   <string name="topup_bonus_body">आपल्या पुढच्या खरेदीत आपण हा बोनस वापरु शकता.</string>
   <string name="topup_minimum_value">किमान टॉप-अप मूल्य %s आहे</string>
   <string name="topup_maximum_value">कमाल टॉप-अप मूल्य %s आहे</string>
@@ -1114,7 +1116,7 @@
   <!-- VIP Program -->
   <string name="vip_program_reached_notification_title">Welcome to the VIP Program</string>
   <string name="vip_program_reached_notification_body">You\'re now a VIP user with access to special promotions and deals. Tap for more details!</string>
-  <string name="vip_program_almost_notification_title">Almost there!</string>
+  <string name="vip_program_almost_notification_title">झालच की!</string>
   <string name="vip_program_almost_notification_body">You\'re about to become a VIP user. Tap for more details!</string>
   <string name="vip_program_almost_onboarding_title">You\'re about to become a VIP user!</string>
   <string name="vip_program_almost_onboarding_body">Continue playing and making purchases to access exclusive promotions and deals. Ready to become the ultimate player?</string>
