@@ -9,7 +9,6 @@
   <string name="refunded">आपले पैसे परत केले गेले.</string>
   <string name="ok">ठीक आहे</string>
   <string name="cancel">रद्द करा</string>
-  <string name="update_button">Update</string>
   <string name="buy_button">खरेदी करा</string>
   <string name="topup_button">भरणा करा</string>
   <string name="connection_error_body">आपण इंटरनेटशी जुडलेले नाहीत अस दिसतय. कनेक्शन तपासुन पुन्हा प्रयत्न करा!</string>
