@@ -118,11 +118,11 @@
   <string name="intro_1_title">AppCoins Wallet</string>
   <string name="intro_1_body">為您的應用程式內購而生。</string>
   <string name="intro_2_title">花費更少，歡樂更多</string>
-  <string name="intro_2_body">購買喜愛的應用程式和遊戲中的物品，同時獲得獎勵。</string>
+  <string name="intro_2_body">The best payment wallet for apps and games.</string>
   <string name="intro_3_title">簡單易用</string>
-  <string name="intro_3_body">透過您喜歡的付款方式處理所有的應用程式內購。</string>
+  <string name="intro_3_body">Bonuses on all purchases.</string>
   <string name="intro_4_title">安全私密</string>
-  <string name="intro_4_body">您的私人資訊永遠不會離開您的裝置，因此您的AppCoins隨時是安全的。</string>
+  <string name="intro_4_body">Use bank card, PayPal and your favorite payment methods.</string>
   <string name="intro_4_body_2">得益於最新技術，您的所有交易隨時都是安全的。</string>
   <string name="intro_5_title">獲得免費AppCoins點數！</string>
   <string name="intro_5_body">嘗試應用程式和遊戲來獲得免費的AppCoins點數。</string>
@@ -131,7 +131,9 @@
   <string name="intro_agree_terms_and_conditions_body">By entering the AppCoins Wallet, you agree to the %1$s and %2$s.</string>
   <string name="intro_skip_button">略過</string>
   <string name="intro_welcome_header">Welcome to the AppCoins Wallet</string>
-  <string name="intro_welcome_body">為您的應用程式內購而生。</string>
+  <string name="intro_welcome_body">Top up your wallet or make a purchase in any AppCoins compatible app or game.</string>
+  <string name="intro_welcome_header_2">Up to %s%% Bonus!</string>
+  <string name="intro_welcome_body_2">Bonuses can be used in any app or game.</string>
   <string name="intro_already_have_wallet_button">I already have a wallet</string>
   <string name="intro_get_started_button">Launch wallet</string>
   <!-- Menus -->
@@ -333,7 +335,7 @@
   <string name="gamification_transaction_title">@string/gamification_level_bonus</string>
   <string name="gamification_purchase_header">This purchase has a bonus!</string>
   <string name="gamification_purchase_header_part_1">購買獎勵：</string>
-  <string name="gamification_purchase_header_part_2">%s in AppCoins Credits</string>
+  <string name="gamification_purchase_header_part_2">價值%s的APPC點數</string>
   <string name="gamification_purchase_body">您可以在下次購買時使用獎勵。</string>
   <string name="gamification_purchase_completed_bonus_received_done">完成！</string>
   <string name="gamification_purchase_completed_bonus_received">獲得獎勵</string>
@@ -377,7 +379,7 @@
   <string name="topup_completed_2_with_bonus">已加值至您的帳戶... 以及一份額外的獎勵！</string>
   <string name="topup_completed_2_without_bonus">已加值至您的帳戶。</string>
   <string name="topup_bonus_header_part_1">儲值獎勵：</string>
-  <string name="topup_bonus_header_part_2">%s in AppCoins Credits</string>
+  <string name="topup_bonus_header_part_2">價值%s的APPC點數</string>
   <string name="topup_bonus_body">您可以在下次購買時使用獎勵。</string>
   <string name="topup_minimum_value">最低儲值金額是%s</string>
   <string name="topup_maximum_value">最高儲值金額是%s</string>
@@ -1084,7 +1086,7 @@
   <!-- VIP Program -->
   <string name="vip_program_reached_notification_title">Welcome to the VIP Program</string>
   <string name="vip_program_reached_notification_body">You\'re now a VIP user with access to special promotions and deals. Tap for more details!</string>
-  <string name="vip_program_almost_notification_title">Almost there!</string>
+  <string name="vip_program_almost_notification_title">就差一點點！</string>
   <string name="vip_program_almost_notification_body">You\'re about to become a VIP user. Tap for more details!</string>
   <string name="vip_program_almost_onboarding_title">You\'re about to become a VIP user!</string>
   <string name="vip_program_almost_onboarding_body">Continue playing and making purchases to access exclusive promotions and deals. Ready to become the ultimate player?</string>
