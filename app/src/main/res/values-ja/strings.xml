@@ -118,11 +118,11 @@
   <string name="intro_1_title">AppCoins Wallet</string>
   <string name="intro_1_body">アプリ内課金のアプリです。</string>
   <string name="intro_2_title">支払いを減らして、もっとプレーする</string>
-  <string name="intro_2_body">あなたのお気に入りのアプリやゲーム内のアイテムを購入するために報酬を手に入れる</string>
+  <string name="intro_2_body">The best payment wallet for apps and games.</string>
   <string name="intro_3_title">シンプルで簡単</string>
-  <string name="intro_3_body">AppCoins Walletをインストールしておくと、ゲーム内で直接購入することができます。</string>
+  <string name="intro_3_body">Bonuses on all purchases.</string>
   <string name="intro_4_title">安全でプレイベート</string>
-  <string name="intro_4_body">あなたのプライベート鍵がデバイスから消えることはありませんので、あなたのAppCoinsは常に安全です。</string>
+  <string name="intro_4_body">Use bank card, PayPal and your favorite payment methods.</string>
   <string name="intro_4_body_2">最新のテクノロジーにより、お客様の取引は常に安全です。</string>
   <string name="intro_5_title">無料のAppCoinsクレジットを手に入れよう！</string>
   <string name="intro_5_body">アプリやゲームを試すことで、無料のAppCoinsクレジットを獲得できます。</string>
@@ -131,7 +131,9 @@
   <string name="intro_agree_terms_and_conditions_body">By entering the AppCoins Wallet, you agree to the %1$s and %2$s.</string>
   <string name="intro_skip_button">スキップ</string>
   <string name="intro_welcome_header">AppCoinsウォレットへようこそ</string>
-  <string name="intro_welcome_body">アプリ内課金用のアプリ</string>
+  <string name="intro_welcome_body">Top up your wallet or make a purchase in any AppCoins compatible app or game.</string>
+  <string name="intro_welcome_header_2">Up to %s%% Bonus!</string>
+  <string name="intro_welcome_body_2">Bonuses can be used in any app or game.</string>
   <string name="intro_already_have_wallet_button">ウォレットをすでに持っています</string>
   <string name="intro_get_started_button">Launch wallet</string>
   <!-- Menus -->
@@ -333,7 +335,7 @@
   <string name="gamification_transaction_title">@string/gamification_level_bonus</string>
   <string name="gamification_purchase_header">この購入にはボーナスが付きます！</string>
   <string name="gamification_purchase_header_part_1">購入特典:</string>
-  <string name="gamification_purchase_header_part_2">%s in AppCoins Credits</string>
+  <string name="gamification_purchase_header_part_2">AppCoinsクレジットで%s</string>
   <string name="gamification_purchase_body">このボーナスは、次回の購入でご利用いただけます。</string>
   <string name="gamification_purchase_completed_bonus_received_done">完了</string>
   <string name="gamification_purchase_completed_bonus_received">ボーナスを受け取りました</string>
@@ -377,7 +379,7 @@
   <string name="topup_completed_2_with_bonus">がアカウントに入金されました.. そしてボーナスも獲得!</string>
   <string name="topup_completed_2_without_bonus">が口座に入金されました。</string>
   <string name="topup_bonus_header_part_1">チャージボーナス：</string>
-  <string name="topup_bonus_header_part_2">%s in AppCoins Credits</string>
+  <string name="topup_bonus_header_part_2">AppCoinsクレジットで%s</string>
   <string name="topup_bonus_body">このボーナスは、次回の購入でご利用いただけます。</string>
   <string name="topup_minimum_value">最低チャージ額は%sです</string>
   <string name="topup_maximum_value">最高チャージ額は%sです</string>
