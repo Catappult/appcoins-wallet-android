@@ -118,11 +118,11 @@
   <string name="intro_1_title">AppCoins Wallet</string>
   <string name="intro_1_body">Η εφαρμογή σας για αγορές εντός εφαρμογών.</string>
   <string name="intro_2_title">Παίξτε Περισσότερο, Πληρώστε Λιγότερα</string>
-  <string name="intro_2_body">Λάβετε ανταμοιβές για την αγορά αντικειμένων στις αγαπημένες σας εφαρμογές και παιχνίδια.</string>
+  <string name="intro_2_body">The best payment wallet for apps and games.</string>
   <string name="intro_3_title">Απλό και Εύκολο</string>
-  <string name="intro_3_body">Κρατήστε το AppCoins Wallet εγκατεστημένο για να αγοράζετε άμεσα στα παιχνίδια σας.</string>
+  <string name="intro_3_body">Bonuses on all purchases.</string>
   <string name="intro_4_title">Ασφαλές και Ιδιωτικό</string>
-  <string name="intro_4_body">Τα ιδιωτικά σας κλειδιά δε θα φύγουν ποτέ από τη συσκευή σας, επομένως τα AppCoins σας θα είναι πάντα ασφαλή.</string>
+  <string name="intro_4_body">Use bank card, PayPal and your favorite payment methods.</string>
   <string name="intro_4_body_2">Όλες οι συναλλαγές σας είναι πάντα ασφαλείς, χάρις στη χρήση τεχνολογιών αιχμής.</string>
   <string name="intro_5_title">Λάβετε Δωρεάν AppCoins Credits!</string>
   <string name="intro_5_body">Θα κερδίσετε δωρεάν AppCoins Credits δοκιμάζοντας εφαρμογές και παιχνίδια.</string>
@@ -131,7 +131,9 @@
   <string name="intro_agree_terms_and_conditions_body">By entering the AppCoins Wallet, you agree to the %1$s and %2$s.</string>
   <string name="intro_skip_button">ΠΑΡΑΛΕΙΨΗ</string>
   <string name="intro_welcome_header">Καλώς ήρθατε στο AppCoins Wallet</string>
-  <string name="intro_welcome_body">Η εφαρμογή σας για αγορές εντός εφαρμογών.</string>
+  <string name="intro_welcome_body">Top up your wallet or make a purchase in any AppCoins compatible app or game.</string>
+  <string name="intro_welcome_header_2">Up to %s%% Bonus!</string>
+  <string name="intro_welcome_body_2">Bonuses can be used in any app or game.</string>
   <string name="intro_already_have_wallet_button">Έχω ήδη ένα wallet</string>
   <string name="intro_get_started_button">Launch wallet</string>
   <!-- Menus -->
@@ -333,7 +335,7 @@
   <string name="gamification_transaction_title">@string/gamification_level_bonus</string>
   <string name="gamification_purchase_header">Αυτή η αγορά έχει ένα bonus!</string>
   <string name="gamification_purchase_header_part_1">Bonus Αγοράς:</string>
-  <string name="gamification_purchase_header_part_2">%s in AppCoins Credits</string>
+  <string name="gamification_purchase_header_part_2">%s σε AppCoins Credits</string>
   <string name="gamification_purchase_body">Μπορείτε να χρησιμοποιήσετε αυτό το bonus στην επόμενη αγορά σας.</string>
   <string name="gamification_purchase_completed_bonus_received_done">Τέλος!</string>
   <string name="gamification_purchase_completed_bonus_received">Το bonus ελήφθη</string>
@@ -377,7 +379,7 @@
   <string name="topup_completed_2_with_bonus">κατατέθηκαν στον λογαριασμό σας... Μαζί με ένα bonus!</string>
   <string name="topup_completed_2_without_bonus">κατατέθηκαν στον λογαριασμό σας.</string>
   <string name="topup_bonus_header_part_1">Bonus Φόρτισης:</string>
-  <string name="topup_bonus_header_part_2">%s in AppCoins Credits</string>
+  <string name="topup_bonus_header_part_2">%s σε AppCoins Credits</string>
   <string name="topup_bonus_body">Μπορείτε να χρησιμοποιήσετε αυτό το bonus στην επόμενη αγορά σας.</string>
   <string name="topup_minimum_value">Η ελάχιστη τιμή φόρτισης είναι %s</string>
   <string name="topup_maximum_value">Η μέγιστη τιμή φόρτισης είναι %s</string>

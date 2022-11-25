@@ -118,11 +118,11 @@
   <string name="intro_1_title">AppCoins Wallet</string>
   <string name="intro_1_body">အက္ပ္အတြင္း ၀ယ္ယူမႈမ်ားအတြက္ သင့္အက္ပ္။</string>
   <string name="intro_2_title">မ်ားမ်ားကစားပါ၊ နည္းနည္းပဲေပးပါ</string>
-  <string name="intro_2_body">သင့္စိတ္ႀကိဳက္ အက္ပ္မ်ားနွင့္ ဂိမ္းမ်ားတြင္ ပစၥည္းမ်ားကို ဝယ္ယူျခင္းအတြက္ ဆုရယူလိုက္ပါ။</string>
+  <string name="intro_2_body">The best payment wallet for apps and games.</string>
   <string name="intro_3_title">႐ိုးရွင္းၿပီး လြယ္ကူပါသည္</string>
-  <string name="intro_3_body">သင့္ဂိမ္းမ်ားတြင္ တိုက္႐ိုက္ဝယ္ယူႏိုင္ေစရန္ AppCoins Wallet ကို ထည့္သြင္းထားပါ။</string>
+  <string name="intro_3_body">Bonuses on all purchases.</string>
   <string name="intro_4_title">ေဘးကင္းၿပီး လံုျခံဳပါသည္</string>
-  <string name="intro_4_body">သင့္သီးသန္႔ကီးမ်ားသည္ သင့္စက္ပစၥည္းတြင္သာ ရွိေနမည္ ျဖစ္ေသာေၾကာင့္ သင့္ AppCoins မ်ားမွာ အခ်ိန္ျပည့္ လံုျခံဳပါသည္။</string>
+  <string name="intro_4_body">Use bank card, PayPal and your favorite payment methods.</string>
   <string name="intro_4_body_2">ေနာက္ဆံုးေပၚနည္းပညာေၾကာင့္ သင့္ေငြလႊဲေျပာင္းမႈအားလံုး အၿမဲလံုျခံဳပါသည္။</string>
   <string name="intro_5_title">အခမဲ့ AppCoins Credits မ်ားကို ရယူလိုက္ပါ။</string>
   <string name="intro_5_body">အက္ပ္မ်ားႏွင့္ ဂိမ္းမ်ားကို စမ္းသံုးျခင္းျဖင့္ AppCoins Credits မ်ားကို သင္အခမဲ့ ရရွိပါမည္။</string>
@@ -131,7 +131,9 @@
   <string name="intro_agree_terms_and_conditions_body">By entering the AppCoins Wallet, you agree to the %1$s and %2$s.</string>
   <string name="intro_skip_button">ေက်ာ္မည္</string>
   <string name="intro_welcome_header">AppCoins Wallet မွ ႀကိဳဆိုပါသည္</string>
-  <string name="intro_welcome_body">အက္ပ္အတြင္း ဝယ္ယူမႈမ်ားအတြက္ သင့္အက္ပ္</string>
+  <string name="intro_welcome_body">Top up your wallet or make a purchase in any AppCoins compatible app or game.</string>
+  <string name="intro_welcome_header_2">Up to %s%% Bonus!</string>
+  <string name="intro_welcome_body_2">Bonuses can be used in any app or game.</string>
   <string name="intro_already_have_wallet_button">ကြၽႏ္ုပ္တြင္ ပိုက္ဆံအိတ္တစ္အိတ္ ရွိၿပီးျဖစ္ပါသည္</string>
   <string name="intro_get_started_button">Launch wallet</string>
   <!-- Menus -->
@@ -333,7 +335,7 @@
   <string name="gamification_transaction_title">@string/gamification_level_bonus</string>
   <string name="gamification_purchase_header">ဤဝယ္ယူမႈတြင္ ေဘာနပ္စ္တစ္ခု ရွိပါသည္။</string>
   <string name="gamification_purchase_header_part_1">၀ယ္ယူမႈေဘာနပ္စ္ -</string>
-  <string name="gamification_purchase_header_part_2">%s in AppCoins Credits</string>
+  <string name="gamification_purchase_header_part_2">AppCoins Credits %s</string>
   <string name="gamification_purchase_body">ဤေဘာနပ္စ္ကို သင့္ေနာက္တစ္္ႀကိမ္ ၀ယ္ယူမႈတြင္ သံုးႏိုင္္ပါသည္။</string>
   <string name="gamification_purchase_completed_bonus_received_done">ၿပီးပါၿပီ။</string>
   <string name="gamification_purchase_completed_bonus_received">ေဘာနပ္စ္ ရရွိၿပီးပါၿပီ</string>
@@ -377,7 +379,7 @@
   <string name="topup_completed_2_with_bonus">ကို သင့္အေကာင့္တြင္ ထည့္သြင္းေပးလိုက္ပါသည္... ေဘာနပ္စ္လည္း ပါပါသည္။</string>
   <string name="topup_completed_2_without_bonus">သင့္အေကာင့္တြင္ ထည့္ေပးလိုက္ပါသည္။</string>
   <string name="topup_bonus_header_part_1">ေငြျဖည့္ျခင္းအတြက္ ေဘာနပ္စ္ -</string>
-  <string name="topup_bonus_header_part_2">%s in AppCoins Credits</string>
+  <string name="topup_bonus_header_part_2">AppCoins Credits %s</string>
   <string name="topup_bonus_body">ယင္းေဘာနပ္စ္ကို သင့္ေနာက္္ထပ္ ၀ယ္ယူမႈတြင္ အသံုးျပဳႏိုင္္ပါသည္။</string>
   <string name="topup_minimum_value">အနည္းဆံုး ေငြျဖည့္ရမည့္ ပမာဏမွာ %s ျဖစ္ပါသည္</string>
   <string name="topup_maximum_value">အမ်ားဆံုး ေငြျဖည့္ရမည့္ ပမာဏမွာ %s ျဖစ္ပါသည္</string>

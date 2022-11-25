@@ -118,11 +118,11 @@
   <string name="intro_1_title">AppCoins Wallet</string>
   <string name="intro_1_body">Az alkalmazás az alkmazáson belüli vásárláshoz.</string>
   <string name="intro_2_title">Játssz többet, fizess kevesebbet</string>
-  <string name="intro_2_body">Jutalmakat kaphat, ha kedvenc appjaiban és játékaiban vásárol.</string>
+  <string name="intro_2_body">The best payment wallet for apps and games.</string>
   <string name="intro_3_title">Egyszerű és könnyű</string>
-  <string name="intro_3_body">Az AppCoins Wallet maradjon telepítve, hogy közvetlenül vásárolhass a játékaidban.</string>
+  <string name="intro_3_body">Bonuses on all purchases.</string>
   <string name="intro_4_title">Biztonságos és privát</string>
-  <string name="intro_4_body">Privát kulcsaid sose hagyják el eszközödet, így AppCoinsaid mindig biztonságban lesznek.</string>
+  <string name="intro_4_body">Use bank card, PayPal and your favorite payment methods.</string>
   <string name="intro_4_body_2">A legújabb technológiáknak köszönhetően a tranzakcióid mindig biztonságban lesznek.</string>
   <string name="intro_5_title">Szerezz ingyenes AppCoins kreditet!</string>
   <string name="intro_5_body">Appok és játékok kipróbálásával ingyenes AppCoins kreditet szerezhetsz.</string>
@@ -131,7 +131,9 @@
   <string name="intro_agree_terms_and_conditions_body">By entering the AppCoins Wallet, you agree to the %1$s and %2$s.</string>
   <string name="intro_skip_button">KIHAGYÁS</string>
   <string name="intro_welcome_header">Üdv az AppCoins Walletban</string>
-  <string name="intro_welcome_body">Az alkalmazás az alkalmazáson belüli vásárláshoz.</string>
+  <string name="intro_welcome_body">Top up your wallet or make a purchase in any AppCoins compatible app or game.</string>
+  <string name="intro_welcome_header_2">Up to %s%% Bonus!</string>
+  <string name="intro_welcome_body_2">Bonuses can be used in any app or game.</string>
   <string name="intro_already_have_wallet_button">Már van tárcám</string>
   <string name="intro_get_started_button">Launch wallet</string>
   <!-- Menus -->
@@ -333,7 +335,7 @@
   <string name="gamification_transaction_title">@string/gamification_level_bonus</string>
   <string name="gamification_purchase_header">Ezért a vásárlásért bónusz jár!</string>
   <string name="gamification_purchase_header_part_1">Vásárlási bónusz:</string>
-  <string name="gamification_purchase_header_part_2">%s in AppCoins Credits</string>
+  <string name="gamification_purchase_header_part_2">%s AppCoins kreditben</string>
   <string name="gamification_purchase_body">A bónuszt a következő vásárlás során használhatod fel.</string>
   <string name="gamification_purchase_completed_bonus_received_done">Kész!</string>
   <string name="gamification_purchase_completed_bonus_received">Bónusz érkezett</string>
@@ -377,7 +379,7 @@
   <string name="topup_completed_2_with_bonus">került a fiókodba... Egy bónusszal együtt!</string>
   <string name="topup_completed_2_without_bonus">került a fiókodba.</string>
   <string name="topup_bonus_header_part_1">Kiegészítő bónusz:</string>
-  <string name="topup_bonus_header_part_2">%s in AppCoins Credits</string>
+  <string name="topup_bonus_header_part_2">%s AppCoins kreditben</string>
   <string name="topup_bonus_body">A bónuszt a következő vásárlás során használhatod fel.</string>
   <string name="topup_minimum_value">A minimális kiegészítő érték %s</string>
   <string name="topup_maximum_value">A maximális kiegészítő érték %s</string>

@@ -118,11 +118,11 @@
   <string name="intro_1_title">AppCoins Wallet</string>
   <string name="intro_1_body">Uygulama içi satın alma işlemleri uygulamanız.</string>
   <string name="intro_2_title">Daha Fazla Oynayın, Daha Az Ödeyin</string>
-  <string name="intro_2_body">En sevdiğiniz uygulama ve oyunlarda ürün satın aldığınızda ödül kazanın.</string>
+  <string name="intro_2_body">The best payment wallet for apps and games.</string>
   <string name="intro_3_title">Basit ve Kolay</string>
-  <string name="intro_3_body">Oyunlarınızda doğrudan satın alma işlemi gerçekleştirebilmek için AppCoins Wallet yüklü kalsın.</string>
+  <string name="intro_3_body">Bonuses on all purchases.</string>
   <string name="intro_4_title">Güvenli ve Gizli</string>
-  <string name="intro_4_body">Özel anahtarlarınız asla cihazınızı terk etmez, dolayısıyla AppCoin\'leriniz her zaman güvendedir.</string>
+  <string name="intro_4_body">Use bank card, PayPal and your favorite payment methods.</string>
   <string name="intro_4_body_2">En yeni teknoloji sayesinde tüm işlemleriniz her zaman güvenli.</string>
   <string name="intro_5_title">Ücretsiz AppCoins Credits edinin!</string>
   <string name="intro_5_body">Uygulama ve oyun deneyerek ücretsiz AppCoing Credits kazanın.</string>
@@ -131,7 +131,9 @@
   <string name="intro_agree_terms_and_conditions_body">By entering the AppCoins Wallet, you agree to the %1$s and %2$s.</string>
   <string name="intro_skip_button">ATLA</string>
   <string name="intro_welcome_header">AppCoins Wallet\'a hoş geldiniz</string>
-  <string name="intro_welcome_body">Uygulama içi satın alma işlemleri uygulamanız.</string>
+  <string name="intro_welcome_body">Top up your wallet or make a purchase in any AppCoins compatible app or game.</string>
+  <string name="intro_welcome_header_2">Up to %s%% Bonus!</string>
+  <string name="intro_welcome_body_2">Bonuses can be used in any app or game.</string>
   <string name="intro_already_have_wallet_button">Zaten cüzdanım var</string>
   <string name="intro_get_started_button">Launch wallet</string>
   <!-- Menus -->
@@ -333,7 +335,7 @@
   <string name="gamification_transaction_title">@string/gamification_level_bonus</string>
   <string name="gamification_purchase_header">Bu satın alma işleminin bir bonusu var!</string>
   <string name="gamification_purchase_header_part_1">Bonus:</string>
-  <string name="gamification_purchase_header_part_2">%s in AppCoins Credits</string>
+  <string name="gamification_purchase_header_part_2">AppCoins Credits cinsinden %s</string>
   <string name="gamification_purchase_body">Bir sonraki satın alma işleminizde bu bonusu kullanabilirsiniz.</string>
   <string name="gamification_purchase_completed_bonus_received_done">Bitti!</string>
   <string name="gamification_purchase_completed_bonus_received">Bonus Alındı</string>
@@ -377,7 +379,7 @@
   <string name="topup_completed_2_with_bonus">hesabınıza yattı... Bonusla birlikte!</string>
   <string name="topup_completed_2_without_bonus">hesabınıza yatırıldı.</string>
   <string name="topup_bonus_header_part_1">Yükleme Bonusu:</string>
-  <string name="topup_bonus_header_part_2">%s in AppCoins Credits</string>
+  <string name="topup_bonus_header_part_2">AppCoins Credits cinsinden %s</string>
   <string name="topup_bonus_body">Bir sonraki satın alma işleminizde bu bonusu kullanabilirsiniz.</string>
   <string name="topup_minimum_value">Minimum yükleme değeri %s</string>
   <string name="topup_maximum_value">Maksimum yükleme değeri %s</string>
@@ -1093,7 +1095,7 @@
   <!-- VIP Program -->
   <string name="vip_program_reached_notification_title">Welcome to the VIP Program</string>
   <string name="vip_program_reached_notification_body">You\'re now a VIP user with access to special promotions and deals. Tap for more details!</string>
-  <string name="vip_program_almost_notification_title">Almost there!</string>
+  <string name="vip_program_almost_notification_title">Neredeyse bitti!</string>
   <string name="vip_program_almost_notification_body">You\'re about to become a VIP user. Tap for more details!</string>
   <string name="vip_program_almost_onboarding_title">You\'re about to become a VIP user!</string>
   <string name="vip_program_almost_onboarding_body">Continue playing and making purchases to access exclusive promotions and deals. Ready to become the ultimate player?</string>

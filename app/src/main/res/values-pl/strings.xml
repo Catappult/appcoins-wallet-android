@@ -118,11 +118,11 @@
   <string name="intro_1_title">AppCoins Wallet</string>
   <string name="intro_1_body">Twoja aplikacja do zakupów w aplikacjach.</string>
   <string name="intro_2_title">Graj więcej, płać mniej</string>
-  <string name="intro_2_body">Odbieraj nagrody za kupowanie przedmiotów w ulubionych aplikacjach i grach.</string>
+  <string name="intro_2_body">The best payment wallet for apps and games.</string>
   <string name="intro_3_title">Prosto i łatwo</string>
-  <string name="intro_3_body">Za pomocą AppCoins Wallet możesz robić zakupy w swoich grach.</string>
+  <string name="intro_3_body">Bonuses on all purchases.</string>
   <string name="intro_4_title">Bezpieczeństwo i prywatność</string>
-  <string name="intro_4_body">Twoje prywatne klucze nigdy nie opuszczą Twojego urządzenia, więc Twoje AppCoins są zawsze bezpieczne.</string>
+  <string name="intro_4_body">Use bank card, PayPal and your favorite payment methods.</string>
   <string name="intro_4_body_2">Twoje transakcje są zawsze bezpieczne dzięki najnowszej technologii.</string>
   <string name="intro_5_title">Otrzymaj darmowe Kredyty AppCoins!</string>
   <string name="intro_5_body">Zarobisz darmowe Kredyty AppCoins przez testowanie aplikacji i gier.</string>
@@ -131,7 +131,9 @@
   <string name="intro_agree_terms_and_conditions_body">By entering the AppCoins Wallet, you agree to the %1$s and %2$s.</string>
   <string name="intro_skip_button">POMIŃ</string>
   <string name="intro_welcome_header">Witaj w AppCoins Wallet</string>
-  <string name="intro_welcome_body">Twojej aplikacja do zakupów w aplikacjach.</string>
+  <string name="intro_welcome_body">Top up your wallet or make a purchase in any AppCoins compatible app or game.</string>
+  <string name="intro_welcome_header_2">Up to %s%% Bonus!</string>
+  <string name="intro_welcome_body_2">Bonuses can be used in any app or game.</string>
   <string name="intro_already_have_wallet_button">Mam już portfel</string>
   <string name="intro_get_started_button">Launch wallet</string>
   <!-- Menus -->
@@ -333,7 +335,7 @@
   <string name="gamification_transaction_title">@string/gamification_level_bonus</string>
   <string name="gamification_purchase_header">Na ten zakup jest bonus!</string>
   <string name="gamification_purchase_header_part_1">Bonus zakupowy:</string>
-  <string name="gamification_purchase_header_part_2">%s in AppCoins Credits</string>
+  <string name="gamification_purchase_header_part_2">%s Kredyty AppCoins</string>
   <string name="gamification_purchase_body">Możesz wykorzystać ten bonus przy następnych zakupach.</string>
   <string name="gamification_purchase_completed_bonus_received_done">Zrobione!</string>
   <string name="gamification_purchase_completed_bonus_received">Bonus Otrzymany</string>
@@ -377,7 +379,7 @@
   <string name="topup_completed_2_with_bonus">zostały dodane do Twojego konta...wraz z bonusem!</string>
   <string name="topup_completed_2_without_bonus">zostały dodane do Twojego konta.</string>
   <string name="topup_bonus_header_part_1">Bonus:</string>
-  <string name="topup_bonus_header_part_2">%s in AppCoins Credits</string>
+  <string name="topup_bonus_header_part_2">%s Kredyty AppCoins</string>
   <string name="topup_bonus_body">Możesz wykorzystać ten bonus przy następnych zakupach.</string>
   <string name="topup_minimum_value">Minimalne doładowanie to %s</string>
   <string name="topup_maximum_value">Maksymalne doładowanie to %s</string>

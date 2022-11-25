@@ -118,11 +118,11 @@
   <string name="intro_1_title">AppCoins Wallet</string>
   <string name="intro_1_body">Vaša aplikacija za kupovine u aplikacijama.</string>
   <string name="intro_2_title">Igrajte više, platite manje</string>
-  <string name="intro_2_body">Dobijte nagrade za kupovinu u svojim omiljenim aplikacijama i igrama.</string>
+  <string name="intro_2_body">The best payment wallet for apps and games.</string>
   <string name="intro_3_title">Jednostavno i lako</string>
-  <string name="intro_3_body">Ostavite aplikaciju AppCoins Wallet instaliranu kako bi kupovali direktno u igrama.</string>
+  <string name="intro_3_body">Bonuses on all purchases.</string>
   <string name="intro_4_title">Bezbedno i privatno</string>
-  <string name="intro_4_body">Vaši privatni ključevi nikad neće napuštati uređaj, tako da su vaši AppCoins uvek bezbedni.</string>
+  <string name="intro_4_body">Use bank card, PayPal and your favorite payment methods.</string>
   <string name="intro_4_body_2">Sve vaše transkacije su uvek bezbedne zahvaljujući najnovijoj tehnologiji.</string>
   <string name="intro_5_title">Dobijte besplatne AppCoins Credits!</string>
   <string name="intro_5_body">Zaradićete besplatne AppCoins Credits ako isprobate ove aplikacije i igre.</string>
@@ -131,7 +131,9 @@
   <string name="intro_agree_terms_and_conditions_body">By entering the AppCoins Wallet, you agree to the %1$s and %2$s.</string>
   <string name="intro_skip_button">PRESKOČI</string>
   <string name="intro_welcome_header">Dobro došli u AppCoins Wallet</string>
-  <string name="intro_welcome_body">Vaša aplikacija za kupovine u aplikacijama.</string>
+  <string name="intro_welcome_body">Top up your wallet or make a purchase in any AppCoins compatible app or game.</string>
+  <string name="intro_welcome_header_2">Up to %s%% Bonus!</string>
+  <string name="intro_welcome_body_2">Bonuses can be used in any app or game.</string>
   <string name="intro_already_have_wallet_button">Već imam novčanik</string>
   <string name="intro_get_started_button">Launch wallet</string>
   <!-- Menus -->
@@ -333,7 +335,7 @@
   <string name="gamification_transaction_title">@string/gamification_level_bonus</string>
   <string name="gamification_purchase_header">Ova kupovina ima bonus!</string>
   <string name="gamification_purchase_header_part_1">Bonus za kupovinu:</string>
-  <string name="gamification_purchase_header_part_2">%s in AppCoins Credits</string>
+  <string name="gamification_purchase_header_part_2">%s AppCoins Credits</string>
   <string name="gamification_purchase_body">Ovaj bonus možete da upotrebite prilikom sledeće kupovine.</string>
   <string name="gamification_purchase_completed_bonus_received_done">Gotovo!</string>
   <string name="gamification_purchase_completed_bonus_received">bounsa je dobijeno</string>
@@ -377,7 +379,7 @@
   <string name="topup_completed_2_with_bonus">je deponovano na vaš nalog... Zajedno sa bonusom!</string>
   <string name="topup_completed_2_without_bonus">dodato je na vaš nalog.</string>
   <string name="topup_bonus_header_part_1">Bonus za dopunu:</string>
-  <string name="topup_bonus_header_part_2">%s in AppCoins Credits</string>
+  <string name="topup_bonus_header_part_2">%s AppCoins Credits</string>
   <string name="topup_bonus_body">Ovaj bonus možete da upotrebite prilikom sledeće kupovine.</string>
   <string name="topup_minimum_value">Najmanja vrednost dopune je %s</string>
   <string name="topup_maximum_value">Najveća vrednost dopune je %s</string>
@@ -1102,7 +1104,7 @@
   <!-- VIP Program -->
   <string name="vip_program_reached_notification_title">Welcome to the VIP Program</string>
   <string name="vip_program_reached_notification_body">You\'re now a VIP user with access to special promotions and deals. Tap for more details!</string>
-  <string name="vip_program_almost_notification_title">Almost there!</string>
+  <string name="vip_program_almost_notification_title">Skoro ste završili!</string>
   <string name="vip_program_almost_notification_body">You\'re about to become a VIP user. Tap for more details!</string>
   <string name="vip_program_almost_onboarding_title">You\'re about to become a VIP user!</string>
   <string name="vip_program_almost_onboarding_body">Continue playing and making purchases to access exclusive promotions and deals. Ready to become the ultimate player?</string>

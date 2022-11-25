@@ -118,11 +118,11 @@
   <string name="intro_1_title">AppCoins Wallet</string>
   <string name="intro_1_body">اپلیکیشن شما برای خریدهای داخل اپلیکیشنی.</string>
   <string name="intro_2_title">بیشتر بازی کن، کمتر پرداخت کن</string>
-  <string name="intro_2_body">برای خرید کردن در بازی‌ها و اپلیکیشن‌های مورد علاقه خود پاداش بگیر.</string>
+  <string name="intro_2_body">The best payment wallet for apps and games.</string>
   <string name="intro_3_title">ساده و آسان</string>
-  <string name="intro_3_body">AppCoins Wallet را برای خرید مستقیم در بازی‌های خود، نصب نگه دارید.</string>
+  <string name="intro_3_body">Bonuses on all purchases.</string>
   <string name="intro_4_title">امن و خصوصی</string>
-  <string name="intro_4_body">کلیدهای خصوصی شما هرگز دستگاه شما را ترک نخواهد کرد، بنابراین AppCoins همیشه امن هستند.</string>
+  <string name="intro_4_body">Use bank card, PayPal and your favorite payment methods.</string>
   <string name="intro_4_body_2">همه تراکنش‌های شما به کمک جدیدترین تکنولوژی‌ها همیشه امن خواهند بود.</string>
   <string name="intro_5_title">اعتبار AppCoins رایگان بگیرید!</string>
   <string name="intro_5_body">با امتحان کردن اپلیکیشن‌ها و بازی‌ها می‌توانید اعتبار رایگان AppCoins دریافت کنید.</string>
@@ -131,7 +131,9 @@
   <string name="intro_agree_terms_and_conditions_body">By entering the AppCoins Wallet, you agree to the %1$s and %2$s.</string>
   <string name="intro_skip_button">پرش</string>
   <string name="intro_welcome_header">به AppCoins Wallet خوش آمدید</string>
-  <string name="intro_welcome_body">اپلیکیشن شما برای خریدهای داخل اپلیکیشنی.</string>
+  <string name="intro_welcome_body">Top up your wallet or make a purchase in any AppCoins compatible app or game.</string>
+  <string name="intro_welcome_header_2">Up to %s%% Bonus!</string>
+  <string name="intro_welcome_body_2">Bonuses can be used in any app or game.</string>
   <string name="intro_already_have_wallet_button">از قبل کیف پول دارم</string>
   <string name="intro_get_started_button">Launch wallet</string>
   <!-- Menus -->
@@ -333,7 +335,7 @@
   <string name="gamification_transaction_title">@string/gamification_level_bonus</string>
   <string name="gamification_purchase_header">این خرید همراه با پاداش است!</string>
   <string name="gamification_purchase_header_part_1">پاداش خرید:</string>
-  <string name="gamification_purchase_header_part_2">%s in AppCoins Credits</string>
+  <string name="gamification_purchase_header_part_2">%s در اعتبار AppCoins</string>
   <string name="gamification_purchase_body">شما می‌توانید از این پاداش در خرید بعدی خود استفاده کنید.</string>
   <string name="gamification_purchase_completed_bonus_received_done">تمام!</string>
   <string name="gamification_purchase_completed_bonus_received">پاداش دریافت شد</string>
@@ -377,7 +379,7 @@
   <string name="topup_completed_2_with_bonus">در حساب شما قرار گرفت... به همراه یک پاداش!</string>
   <string name="topup_completed_2_without_bonus">به حساب‌کاربری شما پرداخت شده‌است.</string>
   <string name="topup_bonus_header_part_1">پاداش افزایشی:</string>
-  <string name="topup_bonus_header_part_2">%s in AppCoins Credits</string>
+  <string name="topup_bonus_header_part_2">%s در اعتبار AppCoins</string>
   <string name="topup_bonus_body">شما می‌توانید از این پاداش در خرید بعدی خود استفاده کنید.</string>
   <string name="topup_minimum_value">حداقل مقدار افزایش برابر %s است</string>
   <string name="topup_maximum_value">حداکثر مقدار افزایش برابر %s است</string>

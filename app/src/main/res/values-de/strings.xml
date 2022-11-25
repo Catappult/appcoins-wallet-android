@@ -118,11 +118,11 @@
   <string name="intro_1_title">AppCoins Wallet</string>
   <string name="intro_1_body">Ihre App für In-App Einkäufe.</string>
   <string name="intro_2_title">Mehr spielen, weniger zahlen</string>
-  <string name="intro_2_body">Erhalten Sie einen Bonus, wenn Sie Artikel in ihren Lieblings-Apps und -Spielen kaufen.</string>
+  <string name="intro_2_body">The best payment wallet for apps and games.</string>
   <string name="intro_3_title">Leicht und Einfach</string>
-  <string name="intro_3_body">Das AppCoins Wallet muss installiert bleiben, um direkte Einkäufe in ihren Spielen zu tätigen.</string>
+  <string name="intro_3_body">Bonuses on all purchases.</string>
   <string name="intro_4_title">Sicher und Privat</string>
-  <string name="intro_4_body">Ihre privaten Schlüssel werden nie ihr Gerät verlassen, ihre AppCoins sind also zu jeder Zeit sicher.</string>
+  <string name="intro_4_body">Use bank card, PayPal and your favorite payment methods.</string>
   <string name="intro_4_body_2">Dank der neuesten Technologie sind ihre Transaktionen immer sicher.</string>
   <string name="intro_5_title">Erhalten Sie gratis AppCoins Credits!</string>
   <string name="intro_5_body">Sie erhalten gratis AppCoins Credits in dem Spiele und Apps ausprobieren.</string>
@@ -131,7 +131,9 @@
   <string name="intro_agree_terms_and_conditions_body">By entering the AppCoins Wallet, you agree to the %1$s and %2$s.</string>
   <string name="intro_skip_button">WEITER</string>
   <string name="intro_welcome_header">Herzliche Willkommen beim AppCoins Wallet</string>
-  <string name="intro_welcome_body">Ihre App für In-App Einkäufe.</string>
+  <string name="intro_welcome_body">Top up your wallet or make a purchase in any AppCoins compatible app or game.</string>
+  <string name="intro_welcome_header_2">Up to %s%% Bonus!</string>
+  <string name="intro_welcome_body_2">Bonuses can be used in any app or game.</string>
   <string name="intro_already_have_wallet_button">Ich habe bereits ein Wallet</string>
   <string name="intro_get_started_button">Launch wallet</string>
   <!-- Menus -->
@@ -333,7 +335,7 @@
   <string name="gamification_transaction_title">@string/gamification_level_bonus</string>
   <string name="gamification_purchase_header">Für diesen Einkauf erhält man einen Bonus!</string>
   <string name="gamification_purchase_header_part_1">Einkaufsprämie:</string>
-  <string name="gamification_purchase_header_part_2">%s in AppCoins Credits</string>
+  <string name="gamification_purchase_header_part_2">%s AppCoins</string>
   <string name="gamification_purchase_body">Sie können diese Prämie bei ihren nächsten Einkauf verwenden.</string>
   <string name="gamification_purchase_completed_bonus_received_done">Erledigt!</string>
   <string name="gamification_purchase_completed_bonus_received">Prämie erhalten</string>
@@ -377,7 +379,7 @@
   <string name="topup_completed_2_with_bonus">wurden auf ihren Konto eingezahlt... Zusammen mit einem Bonus!</string>
   <string name="topup_completed_2_without_bonus">wurden auf ihrem Konto gutgeschrieben.</string>
   <string name="topup_bonus_header_part_1">Einzahlungsbonus:</string>
-  <string name="topup_bonus_header_part_2">%s in AppCoins Credits</string>
+  <string name="topup_bonus_header_part_2">%s AppCoins</string>
   <string name="topup_bonus_body">Sie können diese Prämie bei ihren nächsten Einkauf verwenden.</string>
   <string name="topup_minimum_value">Der Mindest Top-Up Betrag beträgt %s</string>
   <string name="topup_maximum_value">Der maximale Top-Up Betrag beträgt %s</string>

@@ -118,11 +118,11 @@
   <string name="intro_1_title">AppCoins Wallet</string>
   <string name="intro_1_body">Aplicația ta pentru cumpărături in-app.</string>
   <string name="intro_2_title">Joci mai mult, plătești mai puțin</string>
-  <string name="intro_2_body">Primești recompense pentru cumpărarea articolelor în aplicațiile și jocurile preferate.</string>
+  <string name="intro_2_body">The best payment wallet for apps and games.</string>
   <string name="intro_3_title">Simplu și Ușor</string>
-  <string name="intro_3_body">Păstrează AppCoins Wallet instalat pentru a face achiziții direct în jocurile tale.</string>
+  <string name="intro_3_body">Bonuses on all purchases.</string>
   <string name="intro_4_title">Sigur și Privat</string>
-  <string name="intro_4_body">Cheile tale private nu vor părăsi niciodată dispozitivul tău, așa că AppCoins sunt sigure în orice moment.</string>
+  <string name="intro_4_body">Use bank card, PayPal and your favorite payment methods.</string>
   <string name="intro_4_body_2">Toate tranzacțiile tale sunt întotdeauna sigure datorită tehnologiei de ultimă generație.</string>
   <string name="intro_5_title">Obține AppCoins Credits gratuite!</string>
   <string name="intro_5_body">Vei câștiga AppCoins Credits gratuite încercând aplicații și jocuri.</string>
@@ -131,7 +131,9 @@
   <string name="intro_agree_terms_and_conditions_body">By entering the AppCoins Wallet, you agree to the %1$s and %2$s.</string>
   <string name="intro_skip_button">IGNORĂ</string>
   <string name="intro_welcome_header">Bine ai venit la AppCoins Wallet</string>
-  <string name="intro_welcome_body">Aplicația ta pentru achiziții in-app.</string>
+  <string name="intro_welcome_body">Top up your wallet or make a purchase in any AppCoins compatible app or game.</string>
+  <string name="intro_welcome_header_2">Up to %s%% Bonus!</string>
+  <string name="intro_welcome_body_2">Bonuses can be used in any app or game.</string>
   <string name="intro_already_have_wallet_button">Am deja un portofel</string>
   <string name="intro_get_started_button">Launch wallet</string>
   <!-- Menus -->
@@ -333,7 +335,7 @@
   <string name="gamification_transaction_title">@string/gamification_level_bonus</string>
   <string name="gamification_purchase_header">Această achiziție are un bonus!</string>
   <string name="gamification_purchase_header_part_1">Bonus la cumpărătură:</string>
-  <string name="gamification_purchase_header_part_2">%s in AppCoins Credits</string>
+  <string name="gamification_purchase_header_part_2">%s în AppCoins Credits</string>
   <string name="gamification_purchase_body">Poți folosi acest bonus la următoarea ta cumpărătură.</string>
   <string name="gamification_purchase_completed_bonus_received_done">Gata!</string>
   <string name="gamification_purchase_completed_bonus_received">Bonus primit</string>
@@ -377,7 +379,7 @@
   <string name="topup_completed_2_with_bonus">au fost depozitate în contul tău... Plus un bonus!</string>
   <string name="topup_completed_2_without_bonus">au fost creditați în contul tău.</string>
   <string name="topup_bonus_header_part_1">Bonus în plus:</string>
-  <string name="topup_bonus_header_part_2">%s in AppCoins Credits</string>
+  <string name="topup_bonus_header_part_2">%s în AppCoins Credits</string>
   <string name="topup_bonus_body">Poți folosi acest bonus la următoarea ta cumpărătură.</string>
   <string name="topup_minimum_value">Valoarea minimă de alimentare este %s</string>
   <string name="topup_maximum_value">Valoarea maximă de alimentare este %s</string>

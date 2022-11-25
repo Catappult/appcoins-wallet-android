@@ -118,11 +118,11 @@
   <string name="intro_1_title">AppCoins Wallet</string>
   <string name="intro_1_body">Ứng dụng để mua hàng trong ứng dụng của bạn.</string>
   <string name="intro_2_title">Chơi nhiều hơn, trả ít hơn</string>
-  <string name="intro_2_body">Nhận thưởng khi mua vật phẩm trong các ứng dụng và trò chơi yêu thích của bạn.</string>
+  <string name="intro_2_body">The best payment wallet for apps and games.</string>
   <string name="intro_3_title">Đơn giản và Dễ dàng</string>
-  <string name="intro_3_body">Xử lý tất cả các giao dịch mua trong ứng dụng bằng phương thức thanh toán yêu thích của bạn.</string>
+  <string name="intro_3_body">Bonuses on all purchases.</string>
   <string name="intro_4_title">Bảo mật và Riêng tư</string>
-  <string name="intro_4_body">Khóa cá nhân sẽ không bao giờ rời khỏi thiết bị của bạn, vì vậy AppCoin của bạn sẽ luôn được an toàn.</string>
+  <string name="intro_4_body">Use bank card, PayPal and your favorite payment methods.</string>
   <string name="intro_4_body_2">Mọi giao dịch của bạn luôn được an toàn nhờ vào công nghệ hiện đại nhất.</string>
   <string name="intro_5_title">Nhận AppCoins Credits miễn phí!</string>
   <string name="intro_5_body">Bạn sẽ kiếm được AppCoins Credits bằng cách trải nghiệm thử ứng dụng và trò chơi.</string>
@@ -131,7 +131,9 @@
   <string name="intro_agree_terms_and_conditions_body">By entering the AppCoins Wallet, you agree to the %1$s and %2$s.</string>
   <string name="intro_skip_button">BỎ QUA</string>
   <string name="intro_welcome_header">Chào mừng bạn đến với Ví AppCoins</string>
-  <string name="intro_welcome_body">Ứng dụng của bạn để mua hàng trong ứng dụng.</string>
+  <string name="intro_welcome_body">Top up your wallet or make a purchase in any AppCoins compatible app or game.</string>
+  <string name="intro_welcome_header_2">Up to %s%% Bonus!</string>
+  <string name="intro_welcome_body_2">Bonuses can be used in any app or game.</string>
   <string name="intro_already_have_wallet_button">Tôi đã có ví rồi</string>
   <string name="intro_get_started_button">Launch wallet</string>
   <!-- Menus -->
@@ -333,7 +335,7 @@
   <string name="gamification_transaction_title">@string/gamification_level_bonus</string>
   <string name="gamification_purchase_header">Có một phần thưởng cho giao dịch mua này!</string>
   <string name="gamification_purchase_header_part_1">Tiền thưởng mua hàng:</string>
-  <string name="gamification_purchase_header_part_2">%s in AppCoins Credits</string>
+  <string name="gamification_purchase_header_part_2">%s bằng AppCoins Credits</string>
   <string name="gamification_purchase_body">Bạn có thể sử dụng tiền thưởng này trong lần mua tiếp theo của mình.</string>
   <string name="gamification_purchase_completed_bonus_received_done">Xong!</string>
   <string name="gamification_purchase_completed_bonus_received">Tiền thưởng đã nhận</string>
@@ -377,7 +379,7 @@
   <string name="topup_completed_2_with_bonus">đã được gửi vào tài khoản của bạn... Cùng với tiền thưởng!</string>
   <string name="topup_completed_2_without_bonus">đã được gửi vào tài khoản của bạn.</string>
   <string name="topup_bonus_header_part_1">Tiền thưởng nạp vào:</string>
-  <string name="topup_bonus_header_part_2">%s in AppCoins Credits</string>
+  <string name="topup_bonus_header_part_2">%s bằng AppCoins Credits</string>
   <string name="topup_bonus_body">Bạn có thể sử dụng tiền thưởng này trong lần mua tiếp theo của mình.</string>
   <string name="topup_minimum_value">Giá trị nạp tối thiểu là %s</string>
   <string name="topup_maximum_value">Giá trị nạp tối đa là %s</string>
