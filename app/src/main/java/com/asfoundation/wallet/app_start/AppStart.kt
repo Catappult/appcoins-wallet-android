@@ -21,6 +21,7 @@ sealed class StartMode {
   ) : StartMode()
 
   data class PendingPurchaseFlow(
+    val integrationFlow: String,
     val sku: String,
     val packageName: String,
     val callbackUrl: String?,
@@ -29,6 +30,7 @@ sealed class StartMode {
     val value: Double?,
     val signature: String?
   ) : StartMode()
+
   object Subsequent : StartMode()
 }
 
