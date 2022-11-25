@@ -17,6 +17,7 @@ class PendingPurchaseFlowUseCaseImpl @Inject constructor(
     val cachedTransaction = cachedTransaction.getCachedTransaction().blockingGet()
     return if (cachedTransaction.packageName != null) {
       StartMode.PendingPurchaseFlow(
+        integrationFlow = "osp",
         sku = cachedTransaction.sku!!,
         packageName = cachedTransaction.packageName,
         callbackUrl = cachedTransaction.callbackUrl,

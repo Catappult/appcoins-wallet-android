@@ -118,6 +118,7 @@ internal class AppStartUseCaseTest {
     ) = StartMode.GPInstall(sku, source, packageName, integration)
 
     private fun pendingPurchase(
+      integrationFlow: String = "osp",
       sku: String = "13204",
       packageName: String = "com.igg.android.lordsmobile",
       callbackUrl: String = "",
@@ -126,6 +127,7 @@ internal class AppStartUseCaseTest {
       value: Double = 1.5,
       signature: String = ""
     ) = StartMode.PendingPurchaseFlow(
+      integrationFlow,
       sku,
       packageName,
       callbackUrl,

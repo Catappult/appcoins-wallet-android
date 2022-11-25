@@ -13,7 +13,7 @@ class AppStartProbe @Inject constructor(
     val data = when (startMode) {
       is StartMode.PendingPurchaseFlow -> mapOf(
         PACKAGE_NAME to startMode.packageName,
-        INTEGRATION_FLOW to "",
+        INTEGRATION_FLOW to startMode.integrationFlow,
         SOURCE to "",
         SKU to startMode.sku,
       )
@@ -23,7 +23,7 @@ class AppStartProbe @Inject constructor(
         SOURCE to startMode.source,
         SKU to startMode.sku,
       )
-      else -> mapOf(PACKAGE_NAME to "", INTEGRATION_FLOW to "", SOURCE to "", SKU to "")
+      else -> mapOf(PACKAGE_NAME to "", INTEGRATION_FLOW to "other", SOURCE to "", SKU to "")
     }
     analyticsManager.logEvent(
       data,
@@ -32,7 +32,6 @@ class AppStartProbe @Inject constructor(
       WALLET
     )
   }
-
 
   companion object {
     const val WALLET = "WALLET"
