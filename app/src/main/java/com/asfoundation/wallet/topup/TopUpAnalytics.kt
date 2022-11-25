@@ -1,6 +1,7 @@
 package com.asfoundation.wallet.topup
 
 import cm.aptoide.analytics.AnalyticsManager
+import com.asfoundation.wallet.ui.iab.PaymentMethodsAnalytics
 import javax.inject.Inject
 
 class TopUpAnalytics @Inject constructor(private val analyticsManager: AnalyticsManager) {
@@ -66,6 +67,23 @@ class TopUpAnalytics @Inject constructor(private val analyticsManager: Analytics
         WALLET)
   }
 
+  fun sendPaypalSuccessEvent(value: String) {
+    val map = HashMap<String, Any>()
+    map[METHOD] = PaymentMethodsAnalytics.PAYMENT_METHOD_PP_V2
+    map[VALUE] = value
+    map[STATUS] = STATUS_SUCCESS
+    analyticsManager.logEvent(map, WALLET_TOP_UP_CONCLUSION, AnalyticsManager.Action.CLICK,
+      WALLET)
+  }
+
+  fun sendPaypalErrorEvent(errorDetails: String) {
+    val map = HashMap<String, Any>()
+    map[METHOD] = PaymentMethodsAnalytics.PAYMENT_METHOD_PP_V2
+    map[ERROR_DETAILS] = errorDetails
+    analyticsManager.logEvent(map, WALLET_TOP_UP_CONCLUSION, AnalyticsManager.Action.CLICK,
+      WALLET)
+  }
+
   fun sendBillingAddressActionEvent(value: Double,
                                     paymentMethod: String,
                                     action: String) {
@@ -93,6 +111,7 @@ class TopUpAnalytics @Inject constructor(private val analyticsManager: Analytics
     const val WALLET_TOP_UP_CONCLUSION = "wallet_top_up_conclusion"
     const val WALLET_TOP_UP_PAYPAL_URL = "wallet_top_up_conclusion_paypal"
     const val RAKAM_TOP_UP_BILLING = "wallet_top_up_billing"
+    const val STATUS_SUCCESS = "success"
     private const val VALUE = "value"
     private const val ACTION = "action"
     private const val METHOD = "payment_method"

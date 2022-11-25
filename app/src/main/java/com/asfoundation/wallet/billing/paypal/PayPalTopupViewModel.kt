@@ -1,12 +1,19 @@
 package com.asfoundation.wallet.billing.paypal
 
+import android.os.Bundle
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import cm.aptoide.analytics.AnalyticsManager
+import com.appcoins.wallet.billing.BillingMessagesMapper
 import com.appcoins.wallet.billing.adyen.PaymentModel
 import com.asf.wallet.R
+import com.asfoundation.wallet.base.RxSchedulers
 import com.asfoundation.wallet.billing.adyen.PurchaseBundleModel
+import com.asfoundation.wallet.billing.analytics.BillingAnalytics
 import com.asfoundation.wallet.entity.TransactionBuilder
+import com.asfoundation.wallet.topup.TopUpAnalytics
+import com.asfoundation.wallet.ui.iab.PaymentMethodsAnalytics
 import com.asfoundation.wallet.util.toSingleEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.Single
@@ -23,6 +30,9 @@ class PayPalTopupViewModel @Inject constructor(
   private val createPaypalAgreementUseCase: CreatePaypalAgreementUseCase,
   private val waitForSuccessPaypalUseCase: WaitForSuccessPaypalUseCase,
   private val cancelPaypalTokenUseCase: CancelPaypalTokenUseCase,
+  private val billingMessagesMapper: BillingMessagesMapper,
+  private val topUpAnalytics: TopUpAnalytics,
+  rxSchedulers: RxSchedulers
 ) : ViewModel() {
 
   sealed class State {
@@ -40,8 +50,8 @@ class PayPalTopupViewModel @Inject constructor(
 
   private var authenticatedToken: String? = null
 
-  var networkScheduler = Schedulers.io()
-  var viewScheduler = AndroidSchedulers.mainThread()
+  val networkScheduler = rxSchedulers.io
+  val viewScheduler = rxSchedulers.main
 
   fun attemptTransaction(
     createTokenIfNeeded: Boolean = true, amount: String, currency: String
@@ -56,7 +66,8 @@ class PayPalTopupViewModel @Inject constructor(
         .doOnSuccess {
           when (it?.validity) {
             PaypalTransaction.PaypalValidityState.COMPLETED -> {
-              Log.d(TAG, "Successful Paypal payment ") // TODO add event
+              Log.d(TAG, "Successful Paypal payment ")
+              topUpAnalytics.sendPaypalSuccessEvent(amount)
               _state.postValue(State.SuccessPurchase(it.hash, it.uid))
             }
             PaypalTransaction.PaypalValidityState.NO_BILLING_AGREEMENT -> {
@@ -65,24 +76,28 @@ class PayPalTopupViewModel @Inject constructor(
                 createToken()
               } else {
                 Log.d(TAG, "No paypal billing agreement")
+                topUpAnalytics.sendPaypalErrorEvent("No paypal billing agreement")
                 _state.postValue(State.Error(R.string.unknown_error))
               }
             }
             PaypalTransaction.PaypalValidityState.PENDING -> {
-              waitForSuccess(it.hash, it.uid)
+              waitForSuccess(it.hash, it.uid, amount)
             }
             PaypalTransaction.PaypalValidityState.ERROR -> {
               Log.d(TAG, "Paypal transaction error")
+              topUpAnalytics.sendPaypalErrorEvent("Paypal transaction error")
               _state.postValue(State.Error(R.string.unknown_error))
             }
             null -> {
               Log.d(TAG, "Paypal transaction error")
+              topUpAnalytics.sendPaypalErrorEvent("Paypal transaction error")
               _state.postValue(State.Error(R.string.unknown_error))
             }
           }
         }
         .subscribe({}, {
-          Log.d(TAG, it.toString())   //TODO event
+          Log.d(TAG, it.toString())
+          topUpAnalytics.sendPaypalErrorEvent("Paypal transaction error")
           _state.postValue(State.Error(R.string.unknown_error))
         })
     )
@@ -94,12 +109,13 @@ class PayPalTopupViewModel @Inject constructor(
         .subscribeOn(networkScheduler)
         .observeOn(viewScheduler)
         .doOnSuccess {
-          Log.d(TAG, "Successful Token creation ")  //TODO event
+          Log.d(TAG, "Successful Token creation ")
           authenticatedToken = it.token
           _state.postValue(State.WebViewAuthentication(it.redirect.url))
         }
         .subscribe({}, {
-          Log.d(TAG, it.toString())    //TODO event
+          Log.d(TAG, it.toString())
+          topUpAnalytics.sendPaypalErrorEvent("Paypal createToken error")
           _state.postValue(State.Error(R.string.unknown_error))
         })
     )
@@ -123,7 +139,8 @@ class PayPalTopupViewModel @Inject constructor(
             )
           }
           .subscribe({}, {
-            Log.d(TAG, it.toString())    //TODO event
+            Log.d(TAG, it.toString())
+            topUpAnalytics.sendPaypalErrorEvent("Paypal BillingAgreement error")
             _state.postValue(State.Error(R.string.unknown_error))
           })
       )
@@ -141,7 +158,7 @@ class PayPalTopupViewModel @Inject constructor(
     }
   }
 
-  private fun waitForSuccess(hash: String?, uid: String?) {
+  private fun waitForSuccess(hash: String?, uid: String?, amount: String) {
     compositeDisposable.add(
       waitForSuccessPaypalUseCase(uid ?: "")
         .subscribeOn(networkScheduler)
@@ -151,18 +168,34 @@ class PayPalTopupViewModel @Inject constructor(
             when (it.status) {
               PaymentModel.Status.COMPLETED -> {
                 Log.d(TAG, "Settled transaction polling completed")
+                topUpAnalytics.sendPaypalSuccessEvent(amount)
                 _state.postValue(State.SuccessPurchase(it.hash, it.uid))
               }
               PaymentModel.Status.FAILED, PaymentModel.Status.FRAUD, PaymentModel.Status.CANCELED,
               PaymentModel.Status.INVALID_TRANSACTION -> {
                 Log.d(TAG, "Error on transaction on Settled transaction polling")
+                topUpAnalytics.sendPaypalErrorEvent(
+                  "Error on transaction on Settled transaction polling ${it.status.name}"
+                )
+                _state.postValue(State.Error(R.string.unknown_error))
               }
-              else -> {}
+              else -> { /* pending */ }
             }
           },
           {
             Log.d(TAG, "Error on Settled transaction polling")
+            topUpAnalytics.sendPaypalErrorEvent("Error on Settled transaction polling")
           })
+    )
+  }
+
+  fun createBundle(
+    priceAmount: String, priceCurrency: String,
+    fiatCurrencySymbol: String, bonus: String
+  ): Bundle {
+    return billingMessagesMapper.topUpBundle(
+      priceAmount, priceCurrency, bonus,
+      fiatCurrencySymbol
     )
   }
 

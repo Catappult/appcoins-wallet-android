@@ -15,7 +15,6 @@ import androidx.annotation.StringRes
 import androidx.fragment.app.viewModels
 import com.airbnb.lottie.FontAssetDelegate
 import com.airbnb.lottie.TextDelegate
-import com.appcoins.wallet.billing.BillingMessagesMapper
 import com.asf.wallet.R
 import com.asf.wallet.databinding.FragmentPaypalTopupBinding
 import com.asfoundation.wallet.billing.adyen.PaymentType
@@ -25,7 +24,6 @@ import com.asfoundation.wallet.topup.adyen.TopUpNavigator
 import com.asfoundation.wallet.ui.iab.WebViewActivity
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
-import io.reactivex.Completable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
@@ -49,9 +47,6 @@ class PayPalTopupFragment() : BasePageViewFragment() {
 
   @Inject
   lateinit var navigator: TopUpNavigator
-
-  @Inject
-  lateinit var billingMessagesMapper: BillingMessagesMapper
 
   private val TAG = PayPalTopupFragment::class.java.name
 
@@ -144,27 +139,8 @@ class PayPalTopupFragment() : BasePageViewFragment() {
   }
 
   private fun handleSuccess() {
-    compositeDisposable.add(
-      Completable.fromAction {
-        //topUpAnalytics.sendSuccessEvent(appcValue.toDouble(), paymentType, "success")  //TODO
-        val bundle = createBundle(amount, currency, currencySymbol)
-        navigator.popView(bundle)
-      }
-        .subscribe({}, {
-          Log.d(TAG, "handleSuccess: Error ${it ?: ""}")
-          showSpecificError(R.string.unknown_error)
-        })
-    )
-  }
-
-  private fun createBundle(
-    priceAmount: String, priceCurrency: String,
-    fiatCurrencySymbol: String
-  ): Bundle {
-    return billingMessagesMapper.topUpBundle(
-      priceAmount, priceCurrency, bonus,
-      fiatCurrencySymbol
-    )
+    val bundle = viewModel.createBundle(amount, currency, currencySymbol, bonus)
+    navigator.popView(bundle)
   }
 
   private fun close() {
@@ -189,8 +165,6 @@ class PayPalTopupFragment() : BasePageViewFragment() {
     views.paypalErrorLayout.root.visibility = View.VISIBLE
     views.paypalErrorButtons.root.visibility = View.VISIBLE
   }
-
-  private fun getAnimationDuration() = views.successContainer.lottieTransactionSuccess.duration
 
   private fun handleBonusAnimation() {
     if (StringUtils.isNotBlank(bonus)) {

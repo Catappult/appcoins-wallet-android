@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.billing.paypal
 
+import android.animation.Animator
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
@@ -26,13 +27,12 @@ import com.asfoundation.wallet.ui.iab.Navigator
 import com.asfoundation.wallet.ui.iab.WebViewActivity
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
-import io.reactivex.Completable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
+import kotlinx.android.synthetic.main.fragment_iab_transaction_completed.view.*
 import org.apache.commons.lang3.StringUtils
 import java.math.BigDecimal
-import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -41,9 +41,6 @@ class PayPalIABFragment() : BasePageViewFragment() {
   @Inject
   lateinit var navigator: PayPalIABNavigator
 
-  var networkScheduler = Schedulers.io()  //TODO
-  var viewScheduler = AndroidSchedulers.mainThread() //TODO
-
   private val viewModel: PayPalIABViewModel by viewModels()
 
   private var binding: FragmentPaypalBinding? = null
@@ -51,6 +48,7 @@ class PayPalIABFragment() : BasePageViewFragment() {
   private lateinit var compositeDisposable: CompositeDisposable
 
   private lateinit var resultAuthLauncher: ActivityResultLauncher<Intent>
+  private var successBundle: Bundle? = null
 
   private lateinit var iabView: IabView
   var navigatorIAB: Navigator? = null
@@ -112,7 +110,7 @@ class PayPalIABFragment() : BasePageViewFragment() {
           showSpecificError(state.stringRes)
         }
         is PayPalIABViewModel.State.SuccessPurchase -> {
-          handleSuccess(state.hash, state.uid)
+          handleSuccess(state.bundle)
         }
         PayPalIABViewModel.State.TokenCanceled -> {
           close()
@@ -141,6 +139,13 @@ class PayPalIABFragment() : BasePageViewFragment() {
     views.paypalErrorButtons.errorCancel.setOnClickListener {
       close()
     }
+    views.successContainer.iabActivityTransactionCompleted.lottie_transaction_success
+      .addAnimatorListener(object : Animator.AnimatorListener {
+        override fun onAnimationRepeat(animation: Animator?) = Unit
+        override fun onAnimationEnd(animation: Animator?) = concludeWithSuccess()
+        override fun onAnimationCancel(animation: Animator?) = Unit
+        override fun onAnimationStart(animation: Animator?) = Unit
+      })
   }
 
   private fun startWebViewAuthorization(url: String) {
@@ -148,39 +153,22 @@ class PayPalIABFragment() : BasePageViewFragment() {
     resultAuthLauncher.launch(intent)
   }
 
-  private fun handleSuccess(hash: String?, uid: String?) {
-    compositeDisposable.add(
-      viewModel.successBundle(hash, null, uid, transactionBuilder)
-        .doOnSuccess {
-//              sendPaymentEvent()
-//              sendRevenueEvent()
-        }
-        .subscribeOn(networkScheduler)
-        .observeOn(viewScheduler)
-        .flatMapCompletable { bundle ->
-          Completable.fromAction { showSuccessAnimation() }
-            .andThen(Completable.timer(getAnimationDuration(), TimeUnit.MILLISECONDS))
-            .andThen(Completable.fromAction {
-              navigatorIAB?.popView(bundle.bundle)
-            })
-            .subscribeOn(AndroidSchedulers.mainThread())
-        }
-        .doOnError {
-          // TODO event
-          showSpecificError(R.string.unknown_error)
-        }
-        .subscribe()
-    )
+  private fun concludeWithSuccess() {
+    navigatorIAB?.popView(successBundle)
+  }
+
+  private fun handleSuccess(bundle: Bundle) {
+    showSuccessAnimation(bundle)
   }
 
   private fun close() {
     iabView.close(null)
   }
 
-  private fun showSuccessAnimation() {
+  private fun showSuccessAnimation(bundle: Bundle) {
+    successBundle = bundle
     views.successContainer.iabActivityTransactionCompleted.visibility = View.VISIBLE
     views.loadingAuthorizationAnimation.visibility = View.GONE
-
   }
 
   private fun showLoadingAnimation() {
