@@ -27,7 +27,7 @@
   <string name="credits">क्रेडीट्स</string>
   <string name="label_new">नविन</string>
   <string name="got_it_button">समजले</string>
-  <string name="change_button">Change</string>
+  <string name="change_button">बदला</string>
   <string name="vip">व्हीआयपी</string>
   <string name="low_storage_error">पुरेसे स्टोरेज नाही</string>
   <string name="no_camera_permission_title">कॅमेराची परवानगी</string>
@@ -114,28 +114,28 @@
   <string name="intro_title_third_page">साधे &amp; सोपे</string>
   <string name="intro_message_first_page">अॅप अर्थकारण क्रांतीत स्वागत आहे.</string>
   <string name="intro_message_second_page">खासगी कीज आपल्या डिव्हाइसबाहेर जात नाहीत.</string>
-  <string name="intro_message_third_page">Process all your in-app payments and rewards in AppCoins.</string>
+  <string name="intro_message_third_page">अॅपकॉईन्समध्ये आपले सर्व इन-अॅप पेमेंटस आणि बक्षीसे प्रक्रियारत करा.</string>
   <string name="intro_1_title">AppCoins Wallet</string>
   <string name="intro_1_body">अॅपमधील खरेदीसाठीचे आपले अॅप.</string>
   <string name="intro_2_title">जास्त खेळा, कमी पैसे भरा</string>
-  <string name="intro_2_body">The best payment wallet for apps and games.</string>
+  <string name="intro_2_body">अॅप्स आणि खेळांसाठी सर्वोत्कृष्ट पेमेंट वॉलेट.</string>
   <string name="intro_3_title">साधे आणि सोपे</string>
-  <string name="intro_3_body">Bonuses on all purchases.</string>
+  <string name="intro_3_body">सर्व खरेदीवर बोनस.</string>
   <string name="intro_4_title">सुरक्षित आणि खासगी</string>
-  <string name="intro_4_body">Use bank card, PayPal and your favorite payment methods.</string>
+  <string name="intro_4_body">बँक कार्ड, पेपाल आणि आपल्या आवडत्या पेमेंट पद्धती वापरा.</string>
   <string name="intro_4_body_2">अत्याधुनिक तंत्रज्ञानामुळे आपले सर्व व्यवहार नेहमीच सुरक्षित असतील.</string>
   <string name="intro_5_title">मोफत अॅपकॉइन्स क्रेडीटस मिळवा!</string>
   <string name="intro_5_body">ही अॅप्स आणि खेळ खेळुन आपण मोफत अॅपकॉइन्स क्रेडीटस कमवाल.</string>
   <string name="intro_creating_wallet_short">आपले वॉलेट आपल्यासाठी सेटअप करीत आहे&#8230;</string>
   <string name="intro_wallet_created_short">वॉलेट बनविले!</string>
-  <string name="intro_agree_terms_and_conditions_body">By entering the AppCoins Wallet, you agree to the %1$s and %2$s.</string>
+  <string name="intro_agree_terms_and_conditions_body">अॅपकॉईन्स वॉलेटमध्ये प्रवेश करुन आपणा %1$s आणि %2$s शी सहमत आहात.</string>
   <string name="intro_skip_button">वगळा</string>
   <string name="intro_welcome_header">अॅपकॉईन्स वॉलेटमध्ये स्वागत आहे</string>
-  <string name="intro_welcome_body">Top up your wallet or make a purchase in any AppCoins compatible app or game.</string>
-  <string name="intro_welcome_header_2">Up to %s%% Bonus!</string>
-  <string name="intro_welcome_body_2">Bonuses can be used in any app or game.</string>
+  <string name="intro_welcome_body">वॉलेटमध्ये भर घाला किंवा अॅप वा खेळाशी सुसंगत कोणत्याही अॅपकॉईन्सची खरेदी करा.</string>
+  <string name="intro_welcome_header_2">%s%% पर्यंत बोनस मिळवा!</string>
+  <string name="intro_welcome_body_2">बोनसचा वापर कोणत्याही अॅप वा खेळात केला जाऊ शकतो.</string>
   <string name="intro_already_have_wallet_button">माझ्याकडे आधीपासुनच वॉलेट आहे</string>
-  <string name="intro_get_started_button">Launch wallet</string>
+  <string name="intro_get_started_button">वॉलेट सुरु करा</string>
   <!-- Menus -->
   <!-- Labels -->
   <string name="label_from">कडुन</string>
@@ -209,7 +209,7 @@
   <string name="activity_iab_error_message">त्रुटी आली, कृपया पुन्हा प्रयत्न करा</string>
   <string name="action_try">प्रयत्न</string>
   <string name="activity_transactions_learn_more">आणखीन जाणुन घ्या</string>
-  <string name="activity_iab_no_funds_message">Not enough ETH and AppCoins</string>
+  <string name="activity_iab_no_funds_message">इटीएच आणि अॅपकॉईन्स पुरेशी नाहीत</string>
   <string name="activity_iab_no_ethereum_funds_message">एथरियम पुरेसे नाही</string>
   <string name="activity_iab_no_token_funds_message">अॅपकॉइन्स पुरेशा नाहीत</string>
   <string name="activity_iab_wrong_network_message">चुकीचे एथरियम नेटवर्क किंवा अज्ञात टोकन</string>
@@ -301,7 +301,7 @@
   <string name="gamification_home_body">आपल्या आवडत्या अॅप्स आणि खेळात %s%% पर्यंत बोनस मिळवा!</string>
   <string name="gamification_home_button">कमावणे सुरु करा</string>
   <string name="gamification_level_title">माझी पातळी काय आहे?</string>
-  <string name="gamification_level_title_new">Get AppCoins Credits!</string>
+  <string name="gamification_level_title_new">अॅपकॉईन्स क्रेडीटस मिळवा!</string>
   <string name="gamification_level_on_graphic">लेव्हल %s</string>
   <string name="gamification_APPCapps_button">अॅप्स &amp; खेळ</string>
   <string name="gamification_level_header">अभिनंदन, आपण %s आहात!</string>
@@ -311,9 +311,9 @@
   <string name="gamification_level_next_lvl_value">%s AppCoins</string>
   <string name="gamification_level_bonus">%s%% बोनस</string>
   <string name="gamification_level_button_how">हे कसे काम करते</string>
-  <string name="gamification_level_body">You\'ll earn AppCoins Credits when buying items in your favorite apps and games.</string>
+  <string name="gamification_level_body">आपल्या आवडत्या अॅप्स आणि खेळात वस्तु खरेदी केल्यास आपण एपीपीसी क्रेडीटस कमावु शकता.</string>
   <string name="gamification_how_header">पातळी कशी वाढवायची?</string>
-  <string name="gamification_how_body">You\'ll earn AppCoins Credits when buying items in your favorite apps and games.</string>
+  <string name="gamification_how_body">आपल्या आवडत्या अॅप्स आणि खेळात वस्तु खरेदी केल्यास आपण एपीपीसी क्रेडीटस कमावु शकता.</string>
   <string name="gamification_how_body_new">जितका जास्त आपण आपल्या आवडत्या अॅप्समध्ये खर्च कराल, तितका मोठा बोनस मिळेल!</string>
   <string name="gamification_how_table_a1">खर्च करा</string>
   <string name="gamification_how_table_b1">बोनस</string>
@@ -374,7 +374,7 @@
   <string name="topup_title">भरणा करा</string>
   <string name="topup_amount">%s AppCoins Credits</string>
   <string name="topup_bonus_header">आपल्याला बोनस मिळाला आहे!</string>
-  <string name="topup_bonus_message">%s AppCoins Credits extra will be credited in your wallet.</string>
+  <string name="topup_bonus_message">अधिक %s अॅपकॉईन्स क्रेडीटस आपल्या वॉलेटमध्ये जमा केले जातील.</string>
   <string name="topup_completed_1">%s एपीपीसी क्रेडीटसमध्ये</string>
   <string name="topup_completed_2_with_bonus">आपल्या खात्यात जमा केले गेले... बोनससह!</string>
   <string name="topup_completed_2_without_bonus">आम्ही आपल्या खत्यात जमा केले.</string>
@@ -383,15 +383,15 @@
   <string name="topup_bonus_body">आपल्या पुढच्या खरेदीत आपण हा बोनस वापरु शकता.</string>
   <string name="topup_minimum_value">किमान टॉप-अप मूल्य %s आहे</string>
   <string name="topup_maximum_value">कमाल टॉप-अप मूल्य %s आहे</string>
-  <string name="topup_no_method_available_title">No payment methods!</string>
-  <string name="topup_no_method_available_body">There are no payment methods available to top up in your country at the moment. Stay tuned!</string>
+  <string name="topup_no_method_available_title">पेमेंट पद्धत नाही!</string>
+  <string name="topup_no_method_available_body">आपल्या देशात सध्यातरी कोणतीही पेमेंट पद्धत उपलब्ध नाही. पहात रहा!</string>
   <!--Balance-->
   <string name="balance_title">शिल्लक</string>
   <string name="balance_total_body">%s तील एकुण शिल्लक</string>
   <string name="balance_topup_body">अॅपकॉईन्स क्रेडीटसने आपण आपल्या वॉलेटमध्ये भरणा करु शकता.</string>
   <string name="balance_ethereum_body">अॅपकॉइन्स इथेरियम क्रिप्टोकरंसीवर आधारीत आहे. आपण ह्याचा विनिमय बहुतेक एक्सचेंजमध्ये करु शकता, हे फार लोकप्रिय आहे!</string>
   <string name="balance_appcoins_body">अॅप इकॉनॉमीसाठी अॅपकॉइन्स ही क्रिप्टोकरंसी आहे. आपण ह्याचा विनिमय पुष्कळशा एक्सचेंजेसवर करु शकता आणि अॅपमधील वस्तु खरेदीसाठी करु शकता.</string>
-  <string name="balance_appccreditos_body">The token to buy in-app items! Top up AppCoins Credits from your wallet or get them for free by using apps. They can also be transferred between friends!</string>
+  <string name="balance_appccreditos_body">अॅपमधील वस्तु खरेदीसाठीची टोकन! ती मिळविण्यासाठी आपल्या वॉलेटमध्ये अॅपकॉईन्स क्रेडीटसमध्ये भर घाला किंवा अॅप वापरुन मोफत मिळवा. ह्यांना मित्रांनाही देता येते!</string>
   <string name="my_wallets_action_new_wallet">नविन वॉलेट</string>
   <string name="my_wallets_action_recover_wallet">वॉलेट परत मिळवा</string>
   <string name="my_wallets_action_backup_wallet">वॉलेट बॅकअप करा</string>
@@ -443,7 +443,7 @@
   <string name="remind_later_button">नंतर पाहू</string>
   <string name="get_code_button">कोड मिळवा</string>
   <string name="confirm_button">पुष्टी करा</string>
-  <string name="withdraw_button">Withdraw</string>
+  <string name="withdraw_button">पैसे काढा</string>
   <string name="email_here_field">आपला ईमेल पत्ता इथे&#8230;</string>
   <string name="understood_button">समजले!</string>
   <string name="skip_button">आतापुरत वगळा</string>
@@ -462,7 +462,7 @@
   <string name="home_empty_discover_apps_button">उच्चीची अॅप्स शोधा</string>
   <!--Tokens-->
   <!--Settings-->
-  <string name="title_redeem">Redeem Gift Card</string>
+  <string name="title_redeem">गिफ्ट कार्ड रिडीम करा</string>
   <string name="settings_item_support">समर्थन गटाशी संपर्क साधा</string>
   <string name="settings_subheader_support">सपोर्ट</string>
   <string name="settings_subheader_about_us">आमच्याविषयी</string>
@@ -550,7 +550,7 @@
   <string name="purchase_error_try_cheaper_item">हे फारच महाग आहे! कृपया कमी मूल्याची वस्तु खरेदी करण्याचा प्रयत्न करा.</string>
   <string name="purchase_error_try_cheaper_item_or_method">हे फारच महाग आहे! कृपया स्वस्त वस्तु खरेदी करण्याचा प्रयत्न करुन किंवा वेगळी पेमेंट पद्धत वापरुन पहा.</string>
   <string name="transfer_appc_error_no_eth_title">आपल्याला इथरची आवश्यकता आहे!</string>
-  <string name="transfer_appc_error_no_eth_body">AppCoins transfers fees are paid in Ethereum, so you\'ll need ETH to transfer AppCoins.</string>
+  <string name="transfer_appc_error_no_eth_body">अॅपकॉईन्स हस्तांतरण शुल्क हे इथेरियममध्ये भरले जाते, म्हणुन आपल्याला अॅपकॉईन्सचे हस्तांतरण करण्यासाठी इटीएच ची गरज भासेल.</string>
   <string name="purchase_error_invalid_credit_card">बँक कार्ड क्रमांक अवैध. कृपया सर्व संख्या बरोबर आहेत का ते तपासा.</string>
   <string name="purchase_error_card_security_validation">ह्या व्यवहाराच्या २तीय पातळी सत्यापनात त्रुटी आली. कृपया पुन्हा प्रयत्न करा.</string>
   <string name="purchase_error_transaction_timeout">असे दिसतेय कि आपण हा व्यवहार पूर्ण करण्यात फार वेळ घेतलात. कृपया पुन्हा प्रयत्न करा.</string>
@@ -563,7 +563,7 @@
   <string name="purchase_paytmupi_install_disclaimer">आपल्याला पेटीएम यूपीआय अॅप इंस्टॉल करावे लागेल.</string>
   <string name="purchase_app_needed_body">आपली खरेदी पूर्ण करण्यासाठी आपल्याला खालील अॅप आवश्यक आहेत.</string>
   <string name="purchase_apps_needed_body">आपली खरेदी पूर्ण करण्यासाठी आपल्याला खालीलपैकी एक अॅप आवश्यक आहे.</string>
-  <string name="purchase_error_connection_issue">It seems there is a problem with your internet connection! Please check it and try again.</string>
+  <string name="purchase_error_connection_issue">आपले इंटरनेट कनेक्शन चालू नाही असे दिसतेय! कृपया तपासुन पुन्हा प्रयत्न करा.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">बिलिंग पत्ता</string>
   <string name="purchase_address_address_field">पत्ता</string>
@@ -597,11 +597,11 @@
   <string name="referral_view_title">मित्रांना आमंत्रण द्या</string>
   <string name="referral_view_title_1">मित्रांना आमंत्रण द्या आणि जास्त कमवा!</string>
   <string name="referral_view_verified_body">प्रत्येक मित्रापाठी %s मूल्याचे अॅपकॉइन्स क्रेडीटस मिळवा. फक्त लिंक सामायिक करा!</string>
-  <string name="referral_view_share_link_button">Share invite link</string>
+  <string name="referral_view_share_link_button">आमंत्रण लिंक ह्याद्वारे सामायिक करा</string>
   <string name="referral_view_notifications_title">सूचना</string>
   <string name="referral_share_sheet_title">आमंत्रण लिंक ह्याद्वारे सामायिक करा:</string>
   <string name="referral_view_unverified_body">प्रत्येक मित्रासाठी %s मूल्याची अॅपकॉईन्स क्रेडीटस मिळवा. प्रथम आपण आपले वॉलेट सत्यापित करायला हवे.</string>
-  <string name="referral_view_verify_button">Verify wallet</string>
+  <string name="referral_view_verify_button">वॉलेट सत्यापन करा</string>
   <string name="referral_view_i_have_been_invited_button">मला आमंत्रण मिळाले आहे</string>
   <string name="referral_view_dropup_menu_friends_invited">मित्रांना आमंत्रित केले</string>
   <string name="referral_view_dropup_menu_earned">कमावले</string>
@@ -636,22 +636,22 @@
   <string name="update_wallet_hard_body">अॅपकॉइन्स वॉलेटची जुनी आवृत्ती आपण वापरत आहात असे दिसतेय. उत्कृष्ट अनुभव आणि सु्रक्षेच्या हमीसाठी कृपया अद्यतन करा.</string>
   <string name="update_wallet_soft_title">मागे राहू नका!</string>
   <string name="update_wallet_soft_body">अॅपकॉइन्स वॉलेट अद्यतन करीत रहाणे हे उत्कृष्ट अनुभवाची हमी देते.</string>
-  <string name="update_button">Update</string>
-  <string name="update_backup_title">Don\'t lose your funds!</string>
-  <string name="update_backup_body">Back up your wallet before updating.</string>
-  <string name="update_backup_date">Last backed up on %s.</string>
-  <string name="update_backup_never">Not backed up yet.</string>
+  <string name="update_button">अद्यतन</string>
+  <string name="update_backup_title">आपले पैसे घालवु नका!</string>
+  <string name="update_backup_body">अद्यतनित करण्यापूर्वी आपले वॉलेट बॅक अप करा.</string>
+  <string name="update_backup_date">शेवटचे बॅक अप %s ला केले गेले.</string>
+  <string name="update_backup_never">अजुनपर्यंत बॅक अप केले नाही.</string>
   <!--Backup and Import-->
   <string name="backup_home_notification_title">वॉलेट बॅकअप करा</string>
   <string name="backup_home_notification_body">आपला फोन हरवला आहे का? आपले वॉलेट आत्ताच बॅकअप करा!</string>
-  <string name="backup_confirmation_no_share_title">Backup Done!</string>
+  <string name="backup_confirmation_no_share_title">बॅकअप झाले!</string>
   <string name="backup_save_dialogue_title">बॅकअप फाईल सेव्ह करा</string>
   <string name="backup_save_dialogue_body">आपल्या बॅकअप फाईलचे नाव निवडा.</string>
   <string name="import_wallet_title">वॉलेट परत मिळवा</string>
   <string name="import_wallet_body">आपल्या वॉलेटचा बॅकअप खाली पेस्ट करा.</string>
   <string name="import_wallet_keystore_private_keys">की स्टोर किंवा खासगी कीज</string>
   <string name="import_wallet_from_file_title">किंवा फाईलमधुन रिकव्हर करा</string>
-  <string name="import_wallet_file_button">Recover from file</string>
+  <string name="import_wallet_file_button">किंवा फाईलमधुन परत मिळवा</string>
   <string name="import_wallet_button">वॉलेट परत मिळवा</string>
   <string name="import_wallet_password_body">ह्या वॉलेटला पासवर्ड घातलेला आहे!</string>
   <string name="import_wallet_wrong_password_body">अरेरे, चुकीचा पासवर्ड!</string>
@@ -661,7 +661,7 @@
   <string name="backup_body">आपल्या खासगी कीज किंवा अन्य प्रवेश पद्धतींना आम्ही साठवित नाही. आपल्या वॉलेटच्या बॅकअप (की स्टोर) सुरक्षेसाठी हे महत्वाचे आहे.</string>
   <string name="backup_additional_security_title">अतिरिक्त सुरक्षा (पर्यायी)</string>
   <string name="backup_additional_security_body">पासवर्ड निवडा</string>
-  <string name="backup_button">Back up wallet</string>
+  <string name="backup_button">वॉलेट बॅकअप करा</string>
   <string name="backup_ready_title">आपले बॅकअप तयार आहे!\nते सुरक्षित राखा.</string>
   <string name="backup_ready_save_on_email">आपल्या ईमेलवर सेव्ह करा</string>
   <string name="backup_ready_email_button">ईमेलवर पाठवा</string>
@@ -672,7 +672,7 @@
   <string name="backup_confirmation_tips_3">खासगी आणि सुरक्षित क्लाऊड स्टोरेजमध्ये <b>कॉपी करा</b>.</string>
   <string name="backup_tooltip_body">आपल्या वॉलेटचा बॅकअप करा!</string>
   <string name="backup_tooltip_later_button">कदाचित नंतर</string>
-  <string name="backup_tooltip_backup_button">Back up</string>
+  <string name="backup_tooltip_backup_button">बॅक अप</string>
   <string name="backup_notification_title">आपल्या वॉलेटचा बॅकअप करा!</string>
   <string name="backup_notification_body">आपले पैसे सुरक्षित राखा आणि आपल्या वॉलेटमध्ये आपल्याला नेहमीच प्रवेश मिळेल याची खात्री करा.</string>
   <string name="backup_choose_wallet_title">बॅकअपसाठी वॉलेट निवडा</string>
@@ -705,22 +705,22 @@
   <string name="wallets_2nd_view_balance_title">शिल्लक:</string>
   <string name="wallets_2nd_view_other_wallets_title">अन्य वॉलेटस</string>
   <string name="wallets_2nd_view_import_button">वॉलेट परत मिळवा</string>
-  <string name="wallets_2nd_view_create_button">Create new</string>
-  <string name="wallet_view_copy_button">Copy</string>
+  <string name="wallets_2nd_view_create_button">नविन निर्माण करा</string>
+  <string name="wallet_view_copy_button">प्रत करा</string>
   <string name="wallet_view_share_button">शेयर</string>
   <string name="wallet_view_total_balance_title">एकुण शिल्लक</string>
-  <string name="wallet_view_remove_button">Remove wallet</string>
-  <string name="wallet_view_backup_button">Back up wallet</string>
-  <string name="wallet_view_activate_button">Make this wallet active</string>
+  <string name="wallet_view_remove_button">वॉलेट काढा</string>
+  <string name="wallet_view_backup_button">वॉलेट बॅकअप करा</string>
+  <string name="wallet_view_activate_button">हे वॉलेट सक्रिय करा</string>
   <string name="wallet_view_active_body">हे आपले सक्रिय वॉलेट आहे.</string>
   <!--Remove Wallet-->
   <string name="remove_wallet_title">वॉलेट काढा</string>
   <string name="remove_wallet_body">काढण्यापूर्वी वॉलेटचा बॅकअप घेण्याची आम्ही जोरदार शिफारस करतो. जर आपण बॅकअप घेतलेला नसेल तर आपण परत ह्यात प्रवेश करु शकणार नाही.</string>
-  <string name="remove_wallet_backup_button">Back up wallet</string>
-  <string name="remove_wallet_no_backup_button">Remove wallet</string>
+  <string name="remove_wallet_backup_button">वॉलेट बॅकअप करा</string>
+  <string name="remove_wallet_no_backup_button">वॉलेट काढा</string>
   <string name="remove_wallet_confirm_body">हे वॉलेट नक्की मिटवायचे आहे का?</string>
-  <string name="remove_wallet_no_button">No, go back</string>
-  <string name="remove_wallet_yes_button">Yes, remove wallet</string>
+  <string name="remove_wallet_no_button">नाही, परत जा</string>
+  <string name="remove_wallet_yes_button">होय, वॉलेट काढा</string>
   <string name="remove_wallet_removed_body">वॉलेट काढले!</string>
   <!--Tranfer-->
   <string name="tranfer_bottom_navigation">हस्तांतरण</string>
@@ -770,14 +770,14 @@
   <string name="subscriptions_canceled_body">रद्द केले</string>
   <string name="subscriptions_details_disclaimer">विनिमय दरामुळे अॅपकॉइन्सचे मूल्य पुढच्या पेमेंटसाठी बदलु शकते.</string>
   <string name="subscriptions_details_button">तपशील</string>
-  <string name="subscriptions_manage_button">Manage subscription</string>
-  <string name="subscriptions_cancel_button">Cancel subscription</string>
-  <string name="subscriptions_renew_subscription_button">Renew subscription</string>
+  <string name="subscriptions_manage_button">सदस्यत्वाचे व्यवस्थापन करा</string>
+  <string name="subscriptions_cancel_button">सदस्यत्व रद्द करा</string>
+  <string name="subscriptions_renew_subscription_button">सदस्यत्वाचे नविनीकरण करा</string>
   <string name="subscriptions_renewed_confirmation_title">सदस्यत्व नविनीकरण झाले!</string>
   <string name="subscriptions_cancel_title">सदस्यत्व रद्द करा</string>
   <string name="subscriptions_cancel_body">हे सदस्यत्व नक्की रद्द करायचे आहे का?</string>
-  <string name="subscriptions_cancel_no_button">No, go back</string>
-  <string name="subscriptions_cancel_yes_button">Yes, cancel subscription</string>
+  <string name="subscriptions_cancel_no_button">नाही, परत जा</string>
+  <string name="subscriptions_cancel_yes_button">होय, सदस्यत्व रद्द करा</string>
   <string name="subscriptions_cancel_confirmation_title">सदस्यत्व रद्द केले!</string>
   <string name="subscriptions_cancel_confirmation_body">ह्या सदस्यत्वासाठी आपल्याला काहीही शुल्क लागू होणार नाही आणि आपण ह्याचा वापर %s पर्यंत करु शकता.</string>
   <string name="subscriptions_category_title">सदस्यत्व</string>
@@ -804,7 +804,7 @@
   <string name="gamif_card_start">आपण अजुनही पृथ्वीवरच आहात</string>
   <string name="gamif_card_title">आपण %s वर आहात</string>
   <string name="gamif_card_body">पुढच्या पातळीवर पोचण्यासाठी जास्त %s अॅपकॉइन्स खर्च करा.</string>
-  <string name="gamif_card_maximum_body">Spend %s AppCoins more to reach the maximum level.</string>
+  <string name="gamif_card_maximum_body">सर्वोच्च पातळीवर पोचण्यासाठी जास्त %s अॅपकॉइन्स खर्च करा.</string>
   <string name="gamif_bonus">%s%% बोनस</string>
   <string name="gamif_placeholder_earth">पृथ्वी</string>
   <string name="gamif_quote_earth">\"आपल्या सगळ्यांना जोडणारी पृथ्वीच आहे\" - वेंडेल बेरी</string>
@@ -851,7 +851,7 @@
   <string name="carrier_billing_phone_confirmation_body">आपला फोन नंबर आहे %s.</string>
   <string name="carrier_billing_enter_pin_body">एसएमएसद्वारे मिळालेली पिन कृपया इथे घाला.</string>
   <string name="carrier_billing_code_field">आपला कोड...</string>
-  <string name="carrier_billing_code_resend_button">Resend code</string>
+  <string name="carrier_billing_code_resend_button">कोड परत पाठवा</string>
   <string name="carrier_billing_submit_button">सबमिट करा</string>
   <string name="carrier_billing_number_not_supported">ह्या पेमेंट पद्धतीशी आपला नंबर सुसंगत नाही असे दिसतेय.</string>
   <string name="carrier_billing_terms_disclaimer">सबमिटवर टॅप करण्याने आपणांस गोपनीयता धोरण आणि अटी व शर्ती मंजूर आहेत ह्याची पुष्टी आपण कराल.</string>
@@ -954,7 +954,7 @@
   <string name="rate_us_improve_field__empty_error">कृपया काहीतरी लिहा</string>
   <string name="rate_us_possitive_thanks_title">धन्यवाद!</string>
   <string name="rate_us_possitive_thanks_body">आपल्याला आमचे अॅप आवडले ह्याचा आम्हाला आनंद आहे. आम्हाला अॅप स्टोरवर रेटिंग देऊन मदत कराल का?</string>
-  <string name="rate_us_possitive_rate_button">Rate the AppCoins Wallet</string>
+  <string name="rate_us_possitive_rate_button">अॅपकॉईन्स वॉलेटला रेट करा</string>
   <string name="rate_us_possitive_done_title">आपल्या अभिप्रायाबद्दल धन्यवाद!</string>
   <string name="rate_us_back_title">आम्हाला मदत कराल?</string>
   <string name="rate_us_back_body">अॅपस्टोरवरील अॅपकॉइन्स वॉलेट रेट करा म्हणजे आम्ही त्याला सुधारु शकू.</string>
@@ -992,7 +992,7 @@
   <string name="voucher_buy_header">%s साठी व्हाऊचर</string>
   <string name="voucher_buy_short_header">व्हाऊचर:</string>
   <string name="voucher_buy_no_game_title">आपल्याकडे %s आहेत का?</string>
-  <string name="voucher_buy_no_game_install_button">Download now</string>
+  <string name="voucher_buy_no_game_install_button">आत्ताच डाऊनलोड करा</string>
   <string name="voucher_code_title">व्हाऊचर कोड</string>
   <string name="voucher_instructions_body">%s जा आणि व्हाऊचर रिडीम करण्यासाठी कोड वापरा.</string>
   <string name="voucher_instructions_transactions">व्यवहार इतिहासात आपल्याला व्हाऊचर कोड नेहमीच सापडेल.</string>
@@ -1041,8 +1041,8 @@
   <string name="promo_code_view_field">प्रोमो कोड इथे...</string>
   <string name="promo_code_view_error">अवैध कोड. वेगळ वापरुन पहा!</string>
   <string name="promo_code_activated">प्रोमो कोड सक्रिय केला!</string>
-  <string name="promo_code_delete_button">Delete</string>
-  <string name="promo_code_replace_button">Replace</string>
+  <string name="promo_code_delete_button">मिटवा</string>
+  <string name="promo_code_replace_button">रिप्लेस करा</string>
   <string name="promo_code_active_tag">सक्रिय</string>
   <string name="promo_code_expired_tag">कालबाह्य</string>
   <string name="promo_code_success_title">झाले!</string>
@@ -1097,27 +1097,27 @@
   <string name="mywallet_unverified_title">असत्यापित वॉलेट</string>
   <string name="mywallet_unverified_body">अडथळे टाळण्यासाठी पेमेंट पद्धत सत्यापित करा.</string>
   <string name="mywallet_backed_up_date">आपण आपले वॉलेट %s ला बॅकअप केलेत.</string>
-  <string name="mywallet_backup_again_button">Back up again</string>
-  <string name="mywallet_verify_payment_method_button">Verify new card</string>
+  <string name="mywallet_backup_again_button">पुन्हा बॅक अप करा</string>
+  <string name="mywallet_verify_payment_method_button">नविन कार्ड सत्यापित करा</string>
   <string name="mywallet_choose_name_header">आपल्या वॉलेटसाठी नाव निवडा</string>
   <string name="mywallet_choose_name_field">वॉलेटचे नाव इथे...</string>
   <string name="mywallet_choose_name_confirmed">वॉलेटचे नाव बदलले</string>
   <string name="mywallet_unnamed_wallet">नाव नसलेले वॉलेट %s</string>
   <string name="mywallet_swithing_wallets_title">वॉलेट बदलत आहोत...</string>
-  <string name="mywallet_address_title">Address:</string>
+  <string name="mywallet_address_title">पत्ता:</string>
   <!-- Onboarding for new users coming from an iap -->
   <string name="onboarding_1st_title">अभिनंदन! आपण अॅपकॉईन्स वॉलेट इंस्टॉल केलेत.</string>
   <string name="onboarding_1st_body">आपली खरेदी पूर्ण करण्यासाठी खेळात परत जा.</string>
   <string name="onboarding_1st_back_to_game_button">खेळात परत जा</string>
-  <string name="onboarding_1st_explore_wallet_button">Or explore the Wallet</string>
-  <string name="onboarding_1st_back_to_unknown_game_body">One of the games you\'ve got installed is AppCoins compatible! Do you want to open it?</string>
-  <string name="onboarding_1st_back_to_unknown_game_button">Go to the game</string>
-  <string name="onboarding_1st_explore_wallet_alternative_button">Explore the AppCoins Wallet</string>
+  <string name="onboarding_1st_explore_wallet_button">किंवा वॉलेट शोधा</string>
+  <string name="onboarding_1st_back_to_unknown_game_body">आपण इंस्टॉल केलेल्या खेळातील एक खेळ अॅपकॉईन्सशी सुसंगत आहे! उघडुयात?</string>
+  <string name="onboarding_1st_back_to_unknown_game_button">खेळात जा</string>
+  <string name="onboarding_1st_explore_wallet_alternative_button">अॅपकॉईन्स वॉलेट शोधा</string>
   <!-- VIP Program -->
-  <string name="vip_program_reached_notification_title">Welcome to the VIP Program</string>
-  <string name="vip_program_reached_notification_body">You\'re now a VIP user with access to special promotions and deals. Tap for more details!</string>
+  <string name="vip_program_reached_notification_title">व्हीआयपी कार्यक्रमात स्वागत आहे</string>
+  <string name="vip_program_reached_notification_body">आता आपण व्हीआयपी वापरकर्ता प्रवेशासह विशेष जाहिराती आणि सूटीत प्रवेश करु शकता. अधिक तपशीलांसाठी टॅप करा!</string>
   <string name="vip_program_almost_notification_title">झालच की!</string>
-  <string name="vip_program_almost_notification_body">You\'re about to become a VIP user. Tap for more details!</string>
+  <string name="vip_program_almost_notification_body">आपण आता व्हीआयपी वापरकर्ते होणार आहात. अधिक तपशीलासाठी टॅप करा!</string>
   <string name="vip_program_almost_onboarding_title">You\'re about to become a VIP user!</string>
   <string name="vip_program_almost_onboarding_body">Continue playing and making purchases to access exclusive promotions and deals. Ready to become the ultimate player?</string>
   <string name="vip_program_onboarding_header_1">Congratulations!</string>
