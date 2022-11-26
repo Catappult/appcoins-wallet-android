@@ -637,10 +637,10 @@
   <string name="update_wallet_soft_title">Nie zostań w tyle!</string>
   <string name="update_wallet_soft_body">Posiadanie aktualnej wersji portfela AppCoins gwarantuje najlepsze doznania.</string>
   <string name="update_button">Aktualizuj</string>
-  <string name="update_backup_title">Don\'t lose your funds!</string>
-  <string name="update_backup_body">Back up your wallet before updating.</string>
-  <string name="update_backup_date">Last backed up on %s.</string>
-  <string name="update_backup_never">Not backed up yet.</string>
+  <string name="update_backup_title">Nie trać swoich środków!</string>
+  <string name="update_backup_body">Przed aktualizacją stwórz backup swojego portfela.</string>
+  <string name="update_backup_date">Ostatni backup %s.</string>
+  <string name="update_backup_never">Jeszcze bez backupu.</string>
   <!--Backup and Import-->
   <string name="backup_home_notification_title">Utwórz kopię zapasową portfela</string>
   <string name="backup_home_notification_body">Zgubiłeś/aś kiedyś telefon? Zrób kopię zapasową portfela teraz!</string>
@@ -1107,9 +1107,9 @@
   <string name="onboarding_1st_body">Wróć do gry, by zakończyć zakup.</string>
   <string name="onboarding_1st_back_to_game_button">Wróć do gry</string>
   <string name="onboarding_1st_explore_wallet_button">Lub poznaj Portfel</string>
-  <string name="onboarding_1st_back_to_unknown_game_body">One of the games you\'ve got installed is AppCoins compatible! Do you want to open it?</string>
-  <string name="onboarding_1st_back_to_unknown_game_button">Go to the game</string>
-  <string name="onboarding_1st_explore_wallet_alternative_button">Explore the AppCoins Wallet</string>
+  <string name="onboarding_1st_back_to_unknown_game_body">Jedna z gier, które masz zainstalowane, korzysta z AppCoins! Czy chcesz ją otworzyć?</string>
+  <string name="onboarding_1st_back_to_unknown_game_button">Przejdź do gry</string>
+  <string name="onboarding_1st_explore_wallet_alternative_button">Eksploruj portfel AppCoins</string>
   <!-- VIP Program -->
   <string name="vip_program_reached_notification_title">Witaj w Programie VIP</string>
   <string name="vip_program_reached_notification_body">Teraz jesteś użytkownikiem VIP i masz dostęp do specjalnych ofert. Szczegóły tutaj!</string>
@@ -1137,6 +1137,6 @@
   <string name="vip_program_max_bonus_title">Ciesz się %s%% Bonusu przy każdym zakupie</string>
   <string name="vip_program_max_bonus_body">To już są wartości astronomiczne.</string>
   <string name="vip_program_max_bonus_short">%s%% Bonusu przy każdym zakupie.</string>
-  <string name="vip_program_referral_notification_title">VIP Referral Code Available!</string>
-  <string name="vip_program_referral_notification_body">Share your code with your community so you all earn while playing!</string>
+  <string name="vip_program_referral_notification_title">Dostępny kod polecający VIP!</string>
+  <string name="vip_program_referral_notification_body">Podziel się kodem ze swoją paczką – wszyscy będziecie zarabiać grając!</string>
 </resources>
