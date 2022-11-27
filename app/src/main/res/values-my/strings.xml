@@ -639,8 +639,8 @@
   <string name="update_button">အပ္ဒိတ္လုပ္မည္</string>
   <string name="update_backup_title">သင့္ေငြကို မဆုံးရႈံးပါေစႏွင့္။</string>
   <string name="update_backup_body">အပ္ဒိတ္မလုပ္မီ သင့္ပိုက္ဆံအိတ္ကို အရန္သိမ္းဆည္းလိုက္ပါ။</string>
-  <string name="update_backup_date">Last backed up on %s.</string>
-  <string name="update_backup_never">Not backed up yet.</string>
+  <string name="update_backup_date">%s တြင္ ေနာက္ဆုံး အရန္သိမ္းဆည္းခဲ့သည္။</string>
+  <string name="update_backup_never">အရန္မသိမ္းဆည္းရေသးပါ။</string>
   <!--Backup and Import-->
   <string name="backup_home_notification_title">သင့္ပိုက္ဆံအိတ္ကို အရန္သိမ္းဆည္းထားပါ</string>
   <string name="backup_home_notification_body">သင့္ဖုန္းကို ေပ်ာက္ဖူးပါသလား။ ယခုပင္ သင့္ပိုက္ဆံအိတ္ကို အရန္သိမ္းဆည္းထားလိုက္ပါ။</string>
@@ -1080,9 +1080,9 @@
   <string name="onboarding_1st_body">သင့္ဝယ္ယူမႈကို အၿပီးသတ္ရန္ ဂိမ္းသို႔ျပန္သြားပါ။</string>
   <string name="onboarding_1st_back_to_game_button">ဂိမ္းသို႔ျပန္သြားမည္</string>
   <string name="onboarding_1st_explore_wallet_button">သို႔မဟုတ္ ပိုက္ဆံအိတ္ကို လိုက္ၾကည့္မည္</string>
-  <string name="onboarding_1st_back_to_unknown_game_body">One of the games you\'ve got installed is AppCoins compatible! Do you want to open it?</string>
-  <string name="onboarding_1st_back_to_unknown_game_button">Go to the game</string>
-  <string name="onboarding_1st_explore_wallet_alternative_button">Explore the AppCoins Wallet</string>
+  <string name="onboarding_1st_back_to_unknown_game_body">သင့္ထည့္သြင္းထားေသာ ဂိမ္းမ်ားအနက္ တစ္ခုတြင္ AppCoins ကို အသုံးျပဳႏိုင္ပါသည္။ ဖြင့္လိုပါသလား။</string>
+  <string name="onboarding_1st_back_to_unknown_game_button">ဂိမ္းသို႔သြားမည္</string>
+  <string name="onboarding_1st_explore_wallet_alternative_button">AppCoins Wallet ကို လိုက္ၾကည့္မည္</string>
   <!-- VIP Program -->
   <string name="vip_program_reached_notification_title">VIP Program မွ ႀကိဳဆိုပါသည္</string>
   <string name="vip_program_reached_notification_body">သင္က ယခုအခါ အထူးပ႐ိုမိုးရွင္းမ်ားႏွင့္ ေရာင္းေစ်းမ်ား ရရွိေသာ VIP တစ္ေယာက္ ျဖစ္သြားပါၿပီ။ ေနာက္ထပ္ အေသးစိတ္မ်ားအတြက္ ႏွိပ္လိုက္ပါ။</string>
@@ -1110,6 +1110,6 @@
   <string name="vip_program_max_bonus_title">ဝယ္ယူမႈတိုင္းတြင္ သင့္ %s%% ေဘာနပ္စ္ကို ခံစားလိုက္ပါ</string>
   <string name="vip_program_max_bonus_body">ေနစၾကာဝဠာ၏ အဆုံးသို႔ သင္ေရာက္ရွိသြားပါၿပီ။</string>
   <string name="vip_program_max_bonus_short">ဝယ္ယူမႈတိုင္းတြင္ %s%% ေဘာနပ္စ္။</string>
-  <string name="vip_program_referral_notification_title">VIP Referral Code Available!</string>
-  <string name="vip_program_referral_notification_body">Share your code with your community so you all earn while playing!</string>
+  <string name="vip_program_referral_notification_title">VIP လႊဲေပးသည့္ကုဒ္ကို ရရွိႏိုင္ပါသည္။</string>
+  <string name="vip_program_referral_notification_body">သင့္ကုဒ္ကို သင့္အသိုင္းအဝိုင္းတြင္ မွ်ေဝျခင္းျဖင့္ ကစားစဥ္တြင္ သင္တို႔အားလုံး ရရွိမည္ ျဖစ္ပါသည္။</string>
 </resources>
