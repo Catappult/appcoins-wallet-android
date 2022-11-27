@@ -114,28 +114,28 @@
   <string name="intro_title_third_page">႐ိုးရွင္းၿပီး &amp; လြယ္ကူပါသည္</string>
   <string name="intro_message_first_page">အက္ပ္စီးပြားေရး၏ ေတာ္လွန္ဆန္းသစ္မႈမွ ႀကိဳဆိုပါသည္။</string>
   <string name="intro_message_second_page">သီးသန္႔ကီးမ်ားတြင္ သင့္ကိရိယာမွ ေပ်ာက္သြားမည္ မဟုတ္ပါ။</string>
-  <string name="intro_message_third_page">Process all your in-app payments and rewards in AppCoins.</string>
+  <string name="intro_message_third_page">သင့္အက္ပ္အတြင္း ေငြေပးေခ်မႈမ်ားႏွင့္ ဆုမ်ားအားလံုးကို AppCoins ျဖင့္ ေဆာင္ရြက္လိုက္ပါ။</string>
   <string name="intro_1_title">AppCoins Wallet</string>
   <string name="intro_1_body">အက္ပ္အတြင္း ၀ယ္ယူမႈမ်ားအတြက္ သင့္အက္ပ္။</string>
   <string name="intro_2_title">မ်ားမ်ားကစားပါ၊ နည္းနည္းပဲေပးပါ</string>
-  <string name="intro_2_body">The best payment wallet for apps and games.</string>
+  <string name="intro_2_body">အက္ပ္မ်ားႏွင့္ ဂိမ္းမ်ားအတြက္ အေကာင္းဆုံး ေငြေပးေခ်မႈ ပိုက္ဆံအိတ္။</string>
   <string name="intro_3_title">႐ိုးရွင္းၿပီး လြယ္ကူပါသည္</string>
-  <string name="intro_3_body">Bonuses on all purchases.</string>
+  <string name="intro_3_body">ဝယ္ယူမႈမ်ား အားလုံးတြင္ ေဘာနပ္စ္မ်ား။</string>
   <string name="intro_4_title">ေဘးကင္းၿပီး လံုျခံဳပါသည္</string>
-  <string name="intro_4_body">Use bank card, PayPal and your favorite payment methods.</string>
+  <string name="intro_4_body">ဘဏ္ကဒ္၊ PayPal ႏွင့္ သင့္စိတ္ႀကိဳက္ ေငြေပးေခ်မႈ နည္းလမ္းမ်ားကို အသုံးျပဳပါ။</string>
   <string name="intro_4_body_2">ေနာက္ဆံုးေပၚနည္းပညာေၾကာင့္ သင့္ေငြလႊဲေျပာင္းမႈအားလံုး အၿမဲလံုျခံဳပါသည္။</string>
   <string name="intro_5_title">အခမဲ့ AppCoins Credits မ်ားကို ရယူလိုက္ပါ။</string>
   <string name="intro_5_body">အက္ပ္မ်ားႏွင့္ ဂိမ္းမ်ားကို စမ္းသံုးျခင္းျဖင့္ AppCoins Credits မ်ားကို သင္အခမဲ့ ရရွိပါမည္။</string>
   <string name="intro_creating_wallet_short">သင့္္အတြက္ ပိုက္ဆံအိတ္ကို ျပဳလုပ္ေနပါသည္&#8230;</string>
   <string name="intro_wallet_created_short">ပိုက္ဆံအိတ္ကို ျပဳလုပ္ၿပီးပါၿပီ။</string>
-  <string name="intro_agree_terms_and_conditions_body">By entering the AppCoins Wallet, you agree to the %1$s and %2$s.</string>
+  <string name="intro_agree_terms_and_conditions_body">AppCoins Wallet ကို ထည့္သြင္းျခင္းျဖင့္ %1$s ႏွင့္ %2$s တို႔ကို သင္သေဘာတူျခင္း ျဖစ္ပါသည္။</string>
   <string name="intro_skip_button">ေက်ာ္မည္</string>
   <string name="intro_welcome_header">AppCoins Wallet မွ ႀကိဳဆိုပါသည္</string>
-  <string name="intro_welcome_body">Top up your wallet or make a purchase in any AppCoins compatible app or game.</string>
-  <string name="intro_welcome_header_2">Up to %s%% Bonus!</string>
-  <string name="intro_welcome_body_2">Bonuses can be used in any app or game.</string>
+  <string name="intro_welcome_body">သင့္ပိုက္ဆံအိတ္ကို ေငြျဖည့္ပါ သို႔မဟုတ္ AppCoins အသုံးျပဳႏိုင္ေသာ မည္သည့္အက္ပ္ သို႔မဟုတ္ ဂိမ္းတြင္မဆို ဝယ္ယူမႈ တစ္ခုခုကို ျပဳလုပ္ပါ။</string>
+  <string name="intro_welcome_header_2">%s%% အထိ ေဘာနပ္စ္။</string>
+  <string name="intro_welcome_body_2">ေဘာနပ္စ္မ်ားကို မည္သည့္အက္ပ္ သို႔မဟုတ္ ဂိမ္းတြင္မဆို အသုံးျပဳႏိုင္ပါသည္။</string>
   <string name="intro_already_have_wallet_button">ကြၽႏ္ုပ္တြင္ ပိုက္ဆံအိတ္တစ္အိတ္ ရွိၿပီးျဖစ္ပါသည္</string>
-  <string name="intro_get_started_button">Launch wallet</string>
+  <string name="intro_get_started_button">ပိုက္ဆံအိတ္ကို ဖြင့္မည္</string>
   <!-- Menus -->
   <!-- Labels -->
   <string name="label_from">မွ</string>
@@ -209,7 +209,7 @@
   <string name="activity_iab_error_message">ခ်ိဳ႕ယြင္းခ်က္တစ္ခု ျဖစ္ခဲ့ပါသည္။ ျပန္ႀကိဳးစားေပးပါ</string>
   <string name="action_try">ႀကိဳးစားမည္</string>
   <string name="activity_transactions_learn_more">ပိုမိုေလ့လာမည္</string>
-  <string name="activity_iab_no_funds_message">Not enough ETH and AppCoins</string>
+  <string name="activity_iab_no_funds_message">ETH ႏွင့္ AppCoins တို႔ မလုံေလာက္ပါ</string>
   <string name="activity_iab_no_ethereum_funds_message">Ethereum မလံုေလာက္ပါ</string>
   <string name="activity_iab_no_token_funds_message">AppCoins မလံုေလာက္ပါ</string>
   <string name="activity_iab_wrong_network_message">မွားယြင္းေသာ Ethereum ကြန္ရက္ သို႔မဟုုတ္ အမည္မသိတိုကင္</string>
@@ -301,7 +301,7 @@
   <string name="gamification_home_body">သင့္စိတ္ႀကိဳက္ အက္ပ္မ်ားနွင့္ ဂိမ္းမ်ားတြင္ %s%% အထိ ေဘာနပ္စ္ကို ရယူလိုက္ပါ။</string>
   <string name="gamification_home_button">ရယူမႈကို စတင္လိုက္ပါ</string>
   <string name="gamification_level_title">ကၽြႏ္ုုပ္၏အဆင့္က ဘယ္ေလာက္လဲ။</string>
-  <string name="gamification_level_title_new">Get AppCoins Credits!</string>
+  <string name="gamification_level_title_new">AppCoins Credits ကို ရယူလိုက္ပါ။</string>
   <string name="gamification_level_on_graphic">အဆင့္ %s</string>
   <string name="gamification_APPCapps_button">အက္ပ္မ်ား &amp; ဂိမ္းမ်ား</string>
   <string name="gamification_level_header">ဂုဏ္ယူပါသည္။ သင္သည္ %s ျဖစ္ပါသည္။</string>
@@ -311,9 +311,9 @@
   <string name="gamification_level_next_lvl_value">%s AppCoins</string>
   <string name="gamification_level_bonus">%s%% ေဘာနပ္စ္</string>
   <string name="gamification_level_button_how">အလုပ္လုပ္ပံု</string>
-  <string name="gamification_level_body">You\'ll earn AppCoins Credits when buying items in your favorite apps and games.</string>
+  <string name="gamification_level_body">သင့္စိတ္ႀကိဳက္ အက္ပ္မ်ားနွင့္ ဂိမ္းမ်ားတြင္ ပစၥည္းမ်ားကို ဝယ္ယူျခင္းျဖင့္ AppCoins ခရက္ဒစ္မ်ားကို သင္ရရွိပါမည္။</string>
   <string name="gamification_how_header">အဆင့္တက္ပံု။</string>
-  <string name="gamification_how_body">You\'ll earn AppCoins Credits when buying items in your favorite apps and games.</string>
+  <string name="gamification_how_body">သင့္စိတ္ႀကိဳက္ အက္ပ္မ်ားနွင့္ ဂိမ္းမ်ားတြင္ ပစၥည္းမ်ားကို ဝယ္ယူျခင္းျဖင့္ AppCoins ခရက္ဒစ္မ်ားကို သင္ရရွိပါမည္။</string>
   <string name="gamification_how_body_new">သင့္စိတ္ႀကိဳက္အက္ပ္မ်ားတြင္ ပိုသံုးေလ ေဘာနပ္စ္မ်ားမ်ားရေလ ျဖစ္ပါသည္။</string>
   <string name="gamification_how_table_a1">သံုးမည္</string>
   <string name="gamification_how_table_b1">ေဘာနပ္စ္</string>
@@ -374,7 +374,7 @@
   <string name="topup_title">ေငြျဖည့္မည္</string>
   <string name="topup_amount">%s AppCoins Credits</string>
   <string name="topup_bonus_header">ေဘာနပ္စ္တစ္ခုကို သင္ရရွိပါသည္။</string>
-  <string name="topup_bonus_message">%s AppCoins Credits extra will be credited in your wallet.</string>
+  <string name="topup_bonus_message">%s AppCoins ခရက္ဒစ္ အပိုကို သင့္ပိုက္ဆံအိတ္တြင္ ထည့္ေပးပါမည္။</string>
   <string name="topup_completed_1">AppCoins Credits %s</string>
   <string name="topup_completed_2_with_bonus">ကို သင့္အေကာင့္တြင္ ထည့္သြင္းေပးလိုက္ပါသည္... ေဘာနပ္စ္လည္း ပါပါသည္။</string>
   <string name="topup_completed_2_without_bonus">သင့္အေကာင့္တြင္ ထည့္ေပးလိုက္ပါသည္။</string>
@@ -391,7 +391,7 @@
   <string name="balance_topup_body">သင့္ပိုက္ဆံအိတ္ကို AppCoins ခရက္ဒစ္မ်ားျဖင့္ ေငြျဖည့္နိုင္ပါသည္။</string>
   <string name="balance_ethereum_body">Ethereum သည္ AppCoins မ်ား အေျချပဳထားေသာ ခရစ္ပ္တိုေငြေၾကးပံုစံ တစ္ခုုျဖစ္ပါသည္။ အိတ္ခ်ိန္းအမ်ားစုတြင္ ယင္းတို႔ကို သင္ေရာင္းဝယ္နိုင္ပါသည္။ အလြန္ လူႀကိဳက္မ်ားပါသည္။</string>
   <string name="balance_appcoins_body">AppCoins သည္ အက္ပ္စီးပြားေရးနယ္ပယ္အတြက္ ခရစ္ပ္တိုေငြေၾကးပံုစံ ျဖစ္ပါသည္။ သင္သည္ယင္းအား အိတ္ခ်ိန္းအမ်ားအျပားတြင္ ေရာင္းဝယ္နိုင္သလို အက္ပ္အတြင္း ပစၥည္းမ်ား ဝယ္ယူရန္အတြက္လည္း အသံုးျပဳနိုင္ပါသည္။</string>
-  <string name="balance_appccreditos_body">The token to buy in-app items! Top up AppCoins Credits from your wallet or get them for free by using apps. They can also be transferred between friends!</string>
+  <string name="balance_appccreditos_body">အက္ပ္အတြင္း ပစၥည္းမ်ားကို ဝယ္ယူရန္အတြက္ တိုကင္ျဖစ္ပါသည္။ သင့္ပိုက္ဆံအိတ္မွ AppCoins ခရက္ဒစ္ဖင့္ ေငြျဖည့္ပါ သို႔မဟုတ္ အက္ပ္မ်ားကို အသံုးျပဳျခင္းျဖင့္ ယင္းတို႔ကို အခမဲ့ ရယူပါ။ သူငယ္ခ်င္းမ်ား အၾကားတြင္လည္း ယင္းတို႔ကို လႊဲေပးနိုင္ပါသည္။</string>
   <string name="my_wallets_action_new_wallet">ပိုက္ဆံအိတ္အသစ္</string>
   <string name="my_wallets_action_recover_wallet">ပိုက္ဆံအိတ္ကို ျပန္လည္ရယူမည္</string>
   <string name="my_wallets_action_backup_wallet">ပိုက္ဆံအိတ္ကို အရန္ထားရွိမည္</string>
@@ -462,7 +462,7 @@
   <string name="home_empty_discover_apps_button">ထိပ္တန္းအက္ပ္မ်ားကို ရွာေဖြလိုက္ပါ</string>
   <!--Tokens-->
   <!--Settings-->
-  <string name="title_redeem">Redeem Gift Card</string>
+  <string name="title_redeem">လက္ေဆာင္ကဒ္ကို လဲလွယ္မည္</string>
   <string name="settings_item_support">ပံ့ပိုးေရးအဖြဲ့အား ဆက္သြယ္ပါ</string>
   <string name="settings_subheader_support">ပံ့ပိုးေရး</string>
   <string name="settings_subheader_about_us">ကၽြႏ္ုပ္တို႔အေၾကာင္း</string>
@@ -550,7 +550,7 @@
   <string name="purchase_error_try_cheaper_item">ယင္းက အလြန္ေစ်းႀကီးပါသည္။ ေစ်းပိုနည္းေသာ ပစၥည္းတစ္ခုကို ဝယ္ယူရန္ ႀကိဳးစားၾကည့္ေပးပါ။</string>
   <string name="purchase_error_try_cheaper_item_or_method">ယင္းက အလြန္ေစ်းႀကီးပါသည္။ ေစ်းပိုေပါေသာ ပစၥည္းတစ္ခုကို ဝယ္ယူရန္ သို႔မဟုတ္ မတူညီေသာ ေငြေပးေခ်မႈ နည္းလမ္းတစ္ခု စမ္းၾကည့္ရန္ ႀကိဳးစားေပးပါ။</string>
   <string name="transfer_appc_error_no_eth_title">သင္ Ether လိုအပ္ပါသည္။</string>
-  <string name="transfer_appc_error_no_eth_body">AppCoins transfers fees are paid in Ethereum, so you\'ll need ETH to transfer AppCoins.</string>
+  <string name="transfer_appc_error_no_eth_body">AppCoins လႊဲေျပာင္းခမ်ားကို Ethereum ျဖင့္ ေပးေခ်ေသာေၾကာင့္ AppCoins ကို လႊဲေျပာင္းရန္ ETH ကို သင္လိုအပ္မည္ ျဖစ္ပါသည္။</string>
   <string name="purchase_error_invalid_credit_card">ဘဏ္ကဒ္နံပါတ္ မမွန္ကန္ပါ။ ဂဏန္းအားလုံး မွန္ကန္ေၾကာင္း ေသခ်ာေအာင္စစ္ေပးပါ။</string>
   <string name="purchase_error_card_security_validation">ဤေငြလႊဲေျပာင္းမႈကို ဒုတိယအဆင့္ အတည္ျပဳရာတြင္ ခ်ိဳ႕ယြင္းမႈတစ္ခု ရွိခဲ့ပါသည္။ ျပန္ႀကိဳးစားေပးပါ။</string>
   <string name="purchase_error_transaction_timeout">ေငြလႊဲေျပာင္းမႈကို ၿပီးေအာင္လုပ္ရန္ သင္အခ်ိန္အလြန္ၾကာေနပုံ ရပါသည္။ ျပန္ႀကိဳးစားေပးပါ။</string>
@@ -637,8 +637,8 @@
   <string name="update_wallet_soft_title">ေနာက္က်မက်န္ခဲ့ပါေစႏွင့္။</string>
   <string name="update_wallet_soft_body">AppCoins Wallet ကို အပ္ဒိတ္လုပ္ထားျခင္းျဖင့္ အေကာင္းဆံုး အေတြ႕အႀကံဳကို ရရွိႏိုင္ေစပါသည္။</string>
   <string name="update_button">အပ္ဒိတ္လုပ္မည္</string>
-  <string name="update_backup_title">Don\'t lose your funds!</string>
-  <string name="update_backup_body">Back up your wallet before updating.</string>
+  <string name="update_backup_title">သင့္ေငြကို မဆုံးရႈံးပါေစႏွင့္။</string>
+  <string name="update_backup_body">အပ္ဒိတ္မလုပ္မီ သင့္ပိုက္ဆံအိတ္ကို အရန္သိမ္းဆည္းလိုက္ပါ။</string>
   <string name="update_backup_date">Last backed up on %s.</string>
   <string name="update_backup_never">Not backed up yet.</string>
   <!--Backup and Import-->
