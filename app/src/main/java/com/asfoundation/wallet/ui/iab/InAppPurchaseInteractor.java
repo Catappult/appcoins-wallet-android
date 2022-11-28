@@ -225,6 +225,7 @@ public class InAppPurchaseInteractor {
   //public Single<Boolean> hasAppcoinsFunds(TransactionBuilder transaction) {
   //  return asfInAppPurchaseInteractor.isAppcoinsPaymentReady(transaction);
   //}
+  //
 
   public Single<InAppPurchaseService.BalanceState> getBalanceState(TransactionBuilder transaction) {
     return asfInAppPurchaseInteractor.getAppcoinsBalanceState(transaction);
