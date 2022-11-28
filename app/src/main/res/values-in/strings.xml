@@ -209,7 +209,7 @@
   <string name="activity_iab_error_message">Terjadi kesalahan, silakan coba lagi</string>
   <string name="action_try">coba</string>
   <string name="activity_transactions_learn_more">Pelajari yang lainnya</string>
-  <string name="activity_iab_no_funds_message">Not enough ETH and AppCoins</string>
+  <string name="activity_iab_no_funds_message">ETH dan AppCoins tidak cukup</string>
   <string name="activity_iab_no_ethereum_funds_message">Ethereum tidak cukup</string>
   <string name="activity_iab_no_token_funds_message">AppCoin tidak cukup</string>
   <string name="activity_iab_wrong_network_message">Jaringan Ethereum salah atau token tidak dikenal</string>
@@ -301,7 +301,7 @@
   <string name="gamification_home_body">Dapatkan Bonus hingga %s%% di aplikasi dan permainan favorit Anda!</string>
   <string name="gamification_home_button">MULAI BERPENGHASILAN</string>
   <string name="gamification_level_title">Apa Tingkat Saya?</string>
-  <string name="gamification_level_title_new">Get AppCoins Credits!</string>
+  <string name="gamification_level_title_new">Dapatkan Kredit AppCoins!</string>
   <string name="gamification_level_on_graphic">Tingkat %s</string>
   <string name="gamification_APPCapps_button">Aplikasi &amp; permainan</string>
   <string name="gamification_level_header">Selamat, Anda adalah %s!</string>
@@ -311,9 +311,9 @@
   <string name="gamification_level_next_lvl_value">%s AppCoins</string>
   <string name="gamification_level_bonus">BONUS %s%%</string>
   <string name="gamification_level_button_how">CARA KERJANYA</string>
-  <string name="gamification_level_body">You\'ll earn AppCoins Credits when buying items in your favorite apps and games.</string>
+  <string name="gamification_level_body">Anda akan mendapatkan Kredit AppCoins saat membeli item di aplikasi dan game favorit.</string>
   <string name="gamification_how_header">Bagaimana Cara Naik Tingkat?</string>
-  <string name="gamification_how_body">You\'ll earn AppCoins Credits when buying items in your favorite apps and games.</string>
+  <string name="gamification_how_body">Anda akan mendapatkan Kredit AppCoins saat membeli item di aplikasi dan game favorit.</string>
   <string name="gamification_how_body_new">Semakin banyak yang Anda habiskan di aplikasi favorit, semakin besar Bonus-nya!</string>
   <string name="gamification_how_table_a1">HABISKAN</string>
   <string name="gamification_how_table_b1">BONUS</string>
@@ -374,7 +374,7 @@
   <string name="topup_title">Isi Ulang</string>
   <string name="topup_amount">%s AppCoins Credits</string>
   <string name="topup_bonus_header">Anda mendapatkan Bonus!</string>
-  <string name="topup_bonus_message">%s AppCoins Credits extra will be credited in your wallet.</string>
+  <string name="topup_bonus_message">%s Kredit AppCoins akan dimasukkan ke dompet Anda.</string>
   <string name="topup_completed_1">%s dalam Kredit AppCoins</string>
   <string name="topup_completed_2_with_bonus">disimpan di akun Anda... Bersama dengan bonus!</string>
   <string name="topup_completed_2_without_bonus">disimpan ke akun Anda.</string>
@@ -391,7 +391,7 @@
   <string name="balance_topup_body">Anda dapat mengisi ulang dompet Anda dengan Kredit AppCoins.</string>
   <string name="balance_ethereum_body">Ethereum adalah mata uang kripto yang menjadi landasan AppCoins. Anda dapat memperjualbelikannya di mayoritas bursa, Ethereum itu sangat populer!</string>
   <string name="balance_appcoins_body">AppCoins adalah mata uang kripto bagi perekonomian aplikasi. Anda dapat memperjualbelikannya di beberapa bursa dan menggunakannya untuk membeli barang in-app.</string>
-  <string name="balance_appccreditos_body">The token to buy in-app items! Top up AppCoins Credits from your wallet or get them for free by using apps. They can also be transferred between friends!</string>
+  <string name="balance_appccreditos_body">Token untuk membeli barang in-app! Isi ulang Kredit AppCoins dari dompet Anda atau dapatkan secara gratis dengan menggunakan aplikasi. Token juga dapat ditransfer di antara teman!</string>
   <string name="my_wallets_action_new_wallet">Dompet baru</string>
   <string name="my_wallets_action_recover_wallet">Pulihkan dompet</string>
   <string name="my_wallets_action_backup_wallet">Cadangkan dompet</string>
@@ -462,7 +462,7 @@
   <string name="home_empty_discover_apps_button">TEMUKAN APLIKASI TERATAS</string>
   <!--Tokens-->
   <!--Settings-->
-  <string name="title_redeem">Redeem Gift Card</string>
+  <string name="title_redeem">Tukarkan Kartu Hadiah</string>
   <string name="settings_item_support">Hubungi Tim Dukungan</string>
   <string name="settings_subheader_support">Dukungan</string>
   <string name="settings_subheader_about_us">Tentang Kami</string>
@@ -550,7 +550,7 @@
   <string name="purchase_error_try_cheaper_item">Itu cukup mahal! Silakan coba beli item yang nilainya lebih rendah.</string>
   <string name="purchase_error_try_cheaper_item_or_method">Itu cukup mahal! Silakan coba beli item yang lebih murah atau coba metode pembayaran lain.</string>
   <string name="transfer_appc_error_no_eth_title">Anda membutuhkan Eter!</string>
-  <string name="transfer_appc_error_no_eth_body">AppCoins transfers fees are paid in Ethereum, so you\'ll need ETH to transfer AppCoins.</string>
+  <string name="transfer_appc_error_no_eth_body">Biaya transfer AppCoins dibayarkan dalam Ethereum, jadi Anda memerlukan ETH untuk mentransfer AppCoins.</string>
   <string name="purchase_error_invalid_credit_card">Nomor kartu bank tidak valid. Pastikan semua digit sudah benar.</string>
   <string name="purchase_error_card_security_validation">Terjadi kesalahan pada validasi tingkat ke-2 dari transaksi ini. Silakan coba lagi.</string>
   <string name="purchase_error_transaction_timeout">Sepertinya Anda terlalu lama menyelesaikan transaksi. Silakan coba lagi.</string>
@@ -637,10 +637,10 @@
   <string name="update_wallet_soft_title">Jangan ketinggalan!</string>
   <string name="update_wallet_soft_body">Dengan selalu memperbarui Dompet AppCoins, Anda dijamin mendapatkan pengalaman terbaik.</string>
   <string name="update_button">Perbarui</string>
-  <string name="update_backup_title">Don\'t lose your funds!</string>
-  <string name="update_backup_body">Back up your wallet before updating.</string>
-  <string name="update_backup_date">Last backed up on %s.</string>
-  <string name="update_backup_never">Not backed up yet.</string>
+  <string name="update_backup_title">Jangan sampai dana Anda hilang!</string>
+  <string name="update_backup_body">Cadangkan dompet Anda sebelum memperbarui.</string>
+  <string name="update_backup_date">Terakhir dicadangkan pada %s.</string>
+  <string name="update_backup_never">Belum dicadangkan.</string>
   <!--Backup and Import-->
   <string name="backup_home_notification_title">Cadangkan Dompet Anda</string>
   <string name="backup_home_notification_body">Apakah Anda pernah kehilangan HP? Cadangkan dompet Anda sekarang!</string>
@@ -1080,9 +1080,9 @@
   <string name="onboarding_1st_body">Kembali ke game untuk menyelesaikan pembelian.</string>
   <string name="onboarding_1st_back_to_game_button">Kembali ke game</string>
   <string name="onboarding_1st_explore_wallet_button">Atau jelajahi Dompet</string>
-  <string name="onboarding_1st_back_to_unknown_game_body">One of the games you\'ve got installed is AppCoins compatible! Do you want to open it?</string>
-  <string name="onboarding_1st_back_to_unknown_game_button">Go to the game</string>
-  <string name="onboarding_1st_explore_wallet_alternative_button">Explore the AppCoins Wallet</string>
+  <string name="onboarding_1st_back_to_unknown_game_body">Salah satu game yang sudah Anda instal kompatibel dengan AppCoins! Apakah Anda ingin membukanya?</string>
+  <string name="onboarding_1st_back_to_unknown_game_button">Jalankan game</string>
+  <string name="onboarding_1st_explore_wallet_alternative_button">Jelajahi Dompet AppCoins</string>
   <!-- VIP Program -->
   <string name="vip_program_reached_notification_title">Selamat datang di Program VIP</string>
   <string name="vip_program_reached_notification_body">Sekarang Anda seorang pengguna VIP yang memiliki akses ke promosi dan penawaran khusus. Untuk lebih jelasnya, silakan ketuk!</string>
@@ -1110,6 +1110,6 @@
   <string name="vip_program_max_bonus_title">Nikmati bonus %s%% di setiap pembelian</string>
   <string name="vip_program_max_bonus_body">Anda sudah mencapai batas tata surya.</string>
   <string name="vip_program_max_bonus_short">Bonus %s%% untuk setiap pembelian.</string>
-  <string name="vip_program_referral_notification_title">VIP Referral Code Available!</string>
-  <string name="vip_program_referral_notification_body">Share your code with your community so you all earn while playing!</string>
+  <string name="vip_program_referral_notification_title">Kode Referensi VIP Tersedia!</string>
+  <string name="vip_program_referral_notification_body">Bagikan kode Anda dengan komunitas sehingga Anda semua memperoleh penghasilan saat bermain!</string>
 </resources>
