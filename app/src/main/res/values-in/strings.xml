@@ -114,28 +114,28 @@
   <string name="intro_title_third_page">Sederhana &amp; Mudah</string>
   <string name="intro_message_first_page">Selamat datang di revolusi ekonomi aplikasi.</string>
   <string name="intro_message_second_page">Kunci rahasia tidak pernah tertinggal dari perangkat Anda.</string>
-  <string name="intro_message_third_page">Process all your in-app payments and rewards in AppCoins.</string>
+  <string name="intro_message_third_page">Proses semua pembayaran dan hadiah in-app Anda di AppCoins.</string>
   <string name="intro_1_title">AppCoins Wallet</string>
   <string name="intro_1_body">Aplikasi Anda untuk pembelian in-app.</string>
   <string name="intro_2_title">Mainkan Lebih Sering, Bayar Kurang</string>
-  <string name="intro_2_body">The best payment wallet for apps and games.</string>
+  <string name="intro_2_body">Dompet pembayaran terbaik untuk aplikasi dan game.</string>
   <string name="intro_3_title">Sederhana dan Mudah</string>
-  <string name="intro_3_body">Bonuses on all purchases.</string>
+  <string name="intro_3_body">Bonus di semua pembelian.</string>
   <string name="intro_4_title">Aman dan Pribadi</string>
-  <string name="intro_4_body">Use bank card, PayPal and your favorite payment methods.</string>
+  <string name="intro_4_body">Gunakan kartu bank, PayPal, dan metode pembayaran favorit Anda.</string>
   <string name="intro_4_body_2">Semua transaksi yang Anda lakukan selalu aman berkat teknologi terkini.</string>
   <string name="intro_5_title">Dapatkan Kredit AppCoins Gratis!</string>
   <string name="intro_5_body">Anda akan mendapatkan Kredit AppCoins gratis dengan mencoba aplikasi dan permainan.</string>
   <string name="intro_creating_wallet_short">Menyiapkan dompet untuk Anda&#8230;</string>
   <string name="intro_wallet_created_short">Dompet sudah dibuat!</string>
-  <string name="intro_agree_terms_and_conditions_body">By entering the AppCoins Wallet, you agree to the %1$s and %2$s.</string>
+  <string name="intro_agree_terms_and_conditions_body">Dengan memasukkan Dompet AppCoins, Anda menyetujui %1$s dan %2$s.</string>
   <string name="intro_skip_button">LEWATKAN</string>
   <string name="intro_welcome_header">Selamat Datang di Dompet AppCoins</string>
-  <string name="intro_welcome_body">Top up your wallet or make a purchase in any AppCoins compatible app or game.</string>
-  <string name="intro_welcome_header_2">Up to %s%% Bonus!</string>
-  <string name="intro_welcome_body_2">Bonuses can be used in any app or game.</string>
+  <string name="intro_welcome_body">Isi ulang dompet Anda atau lakukan pembelian di aplikasi atau game yang kompatibel dengan AppCoins.</string>
+  <string name="intro_welcome_header_2">Bonus Hingga %s%%!</string>
+  <string name="intro_welcome_body_2">Bonus bisa digunakan di aplikasi atau game apa saja.</string>
   <string name="intro_already_have_wallet_button">Saya sudah punya dompet</string>
-  <string name="intro_get_started_button">Launch wallet</string>
+  <string name="intro_get_started_button">Luncurkan dompet</string>
   <!-- Menus -->
   <!-- Labels -->
   <string name="label_from">Dari</string>
