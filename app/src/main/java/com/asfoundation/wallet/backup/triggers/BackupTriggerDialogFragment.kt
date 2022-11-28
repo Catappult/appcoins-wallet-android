@@ -33,6 +33,7 @@ class BackupTriggerDialogFragment : BottomSheetDialogFragment(),
   companion object {
     const val WALLET_ADDRESS_KEY = "wallet_address"
     const val TRIGGER_SOURCE = "trigger_source"
+    var showing = false
 
     @JvmStatic
     fun newInstance(
@@ -53,6 +54,7 @@ class BackupTriggerDialogFragment : BottomSheetDialogFragment(),
     inflater: LayoutInflater, container: ViewGroup?,
     savedInstanceState: Bundle?
   ): View? {
+    if (showing) dismiss() else showing = true
     return inflater.inflate(R.layout.backup_trigger_dialog_fragment, container, false)
   }
 

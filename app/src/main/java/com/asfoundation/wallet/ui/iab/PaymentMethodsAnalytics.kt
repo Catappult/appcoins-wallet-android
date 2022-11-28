@@ -16,7 +16,7 @@ class PaymentMethodsAnalytics @Inject constructor(
 ) {
 
   companion object {
-    private const val WALLET = "WALLET"
+    const val WALLET = "WALLET"
 
     const val WALLET_PAYMENT_LOADING_TOTAL = "wallet_payment_loading_total"
     const val WALLET_PAYMENT_LOADING_STEP = "wallet_payment_loading_step"
@@ -46,6 +46,14 @@ class PaymentMethodsAnalytics @Inject constructor(
     private const val DURATION = "duration"
     private const val SUCCESSFUL = "successful"
     private const val AUTH_DURATION = "auth_duration"
+
+    const val ERROR = "error"
+    const val TYPE = "type"
+
+    const val WALLET_3DS_START = "wallet_3ds_start"
+    const val WALLET_3DS_CANCEL = "wallet_3ds_cancel"
+    const val WALLET_3DS_ERROR = "wallet_3ds_error"
+
   }
 
   var startedIntegration: String? = null
@@ -146,4 +154,32 @@ class PaymentMethodsAnalytics @Inject constructor(
   fun stopTimingForAuthEvent() {
     authDuration = taskTimer.end(AUTH_DURATION)
   }
+
+  fun send3dsStart(type: String?) {
+    analyticsManager.logEvent(
+      hashMapOf<String, Any>(TYPE to (type ?: "")),
+      WALLET_3DS_START,
+      AnalyticsManager.Action.CLICK,
+      WALLET
+    )
+  }
+
+  fun send3dsCancel() {
+    analyticsManager.logEvent(
+      hashMapOf<String, Any>(),
+      WALLET_3DS_CANCEL,
+      AnalyticsManager.Action.CLICK,
+      WALLET
+    )
+  }
+
+  fun send3dsError(error: String?) {
+    analyticsManager.logEvent(
+      hashMapOf<String, Any>(ERROR to (error ?: "")),
+      WALLET_3DS_ERROR,
+      AnalyticsManager.Action.CLICK,
+      WALLET
+    )
+  }
+
 }

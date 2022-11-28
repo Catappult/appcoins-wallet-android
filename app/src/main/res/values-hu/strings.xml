@@ -67,7 +67,7 @@
   <string name="skip_with_arrow">Kihagyás &gt;</string>
   <string name="root_title">ALACSONY BIZTONSÁGÚ ESZKÖZ</string>
   <string name="root_body">Bármilyen root jogokkal rendelkező app hozzáférhet az AppCoins Wallet keychain-adataihoz, így el is lophatja azokat! Azonnal töröld ezt a tárcát, majd állítsd vissza egy biztonságos eszközön.</string>
-  <string name="credits_purchase_value">%s APPC Credits</string>
+  <string name="credits_purchase_value">%s AppCoins Credits</string>
   <string name="buying">Vásárlás: %s</string>
   <string name="action_buy">Vásárlás</string>
   <string name="empty"></string>
@@ -114,26 +114,28 @@
   <string name="intro_title_third_page">Egyszerű és könnyű</string>
   <string name="intro_message_first_page">Üdvözöljük az alkalmazások gazdasági forradalmában.</string>
   <string name="intro_message_second_page">A privát kulcsok sose hagyják el eszközödet.</string>
-  <string name="intro_message_third_page">Minden alkalmazáson belüli fizetésedet és jutalmadat APPC-al végezheted.</string>
+  <string name="intro_message_third_page">Process all your in-app payments and rewards in AppCoins.</string>
   <string name="intro_1_title">AppCoins Wallet</string>
   <string name="intro_1_body">Az alkalmazás az alkmazáson belüli vásárláshoz.</string>
   <string name="intro_2_title">Játssz többet, fizess kevesebbet</string>
-  <string name="intro_2_body">Jutalmakat kaphat, ha kedvenc appjaiban és játékaiban vásárol.</string>
+  <string name="intro_2_body">The best payment wallet for apps and games.</string>
   <string name="intro_3_title">Egyszerű és könnyű</string>
-  <string name="intro_3_body">Az AppCoins Wallet maradjon telepítve, hogy közvetlenül vásárolhass a játékaidban.</string>
+  <string name="intro_3_body">Bonuses on all purchases.</string>
   <string name="intro_4_title">Biztonságos és privát</string>
-  <string name="intro_4_body">Privát kulcsaid sose hagyják el eszközödet, így AppCoinsaid mindig biztonságban lesznek.</string>
+  <string name="intro_4_body">Use bank card, PayPal and your favorite payment methods.</string>
   <string name="intro_4_body_2">A legújabb technológiáknak köszönhetően a tranzakcióid mindig biztonságban lesznek.</string>
   <string name="intro_5_title">Szerezz ingyenes AppCoins kreditet!</string>
   <string name="intro_5_body">Appok és játékok kipróbálásával ingyenes AppCoins kreditet szerezhetsz.</string>
   <string name="intro_creating_wallet_short">Pénztárca létrehozása&#8230;</string>
   <string name="intro_wallet_created_short">Tárca létrehozva!</string>
-  <string name="intro_agree_terms_and_conditions_body">A Kihagyás gombra bökve elfogadod az AppCoins Wallet %1$s és %2$s dokumentumait</string>
+  <string name="intro_agree_terms_and_conditions_body">By entering the AppCoins Wallet, you agree to the %1$s and %2$s.</string>
   <string name="intro_skip_button">KIHAGYÁS</string>
   <string name="intro_welcome_header">Üdv az AppCoins Walletban</string>
-  <string name="intro_welcome_body">Az alkalmazás az alkalmazáson belüli vásárláshoz.</string>
+  <string name="intro_welcome_body">Top up your wallet or make a purchase in any AppCoins compatible app or game.</string>
+  <string name="intro_welcome_header_2">Up to %s%% Bonus!</string>
+  <string name="intro_welcome_body_2">Bonuses can be used in any app or game.</string>
   <string name="intro_already_have_wallet_button">Már van tárcám</string>
-  <string name="intro_get_started_button">Indítás</string>
+  <string name="intro_get_started_button">Launch wallet</string>
   <!-- Menus -->
   <!-- Labels -->
   <string name="label_from">Feladó</string>
@@ -207,7 +209,7 @@
   <string name="activity_iab_error_message">Hiba történt, kérjük próbáld ismét</string>
   <string name="action_try">kipróbálás</string>
   <string name="activity_transactions_learn_more">További tudnivalók</string>
-  <string name="activity_iab_no_funds_message">Nincs elég ETH és APPC</string>
+  <string name="activity_iab_no_funds_message">Not enough ETH and AppCoins</string>
   <string name="activity_iab_no_ethereum_funds_message">Nincs elég Ethereum</string>
   <string name="activity_iab_no_token_funds_message">Nincs elég AppCoins</string>
   <string name="activity_iab_wrong_network_message">Helytelen Ethereum hálózati vagy ismeretlen token</string>
@@ -299,19 +301,19 @@
   <string name="gamification_home_body">Akár %s%% bónuszt kaphatsz kedvenc appjaiban és játékaiban!</string>
   <string name="gamification_home_button">KEZDJ PÉNZT KERESNI</string>
   <string name="gamification_level_title">Hanyas szintű vagyok?</string>
-  <string name="gamification_level_title_new">Szerezz APPC Kreditet!</string>
+  <string name="gamification_level_title_new">Get AppCoins Credits!</string>
   <string name="gamification_level_on_graphic">%s. szint</string>
   <string name="gamification_APPCapps_button">Appok és játékok</string>
   <string name="gamification_level_header">Gratulálunk. %s vagy!</string>
   <string name="gamification_level_to_next">Köv. szintig:</string>
   <string name="gamification_level_earned">FOGADVA:</string>
   <string name="gamification_level_next_lvl">KÖV. SZINTIG:</string>
-  <string name="gamification_level_next_lvl_value">%s APPC</string>
+  <string name="gamification_level_next_lvl_value">%s AppCoins</string>
   <string name="gamification_level_bonus">%s%% BÓNUSZ</string>
   <string name="gamification_level_button_how">HOGYAN MŰKÖDIK</string>
-  <string name="gamification_level_body">APPC-krediteket kapsz, ha vásárolsz kedvenc appjaiban és játékaidban.</string>
+  <string name="gamification_level_body">You\'ll earn AppCoins Credits when buying items in your favorite apps and games.</string>
   <string name="gamification_how_header">Hogy lépek szintet?</string>
-  <string name="gamification_how_body">APPC-krediteket kapsz, ha vásárolsz kedvenc appjaiban és játékaidban.</string>
+  <string name="gamification_how_body">You\'ll earn AppCoins Credits when buying items in your favorite apps and games.</string>
   <string name="gamification_how_body_new">Minél többet költesz a kedvenc alkalmazásaiban, annál nagyobb a Bónusz!</string>
   <string name="gamification_how_table_a1">KIADÁS</string>
   <string name="gamification_how_table_b1">BÓNUSZ</string>
@@ -333,7 +335,7 @@
   <string name="gamification_transaction_title">@string/gamification_level_bonus</string>
   <string name="gamification_purchase_header">Ezért a vásárlásért bónusz jár!</string>
   <string name="gamification_purchase_header_part_1">Vásárlási bónusz:</string>
-  <string name="gamification_purchase_header_part_2">%s APPC kredit</string>
+  <string name="gamification_purchase_header_part_2">%s AppCoins kreditben</string>
   <string name="gamification_purchase_body">A bónuszt a következő vásárlás során használhatod fel.</string>
   <string name="gamification_purchase_completed_bonus_received_done">Kész!</string>
   <string name="gamification_purchase_completed_bonus_received">Bónusz érkezett</string>
@@ -370,14 +372,14 @@
   <!-- Top Up -->
   <string name="topup_home_button">Befizetés</string>
   <string name="topup_title">Befizetés</string>
-  <string name="topup_amount">%s APPC-C</string>
+  <string name="topup_amount">%s AppCoins Credits</string>
   <string name="topup_bonus_header">Bónuszt kaptál!</string>
-  <string name="topup_bonus_message">%s bónusz APPC-C kerül számodra jóváírásra.</string>
+  <string name="topup_bonus_message">%s AppCoins Credits extra will be credited in your wallet.</string>
   <string name="topup_completed_1">%s AppCoins kreditben</string>
   <string name="topup_completed_2_with_bonus">került a fiókodba... Egy bónusszal együtt!</string>
   <string name="topup_completed_2_without_bonus">került a fiókodba.</string>
   <string name="topup_bonus_header_part_1">Kiegészítő bónusz:</string>
-  <string name="topup_bonus_header_part_2">%s APPC kredit</string>
+  <string name="topup_bonus_header_part_2">%s AppCoins kreditben</string>
   <string name="topup_bonus_body">A bónuszt a következő vásárlás során használhatod fel.</string>
   <string name="topup_minimum_value">A minimális kiegészítő érték %s</string>
   <string name="topup_maximum_value">A maximális kiegészítő érték %s</string>
@@ -389,7 +391,7 @@
   <string name="balance_topup_body">Feltöltheted tárcádat AppCoins kreditekkel.</string>
   <string name="balance_ethereum_body">Az Ethereum kriptovalután alapulnak az AppCoins-ok. Mivel nagyon népszerű, a legtöbb váltónál adható és vehető!</string>
   <string name="balance_appcoins_body">Az AppCoins az alkalmazások gazdaságának kriptovalutája. Bizonyos váltóknál adható-vehető, fizetésre pedig alkalmazásokon belüli vásárlásoknál használható.</string>
-  <string name="balance_appccreditos_body">Alkalmazásokon belüli vásárlások tokenje! Töltsd fel tárcádat APPC-kredittel, vagy szerezd meg őket appok használatával. Ezek mellett barátok is küldhetik egymásnak!</string>
+  <string name="balance_appccreditos_body">The token to buy in-app items! Top up AppCoins Credits from your wallet or get them for free by using apps. They can also be transferred between friends!</string>
   <string name="my_wallets_action_new_wallet">Új tárca</string>
   <string name="my_wallets_action_recover_wallet">Tárca visszaállítása</string>
   <string name="my_wallets_action_backup_wallet">Tárca biztonsági mentése</string>
@@ -460,7 +462,7 @@
   <string name="home_empty_discover_apps_button">FEDEZD FEL A LEGJOBB APPOKAT</string>
   <!--Tokens-->
   <!--Settings-->
-  <string name="title_redeem">Kód beváltása</string>
+  <string name="title_redeem">Redeem Gift Card</string>
   <string name="settings_item_support">Kapcsolatfelvétel az ügyfélszolgálattal</string>
   <string name="settings_subheader_support">Támogatás</string>
   <string name="settings_subheader_about_us">Rólunk</string>
@@ -548,7 +550,7 @@
   <string name="purchase_error_try_cheaper_item">Ez aztán a borsos ár! Vegyél meg inkább egy olcsóbb elemet.</string>
   <string name="purchase_error_try_cheaper_item_or_method">Ez aztán a borsos ár! Vegyél meg inkább egy olcsóbb elemet vagy válassz másféle fizetési módot.</string>
   <string name="transfer_appc_error_no_eth_title">Etherre van szükséged!</string>
-  <string name="transfer_appc_error_no_eth_body">Az AppCoins átutalási díjainak kifizetése Ethereumban történik, tehát az APPC átutaláshoz ETH szükséges.</string>
+  <string name="transfer_appc_error_no_eth_body">AppCoins transfers fees are paid in Ethereum, so you\'ll need ETH to transfer AppCoins.</string>
   <string name="purchase_error_invalid_credit_card">Érvénytelen kártyaszám. Ellenőrizd, hogy minden számjegy pontos-e.</string>
   <string name="purchase_error_card_security_validation">Hiba lépett fel a tranzakció második szintű hitelesítése során. Kérjük, próbáld újra.</string>
   <string name="purchase_error_transaction_timeout">Úgy tűnik, a tranzakció túl sok időt vett igénybe. Próbáld újra.</string>

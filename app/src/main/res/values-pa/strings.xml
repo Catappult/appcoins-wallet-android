@@ -67,7 +67,7 @@
   <string name="skip_with_arrow">ਛੱਡੋ &gt;</string>
   <string name="root_title">ਡਿਵਾਈਸ ਸੁਰੱਖਿਆ ਨੂੰ ਕੰਪ੍ਰਾਮਾਇਜ਼ ਕੀਤਾ ਗਿਆ</string>
   <string name="root_body">ਕੋਈ ਵੀ \'ਰੂਟਿਡ\' ਐਪ ਐਪ ਕੋਆਈਨ ਬਟੂਏ ਦੇ ਕੀਚੈਨ ਡਾਟਾ ਤੱਕ ਪਹੁੰਚ ਸਕਦੀ ਹੈ ਅਤੇ ਤੁਹਾਡੇ ਬਟੂਏ ਨੂੰ ਚੋਰੀ ਕਰ ਸਕਦੀ ਹੈ! ਇਸ ਬਟੂਏ ਨੂੰ ਤੁਰੰਤ ਖਾਲੀ ਕਰੋ ਅਤੇ ਸੁਰੱਖਿਅਤ ਡਿਵਾਈਸ ਤੇ ਰੀਸਟੋਰ ਕਰੋ|</string>
-  <string name="credits_purchase_value">%s APPC Credits</string>
+  <string name="credits_purchase_value">%s AppCoins Credits</string>
   <string name="buying">%s ਖ਼ਰੀਦਣਾ</string>
   <string name="action_buy">ਖਰੀਦੋ</string>
   <string name="empty"></string>
@@ -114,26 +114,28 @@
   <string name="intro_title_third_page">ਆਸਾਨ &amp; ਸੌਖਾ</string>
   <string name="intro_message_first_page">ਐਪ ਅਰਥ-ਵਿਵਸਥਾ ਦੀ ਕ੍ਰਾਂਤੀ ਵਿੱਚ ਸੁਆਗਤ ਹੈ|</string>
   <string name="intro_message_second_page">ਪ੍ਰਾਈਵੇਟ ਕੀ ਤੁਹਾਡੀ ਡਿਵਾਈਸ ਨੂੰ ਕਦੇ ਨਹੀਂ ਛੱਡਦੀਆਂ|</string>
-  <string name="intro_message_third_page">ਏਪੀਪੀਸੀ ਵਿਚ ਆਪਣੇ ਇਨ-ਐਪ ਭੁਗਤਾਨ ਅਤੇ ਇਨਾਮਾਂ ਦੀ ਪ੍ਰਕਿਰਿਆ ਕਰੋ|</string>
+  <string name="intro_message_third_page">Process all your in-app payments and rewards in AppCoins.</string>
   <string name="intro_1_title">AppCoins Wallet</string>
   <string name="intro_1_body">ਇਨ-ਐਪ ਖ਼ਰੀਦ ਲਈ ਤੁਹਾਡੀ ਐਪ|</string>
   <string name="intro_2_title">ਪੈਸੇ ਘੱਟ ਦਿਓ, ਖੇਡੋ ਜ਼ਿਆਦਾ</string>
-  <string name="intro_2_body">ਆਪਣੀਆਂ ਮਨਪਸੰਦ ਐਪਾਂ ਅਤੇ ਖੇਡਾਂ ਵਿੱਚ ਆਈਟਮਾਂ ਖਰੀਦਣ ਤੇ ਇਨਾਮ ਪ੍ਰਾਪਤ ਕਰੋ|</string>
+  <string name="intro_2_body">The best payment wallet for apps and games.</string>
   <string name="intro_3_title">ਆਸਾਨ ਅਤੇ ਸੌਖਾ</string>
-  <string name="intro_3_body">ਆਪਣੀਆਂ ਗੇਮਾਂ ਵਿੱਚ ਸਿੱਧੇ ਖਰੀਦਣ ਲਈ ਐਪ ਸਿੱਕੇ ਬਟੂਏ ਨੂੰ ਸਥਾਪਿਤ ਰੱਖੋ।</string>
+  <string name="intro_3_body">Bonuses on all purchases.</string>
   <string name="intro_4_title">ਸੁਰੱਖਿਅਤ ਅਤੇ ਨਿੱਜੀ</string>
-  <string name="intro_4_body">ਤੁਹਾਡੀਆਂ ਨਿੱਜੀ ਚਾਬੀਆਂ ਕਦੇ ਵੀ ਤੁਹਾਡੇ ਫੋਨ ਨੂੰ ਨਹੀਂ ਛੱਡਣਗੀਆਂ, ਤਾਂ ਜੋ ਤੁਹਾਡੇ ਐਪ ਸਿੱਕੇ ਹਰ ਸਮੇਂ ਸੁਰੱਖਿਅਤ ਰਹਿਣ|</string>
+  <string name="intro_4_body">Use bank card, PayPal and your favorite payment methods.</string>
   <string name="intro_4_body_2">ਤੁਹਾਡੀਆਂ ਸਾਰੇ ਲੈਣ-ਦੇਣ ਹਮੇਸ਼ਾ ਸੁਰੱਖਿਅਤ ਹਨ, ਨਵੀਨਤਮ ਤਕਨਾਲੋਜੀ ਦਾ ਧੰਨਵਾਦ|</string>
   <string name="intro_5_title">ਮੁਫਤ ਐਪ ਸਿੱਕੇ ਕ੍ਰੈਡਿਟ ਪ੍ਰਾਪਤ ਕਰੋ!</string>
   <string name="intro_5_body">ਤੁਸੀਂ ਐਪਾਂ ਅਤੇ ਗੇਮਾਂ ਚਲਾ ਕੇ ਮੁਫਤ ਐਪ ਸਿੱਕੇ ਕ੍ਰੈਡਿਟ ਕਮਾ ਸਕਦੇ ਹੋ|</string>
   <string name="intro_creating_wallet_short">ਤੁਹਾਡੇ ਲਈ ਤੁਹਾਡਾ ਬਟੂਆ ਸੈਟ ਅਪ ਕਰ ਰਹੇ ਹਾਂ&#8230;</string>
   <string name="intro_wallet_created_short">ਬਟੂਆ ਬਣਾਇਆ ਗਿਆ!</string>
-  <string name="intro_agree_terms_and_conditions_body">ਛੱਡੋ ਤੇ ਟੈਪ ਕਰਕੇ, ਤੁਸੀਂ ਐਪ ਸਿੱਕੇ ਬਟੂਏ ਦੇ %1$s ਅਤੇ %2$s ਨਾਲ ਸਹਿਮਤ ਹੁੰਦੇ ਹੋ</string>
+  <string name="intro_agree_terms_and_conditions_body">By entering the AppCoins Wallet, you agree to the %1$s and %2$s.</string>
   <string name="intro_skip_button">ਛੱਡੋ</string>
   <string name="intro_welcome_header">ਐਪ ਸਿੱਕੇ ਬਟੂਏ ਵਿੱਚ ਤੁਹਾਡਾ ਸੁਆਗਤ ਹੈ</string>
-  <string name="intro_welcome_body">ਇਨ-ਐਪ ਖ਼ਰੀਦ ਲਈ ਤੁਹਾਡੀ ਐਪ|</string>
+  <string name="intro_welcome_body">Top up your wallet or make a purchase in any AppCoins compatible app or game.</string>
+  <string name="intro_welcome_header_2">Up to %s%% Bonus!</string>
+  <string name="intro_welcome_body_2">Bonuses can be used in any app or game.</string>
   <string name="intro_already_have_wallet_button">ਮੇਰੇ ਕੋਲ ਪਹਿਲਾਂ ਹੀ ਇਕ ਬਟੂਆ ਹੈ|</string>
-  <string name="intro_get_started_button">ਸ਼ੁਰੂ ਕਰੋ</string>
+  <string name="intro_get_started_button">Launch wallet</string>
   <!-- Menus -->
   <!-- Labels -->
   <string name="label_from">ਵੱਲੋਂ</string>
@@ -207,7 +209,7 @@
   <string name="activity_iab_error_message">ਇੱਕ ਗਲਤੀ ਆਈ ਹੈ, ਕਿਰਪਾ ਕਰਕੇ ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰੋ</string>
   <string name="action_try">ਕੋਸ਼ਿਸ਼ ਕਰੋ</string>
   <string name="activity_transactions_learn_more">ਜਿਆਦਾ ਜਾਣੋ</string>
-  <string name="activity_iab_no_funds_message">ਕਾਫ਼ੀ ਈਟੀਐਚ ਅਤੇ ਏਪੀਪੀਸੀ ਨਹੀਂ</string>
+  <string name="activity_iab_no_funds_message">Not enough ETH and AppCoins</string>
   <string name="activity_iab_no_ethereum_funds_message">ਕਾਫ਼ੀ ਇਥਿਰਿਅਮ ਨਹੀਂ</string>
   <string name="activity_iab_no_token_funds_message">ਕਾਫ਼ੀ ਐਪ ਸਿੱਕੇ ਨਹੀਂ</string>
   <string name="activity_iab_wrong_network_message">ਗਲਤ ਇਥਿਰਿਅਮ ਨੈਟਵਰਕ ਜਾਂ ਅਣਜਾਣ ਟੋਕਨ</string>
@@ -299,19 +301,19 @@
   <string name="gamification_home_body">ਆਪਣੀਆਂ ਮਨਪਸੰਦ ਐਪਾਂ ਅਤੇ ਖੇਡਾਂ ਵਿੱਚ %s%% ਤੱਕ ਬੋਨਸ ਕਮਾਓ!</string>
   <string name="gamification_home_button">ਕਮਾਉਣਾ ਸ਼ੁਰੂ ਕਰੋ</string>
   <string name="gamification_level_title">ਮੇਰਾ ਪੱਧਰ ਕੀ ਹੈ?</string>
-  <string name="gamification_level_title_new">ਐਪ ਸਿੱਕੇ ਕ੍ਰੈਡਿਟ ਪਾਓ!</string>
+  <string name="gamification_level_title_new">Get AppCoins Credits!</string>
   <string name="gamification_level_on_graphic">ਪੱਧਰ %s</string>
   <string name="gamification_APPCapps_button">ਐਪਾਂ &amp; ਗੇਮਾਂ</string>
   <string name="gamification_level_header">ਵਧਾਈਆਂ, ਤੁਸੀਂ %s ਹੋ!</string>
   <string name="gamification_level_to_next">ਅਗਲੇ ਪੱਧਰ ਤੱਕ:</string>
   <string name="gamification_level_earned">ਕਮਾਇਆ:</string>
   <string name="gamification_level_next_lvl">ਅਗਲੇ ਪੱਧਰ ਤੱਕ:</string>
-  <string name="gamification_level_next_lvl_value">%s ਐਪ ਸਿੱਕੇ</string>
+  <string name="gamification_level_next_lvl_value">%s AppCoins</string>
   <string name="gamification_level_bonus">%s%% ਬੋਨਸ</string>
   <string name="gamification_level_button_how">ਇਹ ਕਿਵੇਂ ਚਲਦਾ ਹੈ</string>
-  <string name="gamification_level_body">ਆਪਣੀਆਂ ਮਨਪਸੰਦ ਐਪਾਂ ਅਤੇ ਗੇਮਾਂ ਵਿੱਚ ਚੀਜ਼ਾਂ ਖਰੀਦਣ ਵੇਲੇ ਤੁਸੀਂ ਐਪ ਸਿੱਕੇ ਕ੍ਰੈਡਿਟ ਪ੍ਰਾਪਤ ਕਰੋਗੇ|</string>
+  <string name="gamification_level_body">You\'ll earn AppCoins Credits when buying items in your favorite apps and games.</string>
   <string name="gamification_how_header">ਪੱਧਰ ਉੱਪਰ ਕਿਵੇਂ ਪਹੁੰਚਾਉਣਾ ਹੈ?</string>
-  <string name="gamification_how_body">ਆਪਣੀਆਂ ਮਨਪਸੰਦ ਐਪਾਂ ਅਤੇ ਗੇਮਾਂ ਵਿੱਚ ਚੀਜ਼ਾਂ ਖਰੀਦਣ ਵੇਲੇ ਤੁਸੀਂ ਐਪ ਸਿੱਕੇ ਕ੍ਰੈਡਿਟ ਪ੍ਰਾਪਤ ਕਰੋਗੇ|</string>
+  <string name="gamification_how_body">You\'ll earn AppCoins Credits when buying items in your favorite apps and games.</string>
   <string name="gamification_how_body_new">ਤੁਸੀਂ ਆਪਣੀਆਂ ਮਨਪਸੰਦ ਐਪਾਂ ਵਿਚ ਜਿੰਨਾ ਜ਼ਿਆਦਾ ਖਰਚੋਗੇ, ਓਨਾ ਵੱਡਾ ਬੋਨਸ ਹੋਵੇਗਾ!</string>
   <string name="gamification_how_table_a1">ਖਰਚ ਕਰੋ</string>
   <string name="gamification_how_table_b1">ਬੋਨਸ</string>
@@ -333,7 +335,7 @@
   <string name="gamification_transaction_title">@string/gamification_level_bonus</string>
   <string name="gamification_purchase_header">ਇਸ ਖਰੀਦ ਵਿੱਚ ਇੱਕ ਬੋਨਸ ਹੈ!</string>
   <string name="gamification_purchase_header_part_1">ਖਰੀਦ ਦਾ ਬੋਨਸ:</string>
-  <string name="gamification_purchase_header_part_2">%s ਐਪ ਸਿੱਕੇ ਕ੍ਰੈਡਿਟ</string>
+  <string name="gamification_purchase_header_part_2">ਐਪ ਸਿੱਕੇ ਕ੍ਰੈਡਿਟਾਂ ਵਿੱਚ %s</string>
   <string name="gamification_purchase_body">ਤੁਸੀਂ ਇਸ ਬੋਨਸ ਨੂੰ ਆਪਣੀ ਅਗਲੀ ਖਰੀਦ ਵਿਚ ਵਰਤ ਸਕਦੇ ਹੋ|</string>
   <string name="gamification_purchase_completed_bonus_received_done">ਹੋ ਗਿਆ!</string>
   <string name="gamification_purchase_completed_bonus_received">ਬੋਨਸ ਪ੍ਰਾਪਤ ਹੋਇਆ</string>
@@ -370,9 +372,9 @@
   <!-- Top Up -->
   <string name="topup_home_button">ਟੋਪ ਅੱਪ</string>
   <string name="topup_title">ਟੋਪ ਅੱਪ</string>
-  <string name="topup_amount">%s ਐਪ ਸਿੱਕੇ</string>
+  <string name="topup_amount">%s AppCoins Credits</string>
   <string name="topup_bonus_header">ਤੁਹਾਨੂੰ ਇੱਕ ਬੋਨਸ ਮਿਲਿਆ ਹੈ!</string>
-  <string name="topup_bonus_message">%s ਵੱਧ ਐਪ ਸਿੱਕੇ-ਕ੍ਰੈਡਿਟ ਤੁਹਾਡੇ ਬਟੂਏ ਵਿੱਚ ਪਾਏ ਜਾਣਗੇ</string>
+  <string name="topup_bonus_message">%s AppCoins Credits extra will be credited in your wallet.</string>
   <string name="topup_completed_1">ਐਪ ਸਿੱਕੇ ਕ੍ਰੈਡਿਟਾਂ ਵਿੱਚ %s</string>
   <string name="topup_completed_2_with_bonus">ਤੁਹਾਡੇ ਖਾਤੇ ਵਿੱਚ ਜਮ੍ਹਾਂ ਕੀਤੇ ਗਏ... ਬੋਨਸ ਦੇ ਨਾਲ!</string>
   <string name="topup_completed_2_without_bonus">ਤੁਹਾਡੇ ਖਾਤੇ ਵਿੱਚ ਜਮ੍ਹਾ ਕੀਤੇ ਗਏ ਸਨ|</string>
@@ -389,7 +391,7 @@
   <string name="balance_topup_body">ਤੁਸੀਂ ਐਪ ਸਿੱਕੇ ਕਰੈਡਿਟਾਂ ਨਾਲ ਆਪਣੇ ਬਟੂਏ ਦਾ ਰਿਚਾਰਜ ਕਰ ਸਕਦੇ ਹੋ|</string>
   <string name="balance_ethereum_body">ਇਥਿਰਿਅਮ ਕਰਿਪਟੋ ਕਰੰਸੀ ਹੈ ਜਿਸ ਤੇ ਐਪ ਸਿੱਕੇ ਅਧਾਰਤ ਹਨ| ਤੁਸੀਂ ਇਨ੍ਹਾਂ ਨੂੰ ਜ਼ਿਆਦਾਤਰ ਐਕਸਚੇਂਜਾਂ ਵਿੱਚ ਖਰੀਦ ਅਤੇ ਵੇਚ ਸਕਦੇ ਹੋ, ਇਹ ਬਹੁਤ ਮਸ਼ਹੂਰ ਹੈ!</string>
   <string name="balance_appcoins_body">ਐਪ ਸਿੱਕੇ ਐਪ ਦੇ ਖਰਚਿਆਂ ਲਈ ਕਰਿਪਟੋ ਕਰੰਸੀ ਹੈ| ਤੁਸੀਂ ਇਸ ਨੂੰ ਕਈ ਐਕਸਚੇਂਜਾਂ ਤੇ ਖਰੀਦ ਅਤੇ ਵੇਚ ਸਕਦੇ ਹੋ ਅਤੇ ਇਨ-ਐਪ ਆਈਟਮਾਂ ਖਰੀਦਣ ਲਈ ਇਸਦੀ ਵਰਤੋਂ ਕਰ ਸਕਦੇ ਹੋ|</string>
-  <string name="balance_appccreditos_body">ਤੇ ਟੋਕਨ ਤੋ ਬਾਇ ਇਨ-ਅੱਪ ਆਇਟਮ੍ਸ! ਐਪ ਸਿੱਕੇ ਕ੍ਰੈਡਿਟ ਆਪਣੇ ਬਟੂਏ ਨੂੰ ਰਿਚਾਰਜ ਕਰਕੇ ਜਾਂ ਮੁਫਤ ਵਿੱਚ ਲੈਣ ਲਈ ਐਪਾਂ ਵਰਤ ਕੇ ਪਾਓ| ਇਹ ਦੋਸਤਾਂ ਵਿੱਚ ਵੀ ਟ੍ਰਾਂਸਫਰ ਕੀਤੇ ਜਾ ਸਕਦੇ ਹਨ!</string>
+  <string name="balance_appccreditos_body">The token to buy in-app items! Top up AppCoins Credits from your wallet or get them for free by using apps. They can also be transferred between friends!</string>
   <string name="my_wallets_action_new_wallet">ਨਵਾਂ ਬਟੂਆ</string>
   <string name="my_wallets_action_recover_wallet">ਬਟੂਆ ਮੁੜ ਪ੍ਰਾਪਤ ਕਰੋ</string>
   <string name="my_wallets_action_backup_wallet">ਬੈਕਅਪ ਬਟੂਆ</string>
@@ -460,7 +462,7 @@
   <string name="home_empty_discover_apps_button">ਵਧੀਆ ਐਪਸ ਲੱਭੋ</string>
   <!--Tokens-->
   <!--Settings-->
-  <string name="title_redeem">ਕੋਡ ਵਰਤੋ</string>
+  <string name="title_redeem">Redeem Gift Card</string>
   <string name="settings_item_support">ਸਹਾਇਤਾ ਟੀਮ ਨਾਲ ਸੰਪਰਕ ਕਰੋ</string>
   <string name="settings_subheader_support">ਸਪੋਰਟ</string>
   <string name="settings_subheader_about_us">ਸਾਡੇ ਬਾਰੇ</string>
@@ -548,7 +550,7 @@
   <string name="purchase_error_try_cheaper_item">ਇਹ ਕਾਫ਼ੀ ਮਹਿੰਗਾ ਹੈ! ਕਿਰਪਾ ਕਰਕੇ ਘੱਟ ਮੁੱਲ ਦੀ ਚੀਜ਼ ਖਰੀਦਣ ਦੀ ਕੋਸ਼ਿਸ਼ ਕਰੋ|</string>
   <string name="purchase_error_try_cheaper_item_or_method">ਇਹ ਕਾਫ਼ੀ ਮਹਿੰਗਾ ਹੈ! ਕਿਰਪਾ ਕਰਕੇ ਇੱਕ ਸਸਤੀ ਚੀਜ਼ ਨੂੰ ਖਰੀਦਣ ਦੀ ਕੋਸ਼ਿਸ਼ ਕਰੋ ਜਾਂ ਵੱਖਰੀ ਭੁਗਤਾਨ ਵਿਧੀ ਨਾਲ ਕੋਸ਼ਿਸ਼ ਕਰੋ|</string>
   <string name="transfer_appc_error_no_eth_title">ਤੁਹਾਨੂੰ ਈਥਰ ਦੀ ਲੋੜ ਹੈ!</string>
-  <string name="transfer_appc_error_no_eth_body">ਐਪ ਸਿੱਕੇ ਟ੍ਰਾਂਸਫਰ ਫੀਸਾਂ ਇਥਿਰਿਅਮ ਵਿੱਚ ਅਦਾ ਕੀਤੀਆਂ ਜਾਂਦੀਆਂ ਹਨ, ਇਸ ਲਈ ਐਪ ਸਿੱਕੇ ਟ੍ਰਾਂਸਫਰ ਕਰਨ ਲਈ ਤੁਹਾਨੂੰ ਇਥਿਰਿਅਮ ਦੀ ਜ਼ਰੂਰਤ ਹੋਏਗੀ|</string>
+  <string name="transfer_appc_error_no_eth_body">AppCoins transfers fees are paid in Ethereum, so you\'ll need ETH to transfer AppCoins.</string>
   <string name="purchase_error_invalid_credit_card">ਗਲਤ ਬੈਂਕ ਕਾਰਡ ਨੰਬਰ| ਕਿਰਪਾ ਕਰਕੇ ਦੇਖੋ ਕਿ ਸਾਰੇ ਅੰਕ ਸਹੀ ਹੋਣ|</string>
   <string name="purchase_error_card_security_validation">ਇਸ ਟ੍ਰਾਂਜੈਕਸ਼ਨ ਦੇ ਦੂਜੇ ਪੱਧਰ ਦੀ ਪ੍ਰਮਾਣਿਕਤਾ ਵਿੱਚ ਇੱਕ ਗੜਬੜ ਹੋਈ ਹੈ| ਮੁੜ ਕੋਸ਼ਿਸ ਕਰੋ ਜੀ|</string>
   <string name="purchase_error_transaction_timeout">ਅਜਿਹਾ ਲਗਦਾ ਹੈ ਕਿ ਟ੍ਰਾਂਜੈਕਸ਼ਨ ਨੂੰ ਪੂਰਾ ਕਰਨ ਲਈ ਤੁਸੀ ਬਹੁਤ ਸਮਾਂ ਲਗਾ ਦਿੱਤਾ| ਮੁੜ ਕੋਸ਼ਿਸ ਕਰੋ ਜੀ|</string>
@@ -1093,7 +1095,7 @@
   <!-- VIP Program -->
   <string name="vip_program_reached_notification_title">Welcome to the VIP Program</string>
   <string name="vip_program_reached_notification_body">You\'re now a VIP user with access to special promotions and deals. Tap for more details!</string>
-  <string name="vip_program_almost_notification_title">Almost there!</string>
+  <string name="vip_program_almost_notification_title">ਲਗਭਗ ਉਥੇ!</string>
   <string name="vip_program_almost_notification_body">You\'re about to become a VIP user. Tap for more details!</string>
   <string name="vip_program_almost_onboarding_title">You\'re about to become a VIP user!</string>
   <string name="vip_program_almost_onboarding_body">Continue playing and making purchases to access exclusive promotions and deals. Ready to become the ultimate player?</string>

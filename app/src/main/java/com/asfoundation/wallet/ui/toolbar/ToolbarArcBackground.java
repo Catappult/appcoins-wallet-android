@@ -29,17 +29,17 @@ public class ToolbarArcBackground extends View {
 
   public ToolbarArcBackground(Context context) {
     super(context);
-    paint.setColor(context.getResources().getColor(R.color.activity_background_color));
+    paint.setColor(context.getResources().getColor(R.color.styleguide_light_grey));
   }
 
   public ToolbarArcBackground(Context context, @Nullable AttributeSet attrs) {
     super(context, attrs);
-    paint.setColor(context.getResources().getColor(R.color.activity_background_color));
+    paint.setColor(context.getResources().getColor(R.color.styleguide_light_grey));
   }
 
   public ToolbarArcBackground(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
     super(context, attrs, defStyleAttr);
-    paint.setColor(context.getResources().getColor(R.color.activity_background_color));
+    paint.setColor(context.getResources().getColor(R.color.styleguide_light_grey));
   }
 
   /**

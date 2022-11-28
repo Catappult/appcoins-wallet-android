@@ -36,7 +36,7 @@ data class FailedTicket(
 ) : Ticket()
 
 enum class ErrorStatus {
-  REGION_NOT_SUPPORTED, NO_NETWORK, GENERIC
+  REGION_NOT_SUPPORTED, NO_NETWORK, GENERIC, WALLET_VERSION_NOT_SUPPORTED
 }
 
 data class PurchasedTicket(

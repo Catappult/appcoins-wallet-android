@@ -3,7 +3,7 @@
   <item
       android:gravity="bottom">
     <shape android:shape="rectangle">
-      <solid android:color="@color/white" />
+      <solid android:color="@color/styleguide_white" />
       <size
 
           />
@@ -16,7 +16,7 @@
       android:right="-60dp">
     <shape android:shape="oval">
 
-      <solid android:color="@color/promotions_vip_top_blue" />
+      <solid android:color="@color/styleguide_blue" />
     </shape>
   </item>
   <item
@@ -26,7 +26,7 @@
       <size
 
           />
-      <solid android:color="@color/promotions_vip_top_blue" />
+      <solid android:color="@color/styleguide_blue" />
     </shape>
   </item>
 </layer-list>

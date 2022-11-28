@@ -67,7 +67,7 @@
   <string name="skip_with_arrow">&gt; をスキップ</string>
   <string name="root_title">デバイスのセキュリティが危険にさらされている</string>
   <string name="root_body">\'ルート\' アプリは AppCoins 財布キーチェーン データにアクセスでき、あなたのウォレット盗みます!すぐにこのウォレットをワイプして、セキュリティで保護されたデバイス上に復元してください。</string>
-  <string name="credits_purchase_value">%s APPC Credits</string>
+  <string name="credits_purchase_value">%s AppCoins Credits</string>
   <string name="buying">%s を購入</string>
   <string name="action_buy">購入します。</string>
   <string name="empty"></string>
@@ -114,27 +114,28 @@
   <string name="intro_title_third_page">シンプル&amp;簡単</string>
   <string name="intro_message_first_page">アプリ経済革命へようこそ。</string>
   <string name="intro_message_second_page">プライベートキーを、お使いのデバイスにて放置したままにしないでください。</string>
-  <string name="intro_message_third_page">すべてのアプリ内の支払いと APPC で報酬を処理します。</string>
+  <string name="intro_message_third_page">Process all your in-app payments and rewards in AppCoins.</string>
   <string name="intro_1_title">AppCoins Wallet</string>
   <string name="intro_1_body">アプリ内課金のアプリです。</string>
   <string name="intro_2_title">支払いを減らして、もっとプレーする</string>
-  <string name="intro_2_body">あなたのお気に入りのアプリやゲーム内のアイテムを購入するために報酬を手に入れる</string>
+  <string name="intro_2_body">The best payment wallet for apps and games.</string>
   <string name="intro_3_title">シンプルで簡単</string>
-  <string name="intro_3_body">AppCoins Walletをインストールしておくと、ゲーム内で直接購入することができます。</string>
+  <string name="intro_3_body">Bonuses on all purchases.</string>
   <string name="intro_4_title">安全でプレイベート</string>
-  <string name="intro_4_body">あなたのプライベート鍵がデバイスから消えることはありませんので、あなたのAppCoinsは常に安全です。</string>
+  <string name="intro_4_body">Use bank card, PayPal and your favorite payment methods.</string>
   <string name="intro_4_body_2">最新のテクノロジーにより、お客様の取引は常に安全です。</string>
   <string name="intro_5_title">無料のAppCoinsクレジットを手に入れよう！</string>
   <string name="intro_5_body">アプリやゲームを試すことで、無料のAppCoinsクレジットを獲得できます。</string>
   <string name="intro_creating_wallet_short">あなたのウオレットを設定中&#8230;</string>
   <string name="intro_wallet_created_short">ウォレットの作成ができました！</string>
-  <string name="intro_agree_terms_and_conditions_body">\"\"\"スキップをタップすることで、AppCoinウォレットの %1$s と %2$s に同意します
- \"\"\"</string>
+  <string name="intro_agree_terms_and_conditions_body">By entering the AppCoins Wallet, you agree to the %1$s and %2$s.</string>
   <string name="intro_skip_button">スキップ</string>
   <string name="intro_welcome_header">AppCoinsウォレットへようこそ</string>
-  <string name="intro_welcome_body">アプリ内課金用のアプリ</string>
+  <string name="intro_welcome_body">Top up your wallet or make a purchase in any AppCoins compatible app or game.</string>
+  <string name="intro_welcome_header_2">Up to %s%% Bonus!</string>
+  <string name="intro_welcome_body_2">Bonuses can be used in any app or game.</string>
   <string name="intro_already_have_wallet_button">ウォレットをすでに持っています</string>
-  <string name="intro_get_started_button">始める</string>
+  <string name="intro_get_started_button">Launch wallet</string>
   <!-- Menus -->
   <!-- Labels -->
   <string name="label_from">差出人</string>
@@ -208,7 +209,7 @@
   <string name="activity_iab_error_message">エラーが発生した、もう一度やり直してください。</string>
   <string name="action_try">トライ</string>
   <string name="activity_transactions_learn_more">もっと詳しく知る</string>
-  <string name="activity_iab_no_funds_message">ETHとAPPCが不足しています</string>
+  <string name="activity_iab_no_funds_message">Not enough ETH and AppCoins</string>
   <string name="activity_iab_no_ethereum_funds_message">Ethereumが不足しています</string>
   <string name="activity_iab_no_token_funds_message">AppCoinsが不足しています</string>
   <string name="activity_iab_wrong_network_message">間違ったEthereumネットワークまたは不明なトークン</string>
@@ -300,19 +301,19 @@
   <string name="gamification_home_body">あなたのお気に入りのアプリとゲームで最大 %s%% のボーナスを獲得できます。</string>
   <string name="gamification_home_button">収益を開始する</string>
   <string name="gamification_level_title">私のレベルは?</string>
-  <string name="gamification_level_title_new">APPC のクレジットを取得する！</string>
+  <string name="gamification_level_title_new">Get AppCoins Credits!</string>
   <string name="gamification_level_on_graphic">レベル %s</string>
   <string name="gamification_APPCapps_button">アプリ &amp; ゲーム</string>
   <string name="gamification_level_header">おめでとう、あなたは %s です!</string>
   <string name="gamification_level_to_next">次のレベル：</string>
   <string name="gamification_level_earned">達成額：</string>
   <string name="gamification_level_next_lvl">次のレベルへ：</string>
-  <string name="gamification_level_next_lvl_value">%s APPC</string>
+  <string name="gamification_level_next_lvl_value">%s AppCoins</string>
   <string name="gamification_level_bonus">%s%% ボーナス</string>
   <string name="gamification_level_button_how">操作仕組み</string>
-  <string name="gamification_level_body">お気に入りのアプリやゲームでアイテムを購入すると、APPCクレジットを獲得できます。</string>
+  <string name="gamification_level_body">You\'ll earn AppCoins Credits when buying items in your favorite apps and games.</string>
   <string name="gamification_how_header">レベルアップする方法?</string>
-  <string name="gamification_how_body">お気に入りのアプリやゲームでアイテムを購入すると、APPCクレジットを獲得できます。</string>
+  <string name="gamification_how_body">You\'ll earn AppCoins Credits when buying items in your favorite apps and games.</string>
   <string name="gamification_how_body_new">お気に入りのアプリで買い物をすればするほど、ボーナスが大きくなります。</string>
   <string name="gamification_how_table_a1">使う</string>
   <string name="gamification_how_table_b1">ボーナス</string>
@@ -334,7 +335,7 @@
   <string name="gamification_transaction_title">@string/gamification_level_bonus</string>
   <string name="gamification_purchase_header">この購入にはボーナスが付きます！</string>
   <string name="gamification_purchase_header_part_1">購入特典:</string>
-  <string name="gamification_purchase_header_part_2">APPCクレジット：%s</string>
+  <string name="gamification_purchase_header_part_2">AppCoinsクレジットで%s</string>
   <string name="gamification_purchase_body">このボーナスは、次回の購入でご利用いただけます。</string>
   <string name="gamification_purchase_completed_bonus_received_done">完了</string>
   <string name="gamification_purchase_completed_bonus_received">ボーナスを受け取りました</string>
@@ -371,14 +372,14 @@
   <!-- Top Up -->
   <string name="topup_home_button">トップアップします。</string>
   <string name="topup_title">トップアップします。</string>
-  <string name="topup_amount">%s APPC</string>
+  <string name="topup_amount">%s AppCoins Credits</string>
   <string name="topup_bonus_header">あなたはボーナスを獲得しました！</string>
-  <string name="topup_bonus_message">%s APPC クレジットはウォレットに加算されます。</string>
+  <string name="topup_bonus_message">%s AppCoins Credits extra will be credited in your wallet.</string>
   <string name="topup_completed_1">AppCoinsクレジットで%s</string>
   <string name="topup_completed_2_with_bonus">がアカウントに入金されました.. そしてボーナスも獲得!</string>
   <string name="topup_completed_2_without_bonus">が口座に入金されました。</string>
   <string name="topup_bonus_header_part_1">チャージボーナス：</string>
-  <string name="topup_bonus_header_part_2">APPCクレジット：%s</string>
+  <string name="topup_bonus_header_part_2">AppCoinsクレジットで%s</string>
   <string name="topup_bonus_body">このボーナスは、次回の購入でご利用いただけます。</string>
   <string name="topup_minimum_value">最低チャージ額は%sです</string>
   <string name="topup_maximum_value">最高チャージ額は%sです</string>
@@ -390,7 +391,7 @@
   <string name="balance_topup_body">ウォレット AppCoins クレジットで補えます。</string>
   <string name="balance_ethereum_body">イーサレムは、AppCoins に基づいている仮想通貨です。購入し、両替でそれらを販売することができます。非常に人気です！</string>
   <string name="balance_appcoins_body">AppCoins はアプリ経済の仮想通貨 です。購入して両替でそれを販売し、アプリ内アイテムを購入する等、使用することができます。</string>
-  <string name="balance_appccreditos_body">アプリ内アイテムを購入するトークンです! 無料のアプリを使用して、取得またはあなたのウォレットから APPC-C を補充してください。友人間でも転送することができます!</string>
+  <string name="balance_appccreditos_body">The token to buy in-app items! Top up AppCoins Credits from your wallet or get them for free by using apps. They can also be transferred between friends!</string>
   <string name="my_wallets_action_new_wallet">新規ウオレット</string>
   <string name="my_wallets_action_recover_wallet">ウォレットの復元</string>
   <string name="my_wallets_action_backup_wallet">ウォレットをバックアップ</string>
@@ -461,7 +462,7 @@
   <string name="home_empty_discover_apps_button">トップアプリを発見</string>
   <!--Tokens-->
   <!--Settings-->
-  <string name="title_redeem">コードを利用</string>
+  <string name="title_redeem">Redeem Gift Card</string>
   <string name="settings_item_support">サポートチームへのお問い合わせ</string>
   <string name="settings_subheader_support">サポート</string>
   <string name="settings_subheader_about_us">About Us</string>
@@ -549,7 +550,7 @@
   <string name="purchase_error_try_cheaper_item">それはかなり高価なものです。もっと低い金額の商品を購入してみてください。</string>
   <string name="purchase_error_try_cheaper_item_or_method">それはかなり高価なものです。もっと安い商品をご購入いただくか、他のお支払い方法をお試しください。</string>
   <string name="transfer_appc_error_no_eth_title">イーサリアムが必要です。</string>
-  <string name="transfer_appc_error_no_eth_body">AppCoinsの送金手数料はイーサリアムで支払われるため、APPCの送金にはETHが必要です。</string>
+  <string name="transfer_appc_error_no_eth_body">AppCoins transfers fees are paid in Ethereum, so you\'ll need ETH to transfer AppCoins.</string>
   <string name="purchase_error_invalid_credit_card">銀行カード番号が無効です。すべての桁が正しいことを確認してください。</string>
   <string name="purchase_error_card_security_validation">このトランザクションの第2レベルの検証でエラーが発生しました。もう一度お試しください。</string>
   <string name="purchase_error_transaction_timeout">トランザクションの完了に時間がかかりすぎたようです。もう一度お試しください。</string>

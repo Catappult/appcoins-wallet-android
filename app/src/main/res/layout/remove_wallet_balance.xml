@@ -31,7 +31,7 @@
         android:ellipsize="end"
         android:lineSpacingExtra="4sp"
         android:maxLines="1"
-        android:textColor="@color/remove_wallet_red"
+        android:textColor="@color/styleguide_red"
         android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -48,7 +48,7 @@
         android:gravity="end"
         android:lineSpacingExtra="4sp"
         android:maxLines="1"
-        android:textColor="@color/remove_wallet_red"
+        android:textColor="@color/styleguide_red"
         android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -71,7 +71,7 @@
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:text="@string/appc_token_name"
-        android:textColor="@color/grey_alpha_active_54"
+        android:textColor="@color/styleguide_black_transparent_80"
         android:textSize="12sp"
         />
 
@@ -82,7 +82,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_centerInParent="true"
-        android:textColor="@color/grey_alpha_active_54"
+        android:textColor="@color/styleguide_black_transparent_80"
         android:textSize="12sp"
         tools:text="12 APPC"
         />
@@ -102,7 +102,7 @@
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:text="@string/appc_credits_token_name"
-        android:textColor="@color/grey_alpha_active_54"
+        android:textColor="@color/styleguide_black_transparent_80"
         android:textSize="12sp"
         />
 
@@ -113,7 +113,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_centerInParent="true"
-        android:textColor="@color/grey_alpha_active_54"
+        android:textColor="@color/styleguide_black_transparent_80"
         android:textSize="12sp"
         tools:text="38.60 APPC-C"
         />
@@ -133,7 +133,7 @@
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:text="@string/ethereum_token_name"
-        android:textColor="@color/grey_alpha_active_54"
+        android:textColor="@color/styleguide_black_transparent_80"
         android:textSize="12sp"
         />
 
@@ -144,7 +144,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_centerInParent="true"
-        android:textColor="@color/grey_alpha_active_54"
+        android:textColor="@color/styleguide_black_transparent_80"
         android:textSize="12sp"
         tools:text="0.0012 ETH"
         />

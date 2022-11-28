@@ -36,7 +36,7 @@
       android:layout_height="wrap_content"
       android:text="@string/vip_program_referral_page_title"
       tools:text="@string/vip_program_referral_page_title"
-      android:textColor="@color/promotions_vip_title"
+      android:textColor="@color/styleguide_blue"
       android:layout_marginTop="50dp"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
@@ -46,7 +46,7 @@
   <TextView
       android:id="@+id/description_tv"
       style="@style/TextM"
-      android:textColor="@color/promotions_vip_desc"
+      android:textColor="@color/styleguide_dark_grey"
       android:layout_width="0dp"
       android:layout_height="wrap_content"
       android:text="@string/vip_program_referral_page_body"
@@ -61,7 +61,7 @@
   <TextView
       android:id="@+id/title_code_tv"
       style="@style/TextS"
-      android:textColor="@color/promotions_vip_desc"
+      android:textColor="@color/styleguide_dark_grey"
       android:layout_width="0dp"
       android:layout_height="wrap_content"
       android:text="@string/vip_program_referral_page_share_title"
@@ -78,9 +78,9 @@
       android:layout_height="wrap_content"
       android:layout_width="0dp"
       android:background="@color/transparent"
-      app:cardBackgroundColor="@color/promotions_vip_grey"
+      app:cardBackgroundColor="@color/styleguide_light_grey"
       app:cardElevation="0dp"
-      app:rippleColor="@color/white"
+      app:rippleColor="@color/styleguide_white"
       app:shapeAppearance="@style/Home.PillShape"
       android:layout_marginStart="@dimen/standard_double_margin"
       android:layout_marginEnd="@dimen/standard_double_margin"
@@ -101,7 +101,7 @@
         android:layout_marginBottom="10dp"
         android:layout_marginStart="22dp"
         android:fontFamily="sans-serif-medium"
-        android:textColor="@color/promotions_vip_title"
+        android:textColor="@color/styleguide_blue"
         tools:text="123456789"
         />
 
@@ -116,7 +116,7 @@
       android:enabled="true"
       app:buttonText="@string/askafriend_share_button"
       app:buttonType="filled"
-      app:buttonColor="@color/promotions_vip_orange"
+      app:buttonColor="@color/styleguide_vip_yellow"
       app:layout_constraintBottom_toBottomOf="@id/code_mcv"
       app:layout_constraintEnd_toEndOf="@+id/code_mcv"
       app:layout_constraintTop_toTopOf="@id/code_mcv"
@@ -139,7 +139,7 @@
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
       android:paddingVertical="8dp"
-      android:background="@color/promotions_vip_grey"
+      android:background="@color/styleguide_light_grey"
     >
 
     <ImageView
@@ -161,7 +161,7 @@
         android:layout_gravity="center_vertical"
         android:layout_marginStart="@dimen/big_margin"
         android:fontFamily="sans-serif-medium"
-        android:textColor="@color/promotions_vip_title"
+        android:textColor="@color/styleguide_blue"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/imageView"
         app:layout_constraintTop_toTopOf="parent"

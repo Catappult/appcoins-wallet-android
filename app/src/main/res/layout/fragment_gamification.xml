@@ -187,7 +187,7 @@
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
-      android:background="@color/bottom_sheet_translucent_background"
+      android:background="@color/styleguide_black_transparent_80"
       android:elevation="2dp"
       android:visibility="gone"
       android:clickable="true"

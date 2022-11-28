@@ -63,6 +63,9 @@ class AnalyticsModule {
       PaymentMethodsAnalytics.WALLET_PAYMENT_LOADING_TOTAL,
       PaymentMethodsAnalytics.WALLET_PAYMENT_LOADING_STEP,
       PaymentMethodsAnalytics.WALLET_PAYMENT_PROCESSING_TOTAL,
+      PaymentMethodsAnalytics.WALLET_3DS_START,
+      PaymentMethodsAnalytics.WALLET_3DS_CANCEL,
+      PaymentMethodsAnalytics.WALLET_3DS_ERROR,
       NavBarAnalytics.WALLET_CALLOUT_PROMOTIONS_CLICK
     )
 
@@ -93,7 +96,10 @@ class AnalyticsModule {
       PaymentMethodsAnalytics.WALLET_PAYMENT_LOADING_TOTAL,
       PaymentMethodsAnalytics.WALLET_PAYMENT_LOADING_STEP,
       PaymentMethodsAnalytics.WALLET_PAYMENT_PROCESSING_TOTAL,
-      NavBarAnalytics.WALLET_CALLOUT_PROMOTIONS_CLICK
+      PaymentMethodsAnalytics.WALLET_3DS_START,
+      PaymentMethodsAnalytics.WALLET_3DS_CANCEL,
+      PaymentMethodsAnalytics.WALLET_3DS_ERROR,
+      NavBarAnalytics.WALLET_CALLOUT_PROMOTIONS_CLICK,
     )
 
   @Singleton
@@ -123,6 +129,9 @@ class AnalyticsModule {
       PaymentMethodsAnalytics.WALLET_PAYMENT_LOADING_TOTAL,
       PaymentMethodsAnalytics.WALLET_PAYMENT_LOADING_STEP,
       PaymentMethodsAnalytics.WALLET_PAYMENT_PROCESSING_TOTAL,
+      PaymentMethodsAnalytics.WALLET_3DS_START,
+      PaymentMethodsAnalytics.WALLET_3DS_CANCEL,
+      PaymentMethodsAnalytics.WALLET_3DS_ERROR,
       NavBarAnalytics.WALLET_CALLOUT_PROMOTIONS_CLICK
     )
 

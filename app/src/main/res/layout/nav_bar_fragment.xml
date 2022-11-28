@@ -60,7 +60,7 @@
       android:background="?android:attr/windowBackground"
       app:itemHorizontalTranslationEnabled="false"
       app:itemIconTint="@color/bottom_nav_color_state"
-      app:itemRippleColor="@color/button_borderless_ripple_color"
+      app:itemRippleColor="@color/styleguide_dark_grey"
       app:itemTextColor="@color/bottom_nav_color_state"
       app:labelVisibilityMode="labeled"
       app:layout_constraintBottom_toBottomOf="parent"
@@ -79,5 +79,4 @@
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       />
-
 </androidx.constraintlayout.widget.ConstraintLayout>

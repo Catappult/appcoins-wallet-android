@@ -24,13 +24,7 @@
 
     <action
         android:id="@+id/action_navigate_create_wallet_dialog"
-        app:destination="@id/create_wallet_dialog_fragment"
-        app:popUpTo="@+id/onboarding_terms_conditions_dialog"
-        app:popUpToInclusive="true" />
-
-    <action
-        android:id="@+id/action_navigate_terms_conditions"
-        app:destination="@id/onboarding_terms_conditions_dialog" />
+        app:destination="@id/create_wallet_dialog_fragment" />
 
     <action
         android:id="@+id/action_navigate_to_nav_bar_fragment"
@@ -43,17 +37,6 @@
       android:id="@+id/nav_bar_fragment"
       android:name="com.asfoundation.wallet.main.nav_bar.NavBarFragment"
       tools:layout="@layout/nav_bar_fragment"/>
-
-  <dialog
-      android:id="@+id/onboarding_terms_conditions_dialog"
-      android:name="com.asfoundation.wallet.onboarding.bottom_sheet.TermsConditionsBottomSheetFragment"
-      tools:layout="@layout/terms_conditions_bottom_sheet">
-    <action
-        android:id="@+id/action_navigate_create_wallet_dialog"
-        app:destination="@id/create_wallet_dialog_fragment"
-        app:popUpTo="@+id/onboarding_terms_conditions_dialog"
-        app:popUpToInclusive="true" />
-  </dialog>
 
   <dialog
       android:id="@+id/create_wallet_dialog_fragment"

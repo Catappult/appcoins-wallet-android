@@ -119,7 +119,7 @@ class SubscriptionDetailsFragment : BasePageViewFragment(), SubscriptionDetailsV
     status.text = getString(R.string.subscriptions_active_title)
     status_icon.setImageResource(R.drawable.ic_active)
     layout_active_subscription_content.payment_method_value.text = subscriptionItem.paymentMethod
-    status.setTextColor(ResourcesCompat.getColor(resources, R.color.green, null))
+    status.setTextColor(ResourcesCompat.getColor(resources, R.color.styleguide_green, null))
 
     sku_name.text = subscriptionItem.itemName
     context?.let { loadImages(it, subscriptionItem.appIcon, subscriptionItem.paymentIcon) }
@@ -155,7 +155,7 @@ class SubscriptionDetailsFragment : BasePageViewFragment(), SubscriptionDetailsV
 
     renew_subscription.visibility = View.GONE
     status_icon.setImageResource(R.drawable.ic_forbidden)
-    status.setTextColor(ResourcesCompat.getColor(resources, R.color.grey_7f, null))
+    status.setTextColor(ResourcesCompat.getColor(resources, R.color.styleguide_medium_grey, null))
     status.text = getString(R.string.subscriptions_inactive_title)
     context?.let { loadImages(it, subscriptionItem.appIcon, subscriptionItem.paymentIcon) }
 
@@ -169,7 +169,7 @@ class SubscriptionDetailsFragment : BasePageViewFragment(), SubscriptionDetailsV
     expires_on.visibility = View.VISIBLE
     cancel_subscription.visibility = View.GONE
     next_payment_value.text = getString(R.string.subscriptions_canceled_body)
-    next_payment_value.setTextColor(ResourcesCompat.getColor(resources, R.color.red, null))
+    next_payment_value.setTextColor(ResourcesCompat.getColor(resources, R.color.styleguide_red, null))
 
     val dateFormat = SimpleDateFormat("MMM dd", Locale.getDefault())
 

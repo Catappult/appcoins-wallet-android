@@ -29,7 +29,7 @@
       android:gravity="center"
       android:lineSpacingExtra="4sp"
       android:text="@string/askafriend_generating_link_error_message"
-      android:textColor="@color/grey_8a_alpha"
+      android:textColor="@color/styleguide_black_transparent_80"
       android:textSize="12sp"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"

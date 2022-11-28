@@ -80,15 +80,14 @@ class NavBarFragment : BasePageViewFragment(),
   override fun onSideEffect(sideEffect: NavBarSideEffect) {
     when (sideEffect) {
       NavBarSideEffect.ShowPromotionsTooltip -> showPromotionsOverlay()
-      NavBarSideEffect.ShowOnboardingIap -> showOnboardingIap()
-      NavBarSideEffect.ShowOnboardingTopApp -> showOnboardingTopApp()
+      NavBarSideEffect.ShowOnboardingGPInstall -> showOnboardingIap()
     }
   }
 
   private fun setPromotionBadge(showPromotionsBadge: Boolean) {
     if (showPromotionsBadge) {
       views.bottomNav.getOrCreateBadge(R.id.promotions_graph).apply {
-        backgroundColor = ContextCompat.getColor(requireContext(), R.color.wild_watermelon)
+        backgroundColor = ContextCompat.getColor(requireContext(), R.color.styleguide_pink)
         isVisible = true
       }
     }
@@ -107,12 +106,7 @@ class NavBarFragment : BasePageViewFragment(),
 
   private fun showOnboardingIap() {
     views.fullHostContainer.visibility = View.VISIBLE
-    navigator.showOnboardingIapScreen(fullHostFragment.navController)
-  }
-
-  private fun showOnboardingTopApp() {
-    views.fullHostContainer.visibility = View.VISIBLE
-    navigator.showOnboardingTopAppScreen(fullHostFragment.navController)
+    navigator.showOnboardingGPInstallScreen(fullHostFragment.navController)
   }
 
   @SuppressLint("SetTextI18n", "ResourceType")
@@ -121,11 +115,11 @@ class NavBarFragment : BasePageViewFragment(),
     val htmlColoredText =
       "${
         getString(R.string.vip_program_promotions_tab_1).createColoredString(
-          getString(R.color.only_for_vip_background_color)
+          getString(R.color.styleguide_vip_yellow)
         )
       } ${
         getString(R.string.vip_program_promotions_tab_2).createColoredString(
-          getString(R.color.whiteNoAlpha)
+          getString(R.color.styleguide_white)
         )
       }"
     views.vipPromotionsCallout.desciptionTv.setTextFromColored(htmlColoredText)

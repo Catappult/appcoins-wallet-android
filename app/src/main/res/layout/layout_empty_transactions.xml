@@ -8,61 +8,35 @@
   <androidx.constraintlayout.widget.ConstraintLayout
       android:layout_width="match_parent"
       android:layout_height="match_parent"
-      android:paddingBottom="55dp"
+      android:paddingBottom="@dimen/large_margin"
       >
-    <TextView
-        android:id="@+id/no_transactions_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/half_large_margin"
-        android:gravity="center"
-        android:text="@string/no_transactions_yet_main"
-        app:layout_constraintBottom_toTopOf="@id/page_indicator"
-        app:layout_constraintEnd_toStartOf="@+id/vertical_guideline2"
-        app:layout_constraintStart_toStartOf="@+id/guideline"
-        app:layout_constraintTop_toTopOf="parent"
-        />
 
     <com.rd.PageIndicatorView
         android:id="@+id/page_indicator"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="11dp"
+        android:layout_marginTop="@dimen/half_large_margin"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/no_transactions_text"
+        app:layout_constraintTop_toBottomOf="@id/empty_transactions_viewpager"
         app:piv_animationType="thinWorm"
         app:piv_dynamicCount="true"
         app:piv_padding="14dp"
         app:piv_radius="4dp"
-        app:piv_selectedColor="@color/selection_dot_selected"
-        app:piv_unselectedColor="@color/selection_dot_unselected"
+        app:piv_selectedColor="@color/styleguide_pink"
+        app:piv_unselectedColor="@color/styleguide_light_grey"
         />
 
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/empty_transactions_viewpager"
         android:layout_width="match_parent"
-        android:layout_height="270dp"
-        android:layout_marginTop="14dp"
+        android:layout_height="250dp"
         android:overScrollMode="never"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/page_indicator"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/page_indicator"
-        />
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_begin="80dp"
-        />
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/vertical_guideline2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_end="80dp"
+        app:layout_constraintTop_toTopOf="parent"
         />
   </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>

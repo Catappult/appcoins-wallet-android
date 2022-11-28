@@ -150,7 +150,7 @@ enum class WalletCurrency(val symbol: String) {
       return when (currencySymbol) {
         "APPC" -> APPCOINS
         "ETH" -> ETHEREUM
-        "APPC-C" -> CREDITS
+        "APPC-C", "AppCoins Credits" -> CREDITS
         "" -> FIAT
         else -> throw IllegalArgumentException()
       }

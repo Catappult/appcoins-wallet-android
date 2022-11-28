@@ -7,6 +7,9 @@ interface PaymentView {
   fun showFraudError(isVerified: Boolean)
   fun showNoNetworkError()
   fun showRootError()
+  fun showWalletVersionNotSupportedError()
   fun showFingerprintAuthentication()
   fun showNeedsTopUpWarning()
+  fun showNoFundsWarning()
+  fun showPaymentMethodNotSupported()
 }

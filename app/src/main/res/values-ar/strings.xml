@@ -67,7 +67,7 @@
   <string name="skip_with_arrow">تخطي &gt;</string>
   <string name="root_title">أمان الجهاز معرض خطر</string>
   <string name="root_body">يمكن لأي تطبيق الوصول إلى بيانات سلسلة المفاتيح الخاصة بمحفظة الأبكوينز وسرقة محفظتك! امسح هذه المحفظة حالًا واستعدها على جهاز آمن.</string>
-  <string name="credits_purchase_value">%s APPC Credits</string>
+  <string name="credits_purchase_value">%s AppCoins Credits</string>
   <string name="buying">شراء %s</string>
   <string name="action_buy">شراء</string>
   <string name="empty"></string>
@@ -114,26 +114,28 @@
   <string name="intro_title_third_page">بسيط &amp; سهل</string>
   <string name="intro_message_first_page">مرحبًا بك في ثورة اقتصاد التطبيقات.</string>
   <string name="intro_message_second_page">المفاتيح الخاصة لا تفارق جهازك أبدًا.</string>
-  <string name="intro_message_third_page">نفّذ جميع عمليات الدفع داخل التطبيق والمكافآت بواسطة APPC.</string>
+  <string name="intro_message_third_page">Process all your in-app payments and rewards in AppCoins.</string>
   <string name="intro_1_title">AppCoins Wallet</string>
   <string name="intro_1_body">تطبيقك للشراء داخل التطبيقات.</string>
   <string name="intro_2_title">العب أكثر، ادفع أقل</string>
-  <string name="intro_2_body">احصل على المكافآت عند شراء العناصر في تطبيقاتك وألعابك المفضلة.</string>
+  <string name="intro_2_body">The best payment wallet for apps and games.</string>
   <string name="intro_3_title">بسيط وسهل</string>
-  <string name="intro_3_body">احتفظ بمحفظة AppCoins Wallet مثبتة لاستخدامها في الدفع داخل ألعابك.</string>
+  <string name="intro_3_body">Bonuses on all purchases.</string>
   <string name="intro_4_title">آمن وسرّي</string>
-  <string name="intro_4_body">مفاتيحك السرية لن تفارق الجهاز، ما يبقي الأبكوينز الخاصو بك آمنة طوال الوقت.</string>
+  <string name="intro_4_body">Use bank card, PayPal and your favorite payment methods.</string>
   <string name="intro_4_body_2">ستكون كل تحويلاتك آمنة دومًا بفضل التقنيات الحديثة.</string>
   <string name="intro_5_title">احصل على رصيد AppCoins مجاني!</string>
   <string name="intro_5_body">ستربح رصيد AppCoins مجانيًا عند تجربة التطبيقات والألعاب.</string>
   <string name="intro_creating_wallet_short">ضبط محفظتك من أجلك&#8230;</string>
   <string name="intro_wallet_created_short">تم إنشاء المحفظة!</string>
-  <string name="intro_agree_terms_and_conditions_body">بالضغط على تخطّي، أنت توافق على محفظة AppCoins %1$s و%2$s</string>
+  <string name="intro_agree_terms_and_conditions_body">By entering the AppCoins Wallet, you agree to the %1$s and %2$s.</string>
   <string name="intro_skip_button">تخطّي</string>
   <string name="intro_welcome_header">أهلا بك بمحفظة AppCoins Wallet</string>
-  <string name="intro_welcome_body">تطبيقك للشراء داخل التطبيقات.</string>
+  <string name="intro_welcome_body">Top up your wallet or make a purchase in any AppCoins compatible app or game.</string>
+  <string name="intro_welcome_header_2">Up to %s%% Bonus!</string>
+  <string name="intro_welcome_body_2">Bonuses can be used in any app or game.</string>
   <string name="intro_already_have_wallet_button">لدي محفظة بالفعل</string>
-  <string name="intro_get_started_button">ابدأ</string>
+  <string name="intro_get_started_button">Launch wallet</string>
   <!-- Menus -->
   <!-- Labels -->
   <string name="label_from">مِن</string>
@@ -207,7 +209,7 @@
   <string name="activity_iab_error_message">حدث خطأ، يرجى المحاولة مرة أخرى</string>
   <string name="action_try">محاولة</string>
   <string name="activity_transactions_learn_more">اعرف المزيد</string>
-  <string name="activity_iab_no_funds_message">لا يوجد ETH وAPPC كافية</string>
+  <string name="activity_iab_no_funds_message">Not enough ETH and AppCoins</string>
   <string name="activity_iab_no_ethereum_funds_message">لا يوجد إيثيريوم كافية</string>
   <string name="activity_iab_no_token_funds_message">لا يوجد أبكوينز كافية</string>
   <string name="activity_iab_wrong_network_message">شبكة إيثيريوم خاطئة أو توكن غير معروف</string>
@@ -299,19 +301,19 @@
   <string name="gamification_home_body">احصل على علاوة تصل إلى %s%% في تطبيقاتك وألعابك المفضلة!</string>
   <string name="gamification_home_button">ابدأ الربح</string>
   <string name="gamification_level_title">ما هو مستواي؟</string>
-  <string name="gamification_level_title_new">احصل على رصيد APPC!</string>
+  <string name="gamification_level_title_new">Get AppCoins Credits!</string>
   <string name="gamification_level_on_graphic">المستوى %s</string>
   <string name="gamification_APPCapps_button">تطبيقات &amp; ألعاب</string>
   <string name="gamification_level_header">مبروك، أنت %s!</string>
   <string name="gamification_level_to_next">إلى المستوى التالي:</string>
   <string name="gamification_level_earned">مكتسب:</string>
   <string name="gamification_level_next_lvl">إلى المستوى التالي:</string>
-  <string name="gamification_level_next_lvl_value">%s APPC</string>
+  <string name="gamification_level_next_lvl_value">%s AppCoins</string>
   <string name="gamification_level_bonus">علاوة %s%%</string>
   <string name="gamification_level_button_how">كيف يعمل</string>
-  <string name="gamification_level_body">ستحصل على رصيد APPC عند شراء العناصر في تطبيقاتك وألعابك المفضلة.</string>
+  <string name="gamification_level_body">You\'ll earn AppCoins Credits when buying items in your favorite apps and games.</string>
   <string name="gamification_how_header">كيف أنتقل للمستوى التالي؟</string>
-  <string name="gamification_how_body">ستحصل على رصيد APPC عند شراء العناصر في تطبيقاتك وألعابك المفضلة.</string>
+  <string name="gamification_how_body">You\'ll earn AppCoins Credits when buying items in your favorite apps and games.</string>
   <string name="gamification_how_body_new">كلما أنفقت أكثر على تطبيقاتك المفضلة، زادت مكافآتك!</string>
   <string name="gamification_how_table_a1">أنفق</string>
   <string name="gamification_how_table_b1">علاوة</string>
@@ -333,7 +335,7 @@
   <string name="gamification_transaction_title">@string/gamification_level_bonus</string>
   <string name="gamification_purchase_header">عملية الشراء هذه عليها مكافأة!</string>
   <string name="gamification_purchase_header_part_1">مكافأة للمشتريات:</string>
-  <string name="gamification_purchase_header_part_2">%s في رصيد APPC</string>
+  <string name="gamification_purchase_header_part_2">%s في رصيد الـAppCoins</string>
   <string name="gamification_purchase_body">يمكنك استخدام هذه المكافأة في عملية الشراء القادمة.</string>
   <string name="gamification_purchase_completed_bonus_received_done">تمت!</string>
   <string name="gamification_purchase_completed_bonus_received">تلقيت مكافأة</string>
@@ -370,14 +372,14 @@
   <!-- Top Up -->
   <string name="topup_home_button">أعد تعبئة</string>
   <string name="topup_title">تعبئة</string>
-  <string name="topup_amount">%s APPC-C</string>
+  <string name="topup_amount">%s AppCoins Credits</string>
   <string name="topup_bonus_header">حصلت على مكافأة!</string>
-  <string name="topup_bonus_message">سيضاف %s APPC-C إضافية إلى محفظتك.</string>
+  <string name="topup_bonus_message">%s AppCoins Credits extra will be credited in your wallet.</string>
   <string name="topup_completed_1">%s في رصيد الـAppCoins</string>
   <string name="topup_completed_2_with_bonus">أُودعت في حسابك... إضافة إلى مكافأة!</string>
   <string name="topup_completed_2_without_bonus">أُودِعَتْ في حسابك.</string>
   <string name="topup_bonus_header_part_1">مكافأة شحن رصيد:</string>
-  <string name="topup_bonus_header_part_2">%s في رصيد APPC</string>
+  <string name="topup_bonus_header_part_2">%s في رصيد الـAppCoins</string>
   <string name="topup_bonus_body">يمكنك استخدام هذه المكافأة في عميلة الشراء القادمة.</string>
   <string name="topup_minimum_value">أقل قيمة يمكن إضافتها هي %s</string>
   <string name="topup_maximum_value">أعلى قيمة يمكن إضافتها هي %s</string>
@@ -389,7 +391,7 @@
   <string name="balance_topup_body">يمكنك إعادة تعبئة محفظتك برصيد AppCoins.</string>
   <string name="balance_ethereum_body">الإيثيريوم هي عملة مشفرة تعتمد عليها عملة AppCoins. يمكنك بيعها وشراؤها في معظم التبادلات، إن استخدامها شائع جدًّا!</string>
   <string name="balance_appcoins_body">AppCoins هي عملة مشفرة من أجل العمليات الاقتصادية في التطبيق. يمكنك بيعها وشراؤها في عدة تبادلات واستخدامها لشراء العناصر داخل التطبيقات.</string>
-  <string name="balance_appccreditos_body">التوكن لشراء العناصر داخل التطبيق! أعد تعبئة APPC-C من محفظتك أو احصل عليها مجانًا من خلال استخدام التطبيقات. يمكنك أيضًا تبادلها مع الأصدقاء!</string>
+  <string name="balance_appccreditos_body">The token to buy in-app items! Top up AppCoins Credits from your wallet or get them for free by using apps. They can also be transferred between friends!</string>
   <string name="my_wallets_action_new_wallet">محفظة جديدة</string>
   <string name="my_wallets_action_recover_wallet">استعادة المحفظة</string>
   <string name="my_wallets_action_backup_wallet">محفظة احتياطية</string>
@@ -460,7 +462,7 @@
   <string name="home_empty_discover_apps_button">اكتشف أفضل التطبيقات</string>
   <!--Tokens-->
   <!--Settings-->
-  <string name="title_redeem">استرجع قيمة الكود</string>
+  <string name="title_redeem">Redeem Gift Card</string>
   <string name="settings_item_support">تواصل مع فريق الدعم</string>
   <string name="settings_subheader_support">الدعم</string>
   <string name="settings_subheader_about_us">من نحن</string>
@@ -549,7 +551,7 @@
   <string name="purchase_error_try_cheaper_item">ثمنها مرتفع جدًا! يرجى شراء عنصر أقل ثمنًا.</string>
   <string name="purchase_error_try_cheaper_item_or_method">الثمن مرتفع جدًا! يرجى شراء عنصر أقل ثمًا أو تجربة وسيلة دفع أخرى.</string>
   <string name="transfer_appc_error_no_eth_title">تحتاج إلى Ether!</string>
-  <string name="transfer_appc_error_no_eth_body">رسوم تحويل AppCoins تُدفَع بالـ Ethereum، لذا تحتاج إلى ETH لتحويل APPC.</string>
+  <string name="transfer_appc_error_no_eth_body">AppCoins transfers fees are paid in Ethereum, so you\'ll need ETH to transfer AppCoins.</string>
   <string name="purchase_error_invalid_credit_card">رقم بطاقة بنكية غير صالح. يرجى التأكد من أن كل الأرقام صحيحة.</string>
   <string name="purchase_error_card_security_validation">حدث خطأ في المستوى الثاني من التحقق من هذا التحويل. يرجى المحاولة مجددًا.</string>
   <string name="purchase_error_transaction_timeout">يبدو أنك استغرقت وقتًا طويلًا لإتمام التحويل. يرجى المحاولة مجددًا.</string>

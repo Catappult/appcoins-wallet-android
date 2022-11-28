@@ -67,7 +67,7 @@
   <string name="skip_with_arrow">跳过&gt;</string>
   <string name="root_title">设备安全弱</string>
   <string name="root_body">任何“植根”应用可以访问AppCoins Wallet的密钥库数据和盗取你的钱包！立即擦除此钱包并在安全的设备上恢复。</string>
-  <string name="credits_purchase_value">%s APPC Credits</string>
+  <string name="credits_purchase_value">%s AppCoins Credits</string>
   <string name="buying">购买%s</string>
   <string name="action_buy">购买</string>
   <string name="empty"></string>
@@ -114,26 +114,28 @@
   <string name="intro_title_third_page">简单易用</string>
   <string name="intro_message_first_page">欢迎体验应用经济的革命。</string>
   <string name="intro_message_second_page">私钥永远不会离开你的设备。</string>
-  <string name="intro_message_third_page">在APPC中处理你的所有应用内付款和奖励。</string>
+  <string name="intro_message_third_page">Process all your in-app payments and rewards in AppCoins.</string>
   <string name="intro_1_title">AppCoins Wallet</string>
   <string name="intro_1_body">应用内购买的应用。</string>
   <string name="intro_2_title">少花钱，多玩乐</string>
-  <string name="intro_2_body">在你最喜爱的应用和游戏中购买物品即可获得奖励。</string>
+  <string name="intro_2_body">The best payment wallet for apps and games.</string>
   <string name="intro_3_title">简单易用</string>
-  <string name="intro_3_body">继续安装AppCoins钱包，以直接在游戏中购买。</string>
+  <string name="intro_3_body">Bonuses on all purchases.</string>
   <string name="intro_4_title">安全私密</string>
-  <string name="intro_4_body">你的私钥永远不会离开你的设备，因此你的AppCoins始终安全。</string>
+  <string name="intro_4_body">Use bank card, PayPal and your favorite payment methods.</string>
   <string name="intro_4_body_2">得益于最新技术，您的所有交易都始终安全。</string>
   <string name="intro_5_title">获取免费AppCoins积金！</string>
   <string name="intro_5_body">你可以通过试用应用和试玩游戏来赢取免费AppCoins积金。</string>
   <string name="intro_creating_wallet_short">正在为你设置钱包&#8230;</string>
   <string name="intro_wallet_created_short">钱包已创建！</string>
-  <string name="intro_agree_terms_and_conditions_body">点击“跳过”，即表示你同意AppCoins Wallet的%1$s和%2$s</string>
+  <string name="intro_agree_terms_and_conditions_body">By entering the AppCoins Wallet, you agree to the %1$s and %2$s.</string>
   <string name="intro_skip_button">跳过</string>
   <string name="intro_welcome_header">欢迎来到AppCoins钱包</string>
-  <string name="intro_welcome_body">应用内购买的应用。</string>
+  <string name="intro_welcome_body">Top up your wallet or make a purchase in any AppCoins compatible app or game.</string>
+  <string name="intro_welcome_header_2">Up to %s%% Bonus!</string>
+  <string name="intro_welcome_body_2">Bonuses can be used in any app or game.</string>
   <string name="intro_already_have_wallet_button">我已经有钱包了。</string>
-  <string name="intro_get_started_button">开始</string>
+  <string name="intro_get_started_button">Launch wallet</string>
   <!-- Menus -->
   <!-- Labels -->
   <string name="label_from">发送方</string>
@@ -207,7 +209,7 @@
   <string name="activity_iab_error_message">出现错误，请重试</string>
   <string name="action_try">尝试</string>
   <string name="activity_transactions_learn_more">了解更多</string>
-  <string name="activity_iab_no_funds_message">ETH和APPC不足</string>
+  <string name="activity_iab_no_funds_message">Not enough ETH and AppCoins</string>
   <string name="activity_iab_no_ethereum_funds_message">以太币不足</string>
   <string name="activity_iab_no_token_funds_message">AppCoins不足</string>
   <string name="activity_iab_wrong_network_message">以太网网络错误或代币不明</string>
@@ -299,19 +301,19 @@
   <string name="gamification_home_body">在你最喜爱的应用和游戏中赚取高达%s%%的奖励！</string>
   <string name="gamification_home_button">开始赚取</string>
   <string name="gamification_level_title">我的等级是什么？</string>
-  <string name="gamification_level_title_new">获取APPC积分！</string>
+  <string name="gamification_level_title_new">Get AppCoins Credits!</string>
   <string name="gamification_level_on_graphic">第%s级</string>
   <string name="gamification_APPCapps_button">应用和游戏</string>
   <string name="gamification_level_header">恭喜，你是%s！</string>
   <string name="gamification_level_to_next">到下一等级：</string>
   <string name="gamification_level_earned">已挣：</string>
   <string name="gamification_level_next_lvl">到下一级:</string>
-  <string name="gamification_level_next_lvl_value">%s APPC</string>
+  <string name="gamification_level_next_lvl_value">%s AppCoins</string>
   <string name="gamification_level_bonus">%s%%奖励</string>
   <string name="gamification_level_button_how">工作原理</string>
-  <string name="gamification_level_body">你在喜爱的应用和游戏内购买物品时会赚取APPC积分。</string>
+  <string name="gamification_level_body">You\'ll earn AppCoins Credits when buying items in your favorite apps and games.</string>
   <string name="gamification_how_header">如何升级</string>
-  <string name="gamification_how_body">你在喜爱的应用和游戏内购买物品时会赚取APPC积分。</string>
+  <string name="gamification_how_body">You\'ll earn AppCoins Credits when buying items in your favorite apps and games.</string>
   <string name="gamification_how_body_new">在自己最喜欢的应用中花费得越多，奖金就越大！</string>
   <string name="gamification_how_table_a1">支付</string>
   <string name="gamification_how_table_b1">奖励</string>
@@ -333,7 +335,7 @@
   <string name="gamification_transaction_title">@string/gamification_level_bonus</string>
   <string name="gamification_purchase_header">这次购买有奖励！</string>
   <string name="gamification_purchase_header_part_1">购买奖励：</string>
-  <string name="gamification_purchase_header_part_2">%s APPC积金</string>
+  <string name="gamification_purchase_header_part_2">%s的AppCoins积金</string>
   <string name="gamification_purchase_body">你可以在下次购买中使用此奖金。</string>
   <string name="gamification_purchase_completed_bonus_received_done">完成！</string>
   <string name="gamification_purchase_completed_bonus_received">奖金已收到</string>
@@ -370,14 +372,14 @@
   <!-- Top Up -->
   <string name="topup_home_button">充值</string>
   <string name="topup_title">充值</string>
-  <string name="topup_amount">%s APPC-C</string>
+  <string name="topup_amount">%s AppCoins Credits</string>
   <string name="topup_bonus_header">你获得了奖励！</string>
-  <string name="topup_bonus_message">你的钱包将额外获得%s APPC-C。</string>
+  <string name="topup_bonus_message">%s AppCoins Credits extra will be credited in your wallet.</string>
   <string name="topup_completed_1">%s的AppCoins积金</string>
   <string name="topup_completed_2_with_bonus">已存入你的帐户...奖金也已存入！</string>
   <string name="topup_completed_2_without_bonus">已存入你的帐户。</string>
   <string name="topup_bonus_header_part_1">充值奖金：</string>
-  <string name="topup_bonus_header_part_2">%s APPC积金</string>
+  <string name="topup_bonus_header_part_2">%s的AppCoins积金</string>
   <string name="topup_bonus_body">你可以在下次购买中使用此奖金。</string>
   <string name="topup_minimum_value">最低充值额为%s</string>
   <string name="topup_maximum_value">最高充值额为%s</string>
@@ -389,7 +391,7 @@
   <string name="balance_topup_body">你可以使用AppCoins积金为钱包充值。</string>
   <string name="balance_ethereum_body">以太币是AppCoins采用的加密货币。你可以在大多数交易平台交易以太币，以太币是现今非常热门的加密货币！</string>
   <string name="balance_appcoins_body">AppCoins是应用经济的加密货币。你可以在多个交易平台交易，用它来购买应用内物品。</string>
-  <string name="balance_appccreditos_body">购买应用内物品的代币！从钱包充值APPC-C或使用应用免费获取。好友之间也可交易！</string>
+  <string name="balance_appccreditos_body">The token to buy in-app items! Top up AppCoins Credits from your wallet or get them for free by using apps. They can also be transferred between friends!</string>
   <string name="my_wallets_action_new_wallet">新钱包</string>
   <string name="my_wallets_action_recover_wallet">恢复钱包</string>
   <string name="my_wallets_action_backup_wallet">备份钱包</string>
@@ -460,7 +462,7 @@
   <string name="home_empty_discover_apps_button">探索最佳应用</string>
   <!--Tokens-->
   <!--Settings-->
-  <string name="title_redeem">兑换码</string>
+  <string name="title_redeem">Redeem Gift Card</string>
   <string name="settings_item_support">联系支持团队</string>
   <string name="settings_subheader_support">支持</string>
   <string name="settings_subheader_about_us">关于我们</string>
@@ -548,7 +550,7 @@
   <string name="purchase_error_try_cheaper_item">费用太高了！请尝试购买价值较低的物品。</string>
   <string name="purchase_error_try_cheaper_item_or_method">费用太高了！请尝试购买较便宜的物品，或者尝试其他付款方式。</string>
   <string name="transfer_appc_error_no_eth_title">你需要以太币！</string>
-  <string name="transfer_appc_error_no_eth_body">AppCoins的转账费用以太币支付，所以需要以太币来转APPC。</string>
+  <string name="transfer_appc_error_no_eth_body">AppCoins transfers fees are paid in Ethereum, so you\'ll need ETH to transfer AppCoins.</string>
   <string name="purchase_error_invalid_credit_card">无效的银行卡号。请确保所有数字都正确。</string>
   <string name="purchase_error_card_security_validation">此交易的第二层验证存在错误。请重试。</string>
   <string name="purchase_error_transaction_timeout">你完成交易的时间似乎太长。请重试。</string>

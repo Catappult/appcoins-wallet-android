@@ -6,7 +6,6 @@ import com.asfoundation.wallet.app_start.StartMode
 import com.asfoundation.wallet.base.BaseViewModel
 import com.asfoundation.wallet.base.SideEffect
 import com.asfoundation.wallet.base.ViewState
-import com.asfoundation.wallet.home.usecases.ObserveDefaultWalletUseCase
 import com.asfoundation.wallet.main.use_cases.HasSeenPromotionTooltipUseCase
 import com.asfoundation.wallet.main.use_cases.IsNewVipUseCase
 import com.asfoundation.wallet.main.use_cases.SetVipPromotionsSeenUseCase
@@ -19,8 +18,7 @@ import javax.inject.Inject
 
 sealed class NavBarSideEffect : SideEffect {
   object ShowPromotionsTooltip : NavBarSideEffect()
-  object ShowOnboardingIap : NavBarSideEffect()
-  object ShowOnboardingTopApp : NavBarSideEffect()
+  object ShowOnboardingGPInstall : NavBarSideEffect()
 }
 
 data class NavBarState(
@@ -30,7 +28,6 @@ data class NavBarState(
 
 @HiltViewModel
 class NavBarViewModel @Inject constructor(
-  private val observeDefaultWalletUseCase: ObserveDefaultWalletUseCase,
   private val hasSeenPromotionTooltip: HasSeenPromotionTooltipUseCase,
   private val promotionsInteractor: PromotionsInteractor,
   private val isNewVipUseCase: IsNewVipUseCase,
@@ -40,7 +37,7 @@ class NavBarViewModel @Inject constructor(
 
   init {
     handlePromotionUpdateNotification()
-    handleOnboardingFromGameOrAppScreen()
+    handleOnboardingFromGameScreen()
     handleVipCallout()
   }
 
@@ -73,14 +70,15 @@ class NavBarViewModel @Inject constructor(
     setState { copy(showPromotionsBadge = false) }
   }
 
-  private fun handleOnboardingFromGameOrAppScreen() {
+  private fun handleOnboardingFromGameScreen() {
     viewModelScope.launch {
       when (appStartUseCase.startModes.first()) {
-        is StartMode.FirstUtm -> {
-          sendSideEffect { NavBarSideEffect.ShowOnboardingIap }
+        is StartMode.PendingPurchaseFlow -> {
+          // temporarily sending to the same onboarding flow as the GP install, later we'll use the new onboarding payment flow
+          sendSideEffect { NavBarSideEffect.ShowOnboardingGPInstall }
         }
-        is StartMode.FirstTopApp -> {
-          sendSideEffect { NavBarSideEffect.ShowOnboardingTopApp }
+        is StartMode.GPInstall -> {
+          sendSideEffect { NavBarSideEffect.ShowOnboardingGPInstall }
         }
         else -> Unit
       }

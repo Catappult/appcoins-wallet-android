@@ -18,7 +18,7 @@
     <item name="android:statusBarColor">@color/statusBarColor</item>
     <item name="windowActionBar">false</item>
     <item name="windowNoTitle">true</item>
-    <item name="actionMenuTextColor">@color/white</item>
+    <item name="actionMenuTextColor">@color/styleguide_white</item>
     <item name="android:windowContentOverlay">@null</item>
     <item name="android:windowContentTransitions">true</item>
   </style>
@@ -42,7 +42,7 @@
   <style name="AppTheme.NoActionBar" parent="AppTheme">
     <item name="windowActionBar">false</item>
     <item name="windowNoTitle">true</item>
-    <item name="actionMenuTextColor">@color/white</item>
+    <item name="actionMenuTextColor">@color/styleguide_white</item>
     <item name="android:windowContentOverlay">@null</item>
   </style>
 
@@ -134,13 +134,13 @@
 
   <style name="TabDarkTextAppearance" parent="TextAppearance.Design.Tab">
     <item name="android:textSize">14sp</item>
-    <item name="android:textColor">@color/semitransparentWhite</item>
+    <item name="android:textColor">@color/styleguide_white_transparent_80</item>
     <item name="textAllCaps">true</item>
   </style>
 
   <style name="TransactionDetailsTextStyle">
     <item name="android:fontFamily">@font/roboto_regular</item>
-    <item name="android:textColor">@color/color_grey_9e</item>
+    <item name="android:textColor">@color/styleguide_medium_grey</item>
     <item name="android:textSize">12sp</item>
   </style>
 
@@ -149,7 +149,7 @@
   </style>
 
   <style name="TransactionDetailsTextStyle.AppBar">
-    <item name="android:textColor">@color/white</item>
+    <item name="android:textColor">@color/styleguide_white</item>
   </style>
 
   <style name="TransactionDetailsTextStyle.Heading">
@@ -172,7 +172,7 @@
   </style>
 
   <style name="TransactionDetailsTextStyle.Subtitle">
-    <item name="android:textColor">@color/gray_alpha_8a</item>
+    <item name="android:textColor">@color/styleguide_black_transparent_80</item>
   </style>
 
   <style name="TransactionDetailsTextStyle.Content">
@@ -181,21 +181,21 @@
   </style>
 
   <style name="TransactionDetailsTextStyle.Content.Address">
-    <item name="android:textColor">@color/details_address_text_color</item>
+    <item name="android:textColor">@color/styleguide_black</item>
     <item name="android:ellipsize">end</item>
   </style>
 
   <style name="TransactionDetailsTextStyle.Footer">
-    <item name="android:textColor">@color/gray_alpha_61</item>
+    <item name="android:textColor">@color/styleguide_dark_grey</item>
   </style>
 
   <style name="DialogTextStyle">
-    <item name="android:textColor">@color/gray_alpha_8a</item>
+    <item name="android:textColor">@color/styleguide_black_transparent_80</item>
     <item name="android:textSize">12sp</item>
   </style>
 
   <style name="DialogTitleStyle">
-    <item name="android:textColor">@color/black_87_alpha</item>
+    <item name="android:textColor">@color/styleguide_black_transparent_80</item>
     <item name="android:textSize">16sp</item>
   </style>
 
@@ -270,7 +270,7 @@
   </style>
 
   <style name="RestoreTitleTextStyle" parent="@style/TextAppearance.AppCompat.Body1.Roboto.Regular">
-    <item name="android:textColor">@color/black_87_alpha</item>
+    <item name="android:textColor">@color/styleguide_black_transparent_80</item>
     <item name="android:textSize">14sp</item>
   </style>
 
@@ -284,7 +284,7 @@
 
   <style name="BonusTextStyle">
     <item name="android:fontFamily">@font/roboto_regular</item>
-    <item name="android:textColor">@color/white</item>
+    <item name="android:textColor">@color/styleguide_white</item>
     <item name="android:textSize">10sp</item>
   </style>
 
@@ -313,13 +313,13 @@
 
   <style name="ShareLinkTextStyle">
     <item name="android:fontFamily">sans-serif</item>
-    <item name="android:textColor">@color/share_link_note_color</item>
+    <item name="android:textColor">@color/styleguide_medium_grey</item>
     <item name="android:textSize">12sp</item>
   </style>
 
   <style name="ShareLinkTextStyle.Title">
     <item name="android:fontFamily">sans-serif-medium</item>
-    <item name="android:textColor">@color/share_link_title_color</item>
+    <item name="android:textColor">@color/styleguide_black</item>
   </style>
 
   <style name="ShareLinkTextStyle.Title.Landscape">
@@ -329,7 +329,7 @@
   <style name="TopUpTextStyle">
     <item name="android:fontFamily">sans-serif</item>
     <item name="android:gravity">center</item>
-    <item name="android:textColor">@color/fakeBlack</item>
+    <item name="android:textColor">@color/styleguide_blue_transparent_90</item>
     <item name="android:textSize">12sp</item>
   </style>
 
@@ -347,51 +347,51 @@
   </style>
 
   <style name="TopUpTextStyle.ConvertedValue">
-    <item name="android:textColor">@color/color_grey_9e</item>
+    <item name="android:textColor">@color/styleguide_medium_grey</item>
   </style>
 
   <style name="TopUpTextStyle.SwapCurrency">
     <item name="android:textSize">8sp</item>
-    <item name="android:textColor">@color/color_grey_9e</item>
+    <item name="android:textColor">@color/styleguide_medium_grey</item>
   </style>
 
   <style name="TopUpTextStyle.Small.BonusTitle">
-    <item name="android:textColor">@color/top_up_bonus_title</item>
+    <item name="android:textColor">@color/styleguide_black</item>
     <item name="android:fontFamily">sans-serif-medium</item>
   </style>
 
   <style name="TopUpTextStyle.Small.BonusText">
-    <item name="android:textColor">@color/top_up_bonus_text</item>
+    <item name="android:textColor">@color/styleguide_dark_grey</item>
   </style>
 
   <style name="TopUpTextStyle.BonusText">
-    <item name="android:textColor">@color/top_up_bonus_text</item>
+    <item name="android:textColor">@color/styleguide_dark_grey</item>
   </style>
 
   <style name="TopUpTextStyle.SuccessTitle">
-    <item name="android:textColor">@color/top_up_bonus_title</item>
+    <item name="android:textColor">@color/styleguide_black</item>
     <item name="android:fontFamily">sans-serif</item>
     <item name="android:textSize">14sp</item>
   </style>
 
   <style name="TopUpTextStyle.SuccessText">
-    <item name="android:textColor">@color/top_up_bonus_text</item>
+    <item name="android:textColor">@color/styleguide_dark_grey</item>
   </style>
 
   <style name="TopUpTextStyle.PaymentDetails">
-    <item name="android:textColor">@color/color_title</item>
+    <item name="android:textColor">@color/styleguide_dark_grey</item>
     <item name="android:gravity">start</item>
   </style>
 
   <style name="TopUpTextStyle.ValueWarning">
-    <item name="android:textColor">@color/share_link_error_text_color</item>
+    <item name="android:textColor">@color/styleguide_red</item>
   </style>
 
   <style name="TopUpBarText">
     <item name="android:fontFamily">@font/roboto_bolt</item>
     <item name="android:maxLines">1</item>
     <item name="android:textSize">18sp</item>
-    <item name="android:textColor">@color/white</item>
+    <item name="android:textColor">@color/styleguide_white</item>
   </style>
 
   <style name="TransferAddressTextStyle">
@@ -403,7 +403,7 @@
 
   <style name="GasSettingsTextStyle">
     <item name="android:fontFamily">sans-serif</item>
-    <item name="android:textColor">@color/grey_alpha_active_54</item>
+    <item name="android:textColor">@color/styleguide_black_transparent_80</item>
     <item name="android:textSize">16sp</item>
   </style>
 
@@ -415,37 +415,27 @@
     <item name="android:fontFamily">@font/roboto_bolt</item>
     <item name="android:maxLines">1</item>
     <item name="android:textSize">20sp</item>
-    <item name="android:textColor">@color/white</item>
+    <item name="android:textColor">@color/styleguide_white</item>
   </style>
 
   <style name="OnboardingWelcomeSubtitleTextStyle">
     <item name="android:fontFamily">@font/roboto_regular</item>
     <item name="android:maxLines">1</item>
     <item name="android:textSize">14sp</item>
-    <item name="android:textColor">@color/white</item>
+    <item name="android:textColor">@color/styleguide_white</item>
   </style>
 
   <style name="OnboardingValuesTitleTextStyle">
     <item name="android:fontFamily">@font/roboto_bolt</item>
     <item name="android:maxLines">1</item>
     <item name="android:textSize">18sp</item>
-    <item name="android:textColor">@color/white</item>
+    <item name="android:textColor">@color/styleguide_white</item>
   </style>
 
   <style name="OnboardingValuesBodyTextStyle">
     <item name="android:fontFamily">@font/roboto_regular</item>
     <item name="android:textSize">12sp</item>
-    <item name="android:textColor">@color/white</item>
-  </style>
-
-  <style name="OnboardingTermsConditionsTextStyle">
-    <item name="android:fontFamily">sans-serif</item>
-    <item name="android:lineSpacingExtra">1sp</item>
-    <item name="android:textSize">9sp</item>
-  </style>
-
-  <style name="OnboardingTermsConditionsTextStyle.Warning">
-    <item name="android:textColor">@color/selection_dot_selected</item>
+    <item name="android:textColor">@color/styleguide_white</item>
   </style>
 
   <style name="TokenDetailsTitleStyle" parent="TextAppearance.AppCompat.Body1.Roboto.Medium">
@@ -453,7 +443,7 @@
   </style>
 
   <style name="TokenDetailsSubTitleStyle" parent="TextAppearance.AppCompat.Body1.Roboto.Medium">
-    <item name="android:textColor">@color/grey</item>
+    <item name="android:textColor">@color/styleguide_dark_grey</item>
   </style>
 
   <style name="TokenDetailsTextStyle" parent="TextAppearance.AppCompat.Body1.Roboto.Regular">
@@ -484,10 +474,10 @@
   <style name="TextInputLayoutAppearanceOutlinedDense" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
     <!-- reference our hint & error styles -->
     <item name="android:textColorHint">#727272</item>
-    <item name="boxStrokeColor">@color/box_stroke_color</item>
+    <item name="boxStrokeColor">@color/styleguide_pink</item>
     <item name="boxStrokeWidth">2dp</item>
     <item name="hintTextAppearance">@style/TextAppearance.MaterialComponents.Subtitle2</item>
-    <item name="hintTextColor">@color/edit_text_label</item>
+    <item name="hintTextColor">@color/styleguide_pink</item>
   </style>
 
   <style name="EditTextCursorTheme" parent="ThemeOverlay.MaterialComponents.TextInputEditText.OutlinedBox">
@@ -495,7 +485,7 @@
   </style>
 
   <style name="AppcoinsTextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
-    <item name="android:textColorHint">@color/grey</item>
+    <item name="android:textColorHint">@color/styleguide_dark_grey</item>
     <item name="android:textColor">#000000</item>
     <item name="boxStrokeColor">@color/edit_text_stroke_color</item>
     <item name="boxStrokeWidth">1dp</item>
@@ -518,7 +508,7 @@
   </style>
 
   <style name="BillingDropDown" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
-    <item name="android:textColorHint">@color/grey</item>
+    <item name="android:textColorHint">@color/styleguide_dark_grey</item>
     <item name="android:textColor">#000000</item>
     <item name="android:textSize">14sp</item>
     <item name="boxStrokeColor">@color/edit_text_stroke_color</item>
@@ -546,25 +536,25 @@
   <style name="TransactionSuccessTextStyle">
     <item name="android:fontFamily">sans-serif-medium</item>
     <item name="android:textSize">16sp</item>
-    <item name="android:textColor">@color/fakeBlack</item>
+    <item name="android:textColor">@color/styleguide_blue_transparent_90</item>
   </style>
 
   <style name="GamificationBottomPeekTextStyle">
     <item name="android:fontFamily">sans-serif-medium</item>
     <item name="android:textSize">20sp</item>
-    <item name="android:textColor">@color/rewards_level_main_color</item>
+    <item name="android:textColor">@color/styleguide_blue</item>
   </style>
 
   <style name="GamificationBottomPeekTextStyle.Body">
     <item name="android:fontFamily">sans-serif</item>
     <item name="android:textSize">10sp</item>
-    <item name="android:textColor">@color/dialog_fiat_price</item>
+    <item name="android:textColor">@color/styleguide_dark_grey</item>
   </style>
 
   <style name="SettingsTextStyle">
     <item name="android:fontFamily">sans-serif</item>
     <item name="android:textSize">16sp</item>
-    <item name="android:textColor">@color/black_87_alpha</item>
+    <item name="android:textColor">@color/styleguide_black_transparent_80</item>
   </style>
 
   <style name="SettingsDetailsTextStyle">
@@ -575,7 +565,7 @@
   <style name="SettingsTextStyle.Summary">
     <item name="android:fontFamily">sans-serif</item>
     <item name="android:textSize">12sp</item>
-    <item name="android:textColor">@color/grey_alpha_active_54</item>
+    <item name="android:textColor">@color/styleguide_black_transparent_80</item>
   </style>
 
   <style name="SettingsTextStyle.Category">
@@ -607,7 +597,7 @@
   </style>
 
   <style name="WalletBackupTextStyle.Address" parent="TextAppearance.AppCompat.Body1.Roboto.Regular">
-    <item name="android:textColor">@color/white</item>
+    <item name="android:textColor">@color/styleguide_white</item>
     <item name="android:textSize">14sp</item>
     <item name="android:lineSpacingExtra">2sp</item>
     <item name="android:ellipsize">end</item>
@@ -617,17 +607,17 @@
 
   <style name="WalletBackupTextStyle.Bold" parent="TextAppearance.AppCompat.Body1.Roboto.Regular">
     <item name="android:textSize">@dimen/backup_description_normal_text_size</item>
-    <item name="android:color">@color/black</item>
+    <item name="android:color">@color/styleguide_black</item>
     <item name="android:textStyle">bold</item>
     <item name="android:lineSpacingExtra">6sp</item>
   </style>
 
   <style name="WalletBackupTextStyle.Bold.White">
-    <item name="android:textColor">@color/white</item>
+    <item name="android:textColor">@color/styleguide_white</item>
   </style>
 
   <style name="WalletBackupTextStyle.Bold.White.Small.Transparent">
-    <item name="android:textColor">@color/white_transparent_10</item>
+    <item name="android:textColor">@color/styleguide_white_transparent_20</item>
   </style>
 
   <style name="WalletBackupTextStyle.Bold.White.Big">
@@ -639,28 +629,28 @@
   </style>
 
   <style name="WalletBackupTextStyle.Normal.White.L">
-    <item name="android:textColor">@color/white</item>
+    <item name="android:textColor">@color/styleguide_white</item>
     <item name="android:textSize">@dimen/backup_l_text_size</item>
   </style>
 
   <style name="WalletBackupTextStyle.Bold.Inactive" parent="WalletBackupTextStyle.Bold">
-    <item name="android:color">@color/grey_65</item>
+    <item name="android:color">@color/styleguide_medium_grey</item>
   </style>
 
   <style name="WalletBackupTextStyle.Description" parent="TextAppearance.AppCompat.Body1.Roboto.Regular">
     <item name="android:textSize">@dimen/backup_description_normal_text_size</item>
-    <item name="android:textColor">@color/white</item>
+    <item name="android:textColor">@color/styleguide_white</item>
     <item name="android:lineSpacingExtra">@dimen/backup_description_line_spacing_extra</item>
     <item name="android:gravity">center_horizontal</item>
   </style>
 
   <style name="WalletBackupTextStyle.Normal" parent="TextAppearance.AppCompat.Body1.Roboto.Regular">
     <item name="android:textSize">@dimen/backup_description_normal_text_size</item>
-    <item name="android:color">@color/black</item>
+    <item name="android:color">@color/styleguide_black</item>
   </style>
 
   <style name="WalletBackupTextStyle.Normal.White">
-    <item name="android:textColor">@color/white</item>
+    <item name="android:textColor">@color/styleguide_white</item>
   </style>
 
   <style name="WalletBackupTextStyle.Normal.White.M">
@@ -677,18 +667,24 @@
 
   <style name="WalletBackupTextStyle.NormalGrey" parent="TextAppearance.AppCompat.Body1.Roboto.Regular">
     <item name="android:textSize">@dimen/backup_description_normal_text_size</item>
-    <item name="android:textColor">@color/grey_blue_medium</item>
+    <item name="android:textColor">@color/styleguide_medium_grey</item>
     <item name="android:letterSpacing">0.01</item>
     <item name="android:lineSpacingExtra">2sp</item>
   </style>
 
+  <style name="SwitchCompactStyle">
+    <item name="colorControlActivated">@color/styleguide_pink</item>
+    <item name="colorSwitchThumbNormal">@color/styleguide_medium_grey</item>
+    <item name="android:colorForeground">@color/styleguide_medium_grey</item>
+  </style>
+
   <style name="WalletValidationTextStyle.Title" parent="TextAppearance.AppCompat.Body1.Roboto.Medium">
-    <item name="android:textColor">@color/color_title</item>
+    <item name="android:textColor">@color/styleguide_dark_grey</item>
     <item name="android:textSize">15sp</item>
   </style>
 
   <style name="WalletValidationTextStyle.Subtitle" parent="TextAppearance.AppCompat.Body1.Roboto.Regular">
-    <item name="android:textColor">@color/color_inactive</item>
+    <item name="android:textColor">@color/styleguide_dark_grey</item>
     <item name="android:textSize">12sp</item>
   </style>
 
@@ -699,14 +695,14 @@
 
   <style name="BalanceVerifyWalletChip" parent="TextAppearance.AppCompat.Body1.Roboto.Regular">
     <item name="android:textSize">10sp</item>
-    <item name="android:textColor">@color/balance_wallet_verified_chip</item>
+    <item name="android:textColor">@color/styleguide_green</item>
     <item name="android:ellipsize">end</item>
     <item name="android:maxLines">1</item>
     <item name="android:drawablePadding">4dp</item>
   </style>
 
   <style name="BalanceVerifyWalletChip.Unverified">
-    <item name="android:textColor">@color/black_87_alpha</item>
+    <item name="android:textColor">@color/styleguide_black_transparent_80</item>
     <item name="android:textSize">12sp</item>
     <item name="fontFamily">sans-serif</item>
     <item name="android:ellipsize">end</item>
@@ -717,7 +713,7 @@
   <style name="BalanceVerifyWalletChip.CodeRequested" />
 
   <style name="BalanceVerifyWalletChip.CodeRequested.Title" parent="TextAppearance.AppCompat.Body1.Roboto.Medium">
-    <item name="android:textColor">@color/black</item>
+    <item name="android:textColor">@color/styleguide_black</item>
     <item name="android:textSize">12sp</item>
     <item name="android:ellipsize">end</item>
     <item name="android:textStyle">bold</item>
@@ -742,7 +738,7 @@
   </style>
 
   <style name="Promotions.CardView" parent="Widget.MaterialComponents.CardView">
-    <item name="cardBackgroundColor">@color/bottom_nav_top_up_blue</item>
+    <item name="cardBackgroundColor">@color/styleguide_blue</item>
     <item name="cardCornerRadius">14dp</item>
     <item name="cardElevation">4dp</item>
   </style>
@@ -762,7 +758,7 @@
   </style>
 
   <style name="Promotions.TextStyle.Title" parent="TextAppearance.AppCompat.Body1.Roboto.Regular">
-    <item name="android:textColor">@color/white</item>
+    <item name="android:textColor">@color/styleguide_white</item>
     <item name="android:textSize">12sp</item>
     <item name="android:letterSpacing">0.01</item>
     <item name="android:maxLines">3</item>
@@ -776,7 +772,7 @@
   </style>
 
   <style name="Promotions.TextStyle.AppName" parent="TextAppearance.AppCompat.Body1.Roboto.Regular">
-    <item name="android:textColor">@color/white</item>
+    <item name="android:textColor">@color/styleguide_white</item>
     <item name="android:textSize">14sp</item>
     <item name="android:textStyle">bold</item>
     <item name="android:letterSpacing">0.01</item>
@@ -786,15 +782,15 @@
   </style>
 
   <style name="Promotions.TextStyle.AppName.Future">
-    <item name="android:textColor">@color/promotions_future_text_color</item>
+    <item name="android:textColor">@color/styleguide_dark_grey</item>
   </style>
 
   <style name="Promotions.TextStyle.Title.Future">
-    <item name="android:textColor">@color/promotions_future_text_color</item>
+    <item name="android:textColor">@color/styleguide_dark_grey</item>
   </style>
 
   <style name="Promotions.TextStyle.Date.Future" parent="TextAppearance.AppCompat.Body1.Roboto.Medium">
-    <item name="android:textColor">@color/promotions_future_text_color</item>
+    <item name="android:textColor">@color/styleguide_dark_grey</item>
     <item name="android:textSize">9sp</item>
     <item name="singleLine">true</item>
     <item name="android:ellipsize">end</item>
@@ -802,12 +798,12 @@
   </style>
 
   <style name="Promotions.TextStyle.Progress" parent="TextAppearance.AppCompat.Body1.Roboto.Medium">
-    <item name="android:textColor">@color/white</item>
+    <item name="android:textColor">@color/styleguide_white</item>
     <item name="android:textSize">10sp</item>
   </style>
 
   <style name="Promotions.TextStyle.Date" parent="TextAppearance.AppCompat.Body1.Roboto.Medium">
-    <item name="android:textColor">@color/white</item>
+    <item name="android:textColor">@color/styleguide_white</item>
     <item name="android:textSize">9sp</item>
     <item name="singleLine">true</item>
     <item name="android:ellipsize">end</item>
@@ -815,7 +811,7 @@
   </style>
 
   <style name="Promotions.PromoCode.TextStyle.Date" parent="Promotions.TextStyle.Date">
-    <item name="android:textColor">@color/promotions_active_background</item>
+    <item name="android:textColor">@color/styleguide_blue</item>
   </style>
 
   <style name="Promotions.TextStyle.Links" parent="TextAppearance.AppCompat.Body1.Roboto.Regular">
@@ -825,7 +821,7 @@
 
   <style name="NewPromotionText" parent="TextAppearance.AppCompat.Body1.Roboto.Medium">
     <item name="android:textSize">9sp</item>
-    <item name="android:textColor">@color/white</item>
+    <item name="android:textColor">@color/styleguide_white</item>
     <item name="android:letterSpacing">0.04</item>
     <item name="android:lineSpacingExtra">1sp</item>
   </style>
@@ -834,11 +830,11 @@
     <item name="android:fontFamily">@font/roboto_bolt</item>
     <item name="android:maxLines">1</item>
     <item name="android:textSize">18sp</item>
-    <item name="android:textColor">@color/white</item>
+    <item name="android:textColor">@color/styleguide_white</item>
   </style>
 
   <style name="VipRefButton" parent="Widget.MaterialComponents.CardView">
-    <item name="cardBackgroundColor">@color/promotions_vip_transparent</item>
+    <item name="cardBackgroundColor">@color/styleguide_black_transparent_80</item>
     <item name="cardCornerRadius">14dp</item>
   </style>
   <style name="VipRefButtonText" parent="TextM">
@@ -851,25 +847,25 @@
 
   <style name="VoucherAppcText" parent="TextAppearance.AppCompat.Body1.Roboto.Medium">
     <item name="android:textSize">10sp</item>
-    <item name="android:textColor">@color/white_99</item>
+    <item name="android:textColor">@color/styleguide_white</item>
     <item name="android:lineSpacingExtra">1sp</item>
   </style>
 
   <style name="VoucherCardBodyText" parent="TextAppearance.AppCompat.Body1.Roboto.Regular">
-    <item name="android:textColor">@color/white</item>
+    <item name="android:textColor">@color/styleguide_white</item>
     <item name="android:maxLines">2</item>
     <item name="android:ellipsize">end</item>
   </style>
 
   <style name="EmptyVoucherText" parent="TextAppearance.AppCompat.Body1.Roboto.Regular">
     <item name="android:textSize">14sp</item>
-    <item name="android:textColor">@color/navy_blue</item>
+    <item name="android:textColor">@color/styleguide_blue</item>
     <item name="android:lineSpacingExtra">5sp</item>
     <item name="android:gravity">center_horizontal</item>
   </style>
 
   <style name="TransactionsItem.Title.Special" parent="TextAppearance.AppCompat.Body1.Roboto.Regular">
-    <item name="android:textColor">#1fcf1f</item>
+    <item name="android:textColor">@color/styleguide_green</item>
     <item name="android:textSize">14sp</item>
     <item name="android:textStyle">bold</item>
     <item name="android:background">@drawable/oval_green_background</item>
@@ -879,7 +875,7 @@
   </style>
 
   <style name="TransactionsItem.Description" parent="TextAppearance.AppCompat.Body1.Roboto.Regular">
-    <item name="android:textColor">@color/transaction_item_snd_text_color</item>
+    <item name="android:textColor">@color/styleguide_black_transparent_80</item>
     <item name="android:textSize">12sp</item>
     <item name="android:ellipsize">end</item>
     <item name="android:maxLines">1</item>
@@ -903,23 +899,23 @@
   </style>
 
   <style name="BottomSheetEtherTransactionTitle" parent="TextAppearance.AppCompat.Body1.Roboto.Medium">
-    <item name="android:textColor">@color/tooltip_black</item>
+    <item name="android:textColor">@color/styleguide_black_transparent_80</item>
     <item name="android:textSize">18sp</item>
   </style>
 
   <style name="BottomSheetEtherTransactionSubtitle" parent="TextAppearance.AppCompat.Body1.Roboto.Regular">
-    <item name="android:textColor">@color/tooltip_black</item>
+    <item name="android:textColor">@color/styleguide_black_transparent_80</item>
     <item name="android:textSize">14sp</item>
   </style>
 
   <style name="BottomSheetEtherTransactionHash" parent="TextAppearance.AppCompat.Body1.Roboto.Medium">
-    <item name="android:textColor">@color/etherscan_transaction_border</item>
+    <item name="android:textColor">@color/styleguide_blue</item>
     <item name="android:textSize">12sp</item>
     <item name="android:lineSpacingExtra">2sp</item>
   </style>
 
   <style name="BottomSheetEtherTransactionClipboard" parent="TextAppearance.AppCompat.Body1.Roboto.Medium">
-    <item name="android:textColor">@color/etherscan_transaction_clipboard</item>
+    <item name="android:textColor">@color/styleguide_pink</item>
     <item name="android:textSize">12sp</item>
     <item name="textAllCaps">true</item>
   </style>
@@ -935,14 +931,14 @@
   </style>
 
   <style name="PasswordEditTextWhite">
-    <item name="android:background">@color/white</item>
+    <item name="android:background">@color/styleguide_white</item>
     <item name="android:inputType">textPassword</item>
     <item name="android:imeOptions">flagNoFullscreen|flagNoExtractUi</item>
   </style>
 
   <style name="WalletBackupWarningStyle" parent="TextAppearance.AppCompat.Body1.Roboto.Regular">
     <item name="android:textSize">12sp</item>
-    <item name="android:textColor">@color/warning_text_red</item>
+    <item name="android:textColor">@color/styleguide_red</item>
     <item name="android:lineSpacingExtra">2sp</item>
   </style>
 
@@ -952,12 +948,12 @@
 
   <style name="TooltipTextStyle" parent="TextAppearance.AppCompat.Body1.Roboto.Regular">
     <item name="android:textSize">14sp</item>
-    <item name="android:textColor">@color/fakeBlack</item>
+    <item name="android:textColor">@color/styleguide_blue_transparent_90</item>
   </style>
 
   <style name="LockedPromotionsStyle" parent="TextAppearance.AppCompat.Body1.Roboto.Regular">
     <item name="android:textSize">16sp</item>
-    <item name="android:textColor">@color/navy_blue</item>
+    <item name="android:textColor">@color/styleguide_blue</item>
     <item name="android:lineSpacingExtra">8sp</item>
   </style>
 
@@ -965,8 +961,8 @@
 
   <style name="MultiLineInputText.TextInputLayoutStyle">
     <item name="android:background">@null</item>
-    <item name="android:textColorHint">@color/grey</item>
-    <item name="android:textColor">@color/black_87_alpha</item>
+    <item name="android:textColorHint">@color/styleguide_dark_grey</item>
+    <item name="android:textColor">@color/styleguide_black_transparent_80</item>
     <item name="android:textCursorDrawable">@null</item>
     <item name="boxBackgroundMode">none</item>
     <item name="hintEnabled">false</item>
@@ -993,7 +989,7 @@
     <item name="fontFamily">sans-serif</item>
     <item name="android:fontFamily">sans-serif</item>
     <item name="android:textStyle">normal</item>
-    <item name="android:textColor">@color/grey_e5</item>
+    <item name="android:textColor">@color/styleguide_light_grey</item>
     <item name="android:textAllCaps">false</item>
     <item name="android:textSize">14sp</item>
     <item name="android:lineSpacingExtra">5sp</item>
@@ -1002,7 +998,7 @@
   <style name="VerifyWallet" />
 
   <style name="VerifyWallet.Title" parent="TextAppearance.AppCompat.Body1.Roboto.Medium">
-    <item name="android:textColor">@color/black</item>
+    <item name="android:textColor">@color/styleguide_black</item>
     <item name="android:textSize">16sp</item>
     <item name="android:gravity">start</item>
     <item name="android:letterSpacing">0.01</item>
@@ -1010,7 +1006,7 @@
   </style>
 
   <style name="VerifyWallet.Subtitle" parent="TextAppearance.AppCompat.Body1.Roboto.Medium">
-    <item name="android:textColor">@color/verify_wallet_subtitle</item>
+    <item name="android:textColor">@color/styleguide_dark_grey</item>
     <item name="android:textSize">12sp</item>
     <item name="android:gravity">start</item>
     <item name="android:textStyle">normal</item>
@@ -1025,15 +1021,15 @@
   </style>
 
   <style name="VerifyWallet.Description" parent="TextAppearance.AppCompat.Body1.Roboto.Medium">
-    <item name="android:background">@color/verify_wallet_description_background</item>
-    <item name="android:textColor">@color/verify_wallet_description</item>
+    <item name="android:background">@color/styleguide_green_transparent_20</item>
+    <item name="android:textColor">@color/styleguide_green</item>
     <item name="android:textSize">12sp</item>
     <item name="android:gravity">start</item>
     <item name="android:lineSpacingExtra">4sp</item>
   </style>
 
   <style name="VerifyWallet.ChangeCard.Button" parent="@style/Widget.MaterialComponents.Button">
-    <item name="android:textColor">@color/text_button_color</item>
+    <item name="android:textColor">@color/styleguide_pink</item>
     <item name="android:textSize">12sp</item>
     <item name="android:fontFamily">sans-serif-medium</item>
     <item name="android:lineSpacingExtra">2sp</item>
@@ -1044,7 +1040,7 @@
 
   <style name="VerifyWallet.Code.EditText" parent="@style/Widget.AppCompat.EditText">
     <item name="android:textAppearance">@style/TextAppearance.AppCompat.Body1.Roboto.Regular</item>
-    <item name="android:textColor">@color/black</item>
+    <item name="android:textColor">@color/styleguide_black</item>
     <item name="android:textSize">16sp</item>
     <item name="android:inputType">number</item>
     <item name="android:gravity">start|center_vertical</item>
@@ -1057,16 +1053,16 @@
   </style>
 
   <style name="VerifyWallet.Cancel.Button" parent="@style/Widget.MaterialComponents.Button.TextButton">
-    <item name="android:textColor">@color/verify_wallet_cancel</item>
+    <item name="android:textColor">@color/styleguide_dark_grey</item>
     <item name="android:textSize">14sp</item>
     <item name="android:fontFamily">sans-serif-medium</item>
     <item name="android:lineSpacingExtra">2sp</item>
     <item name="android:textStyle">normal</item>
-    <item name="rippleColor">@color/button_borderless_ripple_color</item>
+    <item name="rippleColor">@color/styleguide_dark_grey</item>
   </style>
 
   <style name="VerifyWallet.Example.Title" parent="TextAppearance.AppCompat.Body1.Roboto.Regular">
-    <item name="android:textColor">@color/verify_wallet_subtitle</item>
+    <item name="android:textColor">@color/styleguide_dark_grey</item>
     <item name="android:textSize">10sp</item>
     <item name="android:gravity">center_horizontal</item>
     <item name="android:lineSpacingExtra">6sp</item>
@@ -1079,7 +1075,7 @@
   </style>
 
   <style name="VerifyWallet.Example.Summary.Value" parent="TextAppearance.AppCompat.Body1.Roboto.Regular">
-    <item name="android:textColor">@color/verify_wallet_subtitle</item>
+    <item name="android:textColor">@color/styleguide_dark_grey</item>
     <item name="android:textSize">12sp</item>
     <item name="android:gravity">start</item>
     <item name="android:textStyle">normal</item>
@@ -1087,7 +1083,7 @@
   </style>
 
   <style name="VerifyWallet.Example.Disclaimer" parent="TextAppearance.AppCompat.Body1.Roboto.Regular">
-    <item name="android:textColor">@color/black</item>
+    <item name="android:textColor">@color/styleguide_black</item>
     <item name="android:textSize">9sp</item>
     <item name="android:gravity">start</item>
     <item name="android:textStyle">normal</item>
@@ -1095,7 +1091,7 @@
   </style>
 
   <style name="VerifyWallet.Success" parent="TextAppearance.AppCompat.Body1.Roboto.Medium">
-    <item name="android:textColor">@color/black</item>
+    <item name="android:textColor">@color/styleguide_black</item>
     <item name="android:textSize">19sp</item>
     <item name="android:gravity">center_horizontal</item>
     <item name="android:textStyle">normal</item>
@@ -1109,7 +1105,7 @@
     <item name="android:letterSpacing">0.03</item>
     <item name="android:lineSpacingExtra">4sp</item>
     <item name="android:textAlignment">center</item>
-    <item name="android:textColor">@color/btn_light_enabled_color</item>
+    <item name="android:textColor">@color/styleguide_red</item>
     <item name="android:textSize">20sp</item>
     <item name="android:textStyle">bold</item>
   </style>
@@ -1119,7 +1115,7 @@
     <item name="android:letterSpacing">0.03</item>
     <item name="android:lineSpacingExtra">4sp</item>
     <item name="android:textAlignment">center</item>
-    <item name="android:textColor">@color/black</item>
+    <item name="android:textColor">@color/styleguide_black</item>
     <item name="android:textSize">16sp</item>
   </style>
 
@@ -1153,7 +1149,7 @@
     <item name="android:textAllCaps">false</item>
     <item name="android:textSize">14sp</item>
     <item name="android:fontFamily">sans-serif</item>
-    <item name="backgroundTint">@color/wild_watermelon</item>
+    <item name="backgroundTint">@color/styleguide_pink</item>
     <item name="iconGravity">end</item>
     <item name="iconPadding">0dp</item>
     <item name="shapeAppearance">@style/Home.PillShape</item>
@@ -1167,7 +1163,7 @@
     <item name="android:textAllCaps">false</item>
     <item name="android:textSize">20sp</item>
     <item name="android:fontFamily">sans-serif-medium</item>
-    <item name="android:textColor">@color/white</item>
+    <item name="android:textColor">@color/styleguide_white</item>
   </style>
 
   <style name="BottomNav.Home" />
@@ -1189,50 +1185,50 @@
   <style name="SubscriptionsAppNameText" parent="TextAppearance.AppCompat.Headline.Roboto.Medium">
     <item name="android:ellipsize">end</item>
     <item name="android:maxLines">1</item>
-    <item name="android:textColor">@color/black_87_alpha</item>
+    <item name="android:textColor">@color/styleguide_black_transparent_80</item>
     <item name="android:textSize">16sp</item>
   </style>
 
   <style name="SubscriptionsFiatValueText" parent="TextAppearance.AppCompat.Body1.Roboto.Regular">
     <item name="android:ellipsize">end</item>
     <item name="android:maxLines">1</item>
-    <item name="android:textColor">@color/black_87_alpha</item>
+    <item name="android:textColor">@color/styleguide_black_transparent_80</item>
     <item name="android:textSize">16sp</item>
   </style>
 
   <style name="SubscriptionsAppcValueText" parent="TextAppearance.AppCompat.Body1.Roboto.Regular">
-    <item name="android:textColor">@color/dialog_secondary_price</item>
+    <item name="android:textColor">@color/styleguide_dark_grey</item>
     <item name="android:textSize">11sp</item>
   </style>
 
   <style name="PromoCodeTitle" parent="TextAppearance.AppCompat.Body1.Roboto.Regular">
-    <item name="android:textColor">@color/black</item>
+    <item name="android:textColor">@color/styleguide_black</item>
     <item name="android:textSize">14sp</item>
     <item name="android:textStyle">bold</item>
     <item name="android:lineSpacingExtra">2sp</item>
   </style>
 
   <style name="PromoCodeString" parent="TextAppearance.AppCompat.Body1.Roboto.Regular">
-    <item name="android:textColor">@color/black</item>
+    <item name="android:textColor">@color/styleguide_black</item>
     <item name="android:textSize">14sp</item>
     <item name="android:lineSpacingExtra">2sp</item>
   </style>
 
   <style name="PromoCodeErrorMessage" parent="TextAppearance.AppCompat.Body1.Roboto.Regular">
-    <item name="android:textColor">@color/red</item>
+    <item name="android:textColor">@color/styleguide_red</item>
     <item name="android:textSize">12sp</item>
     <item name="android:lineSpacingExtra">2sp</item>
   </style>
 
   <style name="PromoCodeSuccessTitle" parent="TextAppearance.AppCompat.Body1.Roboto.Regular">
-    <item name="android:textColor">@color/black</item>
+    <item name="android:textColor">@color/styleguide_black</item>
     <item name="android:textSize">20sp</item>
     <item name="android:textStyle">bold</item>
     <item name="android:lineSpacingExtra">2sp</item>
   </style>
 
   <style name="PromoCodeSuccessSubtitle" parent="TextAppearance.AppCompat.Body1.Roboto.Regular">
-    <item name="android:textColor">@color/black</item>
+    <item name="android:textColor">@color/styleguide_black</item>
     <item name="android:textSize">16sp</item>
     <item name="android:textStyle">bold</item>
     <item name="android:lineSpacingExtra">2sp</item>
@@ -1240,34 +1236,34 @@
 
 
   <style name="RedeemGiftTitle" parent="TextAppearance.AppCompat.Body1.Roboto.Regular">
-    <item name="android:textColor">@color/black</item>
+    <item name="android:textColor">@color/styleguide_black</item>
     <item name="android:textSize">14sp</item>
     <item name="android:textStyle">bold</item>
     <item name="android:lineSpacingExtra">2sp</item>
   </style>
 
   <style name="RedeemGiftString" parent="TextAppearance.AppCompat.Body1.Roboto.Regular">
-    <item name="android:textColor">@color/black</item>
+    <item name="android:textColor">@color/styleguide_black</item>
     <item name="android:textSize">14sp</item>
     <item name="android:lineSpacingExtra">2sp</item>
   </style>
 
   <style name="RedeemGiftSuccessTitle" parent="TextAppearance.AppCompat.Body1.Roboto.Regular">
-    <item name="android:textColor">@color/black</item>
+    <item name="android:textColor">@color/styleguide_black</item>
     <item name="android:textSize">20sp</item>
     <item name="android:textStyle">bold</item>
     <item name="android:lineSpacingExtra">2sp</item>
   </style>
 
   <style name="RedeemGiftSuccessSubtitle" parent="TextAppearance.AppCompat.Body1.Roboto.Regular">
-    <item name="android:textColor">@color/black</item>
+    <item name="android:textColor">@color/styleguide_black</item>
     <item name="android:textSize">16sp</item>
     <item name="android:lineSpacingExtra">2sp</item>
   </style>
 
   <style name="WebviewWarningText" parent="TextAppearance.AppCompat.Body1.Roboto.Regular">
     <item name="android:textSize">@dimen/backup_description_normal_text_size</item>
-    <item name="android:color">@color/black</item>
+    <item name="android:color">@color/styleguide_black</item>
     <item name="android:textStyle">bold</item>
     <item name="android:lineSpacingExtra">6sp</item>
   </style>

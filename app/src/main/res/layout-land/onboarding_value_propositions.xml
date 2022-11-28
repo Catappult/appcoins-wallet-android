@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    tools:background="@color/bottom_nav_top_up_blue"
     >
 
   <LinearLayout
@@ -12,7 +14,6 @@
       android:layout_marginHorizontal="15dp"
       android:gravity="center"
       android:orientation="vertical"
-      app:layout_constraintBottom_toTopOf="@+id/onboarding_get_started_button"
       app:layout_constraintEnd_toStartOf="@id/onboarding_value2"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent"
@@ -59,7 +60,6 @@
       android:layout_marginHorizontal="15dp"
       android:gravity="center"
       android:orientation="vertical"
-      app:layout_constraintBottom_toTopOf="@+id/onboarding_get_started_button"
       app:layout_constraintEnd_toStartOf="@id/onboarding_value3"
       app:layout_constraintStart_toEndOf="@id/onboarding_value1"
       app:layout_constraintTop_toTopOf="parent"
@@ -106,7 +106,6 @@
       android:layout_marginHorizontal="15dp"
       android:gravity="center"
       android:orientation="vertical"
-      app:layout_constraintBottom_toTopOf="@+id/onboarding_get_started_button"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toEndOf="@id/onboarding_value2"
       app:layout_constraintTop_toTopOf="parent"

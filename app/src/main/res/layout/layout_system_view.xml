@@ -39,7 +39,7 @@
         android:layout_marginTop="@dimen/normal_margin"
         android:text="@string/try_again"
         android:textAllCaps="true"
-        android:textColor="@color/colorAccent"
+        android:textColor="@color/styleguide_pink"
         />
   </LinearLayout>
   <FrameLayout

@@ -67,7 +67,7 @@
   <string name="skip_with_arrow">ข้าม&gt;</string>
   <string name="root_title">อุปกรณ์ความปลอดภัยที่สมบูรณ์</string>
   <string name="root_body">\'รูท\'ของแอปใดๆที่สามารถเข้าถึงข้อมูลกุญแจ AppCoins Wallet และขโมยกระเป๋าสตางค์ของคุณ ล้างกระเป๋าสตางค์นี้ทันที และกู้คืนบนอุปกรณ์ที่เชื่อถือได้</string>
-  <string name="credits_purchase_value">%s APPC Credits</string>
+  <string name="credits_purchase_value">%s AppCoins Credits</string>
   <string name="buying">การซื้อ %s</string>
   <string name="action_buy">ซื้อ</string>
   <string name="empty"></string>
@@ -114,26 +114,28 @@
   <string name="intro_title_third_page">ไม่ซับซ้อน &amp; ง่าย</string>
   <string name="intro_message_first_page">ยินดีต้อนรับสู่การปฏิวัติของเศรษฐกิจ</string>
   <string name="intro_message_second_page">คีย์ส่วนตัวไม่เคยออกจากอุปกรณ์ของคุณ</string>
-  <string name="intro_message_third_page">กระบวนการในการตรวจสอบการชำระเงินและรางวัลใน APPC ทั้งหมด</string>
+  <string name="intro_message_third_page">Process all your in-app payments and rewards in AppCoins.</string>
   <string name="intro_1_title">AppCoins Wallet</string>
   <string name="intro_1_body">การซื้อของคุรในแอป</string>
   <string name="intro_2_title">เล่นเมาก จ่ายน้อยลง</string>
-  <string name="intro_2_body">รับรางวัลสำหรับการซื้อสินค้าในแอปพลิเคชันที่ชื่นชอบและเกมของคุณ</string>
+  <string name="intro_2_body">The best payment wallet for apps and games.</string>
   <string name="intro_3_title">ไม่ซับซ้อน ง่าย</string>
-  <string name="intro_3_body">ติดตั้ง AppCoins Wallet เพื่อใช้จ่ายแกมส์ได้โดยตรง</string>
+  <string name="intro_3_body">Bonuses on all purchases.</string>
   <string name="intro_4_title">ปลอดภัยและเป็นส่วนตัว</string>
-  <string name="intro_4_body">คีย์ส่วนตัวของคุณจะไม่เคยออกจากอุปกรณ์ของคุณ เพื่อ AppCoins ของคุณจะปลอดภัยตลอดเวลา</string>
+  <string name="intro_4_body">Use bank card, PayPal and your favorite payment methods.</string>
   <string name="intro_4_body_2">ธุรกรรมทั้งหมดของคุณปลอดภัยด้วยเทคโนโลยีล่าสุด</string>
   <string name="intro_5_title">รับเครดิต AppCoins ฟรี!</string>
   <string name="intro_5_body">คุณจะได้รับเครดิต AppCoins ฟรีโดยการทดลองแอปและเกมส์</string>
   <string name="intro_creating_wallet_short">ตั้งค่ากระเป๋าสตางค์ของคุณสำหรับคุณ &#8230;</string>
   <string name="intro_wallet_created_short">สร้างกระเป๋าสตางค์!</string>
-  <string name="intro_agree_terms_and_conditions_body">โดยการแตะที่ข้าม คุณตกลงที่จะใช้กระเป๋าสตางค์ AppCoins %1$s และ %2$s</string>
+  <string name="intro_agree_terms_and_conditions_body">By entering the AppCoins Wallet, you agree to the %1$s and %2$s.</string>
   <string name="intro_skip_button">ข้าม</string>
   <string name="intro_welcome_header">ยินดีต้อนรับสู่ AppCoins Wallet</string>
-  <string name="intro_welcome_body">ซื้อในแอปของคุณ</string>
+  <string name="intro_welcome_body">Top up your wallet or make a purchase in any AppCoins compatible app or game.</string>
+  <string name="intro_welcome_header_2">Up to %s%% Bonus!</string>
+  <string name="intro_welcome_body_2">Bonuses can be used in any app or game.</string>
   <string name="intro_already_have_wallet_button">ฉันมีวอลเล็ตแล้ว</string>
-  <string name="intro_get_started_button">เริ่ม</string>
+  <string name="intro_get_started_button">Launch wallet</string>
   <!-- Menus -->
   <!-- Labels -->
   <string name="label_from">จาก</string>
@@ -207,7 +209,7 @@
   <string name="activity_iab_error_message">เกิดข้อผิดพลาด โปรดลองอีกครั้ง</string>
   <string name="action_try">ลอง</string>
   <string name="activity_transactions_learn_more">เรียนรู้เพิ่มเติม</string>
-  <string name="activity_iab_no_funds_message">ETH และ APPC ไม่เพียงพอ</string>
+  <string name="activity_iab_no_funds_message">Not enough ETH and AppCoins</string>
   <string name="activity_iab_no_ethereum_funds_message">เอธิเรียมไม่เพียงพอ</string>
   <string name="activity_iab_no_token_funds_message">AppCoins ไม่เพียงพอ</string>
   <string name="activity_iab_wrong_network_message">เครือข่าย Ethereum ผิดหรือโทเคนที่ไม่รู้จัก</string>
@@ -299,19 +301,19 @@
   <string name="gamification_home_body">รับไม่เกินโบนัสในแอปพลิเคชันที่ชื่นชอบและเกมของคุณสูงสุด %s%%!</string>
   <string name="gamification_home_button">เริ่มสร้างรายได้</string>
   <string name="gamification_level_title">ระดับของฉันคืออะไร</string>
-  <string name="gamification_level_title_new">รับเครดิต APPC!</string>
+  <string name="gamification_level_title_new">Get AppCoins Credits!</string>
   <string name="gamification_level_on_graphic">ระดับ %s</string>
   <string name="gamification_APPCapps_button">แอพ &amp; เกมส์</string>
   <string name="gamification_level_header">ขอแสดงความยินดี คุณคือ%s!</string>
   <string name="gamification_level_to_next">ไประดับถัดไป:</string>
   <string name="gamification_level_earned">ได้รับ:</string>
   <string name="gamification_level_next_lvl">ไประดับถัดไป:</string>
-  <string name="gamification_level_next_lvl_value">%s APPC</string>
+  <string name="gamification_level_next_lvl_value">%s AppCoins</string>
   <string name="gamification_level_bonus">%s%% โบนัส</string>
   <string name="gamification_level_button_how">วิธีการทำงาน</string>
-  <string name="gamification_level_body">คุณสามารถได้รับเครดิต APPC ได้เมื่อคุณซื้อสินค้าในแอปหรือเกมส์ที่คุณชื่นชอบ</string>
+  <string name="gamification_level_body">You\'ll earn AppCoins Credits when buying items in your favorite apps and games.</string>
   <string name="gamification_how_header">วิธีการเพิ่มระดับ?</string>
-  <string name="gamification_how_body">คุณจะสามารถได้รับเครดิต APPC ได้เมื่อคุณซื้อสินค้าในแอปหรือเกมส์ที่คุณชื่นชอบ</string>
+  <string name="gamification_how_body">You\'ll earn AppCoins Credits when buying items in your favorite apps and games.</string>
   <string name="gamification_how_body_new">ยิ่งคุณซื้อแอปที่คุณโปรดปราน ก็ยิ่งรับโบนัสที่มากกว่า!</string>
   <string name="gamification_how_table_a1">ใช้จ่าย</string>
   <string name="gamification_how_table_b1">โบนัส</string>
@@ -333,7 +335,7 @@
   <string name="gamification_transaction_title">@string/gamification_level_bonus</string>
   <string name="gamification_purchase_header">การซื้อนี้มีโบนัส!</string>
   <string name="gamification_purchase_header_part_1">โบนัสการซื้อ</string>
-  <string name="gamification_purchase_header_part_2">%s ในเครดิต APPC</string>
+  <string name="gamification_purchase_header_part_2">%s ในเครดิต AppCoins</string>
   <string name="gamification_purchase_body">คุณสามารถใช้โบนัสนี้ในการซื้อครั้งต่อไป</string>
   <string name="gamification_purchase_completed_bonus_received_done">เสร็จสิ้น!</string>
   <string name="gamification_purchase_completed_bonus_received">โบนัสที่ได้รับ</string>
@@ -370,14 +372,14 @@
   <!-- Top Up -->
   <string name="topup_home_button">เติม</string>
   <string name="topup_title">เติม</string>
-  <string name="topup_amount">%s APPC-C</string>
+  <string name="topup_amount">%s AppCoins Credits</string>
   <string name="topup_bonus_header">คุณได้รับโบนัส</string>
-  <string name="topup_bonus_message">เครดิต %s APPC=C จะถูกเก็บเป็นเครดิตในกระเป๋าสตางค์ของคุณ.</string>
+  <string name="topup_bonus_message">%s AppCoins Credits extra will be credited in your wallet.</string>
   <string name="topup_completed_1">%s ในเครดิต AppCoins</string>
   <string name="topup_completed_2_with_bonus">ถูกฝากเข้าบัญชีของคุณ... พร้อมกับโบนัส!</string>
   <string name="topup_completed_2_without_bonus">มีในบัญชีของคุณ</string>
   <string name="topup_bonus_header_part_1">เติมโบนัส</string>
-  <string name="topup_bonus_header_part_2">%s ในเครดิต APPC</string>
+  <string name="topup_bonus_header_part_2">%s ในเครดิต AppCoins</string>
   <string name="topup_bonus_body">คุณสามารถใช้โบนัสนี้ในการซื้อครั้งต่อไป</string>
   <string name="topup_minimum_value">การเติมเงินอย่างต่ำคือ %s</string>
   <string name="topup_maximum_value">การเติมเงินสูงสุดคือ %s</string>
@@ -389,7 +391,7 @@
   <string name="balance_topup_body">คุณสามารถเติมกระเป๋าสตางค์ด้วยเครดิต AppCoins</string>
   <string name="balance_ethereum_body">Ethereum เป็นสกุลเงินคริปโตซึ่งมี AppCoins เป็นหลัก คุณสามารถซื้อและขายแลกเปลี่ยนมันได้เป็นส่วนใหญ่ มันเป็นที่นิยมมาก!</string>
   <string name="balance_appcoins_body">AppCoins เป็นสกุลเงินคริปโตสำหรับเศรษฐกิจแอป คุณสามารถซื้อ ขาย แลกเปลี่ยนต่าง ๆ และใช้ในการซื้อสินค้าในแอปได้</string>
-  <string name="balance_appccreditos_body">โทเค็นเพื่อใช้ซื้อสินค้าในแอป! เติม APPC-C จากกระเป๋าสตางค์หรือรับมันเพื่อการใช้งานแอปฟรี มันยังสามารถถ่ายโอนได้ระหว่างเพื่อน!</string>
+  <string name="balance_appccreditos_body">The token to buy in-app items! Top up AppCoins Credits from your wallet or get them for free by using apps. They can also be transferred between friends!</string>
   <string name="my_wallets_action_new_wallet">วอลเล็ตใหม่</string>
   <string name="my_wallets_action_recover_wallet">กู้คืนวอลเล็ต</string>
   <string name="my_wallets_action_backup_wallet">สำรองวอลเล็ต</string>
@@ -460,7 +462,7 @@
   <string name="home_empty_discover_apps_button">ค้นพบแอปยอดนิยม</string>
   <!--Tokens-->
   <!--Settings-->
-  <string name="title_redeem">แลกใช้รหัส</string>
+  <string name="title_redeem">Redeem Gift Card</string>
   <string name="settings_item_support">ติดต่อทีมสนับสนุน</string>
   <string name="settings_subheader_support">การสนับสนุน</string>
   <string name="settings_subheader_about_us">เกี่ยวกับเรา</string>
@@ -548,7 +550,7 @@
   <string name="purchase_error_try_cheaper_item">ราคาสูงไป! โปรดลองซื้อสินค้าที่มีมูลค่าต่ำกว่า</string>
   <string name="purchase_error_try_cheaper_item_or_method">แพงทีเดียว! โปรดลองซื้อสินค้าที่ถูกกว่าหรือลองใช้วิธีการชำระเงินแบบอื่น</string>
   <string name="transfer_appc_error_no_eth_title">คุณต้องการ Ether!</string>
-  <string name="transfer_appc_error_no_eth_body">ค่าธรรมเนียมการโอน AppCoins จ่ายเป็น Ethereum ดังนั้นคุณจะต้องใช้ ETH เพื่อโอน APPC</string>
+  <string name="transfer_appc_error_no_eth_body">AppCoins transfers fees are paid in Ethereum, so you\'ll need ETH to transfer AppCoins.</string>
   <string name="purchase_error_invalid_credit_card">หมายเลขบัตรธนาคารไม่ถูกต้อง โปรดตรวจสอบให้แน่ใจว่าตัวเลขทั้งหมดถูกต้อง</string>
   <string name="purchase_error_card_security_validation">มีข้อผิดพลาดในการตรวจสอบระดับ 2 ของธุรกรรมนี้ กรุณาลองอีกครั้ง</string>
   <string name="purchase_error_transaction_timeout">ดูเหมือนว่าคุณใช้เวลานานเกินไปในการทำธุรกรรม กรุณาลองอีกครั้ง</string>

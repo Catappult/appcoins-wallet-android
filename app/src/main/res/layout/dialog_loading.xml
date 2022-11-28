@@ -31,7 +31,7 @@
       android:layout_marginTop="4dp"
       android:gravity="center"
       android:text="@string/activity_aib_loading_message"
-      android:textColor="@color/white"
+      android:textColor="@color/styleguide_white"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toBottomOf="@+id/progressBar"

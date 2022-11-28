@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/blue_dark"
+    android:background="@color/styleguide_blue"
     android:paddingHorizontal="@dimen/big_padding"
     android:paddingTop="@dimen/normal_margin"
     >
@@ -77,7 +77,7 @@
         android:paddingHorizontal="@dimen/big_padding"
         app:buttonText="@string/skip_button"
         app:buttonType="text"
-        app:buttonColor="@color/grey_blue_medium"
+        app:buttonColor="@color/styleguide_dark_grey"
         app:layout_constraintBottom_toBottomOf="@+id/backup_btn"
         app:layout_constraintEnd_toStartOf="@+id/backup_btn"
         app:layout_constraintTop_toTopOf="@+id/backup_btn"

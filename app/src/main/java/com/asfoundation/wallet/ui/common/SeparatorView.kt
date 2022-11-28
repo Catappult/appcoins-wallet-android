@@ -42,7 +42,7 @@ class SeparatorView : View {
   private fun applyOrientationType() {
     when (type) {
       Type.SOLID -> {
-        setBackgroundResource(R.color.layout_separator_color)
+        setBackgroundResource(R.color.styleguide_light_grey)
       }
       Type.DASHED -> {
         if (orientation == Orientation.VERTICAL) {

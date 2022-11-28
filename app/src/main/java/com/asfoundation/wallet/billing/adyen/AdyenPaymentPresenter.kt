@@ -64,6 +64,7 @@ class AdyenPaymentPresenter(
   private var waitingResult = false
   private var cachedUid = ""
   private var cachedPaymentData: String? = null
+  private var action3ds: String? = null
 
   fun present(savedInstanceState: Bundle?) {
     retrieveSavedInstace(savedInstanceState)
@@ -459,9 +460,13 @@ class AdyenPaymentPresenter(
     disposables.add(view.onAdyen3DSError()
       .observeOn(viewScheduler)
       .doOnNext {
-        if (it == CHALLENGE_CANCELED) view.showMoreMethods()
+        if (it == CHALLENGE_CANCELED) {
+          paymentAnalytics.send3dsCancel()
+          view.showMoreMethods()
+        }
         else {
-          logger.log(TAG, it)
+          paymentAnalytics.send3dsError(it)
+          logger.log(TAG, "error:$it \n last 3ds action: ${action3ds ?: ""}")
           view.showGenericError()
         }
       }
@@ -756,12 +761,16 @@ class AdyenPaymentPresenter(
     if (paymentModel.action != null) {
       when (val type = paymentModel.action?.type) {
         REDIRECT -> {
+          action3ds = type
+          paymentAnalytics.send3dsStart(action3ds)
           cachedPaymentData = paymentModel.paymentData
           cachedUid = paymentModel.uid
           navigator.navigateToUriForResult(paymentModel.redirectUrl)
           waitingResult = true
         }
         THREEDS2, THREEDS2FINGERPRINT, THREEDS2CHALLENGE -> {
+          action3ds = type
+          paymentAnalytics.send3dsStart(action3ds)
           cachedUid = paymentModel.uid
           view.handle3DSAction(paymentModel.action!!)
           waitingResult = true

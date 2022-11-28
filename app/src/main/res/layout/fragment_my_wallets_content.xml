@@ -123,7 +123,7 @@
       android:layout_marginTop="2dp"
       android:ellipsize="end"
       android:maxLines="1"
-      android:textColor="@color/white"
+      android:textColor="@color/styleguide_white"
       app:layout_constraintStart_toEndOf="@id/wallet_address_label_text_view"
       app:layout_constraintTop_toBottomOf="@id/name_barrier"
       tools:text="0x626f ··· 08d1"
@@ -141,7 +141,7 @@
       android:src="@drawable/ic_copy_to_clip"
       app:layout_constraintBottom_toBottomOf="@+id/wallet_address_label_text_view"
       app:layout_constraintEnd_toEndOf="@id/active_wallet_info"
-      app:tint="@color/white"
+      app:tint="@color/styleguide_white"
       />
   <ImageButton
       android:id="@+id/action_button_share_address"
@@ -156,7 +156,7 @@
       android:src="@drawable/ic_share_white"
       app:layout_constraintBottom_toBottomOf="@+id/wallet_address_label_text_view"
       app:layout_constraintEnd_toStartOf="@+id/action_button_copy_address"
-      app:tint="@color/white"
+      app:tint="@color/styleguide_white"
       />
   <ImageButton
       android:id="@+id/action_button_edit_name"
@@ -171,14 +171,14 @@
       android:src="@drawable/ic_transfer_edit"
       app:layout_constraintBottom_toBottomOf="@+id/wallet_address_label_text_view"
       app:layout_constraintEnd_toStartOf="@+id/action_button_share_address"
-      app:tint="@color/white"
+      app:tint="@color/styleguide_white"
       />
   <View
       android:id="@+id/active_wallet_separator"
       android:layout_width="0dp"
       android:layout_height="1dp"
       android:layout_marginTop="15dp"
-      android:background="@color/white_transparent_10"
+      android:background="@color/styleguide_white_transparent_20"
       app:layout_constraintEnd_toEndOf="@id/active_wallet_info"
       app:layout_constraintStart_toStartOf="@id/active_wallet_info"
       app:layout_constraintTop_toBottomOf="@id/wallet_address_label_text_view"
@@ -231,7 +231,7 @@
       app:layout_constraintEnd_toEndOf="@id/active_wallet_info"
       app:layout_constraintStart_toStartOf="@id/active_wallet_info"
       app:layout_constraintTop_toBottomOf="@id/active_wallet_separator"
-      app:rippleColor="@color/white"
+      app:rippleColor="@color/styleguide_white"
       />
   <View
       android:id="@+id/active_wallet_backup"
@@ -300,7 +300,7 @@
       android:layout_marginBottom="6dp"
       app:buttonText="@string/mywallet_backup_again_button"
       app:buttonType="text"
-      app:buttonColor="@color/white"
+      app:buttonColor="@color/styleguide_white"
       app:layout_constraintBottom_toBottomOf="@+id/active_wallet_backup"
       app:layout_constraintEnd_toEndOf="@+id/active_wallet_backup"
       />
@@ -386,7 +386,7 @@
       android:layout_marginBottom="6dp"
       app:buttonText="@string/referral_view_verify_button"
       app:buttonType="text"
-      app:buttonColor="@color/white"
+      app:buttonColor="@color/styleguide_white"
       app:layout_constraintBottom_toBottomOf="@+id/active_wallet_verify"
       app:layout_constraintEnd_toEndOf="@+id/active_wallet_verify"
       />

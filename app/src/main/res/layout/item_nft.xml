@@ -16,7 +16,7 @@
       app:cardElevation="2dp"
       app:cardUseCompatPadding="true"
       app:layout_constraintTop_toTopOf="parent"
-      android:background="@color/white"
+      android:background="@color/styleguide_white"
       android:foreground="?android:attr/selectableItemBackground">
 
     <androidx.constraintlayout.widget.ConstraintLayout

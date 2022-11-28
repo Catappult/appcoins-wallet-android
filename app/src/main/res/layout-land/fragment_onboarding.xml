@@ -4,91 +4,63 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:animateLayoutChanges="true"
-    android:background="@drawable/background_dark_gradient"
+    android:background="@color/styleguide_blue"
     >
 
-  <ScrollView
-      android:id="@+id/onboarding_content_scroll_view"
-      android:layout_width="match_parent"
-      android:layout_height="0dp"
-      android:layout_marginBottom="@dimen/half_large_margin"
-      app:layout_constraintTop_toTopOf="parent"
-      app:layout_constraintBottom_toTopOf="@id/onboarding_buttons"
-      >
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        >
-
-      <ImageView
-          android:id="@+id/onboarding_wallet_icon"
-          android:layout_width="@dimen/onboarding_icon_size_land"
-          android:layout_height="@dimen/onboarding_icon_size_land"
-          android:layout_marginTop="@dimen/half_large_margin"
-          android:src="@drawable/ic_wallet_black"
-          app:layout_constraintEnd_toEndOf="parent"
-          app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toTopOf="parent"
-          app:tint="@color/white"
-          />
-
-      <include
-          android:id="@+id/onboarding_welcome_message"
-          layout="@layout/onboarding_welcome_message"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:layout_marginHorizontal="@dimen/half_large_margin"
-          android:layout_marginTop="@dimen/half_large_margin"
-          android:visibility="visible"
-          app:layout_constraintEnd_toEndOf="parent"
-          app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toBottomOf="@id/onboarding_wallet_icon"
-          app:tint="@color/white"
-          />
-
-      <include
-          android:id="@+id/onboarding_value_propositions"
-          layout="@layout/onboarding_value_propositions"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:layout_marginHorizontal="@dimen/half_large_margin"
-          android:layout_marginTop="@dimen/half_large_margin"
-          android:visibility="gone"
-          app:layout_constraintEnd_toEndOf="parent"
-          app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toBottomOf="@id/onboarding_wallet_icon"
-          app:tint="@color/white"
-          />
-    </androidx.constraintlayout.widget.ConstraintLayout>
-  </ScrollView>
   <androidx.constraintlayout.widget.ConstraintLayout
-      android:id="@+id/onboarding_buttons"
+      android:id="@+id/onboarding_content"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      app:layout_constraintBottom_toBottomOf="parent"
-      app:layout_constraintTop_toBottomOf="@id/onboarding_content_scroll_view"
+      app:layout_constraintBottom_toTopOf="@id/onboarding_action"
+      app:layout_constraintTop_toTopOf="parent"
       >
 
     <include
-        android:id="@+id/onboarding_welcome_buttons"
-        layout="@layout/onboarding_welcome_buttons"
+        android:id="@+id/onboarding_value_propositions"
+        layout="@layout/onboarding_value_propositions"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/half_large_margin"
         android:visibility="visible"
-        app:tint="@color/white"
-        />
-
-    <include
-        android:id="@+id/onboarding_values_buttons"
-        layout="@layout/onboarding_values_buttons"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/half_large_margin"
-        android:visibility="gone"
-        app:tint="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:tint="@color/styleguide_white"
         />
   </androidx.constraintlayout.widget.ConstraintLayout>
 
+  <androidx.constraintlayout.widget.ConstraintLayout
+      android:id="@+id/onboarding_action"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginHorizontal="@dimen/half_large_margin"
+      app:layout_constraintBottom_toBottomOf="parent"
+      >
+
+    <include
+        android:id="@+id/onboarding_terms_conditions"
+        layout="@layout/onboarding_terms_conditions"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/half_large_margin"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/onboarding_buttons"
+        app:layout_constraintHorizontal_chainStyle="spread"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+
+    <include
+        android:id="@+id/onboarding_buttons"
+        layout="@layout/onboarding_buttons"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/onboarding_terms_conditions"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+  </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

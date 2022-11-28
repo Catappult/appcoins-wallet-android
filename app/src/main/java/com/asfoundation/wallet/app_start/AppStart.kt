@@ -1,6 +1,7 @@
 package com.asfoundation.wallet.app_start
 
 import com.asfoundation.wallet.di.IoDispatcher
+import com.asfoundation.wallet.onboarding.use_cases.PendingPurchaseFlowUseCase
 import dagger.Reusable
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope
@@ -11,22 +12,33 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 sealed class StartMode {
-  object First : StartMode()
-  data class FirstUtm(
+  object Regular : StartMode()
+  data class GPInstall(
     val sku: String,
     val source: String,
     val packageName: String,
     val integrationFlow: String,
   ) : StartMode()
-  data class FirstTopApp(val packageName: String) : StartMode()
+
+  data class PendingPurchaseFlow(
+    val integrationFlow: String,
+    val sku: String,
+    val packageName: String,
+    val callbackUrl: String?,
+    val currency: String?,
+    val orderReference: String?,
+    val value: Double?,
+    val signature: String?
+  ) : StartMode()
+
   object Subsequent : StartMode()
 }
 
 @Reusable
 class AppStartUseCase @Inject constructor(
   private val repository: AppStartRepository,
-  private val firstUtmUseCase: FirstUtmUseCase,
-  private val firstTopAppUseCase: FirstTopAppUseCase,
+  private val gpInstallUseCase: GPInstallUseCase,
+  private val pendingPurchaseFlowUseCase: PendingPurchaseFlowUseCase,
   @IoDispatcher ioDispatcher: CoroutineDispatcher
 ) {
   private val scope = CoroutineScope(ioDispatcher)
@@ -41,9 +53,9 @@ class AppStartUseCase @Inject constructor(
     repository.saveRunCount(runs)
 
     val mode = if (firstInstallTime == lastUpdateTime && runs == 1) {
-      firstUtmUseCase.invoke()
-        ?: firstTopAppUseCase.invoke()
-        ?: StartMode.First
+      pendingPurchaseFlowUseCase()
+        ?: gpInstallUseCase()
+        ?: StartMode.Regular
     } else {
       StartMode.Subsequent
     }

@@ -1,17 +1,22 @@
 package com.asfoundation.wallet.ui.iab
 
+import com.asfoundation.wallet.base.RxSchedulers
 import com.asfoundation.wallet.update_required.use_cases.BuildUpdateIntentUseCase
+import com.asfoundation.wallet.wallets.usecases.GetWalletsModelUseCase
 import io.reactivex.disposables.CompositeDisposable
 
 class IabUpdateRequiredPresenter(
   private val view: IabUpdateRequiredView,
   private val disposables: CompositeDisposable,
-  private val buildUpdateIntentUseCase: BuildUpdateIntentUseCase
+  private val buildUpdateIntentUseCase: BuildUpdateIntentUseCase,
+  private val getWalletsModelUseCase: GetWalletsModelUseCase,
+  private val rxSchedulers: RxSchedulers
 ) {
 
   fun present() {
     handleUpdateClick()
     handleCancelClick()
+    handleBackupClick()
   }
 
   private fun handleCancelClick() {
@@ -23,6 +28,23 @@ class IabUpdateRequiredPresenter(
   private fun handleUpdateClick() {
     disposables.add(view.updateClick()
       .doOnNext { view.navigateToIntent(buildUpdateIntentUseCase()) }
+      .subscribe({}, { handleError(it) })
+    )
+  }
+
+  private fun handleBackupClick() {
+    disposables.add(view.backupClick()
+      .flatMapSingle {
+        getWalletsModelUseCase()
+          .observeOn(rxSchedulers.main)
+          .doOnSuccess { walletsModel ->
+            when (walletsModel.totalWallets) {
+              0 -> Unit
+              1 -> view.navigateToBackup(walletAddress = walletsModel.wallets[0].walletAddress)
+              else -> view.setDropDownMenu(walletsModel)
+            }
+          }
+      }
       .subscribe({}, { handleError(it) })
     )
   }

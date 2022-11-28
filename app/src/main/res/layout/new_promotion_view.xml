@@ -3,7 +3,7 @@
     android:id="@+id/referrals_card"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:backgroundTint="@color/pink_background"
+    android:backgroundTint="@color/styleguide_pink"
     app:cardCornerRadius="8dp"
     app:cardElevation="2.01dp"
     app:layout_constraintEnd_toEndOf="parent"

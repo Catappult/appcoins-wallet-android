@@ -67,7 +67,7 @@
   <string name="skip_with_arrow">Overslaan &gt;</string>
   <string name="root_title">DE VEILIGHEID VAN HET APPARAAT IS IN GEVAAR</string>
   <string name="root_body">Elke \'geroote\' app kan toegang tot de keychain-gegevens van de AppCoins Wallet krijgen en je wallet stelen! Wis deze wallet meteen en herstel deze op een veilig apparaat.</string>
-  <string name="credits_purchase_value">%s APPC Credits</string>
+  <string name="credits_purchase_value">%s AppCoins Credits</string>
   <string name="buying">%s kopen</string>
   <string name="action_buy">Kopen</string>
   <string name="empty"></string>
@@ -114,26 +114,28 @@
   <string name="intro_title_third_page">Simpel &amp; eenvoudig</string>
   <string name="intro_message_first_page">Welkom bij de revolutionaire app-economie.</string>
   <string name="intro_message_second_page">Alleen jouw apparaat bevat de privésleutels.</string>
-  <string name="intro_message_third_page">Verwerk al je in-app betalingen en beloningen in APPC.</string>
+  <string name="intro_message_third_page">Process all your in-app payments and rewards in AppCoins.</string>
   <string name="intro_1_title">AppCoins Wallet</string>
   <string name="intro_1_body">Jouw app voor in-app aankopen.</string>
   <string name="intro_2_title">Speel meer, betaal minder</string>
-  <string name="intro_2_body">Krijg een beloning door items in je favoriete apps en games te kopen.</string>
+  <string name="intro_2_body">The best payment wallet for apps and games.</string>
   <string name="intro_3_title">Simpel en eenvoudig</string>
-  <string name="intro_3_body">Zorg ervoor dat je de AppCoins Wallet hebt geïnstalleerd om rechtstreeks in games aankopen te doen.</string>
+  <string name="intro_3_body">Bonuses on all purchases.</string>
   <string name="intro_4_title">Veilig en persoonlijk</string>
-  <string name="intro_4_body">Je privésleutels staan alleen op jouw apparaat waardoor je AppCoins altijd beveiligd zijn.</string>
+  <string name="intro_4_body">Use bank card, PayPal and your favorite payment methods.</string>
   <string name="intro_4_body_2">Al je transacties zijn altijd veilig dankzij de nieuwste technologie.</string>
   <string name="intro_5_title">Ontvang gratis AppCoins Credits!</string>
   <string name="intro_5_body">Je verdient gratis AppCoins Credits door apps en games te proberen.</string>
   <string name="intro_creating_wallet_short">Je wallet wordt voor je ingesteld&#8230;</string>
   <string name="intro_wallet_created_short">Wallet is aangemaakt!</string>
-  <string name="intro_agree_terms_and_conditions_body">Door op Overslaan te tikken, ga je akkoord met de %1$s en het %2$s van AppCoins Wallet</string>
+  <string name="intro_agree_terms_and_conditions_body">By entering the AppCoins Wallet, you agree to the %1$s and %2$s.</string>
   <string name="intro_skip_button">OVERSLAAN</string>
   <string name="intro_welcome_header">Welkom bij de AppCoins Wallet</string>
-  <string name="intro_welcome_body">Jouw app voor in-app aankopen.</string>
+  <string name="intro_welcome_body">Top up your wallet or make a purchase in any AppCoins compatible app or game.</string>
+  <string name="intro_welcome_header_2">Up to %s%% Bonus!</string>
+  <string name="intro_welcome_body_2">Bonuses can be used in any app or game.</string>
   <string name="intro_already_have_wallet_button">Ik heb al een wallet</string>
-  <string name="intro_get_started_button">Aan de slag</string>
+  <string name="intro_get_started_button">Launch wallet</string>
   <!-- Menus -->
   <!-- Labels -->
   <string name="label_from">Van</string>
@@ -207,7 +209,7 @@
   <string name="activity_iab_error_message">Er is een fout opgetreden, probeer het opnieuw</string>
   <string name="action_try">uitproberen</string>
   <string name="activity_transactions_learn_more">Meer informatie</string>
-  <string name="activity_iab_no_funds_message">Niet genoeg ETH en APPC</string>
+  <string name="activity_iab_no_funds_message">Not enough ETH and AppCoins</string>
   <string name="activity_iab_no_ethereum_funds_message">Niet genoeg Ethereum</string>
   <string name="activity_iab_no_token_funds_message">Niet genoeg AppCoins</string>
   <string name="activity_iab_wrong_network_message">Onjuist Ethereum-netwerk of onbekende token</string>
@@ -299,19 +301,19 @@
   <string name="gamification_home_body">Verdien in je favoriete apps en games tot %s%% bonus!</string>
   <string name="gamification_home_button">BEGIN MET VERDIENEN</string>
   <string name="gamification_level_title">Wat is mijn niveau?</string>
-  <string name="gamification_level_title_new">Krijg APPC-credits!</string>
+  <string name="gamification_level_title_new">Get AppCoins Credits!</string>
   <string name="gamification_level_on_graphic">Niveau %s</string>
   <string name="gamification_APPCapps_button">Apps &amp; games</string>
   <string name="gamification_level_header">Gefeliciteerd, je bent %s!</string>
   <string name="gamification_level_to_next">Tot volgende niveau:</string>
   <string name="gamification_level_earned">VERDIEND:</string>
   <string name="gamification_level_next_lvl">TOT VOLGENDE NIVEAU:</string>
-  <string name="gamification_level_next_lvl_value">%s APPC</string>
+  <string name="gamification_level_next_lvl_value">%s AppCoins</string>
   <string name="gamification_level_bonus">%s%% BONUS</string>
   <string name="gamification_level_button_how">ZO WERKT HET</string>
-  <string name="gamification_level_body">Je verdient APPC-credits als je items in je favoriete apps en games koopt.</string>
+  <string name="gamification_level_body">You\'ll earn AppCoins Credits when buying items in your favorite apps and games.</string>
   <string name="gamification_how_header">Hoe kun je een niveau omhoog gaan?</string>
-  <string name="gamification_how_body">Je verdient APPC-credits als je items in je favoriete apps en games koopt.</string>
+  <string name="gamification_how_body">You\'ll earn AppCoins Credits when buying items in your favorite apps and games.</string>
   <string name="gamification_how_body_new">Hoe meer je in je favoriete apps besteedt, hoe groter de bonus!</string>
   <string name="gamification_how_table_a1">BESTEDEN</string>
   <string name="gamification_how_table_b1">BONUS</string>
@@ -333,7 +335,7 @@
   <string name="gamification_transaction_title">@string/gamification_level_bonus</string>
   <string name="gamification_purchase_header">Deze aankoop bevat een bonus!</string>
   <string name="gamification_purchase_header_part_1">Bonus voor aankoop:</string>
-  <string name="gamification_purchase_header_part_2">%s in APPC Credits</string>
+  <string name="gamification_purchase_header_part_2">%s in AppCoins Credits</string>
   <string name="gamification_purchase_body">Je kunt deze bonus bij je volgende aankoop gebruiken.</string>
   <string name="gamification_purchase_completed_bonus_received_done">Gelukt!</string>
   <string name="gamification_purchase_completed_bonus_received">Bonus ontvangen</string>
@@ -370,14 +372,14 @@
   <!-- Top Up -->
   <string name="topup_home_button">Opwaarderen</string>
   <string name="topup_title">Opwaarderen</string>
-  <string name="topup_amount">%s APPC-C</string>
+  <string name="topup_amount">%s AppCoins Credits</string>
   <string name="topup_bonus_header">Je hebt een bonus!</string>
-  <string name="topup_bonus_message">Er worden %s APPC-C aan je wallet toegevoegd.</string>
+  <string name="topup_bonus_message">%s AppCoins Credits extra will be credited in your wallet.</string>
   <string name="topup_completed_1">%s in AppCoins Credits</string>
   <string name="topup_completed_2_with_bonus">zijn aan je account toegevoegd... Plus een bonus!</string>
   <string name="topup_completed_2_without_bonus">zijn aan je account toegevoegd.</string>
   <string name="topup_bonus_header_part_1">Bonus voor opwaarderen:</string>
-  <string name="topup_bonus_header_part_2">%s in APPC Credits</string>
+  <string name="topup_bonus_header_part_2">%s in AppCoins Credits</string>
   <string name="topup_bonus_body">Je kunt deze bonus bij je volgende aankoop gebruiken.</string>
   <string name="topup_minimum_value">Minimale waarde voor opwaarderen is %s</string>
   <string name="topup_maximum_value">Maximale waarde voor opwaarderen is %s</string>
@@ -389,7 +391,7 @@
   <string name="balance_topup_body">Je kunt je wallet met AppCoins Credits opwaarderen.</string>
   <string name="balance_ethereum_body">Ethereum is de cryptovaluta waarop AppCoins zijn gebaseerd. Je kunt deze populaire cryptovaluta via de meeste platforms kopen!</string>
   <string name="balance_appcoins_body">AppCoins is de cryptovaluta voor de app-economie. Je kunt deze cryptovaluta via verschillende platforms kopen en verkopen en gebruiken om in-app items te kopen.</string>
-  <string name="balance_appccreditos_body">De token om in-app items te kopen! Waardeer APPC-C op via je wallet of krijg ze gratis door apps te gebruiken. Deze tokens kunnen ook tussen vrienden worden overgedragen!</string>
+  <string name="balance_appccreditos_body">The token to buy in-app items! Top up AppCoins Credits from your wallet or get them for free by using apps. They can also be transferred between friends!</string>
   <string name="my_wallets_action_new_wallet">Nieuwe wallet</string>
   <string name="my_wallets_action_recover_wallet">Wallet herstellen</string>
   <string name="my_wallets_action_backup_wallet">Back-up van wallet maken</string>
@@ -460,7 +462,7 @@
   <string name="home_empty_discover_apps_button">ONTDEK DE BESTE APPS</string>
   <!--Tokens-->
   <!--Settings-->
-  <string name="title_redeem">Code inwisselen</string>
+  <string name="title_redeem">Redeem Gift Card</string>
   <string name="settings_item_support">Neem contact op met support</string>
   <string name="settings_subheader_support">Ondersteuning</string>
   <string name="settings_subheader_about_us">Over ons</string>
@@ -548,7 +550,7 @@
   <string name="purchase_error_try_cheaper_item">Dat is behoorlijk duur! Probeer een item met een lagere prijs te kopen.</string>
   <string name="purchase_error_try_cheaper_item_or_method">Dat is behoorlijk duur! Probeer een goedkoper item te kopen of gebruik een andere betaalmethode.</string>
   <string name="transfer_appc_error_no_eth_title">Je hebt Ether nodig!</string>
-  <string name="transfer_appc_error_no_eth_body">Omdat de transactiekosten voor AppCoins in Ethereum worden betaald, heb je ETH nodig om APPC over te dragen.</string>
+  <string name="transfer_appc_error_no_eth_body">AppCoins transfers fees are paid in Ethereum, so you\'ll need ETH to transfer AppCoins.</string>
   <string name="purchase_error_invalid_credit_card">Ongeldig betaalkaartnummer. Controleer of de juiste cijfers zijn ingevoerd.</string>
   <string name="purchase_error_card_security_validation">Bij deze transactie is een fout bij de verificatie op het 2e niveau opgetreden. Probeer het opnieuw.</string>
   <string name="purchase_error_transaction_timeout">Het lijkt erop dat je er te lang over hebt gedaan om de transactie te voltooien. Probeer het opnieuw.</string>

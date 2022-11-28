@@ -16,7 +16,7 @@ class HomeRecyclerView @JvmOverloads constructor(
   init {
     // This layout manager centers the selected items (Loading, Empty state)
     // if there's available space to do so
-    this.setBackgroundColor(ContextCompat.getColor(context, R.color.white))
+    this.setBackgroundColor(ContextCompat.getColor(context, R.color.styleguide_white))
     layoutManager = object : LinearLayoutManager(context) {
 
       override fun layoutDecoratedWithMargins(child: View, left: Int, top: Int, right: Int,

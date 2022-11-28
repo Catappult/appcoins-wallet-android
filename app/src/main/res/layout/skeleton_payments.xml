@@ -10,10 +10,10 @@
       android:layout_height="match_parent"
       app:layout_constraintTop_toTopOf="parent"
       app:shimmer_base_alpha="1"
-      app:shimmer_base_color="@color/skeleton_light_base_color"
+      app:shimmer_base_color="@color/styleguide_light_grey"
       app:shimmer_colored="true"
       app:shimmer_duration="1000"
-      app:shimmer_highlight_color="@color/skeleton_higlight_color"
+      app:shimmer_highlight_color="@color/styleguide_medium_grey"
       >
 
     <View
@@ -30,10 +30,10 @@
       app:layout_constraintStart_toStartOf="@id/main_background"
       app:layout_constraintTop_toTopOf="@id/main_background"
       app:shimmer_base_alpha="1"
-      app:shimmer_base_color="@color/skeleton_dark_base_color"
+      app:shimmer_base_color="@color/styleguide_medium_grey"
       app:shimmer_colored="true"
       app:shimmer_duration="1000"
-      app:shimmer_highlight_color="@color/skeleton_higlight_color"
+      app:shimmer_highlight_color="@color/styleguide_medium_grey"
       >
     <View
         android:layout_width="match_parent"
@@ -49,10 +49,10 @@
       app:layout_constraintStart_toStartOf="@id/main_background"
       app:layout_constraintTop_toTopOf="@id/main_background"
       app:shimmer_base_alpha="1"
-      app:shimmer_base_color="@color/skeleton_dark_base_color"
+      app:shimmer_base_color="@color/styleguide_medium_grey"
       app:shimmer_colored="true"
       app:shimmer_duration="1000"
-      app:shimmer_highlight_color="@color/skeleton_higlight_color"
+      app:shimmer_highlight_color="@color/styleguide_medium_grey"
       >
     <View
         android:layout_width="match_parent"
@@ -69,10 +69,10 @@
       app:layout_constraintStart_toStartOf="@id/main_background"
       app:layout_constraintTop_toTopOf="@id/main_background"
       app:shimmer_base_alpha="1"
-      app:shimmer_base_color="@color/skeleton_dark_base_color"
+      app:shimmer_base_color="@color/styleguide_medium_grey"
       app:shimmer_colored="true"
       app:shimmer_duration="1000"
-      app:shimmer_highlight_color="@color/skeleton_higlight_color"
+      app:shimmer_highlight_color="@color/styleguide_medium_grey"
       app:shimmer_shape="radial"
       >
     <View

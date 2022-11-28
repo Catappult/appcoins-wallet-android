@@ -4,6 +4,7 @@ import android.content.Intent
 import android.net.Uri
 import android.text.format.DateUtils
 import com.appcoins.wallet.gamification.repository.Levels
+import com.appcoins.wallet.gamification.repository.entity.GamificationStatus
 import com.asf.wallet.BuildConfig
 import com.asfoundation.wallet.backup.repository.preferences.BackupTriggerPreferences
 import com.asfoundation.wallet.backup.use_cases.ShouldShowBackupTriggerUseCase
@@ -12,6 +13,7 @@ import com.asfoundation.wallet.billing.analytics.WalletsAnalytics
 import com.asfoundation.wallet.billing.analytics.WalletsEventSender
 import com.asfoundation.wallet.entity.GlobalBalance
 import com.asfoundation.wallet.entity.Wallet
+import com.asfoundation.wallet.gamification.ObserveUserStatsUseCase
 import com.asfoundation.wallet.home.usecases.*
 import com.asfoundation.wallet.referrals.CardNotification
 import com.asfoundation.wallet.transactions.Transaction
@@ -75,10 +77,9 @@ class HomeViewModel @Inject constructor(
   private val findDefaultWalletUseCase: FindDefaultWalletUseCase,
   private val observeDefaultWalletUseCase: ObserveDefaultWalletUseCase,
   private val dismissCardNotificationUseCase: DismissCardNotificationUseCase,
-  private val shouldShowFingerprintTooltipUseCase: ShouldShowFingerprintTooltipUseCase,
-  private val setSeenFingerprintTooltipUseCase: SetSeenFingerprintTooltipUseCase,
   private val getLevelsUseCase: GetLevelsUseCase,
   private val getUserLevelUseCase: GetUserLevelUseCase,
+  private val observeUserStatsUseCase: ObserveUserStatsUseCase,
   private val getLastShownUserLevelUseCase: GetLastShownUserLevelUseCase,
   private val updateLastShownUserLevelUseCase: UpdateLastShownUserLevelUseCase,
   private val getCardNotificationsUseCase: GetCardNotificationsUseCase,
@@ -279,10 +280,13 @@ class HomeViewModel @Inject constructor(
 
   private fun verifyUserLevel() {
     findDefaultWalletUseCase()
-      .flatMap { wallet ->
-        getUserLevelUseCase()
-          .flatMap { userLevel ->
-            setState { copy(showVipBadge = (userLevel == 9 || userLevel == 10)) }
+      .flatMapObservable { wallet ->
+        observeUserStatsUseCase()
+          .flatMapSingle { gamificationStats ->
+            val userLevel = gamificationStats.level
+            val isVipLevel =
+              gamificationStats.gamificationStatus == GamificationStatus.VIP || gamificationStats.gamificationStatus == GamificationStatus.VIP_MAX
+            setState { copy(showVipBadge = isVipLevel) }
             getLastShownUserLevelUseCase(wallet.address)
               .doOnSuccess { lastShownLevel ->
                 if (userLevel > lastShownLevel) {

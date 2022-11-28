@@ -3,7 +3,6 @@
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:background="@color/blue_dark"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     app:cardCornerRadius="@dimen/round_corner"
@@ -13,7 +12,7 @@
   <androidx.constraintlayout.widget.ConstraintLayout
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:background="@color/white_transparent_4"
+      android:background="@color/styleguide_white_transparent_10"
       android:paddingBottom="@dimen/backup_info_padding_bottom"
       >
 
@@ -60,7 +59,7 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_marginTop="22dp"
-        android:background="@color/white_transparent_10"
+        android:background="@color/styleguide_white_transparent_20"
         app:layout_constraintTop_toBottomOf="@id/backup_wallet_address"
         />
 

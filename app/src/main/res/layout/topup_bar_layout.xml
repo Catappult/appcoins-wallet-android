@@ -9,7 +9,7 @@
       android:id="@+id/top_bar"
       android:layout_width="match_parent"
       android:layout_height="64dp"
-      android:background="@color/navy_blue"
+      android:background="@color/styleguide_blue"
       android:gravity="center_vertical"
       android:orientation="horizontal"
       app:layout_constraintEnd_toEndOf="parent"
@@ -26,7 +26,7 @@
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
         android:src="@drawable/ic_slim_arrow_back"
-        app:tint="@color/white"
+        app:tint="@color/styleguide_white"
         />
 
     <TextView

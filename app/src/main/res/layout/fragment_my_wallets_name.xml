@@ -36,7 +36,7 @@
       android:maxHeight="170dp"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toBottomOf="@id/title"
-      app:textFieldColor="@color/white"
+      app:textFieldColor="@color/styleguide_white"
       app:textFieldHint="@string/mywallet_choose_name_field"
       app:textFieldType="outlined"
       />
@@ -57,7 +57,7 @@
       android:layout_height="@dimen/large_button_height"
       android:layout_marginTop="24dp"
       android:layout_marginEnd="@dimen/big_margin"
-      app:buttonColor="@color/grey_blue_medium"
+      app:buttonColor="@color/styleguide_dark_grey"
       app:buttonText="@string/cancel_button"
       app:buttonType="text"
       app:layout_constraintEnd_toStartOf="@+id/save"

@@ -7,8 +7,8 @@
 
   <style name="eSkills.Withdraw.TextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
     <item name="android:background">@null</item>
-    <item name="android:textColorHint">@color/grey</item>
-    <item name="android:textColor">@color/black_87_alpha</item>
+    <item name="android:textColorHint">@color/styleguide_dark_grey</item>
+    <item name="android:textColor">@color/styleguide_black_transparent_80</item>
     <item name="android:textCursorDrawable">@null</item>
     <item name="boxStrokeColor">@null</item>
     <item name="boxBackgroundMode">none</item>
@@ -37,7 +37,7 @@
   </style>
 
   <style name="eSkills.Withdraw.FieldError">
-    <item name="android:textColor">@color/remove_wallet_red</item>
+    <item name="android:textColor">@color/styleguide_red</item>
     <item name="android:textSize">12sp</item>
     <item name="android:fontFamily">sans-serif</item>
     <item name="android:textStyle">normal</item>

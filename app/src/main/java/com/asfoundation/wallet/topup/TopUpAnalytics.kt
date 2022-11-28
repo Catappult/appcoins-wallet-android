@@ -104,6 +104,33 @@ class TopUpAnalytics @Inject constructor(private val analyticsManager: Analytics
     return map
   }
 
+  fun send3dsStart(type: String?) {
+    analyticsManager.logEvent(
+      hashMapOf<String, Any>(PaymentMethodsAnalytics.TYPE to (type ?: "")),
+      PaymentMethodsAnalytics.WALLET_3DS_START,
+      AnalyticsManager.Action.CLICK,
+      PaymentMethodsAnalytics.WALLET
+    )
+  }
+
+  fun send3dsCancel() {
+    analyticsManager.logEvent(
+      hashMapOf<String, Any>(),
+      PaymentMethodsAnalytics.WALLET_3DS_CANCEL,
+      AnalyticsManager.Action.CLICK,
+      PaymentMethodsAnalytics.WALLET
+    )
+  }
+
+  fun send3dsError(error: String?) {
+    analyticsManager.logEvent(
+      hashMapOf<String, Any>(PaymentMethodsAnalytics.ERROR to (error ?: "")),
+      PaymentMethodsAnalytics.WALLET_3DS_ERROR,
+      AnalyticsManager.Action.CLICK,
+      PaymentMethodsAnalytics.WALLET
+    )
+  }
+
   companion object {
     const val WALLET_TOP_UP_START = "wallet_top_up_start"
     const val WALLET_TOP_UP_SELECTION = "wallet_top_up_selection"

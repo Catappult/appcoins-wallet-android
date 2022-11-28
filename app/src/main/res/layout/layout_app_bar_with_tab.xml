@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:theme="@style/AppTheme.AppBarOverlay"
-    android:background="@drawable/appbar_background_color"
+    android:background="@color/styleguide_blue"
     >
   <androidx.appcompat.widget.Toolbar
       android:id="@+id/toolbar"
@@ -19,7 +19,7 @@
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:elevation="8dp"
-      app:tabIndicatorColor="@color/white"
+      app:tabIndicatorColor="@color/styleguide_white"
       style="@style/TabLayoutStyle"
       />
 </com.google.android.material.appbar.AppBarLayout>

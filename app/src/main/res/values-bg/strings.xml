@@ -67,7 +67,7 @@
   <string name="skip_with_arrow">Пропусни &gt;</string>
   <string name="root_title">СИГУРНОСТТА НА УСТРОЙСТВОТО В КОМПРОМЕТИРАНА</string>
   <string name="root_body">Всяко \"вкоренено\" приложение има достъп до кийчейн данните на AppCoins портфейла ти и ти го краде! Изтрий този портфейл незабавно и поднови данните си на сигурно устройство.</string>
-  <string name="credits_purchase_value">%s APPC Credits</string>
+  <string name="credits_purchase_value">%s AppCoins Credits</string>
   <string name="buying">Закупуване на %s</string>
   <string name="action_buy">Купи</string>
   <string name="empty"></string>
@@ -114,26 +114,28 @@
   <string name="intro_title_third_page">Просто &amp; Лесно</string>
   <string name="intro_message_first_page">Добре дошли в революцията на ап икономиката.</string>
   <string name="intro_message_second_page">Частните ключове никога не напускат устройството ти.</string>
-  <string name="intro_message_third_page">Обработва всички твои плащания и дава награди в APPC.</string>
+  <string name="intro_message_third_page">Process all your in-app payments and rewards in AppCoins.</string>
   <string name="intro_1_title">AppCoins Wallet</string>
   <string name="intro_1_body">Твоето приложение за ин-ап покупки.</string>
   <string name="intro_2_title">Играй повече, плащай по-малко</string>
-  <string name="intro_2_body">Получи награда при купуване на артикули в любимите си приложения и игри.</string>
+  <string name="intro_2_body">The best payment wallet for apps and games.</string>
   <string name="intro_3_title">Просто и Лесно</string>
-  <string name="intro_3_body">Обработи всичките си покупки в приложението, използвайки любимия си метод за плащане.</string>
+  <string name="intro_3_body">Bonuses on all purchases.</string>
   <string name="intro_4_title">Сигурно и Частно</string>
-  <string name="intro_4_body">Твоите частни ключове никога няма да напуснат устройството ти, така че твоите AppCoins са в безопасност по всяко време.</string>
+  <string name="intro_4_body">Use bank card, PayPal and your favorite payment methods.</string>
   <string name="intro_4_body_2">All your transactions are always safe thanks to the latest technology.</string>
   <string name="intro_5_title">Получи безплатни AppCoins Credits!</string>
   <string name="intro_5_body">Ще спечелиш безплатни AppCoins Credits като изпробваш приложения и игри.</string>
   <string name="intro_creating_wallet_short">Настройка на портфейла ти за теб &#8230;</string>
   <string name="intro_wallet_created_short">Портфейл създаден!</string>
-  <string name="intro_agree_terms_and_conditions_body">Кликвайки на Пропусни, ти се съгласяваш с  %1$s и %2$s на AppCoins портфейла</string>
+  <string name="intro_agree_terms_and_conditions_body">By entering the AppCoins Wallet, you agree to the %1$s and %2$s.</string>
   <string name="intro_skip_button">ПРОПУСНИ</string>
   <string name="intro_welcome_header">Welcome to the AppCoins Wallet</string>
-  <string name="intro_welcome_body">Твоето приложение за ин-ап покупки.</string>
+  <string name="intro_welcome_body">Top up your wallet or make a purchase in any AppCoins compatible app or game.</string>
+  <string name="intro_welcome_header_2">Up to %s%% Bonus!</string>
+  <string name="intro_welcome_body_2">Bonuses can be used in any app or game.</string>
   <string name="intro_already_have_wallet_button">I already have a wallet</string>
-  <string name="intro_get_started_button">Get started</string>
+  <string name="intro_get_started_button">Launch wallet</string>
   <!-- Menus -->
   <!-- Labels -->
   <string name="label_from">От</string>
@@ -207,7 +209,7 @@
   <string name="activity_iab_error_message">Възникна грешка, моля, опитай отново</string>
   <string name="action_try">Опитай</string>
   <string name="activity_transactions_learn_more">Научи повече</string>
-  <string name="activity_iab_no_funds_message">Няма достатъчно ETH и APPC</string>
+  <string name="activity_iab_no_funds_message">Not enough ETH and AppCoins</string>
   <string name="activity_iab_no_ethereum_funds_message">Няма достатъчно Ethereum</string>
   <string name="activity_iab_no_token_funds_message">Няма достатъчно AppCoins</string>
   <string name="activity_iab_wrong_network_message">Грешна Ethereum мрежа или неизвестен токен</string>
@@ -299,19 +301,19 @@
   <string name="gamification_home_body">Спечели до %s%% Бонус в любимите си приложения и игри!</string>
   <string name="gamification_home_button">ЗАПОЧНИ ДА ПЕЧЕЛИШ</string>
   <string name="gamification_level_title">Какво е моето ниво?</string>
-  <string name="gamification_level_title_new">Получи APPC кредити!</string>
+  <string name="gamification_level_title_new">Get AppCoins Credits!</string>
   <string name="gamification_level_on_graphic">Ниво %s</string>
   <string name="gamification_APPCapps_button">Приложения &amp; игри</string>
   <string name="gamification_level_header">Поздравления, ти си %s!</string>
   <string name="gamification_level_to_next">До следващото ниво:</string>
   <string name="gamification_level_earned">СПЕЧЕЛЕНИ:</string>
   <string name="gamification_level_next_lvl">ДО СЛЕДВАЩОТО НИВО:</string>
-  <string name="gamification_level_next_lvl_value">%s APPC</string>
+  <string name="gamification_level_next_lvl_value">%s AppCoins</string>
   <string name="gamification_level_bonus">%s%% БОНУС</string>
   <string name="gamification_level_button_how">КАК РАБОТИ</string>
-  <string name="gamification_level_body">Ти ще спечелиш APPC кредити при закупуване на артикули в твоите любими приложения и игри.</string>
+  <string name="gamification_level_body">You\'ll earn AppCoins Credits when buying items in your favorite apps and games.</string>
   <string name="gamification_how_header">Как да отида на горно ниво?</string>
-  <string name="gamification_how_body">Ти ще спечелиш APPC кредити при закупуване на артикули в твоите любими приложения и игри.</string>
+  <string name="gamification_how_body">You\'ll earn AppCoins Credits when buying items in your favorite apps and games.</string>
   <string name="gamification_how_body_new">Колкото повече харчиш в любимите си приложения, толкова по-голям е Бонусът!</string>
   <string name="gamification_how_table_a1">ПОХАРЧИ</string>
   <string name="gamification_how_table_b1">БОНУС</string>
@@ -333,7 +335,7 @@
   <string name="gamification_transaction_title">@string/gamification_level_bonus</string>
   <string name="gamification_purchase_header">This purchase has a bonus!</string>
   <string name="gamification_purchase_header_part_1">Бонус от покупката:</string>
-  <string name="gamification_purchase_header_part_2">%s APPC Credits</string>
+  <string name="gamification_purchase_header_part_2">%s в AppCoins Credits</string>
   <string name="gamification_purchase_body">Можеш да използваш този бонус при следващата си покупка.</string>
   <string name="gamification_purchase_completed_bonus_received_done">Готово!</string>
   <string name="gamification_purchase_completed_bonus_received">Получен бонус</string>
@@ -370,14 +372,14 @@
   <!-- Top Up -->
   <string name="topup_home_button">Допълване</string>
   <string name="topup_title">Допълни</string>
-  <string name="topup_amount">%s APPC-C</string>
+  <string name="topup_amount">%s AppCoins Credits</string>
   <string name="topup_bonus_header">Получи Бонус!</string>
-  <string name="topup_bonus_message">%s допълнителни APPC кредита ще бъдат кредитирани в портфейла ти.</string>
+  <string name="topup_bonus_message">%s AppCoins Credits extra will be credited in your wallet.</string>
   <string name="topup_completed_1">%s в AppCoins Credits</string>
   <string name="topup_completed_2_with_bonus">бяха депозирани в акаунта ти... Заедно с бонуса!</string>
   <string name="topup_completed_2_without_bonus">бяха депозирани в акаунта ти.</string>
   <string name="topup_bonus_header_part_1">Допълващ бонус:</string>
-  <string name="topup_bonus_header_part_2">%s в APPC Credits</string>
+  <string name="topup_bonus_header_part_2">%s в AppCoins Credits</string>
   <string name="topup_bonus_body">Можеш да използваш този бонус при следващата си покупка.</string>
   <string name="topup_minimum_value">Минималната стойност за допълване е %s</string>
   <string name="topup_maximum_value">Максималната стойност за допълване е %s</string>
@@ -389,7 +391,7 @@
   <string name="balance_topup_body">Можеш да допълниш портфейла си с AppCoins кредити.</string>
   <string name="balance_ethereum_body">Ethereum е криптовалутата, на която се базират AppCoins. Можеш да ги купуваш и продаваш на повечето борси, много е популярно!</string>
   <string name="balance_appcoins_body">AppCoins е криптовалутата на икономиката на приложението. Можеш да я купуваш и продаваш на няколко борси и да я използваш за закупуване на различни неща в приложението.</string>
-  <string name="balance_appccreditos_body">Токен за закупуване на покупки вътре в приложението! Допълни APPC-C от портфейла си или да ги получи безплатно, използвайки приложения. Те също могат и да се прехвърлят между приятели!</string>
+  <string name="balance_appccreditos_body">The token to buy in-app items! Top up AppCoins Credits from your wallet or get them for free by using apps. They can also be transferred between friends!</string>
   <string name="my_wallets_action_new_wallet">New wallet</string>
   <string name="my_wallets_action_recover_wallet">Recover wallet</string>
   <string name="my_wallets_action_backup_wallet">Backup wallet</string>
@@ -460,7 +462,7 @@
   <string name="home_empty_discover_apps_button">ОТКРИЙ ТОП ПРИЛОЖЕНИЯ</string>
   <!--Tokens-->
   <!--Settings-->
-  <string name="title_redeem">Осребри кода</string>
+  <string name="title_redeem">Redeem Gift Card</string>
   <string name="settings_item_support">Свържи се със съпорт отдела</string>
   <string name="settings_subheader_support">Поддръжка</string>
   <string name="settings_subheader_about_us">За нас</string>
@@ -548,7 +550,7 @@
   <string name="purchase_error_try_cheaper_item">That\'s quite expensive! Please try purchasing an item of a lower value.</string>
   <string name="purchase_error_try_cheaper_item_or_method">That\'s quite expensive! Please try purchasing a cheaper item or try a different payment method.</string>
   <string name="transfer_appc_error_no_eth_title">You need Ether!</string>
-  <string name="transfer_appc_error_no_eth_body">AppCoins transfers fees are paid in Ethereum, so you\'ll need ETH to transfer APPC.</string>
+  <string name="transfer_appc_error_no_eth_body">AppCoins transfers fees are paid in Ethereum, so you\'ll need ETH to transfer AppCoins.</string>
   <string name="purchase_error_invalid_credit_card">Invalid bank card number. Please make sure all digits are correct.</string>
   <string name="purchase_error_card_security_validation">There was an error on the 2nd level validation of this transaction. Please try again.</string>
   <string name="purchase_error_transaction_timeout">It seems you took too long to complete the transaction. Please try again.</string>

@@ -2,6 +2,7 @@ package com.asfoundation.wallet.app_start
 
 import app.cash.turbine.testIn
 import com.asfoundation.wallet.gherkin.coScenario
+import com.asfoundation.wallet.onboarding.use_cases.PendingPurchaseFlowUseCase
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.test.StandardTestDispatcher
@@ -29,11 +30,11 @@ internal class AppStartUseCaseTest {
   @MethodSource("testDataProvider")
   fun `Listen before job started`(data: TestData) = coScenario { scope ->
 
-    m Given "use case with the given repository, FirstUtmUseCase and FirstTopAppUseCase mocks"
+    m Given "use case with the given repository, GPInstallUseCase and PendingPurchaseFlowUseCase mocks"
     val useCase = AppStartUseCase(
       data.givenData.repository,
-      data.givenData.firstUtmUseCase,
-      data.givenData.firstTopAppUseCase,
+      data.givenData.GPInstallUseCase,
+      data.givenData.PendingPurchaseFlowUseCase,
       StandardTestDispatcher(scope.testScheduler)
     )
     m And "subscribed for modes"
@@ -56,11 +57,11 @@ internal class AppStartUseCaseTest {
   @MethodSource("testDataProvider")
   fun `Listen before job finished`(data: TestData) = coScenario { scope ->
 
-    m Given "use case with the given repository, FirstUtmUseCase and FirstTopAppUseCase mocks"
+    m Given "use case with the given repository, GPInstallUseCase and PendingPurchaseFlowUseCase mocks"
     val useCase = AppStartUseCase(
       data.givenData.repository,
-      data.givenData.firstUtmUseCase,
-      data.givenData.firstTopAppUseCase,
+      data.givenData.GPInstallUseCase,
+      data.givenData.PendingPurchaseFlowUseCase,
       StandardTestDispatcher(scope.testScheduler)
     )
 
@@ -85,11 +86,11 @@ internal class AppStartUseCaseTest {
   @MethodSource("testDataProvider")
   fun `Listen after job finished`(data: TestData) = coScenario { scope ->
 
-    m Given "use case with the given repository, FirstUtmUseCase and FirstTopAppUseCase mocks"
+    m Given "use case with the given repository, GPInstallUseCase and PendingPurchaseFlowUseCase mocks"
     val useCase = AppStartUseCase(
       data.givenData.repository,
-      data.givenData.firstUtmUseCase,
-      data.givenData.firstTopAppUseCase,
+      data.givenData.GPInstallUseCase,
+      data.givenData.PendingPurchaseFlowUseCase,
       StandardTestDispatcher(scope.testScheduler)
     )
 
@@ -109,15 +110,32 @@ internal class AppStartUseCaseTest {
   }
 
   companion object {
-    private fun firstUtm(
+    private fun gpInstall(
       sku: String = "13204",
       source: String = "aptoide",
       packageName: String = "com.igg.android.lordsmobile",
       integration: String = "osp"
-    ) = StartMode.FirstUtm(sku, source, packageName, integration)
+    ) = StartMode.GPInstall(sku, source, packageName, integration)
 
-    private fun firstTopApp(packageName: String = "com.igg.android.lordsmobile") =
-      StartMode.FirstTopApp(packageName)
+    private fun pendingPurchase(
+      integrationFlow: String = "osp",
+      sku: String = "13204",
+      packageName: String = "com.igg.android.lordsmobile",
+      callbackUrl: String = "",
+      currency: String = "USD",
+      orderReference: String = "",
+      value: Double = 1.5,
+      signature: String = ""
+    ) = StartMode.PendingPurchaseFlow(
+      integrationFlow,
+      sku,
+      packageName,
+      callbackUrl,
+      currency,
+      orderReference,
+      value,
+      signature
+    )
 
     @JvmStatic
     fun testDataProvider(): List<TestData> = listOf(
@@ -127,22 +145,16 @@ internal class AppStartUseCaseTest {
         thenData = ThenData()
       ),
       TestData(
-        scenario = "App started with UTM -> FirstUtm",
-        givenData = GivenData(firstUtmUseCase = FirstUtmUseCaseMock(firstUtm())),
-        thenData = ThenData(mode = firstUtm())
+        scenario = "App started with GP Install -> GPInstall",
+        givenData = GivenData(GPInstallUseCase = GPInstallUseCaseMock(gpInstall())),
+        thenData = ThenData(mode = gpInstall())
       ),
       TestData(
-        scenario = "App started with top app -> FirstTopApp",
-        givenData = GivenData(firstTopAppUseCase = FirstTopAppUseCaseMock(firstTopApp())),
-        thenData = ThenData(mode = firstTopApp())
-      ),
-      TestData(
-        scenario = "App started with UTM and top app -> FirstUtm",
+        scenario = "App started with Pending Purchase -> PendingPurchaseFlow",
         givenData = GivenData(
-          firstUtmUseCase = FirstUtmUseCaseMock(firstUtm()),
-          firstTopAppUseCase = FirstTopAppUseCaseMock(firstTopApp())
+          PendingPurchaseFlowUseCase = PendingPurchaseFlowUseCaseMock(pendingPurchase())
         ),
-        thenData = ThenData(mode = firstUtm())
+        thenData = ThenData(mode = pendingPurchase())
       ),
       TestData(
         scenario = "App started after update -> Subsequent",
@@ -150,27 +162,27 @@ internal class AppStartUseCaseTest {
         thenData = ThenData(mode = StartMode.Subsequent)
       ),
       TestData(
-        scenario = "App started after update with UTM -> Subsequent",
+        scenario = "App started after update with GP Install -> Subsequent",
         givenData = GivenData(
           repository = AppStartRepositoryMock(updatedAfter = 5.days()),
-          firstUtmUseCase = FirstUtmUseCaseMock(firstUtm())
+          GPInstallUseCase = GPInstallUseCaseMock(gpInstall())
         ),
         thenData = ThenData(mode = StartMode.Subsequent)
       ),
       TestData(
-        scenario = "App started after update with top app -> Subsequent",
+        scenario = "App started after update with Pending Purchase -> Subsequent",
         givenData = GivenData(
           repository = AppStartRepositoryMock(updatedAfter = 5.days()),
-          firstTopAppUseCase = FirstTopAppUseCaseMock(firstTopApp())
+          PendingPurchaseFlowUseCase = PendingPurchaseFlowUseCaseMock(pendingPurchase())
         ),
         thenData = ThenData(mode = StartMode.Subsequent)
       ),
       TestData(
-        scenario = "App started after update with UTM and top app -> Subsequent",
+        scenario = "App started after update with Pending Purchase and GP Install -> Subsequent",
         givenData = GivenData(
           repository = AppStartRepositoryMock(updatedAfter = 5.days()),
-          firstUtmUseCase = FirstUtmUseCaseMock(firstUtm()),
-          firstTopAppUseCase = FirstTopAppUseCaseMock(firstTopApp())
+          PendingPurchaseFlowUseCase = PendingPurchaseFlowUseCaseMock(pendingPurchase()),
+          GPInstallUseCase = GPInstallUseCaseMock(gpInstall())
         ),
         thenData = ThenData(mode = StartMode.Subsequent)
       ),
@@ -180,27 +192,27 @@ internal class AppStartUseCaseTest {
         thenData = ThenData(mode = StartMode.Subsequent, runCount = 2)
       ),
       TestData(
-        scenario = "App started for the second time with UTM -> Subsequent",
+        scenario = "App started for the second time with GP Install -> Subsequent",
         givenData = GivenData(
           repository = AppStartRepositoryMock(runCount = 1),
-          firstUtmUseCase = FirstUtmUseCaseMock(firstUtm())
+          GPInstallUseCase = GPInstallUseCaseMock(gpInstall())
         ),
         thenData = ThenData(mode = StartMode.Subsequent, runCount = 2)
       ),
       TestData(
-        scenario = "App started for the second time with top app -> Subsequent",
+        scenario = "App started for the second time with Pending Purchase -> Subsequent",
         givenData = GivenData(
           repository = AppStartRepositoryMock(runCount = 1),
-          firstTopAppUseCase = FirstTopAppUseCaseMock(firstTopApp())
+          PendingPurchaseFlowUseCase = PendingPurchaseFlowUseCaseMock(pendingPurchase())
         ),
         thenData = ThenData(mode = StartMode.Subsequent, runCount = 2)
       ),
       TestData(
-        scenario = "App started for the second time with UTM and top app -> Subsequent",
+        scenario = "App started for the second time with Pending Purchase and GP Install -> Subsequent",
         givenData = GivenData(
           repository = AppStartRepositoryMock(runCount = 1),
-          firstUtmUseCase = FirstUtmUseCaseMock(firstUtm()),
-          firstTopAppUseCase = FirstTopAppUseCaseMock(firstTopApp())
+          PendingPurchaseFlowUseCase = PendingPurchaseFlowUseCaseMock(pendingPurchase()),
+          GPInstallUseCase = GPInstallUseCaseMock(gpInstall())
         ),
         thenData = ThenData(mode = StartMode.Subsequent, runCount = 2)
       ),
@@ -212,27 +224,27 @@ internal class AppStartUseCaseTest {
         thenData = ThenData(mode = StartMode.Subsequent, runCount = 2)
       ),
       TestData(
-        scenario = "App started for the second time after update with UTM -> Subsequent",
+        scenario = "App started for the second time after update with Pending Purchase -> Subsequent",
         givenData = GivenData(
           repository = AppStartRepositoryMock(runCount = 1, updatedAfter = 5.days()),
-          firstUtmUseCase = FirstUtmUseCaseMock(firstUtm())
+          PendingPurchaseFlowUseCase = PendingPurchaseFlowUseCaseMock(pendingPurchase())
         ),
         thenData = ThenData(mode = StartMode.Subsequent, runCount = 2)
       ),
       TestData(
-        scenario = "App started for the second time after update with top app -> Subsequent",
+        scenario = "App started for the second time after update with GP Install -> Subsequent",
         givenData = GivenData(
           repository = AppStartRepositoryMock(runCount = 1, updatedAfter = 5.days()),
-          firstTopAppUseCase = FirstTopAppUseCaseMock(firstTopApp())
+          GPInstallUseCase = GPInstallUseCaseMock(gpInstall())
         ),
         thenData = ThenData(mode = StartMode.Subsequent, runCount = 2)
       ),
       TestData(
-        scenario = "App started for the second time after update with UTM and top app -> Subsequent",
+        scenario = "App started for the second time after update with Pending Purchase and GP Install -> Subsequent",
         givenData = GivenData(
           repository = AppStartRepositoryMock(runCount = 1, updatedAfter = 5.days()),
-          firstUtmUseCase = FirstUtmUseCaseMock(firstUtm()),
-          firstTopAppUseCase = FirstTopAppUseCaseMock(firstTopApp())
+          PendingPurchaseFlowUseCase = PendingPurchaseFlowUseCaseMock(pendingPurchase()),
+          GPInstallUseCase = GPInstallUseCaseMock(gpInstall())
         ),
         thenData = ThenData(mode = StartMode.Subsequent, runCount = 2)
       )
@@ -246,14 +258,15 @@ internal class AppStartUseCaseTest {
   ) {
     override fun toString() = scenario
   }
+
   internal data class GivenData(
     val repository: AppStartRepositoryMock = AppStartRepositoryMock(),
-    val firstUtmUseCase: FirstUtmUseCase = FirstUtmUseCaseMock(),
-    val firstTopAppUseCase: FirstTopAppUseCase = FirstTopAppUseCaseMock(),
+    val GPInstallUseCase: GPInstallUseCase = GPInstallUseCaseMock(),
+    val PendingPurchaseFlowUseCase: PendingPurchaseFlowUseCase = PendingPurchaseFlowUseCaseMock(),
   )
 
   internal data class ThenData(
-    val mode: StartMode = StartMode.First,
+    val mode: StartMode = StartMode.Regular,
     val runCount: Int = 1,
   )
 }
@@ -287,21 +300,20 @@ internal class AppStartRepositoryMock(
   }
 }
 
-class FirstUtmUseCaseMock(
-  private val firstUtm: StartMode.FirstUtm? = null
-) : FirstUtmUseCase {
-  override suspend operator fun invoke(): StartMode.FirstUtm? {
+class GPInstallUseCaseMock(
+  private val GPInstall: StartMode.GPInstall? = null
+) : GPInstallUseCase {
+  override suspend operator fun invoke(): StartMode.GPInstall? {
     delay(800)
-    return firstUtm
+    return GPInstall
   }
 }
 
-class FirstTopAppUseCaseMock(
-  private val firstUtm: StartMode.FirstTopApp? = null
-) : FirstTopAppUseCase {
+class PendingPurchaseFlowUseCaseMock(
+  private val pendingPurchase: StartMode.PendingPurchaseFlow? = null
+) : PendingPurchaseFlowUseCase {
 
-  override suspend operator fun invoke(): StartMode.FirstTopApp? {
-    delay(400)
-    return firstUtm
+  override operator fun invoke(): StartMode.PendingPurchaseFlow? {
+    return pendingPurchase
   }
 }

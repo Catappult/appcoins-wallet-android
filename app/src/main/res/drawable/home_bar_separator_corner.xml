@@ -5,7 +5,7 @@
       <corners
           android:topLeftRadius="24dp"
           android:topRightRadius="24dp" />
-      <solid android:color="@color/white" />
+      <solid android:color="@color/styleguide_white" />
       <size android:height="24dp" />
     </shape>
   </item>

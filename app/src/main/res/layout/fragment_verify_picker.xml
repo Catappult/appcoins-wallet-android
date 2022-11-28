@@ -12,7 +12,7 @@
       android:layout_height="wrap_content"
       android:layout_marginTop="15dp"
       app:cardElevation="0dp"
-      app:rippleColor="@color/button_borderless_ripple_color"
+      app:rippleColor="@color/styleguide_dark_grey"
       app:shapeAppearance="@style/MyWallets.Shapes.Rounded8"
       >
 
@@ -37,7 +37,7 @@
           android:layout_marginEnd="15dp"
           android:fontFamily="sans-serif-medium"
           android:text="Verify with PayPal"
-          android:textColor="@color/darker_navy_blue"
+          android:textColor="@color/styleguide_blue"
           android:textSize="16sp"
           />
     </LinearLayout>
@@ -49,7 +49,7 @@
       android:layout_marginTop="15dp"
       android:layout_marginBottom="15dp"
       app:cardElevation="0dp"
-      app:rippleColor="@color/button_borderless_ripple_color"
+      app:rippleColor="@color/styleguide_dark_grey"
       app:shapeAppearance="@style/MyWallets.Shapes.Rounded8"
       >
 
@@ -74,7 +74,7 @@
           android:layout_marginEnd="15dp"
           android:fontFamily="sans-serif-medium"
           android:text="Verify with Credit Card"
-          android:textColor="@color/darker_navy_blue"
+          android:textColor="@color/styleguide_blue"
           android:textSize="16sp"
           />
     </LinearLayout>

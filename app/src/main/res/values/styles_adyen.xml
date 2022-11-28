@@ -7,13 +7,13 @@
 
   <style name="ThreeDS2Theme" parent="AppTheme" tools:override="true">
     <!-- Customize the SDK theme here. -->
-    <item name="colorPrimary">@color/adyen_3DS_color</item>
-    <item name="colorPrimaryDark">@color/adyen_3DS_color</item>
-    <item name="colorAccent">@color/adyen_3DS_color</item>
+    <item name="colorPrimary">@color/styleguide_blue</item>
+    <item name="colorPrimaryDark">@color/styleguide_blue</item>
+    <item name="colorAccent">@color/styleguide_blue</item>
   </style>
 
   <style name="AdyenCheckout.SwitchTheme" parent="Widget.AppCompat.CompoundButton.Switch">
-    <item name="colorControlActivated">@color/pinkish_orange</item>
+    <item name="colorControlActivated">@color/styleguide_orange</item>
   </style>
 
   <style name="AdyenCheckout.Card.StorePaymentSwitch" parent="AdyenCheckout.Switch">

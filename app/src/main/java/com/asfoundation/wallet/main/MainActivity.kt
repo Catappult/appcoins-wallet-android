@@ -12,6 +12,8 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import com.asf.wallet.R
 import com.asfoundation.wallet.base.SingleStateFragment
+import com.asfoundation.wallet.util.RxBus
+import com.asfoundation.wallet.main.splash.bus.SplashFinishEvent
 import com.asfoundation.wallet.support.SupportNotificationProperties.SUPPORT_NOTIFICATION_CLICK
 import com.asfoundation.wallet.ui.AuthenticationPromptActivity
 import dagger.hilt.android.AndroidEntryPoint
@@ -43,7 +45,7 @@ class MainActivity : AppCompatActivity(),
     setContentView(R.layout.main_activity)
 
     initNavController()
-
+    handleSplashScreenResult()
     handleAuthenticationResult()
     viewModel.collectStateAndEvents(lifecycle, lifecycleScope)
   }
@@ -53,6 +55,12 @@ class MainActivity : AppCompatActivity(),
       R.id.full_host_container
     ) as NavHostFragment
     navController = navHostFragment.navController
+  }
+
+  private fun handleSplashScreenResult() {
+    RxBus.listen(SplashFinishEvent().javaClass).subscribe {
+      viewModel.handleInitialNavigation()
+    }
   }
 
   private fun handleAuthenticationResult() {

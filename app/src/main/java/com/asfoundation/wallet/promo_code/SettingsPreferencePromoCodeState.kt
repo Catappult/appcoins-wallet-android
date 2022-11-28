@@ -45,7 +45,7 @@ class SettingsPreferencePromoCodeState(context: Context, attrs: AttributeSet?) :
             promoCodeState?.setTextColor(
               ResourcesCompat.getColor(
                 context.resources,
-                R.color.red,
+                R.color.styleguide_red,
                 null
               )
             )
@@ -53,7 +53,7 @@ class SettingsPreferencePromoCodeState(context: Context, attrs: AttributeSet?) :
           else -> {
             promoCodeState?.text = null
             promoCodeState?.setTextColor(
-              ResourcesCompat.getColor(context.resources, R.color.black, null)
+              ResourcesCompat.getColor(context.resources, R.color.styleguide_black, null)
             )
           }
         }
@@ -62,7 +62,7 @@ class SettingsPreferencePromoCodeState(context: Context, attrs: AttributeSet?) :
       else -> {
         promoCodeState?.text = null
         promoCodeState?.setTextColor(
-          ResourcesCompat.getColor(context.resources, R.color.black, null)
+          ResourcesCompat.getColor(context.resources, R.color.styleguide_black, null)
         )
       }
     }

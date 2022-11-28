@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    tools:background="@color/blue_dark"
+    tools:background="@color/styleguide_blue"
     >
   <TextView
       android:id="@+id/send_email_title"
@@ -25,7 +25,7 @@
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toBottomOf="@+id/send_email_title"
-      app:textFieldColor="@color/white"
+      app:textFieldColor="@color/styleguide_white"
       app:textFieldHint="@string/email_here_field"
       app:textFieldType="filled"
       />
@@ -55,7 +55,7 @@
     <View
         android:layout_width="0dp"
         android:layout_height="1dp"
-        android:background="@color/white_transparent_10"
+        android:background="@color/styleguide_white_transparent_20"
         app:layout_constraintBottom_toBottomOf="@+id/backup_options_separator_text"
         app:layout_constraintEnd_toStartOf="@+id/backup_options_separator_text"
         app:layout_constraintStart_toStartOf="parent"
@@ -75,7 +75,7 @@
     <View
         android:layout_width="0dp"
         android:layout_height="1dp"
-        android:background="@color/white_transparent_10"
+        android:background="@color/styleguide_white_transparent_20"
         app:layout_constraintBottom_toBottomOf="@+id/backup_options_separator_text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/backup_options_separator_text"

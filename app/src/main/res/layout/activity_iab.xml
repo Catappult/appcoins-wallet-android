@@ -40,7 +40,7 @@
       android:layout_marginEnd="@dimen/normal_margin"
       android:layout_marginBottom="@dimen/normal_margin"
       android:theme="@style/Theme.MaterialComponents"
-      app:cardBackgroundColor="@color/white"
+      app:cardBackgroundColor="@color/styleguide_white"
       app:cardCornerRadius="8dp"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"

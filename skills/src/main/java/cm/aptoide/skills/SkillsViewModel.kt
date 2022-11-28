@@ -2,8 +2,6 @@ package cm.aptoide.skills
 
 import android.content.Context
 import android.content.Intent
-import android.net.Uri
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import cm.aptoide.skills.entity.UserData
 import cm.aptoide.skills.interfaces.PaymentView
@@ -19,8 +17,6 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.subjects.PublishSubject
 import java.math.BigDecimal
 import java.util.concurrent.TimeUnit
-import java.util.regex.Matcher
-import java.util.regex.Pattern
 import javax.inject.Inject
 
 @HiltViewModel
@@ -43,8 +39,10 @@ class SkillsViewModel @Inject constructor(
   private val sendUserVerificationFlowUseCase: SendUserVerificationFlowUseCase,
   private val isWalletVerifiedUseCase: IsWalletVerifiedUseCase,
   private val validateUrlUseCase: ValidateUrlUseCase,
-  private val isTopUpListEmptyUseCase: IsTopUpListEmptyUseCase
-) : ViewModel() {
+  private val getTopUpListStatus: GetTopUpListUseCase,
+  private val getVerificationUseCase: GetVerificationUseCase,
+  private val buildUpdateIntentUseCase: BuildUpdateIntentUseCase,
+  ) : ViewModel() {
   lateinit var ticketId: String
   private val closeView: PublishSubject<Pair<Int, UserData>> = PublishSubject.create()
 
@@ -57,6 +55,7 @@ class SkillsViewModel @Inject constructor(
     const val RESULT_INVALID_URL = 7
     const val RESULT_INVALID_USERNAME = 8
     const val RESULT_ROOT_ERROR = 9
+    const val RESULT_WALLET_VERSION_ERROR = 10
     const val GET_ROOM_RETRY_MILLIS = 3000L
     const val AUTHENTICATION_REQUEST_CODE = 33
   }
@@ -222,8 +221,16 @@ class SkillsViewModel @Inject constructor(
     return getAuthenticationIntentUseCase(context)
   }
 
-  fun isTopUpListEmpty(): Boolean {
-    return isTopUpListEmptyUseCase(TransactionType.TOPUP, TopUpStatus.COMPLETED).blockingGet()
+  fun getTopUpListStatus(): Status {
+    return getTopUpListStatus(TransactionType.TOPUP, TopUpStatus.COMPLETED).blockingGet()
+  }
+
+  fun getVerification(): EskillsVerification{
+    return getVerificationUseCase().blockingGet()
+  }
+
+  fun buildUpdateIntent(): Intent {
+    return buildUpdateIntentUseCase()
   }
 
   fun restorePurchase(view: PaymentView): Single<Ticket> {

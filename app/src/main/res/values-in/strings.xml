@@ -67,7 +67,7 @@
   <string name="skip_with_arrow">Lewati &gt;</string>
   <string name="root_title">KEAMANAN PERANGKAT TERGANGGU</string>
   <string name="root_body">Aplikasi yang \'di-root\' dapat mengakses data keychain Dompet AppCoin dan mencuri dompet Anda! Segera hapus dompet ini, lalu pulihkan di perangkat yang aman.</string>
-  <string name="credits_purchase_value">%s APPC Credits</string>
+  <string name="credits_purchase_value">%s AppCoins Credits</string>
   <string name="buying">Membeli %s</string>
   <string name="action_buy">Beli</string>
   <string name="empty"></string>
@@ -114,26 +114,28 @@
   <string name="intro_title_third_page">Sederhana &amp; Mudah</string>
   <string name="intro_message_first_page">Selamat datang di revolusi ekonomi aplikasi.</string>
   <string name="intro_message_second_page">Kunci rahasia tidak pernah tertinggal dari perangkat Anda.</string>
-  <string name="intro_message_third_page">Proses semua pembayaran dan hadiah in-app Anda di APPC.</string>
+  <string name="intro_message_third_page">Process all your in-app payments and rewards in AppCoins.</string>
   <string name="intro_1_title">AppCoins Wallet</string>
   <string name="intro_1_body">Aplikasi Anda untuk pembelian in-app.</string>
   <string name="intro_2_title">Mainkan Lebih Sering, Bayar Kurang</string>
-  <string name="intro_2_body">Dapatkan hadiah untuk pembelian item di aplikasi dan permainan favorit Anda.</string>
+  <string name="intro_2_body">The best payment wallet for apps and games.</string>
   <string name="intro_3_title">Sederhana dan Mudah</string>
-  <string name="intro_3_body">Tetap instal AppCoins Wallet agar bisa langsung membeli di game Anda.</string>
+  <string name="intro_3_body">Bonuses on all purchases.</string>
   <string name="intro_4_title">Aman dan Pribadi</string>
-  <string name="intro_4_body">Kunci pribadi Anda tidak akan pernah meninggalkan perangkat, jadi AppCoins Anda selalu aman.</string>
+  <string name="intro_4_body">Use bank card, PayPal and your favorite payment methods.</string>
   <string name="intro_4_body_2">Semua transaksi yang Anda lakukan selalu aman berkat teknologi terkini.</string>
   <string name="intro_5_title">Dapatkan Kredit AppCoins Gratis!</string>
   <string name="intro_5_body">Anda akan mendapatkan Kredit AppCoins gratis dengan mencoba aplikasi dan permainan.</string>
   <string name="intro_creating_wallet_short">Menyiapkan dompet untuk Anda&#8230;</string>
   <string name="intro_wallet_created_short">Dompet sudah dibuat!</string>
-  <string name="intro_agree_terms_and_conditions_body">Dengan mengetuk Lewatkan, Anda menyetujui %1$s dan %2$s Dompet AppCoins</string>
+  <string name="intro_agree_terms_and_conditions_body">By entering the AppCoins Wallet, you agree to the %1$s and %2$s.</string>
   <string name="intro_skip_button">LEWATKAN</string>
   <string name="intro_welcome_header">Selamat Datang di Dompet AppCoins</string>
-  <string name="intro_welcome_body">Aplikasi Anda untuk pembelian in-app.</string>
+  <string name="intro_welcome_body">Top up your wallet or make a purchase in any AppCoins compatible app or game.</string>
+  <string name="intro_welcome_header_2">Up to %s%% Bonus!</string>
+  <string name="intro_welcome_body_2">Bonuses can be used in any app or game.</string>
   <string name="intro_already_have_wallet_button">Saya sudah punya dompet</string>
-  <string name="intro_get_started_button">Mulai</string>
+  <string name="intro_get_started_button">Launch wallet</string>
   <!-- Menus -->
   <!-- Labels -->
   <string name="label_from">Dari</string>
@@ -207,7 +209,7 @@
   <string name="activity_iab_error_message">Terjadi kesalahan, silakan coba lagi</string>
   <string name="action_try">coba</string>
   <string name="activity_transactions_learn_more">Pelajari yang lainnya</string>
-  <string name="activity_iab_no_funds_message">ETH dan APPC tidak cukup</string>
+  <string name="activity_iab_no_funds_message">Not enough ETH and AppCoins</string>
   <string name="activity_iab_no_ethereum_funds_message">Ethereum tidak cukup</string>
   <string name="activity_iab_no_token_funds_message">AppCoin tidak cukup</string>
   <string name="activity_iab_wrong_network_message">Jaringan Ethereum salah atau token tidak dikenal</string>
@@ -299,19 +301,19 @@
   <string name="gamification_home_body">Dapatkan Bonus hingga %s%% di aplikasi dan permainan favorit Anda!</string>
   <string name="gamification_home_button">MULAI BERPENGHASILAN</string>
   <string name="gamification_level_title">Apa Tingkat Saya?</string>
-  <string name="gamification_level_title_new">Dapatkan Kredit APPC!</string>
+  <string name="gamification_level_title_new">Get AppCoins Credits!</string>
   <string name="gamification_level_on_graphic">Tingkat %s</string>
   <string name="gamification_APPCapps_button">Aplikasi &amp; permainan</string>
   <string name="gamification_level_header">Selamat, Anda adalah %s!</string>
   <string name="gamification_level_to_next">Ke tingkat selanjutnya:</string>
   <string name="gamification_level_earned">DIPEROLEH:</string>
   <string name="gamification_level_next_lvl">KE TINGKAT SELANJUTNYA:</string>
-  <string name="gamification_level_next_lvl_value">%s APPC</string>
+  <string name="gamification_level_next_lvl_value">%s AppCoins</string>
   <string name="gamification_level_bonus">BONUS %s%%</string>
   <string name="gamification_level_button_how">CARA KERJANYA</string>
-  <string name="gamification_level_body">Anda akan mendapatkan Kredit APPC saat membeli item di aplikasi dan permainan favorit.</string>
+  <string name="gamification_level_body">You\'ll earn AppCoins Credits when buying items in your favorite apps and games.</string>
   <string name="gamification_how_header">Bagaimana Cara Naik Tingkat?</string>
-  <string name="gamification_how_body">Anda akan mendapatkan Kredit APPC saat membeli item di aplikasi dan permainan favorit.</string>
+  <string name="gamification_how_body">You\'ll earn AppCoins Credits when buying items in your favorite apps and games.</string>
   <string name="gamification_how_body_new">Semakin banyak yang Anda habiskan di aplikasi favorit, semakin besar Bonus-nya!</string>
   <string name="gamification_how_table_a1">HABISKAN</string>
   <string name="gamification_how_table_b1">BONUS</string>
@@ -333,7 +335,7 @@
   <string name="gamification_transaction_title">@string/gamification_level_bonus</string>
   <string name="gamification_purchase_header">Pembelian ini disertai bonus!</string>
   <string name="gamification_purchase_header_part_1">Bonus Pembelian:</string>
-  <string name="gamification_purchase_header_part_2">%s dalam Kredit APPC</string>
+  <string name="gamification_purchase_header_part_2">%s dalam Kredit AppCoins</string>
   <string name="gamification_purchase_body">Anda bisa menggunakan bonus ini di pembelian berikutnya.</string>
   <string name="gamification_purchase_completed_bonus_received_done">Selesai!</string>
   <string name="gamification_purchase_completed_bonus_received">Bonus Diterima</string>
@@ -370,14 +372,14 @@
   <!-- Top Up -->
   <string name="topup_home_button">Isi Ulang</string>
   <string name="topup_title">Isi Ulang</string>
-  <string name="topup_amount">%s APPC-C</string>
+  <string name="topup_amount">%s AppCoins Credits</string>
   <string name="topup_bonus_header">Anda mendapatkan Bonus!</string>
-  <string name="topup_bonus_message">%s APPC-C akan dimasukkan ke dompet Anda.</string>
+  <string name="topup_bonus_message">%s AppCoins Credits extra will be credited in your wallet.</string>
   <string name="topup_completed_1">%s dalam Kredit AppCoins</string>
   <string name="topup_completed_2_with_bonus">disimpan di akun Anda... Bersama dengan bonus!</string>
   <string name="topup_completed_2_without_bonus">disimpan ke akun Anda.</string>
   <string name="topup_bonus_header_part_1">Bonus Isi Ulang:</string>
-  <string name="topup_bonus_header_part_2">%s dalam Kredit APPC</string>
+  <string name="topup_bonus_header_part_2">%s dalam Kredit AppCoins</string>
   <string name="topup_bonus_body">Anda bisa menggunakan bonus ini di pembelian berikutnya.</string>
   <string name="topup_minimum_value">Nilai isi ulang minimal adalah %s</string>
   <string name="topup_maximum_value">Nilai isi ulang maksimal adalah %s</string>
@@ -389,7 +391,7 @@
   <string name="balance_topup_body">Anda dapat mengisi ulang dompet Anda dengan Kredit AppCoins.</string>
   <string name="balance_ethereum_body">Ethereum adalah mata uang kripto yang menjadi landasan AppCoins. Anda dapat memperjualbelikannya di mayoritas bursa, Ethereum itu sangat populer!</string>
   <string name="balance_appcoins_body">AppCoins adalah mata uang kripto bagi perekonomian aplikasi. Anda dapat memperjualbelikannya di beberapa bursa dan menggunakannya untuk membeli barang in-app.</string>
-  <string name="balance_appccreditos_body">Token untuk membeli barang in-app! Isi ulang APPC-C dari dompet Anda atau dapatkan secara gratis dengan menggunakan aplikasi. Token juga dapat ditransfer di antara teman!</string>
+  <string name="balance_appccreditos_body">The token to buy in-app items! Top up AppCoins Credits from your wallet or get them for free by using apps. They can also be transferred between friends!</string>
   <string name="my_wallets_action_new_wallet">Dompet baru</string>
   <string name="my_wallets_action_recover_wallet">Pulihkan dompet</string>
   <string name="my_wallets_action_backup_wallet">Cadangkan dompet</string>
@@ -460,7 +462,7 @@
   <string name="home_empty_discover_apps_button">TEMUKAN APLIKASI TERATAS</string>
   <!--Tokens-->
   <!--Settings-->
-  <string name="title_redeem">Dapatkan Kode</string>
+  <string name="title_redeem">Redeem Gift Card</string>
   <string name="settings_item_support">Hubungi Tim Dukungan</string>
   <string name="settings_subheader_support">Dukungan</string>
   <string name="settings_subheader_about_us">Tentang Kami</string>
@@ -548,7 +550,7 @@
   <string name="purchase_error_try_cheaper_item">Itu cukup mahal! Silakan coba beli item yang nilainya lebih rendah.</string>
   <string name="purchase_error_try_cheaper_item_or_method">Itu cukup mahal! Silakan coba beli item yang lebih murah atau coba metode pembayaran lain.</string>
   <string name="transfer_appc_error_no_eth_title">Anda membutuhkan Eter!</string>
-  <string name="transfer_appc_error_no_eth_body">Biaya transfer AppCoins dibayarkan dalam Ethereum, jadi Anda memerlukan ETH untuk mentransfer APPC.</string>
+  <string name="transfer_appc_error_no_eth_body">AppCoins transfers fees are paid in Ethereum, so you\'ll need ETH to transfer AppCoins.</string>
   <string name="purchase_error_invalid_credit_card">Nomor kartu bank tidak valid. Pastikan semua digit sudah benar.</string>
   <string name="purchase_error_card_security_validation">Terjadi kesalahan pada validasi tingkat ke-2 dari transaksi ini. Silakan coba lagi.</string>
   <string name="purchase_error_transaction_timeout">Sepertinya Anda terlalu lama menyelesaikan transaksi. Silakan coba lagi.</string>

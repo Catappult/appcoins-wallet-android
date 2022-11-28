@@ -11,19 +11,19 @@ class AppStartProbe @Inject constructor(
   operator fun invoke(startMode: StartMode) {
     if (startMode is StartMode.Subsequent) return
     val data = when (startMode) {
-      is StartMode.FirstUtm -> mapOf(
+      is StartMode.PendingPurchaseFlow -> mapOf(
+        PACKAGE_NAME to startMode.packageName,
+        INTEGRATION_FLOW to startMode.integrationFlow,
+        SOURCE to "",
+        SKU to startMode.sku,
+      )
+      is StartMode.GPInstall -> mapOf(
         PACKAGE_NAME to startMode.packageName,
         INTEGRATION_FLOW to startMode.integrationFlow,
         SOURCE to startMode.source,
         SKU to startMode.sku,
       )
-      is StartMode.FirstTopApp -> mapOf(
-        PACKAGE_NAME to startMode.packageName,
-        INTEGRATION_FLOW to "",
-        SOURCE to "",
-        SKU to "",
-      )
-      else -> mapOf(PACKAGE_NAME to "", INTEGRATION_FLOW to "", SOURCE to "", SKU to "")
+      else -> mapOf(PACKAGE_NAME to "", INTEGRATION_FLOW to "other", SOURCE to "", SKU to "")
     }
     analyticsManager.logEvent(
       data,
@@ -32,7 +32,6 @@ class AppStartProbe @Inject constructor(
       WALLET
     )
   }
-
 
   companion object {
     const val WALLET = "WALLET"

@@ -138,7 +138,7 @@
                 android:layout_marginTop="6dp"
                 android:layout_marginEnd="-16dp"
                 android:visibility="gone"
-                app:buttonColor="@color/btn_cancel_text"
+                app:buttonColor="@color/styleguide_dark_grey"
                 app:buttonIsAllCaps="true"
                 app:buttonText="@string/activity_iab_change_card"
                 app:buttonType="text"

@@ -67,7 +67,7 @@
   <string name="skip_with_arrow">Atla &gt;</string>
   <string name="root_title">CİHAZ GÜVENLİĞİ TEHLİKEDE</string>
   <string name="root_body">\"Root atılan\" herhangi bir uygulama AppCoin Cüzdanının anahtarlık verilerine erişip cüzdanınızı çalabilir! Bu cüzdanı hemen silin ve güvenli bir cihazda geri yükleyin.</string>
-  <string name="credits_purchase_value">%s APPC Credits</string>
+  <string name="credits_purchase_value">%s AppCoins Credits</string>
   <string name="buying">%s satın alınıyor</string>
   <string name="action_buy">Satın Al</string>
   <string name="empty"></string>
@@ -114,26 +114,28 @@
   <string name="intro_title_third_page">Basit ve Kolay</string>
   <string name="intro_message_first_page">Uygulama ekonomisinin evrimine hoş geldiniz.</string>
   <string name="intro_message_second_page">Özel anahtarlar cihazınızı asla bırakmaz.</string>
-  <string name="intro_message_third_page">Tüm uygulama içi ödemelerinizi ve ödüllerinizi APPC cinsinden işleyin.</string>
+  <string name="intro_message_third_page">Process all your in-app payments and rewards in AppCoins.</string>
   <string name="intro_1_title">AppCoins Wallet</string>
   <string name="intro_1_body">Uygulama içi satın alma işlemleri uygulamanız.</string>
   <string name="intro_2_title">Daha Fazla Oynayın, Daha Az Ödeyin</string>
-  <string name="intro_2_body">En sevdiğiniz uygulama ve oyunlarda ürün satın aldığınızda ödül kazanın.</string>
+  <string name="intro_2_body">The best payment wallet for apps and games.</string>
   <string name="intro_3_title">Basit ve Kolay</string>
-  <string name="intro_3_body">Oyunlarınızda doğrudan satın alma işlemi gerçekleştirebilmek için AppCoins Wallet yüklü kalsın.</string>
+  <string name="intro_3_body">Bonuses on all purchases.</string>
   <string name="intro_4_title">Güvenli ve Gizli</string>
-  <string name="intro_4_body">Özel anahtarlarınız asla cihazınızı terk etmez, dolayısıyla AppCoin\'leriniz her zaman güvendedir.</string>
+  <string name="intro_4_body">Use bank card, PayPal and your favorite payment methods.</string>
   <string name="intro_4_body_2">En yeni teknoloji sayesinde tüm işlemleriniz her zaman güvenli.</string>
   <string name="intro_5_title">Ücretsiz AppCoins Credits edinin!</string>
   <string name="intro_5_body">Uygulama ve oyun deneyerek ücretsiz AppCoing Credits kazanın.</string>
   <string name="intro_creating_wallet_short">Sizin için cüzdanınız ayarlanıyor&#8230;</string>
   <string name="intro_wallet_created_short">Cüzdan oluşturuldu!</string>
-  <string name="intro_agree_terms_and_conditions_body">Atla\'ya dokunarak AppCoins Cüzdanının %1$s ve %2$s\'nı kabul etmiş olursunuz</string>
+  <string name="intro_agree_terms_and_conditions_body">By entering the AppCoins Wallet, you agree to the %1$s and %2$s.</string>
   <string name="intro_skip_button">ATLA</string>
   <string name="intro_welcome_header">AppCoins Wallet\'a hoş geldiniz</string>
-  <string name="intro_welcome_body">Uygulama içi satın alma işlemleri uygulamanız.</string>
+  <string name="intro_welcome_body">Top up your wallet or make a purchase in any AppCoins compatible app or game.</string>
+  <string name="intro_welcome_header_2">Up to %s%% Bonus!</string>
+  <string name="intro_welcome_body_2">Bonuses can be used in any app or game.</string>
   <string name="intro_already_have_wallet_button">Zaten cüzdanım var</string>
-  <string name="intro_get_started_button">Başlayın</string>
+  <string name="intro_get_started_button">Launch wallet</string>
   <!-- Menus -->
   <!-- Labels -->
   <string name="label_from">Kimden</string>
@@ -207,7 +209,7 @@
   <string name="activity_iab_error_message">Bir hata oluştu, lütfen tekrar deneyin</string>
   <string name="action_try">deneyin</string>
   <string name="activity_transactions_learn_more">Daha fazla bilgi</string>
-  <string name="activity_iab_no_funds_message">Yeterli ETH ve APPC yok</string>
+  <string name="activity_iab_no_funds_message">Not enough ETH and AppCoins</string>
   <string name="activity_iab_no_ethereum_funds_message">Yeterli Ethereum yok</string>
   <string name="activity_iab_no_token_funds_message">Yeterli AppCoin yok</string>
   <string name="activity_iab_wrong_network_message">Yanlış Ethereum ağı veya bilinmeyen jeton</string>
@@ -299,19 +301,19 @@
   <string name="gamification_home_body">Favori uygulama ve oyunlarınızda %%%s oranına varan Bonus kazanın!</string>
   <string name="gamification_home_button">KAZANMAYA BAŞLAYIN</string>
   <string name="gamification_level_title">Seviyem Ne?</string>
-  <string name="gamification_level_title_new">APPC Kredisi kazanın!</string>
+  <string name="gamification_level_title_new">Get AppCoins Credits!</string>
   <string name="gamification_level_on_graphic">%s. Seviye</string>
   <string name="gamification_APPCapps_button">Uygulamalar ve oyunlar</string>
   <string name="gamification_level_header">Tebrikler, %s oldunuz!</string>
   <string name="gamification_level_to_next">Sonraki seviyeye kalan:</string>
   <string name="gamification_level_earned">KAZANILAN:</string>
   <string name="gamification_level_next_lvl">SONRAKİ SEVİYEYE KALAN:</string>
-  <string name="gamification_level_next_lvl_value">%s APPC</string>
+  <string name="gamification_level_next_lvl_value">%s AppCoins</string>
   <string name="gamification_level_bonus">%%%s BONUS</string>
   <string name="gamification_level_button_how">NASIL ÇALIŞIR</string>
-  <string name="gamification_level_body">Favori uygulama ve oyunlarınızda öğe satın alırken APPC Kredisi kazanırsınız.</string>
+  <string name="gamification_level_body">You\'ll earn AppCoins Credits when buying items in your favorite apps and games.</string>
   <string name="gamification_how_header">Nasıl Seviye Atlanır?</string>
-  <string name="gamification_how_body">Favori uygulama ve oyunlarınızda öğe satın alırken APPC Kredisi kazanırsınız.</string>
+  <string name="gamification_how_body">You\'ll earn AppCoins Credits when buying items in your favorite apps and games.</string>
   <string name="gamification_how_body_new">Favori uygulamalarınızda ne kadar fazla harcarsanız o kadar fazla Bonus kazanırsınız!</string>
   <string name="gamification_how_table_a1">HARCA</string>
   <string name="gamification_how_table_b1">BONUS</string>
@@ -333,7 +335,7 @@
   <string name="gamification_transaction_title">@string/gamification_level_bonus</string>
   <string name="gamification_purchase_header">Bu satın alma işleminin bir bonusu var!</string>
   <string name="gamification_purchase_header_part_1">Bonus:</string>
-  <string name="gamification_purchase_header_part_2">APPC Credits cinsinden %s</string>
+  <string name="gamification_purchase_header_part_2">AppCoins Credits cinsinden %s</string>
   <string name="gamification_purchase_body">Bir sonraki satın alma işleminizde bu bonusu kullanabilirsiniz.</string>
   <string name="gamification_purchase_completed_bonus_received_done">Bitti!</string>
   <string name="gamification_purchase_completed_bonus_received">Bonus Alındı</string>
@@ -370,14 +372,14 @@
   <!-- Top Up -->
   <string name="topup_home_button">Yükle</string>
   <string name="topup_title">Yükle</string>
-  <string name="topup_amount">%s APPC-C</string>
+  <string name="topup_amount">%s AppCoins Credits</string>
   <string name="topup_bonus_header">Bonus kazandınız!</string>
-  <string name="topup_bonus_message">%s APPC-C ekstra, cüzdanınıza eklenecek.</string>
+  <string name="topup_bonus_message">%s AppCoins Credits extra will be credited in your wallet.</string>
   <string name="topup_completed_1">AppCoins Credits cinsinden %s</string>
   <string name="topup_completed_2_with_bonus">hesabınıza yattı... Bonusla birlikte!</string>
   <string name="topup_completed_2_without_bonus">hesabınıza yatırıldı.</string>
   <string name="topup_bonus_header_part_1">Yükleme Bonusu:</string>
-  <string name="topup_bonus_header_part_2">APPC Credits cinsinden %s</string>
+  <string name="topup_bonus_header_part_2">AppCoins Credits cinsinden %s</string>
   <string name="topup_bonus_body">Bir sonraki satın alma işleminizde bu bonusu kullanabilirsiniz.</string>
   <string name="topup_minimum_value">Minimum yükleme değeri %s</string>
   <string name="topup_maximum_value">Maksimum yükleme değeri %s</string>
@@ -389,7 +391,7 @@
   <string name="balance_topup_body">AppCoins Kredilerini kullanarak cüzdanınıza yükleme yapabilirsiniz.</string>
   <string name="balance_ethereum_body">Ethereum, AppCoins\'i temel alan bir kripto para birimidir. Çok popüler olduğundan bunları birçok borsada alıp satabilirsiniz!</string>
   <string name="balance_appcoins_body">AppCoins, uygulama ekonomisinin kripto para birimidir. Birçok borsada alıp satabilir ve uygulama içi öğeleri satın almak için kullanabilirsiniz.</string>
-  <string name="balance_appccreditos_body">Uygulama içi öğe satın alma jetonu! Cüzdanınızdan APPC-C yükleyin veya uygulama kullanarak ücretsiz edinin. Arkadaşlar arasında da transfer edilebilir!</string>
+  <string name="balance_appccreditos_body">The token to buy in-app items! Top up AppCoins Credits from your wallet or get them for free by using apps. They can also be transferred between friends!</string>
   <string name="my_wallets_action_new_wallet">Yeni cüzdan</string>
   <string name="my_wallets_action_recover_wallet">Cüzdanı geri yükle</string>
   <string name="my_wallets_action_backup_wallet">Yedek cüzdan</string>
@@ -460,7 +462,7 @@
   <string name="home_empty_discover_apps_button">EN İYİ UYGULAMALARI KEŞFEDİN</string>
   <!--Tokens-->
   <!--Settings-->
-  <string name="title_redeem">Kodu Kullan</string>
+  <string name="title_redeem">Redeem Gift Card</string>
   <string name="settings_item_support">Destek Ekibiyle iletişime geçin</string>
   <string name="settings_subheader_support">Destek</string>
   <string name="settings_subheader_about_us">Hakkımızda</string>
@@ -548,7 +550,7 @@
   <string name="purchase_error_try_cheaper_item">Çok pahalı! Lütfen daha düşük değerli bir ürün satın almayı deneyin.</string>
   <string name="purchase_error_try_cheaper_item_or_method">Çok pahalı! Lütfen daha düşük değerli bir ürün satın almayı deneyin veya farklı bir ödeme yöntemi deneyin.</string>
   <string name="transfer_appc_error_no_eth_title">Ether\'e ihtiyacınız var!</string>
-  <string name="transfer_appc_error_no_eth_body">AppCoins transfer ücretleri Ethereum cinsinden ödenir, dolayısıyla APPC transfer etmek için ETH\'ye ihtiyacınız var.</string>
+  <string name="transfer_appc_error_no_eth_body">AppCoins transfers fees are paid in Ethereum, so you\'ll need ETH to transfer AppCoins.</string>
   <string name="purchase_error_invalid_credit_card">Geçersiz banka kartı numarası. Lütfen tüm rakamların doğru olduğundan emin olun.</string>
   <string name="purchase_error_card_security_validation">Bu işlemin 2. seviye doğrulamasında bir hata oldu. Lütfen tekrar deneyin.</string>
   <string name="purchase_error_transaction_timeout">İşlemi tamamlamak için çok uzun süre harcamışsınız gibi görünüyor. Lütfen tekrar deneyin.</string>
@@ -1093,7 +1095,7 @@
   <!-- VIP Program -->
   <string name="vip_program_reached_notification_title">Welcome to the VIP Program</string>
   <string name="vip_program_reached_notification_body">You\'re now a VIP user with access to special promotions and deals. Tap for more details!</string>
-  <string name="vip_program_almost_notification_title">Almost there!</string>
+  <string name="vip_program_almost_notification_title">Neredeyse bitti!</string>
   <string name="vip_program_almost_notification_body">You\'re about to become a VIP user. Tap for more details!</string>
   <string name="vip_program_almost_onboarding_title">You\'re about to become a VIP user!</string>
   <string name="vip_program_almost_onboarding_body">Continue playing and making purchases to access exclusive promotions and deals. Ready to become the ultimate player?</string>

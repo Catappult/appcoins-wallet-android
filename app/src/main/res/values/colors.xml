@@ -1,180 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <color name="green">#4caf50</color>
-  <color name="red">#d32f2f</color>
-  <color name="orange">#ef6c00</color>
-  <color name="white">#FFFFFFFF</color>
-  <color name="whiteNoAlpha">#FFFFFF</color>
-  <color name="black">#000000</color>
-  <color name="blueish_black">#000508</color>
-  <color name="fakeBlack">#313849</color>
-  <color name="appc_pink">#fe7073</color>
-  <color name="pink_background">#ff6381</color>
-  <color name="wild_watermelon">#FF6381</color>
-  <color name="navy_blue">#001726</color>
-  <color name="darker_navy_blue">#001625</color>
+  <!-- Style guide in https://xd.adobe.com/view/66e0db6b-b2df-40db-9fec-7b456002bd70-33b3/ -->
 
-  <color name="colorPrimary">#fc9d48</color>
-  <color name="colorPrimaryDark">#e44b46</color>
-  <color name="colorAccent">#ff6381</color>
-  <color name="primaryColor">#000000</color>
-  <color name="pinkish_orange">#fe6446</color>
-  <color name="statusBarColor">#000910</color>
-  <!--  <color name="statusBarColor">#154868</color>-->
-  <color name="activity_background_color">#fafafa</color>
+  <!-- Main style guide colors -->
+  <color name="styleguide_pink">#FF6381</color>
+  <color name="styleguide_blue">#111B39</color>
+  <color name="styleguide_dark_grey">#4A4A4A</color>
+  <color name="styleguide_medium_grey">#C9C9C9</color>
+  <color name="styleguide_light_grey">#F5F5F5</color>
+  <color name="styleguide_white">#FFFFFFFF</color>
+  <color name="styleguide_black">#000000</color>
 
-  <color name="bottom_dialog_title">#89000000</color>
-  <color name="bottom_dialog_item">#dd000000</color>
+  <!-- Secondary style guide colors -->
+  <color name="styleguide_green">#3CBD8F</color>
+  <color name="styleguide_red">#E02D3E</color>
+  <color name="styleguide_vip_yellow">#EFA226</color>
+  <color name="styleguide_orange">#f86d00</color>
 
-  <color name="bottom_nav_top_up_blue">#111B39</color>
-  <color name="bottom_nav_selected_purple">#200E32</color>
-  <color name="bottom_nav_unselected_grey">#A0A4B0</color>
-
-  <color name="list_group_head">#8a000000</color>
-
-  <color name="semitransparentWhite">#AAFFFFFF</color>
-
-  <color name="iab_activity_gray">#8a000000</color>
-  <color name="black_87_alpha">#de000000</color>
-  <color name="black_50_alpha">#80000000</color>
-  <color name="grey">#757575</color>
-  <color name="grey_86">#868686</color>
-  <color name="grey_8B">#8B959B</color>
-  <color name="grey_f4">#91f4f4f4</color>
-  <color name="grey_5a">#5a5a5a</color>
-  <color name="grey_58">#585858</color>
-  <color name="grey_e5">#e5e5e5</color>
-  <color name="grey_65">#656565</color>
-  <color name="grey_7f">#7F7F7F</color>
-  <color name="grey_9d">#9DA3A8</color>
-  <color name="grey_c9">#C9C9C9</color>
-  <color name="grey_f2">#F2F2F2</color>
-  <color name="white_99">#99FFFFFF</color>
-
-  <color name="appbar_start_gradient_color">#000000</color>
-  <color name="appbar_end_gradient_color">#012945</color>
-  <color name="grey_alpha_active_54">#8a000000</color>
-  <color name="grey_8a_alpha">#8a000000</color>
-
-  <color name="home_start_gradient_color">#000910</color>
-  <color name="home_end_gradient_color">#001D31</color>
-
-  <color name="pull_up_bar_color">#3F989FA3</color>
-
-  <color name="gray_alpha_8a">#8a000000</color>
-  <color name="gray_alpha_61">#61000000</color>
-  <color name="grey_alpha_6b">#6b000000</color>
-  <color name="light_grey_alpha_8d">#8d393939</color>
-  <color name="light_grey_alpha_78">#78393939</color>
-  <color name="light_grey_alpha_73">#73393939</color>
-
-  <color name="transaction_item_text_color">#de000000</color>
-  <color name="transaction_item_snd_text_color">#8a000000</color>
-  <color name="transaction_orange">#ff7600</color>
-  <color name="transaction_green">#62be00</color>
-  <color name="list_separator_color">#f0f0f0</color>
-
-  <color name="details_address_text_color">#000000</color>
-  <color name="btn_disable_color">#00000000</color>
-  <color name="btn_text_disable_color">#42000000</color>
-  <color name="btn_disable_snd_color">#c9c9c9</color>
-  <color name="btn_text_enable_color">#ffffff</color>
-  <color name="btn_cancel_text">#8f000000</color>
-  <color name="btn_enabled_dark">#001320</color>
-  <color name="btn_disabled_dark">#f7f7f7</color>
-
-  <color name="btn_start_gradient_color">#fc9d48</color>
-  <color name="btn_end_gradient_color">#ff578c</color>
-  <color name="floating_btn_start_gradient_color">#0e1d4d</color>
-  <color name="floating_btn_end_gradient_color">#161616</color>
-  <color name="btn_light_enabled_color">#e44b46</color>
-  <color name="btn_light_disable_color">#42000000</color>
-
-  <color name="dialog_buy_value_text">#4e4e4e</color>
-  <color name="dialog_buy_fiat_value">#000000</color>
-  <color name="dialog_fiat_price">#828282</color>
-  <color name="dialog_secondary_price">#828282</color>
-  <color name="button_borderless_ripple_color">#409e9e9e</color>
-
-  <color name="rewards_level_main_color">#001727</color>
-  <color name="level_icon_bg_color">#001727</color>
-
-  <color name="level_text_enabled_color">@color/rewards_level_main_color</color>
-  <color name="level_text_disabled_color">#d4d4d4</color>
-
-  <color name="share_link_title_color">#070707</color>
-  <color name="share_link_note_color">#bbbbbb</color>
-  <color name="share_link_error_text_color">#fe7b6a</color>
-
-  <color name="color_grey_9e">#9e9e9e</color>
-  <color name="top_up_bonus_title">#030303</color>
-  <color name="top_up_bonus_text">#727272</color>
-  <color name="color_title">#4a4a4a</color>
-
-  <color name="seekbar_tint">#fe756f</color>
-  <color name="seekbar_background_tint">#fe7871</color>
-
-  <color name="text_button_color">@color/appc_pink</color>
-  <color name="purchase_bonus_background_color">#001727</color>
-  <color name="layout_separator_color">#eaeaea</color>
-
-  <color name="selection_dot_unselected">#d8d8d8</color>
-  <color name="selection_dot_selected">#fe647f</color>
-
-  <color name="gamification_how_it_works">#33eaeaea</color>
-
-  <color name="balance_active_wallet_grey">#a6a6a6</color>
-  <color name="balance_verify_chip_background">#f7f7f7</color>
-  <color name="balance_wallet_verified_chip">#57aa00</color>
-
-  <color name="remove_wallet_red">#e44b46</color>
-
-  <color name="faded_background_color">#d9000000</color>
-
+  <!-- Transparent style guide variants -->
   <color name="transparent">#00000000</color>
-  <color name="pending_payment_text_color">#727272</color>
+  <color name="styleguide_blue_transparent_90">#E6111B39</color>
+  <color name="styleguide_pink_transparent_10">#1AFF6381</color>
+  <color name="styleguide_pink_transparent_40">#66FF6381</color>
+  <color name="styleguide_vip_yellow_transparent_40">#66EFA226</color>
+  <color name="styleguide_green_transparent_20">#333CBD8F</color>
+  <color name="styleguide_black_transparent_80">#CC000000</color>
+  <color name="styleguide_white_transparent_80">#CCFFFFFF</color>
+  <color name="styleguide_white_transparent_20">#33FFFFFF</color>
+  <color name="styleguide_white_transparent_10">#1AFFFFFF</color>
+  <color name="styleguide_red_transparent_40">#66E02D3E</color>
 
-  <color name="edit_text_border">@color/appc_pink</color>
-  <color name="edit_text_label">@color/appc_pink</color>
-  <color name="disable_reason">#fe6e76</color>
+  <!-- Default Android colors -->
+  <color name="colorPrimary">@color/styleguide_blue</color> <!-- App bar -->
+  <color name="colorPrimaryDark">@color/styleguide_blue</color> <!-- App bar dark -->
+  <color name="colorAccent">@color/styleguide_pink</color> <!-- Default UI controls -->
+  <color name="textColorPrimary">@color/styleguide_black</color> <!-- Default text color -->
+  <color name="statusBarColor">@color/styleguide_blue  </color> <!-- Android system status bar -->
+  <color name="colorControlActivated">@color/styleguide_pink </color> <!-- Android controls -->
 
-  <color name="tooltip_black">#212121</color>
-
-  <color name="adyen_3DS_color">#111B3B</color>
-
-  <color name="etherscan_transaction_border">#21325B</color>
-  <color name="etherscan_transaction_background">#F8F8F8</color>
-  <color name="etherscan_transaction_clipboard">#FF5F84</color>
-
-  <color name="vip_badge_background_color">#4DEC9B1A</color>
-  <color name="only_for_vip_background_color">#EFA226</color>
-
-  <!-- Backup -->
-
-  <color name="warning_background_color">#0Ae44b46</color>
-  <color name="warning_text_red">#e44b46</color>
-  <!-- Skeletons -->
-
-  <color name="skeleton_dark_base_color">#5cd8d8d8</color>
-  <color name="skeleton_light_base_color">#f0f0f0</color>
-  <color name="skeleton_higlight_color">#d2d2d2</color>
-
-  <!-- Promotions -->
-
-  <color name="promotions_active_background">#192025</color>
-  <color name="promotions_future_background">#F2F1F3</color>
-  <color name="promotions_future_text_color">#4A4A4A</color>
-  <color name="vouchers_card_bottom_color">#002b4b</color>
-  <color name="promotions_dark_text">#192025</color>
-  <color name="promotions_vip_top_blue">#111B39</color>
-  <color name="promotions_vip_title">#00111D</color>
-  <color name="promotions_vip_desc">#4A4A4A</color>
-  <color name="promotions_vip_grey">#F5F5F5</color>
-  <color name="promotions_vip_orange">#EFA01F</color>
-  <color name="promotions_vip_transparent">#88000000</color>
+  <!-- Still used, but to be replaced -->
+  <!-- Used in gradient_progress, to replace with the new loading -->
+  <color name="btn_start_gradient_color">#fc9d48</color>
+  <color name="btn_end_gradient_color">#ff578c</color>>
 
   <!-- Gamification -->
-
   <color name="gamification_light_green">#96c562</color>
   <color name="gamification_light_grey">#a1aec2</color>
   <color name="gamification_red">#f55151</color>
@@ -191,59 +60,6 @@
   <color name="gamification_dark_red">#bc452c</color>
   <color name="gamification_light_blue">#7acef9</color>
 
-  <color name="color_inactive">#727272</color>
-  <color name="bottom_sheet_translucent_background">#75000000</color>
-
-
-  <!-- Verify Wallet -->
-  <color name="verify_wallet_description">#57aa00</color>
-  <color name="verify_wallet_subtitle">#646464</color>
-  <color name="verify_wallet_description_background">#0F57aa00</color>
-  <color name="verify_wallet_cancel">#707070</color>
-  <color name="verify_wallet_example_background">#2Bd6d6d6</color>
-  <color name="verify_wallet_example_code_background">#707070</color>
-  <color name="verify_wallet_code_background">#afafaf</color>
-
-
-  <!--Change fiat currency -->
-  <color name="change_fiat_unselected_item_text">#000000</color>
-  <color name="change_fiat_selected_item_short">#FFFFFF</color>
-  <color name="change_fiat_selected_item_long">#BABABA</color>
-  <color name="change_fiat_selected_item">#192933</color>
-
-  <!-- e-Skills -->
-  <color name="withdraw_top_bar_yellow">#FFFAEA</color>
-  <color name="withdraw_title_color_black">#000000</color>
-  <color name="withdraw_text_color_black">#001727</color>
-  <color name="withdraw_error_description_grey">#646464</color>
-
-  <!--Send Logs to Support -->
-  <color name="send_logs_sending">#8C8C8C</color>
-  <color name="send_logs_sent">#62BF00</color>
-  <color name="send_logs_sent_background">#0D62BF00</color>
-  <color name="send_logs_error">#e44b46</color>
-  <color name="send_logs_error_background">#0De44b46</color>
-
-
-  <!-- Promo Code -->
-  <color name="promo_code_text_box_active_border">#0C0C0C</color>
-  <color name="promo_code_text_box_active_background">#F8F8F8</color>
-  <color name="promo_code_text_box_default_border">#969696</color>
-  <color name="promo_code_promotions_border">#F7C337</color>
-
-  <!-- NFTs -->
-  <color name="nft_transferfee_bg">#EAECED</color>
-
-  <!-- Backup 2.0 -->
-  <color name="blue_dark">#001728</color>
-  <color name="blue_dark_transparent_90">#E6001728</color>
-  <color name="white_transparent_4">#0AFFFFFF</color>
-  <color name="white_transparent_10">#1AFFFFFF</color>
-  <color name="grey_blue_medium">#5F6E78</color>
-  <color name="grey_70">#707070</color>
-  <color name="red_light">#E02D3E</color>
-
   <!-- External Apps -->
   <color name="gojek_green">#00B55D</color>
-
 </resources>
