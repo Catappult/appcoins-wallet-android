@@ -8,6 +8,7 @@ import lib.android.paypal.com.magnessdk.MagnesSDK
 import lib.android.paypal.com.magnessdk.MagnesSettings
 
 class MagnesUtils {
+
   companion object {
 
     var magnusResult: MagnesResult? = null
