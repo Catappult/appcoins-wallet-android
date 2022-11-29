@@ -114,28 +114,28 @@
   <string name="intro_title_third_page">بسيط &amp; سهل</string>
   <string name="intro_message_first_page">مرحبًا بك في ثورة اقتصاد التطبيقات.</string>
   <string name="intro_message_second_page">المفاتيح الخاصة لا تفارق جهازك أبدًا.</string>
-  <string name="intro_message_third_page">Process all your in-app payments and rewards in AppCoins.</string>
+  <string name="intro_message_third_page">يمكنك إجراء كل مدفوعاتك واستقبال الجوائز في AppCoins.</string>
   <string name="intro_1_title">AppCoins Wallet</string>
   <string name="intro_1_body">تطبيقك للشراء داخل التطبيقات.</string>
   <string name="intro_2_title">العب أكثر، ادفع أقل</string>
-  <string name="intro_2_body">The best payment wallet for apps and games.</string>
+  <string name="intro_2_body">أفضل محفظة مدفوعات داخل التطبيقات والألعاب.</string>
   <string name="intro_3_title">بسيط وسهل</string>
-  <string name="intro_3_body">Bonuses on all purchases.</string>
+  <string name="intro_3_body">مكافآت على كل المشتريات.</string>
   <string name="intro_4_title">آمن وسرّي</string>
-  <string name="intro_4_body">Use bank card, PayPal and your favorite payment methods.</string>
+  <string name="intro_4_body">استخدم بطاقة بنكية، و PayPal وأي وسيلة دفع تفضلها.</string>
   <string name="intro_4_body_2">ستكون كل تحويلاتك آمنة دومًا بفضل التقنيات الحديثة.</string>
   <string name="intro_5_title">احصل على رصيد AppCoins مجاني!</string>
   <string name="intro_5_body">ستربح رصيد AppCoins مجانيًا عند تجربة التطبيقات والألعاب.</string>
   <string name="intro_creating_wallet_short">ضبط محفظتك من أجلك&#8230;</string>
   <string name="intro_wallet_created_short">تم إنشاء المحفظة!</string>
-  <string name="intro_agree_terms_and_conditions_body">By entering the AppCoins Wallet, you agree to the %1$s and %2$s.</string>
+  <string name="intro_agree_terms_and_conditions_body">بإدخال AppCoins Wallet، أنت توافق على %1$s و%2$s.</string>
   <string name="intro_skip_button">تخطّي</string>
   <string name="intro_welcome_header">أهلا بك بمحفظة AppCoins Wallet</string>
-  <string name="intro_welcome_body">Top up your wallet or make a purchase in any AppCoins compatible app or game.</string>
-  <string name="intro_welcome_header_2">Up to %s%% Bonus!</string>
-  <string name="intro_welcome_body_2">Bonuses can be used in any app or game.</string>
+  <string name="intro_welcome_body">أضف إلى المحفظة أو أجرِ عملية شراء في أي تطبيق أو لُعبة تتوافق مع AppCoins.</string>
+  <string name="intro_welcome_header_2">مكافأة حتى %s%%!</string>
+  <string name="intro_welcome_body_2">يمكن استخدام المكافآت في أي تطبيق أو لُعبة.</string>
   <string name="intro_already_have_wallet_button">لدي محفظة بالفعل</string>
-  <string name="intro_get_started_button">Launch wallet</string>
+  <string name="intro_get_started_button">إطلاق المحفظة</string>
   <!-- Menus -->
   <!-- Labels -->
   <string name="label_from">مِن</string>
@@ -209,7 +209,7 @@
   <string name="activity_iab_error_message">حدث خطأ، يرجى المحاولة مرة أخرى</string>
   <string name="action_try">محاولة</string>
   <string name="activity_transactions_learn_more">اعرف المزيد</string>
-  <string name="activity_iab_no_funds_message">Not enough ETH and AppCoins</string>
+  <string name="activity_iab_no_funds_message">لا يوجد ETH وAppCoins كافية</string>
   <string name="activity_iab_no_ethereum_funds_message">لا يوجد إيثيريوم كافية</string>
   <string name="activity_iab_no_token_funds_message">لا يوجد أبكوينز كافية</string>
   <string name="activity_iab_wrong_network_message">شبكة إيثيريوم خاطئة أو توكن غير معروف</string>
@@ -301,7 +301,7 @@
   <string name="gamification_home_body">احصل على علاوة تصل إلى %s%% في تطبيقاتك وألعابك المفضلة!</string>
   <string name="gamification_home_button">ابدأ الربح</string>
   <string name="gamification_level_title">ما هو مستواي؟</string>
-  <string name="gamification_level_title_new">Get AppCoins Credits!</string>
+  <string name="gamification_level_title_new">اربح رصيد AppCoins!</string>
   <string name="gamification_level_on_graphic">المستوى %s</string>
   <string name="gamification_APPCapps_button">تطبيقات &amp; ألعاب</string>
   <string name="gamification_level_header">مبروك، أنت %s!</string>
@@ -311,9 +311,9 @@
   <string name="gamification_level_next_lvl_value">%s AppCoins</string>
   <string name="gamification_level_bonus">علاوة %s%%</string>
   <string name="gamification_level_button_how">كيف يعمل</string>
-  <string name="gamification_level_body">You\'ll earn AppCoins Credits when buying items in your favorite apps and games.</string>
+  <string name="gamification_level_body">ستكسب رصيد AppCoins عند شرائك عناصر في تطبيقاتك وألعابك المفضلة.</string>
   <string name="gamification_how_header">كيف أنتقل للمستوى التالي؟</string>
-  <string name="gamification_how_body">You\'ll earn AppCoins Credits when buying items in your favorite apps and games.</string>
+  <string name="gamification_how_body">ستكسب رصيد AppCoins عندما تشتري العناصر في تطبيقاتك وألعابك المفضلة.</string>
   <string name="gamification_how_body_new">كلما أنفقت أكثر على تطبيقاتك المفضلة، زادت مكافآتك!</string>
   <string name="gamification_how_table_a1">أنفق</string>
   <string name="gamification_how_table_b1">علاوة</string>
@@ -374,7 +374,7 @@
   <string name="topup_title">تعبئة</string>
   <string name="topup_amount">%s AppCoins Credits</string>
   <string name="topup_bonus_header">حصلت على مكافأة!</string>
-  <string name="topup_bonus_message">%s AppCoins Credits extra will be credited in your wallet.</string>
+  <string name="topup_bonus_message">رصيد %s AppCoins إضافية ستضاف إلى محفظتك.</string>
   <string name="topup_completed_1">%s في رصيد الـAppCoins</string>
   <string name="topup_completed_2_with_bonus">أُودعت في حسابك... إضافة إلى مكافأة!</string>
   <string name="topup_completed_2_without_bonus">أُودِعَتْ في حسابك.</string>
@@ -391,7 +391,7 @@
   <string name="balance_topup_body">يمكنك إعادة تعبئة محفظتك برصيد AppCoins.</string>
   <string name="balance_ethereum_body">الإيثيريوم هي عملة مشفرة تعتمد عليها عملة AppCoins. يمكنك بيعها وشراؤها في معظم التبادلات، إن استخدامها شائع جدًّا!</string>
   <string name="balance_appcoins_body">AppCoins هي عملة مشفرة من أجل العمليات الاقتصادية في التطبيق. يمكنك بيعها وشراؤها في عدة تبادلات واستخدامها لشراء العناصر داخل التطبيقات.</string>
-  <string name="balance_appccreditos_body">The token to buy in-app items! Top up AppCoins Credits from your wallet or get them for free by using apps. They can also be transferred between friends!</string>
+  <string name="balance_appccreditos_body">العملة التي ستشتري بها داخل التطبيقات! أضف إلى رصيد AppCoins من محفظتك أو احصل عليها مجانًا عند استخدام تطبيقات معينة. يمكن أيضًا إرسالها إلى الأصدقاء!</string>
   <string name="my_wallets_action_new_wallet">محفظة جديدة</string>
   <string name="my_wallets_action_recover_wallet">استعادة المحفظة</string>
   <string name="my_wallets_action_backup_wallet">محفظة احتياطية</string>
