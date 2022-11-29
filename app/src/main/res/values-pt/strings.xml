@@ -114,28 +114,28 @@
   <string name="intro_title_third_page">Simples &amp; Fácil</string>
   <string name="intro_message_first_page">Bem-vindo à revolução da economia das apps.</string>
   <string name="intro_message_second_page">As chaves secretas nunca desaparecem do teu dispositivo.</string>
-  <string name="intro_message_third_page">Process all your in-app payments and rewards in AppCoins.</string>
+  <string name="intro_message_third_page">Processa todos os teus pagamentos in-app e recompensas em AppCoins.</string>
   <string name="intro_1_title">AppCoins Wallet</string>
   <string name="intro_1_body">A tua app para compras in-app.</string>
   <string name="intro_2_title">Joga Mais, Paga Menos</string>
-  <string name="intro_2_body">The best payment wallet for apps and games.</string>
+  <string name="intro_2_body">A melhor wallet de pagamentos para apps e jogos.</string>
   <string name="intro_3_title">Simples e Fácil</string>
-  <string name="intro_3_body">Bonuses on all purchases.</string>
+  <string name="intro_3_body">Bónus em todas as compras.</string>
   <string name="intro_4_title">Seguro e Privado</string>
-  <string name="intro_4_body">Use bank card, PayPal and your favorite payment methods.</string>
+  <string name="intro_4_body">Usa cartão bancário, PayPal e os teus métodos de pagamento favoritos.</string>
   <string name="intro_4_body_2">Todas as tuas transações são sempre seguras graças à mais recente tecnologia.</string>
   <string name="intro_5_title">Recebe AppCoins Credits Grátis!</string>
   <string name="intro_5_body">Ganhas AppCoins Credits grátis ao experimentares apps e jogos.</string>
   <string name="intro_creating_wallet_short">A configurar a tua wallet &#8230;</string>
   <string name="intro_wallet_created_short">Wallet criada!</string>
-  <string name="intro_agree_terms_and_conditions_body">By entering the AppCoins Wallet, you agree to the %1$s and %2$s.</string>
+  <string name="intro_agree_terms_and_conditions_body">Ao entrares na AppCoins Wallet, concordas com a %1$s e os %2$s.</string>
   <string name="intro_skip_button">Saltar</string>
   <string name="intro_welcome_header">Bem-vindo à AppCoins Wallet</string>
-  <string name="intro_welcome_body">Top up your wallet or make a purchase in any AppCoins compatible app or game.</string>
-  <string name="intro_welcome_header_2">Up to %s%% Bonus!</string>
-  <string name="intro_welcome_body_2">Bonuses can be used in any app or game.</string>
+  <string name="intro_welcome_body">Carrega a tua wallet ou faz uma compra em qualquer app ou jogo compatível com AppCoins.</string>
+  <string name="intro_welcome_header_2">Até %s%% de Bónus!</string>
+  <string name="intro_welcome_body_2">Os bónus podem ser utilizados em qualquer app ou jogo.</string>
   <string name="intro_already_have_wallet_button">Já tenho uma wallet</string>
-  <string name="intro_get_started_button">Launch wallet</string>
+  <string name="intro_get_started_button">Lançar wallet</string>
   <!-- Menus -->
   <!-- Labels -->
   <string name="label_from">De</string>
@@ -209,7 +209,7 @@
   <string name="activity_iab_error_message">Ocorreu um erro, por favor tente novamente</string>
   <string name="action_try">experimentar</string>
   <string name="activity_transactions_learn_more">Saber Mais</string>
-  <string name="activity_iab_no_funds_message">Not enough ETH and AppCoins</string>
+  <string name="activity_iab_no_funds_message">ETH e AppCoins insuficientes</string>
   <string name="activity_iab_no_ethereum_funds_message">Ethereum insuficiente</string>
   <string name="activity_iab_no_token_funds_message">AppCoins insuficientes</string>
   <string name="activity_iab_wrong_network_message">Rede de Ethereum incorreta ou token desconhecido</string>
@@ -301,7 +301,7 @@
   <string name="gamification_home_body">Recebe até %s%% de bónus nas tuas apps e jogos preferidos!</string>
   <string name="gamification_home_button">COMEÇAR A GANHAR</string>
   <string name="gamification_level_title">Qual o meu nível?</string>
-  <string name="gamification_level_title_new">Get AppCoins Credits!</string>
+  <string name="gamification_level_title_new">Recebe AppCoins Credits!</string>
   <string name="gamification_level_on_graphic">Nível %s</string>
   <string name="gamification_APPCapps_button">Apps &amp; jogos</string>
   <string name="gamification_level_header">Parabéns, és %s!</string>
@@ -311,7 +311,7 @@
   <string name="gamification_level_next_lvl_value">%s AppCoins</string>
   <string name="gamification_level_bonus">%s%% bónus</string>
   <string name="gamification_level_button_how">COMO FUNCIONA</string>
-  <string name="gamification_level_body">You\'ll earn AppCoins Credits when buying items in your favorite apps and games.</string>
+  <string name="gamification_level_body">Vais receber AppCoins Credits quando comprares itens nas tuas apps e jogos favoritos.</string>
   <string name="gamification_how_header">Como subir de nível?</string>
   <string name="gamification_how_body">You\'ll earn AppCoins Credits when buying items in your favorite apps and games.</string>
   <string name="gamification_how_body_new">Quanto mais gastares nas tuas apps favoritas, maior é o Bónus!</string>
