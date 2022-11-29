@@ -25,6 +25,7 @@
       android:layout_height="wrap_content"
       android:layout_marginStart="@dimen/normal_margin"
       android:layout_marginEnd="@dimen/normal_margin"
+      app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintBottom_toTopOf="@id/active_title"
       app:layout_constraintStart_toEndOf="@id/active_icon"
       app:layout_constraintTop_toBottomOf="@id/active_container_date"

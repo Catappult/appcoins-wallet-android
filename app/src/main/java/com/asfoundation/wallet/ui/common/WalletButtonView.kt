@@ -17,6 +17,14 @@ import com.asfoundation.wallet.util.convertDpToPx
 
 class WalletButtonView : FrameLayout {
 
+  init {
+    if(isInEditMode) {
+      imageLeft = null
+      imageRight = null
+      type = Type.FILLED
+    }
+  }
+
   private val views =
     LayoutWalletButtonViewBinding.inflate(LayoutInflater.from(context), this, true)
 

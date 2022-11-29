@@ -107,7 +107,7 @@
   </style>
 
   <style name="ToolbarTextAppearance">
-    <item name="android:textColor">#ffffff</item>
+    <item name="android:textColor">@color/styleguide_white</item>
     <item name="android:textStyle">bold</item>
   </style>
 
@@ -145,7 +145,7 @@
   </style>
 
   <style name="TransactionDetailsTextStyle.Dark">
-    <item name="android:textColor">#000000</item>
+    <item name="android:textColor">@color/styleguide_black</item>
   </style>
 
   <style name="TransactionDetailsTextStyle.AppBar">
@@ -155,16 +155,16 @@
   <style name="TransactionDetailsTextStyle.Heading">
     <item name="android:fontFamily">sans-serif-medium</item>
     <item name="android:textSize">24sp</item>
-    <item name="android:textColor">#000000</item>
+    <item name="android:textColor">@color/styleguide_black</item>
   </style>
 
   <style name="TransactionDetailsTextStyle.Title">
     <item name="android:textSize">16sp</item>
-    <item name="android:textColor">#000000</item>
+    <item name="android:textColor">@color/styleguide_black</item>
   </style>
 
   <style name="TransactionDetailsTextStyle.Reverted">
-    <item name="android:textColor">#212121</item>
+    <item name="android:textColor">@color/styleguide_dark_grey</item>
     <item name="android:textAlignment">center</item>
     <item name="android:gravity">center_horizontal</item>
     <item name="android:alpha">0.54</item>
@@ -177,7 +177,7 @@
 
   <style name="TransactionDetailsTextStyle.Content">
     <item name="android:textSize">14sp</item>
-    <item name="android:textColor">#000000</item>
+    <item name="android:textColor">@color/styleguide_black</item>
   </style>
 
   <style name="TransactionDetailsTextStyle.Content.Address">
@@ -202,23 +202,23 @@
   <style name="TextAppearance.AppCompat.Headline.Roboto.Medium" parent="TextAppearance.AppCompat.Headline">
     <item name="android:textSize">20sp</item>
     <item name="android:fontFamily">sans-serif-medium</item>
-    <item name="android:textColor">#001727</item>
+    <item name="android:textColor">@color/styleguide_blue</item>
   </style>
 
   <style name="TextAppearance.AppCompat.Body1.Roboto.Medium" parent="TextAppearance.AppCompat.Body1">
     <item name="android:textSize">16sp</item>
-    <item name="android:textColor">#828282</item>
+    <item name="android:textColor">@color/styleguide_dark_grey</item>
     <item name="android:fontFamily">sans-serif-medium</item>
   </style>
 
   <style name="TextAppearance.AppCompat.Body1.Roboto.Regular" parent="TextAppearance.AppCompat.Body1">
     <item name="android:textSize">12sp</item>
-    <item name="android:textColor">#4a4a4a</item>
+    <item name="android:textColor">@color/styleguide_dark_grey</item>
     <item name="android:fontFamily">sans-serif</item>
   </style>
 
   <style name="TextAppearance.AppCompat.Body1.Roboto" parent="TextAppearance.AppCompat.Body1">
-    <item name="android:textColor">#001726</item>
+    <item name="android:textColor">@color/styleguide_blue</item>
     <item name="android:lineSpacingExtra">8sp</item>
   </style>
 
@@ -262,11 +262,11 @@
   </style>
 
   <style name="TextAppearance.AppCompat.Body1.Roboto.Regular.Transparency">
-    <item name="android:textColor">#ccffffff</item>
+    <item name="android:textColor">@color/styleguide_white_transparent_80</item>
   </style>
 
   <style name="TextAppearance.AppCompat.Body1.Roboto.Medium.White">
-    <item name="android:textColor">#ffffff</item>
+    <item name="android:textColor">@color/styleguide_white</item>
   </style>
 
   <style name="RestoreTitleTextStyle" parent="@style/TextAppearance.AppCompat.Body1.Roboto.Regular">
@@ -439,7 +439,7 @@
   </style>
 
   <style name="TokenDetailsTitleStyle" parent="TextAppearance.AppCompat.Body1.Roboto.Medium">
-    <item name="android:textColor">#000000</item>
+    <item name="android:textColor">@color/styleguide_black</item>
   </style>
 
   <style name="TokenDetailsSubTitleStyle" parent="TextAppearance.AppCompat.Body1.Roboto.Medium">
@@ -447,12 +447,12 @@
   </style>
 
   <style name="TokenDetailsTextStyle" parent="TextAppearance.AppCompat.Body1.Roboto.Regular">
-    <item name="android:textColor">#000000</item>
+    <item name="android:textColor">@color/styleguide_black</item>
   </style>
 
   <style name="BalanceTitleStyle" parent="TextAppearance.AppCompat.Body1.Roboto.Regular">
     <item name="android:textSize">16sp</item>
-    <item name="android:textColor">#ffffff</item>
+    <item name="android:textColor">@color/styleguide_white</item>
   </style>
 
   <style name="BalanceTitleStyle.Large">
@@ -464,16 +464,16 @@
     <!-- reference our hint & error styles -->
     <item name="hintTextAppearance">@style/HintText</item>
     <item name="errorTextAppearance">@style/ErrorText</item>
-    <item name="android:textColor">#000000</item>
-    <item name="android:textColorHint">#727272</item>
-    <item name="colorControlNormal">#727272</item>
+    <item name="android:textColor">@color/styleguide_black</item>
+    <item name="android:textColorHint">@color/styleguide_dark_grey</item>
+    <item name="colorControlNormal">@color/styleguide_dark_grey</item>
     <item name="colorControlActivated">@color/colorAccent</item>
     <item name="colorControlHighlight">@color/colorAccent</item>
   </style>
 
   <style name="TextInputLayoutAppearanceOutlinedDense" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
     <!-- reference our hint & error styles -->
-    <item name="android:textColorHint">#727272</item>
+    <item name="android:textColorHint">@color/styleguide_dark_grey</item>
     <item name="boxStrokeColor">@color/styleguide_pink</item>
     <item name="boxStrokeWidth">2dp</item>
     <item name="hintTextAppearance">@style/TextAppearance.MaterialComponents.Subtitle2</item>
@@ -481,19 +481,19 @@
   </style>
 
   <style name="EditTextCursorTheme" parent="ThemeOverlay.MaterialComponents.TextInputEditText.OutlinedBox">
-    <item name="colorControlActivated">#000000</item>
+    <item name="colorControlActivated">@color/styleguide_black</item>
   </style>
 
   <style name="AppcoinsTextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
     <item name="android:textColorHint">@color/styleguide_dark_grey</item>
-    <item name="android:textColor">#000000</item>
+    <item name="android:textColor">@color/styleguide_black</item>
     <item name="boxStrokeColor">@color/edit_text_stroke_color</item>
     <item name="boxStrokeWidth">1dp</item>
     <item name="hintTextAppearance">@style/TextAppearance.MaterialComponents.Subtitle2</item>
-    <item name="hintTextColor">#000000</item>
-    <item name="colorControlActivated">#000000</item>
-    <item name="colorControlNormal">#000000</item>
-    <item name="colorControlHighlight">#000000</item>
+    <item name="hintTextColor">@color/styleguide_black</item>
+    <item name="colorControlActivated">@color/styleguide_black</item>
+    <item name="colorControlNormal">@color/styleguide_black</item>
+    <item name="colorControlHighlight">@color/styleguide_black</item>
     <item name="android:theme">@style/EditTextCursorTheme</item>
   </style>
 
@@ -509,15 +509,15 @@
 
   <style name="BillingDropDown" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
     <item name="android:textColorHint">@color/styleguide_dark_grey</item>
-    <item name="android:textColor">#000000</item>
+    <item name="android:textColor">@color/styleguide_black</item>
     <item name="android:textSize">14sp</item>
     <item name="boxStrokeColor">@color/edit_text_stroke_color</item>
     <item name="boxStrokeWidth">1dp</item>
     <item name="hintTextAppearance">@style/TextAppearance.MaterialComponents.Subtitle2</item>
-    <item name="hintTextColor">#000000</item>
-    <item name="colorControlActivated">#000000</item>
-    <item name="colorControlNormal">#000000</item>
-    <item name="colorControlHighlight">#000000</item>
+    <item name="hintTextColor">@color/styleguide_black</item>
+    <item name="colorControlActivated">@color/styleguide_black</item>
+    <item name="colorControlNormal">@color/styleguide_black</item>
+    <item name="colorControlHighlight">@color/styleguide_black</item>
     <item name="android:theme">@style/EditTextCursorTheme</item>
     <item name="endIconTint">@color/edit_text_stroke_color</item>
   </style>
@@ -573,7 +573,7 @@
   </style>
 
   <style name="WalletBackupTextStyle" parent="TextAppearance.AppCompat.Body1.Roboto.Regular">
-    <item name="android:textColor">#727272</item>
+    <item name="android:textColor">@color/styleguide_dark_grey</item>
     <item name="android:textSize">14sp</item>
     <item name="android:letterSpacing">.02</item>
   </style>
@@ -590,7 +590,7 @@
   </style>
 
   <style name="WalletBackupTextStyle.Title" parent="TextAppearance.AppCompat.Headline.Roboto.Medium">
-    <item name="android:textColor">#000000</item>
+    <item name="android:textColor">@color/styleguide_black</item>
     <item name="android:textSize">18sp</item>
     <item name="android:letterSpacing">.009</item>
     <item name="android:gravity">center</item>
@@ -689,7 +689,7 @@
   </style>
 
   <style name="WalletValidationTextStyle.Tooltip" parent="TextAppearance.AppCompat.Body1.Roboto.Regular">
-    <item name="android:textColor">#4a4a4a</item>
+    <item name="android:textColor">@color/styleguide_dark_grey</item>
     <item name="android:textSize">10sp</item>
   </style>
 
@@ -722,7 +722,7 @@
   </style>
 
   <style name="BalanceVerifyWalletChip.CodeRequested.Subtitle" parent="TextAppearance.AppCompat.Body1.Roboto.Regular">
-    <item name="android:textColor">#1d1d1d</item>
+    <item name="android:textColor">@color/styleguide_dark_grey</item>
     <item name="android:textSize">10sp</item>
     <item name="android:ellipsize">end</item>
     <item name="android:maxLines">2</item>
@@ -744,14 +744,14 @@
   </style>
 
   <style name="Promotions.TextStyle.Category.Title" parent="TextAppearance.AppCompat.Body1.Roboto.Medium">
-    <item name="android:textColor">#e7000000</item>
+    <item name="android:textColor">@color/styleguide_black_transparent_80</item>
     <item name="android:textSize">14sp</item>
     <item name="android:letterSpacing">0.01</item>
     <item name="android:lineSpacingExtra">6sp</item>
   </style>
 
   <style name="Promotions.TextStyle.Category.Subtitle" parent="TextAppearance.AppCompat.Body1.Roboto.Regular">
-    <item name="android:textColor">#8a000000</item>
+    <item name="android:textColor">@color/styleguide_black_transparent_80</item>
     <item name="android:textSize">12sp</item>
     <item name="android:ellipsize">end</item>
     <item name="android:maxLines">2</item>
@@ -767,7 +767,7 @@
   </style>
 
   <style name="Promotions.TextStyle.Subtitle" parent="TextAppearance.AppCompat.Body1.Roboto.Regular">
-    <item name="android:textColor">#01131f</item>
+    <item name="android:textColor">@color/styleguide_medium_grey</item>
     <item name="android:textSize">12sp</item>
   </style>
 
@@ -815,7 +815,7 @@
   </style>
 
   <style name="Promotions.TextStyle.Links" parent="TextAppearance.AppCompat.Body1.Roboto.Regular">
-    <item name="android:textColor">#ffffff</item>
+    <item name="android:textColor">@color/styleguide_white</item>
     <item name="android:textSize">11sp</item>
   </style>
 
@@ -839,10 +839,10 @@
   </style>
   <style name="VipRefButtonText" parent="TextM">
     <item name="android:fontFamily">@font/roboto_medium</item>
-    <item name="android:textColor">#EEA125</item>
+    <item name="android:textColor">@color/styleguide_vip_yellow</item>
   </style>
   <style name="VipRefButtonSubText" parent="TextS">
-    <item name="android:textColor">#FFFFFF</item>
+    <item name="android:textColor">@color/styleguide_white</item>
   </style>
 
   <style name="VoucherAppcText" parent="TextAppearance.AppCompat.Body1.Roboto.Medium">
@@ -888,12 +888,12 @@
   <style name="TransactionsItem.Revert" parent="TextAppearance.AppCompat.Body1.Roboto.Regular">
     <item name="android:alpha">0.55</item>
     <item name="android:lineSpacingExtra">4sp</item>
-    <item name="android:textColor">#212121</item>
+    <item name="android:textColor">@color/styleguide_black_transparent_80</item>
     <item name="android:textAlignment">textStart</item>
   </style>
 
   <style name="BottomSheetInfoTextStyle" parent="TextAppearance.AppCompat.Body1.Roboto.Regular">
-    <item name="android:textColor">#191919</item>
+    <item name="android:textColor">@color/styleguide_black_transparent_80</item>
     <item name="android:textSize">14sp</item>
     <item name="android:lineSpacingExtra">10sp</item>
   </style>
@@ -921,7 +921,7 @@
   </style>
 
   <style name="BillingAddress.Title" parent="TextAppearance.AppCompat.Body1.Roboto.Medium">
-    <item name="android:textColor">#000000</item>
+    <item name="android:textColor">@color/styleguide_black</item>
     <item name="android:textSize">14sp</item>
   </style>
 
@@ -966,9 +966,9 @@
     <item name="android:textCursorDrawable">@null</item>
     <item name="boxBackgroundMode">none</item>
     <item name="hintEnabled">false</item>
-    <item name="colorControlActivated">#000000</item>
-    <item name="colorControlNormal">#000000</item>
-    <item name="colorControlHighlight">#000000</item>
+    <item name="colorControlActivated">@color/styleguide_black</item>
+    <item name="colorControlNormal">@color/styleguide_black</item>
+    <item name="colorControlHighlight">@color/styleguide_black</item>
     <item name="android:theme">@style/EditTextCursorTheme</item>
   </style>
 
@@ -977,9 +977,9 @@
     <item name="android:includeFontPadding">false</item>
     <item name="android:textSize">14sp</item>
     <item name="android:textCursorDrawable">@drawable/text_cursor_black</item>
-    <item name="colorControlActivated">#000000</item>
-    <item name="colorControlNormal">#000000</item>
-    <item name="colorControlHighlight">#000000</item>
+    <item name="colorControlActivated">@color/styleguide_black</item>
+    <item name="colorControlNormal">@color/styleguide_black</item>
+    <item name="colorControlHighlight">@color/styleguide_black</item>
     <item name="hintTextAppearance">@style/MultiLineInputText.HintTextAppearance</item>
     <item name="android:paddingTop">16dp</item>
     <item name="android:paddingBottom">16dp</item>
