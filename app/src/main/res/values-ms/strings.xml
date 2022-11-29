@@ -1082,7 +1082,7 @@
   <string name="onboarding_1st_explore_wallet_button">Atau terokai Dompet</string>
   <string name="onboarding_1st_back_to_unknown_game_body">Salah satu permainan yang anda pasang serasi dengan AppCoins! Buka?</string>
   <string name="onboarding_1st_back_to_unknown_game_button">Pergi ke permainan</string>
-  <string name="onboarding_1st_explore_wallet_alternative_button">Explore the AppCoins Wallet</string>
+  <string name="onboarding_1st_explore_wallet_alternative_button">Terokai Dompet AppCoins</string>
   <!-- VIP Program -->
   <string name="vip_program_reached_notification_title">Selamat datang ke Program VIP</string>
   <string name="vip_program_reached_notification_body">Anda kini pengguna VIP dengan akses promosi dan tawaran khas. Ketik untuk maklumat lanjut!</string>
@@ -1110,6 +1110,6 @@
   <string name="vip_program_max_bonus_title">Nikmati Bonus %s%% bagi setiap pembelian anda</string>
   <string name="vip_program_max_bonus_body">Anda sudah di hujung benua.</string>
   <string name="vip_program_max_bonus_short">Bonus %s%% bagi setiap pembelian.</string>
-  <string name="vip_program_referral_notification_title">VIP Referral Code Available!</string>
-  <string name="vip_program_referral_notification_body">Share your code with your community so you all earn while playing!</string>
+  <string name="vip_program_referral_notification_title">Kod Rujukan VIP Tersedia!</string>
+  <string name="vip_program_referral_notification_body">Kongsi kod anda dengan komuniti. Dapat ganjaran sambil bermain!</string>
 </resources>
