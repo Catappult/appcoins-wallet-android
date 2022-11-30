@@ -114,28 +114,28 @@
   <string name="intro_title_third_page">Đơn giản và Dễ dàng</string>
   <string name="intro_message_first_page">Chào mừng bạn đến với cuộc cách mạng của nền kinh tế ứng dụng.</string>
   <string name="intro_message_second_page">Khóa cá nhân không bao giờ rời khỏi thiết bị của bạn.</string>
-  <string name="intro_message_third_page">Process all your in-app payments and rewards in AppCoins.</string>
+  <string name="intro_message_third_page">Xử lý tất cả các khoản thanh toán và phần thưởng trong ứng dụng của bạn bằng AppCoins.</string>
   <string name="intro_1_title">AppCoins Wallet</string>
   <string name="intro_1_body">Ứng dụng để mua hàng trong ứng dụng của bạn.</string>
   <string name="intro_2_title">Chơi nhiều hơn, trả ít hơn</string>
-  <string name="intro_2_body">The best payment wallet for apps and games.</string>
+  <string name="intro_2_body">Ví thanh toán tốt nhất dành cho các ứng dụng và trò chơi.</string>
   <string name="intro_3_title">Đơn giản và Dễ dàng</string>
-  <string name="intro_3_body">Bonuses on all purchases.</string>
+  <string name="intro_3_body">Tiền thưởng trên tất cả các giao dịch mua.</string>
   <string name="intro_4_title">Bảo mật và Riêng tư</string>
-  <string name="intro_4_body">Use bank card, PayPal and your favorite payment methods.</string>
+  <string name="intro_4_body">Sử dụng thẻ ngân hàng, PayPal và các phương thức thanh toán ưa thích của bạn.</string>
   <string name="intro_4_body_2">Mọi giao dịch của bạn luôn được an toàn nhờ vào công nghệ hiện đại nhất.</string>
   <string name="intro_5_title">Nhận AppCoins Credits miễn phí!</string>
   <string name="intro_5_body">Bạn sẽ kiếm được AppCoins Credits bằng cách trải nghiệm thử ứng dụng và trò chơi.</string>
   <string name="intro_creating_wallet_short">Cài đặt ví của bạn&#8230;</string>
   <string name="intro_wallet_created_short">Đã tạo ví!</string>
-  <string name="intro_agree_terms_and_conditions_body">By entering the AppCoins Wallet, you agree to the %1$s and %2$s.</string>
+  <string name="intro_agree_terms_and_conditions_body">Bằng cách nhập Ví AppCoins, bạn đồng ý với %1$s và %2$s.</string>
   <string name="intro_skip_button">BỎ QUA</string>
   <string name="intro_welcome_header">Chào mừng bạn đến với Ví AppCoins</string>
-  <string name="intro_welcome_body">Top up your wallet or make a purchase in any AppCoins compatible app or game.</string>
-  <string name="intro_welcome_header_2">Up to %s%% Bonus!</string>
-  <string name="intro_welcome_body_2">Bonuses can be used in any app or game.</string>
+  <string name="intro_welcome_body">Nạp tiền vào ví của bạn hoặc mua hàng trong bất kỳ ứng dụng hoặc trò chơi nào tương thích với AppCoins.</string>
+  <string name="intro_welcome_header_2">Tiền thưởng lên đến %s%%!</string>
+  <string name="intro_welcome_body_2">Tiền thưởng có thể được sử dụng trong bất kỳ ứng dụng hoặc trò chơi nào.</string>
   <string name="intro_already_have_wallet_button">Tôi đã có ví rồi</string>
-  <string name="intro_get_started_button">Launch wallet</string>
+  <string name="intro_get_started_button">Khởi chạy ví</string>
   <!-- Menus -->
   <!-- Labels -->
   <string name="label_from">Từ</string>
@@ -209,7 +209,7 @@
   <string name="activity_iab_error_message">Đã xảy ra lỗi, vui lòng thử lại</string>
   <string name="action_try">thử</string>
   <string name="activity_transactions_learn_more">Tìm hiểu thêm</string>
-  <string name="activity_iab_no_funds_message">Not enough ETH and AppCoins</string>
+  <string name="activity_iab_no_funds_message">Không đủ ETH và AppCoins</string>
   <string name="activity_iab_no_ethereum_funds_message">Không đủ Ethereum</string>
   <string name="activity_iab_no_token_funds_message">Không đủ AppCoin</string>
   <string name="activity_iab_wrong_network_message">Mạng Ethereum sai hoặc token không xác định</string>
@@ -301,7 +301,7 @@
   <string name="gamification_home_body">Nhận đến %s%% tiền thưởng trong các ứng dụng và trò chơi yêu thích của bạn!</string>
   <string name="gamification_home_button">BẮT ĐẦU NHẬN</string>
   <string name="gamification_level_title">Cấp của tôi là gì?</string>
-  <string name="gamification_level_title_new">Get AppCoins Credits!</string>
+  <string name="gamification_level_title_new">Nhận AppCoins Credits!</string>
   <string name="gamification_level_on_graphic">Cấp %s</string>
   <string name="gamification_APPCapps_button">Ứng dụng &amp; Trò chơi</string>
   <string name="gamification_level_header">Xin chúc mừng, bạn là %s!</string>
@@ -311,9 +311,9 @@
   <string name="gamification_level_next_lvl_value">%s AppCoins</string>
   <string name="gamification_level_bonus">%s%% TIỀN THƯỞNG</string>
   <string name="gamification_level_button_how">CÁCH THỨC HOẠT ĐỘNG</string>
-  <string name="gamification_level_body">You\'ll earn AppCoins Credits when buying items in your favorite apps and games.</string>
+  <string name="gamification_level_body">Bạn sẽ nhận được AppCoins Credits khi mua các vật phẩm trong các ứng dụng và trò chơi yêu thích của mình.</string>
   <string name="gamification_how_header">Làm thế nào để lên cấp?</string>
-  <string name="gamification_how_body">You\'ll earn AppCoins Credits when buying items in your favorite apps and games.</string>
+  <string name="gamification_how_body">Bạn sẽ nhận được AppCoins Credits khi mua các vật phẩm trong các ứng dụng và trò chơi yêu thích của mình.</string>
   <string name="gamification_how_body_new">Bạn chi tiêu càng nhiều trong các ứng dụng yêu thích của mình, thì tiền thưởng sẽ càng lớn!</string>
   <string name="gamification_how_table_a1">DÙNG</string>
   <string name="gamification_how_table_b1">TIỀN THƯỞNG</string>
@@ -374,7 +374,7 @@
   <string name="topup_title">Nạp tiền</string>
   <string name="topup_amount">%s AppCoins Credits</string>
   <string name="topup_bonus_header">Bạn vừa nhận được một khoản tiền thưởng!</string>
-  <string name="topup_bonus_message">%s AppCoins Credits extra will be credited in your wallet.</string>
+  <string name="topup_bonus_message">Thêm %s AppCoins Credits sẽ được ghi có vào ví của bạn.</string>
   <string name="topup_completed_1">%s bằng AppCoins Credits</string>
   <string name="topup_completed_2_with_bonus">đã được gửi vào tài khoản của bạn... Cùng với tiền thưởng!</string>
   <string name="topup_completed_2_without_bonus">đã được gửi vào tài khoản của bạn.</string>
@@ -391,7 +391,7 @@
   <string name="balance_topup_body">Bạn có thể nạp tiền vào ví của mình bằng AppCoins Credits.</string>
   <string name="balance_ethereum_body">AppCoin dựa trên tiền điện tử Ethereum. Bạn có thể mua và bán chúng ở hầu hết các sàn giao dịch vì chúng rất phổ biến!</string>
   <string name="balance_appcoins_body">AppCoins là tiền điện tử dành cho nền kinh tế ứng dụng. Bạn có thể mua và bán chúng trên một số sàn giao dịch cũng như có thể sử dụng chúng để mua các vật phẩm trong ứng dụng.</string>
-  <string name="balance_appccreditos_body">The token to buy in-app items! Top up AppCoins Credits from your wallet or get them for free by using apps. They can also be transferred between friends!</string>
+  <string name="balance_appccreditos_body">Mã thông báo để mua các mặt hàng trong ứng dụng! Nạp AppCoins Credits từ ví của bạn hoặc nhận miễn phí bằng cách sử ứng dụng. Chúng cũng có thể được chuyển giữa bạn bè!</string>
   <string name="my_wallets_action_new_wallet">Ví mới</string>
   <string name="my_wallets_action_recover_wallet">Khôi phục ví</string>
   <string name="my_wallets_action_backup_wallet">Sao lưu ví</string>
@@ -462,7 +462,7 @@
   <string name="home_empty_discover_apps_button">KHÁM PHÁ CÁC ỨNG DỤNG HÀNG ĐẦU</string>
   <!--Tokens-->
   <!--Settings-->
-  <string name="title_redeem">Redeem Gift Card</string>
+  <string name="title_redeem">Đổi thẻ quà tặng</string>
   <string name="settings_item_support">Liên hệ với Đội ngũ Hỗ trợ</string>
   <string name="settings_subheader_support">Hỗ trợ</string>
   <string name="settings_subheader_about_us">Giới thiệu</string>
@@ -550,7 +550,7 @@
   <string name="purchase_error_try_cheaper_item">Thứ đó khá đắt đỏ! Vui lòng thử mua một món hàng có giá trị thấp hơn.</string>
   <string name="purchase_error_try_cheaper_item_or_method">Thứ đó khá đắt đỏ! Vui lòng thử mua một món hàng rẻ hơn hoặc thử một phương thức thanh toán mới.</string>
   <string name="transfer_appc_error_no_eth_title">Bạn cần có Ether!</string>
-  <string name="transfer_appc_error_no_eth_body">AppCoins transfers fees are paid in Ethereum, so you\'ll need ETH to transfer AppCoins.</string>
+  <string name="transfer_appc_error_no_eth_body">Phí chuyển AppCoins được thanh toán bằng Ethereum, vì vậy bạn sẽ cần có ETH để chuyển AppCoins.</string>
   <string name="purchase_error_invalid_credit_card">Số thẻ không hợp lệ. Hãy chắc rằng tất cả các chữ số đều chính xác.</string>
   <string name="purchase_error_card_security_validation">Đã xảy ra lỗi khi xác thực cấp độ 2 cho giao dịch này. Vui lòng thử lại.</string>
   <string name="purchase_error_transaction_timeout">Có vẻ như bạn đã mất quá nhiều thời gian để hoàn thành giao dịch. Vui lòng thử lại.</string>
@@ -637,10 +637,10 @@
   <string name="update_wallet_soft_title">Đừng để mình bị bỏ lại phía sau!</string>
   <string name="update_wallet_soft_body">Luôn cập nhật Ví AppCoins để đảm bảo có được trải nghiệm tốt nhất.</string>
   <string name="update_button">Cập nhật</string>
-  <string name="update_backup_title">Don\'t lose your funds!</string>
-  <string name="update_backup_body">Back up your wallet before updating.</string>
-  <string name="update_backup_date">Last backed up on %s.</string>
-  <string name="update_backup_never">Not backed up yet.</string>
+  <string name="update_backup_title">Đừng để mất tiền của mình!</string>
+  <string name="update_backup_body">Sao lưu ví của bạn trước khi cập nhật.</string>
+  <string name="update_backup_date">Sao lưu lần cuối vào %s.</string>
+  <string name="update_backup_never">Chưa sao lưu.</string>
   <!--Backup and Import-->
   <string name="backup_home_notification_title">Sao lưu Ví của bạn</string>
   <string name="backup_home_notification_body">Bạn đã bao giờ bị mất điện thoại chưa? Hãy sao lưu ví của mình ngay!</string>
@@ -1080,9 +1080,9 @@
   <string name="onboarding_1st_body">Quay lại trò chơi để hoàn tất giao dịch mua của mình.</string>
   <string name="onboarding_1st_back_to_game_button">Quay lại trò chơi</string>
   <string name="onboarding_1st_explore_wallet_button">Hoặc khám phá Ví</string>
-  <string name="onboarding_1st_back_to_unknown_game_body">One of the games you\'ve got installed is AppCoins compatible! Do you want to open it?</string>
-  <string name="onboarding_1st_back_to_unknown_game_button">Go to the game</string>
-  <string name="onboarding_1st_explore_wallet_alternative_button">Explore the AppCoins Wallet</string>
+  <string name="onboarding_1st_back_to_unknown_game_body">Một trong những trò chơi bạn đã cài đặt tương thích với AppCoins! Bạn có muốn mở nó không?</string>
+  <string name="onboarding_1st_back_to_unknown_game_button">Đi đến trò chơi</string>
+  <string name="onboarding_1st_explore_wallet_alternative_button">Khám phá Ví AppCoins</string>
   <!-- VIP Program -->
   <string name="vip_program_reached_notification_title">Chào mừng đến với Chương trình VIP</string>
   <string name="vip_program_reached_notification_body">Bạn hiện là người dùng VIP có quyền truy cập vào các chương trình khuyến mãi và giao dịch hấp dẫn. Nhấn để biết thêm chi tiết!</string>
@@ -1110,6 +1110,6 @@
   <string name="vip_program_max_bonus_title">Tận hưởng %s%% tiền thưởng của bạn trên mỗi giao dịch mua</string>
   <string name="vip_program_max_bonus_body">Bạn đã đạt đến hạn mức của hệ thống.</string>
   <string name="vip_program_max_bonus_short">%s%% tiền thưởng trên mỗi giao dịch mua.</string>
-  <string name="vip_program_referral_notification_title">VIP Referral Code Available!</string>
-  <string name="vip_program_referral_notification_body">Share your code with your community so you all earn while playing!</string>
+  <string name="vip_program_referral_notification_title">Mã giới thiệu VIP khả dụng!</string>
+  <string name="vip_program_referral_notification_body">Chia sẻ mã với cộng đồng của bạn để tất cả các bạn nhận được tiền khi chơi!</string>
 </resources>
