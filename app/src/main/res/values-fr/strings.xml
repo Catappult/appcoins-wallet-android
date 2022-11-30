@@ -114,28 +114,28 @@
   <string name="intro_title_third_page">Simple &amp; facile</string>
   <string name="intro_message_first_page">Bienvenue dans la révolution de l’économie des apps.</string>
   <string name="intro_message_second_page">Les clés privées ne quittent jamais votre appareil.</string>
-  <string name="intro_message_third_page">Process all your in-app payments and rewards in AppCoins.</string>
+  <string name="intro_message_third_page">Traitez tous vos paiements et récompenses in-app en AppCoins.</string>
   <string name="intro_1_title">AppCoins Wallet</string>
   <string name="intro_1_body">Votre application pour les achats in-app.</string>
   <string name="intro_2_title">Jouez plus, payez moins</string>
-  <string name="intro_2_body">The best payment wallet for apps and games.</string>
+  <string name="intro_2_body">Le meilleur portefeuille de paiement pour les applications et les jeux.</string>
   <string name="intro_3_title">Simple et facile</string>
-  <string name="intro_3_body">Bonuses on all purchases.</string>
+  <string name="intro_3_body">Des Bonus sur tous les achats.</string>
   <string name="intro_4_title">Sécurisé et privé</string>
-  <string name="intro_4_body">Use bank card, PayPal and your favorite payment methods.</string>
+  <string name="intro_4_body">Utilisez la carte bancaire, PayPal et vos méthodes de paiement préférées.</string>
   <string name="intro_4_body_2">Toutes vos transactions sont sécurisées grâce aux technologies les plus récentes.</string>
   <string name="intro_5_title">Obtenez des crédits AppCoins gratuits !</string>
   <string name="intro_5_body">Vous gagnerez des AppCoins Credits gratuits en essayant des applications et des jeux.</string>
   <string name="intro_creating_wallet_short">Configurer votre portefeuille pour vous&#8230;</string>
   <string name="intro_wallet_created_short">Portefeuille créé !</string>
-  <string name="intro_agree_terms_and_conditions_body">By entering the AppCoins Wallet, you agree to the %1$s and %2$s.</string>
+  <string name="intro_agree_terms_and_conditions_body">En entrant dans le AppCoins Wallet, vous acceptez les %1$s et les %2$s.</string>
   <string name="intro_skip_button">PASSER</string>
   <string name="intro_welcome_header">Bienvenue sur AppCoins Wallet</string>
-  <string name="intro_welcome_body">Top up your wallet or make a purchase in any AppCoins compatible app or game.</string>
-  <string name="intro_welcome_header_2">Up to %s%% Bonus!</string>
-  <string name="intro_welcome_body_2">Bonuses can be used in any app or game.</string>
+  <string name="intro_welcome_body">Rechargez votre portefeuille ou faites un achat dans n\'importe quelle application ou jeu compatible avec AppCoins.</string>
+  <string name="intro_welcome_header_2">Jusqu\'à %s%% de bonus !</string>
+  <string name="intro_welcome_body_2">Les bonus peuvent être utilisés dans n\'importe quelle application ou jeu.</string>
   <string name="intro_already_have_wallet_button">J\'ai déjà un portefeuille</string>
-  <string name="intro_get_started_button">Launch wallet</string>
+  <string name="intro_get_started_button">Lancement du portefeuille</string>
   <!-- Menus -->
   <!-- Labels -->
   <string name="label_from">De</string>
@@ -209,7 +209,7 @@
   <string name="activity_iab_error_message">Une erreur s’est produite, Veuillez réessayer</string>
   <string name="action_try">essayer</string>
   <string name="activity_transactions_learn_more">En savoir plus</string>
-  <string name="activity_iab_no_funds_message">Not enough ETH and AppCoins</string>
+  <string name="activity_iab_no_funds_message">Pas assez d\'ETH et d\'AppCoins</string>
   <string name="activity_iab_no_ethereum_funds_message">Pas assez d\'Ethereum</string>
   <string name="activity_iab_no_token_funds_message">Pas assez d\'AppCoins</string>
   <string name="activity_iab_wrong_network_message">Mauvais réseau Ethereum ou jeton inconnu</string>
@@ -301,7 +301,7 @@
   <string name="gamification_home_body">Gagnez jusqu\'à %s%% de Bonus dans vos applications préférées et vos jeux !</string>
   <string name="gamification_home_button">COMMENCEZ À GAGNER</string>
   <string name="gamification_level_title">Quel est mon niveau ?</string>
-  <string name="gamification_level_title_new">Get AppCoins Credits!</string>
+  <string name="gamification_level_title_new">Obtenez des AppCoins Credits !</string>
   <string name="gamification_level_on_graphic">Niveau %s</string>
   <string name="gamification_APPCapps_button">Apps &amp; jeux</string>
   <string name="gamification_level_header">Félicitations, vous êtes %s !</string>
@@ -311,9 +311,9 @@
   <string name="gamification_level_next_lvl_value">%s AppCoins</string>
   <string name="gamification_level_bonus">%s%% BONUS</string>
   <string name="gamification_level_button_how">COMMENT ÇA MARCHE</string>
-  <string name="gamification_level_body">You\'ll earn AppCoins Credits when buying items in your favorite apps and games.</string>
+  <string name="gamification_level_body">Vous gagnerez des AppCoins Credits en achetant des articles dans vos applications et jeux préférés.</string>
   <string name="gamification_how_header">Comment monter de niveau ?</string>
-  <string name="gamification_how_body">You\'ll earn AppCoins Credits when buying items in your favorite apps and games.</string>
+  <string name="gamification_how_body">Vous gagnerez des AppCoins Credits en achetant des articles dans vos applications et jeux préférés.</string>
   <string name="gamification_how_body_new">Plus vous dépensez dans vos applications préférées, plus le Bonus est important !</string>
   <string name="gamification_how_table_a1">DEPENSE</string>
   <string name="gamification_how_table_b1">BONUS</string>
@@ -374,7 +374,7 @@
   <string name="topup_title">Recharger</string>
   <string name="topup_amount">%s AppCoins Credits</string>
   <string name="topup_bonus_header">Vous avez un Bonus !</string>
-  <string name="topup_bonus_message">%s AppCoins Credits extra will be credited in your wallet.</string>
+  <string name="topup_bonus_message">Les %s AppCoins Credits supplémentaires seront crédités dans votre portefeuille.</string>
   <string name="topup_completed_1">%s en crédits AppCoins</string>
   <string name="topup_completed_2_with_bonus">ont été déposés sur votre compte... Avec un bonus !</string>
   <string name="topup_completed_2_without_bonus">ont été crédités sur votre compte.</string>
@@ -391,7 +391,7 @@
   <string name="balance_topup_body">Vous pouvez recharger votre portefeuille grâce à des crédits AppCoins.</string>
   <string name="balance_ethereum_body">Ethereum est la cryptomonnaie sur laquelle est basée AppCoins. Vous pouvez l\'acheter et la vendre dans la plupart des échanges, elle est très populaire !</string>
   <string name="balance_appcoins_body">AppCoins est la cryptomonnaie de l’économie de l’application. Vous pouvez acheter et vendre sur plusieurs échanges et l\'utiliser pour acheter des articles in-app.</string>
-  <string name="balance_appccreditos_body">The token to buy in-app items! Top up AppCoins Credits from your wallet or get them for free by using apps. They can also be transferred between friends!</string>
+  <string name="balance_appccreditos_body">Le jeton pour acheter des articles in-app ! Rechargez les AppCoins Credits depuis votre portefeuille ou obtenez-les gratuitement en utilisant des applications. Ils peuvent aussi être transférés entre amis !</string>
   <string name="my_wallets_action_new_wallet">Nouveau portefeuille</string>
   <string name="my_wallets_action_recover_wallet">Récupérer le portefeuille</string>
   <string name="my_wallets_action_backup_wallet">Sauvegarder le portefeuille</string>
@@ -462,7 +462,7 @@
   <string name="home_empty_discover_apps_button">DÉCOUVREZ LES APPLICATIONS AU TOP</string>
   <!--Tokens-->
   <!--Settings-->
-  <string name="title_redeem">Redeem Gift Card</string>
+  <string name="title_redeem">Échanger la carte cadeau</string>
   <string name="settings_item_support">Contacter le Support</string>
   <string name="settings_subheader_support">Support</string>
   <string name="settings_subheader_about_us">À propos de nous</string>
@@ -550,7 +550,7 @@
   <string name="purchase_error_try_cheaper_item">C\'est plutôt cher ! Veuillez essayer d\'acheter un article d\'une valeur inférieure.</string>
   <string name="purchase_error_try_cheaper_item_or_method">C\'est plutôt cher ! Veuillez essayer d\'acheter un article moins cher ou essayez un autre mode de paiement.</string>
   <string name="transfer_appc_error_no_eth_title">Vous avez besoin d\'Ether !</string>
-  <string name="transfer_appc_error_no_eth_body">AppCoins transfers fees are paid in Ethereum, so you\'ll need ETH to transfer AppCoins.</string>
+  <string name="transfer_appc_error_no_eth_body">Les frais de transfert des AppCoins sont payés en Ethereum, vous aurez donc besoin d\'ETH pour transférer des AppCoins.</string>
   <string name="purchase_error_invalid_credit_card">Le numéro de la carte bancaire n\'est pas valide. Veuillez vous assurer que tous les chiffres sont corrects.</string>
   <string name="purchase_error_card_security_validation">Une erreur s\'est produite lors de la validation de deuxième niveau de cette transaction. Veuillez réessayer.</string>
   <string name="purchase_error_transaction_timeout">Il semble que vous ayez mis trop de temps à effectuer la transaction. Veuillez réessayer.</string>
@@ -637,10 +637,10 @@
   <string name="update_wallet_soft_title">Ne vous laissez pas distancer !</string>
   <string name="update_wallet_soft_body">La mise à jour du portefeuille AppCoins garantit la meilleure expérience possible.</string>
   <string name="update_button">Mise à jour</string>
-  <string name="update_backup_title">Don\'t lose your funds!</string>
-  <string name="update_backup_body">Back up your wallet before updating.</string>
-  <string name="update_backup_date">Last backed up on %s.</string>
-  <string name="update_backup_never">Not backed up yet.</string>
+  <string name="update_backup_title">Ne perdez pas vos fonds !</string>
+  <string name="update_backup_body">Sauvegardez votre portefeuille avant de le mettre à jour.</string>
+  <string name="update_backup_date">Dernière sauvegarde sur %s.</string>
+  <string name="update_backup_never">Pas encore sauvegardé.</string>
   <!--Backup and Import-->
   <string name="backup_home_notification_title">Sauvegarder votre portefeuille</string>
   <string name="backup_home_notification_body">Avez-vous déjà perdu votre téléphone ? Sauvegardez votre portefeuille maintenant !</string>
@@ -1089,9 +1089,9 @@
   <string name="onboarding_1st_body">Retournez dans le jeu pour terminer votre achat.</string>
   <string name="onboarding_1st_back_to_game_button">Retour dans le jeu</string>
   <string name="onboarding_1st_explore_wallet_button">Ou explorez le portefeuille</string>
-  <string name="onboarding_1st_back_to_unknown_game_body">One of the games you\'ve got installed is AppCoins compatible! Do you want to open it?</string>
-  <string name="onboarding_1st_back_to_unknown_game_button">Go to the game</string>
-  <string name="onboarding_1st_explore_wallet_alternative_button">Explore the AppCoins Wallet</string>
+  <string name="onboarding_1st_back_to_unknown_game_body">Un des jeux que tu as installé est compatible avec AppCoins ! Veux-tu l\'ouvrir ?</string>
+  <string name="onboarding_1st_back_to_unknown_game_button">Aller au jeu</string>
+  <string name="onboarding_1st_explore_wallet_alternative_button">Explorez le porte-feuille AppCoins</string>
   <!-- VIP Program -->
   <string name="vip_program_reached_notification_title">Bienvenue au programme VIP</string>
   <string name="vip_program_reached_notification_body">Vous êtes maintenant un utilisateur VIP qui a accès à des promotions et des offres spéciales. Cliquez pour plus de détails !</string>
@@ -1119,6 +1119,6 @@
   <string name="vip_program_max_bonus_title">Profitez de votre bonus de %s%% sur chaque achat</string>
   <string name="vip_program_max_bonus_body">Vous avez atteint les limites du système solaire.</string>
   <string name="vip_program_max_bonus_short">%s%% de Bonus sur chaque achat.</string>
-  <string name="vip_program_referral_notification_title">VIP Referral Code Available!</string>
-  <string name="vip_program_referral_notification_body">Share your code with your community so you all earn while playing!</string>
+  <string name="vip_program_referral_notification_title">Code de parrainage VIP disponible !</string>
+  <string name="vip_program_referral_notification_body">Partagez votre code avec votre communauté pour tous gagner en jouant !</string>
 </resources>
