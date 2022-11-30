@@ -36,5 +36,5 @@
   <string name="error_message_local_payment_method_body">Local payment methods aren\'t accepted to purchase an entry fee. Please create a new wallet and top it up with a bank card or PayPal!</string>
   <string name="update_not_supported_title">Wallet version not supported!</string>
   <string name="update_not_supported_body">Update the AppCoins Wallet to the latest version.</string>
-  <string name="update_button">Update</string>
+  <string name="update_button">Actualizar</string>
 </resources>
