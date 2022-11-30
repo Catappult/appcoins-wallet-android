@@ -114,11 +114,11 @@
   <string name="intro_title_third_page">简单易用</string>
   <string name="intro_message_first_page">欢迎体验应用经济的革命。</string>
   <string name="intro_message_second_page">私钥永远不会离开你的设备。</string>
-  <string name="intro_message_third_page">Process all your in-app payments and rewards in AppCoins.</string>
+  <string name="intro_message_third_page">用AppCoins处理你的所有应用内付款和奖励。</string>
   <string name="intro_1_title">AppCoins Wallet</string>
   <string name="intro_1_body">应用内购买的应用。</string>
   <string name="intro_2_title">少花钱，多玩乐</string>
-  <string name="intro_2_body">The best payment wallet for apps and games.</string>
+  <string name="intro_2_body">应用和游戏的最佳支付钱包。</string>
   <string name="intro_3_title">简单易用</string>
   <string name="intro_3_body">Bonuses on all purchases.</string>
   <string name="intro_4_title">安全私密</string>
