@@ -176,12 +176,12 @@ class SkillsFragment : Fragment(), PaymentView {
       }
       disposable.add(Single.zip(
         viewModel.getCreditsBalance(),
-        viewModel.getFiatToAppcAmount(eSkillsPaymentData.price!!, eSkillsPaymentData.currency!!),
-        { balance, appcAmount -> Pair(balance, appcAmount) })
+        viewModel.getFiatToAppcAmount(eSkillsPaymentData.price!!, eSkillsPaymentData.currency!!)
+      ) { balance, appcAmount -> Pair(balance, appcAmount) }
         .observeOn(AndroidSchedulers.mainThread())
         .map {
           if (it.first < it.second.amount) { // Not enough funds
-            showNeedsTopUpWarning()
+            showNoFundsWarning()
             binding.payTicketLayout.dialogBuyButtonsPaymentMethods.buyButton.text =
               getString(R.string.topup_button)
             binding.payTicketLayout.dialogBuyButtonsPaymentMethods.buyButton.setOnClickListener {
@@ -202,7 +202,7 @@ class SkillsFragment : Fragment(), PaymentView {
                 }
               }
               Status.NO_TOPUP -> {
-                showNoFundsWarning()
+                showNeedsTopUpWarning()
                 binding.payTicketLayout.dialogBuyButtonsPaymentMethods.buyButton.text =
                   getString(R.string.topup_button)
                 binding.payTicketLayout.dialogBuyButtonsPaymentMethods.buyButton.setOnClickListener{
