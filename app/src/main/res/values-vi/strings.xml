@@ -391,7 +391,7 @@
   <string name="balance_topup_body">Bạn có thể nạp tiền vào ví của mình bằng AppCoins Credits.</string>
   <string name="balance_ethereum_body">AppCoin dựa trên tiền điện tử Ethereum. Bạn có thể mua và bán chúng ở hầu hết các sàn giao dịch vì chúng rất phổ biến!</string>
   <string name="balance_appcoins_body">AppCoins là tiền điện tử dành cho nền kinh tế ứng dụng. Bạn có thể mua và bán chúng trên một số sàn giao dịch cũng như có thể sử dụng chúng để mua các vật phẩm trong ứng dụng.</string>
-  <string name="balance_appccreditos_body">Mã thông báo để mua các mặt hàng trong ứng dụng! Nạp AppCoins Credits từ ví của bạn hoặc nhận miễn phí bằng cách sử ứng dụng. Chúng cũng có thể được chuyển giữa bạn bè!</string>
+  <string name="balance_appccreditos_body">Token để mua các mặt hàng trong ứng dụng! Nạp AppCoins Credits từ ví của bạn hoặc nhận miễn phí bằng cách sử dụng ứng dụng. Chúng cũng có thể được chuyển giữa bạn bè!</string>
   <string name="my_wallets_action_new_wallet">Ví mới</string>
   <string name="my_wallets_action_recover_wallet">Khôi phục ví</string>
   <string name="my_wallets_action_backup_wallet">Sao lưu ví</string>
@@ -1111,5 +1111,5 @@
   <string name="vip_program_max_bonus_body">Bạn đã đạt đến hạn mức của hệ thống.</string>
   <string name="vip_program_max_bonus_short">%s%% tiền thưởng trên mỗi giao dịch mua.</string>
   <string name="vip_program_referral_notification_title">Mã giới thiệu VIP khả dụng!</string>
-  <string name="vip_program_referral_notification_body">Chia sẻ mã với cộng đồng của bạn để tất cả các bạn nhận được tiền khi chơi!</string>
+  <string name="vip_program_referral_notification_body">Chia sẻ mã với cộng đồng để tất cả các bạn đều nhận được tiền khi chơi!</string>
 </resources>
