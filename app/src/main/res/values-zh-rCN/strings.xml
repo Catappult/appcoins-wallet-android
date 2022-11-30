@@ -128,7 +128,7 @@
   <string name="intro_5_body">你可以通过试用应用和试玩游戏来赢取免费AppCoins积金。</string>
   <string name="intro_creating_wallet_short">正在为你设置钱包&#8230;</string>
   <string name="intro_wallet_created_short">钱包已创建！</string>
-  <string name="intro_agree_terms_and_conditions_body">进入AppCoins钱包，即表示你同意%1$s以及%2$s。</string>
+  <string name="intro_agree_terms_and_conditions_body">进入AppCoins Wallet，即表示你同意%1$s以及%2$s。</string>
   <string name="intro_skip_button">跳过</string>
   <string name="intro_welcome_header">欢迎来到AppCoins钱包</string>
   <string name="intro_welcome_body">在任何兼容AppCoins的应用或游戏中为钱包充值或进行购买。</string>
@@ -1082,7 +1082,7 @@
   <string name="onboarding_1st_explore_wallet_button">或探索钱包</string>
   <string name="onboarding_1st_back_to_unknown_game_body">你安装的一款游戏兼容AppCoins！想打开它吗？</string>
   <string name="onboarding_1st_back_to_unknown_game_button">转至游戏</string>
-  <string name="onboarding_1st_explore_wallet_alternative_button">探索AppCoins钱包</string>
+  <string name="onboarding_1st_explore_wallet_alternative_button">探索AppCoins Wallet</string>
   <!-- VIP Program -->
   <string name="vip_program_reached_notification_title">欢迎加入VIP计划</string>
   <string name="vip_program_reached_notification_body">你现在是VIP用户，可以享受特别促销和优惠。点击了解更多详情！</string>
