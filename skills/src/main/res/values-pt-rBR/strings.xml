@@ -30,11 +30,11 @@
   <string name="purchase_error_title">Opa, algo deu errado.</string>
   <string name="purchase_eskills_sku">Ingresso</string>
   <string name="shared_room_waiting">Aguardando oponentes para entrar em %s</string>
-  <string name="rooted_device_blocked_body">Unfortunately, you cannot play e-Skills games with a rooted device.\"</string>
-  <string name="top_up_needed_body">For security reasons, you need to make at least one top-up in your wallet to play e-Skills games.</string>
-  <string name="not_enough_funds_body">You don\'t have enough funds! Please top up to buy the entry ticket.</string>
-  <string name="error_message_local_payment_method_body">Local payment methods aren\'t accepted to purchase an entry fee. Please create a new wallet and top it up with a bank card or PayPal!</string>
-  <string name="update_not_supported_title">Wallet version not supported!</string>
-  <string name="update_not_supported_body">Update the AppCoins Wallet to the latest version.</string>
-  <string name="update_button">Update</string>
+  <string name="rooted_device_blocked_body">Infelizmente, você não pode jogar jogos e-Skills com um dispositivo rooteado.</string>
+  <string name="top_up_needed_body">Por motivos de segurança, você precisa fazer pelo menos uma recarga em sua carteira para jogar jogos e-Skills.</string>
+  <string name="not_enough_funds_body">Você não tem fundos o suficiente! Por favor, recarregue para comprar o ticket de entrada.</string>
+  <string name="error_message_local_payment_method_body">Métodos de pagamento locais não são aceitos para comprar uma taxa de inscrição. Por favor, crie uma nova carteira e adquira créditos com um cartão bancário ou PayPal!</string>
+  <string name="update_not_supported_title">Versão da carteira não suportada!</string>
+  <string name="update_not_supported_body">Atualize a AppCoins Wallet para a versão mais recente.</string>
+  <string name="update_button">Atualizar</string>
 </resources>
