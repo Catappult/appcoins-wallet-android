@@ -131,11 +131,11 @@
   <string name="intro_agree_terms_and_conditions_body">进入AppCoins钱包，即表示你同意%1$s以及%2$s。</string>
   <string name="intro_skip_button">跳过</string>
   <string name="intro_welcome_header">欢迎来到AppCoins钱包</string>
-  <string name="intro_welcome_body">Top up your wallet or make a purchase in any AppCoins compatible app or game.</string>
-  <string name="intro_welcome_header_2">Up to %s%% Bonus!</string>
-  <string name="intro_welcome_body_2">Bonuses can be used in any app or game.</string>
+  <string name="intro_welcome_body">在任何兼容AppCoins的应用或游戏中为钱包充值或进行购买。</string>
+  <string name="intro_welcome_header_2">高达%s%%的奖励！</string>
+  <string name="intro_welcome_body_2">奖励可用于任何应用或游戏。</string>
   <string name="intro_already_have_wallet_button">我已经有钱包了。</string>
-  <string name="intro_get_started_button">Launch wallet</string>
+  <string name="intro_get_started_button">启动钱包</string>
   <!-- Menus -->
   <!-- Labels -->
   <string name="label_from">发送方</string>
@@ -209,7 +209,7 @@
   <string name="activity_iab_error_message">出现错误，请重试</string>
   <string name="action_try">尝试</string>
   <string name="activity_transactions_learn_more">了解更多</string>
-  <string name="activity_iab_no_funds_message">Not enough ETH and AppCoins</string>
+  <string name="activity_iab_no_funds_message">ETH和AppCoins不足</string>
   <string name="activity_iab_no_ethereum_funds_message">以太币不足</string>
   <string name="activity_iab_no_token_funds_message">AppCoins不足</string>
   <string name="activity_iab_wrong_network_message">以太网网络错误或代币不明</string>
@@ -301,7 +301,7 @@
   <string name="gamification_home_body">在你最喜爱的应用和游戏中赚取高达%s%%的奖励！</string>
   <string name="gamification_home_button">开始赚取</string>
   <string name="gamification_level_title">我的等级是什么？</string>
-  <string name="gamification_level_title_new">Get AppCoins Credits!</string>
+  <string name="gamification_level_title_new">获取AppCoins积金！</string>
   <string name="gamification_level_on_graphic">第%s级</string>
   <string name="gamification_APPCapps_button">应用和游戏</string>
   <string name="gamification_level_header">恭喜，你是%s！</string>
@@ -311,9 +311,9 @@
   <string name="gamification_level_next_lvl_value">%s AppCoins</string>
   <string name="gamification_level_bonus">%s%%奖励</string>
   <string name="gamification_level_button_how">工作原理</string>
-  <string name="gamification_level_body">You\'ll earn AppCoins Credits when buying items in your favorite apps and games.</string>
+  <string name="gamification_level_body">你在喜爱的应用和游戏内购买物品时会赚取AppCoins积金。</string>
   <string name="gamification_how_header">如何升级</string>
-  <string name="gamification_how_body">You\'ll earn AppCoins Credits when buying items in your favorite apps and games.</string>
+  <string name="gamification_how_body">你在喜爱的应用和游戏内购买物品时会赚取AppCoins积金。</string>
   <string name="gamification_how_body_new">在自己最喜欢的应用中花费得越多，奖金就越大！</string>
   <string name="gamification_how_table_a1">支付</string>
   <string name="gamification_how_table_b1">奖励</string>
@@ -374,7 +374,7 @@
   <string name="topup_title">充值</string>
   <string name="topup_amount">%s AppCoins Credits</string>
   <string name="topup_bonus_header">你获得了奖励！</string>
-  <string name="topup_bonus_message">%s AppCoins Credits extra will be credited in your wallet.</string>
+  <string name="topup_bonus_message">你的钱包将额外获得%s AppCoins积金。</string>
   <string name="topup_completed_1">%s的AppCoins积金</string>
   <string name="topup_completed_2_with_bonus">已存入你的帐户...奖金也已存入！</string>
   <string name="topup_completed_2_without_bonus">已存入你的帐户。</string>
