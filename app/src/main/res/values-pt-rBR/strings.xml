@@ -114,28 +114,28 @@
   <string name="intro_title_third_page">Simples e Fácil</string>
   <string name="intro_message_first_page">Bem-vindo a revolução da economia de aplicativos.</string>
   <string name="intro_message_second_page">Chaves privadas jamais são removidas do seu dispositivo.</string>
-  <string name="intro_message_third_page">Process all your in-app payments and rewards in AppCoins.</string>
+  <string name="intro_message_third_page">Processe todos seus pagamentos e recompensas dentro do aplicativo em AppCoins.</string>
   <string name="intro_1_title">AppCoins Wallet</string>
   <string name="intro_1_body">Seu app para compras dentro de aplicativos.</string>
   <string name="intro_2_title">Jogue Mais, Pague Menos</string>
-  <string name="intro_2_body">The best payment wallet for apps and games.</string>
+  <string name="intro_2_body">A melhor carteira de pagamento para apps e jogos.</string>
   <string name="intro_3_title">Simples e Fácil</string>
-  <string name="intro_3_body">Bonuses on all purchases.</string>
+  <string name="intro_3_body">Bônus em todas as compras.</string>
   <string name="intro_4_title">Seguro e Privado</string>
-  <string name="intro_4_body">Use bank card, PayPal and your favorite payment methods.</string>
+  <string name="intro_4_body">Use cartão bancário, PayPal e seus métodos de pagamento favoritos.</string>
   <string name="intro_4_body_2">Todas as suas transações são sempre seguras graças à mais recente tecnologia.</string>
   <string name="intro_5_title">Ganhe Créditos AppCoins!</string>
   <string name="intro_5_body">Você receberá Créditos AppCoins gratuitamente ao experimentar apps e games.</string>
   <string name="intro_creating_wallet_short">Configurando a wallet para você&#8230;</string>
   <string name="intro_wallet_created_short">Wallet criada!</string>
-  <string name="intro_agree_terms_and_conditions_body">By entering the AppCoins Wallet, you agree to the %1$s and %2$s.</string>
+  <string name="intro_agree_terms_and_conditions_body">Ao entrar na AppCoins Wallet, você concorda com a %1$s e os %2$s.</string>
   <string name="intro_skip_button">PULAR</string>
   <string name="intro_welcome_header">Bem-vindo à AppCoins Wallet</string>
-  <string name="intro_welcome_body">Top up your wallet or make a purchase in any AppCoins compatible app or game.</string>
-  <string name="intro_welcome_header_2">Up to %s%% Bonus!</string>
-  <string name="intro_welcome_body_2">Bonuses can be used in any app or game.</string>
+  <string name="intro_welcome_body">Adicione créditos na carteira ou faça uma compra em qualquer app ou jogo compatível com AppCoins.</string>
+  <string name="intro_welcome_header_2">Até %s%% de Bônus!</string>
+  <string name="intro_welcome_body_2">Os bônus podem ser usados em qualquer app ou jogo.</string>
   <string name="intro_already_have_wallet_button">Já tenho uma wallet</string>
-  <string name="intro_get_started_button">Launch wallet</string>
+  <string name="intro_get_started_button">Iniciar carteira</string>
   <!-- Menus -->
   <!-- Labels -->
   <string name="label_from">De</string>
