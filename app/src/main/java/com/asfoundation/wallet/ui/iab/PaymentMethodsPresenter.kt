@@ -418,28 +418,29 @@ class PaymentMethodsPresenter(
         if (firstRun) analytics.stopTimingForStepEvent(PaymentMethodsAnalytics.LOADING_STEP_CONVERT_TO_FIAT)
         this.cachedFiatValue = fiatValue
         if (firstRun) analytics.startTimingForStepEvent(PaymentMethodsAnalytics.LOADING_STEP_GET_PAYMENT_METHODS)
-        getPaymentMethods(fiatValue)
-          .flatMapCompletable { paymentMethods ->
-            if (firstRun) {
-              analytics.stopTimingForStepEvent(PaymentMethodsAnalytics.LOADING_STEP_GET_PAYMENT_METHODS)
-              analytics.startTimingForStepEvent(PaymentMethodsAnalytics.LOADING_STEP_GET_EARNING_BONUS)
+
+        analytics.startTimingForStepEvent(PaymentMethodsAnalytics.LOADING_STEP_GET_EARNING_BONUS)
+        analytics.stopTimingForStepEvent(PaymentMethodsAnalytics.LOADING_STEP_GET_EARNING_BONUS)
+        zip(
+          getPaymentMethods(fiatValue)
+            .subscribeOn(networkThread),
+          interactor.getEarningBonus(transaction.domain, transaction.amount())
+            .subscribeOn(networkThread),
+          { paymentMethods, bonus -> Pair(paymentMethods, bonus) })
+          .observeOn(viewScheduler)
+          .flatMapCompletable { methodsAndBonus ->
+            if (firstRun) analytics.stopTimingForStepEvent(PaymentMethodsAnalytics.LOADING_STEP_GET_PAYMENT_METHODS)
+            Completable.fromAction {
+              if (firstRun) analytics.startTimingForStepEvent(PaymentMethodsAnalytics.LOADING_STEP_GET_PROCESSING_DATA)
+              view.updateProductName()
+              setupBonusInformation(methodsAndBonus.second)
+              selectPaymentMethod(
+                methodsAndBonus.first,
+                fiatValue,
+                interactor.isBonusActiveAndValid(methodsAndBonus.second)
+              )
+              if (firstRun) analytics.stopTimingForStepEvent(PaymentMethodsAnalytics.LOADING_STEP_GET_PROCESSING_DATA)
             }
-            interactor.getEarningBonus(transaction.domain, transaction.amount())
-              .observeOn(viewScheduler)
-              .flatMapCompletable {
-                if (firstRun) analytics.stopTimingForStepEvent(PaymentMethodsAnalytics.LOADING_STEP_GET_EARNING_BONUS)
-                Completable.fromAction {
-                  if (firstRun) analytics.startTimingForStepEvent(PaymentMethodsAnalytics.LOADING_STEP_GET_PROCESSING_DATA)
-                  view.updateProductName()
-                  setupBonusInformation(it)
-                  selectPaymentMethod(
-                    paymentMethods,
-                    fiatValue,
-                    interactor.isBonusActiveAndValid(it)
-                  )
-                  if (firstRun) analytics.stopTimingForStepEvent(PaymentMethodsAnalytics.LOADING_STEP_GET_PROCESSING_DATA)
-                }
-              }
           }
       }
       .subscribeOn(networkThread)

@@ -264,8 +264,14 @@ class RemoteRepository(
   ): Single<Transaction> =
     brokerBdsApi.getAppcoinsTransaction(uid, address, signedContent)
 
-  fun getWallet(packageName: String): Single<GetWalletResponse> =
-    bdsApiSecondary.getWallet(packageName)
+  var ownerWalletCached: GetWalletResponse? = null
+  fun getWallet(packageName: String, fromCache: Boolean = true): Single<GetWalletResponse> {
+    return if (fromCache && ownerWalletCached != null)
+      Single.just(ownerWalletCached)
+    else
+      bdsApiSecondary.getWallet(packageName)
+        .doOnSuccess { ownerWalletCached = it }
+  }
 
   fun transferCredits(
     toWallet: String,
