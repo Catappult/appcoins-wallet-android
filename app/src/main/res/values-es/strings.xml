@@ -636,7 +636,7 @@
   <string name="update_wallet_hard_body">Parece que tu versión de la AppCoins Wallet es muy antigua. Por favor, actualízala para ganar la mejor experiencia y seguridad.</string>
   <string name="update_wallet_soft_title">¡No te quedes atrás!</string>
   <string name="update_wallet_soft_body">Actualiza la AppCoins Wallet para tener la mejor experiencia.</string>
-  <string name="update_button">Update</string>
+  <string name="update_button">Actualizar</string>
   <string name="update_backup_title">Don\'t lose your funds!</string>
   <string name="update_backup_body">Back up your wallet before updating.</string>
   <string name="update_backup_date">Last backed up on %s.</string>
