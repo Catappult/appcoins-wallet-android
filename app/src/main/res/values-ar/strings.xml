@@ -462,7 +462,7 @@
   <string name="home_empty_discover_apps_button">اكتشف أفضل التطبيقات</string>
   <!--Tokens-->
   <!--Settings-->
-  <string name="title_redeem">Redeem Gift Card</string>
+  <string name="title_redeem">تحرير بطاقة هدية</string>
   <string name="settings_item_support">تواصل مع فريق الدعم</string>
   <string name="settings_subheader_support">الدعم</string>
   <string name="settings_subheader_about_us">من نحن</string>
