@@ -551,7 +551,7 @@
   <string name="purchase_error_try_cheaper_item">ثمنها مرتفع جدًا! يرجى شراء عنصر أقل ثمنًا.</string>
   <string name="purchase_error_try_cheaper_item_or_method">الثمن مرتفع جدًا! يرجى شراء عنصر أقل ثمًا أو تجربة وسيلة دفع أخرى.</string>
   <string name="transfer_appc_error_no_eth_title">تحتاج إلى Ether!</string>
-  <string name="transfer_appc_error_no_eth_body">AppCoins transfers fees are paid in Ethereum, so you\'ll need ETH to transfer AppCoins.</string>
+  <string name="transfer_appc_error_no_eth_body">عمولة تحويلات AppCoines تُدفع بعملة Ethereum، لذلك ستحتاج إلى ETH لتحويل AppCoins.</string>
   <string name="purchase_error_invalid_credit_card">رقم بطاقة بنكية غير صالح. يرجى التأكد من أن كل الأرقام صحيحة.</string>
   <string name="purchase_error_card_security_validation">حدث خطأ في المستوى الثاني من التحقق من هذا التحويل. يرجى المحاولة مجددًا.</string>
   <string name="purchase_error_transaction_timeout">يبدو أنك استغرقت وقتًا طويلًا لإتمام التحويل. يرجى المحاولة مجددًا.</string>
@@ -638,10 +638,10 @@
   <string name="update_wallet_soft_title">لا تبقَ مع النسخة القديمة!</string>
   <string name="update_wallet_soft_body">إن الحفاظ على محفظة AppCoins محدّثة باستمرار يضمن لك أفضل تجربة.</string>
   <string name="update_button">تحديث</string>
-  <string name="update_backup_title">Don\'t lose your funds!</string>
-  <string name="update_backup_body">Back up your wallet before updating.</string>
-  <string name="update_backup_date">Last backed up on %s.</string>
-  <string name="update_backup_never">Not backed up yet.</string>
+  <string name="update_backup_title">لا تخسر رصيدك!</string>
+  <string name="update_backup_body">احتفظ بنسخة احتياطية من المحفظة قبل التحديث.</string>
+  <string name="update_backup_date">آخير تحديث كان في %s.</string>
+  <string name="update_backup_never">لا توجد نسخة احتياطية بعد.</string>
   <!--Backup and Import-->
   <string name="backup_home_notification_title">حفظ نسخة احتياطية لمحفظتك</string>
   <string name="backup_home_notification_body">هل أضعت هاتفك في يوم من الأيام؟ احتفظ بنسخة احتياطية من محفظتك الآن!</string>
@@ -1126,9 +1126,9 @@
   <string name="onboarding_1st_body">عد إلى اللعبة لإتمام عملية الشراء.</string>
   <string name="onboarding_1st_back_to_game_button">عد إلى اللعبة</string>
   <string name="onboarding_1st_explore_wallet_button">أو استكشف المحفظة</string>
-  <string name="onboarding_1st_back_to_unknown_game_body">One of the games you\'ve got installed is AppCoins compatible! Do you want to open it?</string>
-  <string name="onboarding_1st_back_to_unknown_game_button">Go to the game</string>
-  <string name="onboarding_1st_explore_wallet_alternative_button">Explore the AppCoins Wallet</string>
+  <string name="onboarding_1st_back_to_unknown_game_body">واحدة من الألعاب التي ثبتّها متوافقة مع AppCoins! هل تريد فتحها؟</string>
+  <string name="onboarding_1st_back_to_unknown_game_button">اذهب إلى اللعبة</string>
+  <string name="onboarding_1st_explore_wallet_alternative_button">استكشف AppCoins Wallet</string>
   <!-- VIP Program -->
   <string name="vip_program_reached_notification_title">أهلا بك في برنامج VIP</string>
   <string name="vip_program_reached_notification_body">أنت الآن مستخدم VIP معك إذن الوصول إلى ترقيات وصفقات مميزة. اضغط لمزيد من التفاصيل!</string>
@@ -1156,6 +1156,6 @@
   <string name="vip_program_max_bonus_title">تمتع بمكافآتك %s%% في كل عملية شراء</string>
   <string name="vip_program_max_bonus_body">وصلت إلى الحد المسموح به من الطاقة الشمسية.</string>
   <string name="vip_program_max_bonus_short">%s%% مكافأة في كل عملية شراء.</string>
-  <string name="vip_program_referral_notification_title">VIP Referral Code Available!</string>
-  <string name="vip_program_referral_notification_body">Share your code with your community so you all earn while playing!</string>
+  <string name="vip_program_referral_notification_title">يتوفر رمز إحالة VIP!</string>
+  <string name="vip_program_referral_notification_body">شارك رمزك مع مجتمعك لتكسبوا جميعًا بينما تلعبون!</string>
 </resources>
