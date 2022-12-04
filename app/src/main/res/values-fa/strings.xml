@@ -550,7 +550,7 @@
   <string name="purchase_error_try_cheaper_item">این بسیار گران است! لطفا خرید آیتم ارزان‌تری را امتحان کنید.</string>
   <string name="purchase_error_try_cheaper_item_or_method">این بسیار گران است! لطفا خرید آیتم ارزان‌تری و یا روش پرداخت دیگری را امتحان کنید.</string>
   <string name="transfer_appc_error_no_eth_title">به Ether نیاز دارید!</string>
-  <string name="transfer_appc_error_no_eth_body">AppCoins transfers fees are paid in Ethereum, so you\'ll need ETH to transfer AppCoins.</string>
+  <string name="transfer_appc_error_no_eth_body">هزینه جابجایی‌های AppCoins در اتریوم پرداخت می‌شوند، برای جابجایی AppCoins نیاز به ETH دارید.</string>
   <string name="purchase_error_invalid_credit_card">شماره کارت نامعتبر است. لطفا از صحت شماره کارت مطمئن شوید.</string>
   <string name="purchase_error_card_security_validation">مشکلی در مرحله دوم تایید این تراکنش پیش آمده‌است. لطفا دوباره تلاش کنید.</string>
   <string name="purchase_error_transaction_timeout">زمان سپری شده برای کامل کردن تراکنش به پایان رسیده‌است. لطفا دوباره اقدام کنید.</string>
@@ -637,10 +637,10 @@
   <string name="update_wallet_soft_title">عقب نیافتید!</string>
   <string name="update_wallet_soft_body">AppCoins Wallet را بروز نگه دارید و بهترین تجربه را داشته باشید.</string>
   <string name="update_button">بروزرسانی</string>
-  <string name="update_backup_title">Don\'t lose your funds!</string>
-  <string name="update_backup_body">Back up your wallet before updating.</string>
-  <string name="update_backup_date">Last backed up on %s.</string>
-  <string name="update_backup_never">Not backed up yet.</string>
+  <string name="update_backup_title">سرمایه خود را از دست ندهید!</string>
+  <string name="update_backup_body">قبل از بروزرسانی از کیف پول خود بک آپ بگیرید.</string>
+  <string name="update_backup_date">آخرین بک آپ در %s.</string>
+  <string name="update_backup_never">هنوز بک آپ گرفته نشده است.</string>
   <!--Backup and Import-->
   <string name="backup_home_notification_title">پشتیبان‌گیری از کیف پول خود</string>
   <string name="backup_home_notification_body">آیا موبایل خود را گم‌کرده‌اید؟ از کیف پول خود همین حالا پشتیان‌گیری کنید!</string>
@@ -1089,9 +1089,9 @@
   <string name="onboarding_1st_body">برای تکمیل خرید به بازی برگردید.</string>
   <string name="onboarding_1st_back_to_game_button">بازگشت به بازی</string>
   <string name="onboarding_1st_explore_wallet_button">یا کشف Wallet</string>
-  <string name="onboarding_1st_back_to_unknown_game_body">One of the games you\'ve got installed is AppCoins compatible! Do you want to open it?</string>
-  <string name="onboarding_1st_back_to_unknown_game_button">Go to the game</string>
-  <string name="onboarding_1st_explore_wallet_alternative_button">Explore the AppCoins Wallet</string>
+  <string name="onboarding_1st_back_to_unknown_game_body">یکی از بازی‌هایی که نصب کرده‌اید با AppCoins سازگار است! آیا می‌خواهید آن را باز کنید؟</string>
+  <string name="onboarding_1st_back_to_unknown_game_button">به بازی برو</string>
+  <string name="onboarding_1st_explore_wallet_alternative_button">کیف پول AppCoins را کاوش کنید</string>
   <!-- VIP Program -->
   <string name="vip_program_reached_notification_title">به برنامه VIP خوش آمدید</string>
   <string name="vip_program_reached_notification_body">شما اکنون یک کاربر VIP با دسترسی ویژه به پیشنهادات تخفیفی هستید. برای اطلاعات بیشتر کلیک کنید!</string>
@@ -1119,6 +1119,6 @@
   <string name="vip_program_max_bonus_title">از %s%% پاداش برای هر خرید لذت ببرید</string>
   <string name="vip_program_max_bonus_body">شما به حد کیهانی ما رسیده اید.</string>
   <string name="vip_program_max_bonus_short">%s%% پاداش برای هر خرید</string>
-  <string name="vip_program_referral_notification_title">VIP Referral Code Available!</string>
-  <string name="vip_program_referral_notification_body">Share your code with your community so you all earn while playing!</string>
+  <string name="vip_program_referral_notification_title">کد معرفی VIP موجود است!</string>
+  <string name="vip_program_referral_notification_body">کد خود را با دوستان خود به اشتراک بگذارید تا همگی درحال بازی درآمد داشته باشید!</string>
 </resources>
