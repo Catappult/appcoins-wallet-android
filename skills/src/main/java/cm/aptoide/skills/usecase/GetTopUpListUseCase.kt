@@ -19,17 +19,16 @@ class GetTopUpListUseCase @Inject constructor(
           .toObservable()
           .flatMapIterable { it.items }
           .toList().map { transaction ->
-            if(transaction.isEmpty()){
-              Status.NO_TOPUP
+            when {
+              transaction.isEmpty() -> Status.NO_TOPUP
+              transaction.any { it.gateway?.name == Gateway.Name.myappcoins } -> Status.PAYMENT_METHOD_NOT_SUPPORTED
+              else -> Status.AVAILABLE
             }
-            if (transaction.any{it.gateway?.name == Gateway.Name.myappcoins} ){
-              Status.PAYMENT_METHOD_NOT_SUPPORTED
-            }
-            Status.AVAILABLE
           }
       }
   }
 }
-enum class Status{
+
+enum class Status {
   PAYMENT_METHOD_NOT_SUPPORTED, NO_TOPUP, AVAILABLE
 }
