@@ -67,7 +67,11 @@ class CreateWalletDialogFragment : DialogFragment(),
         views.createWalletLoading.playAnimation()
       }
       is Async.Success -> {
-        navigator.navigateBack()
+        if (requireArguments().getBoolean(IS_FROM_ONBOARDING)) {
+          navigator.navigateToNavBar()
+        } else {
+          navigator.navigateBack()
+        }
       }
       else -> Unit
     }

@@ -50,14 +50,15 @@
         android:name="is_from_onboarding"
         android:defaultValue="true"
         app:argType="boolean" />
+
+    <action
+        android:id="@+id/action_navigate_to_nav_bar_fragment"
+        app:destination="@id/nav_bar_fragment"
+        app:popUpTo="@+id/onboarding_fragment"
+        app:popUpToInclusive="true" />
   </dialog>
 
   <include
       android:id="@+id/recover_wallet_graph"
       app:graph="@navigation/recover_wallet_graph" />
-
-  <fragment
-      android:id="@id/recover_entry_fragment"
-      android:name="com.asfoundation.wallet.recover.entry.RecoverEntryFragment"
-      tools:layout="@layout/recover_entry_fragment"/>
 </navigation>
