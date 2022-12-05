@@ -9,6 +9,7 @@ import android.text.TextPaint
 import android.text.method.LinkMovementMethod
 import android.text.style.ClickableSpan
 import android.text.style.StyleSpan
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -21,6 +22,7 @@ import by.kirich1409.viewbindingdelegate.viewBinding
 import com.asf.wallet.BuildConfig
 import com.asf.wallet.R
 import com.asf.wallet.databinding.FragmentOnboardingBinding
+import com.asfoundation.wallet.base.Async
 import com.asfoundation.wallet.base.SingleStateFragment
 import com.asfoundation.wallet.my_wallets.create_wallet.CreateWalletDialogFragment
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
@@ -83,7 +85,28 @@ class OnboardingFragment : BasePageViewFragment(),
   }
 
   override fun onStateChanged(state: OnboardingState) {
+    handlePageContent(state.pageContent)
+    handleWalletCreation(state.walletCreationAsync)
     when (state.pageContent) {
+      OnboardingContent.EMPTY -> hideContent()
+      OnboardingContent.VALUES -> showValuesScreen()
+    }
+  }
+
+  private fun handleWalletCreation(walletCreationAsync: Async<Unit>) {
+    when (walletCreationAsync) {
+      is Async.Loading -> {
+        views.loading.visibility = View.VISIBLE
+      }
+      is Async.Success -> {
+        navigator.navigateToNavBar()
+      }
+      else -> Unit
+    }
+  }
+
+  private fun handlePageContent(pageContent: OnboardingContent) {
+    when (pageContent) {
       OnboardingContent.EMPTY -> hideContent()
       OnboardingContent.VALUES -> showValuesScreen()
     }
