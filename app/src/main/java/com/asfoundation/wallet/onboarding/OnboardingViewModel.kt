@@ -1,7 +1,6 @@
 package com.asfoundation.wallet.onboarding
 
 import android.net.Uri
-import android.util.Log
 import androidx.lifecycle.viewModelScope
 import com.asfoundation.wallet.app_start.AppStartUseCase
 import com.asfoundation.wallet.app_start.StartMode
@@ -10,7 +9,6 @@ import com.asfoundation.wallet.my_wallets.create_wallet.CreateWalletUseCase
 import com.asfoundation.wallet.onboarding.use_cases.HasWalletUseCase
 import com.asfoundation.wallet.onboarding.use_cases.SetOnboardingCompletedUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
-import io.reactivex.Completable
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -60,18 +58,15 @@ class OnboardingViewModel @Inject constructor(
   fun handleLaunchWalletClick() {
     hasWalletUseCase()
       .observeOn(rxSchedulers.main)
-      .flatMapCompletable { hasWallet ->
-        setState { copy(pageContent = OnboardingContent.EMPTY) }
+      .doOnSuccess {
         setOnboardingCompletedUseCase()
-        if (hasWallet) {
-          Completable.complete()
-        } else {
-          createWalletUseCase("Main Wallet")
+        sendSideEffect {
+          if (it) {
+            OnboardingSideEffect.NavigateToFinish
+          } else {
+            OnboardingSideEffect.NavigateToWalletCreationAnimation
+          }
         }
-      }.asAsyncToState {
-        copy(walletCreationAsync = it)
-      }.andThen {
-
       }
       .scopedSubscribe { it.printStackTrace() }
   }

@@ -9,7 +9,6 @@ import android.text.TextPaint
 import android.text.method.LinkMovementMethod
 import android.text.style.ClickableSpan
 import android.text.style.StyleSpan
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -22,9 +21,7 @@ import by.kirich1409.viewbindingdelegate.viewBinding
 import com.asf.wallet.BuildConfig
 import com.asf.wallet.R
 import com.asf.wallet.databinding.FragmentOnboardingBinding
-import com.asfoundation.wallet.base.Async
 import com.asfoundation.wallet.base.SingleStateFragment
-import com.asfoundation.wallet.my_wallets.create_wallet.CreateWalletDialogFragment
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -49,20 +46,10 @@ class OnboardingFragment : BasePageViewFragment(),
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     handleBackPress()
-    handleWalletCreationFragmentResult()
   }
 
   private fun handleBackPress() {
     requireActivity().onBackPressedDispatcher.addCallback(this, onBackPressedCallback)
-  }
-
-  private fun handleWalletCreationFragmentResult() {
-    parentFragmentManager.setFragmentResultListener(
-      CreateWalletDialogFragment.CREATE_WALLET_DIALOG_COMPLETE,
-      this
-    ) { _, _ ->
-      navigator.navigateToNavBar()
-    }
   }
 
   override fun onCreateView(
@@ -86,23 +73,6 @@ class OnboardingFragment : BasePageViewFragment(),
 
   override fun onStateChanged(state: OnboardingState) {
     handlePageContent(state.pageContent)
-    handleWalletCreation(state.walletCreationAsync)
-    when (state.pageContent) {
-      OnboardingContent.EMPTY -> hideContent()
-      OnboardingContent.VALUES -> showValuesScreen()
-    }
-  }
-
-  private fun handleWalletCreation(walletCreationAsync: Async<Unit>) {
-    when (walletCreationAsync) {
-      is Async.Loading -> {
-        views.loading.visibility = View.VISIBLE
-      }
-      is Async.Success -> {
-        navigator.navigateToNavBar()
-      }
-      else -> Unit
-    }
   }
 
   private fun handlePageContent(pageContent: OnboardingContent) {
@@ -115,7 +85,10 @@ class OnboardingFragment : BasePageViewFragment(),
   override fun onSideEffect(sideEffect: OnboardingSideEffect) {
     when (sideEffect) {
       OnboardingSideEffect.NavigateToRecoverWallet -> navigator.navigateToRecover()
-      OnboardingSideEffect.NavigateToWalletCreationAnimation -> navigator.navigateToCreateWalletDialog()
+      OnboardingSideEffect.NavigateToWalletCreationAnimation -> {
+        hideContent()
+        navigator.navigateToCreateWalletDialog()
+      }
       OnboardingSideEffect.NavigateToFinish -> navigator.navigateToNavBar()
       is OnboardingSideEffect.NavigateToLink -> navigator.navigateToBrowser(sideEffect.uri)
     }
@@ -140,7 +113,7 @@ class OnboardingFragment : BasePageViewFragment(),
     val privacyPolicy = resources.getString(R.string.privacy_policy)
     val termsPolicyTickBox =
       resources.getString(
-        R.string.terms_and_conditions_tickbox, termsConditions,
+        R.string.intro_agree_terms_and_conditions_body, termsConditions,
         privacyPolicy
       )
 
