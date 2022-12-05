@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="56dp"
     android:clickable="true"
@@ -9,6 +10,7 @@
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toTopOf="parent"
+    tools:background="@color/styleguide_blue"
     >
   <ImageView
       android:id="@+id/toolbar_layout_logo"
@@ -42,5 +44,6 @@
       android:contentDescription="@null"
       android:src="@drawable/ic_more"
       app:tint="@color/styleguide_white"
+      tools:ignore="SpeakableTextPresentCheck"
       />
 </LinearLayout>

@@ -4,10 +4,8 @@ import android.net.Uri
 import androidx.lifecycle.viewModelScope
 import com.asfoundation.wallet.app_start.AppStartUseCase
 import com.asfoundation.wallet.app_start.StartMode
-import com.asfoundation.wallet.base.BaseViewModel
-import com.asfoundation.wallet.base.RxSchedulers
-import com.asfoundation.wallet.base.SideEffect
-import com.asfoundation.wallet.base.ViewState
+import com.asfoundation.wallet.base.*
+import com.asfoundation.wallet.my_wallets.create_wallet.CreateWalletUseCase
 import com.asfoundation.wallet.onboarding.use_cases.HasWalletUseCase
 import com.asfoundation.wallet.onboarding.use_cases.SetOnboardingCompletedUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -22,13 +20,17 @@ sealed class OnboardingSideEffect : SideEffect {
   object NavigateToFinish : OnboardingSideEffect()
 }
 
-data class OnboardingState(val pageContent: OnboardingContent = OnboardingContent.EMPTY) : ViewState
+data class OnboardingState(
+  val pageContent: OnboardingContent = OnboardingContent.EMPTY,
+  val walletCreationAsync: Async<Unit> = Async.Uninitialized
+) : ViewState
 
 @HiltViewModel
 class OnboardingViewModel @Inject constructor(
   private val hasWalletUseCase: HasWalletUseCase,
   private val rxSchedulers: RxSchedulers,
   private val setOnboardingCompletedUseCase: SetOnboardingCompletedUseCase,
+  private val createWalletUseCase: CreateWalletUseCase,
   appStartUseCase: AppStartUseCase
 ) :
   BaseViewModel<OnboardingState, OnboardingSideEffect>(initialState()) {
@@ -43,10 +45,9 @@ class OnboardingViewModel @Inject constructor(
     handleLaunchMode(appStartUseCase)
   }
 
-  fun handleLaunchMode(appStartUseCase: AppStartUseCase) {
+  private fun handleLaunchMode(appStartUseCase: AppStartUseCase) {
     viewModelScope.launch {
-      val mode = appStartUseCase.startModes.first()
-      when (mode) {
+      when (appStartUseCase.startModes.first()) {
         is StartMode.PendingPurchaseFlow -> sendSideEffect { OnboardingSideEffect.NavigateToWalletCreationAnimation }
         is StartMode.GPInstall -> sendSideEffect { OnboardingSideEffect.NavigateToWalletCreationAnimation }
         else -> setState { copy(pageContent = OnboardingContent.VALUES) }

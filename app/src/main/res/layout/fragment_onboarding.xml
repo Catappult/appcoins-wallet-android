@@ -8,6 +8,22 @@
     android:background="@color/styleguide_blue"
     >
 
+  <com.airbnb.lottie.LottieAnimationView
+      android:id="@+id/loading"
+      android:layout_width="90dp"
+      android:layout_height="90dp"
+      android:layout_gravity="center"
+      app:lottie_enableMergePathsForKitKatAndAbove="true"
+      app:lottie_autoPlay="true"
+      app:lottie_loop="true"
+      app:lottie_rawRes="@raw/loading_dark_animation"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      android:visibility="gone"
+      />
+
   <ScrollView
       android:id="@+id/onboarding_content_scroll_view"
       android:layout_width="match_parent"

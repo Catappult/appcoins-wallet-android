@@ -22,7 +22,6 @@ import com.asf.wallet.BuildConfig
 import com.asf.wallet.R
 import com.asf.wallet.databinding.FragmentOnboardingBinding
 import com.asfoundation.wallet.base.SingleStateFragment
-import com.asfoundation.wallet.my_wallets.create_wallet.CreateWalletDialogFragment
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -47,20 +46,10 @@ class OnboardingFragment : BasePageViewFragment(),
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     handleBackPress()
-    handleWalletCreationFragmentResult()
   }
 
   private fun handleBackPress() {
     requireActivity().onBackPressedDispatcher.addCallback(this, onBackPressedCallback)
-  }
-
-  private fun handleWalletCreationFragmentResult() {
-    parentFragmentManager.setFragmentResultListener(
-      CreateWalletDialogFragment.CREATE_WALLET_DIALOG_COMPLETE,
-      this
-    ) { _, _ ->
-      navigator.navigateToNavBar()
-    }
   }
 
   override fun onCreateView(
@@ -83,7 +72,11 @@ class OnboardingFragment : BasePageViewFragment(),
   }
 
   override fun onStateChanged(state: OnboardingState) {
-    when (state.pageContent) {
+    handlePageContent(state.pageContent)
+  }
+
+  private fun handlePageContent(pageContent: OnboardingContent) {
+    when (pageContent) {
       OnboardingContent.EMPTY -> hideContent()
       OnboardingContent.VALUES -> showValuesScreen()
     }
@@ -92,7 +85,10 @@ class OnboardingFragment : BasePageViewFragment(),
   override fun onSideEffect(sideEffect: OnboardingSideEffect) {
     when (sideEffect) {
       OnboardingSideEffect.NavigateToRecoverWallet -> navigator.navigateToRecover()
-      OnboardingSideEffect.NavigateToWalletCreationAnimation -> navigator.navigateToCreateWalletDialog()
+      OnboardingSideEffect.NavigateToWalletCreationAnimation -> {
+        hideContent()
+        navigator.navigateToCreateWalletDialog()
+      }
       OnboardingSideEffect.NavigateToFinish -> navigator.navigateToNavBar()
       is OnboardingSideEffect.NavigateToLink -> navigator.navigateToBrowser(sideEffect.uri)
     }
@@ -117,7 +113,7 @@ class OnboardingFragment : BasePageViewFragment(),
     val privacyPolicy = resources.getString(R.string.privacy_policy)
     val termsPolicyTickBox =
       resources.getString(
-        R.string.terms_and_conditions_tickbox, termsConditions,
+        R.string.intro_agree_terms_and_conditions_body, termsConditions,
         privacyPolicy
       )
 
