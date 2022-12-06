@@ -364,7 +364,7 @@
   <string name="provide_wallet_completed_header">Кошелёк связан с Aptoide!</string>
   <string name="provide_wallet_create_body">Вам нужен адрес кошелька! Выполните следующие действия, чтобы создать его в AppCoins Wallet.</string>
   <string name="provide_wallet_create_wallet_button">Создать</string>
-  <string name="provide_wallet_creating_wallet_header">Создание адреса кошелька&#8230;</string>
+  <string name="provide_wallet_creating_wallet_header">Preparing your wallet&#8230;</string>
   <string name="provide_wallet_created_header">Адрес кошелька создан!</string>
   <string name="provide_wallet_empty_state">Вы пока не разрешили кошельку AppCoins предоставлять ваш адрес другим приложениям.</string>
   <string name="provide_wallet_status">Разрешить доступ к адресу кошелька</string>
