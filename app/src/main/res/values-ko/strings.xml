@@ -364,7 +364,7 @@
   <string name="provide_wallet_completed_header">Aptoide로 지갑 연결 됨!</string>
   <string name="provide_wallet_create_body">지갑 주소가 필요합니다! 다음 단계들을 따라서 AppCoins 지갑을 생성하세요.</string>
   <string name="provide_wallet_create_wallet_button">생성</string>
-  <string name="provide_wallet_creating_wallet_header">지갑 주소 생성 중&#8230;</string>
+  <string name="provide_wallet_creating_wallet_header">Preparing your wallet&#8230;</string>
   <string name="provide_wallet_created_header">지갑 주소 생성 됨!</string>
   <string name="provide_wallet_empty_state">다른 앱으로 귀하의 주소를 제공하기 위해 AppCoins 지갑을 아직 허용하지 않았습니다.</string>
   <string name="provide_wallet_status">지갑 주소로 접근 허용</string>
