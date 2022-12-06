@@ -37,22 +37,26 @@ class RecoverEntryNavigator @Inject constructor(val fragment: Fragment) : Naviga
   fun navigateToRecoverPasswordFragment(
     keystore: WalletKeyStore,
     walletBalance: String,
-    walletAddress: String
+    walletAddress: String,
+    isFromOnboarding: Boolean
   ) {
     navigate(
       fragment.findNavController(),
       RecoverEntryFragmentDirections.actionNavigateToRecoverPassword(
         keystore,
         walletBalance,
-        walletAddress
+        walletAddress, isFromOnboarding
       )
     )
   }
 
-  fun navigateToCreateWalletDialog() {
+  fun navigateToCreateWalletDialog(isFromOnboarding: Boolean) {
     navigate(
       fragment.findNavController(),
-      RecoverEntryFragmentDirections.actionNavigateCreateWalletDialog(needsWalletCreation = false)
+      RecoverEntryFragmentDirections.actionNavigateCreateWalletDialog(
+        needsWalletCreation = false,
+        isFromOnboarding = isFromOnboarding
+      )
     )
   }
 
