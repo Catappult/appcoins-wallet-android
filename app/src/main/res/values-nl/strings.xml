@@ -364,7 +364,7 @@
   <string name="provide_wallet_completed_header">Wallet is aan Aptoide gekoppeld!</string>
   <string name="provide_wallet_create_body">Je hebt een wallet-adres nodig! Volg deze stappen om via de AppCoins Wallet een adres aan te maken.</string>
   <string name="provide_wallet_create_wallet_button">Aanmaken</string>
-  <string name="provide_wallet_creating_wallet_header">Wallet-adres wordt aangemaakt&#8230;</string>
+  <string name="provide_wallet_creating_wallet_header">Preparing your wallet&#8230;</string>
   <string name="provide_wallet_created_header">Wallet-adres is aangemaakt!</string>
   <string name="provide_wallet_empty_state">Je hebt AppCoins Wallet nog geen toestemming gegeven om je adres aan een andere app door te geven.</string>
   <string name="provide_wallet_status">Toestemming voor toegang tot wallet-adres geven</string>
