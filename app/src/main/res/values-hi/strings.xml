@@ -364,7 +364,7 @@
   <string name="provide_wallet_completed_header">वॉलेट Aptoide से संबद्ध हुआ!</string>
   <string name="provide_wallet_create_body">आपको एक वॉलेट पते की जरूरत है! AppCoins वॉलेट में यह बनाने के लिए इन चरणों का पालन करें।</string>
   <string name="provide_wallet_create_wallet_button">Create</string>
-  <string name="provide_wallet_creating_wallet_header">वॉलेट पता बना रहा है&#8230;</string>
+  <string name="provide_wallet_creating_wallet_header">Preparing your wallet&#8230;</string>
   <string name="provide_wallet_created_header">वॉलेट पता बनाया गया!</string>
   <string name="provide_wallet_empty_state">आपने AppCoins वॉलेट को अभी तक किसी भी अन्य एप्प को अपना पता देने की अनुमति नहीं दी है।</string>
   <string name="provide_wallet_status">वॉलेट पते तक पहुँच की अनुमति दें</string>
