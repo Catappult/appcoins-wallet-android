@@ -364,7 +364,7 @@
   <string name="provide_wallet_completed_header">کیف پول مربوط به Aptoide!</string>
   <string name="provide_wallet_create_body">شما نیاز به یک آدرس کیف پول دارید! این مراحل را برای ایجاد یک در کیف پول AppCoins دنبال کنید.</string>
   <string name="provide_wallet_create_wallet_button">ساختن</string>
-  <string name="provide_wallet_creating_wallet_header">ایجاد آدرس کیف پول&#8230;</string>
+  <string name="provide_wallet_creating_wallet_header">Preparing your wallet&#8230;</string>
   <string name="provide_wallet_created_header">کیف پول ساخته شد!</string>
   <string name="provide_wallet_empty_state">شما به کیف پول AppCoins اجازه ندادید که آدرس شما را به هیچ اپلیکیشن دیگری بدهد.</string>
   <string name="provide_wallet_status">اجازه دسترسی به آدرس کیف پول</string>
