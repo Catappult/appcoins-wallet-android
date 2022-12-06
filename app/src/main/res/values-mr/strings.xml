@@ -364,7 +364,7 @@
   <string name="provide_wallet_completed_header">वॉलेटला Aptoide सोबत जोडले गेले!</string>
   <string name="provide_wallet_create_body">आपल्याला वॉलेट पत्त्याची गरज आहे! अॅप कॉइन्स वॉलेटमध्ये तो तयार करण्यासाठी ह्या चरणांना करा.</string>
   <string name="provide_wallet_create_wallet_button">निर्माण करा</string>
-  <string name="provide_wallet_creating_wallet_header">वॉलेट पत्ता तयार करत आहे &#8230;</string>
+  <string name="provide_wallet_creating_wallet_header">Preparing your wallet&#8230;</string>
   <string name="provide_wallet_created_header">वॉलेट पत्ता तयार केला!</string>
   <string name="provide_wallet_empty_state">इतर कोणत्याही अॅपला आपला पत्ता पुरविण्यासाठी आपण अॅपकॉइन्स वॉलेटला परवानगी दिलेली नाही.</string>
   <string name="provide_wallet_status">वॉलेट पत्त्यात प्रवेश द्या</string>
