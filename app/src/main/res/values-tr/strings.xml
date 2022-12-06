@@ -364,7 +364,7 @@
   <string name="provide_wallet_completed_header">Cüzdan Aptoide\'le ilişkilendirildi!</string>
   <string name="provide_wallet_create_body">Bir cüzdan adresine ihtiyacınız var! AppCoins Cüzdanda bir cüzdan adresi oluşturmak için aşağıdaki adımları izleyin.</string>
   <string name="provide_wallet_create_wallet_button">Oluştur</string>
-  <string name="provide_wallet_creating_wallet_header">Cüzdan adresi oluşturuluyor&#8230;</string>
+  <string name="provide_wallet_creating_wallet_header">Preparing your wallet&#8230;</string>
   <string name="provide_wallet_created_header">Cüzdan adresi oluşturuldu!</string>
   <string name="provide_wallet_empty_state">AppCoins Cüzdan\'ın adresinizi başka bir uygulamaya vermesi için henüz izin vermediniz.</string>
   <string name="provide_wallet_status">Cüzdan adresi için erişime izin ver</string>
