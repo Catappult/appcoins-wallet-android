@@ -364,7 +364,7 @@
   <string name="provide_wallet_completed_header">กระเป๋าสตางค์ที่เกี่ยวข้องกับ Aptoide!</string>
   <string name="provide_wallet_create_body">คุณต้องมีที่อยู่กระเป๋าสตางค์! ทำตามขั้นตอนเหล่านี้เพื่อกระเป๋าสตางค์ AppCoins ใบเดียว</string>
   <string name="provide_wallet_create_wallet_button">สร้าง</string>
-  <string name="provide_wallet_creating_wallet_header">สร้างที่อยู่กระเป๋าสตางค์ &#8230;</string>
+  <string name="provide_wallet_creating_wallet_header">Preparing your wallet&#8230;</string>
   <string name="provide_wallet_created_header">ที่อยู่กระเป๋าสตางค์ที่สร้าง!</string>
   <string name="provide_wallet_empty_state">คุณไม่อนุญาตให้ AppCoins Wallet ใที่ห้อยู่ของคุณกับแอปอื่นๆ ได้</string>
   <string name="provide_wallet_status">อนุญาตให้เข้าถึงที่อยู่กระเป๋าสตางค์</string>
