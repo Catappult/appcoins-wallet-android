@@ -364,7 +364,7 @@
   <string name="provide_wallet_completed_header">Tárca társítva az Aptoide-hez!</string>
   <string name="provide_wallet_create_body">Szükséged van egy tárcacímre! Az alábbi lépéseket követve hozz létre egyet az AppCoins Wallet-ben.</string>
   <string name="provide_wallet_create_wallet_button">Létrehozás</string>
-  <string name="provide_wallet_creating_wallet_header">Tárcacím létrehozása&#8230;</string>
+  <string name="provide_wallet_creating_wallet_header">Preparing your wallet&#8230;</string>
   <string name="provide_wallet_created_header">Tárcacím létrehozva!</string>
   <string name="provide_wallet_empty_state">Még nem adtad meg az engedélyt az AppCoins Wallet-nek, hogy más appoknak biztosítsa tárcád címét.</string>
   <string name="provide_wallet_status">Tárcacímhez való hozzáférés engedélyezése</string>
