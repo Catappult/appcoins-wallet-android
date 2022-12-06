@@ -364,7 +364,7 @@
   <string name="provide_wallet_completed_header">المحفظة المرتبطة بـAptoide!</string>
   <string name="provide_wallet_create_body">تحتاج لعنوان محفظة! اتبع هذه الخطوات لإنشاء واحدٍ في محفظة AppCoins.</string>
   <string name="provide_wallet_create_wallet_button">إنشاء</string>
-  <string name="provide_wallet_creating_wallet_header">إنشاء عنوان محفظة&#8230;</string>
+  <string name="provide_wallet_creating_wallet_header">Preparing your wallet&#8230;</string>
   <string name="provide_wallet_created_header">تم إنشاء عنوان محفظة!</string>
   <string name="provide_wallet_empty_state">لم تسمح لمحفظة AppCoins بإعطاء عنوان محفظتك لأي تطبيقات أخرى بعد.</string>
   <string name="provide_wallet_status">اسمح بالوصول إلى عنوان محفظتك</string>
