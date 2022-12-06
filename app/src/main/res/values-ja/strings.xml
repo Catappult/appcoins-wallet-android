@@ -364,7 +364,7 @@
   <string name="provide_wallet_completed_header">ウォレットがAptoideと結合しました！</string>
   <string name="provide_wallet_create_body">あなたはウォレットアドレスが必要です！ AppCoins ウォレットで作成するには、次の手順に従ってください。</string>
   <string name="provide_wallet_create_wallet_button">作成</string>
-  <string name="provide_wallet_creating_wallet_header">ウォレットアドレスを作成中です&#8230;</string>
+  <string name="provide_wallet_creating_wallet_header">Preparing your wallet&#8230;</string>
   <string name="provide_wallet_created_header">ウォレットアドレスが作成されました！</string>
   <string name="provide_wallet_empty_state">あなたはまだAppCoins ウォレットによりアドレスを他のアプリに提供することを許可していません。</string>
   <string name="provide_wallet_status">ウォレットアドレスへのアクセスを許可します。</string>
