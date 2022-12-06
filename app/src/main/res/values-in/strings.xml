@@ -364,7 +364,7 @@
   <string name="provide_wallet_completed_header">Dompet terkait dengan Aptoide!</string>
   <string name="provide_wallet_create_body">Anda membutuhkan alamat dompet! Ikuti langkah-langkah berikut ini untuk membuatnya di Dompet AppCoins.</string>
   <string name="provide_wallet_create_wallet_button">Buat</string>
-  <string name="provide_wallet_creating_wallet_header">Membuat alamat dompet&#8230;</string>
+  <string name="provide_wallet_creating_wallet_header">Preparing your wallet&#8230;</string>
   <string name="provide_wallet_created_header">Alamat dompet sudah dibuat!</string>
   <string name="provide_wallet_empty_state">Anda belum mengiizinkan Dompet AppCoins untuk menginformasikan alamat Anda ke aplikasi lain.</string>
   <string name="provide_wallet_status">Izinkan akses ke alamat dompet</string>
