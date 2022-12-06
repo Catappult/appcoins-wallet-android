@@ -42,6 +42,10 @@
     <argument
         android:name="wallet_address"
         app:argType="string" />
+    <argument
+        android:name="onboarding_layout"
+        app:argType="boolean" />
+
     <action
         android:id="@+id/action_navigate_create_wallet_dialog"
         app:destination="@id/create_wallet_dialog_fragment" />
@@ -60,6 +64,10 @@
     <!-- temporary argument to differentiate the recover from a creation -->
     <argument
         android:name="needs_wallet_creation"
+        app:argType="boolean" />
+    <argument
+        android:name="is_from_onboarding"
+        android:defaultValue="true"
         app:argType="boolean" />
   </dialog>
 

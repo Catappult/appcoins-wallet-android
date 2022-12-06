@@ -6,7 +6,7 @@
     android:layout_height="@dimen/appcoins_card_view_height"
     android:layout_margin="4dp"
     android:elevation="4dp"
-    app:cardBackgroundColor="@color/styleguide_black_transparent_80"
+    app:cardBackgroundColor="@color/styleguide_white_transparent_20"
     app:cardCornerRadius="8dp"
     >
 

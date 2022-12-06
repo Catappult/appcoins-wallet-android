@@ -23,7 +23,6 @@ import javax.inject.Inject
 class CreateWalletDialogFragment : DialogFragment(),
   SingleStateFragment<CreateWalletState, CreateWalletSideEffect> {
 
-
   @Inject
   lateinit var navigator: CreateWalletDialogNavigator
 
@@ -47,8 +46,10 @@ class CreateWalletDialogFragment : DialogFragment(),
     viewModel.collectStateAndEvents(lifecycle, viewLifecycleOwner.lifecycleScope)
     //Temporary solution until this animation is refactored to the new design
     if (requireArguments().getBoolean(NEEDS_WALLET_CREATION)) {
+      views.createWalletText.text = getText(R.string.provide_wallet_creating_wallet_header)
       viewModel.createNewWallet(requireArguments().getBoolean(IS_FROM_ONBOARDING))
     } else {
+      views.createWalletText.text = getText(R.string.import_wallet_recovering_body)
       viewModel.recoverWallet()
     }
   }
@@ -58,31 +59,37 @@ class CreateWalletDialogFragment : DialogFragment(),
     super.onDestroy()
   }
 
-  override fun getTheme(): Int = R.style.NoBackgroundDialog
+  override fun getTheme(): Int = R.style.FullScreenDialogStyle
 
-  override fun onStateChanged(state: CreateWalletState) = when (state.walletCreationAsync) {
-    Async.Uninitialized,
-    is Async.Loading -> {
-      views.walletCreationAnimation.visibility = View.VISIBLE
-      views.createWalletAnimation.playAnimation()
-    }
-    is Async.Success -> {
-      views.createWalletAnimation.setAnimation(R.raw.success_animation)
-      if (requireArguments().getBoolean(NEEDS_WALLET_CREATION)) {
-        views.createWalletText.text = getText(R.string.provide_wallet_created_header)
-      } else {
-        views.createWalletText.text = getText(R.string.wallets_imported_body)
+  override fun onStateChanged(state: CreateWalletState) {
+    when (state.walletCreationAsync) {
+      Async.Uninitialized,
+      is Async.Loading -> {
+        views.createWalletLoading.playAnimation()
       }
-      views.createWalletAnimation.addAnimatorListener(object : Animator.AnimatorListener {
-        override fun onAnimationRepeat(animation: Animator?) = Unit
-        override fun onAnimationEnd(animation: Animator?) = navigator.navigateBack()
-        override fun onAnimationCancel(animation: Animator?) = Unit
-        override fun onAnimationStart(animation: Animator?) = Unit
-      })
-      views.createWalletAnimation.repeatCount = 0
-      views.createWalletAnimation.playAnimation()
+      is Async.Success -> {
+        views.createWalletLoading.setAnimation(R.raw.success_animation)
+        if (requireArguments().getBoolean(NEEDS_WALLET_CREATION)) {
+          views.createWalletText.text = getText(R.string.provide_wallet_created_header)
+        } else {
+          views.createWalletText.text = getText(R.string.wallets_imported_body)
+        }
+
+        if (requireArguments().getBoolean(IS_FROM_ONBOARDING)) {
+          navigator.navigateBack()
+        } else {
+          views.createWalletLoading.addAnimatorListener(object : Animator.AnimatorListener {
+            override fun onAnimationRepeat(animation: Animator?) = Unit
+            override fun onAnimationEnd(animation: Animator?) = navigator.navigateBack()
+            override fun onAnimationCancel(animation: Animator?) = Unit
+            override fun onAnimationStart(animation: Animator?) = Unit
+          })
+        }
+        views.createWalletLoading.repeatCount = 0
+        views.createWalletLoading.playAnimation()
+      }
+      else -> Unit
     }
-    else -> Unit
   }
 
   override fun onSideEffect(sideEffect: CreateWalletSideEffect) = Unit

@@ -9,10 +9,13 @@ import javax.inject.Inject
 
 class RecoverPasswordNavigator @Inject constructor(val fragment: Fragment) : Navigator {
 
-  fun navigateToCreateWalletDialog() {
+  fun navigateToCreateWalletDialog(isFromOnboarding: Boolean) {
     navigate(
       fragment.findNavController(),
-      RecoverPasswordFragmentDirections.actionNavigateCreateWalletDialog(needsWalletCreation = false)
+      RecoverPasswordFragmentDirections.actionNavigateCreateWalletDialog(
+        needsWalletCreation = false,
+        isFromOnboarding = isFromOnboarding
+      )
     )
   }
 

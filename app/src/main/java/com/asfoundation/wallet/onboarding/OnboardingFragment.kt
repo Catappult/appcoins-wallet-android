@@ -63,6 +63,7 @@ class OnboardingFragment : BasePageViewFragment(),
     }
   }
 
+
   override fun onCreateView(
     inflater: LayoutInflater, @Nullable container: ViewGroup?,
     @Nullable savedInstanceState: Bundle?
@@ -83,7 +84,11 @@ class OnboardingFragment : BasePageViewFragment(),
   }
 
   override fun onStateChanged(state: OnboardingState) {
-    when (state.pageContent) {
+    handlePageContent(state.pageContent)
+  }
+
+  private fun handlePageContent(pageContent: OnboardingContent) {
+    when (pageContent) {
       OnboardingContent.EMPTY -> hideContent()
       OnboardingContent.VALUES -> showValuesScreen()
     }
@@ -92,7 +97,10 @@ class OnboardingFragment : BasePageViewFragment(),
   override fun onSideEffect(sideEffect: OnboardingSideEffect) {
     when (sideEffect) {
       OnboardingSideEffect.NavigateToRecoverWallet -> navigator.navigateToRecover()
-      OnboardingSideEffect.NavigateToWalletCreationAnimation -> navigator.navigateToCreateWalletDialog()
+      OnboardingSideEffect.NavigateToWalletCreationAnimation -> {
+        hideContent()
+        navigator.navigateToCreateWalletDialog()
+      }
       OnboardingSideEffect.NavigateToFinish -> navigator.navigateToNavBar()
       is OnboardingSideEffect.NavigateToLink -> navigator.navigateToBrowser(sideEffect.uri)
     }
@@ -117,7 +125,7 @@ class OnboardingFragment : BasePageViewFragment(),
     val privacyPolicy = resources.getString(R.string.privacy_policy)
     val termsPolicyTickBox =
       resources.getString(
-        R.string.terms_and_conditions_tickbox, termsConditions,
+        R.string.intro_agree_terms_and_conditions_body, termsConditions,
         privacyPolicy
       )
 

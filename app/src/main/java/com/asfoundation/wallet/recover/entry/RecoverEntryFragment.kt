@@ -123,7 +123,7 @@ class RecoverEntryFragment : BasePageViewFragment(),
   private fun handleSuccessState(recoverResult: RecoverEntryResult) {
     when (recoverResult) {
       is SuccessfulEntryRecover -> {
-        navigator.navigateToCreateWalletDialog()
+        navigator.navigateToCreateWalletDialog(requireArguments().getBoolean(ONBOARDING_LAYOUT, false))
       }
       else -> handleErrorState(recoverResult)
     }
@@ -141,7 +141,8 @@ class RecoverEntryFragment : BasePageViewFragment(),
         navigator.navigateToRecoverPasswordFragment(
           keystore = recoverResult.keyStore,
           walletBalance = recoverResult.symbol + recoverResult.amount,
-          walletAddress = recoverResult.address
+          walletAddress = recoverResult.address,
+          requireArguments().getBoolean(ONBOARDING_LAYOUT, false)
         )
       }
       is FailedEntryRecover.InvalidPrivateKey -> {
