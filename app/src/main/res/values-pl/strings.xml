@@ -364,7 +364,7 @@
   <string name="provide_wallet_completed_header">Portfel powiązany z Aptoide!</string>
   <string name="provide_wallet_create_body">Potrzebujesz adresu portfela! Wykonaj następujące kroki, by utworzyć portfel AppCoins.</string>
   <string name="provide_wallet_create_wallet_button">Stwórz</string>
-  <string name="provide_wallet_creating_wallet_header">Tworzenie adresu portfela&#8230;</string>
+  <string name="provide_wallet_creating_wallet_header">Preparing your wallet&#8230;</string>
   <string name="provide_wallet_created_header">Adres portfela stworzony!</string>
   <string name="provide_wallet_empty_state">Dotąd nie zezwoliłeś/łaś portfelowi AppCoins aby udostępnił Twój adres jakiejkolwiek innej aplikacji.</string>
   <string name="provide_wallet_status">Pozwól na dostęp do adresu portfela</string>
