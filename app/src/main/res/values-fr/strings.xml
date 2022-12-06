@@ -364,7 +364,7 @@
   <string name="provide_wallet_completed_header">Portefeuille associé à Aptoide !</string>
   <string name="provide_wallet_create_body">Vous avez besoin d’une adresse de portefeuille ! Suivez ces étapes pour en créer un dans le Portefeuille AppCoins.</string>
   <string name="provide_wallet_create_wallet_button">Créer</string>
-  <string name="provide_wallet_creating_wallet_header">Création de l\'adresse du portefeuille adresse&#8230;</string>
+  <string name="provide_wallet_creating_wallet_header">Preparing your wallet&#8230;</string>
   <string name="provide_wallet_created_header">Adresse de portefeuille créé !</string>
   <string name="provide_wallet_empty_state">Vous n’avez pas encore autorisé le portefeuille AppCoins à fournir votre adresse à n’importe quelle autre application.</string>
   <string name="provide_wallet_status">Autoriser l’accès à l’adresse de portefeuille</string>
