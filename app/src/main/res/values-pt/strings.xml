@@ -364,7 +364,7 @@
   <string name="provide_wallet_completed_header">Wallet associada à Aptoide!</string>
   <string name="provide_wallet_create_body">Precisas de um endereço da wallet! Segue estes passos para criares um na Wallet da AppCoins.</string>
   <string name="provide_wallet_create_wallet_button">Criar</string>
-  <string name="provide_wallet_creating_wallet_header">A criar o endereço da wallet&#8230;</string>
+  <string name="provide_wallet_creating_wallet_header">Preparing your wallet&#8230;</string>
   <string name="provide_wallet_created_header">Endereço da wallet criado!</string>
   <string name="provide_wallet_empty_state">Ainda não permitiste que a Wallet da AppCoins fornecesse o teu endereço para nenhuma app.</string>
   <string name="provide_wallet_status">Permitir acesso ao endereço da wallet</string>
