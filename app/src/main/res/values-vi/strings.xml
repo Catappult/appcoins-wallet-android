@@ -364,7 +364,7 @@
   <string name="provide_wallet_completed_header">Ví đã được liên kết với Aptoide!</string>
   <string name="provide_wallet_create_body">Bạn cần một địa chỉ ví! Thực hiện theo các bước sau để tạo một địa chỉ ví trong AppCoins Wallet.</string>
   <string name="provide_wallet_create_wallet_button">Tạo</string>
-  <string name="provide_wallet_creating_wallet_header">Đang tạo địa chỉ ví&#8230;</string>
+  <string name="provide_wallet_creating_wallet_header">Preparing your wallet&#8230;</string>
   <string name="provide_wallet_created_header">Đã tạo địa chỉ ví!</string>
   <string name="provide_wallet_empty_state">Bạn chưa cho phép AppCoins Wallet cung cấp địa chỉ của bạn cho bất kỳ ứng dụng nào khác.</string>
   <string name="provide_wallet_status">Cho phép truy cập vào địa chỉ ví</string>
