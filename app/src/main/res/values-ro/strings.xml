@@ -364,7 +364,7 @@
   <string name="provide_wallet_completed_header">Portofel asociat cu Aptoide!</string>
   <string name="provide_wallet_create_body">Ai nevoie de o adresă de portofel! Urmează acești pași să creezi una în Portofelul AppCoins.</string>
   <string name="provide_wallet_create_wallet_button">Creează</string>
-  <string name="provide_wallet_creating_wallet_header">Se creează adresă portofel&#8230;</string>
+  <string name="provide_wallet_creating_wallet_header">Preparing your wallet&#8230;</string>
   <string name="provide_wallet_created_header">Adresă portofel creată!</string>
   <string name="provide_wallet_empty_state">Nu ai permis AppCoins Wallet să furnizeze adresa ta către nici o altă aplicație.</string>
   <string name="provide_wallet_status">Permite acces la adresa portofelului</string>
