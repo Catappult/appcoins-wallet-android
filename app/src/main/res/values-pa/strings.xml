@@ -364,7 +364,7 @@
   <string name="provide_wallet_completed_header">ਬਟੂਆ ਐਪਟਾਇਡ ਨਾਲ ਜੋੜਿਆ ਗਿਆ!</string>
   <string name="provide_wallet_create_body">ਤੁਹਾਨੂੰ ਬਟੂਏ ਦੇ ਇੱਕ ਪਤੇ ਦੀ ਲੋੜ ਹੈ! ਐਪ ਸਿੱਕੇ ਬਟੂਏ ਵਿੱਚ ਇੱਕ ਬਣਾਉਣ ਲਈ ਇਨ੍ਹਾਂ ਚਰਣਾਂ ​​ਦੀ ਪਾਲਣਾ ਕਰੋ|</string>
   <string name="provide_wallet_create_wallet_button">ਬਣਾਓ</string>
-  <string name="provide_wallet_creating_wallet_header">ਬਟੂਏ ਦਾ ਪਤਾ ਬਣਾਇਆ ਜਾ ਰਿਹਾ ਹੈ&#8230;</string>
+  <string name="provide_wallet_creating_wallet_header">Preparing your wallet&#8230;</string>
   <string name="provide_wallet_created_header">ਬਟੂਏ ਦਾ ਪਤਾ ਬਣਾਇਆ ਗਿਆ!</string>
   <string name="provide_wallet_empty_state">ਤੁਸੀ ਐਪ ਸਿੱਕੇ ਬਟੂਏ ਨੂੰ ਕਿਸੇ ਵੀ ਹੋਰ ਐਪ ਨੂੰ ਐਪ ਸਿੱਕੇ ਬਟੂਏ ਦਾ ਪਤਾ ਦੱਸਣ ਦੀ ਆਗਿਆ ਨਹੀਂ ਦਿੱਤੀ|</string>
   <string name="provide_wallet_status">ਐਪ ਸਿੱਕੇ ਬਟੂਏ ਦੇ ਪਤੇ ਤੱਕ ਪਹੁੰਚ ਦੀ ਆਗਿਆ ਦਿਓ</string>
