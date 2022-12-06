@@ -45,7 +45,7 @@ class RecoverPasswordFragment : BasePageViewFragment(),
 
   override fun onViewCreated(view: View, @Nullable savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
-    if (!requireActivity().intent.getBooleanExtra(ONBOARDING_LAYOUT, false)) {
+    if (!requireArguments().getBoolean(ONBOARDING_LAYOUT, false)) {
       views.recoverWalletBackButton.visibility = View.GONE
     }
     views.recoverWalletBackButton.setOnClickListener {
@@ -88,7 +88,9 @@ class RecoverPasswordFragment : BasePageViewFragment(),
   private fun handleSuccessState(recoverResult: RecoverPasswordResult) {
     when (recoverResult) {
       is SuccessfulPasswordRecover -> {
-        navigator.navigateToCreateWalletDialog()
+        navigator.navigateToCreateWalletDialog(
+          requireArguments().getBoolean(ONBOARDING_LAYOUT, false)
+        )
       }
       else -> handleErrorState(recoverResult)
     }

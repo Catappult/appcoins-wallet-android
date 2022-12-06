@@ -22,6 +22,7 @@ import com.asf.wallet.BuildConfig
 import com.asf.wallet.R
 import com.asf.wallet.databinding.FragmentOnboardingBinding
 import com.asfoundation.wallet.base.SingleStateFragment
+import com.asfoundation.wallet.my_wallets.create_wallet.CreateWalletDialogFragment
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -46,11 +47,22 @@ class OnboardingFragment : BasePageViewFragment(),
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     handleBackPress()
+    handleWalletCreationFragmentResult()
   }
 
   private fun handleBackPress() {
     requireActivity().onBackPressedDispatcher.addCallback(this, onBackPressedCallback)
   }
+
+  private fun handleWalletCreationFragmentResult() {
+    parentFragmentManager.setFragmentResultListener(
+      CreateWalletDialogFragment.CREATE_WALLET_DIALOG_COMPLETE,
+      this
+    ) { _, _ ->
+      navigator.navigateToNavBar()
+    }
+  }
+
 
   override fun onCreateView(
     inflater: LayoutInflater, @Nullable container: ViewGroup?,

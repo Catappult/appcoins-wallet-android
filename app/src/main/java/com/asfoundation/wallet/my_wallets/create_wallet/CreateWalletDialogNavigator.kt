@@ -11,11 +11,4 @@ class CreateWalletDialogNavigator @Inject constructor(private val navController:
   fun navigateBack() {
     navController.popBackStack()
   }
-
-  fun navigateToNavBar() {
-    navigate(
-      navController,
-      CreateWalletDialogFragmentDirections.actionNavigateToNavBarFragment()
-    )
-  }
 }

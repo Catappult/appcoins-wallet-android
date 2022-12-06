@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.my_wallets.create_wallet
 
+import android.animation.Animator
 import android.app.Dialog
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -67,11 +68,25 @@ class CreateWalletDialogFragment : DialogFragment(),
         views.createWalletLoading.playAnimation()
       }
       is Async.Success -> {
-        if (requireArguments().getBoolean(IS_FROM_ONBOARDING)) {
-          navigator.navigateToNavBar()
+        views.createWalletLoading.setAnimation(R.raw.success_animation)
+        if (requireArguments().getBoolean(NEEDS_WALLET_CREATION)) {
+          views.createWalletText.text = getText(R.string.provide_wallet_created_header)
         } else {
-          navigator.navigateBack()
+          views.createWalletText.text = getText(R.string.wallets_imported_body)
         }
+
+        if (requireArguments().getBoolean(IS_FROM_ONBOARDING)) {
+          navigator.navigateBack()
+        } else {
+          views.createWalletLoading.addAnimatorListener(object : Animator.AnimatorListener {
+            override fun onAnimationRepeat(animation: Animator?) = Unit
+            override fun onAnimationEnd(animation: Animator?) = navigator.navigateBack()
+            override fun onAnimationCancel(animation: Animator?) = Unit
+            override fun onAnimationStart(animation: Animator?) = Unit
+          })
+        }
+        views.createWalletLoading.repeatCount = 0
+        views.createWalletLoading.playAnimation()
       }
       else -> Unit
     }
