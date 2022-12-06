@@ -364,7 +364,7 @@
   <string name="provide_wallet_completed_header">ပိုက္ဆံအိတ္ကို Aptoide နွင့္ တြဲဖက္လိုက္ပါၿပီ။</string>
   <string name="provide_wallet_create_body">ပိုက္ဆံအိတ္ လိပ္စာတစ္ခုကို သင္လိုအပ္ပါသည္။ AppCoins ပိုက္ဆံအိတ္တြင္ လိပ္္စာတစ္ခုို ျပဳလုပ္ရန္ ဤအဆင့္မ်ားကို လိုက္္လုပ္ပါ။</string>
   <string name="provide_wallet_create_wallet_button">ျပဳလုပ္မည္</string>
-  <string name="provide_wallet_creating_wallet_header">ပိုက္ဆံအိတ္လိပ္စာကို ျပဳလုပ္ေနပါသည္&#8230;</string>
+  <string name="provide_wallet_creating_wallet_header">Preparing your wallet&#8230;</string>
   <string name="provide_wallet_created_header">ပိုက္ဆံအိတ္လိပ္စာကို ျပဳလုပ္ၿပီးပါၿပီ။</string>
   <string name="provide_wallet_empty_state">သင့္လိပ္စာကို အျခားမည္သည့္ အက္ပ္သို႔မဆိုေပးရန္ AppCoins ပိုက္ဆံအိတ္ကို သင္ခြင့္မျပဳရေသးပါ။</string>
   <string name="provide_wallet_status">ပိုက္ဆံအိတ္လိပ္စာကို ရယူရန္ ခြင့္ျပဳမည္</string>
