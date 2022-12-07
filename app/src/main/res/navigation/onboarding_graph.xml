@@ -24,9 +24,7 @@
 
     <action
         android:id="@+id/action_navigate_create_wallet_dialog"
-        app:destination="@id/create_wallet_dialog_fragment"
-        app:popUpTo="@+id/onboarding_fragment"
-        app:popUpToInclusive="true" />
+        app:destination="@id/create_wallet_dialog_fragment" />
 
     <action
         android:id="@+id/action_navigate_to_nav_bar_fragment"
@@ -55,7 +53,9 @@
 
     <action
         android:id="@+id/action_navigate_to_nav_bar_fragment"
-        app:destination="@id/nav_bar_fragment" />
+        app:destination="@id/nav_bar_fragment"
+        app:popUpTo="@+id/onboarding_fragment"
+        app:popUpToInclusive="true" />
   </dialog>
 
   <include
