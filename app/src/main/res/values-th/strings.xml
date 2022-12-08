@@ -313,7 +313,7 @@
   <string name="gamification_level_button_how">วิธีการทำงาน</string>
   <string name="gamification_level_body">คุณจะได้รับเครดิต AppCoins เมื่อซื้อสินค้าในแอปและเกมส์โปรดของคุณ</string>
   <string name="gamification_how_header">วิธีการเพิ่มระดับ?</string>
-  <string name="gamification_how_body">You\'ll earn AppCoins Credits when buying items in your favorite apps and games.</string>
+  <string name="gamification_how_body">คุณจะได้รับเครดิต AppCoins เมื่อซื้อสินค้าในแอปและเกมส์โปรดของคุณ</string>
   <string name="gamification_how_body_new">ยิ่งคุณซื้อแอปที่คุณโปรดปราน ก็ยิ่งรับโบนัสที่มากกว่า!</string>
   <string name="gamification_how_table_a1">ใช้จ่าย</string>
   <string name="gamification_how_table_b1">โบนัส</string>
@@ -364,7 +364,7 @@
   <string name="provide_wallet_completed_header">กระเป๋าสตางค์ที่เกี่ยวข้องกับ Aptoide!</string>
   <string name="provide_wallet_create_body">คุณต้องมีที่อยู่กระเป๋าสตางค์! ทำตามขั้นตอนเหล่านี้เพื่อกระเป๋าสตางค์ AppCoins ใบเดียว</string>
   <string name="provide_wallet_create_wallet_button">สร้าง</string>
-  <string name="provide_wallet_creating_wallet_header">Preparing your wallet&#8230;</string>
+  <string name="provide_wallet_creating_wallet_header">เตรียมกระเป๋าเงินของคุณ&#8230;</string>
   <string name="provide_wallet_created_header">ที่อยู่กระเป๋าสตางค์ที่สร้าง!</string>
   <string name="provide_wallet_empty_state">คุณไม่อนุญาตให้ AppCoins Wallet ใที่ห้อยู่ของคุณกับแอปอื่นๆ ได้</string>
   <string name="provide_wallet_status">อนุญาตให้เข้าถึงที่อยู่กระเป๋าสตางค์</string>
@@ -374,7 +374,7 @@
   <string name="topup_title">เติม</string>
   <string name="topup_amount">%s AppCoins Credits</string>
   <string name="topup_bonus_header">คุณได้รับโบนัส</string>
-  <string name="topup_bonus_message">%s AppCoins Credits extra will be credited in your wallet.</string>
+  <string name="topup_bonus_message">%s เครดิต AppCoins พิเศษจะถูกเครดิตในกระเป๋าเงินของคุณ</string>
   <string name="topup_completed_1">%s ในเครดิต AppCoins</string>
   <string name="topup_completed_2_with_bonus">ถูกฝากเข้าบัญชีของคุณ... พร้อมกับโบนัส!</string>
   <string name="topup_completed_2_without_bonus">มีในบัญชีของคุณ</string>
@@ -391,7 +391,7 @@
   <string name="balance_topup_body">คุณสามารถเติมกระเป๋าสตางค์ด้วยเครดิต AppCoins</string>
   <string name="balance_ethereum_body">Ethereum เป็นสกุลเงินคริปโตซึ่งมี AppCoins เป็นหลัก คุณสามารถซื้อและขายแลกเปลี่ยนมันได้เป็นส่วนใหญ่ มันเป็นที่นิยมมาก!</string>
   <string name="balance_appcoins_body">AppCoins เป็นสกุลเงินคริปโตสำหรับเศรษฐกิจแอป คุณสามารถซื้อ ขาย แลกเปลี่ยนต่าง ๆ และใช้ในการซื้อสินค้าในแอปได้</string>
-  <string name="balance_appccreditos_body">The token to buy in-app items! Top up AppCoins Credits from your wallet or get them for free by using apps. They can also be transferred between friends!</string>
+  <string name="balance_appccreditos_body">โทเค็นสำหรับซื้อไอเทมในแอป! เติมเครดิต AppCoins จากกระเป๋าเงินของคุณหรือรับฟรีโดยใช้แอป นอกจากนี้ยังสามารถโอนระหว่างเพื่อนได้อีกด้วย!</string>
   <string name="my_wallets_action_new_wallet">วอลเล็ตใหม่</string>
   <string name="my_wallets_action_recover_wallet">กู้คืนวอลเล็ต</string>
   <string name="my_wallets_action_backup_wallet">สำรองวอลเล็ต</string>
@@ -462,7 +462,7 @@
   <string name="home_empty_discover_apps_button">ค้นพบแอปยอดนิยม</string>
   <!--Tokens-->
   <!--Settings-->
-  <string name="title_redeem">Redeem Gift Card</string>
+  <string name="title_redeem">แลกบัตรของขวัญ</string>
   <string name="settings_item_support">ติดต่อทีมสนับสนุน</string>
   <string name="settings_subheader_support">การสนับสนุน</string>
   <string name="settings_subheader_about_us">เกี่ยวกับเรา</string>
@@ -550,7 +550,7 @@
   <string name="purchase_error_try_cheaper_item">ราคาสูงไป! โปรดลองซื้อสินค้าที่มีมูลค่าต่ำกว่า</string>
   <string name="purchase_error_try_cheaper_item_or_method">แพงทีเดียว! โปรดลองซื้อสินค้าที่ถูกกว่าหรือลองใช้วิธีการชำระเงินแบบอื่น</string>
   <string name="transfer_appc_error_no_eth_title">คุณต้องการ Ether!</string>
-  <string name="transfer_appc_error_no_eth_body">AppCoins transfers fees are paid in Ethereum, so you\'ll need ETH to transfer AppCoins.</string>
+  <string name="transfer_appc_error_no_eth_body">ค่าธรรมเนียมการโอน AppCoins ชำระเป็น Ethereum ดังนั้นคุณจะต้องมี ETH เพื่อโอน AppCoins</string>
   <string name="purchase_error_invalid_credit_card">หมายเลขบัตรธนาคารไม่ถูกต้อง โปรดตรวจสอบให้แน่ใจว่าตัวเลขทั้งหมดถูกต้อง</string>
   <string name="purchase_error_card_security_validation">มีข้อผิดพลาดในการตรวจสอบระดับ 2 ของธุรกรรมนี้ กรุณาลองอีกครั้ง</string>
   <string name="purchase_error_transaction_timeout">ดูเหมือนว่าคุณใช้เวลานานเกินไปในการทำธุรกรรม กรุณาลองอีกครั้ง</string>
@@ -639,10 +639,10 @@
   <string name="update_wallet_soft_title">อย่างทิ้งไว้!</string>
   <string name="update_wallet_soft_body">คอยอัพเดต AppCoins Wallet เพื่อรับประกันประสบการณ์ที่ดีที่สุด</string>
   <string name="update_button">อัพเดต</string>
-  <string name="update_backup_title">Don\'t lose your funds!</string>
-  <string name="update_backup_body">Back up your wallet before updating.</string>
-  <string name="update_backup_date">Last backed up on %s.</string>
-  <string name="update_backup_never">Not backed up yet.</string>
+  <string name="update_backup_title">อย่าสูญเสียเงินของคุณ!</string>
+  <string name="update_backup_body">สำรองกระเป๋าเงินของคุณก่อนอัปเดต</string>
+  <string name="update_backup_date">สำรองข้อมูลครั้งล่าสุดเมื่อ %s</string>
+  <string name="update_backup_never">ยังไม่ได้สำรองข้อมูล</string>
   <!--Backup and Import-->
   <string name="backup_home_notification_title">สำรองกระเป๋าสตางค์ของคุณ</string>
   <string name="backup_home_notification_body">คุณเคยทำโทรศัพท์หายหรือไม่? สำรองกระเป๋าสตางค์ของคุณตอนนี้!</string>
@@ -1082,9 +1082,9 @@
   <string name="onboarding_1st_body">กลับไปที่เกมเพื่อทำการสั่งซื้อให้เสร็จสิ้น</string>
   <string name="onboarding_1st_back_to_game_button">กลับไปยังเกมส์</string>
   <string name="onboarding_1st_explore_wallet_button">หรือสำรวจวอลเล็ต</string>
-  <string name="onboarding_1st_back_to_unknown_game_body">One of the games you\'ve got installed is AppCoins compatible! Do you want to open it?</string>
-  <string name="onboarding_1st_back_to_unknown_game_button">Go to the game</string>
-  <string name="onboarding_1st_explore_wallet_alternative_button">Explore the AppCoins Wallet</string>
+  <string name="onboarding_1st_back_to_unknown_game_body">หนึ่งในเกมส์ที่คุณติดตั้งรองรับ AppCoins ได้! คุณต้องการเปิดหรือไม่</string>
+  <string name="onboarding_1st_back_to_unknown_game_button">ไปที่เกมส์</string>
+  <string name="onboarding_1st_explore_wallet_alternative_button">สำรวจกระเป๋าเงิน AppCoins</string>
   <!-- VIP Program -->
   <string name="vip_program_reached_notification_title">ยินดีต้อนรับสู่โปรแกรม VIP</string>
   <string name="vip_program_reached_notification_body">ตอนนี้คุณเป็นผู้ใช้วีไอพีที่มีสิทธิ์เข้าถึงโปรโมชั่นและดีลพิเศษ แตะเพื่อดูรายละเอียดเพิ่มเติม!</string>
@@ -1112,6 +1112,6 @@
   <string name="vip_program_max_bonus_title">สนุกกับโบนัส%s%%ของคุณในทุกการซื้อ</string>
   <string name="vip_program_max_bonus_body">คุณได้ถึงจำนวนที่ระบบโซล่าร์จำกัดแล้ว</string>
   <string name="vip_program_max_bonus_short">%s%% โบนัสในการซื้อทุกครั้ง</string>
-  <string name="vip_program_referral_notification_title">VIP Referral Code Available!</string>
-  <string name="vip_program_referral_notification_body">Share your code with your community so you all earn while playing!</string>
+  <string name="vip_program_referral_notification_title">มีรหัสอ้างอิง VIP!</string>
+  <string name="vip_program_referral_notification_body">แบ่งปันรหัสของคุณกับชุมชนของคุณเพื่อให้คุณได้รับในขณะที่เล่น!</string>
 </resources>
