@@ -114,28 +114,28 @@
   <string name="intro_title_third_page">ไม่ซับซ้อน &amp; ง่าย</string>
   <string name="intro_message_first_page">ยินดีต้อนรับสู่การปฏิวัติของเศรษฐกิจ</string>
   <string name="intro_message_second_page">คีย์ส่วนตัวไม่เคยออกจากอุปกรณ์ของคุณ</string>
-  <string name="intro_message_third_page">Process all your in-app payments and rewards in AppCoins.</string>
+  <string name="intro_message_third_page">กระบวนการในการชำระเงินในแอปและรางวัลใน AppCoins</string>
   <string name="intro_1_title">AppCoins Wallet</string>
   <string name="intro_1_body">การซื้อของคุรในแอป</string>
   <string name="intro_2_title">เล่นเมาก จ่ายน้อยลง</string>
-  <string name="intro_2_body">The best payment wallet for apps and games.</string>
+  <string name="intro_2_body">กระเป๋าสตางค์การชำระเงินที่ดีที่สุดสำหรับแอปและเกมส์</string>
   <string name="intro_3_title">ไม่ซับซ้อน ง่าย</string>
-  <string name="intro_3_body">Bonuses on all purchases.</string>
+  <string name="intro_3_body">โบนัสในการซื้อทั้งหมด</string>
   <string name="intro_4_title">ปลอดภัยและเป็นส่วนตัว</string>
-  <string name="intro_4_body">Use bank card, PayPal and your favorite payment methods.</string>
+  <string name="intro_4_body">ใช้บัตรธนาคาร PayPal และวิธีการชำระเงินที่คุณชื่นชอบ</string>
   <string name="intro_4_body_2">ธุรกรรมทั้งหมดของคุณปลอดภัยด้วยเทคโนโลยีล่าสุด</string>
   <string name="intro_5_title">รับเครดิต AppCoins ฟรี!</string>
   <string name="intro_5_body">คุณจะได้รับเครดิต AppCoins ฟรีโดยการทดลองแอปและเกมส์</string>
   <string name="intro_creating_wallet_short">ตั้งค่ากระเป๋าสตางค์ของคุณสำหรับคุณ &#8230;</string>
   <string name="intro_wallet_created_short">สร้างกระเป๋าสตางค์!</string>
-  <string name="intro_agree_terms_and_conditions_body">By entering the AppCoins Wallet, you agree to the %1$s and %2$s.</string>
+  <string name="intro_agree_terms_and_conditions_body">เมื่อเข้าสู่ AppCoins Wallet แสดงว่าคุณยอมรับ %1$s และ %2$s</string>
   <string name="intro_skip_button">ข้าม</string>
   <string name="intro_welcome_header">ยินดีต้อนรับสู่ AppCoins Wallet</string>
-  <string name="intro_welcome_body">Top up your wallet or make a purchase in any AppCoins compatible app or game.</string>
-  <string name="intro_welcome_header_2">Up to %s%% Bonus!</string>
-  <string name="intro_welcome_body_2">Bonuses can be used in any app or game.</string>
+  <string name="intro_welcome_body">เติมเงินในกระเป๋าเงินของคุณหรือทำการซื้อในแอพหรือเกมส์ที่เข้ากันได้กับ AppCoins</string>
+  <string name="intro_welcome_header_2">สูงสุด %s%% โบนัส!</string>
+  <string name="intro_welcome_body_2">สามารถใช้โบนัสในแอพหรือเกมส์ใดก็ได้</string>
   <string name="intro_already_have_wallet_button">ฉันมีวอลเล็ตแล้ว</string>
-  <string name="intro_get_started_button">Launch wallet</string>
+  <string name="intro_get_started_button">เปิดกระเป๋าสตางค์</string>
   <!-- Menus -->
   <!-- Labels -->
   <string name="label_from">จาก</string>
@@ -209,7 +209,7 @@
   <string name="activity_iab_error_message">เกิดข้อผิดพลาด โปรดลองอีกครั้ง</string>
   <string name="action_try">ลอง</string>
   <string name="activity_transactions_learn_more">เรียนรู้เพิ่มเติม</string>
-  <string name="activity_iab_no_funds_message">Not enough ETH and AppCoins</string>
+  <string name="activity_iab_no_funds_message">ETH และ AppCoins ไม่เพียงพอ</string>
   <string name="activity_iab_no_ethereum_funds_message">เอธิเรียมไม่เพียงพอ</string>
   <string name="activity_iab_no_token_funds_message">AppCoins ไม่เพียงพอ</string>
   <string name="activity_iab_wrong_network_message">เครือข่าย Ethereum ผิดหรือโทเคนที่ไม่รู้จัก</string>
@@ -301,7 +301,7 @@
   <string name="gamification_home_body">รับไม่เกินโบนัสในแอปพลิเคชันที่ชื่นชอบและเกมของคุณสูงสุด %s%%!</string>
   <string name="gamification_home_button">เริ่มสร้างรายได้</string>
   <string name="gamification_level_title">ระดับของฉันคืออะไร</string>
-  <string name="gamification_level_title_new">Get AppCoins Credits!</string>
+  <string name="gamification_level_title_new">รับเครดิต AppCoins!</string>
   <string name="gamification_level_on_graphic">ระดับ %s</string>
   <string name="gamification_APPCapps_button">แอพ &amp; เกมส์</string>
   <string name="gamification_level_header">ขอแสดงความยินดี คุณคือ%s!</string>
@@ -311,7 +311,7 @@
   <string name="gamification_level_next_lvl_value">%s AppCoins</string>
   <string name="gamification_level_bonus">%s%% โบนัส</string>
   <string name="gamification_level_button_how">วิธีการทำงาน</string>
-  <string name="gamification_level_body">You\'ll earn AppCoins Credits when buying items in your favorite apps and games.</string>
+  <string name="gamification_level_body">คุณจะได้รับเครดิต AppCoins เมื่อซื้อสินค้าในแอปและเกมส์โปรดของคุณ</string>
   <string name="gamification_how_header">วิธีการเพิ่มระดับ?</string>
   <string name="gamification_how_body">You\'ll earn AppCoins Credits when buying items in your favorite apps and games.</string>
   <string name="gamification_how_body_new">ยิ่งคุณซื้อแอปที่คุณโปรดปราน ก็ยิ่งรับโบนัสที่มากกว่า!</string>
