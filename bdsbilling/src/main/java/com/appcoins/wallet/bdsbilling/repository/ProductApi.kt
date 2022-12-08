@@ -1,18 +1,51 @@
-package com.appcoins.wallet.bdsbilling.subscriptions
+package com.appcoins.wallet.bdsbilling.repository
 
 import com.appcoins.wallet.bdsbilling.SubscriptionPurchaseListResponse
 import com.appcoins.wallet.bdsbilling.SubscriptionPurchaseResponse
-import com.appcoins.wallet.bdsbilling.SubscriptionResponse
 import com.appcoins.wallet.bdsbilling.SubscriptionsResponse
+import com.appcoins.wallet.bdsbilling.repository.entity.DetailsResponseBody
+import com.appcoins.wallet.bdsbilling.repository.entity.GetPurchasesResponse
 import io.reactivex.Completable
 import io.reactivex.Single
 import retrofit2.http.*
 
-interface SubscriptionBillingApi {
-
+interface InappBillingApi {
   @GET("8.20200701/applications/{domain}/inapp")
   fun getPackage(@Path("domain") packageName: String): Single<Boolean>
 
+  @POST("8.20200701/applications/{domain}/inapp/purchases/{uid}/consume")
+  fun consumePurchase(@Path("domain") domain: String,
+                      @Path("uid") uid: String,
+                      @Query("wallet.address") walletAddress: String,
+                      @Query("wallet.signature") walletSignature: String,
+                      @Query("payload") payload: String? = null): Completable
+
+  @POST("8.20200701/applications/{domain}/inapp/purchases/{uid}/acknowledge")
+  fun acknowledgePurchase(@Path("domain") domain: String,
+                          @Path("uid") uid: String,
+                          @Query("wallet.address") walletAddress: String,
+                          @Query("wallet.signature") walletSignature: String,
+                          @Query("payload") payload: String? = null): Completable
+
+
+  @GET("8.20200701/applications/{packageName}/inapp/consumables")
+  fun getConsumables(
+    @Path("packageName") packageName: String,
+    @Query("skus") names: String
+  ): Single<DetailsResponseBody>
+
+  @GET("8.20200701/applications/{packageName}/inapp/consumable/purchases")
+  fun getPurchases(
+    @Path("packageName") packageName: String,
+    @Query("wallet.address") walletAddress: String,
+    @Query("wallet.signature") walletSignature: String,
+    @Query("type") type: String,
+    @Query("state") state: String = "PENDING",
+    @Query("sku") sku: String? = null,
+  ): Single<GetPurchasesResponse>
+}
+
+interface SubscriptionBillingApi {
   /**
    * Retrieves all subscriptions for a given packageName
    * @param domain PackageName of the app which we are requesting the sku
@@ -26,16 +59,6 @@ interface SubscriptionBillingApi {
                        @Query("skus") skus: List<String>?,
                        @Query("limit") limit: Long? = null,
                        @Query("currency") currency: String? = null): Single<SubscriptionsResponse>
-
-  /**
-   * Retrieves the subscription sku for a given packageName
-   * @param domain PackageName of the app from which we are requesting the sku
-   * @param sku the product of the subscription
-   */
-  @GET("8.20200701/applications/{domain}/inapp/subscriptions/{sku}")
-  fun getSkuSubscription(@Header("Accept-Language") language: String,
-                         @Path("domain") domain: String,
-                         @Path("sku") sku: String): Single<SubscriptionResponse>
 
   /**
    * Retrieves the token for a given subscription
@@ -67,20 +90,6 @@ interface SubscriptionBillingApi {
                   @Query("wallet.address") walletAddress: String,
                   @Query("wallet.signature")
                   walletSignature: String): Single<SubscriptionPurchaseResponse>
-
-  @POST("8.20200701/applications/{domain}/inapp/purchases/{uid}/consume")
-  fun consumePurchase(@Path("domain") domain: String,
-                      @Path("uid") uid: String,
-                      @Query("wallet.address") walletAddress: String,
-                      @Query("wallet.signature") walletSignature: String,
-                      @Query("payload") payload: String? = null): Completable
-
-  @POST("8.20200701/applications/{domain}/inapp/purchases/{uid}/acknowledge")
-  fun acknowledgePurchase(@Path("domain") domain: String,
-                          @Path("uid") uid: String,
-                          @Query("wallet.address") walletAddress: String,
-                          @Query("wallet.signature") walletSignature: String,
-                          @Query("payload") payload: String? = null): Completable
 
   @POST("8.20200701/applications/{domain}/inapp/subscription/purchases/{uid}/activate")
   fun activateSubscription(@Path("domain") domain: String,

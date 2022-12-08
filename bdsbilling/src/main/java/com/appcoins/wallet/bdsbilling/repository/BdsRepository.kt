@@ -65,11 +65,7 @@ class BdsRepository(private val remoteRepository: RemoteRepository) : BillingRep
   )
 
   override fun isSupported(packageName: String, type: BillingSupportedType): Single<Boolean> =
-    if (BillingSupportedType.mapToProductType(type) == BillingSupportedType.INAPP) {
-      remoteRepository.isBillingSupported(packageName)
-    } else {
-      remoteRepository.isBillingSupportedSubs(packageName)
-    }
+    remoteRepository.isBillingSupported(packageName)
 
   override fun getSkuDetails(
     packageName: String,
@@ -139,29 +135,8 @@ class BdsRepository(private val remoteRepository: RemoteRepository) : BillingRep
     walletAddress: String,
     walletSignature: String,
     type: BillingSupportedType?
-  ): Single<Boolean> = when (type) {
-    null -> remoteRepository.consumePurchaseSubs(
-      packageName,
-      purchaseToken,
-      walletAddress,
-      walletSignature
-    )
-      .onErrorResumeNext {
-        //TODO Remove this when MS completes migration to product
-        remoteRepository.consumePurchase(
-          packageName,
-          purchaseToken,
-          walletAddress,
-          walletSignature
-        )
-      }
-    BillingSupportedType.INAPP_SUBSCRIPTION -> remoteRepository.consumePurchaseSubs(
-      packageName,
-      purchaseToken,
-      walletAddress,
-      walletSignature
-    )
-    else -> remoteRepository.consumePurchase(
+  ): Single<Boolean> {
+    return remoteRepository.consumePurchase(
       packageName,
       purchaseToken,
       walletAddress,

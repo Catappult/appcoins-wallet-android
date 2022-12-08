@@ -2,7 +2,6 @@ package com.asfoundation.wallet.di.temp_gradle_modules
 
 import com.appcoins.wallet.bdsbilling.*
 import com.appcoins.wallet.bdsbilling.repository.*
-import com.appcoins.wallet.bdsbilling.subscriptions.SubscriptionBillingApi
 import com.asf.appcoins.sdk.contractproxy.AppCoinsAddressProxySdk
 import dagger.Module
 import dagger.Provides
@@ -18,14 +17,14 @@ class BdsBillingModule {
   @Provides
   fun providesBillingPaymentProofSubmission(
     brokerBdsApi: RemoteRepository.BrokerBdsApi,
-    inappBdsApi: RemoteRepository.InappBdsApi,
+    inappApi: InappBillingApi,
     walletService: WalletService,
     subscriptionBillingApi: SubscriptionBillingApi,
     bdsApi: BdsApiSecondary
   ): BillingPaymentProofSubmission =
     BillingPaymentProofSubmissionImpl.Builder()
       .setBrokerBdsApi(brokerBdsApi)
-      .setInappBdsApi(inappBdsApi)
+      .setInappApi(inappApi)
       .setBdsApiSecondary(bdsApi)
       .setWalletService(walletService)
       .setSubscriptionBillingService(subscriptionBillingApi)
@@ -42,12 +41,12 @@ class BdsBillingModule {
   fun provideRemoteRepository(
     subscriptionBillingApi: SubscriptionBillingApi,
     brokerBdsApi: RemoteRepository.BrokerBdsApi,
-    inappBdsApi: RemoteRepository.InappBdsApi,
+    inappApi: InappBillingApi,
     api: BdsApiSecondary
   ): RemoteRepository =
     RemoteRepository(
       brokerBdsApi,
-      inappBdsApi,
+      inappApi,
       BdsApiResponseMapper(SubscriptionsMapper(), InAppMapper()),
       api,
       subscriptionBillingApi

@@ -2,7 +2,6 @@ package com.appcoins.wallet.bdsbilling
 
 import com.appcoins.wallet.bdsbilling.repository.*
 import com.appcoins.wallet.bdsbilling.repository.entity.Transaction
-import com.appcoins.wallet.bdsbilling.subscriptions.SubscriptionBillingApi
 import io.reactivex.Completable
 import io.reactivex.Scheduler
 import io.reactivex.Single
@@ -121,21 +120,21 @@ class BillingPaymentProofSubmissionImpl internal constructor(
     private var walletService: WalletService? = null
     private var networkScheduler: Scheduler = Schedulers.io()
     private var brokerBdsApi: RemoteRepository.BrokerBdsApi? = null
-    private var inappBdsApi: RemoteRepository.InappBdsApi? = null
+    private var inappApi: InappBillingApi? = null
     private var bdsApiSecondary: BdsApiSecondary? = null
-    private var subscriptionApi: SubscriptionBillingApi? = null
+    private var subscriptionBillingApi: SubscriptionBillingApi? = null
 
     fun setBrokerBdsApi(brokerBdsApi: RemoteRepository.BrokerBdsApi) =
       apply { this.brokerBdsApi = brokerBdsApi }
 
-    fun setInappBdsApi(inappBdsApi: RemoteRepository.InappBdsApi) =
-      apply { this.inappBdsApi = inappBdsApi }
+    fun setInappApi(inappApi: InappBillingApi) =
+      apply { this.inappApi = inappApi }
 
     fun setBdsApiSecondary(bdsApi: BdsApiSecondary) =
       apply { bdsApiSecondary = bdsApi }
 
     fun setSubscriptionBillingService(subscriptionBillingApi: SubscriptionBillingApi) =
-      apply { subscriptionApi = subscriptionBillingApi }
+      apply { this.subscriptionBillingApi = subscriptionBillingApi }
 
     fun setScheduler(scheduler: Scheduler) =
       apply { this.networkScheduler = scheduler }
@@ -146,18 +145,18 @@ class BillingPaymentProofSubmissionImpl internal constructor(
     fun build(): BillingPaymentProofSubmissionImpl =
       walletService?.let { walletService ->
         brokerBdsApi?.let { brokerBdsApi ->
-          inappBdsApi?.let { inappBdsApi ->
+          inappApi?.let { inappApi ->
             bdsApiSecondary?.let { bdsApiSecondary ->
-              subscriptionApi?.let { subscriptionApi ->
+              subscriptionBillingApi?.let { subscriptionsApi ->
                 BillingPaymentProofSubmissionImpl(
                   walletService,
                   BdsRepository(
                     RemoteRepository(
                       brokerBdsApi,
-                      inappBdsApi,
+                      inappApi,
                       BdsApiResponseMapper(SubscriptionsMapper(), InAppMapper()),
                       bdsApiSecondary,
-                      subscriptionApi
+                      subscriptionsApi
                     )
                   ),
                   networkScheduler,
