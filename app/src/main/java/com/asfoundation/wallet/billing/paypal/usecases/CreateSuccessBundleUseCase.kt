@@ -1,4 +1,4 @@
-package com.asfoundation.wallet.billing.paypal
+package com.asfoundation.wallet.billing.paypal.usecases
 
 import com.asfoundation.wallet.billing.adyen.PurchaseBundleModel
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor

@@ -4,23 +4,16 @@ import android.os.Bundle
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import cm.aptoide.analytics.AnalyticsManager
 import com.appcoins.wallet.billing.BillingMessagesMapper
 import com.appcoins.wallet.billing.adyen.PaymentModel
 import com.asf.wallet.R
 import com.asfoundation.wallet.base.RxSchedulers
-import com.asfoundation.wallet.billing.adyen.PurchaseBundleModel
-import com.asfoundation.wallet.billing.analytics.BillingAnalytics
-import com.asfoundation.wallet.entity.TransactionBuilder
+import com.asfoundation.wallet.billing.paypal.models.PaypalTransaction
+import com.asfoundation.wallet.billing.paypal.usecases.*
 import com.asfoundation.wallet.topup.TopUpAnalytics
-import com.asfoundation.wallet.ui.iab.PaymentMethodsAnalytics
 import com.asfoundation.wallet.util.toSingleEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
-import io.reactivex.Single
-import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.schedulers.Schedulers
-import java.math.BigDecimal
 import javax.inject.Inject
 
 @HiltViewModel

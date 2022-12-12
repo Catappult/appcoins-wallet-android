@@ -1,9 +1,8 @@
-package com.asfoundation.wallet.billing.paypal
+package com.asfoundation.wallet.billing.paypal.repository
 
 import android.content.Context
 import okhttp3.*
 import java.io.IOException
-import java.util.*
 
 class MagnesHeaderInterceptor(
   private val context: Context

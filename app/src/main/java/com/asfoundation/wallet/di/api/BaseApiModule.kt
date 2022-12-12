@@ -1,7 +1,7 @@
 package com.asfoundation.wallet.di.api
 
 import android.content.Context
-import com.asfoundation.wallet.billing.paypal.MagnesHeaderInterceptor
+import com.asfoundation.wallet.billing.paypal.repository.MagnesHeaderInterceptor
 import com.asfoundation.wallet.di.annotations.BaseHttpClient
 import com.asfoundation.wallet.di.annotations.BlockchainHttpClient
 import com.asfoundation.wallet.di.annotations.DefaultHttpClient

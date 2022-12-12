@@ -49,11 +49,6 @@ import java.lang.Thread.sleep
 import java.math.BigDecimal
 import java.util.*
 import javax.inject.Inject
-import lib.android.paypal.com.magnessdk.MagnesSDK
-
-import lib.android.paypal.com.magnessdk.MagnesSettings
-
-
 
 
 @AndroidEntryPoint

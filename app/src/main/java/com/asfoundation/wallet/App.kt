@@ -22,7 +22,7 @@ import com.asfoundation.wallet.analytics.SentryAnalytics
 import com.asfoundation.wallet.app_start.AppStartProbe
 import com.asfoundation.wallet.app_start.AppStartUseCase
 import com.asfoundation.wallet.app_start.StartMode
-import com.asfoundation.wallet.billing.paypal.MagnesUtils
+import com.asfoundation.wallet.billing.paypal.repository.MagnesUtils
 import com.asfoundation.wallet.identification.IdsRepository
 import com.asfoundation.wallet.logging.FlurryReceiver
 import com.asfoundation.wallet.main.appsflyer.ApkOriginVerification
@@ -46,11 +46,6 @@ import java.security.Provider
 import java.security.Security
 import java.util.*
 import javax.inject.Inject
-import lib.android.paypal.com.magnessdk.MagnesSDK
-
-import lib.android.paypal.com.magnessdk.MagnesSettings
-
-
 
 
 @HiltAndroidApp

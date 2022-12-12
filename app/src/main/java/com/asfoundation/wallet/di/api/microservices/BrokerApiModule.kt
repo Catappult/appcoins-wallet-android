@@ -7,7 +7,7 @@ import com.appcoins.wallet.billing.skills.SkillsPaymentRepository
 import com.asf.wallet.BuildConfig
 import com.asfoundation.wallet.backup.repository.BackupRepository
 import com.asfoundation.wallet.base.RxSchedulers
-import com.asfoundation.wallet.billing.PayPalV2Repository
+import com.asfoundation.wallet.billing.paypal.repository.PayPalV2Repository
 import com.asfoundation.wallet.billing.carrier_billing.CarrierBillingRepository
 import com.asfoundation.wallet.billing.carrier_billing.CarrierErrorResponse
 import com.asfoundation.wallet.billing.carrier_billing.CarrierErrorResponseTypeAdapter

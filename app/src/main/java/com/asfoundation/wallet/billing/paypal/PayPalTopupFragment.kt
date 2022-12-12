@@ -33,9 +33,6 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class PayPalTopupFragment() : BasePageViewFragment() {
 
-  var networkScheduler = Schedulers.io()
-  var viewScheduler = AndroidSchedulers.mainThread()
-
   private val viewModel: PayPalTopupViewModel by viewModels()
 
   private var binding: FragmentPaypalTopupBinding? = null

@@ -1,17 +1,10 @@
-package com.asfoundation.wallet.billing.paypal
+package com.asfoundation.wallet.billing.paypal.usecases
 
-import com.adyen.checkout.core.model.ModelObject
 import com.appcoins.wallet.bdsbilling.WalletService
-import com.appcoins.wallet.billing.adyen.AdyenBillingAddress
-import com.appcoins.wallet.billing.adyen.AdyenPaymentRepository
-import com.appcoins.wallet.billing.adyen.PaymentModel
-import com.asfoundation.wallet.billing.PayPalV2Repository
+import com.asfoundation.wallet.billing.paypal.repository.PayPalV2Repository
 import com.asfoundation.wallet.billing.partners.AddressService
-import com.asfoundation.wallet.ewt.EwtAuthenticatorService
+import com.asfoundation.wallet.billing.paypal.models.PaypalTransaction
 import com.asfoundation.wallet.promo_code.use_cases.GetCurrentPromoCodeUseCase
-import com.asfoundation.wallet.redeem_gift.repository.RedeemCode
-import com.asfoundation.wallet.redeem_gift.repository.RedeemGiftRepository
-import com.asfoundation.wallet.wallets.usecases.GetCurrentWalletUseCase
 import io.reactivex.Single
 import javax.inject.Inject
 

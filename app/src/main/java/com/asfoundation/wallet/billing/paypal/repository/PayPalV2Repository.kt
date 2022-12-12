@@ -1,11 +1,12 @@
-package com.asfoundation.wallet.billing
+package com.asfoundation.wallet.billing.paypal.repository
 
 import com.appcoins.wallet.bdsbilling.repository.RemoteRepository
 import com.appcoins.wallet.billing.adyen.AdyenResponseMapper
 import com.appcoins.wallet.billing.adyen.PaymentModel
-import com.appcoins.wallet.billing.common.response.TransactionResponse
 import com.appcoins.wallet.commons.Logger
-import com.asfoundation.wallet.billing.paypal.*
+import com.asfoundation.wallet.billing.paypal.models.PaypalCreateAgreement
+import com.asfoundation.wallet.billing.paypal.models.PaypalCreateToken
+import com.asfoundation.wallet.billing.paypal.models.PaypalTransaction
 import com.google.gson.annotations.SerializedName
 import io.reactivex.Completable
 import io.reactivex.Single
@@ -128,7 +129,6 @@ class PayPalV2Repository @Inject constructor(
   private fun handleCreateTransactionErrorCodes(errorCode: Int?): PaypalTransaction {
     val validity = when (errorCode) {
       404 -> PaypalTransaction.PaypalValidityState.NO_BILLING_AGREEMENT
-//    ... ->
       else -> PaypalTransaction.PaypalValidityState.ERROR
     }
     return PaypalTransaction(

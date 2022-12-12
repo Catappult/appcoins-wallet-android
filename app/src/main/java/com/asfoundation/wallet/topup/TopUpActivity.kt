@@ -148,9 +148,9 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, UriNavigator {
         PayPalTopupFragment.newInstance(
           paymentType = paymentType,
           data = data,
-          amount = data.fiatValue,    //TODO check value
-          currency = data.fiatCurrencyCode,    //TODO check value
-          bonus = data.bonusValue.toString(),    //TODO check
+          amount = data.fiatValue,
+          currency = data.fiatCurrencyCode,
+          bonus = data.bonusValue.toString(),
           gamificationLevel = data.gamificationLevel,
         )
       )

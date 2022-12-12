@@ -1,9 +1,9 @@
-package com.asfoundation.wallet.billing.paypal
+package com.asfoundation.wallet.billing.paypal.usecases
 
 import com.appcoins.wallet.bdsbilling.WalletService
 import com.appcoins.wallet.billing.adyen.PaymentModel
 import com.asfoundation.wallet.base.RxSchedulers
-import com.asfoundation.wallet.billing.PayPalV2Repository
+import com.asfoundation.wallet.billing.paypal.repository.PayPalV2Repository
 import io.reactivex.Observable
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
@@ -13,7 +13,7 @@ class WaitForSuccessPaypalUseCase @Inject constructor(
   private val payPalV2Repository: PayPalV2Repository,
   private val rxSchedulers: RxSchedulers,
 
-) {
+  ) {
   operator fun invoke(uid: String): Observable<PaymentModel> {
     var lastPaymentCheck: PaymentModel? = null
     return walletService.getAndSignCurrentWalletAddress()

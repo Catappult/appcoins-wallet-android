@@ -1,4 +1,4 @@
-package com.asfoundation.wallet.billing.paypal
+package com.asfoundation.wallet.billing.paypal.repository
 
 import android.content.Context
 import com.asf.wallet.BuildConfig

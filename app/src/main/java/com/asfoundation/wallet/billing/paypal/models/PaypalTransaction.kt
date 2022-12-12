@@ -1,4 +1,4 @@
-package com.asfoundation.wallet.billing.paypal
+package com.asfoundation.wallet.billing.paypal.models
 
 import com.appcoins.wallet.billing.common.response.TransactionStatus
 
