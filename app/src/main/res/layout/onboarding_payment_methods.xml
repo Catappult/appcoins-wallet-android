@@ -18,7 +18,7 @@
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent"
       app:layout_constraintBottom_toTopOf="@id/onboarding_payment_methods_rv"
-      android:text="Select Payment method"
+      tools:text="Select Payment method"
       />
 
   <com.airbnb.epoxy.EpoxyRecyclerView
