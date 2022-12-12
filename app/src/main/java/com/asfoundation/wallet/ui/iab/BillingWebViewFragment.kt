@@ -20,6 +20,7 @@ import com.appcoins.wallet.commons.Logger
 import com.asf.wallet.BuildConfig
 import com.asf.wallet.R
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics
+import com.asfoundation.wallet.billing.paypal.PaypalReturnSchemas
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
@@ -55,6 +56,8 @@ class BillingWebViewFragment : BasePageViewFragment() {
     private const val ADYEN_PAYMENT_SCHEMA = "adyencheckout://"
     private const val LOCAL_PAYMENTS_SCHEMA = "myappcoins.com/t/"
     private const val LOCAL_PAYMENTS_URL = "https://myappcoins.com/t/"
+    private var PAYPAL_SUCCESS_SCHEMA = PaypalReturnSchemas.RETURN.schema
+    private var PAYPAL_CANCEL_SCHEMA = PaypalReturnSchemas.CANCEL.schema
     private val EXTERNAL_INTENT_SCHEMA_LIST = listOf(
       "picpay://",
       "shopeeid://",
@@ -118,7 +121,9 @@ class BillingWebViewFragment : BasePageViewFragment() {
     view.webview.webViewClient = object : WebViewClient() {
       override fun shouldOverrideUrlLoading(view: WebView, clickUrl: String): Boolean {
         when {
-          clickUrl.contains(LOCAL_PAYMENTS_SCHEMA) || clickUrl.contains(ADYEN_PAYMENT_SCHEMA) -> {
+          clickUrl.contains(LOCAL_PAYMENTS_SCHEMA) ||
+              clickUrl.contains(ADYEN_PAYMENT_SCHEMA) ||
+              clickUrl.contains(PAYPAL_SUCCESS_SCHEMA) -> {
             currentUrl = clickUrl
             finishWithSuccess(clickUrl)
           }
@@ -138,6 +143,7 @@ class BillingWebViewFragment : BasePageViewFragment() {
           }
           clickUrl.contains(CODAPAY_CANCEL_URL) -> finishWithFail(clickUrl)
           clickUrl.contains(OPEN_SUPPORT) -> finishWithFail(clickUrl)
+          clickUrl.contains(PAYPAL_CANCEL_SCHEMA) -> finishWithFail(clickUrl)
           else -> {
             currentUrl = clickUrl
             return false

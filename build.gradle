@@ -35,6 +35,9 @@ allprojects {
     maven {
       url "https://github.com/omadahealth/omada-nexus/raw/master/release"
     }
+    flatDir{
+      dirs 'libs'
+    }
   }
 }
 project.ext {

@@ -137,6 +137,12 @@ class PaymentMethodsPresenter(
                 paymentMethodsData.frequency,
                 paymentMethodsData.subscription
               )
+              PAYPAL_V2 -> view.showPaypalV2(
+                cachedGamificationLevel,
+                cachedFiatValue!!,
+                paymentMethodsData.frequency,
+                paymentMethodsData.subscription
+              )
               CREDIT_CARD -> view.showCreditCard(
                 cachedGamificationLevel,
                 cachedFiatValue!!,
@@ -234,6 +240,12 @@ class PaymentMethodsPresenter(
   private fun navigateToPayment(paymentNavigationData: PaymentNavigationData) =
     when (paymentMethodsMapper.map(paymentNavigationData.paymentId)) {
       PAYPAL -> view.showPaypal(
+        cachedGamificationLevel,
+        cachedFiatValue!!,
+        paymentMethodsData.frequency,
+        paymentMethodsData.subscription
+      )
+      PAYPAL_V2 -> view.showPaypalV2(
         cachedGamificationLevel,
         cachedFiatValue!!,
         paymentMethodsData.frequency,
@@ -510,7 +522,12 @@ class PaymentMethodsPresenter(
       }
     }
 
-    if (interactor.hasPreSelectedPaymentMethod()) {
+    if (
+      interactor.hasPreSelectedPaymentMethod() &&
+      getPreSelectedPaymentMethod(paymentMethods)?.id != PaymentMethodId.PAYPAL.id
+    //If the old paypal was the pre-selected payment method, then ignores the pre-selected method.
+    //This can be removed after adyen paypal is discontinued/removed
+    ) {
       val paymentMethod = getPreSelectedPaymentMethod(paymentMethods)
       if (paymentMethod == null || !paymentMethod.isEnabled) {
         showPaymentMethods(
@@ -1012,6 +1029,7 @@ class PaymentMethodsPresenter(
   private fun setLoadedPayment(paymentMethodId: String) {
     loadedPaymentMethodEvent = when (paymentMethodId) {
       PaymentMethodId.PAYPAL.id -> PaymentMethodsAnalytics.PAYMENT_METHOD_PP
+      PaymentMethodId.PAYPAL_V2.id -> PaymentMethodsAnalytics.PAYMENT_METHOD_PP_V2
       PaymentMethodId.APPC.id -> PaymentMethodsAnalytics.PAYMENT_METHOD_APPC
       PaymentMethodId.APPC_CREDITS.id -> PaymentMethodsAnalytics.PAYMENT_METHOD_APPC
       PaymentMethodId.MERGED_APPC.id -> PaymentMethodsAnalytics.PAYMENT_METHOD_APPC

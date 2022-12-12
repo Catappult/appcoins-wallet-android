@@ -14,6 +14,7 @@ import com.appcoins.wallet.commons.Logger
 import com.asf.wallet.R
 import com.asfoundation.wallet.backup.BackupNotificationUtils
 import com.asfoundation.wallet.billing.adyen.PaymentType
+import com.asfoundation.wallet.billing.paypal.PayPalTopupFragment
 import com.asfoundation.wallet.navigator.UriNavigator
 import com.asfoundation.wallet.promotions.usecases.StartVipReferralPollingUseCase
 import com.asfoundation.wallet.topup.address.BillingAddressTopUpFragment
@@ -135,6 +136,23 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, UriNavigator {
       .add(
         R.id.fragment_container,
         AdyenTopUpFragment.newInstance(paymentType, data)
+      )
+      .addToBackStack(AdyenTopUpFragment::class.java.simpleName)
+      .commit()
+  }
+
+  override fun navigateToPaypalV2(paymentType: PaymentType, data: TopUpPaymentData) {
+    supportFragmentManager.beginTransaction()
+      .add(
+        R.id.fragment_container,
+        PayPalTopupFragment.newInstance(
+          paymentType = paymentType,
+          data = data,
+          amount = data.fiatValue,
+          currency = data.fiatCurrencyCode,
+          bonus = data.bonusValue.toString(),
+          gamificationLevel = data.gamificationLevel,
+        )
       )
       .addToBackStack(AdyenTopUpFragment::class.java.simpleName)
       .commit()
