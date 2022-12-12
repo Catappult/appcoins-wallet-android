@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/onboarding_payment_methods_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+  <TextView
+      android:id="@+id/onboarding_payment_methods_title"
+      style="@style/TextM"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_marginHorizontal="@dimen/big_margin"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintHorizontal_bias="0.0"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      app:layout_constraintBottom_toTopOf="@id/onboarding_payment_methods_rv"
+      tools:text="Select Payment method"
+      />
+
+  <com.airbnb.epoxy.EpoxyRecyclerView
+      android:id="@+id/onboarding_payment_methods_rv"
+      android:layout_width="match_parent"
+      android:layout_height="0dp"
+      android:orientation="vertical"
+      android:overScrollMode="never"
+      android:layout_marginTop="@dimen/normal_margin"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintBottom_toTopOf="@id/onboarding_payment_terms_conditions"
+      app:layout_constraintTop_toBottomOf="@id/onboarding_payment_methods_title"
+      tools:listitem="@layout/onboarding_payment_option_item"
+      />
+
+  <include
+      android:id="@+id/onboarding_payment_terms_conditions"
+      layout="@layout/onboarding_payment_terms_conditions"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_marginHorizontal="@dimen/half_large_margin"
+      android:layout_marginTop="@dimen/half_large_margin"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/onboarding_payment_methods_rv"
+      app:layout_constraintBottom_toBottomOf="parent"
+      />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
