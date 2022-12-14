@@ -120,7 +120,7 @@ class AppcoinsRewardsBuyFragment : BasePageViewFragment(), AppcoinsRewardsBuyVie
   override fun close() = iabView.close(billingMessagesMapper.mapCancellation())
 
   override fun showError(message: Int?) {
-    error_dismiss.setText(getString(R.string.ok))
+    error_dismiss.setText(getString(R.string.back_button))
     error_message.text = getString(message ?: R.string.activity_iab_error_message)
     generic_error_layout.visibility = View.VISIBLE
     hideLoading()
@@ -139,6 +139,11 @@ class AppcoinsRewardsBuyFragment : BasePageViewFragment(), AppcoinsRewardsBuyVie
   }
 
   override fun errorClose() = iabView.close(billingMessagesMapper.genericError())
+
+  override fun showPaymentMethods() {
+    iabView.unlockRotation()
+    iabView.showPaymentMethodsView()
+  }
 
   override fun finish(purchase: Purchase, orderReference: String?) {
     presenter.sendPaymentEvent()

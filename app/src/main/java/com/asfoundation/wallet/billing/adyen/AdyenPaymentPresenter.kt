@@ -733,11 +733,8 @@ class AdyenPaymentPresenter(
     disposables.add(view.adyenErrorBackClicks()
       .observeOn(viewScheduler)
       .doOnNext {
-        if (isPreSelected) {
-          view.close(adyenPaymentInteractor.mapCancellation())
-        } else {
-          view.showMoreMethods()
-        }
+        adyenPaymentInteractor.removePreSelectedPaymentMethod()
+        view.showMoreMethods()
       }
       .subscribe({}, {
         logger.log(TAG, it)
@@ -749,7 +746,9 @@ class AdyenPaymentPresenter(
   private fun handleAdyenErrorCancel() {
     disposables.add(view.adyenErrorCancelClicks()
       .observeOn(viewScheduler)
-      .doOnNext { view.close(adyenPaymentInteractor.mapCancellation()) }
+      .doOnNext {
+        view.close(adyenPaymentInteractor.mapCancellation())
+      }
       .subscribe({}, {
         logger.log(TAG, it)
         view.showGenericError()
