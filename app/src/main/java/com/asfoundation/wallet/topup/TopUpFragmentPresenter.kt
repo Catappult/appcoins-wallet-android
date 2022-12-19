@@ -95,7 +95,6 @@ class TopUpFragmentPresenter(
         view.showNoNetworkError()
       } else {
         view.setupCurrency(LocalCurrency(values.maxValue.symbol, values.maxValue.currency))
-        interactor.setABTestingExperimentImpression()
         updateDefaultValues(defaultValues, 1)
       }
     }
@@ -170,7 +169,7 @@ class TopUpFragmentPresenter(
           }
           .observeOn(viewScheduler)
           .doOnNext {
-            interactor.setABTestingExperimentTopUpEvent(topUpData.currency.appcValue.toDouble())
+//            interactor.setABTestingExperimentTopUpEvent(topUpData.currency.appcValue.toDouble())
             topUpAnalytics.sendSelectionEvent(
               value = topUpData.currency.appcValue.toDouble(),
               action = "next",
