@@ -54,7 +54,7 @@ class TopUpFragmentPresenter(
     disposables.dispose()
   }
 
-  private fun setupUi() {
+  private fun setupUiAbTesting() {
     disposables.add(Single.zip(
       interactor.getLimitTopUpValues()
         .subscribeOn(networkScheduler)
@@ -80,6 +80,29 @@ class TopUpFragmentPresenter(
     )
   }
 
+  private fun setupUi() {
+    disposables.add(Single.zip(
+      interactor.getLimitTopUpValues()
+        .subscribeOn(networkScheduler)
+        .observeOn(viewScheduler),
+      interactor.getDefaultValues()
+        .subscribeOn(networkScheduler)
+        .observeOn(viewScheduler)
+    ) { values: TopUpLimitValues, defaultValues: TopUpValuesModel ->
+      if (values.error.hasError || defaultValues.error.hasError &&
+        (values.error.isNoNetwork || defaultValues.error.isNoNetwork)
+      ) {
+        view.showNoNetworkError()
+      } else {
+        view.setupCurrency(LocalCurrency(values.maxValue.symbol, values.maxValue.currency))
+        interactor.setABTestingExperimentImpression()
+        updateDefaultValues(defaultValues, 1)
+      }
+    }
+      .subscribe({}, { handleError(it) })
+    )
+  }
+
   private fun retrievePaymentMethods(fiatAmount: String, currency: String): Completable =
     interactor.getPaymentMethods(fiatAmount, currency)
       .subscribeOn(networkScheduler)
@@ -93,11 +116,11 @@ class TopUpFragmentPresenter(
       }
       .ignoreElement()
 
-  private fun updateDefaultValues(topUpValuesModel: TopUpValuesModel, defaultvalueIndex: Int) {
+  private fun updateDefaultValues(topUpValuesModel: TopUpValuesModel, defaultValueIndex: Int) {
     hasDefaultValues = topUpValuesModel.error.hasError.not() && topUpValuesModel.values.size >= 3
     if (hasDefaultValues) {
       val defaultValues = topUpValuesModel.values
-      val defaultFiatValue = defaultValues[defaultvalueIndex]
+      val defaultFiatValue = defaultValues[defaultValueIndex]
       view.setDefaultAmountValue(selectedValue ?: defaultFiatValue.amount.toString())
       view.setValuesAdapter(defaultValues)
     } else {
