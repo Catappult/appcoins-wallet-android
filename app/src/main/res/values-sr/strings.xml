@@ -364,7 +364,7 @@
   <string name="provide_wallet_completed_header">Novčanik je povezan sa aplikacijom Aptoide!</string>
   <string name="provide_wallet_create_body">Treba vam adresa novčanika! Pratite ove korake da biste je napravili u aplikaciji AppCoins Wallet.</string>
   <string name="provide_wallet_create_wallet_button">Kreiraj</string>
-  <string name="provide_wallet_creating_wallet_header">Pravljenje adrese novčanika&#8230;</string>
+  <string name="provide_wallet_creating_wallet_header">Preparing your wallet&#8230;</string>
   <string name="provide_wallet_created_header">Adresa novčanika je napravljena!</string>
   <string name="provide_wallet_empty_state">Još niste dozvolili aplikaciji AppCoins Wallet da vašu adresu pošalje bilo kojoj drugoj aplikaciji.</string>
   <string name="provide_wallet_status">Dozvoli pristup adresi novčanika</string>

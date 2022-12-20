@@ -31,10 +31,10 @@
   <string name="purchase_eskills_sku">Toegangsticket</string>
   <string name="shared_room_waiting">Wachten tot tegenstanders zich aansluiten bij %s</string>
   <string name="rooted_device_blocked_body">Helaas kun je geen e-Skills games spelen met een geroot apparaat.</string>
-  <string name="top_up_needed_body">For security reasons, you need to make at least one top-up in your wallet to play e-Skills games.</string>
-  <string name="not_enough_funds_body">You don\'t have enough funds! Please top up to buy the entry ticket.</string>
-  <string name="error_message_local_payment_method_body">Local payment methods aren\'t accepted to purchase an entry fee. Please create a new wallet and top it up with a bank card or PayPal!</string>
-  <string name="update_not_supported_title">Wallet version not supported!</string>
-  <string name="update_not_supported_body">Update the AppCoins Wallet to the latest version.</string>
-  <string name="update_button">Update</string>
+  <string name="top_up_needed_body">Om veiligheidsredenen moet je je wallet minimaal één keer opwaarderen om e-Skills games te kunnen spelen.</string>
+  <string name="not_enough_funds_body">Je hebt niet genoeg saldo! Waardeer op om het toegangsticket te kopen.</string>
+  <string name="error_message_local_payment_method_body">Lokale betaalmethoden worden niet geaccepteerd om de toegangsprijs te betalen. Maak een nieuwe wallet aan en gebruik een betaalkaart of PayPal om op te waarderen!</string>
+  <string name="update_not_supported_title">Wallet-versie wordt niet ondersteund!</string>
+  <string name="update_not_supported_body">Update de AppCoins Wallet naar de nieuwste versie.</string>
+  <string name="update_button">Bijwerken</string>
 </resources>

@@ -364,7 +364,7 @@
   <string name="provide_wallet_completed_header">錢包已與Aptoide關聯！</string>
   <string name="provide_wallet_create_body">您需要一個錢包地址。跟隨下面步驟在AppCoins錢包中建立一個地址。</string>
   <string name="provide_wallet_create_wallet_button">Create</string>
-  <string name="provide_wallet_creating_wallet_header">正在建立錢包地址&#8230;</string>
+  <string name="provide_wallet_creating_wallet_header">Preparing your wallet&#8230;</string>
   <string name="provide_wallet_created_header">錢包地址已建立！</string>
   <string name="provide_wallet_empty_state">您尚未允許AppCoins錢包向其他應用程式提供您的地址。</string>
   <string name="provide_wallet_status">允許存取錢包地址</string>

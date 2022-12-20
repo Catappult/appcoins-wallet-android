@@ -31,10 +31,10 @@
   <string name="purchase_eskills_sku">Εισιτήριο εισόδου</string>
   <string name="shared_room_waiting">Αναμονή αντιπάλων για να μπουν στο %s</string>
   <string name="rooted_device_blocked_body">Δυστυχώς δεν μπορείτε να παίξετε παιχνίδια e-Skills με συσκευή \"rooted.\"</string>
-  <string name="top_up_needed_body">For security reasons, you need to make at least one top-up in your wallet to play e-Skills games.</string>
-  <string name="not_enough_funds_body">You don\'t have enough funds! Please top up to buy the entry ticket.</string>
-  <string name="error_message_local_payment_method_body">Local payment methods aren\'t accepted to purchase an entry fee. Please create a new wallet and top it up with a bank card or PayPal!</string>
-  <string name="update_not_supported_title">Wallet version not supported!</string>
-  <string name="update_not_supported_body">Update the AppCoins Wallet to the latest version.</string>
-  <string name="update_button">Update</string>
+  <string name="top_up_needed_body">Για λόγους ασφαλείας, πρέπει να εκτελέσετε τουλάχιστον μία φόρτιση στο wallet σας για να παίξετε παιχνίδια e-Skills.</string>
+  <string name="not_enough_funds_body">Δεν έχετε αρκετά χρήματα! Παρακαλούμε φορτίστε για να αγοράσετε το εισιτήριο εισόδου.</string>
+  <string name="error_message_local_payment_method_body">Οι τοπικές μέθοδοι πληρωμής δεν γίνονται αποδεκτές για την αγορά ενός εισιτηρίου εισόδου. Παρακαλούμε δημιουργήστε ένα νέο wallet και φορτίστε το με μία τραπεζική κάρτα ή με PayPal!</string>
+  <string name="update_not_supported_title">Μη υποστηριζόμενη έκδοση wallet!</string>
+  <string name="update_not_supported_body">Ενημερώστε το AppCoins Wallet στην τελευταία έκδοση.</string>
+  <string name="update_button">Ενημέρωση</string>
 </resources>
