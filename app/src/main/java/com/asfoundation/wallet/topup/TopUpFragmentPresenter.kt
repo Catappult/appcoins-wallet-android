@@ -54,6 +54,7 @@ class TopUpFragmentPresenter(
     disposables.dispose()
   }
 
+  // abTesting deactivated. uncomment to enable again
   private fun setupUi() {
     disposables.add(Single.zip(
       interactor.getLimitTopUpValues()
@@ -61,19 +62,19 @@ class TopUpFragmentPresenter(
         .observeOn(viewScheduler),
       interactor.getDefaultValues()
         .subscribeOn(networkScheduler)
-        .observeOn(viewScheduler),
+        .observeOn(viewScheduler) /*,
       interactor.getABTestingExperiment()
         .subscribeOn(networkScheduler)
-        .observeOn(viewScheduler)
-    ) { values: TopUpLimitValues, defaultValues: TopUpValuesModel, experiment: Int ->
+        .observeOn(viewScheduler) */
+    ) { values: TopUpLimitValues, defaultValues: TopUpValuesModel /*, experiment: Int */ ->
       if (values.error.hasError || defaultValues.error.hasError &&
         (values.error.isNoNetwork || defaultValues.error.isNoNetwork)
       ) {
         view.showNoNetworkError()
       } else {
         view.setupCurrency(LocalCurrency(values.maxValue.symbol, values.maxValue.currency))
-        interactor.setABTestingExperimentImpression()
-        updateDefaultValues(defaultValues, experiment)
+        //interactor.setABTestingExperimentImpression()
+        updateDefaultValues(defaultValues, 1 /* experiment */)
       }
     }
       .subscribe({}, { handleError(it) })
@@ -93,11 +94,11 @@ class TopUpFragmentPresenter(
       }
       .ignoreElement()
 
-  private fun updateDefaultValues(topUpValuesModel: TopUpValuesModel, defaultvalueIndex: Int) {
+  private fun updateDefaultValues(topUpValuesModel: TopUpValuesModel, defaultValueIndex: Int) {
     hasDefaultValues = topUpValuesModel.error.hasError.not() && topUpValuesModel.values.size >= 3
     if (hasDefaultValues) {
       val defaultValues = topUpValuesModel.values
-      val defaultFiatValue = defaultValues[defaultvalueIndex]
+      val defaultFiatValue = defaultValues[defaultValueIndex]
       view.setDefaultAmountValue(selectedValue ?: defaultFiatValue.amount.toString())
       view.setValuesAdapter(defaultValues)
     } else {
@@ -146,8 +147,8 @@ class TopUpFragmentPresenter(
                 && topUpData.paymentMethod != null
           }
           .observeOn(viewScheduler)
-          .doOnNext {
-            interactor.setABTestingExperimentTopUpEvent(topUpData.currency.appcValue.toDouble())
+          .doOnNext { // abTesting deactivated. uncomment to enable again
+//            interactor.setABTestingExperimentTopUpEvent(topUpData.currency.appcValue.toDouble())
             topUpAnalytics.sendSelectionEvent(
               value = topUpData.currency.appcValue.toDouble(),
               action = "next",
