@@ -208,15 +208,24 @@ public class InAppPurchaseInteractor {
         .onErrorReturn(throwable -> false);
   }
 
+  // uncomment to reactivate gas_price on payment flow:
+  //private Single<List<Gateway.Name>> getFilteredGateways(TransactionBuilder transactionBuilder) {
+  //  return Single.zip(getRewardsBalance(), hasAppcoinsFunds(transactionBuilder),
+  //      (creditsBalance, hasAppcoinsFunds) -> getNewPaymentGateways(creditsBalance,
+  //          hasAppcoinsFunds, transactionBuilder.amount()));
+  //}
+
   private Single<List<Gateway.Name>> getFilteredGateways(TransactionBuilder transactionBuilder) {
-    return Single.zip(getRewardsBalance(), hasAppcoinsFunds(transactionBuilder),
-        (creditsBalance, hasAppcoinsFunds) -> getNewPaymentGateways(creditsBalance,
-            hasAppcoinsFunds, transactionBuilder.amount()));
+    return getRewardsBalance()
+        .map( creditsBalance ->
+            getNewPaymentGateways(creditsBalance, false, transactionBuilder.amount())
+        );
   }
 
-  public Single<Boolean> hasAppcoinsFunds(TransactionBuilder transaction) {
-    return asfInAppPurchaseInteractor.isAppcoinsPaymentReady(transaction);
-  }
+  //public Single<Boolean> hasAppcoinsFunds(TransactionBuilder transaction) {
+  //  return asfInAppPurchaseInteractor.isAppcoinsPaymentReady(transaction);
+  //}
+  //
 
   public Single<InAppPurchaseService.BalanceState> getBalanceState(TransactionBuilder transaction) {
     return asfInAppPurchaseInteractor.getAppcoinsBalanceState(transaction);

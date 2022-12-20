@@ -1,6 +1,5 @@
 package com.asfoundation.wallet.service
 
-import com.asf.wallet.BuildConfig
 import com.google.gson.annotations.SerializedName
 import io.reactivex.Single
 import retrofit2.http.GET
