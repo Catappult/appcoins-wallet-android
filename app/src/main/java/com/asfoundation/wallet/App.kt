@@ -10,8 +10,9 @@ import com.appcoins.wallet.appcoins.rewards.AppcoinsRewards
 import com.appcoins.wallet.bdsbilling.ProxyService
 import com.appcoins.wallet.bdsbilling.WalletService
 import com.appcoins.wallet.bdsbilling.repository.BdsApiSecondary
+import com.appcoins.wallet.bdsbilling.repository.InappBillingApi
 import com.appcoins.wallet.bdsbilling.repository.RemoteRepository
-import com.appcoins.wallet.bdsbilling.subscriptions.SubscriptionBillingApi
+import com.appcoins.wallet.bdsbilling.repository.SubscriptionBillingApi
 import com.appcoins.wallet.billing.BillingDependenciesProvider
 import com.appcoins.wallet.billing.BillingMessagesMapper
 import com.appcoins.wallet.commons.Logger
@@ -67,7 +68,7 @@ class App : MultiDexApplication(), BillingDependenciesProvider {
   lateinit var brokerBdsApi: RemoteRepository.BrokerBdsApi
 
   @Inject
-  lateinit var inappBdsApi: RemoteRepository.InappBdsApi
+  lateinit var inappApi: InappBillingApi
 
   @Inject
   lateinit var walletService: WalletService
@@ -238,7 +239,7 @@ class App : MultiDexApplication(), BillingDependenciesProvider {
 
   override fun brokerBdsApi() = brokerBdsApi
 
-  override fun inappBdsApi() = inappBdsApi
+  override fun inappApi() = inappApi
 
   override fun walletService() = walletService
 
@@ -248,5 +249,5 @@ class App : MultiDexApplication(), BillingDependenciesProvider {
 
   override fun bdsApiSecondary() = bdsapiSecondary
 
-  override fun subscriptionBillingService() = subscriptionBillingApi
+  override fun subscriptionsApi() = subscriptionBillingApi
 }
