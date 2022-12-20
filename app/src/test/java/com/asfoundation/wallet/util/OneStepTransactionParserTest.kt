@@ -116,6 +116,7 @@ class OneStepTransactionParserTest {
 
     val parameters = HashMap<String, String>()
     parameters["value"] = priceValue
+    parameters["currency"] = currency
     parameters["domain"] = packageName
 
     val oneStepUri =
