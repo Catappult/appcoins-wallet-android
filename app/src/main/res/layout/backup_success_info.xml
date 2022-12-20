@@ -19,7 +19,7 @@
   <TextView
       android:id="@+id/title"
       style="@style/WalletBackupTextStyle.Bold.White.Big"
-      android:layout_width="wrap_content"
+      android:layout_width="0dp"
       android:layout_height="wrap_content"
       android:layout_marginTop="@dimen/big_margin"
       android:gravity="center"
@@ -32,7 +32,7 @@
   <TextView
       android:id="@+id/body"
       style="@style/WalletBackupTextStyle.Normal.White.L"
-      android:layout_width="wrap_content"
+      android:layout_width="0dp"
       android:layout_height="wrap_content"
       android:layout_marginTop="@dimen/normal_margin"
       android:gravity="center"

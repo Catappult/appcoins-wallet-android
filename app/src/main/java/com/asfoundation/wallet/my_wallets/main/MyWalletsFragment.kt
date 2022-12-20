@@ -171,8 +171,6 @@ class MyWalletsFragment : BasePageViewFragment(),
       navigator.navigateToReceive(Wallet(wallet))
     }
 
-    val address = wallet.replaceRange(IntRange(6, wallet.length - 5), " ··· ")
-
     views.myWalletsContent.walletNameSkeleton.visibility = View.GONE
     views.myWalletsContent.walletNameSkeleton.playAnimation()
     views.myWalletsContent.walletNameTextView.text = name
@@ -180,7 +178,7 @@ class MyWalletsFragment : BasePageViewFragment(),
 
     views.myWalletsContent.walletAddressSkeleton.visibility = View.GONE
     views.myWalletsContent.walletAddressSkeleton.playAnimation()
-    views.myWalletsContent.walletAddressTextView.text = address
+    views.myWalletsContent.walletAddressTextView.text = wallet
     views.myWalletsContent.walletAddressTextView.visibility = View.VISIBLE
 
     val overallBalance = walletBalance.overallFiat.getFiatBalanceText()

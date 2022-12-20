@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/vip_callout_layout"
     android:layout_width="match_parent"
-    android:layout_height="76dp"
+    android:layout_height="wrap_content"
     android:background="@color/styleguide_blue"
     >
 
@@ -25,7 +25,7 @@
       android:layout_width="0dp"
       android:layout_height="wrap_content"
       android:layout_gravity="center"
-      android:layout_marginStart="18dp"
+      android:layout_marginStart="@dimen/big_margin"
       android:layout_marginTop="12dp"
       android:layout_marginEnd="@dimen/normal_margin"
       android:lineSpacingMultiplier="0.8"
@@ -47,12 +47,10 @@
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintHorizontal_bias="0.36"
       app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toTopOf="parent"
-      app:layout_constraintVertical_bias="1.0"
+      app:layout_constraintTop_toBottomOf="@id/desciption_tv"
       app:lottie_enableMergePathsForKitKatAndAbove="true"
-      app:lottie_rawRes="@raw/arrow_down_animation"
       app:lottie_loop="true"
-      app:lottie_autoPlay="true"
+      app:lottie_rawRes="@raw/arrow_down_animation"
       />
 
 

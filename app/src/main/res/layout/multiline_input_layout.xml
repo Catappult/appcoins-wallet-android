@@ -36,7 +36,6 @@
       android:id="@+id/error_layout"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:background="@color/styleguide_red_transparent_40"
       android:minHeight="24dp"
       android:paddingTop="3dp"
       android:paddingBottom="3dp"

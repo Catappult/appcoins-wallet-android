@@ -10,10 +10,11 @@
       android:id="@+id/ref_cv"
       style="@style/VipRefButton"
       android:layout_width="match_parent"
-      android:layout_height="76dp"
+      android:layout_height="wrap_content"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent"
+      app:layout_constraintBottom_toBottomOf="parent"
       app:cardElevation="0dp"
       >
 
@@ -25,27 +26,32 @@
       <TextView
           android:id="@+id/titleRefTv"
           style="@style/VipRefButtonText"
-          android:layout_width="wrap_content"
+          android:layout_width="0dp"
           android:layout_height="wrap_content"
-          android:layout_marginStart="32dp"
+          android:layout_marginTop="@dimen/big_margin"
+          android:layout_marginHorizontal="@dimen/big_margin"
           android:text="@string/vip_program_referral_button_title"
-          app:layout_constraintBottom_toBottomOf="parent"
+          app:layout_constraintVertical_chainStyle="packed"
+          app:layout_constraintHorizontal_bias="0.0"
           app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintTop_toTopOf="parent"
-          app:layout_constraintVertical_bias="0.333333"
+          app:layout_constraintBottom_toTopOf="@id/subTitleRefTv"
           />
 
       <TextView
           android:id="@+id/subTitleRefTv"
           style="@style/VipRefButtonSubText"
-          android:layout_width="wrap_content"
+          android:layout_width="0dp"
           android:layout_height="wrap_content"
-          android:layout_marginStart="32dp"
+          android:layout_marginBottom="@dimen/big_margin"
+          android:layout_marginHorizontal="@dimen/big_margin"
           android:text="@string/vip_program_referral_button_body"
+          app:layout_constraintHorizontal_bias="0.0"
           app:layout_constraintBottom_toBottomOf="parent"
           app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toTopOf="parent"
-          app:layout_constraintVertical_bias="0.666666"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintTop_toBottomOf="@id/titleRefTv"
           />
 
       <com.airbnb.lottie.LottieAnimationView
@@ -62,11 +68,6 @@
           app:lottie_rawRes="@raw/vip_ref_button_anim"
           tools:visibility="visible"
           />
-
     </androidx.constraintlayout.widget.ConstraintLayout>
-
   </androidx.cardview.widget.CardView>
-
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>

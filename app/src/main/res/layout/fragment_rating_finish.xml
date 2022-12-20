@@ -23,7 +23,7 @@
 
   <TextView
       style="@style/Rating.Title"
-      android:layout_width="138dp"
+      android:layout_width="0dp"
       android:layout_height="wrap_content"
       android:layout_marginTop="27dp"
       android:gravity="center"

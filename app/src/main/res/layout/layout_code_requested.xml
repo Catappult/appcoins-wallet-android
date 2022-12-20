@@ -11,11 +11,10 @@
       style="@style/BalanceVerifyWalletChip.CodeRequested.Title"
       android:layout_width="0dp"
       android:layout_height="wrap_content"
-      android:layout_marginStart="@dimen/big_margin"
+      android:layout_marginHorizontal="@dimen/big_margin"
       android:layout_marginTop="@dimen/normal_margin"
-      android:layout_marginEnd="@dimen/normal_margin"
       android:text="@string/card_verification_wallets_one_step_title"
-      app:layout_constraintEnd_toStartOf="@id/vertical_guideline"
+      app:layout_constraintEnd_toStartOf="@id/insert_code_button"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent"
       />
@@ -25,15 +24,14 @@
       style="@style/BalanceVerifyWalletChip.CodeRequested.Subtitle"
       android:layout_width="0dp"
       android:layout_height="wrap_content"
-      android:layout_marginStart="@dimen/big_margin"
-      android:layout_marginTop="5dp"
-      android:layout_marginEnd="@dimen/normal_margin"
-      android:layout_marginBottom="@dimen/normal_margin"
+      android:layout_marginHorizontal="@dimen/big_margin"
+      android:layout_marginVertical="@dimen/normal_margin"
       android:text="@string/card_verification_wallets_one_step_body"
       app:layout_constraintBottom_toBottomOf="parent"
-      app:layout_constraintEnd_toStartOf="@id/vertical_guideline"
+      app:layout_constraintEnd_toStartOf="@id/insert_code_button"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toBottomOf="@id/chip_title"
+      app:layout_constraintHorizontal_bias="0.0"
       app:layout_constraintVertical_bias="0"
       />
 
@@ -42,25 +40,15 @@
       android:layout_width="wrap_content"
       android:layout_height="@dimen/small_button_height"
       android:layout_gravity="center_vertical"
-      android:layout_marginTop="6dp"
+      android:layout_marginVertical="@dimen/normal_margin"
       android:layout_marginEnd="@dimen/big_margin"
-      android:layout_marginBottom="6dp"
       app:buttonText="@string/card_verification_wallets_insert_bode_button"
       app:buttonType="outlined"
       app:layout_constraintBottom_toBottomOf="@id/chip_subtitle"
       app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintHorizontal_bias="1"
-      app:layout_constraintStart_toStartOf="@id/vertical_guideline"
+      app:layout_constraintStart_toEndOf="@id/chip_subtitle"
       app:layout_constraintTop_toTopOf="@id/chip_title"
       app:layout_constraintWidth_default="wrap"
-      />
-
-  <androidx.constraintlayout.widget.Guideline
-      android:id="@+id/vertical_guideline"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:orientation="vertical"
-      app:layout_constraintGuide_percent="0.6"
       />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
