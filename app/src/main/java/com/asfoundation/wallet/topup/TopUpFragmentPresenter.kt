@@ -54,32 +54,7 @@ class TopUpFragmentPresenter(
     disposables.dispose()
   }
 
-  private fun setupUiAbTesting() {
-    disposables.add(Single.zip(
-      interactor.getLimitTopUpValues()
-        .subscribeOn(networkScheduler)
-        .observeOn(viewScheduler),
-      interactor.getDefaultValues()
-        .subscribeOn(networkScheduler)
-        .observeOn(viewScheduler),
-      interactor.getABTestingExperiment()
-        .subscribeOn(networkScheduler)
-        .observeOn(viewScheduler)
-    ) { values: TopUpLimitValues, defaultValues: TopUpValuesModel, experiment: Int ->
-      if (values.error.hasError || defaultValues.error.hasError &&
-        (values.error.isNoNetwork || defaultValues.error.isNoNetwork)
-      ) {
-        view.showNoNetworkError()
-      } else {
-        view.setupCurrency(LocalCurrency(values.maxValue.symbol, values.maxValue.currency))
-        interactor.setABTestingExperimentImpression()
-        updateDefaultValues(defaultValues, experiment)
-      }
-    }
-      .subscribe({}, { handleError(it) })
-    )
-  }
-
+  // abTesting deactivated. uncomment to enable again
   private fun setupUi() {
     disposables.add(Single.zip(
       interactor.getLimitTopUpValues()
@@ -87,15 +62,19 @@ class TopUpFragmentPresenter(
         .observeOn(viewScheduler),
       interactor.getDefaultValues()
         .subscribeOn(networkScheduler)
-        .observeOn(viewScheduler)
-    ) { values: TopUpLimitValues, defaultValues: TopUpValuesModel ->
+        .observeOn(viewScheduler) /*,
+      interactor.getABTestingExperiment()
+        .subscribeOn(networkScheduler)
+        .observeOn(viewScheduler) */
+    ) { values: TopUpLimitValues, defaultValues: TopUpValuesModel /*, experiment: Int */ ->
       if (values.error.hasError || defaultValues.error.hasError &&
         (values.error.isNoNetwork || defaultValues.error.isNoNetwork)
       ) {
         view.showNoNetworkError()
       } else {
         view.setupCurrency(LocalCurrency(values.maxValue.symbol, values.maxValue.currency))
-        updateDefaultValues(defaultValues, 1)
+        //interactor.setABTestingExperimentImpression()
+        updateDefaultValues(defaultValues, 1 /* experiment */)
       }
     }
       .subscribe({}, { handleError(it) })
@@ -168,7 +147,7 @@ class TopUpFragmentPresenter(
                 && topUpData.paymentMethod != null
           }
           .observeOn(viewScheduler)
-          .doOnNext {
+          .doOnNext { // abTesting deactivated. uncomment to enable again
 //            interactor.setABTestingExperimentTopUpEvent(topUpData.currency.appcValue.toDouble())
             topUpAnalytics.sendSelectionEvent(
               value = topUpData.currency.appcValue.toDouble(),
