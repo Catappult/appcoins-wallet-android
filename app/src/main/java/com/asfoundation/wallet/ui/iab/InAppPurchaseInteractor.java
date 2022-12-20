@@ -249,7 +249,7 @@ public class InAppPurchaseInteractor {
   }
 
   private Single<BigDecimal> getRewardsBalance() {
-    return getWalletInfoUseCase.invoke(null, false, false)
+    return getWalletInfoUseCase.invoke(null, true, false)
         .map(walletInfo -> walletInfo.getWalletBalance()
             .getCreditsBalance()
             .getToken()

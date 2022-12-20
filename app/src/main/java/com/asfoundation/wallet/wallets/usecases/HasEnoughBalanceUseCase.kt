@@ -16,7 +16,7 @@ class HasEnoughBalanceUseCase @Inject constructor(
 
   operator fun invoke(address: String?, value: BigDecimal, unit: Convert.Unit,
                       balanceType: BalanceType): Single<Boolean> {
-    return getWalletInfoUseCase(address, cached = false, updateFiat = false)
+    return getWalletInfoUseCase(address, cached = true, updateFiat = false)
         .flatMap { walletInfo ->
           val scaledValue = Convert.toWei(value, unit)
           val scaledCredits = Convert.toWei(walletInfo.walletBalance.creditsBalance.token.amount,
