@@ -63,4 +63,8 @@ class NavBarFragmentNavigator @Inject constructor(
   fun showOnboardingGPInstallScreen(navController: NavController) {
     navigate(navController, NavBarGraphDirections.actionNavigateToGpInstallFragment())
   }
+
+  fun showOnboardingPaymentScreen(navController: NavController) {
+    navigate(navController, NavBarGraphDirections.actionNavigateToFirstPaymentFragment())
+  }
 }
