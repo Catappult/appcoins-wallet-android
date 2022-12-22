@@ -12,9 +12,11 @@ import com.asfoundation.wallet.billing.analytics.BillingAnalytics
 import com.asfoundation.wallet.billing.paypal.models.PaypalTransaction
 import com.asfoundation.wallet.billing.paypal.usecases.*
 import com.asfoundation.wallet.entity.TransactionBuilder
+import com.asfoundation.wallet.support.SupportInteractor
 import com.asfoundation.wallet.ui.iab.PaymentMethodsAnalytics
 import com.asfoundation.wallet.util.toSingleEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
+import io.reactivex.Completable
 import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable
 import java.math.BigDecimal
@@ -29,6 +31,7 @@ class PayPalIABViewModel @Inject constructor(
   private val createSuccessBundleUseCase: CreateSuccessBundleUseCase,
   private val cancelPaypalTokenUseCase: CancelPaypalTokenUseCase,
   private val adyenPaymentInteractor: AdyenPaymentInteractor,
+  private val supportInteractor: SupportInteractor,
   rxSchedulers: RxSchedulers,
   private val analytics: BillingAnalytics,
   private val paymentAnalytics: PaymentMethodsAnalytics
@@ -312,6 +315,12 @@ class PayPalIABViewModel @Inject constructor(
       PaymentMethodsAnalytics.PAYMENT_METHOD_PP_V2,
       success,
       false
+    )
+  }
+
+  fun showSupport(gamificationLevel: Int) {
+    compositeDisposable.add(
+      supportInteractor.showSupport(gamificationLevel).subscribe({}, { it.printStackTrace() })
     )
   }
 

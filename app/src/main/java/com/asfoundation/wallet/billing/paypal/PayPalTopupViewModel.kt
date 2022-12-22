@@ -10,6 +10,7 @@ import com.asf.wallet.R
 import com.asfoundation.wallet.base.RxSchedulers
 import com.asfoundation.wallet.billing.paypal.models.PaypalTransaction
 import com.asfoundation.wallet.billing.paypal.usecases.*
+import com.asfoundation.wallet.support.SupportInteractor
 import com.asfoundation.wallet.topup.TopUpAnalytics
 import com.asfoundation.wallet.util.toSingleEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -24,6 +25,7 @@ class PayPalTopupViewModel @Inject constructor(
   private val waitForSuccessPaypalUseCase: WaitForSuccessPaypalUseCase,
   private val cancelPaypalTokenUseCase: CancelPaypalTokenUseCase,
   private val billingMessagesMapper: BillingMessagesMapper,
+  private val supportInteractor: SupportInteractor,
   private val topUpAnalytics: TopUpAnalytics,
   rxSchedulers: RxSchedulers
 ) : ViewModel() {
@@ -189,6 +191,12 @@ class PayPalTopupViewModel @Inject constructor(
     return billingMessagesMapper.topUpBundle(
       priceAmount, priceCurrency, bonus,
       fiatCurrencySymbol
+    )
+  }
+
+  fun showSupport(gamificationLevel: Int) {
+    compositeDisposable.add(
+      supportInteractor.showSupport(gamificationLevel).subscribe({}, { it.printStackTrace() })
     )
   }
 
