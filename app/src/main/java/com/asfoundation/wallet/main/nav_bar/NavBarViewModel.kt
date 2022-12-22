@@ -20,6 +20,7 @@ import javax.inject.Inject
 sealed class NavBarSideEffect : SideEffect {
   object ShowPromotionsTooltip : NavBarSideEffect()
   object ShowOnboardingGPInstall : NavBarSideEffect()
+  object ShowOnboardingPendingPayment : NavBarSideEffect()
 }
 
 data class NavBarState(
@@ -75,7 +76,7 @@ class NavBarViewModel @Inject constructor(
       when (appStartUseCase.startModes.first()) {
         is StartMode.PendingPurchaseFlow -> {
           // temporarily sending to the same onboarding flow as the GP install, later we'll use the new onboarding payment flow
-          sendSideEffect { NavBarSideEffect.ShowOnboardingGPInstall }
+          sendSideEffect { NavBarSideEffect.ShowOnboardingPendingPayment }
         }
         is StartMode.GPInstall -> {
           sendSideEffect { NavBarSideEffect.ShowOnboardingGPInstall }
