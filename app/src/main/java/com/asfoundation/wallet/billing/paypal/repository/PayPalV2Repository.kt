@@ -129,7 +129,10 @@ class PayPalV2Repository @Inject constructor(
   private fun handleCreateTransactionErrorCodes(errorCode: Int?): PaypalTransaction {
     val validity = when (errorCode) {
       404 -> PaypalTransaction.PaypalValidityState.NO_BILLING_AGREEMENT
-      else -> PaypalTransaction.PaypalValidityState.ERROR
+      else -> PaypalTransaction.PaypalValidityState.NO_BILLING_AGREEMENT
+      // Until all payment errors are treated, if the payment fails with a previous billing
+      // agreement, then alway tries to login again once
+//      else -> PaypalTransaction.PaypalValidityState.ERROR
     }
     return PaypalTransaction(
       null,

@@ -146,6 +146,9 @@ class PayPalIABFragment() : BasePageViewFragment() {
         override fun onAnimationCancel(animation: Animator?) = Unit
         override fun onAnimationStart(animation: Animator?) = Unit
       })
+    views.paypalErrorLayout.layoutSupportIcn.setOnClickListener {
+      viewModel.showSupport(gamificationLevel)
+    }
   }
 
   private fun startWebViewAuthorization(url: String) {
@@ -250,6 +253,14 @@ class PayPalIABFragment() : BasePageViewFragment() {
       requireArguments().getString(BONUS_KEY, "")
     } else {
       throw IllegalArgumentException("bonus data not found")
+    }
+  }
+
+  private val gamificationLevel: Int by lazy {
+    if (requireArguments().containsKey(GAMIFICATION_LEVEL)) {
+      requireArguments().getInt(GAMIFICATION_LEVEL, 0)
+    } else {
+      throw IllegalArgumentException("gamification level data not found")
     }
   }
 
