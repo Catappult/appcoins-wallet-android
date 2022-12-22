@@ -2,9 +2,10 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/motion_layout"
+    android:id="@+id/onboarding_payment_fragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/styleguide_white"
     >
 
   <com.google.android.material.appbar.AppBarLayout
@@ -25,7 +26,7 @@
   </com.google.android.material.appbar.AppBarLayout>
 
   <include
-      android:id="@+id/onboarding_game_info_layout"
+      android:id="@+id/onboarding_payment_header_layout"
       layout="@layout/onboarding_payment_game_info"
       android:layout_width="0dp"
       android:layout_height="wrap_content"
@@ -39,6 +40,7 @@
   <androidx.fragment.app.FragmentContainerView
       android:id="@+id/onboarding_payment_fragment_container"
       android:name="androidx.navigation.fragment.NavHostFragment"
+      app:navGraph="@navigation/inner_payment_graph"
       android:layout_width="0dp"
       android:layout_height="0dp"
       android:layout_marginTop="@dimen/half_large_margin"
@@ -47,8 +49,7 @@
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@id/onboarding_game_info_layout"
-      tools:layout="@layout/onboarding_payment_methods"
+      app:layout_constraintTop_toBottomOf="@id/onboarding_payment_header_layout"
       />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
