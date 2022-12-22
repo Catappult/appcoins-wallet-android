@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_bar_graph"
+    app:startDestination="@id/onboarding_payment_methods_fragment">
+
+  <fragment
+      android:id="@+id/onboarding_payment_methods_fragment"
+      android:name="com.asfoundation.wallet.onboarding.pending_payment.payment_methods.OnboardingPaymentMethodsFragment"
+      tools:layout="@layout/onboarding_payment_methods">
+  </fragment>
+</navigation>
