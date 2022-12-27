@@ -6,8 +6,7 @@
     android:id="@+id/currency_selector"
     android:layout_width="0dp"
     android:layout_height="wrap_content"
-    android:layout_marginEnd="32dp"
-    android:layout_marginStart="32dp"
+    android:layout_marginHorizontal="@dimen/half_large_margin"
     android:layout_marginTop="24dp"
     android:orientation="horizontal"
     app:layout_constraintEnd_toEndOf="parent"
@@ -19,6 +18,7 @@
       android:id="@+id/appcoins_credits_radio_button"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
+      android:layout_marginEnd="@dimen/big_margin"
       android:checked="true"
       android:text="@string/p2p_send_currency_appc_c"
       />
@@ -26,14 +26,13 @@
       android:id="@+id/appcoins_radio_button"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:layout_marginStart="16dp"
+      android:layout_marginEnd="@dimen/big_margin"
       android:text="@string/p2p_send_currency_appc"
       />
   <androidx.appcompat.widget.AppCompatRadioButton
       android:id="@+id/ethereum_credits_radio_button"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:layout_marginStart="16dp"
       android:text="@string/p2p_send_currency_eth"
       />
 </RadioGroup>

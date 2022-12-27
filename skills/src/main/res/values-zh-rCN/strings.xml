@@ -31,10 +31,10 @@
   <string name="purchase_eskills_sku">入场券</string>
   <string name="shared_room_waiting">正在等待对手加入%s</string>
   <string name="rooted_device_blocked_body">很遗憾，你不能使用根设备游玩e-Skills游戏。</string>
-  <string name="top_up_needed_body">For security reasons, you need to make at least one top-up in your wallet to play e-Skills games.</string>
-  <string name="not_enough_funds_body">You don\'t have enough funds! Please top up to buy the entry ticket.</string>
-  <string name="error_message_local_payment_method_body">Local payment methods aren\'t accepted to purchase an entry fee. Please create a new wallet and top it up with a bank card or PayPal!</string>
-  <string name="update_not_supported_title">Wallet version not supported!</string>
-  <string name="update_not_supported_body">Update the AppCoins Wallet to the latest version.</string>
-  <string name="update_button">Update</string>
+  <string name="top_up_needed_body">出于安全原因，你需要在钱包中至少充值一次才能游玩e-Skills游戏。</string>
+  <string name="not_enough_funds_body">你的资金不足！请充值以购买入场券。</string>
+  <string name="error_message_local_payment_method_body">不接受以本地付款方式付费购买入场券。请创建新钱包，然后用银行卡或PayPal为该钱包充值！</string>
+  <string name="update_not_supported_title">钱包版本不受支持！</string>
+  <string name="update_not_supported_body">请将AppCoins Wallet更新至最新版本。</string>
+  <string name="update_button">更新</string>
 </resources>

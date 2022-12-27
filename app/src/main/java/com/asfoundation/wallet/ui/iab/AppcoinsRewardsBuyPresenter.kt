@@ -46,7 +46,9 @@ class AppcoinsRewardsBuyPresenter(
 
   private fun handleOkErrorClick() {
     disposables.add(view.getOkErrorClick()
-      .doOnNext { view.errorClose() }
+      .doOnNext {
+        view.showPaymentMethods()
+      }
       .subscribe({}, {
         logger.log(TAG, "Ok error click", it)
         view.errorClose()

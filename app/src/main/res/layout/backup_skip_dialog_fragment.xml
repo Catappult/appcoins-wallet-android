@@ -38,29 +38,35 @@
       />
 
   <com.asfoundation.wallet.ui.common.WalletButtonView
-      android:id="@+id/confirm"
-      android:layout_width="wrap_content"
-      android:layout_height="@dimen/large_button_height"
-      app:buttonText="@string/confirm_button"
-      app:buttonType="filled"
-      android:layout_marginTop="@dimen/half_large_margin"
-      android:layout_marginEnd="@dimen/big_margin"
-      android:layout_marginBottom="@dimen/big_margin"
-      app:layout_constraintBottom_toBottomOf="parent"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintTop_toBottomOf="@+id/dialog_title"
-      />
-
-  <com.asfoundation.wallet.ui.common.WalletButtonView
       android:id="@+id/cancel"
       android:layout_width="wrap_content"
       android:layout_height="@dimen/large_button_height"
       android:layout_marginEnd="@dimen/big_margin"
+      app:buttonColor="@color/styleguide_dark_grey"
       app:buttonText="@string/cancel_button"
       app:buttonType="text"
-      app:buttonColor="@color/styleguide_dark_grey"
       app:layout_constraintBottom_toBottomOf="@+id/confirm"
       app:layout_constraintEnd_toStartOf="@+id/confirm"
+      app:layout_constraintHorizontal_bias="1.0"
+      app:layout_constraintHorizontal_chainStyle="packed"
+      app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="@+id/confirm"
       />
+
+  <com.asfoundation.wallet.ui.common.WalletButtonView
+      android:id="@+id/confirm"
+      android:layout_width="wrap_content"
+      android:layout_height="@dimen/large_button_height"
+      android:layout_marginTop="@dimen/half_large_margin"
+      android:layout_marginEnd="@dimen/big_margin"
+      android:layout_marginBottom="@dimen/big_margin"
+      app:buttonText="@string/confirm_button"
+      app:buttonType="filled"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toEndOf="@id/cancel"
+      app:layout_constraintTop_toBottomOf="@+id/dialog_title"
+      />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

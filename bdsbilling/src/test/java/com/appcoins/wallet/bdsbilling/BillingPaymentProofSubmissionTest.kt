@@ -1,12 +1,8 @@
 package com.appcoins.wallet.bdsbilling
 
-import com.appcoins.wallet.bdsbilling.repository.BdsApiSecondary
-import com.appcoins.wallet.bdsbilling.repository.Data
-import com.appcoins.wallet.bdsbilling.repository.GetWalletResponse
-import com.appcoins.wallet.bdsbilling.repository.RemoteRepository
+import com.appcoins.wallet.bdsbilling.repository.*
 import com.appcoins.wallet.bdsbilling.repository.entity.Gateway
 import com.appcoins.wallet.bdsbilling.repository.entity.Transaction
-import com.appcoins.wallet.bdsbilling.subscriptions.SubscriptionBillingApi
 import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Single
@@ -47,7 +43,7 @@ class BillingPaymentProofSubmissionTest {
   lateinit var brokerBdsApi: RemoteRepository.BrokerBdsApi
 
   @Mock
-  lateinit var inappBdsApi: RemoteRepository.InappBdsApi
+  lateinit var inappBdsApi: InappBillingApi
 
   @Mock
   lateinit var subscriptionBillingApi: SubscriptionBillingApi
@@ -60,7 +56,7 @@ class BillingPaymentProofSubmissionTest {
 
     billing = BillingPaymentProofSubmissionImpl.Builder()
       .setBrokerBdsApi(brokerBdsApi)
-      .setInappBdsApi(inappBdsApi)
+      .setInappApi(inappBdsApi)
       .setScheduler(scheduler)
       .setWalletService(object : WalletService {
         override fun getWalletAddress(): Single<String> = Single.just(walletAddress)

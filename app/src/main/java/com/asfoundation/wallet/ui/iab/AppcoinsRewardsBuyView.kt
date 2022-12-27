@@ -27,6 +27,8 @@ interface AppcoinsRewardsBuyView {
 
   fun errorClose()
 
+  fun showPaymentMethods()
+
   fun finish(purchase: Purchase, orderReference: String?)
 
   fun showTransactionCompleted()

@@ -2,7 +2,7 @@
 <shape xmlns:android="http://schemas.android.com/apk/res/android"
     android:shape="rectangle">
 
-  <solid android:color="#f3f3f3" />
+  <solid android:color="@color/styleguide_light_grey" />
   <!-- The radius makes the corners rounded -->
   <corners android:radius="14dp" />
 

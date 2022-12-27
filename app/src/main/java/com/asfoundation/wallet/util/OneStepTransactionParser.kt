@@ -2,6 +2,7 @@ package com.asfoundation.wallet.util
 
 import com.appcoins.wallet.bdsbilling.Billing
 import com.appcoins.wallet.bdsbilling.ProxyService
+import com.appcoins.wallet.bdsbilling.repository.BillingSupportedType
 import com.appcoins.wallet.bdsbilling.repository.entity.Product
 import com.appcoins.wallet.commons.MemoryCache
 import com.appcoins.wallet.commons.Repository
@@ -17,48 +18,52 @@ import java.math.BigDecimal
 import javax.inject.Inject
 
 
-class OneStepTransactionParser @Inject constructor(private val proxyService: ProxyService,
-                                                   private val billing: Billing,
-                                                   private val defaultTokenProvider: DefaultTokenProvider) {
+class OneStepTransactionParser @Inject constructor(
+  private val proxyService: ProxyService,
+  private val billing: Billing,
+  private val defaultTokenProvider: DefaultTokenProvider
+) {
   private val cache: Repository<String, TransactionBuilder> = MemoryCache(
-      BehaviorSubject.create(), HashMap())
+    BehaviorSubject.create(), HashMap()
+  )
 
   fun buildTransaction(oneStepUri: OneStepUri, referrerUrl: String): Single<TransactionBuilder> {
     return if (cache.getSync(oneStepUri.toString()) != null) {
       Single.just(cache.getSync(oneStepUri.toString()))
     } else {
+      val completedOneStepUri = completeUri(oneStepUri)
       Single.zip(getToken(), getIabContract(), getWallet(oneStepUri), getTokenContract(),
-          Function4 { token: Token, iabContract: String, walletAddress: String,
-                      tokenContract: String ->
-            val paymentType = if (isSkills(oneStepUri)) {
-              Parameters.ESKILLS
-            } else Parameters.PAYMENT_TYPE_INAPP_UNMANAGED
-            TransactionBuilder(
-                token.tokenInfo.symbol,
-                tokenContract,
-                getChainId(oneStepUri),
-                walletAddress,
-                getAppcAmount(oneStepUri),
-                getSkuId(oneStepUri),
-                token.tokenInfo.decimals,
-                iabContract,
-                paymentType,
-                null,
-                getDomain(oneStepUri),
-                getPayload(oneStepUri),
-                getCallback(oneStepUri),
-                getOrderReference(oneStepUri),
-                getProductToken(oneStepUri),
-                getOriginAmount(oneStepUri),
-                getOriginCurrency(oneStepUri),
-                referrerUrl,
-                ""
-            ).shouldSendToken(true)
-          })
-          .doOnSuccess { transactionBuilder ->
-            cache.saveSync(oneStepUri.toString(), transactionBuilder)
-          }
-          .subscribeOn(Schedulers.io())
+        Function4 { token: Token, iabContract: String, walletAddress: String,
+                    tokenContract: String ->
+          val paymentType = if (isSkills(oneStepUri)) {
+            Parameters.ESKILLS
+          } else Parameters.PAYMENT_TYPE_INAPP_UNMANAGED
+          TransactionBuilder(
+            token.tokenInfo.symbol,
+            tokenContract,
+            getChainId(completedOneStepUri),
+            walletAddress,
+            getAppcAmount(completedOneStepUri),
+            getSkuId(completedOneStepUri),
+            token.tokenInfo.decimals,
+            iabContract,
+            paymentType,
+            null,
+            getDomain(completedOneStepUri),
+            getPayload(completedOneStepUri),
+            getCallback(completedOneStepUri),
+            getOrderReference(completedOneStepUri),
+            getProductToken(completedOneStepUri),
+            getOriginAmount(completedOneStepUri),
+            getOriginCurrency(completedOneStepUri),
+            referrerUrl,
+            ""
+          ).shouldSendToken(true)
+        })
+        .doOnSuccess { transactionBuilder ->
+          cache.saveSync(completedOneStepUri.toString(), transactionBuilder)
+        }
+        .subscribeOn(Schedulers.io())
     }
   }
 
@@ -123,7 +128,7 @@ class OneStepTransactionParser @Inject constructor(private val proxyService: Pro
 
   private fun getToken(): Single<Token> {
     return defaultTokenProvider.defaultToken
-        .map { Token(it, BigDecimal.ZERO) }
+      .map { Token(it, BigDecimal.ZERO) }
   }
 
   private fun getIabContract(): Single<String> {
@@ -143,9 +148,9 @@ class OneStepTransactionParser @Inject constructor(private val proxyService: Pro
 
     return if (domain != null) {
       billing.getWallet(domain)
-          .onErrorReturn {
-            toAddressWallet
-          }
+        .onErrorReturn {
+          toAddressWallet
+        }
     } else {
       Single.just(toAddressWallet)
     }
@@ -162,10 +167,39 @@ class OneStepTransactionParser @Inject constructor(private val proxyService: Pro
   private fun isSkills(uri: OneStepUri): Boolean {
     return uri.parameters[Parameters.SKILLS] != null
   }
+
+  private fun completeUri(uri: OneStepUri): OneStepUri {
+    val domain = getDomain(uri) ?: ""
+    val sku = getSkuId(uri) ?: ""
+    return if (uri.parameters.containsKey(Parameters.VALUE) && uri.parameters.containsKey(Parameters.CURRENCY)) {
+      uri
+    } else {   // osp url without price or currency, needs to include those params from product:
+      val productDetails = getProductDetails(
+        domain,
+        sku
+      )
+      val paramsMap: MutableMap<String, String> = mutableMapOf()
+      paramsMap.putAll(uri.parameters)
+      paramsMap[Parameters.VALUE] = productDetails.transactionPrice.amount.toString()
+      paramsMap[Parameters.CURRENCY] = productDetails.transactionPrice.currency
+
+      OneStepUri(
+        host = uri.host,
+        parameters = paramsMap,
+        path = uri.path,
+        scheme = uri.scheme
+      )
+    }
+  }
+
+  private fun getProductDetails(domain: String, sku: String): Product {
+    return billing.getProducts(domain, mutableListOf(sku), BillingSupportedType.INAPP)
+      .subscribeOn(Schedulers.io())
+      .map { products -> products.first() }
+      .blockingGet()
+  }
+
+  class MissingWalletException : RuntimeException()
+
+  class MissingAmountException : RuntimeException()
 }
-
-class MissingWalletException : RuntimeException()
-
-class MissingAmountException : RuntimeException()
-
-class SkuDetailsResponse(val product: Product?)

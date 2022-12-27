@@ -114,28 +114,28 @@
   <string name="intro_title_third_page">Απλό &amp; Εύκολο</string>
   <string name="intro_message_first_page">Καλώς ήρθατε στην επανάσταση της οικονομίας των εφαρμογών.</string>
   <string name="intro_message_second_page">Τα ιδιωτικά κλειδιά δε θα φύγουν ποτέ από τη συσκευή σας.</string>
-  <string name="intro_message_third_page">Process all your in-app payments and rewards in AppCoins.</string>
+  <string name="intro_message_third_page">Διαχειριστείτε όλες τις πληρωμές εντός εφαρμογών καθώς και τις ανταμοιβές σε AppCoins.</string>
   <string name="intro_1_title">AppCoins Wallet</string>
   <string name="intro_1_body">Η εφαρμογή σας για αγορές εντός εφαρμογών.</string>
   <string name="intro_2_title">Παίξτε Περισσότερο, Πληρώστε Λιγότερα</string>
-  <string name="intro_2_body">The best payment wallet for apps and games.</string>
+  <string name="intro_2_body">Το καλύτερο wallet πληρωμών για εφαρμογές και παιχνίδια.</string>
   <string name="intro_3_title">Απλό και Εύκολο</string>
-  <string name="intro_3_body">Bonuses on all purchases.</string>
+  <string name="intro_3_body">Bonus σε όλες τις αγορές.</string>
   <string name="intro_4_title">Ασφαλές και Ιδιωτικό</string>
-  <string name="intro_4_body">Use bank card, PayPal and your favorite payment methods.</string>
+  <string name="intro_4_body">Χρησιμοποιήστε τραπεζική κάρτα, PayPal και τις αγαπημένες σας μεθόδους πληρωμής.</string>
   <string name="intro_4_body_2">Όλες οι συναλλαγές σας είναι πάντα ασφαλείς, χάρις στη χρήση τεχνολογιών αιχμής.</string>
   <string name="intro_5_title">Λάβετε Δωρεάν AppCoins Credits!</string>
   <string name="intro_5_body">Θα κερδίσετε δωρεάν AppCoins Credits δοκιμάζοντας εφαρμογές και παιχνίδια.</string>
   <string name="intro_creating_wallet_short">Ρυθμίζουμε το wallet για εσάς&#8230;</string>
   <string name="intro_wallet_created_short">Το wallet δημιουργήθηκε!</string>
-  <string name="intro_agree_terms_and_conditions_body">By entering the AppCoins Wallet, you agree to the %1$s and %2$s.</string>
+  <string name="intro_agree_terms_and_conditions_body">Μπαίνοντας στο AppCoins Wallet, συμφωνείτε με %1$s και %2$s.</string>
   <string name="intro_skip_button">ΠΑΡΑΛΕΙΨΗ</string>
   <string name="intro_welcome_header">Καλώς ήρθατε στο AppCoins Wallet</string>
-  <string name="intro_welcome_body">Top up your wallet or make a purchase in any AppCoins compatible app or game.</string>
-  <string name="intro_welcome_header_2">Up to %s%% Bonus!</string>
-  <string name="intro_welcome_body_2">Bonuses can be used in any app or game.</string>
+  <string name="intro_welcome_body">Φορτίστε το wallet σας ή κάντε μία αγορά σε οποιαδήποτε συμβατή εφαρμογή ή παιχνίδι.</string>
+  <string name="intro_welcome_header_2">Bonus έως %s%%!</string>
+  <string name="intro_welcome_body_2">Τα bonus μπορούν να χρησιμοποιηθούν σε οποιαδήποτε εφαρμογή ή παιχνίδι.</string>
   <string name="intro_already_have_wallet_button">Έχω ήδη ένα wallet</string>
-  <string name="intro_get_started_button">Launch wallet</string>
+  <string name="intro_get_started_button">Wallet εκκίνησης</string>
   <!-- Menus -->
   <!-- Labels -->
   <string name="label_from">Από</string>
@@ -209,7 +209,7 @@
   <string name="activity_iab_error_message">Παρουσιάστηκε σφάλμα, παρακαλούμε προσπαθήστε ξανά</string>
   <string name="action_try">δοκιμή</string>
   <string name="activity_transactions_learn_more">Μάθετε περισσότερα</string>
-  <string name="activity_iab_no_funds_message">Not enough ETH and AppCoins</string>
+  <string name="activity_iab_no_funds_message">Δεν υπάρχουν αρκετά ETH και AppCoins</string>
   <string name="activity_iab_no_ethereum_funds_message">Δεν υπάρχει αρκετό Ethereum</string>
   <string name="activity_iab_no_token_funds_message">Δεν υπάρχουν αρκετά AppCoins</string>
   <string name="activity_iab_wrong_network_message">Λανθασμένο δίκτυο Ethereum ή άγνωστο token</string>
@@ -301,7 +301,7 @@
   <string name="gamification_home_body">Κερδίστε έως και %s%% Bonus στις αγαπημένες σας εφαρμογές και παιχνίδια!</string>
   <string name="gamification_home_button">ΞΕΚΙΝΗΣΤΕ ΝΑ ΚΕΡΔΙΖΕΤΕ</string>
   <string name="gamification_level_title">Σε ποιο επίπεδο βρίσκομαι;</string>
-  <string name="gamification_level_title_new">Get AppCoins Credits!</string>
+  <string name="gamification_level_title_new">Πάρτε AppCoins Credits!</string>
   <string name="gamification_level_on_graphic">Επίπεδο %s</string>
   <string name="gamification_APPCapps_button">Εφαρμογές &amp; παιχνίδια</string>
   <string name="gamification_level_header">Συγχαρητήρια, είστε %s!</string>
@@ -311,9 +311,9 @@
   <string name="gamification_level_next_lvl_value">%s AppCoins</string>
   <string name="gamification_level_bonus">%s%% BONUS</string>
   <string name="gamification_level_button_how">ΠΩΣ ΛΕΙΤΟΥΡΓΕΙ</string>
-  <string name="gamification_level_body">You\'ll earn AppCoins Credits when buying items in your favorite apps and games.</string>
+  <string name="gamification_level_body">Θα λαμβάνετε AppCoins Credits κατά την αγορά αντικειμένων στις αγαπημένες σας εφαρμογές και παιχνίδια.</string>
   <string name="gamification_how_header">Πώς να ανεβείτε επίπεδο;</string>
-  <string name="gamification_how_body">You\'ll earn AppCoins Credits when buying items in your favorite apps and games.</string>
+  <string name="gamification_how_body">Θα λαμβάνετε AppCoins Credits κατά την αγορά αντικειμένων στις αγαπημένες σας εφαρμογές και παιχνίδια.</string>
   <string name="gamification_how_body_new">Όσο περισσότερα ξοδεύετε στις αγαπημένες σας εφαρμογές, τόσο μεγαλύτερο θα είναι το Bonus!</string>
   <string name="gamification_how_table_a1">ΞΟΔΕΨΤΕ</string>
   <string name="gamification_how_table_b1">BONUS</string>
@@ -364,7 +364,7 @@
   <string name="provide_wallet_completed_header">Το wallet συσχετίστηκε με το Aptoide!</string>
   <string name="provide_wallet_create_body">Χρειάζεστε διεύθυνση wallet! Ακολουθήστε αυτά τα βήματα για να δημιουργήσετε μία στο AppCoins Wallet.</string>
   <string name="provide_wallet_create_wallet_button">Δημιουργία</string>
-  <string name="provide_wallet_creating_wallet_header">Δημιουργία διεύθυνσης wallet&#8230;</string>
+  <string name="provide_wallet_creating_wallet_header">Preparing your wallet&#8230;</string>
   <string name="provide_wallet_created_header">Η διεύθυνση wallet δημιουργήθηκε!</string>
   <string name="provide_wallet_empty_state">Δεν έχετε δώσει ακόμη άδεια στο AppCoins Wallet να παρέχει τη διεύθυνσή σας σε άλλη εφαρμογή.</string>
   <string name="provide_wallet_status">Επιτρέψτε την πρόσβαση στη διεύθυνση wallet</string>
@@ -374,7 +374,7 @@
   <string name="topup_title">Φόρτιση</string>
   <string name="topup_amount">%s AppCoins Credits</string>
   <string name="topup_bonus_header">Έχετε Bonus!</string>
-  <string name="topup_bonus_message">%s AppCoins Credits extra will be credited in your wallet.</string>
+  <string name="topup_bonus_message">Θα προστεθούν στο wallet σας %s AppCoins Credits επιπλέον.</string>
   <string name="topup_completed_1">%s σε AppCoins Credits</string>
   <string name="topup_completed_2_with_bonus">κατατέθηκαν στον λογαριασμό σας... Μαζί με ένα bonus!</string>
   <string name="topup_completed_2_without_bonus">κατατέθηκαν στον λογαριασμό σας.</string>
@@ -391,7 +391,7 @@
   <string name="balance_topup_body">Μπορείτε να φορτίσετε το wallet σας με AppCoins Credits.</string>
   <string name="balance_ethereum_body">Το Ethereum είναι το κρυπτονόμισμα στο οποίο βασίζονται τα AppCoins. Μπορείτε να το αγοράζετε και να το πουλάτε στα περισσότερα ανταλλακτήρια. Είναι πολύ δημοφιλές!</string>
   <string name="balance_appcoins_body">Τα AppCoins αποτελούν το κρυπτονόμισμα της οικονομίας των εφαρμογών. Μπορείτε να τα αγοράζετε και να τα πουλάτε σε διάφορα ανταλλακτήρια και να τα χρησιμοποιείτε για αγορές εντός εφαρμογών.</string>
-  <string name="balance_appccreditos_body">The token to buy in-app items! Top up AppCoins Credits from your wallet or get them for free by using apps. They can also be transferred between friends!</string>
+  <string name="balance_appccreditos_body">Το token για την αγορά αντικειμένων εντός εφαρμογών! Λάβετε AppCoins Credits από το wallet σας ή πραγματοποιήστε δωρεάν λήψη μέσω της χρήσης εφαρμογών. Επίσης, υπάρχει δυνατότητα μεταφοράς μεταξύ φίλων!</string>
   <string name="my_wallets_action_new_wallet">Νέο wallet</string>
   <string name="my_wallets_action_recover_wallet">Ανάκτηση wallet</string>
   <string name="my_wallets_action_backup_wallet">Αντίγραφο Ασφαλείας Wallet</string>
@@ -462,7 +462,7 @@
   <string name="home_empty_discover_apps_button">ΑΝΑΚΑΛΥΨΤΕ ΚΟΡΥΦΑΙΕΣ ΕΦΑΡΜΟΓΕΣ</string>
   <!--Tokens-->
   <!--Settings-->
-  <string name="title_redeem">Redeem Gift Card</string>
+  <string name="title_redeem">Εξαργύρωση Δωροκάρτας</string>
   <string name="settings_item_support">Επικοινωνήστε με την Ομάδα Υποστήριξης</string>
   <string name="settings_subheader_support">Υποστήριξη</string>
   <string name="settings_subheader_about_us">Σχετικά με εμάς</string>
@@ -550,7 +550,7 @@
   <string name="purchase_error_try_cheaper_item">Αυτό είναι πολύ ακριβό! Παρακαλούμε δοκιμάστε να αγοράσετε ένα στοιχείο χαμηλότερης αξίας.</string>
   <string name="purchase_error_try_cheaper_item_or_method">Αυτό είναι πολύ ακριβό! Παρακαλούμε δοκιμάστε να αγοράσετε ένα φθηνότερο στοιχείο ή δοκιμάστε με άλλη μέθοδο πληρωμής.</string>
   <string name="transfer_appc_error_no_eth_title">Χρειάζεστε Ether!</string>
-  <string name="transfer_appc_error_no_eth_body">AppCoins transfers fees are paid in Ethereum, so you\'ll need ETH to transfer AppCoins.</string>
+  <string name="transfer_appc_error_no_eth_body">Το κόστος μεταφοράς των AppCoins πληρώνεται σε Ethereum, οπότε θα χρειαστείτε ETH για να μεταφέρετε AppCoins.</string>
   <string name="purchase_error_invalid_credit_card">Άκυρος αριθμός τραπεζικής κάρτας. Παρακαλούμε επιβεβαιωθείτε ότι όλα τα ψηφία είναι σωστά.</string>
   <string name="purchase_error_card_security_validation">Υπήρξε ένα σφάλμα στο 2ο επίπεδο επαλήθευσης αυτής της συναλλαγής. Παρακαλούμε δοκιμάστε ξανά.</string>
   <string name="purchase_error_transaction_timeout">Φαίνεται ότι αργήσατε πολύ να ολοκληρώσετε τη συναλλαγή. Παρακαλούμε δοκιμάστε ξανά.</string>
@@ -637,10 +637,10 @@
   <string name="update_wallet_soft_title">Μη μένετε πίσω!</string>
   <string name="update_wallet_soft_body">Διατηρώντας το AppCoins Wallet ενημερωμένο, εξασφαλίζεται η καλύτερη εμπειρία.</string>
   <string name="update_button">Ενημέρωση</string>
-  <string name="update_backup_title">Don\'t lose your funds!</string>
-  <string name="update_backup_body">Back up your wallet before updating.</string>
-  <string name="update_backup_date">Last backed up on %s.</string>
-  <string name="update_backup_never">Not backed up yet.</string>
+  <string name="update_backup_title">Μην χάσετε τα χρήματά σας!</string>
+  <string name="update_backup_body">Δημιουργήστε ένα αντίγραφο ασφαλείας του wallet σας πριν το ενημερώσετε.</string>
+  <string name="update_backup_date">Τελευταίο αντίγραφο ασφαλείας δημιουργήθηκε στις %s.</string>
+  <string name="update_backup_never">Δεν έχει δημιουργηθεί ακόμα αντίγραφο ασφαλείας.</string>
   <!--Backup and Import-->
   <string name="backup_home_notification_title">Αντίγραφο Ασφαλείας του Wallet σας</string>
   <string name="backup_home_notification_body">Έχετε χάσει ποτέ το κινητό σας; Δημιουργήστε ένα αντίγραφο ασφαλείας του wallet σας τώρα!</string>
@@ -1090,9 +1090,9 @@ Wallets</item>
   <string name="onboarding_1st_body">Επιστρέψτε στο παιχνίδι για να ολοκληρώσετε την αγορά σας.</string>
   <string name="onboarding_1st_back_to_game_button">Επιστρέψτε στο παιχνίδι</string>
   <string name="onboarding_1st_explore_wallet_button">Ή εξερευνήστε το AppCoins Wallet</string>
-  <string name="onboarding_1st_back_to_unknown_game_body">One of the games you\'ve got installed is AppCoins compatible! Do you want to open it?</string>
-  <string name="onboarding_1st_back_to_unknown_game_button">Go to the game</string>
-  <string name="onboarding_1st_explore_wallet_alternative_button">Explore the AppCoins Wallet</string>
+  <string name="onboarding_1st_back_to_unknown_game_body">Ένα από τα παιχνίδια που έχετε εγκαταστήσει είναι συμβατό με AppCoins! Θέλετε να το ανοίξετε;</string>
+  <string name="onboarding_1st_back_to_unknown_game_button">Πηγαίνετε στο παιχνίδι</string>
+  <string name="onboarding_1st_explore_wallet_alternative_button">Εξερευνήστε το AppCoins Wallet</string>
   <!-- VIP Program -->
   <string name="vip_program_reached_notification_title">Καλώς ορίσατε στο πρόγραμμα VIP</string>
   <string name="vip_program_reached_notification_body">Είστε πλέον χρήστης VIP με πρόσβαση σε ειδικές προσφορές. Πατήστε για περισσότερες λεπτομέρειες!</string>
@@ -1120,6 +1120,6 @@ Wallets</item>
   <string name="vip_program_max_bonus_title">Απολαύστε το %s%% bonus σας σε κάθε αγορά</string>
   <string name="vip_program_max_bonus_body">Φτάσατε στα όρια του ηλιακού συστήματος.</string>
   <string name="vip_program_max_bonus_short">%s%% bonus σε κάθε αγορά.</string>
-  <string name="vip_program_referral_notification_title">VIP Referral Code Available!</string>
-  <string name="vip_program_referral_notification_body">Share your code with your community so you all earn while playing!</string>
+  <string name="vip_program_referral_notification_title">Διαθέσιμος Κωδικός Σύστασης VIP!</string>
+  <string name="vip_program_referral_notification_body">Μοιραστείτε τον κωδικό σας με την κοινότητά σας, ώστε να κερδίσετε όλοι ενώ παίζετε!</string>
 </resources>

@@ -31,10 +31,10 @@
   <string name="purchase_eskills_sku">Belépőjegy</string>
   <string name="shared_room_waiting">Az ellenfelek csatlakozására várunk a(z) %s játékban</string>
   <string name="rooted_device_blocked_body">Az e-Skills játékokat sajnos nem tudod rootolt eszközzel játszani.\"</string>
-  <string name="top_up_needed_body">For security reasons, you need to make at least one top-up in your wallet to play e-Skills games.</string>
-  <string name="not_enough_funds_body">You don\'t have enough funds! Please top up to buy the entry ticket.</string>
-  <string name="error_message_local_payment_method_body">Local payment methods aren\'t accepted to purchase an entry fee. Please create a new wallet and top it up with a bank card or PayPal!</string>
-  <string name="update_not_supported_title">Wallet version not supported!</string>
-  <string name="update_not_supported_body">Update the AppCoins Wallet to the latest version.</string>
-  <string name="update_button">Update</string>
+  <string name="top_up_needed_body">Biztonsági okokból az e-Skills játékok megnyitásához el kell végezned legalább egy befizetést.</string>
+  <string name="not_enough_funds_body">Nincs elég pénzed. Kérjük, fizess be a belépőjegy megvételéhez.</string>
+  <string name="error_message_local_payment_method_body">A belépőjegyet nem lehet megvásárolni helyi fizetési módokkal. Hozz létre egy új pénztárcát, és küldj rá pénzt egy bankkártya vagy PayPal segítségével!</string>
+  <string name="update_not_supported_title">Nem támogatjuk a Wallet ezen verzióját!</string>
+  <string name="update_not_supported_body">Szerezd be az AppCoins Wallet legújabb verzióját.</string>
+  <string name="update_button">Frissítés</string>
 </resources>

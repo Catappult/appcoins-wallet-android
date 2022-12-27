@@ -114,28 +114,28 @@
   <string name="intro_title_third_page">简单易用</string>
   <string name="intro_message_first_page">欢迎体验应用经济的革命。</string>
   <string name="intro_message_second_page">私钥永远不会离开你的设备。</string>
-  <string name="intro_message_third_page">Process all your in-app payments and rewards in AppCoins.</string>
+  <string name="intro_message_third_page">用AppCoins处理你的所有应用内付款和奖励。</string>
   <string name="intro_1_title">AppCoins Wallet</string>
   <string name="intro_1_body">应用内购买的应用。</string>
   <string name="intro_2_title">少花钱，多玩乐</string>
-  <string name="intro_2_body">The best payment wallet for apps and games.</string>
+  <string name="intro_2_body">应用和游戏的最佳支付钱包。</string>
   <string name="intro_3_title">简单易用</string>
-  <string name="intro_3_body">Bonuses on all purchases.</string>
+  <string name="intro_3_body">所有购买均可获得奖励。</string>
   <string name="intro_4_title">安全私密</string>
-  <string name="intro_4_body">Use bank card, PayPal and your favorite payment methods.</string>
+  <string name="intro_4_body">使用银行卡、PayPal和你最喜欢的付款方式。</string>
   <string name="intro_4_body_2">得益于最新技术，您的所有交易都始终安全。</string>
   <string name="intro_5_title">获取免费AppCoins积金！</string>
   <string name="intro_5_body">你可以通过试用应用和试玩游戏来赢取免费AppCoins积金。</string>
   <string name="intro_creating_wallet_short">正在为你设置钱包&#8230;</string>
   <string name="intro_wallet_created_short">钱包已创建！</string>
-  <string name="intro_agree_terms_and_conditions_body">By entering the AppCoins Wallet, you agree to the %1$s and %2$s.</string>
+  <string name="intro_agree_terms_and_conditions_body">进入AppCoins Wallet，即表示你同意%1$s以及%2$s。</string>
   <string name="intro_skip_button">跳过</string>
   <string name="intro_welcome_header">欢迎来到AppCoins钱包</string>
-  <string name="intro_welcome_body">Top up your wallet or make a purchase in any AppCoins compatible app or game.</string>
-  <string name="intro_welcome_header_2">Up to %s%% Bonus!</string>
-  <string name="intro_welcome_body_2">Bonuses can be used in any app or game.</string>
+  <string name="intro_welcome_body">在任何兼容AppCoins的应用或游戏中为钱包充值或进行购买。</string>
+  <string name="intro_welcome_header_2">高达%s%%的奖励！</string>
+  <string name="intro_welcome_body_2">奖励可用于任何应用或游戏。</string>
   <string name="intro_already_have_wallet_button">我已经有钱包了。</string>
-  <string name="intro_get_started_button">Launch wallet</string>
+  <string name="intro_get_started_button">启动钱包</string>
   <!-- Menus -->
   <!-- Labels -->
   <string name="label_from">发送方</string>
@@ -209,7 +209,7 @@
   <string name="activity_iab_error_message">出现错误，请重试</string>
   <string name="action_try">尝试</string>
   <string name="activity_transactions_learn_more">了解更多</string>
-  <string name="activity_iab_no_funds_message">Not enough ETH and AppCoins</string>
+  <string name="activity_iab_no_funds_message">以太币和AppCoins不足</string>
   <string name="activity_iab_no_ethereum_funds_message">以太币不足</string>
   <string name="activity_iab_no_token_funds_message">AppCoins不足</string>
   <string name="activity_iab_wrong_network_message">以太网网络错误或代币不明</string>
@@ -301,7 +301,7 @@
   <string name="gamification_home_body">在你最喜爱的应用和游戏中赚取高达%s%%的奖励！</string>
   <string name="gamification_home_button">开始赚取</string>
   <string name="gamification_level_title">我的等级是什么？</string>
-  <string name="gamification_level_title_new">Get AppCoins Credits!</string>
+  <string name="gamification_level_title_new">获取AppCoins积金！</string>
   <string name="gamification_level_on_graphic">第%s级</string>
   <string name="gamification_APPCapps_button">应用和游戏</string>
   <string name="gamification_level_header">恭喜，你是%s！</string>
@@ -311,9 +311,9 @@
   <string name="gamification_level_next_lvl_value">%s AppCoins</string>
   <string name="gamification_level_bonus">%s%%奖励</string>
   <string name="gamification_level_button_how">工作原理</string>
-  <string name="gamification_level_body">You\'ll earn AppCoins Credits when buying items in your favorite apps and games.</string>
+  <string name="gamification_level_body">你在喜爱的应用和游戏内购买物品时会赚取AppCoins积金。</string>
   <string name="gamification_how_header">如何升级</string>
-  <string name="gamification_how_body">You\'ll earn AppCoins Credits when buying items in your favorite apps and games.</string>
+  <string name="gamification_how_body">你在喜爱的应用和游戏内购买物品时会赚取AppCoins积金。</string>
   <string name="gamification_how_body_new">在自己最喜欢的应用中花费得越多，奖金就越大！</string>
   <string name="gamification_how_table_a1">支付</string>
   <string name="gamification_how_table_b1">奖励</string>
@@ -364,7 +364,7 @@
   <string name="provide_wallet_completed_header">钱包已关联到Aptoide！</string>
   <string name="provide_wallet_create_body">你需要一个钱包地址！请按照以下步骤在AppCoins Wallet中创建一个钱包地址。</string>
   <string name="provide_wallet_create_wallet_button">创建</string>
-  <string name="provide_wallet_creating_wallet_header">正在创建钱包地址&#8230;</string>
+  <string name="provide_wallet_creating_wallet_header">Preparing your wallet&#8230;</string>
   <string name="provide_wallet_created_header">钱包地址已创建！</string>
   <string name="provide_wallet_empty_state">你还没有允许AppCoins Wallet向任何其他应用提供你的地址。</string>
   <string name="provide_wallet_status">允许访问钱包地址</string>
@@ -374,7 +374,7 @@
   <string name="topup_title">充值</string>
   <string name="topup_amount">%s AppCoins Credits</string>
   <string name="topup_bonus_header">你获得了奖励！</string>
-  <string name="topup_bonus_message">%s AppCoins Credits extra will be credited in your wallet.</string>
+  <string name="topup_bonus_message">你的钱包将额外获得%s AppCoins积金。</string>
   <string name="topup_completed_1">%s的AppCoins积金</string>
   <string name="topup_completed_2_with_bonus">已存入你的帐户...奖金也已存入！</string>
   <string name="topup_completed_2_without_bonus">已存入你的帐户。</string>
@@ -391,7 +391,7 @@
   <string name="balance_topup_body">你可以使用AppCoins积金为钱包充值。</string>
   <string name="balance_ethereum_body">以太币是AppCoins采用的加密货币。你可以在大多数交易平台交易以太币，以太币是现今非常热门的加密货币！</string>
   <string name="balance_appcoins_body">AppCoins是应用经济的加密货币。你可以在多个交易平台交易，用它来购买应用内物品。</string>
-  <string name="balance_appccreditos_body">The token to buy in-app items! Top up AppCoins Credits from your wallet or get them for free by using apps. They can also be transferred between friends!</string>
+  <string name="balance_appccreditos_body">用于购买应用内物品的代币！通过钱包充值AppCoins积金，或通过使用应用免费获取AppCoins积金。AppCoins积金还可在好友之间转账！</string>
   <string name="my_wallets_action_new_wallet">新钱包</string>
   <string name="my_wallets_action_recover_wallet">恢复钱包</string>
   <string name="my_wallets_action_backup_wallet">备份钱包</string>
@@ -462,7 +462,7 @@
   <string name="home_empty_discover_apps_button">探索最佳应用</string>
   <!--Tokens-->
   <!--Settings-->
-  <string name="title_redeem">Redeem Gift Card</string>
+  <string name="title_redeem">兑换礼品卡</string>
   <string name="settings_item_support">联系支持团队</string>
   <string name="settings_subheader_support">支持</string>
   <string name="settings_subheader_about_us">关于我们</string>
@@ -550,7 +550,7 @@
   <string name="purchase_error_try_cheaper_item">费用太高了！请尝试购买价值较低的物品。</string>
   <string name="purchase_error_try_cheaper_item_or_method">费用太高了！请尝试购买较便宜的物品，或者尝试其他付款方式。</string>
   <string name="transfer_appc_error_no_eth_title">你需要以太币！</string>
-  <string name="transfer_appc_error_no_eth_body">AppCoins transfers fees are paid in Ethereum, so you\'ll need ETH to transfer AppCoins.</string>
+  <string name="transfer_appc_error_no_eth_body">AppCoins的转账费用以太币支付，所以你需要以太币来转账AppCoins。</string>
   <string name="purchase_error_invalid_credit_card">无效的银行卡号。请确保所有数字都正确。</string>
   <string name="purchase_error_card_security_validation">此交易的第二层验证存在错误。请重试。</string>
   <string name="purchase_error_transaction_timeout">你完成交易的时间似乎太长。请重试。</string>
@@ -637,10 +637,10 @@
   <string name="update_wallet_soft_title">不要落在后面！</string>
   <string name="update_wallet_soft_body">随时更新AppCoins Wallet可确保你获得最佳的体验。</string>
   <string name="update_button">更新</string>
-  <string name="update_backup_title">Don\'t lose your funds!</string>
-  <string name="update_backup_body">Back up your wallet before updating.</string>
-  <string name="update_backup_date">Last backed up on %s.</string>
-  <string name="update_backup_never">Not backed up yet.</string>
+  <string name="update_backup_title">不要损失资金！</string>
+  <string name="update_backup_body">请在更新前备份钱包。</string>
+  <string name="update_backup_date">上次备份日期：%s。</string>
+  <string name="update_backup_never">尚未备份。</string>
   <!--Backup and Import-->
   <string name="backup_home_notification_title">备份你的钱包</string>
   <string name="backup_home_notification_body">丢过手机吗？立即备份你的钱包！</string>
@@ -1080,9 +1080,9 @@
   <string name="onboarding_1st_body">返回游戏以完成购买。</string>
   <string name="onboarding_1st_back_to_game_button">返回游戏</string>
   <string name="onboarding_1st_explore_wallet_button">或探索钱包</string>
-  <string name="onboarding_1st_back_to_unknown_game_body">One of the games you\'ve got installed is AppCoins compatible! Do you want to open it?</string>
-  <string name="onboarding_1st_back_to_unknown_game_button">Go to the game</string>
-  <string name="onboarding_1st_explore_wallet_alternative_button">Explore the AppCoins Wallet</string>
+  <string name="onboarding_1st_back_to_unknown_game_body">你安装的一款游戏兼容AppCoins！想打开它吗？</string>
+  <string name="onboarding_1st_back_to_unknown_game_button">转至游戏</string>
+  <string name="onboarding_1st_explore_wallet_alternative_button">探索AppCoins Wallet</string>
   <!-- VIP Program -->
   <string name="vip_program_reached_notification_title">欢迎加入VIP计划</string>
   <string name="vip_program_reached_notification_body">你现在是VIP用户，可以享受特别促销和优惠。点击了解更多详情！</string>
@@ -1110,6 +1110,6 @@
   <string name="vip_program_max_bonus_title">你每次购买可享有%s%%奖金</string>
   <string name="vip_program_max_bonus_body">你已经达到了最高奖金限额。</string>
   <string name="vip_program_max_bonus_short">每次购买可获得%s%%奖金。</string>
-  <string name="vip_program_referral_notification_title">VIP Referral Code Available!</string>
-  <string name="vip_program_referral_notification_body">Share your code with your community so you all earn while playing!</string>
+  <string name="vip_program_referral_notification_title">VIP引荐代码可用！</string>
+  <string name="vip_program_referral_notification_body">与社区分享该代码，这样大家就都可以一边游玩一边赚钱了！</string>
 </resources>

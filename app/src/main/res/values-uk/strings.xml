@@ -364,7 +364,7 @@
   <string name="provide_wallet_completed_header">Гаманець, пов’язаний з Aptoide!</string>
   <string name="provide_wallet_create_body">Вам потрібна адреса гаманця! Виконайте ці кроки, щоб створити його в AppCoins Wallet.</string>
   <string name="provide_wallet_create_wallet_button">Створити</string>
-  <string name="provide_wallet_creating_wallet_header">Створення адреси гаманця&#8230;</string>
+  <string name="provide_wallet_creating_wallet_header">Preparing your wallet&#8230;</string>
   <string name="provide_wallet_created_header">Адреса гаманця створена!</string>
   <string name="provide_wallet_empty_state">Ви ще не дозволили AppCoins Wallet надавати вашу адресу жодній іншій програмі.</string>
   <string name="provide_wallet_status">Дозволити доступ до адреси гаманця</string>

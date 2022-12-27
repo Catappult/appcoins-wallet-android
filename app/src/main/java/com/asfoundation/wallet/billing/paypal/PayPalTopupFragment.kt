@@ -128,6 +128,9 @@ class PayPalTopupFragment() : BasePageViewFragment() {
     views.paypalErrorButtons.errorCancel.setOnClickListener {
       close()
     }
+    views.paypalErrorLayout.layoutSupportIcn.setOnClickListener {
+      viewModel.showSupport(gamificationLevel)
+    }
   }
 
   private fun startWebViewAuthorization(url: String) {
@@ -217,6 +220,14 @@ class PayPalTopupFragment() : BasePageViewFragment() {
       requireArguments().getString(BONUS_KEY, "")
     } else {
       throw IllegalArgumentException("bonus data not found")
+    }
+  }
+
+  private val gamificationLevel: Int by lazy {
+    if (requireArguments().containsKey(GAMIFICATION_LEVEL)) {
+      requireArguments().getInt(GAMIFICATION_LEVEL, 0)
+    } else {
+      throw IllegalArgumentException("gamification level data not found")
     }
   }
 

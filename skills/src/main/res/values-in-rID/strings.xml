@@ -31,10 +31,10 @@
   <string name="purchase_eskills_sku">Tiket masuk</string>
   <string name="shared_room_waiting">Menunggu lawan untuk bergabung di %s</string>
   <string name="rooted_device_blocked_body">Sayangnya, Anda tidak bisa memainkan game e-Skills pada perangkat yang sudah di-root.\"</string>
-  <string name="top_up_needed_body">For security reasons, you need to make at least one top-up in your wallet to play e-Skills games.</string>
-  <string name="not_enough_funds_body">You don\'t have enough funds! Please top up to buy the entry ticket.</string>
-  <string name="error_message_local_payment_method_body">Local payment methods aren\'t accepted to purchase an entry fee. Please create a new wallet and top it up with a bank card or PayPal!</string>
-  <string name="update_not_supported_title">Wallet version not supported!</string>
-  <string name="update_not_supported_body">Update the AppCoins Wallet to the latest version.</string>
-  <string name="update_button">Update</string>
+  <string name="top_up_needed_body">Karena alasan keamanan, Anda harus mengisi ulang dompet Anda setidaknya sekali agar tetap bisa memainkan game e-Skills.</string>
+  <string name="not_enough_funds_body">Dana Anda tidak cukup! Silakan isi ulang untuk membeli tiket masuk.</string>
+  <string name="error_message_local_payment_method_body">Metode pembayaran lokal tidak diterima untuk membeli biaya masuk. Silakan buat dompet baru dan isi ulang dompet itu dengan kartu bank atau PayPal!</string>
+  <string name="update_not_supported_title">Versi dompet tidak didukung!</string>
+  <string name="update_not_supported_body">Perbarui Dompet AppCoins ke versi terbaru.</string>
+  <string name="update_button">Perbarui</string>
 </resources>

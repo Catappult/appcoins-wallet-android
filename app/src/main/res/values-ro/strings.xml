@@ -114,28 +114,28 @@
   <string name="intro_title_third_page">Simplu &amp; ușor</string>
   <string name="intro_message_first_page">Bine ai venit la revoluția economiei aplicației.</string>
   <string name="intro_message_second_page">Cheile private nu părăsesc niciodată dispozitivul tău.</string>
-  <string name="intro_message_third_page">Process all your in-app payments and rewards in AppCoins.</string>
+  <string name="intro_message_third_page">Procesează-ți toate plățile și recompensele tale in-app în AppCoins.</string>
   <string name="intro_1_title">AppCoins Wallet</string>
   <string name="intro_1_body">Aplicația ta pentru cumpărături in-app.</string>
   <string name="intro_2_title">Joci mai mult, plătești mai puțin</string>
-  <string name="intro_2_body">The best payment wallet for apps and games.</string>
+  <string name="intro_2_body">Cel mai bun portofel de plăți pentru aplicații și jocuri.</string>
   <string name="intro_3_title">Simplu și Ușor</string>
-  <string name="intro_3_body">Bonuses on all purchases.</string>
+  <string name="intro_3_body">Bonusuri la toate achizițiile.</string>
   <string name="intro_4_title">Sigur și Privat</string>
-  <string name="intro_4_body">Use bank card, PayPal and your favorite payment methods.</string>
+  <string name="intro_4_body">Utilizează un card bancar, PayPal și metodele tale de plată preferate.</string>
   <string name="intro_4_body_2">Toate tranzacțiile tale sunt întotdeauna sigure datorită tehnologiei de ultimă generație.</string>
   <string name="intro_5_title">Obține AppCoins Credits gratuite!</string>
   <string name="intro_5_body">Vei câștiga AppCoins Credits gratuite încercând aplicații și jocuri.</string>
   <string name="intro_creating_wallet_short">Se configurează portofelul tău&#8230;</string>
   <string name="intro_wallet_created_short">Portofel creat!</string>
-  <string name="intro_agree_terms_and_conditions_body">By entering the AppCoins Wallet, you agree to the %1$s and %2$s.</string>
+  <string name="intro_agree_terms_and_conditions_body">Accesând AppCoins Wallet, ești de acord cu %1$s și %2$s.</string>
   <string name="intro_skip_button">IGNORĂ</string>
   <string name="intro_welcome_header">Bine ai venit la AppCoins Wallet</string>
-  <string name="intro_welcome_body">Top up your wallet or make a purchase in any AppCoins compatible app or game.</string>
-  <string name="intro_welcome_header_2">Up to %s%% Bonus!</string>
-  <string name="intro_welcome_body_2">Bonuses can be used in any app or game.</string>
+  <string name="intro_welcome_body">Alimentează-ți portofelul sau fă o achiziție în orice aplicație sau joc compatibil cu AppCoins.</string>
+  <string name="intro_welcome_header_2">Bonus de până la %s%%!</string>
+  <string name="intro_welcome_body_2">Bonusurile pot fi folosite în orice aplicație sau joc.</string>
   <string name="intro_already_have_wallet_button">Am deja un portofel</string>
-  <string name="intro_get_started_button">Launch wallet</string>
+  <string name="intro_get_started_button">Lansează portofel</string>
   <!-- Menus -->
   <!-- Labels -->
   <string name="label_from">Din</string>
@@ -209,7 +209,7 @@
   <string name="activity_iab_error_message">A apărut o eroare, încearcă din nou</string>
   <string name="action_try">încearcă</string>
   <string name="activity_transactions_learn_more">Află mai multe</string>
-  <string name="activity_iab_no_funds_message">Not enough ETH and AppCoins</string>
+  <string name="activity_iab_no_funds_message">ETH și AppCoins insuficiente</string>
   <string name="activity_iab_no_ethereum_funds_message">Ethereum insuficient</string>
   <string name="activity_iab_no_token_funds_message">AppCoin-uri insuficiente</string>
   <string name="activity_iab_wrong_network_message">Rețea Ethereum greșită sau token necunoscut</string>
@@ -301,7 +301,7 @@
   <string name="gamification_home_body">Câștigă un Bonus de până la %s%% în aplicațiile și jocurile tale favorite!</string>
   <string name="gamification_home_button">ÎNCEPE SĂ CÂȘTIGI</string>
   <string name="gamification_level_title">Care este nivelul meu?</string>
-  <string name="gamification_level_title_new">Get AppCoins Credits!</string>
+  <string name="gamification_level_title_new">Obține AppCoins Credits!</string>
   <string name="gamification_level_on_graphic">Nivel %s</string>
   <string name="gamification_APPCapps_button">Aplicații &amp; jocuri</string>
   <string name="gamification_level_header">Felicitări, ești %s!</string>
@@ -311,9 +311,9 @@
   <string name="gamification_level_next_lvl_value">%s AppCoins</string>
   <string name="gamification_level_bonus">BONUS %s%%</string>
   <string name="gamification_level_button_how">CUM FUNCȚIONEAZĂ</string>
-  <string name="gamification_level_body">You\'ll earn AppCoins Credits when buying items in your favorite apps and games.</string>
+  <string name="gamification_level_body">Vei câștiga AppCoins Credits când cumperi articole în aplicațiile și jocurile tale favorite.</string>
   <string name="gamification_how_header">Cum îți crești nivelul?</string>
-  <string name="gamification_how_body">You\'ll earn AppCoins Credits when buying items in your favorite apps and games.</string>
+  <string name="gamification_how_body">Vei câștiga AppCoins Credits când cumperi articole în aplicațiile și jocurile tale favorite.</string>
   <string name="gamification_how_body_new">Cu cât cheltuiești mai mult în aplicațiile tale preferate, cu atât mai mare va fi Bonusul!</string>
   <string name="gamification_how_table_a1">CHELTUIEȘTI</string>
   <string name="gamification_how_table_b1">BONUS</string>
@@ -364,7 +364,7 @@
   <string name="provide_wallet_completed_header">Portofel asociat cu Aptoide!</string>
   <string name="provide_wallet_create_body">Ai nevoie de o adresă de portofel! Urmează acești pași să creezi una în Portofelul AppCoins.</string>
   <string name="provide_wallet_create_wallet_button">Creează</string>
-  <string name="provide_wallet_creating_wallet_header">Se creează adresă portofel&#8230;</string>
+  <string name="provide_wallet_creating_wallet_header">Preparing your wallet&#8230;</string>
   <string name="provide_wallet_created_header">Adresă portofel creată!</string>
   <string name="provide_wallet_empty_state">Nu ai permis AppCoins Wallet să furnizeze adresa ta către nici o altă aplicație.</string>
   <string name="provide_wallet_status">Permite acces la adresa portofelului</string>
@@ -374,7 +374,7 @@
   <string name="topup_title">Alimentează</string>
   <string name="topup_amount">%s AppCoins Credits</string>
   <string name="topup_bonus_header">Ai primit un Bonus!</string>
-  <string name="topup_bonus_message">%s AppCoins Credits extra will be credited in your wallet.</string>
+  <string name="topup_bonus_message">%s AppCoins Credits suplimentare vor fi creditate în portofelul tău.</string>
   <string name="topup_completed_1">%s în AppCoins Credits</string>
   <string name="topup_completed_2_with_bonus">au fost depozitate în contul tău... Plus un bonus!</string>
   <string name="topup_completed_2_without_bonus">au fost creditați în contul tău.</string>
@@ -391,7 +391,7 @@
   <string name="balance_topup_body">Îți poți alimenta portofelul cu Credite AppCoins.</string>
   <string name="balance_ethereum_body">Ethereum este criptomoneda pe care se bazează AppCoins. O poți cumpăra și vinde pe majoritatea burselor, fiind foarte populară!</string>
   <string name="balance_appcoins_body">AppCoins este criptomoneda pentru economia aplicației. O poți cumpăra și vinde pe diferite burse și o poți folosi pentru a face cumpărături in-app.</string>
-  <string name="balance_appccreditos_body">The token to buy in-app items! Top up AppCoins Credits from your wallet or get them for free by using apps. They can also be transferred between friends!</string>
+  <string name="balance_appccreditos_body">Token-ul pentru a cumpăra articole in-app! Alimentează cu AppCoins Credits din portofelul tău sau primește-le gratuit folosind aplicații. De asemenea, acestea pot fi și transferate între prieteni!</string>
   <string name="my_wallets_action_new_wallet">Portofel nou</string>
   <string name="my_wallets_action_recover_wallet">Recuperează portofel</string>
   <string name="my_wallets_action_backup_wallet">Copie de rezervă portofel</string>
@@ -462,7 +462,7 @@
   <string name="home_empty_discover_apps_button">DESCOPERĂ APLICAȚII DE TOP</string>
   <!--Tokens-->
   <!--Settings-->
-  <string name="title_redeem">Redeem Gift Card</string>
+  <string name="title_redeem">Revendică Card Cadou</string>
   <string name="settings_item_support">Contactează echipa de asistență</string>
   <string name="settings_subheader_support">Asistență</string>
   <string name="settings_subheader_about_us">Despre noi</string>
@@ -550,7 +550,7 @@
   <string name="purchase_error_try_cheaper_item">Este destul de scump! Încearcă să cumperi un articol cu o valoare mai mică.</string>
   <string name="purchase_error_try_cheaper_item_or_method">Este destul de scump! Încearcă să cumperi un articol mai ieftin sau încearcă o altă metodă de plată.</string>
   <string name="transfer_appc_error_no_eth_title">Ai nevoie de Ether!</string>
-  <string name="transfer_appc_error_no_eth_body">AppCoins transfers fees are paid in Ethereum, so you\'ll need ETH to transfer AppCoins.</string>
+  <string name="transfer_appc_error_no_eth_body">Comisioanele transferurilor de AppCoins sunt plătite în Ethereum, așa că vei avea nevoie de ETH ca să transferi AppCoins.</string>
   <string name="purchase_error_invalid_credit_card">Număr de card bancar nevalid. Asigură-te că toate cifrele sunt corecte.</string>
   <string name="purchase_error_card_security_validation">A avut loc o eroare la nivelul 2 al validării acestei tranzacții. Încearcă din nou.</string>
   <string name="purchase_error_transaction_timeout">Se pare că ai avut nevoie de prea mult timp pentru finalizarea tranzacției. Încearcă din nou.</string>
@@ -637,10 +637,10 @@
   <string name="update_wallet_soft_title">Nu rămâne în urmă!</string>
   <string name="update_wallet_soft_body">Un AppCoins Wallet actualizat îți garantează cea mai bună experiență.</string>
   <string name="update_button">Actualizează</string>
-  <string name="update_backup_title">Don\'t lose your funds!</string>
-  <string name="update_backup_body">Back up your wallet before updating.</string>
-  <string name="update_backup_date">Last backed up on %s.</string>
-  <string name="update_backup_never">Not backed up yet.</string>
+  <string name="update_backup_title">Nu îți pierde fondurile!</string>
+  <string name="update_backup_body">Fă o copie de rezervă a portofelului tău înainte să actualizezi.</string>
+  <string name="update_backup_date">Ultima copie de rezervă în %s.</string>
+  <string name="update_backup_never">Nu are copie de rezervă.</string>
   <!--Backup and Import-->
   <string name="backup_home_notification_title">Fă o copie de rezervă a portofelului</string>
   <string name="backup_home_notification_body">Ți-ai pierdut vreodată telefonul? Fă o copie de rezervă a portofelului tău acum!</string>
@@ -1098,9 +1098,9 @@
   <string name="onboarding_1st_body">Du-te înapoi la joc pentru a finaliza achiziția.</string>
   <string name="onboarding_1st_back_to_game_button">Du-te înapoi la joc</string>
   <string name="onboarding_1st_explore_wallet_button">Sau explorează Wallet</string>
-  <string name="onboarding_1st_back_to_unknown_game_body">One of the games you\'ve got installed is AppCoins compatible! Do you want to open it?</string>
-  <string name="onboarding_1st_back_to_unknown_game_button">Go to the game</string>
-  <string name="onboarding_1st_explore_wallet_alternative_button">Explore the AppCoins Wallet</string>
+  <string name="onboarding_1st_back_to_unknown_game_body">Unul dintre jocurile pe care le-ai instalat este compatibil cu AppCoins! Vrei să îl deschizi?</string>
+  <string name="onboarding_1st_back_to_unknown_game_button">Du-te la joc</string>
+  <string name="onboarding_1st_explore_wallet_alternative_button">Vezi AppCoins Wallet</string>
   <!-- VIP Program -->
   <string name="vip_program_reached_notification_title">Bine ai venit la Programul VIP</string>
   <string name="vip_program_reached_notification_body">Ești acum un utilizator VIP cu acces la promoții speciale și oferte. Apasă pentru mai multe detalii!</string>
@@ -1128,6 +1128,6 @@
   <string name="vip_program_max_bonus_title">Bucură-te de bonusul tău de %s%% la fiecare achiziție</string>
   <string name="vip_program_max_bonus_body">Ai atins limitele sistemului solar.</string>
   <string name="vip_program_max_bonus_short">Bonus de %s%% la fiecare achiziție.</string>
-  <string name="vip_program_referral_notification_title">VIP Referral Code Available!</string>
-  <string name="vip_program_referral_notification_body">Share your code with your community so you all earn while playing!</string>
+  <string name="vip_program_referral_notification_title">Cod de recomandare VIP disponibil!</string>
+  <string name="vip_program_referral_notification_body">Distribuie codul tău în comunitatea ta și toată lumea va câștiga în timp ce se joacă!</string>
 </resources>

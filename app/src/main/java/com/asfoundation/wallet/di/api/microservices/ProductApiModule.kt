@@ -1,9 +1,9 @@
 package com.asfoundation.wallet.di.api.microservices
 
-import com.appcoins.wallet.bdsbilling.subscriptions.SubscriptionBillingApi
+import com.appcoins.wallet.bdsbilling.repository.InappBillingApi
+import com.appcoins.wallet.bdsbilling.repository.SubscriptionBillingApi
 import com.asf.wallet.BuildConfig
-import com.asfoundation.wallet.di.annotations.BlockchainHttpClient
-import com.asfoundation.wallet.di.annotations.DefaultHttpClient
+import com.asfoundation.wallet.di.annotations.*
 import com.asfoundation.wallet.subscriptions.UserSubscriptionApi
 import com.asfoundation.wallet.topup.TopUpValuesService
 import dagger.Module
@@ -14,7 +14,6 @@ import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
-import javax.inject.Named
 import javax.inject.Singleton
 
 @InstallIn(SingletonComponent::class)
@@ -25,7 +24,7 @@ class ProductApiModule {
 
   @Singleton
   @Provides
-  @Named("product-v2-blockchain")
+  @ProductBlockchainRetrofit
   fun provideSubscriptionsBlockchainRetrofit(@BlockchainHttpClient client: OkHttpClient): Retrofit =
     Retrofit.Builder()
       .baseUrl(productUrl)
@@ -36,7 +35,7 @@ class ProductApiModule {
 
   @Singleton
   @Provides
-  @Named("product-v2-default")
+  @ProductDefaultRetrofit
   fun provideSubscriptionsDefaultRetrofit(@DefaultHttpClient client: OkHttpClient): Retrofit =
     Retrofit.Builder()
       .baseUrl(productUrl)
@@ -48,19 +47,25 @@ class ProductApiModule {
   @Singleton
   @Provides
   fun providesTopUpValuesApi(
-    @Named("product-v2-default") retrofit: Retrofit
+    @ProductDefaultRetrofit retrofit: Retrofit
   ): TopUpValuesService.TopUpValuesApi =
     retrofit.create(TopUpValuesService.TopUpValuesApi::class.java)
 
+  @Singleton
+  @Provides
+  fun providesInappBillingApi(
+    @ProductBlockchainRetrofit retrofit: Retrofit
+  ): InappBillingApi = retrofit.create(InappBillingApi::class.java)
+
   @Provides
   fun providesSubscriptionBillingApi(
-    @Named("product-v2-blockchain") retrofit: Retrofit
+    @ProductBlockchainRetrofit retrofit: Retrofit
   ): SubscriptionBillingApi =
     retrofit.create(SubscriptionBillingApi::class.java)
 
   @Provides
   fun providesUserSubscriptionApi(
-    @Named("product-v2-default") retrofit: Retrofit
+    @ProductDefaultRetrofit retrofit: Retrofit
   ): UserSubscriptionApi =
     retrofit.create(UserSubscriptionApi::class.java)
 }

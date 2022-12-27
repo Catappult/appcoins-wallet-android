@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     >
 
-  <include layout="@layout/layout_app_bar_large_size"/>
+  <include layout="@layout/layout_app_bar"/>
 
   <FrameLayout
       android:id="@+id/fragment_container"

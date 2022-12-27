@@ -364,7 +364,7 @@
   <string name="provide_wallet_completed_header">Портфейл, свързан с Aptoide!</string>
   <string name="provide_wallet_create_body">Имаш нужда от адрес на портфейла. Следвай тези стъпки, за да си създадеш такъв в AppCoins портфейла.</string>
   <string name="provide_wallet_create_wallet_button">Create</string>
-  <string name="provide_wallet_creating_wallet_header">Създаване на адрес на портфейла&#8230;</string>
+  <string name="provide_wallet_creating_wallet_header">Preparing your wallet&#8230;</string>
   <string name="provide_wallet_created_header">Адрес на портфейла създаден!</string>
   <string name="provide_wallet_empty_state">Не си разрешил на AppCoins портфейла да предостави твоя адрес на никое друго приложение все още.</string>
   <string name="provide_wallet_status">Разреши достъп до портфейл адреса</string>

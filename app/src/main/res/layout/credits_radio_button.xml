@@ -27,7 +27,7 @@
   <androidx.constraintlayout.widget.ConstraintLayout
       android:layout_width="0dp"
       android:layout_height="wrap_content"
-      android:layout_marginStart="8dp"
+      android:layout_marginHorizontal="@dimen/normal_margin"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toEndOf="@id/icon"
@@ -41,6 +41,8 @@
         android:text="@string/appc_credits_token_name"
         android:textColor="@color/styleguide_dark_grey"
         android:textSize="16sp"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         />
@@ -55,23 +57,27 @@
     <TextView
         android:id="@+id/credits_balance"
         style="@style/TextAppearance.AppCompat.Body1.Roboto.Medium"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="6dp"
         android:lineSpacingExtra="6sp"
         android:text="@string/purchase_current_balance_body"
         android:textSize="12sp"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@id/title"
         app:layout_constraintTop_toBottomOf="@id/title"
         />
     <TextView
         android:id="@+id/credits_fiat_balance"
         style="@style/TextAppearance.AppCompat.Body1.Roboto.Medium"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:lineSpacingExtra="2sp"
         android:text="@string/purchase_current_balance_appcc_body"
         android:textSize="12sp"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@id/credits_balance"
         app:layout_constraintTop_toBottomOf="@id/credits_balance"
         />
@@ -80,7 +86,6 @@
         android:id="@+id/message"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
         android:ellipsize="end"
         android:fontFamily="sans-serif"
         android:maxLines="2"
@@ -88,9 +93,10 @@
         android:textSize="12sp"
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@id/title"
-        app:layout_constraintTop_toBottomOf="@id/title"
+        app:layout_constraintTop_toBottomOf="@id/credits_balance"
         />
   </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
