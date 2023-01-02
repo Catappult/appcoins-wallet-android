@@ -70,6 +70,7 @@ class AdyenPaymentPresenter(
     retrieveSavedInstace(savedInstanceState)
     view.setup3DSComponent()
     view.setupRedirectComponent()
+    view.setupGooglePayComponent()
     if (!waitingResult) loadPaymentMethodInfo()
     handleBack()
     handleErrorDismissEvent()

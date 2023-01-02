@@ -17,8 +17,12 @@ import androidx.annotation.StringRes
 import com.adyen.checkout.adyen3ds2.Adyen3DS2Component
 import com.adyen.checkout.adyen3ds2.Adyen3DS2Configuration
 import com.adyen.checkout.card.CardConfiguration
+import com.adyen.checkout.components.model.paymentmethods.PaymentMethod
+import com.adyen.checkout.components.model.payments.Amount
 import com.adyen.checkout.components.model.payments.response.Action
 import com.adyen.checkout.core.api.Environment
+import com.adyen.checkout.googlepay.GooglePayComponent
+import com.adyen.checkout.googlepay.GooglePayConfiguration
 import com.adyen.checkout.redirect.RedirectComponent
 import com.adyen.checkout.redirect.RedirectConfiguration
 import com.airbnb.lottie.FontAssetDelegate
@@ -43,6 +47,7 @@ import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
 import com.asfoundation.wallet.ui.iab.PaymentMethodsAnalytics
 import com.asfoundation.wallet.util.*
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
+import com.google.android.gms.wallet.WalletConstants
 import com.jakewharton.rxbinding2.view.RxView
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.Observable
@@ -106,9 +111,11 @@ class AdyenPaymentFragment : BasePageViewFragment(), AdyenPaymentView {
   private lateinit var cardConfiguration: CardConfiguration
   private lateinit var redirectConfiguration: RedirectConfiguration
   private lateinit var adyen3DS2Configuration: Adyen3DS2Configuration
+  private lateinit var googlePayConfiguration: GooglePayConfiguration
   private lateinit var compositeDisposable: CompositeDisposable
   private lateinit var redirectComponent: RedirectComponent
   private lateinit var adyen3DS2Component: Adyen3DS2Component
+  private var googlePayComponent: GooglePayComponent? = null
   private lateinit var adyenCardView: AdyenCardView
   private var paymentDataSubject: ReplaySubject<AdyenCardWrapper>? = null
   private var paymentDetailsSubject: PublishSubject<AdyenComponentResponseModel>? = null
@@ -165,6 +172,13 @@ class AdyenPaymentFragment : BasePageViewFragment(), AdyenPaymentView {
     super.onViewCreated(view, savedInstanceState)
     setupUi()
     presenter.present(savedInstanceState)
+
+    // TODO remove, for testing
+    if (/*google pay*/ true) {
+      activity?.let {
+        googlePayComponent?.startGooglePayScreen(it, GP_CODE)
+      }
+    }
   }
 
   override fun setup3DSComponent() {
@@ -180,6 +194,28 @@ class AdyenPaymentFragment : BasePageViewFragment(), AdyenPaymentView {
     }
   }
 
+  override fun setupGooglePayComponent() {
+    activity?.application?.let { application ->
+      GooglePayComponent.PROVIDER.isAvailable(
+        application,
+        PaymentMethod(),      //paymentMethod,  //TODO
+        googlePayConfiguration
+      ) { isAvailable: Boolean, paymentMethod: PaymentMethod, config: GooglePayConfiguration? ->
+        if (isAvailable) {
+          //googlePayButton.visibility = View.VISIBLE
+          googlePayComponent =
+            GooglePayComponent.PROVIDER.get(this, paymentMethod, googlePayConfiguration)
+          googlePayComponent?.observe(this) {
+//            paymentDetailsSubject?.onNext(AdyenComponentResponseModel(it.details, it.paymentData))
+          }
+//          googlePayComponent.observeErrors(this) {
+//            googlePayErrorSubject?.onNext(it.errorMessage)
+//          }
+        }
+      }
+    }
+  }
+
   private fun setupUi() {
     adyenCardView = AdyenCardView(adyen_card_form_pre_selected ?: adyen_card_form)
     setupTransactionCompleteAnimation()
@@ -187,6 +223,7 @@ class AdyenPaymentFragment : BasePageViewFragment(), AdyenPaymentView {
     if (paymentType == PaymentType.CARD.name) setupCardConfiguration()
     setupRedirectConfiguration()
     setupAdyen3DS2ConfigurationBuilder()
+    setupGooglePayConfigurationBuilder()
 
     handlePreSelectedView()
     handleBonusAnimation()
@@ -225,7 +262,16 @@ class AdyenPaymentFragment : BasePageViewFragment(), AdyenPaymentView {
         data!!.getSerializableExtra(BILLING_ADDRESS_MODEL) as BillingAddressModel
       this.billingAddressModel = billingAddressModel
       billingAddressInput?.onNext(true)
-    } else {
+    } else if (requestCode == GP_CODE /*googlePayRequestCode*/) {   //TODO googlePayRequestCode
+      googlePayComponent?.observe(this) { googlePayComponentState ->
+        if (googlePayComponentState?.isValid == true) {
+          // When proceeds to pay, passes the paymentComponentState.data to MS to send a /payments request
+          //sendPayment(googlePayComponentState.data)  //TODO
+        }
+      }
+      googlePayComponent?.handleActivityResult(resultCode, data)
+    }
+    else {
       showMoreMethods()
     }
   }
@@ -476,13 +522,27 @@ class AdyenPaymentFragment : BasePageViewFragment(), AdyenPaymentView {
   private fun setupRedirectConfiguration() {
     redirectConfiguration =
       RedirectConfiguration.Builder(activity as Context, BuildConfig.ADYEN_PUBLIC_KEY)
-        .setEnvironment(adyenEnvironment).build()
+        .setEnvironment(adyenEnvironment)
+        .build()
   }
 
   private fun setupAdyen3DS2ConfigurationBuilder() {
     adyen3DS2Configuration =
       Adyen3DS2Configuration.Builder(activity as Context, BuildConfig.ADYEN_PUBLIC_KEY)
-        .setEnvironment(adyenEnvironment).build()
+        .setEnvironment(adyenEnvironment)
+        .build()
+  }
+
+  private fun setupGooglePayConfigurationBuilder() {
+    //TODO remove. just for testing
+    val amount = Amount()
+    amount.currency = "EUR"
+    amount.value = 5_00
+
+    googlePayConfiguration = GooglePayConfiguration.Builder(activity as Context, BuildConfig.ADYEN_PUBLIC_KEY)
+      .setAmount(amount)
+      .setEnvironment(adyenEnvironment)
+      .build()
   }
 
   @Throws(PackageManager.NameNotFoundException::class)
@@ -649,6 +709,8 @@ class AdyenPaymentFragment : BasePageViewFragment(), AdyenPaymentView {
     private const val FREQUENCY = "frequency"
     private const val GAMIFICATION_LEVEL = "gamification_level"
     private const val SKU_DESCRIPTION = "sku_description"
+
+    const val GP_CODE = 52823207
 
     @JvmStatic
     fun newInstance(

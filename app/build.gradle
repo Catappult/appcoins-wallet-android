@@ -230,6 +230,7 @@ dependencies {
     // To resolve the bouncycastle version conflict with the adyen (1.68 vs 1.69)
     exclude group: 'org.bouncycastle', module: 'bcprov-jdk15to18'
   }
+  implementation "com.adyen.checkout:googlepay:$project.adyen_version"
 
   implementation("io.intercom.android:intercom-sdk:$project.intercom_version") {
     exclude group: 'com.google.android', module: 'flexbox'

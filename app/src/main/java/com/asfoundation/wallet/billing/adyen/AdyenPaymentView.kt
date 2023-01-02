@@ -94,5 +94,7 @@ interface AdyenPaymentView {
 
   fun setup3DSComponent()
 
+  fun setupGooglePayComponent()
+
   fun showBillingAddress(value: BigDecimal, currency: String)
 }
