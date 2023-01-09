@@ -304,7 +304,7 @@ public class InAppPurchaseInteractor {
         new PaymentMethod(appcPaymentMethod.getId(), appcPaymentMethod.getLabel(),
             appcPaymentMethod.getIconUrl(), appcPaymentMethod.getAsync(),
             appcPaymentMethod.getFee(), appcPaymentMethod.isEnabled(),
-            appcPaymentMethod.getDisabledReason(), true));
+            appcPaymentMethod.getDisabledReason(), true, false));
     return paymentMethods;
   }
 
@@ -511,12 +511,18 @@ public class InAppPurchaseInteractor {
         PaymentMethodFee paymentMethodFee = mapPaymentMethodFee(availablePaymentMethod.getFee());
         return new PaymentMethod(paymentMethod.getId(), paymentMethod.getLabel(),
             paymentMethod.getIconUrl(), paymentMethod.getAsync(), paymentMethodFee, true, null,
-            false);
+            false, isToShowPaypalLogout(paymentMethod));
       }
     }
     PaymentMethodFee paymentMethodFee = mapPaymentMethodFee(paymentMethod.getFee());
     return new PaymentMethod(paymentMethod.getId(), paymentMethod.getLabel(),
-        paymentMethod.getIconUrl(), paymentMethod.getAsync(), paymentMethodFee, false, null, false);
+        paymentMethod.getIconUrl(), paymentMethod.getAsync(), paymentMethodFee, false,
+        null, false,
+        isToShowPaypalLogout(paymentMethod));
+  }
+
+  private Boolean isToShowPaypalLogout(PaymentMethodEntity paymentMethod) {
+    return paymentMethod.getId().equals("paypal_v2") /* && hasLogin */;  //TODO
   }
 
   private PaymentMethodFee mapPaymentMethodFee(FeeEntity feeEntity) {

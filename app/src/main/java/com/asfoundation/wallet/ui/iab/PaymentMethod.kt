@@ -6,7 +6,8 @@ open class PaymentMethod(
   open val id: String, open val label: String,
   open val iconUrl: String, val async: Boolean, val fee: PaymentMethodFee?,
   open val isEnabled: Boolean = true, open var disabledReason: Int? = null,
-  val showTopup: Boolean = false
+  val showTopup: Boolean = false,
+  val showLogout: Boolean = false
 ) {
   constructor() : this("", "", "", false, null, false)
 

@@ -3,8 +3,10 @@ package com.asfoundation.wallet.ui.iab
 import android.graphics.ColorMatrix
 import android.graphics.ColorMatrixColorFilter
 import android.graphics.Typeface
+import android.view.MenuItem
 import android.view.View
 import android.widget.ImageView
+import android.widget.PopupMenu
 import androidx.annotation.StringRes
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
@@ -57,6 +59,23 @@ class PaymentMethodsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemVie
     } else {
       itemView.checkout_topup_button.visibility = View.GONE
       itemView.radio_button.visibility = View.VISIBLE
+    }
+    if (data.showLogout) {
+      itemView.payment_more_logout.visibility = View.VISIBLE
+      itemView.payment_more_logout.setOnClickListener {
+        val popup = PopupMenu(itemView.context.applicationContext, it)
+        popup.menuInflater.inflate(R.menu.logout_menu, popup.menu)
+        popup.setOnMenuItemClickListener { menuItem: MenuItem ->
+          // TODO send click callback to parent.
+          return@setOnMenuItemClickListener true
+        }
+//        popup.setOnDismissListener {
+//          // Respond to popup being dismissed.
+//        }
+        popup.show()
+      }
+    } else {
+      itemView.payment_more_logout.visibility = View.GONE
     }
   }
 
