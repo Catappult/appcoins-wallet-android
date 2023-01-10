@@ -206,6 +206,7 @@ dependencies {
 
   implementation "com.google.android.material:material:$project.material_version"
   implementation "com.google.android.gms:play-services-vision:$project.play_services_vision_version"
+  implementation "com.google.android.gms:play-services-wallet:$project.play_services_wallet_version"
   implementation "com.google.zxing:core:$project.zxing_version"
   implementation "com.journeyapps:zxing-android-embedded:$project.zxing_android_version"
 

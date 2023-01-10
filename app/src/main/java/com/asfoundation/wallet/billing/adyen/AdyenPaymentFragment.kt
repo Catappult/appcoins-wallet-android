@@ -211,6 +211,8 @@ class AdyenPaymentFragment : BasePageViewFragment(), AdyenPaymentView {
 //          googlePayComponent.observeErrors(this) {
 //            googlePayErrorSubject?.onNext(it.errorMessage)
 //          }
+
+
         }
       }
     }
@@ -534,13 +536,14 @@ class AdyenPaymentFragment : BasePageViewFragment(), AdyenPaymentView {
   }
 
   private fun setupGooglePayConfigurationBuilder() {
-    //TODO remove. just for testing
-    val amount = Amount()
-    amount.currency = "EUR"
-    amount.value = 5_00
+//    //TODO remove. just for testing
+//    val amount = Amount()
+//    amount.currency = "EUR"
+//    amount.value = 5_00
 
     googlePayConfiguration = GooglePayConfiguration.Builder(activity as Context, BuildConfig.ADYEN_PUBLIC_KEY)
-      .setAmount(amount)
+//      .setAmount(amount)
+      .setMerchantAccount("AptoideUSD")  //TODO
       .setEnvironment(adyenEnvironment)
       .build()
   }

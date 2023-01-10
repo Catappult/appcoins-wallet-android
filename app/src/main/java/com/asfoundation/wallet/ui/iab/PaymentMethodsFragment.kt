@@ -454,6 +454,26 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
   override fun showCarrierBilling(fiatValue: FiatValue, isPreselected: Boolean) =
     iabView.showCarrierBilling(fiatValue.currency, fiatValue.amount, bonusValue, isPreselected)
 
+  override fun showGooglePay(
+    gamificationLevel: Int,
+    fiatValue: FiatValue,
+    frequency: String?,
+    isSubscription: Boolean
+  ) {
+    iabView.showAdyenPayment(
+      fiatValue.amount,
+      fiatValue.currency,
+      isBds,
+      PaymentType.GOOGLE_PAY,
+      bonusMessageValue,
+      false,
+      null,
+      gamificationLevel,
+      isSubscription,
+      frequency
+    )
+  }
+
   override fun showPaypal(
     gamificationLevel: Int,
     fiatValue: FiatValue,

@@ -51,6 +51,9 @@ interface PaymentMethodsView {
   fun showPaypalV2(gamificationLevel: Int, fiatValue: FiatValue, frequency: String?,
                  isSubscription: Boolean)
 
+  fun showGooglePay(gamificationLevel: Int, fiatValue: FiatValue, frequency: String?,
+                 isSubscription: Boolean)
+
   fun showAdyen(fiatAmount: BigDecimal,
                 fiatCurrency: String,
                 paymentType: PaymentType,
@@ -117,13 +120,14 @@ interface PaymentMethodsView {
   fun showTopupFlow()
 
   enum class SelectedPaymentMethod {
-    PAYPAL, PAYPAL_V2, CREDIT_CARD, APPC, APPC_CREDITS, MERGED_APPC, SHARE_LINK, LOCAL_PAYMENTS, EARN_APPC,
+    PAYPAL, PAYPAL_V2, CREDIT_CARD, GOOGLE_PAY, APPC, APPC_CREDITS, MERGED_APPC, SHARE_LINK, LOCAL_PAYMENTS, EARN_APPC,
     CARRIER_BILLING, ERROR
   }
 
   enum class PaymentMethodId(val id: String) {
     PAYPAL("paypal"),
     PAYPAL_V2("paypal_v2"),
+    GOOGLE_PAY("googlepay"),
     APPC("appcoins"),
     APPC_CREDITS("appcoins_credits"),
     MERGED_APPC("merged_appcoins"),

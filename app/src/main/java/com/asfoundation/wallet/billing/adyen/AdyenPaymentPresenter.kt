@@ -157,6 +157,8 @@ class AdyenPaymentPresenter(
             paymentAnalytics.stopTimingForTotalEvent(PaymentMethodsAnalytics.PAYMENT_METHOD_CC)
           } else if (paymentType == PaymentType.PAYPAL.name) {
             launchPaypal(it.paymentMethod!!, it.priceAmount, it.priceCurrency)
+          } else if (paymentType == "GOOGLE_PAY") {
+            launchPaypal(it.paymentMethod!!, it.priceAmount, it.priceCurrency)
           }
         }
       }
@@ -668,6 +670,8 @@ class AdyenPaymentPresenter(
   private fun mapPaymentToService(paymentType: String): AdyenPaymentRepository.Methods =
     if (paymentType == PaymentType.CARD.name) {
       AdyenPaymentRepository.Methods.CREDIT_CARD
+    } else if (paymentType == "GOOGLE_PAY") {
+      AdyenPaymentRepository.Methods.GOOGLE_PAY
     } else {
       AdyenPaymentRepository.Methods.PAYPAL
     }

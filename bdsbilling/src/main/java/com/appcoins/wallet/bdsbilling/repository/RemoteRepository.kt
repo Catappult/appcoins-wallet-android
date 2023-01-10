@@ -421,7 +421,7 @@ class RemoteRepository(
      * if null no filter is applied by transactionType
      *
      */
-    @GET("8.20221001/methods")
+    @GET("8.20230101/methods")
     fun getPaymentMethods(
       @Query("price.value") value: String? = null,
       @Query("price.currency") currency: String? = null,
