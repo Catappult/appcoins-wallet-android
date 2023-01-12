@@ -7,6 +7,7 @@ import android.content.pm.PackageManager
 import android.graphics.Typeface
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.GONE
@@ -69,6 +70,7 @@ import kotlinx.android.synthetic.main.support_error_layout.*
 import kotlinx.android.synthetic.main.support_error_layout.view.*
 import kotlinx.android.synthetic.main.view_purchase_bonus.*
 import org.apache.commons.lang3.StringUtils
+import org.json.JSONObject
 import java.math.BigDecimal
 import java.text.SimpleDateFormat
 import java.util.*
@@ -172,13 +174,6 @@ class AdyenPaymentFragment : BasePageViewFragment(), AdyenPaymentView {
     super.onViewCreated(view, savedInstanceState)
     setupUi()
     presenter.present(savedInstanceState)
-
-    // TODO remove, for testing
-    if (/*google pay*/ true) {
-      activity?.let {
-        googlePayComponent?.startGooglePayScreen(it, GP_CODE)
-      }
-    }
   }
 
   override fun setup3DSComponent() {
@@ -194,27 +189,38 @@ class AdyenPaymentFragment : BasePageViewFragment(), AdyenPaymentView {
     }
   }
 
-  override fun setupGooglePayComponent() {
+  override fun setupGooglePayComponent(paymentMethod: PaymentMethod) {
     activity?.application?.let { application ->
       GooglePayComponent.PROVIDER.isAvailable(
         application,
-        PaymentMethod(),      //paymentMethod,  //TODO
+//        PaymentMethod.SERIALIZER.deserialize(
+//          JSONObject("{\"configuration\":{\"merchantId\":\"50\",\"gatewayMerchantId\":\"AptoideApp\"},\"name\":\"Google Pay\",\"type\":\"googlepay\"}")
+//        ),
+        paymentMethod,
         googlePayConfiguration
       ) { isAvailable: Boolean, paymentMethod: PaymentMethod, config: GooglePayConfiguration? ->
         if (isAvailable) {
-          //googlePayButton.visibility = View.VISIBLE
           googlePayComponent =
             GooglePayComponent.PROVIDER.get(this, paymentMethod, googlePayConfiguration)
           googlePayComponent?.observe(this) {
-//            paymentDetailsSubject?.onNext(AdyenComponentResponseModel(it.details, it.paymentData))
+            Log.d(tag, "observeComponent. isReady:${it.isReady} isInputValid:${it.isInputValid} isValid:${it.isValid}")
           }
-//          googlePayComponent.observeErrors(this) {
-//            googlePayErrorSubject?.onNext(it.errorMessage)
-//          }
-
+          googlePayComponent?.observeErrors(this) {
+            Log.d(tag, "observeComponent error: ${it.errorMessage}")
+            //TODO error event. catch cancel event
+          }
+          startGooglePay()
+        } else {
+          // TODO error google pay not available. try another method
 
         }
       }
+    }
+  }
+
+  override fun startGooglePay() {
+    activity?.let {
+      googlePayComponent?.startGooglePayScreen(it, GP_CODE)
     }
   }
 
@@ -264,11 +270,14 @@ class AdyenPaymentFragment : BasePageViewFragment(), AdyenPaymentView {
         data!!.getSerializableExtra(BILLING_ADDRESS_MODEL) as BillingAddressModel
       this.billingAddressModel = billingAddressModel
       billingAddressInput?.onNext(true)
-    } else if (requestCode == GP_CODE /*googlePayRequestCode*/) {   //TODO googlePayRequestCode
+    } else if (requestCode == GP_CODE) {
       googlePayComponent?.observe(this) { googlePayComponentState ->
         if (googlePayComponentState?.isValid == true) {
           // When proceeds to pay, passes the paymentComponentState.data to MS to send a /payments request
-          //sendPayment(googlePayComponentState.data)  //TODO
+          val googlePayPaymentMethod = googlePayComponentState.data.paymentMethod
+          googlePayPaymentMethod?.let {
+            presenter.makePaymentGooglePay(it)
+          }
         }
       }
       googlePayComponent?.handleActivityResult(resultCode, data)
@@ -536,14 +545,8 @@ class AdyenPaymentFragment : BasePageViewFragment(), AdyenPaymentView {
   }
 
   private fun setupGooglePayConfigurationBuilder() {
-//    //TODO remove. just for testing
-//    val amount = Amount()
-//    amount.currency = "EUR"
-//    amount.value = 5_00
-
     googlePayConfiguration = GooglePayConfiguration.Builder(activity as Context, BuildConfig.ADYEN_PUBLIC_KEY)
-//      .setAmount(amount)
-      .setMerchantAccount("AptoideUSD")  //TODO
+//      .setMerchantAccount("AptoideUSD")  //TODO
       .setEnvironment(adyenEnvironment)
       .build()
   }

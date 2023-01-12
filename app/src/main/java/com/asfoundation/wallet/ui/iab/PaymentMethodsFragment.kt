@@ -57,6 +57,8 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
     private const val IS_DONATION = "is_donation"
     private const val IS_SUBSCRIPTION = "is_subscription"
     private const val FREQUENCY = "frequency"
+    const val TAG_GPAY_FRAGMENT = "GPAY_FRAGMENT"
+
 
     @JvmStatic
     fun newInstance(
@@ -470,7 +472,8 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
       null,
       gamificationLevel,
       isSubscription,
-      frequency
+      frequency,
+      TAG_GPAY_FRAGMENT
     )
   }
 

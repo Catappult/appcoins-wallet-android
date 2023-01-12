@@ -1,8 +1,12 @@
 package com.asfoundation.wallet.billing.adyen
 
 import android.os.Bundle
+import android.os.Handler
 import androidx.annotation.StringRes
+import com.adyen.checkout.components.model.paymentmethods.PaymentMethod
+import com.adyen.checkout.components.model.payments.request.GooglePayPaymentMethod
 import com.adyen.checkout.core.model.ModelObject
+import com.adyen.checkout.googlepay.GooglePayComponentState
 import com.appcoins.wallet.billing.ErrorInfo.ErrorType
 import com.appcoins.wallet.billing.adyen.AdyenBillingAddress
 import com.appcoins.wallet.billing.adyen.AdyenPaymentRepository
@@ -70,7 +74,6 @@ class AdyenPaymentPresenter(
     retrieveSavedInstace(savedInstanceState)
     view.setup3DSComponent()
     view.setupRedirectComponent()
-    view.setupGooglePayComponent()
     if (!waitingResult) loadPaymentMethodInfo()
     handleBack()
     handleErrorDismissEvent()
@@ -132,6 +135,10 @@ class AdyenPaymentPresenter(
     )
   }
 
+  private var paymentMethodMSInfo: ModelObject? = null
+  private var receivedPriceInfo: BigDecimal? = null
+  private var receivedCurrencyInfo: String? = null
+
   private fun loadPaymentMethodInfo() {
     view.showLoading()
     disposables.add(adyenPaymentInteractor.loadPaymentInfo(
@@ -158,7 +165,10 @@ class AdyenPaymentPresenter(
           } else if (paymentType == PaymentType.PAYPAL.name) {
             launchPaypal(it.paymentMethod!!, it.priceAmount, it.priceCurrency)
           } else if (paymentType == "GOOGLE_PAY") {
-            launchPaypal(it.paymentMethod!!, it.priceAmount, it.priceCurrency)
+            view.setupGooglePayComponent(it.paymentMethod!! as PaymentMethod)
+            paymentMethodMSInfo = it.paymentMethod
+            receivedPriceInfo = it.priceAmount
+            receivedCurrencyInfo = it.priceCurrency
           }
         }
       }
@@ -167,6 +177,43 @@ class AdyenPaymentPresenter(
         view.showGenericError()
       })
     )
+  }
+
+  fun makePaymentGooglePay(
+    paymentMethodInfo: GooglePayPaymentMethod,
+    priceAmount: BigDecimal? = receivedPriceInfo,
+    priceCurrency: String? = receivedCurrencyInfo
+  ) {
+    if (priceAmount != null && priceCurrency != null) {
+      disposables.add(
+        adyenPaymentInteractor.makePayment(
+          adyenPaymentMethod = paymentMethodInfo,
+          shouldStoreMethod = false,
+          hasCvc = false,
+          supportedShopperInteraction = emptyList(),
+          returnUrl = returnUrl,
+          value = priceAmount.toString(),
+          currency = priceCurrency,
+          reference = transactionBuilder.orderReference,
+          paymentType = mapPaymentToService(paymentType).transactionType,
+          origin = origin,
+          packageName = transactionBuilder.domain,
+          metadata = transactionBuilder.payload,
+          sku = transactionBuilder.skuId,
+          callbackUrl = transactionBuilder.callbackUrl,
+          transactionType = transactionBuilder.type,
+          developerWallet = transactionBuilder.toAddress(),
+          referrerUrl = transactionBuilder.referrerUrl
+        )
+          .subscribeOn(networkScheduler)
+          .observeOn(viewScheduler)
+          .flatMapCompletable { handlePaymentResult(it, priceAmount, priceCurrency) }
+          .subscribe({}, {
+            logger.log(TAG, it)
+            view.showGenericError()
+          })
+      )
+    }
   }
 
   private fun launchPaypal(
