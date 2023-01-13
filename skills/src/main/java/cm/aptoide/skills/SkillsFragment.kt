@@ -149,6 +149,7 @@ class SkillsFragment : Fragment(), PaymentView {
     } else {
       hidePaymentRelatedText()
       binding.payTicketLayout.dialogBuyButtonsPaymentMethods.buyButton.setOnClickListener {
+        binding.payTicketLayout.dialogBuyButtonsPaymentMethods.buyButton.isEnabled=false
         val queueId = binding.payTicketLayout.payTicketRoomDetails.roomId.text.toString()
         if (queueId.isNotBlank()) {
           eSkillsPaymentData.queueId = QueueIdentifier(queueId.trim(), true)
@@ -189,6 +190,7 @@ class SkillsFragment : Fragment(), PaymentView {
           binding.payTicketLayout.dialogBuyButtonsPaymentMethods.buyButton.text =
             getString(R.string.buy_button)
           binding.payTicketLayout.dialogBuyButtonsPaymentMethods.buyButton.setOnClickListener {
+            binding.payTicketLayout.dialogBuyButtonsPaymentMethods.buyButton.isEnabled=false
             val queueId = binding.payTicketLayout.payTicketRoomDetails.roomId.text.toString()
             if (queueId.isNotBlank()) {
               eSkillsPaymentData.queueId = QueueIdentifier(queueId.trim(), true)
@@ -204,6 +206,7 @@ class SkillsFragment : Fragment(), PaymentView {
               binding.payTicketLayout.dialogBuyButtonsPaymentMethods.buyButton.text =
                 getString(R.string.buy_button)
               binding.payTicketLayout.dialogBuyButtonsPaymentMethods.buyButton.setOnClickListener {
+                binding.payTicketLayout.dialogBuyButtonsPaymentMethods.buyButton.isEnabled=false
                 val queueId = binding.payTicketLayout.payTicketRoomDetails.roomId.text.toString()
                 if (queueId.isNotBlank()) {
                   eSkillsPaymentData.queueId = QueueIdentifier(queueId.trim(), true)
