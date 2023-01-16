@@ -184,6 +184,7 @@ class AdyenPaymentPresenter(
     priceAmount: BigDecimal? = receivedPriceInfo,
     priceCurrency: String? = receivedCurrencyInfo
   ) {
+    handleBuyAnalytics(transactionBuilder)
     if (priceAmount != null && priceCurrency != null) {
       disposables.add(
         adyenPaymentInteractor.makePayment(
@@ -207,7 +208,10 @@ class AdyenPaymentPresenter(
         )
           .subscribeOn(networkScheduler)
           .observeOn(viewScheduler)
-          .flatMapCompletable { handlePaymentResult(it, priceAmount, priceCurrency) }
+          .flatMapCompletable {
+            paymentAnalytics.startTimingForPurchaseEvent()
+            handlePaymentResult(it, priceAmount, priceCurrency)
+          }
           .subscribe({}, {
             logger.log(TAG, it)
             view.showGenericError()
@@ -683,7 +687,7 @@ class AdyenPaymentPresenter(
     )
   }
 
-  private fun sendPaymentErrorEvent(
+  fun sendPaymentErrorEvent(
     refusalCode: Int?,
     refusalReason: String?,
     riskRules: String? = null
@@ -710,6 +714,8 @@ class AdyenPaymentPresenter(
   private fun mapPaymentToAnalytics(paymentType: String): String =
     if (paymentType == PaymentType.CARD.name) {
       BillingAnalytics.PAYMENT_METHOD_CC
+    } else if (paymentType == BillingAnalytics.PAYMENT_METHOD_GOOGLE_PAY) {
+      PaymentMethodsAnalytics.PAYMENT_METHOD_GP
     } else {
       BillingAnalytics.PAYMENT_METHOD_PAYPAL
     }
@@ -873,6 +879,7 @@ class AdyenPaymentPresenter(
     val paymentMethod = when (paymentType) {
       PaymentType.PAYPAL.name -> PaymentMethodsAnalytics.PAYMENT_METHOD_PP
       PaymentType.CARD.name -> PaymentMethodsAnalytics.PAYMENT_METHOD_CC
+      PaymentType.GOOGLE_PAY.name -> PaymentMethodsAnalytics.PAYMENT_METHOD_GP
       else -> return
     }
     paymentAnalytics.stopTimingForPurchaseEvent(paymentMethod, success, isPreSelected)

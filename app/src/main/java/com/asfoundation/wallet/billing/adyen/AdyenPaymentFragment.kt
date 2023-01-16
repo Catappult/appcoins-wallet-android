@@ -13,13 +13,11 @@ import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.view.ViewGroup
-import androidx.activity.OnBackPressedCallback
 import androidx.annotation.StringRes
 import com.adyen.checkout.adyen3ds2.Adyen3DS2Component
 import com.adyen.checkout.adyen3ds2.Adyen3DS2Configuration
 import com.adyen.checkout.card.CardConfiguration
 import com.adyen.checkout.components.model.paymentmethods.PaymentMethod
-import com.adyen.checkout.components.model.payments.Amount
 import com.adyen.checkout.components.model.payments.response.Action
 import com.adyen.checkout.core.api.Environment
 import com.adyen.checkout.googlepay.GooglePayComponent
@@ -48,7 +46,6 @@ import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
 import com.asfoundation.wallet.ui.iab.PaymentMethodsAnalytics
 import com.asfoundation.wallet.util.*
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
-import com.google.android.gms.wallet.WalletConstants
 import com.jakewharton.rxbinding2.view.RxView
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.Observable
@@ -70,7 +67,6 @@ import kotlinx.android.synthetic.main.support_error_layout.*
 import kotlinx.android.synthetic.main.support_error_layout.view.*
 import kotlinx.android.synthetic.main.view_purchase_bonus.*
 import org.apache.commons.lang3.StringUtils
-import org.json.JSONObject
 import java.math.BigDecimal
 import java.text.SimpleDateFormat
 import java.util.*
@@ -125,6 +121,7 @@ class AdyenPaymentFragment : BasePageViewFragment(), AdyenPaymentView {
   private var isStored = false
   private var billingAddressInput: PublishSubject<Boolean>? = null
   private var billingAddressModel: BillingAddressModel? = null
+  private val TAG = "AdyenPaymentFragment"
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
@@ -206,13 +203,14 @@ class AdyenPaymentFragment : BasePageViewFragment(), AdyenPaymentView {
             Log.d(tag, "observeComponent. isReady:${it.isReady} isInputValid:${it.isInputValid} isValid:${it.isValid}")
           }
           googlePayComponent?.observeErrors(this) {
-            Log.d(tag, "observeComponent error: ${it.errorMessage}")
-            //TODO error event. catch cancel event
+            Log.d(tag, "observeComponent error: ${it.exception}")
+            logger.log(TAG, "GP componentError: ${it.errorMessage} ${it.exception}")
+            showMoreMethods()
           }
           startGooglePay()
         } else {
-          // TODO error google pay not available. try another method
-
+          logger.log(TAG, "GPay not available. Going back to other methods.")
+          showMoreMethods()
         }
       }
     }
@@ -278,11 +276,12 @@ class AdyenPaymentFragment : BasePageViewFragment(), AdyenPaymentView {
           googlePayPaymentMethod?.let {
             presenter.makePaymentGooglePay(it)
           }
+        } else {
+          logger.log(TAG,"GPay invalid: ${googlePayComponentState.data.describeContents()}")
         }
       }
       googlePayComponent?.handleActivityResult(resultCode, data)
-    }
-    else {
+    } else {
       showMoreMethods()
     }
   }
@@ -546,7 +545,6 @@ class AdyenPaymentFragment : BasePageViewFragment(), AdyenPaymentView {
 
   private fun setupGooglePayConfigurationBuilder() {
     googlePayConfiguration = GooglePayConfiguration.Builder(activity as Context, BuildConfig.ADYEN_PUBLIC_KEY)
-//      .setMerchantAccount("AptoideUSD")  //TODO
       .setEnvironment(adyenEnvironment)
       .build()
   }
