@@ -121,7 +121,7 @@ class AdyenPaymentFragment : BasePageViewFragment(), AdyenPaymentView {
   private var isStored = false
   private var billingAddressInput: PublishSubject<Boolean>? = null
   private var billingAddressModel: BillingAddressModel? = null
-  private val TAG = "AdyenPaymentFragment"
+  private val TAG = AdyenPaymentFragment::class.java.name
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
@@ -190,9 +190,6 @@ class AdyenPaymentFragment : BasePageViewFragment(), AdyenPaymentView {
     activity?.application?.let { application ->
       GooglePayComponent.PROVIDER.isAvailable(
         application,
-//        PaymentMethod.SERIALIZER.deserialize(
-//          JSONObject("{\"configuration\":{\"merchantId\":\"50\",\"gatewayMerchantId\":\"AptoideApp\"},\"name\":\"Google Pay\",\"type\":\"googlepay\"}")
-//        ),
         paymentMethod,
         googlePayConfiguration
       ) { isAvailable: Boolean, paymentMethod: PaymentMethod, config: GooglePayConfiguration? ->
@@ -544,7 +541,8 @@ class AdyenPaymentFragment : BasePageViewFragment(), AdyenPaymentView {
   }
 
   private fun setupGooglePayConfigurationBuilder() {
-    googlePayConfiguration = GooglePayConfiguration.Builder(activity as Context, BuildConfig.ADYEN_PUBLIC_KEY)
+    googlePayConfiguration = GooglePayConfiguration
+      .Builder(activity as Context, BuildConfig.ADYEN_PUBLIC_KEY)
       .setEnvironment(adyenEnvironment)
       .build()
   }

@@ -2,6 +2,8 @@ package com.asfoundation.wallet.topup.adyen
 
 import android.os.Bundle
 import androidx.annotation.StringRes
+import com.adyen.checkout.components.model.paymentmethods.PaymentMethod
+import com.adyen.checkout.components.model.payments.request.GooglePayPaymentMethod
 import com.adyen.checkout.core.model.ModelObject
 import com.appcoins.wallet.billing.BillingMessagesMapper
 import com.appcoins.wallet.billing.ErrorInfo.ErrorType
@@ -146,6 +148,10 @@ class AdyenTopUpPresenter(
     )
   }
 
+  private var paymentMethodMSInfo: ModelObject? = null
+  private var receivedPriceInfo: BigDecimal? = null
+  private var receivedCurrencyInfo: String? = null
+
   private fun loadPaymentMethodInfo(fromError: Boolean = false) {
     disposables.add(convertAmount()
       .flatMap {
@@ -177,12 +183,57 @@ class AdyenTopUpPresenter(
             handleTopUpClick()
           } else if (paymentType == PaymentType.PAYPAL.name) {
             launchPaypal(it.paymentMethod!!)
+          } else if (paymentType == PaymentType.GOOGLE_PAY.name) {
+            view.showLoading()
+            view.setupGooglePayComponent(it.paymentMethod!! as PaymentMethod)
+            paymentMethodMSInfo = it.paymentMethod
+            receivedPriceInfo = it.priceAmount
+            receivedCurrencyInfo = it.priceCurrency
           }
           loadBonusIntoView()
         }
       }
       .subscribe({}, { handleSpecificError(R.string.unknown_error, it) })
     )
+  }
+
+  fun makePaymentGooglePay(
+    paymentMethodInfo: GooglePayPaymentMethod,
+    priceAmount: BigDecimal? = receivedPriceInfo,
+    priceCurrency: String? = receivedCurrencyInfo
+  ) {
+    if (priceAmount != null && priceCurrency != null) {
+      topUpAnalytics.sendConfirmationEvent(appcValue.toDouble(), "top_up", paymentType)
+      view.lockRotation()
+      view.setFinishingPurchase(true)
+      disposables.add(
+        adyenPaymentInteractor.makeTopUpPayment(
+          adyenPaymentMethod = paymentMethodInfo,
+          shouldStoreMethod = false,
+          hasCvc = false,
+          supportedShopperInteraction = emptyList(),
+          returnUrl = returnUrl,
+          value = priceAmount.toString(),
+          currency = priceCurrency,
+          paymentType = mapPaymentToService(paymentType).transactionType,
+          transactionType = transactionType,
+          packageName = appPackage
+        )
+          .subscribeOn(networkScheduler)
+          .observeOn(viewScheduler)
+          .flatMapCompletable {
+            if (it.action != null) {
+              Completable.fromAction { handlePaymentModel(it) }
+            } else {
+              handlePaymentResult(it)
+            }
+          }
+          .subscribe({}, {
+            logger.log(TAG, it)
+            view.showSpecificError(R.string.unknown_error)
+          })
+      )
+    }
   }
 
   private fun launchPaypal(paymentMethodInfo: ModelObject) {
@@ -538,10 +589,16 @@ class AdyenTopUpPresenter(
   }
 
   private fun mapPaymentToService(paymentType: String): AdyenPaymentRepository.Methods {
-    return if (paymentType == PaymentType.CARD.name) {
-      AdyenPaymentRepository.Methods.CREDIT_CARD
-    } else {
-      AdyenPaymentRepository.Methods.PAYPAL
+    return when (paymentType) {
+      PaymentType.CARD.name -> {
+        AdyenPaymentRepository.Methods.CREDIT_CARD
+      }
+      PaymentType.GOOGLE_PAY.name -> {
+        AdyenPaymentRepository.Methods.GOOGLE_PAY
+      }
+      else -> {
+        AdyenPaymentRepository.Methods.PAYPAL
+      }
     }
   }
 
@@ -624,6 +681,9 @@ class AdyenTopUpPresenter(
       }
     }
   }
+
+  //TODO error events from fragment
+  //TODO mapping  "GOOGLE_PAY" to googlepay
 
   private fun handleErrors(paymentModel: PaymentModel, value: Double) {
     when {

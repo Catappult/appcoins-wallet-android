@@ -391,6 +391,12 @@ class TopUpFragmentPresenter(
         paymentType = paymentMethod.paymentType,
         data = mapTopUpPaymentData(topUpData, gamificationLevel)
       )
+    } else if (paymentMethod.paymentType == PaymentType.GOOGLE_PAY) {
+      activity?.navigateToAdyenPayment(
+        paymentType = paymentMethod.paymentType,
+        data = mapTopUpPaymentData(topUpData, gamificationLevel),
+        fragmentTag = TopUpFragment.TAG_GPAY_TOPUP_FRAGMENT
+      )
     } else if (paymentMethod.paymentType == PaymentType.LOCAL_PAYMENTS) {
       activity?.navigateToLocalPayment(
         paymentId = paymentMethod.paymentId,

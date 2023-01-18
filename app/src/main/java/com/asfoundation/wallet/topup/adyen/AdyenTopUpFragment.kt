@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.*
@@ -13,8 +14,11 @@ import androidx.annotation.StringRes
 import com.adyen.checkout.adyen3ds2.Adyen3DS2Component
 import com.adyen.checkout.adyen3ds2.Adyen3DS2Configuration
 import com.adyen.checkout.card.CardConfiguration
+import com.adyen.checkout.components.model.paymentmethods.PaymentMethod
 import com.adyen.checkout.components.model.payments.response.Action
 import com.adyen.checkout.core.api.Environment
+import com.adyen.checkout.googlepay.GooglePayComponent
+import com.adyen.checkout.googlepay.GooglePayConfiguration
 import com.adyen.checkout.redirect.RedirectComponent
 import com.adyen.checkout.redirect.RedirectConfiguration
 import com.appcoins.wallet.bdsbilling.Billing
@@ -89,8 +93,10 @@ class AdyenTopUpFragment : BasePageViewFragment(), AdyenTopUpView {
   private lateinit var cardConfiguration: CardConfiguration
   private lateinit var redirectConfiguration: RedirectConfiguration
   private lateinit var adyen3DS2Configuration: Adyen3DS2Configuration
+  private lateinit var googlePayConfiguration: GooglePayConfiguration
   private lateinit var redirectComponent: RedirectComponent
   private lateinit var adyen3DS2Component: Adyen3DS2Component
+  private var googlePayComponent: GooglePayComponent? = null
   private lateinit var presenter: AdyenTopUpPresenter
   private lateinit var adyenCardView: AdyenCardView
 
@@ -100,6 +106,7 @@ class AdyenTopUpFragment : BasePageViewFragment(), AdyenTopUpView {
   private var billingAddressInput: PublishSubject<Boolean>? = null
   private var isStored = false
   private var billingAddressModel: BillingAddressModel? = null
+  private val TAG = AdyenTopUpFragment::class.java.name
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
@@ -157,6 +164,19 @@ class AdyenTopUpFragment : BasePageViewFragment(), AdyenTopUpView {
         data!!.getSerializableExtra(BILLING_ADDRESS_MODEL) as BillingAddressModel
       this.billingAddressModel = billingAddressModel
       billingAddressInput?.onNext(true)
+    } else if (requestCode == GP_CODE) {
+      googlePayComponent?.observe(this) { googlePayComponentState ->
+        if (googlePayComponentState?.isValid == true) {
+          // When proceeds to pay, passes the paymentComponentState.data to MS to send a /payments request
+          val googlePayPaymentMethod = googlePayComponentState.data.paymentMethod
+          googlePayPaymentMethod?.let {
+            presenter.makePaymentGooglePay(it)
+          }
+        } else {
+          logger.log(TAG,"GPay invalid: ${googlePayComponentState.data.describeContents()}")
+        }
+      }
+      googlePayComponent?.handleActivityResult(resultCode, data)
     }
   }
 
@@ -169,6 +189,39 @@ class AdyenTopUpFragment : BasePageViewFragment(), AdyenTopUpView {
       adyen3DS2Component.observeErrors(this) {
         adyen3DSErrorSubject?.onNext(it.errorMessage)
       }
+    }
+  }
+
+  override fun setupGooglePayComponent(paymentMethod: PaymentMethod) {
+    activity?.application?.let { application ->
+      GooglePayComponent.PROVIDER.isAvailable(
+        application,
+        paymentMethod,
+        googlePayConfiguration
+      ) { isAvailable: Boolean, paymentMethod: PaymentMethod, config: GooglePayConfiguration? ->
+        if (isAvailable) {
+          googlePayComponent =
+            GooglePayComponent.PROVIDER.get(this, paymentMethod, googlePayConfiguration)
+          googlePayComponent?.observe(this) {
+            Log.d(tag, "observeComponent. isReady:${it.isReady} isInputValid:${it.isInputValid} isValid:${it.isValid}")
+          }
+          googlePayComponent?.observeErrors(this) {
+            Log.d(tag, "observeComponent error: ${it.exception}")
+            logger.log(TAG, "GP componentError: ${it.errorMessage} ${it.exception}")
+            navigator.navigateBack()
+          }
+          startGooglePay()
+        } else {
+          logger.log(TAG, "GPay not available. Going back to other methods.")
+          navigator.navigateBack()
+        }
+      }
+    }
+  }
+
+  override fun startGooglePay() {
+    activity?.let {
+      googlePayComponent?.startGooglePayScreen(it, GP_CODE)
     }
   }
 
@@ -441,6 +494,7 @@ class AdyenTopUpFragment : BasePageViewFragment(), AdyenTopUpView {
     }
     setupRedirectConfiguration()
     setupAdyen3DS2ConfigurationBuilder()
+    setupGooglePayConfigurationBuilder()
     main_value.visibility = INVISIBLE
     button.visibility = VISIBLE
   }
@@ -461,6 +515,13 @@ class AdyenTopUpFragment : BasePageViewFragment(), AdyenTopUpView {
 
   private fun setupAdyen3DS2ConfigurationBuilder() {
     adyen3DS2Configuration = Adyen3DS2Configuration
+      .Builder(activity as Context, BuildConfig.ADYEN_PUBLIC_KEY)
+      .setEnvironment(adyenEnvironment)
+      .build()
+  }
+
+  private fun setupGooglePayConfigurationBuilder() {
+    googlePayConfiguration = GooglePayConfiguration
       .Builder(activity as Context, BuildConfig.ADYEN_PUBLIC_KEY)
       .setEnvironment(adyenEnvironment)
       .build()
@@ -512,6 +573,8 @@ class AdyenTopUpFragment : BasePageViewFragment(), AdyenTopUpView {
 
     private const val PAYMENT_TYPE = "paymentType"
     private const val PAYMENT_DATA = "data"
+
+    const val GP_CODE = 52823208
 
     fun newInstance(paymentType: PaymentType, data: TopUpPaymentData): AdyenTopUpFragment {
       val bundle = Bundle()
