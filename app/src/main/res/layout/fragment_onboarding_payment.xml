@@ -8,6 +8,21 @@
     android:background="@color/styleguide_white"
     >
 
+  <com.airbnb.lottie.LottieAnimationView
+      android:id="@+id/loading_animation"
+      android:layout_width="70dp"
+      android:layout_height="70dp"
+      android:layout_gravity="center"
+      app:lottie_enableMergePathsForKitKatAndAbove="true"
+      app:lottie_autoPlay="true"
+      app:lottie_loop="true"
+      app:lottie_rawRes="@raw/loading_regular_animation"
+      app:layout_constraintTop_toTopOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintBottom_toBottomOf="parent"
+      />
+
   <com.google.android.material.appbar.AppBarLayout
       android:id="@+id/home_appbar"
       android:layout_width="match_parent"
@@ -40,7 +55,6 @@
   <androidx.fragment.app.FragmentContainerView
       android:id="@+id/onboarding_payment_fragment_container"
       android:name="androidx.navigation.fragment.NavHostFragment"
-      app:navGraph="@navigation/inner_payment_graph"
       android:layout_width="0dp"
       android:layout_height="0dp"
       android:layout_marginTop="@dimen/half_large_margin"

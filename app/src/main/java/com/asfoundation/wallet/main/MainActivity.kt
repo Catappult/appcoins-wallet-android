@@ -52,7 +52,7 @@ class MainActivity : AppCompatActivity(),
 
   private fun initNavController() {
     val navHostFragment = supportFragmentManager.findFragmentById(
-      R.id.full_host_container
+      R.id.main_host_container
     ) as NavHostFragment
     navController = navHostFragment.navController
   }

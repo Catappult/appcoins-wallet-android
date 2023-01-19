@@ -1,6 +1,5 @@
-package com.asfoundation.wallet.onboarding.pending_payment.use_cases
+package com.asfoundation.wallet.onboarding_new_payment.use_cases
 
-import android.util.Log
 import com.appcoins.wallet.bdsbilling.repository.BdsRepository
 import com.appcoins.wallet.bdsbilling.repository.entity.FeeEntity
 import com.appcoins.wallet.bdsbilling.repository.entity.FeeType
@@ -12,11 +11,15 @@ import io.reactivex.Observable
 import io.reactivex.Single
 import javax.inject.Inject
 
-class GetFirstPaymentMethodsUseCase @Inject constructor(private val bdsRepository: BdsRepository) {
+/**
+ * This use case should be removed after all payment methods are ready
+ * and @GetFirstPaymentMethodsUseCase should be used instead
+ */
+class GetPaypalAndCCMethodsUseCase @Inject constructor(private val bdsRepository: BdsRepository) {
 
   companion object {
-    private const val APPC_ID = "appcoins"
-    private const val CREDITS_ID = "appcoins_credits"
+    private const val PAYPAL_ID = "paypal"
+    private const val CC_ID = "credit_card"
   }
 
   operator fun invoke(cachedTransaction: CachedTransaction): Single<List<PaymentMethod>> {
@@ -24,7 +27,7 @@ class GetFirstPaymentMethodsUseCase @Inject constructor(private val bdsRepositor
       cachedTransaction.value.toString(), cachedTransaction.currency
     )
       .flatMap { paymentMethods ->
-        removeUnavailableMethods(paymentMethods)
+        showOnlyPaypalAndCC(paymentMethods)
           .flatMap { availablePaymentMethods ->
             Observable.fromIterable(paymentMethods)
               .map { paymentMethod ->
@@ -35,18 +38,13 @@ class GetFirstPaymentMethodsUseCase @Inject constructor(private val bdsRepositor
       }
   }
 
-  /**
-   * Since this is the first payment, we won't need to show appcoins credits nor appcoins as a payment option,
-   * unlike the payment in the normal IAB flow, where we hide the option if no balance is available.
-   * In this case, we won't show it at all.
-   */
-  private fun removeUnavailableMethods(paymentList: List<PaymentMethodEntity>): Single<List<PaymentMethodEntity>> {
+  private fun showOnlyPaypalAndCC(paymentList: List<PaymentMethodEntity>): Single<List<PaymentMethodEntity>> {
     val clonedPaymentMethod: MutableList<PaymentMethodEntity> =
       paymentList as MutableList<PaymentMethodEntity>
     val iterator = clonedPaymentMethod.iterator()
     while (iterator.hasNext()) {
       val method = iterator.next()
-      if (method.id == CREDITS_ID || method.id == APPC_ID || !method.isAvailable()) {
+      if (method.id != CC_ID && method.id != PAYPAL_ID) {
         iterator.remove()
       }
     }
@@ -59,7 +57,6 @@ class GetFirstPaymentMethodsUseCase @Inject constructor(private val bdsRepositor
   ): PaymentMethod {
     for (availablePaymentMethod in availablePaymentMethods) {
       if (paymentMethod.id == availablePaymentMethod.id) {
-        Log.d("APPC-3366", "mapPaymentMethods: getFee ${availablePaymentMethod.fee}")
         val paymentMethodFee = mapPaymentMethodFee(availablePaymentMethod.fee)
         return PaymentMethod(
           paymentMethod.id, paymentMethod.label,
@@ -88,6 +85,4 @@ class GetFirstPaymentMethodsUseCase @Inject constructor(private val bdsRepositor
       }
     }
   }
-
 }
-
