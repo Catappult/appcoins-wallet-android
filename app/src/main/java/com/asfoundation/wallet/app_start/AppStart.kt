@@ -22,7 +22,7 @@ sealed class StartMode {
 
   data class PendingPurchaseFlow(
     val integrationFlow: String,
-    val sku: String,
+    val sku: String?,
     val packageName: String,
     val callbackUrl: String?,
     val currency: String?,
@@ -52,7 +52,7 @@ class AppStartUseCase @Inject constructor(
     val runs = repository.getRunCount() + 1
     repository.saveRunCount(runs)
 
-    val mode = if (firstInstallTime == lastUpdateTime && runs == 1) {
+    val mode = if (true) {
       pendingPurchaseFlowUseCase()
         ?: gpInstallUseCase()
         ?: StartMode.Regular

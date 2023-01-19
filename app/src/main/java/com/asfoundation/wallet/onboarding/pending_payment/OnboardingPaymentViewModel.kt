@@ -1,50 +1,75 @@
 package com.asfoundation.wallet.onboarding.pending_payment
 
-import androidx.lifecycle.viewModelScope
-import com.asfoundation.wallet.app_start.AppStartUseCase
-import com.asfoundation.wallet.app_start.StartMode
+import com.asfoundation.wallet.base.Async
 import com.asfoundation.wallet.base.BaseViewModel
 import com.asfoundation.wallet.base.SideEffect
 import com.asfoundation.wallet.base.ViewState
-import com.asfoundation.wallet.onboarding.gp_install.OnboardingGPInstallSideEffect
+import com.asfoundation.wallet.billing.analytics.BillingAnalytics
+import com.asfoundation.wallet.entity.TransactionBuilder
+import com.asfoundation.wallet.onboarding_new_payment.use_cases.GetModifiedCachedTransactionUseCase
+import com.asfoundation.wallet.onboarding_new_payment.use_cases.GetOnboardingTransactionBuilderUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.launch
+import io.reactivex.Single
 import javax.inject.Inject
 
 sealed class OnboardingPaymentSideEffect : SideEffect {
-  data class ShowHeaderContent(
-    val packageName: String,
-    val sku: String,
-    val currency: String,
-    val value: Double
-  ) : OnboardingPaymentSideEffect()
+  data class ShowPaymentMethods(val transactionContent: TransactionContent) :
+    OnboardingPaymentSideEffect()
 }
 
-object OnboardingPaymentState : ViewState
+data class OnboardingPaymentState(val transactionContent: Async<TransactionContent> = Async.Uninitialized) :
+  ViewState
 
 @HiltViewModel
 class OnboardingPaymentViewModel @Inject constructor(
-  private val appStartUseCase: AppStartUseCase
+  private val getModifiedCachedTransactionUseCase: GetModifiedCachedTransactionUseCase,
+  private val getOnboardingTransactionBuilderUseCase: GetOnboardingTransactionBuilderUseCase,
+  private val billingAnalytics: BillingAnalytics
 ) :
-  BaseViewModel<OnboardingPaymentState, OnboardingPaymentSideEffect>(OnboardingPaymentState) {
+  BaseViewModel<OnboardingPaymentState, OnboardingPaymentSideEffect>(OnboardingPaymentState()) {
 
   init {
-    handleHeader()
+    handleContent()
   }
 
-  private fun handleHeader() {
-    viewModelScope.launch {
-      val mode = appStartUseCase.startModes.first() as StartMode.PendingPurchaseFlow
-      sendSideEffect {
-        OnboardingPaymentSideEffect.ShowHeaderContent(
-          mode.packageName,
-          mode.sku,
-          mode.currency!!,
-          mode.value!!
+  private fun handleContent() {
+    Single.zip(
+      getModifiedCachedTransactionUseCase(),
+      getOnboardingTransactionBuilderUseCase()
+    ) { cachedTransaction, transactionBuilder -> Pair(cachedTransaction, transactionBuilder) }
+      .map { pair ->
+        handlePurchaseStartAnalytics(pair.second)
+        TransactionContent(
+          pair.second,
+          pair.first.packageName!!,
+          pair.first.sku!!,
+          pair.first.value,
+          pair.first.currency!!
         )
       }
-    }
+      .asAsyncToState {
+        copy(transactionContent = it)
+      }.doOnSuccess {
+        sendSideEffect { OnboardingPaymentSideEffect.ShowPaymentMethods(it) }
+      }
+      .scopedSubscribe()
   }
 
+  private fun handlePurchaseStartAnalytics(transactionBuilder: TransactionBuilder) {
+    billingAnalytics.sendPurchaseStartWithoutDetailsEvent(
+      transactionBuilder.domain,
+      transactionBuilder.skuId,
+      transactionBuilder.amount().toString(),
+      transactionBuilder.type,
+      BillingAnalytics.RAKAM_PAYMENT_METHOD
+    )
+  }
 }
+
+data class TransactionContent(
+  val transactionBuilder: TransactionBuilder,
+  val packageName: String,
+  val sku: String,
+  val value: Double,
+  val currency: String,
+)

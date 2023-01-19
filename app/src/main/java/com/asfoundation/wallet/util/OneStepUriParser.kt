@@ -15,6 +15,7 @@ class Parameters {
     const val CURRENCY = "currency"
     const val TYPE = "type"
     const val CALLBACK_URL = "callback_url"
+    const val ORDER_REFERENCE = "order_reference"
     const val PRODUCT_TOKEN = "product_token"
     const val SKILLS = "skills"
     const val SCHEME = "https"
@@ -29,8 +30,8 @@ class Parameters {
 }
 
 fun Uri.isOneStepURLString() =
-    scheme == Parameters.SCHEME && (host == HOST || host == LEGACY_HOST)
-        && (path?.startsWith(Parameters.PATH) ?: false)
+  scheme == Parameters.SCHEME && (host == HOST || host == LEGACY_HOST)
+      && (path?.startsWith(Parameters.PATH) ?: false)
 
 fun parseOneStep(uri: Uri): OneStepUri {
   val scheme = uri.scheme
@@ -40,11 +41,10 @@ fun parseOneStep(uri: Uri): OneStepUri {
   parameters.apply {
     for (key in uri.queryParameterNames) {
       uri.getQueryParameter(key)
-          ?.let { parameter ->
-            this[key] = parameter
-          }
+        ?.let { parameter ->
+          this[key] = parameter
+        }
     }
   }
   return OneStepUri(scheme ?: "", host ?: "", path ?: "", parameters)
 }
-
