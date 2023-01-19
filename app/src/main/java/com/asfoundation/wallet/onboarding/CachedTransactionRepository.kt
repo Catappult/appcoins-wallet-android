@@ -16,6 +16,7 @@ class CachedTransactionRepository @Inject constructor(
       .subscribeOn(rxSchedulers.io)
       .map {
         CachedTransaction(
+          it.referrerUrl,
           it.product,
           it.domain,
           it.callbackUrl,
@@ -25,7 +26,7 @@ class CachedTransactionRepository @Inject constructor(
           it.signature
         )
       }.onErrorReturn {
-        CachedTransaction(null, null, null, null, null, 0.0, null)
+        CachedTransaction(null, null, null, null, null, null, 0.0, null)
       }
   }
 
@@ -36,6 +37,7 @@ class CachedTransactionRepository @Inject constructor(
 }
 
 data class CachedTransactionResponse(
+  @SerializedName("url") val referrerUrl: String,
   val product: String,
   val domain: String,
   @SerializedName("callback_url") val callbackUrl: String,
@@ -46,6 +48,7 @@ data class CachedTransactionResponse(
 )
 
 data class CachedTransaction(
+  val referrerUrl: String?,
   val sku: String?,
   val packageName: String?,
   val callbackUrl: String?,

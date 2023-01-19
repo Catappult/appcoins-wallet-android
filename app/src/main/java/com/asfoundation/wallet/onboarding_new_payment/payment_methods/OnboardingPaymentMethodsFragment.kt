@@ -1,4 +1,4 @@
-package com.asfoundation.wallet.onboarding.pending_payment.payment_methods
+package com.asfoundation.wallet.onboarding_new_payment.payment_methods
 
 import android.graphics.Typeface
 import android.net.Uri
@@ -19,11 +19,13 @@ import androidx.lifecycle.lifecycleScope
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.asf.wallet.BuildConfig
 import com.asf.wallet.R
-import com.asf.wallet.databinding.OnboardingPaymentMethodsBinding
+import com.asf.wallet.databinding.OnboardingPaymentMethodsFragmentBinding
 import com.asfoundation.wallet.base.Async
 import com.asfoundation.wallet.base.SingleStateFragment
-import com.asfoundation.wallet.onboarding.pending_payment.payment_methods.list.PaymentMethodsController
+import com.asfoundation.wallet.onboarding_new_payment.payment_methods.list.PaymentMethodClick
+import com.asfoundation.wallet.onboarding_new_payment.payment_methods.list.PaymentMethodsController
 import com.asfoundation.wallet.ui.iab.PaymentMethod
+import com.asfoundation.wallet.ui.iab.PaymentMethodsMapper
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -34,10 +36,14 @@ class OnboardingPaymentMethodsFragment : BasePageViewFragment(),
   SingleStateFragment<OnboardingPaymentMethodsState, OnboardingPaymentMethodsSideEffect> {
 
   private val viewModel: OnboardingPaymentMethodsViewModel by viewModels()
-  private val views by viewBinding(OnboardingPaymentMethodsBinding::bind)
+  private val views by viewBinding(OnboardingPaymentMethodsFragmentBinding::bind)
+  lateinit var args: OnboardingPaymentMethodsFragmentArgs
 
   @Inject
   lateinit var navigator: OnboardingPaymentMethodsNavigator
+
+  @Inject
+  lateinit var paymentMethodsMapper: PaymentMethodsMapper
 
   private lateinit var controller: PaymentMethodsController
 
@@ -45,25 +51,45 @@ class OnboardingPaymentMethodsFragment : BasePageViewFragment(),
     inflater: LayoutInflater, @Nullable container: ViewGroup?,
     @Nullable savedInstanceState: Bundle?
   ): View {
-    return OnboardingPaymentMethodsBinding.inflate(inflater).root
+    return OnboardingPaymentMethodsFragmentBinding.inflate(inflater).root
   }
 
   override fun onViewCreated(view: View, @Nullable savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
-    controller = PaymentMethodsController()
-    controller.clickListener = {
-
-    }
-    views.onboardingPaymentMethodsRv.setController(controller)
+    args = OnboardingPaymentMethodsFragmentArgs.fromBundle(requireArguments())
+    handlePaymentMethodList()
     setStringWithLinks()
     viewModel.collectStateAndEvents(lifecycle, viewLifecycleOwner.lifecycleScope)
+  }
+
+  private fun handlePaymentMethodList() {
+    controller = PaymentMethodsController()
+    controller.clickListener = { paymentMethodClick ->
+      when (paymentMethodClick) {
+        is PaymentMethodClick.CreditCardClick -> navigator.navigateToAdyen(
+          args.transactionBuilder,
+          args.amount,
+          args.currency
+        )
+        is PaymentMethodClick.PaypalAdyenClick -> navigator.navigateToPaypalAdyen(
+          args.transactionBuilder,
+          args.amount,
+          args.currency
+        )
+        is PaymentMethodClick.PaypalDirectClick -> navigator.navigateToPaypalDirect()
+        is PaymentMethodClick.LocalPaymentClick -> navigator.navigateToLocalPayment()
+        is PaymentMethodClick.CarrierBillingClick -> navigator.navigateToCarrierBilling()
+        is PaymentMethodClick.ShareLinkPaymentClick -> navigator.navigateToShareLinkPayment()
+      }
+    }
+    views.onboardingPaymentMethodsRv.setController(controller)
   }
 
   override fun onStateChanged(state: OnboardingPaymentMethodsState) {
     when (state.paymentMethodsAsync) {
       Async.Uninitialized,
       is Async.Loading -> {
-
+        //TODO add a skeleton while the list loads
       }
       is Async.Success -> {
         showPaymentMethodsList(state.paymentMethodsAsync())
@@ -73,7 +99,10 @@ class OnboardingPaymentMethodsFragment : BasePageViewFragment(),
   }
 
   private fun showPaymentMethodsList(paymentMethodsAsync: List<PaymentMethod>?) {
-    controller.setData(paymentMethodsAsync)
+    views.onboardingPaymentMethodsTitle.visibility = View.VISIBLE
+    views.onboardingPaymentMethodsRv.visibility = View.VISIBLE
+    views.onboardingPaymentTermsConditions.root.visibility = View.VISIBLE
+    controller.setData(paymentMethodsAsync, paymentMethodsMapper)
   }
 
   override fun onSideEffect(sideEffect: OnboardingPaymentMethodsSideEffect) {

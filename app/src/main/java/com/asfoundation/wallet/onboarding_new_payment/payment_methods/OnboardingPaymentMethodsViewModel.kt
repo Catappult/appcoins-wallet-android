@@ -1,19 +1,21 @@
-package com.asfoundation.wallet.onboarding.pending_payment.payment_methods
+package com.asfoundation.wallet.onboarding_new_payment.payment_methods
 
 import android.net.Uri
 import com.asfoundation.wallet.base.Async
 import com.asfoundation.wallet.base.BaseViewModel
 import com.asfoundation.wallet.base.SideEffect
 import com.asfoundation.wallet.base.ViewState
+import com.asfoundation.wallet.billing.analytics.BillingAnalytics
 import com.asfoundation.wallet.onboarding.CachedTransactionRepository
-import com.asfoundation.wallet.onboarding.pending_payment.use_cases.GetFirstPaymentMethodsUseCase
+import com.asfoundation.wallet.onboarding_new_payment.use_cases.GetFirstPaymentMethodsUseCase
+import com.asfoundation.wallet.onboarding_new_payment.use_cases.GetPaypalAndCCMethodsUseCase
 import com.asfoundation.wallet.ui.iab.PaymentMethod
+import com.asfoundation.wallet.ui.iab.PaymentMethodsAnalytics
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 sealed class OnboardingPaymentMethodsSideEffect : SideEffect {
   data class NavigateToLink(val uri: Uri) : OnboardingPaymentMethodsSideEffect()
-
 }
 
 data class OnboardingPaymentMethodsState(
@@ -23,7 +25,10 @@ data class OnboardingPaymentMethodsState(
 @HiltViewModel
 class OnboardingPaymentMethodsViewModel @Inject constructor(
   private val getFirstPaymentMethodsUseCase: GetFirstPaymentMethodsUseCase,
-  private val cachedTransactionRepository: CachedTransactionRepository
+  private val getPaypalAndCCMethodsUseCase: GetPaypalAndCCMethodsUseCase,
+  private val cachedTransactionRepository: CachedTransactionRepository,
+  private val paymentMethodsAnalytics: PaymentMethodsAnalytics,
+  private val billingAnalytics: BillingAnalytics
 ) :
   BaseViewModel<OnboardingPaymentMethodsState, OnboardingPaymentMethodsSideEffect>(
     OnboardingPaymentMethodsState()
@@ -33,11 +38,12 @@ class OnboardingPaymentMethodsViewModel @Inject constructor(
     handlePaymentMethods()
   }
 
+  //TODO add events to payment start
 
   private fun handlePaymentMethods() {
     cachedTransactionRepository.getCachedTransaction()
       .flatMap { cachedTransaction ->
-        getFirstPaymentMethodsUseCase(cachedTransaction)
+        getPaypalAndCCMethodsUseCase(cachedTransaction)
           .asAsyncToState {
             copy(paymentMethodsAsync = it)
           }

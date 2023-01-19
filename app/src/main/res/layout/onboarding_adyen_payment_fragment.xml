@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/onboarding_adyen_payment_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginHorizontal="@dimen/big_margin"
+    >
+
+  <com.airbnb.lottie.LottieAnimationView
+      android:id="@+id/loading_animation"
+      android:layout_width="70dp"
+      android:layout_height="70dp"
+      android:layout_gravity="center"
+      android:layout_marginTop="@dimen/large_margin"
+      app:lottie_enableMergePathsForKitKatAndAbove="true"
+      app:lottie_autoPlay="true"
+      app:lottie_loop="true"
+      app:lottie_rawRes="@raw/loading_regular_animation"
+      app:layout_constraintTop_toTopOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      />
+
+  <TextView
+      android:id="@+id/onboarding_adyen_payment_title"
+      style="@style/TextM"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:text="Pay with Credit/Debit card"
+      android:visibility="gone"
+      tools:visibility="visible"
+      app:layout_constraintBottom_toTopOf="@id/onboarding_adyen_payment_card_view"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintHorizontal_bias="0.0"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      />
+
+  <com.adyen.checkout.card.CardView
+      android:id="@+id/onboarding_adyen_payment_card_view"
+      android:layout_width="match_parent"
+      android:layout_height="200dp"
+      android:visibility="gone"
+      tools:visibility="visible"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/onboarding_adyen_payment_title"
+      app:layout_constraintBottom_toTopOf="@id/onboarding_adyen_payment_buttons"
+      />
+
+  <include
+      android:id="@+id/onboarding_adyen_payment_buttons"
+      layout="@layout/onboarding_adyen_payment_buttons"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginVertical="@dimen/big_margin"
+      android:visibility="gone"
+      tools:visibility="visible"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/onboarding_adyen_payment_card_view"
+      />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
