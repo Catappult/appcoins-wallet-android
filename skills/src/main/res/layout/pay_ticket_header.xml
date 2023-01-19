@@ -11,7 +11,6 @@
       android:layout_width="48dp"
       android:layout_height="48dp"
       android:src="@drawable/ic_appc"
-      app:layout_constraintBottom_toTopOf="@+id/fiat_price"
       app:layout_constraintEnd_toStartOf="@id/app_name"
       app:layout_constraintHorizontal_bias="0"
       app:layout_constraintHorizontal_chainStyle="packed"
@@ -52,119 +51,6 @@
       app:layout_constraintBottom_toBottomOf="@id/app_icon"
       app:layout_constraintStart_toStartOf="@id/app_name"
       app:layout_constraintTop_toBottomOf="@id/app_name"
-      />
-
-  <TextView
-      android:id="@+id/fiat_price"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:fontFamily="sans-serif-medium"
-      android:textColor="@color/dialog_buy_fiat_value"
-      android:textSize="15sp"
-      android:visibility="invisible"
-      app:layout_constraintBottom_toTopOf="@id/appc_price"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintHorizontal_bias="1"
-      app:layout_constraintStart_toStartOf="parent"
-      tools:text="0,99 EUR"
-      tools:visibility="visible"
-      />
-
-  <TextView
-      android:id="@+id/appc_price"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:textColor="@color/dialog_secondary_price"
-      android:textSize="12sp"
-      android:visibility="invisible"
-      app:layout_constraintBottom_toBottomOf="parent"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintHorizontal_bias="1"
-      app:layout_constraintStart_toStartOf="parent"
-      tools:text="0,09 APPC"
-      tools:visibility="visible"
-      />
-
-  <com.facebook.shimmer.ShimmerFrameLayout
-      android:id="@+id/fiat_price_skeleton"
-      android:layout_width="60dp"
-      android:layout_height="0dp"
-      app:layout_constraintBottom_toBottomOf="@id/fiat_price"
-      app:layout_constraintEnd_toEndOf="@id/fiat_price"
-      app:layout_constraintTop_toTopOf="@id/fiat_price"
-      app:shimmer_base_alpha="1"
-      app:shimmer_base_color="@color/skeleton_light_base_color"
-      app:shimmer_colored="true"
-      app:shimmer_duration="1000"
-      app:shimmer_highlight_color="@color/skeleton_higlight_color"
-      tools:visibility="invisible"
-      >
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@drawable/skeleton_row"
-        />
-  </com.facebook.shimmer.ShimmerFrameLayout>
-
-  <com.facebook.shimmer.ShimmerFrameLayout
-      android:id="@+id/appc_price_skeleton"
-      android:layout_width="60dp"
-      android:layout_height="0dp"
-      android:layout_marginTop="4dp"
-      app:layout_constraintBottom_toBottomOf="@id/appc_price"
-      app:layout_constraintEnd_toEndOf="@id/appc_price"
-      app:layout_constraintTop_toTopOf="@id/appc_price"
-      app:shimmer_base_alpha="1"
-      app:shimmer_base_color="@color/skeleton_light_base_color"
-      app:shimmer_colored="true"
-      app:shimmer_duration="1000"
-      app:shimmer_highlight_color="@color/skeleton_higlight_color"
-      tools:visibility="invisible"
-      >
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@drawable/skeleton_row"
-        />
-  </com.facebook.shimmer.ShimmerFrameLayout>
-
-  <ImageView
-      android:id="@+id/appc_credits_icon"
-      android:layout_width="28dp"
-      android:layout_height="28dp"
-      android:layout_marginTop="16dp"
-      android:src="@drawable/ic_appc_c_token_black"
-      app:layout_constraintBottom_toBottomOf="parent"
-      app:layout_constraintHorizontal_bias="0"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@id/app_icon"
-      />
-
-  <TextView
-      android:id="@+id/payment_title"
-      android:layout_width="0dp"
-      android:layout_height="wrap_content"
-      android:layout_marginStart="6dp"
-      android:text="@string/e_skills_payment_title"
-      android:textColor="@color/black_87_alpha"
-      android:textSize="12sp"
-      android:textStyle="bold"
-      app:layout_constraintBottom_toTopOf="@id/payment_body"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintStart_toEndOf="@id/appc_credits_icon"
-      app:layout_constraintTop_toTopOf="@id/appc_credits_icon"
-      />
-
-  <TextView
-      android:id="@+id/payment_body"
-      android:layout_width="0dp"
-      android:layout_height="wrap_content"
-      android:text="@string/e_skills_payment_body"
-      android:textColor="@color/black_87_alpha"
-      android:textSize="10sp"
-      app:layout_constraintBottom_toBottomOf="@id/appc_credits_icon"
-      app:layout_constraintStart_toStartOf="@id/payment_title"
-      app:layout_constraintTop_toBottomOf="@id/payment_title"
       />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
