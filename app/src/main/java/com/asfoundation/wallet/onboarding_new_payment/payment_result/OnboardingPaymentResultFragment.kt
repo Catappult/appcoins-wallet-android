@@ -45,13 +45,24 @@ class OnboardingPaymentResultFragment : BasePageViewFragment(),
 
   override fun onViewCreated(view: View, @Nullable savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
+    views.loadingAnimation.playAnimation()
+    clickListeners()
+    viewModel.collectStateAndEvents(lifecycle, viewLifecycleOwner.lifecycleScope)
+  }
+
+  private fun clickListeners() {
     views.genericErrorButtons.errorBack.setOnClickListener {
       navigator.navigateBack()
     }
     views.genericErrorButtons.errorCancel.setOnClickListener {
-
+      navigator.navigateToHome()
     }
-    viewModel.collectStateAndEvents(lifecycle, viewLifecycleOwner.lifecycleScope)
+    views.successButtons.backToGameButton.setOnClickListener {
+      viewModel.handleBackToGameClick()
+    }
+    views.successButtons.exploreWalletButton.setOnClickListener {
+      navigator.navigateToHome()
+    }
   }
 
   override fun onStateChanged(state: OnboardingPaymentResultState) = Unit
@@ -64,6 +75,9 @@ class OnboardingPaymentResultFragment : BasePageViewFragment(),
         sideEffect.isWalletVerified
       )
       is OnboardingPaymentResultSideEffect.ShowPaymentSuccess -> handleSuccess()
+      is OnboardingPaymentResultSideEffect.NavigateBackToGame -> navigator.navigateBackToGame(
+        sideEffect.appPackageName
+      )
     }
   }
 
@@ -115,9 +129,17 @@ class OnboardingPaymentResultFragment : BasePageViewFragment(),
   }
 
   fun showSpecificError(@StringRes errorMessageRes: Int) {
+    views.loadingAnimation.visibility = View.GONE
+    views.genericErrorLayout.root.visibility = View.VISIBLE
+    views.genericErrorButtons.root.visibility = View.VISIBLE
     views.genericErrorLayout.errorMessage.text = getString(errorMessageRes)
   }
 
   private fun handleSuccess() {
+    views.loadingAnimation.visibility = View.GONE
+    views.genericErrorLayout.root.visibility = View.GONE
+    views.genericErrorButtons.root.visibility = View.GONE
+//    views.genericSuccessLayout.root.visibility = View.VISIBLE
+    views.successButtons.root.visibility = View.VISIBLE
   }
 }
