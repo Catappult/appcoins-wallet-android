@@ -1,17 +1,18 @@
 package com.asfoundation.wallet.onboarding_new_payment.payment_result
 
+import android.util.Log
 import androidx.lifecycle.SavedStateHandle
-import com.appcoins.wallet.billing.adyen.AdyenResponseMapper.Companion.REDIRECT
-import com.appcoins.wallet.billing.adyen.AdyenResponseMapper.Companion.THREEDS2
-import com.appcoins.wallet.billing.adyen.AdyenResponseMapper.Companion.THREEDS2CHALLENGE
-import com.appcoins.wallet.billing.adyen.AdyenResponseMapper.Companion.THREEDS2FINGERPRINT
 import com.appcoins.wallet.billing.adyen.PaymentModel
 import com.appcoins.wallet.billing.util.Error
+import com.asfoundation.wallet.DevUtils.CUSTOM_TAG
 import com.asfoundation.wallet.base.BaseViewModel
 import com.asfoundation.wallet.base.RxSchedulers
 import com.asfoundation.wallet.base.SideEffect
 import com.asfoundation.wallet.base.ViewState
-import com.asfoundation.wallet.billing.adyen.*
+import com.asfoundation.wallet.billing.adyen.AdyenErrorCodeMapper
+import com.asfoundation.wallet.billing.adyen.AdyenPaymentInteractor
+import com.asfoundation.wallet.billing.adyen.PaymentType
+import com.asfoundation.wallet.billing.adyen.PurchaseBundleModel
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics
 import com.asfoundation.wallet.onboarding_new_payment.mapToService
 import com.asfoundation.wallet.onboarding_new_payment.use_cases.GetAnalyticsRevenueValueUseCase
@@ -30,6 +31,8 @@ sealed class OnboardingPaymentResultSideEffect : SideEffect {
 
   data class ShowPaymentSuccess(val purchaseBundleModel: PurchaseBundleModel) :
     OnboardingPaymentResultSideEffect()
+
+  data class NavigateBackToGame(val appPackageName: String) : OnboardingPaymentResultSideEffect()
 }
 
 object OnboardingPaymentResultState : ViewState
@@ -59,6 +62,10 @@ class OnboardingPaymentResultViewModel @Inject constructor(
   }
 
   private fun handlePaymentResult() {
+    Log.d(
+      CUSTOM_TAG,
+      "OnboardingPaymentResultViewModel: handlePaymentResult: payment model ${args.paymentModel}"
+    )
     when {
       args.paymentModel.resultCode.equals("AUTHORISED", true) -> {
         handleAuthorisedPayment()
@@ -123,7 +130,7 @@ class OnboardingPaymentResultViewModel @Inject constructor(
             }
           }
         }
-      }
+      }.scopedSubscribe()
   }
 
   private fun handlePaymentRefusal() {
@@ -271,5 +278,9 @@ class OnboardingPaymentResultViewModel @Inject constructor(
       refusalReason,
       riskRules
     )
+  }
+
+  fun handleBackToGameClick() {
+    sendSideEffect { OnboardingPaymentResultSideEffect.NavigateBackToGame(args.transactionBuilder.domain) }
   }
 }
