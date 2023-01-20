@@ -150,7 +150,7 @@ class AdyenPaymentPresenter(
           view.showProductPrice(amount, it.priceCurrency)
           if (paymentType == PaymentType.CARD.name) {
             view.hideLoadingAndShowView()
-            sendPaymentMethodDetailsEvent(BillingAnalytics.PAYMENT_METHOD_CC)
+            sendPaymentMethodDetailsEvent(PaymentMethodsAnalytics.PAYMENT_METHOD_CC)
             view.finishCardConfiguration(it, false)
             handleBuyClick(it.priceAmount, it.priceCurrency)
             paymentAnalytics.stopTimingForTotalEvent(PaymentMethodsAnalytics.PAYMENT_METHOD_CC)
@@ -659,9 +659,9 @@ class AdyenPaymentPresenter(
 
   private fun mapPaymentToAnalytics(paymentType: String): String =
     if (paymentType == PaymentType.CARD.name) {
-      BillingAnalytics.PAYMENT_METHOD_CC
+      PaymentMethodsAnalytics.PAYMENT_METHOD_CC
     } else {
-      BillingAnalytics.PAYMENT_METHOD_PAYPAL
+      PaymentMethodsAnalytics.PAYMENT_METHOD_PP
     }
 
   private fun mapPaymentToService(paymentType: String): AdyenPaymentRepository.Methods =
