@@ -48,3 +48,7 @@ gen-external-apklibs
 
 # Room auto generated
 /*/schemas/
+
+#Misc
+*.keystore
+*.aar

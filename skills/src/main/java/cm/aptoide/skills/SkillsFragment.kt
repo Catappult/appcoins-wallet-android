@@ -258,13 +258,14 @@ class SkillsFragment : Fragment(), PaymentView {
 
   private fun updateHeaderInfo(eSkillsPaymentData: EskillsPaymentData) {
     val header = binding.payTicketLayout.payTicketHeader
+    val details = binding.payTicketLayout.payTicketPaymentMethodsDetails
     disposable.addAll(
       viewModel.getLocalFiatAmount(eSkillsPaymentData.price!!, eSkillsPaymentData.currency!!)
         .observeOn(AndroidSchedulers.mainThread())
         .map {
-          header.fiatPrice.text = "${it.amount} ${it.currency}"
-          header.fiatPriceSkeleton.visibility = View.GONE
-          header.fiatPrice.visibility = View.VISIBLE
+          details.fiatPrice.text = "${it.amount} ${it.currency}"
+          details.fiatPriceSkeleton.visibility = View.GONE
+          details.fiatPrice.visibility = View.VISIBLE
         }
         .subscribe(),
       viewModel.getFormattedAppcAmount(
@@ -273,9 +274,9 @@ class SkillsFragment : Fragment(), PaymentView {
       )
         .observeOn(AndroidSchedulers.mainThread())
         .map {
-          header.appcPrice.text = "$it APPC"
-          header.appcPriceSkeleton.visibility = View.GONE
-          header.appcPrice.visibility = View.VISIBLE
+          details.appcPrice.text = "$it APPC"
+          details.appcPriceSkeleton.visibility = View.GONE
+          details.appcPrice.visibility = View.VISIBLE
         }
         .subscribe()
     )
@@ -335,11 +336,11 @@ class SkillsFragment : Fragment(), PaymentView {
   }
 
   private fun hidePaymentRelatedText() {
-    binding.payTicketLayout.payTicketHeader.appcCreditsIcon?.visibility = View.GONE
-    binding.payTicketLayout.payTicketHeader.paymentTitle?.visibility = View.GONE
-    binding.payTicketLayout.payTicketHeader.paymentBody?.visibility = View.GONE
-    binding.payTicketLayout.payTicketHeader.fiatPrice.visibility = View.GONE
-    binding.payTicketLayout.payTicketHeader.appcPrice.visibility = View.GONE
+    binding.payTicketLayout.payTicketPaymentMethodsDetails.appcCreditsIcon?.visibility = View.GONE
+    binding.payTicketLayout.payTicketPaymentMethodsDetails.paymentTitle?.visibility = View.GONE
+    binding.payTicketLayout.payTicketPaymentMethodsDetails.paymentBody?.visibility = View.GONE
+    binding.payTicketLayout.payTicketPaymentMethodsDetails.fiatPrice.visibility = View.GONE
+    binding.payTicketLayout.payTicketPaymentMethodsDetails.appcPrice.visibility = View.GONE
     binding.payTicketLayout.dialogBuyButtonsPaymentMethods.buyButton.text = getString(R.string.ok)
   }
 

@@ -10,6 +10,8 @@
       android:layout_height="wrap_content"
       android:animateLayoutChanges="true"
       android:background="@drawable/background_card_bottom_rounded"
+      android:paddingHorizontal="@dimen/big_margin"
+      android:paddingVertical="@dimen/big_margin"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
@@ -21,25 +23,21 @@
         layout="@layout/pay_ticket_header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        app:layout_constraintBottom_toTopOf="@id/line_separator_info"
+        app:layout_constraintVertical_chainStyle="packed"
+        app:layout_constraintBottom_toTopOf="@id/pay_ticket_payment_methods_details"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         />
-
-    <View
-        android:id="@+id/line_separator_info"
+    <include
+        android:id="@+id/pay_ticket_payment_methods_details"
+        layout="@layout/pay_ticket_payment_methods_details"
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
-        android:background="@color/light_gray"
-        app:layout_constraintTop_toBottomOf="@id/pay_ticket_header"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/small_margin"
+        app:layout_constraintEnd_toEndOf="@+id/pay_ticket_header"
+        app:layout_constraintTop_toBottomOf="@+id/pay_ticket_header"
+        app:layout_constraintBottom_toTopOf="@+id/pay_ticket_room_details"
         />
 
     <include
@@ -47,24 +45,11 @@
         layout="@layout/pay_ticket_room_details"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        app:layout_constraintBottom_toBottomOf="@id/line_separator_buttons"
+        android:layout_marginTop="@dimen/mid_margin"
+        app:layout_constraintBottom_toTopOf="@id/dialog_buy_buttons_payment_methods"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/line_separator_info"
-        />
-
-    <View
-        android:id="@+id/line_separator_buttons"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
-        android:background="@color/light_gray"
-        app:layout_constraintTop_toBottomOf="@id/pay_ticket_room_details"
+        app:layout_constraintTop_toBottomOf="@id/pay_ticket_payment_methods_details"
         />
 
     <include
@@ -72,10 +57,11 @@
         layout="@layout/pay_ticket_buy_buttons"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/mid_margin"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/line_separator_buttons"
+        app:layout_constraintTop_toBottomOf="@+id/pay_ticket_room_details"
         />
 
   </androidx.constraintlayout.widget.ConstraintLayout>
