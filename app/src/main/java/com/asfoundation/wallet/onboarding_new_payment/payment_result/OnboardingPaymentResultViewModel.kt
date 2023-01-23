@@ -2,6 +2,7 @@ package com.asfoundation.wallet.onboarding_new_payment.payment_result
 
 import android.util.Log
 import androidx.lifecycle.SavedStateHandle
+import com.appcoins.wallet.billing.ErrorInfo
 import com.appcoins.wallet.billing.adyen.PaymentModel
 import com.appcoins.wallet.billing.util.Error
 import com.asfoundation.wallet.DevUtils.CUSTOM_TAG
@@ -13,6 +14,7 @@ import com.asfoundation.wallet.billing.adyen.AdyenErrorCodeMapper
 import com.asfoundation.wallet.billing.adyen.AdyenPaymentInteractor
 import com.asfoundation.wallet.billing.adyen.PaymentType
 import com.asfoundation.wallet.billing.adyen.PurchaseBundleModel
+import com.asfoundation.wallet.onboarding.use_cases.SetOnboardingCompletedUseCase
 import com.asfoundation.wallet.onboarding_new_payment.OnboardingPaymentEvents
 import com.asfoundation.wallet.onboarding_new_payment.mapToService
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
@@ -31,6 +33,7 @@ sealed class OnboardingPaymentResultSideEffect : SideEffect {
     OnboardingPaymentResultSideEffect()
 
   data class NavigateBackToGame(val appPackageName: String) : OnboardingPaymentResultSideEffect()
+  object NavigateBackToPaymentMethods : OnboardingPaymentResultSideEffect()
 }
 
 object OnboardingPaymentResultState : ViewState
@@ -40,6 +43,7 @@ class OnboardingPaymentResultViewModel @Inject constructor(
   private val savedStateHandle: SavedStateHandle,
   private val adyenPaymentInteractor: AdyenPaymentInteractor,
   private val events: OnboardingPaymentEvents,
+  private val setOnboardingCompletedUseCase: SetOnboardingCompletedUseCase,
   private val rxSchedulers: RxSchedulers
 ) :
   BaseViewModel<OnboardingPaymentResultState, OnboardingPaymentResultSideEffect>(
@@ -72,6 +76,20 @@ class OnboardingPaymentResultViewModel @Inject constructor(
       args.paymentModel.status == PaymentModel.Status.PENDING_USER_PAYMENT && args.paymentModel.action != null -> {
         handleAdyenAction(args.paymentModel)
       }
+      args.paymentModel.error.hasError -> {
+        when (args.paymentModel.error.errorInfo?.errorType) {
+          ErrorInfo.ErrorType.BILLING_ADDRESS -> {
+            //TODO handle billing address error
+          }
+          else -> {
+            events.sendPaymentErrorEvent(args.transactionBuilder, args.paymentType)
+            sendSideEffect { OnboardingPaymentResultSideEffect.ShowPaymentError(args.paymentModel.error) }
+          }
+        }
+      }
+      args.paymentModel.status == PaymentModel.Status.CANCELED -> {
+        sendSideEffect { OnboardingPaymentResultSideEffect.NavigateBackToPaymentMethods }
+      }
       else -> {
         sendSideEffect { OnboardingPaymentResultSideEffect.ShowPaymentError(args.paymentModel.error) }
       }
@@ -91,6 +109,7 @@ class OnboardingPaymentResultViewModel @Inject constructor(
             ).map { purchaseBundleModel ->
               events.sendPaymentSuccessFinishEvents(args.transactionBuilder, args.paymentType)
               sendSideEffect {
+                setOnboardingCompletedUseCase()
                 OnboardingPaymentResultSideEffect.ShowPaymentSuccess(
                   purchaseBundleModel
                 )

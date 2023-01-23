@@ -64,7 +64,7 @@ class OnboardingPaymentResultFragment : BasePageViewFragment(),
 
   private fun clickListeners() {
     views.genericErrorButtons.errorBack.setOnClickListener {
-      navigator.navigateBack()
+      navigator.navigateBackToPaymentMethods()
     }
     views.genericErrorButtons.errorCancel.setOnClickListener {
       navigator.navigateToHome()
@@ -90,6 +90,7 @@ class OnboardingPaymentResultFragment : BasePageViewFragment(),
       is OnboardingPaymentResultSideEffect.NavigateBackToGame -> navigator.navigateBackToGame(
         sideEffect.appPackageName
       )
+      OnboardingPaymentResultSideEffect.NavigateBackToPaymentMethods -> navigator.navigateBackToPaymentMethods()
     }
   }
 

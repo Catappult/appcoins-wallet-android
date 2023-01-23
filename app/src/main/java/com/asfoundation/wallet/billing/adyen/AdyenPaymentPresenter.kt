@@ -517,8 +517,7 @@ class AdyenPaymentPresenter(
         if (it == CHALLENGE_CANCELED) {
           paymentAnalytics.send3dsCancel()
           view.showMoreMethods()
-        }
-        else {
+        } else {
           paymentAnalytics.send3dsError(it)
           logger.log(TAG, "error:$it \n last 3ds action: ${action3ds ?: ""}")
           view.showGenericError()

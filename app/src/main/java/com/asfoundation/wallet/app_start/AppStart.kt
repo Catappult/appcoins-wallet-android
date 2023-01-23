@@ -52,7 +52,7 @@ class AppStartUseCase @Inject constructor(
     val runs = repository.getRunCount() + 1
     repository.saveRunCount(runs)
 
-    val mode = if (true) {
+    val mode = if (firstInstallTime == lastUpdateTime && runs == 1) {
       pendingPurchaseFlowUseCase()
         ?: gpInstallUseCase()
         ?: StartMode.Regular

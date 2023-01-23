@@ -1,6 +1,7 @@
 package com.asfoundation.wallet.util
 
 import android.view.View
+import androidx.appcompat.content.res.AppCompatResources
 import androidx.appcompat.widget.SwitchCompat
 import androidx.lifecycle.ViewModelStoreOwner
 import androidx.savedstate.SavedStateRegistryOwner
@@ -23,6 +24,8 @@ class AdyenCardView(view: View?) {
     cardView?.findViewById(R.id.cardBrandLogo_imageView_primary)
   private val adyenSaveDetailsSwitch: SwitchCompat? =
     (cardView?.findViewById(R.id.switch_storePaymentMethod) as SwitchCompat?)?.apply {
+      thumbTintList = AppCompatResources.getColorStateList(context, R.color.styleguide_pink)
+      trackTintList = AppCompatResources.getColorStateList(context, R.color.styleguide_pink_transparent_40)
       isChecked = true
     }
 

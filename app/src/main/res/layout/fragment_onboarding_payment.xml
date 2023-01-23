@@ -5,6 +5,8 @@
     android:id="@+id/onboarding_payment_fragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:clickable="true"
+    android:focusable="true"
     android:background="@color/styleguide_white"
     >
 

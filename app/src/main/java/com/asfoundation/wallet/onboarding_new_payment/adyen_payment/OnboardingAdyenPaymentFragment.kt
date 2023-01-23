@@ -147,13 +147,13 @@ class OnboardingAdyenPaymentFragment : BasePageViewFragment(),
         Intent("", sideEffect.uri)
       )
       OnboardingAdyenPaymentSideEffect.NavigateBackToPaymentMethods -> navigator.navigateBack()
-      OnboardingAdyenPaymentSideEffect.ShowCvvError -> TODO()
-      OnboardingAdyenPaymentSideEffect.ShowLoading -> showLoading()
+      OnboardingAdyenPaymentSideEffect.ShowCvvError -> handleCVCError()
+      OnboardingAdyenPaymentSideEffect.ShowLoading -> showLoading(shouldShow = true)
     }
   }
 
   private fun setupUi() {
-    adyenCardView = AdyenCardView(views.onboardingAdyenPaymentCardView)
+    adyenCardView = AdyenCardView(views.adyenCardFormPreSelected)
     setupConfiguration()
     setup3DSComponent()
     setupRedirectComponent()
@@ -162,12 +162,12 @@ class OnboardingAdyenPaymentFragment : BasePageViewFragment(),
 
   private fun prepareCardComponent(paymentInfoModel: PaymentInfoModel) {
     views.onboardingAdyenPaymentTitle.visibility = View.VISIBLE
-    views.onboardingAdyenPaymentCardView.visibility = View.VISIBLE
+    views.adyenCardFormPreSelected.visibility = View.VISIBLE
     views.onboardingAdyenPaymentButtons.root.visibility = View.VISIBLE
     views.loadingAnimation.visibility = View.GONE
 
     adyenCardComponent = paymentInfoModel.cardComponent!!(this, cardConfiguration)
-    views.onboardingAdyenPaymentCardView.attach(adyenCardComponent, this)
+    views.adyenCardFormPreSelected.attach(adyenCardComponent, this)
     adyenCardComponent.observe(this) {
       if (it != null && it.isValid) {
         views.onboardingAdyenPaymentButtons.adyenPaymentBuyButton.isEnabled = true
@@ -191,11 +191,12 @@ class OnboardingAdyenPaymentFragment : BasePageViewFragment(),
     outerNavController = Navigation.findNavController(requireActivity(), R.id.full_host_container)
   }
 
-  private fun showLoading() {
-    views.onboardingAdyenPaymentTitle.visibility = View.GONE
-    views.onboardingAdyenPaymentCardView.visibility = View.GONE
-    views.onboardingAdyenPaymentButtons.root.visibility = View.GONE
-    views.loadingAnimation.visibility = View.VISIBLE
+  private fun showLoading(shouldShow: Boolean) {
+    views.onboardingAdyenPaymentTitle.visibility = if (shouldShow) View.GONE else View.VISIBLE
+    views.adyenCardFormPreSelected.visibility = if (shouldShow) View.GONE else View.VISIBLE
+    views.onboardingAdyenPaymentButtons.root.visibility =
+      if (shouldShow) View.GONE else View.VISIBLE
+    views.loadingAnimation.visibility = if (shouldShow) View.VISIBLE else View.GONE
   }
 
   private fun setupConfiguration() {
@@ -238,9 +239,7 @@ class OnboardingAdyenPaymentFragment : BasePageViewFragment(),
     redirectComponent.observe(this) { actionComponentData ->
       viewModel.handleRedirectComponentResponse(actionComponentData)
     }
-
   }
-
 
   private fun handleBuyButtonText() {
     when {
@@ -260,7 +259,9 @@ class OnboardingAdyenPaymentFragment : BasePageViewFragment(),
     }
   }
 
-  companion object {
-    const val WEB_VIEW_REQUEST_CODE = 1234
+  private fun handleCVCError() {
+    showLoading(shouldShow = false)
+    views.onboardingAdyenPaymentButtons.adyenPaymentBuyButton.isEnabled = false
+    adyenCardView.setError(getString(R.string.purchase_card_error_CVV))
   }
 }

@@ -33,8 +33,8 @@ class OnboardingPaymentEvents @Inject constructor(
   fun sendPaymentErrorEvent(
     transactionBuilder: TransactionBuilder,
     paymentType: PaymentType,
-    refusalCode: Int?,
-    refusalReason: String?,
+    refusalCode: Int? =  null,
+    refusalReason: String? = null,
     riskRules: String? = null
   ) {
     paymentMethodsAnalytics.stopTimingForPurchaseEvent(
