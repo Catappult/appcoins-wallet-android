@@ -100,17 +100,17 @@ class OnboardingPaymentMethodsFragment : BasePageViewFragment(),
     }
   }
 
+  override fun onSideEffect(sideEffect: OnboardingPaymentMethodsSideEffect) {
+    when (sideEffect) {
+      is OnboardingPaymentMethodsSideEffect.NavigateToLink -> navigator.navigateToBrowser(sideEffect.uri)
+    }
+  }
+
   private fun showPaymentMethodsList(paymentMethodsAsync: List<PaymentMethod>?) {
     views.onboardingPaymentMethodsTitle.visibility = View.VISIBLE
     views.onboardingPaymentMethodsRv.visibility = View.VISIBLE
     views.onboardingPaymentTermsConditions.root.visibility = View.VISIBLE
     controller.setData(paymentMethodsAsync, paymentMethodsMapper)
-  }
-
-  override fun onSideEffect(sideEffect: OnboardingPaymentMethodsSideEffect) {
-    when (sideEffect) {
-      is OnboardingPaymentMethodsSideEffect.NavigateToLink -> navigator.navigateToBrowser(sideEffect.uri)
-    }
   }
 
   /**
