@@ -125,9 +125,9 @@ class OnboardingAdyenPaymentViewModel @Inject constructor(
           paymentModel.refusalReason
         )
       }
-    }
-    sendSideEffect {
-      OnboardingAdyenPaymentSideEffect.NavigateToPaymentResult(paymentModel)
+      else -> sendSideEffect {
+        OnboardingAdyenPaymentSideEffect.NavigateToPaymentResult(paymentModel)
+      }
     }
   }
 

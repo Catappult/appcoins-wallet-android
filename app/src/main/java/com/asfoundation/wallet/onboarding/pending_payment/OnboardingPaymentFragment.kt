@@ -91,7 +91,7 @@ class OnboardingPaymentFragment : BasePageViewFragment(),
     handleAppInfo(transactionContent.packageName)
     views.onboardingPaymentHeaderLayout.onboardingPaymentGameItem.text = transactionContent.sku
     views.onboardingPaymentHeaderLayout.onboardingPaymentBonusText.text =
-      "Receive 10% bonus with this purchase" //TODO change hardcoded string
+      getString(R.string.bonus_body, "10%")
     views.onboardingPaymentHeaderLayout.onboardingPaymentBonusFiatAmount.text =
       "${transactionContent.currency}${transactionContent.value}"
   }

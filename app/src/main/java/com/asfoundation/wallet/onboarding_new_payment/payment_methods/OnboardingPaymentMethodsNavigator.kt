@@ -42,7 +42,8 @@ class OnboardingPaymentMethodsNavigator @Inject constructor(private val fragment
         transactionBuilder,
         PaymentType.CARD,
         amount,
-        currency, forecastBonus
+        currency,
+        forecastBonus
       )
     )
   }

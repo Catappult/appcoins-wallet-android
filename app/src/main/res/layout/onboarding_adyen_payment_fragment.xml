@@ -28,10 +28,10 @@
       style="@style/TextM"
       android:layout_width="0dp"
       android:layout_height="wrap_content"
-      android:text="Pay with Credit/Debit card"
+      android:text="@string/pay_with_card_title"
       android:visibility="gone"
       tools:visibility="visible"
-      app:layout_constraintBottom_toTopOf="@id/onboarding_adyen_payment_card_view"
+      app:layout_constraintBottom_toTopOf="@id/adyen_card_form_pre_selected"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintHorizontal_bias="0.0"
       app:layout_constraintStart_toStartOf="parent"
@@ -39,9 +39,9 @@
       />
 
   <com.adyen.checkout.card.CardView
-      android:id="@+id/onboarding_adyen_payment_card_view"
+      android:id="@+id/adyen_card_form_pre_selected"
       android:layout_width="match_parent"
-      android:layout_height="200dp"
+      android:layout_height="wrap_content"
       android:visibility="gone"
       tools:visibility="visible"
       app:layout_constraintEnd_toEndOf="parent"
@@ -60,7 +60,7 @@
       tools:visibility="visible"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@id/onboarding_adyen_payment_card_view"
+      app:layout_constraintTop_toBottomOf="@id/adyen_card_form_pre_selected"
       />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

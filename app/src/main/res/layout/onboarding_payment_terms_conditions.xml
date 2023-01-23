@@ -30,7 +30,7 @@
       app:layout_constraintStart_toEndOf="@id/terms_conditions_checkmark"
       app:layout_constraintTop_toTopOf="parent"
       app:layout_constraintBottom_toBottomOf="parent"
-      android:text="@string/intro_agree_terms_and_conditions_body"
+      android:text="@string/agree_by_choosing_a_payment_method_body"
       />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

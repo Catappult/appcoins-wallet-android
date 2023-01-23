@@ -30,7 +30,6 @@ import com.appcoins.wallet.billing.repository.entity.TransactionData
 import com.appcoins.wallet.commons.Logger
 import com.asf.wallet.BuildConfig
 import com.asf.wallet.R
-import com.asfoundation.wallet.DevUtils.CUSTOM_TAG
 import com.asfoundation.wallet.billing.address.BillingAddressFragment.Companion.BILLING_ADDRESS_MODEL
 import com.asfoundation.wallet.billing.address.BillingAddressModel
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics
@@ -404,7 +403,6 @@ class AdyenPaymentFragment : BasePageViewFragment(), AdyenPaymentView {
     activity?.application?.let { application ->
       redirectComponent = RedirectComponent.PROVIDER.get(this, application, redirectConfiguration)
       redirectComponent.observe(this) {
-        Log.d(CUSTOM_TAG, "AdyenPaymentFragment: setupRedirectComponent: observe")
         paymentDetailsSubject?.onNext(AdyenComponentResponseModel(it.details, it.paymentData))
       }
     }
