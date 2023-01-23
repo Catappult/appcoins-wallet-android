@@ -85,9 +85,7 @@ class OnboardingAdyenPaymentFragment : BasePageViewFragment(),
   private fun createResultLauncher() {
     webViewLauncher =
       registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-        when (result.resultCode) {
-          WEB_VIEW_REQUEST_CODE -> viewModel.handleWebViewResult(result)
-        }
+        viewModel.handleWebViewResult(result)
       }
   }
 
@@ -103,12 +101,6 @@ class OnboardingAdyenPaymentFragment : BasePageViewFragment(),
     }
   }
 
-  private fun setupUi() {
-    adyenCardView = AdyenCardView(views.onboardingAdyenPaymentCardView)
-    setupConfiguration()
-    handleBuyButtonText()
-  }
-
   override fun onStateChanged(state: OnboardingAdyenPaymentState) {
     when (state.paymentInfoModel) {
       Async.Uninitialized,
@@ -117,21 +109,55 @@ class OnboardingAdyenPaymentFragment : BasePageViewFragment(),
       }
       is Async.Success -> {
         state.paymentInfoModel()?.let {
-          when {
-            args.paymentType == PaymentType.CARD -> {
+          when (args.paymentType) {
+            PaymentType.CARD -> {
               prepareCardComponent(it)
             }
-            args.paymentType == PaymentType.PAYPAL -> {
+            PaymentType.PAYPAL -> {
               viewModel.handlePaypal(it, RedirectComponent.getReturnUrl(requireContext()))
             }
             else -> Unit
           }
         }
       }
-      is Async.Fail -> {
-
-      }
+      is Async.Fail -> Unit
     }
+  }
+
+  override fun onSideEffect(sideEffect: OnboardingAdyenPaymentSideEffect) {
+    when (sideEffect) {
+      is OnboardingAdyenPaymentSideEffect.NavigateToPaymentResult -> navigator.navigateToPaymentResult(
+        outerNavController,
+        sideEffect.paymentModel,
+        args.transactionBuilder,
+        args.paymentType,
+        args.amount,
+        args.currency,
+        args.forecastBonus
+      )
+      is OnboardingAdyenPaymentSideEffect.NavigateToPaypal -> {
+        sideEffect.paymentModel.redirectUrl?.let {
+          navigator.navigateToWebView(
+            it,
+            webViewLauncher
+          )
+        }
+      }
+      is OnboardingAdyenPaymentSideEffect.HandleWebViewResult -> redirectComponent.handleIntent(
+        Intent("", sideEffect.uri)
+      )
+      OnboardingAdyenPaymentSideEffect.NavigateBackToPaymentMethods -> navigator.navigateBack()
+      OnboardingAdyenPaymentSideEffect.ShowCvvError -> TODO()
+      OnboardingAdyenPaymentSideEffect.ShowLoading -> showLoading()
+    }
+  }
+
+  private fun setupUi() {
+    adyenCardView = AdyenCardView(views.onboardingAdyenPaymentCardView)
+    setupConfiguration()
+    setup3DSComponent()
+    setupRedirectComponent()
+    handleBuyButtonText()
   }
 
   private fun prepareCardComponent(paymentInfoModel: PaymentInfoModel) {
@@ -165,27 +191,6 @@ class OnboardingAdyenPaymentFragment : BasePageViewFragment(),
     outerNavController = Navigation.findNavController(requireActivity(), R.id.full_host_container)
   }
 
-  override fun onSideEffect(sideEffect: OnboardingAdyenPaymentSideEffect) {
-    when (sideEffect) {
-      is OnboardingAdyenPaymentSideEffect.NavigateToPaymentResult -> navigator.navigateToPaymentResult(
-        outerNavController,
-        sideEffect.paymentModel,
-        args.transactionBuilder,
-        args.paymentType,
-        args.amount,
-        args.currency,
-        args.forecastBonus
-      )
-      is OnboardingAdyenPaymentSideEffect.NavigateToPaypal -> navigator.navigateToWebView(sideEffect.redirectUrl)
-      is OnboardingAdyenPaymentSideEffect.HandleWebViewResult -> redirectComponent.handleIntent(
-        Intent("", sideEffect.uri)
-      )
-      OnboardingAdyenPaymentSideEffect.NavigateBackToPaymentMethods -> navigator.navigateBack()
-      OnboardingAdyenPaymentSideEffect.ShowCvvError -> TODO()
-      OnboardingAdyenPaymentSideEffect.ShowLoading -> showLoading()
-    }
-  }
-
   private fun showLoading() {
     views.onboardingAdyenPaymentTitle.visibility = View.GONE
     views.onboardingAdyenPaymentCardView.visibility = View.GONE
@@ -216,26 +221,24 @@ class OnboardingAdyenPaymentFragment : BasePageViewFragment(),
         .setEnvironment(adyenEnvironment).build()
   }
 
-  fun setup3DSComponent() {
-    activity?.application?.let { application ->
-      adyen3DS2Component =
-        Adyen3DS2Component.PROVIDER.get(this, application, adyen3DS2Configuration)
-      adyen3DS2Component.observe(this) { actionComponentData ->
-        viewModel.handleRedirectComponentResponse(actionComponentData)
-      }
-      adyen3DS2Component.observeErrors(this) { componentError ->
-        viewModel.handle3DSErrors(componentError)
-      }
+  private fun setup3DSComponent() {
+    adyen3DS2Component =
+      Adyen3DS2Component.PROVIDER.get(this, requireActivity().application, adyen3DS2Configuration)
+    adyen3DS2Component.observe(this) { actionComponentData ->
+      viewModel.handleRedirectComponentResponse(actionComponentData)
+    }
+    adyen3DS2Component.observeErrors(this) { componentError ->
+      viewModel.handle3DSErrors(componentError)
     }
   }
 
-  fun setupRedirectComponent() {
-    activity?.application?.let { application ->
-      redirectComponent = RedirectComponent.PROVIDER.get(this, application, redirectConfiguration)
-      redirectComponent.observe(this) { actionComponentData ->
-        viewModel.handleRedirectComponentResponse(actionComponentData)
-      }
+  private fun setupRedirectComponent() {
+    redirectComponent =
+      RedirectComponent.PROVIDER.get(this, requireActivity().application, redirectConfiguration)
+    redirectComponent.observe(this) { actionComponentData ->
+      viewModel.handleRedirectComponentResponse(actionComponentData)
     }
+
   }
 
 

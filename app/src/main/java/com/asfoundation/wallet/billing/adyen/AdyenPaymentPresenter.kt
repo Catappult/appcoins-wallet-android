@@ -1,6 +1,7 @@
 package com.asfoundation.wallet.billing.adyen
 
 import android.os.Bundle
+import android.util.Log
 import androidx.annotation.StringRes
 import com.adyen.checkout.core.model.ModelObject
 import com.appcoins.wallet.billing.ErrorInfo.ErrorType
@@ -14,6 +15,7 @@ import com.appcoins.wallet.billing.adyen.PaymentModel
 import com.appcoins.wallet.billing.adyen.PaymentModel.Status.*
 import com.appcoins.wallet.billing.util.Error
 import com.appcoins.wallet.commons.Logger
+import com.asfoundation.wallet.DevUtils.CUSTOM_TAG
 import com.asfoundation.wallet.billing.address.BillingAddressModel
 import com.asfoundation.wallet.billing.adyen.AdyenErrorCodeMapper.Companion.CVC_DECLINED
 import com.asfoundation.wallet.billing.adyen.AdyenErrorCodeMapper.Companion.FRAUD
@@ -429,6 +431,7 @@ class AdyenPaymentPresenter(
       .doOnNext { view.lockRotation() }
       .observeOn(networkScheduler)
       .flatMapSingle {
+        Log.d(CUSTOM_TAG, "AdyenPaymentPresenter: handlePaymentDetails: adyenComponentResponse $it")
         adyenPaymentInteractor.submitRedirect(
           uid = cachedUid,
           details = convertToJson(it.details!!),
@@ -758,6 +761,9 @@ class AdyenPaymentPresenter(
 
   private fun handleAdyenAction(paymentModel: PaymentModel) {
     if (paymentModel.action != null) {
+      Log.d(CUSTOM_TAG, "AdyenPaymentPresenter: handleAdyenAction: action ${paymentModel.action?.type}")
+      Log.d(CUSTOM_TAG, "AdyenPaymentPresenter: handleAdyenAction: paymentData ${paymentModel.paymentData}")
+      Log.d(CUSTOM_TAG, "AdyenPaymentPresenter: handleAdyenAction: uid ${paymentModel.uid}")
       when (val type = paymentModel.action?.type) {
         REDIRECT -> {
           action3ds = type

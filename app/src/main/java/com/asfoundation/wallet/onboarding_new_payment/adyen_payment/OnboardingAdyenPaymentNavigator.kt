@@ -1,6 +1,7 @@
 package com.asfoundation.wallet.onboarding_new_payment.adyen_payment
 
-import androidx.core.app.ActivityCompat.startActivityForResult
+import android.content.Intent
+import androidx.activity.result.ActivityResultLauncher
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
@@ -10,7 +11,6 @@ import com.asfoundation.wallet.base.Navigator
 import com.asfoundation.wallet.base.navigate
 import com.asfoundation.wallet.billing.adyen.PaymentType
 import com.asfoundation.wallet.entity.TransactionBuilder
-import com.asfoundation.wallet.onboarding_new_payment.adyen_payment.OnboardingAdyenPaymentFragment.Companion.WEB_VIEW_REQUEST_CODE
 import com.asfoundation.wallet.ui.iab.WebViewActivity
 import javax.inject.Inject
 
@@ -21,13 +21,8 @@ class OnboardingAdyenPaymentNavigator @Inject constructor(private val fragment: 
     fragment.findNavController().popBackStack()
   }
 
-  fun navigateToWebView(url: String) {
-    startActivityForResult(
-      fragment.requireActivity(),
-      WebViewActivity.newIntent(fragment.requireActivity(), url),
-      WEB_VIEW_REQUEST_CODE,
-      null
-    )
+  fun navigateToWebView(url: String, webViewLauncher: ActivityResultLauncher<Intent>) {
+    webViewLauncher.launch(WebViewActivity.newIntent(fragment.requireActivity(), url))
   }
 
   /**

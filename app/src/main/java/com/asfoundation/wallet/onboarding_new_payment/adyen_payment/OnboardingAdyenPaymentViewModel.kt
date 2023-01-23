@@ -7,7 +7,10 @@ import com.adyen.checkout.components.ActionComponentData
 import com.adyen.checkout.components.ComponentError
 import com.appcoins.wallet.billing.adyen.PaymentInfoModel
 import com.appcoins.wallet.billing.adyen.PaymentModel
-import com.asfoundation.wallet.base.*
+import com.asfoundation.wallet.base.Async
+import com.asfoundation.wallet.base.BaseViewModel
+import com.asfoundation.wallet.base.SideEffect
+import com.asfoundation.wallet.base.ViewState
 import com.asfoundation.wallet.billing.adyen.AdyenCardWrapper
 import com.asfoundation.wallet.billing.adyen.AdyenErrorCodeMapper
 import com.asfoundation.wallet.billing.adyen.AdyenPaymentInteractor
@@ -27,7 +30,7 @@ sealed class OnboardingAdyenPaymentSideEffect : SideEffect {
   data class NavigateToPaymentResult(val paymentModel: PaymentModel) :
     OnboardingAdyenPaymentSideEffect()
 
-  data class NavigateToPaypal(val redirectUrl: String) : OnboardingAdyenPaymentSideEffect()
+  data class NavigateToPaypal(val paymentModel: PaymentModel) : OnboardingAdyenPaymentSideEffect()
   data class HandleWebViewResult(val uri: Uri) : OnboardingAdyenPaymentSideEffect()
   object ShowLoading : OnboardingAdyenPaymentSideEffect()
   object ShowCvvError : OnboardingAdyenPaymentSideEffect()
@@ -51,6 +54,7 @@ class OnboardingAdyenPaymentViewModel @Inject constructor(
   ) {
 
   private lateinit var args: OnboardingAdyenPaymentFragmentArgs
+  private lateinit var cachedUid: String
   private val tempReferrerUrl =
     "https://apichain.dev.catappult.io/transaction/inapp?product=antifreeze&value=1.5&currency=USD&callback_url=https%3A%2F%2Fapi.dev.catappult.io%2Fbroker%2F8.20200101%2Fmock%2Fcallback&domain=com.appcoins.trivialdrivesample.test&signature=7878cb314b82ad2684ad4865cf84ab33e2905d2b6c7f9c3a368f6f70917e1364"
 
@@ -156,16 +160,15 @@ class OnboardingAdyenPaymentViewModel @Inject constructor(
         )
       }
       .doOnSuccess { paymentModel ->
+        cachedUid = paymentModel.uid
         handlePaypalResult(paymentModel)
       }
       .scopedSubscribe()
   }
 
   private fun handlePaypalResult(paymentModel: PaymentModel) {
-    paymentModel.redirectUrl?.let { redirectUrl ->
-      sendSideEffect {
-        OnboardingAdyenPaymentSideEffect.NavigateToPaypal(redirectUrl)
-      }
+    sendSideEffect {
+      OnboardingAdyenPaymentSideEffect.NavigateToPaypal(paymentModel)
     }
   }
 
@@ -192,10 +195,11 @@ class OnboardingAdyenPaymentViewModel @Inject constructor(
       WebViewActivity.SUCCESS -> {
         if (result.data?.scheme?.contains("adyencheckout") == true) {
           events.sendPaypalUrlEvent(args.transactionBuilder, result.data!!)
-          if (events.getQueryParameter(result.data!!, "resultCode") == "cancelled")
+          if (events.getQueryParameter(result.data!!, "resultCode") == "cancelled") {
             events.sendPayPalConfirmationEvent(args.transactionBuilder, "cancel")
-          else
+          } else {
             events.sendPayPalConfirmationEvent(args.transactionBuilder, "buy")
+          }
         }
         sendSideEffect {
           result.data!!.data?.let { uri ->
@@ -207,13 +211,13 @@ class OnboardingAdyenPaymentViewModel @Inject constructor(
   }
 
   fun handleRedirectComponentResponse(actionComponentData: ActionComponentData) {
-//    adyenPaymentInteractor.submitRedirect(
-//      uid = cachedUid,
-//      details = convertToJson(actionComponentData.details!!),
-//      paymentData = actionComponentData.paymentData ?: cachedPaymentData
-//    ).doOnSuccess { paymentModel ->
-//      handlePaymentResult(paymentModel)
-//    }.scopedSubscribe()
+    adyenPaymentInteractor.submitRedirect(
+      uid = cachedUid,
+      details = convertToJson(actionComponentData.details!!),
+      paymentData = actionComponentData.paymentData
+    ).doOnSuccess { paymentModel ->
+      handlePaymentResult(paymentModel)
+    }.scopedSubscribe()
   }
 
   //This method is used to avoid the nameValuePairs key problem that occurs when we pass a JSONObject trough a GSON converter
