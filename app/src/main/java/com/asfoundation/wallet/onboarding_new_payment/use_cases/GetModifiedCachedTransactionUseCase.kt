@@ -20,10 +20,10 @@ class GetModifiedCachedTransactionUseCase @Inject constructor(
           mutableListOf(cachedTransaction.sku!!),
           BillingSupportedType.INAPP
         )
-          .map {
+          .map { products ->
             cachedTransaction.copy(
-              value = it[0].transactionPrice.amount,
-              currency = it[0].transactionPrice.currency
+              value = products.first().transactionPrice.amount,
+              currency = products.first().transactionPrice.currency
             )
           }
       }

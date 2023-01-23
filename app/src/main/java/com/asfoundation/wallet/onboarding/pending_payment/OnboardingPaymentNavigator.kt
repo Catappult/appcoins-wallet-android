@@ -3,6 +3,7 @@ package com.asfoundation.wallet.onboarding.pending_payment
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
+import com.appcoins.wallet.gamification.repository.ForecastBonusAndLevel
 import com.asf.wallet.R
 import com.asfoundation.wallet.base.Navigator
 import com.asfoundation.wallet.entity.TransactionBuilder
@@ -15,7 +16,8 @@ class OnboardingPaymentNavigator @Inject constructor(private val fragment: Fragm
     packageName: String,
     sku: String,
     value: Double,
-    currency: String
+    currency: String,
+    forecastBonus: ForecastBonusAndLevel
   ) {
     val bundle = Bundle().apply {
       putParcelable("transaction_builder", transactionBuilder)
@@ -23,6 +25,7 @@ class OnboardingPaymentNavigator @Inject constructor(private val fragment: Fragm
       putString("sku", sku)
       putString("amount", value.toString())
       putString("currency", currency)
+      putSerializable("forecast_bonus", forecastBonus)
     }
     navController.setGraph(R.navigation.inner_payment_graph, bundle)
   }
