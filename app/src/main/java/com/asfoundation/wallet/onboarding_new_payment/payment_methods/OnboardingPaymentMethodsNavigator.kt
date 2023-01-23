@@ -6,6 +6,7 @@ import android.net.Uri
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import com.appcoins.wallet.gamification.repository.ForecastBonusAndLevel
 import com.asf.wallet.R
 import com.asfoundation.wallet.base.Navigator
 import com.asfoundation.wallet.base.navigate
@@ -29,14 +30,19 @@ class OnboardingPaymentMethodsNavigator @Inject constructor(private val fragment
     }
   }
 
-  fun navigateToAdyen(transactionBuilder: TransactionBuilder, amount: String, currency: String) {
+  fun navigateToAdyen(
+    transactionBuilder: TransactionBuilder,
+    amount: String,
+    currency: String,
+    forecastBonus: ForecastBonusAndLevel
+  ) {
     navigate(
       fragment.findNavController(),
       OnboardingPaymentMethodsFragmentDirections.actionNavigateToOnboardingAdyenPayment(
         transactionBuilder,
         PaymentType.CARD,
         amount,
-        currency
+        currency, forecastBonus
       )
     )
   }
@@ -44,7 +50,8 @@ class OnboardingPaymentMethodsNavigator @Inject constructor(private val fragment
   fun navigateToPaypalAdyen(
     transactionBuilder: TransactionBuilder,
     amount: String,
-    currency: String
+    currency: String,
+    forecastBonus: ForecastBonusAndLevel
   ) {
     navigate(
       fragment.findNavController(),
@@ -52,7 +59,8 @@ class OnboardingPaymentMethodsNavigator @Inject constructor(private val fragment
         transactionBuilder,
         PaymentType.PAYPAL,
         amount,
-        currency
+        currency,
+        forecastBonus
       )
     )
   }

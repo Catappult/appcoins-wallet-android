@@ -5,12 +5,10 @@ import com.asfoundation.wallet.base.Async
 import com.asfoundation.wallet.base.BaseViewModel
 import com.asfoundation.wallet.base.SideEffect
 import com.asfoundation.wallet.base.ViewState
-import com.asfoundation.wallet.billing.analytics.BillingAnalytics
 import com.asfoundation.wallet.onboarding.CachedTransactionRepository
 import com.asfoundation.wallet.onboarding_new_payment.use_cases.GetFirstPaymentMethodsUseCase
 import com.asfoundation.wallet.onboarding_new_payment.use_cases.GetPaypalAndCCMethodsUseCase
 import com.asfoundation.wallet.ui.iab.PaymentMethod
-import com.asfoundation.wallet.ui.iab.PaymentMethodsAnalytics
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
@@ -25,10 +23,8 @@ data class OnboardingPaymentMethodsState(
 @HiltViewModel
 class OnboardingPaymentMethodsViewModel @Inject constructor(
   private val getFirstPaymentMethodsUseCase: GetFirstPaymentMethodsUseCase,
-  private val getPaypalAndCCMethodsUseCase: GetPaypalAndCCMethodsUseCase,
-  private val cachedTransactionRepository: CachedTransactionRepository,
-  private val paymentMethodsAnalytics: PaymentMethodsAnalytics,
-  private val billingAnalytics: BillingAnalytics
+  private val getPaypalAndCCMethodsUseCase: GetPaypalAndCCMethodsUseCase, //temporary, to remove later and use getFirstPaymentMethodsUseCase
+  private val cachedTransactionRepository: CachedTransactionRepository
 ) :
   BaseViewModel<OnboardingPaymentMethodsState, OnboardingPaymentMethodsSideEffect>(
     OnboardingPaymentMethodsState()

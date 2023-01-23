@@ -1,16 +1,21 @@
 package com.asfoundation.wallet.onboarding_new_payment.adyen_payment
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.Nullable
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import by.kirich1409.viewbindingdelegate.viewBinding
+import com.adyen.checkout.adyen3ds2.Adyen3DS2Component
 import com.adyen.checkout.adyen3ds2.Adyen3DS2Configuration
+import com.adyen.checkout.card.CardComponent
 import com.adyen.checkout.card.CardConfiguration
 import com.adyen.checkout.core.api.Environment
 import com.adyen.checkout.redirect.RedirectComponent
@@ -28,7 +33,6 @@ import com.asfoundation.wallet.util.AdyenCardView
 import com.asfoundation.wallet.util.KeyboardUtils
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
-import io.reactivex.subjects.ReplaySubject
 import javax.inject.Inject
 
 
@@ -40,12 +44,19 @@ class OnboardingAdyenPaymentFragment : BasePageViewFragment(),
   private val views by viewBinding(OnboardingAdyenPaymentFragmentBinding::bind)
   lateinit var args: OnboardingAdyenPaymentFragmentArgs
 
-  private lateinit var adyenCardView: AdyenCardView
+  //configurations
   private lateinit var cardConfiguration: CardConfiguration
   private lateinit var redirectConfiguration: RedirectConfiguration
   private lateinit var adyen3DS2Configuration: Adyen3DS2Configuration
-  private var paymentDataSubject: ReplaySubject<AdyenCardWrapper>? = null
 
+  //components
+  private lateinit var adyenCardComponent: CardComponent
+  private lateinit var redirectComponent: RedirectComponent
+  private lateinit var adyen3DS2Component: Adyen3DS2Component
+  private lateinit var adyenCardView: AdyenCardView
+  private lateinit var adyenCardWrapper: AdyenCardWrapper
+
+  private lateinit var webViewLauncher: ActivityResultLauncher<Intent>
   private lateinit var outerNavController: NavController
 
   @Inject
@@ -64,11 +75,20 @@ class OnboardingAdyenPaymentFragment : BasePageViewFragment(),
   override fun onViewCreated(view: View, @Nullable savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
     args = OnboardingAdyenPaymentFragmentArgs.fromBundle(requireArguments())
-    paymentDataSubject = ReplaySubject.createWithSize(1)
     initOuterNavController()
     setupUi()
     clickListeners()
+    createResultLauncher()
     viewModel.collectStateAndEvents(lifecycle, viewLifecycleOwner.lifecycleScope)
+  }
+
+  private fun createResultLauncher() {
+    webViewLauncher =
+      registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+        when (result.resultCode) {
+          WEB_VIEW_REQUEST_CODE -> viewModel.handleWebViewResult(result)
+        }
+      }
   }
 
   private fun clickListeners() {
@@ -77,7 +97,7 @@ class OnboardingAdyenPaymentFragment : BasePageViewFragment(),
     }
     views.onboardingAdyenPaymentButtons.adyenPaymentBuyButton.setOnClickListener {
       viewModel.handleBuyClick(
-        paymentDataSubject!!,
+        adyenCardWrapper,
         RedirectComponent.getReturnUrl(requireContext())
       )
     }
@@ -120,21 +140,19 @@ class OnboardingAdyenPaymentFragment : BasePageViewFragment(),
     views.onboardingAdyenPaymentButtons.root.visibility = View.VISIBLE
     views.loadingAnimation.visibility = View.GONE
 
-    val cardComponent = paymentInfoModel.cardComponent!!(this, cardConfiguration)
-    views.onboardingAdyenPaymentCardView.attach(cardComponent, this)
-    cardComponent.observe(this) {
+    adyenCardComponent = paymentInfoModel.cardComponent!!(this, cardConfiguration)
+    views.onboardingAdyenPaymentCardView.attach(adyenCardComponent, this)
+    adyenCardComponent.observe(this) {
       if (it != null && it.isValid) {
         views.onboardingAdyenPaymentButtons.adyenPaymentBuyButton.isEnabled = true
         view?.let { view -> KeyboardUtils.hideKeyboard(view) }
         it.data.paymentMethod?.let { paymentMethod ->
           val hasCvc = !paymentMethod.encryptedSecurityCode.isNullOrEmpty()
-          paymentDataSubject?.onNext(
-            AdyenCardWrapper(
-              paymentMethod,
-              adyenCardView.cardSave,
-              hasCvc,
-              paymentInfoModel.supportedShopperInteractions
-            )
+          adyenCardWrapper = AdyenCardWrapper(
+            paymentMethod,
+            adyenCardView.cardSave,
+            hasCvc,
+            paymentInfoModel.supportedShopperInteractions
           )
         }
       } else {
@@ -155,7 +173,12 @@ class OnboardingAdyenPaymentFragment : BasePageViewFragment(),
         args.transactionBuilder,
         args.paymentType,
         args.amount,
-        args.currency
+        args.currency,
+        args.forecastBonus
+      )
+      is OnboardingAdyenPaymentSideEffect.NavigateToPaypal -> navigator.navigateToWebView(sideEffect.redirectUrl)
+      is OnboardingAdyenPaymentSideEffect.HandleWebViewResult -> redirectComponent.handleIntent(
+        Intent("", sideEffect.uri)
       )
       OnboardingAdyenPaymentSideEffect.NavigateBackToPaymentMethods -> navigator.navigateBack()
       OnboardingAdyenPaymentSideEffect.ShowCvvError -> TODO()
@@ -193,6 +216,29 @@ class OnboardingAdyenPaymentFragment : BasePageViewFragment(),
         .setEnvironment(adyenEnvironment).build()
   }
 
+  fun setup3DSComponent() {
+    activity?.application?.let { application ->
+      adyen3DS2Component =
+        Adyen3DS2Component.PROVIDER.get(this, application, adyen3DS2Configuration)
+      adyen3DS2Component.observe(this) { actionComponentData ->
+        viewModel.handleRedirectComponentResponse(actionComponentData)
+      }
+      adyen3DS2Component.observeErrors(this) { componentError ->
+        viewModel.handle3DSErrors(componentError)
+      }
+    }
+  }
+
+  fun setupRedirectComponent() {
+    activity?.application?.let { application ->
+      redirectComponent = RedirectComponent.PROVIDER.get(this, application, redirectConfiguration)
+      redirectComponent.observe(this) { actionComponentData ->
+        viewModel.handleRedirectComponentResponse(actionComponentData)
+      }
+    }
+  }
+
+
   private fun handleBuyButtonText() {
     when {
       args.transactionBuilder.type.equals(
@@ -209,5 +255,9 @@ class OnboardingAdyenPaymentFragment : BasePageViewFragment(),
         views.onboardingAdyenPaymentButtons.adyenPaymentBuyButton.setText(getString(R.string.action_buy))
       }
     }
+  }
+
+  companion object {
+    const val WEB_VIEW_REQUEST_CODE = 1234
   }
 }

@@ -13,11 +13,9 @@ import com.asfoundation.wallet.billing.adyen.AdyenErrorCodeMapper
 import com.asfoundation.wallet.billing.adyen.AdyenPaymentInteractor
 import com.asfoundation.wallet.billing.adyen.PaymentType
 import com.asfoundation.wallet.billing.adyen.PurchaseBundleModel
-import com.asfoundation.wallet.billing.analytics.BillingAnalytics
+import com.asfoundation.wallet.onboarding_new_payment.OnboardingPaymentEvents
 import com.asfoundation.wallet.onboarding_new_payment.mapToService
-import com.asfoundation.wallet.onboarding_new_payment.use_cases.GetAnalyticsRevenueValueUseCase
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
-import com.asfoundation.wallet.ui.iab.PaymentMethodsAnalytics
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.Single
 import javax.inject.Inject
@@ -41,9 +39,7 @@ object OnboardingPaymentResultState : ViewState
 class OnboardingPaymentResultViewModel @Inject constructor(
   private val savedStateHandle: SavedStateHandle,
   private val adyenPaymentInteractor: AdyenPaymentInteractor,
-  private val analyticsRevenueUseCase: GetAnalyticsRevenueValueUseCase,
-  private val paymentMethodsAnalytics: PaymentMethodsAnalytics,
-  private val billingAnalytics: BillingAnalytics,
+  private val events: OnboardingPaymentEvents,
   private val rxSchedulers: RxSchedulers
 ) :
   BaseViewModel<OnboardingPaymentResultState, OnboardingPaymentResultSideEffect>(
@@ -87,13 +83,13 @@ class OnboardingPaymentResultViewModel @Inject constructor(
       .doOnNext { authorisedPaymentModel ->
         when {
           authorisedPaymentModel.status == PaymentModel.Status.COMPLETED -> {
-            sendPaymentSuccessEvent()
+            events.sendPaymentSuccessEvent(args.transactionBuilder, args.paymentType)
             createBundle(
               authorisedPaymentModel.hash,
               authorisedPaymentModel.orderReference,
               authorisedPaymentModel.purchaseUid
-            ).doOnSuccess { purchaseBundleModel ->
-              sendPaymentSuccessFinishEvents()
+            ).map { purchaseBundleModel ->
+              events.sendPaymentSuccessFinishEvents(args.transactionBuilder, args.paymentType)
               sendSideEffect {
                 OnboardingPaymentResultSideEffect.ShowPaymentSuccess(
                   purchaseBundleModel
@@ -102,7 +98,9 @@ class OnboardingPaymentResultViewModel @Inject constructor(
             }.subscribe()
           }
           isPaymentFailed(authorisedPaymentModel.status) -> {
-            sendPaymentErrorEvent(
+            events.sendPaymentErrorEvent(
+              args.transactionBuilder,
+              args.paymentType,
               authorisedPaymentModel.error.errorInfo?.httpCode,
               buildRefusalReason(
                 authorisedPaymentModel.status,
@@ -116,7 +114,9 @@ class OnboardingPaymentResultViewModel @Inject constructor(
             }
           }
           else -> {
-            sendPaymentErrorEvent(
+            events.sendPaymentErrorEvent(
+              args.transactionBuilder,
+              args.paymentType,
               authorisedPaymentModel.error.errorInfo?.httpCode,
               buildRefusalReason(
                 authorisedPaymentModel.status,
@@ -149,7 +149,9 @@ class OnboardingPaymentResultViewModel @Inject constructor(
         }
       }
     }
-    sendPaymentErrorEvent(
+    events.sendPaymentErrorEvent(
+      args.transactionBuilder,
+      args.paymentType,
       args.paymentModel.refusalCode,
       args.paymentModel.refusalReason,
       riskRules
@@ -196,16 +198,6 @@ class OnboardingPaymentResultViewModel @Inject constructor(
   private fun buildRefusalReason(status: PaymentModel.Status, message: String?): String =
     message?.let { "$status : $it" } ?: status.toString()
 
-  private fun sendPaymentSuccessEvent() {
-    billingAnalytics.sendPaymentSuccessEvent(
-      args.transactionBuilder.domain,
-      args.transactionBuilder.skuId,
-      args.transactionBuilder.amount().toString(),
-      args.paymentType.mapToService().transactionType,
-      args.transactionBuilder.type
-    )
-  }
-
   private fun createBundle(
     hash: String?,
     orderReference: String?,
@@ -240,44 +232,6 @@ class OnboardingPaymentResultViewModel @Inject constructor(
       )
     }
     return PurchaseBundleModel(bundle, purchaseBundleModel.renewal)
-  }
-
-  private fun sendPaymentSuccessFinishEvents() {
-    paymentMethodsAnalytics.stopTimingForPurchaseEvent(
-      paymentMethod = args.paymentType.mapToService().transactionType,
-      success = true,
-      isPreselected = false
-    )
-    billingAnalytics.sendPaymentEvent(
-      args.transactionBuilder.domain,
-      args.transactionBuilder.skuId,
-      args.transactionBuilder.amount().toString(),
-      args.paymentType.mapToService().transactionType,
-      args.transactionBuilder.type
-    )
-    billingAnalytics.sendRevenueEvent(analyticsRevenueUseCase(args.transactionBuilder))
-  }
-
-  private fun sendPaymentErrorEvent(
-    refusalCode: Int?,
-    refusalReason: String?,
-    riskRules: String? = null
-  ) {
-    paymentMethodsAnalytics.stopTimingForPurchaseEvent(
-      paymentMethod = args.paymentType.mapToService().transactionType,
-      success = false,
-      isPreselected = false
-    )
-    billingAnalytics.sendPaymentErrorWithDetailsAndRiskEvent(
-      args.transactionBuilder.domain,
-      args.transactionBuilder.skuId,
-      args.transactionBuilder.amount().toString(),
-      args.paymentType.mapToService().transactionType,
-      args.transactionBuilder.type,
-      refusalCode.toString(),
-      refusalReason,
-      riskRules
-    )
   }
 
   fun handleBackToGameClick() {

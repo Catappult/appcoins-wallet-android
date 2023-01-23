@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.onboarding_new_payment.payment_result
 
+import android.graphics.Typeface
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,6 +10,8 @@ import androidx.annotation.StringRes
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import by.kirich1409.viewbindingdelegate.viewBinding
+import com.airbnb.lottie.FontAssetDelegate
+import com.airbnb.lottie.TextDelegate
 import com.appcoins.wallet.billing.ErrorInfo
 import com.appcoins.wallet.billing.util.Error
 import com.asf.wallet.R
@@ -16,8 +19,12 @@ import com.asf.wallet.databinding.OnboardingPaymentResultFragmentBinding
 import com.asfoundation.wallet.base.SingleStateFragment
 import com.asfoundation.wallet.billing.adyen.AdyenErrorCodeMapper
 import com.asfoundation.wallet.service.ServicesErrorCodeMapper
+import com.asfoundation.wallet.util.CurrencyFormatUtils
+import com.asfoundation.wallet.util.WalletCurrency
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
+import org.apache.commons.lang3.StringUtils
+import java.math.BigDecimal
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -26,12 +33,16 @@ class OnboardingPaymentResultFragment : BasePageViewFragment(),
 
   private val viewModel: OnboardingPaymentResultViewModel by viewModels()
   private val views by viewBinding(OnboardingPaymentResultFragmentBinding::bind)
+  lateinit var args: OnboardingPaymentResultFragmentArgs
 
   @Inject
   lateinit var servicesErrorCodeMapper: ServicesErrorCodeMapper
 
   @Inject
   lateinit var adyenErrorCodeMapper: AdyenErrorCodeMapper
+
+  @Inject
+  lateinit var formatter: CurrencyFormatUtils
 
   @Inject
   lateinit var navigator: OnboardingPaymentResultNavigator
@@ -45,6 +56,7 @@ class OnboardingPaymentResultFragment : BasePageViewFragment(),
 
   override fun onViewCreated(view: View, @Nullable savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
+    args = OnboardingPaymentResultFragmentArgs.fromBundle(requireArguments())
     views.loadingAnimation.playAnimation()
     clickListeners()
     viewModel.collectStateAndEvents(lifecycle, viewLifecycleOwner.lifecycleScope)
@@ -139,7 +151,44 @@ class OnboardingPaymentResultFragment : BasePageViewFragment(),
     views.loadingAnimation.visibility = View.GONE
     views.genericErrorLayout.root.visibility = View.GONE
     views.genericErrorButtons.root.visibility = View.GONE
-//    views.genericSuccessLayout.root.visibility = View.VISIBLE
+    views.genericSuccessLayout.root.visibility = View.VISIBLE
     views.successButtons.root.visibility = View.VISIBLE
+    handleBonusAnimation()
+  }
+
+  private fun handleBonusAnimation() {
+    if (StringUtils.isNotBlank(getPurchaseBonusMessage())) {
+      views.genericSuccessLayout.lottieTransactionSuccess.setAnimation(R.raw.transaction_complete_bonus_animation)
+      setupTransactionCompleteAnimation()
+    } else {
+      views.genericSuccessLayout.lottieTransactionSuccess.setAnimation(R.raw.success_animation)
+    }
+    views.genericSuccessLayout.lottieTransactionSuccess.playAnimation()
+  }
+
+  private fun getPurchaseBonusMessage(): String {
+    var scaledBonus = args.forecastBonus.amount.stripTrailingZeros()
+      .setScale(CurrencyFormatUtils.FIAT_SCALE, BigDecimal.ROUND_DOWN)
+    val newCurrencyString =
+      if (scaledBonus < BigDecimal("0.01")) "~${args.forecastBonus.currency}" else args.forecastBonus.currency
+    scaledBonus = scaledBonus.max(BigDecimal("0.01"))
+    val formattedBonus = formatter.formatCurrency(scaledBonus, WalletCurrency.FIAT)
+    return newCurrencyString + formattedBonus
+  }
+
+  private fun setupTransactionCompleteAnimation() {
+    val textDelegate = TextDelegate(views.genericSuccessLayout.lottieTransactionSuccess)
+    textDelegate.setText("bonus_value", getPurchaseBonusMessage())
+    textDelegate.setText(
+      "bonus_received",
+      resources.getString(R.string.gamification_purchase_completed_bonus_received)
+    )
+    views.genericSuccessLayout.lottieTransactionSuccess.setTextDelegate(textDelegate)
+    views.genericSuccessLayout.lottieTransactionSuccess.setFontAssetDelegate(object :
+      FontAssetDelegate() {
+      override fun fetchFont(fontFamily: String): Typeface {
+        return Typeface.create("sans-serif-medium", Typeface.BOLD)
+      }
+    })
   }
 }

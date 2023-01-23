@@ -1,13 +1,17 @@
 package com.asfoundation.wallet.onboarding_new_payment.adyen_payment
 
+import androidx.core.app.ActivityCompat.startActivityForResult
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.appcoins.wallet.billing.adyen.PaymentModel
+import com.appcoins.wallet.gamification.repository.ForecastBonusAndLevel
 import com.asfoundation.wallet.base.Navigator
 import com.asfoundation.wallet.base.navigate
 import com.asfoundation.wallet.billing.adyen.PaymentType
 import com.asfoundation.wallet.entity.TransactionBuilder
+import com.asfoundation.wallet.onboarding_new_payment.adyen_payment.OnboardingAdyenPaymentFragment.Companion.WEB_VIEW_REQUEST_CODE
+import com.asfoundation.wallet.ui.iab.WebViewActivity
 import javax.inject.Inject
 
 class OnboardingAdyenPaymentNavigator @Inject constructor(private val fragment: Fragment) :
@@ -15,6 +19,15 @@ class OnboardingAdyenPaymentNavigator @Inject constructor(private val fragment: 
 
   fun navigateBack() {
     fragment.findNavController().popBackStack()
+  }
+
+  fun navigateToWebView(url: String) {
+    startActivityForResult(
+      fragment.requireActivity(),
+      WebViewActivity.newIntent(fragment.requireActivity(), url),
+      WEB_VIEW_REQUEST_CODE,
+      null
+    )
   }
 
   /**
@@ -30,7 +43,8 @@ class OnboardingAdyenPaymentNavigator @Inject constructor(private val fragment: 
     transactionBuilder: TransactionBuilder,
     paymentType: PaymentType,
     amount: String,
-    currency: String
+    currency: String,
+    forecastBonus: ForecastBonusAndLevel
   ) {
 
     navigate(
@@ -40,7 +54,8 @@ class OnboardingAdyenPaymentNavigator @Inject constructor(private val fragment: 
         transactionBuilder,
         paymentType,
         amount,
-        currency
+        currency,
+        forecastBonus
       )
     )
   }
