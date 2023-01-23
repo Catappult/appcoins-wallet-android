@@ -25,6 +25,9 @@
     <argument
         android:name="currency"
         app:argType="string" />
+    <argument
+        android:name="forecast_bonus"
+        app:argType="com.appcoins.wallet.gamification.repository.ForecastBonusAndLevel" />
 
     <action
         android:id="@+id/action_navigate_to_onboarding_adyen_payment"
@@ -47,6 +50,9 @@
     <argument
         android:name="currency"
         app:argType="string" />
+    <argument
+        android:name="forecast_bonus"
+        app:argType="com.appcoins.wallet.gamification.repository.ForecastBonusAndLevel" />
 
     <action
         android:id="@+id/action_navigate_to_onboarding_payment_result"
@@ -72,5 +78,8 @@
     <argument
         android:name="currency"
         app:argType="string" />
+    <argument
+        android:name="forecast_bonus"
+        app:argType="com.appcoins.wallet.gamification.repository.ForecastBonusAndLevel" />
   </fragment>
 </navigation>

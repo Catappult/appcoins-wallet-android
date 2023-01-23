@@ -80,7 +80,8 @@ class OnboardingPaymentFragment : BasePageViewFragment(),
         sideEffect.transactionContent.packageName,
         sideEffect.transactionContent.sku,
         sideEffect.transactionContent.value,
-        sideEffect.transactionContent.currency
+        sideEffect.transactionContent.currency,
+        sideEffect.transactionContent.forecastBonus
       )
     }
   }
