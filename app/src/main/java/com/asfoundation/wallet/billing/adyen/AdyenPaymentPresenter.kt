@@ -767,6 +767,11 @@ class AdyenPaymentPresenter(
         InAppPurchaseInteractor.PRE_SELECTED_PAYMENT_METHOD_KEY,
         PaymentMethodsView.PaymentMethodId.PAYPAL.id
       )
+    } else if (paymentType == PaymentType.GOOGLE_PAY.name) {
+      bundle.putString(
+        InAppPurchaseInteractor.PRE_SELECTED_PAYMENT_METHOD_KEY,
+        PaymentMethodsView.PaymentMethodId.GOOGLE_PAY.id
+      )
     }
     return PurchaseBundleModel(bundle, purchaseBundleModel.renewal)
   }
