@@ -17,6 +17,7 @@ import com.asfoundation.wallet.billing.adyen.PurchaseBundleModel
 import com.asfoundation.wallet.onboarding.use_cases.SetOnboardingCompletedUseCase
 import com.asfoundation.wallet.onboarding_new_payment.OnboardingPaymentEvents
 import com.asfoundation.wallet.onboarding_new_payment.mapToService
+import com.asfoundation.wallet.support.SupportInteractor
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.Single
@@ -44,6 +45,7 @@ class OnboardingPaymentResultViewModel @Inject constructor(
   private val adyenPaymentInteractor: AdyenPaymentInteractor,
   private val events: OnboardingPaymentEvents,
   private val setOnboardingCompletedUseCase: SetOnboardingCompletedUseCase,
+  private val supportInteractor: SupportInteractor,
   private val rxSchedulers: RxSchedulers
 ) :
   BaseViewModel<OnboardingPaymentResultState, OnboardingPaymentResultSideEffect>(
@@ -255,5 +257,10 @@ class OnboardingPaymentResultViewModel @Inject constructor(
 
   fun handleBackToGameClick() {
     sendSideEffect { OnboardingPaymentResultSideEffect.NavigateBackToGame(args.transactionBuilder.domain) }
+  }
+
+  fun showSupport(gamificationLevel: Int) {
+    supportInteractor.showSupport(gamificationLevel)
+      .scopedSubscribe()
   }
 }
