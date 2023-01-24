@@ -26,7 +26,8 @@ class OnboardingPaymentEvents @Inject constructor(
       transactionBuilder.amount().toString(),
       paymentType.mapToService().transactionType,
       transactionBuilder.type,
-      "buy"
+      "buy",
+      isOnboardingPayment = true
     )
   }
 
@@ -50,7 +51,8 @@ class OnboardingPaymentEvents @Inject constructor(
       transactionBuilder.type,
       refusalCode.toString(),
       refusalReason,
-      riskRules
+      riskRules,
+      isOnboardingPayment = true
     )
   }
 
@@ -64,7 +66,8 @@ class OnboardingPaymentEvents @Inject constructor(
       transactionBuilder.amount().toString(),
       paymentType.mapToService().transactionType,
       transactionBuilder.type,
-      "other_payments"
+      "other_payments",
+      isOnboardingPayment = true
     )
   }
 
@@ -74,7 +77,8 @@ class OnboardingPaymentEvents @Inject constructor(
       transactionBuilder.skuId,
       transactionBuilder.amount().toString(),
       transactionBuilder.type,
-      BillingAnalytics.RAKAM_PAYMENT_METHOD
+      BillingAnalytics.RAKAM_PAYMENT_METHOD,
+      isOnboardingPayment = true
     )
   }
 
@@ -92,7 +96,8 @@ class OnboardingPaymentEvents @Inject constructor(
       transactionBuilder.skuId,
       transactionBuilder.amount().toString(),
       paymentType.mapToService().transactionType,
-      transactionBuilder.type
+      transactionBuilder.type,
+      isOnboardingPayment = true
     )
     billingAnalytics.sendRevenueEvent(revenueValueUseCase(transactionBuilder))
   }
@@ -106,25 +111,34 @@ class OnboardingPaymentEvents @Inject constructor(
       transactionBuilder.skuId,
       transactionBuilder.amount().toString(),
       paymentType.mapToService().transactionType,
-      transactionBuilder.type
+      transactionBuilder.type,
+      isOnboardingPayment = true
     )
   }
 
   fun sendCarrierBillingConfirmationEvent(transactionBuilder: TransactionBuilder, action: String) {
     billingAnalytics.sendPaymentConfirmationEvent(
-      transactionBuilder.domain, transactionBuilder.skuId,
+      transactionBuilder.domain,
+      transactionBuilder.skuId,
       transactionBuilder.amount()
-        .toString(), BillingAnalytics.PAYMENT_METHOD_CARRIER,
-      transactionBuilder.type, action
+        .toString(),
+      BillingAnalytics.PAYMENT_METHOD_CARRIER,
+      transactionBuilder.type,
+      action,
+      isOnboardingPayment = true
     )
   }
 
   fun sendPayPalConfirmationEvent(transactionBuilder: TransactionBuilder, action: String) {
     billingAnalytics.sendPaymentConfirmationEvent(
-      transactionBuilder.domain, transactionBuilder.skuId,
+      transactionBuilder.domain,
+      transactionBuilder.skuId,
       transactionBuilder.amount()
-        .toString(), "paypal",
-      transactionBuilder.type, action
+        .toString(),
+      "paypal",
+      transactionBuilder.type,
+      action,
+      isOnboardingPayment = true
     )
   }
 
@@ -132,9 +146,13 @@ class OnboardingPaymentEvents @Inject constructor(
     val amountString = transactionBuilder.amount()
       .toString()
     billingAnalytics.sendPaypalUrlEvent(
-      transactionBuilder.domain, transactionBuilder.skuId,
-      amountString, "PAYPAL", getQueryParameter(data, "type"),
-      getQueryParameter(data, "resultCode"), data.dataString
+      transactionBuilder.domain,
+      transactionBuilder.skuId,
+      amountString, "PAYPAL",
+      getQueryParameter(data, "type"),
+      getQueryParameter(data, "resultCode"),
+      data.dataString,
+      isOnboardingPayment = true
     )
   }
 
