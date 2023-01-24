@@ -1,11 +1,9 @@
 package com.asfoundation.wallet.onboarding_new_payment.payment_result
 
-import android.util.Log
 import androidx.lifecycle.SavedStateHandle
 import com.appcoins.wallet.billing.ErrorInfo
 import com.appcoins.wallet.billing.adyen.PaymentModel
 import com.appcoins.wallet.billing.util.Error
-import com.asfoundation.wallet.DevUtils.CUSTOM_TAG
 import com.asfoundation.wallet.base.BaseViewModel
 import com.asfoundation.wallet.base.RxSchedulers
 import com.asfoundation.wallet.base.SideEffect
@@ -64,10 +62,6 @@ class OnboardingPaymentResultViewModel @Inject constructor(
   }
 
   private fun handlePaymentResult() {
-    Log.d(
-      CUSTOM_TAG,
-      "OnboardingPaymentResultViewModel: handlePaymentResult: payment model ${args.paymentModel}"
-    )
     when {
       args.paymentModel.resultCode.equals("AUTHORISED", true) -> {
         handleAuthorisedPayment()
