@@ -7,10 +7,7 @@ import com.adyen.checkout.components.ActionComponentData
 import com.adyen.checkout.components.ComponentError
 import com.appcoins.wallet.billing.adyen.PaymentInfoModel
 import com.appcoins.wallet.billing.adyen.PaymentModel
-import com.asfoundation.wallet.base.Async
-import com.asfoundation.wallet.base.BaseViewModel
-import com.asfoundation.wallet.base.SideEffect
-import com.asfoundation.wallet.base.ViewState
+import com.asfoundation.wallet.base.*
 import com.asfoundation.wallet.billing.adyen.AdyenCardWrapper
 import com.asfoundation.wallet.billing.adyen.AdyenErrorCodeMapper
 import com.asfoundation.wallet.billing.adyen.AdyenPaymentInteractor
@@ -47,7 +44,8 @@ class OnboardingAdyenPaymentViewModel @Inject constructor(
   private val getPaymentInfoModelUseCase: GetPaymentInfoModelUseCase,
   private val transactionOriginUseCase: GetTransactionOriginUseCase,
   private val supportInteractor: SupportInteractor,
-  private val savedStateHandle: SavedStateHandle
+  private val savedStateHandle: SavedStateHandle,
+  private val rxSchedulers: RxSchedulers
 ) :
   BaseViewModel<OnboardingAdyenPaymentState, OnboardingAdyenPaymentSideEffect>(
     OnboardingAdyenPaymentState()
@@ -215,9 +213,11 @@ class OnboardingAdyenPaymentViewModel @Inject constructor(
       uid = cachedUid,
       details = convertToJson(actionComponentData.details!!),
       paymentData = actionComponentData.paymentData
-    ).doOnSuccess { paymentModel ->
-      handlePaymentResult(paymentModel)
-    }.scopedSubscribe()
+    )
+      .subscribeOn(rxSchedulers.io)
+      .doOnSuccess { paymentModel ->
+        handlePaymentResult(paymentModel)
+      }.scopedSubscribe()
   }
 
   //This method is used to avoid the nameValuePairs key problem that occurs when we pass a JSONObject trough a GSON converter

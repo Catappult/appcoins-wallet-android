@@ -104,7 +104,6 @@ class AdyenPaymentInteractor @Inject constructor(
   fun submitRedirect(uid: String, details: JsonObject,
                      paymentData: String?): Single<PaymentModel> {
     return walletService.getAndSignCurrentWalletAddress()
-      .subscribeOn(rxSchedulers.io)
         .flatMap {
           adyenPaymentRepository.submitRedirect(uid, it.address, it.signedAddress, details,
               paymentData)
