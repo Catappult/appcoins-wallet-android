@@ -206,7 +206,6 @@ class AdyenTopUpFragment : BasePageViewFragment(), AdyenTopUpView {
             Log.d(tag, "observeComponent. isReady:${it.isReady} isInputValid:${it.isInputValid} isValid:${it.isValid}")
           }
           googlePayComponent?.observeErrors(this) {
-            Log.d(tag, "observeComponent error: ${it.exception}")
             logger.log(TAG, "GP componentError: ${it.errorMessage} ${it.exception}")
             navigator.navigateBack()
           }
