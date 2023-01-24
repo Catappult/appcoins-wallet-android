@@ -3,10 +3,8 @@ package com.asfoundation.wallet.ui.iab
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import com.appcoins.wallet.commons.Logger
 import com.asf.wallet.R
-import com.asfoundation.wallet.DevUtils.CUSTOM_TAG
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.entity.Wallet
@@ -229,7 +227,6 @@ class IabPresenter(
       }
       view.showPaymentMethodsView()
     } else if (resultCode == WebViewActivity.SUCCESS) {
-      Log.d(CUSTOM_TAG, "IabPresenter: handleWebViewResult: WebViewActivity.SUCCESS resultCode $resultCode")
       if (data?.scheme?.contains("adyencheckout") == true) {
         sendPaypalUrlEvent(data)
         if (getQueryParameter(data, "resultCode") == "cancelled")
