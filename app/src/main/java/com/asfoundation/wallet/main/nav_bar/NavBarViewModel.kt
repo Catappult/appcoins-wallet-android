@@ -1,6 +1,5 @@
 package com.asfoundation.wallet.main.nav_bar
 
-import android.util.Log
 import androidx.lifecycle.viewModelScope
 import com.asfoundation.wallet.app_start.AppStartUseCase
 import com.asfoundation.wallet.app_start.StartMode
@@ -75,7 +74,6 @@ class NavBarViewModel @Inject constructor(
     viewModelScope.launch {
       when (appStartUseCase.startModes.first()) {
         is StartMode.PendingPurchaseFlow -> {
-          // temporarily sending to the same onboarding flow as the GP install, later we'll use the new onboarding payment flow
           sendSideEffect { NavBarSideEffect.ShowOnboardingPendingPayment }
         }
         is StartMode.GPInstall -> {

@@ -89,7 +89,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@id/onboarding_payment_bonus_animation"
         app:layout_constraintTop_toTopOf="parent"
-        android:text="@string/bonus_body"
+        tools:text="@string/bonus_body"
         />
 
     <TextView
