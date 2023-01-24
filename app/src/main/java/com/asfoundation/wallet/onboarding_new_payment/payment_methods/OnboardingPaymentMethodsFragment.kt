@@ -124,7 +124,7 @@ class OnboardingPaymentMethodsFragment : BasePageViewFragment(),
     val privacyPolicy = resources.getString(R.string.privacy_policy)
     val termsPolicyTickBox =
       resources.getString(
-        R.string.intro_agree_terms_and_conditions_body, termsConditions,
+        R.string.agree_by_choosing_a_payment_method_body, termsConditions,
         privacyPolicy
       )
 

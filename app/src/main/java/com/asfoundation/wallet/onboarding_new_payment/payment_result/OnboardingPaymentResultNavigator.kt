@@ -1,22 +1,18 @@
 package com.asfoundation.wallet.onboarding_new_payment.payment_result
 
 import android.content.pm.PackageManager
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.setFragmentResult
 import androidx.navigation.fragment.findNavController
-import com.appcoins.wallet.gamification.repository.ForecastBonusAndLevel
 import com.asf.wallet.R
 import com.asfoundation.wallet.base.Navigator
-import com.asfoundation.wallet.base.navigate
-import com.asfoundation.wallet.billing.adyen.PaymentType
-import com.asfoundation.wallet.entity.TransactionBuilder
-import com.asfoundation.wallet.main.PendingIntentNavigator
-import com.asfoundation.wallet.onboarding_new_payment.payment_methods.OnboardingPaymentMethodsFragmentDirections
+import com.asfoundation.wallet.onboarding.pending_payment.OnboardingPaymentFragment.Companion.ONBOARDING_PAYMENT_CONCLUSION
 import javax.inject.Inject
 
 class OnboardingPaymentResultNavigator @Inject constructor(
   private val fragment: Fragment,
-  private val packageManager: PackageManager,
-  private val pendingIntentNavigator: PendingIntentNavigator
+  private val packageManager: PackageManager
 ) :
   Navigator {
 
@@ -36,7 +32,7 @@ class OnboardingPaymentResultNavigator @Inject constructor(
   }
 
   fun navigateToHome() {
-    pendingIntentNavigator.getHomePendingIntent().send()
+    fragment.setFragmentResult(ONBOARDING_PAYMENT_CONCLUSION, bundleOf("fragmentEnded" to "result"))
   }
 
   fun navigateBackToPaymentMethods() {

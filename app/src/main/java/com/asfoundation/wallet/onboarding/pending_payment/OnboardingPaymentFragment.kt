@@ -43,8 +43,17 @@ class OnboardingPaymentFragment : BasePageViewFragment(),
     editToolbar()
     initInnerNavController()
     requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LOCKED
-
+    handlePaymentFinishResult()
     viewModel.collectStateAndEvents(lifecycle, viewLifecycleOwner.lifecycleScope)
+  }
+
+  private fun handlePaymentFinishResult() {
+    innerNavHostFragment.childFragmentManager.setFragmentResultListener(
+      ONBOARDING_PAYMENT_CONCLUSION,
+      this
+    ) { _, _ ->
+      views.root.visibility = View.GONE
+    }
   }
 
   private fun editToolbar() {
@@ -103,5 +112,9 @@ class OnboardingPaymentFragment : BasePageViewFragment(),
     val appIcon = pm.getApplicationIcon(packageName)
     views.onboardingPaymentHeaderLayout.onboardingPaymentGameName.text = appName
     views.onboardingPaymentHeaderLayout.onboardingPaymentGameIcon.setImageDrawable(appIcon)
+  }
+
+  companion object {
+    const val ONBOARDING_PAYMENT_CONCLUSION = "onboarding_payment_conclusion"
   }
 }
