@@ -69,6 +69,9 @@ class OnboardingPaymentResultFragment : BasePageViewFragment(),
     views.genericErrorButtons.errorCancel.setOnClickListener {
       navigator.navigateToHome()
     }
+    views.genericErrorLayout.layoutSupportIcn.setOnClickListener {
+      viewModel.showSupport(args.forecastBonus.level)
+    }
     views.successButtons.backToGameButton.setOnClickListener {
       viewModel.handleBackToGameClick()
     }
