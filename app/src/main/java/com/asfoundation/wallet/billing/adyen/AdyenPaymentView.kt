@@ -2,7 +2,9 @@ package com.asfoundation.wallet.billing.adyen
 
 import android.net.Uri
 import android.os.Bundle
+import com.adyen.checkout.components.model.paymentmethods.PaymentMethod
 import com.adyen.checkout.components.model.payments.response.Action
+import com.adyen.checkout.core.model.ModelObject
 import com.appcoins.wallet.billing.adyen.PaymentInfoModel
 import com.asfoundation.wallet.billing.address.BillingAddressModel
 import io.reactivex.Observable
@@ -93,6 +95,10 @@ interface AdyenPaymentView {
   fun onAdyen3DSError(): Observable<String>
 
   fun setup3DSComponent()
+
+  fun setupGooglePayComponent(paymentMethod: PaymentMethod)
+
+  fun startGooglePay()
 
   fun showBillingAddress(value: BigDecimal, currency: String)
 }

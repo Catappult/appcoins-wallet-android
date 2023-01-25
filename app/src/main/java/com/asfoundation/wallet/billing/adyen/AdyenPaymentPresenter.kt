@@ -1,8 +1,12 @@
 package com.asfoundation.wallet.billing.adyen
 
 import android.os.Bundle
+import android.os.Handler
 import androidx.annotation.StringRes
+import com.adyen.checkout.components.model.paymentmethods.PaymentMethod
+import com.adyen.checkout.components.model.payments.request.GooglePayPaymentMethod
 import com.adyen.checkout.core.model.ModelObject
+import com.adyen.checkout.googlepay.GooglePayComponentState
 import com.appcoins.wallet.billing.ErrorInfo.ErrorType
 import com.appcoins.wallet.billing.adyen.AdyenBillingAddress
 import com.appcoins.wallet.billing.adyen.AdyenPaymentRepository
@@ -131,6 +135,10 @@ class AdyenPaymentPresenter(
     )
   }
 
+  private var paymentMethodMSInfo: ModelObject? = null
+  private var receivedPriceInfo: BigDecimal? = null
+  private var receivedCurrencyInfo: String? = null
+
   private fun loadPaymentMethodInfo() {
     view.showLoading()
     disposables.add(adyenPaymentInteractor.loadPaymentInfo(
@@ -156,6 +164,11 @@ class AdyenPaymentPresenter(
             paymentAnalytics.stopTimingForTotalEvent(PaymentMethodsAnalytics.PAYMENT_METHOD_CC)
           } else if (paymentType == PaymentType.PAYPAL.name) {
             launchPaypal(it.paymentMethod!!, it.priceAmount, it.priceCurrency)
+          } else if (paymentType == PaymentType.GOOGLE_PAY.name) {
+            view.setupGooglePayComponent(it.paymentMethod!! as PaymentMethod)
+            paymentMethodMSInfo = it.paymentMethod
+            receivedPriceInfo = it.priceAmount
+            receivedCurrencyInfo = it.priceCurrency
           }
         }
       }
@@ -164,6 +177,47 @@ class AdyenPaymentPresenter(
         view.showGenericError()
       })
     )
+  }
+
+  fun makePaymentGooglePay(
+    paymentMethodInfo: GooglePayPaymentMethod,
+    priceAmount: BigDecimal? = receivedPriceInfo,
+    priceCurrency: String? = receivedCurrencyInfo
+  ) {
+    handleBuyAnalytics(transactionBuilder)
+    if (priceAmount != null && priceCurrency != null) {
+      disposables.add(
+        adyenPaymentInteractor.makePayment(
+          adyenPaymentMethod = paymentMethodInfo,
+          shouldStoreMethod = false,
+          hasCvc = false,
+          supportedShopperInteraction = emptyList(),
+          returnUrl = returnUrl,
+          value = priceAmount.toString(),
+          currency = priceCurrency,
+          reference = transactionBuilder.orderReference,
+          paymentType = mapPaymentToService(paymentType).transactionType,
+          origin = origin,
+          packageName = transactionBuilder.domain,
+          metadata = transactionBuilder.payload,
+          sku = transactionBuilder.skuId,
+          callbackUrl = transactionBuilder.callbackUrl,
+          transactionType = transactionBuilder.type,
+          developerWallet = transactionBuilder.toAddress(),
+          referrerUrl = transactionBuilder.referrerUrl
+        )
+          .subscribeOn(networkScheduler)
+          .observeOn(viewScheduler)
+          .flatMapCompletable {
+            paymentAnalytics.startTimingForPurchaseEvent()
+            handlePaymentResult(it, priceAmount, priceCurrency)
+          }
+          .subscribe({}, {
+            logger.log(TAG, it)
+            view.showGenericError()
+          })
+      )
+    }
   }
 
   private fun launchPaypal(
@@ -633,7 +687,7 @@ class AdyenPaymentPresenter(
     )
   }
 
-  private fun sendPaymentErrorEvent(
+  fun sendPaymentErrorEvent(
     refusalCode: Int?,
     refusalReason: String?,
     riskRules: String? = null
@@ -660,15 +714,23 @@ class AdyenPaymentPresenter(
   private fun mapPaymentToAnalytics(paymentType: String): String =
     if (paymentType == PaymentType.CARD.name) {
       BillingAnalytics.PAYMENT_METHOD_CC
+    } else if (paymentType == BillingAnalytics.PAYMENT_METHOD_GOOGLE_PAY) {
+      PaymentMethodsAnalytics.PAYMENT_METHOD_GP
     } else {
       BillingAnalytics.PAYMENT_METHOD_PAYPAL
     }
 
   private fun mapPaymentToService(paymentType: String): AdyenPaymentRepository.Methods =
-    if (paymentType == PaymentType.CARD.name) {
-      AdyenPaymentRepository.Methods.CREDIT_CARD
-    } else {
-      AdyenPaymentRepository.Methods.PAYPAL
+    when (paymentType) {
+      PaymentType.CARD.name -> {
+        AdyenPaymentRepository.Methods.CREDIT_CARD
+      }
+      PaymentType.GOOGLE_PAY.name -> {
+        AdyenPaymentRepository.Methods.GOOGLE_PAY
+      }
+      else -> {
+        AdyenPaymentRepository.Methods.PAYPAL
+      }
     }
 
   private fun mapToAdyenBillingAddress(billingAddressModel: BillingAddressModel?): AdyenBillingAddress? =
@@ -704,6 +766,11 @@ class AdyenPaymentPresenter(
       bundle.putString(
         InAppPurchaseInteractor.PRE_SELECTED_PAYMENT_METHOD_KEY,
         PaymentMethodsView.PaymentMethodId.PAYPAL.id
+      )
+    } else if (paymentType == PaymentType.GOOGLE_PAY.name) {
+      bundle.putString(
+        InAppPurchaseInteractor.PRE_SELECTED_PAYMENT_METHOD_KEY,
+        PaymentMethodsView.PaymentMethodId.GOOGLE_PAY.id
       )
     }
     return PurchaseBundleModel(bundle, purchaseBundleModel.renewal)
@@ -821,6 +888,7 @@ class AdyenPaymentPresenter(
     val paymentMethod = when (paymentType) {
       PaymentType.PAYPAL.name -> PaymentMethodsAnalytics.PAYMENT_METHOD_PP
       PaymentType.CARD.name -> PaymentMethodsAnalytics.PAYMENT_METHOD_CC
+      PaymentType.GOOGLE_PAY.name -> PaymentMethodsAnalytics.PAYMENT_METHOD_GP
       else -> return
     }
     paymentAnalytics.stopTimingForPurchaseEvent(paymentMethod, success, isPreSelected)

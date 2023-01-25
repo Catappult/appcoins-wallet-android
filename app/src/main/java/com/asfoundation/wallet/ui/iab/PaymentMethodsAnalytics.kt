@@ -29,6 +29,7 @@ class PaymentMethodsAnalytics @Inject constructor(
     const val PAYMENT_METHOD_CC = "credit_card"
     const val PAYMENT_METHOD_PP = "paypal"
     const val PAYMENT_METHOD_PP_V2 = "paypal_v2"
+    const val PAYMENT_METHOD_GP = "googlepay"
     const val PAYMENT_METHOD_APPC = "appc_c"
     const val PAYMENT_METHOD_LOCAL = "local"
     const val PAYMENT_METHOD_ASK_FRIEND = "ask_friend"
