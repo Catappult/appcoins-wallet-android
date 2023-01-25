@@ -20,7 +20,7 @@ class BillingAnalytics @Inject constructor(private val analytics: AnalyticsManag
     purchaseData[EVENT_VALUE] = value
     eventData[EVENT_PURCHASE] = purchaseData
     eventData[EVENT_TRANSACTION_TYPE] = transactionType
-    if (isOnboardingPayment) eventData[EVENT_FIRST_PAYMENT_INSIDE_WALLET] = true
+    if (isOnboardingPayment) eventData[EVENT_ONBOARDING_PAYMENT] = true
     analytics.logEvent(eventData, PURCHASE_DETAILS, AnalyticsManager.Action.CLICK, WALLET)
   }
 
@@ -36,7 +36,7 @@ class BillingAnalytics @Inject constructor(private val analytics: AnalyticsManag
     eventData[EVENT_PURCHASE] = purchaseData
     eventData[EVENT_PAYMENT_METHOD] = purchaseDetails
     eventData[EVENT_TRANSACTION_TYPE] = transactionType
-    if (isOnboardingPayment) eventData[EVENT_FIRST_PAYMENT_INSIDE_WALLET] = true
+    if (isOnboardingPayment) eventData[EVENT_ONBOARDING_PAYMENT] = true
     analytics.logEvent(eventData, PAYMENT_METHOD_DETAILS, AnalyticsManager.Action.CLICK, WALLET)
   }
 
@@ -71,14 +71,14 @@ class BillingAnalytics @Inject constructor(private val analytics: AnalyticsManag
     eventData[EVENT_PURCHASE] = purchaseData
     eventData[EVENT_PAYMENT_METHOD] = purchaseDetails
     eventData[EVENT_TRANSACTION_TYPE] = transactionType
-    if (isOnboardingPayment) eventData[EVENT_FIRST_PAYMENT_INSIDE_WALLET] = true
+    if (isOnboardingPayment) eventData[EVENT_ONBOARDING_PAYMENT] = true
     analytics.logEvent(eventData, PAYMENT, AnalyticsManager.Action.IMPRESSION, WALLET)
   }
 
   override fun sendRevenueEvent(value: String, isOnboardingPayment: Boolean) {
     val eventData: MutableMap<String, Any> = HashMap()
     eventData[EVENT_VALUE] = value
-    if (isOnboardingPayment) eventData[EVENT_FIRST_PAYMENT_INSIDE_WALLET] =
+    if (isOnboardingPayment) eventData[EVENT_ONBOARDING_PAYMENT] =
       true
     analytics.logEvent(eventData, REVENUE, AnalyticsManager.Action.IMPRESSION, WALLET)
   }
@@ -206,7 +206,7 @@ class BillingAnalytics @Inject constructor(private val analytics: AnalyticsManag
     eventData[EVENT_TRANSACTION_TYPE] = transactionType
     eventData[EVENT_PAYMENT_METHOD] = purchaseDetails
     eventData[EVENT_CONTEXT] = context
-    if (isOnboardingPayment) eventData[EVENT_FIRST_PAYMENT_INSIDE_WALLET] = true
+    if (isOnboardingPayment) eventData[EVENT_ONBOARDING_PAYMENT] = true
     analytics.logEvent(eventData, RAKAM_PAYMENT_START, AnalyticsManager.Action.CLICK, WALLET)
   }
 
@@ -220,7 +220,7 @@ class BillingAnalytics @Inject constructor(private val analytics: AnalyticsManag
     eventData[EVENT_VALUE] = value
     eventData[EVENT_TRANSACTION_TYPE] = transactionType
     eventData[EVENT_CONTEXT] = context
-    if (isOnboardingPayment) eventData[EVENT_FIRST_PAYMENT_INSIDE_WALLET] = true
+    if (isOnboardingPayment) eventData[EVENT_ONBOARDING_PAYMENT] = true
     analytics.logEvent(eventData, RAKAM_PAYMENT_START, AnalyticsManager.Action.CLICK, WALLET)
   }
 
@@ -246,7 +246,7 @@ class BillingAnalytics @Inject constructor(private val analytics: AnalyticsManag
     } else {
       eventData[EVENT_URL] = url
     }
-    if (isOnboardingPayment) eventData[EVENT_FIRST_PAYMENT_INSIDE_WALLET] = true
+    if (isOnboardingPayment) eventData[EVENT_ONBOARDING_PAYMENT] = true
     analytics.logEvent(eventData, RAKAM_PAYPAL_URL, AnalyticsManager.Action.CLICK, WALLET)
   }
 
@@ -282,7 +282,7 @@ class BillingAnalytics @Inject constructor(private val analytics: AnalyticsManag
     eventData[EVENT_TRANSACTION_TYPE] = transactionType
     eventData[EVENT_PAYMENT_METHOD] = purchaseDetails
     eventData[EVENT_ACTION] = action
-    if (isOnboardingPayment) eventData[EVENT_FIRST_PAYMENT_INSIDE_WALLET] = true
+    if (isOnboardingPayment) eventData[EVENT_ONBOARDING_PAYMENT] = true
     return eventData
   }
 
@@ -302,7 +302,7 @@ class BillingAnalytics @Inject constructor(private val analytics: AnalyticsManag
     eventData[EVENT_TRANSACTION_TYPE] = transactionType
     eventData[EVENT_PAYMENT_METHOD] = purchaseDetails
     eventData[EVENT_STATUS] = status
-    if (isOnboardingPayment) eventData[EVENT_FIRST_PAYMENT_INSIDE_WALLET] = true
+    if (isOnboardingPayment) eventData[EVENT_ONBOARDING_PAYMENT] = true
     return eventData
   }
 
@@ -345,7 +345,7 @@ class BillingAnalytics @Inject constructor(private val analytics: AnalyticsManag
     private const val EVENT_PAYPAL_TYPE = "type"
     private const val EVENT_RESULT_CODE = "result_code"
     private const val EVENT_URL = "url"
-    private const val EVENT_FIRST_PAYMENT_INSIDE_WALLET = "first_payment_inside_wallet"
+    private const val EVENT_ONBOARDING_PAYMENT = "onboarding_payment"
     private const val MAX_CHARACTERS = 100
   }
 
