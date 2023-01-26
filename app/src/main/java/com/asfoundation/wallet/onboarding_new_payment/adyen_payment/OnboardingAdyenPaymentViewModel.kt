@@ -55,7 +55,8 @@ class OnboardingAdyenPaymentViewModel @Inject constructor(
   private lateinit var cachedUid: String
   private val tempReferrerUrl =
     "https://apichain.dev.catappult.io/transaction/inapp?product=antifreeze&value=1.5&currency=USD&callback_url=https%3A%2F%2Fapi.dev.catappult.io%2Fbroker%2F8.20200101%2Fmock%2Fcallback&domain=com.appcoins.trivialdrivesample.test&signature=7878cb314b82ad2684ad4865cf84ab33e2905d2b6c7f9c3a368f6f70917e1364"
-
+  private val tempReferrerUrlProd =
+    "https://apichain.catappult.io/transaction/inapp?product=antifreeze&value=1.5&currency=USD&callback_url=https%3A%2F%2Fapi.dev.catappult.io%2Fbroker%2F8.20200101%2Fmock%2Fcallback&domain=com.appcoins.trivialdrivesample&signature=f43bb044808622581147a157c68bcb581a93e8766574ef908f7f5a3579b4451a"
   init {
     getSavedStateArguments()
     handlePaymentInfo()

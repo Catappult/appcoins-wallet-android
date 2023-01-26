@@ -13,6 +13,7 @@ import com.asfoundation.wallet.onboarding_new_payment.OnboardingPaymentEvents
 import com.asfoundation.wallet.onboarding_new_payment.use_cases.GetEarningBonusUseCase
 import com.asfoundation.wallet.onboarding_new_payment.use_cases.GetOnboardingTransactionBuilderUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import io.reactivex.Single
 import java.math.BigDecimal
 import javax.inject.Inject
 
@@ -41,35 +42,38 @@ class OnboardingPaymentViewModel @Inject constructor(
   private fun handleContent() {
     cachedTransactionRepository.getCachedTransaction()
       .flatMap { cachedTransaction ->
-        getOnboardingTransactionBuilderUseCase(cachedTransaction)
-          .flatMap { transactionBuilder ->
-            bdsRepository.getSkuDetails(
-              cachedTransaction.packageName!!,
-              mutableListOf(cachedTransaction.sku!!),
-              BillingSupportedType.INAPP
-            ).flatMap { products ->
-              val modifiedCachedTransaction = cachedTransaction.copy(
-                value = products.first().transactionPrice.amount,
-                currency = products.first().transactionPrice.currency
-              )
-              val modifiedTransactionBuilder =
-                transactionBuilder.amount(BigDecimal(products.first().transactionPrice.appcoinsAmount))
-              events.sendPurchaseStartWithoutDetailsEvent(modifiedTransactionBuilder)
-              getEarningBonusUseCase(
-                modifiedTransactionBuilder.domain,
-                modifiedTransactionBuilder.amount()
-              ).map { forecastBonus ->
-                TransactionContent(
-                  modifiedTransactionBuilder,
-                  modifiedCachedTransaction.packageName!!,
-                  modifiedCachedTransaction.sku!!,
-                  modifiedCachedTransaction.value,
-                  modifiedCachedTransaction.currency!!,
-                  forecastBonus
-                )
-              }
-            }
-          }
+        Single.zip(
+          getOnboardingTransactionBuilderUseCase(cachedTransaction),
+          bdsRepository.getSkuDetails(
+            cachedTransaction.packageName!!,
+            mutableListOf(cachedTransaction.sku!!),
+            BillingSupportedType.INAPP
+          )
+        ) { transactionBuilder, products ->
+          Triple(cachedTransaction, transactionBuilder, products)
+        }
+      }
+      .flatMap { (cachedTransaction, transactionBuilder, products) ->
+        val modifiedCachedTransaction = cachedTransaction.copy(
+          value = products.first().transactionPrice.amount,
+          currency = products.first().transactionPrice.currency
+        )
+        val modifiedTransactionBuilder =
+          transactionBuilder.amount(BigDecimal(products.first().transactionPrice.appcoinsAmount))
+        events.sendPurchaseStartWithoutDetailsEvent(modifiedTransactionBuilder)
+        getEarningBonusUseCase(
+          modifiedTransactionBuilder.domain,
+          modifiedTransactionBuilder.amount()
+        ).map { forecastBonus ->
+          TransactionContent(
+            modifiedTransactionBuilder,
+            modifiedCachedTransaction.packageName!!,
+            modifiedCachedTransaction.sku!!,
+            modifiedCachedTransaction.value,
+            modifiedCachedTransaction.currency!!,
+            forecastBonus
+          )
+        }
       }
       .asAsyncToState {
         copy(transactionContent = it)
