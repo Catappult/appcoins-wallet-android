@@ -280,7 +280,7 @@
           android:layout_marginEnd="@dimen/normal_margin"
           android:contentDescription="@string/empty"
           android:src="@drawable/ic_copy_to_clip"
-          android:visibility="visible"
+          android:visibility="gone"
           app:layout_constraintBottom_toBottomOf="@id/order_reference_name"
           app:layout_constraintEnd_toStartOf="@id/order_reference_name"
           app:layout_constraintTop_toTopOf="@id/order_reference_name"
