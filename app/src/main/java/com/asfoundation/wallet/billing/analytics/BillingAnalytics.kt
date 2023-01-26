@@ -316,6 +316,7 @@ class BillingAnalytics @Inject constructor(private val analytics: AnalyticsManag
     const val PAYMENT_METHOD_REWARDS = "REWARDS"
     const val PAYMENT_METHOD_PAYPAL = "PAYPAL"
     const val PAYMENT_METHOD_PAYPALV2 = "PAYPAL_V2"
+    const val PAYMENT_METHOD_GOOGLE_PAY = "GOOGLE_PAY"
     const val PAYMENT_METHOD_CARRIER = "CARRIER"
     const val RAKAM_PRESELECTED_PAYMENT_METHOD = "wallet_preselected_payment_method"
     const val RAKAM_PAYMENT_METHOD = "wallet_payment_method"
