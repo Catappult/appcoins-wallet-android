@@ -17,6 +17,7 @@ import com.adyen.checkout.adyen3ds2.Adyen3DS2Component
 import com.adyen.checkout.adyen3ds2.Adyen3DS2Configuration
 import com.adyen.checkout.card.CardComponent
 import com.adyen.checkout.card.CardConfiguration
+import com.adyen.checkout.components.model.payments.response.Action
 import com.adyen.checkout.core.api.Environment
 import com.adyen.checkout.redirect.RedirectComponent
 import com.adyen.checkout.redirect.RedirectConfiguration
@@ -135,7 +136,7 @@ class OnboardingAdyenPaymentFragment : BasePageViewFragment(),
         args.currency,
         args.forecastBonus
       )
-      is OnboardingAdyenPaymentSideEffect.NavigateToPaypal -> {
+      is OnboardingAdyenPaymentSideEffect.NavigateToWebView -> {
         sideEffect.paymentModel.redirectUrl?.let {
           navigator.navigateToWebView(
             it,
@@ -146,6 +147,7 @@ class OnboardingAdyenPaymentFragment : BasePageViewFragment(),
       is OnboardingAdyenPaymentSideEffect.HandleWebViewResult -> redirectComponent.handleIntent(
         Intent("", sideEffect.uri)
       )
+      is OnboardingAdyenPaymentSideEffect.Handle3DS -> handle3DSAction(sideEffect.action)
       OnboardingAdyenPaymentSideEffect.NavigateBackToPaymentMethods -> navigator.navigateBack()
       OnboardingAdyenPaymentSideEffect.ShowCvvError -> handleCVCError()
       OnboardingAdyenPaymentSideEffect.ShowLoading -> showLoading(shouldShow = true)
@@ -256,6 +258,12 @@ class OnboardingAdyenPaymentFragment : BasePageViewFragment(),
       else -> {
         views.onboardingAdyenPaymentButtons.adyenPaymentBuyButton.setText(getString(R.string.action_buy))
       }
+    }
+  }
+
+  private fun handle3DSAction(action: Action?) {
+    action?.let {
+      adyen3DS2Component.handleAction(requireActivity(), it)
     }
   }
 

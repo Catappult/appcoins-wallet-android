@@ -69,9 +69,6 @@ class OnboardingPaymentResultViewModel @Inject constructor(
       args.paymentModel.refusalReason != null -> {
         handlePaymentRefusal()
       }
-      args.paymentModel.status == PaymentModel.Status.PENDING_USER_PAYMENT && args.paymentModel.action != null -> {
-        handleAdyenAction(args.paymentModel)
-      }
       args.paymentModel.error.hasError -> {
         when (args.paymentModel.error.errorInfo?.errorType) {
           ErrorInfo.ErrorType.BILLING_ADDRESS -> {
@@ -171,31 +168,6 @@ class OnboardingPaymentResultViewModel @Inject constructor(
       args.paymentModel.refusalReason,
       riskRules
     )
-  }
-
-  private fun handleAdyenAction(paymentModel: PaymentModel) {
-//    if (paymentModel.action != null) {
-//      when (val type = paymentModel.action?.type) {
-//        REDIRECT -> {
-//          action3ds = type
-//          paymentMethodsAnalytics.send3dsStart(action3ds)
-//          cachedPaymentData = paymentModel.paymentData
-//          cachedUid = paymentModel.uid
-//          navigator.navigateToUriForResult(paymentModel.redirectUrl)
-//          waitingResult = true
-//        }
-//        THREEDS2, THREEDS2FINGERPRINT, THREEDS2CHALLENGE -> {
-//          action3ds = type
-//          paymentMethodsAnalytics.send3dsStart(action3ds)
-//          cachedUid = paymentModel.uid
-//          view.handle3DSAction(paymentModel.action!!)
-//          waitingResult = true
-//        }
-//        else -> {
-//          sendSideEffect { OnboardingPaymentResultSideEffect.ShowPaymentError() }
-//        }
-//      }
-//    }
   }
 
   private fun handleFraudFlow(error: Error, refusalCode: Int) {

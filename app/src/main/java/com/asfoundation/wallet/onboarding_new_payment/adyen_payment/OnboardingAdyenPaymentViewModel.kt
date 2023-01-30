@@ -5,6 +5,11 @@ import androidx.activity.result.ActivityResult
 import androidx.lifecycle.SavedStateHandle
 import com.adyen.checkout.components.ActionComponentData
 import com.adyen.checkout.components.ComponentError
+import com.adyen.checkout.components.model.payments.response.Action
+import com.appcoins.wallet.billing.adyen.AdyenResponseMapper.Companion.REDIRECT
+import com.appcoins.wallet.billing.adyen.AdyenResponseMapper.Companion.THREEDS2
+import com.appcoins.wallet.billing.adyen.AdyenResponseMapper.Companion.THREEDS2CHALLENGE
+import com.appcoins.wallet.billing.adyen.AdyenResponseMapper.Companion.THREEDS2FINGERPRINT
 import com.appcoins.wallet.billing.adyen.PaymentInfoModel
 import com.appcoins.wallet.billing.adyen.PaymentModel
 import com.asfoundation.wallet.base.*
@@ -27,8 +32,9 @@ sealed class OnboardingAdyenPaymentSideEffect : SideEffect {
   data class NavigateToPaymentResult(val paymentModel: PaymentModel) :
     OnboardingAdyenPaymentSideEffect()
 
-  data class NavigateToPaypal(val paymentModel: PaymentModel) : OnboardingAdyenPaymentSideEffect()
+  data class NavigateToWebView(val paymentModel: PaymentModel) : OnboardingAdyenPaymentSideEffect()
   data class HandleWebViewResult(val uri: Uri) : OnboardingAdyenPaymentSideEffect()
+  data class Handle3DS(val action: Action?) : OnboardingAdyenPaymentSideEffect()
   object ShowLoading : OnboardingAdyenPaymentSideEffect()
   object ShowCvvError : OnboardingAdyenPaymentSideEffect()
   object NavigateBackToPaymentMethods : OnboardingAdyenPaymentSideEffect()
@@ -123,8 +129,31 @@ class OnboardingAdyenPaymentViewModel @Inject constructor(
           paymentModel.refusalReason
         )
       }
+      paymentModel.status == PaymentModel.Status.PENDING_USER_PAYMENT && paymentModel.action != null -> {
+        handleAdyenAction(paymentModel)
+      }
       else -> sendSideEffect {
         OnboardingAdyenPaymentSideEffect.NavigateToPaymentResult(paymentModel)
+      }
+    }
+  }
+
+  private fun handleAdyenAction(paymentModel: PaymentModel) {
+    if (paymentModel.action != null) {
+      when (val type = paymentModel.action?.type) {
+        REDIRECT -> {
+          events.send3dsStart(type)
+          cachedUid = paymentModel.uid
+          sendSideEffect { OnboardingAdyenPaymentSideEffect.NavigateToWebView(paymentModel) }
+        }
+        THREEDS2, THREEDS2FINGERPRINT, THREEDS2CHALLENGE -> {
+          events.send3dsStart(type)
+          cachedUid = paymentModel.uid
+          sendSideEffect { OnboardingAdyenPaymentSideEffect.Handle3DS(paymentModel.action) }
+        }
+        else -> {
+          sendSideEffect { OnboardingAdyenPaymentSideEffect.NavigateToPaymentResult(paymentModel) }
+        }
       }
     }
   }
@@ -167,7 +196,7 @@ class OnboardingAdyenPaymentViewModel @Inject constructor(
 
   private fun handlePaypalResult(paymentModel: PaymentModel) {
     sendSideEffect {
-      OnboardingAdyenPaymentSideEffect.NavigateToPaypal(paymentModel)
+      OnboardingAdyenPaymentSideEffect.NavigateToWebView(paymentModel)
     }
   }
 
