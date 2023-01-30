@@ -1,5 +1,6 @@
 package com.appcoins.wallet.billing.common
 
+import android.util.Log
 import com.appcoins.wallet.billing.ErrorInfo
 import com.appcoins.wallet.billing.carrierbilling.ForbiddenError
 import com.appcoins.wallet.billing.repository.ResponseErrorBaseBody
@@ -32,6 +33,9 @@ open class BillingErrorMapper @Inject constructor(private val gson: Gson) {
 
   private fun getErrorType(httpCode: Int?, messageCode: String?,
                            text: String?, data: Any?): ErrorInfo.ErrorType {
+
+    System.out.println("AAAAA Billing" + "${httpCode}, ${messageCode}, ${text}, ${data.toString()}")
+
     return when {
       httpCode != null && httpCode == 400 && messageCode == FIELDS_MISSING_CODE
           && text?.contains("payment.billing") == true -> ErrorInfo.ErrorType.BILLING_ADDRESS

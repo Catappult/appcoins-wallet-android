@@ -11,7 +11,7 @@ class AdyenErrorCodeMapper {
       DECLINED, BLOCKED_CARD, TRANSACTION_NOT_PERMITTED, REVOCATION_OF_AUTH, DECLINED_NON_GENERIC, ISSUER_SUSPECTED_FRAUD -> R.string.purchase_card_error_general_2
       REFERRAL, ACQUIRER_ERROR, ISSUER_UNAVAILABLE -> R.string.purchase_card_error_general_1
       EXPIRED_CARD -> R.string.purchase_card_error_expired
-      INVALID_AMOUNT, NOT_ENOUGH_BALANCE, RESTRICTED_CARD -> R.string.purchase_card_error_no_funds
+      INVALID_AMOUNT, NOT_ENOUGH_BALANCE, WITHDRAW_AMOUNT_EXCEEDED, RESTRICTED_CARD -> R.string.purchase_card_error_no_funds
       INVALID_CARD_NUMBER -> R.string.purchase_card_error_invalid_details
       NOT_SUPPORTED -> R.string.purchase_card_error_not_supported
       INCORRECT_ONLINE_PIN, PIN_TRIES_EXCEEDED, NOT_3D_AUTHENTICATED -> R.string.purchase_card_error_security
@@ -42,6 +42,7 @@ class AdyenErrorCodeMapper {
     const val RESTRICTED_CARD = 25
     const val REVOCATION_OF_AUTH = 26
     const val DECLINED_NON_GENERIC = 27
+    const val WITHDRAW_AMOUNT_EXCEEDED = 28
     const val ISSUER_SUSPECTED_FRAUD = 31
 
   }

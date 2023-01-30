@@ -340,7 +340,7 @@ class AdyenPaymentPresenter(
             riskRules = paymentModel.fraudResultIds.sorted()
               .joinToString(separator = "-")
           }
-          else -> view.showSpecificError(adyenErrorCodeMapper.map(code))
+          else -> handleErrors(paymentModel.error, code)
         }
       }
       sendPaymentErrorEvent(paymentModel.refusalCode, paymentModel.refusalReason, riskRules)
@@ -794,7 +794,7 @@ class AdyenPaymentPresenter(
     private val TAG = AdyenPaymentPresenter::class.java.name
   }
 
-  private fun handleErrors(error: Error) {
+  private fun handleErrors(error: Error, code: Int? = null) {
     when {
       error.isNetworkError -> view.showNetworkError()
 
@@ -813,7 +813,7 @@ class AdyenPaymentPresenter(
         if (error.errorInfo?.httpCode == HTTP_FRAUD_CODE) handleFraudFlow(resId, emptyList())
         else view.showSpecificError(resId)
       }
-      else -> view.showGenericError()
+      else -> view.showSpecificError(adyenErrorCodeMapper.map(code ?: 0))
     }
   }
 
