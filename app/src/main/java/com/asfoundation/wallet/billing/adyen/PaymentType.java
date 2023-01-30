@@ -8,7 +8,6 @@ public enum PaymentType {
   CARD(Arrays.asList("visa", "mastercard", "card", "credit_card")),
   PAYPAL(Collections.singletonList("paypal")),
   PAYPALV2(Collections.singletonList("paypal_v2")),
-  GOOGLE_PAY(Collections.singletonList("googlepay")),
   LOCAL_PAYMENTS(Collections.singletonList("localPayments")),
   CARRIER_BILLING(Collections.singletonList("carrier_billing"));
 

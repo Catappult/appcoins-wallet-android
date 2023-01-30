@@ -86,7 +86,6 @@ project.ext {
   palette_version = '1.0.0'
   pageindicatorview_version = '1.0.3'
   play_services_vision_version = '19.0.0'
-  play_services_wallet_version = '19.1.0'
   preference_version = '1.2.0'
   rakam_version = '2.7.14'
   recyclerview_version = '1.1.0'

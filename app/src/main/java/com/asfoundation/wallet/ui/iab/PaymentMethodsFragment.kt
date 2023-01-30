@@ -57,8 +57,6 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
     private const val IS_DONATION = "is_donation"
     private const val IS_SUBSCRIPTION = "is_subscription"
     private const val FREQUENCY = "frequency"
-    const val TAG_GPAY_FRAGMENT = "GPAY_FRAGMENT"
-
 
     @JvmStatic
     fun newInstance(
@@ -455,27 +453,6 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
 
   override fun showCarrierBilling(fiatValue: FiatValue, isPreselected: Boolean) =
     iabView.showCarrierBilling(fiatValue.currency, fiatValue.amount, bonusValue, isPreselected)
-
-  override fun showGooglePay(
-    gamificationLevel: Int,
-    fiatValue: FiatValue,
-    frequency: String?,
-    isSubscription: Boolean
-  ) {
-    iabView.showAdyenPayment(
-      fiatValue.amount,
-      fiatValue.currency,
-      isBds,
-      PaymentType.GOOGLE_PAY,
-      bonusMessageValue,
-      false,
-      null,
-      gamificationLevel,
-      isSubscription,
-      frequency,
-      TAG_GPAY_FRAGMENT
-    )
-  }
 
   override fun showPaypal(
     gamificationLevel: Int,

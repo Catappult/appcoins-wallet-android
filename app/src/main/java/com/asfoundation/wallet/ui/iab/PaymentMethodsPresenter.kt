@@ -149,12 +149,6 @@ class PaymentMethodsPresenter(
                 paymentMethodsData.frequency,
                 paymentMethodsData.subscription
               )
-              GOOGLE_PAY -> view.showGooglePay(
-                cachedGamificationLevel,
-                cachedFiatValue!!,
-                paymentMethodsData.frequency,
-                paymentMethodsData.subscription
-              )
               APPC -> view.showAppCoins(cachedGamificationLevel, transaction)
               SHARE_LINK -> view.showShareLink(selectedPaymentMethod.id)
               LOCAL_PAYMENTS -> view.showLocalPayment(
@@ -275,12 +269,6 @@ class PaymentMethodsPresenter(
           paymentMethodsData.subscription
         )
       }
-      GOOGLE_PAY -> view.showGooglePay(
-        cachedGamificationLevel,
-        cachedFiatValue!!,
-        paymentMethodsData.frequency,
-        paymentMethodsData.subscription
-      )
       APPC -> view.showAppCoins(cachedGamificationLevel, transaction)
       APPC_CREDITS -> view.showCredits(cachedGamificationLevel, transaction)
       SHARE_LINK -> view.showShareLink(paymentNavigationData.paymentId)
@@ -1043,7 +1031,6 @@ class PaymentMethodsPresenter(
     loadedPaymentMethodEvent = when (paymentMethodId) {
       PaymentMethodId.PAYPAL.id -> PaymentMethodsAnalytics.PAYMENT_METHOD_PP
       PaymentMethodId.PAYPAL_V2.id -> PaymentMethodsAnalytics.PAYMENT_METHOD_PP_V2
-      PaymentMethodId.GOOGLE_PAY.id -> PaymentMethodsAnalytics.PAYMENT_METHOD_GP
       PaymentMethodId.APPC.id -> PaymentMethodsAnalytics.PAYMENT_METHOD_APPC
       PaymentMethodId.APPC_CREDITS.id -> PaymentMethodsAnalytics.PAYMENT_METHOD_APPC
       PaymentMethodId.MERGED_APPC.id -> PaymentMethodsAnalytics.PAYMENT_METHOD_APPC
