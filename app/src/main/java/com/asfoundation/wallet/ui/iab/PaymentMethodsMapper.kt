@@ -15,7 +15,6 @@ class PaymentMethodsMapper @Inject constructor(
       "paypal" -> SelectedPaymentMethod.PAYPAL
       "paypal_v2" -> SelectedPaymentMethod.PAYPAL_V2
       "credit_card" -> SelectedPaymentMethod.CREDIT_CARD
-      "googlepay" -> SelectedPaymentMethod.GOOGLE_PAY
       "appcoins" -> SelectedPaymentMethod.APPC
       "appcoins_credits" -> SelectedPaymentMethod.APPC_CREDITS
       "merged_appcoins" -> SelectedPaymentMethod.MERGED_APPC
@@ -32,7 +31,6 @@ class PaymentMethodsMapper @Inject constructor(
       SelectedPaymentMethod.PAYPAL -> "paypal"
       SelectedPaymentMethod.PAYPAL_V2 -> "paypal_v2"
       SelectedPaymentMethod.CREDIT_CARD -> "credit_card"
-      SelectedPaymentMethod.GOOGLE_PAY -> "googlepay"
       SelectedPaymentMethod.APPC -> "appcoins"
       SelectedPaymentMethod.APPC_CREDITS -> "appcoins_credits"
       SelectedPaymentMethod.MERGED_APPC -> "merged_appcoins"

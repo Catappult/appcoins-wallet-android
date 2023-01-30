@@ -120,16 +120,6 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
   override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
     super.onActivityResult(requestCode, resultCode, data)
     presenter.onActivityResult(requestCode, resultCode, data)
-
-    // Adyen's Google Pay currently has a limitation that only receives the response from
-    // onActivityResult directly on the Activity, not the fragment. So, the following code is
-    // sending the result to the AdyenPaymentFragment to be processed there
-    // https://github.com/Adyen/adyen-android/issues/133
-    if (requestCode == AdyenPaymentFragment.GP_CODE) {
-      val fragment =
-        supportFragmentManager.findFragmentByTag(PaymentMethodsFragment.TAG_GPAY_FRAGMENT)
-      fragment?.onActivityResult(requestCode, resultCode, data)
-    }
   }
 
   override fun onResume() {
@@ -242,8 +232,7 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
     iconUrl: String?,
     gamificationLevel: Int,
     isSubscription: Boolean,
-    frequency: String?,
-    fragmentTag: String?
+    frequency: String?
   ) {
     supportFragmentManager.beginTransaction()
       .replace(
@@ -261,8 +250,7 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
           isSubscription = isSubscription,
           isSkills = intent.dataString?.contains("&skills") ?: false,
           frequency = frequency,
-        ),
-        fragmentTag
+        )
       )
       .commit()
   }

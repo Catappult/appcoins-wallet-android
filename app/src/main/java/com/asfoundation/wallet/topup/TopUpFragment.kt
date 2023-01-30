@@ -83,7 +83,6 @@ class TopUpFragment : BasePageViewFragment(), TopUpFragmentView {
     private const val SELECTED_CURRENCY_PARAM = "SELECTED_CURRENCY"
     private const val LOCAL_CURRENCY_PARAM = "LOCAL_CURRENCY"
 
-    const val TAG_GPAY_TOPUP_FRAGMENT = "GPAY_TOPUP_FRAGMENT"
 
     @JvmStatic
     fun newInstance(packageName: String): TopUpFragment {
@@ -551,8 +550,6 @@ class TopUpFragment : BasePageViewFragment(), TopUpFragmentView {
           PaymentTypeInfo(PaymentType.PAYPAL, data.id, data.label, data.iconUrl)
         PaymentType.PAYPALV2.subTypes.contains(data.id) ->
           PaymentTypeInfo(PaymentType.PAYPALV2, data.id, data.label, data.iconUrl)
-        PaymentType.GOOGLE_PAY.subTypes.contains(data.id) ->
-          PaymentTypeInfo(PaymentType.GOOGLE_PAY, data.id, data.label, data.iconUrl)
         PaymentType.CARD.subTypes.contains(data.id) ->
           PaymentTypeInfo(PaymentType.CARD, data.id, data.label, data.iconUrl)
         else -> PaymentTypeInfo(PaymentType.LOCAL_PAYMENTS, data.id, data.label,

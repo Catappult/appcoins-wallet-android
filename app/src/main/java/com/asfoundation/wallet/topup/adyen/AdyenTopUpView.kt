@@ -1,7 +1,6 @@
 package com.asfoundation.wallet.topup.adyen
 
 import android.net.Uri
-import com.adyen.checkout.components.model.paymentmethods.PaymentMethod
 import com.adyen.checkout.components.model.payments.response.Action
 import com.appcoins.wallet.billing.adyen.PaymentInfoModel
 import com.asfoundation.wallet.billing.address.BillingAddressModel
@@ -87,10 +86,6 @@ interface AdyenTopUpView {
   fun onAdyen3DSError(): Observable<String>
 
   fun setup3DSComponent()
-
-  fun setupGooglePayComponent(paymentMethod: PaymentMethod)
-
-  fun startGooglePay()
 
   fun navigateToBillingAddress(fiatAmount: String, fiatCurrency: String)
 }

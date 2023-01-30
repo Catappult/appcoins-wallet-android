@@ -48,8 +48,7 @@ interface IabView {
     iconUrl: String?,
     gamificationLevel: Int,
     isSubscription: Boolean,
-    frequency: String?,
-    fragmentTag: String? = null
+    frequency: String?
   )
 
   fun showPayPalV2(

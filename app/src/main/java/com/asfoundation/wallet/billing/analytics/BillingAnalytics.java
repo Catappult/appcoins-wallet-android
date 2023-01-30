@@ -16,7 +16,6 @@ import javax.inject.Inject;
   public static final String PAYMENT_METHOD_REWARDS = "REWARDS";
   public static final String PAYMENT_METHOD_PAYPAL = "PAYPAL";
   public static final String PAYMENT_METHOD_PAYPALV2 = "PAYPAL_V2";
-  public static final String PAYMENT_METHOD_GOOGLE_PAY = "GOOGLE_PAY";
   public static final String PAYMENT_METHOD_CARRIER = "CARRIER";
   public static final String RAKAM_PRESELECTED_PAYMENT_METHOD = "wallet_preselected_payment_method";
   public static final String RAKAM_PAYMENT_METHOD = "wallet_payment_method";
