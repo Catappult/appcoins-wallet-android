@@ -53,10 +53,7 @@ class OnboardingAdyenPaymentViewModel @Inject constructor(
 
   private lateinit var args: OnboardingAdyenPaymentFragmentArgs
   private lateinit var cachedUid: String
-  private val tempReferrerUrl =
-    "https://apichain.dev.catappult.io/transaction/inapp?product=antifreeze&value=1.5&currency=USD&callback_url=https%3A%2F%2Fapi.dev.catappult.io%2Fbroker%2F8.20200101%2Fmock%2Fcallback&domain=com.appcoins.trivialdrivesample.test&signature=7878cb314b82ad2684ad4865cf84ab33e2905d2b6c7f9c3a368f6f70917e1364"
-  private val tempReferrerUrlProd =
-    "https://apichain.catappult.io/transaction/inapp?product=antifreeze&value=1.5&currency=USD&callback_url=https%3A%2F%2Fapi.dev.catappult.io%2Fbroker%2F8.20200101%2Fmock%2Fcallback&domain=com.appcoins.trivialdrivesample&signature=f43bb044808622581147a157c68bcb581a93e8766574ef908f7f5a3579b4451a"
+
   init {
     getSavedStateArguments()
     handlePaymentInfo()
@@ -67,6 +64,7 @@ class OnboardingAdyenPaymentViewModel @Inject constructor(
   }
 
   private fun handlePaymentInfo() {
+    events.sendPaymentMethodEvent(args.transactionBuilder, args.paymentType, "buy")
     getPaymentInfoModelUseCase(
       paymentType = args.paymentType.toString(),
       value = args.amount,
@@ -80,6 +78,7 @@ class OnboardingAdyenPaymentViewModel @Inject constructor(
     sendSideEffect { OnboardingAdyenPaymentSideEffect.ShowLoading }
     transactionOriginUseCase(args.transactionBuilder)
       .flatMap { origin ->
+        events.startTimingForPurchaseEvent()
         events.sendPaymentConfirmationEvent(args.transactionBuilder, args.paymentType)
         adyenPaymentInteractor.makePayment(
           adyenPaymentMethod = adyenCard.cardPaymentMethod,
@@ -98,7 +97,7 @@ class OnboardingAdyenPaymentViewModel @Inject constructor(
           callbackUrl = args.transactionBuilder.callbackUrl,
           transactionType = args.transactionBuilder.type,
           developerWallet = args.transactionBuilder.toAddress(),
-          referrerUrl = tempReferrerUrl
+          referrerUrl = args.transactionBuilder.referrerUrl
         )
       }
       .doOnSuccess { paymentModel ->
@@ -131,13 +130,14 @@ class OnboardingAdyenPaymentViewModel @Inject constructor(
   }
 
   fun handleBackButton() {
-    events.sendPaymentMethodEvent(args.transactionBuilder, args.paymentType)
+    events.sendPaymentMethodEvent(args.transactionBuilder, args.paymentType, "other_payments")
     sendSideEffect { OnboardingAdyenPaymentSideEffect.NavigateBackToPaymentMethods }
   }
 
   fun handlePaypal(paymentInfoModel: PaymentInfoModel, returnUrl: String) {
     transactionOriginUseCase(args.transactionBuilder)
       .flatMap { origin ->
+        events.startTimingForPurchaseEvent()
         adyenPaymentInteractor.makePayment(
           adyenPaymentMethod = paymentInfoModel.paymentMethod!!,
           shouldStoreMethod = false,
@@ -155,7 +155,7 @@ class OnboardingAdyenPaymentViewModel @Inject constructor(
           callbackUrl = args.transactionBuilder.callbackUrl,
           transactionType = args.transactionBuilder.type,
           developerWallet = args.transactionBuilder.toAddress(),
-          referrerUrl = tempReferrerUrl
+          referrerUrl = args.transactionBuilder.referrerUrl
         )
       }
       .doOnSuccess { paymentModel ->

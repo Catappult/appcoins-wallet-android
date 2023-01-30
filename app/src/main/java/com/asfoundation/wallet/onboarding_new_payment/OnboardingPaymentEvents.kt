@@ -2,6 +2,8 @@ package com.asfoundation.wallet.onboarding_new_payment
 
 import android.content.Intent
 import android.net.Uri
+import android.util.Log
+import com.asfoundation.wallet.DevUtils.CUSTOM_TAG
 import com.asfoundation.wallet.billing.adyen.PaymentType
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics
 import com.asfoundation.wallet.entity.TransactionBuilder
@@ -34,15 +36,11 @@ class OnboardingPaymentEvents @Inject constructor(
   fun sendPaymentErrorEvent(
     transactionBuilder: TransactionBuilder,
     paymentType: PaymentType,
-    refusalCode: Int? =  null,
+    refusalCode: Int? = null,
     refusalReason: String? = null,
     riskRules: String? = null
   ) {
-    paymentMethodsAnalytics.stopTimingForPurchaseEvent(
-      paymentMethod = paymentType.mapToService().transactionType,
-      success = false,
-      isPreselected = false
-    )
+    stopTimingForPurchaseEvent(success = false, paymentType)
     billingAnalytics.sendPaymentErrorWithDetailsAndRiskEvent(
       transactionBuilder.domain,
       transactionBuilder.skuId,
@@ -58,7 +56,8 @@ class OnboardingPaymentEvents @Inject constructor(
 
   fun sendPaymentMethodEvent(
     transactionBuilder: TransactionBuilder,
-    paymentType: PaymentType
+    paymentType: PaymentType,
+    action: String
   ) {
     paymentMethodsAnalytics.sendPaymentMethodEvent(
       transactionBuilder.domain,
@@ -66,7 +65,7 @@ class OnboardingPaymentEvents @Inject constructor(
       transactionBuilder.amount().toString(),
       paymentType.mapToService().transactionType,
       transactionBuilder.type,
-      "other_payments",
+      action,
       isOnboardingPayment = true
     )
   }
@@ -106,6 +105,7 @@ class OnboardingPaymentEvents @Inject constructor(
     transactionBuilder: TransactionBuilder,
     paymentType: PaymentType
   ) {
+    stopTimingForPurchaseEvent(success = true, paymentType)
     billingAnalytics.sendPaymentSuccessEvent(
       transactionBuilder.domain,
       transactionBuilder.skuId,
@@ -159,6 +159,18 @@ class OnboardingPaymentEvents @Inject constructor(
   fun getQueryParameter(data: Intent, parameter: String): String? {
     return Uri.parse(data.dataString)
       .getQueryParameter(parameter)
+  }
+
+  fun startTimingForPurchaseEvent() {
+    paymentMethodsAnalytics.startTimingForPurchaseEvent()
+  }
+
+  private fun stopTimingForPurchaseEvent(success: Boolean, paymentType: PaymentType) {
+    paymentMethodsAnalytics.stopTimingForPurchaseEvent(
+      paymentType.mapToService().transactionType,
+      success,
+      isPreselected = false
+    )
   }
 
   fun send3dsStart(type: String?) {
