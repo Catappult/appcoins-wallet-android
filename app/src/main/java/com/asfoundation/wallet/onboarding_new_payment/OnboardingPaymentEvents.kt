@@ -2,8 +2,6 @@ package com.asfoundation.wallet.onboarding_new_payment
 
 import android.content.Intent
 import android.net.Uri
-import android.util.Log
-import com.asfoundation.wallet.DevUtils.CUSTOM_TAG
 import com.asfoundation.wallet.billing.adyen.PaymentType
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics
 import com.asfoundation.wallet.entity.TransactionBuilder
