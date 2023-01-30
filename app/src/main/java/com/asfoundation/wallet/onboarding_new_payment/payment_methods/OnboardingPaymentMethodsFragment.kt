@@ -12,6 +12,7 @@ import android.text.style.StyleSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
 import androidx.annotation.Nullable
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.viewModels
@@ -94,9 +95,15 @@ class OnboardingPaymentMethodsFragment : BasePageViewFragment(),
         //TODO add a skeleton while the list loads
       }
       is Async.Success -> {
-        showPaymentMethodsList(state.paymentMethodsAsync())
+        if (state.paymentMethodsAsync()?.isEmpty() == true) {
+          handleNoPaymentMethodsError()
+        } else {
+          showPaymentMethodsList(state.paymentMethodsAsync())
+        }
       }
-      is Async.Fail -> Unit
+      is Async.Fail -> {
+        handleNoPaymentMethodsError()
+      }
     }
   }
 
@@ -111,6 +118,19 @@ class OnboardingPaymentMethodsFragment : BasePageViewFragment(),
     views.onboardingPaymentMethodsRv.visibility = View.VISIBLE
     views.onboardingPaymentTermsConditions.root.visibility = View.VISIBLE
     controller.setData(paymentMethodsAsync, paymentMethodsMapper)
+  }
+
+  private fun handleNoPaymentMethodsError() {
+    views.onboardingPaymentMethodsTitle.visibility = View.GONE
+    views.onboardingPaymentMethodsRv.visibility = View.GONE
+    views.onboardingPaymentTermsConditions.root.visibility = View.GONE
+    views.noPaymentMethodsError.root.startAnimation(
+      AnimationUtils.loadAnimation(
+        context,
+        R.anim.pop_in_animation
+      )
+    )
+    views.noPaymentMethodsError.root.visibility = View.VISIBLE
   }
 
   /**
