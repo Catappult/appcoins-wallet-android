@@ -1,6 +1,5 @@
 package com.appcoins.wallet.billing.common
 
-import android.util.Log
 import com.appcoins.wallet.billing.ErrorInfo
 import com.appcoins.wallet.billing.carrierbilling.ForbiddenError
 import com.appcoins.wallet.billing.repository.ResponseErrorBaseBody
@@ -31,11 +30,10 @@ open class BillingErrorMapper @Inject constructor(private val gson: Gson) {
     }
   }
 
-  private fun getErrorType(httpCode: Int?, messageCode: String?,
-                           text: String?, data: Any?): ErrorInfo.ErrorType {
-
-    System.out.println("AAAAA Billing" + "${httpCode}, ${messageCode}, ${text}, ${data.toString()}")
-
+  private fun getErrorType(
+    httpCode: Int?, messageCode: String?,
+    text: String?, data: Any?
+  ): ErrorInfo.ErrorType {
     return when {
       httpCode != null && httpCode == 400 && messageCode == FIELDS_MISSING_CODE
           && text?.contains("payment.billing") == true -> ErrorInfo.ErrorType.BILLING_ADDRESS
@@ -47,8 +45,17 @@ open class BillingErrorMapper @Inject constructor(private val gson: Gson) {
           101 -> {
             ErrorInfo.ErrorType.INVALID_CARD
           }
+          103 -> {
+            ErrorInfo.ErrorType.CVC_LENGTH
+          }
           105 -> {
             ErrorInfo.ErrorType.CARD_SECURITY_VALIDATION
+          }
+          138 -> {
+            ErrorInfo.ErrorType.CURRENCY_NOT_SUPPORTED
+          }
+          200 -> {
+            ErrorInfo.ErrorType.INVALID_COUNTRY_CODE
           }
           172, 174, 422, 800 -> {
             ErrorInfo.ErrorType.OUTDATED_CARD
@@ -58,6 +65,9 @@ open class BillingErrorMapper @Inject constructor(private val gson: Gson) {
           }
           905 -> {
             ErrorInfo.ErrorType.PAYMENT_ERROR
+          }
+          907 -> {
+            ErrorInfo.ErrorType.PAYMENT_NOT_SUPPORTED_ON_COUNTRY
           }
           else -> ErrorInfo.ErrorType.UNKNOWN
         }

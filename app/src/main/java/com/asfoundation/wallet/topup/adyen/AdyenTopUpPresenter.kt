@@ -677,6 +677,38 @@ class AdyenTopUpPresenter(
         view.showPaymentError()
       }
 
+      paymentModel.error.errorInfo?.errorType == ErrorType.INVALID_COUNTRY_CODE -> {
+        logger.log(
+          TAG,
+          Exception("Errors paymentType=$paymentType type=${paymentModel.error.errorInfo?.errorType} code=${paymentModel.error.errorInfo?.httpCode}")
+        )
+        view.showSpecificError(R.string.unknown_error)  //TODO message
+      }
+
+      paymentModel.error.errorInfo?.errorType == ErrorType.PAYMENT_NOT_SUPPORTED_ON_COUNTRY -> {
+        logger.log(
+          TAG,
+          Exception("Errors paymentType=$paymentType type=${paymentModel.error.errorInfo?.errorType} code=${paymentModel.error.errorInfo?.httpCode}")
+        )
+        view.showSpecificError(R.string.unknown_error)  //TODO message
+      }
+
+      paymentModel.error.errorInfo?.errorType == ErrorType.CURRENCY_NOT_SUPPORTED -> {
+        logger.log(
+          TAG,
+          Exception("Errors paymentType=$paymentType type=${paymentModel.error.errorInfo?.errorType} code=${paymentModel.error.errorInfo?.httpCode}")
+        )
+        view.showSpecificError(R.string.unknown_error)  //TODO message
+      }
+
+      paymentModel.error.errorInfo?.errorType == ErrorType.CVC_LENGTH -> {
+        logger.log(
+          TAG,
+          Exception("Errors paymentType=$paymentType type=${paymentModel.error.errorInfo?.errorType} code=${paymentModel.error.errorInfo?.httpCode}")
+        )
+        view.showSpecificError(R.string.unknown_error)  //TODO message
+      }
+
       paymentModel.error.errorInfo?.httpCode != null -> {
         topUpAnalytics.sendErrorEvent(
           value = value,

@@ -14,6 +14,7 @@ import com.appcoins.wallet.billing.adyen.PaymentModel
 import com.appcoins.wallet.billing.adyen.PaymentModel.Status.*
 import com.appcoins.wallet.billing.util.Error
 import com.appcoins.wallet.commons.Logger
+import com.asf.wallet.R
 import com.asfoundation.wallet.billing.address.BillingAddressModel
 import com.asfoundation.wallet.billing.adyen.AdyenErrorCodeMapper.Companion.CVC_DECLINED
 import com.asfoundation.wallet.billing.adyen.AdyenErrorCodeMapper.Companion.FRAUD
@@ -77,6 +78,7 @@ class AdyenPaymentPresenter(
     handleRedirectResponse()
     handlePaymentDetails()
     handleAdyenErrorBack()
+    handleAdyenErrorBackToCard()
     handleAdyenErrorCancel()
     handleSupportClicks()
     handle3DSErrors()
@@ -131,6 +133,8 @@ class AdyenPaymentPresenter(
     )
   }
 
+  var priceAmount: BigDecimal? = null
+  var priceCurrency: String? = null
   private fun loadPaymentMethodInfo() {
     view.showLoading()
     disposables.add(adyenPaymentInteractor.loadPaymentInfo(
@@ -149,6 +153,8 @@ class AdyenPaymentPresenter(
           val amount = formatter.formatPaymentCurrency(it.priceAmount, WalletCurrency.FIAT)
           view.showProductPrice(amount, it.priceCurrency)
           if (paymentType == PaymentType.CARD.name) {
+            priceAmount = it.priceAmount
+            priceCurrency = it.priceCurrency
             view.hideLoadingAndShowView()
             sendPaymentMethodDetailsEvent(BillingAnalytics.PAYMENT_METHOD_CC)
             view.finishCardConfiguration(it, false)
@@ -207,7 +213,7 @@ class AdyenPaymentPresenter(
 
   private fun handlePaymentModel(paymentModel: PaymentModel) {
     if (paymentModel.error.hasError) {
-      handleErrors(paymentModel.error)
+      handleErrors(paymentModel.error, paymentModel.refusalCode)
     } else {
       view.showLoading()
       view.lockRotation()
@@ -308,7 +314,7 @@ class AdyenPaymentPresenter(
                     it.error.errorInfo?.httpCode,
                     buildRefusalReason(it.status, it.error.errorInfo?.text)
                   )
-                  handleErrors(it.error)
+                  handleErrors(it.error, paymentModel.refusalCode)
                 }
                   .subscribeOn(viewScheduler)
               }
@@ -318,7 +324,7 @@ class AdyenPaymentPresenter(
                 it.error.errorInfo?.httpCode,
                 it.status.toString() + it.error.errorInfo?.text
               )
-              Completable.fromAction { handleErrors(it.error) }
+              Completable.fromAction { handleErrors(it.error, it.refusalCode) }
             }
           }
         }
@@ -353,7 +359,7 @@ class AdyenPaymentPresenter(
           paymentModel.error.errorInfo?.httpCode,
           paymentModel.error.errorInfo?.text
         )
-        handleErrors(paymentModel.error)
+        handleErrors(paymentModel.error, paymentModel.refusalCode)
       }
     }
     paymentModel.status == FAILED && paymentType == PaymentType.PAYPAL.name -> {
@@ -743,6 +749,23 @@ class AdyenPaymentPresenter(
     )
   }
 
+  private fun handleAdyenErrorBackToCard() {
+    disposables.add(view.adyenErrorBackToCardClicks()
+      .observeOn(viewScheduler)
+      .doOnNext {
+        adyenPaymentInteractor.removePreSelectedPaymentMethod()
+        if (priceAmount != null && priceCurrency != null) {
+          handleBuyClick(priceAmount!!, priceCurrency!!)
+        }
+        view.showBackToCard()
+      }
+      .subscribe({}, {
+        logger.log(TAG, it)
+        view.showGenericError()
+      })
+    )
+  }
+
   private fun handleAdyenErrorCancel() {
     disposables.add(view.adyenErrorCancelClicks()
       .observeOn(viewScheduler)
@@ -797,23 +820,24 @@ class AdyenPaymentPresenter(
   private fun handleErrors(error: Error, code: Int? = null) {
     when {
       error.isNetworkError -> view.showNetworkError()
-
       error.errorInfo?.errorType == ErrorType.INVALID_CARD -> view.showInvalidCardError()
-
       error.errorInfo?.errorType == ErrorType.CARD_SECURITY_VALIDATION -> view.showSecurityValidationError()
-
       error.errorInfo?.errorType == ErrorType.OUTDATED_CARD -> view.showOutdatedCardError()
-
       error.errorInfo?.errorType == ErrorType.ALREADY_PROCESSED -> view.showAlreadyProcessedError()
-
       error.errorInfo?.errorType == ErrorType.PAYMENT_ERROR -> view.showPaymentError()
-
+      error.errorInfo?.errorType == ErrorType.INVALID_COUNTRY_CODE -> view.showSpecificError(R.string.unknown_error)  //TODO message
+      error.errorInfo?.errorType == ErrorType.PAYMENT_NOT_SUPPORTED_ON_COUNTRY -> view.showSpecificError(R.string.unknown_error)  //TODO message
+      error.errorInfo?.errorType == ErrorType.CURRENCY_NOT_SUPPORTED -> view.showSpecificError(R.string.unknown_error) //TODO message
+      error.errorInfo?.errorType == ErrorType.CVC_LENGTH -> view.showSpecificError(R.string.unknown_error, true)  //TODO message
       error.errorInfo?.httpCode != null -> {
         val resId = servicesErrorCodeMapper.mapError(error.errorInfo?.errorType)
         if (error.errorInfo?.httpCode == HTTP_FRAUD_CODE) handleFraudFlow(resId, emptyList())
         else view.showSpecificError(resId)
       }
-      else -> view.showSpecificError(adyenErrorCodeMapper.map(code ?: 0))
+      else -> {
+        val isBackToCardAction = adyenErrorCodeMapper.needsCardRepeat(code ?: 0)
+        view.showSpecificError(adyenErrorCodeMapper.map(code ?: 0), isBackToCardAction)
+      }
     }
   }
 

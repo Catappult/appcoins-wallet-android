@@ -56,11 +56,13 @@ interface AdyenPaymentView {
 
   fun billingAddressInput(): Observable<Boolean>
 
-  fun showSpecificError(stringRes: Int)
+  fun showSpecificError(stringRes: Int, backToCard: Boolean = false)
 
   fun showVerificationError(isWalletVerified: Boolean)
 
   fun showCvvError()
+
+  fun showBackToCard()
 
   fun showProductPrice(amount: String, currencyCode: String)
 
@@ -79,6 +81,8 @@ interface AdyenPaymentView {
   fun adyenErrorCancelClicks(): Observable<Any>
 
   fun adyenErrorBackClicks(): Observable<Any>
+
+  fun adyenErrorBackToCardClicks(): Observable<Any>
 
   fun getAdyenSupportLogoClicks(): Observable<Any>
 

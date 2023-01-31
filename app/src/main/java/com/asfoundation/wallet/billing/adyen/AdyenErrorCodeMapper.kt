@@ -20,6 +20,13 @@ class AdyenErrorCodeMapper {
     }
   }
 
+  internal fun needsCardRepeat(errorCode: Int): Boolean {
+    return when (errorCode) {
+      INVALID_CARD_NUMBER, INCORRECT_ONLINE_PIN, PIN_TRIES_EXCEEDED -> true
+      else -> false
+    }
+  }
+
   companion object {
 
     const val DECLINED = 2
