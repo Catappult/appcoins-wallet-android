@@ -54,7 +54,7 @@ class OnboardingPaymentViewModel @Inject constructor(
           Triple(cachedTransaction, transactionBuilder, products)
         }
       }
-      .retryWhen { it.take(20).delay(200, TimeUnit.MILLISECONDS) }
+      .retryWhen { it.take(10).delay(200, TimeUnit.MILLISECONDS) }
       .flatMap { (cachedTransaction, transactionBuilder, products) ->
         val modifiedCachedTransaction = cachedTransaction.copy(
           value = products.first().transactionPrice.amount,
