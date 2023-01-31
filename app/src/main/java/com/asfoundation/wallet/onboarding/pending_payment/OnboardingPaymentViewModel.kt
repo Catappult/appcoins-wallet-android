@@ -15,6 +15,7 @@ import com.asfoundation.wallet.onboarding_new_payment.use_cases.GetOnboardingTra
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.Single
 import java.math.BigDecimal
+import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 sealed class OnboardingPaymentSideEffect : SideEffect {
@@ -39,7 +40,7 @@ class OnboardingPaymentViewModel @Inject constructor(
     handleContent()
   }
 
-  private fun handleContent() {
+  fun handleContent() {
     cachedTransactionRepository.getCachedTransaction()
       .flatMap { cachedTransaction ->
         Single.zip(
@@ -53,6 +54,7 @@ class OnboardingPaymentViewModel @Inject constructor(
           Triple(cachedTransaction, transactionBuilder, products)
         }
       }
+      .retryWhen { it.take(20).delay(200, TimeUnit.MILLISECONDS) }
       .flatMap { (cachedTransaction, transactionBuilder, products) ->
         val modifiedCachedTransaction = cachedTransaction.copy(
           value = products.first().transactionPrice.amount,

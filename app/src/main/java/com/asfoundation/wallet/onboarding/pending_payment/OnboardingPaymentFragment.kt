@@ -77,8 +77,24 @@ class OnboardingPaymentFragment : BasePageViewFragment(),
       is Async.Success -> {
         state.transactionContent()?.let { showHeaderContent(it) }
       }
-      is Async.Fail -> Unit
+      is Async.Fail -> showRetryError()
     }
+  }
+
+  private fun showRetryError() {
+    views.loadingAnimation.visibility = View.GONE
+    views.onboardingPaymentHeaderLayout.root.visibility = View.GONE
+    views.onboardingPaymentErrorLayout?.root?.visibility = View.VISIBLE
+    views.onboardingPaymentErrorLayout?.tryAgain?.setOnClickListener {
+      showLoading()
+      viewModel.handleContent()
+    }
+  }
+
+  private fun showLoading() {
+    views.loadingAnimation.visibility = View.VISIBLE
+    views.onboardingPaymentHeaderLayout.root.visibility = View.GONE
+    views.onboardingPaymentErrorLayout?.root?.visibility = View.GONE
   }
 
   override fun onSideEffect(sideEffect: OnboardingPaymentSideEffect) {
@@ -97,6 +113,8 @@ class OnboardingPaymentFragment : BasePageViewFragment(),
 
   private fun showHeaderContent(transactionContent: TransactionContent) {
     views.loadingAnimation.visibility = View.GONE
+    views.onboardingPaymentErrorLayout?.root?.visibility = View.GONE
+    views.onboardingPaymentHeaderLayout.root.visibility = View.VISIBLE
     handleAppInfo(transactionContent.packageName)
     views.onboardingPaymentHeaderLayout.onboardingPaymentGameItem.text = transactionContent.sku
     views.onboardingPaymentHeaderLayout.onboardingPaymentBonusText.text =
