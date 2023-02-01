@@ -535,12 +535,12 @@
   <string name="purchase_wallet_blocked_title">你的AppCoins积金余额已被锁定</string>
   <string name="purchase_wallet_blocked_body">由于交易历史记录异常，你的AppCoins积金余额已被锁定。但你仍然可以使用除AppCoins积金以外的其他方式进行付款和交易。\n\n如果你认为这其中存在错误，请通过以下方式与我们联系：</string>
   <string name="purchase_card_error_title">糟糕，出现错误。</string>
-  <string name="purchase_card_error_general_1">你的卡出现问题。请重试或与我们联系。</string>
-  <string name="purchase_card_error_general_2">交易已被你的银行拒绝。请尝试使用其他卡或与我们联系。</string>
-  <string name="purchase_card_error_no_funds">你的卡似乎资金不足或存在限制。请尝试使用其他卡。</string>
-  <string name="purchase_card_error_expired">你的卡似乎已经过期。请尝试使用其他卡。</string>
-  <string name="purchase_card_error_invalid_details">你确定卡号正确吗？请检查，然后重试。</string>
-  <string name="purchase_card_error_not_supported">尚不支持你的卡类型。请尝试使用其他卡。</string>
+  <string name="purchase_card_error_general_1">There was a problem with your card. Please try with a different card or payment method.</string>
+  <string name="purchase_card_error_general_2">The transaction has been rejected by your bank. Please try with a different card or payment method.</string>
+  <string name="purchase_card_error_no_funds">It seems you don\'t have enough funds or there\'s a limit on your card. Please try with a different card or payment method.</string>
+  <string name="purchase_card_error_expired">It seems your card is expired. Please try again with a different payment method.</string>
+  <string name="purchase_card_error_invalid_details">Invalid card number. Please check it and try again.</string>
+  <string name="purchase_card_error_not_supported">Your card is not supported yet. Please try again with a different card or payment method.</string>
   <string name="purchase_card_error_security">你确定安全信息正确吗？请重试。</string>
   <string name="purchase_card_error_wrong_CVV">你的CVV/CVC代码似乎有误。请重试。</string>
   <string name="purchase_card_error_re_insert">看来你很久以前就注册了这张卡！再次插入卡的详细信息或使用其他卡。</string>
@@ -564,7 +564,7 @@
   <string name="purchase_error_card_security_validation">此交易的第二层验证存在错误。请重试。</string>
   <string name="purchase_error_transaction_timeout">你完成交易的时间似乎太长。请重试。</string>
   <string name="purchase_error_card_already_in_progress">你的请求已被处理或正在处理。请稍候。</string>
-  <string name="purchase_error_payment_rejected">付款已被拒绝！请尝试使用其他发卡机构的卡或使用其他支付方式。</string>
+  <string name="purchase_error_payment_rejected">The transaction has been rejected. Please try with a different card or payment method.</string>
   <string name="purchase_error_verify_wallet">验证你的支付方式以完成本次购买。</string>
   <string name="purchase_error_verify_card">验证你的卡以完成本次购买。</string>
   <string name="purachse_error_verify_card_button">验证卡</string>
@@ -573,6 +573,9 @@
   <string name="purchase_app_needed_body">你需要以下应用才能完成购买。</string>
   <string name="purchase_apps_needed_body">你需要以下一个应用才能完成购买。</string>
   <string name="purchase_error_connection_issue">你的互联网连接似乎有问题！请检查并重试。</string>
+  <string name="purchase_error_wrong_pin_body">There was a problem with your pin. Please try again.</string>
+  <string name="purchase_error_3d_body">There was a problem with your 3D authentication. Please try again.</string>
+  <string name="purchase_error_generic_contact_us_body">Oops, something went wrong. Please try again or contact us.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">帐单地址</string>
   <string name="purchase_address_address_field">地址</string>
