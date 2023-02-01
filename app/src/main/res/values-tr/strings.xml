@@ -535,12 +535,12 @@
   <string name="purchase_wallet_blocked_title">AppCoins Credits bakiyeniz engellendi</string>
   <string name="purchase_wallet_blocked_body">Olağandışı işlem geçmişi nedeniyle, AppCoins Credits bakiyeniz engellendi. AppCoins Credits dışında başka yöntemlerle ödeme ve işlem yapmaya devam edebileceksiniz.\n\nBunun bir hata olduğunu düşünüyorsanız lütfen bizimle iletişime geçin:</string>
   <string name="purchase_card_error_title">Hay aksi, bir şeyler ters gitti.</string>
-  <string name="purchase_card_error_general_1">Kartınızla ilgili bir sorun vardı. Lütfen tekrar deneyin veya bizimle iletişime geçin.</string>
-  <string name="purchase_card_error_general_2">İşlem bankanız tarafından reddedildi. Lütfen farklı bir kartla deneyin veya bizimle iletişime geçin.</string>
-  <string name="purchase_card_error_no_funds">Bakiyeniz yetersiz veya kartınızda limit var gibi görünüyor. Lütfen farklı bir kartla deneyin.</string>
-  <string name="purchase_card_error_expired">Kartınızın son kullanma tarihi geçmiş gibi görünüyor. Lütfen farklı bir kartla deneyin.</string>
-  <string name="purchase_card_error_invalid_details">Kart numaranızın doğru olduğundan emin misiniz? Lütfen kontrol edip tekrar deneyin.</string>
-  <string name="purchase_card_error_not_supported">Kart türünüz henüz desteklenmiyor. Farklı bir kartla deneyin.</string>
+  <string name="purchase_card_error_general_1">There was a problem with your card. Please try with a different card or payment method.</string>
+  <string name="purchase_card_error_general_2">The transaction has been rejected by your bank. Please try with a different card or payment method.</string>
+  <string name="purchase_card_error_no_funds">It seems you don\'t have enough funds or there\'s a limit on your card. Please try with a different card or payment method.</string>
+  <string name="purchase_card_error_expired">It seems your card is expired. Please try again with a different payment method.</string>
+  <string name="purchase_card_error_invalid_details">Invalid card number. Please check it and try again.</string>
+  <string name="purchase_card_error_not_supported">Your card is not supported yet. Please try again with a different card or payment method.</string>
   <string name="purchase_card_error_security">Güvenlik bilgilerinizin doğru olduğundan emin misiniz? Lütfen tekrar deneyin.</string>
   <string name="purchase_card_error_wrong_CVV">CVV/CVC kodunuz yanlış gibi görünüyor. Lütfen tekrar deneyin.</string>
   <string name="purchase_card_error_re_insert">It seems you registered this card long time ago! Insert the card details again or use a different one.</string>
@@ -564,7 +564,7 @@
   <string name="purchase_error_card_security_validation">Bu işlemin 2. seviye doğrulamasında bir hata oldu. Lütfen tekrar deneyin.</string>
   <string name="purchase_error_transaction_timeout">İşlemi tamamlamak için çok uzun süre harcamışsınız gibi görünüyor. Lütfen tekrar deneyin.</string>
   <string name="purchase_error_card_already_in_progress">Talebiniz zaten işlenmiş veya işleniyor. Lütfen bekleyin.</string>
-  <string name="purchase_error_payment_rejected">Ödeme reddedildi! Lütfen farklı bir bankanın kartıyla deneyin veya farklı bir ödeme yöntemi kullanın.</string>
+  <string name="purchase_error_payment_rejected">The transaction has been rejected. Please try with a different card or payment method.</string>
   <string name="purchase_error_verify_wallet">Validate your payment method to complete this purchase.</string>
   <string name="purchase_error_verify_card">Bu satın alma işlemini tamamlamak için kartınızı doğrulayın.</string>
   <string name="purachse_error_verify_card_button">KARTI DOĞRULAYIN</string>
@@ -573,6 +573,9 @@
   <string name="purchase_app_needed_body">You need the following app to complete your purchase.</string>
   <string name="purchase_apps_needed_body">You need one of the following apps to complete your purchase.</string>
   <string name="purchase_error_connection_issue">It seems there is a problem with your internet connection! Please check it and try again.</string>
+  <string name="purchase_error_wrong_pin_body">There was a problem with your pin. Please try again.</string>
+  <string name="purchase_error_3d_body">There was a problem with your 3D authentication. Please try again.</string>
+  <string name="purchase_error_generic_contact_us_body">Oops, something went wrong. Please try again or contact us.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">Faturalandırma adresi</string>
   <string name="purchase_address_address_field">Adres</string>
