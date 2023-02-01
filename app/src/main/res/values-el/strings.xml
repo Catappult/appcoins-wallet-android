@@ -535,12 +535,12 @@
   <string name="purchase_wallet_blocked_title">Το υπόλοιπό σας σε AppCoins Credits είναι κλειδωμένο</string>
   <string name="purchase_wallet_blocked_body">Λόγω του ασυνήθιστου ιστορικού συναλλαγών, το υπόλοιπό σας σε AppCoins Credits κλειδώθηκε. Μπορείτε να συνεχίσετε τις πληρωμές και τις συναλλαγές με άλλες μεθόδους, αλλά όχι με AppCoins Credits\n\nΕάν πιστεύετε ότι έχει γίνει λάθος, επικοινωνήστε μαζί μας στο:</string>
   <string name="purchase_card_error_title">Ωχ, κάτι πήγε στραβά.</string>
-  <string name="purchase_card_error_general_1">Υπήρξε ένα πρόβλημα με την κάρτα σας. Παρακαλούμε, προσπαθήστε ξανά ή επικοινωνήστε μαζί μας.</string>
-  <string name="purchase_card_error_general_2">Η συναλλαγή απορρίφθηκε από την τράπεζά σας. Παρακαλούμε, δοκιμάστε μία διαφορετική κάρτα ή επικοινωνήστε μαζί μας.</string>
-  <string name="purchase_card_error_no_funds">Φαίνεται ότι δεν έχετε αρκετά χρήματα ή υπάρχει όριο στην κάρτα σας. Παρακαλούμε, δοκιμάστε με μία άλλη.</string>
-  <string name="purchase_card_error_expired">Φαίνεται ότι η κάρτα σας έχει λήξει. Παρακαλούμε, δοκιμάστε με μία άλλη.</string>
-  <string name="purchase_card_error_invalid_details">Είστε βέβαιοι ότι ο αριθμός της κάρτας σας είναι σωστός; Παρακαλούμε, ελέγξτε και προσπαθήστε ξανά.</string>
-  <string name="purchase_card_error_not_supported">Ο τύπος της κάρτας σας δεν υποστηρίζεται ακόμη. Δοκιμάστε με μία άλλη.</string>
+  <string name="purchase_card_error_general_1">There was a problem with your card. Please try with a different card or payment method.</string>
+  <string name="purchase_card_error_general_2">The transaction has been rejected by your bank. Please try with a different card or payment method.</string>
+  <string name="purchase_card_error_no_funds">It seems you don\'t have enough funds or there\'s a limit on your card. Please try with a different card or payment method.</string>
+  <string name="purchase_card_error_expired">It seems your card is expired. Please try again with a different payment method.</string>
+  <string name="purchase_card_error_invalid_details">Invalid card number. Please check it and try again.</string>
+  <string name="purchase_card_error_not_supported">Your card is not supported yet. Please try again with a different card or payment method.</string>
   <string name="purchase_card_error_security">Είστε βέβαιοι ότι οι πληροφορίες ασφαλείας είναι σωστές; Παρακαλούμε, δοκιμάστε ξανά.</string>
   <string name="purchase_card_error_wrong_CVV">Φαίνεται ότι ο κωδικός CVV/CVC είναι λανθασμένος. Παρακαλούμε, δοκιμάστε ξανά.</string>
   <string name="purchase_card_error_re_insert">Φαίνεται ότι καταχωρήσατε αυτήν την κάρτα πριν πολύ καιρό. Συμπληρώστε ξανά τα στοιχεία της κάρτας ή χρησιμοποιήστε μία άλλη.</string>
@@ -564,7 +564,7 @@
   <string name="purchase_error_card_security_validation">Υπήρξε ένα σφάλμα στο 2ο επίπεδο επαλήθευσης αυτής της συναλλαγής. Παρακαλούμε δοκιμάστε ξανά.</string>
   <string name="purchase_error_transaction_timeout">Φαίνεται ότι αργήσατε πολύ να ολοκληρώσετε τη συναλλαγή. Παρακαλούμε δοκιμάστε ξανά.</string>
   <string name="purchase_error_card_already_in_progress">Το αίτημα σας δέχτηκε ήδη επεξεργασία ή βρίσκεται σε επεξεργασία. Παρακαλούμε περιμένετε.</string>
-  <string name="purchase_error_payment_rejected">Η πληρωμή απορρίφθηκε! Παρακαλούμε δοκιμάστε με κάρτα άλλου παρόχου ή χρησιμοποιήστε διαφορετική μέθοδο πληρωμής.</string>
+  <string name="purchase_error_payment_rejected">The transaction has been rejected. Please try with a different card or payment method.</string>
   <string name="purchase_error_verify_wallet">Επαληθεύστε τη μέθοδο πληρωμής σας για να ολοκληρώσετε αυτή την αγορά.</string>
   <string name="purchase_error_verify_card">Επαληθεύστε την κάρτα σας για να ολοκληρώσετε αυτή την αγορά.</string>
   <string name="purachse_error_verify_card_button">ΕΠΑΛΗΘΕΥΣΗ ΚΑΡΤΑΣ</string>
@@ -573,6 +573,9 @@
   <string name="purchase_app_needed_body">Χρειάζεστε την παρακάτω εφαρμογή για να ολοκληρώσετε την αγορά σας.</string>
   <string name="purchase_apps_needed_body">Χρειάζεστε μία από τις παρακάτω εφαρμογές για να ολοκληρώσετε την αγορά σας.</string>
   <string name="purchase_error_connection_issue">Φαίνεται ότι έχετε πρόβλημα με τη σύνδεσή σας στο Ίντερνετ! Παρακαλούμε ελέγξτε και δοκιμάστε ξανά.</string>
+  <string name="purchase_error_wrong_pin_body">There was a problem with your pin. Please try again.</string>
+  <string name="purchase_error_3d_body">There was a problem with your 3D authentication. Please try again.</string>
+  <string name="purchase_error_generic_contact_us_body">Oops, something went wrong. Please try again or contact us.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">Διεύθυνση χρέωσης</string>
   <string name="purchase_address_address_field">Διεύθυνση</string>
