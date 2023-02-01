@@ -535,12 +535,12 @@
   <string name="purchase_wallet_blocked_title">ਤੁਹਾਡਾ ਐਪ ਸਿੱਕੇ ਕ੍ਰੈਡਿਟ ਬਕਾਇਆ ਰੋਕ ਦਿੱਤਾ ਗਿਆ ਹੈ</string>
   <string name="purchase_wallet_blocked_body">ਇੱਕ ਅਸਾਧਾਰਣ ਲੈਣਦੇਣ ਦੇ ਇਤਿਹਾਸ ਦੇ ਕਾਰਣ, ਤੁਹਾਡਾ ਐਪ ਸਿੱਕੇ ਕ੍ਰੈਡਿਟ ਬਕਾਇਆ ਬ੍ਲਾਕ ਕੀਤਾ ਗਿਆ ਸੀ| ਤੁਸੀਂਐਪ ਸਿੱਕੇ ਕ੍ਰੈਡਿਟ ਨੂੰ ਛੱਡ ਕੇ, ਅਜੇ ਵੀ ਹੋਰ ਤਰੀਕਿਆਂ ਨਾਲ ਭੁਗਤਾਨ ਕਰਨ ਅਤੇ ਲੈਣ ਦੇਣ ਦੇ ਯੋਗ ਹੋ| \n ਜੇ ਤੁਹਾਨੂੰ ਲਗਦਾ ਹੈ ਕਿ ਇਹ ਕੋਈ ਗਲਤੀ ਹੈ, ਤਾਂ ਸਾਡੇ ਨਾਲ ਸੰਪਰਕ ਕਰੋ:</string>
   <string name="purchase_card_error_title">ਓਹ ਹੋ, ਕੁਝ ਗ਼ਲਤ ਹੋਇਆ|</string>
-  <string name="purchase_card_error_general_1">ਤੁਹਾਡੇ ਕਾਰਡ ਨਾਲ ਕੁੱਝ ਸਮੱਸਿਆ ਸੀ| ਕਿਰਪਾ ਕਰਕੇ ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰੋ ਜਾਂ ਸਾਡੇ ਨਾਲ ਸੰਪਰਕ ਕਰੋ|</string>
-  <string name="purchase_card_error_general_2">ਭੁਗਤਾਨ ਨੂੰ ਤੁਹਾਡੇ ਬੈਂਕ ਦੁਆਰਾ ਰੱਦ ਕਰ ਦਿੱਤਾ ਗਿਆ ਹੈ| ਕਿਰਪਾ ਕਰਕੇ ਵੱਖਰੇ ਕਾਰਡ ਨਾਲ ਕੋਸ਼ਿਸ਼ ਕਰੋ ਜਾਂ ਸਾਡੇ ਨਾਲ ਸੰਪਰਕ ਕਰੋ|</string>
-  <string name="purchase_card_error_no_funds">ਅਜਿਹਾ ਲਗਦਾ ਹੈ ਕਿ ਤੁਹਾਡੇ ਕੋਲ ਲੋੜੀਂਦੇ ਪੈਸੇ ਨਹੀਂ ਹਨ ਜਾਂ ਤੁਹਾਡੇ ਕਾਰਡ ਦੀ ਭੁਗਤਾਨ ਦੀ ਕੋਈ ਸੀਮਾ ਹੈ| ਕਿਰਪਾ ਕਰਕੇ ਕਿਸੇ ਵੱਖਰੇ ਕਾਰਡ ਨਾਲ ਕੋਸ਼ਿਸ਼ ਕਰੋ|</string>
-  <string name="purchase_card_error_expired">ਅਜਿਹਾ ਲਗਦਾ ਹੈ ਕਿ ਤੁਹਾਡੇ ਕਾਰਡ ਦੀ ਮਿਆਦ ਖਤਮ ਹੋ ਗਈ ਹੈ| ਕਿਰਪਾ ਕਰਕੇ ਕਿਸੇ ਵੱਖਰੇ ਕਾਰਡ ਨਾਲ ਕੋਸ਼ਿਸ਼ ਕਰੋ|</string>
-  <string name="purchase_card_error_invalid_details">ਕੀ ਤੁਹਾਨੂੰ ਯਕੀਨ ਹੈ ਕਿ ਤੁਹਾਡਾ ਕਾਰਡ ਨੰਬਰ ਸਹੀ ਹੈ? ਕਿਰਪਾ ਕਰਕੇ ਜਾਂਚ ਕਰੋ ਅਤੇ ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰੋ|</string>
-  <string name="purchase_card_error_not_supported">ਤੁਹਾਡੇ ਕਾਰਡ ਦੀ ਕਿਸਮ ਅਜੇ ਸਮਰਥਿਤ ਨਹੀਂ ਹੈ| ਕਿਸੇ ਵੱਖਰੇ ਕਾਰਡ ਨਾਲ ਕੋਸ਼ਿਸ਼ ਕਰੋ|</string>
+  <string name="purchase_card_error_general_1">There was a problem with your card. Please try with a different card or payment method.</string>
+  <string name="purchase_card_error_general_2">The transaction has been rejected by your bank. Please try with a different card or payment method.</string>
+  <string name="purchase_card_error_no_funds">It seems you don\'t have enough funds or there\'s a limit on your card. Please try with a different card or payment method.</string>
+  <string name="purchase_card_error_expired">It seems your card is expired. Please try again with a different payment method.</string>
+  <string name="purchase_card_error_invalid_details">Invalid card number. Please check it and try again.</string>
+  <string name="purchase_card_error_not_supported">Your card is not supported yet. Please try again with a different card or payment method.</string>
   <string name="purchase_card_error_security">ਕੀ ਤੁਹਾਨੂੰ ਯਕੀਨ ਹੈ ਕਿ ਸੁਰੱਖਿਆ ਜਾਣਕਾਰੀ ਸਹੀ ਹੈ? ਮੁੜ ਕੋਸ਼ਿਸ ਕਰੋ ਜੀ|</string>
   <string name="purchase_card_error_wrong_CVV">ਤੁਹਾਡਾ ਸੀਵੀਵੀ/ਸੀਵੀਸੀ ਕੋਡ ਗਲਤ ਜਾਪਦਾ ਹੈ| ਮੁੜ ਕੋਸ਼ਿਸ ਕਰੋ ਜੀ|</string>
   <string name="purchase_card_error_re_insert">ਅਜਿਹਾ ਲਗਦਾ ਹੈ ਕਿ ਤੁਸੀਂ ਇਸ ਕਾਰਡ ਨੂੰ ਬਹੁਤ ਸਮਾਂ ਪਹਿਲਾਂ ਰਜਿਸਟਰ ਕੀਤਾ ਸੀ! ਕਾਰਡ ਦਾ ਵੇਰਵਾ ਦੁਬਾਰਾ ਪਾਓ ਜਾਂ ਕੋਈ ਹੋਰ ਵਰਤੋ।</string>
@@ -564,7 +564,7 @@
   <string name="purchase_error_card_security_validation">ਇਸ ਟ੍ਰਾਂਜੈਕਸ਼ਨ ਦੇ ਦੂਜੇ ਪੱਧਰ ਦੀ ਪ੍ਰਮਾਣਿਕਤਾ ਵਿੱਚ ਇੱਕ ਗੜਬੜ ਹੋਈ ਹੈ| ਮੁੜ ਕੋਸ਼ਿਸ ਕਰੋ ਜੀ|</string>
   <string name="purchase_error_transaction_timeout">ਅਜਿਹਾ ਲਗਦਾ ਹੈ ਕਿ ਟ੍ਰਾਂਜੈਕਸ਼ਨ ਨੂੰ ਪੂਰਾ ਕਰਨ ਲਈ ਤੁਸੀ ਬਹੁਤ ਸਮਾਂ ਲਗਾ ਦਿੱਤਾ| ਮੁੜ ਕੋਸ਼ਿਸ ਕਰੋ ਜੀ|</string>
   <string name="purchase_error_card_already_in_progress">ਤੁਹਾਡੀ ਬੇਨਤੀ ਤੇ ਪਹਿਲਾਂ ਹੀ ਕਾਰਵਾਈ ਕੀਤੀ ਜਾ ਚੁੱਕੀ ਹੈ ਜਾਂ ਜਾਰੀ ਹੈ| ਕ੍ਰਿਪਾ ਕਰਕੇ ਉਡੀਕ ਕਰੋ|</string>
-  <string name="purchase_error_payment_rejected">ਭੁਗਤਾਨ ਅਸਵੀਕਾਰ! ਕਿਰਪਾ ਕਰਕੇ ਕਿਸੇ ਵੱਖਰੇ ਜਾਰੀਕਰਤਾ ਦੇ ਕਾਰਡ ਨਾਲ ਕੋਸ਼ਿਸ਼ ਕਰੋ ਜਾਂ ਹੋਰ ਭੁਗਤਾਨ ਵਿਧੀ ਦੀ ਵਰਤੋਂ ਕਰੋ|</string>
+  <string name="purchase_error_payment_rejected">The transaction has been rejected. Please try with a different card or payment method.</string>
   <string name="purchase_error_verify_wallet">ਇਸ ਖਰੀਦ ਨੂੰ ਪੂਰਾ ਕਰਨ ਲਈ ਆਪਣੇ ਭੁਗਤਾਨ ਦੇ ਢੰਗ ਨੂੰ ਪ੍ਰਮਾਣਿਤ ਕਰੋ।</string>
   <string name="purchase_error_verify_card">ਇਸ ਖਰੀਦ ਨੂੰ ਪੂਰਾ ਕਰਨ ਲਈ ਆਪਣੇ ਕਾਰਡ ਨੂੰ ਪ੍ਰਮਾਣਿਤ ਕਰੋ।</string>
   <string name="purachse_error_verify_card_button">ਕਾਰਡ ਪ੍ਰਮਾਣਿਤ ਕਰੋ</string>
@@ -573,6 +573,9 @@
   <string name="purchase_app_needed_body">ਆਪਣੀ ਖਰੀਦ ਨੂੰ ਪੂਰਾ ਕਰਨ ਲਈ ਤੁਹਾਨੂੰ ਹੇਠਾਂ ਦਿੱਤੀ ਐਪ ਦੀ ਲੋੜ ਹੈ।</string>
   <string name="purchase_apps_needed_body">ਆਪਣੀ ਖਰੀਦ ਨੂੰ ਪੂਰਾ ਕਰਨ ਲਈ ਤੁਹਾਨੂੰ ਹੇਠਾਂ ਦਿੱਤੀਆਂ ਐਪਾਂ ਵਿੱਚੋਂ ਇੱਕ ਦੀ ਲੋੜ ਹੈ।</string>
   <string name="purchase_error_connection_issue">ਅਜਿਹਾ ਲਗਦਾ ਹੈ ਕਿ ਤੁਹਾਡੇ ਇੰਟਰਨੈਟ ਕਨੈਕਸ਼ਨ ਵਿੱਚ ਕੋਈ ਸਮੱਸਿਆ ਹੈ! ਕਿਰਪਾ ਕਰਕੇ ਇਸਦੀ ਜਾਂਚ ਕਰੋ ਅਤੇ ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰੋ।</string>
+  <string name="purchase_error_wrong_pin_body">There was a problem with your pin. Please try again.</string>
+  <string name="purchase_error_3d_body">There was a problem with your 3D authentication. Please try again.</string>
+  <string name="purchase_error_generic_contact_us_body">Oops, something went wrong. Please try again or contact us.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">ਬਿਲਿੰਗ ਦਾ ਪਤਾ</string>
   <string name="purchase_address_address_field">ਪਤਾ</string>
