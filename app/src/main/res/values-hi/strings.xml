@@ -535,12 +535,12 @@
   <string name="purchase_wallet_blocked_title">आपका AppCoins Credits बैलेंस ब्लॉक है</string>
   <string name="purchase_wallet_blocked_body">एक असामान्य लेन-देन इतिहास के कारण, आपका AppCoins Credits बैलेंस ब्लॉक किया गया था। आप अभी भी AppCoins Credits को छोड़कर अन्य तरीकों से सामान्य भुगतान और लेन-देन कर पाएंगे।\n\nअगर आपको लगता है कि यह एक गलती है, तो हमसे संपर्क करें:</string>
   <string name="purchase_card_error_title">अरे, कुछ गलत हो गया है।</string>
-  <string name="purchase_card_error_general_1">आपके कार्ड के साथ कोई समस्या थी। कृपया पुनः प्रयास करें या हमसे संपर्क करें।</string>
-  <string name="purchase_card_error_general_2">बैंक द्वारा आपका लेनदेन अस्वीकार कर दिया गया है। कृपया एक अलग कार्ड से प्रयास करें या हमसे संपर्क करें।</string>
-  <string name="purchase_card_error_no_funds">शायद आपके पास पर्याप्त फंड नहीं है या आपके कार्ड पर कोई सीमा तय है। कृपया किसी दूसरे के साथ प्रयास करें।</string>
-  <string name="purchase_card_error_expired">शायद आपके कार्ड की अवधि समाप्त हो गई है। कृपया किसी दूसरे के साथ प्रयास करें।</string>
-  <string name="purchase_card_error_invalid_details">क्या आपका कार्ड नंबर बिलकुल सही है? कृपया जाँच करें और पुनः प्रयास करें।</string>
-  <string name="purchase_card_error_not_supported">आपका कार्ड अभी समर्थित नहीं है। कृपया किसी दूसरे के साथ प्रयास करें।</string>
+  <string name="purchase_card_error_general_1">There was a problem with your card. Please try with a different card or payment method.</string>
+  <string name="purchase_card_error_general_2">The transaction has been rejected by your bank. Please try with a different card or payment method.</string>
+  <string name="purchase_card_error_no_funds">It seems you don\'t have enough funds or there\'s a limit on your card. Please try with a different card or payment method.</string>
+  <string name="purchase_card_error_expired">It seems your card is expired. Please try again with a different payment method.</string>
+  <string name="purchase_card_error_invalid_details">Invalid card number. Please check it and try again.</string>
+  <string name="purchase_card_error_not_supported">Your card is not supported yet. Please try again with a different card or payment method.</string>
   <string name="purchase_card_error_security">क्या आपकी सुरक्षा जानकारी बिलकुल सही है? कृपया पुनः प्रयास करें।</string>
   <string name="purchase_card_error_wrong_CVV">आपका सीवीवी/सीवीसी कोड गलत लग रहा है। कृपया पुनः प्रयास करें।</string>
   <string name="purchase_card_error_re_insert">It seems you registered this card long time ago! Insert the card details again or use a different one.</string>
@@ -564,7 +564,7 @@
   <string name="purchase_error_card_security_validation">There was an error on the 2nd level validation of this transaction. Please try again.</string>
   <string name="purchase_error_transaction_timeout">It seems you took too long to complete the transaction. Please try again.</string>
   <string name="purchase_error_card_already_in_progress">Your request was already processed or is in progress. Please wait.</string>
-  <string name="purchase_error_payment_rejected">Payment rejected! Please try with a card from a different issuer or use other payment method.</string>
+  <string name="purchase_error_payment_rejected">The transaction has been rejected. Please try with a different card or payment method.</string>
   <string name="purchase_error_verify_wallet">Validate your payment method to complete this purchase.</string>
   <string name="purchase_error_verify_card">Validate your card to complete this purchase.</string>
   <string name="purachse_error_verify_card_button">VALIDATE CARD</string>
@@ -573,6 +573,9 @@
   <string name="purchase_app_needed_body">You need the following app to complete your purchase.</string>
   <string name="purchase_apps_needed_body">You need one of the following apps to complete your purchase.</string>
   <string name="purchase_error_connection_issue">It seems there is a problem with your internet connection! Please check it and try again.</string>
+  <string name="purchase_error_wrong_pin_body">There was a problem with your pin. Please try again.</string>
+  <string name="purchase_error_3d_body">There was a problem with your 3D authentication. Please try again.</string>
+  <string name="purchase_error_generic_contact_us_body">Oops, something went wrong. Please try again or contact us.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">Billing address</string>
   <string name="purchase_address_address_field">Address</string>
