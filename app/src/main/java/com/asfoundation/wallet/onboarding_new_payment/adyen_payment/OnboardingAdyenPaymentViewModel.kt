@@ -195,8 +195,10 @@ class OnboardingAdyenPaymentViewModel @Inject constructor(
   }
 
   private fun handlePaypalResult(paymentModel: PaymentModel) {
-    sendSideEffect {
-      OnboardingAdyenPaymentSideEffect.NavigateToWebView(paymentModel)
+    if (paymentModel.error.hasError) {
+      sendSideEffect { OnboardingAdyenPaymentSideEffect.NavigateToPaymentResult(paymentModel) }
+    } else {
+      sendSideEffect { OnboardingAdyenPaymentSideEffect.NavigateToWebView(paymentModel) }
     }
   }
 
