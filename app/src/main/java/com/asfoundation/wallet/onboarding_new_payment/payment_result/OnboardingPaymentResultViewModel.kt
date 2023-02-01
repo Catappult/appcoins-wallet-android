@@ -66,7 +66,7 @@ class OnboardingPaymentResultViewModel @Inject constructor(
       args.paymentModel.resultCode.equals("AUTHORISED", true) -> {
         handleAuthorisedPayment()
       }
-      args.paymentModel.refusalReason != null -> {
+      args.paymentModel.refusalCode != null -> {
         handlePaymentRefusal()
       }
       args.paymentModel.error.hasError -> {

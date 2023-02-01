@@ -99,11 +99,11 @@ class OnboardingPaymentResultFragment : BasePageViewFragment(),
 
   fun handleError(error: Error?, refusalCode: Int?, walletVerified: Boolean?) {
     when {
-      error != null -> {
+      error?.isNetworkError == true -> {
+        showSpecificError(R.string.notification_no_network_poa)
+      }
+      error?.errorInfo != null -> {
         when {
-          error.isNetworkError -> {
-            showSpecificError(R.string.notification_no_network_poa)
-          }
           error.errorInfo?.errorType == ErrorInfo.ErrorType.INVALID_CARD -> {
             showSpecificError(R.string.purchase_error_invalid_credit_card)
           }
@@ -121,6 +121,9 @@ class OnboardingPaymentResultFragment : BasePageViewFragment(),
           }
           error.errorInfo?.httpCode != null -> {
             showSpecificError(servicesErrorCodeMapper.mapError(error.errorInfo?.errorType))
+          }
+          else -> {
+            showSpecificError(R.string.unknown_error)
           }
         }
       }
