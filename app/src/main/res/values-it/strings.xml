@@ -535,12 +535,12 @@
   <string name="purchase_wallet_blocked_title">Il tuo saldo in AppCoins Credits è bloccato</string>
   <string name="purchase_wallet_blocked_body">Il tuo saldo in AppCoins Credits è stato bloccato in seguito a uno storico di transazioni atipico. Potrai effettuare pagamenti e transazioni con altri metodi eccetto gli AppCoins Credits.\n\nSe ritieni che questo sia un errore, contattaci:</string>
   <string name="purchase_card_error_title">Si è verificato un errore.</string>
-  <string name="purchase_card_error_general_1">Sì è verificato un problema con la tua carta. Riprova o contattaci.</string>
-  <string name="purchase_card_error_general_2">La transazione è stata rifiutata dalla tua banca. Prova con un\'altra carta o contattaci.</string>
-  <string name="purchase_card_error_no_funds">Sembra che tu non abbia abbastanza fondi o che ci sia un limite alla tua carta. Provane un\'altra.</string>
-  <string name="purchase_card_error_expired">Sembra che la tua carta sia scaduta. Provane un\'altra.</string>
-  <string name="purchase_card_error_invalid_details">Hai controllato che i dati della tua carta siano corretti? Controlla e ritenta.</string>
-  <string name="purchase_card_error_not_supported">Questo tipo di carta non è supportato. Provane un\'altra.</string>
+  <string name="purchase_card_error_general_1">There was a problem with your card. Please try with a different card or payment method.</string>
+  <string name="purchase_card_error_general_2">The transaction has been rejected by your bank. Please try with a different card or payment method.</string>
+  <string name="purchase_card_error_no_funds">It seems you don\'t have enough funds or there\'s a limit on your card. Please try with a different card or payment method.</string>
+  <string name="purchase_card_error_expired">It seems your card is expired. Please try again with a different payment method.</string>
+  <string name="purchase_card_error_invalid_details">Invalid card number. Please check it and try again.</string>
+  <string name="purchase_card_error_not_supported">Your card is not supported yet. Please try again with a different card or payment method.</string>
   <string name="purchase_card_error_security">Hai controllato che le informazioni di sicurezza siano corrette? Ritenta.</string>
   <string name="purchase_card_error_wrong_CVV">Il tuo codice CVV/CVC sembra errato. Ritenta.</string>
   <string name="purchase_card_error_re_insert">Sembra che tu abbia registrato questa carta diverso tempo fa. Inserisci nuovamente i dati o usane un\'altra.</string>
@@ -564,7 +564,7 @@
   <string name="purchase_error_card_security_validation">Si è verificato un errore nel corso della convalida di secondo livello. Riprova.</string>
   <string name="purchase_error_transaction_timeout">Il tempo a disposizione per il completamento della transazione è scaduto. Riprova.</string>
   <string name="purchase_error_card_already_in_progress">La tua richiesta è già stata elaborata o è in corso di elaborazione. Attendi.</string>
-  <string name="purchase_error_payment_rejected">Pagamento rifiutato. Prova con una carta con diverso emittente oppure utilizza un altro metodo di pagamento.</string>
+  <string name="purchase_error_payment_rejected">The transaction has been rejected. Please try with a different card or payment method.</string>
   <string name="purchase_error_verify_wallet">Convalida il tuo metodo di pagamento per completare questo acquisto.</string>
   <string name="purchase_error_verify_card">Convalida la tua carta per completare questo acquisto.</string>
   <string name="purachse_error_verify_card_button">CONVALIDA CARTA</string>
@@ -573,6 +573,9 @@
   <string name="purchase_app_needed_body">Per completare questo acquisto è necessaria l\'app di seguito.</string>
   <string name="purchase_apps_needed_body">Per completare questo acquisto è necessaria una delle app di seguito.</string>
   <string name="purchase_error_connection_issue">Si è verificato un problema con la tua connessione internet. Controlla e ritenta.</string>
+  <string name="purchase_error_wrong_pin_body">There was a problem with your pin. Please try again.</string>
+  <string name="purchase_error_3d_body">There was a problem with your 3D authentication. Please try again.</string>
+  <string name="purchase_error_generic_contact_us_body">Oops, something went wrong. Please try again or contact us.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">Indirizzo di fatturazione</string>
   <string name="purchase_address_address_field">Indirizzo</string>
