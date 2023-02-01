@@ -535,12 +535,12 @@
   <string name="purchase_wallet_blocked_title">Ihr App Coins Credits Guthaben wurde geblockt</string>
   <string name="purchase_wallet_blocked_body">Wegen eines untypischen Verlaufs ihrer Transaktions-Historie wurde ihr AppCoins Guthaben gesperrt. Sie können weiterhin Zahlungen und Transaktionen mit anderen Methoden als AppCoins Credits durchführen \n\nFalls Sie der Meinung sind, dass dies ein Fehler ist melden Sie das an uns:</string>
   <string name="purchase_card_error_title">Hoppla, etwas hat nicht funktioniert.</string>
-  <string name="purchase_card_error_general_1">Es gab ein Problem mit ihrer Karte. Bitte nehmen Sie Kontakt zu uns auf.</string>
-  <string name="purchase_card_error_general_2">Die Transaktion wurde von ihrer Bank zurückgewiesen. Bitte versuchen Sie es mit einer anderen Karte oder nehmen Sie Kontakt zu uns auf.</string>
-  <string name="purchase_card_error_no_funds">Scheinbar reicht ihr Guthaben nicht aus oder die Karte hat ein Limit. Bitte versuchen Sie es mit einer anderen.</string>
-  <string name="purchase_card_error_expired">Wie es scheint ist ihre Karte abgelaufen. Bitte versuchen Sie eine andere Karte.</string>
-  <string name="purchase_card_error_invalid_details">Sind Sie sicher, dass ihre Kartennummer korrekt ist? Bitte überprüfen und erneut eingeben.</string>
-  <string name="purchase_card_error_not_supported">Ihre Karte wird noch nicht unterstützt. Bitte versuchen Sie es mit einer anderen Karte.</string>
+  <string name="purchase_card_error_general_1">There was a problem with your card. Please try with a different card or payment method.</string>
+  <string name="purchase_card_error_general_2">The transaction has been rejected by your bank. Please try with a different card or payment method.</string>
+  <string name="purchase_card_error_no_funds">It seems you don\'t have enough funds or there\'s a limit on your card. Please try with a different card or payment method.</string>
+  <string name="purchase_card_error_expired">It seems your card is expired. Please try again with a different payment method.</string>
+  <string name="purchase_card_error_invalid_details">Invalid card number. Please check it and try again.</string>
+  <string name="purchase_card_error_not_supported">Your card is not supported yet. Please try again with a different card or payment method.</string>
   <string name="purchase_card_error_security">Sind Sie sicher, dass ihre Sicherheitsinformationen richtig sind? Bitte versuchen Sie es erneut.</string>
   <string name="purchase_card_error_wrong_CVV">Scheinbar ist ihr CVV/CVC-Code nicht korrekt. Bitte geben Sie ihn erneut ein.</string>
   <string name="purchase_card_error_re_insert">Es scheint, dass Sie diese Karte schon vor langer Zeit registriert haben! Geben Sie bitte die Kartendaten erneut ein oder verwenden Sie eine andere Karte.</string>
@@ -564,7 +564,7 @@
   <string name="purchase_error_card_security_validation">Auf der 2 Ebene der Transaktionsüberprüfung hat sich ein Fehler ereignet. Bitte versuchen Sie es erneut.</string>
   <string name="purchase_error_transaction_timeout">Scheinbar haben Sie zu lange für den Abschluss der Transaktion gebraucht. Bitte versuchen Sie es erneut.</string>
   <string name="purchase_error_card_already_in_progress">Ihre Anfrage wird bereits bearbeitet oder ist bereits abgeschlossen. Bitte warten.</string>
-  <string name="purchase_error_payment_rejected">Bezahlung wurde zurückgewiesen! Bitte versuchen Sie es mit einer anderen Karte oder einer anderen Bezahlmethode.</string>
+  <string name="purchase_error_payment_rejected">The transaction has been rejected. Please try with a different card or payment method.</string>
   <string name="purchase_error_verify_wallet">Bitte bestätigen Sie Ihre Zahlungsmethode, um diesen Kauf abzuschließen.</string>
   <string name="purchase_error_verify_card">Bestätigen Sie ihre Karte, um diesen Kauf abzuschließen.</string>
   <string name="purachse_error_verify_card_button">KARTE ÜBERPRÜFEN</string>
@@ -573,6 +573,9 @@
   <string name="purchase_app_needed_body">Um ihren Einkauf abschließen zu können, benötigen Sie die folgende App.</string>
   <string name="purchase_apps_needed_body">Um ihren Einkauf abschließen zu können, benötigen Sie die folgenden Apps.</string>
   <string name="purchase_error_connection_issue">Sie haben offensichtlich keine Internetverbindung! Bitte prüfen Sie die Verbindung und versuchen Sie es erneut.</string>
+  <string name="purchase_error_wrong_pin_body">There was a problem with your pin. Please try again.</string>
+  <string name="purchase_error_3d_body">There was a problem with your 3D authentication. Please try again.</string>
+  <string name="purchase_error_generic_contact_us_body">Oops, something went wrong. Please try again or contact us.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">Rechnungsadresse</string>
   <string name="purchase_address_address_field">Adresse</string>
