@@ -535,12 +535,12 @@
   <string name="purchase_wallet_blocked_title">Az AppCoins kreditegyenleg blokkolásra került</string>
   <string name="purchase_wallet_blocked_body">Szokatlan tranzakciós előzményeket észleltünk ezért letiltottuk az AppCoins kreditegyenleged. Az AppCoins kreditet kivéve más módokon továbbra is fizethetsz és végezhetsz tranzakciókat.\n\nHa úgy véled, hiba történt, vedd fel velünk a kapcsolatot itt:</string>
   <string name="purchase_card_error_title">Hoppá, hiba történt.</string>
-  <string name="purchase_card_error_general_1">Problémát észleltünk a kártyáddal kapcsolatban. Kérjük, próbáld újra vagy vedd fel velünk a kapcsolatot.</string>
-  <string name="purchase_card_error_general_2">A tranzakciót elutasította a bankod. Használj egy másik kártyát vagy vedd fel velünk a kapcsolatot.</string>
-  <string name="purchase_card_error_no_funds">Úgy tűnik, nincs elég pénzed vagy valamilyen limit van a kártyádon. Próbálkozz egy másik kártyával.</string>
-  <string name="purchase_card_error_expired">Úgy tűnik, hogy lejárt a kártyád. Használj egy másikat.</string>
-  <string name="purchase_card_error_invalid_details">Biztos vagy benne, hogy helyes a kártyaszám? Ellenőrizd, majd próbáld újra.</string>
-  <string name="purchase_card_error_not_supported">Ezt a kártyatípust nem támogatjuk. Használj egy másikat.</string>
+  <string name="purchase_card_error_general_1">There was a problem with your card. Please try with a different card or payment method.</string>
+  <string name="purchase_card_error_general_2">The transaction has been rejected by your bank. Please try with a different card or payment method.</string>
+  <string name="purchase_card_error_no_funds">It seems you don\'t have enough funds or there\'s a limit on your card. Please try with a different card or payment method.</string>
+  <string name="purchase_card_error_expired">It seems your card is expired. Please try again with a different payment method.</string>
+  <string name="purchase_card_error_invalid_details">Invalid card number. Please check it and try again.</string>
+  <string name="purchase_card_error_not_supported">Your card is not supported yet. Please try again with a different card or payment method.</string>
   <string name="purchase_card_error_security">Biztos vagy benne, hogy helyes a biztonsági információ? Próbáld újra.</string>
   <string name="purchase_card_error_wrong_CVV">Úgy tűnik, rossz CVV/CVC kódot adtál meg. Próbáld újra.</string>
   <string name="purchase_card_error_re_insert">Úgy tűnik, ezt a kártyát már régebben is regisztráltad. Add meg újból a kártyaadatokat vagy használj egy másikat.</string>
@@ -564,7 +564,7 @@
   <string name="purchase_error_card_security_validation">Hiba lépett fel a tranzakció második szintű hitelesítése során. Kérjük, próbáld újra.</string>
   <string name="purchase_error_transaction_timeout">Úgy tűnik, a tranzakció túl sok időt vett igénybe. Próbáld újra.</string>
   <string name="purchase_error_card_already_in_progress">A kérelmed már feldolgozták vagy jelenleg is folyamatban van. Légy türelmes.</string>
-  <string name="purchase_error_payment_rejected">A fizetést elutasították! Kérjük, próbálkozz másik kártyakibocsátóval vagy válassz másik fizetési módot.</string>
+  <string name="purchase_error_payment_rejected">The transaction has been rejected. Please try with a different card or payment method.</string>
   <string name="purchase_error_verify_wallet">A vásárlás befejezéséhez erősítsd meg fizetési módot.</string>
   <string name="purchase_error_verify_card">A vásárlás befejezéséhez erősítsd meg a kártyádat.</string>
   <string name="purachse_error_verify_card_button">KÁRTYA MEGERŐSÍTÉSE</string>
@@ -573,6 +573,9 @@
   <string name="purchase_app_needed_body">A vásárlás befejezéséhez a következő appra lesz szükséged.</string>
   <string name="purchase_apps_needed_body">A vásárlás befejezéséhez a következő appok egyikére lesz szükséged.</string>
   <string name="purchase_error_connection_issue">Úgy tűnik, megszűnt az internetkapcsolat. Ellenőrizd a kapcsolatot és próbáld újra.</string>
+  <string name="purchase_error_wrong_pin_body">There was a problem with your pin. Please try again.</string>
+  <string name="purchase_error_3d_body">There was a problem with your 3D authentication. Please try again.</string>
+  <string name="purchase_error_generic_contact_us_body">Oops, something went wrong. Please try again or contact us.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">Számlázási cím</string>
   <string name="purchase_address_address_field">Cím</string>
