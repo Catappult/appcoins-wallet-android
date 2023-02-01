@@ -848,7 +848,7 @@
   <string name="subscriptions_details_cancelled_body">Cancelled - It expires on %s</string>
   <string name="subscriptions_expiration_body">It expires on %s</string>
   <string name="subscriptions_canceled_body">Canceled</string>
-  <string name="subscriptions_details_disclaimer">The value in AppCoins may vary for next payment due to exchange rate.</string>ro
+  <string name="subscriptions_details_disclaimer">The value in AppCoins may vary for next payment due to exchange rate.</string>
   <string name="subscriptions_details_button">Details</string>
   <string name="subscriptions_manage_button">Manage subscription</string>
   <string name="subscriptions_cancel_button">Cancel subscription</string>
