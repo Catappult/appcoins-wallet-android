@@ -535,12 +535,12 @@
   <string name="purchase_wallet_blocked_title">เครดิต AppCoinของคุณถูกบล็อก</string>
   <string name="purchase_wallet_blocked_body">เนื่องจากประวัติการทำธุรกรรมที่ผิดปกติ ยอดคงเหลือ AppCoins Credits ของคุณจึงถูกปิดกั้น คุณจะยังสามารถชำระเงินและทำธุรกรรมด้วยวิธีอื่น ๆ ยกเว้น AppCoins Credits \n\n หากคุณเชื่อว่าสิ่งนี่เป็นข้อผิดพลาดโปรดติดต่อเราที่:</string>
   <string name="purchase_card_error_title">อุ๊ปส์ มีบางอย่างผิดพลาด</string>
-  <string name="purchase_card_error_general_1">บัตรของคุณมีอัญหา โปรดลองใหม่อีกครั้งหรือติดต่อเรา</string>
-  <string name="purchase_card_error_general_2">การทำธุรกรรมถูกปฏิเสธโดยธนาคารของคุณ โปรดลองบัตรใบอื่นหรือติดต่อเรา</string>
-  <string name="purchase_card_error_no_funds">ดูเหมือนว่าคุณไม่มีเงินเพียงพอหรือบัตรถูกจำกัด โปรดลองบัตรใบอื่น</string>
-  <string name="purchase_card_error_expired">ดูเหมือนว่าบัตรของคุณหมดอายุ โปรดลองบัตรใบอื่น</string>
-  <string name="purchase_card_error_invalid_details">คุณมั่นใจว่าหมายเลขบัตรถูกต้องใช่ไหม? โปรดตรวจสอบและลองใหม่อีกครั้ง</string>
-  <string name="purchase_card_error_not_supported">ประเภทบัตรของคุณยังไม่ได้รับการรับรอง โปรดลองบัตรใบอื่น</string>
+  <string name="purchase_card_error_general_1">There was a problem with your card. Please try with a different card or payment method.</string>
+  <string name="purchase_card_error_general_2">The transaction has been rejected by your bank. Please try with a different card or payment method.</string>
+  <string name="purchase_card_error_no_funds">It seems you don\'t have enough funds or there\'s a limit on your card. Please try with a different card or payment method.</string>
+  <string name="purchase_card_error_expired">It seems your card is expired. Please try again with a different payment method.</string>
+  <string name="purchase_card_error_invalid_details">Invalid card number. Please check it and try again.</string>
+  <string name="purchase_card_error_not_supported">Your card is not supported yet. Please try again with a different card or payment method.</string>
   <string name="purchase_card_error_security">คุณมั่นใจว่าข้อมูลความปลอดภัยถูกต้องใช่ไหม? โปรดลองใหม่อีกครั้ง</string>
   <string name="purchase_card_error_wrong_CVV">รหัส CVV / CVC ของคุณดูเหมือนจะผิด กรุณาลองอีกครั้ง</string>
   <string name="purchase_card_error_re_insert">ดูเหมือนว่าคุณลงทะเบียนบัตรนี้มานานแล้ว! ใส่รายละเอียดบัตรอีกครั้งหรือใช้ข้อมูลอื่น</string>
@@ -564,7 +564,7 @@
   <string name="purchase_error_card_security_validation">มีข้อผิดพลาดในการตรวจสอบระดับ 2 ของธุรกรรมนี้ กรุณาลองอีกครั้ง</string>
   <string name="purchase_error_transaction_timeout">ดูเหมือนว่าคุณใช้เวลานานเกินไปในการทำธุรกรรม กรุณาลองอีกครั้ง</string>
   <string name="purchase_error_card_already_in_progress">คำขอของคุณได้รับการประมวลผลแล้วหรืออยู่ระหว่างดำเนินการ โปรดรอ</string>
-  <string name="purchase_error_payment_rejected">การชำระเงินถูกปฏิเสธ! โปรดลองใช้บัตรจากผู้ออกบัตรรายอื่นหรือใช้วิธีการชำระเงินอื่น</string>
+  <string name="purchase_error_payment_rejected">The transaction has been rejected. Please try with a different card or payment method.</string>
   <string name="purchase_error_verify_wallet">ตรวจสอบวิธีการชำระเงินของคุณเพื่อดำเนินการสั่งซื้อนี้ให้เสร็จสิ้น</string>
   <string name="purchase_error_verify_card">ตรวจสอบบัตรของคุณเพื่อทำการซื้อนี้ให้เสร็จสมบูรณ์</string>
   <string name="purachse_error_verify_card_button">ตรวจสอบบัตร</string>
@@ -573,6 +573,9 @@
   <string name="purchase_app_needed_body">คุณจำเป็นต้องซื้อแอปให้สำเร็จ</string>
   <string name="purchase_apps_needed_body">คุณจำเป็นต้องซื้อแอปต่อไปนี้ให้สำเร็จ</string>
   <string name="purchase_error_connection_issue">ดูเหมือนว่ามีปัญหากับการเชื่อมต่ออินเทอร์เน็ตของคุณ! โปรดตรวจสอบและลองอีกครั้ง</string>
+  <string name="purchase_error_wrong_pin_body">There was a problem with your pin. Please try again.</string>
+  <string name="purchase_error_3d_body">There was a problem with your 3D authentication. Please try again.</string>
+  <string name="purchase_error_generic_contact_us_body">Oops, something went wrong. Please try again or contact us.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">ที่อยู่เรียกเก็บเงิน</string>
   <string name="purchase_address_address_field">ที่อยู่</string>
