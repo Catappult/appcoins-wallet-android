@@ -9,7 +9,7 @@ class LocalPaymentAnalytics @Inject constructor(private val analytics: BillingAn
   fun sendNavigationToUrlEvents(packageName: String, skuId: String?, amount: String, type: String,
                                 paymentId: String) {
     analytics.sendPaymentMethodDetailsEvent(packageName, skuId, amount, paymentId, type)
-    analytics.sendPaymentConfirmationEvent(packageName, skuId, amount, type, paymentId, "buy")
+    analytics.sendPaymentConfirmationEvent(packageName, skuId, amount, paymentId, type, "buy")
   }
 
   fun sendPaymentConclusionEvents(packageName: String, skuId: String?, amount: BigDecimal,
