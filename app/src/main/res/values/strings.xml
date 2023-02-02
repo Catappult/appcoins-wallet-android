@@ -518,7 +518,6 @@
   <string name="settings_item_support">Contact Support Team</string>
   <string name="settings_subheader_support">Support</string>
   <string name="settings_subheader_about_us">About Us</string>
-  <string name="title_faqs">Frequently Asked Questions</string>
 
   <!--Local Payments-->
   <string name="local_payments_inprogress_header">In progress&#8230;</string>

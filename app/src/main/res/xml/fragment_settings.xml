@@ -114,7 +114,7 @@
         android:icon="@drawable/ic_settings_faqs"
         android:key="pref_faqs"
         android:layout="@layout/preference_without_summary_layout"
-        android:title="@string/title_faqs" />
+        android:title="@string/faq" />
 
     <Preference
         android:icon="@drawable/ic_settings_email"
