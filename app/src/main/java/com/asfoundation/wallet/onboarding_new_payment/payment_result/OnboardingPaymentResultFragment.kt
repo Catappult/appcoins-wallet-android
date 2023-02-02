@@ -2,6 +2,7 @@ package com.asfoundation.wallet.onboarding_new_payment.payment_result
 
 import android.graphics.Typeface
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,15 +17,15 @@ import com.appcoins.wallet.billing.ErrorInfo
 import com.appcoins.wallet.billing.util.Error
 import com.asf.wallet.R
 import com.asf.wallet.databinding.OnboardingPaymentResultFragmentBinding
+import com.asfoundation.wallet.DevUtils.CUSTOM_TAG
 import com.asfoundation.wallet.base.SingleStateFragment
 import com.asfoundation.wallet.billing.adyen.AdyenErrorCodeMapper
+import com.asfoundation.wallet.onboarding_new_payment.getPurchaseBonusMessage
 import com.asfoundation.wallet.service.ServicesErrorCodeMapper
 import com.asfoundation.wallet.util.CurrencyFormatUtils
-import com.asfoundation.wallet.util.WalletCurrency
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
 import org.apache.commons.lang3.StringUtils
-import java.math.BigDecimal
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -84,11 +85,14 @@ class OnboardingPaymentResultFragment : BasePageViewFragment(),
 
   override fun onSideEffect(sideEffect: OnboardingPaymentResultSideEffect) {
     when (sideEffect) {
-      is OnboardingPaymentResultSideEffect.ShowPaymentError -> handleError(
-        sideEffect.error,
-        sideEffect.refusalCode,
-        sideEffect.isWalletVerified
-      )
+      is OnboardingPaymentResultSideEffect.ShowPaymentError -> {
+        Log.d(CUSTOM_TAG, "OnboardingPaymentResultFragment: onSideEffect: handleError")
+        handleError(
+          sideEffect.error,
+          sideEffect.refusalCode,
+          sideEffect.isWalletVerified
+        )
+      }
       is OnboardingPaymentResultSideEffect.ShowPaymentSuccess -> handleSuccess()
       is OnboardingPaymentResultSideEffect.NavigateBackToGame -> navigator.navigateBackToGame(
         sideEffect.appPackageName
@@ -131,10 +135,16 @@ class OnboardingPaymentResultFragment : BasePageViewFragment(),
         if (walletVerified) {
           views.genericErrorLayout.errorVerifyWalletButton.visibility = View.GONE
           views.genericErrorLayout.errorVerifyCardButton.visibility = View.VISIBLE
+          views.genericErrorLayout.errorVerifyCardButton.setOnClickListener {
+            navigator.navigateToVerifyActivity(walletVerified)
+          }
           showSpecificError(R.string.purchase_error_verify_card)
         } else {
           views.genericErrorLayout.errorVerifyWalletButton.visibility = View.VISIBLE
           views.genericErrorLayout.errorVerifyCardButton.visibility = View.GONE
+          views.genericErrorLayout.errorVerifyWalletButton.setOnClickListener {
+            navigator.navigateToVerifyActivity(walletVerified)
+          }
           showSpecificError(R.string.purchase_error_verify_wallet)
         }
       }
@@ -164,28 +174,19 @@ class OnboardingPaymentResultFragment : BasePageViewFragment(),
   }
 
   private fun handleBonusAnimation() {
-    if (StringUtils.isNotBlank(getPurchaseBonusMessage())) {
+    val purchaseBonusMessage = args.forecastBonus.getPurchaseBonusMessage(formatter)
+    if (StringUtils.isNotBlank(purchaseBonusMessage)) {
       views.genericSuccessLayout.lottieTransactionSuccess.setAnimation(R.raw.transaction_complete_bonus_animation)
-      setupTransactionCompleteAnimation()
+      setupTransactionCompleteAnimation(purchaseBonusMessage)
     } else {
       views.genericSuccessLayout.lottieTransactionSuccess.setAnimation(R.raw.success_animation)
     }
     views.genericSuccessLayout.lottieTransactionSuccess.playAnimation()
   }
 
-  private fun getPurchaseBonusMessage(): String {
-    var scaledBonus = args.forecastBonus.amount.stripTrailingZeros()
-      .setScale(CurrencyFormatUtils.FIAT_SCALE, BigDecimal.ROUND_DOWN)
-    val newCurrencyString =
-      if (scaledBonus < BigDecimal("0.01")) "~${args.forecastBonus.currency}" else args.forecastBonus.currency
-    scaledBonus = scaledBonus.max(BigDecimal("0.01"))
-    val formattedBonus = formatter.formatCurrency(scaledBonus, WalletCurrency.FIAT)
-    return newCurrencyString + formattedBonus
-  }
-
-  private fun setupTransactionCompleteAnimation() {
+  private fun setupTransactionCompleteAnimation(purchaseBonusMessage: String) {
     val textDelegate = TextDelegate(views.genericSuccessLayout.lottieTransactionSuccess)
-    textDelegate.setText("bonus_value", getPurchaseBonusMessage())
+    textDelegate.setText("bonus_value", purchaseBonusMessage)
     textDelegate.setText(
       "bonus_received",
       resources.getString(R.string.gamification_purchase_completed_bonus_received)

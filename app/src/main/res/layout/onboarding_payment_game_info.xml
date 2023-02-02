@@ -35,7 +35,7 @@
       />
   <TextView
       android:id="@+id/onboarding_payment_game_item"
-      style="@style/TextM"
+      style="@style/TextS"
       android:layout_width="0dp"
       android:layout_height="wrap_content"
       android:layout_marginTop="@dimen/small_margin"

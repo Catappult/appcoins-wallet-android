@@ -71,8 +71,10 @@ class OnboardingPaymentViewModel @Inject constructor(
             modifiedTransactionBuilder,
             modifiedCachedTransaction.packageName!!,
             modifiedCachedTransaction.sku!!,
+            products.first().title,
             modifiedCachedTransaction.value,
             modifiedCachedTransaction.currency!!,
+            products.first().transactionPrice.currencySymbol,
             forecastBonus
           )
         }
@@ -90,7 +92,9 @@ data class TransactionContent(
   val transactionBuilder: TransactionBuilder,
   val packageName: String,
   val sku: String,
+  val skuTitle: String,
   val value: Double,
   val currency: String,
+  val currencySymbol: String,
   val forecastBonus: ForecastBonusAndLevel
 )

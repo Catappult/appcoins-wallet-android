@@ -14,6 +14,8 @@ import com.asf.wallet.R
 import com.asf.wallet.databinding.FragmentOnboardingPaymentBinding
 import com.asfoundation.wallet.base.Async
 import com.asfoundation.wallet.base.SingleStateFragment
+import com.asfoundation.wallet.onboarding_new_payment.getPurchaseBonusMessage
+import com.asfoundation.wallet.util.CurrencyFormatUtils
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -30,6 +32,9 @@ class OnboardingPaymentFragment : BasePageViewFragment(),
 
   @Inject
   lateinit var navigator: OnboardingPaymentNavigator
+
+  @Inject
+  lateinit var formatter: CurrencyFormatUtils
 
   override fun onCreateView(
     inflater: LayoutInflater, @Nullable container: ViewGroup?,
@@ -116,11 +121,14 @@ class OnboardingPaymentFragment : BasePageViewFragment(),
     views.onboardingPaymentErrorLayout?.root?.visibility = View.GONE
     views.onboardingPaymentHeaderLayout.root.visibility = View.VISIBLE
     handleAppInfo(transactionContent.packageName)
-    views.onboardingPaymentHeaderLayout.onboardingPaymentGameItem.text = transactionContent.sku
+    views.onboardingPaymentHeaderLayout.onboardingPaymentGameItem.text = transactionContent.skuTitle
     views.onboardingPaymentHeaderLayout.onboardingPaymentBonusText.text =
-      getString(R.string.bonus_body, "10%")
+      getString(
+        R.string.bonus_body,
+        transactionContent.forecastBonus.getPurchaseBonusMessage(formatter)
+      )
     views.onboardingPaymentHeaderLayout.onboardingPaymentBonusFiatAmount.text =
-      "${transactionContent.currency}${transactionContent.value}"
+      "${transactionContent.currencySymbol}${transactionContent.value}"
   }
 
   private fun handleAppInfo(packageName: String) {
