@@ -29,6 +29,7 @@
   <string name="got_it_button">Το κατάλαβα</string>
   <string name="change_button">Αλλαγή</string>
   <string name="vip">VIP</string>
+  <string name="faq">FAQs</string>
   <string name="low_storage_error">Ο αποθηκευτικός χώρος δεν είναι επαρκής</string>
   <string name="no_camera_permission_title">Δικαίωμα Κάμερας</string>
   <string name="no_camera_permission">Το AppCoins BDS Wallet χρειάζεται άδεια πρόσβασης στην κάμερα για τη σάρωση κωδικών QR.</string>
