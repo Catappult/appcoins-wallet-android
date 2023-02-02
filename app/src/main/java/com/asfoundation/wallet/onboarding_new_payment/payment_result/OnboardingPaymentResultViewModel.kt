@@ -173,9 +173,14 @@ class OnboardingPaymentResultViewModel @Inject constructor(
   private fun handleFraudFlow(error: Error, refusalCode: Int) {
     adyenPaymentInteractor.isWalletVerified()
       .doOnSuccess { verified ->
-        OnboardingPaymentResultSideEffect.ShowPaymentError(error, refusalCode, verified)
+        sendSideEffect {
+          OnboardingPaymentResultSideEffect.ShowPaymentError(error, refusalCode, verified)
+        }
+
       }.doOnError {
-        OnboardingPaymentResultSideEffect.ShowPaymentError(error, refusalCode)
+        sendSideEffect {
+          OnboardingPaymentResultSideEffect.ShowPaymentError(error, refusalCode)
+        }
       }.scopedSubscribe()
   }
 
