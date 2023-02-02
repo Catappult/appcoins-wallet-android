@@ -29,6 +29,7 @@
   <string name="got_it_button">Am înțeles</string>
   <string name="change_button">Modifică</string>
   <string name="vip">VIP</string>
+  <string name="faq">FAQs</string>
   <string name="low_storage_error">Spațiu de stocare insuficient</string>
   <string name="no_camera_permission_title">Permisiune cameră foto</string>
   <string name="no_camera_permission">AppCoins BDS Wallet are nevoie de permisiune pentru a-ți accesa camera ca să scaneze coduri QR.</string>
