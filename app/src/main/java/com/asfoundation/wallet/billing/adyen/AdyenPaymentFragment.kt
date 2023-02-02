@@ -339,7 +339,7 @@ class AdyenPaymentFragment : BasePageViewFragment(), AdyenPaymentView {
   }
 
 
-  override fun showSpecificError(@StringRes stringRes: Int) {
+  override fun showSpecificError(@StringRes stringRes: Int, backToCard: Boolean) {
     fragment_credit_card_authorization_progress_bar?.visibility = GONE
     cancel_button?.visibility = GONE
     buy_button?.visibility = GONE
@@ -356,6 +356,9 @@ class AdyenPaymentFragment : BasePageViewFragment(), AdyenPaymentView {
 
     error_buttons?.visibility = VISIBLE
     dialog_buy_buttons_error?.visibility = VISIBLE
+
+    error_back.visibility = if (backToCard) VISIBLE else GONE
+    error_try_again.visibility = if (backToCard) GONE else VISIBLE
 
     val message = getString(stringRes)
 
@@ -387,6 +390,27 @@ class AdyenPaymentFragment : BasePageViewFragment(), AdyenPaymentView {
     buy_button?.visibility = VISIBLE
     buy_button?.isEnabled = false
     adyenCardView.setError(getString(R.string.purchase_card_error_CVV))
+  }
+
+  override fun showBackToCard() {
+    iabView.unlockRotation()
+    hideLoadingAndShowView()
+    if (isStored) {
+      change_card_button?.visibility = VISIBLE
+      change_card_button_pre_selected?.visibility = VISIBLE
+    }
+    buy_button?.visibility = VISIBLE
+//    buy_button?.isEnabled = false
+
+    error_buttons?.visibility = GONE
+    dialog_buy_buttons_error?.visibility = GONE
+
+    error_back.visibility = VISIBLE
+    error_try_again.visibility = GONE
+
+    fragment_adyen_error?.visibility = GONE
+    fragment_adyen_error_pre_selected?.visibility = GONE
+
   }
 
   override fun getMorePaymentMethodsClicks() = RxView.clicks(more_payment_methods)
@@ -435,8 +459,9 @@ class AdyenPaymentFragment : BasePageViewFragment(), AdyenPaymentView {
     appc_price.visibility = VISIBLE
   }
 
-  override fun adyenErrorBackClicks() = RxView.clicks(error_back)
+  override fun adyenErrorBackClicks() = RxView.clicks(error_try_again)
 
+  override fun adyenErrorBackToCardClicks() = RxView.clicks(error_back)
   override fun adyenErrorCancelClicks() = RxView.clicks(error_cancel)
 
   override fun errorDismisses() = RxView.clicks(error_dismiss)
