@@ -7,21 +7,18 @@ import android.content.pm.PackageManager
 import android.graphics.Typeface
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
 import androidx.annotation.StringRes
 import com.adyen.checkout.adyen3ds2.Adyen3DS2Component
 import com.adyen.checkout.adyen3ds2.Adyen3DS2Configuration
 import com.adyen.checkout.card.CardConfiguration
-import com.adyen.checkout.components.model.paymentmethods.PaymentMethod
 import com.adyen.checkout.components.model.payments.response.Action
 import com.adyen.checkout.core.api.Environment
-import com.adyen.checkout.googlepay.GooglePayComponent
-import com.adyen.checkout.googlepay.GooglePayConfiguration
 import com.adyen.checkout.redirect.RedirectComponent
 import com.adyen.checkout.redirect.RedirectConfiguration
 import com.airbnb.lottie.FontAssetDelegate
@@ -109,11 +106,9 @@ class AdyenPaymentFragment : BasePageViewFragment(), AdyenPaymentView {
   private lateinit var cardConfiguration: CardConfiguration
   private lateinit var redirectConfiguration: RedirectConfiguration
   private lateinit var adyen3DS2Configuration: Adyen3DS2Configuration
-  private lateinit var googlePayConfiguration: GooglePayConfiguration
   private lateinit var compositeDisposable: CompositeDisposable
   private lateinit var redirectComponent: RedirectComponent
   private lateinit var adyen3DS2Component: Adyen3DS2Component
-  private var googlePayComponent: GooglePayComponent? = null
   private lateinit var adyenCardView: AdyenCardView
   private var paymentDataSubject: ReplaySubject<AdyenCardWrapper>? = null
   private var paymentDetailsSubject: PublishSubject<AdyenComponentResponseModel>? = null
@@ -121,7 +116,6 @@ class AdyenPaymentFragment : BasePageViewFragment(), AdyenPaymentView {
   private var isStored = false
   private var billingAddressInput: PublishSubject<Boolean>? = null
   private var billingAddressModel: BillingAddressModel? = null
-  private val TAG = AdyenPaymentFragment::class.java.name
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
@@ -186,38 +180,6 @@ class AdyenPaymentFragment : BasePageViewFragment(), AdyenPaymentView {
     }
   }
 
-  override fun setupGooglePayComponent(paymentMethod: PaymentMethod) {
-    activity?.application?.let { application ->
-      GooglePayComponent.PROVIDER.isAvailable(
-        application,
-        paymentMethod,
-        googlePayConfiguration
-      ) { isAvailable: Boolean, paymentMethod: PaymentMethod, config: GooglePayConfiguration? ->
-        if (isAvailable) {
-          googlePayComponent =
-            GooglePayComponent.PROVIDER.get(this, paymentMethod, googlePayConfiguration)
-          googlePayComponent?.observe(this) {
-            Log.d(tag, "observeComponent. isReady:${it.isReady} isInputValid:${it.isInputValid} isValid:${it.isValid}")
-          }
-          googlePayComponent?.observeErrors(this) {
-            logger.log(TAG, "GP componentError: ${it.errorMessage} ${it.exception}")
-            showMoreMethods()
-          }
-          startGooglePay()
-        } else {
-          logger.log(TAG, "GPay not available. Going back to other methods.")
-          showMoreMethods()
-        }
-      }
-    }
-  }
-
-  override fun startGooglePay() {
-    activity?.let {
-      googlePayComponent?.startGooglePayScreen(it, GP_CODE)
-    }
-  }
-
   private fun setupUi() {
     adyenCardView = AdyenCardView(adyen_card_form_pre_selected ?: adyen_card_form)
     setupTransactionCompleteAnimation()
@@ -225,7 +187,6 @@ class AdyenPaymentFragment : BasePageViewFragment(), AdyenPaymentView {
     if (paymentType == PaymentType.CARD.name) setupCardConfiguration()
     setupRedirectConfiguration()
     setupAdyen3DS2ConfigurationBuilder()
-    setupGooglePayConfigurationBuilder()
 
     handlePreSelectedView()
     handleBonusAnimation()
@@ -264,19 +225,6 @@ class AdyenPaymentFragment : BasePageViewFragment(), AdyenPaymentView {
         data!!.getSerializableExtra(BILLING_ADDRESS_MODEL) as BillingAddressModel
       this.billingAddressModel = billingAddressModel
       billingAddressInput?.onNext(true)
-    } else if (requestCode == GP_CODE) {
-      googlePayComponent?.observe(this) { googlePayComponentState ->
-        if (googlePayComponentState?.isValid == true) {
-          // When proceeds to pay, passes the paymentComponentState.data to MS to send a /payments request
-          val googlePayPaymentMethod = googlePayComponentState.data.paymentMethod
-          googlePayPaymentMethod?.let {
-            presenter.makePaymentGooglePay(it)
-          }
-        } else {
-          logger.log(TAG,"GPay invalid: ${googlePayComponentState.data.describeContents()}")
-        }
-      }
-      googlePayComponent?.handleActivityResult(resultCode, data)
     } else {
       showMoreMethods()
     }
@@ -391,7 +339,7 @@ class AdyenPaymentFragment : BasePageViewFragment(), AdyenPaymentView {
   }
 
 
-  override fun showSpecificError(@StringRes stringRes: Int) {
+  override fun showSpecificError(@StringRes stringRes: Int, backToCard: Boolean) {
     fragment_credit_card_authorization_progress_bar?.visibility = GONE
     cancel_button?.visibility = GONE
     buy_button?.visibility = GONE
@@ -408,6 +356,9 @@ class AdyenPaymentFragment : BasePageViewFragment(), AdyenPaymentView {
 
     error_buttons?.visibility = VISIBLE
     dialog_buy_buttons_error?.visibility = VISIBLE
+
+    error_back.visibility = if (backToCard) VISIBLE else GONE
+    error_try_again.visibility = if (backToCard) GONE else VISIBLE
 
     val message = getString(stringRes)
 
@@ -439,6 +390,27 @@ class AdyenPaymentFragment : BasePageViewFragment(), AdyenPaymentView {
     buy_button?.visibility = VISIBLE
     buy_button?.isEnabled = false
     adyenCardView.setError(getString(R.string.purchase_card_error_CVV))
+  }
+
+  override fun showBackToCard() {
+    iabView.unlockRotation()
+    hideLoadingAndShowView()
+    if (isStored) {
+      change_card_button?.visibility = VISIBLE
+      change_card_button_pre_selected?.visibility = VISIBLE
+    }
+    buy_button?.visibility = VISIBLE
+//    buy_button?.isEnabled = false
+
+    error_buttons?.visibility = GONE
+    dialog_buy_buttons_error?.visibility = GONE
+
+    error_back.visibility = VISIBLE
+    error_try_again.visibility = GONE
+
+    fragment_adyen_error?.visibility = GONE
+    fragment_adyen_error_pre_selected?.visibility = GONE
+
   }
 
   override fun getMorePaymentMethodsClicks() = RxView.clicks(more_payment_methods)
@@ -487,8 +459,9 @@ class AdyenPaymentFragment : BasePageViewFragment(), AdyenPaymentView {
     appc_price.visibility = VISIBLE
   }
 
-  override fun adyenErrorBackClicks() = RxView.clicks(error_back)
+  override fun adyenErrorBackClicks() = RxView.clicks(error_try_again)
 
+  override fun adyenErrorBackToCardClicks() = RxView.clicks(error_back)
   override fun adyenErrorCancelClicks() = RxView.clicks(error_cancel)
 
   override fun errorDismisses() = RxView.clicks(error_dismiss)
@@ -528,22 +501,13 @@ class AdyenPaymentFragment : BasePageViewFragment(), AdyenPaymentView {
   private fun setupRedirectConfiguration() {
     redirectConfiguration =
       RedirectConfiguration.Builder(activity as Context, BuildConfig.ADYEN_PUBLIC_KEY)
-        .setEnvironment(adyenEnvironment)
-        .build()
+        .setEnvironment(adyenEnvironment).build()
   }
 
   private fun setupAdyen3DS2ConfigurationBuilder() {
     adyen3DS2Configuration =
       Adyen3DS2Configuration.Builder(activity as Context, BuildConfig.ADYEN_PUBLIC_KEY)
-        .setEnvironment(adyenEnvironment)
-        .build()
-  }
-
-  private fun setupGooglePayConfigurationBuilder() {
-    googlePayConfiguration = GooglePayConfiguration
-      .Builder(activity as Context, BuildConfig.ADYEN_PUBLIC_KEY)
-      .setEnvironment(adyenEnvironment)
-      .build()
+        .setEnvironment(adyenEnvironment).build()
   }
 
   @Throws(PackageManager.NameNotFoundException::class)
@@ -710,8 +674,6 @@ class AdyenPaymentFragment : BasePageViewFragment(), AdyenPaymentView {
     private const val FREQUENCY = "frequency"
     private const val GAMIFICATION_LEVEL = "gamification_level"
     private const val SKU_DESCRIPTION = "sku_description"
-
-    const val GP_CODE = 52823207
 
     @JvmStatic
     fun newInstance(

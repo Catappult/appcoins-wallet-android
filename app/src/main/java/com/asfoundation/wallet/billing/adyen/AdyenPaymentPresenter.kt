@@ -1,12 +1,8 @@
 package com.asfoundation.wallet.billing.adyen
 
 import android.os.Bundle
-import android.os.Handler
 import androidx.annotation.StringRes
-import com.adyen.checkout.components.model.paymentmethods.PaymentMethod
-import com.adyen.checkout.components.model.payments.request.GooglePayPaymentMethod
 import com.adyen.checkout.core.model.ModelObject
-import com.adyen.checkout.googlepay.GooglePayComponentState
 import com.appcoins.wallet.billing.ErrorInfo.ErrorType
 import com.appcoins.wallet.billing.adyen.AdyenBillingAddress
 import com.appcoins.wallet.billing.adyen.AdyenPaymentRepository
@@ -18,6 +14,7 @@ import com.appcoins.wallet.billing.adyen.PaymentModel
 import com.appcoins.wallet.billing.adyen.PaymentModel.Status.*
 import com.appcoins.wallet.billing.util.Error
 import com.appcoins.wallet.commons.Logger
+import com.asf.wallet.R
 import com.asfoundation.wallet.billing.address.BillingAddressModel
 import com.asfoundation.wallet.billing.adyen.AdyenErrorCodeMapper.Companion.CVC_DECLINED
 import com.asfoundation.wallet.billing.adyen.AdyenErrorCodeMapper.Companion.FRAUD
@@ -81,6 +78,7 @@ class AdyenPaymentPresenter(
     handleRedirectResponse()
     handlePaymentDetails()
     handleAdyenErrorBack()
+    handleAdyenErrorBackToCard()
     handleAdyenErrorCancel()
     handleSupportClicks()
     handle3DSErrors()
@@ -135,10 +133,8 @@ class AdyenPaymentPresenter(
     )
   }
 
-  private var paymentMethodMSInfo: ModelObject? = null
-  private var receivedPriceInfo: BigDecimal? = null
-  private var receivedCurrencyInfo: String? = null
-
+  var priceAmount: BigDecimal? = null
+  var priceCurrency: String? = null
   private fun loadPaymentMethodInfo() {
     view.showLoading()
     disposables.add(adyenPaymentInteractor.loadPaymentInfo(
@@ -157,18 +153,15 @@ class AdyenPaymentPresenter(
           val amount = formatter.formatPaymentCurrency(it.priceAmount, WalletCurrency.FIAT)
           view.showProductPrice(amount, it.priceCurrency)
           if (paymentType == PaymentType.CARD.name) {
+            priceAmount = it.priceAmount
+            priceCurrency = it.priceCurrency
             view.hideLoadingAndShowView()
-            sendPaymentMethodDetailsEvent(BillingAnalytics.PAYMENT_METHOD_CC)
+            sendPaymentMethodDetailsEvent(PaymentMethodsAnalytics.PAYMENT_METHOD_CC)
             view.finishCardConfiguration(it, false)
             handleBuyClick(it.priceAmount, it.priceCurrency)
             paymentAnalytics.stopTimingForTotalEvent(PaymentMethodsAnalytics.PAYMENT_METHOD_CC)
           } else if (paymentType == PaymentType.PAYPAL.name) {
             launchPaypal(it.paymentMethod!!, it.priceAmount, it.priceCurrency)
-          } else if (paymentType == PaymentType.GOOGLE_PAY.name) {
-            view.setupGooglePayComponent(it.paymentMethod!! as PaymentMethod)
-            paymentMethodMSInfo = it.paymentMethod
-            receivedPriceInfo = it.priceAmount
-            receivedCurrencyInfo = it.priceCurrency
           }
         }
       }
@@ -177,47 +170,6 @@ class AdyenPaymentPresenter(
         view.showGenericError()
       })
     )
-  }
-
-  fun makePaymentGooglePay(
-    paymentMethodInfo: GooglePayPaymentMethod,
-    priceAmount: BigDecimal? = receivedPriceInfo,
-    priceCurrency: String? = receivedCurrencyInfo
-  ) {
-    handleBuyAnalytics(transactionBuilder)
-    if (priceAmount != null && priceCurrency != null) {
-      disposables.add(
-        adyenPaymentInteractor.makePayment(
-          adyenPaymentMethod = paymentMethodInfo,
-          shouldStoreMethod = false,
-          hasCvc = false,
-          supportedShopperInteraction = emptyList(),
-          returnUrl = returnUrl,
-          value = priceAmount.toString(),
-          currency = priceCurrency,
-          reference = transactionBuilder.orderReference,
-          paymentType = mapPaymentToService(paymentType).transactionType,
-          origin = origin,
-          packageName = transactionBuilder.domain,
-          metadata = transactionBuilder.payload,
-          sku = transactionBuilder.skuId,
-          callbackUrl = transactionBuilder.callbackUrl,
-          transactionType = transactionBuilder.type,
-          developerWallet = transactionBuilder.toAddress(),
-          referrerUrl = transactionBuilder.referrerUrl
-        )
-          .subscribeOn(networkScheduler)
-          .observeOn(viewScheduler)
-          .flatMapCompletable {
-            paymentAnalytics.startTimingForPurchaseEvent()
-            handlePaymentResult(it, priceAmount, priceCurrency)
-          }
-          .subscribe({}, {
-            logger.log(TAG, it)
-            view.showGenericError()
-          })
-      )
-    }
   }
 
   private fun launchPaypal(
@@ -261,7 +213,7 @@ class AdyenPaymentPresenter(
 
   private fun handlePaymentModel(paymentModel: PaymentModel) {
     if (paymentModel.error.hasError) {
-      handleErrors(paymentModel.error)
+      handleErrors(paymentModel.error, paymentModel.refusalCode)
     } else {
       view.showLoading()
       view.lockRotation()
@@ -362,7 +314,7 @@ class AdyenPaymentPresenter(
                     it.error.errorInfo?.httpCode,
                     buildRefusalReason(it.status, it.error.errorInfo?.text)
                   )
-                  handleErrors(it.error)
+                  handleErrors(it.error, paymentModel.refusalCode)
                 }
                   .subscribeOn(viewScheduler)
               }
@@ -372,7 +324,7 @@ class AdyenPaymentPresenter(
                 it.error.errorInfo?.httpCode,
                 it.status.toString() + it.error.errorInfo?.text
               )
-              Completable.fromAction { handleErrors(it.error) }
+              Completable.fromAction { handleErrors(it.error, it.refusalCode) }
             }
           }
         }
@@ -394,7 +346,7 @@ class AdyenPaymentPresenter(
             riskRules = paymentModel.fraudResultIds.sorted()
               .joinToString(separator = "-")
           }
-          else -> view.showSpecificError(adyenErrorCodeMapper.map(code))
+          else -> handleErrors(paymentModel.error, code)
         }
       }
       sendPaymentErrorEvent(paymentModel.refusalCode, paymentModel.refusalReason, riskRules)
@@ -407,7 +359,7 @@ class AdyenPaymentPresenter(
           paymentModel.error.errorInfo?.httpCode,
           paymentModel.error.errorInfo?.text
         )
-        handleErrors(paymentModel.error)
+        handleErrors(paymentModel.error, paymentModel.refusalCode)
       }
     }
     paymentModel.status == FAILED && paymentType == PaymentType.PAYPAL.name -> {
@@ -686,7 +638,7 @@ class AdyenPaymentPresenter(
     )
   }
 
-  fun sendPaymentErrorEvent(
+  private fun sendPaymentErrorEvent(
     refusalCode: Int?,
     refusalReason: String?,
     riskRules: String? = null
@@ -712,24 +664,16 @@ class AdyenPaymentPresenter(
 
   private fun mapPaymentToAnalytics(paymentType: String): String =
     if (paymentType == PaymentType.CARD.name) {
-      BillingAnalytics.PAYMENT_METHOD_CC
-    } else if (paymentType == BillingAnalytics.PAYMENT_METHOD_GOOGLE_PAY) {
-      PaymentMethodsAnalytics.PAYMENT_METHOD_GP
+      PaymentMethodsAnalytics.PAYMENT_METHOD_CC
     } else {
-      BillingAnalytics.PAYMENT_METHOD_PAYPAL
+      PaymentMethodsAnalytics.PAYMENT_METHOD_PP
     }
 
   private fun mapPaymentToService(paymentType: String): AdyenPaymentRepository.Methods =
-    when (paymentType) {
-      PaymentType.CARD.name -> {
-        AdyenPaymentRepository.Methods.CREDIT_CARD
-      }
-      PaymentType.GOOGLE_PAY.name -> {
-        AdyenPaymentRepository.Methods.GOOGLE_PAY
-      }
-      else -> {
-        AdyenPaymentRepository.Methods.PAYPAL
-      }
+    if (paymentType == PaymentType.CARD.name) {
+      AdyenPaymentRepository.Methods.CREDIT_CARD
+    } else {
+      AdyenPaymentRepository.Methods.PAYPAL
     }
 
   private fun mapToAdyenBillingAddress(billingAddressModel: BillingAddressModel?): AdyenBillingAddress? =
@@ -766,11 +710,6 @@ class AdyenPaymentPresenter(
         InAppPurchaseInteractor.PRE_SELECTED_PAYMENT_METHOD_KEY,
         PaymentMethodsView.PaymentMethodId.PAYPAL.id
       )
-    } else if (paymentType == PaymentType.GOOGLE_PAY.name) {
-      bundle.putString(
-        InAppPurchaseInteractor.PRE_SELECTED_PAYMENT_METHOD_KEY,
-        PaymentMethodsView.PaymentMethodId.GOOGLE_PAY.id
-      )
     }
     return PurchaseBundleModel(bundle, purchaseBundleModel.renewal)
   }
@@ -801,6 +740,23 @@ class AdyenPaymentPresenter(
       .doOnNext {
         adyenPaymentInteractor.removePreSelectedPaymentMethod()
         view.showMoreMethods()
+      }
+      .subscribe({}, {
+        logger.log(TAG, it)
+        view.showGenericError()
+      })
+    )
+  }
+
+  private fun handleAdyenErrorBackToCard() {
+    disposables.add(view.adyenErrorBackToCardClicks()
+      .observeOn(viewScheduler)
+      .doOnNext {
+        adyenPaymentInteractor.removePreSelectedPaymentMethod()
+        if (priceAmount != null && priceCurrency != null) {
+          handleBuyClick(priceAmount!!, priceCurrency!!)
+        }
+        view.showBackToCard()
       }
       .subscribe({}, {
         logger.log(TAG, it)
@@ -860,26 +816,28 @@ class AdyenPaymentPresenter(
     private val TAG = AdyenPaymentPresenter::class.java.name
   }
 
-  private fun handleErrors(error: Error) {
+  private fun handleErrors(error: Error, code: Int? = null) {
     when {
       error.isNetworkError -> view.showNetworkError()
-
       error.errorInfo?.errorType == ErrorType.INVALID_CARD -> view.showInvalidCardError()
-
       error.errorInfo?.errorType == ErrorType.CARD_SECURITY_VALIDATION -> view.showSecurityValidationError()
-
       error.errorInfo?.errorType == ErrorType.OUTDATED_CARD -> view.showOutdatedCardError()
-
       error.errorInfo?.errorType == ErrorType.ALREADY_PROCESSED -> view.showAlreadyProcessedError()
-
       error.errorInfo?.errorType == ErrorType.PAYMENT_ERROR -> view.showPaymentError()
-
+      error.errorInfo?.errorType == ErrorType.INVALID_COUNTRY_CODE -> view.showSpecificError(R.string.unknown_error)
+      error.errorInfo?.errorType == ErrorType.PAYMENT_NOT_SUPPORTED_ON_COUNTRY -> view.showSpecificError(R.string.purchase_error_payment_rejected)
+      error.errorInfo?.errorType == ErrorType.CURRENCY_NOT_SUPPORTED -> view.showSpecificError(R.string.purchase_card_error_general_1)
+      error.errorInfo?.errorType == ErrorType.CVC_LENGTH -> view.showCvvError()
+      error.errorInfo?.errorType == ErrorType.TRANSACTION_AMOUNT_EXCEEDED -> view.showSpecificError(R.string.purchase_card_error_no_funds)
       error.errorInfo?.httpCode != null -> {
         val resId = servicesErrorCodeMapper.mapError(error.errorInfo?.errorType)
         if (error.errorInfo?.httpCode == HTTP_FRAUD_CODE) handleFraudFlow(resId, emptyList())
         else view.showSpecificError(resId)
       }
-      else -> view.showGenericError()
+      else -> {
+        val isBackToCardAction = adyenErrorCodeMapper.needsCardRepeat(code ?: 0)
+        view.showSpecificError(adyenErrorCodeMapper.map(code ?: 0), isBackToCardAction)
+      }
     }
   }
 
@@ -887,7 +845,6 @@ class AdyenPaymentPresenter(
     val paymentMethod = when (paymentType) {
       PaymentType.PAYPAL.name -> PaymentMethodsAnalytics.PAYMENT_METHOD_PP
       PaymentType.CARD.name -> PaymentMethodsAnalytics.PAYMENT_METHOD_CC
-      PaymentType.GOOGLE_PAY.name -> PaymentMethodsAnalytics.PAYMENT_METHOD_GP
       else -> return
     }
     paymentAnalytics.stopTimingForPurchaseEvent(paymentMethod, success, isPreSelected)

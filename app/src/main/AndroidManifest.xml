@@ -46,10 +46,6 @@
         android:name="com.google.firebase.messaging.default_notification_icon"
         android:resource="@drawable/ic_appcoins_notification_icon" />
 
-    <meta-data
-        android:name="com.google.android.gms.wallet.api.enabled"
-        android:value="true" />
-
     <receiver
         android:name="com.asfoundation.wallet.support.AlarmManagerBroadcastReceiver"
         android:enabled="true"

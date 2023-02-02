@@ -280,6 +280,21 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
 
   }
 
+  override fun setFaqsPreference() {
+    val faqsPreference = findPreference<Preference>("pref_faqs")
+    faqsPreference?.setOnPreferenceClickListener {
+      startBrowserActivity(
+        Uri.parse(
+          "https://wallet.appcoins.io/faqs?lang=${
+            Locale.getDefault().toLanguageTag()
+          }"
+        ),
+        false
+      )
+      false
+    }
+  }
+
 
   override fun setTwitterPreference() {
     val twitterPreference = findPreference<Preference>("pref_twitter")

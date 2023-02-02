@@ -2,8 +2,6 @@ package com.asfoundation.wallet.topup.adyen
 
 import android.os.Bundle
 import androidx.annotation.StringRes
-import com.adyen.checkout.components.model.paymentmethods.PaymentMethod
-import com.adyen.checkout.components.model.payments.request.GooglePayPaymentMethod
 import com.adyen.checkout.core.model.ModelObject
 import com.appcoins.wallet.billing.BillingMessagesMapper
 import com.appcoins.wallet.billing.ErrorInfo.ErrorType
@@ -148,10 +146,6 @@ class AdyenTopUpPresenter(
     )
   }
 
-  private var paymentMethodMSInfo: ModelObject? = null
-  private var receivedPriceInfo: BigDecimal? = null
-  private var receivedCurrencyInfo: String? = null
-
   private fun loadPaymentMethodInfo(fromError: Boolean = false) {
     disposables.add(convertAmount()
       .flatMap {
@@ -183,57 +177,12 @@ class AdyenTopUpPresenter(
             handleTopUpClick()
           } else if (paymentType == PaymentType.PAYPAL.name) {
             launchPaypal(it.paymentMethod!!)
-          } else if (paymentType == PaymentType.GOOGLE_PAY.name) {
-            view.showLoading()
-            view.setupGooglePayComponent(it.paymentMethod!! as PaymentMethod)
-            paymentMethodMSInfo = it.paymentMethod
-            receivedPriceInfo = it.priceAmount
-            receivedCurrencyInfo = it.priceCurrency
           }
           loadBonusIntoView()
         }
       }
       .subscribe({}, { handleSpecificError(R.string.unknown_error, it) })
     )
-  }
-
-  fun makePaymentGooglePay(
-    paymentMethodInfo: GooglePayPaymentMethod,
-    priceAmount: BigDecimal? = receivedPriceInfo,
-    priceCurrency: String? = receivedCurrencyInfo
-  ) {
-    if (priceAmount != null && priceCurrency != null) {
-      topUpAnalytics.sendConfirmationEvent(appcValue.toDouble(), "top_up", paymentType)
-      view.lockRotation()
-      view.setFinishingPurchase(true)
-      disposables.add(
-        adyenPaymentInteractor.makeTopUpPayment(
-          adyenPaymentMethod = paymentMethodInfo,
-          shouldStoreMethod = false,
-          hasCvc = false,
-          supportedShopperInteraction = emptyList(),
-          returnUrl = returnUrl,
-          value = priceAmount.toString(),
-          currency = priceCurrency,
-          paymentType = mapPaymentToService(paymentType).transactionType,
-          transactionType = transactionType,
-          packageName = appPackage
-        )
-          .subscribeOn(networkScheduler)
-          .observeOn(viewScheduler)
-          .flatMapCompletable {
-            if (it.action != null) {
-              Completable.fromAction { handlePaymentModel(it) }
-            } else {
-              handlePaymentResult(it)
-            }
-          }
-          .subscribe({}, {
-            logger.log(TAG, it)
-            view.showSpecificError(R.string.unknown_error)
-          })
-      )
-    }
   }
 
   private fun launchPaypal(paymentMethodInfo: ModelObject) {
@@ -589,16 +538,10 @@ class AdyenTopUpPresenter(
   }
 
   private fun mapPaymentToService(paymentType: String): AdyenPaymentRepository.Methods {
-    return when (paymentType) {
-      PaymentType.CARD.name -> {
-        AdyenPaymentRepository.Methods.CREDIT_CARD
-      }
-      PaymentType.GOOGLE_PAY.name -> {
-        AdyenPaymentRepository.Methods.GOOGLE_PAY
-      }
-      else -> {
-        AdyenPaymentRepository.Methods.PAYPAL
-      }
+    return if (paymentType == PaymentType.CARD.name) {
+      AdyenPaymentRepository.Methods.CREDIT_CARD
+    } else {
+      AdyenPaymentRepository.Methods.PAYPAL
     }
   }
 
@@ -682,9 +625,6 @@ class AdyenTopUpPresenter(
     }
   }
 
-  //TODO error events from fragment
-  //TODO mapping  "GOOGLE_PAY" to googlepay
-
   private fun handleErrors(paymentModel: PaymentModel, value: Double) {
     when {
       paymentModel.error.isNetworkError -> {
@@ -735,6 +675,46 @@ class AdyenTopUpPresenter(
           Exception("Errors paymentType=$paymentType type=${paymentModel.error.errorInfo?.errorType} code=${paymentModel.error.errorInfo?.httpCode}")
         )
         view.showPaymentError()
+      }
+
+      paymentModel.error.errorInfo?.errorType == ErrorType.INVALID_COUNTRY_CODE -> {
+        logger.log(
+          TAG,
+          Exception("Errors paymentType=$paymentType type=${paymentModel.error.errorInfo?.errorType} code=${paymentModel.error.errorInfo?.httpCode}")
+        )
+        view.showSpecificError(R.string.unknown_error)
+      }
+
+      paymentModel.error.errorInfo?.errorType == ErrorType.PAYMENT_NOT_SUPPORTED_ON_COUNTRY -> {
+        logger.log(
+          TAG,
+          Exception("Errors paymentType=$paymentType type=${paymentModel.error.errorInfo?.errorType} code=${paymentModel.error.errorInfo?.httpCode}")
+        )
+        view.showSpecificError(R.string.purchase_error_payment_rejected)
+      }
+
+      paymentModel.error.errorInfo?.errorType == ErrorType.CURRENCY_NOT_SUPPORTED -> {
+        logger.log(
+          TAG,
+          Exception("Errors paymentType=$paymentType type=${paymentModel.error.errorInfo?.errorType} code=${paymentModel.error.errorInfo?.httpCode}")
+        )
+        view.showSpecificError(R.string.purchase_card_error_general_1)
+      }
+
+      paymentModel.error.errorInfo?.errorType == ErrorType.CVC_LENGTH -> {
+        logger.log(
+          TAG,
+          Exception("Errors paymentType=$paymentType type=${paymentModel.error.errorInfo?.errorType} code=${paymentModel.error.errorInfo?.httpCode}")
+        )
+        view.showCvvError()
+      }
+
+      paymentModel.error.errorInfo?.errorType == ErrorType.TRANSACTION_AMOUNT_EXCEEDED -> {
+        logger.log(
+          TAG,
+          Exception("Errors paymentType=$paymentType type=${paymentModel.error.errorInfo?.errorType} code=${paymentModel.error.errorInfo?.httpCode}")
+        )
+        view.showSpecificError(R.string.purchase_card_error_no_funds)
       }
 
       paymentModel.error.errorInfo?.httpCode != null -> {

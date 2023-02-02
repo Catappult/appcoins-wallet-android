@@ -174,8 +174,6 @@ class AdyenPaymentRepository @Inject constructor(private val adyenApi: AdyenApi,
   data class DisableWallet(@SerializedName("wallet.address") val walletAddress: String)
 
   enum class Methods(val adyenType: String, val transactionType: String) {
-    CREDIT_CARD("scheme", "credit_card"),
-    PAYPAL("paypal", "paypal"),
-    GOOGLE_PAY("googlepay", "googlepay")
+    CREDIT_CARD("scheme", "credit_card"), PAYPAL("paypal", "paypal")
   }
 }
