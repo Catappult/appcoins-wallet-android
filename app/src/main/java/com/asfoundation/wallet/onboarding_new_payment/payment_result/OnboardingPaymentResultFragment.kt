@@ -123,6 +123,18 @@ class OnboardingPaymentResultFragment : BasePageViewFragment(),
           error.errorInfo?.errorType == ErrorInfo.ErrorType.PAYMENT_ERROR -> {
             showSpecificError(R.string.purchase_error_payment_rejected)
           }
+          error.errorInfo?.errorType == ErrorInfo.ErrorType.INVALID_COUNTRY_CODE -> {
+            showSpecificError(R.string.unknown_error)
+          }
+          error.errorInfo?.errorType == ErrorInfo.ErrorType.PAYMENT_NOT_SUPPORTED_ON_COUNTRY -> {
+            showSpecificError(R.string.purchase_error_payment_rejected)
+          }
+          error.errorInfo?.errorType == ErrorInfo.ErrorType.CURRENCY_NOT_SUPPORTED -> {
+            showSpecificError(R.string.purchase_card_error_general_1)
+          }
+          error.errorInfo?.errorType == ErrorInfo.ErrorType.TRANSACTION_AMOUNT_EXCEEDED -> {
+            showSpecificError(R.string.purchase_card_error_no_funds)
+          }
           error.errorInfo?.httpCode != null -> {
             showSpecificError(servicesErrorCodeMapper.mapError(error.errorInfo?.errorType))
           }
