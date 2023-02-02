@@ -285,7 +285,7 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
     faqsPreference?.setOnPreferenceClickListener {
       startBrowserActivity(
         Uri.parse(
-          "https://wallet.appcoins.io/faqs?lang==${
+          "https://wallet.appcoins.io/faqs?lang=${
             Locale.getDefault().toLanguageTag()
           }"
         ),
