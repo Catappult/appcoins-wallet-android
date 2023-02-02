@@ -682,7 +682,7 @@ class AdyenTopUpPresenter(
           TAG,
           Exception("Errors paymentType=$paymentType type=${paymentModel.error.errorInfo?.errorType} code=${paymentModel.error.errorInfo?.httpCode}")
         )
-        view.showSpecificError(R.string.unknown_error)  //TODO message
+        view.showSpecificError(R.string.unknown_error)
       }
 
       paymentModel.error.errorInfo?.errorType == ErrorType.PAYMENT_NOT_SUPPORTED_ON_COUNTRY -> {
@@ -690,7 +690,7 @@ class AdyenTopUpPresenter(
           TAG,
           Exception("Errors paymentType=$paymentType type=${paymentModel.error.errorInfo?.errorType} code=${paymentModel.error.errorInfo?.httpCode}")
         )
-        view.showSpecificError(R.string.unknown_error)  //TODO message
+        view.showSpecificError(R.string.purchase_error_payment_rejected)
       }
 
       paymentModel.error.errorInfo?.errorType == ErrorType.CURRENCY_NOT_SUPPORTED -> {
@@ -698,7 +698,7 @@ class AdyenTopUpPresenter(
           TAG,
           Exception("Errors paymentType=$paymentType type=${paymentModel.error.errorInfo?.errorType} code=${paymentModel.error.errorInfo?.httpCode}")
         )
-        view.showSpecificError(R.string.unknown_error)  //TODO message
+        view.showSpecificError(R.string.purchase_card_error_general_1)
       }
 
       paymentModel.error.errorInfo?.errorType == ErrorType.CVC_LENGTH -> {
@@ -706,7 +706,7 @@ class AdyenTopUpPresenter(
           TAG,
           Exception("Errors paymentType=$paymentType type=${paymentModel.error.errorInfo?.errorType} code=${paymentModel.error.errorInfo?.httpCode}")
         )
-        view.showSpecificError(R.string.unknown_error)  //TODO message
+        view.showCvvError()
       }
 
       paymentModel.error.errorInfo?.httpCode != null -> {
