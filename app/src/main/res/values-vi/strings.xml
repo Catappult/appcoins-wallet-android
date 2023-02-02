@@ -29,6 +29,7 @@
   <string name="got_it_button">Đã hiểu</string>
   <string name="change_button">Thay đổi</string>
   <string name="vip">VIP</string>
+  <string name="faq">FAQs</string>
   <string name="low_storage_error">Không đủ dung lượng lưu trữ</string>
   <string name="no_camera_permission_title">Quyền truy cập máy ảnh</string>
   <string name="no_camera_permission">AppCoins BDS Wallet cần quyền truy cập vào máy ảnh của bạn để quét mã QR.</string>
