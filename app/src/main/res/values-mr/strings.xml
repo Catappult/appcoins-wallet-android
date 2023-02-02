@@ -29,6 +29,7 @@
   <string name="got_it_button">समजले</string>
   <string name="change_button">बदला</string>
   <string name="vip">व्हीआयपी</string>
+  <string name="faq">FAQs</string>
   <string name="low_storage_error">पुरेसे स्टोरेज नाही</string>
   <string name="no_camera_permission_title">कॅमेराची परवानगी</string>
   <string name="no_camera_permission">AppCoins BDS Wallet ला आपल्या कॅमेरात प्रवेश आणि ‍क्युआर कोड स्कॅन करण्याची परवानगी हवी आहे.</string>
