@@ -29,6 +29,7 @@
   <string name="got_it_button">Je l\'ai eu</string>
   <string name="change_button">Changer</string>
   <string name="vip">VIP</string>
+  <string name="faq">FAQs</string>
   <string name="low_storage_error">Pas assez d\'espace de stockage</string>
   <string name="no_camera_permission_title">Autorisation de la caméra</string>
   <string name="no_camera_permission">AppCoins BDS Wallet nécessite l\'autorisation pour accéder à votre caméra pour scanner les codes QR.</string>
