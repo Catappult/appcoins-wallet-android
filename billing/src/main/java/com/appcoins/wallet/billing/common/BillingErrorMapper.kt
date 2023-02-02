@@ -69,6 +69,9 @@ open class BillingErrorMapper @Inject constructor(private val gson: Gson) {
           907 -> {
             ErrorInfo.ErrorType.PAYMENT_NOT_SUPPORTED_ON_COUNTRY
           }
+          916 -> {
+            ErrorInfo.ErrorType.TRANSACTION_AMOUNT_EXCEEDED
+          }
           else -> ErrorInfo.ErrorType.UNKNOWN
         }
       }

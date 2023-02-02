@@ -14,7 +14,7 @@ class AdyenErrorCodeMapper {
       INVALID_AMOUNT, NOT_ENOUGH_BALANCE, WITHDRAW_AMOUNT_EXCEEDED, RESTRICTED_CARD -> R.string.purchase_card_error_no_funds
       INVALID_CARD_NUMBER -> R.string.purchase_card_error_invalid_details
       NOT_SUPPORTED -> R.string.purchase_card_error_not_supported
-      INCORRECT_ONLINE_PIN, PIN_TRIES_EXCEEDED -> R.string.purchase_error_connection_issue
+      INCORRECT_ONLINE_PIN, PIN_TRIES_EXCEEDED -> R.string.purchase_error_wrong_pin_body
       NOT_3D_AUTHENTICATED -> R.string.purchase_error_3d_body
       FRAUD, CANCELLED_DUE_TO_FRAUD -> R.string.purchase_card_error_general_2
       else -> R.string.purchase_error_generic_contact_us_body

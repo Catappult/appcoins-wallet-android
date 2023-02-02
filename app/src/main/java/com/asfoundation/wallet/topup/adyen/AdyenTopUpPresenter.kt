@@ -709,6 +709,14 @@ class AdyenTopUpPresenter(
         view.showCvvError()
       }
 
+      paymentModel.error.errorInfo?.errorType == ErrorType.TRANSACTION_AMOUNT_EXCEEDED -> {
+        logger.log(
+          TAG,
+          Exception("Errors paymentType=$paymentType type=${paymentModel.error.errorInfo?.errorType} code=${paymentModel.error.errorInfo?.httpCode}")
+        )
+        view.showSpecificError(R.string.purchase_card_error_no_funds)
+      }
+
       paymentModel.error.errorInfo?.httpCode != null -> {
         topUpAnalytics.sendErrorEvent(
           value = value,
