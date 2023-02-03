@@ -2,8 +2,9 @@ package com.asfoundation.wallet.billing.adyen
 
 import androidx.annotation.StringRes
 import com.asf.wallet.R
+import javax.inject.Inject
 
-class AdyenErrorCodeMapper {
+class AdyenErrorCodeMapper @Inject constructor() {
 
   @StringRes
   internal fun map(errorCode: Int): Int {

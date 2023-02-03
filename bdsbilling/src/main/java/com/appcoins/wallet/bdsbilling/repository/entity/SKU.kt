@@ -14,7 +14,7 @@ class SKU(val productId: String,
           @SerializedName("fiat_price_currency_code") val currencyFiat: String,
           @SerializedName("fiat_price_amount_micros") val amountFiat: Long,
           val title: String,
-          val description: String,
+          val description: String?,
           @SerializedName("subscription_period")
           val subscriptionPeriod: String?,
           @SerializedName("trial_period")

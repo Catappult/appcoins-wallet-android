@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/inner_payment_graph"
+    app:startDestination="@id/onboarding_payment_methods_fragment">
+
+  <fragment
+      android:id="@+id/onboarding_payment_methods_fragment"
+      android:name="com.asfoundation.wallet.onboarding_new_payment.payment_methods.OnboardingPaymentMethodsFragment"
+      tools:layout="@layout/onboarding_payment_methods_fragment">
+
+    <argument
+        android:name="transaction_builder"
+        app:argType="com.asfoundation.wallet.entity.TransactionBuilder" />
+    <argument
+        android:name="package_name"
+        app:argType="string" />
+    <argument
+        android:name="sku"
+        app:argType="string" />
+    <argument
+        android:name="amount"
+        app:argType="string" />
+    <argument
+        android:name="currency"
+        app:argType="string" />
+    <argument
+        android:name="forecast_bonus"
+        app:argType="com.appcoins.wallet.gamification.repository.ForecastBonusAndLevel" />
+
+    <action
+        android:id="@+id/action_navigate_to_onboarding_adyen_payment"
+        app:destination="@id/onboarding_adyen_payment_fragment" />
+  </fragment>
+  <fragment
+      android:id="@+id/onboarding_adyen_payment_fragment"
+      android:name="com.asfoundation.wallet.onboarding_new_payment.adyen_payment.OnboardingAdyenPaymentFragment"
+      tools:layout="@layout/onboarding_adyen_payment_fragment">
+
+    <argument
+        android:name="transaction_builder"
+        app:argType="com.asfoundation.wallet.entity.TransactionBuilder" />
+    <argument
+        android:name="payment_type"
+        app:argType="com.asfoundation.wallet.billing.adyen.PaymentType" />
+    <argument
+        android:name="amount"
+        app:argType="string" />
+    <argument
+        android:name="currency"
+        app:argType="string" />
+    <argument
+        android:name="forecast_bonus"
+        app:argType="com.appcoins.wallet.gamification.repository.ForecastBonusAndLevel" />
+
+    <action
+        android:id="@+id/action_navigate_to_onboarding_payment_result"
+        app:destination="@id/onboarding_payment_result_fragment" />
+  </fragment>
+
+  <fragment
+      android:id="@+id/onboarding_payment_result_fragment"
+      android:name="com.asfoundation.wallet.onboarding_new_payment.payment_result.OnboardingPaymentResultFragment"
+      tools:layout="@layout/onboarding_payment_result_fragment">
+    <argument
+        android:name="payment_model"
+        app:argType="com.appcoins.wallet.billing.adyen.PaymentModel" />
+    <argument
+        android:name="transaction_builder"
+        app:argType="com.asfoundation.wallet.entity.TransactionBuilder" />
+    <argument
+        android:name="payment_type"
+        app:argType="com.asfoundation.wallet.billing.adyen.PaymentType" />
+    <argument
+        android:name="amount"
+        app:argType="string" />
+    <argument
+        android:name="currency"
+        app:argType="string" />
+    <argument
+        android:name="forecast_bonus"
+        app:argType="com.appcoins.wallet.gamification.repository.ForecastBonusAndLevel" />
+  </fragment>
+</navigation>

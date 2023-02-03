@@ -2,7 +2,6 @@ package com.asfoundation.wallet.main.nav_bar
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -82,6 +81,7 @@ class NavBarFragment : BasePageViewFragment(),
     when (sideEffect) {
       NavBarSideEffect.ShowPromotionsTooltip -> showPromotionsOverlay()
       NavBarSideEffect.ShowOnboardingGPInstall -> showOnboardingIap()
+      NavBarSideEffect.ShowOnboardingPendingPayment -> showOnboardingPayment()
     }
   }
 
@@ -108,6 +108,11 @@ class NavBarFragment : BasePageViewFragment(),
   private fun showOnboardingIap() {
     views.fullHostContainer.visibility = View.VISIBLE
     navigator.showOnboardingGPInstallScreen(fullHostFragment.navController)
+  }
+
+  private fun showOnboardingPayment() {
+    views.fullHostContainer.visibility = View.VISIBLE
+    navigator.showOnboardingPaymentScreen(fullHostFragment.navController)
   }
 
   @SuppressLint("SetTextI18n", "ResourceType")

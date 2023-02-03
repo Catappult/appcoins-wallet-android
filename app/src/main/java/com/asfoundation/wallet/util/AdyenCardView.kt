@@ -1,7 +1,9 @@
 package com.asfoundation.wallet.util
 
+import android.content.res.ColorStateList
 import android.view.View
 import androidx.appcompat.widget.SwitchCompat
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelStoreOwner
 import androidx.savedstate.SavedStateRegistryOwner
 import com.adyen.checkout.card.CardComponent
@@ -23,6 +25,7 @@ class AdyenCardView(view: View?) {
     cardView?.findViewById(R.id.cardBrandLogo_imageView_primary)
   private val adyenSaveDetailsSwitch: SwitchCompat? =
     (cardView?.findViewById(R.id.switch_storePaymentMethod) as SwitchCompat?)?.apply {
+      handleSwitchTint()
       isChecked = true
     }
 
@@ -56,9 +59,37 @@ class AdyenCardView(view: View?) {
     owner.viewModelStore.clear()
     owner.unregisterProvider(CardComponent::class.java.canonicalName)
   }
+
+  private fun SwitchCompat.handleSwitchTint() {
+    thumbTintList = colorStateListOf(
+      intArrayOf(-android.R.attr.state_checked) to ContextCompat.getColor(
+        context,
+        R.color.styleguide_light_grey
+      ),
+      intArrayOf(android.R.attr.state_checked) to ContextCompat.getColor(
+        context,
+        R.color.styleguide_pink
+      ),
+    )
+    trackTintList = colorStateListOf(
+      intArrayOf(-android.R.attr.state_checked) to ContextCompat.getColor(
+        context,
+        R.color.styleguide_medium_grey
+      ),
+      intArrayOf(android.R.attr.state_checked) to ContextCompat.getColor(
+        context,
+        R.color.styleguide_pink_transparent_40
+      ),
+    )
+  }
 }
 
 fun SavedStateRegistryOwner.unregisterProvider(className: String?) =
   savedStateRegistry.unregisterSavedStateProvider(
     "androidx.lifecycle.ViewModelProvider.DefaultKey:$className"
   )
+
+fun colorStateListOf(vararg mapping: Pair<IntArray, Int>): ColorStateList {
+  val (states, colors) = mapping.unzip()
+  return ColorStateList(states.toTypedArray(), colors.toIntArray())
+}

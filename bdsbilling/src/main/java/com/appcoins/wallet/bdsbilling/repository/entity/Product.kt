@@ -3,7 +3,7 @@ package com.appcoins.wallet.bdsbilling.repository.entity
 abstract class Product(
   open val sku: String,
   open val title: String,
-  open val description: String,
+  open val description: String?,
   open val transactionPrice: TransactionPrice,
   open val billingType: String,
   open val subscriptionPeriod: String? = null, //Subs only
@@ -13,7 +13,7 @@ abstract class Product(
 data class InAppProduct(
   override val sku: String,
   override val title: String,
-  override val description: String,
+  override val description: String?,
   override val transactionPrice: TransactionPrice,
   override val billingType: String
 ) :

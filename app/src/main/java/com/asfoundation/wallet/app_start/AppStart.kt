@@ -22,7 +22,7 @@ sealed class StartMode {
 
   data class PendingPurchaseFlow(
     val integrationFlow: String,
-    val sku: String,
+    val sku: String?,
     val packageName: String,
     val callbackUrl: String?,
     val currency: String?,

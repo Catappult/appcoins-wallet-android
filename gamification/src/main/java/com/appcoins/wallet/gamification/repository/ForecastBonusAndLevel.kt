@@ -1,5 +1,6 @@
 package com.appcoins.wallet.gamification.repository
 
+import java.io.Serializable
 import java.math.BigDecimal
 
 data class ForecastBonusAndLevel(
@@ -7,4 +8,4 @@ data class ForecastBonusAndLevel(
     val amount: BigDecimal = BigDecimal.ZERO,
     val currency: String = "",
     val minAmount: BigDecimal = BigDecimal.ZERO,
-    val level: Int = 0)
+    val level: Int = 0) : Serializable
