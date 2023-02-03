@@ -144,19 +144,13 @@ class OnboardingPaymentResultFragment : BasePageViewFragment(),
         }
       }
       walletVerified != null -> {
+        /*
+        * Wallet or card verification flow should be addressed here, but the user can't complete the
+        * the verification flow without leaving the first payment flow
+        * */
         if (walletVerified) {
-          views.genericErrorLayout.errorVerifyWalletButton.visibility = View.GONE
-          views.genericErrorLayout.errorVerifyCardButton.visibility = View.VISIBLE
-          views.genericErrorLayout.errorVerifyCardButton.setOnClickListener {
-            navigator.navigateToVerifyActivity(walletVerified)
-          }
           showSpecificError(R.string.purchase_error_verify_card)
         } else {
-          views.genericErrorLayout.errorVerifyWalletButton.visibility = View.VISIBLE
-          views.genericErrorLayout.errorVerifyCardButton.visibility = View.GONE
-          views.genericErrorLayout.errorVerifyWalletButton.setOnClickListener {
-            navigator.navigateToVerifyActivity(walletVerified)
-          }
           showSpecificError(R.string.purchase_error_verify_wallet)
         }
       }
