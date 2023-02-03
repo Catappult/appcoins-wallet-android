@@ -2,7 +2,6 @@ package com.asfoundation.wallet.onboarding_new_payment.payment_result
 
 import android.graphics.Typeface
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,7 +16,6 @@ import com.appcoins.wallet.billing.ErrorInfo
 import com.appcoins.wallet.billing.util.Error
 import com.asf.wallet.R
 import com.asf.wallet.databinding.OnboardingPaymentResultFragmentBinding
-import com.asfoundation.wallet.DevUtils.CUSTOM_TAG
 import com.asfoundation.wallet.base.SingleStateFragment
 import com.asfoundation.wallet.billing.adyen.AdyenErrorCodeMapper
 import com.asfoundation.wallet.onboarding_new_payment.getPurchaseBonusMessage
@@ -86,7 +84,6 @@ class OnboardingPaymentResultFragment : BasePageViewFragment(),
   override fun onSideEffect(sideEffect: OnboardingPaymentResultSideEffect) {
     when (sideEffect) {
       is OnboardingPaymentResultSideEffect.ShowPaymentError -> {
-        Log.d(CUSTOM_TAG, "OnboardingPaymentResultFragment: onSideEffect: handleError")
         handleError(
           sideEffect.error,
           sideEffect.refusalCode,
