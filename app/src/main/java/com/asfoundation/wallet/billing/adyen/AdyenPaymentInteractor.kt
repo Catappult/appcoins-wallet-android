@@ -168,6 +168,7 @@ class AdyenPaymentInteractor @Inject constructor(
           }
           .filter { isEndingState(it.status) }
           .distinctUntilChanged { transaction -> transaction.status }
+          .takeUntil { isEndingState(it.status) }
       }
   }
 
