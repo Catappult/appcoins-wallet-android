@@ -138,7 +138,7 @@ class AdyenPaymentInteractor @Inject constructor(
     return walletService.getAndSignCurrentWalletAddress()
       .subscribeOn(rxSchedulers.io)
       .flatMapObservable { walletAddressModel ->
-          Observable.interval(0, 10, TimeUnit.SECONDS, rxSchedulers.io)
+          Observable.interval(0, 5, TimeUnit.SECONDS, rxSchedulers.io)
               .timeInterval()
               .switchMap {
                 adyenPaymentRepository.getTransaction(uid, walletAddressModel.address,
