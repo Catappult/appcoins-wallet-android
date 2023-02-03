@@ -76,7 +76,7 @@ class BackupSkipDialogFragment : BottomSheetDialogFragment(),
   }
 
   override fun getTheme(): Int {
-    return R.style.AppBottomSheetDialogThemeNoFloating
+    return R.style.AppBottomSheetDialogThemeNotDraggable
   }
 
   override fun onStateChanged(state: ViewState) = Unit

@@ -6,11 +6,23 @@
     android:orientation="vertical"
     >
 
+  <ImageView
+      android:id="@+id/draggable_bar"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="@dimen/normal_margin"
+      android:layout_gravity="center_horizontal"
+      app:layout_constraintTop_toTopOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      android:src="@drawable/pull_up_home_bar"
+      />
+
   <com.google.android.material.card.MaterialCardView
       android:id="@+id/verify_with_paypal_card_view"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:layout_marginTop="15dp"
+      android:layout_marginTop="@dimen/big_margin"
       app:cardElevation="0dp"
       app:rippleColor="@color/styleguide_dark_grey"
       app:shapeAppearance="@style/MyWallets.Shapes.Rounded8"

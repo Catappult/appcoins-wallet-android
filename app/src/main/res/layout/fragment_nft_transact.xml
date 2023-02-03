@@ -5,6 +5,17 @@
     android:layout_height="match_parent"
     >
 
+  <ImageView
+      android:id="@+id/draggable_bar"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="@dimen/normal_margin"
+      app:layout_constraintTop_toTopOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      android:src="@drawable/pull_up_home_bar"
+      />
+
   <include
       android:id="@+id/layout_nft_transact_entry"
       layout="@layout/layout_nft_transact_entry"

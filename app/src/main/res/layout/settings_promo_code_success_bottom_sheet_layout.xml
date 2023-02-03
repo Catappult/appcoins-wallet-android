@@ -8,24 +8,34 @@
     android:clipChildren="false"
     android:clipToPadding="false"
     android:orientation="vertical"
-    android:paddingHorizontal="32dp"
-    android:paddingTop="32dp"
-    android:paddingBottom="36dp"
+    android:paddingHorizontal="@dimen/half_large_margin"
+    android:paddingBottom="@dimen/half_large_margin"
     >
+
+  <ImageView
+      android:id="@+id/draggable_bar"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="@dimen/normal_margin"
+      app:layout_constraintTop_toTopOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      android:src="@drawable/pull_up_home_bar"
+      />
 
   <com.airbnb.lottie.LottieAnimationView
       android:id="@+id/promo_code_bottom_sheet_success_animation"
       android:layout_width="100dp"
       android:layout_height="100dp"
       android:layout_centerInParent="true"
+      android:layout_marginTop="@dimen/big_margin"
       app:lottie_enableMergePathsForKitKatAndAbove="true"
       app:lottie_loop="true"
       app:lottie_rawRes="@raw/fade_in_create_wallet"
       android:visibility="visible"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@id/promo_code_bottom_sheet_success_title"
-      app:layout_constraintTop_toTopOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/draggable_bar"
       app:layout_constraintBottom_toTopOf="@id/promo_code_bottom_sheet_success_title"
       />
 

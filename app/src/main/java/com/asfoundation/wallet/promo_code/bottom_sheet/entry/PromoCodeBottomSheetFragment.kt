@@ -66,7 +66,7 @@ class PromoCodeBottomSheetFragment : BottomSheetDialogFragment(),
   }
 
   override fun getTheme(): Int {
-    return R.style.AppBottomSheetDialogThemeNoFloating
+    return R.style.AppBottomSheetDialogThemeDraggable
   }
 
   private fun setListeners() {

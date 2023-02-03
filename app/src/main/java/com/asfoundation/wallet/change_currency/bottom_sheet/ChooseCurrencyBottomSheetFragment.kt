@@ -73,7 +73,7 @@ class ChooseCurrencyBottomSheetFragment : BottomSheetDialogFragment(),
   }
 
   override fun getTheme(): Int {
-    return R.style.AppBottomSheetDialogTheme
+    return R.style.AppBottomSheetDialogThemeDraggable
   }
 
 

@@ -7,14 +7,25 @@
     >
 
   <ImageView
+      android:id="@+id/draggable_bar"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="@dimen/normal_margin"
+      app:layout_constraintTop_toTopOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      android:src="@drawable/pull_up_home_bar"
+      />
+
+  <ImageView
       android:id="@+id/icon"
       android:layout_width="64dp"
       android:layout_height="64dp"
-      android:layout_marginTop="30dp"
+      android:layout_marginTop="@dimen/big_margin"
       android:scaleType="fitCenter"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toTopOf="parent"
+      app:layout_constraintTop_toTopOf="@id/draggable_bar"
       tools:src="@drawable/ic_appc_c_token"
       />
 
