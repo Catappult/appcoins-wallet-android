@@ -29,6 +29,7 @@
   <string name="got_it_button">متوجه شدم</string>
   <string name="change_button">تغییر</string>
   <string name="vip">VIP</string>
+  <string name="faq">FAQs</string>
   <string name="low_storage_error">فضای ذخیره سازی کافی نیست</string>
   <string name="no_camera_permission_title">اجازه دوربین</string>
   <string name="no_camera_permission">AppCoins BDS Wallet نیازمند اجازه شما برای دسترسی به دوربین شما برای اسکن کردن کدهای QR است.</string>
@@ -136,6 +137,15 @@
   <string name="intro_welcome_body_2">پاداش‌ها قابل استفاده در هر اپلیکیشن و بازی هستند.</string>
   <string name="intro_already_have_wallet_button">از قبل کیف پول دارم</string>
   <string name="intro_get_started_button">راه‌اندازی کیف پول</string>
+  <!-- Intro from game -->
+  <string name="launching_wallet_body">Launching wallet&#8230;</string>
+  <string name="select_method_title">Choose a payment method</string>
+  <string name="bonus_body">Get %s bonus with this purchase.</string>
+  <string name="agree_by_choosing_a_payment_method_body">By choosing a payment method, you agree to the %$1s and %$2s.</string>
+  <string name="pay_with_card_title">Pay with credit/debit card</string>
+  <string name="more_payment_methods_button">More payment methods</string>
+  <string name="bonus_received_body">You received a %s bonus in your wallet.</string>
+  <string name="back_to_the_game_button">Back to the game</string>
   <!-- Menus -->
   <!-- Labels -->
   <string name="label_from">از</string>
@@ -526,12 +536,12 @@
   <string name="purchase_wallet_blocked_title">تراز اعتبار AppCoins شما مسدود است</string>
   <string name="purchase_wallet_blocked_body">با توجه به تاریخچه تراکنش‌های غیرعادی، تراز اعتبار AppCoins شنا مسدود است. کماکان قادر به انجام تراکنش‌ها و پرداخت با سایر روش‌ها به جز اعتبار AppCoins هستید.\n\n اگر اعتقاد دارید که اشتباهی رخ داده‌است، با ما تماس بگیرید از طریق:</string>
   <string name="purchase_card_error_title">مشکلی پیش آمده است.</string>
-  <string name="purchase_card_error_general_1">مشکلی در ارتباط با کارت شما وجود دارد. لطفا دوباره امتحان کنید یا با ما تماس بگیرید.</string>
-  <string name="purchase_card_error_general_2">تراکنش از طرف بانک شما رد شده است. لطفا با کارت دیگری دوباره امتحان کنید یا با ما تماس بگیرید.</string>
-  <string name="purchase_card_error_no_funds">به نظر می‌رسد موجودی کارت شما کافی نیست و یا محدودیتی در کارت شما وجود دارد. لطفا با کارت دیگری امتحان کنید.</string>
-  <string name="purchase_card_error_expired">به نظر می‌رسد کارت شما منقضی شده است. لطفا کارت دیگری را امتحان کنید.</string>
-  <string name="purchase_card_error_invalid_details">آیا مطمئن هستید که اطلاعات کارت شما صحیح است؟ لطفا بررسی کرده و مجدد امتحان کنید.</string>
-  <string name="purchase_card_error_not_supported">نوع کارت شما پشتیبانی نمی‌شود. با کارت دیگری امتحان کنید.</string>
+  <string name="purchase_card_error_general_1">There was a problem with your card. Please try with a different card or payment method.</string>
+  <string name="purchase_card_error_general_2">The transaction has been rejected by your bank. Please try with a different card or payment method.</string>
+  <string name="purchase_card_error_no_funds">It seems you don\'t have enough funds or there\'s a limit on your card. Please try with a different card or payment method.</string>
+  <string name="purchase_card_error_expired">It seems your card is expired. Please try again with a different payment method.</string>
+  <string name="purchase_card_error_invalid_details">Invalid card number. Please check it and try again.</string>
+  <string name="purchase_card_error_not_supported">Your card is not supported yet. Please try again with a different card or payment method.</string>
   <string name="purchase_card_error_security">آیا مطمئن هستید که اطلاعات امنیتی صحیح است؟ لطفا مجدد امتحان کنید.</string>
   <string name="purchase_card_error_wrong_CVV">کد CVV/CVC به نظر اشتباه است. لطفا دوباره امتحان کنید.</string>
   <string name="purchase_card_error_re_insert">به نظر می‌رسد که این کارت را مدت‌ها قبل ثبت کردید! اطلاعات کارت را مجدد وارد کنید و یا کارت جدیدی وارد کنید.</string>
@@ -555,7 +565,7 @@
   <string name="purchase_error_card_security_validation">مشکلی در مرحله دوم تایید این تراکنش پیش آمده‌است. لطفا دوباره تلاش کنید.</string>
   <string name="purchase_error_transaction_timeout">زمان سپری شده برای کامل کردن تراکنش به پایان رسیده‌است. لطفا دوباره اقدام کنید.</string>
   <string name="purchase_error_card_already_in_progress">درخواست شده قبلا اجرا شده و یا در حال اجراست. لطفا منتظر بمانید.</string>
-  <string name="purchase_error_payment_rejected">پرداخت رد شد! لطفا با کارت متفاوتی دوباره اقدام کنید و یا روش پرداخت دیگری را استفاده کنید.</string>
+  <string name="purchase_error_payment_rejected">The transaction has been rejected. Please try with a different card or payment method.</string>
   <string name="purchase_error_verify_wallet">برای تکمیل این خرید، کارت خود را معتبرسازی کنید.</string>
   <string name="purchase_error_verify_card">برای تکمیل این خرید، کارت خود را معتبرسازی کنید.</string>
   <string name="purachse_error_verify_card_button">معتبرسازی کارت</string>
@@ -564,6 +574,9 @@
   <string name="purchase_app_needed_body">برای تکمیل خرید باید اپلیکیشن را دنبال کنید.</string>
   <string name="purchase_apps_needed_body">برای تکمیل خرید باید اپلیکیشن‌ها را دنبال کنید.</string>
   <string name="purchase_error_connection_issue">به نظر می‌رسد که مشکلی با اتصال اینترنت شما بوجود آمده است! لطفا بررسی کنید و دوباره امتحان کنید.</string>
+  <string name="purchase_error_wrong_pin_body">There was a problem with your pin. Please try again.</string>
+  <string name="purchase_error_3d_body">There was a problem with your 3D authentication. Please try again.</string>
+  <string name="purchase_error_generic_contact_us_body">Oops, something went wrong. Please try again or contact us.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">نشانی پرداخت</string>
   <string name="purchase_address_address_field">نشانی</string>

@@ -29,6 +29,7 @@
   <string name="got_it_button">Зрозуміло</string>
   <string name="change_button">Змінити</string>
   <string name="vip">VIP</string>
+  <string name="faq">FAQs</string>
   <string name="low_storage_error">Недостатньо місця для зберігання</string>
   <string name="no_camera_permission_title">Дозвіл на доступ до камери</string>
   <string name="no_camera_permission">AppCoins BDS Wallet потребує дозволу на доступ до вашої камери для сканування QR-кодів.</string>
@@ -136,6 +137,15 @@
   <string name="intro_welcome_body_2">Bonuses can be used in any app or game.</string>
   <string name="intro_already_have_wallet_button">У мене вже є гаманець</string>
   <string name="intro_get_started_button">Launch wallet</string>
+  <!-- Intro from game -->
+  <string name="launching_wallet_body">Launching wallet&#8230;</string>
+  <string name="select_method_title">Choose a payment method</string>
+  <string name="bonus_body">Get %s bonus with this purchase.</string>
+  <string name="agree_by_choosing_a_payment_method_body">By choosing a payment method, you agree to the %$1s and %$2s.</string>
+  <string name="pay_with_card_title">Pay with credit/debit card</string>
+  <string name="more_payment_methods_button">More payment methods</string>
+  <string name="bonus_received_body">You received a %s bonus in your wallet.</string>
+  <string name="back_to_the_game_button">Back to the game</string>
   <!-- Menus -->
   <!-- Labels -->
   <string name="label_from">Від</string>
@@ -528,12 +538,12 @@
   <string name="purchase_wallet_blocked_title">Ваш баланс AppCoins Credits заблоковано</string>
   <string name="purchase_wallet_blocked_body">Через незвичайну історію транзакцій ваш баланс AppCoins Credits був заблокований. Ви все одно зможете здійснювати платежі та транзакції іншими методами, окрім AppCoins Credits.\n\nЯкщо ви вважаєте, що це помилка, зв’яжіться з нами за адресою:</string>
   <string name="purchase_card_error_title">Щось пішло не так.</string>
-  <string name="purchase_card_error_general_1">Виникла проблема з вашою карткою. Будь ласка, спробуйте ще раз або зв’яжіться з нами.</string>
-  <string name="purchase_card_error_general_2">Ваш банк відхилив транзакцію. Спробуйте з іншою карткою або зв’яжіться з нами.</string>
-  <string name="purchase_card_error_no_funds">Схоже, у вас недостатньо коштів або на вашій картці є ліміт. Будь ласка, спробуйте з іншим способом.</string>
-  <string name="purchase_card_error_expired">Здається, термін дії вашої картки закінчився. Будь ласка, спробуйте іншим способом.</string>
-  <string name="purchase_card_error_invalid_details">Ви впевнені, що номер вашої картки правильний? Перевірте та повторіть спробу.</string>
-  <string name="purchase_card_error_not_supported">Ваш тип картки ще не підтримується. Спробуйте іншим способом.</string>
+  <string name="purchase_card_error_general_1">There was a problem with your card. Please try with a different card or payment method.</string>
+  <string name="purchase_card_error_general_2">The transaction has been rejected by your bank. Please try with a different card or payment method.</string>
+  <string name="purchase_card_error_no_funds">It seems you don\'t have enough funds or there\'s a limit on your card. Please try with a different card or payment method.</string>
+  <string name="purchase_card_error_expired">It seems your card is expired. Please try again with a different payment method.</string>
+  <string name="purchase_card_error_invalid_details">Invalid card number. Please check it and try again.</string>
+  <string name="purchase_card_error_not_supported">Your card is not supported yet. Please try again with a different card or payment method.</string>
   <string name="purchase_card_error_security">Ви впевнені, що інформація безпеки правильна? Будь ласка, спробуйте ще раз.</string>
   <string name="purchase_card_error_wrong_CVV">Схоже, ваш код CVV/CVC неправильний. Будь ласка, спробуйте ще раз.</string>
   <string name="purchase_card_error_re_insert">Здається, ви вже давно зареєстрували цю картку! Введіть дані картки ще раз або скористайтеся іншою.</string>
@@ -557,7 +567,7 @@
   <string name="purchase_error_card_security_validation">Під час перевірки 2-го рівня цієї транзакції сталася помилка. Будь ласка, спробуйте ще раз.</string>
   <string name="purchase_error_transaction_timeout">Схоже, вам знадобилося занадто багато часу, щоб завершити транзакцію. Будь ласка, спробуйте ще раз.</string>
   <string name="purchase_error_card_already_in_progress">Ваш запит уже оброблено або триває. Будь ласка, зачекайте.</string>
-  <string name="purchase_error_payment_rejected">Платіж відхилено! Спробуйте використовувати картку іншого емітента або скористайтеся іншим способом оплати.</string>
+  <string name="purchase_error_payment_rejected">The transaction has been rejected. Please try with a different card or payment method.</string>
   <string name="purchase_error_verify_wallet">Підтвердьте спосіб оплати, щоб завершити цю покупку.</string>
   <string name="purchase_error_verify_card">Підтвердьте свою картку, щоб завершити цю покупку.</string>
   <string name="purachse_error_verify_card_button">ПІДТВЕРДИТИ КАРТКУ</string>
@@ -566,6 +576,9 @@
   <string name="purchase_app_needed_body">Щоб завершити покупку, вам потрібен наступний додаток.</string>
   <string name="purchase_apps_needed_body">Щоб завершити покупку, вам знадобиться один із наведених додатків.</string>
   <string name="purchase_error_connection_issue">Здається, виникла проблема з підключенням до Інтернету! Перевірте його та повторіть спробу.</string>
+  <string name="purchase_error_wrong_pin_body">There was a problem with your pin. Please try again.</string>
+  <string name="purchase_error_3d_body">There was a problem with your 3D authentication. Please try again.</string>
+  <string name="purchase_error_generic_contact_us_body">Oops, something went wrong. Please try again or contact us.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">Платіжна адреса</string>
   <string name="purchase_address_address_field">Адреса</string>

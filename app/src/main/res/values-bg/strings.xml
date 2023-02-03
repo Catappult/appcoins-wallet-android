@@ -29,6 +29,7 @@
   <string name="got_it_button">Got it</string>
   <string name="change_button">Change</string>
   <string name="vip">VIP</string>
+  <string name="faq">FAQs</string>
   <string name="low_storage_error">Няма достатъчно място за съхранение</string>
   <string name="no_camera_permission_title">Разрешение за камера</string>
   <string name="no_camera_permission">AppCoins BDS портфейлът се нуждае от разрешение за достъп до твоята камера, за да сканира QR кодове.</string>
@@ -136,6 +137,15 @@
   <string name="intro_welcome_body_2">Bonuses can be used in any app or game.</string>
   <string name="intro_already_have_wallet_button">I already have a wallet</string>
   <string name="intro_get_started_button">Launch wallet</string>
+  <!-- Intro from game -->
+  <string name="launching_wallet_body">Launching wallet&#8230;</string>
+  <string name="select_method_title">Choose a payment method</string>
+  <string name="bonus_body">Get %s bonus with this purchase.</string>
+  <string name="agree_by_choosing_a_payment_method_body">By choosing a payment method, you agree to the %$1s and %$2s.</string>
+  <string name="pay_with_card_title">Pay with credit/debit card</string>
+  <string name="more_payment_methods_button">More payment methods</string>
+  <string name="bonus_received_body">You received a %s bonus in your wallet.</string>
+  <string name="back_to_the_game_button">Back to the game</string>
   <!-- Menus -->
   <!-- Labels -->
   <string name="label_from">От</string>
@@ -526,12 +536,12 @@
   <string name="purchase_wallet_blocked_title">AppCoins Credits балансът ти е блокиран</string>
   <string name="purchase_wallet_blocked_body">Поради необичайна история на транзакциите ти, балансът на твоите AppCoins Credits беше блокиран. Все още ще можеш да извършваш плащания и транзакции с други методи освен AppCoins Credits.\n\n Ако смяташ, че това е грешка, свържи се с нас на адрес:</string>
   <string name="purchase_card_error_title">Опа, нещо се обърка.</string>
-  <string name="purchase_card_error_general_1">Възникна проблем с картата ти. Моля, опитай отново или се свържи с нас.</string>
-  <string name="purchase_card_error_general_2">Транзакцията е отхвърлена от твоята банка. Моля, опитай с друга карта или се свържи с нас.</string>
-  <string name="purchase_card_error_no_funds">Изглежда нямаш достатъчно средства или пък имаш лимит на картата си. Моля, опитай с друга.</string>
-  <string name="purchase_card_error_expired">Изглежда, че картата ти е изтекла. Моля, опитай с друга.</string>
-  <string name="purchase_card_error_invalid_details">Сигурен ли си, че номерът на картата ти е верен? Моля, опитай отново.</string>
-  <string name="purchase_card_error_not_supported">Типът на твоята карта все още не се поддържа. Опитай с друга.</string>
+  <string name="purchase_card_error_general_1">There was a problem with your card. Please try with a different card or payment method.</string>
+  <string name="purchase_card_error_general_2">The transaction has been rejected by your bank. Please try with a different card or payment method.</string>
+  <string name="purchase_card_error_no_funds">It seems you don\'t have enough funds or there\'s a limit on your card. Please try with a different card or payment method.</string>
+  <string name="purchase_card_error_expired">It seems your card is expired. Please try again with a different payment method.</string>
+  <string name="purchase_card_error_invalid_details">Invalid card number. Please check it and try again.</string>
+  <string name="purchase_card_error_not_supported">Your card is not supported yet. Please try again with a different card or payment method.</string>
   <string name="purchase_card_error_security">Сигурен ли сте, че информацията за сигурност е вярна? Моля, опитай отново.</string>
   <string name="purchase_card_error_wrong_CVV">Твоят CVV/CVC код изглежда грешен. Моля, опитай отново.</string>
   <string name="purchase_card_error_re_insert">It seems you registered this card long time ago! Insert the card details again or use a different one.</string>
@@ -555,7 +565,7 @@
   <string name="purchase_error_card_security_validation">There was an error on the 2nd level validation of this transaction. Please try again.</string>
   <string name="purchase_error_transaction_timeout">It seems you took too long to complete the transaction. Please try again.</string>
   <string name="purchase_error_card_already_in_progress">Your request was already processed or is in progress. Please wait.</string>
-  <string name="purchase_error_payment_rejected">Payment rejected! Please try with a card from a different issuer or use other payment method.</string>
+  <string name="purchase_error_payment_rejected">The transaction has been rejected. Please try with a different card or payment method.</string>
   <string name="purchase_error_verify_wallet">Validate your payment method to complete this purchase.</string>
   <string name="purchase_error_verify_card">Validate your card to complete this purchase.</string>
   <string name="purachse_error_verify_card_button">VALIDATE CARD</string>
@@ -564,6 +574,9 @@
   <string name="purchase_app_needed_body">You need the following app to complete your purchase.</string>
   <string name="purchase_apps_needed_body">You need one of the following apps to complete your purchase.</string>
   <string name="purchase_error_connection_issue">It seems there is a problem with your internet connection! Please check it and try again.</string>
+  <string name="purchase_error_wrong_pin_body">There was a problem with your pin. Please try again.</string>
+  <string name="purchase_error_3d_body">There was a problem with your 3D authentication. Please try again.</string>
+  <string name="purchase_error_generic_contact_us_body">Oops, something went wrong. Please try again or contact us.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">Billing address</string>
   <string name="purchase_address_address_field">Address</string>

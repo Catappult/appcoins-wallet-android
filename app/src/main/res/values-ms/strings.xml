@@ -29,6 +29,7 @@
   <string name="got_it_button">Berjaya</string>
   <string name="change_button">Tukar</string>
   <string name="vip">VIP</string>
+  <string name="faq">FAQs</string>
   <string name="low_storage_error">Tidak cukup ruang simpanan</string>
   <string name="no_camera_permission_title">Kebenaran Kamera</string>
   <string name="no_camera_permission">AppCoins BDS Wallet memerlukan kebenaran untuk mengakses kamera anda untuk mengimbas kod QR.</string>
@@ -136,6 +137,15 @@
   <string name="intro_welcome_body_2">Bonus boleh digunakan dalam mana-mana aplikasi atau permainan.</string>
   <string name="intro_already_have_wallet_button">Saya sudah ada dompet</string>
   <string name="intro_get_started_button">Lancarkan dompet</string>
+  <!-- Intro from game -->
+  <string name="launching_wallet_body">Launching wallet&#8230;</string>
+  <string name="select_method_title">Choose a payment method</string>
+  <string name="bonus_body">Get %s bonus with this purchase.</string>
+  <string name="agree_by_choosing_a_payment_method_body">By choosing a payment method, you agree to the %$1s and %$2s.</string>
+  <string name="pay_with_card_title">Pay with credit/debit card</string>
+  <string name="more_payment_methods_button">More payment methods</string>
+  <string name="bonus_received_body">You received a %s bonus in your wallet.</string>
+  <string name="back_to_the_game_button">Back to the game</string>
   <!-- Menus -->
   <!-- Labels -->
   <string name="label_from">Daripada</string>
@@ -526,12 +536,12 @@
   <string name="purchase_wallet_blocked_title">Baki Kredit AppCoins anda disekat</string>
   <string name="purchase_wallet_blocked_body">Disebabkan sejarah transaksi yang luar biasa, baki Kredit AppCoins anda telah disekat. Anda masih boleh membuat bayaran dan transaksi menggunakan kaedah lain kecuali Kredit AppCoins.\n\nJika anda percaya bahawa ini ialah kesilapan, hubungi kami di:</string>
   <string name="purchase_card_error_title">Oops, ada sesuatu yang tidak kena.</string>
-  <string name="purchase_card_error_general_1">Ada masalah dengan kad anda. Sila cuba lagi atau hubungi kami.</string>
-  <string name="purchase_card_error_general_2">Transaksi telah ditolak oleh bank anda. Sila cuba kad yang lain atau hubungi kami.</string>
-  <string name="purchase_card_error_no_funds">Nampaknya anda tidak mempunyai dana yang cukup atau ada had pada kad anda. Sila cuba kad yang lain.</string>
-  <string name="purchase_card_error_expired">Nampaknya kad anda telah luput. Sila cuba kad yang lain.</string>
-  <string name="purchase_card_error_invalid_details">Anda pasti nombor kad anda betul? Sila semak dan cuba lagi.</string>
-  <string name="purchase_card_error_not_supported">Jenis kad anda masih belum disokong. Cuba dengan kad lain.</string>
+  <string name="purchase_card_error_general_1">There was a problem with your card. Please try with a different card or payment method.</string>
+  <string name="purchase_card_error_general_2">The transaction has been rejected by your bank. Please try with a different card or payment method.</string>
+  <string name="purchase_card_error_no_funds">It seems you don\'t have enough funds or there\'s a limit on your card. Please try with a different card or payment method.</string>
+  <string name="purchase_card_error_expired">It seems your card is expired. Please try again with a different payment method.</string>
+  <string name="purchase_card_error_invalid_details">Invalid card number. Please check it and try again.</string>
+  <string name="purchase_card_error_not_supported">Your card is not supported yet. Please try again with a different card or payment method.</string>
   <string name="purchase_card_error_security">Anda pasti butiran keselamatan ini betul? Sila cuba lagi.</string>
   <string name="purchase_card_error_wrong_CVV">Kod CVV/CVC anda mungkin tidak betul. Sila cuba lagi.</string>
   <string name="purchase_card_error_re_insert">Nampaknya anda pernah daftar kad ini dulu! Masukkan butiran kad sekali lagi atau cuba kad lain.</string>
@@ -555,7 +565,7 @@
   <string name="purchase_error_card_security_validation">Ada ralat berlaku pada pengesahan tahap kedua transaksi ini. Sila cuba lagi.</string>
   <string name="purchase_error_transaction_timeout">Nampaknya anda ambil masa terlalu lama untuk selesaikan transaksi. Sila cuba lagi.</string>
   <string name="purchase_error_card_already_in_progress">Permintaan anda telah diproses atau sedang berlangsung. Sila tunggu.</string>
-  <string name="purchase_error_payment_rejected">Pembayaran ditolak! Sila cuba dengan kad lain atau gunakan kaedah bayaran yang lain.</string>
+  <string name="purchase_error_payment_rejected">The transaction has been rejected. Please try with a different card or payment method.</string>
   <string name="purchase_error_verify_wallet">Sahkan kaedah pembayaran anda untuk selesaikan pembelian ini.</string>
   <string name="purchase_error_verify_card">Sahkan kad anda untuk selesaikan pembelian ini.</string>
   <string name="purachse_error_verify_card_button">SAHKAN KAD</string>
@@ -564,6 +574,9 @@
   <string name="purchase_app_needed_body">Anda perlukan aplikasi berikut untuk lengkapkan pembelian.</string>
   <string name="purchase_apps_needed_body">Anda perlukan salah satu aplikasi berikut untuk lengkapkan pembelian.</string>
   <string name="purchase_error_connection_issue">Nampaknya anda masalah dengan capaian internet anda! Sila semak dan cuba semula.</string>
+  <string name="purchase_error_wrong_pin_body">There was a problem with your pin. Please try again.</string>
+  <string name="purchase_error_3d_body">There was a problem with your 3D authentication. Please try again.</string>
+  <string name="purchase_error_generic_contact_us_body">Oops, something went wrong. Please try again or contact us.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">Alamat bil</string>
   <string name="purchase_address_address_field">Alamat</string>

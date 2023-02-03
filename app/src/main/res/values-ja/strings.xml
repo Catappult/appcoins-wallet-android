@@ -29,6 +29,7 @@
   <string name="got_it_button">了解</string>
   <string name="change_button">変更</string>
   <string name="vip">VIP</string>
+  <string name="faq">FAQs</string>
   <string name="low_storage_error">空き容量が不足しています</string>
   <string name="no_camera_permission_title">カメラのアクセス許可</string>
   <string name="no_camera_permission">AppCoins BDS のウォレットには、QR コードをスキャンしてお使いのカメラへのアクセスを許可する必要があります。</string>
@@ -136,6 +137,15 @@
   <string name="intro_welcome_body_2">ボーナスは、どのアプリやゲームでも使用することができます。</string>
   <string name="intro_already_have_wallet_button">ウォレットをすでに持っています</string>
   <string name="intro_get_started_button">ウォレットを起動</string>
+  <!-- Intro from game -->
+  <string name="launching_wallet_body">Launching wallet&#8230;</string>
+  <string name="select_method_title">Choose a payment method</string>
+  <string name="bonus_body">Get %s bonus with this purchase.</string>
+  <string name="agree_by_choosing_a_payment_method_body">By choosing a payment method, you agree to the %$1s and %$2s.</string>
+  <string name="pay_with_card_title">Pay with credit/debit card</string>
+  <string name="more_payment_methods_button">More payment methods</string>
+  <string name="bonus_received_body">You received a %s bonus in your wallet.</string>
+  <string name="back_to_the_game_button">Back to the game</string>
   <!-- Menus -->
   <!-- Labels -->
   <string name="label_from">差出人</string>
@@ -526,12 +536,12 @@
   <string name="purchase_wallet_blocked_title">あなたのAppCoins Creditsの残高はブロックされています。</string>
   <string name="purchase_wallet_blocked_body">異常な取引履歴のため、お客様のAppCoins Creditsの残高がブロックされました。なお、AppCoinsクレジット以外の方法でのお支払いやお取引は可能です。\n\nこれが何らかの間違いであると思われる場合はご連絡ください:</string>
   <string name="purchase_card_error_title">問題が発生しました。</string>
-  <string name="purchase_card_error_general_1">あなたのカードに問題がありました。もう一度お試しいただくか、お問い合わせください。</string>
-  <string name="purchase_card_error_general_2">お使いの銀行により取引が拒否されました。別のカードでお試しいただくか、お問い合わせください。</string>
-  <string name="purchase_card_error_no_funds">十分な資金がないか、カードの限度額が設定されているようです。別のカードでお試しください。</string>
-  <string name="purchase_card_error_expired">あなたのカードの有効期限が切れているようです。別のカードでお試しください。</string>
-  <string name="purchase_card_error_invalid_details">カード番号に間違いはありませんか？ご確認の上、再度お試しください。</string>
-  <string name="purchase_card_error_not_supported">お使いのカードタイプはまだサポートされていません。別のカードでお試しください。</string>
+  <string name="purchase_card_error_general_1">There was a problem with your card. Please try with a different card or payment method.</string>
+  <string name="purchase_card_error_general_2">The transaction has been rejected by your bank. Please try with a different card or payment method.</string>
+  <string name="purchase_card_error_no_funds">It seems you don\'t have enough funds or there\'s a limit on your card. Please try with a different card or payment method.</string>
+  <string name="purchase_card_error_expired">It seems your card is expired. Please try again with a different payment method.</string>
+  <string name="purchase_card_error_invalid_details">Invalid card number. Please check it and try again.</string>
+  <string name="purchase_card_error_not_supported">Your card is not supported yet. Please try again with a different card or payment method.</string>
   <string name="purchase_card_error_security">セキュリティ情報にお間違えはありませんか？確認後、もう一度お試しください。</string>
   <string name="purchase_card_error_wrong_CVV">CVV/CVCコードが間違っているようです。確認後、もう一度お試しください。</string>
   <string name="purchase_card_error_re_insert">このカードは以前に登録されたようです。カード情報をもう一度入れるか、別のカードを使用してください。</string>
@@ -555,7 +565,7 @@
   <string name="purchase_error_card_security_validation">このトランザクションの第2レベルの検証でエラーが発生しました。もう一度お試しください。</string>
   <string name="purchase_error_transaction_timeout">トランザクションの完了に時間がかかりすぎたようです。もう一度お試しください。</string>
   <string name="purchase_error_card_already_in_progress">あなたのリクエストはすでに処理済みか、処理中です。しばらくお待ちください。</string>
-  <string name="purchase_error_payment_rejected">支払いが拒否されました。他の発行元のカードでお試しいただくか、他のお支払い方法をご利用ください。</string>
+  <string name="purchase_error_payment_rejected">The transaction has been rejected. Please try with a different card or payment method.</string>
   <string name="purchase_error_verify_wallet">支払い方法を確認し、この購入を完了します。</string>
   <string name="purchase_error_verify_card">この購入を完了するためには支払い方法を確認してください。</string>
   <string name="purachse_error_verify_card_button">カードの確認</string>
@@ -564,6 +574,9 @@
   <string name="purchase_app_needed_body">購入手続きには、以下のアプリが必要です。</string>
   <string name="purchase_apps_needed_body">購入手続きには、以下のアプリのいずれかが必要です。</string>
   <string name="purchase_error_connection_issue">インターネット接続に問題があるようです! ご確認の上、再度お試しください。</string>
+  <string name="purchase_error_wrong_pin_body">There was a problem with your pin. Please try again.</string>
+  <string name="purchase_error_3d_body">There was a problem with your 3D authentication. Please try again.</string>
+  <string name="purchase_error_generic_contact_us_body">Oops, something went wrong. Please try again or contact us.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">請求先住所</string>
   <string name="purchase_address_address_field">住所</string>

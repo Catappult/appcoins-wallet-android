@@ -29,6 +29,7 @@
   <string name="got_it_button">समजले</string>
   <string name="change_button">बदला</string>
   <string name="vip">व्हीआयपी</string>
+  <string name="faq">FAQs</string>
   <string name="low_storage_error">पुरेसे स्टोरेज नाही</string>
   <string name="no_camera_permission_title">कॅमेराची परवानगी</string>
   <string name="no_camera_permission">AppCoins BDS Wallet ला आपल्या कॅमेरात प्रवेश आणि ‍क्युआर कोड स्कॅन करण्याची परवानगी हवी आहे.</string>
@@ -136,6 +137,15 @@
   <string name="intro_welcome_body_2">बोनसचा वापर कोणत्याही अॅप वा खेळात केला जाऊ शकतो.</string>
   <string name="intro_already_have_wallet_button">माझ्याकडे आधीपासुनच वॉलेट आहे</string>
   <string name="intro_get_started_button">वॉलेट सुरु करा</string>
+  <!-- Intro from game -->
+  <string name="launching_wallet_body">Launching wallet&#8230;</string>
+  <string name="select_method_title">Choose a payment method</string>
+  <string name="bonus_body">Get %s bonus with this purchase.</string>
+  <string name="agree_by_choosing_a_payment_method_body">By choosing a payment method, you agree to the %$1s and %$2s.</string>
+  <string name="pay_with_card_title">Pay with credit/debit card</string>
+  <string name="more_payment_methods_button">More payment methods</string>
+  <string name="bonus_received_body">You received a %s bonus in your wallet.</string>
+  <string name="back_to_the_game_button">Back to the game</string>
   <!-- Menus -->
   <!-- Labels -->
   <string name="label_from">कडुन</string>
@@ -526,12 +536,12 @@
   <string name="purchase_wallet_blocked_title">आपला अॅपकॉइन्स क्रेडीटस शिल्लक ब्लॉक केलेली आहे</string>
   <string name="purchase_wallet_blocked_body">वार्षिक व्यवहार इतिहासामुळे, आपली अॅपकॉइन्स क्रेडीटसची शिल्लक ब्लॉक केली गेली आहे. आपण अॅपकॉइन्स क्रेडीटसशिवाय अन्य पद्धती वापरुन पैसे भरु शकता आणि व्यवहार करु सकता. \n\nजर आपणांस ही चूक आहे असे वाटत असेल तर आमच्याशी इथे संपर्क साधा:</string>
   <string name="purchase_card_error_title">अरेरे, काहीतरी त्रुटी आली.</string>
-  <string name="purchase_card_error_general_1">आपल्या कार्डात समस्या आली. कृपया पुन्हा प्रयत्न करा किंवा आमच्याशी संपर्क साधा.</string>
-  <string name="purchase_card_error_general_2">आपल्या बँकेने व्यवहार नाकारला आहे. कृपया वेगळ्या कार्डासह प्रयत्न करा किंवा आमच्याशी संपर्क साधा.</string>
-  <string name="purchase_card_error_no_funds">आपल्याकडे पुरेसे पैसे नाहीत किंवा आपल्या कार्डावर सीमा आहे असे दिसतेय. कृपया वेगळ्या कार्डानिशी प्रयत्न करा.</string>
-  <string name="purchase_card_error_expired">आपले कार्ड कालबाह्य झाले आहे असे दिसतेय. कृपया वेगळे वापरुन प्रयत्न करा.</string>
-  <string name="purchase_card_error_invalid_details">आपला कार्ड नंबर बरोबर आहे ह्याची खात्री आहे? कृपया तपासुन पुन्हा प्रयत्न करा.</string>
-  <string name="purchase_card_error_not_supported">आपल्या कार्डाचा प्रकार अजुनतरी समर्थित नाही. वेगळे वापरुन प्रयत्न करा.</string>
+  <string name="purchase_card_error_general_1">There was a problem with your card. Please try with a different card or payment method.</string>
+  <string name="purchase_card_error_general_2">The transaction has been rejected by your bank. Please try with a different card or payment method.</string>
+  <string name="purchase_card_error_no_funds">It seems you don\'t have enough funds or there\'s a limit on your card. Please try with a different card or payment method.</string>
+  <string name="purchase_card_error_expired">It seems your card is expired. Please try again with a different payment method.</string>
+  <string name="purchase_card_error_invalid_details">Invalid card number. Please check it and try again.</string>
+  <string name="purchase_card_error_not_supported">Your card is not supported yet. Please try again with a different card or payment method.</string>
   <string name="purchase_card_error_security">सुरक्षा माहिती बरोबर आहे ह्याची खात्री आहे? कृपया पुन्हा प्रयत्न करा.</string>
   <string name="purchase_card_error_wrong_CVV">आपला सीव्हीव्ही/सीव्हीसी कोड चुकीचा वाटतोय. कृपया पुन्हा प्रयत्न करा.</string>
   <string name="purchase_card_error_re_insert">असे दिसतेय कि आपण हे कार्ड फार काळापूर्वी पंजिकृत केले होते! कार्ड तपशील पुन्हा भरा किंवा वेगळे कार्ड वापरा.</string>
@@ -555,7 +565,7 @@
   <string name="purchase_error_card_security_validation">ह्या व्यवहाराच्या २तीय पातळी सत्यापनात त्रुटी आली. कृपया पुन्हा प्रयत्न करा.</string>
   <string name="purchase_error_transaction_timeout">असे दिसतेय कि आपण हा व्यवहार पूर्ण करण्यात फार वेळ घेतलात. कृपया पुन्हा प्रयत्न करा.</string>
   <string name="purchase_error_card_already_in_progress">आपल्या विनंतीवर प्रक्रिया पूर्ण झाली आहे किंवा होत आहे. कृपया जरा थांबा.</string>
-  <string name="purchase_error_payment_rejected">पेमेंट नकारले गेले! कृपया वेगळ्या कंपनीचे कार्ड किंवा पेमेंट पद्धत वापरा.</string>
+  <string name="purchase_error_payment_rejected">The transaction has been rejected. Please try with a different card or payment method.</string>
   <string name="purchase_error_verify_wallet">ही खरेदी पूर्ण करण्यासाठी आपल्या पेमेंट पद्धतीचे सत्यापन करा.</string>
   <string name="purchase_error_verify_card">ही खरेदी पूर्ण करण्यासाठी आपल्या कार्डाचे सत्यापन करा.</string>
   <string name="purachse_error_verify_card_button">कार्ड सत्यापित करा</string>
@@ -564,6 +574,9 @@
   <string name="purchase_app_needed_body">आपली खरेदी पूर्ण करण्यासाठी आपल्याला खालील अॅप आवश्यक आहेत.</string>
   <string name="purchase_apps_needed_body">आपली खरेदी पूर्ण करण्यासाठी आपल्याला खालीलपैकी एक अॅप आवश्यक आहे.</string>
   <string name="purchase_error_connection_issue">आपले इंटरनेट कनेक्शन चालू नाही असे दिसतेय! कृपया तपासुन पुन्हा प्रयत्न करा.</string>
+  <string name="purchase_error_wrong_pin_body">There was a problem with your pin. Please try again.</string>
+  <string name="purchase_error_3d_body">There was a problem with your 3D authentication. Please try again.</string>
+  <string name="purchase_error_generic_contact_us_body">Oops, something went wrong. Please try again or contact us.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">बिलिंग पत्ता</string>
   <string name="purchase_address_address_field">पत्ता</string>

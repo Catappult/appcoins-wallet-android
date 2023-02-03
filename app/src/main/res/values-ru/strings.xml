@@ -29,6 +29,7 @@
   <string name="got_it_button">Ясно</string>
   <string name="change_button">Изменить</string>
   <string name="vip">VIP</string>
+  <string name="faq">FAQs</string>
   <string name="low_storage_error">Недостаточно места для хранения</string>
   <string name="no_camera_permission_title">Разрешение использовать камеру</string>
   <string name="no_camera_permission">AppCoins BDS Wallet необходимо разрешение на доступ к вашей камере, чтобы сканировать QR-коды.</string>
@@ -136,6 +137,15 @@
   <string name="intro_welcome_body_2">Бонусы можно использовать в любом приложении или игре.</string>
   <string name="intro_already_have_wallet_button">У меня уже есть кошелек</string>
   <string name="intro_get_started_button">Запустить кошелёк</string>
+  <!-- Intro from game -->
+  <string name="launching_wallet_body">Launching wallet&#8230;</string>
+  <string name="select_method_title">Choose a payment method</string>
+  <string name="bonus_body">Get %s bonus with this purchase.</string>
+  <string name="agree_by_choosing_a_payment_method_body">By choosing a payment method, you agree to the %$1s and %$2s.</string>
+  <string name="pay_with_card_title">Pay with credit/debit card</string>
+  <string name="more_payment_methods_button">More payment methods</string>
+  <string name="bonus_received_body">You received a %s bonus in your wallet.</string>
+  <string name="back_to_the_game_button">Back to the game</string>
   <!-- Menus -->
   <!-- Labels -->
   <string name="label_from">От</string>
@@ -526,12 +536,12 @@
   <string name="purchase_wallet_blocked_title">Ваш баланс AppCoins Credits заблокирован</string>
   <string name="purchase_wallet_blocked_body">В связи со странностями в истории транзакций ваш баланс AppCoins Credits был заблокирован. Вы всё ещё можете производить платежи и переводы при помощи других методов, кроме AppCoins Credits. \n\nIfЕсли вы считаете, что это ошибка – свяжитесь с нами:</string>
   <string name="purchase_card_error_title">Ой, что-то пошло не так.</string>
-  <string name="purchase_card_error_general_1">С вашей картой возникла проблема. Пожалуйста, попробуйте снова, или свяжитесь с нами.</string>
-  <string name="purchase_card_error_general_2">Ваш банк отказал в данной транзакции. Пожалуйста, попробуйте другую карту, или свяжитесь с нами.</string>
-  <string name="purchase_card_error_no_funds">Кажется, у вас недостаточно средств, или для карты установлен лимит. Пожалуйста, попробуйте другую.</string>
-  <string name="purchase_card_error_expired">Кажется ваша карта истекла. Пожалуйста, попробуйте другую.</string>
-  <string name="purchase_card_error_invalid_details">Вы уверены, что правильно ввели номер карты? Пожалуйста, проверьте и попробуйте снова.</string>
-  <string name="purchase_card_error_not_supported">Тип вашей карты пока не поддерживается. Попробуйте другую карту.</string>
+  <string name="purchase_card_error_general_1">There was a problem with your card. Please try with a different card or payment method.</string>
+  <string name="purchase_card_error_general_2">The transaction has been rejected by your bank. Please try with a different card or payment method.</string>
+  <string name="purchase_card_error_no_funds">It seems you don\'t have enough funds or there\'s a limit on your card. Please try with a different card or payment method.</string>
+  <string name="purchase_card_error_expired">It seems your card is expired. Please try again with a different payment method.</string>
+  <string name="purchase_card_error_invalid_details">Invalid card number. Please check it and try again.</string>
+  <string name="purchase_card_error_not_supported">Your card is not supported yet. Please try again with a different card or payment method.</string>
   <string name="purchase_card_error_security">Вы уверены, что правильно ввели атрибуты безопасности? Пожалуйста, попробуйте снова.</string>
   <string name="purchase_card_error_wrong_CVV">Кажеся, вы ввели неверный CVV/CVC код. Пожалуйста, попробуйте снова.</string>
   <string name="purchase_card_error_re_insert">Кажется, вы зарегистрировали эту карту уже давно! Введите данные карты снова или используйте другую.</string>
@@ -555,7 +565,7 @@
   <string name="purchase_error_card_security_validation">Произошла ошибка на 2-ом уровне проверки транзакции. Пожалуйста, попробуйте снова.</string>
   <string name="purchase_error_transaction_timeout">Похоже, транзакция заняла слишком много времени. Пожалуйста, попробуйте снова.</string>
   <string name="purchase_error_card_already_in_progress">Ваш запрос уже обработан или ещё в процессе. Пожалуйста, подождите.</string>
-  <string name="purchase_error_payment_rejected">Оплата отклонена! Пожалуйста, попробуйте другую карту, или выберите другой метод оплаты.</string>
+  <string name="purchase_error_payment_rejected">The transaction has been rejected. Please try with a different card or payment method.</string>
   <string name="purchase_error_verify_wallet">Подтвердите ваш метод оплаты, чтобы завершить эту покупку.</string>
   <string name="purchase_error_verify_card">Подтвердите вашу карту, чтобы завершить эту покупку.</string>
   <string name="purachse_error_verify_card_button">ПОДТВЕРДИТЬ КАРТУ</string>
@@ -564,6 +574,9 @@
   <string name="purchase_app_needed_body">Вам нужно следующее приложение, чтобы завершить эту покупку.</string>
   <string name="purchase_apps_needed_body">Для совершения покупки вам потребуется одно из следующих приложений.</string>
   <string name="purchase_error_connection_issue">Кажется, с вашим подключением к Интернету что-то не так! Пожалуйста, проверьте его и повторите попытку.</string>
+  <string name="purchase_error_wrong_pin_body">There was a problem with your pin. Please try again.</string>
+  <string name="purchase_error_3d_body">There was a problem with your 3D authentication. Please try again.</string>
+  <string name="purchase_error_generic_contact_us_body">Oops, something went wrong. Please try again or contact us.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">Адрес для счёта</string>
   <string name="purchase_address_address_field">Адрес</string>
