@@ -27,7 +27,7 @@ class PromotionsInfoDialogFragment : BottomSheetDialogFragment() {
     super.onStart()
   }
 
-  override fun getTheme(): Int = R.style.AppBottomSheetDialogTheme
+  override fun getTheme(): Int = R.style.AppBottomSheetDialogThemeDraggable
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)

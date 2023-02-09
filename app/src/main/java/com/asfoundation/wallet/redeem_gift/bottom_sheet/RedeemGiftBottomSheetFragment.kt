@@ -78,7 +78,7 @@ class RedeemGiftBottomSheetFragment : BottomSheetDialogFragment(),
   }
 
   override fun getTheme(): Int {
-    return R.style.AppBottomSheetDialogThemeNoFloating
+    return R.style.AppBottomSheetDialogThemeDraggable
   }
 
   override fun onStateChanged(state: RedeemGiftBottomSheetState) {

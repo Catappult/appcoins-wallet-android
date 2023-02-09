@@ -49,7 +49,7 @@ class MoreDialogFragment : BottomSheetDialogFragment(),
     viewModel.refreshData()
   }
 
-  override fun getTheme(): Int = R.style.AppBottomSheetDialogTheme
+  override fun getTheme(): Int = R.style.AppBottomSheetDialogThemeDraggable
 
   override fun onStateChanged(state: MoreDialogState) {
     val wallets = state.walletsAsync()

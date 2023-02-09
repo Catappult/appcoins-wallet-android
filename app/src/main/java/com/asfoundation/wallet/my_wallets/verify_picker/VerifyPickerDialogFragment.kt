@@ -37,5 +37,5 @@ class VerifyPickerDialogFragment : BottomSheetDialogFragment() {
     super.onStart()
   }
 
-  override fun getTheme(): Int = R.style.AppBottomSheetDialogTheme
+  override fun getTheme(): Int = R.style.AppBottomSheetDialogThemeDraggable
 }

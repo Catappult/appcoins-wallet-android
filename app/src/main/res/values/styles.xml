@@ -23,16 +23,15 @@
     <item name="android:windowContentTransitions">true</item>
   </style>
 
-  <style name="AppBottomSheetDialogTheme" parent="@style/ThemeOverlay.MaterialComponents.BottomSheetDialog">
-    <item name="bottomSheetStyle">@style/AppModalStyle</item>
-    <item name="behavior_draggable">false</item>
-  </style>
-
-  <style name="AppBottomSheetDialogThemeNoFloating" parent="@style/ThemeOverlay.MaterialComponents.BottomSheetDialog">
+  <style name="AppBottomSheetDialogThemeNotDraggable" parent="@style/ThemeOverlay.MaterialComponents.BottomSheetDialog">
     <item name="android:windowIsFloating">false</item>
     <item name="bottomSheetStyle">@style/AppModalStyle</item>
     <item name="behavior_draggable">false</item>
     <item name="android:windowSoftInputMode">adjustResize|stateVisible</item>
+  </style>
+
+  <style name="AppBottomSheetDialogThemeDraggable" parent="@style/AppBottomSheetDialogThemeNotDraggable">
+    <item name="behavior_draggable">true</item>
   </style>
 
   <style name="AppModalStyle" parent="Widget.Design.BottomSheet.Modal">

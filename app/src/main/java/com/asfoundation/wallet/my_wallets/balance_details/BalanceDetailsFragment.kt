@@ -39,7 +39,7 @@ class BalanceDetailsFragment : BottomSheetDialogFragment() {
     super.onStart()
   }
 
-  override fun getTheme(): Int = R.style.AppBottomSheetDialogTheme
+  override fun getTheme(): Int = R.style.AppBottomSheetDialogThemeDraggable
 
   private fun setData() = requireArguments().run {
     views.totalBalanceTextView.text = getString(FIAT_BALANCE_KEY)
