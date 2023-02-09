@@ -5,7 +5,7 @@
     android:id="@+id/payment_option_item_layout"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_margin="@dimen/normal_margin">
+    android:layout_margin="@dimen/small_margin">
 
   <ImageView
       android:id="@+id/payment_option_item_icon"
@@ -28,7 +28,7 @@
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toEndOf="@id/payment_option_item_icon"
       app:layout_constraintTop_toTopOf="parent"
-      android:text="Paypal"
+      tools:text="Paypal"
       />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

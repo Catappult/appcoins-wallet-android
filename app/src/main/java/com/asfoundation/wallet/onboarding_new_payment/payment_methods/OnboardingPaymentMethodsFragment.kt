@@ -132,6 +132,8 @@ class OnboardingPaymentMethodsFragment : BasePageViewFragment(),
       otherMethodsController.setData(list)
 
       views.onboardingIncompletePaymentMethods.root.visibility = View.VISIBLE
+      // TODO remove list if the design doesnt't want to include it in the flow
+      views.onboardingIncompletePaymentMethods.onboardingOtherPaymentMethodsRv.visibility = View.GONE
       views.onboardingIncompletePaymentMethods.onboardingOtherPaymentMethodsRv.setController(
         otherMethodsController
       )
@@ -152,6 +154,7 @@ class OnboardingPaymentMethodsFragment : BasePageViewFragment(),
       )
     )
     views.noPaymentMethodsError.root.visibility = View.VISIBLE
+    views.onboardingIncompletePaymentMethods.root.visibility = View.VISIBLE
   }
 
   /**

@@ -1,62 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/incomplete_payment_methods_layout"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    app:cardBackgroundColor="@color/styleguide_light_grey"
-    app:cardCornerRadius="@dimen/card_view_corner_radius"
-    app:cardElevation="2dp"
+    android:layout_height="match_parent"
+    android:background="@drawable/background_card_grey"
+    android:padding="@dimen/normal_margin"
     >
 
-  <androidx.constraintlayout.widget.ConstraintLayout
-      android:layout_width="match_parent"
-      android:layout_height="match_parent"
-      android:padding="@dimen/normal_margin"
-      >
+  <TextView
+      android:id="@+id/incomplete_payment_methods_title"
+      style="@style/TextS"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_marginHorizontal="@dimen/normal_margin"
+      android:text="Other payment methods available."
+      app:layout_constraintBottom_toBottomOf="@id/back_to_game_button"
+      app:layout_constraintEnd_toStartOf="@id/back_to_game_button"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="@id/back_to_game_button"
+      />
 
-    <TextView
-        android:id="@+id/incomplete_payment_methods_title"
-        style="@style/TextM"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/normal_margin"
-        android:gravity="center"
-        android:text="Can't find the payment method you wanted? If you pay direclty in the game, we also have.."
-        app:layout_constraintBottom_toTopOf="@id/onboarding_other_payment_methods_rv"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        />
+  <com.asfoundation.wallet.ui.common.WalletButtonView
+      android:id="@+id/back_to_game_button"
+      android:layout_width="wrap_content"
+      android:layout_height="@dimen/small_button_height"
+      app:buttonImageRight="@drawable/ic_arrow_right"
+      app:buttonText="@string/back_to_the_game_button"
+      app:buttonType="text"
+      app:layout_constraintBottom_toTopOf="@id/onboarding_other_payment_methods_rv"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toEndOf="@id/incomplete_payment_methods_title"
+      app:layout_constraintTop_toTopOf="parent"
+      />
 
-    <com.airbnb.epoxy.EpoxyRecyclerView
-        android:id="@+id/onboarding_other_payment_methods_rv"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/normal_margin"
-        android:orientation="horizontal"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_constraintBottom_toTopOf="@id/back_to_game_button"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/incomplete_payment_methods_title"
-        tools:listitem="@layout/onboarding_payment_other_option_item"
-        />
+  <com.airbnb.epoxy.EpoxyRecyclerView
+      android:id="@+id/onboarding_other_payment_methods_rv"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="@dimen/normal_margin"
+      android:orientation="horizontal"
+      app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+      app:layout_constraintBottom_toTopOf="@id/back_to_game_button"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/back_to_game_button"
+      tools:listitem="@layout/onboarding_payment_other_option_item"
+      />
 
-    <com.asfoundation.wallet.ui.common.WalletButtonView
-        android:id="@+id/back_to_game_button"
-        android:layout_width="wrap_content"
-        android:layout_height="@dimen/small_button_height"
-        android:layout_marginTop="@dimen/big_margin"
-        app:buttonText="@string/back_to_the_game_button"
-        app:buttonType="filled"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/onboarding_other_payment_methods_rv"
-        />
-  </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-</androidx.cardview.widget.CardView>
+</androidx.constraintlayout.widget.ConstraintLayout>
