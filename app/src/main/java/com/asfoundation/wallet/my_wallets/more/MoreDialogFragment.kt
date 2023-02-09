@@ -71,6 +71,10 @@ class MoreDialogFragment : BottomSheetDialogFragment(),
         }
       }
     }
+
+    views.scrollviewMyWallets.run {
+      post { fullScroll(View.FOCUS_DOWN) }
+    }
   }
 
   override fun onSideEffect(sideEffect: MoreDialogSideEffect) {
