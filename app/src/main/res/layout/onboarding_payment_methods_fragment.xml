@@ -17,6 +17,7 @@
       tools:visibility="visible"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintHorizontal_bias="0.0"
+      app:layout_constraintVertical_chainStyle="spread_inside"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent"
       app:layout_constraintBottom_toTopOf="@id/onboarding_payment_methods_rv"
@@ -40,6 +41,21 @@
       />
 
   <include
+      android:id="@+id/onboarding_incomplete_payment_methods"
+      layout="@layout/onboarding_incomplete_payment_methods_layout"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_marginHorizontal="@dimen/normal_margin"
+      android:layout_marginVertical="@dimen/big_margin"
+      android:visibility="gone"
+      tools:visibility="visible"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/onboarding_payment_methods_rv"
+      app:layout_constraintBottom_toTopOf="@id/onboarding_payment_terms_conditions"
+      />
+
+  <include
       android:id="@+id/onboarding_payment_terms_conditions"
       layout="@layout/onboarding_payment_terms_conditions"
       android:layout_width="0dp"
@@ -50,7 +66,7 @@
       tools:visibility="visible"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@id/onboarding_payment_methods_rv"
+      app:layout_constraintTop_toBottomOf="@id/onboarding_incomplete_payment_methods"
       app:layout_constraintBottom_toBottomOf="parent"
       />
 

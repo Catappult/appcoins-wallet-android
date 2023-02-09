@@ -7,7 +7,7 @@ import com.asfoundation.wallet.base.SideEffect
 import com.asfoundation.wallet.base.ViewState
 import com.asfoundation.wallet.onboarding.CachedTransactionRepository
 import com.asfoundation.wallet.onboarding_new_payment.use_cases.GetFirstPaymentMethodsUseCase
-import com.asfoundation.wallet.onboarding_new_payment.use_cases.GetPaypalAndCCMethodsUseCase
+import com.asfoundation.wallet.onboarding_new_payment.use_cases.GetOtherPaymentMethodsUseCase
 import com.asfoundation.wallet.ui.iab.PaymentMethod
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
@@ -18,12 +18,13 @@ sealed class OnboardingPaymentMethodsSideEffect : SideEffect {
 
 data class OnboardingPaymentMethodsState(
   val paymentMethodsAsync: Async<List<PaymentMethod>> = Async.Uninitialized,
+  val otherPaymentMethods: List<PaymentMethod> = listOf(),
 ) : ViewState
 
 @HiltViewModel
 class OnboardingPaymentMethodsViewModel @Inject constructor(
   private val getFirstPaymentMethodsUseCase: GetFirstPaymentMethodsUseCase,
-  private val getPaypalAndCCMethodsUseCase: GetPaypalAndCCMethodsUseCase, //temporary, to remove later and use getFirstPaymentMethodsUseCase
+  private val getOtherPaymentMethodsUseCase: GetOtherPaymentMethodsUseCase, //temporary, to remove later and use getFirstPaymentMethodsUseCase only
   private val cachedTransactionRepository: CachedTransactionRepository
 ) :
   BaseViewModel<OnboardingPaymentMethodsState, OnboardingPaymentMethodsSideEffect>(
@@ -39,7 +40,13 @@ class OnboardingPaymentMethodsViewModel @Inject constructor(
   private fun handlePaymentMethods() {
     cachedTransactionRepository.getCachedTransaction()
       .flatMap { cachedTransaction ->
-        getPaypalAndCCMethodsUseCase(cachedTransaction)
+        getFirstPaymentMethodsUseCase(cachedTransaction)
+          // to only use getFirstPaymentMethodsUseCase and remove the doOnSuccess after all methods are ready
+          .doOnSuccess { availablePaymentMethods ->
+            setState {
+              copy(otherPaymentMethods = getOtherPaymentMethodsUseCase(availablePaymentMethods))
+            }
+          }
           .asAsyncToState {
             copy(paymentMethodsAsync = it)
           }

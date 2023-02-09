@@ -25,9 +25,6 @@ abstract class PaymentMethodModel : EpoxyModelWithHolder<PaymentMethodModel.Paym
   @EpoxyAttribute
   lateinit var paymentMethodMapper: PaymentMethodsMapper
 
-  @EpoxyAttribute
-  var selected: Boolean = false
-
   @EpoxyAttribute(EpoxyAttribute.Option.DoNotHash)
   var clickListener: ((PaymentMethodClick) -> Unit)? = null
 

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/payment_option_item_layout"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/normal_margin">
+
+  <ImageView
+      android:id="@+id/payment_option_item_icon"
+      android:layout_width="20dp"
+      android:layout_height="20dp"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toStartOf="@id/payment_option_item_title"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      tools:src="@drawable/ic_payment_method_paypal"
+      />
+
+  <TextView
+      android:id="@+id/payment_option_item_title"
+      style="@style/TextS"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="@dimen/small_margin"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toEndOf="@id/payment_option_item_icon"
+      app:layout_constraintTop_toTopOf="parent"
+      android:text="Paypal"
+      />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

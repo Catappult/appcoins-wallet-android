@@ -81,6 +81,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/normal_margin"
+        android:paddingVertical="@dimen/normal_margin"
         android:layout_marginEnd="@dimen/half_large_margin"
         android:lineSpacingMultiplier="0.6"
         android:textColor="@color/styleguide_white"
