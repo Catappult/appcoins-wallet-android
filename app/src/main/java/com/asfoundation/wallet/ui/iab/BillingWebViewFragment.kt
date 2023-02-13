@@ -4,14 +4,11 @@ import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.webkit.CookieManager
 import android.webkit.WebView
@@ -125,7 +122,7 @@ class BillingWebViewFragment : BasePageViewFragment() {
               clickUrl.contains(ADYEN_PAYMENT_SCHEMA) ||
               clickUrl.contains(PAYPAL_SUCCESS_SCHEMA) -> {
             currentUrl = clickUrl
-            finishWithSuccess(clickUrl)
+            finishWithValidations(clickUrl)
           }
           isExternalIntentSchema(clickUrl) -> {
             launchActivityForSchema(view, clickUrl)
@@ -135,11 +132,11 @@ class BillingWebViewFragment : BasePageViewFragment() {
           ) -> {
             val orderId = Uri.parse(clickUrl)
               .getQueryParameter(ORDER_ID_PARAMETER)
-            finishWithSuccess(LOCAL_PAYMENTS_URL + orderId)
+            finishWithValidations(LOCAL_PAYMENTS_URL + orderId)
           }
           clickUrl.contains(CARRIER_BILLING_RETURN_SCHEMA.format(BuildConfig.APPLICATION_ID)) -> {
             currentUrl = clickUrl
-            finishWithSuccess(clickUrl)
+            finishWithValidations(clickUrl)
           }
           clickUrl.contains(CODAPAY_CANCEL_URL) -> finishWithFail(clickUrl)
           clickUrl.contains(OPEN_SUPPORT) -> finishWithFail(clickUrl)
@@ -267,17 +264,26 @@ class BillingWebViewFragment : BasePageViewFragment() {
     }
   }
 
-  private fun finishWithSuccess(url: String) {
+  private fun prepareIntentToFinishURL(url: String) : Intent {
     val intent = Intent()
     intent.data = Uri.parse(url)
-    webViewActivity?.setResult(WebViewActivity.SUCCESS, intent)
+    return intent
+  }
+
+  private fun finishWithValidations(url: String) {
+    val intent = prepareIntentToFinishURL(url)
+    val resultCode = Uri.parse(url).getQueryParameter("resultCode")
+    if (resultCode.equals("cancelled", true)) {
+      webViewActivity?.setResult(WebViewActivity.USER_CANCEL, intent)
+    } else {
+      webViewActivity?.setResult(WebViewActivity.SUCCESS, intent)
+    }
+
     webViewActivity?.finish()
   }
 
   private fun finishWithFail(url: String) {
-    val intent = Intent()
-    intent.data = Uri.parse(url)
-    webViewActivity?.setResult(WebViewActivity.FAIL, intent)
+    webViewActivity?.setResult(WebViewActivity.FAIL, prepareIntentToFinishURL(url))
     webViewActivity?.finish()
   }
 
