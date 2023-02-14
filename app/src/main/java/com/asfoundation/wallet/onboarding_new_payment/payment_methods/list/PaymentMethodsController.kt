@@ -1,16 +1,20 @@
 package com.asfoundation.wallet.onboarding_new_payment.payment_methods.list
 
-import com.airbnb.epoxy.Typed2EpoxyController
+import com.airbnb.epoxy.Typed3EpoxyController
 import com.asfoundation.wallet.onboarding_new_payment.payment_methods.list.model.PaymentMethodModel_
 import com.asfoundation.wallet.ui.iab.PaymentMethod
 import com.asfoundation.wallet.ui.iab.PaymentMethodsMapper
 
 class PaymentMethodsController :
-  Typed2EpoxyController<List<PaymentMethod>, PaymentMethodsMapper>() {
+  Typed3EpoxyController<List<PaymentMethod>, List<PaymentMethod>, PaymentMethodsMapper>() {
 
   var clickListener: ((PaymentMethodClick) -> Unit)? = null
 
-  override fun buildModels(model: List<PaymentMethod>, mapper: PaymentMethodsMapper) {
+  override fun buildModels(
+    model: List<PaymentMethod>,
+    other: List<PaymentMethod>,
+    mapper: PaymentMethodsMapper
+  ) {
     for (paymentMethod in model) {
       /**
        * if to only show both credit card and paypal without making bigger changes
@@ -24,6 +28,9 @@ class PaymentMethodsController :
             .clickListener(clickListener)
         )
       }
+    }
+    if (other.isNotEmpty()) {
+      add(IncompletePaymentMethodsGroup(other, clickListener))
     }
   }
 }

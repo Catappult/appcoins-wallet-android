@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/incomplete_payment_methods_layout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:background="@drawable/background_card_grey"
     android:padding="@dimen/normal_margin"
     >
@@ -14,39 +14,44 @@
       style="@style/TextS"
       android:layout_width="0dp"
       android:layout_height="wrap_content"
-      android:layout_marginHorizontal="@dimen/normal_margin"
+      android:layout_marginHorizontal="@dimen/big_margin"
+      android:gravity="center_horizontal"
       android:text="Other payment methods available."
-      app:layout_constraintBottom_toBottomOf="@id/back_to_game_button"
-      app:layout_constraintEnd_toStartOf="@id/back_to_game_button"
+      app:layout_constraintBottom_toTopOf="@id/incomplete_payment_methods_text_list"
+      app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toTopOf="@id/back_to_game_button"
+      app:layout_constraintTop_toTopOf="parent"
+      />
+
+  <TextView
+      android:id="@+id/incomplete_payment_methods_text_list"
+      style="@style/TextS"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="@dimen/small_margin"
+      android:layout_marginHorizontal="@dimen/big_margin"
+      android:lineSpacingMultiplier="0.5"
+      android:gravity="center_horizontal"
+      android:visibility="gone"
+      app:layout_constraintBottom_toTopOf="@id/back_to_game_button"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/incomplete_payment_methods_title"
+      tools:text="GO-PAY, OVO, DANA, LinkAja, Doku wallet"
+      tools:visibility="visible"
       />
 
   <com.asfoundation.wallet.ui.common.WalletButtonView
       android:id="@+id/back_to_game_button"
       android:layout_width="wrap_content"
       android:layout_height="@dimen/small_button_height"
-      app:buttonImageRight="@drawable/ic_arrow_right"
+      android:layout_marginTop="@dimen/small_margin"
       app:buttonText="@string/back_to_the_game_button"
       app:buttonType="text"
-      app:layout_constraintBottom_toTopOf="@id/onboarding_other_payment_methods_rv"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintStart_toEndOf="@id/incomplete_payment_methods_title"
-      app:layout_constraintTop_toTopOf="parent"
-      />
-
-  <com.airbnb.epoxy.EpoxyRecyclerView
-      android:id="@+id/onboarding_other_payment_methods_rv"
-      android:layout_width="0dp"
-      android:layout_height="wrap_content"
-      android:layout_marginTop="@dimen/normal_margin"
-      android:orientation="horizontal"
-      app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-      app:layout_constraintBottom_toTopOf="@id/back_to_game_button"
+      app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@id/back_to_game_button"
-      tools:listitem="@layout/onboarding_payment_other_option_item"
+      app:layout_constraintTop_toBottomOf="@id/incomplete_payment_methods_text_list"
+      app:layout_constraintVertical_bias="0.0"
       />
-
 </androidx.constraintlayout.widget.ConstraintLayout>

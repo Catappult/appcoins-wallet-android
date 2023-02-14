@@ -7,4 +7,5 @@ sealed class PaymentMethodClick {
   object LocalPaymentClick : PaymentMethodClick()
   object CarrierBillingClick : PaymentMethodClick()
   object ShareLinkPaymentClick : PaymentMethodClick()
+  object OtherPaymentMethods : PaymentMethodClick()
 }
