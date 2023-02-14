@@ -210,31 +210,38 @@ class IabPresenter(
   }
 
   private fun handleWebViewResult(resultCode: Int, data: Intent?) {
-    if (resultCode == WebViewActivity.FAIL) {
-      if (data?.dataString?.contains("codapayments") != true) {
-        if (data?.dataString?.contains(
-            BillingWebViewFragment.CARRIER_BILLING_ONE_BIP_SCHEMA
-          ) == true
-        ) {
-          sendCarrierBillingConfirmationEvent("cancel")
-        } else {
+    when (resultCode) {
+      WebViewActivity.FAIL -> {
+        if (data?.dataString?.contains("codapayments") != true) {
+          if (data?.dataString?.contains(
+              BillingWebViewFragment.CARRIER_BILLING_ONE_BIP_SCHEMA
+            ) == true
+          ) {
+            sendCarrierBillingConfirmationEvent("cancel")
+          } else {
+            sendPayPalConfirmationEvent("cancel")
+          }
+        }
+        if (data?.dataString?.contains(BillingWebViewFragment.OPEN_SUPPORT) == true) {
+          logger.log(TAG, Exception("WebViewResult ${data.dataString}"))
+          iabInteract.showSupport()
+        }
+        view.showPaymentMethodsView()
+      }
+      WebViewActivity.SUCCESS -> {
+        if (data?.scheme?.contains("adyencheckout") == true) {
+          sendPaypalUrlEvent(data)
+          sendPayPalConfirmationEvent("buy")
+        }
+        view.successWebViewResult(data!!.data)
+      }
+      WebViewActivity.USER_CANCEL -> {
+        if (data?.scheme?.contains("adyencheckout") == true) {
+          sendPaypalUrlEvent(data)
           sendPayPalConfirmationEvent("cancel")
         }
+        view.showPaymentMethodsView()
       }
-      if (data?.dataString?.contains(BillingWebViewFragment.OPEN_SUPPORT) == true) {
-        logger.log(TAG, Exception("WebViewResult ${data.dataString}"))
-        iabInteract.showSupport()
-      }
-      view.showPaymentMethodsView()
-    } else if (resultCode == WebViewActivity.SUCCESS) {
-      if (data?.scheme?.contains("adyencheckout") == true) {
-        sendPaypalUrlEvent(data)
-        if (getQueryParameter(data, "resultCode") == "cancelled")
-          sendPayPalConfirmationEvent("cancel")
-        else
-          sendPayPalConfirmationEvent("buy")
-      }
-      view.successWebViewResult(data!!.data)
     }
   }
 
