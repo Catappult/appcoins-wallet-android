@@ -32,6 +32,7 @@ sealed class OnboardingPaymentResultSideEffect : SideEffect {
     OnboardingPaymentResultSideEffect()
 
   data class NavigateBackToGame(val appPackageName: String) : OnboardingPaymentResultSideEffect()
+  object NavigateToExploreWallet : OnboardingPaymentResultSideEffect()
   object NavigateBackToPaymentMethods : OnboardingPaymentResultSideEffect()
 }
 
@@ -39,26 +40,22 @@ object OnboardingPaymentResultState : ViewState
 
 @HiltViewModel
 class OnboardingPaymentResultViewModel @Inject constructor(
-  private val savedStateHandle: SavedStateHandle,
   private val adyenPaymentInteractor: AdyenPaymentInteractor,
   private val events: OnboardingPaymentEvents,
   private val setOnboardingCompletedUseCase: SetOnboardingCompletedUseCase,
   private val supportInteractor: SupportInteractor,
-  private val rxSchedulers: RxSchedulers
+  private val rxSchedulers: RxSchedulers,
+  savedStateHandle: SavedStateHandle
 ) :
   BaseViewModel<OnboardingPaymentResultState, OnboardingPaymentResultSideEffect>(
     OnboardingPaymentResultState
   ) {
 
-  private lateinit var args: OnboardingPaymentResultFragmentArgs
+  private var args: OnboardingPaymentResultFragmentArgs =
+    OnboardingPaymentResultFragmentArgs.fromSavedStateHandle(savedStateHandle)
 
   init {
-    getSavedStateArguments()
     handlePaymentResult()
-  }
-
-  private fun getSavedStateArguments() {
-    args = OnboardingPaymentResultFragmentArgs.fromSavedStateHandle(savedStateHandle)
   }
 
   private fun handlePaymentResult() {
@@ -227,7 +224,13 @@ class OnboardingPaymentResultViewModel @Inject constructor(
   }
 
   fun handleBackToGameClick() {
+    events.sendBackToTheGameEvent("payment_result")
     sendSideEffect { OnboardingPaymentResultSideEffect.NavigateBackToGame(args.transactionBuilder.domain) }
+  }
+
+  fun handleExploreWalletClick() {
+    events.sendExploreWalletEvent("payment_result")
+    sendSideEffect { OnboardingPaymentResultSideEffect.NavigateToExploreWallet }
   }
 
   fun showSupport(gamificationLevel: Int) {

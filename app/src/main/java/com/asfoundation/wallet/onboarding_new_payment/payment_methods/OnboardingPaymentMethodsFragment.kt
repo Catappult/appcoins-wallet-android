@@ -23,7 +23,6 @@ import com.asf.wallet.R
 import com.asf.wallet.databinding.OnboardingPaymentMethodsFragmentBinding
 import com.asfoundation.wallet.base.Async
 import com.asfoundation.wallet.base.SingleStateFragment
-import com.asfoundation.wallet.onboarding_new_payment.payment_methods.list.OtherPaymentMethodsController
 import com.asfoundation.wallet.onboarding_new_payment.payment_methods.list.PaymentMethodClick
 import com.asfoundation.wallet.onboarding_new_payment.payment_methods.list.PaymentMethodsController
 import com.asfoundation.wallet.ui.iab.PaymentMethod
@@ -48,7 +47,6 @@ class OnboardingPaymentMethodsFragment : BasePageViewFragment(),
   lateinit var paymentMethodsMapper: PaymentMethodsMapper
 
   private lateinit var controller: PaymentMethodsController
-  private lateinit var otherMethodsController: OtherPaymentMethodsController
 
   override fun onCreateView(
     inflater: LayoutInflater, @Nullable container: ViewGroup?,
@@ -85,6 +83,7 @@ class OnboardingPaymentMethodsFragment : BasePageViewFragment(),
         is PaymentMethodClick.LocalPaymentClick -> navigator.navigateToLocalPayment()
         is PaymentMethodClick.CarrierBillingClick -> navigator.navigateToCarrierBilling()
         is PaymentMethodClick.ShareLinkPaymentClick -> navigator.navigateToShareLinkPayment()
+        PaymentMethodClick.OtherPaymentMethods -> viewModel.handleBackToGameClick()
       }
     }
     views.onboardingPaymentMethodsRv.setController(controller)
@@ -112,6 +111,7 @@ class OnboardingPaymentMethodsFragment : BasePageViewFragment(),
   override fun onSideEffect(sideEffect: OnboardingPaymentMethodsSideEffect) {
     when (sideEffect) {
       is OnboardingPaymentMethodsSideEffect.NavigateToLink -> navigator.navigateToBrowser(sideEffect.uri)
+      is OnboardingPaymentMethodsSideEffect.NavigateBackToGame -> navigator.navigateBackToGame(sideEffect.appPackageName)
     }
   }
 
@@ -122,25 +122,7 @@ class OnboardingPaymentMethodsFragment : BasePageViewFragment(),
     views.onboardingPaymentMethodsTitle.visibility = View.VISIBLE
     views.onboardingPaymentMethodsRv.visibility = View.VISIBLE
     views.onboardingPaymentTermsConditions.root.visibility = View.VISIBLE
-    controller.setData(paymentMethodsList, paymentMethodsMapper)
-    showIncompletePaymentMethodsFlow(otherPaymentMethodsList)
-  }
-
-  private fun showIncompletePaymentMethodsFlow(list: List<PaymentMethod>) {
-    if (list.isNotEmpty()) {
-      otherMethodsController = OtherPaymentMethodsController()
-      otherMethodsController.setData(list)
-
-      views.onboardingIncompletePaymentMethods.root.visibility = View.VISIBLE
-      // TODO remove list if the design doesnt't want to include it in the flow
-      views.onboardingIncompletePaymentMethods.onboardingOtherPaymentMethodsRv.visibility = View.GONE
-      views.onboardingIncompletePaymentMethods.onboardingOtherPaymentMethodsRv.setController(
-        otherMethodsController
-      )
-      views.onboardingIncompletePaymentMethods.backToGameButton.setOnClickListener {
-        navigator.navigateBackToGame(args.packageName)
-      }
-    }
+    controller.setData(paymentMethodsList, otherPaymentMethodsList, paymentMethodsMapper)
   }
 
   private fun handleNoPaymentMethodsError() {

@@ -50,23 +50,19 @@ class OnboardingAdyenPaymentViewModel @Inject constructor(
   private val getPaymentInfoModelUseCase: GetPaymentInfoModelUseCase,
   private val transactionOriginUseCase: GetTransactionOriginUseCase,
   private val supportInteractor: SupportInteractor,
-  private val savedStateHandle: SavedStateHandle,
-  private val rxSchedulers: RxSchedulers
+  private val rxSchedulers: RxSchedulers,
+  savedStateHandle: SavedStateHandle
 ) :
   BaseViewModel<OnboardingAdyenPaymentState, OnboardingAdyenPaymentSideEffect>(
     OnboardingAdyenPaymentState()
   ) {
 
-  private lateinit var args: OnboardingAdyenPaymentFragmentArgs
+  private var args: OnboardingAdyenPaymentFragmentArgs =
+    OnboardingAdyenPaymentFragmentArgs.fromSavedStateHandle(savedStateHandle)
   private lateinit var cachedUid: String
 
   init {
-    getSavedStateArguments()
     handlePaymentInfo()
-  }
-
-  private fun getSavedStateArguments() {
-    args = OnboardingAdyenPaymentFragmentArgs.fromSavedStateHandle(savedStateHandle)
   }
 
   private fun handlePaymentInfo() {

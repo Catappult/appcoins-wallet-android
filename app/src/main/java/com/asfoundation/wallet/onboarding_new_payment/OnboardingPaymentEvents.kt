@@ -2,6 +2,7 @@ package com.asfoundation.wallet.onboarding_new_payment
 
 import android.content.Intent
 import android.net.Uri
+import cm.aptoide.analytics.AnalyticsManager
 import com.asfoundation.wallet.billing.adyen.PaymentType
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics
 import com.asfoundation.wallet.entity.TransactionBuilder
@@ -13,6 +14,7 @@ class OnboardingPaymentEvents @Inject constructor(
   private val paymentMethodsAnalytics: PaymentMethodsAnalytics,
   private val billingAnalytics: BillingAnalytics,
   private val revenueValueUseCase: GetAnalyticsRevenueValueUseCase,
+  private val analyticsManager: AnalyticsManager
 ) {
 
 
@@ -181,5 +183,37 @@ class OnboardingPaymentEvents @Inject constructor(
 
   fun send3dsError(error: String?) {
     paymentMethodsAnalytics.send3dsError(error)
+  }
+
+  fun sendBackToTheGameEvent(conclusionPoint: String) {
+    analyticsManager.logEvent(
+      hashMapOf<String, Any>(
+        ONBOARDING_PAYMENT to true,
+        EVENT_WALLET_PAYMENT_CONCLUSION_POINT to conclusionPoint,
+      ),
+      EVENT_WALLET_PAYMENT_BACK_TO_THE_GAME,
+      AnalyticsManager.Action.CLICK,
+      WALLET
+    )
+  }
+
+  fun sendExploreWalletEvent(conclusionPoint: String) {
+    analyticsManager.logEvent(
+      hashMapOf<String, Any>(
+        ONBOARDING_PAYMENT to true,
+        EVENT_WALLET_PAYMENT_CONCLUSION_POINT to conclusionPoint,
+      ),
+      EVENT_WALLET_PAYMENT_EXPLORE_WALLET,
+      AnalyticsManager.Action.CLICK,
+      WALLET
+    )
+  }
+
+  companion object {
+    const val EVENT_WALLET_PAYMENT_BACK_TO_THE_GAME = "wallet_payment_back_to_the_game"
+    const val EVENT_WALLET_PAYMENT_EXPLORE_WALLET = "wallet_payment_explore_wallet"
+    const val ONBOARDING_PAYMENT = "onboarding_payment"
+    const val EVENT_WALLET_PAYMENT_CONCLUSION_POINT = "wallet_payment_conclusion_point"
+    const val WALLET = "wallet"
   }
 }
