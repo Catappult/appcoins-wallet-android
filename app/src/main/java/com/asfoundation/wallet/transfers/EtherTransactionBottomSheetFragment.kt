@@ -63,7 +63,7 @@ class EtherTransactionBottomSheetFragment : BottomSheetDialogFragment(),
   }
 
   override fun getTheme(): Int {
-    return R.style.AppBottomSheetDialogTheme
+    return R.style.AppBottomSheetDialogThemeNotDraggable
   }
 
   override fun setTransactionHash(transactionHash: String) {

@@ -141,11 +141,12 @@
   <string name="launching_wallet_body">Launching wallet&#8230;</string>
   <string name="select_method_title">Choose a payment method</string>
   <string name="bonus_body">Get %s bonus with this purchase.</string>
-  <string name="agree_by_choosing_a_payment_method_body">By choosing a payment method, you agree to the %$1s and %$2s.</string>
+  <string name="agree_by_choosing_a_payment_method_body">By choosing a payment method, you agree to the %1$s and %2$s.</string>
   <string name="pay_with_card_title">Pay with credit/debit card</string>
   <string name="more_payment_methods_button">More payment methods</string>
   <string name="bonus_received_body">You received a %s bonus in your wallet.</string>
   <string name="back_to_the_game_button">Back to the game</string>
+  <string name="other_payment_methos_title">Other payment methods:</string>
   <!-- Menus -->
   <!-- Labels -->
   <string name="label_from">Từ</string>

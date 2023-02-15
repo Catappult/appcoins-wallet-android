@@ -1,143 +1,159 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/scrollview_my_wallets"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:paddingTop="24dp"
-    android:paddingBottom="16dp"
     >
 
-  <TextView
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_gravity="center_vertical"
-      android:layout_marginBottom="8dp"
-      android:fontFamily="sans-serif-medium"
-      android:paddingHorizontal="16dp"
-      android:text="@string/bottom_navigation_my_wallets"
-      android:textColor="@color/styleguide_blue"
-      android:textSize="14sp"
-      />
-
   <LinearLayout
-      android:id="@+id/wallets_view"
       android:layout_width="match_parent"
-      android:layout_height="wrap_content"
+      android:layout_height="match_parent"
       android:orientation="vertical"
-      android:paddingHorizontal="16dp"
-      />
-
-  <com.google.android.material.card.MaterialCardView
-      android:id="@+id/new_wallet_card_view"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:layout_marginTop="10dp"
-      android:layout_marginBottom="8dp"
-      app:cardElevation="0dp"
-      app:rippleColor="@color/styleguide_dark_grey"
-      app:shapeAppearance="@style/MyWallets.Shapes.Rounded8"
+      android:paddingBottom="16dp"
       >
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:orientation="horizontal"
+    <ImageView
+        android:id="@+id/draggable_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/normal_margin"
+        android:src="@drawable/pull_up_home_bar"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginTop="@dimen/big_margin"
+        android:layout_marginBottom="8dp"
+        android:fontFamily="sans-serif-medium"
         android:paddingHorizontal="16dp"
-        >
-      <ImageView
-          android:id="@+id/new_wallet_icon"
-          android:layout_width="26dp"
-          android:layout_height="26dp"
-          android:layout_gravity="center_vertical"
-          android:src="@drawable/ic_plus"
-          />
-
-      <TextView
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:layout_gravity="center_vertical"
-          android:layout_marginHorizontal="22dp"
-          android:fontFamily="sans-serif-medium"
-          android:text="@string/my_wallets_action_new_wallet"
-          android:textColor="@color/styleguide_blue"
-          android:textSize="14sp"
-          />
-    </LinearLayout>
-  </com.google.android.material.card.MaterialCardView>
-
-  <com.google.android.material.card.MaterialCardView
-      android:id="@+id/recover_wallet_card_view"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:layout_marginBottom="8dp"
-      app:cardElevation="0dp"
-      app:rippleColor="@color/styleguide_dark_grey"
-      app:shapeAppearance="@style/MyWallets.Shapes.Rounded8"
-      >
+        android:text="@string/bottom_navigation_my_wallets"
+        android:textColor="@color/styleguide_blue"
+        android:textSize="14sp"
+        />
 
     <LinearLayout
+        android:id="@+id/wallets_view"
         android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:orientation="horizontal"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
         android:paddingHorizontal="16dp"
-        >
-      <ImageView
-          android:id="@+id/recover_wallet_icon"
-          android:layout_width="26dp"
-          android:layout_height="26dp"
-          android:layout_gravity="center_vertical"
-          android:src="@drawable/ic_recover"
-          />
+        />
 
-      <TextView
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:layout_gravity="center_vertical"
-          android:layout_marginHorizontal="22dp"
-          android:fontFamily="sans-serif-medium"
-          android:text="@string/my_wallets_action_recover_wallet"
-          android:textColor="@color/styleguide_blue"
-          android:textSize="14sp"
-          />
-    </LinearLayout>
-
-  </com.google.android.material.card.MaterialCardView>
-
-  <com.google.android.material.card.MaterialCardView
-      android:id="@+id/delete_wallet_card_view"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:layout_marginBottom="4dp"
-      app:cardElevation="0dp"
-      app:rippleColor="@color/styleguide_dark_grey"
-      app:shapeAppearance="@style/MyWallets.Shapes.Rounded8"
-      >
-
-    <LinearLayout
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/new_wallet_card_view"
         android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:orientation="horizontal"
-        android:paddingHorizontal="16dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="8dp"
+        app:cardElevation="0dp"
+        app:rippleColor="@color/styleguide_dark_grey"
+        app:shapeAppearance="@style/MyWallets.Shapes.Rounded8"
         >
-      <ImageView
-          android:id="@+id/delete_wallet_icon"
-          android:layout_width="26dp"
-          android:layout_height="26dp"
-          android:layout_gravity="center_vertical"
-          android:src="@drawable/ic_delete"
-          />
 
-      <TextView
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:layout_gravity="center_vertical"
-          android:layout_marginHorizontal="22dp"
-          android:fontFamily="sans-serif-medium"
-          android:text="@string/my_wallets_action_delete_wallet"
-          android:textColor="@color/styleguide_blue"
-          android:textSize="14sp"
-          />
-    </LinearLayout>
-  </com.google.android.material.card.MaterialCardView>
-</LinearLayout>
+      <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="48dp"
+          android:orientation="horizontal"
+          android:paddingHorizontal="16dp"
+          >
+        <ImageView
+            android:id="@+id/new_wallet_icon"
+            android:layout_width="26dp"
+            android:layout_height="26dp"
+            android:layout_gravity="center_vertical"
+            android:src="@drawable/ic_plus"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginHorizontal="22dp"
+            android:fontFamily="sans-serif-medium"
+            android:text="@string/my_wallets_action_new_wallet"
+            android:textColor="@color/styleguide_blue"
+            android:textSize="14sp"
+            />
+      </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/recover_wallet_card_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        app:cardElevation="0dp"
+        app:rippleColor="@color/styleguide_dark_grey"
+        app:shapeAppearance="@style/MyWallets.Shapes.Rounded8"
+        >
+
+      <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="48dp"
+          android:orientation="horizontal"
+          android:paddingHorizontal="16dp"
+          >
+        <ImageView
+            android:id="@+id/recover_wallet_icon"
+            android:layout_width="26dp"
+            android:layout_height="26dp"
+            android:layout_gravity="center_vertical"
+            android:src="@drawable/ic_recover"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginHorizontal="22dp"
+            android:fontFamily="sans-serif-medium"
+            android:text="@string/my_wallets_action_recover_wallet"
+            android:textColor="@color/styleguide_blue"
+            android:textSize="14sp"
+            />
+      </LinearLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/delete_wallet_card_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp"
+        app:cardElevation="0dp"
+        app:rippleColor="@color/styleguide_dark_grey"
+        app:shapeAppearance="@style/MyWallets.Shapes.Rounded8"
+        >
+
+      <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="48dp"
+          android:orientation="horizontal"
+          android:paddingHorizontal="16dp"
+          >
+        <ImageView
+            android:id="@+id/delete_wallet_icon"
+            android:layout_width="26dp"
+            android:layout_height="26dp"
+            android:layout_gravity="center_vertical"
+            android:src="@drawable/ic_delete"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginHorizontal="22dp"
+            android:fontFamily="sans-serif-medium"
+            android:text="@string/my_wallets_action_delete_wallet"
+            android:textColor="@color/styleguide_blue"
+            android:textSize="14sp"
+            />
+      </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+  </LinearLayout>
+</androidx.core.widget.NestedScrollView>

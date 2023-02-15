@@ -54,7 +54,7 @@ class NameDialogFragment : BottomSheetDialogFragment(),
     super.onStart()
   }
 
-  override fun getTheme(): Int = R.style.AppBottomSheetDialogTheme
+  override fun getTheme(): Int = R.style.AppBottomSheetDialogThemeDraggable
 
   override fun onStateChanged(state: NameDialogState) {
     when (val asyncValue = state.walletNameAsync) {

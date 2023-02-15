@@ -49,13 +49,19 @@ class TopUpActivityPresenter(
 
   fun processActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
     if (requestCode == TopUpActivity.WEB_VIEW_REQUEST_CODE) {
-      if (resultCode == WebViewActivity.SUCCESS && data != null) {
-        data.data?.let { view.acceptResult(it) } ?: view.cancelPayment()
-      } else if (resultCode == WebViewActivity.FAIL) {
-        if (data?.dataString?.contains(BillingWebViewFragment.OPEN_SUPPORT) == true) {
-          logger.log(TAG, Exception("ActivityResult ${data.dataString}"))
-          cancelPaymentAndShowSupport()
-        } else {
+      when (resultCode) {
+        WebViewActivity.FAIL -> {
+          if (data?.dataString?.contains(BillingWebViewFragment.OPEN_SUPPORT) == true) {
+            logger.log(TAG, Exception("ActivityResult ${data.dataString}"))
+            cancelPaymentAndShowSupport()
+          } else {
+            view.cancelPayment()
+          }
+        }
+        WebViewActivity.SUCCESS -> {
+          data?.data?.let { view.acceptResult(it) } ?: view.cancelPayment()
+        }
+        WebViewActivity.USER_CANCEL -> {
           view.cancelPayment()
         }
       }
