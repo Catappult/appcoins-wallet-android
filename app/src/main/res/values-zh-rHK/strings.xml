@@ -146,6 +146,7 @@
   <string name="more_payment_methods_button">More payment methods</string>
   <string name="bonus_received_body">You received a %s bonus in your wallet.</string>
   <string name="back_to_the_game_button">Back to the game</string>
+  <string name="other_payment_methos_title">Other payment methods:</string>
   <!-- Menus -->
   <!-- Labels -->
   <string name="label_from">From</string>
