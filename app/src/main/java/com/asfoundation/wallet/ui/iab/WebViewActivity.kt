@@ -76,7 +76,9 @@ class WebViewActivity() : AppCompatActivity() {
 
     const val SUCCESS = 1
     const val FAIL = 0
+    const val USER_CANCEL = 2
     private const val URL = "url"
+    const val USER_CANCEL_THROWABLE = "user_cancel"
 
     fun newIntent(activity: Activity?, url: String?): Intent {
       return Intent(activity, WebViewActivity::class.java).apply {

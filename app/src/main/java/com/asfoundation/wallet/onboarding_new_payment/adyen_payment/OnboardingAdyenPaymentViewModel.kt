@@ -225,17 +225,20 @@ class OnboardingAdyenPaymentViewModel @Inject constructor(
       WebViewActivity.SUCCESS -> {
         if (result.data?.scheme?.contains("adyencheckout") == true) {
           events.sendPaypalUrlEvent(args.transactionBuilder, result.data!!)
-          if (events.getQueryParameter(result.data!!, "resultCode") == "cancelled") {
-            events.sendPayPalConfirmationEvent(args.transactionBuilder, "cancel")
-          } else {
-            events.sendPayPalConfirmationEvent(args.transactionBuilder, "buy")
-          }
+          events.sendPayPalConfirmationEvent(args.transactionBuilder, "buy")
         }
         sendSideEffect {
           result.data!!.data?.let { uri ->
             OnboardingAdyenPaymentSideEffect.HandleWebViewResult(uri)
           }
         }
+      }
+      WebViewActivity.USER_CANCEL -> {
+        if (result.data?.scheme?.contains("adyencheckout") == true) {
+          events.sendPaypalUrlEvent(args.transactionBuilder, result.data!!)
+          events.sendPayPalConfirmationEvent(args.transactionBuilder, "cancel")
+        }
+        sendSideEffect { OnboardingAdyenPaymentSideEffect.NavigateBackToPaymentMethods }
       }
     }
   }

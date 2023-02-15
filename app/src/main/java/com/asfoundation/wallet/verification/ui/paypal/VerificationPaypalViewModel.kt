@@ -2,6 +2,7 @@ package com.asfoundation.wallet.verification.ui.paypal
 
 import com.appcoins.wallet.billing.adyen.AdyenPaymentRepository
 import com.asfoundation.wallet.base.*
+import com.asfoundation.wallet.ui.iab.WebViewActivity
 import com.asfoundation.wallet.verification.ui.credit_card.WalletVerificationInteractor
 import com.asfoundation.wallet.verification.ui.credit_card.intro.VerificationIntroModel
 import com.asfoundation.wallet.verification.ui.credit_card.network.VerificationStatus
@@ -71,6 +72,11 @@ class VerificationPaypalViewModel(
   fun failPayment() {
     setState { copy(verificationSubmitAsync = Async.Fail(Error.UnknownError(Throwable("")))) }
   }
+
+  fun cancelPayment() {
+      setState { copy(verificationSubmitAsync = Async.Fail(Error.UnknownError(Throwable(WebViewActivity.USER_CANCEL_THROWABLE)))) }
+  }
+
 
   fun tryAgain() {
     setState { copy(verificationSubmitAsync = Async.Uninitialized) }

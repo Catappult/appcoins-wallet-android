@@ -48,6 +48,8 @@ class VerificationPaypalFragment : BasePageViewFragment(),
       viewModel.successPayment()
     } else if (resultCode == WebViewActivity.FAIL) {
       viewModel.failPayment()
+    } else if (resultCode == WebViewActivity.USER_CANCEL) {
+      viewModel.cancelPayment()
     }
   }
 
@@ -95,6 +97,8 @@ class VerificationPaypalFragment : BasePageViewFragment(),
   private fun setError(error: Error) {
     if (error is Error.ApiError.NetworkError)
       showNetworkError()
+    else if (error.throwable.message.equals(WebViewActivity.USER_CANCEL_THROWABLE))
+      handleUserCancelError()
     else
       showGenericError()
   }
@@ -142,6 +146,11 @@ class VerificationPaypalFragment : BasePageViewFragment(),
       views.genericError.tryAgain.visibility = View.GONE
     }
     views.genericError.errorMessage.text = getString(R.string.unknown_error)
+  }
+
+  private fun handleUserCancelError() {
+    hideAll()
+    navigator.navigateBack()
   }
 
   private fun hideAll() {
