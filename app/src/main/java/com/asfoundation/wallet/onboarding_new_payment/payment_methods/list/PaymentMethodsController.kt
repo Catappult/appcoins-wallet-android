@@ -17,7 +17,7 @@ class PaymentMethodsController :
   ) {
     for (paymentMethod in model) {
       /**
-       * if to only show both credit card and paypal without making bigger changes
+       * if condition to only show both credit card and paypal without making bigger changes
        */
       if (paymentMethod.id == "credit_card" || paymentMethod.id == "paypal") {
         add(
