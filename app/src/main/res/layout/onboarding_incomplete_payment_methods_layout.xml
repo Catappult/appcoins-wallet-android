@@ -15,7 +15,7 @@
       android:layout_width="0dp"
       android:layout_height="wrap_content"
       android:layout_marginHorizontal="@dimen/normal_margin"
-      android:text="Other payment methods available."
+      android:text="@string/other_payment_methos_title"
       app:layout_constraintBottom_toTopOf="@id/incomplete_payment_methods_text_list"
       app:layout_constraintEnd_toStartOf="@id/back_to_game_arrow"
       app:layout_constraintStart_toStartOf="parent"
