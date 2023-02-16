@@ -83,6 +83,7 @@ class OnboardingPaymentMethodsFragment : BasePageViewFragment(),
         is PaymentMethodClick.LocalPaymentClick -> navigator.navigateToLocalPayment()
         is PaymentMethodClick.CarrierBillingClick -> navigator.navigateToCarrierBilling()
         is PaymentMethodClick.ShareLinkPaymentClick -> navigator.navigateToShareLinkPayment()
+        PaymentMethodClick.OtherPaymentMethods -> viewModel.handleBackToGameClick()
       }
     }
     views.onboardingPaymentMethodsRv.setController(controller)
@@ -98,7 +99,7 @@ class OnboardingPaymentMethodsFragment : BasePageViewFragment(),
         if (state.paymentMethodsAsync()?.isEmpty() == true) {
           handleNoPaymentMethodsError()
         } else {
-          showPaymentMethodsList(state.paymentMethodsAsync())
+          showPaymentMethodsList(state.paymentMethodsAsync(), state.otherPaymentMethods)
         }
       }
       is Async.Fail -> {
@@ -110,14 +111,18 @@ class OnboardingPaymentMethodsFragment : BasePageViewFragment(),
   override fun onSideEffect(sideEffect: OnboardingPaymentMethodsSideEffect) {
     when (sideEffect) {
       is OnboardingPaymentMethodsSideEffect.NavigateToLink -> navigator.navigateToBrowser(sideEffect.uri)
+      is OnboardingPaymentMethodsSideEffect.NavigateBackToGame -> navigator.navigateBackToGame(sideEffect.appPackageName)
     }
   }
 
-  private fun showPaymentMethodsList(paymentMethodsAsync: List<PaymentMethod>?) {
+  private fun showPaymentMethodsList(
+    paymentMethodsList: List<PaymentMethod>?,
+    otherPaymentMethodsList: List<PaymentMethod>
+  ) {
     views.onboardingPaymentMethodsTitle.visibility = View.VISIBLE
     views.onboardingPaymentMethodsRv.visibility = View.VISIBLE
     views.onboardingPaymentTermsConditions.root.visibility = View.VISIBLE
-    controller.setData(paymentMethodsAsync, paymentMethodsMapper)
+    controller.setData(paymentMethodsList, otherPaymentMethodsList, paymentMethodsMapper)
   }
 
   private fun handleNoPaymentMethodsError() {
@@ -131,6 +136,7 @@ class OnboardingPaymentMethodsFragment : BasePageViewFragment(),
       )
     )
     views.noPaymentMethodsError.root.visibility = View.VISIBLE
+    views.onboardingIncompletePaymentMethods.root.visibility = View.VISIBLE
   }
 
   /**

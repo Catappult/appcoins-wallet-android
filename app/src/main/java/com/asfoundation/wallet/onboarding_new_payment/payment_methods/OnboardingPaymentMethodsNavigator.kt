@@ -2,6 +2,7 @@ package com.asfoundation.wallet.onboarding_new_payment.payment_methods
 
 import android.content.ActivityNotFoundException
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.net.Uri
 import android.widget.Toast
 import androidx.fragment.app.Fragment
@@ -14,7 +15,10 @@ import com.asfoundation.wallet.billing.adyen.PaymentType
 import com.asfoundation.wallet.entity.TransactionBuilder
 import javax.inject.Inject
 
-class OnboardingPaymentMethodsNavigator @Inject constructor(private val fragment: Fragment) :
+class OnboardingPaymentMethodsNavigator @Inject constructor(
+  private val fragment: Fragment,
+  private val packageManager: PackageManager
+) :
   Navigator {
 
   fun navigateToBrowser(uri: Uri) {
@@ -27,6 +31,17 @@ class OnboardingPaymentMethodsNavigator @Inject constructor(private val fragment
       exception.printStackTrace()
       Toast.makeText(fragment.requireContext(), R.string.unknown_error, Toast.LENGTH_SHORT)
         .show()
+    }
+  }
+
+  fun navigateBackToGame(packageName: String) {
+    try {
+      fragment.startActivity(
+        packageManager.getLaunchIntentForPackage(packageName)
+      )
+    } catch (e: Throwable) {
+      e.printStackTrace()
+      fragment.activity?.finishAffinity()
     }
   }
 

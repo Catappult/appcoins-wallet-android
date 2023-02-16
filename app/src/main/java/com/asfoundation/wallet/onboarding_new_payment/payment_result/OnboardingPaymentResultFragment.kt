@@ -62,11 +62,12 @@ class OnboardingPaymentResultFragment : BasePageViewFragment(),
   }
 
   private fun clickListeners() {
-    views.genericErrorButtons.errorBack.setOnClickListener {
+    //try again and back needs to be separated later
+    views.genericErrorButtons.errorTryAgain.setOnClickListener {
       navigator.navigateBackToPaymentMethods()
     }
     views.genericErrorButtons.errorCancel.setOnClickListener {
-      navigator.navigateToHome()
+      viewModel.handleExploreWalletClick()
     }
     views.genericErrorLayout.layoutSupportIcn.setOnClickListener {
       viewModel.showSupport(args.forecastBonus.level)
@@ -75,7 +76,7 @@ class OnboardingPaymentResultFragment : BasePageViewFragment(),
       viewModel.handleBackToGameClick()
     }
     views.successButtons.exploreWalletButton.setOnClickListener {
-      navigator.navigateToHome()
+      viewModel.handleExploreWalletClick()
     }
   }
 
@@ -94,6 +95,7 @@ class OnboardingPaymentResultFragment : BasePageViewFragment(),
       is OnboardingPaymentResultSideEffect.NavigateBackToGame -> navigator.navigateBackToGame(
         sideEffect.appPackageName
       )
+      OnboardingPaymentResultSideEffect.NavigateToExploreWallet -> navigator.navigateToHome()
       OnboardingPaymentResultSideEffect.NavigateBackToPaymentMethods -> navigator.navigateBackToPaymentMethods()
     }
   }

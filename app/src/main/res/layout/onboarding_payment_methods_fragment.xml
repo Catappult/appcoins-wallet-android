@@ -13,30 +13,46 @@
       android:layout_width="0dp"
       android:layout_height="wrap_content"
       android:layout_marginHorizontal="@dimen/big_margin"
+      android:text="@string/select_method_title"
       android:visibility="gone"
-      tools:visibility="visible"
+      app:layout_constraintBottom_toTopOf="@+id/onboarding_payment_methods_rv"
       app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintHorizontal_bias="0.0"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent"
-      app:layout_constraintBottom_toTopOf="@id/onboarding_payment_methods_rv"
-      android:text="@string/select_method_title"
+      app:layout_constraintVertical_chainStyle="packed"
+      tools:visibility="visible"
       />
 
   <com.airbnb.epoxy.EpoxyRecyclerView
       android:id="@+id/onboarding_payment_methods_rv"
       android:layout_width="match_parent"
       android:layout_height="0dp"
+      android:layout_marginTop="@dimen/normal_margin"
       android:orientation="vertical"
       android:overScrollMode="never"
-      android:layout_marginTop="@dimen/normal_margin"
       android:visibility="gone"
-      tools:visibility="visible"
+      app:layout_constraintBottom_toTopOf="@+id/onboarding_incomplete_payment_methods"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintBottom_toTopOf="@id/onboarding_payment_terms_conditions"
-      app:layout_constraintTop_toBottomOf="@id/onboarding_payment_methods_title"
+      app:layout_constraintTop_toBottomOf="@+id/onboarding_payment_methods_title"
       tools:listitem="@layout/onboarding_payment_option_item"
+      tools:visibility="visible"
+      />
+
+  <include
+      android:id="@+id/onboarding_incomplete_payment_methods"
+      layout="@layout/onboarding_incomplete_payment_methods_layout"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_marginHorizontal="@dimen/normal_margin"
+      android:layout_marginTop="@dimen/normal_margin"
+      android:visibility="gone"
+      app:layout_constraintBottom_toTopOf="@+id/onboarding_payment_terms_conditions"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/onboarding_payment_methods_rv"
+      app:layout_constraintVertical_bias="0.0"
+      tools:visibility="visible"
       />
 
   <include
@@ -47,11 +63,12 @@
       android:layout_marginHorizontal="@dimen/half_large_margin"
       android:layout_marginTop="@dimen/half_large_margin"
       android:visibility="gone"
-      tools:visibility="visible"
+      app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@id/onboarding_payment_methods_rv"
-      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/onboarding_incomplete_payment_methods"
+      app:layout_constraintVertical_bias="1.0"
+      tools:visibility="visible"
       />
 
   <include
@@ -60,11 +77,11 @@
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:visibility="gone"
-      app:layout_constraintBottom_toBottomOf="parent"
-      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintBottom_toTopOf="@id/onboarding_incomplete_payment_methods"
       app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent"
-      app:layout_constraintVertical_bias="0.2"
+      app:layout_constraintVertical_chainStyle="packed"
       tools:visibility="gone"
       />
 
