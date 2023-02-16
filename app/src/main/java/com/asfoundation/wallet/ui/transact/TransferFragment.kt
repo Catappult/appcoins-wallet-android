@@ -116,6 +116,7 @@ class TransferFragment : BasePageViewFragment(), TransferFragmentView {
   override fun showInvalidWalletAddress() {
     transact_fragment_amount_layout.error = null
     transact_fragment_recipient_address_layout.error = getString(R.string.p2p_send_error_address)
+    scan_barcode_button.visibility = View.GONE
   }
 
   override fun getQrCodeResult(): Observable<Barcode> = qrCodeResult
