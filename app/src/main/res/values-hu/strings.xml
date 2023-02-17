@@ -30,6 +30,8 @@
   <string name="change_button">Módosítás</string>
   <string name="vip">VIP</string>
   <string name="faq">FAQs</string>
+  <string name="about_us_title">About Us</string>
+  <string name="preferences_title">Preferences</string>
   <string name="low_storage_error">Nincs elegendő tárhely</string>
   <string name="no_camera_permission_title">Engedély kamera használatára</string>
   <string name="no_camera_permission">Az AppCoins BDS Wallet engedélyt kér a kamera használatára, hogy QR-kódokat tudjon beolvasni.</string>

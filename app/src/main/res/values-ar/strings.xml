@@ -30,6 +30,8 @@
   <string name="change_button">تغيير</string>
   <string name="vip">VIP</string>
   <string name="faq">FAQs</string>
+  <string name="about_us_title">About Us</string>
+  <string name="preferences_title">Preferences</string>
   <string name="low_storage_error">لا توجد مساحة كافية للتخزين</string>
   <string name="no_camera_permission_title">تفعيل إذن الكاميرا</string>
   <string name="no_camera_permission">AppCoins BDS Wallet يحتاج إلى إذن للدخول إلى الكاميرا لمسح شيفرة QR.</string>

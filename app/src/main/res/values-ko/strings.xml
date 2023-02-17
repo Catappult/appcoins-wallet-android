@@ -30,6 +30,8 @@
   <string name="change_button">변경</string>
   <string name="vip">VIP</string>
   <string name="faq">FAQs</string>
+  <string name="about_us_title">About Us</string>
+  <string name="preferences_title">Preferences</string>
   <string name="low_storage_error">저장 공간이 부족합니다</string>
   <string name="no_camera_permission_title">카메라 사용 권한</string>
   <string name="no_camera_permission">AppCoins BDS Wallet은 QR 코드 스캔을 위해 카메라 접근 권한이 필요합니다.</string>

@@ -30,6 +30,8 @@
   <string name="change_button">เปลี่ยน</string>
   <string name="vip">VIP</string>
   <string name="faq">FAQs</string>
+  <string name="about_us_title">About Us</string>
+  <string name="preferences_title">Preferences</string>
   <string name="low_storage_error">พื้นที่จัดเก็บไม่เพียงพอ</string>
   <string name="no_camera_permission_title">สิทธิ์กล้อง</string>
   <string name="no_camera_permission">AppCoins BDS Wallet ต้องการสิทธิ์การเข้าถึงกล้องของคุณเพื่อสแกนรหัส QR</string>
