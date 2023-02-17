@@ -44,7 +44,7 @@
   <!-- TODO: Remove or change this placeholder text -->
   <string name="title_community">Κοινότητα</string>
   <string name="title_opensource">Προγραμματισμός Ανοιχτού Κώδικα</string>
-  <string name="title_source_code">Πηγαίος κώδικας</string>
+  <string name="title_source_code">Source Code</string>
   <string name="title_report_bug">Αναφορά σφάλματος</string>
   <string name="title_support">Υποστήριξη</string>
   <string name="title_permissions">Δικαιώματα</string>
@@ -80,7 +80,7 @@
   <string name="unknown_error">Παρουσιάστηκε ένα σφάλμα.</string>
   <string name="action_backup_wallet">Αντίγραφο Ασφαλείας Wallet</string>
   <string name="no_tokens">Δεν έχετε προσθέσει κάποιο ειδικό token ακόμη.</string>
-  <string name="title_email">Στείλτε μας email</string>
+  <string name="title_email">Email Us</string>
   <string name="action_donate">Πραγματοποιήστε δωρεά</string>
   <!-- Titles -->
   <string name="title_my_address">Λήψη</string>
@@ -756,7 +756,7 @@ Wallets</item>
   <string name="pioneer_gamification_body">Στους Πρωτοπόρους εντάσσονται οι πρώτοι χρήστες και λαμβάνουν αυξημένα bonus.</string>
   <!--Check for Updates-->
   <string name="check_updates_settings_current_title">Τρέχουσα έκδοση</string>
-  <string name="check_updates_settings_title">Έλεγχος για ενημερώσεις</string>
+  <string name="check_updates_settings_title">Check for Updates</string>
   <string name="check_updates_settings_subtitle">Τρέχουσα έκδοση %s</string>
   <string name="check_updates_checking_body">Αναζήτηση νέας έκδοσης</string>
   <string name="check_updates_no_updates_body">Έχετε την πιο πρόσφατη έκδοση!</string>
@@ -930,7 +930,7 @@ Wallets</item>
   <string name="perks_empty_state_first_purchase_body">Κάντε την πρώτη σας αγορά σε μία εφαρμογή συμβατή με AppCoins, ώστε να ξεκλειδώσετε τις προωθήσεις που έχουμε για εσάς!</string>
   <string name="perks_empty_body">Δεν υπάρχουν διαθέσιμες προωθήσεις αυτή τη στιγμή.</string>
   <!--Fingerprint Authentication-->
-  <string name="fingerprint_settings">Κλείδωμα με αποτύπωμα</string>
+  <string name="fingerprint_settings">Fingerprint Lock</string>
   <string name="fingerprint_failed_title">Αποτυχία επαλήθευσης!</string>
   <string name="fingerprint_failed_body">Παρακαλούμε προσπαθήστε ξανά σε %s δευτερόλεπτα.</string>
   <string name="fingerprint_authentication_required_title">Απαιτείται επαλήθευση!</string>
