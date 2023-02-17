@@ -30,6 +30,8 @@
   <string name="change_button">Wijzigen</string>
   <string name="vip">VIP</string>
   <string name="faq">FAQs</string>
+  <string name="about_us_title">About Us</string>
+  <string name="preferences_title">Preferences</string>
   <string name="low_storage_error">Er is onvoldoende opslagruimte</string>
   <string name="no_camera_permission_title">Toestemming voor camera</string>
   <string name="no_camera_permission">Om QR-codes te scannen heeft AppCoins BDS Wallet toestemming nodig om toegang tot je camera te krijgen.</string>
