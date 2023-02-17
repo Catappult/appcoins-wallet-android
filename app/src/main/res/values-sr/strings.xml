@@ -30,6 +30,8 @@
   <string name="change_button">Change</string>
   <string name="vip">VIP</string>
   <string name="faq">FAQs</string>
+  <string name="about_us_title">About Us</string>
+  <string name="preferences_title">Preferences</string>
   <string name="low_storage_error">Nema dovoljno prostora u memoriji</string>
   <string name="no_camera_permission_title">Dozvola za kameru</string>
   <string name="no_camera_permission">Aplikaciji AppCoins BDS Wallet je potrebna dozvola za pristup kameri kako bi skenirala QR kodove.</string>
