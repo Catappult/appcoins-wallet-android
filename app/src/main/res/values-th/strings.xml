@@ -44,7 +44,7 @@
   <!-- TODO: Remove or change this placeholder text -->
   <string name="title_community">คอมมิวนิตี้</string>
   <string name="title_opensource">พัฒนาแบบเปิด</string>
-  <string name="title_source_code">รหัสที่มา</string>
+  <string name="title_source_code">Source Code</string>
   <string name="title_report_bug">รายงานจุดบกพร่อง</string>
   <string name="title_support">การสนับสนุน</string>
   <string name="title_permissions">สิทธิ์</string>
@@ -80,7 +80,7 @@
   <string name="unknown_error">มีข้อผิดพลาดเกิดขึ้น</string>
   <string name="action_backup_wallet">กระเป๋าสตางค์ที่สำรอง</string>
   <string name="no_tokens">คุณยังไม่ได้เพิ่มการโทเคนที่กำหนดเองได้</string>
-  <string name="title_email">ส่งอีเมลถึงเรา</string>
+  <string name="title_email">Email Us</string>
   <string name="action_donate">บริจาค</string>
   <!-- Titles -->
   <string name="title_my_address">ได้รับ</string>
@@ -756,7 +756,7 @@
   <string name="pioneer_gamification_body">ระดับ Pioneer เป็นผู้เริ่มต้นได้โบนัสเพิ่มขึ้น</string>
   <!--Check for Updates-->
   <string name="check_updates_settings_current_title">เวอร์ชั่นปัจจุบัน</string>
-  <string name="check_updates_settings_title">ตรวจสอบการอัพเดต</string>
+  <string name="check_updates_settings_title">Check for Updates</string>
   <string name="check_updates_settings_subtitle">เวอร์ชั่นปัจจุบัน %s</string>
   <string name="check_updates_checking_body">กำลังค้นหาเวอร์ชั่นใหม่</string>
   <string name="check_updates_no_updates_body">คุณอัพเดตแล้ว!</string>
@@ -924,7 +924,7 @@
   <string name="perks_empty_state_first_purchase_body">ดำเนินการซื้อครั้งแรกของคุณในแอพที่รองรับ AppCoins เพื่อปลดล็อกโปรโมชั่นที่เรามีให้คุณ!</string>
   <string name="perks_empty_body">ในขณะนี้ไม่มีโปรโมชั่น</string>
   <!--Fingerprint Authentication-->
-  <string name="fingerprint_settings">ล็อกลายนิ้วมือ</string>
+  <string name="fingerprint_settings">Fingerprint Lock</string>
   <string name="fingerprint_failed_title">การรับรองความถูกต้องล้มเหลว!</string>
   <string name="fingerprint_failed_body">โปรดลองอีกครั้งใน %s วินาที</string>
   <string name="fingerprint_authentication_required_title">จำเป็นต้องรับรองความถูกต้อง!</string>
