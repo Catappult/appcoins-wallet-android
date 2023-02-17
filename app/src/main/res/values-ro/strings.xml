@@ -44,7 +44,7 @@
   <!-- TODO: Remove or change this placeholder text -->
   <string name="title_community">Comunitate</string>
   <string name="title_opensource">Dezvoltare Open Source</string>
-  <string name="title_source_code">Cod sursă</string>
+  <string name="title_source_code">Source Code</string>
   <string name="title_report_bug">Raportează o eroare</string>
   <string name="title_support">Asistență</string>
   <string name="title_permissions">Permisiuni</string>
@@ -80,7 +80,7 @@
   <string name="unknown_error">A apărut o eroare.</string>
   <string name="action_backup_wallet">Copie de rezervă portofel</string>
   <string name="no_tokens">Nu ai adăugat niciun token personalizat încă.</string>
-  <string name="title_email">Trimite-ne un e-mail</string>
+  <string name="title_email">Email Us</string>
   <string name="action_donate">Donează</string>
   <!-- Titles -->
   <string name="title_my_address">Primește</string>
@@ -756,7 +756,7 @@
   <string name="pioneer_gamification_body">Un Pionier este unul dintre primii utilizatorii, cu acces la bonusuri mai mari.</string>
   <!--Check for Updates-->
   <string name="check_updates_settings_current_title">Versiune curentă</string>
-  <string name="check_updates_settings_title">Caută actualizări</string>
+  <string name="check_updates_settings_title">Check for Updates</string>
   <string name="check_updates_settings_subtitle">Versiune curentă %s</string>
   <string name="check_updates_checking_body">Se caută o versiune nouă</string>
   <string name="check_updates_no_updates_body">Ești la zi!</string>
@@ -936,7 +936,7 @@
   <string name="perks_empty_state_first_purchase_body">Fă prima ta achiziție într-o aplicație compatibilă cu AppCoins pentru a debloca promoțiile pe care ți le-am pregătit!</string>
   <string name="perks_empty_body">Fără promoții disponibile momentan.</string>
   <!--Fingerprint Authentication-->
-  <string name="fingerprint_settings">Blocare cu amprentă</string>
+  <string name="fingerprint_settings">Fingerprint Lock</string>
   <string name="fingerprint_failed_title">Autentificare eșuată!</string>
   <string name="fingerprint_failed_body">Încearcă din nou în %s secunde.</string>
   <string name="fingerprint_authentication_required_title">Autentificare necesară!</string>
