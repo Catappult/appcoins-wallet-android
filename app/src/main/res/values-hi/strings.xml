@@ -44,7 +44,7 @@
   <!-- TODO: Remove or change this placeholder text -->
   <string name="title_community">समुदाय</string>
   <string name="title_opensource">ओपन सोर्स डेवलपमेंट</string>
-  <string name="title_source_code">सोर्स कोड</string>
+  <string name="title_source_code">Source Code</string>
   <string name="title_report_bug">त्रुटि सूचित करें</string>
   <string name="title_support">सहायता</string>
   <string name="title_permissions">अनुमतियां</string>
@@ -80,7 +80,7 @@
   <string name="unknown_error">एक त्रुटि उत्पन्न हुई।</string>
   <string name="action_backup_wallet">वॉलेट का बैकअप लें</string>
   <string name="no_tokens">आपने अभी तक कोई कस्टम टोकन नहीं जोड़ा है।</string>
-  <string name="title_email">हमें ईमेल करें</string>
+  <string name="title_email">Email Us</string>
   <string name="action_donate">दान करें</string>
   <!-- Titles -->
   <string name="title_my_address">प्राप्त करें</string>
@@ -755,7 +755,7 @@
   <string name="pioneer_gamification_body">A Pioneer is an early adopter with increased bonuses.</string>
   <!--Check for Updates-->
   <string name="check_updates_settings_current_title">Current version</string>
-  <string name="check_updates_settings_title">Check for updates</string>
+  <string name="check_updates_settings_title">Check for Updates</string>
   <string name="check_updates_settings_subtitle">Current version %s</string>
   <string name="check_updates_checking_body">Searching for a new version</string>
   <string name="check_updates_no_updates_body">You\'re up to date!</string>
@@ -929,7 +929,7 @@
   <string name="perks_empty_state_first_purchase_body">Make your first purchase in an AppCoins compatible app to unlock the promotions we\'ve got for you!</string>
   <string name="perks_empty_body">No promotions available at the moment.</string>
   <!--Fingerprint Authentication-->
-  <string name="fingerprint_settings">Fingerprint lock</string>
+  <string name="fingerprint_settings">Fingerprint Lock</string>
   <string name="fingerprint_failed_title">Authentication failed!</string>
   <string name="fingerprint_failed_body">Please try again in %s seconds.</string>
   <string name="fingerprint_authentication_required_title">Authentication required!</string>
