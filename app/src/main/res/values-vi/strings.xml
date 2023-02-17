@@ -44,7 +44,7 @@
   <!-- TODO: Remove or change this placeholder text -->
   <string name="title_community">Cộng đồng</string>
   <string name="title_opensource">Phát triển nguồn mở</string>
-  <string name="title_source_code">Mã nguồn</string>
+  <string name="title_source_code">Source Code</string>
   <string name="title_report_bug">Báo cáo lỗi</string>
   <string name="title_support">Hỗ trợ</string>
   <string name="title_permissions">Giấy phép</string>
@@ -80,7 +80,7 @@
   <string name="unknown_error">Đã xảy ra lỗi.</string>
   <string name="action_backup_wallet">Ví dự phòng</string>
   <string name="no_tokens">Bạn chưa thêm bất kỳ token tùy chỉnh nào.</string>
-  <string name="title_email">Gửi email cho chúng tôi</string>
+  <string name="title_email">Email Us</string>
   <string name="action_donate">Đóng góp</string>
   <!-- Titles -->
   <string name="title_my_address">Nhận</string>
@@ -754,7 +754,7 @@
   <string name="pioneer_gamification_body">Người tiên phong là người sớm tiếp nhận với số tiền thưởng tăng vọt.</string>
   <!--Check for Updates-->
   <string name="check_updates_settings_current_title">Phiên bản hiện tại</string>
-  <string name="check_updates_settings_title">Kiểm tra cập nhật</string>
+  <string name="check_updates_settings_title">Check for Updates</string>
   <string name="check_updates_settings_subtitle">Phiên bản hiện tại %s</string>
   <string name="check_updates_checking_body">Tìm kiếm phiên bản mới</string>
   <string name="check_updates_no_updates_body">Bạn đã được cập nhật!</string>
@@ -922,7 +922,7 @@
   <string name="perks_empty_state_first_purchase_body">Thực hiện giao dịch mua đầu tiên của bạn trong một ứng dụng tương thích với AppCoins để mở khóa các chương trình khuyến mãi mà chúng tôi dành cho bạn!</string>
   <string name="perks_empty_body">Hiện tại không có khuyến mãi nào.</string>
   <!--Fingerprint Authentication-->
-  <string name="fingerprint_settings">Khóa vân tay</string>
+  <string name="fingerprint_settings">Fingerprint Lock</string>
   <string name="fingerprint_failed_title">Xác thực thất bại!</string>
   <string name="fingerprint_failed_body">Vui lòng thử lại trong %s giây nữa.</string>
   <string name="fingerprint_authentication_required_title">Yêu cầu xác thực!</string>
