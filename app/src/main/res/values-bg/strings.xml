@@ -44,7 +44,7 @@
   <!-- TODO: Remove or change this placeholder text -->
   <string name="title_community">Общност</string>
   <string name="title_opensource">Развитие с отворен код</string>
-  <string name="title_source_code">Изходен код</string>
+  <string name="title_source_code">Source Code</string>
   <string name="title_report_bug">Докладвай за бъг</string>
   <string name="title_support">Поддръжка</string>
   <string name="title_permissions">Разрешения</string>
@@ -80,7 +80,7 @@
   <string name="unknown_error">Възникна грешка.</string>
   <string name="action_backup_wallet">Бекъп портфейл</string>
   <string name="no_tokens">Не си добавил никакъв потребителски токен още.</string>
-  <string name="title_email">Изпрати ни имейл</string>
+  <string name="title_email">Email Us</string>
   <string name="action_donate">Дари</string>
   <!-- Titles -->
   <string name="title_my_address">Получи</string>
@@ -755,7 +755,7 @@
   <string name="pioneer_gamification_body">Пионерът е ранен осиновител с увеличени бонуси.</string>
   <!--Check for Updates-->
   <string name="check_updates_settings_current_title">Current version</string>
-  <string name="check_updates_settings_title">Провери за ъпдейти</string>
+  <string name="check_updates_settings_title">Check for Updates</string>
   <string name="check_updates_settings_subtitle">Настояща версия %s</string>
   <string name="check_updates_checking_body">Търсене на нова версия</string>
   <string name="check_updates_no_updates_body">Всичко е актуално!</string>
@@ -929,7 +929,7 @@
   <string name="perks_empty_state_first_purchase_body">Make your first purchase in an AppCoins compatible app to unlock the promotions we\'ve got for you!</string>
   <string name="perks_empty_body">No promotions available at the moment.</string>
   <!--Fingerprint Authentication-->
-  <string name="fingerprint_settings">Fingerprint lock</string>
+  <string name="fingerprint_settings">Fingerprint Lock</string>
   <string name="fingerprint_failed_title">Authentication failed!</string>
   <string name="fingerprint_failed_body">Please try again in %s seconds.</string>
   <string name="fingerprint_authentication_required_title">Authentication required!</string>
