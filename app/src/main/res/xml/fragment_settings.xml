@@ -37,7 +37,7 @@
       android:icon="@drawable/ic_manage_subscriptions"
       android:key="pref_manage_subscriptions"
       android:layout="@layout/preference_without_summary_layout"
-      android:title="Manage Subscriptions" />
+      android:title="@string/subscriptions_settings_title" />
 
   <PreferenceCategory
       android:layout="@layout/preference_category_layout"
