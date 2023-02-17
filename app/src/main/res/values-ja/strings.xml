@@ -44,7 +44,7 @@
   <!-- TODO: Remove or change this placeholder text -->
   <string name="title_community">コミュニティ</string>
   <string name="title_opensource">ソース開発を開く</string>
-  <string name="title_source_code">ソース コード</string>
+  <string name="title_source_code">Source Code</string>
   <string name="title_report_bug">バグを報告する。</string>
   <string name="title_support">サポート</string>
   <string name="title_permissions">アクセス許可</string>
@@ -80,7 +80,7 @@
   <string name="unknown_error">エラーが発生しました。</string>
   <string name="action_backup_wallet">ウォレットをバックアップする</string>
   <string name="no_tokens">すべてのカスタム トークンをまだ追加していません。</string>
-  <string name="title_email">私たちにメールで問い合わせる</string>
+  <string name="title_email">Email Us</string>
   <string name="action_donate">寄付する</string>
   <!-- Titles -->
   <string name="title_my_address">受け取る</string>
@@ -754,7 +754,7 @@
   <string name="pioneer_gamification_body">パイオニアとは、増額ボーナスを受けとることができる早期アダプターのこと。</string>
   <!--Check for Updates-->
   <string name="check_updates_settings_current_title">現在のバージョン</string>
-  <string name="check_updates_settings_title">アップデートの確認</string>
+  <string name="check_updates_settings_title">Check for Updates</string>
   <string name="check_updates_settings_subtitle">現在のバージョン %s</string>
   <string name="check_updates_checking_body">新バージョンの検索中</string>
   <string name="check_updates_no_updates_body">最新バージョンをお使いです！</string>
@@ -922,7 +922,7 @@
   <string name="perks_empty_state_first_purchase_body">AppCoinsに対応したアプリで初めてのお買い物をすると、お得なキャンペーンをご利用いただけます。</string>
   <string name="perks_empty_body">現在、プロモーションはありません。</string>
   <!--Fingerprint Authentication-->
-  <string name="fingerprint_settings">指紋認証ロック</string>
+  <string name="fingerprint_settings">Fingerprint Lock</string>
   <string name="fingerprint_failed_title">認証に失敗しました！</string>
   <string name="fingerprint_failed_body">%s秒後に再度お試しください。</string>
   <string name="fingerprint_authentication_required_title">認証が必要です。</string>
