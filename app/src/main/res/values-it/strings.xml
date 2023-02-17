@@ -44,7 +44,7 @@
   <!-- TODO: Remove or change this placeholder text -->
   <string name="title_community">Community</string>
   <string name="title_opensource">Sviluppo Open Source</string>
-  <string name="title_source_code">Codice sorgente</string>
+  <string name="title_source_code">Source Code</string>
   <string name="title_report_bug">Segnala un bug</string>
   <string name="title_support">Supporto</string>
   <string name="title_permissions">Autorizzazioni</string>
@@ -80,7 +80,7 @@
   <string name="unknown_error">Si è verificato un errore.</string>
   <string name="action_backup_wallet">Backup del Wallet</string>
   <string name="no_tokens">Non hai ancora aggiunto nessun token personalizzato.</string>
-  <string name="title_email">Mandaci un\'email</string>
+  <string name="title_email">Email Us</string>
   <string name="action_donate">Dona</string>
   <!-- Titles -->
   <string name="title_my_address">Ricevi</string>
@@ -755,7 +755,7 @@
   <string name="pioneer_gamification_body">Un Pioniere è un vero esploratore e ha diritto a bonus migliorati.</string>
   <!--Check for Updates-->
   <string name="check_updates_settings_current_title">Versione attuale</string>
-  <string name="check_updates_settings_title">Controlla aggiornamenti</string>
+  <string name="check_updates_settings_title">Check for Updates</string>
   <string name="check_updates_settings_subtitle">Versione attuale %s</string>
   <string name="check_updates_checking_body">Cerca una nuova versione</string>
   <string name="check_updates_no_updates_body">Tutto aggiornato!</string>
@@ -929,7 +929,7 @@
   <string name="perks_empty_state_first_purchase_body">Sblocca le promozioni che abbiamo in serbo per te effettuando il tuo primo acquisto su un\'app compatibile con gli AppCoins!</string>
   <string name="perks_empty_body">Al momento non ci sono promozioni disponibili.</string>
   <!--Fingerprint Authentication-->
-  <string name="fingerprint_settings">Blocco impronta digitale</string>
+  <string name="fingerprint_settings">Fingerprint Lock</string>
   <string name="fingerprint_failed_title">Autenticazione fallita!</string>
   <string name="fingerprint_failed_body">Ritenta fra %s secondi.</string>
   <string name="fingerprint_authentication_required_title">Autenticazione necessaria!</string>
