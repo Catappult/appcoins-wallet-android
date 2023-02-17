@@ -44,7 +44,7 @@
   <!-- TODO: Remove or change this placeholder text -->
   <string name="title_community">Közösség</string>
   <string name="title_opensource">Nyílt forráskódú fejlesztés</string>
-  <string name="title_source_code">Forráskód</string>
+  <string name="title_source_code">Source Code</string>
   <string name="title_report_bug">Hibabejelentés</string>
   <string name="title_support">Támogatás</string>
   <string name="title_permissions">Engedélyek</string>
@@ -80,7 +80,7 @@
   <string name="unknown_error">Hiba történt.</string>
   <string name="action_backup_wallet">Biztonsági mentés készítése</string>
   <string name="no_tokens">Még nem adtál meg egyéni tokeneket.</string>
-  <string name="title_email">E-mailes kapcsolat</string>
+  <string name="title_email">Email Us</string>
   <string name="action_donate">Adományozás</string>
   <!-- Titles -->
   <string name="title_my_address">Fogadás</string>
@@ -755,7 +755,7 @@
   <string name="pioneer_gamification_body">Az Úttörő nagyobb bónuszokat kap, mivel korábban lesz belőle felhasználó.</string>
   <!--Check for Updates-->
   <string name="check_updates_settings_current_title">Jelenlegi verzió</string>
-  <string name="check_updates_settings_title">Frissítések keresése</string>
+  <string name="check_updates_settings_title">Check for Updates</string>
   <string name="check_updates_settings_subtitle">Jelenlegi verzió %s</string>
   <string name="check_updates_checking_body">Új verzió keresése</string>
   <string name="check_updates_no_updates_body">Nincs új frissítés!</string>
@@ -929,7 +929,7 @@
   <string name="perks_empty_state_first_purchase_body">Itt az ideje az első vásárlásnak egy AppCoins kompatibilis alkalmazásban. Felfedezheted, milyen promóciók várnak rád!</string>
   <string name="perks_empty_body">Jelenleg nincs aktív promóció.</string>
   <!--Fingerprint Authentication-->
-  <string name="fingerprint_settings">Ujjlenyomatos zár</string>
+  <string name="fingerprint_settings">Fingerprint Lock</string>
   <string name="fingerprint_failed_title">Sikertelen hitelesítés!</string>
   <string name="fingerprint_failed_body">Próbáld újra %s másodperc múlva.</string>
   <string name="fingerprint_authentication_required_title">Hitelesítés szükséges!</string>
