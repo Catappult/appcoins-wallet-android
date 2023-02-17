@@ -5,30 +5,6 @@
     android:layout_height="match_parent">
 
   <Preference
-      android:icon="@drawable/ic_manage_subscriptions"
-      android:key="pref_manage_subscriptions"
-      android:layout="@layout/preference_without_summary_layout"
-      android:title="Manage Subscriptions" />
-
-  <Preference
-      android:icon="@drawable/ic_withdraw_icon"
-      android:key="pref_withdraw"
-      android:layout="@layout/preference_without_summary_layout"
-      android:title="@string/e_skills_withdraw_settings_title" />
-
-  <Preference
-      android:icon="@drawable/ic_settings_redeem"
-      android:key="pref_redeem"
-      android:layout="@layout/preference_without_summary_layout"
-      android:title="@string/title_redeem" />
-
-  <com.asfoundation.wallet.promo_code.SettingsPreferencePromoCodeState
-      android:icon="@drawable/ic_influencer"
-      android:key="pref_promo_code"
-      android:layout="@layout/preference_promo_code_layout"
-      android:title="@string/promo_code_settings_title"/>
-
-  <Preference
       android:icon="@drawable/ic_backup_black"
       android:key="pref_backup"
       android:layout="@layout/preference_without_summary_layout"
@@ -38,6 +14,30 @@
       android:key="pref_restore"
       android:layout="@layout/preference_without_summary_layout"
       android:title="@string/import_wallet_title" />
+
+  <com.asfoundation.wallet.promo_code.SettingsPreferencePromoCodeState
+      android:icon="@drawable/ic_influencer"
+      android:key="pref_promo_code"
+      android:layout="@layout/preference_promo_code_layout"
+      android:title="@string/promo_code_settings_title" />
+
+  <Preference
+      android:icon="@drawable/ic_settings_redeem"
+      android:key="pref_redeem"
+      android:layout="@layout/preference_without_summary_layout"
+      android:title="@string/title_redeem" />
+
+  <Preference
+      android:icon="@drawable/ic_withdraw_icon"
+      android:key="pref_withdraw"
+      android:layout="@layout/preference_without_summary_layout"
+      android:title="@string/e_skills_withdraw_settings_title" />
+
+  <Preference
+      android:icon="@drawable/ic_manage_subscriptions"
+      android:key="pref_manage_subscriptions"
+      android:layout="@layout/preference_without_summary_layout"
+      android:title="Manage Subscriptions" />
 
   <PreferenceCategory
       android:layout="@layout/preference_category_layout"
