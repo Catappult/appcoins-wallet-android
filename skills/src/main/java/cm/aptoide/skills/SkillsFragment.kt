@@ -409,6 +409,9 @@ class SkillsFragment : Fragment(), PaymentView {
   }
 
   private fun showRoomLoading(isCancelActive: Boolean, queueIdentifier: QueueIdentifier? = null) {
+    binding.loadingTicketLayout.shareButton.setOnClickListener {
+      startActivity(viewModel.buildShareIntent())
+    }
     if (isCancelActive) {
       if (queueIdentifier != null && queueIdentifier.setByUser) {
         binding.loadingTicketLayout.loadingTitle.text = SpannableStringBuilder()

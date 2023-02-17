@@ -76,6 +76,18 @@
         android:enabled="false"
         android:text="@string/cancel"
         />
+    <Button
+        android:id="@+id/share_button"
+        style="@style/ButtonStyle"
+        android:layout_width="match_parent"
+        android:layout_height="36dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="16dp"
+        android:enabled="true"
+        android:text="share"
+        />
+
   </LinearLayout>
 
 
