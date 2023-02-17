@@ -44,7 +44,7 @@
   <!-- TODO: Remove or change this placeholder text -->
   <string name="title_community">社群網站</string>
   <string name="title_opensource">開源開發</string>
-  <string name="title_source_code">程式源碼</string>
+  <string name="title_source_code">Source Code</string>
   <string name="title_report_bug">回報錯誤</string>
   <string name="title_support">尋求支援</string>
   <string name="title_permissions">權限</string>
@@ -80,7 +80,7 @@
   <string name="unknown_error">發生錯誤。</string>
   <string name="action_backup_wallet">備份錢包</string>
   <string name="no_tokens">您尚未添加任何自訂代幣。</string>
-  <string name="title_email">聯絡我們</string>
+  <string name="title_email">Email Us</string>
   <string name="action_donate">捐贈</string>
   <!-- Titles -->
   <string name="title_my_address">接收</string>
@@ -754,7 +754,7 @@
   <string name="pioneer_gamification_body">先驅者是獎勵計畫的早期採用者。</string>
   <!--Check for Updates-->
   <string name="check_updates_settings_current_title">Current version</string>
-  <string name="check_updates_settings_title">檢查更新</string>
+  <string name="check_updates_settings_title">Check for Updates</string>
   <string name="check_updates_settings_subtitle">軟體版本 %s</string>
   <string name="check_updates_checking_body">搜尋新版本</string>
   <string name="check_updates_no_updates_body">您已更新至最新版本！</string>
@@ -922,7 +922,7 @@
   <string name="perks_empty_state_first_purchase_body">在與AppCoins相容的應用程式中進行首購，即可解鎖我們為您準備的促銷活動！</string>
   <string name="perks_empty_body">當前沒有促銷活動。</string>
   <!--Fingerprint Authentication-->
-  <string name="fingerprint_settings">指紋鎖</string>
+  <string name="fingerprint_settings">Fingerprint Lock</string>
   <string name="fingerprint_failed_title">授權失敗</string>
   <string name="fingerprint_failed_body">請在%s秒後再試。</string>
   <string name="fingerprint_authentication_required_title">需要授權</string>
