@@ -41,4 +41,7 @@
   <color name="dialog_buy_fiat_value">#000000</color>
   <color name="dialog_secondary_price">#828282</color>
 
+  <color name="referral_background_start">#FAB766</color>
+  <color name="referral_background_end">#F17D5A</color>
+
 </resources>
