@@ -62,9 +62,11 @@ class TicketRepository @Inject constructor(
     ticketLocalStorage.saveTicketInQueue(walletAddress, ticketId, eskillsPaymentData)
   }
 
-  fun getReferral(
-    ewt: String
-  ) {
-    ticketApi.getReferral(ewt)
+  fun getReferral(ewt: String): Single<ReferralResponse> {
+    return ticketApi.getReferral(ewt)
+  }
+
+  fun createReferral(ewt: String): Single<ReferralResponse> {
+    return ticketApi.createReferral(ewt)
   }
 }

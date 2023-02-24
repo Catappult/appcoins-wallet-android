@@ -38,5 +38,10 @@ interface TicketApi {
     @Header("authorization") authorization: String,
   ): Single<ReferralResponse>
 
+  @POST("eskills/service/promo")
+  fun createReferral(
+    @Header("authorization") authorization: String,
+  ): Single<ReferralResponse>
+
   data class Refunded(val status: String = "REFUNDED")
 }

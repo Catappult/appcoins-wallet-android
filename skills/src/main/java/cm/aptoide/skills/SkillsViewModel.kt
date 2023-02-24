@@ -42,8 +42,9 @@ class SkillsViewModel @Inject constructor(
   private val getTopUpListStatus: GetTopUpListUseCase,
   private val getVerificationUseCase: GetVerificationUseCase,
   private val buildUpdateIntentUseCase: BuildUpdateIntentUseCase,
-  private val buildShareReferralIntentUseCase: BuildShareReferralIntentUseCase
-  ) : ViewModel() {
+  private val buildShareReferralIntentUseCase: BuildShareReferralIntentUseCase,
+  private val getReferralUseCase: GetReferralUseCase
+) : ViewModel() {
   lateinit var ticketId: String
   private val closeView: PublishSubject<Pair<Int, UserData>> = PublishSubject.create()
 
@@ -178,23 +179,6 @@ class SkillsViewModel @Inject constructor(
       }
   }
 
-  fun shareInviteCode(): Single<TicketResponse> {
-    // only paid tickets can be canceled/refunded on the backend side, meaning that if we
-    // cancel before actually paying the backend will return a 409 HTTP. this way we allow
-    // users to return to the game, without crashing, even if they weren't waiting in queue
-    return cancelTicketUseCase(ticketId)
-      .doOnSuccess {
-        closeView.onNext(
-          Pair(RESULT_USER_CANCELED, UserData.fromStatus(UserData.Status.REFUNDED))
-        )
-      }
-      .doOnError {
-        closeView.onNext(
-          Pair(RESULT_ERROR, UserData.fromStatus(UserData.Status.REFUNDED))
-        )
-      }
-  }
-
   fun validateUrl(uriString: String): UriValidationResult {
     return validateUrlUseCase(uriString)
   }
@@ -251,8 +235,8 @@ class SkillsViewModel @Inject constructor(
     return buildUpdateIntentUseCase()
   }
 
-  fun buildShareIntent(): Intent {
-    return buildShareReferralIntentUseCase()
+  fun buildShareIntent(referralCode: String): Intent {
+    return buildShareReferralIntentUseCase(referralCode)
   }
 
   fun restorePurchase(view: PaymentView): Single<Ticket> {
@@ -267,5 +251,9 @@ class SkillsViewModel @Inject constructor(
             }
         }
       }
+  }
+
+  fun getReferral(): Single<ReferralResponse> {
+    return getReferralUseCase()
   }
 }
