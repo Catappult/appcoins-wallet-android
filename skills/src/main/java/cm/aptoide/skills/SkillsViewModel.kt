@@ -43,6 +43,7 @@ class SkillsViewModel @Inject constructor(
   private val getVerificationUseCase: GetVerificationUseCase,
   private val buildUpdateIntentUseCase: BuildUpdateIntentUseCase,
   private val useReferralUseCase: UseReferralUseCase,
+  private val userFirstTimeCheckUseCase: UserFirstTimeCheckUseCase
   ) : ViewModel() {
   lateinit var ticketId: String
   private val closeView: PublishSubject<Pair<Int, UserData>> = PublishSubject.create()
@@ -232,6 +233,10 @@ class SkillsViewModel @Inject constructor(
 
   fun useReferralCode(referralCode: String): Single<ReferralResponse>{
     return useReferralUseCase(referralCode)
+  }
+
+  fun userFirstTimeCheck(): Boolean{
+    return userFirstTimeCheckUseCase().blockingGet()
   }
 
   fun buildUpdateIntent(): Intent {

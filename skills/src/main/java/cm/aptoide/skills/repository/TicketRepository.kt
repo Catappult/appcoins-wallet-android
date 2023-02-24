@@ -53,6 +53,14 @@ class TicketRepository @Inject constructor(
     return ticketApi.postReferralTransaction(ewt, referralCode)
   }
 
+  fun getFirstTimeUserCheck(
+    ewt: String
+  ): Single<Boolean>{
+    return ticketApi.getFirstTimeUserCheck(ewt)
+      .map{ it.firstTimeUserCheck }
+      .onErrorReturn { false }
+  }
+
   fun getInQueueTicket(
     walletAddress: WalletAddress,
     eskillsPaymentData: EskillsPaymentData
