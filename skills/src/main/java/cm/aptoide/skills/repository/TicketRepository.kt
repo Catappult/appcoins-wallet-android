@@ -46,6 +46,13 @@ class TicketRepository @Inject constructor(
     return ticketApi.cancelTicket(ewt, ticketId, TicketApi.Refunded())
   }
 
+  fun postReferralTransaction(
+    ewt: String,
+    referralCode: String
+  ): Single<ReferralResponse>{
+    return ticketApi.postReferralTransaction(ewt, referralCode)
+  }
+
   fun getInQueueTicket(
     walletAddress: WalletAddress,
     eskillsPaymentData: EskillsPaymentData

@@ -42,6 +42,7 @@ class SkillsViewModel @Inject constructor(
   private val getTopUpListStatus: GetTopUpListUseCase,
   private val getVerificationUseCase: GetVerificationUseCase,
   private val buildUpdateIntentUseCase: BuildUpdateIntentUseCase,
+  private val useReferralUseCase: UseReferralUseCase,
   ) : ViewModel() {
   lateinit var ticketId: String
   private val closeView: PublishSubject<Pair<Int, UserData>> = PublishSubject.create()
@@ -227,6 +228,10 @@ class SkillsViewModel @Inject constructor(
 
   fun getVerification(): EskillsVerification{
     return getVerificationUseCase().blockingGet()
+  }
+
+  fun useReferralCode(referralCode: String): Single<ReferralResponse>{
+    return useReferralUseCase(referralCode)
   }
 
   fun buildUpdateIntent(): Intent {
