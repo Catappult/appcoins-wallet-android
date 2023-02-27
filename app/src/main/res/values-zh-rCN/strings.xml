@@ -763,7 +763,7 @@
   <string name="check_updates_settings_available_title">新版本可用</string>
   <string name="check_updates_settings_available_subtitle_button">点击以更新</string>
   <!--Subscriptions-->
-  <string name="subscriptions_settings_title">管理订购</string>
+  <string name="subscriptions_settings_title">Manage Subscriptions</string>
   <string name="subscriptions_title">订购</string>
   <string name="subscriptions_subscribe_button">订阅</string>
   <string name="subscriptions_active_title">激活</string>
