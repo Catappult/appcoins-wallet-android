@@ -764,7 +764,7 @@
   <string name="check_updates_settings_available_title">Yeni sürüm mevcut</string>
   <string name="check_updates_settings_available_subtitle_button">Güncellemek için dokunun</string>
   <!--Subscriptions-->
-  <string name="subscriptions_settings_title">Abonelikleri yönetin</string>
+  <string name="subscriptions_settings_title">Manage Subscriptions</string>
   <string name="subscriptions_title">Abonelikler</string>
   <string name="subscriptions_subscribe_button">Abone ol</string>
   <string name="subscriptions_active_title">Aktif</string>
