@@ -764,7 +764,7 @@
   <string name="check_updates_settings_available_title">Nouvelle version disponible</string>
   <string name="check_updates_settings_available_subtitle_button">Cliquez pour mettre à jour</string>
   <!--Subscriptions-->
-  <string name="subscriptions_settings_title">Gérer les abonnements</string>
+  <string name="subscriptions_settings_title">Manage Subscriptions</string>
   <string name="subscriptions_title">Abonnements</string>
   <string name="subscriptions_subscribe_button">S\'abonner</string>
   <string name="subscriptions_active_title">Actif</string>
