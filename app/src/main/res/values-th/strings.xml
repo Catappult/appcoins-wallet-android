@@ -765,7 +765,7 @@
   <string name="check_updates_settings_available_title">มีเวอร์ชั่นใหม่</string>
   <string name="check_updates_settings_available_subtitle_button">แตะเพื่ออัพเดต</string>
   <!--Subscriptions-->
-  <string name="subscriptions_settings_title">จัดการการสมัครสมาชิก</string>
+  <string name="subscriptions_settings_title">Manage Subscriptions</string>
   <string name="subscriptions_title">สมัครสมาชิก</string>
   <string name="subscriptions_subscribe_button">ตอบรับสมาชิก</string>
   <string name="subscriptions_active_title">ใช้งาน</string>
