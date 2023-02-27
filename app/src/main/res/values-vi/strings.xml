@@ -763,7 +763,7 @@
   <string name="check_updates_settings_available_title">Phiên bản mới khả dụng</string>
   <string name="check_updates_settings_available_subtitle_button">Nhấn để cập nhật</string>
   <!--Subscriptions-->
-  <string name="subscriptions_settings_title">Quản lý các gói đăng ký</string>
+  <string name="subscriptions_settings_title">Manage Subscriptions</string>
   <string name="subscriptions_title">Gói đăng ký</string>
   <string name="subscriptions_subscribe_button">Đăng ký</string>
   <string name="subscriptions_active_title">Hoạt động</string>
