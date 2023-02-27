@@ -763,7 +763,7 @@
   <string name="check_updates_settings_available_title">ဗားရွင္းအသစ္ရွိပါသည္</string>
   <string name="check_updates_settings_available_subtitle_button">အပ္ဒိတ္လုပ္ရန္ႏွိပ္ပါ</string>
   <!--Subscriptions-->
-  <string name="subscriptions_settings_title">ပံုမွန္၀ယ္ယူမႈမ်ားကို စီမံမည္</string>
+  <string name="subscriptions_settings_title">Manage Subscriptions</string>
   <string name="subscriptions_title">ပံုမွန္၀ယ္ယူမႈမ်ား</string>
   <string name="subscriptions_subscribe_button">ပုံမွန္ရယူမည္</string>
   <string name="subscriptions_active_title">၀ယ္ထားေသာ</string>
