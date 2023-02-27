@@ -764,7 +764,7 @@
   <string name="check_updates_settings_available_title">Нова версия налична</string>
   <string name="check_updates_settings_available_subtitle_button">Докосни, за да ъпдейтнеш</string>
   <!--Subscriptions-->
-  <string name="subscriptions_settings_title">Управлявай абонаменти</string>
+  <string name="subscriptions_settings_title">Manage Subscriptions</string>
   <string name="subscriptions_title">Абонаменти</string>
   <string name="subscriptions_subscribe_button">Subscribe</string>
   <string name="subscriptions_active_title">Активни</string>
