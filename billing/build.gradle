@@ -1,7 +1,9 @@
-apply plugin: 'com.android.library'
-apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-kapt'
-apply plugin: 'dagger.hilt.android.plugin'
+plugins{
+  id("com.android.library")
+  id("kotlin-android")
+  id("kotlin-kapt")
+  id("dagger.hilt.android.plugin")
+}
 
 android {
   compileSdkVersion project.compile_sdk_version
@@ -22,17 +24,17 @@ android {
   buildTypes {
     release {
       minifyEnabled false
-      proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-      buildConfigField 'String', 'BASE_HOST', project.BASE_HOST_PROD
-      buildConfigField 'int', 'NETWORK_ID', project.NETWORK_ID_PROD
+      proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
+      buildConfigField "String", "BASE_HOST", project.BASE_HOST_PROD
+      buildConfigField "int", "NETWORK_ID", project.NETWORK_ID_PROD
     }
     staging {
       initWith release
     }
     debug {
       minifyEnabled false
-      buildConfigField 'String', 'BASE_HOST', project.BASE_HOST_DEV
-      buildConfigField 'int', 'NETWORK_ID', project.NETWORK_ID_DEV
+      buildConfigField "String", "BASE_HOST", project.BASE_HOST_DEV
+      buildConfigField "int", "NETWORK_ID", project.NETWORK_ID_DEV
     }
   }
 }
@@ -43,13 +45,13 @@ repositories {
 }
 
 dependencies {
-  implementation fileTree(dir: 'libs', include: ['*.jar'])
+  implementation fileTree(dir: "libs", include: ["*.jar"])
 
-  api project(path: ':bdsbilling')
-  implementation project(path: ':commons')
+  api project(path: ":bdsbilling")
+  implementation project(path: ":commons")
 
-  implementation 'com.google.dagger:hilt-android:2.40.5'
-  kapt 'com.google.dagger:hilt-compiler:2.40.5'
+  implementation "com.google.dagger:hilt-android:2.40.5"
+  kapt "com.google.dagger:hilt-compiler:2.40.5"
 
   implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
   implementation "io.reactivex.rxjava2:rxjava:$project.rxjava_version"
