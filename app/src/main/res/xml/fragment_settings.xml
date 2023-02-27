@@ -4,17 +4,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-  <Preference
-      android:icon="@drawable/ic_backup_black"
-      android:key="pref_backup"
-      android:layout="@layout/preference_without_summary_layout"
-      android:title="@string/action_backup_wallet" />
-  <Preference
-      android:icon="@drawable/ic_restore_black"
-      android:key="pref_restore"
-      android:layout="@layout/preference_without_summary_layout"
-      android:title="@string/import_wallet_title" />
-
   <com.asfoundation.wallet.promo_code.SettingsPreferencePromoCodeState
       android:icon="@drawable/ic_influencer"
       android:key="pref_promo_code"
@@ -32,6 +21,17 @@
       android:key="pref_withdraw"
       android:layout="@layout/preference_without_summary_layout"
       android:title="@string/e_skills_withdraw_settings_title" />
+
+  <Preference
+      android:icon="@drawable/ic_backup_black"
+      android:key="pref_backup"
+      android:layout="@layout/preference_without_summary_layout"
+      android:title="@string/action_backup_wallet" />
+  <Preference
+      android:icon="@drawable/ic_restore_black"
+      android:key="pref_restore"
+      android:layout="@layout/preference_without_summary_layout"
+      android:title="@string/import_wallet_title" />
 
   <Preference
       android:icon="@drawable/ic_manage_subscriptions"
