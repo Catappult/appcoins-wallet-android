@@ -769,7 +769,7 @@
   <string name="check_updates_settings_available_title">النسخة الجديدة متوفرة</string>
   <string name="check_updates_settings_available_subtitle_button">انقر للتحديث</string>
   <!--Subscriptions-->
-  <string name="subscriptions_settings_title">إدارة الاشتراكات</string>
+  <string name="subscriptions_settings_title">Manage Subscriptions</string>
   <string name="subscriptions_title">الاشتراكات</string>
   <string name="subscriptions_subscribe_button">اشتراك</string>
   <string name="subscriptions_active_title">مفعّل</string>
