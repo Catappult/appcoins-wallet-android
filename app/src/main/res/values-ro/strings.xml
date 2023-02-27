@@ -765,7 +765,7 @@
   <string name="check_updates_settings_available_title">Versiune nouă disponibilă</string>
   <string name="check_updates_settings_available_subtitle_button">Apasă ca să actualizezi</string>
   <!--Subscriptions-->
-  <string name="subscriptions_settings_title">Gestionează abonamente</string>
+  <string name="subscriptions_settings_title">Manage Subscriptions</string>
   <string name="subscriptions_title">Abonamente</string>
   <string name="subscriptions_subscribe_button">Abonează-te</string>
   <string name="subscriptions_active_title">Activ</string>
