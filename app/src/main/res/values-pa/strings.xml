@@ -764,7 +764,7 @@
   <string name="check_updates_settings_available_title">ਨਵਾਂ ਵਰਜਨ ਉਪਲੱਬਧ ਹੈ</string>
   <string name="check_updates_settings_available_subtitle_button">ਅਪਡੇਟ ਕਰਨ ਲਈ ਟੈਪ ਕਰੋ</string>
   <!--Subscriptions-->
-  <string name="subscriptions_settings_title">ਸਬਸਕ੍ਰਿਪਸ਼ਨ ਦਾ ਪ੍ਰਬੰਧਨ</string>
+  <string name="subscriptions_settings_title">Manage Subscriptions</string>
   <string name="subscriptions_title">ਸਬਸਕ੍ਰਿਪਸ਼ਨ</string>
   <string name="subscriptions_subscribe_button">ਸਬਸਕ੍ਰਾਈਬ</string>
   <string name="subscriptions_active_title">ਐਕਟਿਵ</string>
