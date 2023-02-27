@@ -768,7 +768,7 @@
   <string name="check_updates_settings_available_title">Доступна нова версія</string>
   <string name="check_updates_settings_available_subtitle_button">Торкніться, щоб оновити</string>
   <!--Subscriptions-->
-  <string name="subscriptions_settings_title">Керуйте підписками</string>
+  <string name="subscriptions_settings_title">Manage Subscriptions</string>
   <string name="subscriptions_title">Підписки</string>
   <string name="subscriptions_subscribe_button">Підписатися</string>
   <string name="subscriptions_active_title">Активний</string>
