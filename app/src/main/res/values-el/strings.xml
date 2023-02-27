@@ -765,7 +765,7 @@ Wallets</item>
   <string name="check_updates_settings_available_title">Διατίθεται νέα έκδοση</string>
   <string name="check_updates_settings_available_subtitle_button">Πατήστε για ενημέρωση</string>
   <!--Subscriptions-->
-  <string name="subscriptions_settings_title">Διαχείριση εγγραφών</string>
+  <string name="subscriptions_settings_title">Manage Subscriptions</string>
   <string name="subscriptions_title">Εγγραφές</string>
   <string name="subscriptions_subscribe_button">Εγγραφή</string>
   <string name="subscriptions_active_title">Ενεργές</string>
