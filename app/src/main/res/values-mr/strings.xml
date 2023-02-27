@@ -768,7 +768,7 @@
   <string name="check_updates_settings_available_title">नविन आवृत्ती उपलब्ध आहे</string>
   <string name="check_updates_settings_available_subtitle_button">अद्यतन करण्यासाठी टॅप करा</string>
   <!--Subscriptions-->
-  <string name="subscriptions_settings_title">सदस्यत्वाचे व्यवस्थापन करा</string>
+  <string name="subscriptions_settings_title">Manage Subscriptions</string>
   <string name="subscriptions_title">सदस्यत्व</string>
   <string name="subscriptions_subscribe_button">सदस्यत्व घ्या</string>
   <string name="subscriptions_active_title">सक्रिय</string>
