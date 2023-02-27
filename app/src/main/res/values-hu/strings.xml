@@ -764,7 +764,7 @@
   <string name="check_updates_settings_available_title">Új verzió érhető el</string>
   <string name="check_updates_settings_available_subtitle_button">Koppints a frissítéshez</string>
   <!--Subscriptions-->
-  <string name="subscriptions_settings_title">Feliratkozások kezelése</string>
+  <string name="subscriptions_settings_title">Manage Subscriptions</string>
   <string name="subscriptions_title">Feliratkozások</string>
   <string name="subscriptions_subscribe_button">Előfizetés</string>
   <string name="subscriptions_active_title">Aktív</string>
