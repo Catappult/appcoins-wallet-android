@@ -763,7 +763,7 @@
   <string name="check_updates_settings_available_title">新しいバージョンをご利用いただけます</string>
   <string name="check_updates_settings_available_subtitle_button">タップしてアップデート</string>
   <!--Subscriptions-->
-  <string name="subscriptions_settings_title">購読の管理</string>
+  <string name="subscriptions_settings_title">Manage Subscriptions</string>
   <string name="subscriptions_title">購読</string>
   <string name="subscriptions_subscribe_button">サブスクリプション</string>
   <string name="subscriptions_active_title">アクティブ</string>
