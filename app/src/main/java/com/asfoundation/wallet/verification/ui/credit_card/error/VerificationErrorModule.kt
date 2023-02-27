@@ -2,8 +2,6 @@ package com.asfoundation.wallet.verification.ui.credit_card.error
 
 import androidx.fragment.app.Fragment
 import com.appcoins.wallet.billing.adyen.VerificationCodeResult
-import com.asfoundation.wallet.verification.ui.credit_card.VerificationCreditCardActivityNavigator
-import com.asfoundation.wallet.verification.ui.credit_card.VerificationCreditCardActivityView
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

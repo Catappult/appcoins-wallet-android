@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.di.api
 
+import cm.aptoide.skills.BuildConfig
 import cm.aptoide.skills.api.RoomApi
 import cm.aptoide.skills.api.TicketApi
 import com.asfoundation.wallet.di.annotations.DefaultHttpClient
@@ -19,7 +20,7 @@ import javax.inject.Singleton
 @Module
 class EskillsApiModule {
 
-  private val eskillsUrl = cm.aptoide.skills.BuildConfig.BASE_HOST_SKILLS
+  private val eskillsUrl = BuildConfig.BASE_HOST_SKILLS
 
   @Singleton
   @Provides

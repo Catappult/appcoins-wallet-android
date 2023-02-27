@@ -23,9 +23,10 @@ class OneStepTransactionParser @Inject constructor(
   private val billing: Billing,
   private val defaultTokenProvider: DefaultTokenProvider
 ) {
-  private val cache: Repository<String, TransactionBuilder> = MemoryCache(
-    BehaviorSubject.create(), HashMap()
-  )
+  private val cache: Repository<String, TransactionBuilder> =
+    MemoryCache(
+      BehaviorSubject.create(), HashMap()
+    )
 
   fun buildTransaction(oneStepUri: OneStepUri, referrerUrl: String): Single<TransactionBuilder> {
     return if (cache.getSync(oneStepUri.toString()) != null) {

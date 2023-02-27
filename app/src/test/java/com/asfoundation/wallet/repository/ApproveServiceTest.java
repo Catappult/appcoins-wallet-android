@@ -5,7 +5,6 @@ import com.appcoins.wallet.commons.MemoryCache;
 import com.asfoundation.wallet.entity.PendingTransaction;
 import com.asfoundation.wallet.entity.TransactionBuilder;
 import com.google.gson.Gson;
-import io.reactivex.Completable;
 import io.reactivex.Observable;
 import io.reactivex.Single;
 import io.reactivex.observers.TestObserver;

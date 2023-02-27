@@ -3,7 +3,6 @@ package com.asfoundation.wallet.service
 import com.appcoins.wallet.bdsbilling.WalletAddressModel
 import com.asfoundation.wallet.entity.Wallet
 import com.asfoundation.wallet.repository.PasswordStore
-import com.asfoundation.wallet.repository.SignDataStandardNormalizer
 import com.asfoundation.wallet.repository.WalletRepositoryType
 import com.asfoundation.wallet.wallets.WalletCreatorInteract
 import io.reactivex.Single

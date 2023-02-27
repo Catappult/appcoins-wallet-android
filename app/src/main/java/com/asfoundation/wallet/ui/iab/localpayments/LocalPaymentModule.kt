@@ -3,7 +3,6 @@ package com.asfoundation.wallet.ui.iab.localpayments
 import androidx.fragment.app.Fragment
 import com.appcoins.wallet.appcoins.rewards.ErrorMapper
 import com.appcoins.wallet.commons.Logger
-import com.asfoundation.wallet.navigator.UriNavigator
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

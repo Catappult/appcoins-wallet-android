@@ -7,7 +7,7 @@ import io.reactivex.Observable
 import io.reactivex.Single
 
 class PermissionRepository(private val permissionsDao: PermissionsDao) :
-    Repository<String, ApplicationPermission> {
+  Repository<String, ApplicationPermission> {
   override fun save(key: String, value: ApplicationPermission): Completable {
     return Completable.fromAction { save(key, value) }
   }
