@@ -765,7 +765,7 @@
   <string name="check_updates_settings_available_title">Dostupna je nova verzija</string>
   <string name="check_updates_settings_available_subtitle_button">Dodirnite da ažurirate</string>
   <!--Subscriptions-->
-  <string name="subscriptions_settings_title">Upravljanje pretplatama</string>
+  <string name="subscriptions_settings_title">Manage Subscriptions</string>
   <string name="subscriptions_title">Pretplate</string>
   <string name="subscriptions_subscribe_button">Pretplatite se</string>
   <string name="subscriptions_active_title">Aktivne</string>
