@@ -763,7 +763,7 @@
   <string name="check_updates_settings_available_title">Versi baharu tersedia</string>
   <string name="check_updates_settings_available_subtitle_button">Ketik untuk kemas kini</string>
   <!--Subscriptions-->
-  <string name="subscriptions_settings_title">Urus langganan</string>
+  <string name="subscriptions_settings_title">Manage Subscriptions</string>
   <string name="subscriptions_title">Langganan</string>
   <string name="subscriptions_subscribe_button">Langgan</string>
   <string name="subscriptions_active_title">Aktif</string>
