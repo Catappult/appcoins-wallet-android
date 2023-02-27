@@ -764,7 +764,7 @@
   <string name="check_updates_settings_available_title">نسخه جدید موجود است</string>
   <string name="check_updates_settings_available_subtitle_button">برای بروزرسانی فشار دهید</string>
   <!--Subscriptions-->
-  <string name="subscriptions_settings_title">مدیریت آبونمان‌ها</string>
+  <string name="subscriptions_settings_title">Manage Subscriptions</string>
   <string name="subscriptions_title">آبونمان‌ها</string>
   <string name="subscriptions_subscribe_button">آبونمان</string>
   <string name="subscriptions_active_title">فعال</string>
