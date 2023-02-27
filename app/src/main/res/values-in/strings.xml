@@ -763,7 +763,7 @@
   <string name="check_updates_settings_available_title">Tersedia versi baru</string>
   <string name="check_updates_settings_available_subtitle_button">Ketuk untuk memperbarui</string>
   <!--Subscriptions-->
-  <string name="subscriptions_settings_title">Kelola langganan</string>
+  <string name="subscriptions_settings_title">Manage Subscriptions</string>
   <string name="subscriptions_title">Langganan</string>
   <string name="subscriptions_subscribe_button">Berlangganan</string>
   <string name="subscriptions_active_title">Aktif</string>
