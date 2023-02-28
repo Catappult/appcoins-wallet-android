@@ -409,10 +409,12 @@ class SkillsFragment : Fragment(), PaymentView {
   }
 
   private fun showRoomLoading(isCancelActive: Boolean, queueIdentifier: QueueIdentifier? = null) {
-    viewModel.getReferral().doOnSuccess {referralResponse ->
-      handleShareButtonCreation(referralResponse)
-    }
-
+    disposable.add(viewModel.getReferral()
+      .observeOn(AndroidSchedulers.mainThread())
+      .doOnSuccess {referralResponse ->
+        handleShareButton(referralResponse)
+      }
+      .subscribe())
     if (isCancelActive) {
       if (queueIdentifier != null && queueIdentifier.setByUser) {
         binding.loadingTicketLayout.loadingTitle.text = SpannableStringBuilder()
@@ -433,12 +435,12 @@ class SkillsFragment : Fragment(), PaymentView {
     binding.loadingTicketLayout.root.visibility = View.VISIBLE
   }
 
-  private fun handleShareButtonCreation(referralResponse: ReferralResponse) {
+  private fun handleShareButton(referralResponse: ReferralResponse) {
+    binding.loadingTicketLayout.shareButton.visibility = View.VISIBLE
     binding.loadingTicketLayout.shareButton.setOnClickListener {
-      binding.loadingTicketLayout.shareButton.visibility = View.VISIBLE
       startActivity(viewModel.buildShareIntent(referralResponse.referralCode))
     }
-    binding.loadingTicketLayout.shareButton.text = "Share referral" + referralResponse.referralCode
+    binding.loadingTicketLayout.shareButton.text = "Share referral " + referralResponse.referralCode
   }
 
   private fun postbackUserData(resultCode: Int, userData: UserData) {

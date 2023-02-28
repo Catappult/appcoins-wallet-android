@@ -1,9 +1,11 @@
 package cm.aptoide.skills.repository
 
+import android.util.Log
 import cm.aptoide.skills.api.TicketApi
 import cm.aptoide.skills.model.*
 import cm.aptoide.skills.util.EskillsPaymentData
 import io.reactivex.Single
+import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
 class TicketRepository @Inject constructor(
@@ -64,9 +66,13 @@ class TicketRepository @Inject constructor(
 
   fun getReferral(ewt: String): Single<ReferralResponse> {
     return ticketApi.getReferral(ewt)
+      .doOnError { Log.d("Endpoint error", "getReferral: ${it.stackTrace}") }
+      .subscribeOn(Schedulers.io())
   }
 
   fun createReferral(ewt: String): Single<ReferralResponse> {
     return ticketApi.createReferral(ewt)
+      .doOnError { Log.d("Endpoint error", "createReferral: ${it.stackTrace}") }
+      .subscribeOn(Schedulers.io())
   }
 }

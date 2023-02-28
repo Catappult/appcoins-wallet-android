@@ -33,12 +33,12 @@ interface TicketApi {
     @Body data: Refunded
   ): Single<TicketResponse>
 
-  @GET("eskills/service/promo")
+  @GET("queue/eskills/service/promo")
   fun getReferral(
     @Header("authorization") authorization: String,
   ): Single<ReferralResponse>
 
-  @POST("eskills/service/promo")
+  @POST("queue/eskills/service/promo")
   fun createReferral(
     @Header("authorization") authorization: String,
   ): Single<ReferralResponse>

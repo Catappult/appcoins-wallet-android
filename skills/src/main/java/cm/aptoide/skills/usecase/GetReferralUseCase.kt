@@ -1,5 +1,6 @@
 package cm.aptoide.skills.usecase
 
+import android.util.Log
 import cm.aptoide.skills.interfaces.EwtObtainer
 import cm.aptoide.skills.model.ReferralResponse
 import cm.aptoide.skills.repository.TicketRepository
@@ -16,9 +17,11 @@ class GetReferralUseCase @Inject constructor(
     return ewtObtainer.getEWT()
       .flatMap { ewt ->
         ticketRepository.getReferral(ewt)
-          .doOnError {
-            if (it.getErrorCodeAndMessage().first == 404)
-              ticketRepository.createReferral(ewt)
+          .onErrorReturn {
+            Log.d("getReferralUseCase", "invoke: ${it.stackTrace}")
+            return@onErrorReturn if (it.getErrorCodeAndMessage().first == 404)
+              ticketRepository.createReferral(ewt).blockingGet()
+            else ReferralResponse("ERROR", 0, true)
           }
       }
   }
