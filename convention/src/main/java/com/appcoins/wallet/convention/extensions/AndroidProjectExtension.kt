@@ -8,59 +8,60 @@ import org.gradle.api.plugins.ExtensionAware
 import org.jetbrains.kotlin.gradle.dsl.KotlinJvmOptions
 
 internal fun Project.disableDebugBuildType() {
-    extensions.configure(AndroidComponentsExtension::class.java) {
-        beforeVariants(selector().withBuildType("debug")) { builder ->
-            builder.enable = false
-        }
+  extensions.configure(AndroidComponentsExtension::class.java) {
+    beforeVariants(selector().withBuildType("debug")) { builder ->
+      builder.enable = false
     }
+  }
 }
 
 internal fun Project.configureAndroidAndKotlin(extension: CommonExtension<*, *, *, *>) {
-    with(extension) {
-        compileSdk = Config.android.compileSdkVersion
+  with(extension) {
+    compileSdk = Config.android.compileSdkVersion
+    defaultConfig {
+      minSdk = Config.android.minSdk
+      testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+      getByName("debug") {
+        isMinifyEnabled = false
+        proguardFiles(getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro")
+      }
 
-        defaultConfig {
-            minSdk = Config.android.minSdk
-
-            testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        }
-
-        buildTypes {
-            getByName("debug") {
-                isMinifyEnabled = false
-                matchingFallbacks.add("release")
-            }
-
-            getByName("release") {
-                isMinifyEnabled = true
-                proguardFiles(
-                    getDefaultProguardFile("proguard-android-optimize.txt"),
-                    "proguard-rules.pro"
-                )
-            }
-        }
-
-        compileOptions {
-            sourceCompatibility = Config.jvm.javaVersion
-            targetCompatibility = Config.jvm.javaVersion
-
-            isCoreLibraryDesugaringEnabled = true
-        }
-
-        kotlinOptions {
-            jvmTarget = Config.jvm.kotlinJvm
-            freeCompilerArgs = freeCompilerArgs + Config.jvm.freeCompilerArgs
-        }
-
-        packagingOptions.resources.excludes += "/META-INF/{AL2.0,LGPL2.1}"
+      getByName("release") {
+        isMinifyEnabled = false
+        proguardFiles(getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro")
+      }
     }
 
-    dependencies.apply {
-        add("coreLibraryDesugaring", libs["desugarJdk"])
+    compileOptions {
+      sourceCompatibility = Config.jvm.javaVersion
+      targetCompatibility = Config.jvm.javaVersion
+      isCoreLibraryDesugaringEnabled = true
     }
+
+    kotlinOptions {
+      jvmTarget = Config.jvm.kotlinJvm
+      freeCompilerArgs = freeCompilerArgs + Config.jvm.freeCompilerArgs
+    }
+
+    packagingOptions {
+//      resources.excludes += "/META-INF/{AL2.0,LGPL2.1}"
+      resources.excludes += "META-INF/NOTICE"
+      resources.excludes += "META-INF/LICENSE"
+
+      // Pick the first version of certain resources
+      resources.pickFirsts += "org/bouncycastle/x509/CertPathReviewerMessages_de.properties"
+      resources.pickFirsts += "org/bouncycastle/x509/CertPathReviewerMessages.properties"
+    }
+  }
+
+  dependencies.apply {
+    add("coreLibraryDesugaring", libs["android.desugar"])
+  }
 }
 
 
 private fun CommonExtension<*, *, *, *>.kotlinOptions(block: KotlinJvmOptions.() -> Unit) {
-    (this as ExtensionAware).extensions.configure("kotlinOptions", block)
+  (this as ExtensionAware).extensions.configure("kotlinOptions", block)
 }

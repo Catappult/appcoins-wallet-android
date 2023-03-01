@@ -1,15 +1,24 @@
-//include(":skills")
-//include(":app")
-//include(":tn")
-//include(":airdrop")
-//include(":billing")
-//include(":appcoinsRewards")
-//include(":bdsbilling")
-//include(":commons")
-//include(":gamification")
-//include(":permissions")
-//include(":ethereumj-android")
-//include (":plugins")
+pluginManagement {
+  repositories {
+    google()
+    mavenCentral()
+    gradlePluginPortal()
+  }
+}
+
+buildCache {
+  local {
+    removeUnusedEntriesAfterDays = 3
+  }
+}
+
+dependencyResolutionManagement {
+  repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+  repositories {
+    google()
+    mavenCentral()
+  }
+}
 
 val (projects, modules) = rootDir.projectsAndModules()
 println("Projects:\n\t- ${projects.sortedBy { it }.joinToString("\n\t- ") { it }}")

@@ -7,6 +7,7 @@ import com.appcoins.wallet.bdsbilling.repository.entity.*
 import io.reactivex.Completable
 import io.reactivex.Single
 import okhttp3.MediaType
+import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.ResponseBody
 import retrofit2.HttpException
 import retrofit2.Response
@@ -85,7 +86,7 @@ class RemoteRepository(
           throw HttpException(
             Response.error<GetPurchasesResponse>(
               404,
-              ResponseBody.create(MediaType.get("application/json"), "{}")
+              ResponseBody.create("application/json".toMediaType(), "{}")
             )
           )
         }
@@ -283,7 +284,7 @@ class RemoteRepository(
       amount.toPlainString(),
       "APPC",
       null
-    ).ignoreElement()
+    ).toCompletable()
 
   fun createLocalPaymentTransaction(
     paymentId: String,
