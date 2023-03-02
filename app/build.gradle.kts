@@ -190,7 +190,7 @@ dependencies {
   debugImplementation(libs.appcoins.sdk.debug)
 
   implementation(libs.web3j)
-//  implementation(libs.kethereum.erc681)
+  implementation(libs.kethereum.erc681)
 
   implementation(libs.cpp)
   implementation(libs.commons.lang3)
