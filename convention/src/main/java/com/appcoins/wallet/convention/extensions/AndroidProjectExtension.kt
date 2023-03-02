@@ -49,7 +49,6 @@ internal fun Project.configureAndroidAndKotlin(extension: CommonExtension<*, *, 
 //      resources.excludes += "/META-INF/{AL2.0,LGPL2.1}"
       resources.excludes += "META-INF/NOTICE"
       resources.excludes += "META-INF/LICENSE"
-
       // Pick the first version of certain resources
       resources.pickFirsts += "org/bouncycastle/x509/CertPathReviewerMessages_de.properties"
       resources.pickFirsts += "org/bouncycastle/x509/CertPathReviewerMessages.properties"

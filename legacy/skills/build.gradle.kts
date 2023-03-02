@@ -2,13 +2,10 @@ import org.jetbrains.kotlin.storage.CacheResetOnProcessCanceled.enabled
 
 plugins {
   id("appcoins.android.library")
-  id("appcoins.hilt")
 }
 
 android {
   defaultConfig {
-//    versionCode 1
-//    versionName "1.0"
 //    consumerProguardFiles = "consumer-rules.pro"
   }
 
@@ -37,17 +34,12 @@ android {
 }
 
 dependencies {
-  implementation(libs.kotlin.stdlib)
-
   implementation(libs.androidx.core.ktx)
   implementation(libs.androidx.appcompact)
   implementation(libs.androidx.fragment.ktx)
   implementation(libs.google.material)
   implementation(libs.bundles.rx)
   implementation(libs.bundles.network)
-
-  implementation(libs.bundles.hilt.implementation)
-  kapt(libs.bundles.hilt.kapt)
 
   implementation(libs.lottie)
   implementation(libs.shimmer)

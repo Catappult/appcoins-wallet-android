@@ -114,7 +114,7 @@ android {
 
 dependencies {
   implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
-//  implementation(project(":legacy:tn"))
+  implementation(project(":legacy:tn"))
   implementation(project(":legacy:airdrop"))
   implementation(project(":legacy:billing"))
   implementation(project(":legacy:commons"))
@@ -124,7 +124,6 @@ dependencies {
   implementation(project(":legacy:skills"))
   implementation(project(":legacy:ethereumj-android"))
 
-  implementation(libs.kotlin.stdlib)
   implementation(libs.kotlin.coroutines)
 
   implementation(libs.viewbinding.delegate)
@@ -151,7 +150,6 @@ dependencies {
 
   implementation(libs.bundles.androidx.lifecycle)
   implementation(libs.bundles.androidx.work)
-  kapt(libs.androidx.room.compiler)
 
   implementation(libs.bundles.network)
 

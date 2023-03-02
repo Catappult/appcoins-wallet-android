@@ -19,8 +19,8 @@ class AndroidAppPlugin : Plugin<Project> {
 
       extensions.configure<BaseAppModuleExtension> {
         configureAndroidAndKotlin(this)
-        buildToolsVersion = "30.0.3"
-        ndkVersion = "21.3.6528147"
+        buildToolsVersion = Config.android.buildToolsVersion
+        ndkVersion = Config.android.ndkVersion
         defaultConfig {
           targetSdk = Config.android.targetSdk
           multiDexEnabled = true

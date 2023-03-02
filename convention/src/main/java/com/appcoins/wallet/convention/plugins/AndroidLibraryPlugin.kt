@@ -3,7 +3,6 @@
 package com.appcoins.wallet.convention.plugins
 
 import com.android.build.gradle.LibraryExtension
-import com.android.build.gradle.LibraryPlugin
 import com.appcoins.wallet.convention.Config
 import com.appcoins.wallet.convention.extensions.configureAndroidAndKotlin
 import com.appcoins.wallet.convention.extensions.disableDebugBuildType
@@ -19,16 +18,16 @@ class AndroidLibraryPlugin : Plugin<Project> {
   override fun apply(target: Project) {
     with(target) {
       with(pluginManager) {
-        apply<LibraryPlugin>()
         apply("com.android.library")
         apply("kotlin-android")
         apply("kotlin-kapt")
+        apply<HiltPlugin>()
       }
 
       disableDebugBuildType()
       extensions.configure<LibraryExtension> {
         configureAndroidAndKotlin(this)
-        buildToolsVersion = "30.0.3"
+        buildToolsVersion = Config.android.buildToolsVersion
         defaultConfig.targetSdk = Config.android.targetSdk
       }
 

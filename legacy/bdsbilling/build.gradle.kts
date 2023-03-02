@@ -1,4 +1,4 @@
-plugins{
+plugins {
   id("appcoins.jvm.library")
 }
 
@@ -7,7 +7,6 @@ dependencies {
   implementation(project(":legacy:commons"))
 
   implementation(libs.bundles.network)
-  implementation(libs.kotlin.stdlib)
   implementation(libs.bundles.jackson)
   testImplementation(libs.bundles.testing)
 }

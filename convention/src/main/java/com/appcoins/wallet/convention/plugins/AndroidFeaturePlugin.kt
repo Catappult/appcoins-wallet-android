@@ -12,7 +12,6 @@ class AndroidFeaturePlugin : Plugin<Project> {
     with(target) {
       pluginManager.apply {
         apply<AndroidLibraryPlugin>()
-        apply<HiltPlugin>()
       }
 
       dependencies {

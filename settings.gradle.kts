@@ -8,7 +8,7 @@ pluginManagement {
 
 buildCache {
   local {
-    removeUnusedEntriesAfterDays = 3
+    removeUnusedEntriesAfterDays = 30
   }
 }
 
@@ -36,8 +36,7 @@ fun File.projectsAndModules(): Pair<Set<String>, Set<String>> {
     "buildSrc",
     "config",
     "build",
-    "src",
-    "molecule-viewmodel"
+    "src"
   )
 
   fun File.childrenDirectories() = listFiles { _, name -> name !in blacklist }

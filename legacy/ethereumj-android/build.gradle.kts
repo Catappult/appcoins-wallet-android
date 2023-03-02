@@ -2,13 +2,6 @@ plugins {
   id("appcoins.android.library")
 }
 
-android {
-  defaultConfig {
-//    versionCode 1
-//    versionName "1.0"
-  }
-}
-
 dependencies {
   implementation(libs.google.material)
   implementation(libs.androidx.appcompact)

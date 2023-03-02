@@ -1,6 +1,5 @@
 plugins {
   id("appcoins.android.library")
-  id("appcoins.hilt")
 }
 
 android {
@@ -43,10 +42,6 @@ dependencies {
   api(project(":legacy:bdsbilling"))
   implementation(project(":legacy:commons"))
 
-  implementation(libs.bundles.hilt.implementation)
-  kapt(libs.bundles.hilt.kapt)
-
-  implementation(libs.kotlin.stdlib)
   implementation(libs.bundles.rx)
   implementation(libs.bundles.network)
   implementation(libs.bundles.adyen) {

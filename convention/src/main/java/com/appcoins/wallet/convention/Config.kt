@@ -7,6 +7,8 @@ object Config {
     minSdk = 21,
     targetSdk = 31,
     compileSdkVersion = 31,
+    buildToolsVersion = "30.0.3",
+    ndkVersion = "21.3.6528147"
   )
   val jvm = JvmConfig(
     javaVersion = JavaVersion.VERSION_1_8,
@@ -27,6 +29,8 @@ object Config {
     val minSdk: Int,
     val targetSdk: Int,
     val compileSdkVersion: Int,
+    val buildToolsVersion: String,
+    val ndkVersion: String,
   )
 
   data class JvmConfig(
