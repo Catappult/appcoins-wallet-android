@@ -1,5 +1,3 @@
-@file:Suppress("UnstableApiUsage")
-
 package com.appcoins.wallet.convention.plugins
 
 import com.android.build.gradle.LibraryExtension
@@ -24,7 +22,7 @@ class AndroidLibraryPlugin : Plugin<Project> {
         apply<HiltPlugin>()
       }
 
-      disableDebugBuildType()
+//      disableDebugBuildType()
       extensions.configure<LibraryExtension> {
         configureAndroidAndKotlin(this)
         buildToolsVersion = Config.android.buildToolsVersion
