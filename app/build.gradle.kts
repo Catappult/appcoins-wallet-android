@@ -1,3 +1,8 @@
+import com.google.gson.JsonObject
+import groovy.json.JsonParser
+import groovy.json.JsonSlurper
+import org.apache.groovy.json.internal.LazyMap
+
 plugins {
   id("appcoins.android.app")
   id("appcoins.room")
@@ -20,10 +25,14 @@ android {
       }
     }
 
-//    def inputFile = new File("$rootDir/appcoins-services.json")
-//    def json = new JsonSlurper().parseText(inputFile.text)
-//    buildConfigField("String", "DEFAULT_OEM_ADDRESS", "\"" + json.oems.default_address + "\"")
-//    buildConfigField("String", "DEFAULT_STORE_ADDRESS", "\"" + json.stores.default_address + "\"")
+    //TODO validate that it works without \" in the value of the default address
+    val inputFile = File("$rootDir/appcoins-services.json")
+    val json = JsonSlurper().parseText(inputFile.readText()) as Map<*, *>
+    buildConfigField("String", "DEFAULT_OEM_ADDRESS", "${(json["oems"] as Map<*, *>)["default_address"]}")
+    buildConfigField("String", "DEFAULT_STORE_ADDRESS","${(json["stores"] as Map<*, *>)["default_address"]}")
+//    buildConfigField("String", "DEFAULT_OEM_ADDRESS", "\"" + (json["oems"] as Map<String, Any>)["default_address"] + "\"")
+//    buildConfigField("String", "DEFAULT_STORE_ADDRESS", "\"" + (json["stores"] as Map<String, Any>)["default_address"] + "\"")
+
 //
 //  buildTypes {
 //    release {

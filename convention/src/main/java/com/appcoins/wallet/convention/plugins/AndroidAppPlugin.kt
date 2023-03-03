@@ -41,18 +41,20 @@ class AndroidAppPlugin : Plugin<Project> {
             versionNameSuffix = ".dev"
             proguardFiles(getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro")
             buildConfigFields(project, BuildConfigType.DEBUG)
+//            manifestPlaceholders.legacyPaymentHost = "${project.MANIFEST_LEGACY_PAYMENT_HOST_DEV}"
+//            manifestPlaceholders.paymentHost = "${project.MANIFEST_PAYMENT_HOST_DEV}"
           }
 
           release {
-            isMinifyEnabled = false
+            isMinifyEnabled = false //TODO this should be true, but its false since 2017
             proguardFiles(getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro")
             buildConfigFields(project, BuildConfigType.RELEASE)
           }
 
-//          getByName("staging") {
-//            initWith(getByName("release"))
-//            versionNameSuffix = ".staging"
-//          }
+          register("staging") {
+            initWith(getByName("release"))
+            versionNameSuffix = ".staging"
+          }
 
           applicationVariants.all() { variant ->
             val sep = "_"

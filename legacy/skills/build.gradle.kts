@@ -9,25 +9,19 @@ android {
 //    consumerProguardFiles = "consumer-rules.pro"
   }
 
-//  buildTypes {
-//    release {
-//      minifyEnabled false
-//      proguardFiles getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro"
-//      buildConfigField "String", "BASE_HOST_SKILLS", project.BASE_HOST_SKILLS_PROD
-//      buildConfigField "String", "BASE_HOST", project.BACKEND_HOST_PROD
-//      buildConfigField "String", "WALLET_PACKAGE", project.WALLET_PACKAGE_PROD
-//    }
-//    staging {
-//      initWith release
-//    }
-//    debug {
-//      minifyEnabled false
-//      proguardFiles getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro"
-//      buildConfigField "String", "BASE_HOST_SKILLS", project.BASE_HOST_SKILLS_DEV
-//      buildConfigField "String", "BASE_HOST", project.BACKEND_HOST_DEV
-//      buildConfigField "String", "WALLET_PACKAGE", project.WALLET_PACKAGE_DEV
-//    }
-//  }
+  buildTypes {
+    release {
+      buildConfigField(
+        "String", "BASE_HOST_SKILLS", project.property("BASE_HOST_SKILLS_PROD").toString()
+      )
+    }
+
+    debug {
+      buildConfigField(
+        "String", "BASE_HOST_SKILLS", project.property("BASE_HOST_SKILLS_DEV").toString()
+      )
+    }
+  }
   buildFeatures {
     viewBinding = true
   }
