@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/base_constraint"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    >
+
+
+  <androidx.constraintlayout.widget.ConstraintLayout
+      android:id="@+id/container_popup"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:animateLayoutChanges="true"
+      android:background="@drawable/background_popup_balloon"
+      app:layout_constraintTop_toTopOf="parent"
+      android:paddingVertical="20dp"
+      android:paddingHorizontal="@dimen/big_margin"
+      >
+
+    <TextView
+        android:id="@+id/referral_code"
+        style="@style/eSkills.ReferralShare.PopupText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Share your referral code with a friend to win bonus. You can share with up to 5 friends."
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+  </androidx.constraintlayout.widget.ConstraintLayout>
+  <ImageView
+      android:id="@+id/arrow"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginEnd="@dimen/big_margin"
+      android:src="@drawable/arrow_popup_balloon"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/container_popup"
+      android:scaleType="centerCrop"
+      />
+</androidx.constraintlayout.widget.ConstraintLayout>

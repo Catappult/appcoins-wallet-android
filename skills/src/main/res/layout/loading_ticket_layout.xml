@@ -54,15 +54,16 @@
         android:indeterminateDrawable="@drawable/gradient_progress"
         />
 
-    <View
-        android:id="@+id/line_separator_info"
+    <include
+        android:id="@+id/referral_share_display"
+        layout="@layout/share_referral_layout"
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
-        android:background="@color/light_gray"
+        android:layout_height="180dp"
+        android:layout_marginStart="14dp"
+        android:layout_marginEnd="14dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/cancel_button"
         />
 
     <Button
@@ -76,19 +77,6 @@
         android:enabled="false"
         android:text="@string/cancel"
         />
-    <Button
-        android:id="@+id/share_button"
-        style="@style/ButtonStyle"
-        android:layout_width="match_parent"
-        android:layout_height="36dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginBottom="16dp"
-        android:enabled="true"
-        android:visibility="gone"
-        android:text="share"
-        />
-
   </LinearLayout>
 
 

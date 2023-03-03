@@ -435,12 +435,24 @@ class SkillsFragment : Fragment(), PaymentView {
     disposable.add(viewModel.getReferral()
       .observeOn(AndroidSchedulers.mainThread())
       .doOnSuccess { referralResponse ->
-        binding.loadingTicketLayout.shareButton.visibility = View.VISIBLE
-        binding.loadingTicketLayout.shareButton.setOnClickListener {
+        if(!referralResponse.active || referralResponse.count>4)
+          binding.loadingTicketLayout.referralShareDisplay.baseConstraint.visibility=View.GONE
+        binding.loadingTicketLayout.referralShareDisplay.actionButtonShareReferral
+          .setOnClickListener {
           startActivity(viewModel.buildShareIntent(referralResponse.referralCode))
         }
-        binding.loadingTicketLayout.shareButton.text =
-          "Share referral " + referralResponse.referralCode
+        binding.loadingTicketLayout.referralShareDisplay.actionButtonTooltipReferral
+          .setOnClickListener {
+            binding.loadingTicketLayout.referralShareDisplay.tooltip.root.visibility=View.VISIBLE
+          }
+        binding.loadingTicketLayout.root
+          .setOnClickListener {
+            if(binding.loadingTicketLayout.referralShareDisplay.tooltip.root.visibility==View.VISIBLE) {
+              binding.loadingTicketLayout.referralShareDisplay.tooltip.root.visibility = View.GONE
+            }
+          }
+        binding.loadingTicketLayout.referralShareDisplay.referralCode.text =
+          referralResponse.referralCode
       }
       .subscribe())
   }
