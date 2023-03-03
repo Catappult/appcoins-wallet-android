@@ -1,7 +1,4 @@
-import com.google.gson.JsonObject
-import groovy.json.JsonParser
 import groovy.json.JsonSlurper
-import org.apache.groovy.json.internal.LazyMap
 
 plugins {
   id("appcoins.android.app")
@@ -49,7 +46,7 @@ android {
 
 dependencies {
   implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
-  implementation(project(":legacy:tn"))
+//  implementation(project(":legacy:tn"))
   implementation(project(":legacy:airdrop"))
   implementation(project(":legacy:billing"))
   implementation(project(":legacy:commons"))
