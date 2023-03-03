@@ -22,17 +22,6 @@ internal fun Project.configureAndroidAndKotlin(extension: CommonExtension<*, *, 
       minSdk = Config.android.minSdk
       testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
-    buildTypes {
-      getByName("debug") {
-        isMinifyEnabled = false
-        proguardFiles(getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro")
-      }
-
-      getByName("release") {
-        isMinifyEnabled = false
-        proguardFiles(getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro")
-      }
-    }
 
     compileOptions {
       sourceCompatibility = Config.jvm.javaVersion
