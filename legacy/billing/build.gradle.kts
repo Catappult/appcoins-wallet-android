@@ -26,6 +26,7 @@ dependencies {
 
   implementation(libs.bundles.rx)
   implementation(libs.bundles.network)
+  implementation(libs.appcoins.sdk.communication)
   implementation(libs.bundles.adyen) {
     exclude(group = "io.michaelrocks", module = "paranoid-core")
     // To resolve the bouncycastle version conflict with the adyen (1.68 vs 1.69)

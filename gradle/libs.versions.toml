@@ -164,6 +164,7 @@ adyen-3ds2 = { module = "com.adyen.checkout:3ds2", version.ref = "adyen_version"
 
 appcoins-sdk = { module = "io.catappult:appcoins-contract-proxy", version.ref = "appcoins_sdk_version" }
 appcoins-sdk-debug = { module = "io.catappult:appcoins-contract-proxy", version.ref = "appcoins_sdk_dev_version" }
+appcoins-sdk-communication = { module = "io.catappult:communication", version.ref = "appcoins_sdk_version" }
 
 analytics-sentry = { module = "io.sentry:sentry-android", version.ref = "sentry_version" }
 analytics-indicative = { module = "com.indicative.client.android:Indicative-Android", version.ref = "indicative_version" }
