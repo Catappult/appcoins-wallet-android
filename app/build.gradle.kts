@@ -4,7 +4,9 @@ plugins {
   id("appcoins.android.app")
   id("appcoins.room")
   id("appcoins.hilt")
-  id("kotlin-kapt")
+  id("com.google.gms.google-services")
+  id("androidx.navigation.safeargs.kotlin")
+  id("de.mannodermaus.android-junit5")
 }
 
 android {
@@ -22,31 +24,40 @@ android {
       }
     }
 
-    //TODO validate that it works without \" in the value of the default address
     val inputFile = File("$rootDir/appcoins-services.json")
     val json = JsonSlurper().parseText(inputFile.readText()) as Map<*, *>
-    buildConfigField("String", "DEFAULT_OEM_ADDRESS", "${(json["oems"] as Map<*, *>)["default_address"]}")
-    buildConfigField("String", "DEFAULT_STORE_ADDRESS","${(json["stores"] as Map<*, *>)["default_address"]}")
-//    buildConfigField("String", "DEFAULT_OEM_ADDRESS", "\"" + (json["oems"] as Map<String, Any>)["default_address"] + "\"")
-//    buildConfigField("String", "DEFAULT_STORE_ADDRESS", "\"" + (json["stores"] as Map<String, Any>)["default_address"] + "\"")
+    buildConfigField(
+      "String",
+      "DEFAULT_OEM_ADDRESS",
+      "\"" + (json["oems"] as Map<*, *>)["default_address"] + "\""
+    )
+    buildConfigField(
+      "String",
+      "DEFAULT_STORE_ADDRESS",
+      "\"" + (json["stores"] as Map<*, *>)["default_address"] + "\""
+    )
 
 //
-//  buildTypes {
-//    release {
-//      signingConfig = signingConfigs.release
-//      manifestPlaceholders.legacyPaymentHost = "${project.MANIFEST_LEGACY_PAYMENT_HOST}"
-//      manifestPlaceholders.paymentHost = "${project.MANIFEST_PAYMENT_HOST}"
-//    }
-//    debug {
-//      manifestPlaceholders.legacyPaymentHost = "${project.MANIFEST_LEGACY_PAYMENT_HOST_DEV}"
-//      manifestPlaceholders.paymentHost = "${project.MANIFEST_PAYMENT_HOST_DEV}"
-//    }
+    buildTypes {
+      release {
+        signingConfig = signingConfigs.getByName("release")
+        manifestPlaceholders["legacyPaymentHost"] =
+          project.property("MANIFEST_LEGACY_PAYMENT_HOST").toString()
+        manifestPlaceholders["paymentHost"] = project.property("MANIFEST_PAYMENT_HOST").toString()
+      }
+      debug {
+        manifestPlaceholders["legacyPaymentHost"] =
+          project.property("MANIFEST_LEGACY_PAYMENT_HOST_DEV").toString()
+        manifestPlaceholders["paymentHost"] =
+          project.property("MANIFEST_PAYMENT_HOST_DEV").toString()
+      }
+    }
   }
 }
 
 dependencies {
-  implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
-//  implementation(project(":legacy:tn"))
+  implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar", "*.aar"))))
+  implementation(project(":legacy:tn"))
   implementation(project(":legacy:airdrop"))
   implementation(project(":legacy:billing"))
   implementation(project(":legacy:commons"))

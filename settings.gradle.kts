@@ -18,11 +18,11 @@ dependencyResolutionManagement {
     google()
     mavenCentral()
     maven { url = uri("https://jitpack.io") }
-//    maven { url = uri("https://dl.bintray.com/asf/asf") }
-//    maven { url = uri("https://dl.bintray.com/aptoide/Aptoide") }
-//    maven { url = uri("https://s01.oss.sonatype.org/content/repositories/snapshots") }
-//    // needed for pincode Lollipin
-//    maven { url = uri("https://github.com/omadahealth/omada-nexus/raw/master/release") }
+    maven { url = uri("https://dl.bintray.com/asf/asf") }
+    maven { url = uri("https://dl.bintray.com/aptoide/Aptoide") }
+    maven { url = uri("https://s01.oss.sonatype.org/content/repositories/snapshots") }
+    // needed for pincode Lollipin
+    maven { url = uri("https://github.com/omadahealth/omada-nexus/raw/master/release") }
   }
 }
 

@@ -6,19 +6,19 @@ import org.gradle.api.Project
 
 
 val defaultBuildConfigList = mutableListOf(
-  BuildConfigField("int", "DB_VERSION", "5"),
-  BuildConfigField("String", "BILLING_SUPPORTED_VERSION"),
+  BuildConfigField("int", "DB_VERSION"),
+  BuildConfigField("int", "BILLING_SUPPORTED_VERSION"),
   BuildConfigField("String", "ROPSTEN_DEFAULT_TOKEN_NAME"),
   BuildConfigField("String", "ROPSTEN_DEFAULT_TOKEN_SYMBOL"),
   BuildConfigField("String", "ROPSTEN_DEFAULT_TOKEN_ADDRESS"),
-  BuildConfigField("String", "ROPSTEN_DEFAULT_TOKEN_DECIMALS"),
+  BuildConfigField("int", "ROPSTEN_DEFAULT_TOKEN_DECIMALS"),
   BuildConfigField("String", "MAIN_NETWORK_DEFAULT_TOKEN_NAME"),
   BuildConfigField("String", "MAIN_NETWORK_DEFAULT_TOKEN_SYMBOL"),
   BuildConfigField("String", "MAIN_NETWORK_DEFAULT_TOKEN_ADDRESS"),
-  BuildConfigField("String", "MAIN_NETWORK_DEFAULT_TOKEN_DECIMALS"),
+  BuildConfigField("int", "MAIN_NETWORK_DEFAULT_TOKEN_DECIMALS"),
   BuildConfigField("String", "PAYMENT_GAS_LIMIT"),
   BuildConfigField("String", "FLURRY_APK_KEY"),
-  BuildConfigField("String", "PAYMENT_HOST_DEV"),
+  BuildConfigField("String", "PAYMENT_HOST_ROPSTEN_NETWORK", "PAYMENT_HOST_DEV"),
   BuildConfigField("String", "PAYMENT_HOST"),
   BuildConfigField("String", "TRANSACTION_DETAILS_HOST"),
   BuildConfigField("String", "TRANSACTION_DETAILS_HOST_ROPSTEN"),
@@ -39,7 +39,6 @@ val defaultBuildConfigList = mutableListOf(
 )
 
 val debugBuildConfigList = mutableListOf(
-  BuildConfigField("int", "DB_VERSION", "5"),
   BuildConfigField(
     "int", "LEADING_ZEROS_ON_PROOF_OF_ATTENTION",
     "LEADING_ZEROS_ON_PROOF_OF_ATTENTION_DEBUG"
@@ -59,7 +58,6 @@ val debugBuildConfigList = mutableListOf(
 )
 
 val releaseBuildConfigList = mutableListOf(
-  BuildConfigField("int", "DB_VERSION", "5"),
   BuildConfigField(
     "int", "LEADING_ZEROS_ON_PROOF_OF_ATTENTION",
     "LEADING_ZEROS_ON_PROOF_OF_ATTENTION_RELEASE"
@@ -83,7 +81,8 @@ internal fun ApplicationDefaultConfig.buildConfigFields(project: Project) {
     buildConfigField(
       type = variable.type,
       name = variable.name,
-      value = variable.value ?: project.property(variable.name).toString()
+      value = if (variable.value != null) project.property(variable.value).toString()
+      else project.property(variable.name).toString()
     )
   }
 }
@@ -98,7 +97,8 @@ internal fun ApplicationBuildType.buildConfigFields(project: Project, type: Buil
     buildConfigField(
       type = variable.type,
       name = variable.name,
-      value = variable.value ?: project.property(variable.name).toString()
+      value = if (variable.value != null) project.property(variable.value).toString()
+      else project.property(variable.name).toString()
     )
   }
 }
