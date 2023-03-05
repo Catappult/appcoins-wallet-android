@@ -15,3 +15,7 @@ buildscript {
 //    classpath(libs.gradlePlugin.bintray)
   }
 }
+
+tasks.register("clean", Delete::class) {
+  delete(rootProject.buildDir)
+}

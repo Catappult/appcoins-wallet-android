@@ -34,6 +34,15 @@ class AndroidAppPlugin : Plugin<Project> {
           buildConfigFields(project)
         }
 
+        signingConfigs {
+          register("release") {
+            storeFile = project.property("BDS_WALLET_STORE_FILE")?.let { file(it) }
+            storePassword = project.property("BDS_WALLET_STORE_PASSWORD").toString()
+            keyAlias = project.property("BDS_WALLET_KEY_ALIAS").toString()
+            keyPassword = project.property("BDS_WALLET_KEY_PASSWORD").toString()
+          }
+        }
+
         buildTypes {
           debug {
             isMinifyEnabled = false
@@ -41,14 +50,21 @@ class AndroidAppPlugin : Plugin<Project> {
             versionNameSuffix = ".dev"
             proguardFiles(getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro")
             buildConfigFields(project, BuildConfigType.DEBUG)
-//            manifestPlaceholders.legacyPaymentHost = "${project.MANIFEST_LEGACY_PAYMENT_HOST_DEV}"
-//            manifestPlaceholders.paymentHost = "${project.MANIFEST_PAYMENT_HOST_DEV}"
+            manifestPlaceholders["legacyPaymentHost"] =
+              project.property("MANIFEST_LEGACY_PAYMENT_HOST_DEV").toString()
+            manifestPlaceholders["paymentHost"] =
+              project.property("MANIFEST_PAYMENT_HOST_DEV").toString()
           }
 
           release {
+            signingConfig = signingConfigs.getByName("release")
             isMinifyEnabled = false //TODO this should be true, but its false since 2017
             proguardFiles(getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro")
             buildConfigFields(project, BuildConfigType.RELEASE)
+            manifestPlaceholders["legacyPaymentHost"] =
+              project.property("MANIFEST_LEGACY_PAYMENT_HOST").toString()
+            manifestPlaceholders["paymentHost"] =
+              project.property("MANIFEST_PAYMENT_HOST").toString()
           }
 
           register("staging") {

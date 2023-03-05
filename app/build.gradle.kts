@@ -15,15 +15,6 @@ android {
     versionCode = 258
     versionName = "2.9.1.0"
 
-    signingConfigs {
-      register("release") {
-        storeFile = project.property("BDS_WALLET_STORE_FILE")?.let { file(it) }
-        storePassword = project.property("BDS_WALLET_STORE_PASSWORD").toString()
-        keyAlias = project.property("BDS_WALLET_KEY_ALIAS").toString()
-        keyPassword = project.property("BDS_WALLET_KEY_PASSWORD").toString()
-      }
-    }
-
     val inputFile = File("$rootDir/appcoins-services.json")
     val json = JsonSlurper().parseText(inputFile.readText()) as Map<*, *>
     buildConfigField(
@@ -36,22 +27,6 @@ android {
       "DEFAULT_STORE_ADDRESS",
       "\"" + (json["stores"] as Map<*, *>)["default_address"] + "\""
     )
-
-//
-    buildTypes {
-      release {
-        signingConfig = signingConfigs.getByName("release")
-        manifestPlaceholders["legacyPaymentHost"] =
-          project.property("MANIFEST_LEGACY_PAYMENT_HOST").toString()
-        manifestPlaceholders["paymentHost"] = project.property("MANIFEST_PAYMENT_HOST").toString()
-      }
-      debug {
-        manifestPlaceholders["legacyPaymentHost"] =
-          project.property("MANIFEST_LEGACY_PAYMENT_HOST_DEV").toString()
-        manifestPlaceholders["paymentHost"] =
-          project.property("MANIFEST_PAYMENT_HOST_DEV").toString()
-      }
-    }
   }
 }
 
