@@ -14,13 +14,8 @@ object Config {
     javaVersion = JavaVersion.VERSION_1_8,
     kotlinJvm = "1.8",
     freeCompilerArgs = listOf(
-      "-Xopt-in=kotlin.RequiresOptIn",
-      // Enable experimental coroutines APIs, including Flow
-      "-Xopt-in=kotlinx.coroutines.ExperimentalCoroutinesApi",
-      "-Xopt-in=kotlinx.coroutines.FlowPreview",
-      "-Xopt-in=kotlin.Experimental",
-      // Enable experimental kotlinx serialization APIs
-      "-Xopt-in=kotlinx.serialization.ExperimentalSerializationApi",
+      "-opt-in=kotlin.RequiresOptIn",
+      "-opt-in=kotlin.Experimental",
       "-Xsam-conversions=class"
     )
   )

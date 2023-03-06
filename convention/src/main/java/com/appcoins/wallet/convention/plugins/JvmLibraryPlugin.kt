@@ -23,11 +23,7 @@ class JvmLibraryPlugin : Plugin<Project> {
       tasks.withType(KotlinCompile::class.java) {
         kotlinOptions {
           jvmTarget = Config.jvm.kotlinJvm
-          freeCompilerArgs = freeCompilerArgs + listOf(
-            "-Xopt-in=kotlin.RequiresOptIn",
-            "-Xopt-in=kotlinx.coroutines.ExperimentalCoroutinesApi",
-            "-Xopt-in=kotlinx.coroutines.FlowPreview"
-          )
+          freeCompilerArgs = freeCompilerArgs
         }
       }
 

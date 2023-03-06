@@ -1,19 +1,10 @@
 package com.appcoins.wallet.convention.extensions
 
 import com.android.build.api.dsl.CommonExtension
-import com.android.build.api.variant.AndroidComponentsExtension
 import com.appcoins.wallet.convention.Config
 import org.gradle.api.Project
 import org.gradle.api.plugins.ExtensionAware
 import org.jetbrains.kotlin.gradle.dsl.KotlinJvmOptions
-
-internal fun Project.disableDebugBuildType() {
-  extensions.configure(AndroidComponentsExtension::class.java) {
-    beforeVariants(selector().withBuildType("debug")) { builder ->
-      builder.enable = false
-    }
-  }
-}
 
 internal fun Project.configureAndroidAndKotlin(extension: CommonExtension<*, *, *, *>) {
   with(extension) {
