@@ -48,7 +48,6 @@ dependencies {
   implementation(libs.androidx.core.ktx)
   implementation(libs.androidx.navigation.ui)
   implementation(libs.androidx.navigation.fragment)
-  implementation(libs.androidx.navigation.safeargs) // ??
   implementation(libs.androidx.activity.ktx)
   implementation(libs.androidx.fragment.ktx)
   implementation(libs.androidx.fragment)
@@ -110,7 +109,7 @@ dependencies {
 
   implementation(libs.cpp)
   implementation(libs.commons.lang3)
-  implementation(libs.android.support)
+  implementation(libs.android.support.annotations)
   implementation(libs.android.installreferrer)
 
   testImplementation(libs.bundles.testing)

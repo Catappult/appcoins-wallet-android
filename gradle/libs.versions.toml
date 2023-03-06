@@ -182,7 +182,7 @@ epoxy-processor = { module = "com.airbnb.android:epoxy-processor", version.ref =
 firebase-messaging = { module = "com.google.firebase:firebase-messaging", version.ref = "firebase_messaging" }
 cpp = { module = "com.hbb20:ccp", version.ref = "cpp_version" }
 android-installreferrer = { module = "com.android.installreferrer:installreferrer", version.ref = "referrer_version" }
-android-support = { module = "com.android.support:support-annotations", version.ref = "support_annotations" }
+android-support-annotations = { module = "com.android.support:support-annotations", version.ref = "support_annotations" }
 commons-lang3 = { module = "org.apache.commons:commons-lang3", version.ref = "commons_lang3_version" }
 paranoid = { module = "io.michaelrocks:paranoid-core", version.ref = "paranoid_version" }
 flexbox = { module = "com.google.android.flexbox:flexbox", version.ref = "flexbox_version" }
