@@ -3,12 +3,7 @@ plugins {
 }
 
 android {
-  defaultConfig {
-//    lintOptions {
-//      abortOnError = false
-//    }
-  }
-
+  namespace = "com.appcoins.wallet.billing"
   buildTypes {
     release {
       buildConfigField("int", "NETWORK_ID", project.property("NETWORK_ID_PROD").toString())
