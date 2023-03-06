@@ -29,12 +29,16 @@ abstract class FiatCurrencyModel : EpoxyModelWithHolder<FiatCurrencyModel.FiatCu
 
   override fun bind(holder: FiatCurrencyHolder) {
     GlideApp
-        .with(holder.itemView.context)
-        .load(Uri.parse(fiatCurrency.flag))
-        .transition(DrawableTransitionOptions.withCrossFade())
-        .circleCrop()
-        .into(holder.fiatFlag)
-
+      .with(holder.itemView.context)
+      .load(
+        if (fiatCurrency.flag != null)
+          Uri.parse(fiatCurrency.flag)
+        else
+          R.drawable.currency_flag_placeholder
+      )
+      .transition(DrawableTransitionOptions.withCrossFade())
+      .circleCrop()
+      .into(holder.fiatFlag)
     holder.shortCurrency.text = fiatCurrency.currency
     holder.longCurrency.text = fiatCurrency.label
 
