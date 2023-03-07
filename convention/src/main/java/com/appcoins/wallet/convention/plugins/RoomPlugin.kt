@@ -21,8 +21,9 @@ class RoomPlugin : Plugin<Project> {
       extensions.configure<KspExtension> {
         // The schemas directory contains a schema file for each version of the Room database.
         // This is required to enable Room auto migrations.
-        // See https://developer.android.com/reference/kotlin/androidx/room/AutoMigration.
-        arg(RoomSchemaArgProvider(File(projectDir, "schemas")))
+        // See https://developer.android.com/reference/kotlin/androidx/room/AutoMigration
+        val file = File(projectDir, "schemas")
+        arg(RoomSchemaArgProvider(file))
       }
       dependencies {
         add("implementation", libs["androidx.room.runtime"])
