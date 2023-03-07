@@ -1,6 +1,7 @@
 package com.appcoins.wallet.convention.plugins
 
 import com.android.build.gradle.LibraryExtension
+import com.android.build.gradle.internal.dsl.BaseAppModuleExtension
 import com.appcoins.wallet.convention.Config
 import com.appcoins.wallet.convention.extensions.configureAndroidAndKotlin
 import com.appcoins.wallet.convention.extensions.get
@@ -22,23 +23,11 @@ class RoomPlugin : Plugin<Project> {
       with(pluginManager) {
         apply("com.google.devtools.ksp")
       }
-
-      extensions.configure<LibraryExtension> {
-        defaultConfig {
-          javaCompileOptions {
-            annotationProcessorOptions {
-              annotationProcessorOptions.arguments["room.schemaLocation"] =
-                "${project.projectDir}/schemas"
-            }
-          }
-        }
-      }
 //      extensions.configure<KspExtension> {
 //        // The schemas directory contains a schema file for each version of the Room database.
 //        // This is required to enable Room auto migrations.
 //        // See https://developer.android.com/reference/kotlin/androidx/room/AutoMigration
-//        val file = File(projectDir, "schemas")
-//        arg(RoomSchemaArgProvider(file))
+//        arg(RoomSchemaArgProvider(File(projectDir, "schemas")))
 //      }
       dependencies {
         add("implementation", libs["androidx.room.runtime"])

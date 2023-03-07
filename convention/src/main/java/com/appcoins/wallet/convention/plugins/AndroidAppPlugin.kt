@@ -32,6 +32,13 @@ class AndroidAppPlugin : Plugin<Project> {
             abortOnError = false
           }
           buildConfigFields(project)
+          javaCompileOptions {
+            annotationProcessorOptions {
+              compilerArgumentProviders(
+                RoomPlugin.RoomSchemaArgProvider(File(projectDir, "schemas"))
+              )
+            }
+          }
         }
 
         signingConfigs {
