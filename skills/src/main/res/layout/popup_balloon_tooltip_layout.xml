@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/base_constraint"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -14,9 +13,10 @@
       android:layout_height="wrap_content"
       android:animateLayoutChanges="true"
       android:background="@drawable/background_popup_balloon"
-      app:layout_constraintTop_toTopOf="parent"
       android:paddingVertical="20dp"
       android:paddingHorizontal="@dimen/big_margin"
+      app:layout_constraintBottom_toTopOf="@id/arrow"
+
       >
 
     <TextView
@@ -28,16 +28,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         />
   </androidx.constraintlayout.widget.ConstraintLayout>
   <ImageView
       android:id="@+id/arrow"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_marginEnd="@dimen/big_margin"
+      android:scaleType="fitCenter"
+      android:layout_width="21dp"
+      android:layout_height="17dp"
+      android:layout_marginEnd="16dp"
       android:src="@drawable/arrow_popup_balloon"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintTop_toBottomOf="@id/container_popup"
-      android:scaleType="centerCrop"
+      app:tint="@color/referral_popup_balloon_bg"
       />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -9,6 +9,6 @@ data class ReferralResponse(
   @SerializedName("count")
   val count: Int,
 
-  @SerializedName("active")
-  val active: Boolean,
+  @SerializedName("available")
+  val available: Boolean,
 )

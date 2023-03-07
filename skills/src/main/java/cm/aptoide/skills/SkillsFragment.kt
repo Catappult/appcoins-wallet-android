@@ -1,6 +1,8 @@
 package cm.aptoide.skills
 
 import android.content.Intent
+import android.graphics.Color
+import android.graphics.PorterDuff
 import android.os.Build
 import android.os.Bundle
 import android.text.SpannableStringBuilder
@@ -149,7 +151,7 @@ class SkillsFragment : Fragment(), PaymentView {
     } else {
       hidePaymentRelatedText()
       binding.payTicketLayout.dialogBuyButtonsPaymentMethods.buyButton.setOnClickListener {
-        binding.payTicketLayout.dialogBuyButtonsPaymentMethods.buyButton.isEnabled=false
+        binding.payTicketLayout.dialogBuyButtonsPaymentMethods.buyButton.isEnabled = false
         val queueId = binding.payTicketLayout.payTicketRoomDetails.roomId.text.toString()
         if (queueId.isNotBlank()) {
           eSkillsPaymentData.queueId = QueueIdentifier(queueId.trim(), true)
@@ -190,7 +192,7 @@ class SkillsFragment : Fragment(), PaymentView {
           binding.payTicketLayout.dialogBuyButtonsPaymentMethods.buyButton.text =
             getString(R.string.buy_button)
           binding.payTicketLayout.dialogBuyButtonsPaymentMethods.buyButton.setOnClickListener {
-            binding.payTicketLayout.dialogBuyButtonsPaymentMethods.buyButton.isEnabled=false
+            binding.payTicketLayout.dialogBuyButtonsPaymentMethods.buyButton.isEnabled = false
             val queueId = binding.payTicketLayout.payTicketRoomDetails.roomId.text.toString()
             if (queueId.isNotBlank()) {
               eSkillsPaymentData.queueId = QueueIdentifier(queueId.trim(), true)
@@ -206,7 +208,7 @@ class SkillsFragment : Fragment(), PaymentView {
               binding.payTicketLayout.dialogBuyButtonsPaymentMethods.buyButton.text =
                 getString(R.string.buy_button)
               binding.payTicketLayout.dialogBuyButtonsPaymentMethods.buyButton.setOnClickListener {
-                binding.payTicketLayout.dialogBuyButtonsPaymentMethods.buyButton.isEnabled=false
+                binding.payTicketLayout.dialogBuyButtonsPaymentMethods.buyButton.isEnabled = false
                 val queueId = binding.payTicketLayout.payTicketRoomDetails.roomId.text.toString()
                 if (queueId.isNotBlank()) {
                   eSkillsPaymentData.queueId = QueueIdentifier(queueId.trim(), true)
@@ -435,24 +437,31 @@ class SkillsFragment : Fragment(), PaymentView {
     disposable.add(viewModel.getReferral()
       .observeOn(AndroidSchedulers.mainThread())
       .doOnSuccess { referralResponse ->
-        if(!referralResponse.active || referralResponse.count>4)
-          binding.loadingTicketLayout.referralShareDisplay.baseConstraint.visibility=View.GONE
+        if (!referralResponse.available)
+          binding.loadingTicketLayout.referralShareDisplay.baseConstraint.visibility = View.GONE
         binding.loadingTicketLayout.referralShareDisplay.actionButtonShareReferral
           .setOnClickListener {
-          startActivity(viewModel.buildShareIntent(referralResponse.referralCode))
-        }
-        binding.loadingTicketLayout.referralShareDisplay.actionButtonTooltipReferral
+            startActivity(viewModel.buildShareIntent(referralResponse.referralCode))
+          }
+        val tooltip_btn =         binding.loadingTicketLayout.referralShareDisplay.actionButtonTooltipReferral
+        tooltip_btn
           .setOnClickListener {
-            binding.loadingTicketLayout.referralShareDisplay.tooltip.root.visibility=View.VISIBLE
+            binding.loadingTicketLayout.referralShareDisplay.tooltip.root.visibility = View.VISIBLE
+            binding.loadingTicketLayout.referralShareDisplay.actionButtonTooltipReferral.setColorFilter(Color.WHITE, PorterDuff.Mode.DST_IN)
           }
         binding.loadingTicketLayout.root
           .setOnClickListener {
-            if(binding.loadingTicketLayout.referralShareDisplay.tooltip.root.visibility==View.VISIBLE) {
+            if (binding.loadingTicketLayout.referralShareDisplay.tooltip.root.visibility == View.VISIBLE) {
               binding.loadingTicketLayout.referralShareDisplay.tooltip.root.visibility = View.GONE
+              binding.loadingTicketLayout.referralShareDisplay.actionButtonTooltipReferral.colorFilter =
+                null
             }
           }
         binding.loadingTicketLayout.referralShareDisplay.referralCode.text =
           referralResponse.referralCode
+      }
+      .doOnError {
+        binding.loadingTicketLayout.referralShareDisplay.baseConstraint.visibility = View.GONE
       }
       .subscribe())
   }

@@ -11,7 +11,7 @@
       android:layout_width="match_parent"
       android:layout_height="0dp"
       android:orientation="horizontal"
-      app:layout_constraintGuide_percent="0.63"
+      app:layout_constraintGuide_percent="0.66"
       />
 
   <androidx.constraintlayout.widget.Guideline
@@ -89,8 +89,7 @@
       android:layout_width="0dp"
       android:layout_height="47dp"
       android:layout_marginHorizontal="@dimen/big_margin"
-      android:layout_marginTop="-10dp"
-      android:layout_marginBottom="@dimen/big_margin"
+      android:layout_marginBottom="@dimen/small_margin"
       android:background="@drawable/rectangle_purple"
       app:layout_constraintBottom_toBottomOf="@id/container_popup"
       app:layout_constraintEnd_toEndOf="@id/container_popup"
@@ -140,12 +139,14 @@
   <include
       android:id="@+id/tooltip"
       layout="@layout/popup_balloon_tooltip_layout"
-      android:layout_width="278dp"
-      android:layout_height="wrap_content"
-      android:layout_marginStart="14dp"
-      android:layout_marginBottom="0dp"
+      android:layout_width="0dp"
+      android:layout_height="0dp"
+      android:layout_marginStart="@dimen/big_margin"
+      android:layout_marginBottom="1dp"
+      app:layout_constraintStart_toStartOf="@id/code_background"
       app:layout_constraintEnd_toEndOf="@id/code_background"
-      app:layout_constraintBottom_toBottomOf="@id/guideline_image"
-      android:visibility="gone"
+      app:layout_constraintBottom_toTopOf="@id/guideline_image"
+      app:layout_constraintTop_toTopOf="@id/container_popup"
+      android:visibility="visible"
       />
 </androidx.constraintlayout.widget.ConstraintLayout>
