@@ -30,7 +30,7 @@ interface TicketApi {
     @Body data: Refunded
   ): Single<TicketResponse>
 
-  @POST("queue/eskills/service/promo/transaction")
+  @POST("queue/eskills/service/promo/{referral_code}")
   fun postReferralTransaction(
     @Header("authorization") authorization: String,
     @Path("referral_code") referralCode: String,

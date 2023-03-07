@@ -43,5 +43,7 @@
 
   <color name="referral_background_start">#FAB766</color>
   <color name="referral_background_end">#F17D5A</color>
+  <color name="referral_error">#FF2E37</color>
+  <color name="onboarding_font_color">#001727</color>
 
 </resources>

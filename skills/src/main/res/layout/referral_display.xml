@@ -38,8 +38,8 @@
 
 
         <TextView
-            android:id="@+id/create_room_description"
-            style="TextAppearance.AppCompat.Body1.Roboto.Bold"
+            android:id="@+id/insert_referral_text"
+            style="@style/eSkills.Onboarding.Text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -61,20 +61,33 @@
             android:background="@drawable/rectangle_solid_white_outline_black"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/create_room_description"
+            app:layout_constraintTop_toBottomOf="@id/insert_referral_text"
             >
 
           <EditText
-              android:id="@+id/room_id"
+              android:id="@+id/referral_code"
               style="@style/eSkills.Payment.TextInputEditText"
-              android:layout_width="0dp"
+              android:layout_width="200dp"
               android:layout_height="48dp"
               android:background="@null"
               android:hint="code here..."
               android:inputType="text"
               app:layout_constraintBottom_toBottomOf="parent"
               app:layout_constraintEnd_toEndOf="parent"
+              app:layout_constraintEnd_toStartOf="@id/error_message"
               app:layout_constraintStart_toStartOf="parent"
+              app:layout_constraintTop_toTopOf="parent"
+              app:layout_constraintVertical_bias="0.0"
+              />
+          <TextView
+              android:id="@+id/error_message"
+              style="@style/eSkills.Payment.Error"
+              android:layout_width="0dp"
+              android:layout_height="48dp"
+              android:visibility="gone"
+              android:gravity="center"
+              app:layout_constraintBottom_toBottomOf="parent"
+              app:layout_constraintStart_toEndOf="@+id/referral_code"
               app:layout_constraintTop_toTopOf="parent"
               />
 

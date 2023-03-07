@@ -231,8 +231,8 @@ class SkillsViewModel @Inject constructor(
     return getVerificationUseCase().blockingGet()
   }
 
-  fun useReferralCode(referralCode: String): Single<ReferralResponse>{
-    return useReferralUseCase(referralCode)
+  fun useReferralCode(referralCode: String): ReferralResult{
+    return useReferralUseCase(referralCode).blockingGet()
   }
 
   fun userFirstTimeCheck(): Boolean{

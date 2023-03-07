@@ -3,8 +3,9 @@ package cm.aptoide.skills.usecase
 import cm.aptoide.skills.interfaces.EwtObtainer
 import cm.aptoide.skills.repository.TicketRepository
 import io.reactivex.Single
+import javax.inject.Inject
 
-class UserFirstTimeCheckUseCase (
+class UserFirstTimeCheckUseCase @Inject constructor (
   private val ewtObtainer: EwtObtainer,
   private val ticketRepository: TicketRepository,
 ){

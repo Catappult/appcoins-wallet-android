@@ -1,15 +1,19 @@
 package cm.aptoide.skills.repository
 
+import android.util.Log
 import cm.aptoide.skills.api.TicketApi
 import cm.aptoide.skills.model.*
 import cm.aptoide.skills.util.EskillsPaymentData
 import io.reactivex.Single
+import io.reactivex.schedulers.Schedulers
+import retrofit2.HttpException
 import javax.inject.Inject
 
 class TicketRepository @Inject constructor(
   private val ticketApi: TicketApi,
   private val ticketLocalStorage: TicketLocalStorage,
-  private val ticketApiMapper: TicketApiMapper
+  private val ticketApiMapper: TicketApiMapper,
+  private val referralMapper: ReferralMapper
 ) {
 
   fun createTicket(
@@ -49,14 +53,24 @@ class TicketRepository @Inject constructor(
   fun postReferralTransaction(
     ewt: String,
     referralCode: String
-  ): Single<ReferralResponse>{
+  ): Single<ReferralResult> {
     return ticketApi.postReferralTransaction(ewt, referralCode)
+      .doOnError { Log.d("REFERRAL REDEEM", "postReferralTransaction: ${it.stackTraceToString()}") }
+      .subscribeOn(Schedulers.io())
+      .map{
+        SuccessfulReferral(it) as ReferralResult
+      }
+      .onErrorReturn {
+        referralMapper.mapHttpException(it as HttpException)
+      }
   }
 
   fun getFirstTimeUserCheck(
     ewt: String
   ): Single<Boolean>{
     return ticketApi.getFirstTimeUserCheck(ewt)
+      .doOnError { Log.d("ENdpoint error", "getFirstTimeUserCheck: $it") }
+      .subscribeOn(Schedulers.io())
       .map{ it.firstTimeUserCheck }
       .onErrorReturn { false }
   }

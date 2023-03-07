@@ -25,29 +25,40 @@
         android:layout_height="93dp"
         android:src="@drawable/ic_appc"
         app:layout_constraintVertical_chainStyle="packed"
-        app:layout_constraintBottom_toTopOf="@id/onboarding_text"
+        app:layout_constraintBottom_toTopOf="@id/onboarding_title"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         />
-
     <TextView
-        android:id="@+id/onboarding_text"
+        android:id="@+id/onboarding_title"
+        style="@style/eSkills.Onboarding.Title"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="Ready to show your skills? \n\n
+        android:text="Ready to show your skills?"
+        app:layout_constraintVertical_chainStyle="packed"
+        app:layout_constraintBottom_toTopOf="@id/onboarding_title"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/app_icon"
 
-In e-Skills games, 2 or more players face each other in a vibrant match and... The winner gets a prize in real money! \n\n
+        />
+    <TextView
+        android:id="@+id/onboarding_text"
+        style="@style/eSkills.Onboarding.Text"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="In e-Skills games, 2 or more players face each other in a vibrant match and... The winner gets a prize in real money! \n\n
 
 Let's start with a free practice game with no entry fee for you to get to know the drill."
         app:layout_constraintVertical_chainStyle="packed"
         app:layout_constraintBottom_toTopOf="@id/referral_display"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/app_icon"
+        app:layout_constraintTop_toBottomOf="@id/onboarding_title"
         />
-
 
 
     <include
@@ -61,7 +72,6 @@ Let's start with a free practice game with no entry fee for you to get to know t
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/dialog_buy_buttons_payment_methods"
         />
-
     <include
         android:id="@+id/dialog_buy_buttons_payment_methods"
         layout="@layout/pay_ticket_buy_buttons"
