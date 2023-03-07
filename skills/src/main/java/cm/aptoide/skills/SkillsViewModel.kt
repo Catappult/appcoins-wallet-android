@@ -43,8 +43,10 @@ class SkillsViewModel @Inject constructor(
   private val getVerificationUseCase: GetVerificationUseCase,
   private val buildUpdateIntentUseCase: BuildUpdateIntentUseCase,
   private val useReferralUseCase: UseReferralUseCase,
-  private val userFirstTimeCheckUseCase: UserFirstTimeCheckUseCase
-  ) : ViewModel() {
+  private val userFirstTimeCheckUseCase: UserFirstTimeCheckUseCase,
+  private val buildShareReferralIntentUseCase: BuildShareReferralIntentUseCase,
+  private val getReferralUseCase: GetReferralUseCase
+) : ViewModel() {
   lateinit var ticketId: String
   private val closeView: PublishSubject<Pair<Int, UserData>> = PublishSubject.create()
 
@@ -243,6 +245,10 @@ class SkillsViewModel @Inject constructor(
     return buildUpdateIntentUseCase()
   }
 
+  fun buildShareIntent(referralCode: String): Intent {
+    return buildShareReferralIntentUseCase(referralCode)
+  }
+
   fun restorePurchase(view: PaymentView): Single<Ticket> {
     return walletAddressObtainer.getWalletAddress()
       .flatMap { walletAddress ->
@@ -255,5 +261,9 @@ class SkillsViewModel @Inject constructor(
             }
         }
       }
+  }
+
+  fun getReferral(): Single<ReferralResponse> {
+    return getReferralUseCase()
   }
 }

@@ -2,9 +2,10 @@ package cm.aptoide.skills.model
 
 import com.google.gson.annotations.SerializedName
 
-data class ReferralResponse (
+
+data class ReferralResponse(
   @SerializedName("referral_code")
-  val referral_code: String,
+  val referralCode: String,
 
   @SerializedName("count")
   val count: Int,

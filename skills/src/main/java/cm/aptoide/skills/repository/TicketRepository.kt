@@ -17,8 +17,7 @@ class TicketRepository @Inject constructor(
 ) {
 
   fun createTicket(
-    eskillsPaymentData: EskillsPaymentData, ewt: String,
-    walletAddress: WalletAddress
+    eskillsPaymentData: EskillsPaymentData, ewt: String, walletAddress: WalletAddress
   ): Single<Ticket> {
     return ticketApi.postTicket(ewt, buildTicketRequest(eskillsPaymentData, walletAddress))
       .map { ticketApiMapper.map(it, eskillsPaymentData.queueId) }
@@ -26,23 +25,28 @@ class TicketRepository @Inject constructor(
   }
 
   private fun buildTicketRequest(
-    eskillsPaymentData: EskillsPaymentData,
-    walletAddress: WalletAddress
-  ) =
-    TicketRequest(
-      eskillsPaymentData.packageName, eskillsPaymentData.userId, eskillsPaymentData.userName,
-      walletAddress.address, eskillsPaymentData.metadata, eskillsPaymentData.environment,
-      eskillsPaymentData.numberOfUsers, eskillsPaymentData.price, eskillsPaymentData.currency,
-      eskillsPaymentData.product, eskillsPaymentData.timeout, eskillsPaymentData.queueId?.id
-    )
+    eskillsPaymentData: EskillsPaymentData, walletAddress: WalletAddress
+  ) = TicketRequest(
+    eskillsPaymentData.packageName,
+    eskillsPaymentData.userId,
+    eskillsPaymentData.userName,
+    walletAddress.address,
+    eskillsPaymentData.metadata,
+    eskillsPaymentData.environment,
+    eskillsPaymentData.numberOfUsers,
+    eskillsPaymentData.price,
+    eskillsPaymentData.currency,
+    eskillsPaymentData.product,
+    eskillsPaymentData.timeout,
+    eskillsPaymentData.queueId?.id
+  )
 
   fun getTicket(ewt: String, ticketId: String, queueIdentifier: QueueIdentifier?): Single<Ticket> {
-    return ticketApi.getTicket(ewt, ticketId)
-      .map { ticketApiMapper.map(it, queueIdentifier) }
+    return ticketApi.getTicket(ewt, ticketId).map { ticketApiMapper.map(it, queueIdentifier) }
       .onErrorReturn { ticketApiMapper.map(it) }
   }
 
-  fun getVerification(ewt: String): Single<EskillsVerification>{
+  fun getVerification(ewt: String): Single<EskillsVerification> {
     return ticketApi.getVerification(ewt)
   }
 
@@ -76,17 +80,26 @@ class TicketRepository @Inject constructor(
   }
 
   fun getInQueueTicket(
-    walletAddress: WalletAddress,
-    eskillsPaymentData: EskillsPaymentData
+    walletAddress: WalletAddress, eskillsPaymentData: EskillsPaymentData
   ): Single<StoredTicket> {
     return ticketLocalStorage.getTicketInQueue(walletAddress, eskillsPaymentData)
   }
 
   fun cacheTicket(
-    walletAddress: WalletAddress,
-    ticketId: String,
-    eskillsPaymentData: EskillsPaymentData
+    walletAddress: WalletAddress, ticketId: String, eskillsPaymentData: EskillsPaymentData
   ) {
     ticketLocalStorage.saveTicketInQueue(walletAddress, ticketId, eskillsPaymentData)
+  }
+
+  fun getReferral(ewt: String): Single<ReferralResponse> {
+    return ticketApi.getReferral(ewt)
+      .doOnError { Log.d("Endpoint error", "getReferral: ${it.stackTrace}") }
+      .subscribeOn(Schedulers.io())
+  }
+
+  fun createReferral(ewt: String): Single<ReferralResponse> {
+    return ticketApi.createReferral(ewt)
+      .doOnError { Log.d("Endpoint error", "createReferral: ${it.stackTrace}") }
+      .subscribeOn(Schedulers.io())
   }
 }

@@ -15,7 +15,6 @@
   <color name="colorPrimaryDark">#e44b46</color>
   <color name="colorAccent">#e44b46</color>
   <color name="statusBarColor">#154868</color>
-
   <color name="btn_start_gradient_color">#fc9d48</color>
   <color name="btn_end_gradient_color">#ff578c</color>
   <color name="btn_text_disable_color">#42000000</color>
@@ -43,7 +42,11 @@
 
   <color name="referral_background_start">#FAB766</color>
   <color name="referral_background_end">#F17D5A</color>
+
   <color name="referral_error">#FF2E37</color>
   <color name="onboarding_font_color">#001727</color>
+
+  <color name="referral_share_color">#19061A</color>
+  <color name="referral_popup_balloon_bg">#001727</color> s
 
 </resources>

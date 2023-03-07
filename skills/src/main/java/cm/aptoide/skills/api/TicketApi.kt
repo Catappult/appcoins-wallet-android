@@ -1,6 +1,10 @@
 package cm.aptoide.skills.api
 
 import cm.aptoide.skills.model.*
+import cm.aptoide.skills.model.EskillsVerification
+import cm.aptoide.skills.model.ReferralResponse
+import cm.aptoide.skills.model.TicketRequest
+import cm.aptoide.skills.model.TicketResponse
 import io.reactivex.Single
 import retrofit2.http.*
 
@@ -40,6 +44,16 @@ interface TicketApi {
   fun getFirstTimeUserCheck(
     @Header("authorization") authorization: String,
   ): Single<FirstTimeUserResponse>
+
+  @GET("queue/eskills/service/promo")
+  fun getReferral(
+    @Header("authorization") authorization: String,
+  ): Single<ReferralResponse>
+
+  @POST("queue/eskills/service/promo")
+  fun createReferral(
+    @Header("authorization") authorization: String,
+  ): Single<ReferralResponse>
 
   data class Refunded(val status: String = "REFUNDED")
 }
