@@ -18,13 +18,13 @@ class RoomPlugin : Plugin<Project> {
     with(target) {
       pluginManager.apply("com.google.devtools.ksp")
 
-      extensions.configure<KspExtension> {
-        // The schemas directory contains a schema file for each version of the Room database.
-        // This is required to enable Room auto migrations.
-        // See https://developer.android.com/reference/kotlin/androidx/room/AutoMigration
-        val file = File(projectDir, "schemas")
-        arg(RoomSchemaArgProvider(file))
-      }
+//      extensions.configure<KspExtension> {
+//        // The schemas directory contains a schema file for each version of the Room database.
+//        // This is required to enable Room auto migrations.
+//        // See https://developer.android.com/reference/kotlin/androidx/room/AutoMigration
+//        val file = File(projectDir, "schemas")
+//        arg(RoomSchemaArgProvider(file))
+//      }
       dependencies {
         add("implementation", libs["androidx.room.runtime"])
         add("implementation", libs["androidx.room.rxjava2"])
