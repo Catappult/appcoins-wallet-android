@@ -32,12 +32,6 @@ class AndroidAppPlugin : Plugin<Project> {
             abortOnError = false
           }
           buildConfigFields(project)
-          javaCompileOptions {
-            annotationProcessorOptions {
-              annotationProcessorOptions.arguments["room.schemaLocation"] =
-                "${project.projectDir}/schemas"
-            }
-          }
         }
 
         signingConfigs {
