@@ -63,9 +63,11 @@ class BillingIntentBuilder(val context: Context) {
                                  subscriptionPeriod: String?,
                                  trialPeriod: String?): Intent {
     val value = amount.multiply(BigDecimal.TEN.pow(18))
-
+    //TODO networkId harcoded is a temp solution since BuildConfig.NETWORK_ID was giving problems,
+    // when we modularize we should remove the build configs from the :app module
+    val networkId = if (BuildConfig.DEBUG) 3 else 1
     val uri = Uri.parse(buildUriString(type, tokenContractAddress, iabContractAddress, value,
-        developerAddress, skuId, BuildConfig.NETWORK_ID, packageName,
+        developerAddress, skuId, networkId, packageName,
         PayloadHelper.getPayload(payload), PayloadHelper.getOrderReference(payload),
         PayloadHelper.getOrigin(payload), subscriptionPeriod, trialPeriod))
 

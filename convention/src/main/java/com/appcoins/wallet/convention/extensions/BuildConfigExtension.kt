@@ -54,7 +54,8 @@ val debugBuildConfigList = mutableListOf(
   BuildConfigField("String", "INTERCOM_APP_ID", "INTERCOM_APP_ID_DEV"),
   BuildConfigField("String", "ADYEN_PUBLIC_KEY", "ADYEN_PUBLIC_KEY_DEV"),
   BuildConfigField("String", "SENTRY_DSN_KEY", "SENTRY_DSN_KEY_DEV"),
-  BuildConfigField("String", "INDICATIVE_API_KEY", "INDICATIVE_API_KEY_DEV")
+  BuildConfigField("String", "INDICATIVE_API_KEY", "INDICATIVE_API_KEY_DEV"),
+  BuildConfigField("String", "BASE_HOST_SKILLS", "BASE_HOST_SKILLS_PROD")
 )
 
 val releaseBuildConfigList = mutableListOf(
@@ -73,7 +74,8 @@ val releaseBuildConfigList = mutableListOf(
   BuildConfigField("String", "ADYEN_PUBLIC_KEY"),
   BuildConfigField("String", "SENTRY_DSN_KEY"),
   BuildConfigField("String", "SUBS_BASE_HOST", "BASE_HOST_PROD"),
-  BuildConfigField("String", "INDICATIVE_API_KEY")
+  BuildConfigField("String", "INDICATIVE_API_KEY"),
+  BuildConfigField("String", "BASE_HOST_SKILLS", "BASE_HOST_SKILLS_DEV")
 )
 
 internal fun ApplicationDefaultConfig.buildConfigFields(project: Project) {

@@ -1,8 +1,8 @@
 package com.asfoundation.wallet.di.api
 
-import cm.aptoide.skills.BuildConfig
 import cm.aptoide.skills.api.RoomApi
 import cm.aptoide.skills.api.TicketApi
+import com.asf.wallet.BuildConfig
 import com.asfoundation.wallet.di.annotations.DefaultHttpClient
 import com.google.gson.GsonBuilder
 import dagger.Module
