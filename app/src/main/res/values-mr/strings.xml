@@ -44,7 +44,7 @@
   <!-- TODO: Remove or change this placeholder text -->
   <string name="title_community">समुदाय</string>
   <string name="title_opensource">ओपन सोर्स डेव्हलपमेंट</string>
-  <string name="title_source_code">सोर्स कोड</string>
+  <string name="title_source_code">Source Code</string>
   <string name="title_report_bug">बग असल्यास सांगा</string>
   <string name="title_support">सपोर्ट</string>
   <string name="title_permissions">परवानग्या</string>
@@ -80,7 +80,7 @@
   <string name="unknown_error">त्रुटी निर्माण झाली आहे.</string>
   <string name="action_backup_wallet">वॉलेट बॅकअप करा</string>
   <string name="no_tokens">आपण अजुन कस्टम टोकन जोडलेले नाहीत.</string>
-  <string name="title_email">आम्हाला इमेल पाठवा</string>
+  <string name="title_email">Email Us</string>
   <string name="action_donate">दान करा</string>
   <!-- Titles -->
   <string name="title_my_address">मिळवा</string>
@@ -759,7 +759,7 @@
   <string name="pioneer_gamification_body">वाढीव बोनससह लवकर अडॉप्ट करणारे पायोनियर असतात.</string>
   <!--Check for Updates-->
   <string name="check_updates_settings_current_title">सद्य आवृत्ती</string>
-  <string name="check_updates_settings_title">अद्यतन तपासा</string>
+  <string name="check_updates_settings_title">Check for Updates</string>
   <string name="check_updates_settings_subtitle">सद्य आवृत्ती %s</string>
   <string name="check_updates_checking_body">नविन आवृत्ती शोधताहोत</string>
   <string name="check_updates_no_updates_body">आपण अद्ययावत आहात!</string>
@@ -768,7 +768,7 @@
   <string name="check_updates_settings_available_title">नविन आवृत्ती उपलब्ध आहे</string>
   <string name="check_updates_settings_available_subtitle_button">अद्यतन करण्यासाठी टॅप करा</string>
   <!--Subscriptions-->
-  <string name="subscriptions_settings_title">सदस्यत्वाचे व्यवस्थापन करा</string>
+  <string name="subscriptions_settings_title">Manage Subscriptions</string>
   <string name="subscriptions_title">सदस्यत्व</string>
   <string name="subscriptions_subscribe_button">सदस्यत्व घ्या</string>
   <string name="subscriptions_active_title">सक्रिय</string>
@@ -950,7 +950,7 @@
   <string name="perks_empty_state_first_purchase_body">अॅपकॉइन्स कंपॅटिबल अॅपमध्ये आपली पहिली खरेदी करुन आम्ही आपल्यासाठी आणलेले प्रमोशन अनलॉक करा!</string>
   <string name="perks_empty_body">सध्यातरी कोणतीही प्रमोशन्स उपलब्ध नाहीत.</string>
   <!--Fingerprint Authentication-->
-  <string name="fingerprint_settings">फिंगरप्रिंट लॉक</string>
+  <string name="fingerprint_settings">Fingerprint Lock</string>
   <string name="fingerprint_failed_title">प्रमाणीकरण अयशस्वी!</string>
   <string name="fingerprint_failed_body">कृपया %s सेकंदात पुन्हा प्रयत्न करा.</string>
   <string name="fingerprint_authentication_required_title">प्रमाणीकरण जरुरी!</string>

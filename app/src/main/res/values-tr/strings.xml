@@ -44,7 +44,7 @@
   <!-- TODO: Remove or change this placeholder text -->
   <string name="title_community">Topluluk</string>
   <string name="title_opensource">Açık Kaynaklı Geliştirme</string>
-  <string name="title_source_code">Kaynak kodu</string>
+  <string name="title_source_code">Source Code</string>
   <string name="title_report_bug">Hata bildirin</string>
   <string name="title_support">Destek</string>
   <string name="title_permissions">İzinler</string>
@@ -80,7 +80,7 @@
   <string name="unknown_error">Bir hata oluştu.</string>
   <string name="action_backup_wallet">Yedek Cüzdan</string>
   <string name="no_tokens">Henüz özel jeton eklemediniz.</string>
-  <string name="title_email">Bize e-posta gönderin</string>
+  <string name="title_email">Email Us</string>
   <string name="action_donate">Bağış yap</string>
   <!-- Titles -->
   <string name="title_my_address">Al</string>
@@ -755,7 +755,7 @@
   <string name="pioneer_gamification_body">Öncü, artan bonuslara sahip kullanmaya erken başlayan bir kullanıcıdır.</string>
   <!--Check for Updates-->
   <string name="check_updates_settings_current_title">Current version</string>
-  <string name="check_updates_settings_title">Güncellemeleri kontrol et</string>
+  <string name="check_updates_settings_title">Check for Updates</string>
   <string name="check_updates_settings_subtitle">Mevcut sürüm %s</string>
   <string name="check_updates_checking_body">Yeni sürüm aranıyor</string>
   <string name="check_updates_no_updates_body">Uygulamanız güncel!</string>
@@ -764,7 +764,7 @@
   <string name="check_updates_settings_available_title">Yeni sürüm mevcut</string>
   <string name="check_updates_settings_available_subtitle_button">Güncellemek için dokunun</string>
   <!--Subscriptions-->
-  <string name="subscriptions_settings_title">Abonelikleri yönetin</string>
+  <string name="subscriptions_settings_title">Manage Subscriptions</string>
   <string name="subscriptions_title">Abonelikler</string>
   <string name="subscriptions_subscribe_button">Abone ol</string>
   <string name="subscriptions_active_title">Aktif</string>
@@ -929,7 +929,7 @@
   <string name="perks_empty_state_first_purchase_body">Sizin için hazırladığımız promosyonların kilidini açmak için AppCoins uyumlu bir uygulamada ilk satın alma işleminizi gerçekleştirin!</string>
   <string name="perks_empty_body">Şu anda uygun promosyon yok.</string>
   <!--Fingerprint Authentication-->
-  <string name="fingerprint_settings">Parmak izi kilidi</string>
+  <string name="fingerprint_settings">Fingerprint Lock</string>
   <string name="fingerprint_failed_title">Kimlik doğrulama başarısız!</string>
   <string name="fingerprint_failed_body">Lütfen %s saniye içinde tekrar deneyin.</string>
   <string name="fingerprint_authentication_required_title">Kimlik doğrulama gerekli!</string>

@@ -89,20 +89,25 @@ class ChooseCurrencyBottomSheetFragment : BottomSheetDialogFragment(),
     }
   }
 
-  fun setChooseCurrencyBottomSheetData(selectedCurrency: String, selectedFlag: String,
+  fun setChooseCurrencyBottomSheetData(selectedCurrency: String, selectedFlag: String?,
                                        selectedLabel: String) {
     setCurrencyFlag(selectedFlag)
     setCurrencyShort(selectedCurrency)
     setCurrencyLabel(selectedLabel)
   }
 
-  fun setCurrencyFlag(currencyFlag: String) {
+  fun setCurrencyFlag(currencyFlag: String?) {
     GlideApp
-        .with(requireContext())
-        .load(Uri.parse(currencyFlag))
-        .transition(DrawableTransitionOptions.withCrossFade())
-        .circleCrop()
-        .into(views.chooseCurrencyFlag)
+      .with(requireContext())
+      .load(
+        if (currencyFlag != null)
+          Uri.parse(currencyFlag)
+        else
+          R.drawable.currency_flag_placeholder
+      )
+      .transition(DrawableTransitionOptions.withCrossFade())
+      .circleCrop()
+      .into(views.chooseCurrencyFlag)
   }
 
   fun setCurrencyShort(currencyShort: String) {
