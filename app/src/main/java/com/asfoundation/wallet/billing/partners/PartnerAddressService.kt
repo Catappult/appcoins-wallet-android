@@ -13,6 +13,7 @@ class PartnerAddressService @Inject constructor(private val installerService: In
   private val defaultStoreAddress: String = BuildConfig.DEFAULT_STORE_ADDRESS
   private val defaultOemAddress: String = BuildConfig.DEFAULT_OEM_ADDRESS
   private val defaultGamesHubPackage: String = BuildConfig.GAMESHUB_PACKAGE
+  private val defaultGamesOemId: String = BuildConfig.GAMESHUB_OEMID
 
   override fun getStoreAddress(suggestedStoreAddress: String?): String {
     return suggestedStoreAddress?.let { suggestedStoreAddress } ?: defaultStoreAddress
@@ -29,15 +30,20 @@ class PartnerAddressService @Inject constructor(private val installerService: In
     ) { installerPackage, oemId ->
       AttributionEntity(oemId.ifEmpty { null }, installerPackage.ifEmpty { null })
     }
-      .flatMap { attribution ->
-        // if a game doesn't have oemid, then try to get it from gamesHub
-        if (attribution.oemId.isNullOrEmpty()) {
+      .flatMap { attributionFromGame ->
+        // If a game comes from gamesHub, then tries to send gamesHub's oemid instead. Otherwise
+        // just sends the oemid of the game.
+        if (attributionFromGame.oemId != null && attributionFromGame.oemId == defaultGamesOemId) {
           oemIdExtractorService.extractOemId(defaultGamesHubPackage)
             .map { gamesHubOemId ->
-              AttributionEntity(gamesHubOemId.ifEmpty { null }, attribution.domain)
+              if(gamesHubOemId.isEmpty()) {
+                attributionFromGame
+              } else {
+                AttributionEntity(gamesHubOemId.ifEmpty { null }, attributionFromGame.domain)
+              }
             }
         } else {
-          Single.just(attribution)
+          Single.just(attributionFromGame)
         }
       }
   }
