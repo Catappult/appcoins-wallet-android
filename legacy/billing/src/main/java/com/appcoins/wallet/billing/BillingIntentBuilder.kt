@@ -16,7 +16,6 @@ import java.io.UnsupportedEncodingException
 import java.math.BigDecimal
 import java.util.*
 
-
 class BillingIntentBuilder(val context: Context) {
 
   @Throws(Exception::class)
