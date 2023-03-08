@@ -34,9 +34,8 @@ class AndroidAppPlugin : Plugin<Project> {
           buildConfigFields(project)
           javaCompileOptions {
             annotationProcessorOptions {
-              compilerArgumentProviders(
-                RoomPlugin.RoomSchemaArgProvider(File(projectDir, "schemas"))
-              )
+              annotationProcessorOptions.arguments["room.schemaLocation"] =
+                "${project.projectDir}/schemas"
             }
           }
         }
