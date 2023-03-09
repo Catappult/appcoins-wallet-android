@@ -31,12 +31,12 @@
   <string name="purchase_eskills_sku">Вхідний квиток</string>
   <string name="shared_room_waiting">Чекаємо, поки опоненти приєднаються до %s</string>
   <string name="rooted_device_blocked_body">На жаль, ви не можете грати в ігри e-Skills на пристрої, який отримав рутинг.\"</string>
-  <string name="top_up_needed_body">For security reasons, you need to make at least one top-up in your wallet to play e-Skills games.</string>
-  <string name="not_enough_funds_body">You don\'t have enough funds! Please top up to buy the entry ticket.</string>
+  <string name="top_up_needed_body">З міркувань безпеки ви маєте поповнити свій гаманець принаймні один раз, щоб грати в ігри e-Skills.</string>
+  <string name="not_enough_funds_body">У вас недостатньо коштів! Будь ласка, поповніть рахунок, щоб придбати вхідний квиток.</string>
   <string name="error_message_local_payment_method_body">Local payment methods aren\'t accepted to purchase an entry fee. Please create a new wallet and top it up with a bank card or PayPal!</string>
   <string name="update_not_supported_title">Wallet version not supported!</string>
   <string name="update_not_supported_body">Update the AppCoins Wallet to the latest version.</string>
-  <string name="update_button">Update</string>
+  <string name="update_button">Оновити</string>
   <!-- Refer a friend -->
   <string name="refer_a_friend_waiting_room_tooltip">You and the friends you invite will receive a $%s bonus. You can refer up to 5 friends, and they must be new users. The bonus will be credited in your wallet once they use your invitation code in their first e-Skills game.</string>
   <string name="refer_a_friend_first_time_header">Ready to show your skills?</string>
