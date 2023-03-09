@@ -191,9 +191,9 @@ class OnboardingPaymentEvents @Inject constructor(
         ONBOARDING_PAYMENT to true,
         EVENT_WALLET_PAYMENT_CONCLUSION_POINT to conclusionPoint,
       ),
-      EVENT_WALLET_PAYMENT_BACK_TO_THE_GAME,
+      EVENT_WALLET_METHOD_ONBOARDDING,
       AnalyticsManager.Action.CLICK,
-      WALLET
+      BACK_TO_THE_GAME
     )
   }
 
@@ -210,10 +210,11 @@ class OnboardingPaymentEvents @Inject constructor(
   }
 
   companion object {
-    const val EVENT_WALLET_PAYMENT_BACK_TO_THE_GAME = "wallet_payment_back_to_the_game"
+    const val EVENT_WALLET_METHOD_ONBOARDDING = "wallet_payment_method"
     const val EVENT_WALLET_PAYMENT_EXPLORE_WALLET = "wallet_payment_explore_wallet"
     const val ONBOARDING_PAYMENT = "onboarding_payment"
     const val EVENT_WALLET_PAYMENT_CONCLUSION_POINT = "wallet_payment_conclusion_point"
     const val WALLET = "wallet"
+    const val BACK_TO_THE_GAME = "back_to_the_game"
   }
 }
