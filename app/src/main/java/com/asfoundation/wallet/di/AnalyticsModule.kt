@@ -70,7 +70,6 @@ class AnalyticsModule {
       NavBarAnalytics.WALLET_CALLOUT_PROMOTIONS_CLICK,
       OnboardingPaymentEvents.EVENT_WALLET_METHOD_ONBOARDDING,
       OnboardingPaymentEvents.ONBOARDING_PAYMENT,
-      OnboardingPaymentEvents.EVENT_WALLET_PAYMENT_CONCLUSION_POINT,
       OnboardingPaymentEvents.EVENT_WALLET_PAYMENT_EXPLORE_WALLET
     )
 
@@ -107,7 +106,6 @@ class AnalyticsModule {
       NavBarAnalytics.WALLET_CALLOUT_PROMOTIONS_CLICK,
       OnboardingPaymentEvents.EVENT_WALLET_METHOD_ONBOARDDING,
       OnboardingPaymentEvents.ONBOARDING_PAYMENT,
-      OnboardingPaymentEvents.EVENT_WALLET_PAYMENT_CONCLUSION_POINT,
       OnboardingPaymentEvents.EVENT_WALLET_PAYMENT_EXPLORE_WALLET
     )
 
@@ -144,7 +142,6 @@ class AnalyticsModule {
       NavBarAnalytics.WALLET_CALLOUT_PROMOTIONS_CLICK,
       OnboardingPaymentEvents.EVENT_WALLET_METHOD_ONBOARDDING,
       OnboardingPaymentEvents.ONBOARDING_PAYMENT,
-      OnboardingPaymentEvents.EVENT_WALLET_PAYMENT_CONCLUSION_POINT,
       OnboardingPaymentEvents.EVENT_WALLET_PAYMENT_EXPLORE_WALLET
     )
 
