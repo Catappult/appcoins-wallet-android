@@ -29,9 +29,9 @@
   <string name="got_it_button">သိပါၿပီ</string>
   <string name="change_button">ေျပာင္းမည္</string>
   <string name="vip">VIP</string>
-  <string name="faq">FAQs</string>
-  <string name="about_us_title">About Us</string>
-  <string name="preferences_title">Preferences</string>
+  <string name="faq">ေမးခြန္းမ်ား</string>
+  <string name="about_us_title">ကၽြႏ္ုပ္တို႔အေၾကာင္း</string>
+  <string name="preferences_title">ႏွစ္သက္မႈမ်ား</string>
   <string name="low_storage_error">သိမ္းဆည္းရန္ေနရာ မလံုေလာက္ပါ</string>
   <string name="no_camera_permission_title">ကင္မရာ ခြင့္ျပဳခ်က္</string>
   <string name="no_camera_permission">QR ကုဒ္ကို စကန္ဖတ္ရန္အတြက္ AppCoins BDS Wallet သည္ သင့္ကင္မရာကို အသံုးျပဳခြင့္ရရန္ လိုအပ္ပါသည္။</string>
@@ -44,7 +44,7 @@
   <!-- TODO: Remove or change this placeholder text -->
   <string name="title_community">အသိုင္းအဝိုင္း</string>
   <string name="title_opensource">Open Source ဖြံ႕ၿဖိဳးမႈ</string>
-  <string name="title_source_code">Source Code</string>
+  <string name="title_source_code">ရင္းျမစ္ကုဒ္</string>
   <string name="title_report_bug">အမွားကို သတင္းေပးမည္</string>
   <string name="title_support">ပံ့ပိုးေရး</string>
   <string name="title_permissions">ခြင့္ျပဳခ်က္မ်ား</string>
@@ -80,7 +80,7 @@
   <string name="unknown_error">ခ်ိဳ႕ယြင္းမႈတစ္ခု ျဖစ္ခဲ့ပါသည္။</string>
   <string name="action_backup_wallet">ပိုက္ဆံအိတ္ကို အရန္ထားရွိမည္</string>
   <string name="no_tokens">မည္သည့္ စိတ္ႀကိဳက္တိုကင္ကိုမွ် သင္မထည့္သြင္းရေသးပါ။</string>
-  <string name="title_email">Email Us</string>
+  <string name="title_email">ကၽြႏ္ုပ္တို႔ကို အီးေမးလ္ပို႔ပါ</string>
   <string name="action_donate">ေငြေၾကးကူညီမည္</string>
   <!-- Titles -->
   <string name="title_my_address">ရယူမည္</string>
@@ -140,15 +140,15 @@
   <string name="intro_already_have_wallet_button">ကြၽႏ္ုပ္တြင္ ပိုက္ဆံအိတ္တစ္အိတ္ ရွိၿပီးျဖစ္ပါသည္</string>
   <string name="intro_get_started_button">ပိုက္ဆံအိတ္ကို ဖြင့္မည္</string>
   <!-- Intro from game -->
-  <string name="launching_wallet_body">Launching wallet&#8230;</string>
-  <string name="select_method_title">Choose a payment method</string>
-  <string name="bonus_body">Get %s bonus with this purchase.</string>
-  <string name="agree_by_choosing_a_payment_method_body">By choosing a payment method, you agree to the %1$s and %2$s.</string>
-  <string name="pay_with_card_title">Pay with credit/debit card</string>
-  <string name="more_payment_methods_button">More payment methods</string>
-  <string name="bonus_received_body">You received a %s bonus in your wallet.</string>
-  <string name="back_to_the_game_button">Back to the game</string>
-  <string name="other_payment_methos_title">Other payment methods:</string>
+  <string name="launching_wallet_body">ပိုက္ဆံအိတ္ကို ဖြင့္ေနပါသည္ &#8230;</string>
+  <string name="select_method_title">ေငြေပးေခ်မႈ နည္းလမ္းတစ္ခုကို ေ႐ြးခ်ယ္ပါ</string>
+  <string name="bonus_body">ဤဝယ္ယူမႈျဖင့္ %s ေဘာနပ္စ္ကို ရယူလိုက္ပါ။</string>
+  <string name="agree_by_choosing_a_payment_method_body">ေငြေပးေခ်မႈ နည္းလမ္းတစ္ခုကို ေ႐ြးခ်ယ္ျခင္းျဖင့္ သင္သည္ %1$s ႏွင့္ %2$s တို႔ကို သေဘာတူျခင္း ျဖစ္ပါသည္။</string>
+  <string name="pay_with_card_title">ခရက္ဒစ္/ဒက္ဘစ္ကဒ္ျဖင့္ ေပးမည္</string>
+  <string name="more_payment_methods_button">ေနာက္ထပ္ ေငြေပးေခ်မႈ နည္းလမ္းမ်ား</string>
+  <string name="bonus_received_body">သင့္ပိုက္ဆံအိတ္တြင္ %s ေဘာနပ္စ္တစ္ခုကို ရရွိခဲ့ပါသည္။</string>
+  <string name="back_to_the_game_button">ဂိမ္းသို႔ျပန္သြားမည္</string>
+  <string name="other_payment_methos_title">အျခားေငြေပးေခ်မႈ နည္းလမ္းမ်ား -</string>
   <!-- Menus -->
   <!-- Labels -->
   <string name="label_from">မွ</string>
@@ -377,7 +377,7 @@
   <string name="provide_wallet_completed_header">ပိုက္ဆံအိတ္ကို Aptoide နွင့္ တြဲဖက္လိုက္ပါၿပီ။</string>
   <string name="provide_wallet_create_body">ပိုက္ဆံအိတ္ လိပ္စာတစ္ခုကို သင္လိုအပ္ပါသည္။ AppCoins ပိုက္ဆံအိတ္တြင္ လိပ္္စာတစ္ခုို ျပဳလုပ္ရန္ ဤအဆင့္မ်ားကို လိုက္္လုပ္ပါ။</string>
   <string name="provide_wallet_create_wallet_button">ျပဳလုပ္မည္</string>
-  <string name="provide_wallet_creating_wallet_header">Preparing your wallet&#8230;</string>
+  <string name="provide_wallet_creating_wallet_header">သင့္ပိုက္ဆံအိတ္ကို ႀကိဳတင္ျပင္ဆင္ေနပါသည္ &#8230;</string>
   <string name="provide_wallet_created_header">ပိုက္ဆံအိတ္လိပ္စာကို ျပဳလုပ္ၿပီးပါၿပီ။</string>
   <string name="provide_wallet_empty_state">သင့္လိပ္စာကို အျခားမည္သည့္ အက္ပ္သို႔မဆိုေပးရန္ AppCoins ပိုက္ဆံအိတ္ကို သင္ခြင့္မျပဳရေသးပါ။</string>
   <string name="provide_wallet_status">ပိုက္ဆံအိတ္လိပ္စာကို ရယူရန္ ခြင့္ျပဳမည္</string>
@@ -539,12 +539,12 @@
   <string name="purchase_wallet_blocked_title">သင့္ AppCoins Credits လက္က်န္ေငြကို ပိတ္ပင္ထားပါသည္</string>
   <string name="purchase_wallet_blocked_body">ပံုမွန္မဟုတ္ေသာ ေငြလႊဲေျပာင္းျခင္း မွတ္တမ္းတစ္ခုေၾကာင့္ သင့္ AppCoins Credits လက္က်န္ေငြကို ပိတ္ထားပါသည္။ AppCoins Credits မဟုတ္ေသာ အျခားနည္းလမ္းမ်ားျဖင့္ ေငြေပးေခ်မႈမ်ားႏွင့္ ေငြလႊဲေျပာင္းမႈမ်ားကို သင္ျပဳလုပ္ႏိုင္ပါေသးသည္။\n\nယင္းကို မွားယြင္းမႈတစ္ခုဟု ယံုၾကည္ပါက ေအာက္ပါအတိုင္း ကၽြႏ္ုပ္တို႔ကို ဆက္သြယ္ပါ -</string>
   <string name="purchase_card_error_title">အိုး တခုခုမွားသြားပါသည္။</string>
-  <string name="purchase_card_error_general_1">There was a problem with your card. Please try with a different card or payment method.</string>
-  <string name="purchase_card_error_general_2">The transaction has been rejected by your bank. Please try with a different card or payment method.</string>
-  <string name="purchase_card_error_no_funds">It seems you don\'t have enough funds or there\'s a limit on your card. Please try with a different card or payment method.</string>
-  <string name="purchase_card_error_expired">It seems your card is expired. Please try again with a different payment method.</string>
-  <string name="purchase_card_error_invalid_details">Invalid card number. Please check it and try again.</string>
-  <string name="purchase_card_error_not_supported">Your card is not supported yet. Please try again with a different card or payment method.</string>
+  <string name="purchase_card_error_general_1">သင့္ကဒ္တြင္ ျပႆနာတစ္ခု ရွိခဲ့ပါသည္။ အျခားကဒ္ သို႔မဟုတ္ ေငြေပးေခ်မႈ နည္းလမ္းတစ္ခုျဖင့္ ႀကိဳးစားၾကည့္ေပးပါ။</string>
+  <string name="purchase_card_error_general_2">ေငြလႊဲေျပာင္းမႈကို သင့္ဘဏ္က ျငင္းဆန္လိုက္ပါသည္။ အျခားကဒ္ သို႔မဟုတ္ ေငြေပးေခ်မႈ နည္းလမ္းတစ္ခုျဖင့္ ႀကိဳးစားၾကည့္ေပးပါ။</string>
+  <string name="purchase_card_error_no_funds">သင့္ကဒ္တြင္ ေငြမလုံေလာက္ျခင္း သို႔မဟုတ္ အကန႔္အသတ္ ရွိေနျခင္း ျဖစ္ပုံရပါသည္။ အျခားကဒ္ သို႔မဟုတ္ ေငြေပးေခ်မႈ နည္းလမ္းတစ္ခုျဖင့္ ႀကိဳးစားၾကည့္ေပးပါ။</string>
+  <string name="purchase_card_error_expired">သင့္ကဒ္သည္ သက္တမ္းကုန္ေနပုံ ရပါသည္။ အျခားေငြေပးေခ်မႈ နည္းလမ္းတစ္ခုျဖင့္ ျပန္ႀကိဳးစားၾကည့္ေပးပါ။</string>
+  <string name="purchase_card_error_invalid_details">ကဒ္နံပါတ္ မမွန္ကန္ပါ။ ျပန္စစ္ေဆးကာ ျပန္ႀကိဳးစားၾကည့္ေပးပါ။</string>
+  <string name="purchase_card_error_not_supported">သင့္ကဒ္ကို ကြၽႏ္ုပ္တို႔ထံတြင္ အသုံးမျပဳႏိုင္ေသးပါ။ အျခားကဒ္ သို႔မဟုတ္ ေငြေပးေခ်မႈ နည္းလမ္းတစ္ခုျဖင့္ ျပန္ႀကိဳးစားၾကည့္ေပးပါ။</string>
   <string name="purchase_card_error_security">လံုၿခံဳေရး သတင္းအခ်က္အလက္ မွန္ကန္ေၾကာင္း ေသခ်ာပါသလား။ ျပန္ႀကိဳးစားေပးပါ။</string>
   <string name="purchase_card_error_wrong_CVV">သင့္ CVV/CVC သေကၤတ မွားယြင္းေနပံု ရပါသည္။ ျပန္ႀကိဳးစားေပးပါ။</string>
   <string name="purchase_card_error_re_insert">ဤကဒ္ကို အခ်ိန္အေတာ္ၾကာကတည္းက စာရင္းသြင္းထားၿပီး ျဖစ္ပုံရပါသည္။ ကဒ္၏ အေသးစိတ္အခ်က္မ်ားကို ျပန္ထည့္ပါ သို႔မဟုတ္ အျခားတစ္ကဒ္ကို အသုံးျပဳပါ။</string>
@@ -568,7 +568,7 @@
   <string name="purchase_error_card_security_validation">ဤေငြလႊဲေျပာင္းမႈကို ဒုတိယအဆင့္ အတည္ျပဳရာတြင္ ခ်ိဳ႕ယြင္းမႈတစ္ခု ရွိခဲ့ပါသည္။ ျပန္ႀကိဳးစားေပးပါ။</string>
   <string name="purchase_error_transaction_timeout">ေငြလႊဲေျပာင္းမႈကို ၿပီးေအာင္လုပ္ရန္ သင္အခ်ိန္အလြန္ၾကာေနပုံ ရပါသည္။ ျပန္ႀကိဳးစားေပးပါ။</string>
   <string name="purchase_error_card_already_in_progress">သင့္ေတာင္းဆိုမႈကို စီစဥ္ေဆာင္႐ြက္ထားၿပီး သို႔မဟုတ္ ေဆာင္႐ြက္ေနဆဲ ျဖစ္ပါသည္။ ေစာင့္ေပးပါ။</string>
-  <string name="purchase_error_payment_rejected">The transaction has been rejected. Please try with a different card or payment method.</string>
+  <string name="purchase_error_payment_rejected">ေငြလႊဲေျပာင္းမႈကို ျငင္းဆန္လိုက္ပါသည္။ အျခားကဒ္ သို႔မဟုတ္ ေငြေပးေခ်မႈ နည္းလမ္းတစ္ခုျဖင့္ ႀကိဳးစားၾကည့္ေပးပါ။</string>
   <string name="purchase_error_verify_wallet">ဤဝယ္ယူမႈကို ၿပီးစီးေစရန္ သင့္ေငြေပးေခ်မႈ နည္းလမ္းကို အတည္ျပဳပါ။</string>
   <string name="purchase_error_verify_card">ဤဝယ္ယူမႈကို ၿပီးစီးေစရန္ သင့္ကဒ္ကို အတည္ျပဳပါ။</string>
   <string name="purachse_error_verify_card_button">ကဒ္ကို အတည္ျပဳမည္</string>
@@ -577,9 +577,9 @@
   <string name="purchase_app_needed_body">သင့္ဝယ္ယူမႈ ၿပီးစီးေစရန္ ေအာက္ပါအက္ပ္ကို လိုအပ္ပါသည္။</string>
   <string name="purchase_apps_needed_body">သင့္ဝယ္ယူမႈ ၿပီးစီးေစရန္ ေအာက္ပါအက္ပ္မ်ားအနက္ တစ္ခုကို လိုအပ္ပါသည္။</string>
   <string name="purchase_error_connection_issue">သင့္အင္တာနက္ ခ်ိတ္ဆက္မႈတြင္ ျပႆနာတစ္ခု ရွိပုံရပါသည္။ စစ္ေဆးကာ ျပန္ႀကိဳးစားေပးပါ။</string>
-  <string name="purchase_error_wrong_pin_body">There was a problem with your pin. Please try again.</string>
-  <string name="purchase_error_3d_body">There was a problem with your 3D authentication. Please try again.</string>
-  <string name="purchase_error_generic_contact_us_body">Oops, something went wrong. Please try again or contact us.</string>
+  <string name="purchase_error_wrong_pin_body">သင့္ pin နံပါတ္တြင္ ျပႆနာတစ္ခု ရွိခဲ့ပါသည္။ ျပန္ႀကိဳးစားၾကည့္ေပးပါ။</string>
+  <string name="purchase_error_3d_body">သင့္ 3D မွန္ကန္ေၾကာင္းစစ္ေဆးမႈတြင္ ျပႆနာတစ္ခု ရွိခဲ့ပါသည္။ ျပန္ႀကိဳးစားၾကည့္ေပးပါ။</string>
+  <string name="purchase_error_generic_contact_us_body">အိုး တစ္ခုခု မွားသြားပါသည္။ ျပန္ႀကိဳးစားၾကည့္ေပးပါ သို႔မဟုတ္ ကြၽႏ္ုပ္တို႔ကို ဆက္သြယ္ေပးပါ။</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">က်သင့္ေငြေကာက္ခံရန္လိပ္စာ</string>
   <string name="purchase_address_address_field">လိပ္စာ</string>
@@ -754,7 +754,7 @@
   <string name="pioneer_gamification_body">ေရွ႔ေဆာင္လမ္းျပသူဆိုသည္မွာ ေဘာနပ္စ္မ်ားမ်ားပိုရသည့္ အေစာပိုင္းသံုးစြဲသူ ျဖစ္ပါသည္။</string>
   <!--Check for Updates-->
   <string name="check_updates_settings_current_title">လက္ရွိဗားရွင္း</string>
-  <string name="check_updates_settings_title">Check for Updates</string>
+  <string name="check_updates_settings_title">အပ္ဒိတ္မ်ားကို စစ္ၾကည့္လိုက္ပါ</string>
   <string name="check_updates_settings_subtitle">လက္ရွိဗားရွင္း %s</string>
   <string name="check_updates_checking_body">ဗားရွင္းအသစ္ကို ရွာေနပါသည္</string>
   <string name="check_updates_no_updates_body">သင္က အပ္ဒိတ္ျဖစ္ပါသည္။</string>
@@ -763,7 +763,7 @@
   <string name="check_updates_settings_available_title">ဗားရွင္းအသစ္ရွိပါသည္</string>
   <string name="check_updates_settings_available_subtitle_button">အပ္ဒိတ္လုပ္ရန္ႏွိပ္ပါ</string>
   <!--Subscriptions-->
-  <string name="subscriptions_settings_title">Manage Subscriptions</string>
+  <string name="subscriptions_settings_title">ပံုမွန္၀ယ္ယူမႈမ်ားကို စီမံမည္</string>
   <string name="subscriptions_title">ပံုမွန္၀ယ္ယူမႈမ်ား</string>
   <string name="subscriptions_subscribe_button">ပုံမွန္ရယူမည္</string>
   <string name="subscriptions_active_title">၀ယ္ထားေသာ</string>
@@ -922,7 +922,7 @@
   <string name="perks_empty_state_first_purchase_body">သင့္အတြက္ ကၽြႏ္ုပ္တို႔ေပးထားေသာ ပ႐ိုမိုးရွင္းမ်ားကို ပြင့္လာေစရန္ AppCoins အသံုးျပဳႏိုင္ေသာ အက္ပ္တစ္ခုတြင္ ပထမဆံုးဝယ္ယူမႈကို ျပဳလုပ္လိုက္ပါ။</string>
   <string name="perks_empty_body">လက္ရွိတြင္ မည္သည့္ပ႐ိုမိုးရွင္းမွ် မရရွိႏိုင္ပါ။</string>
   <!--Fingerprint Authentication-->
-  <string name="fingerprint_settings">Fingerprint Lock</string>
+  <string name="fingerprint_settings">လက္ေဗြျဖင့္ပိတ္ျခင္း</string>
   <string name="fingerprint_failed_title">မွန္ကန္ေၾကာင္း အတည္ျပဳမႈ မေအာင္ျမင္ပါ။</string>
   <string name="fingerprint_failed_body">%s စကၠန္႔ေစာင့္ကာ ျပန္ႀကိဳးစားေပးပါ။</string>
   <string name="fingerprint_authentication_required_title">မွန္ကန္ေၾကာင္း အတည္ျပဳမႈ လိုအပ္ပါသည္။</string>
