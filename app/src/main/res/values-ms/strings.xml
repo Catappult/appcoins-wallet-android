@@ -30,6 +30,8 @@
   <string name="change_button">Tukar</string>
   <string name="vip">VIP</string>
   <string name="faq">FAQs</string>
+  <string name="about_us_title">About Us</string>
+  <string name="preferences_title">Preferences</string>
   <string name="low_storage_error">Tidak cukup ruang simpanan</string>
   <string name="no_camera_permission_title">Kebenaran Kamera</string>
   <string name="no_camera_permission">AppCoins BDS Wallet memerlukan kebenaran untuk mengakses kamera anda untuk mengimbas kod QR.</string>
@@ -42,7 +44,7 @@
   <!-- TODO: Remove or change this placeholder text -->
   <string name="title_community">Komuniti</string>
   <string name="title_opensource">Pembangunan Sumber Terbuka</string>
-  <string name="title_source_code">Kod sumber</string>
+  <string name="title_source_code">Source Code</string>
   <string name="title_report_bug">Lapor pepijat</string>
   <string name="title_support">Sokongan</string>
   <string name="title_permissions">Kebenaran</string>
@@ -78,7 +80,7 @@
   <string name="unknown_error">Ralat telah berlaku.</string>
   <string name="action_backup_wallet">Dompet Sandaran</string>
   <string name="no_tokens">Anda belum tambah sebarang token tersuai.</string>
-  <string name="title_email">E-mel kami</string>
+  <string name="title_email">Email Us</string>
   <string name="action_donate">Sumbangan</string>
   <!-- Titles -->
   <string name="title_my_address">Terima</string>
@@ -752,7 +754,7 @@
   <string name="pioneer_gamification_body">Perintis ialah penerima guna awal dengan bonus dipertingkat.</string>
   <!--Check for Updates-->
   <string name="check_updates_settings_current_title">Versi semasa</string>
-  <string name="check_updates_settings_title">Semak kemas kini</string>
+  <string name="check_updates_settings_title">Check for Updates</string>
   <string name="check_updates_settings_subtitle">Versi semasa %s</string>
   <string name="check_updates_checking_body">Mencari versi baharu</string>
   <string name="check_updates_no_updates_body">Anda sudah kemas kini!</string>
@@ -761,7 +763,7 @@
   <string name="check_updates_settings_available_title">Versi baharu tersedia</string>
   <string name="check_updates_settings_available_subtitle_button">Ketik untuk kemas kini</string>
   <!--Subscriptions-->
-  <string name="subscriptions_settings_title">Urus langganan</string>
+  <string name="subscriptions_settings_title">Manage Subscriptions</string>
   <string name="subscriptions_title">Langganan</string>
   <string name="subscriptions_subscribe_button">Langgan</string>
   <string name="subscriptions_active_title">Aktif</string>
@@ -920,7 +922,7 @@
   <string name="perks_empty_state_first_purchase_body">Buat pembelian pertama anda dalam aplikasi serasi AppCoins dan peroleh promosi yang kami tawarkan kepada anda!</string>
   <string name="perks_empty_body">Tiada promosi buat masa ini.</string>
   <!--Fingerprint Authentication-->
-  <string name="fingerprint_settings">Kunci cap jari</string>
+  <string name="fingerprint_settings">Fingerprint Lock</string>
   <string name="fingerprint_failed_title">Pengesahan gagal!</string>
   <string name="fingerprint_failed_body">Sila cuba lagi dalam masa %s saat.</string>
   <string name="fingerprint_authentication_required_title">Pengesahan diperlukan!</string>

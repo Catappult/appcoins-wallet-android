@@ -30,6 +30,8 @@
   <string name="change_button">Змінити</string>
   <string name="vip">VIP</string>
   <string name="faq">FAQs</string>
+  <string name="about_us_title">About Us</string>
+  <string name="preferences_title">Preferences</string>
   <string name="low_storage_error">Недостатньо місця для зберігання</string>
   <string name="no_camera_permission_title">Дозвіл на доступ до камери</string>
   <string name="no_camera_permission">AppCoins BDS Wallet потребує дозволу на доступ до вашої камери для сканування QR-кодів.</string>
@@ -42,7 +44,7 @@
   <!-- TODO: Remove or change this placeholder text -->
   <string name="title_community">Спільнота</string>
   <string name="title_opensource">Розробка з відкритим кодом</string>
-  <string name="title_source_code">Вихідний код</string>
+  <string name="title_source_code">Source Code</string>
   <string name="title_report_bug">Повідомити про помилку</string>
   <string name="title_support">Підтримка</string>
   <string name="title_permissions">Дозволи</string>
@@ -78,7 +80,7 @@
   <string name="unknown_error">Сталася помилка.</string>
   <string name="action_backup_wallet">Резервний гаманець</string>
   <string name="no_tokens">Ви ще не додали жодного токена користувача.</string>
-  <string name="title_email">Напишіть нам</string>
+  <string name="title_email">Email Us</string>
   <string name="action_donate">Пожертвувати</string>
   <!-- Titles -->
   <string name="title_my_address">Отримати</string>
@@ -757,7 +759,7 @@
   <string name="pioneer_gamification_body">Pioneer - це ранній користувач із збільшеними бонусами.</string>
   <!--Check for Updates-->
   <string name="check_updates_settings_current_title">Актуальна версія</string>
-  <string name="check_updates_settings_title">Перевірити наявність оновлень</string>
+  <string name="check_updates_settings_title">Check for Updates</string>
   <string name="check_updates_settings_subtitle">Поточна версія %s</string>
   <string name="check_updates_checking_body">Пошук нової версії</string>
   <string name="check_updates_no_updates_body">Ви в курсі!</string>
@@ -766,7 +768,7 @@
   <string name="check_updates_settings_available_title">Доступна нова версія</string>
   <string name="check_updates_settings_available_subtitle_button">Торкніться, щоб оновити</string>
   <!--Subscriptions-->
-  <string name="subscriptions_settings_title">Керуйте підписками</string>
+  <string name="subscriptions_settings_title">Manage Subscriptions</string>
   <string name="subscriptions_title">Підписки</string>
   <string name="subscriptions_subscribe_button">Підписатися</string>
   <string name="subscriptions_active_title">Активний</string>
@@ -943,7 +945,7 @@
   <string name="perks_empty_state_first_purchase_body">Зробіть свою першу покупку в додатку, сумісному з AppCoins, щоб розблокувати акції, які ми підготували для вас!</string>
   <string name="perks_empty_body">На цей час немає доступних акцій.</string>
   <!--Fingerprint Authentication-->
-  <string name="fingerprint_settings">Блокування відбитком пальця</string>
+  <string name="fingerprint_settings">Fingerprint Lock</string>
   <string name="fingerprint_failed_title">Помилка автентифікації!</string>
   <string name="fingerprint_failed_body">Спробуйте ще раз через %s сек.</string>
   <string name="fingerprint_authentication_required_title">Потрібна аутентифікація!</string>

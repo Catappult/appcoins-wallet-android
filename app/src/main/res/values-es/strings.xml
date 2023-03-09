@@ -30,6 +30,8 @@
   <string name="change_button">Cambiar</string>
   <string name="vip">VIP</string>
   <string name="faq">FAQs</string>
+  <string name="about_us_title">About Us</string>
+  <string name="preferences_title">Preferences</string>
   <string name="low_storage_error">No hay suficiente espacio de almacenamiento</string>
   <string name="no_camera_permission_title">Acceso a la cámara</string>
   <string name="no_camera_permission">AppCoins BDS Wallet necesita permiso para acceder a la cámara para poder escanear códigos QR.</string>
@@ -42,7 +44,7 @@
   <!-- TODO: Remove or change this placeholder text -->
   <string name="title_community">Redes Sociales</string>
   <string name="title_opensource">Desarrollo de código abierto</string>
-  <string name="title_source_code">Código fuente</string>
+  <string name="title_source_code">Source Code</string>
   <string name="title_report_bug">Informa sobre un bug</string>
   <string name="title_support">Apoyo</string>
   <string name="title_permissions">Permisos</string>
@@ -78,7 +80,7 @@
   <string name="unknown_error">Ha ocurrido un error.</string>
   <string name="action_backup_wallet">Hacer un backup</string>
   <string name="no_tokens">Todavía no has añadido tokens personalizados.</string>
-  <string name="title_email">Mándanos un mail</string>
+  <string name="title_email">Email Us</string>
   <string name="action_donate">Donar</string>
   <!-- Titles -->
   <string name="title_my_address">Recibir</string>
@@ -753,7 +755,7 @@
   <string name="pioneer_gamification_body">Un pionero es un jugador anticipado con bonificaciones aumentadas.</string>
   <!--Check for Updates-->
   <string name="check_updates_settings_current_title">Versión actual</string>
-  <string name="check_updates_settings_title">Comprobar actulizaciones</string>
+  <string name="check_updates_settings_title">Check for Updates</string>
   <string name="check_updates_settings_subtitle">Versión actual %s</string>
   <string name="check_updates_checking_body">Buscando una nueva versión</string>
   <string name="check_updates_no_updates_body">¡Tienes la última versión!</string>
@@ -762,7 +764,7 @@
   <string name="check_updates_settings_available_title">Nueva versión disponible</string>
   <string name="check_updates_settings_available_subtitle_button">Toca para actualizar</string>
   <!--Subscriptions-->
-  <string name="subscriptions_settings_title">Gestionar subscripciones</string>
+  <string name="subscriptions_settings_title">Manage Subscriptions</string>
   <string name="subscriptions_title">Subscripciones</string>
   <string name="subscriptions_subscribe_button">Sucríbete</string>
   <string name="subscriptions_active_title">Activa</string>
@@ -927,7 +929,7 @@
   <string name="perks_empty_state_first_purchase_body">¡Haz tu primera compra en un juego o app y desbloquea todas las promociones que tenemos para ti!</string>
   <string name="perks_empty_body">No hay promociones disponibles en estos momentos.</string>
   <!--Fingerprint Authentication-->
-  <string name="fingerprint_settings">Bloqueo con huella</string>
+  <string name="fingerprint_settings">Fingerprint Lock</string>
   <string name="fingerprint_failed_title">¡La autenticación falló!</string>
   <string name="fingerprint_failed_body">Inténtalo de nuevo en %s segundos.</string>
   <string name="fingerprint_authentication_required_title">¡Necesitas autenticarte!</string>

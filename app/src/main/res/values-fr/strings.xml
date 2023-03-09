@@ -30,6 +30,8 @@
   <string name="change_button">Changer</string>
   <string name="vip">VIP</string>
   <string name="faq">FAQs</string>
+  <string name="about_us_title">About Us</string>
+  <string name="preferences_title">Preferences</string>
   <string name="low_storage_error">Pas assez d\'espace de stockage</string>
   <string name="no_camera_permission_title">Autorisation de la caméra</string>
   <string name="no_camera_permission">AppCoins BDS Wallet nécessite l\'autorisation pour accéder à votre caméra pour scanner les codes QR.</string>
@@ -42,7 +44,7 @@
   <!-- TODO: Remove or change this placeholder text -->
   <string name="title_community">Communauté</string>
   <string name="title_opensource">Développement Open Source</string>
-  <string name="title_source_code">Code source</string>
+  <string name="title_source_code">Source Code</string>
   <string name="title_report_bug">Signaler un bug</string>
   <string name="title_support">Support</string>
   <string name="title_permissions">Permissions</string>
@@ -78,7 +80,7 @@
   <string name="unknown_error">Une erreur s’est produite.</string>
   <string name="action_backup_wallet">Sauvegarder portefeuille</string>
   <string name="no_tokens">Vous n’avez pas encore ajouté de jeton personnalisé.</string>
-  <string name="title_email">Envoyez-nous un courriel</string>
+  <string name="title_email">Email Us</string>
   <string name="action_donate">Faire un don</string>
   <!-- Titles -->
   <string name="title_my_address">Recevoir</string>
@@ -753,7 +755,7 @@
   <string name="pioneer_gamification_body">Un Pionnier fait parti des premiers et a des bonus plus importants.</string>
   <!--Check for Updates-->
   <string name="check_updates_settings_current_title">Version courante</string>
-  <string name="check_updates_settings_title">Vérifier les mises à jour</string>
+  <string name="check_updates_settings_title">Check for Updates</string>
   <string name="check_updates_settings_subtitle">Version courante %s</string>
   <string name="check_updates_checking_body">Rechercher une nouvelle version</string>
   <string name="check_updates_no_updates_body">Vous êtes à jour !</string>
@@ -762,7 +764,7 @@
   <string name="check_updates_settings_available_title">Nouvelle version disponible</string>
   <string name="check_updates_settings_available_subtitle_button">Cliquez pour mettre à jour</string>
   <!--Subscriptions-->
-  <string name="subscriptions_settings_title">Gérer les abonnements</string>
+  <string name="subscriptions_settings_title">Manage Subscriptions</string>
   <string name="subscriptions_title">Abonnements</string>
   <string name="subscriptions_subscribe_button">S\'abonner</string>
   <string name="subscriptions_active_title">Actif</string>
@@ -927,7 +929,7 @@
   <string name="perks_empty_state_first_purchase_body">Effectuez votre premier achat dans une application compatible AppCoins pour débloquer les promotions que nous vous réservons !</string>
   <string name="perks_empty_body">Aucune promotion n\'est disponible pour le moment.</string>
   <!--Fingerprint Authentication-->
-  <string name="fingerprint_settings">Verrouillage par empreinte digitale</string>
+  <string name="fingerprint_settings">Fingerprint Lock</string>
   <string name="fingerprint_failed_title">L\'authentification a échoué !</string>
   <string name="fingerprint_failed_body">Merci de réessayer dans %s secondes.</string>
   <string name="fingerprint_authentication_required_title">Authentification requise !</string>

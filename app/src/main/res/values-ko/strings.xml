@@ -30,6 +30,8 @@
   <string name="change_button">변경</string>
   <string name="vip">VIP</string>
   <string name="faq">FAQs</string>
+  <string name="about_us_title">About Us</string>
+  <string name="preferences_title">Preferences</string>
   <string name="low_storage_error">저장 공간이 부족합니다</string>
   <string name="no_camera_permission_title">카메라 사용 권한</string>
   <string name="no_camera_permission">AppCoins BDS Wallet은 QR 코드 스캔을 위해 카메라 접근 권한이 필요합니다.</string>
@@ -42,7 +44,7 @@
   <!-- TODO: Remove or change this placeholder text -->
   <string name="title_community">커뮤니티</string>
   <string name="title_opensource">오픈 소스 개발</string>
-  <string name="title_source_code">소스 코드</string>
+  <string name="title_source_code">Source Code</string>
   <string name="title_report_bug">버그 리포트하기</string>
   <string name="title_support">지원</string>
   <string name="title_permissions">사용권한</string>
@@ -78,7 +80,7 @@
   <string name="unknown_error">오류가 발생 했습니다.</string>
   <string name="action_backup_wallet">지갑 백업하기</string>
   <string name="no_tokens">아직 사용자정의 토큰을 추가하지 않았습니다.</string>
-  <string name="title_email">이메일 보내기</string>
+  <string name="title_email">Email Us</string>
   <string name="action_donate">기부</string>
   <!-- Titles -->
   <string name="title_my_address">수신</string>
@@ -752,7 +754,7 @@
   <string name="pioneer_gamification_body">선지자는 증가된 보너스를 받는 얼리 어댑터입니다.</string>
   <!--Check for Updates-->
   <string name="check_updates_settings_current_title">현재 버전</string>
-  <string name="check_updates_settings_title">업데이트 학인</string>
+  <string name="check_updates_settings_title">Check for Updates</string>
   <string name="check_updates_settings_subtitle">현재 버전 %s</string>
   <string name="check_updates_checking_body">새로운 버전 찾기</string>
   <string name="check_updates_no_updates_body">최신 버전입니다!</string>
@@ -761,7 +763,7 @@
   <string name="check_updates_settings_available_title">새로운 버전을 사용할 수 있습니다</string>
   <string name="check_updates_settings_available_subtitle_button">탭하여 업데이트</string>
   <!--Subscriptions-->
-  <string name="subscriptions_settings_title">구독 관리</string>
+  <string name="subscriptions_settings_title">Manage Subscriptions</string>
   <string name="subscriptions_title">구독</string>
   <string name="subscriptions_subscribe_button">구독</string>
   <string name="subscriptions_active_title">활성</string>
@@ -920,7 +922,7 @@
   <string name="perks_empty_state_first_purchase_body">AppCoins 호환 앱에서 첫 번째 구매를 하고 당신을 위해 준비한 프로모션의 잠금을 해제하세요!</string>
   <string name="perks_empty_body">현재 사용할 수 있는 프로모션이 없습니다.</string>
   <!--Fingerprint Authentication-->
-  <string name="fingerprint_settings">지문 자금</string>
+  <string name="fingerprint_settings">Fingerprint Lock</string>
   <string name="fingerprint_failed_title">인증 실패!</string>
   <string name="fingerprint_failed_body">%s 초후에 다시 시도해 주세요.</string>
   <string name="fingerprint_authentication_required_title">인증 필요!</string>

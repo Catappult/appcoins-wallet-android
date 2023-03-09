@@ -30,6 +30,8 @@
   <string name="change_button">Wijzigen</string>
   <string name="vip">VIP</string>
   <string name="faq">FAQs</string>
+  <string name="about_us_title">About Us</string>
+  <string name="preferences_title">Preferences</string>
   <string name="low_storage_error">Er is onvoldoende opslagruimte</string>
   <string name="no_camera_permission_title">Toestemming voor camera</string>
   <string name="no_camera_permission">Om QR-codes te scannen heeft AppCoins BDS Wallet toestemming nodig om toegang tot je camera te krijgen.</string>
@@ -42,7 +44,7 @@
   <!-- TODO: Remove or change this placeholder text -->
   <string name="title_community">Gemeenschap</string>
   <string name="title_opensource">Open source-ontwikkeling</string>
-  <string name="title_source_code">Broncode</string>
+  <string name="title_source_code">Source Code</string>
   <string name="title_report_bug">Meld een bug</string>
   <string name="title_support">Ondersteuning</string>
   <string name="title_permissions">Toestemmingen</string>
@@ -78,7 +80,7 @@
   <string name="unknown_error">Er is een fout opgetreden.</string>
   <string name="action_backup_wallet">Back-up van wallet maken</string>
   <string name="no_tokens">Je heb nog geen persoonlijke tokens toegevoegd.</string>
-  <string name="title_email">Stuur ons een e-mail</string>
+  <string name="title_email">Email Us</string>
   <string name="action_donate">Doneren</string>
   <!-- Titles -->
   <string name="title_my_address">Ontvangen</string>
@@ -753,7 +755,7 @@
   <string name="pioneer_gamification_body">Een pionier is een vroege gebruiker en krijgt hogere bonussen.</string>
   <!--Check for Updates-->
   <string name="check_updates_settings_current_title">Huidige versie</string>
-  <string name="check_updates_settings_title">Controleer op updates</string>
+  <string name="check_updates_settings_title">Check for Updates</string>
   <string name="check_updates_settings_subtitle">Huidige versie %s</string>
   <string name="check_updates_checking_body">Aan het zoeken naar een nieuwe versie</string>
   <string name="check_updates_no_updates_body">Je versie is up-to-date!</string>
@@ -762,7 +764,7 @@
   <string name="check_updates_settings_available_title">Nieuwe versie beschikbaar</string>
   <string name="check_updates_settings_available_subtitle_button">Tik om bij te werken</string>
   <!--Subscriptions-->
-  <string name="subscriptions_settings_title">Abonnementen beheren</string>
+  <string name="subscriptions_settings_title">Manage Subscriptions</string>
   <string name="subscriptions_title">Abonnementen</string>
   <string name="subscriptions_subscribe_button">Abonneren</string>
   <string name="subscriptions_active_title">Actief</string>
@@ -927,7 +929,7 @@
   <string name="perks_empty_state_first_purchase_body">Doe je eerste aankoop in een app die AppCoins ondersteunt om de acties die we voor je hebben te ontgrendelen!</string>
   <string name="perks_empty_body">Er zijn momenteel geen acties beschikbaar.</string>
   <!--Fingerprint Authentication-->
-  <string name="fingerprint_settings">Vergrendeling met vingerafdruk</string>
+  <string name="fingerprint_settings">Fingerprint Lock</string>
   <string name="fingerprint_failed_title">Authenticatie is mislukt!</string>
   <string name="fingerprint_failed_body">Probeer het over %s seconden opnieuw.</string>
   <string name="fingerprint_authentication_required_title">Authenticatie is vereist!</string>

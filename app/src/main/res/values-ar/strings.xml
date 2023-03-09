@@ -30,6 +30,8 @@
   <string name="change_button">تغيير</string>
   <string name="vip">VIP</string>
   <string name="faq">FAQs</string>
+  <string name="about_us_title">About Us</string>
+  <string name="preferences_title">Preferences</string>
   <string name="low_storage_error">لا توجد مساحة كافية للتخزين</string>
   <string name="no_camera_permission_title">تفعيل إذن الكاميرا</string>
   <string name="no_camera_permission">AppCoins BDS Wallet يحتاج إلى إذن للدخول إلى الكاميرا لمسح شيفرة QR.</string>
@@ -42,7 +44,7 @@
   <!-- TODO: Remove or change this placeholder text -->
   <string name="title_community">المجتمع</string>
   <string name="title_opensource">تطوير مفتوح المصدر</string>
-  <string name="title_source_code">الشيفرة المصدر</string>
+  <string name="title_source_code">Source Code</string>
   <string name="title_report_bug">التبليغ عن عطل</string>
   <string name="title_support">الدعم</string>
   <string name="title_permissions">الأذونات</string>
@@ -78,7 +80,7 @@
   <string name="unknown_error">حدث خطأ.</string>
   <string name="action_backup_wallet">محفظة احتياطية</string>
   <string name="no_tokens">لم تقم بعد بإضافة توكن مخصص.</string>
-  <string name="title_email">أرسل إلينا بريدًا إلكترونيًا</string>
+  <string name="title_email">Email Us</string>
   <string name="action_donate">تَبرَّع</string>
   <!-- Titles -->
   <string name="title_my_address">استقبل</string>
@@ -758,7 +760,7 @@
   <string name="pioneer_gamification_body">الروّاد هم أول المنتمين مع مكافآت متزايدة.</string>
   <!--Check for Updates-->
   <string name="check_updates_settings_current_title">النسخة الحالية</string>
-  <string name="check_updates_settings_title">اطلع على التحديثات</string>
+  <string name="check_updates_settings_title">Check for Updates</string>
   <string name="check_updates_settings_subtitle">النسخة الحالية %s</string>
   <string name="check_updates_checking_body">جاري البحث عن نسخة جديدة</string>
   <string name="check_updates_no_updates_body">أنت على آخر تحديث!</string>
@@ -767,7 +769,7 @@
   <string name="check_updates_settings_available_title">النسخة الجديدة متوفرة</string>
   <string name="check_updates_settings_available_subtitle_button">انقر للتحديث</string>
   <!--Subscriptions-->
-  <string name="subscriptions_settings_title">إدارة الاشتراكات</string>
+  <string name="subscriptions_settings_title">Manage Subscriptions</string>
   <string name="subscriptions_title">الاشتراكات</string>
   <string name="subscriptions_subscribe_button">اشتراك</string>
   <string name="subscriptions_active_title">مفعّل</string>
@@ -956,7 +958,7 @@
   <string name="perks_empty_state_first_purchase_body">أجر أول عملية شراء في تطبيق AppCoins متوافق لتفتح الترقيات التي أعددناها من أجلك!</string>
   <string name="perks_empty_body">لا تتوفر ترقيات حاليًا.</string>
   <!--Fingerprint Authentication-->
-  <string name="fingerprint_settings">قفل البصمة</string>
+  <string name="fingerprint_settings">Fingerprint Lock</string>
   <string name="fingerprint_failed_title">فشلت الإثبات!</string>
   <string name="fingerprint_failed_body">رجاءً حاول مجددًا بعد %s ثانية.</string>
   <string name="fingerprint_authentication_required_title">الإثبات مطلوب!</string>

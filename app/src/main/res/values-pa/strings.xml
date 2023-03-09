@@ -30,6 +30,8 @@
   <string name="change_button">ਬਦਲੋ</string>
   <string name="vip">ਵੀਈਪੀ</string>
   <string name="faq">FAQs</string>
+  <string name="about_us_title">About Us</string>
+  <string name="preferences_title">Preferences</string>
   <string name="low_storage_error">ਸਟੋਰੇਜ ਲਈ ਕਾਫ਼ੀ ਜਗ੍ਹਾ ਕਾਫੀ ਨਹੀਂ ਹੈ</string>
   <string name="no_camera_permission_title">ਕੈਮਰਾ ਅਧਿਕਾਰ</string>
   <string name="no_camera_permission">AppCoins BDS Wallet ਨੂੰ QR ਕੋਡ ਨੂੰ ਸਕੈਨ ਕਰਨ ਲਈ ਤੁਹਾਡੇ ਕੈਮਰੇ ਤੱਕ ਪਹੁੰਚ ਦੀ ਇਜਾਜ਼ਤ ਦੀ ਲੋੜ ਹੈ|</string>
@@ -42,7 +44,7 @@
   <!-- TODO: Remove or change this placeholder text -->
   <string name="title_community">ਕਮਿਊਨਿਟੀ</string>
   <string name="title_opensource">ਓਪਨ ਸੋਰਸ ਡਿਵੈਲਪਮੈਂਟ</string>
-  <string name="title_source_code">ਸੋਰਸ ਕੋਡ</string>
+  <string name="title_source_code">Source Code</string>
   <string name="title_report_bug">ਇੱਕ ਬੱਗ ਦੀ ਰਿਪੋਰਟ ਕਰੋ</string>
   <string name="title_support">ਸਪੋਰਟ</string>
   <string name="title_permissions">ਅਧਿਕਾਰ</string>
@@ -78,7 +80,7 @@
   <string name="unknown_error">ਇੱਕ ਗਲਤੀ ਆਈ ਹੈ|</string>
   <string name="action_backup_wallet">ਬਟੂਆ ਬੈਕਅਪ</string>
   <string name="no_tokens">ਤੁਸੀਂ ਹਾਲੇ ਤੱਕ ਕੋਈ ਵੀ ਕਸਟਮ ਟੋਕਨ ਸ਼ਾਮਿਲ ਨਹੀਂ ਕੀਤਾ ਹੈ|</string>
-  <string name="title_email">ਸਾਨੂੰ ਈਮੇਲ ਕਰੋ</string>
+  <string name="title_email">Email Us</string>
   <string name="action_donate">ਦਾਨ ਕਰੋ</string>
   <!-- Titles -->
   <string name="title_my_address">ਪ੍ਰਾਪਤ ਕਰੋ</string>
@@ -753,7 +755,7 @@
   <string name="pioneer_gamification_body">ਇੱਕ ਪਾਇਨੀਅਰ ਵਧੇ ਹੋਏ ਬੋਨਸਾਂ ਵਾਲਾ ਇੱਕ ਆਰੰਭਕ ਧਾਰਕ ਹੈ|</string>
   <!--Check for Updates-->
   <string name="check_updates_settings_current_title">ਮੌਜੂਦਾ ਵਰਜਨ</string>
-  <string name="check_updates_settings_title">ਅਪਡੇਟ ਦੇਖੋ</string>
+  <string name="check_updates_settings_title">Check for Updates</string>
   <string name="check_updates_settings_subtitle">ਮੌਜੂਦਾ ਵਰਜਨ %s</string>
   <string name="check_updates_checking_body">ਇੱਕ ਨਵੇਂ ਵਰਜਨ ਦੀ ਖੋਜ ਕੀਤੀ ਜਾ ਰਹੀ ਹੈ</string>
   <string name="check_updates_no_updates_body">ਤੁਸੀਂ ਅਪ ਟੂ ਡੇਟ ਹੋ!</string>
@@ -762,7 +764,7 @@
   <string name="check_updates_settings_available_title">ਨਵਾਂ ਵਰਜਨ ਉਪਲੱਬਧ ਹੈ</string>
   <string name="check_updates_settings_available_subtitle_button">ਅਪਡੇਟ ਕਰਨ ਲਈ ਟੈਪ ਕਰੋ</string>
   <!--Subscriptions-->
-  <string name="subscriptions_settings_title">ਸਬਸਕ੍ਰਿਪਸ਼ਨ ਦਾ ਪ੍ਰਬੰਧਨ</string>
+  <string name="subscriptions_settings_title">Manage Subscriptions</string>
   <string name="subscriptions_title">ਸਬਸਕ੍ਰਿਪਸ਼ਨ</string>
   <string name="subscriptions_subscribe_button">ਸਬਸਕ੍ਰਾਈਬ</string>
   <string name="subscriptions_active_title">ਐਕਟਿਵ</string>
@@ -927,7 +929,7 @@
   <string name="perks_empty_state_first_purchase_body">ਇੱਕ ਐਪ ਸਿੱਕੇ ਅਨੁਕੂਲ ਐਪ ਵਿੱਚ ਆਪਣੀ ਪਹਿਲੀ ਖਰੀਦ ਕਰੋ ਅਤੇ ਸਾਨੂੰ ਤੁਹਾਡੇ ਲਈ ਮਿਲੀਆਂ ਆਫਰਾਂ ਨੂੰ ਖੋਲੋ!</string>
   <string name="perks_empty_body">ਇਸ ਸਮੇਂ ਕੋਈ ਆਫਰ ਉਪਲਬਧ ਨਹੀਂ ਹਨ|</string>
   <!--Fingerprint Authentication-->
-  <string name="fingerprint_settings">ਫਿੰਗਰਪ੍ਰਿੰਟ ਲਾਕ</string>
+  <string name="fingerprint_settings">Fingerprint Lock</string>
   <string name="fingerprint_failed_title">ਪ੍ਰਮਾਣਿਕਤਾ ਅਸਫਲ!</string>
   <string name="fingerprint_failed_body">%s ਸਕਿੰਟਾਂ ਬਾਅਦ ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰੋ ਜੀ.</string>
   <string name="fingerprint_authentication_required_title">ਪ੍ਰਮਾਣਿਕਤਾ ਦੀ ਲੋੜ ਹੈ!</string>

@@ -30,6 +30,8 @@
   <string name="change_button">Change</string>
   <string name="vip">VIP</string>
   <string name="faq">FAQs</string>
+  <string name="about_us_title">About Us</string>
+  <string name="preferences_title">Preferences</string>
   <string name="low_storage_error">Nema dovoljno prostora u memoriji</string>
   <string name="no_camera_permission_title">Dozvola za kameru</string>
   <string name="no_camera_permission">Aplikaciji AppCoins BDS Wallet je potrebna dozvola za pristup kameri kako bi skenirala QR kodove.</string>
@@ -42,7 +44,7 @@
   <!-- TODO: Remove or change this placeholder text -->
   <string name="title_community">Zajednica</string>
   <string name="title_opensource">Razvoj otvorenog koda</string>
-  <string name="title_source_code">Izvorni kod</string>
+  <string name="title_source_code">Source Code</string>
   <string name="title_report_bug">Prijavite grešku</string>
   <string name="title_support">Podrška</string>
   <string name="title_permissions">Dozvole</string>
@@ -78,7 +80,7 @@
   <string name="unknown_error">Došlo je do greške.</string>
   <string name="action_backup_wallet">Napravite rezervnu kopiju novčanika</string>
   <string name="no_tokens">Još niste dodali nijedan prilagođeni token.</string>
-  <string name="title_email">Pišite nam</string>
+  <string name="title_email">Email Us</string>
   <string name="action_donate">Donirajte</string>
   <!-- Titles -->
   <string name="title_my_address">Primite</string>
@@ -754,7 +756,7 @@
   <string name="pioneer_gamification_body">Pioniri su prvi korisnici koji dobijaju veće bonuse.</string>
   <!--Check for Updates-->
   <string name="check_updates_settings_current_title">Aktuelna verzija</string>
-  <string name="check_updates_settings_title">Potraži ažuriranja</string>
+  <string name="check_updates_settings_title">Check for Updates</string>
   <string name="check_updates_settings_subtitle">Aktuelna verzija %s</string>
   <string name="check_updates_checking_body">Traži se nova verzija</string>
   <string name="check_updates_no_updates_body">Koristite najnoviju verziju!</string>
@@ -763,7 +765,7 @@
   <string name="check_updates_settings_available_title">Dostupna je nova verzija</string>
   <string name="check_updates_settings_available_subtitle_button">Dodirnite da ažurirate</string>
   <!--Subscriptions-->
-  <string name="subscriptions_settings_title">Upravljanje pretplatama</string>
+  <string name="subscriptions_settings_title">Manage Subscriptions</string>
   <string name="subscriptions_title">Pretplate</string>
   <string name="subscriptions_subscribe_button">Pretplatite se</string>
   <string name="subscriptions_active_title">Aktivne</string>
@@ -934,7 +936,7 @@
   <string name="perks_empty_state_first_purchase_body">Obavite prvu kupovinu u aplikaciji koja je kompatibilna sa AppCoins kako bi otključali promocije koje smo spremili za vas!</string>
   <string name="perks_empty_body">Trenutno nema dostupnih promocija.</string>
   <!--Fingerprint Authentication-->
-  <string name="fingerprint_settings">Zaključavanje pomoću otiska prsta</string>
+  <string name="fingerprint_settings">Fingerprint Lock</string>
   <string name="fingerprint_failed_title">Potvrda autentičnosti nije uspela!</string>
   <string name="fingerprint_failed_body">Pokušajte ponovo za %s sek.</string>
   <string name="fingerprint_authentication_required_title">Potrebna je potvrda autentičnosti!</string>

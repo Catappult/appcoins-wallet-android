@@ -30,6 +30,8 @@
   <string name="change_button">Change</string>
   <string name="vip">VIP</string>
   <string name="faq">FAQs</string>
+  <string name="about_us_title">About Us</string>
+  <string name="preferences_title">Preferences</string>
   <string name="low_storage_error">পর্যাপ্ত সংরক্ষণযোগ্য জায়গা নেই</string>
   <string name="no_camera_permission_title">Camera Permission</string>
   <string name="no_camera_permission">কিউআর কোডসমূহ স্ক্যাণ করার জন্য আপনার ক্যামারটিকে নিয়ন্ত্রণ করতে AppCoins BDS Wallet এর অনুমতি প্রয়োজন।</string>
@@ -42,7 +44,7 @@
   <!-- TODO: Remove or change this placeholder text -->
   <string name="title_community">সমাজ</string>
   <string name="title_opensource">উন্মুক্ত উৎসের উন্নয়ন</string>
-  <string name="title_source_code">উৎস কোড</string>
+  <string name="title_source_code">Source Code</string>
   <string name="title_report_bug">একটি বাগ রিপোর্ট করুন</string>
   <string name="title_support">সহায়তা</string>
   <string name="title_permissions">Permissions</string>
@@ -78,7 +80,7 @@
   <string name="unknown_error">একটি ত্রুটি সংঘটিত হয়েছে।</string>
   <string name="action_backup_wallet">ব্যাকআপ ওয়ালেট</string>
   <string name="no_tokens">আপনি অদ্যবধি কোন টোকেন যুক্ত করেন নি।</string>
-  <string name="title_email">আমাদের ই-মেইল করুন</string>
+  <string name="title_email">Email Us</string>
   <string name="action_donate">দান করুন</string>
   <!-- Titles -->
   <string name="title_my_address">গ্রহণ করুন</string>
@@ -753,7 +755,7 @@
   <string name="pioneer_gamification_body">A Pioneer is an early adopter with increased bonuses.</string>
   <!--Check for Updates-->
   <string name="check_updates_settings_current_title">Current version</string>
-  <string name="check_updates_settings_title">Check for updates</string>
+  <string name="check_updates_settings_title">Check for Updates</string>
   <string name="check_updates_settings_subtitle">Current version %s</string>
   <string name="check_updates_checking_body">Searching for a new version</string>
   <string name="check_updates_no_updates_body">You\'re up to date!</string>
@@ -762,7 +764,7 @@
   <string name="check_updates_settings_available_title">New version available</string>
   <string name="check_updates_settings_available_subtitle_button">Tap to update</string>
   <!--Subscriptions-->
-  <string name="subscriptions_settings_title">Manage subscriptions</string>
+  <string name="subscriptions_settings_title">Manage Subscriptions</string>
   <string name="subscriptions_title">Subscriptions</string>
   <string name="subscriptions_subscribe_button">Subscribe</string>
   <string name="subscriptions_active_title">Active</string>
@@ -927,7 +929,7 @@
   <string name="perks_empty_state_first_purchase_body">Make your first purchase in an AppCoins compatible app to unlock the promotions we\'ve got for you!</string>
   <string name="perks_empty_body">No promotions available at the moment.</string>
   <!--Fingerprint Authentication-->
-  <string name="fingerprint_settings">Fingerprint lock</string>
+  <string name="fingerprint_settings">Fingerprint Lock</string>
   <string name="fingerprint_failed_title">Authentication failed!</string>
   <string name="fingerprint_failed_body">Please try again in %s seconds.</string>
   <string name="fingerprint_authentication_required_title">Authentication required!</string>

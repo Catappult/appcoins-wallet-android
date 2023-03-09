@@ -50,7 +50,7 @@
   <!-- TODO: Remove or change this placeholder text -->
   <string name="title_community">Community</string>
   <string name="title_opensource">Open Source Development</string>
-  <string name="title_source_code">Source code</string>
+  <string name="title_source_code">Source Code</string>
   <string name="title_report_bug">Report a bug</string>
   <string name="title_support">Support</string>
   <string name="title_permissions">Permissions</string>
@@ -87,7 +87,7 @@
   <string name="unknown_error">An error has occurred.</string>
   <string name="action_backup_wallet">Backup Wallet</string>
   <string name="no_tokens">You haven\'t added any custom token yet.</string>
-  <string name="title_email">Email us</string>
+  <string name="title_email">Email Us</string>
   <string name="action_donate">Donate</string>
 
   <!-- Titles -->
@@ -826,7 +826,7 @@
 
 <!--Check for Updates-->
   <string name="check_updates_settings_current_title">Current version</string>
-  <string name="check_updates_settings_title">Check for updates</string>
+  <string name="check_updates_settings_title">Check for Updates</string>
   <string name="check_updates_settings_subtitle">Current version %s</string>
   <string name="check_updates_checking_body">Searching for a new version</string>
   <string name="check_updates_no_updates_body">You\'re up to date!</string>
@@ -836,7 +836,7 @@
   <string name="check_updates_settings_available_subtitle_button">Tap to update</string>
 
 <!--Subscriptions-->
-  <string name="subscriptions_settings_title">Manage subscriptions</string>
+  <string name="subscriptions_settings_title">Manage Subscriptions</string>
   <string name="subscriptions_title">Subscriptions</string>
   <string name="subscriptions_subscribe_button">Subscribe</string>
   <string name="subscriptions_active_title">Active</string>
@@ -1015,7 +1015,7 @@
 
 
   <!--Fingerprint Authentication-->
-  <string name="fingerprint_settings">Fingerprint lock</string>
+  <string name="fingerprint_settings">Fingerprint Lock</string>
   <string name="fingerprint_failed_title">Authentication failed!</string>
   <string name="fingerprint_failed_body">Please try again in %s seconds.</string>
   <string name="fingerprint_authentication_required_title">Authentication required!</string>

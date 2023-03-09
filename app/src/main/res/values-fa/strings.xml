@@ -30,6 +30,8 @@
   <string name="change_button">تغییر</string>
   <string name="vip">VIP</string>
   <string name="faq">FAQs</string>
+  <string name="about_us_title">About Us</string>
+  <string name="preferences_title">Preferences</string>
   <string name="low_storage_error">فضای ذخیره سازی کافی نیست</string>
   <string name="no_camera_permission_title">اجازه دوربین</string>
   <string name="no_camera_permission">AppCoins BDS Wallet نیازمند اجازه شما برای دسترسی به دوربین شما برای اسکن کردن کدهای QR است.</string>
@@ -42,7 +44,7 @@
   <!-- TODO: Remove or change this placeholder text -->
   <string name="title_community">جامعه</string>
   <string name="title_opensource">برنامه‌نویسی منبع آزاد</string>
-  <string name="title_source_code">کد منبع</string>
+  <string name="title_source_code">Source Code</string>
   <string name="title_report_bug">گزارش اشکال</string>
   <string name="title_support">پشتیبانی</string>
   <string name="title_permissions">مجوزها</string>
@@ -78,7 +80,7 @@
   <string name="unknown_error">خطایی رخ داده است.</string>
   <string name="action_backup_wallet">بک‌آپ کیف پول</string>
   <string name="no_tokens">شما هنوز هیچ ژتون سفارشی شده‌ای اضافه نکردید.</string>
-  <string name="title_email">ارسال ایمیل به ما</string>
+  <string name="title_email">Email Us</string>
   <string name="action_donate">کمک مالی</string>
   <!-- Titles -->
   <string name="title_my_address">دریافت</string>
@@ -753,7 +755,7 @@
   <string name="pioneer_gamification_body">یک پیشرو، یک فرزندخوانده قدیمی با پاداش افزایش یافته است.</string>
   <!--Check for Updates-->
   <string name="check_updates_settings_current_title">نسخه فعلی</string>
-  <string name="check_updates_settings_title">بررسی برای بروزرسانی</string>
+  <string name="check_updates_settings_title">Check for Updates</string>
   <string name="check_updates_settings_subtitle">نسخه فعلی %s</string>
   <string name="check_updates_checking_body">جستجو برای یک نسخه جدید</string>
   <string name="check_updates_no_updates_body">بروز هستید!</string>
@@ -762,7 +764,7 @@
   <string name="check_updates_settings_available_title">نسخه جدید موجود است</string>
   <string name="check_updates_settings_available_subtitle_button">برای بروزرسانی فشار دهید</string>
   <!--Subscriptions-->
-  <string name="subscriptions_settings_title">مدیریت آبونمان‌ها</string>
+  <string name="subscriptions_settings_title">Manage Subscriptions</string>
   <string name="subscriptions_title">آبونمان‌ها</string>
   <string name="subscriptions_subscribe_button">آبونمان</string>
   <string name="subscriptions_active_title">فعال</string>
@@ -927,7 +929,7 @@
   <string name="perks_empty_state_first_purchase_body">اولین خرید خود را در یک اپلیکیشن سازگار با AppCoins انجام دهید تا پیشنهادهای تشویقی که برای شما در نظر گرفتیم را باز کنید!</string>
   <string name="perks_empty_body">هیچ پیشنهاد تشویقی در حال حاضر موجود نیست.</string>
   <!--Fingerprint Authentication-->
-  <string name="fingerprint_settings">قفل با اثرانگشت</string>
+  <string name="fingerprint_settings">Fingerprint Lock</string>
   <string name="fingerprint_failed_title">احراز هویت موفق نبود!</string>
   <string name="fingerprint_failed_body">لطفا در %s ثانیه مجدد امتحان کنید.</string>
   <string name="fingerprint_authentication_required_title">احراز هویت الزامی است!</string>

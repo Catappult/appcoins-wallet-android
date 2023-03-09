@@ -30,6 +30,8 @@
   <string name="change_button">Изменить</string>
   <string name="vip">VIP</string>
   <string name="faq">FAQs</string>
+  <string name="about_us_title">About Us</string>
+  <string name="preferences_title">Preferences</string>
   <string name="low_storage_error">Недостаточно места для хранения</string>
   <string name="no_camera_permission_title">Разрешение использовать камеру</string>
   <string name="no_camera_permission">AppCoins BDS Wallet необходимо разрешение на доступ к вашей камере, чтобы сканировать QR-коды.</string>
@@ -42,7 +44,7 @@
   <!-- TODO: Remove or change this placeholder text -->
   <string name="title_community">Сообщество</string>
   <string name="title_opensource">Разработка с открытым исходным кодом</string>
-  <string name="title_source_code">Исходный код</string>
+  <string name="title_source_code">Source Code</string>
   <string name="title_report_bug">Сообщить об ошибке</string>
   <string name="title_support">Поддержка</string>
   <string name="title_permissions">Разрешения</string>
@@ -78,7 +80,7 @@
   <string name="unknown_error">Произошла ошибка.</string>
   <string name="action_backup_wallet">Сделать бэкап бумажника</string>
   <string name="no_tokens">Вы еще не добавили ни одного произвольного токена.</string>
-  <string name="title_email">Напишите нам</string>
+  <string name="title_email">Email Us</string>
   <string name="action_donate">Пожертвовать</string>
   <!-- Titles -->
   <string name="title_my_address">Получить</string>
@@ -755,7 +757,7 @@
   <string name="pioneer_gamification_body">Первопроходец – один из первых участников с увеличенными бонусами.</string>
   <!--Check for Updates-->
   <string name="check_updates_settings_current_title">Текущая версия</string>
-  <string name="check_updates_settings_title">Проверьте обновления</string>
+  <string name="check_updates_settings_title">Check for Updates</string>
   <string name="check_updates_settings_subtitle">Текущая версия %s</string>
   <string name="check_updates_checking_body">Ищем новую версию</string>
   <string name="check_updates_no_updates_body">У вас последняя версия!</string>
@@ -764,7 +766,7 @@
   <string name="check_updates_settings_available_title">Доступна новая версия</string>
   <string name="check_updates_settings_available_subtitle_button">Нажмите, чтобы обновить</string>
   <!--Subscriptions-->
-  <string name="subscriptions_settings_title">Управление подписками</string>
+  <string name="subscriptions_settings_title">Manage Subscriptions</string>
   <string name="subscriptions_title">Подписки</string>
   <string name="subscriptions_subscribe_button">Подписаться</string>
   <string name="subscriptions_active_title">Активные</string>
@@ -941,7 +943,7 @@
   <string name="perks_empty_state_first_purchase_body">Сделайте свою первую покупку в приложении, совместимом с AppCoins, и откройте специальные акции, которые мы приготовили для вас!</string>
   <string name="perks_empty_body">На данный момент акций нет.</string>
   <!--Fingerprint Authentication-->
-  <string name="fingerprint_settings">Открывать отпечатком</string>
+  <string name="fingerprint_settings">Fingerprint Lock</string>
   <string name="fingerprint_failed_title">Аутентификация не удалась!</string>
   <string name="fingerprint_failed_body">Пожалуйста, попробуйте снова через %s секунд.</string>
   <string name="fingerprint_authentication_required_title">Необходима аутентификация!</string>
