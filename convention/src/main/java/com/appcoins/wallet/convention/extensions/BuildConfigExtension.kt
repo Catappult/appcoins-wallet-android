@@ -36,6 +36,8 @@ val defaultBuildConfigList = mutableListOf(
   BuildConfigField("String", "APPSFLYER_KEY"),
   BuildConfigField("String", "TERMS_CONDITIONS_URL"),
   BuildConfigField("String", "PRIVACY_POLICY_URL"),
+  BuildConfigField("String", "GAMESHUB_PACKAGE"),
+  BuildConfigField("String", "GAMESHUB_OEMID")
 )
 
 val debugBuildConfigList = mutableListOf(
