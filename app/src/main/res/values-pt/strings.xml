@@ -44,7 +44,7 @@
   <!-- TODO: Remove or change this placeholder text -->
   <string name="title_community">Comunidade</string>
   <string name="title_opensource">Desenvolvimento Open Source</string>
-  <string name="title_source_code">Código fonte</string>
+  <string name="title_source_code">Source Code</string>
   <string name="title_report_bug">Reportar um erro</string>
   <string name="title_support">Ajuda</string>
   <string name="title_permissions">Permissões</string>
@@ -80,7 +80,7 @@
   <string name="unknown_error">Ocorreu um erro.</string>
   <string name="action_backup_wallet">Fazer backup da Wallet</string>
   <string name="no_tokens">Ainda não adicionaste nenhum custom token.</string>
-  <string name="title_email">Enviar e-mail</string>
+  <string name="title_email">Email Us</string>
   <string name="action_donate">Doar</string>
   <!-- Titles -->
   <string name="title_my_address">Receber</string>
@@ -755,7 +755,7 @@
   <string name="pioneer_gamification_body">Um Pioneiro é um adotante inicial com aumento de bónus.</string>
   <!--Check for Updates-->
   <string name="check_updates_settings_current_title">Versão atual</string>
-  <string name="check_updates_settings_title">Ver se há atualizações</string>
+  <string name="check_updates_settings_title">Check for Updates</string>
   <string name="check_updates_settings_subtitle">Versão atual %s</string>
   <string name="check_updates_checking_body">A procurar uma nova versão</string>
   <string name="check_updates_no_updates_body">Estás atualizado!</string>
@@ -764,7 +764,7 @@
   <string name="check_updates_settings_available_title">Nova versão disponível</string>
   <string name="check_updates_settings_available_subtitle_button">Toca para atualizar</string>
   <!--Subscriptions-->
-  <string name="subscriptions_settings_title">Gerir subscrições</string>
+  <string name="subscriptions_settings_title">Manage Subscriptions</string>
   <string name="subscriptions_title">Subscrições</string>
   <string name="subscriptions_subscribe_button">Subscreve</string>
   <string name="subscriptions_active_title">Ativas</string>
@@ -929,7 +929,7 @@
   <string name="perks_empty_state_first_purchase_body">Faz a tua primeira compra numa app compatível com AppCoins para desbloquear as promoções que temos para ti!</string>
   <string name="perks_empty_body">De momento não há promoções disponíveis.</string>
   <!--Fingerprint Authentication-->
-  <string name="fingerprint_settings">Bloqueio por impressão digital</string>
+  <string name="fingerprint_settings">Fingerprint Lock</string>
   <string name="fingerprint_failed_title">A autenticação falhou!</string>
   <string name="fingerprint_failed_body">Tenta novamente em %s segundos.</string>
   <string name="fingerprint_authentication_required_title">Autenticação necessária!</string>
