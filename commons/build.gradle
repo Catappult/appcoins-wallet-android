@@ -1,8 +1,10 @@
-apply plugin: 'java-library'
-apply plugin: 'org.jetbrains.kotlin.jvm'
+plugins{
+  id("java-library")
+  id("org.jetbrains.kotlin.jvm")
+}
 
 dependencies {
-  implementation fileTree(dir: 'libs', include: ['*.jar'])
+  implementation fileTree(dir: "libs", include: ["*.jar"])
   implementation "io.reactivex.rxjava2:rxjava:$project.rxjava_version"
   implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
   testImplementation "junit:junit:$project.junit_version"

@@ -13,7 +13,7 @@ sealed class ChooseCurrencyBottomSideEffect : SideEffect {
 }
 
 data class ChooseCurrencyBottomSheetState(val selectedCurrency: String,
-                                          val selectedFlag: String,
+                                          val selectedFlag: String?,
                                           val selectedLabel: String,
                                           val selectedConfirmationAsync: Async<Unit> = Async.Uninitialized) :
     ViewState

@@ -1,8 +1,8 @@
 plugins {
-  id 'com.android.library'
-  id 'kotlin-android'
-  id 'kotlin-kapt'
-  id 'dagger.hilt.android.plugin'
+  id("com.android.library")
+  id("kotlin-android")
+  id("kotlin-kapt")
+  id("dagger.hilt.android.plugin")
 }
 
 android {
@@ -22,20 +22,20 @@ android {
   buildTypes {
     release {
       minifyEnabled false
-      proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-      buildConfigField 'String', 'BASE_HOST_SKILLS', project.BASE_HOST_SKILLS_PROD
-      buildConfigField 'String', 'BASE_HOST', project.BACKEND_HOST_PROD
-      buildConfigField 'String', 'WALLET_PACKAGE', project.WALLET_PACKAGE_PROD
+      proguardFiles getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro"
+      buildConfigField "String", "BASE_HOST_SKILLS", project.BASE_HOST_SKILLS_PROD
+      buildConfigField "String", "BASE_HOST", project.BACKEND_HOST_PROD
+      buildConfigField "String", "WALLET_PACKAGE", project.WALLET_PACKAGE_PROD
     }
     staging {
       initWith release
     }
     debug {
       minifyEnabled false
-      proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-      buildConfigField 'String', 'BASE_HOST_SKILLS', project.BASE_HOST_SKILLS_DEV
-      buildConfigField 'String', 'BASE_HOST', project.BACKEND_HOST_DEV
-      buildConfigField 'String', 'WALLET_PACKAGE', project.WALLET_PACKAGE_DEV
+      proguardFiles getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro"
+      buildConfigField "String", "BASE_HOST_SKILLS", project.BASE_HOST_SKILLS_DEV
+      buildConfigField "String", "BASE_HOST", project.BACKEND_HOST_DEV
+      buildConfigField "String", "WALLET_PACKAGE", project.WALLET_PACKAGE_DEV
     }
   }
   compileOptions {
@@ -43,7 +43,7 @@ android {
     targetCompatibility JavaVersion.VERSION_1_8
   }
   kotlinOptions {
-    jvmTarget = '1.8'
+    jvmTarget = "1.8"
   }
   viewBinding {
     enabled = true
@@ -65,17 +65,17 @@ dependencies {
   implementation "com.squareup.retrofit2:adapter-rxjava2:$project.retrofit_version"
   implementation "com.google.code.gson:gson:$project.gson_version"
 
-  implementation 'com.google.dagger:hilt-android:2.40.5'
-  kapt 'com.google.dagger:hilt-compiler:2.40.5'
+  implementation "com.google.dagger:hilt-android:2.40.5"
+  kapt "com.google.dagger:hilt-compiler:2.40.5"
   //hilt-extensions to allow injecting an implementation that has an interface
-  implementation 'it.czerwinski.android.hilt:hilt-extensions:1.2.0'
-  kapt 'it.czerwinski.android.hilt:hilt-processor:1.2.0'
+  implementation "it.czerwinski.android.hilt:hilt-extensions:1.2.0"
+  kapt "it.czerwinski.android.hilt:hilt-processor:1.2.0"
 
   implementation "com.airbnb.android:lottie:$project.lottie_version"
   implementation "com.facebook.shimmer:shimmer:$project.shimmer_version"
   implementation("org.web3j:core:$project.web3j_version") {
     // To resolve the bouncycastle version conflict with the adyen (1.68 vs 1.69)
-    exclude group: 'org.bouncycastle', module: 'bcprov-jdk15to18'
+    exclude group: "org.bouncycastle", module: "bcprov-jdk15to18"
   }
 
   testImplementation "junit:junit:$project.junit_version"

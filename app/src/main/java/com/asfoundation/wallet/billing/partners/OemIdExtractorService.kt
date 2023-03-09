@@ -15,6 +15,7 @@ class OemIdExtractorService @Inject constructor(
     return extractorV2.extract(packageName)
       .doOnSuccess { extracted -> check(extracted.isNotEmpty()) }
       .onErrorResumeNext(extractorV1.extract(packageName))
+      .onErrorResumeNext(Single.just(""))
   }
 }
 
