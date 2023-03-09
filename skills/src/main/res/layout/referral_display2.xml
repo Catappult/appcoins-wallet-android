@@ -12,7 +12,15 @@
       android:layout_width="match_parent"
       android:layout_height="0dp"
       android:orientation="horizontal"
-      app:layout_constraintGuide_percent="0.66"
+      app:layout_constraintGuide_end="116dp"
+      />
+
+  <androidx.constraintlayout.widget.Guideline
+      android:id="@+id/guideline_tooltip"
+      android:layout_width="match_parent"
+      android:layout_height="0dp"
+      android:orientation="horizontal"
+      app:layout_constraintGuide_end="190dp"
       />
 
   <androidx.constraintlayout.widget.Guideline
@@ -37,7 +45,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/room_create_body"
-        android:layout_width="match_parent"
+        android:layout_width="200dp"
         android:layout_height="34dp"
         android:layout_marginStart="18dp"
         android:layout_marginTop="20dp"
@@ -55,16 +63,31 @@
       <TextView
           android:id="@+id/insert_referral_text"
           style="@style/eSkills.Onboarding.Text"
-          android:layout_width="match_parent"
+          android:layout_width="160dp"
           android:layout_height="wrap_content"
-          android:layout_marginStart="0dp"
+          android:layout_marginStart="17dp"
           android:layout_marginEnd="0dp"
           android:text="Insert your referral code \n (Optional)"
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintTop_toTopOf="parent"
-          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintEnd_toStartOf="@+id/action_button_tooltip_referral"
           />
+      <ImageButton
+          android:id="@+id/action_button_tooltip_referral"
+          style="@style/Widget.AppCompat.ActionButton"
+          android:layout_width="18dp"
+          android:layout_height="18dp"
+          android:layout_marginEnd="0dp"
+          android:contentDescription="@null"
+          android:padding="0dp"
+          android:scaleType="centerCrop"
+          android:src="@drawable/referral_onboarding_tooltip"
+          app:layout_constraintTop_toTopOf="parent"
+          app:layout_constraintStart_toEndOf="@id/insert_referral_text"
+          />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
+
   </androidx.constraintlayout.widget.ConstraintLayout>
 
   <ImageView
@@ -76,7 +99,6 @@
       app:layout_constraintBottom_toTopOf="@id/guideline_image"
       app:layout_constraintEnd_toEndOf="@id/code_background"
       />
-
 
 
   <androidx.constraintlayout.widget.ConstraintLayout
@@ -123,14 +145,13 @@
   <include
       android:id="@+id/tooltip"
       layout="@layout/popup_balloon_tooltip_layout"
-      android:layout_width="0dp"
-      android:layout_height="0dp"
-      android:layout_marginStart="@dimen/big_margin"
-      android:layout_marginBottom="1dp"
-      app:layout_constraintStart_toStartOf="@id/code_background"
+      android:layout_width="278dp"
+      android:layout_height="match_parent"
+      android:layout_marginStart="0dp"
+      android:layout_marginBottom="0dp"
+      app:layout_constraintStart_toStartOf="@id/container_popup"
       app:layout_constraintEnd_toEndOf="@id/code_background"
-      app:layout_constraintBottom_toTopOf="@id/guideline_image"
-      app:layout_constraintTop_toTopOf="@id/container_popup"
-      android:visibility="gone"
+      app:layout_constraintBottom_toTopOf="@id/guideline_tooltip"
+      android:visibility="visible"
       />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -654,14 +654,14 @@ class SkillsFragment : Fragment(), PaymentView {
   }
 
   private fun checkOnboarding(): Boolean {
-    val firstRun = "eskills_onboarding_3"
+    val firstRun = "eskills_onboarding_4"
     val sharedPreferences = requireContext().getSharedPreferences(firstRun, 0)
     return sharedPreferences.getBoolean(firstRun, true)
   }
 
 
   private fun setOnboardingComplete() {
-    val firstRun = "eskills_onboarding_3"
+    val firstRun = "eskills_onboarding_4"
     val sharedPreferences = requireContext().getSharedPreferences(firstRun, 0)
     sharedPreferences.edit().putBoolean(firstRun, false).apply()
   }

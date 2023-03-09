@@ -50,9 +50,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="In e-Skills games, 2 or more players face each other in a vibrant match and... The winner gets a prize in real money! \n\n
-
-Let's start with a free practice game with no entry fee for you to get to know the drill."
+        android:text="Beat other players to get a prize in real money! Let's start with a practice game with no entry fee."
         app:layout_constraintVertical_chainStyle="packed"
         app:layout_constraintBottom_toTopOf="@id/referral_display"
         app:layout_constraintEnd_toEndOf="parent"
@@ -85,5 +83,6 @@ Let's start with a free practice game with no entry fee for you to get to know t
         />
 
   </androidx.constraintlayout.widget.ConstraintLayout>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
