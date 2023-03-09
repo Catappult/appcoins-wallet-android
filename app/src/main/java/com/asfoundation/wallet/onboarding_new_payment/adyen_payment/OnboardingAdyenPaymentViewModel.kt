@@ -155,7 +155,7 @@ class OnboardingAdyenPaymentViewModel @Inject constructor(
   }
 
   fun handleBackButton() {
-    events.sendPaymentMethodEvent(args.transactionBuilder, args.paymentType, "other_payments")
+    events.sendPaymentMethodEvent(args.transactionBuilder, args.paymentType, "back")
     sendSideEffect { OnboardingAdyenPaymentSideEffect.NavigateBackToPaymentMethods }
   }
 
