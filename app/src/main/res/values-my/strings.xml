@@ -44,7 +44,7 @@
   <!-- TODO: Remove or change this placeholder text -->
   <string name="title_community">အသိုင္းအဝိုင္း</string>
   <string name="title_opensource">Open Source ဖြံ႕ၿဖိဳးမႈ</string>
-  <string name="title_source_code">ရင္းျမစ္ကုဒ္</string>
+  <string name="title_source_code">Source Code</string>
   <string name="title_report_bug">အမွားကို သတင္းေပးမည္</string>
   <string name="title_support">ပံ့ပိုးေရး</string>
   <string name="title_permissions">ခြင့္ျပဳခ်က္မ်ား</string>
@@ -80,7 +80,7 @@
   <string name="unknown_error">ခ်ိဳ႕ယြင္းမႈတစ္ခု ျဖစ္ခဲ့ပါသည္။</string>
   <string name="action_backup_wallet">ပိုက္ဆံအိတ္ကို အရန္ထားရွိမည္</string>
   <string name="no_tokens">မည္သည့္ စိတ္ႀကိဳက္တိုကင္ကိုမွ် သင္မထည့္သြင္းရေသးပါ။</string>
-  <string name="title_email">ကၽြႏ္ုပ္တို႔ကို အီးေမးလ္ပို႔ပါ</string>
+  <string name="title_email">Email Us</string>
   <string name="action_donate">ေငြေၾကးကူညီမည္</string>
   <!-- Titles -->
   <string name="title_my_address">ရယူမည္</string>
@@ -754,7 +754,7 @@
   <string name="pioneer_gamification_body">ေရွ႔ေဆာင္လမ္းျပသူဆိုသည္မွာ ေဘာနပ္စ္မ်ားမ်ားပိုရသည့္ အေစာပိုင္းသံုးစြဲသူ ျဖစ္ပါသည္။</string>
   <!--Check for Updates-->
   <string name="check_updates_settings_current_title">လက္ရွိဗားရွင္း</string>
-  <string name="check_updates_settings_title">အပ္ဒိတ္မ်ားကို စစ္ၾကည့္လိုက္ပါ</string>
+  <string name="check_updates_settings_title">Check for Updates</string>
   <string name="check_updates_settings_subtitle">လက္ရွိဗားရွင္း %s</string>
   <string name="check_updates_checking_body">ဗားရွင္းအသစ္ကို ရွာေနပါသည္</string>
   <string name="check_updates_no_updates_body">သင္က အပ္ဒိတ္ျဖစ္ပါသည္။</string>
@@ -763,7 +763,7 @@
   <string name="check_updates_settings_available_title">ဗားရွင္းအသစ္ရွိပါသည္</string>
   <string name="check_updates_settings_available_subtitle_button">အပ္ဒိတ္လုပ္ရန္ႏွိပ္ပါ</string>
   <!--Subscriptions-->
-  <string name="subscriptions_settings_title">ပံုမွန္၀ယ္ယူမႈမ်ားကို စီမံမည္</string>
+  <string name="subscriptions_settings_title">Manage Subscriptions</string>
   <string name="subscriptions_title">ပံုမွန္၀ယ္ယူမႈမ်ား</string>
   <string name="subscriptions_subscribe_button">ပုံမွန္ရယူမည္</string>
   <string name="subscriptions_active_title">၀ယ္ထားေသာ</string>
@@ -922,7 +922,7 @@
   <string name="perks_empty_state_first_purchase_body">သင့္အတြက္ ကၽြႏ္ုပ္တို႔ေပးထားေသာ ပ႐ိုမိုးရွင္းမ်ားကို ပြင့္လာေစရန္ AppCoins အသံုးျပဳႏိုင္ေသာ အက္ပ္တစ္ခုတြင္ ပထမဆံုးဝယ္ယူမႈကို ျပဳလုပ္လိုက္ပါ။</string>
   <string name="perks_empty_body">လက္ရွိတြင္ မည္သည့္ပ႐ိုမိုးရွင္းမွ် မရရွိႏိုင္ပါ။</string>
   <!--Fingerprint Authentication-->
-  <string name="fingerprint_settings">လက္ေဗြျဖင့္ပိတ္ျခင္း</string>
+  <string name="fingerprint_settings">Fingerprint Lock</string>
   <string name="fingerprint_failed_title">မွန္ကန္ေၾကာင္း အတည္ျပဳမႈ မေအာင္ျမင္ပါ။</string>
   <string name="fingerprint_failed_body">%s စကၠန္႔ေစာင့္ကာ ျပန္ႀကိဳးစားေပးပါ။</string>
   <string name="fingerprint_authentication_required_title">မွန္ကန္ေၾကာင္း အတည္ျပဳမႈ လိုအပ္ပါသည္။</string>

@@ -836,7 +836,7 @@
   <string name="check_updates_settings_available_subtitle_button">Tap to update</string>
 
 <!--Subscriptions-->
-  <string name="subscriptions_settings_title">Manage subscriptions</string>
+  <string name="subscriptions_settings_title">Manage Subscriptions</string>
   <string name="subscriptions_title">Subscriptions</string>
   <string name="subscriptions_subscribe_button">Subscribe</string>
   <string name="subscriptions_active_title">Active</string>
