@@ -1,6 +1,7 @@
 package com.asfoundation.wallet.change_currency
 
 import android.content.SharedPreferences
+import com.asf.wallet.BuildConfig
 import com.asfoundation.wallet.service.currencies.FiatCurrenciesResponse
 import com.asfoundation.wallet.service.currencies.LocalCurrencyConversionService
 import io.reactivex.Completable
@@ -18,7 +19,7 @@ class FiatCurrenciesRepository @Inject constructor(private val fiatCurrenciesApi
   companion object {
     private const val FIAT_CURRENCY = "fiat_currency"
     private const val SELECTED_FIRST_TIME = "selected_first_time"
-    private const val CURRENCY_LIST_FIRST_TIME = "currency_list_first_time"
+    private const val CURRENCY_LIST_LAST_VERSION = "currency_list_last_version"
   }
 
   private fun fetchCurrenciesList(): Single<List<FiatCurrencyEntity>> {
@@ -36,11 +37,11 @@ class FiatCurrenciesRepository @Inject constructor(private val fiatCurrenciesApi
   }
 
   fun getCurrenciesList(): Single<List<FiatCurrencyEntity>> {
-    return Single.just(pref.getBoolean(CURRENCY_LIST_FIRST_TIME, true))
-        .flatMap { firstTime ->
-          if (firstTime) {
+    return Single.just(pref.getInt(CURRENCY_LIST_LAST_VERSION, 0))
+        .flatMap { lastVersion ->
+          if (lastVersion != BuildConfig.VERSION_CODE) {
             pref.edit()
-                .putBoolean(CURRENCY_LIST_FIRST_TIME, false)
+                .putInt(CURRENCY_LIST_LAST_VERSION, BuildConfig.VERSION_CODE)
                 .apply()
             fetchCurrenciesList()
           } else {

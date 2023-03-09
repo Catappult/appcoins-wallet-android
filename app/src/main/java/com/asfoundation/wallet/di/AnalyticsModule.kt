@@ -10,6 +10,7 @@ import com.asfoundation.wallet.di.annotations.DefaultHttpClient
 import com.asfoundation.wallet.feature_flags.topup.TopUpDefaultValueProbe
 import com.asfoundation.wallet.home.ui.HomeAnalytics
 import com.asfoundation.wallet.main.nav_bar.NavBarAnalytics
+import com.asfoundation.wallet.onboarding_new_payment.OnboardingPaymentEvents
 import com.asfoundation.wallet.rating.RatingAnalytics
 import com.asfoundation.wallet.topup.TopUpAnalytics
 import com.asfoundation.wallet.ui.iab.PaymentMethodsAnalytics
@@ -66,7 +67,10 @@ class AnalyticsModule {
       PaymentMethodsAnalytics.WALLET_3DS_START,
       PaymentMethodsAnalytics.WALLET_3DS_CANCEL,
       PaymentMethodsAnalytics.WALLET_3DS_ERROR,
-      NavBarAnalytics.WALLET_CALLOUT_PROMOTIONS_CLICK
+      NavBarAnalytics.WALLET_CALLOUT_PROMOTIONS_CLICK,
+      OnboardingPaymentEvents.EVENT_WALLET_METHOD_ONBOARDDING,
+      OnboardingPaymentEvents.ONBOARDING_PAYMENT,
+      OnboardingPaymentEvents.EVENT_WALLET_PAYMENT_EXPLORE_WALLET
     )
 
   @Singleton
@@ -100,6 +104,9 @@ class AnalyticsModule {
       PaymentMethodsAnalytics.WALLET_3DS_CANCEL,
       PaymentMethodsAnalytics.WALLET_3DS_ERROR,
       NavBarAnalytics.WALLET_CALLOUT_PROMOTIONS_CLICK,
+      OnboardingPaymentEvents.EVENT_WALLET_METHOD_ONBOARDDING,
+      OnboardingPaymentEvents.ONBOARDING_PAYMENT,
+      OnboardingPaymentEvents.EVENT_WALLET_PAYMENT_EXPLORE_WALLET
     )
 
   @Singleton
@@ -132,7 +139,10 @@ class AnalyticsModule {
       PaymentMethodsAnalytics.WALLET_3DS_START,
       PaymentMethodsAnalytics.WALLET_3DS_CANCEL,
       PaymentMethodsAnalytics.WALLET_3DS_ERROR,
-      NavBarAnalytics.WALLET_CALLOUT_PROMOTIONS_CLICK
+      NavBarAnalytics.WALLET_CALLOUT_PROMOTIONS_CLICK,
+      OnboardingPaymentEvents.EVENT_WALLET_METHOD_ONBOARDDING,
+      OnboardingPaymentEvents.ONBOARDING_PAYMENT,
+      OnboardingPaymentEvents.EVENT_WALLET_PAYMENT_EXPLORE_WALLET
     )
 
   @Singleton
