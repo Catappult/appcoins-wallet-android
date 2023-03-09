@@ -36,7 +36,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="Ready to show your skills?"
+        android:text=""
         app:layout_constraintVertical_chainStyle="packed"
         app:layout_constraintBottom_toTopOf="@id/onboarding_title"
         app:layout_constraintEnd_toEndOf="parent"
@@ -61,7 +61,7 @@
 
     <include
         android:id="@+id/referral_display"
-        layout="@layout/referral_display"
+        layout="@layout/referral_display2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/mid_margin"

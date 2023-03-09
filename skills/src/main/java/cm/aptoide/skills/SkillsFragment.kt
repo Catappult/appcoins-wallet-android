@@ -155,6 +155,20 @@ class SkillsFragment : Fragment(), PaymentView {
   }
 
   private fun setupOnboardingTicketButtons(eSkillsPaymentData: EskillsPaymentData) {
+
+    val tooltip_btn = binding.onboardingLayout.referralDisplay.actionButtonTooltipReferral
+        tooltip_btn
+          .setOnClickListener {
+            if (binding.onboardingLayout.referralDisplay.tooltip.root.visibility == View.GONE){
+              binding.onboardingLayout.referralDisplay.tooltip.root.visibility = View.VISIBLE
+            }
+            else{
+              binding.onboardingLayout.referralDisplay.tooltip.root.visibility = View.GONE
+            }
+          }
+    binding.onboardingLayout.dialogBuyButtonsPaymentMethods.cancelButton.setOnClickListener {
+      viewModel.cancelPayment()
+    }
     binding.onboardingLayout.dialogBuyButtonsPaymentMethods.buyButton.setOnClickListener {
       binding.onboardingLayout.dialogBuyButtonsPaymentMethods.buyButton.isEnabled = false
       val referralCode = binding.onboardingLayout.referralDisplay.referralCode.text.toString()
