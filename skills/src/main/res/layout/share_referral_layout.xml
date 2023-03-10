@@ -4,7 +4,7 @@
     android:id="@+id/base_constraint"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:visibility="gone"
+    android:visibility="visible"
     >
   <androidx.constraintlayout.widget.ConstraintLayout
       android:id="@+id/container_referral"
@@ -59,6 +59,7 @@
       android:id="@+id/code_background"
       android:layout_width="0dp"
       android:layout_height="48dp"
+      android:elevation="@dimen/small_margin"
       android:layout_marginHorizontal="@dimen/big_margin"
       android:layout_marginBottom="@dimen/big_margin"
       android:background="@drawable/rectangle_purple"
@@ -112,13 +113,11 @@
       android:id="@+id/tooltip"
       layout="@layout/popup_balloon_tooltip_layout"
       android:layout_width="0dp"
-      android:layout_height="0dp"
-      android:elevation="@dimen/big_margin"
+      android:layout_height="wrap_content"
       android:layout_marginStart="@dimen/big_margin"
       app:layout_constraintStart_toStartOf="@id/code_background"
       app:layout_constraintEnd_toEndOf="@id/code_background"
       app:layout_constraintBottom_toTopOf="@id/code_background"
-      app:layout_constraintTop_toTopOf="parent"
       android:visibility="invisible"
       />
 </androidx.constraintlayout.widget.ConstraintLayout>

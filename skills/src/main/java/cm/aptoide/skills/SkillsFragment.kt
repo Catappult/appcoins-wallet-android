@@ -477,7 +477,7 @@ class SkillsFragment : Fragment(), PaymentView {
       binding.loadingTicketLayout.root
         .setOnClickListener {
           if (binding.loadingTicketLayout.referralShareDisplay.tooltip.root.visibility == View.VISIBLE) {
-            binding.loadingTicketLayout.referralShareDisplay.tooltip.root.visibility = View.GONE
+            binding.loadingTicketLayout.referralShareDisplay.tooltip.root.visibility = View.INVISIBLE
             binding.loadingTicketLayout.referralShareDisplay.actionButtonTooltipReferral.colorFilter =
               null
           }
