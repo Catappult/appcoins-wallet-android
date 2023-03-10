@@ -1,0 +1,27 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.appcoins.wallet.billing">
+
+  <application>
+    <service
+        android:name=".BillingService"
+        android:exported="true">
+      <intent-filter>
+        <action android:name="${applicationId}.iab.action.BIND" />
+      </intent-filter>
+    </service>
+
+    <activity
+        android:name=".AppcoinsBillingReceiverActivity"
+        android:theme="@style/Theme.Transparent"
+        android:exported="true">
+      <intent-filter>
+        <action android:name="android.intent.action.VIEW" />
+        <data
+            android:host="billing"
+            android:path="/communication/processor/1"
+            android:scheme="appcoins" />
+        <category android:name="android.intent.category.DEFAULT" />
+      </intent-filter>
+    </activity>
+  </application>
+</manifest>

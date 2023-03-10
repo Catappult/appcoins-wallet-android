@@ -2,7 +2,6 @@ package com.asfoundation.wallet.di.api
 
 import cm.aptoide.skills.api.RoomApi
 import cm.aptoide.skills.api.TicketApi
-import com.asf.wallet.BuildConfig
 import com.asfoundation.wallet.di.annotations.DefaultHttpClient
 import com.google.gson.GsonBuilder
 import dagger.Module
@@ -20,7 +19,7 @@ import javax.inject.Singleton
 @Module
 class EskillsApiModule {
 
-  private val eskillsUrl = BuildConfig.BASE_HOST_SKILLS
+  private val eskillsUrl = cm.aptoide.skills.BuildConfig.BASE_HOST_SKILLS
 
   @Singleton
   @Provides

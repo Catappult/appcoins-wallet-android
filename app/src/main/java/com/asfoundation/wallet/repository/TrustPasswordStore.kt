@@ -10,6 +10,7 @@ import com.asfoundation.wallet.util.KS
 import com.asfoundation.wallet.util.KS.ANDROID_KEY_STORE
 import com.wallet.pwd.trustapp.PasswordManager
 import dagger.hilt.android.qualifiers.ApplicationContext
+import dagger.hilt.components.SingletonComponent
 import io.reactivex.Completable
 import io.reactivex.Single
 import it.czerwinski.android.hilt.annotations.BoundTo
