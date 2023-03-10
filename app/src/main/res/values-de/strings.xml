@@ -377,7 +377,7 @@
   <string name="provide_wallet_completed_header">Wallet wurde Aptoide zugeordnet!</string>
   <string name="provide_wallet_create_body">Sie benötigen eine Wallet-Adresse! Gehen Sie folgendermaßen vor, um eine Adresse im AppCoins-Wallet zu erstellen.</string>
   <string name="provide_wallet_create_wallet_button">Erstellen</string>
-  <string name="provide_wallet_creating_wallet_header">Preparing your wallet&#8230;</string>
+  <string name="provide_wallet_creating_wallet_header">Deine Wallet wird vorbereitet&#8230;</string>
   <string name="provide_wallet_created_header">Wallet Adresse erstellt!</string>
   <string name="provide_wallet_empty_state">Sie haben dem AppCoins-Wallet nicht erlaubt ihre Adresse einer anderen App zur Verfügung zu stellen.</string>
   <string name="provide_wallet_status">Zugriff auf Wallet Adresse erlauben</string>
@@ -387,7 +387,7 @@
   <string name="topup_title">Aufladen</string>
   <string name="topup_amount">%s AppCoins Credits</string>
   <string name="topup_bonus_header">Sie erhalten einen Bonus!</string>
-  <string name="topup_bonus_message">%s AppCoins Credits extra will be credited in your wallet.</string>
+  <string name="topup_bonus_message">%s AppCoins Credits werden dir zusätzlich in deine Wallet gutgeschrieben.</string>
   <string name="topup_completed_1">%s AppCoins</string>
   <string name="topup_completed_2_with_bonus">wurden auf ihren Konto eingezahlt... Zusammen mit einem Bonus!</string>
   <string name="topup_completed_2_without_bonus">wurden auf ihrem Konto gutgeschrieben.</string>
@@ -404,7 +404,7 @@
   <string name="balance_topup_body">Sie können ihr Wallet mit AppCoins Credits aufladen.</string>
   <string name="balance_ethereum_body">AppCoins basiert auf der Kryptowährung Ethereum. Sie kann in den Kryptobörsen gekauft und verkauft werden da sie sehr beleibt ist!</string>
   <string name="balance_appcoins_body">AppCoins ist die Kryptowährung für die App-Economy. Sie können AppCoins an mehreren Börsen kaufen und verkaufen und sie für den In-App Kauf von Artikeln verwenden.</string>
-  <string name="balance_appccreditos_body">The token to buy in-app items! Top up AppCoins Credits from your wallet or get them for free by using apps. They can also be transferred between friends!</string>
+  <string name="balance_appccreditos_body">Das Token für den In-App Einkauf von Gegenständen! Lade App Coins Credits auf deine Wallet oder erhalte sie kostenlos für die Verwendung von Apps. Sie können aber auch unter Freunden übertragen werden!</string>
   <string name="my_wallets_action_new_wallet">Neues Wallet</string>
   <string name="my_wallets_action_recover_wallet">Wallet wiederherstellen</string>
   <string name="my_wallets_action_backup_wallet">Wallet-Backup erstellen</string>
@@ -475,7 +475,7 @@
   <string name="home_empty_discover_apps_button">ENTDECKEN SIE DIE BESTEN APPS</string>
   <!--Tokens-->
   <!--Settings-->
-  <string name="title_redeem">Redeem Gift Card</string>
+  <string name="title_redeem">Geschenkkarte einlösen</string>
   <string name="settings_item_support">Support Team kontaktieren</string>
   <string name="settings_subheader_support">Support</string>
   <string name="settings_subheader_about_us">Über uns</string>
@@ -539,12 +539,12 @@
   <string name="purchase_wallet_blocked_title">Ihr App Coins Credits Guthaben wurde geblockt</string>
   <string name="purchase_wallet_blocked_body">Wegen eines untypischen Verlaufs ihrer Transaktions-Historie wurde ihr AppCoins Guthaben gesperrt. Sie können weiterhin Zahlungen und Transaktionen mit anderen Methoden als AppCoins Credits durchführen \n\nFalls Sie der Meinung sind, dass dies ein Fehler ist melden Sie das an uns:</string>
   <string name="purchase_card_error_title">Hoppla, etwas hat nicht funktioniert.</string>
-  <string name="purchase_card_error_general_1">There was a problem with your card. Please try with a different card or payment method.</string>
-  <string name="purchase_card_error_general_2">The transaction has been rejected by your bank. Please try with a different card or payment method.</string>
-  <string name="purchase_card_error_no_funds">It seems you don\'t have enough funds or there\'s a limit on your card. Please try with a different card or payment method.</string>
-  <string name="purchase_card_error_expired">It seems your card is expired. Please try again with a different payment method.</string>
-  <string name="purchase_card_error_invalid_details">Invalid card number. Please check it and try again.</string>
-  <string name="purchase_card_error_not_supported">Your card is not supported yet. Please try again with a different card or payment method.</string>
+  <string name="purchase_card_error_general_1">Es gab ein Problem mit deiner Karte. Bitte versuche es mit einer anderen Karte oder Zahlungsmethode.</string>
+  <string name="purchase_card_error_general_2">Die Transaktion wurde von deiner Bank abgelehnt. Bitte versuche es mit einer anderen Karte oder Zahlungsmethode.</string>
+  <string name="purchase_card_error_no_funds">Es scheint, als hättest du nicht genug Guthaben oder es gibt ein Limit auf deiner Karte. Bitte versuche es mit einer anderen Karte oder Zahlungsmethode.</string>
+  <string name="purchase_card_error_expired">Es scheint, dass deine Karte abgelaufen ist. Bitte versuche es noch einmal mit einer anderen Zahlungsmethode.</string>
+  <string name="purchase_card_error_invalid_details">Ungültige Kartennummer. Bitte überprüfe sie und versuche es erneut.</string>
+  <string name="purchase_card_error_not_supported">Deine Karte wird noch nicht unterstützt. Bitte versuche es noch einmal mit einer anderen Karte oder Zahlungsmethode.</string>
   <string name="purchase_card_error_security">Sind Sie sicher, dass ihre Sicherheitsinformationen richtig sind? Bitte versuchen Sie es erneut.</string>
   <string name="purchase_card_error_wrong_CVV">Scheinbar ist ihr CVV/CVC-Code nicht korrekt. Bitte geben Sie ihn erneut ein.</string>
   <string name="purchase_card_error_re_insert">Es scheint, dass Sie diese Karte schon vor langer Zeit registriert haben! Geben Sie bitte die Kartendaten erneut ein oder verwenden Sie eine andere Karte.</string>
@@ -563,12 +563,12 @@
   <string name="purchase_error_try_cheaper_item">Das ist ganz schön teuer! Bitte versuchen Sie einen billigeren Artikel zu erwerben.</string>
   <string name="purchase_error_try_cheaper_item_or_method">Das ist ganz schön teuer! Bitte versuchen Sie einen billigeren Artikel zu erwerben oder probieren Sie eine andere Bezahlmethode.</string>
   <string name="transfer_appc_error_no_eth_title">Sie benötigen Ether!</string>
-  <string name="transfer_appc_error_no_eth_body">AppCoins transfers fees are paid in Ethereum, so you\'ll need ETH to transfer AppCoins.</string>
+  <string name="transfer_appc_error_no_eth_body">AppCoins Transaktionsgebühren werden mit Ethereum bezahlt, du brauchst also ETH, um AppCoins überweisen zu können.</string>
   <string name="purchase_error_invalid_credit_card">Ungültige Bankkartennummer. Bitte überprüfen Sie die korrekte Eingabe der Nummer.</string>
   <string name="purchase_error_card_security_validation">Auf der 2 Ebene der Transaktionsüberprüfung hat sich ein Fehler ereignet. Bitte versuchen Sie es erneut.</string>
   <string name="purchase_error_transaction_timeout">Scheinbar haben Sie zu lange für den Abschluss der Transaktion gebraucht. Bitte versuchen Sie es erneut.</string>
   <string name="purchase_error_card_already_in_progress">Ihre Anfrage wird bereits bearbeitet oder ist bereits abgeschlossen. Bitte warten.</string>
-  <string name="purchase_error_payment_rejected">The transaction has been rejected. Please try with a different card or payment method.</string>
+  <string name="purchase_error_payment_rejected">Die Transaktion wurde abgelehnt. Bitte versuche es mit einer anderen Karte oder Zahlungsmethode.</string>
   <string name="purchase_error_verify_wallet">Bitte bestätigen Sie Ihre Zahlungsmethode, um diesen Kauf abzuschließen.</string>
   <string name="purchase_error_verify_card">Bestätigen Sie ihre Karte, um diesen Kauf abzuschließen.</string>
   <string name="purachse_error_verify_card_button">KARTE ÜBERPRÜFEN</string>
@@ -577,9 +577,9 @@
   <string name="purchase_app_needed_body">Um ihren Einkauf abschließen zu können, benötigen Sie die folgende App.</string>
   <string name="purchase_apps_needed_body">Um ihren Einkauf abschließen zu können, benötigen Sie die folgenden Apps.</string>
   <string name="purchase_error_connection_issue">Sie haben offensichtlich keine Internetverbindung! Bitte prüfen Sie die Verbindung und versuchen Sie es erneut.</string>
-  <string name="purchase_error_wrong_pin_body">There was a problem with your pin. Please try again.</string>
-  <string name="purchase_error_3d_body">There was a problem with your 3D authentication. Please try again.</string>
-  <string name="purchase_error_generic_contact_us_body">Oops, something went wrong. Please try again or contact us.</string>
+  <string name="purchase_error_wrong_pin_body">Es gab ein Problem mit deiner PIN. Bitte versuche es noch einmal.</string>
+  <string name="purchase_error_3d_body">Es gab ein Problem mit deiner 3D-Authentifizierung. Bitte versuche es erneut.</string>
+  <string name="purchase_error_generic_contact_us_body">Ups, da ist etwas schief gelaufen. Bitte versuche es erneut oder kontaktiere uns.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">Rechnungsadresse</string>
   <string name="purchase_address_address_field">Adresse</string>
@@ -653,10 +653,10 @@
   <string name="update_wallet_soft_title">Verlieren Sie nicht den Anschluss!</string>
   <string name="update_wallet_soft_body">Ein AppCoins Wallet auf dem akuellsten Stand garantiert grösstmöglichen Komfort.</string>
   <string name="update_button">Update</string>
-  <string name="update_backup_title">Don\'t lose your funds!</string>
-  <string name="update_backup_body">Back up your wallet before updating.</string>
-  <string name="update_backup_date">Last backed up on %s.</string>
-  <string name="update_backup_never">Not backed up yet.</string>
+  <string name="update_backup_title">Verliere dein Geld nicht!</string>
+  <string name="update_backup_body">Sichere deine Wallet vor dem Update.</string>
+  <string name="update_backup_date">Letzte Sicherung am %s.</string>
+  <string name="update_backup_never">Noch nicht gesichert.</string>
   <!--Backup and Import-->
   <string name="backup_home_notification_title">Backup für ihr Wallet durchführen</string>
   <string name="backup_home_notification_body">Haben Sie schon nal ihr Smartphone verloren? Machen Sie jetzt ein Backup von ihrem Wallet!</string>
@@ -755,7 +755,7 @@
   <string name="pioneer_gamification_body">Ein Pionier ist ein Erstanwender mit höheren Prämien.</string>
   <!--Check for Updates-->
   <string name="check_updates_settings_current_title">Aktuelle Version</string>
-  <string name="check_updates_settings_title">Check for Updates</string>
+  <string name="check_updates_settings_title">Nach Updates suchen</string>
   <string name="check_updates_settings_subtitle">Aktuelle Version %s</string>
   <string name="check_updates_checking_body">Suche nach einer neuen Version</string>
   <string name="check_updates_no_updates_body">Sie sind auf dem aktuellsten Stand!</string>
@@ -764,7 +764,7 @@
   <string name="check_updates_settings_available_title">Neue Version verfügbar</string>
   <string name="check_updates_settings_available_subtitle_button">Zum Updaten drücken</string>
   <!--Subscriptions-->
-  <string name="subscriptions_settings_title">Manage Subscriptions</string>
+  <string name="subscriptions_settings_title">Abonnements verwalten</string>
   <string name="subscriptions_title">Abonnements</string>
   <string name="subscriptions_subscribe_button">Abonnieren</string>
   <string name="subscriptions_active_title">Aktiv</string>
@@ -929,7 +929,7 @@
   <string name="perks_empty_state_first_purchase_body">Tätige deinen ersten Einkauf in einer AppCoins kompatiblen App und schalte die Aktionen frei, die wir für Dich erstellt haben!</string>
   <string name="perks_empty_body">Zur Zeit sind keine Aktionen verfügbar.</string>
   <!--Fingerprint Authentication-->
-  <string name="fingerprint_settings">Fingerprint Lock</string>
+  <string name="fingerprint_settings">Fingerabdruck-Schloss</string>
   <string name="fingerprint_failed_title">Authentifizierung fehlgeschlagen!</string>
   <string name="fingerprint_failed_body">Bitte versuchen Sie es in %s Sekunden erneut.</string>
   <string name="fingerprint_authentication_required_title">Authentifizierung erforderlich!</string>
@@ -1105,9 +1105,9 @@
   <string name="onboarding_1st_body">Gehen Sie zurück zum Spiel, um ihren Kauf abzuschließen.</string>
   <string name="onboarding_1st_back_to_game_button">Zurück zum Spiel</string>
   <string name="onboarding_1st_explore_wallet_button">Oder erkunden Sie das Wallet</string>
-  <string name="onboarding_1st_back_to_unknown_game_body">One of the games you\'ve got installed is AppCoins compatible! Do you want to open it?</string>
-  <string name="onboarding_1st_back_to_unknown_game_button">Go to the game</string>
-  <string name="onboarding_1st_explore_wallet_alternative_button">Explore the AppCoins Wallet</string>
+  <string name="onboarding_1st_back_to_unknown_game_body">Eines der Spiele, die du installiert hast, ist mit AppCoins kompatibel! Willst du es öffnen?</string>
+  <string name="onboarding_1st_back_to_unknown_game_button">Zum Spiel gehen</string>
+  <string name="onboarding_1st_explore_wallet_alternative_button">Erkunde die AppCoins Wallet</string>
   <!-- VIP Program -->
   <string name="vip_program_reached_notification_title">Herzlich Wilkommen beim VIP-Programm</string>
   <string name="vip_program_reached_notification_body">Sie sind jetzt ein VIP-User und haben Zugriff auf Sonderaktionen und Angebote. Tippen für zusätzliche Details!</string>
@@ -1135,6 +1135,6 @@
   <string name="vip_program_max_bonus_title">Freuen Sie sich über %s%% Bonus über jeden Einkauf</string>
   <string name="vip_program_max_bonus_body">Sie haben die Grenzen des Sonnensystems erreicht.</string>
   <string name="vip_program_max_bonus_short">%s%% Bonus für jeden Einkauf.</string>
-  <string name="vip_program_referral_notification_title">VIP Referral Code Available!</string>
-  <string name="vip_program_referral_notification_body">Share your code with your community so you all earn while playing!</string>
+  <string name="vip_program_referral_notification_title">VIP-Empfehlungscode verfügbar!</string>
+  <string name="vip_program_referral_notification_body">Teile deinen Code mit deiner Community, damit ihr alle beim Spielen verdient!</string>
 </resources>
