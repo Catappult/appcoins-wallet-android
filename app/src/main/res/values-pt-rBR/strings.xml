@@ -30,8 +30,8 @@
   <string name="change_button">Alterar</string>
   <string name="vip">VIP</string>
   <string name="faq">FAQs</string>
-  <string name="about_us_title">About Us</string>
-  <string name="preferences_title">Preferences</string>
+  <string name="about_us_title">Sobre Nós</string>
+  <string name="preferences_title">Preferências</string>
   <string name="low_storage_error">Não há espaço de armazenamento livre</string>
   <string name="no_camera_permission_title">Permissão da Câmera</string>
   <string name="no_camera_permission">A BDS da AppCoins Wallet precisa permissão para acessar sua câmera para escanear QR Codes.</string>
@@ -44,7 +44,7 @@
   <!-- TODO: Remove or change this placeholder text -->
   <string name="title_community">Comunidade</string>
   <string name="title_opensource">Desenvolvimento Open Source</string>
-  <string name="title_source_code">Source Code</string>
+  <string name="title_source_code">Código Fonte</string>
   <string name="title_report_bug">Reportar um bug</string>
   <string name="title_support">Suporte</string>
   <string name="title_permissions">Permissões</string>
@@ -80,7 +80,7 @@
   <string name="unknown_error">Ocorreu um erro.</string>
   <string name="action_backup_wallet">Fazer Backup da Wallet</string>
   <string name="no_tokens">Você não inseriu nenhum token customizado ainda.</string>
-  <string name="title_email">Email Us</string>
+  <string name="title_email">Envie-nos um E-mail</string>
   <string name="action_donate">Doar</string>
   <!-- Titles -->
   <string name="title_my_address">Receber</string>
@@ -140,15 +140,15 @@
   <string name="intro_already_have_wallet_button">Já tenho uma wallet</string>
   <string name="intro_get_started_button">Iniciar carteira</string>
   <!-- Intro from game -->
-  <string name="launching_wallet_body">Launching wallet&#8230;</string>
-  <string name="select_method_title">Choose a payment method</string>
-  <string name="bonus_body">Get %s bonus with this purchase.</string>
-  <string name="agree_by_choosing_a_payment_method_body">By choosing a payment method, you agree to the %1$s and %2$s.</string>
-  <string name="pay_with_card_title">Pay with credit/debit card</string>
-  <string name="more_payment_methods_button">More payment methods</string>
-  <string name="bonus_received_body">You received a %s bonus in your wallet.</string>
-  <string name="back_to_the_game_button">Back to the game</string>
-  <string name="other_payment_methos_title">Other payment methods:</string>
+  <string name="launching_wallet_body">Abrir carteira&#8230;</string>
+  <string name="select_method_title">Selecionar um método de pagamento</string>
+  <string name="bonus_body">Receba %s de bônus com essa compra.</string>
+  <string name="agree_by_choosing_a_payment_method_body">Ao selecionar um método de pagamento, você concorda com os %1$s e a %2$s.</string>
+  <string name="pay_with_card_title">Pagar com cartão de crédito/débito</string>
+  <string name="more_payment_methods_button">Mais métodos de pagamentos</string>
+  <string name="bonus_received_body">Você recebeu um bônus de %s em sua carteira.</string>
+  <string name="back_to_the_game_button">Voltar ao jogo</string>
+  <string name="other_payment_methos_title">Outros métodos de pagamento:</string>
   <!-- Menus -->
   <!-- Labels -->
   <string name="label_from">De</string>
@@ -377,7 +377,7 @@
   <string name="provide_wallet_completed_header">Carteira associada à Aptoide!</string>
   <string name="provide_wallet_create_body">Você precisa de um endereço da carteira! Siga estes passos para criar uma na AppCoins Wallet.</string>
   <string name="provide_wallet_create_wallet_button">Criar</string>
-  <string name="provide_wallet_creating_wallet_header">Preparing your wallet&#8230;</string>
+  <string name="provide_wallet_creating_wallet_header">Preparando a sua carteira&#8230;</string>
   <string name="provide_wallet_created_header">Endereço da carteira criado!</string>
   <string name="provide_wallet_empty_state">Você não autorizou ainda a AppCoins Wallet fornecer seu endereço para outro app.</string>
   <string name="provide_wallet_status">Permitir acesso ao endereço da wallet</string>
