@@ -45,7 +45,11 @@ class InteractorModule {
           override fun send(transactionBuilder: TransactionBuilder): Single<String> {
             return sendTransactionInteract.approve(transactionBuilder)
           }
-        }, MemoryCache(BehaviorSubject.create(), ConcurrentHashMap()), paymentErrorMapper,
+        },
+        MemoryCache(
+          BehaviorSubject.create(),
+          ConcurrentHashMap()
+        ), paymentErrorMapper,
         Schedulers.io(),
         noWaitPendingTransactionService
       ), NoValidateTransactionValidator()

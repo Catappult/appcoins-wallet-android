@@ -1,7 +1,6 @@
 package com.asfoundation.wallet.redeem_gift.repository
 
 import com.appcoins.wallet.billing.util.isNoNetworkException
-import com.asfoundation.wallet.util.getMessage
 import com.google.gson.Gson
 import retrofit2.HttpException
 import javax.inject.Inject
