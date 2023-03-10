@@ -38,19 +38,27 @@ interface BillingRepository {
                                  entityOemId: String?, entityDomainId: String?,
                                  origin: String, type: String, developerPayload: String?,
                                  callback: String?, orderReference: String?,
-                                 referrerUrl: String?): Single<Transaction>
+                                 referrerUrl: String?
+  ): Single<Transaction>
 
-  fun registerPaymentProof(paymentId: String, paymentType: String, walletAddress: String,
-                           signedData: String, paymentProof: String): Completable
+  fun registerPaymentProof(
+    paymentId: String, paymentType: String, walletAddress: String,
+    signedData: String, paymentProof: String
+  ): Completable
 
-  fun getPaymentMethods(value: String? = null,
-                        currency: String? = null,
-                        currencyType: String? = null,
-                        direct: Boolean? = null,
-                        transactionType: String? = null): Single<List<PaymentMethodEntity>>
+  fun getPaymentMethods(
+    value: String? = null,
+    currency: String? = null,
+    currencyType: String? = null,
+    direct: Boolean? = null,
+    transactionType: String? = null,
+    packageName: String? = null
+  ): Single<List<PaymentMethodEntity>>
 
-  fun getAppcoinsTransaction(uid: String, address: String,
-                             signedContent: String): Single<Transaction>
+  fun getAppcoinsTransaction(
+    uid: String, address: String,
+    signedContent: String
+  ): Single<Transaction>
 
   fun getWallet(packageName: String): Single<String>
 }

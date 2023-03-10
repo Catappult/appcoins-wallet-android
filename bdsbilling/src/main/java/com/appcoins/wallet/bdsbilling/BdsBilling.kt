@@ -82,21 +82,31 @@ class BdsBilling(private val repository: BillingRepository,
         }
   }
 
-  override fun getSubscriptionToken(packageName: String, skuId: String,
-                                    networkThread: Scheduler): Single<String> {
+  override fun getSubscriptionToken(
+    packageName: String, skuId: String,
+    networkThread: Scheduler
+  ): Single<String> {
     return walletService.getAndSignCurrentWalletAddress()
-        .observeOn(networkThread)
-        .flatMap {
-          repository.getSubscriptionToken(packageName, skuId, it.address, it.signedAddress)
-        }
+      .observeOn(networkThread)
+      .flatMap {
+        repository.getSubscriptionToken(packageName, skuId, it.address, it.signedAddress)
+      }
   }
 
-  override fun getPaymentMethods(value: String,
-                                 currency: String,
-                                 transactionType: String): Single<List<PaymentMethodEntity>> {
-    return repository.getPaymentMethods(value, currency, transactionType = transactionType)
+  override fun getPaymentMethods(
+    value: String,
+    currency: String,
+    transactionType: String,
+    packageName: String
+  ): Single<List<PaymentMethodEntity>> {
+    return repository.getPaymentMethods(
+      value,
+      currency,
+      transactionType = transactionType,
+      packageName = packageName
+    )
   }
 
   private fun map(it: Boolean) =
-      if (it) Billing.BillingSupportType.SUPPORTED else Billing.BillingSupportType.MERCHANT_NOT_FOUND
+    if (it) Billing.BillingSupportType.SUPPORTED else Billing.BillingSupportType.MERCHANT_NOT_FOUND
 }
