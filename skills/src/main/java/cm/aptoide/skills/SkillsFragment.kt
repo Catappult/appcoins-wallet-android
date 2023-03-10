@@ -439,9 +439,6 @@ class SkillsFragment : Fragment(), PaymentView {
       .doOnSuccess { referralResponse ->
         setReferralLayout(referralResponse)
       }
-      .doOnError {
-        binding.loadingTicketLayout.referralShareDisplay.baseConstraint.visibility = View.GONE
-      }
       .subscribe())
   }
 
@@ -458,7 +455,7 @@ class SkillsFragment : Fragment(), PaymentView {
       tooltipBtn
         .setOnClickListener {
           if (binding.loadingTicketLayout.referralShareDisplay.tooltip.root.visibility == View.VISIBLE) {
-            binding.loadingTicketLayout.referralShareDisplay.tooltip.root.visibility = View.GONE
+            binding.loadingTicketLayout.referralShareDisplay.tooltip.root.visibility = View.INVISIBLE
             tooltipBtn.setImageDrawable(
               ContextCompat.getDrawable(
                 requireContext(),
