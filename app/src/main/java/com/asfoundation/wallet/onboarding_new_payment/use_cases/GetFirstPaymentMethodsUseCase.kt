@@ -20,7 +20,9 @@ class GetFirstPaymentMethodsUseCase @Inject constructor(private val bdsRepositor
 
   operator fun invoke(cachedTransaction: CachedTransaction): Single<List<PaymentMethod>> {
     return bdsRepository.getPaymentMethods(
-      cachedTransaction.value.toString(), cachedTransaction.currency
+      cachedTransaction.value.toString(),
+      cachedTransaction.currency,
+      packageName = cachedTransaction.packageName
     )
       .flatMap { paymentMethods ->
         removeUnavailableMethods(paymentMethods)
