@@ -30,8 +30,8 @@
   <string name="change_button">Ändern</string>
   <string name="vip">VIP</string>
   <string name="faq">FAQs</string>
-  <string name="about_us_title">About Us</string>
-  <string name="preferences_title">Preferences</string>
+  <string name="about_us_title">Über uns</string>
+  <string name="preferences_title">Präferenzen</string>
   <string name="low_storage_error">Nicht genügend Speicherplatz</string>
   <string name="no_camera_permission_title">Kamera-Berechtigung</string>
   <string name="no_camera_permission">Zum Lesen des QR-Codes benötigt AppCoins BDS Wallet Zugriff auf deine Kamera.</string>
@@ -44,7 +44,7 @@
   <!-- TODO: Remove or change this placeholder text -->
   <string name="title_community">Community</string>
   <string name="title_opensource">Open-Source-Entwicklung</string>
-  <string name="title_source_code">Source Code</string>
+  <string name="title_source_code">Quell-Code</string>
   <string name="title_report_bug">Einen Bug melden</string>
   <string name="title_support">Support</string>
   <string name="title_permissions">Berechtigungen</string>
@@ -80,7 +80,7 @@
   <string name="unknown_error">Es ist ein Fehler aufgetreten.</string>
   <string name="action_backup_wallet">Wallet-Backup erstellen</string>
   <string name="no_tokens">Sie haben bisher noch keinen benutzerdefinierten Token hinzugefügt.</string>
-  <string name="title_email">Email Us</string>
+  <string name="title_email">Sende uns eine E-Mail</string>
   <string name="action_donate">Spenden</string>
   <!-- Titles -->
   <string name="title_my_address">Erhalten</string>
@@ -117,38 +117,38 @@
   <string name="intro_title_third_page">Schnell &amp; Einfach</string>
   <string name="intro_message_first_page">Herzlich Willkommen bei der Revolution der App-Wirtschaft.</string>
   <string name="intro_message_second_page">Private Schlüssel verlassen nie Ihr Gerät.</string>
-  <string name="intro_message_third_page">Process all your in-app payments and rewards in AppCoins.</string>
+  <string name="intro_message_third_page">Erledige alle deine In-App-Zahlungen und Belohnungen in AppCoins.</string>
   <string name="intro_1_title">AppCoins Wallet</string>
   <string name="intro_1_body">Ihre App für In-App Einkäufe.</string>
   <string name="intro_2_title">Mehr spielen, weniger zahlen</string>
-  <string name="intro_2_body">The best payment wallet for apps and games.</string>
+  <string name="intro_2_body">Die beste Wallet für Apps und Spiele.</string>
   <string name="intro_3_title">Leicht und Einfach</string>
-  <string name="intro_3_body">Bonuses on all purchases.</string>
+  <string name="intro_3_body">Boni für alle Käufe.</string>
   <string name="intro_4_title">Sicher und Privat</string>
-  <string name="intro_4_body">Use bank card, PayPal and your favorite payment methods.</string>
+  <string name="intro_4_body">Nutze Bankkarte, PayPal und deine Lieblingszahlungsmethoden.</string>
   <string name="intro_4_body_2">Dank der neuesten Technologie sind ihre Transaktionen immer sicher.</string>
   <string name="intro_5_title">Erhalten Sie gratis AppCoins Credits!</string>
   <string name="intro_5_body">Sie erhalten gratis AppCoins Credits in dem Spiele und Apps ausprobieren.</string>
   <string name="intro_creating_wallet_short">Ihr Wallet wird für Sie eingerichtet&#8230;</string>
   <string name="intro_wallet_created_short">Wallet erstellt!</string>
-  <string name="intro_agree_terms_and_conditions_body">By entering the AppCoins Wallet, you agree to the %1$s and %2$s.</string>
+  <string name="intro_agree_terms_and_conditions_body">Mit der Nutzung der AppCoins Wallet erklärst du dich mit den %1$s und der %2$s einverstanden.</string>
   <string name="intro_skip_button">WEITER</string>
   <string name="intro_welcome_header">Herzliche Willkommen beim AppCoins Wallet</string>
-  <string name="intro_welcome_body">Top up your wallet or make a purchase in any AppCoins compatible app or game.</string>
-  <string name="intro_welcome_header_2">Up to %s%% Bonus!</string>
-  <string name="intro_welcome_body_2">Bonuses can be used in any app or game.</string>
+  <string name="intro_welcome_body">Lade deine Wallet auf oder tätige einen Kauf in einer AppCoins-kompatiblen Anwendung oder einem Spiel.</string>
+  <string name="intro_welcome_header_2">Bis zu %s%% Bonus!</string>
+  <string name="intro_welcome_body_2">Boni können in jeder App oder jedem Spiel verwendet werden.</string>
   <string name="intro_already_have_wallet_button">Ich habe bereits ein Wallet</string>
-  <string name="intro_get_started_button">Launch wallet</string>
+  <string name="intro_get_started_button">Wallet starten</string>
   <!-- Intro from game -->
-  <string name="launching_wallet_body">Launching wallet&#8230;</string>
-  <string name="select_method_title">Choose a payment method</string>
-  <string name="bonus_body">Get %s bonus with this purchase.</string>
-  <string name="agree_by_choosing_a_payment_method_body">By choosing a payment method, you agree to the %1$s and %2$s.</string>
-  <string name="pay_with_card_title">Pay with credit/debit card</string>
-  <string name="more_payment_methods_button">More payment methods</string>
-  <string name="bonus_received_body">You received a %s bonus in your wallet.</string>
-  <string name="back_to_the_game_button">Back to the game</string>
-  <string name="other_payment_methos_title">Other payment methods:</string>
+  <string name="launching_wallet_body">Wallet wird gestartet&#8230;</string>
+  <string name="select_method_title">Wähle eine Zahlungsmethode</string>
+  <string name="bonus_body">Erhalte %s Bonus bei diesem Kauf.</string>
+  <string name="agree_by_choosing_a_payment_method_body">Durch die Auswahl einer Zahlungsmethode erklärst du dich mit den %1$s und der %2$s einverstanden.</string>
+  <string name="pay_with_card_title">Bezahle mit Kredit-/Debitkarte</string>
+  <string name="more_payment_methods_button">Weitere Zahlungsmethoden</string>
+  <string name="bonus_received_body">Du hast einen Bonus von %s in deine Wallet erhalten.</string>
+  <string name="back_to_the_game_button">Zurück zum Spiel</string>
+  <string name="other_payment_methos_title">Weitere Zahlungsmethoden:</string>
   <!-- Menus -->
   <!-- Labels -->
   <string name="label_from">Von</string>
@@ -222,7 +222,7 @@
   <string name="activity_iab_error_message">Es ist ein Fehler aufgetreten, bitte versuchen Sie es erneut</string>
   <string name="action_try">Testen</string>
   <string name="activity_transactions_learn_more">Weitere Informationen</string>
-  <string name="activity_iab_no_funds_message">Not enough ETH and AppCoins</string>
+  <string name="activity_iab_no_funds_message">Nicht genug ETH und AppCoins</string>
   <string name="activity_iab_no_ethereum_funds_message">Nicht genügend Ethereum</string>
   <string name="activity_iab_no_token_funds_message">Nicht genügend AppCoins</string>
   <string name="activity_iab_wrong_network_message">Falsches Ethereumnetzwerk oder unbekanntes Token</string>
@@ -314,7 +314,7 @@
   <string name="gamification_home_body">Verdienen Sie bei ihrem Lieblings-Apps und -Spielen bis zu %s%% an Prämien!</string>
   <string name="gamification_home_button">LOSLEGEN &amp; VERDIENEN</string>
   <string name="gamification_level_title">Was ist mein Level?</string>
-  <string name="gamification_level_title_new">Get AppCoins Credits!</string>
+  <string name="gamification_level_title_new">Hol dir AppCoins Credits!</string>
   <string name="gamification_level_on_graphic">Level %s</string>
   <string name="gamification_APPCapps_button">Apps &amp; Spiele</string>
   <string name="gamification_level_header">Herzlichen Glückwunsch, Sie sind %s!</string>
@@ -324,9 +324,9 @@
   <string name="gamification_level_next_lvl_value">%s AppCoins</string>
   <string name="gamification_level_bonus">%s%% BONUS</string>
   <string name="gamification_level_button_how">SO FUNKTIONIERT ES</string>
-  <string name="gamification_level_body">You\'ll earn AppCoins Credits when buying items in your favorite apps and games.</string>
+  <string name="gamification_level_body">Beim Kauf von Gegenständen in den von dir bevorzugten Apps und Spielen verdienst du AppCoins Credits.</string>
   <string name="gamification_how_header">So können Sie im Rang aufsteigen?</string>
-  <string name="gamification_how_body">You\'ll earn AppCoins Credits when buying items in your favorite apps and games.</string>
+  <string name="gamification_how_body">Beim Kauf von Gegenständen in den von dir bevorzugten Apps und Spielen verdienst du AppCoins Credits.</string>
   <string name="gamification_how_body_new">Je mehr Sie in ihren Lieblings-Apps ausgeben, um so größer ist der Bonus!</string>
   <string name="gamification_how_table_a1">AUSGEBEN</string>
   <string name="gamification_how_table_b1">BONUS</string>
