@@ -157,13 +157,15 @@ class BdsRepository(private val remoteRepository: RemoteRepository) : BillingRep
     currency: String?,
     currencyType: String?,
     direct: Boolean?,
-    transactionType: String?
+    transactionType: String?,
+    packageName: String?,
   ): Single<List<PaymentMethodEntity>> = remoteRepository.getPaymentMethods(
     value,
     currency,
     currencyType,
     direct,
-    transactionType
+    transactionType,
+    packageName,
   )
     .onErrorReturn {
       it.printStackTrace()

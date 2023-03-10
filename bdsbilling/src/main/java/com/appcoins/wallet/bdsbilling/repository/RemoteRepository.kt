@@ -228,9 +228,17 @@ class RemoteRepository(
     currency: String?,
     currencyType: String?,
     direct: Boolean? = null,
-    transactionType: String?
+    transactionType: String?,
+    packageName: String?,
   ): Single<List<PaymentMethodEntity>> =
-    brokerBdsApi.getPaymentMethods(value, currency, currencyType, direct, transactionType)
+    brokerBdsApi.getPaymentMethods(
+      value,
+      currency,
+      currencyType,
+      direct,
+      transactionType,
+      packageName
+    )
       .map { responseMapper.map(it) }
 
   fun getAppcoinsTransaction(
@@ -431,7 +439,8 @@ class RemoteRepository(
       @Query("price.currency") currency: String? = null,
       @Query("currency.type") currencyType: String? = null,
       @Query("direct") direct: Boolean? = null,
-      @Query("transaction.type") type: String?
+      @Query("transaction.type") type: String?,
+      @Query("domain") packageName: String?
     ): Single<GetMethodsResponse>
 
     @FormUrlEncoded
