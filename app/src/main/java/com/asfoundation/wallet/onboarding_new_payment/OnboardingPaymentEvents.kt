@@ -56,14 +56,14 @@ class OnboardingPaymentEvents @Inject constructor(
 
   fun sendPaymentMethodEvent(
     transactionBuilder: TransactionBuilder,
-    paymentType: PaymentType,
+    paymentType: PaymentType?,
     action: String
   ) {
     paymentMethodsAnalytics.sendPaymentMethodEvent(
       transactionBuilder.domain,
       transactionBuilder.skuId,
       transactionBuilder.amount().toString(),
-      paymentType.mapToService().transactionType,
+      paymentType?.mapToService()?.transactionType ?: "other_payment_methods",
       transactionBuilder.type,
       action,
       isOnboardingPayment = true
@@ -185,36 +185,23 @@ class OnboardingPaymentEvents @Inject constructor(
     paymentMethodsAnalytics.send3dsError(error)
   }
 
-  fun sendBackToTheGameEvent(conclusionPoint: String) {
+  fun sendPaymentConclusionNavigationEvent(action: String) {
     analyticsManager.logEvent(
       hashMapOf<String, Any>(
         ONBOARDING_PAYMENT to true,
-        EVENT_WALLET_PAYMENT_CONCLUSION_POINT to conclusionPoint,
+        BillingAnalytics.EVENT_ACTION to action
       ),
-      EVENT_WALLET_METHOD_ONBOARDDING,
-      AnalyticsManager.Action.CLICK,
-      BACK_TO_THE_GAME
-    )
-  }
-
-  fun sendExploreWalletEvent(conclusionPoint: String) {
-    analyticsManager.logEvent(
-      hashMapOf<String, Any>(
-        ONBOARDING_PAYMENT to true,
-        EVENT_WALLET_PAYMENT_CONCLUSION_POINT to conclusionPoint,
-      ),
-      EVENT_WALLET_PAYMENT_EXPLORE_WALLET,
+      EVENT_WALLET_PAYMENT_CONCLUSION_NAVIGATION,
       AnalyticsManager.Action.CLICK,
       WALLET
     )
   }
 
   companion object {
-    const val EVENT_WALLET_METHOD_ONBOARDDING = "wallet_payment_method"
-    const val EVENT_WALLET_PAYMENT_EXPLORE_WALLET = "wallet_payment_explore_wallet"
-    const val ONBOARDING_PAYMENT = "onboarding_payment"
-    const val EVENT_WALLET_PAYMENT_CONCLUSION_POINT = "wallet_payment_conclusion_point"
-    const val WALLET = "wallet"
+    const val EVENT_WALLET_PAYMENT_CONCLUSION_NAVIGATION = "wallet_payment_conclusion_navigation"
     const val BACK_TO_THE_GAME = "back_to_the_game"
+    const val EXPLORE_WALLET = "explore_wallet"
+    const val ONBOARDING_PAYMENT = "onboarding_payment"
+    const val WALLET = "wallet"
   }
 }
