@@ -68,9 +68,8 @@ class AnalyticsModule {
       PaymentMethodsAnalytics.WALLET_3DS_CANCEL,
       PaymentMethodsAnalytics.WALLET_3DS_ERROR,
       NavBarAnalytics.WALLET_CALLOUT_PROMOTIONS_CLICK,
-      OnboardingPaymentEvents.EVENT_WALLET_METHOD_ONBOARDDING,
-      OnboardingPaymentEvents.ONBOARDING_PAYMENT,
-      OnboardingPaymentEvents.EVENT_WALLET_PAYMENT_EXPLORE_WALLET
+      OnboardingPaymentEvents.EVENT_WALLET_PAYMENT_CONCLUSION_NAVIGATION,
+      OnboardingPaymentEvents.ONBOARDING_PAYMENT
     )
 
   @Singleton
@@ -104,9 +103,8 @@ class AnalyticsModule {
       PaymentMethodsAnalytics.WALLET_3DS_CANCEL,
       PaymentMethodsAnalytics.WALLET_3DS_ERROR,
       NavBarAnalytics.WALLET_CALLOUT_PROMOTIONS_CLICK,
-      OnboardingPaymentEvents.EVENT_WALLET_METHOD_ONBOARDDING,
-      OnboardingPaymentEvents.ONBOARDING_PAYMENT,
-      OnboardingPaymentEvents.EVENT_WALLET_PAYMENT_EXPLORE_WALLET
+      OnboardingPaymentEvents.EVENT_WALLET_PAYMENT_CONCLUSION_NAVIGATION,
+      OnboardingPaymentEvents.ONBOARDING_PAYMENT
     )
 
   @Singleton
@@ -140,9 +138,8 @@ class AnalyticsModule {
       PaymentMethodsAnalytics.WALLET_3DS_CANCEL,
       PaymentMethodsAnalytics.WALLET_3DS_ERROR,
       NavBarAnalytics.WALLET_CALLOUT_PROMOTIONS_CLICK,
-      OnboardingPaymentEvents.EVENT_WALLET_METHOD_ONBOARDDING,
-      OnboardingPaymentEvents.ONBOARDING_PAYMENT,
-      OnboardingPaymentEvents.EVENT_WALLET_PAYMENT_EXPLORE_WALLET
+      OnboardingPaymentEvents.EVENT_WALLET_PAYMENT_CONCLUSION_NAVIGATION,
+      OnboardingPaymentEvents.ONBOARDING_PAYMENT
     )
 
   @Singleton

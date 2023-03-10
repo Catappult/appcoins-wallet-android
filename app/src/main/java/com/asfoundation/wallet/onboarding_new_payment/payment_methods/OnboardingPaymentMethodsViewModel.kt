@@ -6,6 +6,7 @@ import com.asfoundation.wallet.base.Async
 import com.asfoundation.wallet.base.BaseViewModel
 import com.asfoundation.wallet.base.SideEffect
 import com.asfoundation.wallet.base.ViewState
+import com.asfoundation.wallet.billing.adyen.PaymentType
 import com.asfoundation.wallet.onboarding.CachedTransactionRepository
 import com.asfoundation.wallet.onboarding_new_payment.OnboardingPaymentEvents
 import com.asfoundation.wallet.onboarding_new_payment.payment_result.OnboardingPaymentResultFragmentArgs
@@ -69,7 +70,7 @@ class OnboardingPaymentMethodsViewModel @Inject constructor(
   }
 
   fun handleBackToGameClick() {
-    events.sendBackToTheGameEvent("other_payment_methods_available")
+    events.sendPaymentMethodEvent(args.transactionBuilder,  null, "back_to_the_game")
     sendSideEffect { OnboardingPaymentMethodsSideEffect.NavigateBackToGame(args.transactionBuilder.domain) }
   }
 }

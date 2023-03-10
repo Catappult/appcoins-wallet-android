@@ -14,6 +14,8 @@ import com.asfoundation.wallet.billing.adyen.PaymentType
 import com.asfoundation.wallet.billing.adyen.PurchaseBundleModel
 import com.asfoundation.wallet.onboarding.use_cases.SetOnboardingCompletedUseCase
 import com.asfoundation.wallet.onboarding_new_payment.OnboardingPaymentEvents
+import com.asfoundation.wallet.onboarding_new_payment.OnboardingPaymentEvents.Companion.BACK_TO_THE_GAME
+import com.asfoundation.wallet.onboarding_new_payment.OnboardingPaymentEvents.Companion.EXPLORE_WALLET
 import com.asfoundation.wallet.onboarding_new_payment.mapToService
 import com.asfoundation.wallet.support.SupportInteractor
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
@@ -224,12 +226,12 @@ class OnboardingPaymentResultViewModel @Inject constructor(
   }
 
   fun handleBackToGameClick() {
-    events.sendBackToTheGameEvent("payment_result")
+    events.sendPaymentConclusionNavigationEvent(BACK_TO_THE_GAME)
     sendSideEffect { OnboardingPaymentResultSideEffect.NavigateBackToGame(args.transactionBuilder.domain) }
   }
 
   fun handleExploreWalletClick() {
-    events.sendExploreWalletEvent("payment_result")
+    events.sendPaymentConclusionNavigationEvent(EXPLORE_WALLET)
     sendSideEffect { OnboardingPaymentResultSideEffect.NavigateToExploreWallet }
   }
 
