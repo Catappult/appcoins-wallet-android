@@ -229,7 +229,7 @@ class RemoteRepository(
     currencyType: String?,
     direct: Boolean? = null,
     transactionType: String?,
-    packageName: String?,
+    packageName: String?
   ): Single<List<PaymentMethodEntity>> =
     brokerBdsApi.getPaymentMethods(
       value,
