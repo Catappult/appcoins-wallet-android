@@ -2,9 +2,14 @@ package com.asfoundation.wallet.verification.ui.credit_card.intro
 
 import androidx.fragment.app.Fragment
 import com.adyen.checkout.redirect.RedirectComponent
+import com.appcoins.wallet.bdsbilling.WalletService
 import com.appcoins.wallet.commons.Logger
 import com.asfoundation.wallet.billing.adyen.AdyenErrorCodeMapper
+import com.asfoundation.wallet.billing.adyen.AdyenPaymentInteractor
+import com.asfoundation.wallet.support.SupportInteractor
+import com.asfoundation.wallet.verification.repository.BrokerVerificationRepository
 import com.asfoundation.wallet.verification.ui.credit_card.VerificationAnalytics
+import com.asfoundation.wallet.verification.ui.credit_card.WalletVerificationInteractor
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

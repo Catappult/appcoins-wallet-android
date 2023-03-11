@@ -8,6 +8,7 @@ import android.os.Build
 import androidx.core.app.NotificationCompat
 import androidx.core.app.ShareCompat
 import androidx.work.*
+import com.appcoins.wallet.gamification.repository.entity.VipReferralResponse.Companion.invalidReferral
 import com.asf.wallet.R
 import com.asfoundation.wallet.base.RxSchedulers
 import com.asfoundation.wallet.entity.Wallet
@@ -19,6 +20,7 @@ import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
 import io.reactivex.Single
 import java.util.concurrent.TimeUnit
+import javax.inject.Inject
 
 class GetVipReferralWorker @AssistedInject constructor(
   @Assisted private val context: Context,

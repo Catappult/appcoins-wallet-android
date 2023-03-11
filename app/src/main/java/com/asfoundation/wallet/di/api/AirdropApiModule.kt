@@ -43,10 +43,6 @@ class AirdropApiModule {
     airdropApi: AirdropService.Api, gson: Gson,
     rxSchedulers: RxSchedulers
   ): AirdropService {
-    return AirdropService(
-      airdropApi,
-      gson,
-      rxSchedulers.io
-    )
+    return AirdropService(airdropApi, gson, rxSchedulers.io)
   }
 }

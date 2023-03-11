@@ -1,0 +1,309 @@
+import groovy.json.JsonSlurper
+
+plugins{
+  id("com.android.application")
+  id("kotlin-android")
+  id("kotlin-android-extensions")
+  id("kotlin-kapt")
+  id("com.google.gms.google-services")
+  id("androidx.navigation.safeargs.kotlin")
+  id("dagger.hilt.android.plugin")
+  id("de.mannodermaus.android-junit5")
+}
+
+android {
+  buildToolsVersion = project.build_tools_version
+  compileSdkVersion = project.compile_sdk_version
+  ndkVersion = "21.3.6528147"
+  defaultConfig {
+    def inputFile = new File("$rootDir/appcoins-services.json")
+    def json = new JsonSlurper().parseText(inputFile.text)
+    buildConfigField("String", "DEFAULT_OEM_ADDRESS", "\"" + json.oems.default_address + "\"")
+    buildConfigField("String", "DEFAULT_STORE_ADDRESS", "\"" + json.stores.default_address + "\"")
+    applicationId = "com.appcoins.wallet"
+    minSdkVersion(project.min_sdk_version)
+    targetSdkVersion(project.target_sdk_version)
+    versionCode = 258
+    versionName = "2.9.1.0"
+    testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+    multiDexEnabled = true
+
+    //room schemas location
+    javaCompileOptions {
+      annotationProcessorOptions {
+        arguments += ["room.schemaLocation": "$projectDir/schemas".toString()]
+      }
+    }
+
+    buildConfigField("int", "DB_VERSION", "5")
+    buildConfigField("int", "BILLING_SUPPORTED_VERSION", project.BILLING_SUPPORTED_VERSION)
+    buildConfigField("String", "ROPSTEN_DEFAULT_TOKEN_SYMBOL", project.ROPSTEN_DEFAULT_TOKEN_SYMBOL)
+    buildConfigField("String", "ROPSTEN_DEFAULT_TOKEN_ADDRESS", project.ROPSTEN_DEFAULT_TOKEN_ADDRESS)
+    buildConfigField("String", "MAIN_NETWORK_DEFAULT_TOKEN_NAME", project.MAIN_NETWORK_DEFAULT_TOKEN_NAME)
+    buildConfigField("int", "ROPSTEN_DEFAULT_TOKEN_DECIMALS", project.ROPSTEN_DEFAULT_TOKEN_DECIMALS)
+    buildConfigField("String", "MAIN_NETWORK_DEFAULT_TOKEN_SYMBOL", project.MAIN_NETWORK_DEFAULT_TOKEN_SYMBOL)
+    buildConfigField("String", "MAIN_NETWORK_DEFAULT_TOKEN_ADDRESS", project.MAIN_NETWORK_DEFAULT_TOKEN_ADDRESS)
+    buildConfigField("String", "ROPSTEN_DEFAULT_TOKEN_NAME", project.ROPSTEN_DEFAULT_TOKEN_NAME)
+    buildConfigField("int", "MAIN_NETWORK_DEFAULT_TOKEN_DECIMALS", project.MAIN_NETWORK_DEFAULT_TOKEN_DECIMALS)
+    buildConfigField("String", "PAYMENT_GAS_LIMIT", project.PAYMENT_GAS_LIMIT)
+    buildConfigField("String", "FLURRY_APK_KEY", project.FLURRY_APK_KEY)
+    buildConfigField("String", "PAYMENT_HOST_ROPSTEN_NETWORK", project.PAYMENT_HOST_DEV)
+    buildConfigField("String", "PAYMENT_HOST", project.PAYMENT_HOST)
+    buildConfigField("String", "TRANSACTION_DETAILS_HOST", project.TRANSACTION_DETAILS_HOST)
+    buildConfigField("String", "TRANSACTION_DETAILS_HOST_ROPSTEN", project.TRANSACTION_DETAILS_HOST_ROPSTEN)
+    buildConfigField("String", "RAKAM_BASE_HOST", project.RAKAM_BASE_HOST)
+    buildConfigField("String", "RAKAM_API_KEY", project.RAKAM_API_KEY)
+    buildConfigField("String", "APTOIDE_WEB_SERVICES_AB_TEST_HOST", project.APTOIDE_WEB_SERVICES_AB_TEST_HOST)
+    buildConfigField("String", "INFURA_API_KEY_MAIN", project.INFURA_API_KEY_MAIN)
+    buildConfigField("String", "INFURA_API_KEY_ROPSTEN", project.INFURA_API_KEY_ROPSTEN)
+    buildConfigField("String", "INFURA_API_KEY_RINKEBY", project.INFURA_API_KEY_RINKEBY)
+    buildConfigField("String", "AMPLITUDE_API_KEY", project.AMPLITUDE_API_KEY)
+    buildConfigField("String", "FEEDBACK_ZENDESK_API_KEY", project.FEEDBACK_ZENDESK_API_KEY)
+    buildConfigField("String", "FEEDBACK_ZENDESK_BASE_HOST", project.FEEDBACK_ZENDESK_BASE_HOST)
+    buildConfigField("String", "APTOIDE_TOP_APPS_URL", project.APTOIDE_TOP_APPS_URL)
+    buildConfigField("String", "VIP_PROGRAM_BADGE_URL", project.VIP_PROGRAM_BADGE_URL)
+    buildConfigField("String", "APPSFLYER_KEY", project.APPSFLYER_KEY)
+    buildConfigField("String", "TERMS_CONDITIONS_URL", project.TERMS_CONDITIONS_URL)
+    buildConfigField("String", "PRIVACY_POLICY_URL", project.PRIVACY_POLICY_URL)
+    buildConfigField("String", "GAMESHUB_PACKAGE", project.GAMESHUB_PACKAGE)
+    buildConfigField("String", "GAMESHUB_OEMID", project.GAMESHUB_OEMID)
+  }
+
+  signingConfigs {
+    release {
+      storeFile = file(project.BDS_WALLET_STORE_FILE)
+      storePassword = project.BDS_WALLET_STORE_PASSWORD
+      keyAlias = project.BDS_WALLET_KEY_ALIAS
+      keyPassword = project.BDS_WALLET_KEY_PASSWORD
+    }
+  }
+
+  buildTypes {
+    release {
+      minifyEnabled = false
+      proguardFiles(getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro")
+      signingConfig = signingConfigs.release
+      buildConfigField("int", "LEADING_ZEROS_ON_PROOF_OF_ATTENTION",
+          project.LEADING_ZEROS_ON_PROOF_OF_ATTENTION_RELEASE)
+      buildConfigField("String", "BASE_HOST", project.BASE_HOST_PROD)
+      buildConfigField("String", "BACKEND_HOST", project.BACKEND_HOST_PROD)
+      buildConfigField("String", "BDS_BASE_HOST", project.BDS_BASE_HOST_PROD)
+      buildConfigField("String", "MY_APPCOINS_BASE_HOST", project.MY_APPCOINS_BASE_HOST)
+      buildConfigField("String", "LEGACY_PAYMENT_HOST", project.LEGACY_PAYMENT_HOST)
+      buildConfigField("String", "APTOIDE_PKG_NAME", project.APTOIDE_PACKAGE_NAME)
+      buildConfigField("String", "INTERCOM_API_KEY", project.INTERCOM_API_KEY)
+      buildConfigField("String", "INTERCOM_APP_ID", project.INTERCOM_APP_ID)
+      buildConfigField("String", "ADYEN_PUBLIC_KEY", project.ADYEN_PUBLIC_KEY)
+      buildConfigField("String", "SENTRY_DSN_KEY", project.SENTRY_DSN_KEY)
+      buildConfigField("String", "SUBS_BASE_HOST", project.BASE_HOST_PROD)
+      buildConfigField("String", "INDICATIVE_API_KEY", project.INDICATIVE_API_KEY)
+      manifestPlaceholders.legacyPaymentHost = "${project.MANIFEST_LEGACY_PAYMENT_HOST}"
+      manifestPlaceholders.paymentHost = "${project.MANIFEST_PAYMENT_HOST}"
+    }
+    staging {
+      initWith(release)
+      versionNameSuffix = ".staging"
+    }
+    debug {
+      minifyEnabled = false
+      proguardFiles(getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro")
+      applicationIdSuffix = ".dev"
+      versionNameSuffix = ".dev"
+      buildConfigField("int", "LEADING_ZEROS_ON_PROOF_OF_ATTENTION",
+        project.property("LEADING_ZEROS_ON_PROOF_OF_ATTENTION_DEBUG"))
+      buildConfigField("String", "BASE_HOST", project.property("BASE_HOST_DEV"))
+      buildConfigField("String", "BACKEND_HOST", project.property("BACKEND_HOST_DEV"))
+      buildConfigField("String", "BDS_BASE_HOST", project.property("BDS_BASE_HOST_DEV"))
+      buildConfigField("String", "MY_APPCOINS_BASE_HOST", project.property("MY_APPCOINS_BASE_HOST_DEV"))
+      buildConfigField("String", "APTOIDE_PKG_NAME", project.property("APTOIDE_PACKAGE_NAME_DEV"))
+      buildConfigField("String", "LEGACY_PAYMENT_HOST", project.property("LEGACY_PAYMENT_HOST_DEV"))
+      buildConfigField("String", "PAYMENT_HOST", project.property("PAYMENT_HOST_DEV"))
+      buildConfigField("String", "INTERCOM_API_KEY", project.property("INTERCOM_API_KEY_DEV"))
+      buildConfigField("String", "INTERCOM_APP_ID", project.property("INTERCOM_APP_ID_DEV"))
+      buildConfigField("String", "ADYEN_PUBLIC_KEY", project.property("ADYEN_PUBLIC_KEY_DEV"))
+      buildConfigField("String", "SENTRY_DSN_KEY", project.property("SENTRY_DSN_KEY_DEV"))
+      buildConfigField("String", "INDICATIVE_API_KEY", project.INDICATIVE_API_KEY_DEV)
+      manifestPlaceholders.legacyPaymentHost = "${project.MANIFEST_LEGACY_PAYMENT_HOST_DEV}"
+      manifestPlaceholders.paymentHost = "${project.MANIFEST_PAYMENT_HOST_DEV}"
+      applicationVariants.all { variant -> renameArtifact(defaultConfig)
+      }
+    }
+  }
+  packagingOptions {
+    exclude("META-INF/NOTICE") // will not include NOTICE file
+    exclude("META-INF/LICENSE") // will not include LICENSE file
+    pickFirst("org/bouncycastle/x509/CertPathReviewerMessages_de.properties")
+    pickFirst("org/bouncycastle/x509/CertPathReviewerMessages.properties")
+  }
+  lintOptions {
+    abortOnError false
+  }
+  compileOptions {
+    targetCompatibility = "1.8"
+    coreLibraryDesugaringEnabled = true
+    sourceCompatibility = "1.8"
+  }
+  buildFeatures {
+    viewBinding = true
+  }
+  kotlinOptions {
+    jvmTarget = "1.8"
+  }
+}
+
+dependencies {
+  implementation fileTree(dir: 'libs', include: ['*.jar', '*.aar'])
+  implementation(project(":tn"))
+  implementation(project(":airdrop"))
+  implementation(project(":billing"))
+  implementation(project(":commons"))
+  implementation(project(":gamification"))
+  implementation(project(":permissions"))
+  implementation(project(":appcoinsRewards"))
+  implementation(project(":skills"))
+  implementation(project(":ethereumj-android"))
+
+  coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:$project.desugar_version")
+  implementation("org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version")
+  implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines_version")
+
+  implementation("com.github.kirich1409:viewbindingpropertydelegate-noreflection:$project.viewBindingDelegate")
+  implementation("androidx.navigation:navigation-fragment-ktx:$project.nav_version")
+  implementation("androidx.navigation:navigation-ui-ktx:$project.nav_version")
+  implementation("androidx.fragment:fragment:$project.fragment_version")
+  implementation("androidx.fragment:fragment-ktx:$project.fragment_version")
+  implementation("androidx.appcompat:appcompat:$project.appcompat_version")
+  implementation("androidx.vectordrawable:vectordrawable:$project.vector_drawable_version")
+  implementation("androidx.recyclerview:recyclerview:$project.recyclerview_version")
+  implementation("androidx.cardview:cardview:$project.cardview_version")
+  implementation("androidx.constraintlayout:constraintlayout:$project.constraintlayout_version")
+  implementation("androidx.palette:palette:$project.palette_version")
+  implementation("androidx.preference:preference:$project.preference_version")
+  implementation("androidx.multidex:multidex:$project.multidex_version")
+  implementation("androidx.viewpager2:viewpager2:$project.viewpager_version")
+  implementation("androidx.room:room-runtime:$project.room_version")
+  implementation("androidx.room:room-rxjava2:$project.room_version")
+  implementation("androidx.room:room-ktx:$project.room_version")
+  kapt("androidx.room:room-compiler:$project.room_version")
+  implementation("androidx.browser:browser:$project.androidx_browser_version")
+
+  implementation("androidx.lifecycle:lifecycle-extensions:$project.lifecycle_version")
+  implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:${project.ktx_lifecycle_version}")
+  implementation("androidx.lifecycle:lifecycle-runtime-ktx:$project.ktx_lifecycle_version")
+  implementation("androidx.lifecycle:lifecycle-viewmodel-savedstate:$project.ktx_lifecycle_version")
+  implementation("androidx.lifecycle:lifecycle-common-java8:$project.ktx_lifecycle_version")
+
+  implementation("com.squareup.retrofit2:retrofit:$project.retrofit_version")
+  implementation("com.squareup.retrofit2:converter-gson:$project.retrofit_version")
+  implementation("com.squareup.retrofit2:adapter-rxjava2:$project.retrofit_version")
+  implementation("com.squareup.okhttp3:okhttp:$project.okhttp_version")
+  implementation("com.google.code.gson:gson:$project.gson_version")
+
+  implementation("com.google.android.material:material:$project.material_version")
+  implementation("com.google.android.gms:play-services-vision:$project.play_services_vision_version")
+  implementation("com.google.zxing:core:$project.zxing_version")
+  implementation("com.journeyapps:zxing-android-embedded:$project.zxing_android_version")
+
+  implementation("com.google.dagger:hilt-android:$project.hilt_version")
+  kapt("com.google.dagger:hilt-compiler:$project.hilt_version")
+  //hilt-extensions to allow injecting an implementation that has an interface
+  implementation("it.czerwinski.android.hilt:hilt-extensions:$project.hilt_czerwinski_extensions_version")
+  kapt("it.czerwinski.android.hilt:hilt-processor:$project.hilt_czerwinski_extensions_version")
+
+  implementation("io.reactivex.rxjava2:rxjava:$project.rxjava_version")
+  implementation("io.reactivex.rxjava2:rxandroid:$project.rxandroid_version")
+  implementation("com.jakewharton.rxbinding2:rxbinding:$project.rxbinding_version")
+  // Rx Lifecycle
+  implementation("com.trello:rxlifecycle:$project.rxlifecycle_version")
+  // If you want pre-written Activities and Fragments you can subclass as providers
+  implementation("com.trello:rxlifecycle-components:$project.rxlifecycle_version")
+
+  implementation "com.adyen.checkout:card:$project.adyen_version"
+  implementation "com.adyen.checkout:redirect:$project.adyen_version"
+  implementation("com.adyen.checkout:3ds2:$project.adyen_version"){
+    exclude group: 'io.michaelrocks', module: 'paranoid-core'
+    // To resolve the bouncycastle version conflict with the adyen (1.68 vs 1.69)
+    exclude group: 'org.bouncycastle', module: 'bcprov-jdk15to18'
+  }
+
+  implementation("io.intercom.android:intercom-sdk:$project.intercom_version") {
+    exclude group: 'com.google.android', module: 'flexbox'
+  }
+
+  implementation("com.google.android.flexbox:flexbox:3.0.0")
+  implementation("io.michaelrocks:paranoid-core:0.3.3")
+
+  implementation("io.rakam:android-sdk:$project.rakam_version")
+
+  implementation("com.github.bumptech.glide:glide:$project.glide_version")
+  kapt("com.github.bumptech.glide:compiler:$project.glide_version")
+
+  implementation("com.flurry.android:analytics:$project.flurry_version")
+
+  implementation("io.catappult:appcoins-contract-proxy:$project.appcoins_sdk_version")
+  debugImplementation("io.catappult:appcoins-contract-proxy:$project.appcoins_sdk_dev_version")
+
+  implementation("com.google.firebase:firebase-messaging:$project.firebase_messaging")
+
+  implementation("org.web3j:core:$project.web3j_version")
+
+  implementation("com.github.walleth.kethereum:erc681:$project.erc681_version")
+
+  implementation("com.airbnb.android:lottie:$project.lottie_version")
+
+  implementation("com.hbb20:ccp:$project.cpp_version")
+
+  implementation("io.sentry:sentry-android:$project.sentry_version")
+
+  implementation("com.facebook.shimmer:shimmer:$project.shimmer_version")
+
+  implementation("androidx.core:core-ktx:$project.corektx_version")
+
+  implementation("androidx.work:work-runtime-ktx:$project.work_version")
+  implementation("androidx.work:work-rxjava2:$project.work_version")
+
+  implementation("com.airbnb.android:epoxy:$project.epoxy_version")
+  kapt("com.airbnb.android:epoxy-processor:$project.epoxy_version")
+
+  implementation("com.appsflyer:af-android-sdk:$project.appsflyer_version")
+
+  implementation("androidx.biometric:biometric:$project.biometrics_version")
+
+  implementation("androidx.security:security-crypto:$project.securitycrypto_version")
+
+  implementation("org.apache.commons:commons-lang3:$project.commons_lang3_version")
+  implementation("com.android.support:support-annotations:$project.support_annotations")
+
+  implementation("androidx.activity:activity-ktx:$project.ktx_version")
+  implementation("androidx.fragment:fragment-ktx:$project.ktx_version")
+
+  implementation("com.indicative.client.android:Indicative-Android:$project.indicative_version")
+
+  implementation("com.android.installreferrer:installreferrer:$project.referrer_version")
+
+  testImplementation("junit:junit:$project.junit_version")
+  testImplementation("org.mockito:mockito-core:$project.mockito_version")
+  androidTestImplementation("androidx.test.ext:junit:$project.test_ext_version")
+
+  // New TDD dependencies
+  testImplementation("org.junit.jupiter:junit-jupiter-api:$project.junit5_version")
+  testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:$project.junit5_version")
+  testImplementation("org.junit.jupiter:junit-jupiter-params:$project.junit5_version")
+  testImplementation("org.junit.vintage:junit-vintage-engine:$project.junit5_version")
+  testImplementation("app.cash.turbine:turbine:$project.turbine_version")
+  testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutines_version")
+}
+
+def renameArtifact(defaultConfig) {
+  android.applicationVariants.all { variant ->
+    variant.outputs.all {
+      def SEP = "_"
+      def buildType = variant.buildType.name
+      def versionName = variant.versionName
+      def versionCode = defaultConfig.versionCode
+      def fileName =
+          "AppCoins_Wallet_v" + versionName + SEP + versionCode + SEP + buildType + ".apk"
+      outputFileName = new File("${fileName}")
+    }
+  }
+}

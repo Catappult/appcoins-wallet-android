@@ -16,6 +16,7 @@ import com.asfoundation.wallet.support.SupportInteractor
 import com.asfoundation.wallet.ui.iab.PaymentMethodsAnalytics
 import com.asfoundation.wallet.util.toSingleEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
+import io.reactivex.Completable
 import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable
 import java.math.BigDecimal

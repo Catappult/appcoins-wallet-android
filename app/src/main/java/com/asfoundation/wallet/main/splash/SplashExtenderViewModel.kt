@@ -6,6 +6,7 @@ import com.asfoundation.wallet.base.RxSchedulers
 import com.asfoundation.wallet.base.SideEffect
 import com.asfoundation.wallet.base.ViewState
 import com.asfoundation.wallet.gamification.ObserveUserStatsUseCase
+import com.asfoundation.wallet.home.usecases.GetUserLevelUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
