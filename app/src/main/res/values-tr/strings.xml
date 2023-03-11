@@ -418,7 +418,7 @@
   <string name="askafriend_share_add_message_body">Mesaj Ekleyin (İsteğe Bağlı)</string>
   <string name="askafriend_share_button">Paylaş</string>
   <string name="askafriend_share_popup_title">Birinden şu yolla ödemesini isteyin:</string>
-  <string name="askafriend_received_body">You just received %s AppCoins Credits</string>
+  <string name="askafriend_received_body">%s AppCoins Kredisi aldın</string>
   <string name="askafriend_notification_received_title">Yeni Transfer Alındı</string>
   <string name="askafriend_notification_received_body">%1$s %2$s cüzdanınıza eklendi.</string>
   <string name="askafriend_received_title">Transfer Alındı</string>
@@ -456,7 +456,7 @@
   <string name="remind_later_button">Daha sonra hatırlat</string>
   <string name="get_code_button">Kod al</string>
   <string name="confirm_button">Doğrula</string>
-  <string name="withdraw_button">Withdraw</string>
+  <string name="withdraw_button">Çek</string>
   <string name="email_here_field">E-postan&#8230;</string>
   <string name="understood_button">Anladım!</string>
   <string name="skip_button">Şimdilik atla</string>
@@ -563,12 +563,12 @@
   <string name="purchase_error_try_cheaper_item">Çok pahalı! Lütfen daha düşük değerli bir ürün satın almayı deneyin.</string>
   <string name="purchase_error_try_cheaper_item_or_method">Çok pahalı! Lütfen daha düşük değerli bir ürün satın almayı deneyin veya farklı bir ödeme yöntemi deneyin.</string>
   <string name="transfer_appc_error_no_eth_title">Ether\'e ihtiyacınız var!</string>
-  <string name="transfer_appc_error_no_eth_body">AppCoins transfers fees are paid in Ethereum, so you\'ll need ETH to transfer AppCoins.</string>
+  <string name="transfer_appc_error_no_eth_body">AppCoins transfer ücretleri Ethereum cinsinden ödenir, dolayısıyla AppCoins transferi için ETH\'ye ihtiyacın var.</string>
   <string name="purchase_error_invalid_credit_card">Geçersiz banka kartı numarası. Lütfen tüm rakamların doğru olduğundan emin olun.</string>
   <string name="purchase_error_card_security_validation">Bu işlemin 2. seviye doğrulamasında bir hata oldu. Lütfen tekrar deneyin.</string>
   <string name="purchase_error_transaction_timeout">İşlemi tamamlamak için çok uzun süre harcamışsınız gibi görünüyor. Lütfen tekrar deneyin.</string>
   <string name="purchase_error_card_already_in_progress">Talebiniz zaten işlenmiş veya işleniyor. Lütfen bekleyin.</string>
-  <string name="purchase_error_payment_rejected">The transaction has been rejected. Please try with a different card or payment method.</string>
+  <string name="purchase_error_payment_rejected">İşlem reddedildi. Lütfen farklı bir kart veya ödeme yöntemi ile dene.</string>
   <string name="purchase_error_verify_wallet">Bu satın alma işlemini tamamlamak için ödeme yöntemini doğrula.</string>
   <string name="purchase_error_verify_card">Bu satın alma işlemini tamamlamak için kartınızı doğrulayın.</string>
   <string name="purachse_error_verify_card_button">KARTI DOĞRULAYIN</string>
@@ -577,7 +577,7 @@
   <string name="purchase_app_needed_body">Satın alma işlemini tamamlamak için şu uygulama gerekiyor.</string>
   <string name="purchase_apps_needed_body">Satın alma işlemini tamamlamak için şu uygulamalardan biri gerekiyor.</string>
   <string name="purchase_error_connection_issue">Görünüşe göre internet bağlantında bir sorun var! Lütfen bağlantını kontrol et ve tekrar dene.</string>
-  <string name="purchase_error_wrong_pin_body">There was a problem with your pin. Please try again.</string>
+  <string name="purchase_error_wrong_pin_body">Pin kodunla ilgili bir sorun oluştu. Lütfen tekrar dene.</string>
   <string name="purchase_error_3d_body">3D kimlik doğrulama işleminle ilgili bir sorun oluştu. Lütfen tekrar dene.</string>
   <string name="purchase_error_generic_contact_us_body">Hay aksi, bir şeyler ters gitti. Lütfen tekrar dene veya bizimle iletişime geç.</string>
   <!--Billing address in purchase flow-->
@@ -616,7 +616,7 @@
   <string name="referral_view_share_link_button">Davet bağlantısını paylaş</string>
   <string name="referral_view_notifications_title">Bildirimler</string>
   <string name="referral_share_sheet_title">Davet bağlantısını şu yolla paylaş:</string>
-  <string name="referral_view_unverified_body">Receive %s worth of AppCoins Credits for each friend. You first need to verify your wallet.</string>
+  <string name="referral_view_unverified_body">Her arkadaşın için %s değerinde AppCoins Kredisi kazan. Önce cüzdanını doğrulaman gerekiyor.</string>
   <string name="referral_view_verify_button">Cüzdanı doğrula</string>
   <string name="referral_view_i_have_been_invited_button">Davet edildim</string>
   <string name="referral_view_dropup_menu_friends_invited">Davet edilen arkadaşlar</string>
@@ -1011,14 +1011,14 @@
   <string name="e_skills_withdraw_title">e-Skills Çekme İşlemi</string>
   <string name="e_skills_withdraw_invalid_email_error_message">Geçersiz e-posta</string>
   <string name="e_skills_withdraw_not_enough_balance_error_message">Yetersiz bakiye</string>
-  <string name="e_skills_withdraw_not_enough_earnings_error_message">You haven\'t won enough e-Skills games to withdraw that amount</string>
+  <string name="e_skills_withdraw_not_enough_earnings_error_message">Bu miktarı çekmek için yeterli e-Skills oyunu kazanmadın</string>
   <string name="e_skills_withdraw_minimum_amount_error_message">Minimum çekme tutarı %1$.2f $\'dır</string>
   <string name="e_skills_withdraw_max_amount_part_1">Çekebileceğiniz tutar:</string>
   <string name="e_skills_withdraw_max_amount_part_2">$%1$.2f</string>
   <string name="e_skills_know_more_about">e-Skills hakkında daha fazla bilgi alın</string>
   <string name="e_skills_know_more_about_tmp">sadece e-Skills oyunlarında kazanılan fonları çekebilirsiniz</string>
   <string name="e_skills_withdraw_started">%1$.2f $\'lık çekme işlemi\nbaşlatıldı</string>
-  <string name="e_skills_withdraw_generic_error">Generic error message</string>
+  <string name="e_skills_withdraw_generic_error">Genel hata mesajı</string>
   <string name="e_skills_withdraw_maybe_later">Belki daha sonra</string>
   <string name="e_skills_room_create_title">Bir oda oluşturun veya bir odaya katılın</string>
   <string name="e_skills_room_create_body">Yeni bir oda yaratın ve rakiplerinizle paylaşın ya da mevcut bir odaya katılın.</string>
@@ -1066,11 +1066,11 @@
   <string name="nfts_transact_button_next">İleri</string>
   <string name="nfts_transact_button_done">Bitti</string>
   <string name="nfts_transact_button_success">Anladım</string>
-  <string name="nfts_transact_tip">Enter your friend\'s wallet address</string>
+  <string name="nfts_transact_tip">Arkadaşının cüzdan adresini gir</string>
   <string name="nfts_transact_input_tip">Cüzdan adresi...</string>
   <string name="nfts_transact_done_mensage">%s başarıyla gönderildi!</string>
   <string name="nfts_generic_error">Hay aksi! Bir şeyler ters gitti!</string>
-  <string name="nfts_transact_gas_title">Are you in a hurry?</string>
+  <string name="nfts_transact_gas_title">Acelen mi var?</string>
   <string name="nfts_transact_gas_description">Choose how much you want to pay in fees. The higher the fee, the faster the transaction.</string>
   <string name="nfts_transact_gas_price">Petrol Fiyatı</string>
   <string name="nfts_transact_gas_limit">Petrol Limiti</string>
