@@ -72,6 +72,8 @@ android {
     buildConfigField 'String', 'APPSFLYER_KEY', project.APPSFLYER_KEY
     buildConfigField 'String', 'TERMS_CONDITIONS_URL', project.TERMS_CONDITIONS_URL
     buildConfigField 'String', 'PRIVACY_POLICY_URL', project.PRIVACY_POLICY_URL
+    buildConfigField 'String', 'GAMESHUB_PACKAGE', project.GAMESHUB_PACKAGE
+    buildConfigField 'String', 'GAMESHUB_OEMID', project.GAMESHUB_OEMID
   }
 
   signingConfigs {
