@@ -134,7 +134,7 @@
   <string name="intro_agree_terms_and_conditions_body">AppCoins Cüzdana girererek, %1$s ve %2$s\'nı kabul etmiş olursun.</string>
   <string name="intro_skip_button">ATLA</string>
   <string name="intro_welcome_header">AppCoins Wallet\'a hoş geldiniz</string>
-  <string name="intro_welcome_body">Top up your wallet or make a purchase in any AppCoins compatible app or game.</string>
+  <string name="intro_welcome_body">Cüzdanını doldur veya AppCoins uyumlu herhangi bir uygulama veya oyunda bir satın alma işlemi yap.</string>
   <string name="intro_welcome_header_2">%s%% oranına varan Bonus!</string>
   <string name="intro_welcome_body_2">Bonuslar her uygulamada ve oyunda kullanılabilir.</string>
   <string name="intro_already_have_wallet_button">Zaten cüzdanım var</string>
@@ -397,7 +397,7 @@
   <string name="topup_minimum_value">Minimum yükleme değeri %s</string>
   <string name="topup_maximum_value">Maksimum yükleme değeri %s</string>
   <string name="topup_no_method_available_title">Ödeme yöntemi yok!</string>
-  <string name="topup_no_method_available_body">There are no payment methods available to top up in your country at the moment. Stay tuned!</string>
+  <string name="topup_no_method_available_body">Şu anda ülkende yükleme yapabileceğin bir ödeme yöntemi mevcut değil. Takipte kal!</string>
   <!--Balance-->
   <string name="balance_title">Bakiye</string>
   <string name="balance_total_body">%s cinsinden Toplam Bakiye</string>
@@ -541,10 +541,10 @@
   <string name="purchase_card_error_title">Hay aksi, bir şeyler ters gitti.</string>
   <string name="purchase_card_error_general_1">Kartınla ilgili bir sorun oluştu. Lütfen farklı bir kart veya ödeme yöntemi ile dene.</string>
   <string name="purchase_card_error_general_2">Bu işlem bankan tarafından reddedildi. Lütfen farklı bir kart veya ödeme yöntemi ile dene.</string>
-  <string name="purchase_card_error_no_funds">It seems you don\'t have enough funds or there\'s a limit on your card. Please try with a different card or payment method.</string>
+  <string name="purchase_card_error_no_funds">Görünüşe göre bakiyen yetersiz ya da kartında limit var. Lütfen farklı bir kart veya ödeme yöntemi ile dene.</string>
   <string name="purchase_card_error_expired">Kartının son kullanma tarihi geçmiş görünüyor. Lütfen farklı bir ödeme yöntemi ile tekrar dene.</string>
   <string name="purchase_card_error_invalid_details">Geçersiz kart numarası. Lütfen kontrol edip yeniden dene.</string>
-  <string name="purchase_card_error_not_supported">Your card is not supported yet. Please try again with a different card or payment method.</string>
+  <string name="purchase_card_error_not_supported">Kartın henüz desteklenmiyor. Lütfen farklı bir kart veya ödeme yöntemi ile dene.</string>
   <string name="purchase_card_error_security">Güvenlik bilgilerinizin doğru olduğundan emin misiniz? Lütfen tekrar deneyin.</string>
   <string name="purchase_card_error_wrong_CVV">CVV/CVC kodunuz yanlış gibi görünüyor. Lütfen tekrar deneyin.</string>
   <string name="purchase_card_error_re_insert">It seems you registered this card long time ago! Insert the card details again or use a different one.</string>
@@ -569,16 +569,16 @@
   <string name="purchase_error_transaction_timeout">İşlemi tamamlamak için çok uzun süre harcamışsınız gibi görünüyor. Lütfen tekrar deneyin.</string>
   <string name="purchase_error_card_already_in_progress">Talebiniz zaten işlenmiş veya işleniyor. Lütfen bekleyin.</string>
   <string name="purchase_error_payment_rejected">The transaction has been rejected. Please try with a different card or payment method.</string>
-  <string name="purchase_error_verify_wallet">Validate your payment method to complete this purchase.</string>
+  <string name="purchase_error_verify_wallet">Bu satın alma işlemini tamamlamak için ödeme yöntemini doğrula.</string>
   <string name="purchase_error_verify_card">Bu satın alma işlemini tamamlamak için kartınızı doğrulayın.</string>
   <string name="purachse_error_verify_card_button">KARTI DOĞRULAYIN</string>
   <string name="purchase_eskills_sku">Giriş bileti</string>
   <string name="purchase_paytmupi_install_disclaimer">Paytm UPI uygulamasını yüklemen gerekiyor.</string>
-  <string name="purchase_app_needed_body">You need the following app to complete your purchase.</string>
-  <string name="purchase_apps_needed_body">You need one of the following apps to complete your purchase.</string>
-  <string name="purchase_error_connection_issue">It seems there is a problem with your internet connection! Please check it and try again.</string>
+  <string name="purchase_app_needed_body">Satın alma işlemini tamamlamak için şu uygulama gerekiyor.</string>
+  <string name="purchase_apps_needed_body">Satın alma işlemini tamamlamak için şu uygulamalardan biri gerekiyor.</string>
+  <string name="purchase_error_connection_issue">Görünüşe göre internet bağlantında bir sorun var! Lütfen bağlantını kontrol et ve tekrar dene.</string>
   <string name="purchase_error_wrong_pin_body">There was a problem with your pin. Please try again.</string>
-  <string name="purchase_error_3d_body">There was a problem with your 3D authentication. Please try again.</string>
+  <string name="purchase_error_3d_body">3D kimlik doğrulama işleminle ilgili bir sorun oluştu. Lütfen tekrar dene.</string>
   <string name="purchase_error_generic_contact_us_body">Hay aksi, bir şeyler ters gitti. Lütfen tekrar dene veya bizimle iletişime geç.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">Faturalandırma adresi</string>
@@ -654,7 +654,7 @@
   <string name="update_wallet_soft_body">AppCoins Wallet\'ı güncel tutarak en iyi deneyimi yaşayabilirsiniz.</string>
   <string name="update_button">Güncelle</string>
   <string name="update_backup_title">Don\'t lose your funds!</string>
-  <string name="update_backup_body">Back up your wallet before updating.</string>
+  <string name="update_backup_body">Güncellemeden önce cüzdanını yedekle.</string>
   <string name="update_backup_date">Son yedekleme: %s.</string>
   <string name="update_backup_never">Henüz yedeklenmedi.</string>
   <!--Backup and Import-->
@@ -673,19 +673,19 @@
   <string name="import_wallet_wrong_password_body">Hay aksi, yanlış şifre!</string>
   <string name="error_invalid_private_key">Geçersiz özel anahtar</string>
   <string name="error_invalid_keystore">Geçersiz keystore</string>
-  <string name="backup_title">Backup your wallet now!</string>
+  <string name="backup_title">Cüzdanını şimdi yedekle!</string>
   <string name="backup_body">Gizli anahtarlarınızı veya diğer erişim yöntemlerinizi saklamayız. Cüzdanınızın yedeğini (keystore) güvende tutmak önemlidir.</string>
   <string name="backup_additional_security_title">Ek Güvenlik (isteğe bağlı)</string>
   <string name="backup_additional_security_body">Şifre seçin</string>
   <string name="backup_button">Cüzdanı yedekle</string>
-  <string name="backup_ready_title">Your backup is ready!\nKeep it safe.</string>
+  <string name="backup_ready_title">Yedeklemen hazır!\nGüvende tut.</string>
   <string name="backup_ready_save_on_email">E-postana kaydet</string>
   <string name="backup_ready_email_button">E-postaya gönder</string>
   <string name="backup_ready_device_button">Cihaza kaydet</string>
   <string name="backup_confirmation_tips_title">Dosyayı güvende tutun:</string>
-  <string name="backup_confirmation_tips_1"><b>Print it</b> and store it somewhere safe.</string>
+  <string name="backup_confirmation_tips_1"><b>Yazdır</b> ve güvenli bir yerde sakla.</string>
   <string name="backup_confirmation_tips_2">USB sürücüsüne <b>kaydet</b>.</string>
-  <string name="backup_confirmation_tips_3"><b>Copy it</b> to a private and secure cloud storage.</string>
+  <string name="backup_confirmation_tips_3">Gizli ve güvenli bir bulut depolama alanına <b>kopyala</b>.</string>
   <string name="backup_tooltip_body">Cüzdanınızın bir yedeğini oluşturun!</string>
   <string name="backup_tooltip_later_button">Belki daha sonra</string>
   <string name="backup_tooltip_backup_button">Yedekle</string>
@@ -698,11 +698,11 @@
   <string name="import_wallet_recovering_body">Cüzdan geri yükleniyor...</string>
   <string name="backup_skip_title">I understand that I may loose my funds if I don\'t backup my wallet key.</string>
   <string name="backup_wallet_button">Yedek cüzdan</string>
-  <string name="backup_success_save_on_email">Your backup file is in your email.</string>
-  <string name="backup_success_save_on_device">Your backup file is stored in your device.</string>
+  <string name="backup_success_save_on_email">Yedekleme dosyan e-postanda.</string>
+  <string name="backup_success_save_on_device">Yedekleme dosyan cihazında saklanıyor.</string>
   <string name="backup_popup_title">Cüzdanını şimdi yedekle!</string>
   <string name="backup_popup_purchase_body">Keep your funds safe at all times.</string>
-  <string name="backup_popup_gamification_body">Keep your bonus level safe at all times.</string>
+  <string name="backup_popup_gamification_body">Bonus seviyeni her zaman güvende tut.</string>
   <!--Wallets Management-->
   <string name="wallets_title">Cüzdanlar</string>
   <string name="wallets_total_balance_title">%s cinsinden toplam bakiye</string>
@@ -816,7 +816,7 @@
   <string name="gamif_card_start">Hâlâ Dünya\'dasınız</string>
   <string name="gamif_card_title">%s konumundasınız</string>
   <string name="gamif_card_body">Sonraki seviyeye ulaşmak için %s AppCoins daha harcayın.</string>
-  <string name="gamif_card_maximum_body">Spend %s AppCoins more to reach the maximum level.</string>
+  <string name="gamif_card_maximum_body">En üst seviyeye ulaşmak için %s AppCoins daha harca.</string>
   <string name="gamif_bonus">%%%s Bonus</string>
   <string name="gamif_placeholder_earth">Dünya</string>
   <string name="gamif_quote_earth">\"Dünya hepimizin ortaklaşa sahip olduğu şeydir\" – Wendell Berry</string>
@@ -949,7 +949,7 @@
   <string name="rate_us_improve_field__empty_error">Lütfen bir şeyler yazın</string>
   <string name="rate_us_possitive_thanks_title">Teşekkürler!</string>
   <string name="rate_us_possitive_thanks_body">Uygulamamızı beğenmenize sevindik. App Store\'da değerlendirerek bize yardımcı olabilir misiniz?</string>
-  <string name="rate_us_possitive_rate_button">Rate the AppCoins Wallet</string>
+  <string name="rate_us_possitive_rate_button">AppCoins Cüzdan\'ı Değerlendir</string>
   <string name="rate_us_possitive_done_title">Geri bildiriminiz için teşekkürler!</string>
   <string name="rate_us_back_title">Bize yardımcı olmak ister misiniz?</string>
   <string name="rate_us_back_body">AppCoins Wallet\'ı iyileştirebilmemiz için uygulama mağazasında değerlendirin.</string>
@@ -1067,22 +1067,22 @@
   <string name="nfts_transact_button_done">Bitti</string>
   <string name="nfts_transact_button_success">Anladım</string>
   <string name="nfts_transact_tip">Enter your friend\'s wallet address</string>
-  <string name="nfts_transact_input_tip">Wallet address here...</string>
-  <string name="nfts_transact_done_mensage">%s successfully sent!</string>
+  <string name="nfts_transact_input_tip">Cüzdan adresi...</string>
+  <string name="nfts_transact_done_mensage">%s başarıyla gönderildi!</string>
   <string name="nfts_generic_error">Hay aksi! Bir şeyler ters gitti!</string>
   <string name="nfts_transact_gas_title">Are you in a hurry?</string>
   <string name="nfts_transact_gas_description">Choose how much you want to pay in fees. The higher the fee, the faster the transaction.</string>
   <string name="nfts_transact_gas_price">Petrol Fiyatı</string>
   <string name="nfts_transact_gas_limit">Petrol Limiti</string>
-  <string name="nfts_transact_gas_fee_message">Transaction Fee</string>
+  <string name="nfts_transact_gas_fee_message">İşlem Ücreti</string>
   <string name="nfts_transact_error_no_funds">Not enough funds! You don\'t have enough ETH to pay for the fees.</string>
   <string name="nfts_transact_error_low_gas">Gas is too low! Increase your gas for the network to accept your transaction.</string>
-  <string name="nfts_transact_error_already_in_progress">This NFT is already being sent! A previous transaction is currently in progress.</string>
+  <string name="nfts_transact_error_already_in_progress">Bu NFT zaten gönderiliyor! Önceki işlem halen devam ediyor.</string>
   <!-- Gift Card -->
   <string name="gift_card_title">Redeem your gift card code</string>
-  <string name="gift_card_field">Card code here...</string>
+  <string name="gift_card_field">Kart kodu...</string>
   <string name="gift_card_done_title">Code redeemed!</string>
-  <string name="gift_card_done_body">Check your transactions list.</string>
+  <string name="gift_card_done_body">İşlem listeni kontrol et.</string>
   <string name="gift_card_error_general_title">Bir şeyler ters gitti!</string>
   <string name="gift_card_error_general_body">Lütfen tekrar dene veya farklı bir kod kullan.</string>
   <string name="gift_card_error_used_title">Bu kod zaten kullanıldı!</string>
@@ -1090,26 +1090,26 @@
   <string name="gift_card_error_try_with_different_body">Lütfen yeni bir tanesiyle tekrar dene.</string>
   <!-- My Wallet -->
   <string name="mywallet_unverified_title">Doğrulanmamış Cüzdan</string>
-  <string name="mywallet_unverified_body">Verify a payment method to avoid blockages.</string>
+  <string name="mywallet_unverified_body">Kısıtlamaları önlemek için bir ödeme yöntemini doğrula.</string>
   <string name="mywallet_backed_up_date">You backed up your wallet on %s.</string>
   <string name="mywallet_backup_again_button">Tekrar yedekle</string>
   <string name="mywallet_verify_payment_method_button">Yeni kartı doğrula</string>
   <string name="mywallet_choose_name_header">Cüzdanını isimlendir</string>
-  <string name="mywallet_choose_name_field">Wallet name here...</string>
+  <string name="mywallet_choose_name_field">Cüzdan ismi...</string>
   <string name="mywallet_choose_name_confirmed">Cüzdan ismi değiştirildi</string>
   <string name="mywallet_unnamed_wallet">Cüzdan ismi yok %s</string>
   <string name="mywallet_swithing_wallets_title">Switching wallets...</string>
   <string name="mywallet_address_title">Adres:</string>
   <!-- Onboarding for new users coming from an iap -->
-  <string name="onboarding_1st_title">Congrats! You\'ve installed the AppCoins Wallet.</string>
+  <string name="onboarding_1st_title">Tebrikler! AppCoins Cüzdan\'ı yükledin.</string>
   <string name="onboarding_1st_body">Satın alma işlemini tamamlamak için oyuna geri dön.</string>
   <string name="onboarding_1st_back_to_game_button">Oyuna geri dön</string>
-  <string name="onboarding_1st_explore_wallet_button">Or explore the Wallet</string>
-  <string name="onboarding_1st_back_to_unknown_game_body">One of the games you\'ve got installed is AppCoins compatible! Do you want to open it?</string>
+  <string name="onboarding_1st_explore_wallet_button">Ya da Cüzdan\'ı keşfet</string>
+  <string name="onboarding_1st_back_to_unknown_game_body">Yüklediğin oyunlardan biri AppCoins uyumlu! Oyunu açmak istiyor musun?</string>
   <string name="onboarding_1st_back_to_unknown_game_button">Oyuna git</string>
-  <string name="onboarding_1st_explore_wallet_alternative_button">Explore the AppCoins Wallet</string>
+  <string name="onboarding_1st_explore_wallet_alternative_button">AppCoins Cüzdanı Keşfet</string>
   <!-- VIP Program -->
-  <string name="vip_program_reached_notification_title">Welcome to the VIP Program</string>
+  <string name="vip_program_reached_notification_title">VIP Programına Hoş Geldin</string>
   <string name="vip_program_reached_notification_body">You\'re now a VIP user with access to special promotions and deals. Tap for more details!</string>
   <string name="vip_program_almost_notification_title">Neredeyse bitti!</string>
   <string name="vip_program_almost_notification_body">VIP kullanıcı olmak üzeresin. Daha fazla bilgi için tıkla!</string>
@@ -1122,7 +1122,7 @@
   <string name="vip_program_promotions_tab_2">Check the promotions we have have just for you!</string>
   <string name="vip_program_exclusivity_tag">Yalnızca VIP kullanıcılar için</string>
   <string name="vip_program_referral_button_title">VIP Referral Program</string>
-  <string name="vip_program_referral_button_body">%s%% Bonus for you and your friends.</string>
+  <string name="vip_program_referral_button_body">Sen ve arkadaşların için %s%% bonus.</string>
   <string name="vip_program_promotions_list_title">Sana özel promosyonlar</string>
   <string name="vip_program_promo_code_tag">Promosyon kodu</string>
   <string name="vip_program_referral_page_title">VIP Referral Program</string>
@@ -1132,9 +1132,9 @@
   <string name="vip_program_gamification_title">What\'s my bonus level?</string>
   <string name="vip_program_gamification_amount_purchases_bonus">Bonus received from your purchases.</string>
   <string name="vip_program_gamification_amoung_referral_bonus">Bonus received from referrals</string>
-  <string name="vip_program_max_bonus_title">Enjoy your %s%% Bonus on every purchase</string>
+  <string name="vip_program_max_bonus_title">Her satın alma işleminde %s%% bonusun tadını çıkar</string>
   <string name="vip_program_max_bonus_body">You\'ve reached the limits of the solar system.</string>
   <string name="vip_program_max_bonus_short">Her satın alma işleminde %s%% bonus.</string>
   <string name="vip_program_referral_notification_title">VIP Referral Code Available!</string>
-  <string name="vip_program_referral_notification_body">Share your code with your community so you all earn while playing!</string>
+  <string name="vip_program_referral_notification_body">Kodunu topluluğunla paylaş, böylece hepiniz oynarken kazanın!</string>
 </resources>
