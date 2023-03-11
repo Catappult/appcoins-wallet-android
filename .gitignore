@@ -51,4 +51,4 @@ gen-external-apklibs
 
 #Misc
 *.keystore
-*.aar
+android-magnessdk-5.3.0.aar
