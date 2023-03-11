@@ -45,6 +45,6 @@
   <string name="refer_a_friend_error_invalid_code_body">잘못된 코드!</string>
   <string name="refer_a_friend_error_user_not_eligible_body">신규 사용자 전용!</string>
   <string name="refer_a_friend_first_time_tooltip">소개 프로그램을 사용하면 친구 코드를 사용할 때 $%s 보너스를 받을 수 있습니다. 또한 앱 내 구매나 e-Skills 입장권에 사용될 보너스와 같은 금액을 받습니다.</string>
-  <string name="refer_a_friend_waiting_room_title">친구를 소개합니다!</string>
+  <string name="refer_a_friend_waiting_room_title">친구에게 소개하세요!</string>
   <string name="refer_a_friend_waiting_from_body">친구를 초대할 때마다 보너스를 받으세요.</string>
 </resources>
