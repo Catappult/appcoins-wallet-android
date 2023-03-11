@@ -10,7 +10,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: German\n"
 "Language: de_DE\n"
-"PO-Revision-Date: 2023-03-11 09:06\n"
+"PO-Revision-Date: 2023-03-11 10:10\n"
 
 #. Card Title
 #:
@@ -95,22 +95,22 @@ msgstr "Erhalte zusätzlich {0} AppCoins Credits wenn du {1} {2} bei {3} ausgibs
 #. Receipt - Expenditure per amount Promotion.
 #:
 msgid "Because you spent {0} {1} in {2}."
-msgstr "Weil Du {0}{1} bei {2} ausgegeben hast."
+msgstr "Weil du {0} {1} bei {2} ausgegeben hast."
 
 #. Card - Expendidure in any game.
 #:
 msgid "Receive {0} AppCoins Credits extra when you spend {1} {2} in AppCoins apps."
-msgstr "Erhalte zusätzlich {0} AppCoins Credits wenn Du {1} {2} bei AppCoins Apps ausgibst."
+msgstr "Erhalte zusätzlich {0} AppCoins Credits, wenn du {1} {2} bei AppCoins Apps ausgibst."
 
 #. Receipt - Expenditure in any game.
 #:
 msgid "Because you spent {0} {1} in AppCoins apps."
-msgstr "Da Du {0} {1} bei AppCoins Apps ausgegeben hast."
+msgstr "Da du {0} {1} bei AppCoins Apps ausgegeben hast."
 
 #. Card - Extra bonus in all games.
 #:
 msgid "Receive an extra {0}% Bonus in all your purchases, except when you use AppCoins Credits."
-msgstr "Erhalte einen Bonus von {0}% für alle deine Einkäufe, ausser bei der Verwendung von AppCoins Credits."
+msgstr "Erhalte einen Bonus von {0} % für alle deine Einkäufe, außer bei der Verwendung von AppCoins Credits."
 
 #. Card - Title - Common
 #:
