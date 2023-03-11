@@ -29,9 +29,9 @@
   <string name="got_it_button">Mengerti</string>
   <string name="change_button">Ubah</string>
   <string name="vip">VIP</string>
-  <string name="faq">FAQs</string>
-  <string name="about_us_title">About Us</string>
-  <string name="preferences_title">Preferences</string>
+  <string name="faq">FAQ</string>
+  <string name="about_us_title">Tentang Kami</string>
+  <string name="preferences_title">Preferensi</string>
   <string name="low_storage_error">Ruang penyimpanan tidak cukup</string>
   <string name="no_camera_permission_title">Izin Kamera</string>
   <string name="no_camera_permission">AppCoins BDS Wallet membutuhkan izin untuk mengakses kamera Anda guna memindai kode QR.</string>
@@ -44,7 +44,7 @@
   <!-- TODO: Remove or change this placeholder text -->
   <string name="title_community">Komunitas</string>
   <string name="title_opensource">Pengembangan Open Source</string>
-  <string name="title_source_code">Source Code</string>
+  <string name="title_source_code">Kode Sumber</string>
   <string name="title_report_bug">Laporkan bug</string>
   <string name="title_support">Dukungan</string>
   <string name="title_permissions">Izin</string>
@@ -80,7 +80,7 @@
   <string name="unknown_error">Terjadi kesalahan.</string>
   <string name="action_backup_wallet">Cadangkan Dompet</string>
   <string name="no_tokens">Anda belum menambahkan token kustom mana pun.</string>
-  <string name="title_email">Email Us</string>
+  <string name="title_email">Kirim Email</string>
   <string name="action_donate">Donasikan</string>
   <!-- Titles -->
   <string name="title_my_address">Terima</string>
@@ -141,14 +141,14 @@
   <string name="intro_get_started_button">Luncurkan dompet</string>
   <!-- Intro from game -->
   <string name="launching_wallet_body">Launching wallet&#8230;</string>
-  <string name="select_method_title">Choose a payment method</string>
-  <string name="bonus_body">Get %s bonus with this purchase.</string>
-  <string name="agree_by_choosing_a_payment_method_body">By choosing a payment method, you agree to the %1$s and %2$s.</string>
-  <string name="pay_with_card_title">Pay with credit/debit card</string>
-  <string name="more_payment_methods_button">More payment methods</string>
-  <string name="bonus_received_body">You received a %s bonus in your wallet.</string>
-  <string name="back_to_the_game_button">Back to the game</string>
-  <string name="other_payment_methos_title">Other payment methods:</string>
+  <string name="select_method_title">Pilih metode pembayaran</string>
+  <string name="bonus_body">Dapatkan bonus %s dengan pembelian ini.</string>
+  <string name="agree_by_choosing_a_payment_method_body">Dengan memilih metode pembayaran, Anda menyetujui %1$s dan %2$s.</string>
+  <string name="pay_with_card_title">Bayar dengan kartu kredit/debit</string>
+  <string name="more_payment_methods_button">Metode pembayaran lain</string>
+  <string name="bonus_received_body">Anda menerima bonus %s di dompet Anda.</string>
+  <string name="back_to_the_game_button">Kembali ke game</string>
+  <string name="other_payment_methos_title">Metode pembayaran lain:</string>
   <!-- Menus -->
   <!-- Labels -->
   <string name="label_from">Dari</string>
