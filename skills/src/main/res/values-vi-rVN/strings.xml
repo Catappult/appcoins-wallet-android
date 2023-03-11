@@ -38,13 +38,13 @@
   <string name="update_not_supported_body">Cập nhật Ví AppCoins lên phiên bản mới nhất.</string>
   <string name="update_button">Cập nhật</string>
   <!-- Refer a friend -->
-  <string name="refer_a_friend_waiting_room_tooltip">You and the friends you invite will receive a $%s bonus. You can refer up to 5 friends, and they must be new users. The bonus will be credited in your wallet once they use your invitation code in their first e-Skills game.</string>
-  <string name="refer_a_friend_first_time_header">Ready to show your skills?</string>
-  <string name="refer_a_friend_first_time_body">Beat other players to get a prize in real money! Let\'s start with a practice game with no entry fee.</string>
-  <string name="refer_a_friend_error_unavailable_body">This feature is currently unavailable.</string>
-  <string name="refer_a_friend_error_invalid_code_body">Invalid code!</string>
-  <string name="refer_a_friend_error_user_not_eligible_body">Only for new users!</string>
-  <string name="refer_a_friend_first_time_tooltip">With our Referral Program you\'ll receive a $%s bonus when using your friends code. They\'ll also receive the same amount as bonus to be used on in-app purchases or e-Skills entry tickets.</string>
-  <string name="refer_a_friend_waiting_room_title">Refer a Friend!</string>
-  <string name="refer_a_friend_waiting_from_body">Get a bonus for each friend you invite.</string>
+  <string name="refer_a_friend_waiting_room_tooltip">Bạn và những người bạn mà bạn mời sẽ nhận được $%s tiền thưởng. Bạn có thể giới thiệu tối đa 5 người bạn và họ phải là người dùng mới. Phần thưởng sẽ được ghi có vào ví của bạn sau khi họ sử dụng mã mời của bạn trong trò chơi e-Skills đầu tiên của họ.</string>
+  <string name="refer_a_friend_first_time_header">Sẵn sàng để thể hiện kỹ năng của bạn?</string>
+  <string name="refer_a_friend_first_time_body">Đánh bại những người chơi khác để nhận giải thưởng bằng tiền thật! Hãy bắt đầu với một trò chơi thực hành không tốn phí vào cửa.</string>
+  <string name="refer_a_friend_error_unavailable_body">Tính năng này hiện không khả dụng.</string>
+  <string name="refer_a_friend_error_invalid_code_body">Mã không hợp lệ!</string>
+  <string name="refer_a_friend_error_user_not_eligible_body">Chỉ dành cho người dùng mới!</string>
+  <string name="refer_a_friend_first_time_tooltip">Với chương trình giới thiệu của chúng tôi, bạn sẽ nhận được $%s tiền thưởng khi sử dụng mã bạn bè của mình. Họ cũng sẽ nhận được số tiền tương tự để sử dụng khi mua hàng trong ứng dụng hoặc vé tham gia các trò chơi e-Skill.</string>
+  <string name="refer_a_friend_waiting_room_title">Giới thiệu bạn bè!</string>
+  <string name="refer_a_friend_waiting_from_body">Nhận tiền thưởng cho mỗi người bạn mà bạn mời.</string>
 </resources>
