@@ -26,12 +26,12 @@
   <string name="network_label">Ağ</string>
   <string name="credits">Tanıtım</string>
   <string name="label_new">Yeni</string>
-  <string name="got_it_button">Got it</string>
-  <string name="change_button">Change</string>
+  <string name="got_it_button">Anladım</string>
+  <string name="change_button">Değiştir</string>
   <string name="vip">VIP</string>
-  <string name="faq">FAQs</string>
-  <string name="about_us_title">About Us</string>
-  <string name="preferences_title">Preferences</string>
+  <string name="faq">SSS</string>
+  <string name="about_us_title">Hakkımızda</string>
+  <string name="preferences_title">Tercihler</string>
   <string name="low_storage_error">Yeterli saklama alanı yok</string>
   <string name="no_camera_permission_title">Kamera İzni</string>
   <string name="no_camera_permission">AppCoin BDS Wallet\'ın QR kodlarını taramak için kameranıza erişim izni olması gerekir.</string>
@@ -44,7 +44,7 @@
   <!-- TODO: Remove or change this placeholder text -->
   <string name="title_community">Topluluk</string>
   <string name="title_opensource">Açık Kaynaklı Geliştirme</string>
-  <string name="title_source_code">Source Code</string>
+  <string name="title_source_code">Kaynak Kodu</string>
   <string name="title_report_bug">Hata bildirin</string>
   <string name="title_support">Destek</string>
   <string name="title_permissions">İzinler</string>
@@ -80,7 +80,7 @@
   <string name="unknown_error">Bir hata oluştu.</string>
   <string name="action_backup_wallet">Yedek Cüzdan</string>
   <string name="no_tokens">Henüz özel jeton eklemediniz.</string>
-  <string name="title_email">Email Us</string>
+  <string name="title_email">Bize E-posta Gönderin</string>
   <string name="action_donate">Bağış yap</string>
   <!-- Titles -->
   <string name="title_my_address">Al</string>
@@ -121,7 +121,7 @@
   <string name="intro_1_title">AppCoins Wallet</string>
   <string name="intro_1_body">Uygulama içi satın alma işlemleri uygulamanız.</string>
   <string name="intro_2_title">Daha Fazla Oynayın, Daha Az Ödeyin</string>
-  <string name="intro_2_body">The best payment wallet for apps and games.</string>
+  <string name="intro_2_body">Uygulama ve oyunlar için en iyi ödeme cüzdanı.</string>
   <string name="intro_3_title">Basit ve Kolay</string>
   <string name="intro_3_body">Bonuses on all purchases.</string>
   <string name="intro_4_title">Güvenli ve Gizli</string>
@@ -147,8 +147,8 @@
   <string name="pay_with_card_title">Pay with credit/debit card</string>
   <string name="more_payment_methods_button">More payment methods</string>
   <string name="bonus_received_body">You received a %s bonus in your wallet.</string>
-  <string name="back_to_the_game_button">Back to the game</string>
-  <string name="other_payment_methos_title">Other payment methods:</string>
+  <string name="back_to_the_game_button">Oyuna geri dön</string>
+  <string name="other_payment_methos_title">Diğer ödeme yöntemleri:</string>
   <!-- Menus -->
   <!-- Labels -->
   <string name="label_from">Kimden</string>
@@ -173,7 +173,7 @@
   <string name="action_more_details">Daha fazla</string>
   <string name="action_add_wallet">Cüzdan ekle</string>
   <string name="action_coinbase">Coinbase</string>
-  <string name="action_shapeshift">Shapeshift (Crypto only)</string>
+  <string name="action_shapeshift">Shapeshift (Yalnızca kripto)</string>
   <string name="action_changelly">Changelly</string>
   <string name="action_wallets">Cüzdanlar</string>
   <string name="action_next">İleri</string>
@@ -222,7 +222,7 @@
   <string name="activity_iab_error_message">Bir hata oluştu, lütfen tekrar deneyin</string>
   <string name="action_try">deneyin</string>
   <string name="activity_transactions_learn_more">Daha fazla bilgi</string>
-  <string name="activity_iab_no_funds_message">Not enough ETH and AppCoins</string>
+  <string name="activity_iab_no_funds_message">Yeterli ETH ve AppCoin yok</string>
   <string name="activity_iab_no_ethereum_funds_message">Yeterli Ethereum yok</string>
   <string name="activity_iab_no_token_funds_message">Yeterli AppCoin yok</string>
   <string name="activity_iab_wrong_network_message">Yanlış Ethereum ağı veya bilinmeyen jeton</string>
