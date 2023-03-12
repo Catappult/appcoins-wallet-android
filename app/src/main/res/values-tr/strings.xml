@@ -667,7 +667,7 @@
   <string name="import_wallet_body">Aşağıya cüzdanınızın yedeğini yapıştırın.</string>
   <string name="import_wallet_keystore_private_keys">Keystore veya özel anahtarlar</string>
   <string name="import_wallet_from_file_title">Veya dosyadan geri kurtarın</string>
-  <string name="import_wallet_file_button">Recover from file</string>
+  <string name="import_wallet_file_button">Dosyadan kurtar</string>
   <string name="import_wallet_button">Cüzdanı geri yükle</string>
   <string name="import_wallet_password_body">Bu cüzdan şifre korumalıdır!</string>
   <string name="import_wallet_wrong_password_body">Hay aksi, yanlış şifre!</string>
@@ -1024,10 +1024,10 @@
   <string name="e_skills_room_create_body">Yeni bir oda yaratın ve rakiplerinizle paylaşın ya da mevcut bir odaya katılın.</string>
   <string name="e_skills_room_field">Oda adınızı buraya girin...</string>
   <string name="e_skills_withdraw_confirmation_title">A $%s withdrawal has been requested!</string>
-  <string name="e_skills_withdraw_confirmation_body">This may take between 2 and 3 weeks to be processed.</string>
+  <string name="e_skills_withdraw_confirmation_body">Bunun işlenmesi 2 ila 3 hafta sürebilir.</string>
   <string name="e_skills_withdraw_minimum_body">The minimum amount to withdraw is $%s.</string>
   <string name="e_skills_withdraw_started_title">A withdrawal request of $%s has been started.</string>
-  <string name="e_skills_withdraw_started_body">This request may take 2-3 weeks to be processed.</string>
+  <string name="e_skills_withdraw_started_body">Bu talebin işlenmesi 2-3 hafta sürebilir.</string>
   <string name="e_skills_withdraw_error_not_funds">Make sure you have enough funds to be withdrawn.</string>
   <!--Promo Code-->
   <string name="promo_code_settings_title">Promosyon Kodu</string>
@@ -1079,9 +1079,9 @@
   <string name="nfts_transact_error_low_gas">Gas is too low! Increase your gas for the network to accept your transaction.</string>
   <string name="nfts_transact_error_already_in_progress">Bu NFT zaten gönderiliyor! Önceki işlem halen devam ediyor.</string>
   <!-- Gift Card -->
-  <string name="gift_card_title">Redeem your gift card code</string>
+  <string name="gift_card_title">Hediye kartı kodunu kullan</string>
   <string name="gift_card_field">Kart kodu...</string>
-  <string name="gift_card_done_title">Code redeemed!</string>
+  <string name="gift_card_done_title">Kod kullanıldı!</string>
   <string name="gift_card_done_body">İşlem listeni kontrol et.</string>
   <string name="gift_card_error_general_title">Bir şeyler ters gitti!</string>
   <string name="gift_card_error_general_body">Lütfen tekrar dene veya farklı bir kod kullan.</string>
@@ -1091,14 +1091,14 @@
   <!-- My Wallet -->
   <string name="mywallet_unverified_title">Doğrulanmamış Cüzdan</string>
   <string name="mywallet_unverified_body">Kısıtlamaları önlemek için bir ödeme yöntemini doğrula.</string>
-  <string name="mywallet_backed_up_date">You backed up your wallet on %s.</string>
+  <string name="mywallet_backed_up_date">%s tarihinde cüzdanını yedekledin.</string>
   <string name="mywallet_backup_again_button">Tekrar yedekle</string>
   <string name="mywallet_verify_payment_method_button">Yeni kartı doğrula</string>
   <string name="mywallet_choose_name_header">Cüzdanını isimlendir</string>
   <string name="mywallet_choose_name_field">Cüzdan ismi...</string>
   <string name="mywallet_choose_name_confirmed">Cüzdan ismi değiştirildi</string>
   <string name="mywallet_unnamed_wallet">Cüzdan ismi yok %s</string>
-  <string name="mywallet_swithing_wallets_title">Switching wallets...</string>
+  <string name="mywallet_swithing_wallets_title">Cüzdanlar değiştiriliyor...</string>
   <string name="mywallet_address_title">Adres:</string>
   <!-- Onboarding for new users coming from an iap -->
   <string name="onboarding_1st_title">Tebrikler! AppCoins Cüzdan\'ı yükledin.</string>
@@ -1127,8 +1127,8 @@
   <string name="vip_program_promo_code_tag">Promosyon kodu</string>
   <string name="vip_program_referral_page_title">VIP Tavsiye Programı</string>
   <string name="vip_program_referral_page_body">Share this promo code with your community and friends for everyone to earn while playing. For every in-app purchase they make, both <b>you and your friends will receive %s%% bonus</b> on top of other active promotions and for an entire month!</string>
-  <string name="vip_program_referral_page_share_title">Share this code with your friends</string>
-  <string name="vip_program_referral_page_earned_body">%1$s%2$s earned from %3$s referrals</string>
+  <string name="vip_program_referral_page_share_title">Bu kodu arkadaşlarınla paylaş</string>
+  <string name="vip_program_referral_page_earned_body">%3$s tavsiyeden %1$s%2$s kazanıldı</string>
   <string name="vip_program_gamification_title">Bonus seviyem ne?</string>
   <string name="vip_program_gamification_amount_purchases_bonus">Satın alma işlemlerinden bonus kazanıldı.</string>
   <string name="vip_program_gamification_amoung_referral_bonus">Tavsiyelerden bonus kazanıldı</string>
