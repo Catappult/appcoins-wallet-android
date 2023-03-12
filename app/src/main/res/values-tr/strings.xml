@@ -475,7 +475,7 @@
   <string name="home_empty_discover_apps_button">EN İYİ UYGULAMALARI KEŞFEDİN</string>
   <!--Tokens-->
   <!--Settings-->
-  <string name="title_redeem">Redeem Gift Card</string>
+  <string name="title_redeem">Hediye Kartını Kullan</string>
   <string name="settings_item_support">Destek Ekibiyle iletişime geçin</string>
   <string name="settings_subheader_support">Destek</string>
   <string name="settings_subheader_about_us">Hakkımızda</string>
@@ -1121,20 +1121,20 @@
   <string name="vip_program_promotions_tab_1">Artık VIP kullanıcısın.</string>
   <string name="vip_program_promotions_tab_2">Check the promotions we have have just for you!</string>
   <string name="vip_program_exclusivity_tag">Yalnızca VIP kullanıcılar için</string>
-  <string name="vip_program_referral_button_title">VIP Referral Program</string>
+  <string name="vip_program_referral_button_title">VIP Tavsiye Programı</string>
   <string name="vip_program_referral_button_body">Sen ve arkadaşların için %s%% bonus.</string>
   <string name="vip_program_promotions_list_title">Sana özel promosyonlar</string>
   <string name="vip_program_promo_code_tag">Promosyon kodu</string>
-  <string name="vip_program_referral_page_title">VIP Referral Program</string>
+  <string name="vip_program_referral_page_title">VIP Tavsiye Programı</string>
   <string name="vip_program_referral_page_body">Share this promo code with your community and friends for everyone to earn while playing. For every in-app purchase they make, both <b>you and your friends will receive %s%% bonus</b> on top of other active promotions and for an entire month!</string>
   <string name="vip_program_referral_page_share_title">Share this code with your friends</string>
   <string name="vip_program_referral_page_earned_body">%1$s%2$s earned from %3$s referrals</string>
-  <string name="vip_program_gamification_title">What\'s my bonus level?</string>
-  <string name="vip_program_gamification_amount_purchases_bonus">Bonus received from your purchases.</string>
-  <string name="vip_program_gamification_amoung_referral_bonus">Bonus received from referrals</string>
+  <string name="vip_program_gamification_title">Bonus seviyem ne?</string>
+  <string name="vip_program_gamification_amount_purchases_bonus">Satın alma işlemlerinden bonus kazanıldı.</string>
+  <string name="vip_program_gamification_amoung_referral_bonus">Tavsiyelerden bonus kazanıldı</string>
   <string name="vip_program_max_bonus_title">Her satın alma işleminde %s%% bonusun tadını çıkar</string>
   <string name="vip_program_max_bonus_body">You\'ve reached the limits of the solar system.</string>
   <string name="vip_program_max_bonus_short">Her satın alma işleminde %s%% bonus.</string>
-  <string name="vip_program_referral_notification_title">VIP Referral Code Available!</string>
+  <string name="vip_program_referral_notification_title">VIP Tavsiye Kodu Mevcut!</string>
   <string name="vip_program_referral_notification_body">Kodunu topluluğunla paylaş, böylece hepiniz oynarken kazanın!</string>
 </resources>
