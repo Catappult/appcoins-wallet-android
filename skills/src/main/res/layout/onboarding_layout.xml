@@ -61,7 +61,7 @@
 
     <include
         android:id="@+id/referral_display"
-        layout="@layout/referral_display2"
+        layout="@layout/referral_display"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="@dimen/small_margin"

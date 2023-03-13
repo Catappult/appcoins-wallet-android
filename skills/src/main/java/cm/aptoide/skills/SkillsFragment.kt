@@ -6,6 +6,7 @@ import android.graphics.PorterDuff
 import android.os.Build
 import android.os.Bundle
 import android.text.SpannableStringBuilder
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -30,6 +31,8 @@ import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.schedulers.Schedulers
+import okhttp3.internal.format
 import javax.inject.Inject
 
 
@@ -48,6 +51,7 @@ class SkillsFragment : Fragment(), PaymentView {
     private const val ESKILLS_URI_KEY = "ESKILLS_URI"
 
     private const val CLIPBOARD_TOOLTIP_DELAY_SECONDS = 3000L
+    private const val BONUS_VALUE = 1
   }
 
   private val viewModel: SkillsViewModel by viewModels()
@@ -137,7 +141,7 @@ class SkillsFragment : Fragment(), PaymentView {
     eSkillsPaymentData: EskillsPaymentData
   ) {
     if(checkOnboarding()){
-      if(!viewModel.userFirstTimeCheck()) {
+      if(viewModel.userFirstTimeCheck()) {
         setupOnboarding(eSkillsPaymentData)
       }
       else{
@@ -154,7 +158,6 @@ class SkillsFragment : Fragment(), PaymentView {
     eSkillsPaymentData.environment = EskillsPaymentData.MatchEnvironment.SANDBOX
     binding.onboardingLayout.root.visibility = View.VISIBLE
     setupAppNameAndIcon(eSkillsPaymentData.packageName, true)
-    setupSandboxTicketButtons(eSkillsPaymentData)
     setupOnboardingTicketButtons(eSkillsPaymentData)
   }
 
@@ -169,7 +172,9 @@ class SkillsFragment : Fragment(), PaymentView {
     setupAppNameAndIcon(eSkillsPaymentData.packageName,false)}
 
   private fun setupOnboardingTicketButtons(eSkillsPaymentData: EskillsPaymentData) {
-
+    binding.onboardingLayout.dialogBuyButtonsPaymentMethods.buyButton.text = getString(R.string.start_button)
+    binding.onboardingLayout.referralDisplay.tooltip.referralCode.text =
+      String.format(getString(R.string.refer_a_friend_first_time_tooltip),BONUS_VALUE)
     val tooltip_btn = binding.onboardingLayout.referralDisplay.actionButtonTooltipReferral
         tooltip_btn
           .setOnClickListener {
@@ -364,6 +369,7 @@ class SkillsFragment : Fragment(), PaymentView {
   }
 
   private fun createAndPayTicket(eskillsPaymentData: EskillsPaymentData, onboarding: Boolean = false) {
+    Log.d("NOT_RUNNING", "onboarding:$onboarding ")
     getReferralAndActivateLayout()
     disposable.add(
       handleWalletCreationIfNeeded()
@@ -373,7 +379,10 @@ class SkillsFragment : Fragment(), PaymentView {
             .observeOn(AndroidSchedulers.mainThread())
             .doOnSubscribe { showRoomLoading(false) }
             .flatMapCompletable { handleTicketCreationResult(eskillsPaymentData, it) }
-        }.doOnComplete{if(onboarding){setOnboardingComplete()} }
+             }
+        .doOnComplete{Log.d("NOT_RUNNING", "createAndPayTicket:COMPLETED ")
+          if(onboarding){setOnboardingComplete()}}
+        .doOnError{ Log.d("NOT_RUNNING", "createAndPayTicket:$it ")}
         .subscribe()
     )
   }
@@ -686,14 +695,14 @@ class SkillsFragment : Fragment(), PaymentView {
   }
 
   private fun checkOnboarding(): Boolean {
-    val firstRun = "eskills_onboarding_6"
+    val firstRun = "eskills_onboarding"
     val sharedPreferences = requireContext().getSharedPreferences(firstRun, 0)
     return sharedPreferences.getBoolean(firstRun, true)
   }
 
 
   private fun setOnboardingComplete() {
-    val firstRun = "eskills_onboarding_6"
+    val firstRun = "eskills_onboarding"
     val sharedPreferences = requireContext().getSharedPreferences(firstRun, 0)
     sharedPreferences.edit().putBoolean(firstRun, false).apply()
   }
