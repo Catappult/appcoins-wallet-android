@@ -29,9 +29,9 @@
   <string name="got_it_button">Ясно</string>
   <string name="change_button">Изменить</string>
   <string name="vip">VIP</string>
-  <string name="faq">FAQs</string>
-  <string name="about_us_title">About Us</string>
-  <string name="preferences_title">Preferences</string>
+  <string name="faq">Часто задаваемые вопросы</string>
+  <string name="about_us_title">О нас</string>
+  <string name="preferences_title">Предпочтения</string>
   <string name="low_storage_error">Недостаточно места для хранения</string>
   <string name="no_camera_permission_title">Разрешение использовать камеру</string>
   <string name="no_camera_permission">AppCoins BDS Wallet необходимо разрешение на доступ к вашей камере, чтобы сканировать QR-коды.</string>
@@ -44,7 +44,7 @@
   <!-- TODO: Remove or change this placeholder text -->
   <string name="title_community">Сообщество</string>
   <string name="title_opensource">Разработка с открытым исходным кодом</string>
-  <string name="title_source_code">Source Code</string>
+  <string name="title_source_code">Исходный код</string>
   <string name="title_report_bug">Сообщить об ошибке</string>
   <string name="title_support">Поддержка</string>
   <string name="title_permissions">Разрешения</string>
@@ -80,7 +80,7 @@
   <string name="unknown_error">Произошла ошибка.</string>
   <string name="action_backup_wallet">Сделать бэкап бумажника</string>
   <string name="no_tokens">Вы еще не добавили ни одного произвольного токена.</string>
-  <string name="title_email">Email Us</string>
+  <string name="title_email">Напишите нам</string>
   <string name="action_donate">Пожертвовать</string>
   <!-- Titles -->
   <string name="title_my_address">Получить</string>
@@ -140,15 +140,15 @@
   <string name="intro_already_have_wallet_button">У меня уже есть кошелек</string>
   <string name="intro_get_started_button">Запустить кошелёк</string>
   <!-- Intro from game -->
-  <string name="launching_wallet_body">Launching wallet&#8230;</string>
-  <string name="select_method_title">Choose a payment method</string>
-  <string name="bonus_body">Get %s bonus with this purchase.</string>
-  <string name="agree_by_choosing_a_payment_method_body">By choosing a payment method, you agree to the %1$s and %2$s.</string>
-  <string name="pay_with_card_title">Pay with credit/debit card</string>
-  <string name="more_payment_methods_button">More payment methods</string>
-  <string name="bonus_received_body">You received a %s bonus in your wallet.</string>
-  <string name="back_to_the_game_button">Back to the game</string>
-  <string name="other_payment_methos_title">Other payment methods:</string>
+  <string name="launching_wallet_body">Запускаем кошелёк&#8230;</string>
+  <string name="select_method_title">Выберите способ оплаты</string>
+  <string name="bonus_body">Получите бонус %s за эту покупку.</string>
+  <string name="agree_by_choosing_a_payment_method_body">При выборе метода оплаты вы соглашаетесь с %1$s и %2$s.</string>
+  <string name="pay_with_card_title">Оплатить кредитной/дебитовой картой</string>
+  <string name="more_payment_methods_button">Больше способов оплаты</string>
+  <string name="bonus_received_body">Вы получили бонус %s на ваш кошелёк.</string>
+  <string name="back_to_the_game_button">Вернуться в игру</string>
+  <string name="other_payment_methos_title">Другие способы оплаты:</string>
   <!-- Menus -->
   <!-- Labels -->
   <string name="label_from">От</string>
@@ -377,7 +377,7 @@
   <string name="provide_wallet_completed_header">Кошелёк связан с Aptoide!</string>
   <string name="provide_wallet_create_body">Вам нужен адрес кошелька! Выполните следующие действия, чтобы создать его в AppCoins Wallet.</string>
   <string name="provide_wallet_create_wallet_button">Создать</string>
-  <string name="provide_wallet_creating_wallet_header">Preparing your wallet&#8230;</string>
+  <string name="provide_wallet_creating_wallet_header">Готовим ваш кошелёк&#8230;</string>
   <string name="provide_wallet_created_header">Адрес кошелька создан!</string>
   <string name="provide_wallet_empty_state">Вы пока не разрешили кошельку AppCoins предоставлять ваш адрес другим приложениям.</string>
   <string name="provide_wallet_status">Разрешить доступ к адресу кошелька</string>
@@ -539,12 +539,12 @@
   <string name="purchase_wallet_blocked_title">Ваш баланс AppCoins Credits заблокирован</string>
   <string name="purchase_wallet_blocked_body">В связи со странностями в истории транзакций ваш баланс AppCoins Credits был заблокирован. Вы всё ещё можете производить платежи и переводы при помощи других методов, кроме AppCoins Credits. \n\nIfЕсли вы считаете, что это ошибка – свяжитесь с нами:</string>
   <string name="purchase_card_error_title">Ой, что-то пошло не так.</string>
-  <string name="purchase_card_error_general_1">There was a problem with your card. Please try with a different card or payment method.</string>
-  <string name="purchase_card_error_general_2">The transaction has been rejected by your bank. Please try with a different card or payment method.</string>
-  <string name="purchase_card_error_no_funds">It seems you don\'t have enough funds or there\'s a limit on your card. Please try with a different card or payment method.</string>
-  <string name="purchase_card_error_expired">It seems your card is expired. Please try again with a different payment method.</string>
-  <string name="purchase_card_error_invalid_details">Invalid card number. Please check it and try again.</string>
-  <string name="purchase_card_error_not_supported">Your card is not supported yet. Please try again with a different card or payment method.</string>
+  <string name="purchase_card_error_general_1">С вашей картой возникла проблема. Пожалуйста, попробуйте другую карту или другой способ оплаты.</string>
+  <string name="purchase_card_error_general_2">Ваш банк отказал в данной транзакции. Пожалуйста, попробуйте другую карту или другой метод оплаты.</string>
+  <string name="purchase_card_error_no_funds">Кажется, у вас недостаточно средств, или для карты установлен лимит. Пожалуйста, попробуйте другую карту или иной способ оплаты.</string>
+  <string name="purchase_card_error_expired">Кажется ваша карта истекла. Пожалуйста, попробуйте другой метод оплаты.</string>
+  <string name="purchase_card_error_invalid_details">Недопустимый номер карты. Пожалуйста, проверьте и попробуйте еще раз.</string>
+  <string name="purchase_card_error_not_supported">Ваша карта пока не поддерживается. Пожалуйста, попробуйте другую карты или иной метод оплаты.</string>
   <string name="purchase_card_error_security">Вы уверены, что правильно ввели атрибуты безопасности? Пожалуйста, попробуйте снова.</string>
   <string name="purchase_card_error_wrong_CVV">Кажеся, вы ввели неверный CVV/CVC код. Пожалуйста, попробуйте снова.</string>
   <string name="purchase_card_error_re_insert">Кажется, вы зарегистрировали эту карту уже давно! Введите данные карты снова или используйте другую.</string>
@@ -568,7 +568,7 @@
   <string name="purchase_error_card_security_validation">Произошла ошибка на 2-ом уровне проверки транзакции. Пожалуйста, попробуйте снова.</string>
   <string name="purchase_error_transaction_timeout">Похоже, транзакция заняла слишком много времени. Пожалуйста, попробуйте снова.</string>
   <string name="purchase_error_card_already_in_progress">Ваш запрос уже обработан или ещё в процессе. Пожалуйста, подождите.</string>
-  <string name="purchase_error_payment_rejected">The transaction has been rejected. Please try with a different card or payment method.</string>
+  <string name="purchase_error_payment_rejected">Транзакция была отклонена. Пожалуйста, попробуйте другую карту или другой метод оплаты.</string>
   <string name="purchase_error_verify_wallet">Подтвердите ваш метод оплаты, чтобы завершить эту покупку.</string>
   <string name="purchase_error_verify_card">Подтвердите вашу карту, чтобы завершить эту покупку.</string>
   <string name="purachse_error_verify_card_button">ПОДТВЕРДИТЬ КАРТУ</string>
@@ -577,7 +577,7 @@
   <string name="purchase_app_needed_body">Вам нужно следующее приложение, чтобы завершить эту покупку.</string>
   <string name="purchase_apps_needed_body">Для совершения покупки вам потребуется одно из следующих приложений.</string>
   <string name="purchase_error_connection_issue">Кажется, с вашим подключением к Интернету что-то не так! Пожалуйста, проверьте его и повторите попытку.</string>
-  <string name="purchase_error_wrong_pin_body">There was a problem with your pin. Please try again.</string>
+  <string name="purchase_error_wrong_pin_body">С вашим пин-кодом возникла проблема. Пожалуйста, попробуйте снова.</string>
   <string name="purchase_error_3d_body">There was a problem with your 3D authentication. Please try again.</string>
   <string name="purchase_error_generic_contact_us_body">Oops, something went wrong. Please try again or contact us.</string>
   <!--Billing address in purchase flow-->
