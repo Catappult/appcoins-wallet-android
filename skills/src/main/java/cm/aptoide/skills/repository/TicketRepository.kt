@@ -59,7 +59,6 @@ class TicketRepository @Inject constructor(
     referralCode: String
   ): Single<ReferralResult> {
     return ticketApi.postReferralTransaction(ewt, referralCode)
-      .doOnError { Log.d("REFERRAL REDEEM", "postReferralTransaction: ${it.stackTraceToString()}") }
       .subscribeOn(Schedulers.io())
       .map{
         SuccessfulReferral(it) as ReferralResult
@@ -73,7 +72,6 @@ class TicketRepository @Inject constructor(
     ewt: String
   ): Single<Boolean>{
     return ticketApi.getFirstTimeUserCheck(ewt)
-      .doOnError { Log.d("ENdpoint error", "getFirstTimeUserCheck: $it") }
       .subscribeOn(Schedulers.io())
       .map{ it.firstTimeUserCheck }
       .onErrorReturn { false }
@@ -93,13 +91,11 @@ class TicketRepository @Inject constructor(
 
   fun getReferral(ewt: String): Single<ReferralResponse> {
     return ticketApi.getReferral(ewt)
-      .doOnError { Log.d("Endpoint error", "getReferral: ${it.stackTrace}") }
       .subscribeOn(Schedulers.io())
   }
 
   fun createReferral(ewt: String): Single<ReferralResponse> {
     return ticketApi.createReferral(ewt)
-      .doOnError { Log.d("Endpoint error", "createReferral: ${it.stackTrace}") }
       .subscribeOn(Schedulers.io())
   }
 }

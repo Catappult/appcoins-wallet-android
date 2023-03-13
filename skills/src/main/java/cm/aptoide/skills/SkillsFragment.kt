@@ -369,7 +369,6 @@ class SkillsFragment : Fragment(), PaymentView {
   }
 
   private fun createAndPayTicket(eskillsPaymentData: EskillsPaymentData, onboarding: Boolean = false) {
-    Log.d("NOT_RUNNING", "onboarding:$onboarding ")
     getReferralAndActivateLayout()
     disposable.add(
       handleWalletCreationIfNeeded()
@@ -380,9 +379,7 @@ class SkillsFragment : Fragment(), PaymentView {
             .doOnSubscribe { showRoomLoading(false) }
             .flatMapCompletable { handleTicketCreationResult(eskillsPaymentData, it) }
              }
-        .doOnComplete{Log.d("NOT_RUNNING", "createAndPayTicket:COMPLETED ")
-          if(onboarding){setOnboardingComplete()}}
-        .doOnError{ Log.d("NOT_RUNNING", "createAndPayTicket:$it ")}
+        .doOnComplete{if(onboarding){setOnboardingComplete()}}
         .subscribe()
     )
   }
