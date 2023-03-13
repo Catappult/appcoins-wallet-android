@@ -1,4 +1,4 @@
-package com.asfoundation.wallet.widget;
+package com.appcoins.wallet.widgets;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapShader;
@@ -10,12 +10,13 @@ import android.graphics.RectF;
 import android.graphics.Shader;
 import android.os.Build;
 import androidx.annotation.NonNull;
+import com.bumptech.glide.load.Key;
 import com.bumptech.glide.load.engine.bitmap_recycle.BitmapPool;
 import com.bumptech.glide.load.resource.bitmap.BitmapTransformation;
 import java.security.MessageDigest;
 
 public class CardHeaderTransformation extends BitmapTransformation {
-  private static final byte[] ID_BYTES = "card_header".getBytes(CHARSET);
+  private static final byte[] ID_BYTES = "card_header".getBytes(Key.CHARSET);
   private final int radius;
   int margin = 0;
 

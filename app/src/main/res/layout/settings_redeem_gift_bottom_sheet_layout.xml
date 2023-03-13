@@ -82,7 +82,7 @@
       app:layout_constraintBottom_toBottomOf="parent"
       />
 
-  <com.asfoundation.wallet.widget.SystemView
+  <com.appcoins.wallet.widgets.SystemView
       android:id="@+id/redeem_gift_bottom_sheet_system_view"
       android:layout_width="match_parent"
       android:layout_height="match_parent"

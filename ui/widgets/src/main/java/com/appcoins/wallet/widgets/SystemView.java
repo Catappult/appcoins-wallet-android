@@ -1,4 +1,4 @@
-package com.asfoundation.wallet.widget;
+package com.appcoins.wallet.widgets;
 
 import android.content.Context;
 import android.text.TextUtils;

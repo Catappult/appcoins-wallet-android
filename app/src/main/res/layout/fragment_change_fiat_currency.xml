@@ -15,7 +15,7 @@
       tools:listitem="@layout/item_change_fiat_currency"
       />
 
-  <com.asfoundation.wallet.widget.SystemView
+  <com.appcoins.wallet.widgets.SystemView
       android:id="@+id/change_fiat_system_view"
       android:layout_width="76dp"
       android:layout_height="76dp"
