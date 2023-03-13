@@ -1045,7 +1045,7 @@
   <string name="promo_code_success_body_specific_app">%2$s adlı oyundaki bütün satın alma işlemlerinden %%%1$s ekstra bonus kazanacaksınız.</string>
   <string name="promo_code_promotions_tag">Promosyon kodu</string>
   <string name="promo_code_error_not_available">Bu promosyon kodu artık geçerli değil.</string>
-  <string name="promo_code_error_invalid_user">Oops! This code couldn\'t be applied.</string>
+  <string name="promo_code_error_invalid_user">Hay aksi! Bu kod kullanılamadı.</string>
   <!--AppCoins Info Page-->
   <string name="appcoins_info_title">AppCoins hakkında</string>
   <string name="appcoins_info_prince_title">AppCoins Fiyatı (APPC)</string>
@@ -1060,7 +1060,7 @@
   <string name="appcoins_info_volume_title">Hacim (24 sa)</string>
   <!--  NFTs -->
   <string name="nfts_title">NFT\'ler</string>
-  <string name="nfts_no_nfts">You don\'t have any NFTs in this wallet yet!</string>
+  <string name="nfts_no_nfts">Bu cüzdanda henüz NFT yok!</string>
   <string name="nfts_transact_button">Bu NFT\'yi gönder</string>
   <string name="nfts_transact_button_send">Gönder</string>
   <string name="nfts_transact_button_next">İleri</string>
