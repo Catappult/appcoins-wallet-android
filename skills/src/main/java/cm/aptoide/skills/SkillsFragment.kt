@@ -9,6 +9,7 @@ import android.text.SpannableStringBuilder
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import androidx.activity.OnBackPressedCallback
 import androidx.core.text.bold
 import androidx.fragment.app.Fragment
@@ -30,6 +31,7 @@ import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import javax.inject.Inject
+
 
 @AndroidEntryPoint
 class SkillsFragment : Fragment(), PaymentView {
@@ -135,24 +137,36 @@ class SkillsFragment : Fragment(), PaymentView {
     eSkillsPaymentData: EskillsPaymentData
   ) {
     if(checkOnboarding()){
-      eSkillsPaymentData.environment=EskillsPaymentData.MatchEnvironment.SANDBOX
-      binding.onboardingLayout.root.visibility = View.VISIBLE
-      setupAppNameAndIcon(eSkillsPaymentData.packageName,true)
-      setupSandboxTicketButtons(eSkillsPaymentData)
-      setupOnboardingTicketButtons(eSkillsPaymentData)
+      if(!viewModel.userFirstTimeCheck()) {
+        setupOnboarding(eSkillsPaymentData)
+      }
+      else{
+        setOnboardingComplete()
+        setupPurchaseLayout(eSkillsPaymentData)
+      }
     }
     else{
-      setupQueueIdLayout()
-      if (eSkillsPaymentData.environment == EskillsPaymentData.MatchEnvironment.SANDBOX) {
-        setupSandboxTicketButtons(eSkillsPaymentData)
-      } else {
-        updateHeaderInfo(eSkillsPaymentData)
-        setupPurchaseTicketButtons(eSkillsPaymentData)
-      }
-      setupAppNameAndIcon(eSkillsPaymentData.packageName,false)
+      setupPurchaseLayout(eSkillsPaymentData)
     }
-
   }
+
+  private fun setupOnboarding(eSkillsPaymentData: EskillsPaymentData) {
+    eSkillsPaymentData.environment = EskillsPaymentData.MatchEnvironment.SANDBOX
+    binding.onboardingLayout.root.visibility = View.VISIBLE
+    setupAppNameAndIcon(eSkillsPaymentData.packageName, true)
+    setupSandboxTicketButtons(eSkillsPaymentData)
+    setupOnboardingTicketButtons(eSkillsPaymentData)
+  }
+
+  private fun setupPurchaseLayout(eSkillsPaymentData: EskillsPaymentData){
+    setupQueueIdLayout()
+    if (eSkillsPaymentData.environment == EskillsPaymentData.MatchEnvironment.SANDBOX) {
+      setupSandboxTicketButtons(eSkillsPaymentData)
+    } else {
+      updateHeaderInfo(eSkillsPaymentData)
+      setupPurchaseTicketButtons(eSkillsPaymentData)
+    }
+    setupAppNameAndIcon(eSkillsPaymentData.packageName,false)}
 
   private fun setupOnboardingTicketButtons(eSkillsPaymentData: EskillsPaymentData) {
 
@@ -178,35 +192,33 @@ class SkillsFragment : Fragment(), PaymentView {
             binding.onboardingLayout.referralDisplay.referralCode.setTextColor(
               Color.RED)
             binding.onboardingLayout.referralDisplay.errorMessage.visibility = View.VISIBLE
-            binding.onboardingLayout.referralDisplay.errorMessage.text = "Feature unavailable"
+            binding.onboardingLayout.referralDisplay.errorMessage.text = getString(R.string.refer_a_friend_error_unavailable_body)
             binding.onboardingLayout.dialogBuyButtonsPaymentMethods.buyButton.isEnabled = true
           }
           is FailedReferral.NotEligibleError -> {
             binding.onboardingLayout.referralDisplay.referralCode.setTextColor(
               Color.RED)
             binding.onboardingLayout.referralDisplay.errorMessage.visibility = View.VISIBLE
-            binding.onboardingLayout.referralDisplay.errorMessage.text = "User not eligible"
+            binding.onboardingLayout.referralDisplay.errorMessage.text = getString(R.string.refer_a_friend_error_user_not_eligible_body)
             binding.onboardingLayout.dialogBuyButtonsPaymentMethods.buyButton.isEnabled = true
           }
           is FailedReferral.NotFoundError -> {
             binding.onboardingLayout.referralDisplay.referralCode.setTextColor(
               Color.RED)
             binding.onboardingLayout.referralDisplay.errorMessage.visibility = View.VISIBLE
-            binding.onboardingLayout.referralDisplay.errorMessage.text = "Invalid referral"
+            binding.onboardingLayout.referralDisplay.errorMessage.text = getString(R.string.refer_a_friend_error_invalid_code_body)
             binding.onboardingLayout.dialogBuyButtonsPaymentMethods.buyButton.isEnabled = true
           }
           is SuccessfulReferral -> {
             binding.onboardingLayout.root.visibility = View.GONE
-            createAndPayTicket(eSkillsPaymentData)
-            setOnboardingComplete()
+            createAndPayTicket(eSkillsPaymentData,true)
           }
 
         }
       }
       else{
         binding.onboardingLayout.root.visibility = View.GONE
-        createAndPayTicket(eSkillsPaymentData)
-        setOnboardingComplete()
+        createAndPayTicket(eSkillsPaymentData,true)
       }
 
     }
@@ -351,7 +363,7 @@ class SkillsFragment : Fragment(), PaymentView {
     )
   }
 
-  private fun createAndPayTicket(eskillsPaymentData: EskillsPaymentData) {
+  private fun createAndPayTicket(eskillsPaymentData: EskillsPaymentData, onboarding: Boolean = false) {
     getReferralAndActivateLayout()
     disposable.add(
       handleWalletCreationIfNeeded()
@@ -361,7 +373,7 @@ class SkillsFragment : Fragment(), PaymentView {
             .observeOn(AndroidSchedulers.mainThread())
             .doOnSubscribe { showRoomLoading(false) }
             .flatMapCompletable { handleTicketCreationResult(eskillsPaymentData, it) }
-        }
+        }.doOnComplete{if(onboarding){setOnboardingComplete()} }
         .subscribe()
     )
   }
@@ -515,6 +527,12 @@ class SkillsFragment : Fragment(), PaymentView {
           .setOnClickListener {
             binding.loadingTicketLayout.referralShareDisplay.tooltip.root.visibility = View.VISIBLE
             binding.loadingTicketLayout.referralShareDisplay.actionButtonTooltipReferral.setColorFilter(Color.WHITE, PorterDuff.Mode.DST_IN)
+            // Set the layout params of the included layout to overlap the layout above it
+            // Set the layout params of the included layout to overlap the layout above it
+            val params = binding.loadingTicketLayout.referralShareDisplay.root.layoutParams as LinearLayout.LayoutParams
+            params.topMargin = -20 // set the negative margin to overlap the layout above
+
+            binding.loadingTicketLayout.referralShareDisplay.root.layoutParams = params
           }
         binding.loadingTicketLayout.root
           .setOnClickListener {
@@ -668,14 +686,14 @@ class SkillsFragment : Fragment(), PaymentView {
   }
 
   private fun checkOnboarding(): Boolean {
-    val firstRun = "eskills_onboarding_4"
+    val firstRun = "eskills_onboarding_6"
     val sharedPreferences = requireContext().getSharedPreferences(firstRun, 0)
     return sharedPreferences.getBoolean(firstRun, true)
   }
 
 
   private fun setOnboardingComplete() {
-    val firstRun = "eskills_onboarding_4"
+    val firstRun = "eskills_onboarding_6"
     val sharedPreferences = requireContext().getSharedPreferences(firstRun, 0)
     sharedPreferences.edit().putBoolean(firstRun, false).apply()
   }
