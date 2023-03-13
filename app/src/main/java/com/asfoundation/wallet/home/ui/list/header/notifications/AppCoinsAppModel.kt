@@ -16,7 +16,7 @@ import com.asfoundation.wallet.GlideApp
 import com.asfoundation.wallet.ui.appcoins.applications.AppcoinsApplication
 import com.asfoundation.wallet.ui.common.BaseViewHolder
 import com.asfoundation.wallet.ui.widget.holder.ApplicationClickAction
-import com.appcoins.wallet.widgets.CardHeaderTransformation
+import com.appcoins.wallet.ui.widgets.CardHeaderTransformation
 import com.bumptech.glide.load.MultiTransformation
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.CircleCrop

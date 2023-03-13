@@ -1,4 +1,4 @@
-package com.appcoins.wallet.widgets;
+package com.appcoins.wallet.ui.widgets;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapShader;

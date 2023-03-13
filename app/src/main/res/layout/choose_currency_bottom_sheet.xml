@@ -58,7 +58,7 @@
       tools:text="Euro"
       />
 
-  <com.appcoins.wallet.widgets.SystemView
+  <com.appcoins.wallet.ui.widgets.SystemView
       android:id="@+id/choose_currency_system_view"
       android:layout_width="match_parent"
       android:layout_height="match_parent"
