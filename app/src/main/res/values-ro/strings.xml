@@ -29,9 +29,9 @@
   <string name="got_it_button">Am înțeles</string>
   <string name="change_button">Modifică</string>
   <string name="vip">VIP</string>
-  <string name="faq">FAQs</string>
-  <string name="about_us_title">About Us</string>
-  <string name="preferences_title">Preferences</string>
+  <string name="faq">Întrebări frecvente</string>
+  <string name="about_us_title">Despre noi</string>
+  <string name="preferences_title">Preferințe</string>
   <string name="low_storage_error">Spațiu de stocare insuficient</string>
   <string name="no_camera_permission_title">Permisiune cameră foto</string>
   <string name="no_camera_permission">AppCoins BDS Wallet are nevoie de permisiune pentru a-ți accesa camera ca să scaneze coduri QR.</string>
@@ -44,7 +44,7 @@
   <!-- TODO: Remove or change this placeholder text -->
   <string name="title_community">Comunitate</string>
   <string name="title_opensource">Dezvoltare Open Source</string>
-  <string name="title_source_code">Source Code</string>
+  <string name="title_source_code">Cod sursă</string>
   <string name="title_report_bug">Raportează o eroare</string>
   <string name="title_support">Asistență</string>
   <string name="title_permissions">Permisiuni</string>
@@ -80,7 +80,7 @@
   <string name="unknown_error">A apărut o eroare.</string>
   <string name="action_backup_wallet">Copie de rezervă portofel</string>
   <string name="no_tokens">Nu ai adăugat niciun token personalizat încă.</string>
-  <string name="title_email">Email Us</string>
+  <string name="title_email">Trimite-ne un e-mail</string>
   <string name="action_donate">Donează</string>
   <!-- Titles -->
   <string name="title_my_address">Primește</string>
@@ -140,15 +140,15 @@
   <string name="intro_already_have_wallet_button">Am deja un portofel</string>
   <string name="intro_get_started_button">Lansează portofel</string>
   <!-- Intro from game -->
-  <string name="launching_wallet_body">Launching wallet&#8230;</string>
-  <string name="select_method_title">Choose a payment method</string>
-  <string name="bonus_body">Get %s bonus with this purchase.</string>
-  <string name="agree_by_choosing_a_payment_method_body">By choosing a payment method, you agree to the %1$s and %2$s.</string>
-  <string name="pay_with_card_title">Pay with credit/debit card</string>
-  <string name="more_payment_methods_button">More payment methods</string>
-  <string name="bonus_received_body">You received a %s bonus in your wallet.</string>
-  <string name="back_to_the_game_button">Back to the game</string>
-  <string name="other_payment_methos_title">Other payment methods:</string>
+  <string name="launching_wallet_body">Lansare portofel&#8230;</string>
+  <string name="select_method_title">Alege o metodă de plată</string>
+  <string name="bonus_body">Primești un bonus de %s pentru această achiziție.</string>
+  <string name="agree_by_choosing_a_payment_method_body">Alegând o metodă de plată, ești de acord cu %1$s și %2$s.</string>
+  <string name="pay_with_card_title">Plătește cu card de credit/debit</string>
+  <string name="more_payment_methods_button">Mai multe metode de plată</string>
+  <string name="bonus_received_body">Ai primit un bonus de %s în portofelul tău.</string>
+  <string name="back_to_the_game_button">Înapoi la joc</string>
+  <string name="other_payment_methos_title">Alte metode de plată:</string>
   <!-- Menus -->
   <!-- Labels -->
   <string name="label_from">Din</string>
@@ -377,7 +377,7 @@
   <string name="provide_wallet_completed_header">Portofel asociat cu Aptoide!</string>
   <string name="provide_wallet_create_body">Ai nevoie de o adresă de portofel! Urmează acești pași să creezi una în Portofelul AppCoins.</string>
   <string name="provide_wallet_create_wallet_button">Creează</string>
-  <string name="provide_wallet_creating_wallet_header">Preparing your wallet&#8230;</string>
+  <string name="provide_wallet_creating_wallet_header">Portofelul tău &#8230; este în curs de pregătire</string>
   <string name="provide_wallet_created_header">Adresă portofel creată!</string>
   <string name="provide_wallet_empty_state">Nu ai permis AppCoins Wallet să furnizeze adresa ta către nici o altă aplicație.</string>
   <string name="provide_wallet_status">Permite acces la adresa portofelului</string>
@@ -539,12 +539,12 @@
   <string name="purchase_wallet_blocked_title">Balanța ta AppCoins Credits este blocată</string>
   <string name="purchase_wallet_blocked_body">Din cauza unui istoric neobișnuit al tranzacțiilor, balanța ta AppCoins Credits a fost blocată. Vei putea să faci plăți și tranzacții în continuare cu alte metode, cu excepția AppCoins Credits.\n\nDacă crezi că acest lucru este o greșeală, contactează-ne la:</string>
   <string name="purchase_card_error_title">Ups, ceva nu a mers cum trebuie.</string>
-  <string name="purchase_card_error_general_1">There was a problem with your card. Please try with a different card or payment method.</string>
-  <string name="purchase_card_error_general_2">The transaction has been rejected by your bank. Please try with a different card or payment method.</string>
-  <string name="purchase_card_error_no_funds">It seems you don\'t have enough funds or there\'s a limit on your card. Please try with a different card or payment method.</string>
-  <string name="purchase_card_error_expired">It seems your card is expired. Please try again with a different payment method.</string>
-  <string name="purchase_card_error_invalid_details">Invalid card number. Please check it and try again.</string>
-  <string name="purchase_card_error_not_supported">Your card is not supported yet. Please try again with a different card or payment method.</string>
+  <string name="purchase_card_error_general_1">Am întâmpinat o problemă cu cardul tău. Te rugăm să încerci cu un alt card sau o altă metodă de plată.</string>
+  <string name="purchase_card_error_general_2">Tranzacția a fost refuzată de banca ta. Încearcă din nou cu un alt card sau o altă metodă de plată.</string>
+  <string name="purchase_card_error_no_funds">Se pare că nu ai fonduri suficiente sau există o limită pentru cardul tău. Încearcă din nou cu un alt card sau o altă metodă de plată.</string>
+  <string name="purchase_card_error_expired">Se pare că ai folosit un card care a expirat. Încearcă din nou cu o metodă de plată diferită.</string>
+  <string name="purchase_card_error_invalid_details">Număr de card nevalid. Te rugăm să îl verifici și să încerci din nou.</string>
+  <string name="purchase_card_error_not_supported">Cardul tău nu este încă acceptat. Încearcă din nou cu un alt card sau o altă metodă de plată.</string>
   <string name="purchase_card_error_security">Ești sigur că informațiile de securitate sunt corecte? Încearcă din nou.</string>
   <string name="purchase_card_error_wrong_CVV">Codul tău CVV/CVC pare a fi greșit. Încearcă din nou.</string>
   <string name="purchase_card_error_re_insert">Se pare că a trecut mult timp de când ai înregistrat acest card! Introdu din nou detaliile cardului sau folosește un alt card.</string>
@@ -568,7 +568,7 @@
   <string name="purchase_error_card_security_validation">A avut loc o eroare la nivelul 2 al validării acestei tranzacții. Încearcă din nou.</string>
   <string name="purchase_error_transaction_timeout">Se pare că ai avut nevoie de prea mult timp pentru finalizarea tranzacției. Încearcă din nou.</string>
   <string name="purchase_error_card_already_in_progress">Cererea ta a fost deja procesată sau este în curs de procesare. Te rugăm să aștepți.</string>
-  <string name="purchase_error_payment_rejected">The transaction has been rejected. Please try with a different card or payment method.</string>
+  <string name="purchase_error_payment_rejected">Tranzacția a fost refuzată. Încearcă din nou cu un alt card sau o altă metodă de plată.</string>
   <string name="purchase_error_verify_wallet">Validează-ți metoda de plată pentru a finaliza această achiziție.</string>
   <string name="purchase_error_verify_card">Validează-ți cardul pentru a finaliza această achiziție.</string>
   <string name="purachse_error_verify_card_button">VALIDEAZĂ CARD</string>
@@ -577,9 +577,9 @@
   <string name="purchase_app_needed_body">Ai nevoie de următoarea aplicație pentru a finaliza achiziția.</string>
   <string name="purchase_apps_needed_body">Ai nevoie de una dintre următoarele aplicații pentru a finaliza achiziția.</string>
   <string name="purchase_error_connection_issue">Se pare că există o problemă cu conexiunea ta la internet! Verifică conexiunea și încearcă din nou.</string>
-  <string name="purchase_error_wrong_pin_body">There was a problem with your pin. Please try again.</string>
-  <string name="purchase_error_3d_body">There was a problem with your 3D authentication. Please try again.</string>
-  <string name="purchase_error_generic_contact_us_body">Oops, something went wrong. Please try again or contact us.</string>
+  <string name="purchase_error_wrong_pin_body">A apărut o problemă cu pin-ul tău. Încearcă din nou.</string>
+  <string name="purchase_error_3d_body">A apărut o problemă cu autentificarea ta 3D. Încearcă din nou.</string>
+  <string name="purchase_error_generic_contact_us_body">Ups, ceva nu a mers cum trebuie. Încearcă din nou sau contactează-ne.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">Adresă de facturare</string>
   <string name="purchase_address_address_field">Adresă</string>
@@ -756,7 +756,7 @@
   <string name="pioneer_gamification_body">Un Pionier este unul dintre primii utilizatorii, cu acces la bonusuri mai mari.</string>
   <!--Check for Updates-->
   <string name="check_updates_settings_current_title">Versiune curentă</string>
-  <string name="check_updates_settings_title">Check for Updates</string>
+  <string name="check_updates_settings_title">Caută actualizări</string>
   <string name="check_updates_settings_subtitle">Versiune curentă %s</string>
   <string name="check_updates_checking_body">Se caută o versiune nouă</string>
   <string name="check_updates_no_updates_body">Ești la zi!</string>
@@ -765,7 +765,7 @@
   <string name="check_updates_settings_available_title">Versiune nouă disponibilă</string>
   <string name="check_updates_settings_available_subtitle_button">Apasă ca să actualizezi</string>
   <!--Subscriptions-->
-  <string name="subscriptions_settings_title">Manage Subscriptions</string>
+  <string name="subscriptions_settings_title">Gestionează abonamente</string>
   <string name="subscriptions_title">Abonamente</string>
   <string name="subscriptions_subscribe_button">Abonează-te</string>
   <string name="subscriptions_active_title">Activ</string>
@@ -936,7 +936,7 @@
   <string name="perks_empty_state_first_purchase_body">Fă prima ta achiziție într-o aplicație compatibilă cu AppCoins pentru a debloca promoțiile pe care ți le-am pregătit!</string>
   <string name="perks_empty_body">Fără promoții disponibile momentan.</string>
   <!--Fingerprint Authentication-->
-  <string name="fingerprint_settings">Fingerprint Lock</string>
+  <string name="fingerprint_settings">Blocare cu amprentă</string>
   <string name="fingerprint_failed_title">Autentificare eșuată!</string>
   <string name="fingerprint_failed_body">Încearcă din nou în %s secunde.</string>
   <string name="fingerprint_authentication_required_title">Autentificare necesară!</string>
