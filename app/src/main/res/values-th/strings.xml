@@ -29,9 +29,9 @@
   <string name="got_it_button">ได้รับ</string>
   <string name="change_button">เปลี่ยน</string>
   <string name="vip">VIP</string>
-  <string name="faq">FAQs</string>
-  <string name="about_us_title">About Us</string>
-  <string name="preferences_title">Preferences</string>
+  <string name="faq">คำถามที่พบบ่อย</string>
+  <string name="about_us_title">เกี่ยวกับเรา</string>
+  <string name="preferences_title">การตั้งค่า</string>
   <string name="low_storage_error">พื้นที่จัดเก็บไม่เพียงพอ</string>
   <string name="no_camera_permission_title">สิทธิ์กล้อง</string>
   <string name="no_camera_permission">AppCoins BDS Wallet ต้องการสิทธิ์การเข้าถึงกล้องของคุณเพื่อสแกนรหัส QR</string>
@@ -44,7 +44,7 @@
   <!-- TODO: Remove or change this placeholder text -->
   <string name="title_community">คอมมิวนิตี้</string>
   <string name="title_opensource">พัฒนาแบบเปิด</string>
-  <string name="title_source_code">Source Code</string>
+  <string name="title_source_code">รหัสที่มา</string>
   <string name="title_report_bug">รายงานจุดบกพร่อง</string>
   <string name="title_support">การสนับสนุน</string>
   <string name="title_permissions">สิทธิ์</string>
@@ -80,7 +80,7 @@
   <string name="unknown_error">มีข้อผิดพลาดเกิดขึ้น</string>
   <string name="action_backup_wallet">กระเป๋าสตางค์ที่สำรอง</string>
   <string name="no_tokens">คุณยังไม่ได้เพิ่มการโทเคนที่กำหนดเองได้</string>
-  <string name="title_email">Email Us</string>
+  <string name="title_email">ส่งอีเมลถึงเรา</string>
   <string name="action_donate">บริจาค</string>
   <!-- Titles -->
   <string name="title_my_address">ได้รับ</string>
@@ -140,15 +140,15 @@
   <string name="intro_already_have_wallet_button">ฉันมีวอลเล็ตแล้ว</string>
   <string name="intro_get_started_button">เปิดกระเป๋าสตางค์</string>
   <!-- Intro from game -->
-  <string name="launching_wallet_body">Launching wallet&#8230;</string>
-  <string name="select_method_title">Choose a payment method</string>
-  <string name="bonus_body">Get %s bonus with this purchase.</string>
-  <string name="agree_by_choosing_a_payment_method_body">By choosing a payment method, you agree to the %1$s and %2$s.</string>
-  <string name="pay_with_card_title">Pay with credit/debit card</string>
-  <string name="more_payment_methods_button">More payment methods</string>
-  <string name="bonus_received_body">You received a %s bonus in your wallet.</string>
-  <string name="back_to_the_game_button">Back to the game</string>
-  <string name="other_payment_methos_title">Other payment methods:</string>
+  <string name="launching_wallet_body">เปิดกระเป๋าเงิน&#8230;</string>
+  <string name="select_method_title">เลือกวิธีการชำระเงิน</string>
+  <string name="bonus_body">รับโบนัส%sด้วยการซื้อนี้</string>
+  <string name="agree_by_choosing_a_payment_method_body">การเลือกวิธีการชำระเงิน คุณยินยอม%1$sและ%2$s</string>
+  <string name="pay_with_card_title">ชำระเงินด้วยบัตรเครดิต/เดบิต</string>
+  <string name="more_payment_methods_button">วิธีการชำระเงินเพิ่มเติม</string>
+  <string name="bonus_received_body">คุณได้รับโบนัส%sในวอลเล็ตของคุณ</string>
+  <string name="back_to_the_game_button">กลับสู่เกมส์</string>
+  <string name="other_payment_methos_title">วิธีการชำระเงินเพิ่มเติม:</string>
   <!-- Menus -->
   <!-- Labels -->
   <string name="label_from">จาก</string>
@@ -539,12 +539,12 @@
   <string name="purchase_wallet_blocked_title">เครดิต AppCoinของคุณถูกบล็อก</string>
   <string name="purchase_wallet_blocked_body">เนื่องจากประวัติการทำธุรกรรมที่ผิดปกติ ยอดคงเหลือ AppCoins Credits ของคุณจึงถูกปิดกั้น คุณจะยังสามารถชำระเงินและทำธุรกรรมด้วยวิธีอื่น ๆ ยกเว้น AppCoins Credits \n\n หากคุณเชื่อว่าสิ่งนี่เป็นข้อผิดพลาดโปรดติดต่อเราที่:</string>
   <string name="purchase_card_error_title">อุ๊ปส์ มีบางอย่างผิดพลาด</string>
-  <string name="purchase_card_error_general_1">There was a problem with your card. Please try with a different card or payment method.</string>
-  <string name="purchase_card_error_general_2">The transaction has been rejected by your bank. Please try with a different card or payment method.</string>
-  <string name="purchase_card_error_no_funds">It seems you don\'t have enough funds or there\'s a limit on your card. Please try with a different card or payment method.</string>
-  <string name="purchase_card_error_expired">It seems your card is expired. Please try again with a different payment method.</string>
-  <string name="purchase_card_error_invalid_details">Invalid card number. Please check it and try again.</string>
-  <string name="purchase_card_error_not_supported">Your card is not supported yet. Please try again with a different card or payment method.</string>
+  <string name="purchase_card_error_general_1">มีปัญหากับบัตรของคุณ โปรดลองใช้บัตรหรือวิธีการชำระเงินอื่น</string>
+  <string name="purchase_card_error_general_2">การทำธุรกรรมถูกปฏิเสธโดยธนาคารของคุณ โปรดลองใช้บัตรหรือวิธีการชำระเงินอื่น</string>
+  <string name="purchase_card_error_no_funds">ดูเหมือนว่าคุณมีเงินไม่เพียงพอหรือมีวงเงินในบัตรของคุณ โปรดลองใช้บัตรหรือวิธีการชำระเงินอื่น</string>
+  <string name="purchase_card_error_expired">ดูเหมือนว่าบัตรของคุณจะหมดอายุ โปรดลองอีกครั้งโดยใช้วิธีการชำระเงินอื่น</string>
+  <string name="purchase_card_error_invalid_details">เลขบัตรไม่ถูกต้อง. โปรดตรวจสอบและลองอีกครั้ง</string>
+  <string name="purchase_card_error_not_supported">บัตรของคุณยังไม่ได้รับการรองรับ โปรดลองอีกครั้งโดยใช้บัตรหรือวิธีการชำระเงินอื่น</string>
   <string name="purchase_card_error_security">คุณมั่นใจว่าข้อมูลความปลอดภัยถูกต้องใช่ไหม? โปรดลองใหม่อีกครั้ง</string>
   <string name="purchase_card_error_wrong_CVV">รหัส CVV / CVC ของคุณดูเหมือนจะผิด กรุณาลองอีกครั้ง</string>
   <string name="purchase_card_error_re_insert">ดูเหมือนว่าคุณลงทะเบียนบัตรนี้มานานแล้ว! ใส่รายละเอียดบัตรอีกครั้งหรือใช้ข้อมูลอื่น</string>
@@ -568,7 +568,7 @@
   <string name="purchase_error_card_security_validation">มีข้อผิดพลาดในการตรวจสอบระดับ 2 ของธุรกรรมนี้ กรุณาลองอีกครั้ง</string>
   <string name="purchase_error_transaction_timeout">ดูเหมือนว่าคุณใช้เวลานานเกินไปในการทำธุรกรรม กรุณาลองอีกครั้ง</string>
   <string name="purchase_error_card_already_in_progress">คำขอของคุณได้รับการประมวลผลแล้วหรืออยู่ระหว่างดำเนินการ โปรดรอ</string>
-  <string name="purchase_error_payment_rejected">The transaction has been rejected. Please try with a different card or payment method.</string>
+  <string name="purchase_error_payment_rejected">ธุรกรรมถูกปฏิเสธ โปรดลองใช้บัตรหรือวิธีการชำระเงินอื่น</string>
   <string name="purchase_error_verify_wallet">ตรวจสอบวิธีการชำระเงินของคุณเพื่อดำเนินการสั่งซื้อนี้ให้เสร็จสิ้น</string>
   <string name="purchase_error_verify_card">ตรวจสอบบัตรของคุณเพื่อทำการซื้อนี้ให้เสร็จสมบูรณ์</string>
   <string name="purachse_error_verify_card_button">ตรวจสอบบัตร</string>
@@ -577,7 +577,7 @@
   <string name="purchase_app_needed_body">คุณจำเป็นต้องซื้อแอปให้สำเร็จ</string>
   <string name="purchase_apps_needed_body">คุณจำเป็นต้องซื้อแอปต่อไปนี้ให้สำเร็จ</string>
   <string name="purchase_error_connection_issue">ดูเหมือนว่ามีปัญหากับการเชื่อมต่ออินเทอร์เน็ตของคุณ! โปรดตรวจสอบและลองอีกครั้ง</string>
-  <string name="purchase_error_wrong_pin_body">There was a problem with your pin. Please try again.</string>
+  <string name="purchase_error_wrong_pin_body">รหัสของคุณมีปัญหา โปรดลองใหม่อีกครั้งหรือติดต่อเรา</string>
   <string name="purchase_error_3d_body">There was a problem with your 3D authentication. Please try again.</string>
   <string name="purchase_error_generic_contact_us_body">Oops, something went wrong. Please try again or contact us.</string>
   <!--Billing address in purchase flow-->
