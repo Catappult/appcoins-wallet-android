@@ -547,7 +547,7 @@
   <string name="purchase_card_error_not_supported">Kartın henüz desteklenmiyor. Lütfen farklı bir kart veya ödeme yöntemi ile dene.</string>
   <string name="purchase_card_error_security">Güvenlik bilgilerinizin doğru olduğundan emin misiniz? Lütfen tekrar deneyin.</string>
   <string name="purchase_card_error_wrong_CVV">CVV/CVC kodunuz yanlış gibi görünüyor. Lütfen tekrar deneyin.</string>
-  <string name="purchase_card_error_re_insert">It seems you registered this card long time ago! Insert the card details again or use a different one.</string>
+  <string name="purchase_card_error_re_insert">Görünüşe göre bu kartı uzun zaman önce sisteme kaydetmişsin! Kart bilgilerini tekrar gir veya farklı bir kart kullan.</string>
   <string name="purchase_wallet_error_contact_us">Hay aksi, cüzdanınızla ilgili bir sorun var. Lütfen bizimle iletişime geçin.</string>
   <string name="purchase_carrier_error">Telefon numaranız bu ödeme yöntemine uygun değil gibi görünüyor.</string>
   <string name="purchase_carrier_error_minimum">Operatörünüz %s altındaki ödemeleri desteklemiyor.</string>
@@ -653,7 +653,7 @@
   <string name="update_wallet_soft_title">Arkada kalmayın!</string>
   <string name="update_wallet_soft_body">AppCoins Wallet\'ı güncel tutarak en iyi deneyimi yaşayabilirsiniz.</string>
   <string name="update_button">Güncelle</string>
-  <string name="update_backup_title">Don\'t lose your funds!</string>
+  <string name="update_backup_title">Paranı kaybetme!</string>
   <string name="update_backup_body">Güncellemeden önce cüzdanını yedekle.</string>
   <string name="update_backup_date">Son yedekleme: %s.</string>
   <string name="update_backup_never">Henüz yedeklenmedi.</string>
@@ -696,12 +696,12 @@
   <string name="backup_additional_security_disclaimer_body">Şifre kurtarma yapılamıyor.</string>
   <string name="backup_additional_security_password_not_march">Şifreler eşleşmiyor.</string>
   <string name="import_wallet_recovering_body">Cüzdan geri yükleniyor...</string>
-  <string name="backup_skip_title">I understand that I may loose my funds if I don\'t backup my wallet key.</string>
+  <string name="backup_skip_title">Cüzdan anahtarımı yedeklemezsem paramı kaybedebileceğimi biliyorum.</string>
   <string name="backup_wallet_button">Yedek cüzdan</string>
   <string name="backup_success_save_on_email">Yedekleme dosyan e-postanda.</string>
   <string name="backup_success_save_on_device">Yedekleme dosyan cihazında saklanıyor.</string>
   <string name="backup_popup_title">Cüzdanını şimdi yedekle!</string>
-  <string name="backup_popup_purchase_body">Keep your funds safe at all times.</string>
+  <string name="backup_popup_purchase_body">Paranı her zaman güvende tut.</string>
   <string name="backup_popup_gamification_body">Bonus seviyeni her zaman güvende tut.</string>
   <!--Wallets Management-->
   <string name="wallets_title">Cüzdanlar</string>
@@ -1023,12 +1023,12 @@
   <string name="e_skills_room_create_title">Bir oda oluşturun veya bir odaya katılın</string>
   <string name="e_skills_room_create_body">Yeni bir oda yaratın ve rakiplerinizle paylaşın ya da mevcut bir odaya katılın.</string>
   <string name="e_skills_room_field">Oda adınızı buraya girin...</string>
-  <string name="e_skills_withdraw_confirmation_title">A $%s withdrawal has been requested!</string>
+  <string name="e_skills_withdraw_confirmation_title">%s$ para çekme talebinde bulunuldu!</string>
   <string name="e_skills_withdraw_confirmation_body">Bunun işlenmesi 2 ila 3 hafta sürebilir.</string>
-  <string name="e_skills_withdraw_minimum_body">The minimum amount to withdraw is $%s.</string>
+  <string name="e_skills_withdraw_minimum_body">Minimum para çekme miktarı %s$.</string>
   <string name="e_skills_withdraw_started_title">%s$ tutarında para çekme talebi gönderildi.</string>
   <string name="e_skills_withdraw_started_body">Bu talebin işlenmesi 2-3 hafta sürebilir.</string>
-  <string name="e_skills_withdraw_error_not_funds">Make sure you have enough funds to be withdrawn.</string>
+  <string name="e_skills_withdraw_error_not_funds">Çekilecek yeterli paran olduğundan emin ol.</string>
   <!--Promo Code-->
   <string name="promo_code_settings_title">Promosyon Kodu</string>
   <string name="promo_code_view_title">Promosyon Kodu</string>
@@ -1037,7 +1037,7 @@
   <string name="promo_code_view_error">Geçersiz kod. Başka bir kod deneyin!</string>
   <string name="promo_code_activated">Promosyon kodu aktive edildi!</string>
   <string name="promo_code_delete_button">Sil</string>
-  <string name="promo_code_replace_button">Replace</string>
+  <string name="promo_code_replace_button">Değiştir</string>
   <string name="promo_code_active_tag">Aktif</string>
   <string name="promo_code_expired_tag">Süresi doldu</string>
   <string name="promo_code_success_title">Bitti!</string>
@@ -1071,7 +1071,7 @@
   <string name="nfts_transact_done_mensage">%s başarıyla gönderildi!</string>
   <string name="nfts_generic_error">Hay aksi! Bir şeyler ters gitti!</string>
   <string name="nfts_transact_gas_title">Acelen mi var?</string>
-  <string name="nfts_transact_gas_description">Choose how much you want to pay in fees. The higher the fee, the faster the transaction.</string>
+  <string name="nfts_transact_gas_description">Ücret olarak ne kadar yatırmak istediğini seç. Ücret ne kadar yüksek olursa, işlem o kadar hızlı olur.</string>
   <string name="nfts_transact_gas_price">Petrol Fiyatı</string>
   <string name="nfts_transact_gas_limit">Petrol Limiti</string>
   <string name="nfts_transact_gas_fee_message">İşlem Ücreti</string>
@@ -1114,7 +1114,7 @@
   <string name="vip_program_almost_notification_title">Neredeyse bitti!</string>
   <string name="vip_program_almost_notification_body">VIP kullanıcı olmak üzeresin. Daha fazla bilgi için tıkla!</string>
   <string name="vip_program_almost_onboarding_title">VIP kullanıcı olmak üzeresin!</string>
-  <string name="vip_program_almost_onboarding_body">Continue playing and making purchases to access exclusive promotions and deals. Ready to become the ultimate player?</string>
+  <string name="vip_program_almost_onboarding_body">Özel promosyonlara ve fırsatlara erişmek için oynamaya ve alışveriş yapmaya devam et. En büyük oyuncu olmaya hazır mısın?</string>
   <string name="vip_program_onboarding_header_1">Tebrikler!</string>
   <string name="vip_program_onboarding_header_2">Artık VIP kullanıcısın</string>
   <string name="vip_program_onboarding_body">VIP Programımız en değerli üyelerimiz için özel olarak hazırlanmıştır... tıpkı senin gibi üyeler için! Artık daha fazla ödül kazanmak için en promosyonlara ve tavsiye programlarına erişim sağlayabilirsin.</string>
