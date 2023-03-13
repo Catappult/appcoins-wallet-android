@@ -1026,7 +1026,7 @@
   <string name="e_skills_withdraw_confirmation_title">A $%s withdrawal has been requested!</string>
   <string name="e_skills_withdraw_confirmation_body">Bunun işlenmesi 2 ila 3 hafta sürebilir.</string>
   <string name="e_skills_withdraw_minimum_body">The minimum amount to withdraw is $%s.</string>
-  <string name="e_skills_withdraw_started_title">A withdrawal request of $%s has been started.</string>
+  <string name="e_skills_withdraw_started_title">%s$ tutarında para çekme talebi gönderildi.</string>
   <string name="e_skills_withdraw_started_body">Bu talebin işlenmesi 2-3 hafta sürebilir.</string>
   <string name="e_skills_withdraw_error_not_funds">Make sure you have enough funds to be withdrawn.</string>
   <!--Promo Code-->
@@ -1110,16 +1110,16 @@
   <string name="onboarding_1st_explore_wallet_alternative_button">AppCoins Cüzdanı Keşfet</string>
   <!-- VIP Program -->
   <string name="vip_program_reached_notification_title">VIP Programına Hoş Geldin</string>
-  <string name="vip_program_reached_notification_body">You\'re now a VIP user with access to special promotions and deals. Tap for more details!</string>
+  <string name="vip_program_reached_notification_body">Artık özel promosyonlara ve fırsatlara erişimi olan bir VIP kullanıcısın. Daha fazla ayrıntı için tıkla!</string>
   <string name="vip_program_almost_notification_title">Neredeyse bitti!</string>
   <string name="vip_program_almost_notification_body">VIP kullanıcı olmak üzeresin. Daha fazla bilgi için tıkla!</string>
   <string name="vip_program_almost_onboarding_title">VIP kullanıcı olmak üzeresin!</string>
   <string name="vip_program_almost_onboarding_body">Continue playing and making purchases to access exclusive promotions and deals. Ready to become the ultimate player?</string>
   <string name="vip_program_onboarding_header_1">Tebrikler!</string>
   <string name="vip_program_onboarding_header_2">Artık VIP kullanıcısın</string>
-  <string name="vip_program_onboarding_body">Our VIP Program is tailored for our most valued members... like yourself! You have now access to the best promotions and referral programs to earn more rewards.</string>
+  <string name="vip_program_onboarding_body">VIP Programımız en değerli üyelerimiz için özel olarak hazırlanmıştır... tıpkı senin gibi üyeler için! Artık daha fazla ödül kazanmak için en promosyonlara ve tavsiye programlarına erişim sağlayabilirsin.</string>
   <string name="vip_program_promotions_tab_1">Artık VIP kullanıcısın.</string>
-  <string name="vip_program_promotions_tab_2">Check the promotions we have have just for you!</string>
+  <string name="vip_program_promotions_tab_2">Senin için hazırladığımız promosyonlara göz at!</string>
   <string name="vip_program_exclusivity_tag">Yalnızca VIP kullanıcılar için</string>
   <string name="vip_program_referral_button_title">VIP Tavsiye Programı</string>
   <string name="vip_program_referral_button_body">Sen ve arkadaşların için %s%% bonus.</string>
