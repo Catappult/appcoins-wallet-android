@@ -2,7 +2,6 @@ package cm.aptoide.skills
 
 import android.content.Intent
 import android.graphics.Color
-import android.graphics.PorterDuff
 import android.os.Build
 import android.os.Bundle
 import android.text.SpannableStringBuilder
@@ -12,6 +11,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import androidx.activity.OnBackPressedCallback
+import androidx.core.content.ContextCompat
 import androidx.core.text.bold
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -343,7 +343,6 @@ class SkillsFragment : Fragment(), PaymentView {
   }
 
   private fun updateHeaderInfo(eSkillsPaymentData: EskillsPaymentData) {
-    val header = binding.payTicketLayout.payTicketHeader
     val details = binding.payTicketLayout.payTicketPaymentMethodsDetails
     disposable.addAll(
       viewModel.getLocalFiatAmount(eSkillsPaymentData.price!!, eSkillsPaymentData.currency!!)
@@ -369,7 +368,8 @@ class SkillsFragment : Fragment(), PaymentView {
   }
 
   private fun createAndPayTicket(eskillsPaymentData: EskillsPaymentData, onboarding: Boolean = false) {
-    getReferralAndActivateLayout()
+    if(eskillsPaymentData.environment == EskillsPaymentData.MatchEnvironment.LIVE)
+      getReferralAndActivateLayout()
     disposable.add(
       handleWalletCreationIfNeeded()
         .takeUntil { it != WALLET_CREATING_STATUS }
@@ -519,42 +519,58 @@ class SkillsFragment : Fragment(), PaymentView {
 
 
   private fun getReferralAndActivateLayout() {
+    binding.loadingTicketLayout.referralShareDisplay.baseConstraint.visibility = View.VISIBLE
     disposable.add(viewModel.getReferral()
       .observeOn(AndroidSchedulers.mainThread())
       .doOnSuccess { referralResponse ->
-        if (!referralResponse.available)
-          binding.loadingTicketLayout.referralShareDisplay.baseConstraint.visibility = View.GONE
-        binding.loadingTicketLayout.referralShareDisplay.actionButtonShareReferral
-          .setOnClickListener {
-            startActivity(viewModel.buildShareIntent(referralResponse.referralCode))
-          }
-        val tooltip_btn =         binding.loadingTicketLayout.referralShareDisplay.actionButtonTooltipReferral
-        tooltip_btn
-          .setOnClickListener {
-            binding.loadingTicketLayout.referralShareDisplay.tooltip.root.visibility = View.VISIBLE
-            binding.loadingTicketLayout.referralShareDisplay.actionButtonTooltipReferral.setColorFilter(Color.WHITE, PorterDuff.Mode.DST_IN)
-            // Set the layout params of the included layout to overlap the layout above it
-            // Set the layout params of the included layout to overlap the layout above it
-            val params = binding.loadingTicketLayout.referralShareDisplay.root.layoutParams as LinearLayout.LayoutParams
-            params.topMargin = -20 // set the negative margin to overlap the layout above
-
-            binding.loadingTicketLayout.referralShareDisplay.root.layoutParams = params
-          }
-        binding.loadingTicketLayout.root
-          .setOnClickListener {
-            if (binding.loadingTicketLayout.referralShareDisplay.tooltip.root.visibility == View.VISIBLE) {
-              binding.loadingTicketLayout.referralShareDisplay.tooltip.root.visibility = View.GONE
-              binding.loadingTicketLayout.referralShareDisplay.actionButtonTooltipReferral.colorFilter =
-                null
-            }
-          }
-        binding.loadingTicketLayout.referralShareDisplay.referralCode.text =
-          referralResponse.referralCode
-      }
-      .doOnError {
-        binding.loadingTicketLayout.referralShareDisplay.baseConstraint.visibility = View.GONE
+        setReferralLayout(referralResponse)
       }
       .subscribe())
+  }
+
+  private fun setReferralLayout(referralResponse: ReferralResponse) {
+    if (referralResponse.available) {
+      binding.loadingTicketLayout.referralShareDisplay.actionButtonShareReferral
+        .setOnClickListener {
+          startActivity(viewModel.buildShareIntent(referralResponse.referralCode))
+        }
+      binding.loadingTicketLayout.referralShareDisplay.tooltip.popupText.text =
+        String.format(getString(R.string.refer_a_friend_waiting_room_tooltip), '1')
+      val tooltipBtn =
+        binding.loadingTicketLayout.referralShareDisplay.actionButtonTooltipReferral
+      tooltipBtn
+        .setOnClickListener {
+          if (binding.loadingTicketLayout.referralShareDisplay.tooltip.root.visibility == View.VISIBLE) {
+            binding.loadingTicketLayout.referralShareDisplay.tooltip.root.visibility = View.INVISIBLE
+            tooltipBtn.setImageDrawable(
+              ContextCompat.getDrawable(
+                requireContext(),
+                R.drawable.tooltip_orange
+              )
+            )
+          } else {
+            binding.loadingTicketLayout.referralShareDisplay.tooltip.root.visibility =
+              View.VISIBLE
+            tooltipBtn.setImageDrawable(
+              ContextCompat.getDrawable(
+                requireContext(),
+                R.drawable.tooltip_white
+              )
+            )
+          }
+
+        }
+      binding.loadingTicketLayout.root
+        .setOnClickListener {
+          if (binding.loadingTicketLayout.referralShareDisplay.tooltip.root.visibility == View.VISIBLE) {
+            binding.loadingTicketLayout.referralShareDisplay.tooltip.root.visibility = View.INVISIBLE
+            binding.loadingTicketLayout.referralShareDisplay.actionButtonTooltipReferral.colorFilter =
+              null
+          }
+        }
+      binding.loadingTicketLayout.referralShareDisplay.referralCode.text =
+        referralResponse.referralCode
+    }
   }
 
   private fun postbackUserData(resultCode: Int, userData: UserData) {

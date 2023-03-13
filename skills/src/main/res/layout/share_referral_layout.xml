@@ -4,107 +4,80 @@
     android:id="@+id/base_constraint"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:visibility="visible"
     >
-
-  <androidx.constraintlayout.widget.Guideline
-      android:id="@+id/guideline_image"
-      android:layout_width="match_parent"
-      android:layout_height="0dp"
-      android:orientation="horizontal"
-      app:layout_constraintGuide_percent="0.66"
-      />
-
-  <androidx.constraintlayout.widget.Guideline
-      android:id="@+id/guideline_text_container"
-      android:layout_width="match_parent"
-      android:layout_height="0dp"
-      android:orientation="horizontal"
-      app:layout_constraintGuide_percent="0.55"
-      />
-
   <androidx.constraintlayout.widget.ConstraintLayout
-      android:id="@+id/container_popup"
+      android:id="@+id/container_referral"
       android:layout_width="match_parent"
-      android:layout_height="156dp"
+      android:layout_height="160dp"
       android:animateLayoutChanges="true"
       android:background="@drawable/background_referral"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toTopOf="parent"
       >
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/room_create_body"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="18dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="143dp"
-        android:animateLayoutChanges="true"
-        android:visibility="visible"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        >
-
-
-      <TextView
-          android:id="@+id/referral_title"
-          style="@style/TextAppearance.AppCompat.Title"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:text="Refer a friend!"
-          app:layout_constraintEnd_toEndOf="parent"
-          app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toTopOf="parent"
-          />
-
-      <TextView
-          android:id="@+id/referral_body"
-          style="@style/BlackTextStyle"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:text="Invite up to 5 friends with his code and earn rewards!"
-          app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toBottomOf="@id/referral_title"
-          />
-    </androidx.constraintlayout.widget.ConstraintLayout>
   </androidx.constraintlayout.widget.ConstraintLayout>
+  <TextView
+      android:id="@+id/referral_title"
+      style="@style/TextAppearance.AppCompat.Title"
+      android:textColor="@color/black"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:text="@string/refer_a_friend_waiting_room_title"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="@id/container_referral"
+      android:layout_marginStart="@dimen/big_margin"
+      android:layout_marginTop="@dimen/big_margin"
+      />
 
+  <TextView
+      android:id="@+id/referral_body"
+      style="@style/BlackTextStyle"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:text="@string/refer_a_friend_waiting_from_body"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintEnd_toStartOf="@id/friends_icon"
+      app:layout_constraintTop_toBottomOf="@id/referral_title"
+      android:layout_marginStart="@dimen/big_margin"
+      android:layout_marginTop="@dimen/big_margin"
+      />
   <ImageView
       android:id="@+id/friends_icon"
       android:layout_width="113dp"
       android:layout_height="116dp"
-      android:layout_marginEnd="15dp"
+      android:layout_marginEnd="@dimen/big_margin"
+      android:layout_marginBottom="37dp"
+      android:contentDescription="@null"
       android:src="@mipmap/ic_referral_image_foreground"
-      app:layout_constraintBottom_toTopOf="@id/guideline_image"
+      app:layout_constraintBottom_toBottomOf="@id/code_background"
       app:layout_constraintEnd_toEndOf="@id/code_background"
       />
-
-
-
   <androidx.constraintlayout.widget.ConstraintLayout
       android:id="@+id/code_background"
       android:layout_width="0dp"
-      android:layout_height="47dp"
+      android:layout_height="48dp"
+      android:elevation="@dimen/small_margin"
       android:layout_marginHorizontal="@dimen/big_margin"
-      android:layout_marginBottom="@dimen/small_margin"
+      android:layout_marginBottom="@dimen/big_margin"
       android:background="@drawable/rectangle_purple"
-      app:layout_constraintBottom_toBottomOf="@id/container_popup"
-      app:layout_constraintEnd_toEndOf="@id/container_popup"
-      app:layout_constraintStart_toStartOf="@id/container_popup"
-      app:layout_constraintTop_toTopOf="@id/guideline_text_container"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
       >
 
     <TextView
         android:id="@+id/referral_code"
         style="@style/eSkills.ReferralShare.CodeText"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="@dimen/big_margin"
+        android:layout_marginEnd="@dimen/small_margin"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/action_button_share_referral"
         app:layout_constraintTop_toTopOf="parent"
         />
 
@@ -113,7 +86,7 @@
         style="@style/Widget.AppCompat.ActionButton"
         android:layout_width="24dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="18.21dp"
+        android:layout_marginEnd="@dimen/big_margin"
         android:contentDescription="@null"
         android:padding="10dp"
         android:scaleType="centerCrop"
@@ -127,7 +100,7 @@
         style="@style/Widget.AppCompat.ActionButton"
         android:layout_width="27dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="12.3dp"
+        android:layout_marginEnd="@dimen/big_margin"
         android:contentDescription="@null"
         android:padding="10dp"
         android:scaleType="centerCrop"
@@ -140,13 +113,11 @@
       android:id="@+id/tooltip"
       layout="@layout/popup_balloon_tooltip_layout"
       android:layout_width="0dp"
-      android:layout_height="0dp"
+      android:layout_height="wrap_content"
       android:layout_marginStart="@dimen/big_margin"
-      android:layout_marginBottom="1dp"
       app:layout_constraintStart_toStartOf="@id/code_background"
       app:layout_constraintEnd_toEndOf="@id/code_background"
-      app:layout_constraintBottom_toTopOf="@id/guideline_image"
-      app:layout_constraintTop_toTopOf="@id/container_popup"
-      android:visibility="visible"
+      app:layout_constraintBottom_toTopOf="@id/code_background"
+      android:visibility="invisible"
       />
 </androidx.constraintlayout.widget.ConstraintLayout>
