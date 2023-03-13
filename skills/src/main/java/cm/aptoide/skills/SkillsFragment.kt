@@ -437,54 +437,56 @@ class SkillsFragment : Fragment(), PaymentView {
     disposable.add(viewModel.getReferral()
       .observeOn(AndroidSchedulers.mainThread())
       .doOnSuccess { referralResponse ->
-        setReferralLayout(referralResponse)
+        if (referralResponse.available)
+          setReferralLayout(referralResponse)
+        else
+          binding.loadingTicketLayout.referralShareDisplay.root.visibility = View.GONE
       }
       .subscribe())
   }
 
   private fun setReferralLayout(referralResponse: ReferralResponse) {
-    if (referralResponse.available) {
-      binding.loadingTicketLayout.referralShareDisplay.actionButtonShareReferral
-        .setOnClickListener {
-          startActivity(viewModel.buildShareIntent(referralResponse.referralCode))
+    binding.loadingTicketLayout.referralShareDisplay.actionButtonShareReferral
+      .setOnClickListener {
+        startActivity(viewModel.buildShareIntent(referralResponse.referralCode))
+      }
+    binding.loadingTicketLayout.referralShareDisplay.tooltip.popupText.text =
+      String.format(getString(R.string.refer_a_friend_waiting_room_tooltip), '1')
+    val tooltipBtn =
+      binding.loadingTicketLayout.referralShareDisplay.actionButtonTooltipReferral
+    tooltipBtn
+      .setOnClickListener {
+        if (binding.loadingTicketLayout.referralShareDisplay.tooltip.root.visibility == View.VISIBLE) {
+          binding.loadingTicketLayout.referralShareDisplay.tooltip.root.visibility = View.INVISIBLE
+          tooltipBtn.setImageDrawable(
+            ContextCompat.getDrawable(
+              requireContext(),
+              R.drawable.tooltip_orange
+            )
+          )
+        } else {
+          binding.loadingTicketLayout.referralShareDisplay.tooltip.root.visibility =
+            View.VISIBLE
+          tooltipBtn.setImageDrawable(
+            ContextCompat.getDrawable(
+              requireContext(),
+              R.drawable.tooltip_white
+            )
+          )
         }
-      binding.loadingTicketLayout.referralShareDisplay.tooltip.popupText.text =
-        String.format(getString(R.string.refer_a_friend_waiting_room_tooltip), '1')
-      val tooltipBtn =
-        binding.loadingTicketLayout.referralShareDisplay.actionButtonTooltipReferral
-      tooltipBtn
-        .setOnClickListener {
-          if (binding.loadingTicketLayout.referralShareDisplay.tooltip.root.visibility == View.VISIBLE) {
-            binding.loadingTicketLayout.referralShareDisplay.tooltip.root.visibility = View.INVISIBLE
-            tooltipBtn.setImageDrawable(
-              ContextCompat.getDrawable(
-                requireContext(),
-                R.drawable.tooltip_orange
-              )
-            )
-          } else {
-            binding.loadingTicketLayout.referralShareDisplay.tooltip.root.visibility =
-              View.VISIBLE
-            tooltipBtn.setImageDrawable(
-              ContextCompat.getDrawable(
-                requireContext(),
-                R.drawable.tooltip_white
-              )
-            )
-          }
 
+      }
+    binding.loadingTicketLayout.root
+      .setOnClickListener {
+        if (binding.loadingTicketLayout.referralShareDisplay.tooltip.root.visibility == View.VISIBLE) {
+          binding.loadingTicketLayout.referralShareDisplay.tooltip.root.visibility = View.INVISIBLE
+          binding.loadingTicketLayout.referralShareDisplay.actionButtonTooltipReferral.colorFilter =
+            null
         }
-      binding.loadingTicketLayout.root
-        .setOnClickListener {
-          if (binding.loadingTicketLayout.referralShareDisplay.tooltip.root.visibility == View.VISIBLE) {
-            binding.loadingTicketLayout.referralShareDisplay.tooltip.root.visibility = View.INVISIBLE
-            binding.loadingTicketLayout.referralShareDisplay.actionButtonTooltipReferral.colorFilter =
-              null
-          }
-        }
-      binding.loadingTicketLayout.referralShareDisplay.referralCode.text =
-        referralResponse.referralCode
-    }
+      }
+    binding.loadingTicketLayout.referralShareDisplay.referralCode.text =
+      referralResponse.referralCode
+
   }
 
   private fun postbackUserData(resultCode: Int, userData: UserData) {

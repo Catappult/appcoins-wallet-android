@@ -18,10 +18,9 @@ class GetReferralUseCase @Inject constructor(
       .flatMap { ewt ->
         ticketRepository.getReferral(ewt)
           .onErrorReturn {
-            Log.d("getReferralUseCase", "invoke: ${it.stackTrace}")
             return@onErrorReturn if (it.getErrorCodeAndMessage().first == 404)
               ticketRepository.createReferral(ewt).blockingGet()
-            else ReferralResponse("ERROR", 0, true)
+            else ReferralResponse("ERROR", 0, false)
           }
       }
   }
