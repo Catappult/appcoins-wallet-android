@@ -1,4 +1,4 @@
-package com.asfoundation.wallet.di.annotations
+package annotations
 
 import javax.inject.Qualifier
 

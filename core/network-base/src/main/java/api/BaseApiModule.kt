@@ -1,19 +1,19 @@
-package com.asfoundation.wallet.di.api
+package api
 
+import PreferencesRepositoryType
 import android.content.Context
 import annotations.BaseHttpClient
 import annotations.BlockchainHttpClient
 import annotations.DefaultHttpClient
 import annotations.ShortTimeoutHttpClient
-import com.asfoundation.wallet.billing.paypal.repository.MagnesHeaderInterceptor
-import com.asfoundation.wallet.repository.PreferencesRepositoryType
-import com.asfoundation.wallet.util.LogInterceptor
-import com.asfoundation.wallet.util.UserAgentInterceptor
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
+import interceptors.LogInterceptor
+import interceptors.MagnesHeaderInterceptor
+import interceptors.UserAgentInterceptor
 import okhttp3.OkHttpClient
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
