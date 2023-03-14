@@ -11,12 +11,14 @@ import io.intercom.android.sdk.Intercom
 import io.intercom.android.sdk.UserAttributes
 import io.intercom.android.sdk.identity.Registration
 import io.intercom.android.sdk.push.IntercomPushClient
-import com.appcoins.wallet.sharedpreferences.SupportSharedPreferences
+import com.appcoins.wallet.sharedpreferences.SupportPreferencesDataSource
 import javax.inject.Inject
 
 
-class SupportRepository @Inject constructor(private val preferences: SupportSharedPreferences,
-                                            val app: Application) {
+class SupportRepository @Inject constructor(
+  private val preferences: SupportPreferencesDataSource,
+  val app: Application
+) {
 
   companion object {
     private const val USER_LEVEL_ATTRIBUTE = "user_level"

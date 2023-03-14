@@ -1,26 +1,23 @@
 package com.appcoins.wallet.sharedpreferences
 
 import android.content.SharedPreferences
-import com.google.gson.Gson
 import javax.inject.Inject
 
 class BackupTriggerPreferencesDataSource @Inject constructor(private val sharedPreferences: SharedPreferences) {
-  fun setTriggerState(walletAddress: String, active: Boolean, triggerSource: TriggerSource) =
+  fun setTriggerState(walletAddress: String, active: Boolean, triggerSource: String) =
     sharedPreferences.edit()
       .putBoolean(BACKUP_TRIGGER_STATE + walletAddress, active)
-      .putString(BACKUP_TRIGGER_SOURCE + walletAddress, Gson().toJson(triggerSource))
+      .putString(BACKUP_TRIGGER_SOURCE + walletAddress, triggerSource)
       .apply()
 
   fun getTriggerState(walletAddress: String) =
     sharedPreferences.getBoolean(BACKUP_TRIGGER_STATE + walletAddress, false)
 
-  fun getTriggerSource(walletAddress: String): TriggerSource = Gson().fromJson(
+  fun getTriggerSource(walletAddress: String) =
     sharedPreferences.getString(
       BACKUP_TRIGGER_SOURCE + walletAddress,
       TriggerSource.NOT_SEEN.toString()
-    ),
-    TriggerSource::class.java
-  )
+    )
 
   fun getBackupTriggerSeenTime(walletAddress: String) =
     sharedPreferences.getLong(BACKUP_SEEN_TIME + walletAddress, -1)

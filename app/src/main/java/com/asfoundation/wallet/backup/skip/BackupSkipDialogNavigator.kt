@@ -1,9 +1,11 @@
 package com.asfoundation.wallet.backup.skip
 
 import androidx.fragment.app.Fragment
-import com.asfoundation.wallet.backup.triggers.BackupTriggerDialogFragment
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.appcoins.wallet.sharedpreferences.BackupTriggerPreferencesDataSource
+import com.appcoins.wallet.sharedpreferences.BackupTriggerPreferencesDataSource.TriggerSource.DISABLED
+import com.asfoundation.wallet.backup.triggers.BackupTriggerDialogFragment
+import com.asfoundation.wallet.backup.triggers.TriggerUtils.toJson
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import javax.inject.Inject
 
 class BackupSkipDialogNavigator @Inject constructor(
@@ -25,7 +27,7 @@ class BackupSkipDialogNavigator @Inject constructor(
     backupTriggerPreferences.setTriggerState(
       walletAddress = walletAddress,
       active = false,
-      triggerSource = BackupTriggerPreferencesDataSource.TriggerSource.DISABLED
+      triggerSource = DISABLED.toJson()
     )
     (fragment as BottomSheetDialogFragment).dismiss()
   }

@@ -14,8 +14,11 @@ import com.appcoins.wallet.gamification.repository.Levels
 import com.appcoins.wallet.gamification.repository.PromotionsGamificationStats
 import com.appcoins.wallet.gamification.repository.PromotionsRepository
 import com.appcoins.wallet.gamification.repository.entity.GamificationStatus
+import com.appcoins.wallet.sharedpreferences.BackupTriggerPreferencesDataSource
+import com.appcoins.wallet.sharedpreferences.BackupTriggerPreferencesDataSource.TriggerSource.NEW_LEVEL
 import com.asf.wallet.R
 import com.asfoundation.wallet.C
+import com.asfoundation.wallet.backup.triggers.TriggerUtils.toJson
 import com.asfoundation.wallet.main.PendingIntentNavigator
 import com.asfoundation.wallet.promo_code.use_cases.GetCurrentPromoCodeUseCase
 import com.asfoundation.wallet.repository.TransactionRepositoryType
@@ -26,7 +29,6 @@ import com.asfoundation.wallet.util.toBitmap
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
-import com.appcoins.wallet.sharedpreferences.BackupTriggerPreferencesDataSource
 import java.math.BigDecimal
 import java.math.RoundingMode
 import java.text.DecimalFormat
@@ -138,7 +140,7 @@ class PerkBonusAndGamificationService :
       backupTriggerPreferences.setTriggerState(
         walletAddress = address,
         active = true,
-        triggerSource = BackupTriggerPreferencesDataSource.TriggerSource.NEW_LEVEL
+        triggerSource = NEW_LEVEL.toJson()
       )
       promotionsRepository.shownLevel(address, currentLevel, NOTIFICATIONS_LEVEL_UP)
       buildNotification(

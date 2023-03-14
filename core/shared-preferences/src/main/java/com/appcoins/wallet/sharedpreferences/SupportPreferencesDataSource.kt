@@ -3,8 +3,9 @@ package com.appcoins.wallet.sharedpreferences
 import android.content.SharedPreferences
 import javax.inject.Inject
 
-class SupportSharedPreferences @Inject constructor(
-    private val sharedPreferences: SharedPreferences) {
+class SupportPreferencesDataSource @Inject constructor(
+  private val sharedPreferences: SharedPreferences
+) {
 
   companion object {
     private const val UNREAD_CONVERSATIONS = "UNREAD_CONVERSATIONS"

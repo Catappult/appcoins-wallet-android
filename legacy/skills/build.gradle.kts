@@ -10,6 +10,7 @@ android {
 }
 
 dependencies {
+  implementation(project(":core:shared-preferences"))
   implementation(libs.androidx.core.ktx)
   implementation(libs.androidx.appcompact)
   implementation(libs.androidx.fragment.ktx)

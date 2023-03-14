@@ -1,8 +1,8 @@
 package cm.aptoide.skills.repository
 
-import android.content.SharedPreferences
 import cm.aptoide.skills.model.WalletAddress
 import cm.aptoide.skills.util.EskillsPaymentData
+import com.appcoins.wallet.sharedpreferences.EskillsPreferencesDataSource
 import com.google.gson.Gson
 import io.reactivex.Single
 import it.czerwinski.android.hilt.annotations.BoundTo
@@ -10,7 +10,7 @@ import javax.inject.Inject
 
 @BoundTo(supertype = TicketLocalStorage::class)
 class SharedPreferencesTicketLocalStorage @Inject constructor(
-  private val preferences: SharedPreferences,
+  private val preferences: EskillsPreferencesDataSource,
   private val mapper: Gson
 ) :
   TicketLocalStorage {
@@ -25,7 +25,7 @@ class SharedPreferencesTicketLocalStorage @Inject constructor(
     return Single.fromCallable {
       val data = getData(walletAddress)
       if (data != null && data == eskillsPaymentData) {
-        return@fromCallable preferences.getString(getWalletKey(walletAddress), null)
+        return@fromCallable preferences.getTicketInQueue(getWalletKey(walletAddress))
           ?.let { StoredTicketInQueue(it) } ?: EmptyStoredTicket
       }
       return@fromCallable EmptyStoredTicket
@@ -36,15 +36,16 @@ class SharedPreferencesTicketLocalStorage @Inject constructor(
     walletAddress: WalletAddress,
     ticketId: String,
     eskillsPaymentData: EskillsPaymentData
-  ) {
-    val editPreferences = preferences.edit()
-    editPreferences.putString(getWalletKey(walletAddress), ticketId)
-    editPreferences.putString(getDataKey(walletAddress), mapper.toJson(eskillsPaymentData))
-    editPreferences.apply()
-  }
+  ) =
+    preferences.saveTicketInQueue(
+      getWalletKey(walletAddress),
+      ticketId,
+      getDataKey(walletAddress),
+      mapper.toJson(eskillsPaymentData)
+    )
 
   private fun getData(walletAddress: WalletAddress): EskillsPaymentData? {
-    return preferences.getString(getDataKey(walletAddress), null)
+    return preferences.getTicketData(getDataKey(walletAddress))
       ?.let { mapper.fromJson(it, EskillsPaymentData::class.java) }
   }
 

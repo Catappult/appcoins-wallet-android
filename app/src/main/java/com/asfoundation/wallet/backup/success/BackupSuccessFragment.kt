@@ -15,6 +15,8 @@ import com.asfoundation.wallet.billing.analytics.WalletsEventSender
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
 import com.appcoins.wallet.sharedpreferences.BackupTriggerPreferencesDataSource
+import com.appcoins.wallet.sharedpreferences.BackupTriggerPreferencesDataSource.TriggerSource.DISABLED
+import com.asfoundation.wallet.backup.triggers.TriggerUtils.toJson
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -57,7 +59,7 @@ class BackupSuccessFragment : BasePageViewFragment(),
     backupTriggerPreferences.setTriggerState(
       walletAddress = requireArguments().getString(WALLET_ADDRESS_KEY, ""),
       active = false,
-      triggerSource = BackupTriggerPreferencesDataSource.TriggerSource.DISABLED
+      triggerSource = DISABLED.toJson()
     )
 
     views.closeButton.setOnClickListener {
