@@ -6,7 +6,6 @@ import android.text.format.DateUtils
 import com.appcoins.wallet.gamification.repository.Levels
 import com.appcoins.wallet.gamification.repository.entity.GamificationStatus
 import com.asf.wallet.BuildConfig
-import preferences.BackupTriggerPreferences
 import com.asfoundation.wallet.backup.use_cases.ShouldShowBackupTriggerUseCase
 import com.asfoundation.wallet.base.*
 import com.asfoundation.wallet.billing.analytics.WalletsAnalytics
@@ -31,6 +30,7 @@ import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.subjects.BehaviorSubject
+import preferences.BackupTriggerPreferencesDataSource
 import java.math.BigDecimal
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
@@ -48,7 +48,7 @@ sealed class HomeSideEffect : SideEffect {
   data class NavigateToIntent(val intent: Intent) : HomeSideEffect()
   data class ShowBackupTrigger(
     val walletAddress: String,
-    val triggerSource: BackupTriggerPreferences.TriggerSource
+    val triggerSource: BackupTriggerPreferencesDataSource.TriggerSource
   ) :
     HomeSideEffect()
 
@@ -66,7 +66,7 @@ data class HomeState(
 @HiltViewModel
 class HomeViewModel @Inject constructor(
   private val analytics: HomeAnalytics,
-  private val backupTriggerPreferences: BackupTriggerPreferences,
+  private val backupTriggerPreferences: BackupTriggerPreferencesDataSource,
   private val shouldShowBackupTriggerUseCase: ShouldShowBackupTriggerUseCase,
   private val observeWalletInfoUseCase: ObserveWalletInfoUseCase,
   private val getWalletInfoUseCase: GetWalletInfoUseCase,
@@ -245,12 +245,12 @@ class HomeViewModel @Inject constructor(
       }
       .doOnNext {
         if (it.isNotEmpty() &&
-          backupTriggerPreferences.getTriggerSource(wallet.address) == BackupTriggerPreferences.TriggerSource.NOT_SEEN
+          backupTriggerPreferences.getTriggerSource(wallet.address) == BackupTriggerPreferencesDataSource.TriggerSource.NOT_SEEN
         ) {
           backupTriggerPreferences.setTriggerState(
             walletAddress = wallet.address,
             active = true,
-            triggerSource = BackupTriggerPreferences.TriggerSource.FIRST_PURCHASE
+            triggerSource = BackupTriggerPreferencesDataSource.TriggerSource.FIRST_PURCHASE
           )
         }
       }
@@ -294,7 +294,7 @@ class HomeViewModel @Inject constructor(
                   backupTriggerPreferences.setTriggerState(
                     walletAddress = wallet.address,
                     active = true,
-                    triggerSource = BackupTriggerPreferences.TriggerSource.NEW_LEVEL
+                    triggerSource = BackupTriggerPreferencesDataSource.TriggerSource.NEW_LEVEL
                   )
                 }
               }

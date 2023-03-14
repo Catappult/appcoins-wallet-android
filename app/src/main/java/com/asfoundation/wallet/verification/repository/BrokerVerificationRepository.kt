@@ -8,7 +8,7 @@ import com.asfoundation.wallet.wallets.repository.WalletInfoRepository
 import io.reactivex.Completable
 import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
-import repository.BrokerVerificationSharedPreferences
+import repository.BrokerVerificationPreferencesDataSource
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
@@ -19,7 +19,7 @@ class BrokerVerificationRepository @Inject constructor(
   private val walletInfoRepository: WalletInfoRepository,
   private val brokerVerificationApi: BrokerVerificationApi,
   private val adyenResponseMapper: AdyenResponseMapper,
-  private val sharedPreferences: BrokerVerificationSharedPreferences
+  private val sharedPreferences: BrokerVerificationPreferencesDataSource
 ) {
 
   fun getVerificationInfo(

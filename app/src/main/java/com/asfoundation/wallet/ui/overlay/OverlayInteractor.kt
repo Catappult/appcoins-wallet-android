@@ -1,9 +1,9 @@
 package com.asfoundation.wallet.ui.overlay
 
-import repository.PreferencesRepositoryType
+import repository.CommonsPreferencesDataSource
 import javax.inject.Inject
 
-class OverlayInteractor @Inject constructor(private val preferencesRepositoryType: PreferencesRepositoryType) {
+class OverlayInteractor @Inject constructor(private val commonsPreferencesDataSource: CommonsPreferencesDataSource) {
 
-  fun setHasSeenPromotionTooltip() = preferencesRepositoryType.setHasSeenPromotionTooltip()
+  fun setHasSeenPromotionTooltip() = commonsPreferencesDataSource.setHasSeenPromotionTooltip()
 }

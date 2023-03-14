@@ -9,19 +9,19 @@ import com.asf.wallet.BuildConfig
 import dagger.hilt.android.qualifiers.ApplicationContext
 import it.czerwinski.android.hilt.annotations.BoundTo
 import kotlinx.coroutines.suspendCancellableCoroutine
-import repository.AppStartSharedPreferences
+import repository.AppStartPreferencesDataSource
 import java.util.concurrent.TimeoutException
 import javax.inject.Inject
 
 @BoundTo(supertype = AppStartRepository::class)
 class AppStartRepositoryImpl @Inject constructor(
   private val packageManager: PackageManager,
-  private val appStartSharedPreferences: AppStartSharedPreferences
+  private val appStartPreferencesDataSource: AppStartPreferencesDataSource
 ) : AppStartRepository {
 
-  override suspend fun getRunCount(): Int = appStartSharedPreferences.getRunCount()
+  override suspend fun getRunCount(): Int = appStartPreferencesDataSource.getRunCount()
 
-  override suspend fun saveRunCount(count: Int) = appStartSharedPreferences.saveRunCount(count)
+  override suspend fun saveRunCount(count: Int) = appStartPreferencesDataSource.saveRunCount(count)
 
   override suspend fun getFirstInstallTime() =
     packageManager.getPackageInfo(BuildConfig.APPLICATION_ID, 0).firstInstallTime

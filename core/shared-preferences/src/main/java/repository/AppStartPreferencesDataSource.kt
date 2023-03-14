@@ -3,7 +3,7 @@ package repository
 import android.content.SharedPreferences
 import javax.inject.Inject
 
-class AppStartSharedPreferences @Inject constructor(
+class AppStartPreferencesDataSource @Inject constructor(
   private val sharedPreferences: SharedPreferences
 ) {
   fun getRunCount(): Int = sharedPreferences.getInt(RUNS_COUNT, 0)

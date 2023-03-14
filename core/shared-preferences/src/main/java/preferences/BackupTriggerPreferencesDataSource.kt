@@ -4,13 +4,7 @@ import android.content.SharedPreferences
 import com.google.gson.Gson
 import javax.inject.Inject
 
-class BackupTriggerPreferences @Inject constructor(private val sharedPreferences: SharedPreferences) {
-  companion object {
-    private const val BACKUP_TRIGGER_STATE = "backup_trigger_state_"
-    private const val BACKUP_TRIGGER_SOURCE = "backup_trigger_source_"
-    private const val BACKUP_SEEN_TIME = "backup_seen_time_"
-  }
-
+class BackupTriggerPreferencesDataSource @Inject constructor(private val sharedPreferences: SharedPreferences) {
   fun setTriggerState(walletAddress: String, active: Boolean, triggerSource: TriggerSource) =
     sharedPreferences.edit()
       .putBoolean(BACKUP_TRIGGER_STATE + walletAddress, active)
@@ -19,7 +13,6 @@ class BackupTriggerPreferences @Inject constructor(private val sharedPreferences
 
   fun getTriggerState(walletAddress: String) =
     sharedPreferences.getBoolean(BACKUP_TRIGGER_STATE + walletAddress, false)
-
 
   fun getTriggerSource(walletAddress: String): TriggerSource = Gson().fromJson(
     sharedPreferences.getString(
@@ -37,14 +30,18 @@ class BackupTriggerPreferences @Inject constructor(private val sharedPreferences
       .putLong(BACKUP_SEEN_TIME + walletAddress, currentTimeMillis)
       .apply()
 
-
   fun removeBackupTriggerSeenTime(walletAddress: String) =
     sharedPreferences.edit()
       .remove(BACKUP_SEEN_TIME + walletAddress)
       .apply()
 
-
   enum class TriggerSource {
     NEW_LEVEL, FIRST_PURCHASE, DISABLED, NOT_SEEN
+  }
+
+  companion object {
+    private const val BACKUP_TRIGGER_STATE = "backup_trigger_state_"
+    private const val BACKUP_TRIGGER_SOURCE = "backup_trigger_source_"
+    private const val BACKUP_SEEN_TIME = "backup_seen_time_"
   }
 }

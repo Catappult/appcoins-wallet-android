@@ -5,7 +5,7 @@ import com.asf.wallet.BuildConfig
 import com.asfoundation.wallet.rating.network.WalletFeedbackBody
 import io.reactivex.Single
 import okhttp3.ResponseBody
-import repository.RatingSharedPreferences
+import repository.RatingPreferencesDataSource
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.Header
@@ -13,15 +13,16 @@ import retrofit2.http.POST
 import javax.inject.Inject
 
 class RatingRepository @Inject constructor(
-  private val ratingSharedPreferences: RatingSharedPreferences,
+  private val ratingPreferencesDataSource: RatingPreferencesDataSource,
   private val walletFeedbackApi: WalletFeedbackApi,
   private val logger: Logger
 ) {
 
   fun saveEnoughSuccessfulTransactions() =
-    ratingSharedPreferences.saveEnoughSuccessfulTransactions()
+    ratingPreferencesDataSource.saveEnoughSuccessfulTransactions()
 
-  fun hasEnoughSuccessfulTransactions() = ratingSharedPreferences.hasEnoughSuccessfulTransactions()
+  fun hasEnoughSuccessfulTransactions() =
+    ratingPreferencesDataSource.hasEnoughSuccessfulTransactions()
 
   /**
    * This method is similar to hasSeenDialog but it differs in use:
@@ -30,13 +31,13 @@ class RatingRepository @Inject constructor(
    */
   fun isNotFirstTime() = hasSeenDialog() && getRemindMeLaterDate() > 0
 
-  fun getRemindMeLaterDate() = ratingSharedPreferences.getRemindMeLaterDate()
+  fun getRemindMeLaterDate() = ratingPreferencesDataSource.getRemindMeLaterDate()
 
-  fun hasSeenDialog() = ratingSharedPreferences.hasSeenDialog()
+  fun hasSeenDialog() = ratingPreferencesDataSource.hasSeenDialog()
 
-  fun setImpression() = ratingSharedPreferences.setImpression()
+  fun setImpression() = ratingPreferencesDataSource.setImpression()
 
-  fun setRemindMeLater() = ratingSharedPreferences.setRemindMeLater()
+  fun setRemindMeLater() = ratingPreferencesDataSource.setRemindMeLater()
 
   fun sendFeedback(walletAddress: String, feedbackText: String): Single<Boolean> {
     val body = WalletFeedbackBody(WalletFeedbackBody.Ticket("Wallet Feedback - $walletAddress",

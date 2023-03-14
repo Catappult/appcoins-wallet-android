@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.asf.wallet.R
 import com.asf.wallet.databinding.BackupSkipDialogFragmentBinding
-import preferences.BackupTriggerPreferences
 import com.asfoundation.wallet.backup.triggers.BackupTriggerDialogFragment
 import com.asfoundation.wallet.base.SideEffect
 import com.asfoundation.wallet.base.SingleStateFragment
@@ -15,6 +14,7 @@ import com.asfoundation.wallet.base.ViewState
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
+import preferences.BackupTriggerPreferencesDataSource
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -26,7 +26,7 @@ class BackupSkipDialogFragment : BottomSheetDialogFragment(),
   lateinit var navigator: BackupSkipDialogNavigator
 
   @Inject
-  lateinit var backupTriggerPreferences: BackupTriggerPreferences
+  lateinit var backupTriggerPreferences: BackupTriggerPreferencesDataSource
 
   private val views by viewBinding(BackupSkipDialogFragmentBinding::bind)
 
@@ -34,7 +34,7 @@ class BackupSkipDialogFragment : BottomSheetDialogFragment(),
     @JvmStatic
     fun newInstance(
       walletAddress: String,
-      triggerSource: BackupTriggerPreferences.TriggerSource
+      triggerSource: BackupTriggerPreferencesDataSource.TriggerSource
     ): BackupSkipDialogFragment {
       return BackupSkipDialogFragment()
         .apply {
@@ -64,7 +64,7 @@ class BackupSkipDialogFragment : BottomSheetDialogFragment(),
     views.cancel.setOnClickListener {
       navigator.navigateBack(
         requireArguments().getString(BackupTriggerDialogFragment.WALLET_ADDRESS_KEY)!!,
-        requireArguments().getSerializable(BackupTriggerDialogFragment.TRIGGER_SOURCE)!! as BackupTriggerPreferences.TriggerSource
+        requireArguments().getSerializable(BackupTriggerDialogFragment.TRIGGER_SOURCE)!! as BackupTriggerPreferencesDataSource.TriggerSource
       )
     }
   }

@@ -4,13 +4,13 @@ import com.asfoundation.wallet.entity.GasSettings
 import com.asfoundation.wallet.entity.NetworkInfo
 import com.asfoundation.wallet.home.usecases.FindNetworkInfoUseCase
 import io.reactivex.Single
+import repository.GasPreferencesDataSource
 import java.math.BigDecimal
-import repository.GasPreferenceRepository
 import javax.inject.Inject
 
 class GasSettingsInteractor @Inject constructor(
   private val findNetworkInfoUseCase: FindNetworkInfoUseCase,
-  private val gasPreferencesRepository: GasPreferenceRepository
+  private val gasPreferencesRepository: GasPreferencesDataSource
 ) {
 
   fun findDefaultNetwork(): Single<NetworkInfo> = findNetworkInfoUseCase()

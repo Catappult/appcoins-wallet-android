@@ -13,29 +13,32 @@ import io.reactivex.Completable
 import io.reactivex.Maybe
 import io.reactivex.Single
 import it.czerwinski.android.hilt.annotations.BoundTo
+import referrals.ReferralPreferencesDataSource
 import java.math.BigDecimal
 import javax.inject.Inject
-import referrals.SharedPreferencesReferralLocalData
 
 @BoundTo(supertype = ReferralInteractorContract::class)
 class ReferralInteractor @Inject constructor(
-    private val preferences: SharedPreferencesReferralLocalData,
-    private val defaultWallet: FindDefaultWalletInteract,
-    private val promotionsRepository: PromotionsRepository,
-    private val getCurrentPromoCodeUseCase: GetCurrentPromoCodeUseCase) :
-    ReferralInteractorContract {
+  private val preferences: ReferralPreferencesDataSource,
+  private val defaultWallet: FindDefaultWalletInteract,
+  private val promotionsRepository: PromotionsRepository,
+  private val getCurrentPromoCodeUseCase: GetCurrentPromoCodeUseCase
+) :
+  ReferralInteractorContract {
 
-  override fun hasReferralUpdate(walletAddress: String,
-                                 referralResponse: ReferralResponse?,
-                                 screen: ReferralsScreen): Single<Boolean> {
+  override fun hasReferralUpdate(
+    walletAddress: String,
+    referralResponse: ReferralResponse?,
+    screen: ReferralsScreen
+  ): Single<Boolean> {
     return if (referralResponse == null || referralResponse.status != PromotionsResponse.Status.ACTIVE) {
       Single.just(false)
     } else {
       getReferralInformation(walletAddress, screen)
-          .map {
-            val verified = referralResponse.link != null
-            hasDifferentInformation(referralResponse.completed.toString() + verified, it)
-          }
+        .map {
+          val verified = referralResponse.link != null
+          hasDifferentInformation(referralResponse.completed.toString() + verified, it)
+        }
 
     }
   }
@@ -66,13 +69,16 @@ class ReferralInteractor @Inject constructor(
   }
 
   private fun getReferralInformation(address: String, screen: ReferralsScreen): Single<String> {
-    return preferences.getReferralInformation(address, screen.toString())
+    return Single.fromCallable {
+      preferences.getReferralInformation(address, screen.toString())
+    }
   }
 
   private fun saveReferralInformation(address: String, numberOfFriends: Int, isVerified: Boolean,
                                       screen: ReferralsScreen): Completable {
-    return preferences.saveReferralInformation(address, numberOfFriends, isVerified,
-        screen.toString())
+    return Completable.fromCallable {
+      preferences.saveReferralInformation(address, numberOfFriends, isVerified, screen.toString())
+    }
   }
 
   private fun hasDifferentInformation(newInformation: String, savedInformation: String): Boolean {
@@ -111,7 +117,7 @@ class ReferralInteractor @Inject constructor(
                     .map { mapResponse(it) }
                     .onErrorReturn { ReferralModel() }
                     .flatMap { referralModel ->
-                      preferences.getPendingAmountNotification(wallet.address)
+                      Single.fromCallable { preferences.getPendingAmountNotification(wallet.address) }
                           .map {
                             referralModel.pendingAmount.compareTo(BigDecimal.ZERO) != 0 &&
                                 it != referralModel.pendingAmount.scaleToString(
@@ -135,8 +141,12 @@ class ReferralInteractor @Inject constructor(
   override fun dismissNotification(referralNotification: ReferralNotification): Completable {
     return defaultWallet.find()
         .flatMapCompletable {
-          preferences.savePendingAmountNotification(it.address,
-              referralNotification.pendingAmount.scaleToString(2))
+          Completable.fromCallable {
+            preferences.savePendingAmountNotification(
+              it.address,
+              referralNotification.pendingAmount.scaleToString(2)
+            )
+          }
         }
   }
 

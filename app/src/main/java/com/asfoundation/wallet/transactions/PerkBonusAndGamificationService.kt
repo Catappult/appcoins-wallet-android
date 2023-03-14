@@ -16,7 +16,6 @@ import com.appcoins.wallet.gamification.repository.PromotionsRepository
 import com.appcoins.wallet.gamification.repository.entity.GamificationStatus
 import com.asf.wallet.R
 import com.asfoundation.wallet.C
-import preferences.BackupTriggerPreferences
 import com.asfoundation.wallet.main.PendingIntentNavigator
 import com.asfoundation.wallet.promo_code.use_cases.GetCurrentPromoCodeUseCase
 import com.asfoundation.wallet.repository.TransactionRepositoryType
@@ -27,6 +26,7 @@ import com.asfoundation.wallet.util.toBitmap
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
+import preferences.BackupTriggerPreferencesDataSource
 import java.math.BigDecimal
 import java.math.RoundingMode
 import java.text.DecimalFormat
@@ -58,7 +58,7 @@ class PerkBonusAndGamificationService :
   lateinit var getCurrentPromoCodeUseCase: GetCurrentPromoCodeUseCase
 
   @Inject
-  lateinit var backupTriggerPreferences: BackupTriggerPreferences
+  lateinit var backupTriggerPreferences: BackupTriggerPreferencesDataSource
 
   @Deprecated("Deprecated in Java")
   override fun onHandleIntent(intent: Intent?) {
@@ -138,7 +138,7 @@ class PerkBonusAndGamificationService :
       backupTriggerPreferences.setTriggerState(
         walletAddress = address,
         active = true,
-        triggerSource = BackupTriggerPreferences.TriggerSource.NEW_LEVEL
+        triggerSource = BackupTriggerPreferencesDataSource.TriggerSource.NEW_LEVEL
       )
       promotionsRepository.shownLevel(address, currentLevel, NOTIFICATIONS_LEVEL_UP)
       buildNotification(

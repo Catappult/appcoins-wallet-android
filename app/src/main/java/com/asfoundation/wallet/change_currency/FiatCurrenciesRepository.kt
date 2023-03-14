@@ -6,13 +6,13 @@ import com.asfoundation.wallet.service.currencies.LocalCurrencyConversionService
 import io.reactivex.Completable
 import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
-import repository.FiatCurrenciesSharedPreferences
+import repository.FiatCurrenciesPreferencesDataSource
 import retrofit2.http.GET
 import javax.inject.Inject
 
 class FiatCurrenciesRepository @Inject constructor(
   private val fiatCurrenciesApi: FiatCurrenciesApi,
-  private val fiatCurrenciesSharedPreferences: FiatCurrenciesSharedPreferences,
+  private val fiatCurrenciesPreferencesDataSource: FiatCurrenciesPreferencesDataSource,
   private val fiatCurrenciesMapper: FiatCurrenciesMapper,
   private val fiatCurrenciesDao: FiatCurrenciesDao,
   private val conversionService: LocalCurrencyConversionService
@@ -33,10 +33,10 @@ class FiatCurrenciesRepository @Inject constructor(
   }
 
   fun getCurrenciesList(): Single<List<FiatCurrencyEntity>> {
-    return Single.just(fiatCurrenciesSharedPreferences.getCurrencyListLastVersion())
+    return Single.just(fiatCurrenciesPreferencesDataSource.getCurrencyListLastVersion())
       .flatMap { lastVersion ->
         if (lastVersion != BuildConfig.VERSION_CODE) {
-          fiatCurrenciesSharedPreferences.setCurrencyListLastVersion(BuildConfig.VERSION_CODE)
+          fiatCurrenciesPreferencesDataSource.setCurrencyListLastVersion(BuildConfig.VERSION_CODE)
           fetchCurrenciesList()
         } else {
           fiatCurrenciesDao.getFiatCurrencies()
@@ -47,12 +47,12 @@ class FiatCurrenciesRepository @Inject constructor(
   }
 
   fun getSelectedCurrency(): Single<String> {
-    return Single.just(fiatCurrenciesSharedPreferences.getSelectCurrency())
+    return Single.just(fiatCurrenciesPreferencesDataSource.getSelectCurrency())
       .flatMap { isFirstTime ->
         if (isFirstTime) {
           return@flatMap conversionService.localCurrency.doOnSuccess {
-            fiatCurrenciesSharedPreferences.setSelectedCurrency(it.currency)
-            fiatCurrenciesSharedPreferences.setSelectFirstTime()
+            fiatCurrenciesPreferencesDataSource.setSelectedCurrency(it.currency)
+            fiatCurrenciesPreferencesDataSource.setSelectFirstTime()
           }.map { it.currency }
         }
         return@flatMap getCachedSelectedCurrency()
@@ -61,12 +61,12 @@ class FiatCurrenciesRepository @Inject constructor(
   }
 
   fun getCachedSelectedCurrency(): Single<String> {
-    return Single.just(fiatCurrenciesSharedPreferences.getCachedSelectedCurrency())
+    return Single.just(fiatCurrenciesPreferencesDataSource.getCachedSelectedCurrency())
       .subscribeOn(Schedulers.io())
   }
 
   fun setSelectedCurrency(currency: String) {
-    fiatCurrenciesSharedPreferences.setSelectedCurrency(currency)
+    fiatCurrenciesPreferencesDataSource.setSelectedCurrency(currency)
   }
 
   interface FiatCurrenciesApi {

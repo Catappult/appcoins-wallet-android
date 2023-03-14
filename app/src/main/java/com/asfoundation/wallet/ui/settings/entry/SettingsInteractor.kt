@@ -2,12 +2,12 @@ package com.asfoundation.wallet.ui.settings.entry
 
 import com.asfoundation.wallet.billing.analytics.WalletsAnalytics
 import com.asfoundation.wallet.billing.analytics.WalletsEventSender
-import repository.PreferencesRepositoryType
 import com.asfoundation.wallet.support.SupportInteractor
 import com.asfoundation.wallet.ui.FingerprintInteractor
 import com.asfoundation.wallet.ui.wallets.WalletsInteract
 import com.asfoundation.wallet.wallets.FindDefaultWalletInteract
 import fingerprint.FingerprintPreferencesDataSource
+import repository.CommonsPreferencesDataSource
 import javax.inject.Inject
 
 class SettingsInteractor @Inject constructor(
@@ -16,7 +16,7 @@ class SettingsInteractor @Inject constructor(
   private val walletsInteract: WalletsInteract,
   private val fingerprintInteractor: FingerprintInteractor,
   private val walletsEventSender: WalletsEventSender,
-  private val preferenceRepository: PreferencesRepositoryType,
+  private val preferenceRepository: CommonsPreferencesDataSource,
   private val fingerprintPreferences: FingerprintPreferencesDataSource
 ) {
 

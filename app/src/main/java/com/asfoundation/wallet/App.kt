@@ -27,7 +27,6 @@ import com.asfoundation.wallet.billing.paypal.repository.MagnesUtils
 import com.asfoundation.wallet.identification.IdsRepository
 import com.asfoundation.wallet.logging.FlurryReceiver
 import com.asfoundation.wallet.main.appsflyer.ApkOriginVerification
-import repository.PreferencesRepositoryType
 import com.asfoundation.wallet.support.AlarmManagerBroadcastReceiver
 import com.asfoundation.wallet.ui.iab.AppcoinsOperationsDataSaver
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
@@ -43,6 +42,7 @@ import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import org.bouncycastle.jce.provider.BouncyCastleProvider
+import repository.CommonsPreferencesDataSource
 import java.security.Provider
 import java.security.Security
 import java.util.*
@@ -101,7 +101,7 @@ class App : MultiDexApplication(), BillingDependenciesProvider {
   lateinit var sentryAnalytics: SentryAnalytics
 
   @Inject
-  lateinit var preferencesRepositoryType: PreferencesRepositoryType
+  lateinit var commonsPreferencesDataSource: CommonsPreferencesDataSource
 
   @Inject
   lateinit var analyticsManager: AnalyticsManager
@@ -221,10 +221,10 @@ class App : MultiDexApplication(), BillingDependenciesProvider {
   }
 
   private fun initializeWalletId() {
-    if (preferencesRepositoryType.getWalletId() == null) {
+    if (commonsPreferencesDataSource.getWalletId() == null) {
       val id = UUID.randomUUID()
         .toString()
-      preferencesRepositoryType.setWalletId(id)
+      commonsPreferencesDataSource.setWalletId(id)
     }
   }
 

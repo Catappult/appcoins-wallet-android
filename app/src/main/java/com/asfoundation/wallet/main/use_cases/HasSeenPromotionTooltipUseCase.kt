@@ -1,12 +1,13 @@
 package com.asfoundation.wallet.main.use_cases
 
-import repository.PreferencesRepositoryType
 import io.reactivex.Single
+import repository.CommonsPreferencesDataSource
 import javax.inject.Inject
 
 class HasSeenPromotionTooltipUseCase @Inject constructor(
-    val preferencesRepositoryType: PreferencesRepositoryType) {
+  val commonsPreferencesDataSource: CommonsPreferencesDataSource
+) {
 
   operator fun invoke(): Single<Boolean> =
-      Single.just(preferencesRepositoryType.hasSeenPromotionTooltip())
+    Single.just(commonsPreferencesDataSource.hasSeenPromotionTooltip())
 }

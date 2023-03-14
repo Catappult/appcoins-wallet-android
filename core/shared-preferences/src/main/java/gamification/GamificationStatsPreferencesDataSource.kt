@@ -4,7 +4,7 @@ import android.content.SharedPreferences
 import javax.inject.Inject
 
 class GamificationStatsPreferencesDataSource @Inject constructor(
-  private val preferences: SharedPreferences
+  private val sharedPreferences: SharedPreferences
 ) {
 
   companion object {
@@ -16,57 +16,58 @@ class GamificationStatsPreferencesDataSource @Inject constructor(
   }
 
   fun getLastShownLevel(key: String, gamificationStats: Int) =
-    preferences.getInt(key, gamificationStats)
+    sharedPreferences.getInt(key, gamificationStats)
 
   fun saveShownLevel(key: String, level: Int) =
-    preferences.edit()
+    sharedPreferences.edit()
       .putInt(key, level)
       .apply()
 
-  fun getSeenGenericPromotion(genericKey: String) = preferences.getBoolean(genericKey, false)
+  fun getSeenGenericPromotion(genericKey: String) = sharedPreferences.getBoolean(genericKey, false)
 
   fun setSeenGenericPromotion(genericKey: String) =
-    preferences.edit()
+    sharedPreferences.edit()
       .putBoolean(genericKey, true)
       .apply()
 
 
   fun setGamificationLevel(gamificationLevel: Int) =
-    preferences.edit()
+    sharedPreferences.edit()
       .putInt(GAMIFICATION_LEVEL, gamificationLevel)
       .apply()
 
   fun getGamificationLevel(gamificationStats: Int) =
-    preferences.getInt(GAMIFICATION_LEVEL, gamificationStats)
+    sharedPreferences.getInt(GAMIFICATION_LEVEL, gamificationStats)
 
   fun shouldShowGamificationDisclaimer() =
-    preferences.getBoolean(SHOW_GAMIFICATION_DISCLAIMER, true)
+    sharedPreferences.getBoolean(SHOW_GAMIFICATION_DISCLAIMER, true)
 
   fun setGamificationDisclaimerShown() =
-    preferences.edit()
+    sharedPreferences.edit()
       .putBoolean(SHOW_GAMIFICATION_DISCLAIMER, false)
       .apply()
 
   fun setSeenWalletOrigin(wallet: String, walletOrigin: String) =
-    preferences.edit()
+    sharedPreferences.edit()
       .putString(WALLET_ORIGIN + wallet, walletOrigin)
       .apply()
 
-  fun getSeenWalletOrigin(wallet: String) = preferences.getString(WALLET_ORIGIN + wallet, "")!!
+  fun getSeenWalletOrigin(wallet: String) =
+    sharedPreferences.getString(WALLET_ORIGIN + wallet, "")!!
 
   fun isVipCalloutAlreadySeen(wallet: String) =
-    preferences.getBoolean(VIP_CALLOUT_SEEN + wallet, false)
+    sharedPreferences.getBoolean(VIP_CALLOUT_SEEN + wallet, false)
 
   fun setVipCalloutAlreadySeen(wallet: String, isSeen: Boolean) =
-    preferences.edit()
+    sharedPreferences.edit()
       .putBoolean(VIP_CALLOUT_SEEN + wallet, isSeen)
       .apply()
 
   fun isReferralNotificationSeen(wallet: String) =
-    preferences.getBoolean(REFERRAL_NOTIFIC_SEEN + wallet, false)
+    sharedPreferences.getBoolean(REFERRAL_NOTIFIC_SEEN + wallet, false)
 
   fun setReferralNotificationSeen(wallet: String, isSeen: Boolean) =
-    preferences.edit()
+    sharedPreferences.edit()
       .putBoolean(REFERRAL_NOTIFIC_SEEN + wallet, isSeen)
       .apply()
 }

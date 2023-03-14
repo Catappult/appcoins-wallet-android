@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.asf.wallet.R
 import com.asf.wallet.databinding.BackupSuccessFragmentBinding
-import preferences.BackupTriggerPreferences
 import com.asfoundation.wallet.base.SideEffect
 import com.asfoundation.wallet.base.SingleStateFragment
 import com.asfoundation.wallet.base.ViewState
@@ -15,6 +14,7 @@ import com.asfoundation.wallet.billing.analytics.WalletsAnalytics
 import com.asfoundation.wallet.billing.analytics.WalletsEventSender
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
+import preferences.BackupTriggerPreferencesDataSource
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -22,7 +22,7 @@ class BackupSuccessFragment : BasePageViewFragment(),
   SingleStateFragment<ViewState, SideEffect> {
 
   @Inject
-  lateinit var backupTriggerPreferences: BackupTriggerPreferences
+  lateinit var backupTriggerPreferences: BackupTriggerPreferencesDataSource
 
   @Inject
   lateinit var walletsEventSender: WalletsEventSender
@@ -57,7 +57,7 @@ class BackupSuccessFragment : BasePageViewFragment(),
     backupTriggerPreferences.setTriggerState(
       walletAddress = requireArguments().getString(WALLET_ADDRESS_KEY, ""),
       active = false,
-      triggerSource = BackupTriggerPreferences.TriggerSource.DISABLED
+      triggerSource = BackupTriggerPreferencesDataSource.TriggerSource.DISABLED
     )
 
     views.closeButton.setOnClickListener {

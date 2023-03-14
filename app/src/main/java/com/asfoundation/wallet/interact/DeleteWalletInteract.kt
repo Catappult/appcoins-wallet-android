@@ -1,7 +1,5 @@
 package com.asfoundation.wallet.interact
 
-import preferences.BackupSystemNotificationPreferences
-import preferences.BackupTriggerPreferences
 import com.asfoundation.wallet.entity.Wallet
 import com.asfoundation.wallet.repository.PasswordStore
 import com.asfoundation.wallet.repository.WalletRepositoryType
@@ -9,6 +7,8 @@ import com.asfoundation.wallet.verification.ui.credit_card.WalletVerificationInt
 import com.asfoundation.wallet.wallets.repository.WalletInfoRepository
 import fingerprint.FingerprintPreferencesDataSource
 import io.reactivex.Completable
+import preferences.BackupSystemNotificationPreferencesDataSource
+import preferences.BackupTriggerPreferencesDataSource
 import javax.inject.Inject
 
 /**
@@ -18,8 +18,8 @@ class DeleteWalletInteract @Inject constructor(
   private val walletRepository: WalletRepositoryType,
   private val passwordStore: PasswordStore,
   private val walletVerificationInteractor: WalletVerificationInteractor,
-  private val backupTriggerPreferences: BackupTriggerPreferences,
-  private val backupSystemNotificationPreferences: BackupSystemNotificationPreferences,
+  private val backupTriggerPreferences: BackupTriggerPreferencesDataSource,
+  private val backupSystemNotificationPreferences: BackupSystemNotificationPreferencesDataSource,
   private val fingerprintPreferences: FingerprintPreferencesDataSource,
   private val walletInfoRepository: WalletInfoRepository
 ) {

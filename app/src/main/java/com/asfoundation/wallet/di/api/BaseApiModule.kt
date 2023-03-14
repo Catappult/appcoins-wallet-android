@@ -6,7 +6,6 @@ import com.asfoundation.wallet.di.annotations.BaseHttpClient
 import com.asfoundation.wallet.di.annotations.BlockchainHttpClient
 import com.asfoundation.wallet.di.annotations.DefaultHttpClient
 import com.asfoundation.wallet.di.annotations.ShortTimeoutHttpClient
-import repository.PreferencesRepositoryType
 import com.asfoundation.wallet.util.LogInterceptor
 import com.asfoundation.wallet.util.UserAgentInterceptor
 import dagger.Module
@@ -15,6 +14,7 @@ import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
+import repository.CommonsPreferencesDataSource
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
@@ -27,11 +27,11 @@ class BaseApiModule {
   @BaseHttpClient
   fun provideOkHttpClient(
     @ApplicationContext context: Context,
-    preferencesRepositoryType: PreferencesRepositoryType,
+    commonsPreferencesDataSource: CommonsPreferencesDataSource,
     logInterceptor: LogInterceptor
   ): OkHttpClient {
     return OkHttpClient.Builder()
-      .addInterceptor(UserAgentInterceptor(context, preferencesRepositoryType))
+      .addInterceptor(UserAgentInterceptor(context, commonsPreferencesDataSource))
       .addInterceptor(MagnesHeaderInterceptor(context))
       .addInterceptor(logInterceptor)
       .build()

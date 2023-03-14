@@ -4,12 +4,12 @@ import android.content.pm.PackageManager
 import android.os.Build
 import androidx.biometric.BiometricManager
 import fingerprint.FingerprintPreferencesDataSource
-import repository.PreferencesRepositoryType
 import io.reactivex.Single
+import repository.CommonsPreferencesDataSource
 import javax.inject.Inject
 
 class ShouldShowFingerprintTooltipUseCase @Inject constructor(
-  private val preferencesRepositoryType: PreferencesRepositoryType,
+  private val commonsPreferencesDataSource: CommonsPreferencesDataSource,
   private val packageManager: PackageManager,
   private val fingerprintPreferences: FingerprintPreferencesDataSource,
   private val biometricManager: BiometricManager
@@ -21,9 +21,9 @@ class ShouldShowFingerprintTooltipUseCase @Inject constructor(
 
   operator fun invoke(packageName: String): Single<Boolean> {
     var shouldShow = false
-    if (!preferencesRepositoryType.hasBeenInSettings() && !fingerprintPreferences.hasSeenFingerprintTooltip()
+    if (!commonsPreferencesDataSource.hasBeenInSettings() && !fingerprintPreferences.hasSeenFingerprintTooltip()
       && hasFingerprint() && !fingerprintPreferences.hasAuthenticationPermission() &&
-      preferencesRepositoryType.hasSeenPromotionTooltip()
+      commonsPreferencesDataSource.hasSeenPromotionTooltip()
     ) {
       if (!isFirstInstall(packageName)) {
         shouldShow = true
@@ -71,5 +71,5 @@ class ShouldShowFingerprintTooltipUseCase @Inject constructor(
     }
   }
 
-  private fun getNumberOfTimesOnHome(): Int = preferencesRepositoryType.getNumberOfTimesOnHome()
+  private fun getNumberOfTimesOnHome(): Int = commonsPreferencesDataSource.getNumberOfTimesOnHome()
 }

@@ -4,21 +4,21 @@ import com.asf.wallet.R
 import com.asfoundation.wallet.interact.EmptyNotification
 import com.asfoundation.wallet.interact.UpdateNotification
 import com.asfoundation.wallet.referrals.CardNotification
-import repository.PreferencesRepositoryType
 import com.asfoundation.wallet.ui.widget.holder.CardNotificationAction
 import io.reactivex.Single
+import repository.CommonsPreferencesDataSource
 import javax.inject.Inject
 
 class GetUnwatchedUpdateNotificationUseCase @Inject constructor(
   private val getAutoUpdateModelUseCase: GetAutoUpdateModelUseCase,
   private val hasSoftUpdateUseCase: HasSoftUpdateUseCase,
-  private val sharedPreferencesRepository: PreferencesRepositoryType
+  private val commonsPreferencesDataSource: CommonsPreferencesDataSource
 ) {
 
   operator fun invoke(): Single<CardNotification> {
     return getAutoUpdateModelUseCase(false)
       .flatMap { updateModel ->
-        sharedPreferencesRepository.getAutoUpdateCardDismissedVersion()
+        Single.fromCallable { commonsPreferencesDataSource.getAutoUpdateCardDismissedVersion() }
           .map {
             hasSoftUpdateUseCase(
               updateModel.updateVersionCode,

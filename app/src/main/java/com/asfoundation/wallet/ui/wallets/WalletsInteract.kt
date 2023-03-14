@@ -4,7 +4,6 @@ import com.appcoins.wallet.commons.Logger
 import com.appcoins.wallet.gamification.Gamification
 import com.asfoundation.wallet.entity.Wallet
 import com.asfoundation.wallet.promo_code.use_cases.GetCurrentPromoCodeUseCase
-import repository.SharedPreferencesRepository
 import com.asfoundation.wallet.support.SupportInteractor
 import com.asfoundation.wallet.ui.iab.FiatValue
 import com.asfoundation.wallet.util.sumByBigDecimal
@@ -16,6 +15,7 @@ import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
+import repository.CommonsPreferencesDataSource
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
@@ -25,7 +25,7 @@ class WalletsInteract @Inject constructor(
   private val fetchWalletsInteract: FetchWalletsInteract,
   private val walletCreatorInteract: WalletCreatorInteract,
   private val supportInteractor: SupportInteractor,
-  private val preferencesRepository: SharedPreferencesRepository,
+  private val preferencesRepository: CommonsPreferencesDataSource,
   private val gamificationRepository: Gamification,
   private val logger: Logger,
   private val getCurrentPromoCodeUseCase: GetCurrentPromoCodeUseCase

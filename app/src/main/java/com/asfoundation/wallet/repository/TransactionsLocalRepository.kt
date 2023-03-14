@@ -7,12 +7,12 @@ import io.reactivex.Flowable
 import io.reactivex.Maybe
 import io.reactivex.Single
 import it.czerwinski.android.hilt.annotations.BoundTo
-import repository.TransactionsSharedPreferences
+import repository.TransactionsPreferencesDataSource
 import javax.inject.Inject
 @BoundTo(supertype = TransactionsRepository::class)
 class TransactionsLocalRepository @Inject constructor(
   private val transactionsDao: TransactionsDao,
-  private val sharedPreferences: TransactionsSharedPreferences,
+  private val sharedPreferences: TransactionsPreferencesDataSource,
   private val transactionLinkIdDao: TransactionLinkIdDao
 ) :
     TransactionsRepository {

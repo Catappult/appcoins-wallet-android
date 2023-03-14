@@ -12,20 +12,13 @@ class SupportSharedPreferences @Inject constructor(
 
   fun checkSavedUnreadConversations() = sharedPreferences.getInt(UNREAD_CONVERSATIONS, 0)
 
-  fun updateUnreadConversations(unreadConversations: Int) {
+  fun updateUnreadConversations(unreadConversations: Int) =
     sharedPreferences.edit()
-        .apply {
-          putInt(UNREAD_CONVERSATIONS, unreadConversations)
-          apply()
-        }
-  }
+      .putInt(UNREAD_CONVERSATIONS, unreadConversations)
+      .apply()
 
-  fun resetUnreadConversations() {
+  fun resetUnreadConversations() =
     sharedPreferences.edit()
-        .apply {
-          putInt(UNREAD_CONVERSATIONS, 0)
-          apply()
-        }
-  }
-
+      .putInt(UNREAD_CONVERSATIONS, 0)
+      .apply()
 }
