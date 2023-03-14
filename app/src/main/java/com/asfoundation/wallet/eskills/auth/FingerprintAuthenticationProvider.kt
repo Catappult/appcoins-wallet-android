@@ -4,7 +4,7 @@ import android.content.Context
 import android.content.Intent
 import cm.aptoide.skills.interfaces.ExternalAuthenticationProvider
 import com.asfoundation.wallet.ui.AuthenticationPromptActivity
-import fingerprint.FingerprintPreferencesDataSource
+import com.appcoins.wallet.sharedpreferences.FingerprintPreferencesDataSource
 import it.czerwinski.android.hilt.annotations.BoundTo
 import javax.inject.Inject
 

@@ -5,7 +5,7 @@ import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.interact.FetchGasSettingsInteract
 import com.asfoundation.wallet.interact.SendTransactionInteract
 import io.reactivex.Single
-import repository.GasPreferencesDataSource
+import com.appcoins.wallet.sharedpreferences.GasPreferencesDataSource
 import javax.inject.Inject
 
 class TransferConfirmationInteractor @Inject constructor(

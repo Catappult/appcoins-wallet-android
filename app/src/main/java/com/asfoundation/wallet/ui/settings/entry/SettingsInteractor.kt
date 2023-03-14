@@ -6,8 +6,8 @@ import com.asfoundation.wallet.support.SupportInteractor
 import com.asfoundation.wallet.ui.FingerprintInteractor
 import com.asfoundation.wallet.ui.wallets.WalletsInteract
 import com.asfoundation.wallet.wallets.FindDefaultWalletInteract
-import fingerprint.FingerprintPreferencesDataSource
-import repository.CommonsPreferencesDataSource
+import com.appcoins.wallet.sharedpreferences.FingerprintPreferencesDataSource
+import com.appcoins.wallet.sharedpreferences.CommonsPreferencesDataSource
 import javax.inject.Inject
 
 class SettingsInteractor @Inject constructor(

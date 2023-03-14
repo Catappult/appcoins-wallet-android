@@ -1,4 +1,4 @@
-package repository
+package com.appcoins.wallet.sharedpreferences
 
 import android.content.SharedPreferences
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener

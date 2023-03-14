@@ -42,7 +42,7 @@ import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import org.bouncycastle.jce.provider.BouncyCastleProvider
-import repository.CommonsPreferencesDataSource
+import com.appcoins.wallet.sharedpreferences.CommonsPreferencesDataSource
 import java.security.Provider
 import java.security.Security
 import java.util.*

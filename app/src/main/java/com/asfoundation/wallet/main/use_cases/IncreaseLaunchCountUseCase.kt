@@ -1,6 +1,6 @@
 package com.asfoundation.wallet.main.use_cases
 
-import repository.CommonsPreferencesDataSource
+import com.appcoins.wallet.sharedpreferences.CommonsPreferencesDataSource
 import javax.inject.Inject
 
 class IncreaseLaunchCountUseCase @Inject constructor(

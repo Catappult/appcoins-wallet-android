@@ -14,7 +14,7 @@ import com.asfoundation.wallet.billing.analytics.WalletsAnalytics
 import com.asfoundation.wallet.billing.analytics.WalletsEventSender
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
-import preferences.BackupTriggerPreferencesDataSource
+import com.appcoins.wallet.sharedpreferences.BackupTriggerPreferencesDataSource
 import javax.inject.Inject
 
 @AndroidEntryPoint

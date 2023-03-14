@@ -5,10 +5,10 @@ import com.asfoundation.wallet.repository.PasswordStore
 import com.asfoundation.wallet.repository.WalletRepositoryType
 import com.asfoundation.wallet.verification.ui.credit_card.WalletVerificationInteractor
 import com.asfoundation.wallet.wallets.repository.WalletInfoRepository
-import fingerprint.FingerprintPreferencesDataSource
+import com.appcoins.wallet.sharedpreferences.FingerprintPreferencesDataSource
 import io.reactivex.Completable
-import preferences.BackupSystemNotificationPreferencesDataSource
-import preferences.BackupTriggerPreferencesDataSource
+import com.appcoins.wallet.sharedpreferences.BackupSystemNotificationPreferencesDataSource
+import com.appcoins.wallet.sharedpreferences.BackupTriggerPreferencesDataSource
 import javax.inject.Inject
 
 /**

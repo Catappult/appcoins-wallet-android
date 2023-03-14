@@ -6,7 +6,7 @@ import com.appcoins.wallet.gamification.GamificationContext
 import com.appcoins.wallet.gamification.GamificationContext.*
 import com.appcoins.wallet.gamification.repository.PromotionsGamificationStats.Companion.INVALID_LEVEL
 import com.appcoins.wallet.gamification.repository.entity.*
-import gamification.GamificationStatsPreferencesDataSource
+import com.appcoins.wallet.sharedpreferences.GamificationStatsPreferencesDataSource
 import io.reactivex.Completable
 import io.reactivex.Single
 import io.reactivex.functions.BiFunction

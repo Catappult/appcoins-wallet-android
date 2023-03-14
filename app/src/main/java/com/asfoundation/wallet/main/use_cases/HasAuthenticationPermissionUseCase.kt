@@ -1,6 +1,6 @@
 package com.asfoundation.wallet.main.use_cases
 
-import fingerprint.FingerprintPreferencesDataSource
+import com.appcoins.wallet.sharedpreferences.FingerprintPreferencesDataSource
 import javax.inject.Inject
 
 class HasAuthenticationPermissionUseCase @Inject constructor(

@@ -26,7 +26,7 @@ import com.asfoundation.wallet.util.toBitmap
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
-import preferences.BackupTriggerPreferencesDataSource
+import com.appcoins.wallet.sharedpreferences.BackupTriggerPreferencesDataSource
 import java.math.BigDecimal
 import java.math.RoundingMode
 import java.text.DecimalFormat

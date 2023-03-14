@@ -2,7 +2,7 @@ package com.asfoundation.wallet.billing.address
 
 import com.asfoundation.wallet.util.component6
 import com.asfoundation.wallet.util.guardLet
-import repository.SecurePreferencesDataSource
+import com.appcoins.wallet.sharedpreferences.SecurePreferencesDataSource
 import javax.inject.Inject
 
 class BillingAddressRepository @Inject constructor(

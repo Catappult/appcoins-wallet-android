@@ -7,7 +7,7 @@ import android.util.DisplayMetrics
 import android.view.WindowManager
 import com.asf.wallet.BuildConfig
 import okhttp3.*
-import repository.CommonsPreferencesDataSource
+import com.appcoins.wallet.sharedpreferences.CommonsPreferencesDataSource
 import java.io.IOException
 import java.util.*
 

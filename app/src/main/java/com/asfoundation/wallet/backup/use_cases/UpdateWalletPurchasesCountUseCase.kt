@@ -3,7 +3,7 @@ package com.asfoundation.wallet.backup.use_cases
 import com.asfoundation.wallet.wallets.domain.WalletInfo
 import io.reactivex.Completable
 import io.reactivex.Single
-import repository.CommonsPreferencesDataSource
+import com.appcoins.wallet.sharedpreferences.CommonsPreferencesDataSource
 import javax.inject.Inject
 
 class UpdateWalletPurchasesCountUseCase

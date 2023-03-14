@@ -9,8 +9,8 @@ import com.asfoundation.wallet.referrals.ReferralNotification
 import com.asfoundation.wallet.repository.AutoUpdateRepository
 import com.asfoundation.wallet.util.scaleToString
 import io.reactivex.Completable
-import referrals.ReferralPreferencesDataSource
-import repository.CommonsPreferencesDataSource
+import com.appcoins.wallet.sharedpreferences.ReferralPreferencesDataSource
+import com.appcoins.wallet.sharedpreferences.CommonsPreferencesDataSource
 import javax.inject.Inject
 
 class DismissCardNotificationUseCase @Inject constructor(

@@ -9,7 +9,7 @@ import com.asf.wallet.BuildConfig
 import dagger.hilt.android.qualifiers.ApplicationContext
 import it.czerwinski.android.hilt.annotations.BoundTo
 import kotlinx.coroutines.suspendCancellableCoroutine
-import repository.AppStartPreferencesDataSource
+import com.appcoins.wallet.sharedpreferences.AppStartPreferencesDataSource
 import java.util.concurrent.TimeoutException
 import javax.inject.Inject
 

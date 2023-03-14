@@ -1,4 +1,4 @@
-package preferences
+package com.appcoins.wallet.sharedpreferences
 
 import android.content.SharedPreferences
 import com.google.gson.Gson

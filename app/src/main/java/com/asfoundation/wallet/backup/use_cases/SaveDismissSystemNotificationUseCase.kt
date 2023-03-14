@@ -1,6 +1,6 @@
 package com.asfoundation.wallet.backup.use_cases
 
-import preferences.BackupSystemNotificationPreferencesDataSource
+import com.appcoins.wallet.sharedpreferences.BackupSystemNotificationPreferencesDataSource
 import javax.inject.Inject
 
 class SaveDismissSystemNotificationUseCase @Inject constructor(

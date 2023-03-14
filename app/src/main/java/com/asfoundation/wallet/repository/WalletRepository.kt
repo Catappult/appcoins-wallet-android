@@ -9,8 +9,8 @@ import com.asfoundation.wallet.recover.result.SuccessfulRestore
 import com.asfoundation.wallet.service.AccountKeystoreService
 import io.reactivex.*
 import it.czerwinski.android.hilt.annotations.BoundTo
-import repository.CommonsPreferencesDataSource
-import repository.CommonsPreferencesDataSource.Companion.CURRENT_ACCOUNT_ADDRESS_KEY
+import com.appcoins.wallet.sharedpreferences.CommonsPreferencesDataSource
+import com.appcoins.wallet.sharedpreferences.CommonsPreferencesDataSource.Companion.CURRENT_ACCOUNT_ADDRESS_KEY
 import javax.inject.Inject
 
 @BoundTo(supertype = WalletRepositoryType::class)

@@ -4,7 +4,7 @@ import com.asfoundation.wallet.base.RxSchedulers
 import com.asfoundation.wallet.eskills.withdraw.domain.SuccessfulWithdraw
 import com.asfoundation.wallet.eskills.withdraw.domain.WithdrawResult
 import io.reactivex.Single
-import repository.WithdrawPreferencesDataSource
+import com.appcoins.wallet.sharedpreferences.WithdrawPreferencesDataSource
 import java.math.BigDecimal
 import javax.inject.Inject
 

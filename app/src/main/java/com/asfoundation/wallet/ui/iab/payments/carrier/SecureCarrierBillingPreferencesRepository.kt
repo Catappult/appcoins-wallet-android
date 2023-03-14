@@ -3,7 +3,7 @@ package com.asfoundation.wallet.ui.iab.payments.carrier
 import com.appcoins.wallet.billing.carrierbilling.CarrierBillingPreferencesRepository
 import dagger.hilt.components.SingletonComponent
 import it.czerwinski.android.hilt.annotations.BoundTo
-import repository.SecurePreferencesDataSource
+import com.appcoins.wallet.sharedpreferences.SecurePreferencesDataSource
 import javax.inject.Inject
 
 @BoundTo(

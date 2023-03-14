@@ -8,7 +8,7 @@ import com.asfoundation.wallet.wallets.repository.WalletInfoRepository
 import io.reactivex.Completable
 import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
-import repository.BrokerVerificationPreferencesDataSource
+import com.appcoins.wallet.sharedpreferences.BrokerVerificationPreferencesDataSource
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST

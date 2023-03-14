@@ -2,7 +2,7 @@ package com.asfoundation.wallet.backup.use_cases
 
 import com.asfoundation.wallet.wallets.usecases.GetWalletInfoUseCase
 import io.reactivex.Single
-import preferences.BackupTriggerPreferencesDataSource
+import com.appcoins.wallet.sharedpreferences.BackupTriggerPreferencesDataSource
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 

@@ -4,7 +4,7 @@ import android.content.pm.PackageManager
 import android.content.pm.PackageManager.FEATURE_FINGERPRINT
 import android.os.Build
 import androidx.biometric.BiometricManager
-import fingerprint.FingerprintPreferencesDataSource
+import com.appcoins.wallet.sharedpreferences.FingerprintPreferencesDataSource
 import javax.inject.Inject
 
 class FingerprintInteractor @Inject constructor(

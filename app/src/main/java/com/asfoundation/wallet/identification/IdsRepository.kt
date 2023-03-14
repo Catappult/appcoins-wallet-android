@@ -7,7 +7,7 @@ import com.appcoins.wallet.gamification.repository.UserStatsLocalData
 import com.asfoundation.wallet.billing.partners.InstallerService
 import dagger.hilt.android.qualifiers.ApplicationContext
 import io.reactivex.Single
-import repository.CommonsPreferencesDataSource
+import com.appcoins.wallet.sharedpreferences.CommonsPreferencesDataSource
 import java.util.*
 import javax.inject.Inject
 

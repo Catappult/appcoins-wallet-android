@@ -14,7 +14,7 @@ import com.asfoundation.wallet.repository.BdsPendingTransactionService
 import com.asfoundation.wallet.support.SupportInteractor
 import com.asfoundation.wallet.ui.gamification.GamificationInteractor
 import com.asfoundation.wallet.wallet_blocked.WalletBlockedInteract
-import fingerprint.FingerprintPreferencesDataSource
+import com.appcoins.wallet.sharedpreferences.FingerprintPreferencesDataSource
 import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Scheduler

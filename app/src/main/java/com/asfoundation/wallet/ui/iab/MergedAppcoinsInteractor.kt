@@ -6,7 +6,7 @@ import com.asfoundation.wallet.repository.InAppPurchaseService
 import com.asfoundation.wallet.support.SupportInteractor
 import com.asfoundation.wallet.ui.balance.BalanceInteractor
 import com.asfoundation.wallet.wallet_blocked.WalletBlockedInteract
-import fingerprint.FingerprintPreferencesDataSource
+import com.appcoins.wallet.sharedpreferences.FingerprintPreferencesDataSource
 import io.reactivex.Completable
 import io.reactivex.Single
 import javax.inject.Inject

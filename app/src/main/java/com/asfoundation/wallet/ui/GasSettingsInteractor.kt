@@ -4,7 +4,7 @@ import com.asfoundation.wallet.entity.GasSettings
 import com.asfoundation.wallet.entity.NetworkInfo
 import com.asfoundation.wallet.home.usecases.FindNetworkInfoUseCase
 import io.reactivex.Single
-import repository.GasPreferencesDataSource
+import com.appcoins.wallet.sharedpreferences.GasPreferencesDataSource
 import java.math.BigDecimal
 import javax.inject.Inject
 

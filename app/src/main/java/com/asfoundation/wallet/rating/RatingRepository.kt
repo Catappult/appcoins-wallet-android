@@ -5,7 +5,7 @@ import com.asf.wallet.BuildConfig
 import com.asfoundation.wallet.rating.network.WalletFeedbackBody
 import io.reactivex.Single
 import okhttp3.ResponseBody
-import repository.RatingPreferencesDataSource
+import com.appcoins.wallet.sharedpreferences.RatingPreferencesDataSource
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.Header

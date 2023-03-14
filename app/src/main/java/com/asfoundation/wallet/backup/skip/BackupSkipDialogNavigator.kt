@@ -3,7 +3,7 @@ package com.asfoundation.wallet.backup.skip
 import androidx.fragment.app.Fragment
 import com.asfoundation.wallet.backup.triggers.BackupTriggerDialogFragment
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import preferences.BackupTriggerPreferencesDataSource
+import com.appcoins.wallet.sharedpreferences.BackupTriggerPreferencesDataSource
 import javax.inject.Inject
 
 class BackupSkipDialogNavigator @Inject constructor(

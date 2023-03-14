@@ -7,7 +7,7 @@ import io.reactivex.Flowable
 import io.reactivex.Maybe
 import io.reactivex.Single
 import it.czerwinski.android.hilt.annotations.BoundTo
-import repository.TransactionsPreferencesDataSource
+import com.appcoins.wallet.sharedpreferences.TransactionsPreferencesDataSource
 import javax.inject.Inject
 @BoundTo(supertype = TransactionsRepository::class)
 class TransactionsLocalRepository @Inject constructor(

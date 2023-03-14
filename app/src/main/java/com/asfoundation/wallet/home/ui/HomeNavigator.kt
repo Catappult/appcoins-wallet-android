@@ -18,7 +18,7 @@ import com.asfoundation.wallet.transactions.Transaction
 import com.asfoundation.wallet.ui.BaseActivity
 import com.asfoundation.wallet.ui.balance.TransactionDetailActivity
 import com.asfoundation.wallet.ui.settings.SettingsActivity
-import preferences.BackupTriggerPreferencesDataSource
+import com.appcoins.wallet.sharedpreferences.BackupTriggerPreferencesDataSource
 import javax.inject.Inject
 
 class HomeNavigator @Inject constructor(

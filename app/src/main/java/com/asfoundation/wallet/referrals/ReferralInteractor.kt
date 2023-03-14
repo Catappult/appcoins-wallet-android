@@ -13,7 +13,7 @@ import io.reactivex.Completable
 import io.reactivex.Maybe
 import io.reactivex.Single
 import it.czerwinski.android.hilt.annotations.BoundTo
-import referrals.ReferralPreferencesDataSource
+import com.appcoins.wallet.sharedpreferences.ReferralPreferencesDataSource
 import java.math.BigDecimal
 import javax.inject.Inject
 

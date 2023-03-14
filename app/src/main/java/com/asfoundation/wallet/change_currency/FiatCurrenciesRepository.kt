@@ -6,7 +6,7 @@ import com.asfoundation.wallet.service.currencies.LocalCurrencyConversionService
 import io.reactivex.Completable
 import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
-import repository.FiatCurrenciesPreferencesDataSource
+import com.appcoins.wallet.sharedpreferences.FiatCurrenciesPreferencesDataSource
 import retrofit2.http.GET
 import javax.inject.Inject
 
