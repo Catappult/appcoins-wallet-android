@@ -29,9 +29,9 @@
   <string name="got_it_button">Begrepen</string>
   <string name="change_button">Wijzigen</string>
   <string name="vip">VIP</string>
-  <string name="faq">FAQs</string>
-  <string name="about_us_title">About Us</string>
-  <string name="preferences_title">Preferences</string>
+  <string name="faq">FAQ\'s</string>
+  <string name="about_us_title">Over ons</string>
+  <string name="preferences_title">Voorkeuren</string>
   <string name="low_storage_error">Er is onvoldoende opslagruimte</string>
   <string name="no_camera_permission_title">Toestemming voor camera</string>
   <string name="no_camera_permission">Om QR-codes te scannen heeft AppCoins BDS Wallet toestemming nodig om toegang tot je camera te krijgen.</string>
@@ -44,7 +44,7 @@
   <!-- TODO: Remove or change this placeholder text -->
   <string name="title_community">Gemeenschap</string>
   <string name="title_opensource">Open source-ontwikkeling</string>
-  <string name="title_source_code">Source Code</string>
+  <string name="title_source_code">Broncode</string>
   <string name="title_report_bug">Meld een bug</string>
   <string name="title_support">Ondersteuning</string>
   <string name="title_permissions">Toestemmingen</string>
@@ -80,7 +80,7 @@
   <string name="unknown_error">Er is een fout opgetreden.</string>
   <string name="action_backup_wallet">Back-up van wallet maken</string>
   <string name="no_tokens">Je heb nog geen persoonlijke tokens toegevoegd.</string>
-  <string name="title_email">Email Us</string>
+  <string name="title_email">Mail ons</string>
   <string name="action_donate">Doneren</string>
   <!-- Titles -->
   <string name="title_my_address">Ontvangen</string>
@@ -140,15 +140,15 @@
   <string name="intro_already_have_wallet_button">Ik heb al een wallet</string>
   <string name="intro_get_started_button">Wallet openen</string>
   <!-- Intro from game -->
-  <string name="launching_wallet_body">Launching wallet&#8230;</string>
-  <string name="select_method_title">Choose a payment method</string>
-  <string name="bonus_body">Get %s bonus with this purchase.</string>
-  <string name="agree_by_choosing_a_payment_method_body">By choosing a payment method, you agree to the %1$s and %2$s.</string>
-  <string name="pay_with_card_title">Pay with credit/debit card</string>
-  <string name="more_payment_methods_button">More payment methods</string>
-  <string name="bonus_received_body">You received a %s bonus in your wallet.</string>
-  <string name="back_to_the_game_button">Back to the game</string>
-  <string name="other_payment_methos_title">Other payment methods:</string>
+  <string name="launching_wallet_body">Wallet openen&#8230;</string>
+  <string name="select_method_title">Kies een betaalmethode</string>
+  <string name="bonus_body">Krijg %s bonus bij deze aankoop.</string>
+  <string name="agree_by_choosing_a_payment_method_body">Door een betaalmethode te kiezen, ga je akkoord met de %1$s en het %2$s.</string>
+  <string name="pay_with_card_title">Betaal met creditcard/betaalkaart</string>
+  <string name="more_payment_methods_button">Meer betaalmethoden</string>
+  <string name="bonus_received_body">Er is een bonus van %s aan je wallet toegevoegd.</string>
+  <string name="back_to_the_game_button">Terug naar de game</string>
+  <string name="other_payment_methos_title">Andere betaalmethoden:</string>
   <!-- Menus -->
   <!-- Labels -->
   <string name="label_from">Van</string>
@@ -377,7 +377,7 @@
   <string name="provide_wallet_completed_header">Wallet is aan Aptoide gekoppeld!</string>
   <string name="provide_wallet_create_body">Je hebt een wallet-adres nodig! Volg deze stappen om via de AppCoins Wallet een adres aan te maken.</string>
   <string name="provide_wallet_create_wallet_button">Aanmaken</string>
-  <string name="provide_wallet_creating_wallet_header">Preparing your wallet&#8230;</string>
+  <string name="provide_wallet_creating_wallet_header">Je wallet voorbereiden&#8230;</string>
   <string name="provide_wallet_created_header">Wallet-adres is aangemaakt!</string>
   <string name="provide_wallet_empty_state">Je hebt AppCoins Wallet nog geen toestemming gegeven om je adres aan een andere app door te geven.</string>
   <string name="provide_wallet_status">Toestemming voor toegang tot wallet-adres geven</string>
@@ -539,12 +539,12 @@
   <string name="purchase_wallet_blocked_title">Je saldo in AppCoins Credits is geblokkeerd</string>
   <string name="purchase_wallet_blocked_body">Vanwege een ongebruikelijke transactiegeschiedenis is je saldo in AppCoins Credits geblokkeerd. Je kunt nog steeds betalingen en transacties via andere methoden dan AppCoins Credits uitvoeren.\n\nAls je denkt dat dit een vergissing is, kun je contact met ons opnemen:</string>
   <string name="purchase_card_error_title">Oeps. Er is iets fout gegaan.</string>
-  <string name="purchase_card_error_general_1">There was a problem with your card. Please try with a different card or payment method.</string>
-  <string name="purchase_card_error_general_2">The transaction has been rejected by your bank. Please try with a different card or payment method.</string>
-  <string name="purchase_card_error_no_funds">It seems you don\'t have enough funds or there\'s a limit on your card. Please try with a different card or payment method.</string>
-  <string name="purchase_card_error_expired">It seems your card is expired. Please try again with a different payment method.</string>
-  <string name="purchase_card_error_invalid_details">Invalid card number. Please check it and try again.</string>
-  <string name="purchase_card_error_not_supported">Your card is not supported yet. Please try again with a different card or payment method.</string>
+  <string name="purchase_card_error_general_1">Er is een probleem met je kaart. Gebruik een andere kaart of betaalmethode.</string>
+  <string name="purchase_card_error_general_2">De transactie is door je bank geweigerd. Gebruik een andere kaart of betaalmethode.</string>
+  <string name="purchase_card_error_no_funds">Het lijkt erop dat je niet genoeg saldo hebt of je kaart heeft een limiet. Gebruik een andere kaart of betaalmethode.</string>
+  <string name="purchase_card_error_expired">Het lijkt erop dat uw kaart is verlopen. Probeer het opnieuw met een andere betaalmethode.</string>
+  <string name="purchase_card_error_invalid_details">Ongeldig kaart. Controleer het nummer en probeer het opnieuw.</string>
+  <string name="purchase_card_error_not_supported">Je kaart wordt nog niet ondersteund. Probeer het opnieuw met een andere kaart of betaalmethode.</string>
   <string name="purchase_card_error_security">Weet je zeker dat je de juiste beveiligingsinformatie hebt ingevoerd? Probeer het opnieuw.</string>
   <string name="purchase_card_error_wrong_CVV">Het lijkt erop dat de CVV/CVC-code onjuist is. Probeer het opnieuw.</string>
   <string name="purchase_card_error_re_insert">Het lijkt erop dat je deze kaart lang geleden hebt geregistreerd! Voer de kaartgegevens opnieuw in of gebruik een andere kaart.</string>
@@ -568,7 +568,7 @@
   <string name="purchase_error_card_security_validation">Bij deze transactie is een fout bij de verificatie op het 2e niveau opgetreden. Probeer het opnieuw.</string>
   <string name="purchase_error_transaction_timeout">Het lijkt erop dat je er te lang over hebt gedaan om de transactie te voltooien. Probeer het opnieuw.</string>
   <string name="purchase_error_card_already_in_progress">Je verzoek is al verwerkt of is in behandeling. Even geduld.</string>
-  <string name="purchase_error_payment_rejected">The transaction has been rejected. Please try with a different card or payment method.</string>
+  <string name="purchase_error_payment_rejected">De transactie is geweigerd. Gebruik een andere kaart of betaalmethode.</string>
   <string name="purchase_error_verify_wallet">Verifieer je betaalmethode om deze aankoop te voltooien.</string>
   <string name="purchase_error_verify_card">Verifieer je kaart om deze aankoop te voltooien.</string>
   <string name="purachse_error_verify_card_button">KAART VERIFIËREN</string>
@@ -577,7 +577,7 @@
   <string name="purchase_app_needed_body">Je hebt de volgende app nodig om je aankoop te voltooien.</string>
   <string name="purchase_apps_needed_body">Je hebt een van de volgende apps nodig om je aankoop te voltooien.</string>
   <string name="purchase_error_connection_issue">Het lijkt erop dat er een probleem met je internetverbinding is! Controleer de verbinding en probeer het opnieuw.</string>
-  <string name="purchase_error_wrong_pin_body">There was a problem with your pin. Please try again.</string>
+  <string name="purchase_error_wrong_pin_body">Er is een probleem met je pincode. Probeer het opnieuw.</string>
   <string name="purchase_error_3d_body">There was a problem with your 3D authentication. Please try again.</string>
   <string name="purchase_error_generic_contact_us_body">Oops, something went wrong. Please try again or contact us.</string>
   <!--Billing address in purchase flow-->
