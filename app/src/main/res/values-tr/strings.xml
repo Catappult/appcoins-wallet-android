@@ -1075,7 +1075,7 @@
   <string name="nfts_transact_gas_price">Petrol Fiyatı</string>
   <string name="nfts_transact_gas_limit">Petrol Limiti</string>
   <string name="nfts_transact_gas_fee_message">İşlem Ücreti</string>
-  <string name="nfts_transact_error_no_funds">Not enough funds! You don\'t have enough ETH to pay for the fees.</string>
+  <string name="nfts_transact_error_no_funds">Yeterli para yok! Ücretleri ödemek için yeterli ETH\'n yok.</string>
   <string name="nfts_transact_error_low_gas">Gas is too low! Increase your gas for the network to accept your transaction.</string>
   <string name="nfts_transact_error_already_in_progress">Bu NFT zaten gönderiliyor! Önceki işlem halen devam ediyor.</string>
   <!-- Gift Card -->
@@ -1126,14 +1126,14 @@
   <string name="vip_program_promotions_list_title">Sana özel promosyonlar</string>
   <string name="vip_program_promo_code_tag">Promosyon kodu</string>
   <string name="vip_program_referral_page_title">VIP Tavsiye Programı</string>
-  <string name="vip_program_referral_page_body">Share this promo code with your community and friends for everyone to earn while playing. For every in-app purchase they make, both <b>you and your friends will receive %s%% bonus</b> on top of other active promotions and for an entire month!</string>
+  <string name="vip_program_referral_page_body">Herkesin oynarken kazanması için bu promosyon kodunu topluluğunla ve arkadaşlarınla paylaş. Yaptıkları her uygulama içi satın alma işlemi için aktif promosyonlara ek olarak bir ay boyunca <b>hem sen hem de arkadaşların %s%% bonus kazanırsınız!</b></string>
   <string name="vip_program_referral_page_share_title">Bu kodu arkadaşlarınla paylaş</string>
   <string name="vip_program_referral_page_earned_body">%3$s tavsiyeden %1$s%2$s kazanıldı</string>
   <string name="vip_program_gamification_title">Bonus seviyem ne?</string>
   <string name="vip_program_gamification_amount_purchases_bonus">Satın alma işlemlerinden bonus kazanıldı.</string>
   <string name="vip_program_gamification_amoung_referral_bonus">Tavsiyelerden bonus kazanıldı</string>
   <string name="vip_program_max_bonus_title">Her satın alma işleminde %s%% bonusun tadını çıkar</string>
-  <string name="vip_program_max_bonus_body">You\'ve reached the limits of the solar system.</string>
+  <string name="vip_program_max_bonus_body">Güneş sisteminin sınırlarına ulaştın.</string>
   <string name="vip_program_max_bonus_short">Her satın alma işleminde %s%% bonus.</string>
   <string name="vip_program_referral_notification_title">VIP Tavsiye Kodu Mevcut!</string>
   <string name="vip_program_referral_notification_body">Kodunu topluluğunla paylaş, böylece hepiniz oynarken kazanın!</string>
