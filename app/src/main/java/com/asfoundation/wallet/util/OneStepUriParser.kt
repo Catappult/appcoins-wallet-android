@@ -1,7 +1,8 @@
 package com.asfoundation.wallet.util
 
 import android.net.Uri
-import com.appcoins.wallet.core.utils.properties.HostProperties
+import com.appcoins.wallet.core.utils.properties.HostProperties.BACKEND_HOST_NAME_DEV
+import com.appcoins.wallet.core.utils.properties.HostProperties.BACKEND_HOST_NAME_PROD
 
 class Parameters {
   companion object {
@@ -20,13 +21,11 @@ class Parameters {
     const val PATH = "/transaction"
     const val PAYMENT_TYPE_INAPP_UNMANAGED = "INAPP_UNMANAGED"
     const val ESKILLS = "ESKILLS"
-    const val NETWORK_ID_ROPSTEN = 3L
-    const val NETWORK_ID_MAIN = 1L
   }
 }
 
 fun Uri.isOneStepURLString() =
-  scheme == Parameters.SCHEME && (host == HostProperties.BACKEND_HOST_NAME)
+  scheme == Parameters.SCHEME && (host == BACKEND_HOST_NAME_DEV || host == BACKEND_HOST_NAME_PROD)
       && (path?.startsWith(Parameters.PATH) ?: false)
 
 fun parseOneStep(uri: Uri): OneStepUri {

@@ -6,7 +6,7 @@ import com.appcoins.wallet.bdsbilling.repository.BillingSupportedType
 import com.appcoins.wallet.bdsbilling.repository.entity.Product
 import com.appcoins.wallet.commons.MemoryCache
 import com.appcoins.wallet.commons.Repository
-import com.appcoins.wallet.core.utils.properties.HostProperties
+import com.appcoins.wallet.core.utils.properties.MiscProperties
 import com.asf.wallet.BuildConfig
 import com.asfoundation.wallet.entity.Token
 import com.asfoundation.wallet.entity.TransactionBuilder
@@ -43,7 +43,7 @@ class OneStepTransactionParser @Inject constructor(
           TransactionBuilder(
             token.tokenInfo.symbol,
             tokenContract,
-            getChainId(completedOneStepUri),
+            getChainId(),
             walletAddress,
             getAppcAmount(completedOneStepUri),
             getSkuId(completedOneStepUri),
@@ -123,9 +123,8 @@ class OneStepTransactionParser @Inject constructor(
     return uri.parameters[Parameters.TYPE] ?: "INAPP"
   }
 
-  private fun getChainId(uri: OneStepUri): Long {
-    return if (uri.host == HostProperties.BACKEND_HOST_NAME)
-      Parameters.NETWORK_ID_ROPSTEN else Parameters.NETWORK_ID_MAIN
+  private fun getChainId(): Long {
+    return MiscProperties.NETWORK_ID.toLong()
   }
 
   private fun getToken(): Single<Token> {
