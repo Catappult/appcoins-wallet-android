@@ -44,7 +44,7 @@
   <!-- TODO: Remove or change this placeholder text -->
   <string name="title_community">Community</string>
   <string name="title_opensource">Open-Source-Entwicklung</string>
-  <string name="title_source_code">Quell-Code</string>
+  <string name="title_source_code">Quellcode</string>
   <string name="title_report_bug">Einen Bug melden</string>
   <string name="title_support">Support</string>
   <string name="title_permissions">Berechtigungen</string>
@@ -53,11 +53,11 @@
   <string name="error_import">Fehler beim Importieren von Keystore</string>
   <string name="message_this_is_your_address">Meine öffentliche Ethereum-Wallet-Adresse</string>
   <string name="backup_warning_text">Da nur du die Kontrolle über dein Geld hast, musst du ein Backup deines Keystore anlegen, falls diese App gelöscht wird.\n\nDeine Wallet wird niemals in einem Cloud-Speicher oder einem Standard-Speichermedium gespeichert.</string>
-  <string name="backup_wallet_tooltip">Aus Sicherheitsgründen solltest du eine Kopie deiner Wallets erstellen.</string>
+  <string name="backup_wallet_tooltip">Aus Sicherheitsgründen solltest du eine Kopie deiner Wallet erstellen.</string>
   <string name="message_no_backup">Kein Backup, kein Ethereum</string>
-  <string name="error_deleting_account">Fehler beim Löschen der Wallets</string>
+  <string name="error_deleting_account">Fehler beim Löschen der Wallet</string>
   <string name="title_privacy_policy">Datenschutzrichtlinie</string>
-  <string name="title_terms">Allgemeinen Geschäftsbedingungen</string>
+  <string name="title_terms">Allgemeine Geschäftsbedingungen</string>
   <string name="title_version">Version</string>
   <string name="title_tokens">Meine Token</string>
   <string name="unlock_screen_title_android">Bildschirm entsperren</string>
@@ -69,7 +69,7 @@
   <string name="skip">Überspringen</string>
   <string name="skip_with_arrow">Überspringen &gt;</string>
   <string name="root_title">GERÄTESICHERHEIT WURDE KOMPROMITTIERT</string>
-  <string name="root_body">Jede App mit Root-Rechten kann auf die Keychain-Daten deiner AppCoins Wallets zugreifen und deine Wallet entwenden! Entferne diese Wallet sofort und stell sie auf einem sicheren Gerät wieder her.</string>
+  <string name="root_body">Jede App mit Root-Rechten kann auf die Keychain-Daten deiner AppCoins Wallet zugreifen und deine Wallet entwenden! Entferne diese Wallet sofort und stell sie auf einem sicheren Gerät wieder her.</string>
   <string name="credits_purchase_value">%s AppCoins Credits</string>
   <string name="buying">Kaufen %s</string>
   <string name="action_buy">Kaufen</string>
@@ -91,8 +91,8 @@
   <string name="title_airdrop">AirDrop</string>
   <!-- Suggestions -->
   <string name="suggestion_private_key">Der private Schlüssel muss mindestens 64 Zeichen lang sein</string>
-  <string name="suggestion_empty_password_available">Das Paaswortfeld kann leer bleiben.</string>
-  <string name="suggestion_this_is_your_address">Meine öffentliche %s Wallet Adresse</string>
+  <string name="suggestion_empty_password_available">Das Passwortfeld kann leer bleiben.</string>
+  <string name="suggestion_this_is_your_address">Meine öffentliche %s Wallet-Adresse</string>
   <!-- Hints -->
   <string name="hint_private_key_field">Privater Schlüssel *</string>
   <string name="hint_keystore">Keystore *</string>
@@ -113,18 +113,18 @@
   <string name="dialog_message_close_channel">Are you sure you want to close this µRaiden channel? </string>
   <!-- Intro resources-->
   <string name="intro_title_first_page">AppCoins Wallet</string>
-  <string name="intro_title_second_page"><![CDATA[Privat & Sicher]]></string>
-  <string name="intro_title_third_page">Schnell &amp; Einfach</string>
+  <string name="intro_title_second_page"><![CDATA[Privat & sicher]]></string>
+  <string name="intro_title_third_page">Schnell &amp; einfach</string>
   <string name="intro_message_first_page">Herzlich willkommen bei der Revolution der App-Ökonomie.</string>
   <string name="intro_message_second_page">Private Schlüssel verlassen nie dein Gerät.</string>
   <string name="intro_message_third_page">Erledige alle deine In-App-Zahlungen und Belohnungen in AppCoins.</string>
   <string name="intro_1_title">AppCoins Wallet</string>
   <string name="intro_1_body">Deine App für In-App Einkäufe.</string>
   <string name="intro_2_title">Mehr spielen, weniger zahlen</string>
-  <string name="intro_2_body">Die beste Wallet für Apps und Spiele.</string>
-  <string name="intro_3_title">Leicht und Einfach</string>
+  <string name="intro_2_body">Die beste Wallet für Zahlungen für Apps und Spiele.</string>
+  <string name="intro_3_title">Leicht und einfach</string>
   <string name="intro_3_body">Boni für alle Käufe.</string>
-  <string name="intro_4_title">Sicher und Privat</string>
+  <string name="intro_4_title">Sicher und privat</string>
   <string name="intro_4_body">Nutze Bankkarte, PayPal und deine Lieblingszahlungsmethoden.</string>
   <string name="intro_4_body_2">Dank der neuesten Technologie sind deine Transaktionen immer sicher.</string>
   <string name="intro_5_title">Erhalte kostenlose AppCoins Credits!</string>
@@ -196,10 +196,10 @@
   <string name="dummy_transaction_value">-- ETH</string>
   <string name="title_dialog_sending">Wird gesendet...</string>
   <string name="welcome.erc20.label.title">ERC20 kompatibel</string>
-  <string name="welcome.erc20.label.description">Unterstützt ERC20 Token standardmäßig.</string>
+  <string name="welcome.erc20.label.description">Unterstützt standardmäßig ERC20 Token.</string>
   <string name="scan_qr">Adresse von QR-Code erhalten</string>
   <string name="info_gas_price">Je höher der Gaspreis, desto höher wird die Transaktionsgebühr, aber umso schneller werden deine Transaktionen über das Ethereum-Netzwerk verarbeitet.</string>
-  <string name="info_gas_limit">Das Gas-Limit verhindert, dass Smart-Contracts alle ihre Ethereum verbrauchen. Wir werden versuchen, das Gas-Limit automatisch zu ermitteln, aber einige Smart-Contracts benötigen eigene Gas-Limits.</string>
+  <string name="info_gas_limit">Das Gas-Limit verhindert, dass Smart-Contracts alle deine Ethereum verbrauchen. Wir werden versuchen, das Gas-Limit automatisch zu ermitteln, aber einige Smart-Contracts benötigen eigene Gas-Limits.</string>
   <string name="title_send_settings">Erweitert</string>
   <string name="title_activity_barcode">Barcode-Scan</string>
   <string name="error_add_token">Token konnte nicht hinzugefügt werden.</string>
@@ -207,7 +207,7 @@
   <string name="error_already_added">Bereits hinzugefügt</string>
   <string name="error_export">Fehler beim Exportieren der Wallets</string>
   <string name="error_fail_load_tokens">Fehler beim Laden der Token-Liste</string>
-  <string name="error_create_wallet">Fehler beim Erstellen einer Wallets</string>
+  <string name="error_create_wallet">Fehler beim Erstellen einer Wallet</string>
   <string name="token_balance">%1$s%2$s %3$s</string>
   <string name="action_edit_tokens">Token bearbeiten</string>
   <string name="token_name">%1$s (%2$s)</string>
@@ -222,13 +222,13 @@
   <string name="activity_iab_error_message">Es ist ein Fehler aufgetreten, bitte versuche es erneut</string>
   <string name="action_try">Testen</string>
   <string name="activity_transactions_learn_more">Weitere Informationen</string>
-  <string name="activity_iab_no_funds_message">Nicht genug ETH und AppCoins</string>
+  <string name="activity_iab_no_funds_message">Nicht genügend ETH und AppCoins</string>
   <string name="activity_iab_no_ethereum_funds_message">Nicht genügend Ethereum</string>
   <string name="activity_iab_no_token_funds_message">Nicht genügend AppCoins</string>
-  <string name="activity_iab_wrong_network_message">Falsches Ethereumnetzwerk oder unbekanntes Token</string>
+  <string name="activity_iab_wrong_network_message">Falsches Ethereum-Netzwerk oder unbekanntes Token</string>
   <string name="activity_iab_no_network_message">Kein Netzwerkzugriff</string>
-  <string name="activity_iab_nonce_message">Ein Fehler mit Blockchain aufgetreten, bitte versuche es später erneut.</string>
-  <string name="activity_iab_approving_message">Überprüfe alle Details: Konto, Artikel, Netzwerk…</string>
+  <string name="activity_iab_nonce_message">Es ist ein Fehler mit der Blockchain aufgetreten, bitte versuche es später erneut.</string>
+  <string name="activity_iab_approving_message">Überprüfe alle Details: Konto, Gegenstände, Netzwerk…</string>
   <string name="activity_iab_buying_message">Angaben geprüft \n Erhalte deinen Gegenstand…</string>
   <string name="activity_iab_change_card">KARTE ÄNDERN</string>
   <string name="activity_iab_fees">Gebühren</string>
