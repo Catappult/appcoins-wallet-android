@@ -7,7 +7,7 @@ import com.asf.wallet.R
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.ui.iab.AsfInAppPurchaseInteractor.CurrentPaymentStep
-import com.asfoundation.wallet.util.UnknownTokenException
+import com.appcoins.wallet.core.utils.common.UnknownTokenException
 import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Scheduler

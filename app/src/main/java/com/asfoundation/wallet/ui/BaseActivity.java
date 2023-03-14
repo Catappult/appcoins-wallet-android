@@ -13,7 +13,7 @@ import androidx.appcompat.widget.Toolbar;
 import com.asf.wallet.R;
 import com.asfoundation.wallet.App;
 import com.asfoundation.wallet.billing.analytics.PageViewAnalytics;
-import com.asfoundation.wallet.util.KeyboardUtils;
+import com.appcoins.wallet.core.utils.common.KeyboardUtils;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 import java.util.ArrayList;
 import java.util.List;

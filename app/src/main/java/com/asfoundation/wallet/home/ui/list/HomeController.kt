@@ -19,7 +19,7 @@ import com.asfoundation.wallet.home.ui.list.transactions.TransactionModel_
 import com.asfoundation.wallet.home.ui.list.transactions.empty.EmptyTransactionsModel_
 import com.asfoundation.wallet.transactions.Transaction
 import com.asfoundation.wallet.ui.widget.entity.TransactionsModel
-import com.asfoundation.wallet.util.CurrencyFormatUtils
+import com.appcoins.wallet.core.utils.common.CurrencyFormatUtils
 import java.util.*
 import kotlin.collections.HashSet
 

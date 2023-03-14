@@ -4,20 +4,13 @@ plugins {
 
 android {
   namespace = "com.appcoins.wallet.billing"
-  buildTypes {
-    release {
-      buildConfigField("int", "NETWORK_ID", project.property("NETWORK_ID_PROD").toString())
-    }
-    debug {
-      buildConfigField("int", "NETWORK_ID", project.property("NETWORK_ID_DEV").toString())
-    }
-  }
 }
 
 dependencies {
   implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
   api(project(":legacy:bdsbilling"))
   implementation(project(":legacy:commons"))
+  implementation(project(":core:utils:properties"))
 
   implementation(libs.bundles.rx)
   implementation(libs.bundles.network)

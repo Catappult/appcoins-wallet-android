@@ -3,7 +3,7 @@ package com.asfoundation.wallet.ui.transact
 import androidx.fragment.app.Fragment
 import com.asfoundation.wallet.interact.DefaultTokenProvider
 import com.asfoundation.wallet.ui.iab.RewardsManager
-import com.asfoundation.wallet.util.CurrencyFormatUtils
+import com.appcoins.wallet.core.utils.common.CurrencyFormatUtils
 import com.asfoundation.wallet.wallet_blocked.WalletBlockedInteract
 import com.asfoundation.wallet.wallets.FindDefaultWalletInteract
 import com.asfoundation.wallet.wallets.usecases.GetWalletInfoUseCase

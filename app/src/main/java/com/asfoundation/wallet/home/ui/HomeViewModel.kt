@@ -3,6 +3,8 @@ package com.asfoundation.wallet.home.ui
 import android.content.Intent
 import android.net.Uri
 import android.text.format.DateUtils
+import com.appcoins.wallet.core.utils.properties.APTOIDE_TOP_APPS_URL
+import com.appcoins.wallet.core.utils.properties.VIP_PROGRAM_BADGE_URL
 import com.appcoins.wallet.gamification.repository.Levels
 import com.appcoins.wallet.gamification.repository.entity.GamificationStatus
 import com.asf.wallet.BuildConfig
@@ -307,7 +309,7 @@ class HomeViewModel @Inject constructor(
 
   fun goToVipLink() {
     analytics.sendAction("vip_badge")
-    val uri = Uri.parse(BuildConfig.VIP_PROGRAM_BADGE_URL)
+    val uri = Uri.parse(VIP_PROGRAM_BADGE_URL)
     sendSideEffect { HomeSideEffect.NavigateToBrowser(uri) }
   }
 
@@ -370,7 +372,7 @@ class HomeViewModel @Inject constructor(
     when (cardNotificationAction) {
       CardNotificationAction.DISMISS -> dismissNotification(cardNotification)
       CardNotificationAction.DISCOVER -> sendSideEffect {
-        HomeSideEffect.NavigateToBrowser(Uri.parse(BuildConfig.APTOIDE_TOP_APPS_URL))
+        HomeSideEffect.NavigateToBrowser(Uri.parse(APTOIDE_TOP_APPS_URL))
       }
       CardNotificationAction.UPDATE -> {
         sendSideEffect {

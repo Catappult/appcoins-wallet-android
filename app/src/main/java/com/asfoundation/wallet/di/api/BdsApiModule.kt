@@ -1,6 +1,7 @@
 package com.asfoundation.wallet.di.api
 
 import com.appcoins.wallet.bdsbilling.repository.BdsApiSecondary
+import com.appcoins.wallet.core.utils.properties.HostProperties
 import com.asf.wallet.BuildConfig
 import com.asfoundation.wallet.di.annotations.DefaultHttpClient
 import dagger.Module
@@ -18,7 +19,7 @@ import javax.inject.Singleton
 @Module
 class BdsApiModule {
 
-  private val bdsUrl = BuildConfig.BDS_BASE_HOST
+  private val bdsUrl = HostProperties.WS75_HOST
 
   @Singleton
   @Provides

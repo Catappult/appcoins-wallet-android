@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.di.api.microservices
 
+import com.appcoins.wallet.core.utils.properties.HostProperties
 import com.asf.wallet.BuildConfig
 import com.asfoundation.wallet.billing.share.BdsShareLinkRepository
 import com.asfoundation.wallet.di.annotations.*
@@ -17,7 +18,7 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 @Module
 class DeeplinkApiModule {
-  private val deeplinkUrl: String = "${BuildConfig.BASE_HOST}/deeplink/"
+  private val deeplinkUrl: String = "${HostProperties.MS_HOST}/deeplink/"
 
   @Singleton
   @Provides

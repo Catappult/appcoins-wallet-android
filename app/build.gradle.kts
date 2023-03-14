@@ -42,6 +42,9 @@ dependencies {
   implementation(project(":legacy:skills"))
   implementation(project(":legacy:ethereumj-android"))
 
+  implementation(project(":core:utils:common"))
+  implementation(project(":core:utils:properties"))
+
   implementation(libs.kotlin.coroutines)
 
   implementation(libs.viewbinding.delegate)
