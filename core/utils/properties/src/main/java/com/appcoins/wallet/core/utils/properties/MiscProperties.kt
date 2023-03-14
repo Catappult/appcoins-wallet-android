@@ -1,8 +1,6 @@
 package com.appcoins.wallet.core.utils.properties
 
 object MiscProperties {
-  val LEADING_ZEROS_ON_PROOF_OF_ATTENTION =
-    if (BuildConfig.DEBUG) LEADING_ZEROS_ON_PROOF_OF_ATTENTION_DEBUG else LEADING_ZEROS_ON_PROOF_OF_ATTENTION_RELEASE
   val DEFAULT_TOKEN_SYMBOL =
     if (BuildConfig.DEBUG) ROPSTEN_DEFAULT_TOKEN_SYMBOL else MAIN_NETWORK_DEFAULT_TOKEN_SYMBOL
   val DEFAULT_TOKEN_NAME =
@@ -17,11 +15,8 @@ object MiscProperties {
   const val BILLING_SUPPORTED_VERSION = 3
   const val GAMESHUB_PACKAGE = "com.dti.folderlauncher"
   const val GAMESHUB_OEMID = "b61ccfb8fb57721787ecfc2c26c16c6f"
-  const val DB_VERSION = 5
 }
 
-private const val LEADING_ZEROS_ON_PROOF_OF_ATTENTION_RELEASE = 4
-private const val LEADING_ZEROS_ON_PROOF_OF_ATTENTION_DEBUG = 4
 private const val ROPSTEN_DEFAULT_TOKEN_SYMBOL = "APPC"
 private const val ROPSTEN_DEFAULT_TOKEN_NAME = "AppCoins"
 private const val ROPSTEN_DEFAULT_TOKEN_DECIMALS = 18
