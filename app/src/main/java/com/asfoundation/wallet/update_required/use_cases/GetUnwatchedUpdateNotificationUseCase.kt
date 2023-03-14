@@ -4,7 +4,7 @@ import com.asf.wallet.R
 import com.asfoundation.wallet.interact.EmptyNotification
 import com.asfoundation.wallet.interact.UpdateNotification
 import com.asfoundation.wallet.referrals.CardNotification
-import com.asfoundation.wallet.repository.PreferencesRepositoryType
+import repository.PreferencesRepositoryType
 import com.asfoundation.wallet.ui.widget.holder.CardNotificationAction
 import io.reactivex.Single
 import javax.inject.Inject

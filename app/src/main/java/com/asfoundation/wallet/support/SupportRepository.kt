@@ -1,7 +1,6 @@
 package com.asfoundation.wallet.support
 
 import android.app.Application
-import com.asfoundation.wallet.App
 import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.GoogleApiAvailability
 import com.google.android.gms.tasks.OnCompleteListener
@@ -12,6 +11,7 @@ import io.intercom.android.sdk.Intercom
 import io.intercom.android.sdk.UserAttributes
 import io.intercom.android.sdk.identity.Registration
 import io.intercom.android.sdk.push.IntercomPushClient
+import support.SupportSharedPreferences
 import javax.inject.Inject
 
 

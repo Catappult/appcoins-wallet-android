@@ -1,4 +1,4 @@
-package com.asfoundation.wallet.referrals
+package referrals
 
 import io.reactivex.Completable
 import io.reactivex.Single

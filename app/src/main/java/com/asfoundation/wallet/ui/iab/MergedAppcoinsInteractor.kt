@@ -2,20 +2,22 @@ package com.asfoundation.wallet.ui.iab
 
 import com.asf.wallet.R
 import com.asfoundation.wallet.entity.TransactionBuilder
-import com.asfoundation.wallet.fingerprint.FingerprintPreferencesRepositoryContract
 import com.asfoundation.wallet.repository.InAppPurchaseService
 import com.asfoundation.wallet.support.SupportInteractor
 import com.asfoundation.wallet.ui.balance.BalanceInteractor
 import com.asfoundation.wallet.wallet_blocked.WalletBlockedInteract
+import fingerprint.FingerprintPreferencesDataSource
 import io.reactivex.Completable
 import io.reactivex.Single
 import javax.inject.Inject
 
-class MergedAppcoinsInteractor @Inject constructor(private val balanceInteractor: BalanceInteractor,
-                                                   private val walletBlockedInteract: WalletBlockedInteract,
-                                                   private val supportInteractor: SupportInteractor,
-                                                   private val inAppPurchaseInteractor: InAppPurchaseInteractor,
-                                                   private val fingerprintPreferences: FingerprintPreferencesRepositoryContract) {
+class MergedAppcoinsInteractor @Inject constructor(
+  private val balanceInteractor: BalanceInteractor,
+  private val walletBlockedInteract: WalletBlockedInteract,
+  private val supportInteractor: SupportInteractor,
+  private val inAppPurchaseInteractor: InAppPurchaseInteractor,
+  private val fingerprintPreferences: FingerprintPreferencesDataSource
+) {
 
   fun showSupport(gamificationLevel: Int): Completable {
     return supportInteractor.showSupport(gamificationLevel)
@@ -23,8 +25,10 @@ class MergedAppcoinsInteractor @Inject constructor(private val balanceInteractor
 
   fun isWalletBlocked() = walletBlockedInteract.isWalletBlocked()
 
-  fun retrieveAppcAvailability(transactionBuilder: TransactionBuilder,
-                               isSubscription: Boolean): Single<Availability> {
+  fun retrieveAppcAvailability(
+    transactionBuilder: TransactionBuilder,
+    isSubscription: Boolean
+  ): Single<Availability> {
     return if (isSubscription) {
       //TODO replace for correct string
       // Note that currently this is not available (only Adyen is available for subscriptions)

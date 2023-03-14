@@ -3,16 +3,17 @@ package com.asfoundation.wallet.home.usecases
 import android.content.pm.PackageManager
 import android.os.Build
 import androidx.biometric.BiometricManager
-import com.asfoundation.wallet.fingerprint.FingerprintPreferencesRepositoryContract
-import com.asfoundation.wallet.repository.PreferencesRepositoryType
+import fingerprint.FingerprintPreferencesDataSource
+import repository.PreferencesRepositoryType
 import io.reactivex.Single
 import javax.inject.Inject
 
 class ShouldShowFingerprintTooltipUseCase @Inject constructor(
-    private val preferencesRepositoryType: PreferencesRepositoryType,
-    private val packageManager: PackageManager,
-    private val fingerprintPreferences: FingerprintPreferencesRepositoryContract,
-    private val biometricManager: BiometricManager) {
+  private val preferencesRepositoryType: PreferencesRepositoryType,
+  private val packageManager: PackageManager,
+  private val fingerprintPreferences: FingerprintPreferencesDataSource,
+  private val biometricManager: BiometricManager
+) {
 
   private companion object {
     private const val UPDATE_FINGERPRINT_NUMBER_OF_TIMES = 3
@@ -21,8 +22,9 @@ class ShouldShowFingerprintTooltipUseCase @Inject constructor(
   operator fun invoke(packageName: String): Single<Boolean> {
     var shouldShow = false
     if (!preferencesRepositoryType.hasBeenInSettings() && !fingerprintPreferences.hasSeenFingerprintTooltip()
-        && hasFingerprint() && !fingerprintPreferences.hasAuthenticationPermission() &&
-        preferencesRepositoryType.hasSeenPromotionTooltip()) {
+      && hasFingerprint() && !fingerprintPreferences.hasAuthenticationPermission() &&
+      preferencesRepositoryType.hasSeenPromotionTooltip()
+    ) {
       if (!isFirstInstall(packageName)) {
         shouldShow = true
       } else if (getNumberOfTimesOnHome() >= UPDATE_FINGERPRINT_NUMBER_OF_TIMES) {

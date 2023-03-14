@@ -3,7 +3,7 @@ package com.asfoundation.wallet.backup.triggers
 import android.content.Intent
 import androidx.fragment.app.Fragment
 import com.asfoundation.wallet.backup.BackupActivity
-import com.asfoundation.wallet.backup.repository.preferences.BackupTriggerPreferences
+import preferences.BackupTriggerPreferences
 import com.asfoundation.wallet.backup.skip.BackupSkipDialogFragment
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import javax.inject.Inject

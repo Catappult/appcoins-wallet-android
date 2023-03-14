@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.asf.wallet.R
 import com.asf.wallet.databinding.BackupTriggerDialogFragmentBinding
-import com.asfoundation.wallet.backup.repository.preferences.BackupTriggerPreferences
+import preferences.BackupTriggerPreferences
 import com.asfoundation.wallet.base.SideEffect
 import com.asfoundation.wallet.base.SingleStateFragment
 import com.asfoundation.wallet.base.ViewState

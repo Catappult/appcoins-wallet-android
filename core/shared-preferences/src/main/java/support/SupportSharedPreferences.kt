@@ -1,4 +1,4 @@
-package com.asfoundation.wallet.support
+package support
 
 import android.content.SharedPreferences
 import javax.inject.Inject

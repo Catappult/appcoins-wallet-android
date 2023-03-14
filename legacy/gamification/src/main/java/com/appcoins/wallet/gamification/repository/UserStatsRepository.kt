@@ -1,11 +1,12 @@
-package com.asfoundation.wallet.ui.gamification
+package com.appcoins.wallet.gamification.repository
 
-import android.content.SharedPreferences
+import com.appcoins.wallet.gamification.Gamification.Companion.GAMIFICATION_ID
+import com.appcoins.wallet.gamification.Gamification.Companion.REFERRAL_ID
 import com.appcoins.wallet.gamification.GamificationContext
-import com.appcoins.wallet.gamification.repository.*
+import com.appcoins.wallet.gamification.GamificationContext.*
+import com.appcoins.wallet.gamification.repository.PromotionsGamificationStats.Companion.INVALID_LEVEL
 import com.appcoins.wallet.gamification.repository.entity.*
-import com.asfoundation.wallet.promotions.PromotionsInteractor.Companion.GAMIFICATION_ID
-import com.asfoundation.wallet.promotions.PromotionsInteractor.Companion.REFERRAL_ID
+import gamification.GamificationStatsPreferencesDataSource
 import io.reactivex.Completable
 import io.reactivex.Single
 import io.reactivex.functions.BiFunction
@@ -14,67 +15,53 @@ import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 @BoundTo(supertype = UserStatsLocalData::class)
-class SharedPreferencesUserStatsLocalData @Inject constructor(
-  private val preferences: SharedPreferences,
+class UserStatsRepository @Inject constructor(
+  private val preferences: GamificationStatsPreferencesDataSource,
   private val promotionDao: PromotionDao,
   private val levelsDao: LevelsDao,
   private val levelDao: LevelDao,
   private val walletOriginDao: WalletOriginDao
-) :
-  UserStatsLocalData {
+) : UserStatsLocalData {
 
   companion object {
     private const val SHOWN_LEVEL = "shown_level"
     private const val SHOWN_GENERIC = "shown_generic"
     private const val SCREEN = "screen_"
     private const val ID = "id_"
-    private const val GAMIFICATION_LEVEL = "gamification_level"
-    private const val SHOW_GAMIFICATION_DISCLAIMER = "SHOW_GAMIFICATION_DISCLAIMER"
-    private const val WALLET_ORIGIN = "wallet_origin"
-    private const val VIP_CALLOUT_SEEN = "vip_callout_seen"
-    private const val REFERRAL_NOTIFIC_SEEN = "ref_notific_seen"
   }
 
   override fun getLastShownLevel(wallet: String, gamificationContext: GamificationContext):
       Single<Int> {
     return Single.fromCallable {
-      preferences.getInt(
-        getKey(wallet, gamificationContext.toString()),
-        PromotionsGamificationStats.INVALID_LEVEL
-      )
+      preferences.getLastShownLevel(getKey(wallet, gamificationContext.toString()), INVALID_LEVEL)
     }
   }
 
   override fun saveShownLevel(
-    wallet: String, level: Int,
+    wallet: String,
+    level: Int,
     gamificationContext: GamificationContext
   ) {
-    return preferences.edit()
-      .putInt(getKey(wallet, gamificationContext.toString()), level)
-      .apply()
+    return preferences.saveShownLevel(getKey(wallet, gamificationContext.toString()), level)
   }
 
   override fun getSeenGenericPromotion(id: String, screen: String): Boolean {
-    return preferences.getBoolean(getKeyGeneric(screen, id), false)
+    return preferences.getSeenGenericPromotion(getKeyGeneric(screen, id))
   }
 
   override fun setSeenGenericPromotion(id: String, screen: String) {
-    return preferences.edit()
-      .putBoolean(getKeyGeneric(screen, id), true)
-      .apply()
+    return preferences.setSeenGenericPromotion(getKeyGeneric(screen, id))
   }
 
   override fun setGamificationLevel(gamificationLevel: Int) {
-    return preferences.edit()
-      .putInt(GAMIFICATION_LEVEL, gamificationLevel)
-      .apply()
+    return preferences.setGamificationLevel(gamificationLevel)
   }
 
   override fun getGamificationLevel() =
-    preferences.getInt(GAMIFICATION_LEVEL, PromotionsGamificationStats.INVALID_LEVEL)
+    preferences.getGamificationLevel(INVALID_LEVEL)
 
   private fun getKey(wallet: String, screen: String): String {
-    return if (screen == GamificationContext.SCREEN_MY_LEVEL.toString()) {
+    return if (screen == SCREEN_MY_LEVEL.toString()) {
       SHOWN_LEVEL + wallet
     } else {
       SHOWN_LEVEL + wallet + SCREEN + screen
@@ -235,14 +222,10 @@ class SharedPreferencesUserStatsLocalData @Inject constructor(
       .andThen(levelDao.insertLevels(levelEntityList))
   }
 
-  override fun shouldShowGamificationDisclaimer() = preferences.getBoolean(
-    SHOW_GAMIFICATION_DISCLAIMER, true
-  )
+  override fun shouldShowGamificationDisclaimer() = preferences.shouldShowGamificationDisclaimer()
 
   override fun setGamificationDisclaimerShown() {
-    preferences.edit()
-      .putBoolean(SHOW_GAMIFICATION_DISCLAIMER, false)
-      .apply()
+    preferences.setGamificationDisclaimerShown()
   }
 
   override fun insertWalletOrigin(wallet: String, walletOrigin: WalletOrigin): Completable {
@@ -255,31 +238,25 @@ class SharedPreferencesUserStatsLocalData @Inject constructor(
   }
 
   override fun setSeenWalletOrigin(wallet: String, walletOrigin: String) {
-    return preferences.edit()
-      .putString(WALLET_ORIGIN + wallet, walletOrigin)
-      .apply()
+    return preferences.setSeenWalletOrigin(wallet, walletOrigin)
   }
 
   override fun getSeenWalletOrigin(wallet: String): String {
-    return preferences.getString(WALLET_ORIGIN + wallet, "")!!
+    return preferences.getSeenWalletOrigin(wallet)!!
   }
 
   override fun isVipCalloutAlreadySeen(wallet: String) =
-    preferences.getBoolean(VIP_CALLOUT_SEEN + wallet, false)
+    preferences.isVipCalloutAlreadySeen(wallet)
 
   override fun setVipCalloutAlreadySeen(wallet: String, isSeen: Boolean) {
-    preferences.edit()
-      .putBoolean(VIP_CALLOUT_SEEN + wallet, isSeen)
-      .apply()
+    preferences.setVipCalloutAlreadySeen(wallet, isSeen)
   }
 
   override fun isReferralNotificationSeen(wallet: String) =
-    preferences.getBoolean(REFERRAL_NOTIFIC_SEEN + wallet, false)
+    preferences.isReferralNotificationSeen(wallet)
 
   override fun setReferralNotificationSeen(wallet: String, isSeen: Boolean) {
-    preferences.edit()
-      .putBoolean(REFERRAL_NOTIFIC_SEEN + wallet, isSeen)
-      .apply()
+    preferences.setReferralNotificationSeen(wallet, isSeen)
   }
 
   private fun mapToLevelsResponse(

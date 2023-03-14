@@ -3,9 +3,9 @@ package com.asfoundation.wallet.ui
 import com.asfoundation.wallet.entity.GasSettings
 import com.asfoundation.wallet.entity.NetworkInfo
 import com.asfoundation.wallet.home.usecases.FindNetworkInfoUseCase
-import com.asfoundation.wallet.repository.GasPreferenceRepository
 import io.reactivex.Single
 import java.math.BigDecimal
+import repository.GasPreferenceRepository
 import javax.inject.Inject
 
 class GasSettingsInteractor @Inject constructor(

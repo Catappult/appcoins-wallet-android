@@ -1,4 +1,4 @@
-package com.asfoundation.wallet.referrals
+package referrals
 
 import android.content.SharedPreferences
 import io.reactivex.Completable

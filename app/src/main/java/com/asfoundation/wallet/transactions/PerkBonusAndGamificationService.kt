@@ -16,7 +16,7 @@ import com.appcoins.wallet.gamification.repository.PromotionsRepository
 import com.appcoins.wallet.gamification.repository.entity.GamificationStatus
 import com.asf.wallet.R
 import com.asfoundation.wallet.C
-import com.asfoundation.wallet.backup.repository.preferences.BackupTriggerPreferences
+import preferences.BackupTriggerPreferences
 import com.asfoundation.wallet.main.PendingIntentNavigator
 import com.asfoundation.wallet.promo_code.use_cases.GetCurrentPromoCodeUseCase
 import com.asfoundation.wallet.repository.TransactionRepositoryType

@@ -7,6 +7,8 @@ import com.asfoundation.wallet.interact.rx.operator.Operators
 import com.asfoundation.wallet.recover.result.RestoreResult
 import com.asfoundation.wallet.recover.result.SuccessfulRestore
 import com.asfoundation.wallet.service.AccountKeystoreService
+import repository.PreferencesRepositoryType
+import repository.SharedPreferencesRepository
 import io.reactivex.*
 import it.czerwinski.android.hilt.annotations.BoundTo
 import javax.inject.Inject

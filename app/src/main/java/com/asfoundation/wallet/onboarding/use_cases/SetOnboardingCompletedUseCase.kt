@@ -1,6 +1,6 @@
 package com.asfoundation.wallet.onboarding.use_cases
 
-import com.asfoundation.wallet.repository.PreferencesRepositoryType
+import repository.PreferencesRepositoryType
 import javax.inject.Inject
 
 class SetOnboardingCompletedUseCase @Inject constructor(

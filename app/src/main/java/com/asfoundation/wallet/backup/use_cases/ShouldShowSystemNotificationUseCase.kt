@@ -1,7 +1,7 @@
 package com.asfoundation.wallet.backup.use_cases
 
-import com.asfoundation.wallet.backup.repository.preferences.BackupSystemNotificationPreferences
-import com.asfoundation.wallet.repository.SharedPreferencesRepository
+import preferences.BackupSystemNotificationPreferences
+import repository.SharedPreferencesRepository
 import com.asfoundation.wallet.wallets.domain.WalletInfo
 import io.reactivex.Single
 import java.util.concurrent.TimeUnit

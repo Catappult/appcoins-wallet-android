@@ -1,6 +1,6 @@
 package com.asfoundation.wallet.backup.use_cases
 
-import com.asfoundation.wallet.backup.repository.preferences.BackupTriggerPreferences
+import preferences.BackupTriggerPreferences
 import com.asfoundation.wallet.wallets.usecases.GetWalletInfoUseCase
 import io.reactivex.Single
 import java.util.concurrent.TimeUnit

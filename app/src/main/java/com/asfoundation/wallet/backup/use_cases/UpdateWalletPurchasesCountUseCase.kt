@@ -1,6 +1,6 @@
 package com.asfoundation.wallet.backup.use_cases
 
-import com.asfoundation.wallet.repository.SharedPreferencesRepository
+import repository.SharedPreferencesRepository
 import com.asfoundation.wallet.wallets.domain.WalletInfo
 import io.reactivex.Completable
 import io.reactivex.Single

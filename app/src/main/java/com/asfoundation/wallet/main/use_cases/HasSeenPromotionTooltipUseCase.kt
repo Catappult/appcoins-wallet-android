@@ -1,6 +1,6 @@
 package com.asfoundation.wallet.main.use_cases
 
-import com.asfoundation.wallet.repository.PreferencesRepositoryType
+import repository.PreferencesRepositoryType
 import io.reactivex.Single
 import javax.inject.Inject
 

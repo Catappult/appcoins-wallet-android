@@ -3,7 +3,7 @@ package com.asfoundation.wallet.recover.use_cases
 import android.net.Uri
 import android.os.Build
 import com.asfoundation.wallet.backup.FileInteractor
-import com.asfoundation.wallet.repository.BackupRestorePreferencesRepository
+import repository.BackupRestorePreferencesRepository
 import javax.inject.Inject
 
 class GetFilePathUseCase @Inject constructor(

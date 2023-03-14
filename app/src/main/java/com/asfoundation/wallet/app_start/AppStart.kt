@@ -71,8 +71,4 @@ interface AppStartRepository {
   suspend fun saveRunCount(count: Int)
   suspend fun getFirstInstallTime(): Long
   suspend fun getLastUpdateTime(): Long
-
-  companion object {
-    internal const val RUNS_COUNT = "AppStartRepository.RunsCount"
-  }
 }

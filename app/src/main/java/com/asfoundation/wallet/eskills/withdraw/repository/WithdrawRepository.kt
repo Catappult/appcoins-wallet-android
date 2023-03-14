@@ -4,6 +4,7 @@ import com.asfoundation.wallet.base.RxSchedulers
 import com.asfoundation.wallet.eskills.withdraw.domain.SuccessfulWithdraw
 import com.asfoundation.wallet.eskills.withdraw.domain.WithdrawResult
 import io.reactivex.Single
+import repository.WithdrawLocalStorage
 import java.math.BigDecimal
 import javax.inject.Inject
 

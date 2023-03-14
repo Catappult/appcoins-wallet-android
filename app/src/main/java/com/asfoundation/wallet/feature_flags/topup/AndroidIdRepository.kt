@@ -2,7 +2,7 @@ package com.asfoundation.wallet.feature_flags.topup
 
 import android.content.Context
 import android.provider.Settings
-import com.asfoundation.wallet.repository.PreferencesRepositoryType
+import repository.PreferencesRepositoryType
 import dagger.hilt.android.qualifiers.ApplicationContext
 import it.czerwinski.android.hilt.annotations.BoundTo
 import javax.inject.Inject

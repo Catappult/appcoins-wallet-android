@@ -6,7 +6,7 @@ import com.asfoundation.wallet.di.annotations.BaseHttpClient
 import com.asfoundation.wallet.di.annotations.BlockchainHttpClient
 import com.asfoundation.wallet.di.annotations.DefaultHttpClient
 import com.asfoundation.wallet.di.annotations.ShortTimeoutHttpClient
-import com.asfoundation.wallet.repository.PreferencesRepositoryType
+import repository.PreferencesRepositoryType
 import com.asfoundation.wallet.util.LogInterceptor
 import com.asfoundation.wallet.util.UserAgentInterceptor
 import dagger.Module

@@ -1,4 +1,4 @@
-package com.asfoundation.wallet.repository
+package repository
 
 import android.content.SharedPreferences
 import io.reactivex.Completable

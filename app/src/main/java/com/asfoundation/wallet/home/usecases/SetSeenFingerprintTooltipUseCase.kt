@@ -1,10 +1,11 @@
 package com.asfoundation.wallet.home.usecases
 
-import com.asfoundation.wallet.fingerprint.FingerprintPreferencesRepositoryContract
+import fingerprint.FingerprintPreferencesDataSource
 import javax.inject.Inject
 
 class SetSeenFingerprintTooltipUseCase @Inject constructor(
-    private val fingerprintPreferences: FingerprintPreferencesRepositoryContract) {
+  private val fingerprintPreferences: FingerprintPreferencesDataSource
+) {
 
   operator fun invoke() {
     fingerprintPreferences.setSeenFingerprintTooltip()

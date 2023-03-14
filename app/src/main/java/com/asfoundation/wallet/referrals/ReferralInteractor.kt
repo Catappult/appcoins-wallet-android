@@ -15,6 +15,7 @@ import io.reactivex.Single
 import it.czerwinski.android.hilt.annotations.BoundTo
 import java.math.BigDecimal
 import javax.inject.Inject
+import referrals.SharedPreferencesReferralLocalData
 
 @BoundTo(supertype = ReferralInteractorContract::class)
 class ReferralInteractor @Inject constructor(

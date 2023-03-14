@@ -9,12 +9,12 @@ import com.appcoins.wallet.gamification.repository.ForecastBonusAndLevel
 import com.asfoundation.wallet.billing.adyen.PurchaseBundleModel
 import com.asfoundation.wallet.entity.PendingTransaction
 import com.asfoundation.wallet.entity.TransactionBuilder
-import com.asfoundation.wallet.fingerprint.FingerprintPreferencesRepositoryContract
 import com.asfoundation.wallet.promo_code.use_cases.GetCurrentPromoCodeUseCase
 import com.asfoundation.wallet.repository.BdsPendingTransactionService
 import com.asfoundation.wallet.support.SupportInteractor
 import com.asfoundation.wallet.ui.gamification.GamificationInteractor
 import com.asfoundation.wallet.wallet_blocked.WalletBlockedInteract
+import fingerprint.FingerprintPreferencesDataSource
 import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Scheduler
@@ -22,15 +22,17 @@ import io.reactivex.Single
 import java.math.BigDecimal
 import javax.inject.Inject
 
-class PaymentMethodsInteractor @Inject constructor(private val supportInteractor: SupportInteractor,
-                                                   private val gamificationInteractor: GamificationInteractor,
-                                                   private val walletBlockedInteract: WalletBlockedInteract,
-                                                   private val inAppPurchaseInteractor: InAppPurchaseInteractor,
-                                                   private val fingerprintPreferences: FingerprintPreferencesRepositoryContract,
-                                                   private val billing: Billing,
-                                                   private val errorMapper: ErrorMapper,
-                                                   private val bdsPendingTransactionService: BdsPendingTransactionService,
-                                                   private val getCurrentPromoCodeUseCase: GetCurrentPromoCodeUseCase) {
+class PaymentMethodsInteractor @Inject constructor(
+  private val supportInteractor: SupportInteractor,
+  private val gamificationInteractor: GamificationInteractor,
+  private val walletBlockedInteract: WalletBlockedInteract,
+  private val inAppPurchaseInteractor: InAppPurchaseInteractor,
+  private val fingerprintPreferences: FingerprintPreferencesDataSource,
+  private val billing: Billing,
+  private val errorMapper: ErrorMapper,
+  private val bdsPendingTransactionService: BdsPendingTransactionService,
+  private val getCurrentPromoCodeUseCase: GetCurrentPromoCodeUseCase
+) {
 
 
   fun showSupport(gamificationLevel: Int): Completable {

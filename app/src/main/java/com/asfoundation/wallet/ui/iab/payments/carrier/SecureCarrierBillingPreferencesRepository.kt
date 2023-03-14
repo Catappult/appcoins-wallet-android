@@ -1,9 +1,9 @@
 package com.asfoundation.wallet.ui.iab.payments.carrier
 
 import com.appcoins.wallet.billing.carrierbilling.CarrierBillingPreferencesRepository
-import com.asfoundation.wallet.repository.SecureSharedPreferences
 import dagger.hilt.components.SingletonComponent
 import it.czerwinski.android.hilt.annotations.BoundTo
+import repository.SecureSharedPreferences
 import javax.inject.Inject
 
 @BoundTo(supertype = CarrierBillingPreferencesRepository::class,

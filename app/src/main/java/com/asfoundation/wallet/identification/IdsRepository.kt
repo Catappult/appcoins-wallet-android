@@ -5,7 +5,7 @@ import android.os.Build
 import android.provider.Settings
 import com.appcoins.wallet.gamification.repository.UserStatsLocalData
 import com.asfoundation.wallet.billing.partners.InstallerService
-import com.asfoundation.wallet.repository.PreferencesRepositoryType
+import repository.PreferencesRepositoryType
 import dagger.hilt.android.qualifiers.ApplicationContext
 import io.reactivex.Single
 import java.util.*

@@ -6,9 +6,9 @@ import com.asfoundation.wallet.promotions.PromotionNotification
 import com.asfoundation.wallet.promotions.PromotionUpdateScreen
 import com.asfoundation.wallet.referrals.CardNotification
 import com.asfoundation.wallet.referrals.ReferralNotification
-import com.asfoundation.wallet.referrals.SharedPreferencesReferralLocalData
+import referrals.SharedPreferencesReferralLocalData
 import com.asfoundation.wallet.repository.AutoUpdateRepository
-import com.asfoundation.wallet.repository.PreferencesRepositoryType
+import repository.PreferencesRepositoryType
 import com.asfoundation.wallet.util.scaleToString
 import io.reactivex.Completable
 import javax.inject.Inject

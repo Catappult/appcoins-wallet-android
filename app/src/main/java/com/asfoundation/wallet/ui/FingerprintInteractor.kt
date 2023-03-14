@@ -4,12 +4,14 @@ import android.content.pm.PackageManager
 import android.content.pm.PackageManager.FEATURE_FINGERPRINT
 import android.os.Build
 import androidx.biometric.BiometricManager
-import com.asfoundation.wallet.fingerprint.FingerprintPreferencesRepositoryContract
+import fingerprint.FingerprintPreferencesDataSource
 import javax.inject.Inject
 
-class FingerprintInteractor @Inject constructor(private val biometricManager: BiometricManager,
-                                                private val packageManager: PackageManager,
-                                                private val fingerprintPreferences: FingerprintPreferencesRepositoryContract) {
+class FingerprintInteractor @Inject constructor(
+  private val biometricManager: BiometricManager,
+  private val packageManager: PackageManager,
+  private val fingerprintPreferences: FingerprintPreferencesDataSource
+) {
 
   fun getDeviceCompatibility(): Int {
     val biometricCompatibility = biometricManager.canAuthenticate()
