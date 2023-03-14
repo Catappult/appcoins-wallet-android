@@ -62,14 +62,14 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/big_margin"
         android:layout_marginBottom="@dimen/big_margin"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/cancel_button"
-        app:layout_constraintTop_toTopOf="@id/progressBar"
         android:clipChildren="false"
         android:clipToPadding="false"
+        app:layout_constraintBottom_toTopOf="@id/cancel_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/progressBar"
+        android:visibility="gone"
         />
-
     <Button
         android:id="@+id/cancel_button"
         style="@style/CancelButtonStyle"

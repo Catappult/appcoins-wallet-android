@@ -49,6 +49,8 @@ class SkillsFragment : Fragment(), PaymentView {
 
     private const val WALLET_CREATING_STATUS = "CREATING"
     private const val ESKILLS_URI_KEY = "ESKILLS_URI"
+    private const val ESKILLS_ONBOARDING_KEY = "eskills_onboarding"
+    private const val ESKILLS_REFERRAL_KEY = "eskills_cache"
 
     private const val CLIPBOARD_TOOLTIP_DELAY_SECONDS = 3000L
     private const val BONUS_VALUE = 1
@@ -140,12 +142,12 @@ class SkillsFragment : Fragment(), PaymentView {
   private fun setupPurchaseTicketLayout(
     eSkillsPaymentData: EskillsPaymentData
   ) {
-    if(checkOnboarding()){
+    if(getCachedValue(ESKILLS_ONBOARDING_KEY)){
       if(viewModel.userFirstTimeCheck()) {
         setupOnboarding(eSkillsPaymentData)
       }
       else{
-        setOnboardingComplete()
+        cacheValue(ESKILLS_ONBOARDING_KEY,false)
         setupPurchaseLayout(eSkillsPaymentData)
       }
     }
@@ -368,7 +370,8 @@ class SkillsFragment : Fragment(), PaymentView {
   }
 
   private fun createAndPayTicket(eskillsPaymentData: EskillsPaymentData, onboarding: Boolean = false) {
-    if(eskillsPaymentData.environment == EskillsPaymentData.MatchEnvironment.LIVE)
+    if(eskillsPaymentData.environment == EskillsPaymentData.MatchEnvironment.LIVE && getCachedValue(
+        ESKILLS_REFERRAL_KEY))
       getReferralAndActivateLayout()
     disposable.add(
       handleWalletCreationIfNeeded()
@@ -379,7 +382,7 @@ class SkillsFragment : Fragment(), PaymentView {
             .doOnSubscribe { showRoomLoading(false) }
             .flatMapCompletable { handleTicketCreationResult(eskillsPaymentData, it) }
              }
-        .doOnComplete{if(onboarding){setOnboardingComplete()}}
+        .doOnComplete{if(onboarding){cacheValue(ESKILLS_ONBOARDING_KEY,false)}}
         .subscribe()
     )
   }
@@ -519,14 +522,16 @@ class SkillsFragment : Fragment(), PaymentView {
 
 
   private fun getReferralAndActivateLayout() {
-    binding.loadingTicketLayout.referralShareDisplay.baseConstraint.visibility = View.VISIBLE
     disposable.add(viewModel.getReferral()
       .observeOn(AndroidSchedulers.mainThread())
       .doOnSuccess { referralResponse ->
-        if (referralResponse.available)
+        if (referralResponse.available) {
           setReferralLayout(referralResponse)
-        else
-          binding.loadingTicketLayout.referralShareDisplay.root.visibility = View.GONE
+          binding.loadingTicketLayout.referralShareDisplay.baseConstraint.visibility = View.VISIBLE
+        }
+        else{
+          cacheValue(ESKILLS_REFERRAL_KEY,false)
+        }
       }
       .subscribe())
   }
@@ -709,16 +714,12 @@ class SkillsFragment : Fragment(), PaymentView {
     }
   }
 
-  private fun checkOnboarding(): Boolean {
-    val firstRun = "eskills_onboarding"
-    val sharedPreferences = requireContext().getSharedPreferences(firstRun, 0)
-    return sharedPreferences.getBoolean(firstRun, true)
+  private fun getCachedValue(key: String): Boolean{
+    val sharedPreferences = requireContext().getSharedPreferences(key, 0)
+    return sharedPreferences.getBoolean(key, true)
   }
-
-
-  private fun setOnboardingComplete() {
-    val firstRun = "eskills_onboarding"
-    val sharedPreferences = requireContext().getSharedPreferences(firstRun, 0)
-    sharedPreferences.edit().putBoolean(firstRun, false).apply()
+  private fun cacheValue(key: String,value: Boolean ){
+    val sharedPreferences = requireContext().getSharedPreferences(key, 0)
+    sharedPreferences.edit().putBoolean(key, value).apply()
   }
 }
