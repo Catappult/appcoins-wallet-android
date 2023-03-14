@@ -1076,7 +1076,7 @@
   <string name="nfts_transact_gas_limit">Petrol Limiti</string>
   <string name="nfts_transact_gas_fee_message">İşlem Ücreti</string>
   <string name="nfts_transact_error_no_funds">Yeterli para yok! Ücretleri ödemek için yeterli ETH\'n yok.</string>
-  <string name="nfts_transact_error_low_gas">Gas is too low! Increase your gas for the network to accept your transaction.</string>
+  <string name="nfts_transact_error_low_gas">Benzin azaldı! Ağın işlemini kabul edebilmesi için benzinini arttır.</string>
   <string name="nfts_transact_error_already_in_progress">Bu NFT zaten gönderiliyor! Önceki işlem halen devam ediyor.</string>
   <!-- Gift Card -->
   <string name="gift_card_title">Hediye kartı kodunu kullan</string>
