@@ -530,7 +530,8 @@ class SkillsFragment : Fragment(), PaymentView {
           binding.loadingTicketLayout.referralShareDisplay.baseConstraint.visibility = View.VISIBLE
         }
         else{
-          cacheValue(ESKILLS_REFERRAL_KEY,false)
+          if (referralResponse.count!= 0)//If not default error Referral
+            cacheValue(ESKILLS_REFERRAL_KEY,false)
         }
       }
       .subscribe())
