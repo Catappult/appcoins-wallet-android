@@ -1,6 +1,5 @@
 package com.asfoundation.wallet.ui.transact
 
-import android.util.Log
 import com.appcoins.wallet.appcoins.rewards.AppcoinsRewardsRepository
 import com.asfoundation.wallet.entity.Wallet
 import com.asfoundation.wallet.ui.iab.RewardsManager

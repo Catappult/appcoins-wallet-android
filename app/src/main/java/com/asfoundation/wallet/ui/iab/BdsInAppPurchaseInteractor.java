@@ -90,7 +90,7 @@ public class BdsInAppPurchaseInteractor {
   }
 
   public Single<List<PaymentMethodEntity>> getPaymentMethods(String value, String currency,
-      String transactionType) {
-    return billing.getPaymentMethods(value, currency, transactionType);
+      String transactionType, String packageName) {
+    return billing.getPaymentMethods(value, currency, transactionType, packageName);
   }
 }

@@ -32,7 +32,11 @@ class AppcoinsRewardsModule {
           override fun getWalletAddress() = walletService.getWalletAddress()
 
           override fun signContent(content: String) = walletService.signContent(content)
-        }, MemoryCache(BehaviorSubject.create(), ConcurrentHashMap()), Schedulers.io(), billing,
+        },
+      MemoryCache(
+        BehaviorSubject.create(),
+        ConcurrentHashMap()
+      ), Schedulers.io(), billing,
         errorMapper)
   }
 

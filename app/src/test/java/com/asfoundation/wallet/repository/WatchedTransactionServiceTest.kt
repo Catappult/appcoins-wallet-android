@@ -50,7 +50,10 @@ class WatchedTransactionServiceTest {
 
     scheduler = TestScheduler()
     watchedTransactionService = WatchedTransactionService(transactionSender,
-        MemoryCache(BehaviorSubject.create(), ConcurrentHashMap()),
+      MemoryCache(
+        BehaviorSubject.create(),
+        ConcurrentHashMap()
+      ),
         PaymentErrorMapper(Gson()), scheduler, pendingTransactionService)
   }
 
