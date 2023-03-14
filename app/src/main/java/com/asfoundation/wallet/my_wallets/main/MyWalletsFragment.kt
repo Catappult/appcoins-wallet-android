@@ -24,8 +24,8 @@ import com.asfoundation.wallet.ui.MyAddressActivity
 import com.asfoundation.wallet.ui.balance.BalanceVerificationStatus
 import com.asfoundation.wallet.ui.balance.TokenBalance
 import com.asfoundation.wallet.ui.iab.FiatValue
-import com.asfoundation.wallet.util.CurrencyFormatUtils
-import com.asfoundation.wallet.util.WalletCurrency
+import com.appcoins.wallet.core.utils.common.CurrencyFormatUtils
+import com.appcoins.wallet.core.utils.common.WalletCurrency
 import com.asfoundation.wallet.util.generateQrCode
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import com.asfoundation.wallet.wallets.domain.WalletInfo

@@ -43,6 +43,9 @@ dependencies {
   implementation(project(":legacy:ethereumj-android"))
   implementation(project(":core:shared-preferences"))
 
+  implementation(project(":core:utils:common"))
+  implementation(project(":core:utils:properties"))
+
   implementation(libs.kotlin.coroutines)
 
   implementation(libs.viewbinding.delegate)

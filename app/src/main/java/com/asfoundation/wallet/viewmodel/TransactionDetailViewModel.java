@@ -7,6 +7,7 @@ import android.text.TextUtils;
 import androidx.annotation.Nullable;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
+import com.appcoins.wallet.core.utils.properties.HostProperties;
 import com.asf.wallet.BuildConfig;
 import com.asfoundation.wallet.entity.NetworkInfo;
 import com.asfoundation.wallet.entity.TransactionsDetailsModel;
@@ -114,8 +115,7 @@ public class TransactionDetailViewModel extends BaseViewModel {
   private Uri buildBdsUri(Transaction transaction) {
     NetworkInfo networkInfo = transactionsDetailsModel.getValue()
         .getNetworkInfo();
-    String url = networkInfo.chainId == 3 ? BuildConfig.TRANSACTION_DETAILS_HOST_ROPSTEN
-        : BuildConfig.TRANSACTION_DETAILS_HOST;
+    String url = HostProperties.INSTANCE.getTRANSACTION_DETAILS_HOST();
     return Uri.parse(url)
         .buildUpon()
         .appendEncodedPath(transaction.getTransactionId())

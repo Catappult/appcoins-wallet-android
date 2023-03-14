@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.asf.wallet.R
 import com.asfoundation.wallet.ui.iab.FiatValue
-import com.asfoundation.wallet.util.NumberFormatterUtils
+import com.appcoins.wallet.core.utils.common.NumberFormatterUtils
 import kotlinx.android.synthetic.main.item_top_value.view.*
 import rx.functions.Action1
 

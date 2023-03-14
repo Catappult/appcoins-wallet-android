@@ -13,8 +13,8 @@ import androidx.fragment.app.Fragment
 import com.airbnb.lottie.FontAssetDelegate
 import com.airbnb.lottie.TextDelegate
 import com.asf.wallet.R
-import com.asfoundation.wallet.util.CurrencyFormatUtils
-import com.asfoundation.wallet.util.WalletCurrency
+import com.appcoins.wallet.core.utils.common.CurrencyFormatUtils
+import com.appcoins.wallet.core.utils.common.WalletCurrency
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import com.jakewharton.rxbinding2.view.RxView
 import dagger.hilt.android.AndroidEntryPoint

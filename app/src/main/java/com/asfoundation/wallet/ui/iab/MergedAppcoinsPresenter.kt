@@ -8,9 +8,9 @@ import com.asfoundation.wallet.billing.analytics.BillingAnalytics
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.ui.iab.MergedAppcoinsFragment.Companion.APPC
 import com.asfoundation.wallet.ui.iab.MergedAppcoinsFragment.Companion.CREDITS
-import com.asfoundation.wallet.util.CurrencyFormatUtils
+import com.appcoins.wallet.core.utils.common.CurrencyFormatUtils
 import com.asfoundation.wallet.util.Log
-import com.asfoundation.wallet.util.WalletCurrency
+import com.appcoins.wallet.core.utils.common.WalletCurrency
 import com.asfoundation.wallet.util.isNoNetworkException
 import com.asfoundation.wallet.wallets.usecases.GetWalletInfoUseCase
 import io.reactivex.Observable

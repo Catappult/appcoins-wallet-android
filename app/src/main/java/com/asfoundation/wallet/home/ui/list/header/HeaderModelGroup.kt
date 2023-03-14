@@ -10,7 +10,7 @@ import com.asfoundation.wallet.entity.GlobalBalance
 import com.asfoundation.wallet.home.ui.list.HomeListClick
 import com.asfoundation.wallet.home.ui.list.header.notifications.CardNotificationListModel
 import com.asfoundation.wallet.ui.widget.entity.TransactionsModel
-import com.asfoundation.wallet.util.CurrencyFormatUtils
+import com.appcoins.wallet.core.utils.common.CurrencyFormatUtils
 
 class HeaderModelGroup(
     txModelAsync: Async<TransactionsModel>,
