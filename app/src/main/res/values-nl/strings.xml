@@ -542,8 +542,8 @@
   <string name="purchase_card_error_general_1">Er is een probleem met je kaart. Gebruik een andere kaart of betaalmethode.</string>
   <string name="purchase_card_error_general_2">De transactie is door je bank geweigerd. Gebruik een andere kaart of betaalmethode.</string>
   <string name="purchase_card_error_no_funds">Het lijkt erop dat je niet genoeg saldo hebt of je kaart heeft een limiet. Gebruik een andere kaart of betaalmethode.</string>
-  <string name="purchase_card_error_expired">Het lijkt erop dat uw kaart is verlopen. Probeer het opnieuw met een andere betaalmethode.</string>
-  <string name="purchase_card_error_invalid_details">Ongeldig kaart. Controleer het nummer en probeer het opnieuw.</string>
+  <string name="purchase_card_error_expired">Het lijkt erop dat je kaart is verlopen. Probeer het opnieuw met een andere betaalmethode.</string>
+  <string name="purchase_card_error_invalid_details">Ongeldig kaartnummer. Controleer het nummer en probeer het opnieuw.</string>
   <string name="purchase_card_error_not_supported">Je kaart wordt nog niet ondersteund. Probeer het opnieuw met een andere kaart of betaalmethode.</string>
   <string name="purchase_card_error_security">Weet je zeker dat je de juiste beveiligingsinformatie hebt ingevoerd? Probeer het opnieuw.</string>
   <string name="purchase_card_error_wrong_CVV">Het lijkt erop dat de CVV/CVC-code onjuist is. Probeer het opnieuw.</string>
@@ -577,9 +577,9 @@
   <string name="purchase_app_needed_body">Je hebt de volgende app nodig om je aankoop te voltooien.</string>
   <string name="purchase_apps_needed_body">Je hebt een van de volgende apps nodig om je aankoop te voltooien.</string>
   <string name="purchase_error_connection_issue">Het lijkt erop dat er een probleem met je internetverbinding is! Controleer de verbinding en probeer het opnieuw.</string>
-  <string name="purchase_error_wrong_pin_body">Er is een probleem met je pincode. Probeer het opnieuw.</string>
-  <string name="purchase_error_3d_body">There was a problem with your 3D authentication. Please try again.</string>
-  <string name="purchase_error_generic_contact_us_body">Oops, something went wrong. Please try again or contact us.</string>
+  <string name="purchase_error_wrong_pin_body">Er is een probleem met je pincode opgetreden. Probeer het opnieuw.</string>
+  <string name="purchase_error_3d_body">Er is een probleem met je 3D-verificatie opgetreden. Probeer het opnieuw.</string>
+  <string name="purchase_error_generic_contact_us_body">Oeps! Er is iets fout gegaan. Probeer het opnieuw of neem contact met ons op.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">Factuuradres</string>
   <string name="purchase_address_address_field">Adres</string>
@@ -755,7 +755,7 @@
   <string name="pioneer_gamification_body">Een pionier is een vroege gebruiker en krijgt hogere bonussen.</string>
   <!--Check for Updates-->
   <string name="check_updates_settings_current_title">Huidige versie</string>
-  <string name="check_updates_settings_title">Check for Updates</string>
+  <string name="check_updates_settings_title">Controleer op updates</string>
   <string name="check_updates_settings_subtitle">Huidige versie %s</string>
   <string name="check_updates_checking_body">Aan het zoeken naar een nieuwe versie</string>
   <string name="check_updates_no_updates_body">Je versie is up-to-date!</string>
@@ -764,7 +764,7 @@
   <string name="check_updates_settings_available_title">Nieuwe versie beschikbaar</string>
   <string name="check_updates_settings_available_subtitle_button">Tik om bij te werken</string>
   <!--Subscriptions-->
-  <string name="subscriptions_settings_title">Manage Subscriptions</string>
+  <string name="subscriptions_settings_title">Abonnementen beheren</string>
   <string name="subscriptions_title">Abonnementen</string>
   <string name="subscriptions_subscribe_button">Abonneren</string>
   <string name="subscriptions_active_title">Actief</string>
@@ -929,7 +929,7 @@
   <string name="perks_empty_state_first_purchase_body">Doe je eerste aankoop in een app die AppCoins ondersteunt om de acties die we voor je hebben te ontgrendelen!</string>
   <string name="perks_empty_body">Er zijn momenteel geen acties beschikbaar.</string>
   <!--Fingerprint Authentication-->
-  <string name="fingerprint_settings">Fingerprint Lock</string>
+  <string name="fingerprint_settings">Vergrendeling met vingerafdruk</string>
   <string name="fingerprint_failed_title">Authenticatie is mislukt!</string>
   <string name="fingerprint_failed_body">Probeer het over %s seconden opnieuw.</string>
   <string name="fingerprint_authentication_required_title">Authenticatie is vereist!</string>
