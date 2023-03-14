@@ -10,7 +10,7 @@ import com.asf.wallet.R
 import com.asfoundation.wallet.promotions.model.GamificationItem
 import com.asfoundation.wallet.promotions.model.GamificationLinkItem
 import com.asfoundation.wallet.promotions.ui.list.PromotionClick
-import com.asfoundation.wallet.ui.common.BaseViewHolder
+import com.appcoins.wallet.ui.widgets.BaseViewHolder
 import com.asfoundation.wallet.ui.gamification.GamificationMapper
 import com.asfoundation.wallet.util.CurrencyFormatUtils
 import java.text.DecimalFormat

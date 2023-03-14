@@ -48,7 +48,7 @@
           app:layout_constraintTop_toBottomOf="@id/provide_wallet_always_allow_wallet_icon"
           />
 
-      <com.asfoundation.wallet.ui.common.WalletButtonView
+      <com.appcoins.wallet.ui.widgets.WalletButtonView
           android:id="@+id/provide_wallet_allow_once_button"
           android:layout_width="wrap_content"
           android:layout_height="@dimen/small_button_height"
@@ -63,7 +63,7 @@
 
           />
 
-      <com.asfoundation.wallet.ui.common.WalletButtonView
+      <com.appcoins.wallet.ui.widgets.WalletButtonView
           android:id="@+id/provide_wallet_always_allow_button"
           android:layout_width="wrap_content"
           android:layout_height="@dimen/small_button_height"
@@ -77,7 +77,7 @@
           app:layout_constraintTop_toBottomOf="@id/provide_wallet_always_allow_body"
           />
 
-      <com.asfoundation.wallet.ui.common.WalletButtonView
+      <com.appcoins.wallet.ui.widgets.WalletButtonView
           android:id="@+id/provide_wallet_cancel"
           android:layout_width="wrap_content"
           android:layout_height="@dimen/small_button_height"

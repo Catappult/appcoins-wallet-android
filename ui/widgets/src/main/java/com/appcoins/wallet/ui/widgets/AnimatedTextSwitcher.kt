@@ -1,4 +1,4 @@
-package com.asfoundation.wallet.ui.common
+package com.appcoins.wallet.ui.widgets
 
 import android.content.Context
 import android.os.Parcelable
@@ -9,8 +9,8 @@ import android.view.View
 import android.widget.FrameLayout
 import android.widget.TextView
 import com.asf.wallet.R
-import com.asf.wallet.databinding.LayoutToolbarTextSwitcherBinding
-import kotlinx.android.parcel.Parcelize
+import com.appcoins.wallet.ui.widgets.databinding.LayoutToolbarTextSwitcherBinding
+import kotlinx.parcelize.Parcelize
 
 class AnimatedTextSwitcher : FrameLayout {
   @Parcelize

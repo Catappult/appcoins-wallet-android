@@ -108,7 +108,7 @@
 
   </com.google.android.material.card.MaterialCardView>
 
-  <com.asfoundation.wallet.ui.common.WalletButtonView
+  <com.appcoins.wallet.ui.widgets.WalletButtonView
       android:id="@+id/share_bt"
       android:layout_width="wrap_content"
       android:layout_height="38dp"

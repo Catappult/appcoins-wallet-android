@@ -14,7 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
-//import com.asf.wallet.R;  //TODO
+import com.asf.wallet.R;
 import com.google.android.material.snackbar.Snackbar;
 
 public class SystemView extends FrameLayout implements View.OnClickListener {
@@ -44,17 +44,17 @@ public class SystemView extends FrameLayout implements View.OnClickListener {
   @Override protected void onFinishInflate() {
     super.onFinishInflate();
 
-    //View view = LayoutInflater.from(getContext())   //TODO
-    //    .inflate(R.layout.layout_system_view, this, false);
-    //addView(view);
-    //progress = view.findViewById(R.id.progress);
-    //
-    //errorBox = view.findViewById(R.id.error_box);
-    //messageTxt = view.findViewById(R.id.message);
-    //tryAgain = view.findViewById(R.id.try_again);
-    //tryAgain.setOnClickListener(this);
-    //
-    //emptyBox = view.findViewById(R.id.empty_box);
+    View view = LayoutInflater.from(getContext())
+        .inflate(R.layout.layout_system_view, this, false);
+    addView(view);
+    progress = view.findViewById(R.id.progress);
+
+    errorBox = view.findViewById(R.id.error_box);
+    messageTxt = view.findViewById(R.id.message);
+    tryAgain = view.findViewById(R.id.try_again);
+    tryAgain.setOnClickListener(this);
+
+    emptyBox = view.findViewById(R.id.empty_box);
   }
 
   public void attachSwipeRefreshLayout(@Nullable SwipeRefreshLayout swipeRefreshLayout) {
@@ -115,10 +115,10 @@ public class SystemView extends FrameLayout implements View.OnClickListener {
         && recyclerView.getAdapter()
         .getItemCount() > 0) {
       hide();
-      //Snackbar.make(this,   //TODO
-      //    TextUtils.isEmpty(message) ? getContext().getString(R.string.unknown_error) : message,
-      //    Snackbar.LENGTH_LONG)
-      //    .show();
+      Snackbar.make(this,
+          TextUtils.isEmpty(message) ? getContext().getString(R.string.unknown_error) : message,
+          Snackbar.LENGTH_LONG)
+          .show();
     } else {
       hideAllComponents();
       errorBox.setVisibility(VISIBLE);

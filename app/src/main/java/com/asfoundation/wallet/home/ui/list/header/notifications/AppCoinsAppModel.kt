@@ -14,7 +14,7 @@ import com.airbnb.epoxy.EpoxyModelWithHolder
 import com.asf.wallet.R
 import com.asfoundation.wallet.GlideApp
 import com.asfoundation.wallet.ui.appcoins.applications.AppcoinsApplication
-import com.asfoundation.wallet.ui.common.BaseViewHolder
+import com.appcoins.wallet.ui.widgets.BaseViewHolder
 import com.asfoundation.wallet.ui.widget.holder.ApplicationClickAction
 import com.appcoins.wallet.ui.widgets.CardHeaderTransformation
 import com.bumptech.glide.load.MultiTransformation

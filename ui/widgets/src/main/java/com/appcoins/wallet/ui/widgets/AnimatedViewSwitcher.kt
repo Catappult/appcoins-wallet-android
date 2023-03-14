@@ -1,4 +1,4 @@
-package com.asfoundation.wallet.ui.common
+package com.appcoins.wallet.ui.widgets
 
 import android.content.Context
 import android.util.AttributeSet

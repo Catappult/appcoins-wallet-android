@@ -31,7 +31,7 @@
       app:shapeAppearance="@style/MyWallets.Shapes.Rounded8"
       tools:src="@drawable/ic_qr_code"
       />
-  <com.asfoundation.wallet.ui.common.WalletButtonView
+  <com.appcoins.wallet.ui.widgets.WalletButtonView
       android:id="@+id/send_button"
       android:layout_width="122dp"
       android:layout_height="@dimen/small_button_height"
@@ -46,7 +46,7 @@
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toBottomOf="@id/qr_image"
       />
-  <com.asfoundation.wallet.ui.common.WalletButtonView
+  <com.appcoins.wallet.ui.widgets.WalletButtonView
       android:id="@+id/receive_button"
       android:layout_width="122dp"
       android:layout_height="@dimen/small_button_height"
@@ -305,7 +305,7 @@
       app:layout_constraintStart_toEndOf="@+id/backup_alert_icon"
       app:layout_constraintTop_toBottomOf="@+id/backup_wallet_title"
       />
-  <com.asfoundation.wallet.ui.common.WalletButtonView
+  <com.appcoins.wallet.ui.widgets.WalletButtonView
       android:id="@+id/backup_button"
       android:layout_width="wrap_content"
       android:layout_height="@dimen/small_button_height"
@@ -394,7 +394,7 @@
       app:layout_constraintStart_toEndOf="@+id/verify_alert_icon"
       app:layout_constraintTop_toBottomOf="@+id/verify_wallet_title"
       />
-  <com.asfoundation.wallet.ui.common.WalletButtonView
+  <com.appcoins.wallet.ui.widgets.WalletButtonView
       android:id="@+id/verify_button"
       android:layout_width="wrap_content"
       android:layout_height="@dimen/small_button_height"

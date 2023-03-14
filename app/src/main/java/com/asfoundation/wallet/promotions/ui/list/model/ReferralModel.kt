@@ -12,7 +12,7 @@ import com.asfoundation.wallet.promotions.ui.PromotionsViewModel.Companion.ACTIO
 import com.asfoundation.wallet.promotions.ui.PromotionsViewModel.Companion.KEY_ACTION
 import com.asfoundation.wallet.promotions.ui.PromotionsViewModel.Companion.KEY_LINK
 import com.asfoundation.wallet.promotions.ui.list.PromotionClick
-import com.asfoundation.wallet.ui.common.BaseViewHolder
+import com.appcoins.wallet.ui.widgets.BaseViewHolder
 import com.asfoundation.wallet.util.CurrencyFormatUtils
 import com.asfoundation.wallet.util.WalletCurrency
 

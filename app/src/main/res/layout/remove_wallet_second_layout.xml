@@ -59,7 +59,7 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
   </ScrollView>
 
-  <com.asfoundation.wallet.ui.common.WalletButtonView
+  <com.appcoins.wallet.ui.widgets.WalletButtonView
       android:id="@+id/yes_remove_wallet_button"
       android:layout_width="match_parent"
       android:layout_height="@dimen/large_button_height"
@@ -74,7 +74,7 @@
       app:layout_constraintStart_toStartOf="parent"
       />
 
-  <com.asfoundation.wallet.ui.common.WalletButtonView
+  <com.appcoins.wallet.ui.widgets.WalletButtonView
       android:id="@+id/no_remove_wallet_button"
       android:layout_width="match_parent"
       android:layout_height="@dimen/large_button_height"

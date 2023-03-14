@@ -1,4 +1,4 @@
-package com.asfoundation.wallet.ui.common
+package com.appcoins.wallet.ui.widgets
 
 import android.content.Context
 import android.content.res.ColorStateList
@@ -12,7 +12,7 @@ import androidx.annotation.ColorRes
 import androidx.annotation.StringRes
 import androidx.core.content.ContextCompat
 import com.asf.wallet.R
-import com.asf.wallet.databinding.LayoutWalletButtonViewBinding
+import com.appcoins.wallet.ui.widgets.databinding.LayoutWalletButtonViewBinding
 import com.asfoundation.wallet.util.convertDpToPx
 
 class WalletButtonView : FrameLayout {

@@ -1,4 +1,4 @@
-package com.asfoundation.wallet.ui.common
+package com.appcoins.wallet.ui.widgets
 
 import android.view.View
 import com.airbnb.epoxy.EpoxyHolder
