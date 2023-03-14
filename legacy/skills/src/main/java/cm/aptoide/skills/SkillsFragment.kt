@@ -49,8 +49,8 @@ class SkillsFragment : Fragment(), PaymentView {
 
     private const val WALLET_CREATING_STATUS = "CREATING"
     private const val ESKILLS_URI_KEY = "ESKILLS_URI"
-    private const val ESKILLS_ONBOARDING_KEY = "eskills_onboarding"
-    private const val ESKILLS_REFERRAL_KEY = "eskills_cache"
+    private const val ESKILLS_ONBOARDING_KEY = "ESKILLS_ONBOARDING"
+    private const val ESKILLS_REFERRAL_KEY = "ESKILLS_REFERRAL"
 
     private const val CLIPBOARD_TOOLTIP_DELAY_SECONDS = 3000L
     private const val BONUS_VALUE = 1
