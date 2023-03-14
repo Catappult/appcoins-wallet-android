@@ -29,9 +29,9 @@
   <string name="got_it_button">Rozumiem</string>
   <string name="change_button">Zmień</string>
   <string name="vip">VIP</string>
-  <string name="faq">FAQs</string>
-  <string name="about_us_title">About Us</string>
-  <string name="preferences_title">Preferences</string>
+  <string name="faq">FAQ</string>
+  <string name="about_us_title">O nas</string>
+  <string name="preferences_title">Ustawienia</string>
   <string name="low_storage_error">Nie ma wystarczająco dużo miejsca</string>
   <string name="no_camera_permission_title">Zezwolenie na używanie aparatu</string>
   <string name="no_camera_permission">Portfel BDS AppCoins wymaga zgody na dostęp do aparatu do skanowania kodów QR.</string>
@@ -44,7 +44,7 @@
   <!-- TODO: Remove or change this placeholder text -->
   <string name="title_community">Społeczność</string>
   <string name="title_opensource">Rozwój Open Source</string>
-  <string name="title_source_code">Source Code</string>
+  <string name="title_source_code">Kod źródłowy</string>
   <string name="title_report_bug">Zgłoś błąd</string>
   <string name="title_support">Wsparcie</string>
   <string name="title_permissions">Zezwolenia</string>
@@ -80,7 +80,7 @@
   <string name="unknown_error">Wystąpił błąd.</string>
   <string name="action_backup_wallet">Kopia zapasowa portfela</string>
   <string name="no_tokens">Nie dodano jeszcze żadnych niestandardowych tokenów.</string>
-  <string name="title_email">Email Us</string>
+  <string name="title_email">Napisz do nas</string>
   <string name="action_donate">Złóż darowiznę</string>
   <!-- Titles -->
   <string name="title_my_address">Odbierz</string>
@@ -140,15 +140,15 @@
   <string name="intro_already_have_wallet_button">Mam już portfel</string>
   <string name="intro_get_started_button">Utwórz portfel</string>
   <!-- Intro from game -->
-  <string name="launching_wallet_body">Launching wallet&#8230;</string>
-  <string name="select_method_title">Choose a payment method</string>
-  <string name="bonus_body">Get %s bonus with this purchase.</string>
-  <string name="agree_by_choosing_a_payment_method_body">By choosing a payment method, you agree to the %1$s and %2$s.</string>
-  <string name="pay_with_card_title">Pay with credit/debit card</string>
-  <string name="more_payment_methods_button">More payment methods</string>
-  <string name="bonus_received_body">You received a %s bonus in your wallet.</string>
-  <string name="back_to_the_game_button">Back to the game</string>
-  <string name="other_payment_methos_title">Other payment methods:</string>
+  <string name="launching_wallet_body">Zakładam portfel&#8230;</string>
+  <string name="select_method_title">Wybierz metodę płatnosci</string>
+  <string name="bonus_body">Zdobądź bonus %s za ten zakup.</string>
+  <string name="agree_by_choosing_a_payment_method_body">Wybierając metodę płatnosci, zgadzasz się na %1$s i %2$s.</string>
+  <string name="pay_with_card_title">Zapłać kartą kredytową/debetową</string>
+  <string name="more_payment_methods_button">Więcej metod płatności</string>
+  <string name="bonus_received_body">Otrzymałeś %s bonusu do portfela.</string>
+  <string name="back_to_the_game_button">Wróć do gry</string>
+  <string name="other_payment_methos_title">Inne metody płatności:</string>
   <!-- Menus -->
   <!-- Labels -->
   <string name="label_from">Od</string>
@@ -377,7 +377,7 @@
   <string name="provide_wallet_completed_header">Portfel powiązany z Aptoide!</string>
   <string name="provide_wallet_create_body">Potrzebujesz adresu portfela! Wykonaj następujące kroki, by utworzyć portfel AppCoins.</string>
   <string name="provide_wallet_create_wallet_button">Stwórz</string>
-  <string name="provide_wallet_creating_wallet_header">Preparing your wallet&#8230;</string>
+  <string name="provide_wallet_creating_wallet_header">Przygotowywanie portfela&#8230;</string>
   <string name="provide_wallet_created_header">Adres portfela stworzony!</string>
   <string name="provide_wallet_empty_state">Dotąd nie zezwoliłeś/łaś portfelowi AppCoins aby udostępnił Twój adres jakiejkolwiek innej aplikacji.</string>
   <string name="provide_wallet_status">Pozwól na dostęp do adresu portfela</string>
