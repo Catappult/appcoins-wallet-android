@@ -8,5 +8,6 @@ android {
 
 dependencies {
   implementation(libs.bundles.network)
+  implementation(libs.appcoins.sdk)
   implementation(project(":legacy:commons"))
 }

@@ -5,8 +5,6 @@ import android.os.Build
 import android.provider.Settings
 import android.util.DisplayMetrics
 import android.view.WindowManager
-import com.asf.wallet.BuildConfig
-import com.asfoundation.wallet.repository.PreferencesRepositoryType
 import okhttp3.*
 import java.io.IOException
 import java.util.*
