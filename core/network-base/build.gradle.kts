@@ -1,7 +1,5 @@
 plugins {
-  id("com.android.application")
-  id("org.jetbrains.kotlin.android")
-  id("appcoins.hilt")
+  id("appcoins.android.library")
 }
 
 android {
@@ -9,7 +7,6 @@ android {
 }
 
 dependencies {
-  implementation("androidx.core:core-ktx:1.7.0")
-  testImplementation("junit:junit:4.13.2")
-  androidTestImplementation("androidx.test.ext:junit:1.1.5")
+  implementation(libs.bundles.network)
+  implementation(project(":legacy:commons"))
 }

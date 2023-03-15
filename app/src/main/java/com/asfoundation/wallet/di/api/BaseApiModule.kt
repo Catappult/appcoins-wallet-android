@@ -5,10 +5,10 @@ import annotations.BaseHttpClient
 import annotations.BlockchainHttpClient
 import annotations.DefaultHttpClient
 import annotations.ShortTimeoutHttpClient
-import com.asfoundation.wallet.billing.paypal.repository.MagnesHeaderInterceptor
+import interceptors.MagnesHeaderInterceptor
 import com.asfoundation.wallet.repository.PreferencesRepositoryType
-import com.asfoundation.wallet.util.LogInterceptor
-import com.asfoundation.wallet.util.UserAgentInterceptor
+import interceptors.LogInterceptor
+import interceptors.UserAgentInterceptor
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

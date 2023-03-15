@@ -1,4 +1,4 @@
-package com.asfoundation.wallet.billing.paypal.repository
+package interceptors
 
 import android.content.Context
 import okhttp3.*

@@ -1,4 +1,4 @@
-package com.asfoundation.wallet.util;
+package interceptors;
 
 import android.text.TextUtils;
 import androidx.annotation.NonNull;

@@ -1,4 +1,4 @@
-package com.asfoundation.wallet.util
+package interceptors
 
 import android.content.Context
 import android.os.Build
