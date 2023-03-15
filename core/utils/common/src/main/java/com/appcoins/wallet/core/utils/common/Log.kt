@@ -20,7 +20,7 @@ class Log private constructor() {
 
     @JvmStatic
     fun i(tag: String, msg: String): Int =
-      if (BuildConfig.DEBUG) Log.i(tag, msg) else 0
+        if (BuildConfig.DEBUG) Log.i(tag, msg) else 0
 
     @JvmStatic
     fun d(tag: String, msg: String): Int =

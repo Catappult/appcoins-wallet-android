@@ -9,7 +9,7 @@ import java.util.regex.Matcher
 import java.util.regex.Pattern
 
 private val FORMAT_SEQUENCE: Pattern =
-  Pattern.compile("%([0-9]+\\$|<?)([^a-zA-z%]*)([[a-zA-Z%]&&[^tT]]|[tT][a-zA-Z])")
+    Pattern.compile("%([0-9]+\\$|<?)([^a-zA-z%]*)([[a-zA-Z%]&&[^tT]]|[tT][a-zA-Z])")
 
 /**
  * Extension to format a string with a spannable

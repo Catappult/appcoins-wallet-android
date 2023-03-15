@@ -63,12 +63,14 @@ class BillingIntentBuilder(val context: Context) {
                                  subscriptionPeriod: String?,
                                  trialPeriod: String?): Intent {
     val value = amount.multiply(BigDecimal.TEN.pow(18))
-    val uri = Uri.parse(buildUriString(
-      type, tokenContractAddress, iabContractAddress, value,
-      developerAddress, skuId, MiscProperties.NETWORK_ID, packageName,
-      PayloadHelper.getPayload(payload), PayloadHelper.getOrderReference(payload),
-      PayloadHelper.getOrigin(payload), subscriptionPeriod, trialPeriod
-    ))
+    val uri = Uri.parse(
+      buildUriString(
+        type, tokenContractAddress, iabContractAddress, value,
+        developerAddress, skuId, MiscProperties.NETWORK_ID, packageName,
+        PayloadHelper.getPayload(payload), PayloadHelper.getOrderReference(payload),
+        PayloadHelper.getOrigin(payload), subscriptionPeriod, trialPeriod
+      )
+    )
 
 
     return Intent(Intent.ACTION_VIEW).apply {

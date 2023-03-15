@@ -24,7 +24,7 @@ class NumberFormatterUtils {
 
     val truncatedValue = value / (divideBy / 10)
     val hasDecimal =
-      truncatedValue < 100 && truncatedValue / 10.0f != (truncatedValue / 10)
+        truncatedValue < 100 && truncatedValue / 10.0f != (truncatedValue / 10)
     return if (hasDecimal) {
       formatDecimalPlaces(truncatedValue / 10.0f) + suffix
     } else {
