@@ -1,7 +1,7 @@
 package com.asfoundation.wallet.repository
 
 import android.content.SharedPreferences
-import com.asfoundation.wallet.analytics.AnalyticsSetup
+import com.appcoins.wallet.core.analytics.analytics.AnalyticsSetup
 import com.asfoundation.wallet.entity.Wallet
 import com.asfoundation.wallet.interact.rx.operator.Operators
 import com.asfoundation.wallet.recover.result.RestoreResult

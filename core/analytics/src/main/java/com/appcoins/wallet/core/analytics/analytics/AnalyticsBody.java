@@ -1,4 +1,4 @@
-package com.asfoundation.wallet.analytics;
+package com.appcoins.wallet.core.analytics.analytics;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Map;

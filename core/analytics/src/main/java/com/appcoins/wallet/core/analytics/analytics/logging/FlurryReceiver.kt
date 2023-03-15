@@ -1,9 +1,9 @@
-package com.asfoundation.wallet.logging
+package com.appcoins.wallet.core.analytics.analytics.logging
 
 import com.appcoins.wallet.commons.LogReceiver
-import com.asf.wallet.BuildConfig
 import com.appcoins.wallet.commons.LogReceiver.Companion.DEFAULT_MSG
 import com.appcoins.wallet.commons.LogReceiver.Companion.DEFAULT_THROWABLE_MSG
+import com.appcoins.wallet.core.analytics.BuildConfig
 import com.flurry.android.FlurryAgent
 
 class FlurryReceiver : LogReceiver {

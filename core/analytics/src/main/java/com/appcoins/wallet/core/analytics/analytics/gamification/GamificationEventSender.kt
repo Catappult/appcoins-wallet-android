@@ -1,4 +1,4 @@
-package com.asfoundation.wallet.analytics.gamification
+package com.appcoins.wallet.core.analytics.analytics.gamification
 
 interface GamificationEventSender {
 

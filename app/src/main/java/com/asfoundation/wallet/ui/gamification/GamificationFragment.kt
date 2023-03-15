@@ -7,7 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.asf.wallet.R
-import com.asfoundation.wallet.analytics.gamification.GamificationAnalytics
+import com.appcoins.wallet.core.analytics.analytics.gamification.GamificationAnalytics
 import com.asfoundation.wallet.ui.widget.MarginItemDecoration
 import com.appcoins.wallet.core.utils.common.CurrencyFormatUtils
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment

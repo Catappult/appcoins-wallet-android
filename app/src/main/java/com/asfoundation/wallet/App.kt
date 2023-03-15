@@ -18,15 +18,14 @@ import com.appcoins.wallet.billing.BillingMessagesMapper
 import com.appcoins.wallet.commons.Logger
 import com.appcoins.wallet.core.utils.properties.MiscProperties
 import com.asf.wallet.BuildConfig
-import com.asfoundation.wallet.analytics.IndicativeAnalytics
-import com.asfoundation.wallet.analytics.RakamAnalytics
-import com.asfoundation.wallet.analytics.SentryAnalytics
+import com.appcoins.wallet.core.analytics.analytics.SentryAnalytics
 import com.asfoundation.wallet.app_start.AppStartProbe
 import com.asfoundation.wallet.app_start.AppStartUseCase
 import com.asfoundation.wallet.app_start.StartMode
 import com.asfoundation.wallet.billing.paypal.repository.MagnesUtils
 import com.asfoundation.wallet.identification.IdsRepository
-import com.asfoundation.wallet.logging.FlurryReceiver
+import com.appcoins.wallet.core.analytics.analytics.logging.FlurryReceiver
+import com.asfoundation.wallet.analytics.initilizeDataAnalytics
 import com.asfoundation.wallet.main.appsflyer.ApkOriginVerification
 import com.asfoundation.wallet.support.AlarmManagerBroadcastReceiver
 import com.asfoundation.wallet.ui.iab.AppcoinsOperationsDataSaver
@@ -93,19 +92,16 @@ class App : MultiDexApplication(), BillingDependenciesProvider {
   lateinit var logger: Logger
 
   @Inject
-  lateinit var rakamAnalytics: RakamAnalytics
-
-  @Inject
-  lateinit var indicativeAnalytics: IndicativeAnalytics
+  lateinit var initilizeDataAnalytics: initilizeDataAnalytics
 
   @Inject
   lateinit var sentryAnalytics: SentryAnalytics
 
   @Inject
-  lateinit var commonsPreferencesDataSource: CommonsPreferencesDataSource
+  lateinit var analyticsManager: AnalyticsManager
 
   @Inject
-  lateinit var analyticsManager: AnalyticsManager
+  lateinit var commonsPreferencesDataSource: CommonsPreferencesDataSource
 
   @Inject
   lateinit var subscriptionBillingApi: SubscriptionBillingApi
@@ -126,7 +122,7 @@ class App : MultiDexApplication(), BillingDependenciesProvider {
     initializeIndicative()
     initializeRakam()
     initiateIntercom()
-    initiateSentry()
+    initializeSentry()
     initializeMagnes()
     setupBouncyCastle()
     initializeWalletId()
@@ -157,15 +153,19 @@ class App : MultiDexApplication(), BillingDependenciesProvider {
   }
 
   private fun initializeRakam() {
-    rakamAnalytics.initialize()
+    initilizeDataAnalytics.initializeRakam()
       .subscribeOn(Schedulers.io())
       .subscribe()
   }
 
   private fun initializeIndicative() {
-    indicativeAnalytics.initialize()
+    initilizeDataAnalytics.initializeIndicative()
       .subscribeOn(Schedulers.io())
       .subscribe()
+  }
+
+  private fun initializeSentry() {
+    initilizeDataAnalytics.initializeSentry().subscribe()
   }
 
   private fun setupRxJava() {
@@ -209,10 +209,6 @@ class App : MultiDexApplication(), BillingDependenciesProvider {
         .build(this, BuildConfig.FLURRY_APK_KEY)
       logger.addReceiver(FlurryReceiver())
     }
-  }
-
-  private fun initiateSentry() {
-    sentryAnalytics.initialize().subscribe()
   }
 
   private fun initiateIntercom() {

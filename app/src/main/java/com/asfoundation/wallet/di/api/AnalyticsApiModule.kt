@@ -1,6 +1,6 @@
 package com.asfoundation.wallet.di.api
 
-import com.asfoundation.wallet.analytics.AnalyticsAPI
+import com.appcoins.wallet.core.analytics.analytics.AnalyticsAPI
 import com.asfoundation.wallet.di.annotations.DefaultHttpClient
 import com.fasterxml.jackson.databind.ObjectMapper
 import dagger.Module

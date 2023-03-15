@@ -1,6 +1,9 @@
 package com.asfoundation.wallet.di
 
 import cm.aptoide.analytics.AnalyticsManager
+import com.appcoins.wallet.core.analytics.analytics.*
+import com.appcoins.wallet.core.analytics.analytics.BackendEventLogger
+import com.asf.wallet.BuildConfig
 import com.asfoundation.wallet.analytics.*
 import com.asfoundation.wallet.app_start.AppStartProbe
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics
@@ -153,7 +156,7 @@ class AnalyticsModule {
     indicativeAnalytics: IndicativeAnalytics
   ): AnalyticsManager {
     return AnalyticsManager.Builder()
-      .addLogger(BackendEventLogger(api), biEventList)
+      .addLogger(BackendEventLogger(api, BuildConfig.VERSION_CODE, BuildConfig.APPLICATION_ID), biEventList)
       .addLogger(IndicativeEventLogger(indicativeAnalytics), indicativeEventList)
       .addLogger(RakamEventLogger(), rakamEventList)
       .addLogger(SentryEventLogger(), sentryEventList)

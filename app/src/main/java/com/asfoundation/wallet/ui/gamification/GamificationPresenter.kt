@@ -4,7 +4,7 @@ import android.os.Bundle
 import com.appcoins.wallet.gamification.GamificationContext
 import com.appcoins.wallet.gamification.repository.PromotionsGamificationStats
 import com.appcoins.wallet.gamification.repository.Levels
-import com.asfoundation.wallet.analytics.gamification.GamificationAnalytics
+import com.appcoins.wallet.core.analytics.analytics.gamification.GamificationAnalytics
 import com.asfoundation.wallet.ui.gamification.GamificationFragment.Companion.GAMIFICATION_INFO_ID
 import com.asfoundation.wallet.ui.gamification.GamificationFragment.Companion.SHOW_REACHED_LEVELS_ID
 import com.asfoundation.wallet.ui.iab.FiatValue
