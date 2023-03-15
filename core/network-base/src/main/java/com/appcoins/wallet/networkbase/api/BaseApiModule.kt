@@ -27,11 +27,11 @@ class BaseApiModule {
   @BaseHttpClient
   fun provideOkHttpClient(
     @ApplicationContext context: Context,
-    preferencesRepositoryType: CommonsPreferencesDataSource,
+    commonsPreferencesDataSource: CommonsPreferencesDataSource,
     logInterceptor: LogInterceptor
   ): OkHttpClient {
     return OkHttpClient.Builder()
-      .addInterceptor(UserAgentInterceptor(context, preferencesRepositoryType))
+      .addInterceptor(UserAgentInterceptor(context, commonsPreferencesDataSource))
       .addInterceptor(MagnesHeaderInterceptor(context))
       .addInterceptor(logInterceptor)
       .build()
