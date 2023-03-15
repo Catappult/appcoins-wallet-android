@@ -20,7 +20,7 @@ import com.asfoundation.wallet.entity.TransactionBuilder;
 import com.asfoundation.wallet.ui.BaseActivity;
 import com.asfoundation.wallet.ui.common.WalletButtonView;
 import com.appcoins.wallet.core.utils.common.CurrencyFormatUtils;
-import com.asfoundation.wallet.util.Log;
+import com.appcoins.wallet.core.utils.common.Log;
 import com.appcoins.wallet.core.utils.common.WalletCurrency;
 import com.asfoundation.wallet.viewmodel.GasSettingsViewModel;
 import com.asfoundation.wallet.viewmodel.TransferConfirmationViewModel;

@@ -5,7 +5,7 @@ import com.asfoundation.wallet.billing.adyen.PaymentType
 import com.asfoundation.wallet.topup.TopUpData.Companion.DEFAULT_VALUE
 import com.asfoundation.wallet.ui.iab.FiatValue
 import com.appcoins.wallet.core.utils.common.CurrencyFormatUtils
-import com.asfoundation.wallet.util.Log
+import com.appcoins.wallet.core.utils.common.Log
 import com.asfoundation.wallet.util.isNoNetworkException
 import io.reactivex.Completable
 import io.reactivex.Observable
