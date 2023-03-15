@@ -1,7 +1,6 @@
-package com.asfoundation.wallet.util
+package com.appcoins.wallet.ui.common
 
 import android.content.Context
-import android.content.res.Resources
 import androidx.annotation.StringRes
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject

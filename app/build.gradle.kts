@@ -45,9 +45,7 @@ dependencies {
 
   implementation(project(":core:utils:common"))
   implementation(project(":core:utils:properties"))
-
-  implementation(project(":core:utils:common"))
-  implementation(project(":core:utils:properties"))
+  implementation(project(":ui:common"))
 
   implementation(project(":ui:arch"))
 
