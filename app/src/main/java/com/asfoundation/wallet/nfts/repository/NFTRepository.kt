@@ -1,6 +1,6 @@
 package com.asfoundation.wallet.nfts.repository
 
-import com.appcoins.wallet.ui.arch.RxSchedulers
+import com.appcoins.wallet.core.utils.common.RxSchedulers
 import com.asfoundation.wallet.nfts.domain.GasInfo
 import com.asfoundation.wallet.nfts.domain.NFTItem
 import com.asfoundation.wallet.nfts.domain.NftTransferResult

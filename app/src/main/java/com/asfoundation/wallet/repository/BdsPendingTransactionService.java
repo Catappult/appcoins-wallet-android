@@ -3,7 +3,7 @@ package com.asfoundation.wallet.repository;
 import com.appcoins.wallet.bdsbilling.Billing;
 import com.appcoins.wallet.bdsbilling.BillingPaymentProofSubmission;
 import com.appcoins.wallet.bdsbilling.repository.entity.Transaction;
-import com.appcoins.wallet.ui.arch.RxSchedulers;
+import com.appcoins.wallet.core.utils.common.RxSchedulers;
 import com.asfoundation.wallet.entity.PendingTransaction;
 import io.reactivex.Observable;
 import it.czerwinski.android.hilt.annotations.BoundTo;

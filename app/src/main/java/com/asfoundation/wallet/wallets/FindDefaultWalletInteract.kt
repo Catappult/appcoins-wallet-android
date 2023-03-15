@@ -1,6 +1,6 @@
 package com.asfoundation.wallet.wallets
 
-import com.appcoins.wallet.ui.arch.RxSchedulers
+import com.appcoins.wallet.core.utils.common.RxSchedulers
 import com.asfoundation.wallet.entity.Wallet
 import com.asfoundation.wallet.repository.WalletRepositoryType
 import io.reactivex.Single

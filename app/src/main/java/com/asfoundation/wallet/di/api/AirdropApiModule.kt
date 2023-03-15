@@ -1,7 +1,7 @@
 package com.asfoundation.wallet.di.api
 
 import com.asfoundation.wallet.AirdropService
-import com.appcoins.wallet.ui.arch.RxSchedulers
+import com.appcoins.wallet.core.utils.common.RxSchedulers
 import com.asfoundation.wallet.di.annotations.BlockchainHttpClient
 import com.google.gson.Gson
 import dagger.Module

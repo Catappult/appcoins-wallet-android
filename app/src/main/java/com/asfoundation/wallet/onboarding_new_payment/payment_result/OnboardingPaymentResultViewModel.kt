@@ -5,7 +5,7 @@ import com.appcoins.wallet.billing.ErrorInfo
 import com.appcoins.wallet.billing.adyen.PaymentModel
 import com.appcoins.wallet.billing.util.Error
 import com.appcoins.wallet.ui.arch.BaseViewModel
-import com.appcoins.wallet.ui.arch.RxSchedulers
+import com.appcoins.wallet.core.utils.common.RxSchedulers
 import com.appcoins.wallet.ui.arch.SideEffect
 import com.appcoins.wallet.ui.arch.ViewState
 import com.asfoundation.wallet.billing.adyen.AdyenErrorCodeMapper

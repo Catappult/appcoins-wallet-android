@@ -7,7 +7,7 @@ import androidx.lifecycle.ViewModel
 import com.appcoins.wallet.billing.BillingMessagesMapper
 import com.appcoins.wallet.billing.adyen.PaymentModel
 import com.asf.wallet.R
-import com.appcoins.wallet.ui.arch.RxSchedulers
+import com.appcoins.wallet.core.utils.common.RxSchedulers
 import com.asfoundation.wallet.billing.paypal.models.PaypalTransaction
 import com.asfoundation.wallet.billing.paypal.usecases.*
 import com.asfoundation.wallet.support.SupportInteractor

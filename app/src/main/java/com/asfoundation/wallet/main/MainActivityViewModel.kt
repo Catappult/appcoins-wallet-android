@@ -2,7 +2,7 @@ package com.asfoundation.wallet.main
 
 import androidx.lifecycle.SavedStateHandle
 import com.appcoins.wallet.ui.arch.BaseViewModel
-import com.appcoins.wallet.ui.arch.RxSchedulers
+import com.appcoins.wallet.core.utils.common.RxSchedulers
 import com.appcoins.wallet.ui.arch.SideEffect
 import com.appcoins.wallet.ui.arch.ViewState
 import com.asfoundation.wallet.home.usecases.DisplayConversationListOrChatUseCase

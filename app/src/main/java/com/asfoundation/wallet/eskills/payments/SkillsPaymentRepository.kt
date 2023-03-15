@@ -7,7 +7,7 @@ import cm.aptoide.skills.model.CreatedTicket
 import cm.aptoide.skills.model.PaymentResult
 import cm.aptoide.skills.model.Price
 import cm.aptoide.skills.util.EskillsPaymentData
-import com.appcoins.wallet.ui.arch.RxSchedulers
+import com.appcoins.wallet.core.utils.common.RxSchedulers
 import com.asfoundation.wallet.repository.CurrencyConversionService
 import com.asfoundation.wallet.topup.TopUpActivity
 import com.asfoundation.wallet.ui.iab.AppcoinsRewardsBuyInteract

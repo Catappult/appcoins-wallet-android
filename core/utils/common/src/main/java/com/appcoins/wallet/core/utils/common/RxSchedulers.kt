@@ -1,4 +1,4 @@
-package com.appcoins.wallet.ui.arch
+package com.appcoins.wallet.core.utils.common
 
 import io.reactivex.Scheduler
 import io.reactivex.android.schedulers.AndroidSchedulers

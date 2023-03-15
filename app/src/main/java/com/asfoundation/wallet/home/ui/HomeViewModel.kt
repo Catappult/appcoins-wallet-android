@@ -3,6 +3,7 @@ package com.asfoundation.wallet.home.ui
 import android.content.Intent
 import android.net.Uri
 import android.text.format.DateUtils
+import com.appcoins.wallet.core.utils.common.RxSchedulers
 import com.appcoins.wallet.core.utils.properties.APTOIDE_TOP_APPS_URL
 import com.appcoins.wallet.core.utils.properties.VIP_PROGRAM_BADGE_URL
 import com.appcoins.wallet.gamification.repository.Levels
@@ -12,7 +13,6 @@ import com.appcoins.wallet.sharedpreferences.BackupTriggerPreferencesDataSource
 import com.appcoins.wallet.sharedpreferences.BackupTriggerPreferencesDataSource.TriggerSource
 import com.appcoins.wallet.sharedpreferences.BackupTriggerPreferencesDataSource.TriggerSource.FIRST_PURCHASE
 import com.appcoins.wallet.sharedpreferences.BackupTriggerPreferencesDataSource.TriggerSource.NEW_LEVEL
-import com.asf.wallet.BuildConfig
 import com.asfoundation.wallet.backup.triggers.TriggerUtils.toJson
 import com.asfoundation.wallet.backup.use_cases.ShouldShowBackupTriggerUseCase
 import com.asfoundation.wallet.billing.analytics.WalletsAnalytics

@@ -1,6 +1,6 @@
 package com.asfoundation.wallet.repository
 
-import com.appcoins.wallet.ui.arch.RxSchedulers
+import com.appcoins.wallet.core.utils.common.RxSchedulers
 import com.asfoundation.wallet.entity.NetworkInfo
 import com.asfoundation.wallet.entity.WalletHistory
 import com.asfoundation.wallet.interact.DefaultTokenProvider

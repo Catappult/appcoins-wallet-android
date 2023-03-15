@@ -1,6 +1,6 @@
 package com.asfoundation.wallet.wallets.usecases
 
-import com.appcoins.wallet.ui.arch.RxSchedulers
+import com.appcoins.wallet.core.utils.common.RxSchedulers
 import com.asfoundation.wallet.ui.wallets.WalletsInteract
 import com.asfoundation.wallet.ui.wallets.WalletsModel
 import io.reactivex.Observable

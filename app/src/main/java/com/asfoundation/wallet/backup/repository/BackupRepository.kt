@@ -3,7 +3,7 @@ package com.asfoundation.wallet.backup.repository
 import android.content.ContentResolver
 import androidx.documentfile.provider.DocumentFile
 import com.appcoins.wallet.bdsbilling.WalletService
-import com.appcoins.wallet.ui.arch.RxSchedulers
+import com.appcoins.wallet.core.utils.common.RxSchedulers
 import com.asfoundation.wallet.util.convertToBase64
 import io.reactivex.Completable
 import retrofit2.http.Body
