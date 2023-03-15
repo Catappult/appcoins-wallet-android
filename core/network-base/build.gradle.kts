@@ -7,7 +7,7 @@ android {
 }
 
 dependencies {
-  implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.aar"))))
+  implementation(fileTree(mapOf("dir" to "libs", "include" to "*.aar")))
   implementation(libs.bundles.network)
   implementation(libs.appcoins.sdk)
   implementation(project(":legacy:commons"))

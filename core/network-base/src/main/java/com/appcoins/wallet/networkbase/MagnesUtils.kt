@@ -6,29 +6,23 @@ import lib.android.paypal.com.magnessdk.MagnesResult
 import lib.android.paypal.com.magnessdk.MagnesSDK
 import lib.android.paypal.com.magnessdk.MagnesSettings
 
-class MagnesUtils {
+object MagnesUtils {
+  private var magnusResult: MagnesResult? = null
 
-  companion object {
+  fun start(context: Context) {
+    val magnesSettingsBuilder = if (BuildConfig.DEBUG)
+      MagnesSettings.Builder(context).setMagnesEnvironment(Environment.SANDBOX)
+    else
+      MagnesSettings.Builder(context).setMagnesEnvironment(Environment.LIVE)
 
-    var magnusResult: MagnesResult? = null
+    MagnesSDK.getInstance().setUp(magnesSettingsBuilder.build())
+  }
 
-    fun start(context: Context) {
-      val magnesSettingsBuilder = if (BuildConfig.DEBUG)
-        MagnesSettings.Builder(context).setMagnesEnvironment(Environment.SANDBOX)
-      else
-        MagnesSettings.Builder(context).setMagnesEnvironment(Environment.LIVE)
+  fun collectAndSubmit(context: Context) {
+    MagnesSDK.getInstance().collectAndSubmit(context)
+  }
 
-      MagnesSDK.getInstance().setUp(magnesSettingsBuilder.build())
-    }
-
-    fun collectAndSubmit(context: Context): MagnesResult? {
-      magnusResult = MagnesSDK.getInstance().collectAndSubmit(context)
-      return magnusResult
-    }
-
-    fun getMetadataId(): String? {
-      return magnusResult?.paypalClientMetaDataId
-    }
-
+  fun getMetadataId(): String? {
+    return magnusResult?.paypalClientMetaDataId
   }
 }
