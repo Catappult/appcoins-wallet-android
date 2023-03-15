@@ -12,7 +12,7 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import com.asf.wallet.R
 import com.asfoundation.wallet.base.SingleStateFragment
-import com.asfoundation.wallet.util.RxBus
+import com.appcoins.wallet.core.utils.common.RxBus
 import com.asfoundation.wallet.main.splash.bus.SplashFinishEvent
 import com.asfoundation.wallet.support.SupportNotificationProperties.SUPPORT_NOTIFICATION_CLICK
 import com.asfoundation.wallet.ui.AuthenticationPromptActivity

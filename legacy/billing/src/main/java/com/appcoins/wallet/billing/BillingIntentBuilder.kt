@@ -10,6 +10,7 @@ import com.appcoins.wallet.billing.AppcoinsBillingBinder.Companion.EXTRA_BDS_IAP
 import com.appcoins.wallet.billing.AppcoinsBillingBinder.Companion.EXTRA_DEVELOPER_PAYLOAD
 import com.appcoins.wallet.billing.repository.entity.TransactionData
 import com.appcoins.wallet.billing.util.PayloadHelper
+import com.appcoins.wallet.core.utils.properties.MiscProperties
 import com.google.gson.Gson
 import org.spongycastle.util.encoders.Hex
 import java.io.UnsupportedEncodingException
@@ -62,11 +63,8 @@ class BillingIntentBuilder(val context: Context) {
                                  subscriptionPeriod: String?,
                                  trialPeriod: String?): Intent {
     val value = amount.multiply(BigDecimal.TEN.pow(18))
-    //TODO networkId harcoded is a temp solution since BuildConfig.NETWORK_ID was giving problems,
-    // when we modularize we should remove the build configs from the :app module
-    val networkId = if (BuildConfig.DEBUG) 3 else 1
     val uri = Uri.parse(buildUriString(type, tokenContractAddress, iabContractAddress, value,
-        developerAddress, skuId, networkId, packageName,
+        developerAddress, skuId, MiscProperties.NETWORK_ID, packageName,
         PayloadHelper.getPayload(payload), PayloadHelper.getOrderReference(payload),
         PayloadHelper.getOrigin(payload), subscriptionPeriod, trialPeriod))
 

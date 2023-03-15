@@ -27,8 +27,8 @@ import com.asfoundation.wallet.topup.TopUpData.Companion.FIAT_CURRENCY
 import com.asfoundation.wallet.topup.paymentMethods.TopUpPaymentMethodsAdapter
 import com.asfoundation.wallet.ui.iab.FiatValue
 import com.asfoundation.wallet.ui.iab.PaymentMethod
-import com.asfoundation.wallet.util.CurrencyFormatUtils
-import com.asfoundation.wallet.util.WalletCurrency
+import com.appcoins.wallet.core.utils.common.CurrencyFormatUtils
+import com.appcoins.wallet.core.utils.common.WalletCurrency
 import com.asfoundation.wallet.util.convertDpToPx
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import com.jakewharton.rxbinding2.view.RxView

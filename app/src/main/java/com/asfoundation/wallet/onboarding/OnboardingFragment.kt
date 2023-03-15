@@ -18,6 +18,8 @@ import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import by.kirich1409.viewbindingdelegate.viewBinding
+import com.appcoins.wallet.core.utils.properties.PRIVACY_POLICY_URL
+import com.appcoins.wallet.core.utils.properties.TERMS_CONDITIONS_URL
 import com.asf.wallet.BuildConfig
 import com.asf.wallet.R
 import com.asf.wallet.databinding.FragmentOnboardingBinding
@@ -130,8 +132,8 @@ class OnboardingFragment : BasePageViewFragment(),
       )
 
     val spannableString = SpannableString(termsPolicyTickBox)
-    setLinkToString(spannableString, termsConditions, Uri.parse(BuildConfig.TERMS_CONDITIONS_URL))
-    setLinkToString(spannableString, privacyPolicy, Uri.parse(BuildConfig.PRIVACY_POLICY_URL))
+    setLinkToString(spannableString, termsConditions, Uri.parse(TERMS_CONDITIONS_URL))
+    setLinkToString(spannableString, privacyPolicy, Uri.parse(PRIVACY_POLICY_URL))
 
     views.onboardingTermsConditions.termsConditionsBody.text = spannableString
     views.onboardingTermsConditions.termsConditionsBody.isClickable = true

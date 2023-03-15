@@ -11,7 +11,7 @@ import android.os.Bundle
 import android.view.Surface
 import androidx.appcompat.app.AppCompatActivity
 import com.asf.wallet.R
-import com.asfoundation.wallet.util.Log
+import com.appcoins.wallet.core.utils.common.Log
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

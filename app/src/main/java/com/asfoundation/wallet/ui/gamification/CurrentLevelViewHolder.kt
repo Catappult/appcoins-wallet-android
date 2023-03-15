@@ -6,7 +6,7 @@ import android.view.View
 import com.asf.wallet.R
 import com.asfoundation.wallet.ui.gamification.GamificationFragment.Companion.GAMIFICATION_INFO_ID
 import com.asfoundation.wallet.ui.gamification.GamificationFragment.Companion.SHOW_REACHED_LEVELS_ID
-import com.asfoundation.wallet.util.CurrencyFormatUtils
+import com.appcoins.wallet.core.utils.common.CurrencyFormatUtils
 import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.current_level_card.view.*
 import kotlinx.android.synthetic.main.current_level_layout.view.*

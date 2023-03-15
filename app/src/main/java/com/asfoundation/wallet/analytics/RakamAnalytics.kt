@@ -3,6 +3,7 @@ package com.asfoundation.wallet.analytics
 import android.app.Application
 import android.content.Context
 import com.appcoins.wallet.commons.Logger
+import com.appcoins.wallet.core.utils.properties.HostProperties
 import com.appcoins.wallet.gamification.repository.PromotionsRepository
 import com.appcoins.wallet.gamification.repository.entity.WalletOrigin
 import com.asf.wallet.BuildConfig
@@ -11,7 +12,7 @@ import com.asfoundation.wallet.logging.RakamReceiver
 import com.asfoundation.wallet.promo_code.repository.PromoCode
 import com.asfoundation.wallet.promo_code.repository.PromoCodeLocalDataSource
 import com.asfoundation.wallet.promotions.model.PromotionsModel
-import com.asfoundation.wallet.util.Log
+import com.appcoins.wallet.core.utils.common.Log
 import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.GoogleApiAvailability
 import dagger.hilt.android.qualifiers.ApplicationContext
@@ -117,7 +118,7 @@ class RakamAnalytics @Inject constructor(
     options.disableAdid()
     try {
       instance.initialize(
-        context, URL(BuildConfig.RAKAM_BASE_HOST),
+        context, URL(HostProperties.RAKAM_BASE_HOST),
         BuildConfig.RAKAM_API_KEY
       )
     } catch (e: MalformedURLException) {

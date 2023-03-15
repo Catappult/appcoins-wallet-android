@@ -37,7 +37,8 @@ import com.asfoundation.wallet.ui.iab.ImageSaver
 import com.asfoundation.wallet.ui.iab.raiden.MultiWalletNonceObtainer
 import com.asfoundation.wallet.ui.iab.raiden.NonceObtainerFactory
 import com.asfoundation.wallet.ui.iab.raiden.Web3jNonceProvider
-import com.asfoundation.wallet.util.SyncExecutor
+import com.appcoins.wallet.core.utils.common.SyncExecutor
+import com.appcoins.wallet.core.utils.properties.MiscProperties
 import com.fasterxml.jackson.databind.DeserializationFeature
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.google.gson.Gson
@@ -191,7 +192,7 @@ internal class AppModule {
 
   @Provides
   @Named("payment-gas-limit")
-  fun providePaymentGasLimit(): BigDecimal = BigDecimal(BuildConfig.PAYMENT_GAS_LIMIT)
+  fun providePaymentGasLimit(): BigDecimal = BigDecimal(MiscProperties.PAYMENT_GAS_LIMIT)
 
   @Provides
   fun provideContentResolver(@ApplicationContext context: Context): ContentResolver =

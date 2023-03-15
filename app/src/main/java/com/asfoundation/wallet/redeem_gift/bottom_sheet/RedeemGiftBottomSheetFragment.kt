@@ -16,7 +16,7 @@ import com.asfoundation.wallet.base.Async
 import com.asfoundation.wallet.base.SingleStateFragment
 import com.asfoundation.wallet.redeem_gift.repository.FailedRedeem
 import com.asfoundation.wallet.redeem_gift.repository.SuccessfulRedeem
-import com.asfoundation.wallet.util.KeyboardUtils
+import com.appcoins.wallet.core.utils.common.KeyboardUtils
 import com.asfoundation.wallet.util.setReadOnly
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment

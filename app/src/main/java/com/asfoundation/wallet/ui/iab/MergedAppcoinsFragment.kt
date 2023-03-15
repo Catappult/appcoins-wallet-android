@@ -23,9 +23,9 @@ import com.asf.wallet.R
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.navigator.UriNavigator
-import com.asfoundation.wallet.util.CurrencyFormatUtils
+import com.appcoins.wallet.core.utils.common.CurrencyFormatUtils
 import com.asfoundation.wallet.util.Period
-import com.asfoundation.wallet.util.WalletCurrency
+import com.appcoins.wallet.core.utils.common.WalletCurrency
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import com.asfoundation.wallet.wallets.usecases.GetWalletInfoUseCase
 import com.jakewharton.rxbinding2.view.RxView

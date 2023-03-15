@@ -1,7 +1,7 @@
 package com.asfoundation.wallet.ui.iab.payments.carrier.confirm
 
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics
-import com.asfoundation.wallet.util.applicationinfo.ApplicationInfoProvider
+import com.appcoins.wallet.core.utils.common.applicationinfo.ApplicationInfoProvider
 import io.reactivex.Scheduler
 import io.reactivex.disposables.CompositeDisposable
 

@@ -1,12 +1,13 @@
 package com.asfoundation.wallet.topup
 
 import com.asfoundation.wallet.ui.iab.FiatValue
-import com.asfoundation.wallet.util.Error
+import com.appcoins.wallet.core.utils.common.Error
 import java.math.BigDecimal
 
 data class TopUpLimitValues(val minValue: FiatValue = INITIAL_LIMIT_VALUE,
                             val maxValue: FiatValue = INITIAL_LIMIT_VALUE,
-                            val error: Error = Error()) {
+                            val error: Error = Error()
+) {
 
   constructor(isNoNetwork: Boolean) : this(error = Error(true, isNoNetwork))
 
