@@ -29,9 +29,9 @@
   <string name="got_it_button">متوجه شدم</string>
   <string name="change_button">تغییر</string>
   <string name="vip">VIP</string>
-  <string name="faq">FAQs</string>
-  <string name="about_us_title">About Us</string>
-  <string name="preferences_title">Preferences</string>
+  <string name="faq">سوالات متداول</string>
+  <string name="about_us_title">درباره ما</string>
+  <string name="preferences_title">تنظیمات برگزیده</string>
   <string name="low_storage_error">فضای ذخیره سازی کافی نیست</string>
   <string name="no_camera_permission_title">اجازه دوربین</string>
   <string name="no_camera_permission">AppCoins BDS Wallet نیازمند اجازه شما برای دسترسی به دوربین شما برای اسکن کردن کدهای QR است.</string>
@@ -44,7 +44,7 @@
   <!-- TODO: Remove or change this placeholder text -->
   <string name="title_community">جامعه</string>
   <string name="title_opensource">برنامه‌نویسی منبع آزاد</string>
-  <string name="title_source_code">Source Code</string>
+  <string name="title_source_code">کد منبع</string>
   <string name="title_report_bug">گزارش اشکال</string>
   <string name="title_support">پشتیبانی</string>
   <string name="title_permissions">مجوزها</string>
@@ -80,7 +80,7 @@
   <string name="unknown_error">خطایی رخ داده است.</string>
   <string name="action_backup_wallet">بک‌آپ کیف پول</string>
   <string name="no_tokens">شما هنوز هیچ ژتون سفارشی شده‌ای اضافه نکردید.</string>
-  <string name="title_email">Email Us</string>
+  <string name="title_email">ارسال ایمیل به ما</string>
   <string name="action_donate">کمک مالی</string>
   <!-- Titles -->
   <string name="title_my_address">دریافت</string>
@@ -140,15 +140,15 @@
   <string name="intro_already_have_wallet_button">از قبل کیف پول دارم</string>
   <string name="intro_get_started_button">راه‌اندازی کیف پول</string>
   <!-- Intro from game -->
-  <string name="launching_wallet_body">Launching wallet&#8230;</string>
-  <string name="select_method_title">Choose a payment method</string>
-  <string name="bonus_body">Get %s bonus with this purchase.</string>
-  <string name="agree_by_choosing_a_payment_method_body">By choosing a payment method, you agree to the %1$s and %2$s.</string>
-  <string name="pay_with_card_title">Pay with credit/debit card</string>
-  <string name="more_payment_methods_button">More payment methods</string>
-  <string name="bonus_received_body">You received a %s bonus in your wallet.</string>
-  <string name="back_to_the_game_button">Back to the game</string>
-  <string name="other_payment_methos_title">Other payment methods:</string>
+  <string name="launching_wallet_body">راه‌اندازی کیف پول&#8230;</string>
+  <string name="select_method_title">یک روش پرداخت انتخاب کنید</string>
+  <string name="bonus_body">با این خرید %s پاداش دریافت کنید.</string>
+  <string name="agree_by_choosing_a_payment_method_body">با انتخاب یک روش پرداخت، با %1$s و %2$s موافقت می‌کنید.</string>
+  <string name="pay_with_card_title">پرداخت با کارت اعتباری/نقدی</string>
+  <string name="more_payment_methods_button">سایر روش‌های پرداخت</string>
+  <string name="bonus_received_body">شما %s پاداش دریافت کردید.</string>
+  <string name="back_to_the_game_button">بازگشت به بازی</string>
+  <string name="other_payment_methos_title">سایر روش‌های پرداخت:</string>
   <!-- Menus -->
   <!-- Labels -->
   <string name="label_from">از</string>
@@ -377,7 +377,7 @@
   <string name="provide_wallet_completed_header">کیف پول مربوط به Aptoide!</string>
   <string name="provide_wallet_create_body">شما نیاز به یک آدرس کیف پول دارید! این مراحل را برای ایجاد یک در کیف پول AppCoins دنبال کنید.</string>
   <string name="provide_wallet_create_wallet_button">ساختن</string>
-  <string name="provide_wallet_creating_wallet_header">Preparing your wallet&#8230;</string>
+  <string name="provide_wallet_creating_wallet_header">آماده‌سازی کیف پول شما&#8230;</string>
   <string name="provide_wallet_created_header">کیف پول ساخته شد!</string>
   <string name="provide_wallet_empty_state">شما به کیف پول AppCoins اجازه ندادید که آدرس شما را به هیچ اپلیکیشن دیگری بدهد.</string>
   <string name="provide_wallet_status">اجازه دسترسی به آدرس کیف پول</string>
@@ -539,10 +539,10 @@
   <string name="purchase_wallet_blocked_title">تراز اعتبار AppCoins شما مسدود است</string>
   <string name="purchase_wallet_blocked_body">با توجه به تاریخچه تراکنش‌های غیرعادی، تراز اعتبار AppCoins شنا مسدود است. کماکان قادر به انجام تراکنش‌ها و پرداخت با سایر روش‌ها به جز اعتبار AppCoins هستید.\n\n اگر اعتقاد دارید که اشتباهی رخ داده‌است، با ما تماس بگیرید از طریق:</string>
   <string name="purchase_card_error_title">مشکلی پیش آمده است.</string>
-  <string name="purchase_card_error_general_1">There was a problem with your card. Please try with a different card or payment method.</string>
-  <string name="purchase_card_error_general_2">The transaction has been rejected by your bank. Please try with a different card or payment method.</string>
-  <string name="purchase_card_error_no_funds">It seems you don\'t have enough funds or there\'s a limit on your card. Please try with a different card or payment method.</string>
-  <string name="purchase_card_error_expired">It seems your card is expired. Please try again with a different payment method.</string>
+  <string name="purchase_card_error_general_1">مشکلی با کارت شما بود. لطفا با کارت یا روش پرداخت دیگری مجددا امتحان کنید.</string>
+  <string name="purchase_card_error_general_2">تراکنش از طرف بانک شما رد شده است. لطفا با کارت یا روش پرداخت دیگری مجددا امتحان کنید.</string>
+  <string name="purchase_card_error_no_funds">به نظر می‌رسد موجودی کارت شما کافی نیست و یا محدودیتی در کارت شما وجود دارد. لطفا با کارت یا روش پرداخت دیگری مجددا امتحان کنید.</string>
+  <string name="purchase_card_error_expired">به نظر می‌رسد کارت شما منقضی شده است. لطفا کارت یا روش پرداخت دیگری مجددا امتحان کنید.</string>
   <string name="purchase_card_error_invalid_details">Invalid card number. Please check it and try again.</string>
   <string name="purchase_card_error_not_supported">Your card is not supported yet. Please try again with a different card or payment method.</string>
   <string name="purchase_card_error_security">آیا مطمئن هستید که اطلاعات امنیتی صحیح است؟ لطفا مجدد امتحان کنید.</string>
