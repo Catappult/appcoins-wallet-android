@@ -19,7 +19,7 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class BackupSuccessFragment : BasePageViewFragment(),
-  com.appcoins.wallet.ui.arch.SingleStateFragment<com.appcoins.wallet.ui.arch.ViewState, com.appcoins.wallet.ui.arch.SideEffect> {
+  SingleStateFragment<ViewState, SideEffect> {
 
   @Inject
   lateinit var backupTriggerPreferences: BackupTriggerPreferences
@@ -80,7 +80,7 @@ class BackupSuccessFragment : BasePageViewFragment(),
     views.backupSuccessInfo.body.text = context?.getString(info)
   }
 
-  override fun onStateChanged(state: com.appcoins.wallet.ui.arch.ViewState) = Unit
+  override fun onStateChanged(state: ViewState) = Unit
 
-  override fun onSideEffect(sideEffect: com.appcoins.wallet.ui.arch.SideEffect) = Unit
+  override fun onSideEffect(sideEffect: SideEffect) = Unit
 }

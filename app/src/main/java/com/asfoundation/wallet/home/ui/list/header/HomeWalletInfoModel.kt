@@ -22,7 +22,7 @@ import java.math.BigDecimal
 abstract class HomeWalletInfoModel : EpoxyModelWithHolder<HomeWalletInfoModel.WalletInfoHolder>() {
 
   @EpoxyAttribute
-  lateinit var balanceAsync: com.appcoins.wallet.ui.arch.Async<GlobalBalance>
+  lateinit var balanceAsync: Async<GlobalBalance>
 
   @EpoxyAttribute(EpoxyAttribute.Option.DoNotHash)
   lateinit var formatter: CurrencyFormatUtils
@@ -34,13 +34,13 @@ abstract class HomeWalletInfoModel : EpoxyModelWithHolder<HomeWalletInfoModel.Wa
 
   override fun bind(holder: WalletInfoHolder) {
     when (val balAsync = balanceAsync) {
-      com.appcoins.wallet.ui.arch.Async.Uninitialized,
-      is com.appcoins.wallet.ui.arch.Async.Loading -> {
+      Async.Uninitialized,
+      is Async.Loading -> {
         if (balAsync() == null) {
           holder.showSkeleton()
         }
       }
-      is com.appcoins.wallet.ui.arch.Async.Success -> {
+      is Async.Success -> {
         holder.setWalletBalance(balAsync())
       }
       else -> Unit

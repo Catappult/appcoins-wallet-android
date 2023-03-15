@@ -14,12 +14,12 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
-object MyWalletsSideEffect : com.appcoins.wallet.ui.arch.SideEffect
+object MyWalletsSideEffect : SideEffect
 
 data class MyWalletsState(
-  val walletVerifiedAsync: com.appcoins.wallet.ui.arch.Async<BalanceVerificationModel> = com.appcoins.wallet.ui.arch.Async.Uninitialized,
-  val walletInfoAsync: com.appcoins.wallet.ui.arch.Async<WalletInfo> = com.appcoins.wallet.ui.arch.Async.Uninitialized
-) : com.appcoins.wallet.ui.arch.ViewState
+  val walletVerifiedAsync: Async<BalanceVerificationModel> = Async.Uninitialized,
+  val walletInfoAsync: Async<WalletInfo> = Async.Uninitialized
+) : ViewState
 
 @HiltViewModel
 class MyWalletsViewModel @Inject constructor(
@@ -27,7 +27,7 @@ class MyWalletsViewModel @Inject constructor(
   private val walletDetailsInteractor: WalletDetailsInteractor,
   private val observeWalletInfoUseCase: ObserveWalletInfoUseCase,
   private val observeDefaultWalletUseCase: ObserveDefaultWalletUseCase
-) : com.appcoins.wallet.ui.arch.BaseViewModel<MyWalletsState, MyWalletsSideEffect>(initialState()) {
+) : BaseViewModel<MyWalletsState, MyWalletsSideEffect>(initialState()) {
 
   companion object {
     fun initialState(): MyWalletsState = MyWalletsState()

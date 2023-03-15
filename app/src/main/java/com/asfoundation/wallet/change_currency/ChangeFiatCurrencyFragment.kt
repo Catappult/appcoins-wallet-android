@@ -50,7 +50,7 @@ class ChangeFiatCurrencyFragment : BasePageViewFragment(),
 
   override fun onSideEffect(sideEffect: ChangeFiatCurrencySideEffect) = Unit
 
-  fun setChangeFiatCurrencyModel(asyncChangeFiatCurrency: com.appcoins.wallet.ui.arch.Async<ChangeFiatCurrency>) {
+  fun setChangeFiatCurrencyModel(asyncChangeFiatCurrency: Async<ChangeFiatCurrency>) {
     when (asyncChangeFiatCurrency) {
       com.appcoins.wallet.ui.arch.Async.Uninitialized,
       is com.appcoins.wallet.ui.arch.Async.Loading -> {

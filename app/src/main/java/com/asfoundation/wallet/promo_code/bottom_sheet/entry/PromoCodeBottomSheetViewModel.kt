@@ -12,15 +12,15 @@ import com.asfoundation.wallet.promo_code.use_cases.VerifyAndSavePromoCodeUseCas
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
-sealed class PromoCodeBottomSheetSideEffect : com.appcoins.wallet.ui.arch.SideEffect {
+sealed class PromoCodeBottomSheetSideEffect : SideEffect {
   object NavigateBack : PromoCodeBottomSheetSideEffect()
 }
 
 data class PromoCodeBottomSheetState(
-  val storedPromoCodeAsync: com.appcoins.wallet.ui.arch.Async<PromoCodeResult> = com.appcoins.wallet.ui.arch.Async.Uninitialized,
-  val submitPromoCodeAsync: com.appcoins.wallet.ui.arch.Async<PromoCodeResult> = com.appcoins.wallet.ui.arch.Async.Uninitialized,
+  val storedPromoCodeAsync: Async<PromoCodeResult> = Async.Uninitialized,
+  val submitPromoCodeAsync: Async<PromoCodeResult> = Async.Uninitialized,
   val shouldShowDefault: Boolean = false
-) : com.appcoins.wallet.ui.arch.ViewState
+) : ViewState
 
 @HiltViewModel
 class PromoCodeBottomSheetViewModel @Inject constructor(
@@ -28,7 +28,7 @@ class PromoCodeBottomSheetViewModel @Inject constructor(
   private val verifyAndSavePromoCodeUseCase: VerifyAndSavePromoCodeUseCase,
   private val deletePromoCodeUseCase: DeletePromoCodeUseCase
 ) :
-  com.appcoins.wallet.ui.arch.BaseViewModel<PromoCodeBottomSheetState, PromoCodeBottomSheetSideEffect>(initialState()) {
+  BaseViewModel<PromoCodeBottomSheetState, PromoCodeBottomSheetSideEffect>(initialState()) {
 
   // to prevent success being called multiple times when any async is changed
   var isFirstSuccess = true
@@ -64,7 +64,7 @@ class PromoCodeBottomSheetViewModel @Inject constructor(
 
   fun deleteClick() {
     deletePromoCodeUseCase()
-      .asAsyncToState { copy(storedPromoCodeAsync = com.appcoins.wallet.ui.arch.Async.Uninitialized) }
+      .asAsyncToState { copy(storedPromoCodeAsync = Async.Uninitialized) }
       .doOnComplete {
         sendSideEffect {
           PromoCodeBottomSheetSideEffect.NavigateBack
@@ -75,7 +75,7 @@ class PromoCodeBottomSheetViewModel @Inject constructor(
 
   private fun deleteCode() {
     deletePromoCodeUseCase()
-      .asAsyncToState { copy(storedPromoCodeAsync = com.appcoins.wallet.ui.arch.Async.Uninitialized) }
+      .asAsyncToState { copy(storedPromoCodeAsync = Async.Uninitialized) }
       .scopedSubscribe()
   }
 }

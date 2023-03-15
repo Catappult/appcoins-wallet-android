@@ -8,20 +8,20 @@ import com.asfoundation.wallet.change_currency.use_cases.SetSelectedCurrencyUseC
 import io.reactivex.Scheduler
 
 
-sealed class ChooseCurrencyBottomSideEffect : com.appcoins.wallet.ui.arch.SideEffect {
+sealed class ChooseCurrencyBottomSideEffect : SideEffect {
   object NavigateBack : ChooseCurrencyBottomSideEffect()
 }
 
 data class ChooseCurrencyBottomSheetState(val selectedCurrency: String,
                                           val selectedFlag: String?,
                                           val selectedLabel: String,
-                                          val selectedConfirmationAsync: com.appcoins.wallet.ui.arch.Async<Unit> = com.appcoins.wallet.ui.arch.Async.Uninitialized) :
-  com.appcoins.wallet.ui.arch.ViewState
+                                          val selectedConfirmationAsync: Async<Unit> = Async.Uninitialized) :
+  ViewState
 
 class ChooseCurrencyBottomSheetViewModel(data: ChooseCurrencyBottomSheetData,
                                          private val networkScheduler: Scheduler,
                                          private val setSelectedCurrencyUseCase: SetSelectedCurrencyUseCase) :
-    com.appcoins.wallet.ui.arch.BaseViewModel<ChooseCurrencyBottomSheetState, ChooseCurrencyBottomSideEffect>(
+    BaseViewModel<ChooseCurrencyBottomSheetState, ChooseCurrencyBottomSideEffect>(
         initialState(data)) {
 
   companion object {

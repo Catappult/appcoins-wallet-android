@@ -19,7 +19,7 @@ class BackupEntryModule {
     getWalletInfoUseCase: GetWalletInfoUseCase,
     currencyFormatUtils: CurrencyFormatUtils,
     data: BackupEntryData,
-    rxSchedulers: com.appcoins.wallet.ui.arch.RxSchedulers,
+    rxSchedulers: RxSchedulers,
   ): BackupEntryViewModelFactory {
     return BackupEntryViewModelFactory(
       data,

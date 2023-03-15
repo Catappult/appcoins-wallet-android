@@ -27,7 +27,7 @@ class PayPalTopupViewModel @Inject constructor(
   private val billingMessagesMapper: BillingMessagesMapper,
   private val supportInteractor: SupportInteractor,
   private val topUpAnalytics: TopUpAnalytics,
-  rxSchedulers: com.appcoins.wallet.ui.arch.RxSchedulers
+  rxSchedulers: RxSchedulers
 ) : ViewModel() {
 
   sealed class State {

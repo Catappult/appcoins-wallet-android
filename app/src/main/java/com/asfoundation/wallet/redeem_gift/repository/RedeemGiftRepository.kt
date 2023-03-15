@@ -11,7 +11,7 @@ import javax.inject.Inject
 class RedeemGiftRepository @Inject constructor(
   private val redeemGiftBackendApi: RedeemGiftBackendApi,
   private val mapper: RedeemGiftMapper,
-  private val rxSchedulers: com.appcoins.wallet.ui.arch.RxSchedulers
+  private val rxSchedulers: RxSchedulers
 ) {
 
   fun redeemGift(giftCode: String, ewt: String): Single<RedeemCode> {

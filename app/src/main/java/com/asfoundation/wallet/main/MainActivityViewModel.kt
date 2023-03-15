@@ -15,14 +15,14 @@ import com.asfoundation.wallet.update_required.use_cases.HasRequiredHardUpdateUs
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
-sealed class MainActivitySideEffect : com.appcoins.wallet.ui.arch.SideEffect {
+sealed class MainActivitySideEffect : SideEffect {
   object NavigateToOnboarding : MainActivitySideEffect()
   object NavigateToNavigationBar : MainActivitySideEffect()
   object NavigateToAutoUpdate : MainActivitySideEffect()
   object NavigateToFingerprintAuthentication : MainActivitySideEffect()
 }
 
-object MainActivityState : com.appcoins.wallet.ui.arch.ViewState
+object MainActivityState : ViewState
 
 @HiltViewModel
 class MainActivityViewModel @Inject constructor(
@@ -33,8 +33,8 @@ class MainActivityViewModel @Inject constructor(
   private val hasAuthenticationPermissionUseCase: HasAuthenticationPermissionUseCase,
   private val shouldShowOnboardingUseCase: ShouldShowOnboardingUseCase,
   private val savedStateHandle: SavedStateHandle,
-  private val rxSchedulers: com.appcoins.wallet.ui.arch.RxSchedulers
-) : com.appcoins.wallet.ui.arch.BaseViewModel<MainActivityState, MainActivitySideEffect>(MainActivityState) {
+  private val rxSchedulers: RxSchedulers
+) : BaseViewModel<MainActivityState, MainActivitySideEffect>(MainActivityState) {
 
   init {
     handleSupportNotificationClick()

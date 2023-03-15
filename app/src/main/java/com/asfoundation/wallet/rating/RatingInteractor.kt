@@ -8,7 +8,7 @@ import javax.inject.Inject
 
 class RatingInteractor @Inject constructor(private val ratingRepository: RatingRepository,
                                            private val walletService: WalletService,
-                                           private val rxSchedulers: com.appcoins.wallet.ui.arch.RxSchedulers
+                                           private val rxSchedulers: RxSchedulers
 ) {
 
   fun sendUserFeedback(feedbackText: String): Completable {

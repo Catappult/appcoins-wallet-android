@@ -110,20 +110,20 @@ class PromoCodeBottomSheetFragment : BottomSheetDialogFragment(),
   }
 
   fun initializePromoCode(
-    storedPromoCodeAsync: com.appcoins.wallet.ui.arch.Async<PromoCodeResult>,
+    storedPromoCodeAsync: Async<PromoCodeResult>,
     shouldShowDefault: Boolean
   ) {
     when (storedPromoCodeAsync) {
-      is com.appcoins.wallet.ui.arch.Async.Uninitialized,
-      is com.appcoins.wallet.ui.arch.Async.Loading -> {
+      is Async.Uninitialized,
+      is Async.Loading -> {
         showDefaultScreen()
       }
-      is com.appcoins.wallet.ui.arch.Async.Fail -> {
+      is Async.Fail -> {
         if (storedPromoCodeAsync.value != null) {
           handleErrorState(FailedPromoCode.GenericError(storedPromoCodeAsync.error.throwable))
         }
       }
-      is com.appcoins.wallet.ui.arch.Async.Success -> {
+      is Async.Success -> {
         storedPromoCodeAsync.value?.let { handlePromoCodeSuccessState(it, shouldShowDefault) }
       }
     }

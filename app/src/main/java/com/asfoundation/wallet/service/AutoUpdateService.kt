@@ -9,7 +9,7 @@ import javax.inject.Inject
 
 class AutoUpdateService @Inject constructor(
   private val api: AutoUpdateApi,
-  private val rxSchedulers: com.appcoins.wallet.ui.arch.RxSchedulers
+  private val rxSchedulers: RxSchedulers
 ) {
 
   fun loadAutoUpdateModel(): Single<AutoUpdateModel> {

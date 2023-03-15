@@ -10,7 +10,7 @@ import javax.inject.Inject
 class CancelPaypalTokenUseCase @Inject constructor(
   private val walletService: WalletService,
   private val payPalV2Repository: PayPalV2Repository,
-  private val rxSchedulers: com.appcoins.wallet.ui.arch.RxSchedulers
+  private val rxSchedulers: RxSchedulers
 ) {
 
   operator fun invoke(token: String): Completable {

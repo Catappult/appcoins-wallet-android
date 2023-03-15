@@ -25,7 +25,7 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class NFTDetailsFragment : BasePageViewFragment(),
-  com.appcoins.wallet.ui.arch.SingleStateFragment<NFTDetailsState, NFTDetailsSideEffect> {
+  SingleStateFragment<NFTDetailsState, NFTDetailsSideEffect> {
 
   @Inject
   lateinit var viewModelFactory: NFTDetailsViewModelFactory

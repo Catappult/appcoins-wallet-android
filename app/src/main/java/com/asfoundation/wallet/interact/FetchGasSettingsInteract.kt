@@ -7,7 +7,7 @@ import io.reactivex.Single
 import javax.inject.Inject
 
 class FetchGasSettingsInteract @Inject constructor(private val repository: GasSettingsRepositoryType,
-                               private val rxSchedulers: com.appcoins.wallet.ui.arch.RxSchedulers
+                               private val rxSchedulers: RxSchedulers
 ) {
 
   fun fetch(forTokenTransfer: Boolean): Single<GasSettings> {

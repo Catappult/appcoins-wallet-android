@@ -10,7 +10,7 @@ class IabUpdateRequiredPresenter(
   private val disposables: CompositeDisposable,
   private val buildUpdateIntentUseCase: BuildUpdateIntentUseCase,
   private val getWalletsModelUseCase: GetWalletsModelUseCase,
-  private val rxSchedulers: com.appcoins.wallet.ui.arch.RxSchedulers
+  private val rxSchedulers: RxSchedulers
 ) {
 
   fun present() {

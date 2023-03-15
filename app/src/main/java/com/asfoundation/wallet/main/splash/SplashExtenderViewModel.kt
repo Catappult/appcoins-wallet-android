@@ -9,17 +9,17 @@ import com.asfoundation.wallet.gamification.ObserveUserStatsUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
-sealed class SplashExtenderSideEffect : com.appcoins.wallet.ui.arch.SideEffect {
+sealed class SplashExtenderSideEffect : SideEffect {
   data class ShowVipAnimation(val shouldShow: Boolean) : SplashExtenderSideEffect()
 }
 
-object SplashExtenderState : com.appcoins.wallet.ui.arch.ViewState
+object SplashExtenderState : ViewState
 
 @HiltViewModel
 class SplashExtenderViewModel @Inject constructor(
   private val observeUserStatsUseCase: ObserveUserStatsUseCase,
-  private val rxSchedulers: com.appcoins.wallet.ui.arch.RxSchedulers
-) : com.appcoins.wallet.ui.arch.BaseViewModel<SplashExtenderState, SplashExtenderSideEffect>(SplashExtenderState) {
+  private val rxSchedulers: RxSchedulers
+) : BaseViewModel<SplashExtenderState, SplashExtenderSideEffect>(SplashExtenderState) {
 
   init {
     handleVipStatus()

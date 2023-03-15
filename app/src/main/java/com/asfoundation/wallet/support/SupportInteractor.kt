@@ -15,7 +15,7 @@ class SupportInteractor @Inject constructor(private val supportRepository: Suppo
                                             private val walletService: WalletService,
                                             private val gamificationRepository: Gamification,
                                             private val getCurrentPromoCodeUseCase: GetCurrentPromoCodeUseCase,
-                                            private val rxSchedulers: com.appcoins.wallet.ui.arch.RxSchedulers
+                                            private val rxSchedulers: RxSchedulers
 ) {
 
   fun showSupport(): Completable {

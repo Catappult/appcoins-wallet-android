@@ -12,19 +12,19 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-sealed class OnboardingGPInstallSideEffect : com.appcoins.wallet.ui.arch.SideEffect {
+sealed class OnboardingGPInstallSideEffect : SideEffect {
   data class LoadPackageNameIcon(val appPackageName: String) : OnboardingGPInstallSideEffect()
   data class NavigateBackToGame(val appPackageName: String) : OnboardingGPInstallSideEffect()
   object NavigateToExploreWallet : OnboardingGPInstallSideEffect()
 }
 
-object OnboardingGPInstallState : com.appcoins.wallet.ui.arch.ViewState
+object OnboardingGPInstallState : ViewState
 
 @HiltViewModel
 class OnboardingGPInstallViewModel @Inject constructor(
   private val setOnboardingCompletedUseCase: SetOnboardingCompletedUseCase,
   private val appStartUseCase: AppStartUseCase
-) : com.appcoins.wallet.ui.arch.BaseViewModel<OnboardingGPInstallState, OnboardingGPInstallSideEffect>(initialState()) {
+) : BaseViewModel<OnboardingGPInstallState, OnboardingGPInstallSideEffect>(initialState()) {
 
   companion object {
     fun initialState(): OnboardingGPInstallState {

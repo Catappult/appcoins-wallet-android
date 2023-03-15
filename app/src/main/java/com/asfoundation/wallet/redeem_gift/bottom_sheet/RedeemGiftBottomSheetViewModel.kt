@@ -9,19 +9,19 @@ import com.asfoundation.wallet.redeem_gift.use_cases.RedeemGiftUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
-sealed class RedeemGiftBottomSheetSideEffect : com.appcoins.wallet.ui.arch.SideEffect {
+sealed class RedeemGiftBottomSheetSideEffect : SideEffect {
   object NavigateBack : RedeemGiftBottomSheetSideEffect()
 }
 
-data class RedeemGiftBottomSheetState(val submitRedeemAsync: com.appcoins.wallet.ui.arch.Async<RedeemCode> = com.appcoins.wallet.ui.arch.Async.Uninitialized,
+data class RedeemGiftBottomSheetState(val submitRedeemAsync: Async<RedeemCode> = Async.Uninitialized,
                                       val shouldShowDefault: Boolean = false) :
-  com.appcoins.wallet.ui.arch.ViewState
+  ViewState
 
 @HiltViewModel
 class RedeemGiftBottomSheetViewModel @Inject constructor(
     private val redeemGiftUseCase: RedeemGiftUseCase
   ) :
-  com.appcoins.wallet.ui.arch.BaseViewModel<RedeemGiftBottomSheetState, RedeemGiftBottomSheetSideEffect>(initialState()) {
+  BaseViewModel<RedeemGiftBottomSheetState, RedeemGiftBottomSheetSideEffect>(initialState()) {
 
   companion object {
     fun initialState(): RedeemGiftBottomSheetState {

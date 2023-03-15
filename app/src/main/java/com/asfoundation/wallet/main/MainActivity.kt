@@ -24,7 +24,7 @@ import javax.inject.Inject
  */
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity(),
-  com.appcoins.wallet.ui.arch.SingleStateFragment<MainActivityState, MainActivitySideEffect> {
+  SingleStateFragment<MainActivityState, MainActivitySideEffect> {
 
   @Inject
   lateinit var navigator: MainActivityNavigator

@@ -41,7 +41,7 @@ class AirdropApiModule {
   @Provides
   fun provideAirdropService(
     airdropApi: AirdropService.Api, gson: Gson,
-    rxSchedulers: com.appcoins.wallet.ui.arch.RxSchedulers
+    rxSchedulers: RxSchedulers
   ): AirdropService {
     return AirdropService(
       airdropApi,

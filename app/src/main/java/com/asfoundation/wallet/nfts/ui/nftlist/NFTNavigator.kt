@@ -7,7 +7,7 @@ import com.asfoundation.wallet.nfts.domain.NFTItem
 import javax.inject.Inject
 
 class NFTNavigator @Inject constructor(private val navController: NavController) :
-  com.appcoins.wallet.ui.arch.Navigator {
+  Navigator {
 
   fun navigateToInfo(data: NFTItem) {
     navigate(navController, NFTFragmentDirections.actionNavigateToNft(data))

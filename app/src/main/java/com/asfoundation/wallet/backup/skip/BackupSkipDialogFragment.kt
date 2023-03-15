@@ -19,7 +19,7 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class BackupSkipDialogFragment : BottomSheetDialogFragment(),
-  com.appcoins.wallet.ui.arch.SingleStateFragment<com.appcoins.wallet.ui.arch.ViewState, com.appcoins.wallet.ui.arch.SideEffect> {
+  SingleStateFragment<ViewState, SideEffect> {
 
 
   @Inject
@@ -79,7 +79,7 @@ class BackupSkipDialogFragment : BottomSheetDialogFragment(),
     return R.style.AppBottomSheetDialogThemeNotDraggable
   }
 
-  override fun onStateChanged(state: com.appcoins.wallet.ui.arch.ViewState) = Unit
+  override fun onStateChanged(state: ViewState) = Unit
 
-  override fun onSideEffect(sideEffect: com.appcoins.wallet.ui.arch.SideEffect) = Unit
+  override fun onSideEffect(sideEffect: SideEffect) = Unit
 }

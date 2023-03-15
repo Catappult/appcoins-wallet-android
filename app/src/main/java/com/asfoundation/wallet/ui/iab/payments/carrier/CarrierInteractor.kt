@@ -34,7 +34,7 @@ class CarrierInteractor @Inject constructor(private val repository: CarrierBilli
                                             private val walletVerificationInteractor: WalletVerificationInteractor,
                                             private val getCurrentPromoCodeUseCase: GetCurrentPromoCodeUseCase,
                                             private val logger: Logger,
-                                            private val rxSchedulers: com.appcoins.wallet.ui.arch.RxSchedulers
+                                            private val rxSchedulers: RxSchedulers
 ) {
 
   fun createPayment(phoneNumber: String, packageName: String,

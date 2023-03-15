@@ -10,16 +10,16 @@ import com.asfoundation.wallet.nfts.usecases.GetNFTListUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
-sealed class NFTSideEffect : com.appcoins.wallet.ui.arch.SideEffect {
+sealed class NFTSideEffect : SideEffect {
   data class NavigateToInfo(val nftData: NFTItem) : NFTSideEffect()
 }
 
-data class NFTState(val nftListModelAsync: com.appcoins.wallet.ui.arch.Async<List<NFTItem>> = com.appcoins.wallet.ui.arch.Async.Uninitialized) :
-  com.appcoins.wallet.ui.arch.ViewState
+data class NFTState(val nftListModelAsync: Async<List<NFTItem>> = Async.Uninitialized) :
+  ViewState
 
 @HiltViewModel
 class NFTViewModel @Inject constructor(private val getNFTList: GetNFTListUseCase) :
-    com.appcoins.wallet.ui.arch.BaseViewModel<NFTState, NFTSideEffect>(initialState()) {
+    BaseViewModel<NFTState, NFTSideEffect>(initialState()) {
 
   companion object {
     fun initialState(): NFTState {

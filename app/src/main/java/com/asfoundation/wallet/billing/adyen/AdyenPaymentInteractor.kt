@@ -38,7 +38,7 @@ class AdyenPaymentInteractor @Inject constructor(
   private val walletVerificationInteractor: WalletVerificationInteractor,
   private val billingAddressRepository: BillingAddressRepository,
   private val getCurrentPromoCodeUseCase: GetCurrentPromoCodeUseCase,
-  private val rxSchedulers: com.appcoins.wallet.ui.arch.RxSchedulers
+  private val rxSchedulers: RxSchedulers
 ) {
 
   fun forgetBillingAddress() = billingAddressRepository.forgetBillingAddress()

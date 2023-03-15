@@ -11,20 +11,20 @@ import com.asfoundation.wallet.wallets.usecases.ObserveWalletsModelUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
-sealed class UpdateRequiredSideEffect : com.appcoins.wallet.ui.arch.SideEffect {
+sealed class UpdateRequiredSideEffect : SideEffect {
   data class UpdateActionIntent(val intent: Intent) : UpdateRequiredSideEffect()
   data class NavigateToBackup(val walletAddress: String) : UpdateRequiredSideEffect()
   data class ShowBackupOption(val walletsModel: WalletsModel) : UpdateRequiredSideEffect()
 }
 
-data class UpdateRequiredState(val walletsModel: com.appcoins.wallet.ui.arch.Async<WalletsModel> = com.appcoins.wallet.ui.arch.Async.Uninitialized) :
-  com.appcoins.wallet.ui.arch.ViewState
+data class UpdateRequiredState(val walletsModel: Async<WalletsModel> = Async.Uninitialized) :
+  ViewState
 
 @HiltViewModel
 class UpdateRequiredViewModel @Inject constructor(
   private val buildUpdateIntentUseCase: BuildUpdateIntentUseCase,
   private val observeWalletsModelUseCase: ObserveWalletsModelUseCase
-) : com.appcoins.wallet.ui.arch.BaseViewModel<UpdateRequiredState, UpdateRequiredSideEffect>(initialState()) {
+) : BaseViewModel<UpdateRequiredState, UpdateRequiredSideEffect>(initialState()) {
 
   companion object {
     fun initialState(): UpdateRequiredState {

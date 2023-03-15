@@ -13,7 +13,7 @@ class GetPaymentInfoModelUseCase @Inject constructor(
   private val adyenApi: AdyenPaymentRepository.AdyenApi,
   private val adyenResponseMapper: AdyenResponseMapper,
   private val walletService: WalletService,
-  private val rxSchedulers: com.appcoins.wallet.ui.arch.RxSchedulers
+  private val rxSchedulers: RxSchedulers
 ) {
 
   operator fun invoke(

@@ -21,7 +21,7 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class BackupSaveOptionsFragment : BasePageViewFragment(),
-  com.appcoins.wallet.ui.arch.SingleStateFragment<BackupSaveOptionsState, BackupSaveOptionsSideEffect> {
+  SingleStateFragment<BackupSaveOptionsState, BackupSaveOptionsSideEffect> {
 
   @Inject
   lateinit var backupSaveOptionsViewModelFactory: BackupSaveOptionsViewModelFactory

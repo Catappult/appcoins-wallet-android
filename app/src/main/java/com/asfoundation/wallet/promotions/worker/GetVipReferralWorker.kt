@@ -27,7 +27,7 @@ class GetVipReferralWorker @AssistedInject constructor(
   private val getCurrentWallet: GetCurrentWalletUseCase,
   private val pendingIntentNavigator: PendingIntentNavigator,
   private val notificationManager: NotificationManager,
-  private val rxSchedulers: com.appcoins.wallet.ui.arch.RxSchedulers
+  private val rxSchedulers: RxSchedulers
 
 ) : RxWorker(context, params) {
 

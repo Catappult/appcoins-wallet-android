@@ -8,7 +8,7 @@ import com.asfoundation.wallet.recover.RecoverActivity
 import javax.inject.Inject
 
 class RecoverPasswordNavigator @Inject constructor(val fragment: Fragment) :
-  com.appcoins.wallet.ui.arch.Navigator {
+  Navigator {
 
   fun navigateToCreateWalletDialog(isFromOnboarding: Boolean) {
     navigate(

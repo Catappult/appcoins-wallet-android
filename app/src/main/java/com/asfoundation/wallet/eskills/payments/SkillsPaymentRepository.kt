@@ -25,7 +25,7 @@ class SkillsPaymentRepository @Inject constructor(
   private val currencyConversionService: CurrencyConversionService,
   private val currencyFormatUtils: CurrencyFormatUtils,
   private val appCoinsCreditsPayment: AppCoinsCreditsPayment,
-  private val schedulers: com.appcoins.wallet.ui.arch.RxSchedulers,
+  private val schedulers: RxSchedulers,
   private val getWalletInfoUseCase: GetWalletInfoUseCase,
   private val appcoinsRewardsBuyInteract: AppcoinsRewardsBuyInteract,
 ) : ExternalSkillsPaymentProvider {

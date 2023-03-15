@@ -19,7 +19,7 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class NFTFragment : BasePageViewFragment(),
-  com.appcoins.wallet.ui.arch.SingleStateFragment<NFTState, NFTSideEffect> {
+  SingleStateFragment<NFTState, NFTSideEffect> {
 
 
   @Inject
@@ -69,18 +69,18 @@ class NFTFragment : BasePageViewFragment(),
     views.noNetwork.retryButton.setOnClickListener { networkRetry() }
   }
 
-  private fun setNFTItem(asyncNFTListModel: com.appcoins.wallet.ui.arch.Async<List<NFTItem>>) {
+  private fun setNFTItem(asyncNFTListModel: Async<List<NFTItem>>) {
     when (asyncNFTListModel) {
-      com.appcoins.wallet.ui.arch.Async.Uninitialized, is com.appcoins.wallet.ui.arch.Async.Loading -> {
+      Async.Uninitialized, is Async.Loading -> {
         if (asyncNFTListModel.value == null) {
           showLoading()
         }
       }
-      is com.appcoins.wallet.ui.arch.Async.Fail -> {
+      is Async.Fail -> {
         hideLoading()
         showNetworkErrorView()
       }
-      is com.appcoins.wallet.ui.arch.Async.Success -> {
+      is Async.Success -> {
         setNFTs(asyncNFTListModel())
       }
     }

@@ -18,7 +18,7 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class SplashExtenderFragment : Fragment(),
-  com.appcoins.wallet.ui.arch.SingleStateFragment<SplashExtenderState, SplashExtenderSideEffect> {
+  SingleStateFragment<SplashExtenderState, SplashExtenderSideEffect> {
 
   private val viewModel: SplashExtenderViewModel by viewModels()
   private val views by viewBinding(SplashExtenderFragmentBinding::bind)

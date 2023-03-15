@@ -14,15 +14,15 @@ import com.asfoundation.wallet.ui.iab.PaymentMethod
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
-sealed class OnboardingPaymentMethodsSideEffect : com.appcoins.wallet.ui.arch.SideEffect {
+sealed class OnboardingPaymentMethodsSideEffect : SideEffect {
   data class NavigateToLink(val uri: Uri) : OnboardingPaymentMethodsSideEffect()
   data class NavigateBackToGame(val appPackageName: String) : OnboardingPaymentMethodsSideEffect()
 }
 
 data class OnboardingPaymentMethodsState(
-  val paymentMethodsAsync: com.appcoins.wallet.ui.arch.Async<List<PaymentMethod>> = com.appcoins.wallet.ui.arch.Async.Uninitialized,
+  val paymentMethodsAsync: Async<List<PaymentMethod>> = Async.Uninitialized,
   val otherPaymentMethods: List<PaymentMethod> = listOf(),
-) : com.appcoins.wallet.ui.arch.ViewState
+) : ViewState
 
 @HiltViewModel
 class OnboardingPaymentMethodsViewModel @Inject constructor(
@@ -32,7 +32,7 @@ class OnboardingPaymentMethodsViewModel @Inject constructor(
   private val events: OnboardingPaymentEvents,
   savedStateHandle: SavedStateHandle
 ) :
-  com.appcoins.wallet.ui.arch.BaseViewModel<OnboardingPaymentMethodsState, OnboardingPaymentMethodsSideEffect>(
+  BaseViewModel<OnboardingPaymentMethodsState, OnboardingPaymentMethodsSideEffect>(
     OnboardingPaymentMethodsState()
   ) {
 

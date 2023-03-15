@@ -11,7 +11,7 @@ class VerificationCreditCardActivityPresenter(
   private val view: VerificationCreditCardActivityView,
   private val navigator: VerificationCreditCardActivityNavigator,
   private val interactor: VerificationCreditCardActivityInteractor,
-  private val rxSchedulers: com.appcoins.wallet.ui.arch.RxSchedulers,
+  private val rxSchedulers: RxSchedulers,
   private val disposable: CompositeDisposable,
   private val analytics: VerificationAnalytics
 ) {

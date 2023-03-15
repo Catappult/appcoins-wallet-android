@@ -7,7 +7,7 @@ import javax.inject.Inject
 
 class HasWalletUseCase @Inject constructor(
   private val walletsInteract: WalletsInteract,
-  private val rxSchedulers: com.appcoins.wallet.ui.arch.RxSchedulers
+  private val rxSchedulers: RxSchedulers
 ) {
 
   operator fun invoke(): Single<Boolean> = walletsInteract.getWalletsModel()

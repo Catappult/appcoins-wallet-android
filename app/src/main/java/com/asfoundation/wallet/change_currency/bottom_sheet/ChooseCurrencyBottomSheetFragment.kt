@@ -118,18 +118,18 @@ class ChooseCurrencyBottomSheetFragment : BottomSheetDialogFragment(),
     views.chooseCurrencyLabel.text = currencyLabel
   }
 
-  fun setSelectedConfirmation(selectedConfirmationAsync: com.appcoins.wallet.ui.arch.Async<Unit>) {
+  fun setSelectedConfirmation(selectedConfirmationAsync: Async<Unit>) {
     when (selectedConfirmationAsync) {
-      is com.appcoins.wallet.ui.arch.Async.Uninitialized -> {
+      is Async.Uninitialized -> {
       }
-      is com.appcoins.wallet.ui.arch.Async.Loading -> {
+      is Async.Loading -> {
         if (selectedConfirmationAsync.value == null) {
           showLoading()
         }
       }
-      is com.appcoins.wallet.ui.arch.Async.Fail -> {
+      is Async.Fail -> {
       }
-      is com.appcoins.wallet.ui.arch.Async.Success -> {
+      is Async.Success -> {
         navigator.navigateBack()
       }
     }

@@ -25,7 +25,7 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class VerificationPaypalFragment : BasePageViewFragment(),
-  com.appcoins.wallet.ui.arch.SingleStateFragment<VerificationPaypalIntroState, VerificationPaypalIntroSideEffect> {
+  SingleStateFragment<VerificationPaypalIntroState, VerificationPaypalIntroSideEffect> {
 
   @Inject
   lateinit var viewModelFactory: VerificationPaypalViewModelFactory
@@ -70,19 +70,19 @@ class VerificationPaypalFragment : BasePageViewFragment(),
 
   override fun onStateChanged(state: VerificationPaypalIntroState) {
     when (state.verificationSubmitAsync) {
-      com.appcoins.wallet.ui.arch.Async.Uninitialized -> setVerificationInfoAsync(state.verificationInfoAsync)
-      is com.appcoins.wallet.ui.arch.Async.Loading -> showLoading()
-      is com.appcoins.wallet.ui.arch.Async.Fail -> setError(state.verificationSubmitAsync.error)
-      is com.appcoins.wallet.ui.arch.Async.Success -> showSuccessValidation()
+      Async.Uninitialized -> setVerificationInfoAsync(state.verificationInfoAsync)
+      is Async.Loading -> showLoading()
+      is Async.Fail -> setError(state.verificationSubmitAsync.error)
+      is Async.Success -> showSuccessValidation()
     }
   }
 
-  private fun setVerificationInfoAsync(verificationInfoAsync: com.appcoins.wallet.ui.arch.Async<VerificationIntroModel>) {
+  private fun setVerificationInfoAsync(verificationInfoAsync: Async<VerificationIntroModel>) {
     when (verificationInfoAsync) {
-      com.appcoins.wallet.ui.arch.Async.Uninitialized,
-      is com.appcoins.wallet.ui.arch.Async.Loading -> showLoading()
-      is com.appcoins.wallet.ui.arch.Async.Success -> showVerificationInfo(verificationInfoAsync())
-      is com.appcoins.wallet.ui.arch.Async.Fail -> setError(verificationInfoAsync.error)
+      Async.Uninitialized,
+      is Async.Loading -> showLoading()
+      is Async.Success -> showVerificationInfo(verificationInfoAsync())
+      is Async.Fail -> setError(verificationInfoAsync.error)
     }
   }
 
@@ -94,8 +94,8 @@ class VerificationPaypalFragment : BasePageViewFragment(),
     }
   }
 
-  private fun setError(error: com.appcoins.wallet.ui.arch.Error) {
-    if (error is com.appcoins.wallet.ui.arch.Error.ApiError.NetworkError)
+  private fun setError(error: Error) {
+    if (error is Error.ApiError.NetworkError)
       showNetworkError()
     else if (error.throwable.message.equals(WebViewActivity.USER_CANCEL_THROWABLE))
       handleUserCancelError()

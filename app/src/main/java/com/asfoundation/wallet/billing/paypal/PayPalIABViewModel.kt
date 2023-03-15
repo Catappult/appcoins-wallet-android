@@ -31,7 +31,7 @@ class PayPalIABViewModel @Inject constructor(
   private val cancelPaypalTokenUseCase: CancelPaypalTokenUseCase,
   private val adyenPaymentInteractor: AdyenPaymentInteractor,
   private val supportInteractor: SupportInteractor,
-  rxSchedulers: com.appcoins.wallet.ui.arch.RxSchedulers,
+  rxSchedulers: RxSchedulers,
   private val analytics: BillingAnalytics,
   private val paymentAnalytics: PaymentMethodsAnalytics
 ) : ViewModel() {

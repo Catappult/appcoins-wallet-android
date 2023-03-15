@@ -19,7 +19,7 @@ import javax.inject.Inject
 class MyWalletsNavigator @Inject constructor(
   private val fragment: Fragment,
   private val navController: NavController
-) : com.appcoins.wallet.ui.arch.Navigator {
+) : Navigator {
 
   fun navigateToMore(
     walletAddress: String,

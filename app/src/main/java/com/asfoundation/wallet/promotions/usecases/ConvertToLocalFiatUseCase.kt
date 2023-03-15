@@ -11,7 +11,7 @@ import javax.inject.Inject
 class ConvertToLocalFiatUseCase @Inject constructor(
   private val getSelectedCurrencyUseCase: GetSelectedCurrencyUseCase,
   private val localCurrencyConversionService: LocalCurrencyConversionService,
-  private val rxSchedulers: com.appcoins.wallet.ui.arch.RxSchedulers
+  private val rxSchedulers: RxSchedulers
 ) {
 
   operator fun invoke(valueToConvert: String, originalCurrency: String): Single<FiatValue> {

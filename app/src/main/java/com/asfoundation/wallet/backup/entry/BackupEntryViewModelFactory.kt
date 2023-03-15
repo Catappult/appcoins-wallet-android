@@ -10,7 +10,7 @@ class BackupEntryViewModelFactory(
   private val data: BackupEntryData,
   private val getWalletInfoUseCase: GetWalletInfoUseCase,
   private val currencyFormatUtils: CurrencyFormatUtils,
-  private val rxSchedulers: com.appcoins.wallet.ui.arch.RxSchedulers,
+  private val rxSchedulers: RxSchedulers,
 ) :
   ViewModelProvider.Factory {
   override fun <T : ViewModel> create(modelClass: Class<T>): T {

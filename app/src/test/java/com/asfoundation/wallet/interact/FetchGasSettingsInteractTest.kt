@@ -21,7 +21,7 @@ class FetchGasSettingsInteractTest {
   @Mock
   lateinit var gasSettingsRepositoryType: GasSettingsRepositoryType
 
-  private val fakeSchedulers: com.appcoins.wallet.ui.arch.RxSchedulers = FakeSchedulers()
+  private val fakeSchedulers: RxSchedulers = FakeSchedulers()
   private lateinit var fetchGasSettingsInteract: FetchGasSettingsInteract
 
   @Before

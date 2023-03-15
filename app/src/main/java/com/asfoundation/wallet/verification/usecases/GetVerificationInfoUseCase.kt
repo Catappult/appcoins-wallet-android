@@ -16,7 +16,7 @@ class GetVerificationInfoUseCase @Inject constructor(
   private val walletService: WalletService,
   private val brokerVerificationRepository: BrokerVerificationRepository,
   private val adyenPaymentInteractor: AdyenPaymentInteractor,
-  private val rxSchedulers: com.appcoins.wallet.ui.arch.RxSchedulers
+  private val rxSchedulers: RxSchedulers
 ) {
 
   operator fun invoke(method: AdyenPaymentRepository.Methods): Single<VerificationIntroModel> {

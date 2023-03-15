@@ -8,16 +8,16 @@ import com.asfoundation.wallet.change_currency.use_cases.GetChangeFiatCurrencyMo
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
-object ChangeFiatCurrencySideEffect : com.appcoins.wallet.ui.arch.SideEffect
+object ChangeFiatCurrencySideEffect : SideEffect
 
 data class ChangeFiatCurrencyState(
-    val changeFiatCurrencyAsync: com.appcoins.wallet.ui.arch.Async<ChangeFiatCurrency> = com.appcoins.wallet.ui.arch.Async.Uninitialized) :
-  com.appcoins.wallet.ui.arch.ViewState
+    val changeFiatCurrencyAsync: Async<ChangeFiatCurrency> = Async.Uninitialized) :
+  ViewState
 
 @HiltViewModel
 class ChangeFiatCurrencyViewModel @Inject constructor(
     private val getChangeFiatCurrencyModelUseCase: GetChangeFiatCurrencyModelUseCase) :
-    com.appcoins.wallet.ui.arch.BaseViewModel<ChangeFiatCurrencyState, ChangeFiatCurrencySideEffect>(
+    BaseViewModel<ChangeFiatCurrencyState, ChangeFiatCurrencySideEffect>(
         initialState()) {
 
   companion object {

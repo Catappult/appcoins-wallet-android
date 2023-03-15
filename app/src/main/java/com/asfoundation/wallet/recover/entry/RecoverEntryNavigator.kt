@@ -15,7 +15,7 @@ import com.asfoundation.wallet.recover.RecoverActivity
 import javax.inject.Inject
 
 class RecoverEntryNavigator @Inject constructor(val fragment: Fragment) :
-  com.appcoins.wallet.ui.arch.Navigator {
+  Navigator {
 
   fun launchFileIntent(
     storageIntentLauncher: ActivityResultLauncher<Intent>,

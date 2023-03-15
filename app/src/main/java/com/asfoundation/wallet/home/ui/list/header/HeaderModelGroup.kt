@@ -13,8 +13,8 @@ import com.asfoundation.wallet.ui.widget.entity.TransactionsModel
 import com.asfoundation.wallet.util.CurrencyFormatUtils
 
 class HeaderModelGroup(
-  txModelAsync: com.appcoins.wallet.ui.arch.Async<TransactionsModel>,
-  balanceAsync: com.appcoins.wallet.ui.arch.Async<GlobalBalance>,
+  txModelAsync: Async<TransactionsModel>,
+  balanceAsync: Async<GlobalBalance>,
   formatter: CurrencyFormatUtils,
   homeClickListener: ((HomeListClick) -> Unit)? = null
 ) : EpoxyModelGroup(R.layout.item_home_header_group,
@@ -29,8 +29,8 @@ class HeaderModelGroup(
   }
 
   companion object {
-    fun buildModels(txModelAsync: com.appcoins.wallet.ui.arch.Async<TransactionsModel>,
-                    balanceAsync: com.appcoins.wallet.ui.arch.Async<GlobalBalance>,
+    fun buildModels(txModelAsync: Async<TransactionsModel>,
+                    balanceAsync: Async<GlobalBalance>,
                     formatter: CurrencyFormatUtils,
                     homeClickListener: ((HomeListClick) -> Unit)?): List<EpoxyModel<*>> {
       val notifications = txModelAsync()?.notifications

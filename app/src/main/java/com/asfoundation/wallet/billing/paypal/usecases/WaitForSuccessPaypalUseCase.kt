@@ -11,7 +11,7 @@ import javax.inject.Inject
 class WaitForSuccessPaypalUseCase @Inject constructor(
   private val walletService: WalletService,
   private val payPalV2Repository: PayPalV2Repository,
-  private val rxSchedulers: com.appcoins.wallet.ui.arch.RxSchedulers,
+  private val rxSchedulers: RxSchedulers,
 
   ) {
   operator fun invoke(uid: String): Observable<PaymentModel> {

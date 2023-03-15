@@ -21,7 +21,7 @@ class WalletInfoRepository @Inject constructor(
   private val walletInfoDao: WalletInfoDao,
   private val balanceRepository: BalanceRepository,
   private val sentryEventLogger: SentryEventLogger,
-  private val rxSchedulers: com.appcoins.wallet.ui.arch.RxSchedulers
+  private val rxSchedulers: RxSchedulers
 ) {
 
   fun getLatestWalletInfo(walletAddress: String, updateFiatValues: Boolean): Single<WalletInfo> =

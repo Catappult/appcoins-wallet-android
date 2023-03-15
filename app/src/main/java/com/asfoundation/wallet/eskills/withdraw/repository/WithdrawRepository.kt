@@ -10,7 +10,7 @@ import javax.inject.Inject
 class WithdrawRepository @Inject constructor(
   private val withdrawApi: WithdrawApi,
   private val mapper: WithdrawApiMapper,
-  private val schedulers: com.appcoins.wallet.ui.arch.RxSchedulers,
+  private val schedulers: RxSchedulers,
   private val withdrawLocalStorage: WithdrawLocalStorage
 ) {
 

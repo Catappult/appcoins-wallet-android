@@ -16,7 +16,7 @@ import javax.inject.Inject
 
 class NavBarFragmentNavigator @Inject constructor(
   private val fragment: Fragment
-) : com.appcoins.wallet.ui.arch.Navigator {
+) : Navigator {
 
   fun navigateToHome() {
     val bottomNavView: BottomNavigationView =

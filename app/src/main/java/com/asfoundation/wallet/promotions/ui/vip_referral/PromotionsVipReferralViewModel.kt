@@ -11,11 +11,11 @@ import javax.inject.Inject
 
 
 data class PromotionsVipReferralState(
-  val convertTotalAsync: com.appcoins.wallet.ui.arch.Async<FiatValue> = com.appcoins.wallet.ui.arch.Async.Uninitialized,
+  val convertTotalAsync: Async<FiatValue> = Async.Uninitialized,
   val shouldShowDefault: Boolean = false
-) : com.appcoins.wallet.ui.arch.ViewState
+) : ViewState
 
-sealed class PromotionsVipReferralSideEffect : com.appcoins.wallet.ui.arch.SideEffect {
+sealed class PromotionsVipReferralSideEffect : SideEffect {
   object NavigateBack : PromotionsVipReferralSideEffect()
 }
 
@@ -23,7 +23,7 @@ sealed class PromotionsVipReferralSideEffect : com.appcoins.wallet.ui.arch.SideE
 class PromotionsVipReferralViewModel @Inject constructor(
   private val convertToLocalFiatUseCase: ConvertToLocalFiatUseCase
 ) :
-  com.appcoins.wallet.ui.arch.BaseViewModel<PromotionsVipReferralState, PromotionsVipReferralSideEffect>(initialState()) {
+  BaseViewModel<PromotionsVipReferralState, PromotionsVipReferralSideEffect>(initialState()) {
 
   companion object {
     fun initialState(): PromotionsVipReferralState {

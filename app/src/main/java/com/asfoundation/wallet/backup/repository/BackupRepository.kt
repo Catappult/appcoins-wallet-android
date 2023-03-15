@@ -16,7 +16,7 @@ import javax.inject.Inject
 class BackupRepository @Inject constructor(
   private val contentResolver: ContentResolver,
   private val backupEmailApi: BackupEmailApi,
-  private val rxSchedulers: com.appcoins.wallet.ui.arch.RxSchedulers,
+  private val rxSchedulers: RxSchedulers,
   private val walletService: WalletService,
   private val backupLogApi: BackupLogApi
 ) {

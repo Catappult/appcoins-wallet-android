@@ -13,7 +13,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
-sealed class MoreDialogSideEffect : com.appcoins.wallet.ui.arch.SideEffect {
+sealed class MoreDialogSideEffect : SideEffect {
   object NavigateBack : MoreDialogSideEffect()
 }
 
@@ -41,8 +41,8 @@ data class MoreDialogState(
   val appcoinsBalance: String,
   val creditsBalance: String,
   val ethereumBalance: String,
-  val walletsAsync: com.appcoins.wallet.ui.arch.Async<List<MoreDialogStateItem>> = com.appcoins.wallet.ui.arch.Async.Uninitialized
-) : com.appcoins.wallet.ui.arch.ViewState
+  val walletsAsync: Async<List<MoreDialogStateItem>> = Async.Uninitialized
+) : ViewState
 
 @HiltViewModel
 class MoreDialogViewModel @Inject constructor(
@@ -50,7 +50,7 @@ class MoreDialogViewModel @Inject constructor(
   private val walletsInteract: WalletsInteract,
   private val walletDetailsInteractor: WalletDetailsInteractor,
 ) :
-  com.appcoins.wallet.ui.arch.BaseViewModel<MoreDialogState, MoreDialogSideEffect>(initialState(savedStateHandle)) {
+  BaseViewModel<MoreDialogState, MoreDialogSideEffect>(initialState(savedStateHandle)) {
 
   companion object {
     fun initialState(savedStateHandle: SavedStateHandle): MoreDialogState = MoreDialogState(

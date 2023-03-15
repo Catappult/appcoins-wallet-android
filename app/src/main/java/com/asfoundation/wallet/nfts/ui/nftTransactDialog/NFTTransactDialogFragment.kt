@@ -27,7 +27,7 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class NFTTransactDialogFragment : BottomSheetDialogFragment(),
-  com.appcoins.wallet.ui.arch.SingleStateFragment<NFTTransactState, NFTTransactSideEffect> {
+  SingleStateFragment<NFTTransactState, NFTTransactSideEffect> {
 
   @Inject
   lateinit var viewModelFactory: NFTTransactDialogViewModelFactory
@@ -57,10 +57,10 @@ class NFTTransactDialogFragment : BottomSheetDialogFragment(),
   override fun onStateChanged(state: NFTTransactState) {
 
     when (val transactionResult = state.transactionResultAsync) {
-      is com.appcoins.wallet.ui.arch.Async.Uninitialized -> setGasPrice(state.gasPriceAsync)
-      is com.appcoins.wallet.ui.arch.Async.Loading -> showLoading()
-      is com.appcoins.wallet.ui.arch.Async.Fail -> showError(getString(R.string.nfts_generic_error))
-      is com.appcoins.wallet.ui.arch.Async.Success -> transactionResult.value?.let { showResult(it, state.data.name ?: "NFT") }
+      is Async.Uninitialized -> setGasPrice(state.gasPriceAsync)
+      is Async.Loading -> showLoading()
+      is Async.Fail -> showError(getString(R.string.nfts_generic_error))
+      is Async.Success -> transactionResult.value?.let { showResult(it, state.data.name ?: "NFT") }
     }
   }
 
@@ -78,12 +78,12 @@ class NFTTransactDialogFragment : BottomSheetDialogFragment(),
     }
   }
 
-  private fun setGasPrice(gasInfoAsync: com.appcoins.wallet.ui.arch.Async<GasInfo>) {
+  private fun setGasPrice(gasInfoAsync: Async<GasInfo>) {
     when (gasInfoAsync) {
-      is com.appcoins.wallet.ui.arch.Async.Uninitialized -> Unit
-      is com.appcoins.wallet.ui.arch.Async.Loading -> showLoading()
-      is com.appcoins.wallet.ui.arch.Async.Fail -> showError(getString(R.string.nfts_generic_error))
-      is com.appcoins.wallet.ui.arch.Async.Success -> showPickGas(gasInfoAsync())
+      is Async.Uninitialized -> Unit
+      is Async.Loading -> showLoading()
+      is Async.Fail -> showError(getString(R.string.nfts_generic_error))
+      is Async.Success -> showPickGas(gasInfoAsync())
     }
   }
 

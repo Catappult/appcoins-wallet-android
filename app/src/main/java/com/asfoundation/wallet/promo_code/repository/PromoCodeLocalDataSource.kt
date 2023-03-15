@@ -8,7 +8,7 @@ import javax.inject.Inject
 
 class PromoCodeLocalDataSource @Inject constructor(
   private val promoCodeDao: PromoCodeDao,
-  private val rxSchedulers: com.appcoins.wallet.ui.arch.RxSchedulers
+  private val rxSchedulers: RxSchedulers
 ) {
 
   fun savePromoCode(

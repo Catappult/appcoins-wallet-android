@@ -9,7 +9,7 @@ import javax.inject.Inject
 class OnboardingGPInstallNavigator @Inject constructor(
   private val fragment: Fragment,
   private val packageManager: PackageManager,
-) : com.appcoins.wallet.ui.arch.Navigator {
+) : Navigator {
 
   fun navigateBackToGame(packageName: String) {
     try {

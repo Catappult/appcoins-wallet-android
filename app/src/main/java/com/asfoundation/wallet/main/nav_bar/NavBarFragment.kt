@@ -27,7 +27,7 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class NavBarFragment : BasePageViewFragment(),
-  com.appcoins.wallet.ui.arch.SingleStateFragment<NavBarState, NavBarSideEffect> {
+  SingleStateFragment<NavBarState, NavBarSideEffect> {
 
   private lateinit var navHostFragment: NavHostFragment
   private lateinit var fullHostFragment: NavHostFragment

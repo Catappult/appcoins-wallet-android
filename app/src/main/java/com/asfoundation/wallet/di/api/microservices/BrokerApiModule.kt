@@ -95,7 +95,7 @@ class BrokerApiModule {
   fun providesCarrierBillingApi1(
     @DefaultHttpClient client: OkHttpClient,
     @BrokerDefaultRetrofit retrofit: Retrofit,
-    rxSchedulers: com.appcoins.wallet.ui.arch.RxSchedulers
+    rxSchedulers: RxSchedulers
   ): CarrierBillingRepository.CarrierBillingApi {
     val gson = GsonBuilder().registerTypeAdapter(
       CarrierErrorResponse::class.java,

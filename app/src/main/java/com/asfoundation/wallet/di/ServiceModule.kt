@@ -131,7 +131,7 @@ class ServiceModule {
   @Singleton
   @Provides
   fun providesBdsTransactionService(
-    bdsPendingTransactionService: BdsPendingTransactionService, rxSchedulers: com.appcoins.wallet.ui.arch.RxSchedulers,
+    bdsPendingTransactionService: BdsPendingTransactionService, rxSchedulers: RxSchedulers,
   ): BdsTransactionService {
     return BdsTransactionService(
       rxSchedulers,

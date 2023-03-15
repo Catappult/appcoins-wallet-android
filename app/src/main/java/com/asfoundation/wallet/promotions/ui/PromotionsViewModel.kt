@@ -3,10 +3,7 @@ package com.asfoundation.wallet.promotions.ui
 
 import android.content.ActivityNotFoundException
 import com.appcoins.wallet.gamification.repository.PromotionsGamificationStats
-import com.appcoins.wallet.ui.arch.Async
-import com.appcoins.wallet.ui.arch.BaseViewModel
-import com.appcoins.wallet.ui.arch.RxSchedulers
-import com.appcoins.wallet.ui.arch.ViewState
+import com.appcoins.wallet.ui.arch.*
 import com.asfoundation.wallet.analytics.AnalyticsSetup
 import com.asfoundation.wallet.promotions.PromotionsInteractor
 import com.asfoundation.wallet.promotions.model.PromotionsModel
@@ -19,7 +16,7 @@ import com.asfoundation.wallet.ui.gamification.GamificationInteractor
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
-sealed class PromotionsSideEffect : com.appcoins.wallet.ui.arch.SideEffect {
+sealed class PromotionsSideEffect : SideEffect {
   data class NavigateToGamification(val cachedBonus: Double) : PromotionsSideEffect()
   data class NavigateToVoucherDetails(val packageName: String) : PromotionsSideEffect()
   data class NavigateToOpenDetails(val link: String) : PromotionsSideEffect()

@@ -18,13 +18,13 @@ import java.math.BigDecimal
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
-sealed class OnboardingPaymentSideEffect : com.appcoins.wallet.ui.arch.SideEffect {
+sealed class OnboardingPaymentSideEffect : SideEffect {
   data class ShowPaymentMethods(val transactionContent: TransactionContent) :
     OnboardingPaymentSideEffect()
 }
 
-data class OnboardingPaymentState(val transactionContent: com.appcoins.wallet.ui.arch.Async<TransactionContent> = com.appcoins.wallet.ui.arch.Async.Uninitialized) :
-  com.appcoins.wallet.ui.arch.ViewState
+data class OnboardingPaymentState(val transactionContent: Async<TransactionContent> = Async.Uninitialized) :
+  ViewState
 
 @HiltViewModel
 class OnboardingPaymentViewModel @Inject constructor(
@@ -34,7 +34,7 @@ class OnboardingPaymentViewModel @Inject constructor(
   private val getEarningBonusUseCase: GetEarningBonusUseCase,
   private val events: OnboardingPaymentEvents
 ) :
-  com.appcoins.wallet.ui.arch.BaseViewModel<OnboardingPaymentState, OnboardingPaymentSideEffect>(OnboardingPaymentState()) {
+  BaseViewModel<OnboardingPaymentState, OnboardingPaymentSideEffect>(OnboardingPaymentState()) {
 
   init {
     handleContent()

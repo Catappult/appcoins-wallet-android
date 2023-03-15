@@ -11,7 +11,7 @@ import com.asfoundation.wallet.ui.AuthenticationPromptActivity
 import javax.inject.Inject
 
 class MainActivityNavigator @Inject constructor() :
-  com.appcoins.wallet.ui.arch.Navigator {
+  Navigator {
 
   fun navigateToOnboarding(navController: NavController) {
     navigate(navController, SplashExtenderFragmentDirections.actionNavigateToOnboardingGraph())

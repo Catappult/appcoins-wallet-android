@@ -16,7 +16,7 @@ class BalanceInteractor @Inject constructor(
   private val accountWalletService: AccountWalletService,
   private val walletVerificationInteractor: WalletVerificationInteractor,
   private val brokerVerificationRepository: BrokerVerificationRepository,
-  private val rxSchedulers: com.appcoins.wallet.ui.arch.RxSchedulers
+  private val rxSchedulers: RxSchedulers
 ) {
 
   companion object {

@@ -43,7 +43,7 @@ class IabUpdateRequiredFragment : BasePageViewFragment(), IabUpdateRequiredView 
   lateinit var getWalletsModelUseCase: GetWalletsModelUseCase
 
   @Inject
-  lateinit var rxSchedulers: com.appcoins.wallet.ui.arch.RxSchedulers
+  lateinit var rxSchedulers: RxSchedulers
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)

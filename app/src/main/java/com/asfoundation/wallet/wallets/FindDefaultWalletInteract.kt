@@ -8,7 +8,7 @@ import javax.inject.Inject
 
 class FindDefaultWalletInteract @Inject constructor(
     private val walletRepository: WalletRepositoryType,
-    private val rxSchedulers: com.appcoins.wallet.ui.arch.RxSchedulers
+    private val rxSchedulers: RxSchedulers
 ) {
 
   fun find(): Single<Wallet> {

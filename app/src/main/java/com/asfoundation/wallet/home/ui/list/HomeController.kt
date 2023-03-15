@@ -23,21 +23,21 @@ import com.asfoundation.wallet.util.CurrencyFormatUtils
 import java.util.*
 import kotlin.collections.HashSet
 
-class HomeController : Typed2EpoxyController<com.appcoins.wallet.ui.arch.Async<TransactionsModel>, com.appcoins.wallet.ui.arch.Async<GlobalBalance>>(
+class HomeController : Typed2EpoxyController<Async<TransactionsModel>, Async<GlobalBalance>>(
     EpoxyAsyncUtil.getAsyncBackgroundHandler(), EpoxyAsyncUtil.getAsyncBackgroundHandler()) {
 
   private val formatter = CurrencyFormatUtils()
 
   var homeClickListener: ((HomeListClick) -> Unit)? = null
 
-  override fun buildModels(txModelAsync: com.appcoins.wallet.ui.arch.Async<TransactionsModel>,
-                           balanceAsync: com.appcoins.wallet.ui.arch.Async<GlobalBalance>
+  override fun buildModels(txModelAsync: Async<TransactionsModel>,
+                           balanceAsync: Async<GlobalBalance>
   ) {
     add(HeaderModelGroup(txModelAsync, balanceAsync, formatter, homeClickListener))
 
     when (txModelAsync) {
-      com.appcoins.wallet.ui.arch.Async.Uninitialized,
-      is com.appcoins.wallet.ui.arch.Async.Loading -> {
+      Async.Uninitialized,
+      is Async.Loading -> {
         val txModel = txModelAsync()
         if (txModel == null) {
           add(LoadingModel_().id("transactions_loading"))
@@ -45,8 +45,8 @@ class HomeController : Typed2EpoxyController<com.appcoins.wallet.ui.arch.Async<T
           add(getTransactions(txModel))
         }
       }
-      is com.appcoins.wallet.ui.arch.Async.Fail -> Unit
-      is com.appcoins.wallet.ui.arch.Async.Success -> add(getTransactions(txModelAsync()))
+      is Async.Fail -> Unit
+      is Async.Success -> add(getTransactions(txModelAsync()))
     }
   }
 

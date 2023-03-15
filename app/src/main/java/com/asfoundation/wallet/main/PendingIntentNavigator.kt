@@ -10,7 +10,7 @@ import javax.inject.Inject
 
 class PendingIntentNavigator @Inject constructor(
   @ApplicationContext val context: Context
-) : com.appcoins.wallet.ui.arch.Navigator {
+) : Navigator {
 
   fun getHomePendingIntent(): PendingIntent {
     return NavDeepLinkBuilder(context)

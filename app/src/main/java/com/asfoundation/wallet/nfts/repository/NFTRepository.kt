@@ -26,7 +26,7 @@ import javax.inject.Inject
 
 class NFTRepository @Inject constructor(
   private val nftApi: NftApi,
-  private val rxSchedulers: com.appcoins.wallet.ui.arch.RxSchedulers,
+  private val rxSchedulers: RxSchedulers,
   private val web3j: Web3j,
   private val localCurrencyConversionService: LocalCurrencyConversionService,
   private val chainID: Long,

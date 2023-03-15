@@ -7,7 +7,7 @@ import com.asfoundation.wallet.nfts.domain.NFTItem
 import javax.inject.Inject
 
 class NFTDetailsNavigator @Inject constructor(private val navController: NavController) :
-  com.appcoins.wallet.ui.arch.Navigator {
+  Navigator {
 
   fun navigateBack() {
     navController.popBackStack()

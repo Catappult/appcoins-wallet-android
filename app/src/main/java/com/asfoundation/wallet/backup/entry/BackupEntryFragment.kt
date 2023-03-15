@@ -24,7 +24,7 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class BackupEntryFragment : BasePageViewFragment(),
-  com.appcoins.wallet.ui.arch.SingleStateFragment<BackupEntryState, BackupEntrySideEffect> {
+  SingleStateFragment<BackupEntryState, BackupEntrySideEffect> {
 
   @Inject
   lateinit var backupEntryViewModelFactory: BackupEntryViewModelFactory
@@ -171,9 +171,9 @@ class BackupEntryFragment : BasePageViewFragment(),
     handleBalanceAsync(state.balanceAsync)
   }
 
-  private fun handleBalanceAsync(balanceAsync: com.appcoins.wallet.ui.arch.Async<Balance>) {
+  private fun handleBalanceAsync(balanceAsync: Async<Balance>) {
     when (balanceAsync) {
-      is com.appcoins.wallet.ui.arch.Async.Success -> {
+      is Async.Success -> {
         setBalance(balanceAsync())
       }
       else -> Unit

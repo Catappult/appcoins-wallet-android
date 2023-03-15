@@ -13,7 +13,7 @@ import javax.inject.Inject
 class StartVipReferralPollingUseCase  @Inject constructor(
   private val promotionsRepository: PromotionsRepository,
   private val workManager: WorkManager,
-  private val rxSchedulers: com.appcoins.wallet.ui.arch.RxSchedulers
+  private val rxSchedulers: RxSchedulers
 ) {
 
   operator fun invoke(wallet: Wallet): Completable {

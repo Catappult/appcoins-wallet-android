@@ -24,7 +24,7 @@ import javax.inject.Inject
 class HomeNavigator @Inject constructor(
   private val fragment: Fragment,
   private val navBarFragmentNavigator: NavBarFragmentNavigator
-) : com.appcoins.wallet.ui.arch.Navigator {
+) : Navigator {
 
   fun navigateToRateUs(shouldNavigate: Boolean) {
     if (shouldNavigate) {

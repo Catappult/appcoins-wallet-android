@@ -29,7 +29,7 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class RecoverEntryFragment : BasePageViewFragment(),
-  com.appcoins.wallet.ui.arch.SingleStateFragment<RecoverEntryState, RecoverEntrySideEffect> {
+  SingleStateFragment<RecoverEntryState, RecoverEntrySideEffect> {
 
   @Inject
   lateinit var navigator: RecoverEntryNavigator
@@ -101,16 +101,16 @@ class RecoverEntryFragment : BasePageViewFragment(),
 
   override fun onSideEffect(sideEffect: RecoverEntrySideEffect) = Unit
 
-  private fun handleRecoverEntryState(asyncRecoverResult: com.appcoins.wallet.ui.arch.Async<RecoverEntryResult>) {
+  private fun handleRecoverEntryState(asyncRecoverResult: Async<RecoverEntryResult>) {
     when (asyncRecoverResult) {
-      is com.appcoins.wallet.ui.arch.Async.Uninitialized,
-      is com.appcoins.wallet.ui.arch.Async.Loading -> {
+      is Async.Uninitialized,
+      is Async.Loading -> {
         showLoading()
       }
-      is com.appcoins.wallet.ui.arch.Async.Fail -> {
+      is Async.Fail -> {
         handleErrorState(FailedEntryRecover.GenericError(asyncRecoverResult.error.throwable))
       }
-      is com.appcoins.wallet.ui.arch.Async.Success -> {
+      is Async.Success -> {
         handleSuccessState(asyncRecoverResult())
       }
     }

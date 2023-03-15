@@ -14,7 +14,7 @@ class PromoCodeRepository @Inject constructor(
   private val promoCodeBackendApi: PromoCodeBackendApi,
   private val promoCodeLocalDataSource: PromoCodeLocalDataSource,
   private val analyticsSetup: AnalyticsSetup,
-  private val rxSchedulers: com.appcoins.wallet.ui.arch.RxSchedulers
+  private val rxSchedulers: RxSchedulers
 ) {
 
   fun verifyAndSavePromoCode(promoCodeString: String): Single<PromoCode> {

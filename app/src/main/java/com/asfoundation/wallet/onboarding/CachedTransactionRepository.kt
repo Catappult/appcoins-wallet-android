@@ -8,7 +8,7 @@ import javax.inject.Inject
 
 class CachedTransactionRepository @Inject constructor(
   val api: CachedTransactionApi,
-  val rxSchedulers: com.appcoins.wallet.ui.arch.RxSchedulers
+  val rxSchedulers: RxSchedulers
 ) {
 
   fun getCachedTransaction(): Single<CachedTransaction> {

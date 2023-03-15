@@ -27,7 +27,7 @@ class VerificationCreditCardActivityModule {
     activity: Activity,
     navigator: VerificationCreditCardActivityNavigator,
     interactor: VerificationCreditCardActivityInteractor,
-    rxSchedulers: com.appcoins.wallet.ui.arch.RxSchedulers,
+    rxSchedulers: RxSchedulers,
     analytics: VerificationAnalytics
   ): VerificationCreditCardActivityPresenter {
     return VerificationCreditCardActivityPresenter(

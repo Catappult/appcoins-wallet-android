@@ -23,7 +23,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.Single
 import javax.inject.Inject
 
-sealed class OnboardingPaymentResultSideEffect : com.appcoins.wallet.ui.arch.SideEffect {
+sealed class OnboardingPaymentResultSideEffect : SideEffect {
   data class ShowPaymentError(
     val error: Error? = null,
     val refusalCode: Int? = null,
@@ -38,7 +38,7 @@ sealed class OnboardingPaymentResultSideEffect : com.appcoins.wallet.ui.arch.Sid
   object NavigateBackToPaymentMethods : OnboardingPaymentResultSideEffect()
 }
 
-object OnboardingPaymentResultState : com.appcoins.wallet.ui.arch.ViewState
+object OnboardingPaymentResultState : ViewState
 
 @HiltViewModel
 class OnboardingPaymentResultViewModel @Inject constructor(
@@ -46,10 +46,10 @@ class OnboardingPaymentResultViewModel @Inject constructor(
   private val events: OnboardingPaymentEvents,
   private val setOnboardingCompletedUseCase: SetOnboardingCompletedUseCase,
   private val supportInteractor: SupportInteractor,
-  private val rxSchedulers: com.appcoins.wallet.ui.arch.RxSchedulers,
+  private val rxSchedulers: RxSchedulers,
   savedStateHandle: SavedStateHandle
 ) :
-  com.appcoins.wallet.ui.arch.BaseViewModel<OnboardingPaymentResultState, OnboardingPaymentResultSideEffect>(
+  BaseViewModel<OnboardingPaymentResultState, OnboardingPaymentResultSideEffect>(
     OnboardingPaymentResultState
   ) {
 

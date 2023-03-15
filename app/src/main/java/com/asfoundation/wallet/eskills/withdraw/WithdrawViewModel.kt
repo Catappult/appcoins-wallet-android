@@ -12,20 +12,20 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import java.math.BigDecimal
 import javax.inject.Inject
 
-object WithdrawSideEffect : com.appcoins.wallet.ui.arch.SideEffect
+object WithdrawSideEffect : SideEffect
 
 data class WithdrawState(
-  val availableAmountAsync: com.appcoins.wallet.ui.arch.Async<BigDecimal> = com.appcoins.wallet.ui.arch.Async.Uninitialized,
-  val withdrawResultAsync: com.appcoins.wallet.ui.arch.Async<WithdrawResult> = com.appcoins.wallet.ui.arch.Async.Uninitialized,
+  val availableAmountAsync: Async<BigDecimal> = Async.Uninitialized,
+  val withdrawResultAsync: Async<WithdrawResult> = Async.Uninitialized,
   val userEmail: String = ""
-) : com.appcoins.wallet.ui.arch.ViewState
+) : ViewState
 
 @HiltViewModel
 class WithdrawViewModel @Inject constructor(
   private val getAvailableAmountToWithdrawUseCase: GetAvailableAmountToWithdrawUseCase,
   private val getStoredUserEmailUseCase: GetStoredUserEmailUseCase,
   private val withdrawToFiatUseCase: WithdrawToFiatUseCase
-) : com.appcoins.wallet.ui.arch.BaseViewModel<WithdrawState, WithdrawSideEffect>(initialState()) {
+) : BaseViewModel<WithdrawState, WithdrawSideEffect>(initialState()) {
 
   companion object {
     fun initialState(): WithdrawState {

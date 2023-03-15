@@ -25,7 +25,7 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class BackupSaveOnDeviceDialogFragment : BottomSheetDialogFragment(),
-  com.appcoins.wallet.ui.arch.SingleStateFragment<BackupSaveOnDeviceDialogState, BackupSaveOnDeviceDialogSideEffect> {
+  SingleStateFragment<BackupSaveOnDeviceDialogState, BackupSaveOnDeviceDialogSideEffect> {
 
   @Inject
   lateinit var navigator: BackupSaveOnDeviceDialogNavigator
