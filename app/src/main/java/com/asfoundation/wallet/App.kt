@@ -16,6 +16,7 @@ import com.appcoins.wallet.bdsbilling.repository.SubscriptionBillingApi
 import com.appcoins.wallet.billing.BillingDependenciesProvider
 import com.appcoins.wallet.billing.BillingMessagesMapper
 import com.appcoins.wallet.commons.Logger
+import com.appcoins.wallet.core.utils.properties.MiscProperties
 import com.appcoins.wallet.networkbase.MagnesUtils
 import com.asf.wallet.BuildConfig
 import com.asfoundation.wallet.analytics.IndicativeAnalytics
@@ -235,7 +236,7 @@ class App : MultiDexApplication(), BillingDependenciesProvider {
 
   fun analyticsManager() = analyticsManager
 
-  override fun supportedVersion() = BuildConfig.BILLING_SUPPORTED_VERSION
+  override fun supportedVersion() = MiscProperties.BILLING_SUPPORTED_VERSION
 
   override fun brokerBdsApi() = brokerBdsApi
 

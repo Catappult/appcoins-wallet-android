@@ -1,12 +1,12 @@
 package com.asfoundation.wallet.di
 
 import cm.aptoide.analytics.AnalyticsManager
+import com.appcoins.wallet.networkbase.annotations.DefaultHttpClient
 import com.asfoundation.wallet.analytics.*
 import com.asfoundation.wallet.app_start.AppStartProbe
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics
 import com.asfoundation.wallet.billing.analytics.PageViewAnalytics
 import com.asfoundation.wallet.billing.analytics.WalletsAnalytics
-import com.asfoundation.wallet.di.annotations.DefaultHttpClient
 import com.asfoundation.wallet.feature_flags.topup.TopUpDefaultValueProbe
 import com.asfoundation.wallet.home.ui.HomeAnalytics
 import com.asfoundation.wallet.main.nav_bar.NavBarAnalytics

@@ -1,6 +1,6 @@
 package com.asfoundation.wallet.repository;
 
-import com.asfoundation.wallet.di.annotations.BlockchainHttpClient;
+import com.appcoins.wallet.networkbase.annotations.BlockchainHttpClient;
 import com.asfoundation.wallet.entity.NetworkInfo;
 import javax.inject.Inject;
 import javax.inject.Named;

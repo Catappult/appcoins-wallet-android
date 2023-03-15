@@ -6,7 +6,7 @@ import com.appcoins.wallet.commons.Logger
 import com.asf.wallet.R
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics
 import com.asfoundation.wallet.entity.TransactionBuilder
-import com.asfoundation.wallet.util.CurrencyFormatUtils
+import com.appcoins.wallet.core.utils.common.CurrencyFormatUtils
 import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Scheduler

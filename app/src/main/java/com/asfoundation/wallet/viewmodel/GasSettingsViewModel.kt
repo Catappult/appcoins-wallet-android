@@ -2,15 +2,13 @@ package com.asfoundation.wallet.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.appcoins.wallet.core.utils.common.BalanceUtils
 import com.asfoundation.wallet.entity.GasSettings
 import com.asfoundation.wallet.entity.NetworkInfo
 import com.asfoundation.wallet.ui.GasSettingsInteractor
 import com.asfoundation.wallet.ui.transact.GasPriceLimitsGwei
-import com.asfoundation.wallet.util.BalanceUtils
-import dagger.hilt.android.lifecycle.HiltViewModel
 import java.math.BigDecimal
 import java.math.BigInteger
-import javax.inject.Inject
 
 class GasSettingsViewModel constructor(private val gasSettingsInteractor: GasSettingsInteractor) :
   BaseViewModel() {

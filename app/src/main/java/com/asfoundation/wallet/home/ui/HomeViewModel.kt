@@ -3,6 +3,8 @@ package com.asfoundation.wallet.home.ui
 import android.content.Intent
 import android.net.Uri
 import android.text.format.DateUtils
+import com.appcoins.wallet.core.utils.properties.APTOIDE_TOP_APPS_URL
+import com.appcoins.wallet.core.utils.properties.VIP_PROGRAM_BADGE_URL
 import com.appcoins.wallet.gamification.repository.Levels
 import com.appcoins.wallet.gamification.repository.entity.GamificationStatus
 import com.appcoins.wallet.sharedpreferences.BackupTriggerPreferencesDataSource
@@ -68,9 +70,7 @@ data class HomeState(
 ) : ViewState
 
 @HiltViewModel
-class HomeViewModel
-@Inject
-constructor(
+class HomeViewModel @Inject constructor(
   private val analytics: HomeAnalytics,
   private val backupTriggerPreferences: BackupTriggerPreferencesDataSource,
   private val shouldShowBackupTriggerUseCase: ShouldShowBackupTriggerUseCase,
@@ -191,8 +191,7 @@ constructor(
 
   private fun mapWalletValue(walletBalance: WalletBalance): GlobalBalance {
     return GlobalBalance(
-      walletBalance,
-      shouldShow(walletBalance.appcBalance, 0.01),
+      walletBalance, shouldShow(walletBalance.appcBalance, 0.01),
       shouldShow(walletBalance.creditsBalance, 0.01),
       shouldShow(walletBalance.ethBalance, 0.0001)
     )
@@ -209,14 +208,9 @@ constructor(
     if (walletModel == null) return Observable.empty()
     val retainValue = if (walletModel.isNewWallet) null else HomeState::transactionsModelAsync
     return Observable.combineLatest(
-      getTransactions(walletModel.wallet),
-      getCardNotifications(),
-      getMaxBonus(),
-      observeNetworkAndWallet()
-    ) { transactions: List<Transaction>,
-        notifications: List<CardNotification>,
-        maxBonus: Double,
-        transactionsWalletModel: TransactionsWalletModel ->
+      getTransactions(walletModel.wallet), getCardNotifications(),
+      getMaxBonus(), observeNetworkAndWallet()
+    ) { transactions: List<Transaction>, notifications: List<CardNotification>, maxBonus: Double, transactionsWalletModel: TransactionsWalletModel ->
       createTransactionsModel(
         transactions, notifications, maxBonus, transactionsWalletModel
       )
@@ -230,8 +224,7 @@ constructor(
 
   private fun createTransactionsModel(
     transactions: List<Transaction>,
-    notifications: List<CardNotification>,
-    maxBonus: Double,
+    notifications: List<CardNotification>, maxBonus: Double,
     transactionsWalletModel: TransactionsWalletModel
   ): TransactionsModel {
     return TransactionsModel(transactions, notifications, maxBonus, transactionsWalletModel)
@@ -262,8 +255,7 @@ constructor(
   }
 
   private fun getCardNotifications(): Observable<List<CardNotification>> {
-    return refreshCardNotifications
-      .flatMapSingle { getCardNotificationsUseCase() }
+    return refreshCardNotifications.flatMapSingle { getCardNotificationsUseCase() }
       .subscribeOn(rxSchedulers.io)
       .onErrorReturnItem(emptyList())
   }
@@ -283,30 +275,31 @@ constructor(
   private fun verifyUserLevel() {
     findDefaultWalletUseCase()
       .flatMapObservable { wallet ->
-        observeUserStatsUseCase().flatMapSingle { gamificationStats ->
-          val userLevel = gamificationStats.level
-          val isVipLevel =
-            gamificationStats.gamificationStatus == GamificationStatus.VIP ||
-                gamificationStats.gamificationStatus == GamificationStatus.VIP_MAX
-          setState { copy(showVipBadge = isVipLevel) }
-          getLastShownUserLevelUseCase(wallet.address).doOnSuccess { lastShownLevel ->
-            if (userLevel > lastShownLevel) {
-              updateLastShownUserLevelUseCase(wallet.address, userLevel)
-              backupTriggerPreferences.setTriggerState(
-                walletAddress = wallet.address,
-                active = true,
-                triggerSource = NEW_LEVEL.toJson()
-              )
+        observeUserStatsUseCase()
+          .flatMapSingle { gamificationStats ->
+            val userLevel = gamificationStats.level
+            val isVipLevel =
+              gamificationStats.gamificationStatus == GamificationStatus.VIP ||
+                  gamificationStats.gamificationStatus == GamificationStatus.VIP_MAX
+            setState { copy(showVipBadge = isVipLevel) }
+            getLastShownUserLevelUseCase(wallet.address).doOnSuccess { lastShownLevel ->
+              if (userLevel > lastShownLevel) {
+                updateLastShownUserLevelUseCase(wallet.address, userLevel)
+                backupTriggerPreferences.setTriggerState(
+                  walletAddress = wallet.address,
+                  active = true,
+                  triggerSource = NEW_LEVEL.toJson()
+                )
+              }
             }
           }
-        }
       }
       .scopedSubscribe { e -> e.printStackTrace() }
   }
 
   fun goToVipLink() {
     analytics.sendAction("vip_badge")
-    val uri = Uri.parse(BuildConfig.VIP_PROGRAM_BADGE_URL)
+    val uri = Uri.parse(VIP_PROGRAM_BADGE_URL)
     sendSideEffect { HomeSideEffect.NavigateToBrowser(uri) }
   }
 
@@ -364,10 +357,9 @@ constructor(
   ) {
     when (cardNotificationAction) {
       CardNotificationAction.DISMISS -> dismissNotification(cardNotification)
-      CardNotificationAction.DISCOVER ->
-        sendSideEffect {
-          HomeSideEffect.NavigateToBrowser(Uri.parse(BuildConfig.APTOIDE_TOP_APPS_URL))
-        }
+      CardNotificationAction.DISCOVER -> sendSideEffect {
+        HomeSideEffect.NavigateToBrowser(Uri.parse(APTOIDE_TOP_APPS_URL))
+      }
       CardNotificationAction.UPDATE -> {
         sendSideEffect { HomeSideEffect.NavigateToIntent(buildAutoUpdateIntent()) }
         dismissNotification(cardNotification)

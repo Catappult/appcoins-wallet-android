@@ -1,7 +1,8 @@
 package com.asfoundation.wallet.di.api
 
+import com.appcoins.wallet.core.utils.properties.HostProperties
+import com.appcoins.wallet.networkbase.annotations.DefaultHttpClient
 import com.asf.wallet.BuildConfig
-import com.asfoundation.wallet.di.annotations.DefaultHttpClient
 import com.asfoundation.wallet.rating.RatingRepository
 import dagger.Module
 import dagger.Provides
@@ -18,7 +19,7 @@ import javax.inject.Singleton
 @Module
 class ZendeskApiModule {
 
-  private val zendeskUrl = BuildConfig.FEEDBACK_ZENDESK_BASE_HOST
+  private val zendeskUrl = HostProperties.FEEDBACK_ZENDESK_BASE_HOST
 
   @Singleton
   @Provides

@@ -1,8 +1,8 @@
 package com.asfoundation.wallet.di.api
 
+import com.appcoins.wallet.networkbase.annotations.BlockchainHttpClient
 import com.asfoundation.wallet.AirdropService
 import com.asfoundation.wallet.base.RxSchedulers
-import com.asfoundation.wallet.di.annotations.BlockchainHttpClient
 import com.google.gson.Gson
 import dagger.Module
 import dagger.Provides

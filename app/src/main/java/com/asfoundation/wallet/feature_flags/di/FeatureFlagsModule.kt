@@ -2,8 +2,9 @@ package com.asfoundation.wallet.feature_flags.di
 
 import android.content.Context
 import androidx.room.Room
+import com.appcoins.wallet.core.utils.properties.HostProperties
+import com.appcoins.wallet.networkbase.annotations.ShortTimeoutHttpClient
 import com.asf.wallet.BuildConfig
-import com.asfoundation.wallet.di.annotations.ShortTimeoutHttpClient
 import com.asfoundation.wallet.feature_flags.api.ExperimentsApi
 import com.asfoundation.wallet.feature_flags.db.FeatureFlagsDao
 import com.asfoundation.wallet.feature_flags.db.FeatureFlagsDatabase
@@ -27,7 +28,7 @@ class FeatureFlagsModule {
   fun providesExperimentsApi(
     @ShortTimeoutHttpClient client: OkHttpClient
   ): ExperimentsApi = Retrofit.Builder()
-    .baseUrl(BuildConfig.APTOIDE_WEB_SERVICES_AB_TEST_HOST)
+    .baseUrl(HostProperties.APTOIDE_WEB_SERVICES_AB_TEST_HOST)
     .client(client)
     .addConverterFactory(GsonConverterFactory.create())
     .addCallAdapterFactory(RxJava2CallAdapterFactory.create())

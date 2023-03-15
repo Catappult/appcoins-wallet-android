@@ -2,6 +2,7 @@ package com.asfoundation.wallet.di.temp_gradle_modules
 
 import com.appcoins.wallet.bdsbilling.*
 import com.appcoins.wallet.bdsbilling.repository.*
+import com.appcoins.wallet.core.utils.properties.MiscProperties
 import com.asf.appcoins.sdk.contractproxy.AppCoinsAddressProxySdk
 import dagger.Module
 import dagger.Provides
@@ -60,12 +61,10 @@ class BdsBillingModule {
   @Provides
   fun provideProxyService(proxySdk: AppCoinsAddressProxySdk): ProxyService =
     object : ProxyService {
-      private val NETWORK_ID_ROPSTEN = 3
-      private val NETWORK_ID_MAIN = 1
       override fun getAppCoinsAddress(debug: Boolean): Single<String> =
-        proxySdk.getAppCoinsAddress(if (debug) NETWORK_ID_ROPSTEN else NETWORK_ID_MAIN)
+        proxySdk.getAppCoinsAddress(MiscProperties.NETWORK_ID)
 
       override fun getIabAddress(debug: Boolean): Single<String> =
-        proxySdk.getIabAddress(if (debug) NETWORK_ID_ROPSTEN else NETWORK_ID_MAIN)
+        proxySdk.getIabAddress(MiscProperties.NETWORK_ID)
     }
 }

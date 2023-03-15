@@ -5,9 +5,9 @@ import com.appcoins.wallet.appcoins.rewards.AppcoinsRewardsRepository.Status
 import com.asfoundation.wallet.ui.barcode.BarcodeCaptureActivity
 import com.asfoundation.wallet.ui.transact.TransferFragmentView.Currency
 import com.asfoundation.wallet.ui.transact.TransferFragmentView.TransferData
-import com.asfoundation.wallet.util.CurrencyFormatUtils
+import com.appcoins.wallet.core.utils.common.CurrencyFormatUtils
 import com.asfoundation.wallet.util.QRUri
-import com.asfoundation.wallet.util.WalletCurrency
+import com.appcoins.wallet.core.utils.common.WalletCurrency
 import com.asfoundation.wallet.util.isNoNetworkException
 import com.asfoundation.wallet.wallets.usecases.GetWalletInfoUseCase
 import com.google.android.gms.common.api.CommonStatusCodes
@@ -48,7 +48,7 @@ class TransferFragmentPresenter(private val view: TransferFragmentView,
           getBalance(currency)
               .observeOn(viewScheduler)
               .doOnSuccess {
-                val walletCurrency = WalletCurrency.mapToWalletCurrency(currency)
+                val walletCurrency = mapToWalletCurrency(currency)
                 view.showBalance(formatter.formatCurrency(it, walletCurrency), walletCurrency)
               }
         }
@@ -59,21 +59,29 @@ class TransferFragmentPresenter(private val view: TransferFragmentView,
 
   private fun getBalance(currency: Currency): Single<BigDecimal> {
     return getWalletInfoUseCase(null, cached = false, updateFiat = false)
-        .map { walletInfo ->
-          val balance = walletInfo.walletBalance
-          when (currency) {
-            Currency.APPC_C -> balance.creditsBalance.token.amount
-            Currency.APPC -> balance.appcBalance.token.amount
-            Currency.ETH -> balance.ethBalance.token.amount
-          }
+      .map { walletInfo ->
+        val balance = walletInfo.walletBalance
+        when (currency) {
+          Currency.APPC_C -> balance.creditsBalance.token.amount
+          Currency.APPC -> balance.appcBalance.token.amount
+          Currency.ETH -> balance.ethBalance.token.amount
         }
+      }
+  }
+
+  private fun mapToWalletCurrency(currency: Currency): WalletCurrency {
+    return when (currency) {
+      Currency.APPC -> WalletCurrency.APPCOINS
+      Currency.APPC_C -> WalletCurrency.CREDITS
+      Currency.ETH -> WalletCurrency.ETHEREUM
+    }
   }
 
   private fun handleQrCodeResult(barcode: Barcode) {
     onResumeDisposables.add(Single.fromCallable { QRUri.parse(barcode.displayValue) }
-        .observeOn(viewScheduler)
-        .doOnSuccess { handleQRUri(it) }
-        .subscribe({}, { it.printStackTrace() }))
+      .observeOn(viewScheduler)
+      .doOnSuccess { handleQRUri(it) }
+      .subscribe({}, { it.printStackTrace() }))
   }
 
   private fun handleQRUri(qrUri: QRUri) {

@@ -4,6 +4,9 @@ import cm.aptoide.skills.api.TopUpApi
 import com.appcoins.wallet.bdsbilling.repository.RemoteRepository
 import com.appcoins.wallet.billing.adyen.AdyenPaymentRepository
 import com.appcoins.wallet.billing.skills.SkillsPaymentRepository
+import com.appcoins.wallet.core.utils.properties.HostProperties
+import com.appcoins.wallet.networkbase.annotations.BlockchainHttpClient
+import com.appcoins.wallet.networkbase.annotations.DefaultHttpClient
 import com.asf.wallet.BuildConfig
 import com.asfoundation.wallet.backup.repository.BackupRepository
 import com.asfoundation.wallet.base.RxSchedulers
@@ -12,10 +15,8 @@ import com.asfoundation.wallet.billing.carrier_billing.CarrierBillingRepository
 import com.asfoundation.wallet.billing.carrier_billing.CarrierErrorResponse
 import com.asfoundation.wallet.billing.carrier_billing.CarrierErrorResponseTypeAdapter
 import com.asfoundation.wallet.change_currency.FiatCurrenciesRepository
-import com.asfoundation.wallet.di.annotations.BlockchainHttpClient
 import com.asfoundation.wallet.di.annotations.BrokerBlockchainRetrofit
 import com.asfoundation.wallet.di.annotations.BrokerDefaultRetrofit
-import com.asfoundation.wallet.di.annotations.DefaultHttpClient
 import com.asfoundation.wallet.service.currencies.LocalCurrencyConversionService
 import com.asfoundation.wallet.verification.repository.BrokerVerificationRepository
 import com.google.gson.GsonBuilder
@@ -33,7 +34,7 @@ import javax.inject.Singleton
 @Module
 class BrokerApiModule {
 
-  private val brokerUrl = "${BuildConfig.BASE_HOST}/broker/"
+  private val brokerUrl = "${HostProperties.MS_HOST}/broker/"
 
   @Singleton
   @Provides
