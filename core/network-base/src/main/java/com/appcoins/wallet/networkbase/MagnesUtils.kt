@@ -1,7 +1,6 @@
-package com.asfoundation.wallet.billing.paypal.repository
+package com.appcoins.wallet.networkbase
 
 import android.content.Context
-import com.asf.wallet.BuildConfig
 import lib.android.paypal.com.magnessdk.Environment
 import lib.android.paypal.com.magnessdk.MagnesResult
 import lib.android.paypal.com.magnessdk.MagnesSDK

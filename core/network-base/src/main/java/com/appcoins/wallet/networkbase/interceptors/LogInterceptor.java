@@ -1,6 +1,7 @@
-package interceptors;
+package com.appcoins.wallet.networkbase.interceptors;
 
 import android.text.TextUtils;
+import android.util.Log;
 import androidx.annotation.NonNull;
 import com.appcoins.wallet.commons.Logger;
 import java.io.IOException;

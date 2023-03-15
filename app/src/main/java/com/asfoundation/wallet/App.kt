@@ -16,6 +16,7 @@ import com.appcoins.wallet.bdsbilling.repository.SubscriptionBillingApi
 import com.appcoins.wallet.billing.BillingDependenciesProvider
 import com.appcoins.wallet.billing.BillingMessagesMapper
 import com.appcoins.wallet.commons.Logger
+import com.appcoins.wallet.networkbase.MagnesUtils
 import com.asf.wallet.BuildConfig
 import com.asfoundation.wallet.analytics.IndicativeAnalytics
 import com.asfoundation.wallet.analytics.RakamAnalytics
@@ -23,7 +24,6 @@ import com.asfoundation.wallet.analytics.SentryAnalytics
 import com.asfoundation.wallet.app_start.AppStartProbe
 import com.asfoundation.wallet.app_start.AppStartUseCase
 import com.asfoundation.wallet.app_start.StartMode
-import com.asfoundation.wallet.billing.paypal.repository.MagnesUtils
 import com.asfoundation.wallet.identification.IdsRepository
 import com.asfoundation.wallet.logging.FlurryReceiver
 import com.asfoundation.wallet.main.appsflyer.ApkOriginVerification

@@ -1,19 +1,19 @@
-package api
+package com.appcoins.wallet.networkbase.api
 
-import PreferencesRepositoryType
 import android.content.Context
-import annotations.BaseHttpClient
-import annotations.BlockchainHttpClient
-import annotations.DefaultHttpClient
-import annotations.ShortTimeoutHttpClient
+import com.appcoins.wallet.networkbase.annotations.BaseHttpClient
+import com.appcoins.wallet.networkbase.annotations.BlockchainHttpClient
+import com.appcoins.wallet.networkbase.annotations.DefaultHttpClient
+import com.appcoins.wallet.networkbase.annotations.ShortTimeoutHttpClient
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
-import interceptors.LogInterceptor
-import interceptors.MagnesHeaderInterceptor
-import interceptors.UserAgentInterceptor
+import com.appcoins.wallet.networkbase.interceptors.LogInterceptor
+import com.appcoins.wallet.networkbase.interceptors.MagnesHeaderInterceptor
+import com.appcoins.wallet.networkbase.interceptors.UserAgentInterceptor
+import com.appcoins.wallet.sharedpreferences.CommonsPreferencesDataSource
 import okhttp3.OkHttpClient
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
@@ -27,7 +27,7 @@ class BaseApiModule {
   @BaseHttpClient
   fun provideOkHttpClient(
     @ApplicationContext context: Context,
-    preferencesRepositoryType: PreferencesRepositoryType,
+    preferencesRepositoryType: CommonsPreferencesDataSource,
     logInterceptor: LogInterceptor
   ): OkHttpClient {
     return OkHttpClient.Builder()

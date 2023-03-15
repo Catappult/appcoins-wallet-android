@@ -1,10 +1,11 @@
-package interceptors
+package com.appcoins.wallet.networkbase.interceptors
 
 import android.content.Context
 import android.os.Build
 import android.provider.Settings
 import android.util.DisplayMetrics
 import android.view.WindowManager
+import com.appcoins.wallet.sharedpreferences.CommonsPreferencesDataSource
 import okhttp3.*
 import java.io.IOException
 import java.util.*

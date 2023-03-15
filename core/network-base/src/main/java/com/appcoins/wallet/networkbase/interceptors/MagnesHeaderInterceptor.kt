@@ -1,6 +1,7 @@
-package interceptors
+package com.appcoins.wallet.networkbase.interceptors
 
 import android.content.Context
+import com.appcoins.wallet.networkbase.MagnesUtils
 import okhttp3.*
 import java.io.IOException
 

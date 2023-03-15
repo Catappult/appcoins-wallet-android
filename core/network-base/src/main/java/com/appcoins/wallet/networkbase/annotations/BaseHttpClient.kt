@@ -1,4 +1,4 @@
-package annotations
+package com.appcoins.wallet.networkbase.annotations
 
 import javax.inject.Qualifier
 
