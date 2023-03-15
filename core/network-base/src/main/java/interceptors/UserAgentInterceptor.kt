@@ -11,7 +11,7 @@ import java.util.*
 
 class UserAgentInterceptor(
   private val context: Context,
-  private val preferencesRepositoryType: PreferencesRepositoryType
+  private val commonsPreferencesDataSource: CommonsPreferencesDataSource
 ) :
   Interceptor {
 
@@ -68,11 +68,11 @@ class UserAgentInterceptor(
   }
 
   private fun getOrCreateWalletId(): String {
-    var walletId = preferencesRepositoryType.getWalletId()
+    var walletId = commonsPreferencesDataSource.getWalletId()
     if (walletId == null) {
       val randomId = UUID.randomUUID()
           .toString()
-      preferencesRepositoryType.setWalletId(randomId)
+      commonsPreferencesDataSource.setWalletId(randomId)
       walletId = randomId
     }
     return walletId

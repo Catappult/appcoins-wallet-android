@@ -1,12 +1,13 @@
 package com.asfoundation.wallet.onboarding.use_cases
 
-import com.asfoundation.wallet.repository.PreferencesRepositoryType
+import com.appcoins.wallet.sharedpreferences.CommonsPreferencesDataSource
 import javax.inject.Inject
 
 class SetOnboardingCompletedUseCase @Inject constructor(
-    private val preferencesRepositoryType: PreferencesRepositoryType) {
+  private val commonsPreferencesDataSource: CommonsPreferencesDataSource
+) {
 
   operator fun invoke() {
-    preferencesRepositoryType.setOnboardingComplete()
+    commonsPreferencesDataSource.setOnboardingComplete()
   }
 }

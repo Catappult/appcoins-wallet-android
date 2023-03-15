@@ -15,6 +15,7 @@ import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
+import com.appcoins.wallet.sharedpreferences.CommonsPreferencesDataSource
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
@@ -27,11 +28,11 @@ class BaseApiModule {
   @BaseHttpClient
   fun provideOkHttpClient(
     @ApplicationContext context: Context,
-    preferencesRepositoryType: PreferencesRepositoryType,
+    commonsPreferencesDataSource: CommonsPreferencesDataSource,
     logInterceptor: LogInterceptor
   ): OkHttpClient {
     return OkHttpClient.Builder()
-      .addInterceptor(UserAgentInterceptor(context, preferencesRepositoryType))
+      .addInterceptor(UserAgentInterceptor(context, commonsPreferencesDataSource))
       .addInterceptor(MagnesHeaderInterceptor(context))
       .addInterceptor(logInterceptor)
       .build()
