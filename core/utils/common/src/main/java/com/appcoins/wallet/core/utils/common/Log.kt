@@ -1,7 +1,6 @@
-package com.asfoundation.wallet.util
+package com.appcoins.wallet.core.utils.common
 
 import android.util.Log
-import com.asf.wallet.BuildConfig
 
 class Log private constructor() {
 
@@ -21,19 +20,19 @@ class Log private constructor() {
 
     @JvmStatic
     fun i(tag: String, msg: String): Int =
-        if (BuildConfig.BUILD_TYPE != "release") Log.i(tag, msg) else 0
+        if (BuildConfig.DEBUG) Log.i(tag, msg) else 0
 
     @JvmStatic
     fun d(tag: String, msg: String): Int =
-        if (BuildConfig.BUILD_TYPE != "release") Log.d(tag, msg) else 0
+        if (BuildConfig.DEBUG) Log.d(tag, msg) else 0
 
     @JvmStatic
     fun d(tag: String, msg: String, throwable: Throwable): Int =
-        if (BuildConfig.BUILD_TYPE != "release") Log.d(tag, msg, throwable) else 0
+        if (BuildConfig.DEBUG) Log.d(tag, msg, throwable) else 0
 
     @JvmStatic
     fun w(tag: String, msg: String): Int =
-        if (BuildConfig.BUILD_TYPE != "release") Log.w(tag, msg) else 0
+        if (BuildConfig.DEBUG) Log.w(tag, msg) else 0
 
     // We are not filtering the error logs since they are usually used only in extreme situation
     // and there shouldn't be much arm done logging them.
