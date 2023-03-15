@@ -46,6 +46,9 @@ dependencies {
   implementation(project(":core:utils:common"))
   implementation(project(":core:utils:properties"))
 
+  implementation(project(":core:utils:common"))
+  implementation(project(":core:utils:properties"))
+
   implementation(libs.kotlin.coroutines)
 
   implementation(libs.viewbinding.delegate)
