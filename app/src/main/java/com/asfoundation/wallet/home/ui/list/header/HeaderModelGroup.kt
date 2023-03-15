@@ -5,7 +5,7 @@ import com.airbnb.epoxy.EpoxyModel
 import com.airbnb.epoxy.EpoxyModelGroup
 import com.airbnb.epoxy.ModelGroupHolder
 import com.asf.wallet.R
-import com.asfoundation.wallet.base.Async
+import com.appcoins.wallet.ui.arch.Async
 import com.asfoundation.wallet.entity.GlobalBalance
 import com.asfoundation.wallet.home.ui.list.HomeListClick
 import com.asfoundation.wallet.home.ui.list.header.notifications.CardNotificationListModel
@@ -13,10 +13,10 @@ import com.asfoundation.wallet.ui.widget.entity.TransactionsModel
 import com.asfoundation.wallet.util.CurrencyFormatUtils
 
 class HeaderModelGroup(
-    txModelAsync: Async<TransactionsModel>,
-    balanceAsync: Async<GlobalBalance>,
-    formatter: CurrencyFormatUtils,
-    homeClickListener: ((HomeListClick) -> Unit)? = null
+  txModelAsync: com.appcoins.wallet.ui.arch.Async<TransactionsModel>,
+  balanceAsync: com.appcoins.wallet.ui.arch.Async<GlobalBalance>,
+  formatter: CurrencyFormatUtils,
+  homeClickListener: ((HomeListClick) -> Unit)? = null
 ) : EpoxyModelGroup(R.layout.item_home_header_group,
     buildModels(txModelAsync, balanceAsync, formatter, homeClickListener)) {
 
@@ -29,8 +29,8 @@ class HeaderModelGroup(
   }
 
   companion object {
-    fun buildModels(txModelAsync: Async<TransactionsModel>,
-                    balanceAsync: Async<GlobalBalance>,
+    fun buildModels(txModelAsync: com.appcoins.wallet.ui.arch.Async<TransactionsModel>,
+                    balanceAsync: com.appcoins.wallet.ui.arch.Async<GlobalBalance>,
                     formatter: CurrencyFormatUtils,
                     homeClickListener: ((HomeListClick) -> Unit)?): List<EpoxyModel<*>> {
       val notifications = txModelAsync()?.notifications

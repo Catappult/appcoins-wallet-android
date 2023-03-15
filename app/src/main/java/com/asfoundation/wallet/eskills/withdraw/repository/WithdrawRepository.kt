@@ -1,6 +1,6 @@
 package com.asfoundation.wallet.eskills.withdraw.repository
 
-import com.asfoundation.wallet.base.RxSchedulers
+import com.appcoins.wallet.ui.arch.RxSchedulers
 import com.asfoundation.wallet.eskills.withdraw.domain.SuccessfulWithdraw
 import com.asfoundation.wallet.eskills.withdraw.domain.WithdrawResult
 import io.reactivex.Single
@@ -10,7 +10,7 @@ import javax.inject.Inject
 class WithdrawRepository @Inject constructor(
   private val withdrawApi: WithdrawApi,
   private val mapper: WithdrawApiMapper,
-  private val schedulers: RxSchedulers,
+  private val schedulers: com.appcoins.wallet.ui.arch.RxSchedulers,
   private val withdrawLocalStorage: WithdrawLocalStorage
 ) {
 

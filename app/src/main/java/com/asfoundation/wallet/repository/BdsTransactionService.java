@@ -1,7 +1,7 @@
 package com.asfoundation.wallet.repository;
 
 import com.appcoins.wallet.commons.Repository;
-import com.asfoundation.wallet.base.RxSchedulers;
+import com.appcoins.wallet.ui.arch.RxSchedulers;
 import io.reactivex.Completable;
 import io.reactivex.Observable;
 import io.reactivex.disposables.CompositeDisposable;

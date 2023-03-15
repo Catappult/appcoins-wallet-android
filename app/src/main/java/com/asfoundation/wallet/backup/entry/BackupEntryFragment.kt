@@ -14,8 +14,8 @@ import androidx.lifecycle.lifecycleScope
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.asf.wallet.R
 import com.asf.wallet.databinding.BackupEntryFragmentBinding
-import com.asfoundation.wallet.base.Async
-import com.asfoundation.wallet.base.SingleStateFragment
+import com.appcoins.wallet.ui.arch.Async
+import com.appcoins.wallet.ui.arch.SingleStateFragment
 import com.asfoundation.wallet.billing.analytics.WalletsAnalytics
 import com.asfoundation.wallet.billing.analytics.WalletsEventSender
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
@@ -24,7 +24,7 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class BackupEntryFragment : BasePageViewFragment(),
-  SingleStateFragment<BackupEntryState, BackupEntrySideEffect> {
+  com.appcoins.wallet.ui.arch.SingleStateFragment<BackupEntryState, BackupEntrySideEffect> {
 
   @Inject
   lateinit var backupEntryViewModelFactory: BackupEntryViewModelFactory
@@ -171,9 +171,9 @@ class BackupEntryFragment : BasePageViewFragment(),
     handleBalanceAsync(state.balanceAsync)
   }
 
-  private fun handleBalanceAsync(balanceAsync: Async<Balance>) {
+  private fun handleBalanceAsync(balanceAsync: com.appcoins.wallet.ui.arch.Async<Balance>) {
     when (balanceAsync) {
-      is Async.Success -> {
+      is com.appcoins.wallet.ui.arch.Async.Success -> {
         setBalance(balanceAsync())
       }
       else -> Unit

@@ -12,8 +12,8 @@ import androidx.navigation.fragment.NavHostFragment
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.asf.wallet.R
 import com.asf.wallet.databinding.FragmentOnboardingPaymentBinding
-import com.asfoundation.wallet.base.Async
-import com.asfoundation.wallet.base.SingleStateFragment
+import com.appcoins.wallet.ui.arch.Async
+import com.appcoins.wallet.ui.arch.SingleStateFragment
 import com.asfoundation.wallet.onboarding_new_payment.getPurchaseBonusMessage
 import com.asfoundation.wallet.util.CurrencyFormatUtils
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
@@ -23,7 +23,7 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class OnboardingPaymentFragment : BasePageViewFragment(),
-  SingleStateFragment<OnboardingPaymentState, OnboardingPaymentSideEffect> {
+  com.appcoins.wallet.ui.arch.SingleStateFragment<OnboardingPaymentState, OnboardingPaymentSideEffect> {
 
   private val viewModel: OnboardingPaymentViewModel by viewModels()
   private val views by viewBinding(FragmentOnboardingPaymentBinding::bind)
@@ -74,15 +74,15 @@ class OnboardingPaymentFragment : BasePageViewFragment(),
 
   override fun onStateChanged(state: OnboardingPaymentState) {
     when (state.transactionContent) {
-      Async.Uninitialized,
-      is Async.Loading -> {
+      com.appcoins.wallet.ui.arch.Async.Uninitialized,
+      is com.appcoins.wallet.ui.arch.Async.Loading -> {
         //TODO add a skeleton while the list loads
         views.loadingAnimation.playAnimation()
       }
-      is Async.Success -> {
+      is com.appcoins.wallet.ui.arch.Async.Success -> {
         state.transactionContent()?.let { showHeaderContent(it) }
       }
-      is Async.Fail -> showRetryError()
+      is com.appcoins.wallet.ui.arch.Async.Fail -> showRetryError()
     }
   }
 

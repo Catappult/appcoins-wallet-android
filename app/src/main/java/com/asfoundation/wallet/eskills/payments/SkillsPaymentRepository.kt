@@ -7,7 +7,7 @@ import cm.aptoide.skills.model.CreatedTicket
 import cm.aptoide.skills.model.PaymentResult
 import cm.aptoide.skills.model.Price
 import cm.aptoide.skills.util.EskillsPaymentData
-import com.asfoundation.wallet.base.RxSchedulers
+import com.appcoins.wallet.ui.arch.RxSchedulers
 import com.asfoundation.wallet.repository.CurrencyConversionService
 import com.asfoundation.wallet.topup.TopUpActivity
 import com.asfoundation.wallet.ui.iab.AppcoinsRewardsBuyInteract
@@ -25,7 +25,7 @@ class SkillsPaymentRepository @Inject constructor(
   private val currencyConversionService: CurrencyConversionService,
   private val currencyFormatUtils: CurrencyFormatUtils,
   private val appCoinsCreditsPayment: AppCoinsCreditsPayment,
-  private val schedulers: RxSchedulers,
+  private val schedulers: com.appcoins.wallet.ui.arch.RxSchedulers,
   private val getWalletInfoUseCase: GetWalletInfoUseCase,
   private val appcoinsRewardsBuyInteract: AppcoinsRewardsBuyInteract,
 ) : ExternalSkillsPaymentProvider {

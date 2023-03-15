@@ -4,7 +4,7 @@ import android.util.Log
 import androidx.work.ExistingWorkPolicy
 import androidx.work.WorkManager
 import com.appcoins.wallet.gamification.repository.PromotionsRepository
-import com.asfoundation.wallet.base.RxSchedulers
+import com.appcoins.wallet.ui.arch.RxSchedulers
 import com.asfoundation.wallet.entity.Wallet
 import com.asfoundation.wallet.promotions.worker.GetVipReferralWorker
 import io.reactivex.Completable
@@ -13,7 +13,7 @@ import javax.inject.Inject
 class StartVipReferralPollingUseCase  @Inject constructor(
   private val promotionsRepository: PromotionsRepository,
   private val workManager: WorkManager,
-  private val rxSchedulers: RxSchedulers
+  private val rxSchedulers: com.appcoins.wallet.ui.arch.RxSchedulers
 ) {
 
   operator fun invoke(wallet: Wallet): Completable {

@@ -10,8 +10,8 @@ import androidx.lifecycle.lifecycleScope
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.asf.wallet.R
 import com.asf.wallet.databinding.RecoverPasswordFragmentBinding
-import com.asfoundation.wallet.base.Async
-import com.asfoundation.wallet.base.SingleStateFragment
+import com.appcoins.wallet.ui.arch.Async
+import com.appcoins.wallet.ui.arch.SingleStateFragment
 import com.asfoundation.wallet.my_wallets.create_wallet.CreateWalletDialogFragment
 import com.asfoundation.wallet.recover.RecoverActivity.Companion.ONBOARDING_LAYOUT
 import com.asfoundation.wallet.recover.result.FailedPasswordRecover
@@ -23,7 +23,7 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class RecoverPasswordFragment : BasePageViewFragment(),
-  SingleStateFragment<RecoverPasswordState, RecoverPasswordSideEffect> {
+  com.appcoins.wallet.ui.arch.SingleStateFragment<RecoverPasswordState, RecoverPasswordSideEffect> {
 
   @Inject
   lateinit var navigator: RecoverPasswordNavigator
@@ -63,16 +63,16 @@ class RecoverPasswordFragment : BasePageViewFragment(),
 
   override fun onSideEffect(sideEffect: RecoverPasswordSideEffect) = Unit
 
-  private fun handleRecoverPasswordState(asyncRecoverResult: Async<RecoverPasswordResult>) {
+  private fun handleRecoverPasswordState(asyncRecoverResult: com.appcoins.wallet.ui.arch.Async<RecoverPasswordResult>) {
     when (asyncRecoverResult) {
-      is Async.Uninitialized,
-      is Async.Loading -> {
+      is com.appcoins.wallet.ui.arch.Async.Uninitialized,
+      is com.appcoins.wallet.ui.arch.Async.Loading -> {
         showWalletContent()
       }
-      is Async.Fail -> {
+      is com.appcoins.wallet.ui.arch.Async.Fail -> {
         handleErrorState(FailedPasswordRecover.GenericError(asyncRecoverResult.error.throwable))
       }
-      is Async.Success -> {
+      is com.appcoins.wallet.ui.arch.Async.Success -> {
         handleSuccessState(asyncRecoverResult())
       }
     }

@@ -2,7 +2,7 @@ package com.asfoundation.wallet.di
 
 import com.appcoins.wallet.bdsbilling.BillingPaymentProofSubmission
 import com.appcoins.wallet.commons.MemoryCache
-import com.asfoundation.wallet.base.RxSchedulers
+import com.appcoins.wallet.ui.arch.RxSchedulers
 import com.asfoundation.wallet.billing.partners.AddressService
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.interact.DefaultTokenProvider
@@ -131,7 +131,7 @@ class ServiceModule {
   @Singleton
   @Provides
   fun providesBdsTransactionService(
-    bdsPendingTransactionService: BdsPendingTransactionService, rxSchedulers: RxSchedulers,
+    bdsPendingTransactionService: BdsPendingTransactionService, rxSchedulers: com.appcoins.wallet.ui.arch.RxSchedulers,
   ): BdsTransactionService {
     return BdsTransactionService(
       rxSchedulers,

@@ -6,7 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.appcoins.wallet.billing.adyen.PaymentModel
 import com.asf.wallet.R
-import com.asfoundation.wallet.base.RxSchedulers
+import com.appcoins.wallet.ui.arch.RxSchedulers
 import com.asfoundation.wallet.billing.adyen.AdyenPaymentInteractor
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics
 import com.asfoundation.wallet.billing.paypal.models.PaypalTransaction
@@ -31,7 +31,7 @@ class PayPalIABViewModel @Inject constructor(
   private val cancelPaypalTokenUseCase: CancelPaypalTokenUseCase,
   private val adyenPaymentInteractor: AdyenPaymentInteractor,
   private val supportInteractor: SupportInteractor,
-  rxSchedulers: RxSchedulers,
+  rxSchedulers: com.appcoins.wallet.ui.arch.RxSchedulers,
   private val analytics: BillingAnalytics,
   private val paymentAnalytics: PaymentMethodsAnalytics
 ) : ViewModel() {

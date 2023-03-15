@@ -11,14 +11,14 @@ import androidx.lifecycle.lifecycleScope
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.asf.wallet.R
 import com.asf.wallet.databinding.SplashExtenderFragmentBinding
-import com.asfoundation.wallet.base.SingleStateFragment
+import com.appcoins.wallet.ui.arch.SingleStateFragment
 import com.asfoundation.wallet.util.RxBus
 import com.asfoundation.wallet.main.splash.bus.SplashFinishEvent
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class SplashExtenderFragment : Fragment(),
-  SingleStateFragment<SplashExtenderState, SplashExtenderSideEffect> {
+  com.appcoins.wallet.ui.arch.SingleStateFragment<SplashExtenderState, SplashExtenderSideEffect> {
 
   private val viewModel: SplashExtenderViewModel by viewModels()
   private val views by viewBinding(SplashExtenderFragmentBinding::bind)

@@ -6,7 +6,7 @@ import com.appcoins.wallet.billing.adyen.AdyenPaymentRepository
 import com.appcoins.wallet.billing.skills.SkillsPaymentRepository
 import com.asf.wallet.BuildConfig
 import com.asfoundation.wallet.backup.repository.BackupRepository
-import com.asfoundation.wallet.base.RxSchedulers
+import com.appcoins.wallet.ui.arch.RxSchedulers
 import com.asfoundation.wallet.billing.paypal.repository.PayPalV2Repository
 import com.asfoundation.wallet.billing.carrier_billing.CarrierBillingRepository
 import com.asfoundation.wallet.billing.carrier_billing.CarrierErrorResponse
@@ -95,7 +95,7 @@ class BrokerApiModule {
   fun providesCarrierBillingApi1(
     @DefaultHttpClient client: OkHttpClient,
     @BrokerDefaultRetrofit retrofit: Retrofit,
-    rxSchedulers: RxSchedulers
+    rxSchedulers: com.appcoins.wallet.ui.arch.RxSchedulers
   ): CarrierBillingRepository.CarrierBillingApi {
     val gson = GsonBuilder().registerTypeAdapter(
       CarrierErrorResponse::class.java,

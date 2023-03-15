@@ -4,13 +4,13 @@ import android.app.PendingIntent
 import android.content.Context
 import androidx.navigation.NavDeepLinkBuilder
 import com.asf.wallet.R
-import com.asfoundation.wallet.base.Navigator
+import com.appcoins.wallet.ui.arch.Navigator
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 
 class PendingIntentNavigator @Inject constructor(
   @ApplicationContext val context: Context
-) : Navigator {
+) : com.appcoins.wallet.ui.arch.Navigator {
 
   fun getHomePendingIntent(): PendingIntent {
     return NavDeepLinkBuilder(context)

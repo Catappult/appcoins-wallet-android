@@ -1,6 +1,6 @@
 package com.asfoundation.wallet.redeem_gift.repository
 
-import com.asfoundation.wallet.base.RxSchedulers
+import com.appcoins.wallet.ui.arch.RxSchedulers
 import io.reactivex.Completable
 import io.reactivex.Single
 import retrofit2.http.Header
@@ -11,7 +11,7 @@ import javax.inject.Inject
 class RedeemGiftRepository @Inject constructor(
   private val redeemGiftBackendApi: RedeemGiftBackendApi,
   private val mapper: RedeemGiftMapper,
-  private val rxSchedulers: RxSchedulers
+  private val rxSchedulers: com.appcoins.wallet.ui.arch.RxSchedulers
 ) {
 
   fun redeemGift(giftCode: String, ewt: String): Single<RedeemCode> {

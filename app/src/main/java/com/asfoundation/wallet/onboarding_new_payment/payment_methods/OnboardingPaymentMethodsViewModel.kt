@@ -2,30 +2,27 @@ package com.asfoundation.wallet.onboarding_new_payment.payment_methods
 
 import android.net.Uri
 import androidx.lifecycle.SavedStateHandle
-import com.asfoundation.wallet.base.Async
-import com.asfoundation.wallet.base.BaseViewModel
-import com.asfoundation.wallet.base.SideEffect
-import com.asfoundation.wallet.base.ViewState
-import com.asfoundation.wallet.billing.adyen.PaymentType
+import com.appcoins.wallet.ui.arch.Async
+import com.appcoins.wallet.ui.arch.BaseViewModel
+import com.appcoins.wallet.ui.arch.SideEffect
+import com.appcoins.wallet.ui.arch.ViewState
 import com.asfoundation.wallet.onboarding.CachedTransactionRepository
 import com.asfoundation.wallet.onboarding_new_payment.OnboardingPaymentEvents
-import com.asfoundation.wallet.onboarding_new_payment.payment_result.OnboardingPaymentResultFragmentArgs
-import com.asfoundation.wallet.onboarding_new_payment.payment_result.OnboardingPaymentResultSideEffect
 import com.asfoundation.wallet.onboarding_new_payment.use_cases.GetFirstPaymentMethodsUseCase
 import com.asfoundation.wallet.onboarding_new_payment.use_cases.GetOtherPaymentMethodsUseCase
 import com.asfoundation.wallet.ui.iab.PaymentMethod
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
-sealed class OnboardingPaymentMethodsSideEffect : SideEffect {
+sealed class OnboardingPaymentMethodsSideEffect : com.appcoins.wallet.ui.arch.SideEffect {
   data class NavigateToLink(val uri: Uri) : OnboardingPaymentMethodsSideEffect()
   data class NavigateBackToGame(val appPackageName: String) : OnboardingPaymentMethodsSideEffect()
 }
 
 data class OnboardingPaymentMethodsState(
-  val paymentMethodsAsync: Async<List<PaymentMethod>> = Async.Uninitialized,
+  val paymentMethodsAsync: com.appcoins.wallet.ui.arch.Async<List<PaymentMethod>> = com.appcoins.wallet.ui.arch.Async.Uninitialized,
   val otherPaymentMethods: List<PaymentMethod> = listOf(),
-) : ViewState
+) : com.appcoins.wallet.ui.arch.ViewState
 
 @HiltViewModel
 class OnboardingPaymentMethodsViewModel @Inject constructor(
@@ -35,7 +32,7 @@ class OnboardingPaymentMethodsViewModel @Inject constructor(
   private val events: OnboardingPaymentEvents,
   savedStateHandle: SavedStateHandle
 ) :
-  BaseViewModel<OnboardingPaymentMethodsState, OnboardingPaymentMethodsSideEffect>(
+  com.appcoins.wallet.ui.arch.BaseViewModel<OnboardingPaymentMethodsState, OnboardingPaymentMethodsSideEffect>(
     OnboardingPaymentMethodsState()
   ) {
 

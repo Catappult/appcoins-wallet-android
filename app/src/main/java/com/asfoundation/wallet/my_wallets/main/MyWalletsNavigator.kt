@@ -9,8 +9,8 @@ import androidx.navigation.ActivityNavigatorExtras
 import androidx.navigation.NavController
 import com.asf.wallet.R
 import com.asfoundation.wallet.C
-import com.asfoundation.wallet.base.Navigator
-import com.asfoundation.wallet.base.navigate
+import com.appcoins.wallet.ui.arch.Navigator
+import com.appcoins.wallet.ui.arch.navigate
 import com.asfoundation.wallet.entity.Wallet
 import com.asfoundation.wallet.ui.MyAddressActivity
 import com.asfoundation.wallet.ui.transact.TransferActivity
@@ -19,7 +19,7 @@ import javax.inject.Inject
 class MyWalletsNavigator @Inject constructor(
   private val fragment: Fragment,
   private val navController: NavController
-) : Navigator {
+) : com.appcoins.wallet.ui.arch.Navigator {
 
   fun navigateToMore(
     walletAddress: String,

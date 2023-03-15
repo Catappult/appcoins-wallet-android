@@ -1,9 +1,9 @@
 package com.asfoundation.wallet.my_wallets.main
 
-import com.asfoundation.wallet.base.Async
-import com.asfoundation.wallet.base.BaseViewModel
-import com.asfoundation.wallet.base.SideEffect
-import com.asfoundation.wallet.base.ViewState
+import com.appcoins.wallet.ui.arch.Async
+import com.appcoins.wallet.ui.arch.BaseViewModel
+import com.appcoins.wallet.ui.arch.SideEffect
+import com.appcoins.wallet.ui.arch.ViewState
 import com.asfoundation.wallet.home.usecases.ObserveDefaultWalletUseCase
 import com.asfoundation.wallet.ui.balance.BalanceInteractor
 import com.asfoundation.wallet.ui.balance.BalanceVerificationModel
@@ -14,12 +14,12 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
-object MyWalletsSideEffect : SideEffect
+object MyWalletsSideEffect : com.appcoins.wallet.ui.arch.SideEffect
 
 data class MyWalletsState(
-  val walletVerifiedAsync: Async<BalanceVerificationModel> = Async.Uninitialized,
-  val walletInfoAsync: Async<WalletInfo> = Async.Uninitialized
-) : ViewState
+  val walletVerifiedAsync: com.appcoins.wallet.ui.arch.Async<BalanceVerificationModel> = com.appcoins.wallet.ui.arch.Async.Uninitialized,
+  val walletInfoAsync: com.appcoins.wallet.ui.arch.Async<WalletInfo> = com.appcoins.wallet.ui.arch.Async.Uninitialized
+) : com.appcoins.wallet.ui.arch.ViewState
 
 @HiltViewModel
 class MyWalletsViewModel @Inject constructor(
@@ -27,7 +27,7 @@ class MyWalletsViewModel @Inject constructor(
   private val walletDetailsInteractor: WalletDetailsInteractor,
   private val observeWalletInfoUseCase: ObserveWalletInfoUseCase,
   private val observeDefaultWalletUseCase: ObserveDefaultWalletUseCase
-) : BaseViewModel<MyWalletsState, MyWalletsSideEffect>(initialState()) {
+) : com.appcoins.wallet.ui.arch.BaseViewModel<MyWalletsState, MyWalletsSideEffect>(initialState()) {
 
   companion object {
     fun initialState(): MyWalletsState = MyWalletsState()

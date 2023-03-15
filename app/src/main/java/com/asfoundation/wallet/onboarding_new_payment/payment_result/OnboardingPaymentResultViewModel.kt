@@ -4,10 +4,10 @@ import androidx.lifecycle.SavedStateHandle
 import com.appcoins.wallet.billing.ErrorInfo
 import com.appcoins.wallet.billing.adyen.PaymentModel
 import com.appcoins.wallet.billing.util.Error
-import com.asfoundation.wallet.base.BaseViewModel
-import com.asfoundation.wallet.base.RxSchedulers
-import com.asfoundation.wallet.base.SideEffect
-import com.asfoundation.wallet.base.ViewState
+import com.appcoins.wallet.ui.arch.BaseViewModel
+import com.appcoins.wallet.ui.arch.RxSchedulers
+import com.appcoins.wallet.ui.arch.SideEffect
+import com.appcoins.wallet.ui.arch.ViewState
 import com.asfoundation.wallet.billing.adyen.AdyenErrorCodeMapper
 import com.asfoundation.wallet.billing.adyen.AdyenPaymentInteractor
 import com.asfoundation.wallet.billing.adyen.PaymentType
@@ -23,7 +23,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.Single
 import javax.inject.Inject
 
-sealed class OnboardingPaymentResultSideEffect : SideEffect {
+sealed class OnboardingPaymentResultSideEffect : com.appcoins.wallet.ui.arch.SideEffect {
   data class ShowPaymentError(
     val error: Error? = null,
     val refusalCode: Int? = null,
@@ -38,7 +38,7 @@ sealed class OnboardingPaymentResultSideEffect : SideEffect {
   object NavigateBackToPaymentMethods : OnboardingPaymentResultSideEffect()
 }
 
-object OnboardingPaymentResultState : ViewState
+object OnboardingPaymentResultState : com.appcoins.wallet.ui.arch.ViewState
 
 @HiltViewModel
 class OnboardingPaymentResultViewModel @Inject constructor(
@@ -46,10 +46,10 @@ class OnboardingPaymentResultViewModel @Inject constructor(
   private val events: OnboardingPaymentEvents,
   private val setOnboardingCompletedUseCase: SetOnboardingCompletedUseCase,
   private val supportInteractor: SupportInteractor,
-  private val rxSchedulers: RxSchedulers,
+  private val rxSchedulers: com.appcoins.wallet.ui.arch.RxSchedulers,
   savedStateHandle: SavedStateHandle
 ) :
-  BaseViewModel<OnboardingPaymentResultState, OnboardingPaymentResultSideEffect>(
+  com.appcoins.wallet.ui.arch.BaseViewModel<OnboardingPaymentResultState, OnboardingPaymentResultSideEffect>(
     OnboardingPaymentResultState
   ) {
 

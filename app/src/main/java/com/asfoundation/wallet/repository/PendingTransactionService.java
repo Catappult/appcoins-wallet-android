@@ -1,6 +1,6 @@
 package com.asfoundation.wallet.repository;
 
-import com.asfoundation.wallet.base.RxSchedulers;
+import com.appcoins.wallet.ui.arch.RxSchedulers;
 import com.asfoundation.wallet.entity.PendingTransaction;
 import io.reactivex.Observable;
 import it.czerwinski.android.hilt.annotations.BoundTo;

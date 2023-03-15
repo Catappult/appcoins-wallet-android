@@ -8,7 +8,7 @@ import com.appcoins.wallet.bdsbilling.repository.entity.Gateway;
 import com.appcoins.wallet.bdsbilling.repository.entity.Transaction;
 import com.appcoins.wallet.billing.BillingMessagesMapper;
 import com.appcoins.wallet.commons.MemoryCache;
-import com.asfoundation.wallet.base.RxSchedulers;
+import com.appcoins.wallet.ui.arch.RxSchedulers;
 import com.asfoundation.wallet.billing.partners.AddressService;
 import com.asfoundation.wallet.entity.GasSettings;
 import com.asfoundation.wallet.entity.PendingTransaction;

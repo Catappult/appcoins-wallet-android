@@ -1,6 +1,6 @@
 package com.asfoundation.wallet.service
 
-import com.asfoundation.wallet.base.RxSchedulers
+import com.appcoins.wallet.ui.arch.RxSchedulers
 import com.asfoundation.wallet.entity.AutoUpdateResponse
 import com.asfoundation.wallet.viewmodel.AutoUpdateModel
 import io.reactivex.Single
@@ -9,7 +9,7 @@ import javax.inject.Inject
 
 class AutoUpdateService @Inject constructor(
   private val api: AutoUpdateApi,
-  private val rxSchedulers: RxSchedulers
+  private val rxSchedulers: com.appcoins.wallet.ui.arch.RxSchedulers
 ) {
 
   fun loadAutoUpdateModel(): Single<AutoUpdateModel> {

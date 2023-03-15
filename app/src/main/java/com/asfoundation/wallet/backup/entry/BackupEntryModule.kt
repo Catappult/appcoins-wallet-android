@@ -2,7 +2,7 @@ package com.asfoundation.wallet.backup.entry
 
 import androidx.fragment.app.Fragment
 import com.asfoundation.wallet.backup.entry.BackupEntryFragment.Companion.WALLET_ADDRESS_KEY
-import com.asfoundation.wallet.base.RxSchedulers
+import com.appcoins.wallet.ui.arch.RxSchedulers
 import com.asfoundation.wallet.util.CurrencyFormatUtils
 import com.asfoundation.wallet.wallets.usecases.GetWalletInfoUseCase
 import dagger.Module
@@ -19,7 +19,7 @@ class BackupEntryModule {
     getWalletInfoUseCase: GetWalletInfoUseCase,
     currencyFormatUtils: CurrencyFormatUtils,
     data: BackupEntryData,
-    rxSchedulers: RxSchedulers,
+    rxSchedulers: com.appcoins.wallet.ui.arch.RxSchedulers,
   ): BackupEntryViewModelFactory {
     return BackupEntryViewModelFactory(
       data,

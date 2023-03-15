@@ -1,4 +1,4 @@
-package com.asfoundation.wallet.base
+package com.appcoins.wallet.ui.arch
 
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleCoroutineScope

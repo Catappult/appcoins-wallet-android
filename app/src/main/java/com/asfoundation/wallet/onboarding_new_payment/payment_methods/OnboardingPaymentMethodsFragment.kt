@@ -21,8 +21,8 @@ import by.kirich1409.viewbindingdelegate.viewBinding
 import com.asf.wallet.BuildConfig
 import com.asf.wallet.R
 import com.asf.wallet.databinding.OnboardingPaymentMethodsFragmentBinding
-import com.asfoundation.wallet.base.Async
-import com.asfoundation.wallet.base.SingleStateFragment
+import com.appcoins.wallet.ui.arch.Async
+import com.appcoins.wallet.ui.arch.SingleStateFragment
 import com.asfoundation.wallet.onboarding_new_payment.payment_methods.list.PaymentMethodClick
 import com.asfoundation.wallet.onboarding_new_payment.payment_methods.list.PaymentMethodsController
 import com.asfoundation.wallet.ui.iab.PaymentMethod
@@ -34,7 +34,7 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class OnboardingPaymentMethodsFragment : BasePageViewFragment(),
-  SingleStateFragment<OnboardingPaymentMethodsState, OnboardingPaymentMethodsSideEffect> {
+  com.appcoins.wallet.ui.arch.SingleStateFragment<OnboardingPaymentMethodsState, OnboardingPaymentMethodsSideEffect> {
 
   private val viewModel: OnboardingPaymentMethodsViewModel by viewModels()
   private val views by viewBinding(OnboardingPaymentMethodsFragmentBinding::bind)
@@ -91,18 +91,18 @@ class OnboardingPaymentMethodsFragment : BasePageViewFragment(),
 
   override fun onStateChanged(state: OnboardingPaymentMethodsState) {
     when (state.paymentMethodsAsync) {
-      Async.Uninitialized,
-      is Async.Loading -> {
+      com.appcoins.wallet.ui.arch.Async.Uninitialized,
+      is com.appcoins.wallet.ui.arch.Async.Loading -> {
         //TODO add a skeleton while the list loads
       }
-      is Async.Success -> {
+      is com.appcoins.wallet.ui.arch.Async.Success -> {
         if (state.paymentMethodsAsync()?.isEmpty() == true) {
           handleNoPaymentMethodsError()
         } else {
           showPaymentMethodsList(state.paymentMethodsAsync(), state.otherPaymentMethods)
         }
       }
-      is Async.Fail -> {
+      is com.appcoins.wallet.ui.arch.Async.Fail -> {
         handleNoPaymentMethodsError()
       }
     }

@@ -1,9 +1,9 @@
 package com.asfoundation.wallet.promotions.ui.vip_referral
 
-import com.asfoundation.wallet.base.Async
-import com.asfoundation.wallet.base.BaseViewModel
-import com.asfoundation.wallet.base.SideEffect
-import com.asfoundation.wallet.base.ViewState
+import com.appcoins.wallet.ui.arch.Async
+import com.appcoins.wallet.ui.arch.BaseViewModel
+import com.appcoins.wallet.ui.arch.SideEffect
+import com.appcoins.wallet.ui.arch.ViewState
 import com.asfoundation.wallet.promotions.usecases.ConvertToLocalFiatUseCase
 import com.asfoundation.wallet.ui.iab.FiatValue
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -11,11 +11,11 @@ import javax.inject.Inject
 
 
 data class PromotionsVipReferralState(
-  val convertTotalAsync: Async<FiatValue> = Async.Uninitialized,
+  val convertTotalAsync: com.appcoins.wallet.ui.arch.Async<FiatValue> = com.appcoins.wallet.ui.arch.Async.Uninitialized,
   val shouldShowDefault: Boolean = false
-) : ViewState
+) : com.appcoins.wallet.ui.arch.ViewState
 
-sealed class PromotionsVipReferralSideEffect : SideEffect {
+sealed class PromotionsVipReferralSideEffect : com.appcoins.wallet.ui.arch.SideEffect {
   object NavigateBack : PromotionsVipReferralSideEffect()
 }
 
@@ -23,7 +23,7 @@ sealed class PromotionsVipReferralSideEffect : SideEffect {
 class PromotionsVipReferralViewModel @Inject constructor(
   private val convertToLocalFiatUseCase: ConvertToLocalFiatUseCase
 ) :
-  BaseViewModel<PromotionsVipReferralState, PromotionsVipReferralSideEffect>(initialState()) {
+  com.appcoins.wallet.ui.arch.BaseViewModel<PromotionsVipReferralState, PromotionsVipReferralSideEffect>(initialState()) {
 
   companion object {
     fun initialState(): PromotionsVipReferralState {

@@ -26,8 +26,8 @@ import com.appcoins.wallet.billing.repository.entity.TransactionData
 import com.asf.wallet.BuildConfig
 import com.asf.wallet.R
 import com.asf.wallet.databinding.OnboardingAdyenPaymentFragmentBinding
-import com.asfoundation.wallet.base.Async
-import com.asfoundation.wallet.base.SingleStateFragment
+import com.appcoins.wallet.ui.arch.Async
+import com.appcoins.wallet.ui.arch.SingleStateFragment
 import com.asfoundation.wallet.billing.adyen.AdyenCardWrapper
 import com.asfoundation.wallet.billing.adyen.PaymentType
 import com.asfoundation.wallet.util.AdyenCardView
@@ -39,7 +39,7 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class OnboardingAdyenPaymentFragment : BasePageViewFragment(),
-  SingleStateFragment<OnboardingAdyenPaymentState, OnboardingAdyenPaymentSideEffect> {
+  com.appcoins.wallet.ui.arch.SingleStateFragment<OnboardingAdyenPaymentState, OnboardingAdyenPaymentSideEffect> {
 
   private val viewModel: OnboardingAdyenPaymentViewModel by viewModels()
   private val views by viewBinding(OnboardingAdyenPaymentFragmentBinding::bind)
@@ -104,11 +104,11 @@ class OnboardingAdyenPaymentFragment : BasePageViewFragment(),
 
   override fun onStateChanged(state: OnboardingAdyenPaymentState) {
     when (state.paymentInfoModel) {
-      Async.Uninitialized,
-      is Async.Loading -> {
+      com.appcoins.wallet.ui.arch.Async.Uninitialized,
+      is com.appcoins.wallet.ui.arch.Async.Loading -> {
         views.loadingAnimation.playAnimation()
       }
-      is Async.Success -> {
+      is com.appcoins.wallet.ui.arch.Async.Success -> {
         state.paymentInfoModel()?.let {
           when (args.paymentType) {
             PaymentType.CARD -> {
@@ -121,7 +121,7 @@ class OnboardingAdyenPaymentFragment : BasePageViewFragment(),
           }
         }
       }
-      is Async.Fail -> Unit
+      is com.appcoins.wallet.ui.arch.Async.Fail -> Unit
     }
   }
 

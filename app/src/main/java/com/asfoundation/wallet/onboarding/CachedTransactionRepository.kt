@@ -1,6 +1,6 @@
 package com.asfoundation.wallet.onboarding
 
-import com.asfoundation.wallet.base.RxSchedulers
+import com.appcoins.wallet.ui.arch.RxSchedulers
 import com.google.gson.annotations.SerializedName
 import io.reactivex.Single
 import retrofit2.http.GET
@@ -8,7 +8,7 @@ import javax.inject.Inject
 
 class CachedTransactionRepository @Inject constructor(
   val api: CachedTransactionApi,
-  val rxSchedulers: RxSchedulers
+  val rxSchedulers: com.appcoins.wallet.ui.arch.RxSchedulers
 ) {
 
   fun getCachedTransaction(): Single<CachedTransaction> {

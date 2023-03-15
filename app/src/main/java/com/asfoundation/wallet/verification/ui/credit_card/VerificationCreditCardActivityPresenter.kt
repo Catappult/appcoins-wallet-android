@@ -1,7 +1,7 @@
 package com.asfoundation.wallet.verification.ui.credit_card
 
 import android.os.Bundle
-import com.asfoundation.wallet.base.RxSchedulers
+import com.appcoins.wallet.ui.arch.RxSchedulers
 import com.asfoundation.wallet.verification.ui.credit_card.code.VerificationCodeFragment
 import com.asfoundation.wallet.verification.ui.credit_card.error.VerificationErrorFragment
 import com.asfoundation.wallet.verification.ui.credit_card.network.VerificationStatus
@@ -11,7 +11,7 @@ class VerificationCreditCardActivityPresenter(
   private val view: VerificationCreditCardActivityView,
   private val navigator: VerificationCreditCardActivityNavigator,
   private val interactor: VerificationCreditCardActivityInteractor,
-  private val rxSchedulers: RxSchedulers,
+  private val rxSchedulers: com.appcoins.wallet.ui.arch.RxSchedulers,
   private val disposable: CompositeDisposable,
   private val analytics: VerificationAnalytics
 ) {

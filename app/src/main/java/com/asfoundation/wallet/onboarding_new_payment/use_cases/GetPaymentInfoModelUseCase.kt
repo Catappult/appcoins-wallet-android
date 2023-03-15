@@ -4,7 +4,7 @@ import com.appcoins.wallet.bdsbilling.WalletService
 import com.appcoins.wallet.billing.adyen.AdyenPaymentRepository
 import com.appcoins.wallet.billing.adyen.AdyenResponseMapper
 import com.appcoins.wallet.billing.adyen.PaymentInfoModel
-import com.asfoundation.wallet.base.RxSchedulers
+import com.appcoins.wallet.ui.arch.RxSchedulers
 import com.asfoundation.wallet.billing.adyen.PaymentType
 import io.reactivex.Single
 import javax.inject.Inject
@@ -13,7 +13,7 @@ class GetPaymentInfoModelUseCase @Inject constructor(
   private val adyenApi: AdyenPaymentRepository.AdyenApi,
   private val adyenResponseMapper: AdyenResponseMapper,
   private val walletService: WalletService,
-  private val rxSchedulers: RxSchedulers
+  private val rxSchedulers: com.appcoins.wallet.ui.arch.RxSchedulers
 ) {
 
   operator fun invoke(

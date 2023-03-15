@@ -4,7 +4,7 @@ import com.appcoins.wallet.bdsbilling.WalletService
 import com.appcoins.wallet.billing.adyen.AdyenPaymentRepository
 import com.appcoins.wallet.billing.adyen.PaymentInfoModel
 import com.appcoins.wallet.billing.adyen.VerificationInfoResponse
-import com.asfoundation.wallet.base.RxSchedulers
+import com.appcoins.wallet.ui.arch.RxSchedulers
 import com.asfoundation.wallet.billing.adyen.AdyenPaymentInteractor
 import com.asfoundation.wallet.verification.repository.BrokerVerificationRepository
 import com.asfoundation.wallet.verification.ui.credit_card.intro.VerificationInfoModel
@@ -16,7 +16,7 @@ class GetVerificationInfoUseCase @Inject constructor(
   private val walletService: WalletService,
   private val brokerVerificationRepository: BrokerVerificationRepository,
   private val adyenPaymentInteractor: AdyenPaymentInteractor,
-  private val rxSchedulers: RxSchedulers
+  private val rxSchedulers: com.appcoins.wallet.ui.arch.RxSchedulers
 ) {
 
   operator fun invoke(method: AdyenPaymentRepository.Methods): Single<VerificationIntroModel> {

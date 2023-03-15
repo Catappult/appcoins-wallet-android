@@ -9,8 +9,8 @@ import androidx.lifecycle.lifecycleScope
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.asf.wallet.R
 import com.asf.wallet.databinding.FragmentNftsBinding
-import com.asfoundation.wallet.base.Async
-import com.asfoundation.wallet.base.SingleStateFragment
+import com.appcoins.wallet.ui.arch.Async
+import com.appcoins.wallet.ui.arch.SingleStateFragment
 import com.asfoundation.wallet.nfts.domain.NFTItem
 import com.asfoundation.wallet.nfts.list.NFTsController
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
@@ -18,7 +18,8 @@ import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class NFTFragment : BasePageViewFragment(), SingleStateFragment<NFTState, NFTSideEffect> {
+class NFTFragment : BasePageViewFragment(),
+  com.appcoins.wallet.ui.arch.SingleStateFragment<NFTState, NFTSideEffect> {
 
 
   @Inject
@@ -68,18 +69,18 @@ class NFTFragment : BasePageViewFragment(), SingleStateFragment<NFTState, NFTSid
     views.noNetwork.retryButton.setOnClickListener { networkRetry() }
   }
 
-  private fun setNFTItem(asyncNFTListModel: Async<List<NFTItem>>) {
+  private fun setNFTItem(asyncNFTListModel: com.appcoins.wallet.ui.arch.Async<List<NFTItem>>) {
     when (asyncNFTListModel) {
-      Async.Uninitialized, is Async.Loading -> {
+      com.appcoins.wallet.ui.arch.Async.Uninitialized, is com.appcoins.wallet.ui.arch.Async.Loading -> {
         if (asyncNFTListModel.value == null) {
           showLoading()
         }
       }
-      is Async.Fail -> {
+      is com.appcoins.wallet.ui.arch.Async.Fail -> {
         hideLoading()
         showNetworkErrorView()
       }
-      is Async.Success -> {
+      is com.appcoins.wallet.ui.arch.Async.Success -> {
         setNFTs(asyncNFTListModel())
       }
     }

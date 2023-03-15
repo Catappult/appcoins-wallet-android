@@ -8,9 +8,9 @@ import by.kirich1409.viewbindingdelegate.viewBinding
 import com.asf.wallet.R
 import com.asf.wallet.databinding.BackupTriggerDialogFragmentBinding
 import com.asfoundation.wallet.backup.repository.preferences.BackupTriggerPreferences
-import com.asfoundation.wallet.base.SideEffect
-import com.asfoundation.wallet.base.SingleStateFragment
-import com.asfoundation.wallet.base.ViewState
+import com.appcoins.wallet.ui.arch.SideEffect
+import com.appcoins.wallet.ui.arch.SingleStateFragment
+import com.appcoins.wallet.ui.arch.ViewState
 import com.asfoundation.wallet.billing.analytics.WalletsAnalytics
 import com.asfoundation.wallet.billing.analytics.WalletsEventSender
 import com.google.android.material.bottomsheet.BottomSheetBehavior
@@ -20,7 +20,7 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class BackupTriggerDialogFragment : BottomSheetDialogFragment(),
-  SingleStateFragment<ViewState, SideEffect> {
+  com.appcoins.wallet.ui.arch.SingleStateFragment<com.appcoins.wallet.ui.arch.ViewState, com.appcoins.wallet.ui.arch.SideEffect> {
 
   @Inject
   lateinit var navigator: BackupTriggerDialogNavigator
@@ -105,7 +105,7 @@ class BackupTriggerDialogFragment : BottomSheetDialogFragment(),
     return R.style.AppBottomSheetDialogThemeNotDraggable
   }
 
-  override fun onStateChanged(state: ViewState) = Unit
+  override fun onStateChanged(state: com.appcoins.wallet.ui.arch.ViewState) = Unit
 
-  override fun onSideEffect(sideEffect: SideEffect) = Unit
+  override fun onSideEffect(sideEffect: com.appcoins.wallet.ui.arch.SideEffect) = Unit
 }

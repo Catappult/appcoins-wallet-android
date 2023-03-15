@@ -5,10 +5,10 @@ import android.net.Uri
 import android.text.format.DateUtils
 import com.appcoins.wallet.gamification.repository.Levels
 import com.appcoins.wallet.gamification.repository.entity.GamificationStatus
+import com.appcoins.wallet.ui.arch.*
 import com.asf.wallet.BuildConfig
 import com.asfoundation.wallet.backup.repository.preferences.BackupTriggerPreferences
 import com.asfoundation.wallet.backup.use_cases.ShouldShowBackupTriggerUseCase
-import com.asfoundation.wallet.base.*
 import com.asfoundation.wallet.billing.analytics.WalletsAnalytics
 import com.asfoundation.wallet.billing.analytics.WalletsEventSender
 import com.asfoundation.wallet.entity.GlobalBalance

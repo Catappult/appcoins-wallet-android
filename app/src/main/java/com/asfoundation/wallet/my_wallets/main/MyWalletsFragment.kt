@@ -15,8 +15,8 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.asf.wallet.R
 import com.asf.wallet.databinding.FragmentMyWalletsBinding
-import com.asfoundation.wallet.base.Async
-import com.asfoundation.wallet.base.SingleStateFragment
+import com.appcoins.wallet.ui.arch.Async
+import com.appcoins.wallet.ui.arch.SingleStateFragment
 import com.asfoundation.wallet.billing.analytics.WalletsAnalytics
 import com.asfoundation.wallet.billing.analytics.WalletsEventSender
 import com.asfoundation.wallet.entity.Wallet
@@ -38,7 +38,7 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class MyWalletsFragment : BasePageViewFragment(),
-  SingleStateFragment<MyWalletsState, MyWalletsSideEffect> {
+  com.appcoins.wallet.ui.arch.SingleStateFragment<MyWalletsState, MyWalletsSideEffect> {
 
   @Inject
   lateinit var formatter: CurrencyFormatUtils
@@ -86,22 +86,22 @@ class MyWalletsFragment : BasePageViewFragment(),
 
   override fun onStateChanged(state: MyWalletsState) {
     when (val asyncValue = state.walletInfoAsync) {
-      Async.Uninitialized,
-      is Async.Loading -> {
+      com.appcoins.wallet.ui.arch.Async.Uninitialized,
+      is com.appcoins.wallet.ui.arch.Async.Loading -> {
         showWalletInfoLoading()
         showBackupLoading()
       }
-      is Async.Fail -> Unit
-      is Async.Success -> asyncValue().run {
+      is com.appcoins.wallet.ui.arch.Async.Fail -> Unit
+      is com.appcoins.wallet.ui.arch.Async.Success -> asyncValue().run {
         showWalletInfo()
         showBackup()
       }
     }
     when (val asyncValue = state.walletVerifiedAsync) {
-      Async.Uninitialized,
-      is Async.Loading -> showVerifyLoading()
-      is Async.Fail -> Unit
-      is Async.Success -> asyncValue().run {
+      com.appcoins.wallet.ui.arch.Async.Uninitialized,
+      is com.appcoins.wallet.ui.arch.Async.Loading -> showVerifyLoading()
+      is com.appcoins.wallet.ui.arch.Async.Fail -> Unit
+      is com.appcoins.wallet.ui.arch.Async.Success -> asyncValue().run {
         when (status) {
           BalanceVerificationStatus.VERIFIED -> showVerified(false)
           BalanceVerificationStatus.UNVERIFIED -> showUnverified(false)

@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.asf.wallet.R
 import com.asf.wallet.databinding.AlmostVipFragmentBinding
-import com.asfoundation.wallet.base.SingleStateFragment
+import com.appcoins.wallet.ui.arch.SingleStateFragment
 import com.asfoundation.wallet.promotions.ui.PromotionsSideEffect
 import com.asfoundation.wallet.promotions.ui.PromotionsState
 import com.asfoundation.wallet.viewmodel.BasePageViewDialogFragment
@@ -16,7 +16,7 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class AlmostVipDialogFragment : BasePageViewDialogFragment(),
-  SingleStateFragment<PromotionsState, PromotionsSideEffect> {
+  com.appcoins.wallet.ui.arch.SingleStateFragment<PromotionsState, PromotionsSideEffect> {
 
   private val views by viewBinding(AlmostVipFragmentBinding::bind)
 

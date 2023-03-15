@@ -1,10 +1,10 @@
 package com.asfoundation.wallet.main
 
 import androidx.lifecycle.SavedStateHandle
-import com.asfoundation.wallet.base.BaseViewModel
-import com.asfoundation.wallet.base.RxSchedulers
-import com.asfoundation.wallet.base.SideEffect
-import com.asfoundation.wallet.base.ViewState
+import com.appcoins.wallet.ui.arch.BaseViewModel
+import com.appcoins.wallet.ui.arch.RxSchedulers
+import com.appcoins.wallet.ui.arch.SideEffect
+import com.appcoins.wallet.ui.arch.ViewState
 import com.asfoundation.wallet.home.usecases.DisplayConversationListOrChatUseCase
 import com.asfoundation.wallet.main.use_cases.HasAuthenticationPermissionUseCase
 import com.asfoundation.wallet.main.use_cases.IncreaseLaunchCountUseCase
@@ -15,14 +15,14 @@ import com.asfoundation.wallet.update_required.use_cases.HasRequiredHardUpdateUs
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
-sealed class MainActivitySideEffect : SideEffect {
+sealed class MainActivitySideEffect : com.appcoins.wallet.ui.arch.SideEffect {
   object NavigateToOnboarding : MainActivitySideEffect()
   object NavigateToNavigationBar : MainActivitySideEffect()
   object NavigateToAutoUpdate : MainActivitySideEffect()
   object NavigateToFingerprintAuthentication : MainActivitySideEffect()
 }
 
-object MainActivityState : ViewState
+object MainActivityState : com.appcoins.wallet.ui.arch.ViewState
 
 @HiltViewModel
 class MainActivityViewModel @Inject constructor(
@@ -33,8 +33,8 @@ class MainActivityViewModel @Inject constructor(
   private val hasAuthenticationPermissionUseCase: HasAuthenticationPermissionUseCase,
   private val shouldShowOnboardingUseCase: ShouldShowOnboardingUseCase,
   private val savedStateHandle: SavedStateHandle,
-  private val rxSchedulers: RxSchedulers
-) : BaseViewModel<MainActivityState, MainActivitySideEffect>(MainActivityState) {
+  private val rxSchedulers: com.appcoins.wallet.ui.arch.RxSchedulers
+) : com.appcoins.wallet.ui.arch.BaseViewModel<MainActivityState, MainActivitySideEffect>(MainActivityState) {
 
   init {
     handleSupportNotificationClick()

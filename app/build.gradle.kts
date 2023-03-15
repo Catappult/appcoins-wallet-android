@@ -41,6 +41,7 @@ dependencies {
   implementation(project(":legacy:appcoinsRewards"))
   implementation(project(":legacy:skills"))
   implementation(project(":legacy:ethereumj-android"))
+  implementation(project(":ui:arch"))
 
   implementation(libs.kotlin.coroutines)
 

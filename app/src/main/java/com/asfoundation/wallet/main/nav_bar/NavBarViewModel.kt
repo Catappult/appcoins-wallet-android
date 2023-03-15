@@ -3,9 +3,9 @@ package com.asfoundation.wallet.main.nav_bar
 import androidx.lifecycle.viewModelScope
 import com.asfoundation.wallet.app_start.AppStartUseCase
 import com.asfoundation.wallet.app_start.StartMode
-import com.asfoundation.wallet.base.BaseViewModel
-import com.asfoundation.wallet.base.SideEffect
-import com.asfoundation.wallet.base.ViewState
+import com.appcoins.wallet.ui.arch.BaseViewModel
+import com.appcoins.wallet.ui.arch.SideEffect
+import com.appcoins.wallet.ui.arch.ViewState
 import com.asfoundation.wallet.main.use_cases.HasSeenPromotionTooltipUseCase
 import com.asfoundation.wallet.main.use_cases.IsNewVipUseCase
 import com.asfoundation.wallet.main.use_cases.SetVipPromotionsSeenUseCase
@@ -16,7 +16,7 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-sealed class NavBarSideEffect : SideEffect {
+sealed class NavBarSideEffect : com.appcoins.wallet.ui.arch.SideEffect {
   object ShowPromotionsTooltip : NavBarSideEffect()
   object ShowOnboardingGPInstall : NavBarSideEffect()
   object ShowOnboardingPendingPayment : NavBarSideEffect()
@@ -25,7 +25,7 @@ sealed class NavBarSideEffect : SideEffect {
 data class NavBarState(
   val showPromotionsBadge: Boolean = false,
   val shouldShowVipCallout: Boolean = false
-) : ViewState
+) : com.appcoins.wallet.ui.arch.ViewState
 
 @HiltViewModel
 class NavBarViewModel @Inject constructor(
@@ -34,7 +34,7 @@ class NavBarViewModel @Inject constructor(
   private val isNewVipUseCase: IsNewVipUseCase,
   private val setVipPromotionsSeenUseCase: SetVipPromotionsSeenUseCase,
   private val appStartUseCase: AppStartUseCase
-) : BaseViewModel<NavBarState, NavBarSideEffect>(NavBarState()) {
+) : com.appcoins.wallet.ui.arch.BaseViewModel<NavBarState, NavBarSideEffect>(NavBarState()) {
 
   init {
     handlePromotionUpdateNotification()

@@ -8,9 +8,9 @@ import by.kirich1409.viewbindingdelegate.viewBinding
 import com.asf.wallet.R
 import com.asf.wallet.databinding.BackupSuccessFragmentBinding
 import com.asfoundation.wallet.backup.repository.preferences.BackupTriggerPreferences
-import com.asfoundation.wallet.base.SideEffect
-import com.asfoundation.wallet.base.SingleStateFragment
-import com.asfoundation.wallet.base.ViewState
+import com.appcoins.wallet.ui.arch.SideEffect
+import com.appcoins.wallet.ui.arch.SingleStateFragment
+import com.appcoins.wallet.ui.arch.ViewState
 import com.asfoundation.wallet.billing.analytics.WalletsAnalytics
 import com.asfoundation.wallet.billing.analytics.WalletsEventSender
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
@@ -19,7 +19,7 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class BackupSuccessFragment : BasePageViewFragment(),
-  SingleStateFragment<ViewState, SideEffect> {
+  com.appcoins.wallet.ui.arch.SingleStateFragment<com.appcoins.wallet.ui.arch.ViewState, com.appcoins.wallet.ui.arch.SideEffect> {
 
   @Inject
   lateinit var backupTriggerPreferences: BackupTriggerPreferences
@@ -80,7 +80,7 @@ class BackupSuccessFragment : BasePageViewFragment(),
     views.backupSuccessInfo.body.text = context?.getString(info)
   }
 
-  override fun onStateChanged(state: ViewState) = Unit
+  override fun onStateChanged(state: com.appcoins.wallet.ui.arch.ViewState) = Unit
 
-  override fun onSideEffect(sideEffect: SideEffect) = Unit
+  override fun onSideEffect(sideEffect: com.appcoins.wallet.ui.arch.SideEffect) = Unit
 }

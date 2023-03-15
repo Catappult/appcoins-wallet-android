@@ -10,8 +10,8 @@ import androidx.lifecycle.lifecycleScope
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.asf.wallet.R
 import com.asf.wallet.databinding.FragmentWithdrawBinding
-import com.asfoundation.wallet.base.Async
-import com.asfoundation.wallet.base.SingleStateFragment
+import com.appcoins.wallet.ui.arch.Async
+import com.appcoins.wallet.ui.arch.SingleStateFragment
 import com.asfoundation.wallet.eskills.withdraw.domain.FailedWithdraw
 import com.asfoundation.wallet.eskills.withdraw.domain.SuccessfulWithdraw
 import com.asfoundation.wallet.eskills.withdraw.domain.WithdrawResult
@@ -23,7 +23,7 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class WithdrawFragment : BasePageViewFragment(),
-  SingleStateFragment<WithdrawState, WithdrawSideEffect> {
+  com.appcoins.wallet.ui.arch.SingleStateFragment<WithdrawState, WithdrawSideEffect> {
 
 
   @Inject
@@ -96,18 +96,18 @@ class WithdrawFragment : BasePageViewFragment(),
     views.layoutWithdrawEntry.paypalEmail.setText(userEmail)
   }
 
-  private fun handleAmountChangedState(asyncAvailableAmount: Async<BigDecimal>) {
+  private fun handleAmountChangedState(asyncAvailableAmount: com.appcoins.wallet.ui.arch.Async<BigDecimal>) {
     when (asyncAvailableAmount) {
-      Async.Uninitialized,
-      is Async.Loading -> {
+      com.appcoins.wallet.ui.arch.Async.Uninitialized,
+      is com.appcoins.wallet.ui.arch.Async.Loading -> {
         if (asyncAvailableAmount.value == null) {
           views.layoutWithdrawEntry.availableAmountSkeleton.playAnimation()
           views.layoutWithdrawEntry.availableAmountSkeleton.visibility = View.VISIBLE
         }
       }
-      is Async.Fail -> {
+      is com.appcoins.wallet.ui.arch.Async.Fail -> {
       }
-      is Async.Success -> {
+      is com.appcoins.wallet.ui.arch.Async.Success -> {
         setWithdrawAvailableAmount(asyncAvailableAmount())
       }
     }
@@ -122,18 +122,18 @@ class WithdrawFragment : BasePageViewFragment(),
     )
   }
 
-  private fun handleWithdrawChangedState(asyncWithdrawResult: Async<WithdrawResult>) {
+  private fun handleWithdrawChangedState(asyncWithdrawResult: com.appcoins.wallet.ui.arch.Async<WithdrawResult>) {
     when (asyncWithdrawResult) {
-      is Async.Uninitialized -> {
+      is com.appcoins.wallet.ui.arch.Async.Uninitialized -> {
         showEntryLayout()
       }
-      is Async.Loading -> {
+      is com.appcoins.wallet.ui.arch.Async.Loading -> {
         showLoadingLayout()
       }
-      is Async.Fail -> {
+      is com.appcoins.wallet.ui.arch.Async.Fail -> {
         handleErrorState(FailedWithdraw.GenericError(asyncWithdrawResult.error.toString()))
       }
-      is Async.Success -> {
+      is com.appcoins.wallet.ui.arch.Async.Success -> {
         handleSuccessState(asyncWithdrawResult())
       }
     }

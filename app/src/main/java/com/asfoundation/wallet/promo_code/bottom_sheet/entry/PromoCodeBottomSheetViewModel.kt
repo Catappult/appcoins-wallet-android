@@ -1,27 +1,26 @@
 package com.asfoundation.wallet.promo_code.bottom_sheet.entry
 
-import com.asfoundation.wallet.base.Async
-import com.asfoundation.wallet.base.BaseViewModel
-import com.asfoundation.wallet.base.SideEffect
-import com.asfoundation.wallet.base.ViewState
+import com.appcoins.wallet.ui.arch.Async
+import com.appcoins.wallet.ui.arch.BaseViewModel
+import com.appcoins.wallet.ui.arch.SideEffect
+import com.appcoins.wallet.ui.arch.ViewState
 import com.asfoundation.wallet.promo_code.FailedPromoCode
 import com.asfoundation.wallet.promo_code.PromoCodeResult
-import com.asfoundation.wallet.promo_code.repository.PromoCode
 import com.asfoundation.wallet.promo_code.use_cases.DeletePromoCodeUseCase
 import com.asfoundation.wallet.promo_code.use_cases.GetStoredPromoCodeResultUseCase
 import com.asfoundation.wallet.promo_code.use_cases.VerifyAndSavePromoCodeUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
-sealed class PromoCodeBottomSheetSideEffect : SideEffect {
+sealed class PromoCodeBottomSheetSideEffect : com.appcoins.wallet.ui.arch.SideEffect {
   object NavigateBack : PromoCodeBottomSheetSideEffect()
 }
 
 data class PromoCodeBottomSheetState(
-  val storedPromoCodeAsync: Async<PromoCodeResult> = Async.Uninitialized,
-  val submitPromoCodeAsync: Async<PromoCodeResult> = Async.Uninitialized,
+  val storedPromoCodeAsync: com.appcoins.wallet.ui.arch.Async<PromoCodeResult> = com.appcoins.wallet.ui.arch.Async.Uninitialized,
+  val submitPromoCodeAsync: com.appcoins.wallet.ui.arch.Async<PromoCodeResult> = com.appcoins.wallet.ui.arch.Async.Uninitialized,
   val shouldShowDefault: Boolean = false
-) : ViewState
+) : com.appcoins.wallet.ui.arch.ViewState
 
 @HiltViewModel
 class PromoCodeBottomSheetViewModel @Inject constructor(
@@ -29,7 +28,7 @@ class PromoCodeBottomSheetViewModel @Inject constructor(
   private val verifyAndSavePromoCodeUseCase: VerifyAndSavePromoCodeUseCase,
   private val deletePromoCodeUseCase: DeletePromoCodeUseCase
 ) :
-  BaseViewModel<PromoCodeBottomSheetState, PromoCodeBottomSheetSideEffect>(initialState()) {
+  com.appcoins.wallet.ui.arch.BaseViewModel<PromoCodeBottomSheetState, PromoCodeBottomSheetSideEffect>(initialState()) {
 
   // to prevent success being called multiple times when any async is changed
   var isFirstSuccess = true
@@ -65,7 +64,7 @@ class PromoCodeBottomSheetViewModel @Inject constructor(
 
   fun deleteClick() {
     deletePromoCodeUseCase()
-      .asAsyncToState { copy(storedPromoCodeAsync = Async.Uninitialized) }
+      .asAsyncToState { copy(storedPromoCodeAsync = com.appcoins.wallet.ui.arch.Async.Uninitialized) }
       .doOnComplete {
         sendSideEffect {
           PromoCodeBottomSheetSideEffect.NavigateBack
@@ -76,7 +75,7 @@ class PromoCodeBottomSheetViewModel @Inject constructor(
 
   private fun deleteCode() {
     deletePromoCodeUseCase()
-      .asAsyncToState { copy(storedPromoCodeAsync = Async.Uninitialized) }
+      .asAsyncToState { copy(storedPromoCodeAsync = com.appcoins.wallet.ui.arch.Async.Uninitialized) }
       .scopedSubscribe()
   }
 }

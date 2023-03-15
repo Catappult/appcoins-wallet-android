@@ -1,7 +1,9 @@
 package com.asfoundation.wallet.recover.entry
 
 import android.net.Uri
-import com.asfoundation.wallet.base.*
+import com.appcoins.wallet.ui.arch.Async
+import com.appcoins.wallet.ui.arch.SideEffect
+import com.appcoins.wallet.ui.arch.ViewState
 import com.asfoundation.wallet.billing.analytics.WalletsAnalytics
 import com.asfoundation.wallet.billing.analytics.WalletsEventSender
 import com.asfoundation.wallet.entity.WalletKeyStore
@@ -36,8 +38,8 @@ class RecoverEntryViewModel @Inject constructor(
   private val updateBackupStateFromRecoverUseCase: UpdateBackupStateFromRecoverUseCase,
   private val updateWalletNameUseCase: UpdateWalletNameUseCase,
   private val walletsEventSender: WalletsEventSender,
-  private val rxSchedulers: RxSchedulers
-) : BaseViewModel<RecoverEntryState, RecoverEntrySideEffect>(initialState()) {
+  private val rxSchedulers: com.appcoins.wallet.ui.arch.RxSchedulers
+) : com.appcoins.wallet.ui.arch.BaseViewModel<RecoverEntryState, RecoverEntrySideEffect>(initialState()) {
 
   companion object {
     fun initialState(): RecoverEntryState = RecoverEntryState()
@@ -97,7 +99,7 @@ class RecoverEntryViewModel @Inject constructor(
         )
       }
       is FailedEntryRecover.InvalidPassword -> {
-        setState { copy(recoverResultAsync = Async.Uninitialized) }
+        setState { copy(recoverResultAsync = com.appcoins.wallet.ui.arch.Async.Uninitialized) }
       }
       else -> {
         walletsEventSender.sendWalletRestoreEvent(

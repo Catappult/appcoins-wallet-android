@@ -11,8 +11,8 @@ import androidx.lifecycle.lifecycleScope
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.asf.wallet.R
 import com.asf.wallet.databinding.FragmentMyWalletsNameBinding
-import com.asfoundation.wallet.base.Async
-import com.asfoundation.wallet.base.SingleStateFragment
+import com.appcoins.wallet.ui.arch.Async
+import com.appcoins.wallet.ui.arch.SingleStateFragment
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
@@ -20,7 +20,7 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class NameDialogFragment : BottomSheetDialogFragment(),
-  SingleStateFragment<NameDialogState, NameDialogSideEffect> {
+  com.appcoins.wallet.ui.arch.SingleStateFragment<NameDialogState, NameDialogSideEffect> {
 
   @Inject
   lateinit var navigator: NameDialogNavigator
@@ -58,10 +58,10 @@ class NameDialogFragment : BottomSheetDialogFragment(),
 
   override fun onStateChanged(state: NameDialogState) {
     when (val asyncValue = state.walletNameAsync) {
-      Async.Uninitialized,
-      is Async.Loading -> showWalletInfoLoading()
-      is Async.Fail -> Unit
-      is Async.Success -> showWalletInfo(asyncValue())
+      com.appcoins.wallet.ui.arch.Async.Uninitialized,
+      is com.appcoins.wallet.ui.arch.Async.Loading -> showWalletInfoLoading()
+      is com.appcoins.wallet.ui.arch.Async.Fail -> Unit
+      is com.appcoins.wallet.ui.arch.Async.Success -> showWalletInfo(asyncValue())
     }
   }
 

@@ -11,8 +11,8 @@ import androidx.lifecycle.lifecycleScope
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.asf.wallet.R
 import com.asf.wallet.databinding.UpdateRequiredFragmentBinding
-import com.asfoundation.wallet.base.Async
-import com.asfoundation.wallet.base.SingleStateFragment
+import com.appcoins.wallet.ui.arch.Async
+import com.appcoins.wallet.ui.arch.SingleStateFragment
 import com.asfoundation.wallet.ui.wallets.WalletsModel
 import com.asfoundation.wallet.update_required.wallets_list.WalletSelectionAdapter
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
@@ -21,7 +21,7 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class UpdateRequiredFragment : BasePageViewFragment(),
-  SingleStateFragment<UpdateRequiredState, UpdateRequiredSideEffect> {
+  com.appcoins.wallet.ui.arch.SingleStateFragment<UpdateRequiredState, UpdateRequiredSideEffect> {
 
   @Inject
   lateinit var navigator: UpdateRequiredNavigator
@@ -67,12 +67,12 @@ class UpdateRequiredFragment : BasePageViewFragment(),
 
   override fun onStateChanged(state: UpdateRequiredState) {
     when (val walletsModel = state.walletsModel) {
-      is Async.Uninitialized,
-      is Async.Loading,
-      is Async.Fail -> {
+      is com.appcoins.wallet.ui.arch.Async.Uninitialized,
+      is com.appcoins.wallet.ui.arch.Async.Loading,
+      is com.appcoins.wallet.ui.arch.Async.Fail -> {
         views.updateRequiredBackupContainer.visibility = View.GONE
       }
-      is Async.Success -> {
+      is com.appcoins.wallet.ui.arch.Async.Success -> {
         handleBackupOption(walletsModel())
       }
     }

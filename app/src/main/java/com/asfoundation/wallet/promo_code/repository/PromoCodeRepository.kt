@@ -1,7 +1,7 @@
 package com.asfoundation.wallet.promo_code.repository
 
 import com.asfoundation.wallet.analytics.AnalyticsSetup
-import com.asfoundation.wallet.base.RxSchedulers
+import com.appcoins.wallet.ui.arch.RxSchedulers
 import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Single
@@ -14,7 +14,7 @@ class PromoCodeRepository @Inject constructor(
   private val promoCodeBackendApi: PromoCodeBackendApi,
   private val promoCodeLocalDataSource: PromoCodeLocalDataSource,
   private val analyticsSetup: AnalyticsSetup,
-  private val rxSchedulers: RxSchedulers
+  private val rxSchedulers: com.appcoins.wallet.ui.arch.RxSchedulers
 ) {
 
   fun verifyAndSavePromoCode(promoCodeString: String): Single<PromoCode> {

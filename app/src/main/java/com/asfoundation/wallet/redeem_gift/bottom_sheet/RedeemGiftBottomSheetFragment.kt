@@ -12,8 +12,8 @@ import androidx.lifecycle.lifecycleScope
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.asf.wallet.R
 import com.asf.wallet.databinding.SettingsRedeemGiftBottomSheetLayoutBinding
-import com.asfoundation.wallet.base.Async
-import com.asfoundation.wallet.base.SingleStateFragment
+import com.appcoins.wallet.ui.arch.Async
+import com.appcoins.wallet.ui.arch.SingleStateFragment
 import com.asfoundation.wallet.redeem_gift.repository.FailedRedeem
 import com.asfoundation.wallet.redeem_gift.repository.SuccessfulRedeem
 import com.asfoundation.wallet.util.KeyboardUtils
@@ -25,7 +25,7 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class RedeemGiftBottomSheetFragment : BottomSheetDialogFragment(),
-  SingleStateFragment<RedeemGiftBottomSheetState, RedeemGiftBottomSheetSideEffect> {
+  com.appcoins.wallet.ui.arch.SingleStateFragment<RedeemGiftBottomSheetState, RedeemGiftBottomSheetSideEffect> {
 
 
   @Inject
@@ -83,17 +83,17 @@ class RedeemGiftBottomSheetFragment : BottomSheetDialogFragment(),
 
   override fun onStateChanged(state: RedeemGiftBottomSheetState) {
     when (val clickAsync = state.submitRedeemAsync) {
-      is Async.Uninitialized ->  {
+      is com.appcoins.wallet.ui.arch.Async.Uninitialized ->  {
       }
-      is Async.Loading -> {
+      is com.appcoins.wallet.ui.arch.Async.Loading -> {
         if (clickAsync.value == null) {
           showLoading()
         }
       }
-      is Async.Fail -> {
+      is com.appcoins.wallet.ui.arch.Async.Fail -> {
         showErrorMessage(FailedRedeem.GenericError(""))
       }
-      is Async.Success -> {
+      is com.appcoins.wallet.ui.arch.Async.Success -> {
         state.submitRedeemAsync.value?.let { redeemState ->
           if (redeemState is SuccessfulRedeem)
             showSuccess()

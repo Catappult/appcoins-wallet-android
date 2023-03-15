@@ -9,7 +9,7 @@ import com.airbnb.epoxy.EpoxyModelClass
 import com.airbnb.epoxy.EpoxyModelWithHolder
 import com.airbnb.lottie.LottieAnimationView
 import com.asf.wallet.R
-import com.asfoundation.wallet.base.Async
+import com.appcoins.wallet.ui.arch.Async
 import com.asfoundation.wallet.entity.GlobalBalance
 import com.asfoundation.wallet.home.ui.list.HomeListClick
 import com.asfoundation.wallet.ui.balance.TokenBalance
@@ -22,7 +22,7 @@ import java.math.BigDecimal
 abstract class HomeWalletInfoModel : EpoxyModelWithHolder<HomeWalletInfoModel.WalletInfoHolder>() {
 
   @EpoxyAttribute
-  lateinit var balanceAsync: Async<GlobalBalance>
+  lateinit var balanceAsync: com.appcoins.wallet.ui.arch.Async<GlobalBalance>
 
   @EpoxyAttribute(EpoxyAttribute.Option.DoNotHash)
   lateinit var formatter: CurrencyFormatUtils
@@ -34,13 +34,13 @@ abstract class HomeWalletInfoModel : EpoxyModelWithHolder<HomeWalletInfoModel.Wa
 
   override fun bind(holder: WalletInfoHolder) {
     when (val balAsync = balanceAsync) {
-      Async.Uninitialized,
-      is Async.Loading -> {
+      com.appcoins.wallet.ui.arch.Async.Uninitialized,
+      is com.appcoins.wallet.ui.arch.Async.Loading -> {
         if (balAsync() == null) {
           holder.showSkeleton()
         }
       }
-      is Async.Success -> {
+      is com.appcoins.wallet.ui.arch.Async.Success -> {
         holder.setWalletBalance(balAsync())
       }
       else -> Unit

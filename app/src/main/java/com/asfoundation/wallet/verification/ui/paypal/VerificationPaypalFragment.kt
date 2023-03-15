@@ -12,9 +12,9 @@ import androidx.lifecycle.lifecycleScope
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.asf.wallet.R
 import com.asf.wallet.databinding.FragmentVerifyPaypalIntroBinding
-import com.asfoundation.wallet.base.Async
-import com.asfoundation.wallet.base.Error
-import com.asfoundation.wallet.base.SingleStateFragment
+import com.appcoins.wallet.ui.arch.Async
+import com.appcoins.wallet.ui.arch.Error
+import com.appcoins.wallet.ui.arch.SingleStateFragment
 import com.asfoundation.wallet.ui.iab.WebViewActivity
 import com.asfoundation.wallet.util.CurrencyFormatUtils
 import com.asfoundation.wallet.util.WalletCurrency
@@ -25,7 +25,7 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class VerificationPaypalFragment : BasePageViewFragment(),
-    SingleStateFragment<VerificationPaypalIntroState, VerificationPaypalIntroSideEffect> {
+  com.appcoins.wallet.ui.arch.SingleStateFragment<VerificationPaypalIntroState, VerificationPaypalIntroSideEffect> {
 
   @Inject
   lateinit var viewModelFactory: VerificationPaypalViewModelFactory
@@ -70,19 +70,19 @@ class VerificationPaypalFragment : BasePageViewFragment(),
 
   override fun onStateChanged(state: VerificationPaypalIntroState) {
     when (state.verificationSubmitAsync) {
-      Async.Uninitialized -> setVerificationInfoAsync(state.verificationInfoAsync)
-      is Async.Loading -> showLoading()
-      is Async.Fail -> setError(state.verificationSubmitAsync.error)
-      is Async.Success -> showSuccessValidation()
+      com.appcoins.wallet.ui.arch.Async.Uninitialized -> setVerificationInfoAsync(state.verificationInfoAsync)
+      is com.appcoins.wallet.ui.arch.Async.Loading -> showLoading()
+      is com.appcoins.wallet.ui.arch.Async.Fail -> setError(state.verificationSubmitAsync.error)
+      is com.appcoins.wallet.ui.arch.Async.Success -> showSuccessValidation()
     }
   }
 
-  private fun setVerificationInfoAsync(verificationInfoAsync: Async<VerificationIntroModel>) {
+  private fun setVerificationInfoAsync(verificationInfoAsync: com.appcoins.wallet.ui.arch.Async<VerificationIntroModel>) {
     when (verificationInfoAsync) {
-      Async.Uninitialized,
-      is Async.Loading -> showLoading()
-      is Async.Success -> showVerificationInfo(verificationInfoAsync())
-      is Async.Fail -> setError(verificationInfoAsync.error)
+      com.appcoins.wallet.ui.arch.Async.Uninitialized,
+      is com.appcoins.wallet.ui.arch.Async.Loading -> showLoading()
+      is com.appcoins.wallet.ui.arch.Async.Success -> showVerificationInfo(verificationInfoAsync())
+      is com.appcoins.wallet.ui.arch.Async.Fail -> setError(verificationInfoAsync.error)
     }
   }
 
@@ -94,8 +94,8 @@ class VerificationPaypalFragment : BasePageViewFragment(),
     }
   }
 
-  private fun setError(error: Error) {
-    if (error is Error.ApiError.NetworkError)
+  private fun setError(error: com.appcoins.wallet.ui.arch.Error) {
+    if (error is com.appcoins.wallet.ui.arch.Error.ApiError.NetworkError)
       showNetworkError()
     else if (error.throwable.message.equals(WebViewActivity.USER_CANCEL_THROWABLE))
       handleUserCancelError()

@@ -11,8 +11,8 @@ import by.kirich1409.viewbindingdelegate.viewBinding
 import com.asf.wallet.R
 import com.asf.wallet.databinding.ChooseCurrencyBottomSheetBinding
 import com.asfoundation.wallet.GlideApp
-import com.asfoundation.wallet.base.Async
-import com.asfoundation.wallet.base.SingleStateFragment
+import com.appcoins.wallet.ui.arch.Async
+import com.appcoins.wallet.ui.arch.SingleStateFragment
 import com.asfoundation.wallet.change_currency.FiatCurrencyEntity
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.google.android.material.bottomsheet.BottomSheetBehavior
@@ -22,7 +22,7 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class ChooseCurrencyBottomSheetFragment : BottomSheetDialogFragment(),
-    SingleStateFragment<ChooseCurrencyBottomSheetState, ChooseCurrencyBottomSideEffect> {
+  com.appcoins.wallet.ui.arch.SingleStateFragment<ChooseCurrencyBottomSheetState, ChooseCurrencyBottomSideEffect> {
 
 
   @Inject
@@ -118,18 +118,18 @@ class ChooseCurrencyBottomSheetFragment : BottomSheetDialogFragment(),
     views.chooseCurrencyLabel.text = currencyLabel
   }
 
-  fun setSelectedConfirmation(selectedConfirmationAsync: Async<Unit>) {
+  fun setSelectedConfirmation(selectedConfirmationAsync: com.appcoins.wallet.ui.arch.Async<Unit>) {
     when (selectedConfirmationAsync) {
-      is Async.Uninitialized -> {
+      is com.appcoins.wallet.ui.arch.Async.Uninitialized -> {
       }
-      is Async.Loading -> {
+      is com.appcoins.wallet.ui.arch.Async.Loading -> {
         if (selectedConfirmationAsync.value == null) {
           showLoading()
         }
       }
-      is Async.Fail -> {
+      is com.appcoins.wallet.ui.arch.Async.Fail -> {
       }
-      is Async.Success -> {
+      is com.appcoins.wallet.ui.arch.Async.Success -> {
         navigator.navigateBack()
       }
     }

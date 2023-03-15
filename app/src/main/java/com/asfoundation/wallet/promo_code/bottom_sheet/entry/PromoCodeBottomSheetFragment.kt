@@ -12,14 +12,12 @@ import androidx.lifecycle.lifecycleScope
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.asf.wallet.R
 import com.asf.wallet.databinding.SettingsPromoCodeBottomSheetLayoutBinding
-import com.asfoundation.wallet.base.Async
-import com.asfoundation.wallet.base.SingleStateFragment
+import com.appcoins.wallet.ui.arch.Async
+import com.appcoins.wallet.ui.arch.SingleStateFragment
 import com.asfoundation.wallet.promo_code.FailedPromoCode
 import com.asfoundation.wallet.promo_code.PromoCodeResult
 import com.asfoundation.wallet.promo_code.SuccessfulPromoCode
 import com.asfoundation.wallet.promo_code.bottom_sheet.PromoCodeBottomSheetNavigator
-import com.asfoundation.wallet.promo_code.repository.PromoCode
-import com.asfoundation.wallet.promo_code.repository.ValidityState
 import com.asfoundation.wallet.ui.common.WalletTextFieldView
 import com.asfoundation.wallet.util.KeyboardUtils
 import com.google.android.material.bottomsheet.BottomSheetBehavior
@@ -29,7 +27,7 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class PromoCodeBottomSheetFragment : BottomSheetDialogFragment(),
-  SingleStateFragment<PromoCodeBottomSheetState, PromoCodeBottomSheetSideEffect> {
+  com.appcoins.wallet.ui.arch.SingleStateFragment<PromoCodeBottomSheetState, PromoCodeBottomSheetSideEffect> {
 
 
   @Inject
@@ -90,16 +88,16 @@ class PromoCodeBottomSheetFragment : BottomSheetDialogFragment(),
 
   override fun onStateChanged(state: PromoCodeBottomSheetState) {
     when (val clickAsync = state.submitPromoCodeAsync) {
-      is Async.Uninitialized -> initializePromoCode(state.storedPromoCodeAsync, state.shouldShowDefault)
-      is Async.Loading -> {
+      is com.appcoins.wallet.ui.arch.Async.Uninitialized -> initializePromoCode(state.storedPromoCodeAsync, state.shouldShowDefault)
+      is com.appcoins.wallet.ui.arch.Async.Loading -> {
         if (clickAsync.value == null) {
           showLoading()
         }
       }
-      is Async.Fail -> {
+      is com.appcoins.wallet.ui.arch.Async.Fail -> {
         handleErrorState(FailedPromoCode.InvalidCode(clickAsync.error.throwable))
       }
-      is Async.Success -> {
+      is com.appcoins.wallet.ui.arch.Async.Success -> {
         handleClickSuccessState(state.submitPromoCodeAsync.value)
       }
     }
@@ -112,20 +110,20 @@ class PromoCodeBottomSheetFragment : BottomSheetDialogFragment(),
   }
 
   fun initializePromoCode(
-    storedPromoCodeAsync: Async<PromoCodeResult>,
+    storedPromoCodeAsync: com.appcoins.wallet.ui.arch.Async<PromoCodeResult>,
     shouldShowDefault: Boolean
   ) {
     when (storedPromoCodeAsync) {
-      is Async.Uninitialized,
-      is Async.Loading -> {
+      is com.appcoins.wallet.ui.arch.Async.Uninitialized,
+      is com.appcoins.wallet.ui.arch.Async.Loading -> {
         showDefaultScreen()
       }
-      is Async.Fail -> {
+      is com.appcoins.wallet.ui.arch.Async.Fail -> {
         if (storedPromoCodeAsync.value != null) {
           handleErrorState(FailedPromoCode.GenericError(storedPromoCodeAsync.error.throwable))
         }
       }
-      is Async.Success -> {
+      is com.appcoins.wallet.ui.arch.Async.Success -> {
         storedPromoCodeAsync.value?.let { handlePromoCodeSuccessState(it, shouldShowDefault) }
       }
     }

@@ -13,8 +13,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.asf.wallet.R
 import com.asf.wallet.databinding.FragmentHomeBinding
-import com.asfoundation.wallet.base.Async
-import com.asfoundation.wallet.base.SingleStateFragment
+import com.appcoins.wallet.ui.arch.SingleStateFragment
 import com.asfoundation.wallet.entity.GlobalBalance
 import com.asfoundation.wallet.home.ui.list.HomeController
 import com.asfoundation.wallet.home.ui.list.HomeListClick
@@ -145,17 +144,17 @@ class HomeFragment : BasePageViewFragment(),
   }
 
   @SuppressLint("SetTextI18n")
-  private fun setToolbarBalance(balanceAsync: Async<GlobalBalance>) {
+  private fun setToolbarBalance(balanceAsync: com.appcoins.wallet.ui.arch.Async<GlobalBalance>) {
     when (balanceAsync) {
-      Async.Uninitialized,
-      is Async.Loading -> {
+      com.appcoins.wallet.ui.arch.Async.Uninitialized,
+      is com.appcoins.wallet.ui.arch.Async.Loading -> {
         if (balanceAsync() == null) {
           views.toolbar.balance.visibility = View.INVISIBLE
           views.toolbar.balanceSkeleton.visibility = View.VISIBLE
           views.toolbar.balanceSkeleton.playAnimation()
         }
       }
-      is Async.Success -> {
+      is com.appcoins.wallet.ui.arch.Async.Success -> {
         val creditsBalanceFiat = balanceAsync().walletBalance.creditsOnlyFiat
         val creditsFiatAmount =
           formatter.formatCurrency(creditsBalanceFiat.amount, WalletCurrency.FIAT)
@@ -173,15 +172,15 @@ class HomeFragment : BasePageViewFragment(),
   }
 
   private fun setRefreshLayout(
-    defaultWalletBalanceAsync: Async<GlobalBalance>,
-    transactionsModelAsync: Async<TransactionsModel>
+    defaultWalletBalanceAsync: com.appcoins.wallet.ui.arch.Async<GlobalBalance>,
+    transactionsModelAsync: com.appcoins.wallet.ui.arch.Async<TransactionsModel>
   ) {
     when (defaultWalletBalanceAsync) {
-      is Async.Fail,
-      is Async.Success -> {
+      is com.appcoins.wallet.ui.arch.Async.Fail,
+      is com.appcoins.wallet.ui.arch.Async.Success -> {
         when (transactionsModelAsync) {
-          is Async.Fail,
-          is Async.Success -> views.refreshLayout.isRefreshing = false
+          is com.appcoins.wallet.ui.arch.Async.Fail,
+          is com.appcoins.wallet.ui.arch.Async.Success -> views.refreshLayout.isRefreshing = false
           else -> Unit
         }
       }

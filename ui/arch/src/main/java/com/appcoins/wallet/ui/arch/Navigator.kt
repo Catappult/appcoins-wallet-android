@@ -1,4 +1,4 @@
-package com.asfoundation.wallet.base
+package com.appcoins.wallet.ui.arch
 
 import androidx.navigation.NavController
 import androidx.navigation.NavDirections
@@ -20,7 +20,7 @@ fun Navigator.navigate(navController: NavController, destination: NavDirections)
 /**
  * Same as [navigate] but supports extras for shared element transitions.
  */
-fun Navigator.navigate(navController: NavController, destination: NavDirections , extras: androidx.navigation.Navigator.Extras) = with(
+fun Navigator.navigate(navController: NavController, destination: NavDirections, extras: androidx.navigation.Navigator.Extras) = with(
     navController) {
     currentDestination?.getAction(destination.actionId)
         ?.let { navigate(destination.actionId, destination.arguments , null ,extras) }

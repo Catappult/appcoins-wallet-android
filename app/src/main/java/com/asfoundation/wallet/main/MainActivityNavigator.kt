@@ -4,14 +4,14 @@ import android.content.Context
 import android.content.Intent
 import androidx.activity.result.ActivityResultLauncher
 import androidx.navigation.NavController
-import com.asfoundation.wallet.base.Navigator
-import com.asfoundation.wallet.base.navigate
+import com.appcoins.wallet.ui.arch.Navigator
+import com.appcoins.wallet.ui.arch.navigate
 import com.asfoundation.wallet.main.splash.SplashExtenderFragmentDirections
 import com.asfoundation.wallet.ui.AuthenticationPromptActivity
 import javax.inject.Inject
 
 class MainActivityNavigator @Inject constructor() :
-  Navigator {
+  com.appcoins.wallet.ui.arch.Navigator {
 
   fun navigateToOnboarding(navController: NavController) {
     navigate(navController, SplashExtenderFragmentDirections.actionNavigateToOnboardingGraph())

@@ -1,9 +1,9 @@
 package com.asfoundation.wallet.eskills.withdraw
 
-import com.asfoundation.wallet.base.Async
-import com.asfoundation.wallet.base.BaseViewModel
-import com.asfoundation.wallet.base.SideEffect
-import com.asfoundation.wallet.base.ViewState
+import com.appcoins.wallet.ui.arch.Async
+import com.appcoins.wallet.ui.arch.BaseViewModel
+import com.appcoins.wallet.ui.arch.SideEffect
+import com.appcoins.wallet.ui.arch.ViewState
 import com.asfoundation.wallet.eskills.withdraw.domain.WithdrawResult
 import com.asfoundation.wallet.eskills.withdraw.usecases.GetAvailableAmountToWithdrawUseCase
 import com.asfoundation.wallet.eskills.withdraw.usecases.GetStoredUserEmailUseCase
@@ -12,20 +12,20 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import java.math.BigDecimal
 import javax.inject.Inject
 
-object WithdrawSideEffect : SideEffect
+object WithdrawSideEffect : com.appcoins.wallet.ui.arch.SideEffect
 
 data class WithdrawState(
-  val availableAmountAsync: Async<BigDecimal> = Async.Uninitialized,
-  val withdrawResultAsync: Async<WithdrawResult> = Async.Uninitialized,
+  val availableAmountAsync: com.appcoins.wallet.ui.arch.Async<BigDecimal> = com.appcoins.wallet.ui.arch.Async.Uninitialized,
+  val withdrawResultAsync: com.appcoins.wallet.ui.arch.Async<WithdrawResult> = com.appcoins.wallet.ui.arch.Async.Uninitialized,
   val userEmail: String = ""
-) : ViewState
+) : com.appcoins.wallet.ui.arch.ViewState
 
 @HiltViewModel
 class WithdrawViewModel @Inject constructor(
   private val getAvailableAmountToWithdrawUseCase: GetAvailableAmountToWithdrawUseCase,
   private val getStoredUserEmailUseCase: GetStoredUserEmailUseCase,
   private val withdrawToFiatUseCase: WithdrawToFiatUseCase
-) : BaseViewModel<WithdrawState, WithdrawSideEffect>(initialState()) {
+) : com.appcoins.wallet.ui.arch.BaseViewModel<WithdrawState, WithdrawSideEffect>(initialState()) {
 
   companion object {
     fun initialState(): WithdrawState {

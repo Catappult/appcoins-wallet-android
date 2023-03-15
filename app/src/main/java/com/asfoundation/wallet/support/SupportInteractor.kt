@@ -2,7 +2,7 @@ package com.asfoundation.wallet.support
 
 import com.appcoins.wallet.bdsbilling.WalletService
 import com.appcoins.wallet.gamification.Gamification
-import com.asfoundation.wallet.base.RxSchedulers
+import com.appcoins.wallet.ui.arch.RxSchedulers
 import com.asfoundation.wallet.promo_code.use_cases.GetCurrentPromoCodeUseCase
 import io.intercom.android.sdk.Intercom
 import io.intercom.android.sdk.UnreadConversationCountListener
@@ -15,7 +15,8 @@ class SupportInteractor @Inject constructor(private val supportRepository: Suppo
                                             private val walletService: WalletService,
                                             private val gamificationRepository: Gamification,
                                             private val getCurrentPromoCodeUseCase: GetCurrentPromoCodeUseCase,
-                                            private val rxSchedulers: RxSchedulers) {
+                                            private val rxSchedulers: com.appcoins.wallet.ui.arch.RxSchedulers
+) {
 
   fun showSupport(): Completable {
     return getCurrentPromoCodeUseCase()

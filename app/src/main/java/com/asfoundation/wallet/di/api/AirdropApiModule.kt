@@ -1,7 +1,7 @@
 package com.asfoundation.wallet.di.api
 
 import com.asfoundation.wallet.AirdropService
-import com.asfoundation.wallet.base.RxSchedulers
+import com.appcoins.wallet.ui.arch.RxSchedulers
 import com.asfoundation.wallet.di.annotations.BlockchainHttpClient
 import com.google.gson.Gson
 import dagger.Module
@@ -41,7 +41,7 @@ class AirdropApiModule {
   @Provides
   fun provideAirdropService(
     airdropApi: AirdropService.Api, gson: Gson,
-    rxSchedulers: RxSchedulers
+    rxSchedulers: com.appcoins.wallet.ui.arch.RxSchedulers
   ): AirdropService {
     return AirdropService(
       airdropApi,

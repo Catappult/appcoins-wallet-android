@@ -6,8 +6,8 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import com.asf.wallet.NavBarGraphDirections
 import com.asf.wallet.R
-import com.asfoundation.wallet.base.Navigator
-import com.asfoundation.wallet.base.navigate
+import com.appcoins.wallet.ui.arch.Navigator
+import com.appcoins.wallet.ui.arch.navigate
 import com.asfoundation.wallet.main.MainActivity
 import com.asfoundation.wallet.topup.TopUpActivity
 import com.asfoundation.wallet.ui.overlay.OverlayFragment
@@ -16,7 +16,7 @@ import javax.inject.Inject
 
 class NavBarFragmentNavigator @Inject constructor(
   private val fragment: Fragment
-) : Navigator {
+) : com.appcoins.wallet.ui.arch.Navigator {
 
   fun navigateToHome() {
     val bottomNavView: BottomNavigationView =

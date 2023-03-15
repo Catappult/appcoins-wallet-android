@@ -1,6 +1,6 @@
 package com.asfoundation.wallet.backup.entry
 
-import com.asfoundation.wallet.base.*
+import com.appcoins.wallet.ui.arch.*
 import com.asfoundation.wallet.util.CurrencyFormatUtils
 import com.asfoundation.wallet.wallets.domain.WalletBalance
 import com.asfoundation.wallet.wallets.usecases.GetWalletInfoUseCase

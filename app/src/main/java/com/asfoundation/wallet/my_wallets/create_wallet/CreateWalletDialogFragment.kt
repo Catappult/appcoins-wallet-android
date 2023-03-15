@@ -14,14 +14,14 @@ import androidx.lifecycle.lifecycleScope
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.asf.wallet.R
 import com.asf.wallet.databinding.FragmentCreateWalletDialogLayoutBinding
-import com.asfoundation.wallet.base.Async
-import com.asfoundation.wallet.base.SingleStateFragment
+import com.appcoins.wallet.ui.arch.Async
+import com.appcoins.wallet.ui.arch.SingleStateFragment
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
 class CreateWalletDialogFragment : DialogFragment(),
-  SingleStateFragment<CreateWalletState, CreateWalletSideEffect> {
+  com.appcoins.wallet.ui.arch.SingleStateFragment<CreateWalletState, CreateWalletSideEffect> {
 
   @Inject
   lateinit var navigator: CreateWalletDialogNavigator
@@ -63,11 +63,11 @@ class CreateWalletDialogFragment : DialogFragment(),
 
   override fun onStateChanged(state: CreateWalletState) {
     when (state.walletCreationAsync) {
-      Async.Uninitialized,
-      is Async.Loading -> {
+      com.appcoins.wallet.ui.arch.Async.Uninitialized,
+      is com.appcoins.wallet.ui.arch.Async.Loading -> {
         views.createWalletLoading.playAnimation()
       }
-      is Async.Success -> {
+      is com.appcoins.wallet.ui.arch.Async.Success -> {
         views.createWalletLoading.setAnimation(R.raw.success_animation)
         if (requireArguments().getBoolean(NEEDS_WALLET_CREATION)) {
           views.createWalletText.text = getText(R.string.provide_wallet_created_header)

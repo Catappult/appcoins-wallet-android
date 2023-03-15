@@ -10,8 +10,8 @@ import androidx.lifecycle.lifecycleScope
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.asf.wallet.R
 import com.asf.wallet.databinding.FragmentChangeFiatCurrencyBinding
-import com.asfoundation.wallet.base.Async
-import com.asfoundation.wallet.base.SingleStateFragment
+import com.appcoins.wallet.ui.arch.Async
+import com.appcoins.wallet.ui.arch.SingleStateFragment
 import com.asfoundation.wallet.change_currency.list.ChangeFiatCurrencyController
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
@@ -19,7 +19,7 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class ChangeFiatCurrencyFragment : BasePageViewFragment(),
-    SingleStateFragment<ChangeFiatCurrencyState, ChangeFiatCurrencySideEffect> {
+  com.appcoins.wallet.ui.arch.SingleStateFragment<ChangeFiatCurrencyState, ChangeFiatCurrencySideEffect> {
 
   @Inject
   lateinit var changeFiatCurrencyNavigator: ChangeFiatCurrencyNavigator
@@ -50,17 +50,17 @@ class ChangeFiatCurrencyFragment : BasePageViewFragment(),
 
   override fun onSideEffect(sideEffect: ChangeFiatCurrencySideEffect) = Unit
 
-  fun setChangeFiatCurrencyModel(asyncChangeFiatCurrency: Async<ChangeFiatCurrency>) {
+  fun setChangeFiatCurrencyModel(asyncChangeFiatCurrency: com.appcoins.wallet.ui.arch.Async<ChangeFiatCurrency>) {
     when (asyncChangeFiatCurrency) {
-      Async.Uninitialized,
-      is Async.Loading -> {
+      com.appcoins.wallet.ui.arch.Async.Uninitialized,
+      is com.appcoins.wallet.ui.arch.Async.Loading -> {
         if (asyncChangeFiatCurrency.value == null) {
           showLoading()
         }
       }
-      is Async.Fail -> {
+      is com.appcoins.wallet.ui.arch.Async.Fail -> {
       }
-      is Async.Success -> {
+      is com.appcoins.wallet.ui.arch.Async.Success -> {
         setChangeFiatCurrency(asyncChangeFiatCurrency())
       }
     }

@@ -5,11 +5,12 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import com.appcoins.wallet.gamification.repository.ForecastBonusAndLevel
 import com.asf.wallet.R
-import com.asfoundation.wallet.base.Navigator
+import com.appcoins.wallet.ui.arch.Navigator
 import com.asfoundation.wallet.entity.TransactionBuilder
 import javax.inject.Inject
 
-class OnboardingPaymentNavigator @Inject constructor(private val fragment: Fragment) : Navigator {
+class OnboardingPaymentNavigator @Inject constructor(private val fragment: Fragment) :
+  com.appcoins.wallet.ui.arch.Navigator {
   fun showPaymentMethods(
     navController: NavController,
     transactionBuilder: TransactionBuilder,

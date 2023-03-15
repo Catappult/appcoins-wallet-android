@@ -1,21 +1,21 @@
 package com.asfoundation.wallet.my_wallets.token
 
-import com.asfoundation.wallet.base.BaseViewModel
-import com.asfoundation.wallet.base.SideEffect
-import com.asfoundation.wallet.base.ViewState
+import com.appcoins.wallet.ui.arch.BaseViewModel
+import com.appcoins.wallet.ui.arch.SideEffect
+import com.appcoins.wallet.ui.arch.ViewState
 
-object TokenInfoSideEffect : SideEffect
+object TokenInfoSideEffect : com.appcoins.wallet.ui.arch.SideEffect
 
 data class TokenInfoState(
     val title: String,
     val image: String,
     val description: String,
     val showTopUp: Boolean
-) : ViewState
+) : com.appcoins.wallet.ui.arch.ViewState
 
 class TokenInfoDialogViewModel(
     private val data: TokenInfoDialogData
-) : BaseViewModel<TokenInfoState, TokenInfoSideEffect>(initialState(data)) {
+) : com.appcoins.wallet.ui.arch.BaseViewModel<TokenInfoState, TokenInfoSideEffect>(initialState(data)) {
 
   companion object {
     fun initialState(data: TokenInfoDialogData): TokenInfoState {

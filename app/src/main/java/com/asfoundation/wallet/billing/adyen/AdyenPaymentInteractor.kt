@@ -9,7 +9,7 @@ import com.appcoins.wallet.billing.adyen.AdyenPaymentRepository
 import com.appcoins.wallet.billing.adyen.PaymentInfoModel
 import com.appcoins.wallet.billing.adyen.PaymentModel
 import com.appcoins.wallet.billing.util.Error
-import com.asfoundation.wallet.base.RxSchedulers
+import com.appcoins.wallet.ui.arch.RxSchedulers
 import com.asfoundation.wallet.billing.address.BillingAddressRepository
 import com.asfoundation.wallet.billing.partners.AddressService
 import com.asfoundation.wallet.promo_code.use_cases.GetCurrentPromoCodeUseCase
@@ -38,7 +38,7 @@ class AdyenPaymentInteractor @Inject constructor(
   private val walletVerificationInteractor: WalletVerificationInteractor,
   private val billingAddressRepository: BillingAddressRepository,
   private val getCurrentPromoCodeUseCase: GetCurrentPromoCodeUseCase,
-  private val rxSchedulers: RxSchedulers
+  private val rxSchedulers: com.appcoins.wallet.ui.arch.RxSchedulers
 ) {
 
   fun forgetBillingAddress() = billingAddressRepository.forgetBillingAddress()

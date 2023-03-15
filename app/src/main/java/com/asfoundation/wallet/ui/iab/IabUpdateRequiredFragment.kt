@@ -10,7 +10,7 @@ import androidx.appcompat.content.res.AppCompatResources
 import androidx.appcompat.widget.ListPopupWindow
 import com.asf.wallet.R
 import com.asfoundation.wallet.backup.BackupActivity
-import com.asfoundation.wallet.base.RxSchedulers
+import com.appcoins.wallet.ui.arch.RxSchedulers
 import com.asfoundation.wallet.ui.wallets.WalletsModel
 import com.asfoundation.wallet.update_required.use_cases.BuildUpdateIntentUseCase
 import com.asfoundation.wallet.update_required.wallets_list.WalletSelectionAdapter
@@ -43,7 +43,7 @@ class IabUpdateRequiredFragment : BasePageViewFragment(), IabUpdateRequiredView 
   lateinit var getWalletsModelUseCase: GetWalletsModelUseCase
 
   @Inject
-  lateinit var rxSchedulers: RxSchedulers
+  lateinit var rxSchedulers: com.appcoins.wallet.ui.arch.RxSchedulers
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)

@@ -11,7 +11,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import com.asf.wallet.R
-import com.asfoundation.wallet.base.SingleStateFragment
+import com.appcoins.wallet.ui.arch.SingleStateFragment
 import com.asfoundation.wallet.util.RxBus
 import com.asfoundation.wallet.main.splash.bus.SplashFinishEvent
 import com.asfoundation.wallet.support.SupportNotificationProperties.SUPPORT_NOTIFICATION_CLICK
@@ -24,7 +24,7 @@ import javax.inject.Inject
  */
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity(),
-  SingleStateFragment<MainActivityState, MainActivitySideEffect> {
+  com.appcoins.wallet.ui.arch.SingleStateFragment<MainActivityState, MainActivitySideEffect> {
 
   @Inject
   lateinit var navigator: MainActivityNavigator

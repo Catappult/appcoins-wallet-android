@@ -1,13 +1,13 @@
 package com.asfoundation.wallet.onboarding.use_cases
 
-import com.asfoundation.wallet.base.RxSchedulers
+import com.appcoins.wallet.ui.arch.RxSchedulers
 import com.asfoundation.wallet.ui.wallets.WalletsInteract
 import io.reactivex.Single
 import javax.inject.Inject
 
 class HasWalletUseCase @Inject constructor(
   private val walletsInteract: WalletsInteract,
-  private val rxSchedulers: RxSchedulers
+  private val rxSchedulers: com.appcoins.wallet.ui.arch.RxSchedulers
 ) {
 
   operator fun invoke(): Single<Boolean> = walletsInteract.getWalletsModel()

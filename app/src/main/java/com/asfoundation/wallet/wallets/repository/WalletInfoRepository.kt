@@ -1,7 +1,7 @@
 package com.asfoundation.wallet.wallets.repository
 
 import com.asfoundation.wallet.analytics.SentryEventLogger
-import com.asfoundation.wallet.base.RxSchedulers
+import com.appcoins.wallet.ui.arch.RxSchedulers
 import com.asfoundation.wallet.wallets.db.WalletInfoDao
 import com.asfoundation.wallet.wallets.db.entity.WalletInfoEntity
 import com.asfoundation.wallet.wallets.domain.WalletBalance
@@ -21,7 +21,7 @@ class WalletInfoRepository @Inject constructor(
   private val walletInfoDao: WalletInfoDao,
   private val balanceRepository: BalanceRepository,
   private val sentryEventLogger: SentryEventLogger,
-  private val rxSchedulers: RxSchedulers
+  private val rxSchedulers: com.appcoins.wallet.ui.arch.RxSchedulers
 ) {
 
   fun getLatestWalletInfo(walletAddress: String, updateFiatValues: Boolean): Single<WalletInfo> =

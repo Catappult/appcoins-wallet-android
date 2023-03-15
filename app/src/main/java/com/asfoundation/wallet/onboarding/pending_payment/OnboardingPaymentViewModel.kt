@@ -3,10 +3,10 @@ package com.asfoundation.wallet.onboarding.pending_payment
 import com.appcoins.wallet.bdsbilling.repository.BdsRepository
 import com.appcoins.wallet.bdsbilling.repository.BillingSupportedType
 import com.appcoins.wallet.gamification.repository.ForecastBonusAndLevel
-import com.asfoundation.wallet.base.Async
-import com.asfoundation.wallet.base.BaseViewModel
-import com.asfoundation.wallet.base.SideEffect
-import com.asfoundation.wallet.base.ViewState
+import com.appcoins.wallet.ui.arch.Async
+import com.appcoins.wallet.ui.arch.BaseViewModel
+import com.appcoins.wallet.ui.arch.SideEffect
+import com.appcoins.wallet.ui.arch.ViewState
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.onboarding.CachedTransactionRepository
 import com.asfoundation.wallet.onboarding_new_payment.OnboardingPaymentEvents
@@ -18,13 +18,13 @@ import java.math.BigDecimal
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
-sealed class OnboardingPaymentSideEffect : SideEffect {
+sealed class OnboardingPaymentSideEffect : com.appcoins.wallet.ui.arch.SideEffect {
   data class ShowPaymentMethods(val transactionContent: TransactionContent) :
     OnboardingPaymentSideEffect()
 }
 
-data class OnboardingPaymentState(val transactionContent: Async<TransactionContent> = Async.Uninitialized) :
-  ViewState
+data class OnboardingPaymentState(val transactionContent: com.appcoins.wallet.ui.arch.Async<TransactionContent> = com.appcoins.wallet.ui.arch.Async.Uninitialized) :
+  com.appcoins.wallet.ui.arch.ViewState
 
 @HiltViewModel
 class OnboardingPaymentViewModel @Inject constructor(
@@ -34,7 +34,7 @@ class OnboardingPaymentViewModel @Inject constructor(
   private val getEarningBonusUseCase: GetEarningBonusUseCase,
   private val events: OnboardingPaymentEvents
 ) :
-  BaseViewModel<OnboardingPaymentState, OnboardingPaymentSideEffect>(OnboardingPaymentState()) {
+  com.appcoins.wallet.ui.arch.BaseViewModel<OnboardingPaymentState, OnboardingPaymentSideEffect>(OnboardingPaymentState()) {
 
   init {
     handleContent()

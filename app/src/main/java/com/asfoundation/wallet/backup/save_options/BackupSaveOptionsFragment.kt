@@ -12,7 +12,7 @@ import androidx.lifecycle.lifecycleScope
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.asf.wallet.R
 import com.asf.wallet.databinding.BackupSaveOptionsOptionsBinding
-import com.asfoundation.wallet.base.SingleStateFragment
+import com.appcoins.wallet.ui.arch.SingleStateFragment
 import com.asfoundation.wallet.billing.analytics.WalletsAnalytics
 import com.asfoundation.wallet.billing.analytics.WalletsEventSender
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
@@ -21,7 +21,7 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class BackupSaveOptionsFragment : BasePageViewFragment(),
-  SingleStateFragment<BackupSaveOptionsState, BackupSaveOptionsSideEffect> {
+  com.appcoins.wallet.ui.arch.SingleStateFragment<BackupSaveOptionsState, BackupSaveOptionsSideEffect> {
 
   @Inject
   lateinit var backupSaveOptionsViewModelFactory: BackupSaveOptionsViewModelFactory

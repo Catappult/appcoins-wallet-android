@@ -1,6 +1,6 @@
 package com.asfoundation.wallet.interact
 
-import com.asfoundation.wallet.base.RxSchedulers
+import com.appcoins.wallet.ui.arch.RxSchedulers
 import com.asfoundation.wallet.entity.GasSettings
 import com.asfoundation.wallet.repository.GasSettingsRepositoryType
 import com.asfoundation.wallet.util.FakeSchedulers
@@ -21,7 +21,7 @@ class FetchGasSettingsInteractTest {
   @Mock
   lateinit var gasSettingsRepositoryType: GasSettingsRepositoryType
 
-  private val fakeSchedulers: RxSchedulers = FakeSchedulers()
+  private val fakeSchedulers: com.appcoins.wallet.ui.arch.RxSchedulers = FakeSchedulers()
   private lateinit var fetchGasSettingsInteract: FetchGasSettingsInteract
 
   @Before

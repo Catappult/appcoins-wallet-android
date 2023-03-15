@@ -12,7 +12,7 @@ import androidx.lifecycle.lifecycleScope
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.asf.wallet.R
 import com.asf.wallet.databinding.FragmentNftBinding
-import com.asfoundation.wallet.base.SingleStateFragment
+import com.appcoins.wallet.ui.arch.SingleStateFragment
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
@@ -25,7 +25,7 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class NFTDetailsFragment : BasePageViewFragment(),
-    SingleStateFragment<NFTDetailsState, NFTDetailsSideEffect> {
+  com.appcoins.wallet.ui.arch.SingleStateFragment<NFTDetailsState, NFTDetailsSideEffect> {
 
   @Inject
   lateinit var viewModelFactory: NFTDetailsViewModelFactory

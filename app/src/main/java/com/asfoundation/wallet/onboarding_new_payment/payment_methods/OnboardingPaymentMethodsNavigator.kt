@@ -9,8 +9,8 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.appcoins.wallet.gamification.repository.ForecastBonusAndLevel
 import com.asf.wallet.R
-import com.asfoundation.wallet.base.Navigator
-import com.asfoundation.wallet.base.navigate
+import com.appcoins.wallet.ui.arch.Navigator
+import com.appcoins.wallet.ui.arch.navigate
 import com.asfoundation.wallet.billing.adyen.PaymentType
 import com.asfoundation.wallet.entity.TransactionBuilder
 import javax.inject.Inject
@@ -19,7 +19,7 @@ class OnboardingPaymentMethodsNavigator @Inject constructor(
   private val fragment: Fragment,
   private val packageManager: PackageManager
 ) :
-  Navigator {
+  com.appcoins.wallet.ui.arch.Navigator {
 
   fun navigateToBrowser(uri: Uri) {
     try {

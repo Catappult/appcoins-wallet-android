@@ -1,6 +1,6 @@
 package com.asfoundation.wallet.wallets.repository
 
-import com.asfoundation.wallet.base.RxSchedulers
+import com.appcoins.wallet.ui.arch.RxSchedulers
 import com.asfoundation.wallet.change_currency.use_cases.GetSelectedCurrencyUseCase
 import com.asfoundation.wallet.service.currencies.LocalCurrencyConversionService
 import com.asfoundation.wallet.ui.TokenValue
@@ -19,7 +19,7 @@ import javax.inject.Inject
 class BalanceRepository @Inject constructor(
   private val getSelectedCurrencyUseCase: GetSelectedCurrencyUseCase,
   private val localCurrencyConversionService: LocalCurrencyConversionService,
-  private val rxSchedulers: RxSchedulers
+  private val rxSchedulers: com.appcoins.wallet.ui.arch.RxSchedulers
 ) {
 
   companion object {

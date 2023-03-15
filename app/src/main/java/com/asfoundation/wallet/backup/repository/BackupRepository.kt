@@ -3,7 +3,7 @@ package com.asfoundation.wallet.backup.repository
 import android.content.ContentResolver
 import androidx.documentfile.provider.DocumentFile
 import com.appcoins.wallet.bdsbilling.WalletService
-import com.asfoundation.wallet.base.RxSchedulers
+import com.appcoins.wallet.ui.arch.RxSchedulers
 import com.asfoundation.wallet.util.convertToBase64
 import io.reactivex.Completable
 import retrofit2.http.Body
@@ -16,7 +16,7 @@ import javax.inject.Inject
 class BackupRepository @Inject constructor(
   private val contentResolver: ContentResolver,
   private val backupEmailApi: BackupEmailApi,
-  private val rxSchedulers: RxSchedulers,
+  private val rxSchedulers: com.appcoins.wallet.ui.arch.RxSchedulers,
   private val walletService: WalletService,
   private val backupLogApi: BackupLogApi
 ) {

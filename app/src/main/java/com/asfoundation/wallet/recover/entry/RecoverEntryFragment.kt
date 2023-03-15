@@ -16,8 +16,8 @@ import androidx.lifecycle.lifecycleScope
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.asf.wallet.R
 import com.asf.wallet.databinding.RecoverEntryFragmentBinding
-import com.asfoundation.wallet.base.Async
-import com.asfoundation.wallet.base.SingleStateFragment
+import com.appcoins.wallet.ui.arch.Async
+import com.appcoins.wallet.ui.arch.SingleStateFragment
 import com.asfoundation.wallet.my_wallets.create_wallet.CreateWalletDialogFragment
 import com.asfoundation.wallet.recover.RecoverActivity.Companion.ONBOARDING_LAYOUT
 import com.asfoundation.wallet.recover.result.FailedEntryRecover
@@ -29,7 +29,7 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class RecoverEntryFragment : BasePageViewFragment(),
-  SingleStateFragment<RecoverEntryState, RecoverEntrySideEffect> {
+  com.appcoins.wallet.ui.arch.SingleStateFragment<RecoverEntryState, RecoverEntrySideEffect> {
 
   @Inject
   lateinit var navigator: RecoverEntryNavigator
@@ -101,16 +101,16 @@ class RecoverEntryFragment : BasePageViewFragment(),
 
   override fun onSideEffect(sideEffect: RecoverEntrySideEffect) = Unit
 
-  private fun handleRecoverEntryState(asyncRecoverResult: Async<RecoverEntryResult>) {
+  private fun handleRecoverEntryState(asyncRecoverResult: com.appcoins.wallet.ui.arch.Async<RecoverEntryResult>) {
     when (asyncRecoverResult) {
-      is Async.Uninitialized,
-      is Async.Loading -> {
+      is com.appcoins.wallet.ui.arch.Async.Uninitialized,
+      is com.appcoins.wallet.ui.arch.Async.Loading -> {
         showLoading()
       }
-      is Async.Fail -> {
+      is com.appcoins.wallet.ui.arch.Async.Fail -> {
         handleErrorState(FailedEntryRecover.GenericError(asyncRecoverResult.error.throwable))
       }
-      is Async.Success -> {
+      is com.appcoins.wallet.ui.arch.Async.Success -> {
         handleSuccessState(asyncRecoverResult())
       }
     }

@@ -1,7 +1,7 @@
 package com.asfoundation.wallet.ui.balance
 
 import com.appcoins.wallet.bdsbilling.WalletAddressModel
-import com.asfoundation.wallet.base.RxSchedulers
+import com.appcoins.wallet.ui.arch.RxSchedulers
 import com.asfoundation.wallet.service.AccountWalletService
 import com.asfoundation.wallet.verification.repository.BrokerVerificationRepository
 import com.asfoundation.wallet.verification.ui.credit_card.WalletVerificationInteractor
@@ -16,7 +16,7 @@ class BalanceInteractor @Inject constructor(
   private val accountWalletService: AccountWalletService,
   private val walletVerificationInteractor: WalletVerificationInteractor,
   private val brokerVerificationRepository: BrokerVerificationRepository,
-  private val rxSchedulers: RxSchedulers
+  private val rxSchedulers: com.appcoins.wallet.ui.arch.RxSchedulers
 ) {
 
   companion object {

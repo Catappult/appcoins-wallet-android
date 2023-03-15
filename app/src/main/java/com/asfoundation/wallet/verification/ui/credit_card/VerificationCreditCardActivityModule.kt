@@ -1,7 +1,7 @@
 package com.asfoundation.wallet.verification.ui.credit_card
 
 import android.app.Activity
-import com.asfoundation.wallet.base.RxSchedulers
+import com.appcoins.wallet.ui.arch.RxSchedulers
 import com.asfoundation.wallet.verification.ui.credit_card.VerificationCreditCardActivity.Companion.IS_WALLET_VERIFIED
 import dagger.Module
 import dagger.Provides
@@ -27,7 +27,7 @@ class VerificationCreditCardActivityModule {
     activity: Activity,
     navigator: VerificationCreditCardActivityNavigator,
     interactor: VerificationCreditCardActivityInteractor,
-    rxSchedulers: RxSchedulers,
+    rxSchedulers: com.appcoins.wallet.ui.arch.RxSchedulers,
     analytics: VerificationAnalytics
   ): VerificationCreditCardActivityPresenter {
     return VerificationCreditCardActivityPresenter(

@@ -3,13 +3,13 @@ package com.asfoundation.wallet.onboarding.gp_install
 import android.content.pm.PackageManager
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import com.asfoundation.wallet.base.Navigator
+import com.appcoins.wallet.ui.arch.Navigator
 import javax.inject.Inject
 
 class OnboardingGPInstallNavigator @Inject constructor(
   private val fragment: Fragment,
   private val packageManager: PackageManager,
-) : Navigator {
+) : com.appcoins.wallet.ui.arch.Navigator {
 
   fun navigateBackToGame(packageName: String) {
     try {

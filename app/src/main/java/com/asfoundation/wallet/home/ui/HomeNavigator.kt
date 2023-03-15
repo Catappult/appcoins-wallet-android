@@ -11,7 +11,7 @@ import com.asfoundation.wallet.C
 import com.asfoundation.wallet.backup.BackupActivity
 import com.asfoundation.wallet.backup.repository.preferences.BackupTriggerPreferences
 import com.asfoundation.wallet.backup.triggers.BackupTriggerDialogFragment
-import com.asfoundation.wallet.base.Navigator
+import com.appcoins.wallet.ui.arch.Navigator
 import com.asfoundation.wallet.change_currency.ChangeFiatCurrencyActivity
 import com.asfoundation.wallet.main.nav_bar.NavBarFragmentNavigator
 import com.asfoundation.wallet.rating.RatingActivity
@@ -24,7 +24,7 @@ import javax.inject.Inject
 class HomeNavigator @Inject constructor(
   private val fragment: Fragment,
   private val navBarFragmentNavigator: NavBarFragmentNavigator
-) : Navigator {
+) : com.appcoins.wallet.ui.arch.Navigator {
 
   fun navigateToRateUs(shouldNavigate: Boolean) {
     if (shouldNavigate) {
