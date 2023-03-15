@@ -25,7 +25,7 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class RedeemGiftBottomSheetFragment : BottomSheetDialogFragment(),
-  com.appcoins.wallet.ui.arch.SingleStateFragment<RedeemGiftBottomSheetState, RedeemGiftBottomSheetSideEffect> {
+  SingleStateFragment<RedeemGiftBottomSheetState, RedeemGiftBottomSheetSideEffect> {
 
 
   @Inject
@@ -83,17 +83,17 @@ class RedeemGiftBottomSheetFragment : BottomSheetDialogFragment(),
 
   override fun onStateChanged(state: RedeemGiftBottomSheetState) {
     when (val clickAsync = state.submitRedeemAsync) {
-      is com.appcoins.wallet.ui.arch.Async.Uninitialized ->  {
+      is Async.Uninitialized ->  {
       }
-      is com.appcoins.wallet.ui.arch.Async.Loading -> {
+      is Async.Loading -> {
         if (clickAsync.value == null) {
           showLoading()
         }
       }
-      is com.appcoins.wallet.ui.arch.Async.Fail -> {
+      is Async.Fail -> {
         showErrorMessage(FailedRedeem.GenericError(""))
       }
-      is com.appcoins.wallet.ui.arch.Async.Success -> {
+      is Async.Success -> {
         state.submitRedeemAsync.value?.let { redeemState ->
           if (redeemState is SuccessfulRedeem)
             showSuccess()

@@ -21,7 +21,7 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class UpdateRequiredFragment : BasePageViewFragment(),
-  com.appcoins.wallet.ui.arch.SingleStateFragment<UpdateRequiredState, UpdateRequiredSideEffect> {
+  SingleStateFragment<UpdateRequiredState, UpdateRequiredSideEffect> {
 
   @Inject
   lateinit var navigator: UpdateRequiredNavigator
@@ -67,12 +67,12 @@ class UpdateRequiredFragment : BasePageViewFragment(),
 
   override fun onStateChanged(state: UpdateRequiredState) {
     when (val walletsModel = state.walletsModel) {
-      is com.appcoins.wallet.ui.arch.Async.Uninitialized,
-      is com.appcoins.wallet.ui.arch.Async.Loading,
-      is com.appcoins.wallet.ui.arch.Async.Fail -> {
+      is Async.Uninitialized,
+      is Async.Loading,
+      is Async.Fail -> {
         views.updateRequiredBackupContainer.visibility = View.GONE
       }
-      is com.appcoins.wallet.ui.arch.Async.Success -> {
+      is Async.Success -> {
         handleBackupOption(walletsModel())
       }
     }

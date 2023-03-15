@@ -19,7 +19,7 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class OnboardingGPInstallFragment : BasePageViewFragment(),
-  com.appcoins.wallet.ui.arch.SingleStateFragment<OnboardingGPInstallState, OnboardingGPInstallSideEffect> {
+  SingleStateFragment<OnboardingGPInstallState, OnboardingGPInstallSideEffect> {
 
   private val views by viewBinding(OnboardingGpInstallFragmentBinding::bind)
 

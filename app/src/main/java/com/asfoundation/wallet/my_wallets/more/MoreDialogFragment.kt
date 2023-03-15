@@ -18,7 +18,7 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class MoreDialogFragment : BottomSheetDialogFragment(),
-  com.appcoins.wallet.ui.arch.SingleStateFragment<MoreDialogState, MoreDialogSideEffect> {
+  SingleStateFragment<MoreDialogState, MoreDialogSideEffect> {
 
   @Inject
   lateinit var navigator: MoreDialogNavigator

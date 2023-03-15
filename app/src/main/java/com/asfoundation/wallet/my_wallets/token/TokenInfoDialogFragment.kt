@@ -19,7 +19,7 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class TokenInfoDialogFragment : BottomSheetDialogFragment(),
-  com.appcoins.wallet.ui.arch.SingleStateFragment<TokenInfoState, TokenInfoSideEffect> {
+  SingleStateFragment<TokenInfoState, TokenInfoSideEffect> {
 
   @Inject
   lateinit var viewModelFactory: TokenInfoDialogViewModelFactory

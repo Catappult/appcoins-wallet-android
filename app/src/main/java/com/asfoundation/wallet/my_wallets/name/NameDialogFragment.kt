@@ -20,7 +20,7 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class NameDialogFragment : BottomSheetDialogFragment(),
-  com.appcoins.wallet.ui.arch.SingleStateFragment<NameDialogState, NameDialogSideEffect> {
+  SingleStateFragment<NameDialogState, NameDialogSideEffect> {
 
   @Inject
   lateinit var navigator: NameDialogNavigator
@@ -58,10 +58,10 @@ class NameDialogFragment : BottomSheetDialogFragment(),
 
   override fun onStateChanged(state: NameDialogState) {
     when (val asyncValue = state.walletNameAsync) {
-      com.appcoins.wallet.ui.arch.Async.Uninitialized,
-      is com.appcoins.wallet.ui.arch.Async.Loading -> showWalletInfoLoading()
-      is com.appcoins.wallet.ui.arch.Async.Fail -> Unit
-      is com.appcoins.wallet.ui.arch.Async.Success -> showWalletInfo(asyncValue())
+      Async.Uninitialized,
+      is Async.Loading -> showWalletInfoLoading()
+      is Async.Fail -> Unit
+      is Async.Success -> showWalletInfo(asyncValue())
     }
   }
 

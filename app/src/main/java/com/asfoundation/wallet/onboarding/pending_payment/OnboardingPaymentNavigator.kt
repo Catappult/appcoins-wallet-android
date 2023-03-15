@@ -10,7 +10,7 @@ import com.asfoundation.wallet.entity.TransactionBuilder
 import javax.inject.Inject
 
 class OnboardingPaymentNavigator @Inject constructor(private val fragment: Fragment) :
-  com.appcoins.wallet.ui.arch.Navigator {
+  Navigator {
   fun showPaymentMethods(
     navController: NavController,
     transactionBuilder: TransactionBuilder,

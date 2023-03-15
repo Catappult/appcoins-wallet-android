@@ -20,7 +20,7 @@ import javax.inject.Inject
 
 
 class PromotionsNavigator @Inject constructor(private val fragment: Fragment) :
-  com.appcoins.wallet.ui.arch.Navigator {
+  Navigator {
 
   fun navigateToInfo() {
     navigate(fragment.findNavController(), PromotionsFragmentDirections.actionNavigateToInfo())

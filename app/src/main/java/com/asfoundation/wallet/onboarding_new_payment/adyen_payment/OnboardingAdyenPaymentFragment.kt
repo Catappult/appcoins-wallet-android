@@ -39,7 +39,7 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class OnboardingAdyenPaymentFragment : BasePageViewFragment(),
-  com.appcoins.wallet.ui.arch.SingleStateFragment<OnboardingAdyenPaymentState, OnboardingAdyenPaymentSideEffect> {
+  SingleStateFragment<OnboardingAdyenPaymentState, OnboardingAdyenPaymentSideEffect> {
 
   private val viewModel: OnboardingAdyenPaymentViewModel by viewModels()
   private val views by viewBinding(OnboardingAdyenPaymentFragmentBinding::bind)
@@ -104,11 +104,11 @@ class OnboardingAdyenPaymentFragment : BasePageViewFragment(),
 
   override fun onStateChanged(state: OnboardingAdyenPaymentState) {
     when (state.paymentInfoModel) {
-      com.appcoins.wallet.ui.arch.Async.Uninitialized,
-      is com.appcoins.wallet.ui.arch.Async.Loading -> {
+      Async.Uninitialized,
+      is Async.Loading -> {
         views.loadingAnimation.playAnimation()
       }
-      is com.appcoins.wallet.ui.arch.Async.Success -> {
+      is Async.Success -> {
         state.paymentInfoModel()?.let {
           when (args.paymentType) {
             PaymentType.CARD -> {
@@ -121,7 +121,7 @@ class OnboardingAdyenPaymentFragment : BasePageViewFragment(),
           }
         }
       }
-      is com.appcoins.wallet.ui.arch.Async.Fail -> Unit
+      is Async.Fail -> Unit
     }
   }
 

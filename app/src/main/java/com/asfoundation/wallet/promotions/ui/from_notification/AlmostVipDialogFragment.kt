@@ -16,7 +16,7 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class AlmostVipDialogFragment : BasePageViewDialogFragment(),
-  com.appcoins.wallet.ui.arch.SingleStateFragment<PromotionsState, PromotionsSideEffect> {
+  SingleStateFragment<PromotionsState, PromotionsSideEffect> {
 
   private val views by viewBinding(AlmostVipFragmentBinding::bind)
 

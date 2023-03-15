@@ -23,7 +23,7 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class PromotionsVipReferralFragment: BasePageViewFragment() ,
-  com.appcoins.wallet.ui.arch.SingleStateFragment<PromotionsVipReferralState, PromotionsVipReferralSideEffect> {
+  SingleStateFragment<PromotionsVipReferralState, PromotionsVipReferralSideEffect> {
 
   @Inject
   lateinit var navigator: PromotionsVipReferralNavigator
@@ -68,13 +68,13 @@ class PromotionsVipReferralFragment: BasePageViewFragment() ,
 
   override fun onStateChanged(state: PromotionsVipReferralState) {
     when (state.convertTotalAsync) {
-      is com.appcoins.wallet.ui.arch.Async.Uninitialized -> {
+      is Async.Uninitialized -> {
 
       }
-      is com.appcoins.wallet.ui.arch.Async.Loading -> {
+      is Async.Loading -> {
 
       }
-      is com.appcoins.wallet.ui.arch.Async.Fail -> {
+      is Async.Fail -> {
         views.earnedTv?.text = context?.getString(
           R.string.vip_program_referral_page_earned_body,
           "",
@@ -82,7 +82,7 @@ class PromotionsVipReferralFragment: BasePageViewFragment() ,
           earnedTotal
         )
       }
-      is com.appcoins.wallet.ui.arch.Async.Success -> {
+      is Async.Success -> {
         state.convertTotalAsync.value?.let { convertedTotal ->
           val fiatAmount =
             formatter.formatCurrency(convertedTotal.amount, WalletCurrency.FIAT)

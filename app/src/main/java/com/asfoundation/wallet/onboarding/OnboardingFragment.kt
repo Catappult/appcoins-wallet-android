@@ -29,7 +29,7 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class OnboardingFragment : BasePageViewFragment(),
-  com.appcoins.wallet.ui.arch.SingleStateFragment<OnboardingState, OnboardingSideEffect> {
+  SingleStateFragment<OnboardingState, OnboardingSideEffect> {
 
   @Inject
   lateinit var navigator: OnboardingNavigator

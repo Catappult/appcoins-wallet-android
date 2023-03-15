@@ -7,8 +7,6 @@ android {
 }
 
 dependencies {
-//  implementation(project(":ui:commons"))
-//  implementation(project(":core:utils"))
   implementation(project(":legacy:billing"))
 
   implementation(libs.androidx.navigation.ui)

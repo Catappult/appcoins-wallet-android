@@ -6,7 +6,7 @@ import com.appcoins.wallet.ui.arch.navigate
 import javax.inject.Inject
 
 class VerifyPickerDialogNavigator @Inject constructor(private val navController: NavController) :
-  com.appcoins.wallet.ui.arch.Navigator {
+  Navigator {
 
   fun navigateToCreditCardVerify() {
     navigate(navController, VerifyPickerDialogFragmentDirections.actionNavigateToVerifyCard(false))

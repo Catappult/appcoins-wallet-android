@@ -16,7 +16,7 @@ class OnboardingPaymentResultNavigator @Inject constructor(
   private val fragment: Fragment,
   private val packageManager: PackageManager
 ) :
-  com.appcoins.wallet.ui.arch.Navigator {
+  Navigator {
 
   fun navigateBack() {
     fragment.findNavController().popBackStack()

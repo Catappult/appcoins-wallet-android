@@ -23,7 +23,7 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class OnboardingPaymentFragment : BasePageViewFragment(),
-  com.appcoins.wallet.ui.arch.SingleStateFragment<OnboardingPaymentState, OnboardingPaymentSideEffect> {
+  SingleStateFragment<OnboardingPaymentState, OnboardingPaymentSideEffect> {
 
   private val viewModel: OnboardingPaymentViewModel by viewModels()
   private val views by viewBinding(FragmentOnboardingPaymentBinding::bind)
@@ -74,15 +74,15 @@ class OnboardingPaymentFragment : BasePageViewFragment(),
 
   override fun onStateChanged(state: OnboardingPaymentState) {
     when (state.transactionContent) {
-      com.appcoins.wallet.ui.arch.Async.Uninitialized,
-      is com.appcoins.wallet.ui.arch.Async.Loading -> {
+      Async.Uninitialized,
+      is Async.Loading -> {
         //TODO add a skeleton while the list loads
         views.loadingAnimation.playAnimation()
       }
-      is com.appcoins.wallet.ui.arch.Async.Success -> {
+      is Async.Success -> {
         state.transactionContent()?.let { showHeaderContent(it) }
       }
-      is com.appcoins.wallet.ui.arch.Async.Fail -> showRetryError()
+      is Async.Fail -> showRetryError()
     }
   }
 

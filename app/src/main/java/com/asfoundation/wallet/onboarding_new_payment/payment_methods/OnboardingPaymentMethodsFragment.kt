@@ -34,7 +34,7 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class OnboardingPaymentMethodsFragment : BasePageViewFragment(),
-  com.appcoins.wallet.ui.arch.SingleStateFragment<OnboardingPaymentMethodsState, OnboardingPaymentMethodsSideEffect> {
+  SingleStateFragment<OnboardingPaymentMethodsState, OnboardingPaymentMethodsSideEffect> {
 
   private val viewModel: OnboardingPaymentMethodsViewModel by viewModels()
   private val views by viewBinding(OnboardingPaymentMethodsFragmentBinding::bind)
@@ -91,18 +91,18 @@ class OnboardingPaymentMethodsFragment : BasePageViewFragment(),
 
   override fun onStateChanged(state: OnboardingPaymentMethodsState) {
     when (state.paymentMethodsAsync) {
-      com.appcoins.wallet.ui.arch.Async.Uninitialized,
-      is com.appcoins.wallet.ui.arch.Async.Loading -> {
+      Async.Uninitialized,
+      is Async.Loading -> {
         //TODO add a skeleton while the list loads
       }
-      is com.appcoins.wallet.ui.arch.Async.Success -> {
+      is Async.Success -> {
         if (state.paymentMethodsAsync()?.isEmpty() == true) {
           handleNoPaymentMethodsError()
         } else {
           showPaymentMethodsList(state.paymentMethodsAsync(), state.otherPaymentMethods)
         }
       }
-      is com.appcoins.wallet.ui.arch.Async.Fail -> {
+      is Async.Fail -> {
         handleNoPaymentMethodsError()
       }
     }

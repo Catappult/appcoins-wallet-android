@@ -22,7 +22,7 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class ChooseCurrencyBottomSheetFragment : BottomSheetDialogFragment(),
-  com.appcoins.wallet.ui.arch.SingleStateFragment<ChooseCurrencyBottomSheetState, ChooseCurrencyBottomSideEffect> {
+  SingleStateFragment<ChooseCurrencyBottomSheetState, ChooseCurrencyBottomSideEffect> {
 
 
   @Inject

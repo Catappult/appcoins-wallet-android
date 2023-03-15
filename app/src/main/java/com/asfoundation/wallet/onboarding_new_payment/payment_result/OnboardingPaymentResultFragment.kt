@@ -28,7 +28,7 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class OnboardingPaymentResultFragment : BasePageViewFragment(),
-  com.appcoins.wallet.ui.arch.SingleStateFragment<OnboardingPaymentResultState, OnboardingPaymentResultSideEffect> {
+  SingleStateFragment<OnboardingPaymentResultState, OnboardingPaymentResultSideEffect> {
 
   private val viewModel: OnboardingPaymentResultViewModel by viewModels()
   private val views by viewBinding(OnboardingPaymentResultFragmentBinding::bind)

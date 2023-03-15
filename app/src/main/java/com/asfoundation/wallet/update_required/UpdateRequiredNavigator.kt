@@ -6,7 +6,7 @@ import com.appcoins.wallet.ui.arch.Navigator
 import javax.inject.Inject
 
 class UpdateRequiredNavigator @Inject constructor(private val fragment: Fragment) :
-  com.appcoins.wallet.ui.arch.Navigator {
+  Navigator {
 
   fun navigateToBackup(walletAddress: String) {
     fragment.startActivity(

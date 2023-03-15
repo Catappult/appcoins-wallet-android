@@ -27,7 +27,7 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class PromoCodeBottomSheetFragment : BottomSheetDialogFragment(),
-  com.appcoins.wallet.ui.arch.SingleStateFragment<PromoCodeBottomSheetState, PromoCodeBottomSheetSideEffect> {
+  SingleStateFragment<PromoCodeBottomSheetState, PromoCodeBottomSheetSideEffect> {
 
 
   @Inject
@@ -88,16 +88,16 @@ class PromoCodeBottomSheetFragment : BottomSheetDialogFragment(),
 
   override fun onStateChanged(state: PromoCodeBottomSheetState) {
     when (val clickAsync = state.submitPromoCodeAsync) {
-      is com.appcoins.wallet.ui.arch.Async.Uninitialized -> initializePromoCode(state.storedPromoCodeAsync, state.shouldShowDefault)
-      is com.appcoins.wallet.ui.arch.Async.Loading -> {
+      is Async.Uninitialized -> initializePromoCode(state.storedPromoCodeAsync, state.shouldShowDefault)
+      is Async.Loading -> {
         if (clickAsync.value == null) {
           showLoading()
         }
       }
-      is com.appcoins.wallet.ui.arch.Async.Fail -> {
+      is Async.Fail -> {
         handleErrorState(FailedPromoCode.InvalidCode(clickAsync.error.throwable))
       }
-      is com.appcoins.wallet.ui.arch.Async.Success -> {
+      is Async.Success -> {
         handleClickSuccessState(state.submitPromoCodeAsync.value)
       }
     }

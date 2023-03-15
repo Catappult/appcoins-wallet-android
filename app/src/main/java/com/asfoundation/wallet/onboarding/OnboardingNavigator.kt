@@ -12,7 +12,7 @@ import com.appcoins.wallet.ui.arch.navigate
 import javax.inject.Inject
 
 class OnboardingNavigator @Inject constructor(private val fragment: Fragment) :
-  com.appcoins.wallet.ui.arch.Navigator {
+  Navigator {
 
   fun navigateToNavBar() {
     navigate(

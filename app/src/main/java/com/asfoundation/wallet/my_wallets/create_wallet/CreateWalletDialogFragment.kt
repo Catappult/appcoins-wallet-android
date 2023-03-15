@@ -21,7 +21,7 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class CreateWalletDialogFragment : DialogFragment(),
-  com.appcoins.wallet.ui.arch.SingleStateFragment<CreateWalletState, CreateWalletSideEffect> {
+  SingleStateFragment<CreateWalletState, CreateWalletSideEffect> {
 
   @Inject
   lateinit var navigator: CreateWalletDialogNavigator
@@ -63,11 +63,11 @@ class CreateWalletDialogFragment : DialogFragment(),
 
   override fun onStateChanged(state: CreateWalletState) {
     when (state.walletCreationAsync) {
-      com.appcoins.wallet.ui.arch.Async.Uninitialized,
-      is com.appcoins.wallet.ui.arch.Async.Loading -> {
+      Async.Uninitialized,
+      is Async.Loading -> {
         views.createWalletLoading.playAnimation()
       }
-      is com.appcoins.wallet.ui.arch.Async.Success -> {
+      is Async.Success -> {
         views.createWalletLoading.setAnimation(R.raw.success_animation)
         if (requireArguments().getBoolean(NEEDS_WALLET_CREATION)) {
           views.createWalletText.text = getText(R.string.provide_wallet_created_header)

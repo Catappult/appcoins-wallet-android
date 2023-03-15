@@ -19,7 +19,7 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class ChangeFiatCurrencyFragment : BasePageViewFragment(),
-  com.appcoins.wallet.ui.arch.SingleStateFragment<ChangeFiatCurrencyState, ChangeFiatCurrencySideEffect> {
+  SingleStateFragment<ChangeFiatCurrencyState, ChangeFiatCurrencySideEffect> {
 
   @Inject
   lateinit var changeFiatCurrencyNavigator: ChangeFiatCurrencyNavigator
@@ -52,15 +52,15 @@ class ChangeFiatCurrencyFragment : BasePageViewFragment(),
 
   fun setChangeFiatCurrencyModel(asyncChangeFiatCurrency: Async<ChangeFiatCurrency>) {
     when (asyncChangeFiatCurrency) {
-      com.appcoins.wallet.ui.arch.Async.Uninitialized,
-      is com.appcoins.wallet.ui.arch.Async.Loading -> {
+      Async.Uninitialized,
+      is Async.Loading -> {
         if (asyncChangeFiatCurrency.value == null) {
           showLoading()
         }
       }
-      is com.appcoins.wallet.ui.arch.Async.Fail -> {
+      is Async.Fail -> {
       }
-      is com.appcoins.wallet.ui.arch.Async.Success -> {
+      is Async.Success -> {
         setChangeFiatCurrency(asyncChangeFiatCurrency())
       }
     }

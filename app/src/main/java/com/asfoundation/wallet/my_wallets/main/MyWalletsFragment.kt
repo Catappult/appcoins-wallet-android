@@ -38,7 +38,7 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class MyWalletsFragment : BasePageViewFragment(),
-  com.appcoins.wallet.ui.arch.SingleStateFragment<MyWalletsState, MyWalletsSideEffect> {
+  SingleStateFragment<MyWalletsState, MyWalletsSideEffect> {
 
   @Inject
   lateinit var formatter: CurrencyFormatUtils
@@ -86,22 +86,22 @@ class MyWalletsFragment : BasePageViewFragment(),
 
   override fun onStateChanged(state: MyWalletsState) {
     when (val asyncValue = state.walletInfoAsync) {
-      com.appcoins.wallet.ui.arch.Async.Uninitialized,
-      is com.appcoins.wallet.ui.arch.Async.Loading -> {
+      Async.Uninitialized,
+      is Async.Loading -> {
         showWalletInfoLoading()
         showBackupLoading()
       }
-      is com.appcoins.wallet.ui.arch.Async.Fail -> Unit
-      is com.appcoins.wallet.ui.arch.Async.Success -> asyncValue().run {
+      is Async.Fail -> Unit
+      is Async.Success -> asyncValue().run {
         showWalletInfo()
         showBackup()
       }
     }
     when (val asyncValue = state.walletVerifiedAsync) {
-      com.appcoins.wallet.ui.arch.Async.Uninitialized,
-      is com.appcoins.wallet.ui.arch.Async.Loading -> showVerifyLoading()
-      is com.appcoins.wallet.ui.arch.Async.Fail -> Unit
-      is com.appcoins.wallet.ui.arch.Async.Success -> asyncValue().run {
+      Async.Uninitialized,
+      is Async.Loading -> showVerifyLoading()
+      is Async.Fail -> Unit
+      is Async.Success -> asyncValue().run {
         when (status) {
           BalanceVerificationStatus.VERIFIED -> showVerified(false)
           BalanceVerificationStatus.UNVERIFIED -> showUnverified(false)

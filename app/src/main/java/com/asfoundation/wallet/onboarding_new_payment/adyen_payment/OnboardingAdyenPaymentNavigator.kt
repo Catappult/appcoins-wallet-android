@@ -15,7 +15,7 @@ import com.asfoundation.wallet.ui.iab.WebViewActivity
 import javax.inject.Inject
 
 class OnboardingAdyenPaymentNavigator @Inject constructor(private val fragment: Fragment) :
-  com.appcoins.wallet.ui.arch.Navigator {
+  Navigator {
 
   fun navigateBack() {
     fragment.findNavController().popBackStack()
