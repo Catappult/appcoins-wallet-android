@@ -1,10 +1,10 @@
 package com.asfoundation.wallet.backup.use_cases
 
-import com.asfoundation.wallet.backup.repository.preferences.BackupSystemNotificationPreferences
+import com.appcoins.wallet.sharedpreferences.BackupSystemNotificationPreferencesDataSource
 import javax.inject.Inject
 
 class SaveDismissSystemNotificationUseCase @Inject constructor(
-  private val backupSystemNotificationPreferences: BackupSystemNotificationPreferences
+  private val backupSystemNotificationPreferences: BackupSystemNotificationPreferencesDataSource
 ) {
 
   operator fun invoke(walletAddress: String) {

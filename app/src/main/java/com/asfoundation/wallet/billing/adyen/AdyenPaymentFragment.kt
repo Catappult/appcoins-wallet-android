@@ -26,6 +26,9 @@ import com.appcoins.wallet.bdsbilling.Billing
 import com.appcoins.wallet.billing.adyen.PaymentInfoModel
 import com.appcoins.wallet.billing.repository.entity.TransactionData
 import com.appcoins.wallet.commons.Logger
+import com.appcoins.wallet.core.utils.common.CurrencyFormatUtils
+import com.appcoins.wallet.core.utils.common.KeyboardUtils
+import com.appcoins.wallet.core.utils.common.WalletCurrency
 import com.asf.wallet.BuildConfig
 import com.asf.wallet.R
 import com.asfoundation.wallet.billing.address.BillingAddressFragment.Companion.BILLING_ADDRESS_MODEL

@@ -3,6 +3,7 @@ package com.asfoundation.wallet.util;
 import android.text.TextUtils;
 import androidx.annotation.NonNull;
 import com.appcoins.wallet.commons.Logger;
+import com.appcoins.wallet.core.utils.common.Log;
 import java.io.IOException;
 import java.net.URLDecoder;
 import java.nio.charset.Charset;

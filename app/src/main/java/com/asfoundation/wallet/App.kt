@@ -16,6 +16,7 @@ import com.appcoins.wallet.bdsbilling.repository.SubscriptionBillingApi
 import com.appcoins.wallet.billing.BillingDependenciesProvider
 import com.appcoins.wallet.billing.BillingMessagesMapper
 import com.appcoins.wallet.commons.Logger
+import com.appcoins.wallet.core.utils.properties.MiscProperties
 import com.asf.wallet.BuildConfig
 import com.asfoundation.wallet.analytics.IndicativeAnalytics
 import com.asfoundation.wallet.analytics.RakamAnalytics
@@ -27,7 +28,6 @@ import com.asfoundation.wallet.billing.paypal.repository.MagnesUtils
 import com.asfoundation.wallet.identification.IdsRepository
 import com.asfoundation.wallet.logging.FlurryReceiver
 import com.asfoundation.wallet.main.appsflyer.ApkOriginVerification
-import com.asfoundation.wallet.repository.PreferencesRepositoryType
 import com.asfoundation.wallet.support.AlarmManagerBroadcastReceiver
 import com.asfoundation.wallet.ui.iab.AppcoinsOperationsDataSaver
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
@@ -43,6 +43,7 @@ import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import org.bouncycastle.jce.provider.BouncyCastleProvider
+import com.appcoins.wallet.sharedpreferences.CommonsPreferencesDataSource
 import java.security.Provider
 import java.security.Security
 import java.util.*
@@ -101,7 +102,7 @@ class App : MultiDexApplication(), BillingDependenciesProvider {
   lateinit var sentryAnalytics: SentryAnalytics
 
   @Inject
-  lateinit var preferencesRepositoryType: PreferencesRepositoryType
+  lateinit var commonsPreferencesDataSource: CommonsPreferencesDataSource
 
   @Inject
   lateinit var analyticsManager: AnalyticsManager
@@ -221,10 +222,10 @@ class App : MultiDexApplication(), BillingDependenciesProvider {
   }
 
   private fun initializeWalletId() {
-    if (preferencesRepositoryType.getWalletId() == null) {
+    if (commonsPreferencesDataSource.getWalletId() == null) {
       val id = UUID.randomUUID()
         .toString()
-      preferencesRepositoryType.setWalletId(id)
+      commonsPreferencesDataSource.setWalletId(id)
     }
   }
 
@@ -235,7 +236,7 @@ class App : MultiDexApplication(), BillingDependenciesProvider {
 
   fun analyticsManager() = analyticsManager
 
-  override fun supportedVersion() = BuildConfig.BILLING_SUPPORTED_VERSION
+  override fun supportedVersion() = MiscProperties.BILLING_SUPPORTED_VERSION
 
   override fun brokerBdsApi() = brokerBdsApi
 

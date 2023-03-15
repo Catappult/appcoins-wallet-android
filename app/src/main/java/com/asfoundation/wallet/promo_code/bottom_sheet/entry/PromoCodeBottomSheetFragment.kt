@@ -19,7 +19,7 @@ import com.asfoundation.wallet.promo_code.PromoCodeResult
 import com.asfoundation.wallet.promo_code.SuccessfulPromoCode
 import com.asfoundation.wallet.promo_code.bottom_sheet.PromoCodeBottomSheetNavigator
 import com.asfoundation.wallet.ui.common.WalletTextFieldView
-import com.asfoundation.wallet.util.KeyboardUtils
+import com.appcoins.wallet.core.utils.common.KeyboardUtils
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import dagger.hilt.android.AndroidEntryPoint

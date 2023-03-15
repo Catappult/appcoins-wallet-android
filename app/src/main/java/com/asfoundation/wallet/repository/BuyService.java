@@ -2,12 +2,12 @@ package com.asfoundation.wallet.repository;
 
 import androidx.annotation.NonNull;
 import com.appcoins.wallet.bdsbilling.BillingPaymentProofSubmission;
+import com.appcoins.wallet.core.utils.common.CountryCodeProvider;
+import com.appcoins.wallet.core.utils.common.CountryCodeProviderKt;
 import com.asfoundation.wallet.billing.partners.AddressService;
 import com.asfoundation.wallet.entity.TokenInfo;
 import com.asfoundation.wallet.entity.TransactionBuilder;
 import com.asfoundation.wallet.interact.DefaultTokenProvider;
-import com.asfoundation.wallet.util.CountryCodeProvider;
-import com.asfoundation.wallet.util.CountryCodeProviderKt;
 import io.reactivex.Completable;
 import io.reactivex.Observable;
 import io.reactivex.Single;

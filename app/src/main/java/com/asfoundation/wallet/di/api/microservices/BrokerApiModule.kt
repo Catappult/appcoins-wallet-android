@@ -4,6 +4,7 @@ import cm.aptoide.skills.api.TopUpApi
 import com.appcoins.wallet.bdsbilling.repository.RemoteRepository
 import com.appcoins.wallet.billing.adyen.AdyenPaymentRepository
 import com.appcoins.wallet.billing.skills.SkillsPaymentRepository
+import com.appcoins.wallet.core.utils.properties.HostProperties
 import com.asf.wallet.BuildConfig
 import com.asfoundation.wallet.backup.repository.BackupRepository
 import com.appcoins.wallet.ui.arch.RxSchedulers
@@ -33,7 +34,7 @@ import javax.inject.Singleton
 @Module
 class BrokerApiModule {
 
-  private val brokerUrl = "${BuildConfig.BASE_HOST}/broker/"
+  private val brokerUrl = "${HostProperties.MS_HOST}/broker/"
 
   @Singleton
   @Provides

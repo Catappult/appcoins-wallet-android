@@ -3,12 +3,12 @@ package com.asfoundation.wallet.di
 import com.appcoins.wallet.bdsbilling.BillingPaymentProofSubmission
 import com.appcoins.wallet.commons.MemoryCache
 import com.appcoins.wallet.ui.arch.RxSchedulers
+import com.appcoins.wallet.core.utils.common.CountryCodeProvider
 import com.asfoundation.wallet.billing.partners.AddressService
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.interact.DefaultTokenProvider
 import com.asfoundation.wallet.interact.SendTransactionInteract
 import com.asfoundation.wallet.repository.*
-import com.asfoundation.wallet.util.CountryCodeProvider
 import com.asfoundation.wallet.wallets.usecases.HasEnoughBalanceUseCase
 import dagger.Module
 import dagger.Provides
