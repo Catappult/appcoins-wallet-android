@@ -1,7 +1,7 @@
 package com.asfoundation.wallet.verification.ui.paypal
 
 import com.appcoins.wallet.billing.adyen.AdyenPaymentRepository
-import com.asfoundation.wallet.base.*
+import com.appcoins.wallet.ui.arch.*
 import com.asfoundation.wallet.ui.iab.WebViewActivity
 import com.asfoundation.wallet.verification.ui.credit_card.WalletVerificationInteractor
 import com.asfoundation.wallet.verification.ui.credit_card.intro.VerificationIntroModel
@@ -16,8 +16,8 @@ sealed class VerificationPaypalIntroSideEffect : SideEffect {
 }
 
 data class VerificationPaypalIntroState(
-    val verificationInfoAsync: Async<VerificationIntroModel> = Async.Uninitialized,
-    val verificationSubmitAsync: Async<Unit> = Async.Uninitialized) : ViewState
+  val verificationInfoAsync: Async<VerificationIntroModel> = Async.Uninitialized,
+  val verificationSubmitAsync: Async<Unit> = Async.Uninitialized) : ViewState
 
 class VerificationPaypalViewModel(
     private val data: VerificationPaypalData,

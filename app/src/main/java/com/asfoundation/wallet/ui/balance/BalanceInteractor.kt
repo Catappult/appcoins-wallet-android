@@ -1,7 +1,7 @@
 package com.asfoundation.wallet.ui.balance
 
 import com.appcoins.wallet.bdsbilling.WalletAddressModel
-import com.asfoundation.wallet.base.RxSchedulers
+import com.appcoins.wallet.core.utils.common.RxSchedulers
 import com.asfoundation.wallet.service.AccountWalletService
 import com.asfoundation.wallet.verification.repository.BrokerVerificationRepository
 import com.asfoundation.wallet.verification.ui.credit_card.WalletVerificationInteractor

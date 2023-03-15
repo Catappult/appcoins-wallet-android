@@ -2,7 +2,7 @@ package com.asfoundation.wallet.billing.paypal.usecases
 
 import com.appcoins.wallet.bdsbilling.WalletService
 import com.appcoins.wallet.billing.adyen.PaymentModel
-import com.asfoundation.wallet.base.RxSchedulers
+import com.appcoins.wallet.core.utils.common.RxSchedulers
 import com.asfoundation.wallet.billing.paypal.repository.PayPalV2Repository
 import io.reactivex.Observable
 import java.util.concurrent.TimeUnit

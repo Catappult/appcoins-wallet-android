@@ -2,15 +2,12 @@ package com.asfoundation.wallet.onboarding_new_payment.payment_methods
 
 import android.net.Uri
 import androidx.lifecycle.SavedStateHandle
-import com.asfoundation.wallet.base.Async
-import com.asfoundation.wallet.base.BaseViewModel
-import com.asfoundation.wallet.base.SideEffect
-import com.asfoundation.wallet.base.ViewState
-import com.asfoundation.wallet.billing.adyen.PaymentType
+import com.appcoins.wallet.ui.arch.Async
+import com.appcoins.wallet.ui.arch.BaseViewModel
+import com.appcoins.wallet.ui.arch.SideEffect
+import com.appcoins.wallet.ui.arch.ViewState
 import com.asfoundation.wallet.onboarding.CachedTransactionRepository
 import com.asfoundation.wallet.onboarding_new_payment.OnboardingPaymentEvents
-import com.asfoundation.wallet.onboarding_new_payment.payment_result.OnboardingPaymentResultFragmentArgs
-import com.asfoundation.wallet.onboarding_new_payment.payment_result.OnboardingPaymentResultSideEffect
 import com.asfoundation.wallet.onboarding_new_payment.use_cases.GetFirstPaymentMethodsUseCase
 import com.asfoundation.wallet.onboarding_new_payment.use_cases.GetOtherPaymentMethodsUseCase
 import com.asfoundation.wallet.ui.iab.PaymentMethod

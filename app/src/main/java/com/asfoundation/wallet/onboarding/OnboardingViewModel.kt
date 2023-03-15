@@ -2,9 +2,10 @@ package com.asfoundation.wallet.onboarding
 
 import android.net.Uri
 import androidx.lifecycle.viewModelScope
+import com.appcoins.wallet.core.utils.common.RxSchedulers
+import com.appcoins.wallet.ui.arch.*
 import com.asfoundation.wallet.app_start.AppStartUseCase
 import com.asfoundation.wallet.app_start.StartMode
-import com.asfoundation.wallet.base.*
 import com.asfoundation.wallet.my_wallets.create_wallet.CreateWalletUseCase
 import com.asfoundation.wallet.onboarding.use_cases.HasWalletUseCase
 import com.asfoundation.wallet.onboarding.use_cases.SetOnboardingCompletedUseCase

@@ -4,9 +4,10 @@ import android.os.Build
 import android.os.Environment
 import androidx.documentfile.provider.DocumentFile
 import androidx.lifecycle.SavedStateHandle
+import com.appcoins.wallet.core.utils.common.RxSchedulers
+import com.appcoins.wallet.ui.arch.*
 import com.asfoundation.wallet.backup.use_cases.BackupSuccessLogUseCase
 import com.asfoundation.wallet.backup.use_cases.SaveBackupFileUseCase
-import com.asfoundation.wallet.base.*
 import com.asfoundation.wallet.wallets.usecases.GetWalletInfoUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject

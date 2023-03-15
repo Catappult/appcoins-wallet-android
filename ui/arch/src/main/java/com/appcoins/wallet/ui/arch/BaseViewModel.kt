@@ -1,9 +1,9 @@
-package com.asfoundation.wallet.base
+package com.appcoins.wallet.ui.arch
 
 import androidx.annotation.CallSuper
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.asfoundation.wallet.util.isNoNetworkException
+import com.appcoins.wallet.billing.util.isNoNetworkException
 import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Single
@@ -56,8 +56,8 @@ abstract class BaseViewModel<S : ViewState, E : SideEffect>(initialState: S) : V
    *                implementation of this with a data class is: `{ copy(stateProperty = it) }`.
    */
   protected fun <T> Observable<T>.asAsyncToState(
-      retainValue: KProperty1<S, Async<T>>? = null,
-      reducer: S.(Async<T>) -> S
+    retainValue: KProperty1<S, Async<T>>? = null,
+    reducer: S.(Async<T>) -> S
   ): Observable<T> {
     setState { reducer(Async.Loading(retainValue?.get(this)?.value)) }
     return doOnNext { value ->
@@ -66,7 +66,12 @@ abstract class BaseViewModel<S : ViewState, E : SideEffect>(initialState: S) : V
       }
     }.doOnError { e ->
       setState {
-        reducer(Async.Fail(e.mapToError(), retainValue?.get(this)?.value))
+        reducer(
+          Async.Fail(
+            e.mapToError(),
+            retainValue?.get(this)?.value
+          )
+        )
       }
     }
   }
@@ -83,8 +88,8 @@ abstract class BaseViewModel<S : ViewState, E : SideEffect>(initialState: S) : V
    *                implementation of this with a data class is: `{ copy(stateProperty = it) }`.
    */
   protected fun <T> Single<T>.asAsyncToState(
-      retainValue: KProperty1<S, Async<T>>? = null,
-      reducer: S.(Async<T>) -> S
+    retainValue: KProperty1<S, Async<T>>? = null,
+    reducer: S.(Async<T>) -> S
   ): Single<T> {
     setState { reducer(Async.Loading(retainValue?.get(this)?.value)) }
     return doOnSuccess { value ->
@@ -93,7 +98,12 @@ abstract class BaseViewModel<S : ViewState, E : SideEffect>(initialState: S) : V
       }
     }.doOnError { e ->
       setState {
-        reducer(Async.Fail(e.mapToError(), retainValue?.get(this)?.value))
+        reducer(
+          Async.Fail(
+            e.mapToError(),
+            retainValue?.get(this)?.value
+          )
+        )
       }
     }
   }
@@ -110,8 +120,8 @@ abstract class BaseViewModel<S : ViewState, E : SideEffect>(initialState: S) : V
    *                implementation of this with a data class is: `{ copy(stateProperty = it) }`.
    */
   protected fun Completable.asAsyncToState(
-      retainValue: KProperty1<S, Async<Unit>>? = null,
-      reducer: S.(Async<Unit>) -> S
+    retainValue: KProperty1<S, Async<Unit>>? = null,
+    reducer: S.(Async<Unit>) -> S
   ): Completable {
     setState { reducer(Async.Loading(retainValue?.get(this)?.value)) }
     return doOnComplete {
@@ -120,7 +130,12 @@ abstract class BaseViewModel<S : ViewState, E : SideEffect>(initialState: S) : V
       }
     }.doOnError { e ->
       setState {
-        reducer(Async.Fail(e.mapToError(), retainValue?.get(this)?.value))
+        reducer(
+          Async.Fail(
+            e.mapToError(),
+            retainValue?.get(this)?.value
+          )
+        )
       }
     }
   }
@@ -138,17 +153,37 @@ abstract class BaseViewModel<S : ViewState, E : SideEffect>(initialState: S) : V
    */
 
   protected fun <T> Single<T>.asAsyncLoadingToState(
-      retainValue: KProperty1<S, Async<T>>? = null,
-      reducer: S.(Async<T>) -> S
+    retainValue: KProperty1<S, Async<T>>? = null,
+    reducer: S.(Async<T>) -> S
   ): Single<T> {
-    return doOnSubscribe { setState { reducer(Async.Loading(retainValue?.get(this)?.value)) } }
+    return doOnSubscribe {
+      setState {
+        reducer(
+          Async.Loading(
+            retainValue?.get(
+              this
+            )?.value
+          )
+        )
+      }
+    }
   }
 
   protected fun Completable.asAsyncLoadingToState(
-      retainValue: KProperty1<S, Async<Unit>>? = null,
-      reducer: S.(Async<Unit>) -> S
+    retainValue: KProperty1<S, Async<Unit>>? = null,
+    reducer: S.(Async<Unit>) -> S
   ): Completable {
-    return doOnSubscribe { setState { reducer(Async.Loading(retainValue?.get(this)?.value)) } }
+    return doOnSubscribe {
+      setState {
+        reducer(
+          Async.Loading(
+            retainValue?.get(
+              this
+            )?.value
+          )
+        )
+      }
+    }
   }
 
   private fun Throwable.mapToError(): Error {
@@ -173,8 +208,10 @@ abstract class BaseViewModel<S : ViewState, E : SideEffect>(initialState: S) : V
    * @param onErrorAction Action block that receives a [Throwable] and is executed at the end of
    *                      the stream if it isn't caught until then.
    */
-  protected fun <T> Observable<T>.repeatableScopedSubscribe(id: String,
-                                                            onErrorAction: ((Throwable) -> Unit)? = null): Disposable {
+  protected fun <T> Observable<T>.repeatableScopedSubscribe(
+    id: String,
+    onErrorAction: ((Throwable) -> Unit)? = null
+  ): Disposable {
     repeatableSubscriptionMap[id]?.dispose()
     repeatableSubscriptionMap[id] = subscribe({}, { onErrorAction?.invoke(it) })
     return repeatableSubscriptionMap[id]!!.apply {
@@ -197,8 +234,10 @@ abstract class BaseViewModel<S : ViewState, E : SideEffect>(initialState: S) : V
    * @param onErrorAction Action block that receives a [Throwable] and is executed at the end of
    *                      the stream if it isn't caught until then.
    */
-  protected fun <T> Single<T>.repeatableScopedSubscribe(id: String,
-                                                        onErrorAction: ((Throwable) -> Unit)? = null): Disposable {
+  protected fun <T> Single<T>.repeatableScopedSubscribe(
+    id: String,
+    onErrorAction: ((Throwable) -> Unit)? = null
+  ): Disposable {
     repeatableSubscriptionMap[id]?.dispose()
     repeatableSubscriptionMap[id] = subscribe({}, { onErrorAction?.invoke(it) })
     return repeatableSubscriptionMap[id]!!.apply {
@@ -221,8 +260,10 @@ abstract class BaseViewModel<S : ViewState, E : SideEffect>(initialState: S) : V
    * @param onErrorAction Action block that receives a [Throwable] and is executed at the end of
    *                      the stream if it isn't caught until then.
    */
-  protected fun Completable.repeatableScopedSubscribe(id: String,
-                                                      onErrorAction: ((Throwable) -> Unit)? = null): Disposable {
+  protected fun Completable.repeatableScopedSubscribe(
+    id: String,
+    onErrorAction: ((Throwable) -> Unit)? = null
+  ): Disposable {
     repeatableSubscriptionMap[id]?.dispose()
     repeatableSubscriptionMap[id] = subscribe({}, { onErrorAction?.invoke(it) })
     return repeatableSubscriptionMap[id]!!.apply {
@@ -239,7 +280,8 @@ abstract class BaseViewModel<S : ViewState, E : SideEffect>(initialState: S) : V
    * is also cleared.
    */
   protected fun <T> Observable<T>.scopedSubscribe(
-      onErrorAction: ((Throwable) -> Unit)? = null): Disposable {
+    onErrorAction: ((Throwable) -> Unit)? = null
+  ): Disposable {
     val disposable = subscribe({}, { onErrorAction?.invoke(it) })
     return disposable.apply {
       compositeDisposable.add(this)
@@ -251,7 +293,8 @@ abstract class BaseViewModel<S : ViewState, E : SideEffect>(initialState: S) : V
    * is also cleared.
    */
   protected fun <T> Single<T>.scopedSubscribe(
-      onErrorAction: ((Throwable) -> Unit)? = null): Disposable {
+    onErrorAction: ((Throwable) -> Unit)? = null
+  ): Disposable {
     val disposable = subscribe({}, { onErrorAction?.invoke(it) })
     return disposable.apply {
       compositeDisposable.add(this)
@@ -263,7 +306,8 @@ abstract class BaseViewModel<S : ViewState, E : SideEffect>(initialState: S) : V
    * is also cleared.
    */
   protected fun Completable.scopedSubscribe(
-      onErrorAction: ((Throwable) -> Unit)? = null): Disposable {
+    onErrorAction: ((Throwable) -> Unit)? = null
+  ): Disposable {
     val disposable = subscribe({}, { onErrorAction?.invoke(it) })
     return disposable.apply {
       compositeDisposable.add(this)

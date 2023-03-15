@@ -2,8 +2,8 @@ package com.asfoundation.wallet.di
 
 import com.appcoins.wallet.bdsbilling.BillingPaymentProofSubmission
 import com.appcoins.wallet.commons.MemoryCache
+import com.appcoins.wallet.core.utils.common.RxSchedulers
 import com.appcoins.wallet.core.utils.common.CountryCodeProvider
-import com.asfoundation.wallet.base.RxSchedulers
 import com.asfoundation.wallet.billing.partners.AddressService
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.interact.DefaultTokenProvider

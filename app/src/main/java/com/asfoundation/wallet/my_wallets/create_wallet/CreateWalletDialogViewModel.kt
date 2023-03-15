@@ -1,9 +1,9 @@
 package com.asfoundation.wallet.my_wallets.create_wallet
 
-import com.asfoundation.wallet.base.Async
-import com.asfoundation.wallet.base.BaseViewModel
-import com.asfoundation.wallet.base.SideEffect
-import com.asfoundation.wallet.base.ViewState
+import com.appcoins.wallet.ui.arch.Async
+import com.appcoins.wallet.ui.arch.BaseViewModel
+import com.appcoins.wallet.ui.arch.SideEffect
+import com.appcoins.wallet.ui.arch.ViewState
 import com.asfoundation.wallet.ui.wallets.WalletsInteract
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.Completable

@@ -9,7 +9,7 @@ import androidx.core.app.NotificationCompat
 import androidx.core.app.ShareCompat
 import androidx.work.*
 import com.asf.wallet.R
-import com.asfoundation.wallet.base.RxSchedulers
+import com.appcoins.wallet.core.utils.common.RxSchedulers
 import com.asfoundation.wallet.entity.Wallet
 import com.asfoundation.wallet.main.PendingIntentNavigator
 import com.asfoundation.wallet.promotions.usecases.GetVipReferralUseCase

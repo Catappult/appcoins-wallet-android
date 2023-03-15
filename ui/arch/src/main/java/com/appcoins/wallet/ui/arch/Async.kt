@@ -1,4 +1,4 @@
-package com.asfoundation.wallet.base
+package com.appcoins.wallet.ui.arch
 
 /**
  * Sealed class that represents the state of an asynchronous operation on View State.

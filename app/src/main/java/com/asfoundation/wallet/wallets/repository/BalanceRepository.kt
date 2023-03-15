@@ -1,7 +1,7 @@
 package com.asfoundation.wallet.wallets.repository
 
 import com.appcoins.wallet.core.utils.common.BalanceUtils
-import com.asfoundation.wallet.base.RxSchedulers
+import com.appcoins.wallet.core.utils.common.RxSchedulers
 import com.asfoundation.wallet.change_currency.use_cases.GetSelectedCurrencyUseCase
 import com.asfoundation.wallet.service.currencies.LocalCurrencyConversionService
 import com.asfoundation.wallet.ui.TokenValue

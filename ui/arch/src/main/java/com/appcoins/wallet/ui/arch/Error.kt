@@ -1,4 +1,4 @@
-package com.asfoundation.wallet.base
+package com.appcoins.wallet.ui.arch
 
 /**
  * General specification of common errors used throughout the architecture stack.

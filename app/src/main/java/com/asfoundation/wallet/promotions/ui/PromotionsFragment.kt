@@ -17,8 +17,8 @@ import com.appcoins.wallet.gamification.repository.PromotionsGamificationStats
 import com.appcoins.wallet.gamification.repository.entity.GamificationStatus
 import com.asf.wallet.R
 import com.asf.wallet.databinding.FragmentPromotionsBinding
-import com.asfoundation.wallet.base.Async
-import com.asfoundation.wallet.base.SingleStateFragment
+import com.appcoins.wallet.ui.arch.Async
+import com.appcoins.wallet.ui.arch.SingleStateFragment
 import com.asfoundation.wallet.promotions.model.GamificationItem
 import com.asfoundation.wallet.promotions.model.PromotionsModel
 import com.asfoundation.wallet.promotions.model.VipReferralInfo
@@ -130,7 +130,7 @@ class PromotionsFragment : BasePageViewFragment(),
           showLoading()
           showPromotionSkeleton()
         } else {
-          if (asyncPromotionsModel.value.error == PromotionsModel.Status.NO_NETWORK) {
+          if (asyncPromotionsModel.value?.error == PromotionsModel.Status.NO_NETWORK) {
             showNoNetworkErrorLoading()
           }
         }
