@@ -1,4 +1,4 @@
-package com.appcoins.wallet.networkbase.interceptors;
+package com.appcoins.wallet.core.network.base.interceptors;
 
 import android.text.TextUtils;
 import androidx.annotation.NonNull;

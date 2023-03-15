@@ -17,7 +17,7 @@ import com.appcoins.wallet.billing.BillingDependenciesProvider
 import com.appcoins.wallet.billing.BillingMessagesMapper
 import com.appcoins.wallet.commons.Logger
 import com.appcoins.wallet.core.utils.properties.MiscProperties
-import com.appcoins.wallet.networkbase.MagnesUtils
+import com.appcoins.wallet.core.network.base.MagnesUtils
 import com.asf.wallet.BuildConfig
 import com.asfoundation.wallet.analytics.IndicativeAnalytics
 import com.asfoundation.wallet.analytics.RakamAnalytics

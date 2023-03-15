@@ -3,7 +3,7 @@ plugins {
 }
 
 android {
-  namespace = "com.appcoins.wallet.networkbase"
+  namespace = "com.appcoins.wallet.core.network.base"
 }
 
 dependencies {

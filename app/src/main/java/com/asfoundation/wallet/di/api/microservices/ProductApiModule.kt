@@ -3,9 +3,8 @@ package com.asfoundation.wallet.di.api.microservices
 import com.appcoins.wallet.bdsbilling.repository.InappBillingApi
 import com.appcoins.wallet.bdsbilling.repository.SubscriptionBillingApi
 import com.appcoins.wallet.core.utils.properties.HostProperties
-import com.appcoins.wallet.networkbase.annotations.BlockchainHttpClient
-import com.appcoins.wallet.networkbase.annotations.DefaultHttpClient
-import com.asf.wallet.BuildConfig
+import com.appcoins.wallet.core.network.base.annotations.BlockchainHttpClient
+import com.appcoins.wallet.core.network.base.annotations.DefaultHttpClient
 import com.asfoundation.wallet.di.annotations.*
 import com.asfoundation.wallet.subscriptions.UserSubscriptionApi
 import com.asfoundation.wallet.topup.TopUpValuesService

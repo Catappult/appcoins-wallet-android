@@ -5,10 +5,9 @@ import com.appcoins.wallet.gamification.repository.GamificationApi
 import com.appcoins.wallet.gamification.repository.entity.PromotionsDeserializer
 import com.appcoins.wallet.gamification.repository.entity.PromotionsResponse
 import com.appcoins.wallet.gamification.repository.entity.PromotionsSerializer
-import com.appcoins.wallet.networkbase.annotations.BlockchainHttpClient
-import com.appcoins.wallet.networkbase.annotations.DefaultHttpClient
-import com.appcoins.wallet.networkbase.annotations.ShortTimeoutHttpClient
-import com.asf.wallet.BuildConfig
+import com.appcoins.wallet.core.network.base.annotations.BlockchainHttpClient
+import com.appcoins.wallet.core.network.base.annotations.DefaultHttpClient
+import com.appcoins.wallet.core.network.base.annotations.ShortTimeoutHttpClient
 import com.asfoundation.wallet.backup.repository.BackupRepository
 import com.asfoundation.wallet.di.annotations.*
 import com.asfoundation.wallet.eskills.withdraw.repository.WithdrawApi

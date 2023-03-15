@@ -1,4 +1,4 @@
-package com.appcoins.wallet.networkbase
+package com.appcoins.wallet.core.network.base
 
 import android.content.Context
 import lib.android.paypal.com.magnessdk.Environment

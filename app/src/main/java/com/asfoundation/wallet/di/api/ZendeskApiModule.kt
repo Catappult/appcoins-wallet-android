@@ -1,8 +1,7 @@
 package com.asfoundation.wallet.di.api
 
 import com.appcoins.wallet.core.utils.properties.HostProperties
-import com.appcoins.wallet.networkbase.annotations.DefaultHttpClient
-import com.asf.wallet.BuildConfig
+import com.appcoins.wallet.core.network.base.annotations.DefaultHttpClient
 import com.asfoundation.wallet.rating.RatingRepository
 import dagger.Module
 import dagger.Provides

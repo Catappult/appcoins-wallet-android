@@ -5,9 +5,8 @@ import com.appcoins.wallet.bdsbilling.repository.RemoteRepository
 import com.appcoins.wallet.billing.adyen.AdyenPaymentRepository
 import com.appcoins.wallet.billing.skills.SkillsPaymentRepository
 import com.appcoins.wallet.core.utils.properties.HostProperties
-import com.appcoins.wallet.networkbase.annotations.BlockchainHttpClient
-import com.appcoins.wallet.networkbase.annotations.DefaultHttpClient
-import com.asf.wallet.BuildConfig
+import com.appcoins.wallet.core.network.base.annotations.BlockchainHttpClient
+import com.appcoins.wallet.core.network.base.annotations.DefaultHttpClient
 import com.asfoundation.wallet.backup.repository.BackupRepository
 import com.asfoundation.wallet.base.RxSchedulers
 import com.asfoundation.wallet.billing.paypal.repository.PayPalV2Repository

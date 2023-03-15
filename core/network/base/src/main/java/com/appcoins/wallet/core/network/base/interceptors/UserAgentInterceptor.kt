@@ -1,4 +1,4 @@
-package com.appcoins.wallet.networkbase.interceptors
+package com.appcoins.wallet.core.network.base.interceptors
 
 import android.content.Context
 import android.os.Build

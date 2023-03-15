@@ -1,9 +1,8 @@
 package com.asfoundation.wallet.repository;
 
-import com.appcoins.wallet.networkbase.annotations.BlockchainHttpClient;
+import com.appcoins.wallet.core.network.base.annotations.BlockchainHttpClient;
 import com.asfoundation.wallet.entity.NetworkInfo;
 import javax.inject.Inject;
-import javax.inject.Named;
 import okhttp3.OkHttpClient;
 import org.web3j.protocol.Web3j;
 import org.web3j.protocol.http.HttpService;

@@ -1,6 +1,6 @@
 package com.asfoundation.wallet.di.api
 
-import com.appcoins.wallet.networkbase.annotations.BlockchainHttpClient
+import com.appcoins.wallet.core.network.base.annotations.BlockchainHttpClient
 import com.asfoundation.wallet.AirdropService
 import com.asfoundation.wallet.base.RxSchedulers
 import com.google.gson.Gson

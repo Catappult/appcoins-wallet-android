@@ -1,6 +1,6 @@
 package com.asfoundation.wallet.di.api
 
-import com.appcoins.wallet.networkbase.annotations.DefaultHttpClient
+import com.appcoins.wallet.core.network.base.annotations.DefaultHttpClient
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

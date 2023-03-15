@@ -42,7 +42,7 @@ dependencies {
   implementation(project(":legacy:skills"))
   implementation(project(":legacy:ethereumj-android"))
   implementation(project(":core:shared-preferences"))
-  implementation(project(":core:network-base"))
+  implementation(project(":core:network:base"))
 
   implementation(project(":core:utils:common"))
   implementation(project(":core:utils:properties"))

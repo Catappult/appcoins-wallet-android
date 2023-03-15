@@ -1,7 +1,7 @@
 package com.asfoundation.wallet.di
 
 import cm.aptoide.analytics.AnalyticsManager
-import com.appcoins.wallet.networkbase.annotations.DefaultHttpClient
+import com.appcoins.wallet.core.network.base.annotations.DefaultHttpClient
 import com.asfoundation.wallet.analytics.*
 import com.asfoundation.wallet.app_start.AppStartProbe
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics
