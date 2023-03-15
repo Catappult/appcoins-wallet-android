@@ -3,9 +3,9 @@ package com.asfoundation.wallet.backup.triggers
 import android.content.Intent
 import androidx.fragment.app.Fragment
 import com.asfoundation.wallet.backup.BackupActivity
-import com.asfoundation.wallet.backup.repository.preferences.BackupTriggerPreferences
 import com.asfoundation.wallet.backup.skip.BackupSkipDialogFragment
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.appcoins.wallet.sharedpreferences.BackupTriggerPreferencesDataSource
 import javax.inject.Inject
 
 class BackupTriggerDialogNavigator @Inject constructor(val fragment: Fragment) {
@@ -22,7 +22,7 @@ class BackupTriggerDialogNavigator @Inject constructor(val fragment: Fragment) {
 
   fun navigateToDismiss(
     walletAddress: String,
-    triggerSource: BackupTriggerPreferences.TriggerSource
+    triggerSource: BackupTriggerPreferencesDataSource.TriggerSource
   ) {
     (fragment as BottomSheetDialogFragment).dismiss()
     val bottomSheet = BackupSkipDialogFragment.newInstance(walletAddress, triggerSource)

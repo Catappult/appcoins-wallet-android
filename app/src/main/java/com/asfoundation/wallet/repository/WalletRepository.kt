@@ -9,13 +9,17 @@ import com.asfoundation.wallet.recover.result.SuccessfulRestore
 import com.asfoundation.wallet.service.AccountKeystoreService
 import io.reactivex.*
 import it.czerwinski.android.hilt.annotations.BoundTo
+import com.appcoins.wallet.sharedpreferences.CommonsPreferencesDataSource
+import com.appcoins.wallet.sharedpreferences.CommonsPreferencesDataSource.Companion.CURRENT_ACCOUNT_ADDRESS_KEY
 import javax.inject.Inject
 
 @BoundTo(supertype = WalletRepositoryType::class)
-class WalletRepository @Inject constructor(private val preferencesRepositoryType: PreferencesRepositoryType,
-                       private val accountKeystoreService: AccountKeystoreService,
-                       private val analyticsSetUp: AnalyticsSetup,
-                       private val passwordStore: PasswordStore) : WalletRepositoryType {
+class WalletRepository @Inject constructor(
+  private val commonsPreferencesDataSource: CommonsPreferencesDataSource,
+  private val accountKeystoreService: AccountKeystoreService,
+  private val analyticsSetUp: AnalyticsSetup,
+  private val passwordStore: PasswordStore
+) : WalletRepositoryType {
 
   override fun fetchWallets(): Single<Array<Wallet>> {
     return accountKeystoreService.fetchAccounts()
@@ -74,7 +78,7 @@ class WalletRepository @Inject constructor(private val preferencesRepositoryType
   override fun setDefaultWallet(address: String): Completable {
     return Completable.fromAction {
       analyticsSetUp.setUserId(address)
-      preferencesRepositoryType.setCurrentWalletAddress(address)
+      commonsPreferencesDataSource.setCurrentWalletAddress(address)
     }
   }
 
@@ -84,7 +88,7 @@ class WalletRepository @Inject constructor(private val preferencesRepositoryType
   }
 
   private fun getDefaultWalletAddress(): String {
-    val currentWalletAddress = preferencesRepositoryType.getCurrentWalletAddress()
+    val currentWalletAddress = commonsPreferencesDataSource.getCurrentWalletAddress()
     return currentWalletAddress ?: throw WalletNotFoundException()
   }
 
@@ -102,13 +106,13 @@ class WalletRepository @Inject constructor(private val preferencesRepositoryType
         ObservableOnSubscribe { emitter: ObservableEmitter<String> ->
           val listener =
               SharedPreferences.OnSharedPreferenceChangeListener { _, key: String ->
-                if (key == SharedPreferencesRepository.CURRENT_ACCOUNT_ADDRESS_KEY) {
+                if (key == CURRENT_ACCOUNT_ADDRESS_KEY) {
                   emitWalletAddress(emitter)
                 }
               }
-          emitter.setCancellable { preferencesRepositoryType.removeChangeListener(listener) }
+          emitter.setCancellable { commonsPreferencesDataSource.removeChangeListener(listener) }
           emitWalletAddress(emitter)
-          preferencesRepositoryType.addChangeListener(listener)
+          commonsPreferencesDataSource.addChangeListener(listener)
         } as ObservableOnSubscribe<String>)
         .flatMapSingle { address -> findWallet(address) }
   }

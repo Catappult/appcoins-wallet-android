@@ -1,7 +1,7 @@
 package com.asfoundation.wallet.billing.partners
 
 import android.content.Context
-import android.content.SharedPreferences
+import com.appcoins.wallet.sharedpreferences.OemIdPreferencesDataSource
 import com.aptoide.apk.injector.extractor.IExtractorCache
 import com.aptoide.apk.injector.extractor.domain.IExtract
 import com.aptoide.apk.injector.extractor.utils.Environment
@@ -15,7 +15,7 @@ import javax.inject.Inject
 @BoundTo(supertype = IExtractOemId::class)
 class OemIdExtractorV2 @Inject constructor(@ApplicationContext private val context: Context,
                                            private val extractor: IExtract,
-                                           private val sharedPreferences: SharedPreferences
+                                           private val sharedPreferences: OemIdPreferencesDataSource
                                            ) : IExtractOemId {
 
   override fun extract(packageName: String): Single<String> {
@@ -26,28 +26,20 @@ class OemIdExtractorV2 @Inject constructor(@ApplicationContext private val conte
           Single.fromCallable {
             extractor.extract(
                 File(sourceDir),
-                if (BuildConfig.DEBUG) Environment.DEVELOPMENT else Environment.PRODUCTION ,
-                ExtractorCache(sharedPreferences)
+              if (BuildConfig.DEBUG) Environment.DEVELOPMENT else Environment.PRODUCTION,
+              ExtractorCache(sharedPreferences)
             )
           }
         }
-        .map {
-          it.split(",")[0]
-        }
+      .map {
+        it.split(",")[0]
+      }
   }
 
-  class ExtractorCache(private val sharedPreferences: SharedPreferences): IExtractorCache {
+  class ExtractorCache(private val sharedPreferences: OemIdPreferencesDataSource) :
+    IExtractorCache {
+    override fun put(key: String?, value: String?) = sharedPreferences.putOemId(key, value)
 
-    override fun put(key: String?, value: String?) {
-      sharedPreferences.edit()
-        .putString(key, value)
-        .apply()
-    }
-
-    override fun get(key: String?): String {
-      return sharedPreferences.getString(key, "") ?: ""
-    }
-
+    override fun get(key: String?) = sharedPreferences.getOemId(key) ?: ""
   }
-
 }

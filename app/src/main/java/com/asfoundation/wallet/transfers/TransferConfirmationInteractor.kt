@@ -4,14 +4,14 @@ import com.asfoundation.wallet.entity.GasSettings
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.interact.FetchGasSettingsInteract
 import com.asfoundation.wallet.interact.SendTransactionInteract
-import com.asfoundation.wallet.repository.GasPreferenceRepository
 import io.reactivex.Single
+import com.appcoins.wallet.sharedpreferences.GasPreferencesDataSource
 import javax.inject.Inject
 
 class TransferConfirmationInteractor @Inject constructor(
   private val sendTransactionInteract: SendTransactionInteract,
   private val fetchGasSettingsInteract: FetchGasSettingsInteract,
-  private val gasPreferencesRepository: GasPreferenceRepository
+  private val gasPreferencesRepository: GasPreferencesDataSource
 ) {
 
   fun fetchGasSettings(shouldSendToken: Boolean): Single<GasSettings> {

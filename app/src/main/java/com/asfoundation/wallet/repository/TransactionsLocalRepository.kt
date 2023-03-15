@@ -1,6 +1,5 @@
 package com.asfoundation.wallet.repository
 
-import android.content.SharedPreferences
 import com.asfoundation.wallet.repository.entity.LastUpdatedWalletEntity
 import com.asfoundation.wallet.repository.entity.TransactionEntity
 import com.asfoundation.wallet.repository.entity.TransactionLinkIdEntity
@@ -8,17 +7,15 @@ import io.reactivex.Flowable
 import io.reactivex.Maybe
 import io.reactivex.Single
 import it.czerwinski.android.hilt.annotations.BoundTo
+import com.appcoins.wallet.sharedpreferences.TransactionsPreferencesDataSource
 import javax.inject.Inject
 @BoundTo(supertype = TransactionsRepository::class)
-class TransactionsLocalRepository @Inject constructor(private val transactionsDao: TransactionsDao,
-                                                      private val sharedPreferences: SharedPreferences,
-                                                      private val transactionLinkIdDao: TransactionLinkIdDao) :
+class TransactionsLocalRepository @Inject constructor(
+  private val transactionsDao: TransactionsDao,
+  private val sharedPreferences: TransactionsPreferencesDataSource,
+  private val transactionLinkIdDao: TransactionLinkIdDao
+) :
     TransactionsRepository {
-
-  companion object {
-    private const val OLD_TRANSACTIONS_LOAD = "IS_OLD_TRANSACTIONS_LOADED"
-    private const val LAST_LOCALE = "locale"
-  }
 
   override fun getAllAsFlowable(relatedWallet: String): Flowable<List<TransactionEntity>> {
     return transactionsDao.getAllAsFlowable(relatedWallet)
@@ -47,24 +44,20 @@ class TransactionsLocalRepository @Inject constructor(private val transactionsDa
   }
 
   override fun isOldTransactionsLoaded(): Single<Boolean> {
-    return Single.fromCallable { sharedPreferences.getBoolean(OLD_TRANSACTIONS_LOAD, false) }
+    return Single.fromCallable { sharedPreferences.isOldTransactionsLoaded() }
   }
 
   override fun deleteAllTransactions() = transactionsDao.deleteAllTransactions()
 
   override fun oldTransactionsLoaded() {
-    sharedPreferences.edit()
-        .putBoolean(OLD_TRANSACTIONS_LOAD, true)
-        .apply()
+    sharedPreferences.oldTransactionsLoaded()
   }
 
   override fun setLocale(locale: String) {
-    sharedPreferences.edit()
-        .putString(LAST_LOCALE, locale)
-        .apply()
+    sharedPreferences.setLocale(locale)
   }
 
-  override fun getLastLocale() = sharedPreferences.getString(LAST_LOCALE, null)
+  override fun getLastLocale() = sharedPreferences.getLastLocale()
 
   override fun insertTransactionLink(revertTxId: String, originalTxId: String) {
     val transactionLinkId = TransactionLinkIdEntity(null, revertTxId, originalTxId)
