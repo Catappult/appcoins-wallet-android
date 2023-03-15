@@ -2,8 +2,8 @@ package com.asfoundation.wallet.entity;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import com.appcoins.wallet.core.utils.common.BalanceUtils;
 import com.asfoundation.wallet.repository.TokenRepository;
-import com.asfoundation.wallet.util.BalanceUtils;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.annotations.Nullable;
 import java.math.BigDecimal;

@@ -8,7 +8,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
-import com.asf.wallet.BuildConfig;
+import com.appcoins.wallet.core.utils.properties.MiscProperties;
 import com.asf.wallet.R.id;
 import com.asf.wallet.R.string;
 import com.asfoundation.wallet.transactions.Operation;
@@ -80,8 +80,7 @@ public class TransactionDetailsHolder extends BinderViewHolder<Operation>
   }
 
   private String formatFee() {
-    int decimals = BuildConfig.DEBUG ? BuildConfig.ROPSTEN_DEFAULT_TOKEN_DECIMALS
-        : BuildConfig.MAIN_NETWORK_DEFAULT_TOKEN_DECIMALS;
+    int decimals = MiscProperties.INSTANCE.getDEFAULT_TOKEN_DECIMALS();
 
     return new BigDecimal(operation.getFee()).divide(BigDecimal.valueOf(Math.pow(10.0, decimals)),
         DEFAULT_SCALE, RoundingMode.HALF_UP)

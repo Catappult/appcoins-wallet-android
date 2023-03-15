@@ -1,6 +1,7 @@
 package com.asfoundation.wallet.util;
 
 import com.appcoins.wallet.billing.repository.entity.TransactionData;
+import com.appcoins.wallet.core.utils.common.UnknownTokenException;
 import com.asfoundation.wallet.entity.TransactionBuilder;
 import com.asfoundation.wallet.interact.DefaultTokenProvider;
 import com.google.gson.Gson;

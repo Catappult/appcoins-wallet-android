@@ -31,7 +31,7 @@ import com.asfoundation.wallet.base.SingleStateFragment
 import com.asfoundation.wallet.billing.adyen.AdyenCardWrapper
 import com.asfoundation.wallet.billing.adyen.PaymentType
 import com.asfoundation.wallet.util.AdyenCardView
-import com.asfoundation.wallet.util.KeyboardUtils
+import com.appcoins.wallet.core.utils.common.KeyboardUtils
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject

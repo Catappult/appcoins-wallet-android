@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.billing.partners
 
+import com.appcoins.wallet.core.utils.properties.MiscProperties
 import com.asf.wallet.BuildConfig
 import io.reactivex.Single
 import it.czerwinski.android.hilt.annotations.BoundTo
@@ -12,8 +13,8 @@ class PartnerAddressService @Inject constructor(private val installerService: In
 
   private val defaultStoreAddress: String = BuildConfig.DEFAULT_STORE_ADDRESS
   private val defaultOemAddress: String = BuildConfig.DEFAULT_OEM_ADDRESS
-  private val defaultGamesHubPackage: String = BuildConfig.GAMESHUB_PACKAGE
-  private val defaultGamesOemId: String = BuildConfig.GAMESHUB_OEMID
+  private val defaultGamesHubPackage: String = MiscProperties.GAMESHUB_PACKAGE
+  private val defaultGamesOemId: String = MiscProperties.GAMESHUB_OEMID
 
   override fun getStoreAddress(suggestedStoreAddress: String?): String {
     return suggestedStoreAddress?.let { suggestedStoreAddress } ?: defaultStoreAddress

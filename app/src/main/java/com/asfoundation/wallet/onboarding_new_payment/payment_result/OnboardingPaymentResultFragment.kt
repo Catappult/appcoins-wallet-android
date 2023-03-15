@@ -20,7 +20,7 @@ import com.asfoundation.wallet.base.SingleStateFragment
 import com.asfoundation.wallet.billing.adyen.AdyenErrorCodeMapper
 import com.asfoundation.wallet.onboarding_new_payment.getPurchaseBonusMessage
 import com.asfoundation.wallet.service.ServicesErrorCodeMapper
-import com.asfoundation.wallet.util.CurrencyFormatUtils
+import com.appcoins.wallet.core.utils.common.CurrencyFormatUtils
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
 import org.apache.commons.lang3.StringUtils

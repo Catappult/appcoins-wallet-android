@@ -12,7 +12,7 @@ import com.asfoundation.wallet.topup.localpayments.LocalTopUpPaymentFragment.Com
 import com.asfoundation.wallet.topup.localpayments.LocalTopUpPaymentFragment.Companion.PAYMENT_ID
 import com.asfoundation.wallet.topup.localpayments.LocalTopUpPaymentFragment.Companion.PAYMENT_LABEL
 import com.asfoundation.wallet.ui.iab.localpayments.LocalPaymentInteractor
-import com.asfoundation.wallet.util.CurrencyFormatUtils
+import com.appcoins.wallet.core.utils.common.CurrencyFormatUtils
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
