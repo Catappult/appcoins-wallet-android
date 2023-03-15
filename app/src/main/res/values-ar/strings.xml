@@ -29,9 +29,9 @@
   <string name="got_it_button">تمام</string>
   <string name="change_button">تغيير</string>
   <string name="vip">VIP</string>
-  <string name="faq">FAQs</string>
-  <string name="about_us_title">About Us</string>
-  <string name="preferences_title">Preferences</string>
+  <string name="faq">أسئلة شائعة</string>
+  <string name="about_us_title">من نحن</string>
+  <string name="preferences_title">التفضيلات</string>
   <string name="low_storage_error">لا توجد مساحة كافية للتخزين</string>
   <string name="no_camera_permission_title">تفعيل إذن الكاميرا</string>
   <string name="no_camera_permission">AppCoins BDS Wallet يحتاج إلى إذن للدخول إلى الكاميرا لمسح شيفرة QR.</string>
@@ -44,7 +44,7 @@
   <!-- TODO: Remove or change this placeholder text -->
   <string name="title_community">المجتمع</string>
   <string name="title_opensource">تطوير مفتوح المصدر</string>
-  <string name="title_source_code">Source Code</string>
+  <string name="title_source_code">رمز المصدر</string>
   <string name="title_report_bug">التبليغ عن عطل</string>
   <string name="title_support">الدعم</string>
   <string name="title_permissions">الأذونات</string>
@@ -80,7 +80,7 @@
   <string name="unknown_error">حدث خطأ.</string>
   <string name="action_backup_wallet">محفظة احتياطية</string>
   <string name="no_tokens">لم تقم بعد بإضافة توكن مخصص.</string>
-  <string name="title_email">Email Us</string>
+  <string name="title_email">راسلنا</string>
   <string name="action_donate">تَبرَّع</string>
   <!-- Titles -->
   <string name="title_my_address">استقبل</string>
@@ -140,10 +140,10 @@
   <string name="intro_already_have_wallet_button">لدي محفظة بالفعل</string>
   <string name="intro_get_started_button">إطلاق المحفظة</string>
   <!-- Intro from game -->
-  <string name="launching_wallet_body">Launching wallet&#8230;</string>
-  <string name="select_method_title">Choose a payment method</string>
-  <string name="bonus_body">Get %s bonus with this purchase.</string>
-  <string name="agree_by_choosing_a_payment_method_body">By choosing a payment method, you agree to the %1$s and %2$s.</string>
+  <string name="launching_wallet_body">إطلاق المحفظة&#8230;</string>
+  <string name="select_method_title">اختر وسيلة دفع</string>
+  <string name="bonus_body">احصل على %s مكافأة بهذه المشتريات.</string>
+  <string name="agree_by_choosing_a_payment_method_body">باختيارك وسيلة للدفع، أنت توافق على %1$s و%2$s.</string>
   <string name="pay_with_card_title">Pay with credit/debit card</string>
   <string name="more_payment_methods_button">More payment methods</string>
   <string name="bonus_received_body">You received a %s bonus in your wallet.</string>
