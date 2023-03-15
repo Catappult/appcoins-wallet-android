@@ -15,27 +15,26 @@ class ApplicationInfoProvider @Inject constructor(@ApplicationContext val contex
 
   fun getApplicationInfo(packageName: String): Single<ApplicationInfoModel> {
     return Single.zip(getApplicationName(packageName), getApplicationIcon(packageName),
-      BiFunction { appName, appIcon ->
-        ApplicationInfoModel(
-          packageName, appName, appIcon
-        )
-      })
+        BiFunction { appName, appIcon ->
+          ApplicationInfoModel(
+              packageName, appName, appIcon)
+        })
   }
 
   fun getApplicationIcon(packageName: String): Single<Drawable> {
     return Single.just(packageName)
-      .map { pkgName -> context.packageManager.getApplicationIcon(pkgName) }
-      .subscribeOn(Schedulers.io())
+        .map { pkgName -> context.packageManager.getApplicationIcon(pkgName) }
+        .subscribeOn(Schedulers.io())
   }
 
   fun getApplicationName(packageName: String): Single<String> {
     return Single.just(packageName)
-      .map { pkgName ->
-        val packageInfo = context.packageManager.getApplicationInfo(pkgName, 0)
-        return@map context.packageManager.getApplicationLabel(packageInfo)
-          .toString()
-      }
-      .subscribeOn(Schedulers.io())
+        .map { pkgName ->
+          val packageInfo = context.packageManager.getApplicationInfo(pkgName, 0)
+          return@map context.packageManager.getApplicationLabel(packageInfo)
+              .toString()
+        }
+        .subscribeOn(Schedulers.io())
   }
 
   fun getAppInfo(packageName: String): ApplicationInfoModel {

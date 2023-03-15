@@ -31,8 +31,7 @@ class CarrierVerifyPresenter(
   private val formatter: CurrencyFormatUtils,
   private val logger: Logger,
   private val networkScheduler: Scheduler,
-  private val viewScheduler: Scheduler
-) {
+  private val viewScheduler: Scheduler) {
 
   fun present() {
     initializeView()

@@ -54,7 +54,7 @@ class NumberFormatterUtils {
 
   private fun formatDecimalPlaces(value: Float): String {
     val splitValue = value.toString()
-      .split(".")
+        .split(".")
     return if (splitValue[1] != "0") {
       value.toString()
     } else {
@@ -64,7 +64,7 @@ class NumberFormatterUtils {
 
   private fun removeDecimalPlaces(value: Float): String {
     val splitValue = value.toString()
-      .split(".")
+        .split(".")
     return splitValue[0]
   }
 }

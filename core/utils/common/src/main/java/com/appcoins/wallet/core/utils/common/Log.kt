@@ -24,15 +24,15 @@ class Log private constructor() {
 
     @JvmStatic
     fun d(tag: String, msg: String): Int =
-      if (BuildConfig.DEBUG) Log.d(tag, msg) else 0
+        if (BuildConfig.DEBUG) Log.d(tag, msg) else 0
 
     @JvmStatic
     fun d(tag: String, msg: String, throwable: Throwable): Int =
-      if (BuildConfig.DEBUG) Log.d(tag, msg, throwable) else 0
+        if (BuildConfig.DEBUG) Log.d(tag, msg, throwable) else 0
 
     @JvmStatic
     fun w(tag: String, msg: String): Int =
-      if (BuildConfig.DEBUG) Log.w(tag, msg) else 0
+        if (BuildConfig.DEBUG) Log.w(tag, msg) else 0
 
     // We are not filtering the error logs since they are usually used only in extreme situation
     // and there shouldn't be much arm done logging them.

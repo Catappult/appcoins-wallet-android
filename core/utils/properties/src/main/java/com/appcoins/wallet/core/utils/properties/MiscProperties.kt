@@ -20,11 +20,11 @@ object MiscProperties {
 private const val ROPSTEN_DEFAULT_TOKEN_SYMBOL = "APPC"
 private const val ROPSTEN_DEFAULT_TOKEN_NAME = "AppCoins"
 private const val ROPSTEN_DEFAULT_TOKEN_DECIMALS = 18
-private const val ROPSTEN_DEFAULT_TOKEN_ADDRESS = "0xab949343E6C369C6B17C7ae302c1dEbD4B7B61c3"
+private const val ROPSTEN_DEFAULT_TOKEN_ADDRESS="0xab949343E6C369C6B17C7ae302c1dEbD4B7B61c3"
 private const val MAIN_NETWORK_DEFAULT_TOKEN_SYMBOL = "APPC"
 private const val MAIN_NETWORK_DEFAULT_TOKEN_NAME = "AppCoins"
 private const val MAIN_NETWORK_DEFAULT_TOKEN_DECIMALS = 18
-private const val MAIN_NETWORK_DEFAULT_TOKEN_ADDRESS = "0x1a7a8bd9106f2b8d977e08582dc7d24c723ab0db"
+private const val MAIN_NETWORK_DEFAULT_TOKEN_ADDRESS="0x1a7a8bd9106f2b8d977e08582dc7d24c723ab0db"
 private const val NETWORK_ID_PROD = 1
 private const val NETWORK_ID_DEV = 3
 private const val APTOIDE_PACKAGE_NAME = "cm.aptoide.pt"

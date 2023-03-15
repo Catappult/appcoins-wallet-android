@@ -40,10 +40,8 @@ fun Context.getStringSpanned(@StringRes resId: Int, vararg args: Any): Spanned {
         argIdx = when (argTerm) {
           "" -> ++argAt
           "<" -> argAt
-          else -> argTerm.substring(
-            0,
-            argTerm.length - 1
-          ).toInt() - 1
+          else -> argTerm.substring(0,
+              argTerm.length - 1).toInt() - 1
         }
         val argItem = args[argIdx]
         cookedArg = if (typeTerm == "s" && argItem is Spanned) {

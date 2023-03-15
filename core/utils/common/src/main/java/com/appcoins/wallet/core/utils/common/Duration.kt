@@ -15,7 +15,7 @@ import java.util.regex.Pattern
 import kotlin.math.abs
 
 class Duration private constructor(val seconds: Long, val nano: Int) : Comparable<Duration>,
-  Serializable {
+    Serializable {
 
   object DurationUnits {
 
@@ -45,8 +45,7 @@ class Duration private constructor(val seconds: Long, val nano: Int) : Comparabl
       val ay = abs(y)
       if (ax or ay ushr 31 != 0L) {
         if (y != 0L && r / y != x ||
-          x == Long.MIN_VALUE && y == -1L
-        ) {
+            x == Long.MIN_VALUE && y == -1L) {
           throw java.lang.ArithmeticException("long overflow")
         }
       }
@@ -86,13 +85,12 @@ class Duration private constructor(val seconds: Long, val nano: Int) : Comparabl
     return if (multiplicand == 1L) {
       this
     } else create(
-      toSeconds().multiply(BigDecimal.valueOf(multiplicand))
-    )
+        toSeconds().multiply(BigDecimal.valueOf(multiplicand)))
   }
 
   private fun toSeconds(): BigDecimal {
     return BigDecimal.valueOf(seconds)
-      .add(BigDecimal.valueOf(nano.toLong(), 9))
+        .add(BigDecimal.valueOf(nano.toLong(), 9))
   }
 
   fun negated(): Duration {
@@ -142,11 +140,11 @@ class Duration private constructor(val seconds: Long, val nano: Int) : Comparabl
     buf.append("PT")
     if (hours != 0L) {
       buf.append(hours)
-        .append('H')
+          .append('H')
     }
     if (minutes != 0) {
       buf.append(minutes)
-        .append('M')
+          .append('M')
     }
     if (secs == 0 && nano == 0 && buf.length > 2) {
       return buf.toString()
@@ -190,16 +188,14 @@ class Duration private constructor(val seconds: Long, val nano: Int) : Comparabl
     private const val SECONDS_PER_MINUTE = 60
     private const val NANOS_PER_SECOND = 1000000000L
 
-    private val PATTERN = Pattern.compile(
-      "([-+]?)P(?:([-+]?[0-9]+)D)?" +
-          "(T(?:([-+]?[0-9]+)H)?(?:([-+]?[0-9]+)M)?(?:([-+]?[0-9]+)(?:[.,]([0-9]{0,9}))?S)?)?",
-      Pattern.CASE_INSENSITIVE
-    )
+    private val PATTERN = Pattern.compile("([-+]?)P(?:([-+]?[0-9]+)D)?" +
+        "(T(?:([-+]?[0-9]+)H)?(?:([-+]?[0-9]+)M)?(?:([-+]?[0-9]+)(?:[.,]([0-9]{0,9}))?S)?)?",
+        Pattern.CASE_INSENSITIVE)
 
     fun ofSeconds(seconds: Long, nanoAdjustment: Long): Duration {
       val secs = addExact(seconds, floorDiv(nanoAdjustment, NANOS_PER_SECOND))
       val nos = floorMod(nanoAdjustment, NANOS_PER_SECOND)
-        .toInt()
+          .toInt()
       return create(secs, nos)
     }
 
@@ -260,10 +256,8 @@ class Duration private constructor(val seconds: Long, val nano: Int) : Comparabl
       }
     }
 
-    private fun create(
-      negate: Boolean, daysAsSecs: Long, hoursAsSecs: Long, minsAsSecs: Long,
-      secs: Long, nanos: Int
-    ): Duration {
+    private fun create(negate: Boolean, daysAsSecs: Long, hoursAsSecs: Long, minsAsSecs: Long,
+                       secs: Long, nanos: Int): Duration {
       val seconds = addExact(daysAsSecs, addExact(hoursAsSecs, addExact(minsAsSecs, secs)))
       return if (negate) {
         ofSeconds(seconds, nanos.toLong()).negated()
@@ -278,15 +272,13 @@ class Duration private constructor(val seconds: Long, val nano: Int) : Comparabl
 
     private fun create(seconds: BigDecimal): Duration {
       val nanos = seconds.movePointRight(9)
-        .toBigIntegerExact()
+          .toBigIntegerExact()
       val divRem = nanos.divideAndRemainder(BI_NANOS_PER_SECOND)
       if (divRem[0].bitLength() > 63) {
         throw ArithmeticException("Exceeds capacity of Duration: $nanos")
       }
-      return ofSeconds(
-        divRem[0].toLong(), divRem[1].toInt()
-          .toLong()
-      )
+      return ofSeconds(divRem[0].toLong(), divRem[1].toInt()
+          .toLong())
     }
 
   }

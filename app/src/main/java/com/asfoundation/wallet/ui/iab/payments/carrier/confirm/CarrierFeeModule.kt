@@ -39,16 +39,13 @@ class CarrierFeeModule {
   }
 
   @Provides
-  fun providesCarrierFeePresenter(
-    fragment: Fragment,
-    data: CarrierFeeData,
-    navigator: CarrierFeeNavigator,
-    billingAnalytics: BillingAnalytics,
-    appInfoProvider: ApplicationInfoProvider
+  fun providesCarrierFeePresenter(fragment: Fragment,
+                                  data: CarrierFeeData,
+                                  navigator: CarrierFeeNavigator,
+                                  billingAnalytics: BillingAnalytics,
+                                  appInfoProvider: ApplicationInfoProvider
   ): CarrierFeePresenter {
-    return CarrierFeePresenter(
-      CompositeDisposable(), fragment as CarrierFeeView, data,
-      navigator, billingAnalytics, appInfoProvider, AndroidSchedulers.mainThread()
-    )
+    return CarrierFeePresenter(CompositeDisposable(), fragment as CarrierFeeView, data,
+        navigator, billingAnalytics, appInfoProvider, AndroidSchedulers.mainThread())
   }
 }

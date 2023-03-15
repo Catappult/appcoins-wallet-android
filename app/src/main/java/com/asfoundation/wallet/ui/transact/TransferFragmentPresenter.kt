@@ -59,14 +59,14 @@ class TransferFragmentPresenter(private val view: TransferFragmentView,
 
   private fun getBalance(currency: Currency): Single<BigDecimal> {
     return getWalletInfoUseCase(null, cached = false, updateFiat = false)
-      .map { walletInfo ->
-        val balance = walletInfo.walletBalance
-        when (currency) {
-          Currency.APPC_C -> balance.creditsBalance.token.amount
-          Currency.APPC -> balance.appcBalance.token.amount
-          Currency.ETH -> balance.ethBalance.token.amount
+        .map { walletInfo ->
+          val balance = walletInfo.walletBalance
+          when (currency) {
+            Currency.APPC_C -> balance.creditsBalance.token.amount
+            Currency.APPC -> balance.appcBalance.token.amount
+            Currency.ETH -> balance.ethBalance.token.amount
+          }
         }
-      }
   }
 
   private fun mapToWalletCurrency(currency: Currency): WalletCurrency {
@@ -79,9 +79,9 @@ class TransferFragmentPresenter(private val view: TransferFragmentView,
 
   private fun handleQrCodeResult(barcode: Barcode) {
     onResumeDisposables.add(Single.fromCallable { QRUri.parse(barcode.displayValue) }
-      .observeOn(viewScheduler)
-      .doOnSuccess { handleQRUri(it) }
-      .subscribe({}, { it.printStackTrace() }))
+        .observeOn(viewScheduler)
+        .doOnSuccess { handleQRUri(it) }
+        .subscribe({}, { it.printStackTrace() }))
   }
 
   private fun handleQRUri(qrUri: QRUri) {
