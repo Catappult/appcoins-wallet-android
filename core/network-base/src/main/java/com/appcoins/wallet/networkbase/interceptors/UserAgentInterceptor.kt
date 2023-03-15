@@ -5,7 +5,6 @@ import android.os.Build
 import android.provider.Settings
 import android.util.DisplayMetrics
 import android.view.WindowManager
-import com.appcoins.wallet.networkbase.BuildConfig
 import com.appcoins.wallet.sharedpreferences.CommonsPreferencesDataSource
 import okhttp3.*
 import java.io.IOException
@@ -25,8 +24,10 @@ class UserAgentInterceptor(
       display.getRealMetrics(displayMetrics)
       val walletId = getOrCreateWalletId()
       val androidId = Settings.Secure.getString(context.contentResolver, Settings.Secure.ANDROID_ID)
+      val packageInfo = context.packageManager.getPackageInfo(context.packageName, 0)
+
       return ("AppCoins_Wallet/"
-          + BuildConfig.VERSION_NAME
+          + packageInfo.versionName
           + " (Linux; Android "
           + Build.VERSION.RELEASE.replace(";".toRegex(), " ")
           + "; "
@@ -38,9 +39,9 @@ class UserAgentInterceptor(
           + "; "
           + System.getProperty("os.arch")
           + "; "
-          + BuildConfig.APPLICATION_ID
+          + context.packageName
           + "; "
-          + BuildConfig.VERSION_CODE
+          + packageInfo.versionCode
           + "; "
           + walletId
           + "; "

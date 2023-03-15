@@ -4,13 +4,6 @@ plugins {
 
 android {
   namespace = "com.appcoins.wallet.networkbase"
-
-  defaultConfig {
-    //TODO change these config fields approach
-    buildConfigField("String", "APPLICATION_ID", "\"com.appcoins.wallet\"")
-    buildConfigField("String", "VERSION_CODE", "\"258\"")
-    buildConfigField("String", "VERSION_NAME", "\"2.9.1.0\"")
-  }
 }
 
 dependencies {
