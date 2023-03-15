@@ -63,7 +63,7 @@ class SplashExtenderFragment : Fragment(),
   }
 
   fun finishSplash() {
-    com.appcoins.wallet.core.utils.common.RxBus.publish(SplashFinishEvent())
+    RxBus.publish(SplashFinishEvent())
   }
 }
 

@@ -124,7 +124,8 @@ class OneStepTransactionParser @Inject constructor(
   }
 
   private fun getChainId(uri: OneStepUri): Long {
-    return if (uri.host == HostProperties.BACKEND_HOST_NAME_DEV) 3L else 1L
+    return if (uri.host == HostProperties.BACKEND_HOST_NAME_DEV)
+      Parameters.NETWORK_ID_ROPSTEN else Parameters.NETWORK_ID_MAIN
   }
 
   private fun getToken(): Single<Token> {
