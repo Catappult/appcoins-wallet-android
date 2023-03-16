@@ -42,11 +42,9 @@ dependencies {
   implementation(project(":legacy:skills"))
   implementation(project(":legacy:ethereumj-android"))
   implementation(project(":core:shared-preferences"))
-
   implementation(project(":core:utils:common"))
   implementation(project(":core:utils:properties"))
   implementation(project(":ui:common"))
-
   implementation(project(":ui:arch"))
 
   implementation(libs.kotlin.coroutines)
