@@ -174,60 +174,64 @@ class SkillsFragment : Fragment(), PaymentView {
     setupAppNameAndIcon(eSkillsPaymentData.packageName,false)}
 
   private fun setupOnboardingTicketButtons(eSkillsPaymentData: EskillsPaymentData) {
-    binding.onboardingLayout.dialogBuyButtonsPaymentMethods.buyButton.text = getString(R.string.start_button)
-    binding.onboardingLayout.referralDisplay.tooltip.referralCode.text =
-      String.format(getString(R.string.refer_a_friend_first_time_tooltip),BONUS_VALUE)
-    val tooltip_btn = binding.onboardingLayout.referralDisplay.actionButtonTooltipReferral
-        tooltip_btn
-          .setOnClickListener {
-            if (binding.onboardingLayout.referralDisplay.tooltip.root.visibility == View.GONE){
-              binding.onboardingLayout.referralDisplay.tooltip.root.visibility = View.VISIBLE
-            }
-            else{
-              binding.onboardingLayout.referralDisplay.tooltip.root.visibility = View.GONE
-            }
-          }
-    binding.onboardingLayout.dialogBuyButtonsPaymentMethods.cancelButton.setOnClickListener {
-      viewModel.cancelPayment()
+    if (RootUtil.isDeviceRooted()) {
+      showRootError()
     }
-    binding.onboardingLayout.dialogBuyButtonsPaymentMethods.buyButton.setOnClickListener {
-      binding.onboardingLayout.dialogBuyButtonsPaymentMethods.buyButton.isEnabled = false
-      val referralCode = binding.onboardingLayout.referralDisplay.referralCode.text.toString()
-      if (!referralCode.isEmpty()){
-        when (viewModel.useReferralCode(referralCode)) {
-          is FailedReferral.GenericError -> {
-            binding.onboardingLayout.referralDisplay.referralCode.setTextColor(
-              Color.RED)
-            binding.onboardingLayout.referralDisplay.errorMessage.visibility = View.VISIBLE
-            binding.onboardingLayout.referralDisplay.errorMessage.text = getString(R.string.refer_a_friend_error_unavailable_body)
-            binding.onboardingLayout.dialogBuyButtonsPaymentMethods.buyButton.isEnabled = true
+    else{
+      binding.onboardingLayout.dialogBuyButtonsPaymentMethods.buyButton.text = getString(R.string.start_button)
+      binding.onboardingLayout.referralDisplay.tooltip.referralCode.text =
+        String.format(getString(R.string.refer_a_friend_first_time_tooltip),BONUS_VALUE)
+      val tooltip_btn = binding.onboardingLayout.referralDisplay.actionButtonTooltipReferral
+      tooltip_btn
+        .setOnClickListener {
+          if (binding.onboardingLayout.referralDisplay.tooltip.root.visibility == View.GONE){
+            binding.onboardingLayout.referralDisplay.tooltip.root.visibility = View.VISIBLE
           }
-          is FailedReferral.NotEligibleError -> {
-            binding.onboardingLayout.referralDisplay.referralCode.setTextColor(
-              Color.RED)
-            binding.onboardingLayout.referralDisplay.errorMessage.visibility = View.VISIBLE
-            binding.onboardingLayout.referralDisplay.errorMessage.text = getString(R.string.refer_a_friend_error_user_not_eligible_body)
-            binding.onboardingLayout.dialogBuyButtonsPaymentMethods.buyButton.isEnabled = true
+          else{
+            binding.onboardingLayout.referralDisplay.tooltip.root.visibility = View.GONE
           }
-          is FailedReferral.NotFoundError -> {
-            binding.onboardingLayout.referralDisplay.referralCode.setTextColor(
-              Color.RED)
-            binding.onboardingLayout.referralDisplay.errorMessage.visibility = View.VISIBLE
-            binding.onboardingLayout.referralDisplay.errorMessage.text = getString(R.string.refer_a_friend_error_invalid_code_body)
-            binding.onboardingLayout.dialogBuyButtonsPaymentMethods.buyButton.isEnabled = true
-          }
-          is SuccessfulReferral -> {
-            binding.onboardingLayout.root.visibility = View.GONE
-            createAndPayTicket(eSkillsPaymentData,true)
-          }
+        }
+      binding.onboardingLayout.dialogBuyButtonsPaymentMethods.cancelButton.setOnClickListener {
+        viewModel.cancelPayment()
+      }
+      binding.onboardingLayout.dialogBuyButtonsPaymentMethods.buyButton.setOnClickListener {
+        binding.onboardingLayout.dialogBuyButtonsPaymentMethods.buyButton.isEnabled = false
+        val referralCode = binding.onboardingLayout.referralDisplay.referralCode.text.toString()
+        if (!referralCode.isEmpty()){
+          when (viewModel.useReferralCode(referralCode)) {
+            is FailedReferral.GenericError -> {
+              binding.onboardingLayout.referralDisplay.referralCode.setTextColor(
+                Color.RED)
+              binding.onboardingLayout.referralDisplay.errorMessage.visibility = View.VISIBLE
+              binding.onboardingLayout.referralDisplay.errorMessage.text = getString(R.string.refer_a_friend_error_unavailable_body)
+              binding.onboardingLayout.dialogBuyButtonsPaymentMethods.buyButton.isEnabled = true
+            }
+            is FailedReferral.NotEligibleError -> {
+              binding.onboardingLayout.referralDisplay.referralCode.setTextColor(
+                Color.RED)
+              binding.onboardingLayout.referralDisplay.errorMessage.visibility = View.VISIBLE
+              binding.onboardingLayout.referralDisplay.errorMessage.text = getString(R.string.refer_a_friend_error_user_not_eligible_body)
+              binding.onboardingLayout.dialogBuyButtonsPaymentMethods.buyButton.isEnabled = true
+            }
+            is FailedReferral.NotFoundError -> {
+              binding.onboardingLayout.referralDisplay.referralCode.setTextColor(
+                Color.RED)
+              binding.onboardingLayout.referralDisplay.errorMessage.visibility = View.VISIBLE
+              binding.onboardingLayout.referralDisplay.errorMessage.text = getString(R.string.refer_a_friend_error_invalid_code_body)
+              binding.onboardingLayout.dialogBuyButtonsPaymentMethods.buyButton.isEnabled = true
+            }
+            is SuccessfulReferral -> {
+              binding.onboardingLayout.root.visibility = View.GONE
+              createAndPayTicket(eSkillsPaymentData,true)
+            }
 
+          }
+        }
+        else{
+          binding.onboardingLayout.root.visibility = View.GONE
+          createAndPayTicket(eSkillsPaymentData,true)
         }
       }
-      else{
-        binding.onboardingLayout.root.visibility = View.GONE
-        createAndPayTicket(eSkillsPaymentData,true)
-      }
-
     }
   }
 
