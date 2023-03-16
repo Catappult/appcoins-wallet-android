@@ -1,13 +1,17 @@
 package cm.aptoide.skills
 
 import android.content.Intent
+import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
 import android.text.SpannableStringBuilder
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import androidx.activity.OnBackPressedCallback
+import androidx.core.content.ContextCompat
 import androidx.core.text.bold
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -27,7 +31,10 @@ import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.schedulers.Schedulers
+import okhttp3.internal.format
 import javax.inject.Inject
+
 
 @AndroidEntryPoint
 class SkillsFragment : Fragment(), PaymentView {
@@ -42,8 +49,11 @@ class SkillsFragment : Fragment(), PaymentView {
 
     private const val WALLET_CREATING_STATUS = "CREATING"
     private const val ESKILLS_URI_KEY = "ESKILLS_URI"
+    private const val ESKILLS_ONBOARDING_KEY = "ESKILLS_ONBOARDING"
+    private const val ESKILLS_REFERRAL_KEY = "ESKILLS_REFERRAL"
 
     private const val CLIPBOARD_TOOLTIP_DELAY_SECONDS = 3000L
+    private const val BONUS_VALUE = 1
   }
 
   private val viewModel: SkillsViewModel by viewModels()
@@ -129,10 +139,31 @@ class SkillsFragment : Fragment(), PaymentView {
     }
   }
 
-
   private fun setupPurchaseTicketLayout(
     eSkillsPaymentData: EskillsPaymentData
   ) {
+    if(getCachedValue(ESKILLS_ONBOARDING_KEY)){
+      if(viewModel.userFirstTimeCheck()) {
+        setupOnboarding(eSkillsPaymentData)
+      }
+      else{
+        cacheValue(ESKILLS_ONBOARDING_KEY,false)
+        setupPurchaseLayout(eSkillsPaymentData)
+      }
+    }
+    else{
+      setupPurchaseLayout(eSkillsPaymentData)
+    }
+  }
+
+  private fun setupOnboarding(eSkillsPaymentData: EskillsPaymentData) {
+    eSkillsPaymentData.environment = EskillsPaymentData.MatchEnvironment.SANDBOX
+    binding.onboardingLayout.root.visibility = View.VISIBLE
+    setupAppNameAndIcon(eSkillsPaymentData.packageName, true)
+    setupOnboardingTicketButtons(eSkillsPaymentData)
+  }
+
+  private fun setupPurchaseLayout(eSkillsPaymentData: EskillsPaymentData){
     setupQueueIdLayout()
     if (eSkillsPaymentData.environment == EskillsPaymentData.MatchEnvironment.SANDBOX) {
       setupSandboxTicketButtons(eSkillsPaymentData)
@@ -140,7 +171,68 @@ class SkillsFragment : Fragment(), PaymentView {
       updateHeaderInfo(eSkillsPaymentData)
       setupPurchaseTicketButtons(eSkillsPaymentData)
     }
-    setupAppNameAndIcon(eSkillsPaymentData.packageName)
+    setupAppNameAndIcon(eSkillsPaymentData.packageName,false)}
+
+  private fun setupOnboardingTicketButtons(eSkillsPaymentData: EskillsPaymentData) {
+    if (RootUtil.isDeviceRooted()) {
+      showRootError()
+    }
+    else{
+      binding.onboardingLayout.dialogBuyButtonsPaymentMethods.buyButton.text = getString(R.string.start_button)
+      binding.onboardingLayout.referralDisplay.tooltip.referralCode.text =
+        String.format(getString(R.string.refer_a_friend_first_time_tooltip),BONUS_VALUE)
+      val tooltip_btn = binding.onboardingLayout.referralDisplay.actionButtonTooltipReferral
+      tooltip_btn
+        .setOnClickListener {
+          if (binding.onboardingLayout.referralDisplay.tooltip.root.visibility == View.GONE){
+            binding.onboardingLayout.referralDisplay.tooltip.root.visibility = View.VISIBLE
+          }
+          else{
+            binding.onboardingLayout.referralDisplay.tooltip.root.visibility = View.GONE
+          }
+        }
+      binding.onboardingLayout.dialogBuyButtonsPaymentMethods.cancelButton.setOnClickListener {
+        viewModel.cancelPayment()
+      }
+      binding.onboardingLayout.dialogBuyButtonsPaymentMethods.buyButton.setOnClickListener {
+        binding.onboardingLayout.dialogBuyButtonsPaymentMethods.buyButton.isEnabled = false
+        val referralCode = binding.onboardingLayout.referralDisplay.referralCode.text.toString()
+        if (!referralCode.isEmpty()){
+          when (viewModel.useReferralCode(referralCode)) {
+            is FailedReferral.GenericError -> {
+              binding.onboardingLayout.referralDisplay.referralCode.setTextColor(
+                Color.RED)
+              binding.onboardingLayout.referralDisplay.errorMessage.visibility = View.VISIBLE
+              binding.onboardingLayout.referralDisplay.errorMessage.text = getString(R.string.refer_a_friend_error_unavailable_body)
+              binding.onboardingLayout.dialogBuyButtonsPaymentMethods.buyButton.isEnabled = true
+            }
+            is FailedReferral.NotEligibleError -> {
+              binding.onboardingLayout.referralDisplay.referralCode.setTextColor(
+                Color.RED)
+              binding.onboardingLayout.referralDisplay.errorMessage.visibility = View.VISIBLE
+              binding.onboardingLayout.referralDisplay.errorMessage.text = getString(R.string.refer_a_friend_error_user_not_eligible_body)
+              binding.onboardingLayout.dialogBuyButtonsPaymentMethods.buyButton.isEnabled = true
+            }
+            is FailedReferral.NotFoundError -> {
+              binding.onboardingLayout.referralDisplay.referralCode.setTextColor(
+                Color.RED)
+              binding.onboardingLayout.referralDisplay.errorMessage.visibility = View.VISIBLE
+              binding.onboardingLayout.referralDisplay.errorMessage.text = getString(R.string.refer_a_friend_error_invalid_code_body)
+              binding.onboardingLayout.dialogBuyButtonsPaymentMethods.buyButton.isEnabled = true
+            }
+            is SuccessfulReferral -> {
+              binding.onboardingLayout.root.visibility = View.GONE
+              createAndPayTicket(eSkillsPaymentData,true)
+            }
+
+          }
+        }
+        else{
+          binding.onboardingLayout.root.visibility = View.GONE
+          createAndPayTicket(eSkillsPaymentData,true)
+        }
+      }
+    }
   }
 
   private fun setupSandboxTicketButtons(eSkillsPaymentData: EskillsPaymentData) {
@@ -149,7 +241,7 @@ class SkillsFragment : Fragment(), PaymentView {
     } else {
       hidePaymentRelatedText()
       binding.payTicketLayout.dialogBuyButtonsPaymentMethods.buyButton.setOnClickListener {
-        binding.payTicketLayout.dialogBuyButtonsPaymentMethods.buyButton.isEnabled=false
+        binding.payTicketLayout.dialogBuyButtonsPaymentMethods.buyButton.isEnabled = false
         val queueId = binding.payTicketLayout.payTicketRoomDetails.roomId.text.toString()
         if (queueId.isNotBlank()) {
           eSkillsPaymentData.queueId = QueueIdentifier(queueId.trim(), true)
@@ -190,7 +282,7 @@ class SkillsFragment : Fragment(), PaymentView {
           binding.payTicketLayout.dialogBuyButtonsPaymentMethods.buyButton.text =
             getString(R.string.buy_button)
           binding.payTicketLayout.dialogBuyButtonsPaymentMethods.buyButton.setOnClickListener {
-            binding.payTicketLayout.dialogBuyButtonsPaymentMethods.buyButton.isEnabled=false
+            binding.payTicketLayout.dialogBuyButtonsPaymentMethods.buyButton.isEnabled = false
             val queueId = binding.payTicketLayout.payTicketRoomDetails.roomId.text.toString()
             if (queueId.isNotBlank()) {
               eSkillsPaymentData.queueId = QueueIdentifier(queueId.trim(), true)
@@ -206,7 +298,7 @@ class SkillsFragment : Fragment(), PaymentView {
               binding.payTicketLayout.dialogBuyButtonsPaymentMethods.buyButton.text =
                 getString(R.string.buy_button)
               binding.payTicketLayout.dialogBuyButtonsPaymentMethods.buyButton.setOnClickListener {
-                binding.payTicketLayout.dialogBuyButtonsPaymentMethods.buyButton.isEnabled=false
+                binding.payTicketLayout.dialogBuyButtonsPaymentMethods.buyButton.isEnabled = false
                 val queueId = binding.payTicketLayout.payTicketRoomDetails.roomId.text.toString()
                 if (queueId.isNotBlank()) {
                   eSkillsPaymentData.queueId = QueueIdentifier(queueId.trim(), true)
@@ -242,22 +334,21 @@ class SkillsFragment : Fragment(), PaymentView {
     viewModel.sendUserToTopUpFlow(requireContext())
   }
 
-  private fun setupAppNameAndIcon(packageName: String) {
-    disposable.add(Single.fromCallable {
-      viewModel.getApplicationInfo(packageName)
+  private fun setupAppNameAndIcon(packageName: String, onboarding: Boolean) {
+    val packageManager = requireContext().packageManager
+    val appInfo = packageManager.getApplicationInfo(packageName, 0)
+    val appName = packageManager.getApplicationLabel(appInfo)
+    val appIcon = packageManager.getApplicationIcon(packageName)
+    if(onboarding){
+      binding.onboardingLayout.appIcon.setImageDrawable(appIcon)
     }
-      .observeOn(AndroidSchedulers.mainThread())
-      .subscribe({ setHeaderInfo(it) }) { it.printStackTrace() })
-  }
-
-  private fun setHeaderInfo(applicationInfo: ApplicationInfo) {
-    val header = binding.payTicketLayout.payTicketHeader
-    header.appName.text = applicationInfo.name
-    header.appIcon.setImageDrawable(applicationInfo.icon)
+    else{
+      binding.payTicketLayout.payTicketHeader.appName.text = appName
+      binding.payTicketLayout.payTicketHeader.appIcon.setImageDrawable(appIcon)
+    }
   }
 
   private fun updateHeaderInfo(eSkillsPaymentData: EskillsPaymentData) {
-    val header = binding.payTicketLayout.payTicketHeader
     val details = binding.payTicketLayout.payTicketPaymentMethodsDetails
     disposable.addAll(
       viewModel.getLocalFiatAmount(eSkillsPaymentData.price!!, eSkillsPaymentData.currency!!)
@@ -282,7 +373,10 @@ class SkillsFragment : Fragment(), PaymentView {
     )
   }
 
-  private fun createAndPayTicket(eskillsPaymentData: EskillsPaymentData) {
+  private fun createAndPayTicket(eskillsPaymentData: EskillsPaymentData, onboarding: Boolean = false) {
+    if(eskillsPaymentData.environment == EskillsPaymentData.MatchEnvironment.LIVE && getCachedValue(
+        ESKILLS_REFERRAL_KEY))
+      getReferralAndActivateLayout()
     disposable.add(
       handleWalletCreationIfNeeded()
         .takeUntil { it != WALLET_CREATING_STATUS }
@@ -291,7 +385,8 @@ class SkillsFragment : Fragment(), PaymentView {
             .observeOn(AndroidSchedulers.mainThread())
             .doOnSubscribe { showRoomLoading(false) }
             .flatMapCompletable { handleTicketCreationResult(eskillsPaymentData, it) }
-        }
+             }
+        .doOnComplete{if(onboarding){cacheValue(ESKILLS_ONBOARDING_KEY,false)}}
         .subscribe()
     )
   }
@@ -429,6 +524,67 @@ class SkillsFragment : Fragment(), PaymentView {
     binding.loadingTicketLayout.root.visibility = View.VISIBLE
   }
 
+
+  private fun getReferralAndActivateLayout() {
+    disposable.add(viewModel.getReferral()
+      .observeOn(AndroidSchedulers.mainThread())
+      .doOnSuccess { referralResponse ->
+        if (referralResponse.available) {
+          setReferralLayout(referralResponse)
+          binding.loadingTicketLayout.referralShareDisplay.baseConstraint.visibility = View.VISIBLE
+        }
+        else{
+          if (referralResponse.count!= 0)//If not default error Referral
+            cacheValue(ESKILLS_REFERRAL_KEY,false)
+        }
+      }
+      .subscribe())
+  }
+
+  private fun setReferralLayout(referralResponse: ReferralResponse) {
+    binding.loadingTicketLayout.referralShareDisplay.actionButtonShareReferral
+      .setOnClickListener {
+        startActivity(viewModel.buildShareIntent(referralResponse.referralCode))
+      }
+    binding.loadingTicketLayout.referralShareDisplay.tooltip.popupText.text =
+      String.format(getString(R.string.refer_a_friend_waiting_room_tooltip), '1')
+    val tooltipBtn =
+      binding.loadingTicketLayout.referralShareDisplay.actionButtonTooltipReferral
+    tooltipBtn
+      .setOnClickListener {
+        if (binding.loadingTicketLayout.referralShareDisplay.tooltip.root.visibility == View.VISIBLE) {
+          binding.loadingTicketLayout.referralShareDisplay.tooltip.root.visibility = View.INVISIBLE
+          tooltipBtn.setImageDrawable(
+            ContextCompat.getDrawable(
+              requireContext(),
+              R.drawable.tooltip_orange
+            )
+          )
+        } else {
+          binding.loadingTicketLayout.referralShareDisplay.tooltip.root.visibility =
+            View.VISIBLE
+          tooltipBtn.setImageDrawable(
+            ContextCompat.getDrawable(
+              requireContext(),
+              R.drawable.tooltip_white
+            )
+          )
+        }
+
+      }
+    binding.loadingTicketLayout.root
+      .setOnClickListener {
+        if (binding.loadingTicketLayout.referralShareDisplay.tooltip.root.visibility == View.VISIBLE) {
+          binding.loadingTicketLayout.referralShareDisplay.tooltip.root.visibility = View.INVISIBLE
+          binding.loadingTicketLayout.referralShareDisplay.actionButtonTooltipReferral.colorFilter =
+            null
+        }
+      }
+    binding.loadingTicketLayout.referralShareDisplay.referralCode.text =
+      referralResponse.referralCode
+
+  }
+
   private fun postbackUserData(resultCode: Int, userData: UserData) {
     if (resultCode == SkillsViewModel.RESULT_OK) {
       startBackgroundGameService(userData)
@@ -561,5 +717,14 @@ class SkillsFragment : Fragment(), PaymentView {
     } else if (resultCode == SkillsViewModel.RESULT_USER_CANCELED) {
       viewModel.closeView()
     }
+  }
+
+  private fun getCachedValue(key: String): Boolean{
+    val sharedPreferences = requireContext().getSharedPreferences(key, 0)
+    return sharedPreferences.getBoolean(key, true)
+  }
+  private fun cacheValue(key: String,value: Boolean ){
+    val sharedPreferences = requireContext().getSharedPreferences(key, 0)
+    sharedPreferences.edit().putBoolean(key, value).apply()
   }
 }

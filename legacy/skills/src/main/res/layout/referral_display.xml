@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/base_constraint"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    >
+
+  <androidx.constraintlayout.widget.Guideline
+      android:id="@+id/guideline_image"
+      android:layout_width="match_parent"
+      android:layout_height="0dp"
+      android:orientation="horizontal"
+      app:layout_constraintGuide_end="50dp"
+      />
+
+  <androidx.constraintlayout.widget.Guideline
+      android:id="@+id/guideline_tooltip"
+      android:layout_width="match_parent"
+      android:layout_height="0dp"
+      android:orientation="horizontal"
+      app:layout_constraintGuide_percent="0.57"
+      />
+
+  <androidx.constraintlayout.widget.Guideline
+      android:id="@+id/guideline_text_container"
+      android:layout_width="match_parent"
+      android:layout_height="0dp"
+      android:orientation="horizontal"
+      app:layout_constraintGuide_end="55dp"
+      />
+
+  <androidx.constraintlayout.widget.ConstraintLayout
+      android:id="@+id/container_popup"
+      android:layout_width="wrap_content"
+      android:layout_height="120dp"
+      android:animateLayoutChanges="true"
+      android:layout_marginHorizontal="@dimen/small_margin"
+      android:background="@drawable/background_referral"
+      app:layout_constraintVertical_bias="1.0"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      >
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/room_create_body"
+        android:layout_width="wrap_content"
+        android:layout_height="34dp"
+        android:layout_marginTop="@dimen/big_margin"
+        android:layout_marginStart="@dimen/big_margin"
+        android:layout_marginEnd="125dp"
+        android:visibility="visible"
+        app:layout_constraintVertical_bias="0.0"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        >
+
+
+      <TextView
+          android:id="@+id/insert_referral_text"
+          style="@style/eSkills.Onboarding.Text"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="Insert your referral code \n(Optional)"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toTopOf="parent"
+          app:layout_constraintBottom_toBottomOf="parent"
+          app:layout_constraintEnd_toStartOf="@+id/action_button_tooltip_referral"
+          />
+      <ImageButton
+          android:id="@+id/action_button_tooltip_referral"
+          style="@style/Widget.AppCompat.ActionButton"
+          android:layout_width="18dp"
+          android:layout_height="18dp"
+          android:layout_marginEnd="0dp"
+          android:contentDescription="@null"
+          android:scaleType="centerCrop"
+          android:src="@drawable/referral_onboarding_tooltip"
+          app:layout_constraintTop_toTopOf="parent"
+          app:layout_constraintStart_toEndOf="@id/insert_referral_text"
+          app:layout_constraintEnd_toEndOf="parent"
+          />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+  </androidx.constraintlayout.widget.ConstraintLayout>
+
+  <ImageView
+      android:id="@+id/friends_icon"
+      android:layout_width="100dp"
+      android:layout_height="100dp"
+      android:src="@mipmap/ic_referral_image_foreground"
+      app:layout_constraintBottom_toTopOf="@id/guideline_image"
+      app:layout_constraintEnd_toEndOf="@id/code_background"
+      />
+
+
+  <androidx.constraintlayout.widget.ConstraintLayout
+      android:id="@+id/code_background"
+      android:layout_width="0dp"
+      android:layout_height="47dp"
+      android:layout_marginHorizontal="@dimen/big_margin"
+      android:layout_marginBottom="@dimen/big_margin"
+      android:background="@drawable/rectangle_solid_white_outline_black"
+      app:layout_constraintBottom_toBottomOf="@id/container_popup"
+      app:layout_constraintEnd_toEndOf="@id/container_popup"
+      app:layout_constraintStart_toStartOf="@id/container_popup"
+      app:layout_constraintTop_toTopOf="@id/guideline_text_container"
+      >
+
+    <EditText
+        android:id="@+id/referral_code"
+        style="@style/eSkills.Payment.TextInputEditText"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@null"
+        android:hint="code here..."
+        android:inputType="text"
+        android:layout_marginEnd="96dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/error_message"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+    <TextView
+        android:id="@+id/error_message"
+        style="@style/eSkills.Payment.Error"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:visibility="gone"
+        android:gravity="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/referral_code"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+  </androidx.constraintlayout.widget.ConstraintLayout>
+  <include
+      android:id="@+id/tooltip"
+      layout="@layout/popup_balloon_tooltip_onboarding_layout"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_marginHorizontal="@dimen/small_margin"
+      android:visibility="gone"
+      app:layout_constraintBottom_toTopOf="@id/guideline_tooltip"
+      app:layout_constraintEnd_toEndOf="@id/container_popup"
+      app:layout_constraintStart_toStartOf="@id/container_popup"
+      />
+</androidx.constraintlayout.widget.ConstraintLayout>
