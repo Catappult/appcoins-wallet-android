@@ -3,7 +3,7 @@ plugins {
 }
 
 android {
-  namespace = "com.appcoins.wallet.sharedpreferences"
+  namespace = "com.appcoins.wallet.core.sharedpreferences"
 }
 
 dependencies {

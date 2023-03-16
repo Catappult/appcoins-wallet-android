@@ -11,7 +11,7 @@ import com.asfoundation.wallet.ui.iab.MergedAppcoinsFragment.Companion.CREDITS
 import com.appcoins.wallet.core.utils.common.CurrencyFormatUtils
 import com.appcoins.wallet.core.utils.common.Log
 import com.appcoins.wallet.core.utils.common.WalletCurrency
-import com.asfoundation.wallet.util.isNoNetworkException
+import com.appcoins.wallet.core.utils.common.extensions.isNoNetworkException
 import com.asfoundation.wallet.wallets.usecases.GetWalletInfoUseCase
 import io.reactivex.Observable
 import io.reactivex.Scheduler

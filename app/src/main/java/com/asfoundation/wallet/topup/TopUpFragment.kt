@@ -29,7 +29,7 @@ import com.asfoundation.wallet.ui.iab.FiatValue
 import com.asfoundation.wallet.ui.iab.PaymentMethod
 import com.appcoins.wallet.core.utils.common.CurrencyFormatUtils
 import com.appcoins.wallet.core.utils.common.WalletCurrency
-import com.asfoundation.wallet.util.convertDpToPx
+import com.appcoins.wallet.ui.common.convertDpToPx
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import com.jakewharton.rxbinding2.view.RxView
 import com.jakewharton.rxbinding2.widget.RxTextView

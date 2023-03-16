@@ -12,7 +12,7 @@ import com.asfoundation.wallet.ui.wallets.WalletBalance
 import com.asfoundation.wallet.ui.wallets.WalletsAdapter
 import com.asfoundation.wallet.ui.wallets.WalletsModel
 import com.appcoins.wallet.core.utils.common.CurrencyFormatUtils
-import com.asfoundation.wallet.util.addBottomItemDecoration
+import com.appcoins.wallet.ui.common.addBottomItemDecoration
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.subjects.PublishSubject

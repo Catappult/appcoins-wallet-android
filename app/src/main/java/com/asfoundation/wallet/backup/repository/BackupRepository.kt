@@ -4,7 +4,7 @@ import android.content.ContentResolver
 import androidx.documentfile.provider.DocumentFile
 import com.appcoins.wallet.bdsbilling.WalletService
 import com.appcoins.wallet.core.utils.common.RxSchedulers
-import com.asfoundation.wallet.util.convertToBase64
+import com.appcoins.wallet.core.utils.common.extensions.convertToBase64
 import io.reactivex.Completable
 import retrofit2.http.Body
 import retrofit2.http.Header

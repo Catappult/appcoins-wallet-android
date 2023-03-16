@@ -26,7 +26,7 @@ import com.asfoundation.wallet.promotions.ui.list.PromotionClick
 import com.asfoundation.wallet.promotions.ui.list.PromotionsController
 import com.asfoundation.wallet.ui.common.setMargins
 import com.asfoundation.wallet.ui.gamification.GamificationMapper
-import com.asfoundation.wallet.ui.widget.MarginItemDecoration
+import com.appcoins.wallet.ui.common.MarginItemDecoration
 import com.appcoins.wallet.core.utils.common.CurrencyFormatUtils
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint

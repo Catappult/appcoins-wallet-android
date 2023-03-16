@@ -10,7 +10,7 @@ import androidx.preference.Preference
 import androidx.preference.PreferenceViewHolder
 import com.asf.wallet.R
 import com.asfoundation.wallet.GlideApp
-import com.asfoundation.wallet.util.safeLet
+import com.appcoins.wallet.core.utils.common.extensions.safeLet
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 
 class SettingsCurrencyPreference(context: Context, attrs: AttributeSet?) :
