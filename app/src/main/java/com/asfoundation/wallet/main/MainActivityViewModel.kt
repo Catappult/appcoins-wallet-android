@@ -1,10 +1,10 @@
 package com.asfoundation.wallet.main
 
 import androidx.lifecycle.SavedStateHandle
-import com.asfoundation.wallet.base.BaseViewModel
-import com.asfoundation.wallet.base.RxSchedulers
-import com.asfoundation.wallet.base.SideEffect
-import com.asfoundation.wallet.base.ViewState
+import com.appcoins.wallet.ui.arch.BaseViewModel
+import com.appcoins.wallet.core.utils.common.RxSchedulers
+import com.appcoins.wallet.ui.arch.SideEffect
+import com.appcoins.wallet.ui.arch.ViewState
 import com.asfoundation.wallet.home.usecases.DisplayConversationListOrChatUseCase
 import com.asfoundation.wallet.main.use_cases.HasAuthenticationPermissionUseCase
 import com.asfoundation.wallet.main.use_cases.IncreaseLaunchCountUseCase

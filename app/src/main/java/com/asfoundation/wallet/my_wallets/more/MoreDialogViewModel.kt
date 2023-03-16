@@ -1,10 +1,10 @@
 package com.asfoundation.wallet.my_wallets.more
 
 import androidx.lifecycle.SavedStateHandle
-import com.asfoundation.wallet.base.Async
-import com.asfoundation.wallet.base.BaseViewModel
-import com.asfoundation.wallet.base.SideEffect
-import com.asfoundation.wallet.base.ViewState
+import com.appcoins.wallet.ui.arch.Async
+import com.appcoins.wallet.ui.arch.BaseViewModel
+import com.appcoins.wallet.ui.arch.SideEffect
+import com.appcoins.wallet.ui.arch.ViewState
 import com.asfoundation.wallet.ui.wallets.WalletBalance
 import com.asfoundation.wallet.ui.wallets.WalletDetailsInteractor
 import com.asfoundation.wallet.ui.wallets.WalletsInteract

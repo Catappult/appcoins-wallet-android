@@ -12,8 +12,8 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.asf.wallet.R
 import com.asf.wallet.databinding.FragmentVipReferralBinding
-import com.asfoundation.wallet.base.Async
-import com.asfoundation.wallet.base.SingleStateFragment
+import com.appcoins.wallet.ui.arch.Async
+import com.appcoins.wallet.ui.arch.SingleStateFragment
 import com.appcoins.wallet.core.utils.common.CurrencyFormatUtils
 import com.appcoins.wallet.core.utils.common.WalletCurrency
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment

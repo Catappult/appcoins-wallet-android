@@ -1,8 +1,8 @@
 package com.asfoundation.wallet.my_wallets.token
 
-import com.asfoundation.wallet.base.BaseViewModel
-import com.asfoundation.wallet.base.SideEffect
-import com.asfoundation.wallet.base.ViewState
+import com.appcoins.wallet.ui.arch.BaseViewModel
+import com.appcoins.wallet.ui.arch.SideEffect
+import com.appcoins.wallet.ui.arch.ViewState
 
 object TokenInfoSideEffect : SideEffect
 

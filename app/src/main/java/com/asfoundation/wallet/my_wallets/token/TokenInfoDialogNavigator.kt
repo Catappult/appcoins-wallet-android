@@ -1,11 +1,12 @@
 package com.asfoundation.wallet.my_wallets.token
 
 import androidx.navigation.NavController
-import com.asfoundation.wallet.base.Navigator
-import com.asfoundation.wallet.base.navigate
+import com.appcoins.wallet.ui.arch.Navigator
+import com.appcoins.wallet.ui.arch.navigate
 import javax.inject.Inject
 
-class TokenInfoDialogNavigator @Inject constructor(private val navController: NavController) : Navigator {
+class TokenInfoDialogNavigator @Inject constructor(private val navController: NavController) :
+  Navigator {
 
   fun navigateToTopUp() {
     navigate(navController, TokenInfoDialogFragmentDirections.actionNavigateToTopUp())

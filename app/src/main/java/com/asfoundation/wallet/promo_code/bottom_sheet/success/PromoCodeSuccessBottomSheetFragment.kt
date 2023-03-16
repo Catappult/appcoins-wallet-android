@@ -9,9 +9,9 @@ import android.view.ViewGroup
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.asf.wallet.R
 import com.asf.wallet.databinding.SettingsPromoCodeSuccessBottomSheetLayoutBinding
-import com.asfoundation.wallet.base.SideEffect
-import com.asfoundation.wallet.base.SingleStateFragment
-import com.asfoundation.wallet.base.ViewState
+import com.appcoins.wallet.ui.arch.SideEffect
+import com.appcoins.wallet.ui.arch.SingleStateFragment
+import com.appcoins.wallet.ui.arch.ViewState
 import com.asfoundation.wallet.promo_code.bottom_sheet.PromoCodeBottomSheetNavigator
 import com.asfoundation.wallet.promo_code.repository.PromoCode
 import com.google.android.material.bottomsheet.BottomSheetBehavior

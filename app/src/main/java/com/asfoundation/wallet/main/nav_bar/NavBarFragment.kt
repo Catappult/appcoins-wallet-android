@@ -15,7 +15,7 @@ import androidx.navigation.ui.setupWithNavController
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.asf.wallet.R
 import com.asf.wallet.databinding.NavBarFragmentBinding
-import com.asfoundation.wallet.base.SingleStateFragment
+import com.appcoins.wallet.ui.arch.SingleStateFragment
 import com.asfoundation.wallet.main.MainActivity
 import com.asfoundation.wallet.util.createColoredString
 import com.asfoundation.wallet.util.setTextFromColored

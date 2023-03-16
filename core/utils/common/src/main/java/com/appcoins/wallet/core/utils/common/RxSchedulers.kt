@@ -1,4 +1,4 @@
-package com.asfoundation.wallet.base
+package com.appcoins.wallet.core.utils.common
 
 import io.reactivex.Scheduler
 import io.reactivex.android.schedulers.AndroidSchedulers

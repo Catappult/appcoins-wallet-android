@@ -12,8 +12,8 @@ import androidx.lifecycle.lifecycleScope
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.asf.wallet.R
 import com.asf.wallet.databinding.SettingsRedeemGiftBottomSheetLayoutBinding
-import com.asfoundation.wallet.base.Async
-import com.asfoundation.wallet.base.SingleStateFragment
+import com.appcoins.wallet.ui.arch.Async
+import com.appcoins.wallet.ui.arch.SingleStateFragment
 import com.asfoundation.wallet.redeem_gift.repository.FailedRedeem
 import com.asfoundation.wallet.redeem_gift.repository.SuccessfulRedeem
 import com.appcoins.wallet.core.utils.common.KeyboardUtils

@@ -2,9 +2,10 @@ package com.asfoundation.wallet.promotions.ui
 
 
 import android.content.ActivityNotFoundException
+import com.appcoins.wallet.core.utils.common.RxSchedulers
 import com.appcoins.wallet.gamification.repository.PromotionsGamificationStats
-import com.appcoins.wallet.core.analytics.analytics.AnalyticsSetup
-import com.asfoundation.wallet.base.*
+import com.appcoins.wallet.ui.arch.*
+com.appcoins.wallet.core.analytics.analytics.AnalyticsSetup
 import com.asfoundation.wallet.promotions.PromotionsInteractor
 import com.asfoundation.wallet.promotions.model.PromotionsModel
 import com.asfoundation.wallet.promotions.model.VipReferralInfo
@@ -40,12 +41,12 @@ data class PromotionsState(
 
 @HiltViewModel
 class PromotionsViewModel @Inject constructor(
-    private val getPromotions: GetPromotionsUseCase,
-    private val analyticsSetup: AnalyticsSetup,
-    private val setSeenPromotions: SetSeenPromotionsUseCase,
-    private val setSeenWalletOrigin: SetSeenWalletOriginUseCase,
-    private val gamificationInteractor: GamificationInteractor,
-    private val rxSchedulers: RxSchedulers
+  private val getPromotions: GetPromotionsUseCase,
+  private val analyticsSetup: AnalyticsSetup,
+  private val setSeenPromotions: SetSeenPromotionsUseCase,
+  private val setSeenWalletOrigin: SetSeenWalletOriginUseCase,
+  private val gamificationInteractor: GamificationInteractor,
+  private val rxSchedulers: RxSchedulers
 ) :
   BaseViewModel<PromotionsState, PromotionsSideEffect>(initialState()) {
 
