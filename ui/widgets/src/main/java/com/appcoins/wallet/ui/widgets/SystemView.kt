@@ -1,158 +1,147 @@
-package com.appcoins.wallet.ui.widgets;
+package com.appcoins.wallet.ui.widgets
 
-import android.content.Context;
-import android.text.TextUtils;
-import android.util.AttributeSet;
-import android.view.Gravity;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.FrameLayout;
-import android.widget.ProgressBar;
-import android.widget.TextView;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
-import com.appcoins.wallet.ui.common.R;
-import com.google.android.material.snackbar.Snackbar;
+import android.content.Context
+import android.text.TextUtils
+import android.util.AttributeSet
+import android.view.Gravity
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.FrameLayout
+import android.widget.ProgressBar
+import android.widget.TextView
+import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import com.appcoins.wallet.ui.common.R
+import com.google.android.material.snackbar.Snackbar
 
-public class SystemView extends FrameLayout implements View.OnClickListener {
-  private ProgressBar progress;
-  private View errorBox;
-  private TextView messageTxt;
-  private View tryAgain;
+class SystemView : FrameLayout, View.OnClickListener {
+  private var progress: ProgressBar? = null
+  private var errorBox: View? = null
+  private var messageTxt: TextView? = null
+  private var tryAgain: View? = null
+  private var onTryAgainClickListener: OnClickListener? = null
+  private var emptyBox: FrameLayout? = null
+  private var swipeRefreshLayout: SwipeRefreshLayout? = null
+  private var recyclerView: RecyclerView? = null
 
-  private OnClickListener onTryAgainClickListener;
-  private FrameLayout emptyBox;
-
-  private SwipeRefreshLayout swipeRefreshLayout;
-  private RecyclerView recyclerView;
-
-  public SystemView(@NonNull Context context) {
-    super(context);
+  constructor(context: Context) : super(context) {}
+  constructor(context: Context, attrs: AttributeSet?) : super(context, attrs) {}
+  constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(
+    context,
+    attrs,
+    defStyleAttr
+  ) {
   }
 
-  public SystemView(@NonNull Context context, @Nullable AttributeSet attrs) {
-    super(context, attrs);
+  override fun onFinishInflate() {
+    super.onFinishInflate()
+    val view = LayoutInflater.from(context)
+      .inflate(com.appcoins.wallet.ui.widgets.R.layout.layout_system_view, this, false)
+    addView(view)
+    progress = view.findViewById(com.appcoins.wallet.ui.widgets.R.id.progress)
+    errorBox = view.findViewById(com.appcoins.wallet.ui.widgets.R.id.error_box)
+    messageTxt = view.findViewById(com.appcoins.wallet.ui.widgets.R.id.message)
+    tryAgain = view.findViewById(com.appcoins.wallet.ui.widgets.R.id.try_again)
+    tryAgain?.setOnClickListener(this)
+    emptyBox = view.findViewById(com.appcoins.wallet.ui.widgets.R.id.empty_box)
   }
 
-  public SystemView(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
-    super(context, attrs, defStyleAttr);
+  fun attachSwipeRefreshLayout(swipeRefreshLayout: SwipeRefreshLayout?) {
+    this.swipeRefreshLayout = swipeRefreshLayout
   }
 
-  @Override protected void onFinishInflate() {
-    super.onFinishInflate();
-
-    View view = LayoutInflater.from(getContext())
-        .inflate(com.appcoins.wallet.ui.widgets.R.layout.layout_system_view, this, false);
-    addView(view);
-    progress = view.findViewById(com.appcoins.wallet.ui.widgets.R.id.progress);
-
-    errorBox = view.findViewById(com.appcoins.wallet.ui.widgets.R.id.error_box);
-    messageTxt = view.findViewById(com.appcoins.wallet.ui.widgets.R.id.message);
-    tryAgain = view.findViewById(com.appcoins.wallet.ui.widgets.R.id.try_again);
-    tryAgain.setOnClickListener(this);
-
-    emptyBox = view.findViewById(com.appcoins.wallet.ui.widgets.R.id.empty_box);
+  fun attachRecyclerView(recyclerView: RecyclerView?) {
+    this.recyclerView = recyclerView
   }
 
-  public void attachSwipeRefreshLayout(@Nullable SwipeRefreshLayout swipeRefreshLayout) {
-    this.swipeRefreshLayout = swipeRefreshLayout;
+  private fun hide() {
+    hideAllComponents()
+    visibility = GONE
   }
 
-  public void attachRecyclerView(@Nullable RecyclerView recyclerView) {
-    this.recyclerView = recyclerView;
-  }
-
-  private void hide() {
-    hideAllComponents();
-    setVisibility(GONE);
-  }
-
-  private void hideAllComponents() {
-    if (swipeRefreshLayout != null && swipeRefreshLayout.isRefreshing()) {
-      swipeRefreshLayout.setRefreshing(false);
+  private fun hideAllComponents() {
+    if (swipeRefreshLayout != null && swipeRefreshLayout!!.isRefreshing) {
+      swipeRefreshLayout!!.isRefreshing = false
     }
-    emptyBox.setVisibility(GONE);
-    errorBox.setVisibility(GONE);
-    progress.setVisibility(GONE);
-    setVisibility(VISIBLE);
+    emptyBox!!.visibility = GONE
+    errorBox!!.visibility = GONE
+    progress!!.visibility = GONE
+    visibility = VISIBLE
   }
 
-  private void hideProgressBar() {
-    if (swipeRefreshLayout != null && swipeRefreshLayout.isRefreshing()) {
-      swipeRefreshLayout.setRefreshing(false);
+  private fun hideProgressBar() {
+    if (swipeRefreshLayout != null && swipeRefreshLayout!!.isRefreshing) {
+      swipeRefreshLayout!!.isRefreshing = false
     }
-    progress.setVisibility(GONE);
+    progress!!.visibility = GONE
   }
 
-  public void showProgress(boolean shouldShow) {
-    if (shouldShow && swipeRefreshLayout != null && swipeRefreshLayout.isRefreshing()) {
-      return;
+  fun showProgress(shouldShow: Boolean) {
+    if (shouldShow && swipeRefreshLayout != null && swipeRefreshLayout!!.isRefreshing) {
+      return
     }
     if (shouldShow) {
-      if (swipeRefreshLayout != null
-          && recyclerView != null
-          && recyclerView.getAdapter() != null
-          && recyclerView.getAdapter()
-          .getItemCount() > 0
-          && recyclerView.getVisibility() == View.VISIBLE) {
-        hide();
+      if (swipeRefreshLayout != null && recyclerView != null && recyclerView!!.adapter != null && recyclerView!!.adapter!!
+          .itemCount > 0 && recyclerView!!.visibility == VISIBLE
+      ) {
+        hide()
       } else {
-        hideAllComponents();
-        progress.setVisibility(VISIBLE);
+        hideAllComponents()
+        progress!!.visibility = VISIBLE
       }
     } else {
-      hideProgressBar();
+      hideProgressBar()
     }
   }
 
-  public void showError(@Nullable String message,
-      @Nullable OnClickListener onTryAgainClickListener) {
-    if (recyclerView != null
-        && recyclerView.getAdapter() != null
-        && recyclerView.getAdapter()
-        .getItemCount() > 0) {
-      hide();
-      Snackbar.make(this,
-          TextUtils.isEmpty(message) ? getContext().getString(R.string.unknown_error) : message,
-          Snackbar.LENGTH_LONG)
-          .show();
+  fun showError(
+    message: String?,
+    onTryAgainClickListener: OnClickListener?
+  ) {
+    if (recyclerView != null && recyclerView!!.adapter != null && recyclerView!!.adapter!!
+        .itemCount > 0
+    ) {
+      hide()
+      Snackbar.make(
+        this,
+        (if (TextUtils.isEmpty(message)) context.getString(R.string.unknown_error) else message)!!,
+        Snackbar.LENGTH_LONG
+      )
+        .show()
     } else {
-      hideAllComponents();
-      errorBox.setVisibility(VISIBLE);
-      messageTxt.setText(message);
-
-      this.onTryAgainClickListener = onTryAgainClickListener;
-
-      messageTxt.setVisibility(TextUtils.isEmpty(message) ? GONE : VISIBLE);
-      tryAgain.setVisibility(this.onTryAgainClickListener == null ? GONE : VISIBLE);
+      hideAllComponents()
+      errorBox!!.visibility = VISIBLE
+      messageTxt!!.text = message
+      this.onTryAgainClickListener = onTryAgainClickListener
+      messageTxt!!.visibility =
+        if (TextUtils.isEmpty(message)) GONE else VISIBLE
+      tryAgain!!.visibility =
+        if (this.onTryAgainClickListener == null) GONE else VISIBLE
     }
   }
 
-  public void showEmpty(View view) {
-    hideAllComponents();
-    LayoutParams lp =
-        new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-    lp.gravity = Gravity.CENTER_VERTICAL;
-    view.setLayoutParams(lp);
-    emptyBox.setVisibility(VISIBLE);
-    emptyBox.removeAllViews();
-    emptyBox.addView(view);
+  fun showEmpty(view: View) {
+    hideAllComponents()
+    val lp = LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+    lp.gravity = Gravity.CENTER_VERTICAL
+    view.layoutParams = lp
+    emptyBox!!.visibility = VISIBLE
+    emptyBox!!.removeAllViews()
+    emptyBox!!.addView(view)
   }
 
-  public void showOnlyProgress() {
-    emptyBox.setVisibility(GONE);
-    errorBox.setVisibility(GONE);
-    tryAgain.setVisibility(GONE);
-    progress.setVisibility(VISIBLE);
+  fun showOnlyProgress() {
+    emptyBox!!.visibility = GONE
+    errorBox!!.visibility = GONE
+    tryAgain!!.visibility = GONE
+    progress!!.visibility = VISIBLE
   }
 
-  @Override public void onClick(View v) {
+  override fun onClick(v: View) {
     if (onTryAgainClickListener != null) {
-      hide();
-      onTryAgainClickListener.onClick(v);
+      hide()
+      onTryAgainClickListener!!.onClick(v)
     }
   }
 }
