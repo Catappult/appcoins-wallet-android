@@ -15,7 +15,8 @@ import com.asfoundation.wallet.home.ui.list.HomeListClick
 import com.asfoundation.wallet.ui.balance.TokenBalance
 import com.appcoins.wallet.ui.widgets.BaseViewHolder
 import com.appcoins.wallet.core.utils.common.CurrencyFormatUtils
-import com.appcoins.wallet.core.utils.common.WalletCurrencyimport java.math.BigDecimal
+import com.appcoins.wallet.core.utils.common.WalletCurrency
+import java.math.BigDecimal
 
 @EpoxyModelClass
 abstract class HomeWalletInfoModel : EpoxyModelWithHolder<HomeWalletInfoModel.WalletInfoHolder>() {

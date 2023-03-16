@@ -8,7 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.widget.FrameLayout
 import android.widget.TextView
-import com.asf.wallet.R
+import com.appcoins.wallet.ui.common.R
 import com.appcoins.wallet.ui.widgets.databinding.LayoutToolbarTextSwitcherBinding
 import kotlinx.parcelize.Parcelize
 

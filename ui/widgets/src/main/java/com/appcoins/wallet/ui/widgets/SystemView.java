@@ -14,7 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
-import com.asf.wallet.R;
+import com.appcoins.wallet.ui.common.R;
 import com.google.android.material.snackbar.Snackbar;
 
 public class SystemView extends FrameLayout implements View.OnClickListener {
@@ -45,16 +45,16 @@ public class SystemView extends FrameLayout implements View.OnClickListener {
     super.onFinishInflate();
 
     View view = LayoutInflater.from(getContext())
-        .inflate(R.layout.layout_system_view, this, false);
+        .inflate(com.appcoins.wallet.ui.widgets.R.layout.layout_system_view, this, false);
     addView(view);
-    progress = view.findViewById(R.id.progress);
+    progress = view.findViewById(com.appcoins.wallet.ui.widgets.R.id.progress);
 
-    errorBox = view.findViewById(R.id.error_box);
-    messageTxt = view.findViewById(R.id.message);
-    tryAgain = view.findViewById(R.id.try_again);
+    errorBox = view.findViewById(com.appcoins.wallet.ui.widgets.R.id.error_box);
+    messageTxt = view.findViewById(com.appcoins.wallet.ui.widgets.R.id.message);
+    tryAgain = view.findViewById(com.appcoins.wallet.ui.widgets.R.id.try_again);
     tryAgain.setOnClickListener(this);
 
-    emptyBox = view.findViewById(R.id.empty_box);
+    emptyBox = view.findViewById(com.appcoins.wallet.ui.widgets.R.id.empty_box);
   }
 
   public void attachSwipeRefreshLayout(@Nullable SwipeRefreshLayout swipeRefreshLayout) {

@@ -3,7 +3,7 @@ package com.appcoins.wallet.ui.widgets
 import android.content.Context
 import android.util.AttributeSet
 import android.widget.ViewSwitcher
-import com.asf.wallet.R
+import com.appcoins.wallet.ui.common.R
 
 /**
  * Generic animated view switcher. Because of animation specifications, it really only supports
