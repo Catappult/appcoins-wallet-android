@@ -1,9 +1,8 @@
-package com.asfoundation.wallet.ui.widget
+package com.appcoins.wallet.ui.common
 
 import android.graphics.Rect
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
-import com.asfoundation.wallet.util.convertDpToPx
 
 class MarginItemDecoration(private val itemMargin: Int) : RecyclerView.ItemDecoration() {
   override fun getItemOffsets(outRect: Rect, view: View,

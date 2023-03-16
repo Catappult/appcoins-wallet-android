@@ -6,7 +6,7 @@ import com.asfoundation.wallet.entity.Wallet
 import com.asfoundation.wallet.promo_code.use_cases.GetCurrentPromoCodeUseCase
 import com.asfoundation.wallet.support.SupportInteractor
 import com.asfoundation.wallet.ui.iab.FiatValue
-import com.asfoundation.wallet.util.sumByBigDecimal
+import com.appcoins.wallet.core.utils.common.extensions.sumByBigDecimal
 import com.asfoundation.wallet.wallets.FetchWalletsInteract
 import com.asfoundation.wallet.wallets.WalletCreatorInteract
 import com.asfoundation.wallet.wallets.usecases.GetWalletInfoUseCase

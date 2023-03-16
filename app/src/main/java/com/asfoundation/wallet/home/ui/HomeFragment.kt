@@ -18,6 +18,7 @@ import com.appcoins.wallet.core.utils.common.WalletCurrency
 import com.asf.wallet.R
 import com.asf.wallet.databinding.FragmentHomeBinding
 import com.appcoins.wallet.ui.arch.SingleStateFragment
+import com.appcoins.wallet.ui.common.convertDpToPx
 import com.asfoundation.wallet.entity.GlobalBalance
 import com.asfoundation.wallet.home.ui.list.HomeController
 import com.asfoundation.wallet.home.ui.list.HomeListClick
@@ -25,7 +26,6 @@ import com.asfoundation.wallet.home.ui.list.transactions.empty.EmptyTransactions
 import com.asfoundation.wallet.support.SupportNotificationProperties
 import com.asfoundation.wallet.transactions.Transaction
 import com.asfoundation.wallet.ui.widget.entity.TransactionsModel
-import com.asfoundation.wallet.util.convertDpToPx
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
 import io.intercom.android.sdk.Intercom

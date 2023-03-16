@@ -25,7 +25,7 @@ import com.asfoundation.wallet.repository.TransactionRepositoryType
 import com.asfoundation.wallet.ui.gamification.GamificationMapper
 import com.asfoundation.wallet.ui.gamification.ReachedLevelInfo
 import com.appcoins.wallet.core.utils.common.CurrencyFormatUtils
-import com.asfoundation.wallet.util.toBitmap
+import com.appcoins.wallet.ui.common.toBitmap
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers

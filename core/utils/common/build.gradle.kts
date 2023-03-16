@@ -8,4 +8,5 @@ dependencies {
   implementation(libs.web3j)
   implementation(libs.androidx.navigation.ui)
   implementation(libs.bundles.rx)
+  implementation(libs.network.retrofit)
 }

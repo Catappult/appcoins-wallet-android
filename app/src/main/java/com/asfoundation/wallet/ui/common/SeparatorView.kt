@@ -4,7 +4,7 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.View
 import com.asf.wallet.R
-import com.asfoundation.wallet.util.convertDpToPx
+import com.appcoins.wallet.ui.common.convertDpToPx
 
 class SeparatorView : View {
 

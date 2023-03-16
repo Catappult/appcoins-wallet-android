@@ -8,7 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.asf.wallet.R
 import com.asfoundation.wallet.analytics.gamification.GamificationAnalytics
-import com.asfoundation.wallet.ui.widget.MarginItemDecoration
+import com.appcoins.wallet.ui.common.MarginItemDecoration
 import com.appcoins.wallet.core.utils.common.CurrencyFormatUtils
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import com.google.android.material.bottomsheet.BottomSheetBehavior
@@ -89,7 +89,8 @@ class GamificationFragment : BasePageViewFragment(), GamificationView {
     gamification_recycler_view.adapter = levelsAdapter
     gamification_recycler_view.addItemDecoration(
         MarginItemDecoration(resources.getDimension(R.dimen.gamification_card_margin)
-            .toInt()))
+            .toInt())
+    )
     presenter.present(savedInstanceState)
   }
 

@@ -13,7 +13,7 @@ import com.asfoundation.wallet.ui.iab.Navigator
 import com.asfoundation.wallet.ui.iab.localpayments.LocalPaymentInteractor
 import com.appcoins.wallet.core.utils.common.CurrencyFormatUtils
 import com.appcoins.wallet.core.utils.common.WalletCurrency
-import com.asfoundation.wallet.util.isNoNetworkException
+import com.appcoins.wallet.core.utils.common.extensions.isNoNetworkException
 import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Scheduler

@@ -10,7 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.widget.doOnTextChanged
 import com.asf.wallet.R
-import com.asfoundation.wallet.util.withNoLayoutTransition
+import com.appcoins.wallet.ui.common.withNoLayoutTransition
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import com.jakewharton.rxbinding2.view.RxView
 import dagger.hilt.android.AndroidEntryPoint
