@@ -5,10 +5,10 @@ import com.appcoins.wallet.appcoins.rewards.AppcoinsRewardsRepository.Status
 import com.asfoundation.wallet.ui.barcode.BarcodeCaptureActivity
 import com.asfoundation.wallet.ui.transact.TransferFragmentView.Currency
 import com.asfoundation.wallet.ui.transact.TransferFragmentView.TransferData
-import com.asfoundation.wallet.util.CurrencyFormatUtils
+import com.appcoins.wallet.core.utils.common.CurrencyFormatUtils
 import com.asfoundation.wallet.util.QRUri
-import com.asfoundation.wallet.util.WalletCurrency
-import com.asfoundation.wallet.util.isNoNetworkException
+import com.appcoins.wallet.core.utils.common.WalletCurrency
+import com.appcoins.wallet.core.utils.common.extensions.isNoNetworkException
 import com.asfoundation.wallet.wallets.usecases.GetWalletInfoUseCase
 import com.google.android.gms.common.api.CommonStatusCodes
 import com.google.android.gms.vision.barcode.Barcode
@@ -48,7 +48,7 @@ class TransferFragmentPresenter(private val view: TransferFragmentView,
           getBalance(currency)
               .observeOn(viewScheduler)
               .doOnSuccess {
-                val walletCurrency = WalletCurrency.mapToWalletCurrency(currency)
+                val walletCurrency = mapToWalletCurrency(currency)
                 view.showBalance(formatter.formatCurrency(it, walletCurrency), walletCurrency)
               }
         }
@@ -67,6 +67,14 @@ class TransferFragmentPresenter(private val view: TransferFragmentView,
             Currency.ETH -> balance.ethBalance.token.amount
           }
         }
+  }
+
+  private fun mapToWalletCurrency(currency: Currency): WalletCurrency {
+    return when (currency) {
+      Currency.APPC -> WalletCurrency.APPCOINS
+      Currency.APPC_C -> WalletCurrency.CREDITS
+      Currency.ETH -> WalletCurrency.ETHEREUM
+    }
   }
 
   private fun handleQrCodeResult(barcode: Barcode) {

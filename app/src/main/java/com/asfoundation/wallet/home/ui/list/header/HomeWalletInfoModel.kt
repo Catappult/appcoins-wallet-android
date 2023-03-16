@@ -9,14 +9,13 @@ import com.airbnb.epoxy.EpoxyModelClass
 import com.airbnb.epoxy.EpoxyModelWithHolder
 import com.airbnb.lottie.LottieAnimationView
 import com.asf.wallet.R
-import com.asfoundation.wallet.base.Async
+import com.appcoins.wallet.ui.arch.Async
 import com.asfoundation.wallet.entity.GlobalBalance
 import com.asfoundation.wallet.home.ui.list.HomeListClick
 import com.asfoundation.wallet.ui.balance.TokenBalance
 import com.appcoins.wallet.ui.widgets.BaseViewHolder
-import com.asfoundation.wallet.util.CurrencyFormatUtils
-import com.asfoundation.wallet.util.WalletCurrency
-import java.math.BigDecimal
+import com.appcoins.wallet.core.utils.common.CurrencyFormatUtils
+import com.appcoins.wallet.core.utils.common.WalletCurrencyimport java.math.BigDecimal
 
 @EpoxyModelClass
 abstract class HomeWalletInfoModel : EpoxyModelWithHolder<HomeWalletInfoModel.WalletInfoHolder>() {

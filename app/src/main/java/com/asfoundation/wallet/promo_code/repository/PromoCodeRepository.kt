@@ -1,7 +1,7 @@
 package com.asfoundation.wallet.promo_code.repository
 
 import com.asfoundation.wallet.analytics.AnalyticsSetup
-import com.asfoundation.wallet.base.RxSchedulers
+import com.appcoins.wallet.core.utils.common.RxSchedulers
 import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Single

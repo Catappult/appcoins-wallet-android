@@ -11,8 +11,8 @@ import by.kirich1409.viewbindingdelegate.viewBinding
 import com.asf.wallet.R
 import com.asf.wallet.databinding.ChooseCurrencyBottomSheetBinding
 import com.asfoundation.wallet.GlideApp
-import com.asfoundation.wallet.base.Async
-import com.asfoundation.wallet.base.SingleStateFragment
+import com.appcoins.wallet.ui.arch.Async
+import com.appcoins.wallet.ui.arch.SingleStateFragment
 import com.asfoundation.wallet.change_currency.FiatCurrencyEntity
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.google.android.material.bottomsheet.BottomSheetBehavior
@@ -22,7 +22,7 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class ChooseCurrencyBottomSheetFragment : BottomSheetDialogFragment(),
-    SingleStateFragment<ChooseCurrencyBottomSheetState, ChooseCurrencyBottomSideEffect> {
+  SingleStateFragment<ChooseCurrencyBottomSheetState, ChooseCurrencyBottomSideEffect> {
 
 
   @Inject

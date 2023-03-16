@@ -14,6 +14,7 @@ import android.webkit.CookieManager
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import com.appcoins.wallet.commons.Logger
+import com.appcoins.wallet.core.utils.properties.HostProperties
 import com.asf.wallet.BuildConfig
 import com.asf.wallet.R
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics
@@ -76,7 +77,7 @@ class BillingWebViewFragment : BasePageViewFragment() {
     private const val URL = "url"
     private const val CURRENT_URL = "currentUrl"
     private const val ORDER_ID_PARAMETER = "OrderId"
-    const val OPEN_SUPPORT = BuildConfig.MY_APPCOINS_BASE_HOST + "open-support"
+    val OPEN_SUPPORT = "${HostProperties.MY_APPCOINS_HOST}open-support/"
 
     private var currentExtAppSelected: ExternalAppEnum? = null
 

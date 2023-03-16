@@ -7,15 +7,15 @@ import android.view.ViewGroup
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.asf.wallet.R
 import com.asf.wallet.databinding.BackupTriggerDialogFragmentBinding
-import com.asfoundation.wallet.backup.repository.preferences.BackupTriggerPreferences
-import com.asfoundation.wallet.base.SideEffect
-import com.asfoundation.wallet.base.SingleStateFragment
-import com.asfoundation.wallet.base.ViewState
+import com.appcoins.wallet.ui.arch.SideEffect
+import com.appcoins.wallet.ui.arch.SingleStateFragment
+import com.appcoins.wallet.ui.arch.ViewState
 import com.asfoundation.wallet.billing.analytics.WalletsAnalytics
 import com.asfoundation.wallet.billing.analytics.WalletsEventSender
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
+import com.appcoins.wallet.sharedpreferences.BackupTriggerPreferencesDataSource
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -38,7 +38,7 @@ class BackupTriggerDialogFragment : BottomSheetDialogFragment(),
     @JvmStatic
     fun newInstance(
       walletAddress: String,
-      triggerSource: BackupTriggerPreferences.TriggerSource
+      triggerSource: BackupTriggerPreferencesDataSource.TriggerSource
     ): BackupTriggerDialogFragment {
       return BackupTriggerDialogFragment()
         .apply {
@@ -67,9 +67,9 @@ class BackupTriggerDialogFragment : BottomSheetDialogFragment(),
 
   private fun setUIContext() {
     when (requireArguments().getSerializable(TRIGGER_SOURCE)!!) {
-      BackupTriggerPreferences.TriggerSource.NEW_LEVEL -> views.triggerDialogMessage.text =
+      BackupTriggerPreferencesDataSource.TriggerSource.NEW_LEVEL -> views.triggerDialogMessage.text =
         getString(R.string.backup_popup_gamification_body)
-      BackupTriggerPreferences.TriggerSource.FIRST_PURCHASE -> views.triggerDialogMessage.text =
+      BackupTriggerPreferencesDataSource.TriggerSource.FIRST_PURCHASE -> views.triggerDialogMessage.text =
         getString(R.string.backup_popup_purchase_body)
       else -> {
       }
@@ -90,7 +90,7 @@ class BackupTriggerDialogFragment : BottomSheetDialogFragment(),
     views.triggerDismissBtn.setOnClickListener {
       navigator.navigateToDismiss(
         requireArguments().getString(WALLET_ADDRESS_KEY)!!,
-        requireArguments().getSerializable(TRIGGER_SOURCE)!! as BackupTriggerPreferences.TriggerSource
+        requireArguments().getSerializable(TRIGGER_SOURCE)!! as BackupTriggerPreferencesDataSource.TriggerSource
       )
     }
   }

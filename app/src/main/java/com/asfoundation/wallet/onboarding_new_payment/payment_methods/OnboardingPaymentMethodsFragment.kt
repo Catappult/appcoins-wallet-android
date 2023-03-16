@@ -18,11 +18,13 @@ import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import by.kirich1409.viewbindingdelegate.viewBinding
+import com.appcoins.wallet.core.utils.properties.PRIVACY_POLICY_URL
+import com.appcoins.wallet.core.utils.properties.TERMS_CONDITIONS_URL
 import com.asf.wallet.BuildConfig
 import com.asf.wallet.R
 import com.asf.wallet.databinding.OnboardingPaymentMethodsFragmentBinding
-import com.asfoundation.wallet.base.Async
-import com.asfoundation.wallet.base.SingleStateFragment
+import com.appcoins.wallet.ui.arch.Async
+import com.appcoins.wallet.ui.arch.SingleStateFragment
 import com.asfoundation.wallet.onboarding_new_payment.payment_methods.list.PaymentMethodClick
 import com.asfoundation.wallet.onboarding_new_payment.payment_methods.list.PaymentMethodsController
 import com.asfoundation.wallet.ui.iab.PaymentMethod
@@ -155,8 +157,8 @@ class OnboardingPaymentMethodsFragment : BasePageViewFragment(),
       )
 
     val spannableString = SpannableString(termsPolicyTickBox)
-    setLinkToString(spannableString, termsConditions, Uri.parse(BuildConfig.TERMS_CONDITIONS_URL))
-    setLinkToString(spannableString, privacyPolicy, Uri.parse(BuildConfig.PRIVACY_POLICY_URL))
+    setLinkToString(spannableString, termsConditions, Uri.parse(TERMS_CONDITIONS_URL))
+    setLinkToString(spannableString, privacyPolicy, Uri.parse(PRIVACY_POLICY_URL))
 
     views.onboardingPaymentTermsConditions.termsConditionsBody.text = spannableString
     views.onboardingPaymentTermsConditions.termsConditionsBody.isClickable = true

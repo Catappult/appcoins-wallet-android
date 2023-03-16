@@ -9,15 +9,15 @@ import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import by.kirich1409.viewbindingdelegate.viewBinding
+import com.appcoins.wallet.core.utils.common.BalanceUtils
 import com.asf.wallet.R
 import com.asf.wallet.databinding.FragmentNftTransactBinding
-import com.asfoundation.wallet.base.Async
-import com.asfoundation.wallet.base.SingleStateFragment
+import com.appcoins.wallet.ui.arch.Async
+import com.appcoins.wallet.ui.arch.SingleStateFragment
 import com.asfoundation.wallet.nfts.domain.FailedNftTransfer
 import com.asfoundation.wallet.nfts.domain.GasInfo
 import com.asfoundation.wallet.nfts.domain.NftTransferResult
 import com.asfoundation.wallet.nfts.domain.SuccessfulNftTransfer
-import com.asfoundation.wallet.util.BalanceUtils
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
@@ -27,7 +27,7 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class NFTTransactDialogFragment : BottomSheetDialogFragment(),
-    SingleStateFragment<NFTTransactState, NFTTransactSideEffect> {
+  SingleStateFragment<NFTTransactState, NFTTransactSideEffect> {
 
   @Inject
   lateinit var viewModelFactory: NFTTransactDialogViewModelFactory

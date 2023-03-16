@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.di.api
 
+import com.appcoins.wallet.core.utils.properties.HostProperties
 import com.appcoins.wallet.gamification.repository.GamificationApi
 import com.appcoins.wallet.gamification.repository.entity.PromotionsDeserializer
 import com.appcoins.wallet.gamification.repository.entity.PromotionsResponse
@@ -38,7 +39,7 @@ import javax.inject.Singleton
 @Module
 class BackendApiModule {
 
-  private val backendUrl = BuildConfig.BACKEND_HOST
+  private val backendUrl = HostProperties.BACKEND_HOST
 
   @Singleton
   @Provides

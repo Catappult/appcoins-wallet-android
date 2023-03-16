@@ -2,8 +2,8 @@ package com.asfoundation.wallet.backup.entry
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.asfoundation.wallet.base.RxSchedulers
-import com.asfoundation.wallet.util.CurrencyFormatUtils
+import com.appcoins.wallet.core.utils.common.RxSchedulers
+import com.appcoins.wallet.core.utils.common.CurrencyFormatUtils
 import com.asfoundation.wallet.wallets.usecases.GetWalletInfoUseCase
 
 class BackupEntryViewModelFactory(

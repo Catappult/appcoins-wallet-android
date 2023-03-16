@@ -13,8 +13,8 @@ import com.asfoundation.wallet.promotions.ui.PromotionsViewModel.Companion.KEY_A
 import com.asfoundation.wallet.promotions.ui.PromotionsViewModel.Companion.KEY_LINK
 import com.asfoundation.wallet.promotions.ui.list.PromotionClick
 import com.appcoins.wallet.ui.widgets.BaseViewHolder
-import com.asfoundation.wallet.util.CurrencyFormatUtils
-import com.asfoundation.wallet.util.WalletCurrency
+import com.appcoins.wallet.core.utils.common.CurrencyFormatUtils
+import com.appcoins.wallet.core.utils.common.WalletCurrency
 
 @EpoxyModelClass
 abstract class ReferralModel : EpoxyModelWithHolder<ReferralModel.ReferralHolder>() {

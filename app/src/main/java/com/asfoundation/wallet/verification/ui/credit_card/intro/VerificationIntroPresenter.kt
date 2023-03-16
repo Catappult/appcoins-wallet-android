@@ -5,7 +5,7 @@ import com.appcoins.wallet.billing.adyen.VerificationPaymentModel
 import com.appcoins.wallet.billing.adyen.VerificationPaymentModel.ErrorType
 import com.appcoins.wallet.commons.Logger
 import com.asfoundation.wallet.billing.adyen.AdyenErrorCodeMapper
-import com.asfoundation.wallet.util.isNoNetworkException
+import com.appcoins.wallet.core.utils.common.extensions.isNoNetworkException
 import com.asfoundation.wallet.verification.ui.credit_card.VerificationAnalytics
 import io.reactivex.Completable
 import io.reactivex.Scheduler

@@ -2,7 +2,7 @@ package com.appcoins.wallet.ui.widgets
 
 import android.view.View
 import android.view.ViewGroup
-import com.asfoundation.wallet.util.convertDpToPx
+import com.appcoins.wallet.ui.common.convertDpToPx
 
 fun View.setMargins(startMarginDp: Int? = null,
                     topMarginDp: Int? = null,

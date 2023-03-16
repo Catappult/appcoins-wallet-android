@@ -1,6 +1,6 @@
 package com.asfoundation.wallet.util
 
-import com.asfoundation.wallet.base.RxSchedulers
+import com.appcoins.wallet.core.utils.common.RxSchedulers
 import io.reactivex.schedulers.TestScheduler
 
 class FakeSchedulers : RxSchedulers {

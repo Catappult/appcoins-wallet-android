@@ -10,8 +10,8 @@ import androidx.annotation.ColorInt
 import androidx.core.content.ContextCompat
 import com.asf.wallet.R
 import com.appcoins.wallet.ui.widgets.databinding.LayoutWalletTextFieldViewBinding
-import com.asfoundation.wallet.util.convertDpToPx
-import com.asfoundation.wallet.util.setReadOnly
+import com.appcoins.wallet.ui.common.convertDpToPx
+import com.appcoins.wallet.ui.common.setReadOnly
 import com.google.android.material.textfield.TextInputLayout.END_ICON_NONE
 
 class WalletTextFieldView : FrameLayout {

@@ -3,9 +3,9 @@ package com.asfoundation.wallet.onboarding.gp_install
 import androidx.lifecycle.viewModelScope
 import com.asfoundation.wallet.app_start.AppStartUseCase
 import com.asfoundation.wallet.app_start.StartMode
-import com.asfoundation.wallet.base.BaseViewModel
-import com.asfoundation.wallet.base.SideEffect
-import com.asfoundation.wallet.base.ViewState
+import com.appcoins.wallet.ui.arch.BaseViewModel
+import com.appcoins.wallet.ui.arch.SideEffect
+import com.appcoins.wallet.ui.arch.ViewState
 import com.asfoundation.wallet.onboarding.use_cases.SetOnboardingCompletedUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.first

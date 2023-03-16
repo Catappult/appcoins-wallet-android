@@ -1,7 +1,7 @@
 package com.asfoundation.wallet.topup
 
 import com.asf.wallet.BuildConfig
-import com.asfoundation.wallet.util.isNoNetworkException
+import com.appcoins.wallet.core.utils.common.extensions.isNoNetworkException
 import io.reactivex.Single
 import retrofit2.http.GET
 import retrofit2.http.Path

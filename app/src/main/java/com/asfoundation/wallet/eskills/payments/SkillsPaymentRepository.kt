@@ -7,12 +7,12 @@ import cm.aptoide.skills.model.CreatedTicket
 import cm.aptoide.skills.model.PaymentResult
 import cm.aptoide.skills.model.Price
 import cm.aptoide.skills.util.EskillsPaymentData
-import com.asfoundation.wallet.base.RxSchedulers
+import com.appcoins.wallet.core.utils.common.RxSchedulers
 import com.asfoundation.wallet.repository.CurrencyConversionService
 import com.asfoundation.wallet.topup.TopUpActivity
 import com.asfoundation.wallet.ui.iab.AppcoinsRewardsBuyInteract
-import com.asfoundation.wallet.util.CurrencyFormatUtils
-import com.asfoundation.wallet.util.WalletCurrency
+import com.appcoins.wallet.core.utils.common.CurrencyFormatUtils
+import com.appcoins.wallet.core.utils.common.WalletCurrency
 import com.asfoundation.wallet.verification.ui.credit_card.VerificationCreditCardActivity
 import com.asfoundation.wallet.wallets.usecases.GetWalletInfoUseCase
 import io.reactivex.Single

@@ -12,7 +12,7 @@ import com.asfoundation.wallet.promotions.model.GamificationLinkItem
 import com.asfoundation.wallet.promotions.ui.list.PromotionClick
 import com.appcoins.wallet.ui.widgets.BaseViewHolder
 import com.asfoundation.wallet.ui.gamification.GamificationMapper
-import com.asfoundation.wallet.util.CurrencyFormatUtils
+import com.appcoins.wallet.core.utils.common.CurrencyFormatUtils
 import java.text.DecimalFormat
 
 class GamificationModelGroup(private val gamificationItem: GamificationItem,

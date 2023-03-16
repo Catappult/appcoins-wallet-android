@@ -4,9 +4,9 @@ import androidx.fragment.app.Fragment
 import com.appcoins.wallet.commons.Logger
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics
 import com.asfoundation.wallet.ui.iab.payments.carrier.CarrierInteractor
-import com.asfoundation.wallet.util.CurrencyFormatUtils
-import com.asfoundation.wallet.util.StringProvider
-import com.asfoundation.wallet.util.applicationinfo.ApplicationInfoProvider
+import com.appcoins.wallet.core.utils.common.CurrencyFormatUtils
+import com.appcoins.wallet.ui.common.StringProvider
+import com.appcoins.wallet.core.utils.common.applicationinfo.ApplicationInfoProvider
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

@@ -12,7 +12,8 @@ import com.appcoins.wallet.billing.adyen.AdyenResponseMapper.Companion.THREEDS2C
 import com.appcoins.wallet.billing.adyen.AdyenResponseMapper.Companion.THREEDS2FINGERPRINT
 import com.appcoins.wallet.billing.adyen.PaymentInfoModel
 import com.appcoins.wallet.billing.adyen.PaymentModel
-import com.asfoundation.wallet.base.*
+import com.appcoins.wallet.core.utils.common.RxSchedulers
+import com.appcoins.wallet.ui.arch.*
 import com.asfoundation.wallet.billing.adyen.AdyenCardWrapper
 import com.asfoundation.wallet.billing.adyen.AdyenErrorCodeMapper
 import com.asfoundation.wallet.billing.adyen.AdyenPaymentInteractor

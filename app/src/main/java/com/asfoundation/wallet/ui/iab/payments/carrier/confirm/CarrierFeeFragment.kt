@@ -14,10 +14,10 @@ import androidx.core.text.color
 import com.asf.wallet.R
 import com.asfoundation.wallet.GlideApp
 import com.asfoundation.wallet.ui.iab.IabView
-import com.asfoundation.wallet.util.CurrencyFormatUtils
-import com.asfoundation.wallet.util.WalletCurrency
-import com.asfoundation.wallet.util.getStringSpanned
-import com.asfoundation.wallet.util.withNoLayoutTransition
+import com.appcoins.wallet.core.utils.common.CurrencyFormatUtils
+import com.appcoins.wallet.core.utils.common.WalletCurrency
+import com.appcoins.wallet.core.utils.common.getStringSpanned
+import com.appcoins.wallet.ui.common.withNoLayoutTransition
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import com.jakewharton.rxbinding2.view.RxView
 import dagger.hilt.android.AndroidEntryPoint

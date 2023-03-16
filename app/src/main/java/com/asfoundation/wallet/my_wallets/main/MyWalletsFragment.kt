@@ -15,8 +15,8 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.asf.wallet.R
 import com.asf.wallet.databinding.FragmentMyWalletsBinding
-import com.asfoundation.wallet.base.Async
-import com.asfoundation.wallet.base.SingleStateFragment
+import com.appcoins.wallet.ui.arch.Async
+import com.appcoins.wallet.ui.arch.SingleStateFragment
 import com.asfoundation.wallet.billing.analytics.WalletsAnalytics
 import com.asfoundation.wallet.billing.analytics.WalletsEventSender
 import com.asfoundation.wallet.entity.Wallet
@@ -24,8 +24,8 @@ import com.asfoundation.wallet.ui.MyAddressActivity
 import com.asfoundation.wallet.ui.balance.BalanceVerificationStatus
 import com.asfoundation.wallet.ui.balance.TokenBalance
 import com.asfoundation.wallet.ui.iab.FiatValue
-import com.asfoundation.wallet.util.CurrencyFormatUtils
-import com.asfoundation.wallet.util.WalletCurrency
+import com.appcoins.wallet.core.utils.common.CurrencyFormatUtils
+import com.appcoins.wallet.core.utils.common.WalletCurrency
 import com.asfoundation.wallet.util.generateQrCode
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import com.asfoundation.wallet.wallets.domain.WalletInfo

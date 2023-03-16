@@ -83,3 +83,4 @@ fun File.projectsAndModules(): Pair<Set<String>, Set<String>> {
   return Pair(formattedProjects, modules)
 }
 include(":ui:widgets")
+include(":ui:arch")

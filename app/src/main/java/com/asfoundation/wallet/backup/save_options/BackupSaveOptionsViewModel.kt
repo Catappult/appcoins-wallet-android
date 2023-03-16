@@ -3,9 +3,9 @@ package com.asfoundation.wallet.backup.save_options
 import com.appcoins.wallet.commons.Logger
 import com.asfoundation.wallet.backup.use_cases.BackupSuccessLogUseCase
 import com.asfoundation.wallet.backup.use_cases.SendBackupToEmailUseCase
-import com.asfoundation.wallet.base.BaseViewModel
-import com.asfoundation.wallet.base.SideEffect
-import com.asfoundation.wallet.base.ViewState
+import com.appcoins.wallet.ui.arch.BaseViewModel
+import com.appcoins.wallet.ui.arch.SideEffect
+import com.appcoins.wallet.ui.arch.ViewState
 
 sealed class BackupSaveOptionsSideEffect : SideEffect {
   data class NavigateToSuccess(val walletAddress: String) : BackupSaveOptionsSideEffect()

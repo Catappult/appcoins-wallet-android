@@ -11,7 +11,7 @@ import com.appcoins.wallet.permissions.ApplicationPermission
 import com.appcoins.wallet.permissions.PermissionName
 import com.asf.wallet.R
 import com.asfoundation.wallet.permissions.PermissionsInteractor
-import com.asfoundation.wallet.util.applicationinfo.ApplicationInfoProvider
+import com.appcoins.wallet.core.utils.common.applicationinfo.ApplicationInfoProvider
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import com.jakewharton.rxrelay2.BehaviorRelay
 import dagger.hilt.android.AndroidEntryPoint

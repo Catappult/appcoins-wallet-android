@@ -7,8 +7,8 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.appcoins.wallet.billing.adyen.PaymentModel
 import com.appcoins.wallet.gamification.repository.ForecastBonusAndLevel
-import com.asfoundation.wallet.base.Navigator
-import com.asfoundation.wallet.base.navigate
+import com.appcoins.wallet.ui.arch.Navigator
+import com.appcoins.wallet.ui.arch.navigate
 import com.asfoundation.wallet.billing.adyen.PaymentType
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.ui.iab.WebViewActivity

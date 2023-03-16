@@ -6,7 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.appcoins.wallet.billing.adyen.PaymentModel
 import com.asf.wallet.R
-import com.asfoundation.wallet.base.RxSchedulers
+import com.appcoins.wallet.core.utils.common.RxSchedulers
 import com.asfoundation.wallet.billing.adyen.AdyenPaymentInteractor
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics
 import com.asfoundation.wallet.billing.paypal.models.PaypalTransaction
@@ -14,7 +14,7 @@ import com.asfoundation.wallet.billing.paypal.usecases.*
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.support.SupportInteractor
 import com.asfoundation.wallet.ui.iab.PaymentMethodsAnalytics
-import com.asfoundation.wallet.util.toSingleEvent
+import com.appcoins.wallet.core.utils.common.toSingleEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable
