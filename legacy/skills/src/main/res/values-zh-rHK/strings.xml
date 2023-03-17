@@ -1,16 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="appcoins_wallet">AppCoins Wallet</string>
+  <!-- Common -->
+  <string name="start_button">Start</string>
+  <string name="ok">OK</string>
+  <string name="cancel">Cancel</string>
+  <string name="buy_button">Buy</string>
+  <string name="topup_button">Top Up</string>
   <string name="provide_wallet_creating_wallet_header">Creating wallet address&#8230;</string>
   <string name="processing_loading_title">Getting your entry ticket</string>
   <string name="finding_room_loading_title">Waiting for opponents</string>
   <string name="finding_room_name_loading_title">Waiting for opponents \nto join the</string>
   <string name="finding_room_loading_message">This may take a while…</string>
   <string name="refunded">Your money has been refunded.</string>
-  <string name="ok">OK</string>
-  <string name="cancel">Cancel</string>
-  <string name="buy_button">Buy</string>
-  <string name="topup_button">Top Up</string>
   <string name="connection_error_body">It seems your\'re not connected to the Internet. Check your connection and try again!</string>
   <string name="playing_game_notification_title">Currently playing e-Skills</string>
   <string name="playing_game_notification_body">Getting game info…</string>
