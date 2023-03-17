@@ -1,16 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="appcoins_wallet">AppCoins ウォレット</string>
+  <!-- Common -->
+  <string name="start_button">Start</string>
+  <string name="ok">わかりました</string>
+  <string name="cancel">キャンセルする</string>
+  <string name="buy_button">購入</string>
+  <string name="topup_button">トップアップ</string>
   <string name="provide_wallet_creating_wallet_header">ウォレットアドレスを作成中です&#8230;</string>
   <string name="processing_loading_title">エントリーチケットを入手中</string>
   <string name="finding_room_loading_title">対戦相手を待っています</string>
   <string name="finding_room_name_loading_title">対戦相手の参加を\n待っています：</string>
   <string name="finding_room_loading_message">これは、処理には時間がかかることがあります...</string>
   <string name="refunded">返金されました。</string>
-  <string name="ok">わかりました</string>
-  <string name="cancel">キャンセルする</string>
-  <string name="buy_button">購入</string>
-  <string name="topup_button">トップアップ</string>
   <string name="connection_error_body">インターネットに接続されていないようです。接続を確認して、もう一度試してみてください</string>
   <string name="playing_game_notification_title">現在プレイ中のe-Skills</string>
   <string name="playing_game_notification_body">ゲーム情報取得中...</string>
