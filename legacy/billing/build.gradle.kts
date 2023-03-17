@@ -11,6 +11,8 @@ dependencies {
   api(project(":legacy:bdsbilling"))
   implementation(project(":legacy:commons"))
   implementation(project(":core:utils:properties"))
+  implementation(project(":core:network:microservices"))
+  implementation(project(":core:network:bds"))
 
   implementation(libs.bundles.rx)
   implementation(libs.bundles.network)

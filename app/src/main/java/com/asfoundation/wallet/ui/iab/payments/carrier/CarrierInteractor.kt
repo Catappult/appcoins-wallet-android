@@ -3,7 +3,7 @@ package com.asfoundation.wallet.ui.iab.payments.carrier
 import android.net.Uri
 import com.appcoins.wallet.bdsbilling.WalletService
 import com.appcoins.wallet.billing.carrierbilling.*
-import com.appcoins.wallet.billing.common.response.TransactionStatus
+import com.appcoins.wallet.core.network.microservices.model.TransactionStatus
 import com.appcoins.wallet.commons.Logger
 import com.asfoundation.wallet.base.RxSchedulers
 import com.asfoundation.wallet.billing.adyen.PurchaseBundleModel

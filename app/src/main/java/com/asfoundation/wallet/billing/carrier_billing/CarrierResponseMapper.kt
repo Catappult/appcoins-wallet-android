@@ -1,11 +1,12 @@
 package com.asfoundation.wallet.billing.carrier_billing
 
 import com.appcoins.wallet.billing.carrierbilling.*
-import com.appcoins.wallet.billing.carrierbilling.response.CarrierCreateTransactionResponse
+import com.appcoins.wallet.core.network.microservices.model.CarrierCreateTransactionResponse
 import com.appcoins.wallet.billing.common.BillingErrorMapper
-import com.appcoins.wallet.billing.carrierbilling.response.CountryListResponse
-import com.appcoins.wallet.billing.common.response.TransactionResponse
+import com.appcoins.wallet.core.network.microservices.model.CountryListResponse
+import com.appcoins.wallet.core.network.microservices.model.TransactionResponse
 import com.appcoins.wallet.billing.util.isNoNetworkException
+import com.appcoins.wallet.core.network.microservices.model.CarrierErrorResponse
 import com.asfoundation.wallet.di.annotations.BrokerDefaultRetrofit
 import okhttp3.ResponseBody
 import retrofit2.Converter
@@ -67,11 +68,11 @@ class CarrierResponseMapper @Inject constructor(@BrokerDefaultRetrofit private v
       return ForbiddenError(httpCode, response?.text, errorType)
     }
 
-    if (response?.data == null || response.data.isEmpty()) {
+    if (response?.data == null || response.data!!.isEmpty()) {
       return null
     }
 
-    val error = response.data[0]
+    val error = response.data!![0]
     when (response.code) {
       "Body.Fields.Invalid" -> {
         if (error.name == "phone_number") {
@@ -86,7 +87,7 @@ class CarrierResponseMapper @Inject constructor(@BrokerDefaultRetrofit private v
           else -> null
         }
         if (type != null && error.value != null) {
-          return InvalidPriceError(httpCode, response.text, type, error.value)
+          return InvalidPriceError(httpCode, response.text, type, error.value!!)
         }
       }
     }

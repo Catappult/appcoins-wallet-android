@@ -4,8 +4,8 @@ import com.appcoins.wallet.appcoins.rewards.repository.BdsAppcoinsRewardsReposit
 import com.appcoins.wallet.appcoins.rewards.repository.RemoteRepository
 import com.appcoins.wallet.appcoins.rewards.repository.WalletService
 import com.appcoins.wallet.bdsbilling.Billing
-import com.appcoins.wallet.bdsbilling.repository.entity.Gateway
 import com.appcoins.wallet.commons.MemoryCache
+import com.appcoins.wallet.core.network.microservices.model.Gateway
 import com.google.gson.Gson
 import io.reactivex.Completable
 import io.reactivex.Single
@@ -163,15 +163,16 @@ class AppcoinsRewardsTest {
     testObserver.assertNoErrors()
         .assertComplete()
     val mutableListOf = mutableListOf(
-        Transaction(
-            SKU, TYPE, DEVELOPER_ADDRESS, STORE_ADDRESS, OEM_ADDRESS, PACKAGE_NAME,
-            PRICE, origin, Transaction.Status.PROCESSING, null, null, null, null, null, null, null
-        ),
-        Transaction(
-            SKU, TYPE, DEVELOPER_ADDRESS, STORE_ADDRESS, OEM_ADDRESS, PACKAGE_NAME,
-            PRICE, origin, Transaction.Status.COMPLETED, "0x32453134", null, null, null, null, null,
-            null
-        ))
+      Transaction(
+        SKU, TYPE, DEVELOPER_ADDRESS, STORE_ADDRESS, OEM_ADDRESS, PACKAGE_NAME,
+        PRICE, origin, Transaction.Status.PROCESSING, null, null, null, null, null, null, null
+      ),
+      Transaction(
+        SKU, TYPE, DEVELOPER_ADDRESS, STORE_ADDRESS, OEM_ADDRESS, PACKAGE_NAME,
+        PRICE, origin, Transaction.Status.COMPLETED, "0x32453134", null, null, null, null, null,
+        null
+      )
+    )
     statusObserver.assertNoErrors()
         .assertValueSequence(mutableListOf)
   }
@@ -193,15 +194,16 @@ class AppcoinsRewardsTest {
     testObserver.assertNoErrors()
         .assertComplete()
     val mutableListOf = mutableListOf(
-        Transaction(
-            SKU, TYPE, DEVELOPER_ADDRESS, STORE_ADDRESS, OEM_ADDRESS, PACKAGE_NAME,
-            PRICE, origin, Transaction.Status.PROCESSING, null, null, null, null, null, null, null
-        ),
-        Transaction(
-            SKU, TYPE, DEVELOPER_ADDRESS, STORE_ADDRESS, OEM_ADDRESS, PACKAGE_NAME,
-            PRICE, origin, Transaction.Status.COMPLETED, "0x32453134", null, null, null, null, null,
-            null
-        ))
+      Transaction(
+        SKU, TYPE, DEVELOPER_ADDRESS, STORE_ADDRESS, OEM_ADDRESS, PACKAGE_NAME,
+        PRICE, origin, Transaction.Status.PROCESSING, null, null, null, null, null, null, null
+      ),
+      Transaction(
+        SKU, TYPE, DEVELOPER_ADDRESS, STORE_ADDRESS, OEM_ADDRESS, PACKAGE_NAME,
+        PRICE, origin, Transaction.Status.COMPLETED, "0x32453134", null, null, null, null, null,
+        null
+      )
+    )
     statusObserver.assertNoErrors()
         .assertValueSequence(mutableListOf)
   }

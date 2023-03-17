@@ -1,6 +1,6 @@
 package com.asfoundation.wallet.transactions
 
-import com.asfoundation.wallet.entity.WalletHistory
+import com.appcoins.wallet.core.network.backend.model.WalletHistory
 import com.asfoundation.wallet.repository.entity.TransactionDetailsEntity
 import com.asfoundation.wallet.repository.entity.TransactionEntity
 import com.fasterxml.jackson.databind.DeserializationFeature
@@ -37,7 +37,7 @@ class TransactionsMapperTest {
 
   @Test
   fun transactionMapTest() {
-    history.result.forEachIndexed { index, tx ->
+    history.result?.forEachIndexed { index, tx ->
       val transaction = transactionMapper.map(tx, relatedWallet)
       val testTransaction = when (index) {
         0 -> createIapBonusTransaction()

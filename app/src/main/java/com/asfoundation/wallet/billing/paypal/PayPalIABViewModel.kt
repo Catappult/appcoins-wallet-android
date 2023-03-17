@@ -9,7 +9,7 @@ import com.asf.wallet.R
 import com.asfoundation.wallet.base.RxSchedulers
 import com.asfoundation.wallet.billing.adyen.AdyenPaymentInteractor
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics
-import com.asfoundation.wallet.billing.paypal.models.PaypalTransaction
+import com.appcoins.wallet.core.network.microservices.model.PaypalTransaction
 import com.asfoundation.wallet.billing.paypal.usecases.*
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.support.SupportInteractor

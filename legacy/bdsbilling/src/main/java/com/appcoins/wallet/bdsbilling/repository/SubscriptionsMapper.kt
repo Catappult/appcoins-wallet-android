@@ -1,10 +1,8 @@
 package com.appcoins.wallet.bdsbilling.repository
 
-import com.appcoins.wallet.bdsbilling.PurchaseState
-import com.appcoins.wallet.bdsbilling.SubscriptionPurchaseListResponse
-import com.appcoins.wallet.bdsbilling.SubscriptionPurchaseResponse
-import com.appcoins.wallet.bdsbilling.SubscriptionsResponse
 import com.appcoins.wallet.bdsbilling.repository.entity.*
+import com.appcoins.wallet.bdsbilling.repository.entity.TransactionPrice
+import com.appcoins.wallet.core.network.microservices.model.*
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList

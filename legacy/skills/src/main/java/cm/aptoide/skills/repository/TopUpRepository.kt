@@ -1,10 +1,9 @@
 package cm.aptoide.skills.repository
 
 import javax.inject.Inject
-import cm.aptoide.skills.api.TopUpApi
-import cm.aptoide.skills.model.TopUpResponse
-import cm.aptoide.skills.model.TopUpStatus
-import cm.aptoide.skills.model.TransactionType
+import com.appcoins.wallet.core.network.microservices.model.TopUpResponse
+import com.appcoins.wallet.core.network.microservices.model.TopUpStatus
+import com.appcoins.wallet.core.network.microservices.model.TransactionType
 import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
 

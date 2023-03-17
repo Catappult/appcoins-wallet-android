@@ -5,7 +5,7 @@ import android.content.Context
 import com.appcoins.wallet.commons.Logger
 import com.appcoins.wallet.core.utils.properties.HostProperties
 import com.appcoins.wallet.gamification.repository.PromotionsRepository
-import com.appcoins.wallet.gamification.repository.entity.WalletOrigin
+import com.appcoins.wallet.core.network.backend.model.WalletOrigin
 import com.asf.wallet.BuildConfig
 import com.asfoundation.wallet.identification.IdsRepository
 import com.asfoundation.wallet.logging.RakamReceiver

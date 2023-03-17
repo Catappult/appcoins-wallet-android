@@ -1,12 +1,11 @@
 package com.asfoundation.wallet.repository
 
-import com.asfoundation.wallet.entity.WalletHistory
+import com.appcoins.wallet.core.network.backend.api.TransactionsApi
+import com.appcoins.wallet.core.network.backend.model.WalletHistory
 import com.fasterxml.jackson.databind.DeserializationFeature
 import com.fasterxml.jackson.databind.ObjectMapper
 import io.reactivex.Single
 import retrofit2.Call
-import retrofit2.http.GET
-import retrofit2.http.Query
 import java.text.SimpleDateFormat
 import java.util.*
 import javax.inject.Inject
@@ -31,25 +30,5 @@ class OffChainTransactionsRepository @Inject constructor(private val api: Transa
   fun getTransactionsById(wallet: String,
                           txList: List<String>): Single<List<WalletHistory.Transaction>> {
     return api.getTransactionsById(wallet, txList.toTypedArray())
-  }
-
-  interface TransactionsApi {
-
-    @GET("appc/wallethistory")
-    fun transactionHistorySync(
-        @Query("wallet") wallet: String,
-        @Query("version_code") versionCode: String,
-        @Query("type") transactionType: String = "all",
-        @Query("offset") offset: Int = 0,
-        @Query("from") startingDate: String? = null,
-        @Query("to") endingDate: String? = null,
-        @Query("sort") sort: String? = "desc",
-        @Query("limit") limit: Int,
-        @Query("lang_code") languageCode: String): Call<WalletHistory>
-
-    fun getTransactionsById(
-        @Query("wallet") wallet: String,
-        @Query("transaction_list")
-        transactions: Array<String>): Single<List<WalletHistory.Transaction>>
   }
 }

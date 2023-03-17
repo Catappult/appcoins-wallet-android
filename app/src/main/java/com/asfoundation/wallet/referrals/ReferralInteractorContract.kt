@@ -1,6 +1,6 @@
 package com.asfoundation.wallet.referrals
 
-import com.appcoins.wallet.gamification.repository.entity.ReferralResponse
+import com.appcoins.wallet.core.network.backend.model.ReferralResponse
 import io.reactivex.Completable
 import io.reactivex.Maybe
 import io.reactivex.Single

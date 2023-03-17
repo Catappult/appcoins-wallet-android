@@ -3,6 +3,8 @@ package com.asfoundation.wallet.analytics;
 import cm.aptoide.analytics.AnalyticsManager;
 import cm.aptoide.analytics.AnalyticsManager.Action;
 import cm.aptoide.analytics.EventLogger;
+import com.appcoins.wallet.core.network.analytics.AnalyticsAPI;
+import com.appcoins.wallet.core.network.analytics.AnalyticsBody;
 import com.asf.wallet.BuildConfig;
 import com.appcoins.wallet.core.utils.common.Log;
 import io.reactivex.schedulers.Schedulers;

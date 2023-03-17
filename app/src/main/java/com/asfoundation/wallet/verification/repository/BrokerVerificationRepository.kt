@@ -2,6 +2,9 @@ package com.asfoundation.wallet.verification.repository
 
 import com.adyen.checkout.core.model.ModelObject
 import com.appcoins.wallet.billing.adyen.*
+import com.appcoins.wallet.core.network.microservices.api.BrokerVerificationApi
+import com.appcoins.wallet.core.network.microservices.api.VerificationInfoResponse
+import com.appcoins.wallet.core.network.microservices.model.VerificationPayment
 import com.asfoundation.wallet.util.isNoNetworkException
 import com.asfoundation.wallet.verification.ui.credit_card.network.VerificationStatus
 import com.asfoundation.wallet.wallets.repository.WalletInfoRepository
@@ -9,10 +12,6 @@ import io.reactivex.Completable
 import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
 import com.appcoins.wallet.sharedpreferences.BrokerVerificationPreferencesDataSource
-import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.POST
-import retrofit2.http.Query
 import javax.inject.Inject
 
 class BrokerVerificationRepository @Inject constructor(
@@ -36,8 +35,11 @@ class BrokerVerificationRepository @Inject constructor(
   ): Single<VerificationPaymentModel> {
     return brokerVerificationApi.makeCreditCardVerificationPayment(
       walletAddress, walletSignature,
-        AdyenPaymentRepository.VerificationPayment(adyenPaymentMethod, shouldStoreMethod,
-            returnUrl))
+      VerificationPayment(
+        adyenPaymentMethod, shouldStoreMethod,
+        returnUrl
+      )
+    )
         .toSingle { adyenResponseMapper.mapVerificationPaymentModelSuccess() }
         .onErrorReturn { adyenResponseMapper.mapVerificationPaymentModelError(it) }
   }
@@ -46,8 +48,10 @@ class BrokerVerificationRepository @Inject constructor(
                                     returnUrl: String, walletAddress: String,
                                     walletSignature: String): Single<VerificationPaymentModel> {
     return brokerVerificationApi.makePaypalVerificationPayment(walletAddress, walletSignature,
-        AdyenPaymentRepository.VerificationPayment(adyenPaymentMethod, shouldStoreMethod,
-            returnUrl))
+      VerificationPayment(
+        adyenPaymentMethod, shouldStoreMethod,
+        returnUrl
+      ))
         .map { adyenResponseMapper.mapVerificationPaymentModelSuccess(it) }
         .onErrorReturn { adyenResponseMapper.mapVerificationPaymentModelError(it) }
   }
@@ -104,34 +108,5 @@ class BrokerVerificationRepository @Inject constructor(
     return Completable.fromAction {
       sharedPreferences.removeCachedWalletValidationStatus(walletAddress)
     }
-  }
-
-  interface BrokerVerificationApi {
-
-    @GET("8.20200815/gateways/adyen_v2/verification/state")
-    fun getVerificationState(@Query("wallet.address") wallet: String,
-                             @Query("wallet.signature") walletSignature: String): Single<String>
-
-    @GET("8.20200815/gateways/adyen_v2/verification/info")
-    fun getVerificationInfo(@Query("wallet.address") walletAddress: String,
-                            @Query("wallet.signature")
-                            walletSignature: String): Single<VerificationInfoResponse>
-
-    @POST("8.20200815/gateways/adyen_v2/verification/generate")
-    fun makePaypalVerificationPayment(@Query("wallet.address") walletAddress: String,
-                                      @Query("wallet.signature") walletSignature: String,
-                                      @Body
-                                      verificationPayment: AdyenPaymentRepository.VerificationPayment): Single<AdyenTransactionResponse>
-
-    @POST("8.20200815/gateways/adyen_v2/verification/generate")
-    fun makeCreditCardVerificationPayment(@Query("wallet.address") walletAddress: String,
-                                          @Query("wallet.signature") walletSignature: String,
-                                          @Body
-                                          verificationPayment: AdyenPaymentRepository.VerificationPayment): Completable
-
-    @POST("8.20200815/gateways/adyen_v2/verification/validate")
-    fun validateCode(@Query("wallet.address") walletAddress: String,
-                     @Query("wallet.signature") walletSignature: String,
-                     @Body code: String): Completable
   }
 }

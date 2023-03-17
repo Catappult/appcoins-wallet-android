@@ -11,6 +11,8 @@ android {
 
 dependencies {
   implementation(project(":core:shared-preferences"))
+  implementation(project(":core:network:eskills"))
+  implementation(project(":core:network:microservices"))
   implementation(libs.androidx.core.ktx)
   implementation(libs.androidx.appcompact)
   implementation(libs.androidx.fragment.ktx)

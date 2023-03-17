@@ -3,15 +3,12 @@ package com.asfoundation.wallet.billing.carrier_billing
 import com.appcoins.wallet.billing.carrierbilling.AvailableCountryListModel
 import com.appcoins.wallet.billing.carrierbilling.CarrierBillingPreferencesRepository
 import com.appcoins.wallet.billing.carrierbilling.CarrierPaymentModel
-import com.appcoins.wallet.billing.carrierbilling.request.CarrierTransactionBody
-import com.appcoins.wallet.billing.carrierbilling.response.CarrierCreateTransactionResponse
-import com.appcoins.wallet.billing.carrierbilling.response.CountryListResponse
-import com.appcoins.wallet.billing.common.response.TransactionResponse
+import com.appcoins.wallet.core.network.microservices.model.CarrierTransactionBody
 import com.appcoins.wallet.commons.Logger
+import com.appcoins.wallet.core.network.microservices.api.BrokerVerificationApi.CarrierBillingApi
 import com.asf.wallet.BuildConfig
 import io.reactivex.Observable
 import io.reactivex.Single
-import retrofit2.http.*
 import javax.inject.Inject
 
 class CarrierBillingRepository @Inject constructor(private val api: CarrierBillingApi,
@@ -66,21 +63,4 @@ class CarrierBillingRepository @Inject constructor(private val api: CarrierBilli
   fun forgetPhoneNumber() = preferences.forgetPhoneNumber()
 
   fun retrievePhoneNumber() = preferences.retrievePhoneNumber()
-
-  interface CarrierBillingApi {
-    @POST("8.20210329/gateways/dimoco/transactions")
-    fun makePayment(@Query("wallet.address") walletAddress: String,
-                    @Query("wallet.signature") walletSignature: String,
-                    @Body carrierTransactionBody: CarrierTransactionBody)
-        : Single<CarrierCreateTransactionResponse>
-
-    @GET("8.20210329/gateways/dimoco/transactions/{uid}")
-    fun getPayment(@Path("uid") uid: String,
-                   @Query("wallet.address") walletAddress: String,
-                   @Query("wallet.signature")
-                   walletSignature: String): Observable<TransactionResponse>
-
-    @GET("8.20210329/dimoco/countries")
-    fun getAvailableCountryList(): Single<CountryListResponse>
-  }
 }

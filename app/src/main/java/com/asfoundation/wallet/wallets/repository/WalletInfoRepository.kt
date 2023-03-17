@@ -1,5 +1,7 @@
 package com.asfoundation.wallet.wallets.repository
 
+import com.appcoins.wallet.core.network.backend.api.WalletInfoApi
+import com.appcoins.wallet.core.network.backend.model.WalletInfoResponse
 import com.asfoundation.wallet.analytics.SentryEventLogger
 import com.asfoundation.wallet.base.RxSchedulers
 import com.asfoundation.wallet.wallets.db.WalletInfoDao
@@ -9,8 +11,6 @@ import com.asfoundation.wallet.wallets.domain.WalletInfo
 import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Single
-import retrofit2.http.GET
-import retrofit2.http.Path
 import java.math.BigDecimal
 import java.math.BigInteger
 import java.util.*
@@ -159,9 +159,4 @@ class WalletInfoRepository @Inject constructor(
       fiatCurrency = walletBalance?.creditsBalance?.fiat?.currency,
       fiatSymbol = walletBalance?.creditsBalance?.fiat?.symbol
     )
-
-  interface WalletInfoApi {
-    @GET("/transaction/wallet/{address}/info")
-    fun getWalletInfo(@Path("address") address: String): Single<WalletInfoResponse>
-  }
 }

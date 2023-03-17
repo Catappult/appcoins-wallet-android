@@ -1,14 +1,15 @@
 package com.appcoins.wallet.billing.adyen
 
 import com.adyen.checkout.components.model.payments.request.CardPaymentMethod
-import com.appcoins.wallet.bdsbilling.repository.BillingSupportedType
-import com.appcoins.wallet.bdsbilling.repository.RemoteRepository
-import com.appcoins.wallet.bdsbilling.repository.SubscriptionBillingApi
-import com.appcoins.wallet.bdsbilling.repository.entity.Gateway
-import com.appcoins.wallet.bdsbilling.repository.entity.Transaction
-import com.appcoins.wallet.billing.common.response.TransactionStatus
+import com.appcoins.wallet.core.network.microservices.model.TransactionStatus
 import com.appcoins.wallet.billing.util.Error
 import com.appcoins.wallet.commons.Logger
+import com.appcoins.wallet.core.network.microservices.api.AdyenTransactionResponse
+import com.appcoins.wallet.core.network.microservices.api.BrokerVerificationApi
+import com.appcoins.wallet.core.network.microservices.api.SubscriptionBillingApi
+import com.appcoins.wallet.core.network.microservices.model.BillingSupportedType
+import com.appcoins.wallet.core.network.microservices.model.Gateway
+import com.appcoins.wallet.core.network.microservices.model.Transaction
 import com.google.gson.JsonObject
 import io.reactivex.Completable
 import io.reactivex.Single
@@ -28,7 +29,7 @@ class AdyenPaymentRepositoryTest {
   lateinit var adyenApi: AdyenPaymentRepository.AdyenApi
 
   @Mock
-  lateinit var brokerBdsApi: RemoteRepository.BrokerBdsApi
+  lateinit var brokerBdsApi: BrokerVerificationApi.BrokerBdsApi
 
   @Mock
   lateinit var subscriptionsApi: SubscriptionBillingApi

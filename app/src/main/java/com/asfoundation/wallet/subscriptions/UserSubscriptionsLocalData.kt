@@ -1,8 +1,6 @@
 package com.asfoundation.wallet.subscriptions
 
-import com.appcoins.wallet.bdsbilling.SubscriptionSubStatus
-import com.appcoins.wallet.bdsbilling.UserSubscriptionResponse
-import com.appcoins.wallet.bdsbilling.subscriptions.*
+import com.appcoins.wallet.core.network.microservices.model.*
 import com.asfoundation.wallet.subscriptions.db.UserSubscriptionEntity
 import com.asfoundation.wallet.subscriptions.db.UserSubscriptionsDao
 import io.reactivex.Observable
@@ -43,18 +41,20 @@ class UserSubscriptionsLocalData @Inject constructor(
   }
 
   private fun mapToEntity(
-      responseList: List<UserSubscriptionResponse>,
-      walletAddress: String): List<UserSubscriptionEntity> {
+    responseList: List<UserSubscriptionResponse>,
+    walletAddress: String
+  ): List<UserSubscriptionEntity> {
     val entityList: MutableList<UserSubscriptionEntity> = ArrayList()
     for (response in responseList) {
       val application = response.application
       val order = response.order
       val method = order.method
       val appc = order.appc
-      val entity = UserSubscriptionEntity(response.uid, walletAddress, response.sku, response.title,
-          response.period, response.subStatus, response.started, response.renewal, response.expiry,
-          response.ended, application.name, application.title, application.icon, order.gateway,
-          order.reference, order.value, order.label, order.currency, order.symbol, order.created,
+      val entity = UserSubscriptionEntity(
+        response.uid, walletAddress, response.sku, response.title,
+        response.period, response.subStatus, response.started, response.renewal, response.expiry,
+        response.ended, application.name, application.title, application.icon, order.gateway,
+        order.reference, order.value, order.label, order.currency, order.symbol, order.created,
           method.name, method.title, method.logo, appc.value, appc.label)
       entityList.add(entity)
     }

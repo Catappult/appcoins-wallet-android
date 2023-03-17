@@ -1,9 +1,9 @@
 package com.appcoins.wallet.gamification.repository
 
 import com.appcoins.wallet.gamification.GamificationContext
-import com.appcoins.wallet.gamification.repository.entity.ReferralResponse
-import com.appcoins.wallet.gamification.repository.entity.VipReferralResponse
-import com.appcoins.wallet.gamification.repository.entity.WalletOrigin
+import com.appcoins.wallet.core.network.backend.model.ReferralResponse
+import com.appcoins.wallet.core.network.backend.model.VipReferralResponse
+import com.appcoins.wallet.core.network.backend.model.WalletOrigin
 import io.reactivex.Observable
 import io.reactivex.Single
 import java.math.BigDecimal

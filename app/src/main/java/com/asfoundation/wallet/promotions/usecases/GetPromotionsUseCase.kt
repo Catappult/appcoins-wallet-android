@@ -3,7 +3,7 @@ package com.asfoundation.wallet.promotions.usecases
 import com.appcoins.wallet.gamification.repository.Levels
 import com.appcoins.wallet.gamification.repository.PromotionsRepository
 import com.appcoins.wallet.gamification.repository.UserStats
-import com.appcoins.wallet.gamification.repository.entity.VipReferralResponse
+import com.appcoins.wallet.core.network.backend.model.VipReferralResponse
 import com.asfoundation.wallet.gamification.ObserveLevelsUseCase
 import com.asfoundation.wallet.promo_code.use_cases.GetCurrentPromoCodeUseCase
 import com.asfoundation.wallet.promotions.model.PromotionsMapper

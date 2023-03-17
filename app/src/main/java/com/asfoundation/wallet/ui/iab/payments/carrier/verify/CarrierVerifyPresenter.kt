@@ -2,7 +2,7 @@ package com.asfoundation.wallet.ui.iab.payments.carrier.verify
 
 import com.appcoins.wallet.billing.carrierbilling.*
 import com.appcoins.wallet.billing.carrierbilling.ForbiddenError.ForbiddenType
-import com.appcoins.wallet.billing.common.response.TransactionStatus
+import com.appcoins.wallet.core.network.microservices.model.TransactionStatus
 import com.asf.wallet.R
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics
 import com.appcoins.wallet.commons.Logger

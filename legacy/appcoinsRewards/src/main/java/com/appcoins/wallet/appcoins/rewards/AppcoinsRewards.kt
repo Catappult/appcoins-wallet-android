@@ -2,8 +2,9 @@ package com.appcoins.wallet.appcoins.rewards
 
 import com.appcoins.wallet.appcoins.rewards.repository.WalletService
 import com.appcoins.wallet.bdsbilling.Billing
-import com.appcoins.wallet.bdsbilling.repository.entity.Transaction.Status
 import com.appcoins.wallet.commons.Repository
+import com.appcoins.wallet.core.network.microservices.model.Transaction
+import com.appcoins.wallet.core.network.microservices.model.Transaction.Status
 import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Scheduler

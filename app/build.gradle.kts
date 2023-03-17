@@ -43,6 +43,13 @@ dependencies {
   implementation(project(":legacy:ethereumj-android"))
   implementation(project(":core:shared-preferences"))
   implementation(project(":core:network:base"))
+  implementation(project(":core:network:airdrop"))
+  implementation(project(":core:network:analytics"))
+  implementation(project(":core:network:backend"))
+  implementation(project(":core:network:bds"))
+  implementation(project(":core:network:eskills"))
+  implementation(project(":core:network:microservices"))
+  implementation(project(":core:network:zendesk"))
 
   implementation(project(":core:utils:common"))
   implementation(project(":core:utils:properties"))

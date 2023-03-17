@@ -2,7 +2,7 @@ package cm.aptoide.skills.usecase
 
 import cm.aptoide.skills.interfaces.EwtObtainer
 import cm.aptoide.skills.interfaces.WalletAddressObtainer
-import cm.aptoide.skills.model.QueueIdentifier
+import com.appcoins.wallet.core.network.eskills.model.QueueIdentifier
 import cm.aptoide.skills.model.Ticket
 import cm.aptoide.skills.repository.TicketRepository
 import io.reactivex.Single

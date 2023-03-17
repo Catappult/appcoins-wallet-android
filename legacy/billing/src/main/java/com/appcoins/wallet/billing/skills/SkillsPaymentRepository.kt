@@ -1,8 +1,11 @@
 package com.appcoins.wallet.billing.skills
 
 import com.appcoins.wallet.billing.adyen.AdyenResponseMapper
-import com.appcoins.wallet.billing.adyen.AdyenTransactionResponse
+import com.appcoins.wallet.core.network.microservices.api.AdyenTransactionResponse
 import com.appcoins.wallet.billing.adyen.PaymentModel
+import com.appcoins.wallet.core.network.microservices.model.Method
+import com.appcoins.wallet.core.network.microservices.model.Payment
+import com.appcoins.wallet.core.network.microservices.model.PaymentRequest
 import io.reactivex.Single
 import retrofit2.http.Body
 import retrofit2.http.Headers
@@ -40,17 +43,4 @@ class SkillsPaymentRepository @Inject constructor(private val adyenApi: AdyenApi
                     @Query("wallet.signature") walletSignature: String,
                     @Body payment: PaymentRequest): Single<AdyenTransactionResponse>
   }
-
-
-  data class Payment(var method: Method,
-                     var return_url: String)
-
-  data class Method(var type: String,
-                    var encryptedCardNumber: String?,
-                    var encryptedExpiryMonth: String?,
-                    var encryptedExpiryYear: String?,
-                    var encryptedSecurityCode: String)
-
-  data class PaymentRequest(var payment: Payment,
-                            var product_token: String)
 }

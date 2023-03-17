@@ -13,7 +13,7 @@ import com.appcoins.wallet.gamification.GamificationContext.NOTIFICATIONS_LEVEL_
 import com.appcoins.wallet.gamification.repository.Levels
 import com.appcoins.wallet.gamification.repository.PromotionsGamificationStats
 import com.appcoins.wallet.gamification.repository.PromotionsRepository
-import com.appcoins.wallet.gamification.repository.entity.GamificationStatus
+import com.appcoins.wallet.core.network.backend.model.GamificationStatus
 import com.appcoins.wallet.sharedpreferences.BackupTriggerPreferencesDataSource
 import com.appcoins.wallet.sharedpreferences.BackupTriggerPreferencesDataSource.TriggerSource.NEW_LEVEL
 import com.asf.wallet.R

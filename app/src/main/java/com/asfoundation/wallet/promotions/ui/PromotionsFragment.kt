@@ -14,7 +14,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.NavHostFragment
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.appcoins.wallet.gamification.repository.PromotionsGamificationStats
-import com.appcoins.wallet.gamification.repository.entity.GamificationStatus
+import com.appcoins.wallet.core.network.backend.model.GamificationStatus
 import com.asf.wallet.R
 import com.asf.wallet.databinding.FragmentPromotionsBinding
 import com.asfoundation.wallet.base.Async

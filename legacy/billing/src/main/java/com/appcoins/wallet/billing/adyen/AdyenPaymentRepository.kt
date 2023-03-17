@@ -1,11 +1,12 @@
 package com.appcoins.wallet.billing.adyen
 
 import com.adyen.checkout.core.model.ModelObject
-import com.appcoins.wallet.bdsbilling.repository.BillingSupportedType
-import com.appcoins.wallet.bdsbilling.repository.RemoteRepository
-import com.appcoins.wallet.bdsbilling.repository.SubscriptionBillingApi
-import com.appcoins.wallet.billing.common.response.TransactionResponse
+import com.appcoins.wallet.core.network.microservices.model.TransactionResponse
 import com.appcoins.wallet.commons.Logger
+import com.appcoins.wallet.core.network.microservices.api.AdyenTransactionResponse
+import com.appcoins.wallet.core.network.microservices.api.BrokerVerificationApi
+import com.appcoins.wallet.core.network.microservices.api.SubscriptionBillingApi
+import com.appcoins.wallet.core.network.microservices.model.BillingSupportedType
 import com.google.gson.JsonObject
 import com.google.gson.annotations.SerializedName
 import io.reactivex.Completable
@@ -13,11 +14,13 @@ import io.reactivex.Single
 import retrofit2.http.*
 import javax.inject.Inject
 
-class AdyenPaymentRepository @Inject constructor(private val adyenApi: AdyenApi,
-                                                 private val brokerBdsApi: RemoteRepository.BrokerBdsApi,
-                                                 private val subscriptionsApi: SubscriptionBillingApi,
-                                                 private val adyenResponseMapper: AdyenResponseMapper,
-                                                 private val logger: Logger) {
+class AdyenPaymentRepository @Inject constructor(
+  private val adyenApi: AdyenApi,
+  private val brokerBdsApi: BrokerVerificationApi.BrokerBdsApi,
+  private val subscriptionsApi: SubscriptionBillingApi,
+  private val adyenResponseMapper: AdyenResponseMapper,
+  private val logger: Logger
+) {
 
   fun loadPaymentInfo(methods: Methods, value: String,
                       currency: String, walletAddress: String): Single<PaymentInfoModel> {
@@ -162,11 +165,6 @@ class AdyenPaymentRepository @Inject constructor(private val adyenApi: AdyenApi,
                      @SerializedName("entity.promo_code") val entityPromoCode: String?,
                      @SerializedName("wallets.user") val user: String?,
                      @SerializedName("referrer_url") val referrerUrl: String?)
-
-  data class VerificationPayment(
-      @SerializedName("payment.method") val adyenPaymentMethod: ModelObject,
-      @SerializedName("payment.store_method") val shouldStoreMethod: Boolean,
-      @SerializedName("payment.return_url") val returnUrl: String)
 
   data class AdyenPayment(@SerializedName("payment.details") val details: Any,
                           @SerializedName("payment.data") val data: String?)

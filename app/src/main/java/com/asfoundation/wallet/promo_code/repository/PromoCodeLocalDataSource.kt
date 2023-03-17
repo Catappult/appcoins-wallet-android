@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.promo_code.repository
 
+import com.appcoins.wallet.core.network.backend.model.PromoCodeBonusResponse
 import com.asfoundation.wallet.base.RxSchedulers
 import io.reactivex.Completable
 import io.reactivex.Observable

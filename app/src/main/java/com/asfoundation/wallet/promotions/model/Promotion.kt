@@ -2,7 +2,7 @@ package com.asfoundation.wallet.promotions.model
 
 import android.graphics.drawable.Drawable
 import androidx.annotation.StringRes
-import com.appcoins.wallet.gamification.repository.entity.GamificationStatus
+import com.appcoins.wallet.core.network.backend.model.GamificationStatus
 import java.math.BigDecimal
 
 sealed class Promotion(open val id: String)
