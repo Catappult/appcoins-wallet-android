@@ -1,16 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="appcoins_wallet">AppCoins Wallet</string>
+  <!-- Common -->
+  <string name="start_button">Start</string>
+  <string name="ok">ΟΚ</string>
+  <string name="cancel">Ακύρωση</string>
+  <string name="buy_button">Αγορά</string>
+  <string name="topup_button">Φόρτιση</string>
   <string name="provide_wallet_creating_wallet_header">Δημιουργία διεύθυνσης wallet&#8230;</string>
   <string name="processing_loading_title">Παραλαβή του εισιτηρίου εισόδου σας</string>
   <string name="finding_room_loading_title">Αναμονή αντιπάλων</string>
   <string name="finding_room_name_loading_title">Αναμονή αντιπάλων \nγια να μπουν σε</string>
   <string name="finding_room_loading_message">Αυτό μπορεί να διαρκέσει λίγη ώρα…</string>
   <string name="refunded">Τα χρήματά σας έχουν επιστραφεί.</string>
-  <string name="ok">ΟΚ</string>
-  <string name="cancel">Ακύρωση</string>
-  <string name="buy_button">Αγορά</string>
-  <string name="topup_button">Φόρτιση</string>
   <string name="connection_error_body">Φαίνεται ότι δεν έχετε συνδεθεί στο διαδίκτυο. Ελέγξτε τη σύνδεσή σας και προσπαθήστε ξανά!</string>
   <string name="playing_game_notification_title">Αυτή τη στιγμή παίζει e-Skills</string>
   <string name="playing_game_notification_body">Λήψη πληροφοριών παιχνιδιού...</string>
