@@ -1,16 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="appcoins_wallet">AppCoins Wallet</string>
+  <!-- Common -->
+  <string name="start_button">Start</string>
+  <string name="ok">好的</string>
+  <string name="cancel">取消</string>
+  <string name="buy_button">購買</string>
+  <string name="topup_button">儲值</string>
   <string name="provide_wallet_creating_wallet_header">正在建立錢包地址&#8230;</string>
   <string name="processing_loading_title">Getting your entry ticket</string>
   <string name="finding_room_loading_title">Waiting for opponents</string>
   <string name="finding_room_name_loading_title">Waiting for opponents \nto join the</string>
   <string name="finding_room_loading_message">需要一點時間，請耐心等候…</string>
   <string name="refunded">Your money has been refunded.</string>
-  <string name="ok">好的</string>
-  <string name="cancel">取消</string>
-  <string name="buy_button">購買</string>
-  <string name="topup_button">儲值</string>
   <string name="connection_error_body">可能您未連接至網路。請檢查您的網絡連線狀態，再試一次。</string>
   <string name="playing_game_notification_title">Currently playing e-Skills</string>
   <string name="playing_game_notification_body">Getting game info…</string>
