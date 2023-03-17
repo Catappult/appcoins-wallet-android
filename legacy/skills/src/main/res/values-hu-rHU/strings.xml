@@ -1,16 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="appcoins_wallet">AppCoins Wallet</string>
+  <!-- Common -->
+  <string name="start_button">Start</string>
+  <string name="ok">OKÉ</string>
+  <string name="cancel">Mégse</string>
+  <string name="buy_button">Vásárlás</string>
+  <string name="topup_button">Befizetés</string>
   <string name="provide_wallet_creating_wallet_header">Tárcacím létrehozása&#8230;</string>
   <string name="processing_loading_title">Belépőjegy lehívása</string>
   <string name="finding_room_loading_title">Várakozás az ellenfelekre</string>
   <string name="finding_room_name_loading_title">Az ellenfelek \ncsatlakozására várunk</string>
   <string name="finding_room_loading_message">Ez eltarthat egy ideig…</string>
   <string name="refunded">Visszautaltuk a pénzed.</string>
-  <string name="ok">OKÉ</string>
-  <string name="cancel">Mégse</string>
-  <string name="buy_button">Vásárlás</string>
-  <string name="topup_button">Befizetés</string>
   <string name="connection_error_body">Úgy tűnik nincs internetkapcsolat. Ellenőrizd a kapcsolatot és próbáld újra!</string>
   <string name="playing_game_notification_title">Jelenleg az e-Skillsen játszik</string>
   <string name="playing_game_notification_body">Játékinfó lekérése…</string>
