@@ -1,7 +1,7 @@
 package com.asfoundation.wallet.analytics
 
 import android.content.Context
-import com.appcoins.wallet.commons.Logger
+import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.appcoins.wallet.gamification.repository.PromotionsRepository
 import com.appcoins.wallet.gamification.repository.entity.WalletOrigin
 import com.asf.wallet.BuildConfig
@@ -26,7 +26,7 @@ class IndicativeAnalytics @Inject constructor(
   @ApplicationContext private val context: Context,
   private val idsRepository: IdsRepository,
   private val promotionsRepository: PromotionsRepository,
-  private val logger: Logger,
+  private val logger: com.appcoins.wallet.core.utils.jvm_common.Logger,
   private val promoCodeLocalDataSource: PromoCodeLocalDataSource
 ) : AnalyticsSetup {
 

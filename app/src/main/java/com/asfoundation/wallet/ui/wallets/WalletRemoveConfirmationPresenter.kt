@@ -1,7 +1,7 @@
 package com.asfoundation.wallet.ui.wallets
 
 import com.asfoundation.wallet.interact.DeleteWalletInteract
-import com.appcoins.wallet.commons.Logger
+import com.appcoins.wallet.core.utils.jvm_common.Logger
 import io.reactivex.Completable
 import io.reactivex.Scheduler
 import io.reactivex.Single
@@ -12,7 +12,7 @@ import java.util.concurrent.TimeUnit
 class WalletRemoveConfirmationPresenter(private val view: WalletRemoveConfirmationView,
                                         private val walletAddress: String,
                                         private val deleteWalletInteract: DeleteWalletInteract,
-                                        private val logger: Logger,
+                                        private val logger: com.appcoins.wallet.core.utils.jvm_common.Logger,
                                         private val disposable: CompositeDisposable,
                                         private val viewScheduler: Scheduler,
                                         private val networkScheduler: Scheduler) {

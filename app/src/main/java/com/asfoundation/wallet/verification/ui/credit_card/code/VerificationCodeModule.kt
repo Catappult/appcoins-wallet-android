@@ -1,7 +1,7 @@
 package com.asfoundation.wallet.verification.ui.credit_card.code
 
 import androidx.fragment.app.Fragment
-import com.appcoins.wallet.commons.Logger
+import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.asfoundation.wallet.verification.ui.credit_card.*
 import dagger.Module
 import dagger.Provides
@@ -21,7 +21,7 @@ class VerificationCodeModule {
                                               activityData: VerificationCreditCardActivityData,
                                               verificationCodeInteractor: VerificationCodeInteractor,
                                               verificationCodeNavigator: VerificationCodeNavigator,
-                                              logger: Logger,
+                                              logger: com.appcoins.wallet.core.utils.jvm_common.Logger,
                                               analytics: VerificationAnalytics): VerificationCodePresenter {
     return VerificationCodePresenter(fragment as VerificationCodeView, data, activityData,
         CompositeDisposable(), AndroidSchedulers.mainThread(), Schedulers.io(),

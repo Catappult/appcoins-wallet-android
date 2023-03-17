@@ -3,7 +3,7 @@ package com.asfoundation.wallet.billing.paypal.repository
 import com.appcoins.wallet.bdsbilling.repository.RemoteRepository
 import com.appcoins.wallet.billing.adyen.AdyenResponseMapper
 import com.appcoins.wallet.billing.adyen.PaymentModel
-import com.appcoins.wallet.commons.Logger
+import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.asfoundation.wallet.billing.paypal.models.PaypalCreateAgreement
 import com.asfoundation.wallet.billing.paypal.models.PaypalCreateToken
 import com.asfoundation.wallet.billing.paypal.models.PaypalTransaction
@@ -18,7 +18,7 @@ class PayPalV2Repository @Inject constructor(
   private val paypalV2Api: PaypalV2Api,
   private val brokerBdsApi: RemoteRepository.BrokerBdsApi,
   private val adyenResponseMapper: AdyenResponseMapper,
-  private val logger: Logger
+  private val logger: com.appcoins.wallet.core.utils.jvm_common.Logger
 ) {
 
   fun createTransaction(

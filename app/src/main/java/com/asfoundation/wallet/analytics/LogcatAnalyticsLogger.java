@@ -1,7 +1,7 @@
 package com.asfoundation.wallet.analytics;
 
 import cm.aptoide.analytics.AnalyticsLogger;
-import com.appcoins.wallet.core.utils.common.Log;
+import com.appcoins.wallet.core.utils.android_common.Log;
 
 public class LogcatAnalyticsLogger implements AnalyticsLogger {
   @Override public void logDebug(String tag, String msg) {

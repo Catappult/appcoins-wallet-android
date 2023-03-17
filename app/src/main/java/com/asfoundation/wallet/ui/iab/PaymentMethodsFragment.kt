@@ -13,16 +13,16 @@ import android.widget.ImageView
 import androidx.annotation.StringRes
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import com.appcoins.wallet.commons.Logger
+import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.asf.wallet.R
 import com.asfoundation.wallet.C.Key.TRANSACTION
 import com.asfoundation.wallet.GlideApp
 import com.asfoundation.wallet.billing.adyen.PaymentType
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.ui.iab.PaymentMethodsView.PaymentMethodId
-import com.appcoins.wallet.core.utils.common.CurrencyFormatUtils
+import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.asfoundation.wallet.util.Period
-import com.appcoins.wallet.core.utils.common.WalletCurrency
+import com.appcoins.wallet.core.utils.android_common.WalletCurrency
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import com.asfoundation.wallet.wallets.usecases.GetWalletInfoUseCase
 import com.jakewharton.rxbinding2.view.RxView
@@ -101,7 +101,7 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
   lateinit var getWalletInfoUseCase: GetWalletInfoUseCase
 
   @Inject
-  lateinit var logger: Logger
+  lateinit var logger: com.appcoins.wallet.core.utils.jvm_common.Logger
 
   @Inject
   lateinit var paymentMethodsInteractor: PaymentMethodsInteractor

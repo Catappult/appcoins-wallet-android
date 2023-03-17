@@ -14,8 +14,8 @@ import com.asf.wallet.R
 import com.asf.wallet.databinding.FragmentVipReferralBinding
 import com.appcoins.wallet.ui.arch.Async
 import com.appcoins.wallet.ui.arch.SingleStateFragment
-import com.appcoins.wallet.core.utils.common.CurrencyFormatUtils
-import com.appcoins.wallet.core.utils.common.WalletCurrency
+import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
+import com.appcoins.wallet.core.utils.android_common.WalletCurrency
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint

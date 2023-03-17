@@ -1,13 +1,13 @@
 package com.asfoundation.wallet.permissions.repository
 
-import com.appcoins.wallet.commons.Repository
+import com.appcoins.wallet.core.utils.jvm_common.Repository
 import com.appcoins.wallet.permissions.ApplicationPermission
 import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Single
 
 class PermissionRepository(private val permissionsDao: PermissionsDao) :
-  Repository<String, ApplicationPermission> {
+  com.appcoins.wallet.core.utils.jvm_common.Repository<String, ApplicationPermission> {
   override fun save(key: String, value: ApplicationPermission): Completable {
     return Completable.fromAction { save(key, value) }
   }

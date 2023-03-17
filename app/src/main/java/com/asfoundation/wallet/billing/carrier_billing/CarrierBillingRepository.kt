@@ -7,7 +7,7 @@ import com.appcoins.wallet.billing.carrierbilling.request.CarrierTransactionBody
 import com.appcoins.wallet.billing.carrierbilling.response.CarrierCreateTransactionResponse
 import com.appcoins.wallet.billing.carrierbilling.response.CountryListResponse
 import com.appcoins.wallet.billing.common.response.TransactionResponse
-import com.appcoins.wallet.commons.Logger
+import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.asf.wallet.BuildConfig
 import io.reactivex.Observable
 import io.reactivex.Single
@@ -17,7 +17,8 @@ import javax.inject.Inject
 class CarrierBillingRepository @Inject constructor(private val api: CarrierBillingApi,
                                                    private val preferences: CarrierBillingPreferencesRepository,
                                                    private val mapper: CarrierResponseMapper,
-                                                   private val logger: Logger) {
+                                                   private val logger: com.appcoins.wallet.core.utils.jvm_common.Logger
+) {
 
   companion object {
     private const val METHOD = "onebip"

@@ -1,14 +1,14 @@
 package com.asfoundation.wallet.logging
 
-import com.appcoins.wallet.commons.LogReceiver
-import com.appcoins.wallet.commons.LogReceiver.Companion.DEFAULT_MSG
-import com.appcoins.wallet.commons.LogReceiver.Companion.DEFAULT_TAG
-import com.appcoins.wallet.commons.LogReceiver.Companion.DEFAULT_THROWABLE_STATCKTRACE
+import com.appcoins.wallet.core.utils.jvm_common.LogReceiver
+import com.appcoins.wallet.core.utils.jvm_common.LogReceiver.Companion.DEFAULT_MSG
+import com.appcoins.wallet.core.utils.jvm_common.LogReceiver.Companion.DEFAULT_TAG
+import com.appcoins.wallet.core.utils.jvm_common.LogReceiver.Companion.DEFAULT_THROWABLE_STATCKTRACE
 import io.rakam.api.Rakam
 import org.json.JSONException
 import org.json.JSONObject
 
-class RakamReceiver : LogReceiver {
+class RakamReceiver : com.appcoins.wallet.core.utils.jvm_common.LogReceiver {
   companion object {
     private const val LOG_EVENT_TYPE = "wallet_non_fatal_event"
   }

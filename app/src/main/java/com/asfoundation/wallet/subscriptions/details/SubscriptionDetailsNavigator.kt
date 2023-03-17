@@ -7,7 +7,7 @@ import com.asf.wallet.R
 import com.asfoundation.wallet.subscriptions.SubscriptionItem
 import com.asfoundation.wallet.subscriptions.cancel.SubscriptionCancelFragment
 import com.asfoundation.wallet.subscriptions.success.SubscriptionSuccessFragment
-import com.appcoins.wallet.core.utils.common.SharedElementTransition
+import com.appcoins.wallet.core.utils.android_common.SharedElementTransition
 import javax.inject.Inject
 
 class SubscriptionDetailsNavigator @Inject constructor(private val fragmentManager: FragmentManager) {

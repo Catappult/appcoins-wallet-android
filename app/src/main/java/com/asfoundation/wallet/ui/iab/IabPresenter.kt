@@ -3,7 +3,7 @@ package com.asfoundation.wallet.ui.iab
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import com.appcoins.wallet.commons.Logger
+import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.asf.wallet.R
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics
 import com.asfoundation.wallet.entity.TransactionBuilder
@@ -28,7 +28,7 @@ class IabPresenter(
   private val getAutoUpdateModelUseCase: GetAutoUpdateModelUseCase,
   private val hasRequiredHardUpdateUseCase: HasRequiredHardUpdateUseCase,
   private val startVipReferralPollingUseCase: StartVipReferralPollingUseCase,
-  private val logger: Logger,
+  private val logger: com.appcoins.wallet.core.utils.jvm_common.Logger,
   private val transaction: TransactionBuilder?,
   private val errorFromReceiver: String? = null
 ) {

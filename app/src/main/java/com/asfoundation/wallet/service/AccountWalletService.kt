@@ -3,7 +3,7 @@ package com.asfoundation.wallet.service
 import android.util.Pair
 import com.appcoins.wallet.bdsbilling.WalletAddressModel
 import com.appcoins.wallet.bdsbilling.WalletService
-import com.appcoins.wallet.core.utils.common.WalletUtils
+import com.appcoins.wallet.core.utils.jvm_common.WalletUtils
 import com.asfoundation.wallet.entity.Wallet
 import com.asfoundation.wallet.repository.PasswordStore
 import com.asfoundation.wallet.repository.SignDataStandardNormalizer
@@ -92,7 +92,7 @@ class AccountWalletService @Inject constructor(
         .flatMap { password ->
           accountKeyService.exportAccount(wallet.address, password, password)
             .map { json ->
-              ECKey.fromPrivate(WalletUtils.loadCredentials(password, json).ecKeyPair.privateKey)
+              ECKey.fromPrivate(com.appcoins.wallet.core.utils.jvm_common.WalletUtils.loadCredentials(password, json).ecKeyPair.privateKey)
             }
         }
         .doOnSuccess { ecKey -> stringECKeyPair = Pair(wallet.address, ecKey) }

@@ -4,7 +4,7 @@ import android.content.Context
 import android.content.pm.PackageManager
 import com.android.installreferrer.api.InstallReferrerClient
 import com.android.installreferrer.api.InstallReferrerStateListener
-import com.appcoins.wallet.commons.Logger
+import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.asf.wallet.BuildConfig
 import dagger.hilt.android.qualifiers.ApplicationContext
 import it.czerwinski.android.hilt.annotations.BoundTo
@@ -33,7 +33,7 @@ class AppStartRepositoryImpl @Inject constructor(
 @BoundTo(supertype = GooglePlayInstallRepository::class)
 class GooglePlayInstallRepositoryImpl @Inject constructor(
   @ApplicationContext private val context: Context,
-  private val logger: Logger
+  private val logger: com.appcoins.wallet.core.utils.jvm_common.Logger
 ) : GooglePlayInstallRepository {
 
   private val referrerClient: InstallReferrerClient by lazy {

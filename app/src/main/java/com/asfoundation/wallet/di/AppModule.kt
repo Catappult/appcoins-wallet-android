@@ -13,8 +13,8 @@ import androidx.core.app.NotificationCompat
 import androidx.preference.PreferenceManager
 import com.adyen.checkout.core.api.Environment
 import com.appcoins.wallet.bdsbilling.WalletService
-import com.appcoins.wallet.commons.LogReceiver
-import com.appcoins.wallet.commons.Logger
+import com.appcoins.wallet.core.utils.jvm_common.LogReceiver
+import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.aptoide.apk.injector.extractor.data.Extractor
 import com.aptoide.apk.injector.extractor.data.ExtractorV1
 import com.aptoide.apk.injector.extractor.data.ExtractorV2
@@ -37,7 +37,6 @@ import com.asfoundation.wallet.ui.iab.ImageSaver
 import com.asfoundation.wallet.ui.iab.raiden.MultiWalletNonceObtainer
 import com.asfoundation.wallet.ui.iab.raiden.NonceObtainerFactory
 import com.asfoundation.wallet.ui.iab.raiden.Web3jNonceProvider
-import com.appcoins.wallet.core.utils.common.SyncExecutor
 import com.appcoins.wallet.core.utils.properties.MiscProperties
 import com.fasterxml.jackson.databind.DeserializationFeature
 import com.fasterxml.jackson.databind.ObjectMapper
@@ -241,7 +240,10 @@ internal class AppModule {
 
   @Singleton
   @Provides
-  fun providesExecutorScheduler() = ExecutorScheduler(SyncExecutor(1), false)
+  fun providesExecutorScheduler() = ExecutorScheduler(
+    com.appcoins.wallet.core.utils.jvm_common.SyncExecutor(
+      1
+    ), false)
 
   @Singleton
   @Provides

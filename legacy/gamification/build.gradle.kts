@@ -7,7 +7,7 @@ android {
 }
 dependencies {
   implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
-  implementation(project(":legacy:commons"))
+  implementation(project(":core:utils:android-common"))
   implementation(project(":core:shared-preferences"))
 
   implementation(libs.bundles.network)

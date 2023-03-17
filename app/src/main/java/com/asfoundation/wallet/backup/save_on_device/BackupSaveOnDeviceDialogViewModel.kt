@@ -4,7 +4,7 @@ import android.os.Build
 import android.os.Environment
 import androidx.documentfile.provider.DocumentFile
 import androidx.lifecycle.SavedStateHandle
-import com.appcoins.wallet.core.utils.common.RxSchedulers
+import com.appcoins.wallet.core.utils.android_common.RxSchedulers
 import com.appcoins.wallet.ui.arch.*
 import com.asfoundation.wallet.backup.use_cases.BackupSuccessLogUseCase
 import com.asfoundation.wallet.backup.use_cases.SaveBackupFileUseCase

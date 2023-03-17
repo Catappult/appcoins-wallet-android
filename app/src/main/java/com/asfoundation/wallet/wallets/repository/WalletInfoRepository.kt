@@ -1,7 +1,7 @@
 package com.asfoundation.wallet.wallets.repository
 
 import com.asfoundation.wallet.analytics.SentryEventLogger
-import com.appcoins.wallet.core.utils.common.RxSchedulers
+import com.appcoins.wallet.core.utils.android_common.RxSchedulers
 import com.asfoundation.wallet.wallets.db.WalletInfoDao
 import com.asfoundation.wallet.wallets.db.entity.WalletInfoEntity
 import com.asfoundation.wallet.wallets.domain.WalletBalance

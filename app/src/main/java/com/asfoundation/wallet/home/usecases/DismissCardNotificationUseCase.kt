@@ -7,7 +7,7 @@ import com.asfoundation.wallet.promotions.PromotionUpdateScreen
 import com.asfoundation.wallet.referrals.CardNotification
 import com.asfoundation.wallet.referrals.ReferralNotification
 import com.asfoundation.wallet.repository.AutoUpdateRepository
-import com.appcoins.wallet.core.utils.common.extensions.scaleToString
+import com.appcoins.wallet.core.utils.android_common.extensions.scaleToString
 import io.reactivex.Completable
 import com.appcoins.wallet.sharedpreferences.ReferralPreferencesDataSource
 import com.appcoins.wallet.sharedpreferences.CommonsPreferencesDataSource

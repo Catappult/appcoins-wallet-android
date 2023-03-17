@@ -3,7 +3,7 @@ package com.appcoins.wallet.ui.arch
 import androidx.annotation.CallSuper
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.appcoins.wallet.billing.util.isNoNetworkException
+import com.appcoins.wallet.core.utils.android_common.extensions.isNoNetworkException
 import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Single

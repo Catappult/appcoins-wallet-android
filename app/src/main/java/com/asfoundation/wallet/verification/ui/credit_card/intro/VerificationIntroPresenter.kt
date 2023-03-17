@@ -3,9 +3,9 @@ package com.asfoundation.wallet.verification.ui.credit_card.intro
 import android.os.Bundle
 import com.appcoins.wallet.billing.adyen.VerificationPaymentModel
 import com.appcoins.wallet.billing.adyen.VerificationPaymentModel.ErrorType
-import com.appcoins.wallet.commons.Logger
+import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.asfoundation.wallet.billing.adyen.AdyenErrorCodeMapper
-import com.appcoins.wallet.core.utils.common.extensions.isNoNetworkException
+import com.appcoins.wallet.core.utils.android_common.extensions.isNoNetworkException
 import com.asfoundation.wallet.verification.ui.credit_card.VerificationAnalytics
 import io.reactivex.Completable
 import io.reactivex.Scheduler
@@ -17,7 +17,7 @@ class VerificationIntroPresenter(
   private val view: VerificationIntroView,
   private val disposable: CompositeDisposable,
   private val navigator: VerificationIntroNavigator,
-  private val logger: Logger,
+  private val logger: com.appcoins.wallet.core.utils.jvm_common.Logger,
   private val viewScheduler: Scheduler,
   private val ioScheduler: Scheduler,
   private val interactor: VerificationIntroInteractor,

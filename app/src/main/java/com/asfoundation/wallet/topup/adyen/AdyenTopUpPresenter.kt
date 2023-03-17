@@ -14,7 +14,7 @@ import com.appcoins.wallet.billing.adyen.AdyenResponseMapper.Companion.THREEDS2F
 import com.appcoins.wallet.billing.adyen.PaymentModel
 import com.appcoins.wallet.billing.adyen.PaymentModel.Status.*
 import com.appcoins.wallet.billing.util.Error
-import com.appcoins.wallet.commons.Logger
+import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.asf.wallet.R
 import com.asfoundation.wallet.billing.address.BillingAddressModel
 import com.asfoundation.wallet.billing.adyen.AdyenErrorCodeMapper
@@ -29,8 +29,8 @@ import com.asfoundation.wallet.topup.TopUpAnalytics
 import com.asfoundation.wallet.topup.TopUpData
 import com.asfoundation.wallet.ui.iab.FiatValue
 import com.asfoundation.wallet.ui.iab.Navigator
-import com.appcoins.wallet.core.utils.common.CurrencyFormatUtils
-import com.appcoins.wallet.core.utils.common.WalletCurrency
+import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
+import com.appcoins.wallet.core.utils.android_common.WalletCurrency
 import com.google.gson.JsonObject
 import io.reactivex.Completable
 import io.reactivex.Observable
@@ -64,7 +64,7 @@ class AdyenTopUpPresenter(
   private val gamificationLevel: Int,
   private val topUpAnalytics: TopUpAnalytics,
   private val formatter: CurrencyFormatUtils,
-  private val logger: Logger
+  private val logger: com.appcoins.wallet.core.utils.jvm_common.Logger
 ) {
 
   private var waitingResult = false

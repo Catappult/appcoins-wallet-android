@@ -2,7 +2,7 @@ package com.asfoundation.wallet.verification.ui.credit_card.code
 
 import android.os.Bundle
 import com.appcoins.wallet.billing.adyen.VerificationCodeResult
-import com.appcoins.wallet.commons.Logger
+import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.asfoundation.wallet.verification.ui.credit_card.VerificationAnalytics
 import com.asfoundation.wallet.verification.ui.credit_card.VerificationCreditCardActivityData
 import io.reactivex.Scheduler
@@ -16,7 +16,7 @@ class VerificationCodePresenter(private val view: VerificationCodeView,
                                 private val ioScheduler: Scheduler,
                                 private val interactor: VerificationCodeInteractor,
                                 private val navigator: VerificationCodeNavigator,
-                                private val logger: Logger,
+                                private val logger: com.appcoins.wallet.core.utils.jvm_common.Logger,
                                 private val analytics: VerificationAnalytics) {
 
   companion object {

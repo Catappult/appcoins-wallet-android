@@ -5,7 +5,7 @@ import com.appcoins.wallet.appcoins.rewards.repository.RemoteRepository
 import com.appcoins.wallet.appcoins.rewards.repository.WalletService
 import com.appcoins.wallet.bdsbilling.Billing
 import com.appcoins.wallet.bdsbilling.repository.entity.Gateway
-import com.appcoins.wallet.commons.MemoryCache
+import com.appcoins.wallet.core.utils.jvm_common.MemoryCache
 import com.google.gson.Gson
 import io.reactivex.Completable
 import io.reactivex.Single

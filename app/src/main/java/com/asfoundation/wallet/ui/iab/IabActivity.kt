@@ -11,7 +11,7 @@ import androidx.fragment.app.Fragment
 import com.appcoins.wallet.billing.AppcoinsBillingBinder
 import com.appcoins.wallet.billing.AppcoinsBillingBinder.Companion.EXTRA_BDS_IAP
 import com.appcoins.wallet.billing.repository.entity.TransactionData
-import com.appcoins.wallet.commons.Logger
+import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.asf.wallet.R
 import com.asfoundation.wallet.backup.BackupNotificationUtils
 import com.asfoundation.wallet.billing.address.BillingAddressFragment
@@ -73,7 +73,7 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
   lateinit var hasRequiredHardUpdateUseCase: HasRequiredHardUpdateUseCase
 
   @Inject
-  lateinit var logger: Logger
+  lateinit var logger: com.appcoins.wallet.core.utils.jvm_common.Logger
 
   private lateinit var presenter: IabPresenter
   private var isBackEnable: Boolean = false

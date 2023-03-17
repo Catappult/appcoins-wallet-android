@@ -1,6 +1,6 @@
 package com.asfoundation.wallet.ui.iab;
 
-import com.appcoins.wallet.commons.Repository;
+import com.appcoins.wallet.core.utils.jvm_common.Repository;
 import com.asfoundation.wallet.ui.iab.database.AppCoinsOperationDao;
 import io.reactivex.Completable;
 import io.reactivex.Observable;

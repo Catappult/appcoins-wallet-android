@@ -1,12 +1,12 @@
 package com.asfoundation.wallet.ui.iab.payments.carrier.verify
 
 import androidx.fragment.app.Fragment
-import com.appcoins.wallet.commons.Logger
+import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics
 import com.asfoundation.wallet.ui.iab.payments.carrier.CarrierInteractor
-import com.appcoins.wallet.core.utils.common.CurrencyFormatUtils
+import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.appcoins.wallet.ui.common.StringProvider
-import com.appcoins.wallet.core.utils.common.applicationinfo.ApplicationInfoProvider
+import com.appcoins.wallet.core.utils.android_common.applicationinfo.ApplicationInfoProvider
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -46,7 +46,8 @@ class CarrierVerifyModule {
                                      billingAnalytics: BillingAnalytics,
                                      stringProvider: StringProvider,
                                      applicationInfoProvider: ApplicationInfoProvider,
-                                     logger: Logger): CarrierVerifyPresenter {
+                                     logger: com.appcoins.wallet.core.utils.jvm_common.Logger
+  ): CarrierVerifyPresenter {
     return CarrierVerifyPresenter(CompositeDisposable(), fragment as CarrierVerifyView, data,
         navigator, interactor, billingAnalytics, applicationInfoProvider, stringProvider,
         CurrencyFormatUtils(), logger, Schedulers.io(), AndroidSchedulers.mainThread())

@@ -2,7 +2,7 @@ package com.asfoundation.wallet.support
 
 import com.appcoins.wallet.bdsbilling.WalletService
 import com.appcoins.wallet.gamification.Gamification
-import com.appcoins.wallet.core.utils.common.RxSchedulers
+import com.appcoins.wallet.core.utils.android_common.RxSchedulers
 import com.asfoundation.wallet.promo_code.use_cases.GetCurrentPromoCodeUseCase
 import io.intercom.android.sdk.Intercom
 import io.intercom.android.sdk.UnreadConversationCountListener

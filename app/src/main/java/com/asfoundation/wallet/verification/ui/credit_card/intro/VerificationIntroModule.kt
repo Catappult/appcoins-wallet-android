@@ -2,7 +2,7 @@ package com.asfoundation.wallet.verification.ui.credit_card.intro
 
 import androidx.fragment.app.Fragment
 import com.adyen.checkout.redirect.RedirectComponent
-import com.appcoins.wallet.commons.Logger
+import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.asfoundation.wallet.billing.adyen.AdyenErrorCodeMapper
 import com.asfoundation.wallet.verification.ui.credit_card.VerificationAnalytics
 import dagger.Module
@@ -20,7 +20,7 @@ class VerificationIntroModule {
   @Provides
   fun providesWalletVerificationIntroPresenter(fragment: Fragment,
                                                navigator: VerificationIntroNavigator,
-                                               logger: Logger,
+                                               logger: com.appcoins.wallet.core.utils.jvm_common.Logger,
                                                interactor: VerificationIntroInteractor,
                                                data: VerificationIntroData,
                                                analytics: VerificationAnalytics): VerificationIntroPresenter {
