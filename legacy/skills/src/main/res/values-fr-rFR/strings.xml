@@ -1,16 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="appcoins_wallet">Portefeuille AppCoins</string>
+  <!-- Common -->
+  <string name="start_button">Start</string>
+  <string name="ok">OK</string>
+  <string name="cancel">Annuler</string>
+  <string name="buy_button">Acheter</string>
+  <string name="topup_button">Recharger</string>
   <string name="provide_wallet_creating_wallet_header">Création de l\'adresse du portefeuille adresse&#8230;</string>
   <string name="processing_loading_title">Obtenir votre billet d\'entrée</string>
   <string name="finding_room_loading_title">En attente d\'adversaires</string>
   <string name="finding_room_name_loading_title">En attente d\'adversaires pour \ntjoindre le</string>
   <string name="finding_room_loading_message">Cela peut prendre un certain temps…</string>
   <string name="refunded">Votre argent a été remboursé.</string>
-  <string name="ok">OK</string>
-  <string name="cancel">Annuler</string>
-  <string name="buy_button">Acheter</string>
-  <string name="topup_button">Recharger</string>
   <string name="connection_error_body">On dirait que vous n\'êtes pas connecté à Internet. Vérifiez votre connexion et réessayez !</string>
   <string name="playing_game_notification_title">Actuellement, je joue à e-Skills</string>
   <string name="playing_game_notification_body">Obtention des informations sur le jeu…</string>
