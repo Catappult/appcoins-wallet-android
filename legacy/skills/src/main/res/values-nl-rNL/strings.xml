@@ -1,16 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="appcoins_wallet">AppCoins Wallet</string>
+  <!-- Common -->
+  <string name="start_button">Start</string>
+  <string name="ok">OK</string>
+  <string name="cancel">Annuleren</string>
+  <string name="buy_button">Kopen</string>
+  <string name="topup_button">Opwaarderen</string>
   <string name="provide_wallet_creating_wallet_header">Wallet-adres wordt aangemaakt&#8230;</string>
   <string name="processing_loading_title">Toegangsticket ophalen</string>
   <string name="finding_room_loading_title">Wachten op tegenstanders</string>
   <string name="finding_room_name_loading_title">Wachten tot tegenstanders \nzich aansluiten bij</string>
   <string name="finding_room_loading_message">Dit kan even duren…</string>
   <string name="refunded">Je geld is terugbetaald.</string>
-  <string name="ok">OK</string>
-  <string name="cancel">Annuleren</string>
-  <string name="buy_button">Kopen</string>
-  <string name="topup_button">Opwaarderen</string>
   <string name="connection_error_body">Het lijkt erop dat je niet met internet bent verbonden. Controleer je verbinding en probeer het opnieuw!</string>
   <string name="playing_game_notification_title">Je speelt momenteel een game met e-Skills</string>
   <string name="playing_game_notification_body">Informatie over game ophalen…</string>
