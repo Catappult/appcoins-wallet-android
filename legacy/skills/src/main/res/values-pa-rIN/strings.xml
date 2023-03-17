@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="appcoins_wallet">ਐਪਸਿੱਕੇ ਬਟੂਆ</string>
+  <!-- Common -->
+  <string name="start_button">Start</string>
+  <string name="ok">ਠੀਕ ਹੈ</string>
+  <string name="cancel">ਕੈਂਸਲ</string>
+  <string name="buy_button">ਖਰੀਦੋ</string>
+  <string name="topup_button">ਟੋਪ ਅੱਪ</string>
+  <string name="provide_wallet_creating_wallet_header">ਬਟੂਏ ਦਾ ਪਤਾ ਬਣਾਇਆ ਜਾ ਰਿਹਾ ਹੈ&#8230;</string>
+  <string name="processing_loading_title">ਆਪਣੀ ਐਂਟਰੀ ਟਿਕਟ ਪ੍ਰਾਪਤ ਕਰਨਾ</string>
+  <string name="finding_room_loading_title">ਵਿਰੋਧੀਆਂ ਦੀ ਉਡੀਕ ਕਰਨਾ</string>
+  <string name="finding_room_name_loading_title">ਵਿਰੋਧੀਆਂ ਦੀ ਸ਼ਾਮਲ \nਹੋਣ ਦੀ ਉਡੀਕ ਕੀਤੀ ਜਾ ਰਹੀ ਹੈ</string>
+  <string name="finding_room_loading_message">ਇਸ ਨੂੰ ਕੁਝ ਸਮਾਂ ਲੱਗ ਸਕਦਾ ਹੈ…</string>
+  <string name="refunded">ਤੁਹਾਡੇ ਪੈਸੇ ਵਾਪਸ ਕਰ ਦਿੱਤੇ ਗਏ ਹਨ|</string>
+  <string name="connection_error_body">ਇੰਝ ਲੱਗਦਾ ਹੈ ਕਿ ਤੁਸੀਂ ਇੰਟਰਨੈਟ ਨਾਲ ਜੁੜੇ ਨਹੀਂ ਹੋ, ਆਪਣੇ ਕਨੈਕਸ਼ਨ ਦੀ ਜਾਂਚ ਕਰੋ ਅਤੇ ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰੋ!</string>
+  <string name="playing_game_notification_title">ਇਸ ਸਮੇਂ ਈ-ਹੁਨਰ ਖੇਡ ਰਿਹਾ ਹੈ</string>
+  <string name="playing_game_notification_body">ਗੇਮ ਦੀ ਜਾਣਕਾਰੀ ਪ੍ਰਾਪਤ ਕੀਤੀ ਜਾ ਰਹੀ ਹੈ...</string>
+  <string name="finish_game_notification_title">ਤੁਹਾਡੀ ਈ-ਸਕਿੱਲ ਗੇਮ ਖਤਮ ਹੋ ਗਈ ਹੈ</string>
+  <string name="won_game_notification_body">You won! Your wallet is now %1$.2f$ heavier!</string>
+  <string name="lost_game_notification_body">ਤੁਸੀਂ ਹਾਰ ਗਏ… ਅਗਲੀ ਵਾਰ ਤੁਸੀ ਜਿਤੋਂ!</string>
+  <string name="dismiss_button">ਬਰਖਾਸਤ</string>
+  <string name="location_not_available_title">ਈ-ਸਕਿੱਲ ਗੇਮਾਂ ਤੁਹਾਡੇ ਸਥਾਨ ਤੇ ਉਪਲਬਧ ਨਹੀਂ ਹਨ</string>
+  <string name="location_not_available_body">ਅਸੀਂ ਇਹਨਾਂ ਨੂੰ ਸਾਰਿਆਂ ਤੱਕ ਪਹੁੰਚਾਉਣ ਲਈ ਮਿਹਨਤ ਕਰ ਰਹੇ ਹਾਂ, ਇਸ ਲਈ ਜਲਦੀ ਵਾਪਸ ਆਓ!</string>
+  <string name="e_skills_room_create_title">ਇੱਕ ਰੂਮ ਬਣਾਓ ਜਾਂ ਉਸ ਵਿੱਚ ਸ਼ਾਮਲ ਹੋਵੋ</string>
+  <string name="e_skills_room_create_body">ਇੱਕ ਨਵਾਂ ਰੂਮ ਬਣਾਓ ਅਤੇ ਇਸਨੂੰ ਆਪਣੇ ਵਿਰੋਧੀਆਂ ਨਾਲ ਸਾਂਝਾ ਕਰੋ ਜਾਂ ਮੌਜੂਦਾ ਰੂਮ ਵਿੱਚ ਸ਼ਾਮਲ ਹੋਵੋ।</string>
+  <string name="e_skills_room_field">ਇੱਥੇ ਤੁਹਾਡੇ ਰੂਮ ਦਾ ਨਾਮ…</string>
+  <string name="e_skills_payment_title">ਭੁਗਤਾਨ ਦੇ ਢੰਗ</string>
+  <string name="e_skills_payment_body">ਐਪ ਸਿੱਕੇ ਕ੍ਰੈਡਿਟ</string>
+  <string name="copied_to_clipboard">ਕਲਿੱਪਬੋਰਡ ਤੇ ਕਾਪੀ ਕੀਤਾ ਗਿਆ</string>
+  <string name="processing_payment_title">ਤੁਹਾਡੇ ਭੁਗਤਾਨ ਦੀ ਪ੍ਰਕਿਰਿਆ ਕੀਤੀ ਜਾ ਰਹੀ ਹੈ</string>
+  <string name="purchase_error_title">ਓਹ ਹੋ, ਕੁਝ ਗਲਤ ਹੋ ਗਿਆ|</string>
+  <string name="purchase_eskills_sku">ਦਾਖਲਾ ਟਿਕਟ</string>
+  <string name="shared_room_waiting">ਵਿਰੋਧੀਆਂ ਦੀ %s ਵਿੱਚ ਸ਼ਾਮਲ ਹੋਣ ਦੀ ਉਡੀਕ ਕੀਤੀ ਜਾ ਰਹੀ ਹੈ</string>
+  <string name="rooted_device_blocked_body">ਬਦਕਿਸਮਤੀ ਨਾਲ, ਤੁਸੀਂ ਰੂਟਡ ਡਿਵਾਈਸ ਨਾਲ ਈ-ਸਕਿੱਲ ਗੇਮਾਂ ਨਹੀਂ ਖੇਡ ਸਕਦੇ ਹੋ।\"</string>
+  <string name="top_up_needed_body">ਸੁਰੱਖਿਆ ਕਾਰਣ ਕਰਕੇ, ਤੁਹਾਨੂੰ ਈ-ਸਕਿੱਲ ਗੇਮਾਂ ਖੇਡਣ ਲਈ ਆਪਣੇ ਬਟੂਏ ਵਿੱਚ ਘੱਟੋ-ਘੱਟ ਇੱਕ ਟਾਪ-ਅੱਪ ਕਰਨ ਦੀ ਲੋੜ ਹੈ।</string>
+  <string name="not_enough_funds_body">ਤੁਹਾਡੇ ਕੋਲ ਲੋੜੀਂਦੇ ਪੈਸੇ ਨਹੀਂ ਹਨ! ਕਿਰਪਾ ਕਰਕੇ ਐਂਟਰੀ ਟਿਕਟ ਖਰੀਦਣ ਲਈ ਟਾਪ ਅੱਪ ਕਰੋ।</string>
+  <string name="error_message_local_payment_method_body">ਐਂਟਰੀ ਫੀਸ ਖਰੀਦਣ ਲਈ ਸਥਾਨਕ ਭੁਗਤਾਨ ਵਿਧੀਆਂ ਨੂੰ ਸਵੀਕਾਰ ਨਹੀਂ ਕੀਤਾ ਜਾਂਦਾ ਹੈ। ਕਿਰਪਾ ਕਰਕੇ ਇੱਕ ਨਵਾਂ ਬਟੂਆ ਬਣਾਓ ਅਤੇ ਇਸਨੂੰ ਬੈਂਕ ਕਾਰਡ ਜਾਂ ਪੇਪਾਲ ਨਾਲ ਰੀਚਾਰਜ ਕਰੋ!</string>
+  <string name="update_not_supported_title">ਬਟੂਆ ਸੰਸਕਰਣ ਸਮਰਥਿਤ ਨਹੀਂ ਹੈ!</string>
+  <string name="update_not_supported_body">ਐਪ ਸਿੱਕੇ ਬਟੂਏ ਨੂੰ ਨਵੀਨਤਮ ਸੰਸਕਰਣ ਵਿੱਚ ਅੱਪਡੇਟ ਕਰੋ।</string>
+  <string name="update_button">ਅੱਪਡੇਟ</string>
+  <!-- Refer a friend -->
+  <string name="refer_a_friend_waiting_room_tooltip">You and the friends you invite will receive a $%s bonus. You can refer up to 5 friends, and they must be new users. The bonus will be credited in your wallet once they use your invitation code in their first e-Skills game.</string>
+  <string name="refer_a_friend_first_time_header">Ready to show your skills?</string>
+  <string name="refer_a_friend_first_time_body">Beat other players to get a prize in real money! Let\'s start with a practice game with no entry fee.</string>
+  <string name="refer_a_friend_error_unavailable_body">This feature is currently unavailable.</string>
+  <string name="refer_a_friend_error_invalid_code_body">Invalid code!</string>
+  <string name="refer_a_friend_error_user_not_eligible_body">Only for new users!</string>
+  <string name="refer_a_friend_first_time_tooltip">With our Referral Program you\'ll receive a $%s bonus when using your friends code. They\'ll also receive the same amount as bonus to be used on in-app purchases or e-Skills entry tickets.</string>
+  <string name="refer_a_friend_waiting_room_title">Refer a Friend!</string>
+  <string name="refer_a_friend_waiting_from_body">Get a bonus for each friend you invite.</string>
+</resources>
