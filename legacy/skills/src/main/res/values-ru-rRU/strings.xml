@@ -1,16 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="appcoins_wallet">Кошелёк AppCoins</string>
+  <!-- Common -->
+  <string name="start_button">Start</string>
+  <string name="ok">ОК</string>
+  <string name="cancel">Отменить</string>
+  <string name="buy_button">Купить</string>
+  <string name="topup_button">Пополнить</string>
   <string name="provide_wallet_creating_wallet_header">Создание адреса кошелька&#8230;</string>
   <string name="processing_loading_title">Получаем ваш входной билет...</string>
   <string name="finding_room_loading_title">Ожидание противников...</string>
   <string name="finding_room_name_loading_title">Ожидание пока подключаться \nваши противники</string>
   <string name="finding_room_loading_message">Это может занять некоторое время…</string>
   <string name="refunded">Ваши деньги возвращены.</string>
-  <string name="ok">ОК</string>
-  <string name="cancel">Отменить</string>
-  <string name="buy_button">Купить</string>
-  <string name="topup_button">Пополнить</string>
   <string name="connection_error_body">Кажется, вы не подключены к интернету. Проверьте ваше подключение и попробуйте снова!</string>
   <string name="playing_game_notification_title">Вы играете с e-Skills</string>
   <string name="playing_game_notification_body">Получаем информацию об игре…</string>
