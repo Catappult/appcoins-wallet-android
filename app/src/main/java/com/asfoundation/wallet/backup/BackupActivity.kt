@@ -7,7 +7,6 @@ import android.view.MenuItem
 import android.view.View
 import com.asf.wallet.R
 import com.asfoundation.wallet.ui.BaseActivity
-import com.asfoundation.wallet.util.safeLet
 import com.google.android.material.appbar.AppBarLayout
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject

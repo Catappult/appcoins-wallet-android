@@ -10,7 +10,7 @@ import com.airbnb.epoxy.EpoxyModelWithHolder
 import com.asf.wallet.R
 import com.asfoundation.wallet.GlideApp
 import com.asfoundation.wallet.onboarding_new_payment.payment_methods.list.PaymentMethodClick
-import com.asfoundation.wallet.ui.common.BaseViewHolder
+import com.appcoins.wallet.ui.widgets.BaseViewHolder
 import com.asfoundation.wallet.ui.iab.PaymentMethod
 import com.asfoundation.wallet.ui.iab.PaymentMethodsMapper
 import com.asfoundation.wallet.ui.iab.PaymentMethodsView

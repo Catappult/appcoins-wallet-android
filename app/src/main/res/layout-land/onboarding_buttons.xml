@@ -8,7 +8,7 @@
     tools:background="@color/styleguide_blue"
     >
 
-  <com.asfoundation.wallet.ui.common.WalletButtonView
+  <com.appcoins.wallet.ui.widgets.WalletButtonView
       android:id="@+id/onboarding_next_button"
       android:layout_width="0dp"
       android:layout_height="@dimen/onboarding_button_height"
@@ -20,7 +20,7 @@
       app:layout_constraintTop_toTopOf="@id/onboarding_existent_wallet_button"
       app:layout_constraintStart_toEndOf="@id/onboarding_existent_wallet_button"
       />
-  <com.asfoundation.wallet.ui.common.WalletButtonView
+  <com.appcoins.wallet.ui.widgets.WalletButtonView
       android:id="@+id/onboarding_existent_wallet_button"
       android:layout_width="0dp"
       android:layout_height="@dimen/onboarding_button_height"

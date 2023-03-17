@@ -10,7 +10,7 @@ import com.asfoundation.wallet.ui.gamification.GamificationFragment.Companion.SH
 import com.asfoundation.wallet.ui.iab.FiatValue
 import com.appcoins.wallet.core.utils.common.CurrencyFormatUtils
 import com.appcoins.wallet.core.utils.common.WalletCurrency
-import com.asfoundation.wallet.util.isNoNetworkException
+import com.appcoins.wallet.core.utils.common.extensions.isNoNetworkException
 import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Scheduler

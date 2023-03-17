@@ -15,8 +15,8 @@ import com.asfoundation.wallet.interact.UpdateNotification
 import com.asfoundation.wallet.promotions.PromotionNotification
 import com.asfoundation.wallet.referrals.CardNotification
 import com.asfoundation.wallet.referrals.ReferralNotification
-import com.asfoundation.wallet.ui.common.BaseViewHolder
-import com.asfoundation.wallet.ui.common.WalletButtonView
+import com.appcoins.wallet.ui.widgets.BaseViewHolder
+import com.appcoins.wallet.ui.widgets.WalletButtonView
 import com.asfoundation.wallet.ui.widget.holder.CardNotificationAction
 import kotlinx.android.synthetic.main.item_card_notification.view.*
 

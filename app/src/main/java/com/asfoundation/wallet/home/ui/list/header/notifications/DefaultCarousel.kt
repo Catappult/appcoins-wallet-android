@@ -3,7 +3,7 @@ package com.asfoundation.wallet.home.ui.list.header.notifications
 import android.content.Context
 import com.airbnb.epoxy.Carousel
 import com.airbnb.epoxy.ModelView
-import com.asfoundation.wallet.util.convertDpToPx
+import com.appcoins.wallet.ui.common.convertDpToPx
 
 @ModelView(saveViewState = true, autoLayout = ModelView.Size.MATCH_WIDTH_WRAP_HEIGHT)
 class DefaultCarousel(context: Context) : Carousel(context) {

@@ -17,8 +17,8 @@ import androidx.annotation.ColorRes
 import androidx.appcompat.widget.LinearLayoutCompat
 import androidx.core.content.ContextCompat
 import androidx.core.view.updatePadding
+import com.appcoins.wallet.ui.common.convertDpToPx
 import com.asf.wallet.R
-import com.asfoundation.wallet.util.convertDpToPx
 import com.google.android.material.card.MaterialCardView
 
 // Create new item view

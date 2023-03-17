@@ -37,7 +37,7 @@
       tools:text="@string/purchase_card_error_invalid_details"
       />
 
-  <com.asfoundation.wallet.ui.common.WalletButtonView
+  <com.appcoins.wallet.ui.widgets.WalletButtonView
       android:id="@+id/error_verify_card_button"
       android:layout_width="wrap_content"
       android:layout_height="@dimen/small_button_height"
@@ -55,7 +55,7 @@
       app:layout_constraintVertical_bias="1"
       />
 
-  <com.asfoundation.wallet.ui.common.WalletButtonView
+  <com.appcoins.wallet.ui.widgets.WalletButtonView
       android:id="@+id/error_verify_wallet_button"
       android:layout_width="wrap_content"
       android:layout_height="@dimen/small_button_height"

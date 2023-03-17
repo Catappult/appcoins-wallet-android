@@ -68,7 +68,7 @@
       app:layout_constraintTop_toBottomOf="@id/promo_code_bottom_sheet_success_title"
       />
 
-  <com.asfoundation.wallet.ui.common.WalletButtonView
+  <com.appcoins.wallet.ui.widgets.WalletButtonView
       android:id="@+id/promo_code_bottom_sheet_success_got_it_button"
       android:layout_width="0dp"
       android:layout_height="@dimen/onboarding_button_height"

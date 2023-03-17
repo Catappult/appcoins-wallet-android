@@ -104,7 +104,7 @@
             app:layout_constraintTop_toBottomOf="@id/payment_methods_header"
             >
 
-          <com.asfoundation.wallet.ui.common.SeparatorView
+          <com.appcoins.wallet.ui.widgets.SeparatorView
               android:id="@+id/top_separator"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
@@ -191,7 +191,7 @@
               app:layout_constraintTop_toTopOf="parent"
               />
 
-          <com.asfoundation.wallet.ui.common.WalletButtonView
+          <com.appcoins.wallet.ui.widgets.WalletButtonView
               android:id="@+id/more_payment_methods"
               android:layout_width="wrap_content"
               android:layout_height="@dimen/small_button_height"
@@ -227,7 +227,7 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <com.asfoundation.wallet.ui.common.SeparatorView
+        <com.appcoins.wallet.ui.widgets.SeparatorView
             android:id="@+id/bottom_separator"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -252,7 +252,7 @@
             app:layout_constraintTop_toBottomOf="@+id/content_main"
             />
 
-        <com.asfoundation.wallet.ui.common.SeparatorView
+        <com.appcoins.wallet.ui.widgets.SeparatorView
             android:id="@+id/bottom_separator_buttons"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

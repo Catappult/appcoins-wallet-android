@@ -8,10 +8,10 @@ import com.asfoundation.wallet.billing.analytics.BillingAnalytics
 import com.appcoins.wallet.commons.Logger
 import com.asfoundation.wallet.ui.iab.payments.carrier.CarrierInteractor
 import com.appcoins.wallet.core.utils.common.CurrencyFormatUtils
-import com.asfoundation.wallet.util.StringProvider
+import com.appcoins.wallet.ui.common.StringProvider
 import com.appcoins.wallet.core.utils.common.WalletCurrency
 import com.appcoins.wallet.core.utils.common.applicationinfo.ApplicationInfoProvider
-import com.asfoundation.wallet.util.safeLet
+import com.appcoins.wallet.core.utils.common.extensions.safeLet
 import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Scheduler

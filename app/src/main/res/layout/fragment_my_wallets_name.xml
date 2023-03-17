@@ -28,7 +28,7 @@
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent"
       />
-  <com.asfoundation.wallet.ui.common.WalletTextFieldView
+  <com.appcoins.wallet.ui.widgets.WalletTextFieldView
       android:id="@+id/name_input"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
@@ -40,7 +40,7 @@
       app:textFieldHint="@string/mywallet_choose_name_field"
       app:textFieldType="outlined"
       />
-  <com.asfoundation.wallet.ui.common.WalletButtonView
+  <com.appcoins.wallet.ui.widgets.WalletButtonView
       android:id="@+id/save"
       android:layout_width="wrap_content"
       android:layout_height="@dimen/large_button_height"
@@ -51,7 +51,7 @@
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintTop_toBottomOf="@+id/name_input"
       />
-  <com.asfoundation.wallet.ui.common.WalletButtonView
+  <com.appcoins.wallet.ui.widgets.WalletButtonView
       android:id="@+id/cancel"
       android:layout_width="wrap_content"
       android:layout_height="@dimen/large_button_height"

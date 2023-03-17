@@ -45,7 +45,7 @@
           android:textSize="12sp"
           />
 
-      <com.asfoundation.wallet.ui.common.WalletButtonView
+      <com.appcoins.wallet.ui.widgets.WalletButtonView
           android:id="@+id/copy_action"
           android:layout_width="match_parent"
           android:layout_height="@dimen/large_button_height"

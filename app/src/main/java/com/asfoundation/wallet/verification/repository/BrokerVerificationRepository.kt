@@ -2,7 +2,7 @@ package com.asfoundation.wallet.verification.repository
 
 import com.adyen.checkout.core.model.ModelObject
 import com.appcoins.wallet.billing.adyen.*
-import com.asfoundation.wallet.util.isNoNetworkException
+import com.appcoins.wallet.core.utils.common.extensions.isNoNetworkException
 import com.asfoundation.wallet.verification.ui.credit_card.network.VerificationStatus
 import com.asfoundation.wallet.wallets.repository.WalletInfoRepository
 import io.reactivex.Completable

@@ -8,7 +8,7 @@
     android:id="@+id/recover_wallet_options"
     >
 
-  <com.asfoundation.wallet.ui.common.WalletTextFieldView
+  <com.appcoins.wallet.ui.widgets.WalletTextFieldView
       android:id="@+id/recover_keystore_input"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
@@ -67,7 +67,7 @@
 
   </androidx.constraintlayout.widget.ConstraintLayout>
 
-  <com.asfoundation.wallet.ui.common.WalletButtonView
+  <com.appcoins.wallet.ui.widgets.WalletButtonView
       android:id="@+id/recover_from_file_button"
       android:layout_width="0dp"
       android:layout_height="@dimen/onboarding_button_height"

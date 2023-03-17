@@ -16,8 +16,8 @@ import com.asfoundation.wallet.GlideApp
 import com.asfoundation.wallet.promotions.model.ProgressItem
 import com.asfoundation.wallet.promotions.ui.PromotionsViewModel.Companion.DETAILS_URL_EXTRA
 import com.asfoundation.wallet.promotions.ui.list.PromotionClick
-import com.asfoundation.wallet.ui.common.BaseViewHolder
-import com.asfoundation.wallet.ui.common.SeparatorView
+import com.appcoins.wallet.ui.widgets.BaseViewHolder
+import com.appcoins.wallet.ui.widgets.SeparatorView
 import java.time.LocalDateTime
 import java.time.ZoneOffset
 import java.util.concurrent.TimeUnit
