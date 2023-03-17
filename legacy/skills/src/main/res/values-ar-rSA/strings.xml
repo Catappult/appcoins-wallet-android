@@ -1,16 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="appcoins_wallet">محفظة AppCoins</string>
+  <!-- Common -->
+  <string name="start_button">Start</string>
+  <string name="ok">موافق</string>
+  <string name="cancel">إلغاء</string>
+  <string name="buy_button">شراء</string>
+  <string name="topup_button">إضافة</string>
   <string name="provide_wallet_creating_wallet_header">إنشاء عنوان محفظة&#8230;</string>
   <string name="processing_loading_title">الحصول على بطاقة دخولك</string>
   <string name="finding_room_loading_title">في انتظار الخصوم</string>
   <string name="finding_room_name_loading_title">في انتظار الخصم \nلينضم إلى</string>
   <string name="finding_room_loading_message">قد يستغرق هذا بعض الوقت…</string>
   <string name="refunded">تمت استعادة أموالك.</string>
-  <string name="ok">موافق</string>
-  <string name="cancel">إلغاء</string>
-  <string name="buy_button">شراء</string>
-  <string name="topup_button">إضافة</string>
   <string name="connection_error_body">يبدو أنك غير متصل بالإنترنت. افحص اتصالك بالإنترنت وحاول مجددًا!</string>
   <string name="playing_game_notification_title">e-Skills التي تلعبها حاليًا</string>
   <string name="playing_game_notification_body">معلومات اللعبة قادمة…</string>
