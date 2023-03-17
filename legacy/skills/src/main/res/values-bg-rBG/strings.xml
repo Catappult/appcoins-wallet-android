@@ -1,16 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="appcoins_wallet">AppCoins портфейл</string>
+  <!-- Common -->
+  <string name="start_button">Start</string>
+  <string name="ok">OK</string>
+  <string name="cancel">Отказ</string>
+  <string name="buy_button">Купи</string>
+  <string name="topup_button">Допълване</string>
   <string name="provide_wallet_creating_wallet_header">Създаване на адрес на портфейла&#8230;</string>
   <string name="processing_loading_title">Getting your entry ticket</string>
   <string name="finding_room_loading_title">Waiting for opponents</string>
   <string name="finding_room_name_loading_title">Waiting for opponents \nto join the</string>
   <string name="finding_room_loading_message">Това може да отнеме известно време...</string>
   <string name="refunded">Your money has been refunded.</string>
-  <string name="ok">OK</string>
-  <string name="cancel">Отказ</string>
-  <string name="buy_button">Купи</string>
-  <string name="topup_button">Допълване</string>
   <string name="connection_error_body">Изглежда, че не си свързан с интернет. Провери връзката си и опитай отново!</string>
   <string name="playing_game_notification_title">Currently playing e-Skills</string>
   <string name="playing_game_notification_body">Getting game info…</string>
