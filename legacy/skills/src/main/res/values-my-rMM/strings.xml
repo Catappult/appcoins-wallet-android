@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="appcoins_wallet">AppCoins ပိုက္ဆံအိတ္</string>
+  <!-- Common -->
+  <string name="start_button">Start</string>
+  <string name="ok">အိုေက</string>
+  <string name="cancel">ပယ္ဖ်က္မည္</string>
+  <string name="buy_button">ဝယ္မည္</string>
+  <string name="topup_button">ေငြျဖည့္မည္</string>
+  <string name="provide_wallet_creating_wallet_header">ပိုက္ဆံအိတ္လိပ္စာကို ျပဳလုပ္ေနပါသည္&#8230;</string>
+  <string name="processing_loading_title">သင့္ဝင္ေရာက္ခြင့္ လက္မွတ္ကို ရယူေနပါသည္</string>
+  <string name="finding_room_loading_title">ၿပိဳင္ဖက္မ်ားကို ေစာင့္ေနပါသည္</string>
+  <string name="finding_room_name_loading_title">ပါဝင္မည့္ \nၿပိဳင္ဖက္မ်ားကို ေစာင့္ေနပါသည္</string>
+  <string name="finding_room_loading_message">အခ်ိန္အနည္းငယ္ ၾကာႏိုင္ပါသည္…</string>
+  <string name="refunded">သင့္ေငြကို ျပန္အမ္းေပးလိုက္ပါသည္။</string>
+  <string name="connection_error_body">သင္ အင္တာနက္ခ်ိတ္ဆက္ထားပံု မရပါ။ ခ်ိတ္ဆက္မႈကို စစ္ေဆးကာ ျပန္ႀကိဳးစားပါ။</string>
+  <string name="playing_game_notification_title">လက္ရွိကစားေနေသာ e-Skills</string>
+  <string name="playing_game_notification_body">ဂိမ္းအခ်က္အလက္ကို ရယူေနပါသည္…</string>
+  <string name="finish_game_notification_title">သင့္ e-Skills ဂိမ္း ၿပီးသြားပါၿပီ</string>
+  <string name="won_game_notification_body">You won! Your wallet is now %1$.2f$ heavier!</string>
+  <string name="lost_game_notification_body">သင္ရႈံးသြားပါသည္… ေနာက္တစ္ခါ ကံပိုေကာင္းပါေစ။</string>
+  <string name="dismiss_button">ဖယ္မည္</string>
+  <string name="location_not_available_title">e-Skills ဂိမ္းမ်ားကို သင့္ေဒသတြင္ မကစားႏိုင္ပါ</string>
+  <string name="location_not_available_body">ယင္းတို႔ကို လူတိုင္းအတြက္ ယူေဆာင္ေပးႏိုင္ရန္ ကြၽႏ္ုပ္တို႔ အျပင္းအထန္ ႀကိဳးစားေနေသာေၾကာင့္ မၾကာခင္ ျပန္လာခဲ့ပါ။</string>
+  <string name="e_skills_room_create_title">အခန္းတစ္ခန္းကို ျပဳလုပ္တြင္ သို႔မဟုတ္ ပါဝင္ပါ</string>
+  <string name="e_skills_room_create_body">အခန္းအသစ္ တစ္ခန္းကို ျပဳလုပ္ကာ သင့္ၿပိဳင္ဖက္မ်ားထံ မွ်ေဝလိုက္ပါ သို႔မဟုတ္ ရွိၿပီးသား အခန္းတစ္ခန္းတြင္ ပါဝင္လိုက္ပါ။</string>
+  <string name="e_skills_room_field">ဤေနရာတြင္ သင့္အခန္းအမည္…</string>
+  <string name="e_skills_payment_title">ေငြေပးေခ်မည့္အရာ</string>
+  <string name="e_skills_payment_body">AppCoins Credit မ်ား</string>
+  <string name="copied_to_clipboard">ကလစ္ဘုတ္သို႔ ကူးမည္</string>
+  <string name="processing_payment_title">ေငြေပးေခ်မႈ စီစဥ္ေဆာင္႐ြက္ေနပါသည္</string>
+  <string name="purchase_error_title">အိုး တစ္ခုခု မွားသြားပါသည္။</string>
+  <string name="purchase_eskills_sku">ဝင္ေရာက္ခြင့္လက္မွတ္</string>
+  <string name="shared_room_waiting">%s တြင္ ပါဝင္မည့္ ၿပိဳင္ဖက္မ်ားကို ေစာင့္ေနပါသည္</string>
+  <string name="rooted_device_blocked_body">ကံမေကာင္းစြာျဖင့္ Root လုပ္ထားေသာ ကိရိယာတစ္ခုတြင္ e-Skills ဂိမ္းမ်ားကို သင္မကစားႏိုင္ပါ။\"</string>
+  <string name="top_up_needed_body">လုံၿခဳံေရး အေၾကာင္းရင္းမ်ားအတြက္ e-Skills ဂိမ္းမ်ားကို ကစားရန္ သင့္ပိုက္ဆံအိတ္ကို အနည္းဆုံးတစ္ႀကိမ္ ေငြျဖည့္ရန္ လိုအပ္ပါသည္။</string>
+  <string name="not_enough_funds_body">သင့္တြင္ ေငြအလုံအေလာက္ မရွိပါ။ ဝင္ခြင့္လက္မွတ္ ဝယ္ယူရန္ ေငြျဖည့္ေပးပါ။</string>
+  <string name="error_message_local_payment_method_body">ဝင္ေၾကးကို ဝယ္ယူရန္ ေဒသတြင္း ေငြေပးေခ်မႈ နည္းလမ္းမ်ားကို လက္မခံပါ။ ပိုက္ဆံအိတ္အသစ္ တစ္ခုျပဳလုပ္ကာ ဘဏ္ကဒ္ သို႔မဟုတ္ PayPal ျဖင့္ ေငြျဖည့္ေပးပါ။</string>
+  <string name="update_not_supported_title">ပိုက္ဆံအိတ္ ဗားရွင္းကို ပံ့ပိုးမႈ မေပးပါ။</string>
+  <string name="update_not_supported_body">AppCoins Wallet ကို ေနာက္ဆုံးထြက္ျဖစ္ေအာင္ အပ္ဒိတ္လုပ္ပါ။</string>
+  <string name="update_button">အပ္ဒိတ္</string>
+  <!-- Refer a friend -->
+  <string name="refer_a_friend_waiting_room_tooltip">You and the friends you invite will receive a $%s bonus. You can refer up to 5 friends, and they must be new users. The bonus will be credited in your wallet once they use your invitation code in their first e-Skills game.</string>
+  <string name="refer_a_friend_first_time_header">Ready to show your skills?</string>
+  <string name="refer_a_friend_first_time_body">Beat other players to get a prize in real money! Let\'s start with a practice game with no entry fee.</string>
+  <string name="refer_a_friend_error_unavailable_body">This feature is currently unavailable.</string>
+  <string name="refer_a_friend_error_invalid_code_body">Invalid code!</string>
+  <string name="refer_a_friend_error_user_not_eligible_body">Only for new users!</string>
+  <string name="refer_a_friend_first_time_tooltip">With our Referral Program you\'ll receive a $%s bonus when using your friends code. They\'ll also receive the same amount as bonus to be used on in-app purchases or e-Skills entry tickets.</string>
+  <string name="refer_a_friend_waiting_room_title">Refer a Friend!</string>
+  <string name="refer_a_friend_waiting_from_body">Get a bonus for each friend you invite.</string>
+</resources>
