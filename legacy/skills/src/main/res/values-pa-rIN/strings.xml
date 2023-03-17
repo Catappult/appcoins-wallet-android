@@ -1,16 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="appcoins_wallet">ਐਪਸਿੱਕੇ ਬਟੂਆ</string>
+  <!-- Common -->
+  <string name="start_button">Start</string>
+  <string name="ok">ਠੀਕ ਹੈ</string>
+  <string name="cancel">ਕੈਂਸਲ</string>
+  <string name="buy_button">ਖਰੀਦੋ</string>
+  <string name="topup_button">ਟੋਪ ਅੱਪ</string>
   <string name="provide_wallet_creating_wallet_header">ਬਟੂਏ ਦਾ ਪਤਾ ਬਣਾਇਆ ਜਾ ਰਿਹਾ ਹੈ&#8230;</string>
   <string name="processing_loading_title">ਆਪਣੀ ਐਂਟਰੀ ਟਿਕਟ ਪ੍ਰਾਪਤ ਕਰਨਾ</string>
   <string name="finding_room_loading_title">ਵਿਰੋਧੀਆਂ ਦੀ ਉਡੀਕ ਕਰਨਾ</string>
   <string name="finding_room_name_loading_title">ਵਿਰੋਧੀਆਂ ਦੀ ਸ਼ਾਮਲ \nਹੋਣ ਦੀ ਉਡੀਕ ਕੀਤੀ ਜਾ ਰਹੀ ਹੈ</string>
   <string name="finding_room_loading_message">ਇਸ ਨੂੰ ਕੁਝ ਸਮਾਂ ਲੱਗ ਸਕਦਾ ਹੈ…</string>
   <string name="refunded">ਤੁਹਾਡੇ ਪੈਸੇ ਵਾਪਸ ਕਰ ਦਿੱਤੇ ਗਏ ਹਨ|</string>
-  <string name="ok">ਠੀਕ ਹੈ</string>
-  <string name="cancel">ਕੈਂਸਲ</string>
-  <string name="buy_button">ਖਰੀਦੋ</string>
-  <string name="topup_button">ਟੋਪ ਅੱਪ</string>
   <string name="connection_error_body">ਇੰਝ ਲੱਗਦਾ ਹੈ ਕਿ ਤੁਸੀਂ ਇੰਟਰਨੈਟ ਨਾਲ ਜੁੜੇ ਨਹੀਂ ਹੋ, ਆਪਣੇ ਕਨੈਕਸ਼ਨ ਦੀ ਜਾਂਚ ਕਰੋ ਅਤੇ ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰੋ!</string>
   <string name="playing_game_notification_title">ਇਸ ਸਮੇਂ ਈ-ਹੁਨਰ ਖੇਡ ਰਿਹਾ ਹੈ</string>
   <string name="playing_game_notification_body">ਗੇਮ ਦੀ ਜਾਣਕਾਰੀ ਪ੍ਰਾਪਤ ਕੀਤੀ ਜਾ ਰਹੀ ਹੈ...</string>
