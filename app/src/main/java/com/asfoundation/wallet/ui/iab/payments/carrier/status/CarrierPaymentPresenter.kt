@@ -4,7 +4,7 @@ import com.appcoins.wallet.billing.carrierbilling.CarrierPaymentModel
 import com.appcoins.wallet.billing.common.response.TransactionStatus
 import com.asf.wallet.R
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics
-import com.appcoins.wallet.commons.Logger
+import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.asfoundation.wallet.ui.iab.payments.carrier.CarrierInteractor
 import io.reactivex.Completable
 import io.reactivex.Observable
@@ -19,7 +19,7 @@ class CarrierPaymentPresenter(private val disposables: CompositeDisposable,
                               private val navigator: CarrierPaymentNavigator,
                               private val carrierInteractor: CarrierInteractor,
                               private val billingAnalytics: BillingAnalytics,
-                              private val logger: Logger,
+                              private val logger: com.appcoins.wallet.core.utils.jvm_common.Logger,
                               private val viewScheduler: Scheduler,
                               private val ioScheduler: Scheduler) {
 

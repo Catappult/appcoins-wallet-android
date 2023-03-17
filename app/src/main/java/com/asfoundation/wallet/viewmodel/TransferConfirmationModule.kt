@@ -2,7 +2,7 @@ package com.asfoundation.wallet.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.appcoins.wallet.commons.Logger
+import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.asfoundation.wallet.router.GasSettingsRouter
 import com.asfoundation.wallet.transfers.TransferConfirmationInteractor
 import com.asfoundation.wallet.transfers.TransferConfirmationNavigator
@@ -19,7 +19,7 @@ class TransferConfirmationModule {
   fun provideConfirmationViewModelFactory(
     interactor: TransferConfirmationInteractor,
     gasSettingsRouter: GasSettingsRouter,
-    logger: Logger,
+    logger: com.appcoins.wallet.core.utils.jvm_common.Logger,
     navigator: TransferConfirmationNavigator) =
     TransferConfirmationViewModelFactory(interactor, gasSettingsRouter, logger, navigator)
 }
@@ -27,7 +27,7 @@ class TransferConfirmationModule {
 class TransferConfirmationViewModelFactory(
   private val transferConfirmationInteractor: TransferConfirmationInteractor,
   private val gasSettingsRouter: GasSettingsRouter,
-  private val logger: Logger,
+  private val logger: com.appcoins.wallet.core.utils.jvm_common.Logger,
   private val transferConfirmationNavigator: TransferConfirmationNavigator) :
   ViewModelProvider.Factory {
 

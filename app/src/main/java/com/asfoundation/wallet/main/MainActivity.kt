@@ -12,7 +12,7 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import com.asf.wallet.R
 import com.appcoins.wallet.ui.arch.SingleStateFragment
-import com.appcoins.wallet.core.utils.common.RxBus
+import com.appcoins.wallet.core.utils.jvm_common.RxBus
 import com.asfoundation.wallet.main.splash.bus.SplashFinishEvent
 import com.asfoundation.wallet.support.SupportNotificationProperties.SUPPORT_NOTIFICATION_CLICK
 import com.asfoundation.wallet.ui.AuthenticationPromptActivity
@@ -58,7 +58,7 @@ class MainActivity : AppCompatActivity(),
   }
 
   private fun handleSplashScreenResult() {
-    RxBus.listen(SplashFinishEvent().javaClass).subscribe {
+    com.appcoins.wallet.core.utils.jvm_common.RxBus.listen(SplashFinishEvent().javaClass).subscribe {
       viewModel.handleInitialNavigation()
     }
   }

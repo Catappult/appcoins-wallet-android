@@ -19,10 +19,10 @@ import com.adyen.checkout.redirect.RedirectComponent
 import com.adyen.checkout.redirect.RedirectConfiguration
 import com.appcoins.wallet.bdsbilling.Billing
 import com.appcoins.wallet.billing.adyen.PaymentInfoModel
-import com.appcoins.wallet.commons.Logger
-import com.appcoins.wallet.core.utils.common.CurrencyFormatUtils
-import com.appcoins.wallet.core.utils.common.KeyboardUtils
-import com.appcoins.wallet.core.utils.common.WalletCurrency
+import com.appcoins.wallet.core.utils.jvm_common.Logger
+import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
+import com.appcoins.wallet.core.utils.android_common.KeyboardUtils
+import com.appcoins.wallet.core.utils.android_common.WalletCurrency
 import com.asf.wallet.BuildConfig
 import com.asf.wallet.R
 import com.asfoundation.wallet.billing.address.BillingAddressModel
@@ -83,7 +83,7 @@ class AdyenTopUpFragment : BasePageViewFragment(), AdyenTopUpView {
   lateinit var servicesErrorMapper: ServicesErrorCodeMapper
 
   @Inject
-  lateinit var logger: Logger
+  lateinit var logger: com.appcoins.wallet.core.utils.jvm_common.Logger
 
   @Inject
   lateinit var navigator: TopUpNavigator

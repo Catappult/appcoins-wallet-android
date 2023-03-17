@@ -1,13 +1,13 @@
 package com.asfoundation.wallet.logging
 
-import com.appcoins.wallet.commons.LogReceiver
+import com.appcoins.wallet.core.utils.jvm_common.LogReceiver
 import io.sentry.Sentry
 import io.sentry.event.Breadcrumb
 import io.sentry.event.BreadcrumbBuilder
 import io.sentry.event.Event
 import io.sentry.event.EventBuilder
 
-class SentryReceiver : LogReceiver {
+class SentryReceiver : com.appcoins.wallet.core.utils.jvm_common.LogReceiver {
 
   override fun log(tag: String?, throwable: Throwable?) {
     throwable?.let {

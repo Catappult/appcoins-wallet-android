@@ -8,7 +8,7 @@ import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.view.ViewGroup
 import com.asf.wallet.R
-import com.appcoins.wallet.core.utils.common.extensions.scaleToString
+import com.appcoins.wallet.core.utils.android_common.extensions.scaleToString
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.jakewharton.rxbinding2.view.RxView

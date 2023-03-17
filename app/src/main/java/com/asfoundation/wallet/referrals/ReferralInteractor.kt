@@ -7,7 +7,7 @@ import com.asf.wallet.R
 import com.asfoundation.wallet.interact.EmptyNotification
 import com.asfoundation.wallet.promo_code.use_cases.GetCurrentPromoCodeUseCase
 import com.asfoundation.wallet.ui.widget.holder.CardNotificationAction
-import com.appcoins.wallet.core.utils.common.extensions.scaleToString
+import com.appcoins.wallet.core.utils.android_common.extensions.scaleToString
 import com.asfoundation.wallet.wallets.FindDefaultWalletInteract
 import io.reactivex.Completable
 import io.reactivex.Maybe

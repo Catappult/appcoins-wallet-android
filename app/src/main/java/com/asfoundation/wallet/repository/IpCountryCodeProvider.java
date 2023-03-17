@@ -1,7 +1,7 @@
 package com.asfoundation.wallet.repository;
 
 import androidx.annotation.NonNull;
-import com.appcoins.wallet.core.utils.common.CountryCodeProvider;
+import com.appcoins.wallet.core.utils.jvm_common.CountryCodeProvider;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.reactivex.Single;

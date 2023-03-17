@@ -1,6 +1,6 @@
 package com.asfoundation.wallet.ui.iab;
 
-import com.appcoins.wallet.commons.MemoryCache;
+import com.appcoins.wallet.core.utils.jvm_common.MemoryCache;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.TestScheduler;
 import io.reactivex.subjects.BehaviorSubject;

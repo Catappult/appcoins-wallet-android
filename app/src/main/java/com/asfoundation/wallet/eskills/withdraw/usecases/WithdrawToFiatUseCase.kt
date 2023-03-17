@@ -4,7 +4,7 @@ import com.asfoundation.wallet.eskills.withdraw.domain.FailedWithdraw
 import com.asfoundation.wallet.eskills.withdraw.domain.WithdrawResult
 import com.asfoundation.wallet.eskills.withdraw.repository.WithdrawRepository
 import com.asfoundation.wallet.ewt.EwtAuthenticatorService
-import com.appcoins.wallet.core.utils.common.extensions.isEmailValid
+import com.appcoins.wallet.core.utils.android_common.extensions.isEmailValid
 import io.reactivex.Single
 import java.math.BigDecimal
 import javax.inject.Inject

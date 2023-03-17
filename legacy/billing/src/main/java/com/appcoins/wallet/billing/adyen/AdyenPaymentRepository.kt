@@ -5,7 +5,7 @@ import com.appcoins.wallet.bdsbilling.repository.BillingSupportedType
 import com.appcoins.wallet.bdsbilling.repository.RemoteRepository
 import com.appcoins.wallet.bdsbilling.repository.SubscriptionBillingApi
 import com.appcoins.wallet.billing.common.response.TransactionResponse
-import com.appcoins.wallet.commons.Logger
+import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.google.gson.JsonObject
 import com.google.gson.annotations.SerializedName
 import io.reactivex.Completable
@@ -17,7 +17,8 @@ class AdyenPaymentRepository @Inject constructor(private val adyenApi: AdyenApi,
                                                  private val brokerBdsApi: RemoteRepository.BrokerBdsApi,
                                                  private val subscriptionsApi: SubscriptionBillingApi,
                                                  private val adyenResponseMapper: AdyenResponseMapper,
-                                                 private val logger: Logger) {
+                                                 private val logger: Logger
+) {
 
   fun loadPaymentInfo(methods: Methods, value: String,
                       currency: String, walletAddress: String): Single<PaymentInfoModel> {

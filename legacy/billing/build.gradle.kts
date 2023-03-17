@@ -9,7 +9,8 @@ android {
 dependencies {
   implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
   api(project(":legacy:bdsbilling"))
-  implementation(project(":legacy:commons"))
+  implementation(project(":core:utils:android-common"))
+  implementation(project(":core:utils:jvm-common"))
   implementation(project(":core:utils:properties"))
 
   implementation(libs.bundles.rx)

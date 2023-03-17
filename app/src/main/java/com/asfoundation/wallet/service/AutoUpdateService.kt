@@ -1,6 +1,6 @@
 package com.asfoundation.wallet.service
 
-import com.appcoins.wallet.core.utils.common.RxSchedulers
+import com.appcoins.wallet.core.utils.android_common.RxSchedulers
 import com.asfoundation.wallet.entity.AutoUpdateResponse
 import com.asfoundation.wallet.viewmodel.AutoUpdateModel
 import io.reactivex.Single

@@ -1,6 +1,6 @@
 package com.asfoundation.wallet.repository
 
-import com.appcoins.wallet.commons.Repository
+import com.appcoins.wallet.core.utils.jvm_common.Repository
 import com.asfoundation.wallet.entity.TransactionBuilder
 import io.reactivex.Completable
 import io.reactivex.Observable
@@ -10,7 +10,7 @@ import io.reactivex.schedulers.Schedulers
 import java.util.concurrent.TimeUnit
 
 class WatchedTransactionService(private val transactionSender: TransactionSender,
-                                private val cache: Repository<String, Transaction>,
+                                private val cache: com.appcoins.wallet.core.utils.jvm_common.Repository<String, Transaction>,
                                 private val paymentErrorMapper: PaymentErrorMapper,
                                 private val scheduler: Scheduler,
                                 private val transactionTracker: TrackTransactionService) {

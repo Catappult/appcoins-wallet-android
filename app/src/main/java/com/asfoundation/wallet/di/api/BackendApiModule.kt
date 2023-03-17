@@ -5,7 +5,6 @@ import com.appcoins.wallet.gamification.repository.GamificationApi
 import com.appcoins.wallet.gamification.repository.entity.PromotionsDeserializer
 import com.appcoins.wallet.gamification.repository.entity.PromotionsResponse
 import com.appcoins.wallet.gamification.repository.entity.PromotionsSerializer
-import com.asf.wallet.BuildConfig
 import com.asfoundation.wallet.backup.repository.BackupRepository
 import com.asfoundation.wallet.di.annotations.*
 import com.asfoundation.wallet.eskills.withdraw.repository.WithdrawApi

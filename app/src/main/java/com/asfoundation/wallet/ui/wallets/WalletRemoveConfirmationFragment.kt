@@ -5,7 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.appcoins.wallet.commons.Logger
+import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.asf.wallet.R
 import com.asfoundation.wallet.interact.DeleteWalletInteract
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
@@ -25,7 +25,7 @@ class WalletRemoveConfirmationFragment : BasePageViewFragment(), WalletRemoveCon
   lateinit var deleteWalletInteract: DeleteWalletInteract
 
   @Inject
-  lateinit var logger: Logger
+  lateinit var logger: com.appcoins.wallet.core.utils.jvm_common.Logger
   private lateinit var presenter: WalletRemoveConfirmationPresenter
   private lateinit var activityView: RemoveWalletActivityView
 

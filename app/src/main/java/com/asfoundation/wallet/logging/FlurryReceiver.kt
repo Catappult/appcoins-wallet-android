@@ -1,12 +1,12 @@
 package com.asfoundation.wallet.logging
 
-import com.appcoins.wallet.commons.LogReceiver
+import com.appcoins.wallet.core.utils.jvm_common.LogReceiver
 import com.asf.wallet.BuildConfig
-import com.appcoins.wallet.commons.LogReceiver.Companion.DEFAULT_MSG
-import com.appcoins.wallet.commons.LogReceiver.Companion.DEFAULT_THROWABLE_MSG
+import com.appcoins.wallet.core.utils.jvm_common.LogReceiver.Companion.DEFAULT_MSG
+import com.appcoins.wallet.core.utils.jvm_common.LogReceiver.Companion.DEFAULT_THROWABLE_MSG
 import com.flurry.android.FlurryAgent
 
-class FlurryReceiver : LogReceiver {
+class FlurryReceiver : com.appcoins.wallet.core.utils.jvm_common.LogReceiver {
   companion object {
     private const val DEFAULT_ERROR_ID = "ID"
   }

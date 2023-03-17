@@ -16,8 +16,8 @@ import com.appcoins.wallet.ui.arch.Async
 import com.appcoins.wallet.ui.arch.Error
 import com.appcoins.wallet.ui.arch.SingleStateFragment
 import com.asfoundation.wallet.ui.iab.WebViewActivity
-import com.appcoins.wallet.core.utils.common.CurrencyFormatUtils
-import com.appcoins.wallet.core.utils.common.WalletCurrency
+import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
+import com.appcoins.wallet.core.utils.android_common.WalletCurrency
 import com.asfoundation.wallet.verification.ui.credit_card.intro.VerificationIntroModel
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint

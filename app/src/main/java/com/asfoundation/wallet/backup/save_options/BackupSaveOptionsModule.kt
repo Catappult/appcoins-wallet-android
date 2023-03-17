@@ -1,7 +1,7 @@
 package com.asfoundation.wallet.backup.save_options
 
 import androidx.fragment.app.Fragment
-import com.appcoins.wallet.commons.Logger
+import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.asfoundation.wallet.backup.use_cases.BackupSuccessLogUseCase
 import com.asfoundation.wallet.backup.use_cases.SendBackupToEmailUseCase
 import dagger.Module
@@ -18,7 +18,7 @@ class BackupSaveOptionsModule {
     data: BackupSaveOptionsData,
     sendBackupToEmailUseCase: SendBackupToEmailUseCase,
     backupSuccessLogUseCase: BackupSuccessLogUseCase,
-    logger: Logger
+    logger: com.appcoins.wallet.core.utils.jvm_common.Logger
   ): BackupSaveOptionsViewModelFactory {
     return BackupSaveOptionsViewModelFactory(
       data, sendBackupToEmailUseCase, backupSuccessLogUseCase,

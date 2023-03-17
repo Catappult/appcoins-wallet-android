@@ -1,6 +1,6 @@
 package com.asfoundation.wallet.rating
 
-import com.appcoins.wallet.commons.Logger
+import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.asf.wallet.BuildConfig
 import com.asfoundation.wallet.rating.network.WalletFeedbackBody
 import io.reactivex.Single
@@ -15,7 +15,7 @@ import javax.inject.Inject
 class RatingRepository @Inject constructor(
   private val ratingPreferencesDataSource: RatingPreferencesDataSource,
   private val walletFeedbackApi: WalletFeedbackApi,
-  private val logger: Logger
+  private val logger: com.appcoins.wallet.core.utils.jvm_common.Logger
 ) {
 
   fun saveEnoughSuccessfulTransactions() =
