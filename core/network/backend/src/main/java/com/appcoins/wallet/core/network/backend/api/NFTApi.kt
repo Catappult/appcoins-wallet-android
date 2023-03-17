@@ -1,4 +1,4 @@
-package com.asfoundation.wallet.nfts.repository
+package com.appcoins.wallet.core.network.backend.api
 
 import com.google.gson.annotations.SerializedName
 import io.reactivex.Single
