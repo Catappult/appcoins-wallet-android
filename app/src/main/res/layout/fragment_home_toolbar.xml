@@ -9,7 +9,7 @@
     android:background="@color/styleguide_blue"
     >
 
-  <com.asfoundation.wallet.ui.common.AnimatedViewSwitcher
+  <com.appcoins.wallet.ui.widgets.AnimatedViewSwitcher
       android:id="@+id/toolbar_view_switcher"
       android:layout_width="0dp"
       android:layout_height="match_parent"
@@ -53,7 +53,7 @@
           />
     </FrameLayout>
 
-  </com.asfoundation.wallet.ui.common.AnimatedViewSwitcher>
+  </com.appcoins.wallet.ui.widgets.AnimatedViewSwitcher>
 
   <include
       android:id="@+id/action_button_vip"

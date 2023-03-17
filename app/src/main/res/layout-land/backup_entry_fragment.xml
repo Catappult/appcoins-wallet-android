@@ -57,7 +57,7 @@
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintTop_toTopOf="@id/horizontal_guideline"
       >
-    <com.asfoundation.wallet.ui.common.WalletButtonView
+    <com.appcoins.wallet.ui.widgets.WalletButtonView
         android:id="@+id/backup_btn"
         android:layout_width="200dp"
         android:layout_height="@dimen/large_button_height"
@@ -68,7 +68,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         />
-    <com.asfoundation.wallet.ui.common.WalletButtonView
+    <com.appcoins.wallet.ui.widgets.WalletButtonView
         android:visibility="gone"
         android:id="@+id/backup_skip_btn"
         android:layout_width="wrap_content"

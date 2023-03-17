@@ -1,4 +1,4 @@
-package com.asfoundation.wallet.ui.common
+package com.appcoins.wallet.ui.widgets
 
 import android.content.Context
 import android.text.InputType
@@ -8,8 +8,7 @@ import android.view.LayoutInflater
 import android.widget.FrameLayout
 import androidx.annotation.ColorInt
 import androidx.core.content.ContextCompat
-import com.asf.wallet.R
-import com.asf.wallet.databinding.LayoutWalletTextFieldViewBinding
+import com.appcoins.wallet.ui.widgets.databinding.LayoutWalletTextFieldViewBinding
 import com.appcoins.wallet.ui.common.convertDpToPx
 import com.appcoins.wallet.ui.common.setReadOnly
 import com.google.android.material.textfield.TextInputLayout.END_ICON_NONE

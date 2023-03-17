@@ -124,7 +124,7 @@
           tools:text="%1$s will be refunded within %2$s hour after you confirm the code."
           />
 
-      <com.asfoundation.wallet.ui.common.WalletButtonView
+      <com.appcoins.wallet.ui.widgets.WalletButtonView
           android:id="@+id/change_card_button"
           android:layout_width="wrap_content"
           android:layout_height="@dimen/small_button_height"
@@ -138,7 +138,7 @@
           app:layout_constraintTop_toBottomOf="@+id/code"
           />
 
-      <com.asfoundation.wallet.ui.common.WalletButtonView
+      <com.appcoins.wallet.ui.widgets.WalletButtonView
           android:id="@+id/confirm"
           android:layout_width="0dp"
           android:layout_height="@dimen/small_button_height"
@@ -154,7 +154,7 @@
           app:layout_constraintVertical_bias="1"
           />
 
-      <com.asfoundation.wallet.ui.common.WalletButtonView
+      <com.appcoins.wallet.ui.widgets.WalletButtonView
           android:id="@+id/maybe_later"
           android:layout_width="0dp"
           android:layout_height="@dimen/small_button_height"

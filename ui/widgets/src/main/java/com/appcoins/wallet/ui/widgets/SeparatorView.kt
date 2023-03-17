@@ -1,9 +1,8 @@
-package com.asfoundation.wallet.ui.common
+package com.appcoins.wallet.ui.widgets
 
 import android.content.Context
 import android.util.AttributeSet
 import android.view.View
-import com.asf.wallet.R
 import com.appcoins.wallet.ui.common.convertDpToPx
 
 class SeparatorView : View {

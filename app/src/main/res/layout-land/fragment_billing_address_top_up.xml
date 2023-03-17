@@ -188,7 +188,7 @@
           app:layout_constraintTop_toBottomOf="@id/container"
           />
 
-      <com.asfoundation.wallet.ui.common.WalletButtonView
+      <com.appcoins.wallet.ui.widgets.WalletButtonView
           android:id="@+id/button"
           android:layout_width="wrap_content"
           android:layout_height="@dimen/small_button_height"

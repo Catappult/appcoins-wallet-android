@@ -55,7 +55,7 @@
       app:layout_constraintTop_toBottomOf="@+id/withdraw_success_message"
       />
 
-  <com.asfoundation.wallet.ui.common.WalletButtonView
+  <com.appcoins.wallet.ui.widgets.WalletButtonView
       android:id="@+id/got_it_button"
       android:layout_width="match_parent"
       android:layout_height="@dimen/large_button_height"

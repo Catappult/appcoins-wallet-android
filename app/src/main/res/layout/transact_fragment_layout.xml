@@ -101,7 +101,7 @@
         tools:text="Current balance: 867 APPC-C"
         />
 
-    <com.asfoundation.wallet.ui.common.WalletButtonView
+    <com.appcoins.wallet.ui.widgets.WalletButtonView
         android:id="@+id/send_button"
         android:layout_width="match_parent"
         android:layout_height="@dimen/large_button_height"

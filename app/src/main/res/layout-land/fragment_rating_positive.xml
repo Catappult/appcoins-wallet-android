@@ -48,7 +48,7 @@
       app:layout_constraintTop_toBottomOf="@+id/title"
       />
 
-  <com.asfoundation.wallet.ui.common.WalletButtonView
+  <com.appcoins.wallet.ui.widgets.WalletButtonView
       android:id="@+id/no_button"
       android:layout_width="130dp"
       android:layout_height="@dimen/large_button_height"
@@ -61,7 +61,7 @@
       app:layout_constraintStart_toStartOf="parent"
       />
 
-  <com.asfoundation.wallet.ui.common.WalletButtonView
+  <com.appcoins.wallet.ui.widgets.WalletButtonView
       android:id="@+id/remind_me_later_button"
       android:layout_width="140dp"
       android:layout_height="@dimen/large_button_height"
@@ -74,7 +74,7 @@
       app:layout_constraintStart_toEndOf="@id/no_button"
       />
 
-  <com.asfoundation.wallet.ui.common.WalletButtonView
+  <com.appcoins.wallet.ui.widgets.WalletButtonView
       android:id="@+id/rate_app_button"
       android:layout_width="180dp"
       android:layout_height="@dimen/large_button_height"
