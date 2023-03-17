@@ -1,16 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="appcoins_wallet">AppCoins Wallet</string>
+  <!-- Common -->
+  <string name="start_button">Start</string>
+  <string name="ok">OK</string>
+  <string name="cancel">Cancelar</string>
+  <string name="buy_button">Comprar</string>
+  <string name="topup_button">Depositar</string>
   <string name="provide_wallet_creating_wallet_header">Criando o endereço da sua carteira&#8230;</string>
   <string name="processing_loading_title">Obtendo seu ticket de entrada</string>
   <string name="finding_room_loading_title">Aguardando por oponentes</string>
   <string name="finding_room_name_loading_title">Aguardando oponentes\n para entrar em</string>
   <string name="finding_room_loading_message">Isso pode levar algum tempo…</string>
   <string name="refunded">Seu dinheiro foi reembolsado.</string>
-  <string name="ok">OK</string>
-  <string name="cancel">Cancelar</string>
-  <string name="buy_button">Comprar</string>
-  <string name="topup_button">Depositar</string>
   <string name="connection_error_body">Parece que você não está conectado a Internet. Verifique sua conexão e tente novamente!</string>
   <string name="playing_game_notification_title">Jogando em modo e-Skills</string>
   <string name="playing_game_notification_body">Recebendo informações do jogo…</string>
@@ -38,13 +40,13 @@
   <string name="update_not_supported_body">Atualize a AppCoins Wallet para a versão mais recente.</string>
   <string name="update_button">Atualizar</string>
   <!-- Refer a friend -->
-  <string name="refer_a_friend_waiting_room_tooltip">Você e os amigos que convidar receberão um bônus de $%s. Você pode indicar até 5 amigos, e eles devem ser novos usuários. O bônus será creditado na sua carteira assim que eles usarem o seu código de convite em seu primeiro jogo e-Skills.</string>
-  <string name="refer_a_friend_first_time_header">Pronto para mostrar suas habilidades?</string>
-  <string name="refer_a_friend_first_time_body">Derrote outros jogadores e ganhe um prêmio em dinheiro real! Vamos começar com um jogo de treino sem taxa de inscrição.</string>
-  <string name="refer_a_friend_error_unavailable_body">Este recurso está indisponível no momento.</string>
-  <string name="refer_a_friend_error_invalid_code_body">Código inválido!</string>
-  <string name="refer_a_friend_error_user_not_eligible_body">Somente para novos jogadores!</string>
-  <string name="refer_a_friend_first_time_tooltip">Com nosso Programa de Indicação, você receberá um bônus de $%s ao usar o código de seu amigo. Eles também receberão o mesmo valor como bônus para ser usado em compras no app ou tíquetes de entrada em e-Skills.</string>
-  <string name="refer_a_friend_waiting_room_title">Indique um Amigo!</string>
-  <string name="refer_a_friend_waiting_from_body">Receba um bônus por cada amigo que convidar.</string>
+  <string name="refer_a_friend_waiting_room_tooltip">You and the friends you invite will receive a $%s bonus. You can refer up to 5 friends, and they must be new users. The bonus will be credited in your wallet once they use your invitation code in their first e-Skills game.</string>
+  <string name="refer_a_friend_first_time_header">Ready to show your skills?</string>
+  <string name="refer_a_friend_first_time_body">Beat other players to get a prize in real money! Let\'s start with a practice game with no entry fee.</string>
+  <string name="refer_a_friend_error_unavailable_body">This feature is currently unavailable.</string>
+  <string name="refer_a_friend_error_invalid_code_body">Invalid code!</string>
+  <string name="refer_a_friend_error_user_not_eligible_body">Only for new users!</string>
+  <string name="refer_a_friend_first_time_tooltip">With our Referral Program you\'ll receive a $%s bonus when using your friends code. They\'ll also receive the same amount as bonus to be used on in-app purchases or e-Skills entry tickets.</string>
+  <string name="refer_a_friend_waiting_room_title">Refer a Friend!</string>
+  <string name="refer_a_friend_waiting_from_body">Get a bonus for each friend you invite.</string>
 </resources>
