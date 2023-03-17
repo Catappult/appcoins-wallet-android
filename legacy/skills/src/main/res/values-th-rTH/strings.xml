@@ -1,16 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="appcoins_wallet">กระเป๋าสตางค์ AppCoins</string>
+  <!-- Common -->
+  <string name="start_button">Start</string>
+  <string name="ok">ตกลง</string>
+  <string name="cancel">ยกเลิก</string>
+  <string name="buy_button">ซื้อ</string>
+  <string name="topup_button">เติม</string>
   <string name="provide_wallet_creating_wallet_header">สร้างที่อยู่กระเป๋าสตางค์ &#8230;</string>
   <string name="processing_loading_title">รับบัตรเข้างาน</string>
   <string name="finding_room_loading_title">รอฝ่ายตรงข้าม</string>
   <string name="finding_room_name_loading_title">รอให้ฝ่ายตรงข้าม\nเข้าร่วม</string>
   <string name="finding_room_loading_message">นี้อาจใช้เวลาสักครู่...</string>
   <string name="refunded">เงินของคุณได้รับการคืนเงินแล้ว</string>
-  <string name="ok">ตกลง</string>
-  <string name="cancel">ยกเลิก</string>
-  <string name="buy_button">ซื้อ</string>
-  <string name="topup_button">เติม</string>
   <string name="connection_error_body">มันดูเหมือนว่าคุณไม่ได้เชื่อมต่ออินเตอร์เน็ต ตรวจสอบการเชื่อมต่อของคุณและลองอีกครั้ง!</string>
   <string name="playing_game_notification_title">กำลังเล่น e-Skills</string>
   <string name="playing_game_notification_body">กำลังรับข้อมูลเกม...</string>
