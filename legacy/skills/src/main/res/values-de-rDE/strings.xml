@@ -1,16 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="appcoins_wallet">AppCoins Wallet</string>
+  <!-- Common -->
+  <string name="start_button">Start</string>
+  <string name="ok">OK</string>
+  <string name="cancel">Abbrechen</string>
+  <string name="buy_button">Kaufen</string>
+  <string name="topup_button">Aufladen</string>
   <string name="provide_wallet_creating_wallet_header">Erstellen der Wallet-Adresse&#8230;</string>
   <string name="processing_loading_title">Erhalten Sie ihre Eintritts-Ticket</string>
   <string name="finding_room_loading_title">Warten auf Gegner</string>
   <string name="finding_room_name_loading_title">Warten auf Gegenspieler \n, die beitreten</string>
   <string name="finding_room_loading_message">Dies kann eine Weile dauern…</string>
   <string name="refunded">Ihr Geld wurde ihnen wieder gutgeschrieben.</string>
-  <string name="ok">OK</string>
-  <string name="cancel">Abbrechen</string>
-  <string name="buy_button">Kaufen</string>
-  <string name="topup_button">Aufladen</string>
   <string name="connection_error_body">Scheinbar sind Sie nicht mit dem Internet verbunden. Überprüfen Sie ihrer Verbindung und überprüfen Sie es erneut!</string>
   <string name="playing_game_notification_title">Aktuell spielende e-Skills</string>
   <string name="playing_game_notification_body">Spieleinfo erhalten…</string>
@@ -30,21 +32,21 @@
   <string name="purchase_error_title">Upps, etwas ist schiefgelaufen.</string>
   <string name="purchase_eskills_sku">Ticket eingeben</string>
   <string name="shared_room_waiting">Warten auf Gegenspieler die %s beitreten</string>
-  <string name="rooted_device_blocked_body">Leider kannst du mit einem gerooteten Gerät keine e-Skills Spiele spielen.</string>
-  <string name="top_up_needed_body">Aus Sicherheitsgründen musst du mindestens eine Aufladung in deine Wallet machen, um e-Skills Spiele zu spielen.</string>
-  <string name="not_enough_funds_body">Du hast nicht genug Geld! Bitte lade auf, um die Eintrittskarte zu kaufen.</string>
-  <string name="error_message_local_payment_method_body">Lokale Zahlungsmethoden werden für den Kauf einer Teilnahmegebühr nicht akzeptiert. Bitte erstelle eine neue Wallet und lade sie mit einer Bankkarte oder PayPal auf!</string>
-  <string name="update_not_supported_title">Wallet-Version nicht unterstützt!</string>
-  <string name="update_not_supported_body">Aktualisiere die AppCoins Wallet auf die neueste Version.</string>
+  <string name="rooted_device_blocked_body">Unfortunately, you cannot play e-Skills games with a rooted device.\"</string>
+  <string name="top_up_needed_body">For security reasons, you need to make at least one top-up in your wallet to play e-Skills games.</string>
+  <string name="not_enough_funds_body">You don\'t have enough funds! Please top up to buy the entry ticket.</string>
+  <string name="error_message_local_payment_method_body">Local payment methods aren\'t accepted to purchase an entry fee. Please create a new wallet and top it up with a bank card or PayPal!</string>
+  <string name="update_not_supported_title">Wallet version not supported!</string>
+  <string name="update_not_supported_body">Update the AppCoins Wallet to the latest version.</string>
   <string name="update_button">Update</string>
   <!-- Refer a friend -->
-  <string name="refer_a_friend_waiting_room_tooltip">Du und die Freunde, die du einlädst, erhalten einen $%s Bonus. Du kannst bis zu 5 Freunde einladen, und sie müssen neue Benutzer sein. Der Bonus wird dir gutgeschrieben, sobald sie deinen Einladungscode in ihrem ersten e-Skills Spiel verwenden.</string>
-  <string name="refer_a_friend_first_time_header">Bist du bereit, dein Können zu zeigen?</string>
-  <string name="refer_a_friend_first_time_body">Schlage andere Spieler, um einen Preis in echtem Geld zu bekommen! Beginnen wir mit einem Übungsspiel ohne Teilnahmegebühr.</string>
-  <string name="refer_a_friend_error_unavailable_body">Diese Funktion ist derzeit nicht verfügbar.</string>
-  <string name="refer_a_friend_error_invalid_code_body">Ungültiger Code!</string>
-  <string name="refer_a_friend_error_user_not_eligible_body">Nur für neue Benutzer!</string>
-  <string name="refer_a_friend_first_time_tooltip">Mit unserem Empfehlungsprogramm erhältst du einen Bonus von $ %s, wenn du den Code deiner Freunde benutzt. Außerdem erhalten sie den gleichen Betrag als Bonus, den sie für In-App-Käufe oder e-Skills-Tickets verwenden können.</string>
-  <string name="refer_a_friend_waiting_room_title">Empfehle einen Freund!</string>
-  <string name="refer_a_friend_waiting_from_body">Erhalte einen Bonus für jeden Freund, den du einlädst.</string>
+  <string name="refer_a_friend_waiting_room_tooltip">You and the friends you invite will receive a $%s bonus. You can refer up to 5 friends, and they must be new users. The bonus will be credited in your wallet once they use your invitation code in their first e-Skills game.</string>
+  <string name="refer_a_friend_first_time_header">Ready to show your skills?</string>
+  <string name="refer_a_friend_first_time_body">Beat other players to get a prize in real money! Let\'s start with a practice game with no entry fee.</string>
+  <string name="refer_a_friend_error_unavailable_body">This feature is currently unavailable.</string>
+  <string name="refer_a_friend_error_invalid_code_body">Invalid code!</string>
+  <string name="refer_a_friend_error_user_not_eligible_body">Only for new users!</string>
+  <string name="refer_a_friend_first_time_tooltip">With our Referral Program you\'ll receive a $%s bonus when using your friends code. They\'ll also receive the same amount as bonus to be used on in-app purchases or e-Skills entry tickets.</string>
+  <string name="refer_a_friend_waiting_room_title">Refer a Friend!</string>
+  <string name="refer_a_friend_waiting_from_body">Get a bonus for each friend you invite.</string>
 </resources>
