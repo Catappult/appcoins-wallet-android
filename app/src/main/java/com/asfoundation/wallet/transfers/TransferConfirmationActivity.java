@@ -18,7 +18,7 @@ import com.asfoundation.wallet.entity.GasSettings;
 import com.asfoundation.wallet.entity.PendingTransaction;
 import com.asfoundation.wallet.entity.TransactionBuilder;
 import com.asfoundation.wallet.ui.BaseActivity;
-import com.asfoundation.wallet.ui.widgets.WalletButtonView;
+import com.appcoins.wallet.ui.widgets.WalletButtonView;
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils;
 import com.appcoins.wallet.core.utils.android_common.Log;
 import com.appcoins.wallet.core.utils.android_common.WalletCurrency;
