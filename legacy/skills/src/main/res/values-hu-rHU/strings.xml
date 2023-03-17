@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="appcoins_wallet">AppCoins Wallet</string>
+  <!-- Common -->
+  <string name="start_button">Start</string>
+  <string name="ok">OKÉ</string>
+  <string name="cancel">Mégse</string>
+  <string name="buy_button">Vásárlás</string>
+  <string name="topup_button">Befizetés</string>
+  <string name="provide_wallet_creating_wallet_header">Tárcacím létrehozása&#8230;</string>
+  <string name="processing_loading_title">Belépőjegy lehívása</string>
+  <string name="finding_room_loading_title">Várakozás az ellenfelekre</string>
+  <string name="finding_room_name_loading_title">Az ellenfelek \ncsatlakozására várunk</string>
+  <string name="finding_room_loading_message">Ez eltarthat egy ideig…</string>
+  <string name="refunded">Visszautaltuk a pénzed.</string>
+  <string name="connection_error_body">Úgy tűnik nincs internetkapcsolat. Ellenőrizd a kapcsolatot és próbáld újra!</string>
+  <string name="playing_game_notification_title">Jelenleg az e-Skillsen játszik</string>
+  <string name="playing_game_notification_body">Játékinfó lekérése…</string>
+  <string name="finish_game_notification_title">Véget ért az e-Skills játék</string>
+  <string name="won_game_notification_body">You won! Your wallet is now %1$.2f$ heavier!</string>
+  <string name="lost_game_notification_body">Vesztettél…Máskor legyen több szerencséd!</string>
+  <string name="dismiss_button">Kihagyás</string>
+  <string name="location_not_available_title">Az e-Skills játékok nem érhetőek el a tartózkodási helyeden</string>
+  <string name="location_not_available_body">Keményen dolgozunk, hogy mindenki számára elérhetővé tegyük őket! Várunk vissza!</string>
+  <string name="e_skills_room_create_title">Szoba létrehozása vagy csatlakozás</string>
+  <string name="e_skills_room_create_body">Hozz létre egy új szobát és oszd meg az ellenfeleiddel vagy csatlakozz egy már létező szobához.</string>
+  <string name="e_skills_room_field">Add meg a szoba nevét…</string>
+  <string name="e_skills_payment_title">Fizetési mód</string>
+  <string name="e_skills_payment_body">AppCoins kreditek</string>
+  <string name="copied_to_clipboard">Vágólapra másolva</string>
+  <string name="processing_payment_title">Épp feldolgozzuk a fizetésed</string>
+  <string name="purchase_error_title">Hoppá, valami baj történt.</string>
+  <string name="purchase_eskills_sku">Belépőjegy</string>
+  <string name="shared_room_waiting">Az ellenfelek csatlakozására várunk a(z) %s játékban</string>
+  <string name="rooted_device_blocked_body">Az e-Skills játékokat sajnos nem tudod rootolt eszközzel játszani.\"</string>
+  <string name="top_up_needed_body">Biztonsági okokból az e-Skills játékok megnyitásához el kell végezned legalább egy befizetést.</string>
+  <string name="not_enough_funds_body">Nincs elég pénzed. Kérjük, fizess be a belépőjegy megvételéhez.</string>
+  <string name="error_message_local_payment_method_body">A belépőjegyet nem lehet megvásárolni helyi fizetési módokkal. Hozz létre egy új pénztárcát, és küldj rá pénzt egy bankkártya vagy PayPal segítségével!</string>
+  <string name="update_not_supported_title">Nem támogatjuk a Wallet ezen verzióját!</string>
+  <string name="update_not_supported_body">Szerezd be az AppCoins Wallet legújabb verzióját.</string>
+  <string name="update_button">Frissítés</string>
+  <!-- Refer a friend -->
+  <string name="refer_a_friend_waiting_room_tooltip">You and the friends you invite will receive a $%s bonus. You can refer up to 5 friends, and they must be new users. The bonus will be credited in your wallet once they use your invitation code in their first e-Skills game.</string>
+  <string name="refer_a_friend_first_time_header">Ready to show your skills?</string>
+  <string name="refer_a_friend_first_time_body">Beat other players to get a prize in real money! Let\'s start with a practice game with no entry fee.</string>
+  <string name="refer_a_friend_error_unavailable_body">This feature is currently unavailable.</string>
+  <string name="refer_a_friend_error_invalid_code_body">Invalid code!</string>
+  <string name="refer_a_friend_error_user_not_eligible_body">Only for new users!</string>
+  <string name="refer_a_friend_first_time_tooltip">With our Referral Program you\'ll receive a $%s bonus when using your friends code. They\'ll also receive the same amount as bonus to be used on in-app purchases or e-Skills entry tickets.</string>
+  <string name="refer_a_friend_waiting_room_title">Refer a Friend!</string>
+  <string name="refer_a_friend_waiting_from_body">Get a bonus for each friend you invite.</string>
+</resources>
