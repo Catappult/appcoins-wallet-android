@@ -94,3 +94,17 @@ fun EditText.setReadOnly(value: Boolean, inputType: Int = InputType.TYPE_NULL) {
   isFocusableInTouchMode = !value
   this.inputType = inputType
 }
+
+fun View.setMargins(startMarginDp: Int? = null,
+                    topMarginDp: Int? = null,
+                    endMarginDp: Int? = null,
+                    bottomMarginDp: Int? = null) {
+  if (layoutParams is ViewGroup.MarginLayoutParams) {
+    val params = layoutParams as ViewGroup.MarginLayoutParams
+    startMarginDp?.run { params.marginStart = this.convertDpToPx(context.resources) }
+    topMarginDp?.run { params.topMargin = this.convertDpToPx(context.resources) }
+    endMarginDp?.run { params.marginEnd = this.convertDpToPx(context.resources) }
+    bottomMarginDp?.run { params.bottomMargin = this.convertDpToPx(context.resources) }
+    requestLayout()
+  }
+}

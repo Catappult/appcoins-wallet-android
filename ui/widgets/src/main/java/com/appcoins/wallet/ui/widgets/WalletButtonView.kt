@@ -13,6 +13,7 @@ import androidx.annotation.StringRes
 import androidx.core.content.ContextCompat
 import com.appcoins.wallet.ui.widgets.databinding.LayoutWalletButtonViewBinding
 import com.appcoins.wallet.ui.common.convertDpToPx
+import com.appcoins.wallet.ui.common.setMargins
 
 class WalletButtonView : FrameLayout {
 

@@ -82,5 +82,3 @@ fun File.projectsAndModules(): Pair<Set<String>, Set<String>> {
   val formattedProjects = projects.map { it.replace(":", "/") }.toSet()
   return Pair(formattedProjects, modules)
 }
-include(":ui:widgets")
-include(":ui:arch")
