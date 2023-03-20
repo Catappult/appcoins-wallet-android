@@ -1,6 +1,6 @@
 package com.asfoundation.wallet.rating
 
-import com.appcoins.wallet.commons.Logger
+import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.appcoins.wallet.core.network.zendesk.RetrofitZendeskNetwork
 import com.asf.wallet.BuildConfig
 import com.appcoins.wallet.core.network.zendesk.model.WalletFeedbackBody

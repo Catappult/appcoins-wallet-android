@@ -1,6 +1,7 @@
 package com.appcoins.wallet.core.network.airdrop
 
 import com.appcoins.wallet.core.network.base.annotations.BlockchainHttpClient
+import com.appcoins.wallet.core.utils.android_common.RxSchedulers
 import com.google.gson.Gson
 import dagger.Module
 import dagger.Provides

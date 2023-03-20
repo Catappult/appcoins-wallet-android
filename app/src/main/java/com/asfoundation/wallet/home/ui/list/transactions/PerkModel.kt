@@ -11,7 +11,7 @@ import com.asfoundation.wallet.GlideApp
 import com.asfoundation.wallet.home.ui.list.HomeListClick
 import com.asfoundation.wallet.transactions.Transaction
 import com.asfoundation.wallet.transactions.TransactionDetails
-import com.asfoundation.wallet.ui.common.BaseViewHolder
+import com.appcoins.wallet.ui.widgets.BaseViewHolder
 
 @EpoxyModelClass
 abstract class PerkModel : EpoxyModelWithHolder<PerkModel.PerkHolder>() {

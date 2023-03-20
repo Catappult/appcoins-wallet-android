@@ -1,7 +1,7 @@
 package com.asfoundation.wallet.service
 
 import com.appcoins.wallet.core.network.backend.api.AutoUpdateApi
-import com.asfoundation.wallet.base.RxSchedulers
+import com.appcoins.wallet.core.utils.android_common.RxSchedulers
 import com.asfoundation.wallet.viewmodel.AutoUpdateModel
 import io.reactivex.Single
 import javax.inject.Inject

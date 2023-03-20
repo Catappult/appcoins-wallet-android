@@ -1,7 +1,7 @@
 package com.asfoundation.wallet.repository;
 
 import com.appcoins.wallet.core.network.microservices.model.Transaction;
-import com.appcoins.wallet.commons.MemoryCache;
+import com.appcoins.wallet.core.utils.jvm_common.MemoryCache;
 import com.asfoundation.wallet.entity.PendingTransaction;
 import com.asfoundation.wallet.entity.TransactionBuilder;
 import com.google.gson.Gson;

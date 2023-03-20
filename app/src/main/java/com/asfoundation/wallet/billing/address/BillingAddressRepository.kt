@@ -1,7 +1,7 @@
 package com.asfoundation.wallet.billing.address
 
-import com.asfoundation.wallet.util.component6
-import com.asfoundation.wallet.util.guardLet
+import com.appcoins.wallet.core.utils.android_common.extensions.component6
+import com.appcoins.wallet.core.utils.android_common.extensions.guardLet
 import com.appcoins.wallet.sharedpreferences.SecurePreferencesDataSource
 import javax.inject.Inject
 

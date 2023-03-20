@@ -1,7 +1,7 @@
 package com.asfoundation.wallet.topup.localpayments
 
 import androidx.fragment.app.Fragment
-import com.appcoins.wallet.commons.Logger
+import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.asfoundation.wallet.topup.TopUpAnalytics
 import com.asfoundation.wallet.topup.TopUpPaymentData
 import com.asfoundation.wallet.topup.adyen.TopUpNavigator
@@ -12,7 +12,7 @@ import com.asfoundation.wallet.topup.localpayments.LocalTopUpPaymentFragment.Com
 import com.asfoundation.wallet.topup.localpayments.LocalTopUpPaymentFragment.Companion.PAYMENT_ID
 import com.asfoundation.wallet.topup.localpayments.LocalTopUpPaymentFragment.Companion.PAYMENT_LABEL
 import com.asfoundation.wallet.ui.iab.localpayments.LocalPaymentInteractor
-import com.appcoins.wallet.core.utils.common.CurrencyFormatUtils
+import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

@@ -49,7 +49,7 @@
       app:layout_constraintTop_toBottomOf="@+id/trigger_dialog_title"
       />
 
-  <com.asfoundation.wallet.ui.common.WalletButtonView
+  <com.appcoins.wallet.ui.widgets.WalletButtonView
       android:id="@+id/trigger_backup_btn"
       android:layout_width="match_parent"
       android:layout_height="@dimen/large_button_height"
@@ -61,7 +61,7 @@
       app:layout_constraintTop_toBottomOf="@+id/trigger_dialog_message"
       />
 
-  <com.asfoundation.wallet.ui.common.WalletButtonView
+  <com.appcoins.wallet.ui.widgets.WalletButtonView
       android:id="@+id/trigger_dismiss_btn"
       android:layout_width="wrap_content"
       android:layout_height="@dimen/large_button_height"

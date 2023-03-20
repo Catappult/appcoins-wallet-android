@@ -4,7 +4,7 @@ import android.os.Bundle
 import androidx.annotation.StringRes
 import com.appcoins.wallet.bdsbilling.repository.entity.Purchase
 import com.appcoins.wallet.bdsbilling.repository.entity.State
-import com.appcoins.wallet.commons.Logger
+import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.appcoins.wallet.core.network.microservices.model.BillingSupportedType
 import com.appcoins.wallet.core.network.microservices.model.Transaction
 import com.appcoins.wallet.gamification.repository.ForecastBonusAndLevel
@@ -14,9 +14,9 @@ import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.ui.PaymentNavigationData
 import com.asfoundation.wallet.ui.iab.PaymentMethodsView.PaymentMethodId
 import com.asfoundation.wallet.ui.iab.PaymentMethodsView.SelectedPaymentMethod.*
-import com.appcoins.wallet.core.utils.common.CurrencyFormatUtils
-import com.appcoins.wallet.core.utils.common.WalletCurrency
-import com.asfoundation.wallet.util.isNoNetworkException
+import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
+import com.appcoins.wallet.core.utils.android_common.WalletCurrency
+import com.appcoins.wallet.core.utils.android_common.extensions.isNoNetworkException
 import com.asfoundation.wallet.wallets.usecases.GetWalletInfoUseCase
 import io.reactivex.Completable
 import io.reactivex.Observable

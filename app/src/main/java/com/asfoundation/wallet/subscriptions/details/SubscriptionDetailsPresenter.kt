@@ -2,7 +2,7 @@ package com.asfoundation.wallet.subscriptions.details
 
 import com.asfoundation.wallet.subscriptions.Status
 import com.asfoundation.wallet.subscriptions.UserSubscriptionsInteractor
-import com.asfoundation.wallet.util.isNoNetworkException
+import com.appcoins.wallet.core.utils.android_common.extensions.isNoNetworkException
 import io.reactivex.Observable
 import io.reactivex.Scheduler
 import io.reactivex.disposables.CompositeDisposable

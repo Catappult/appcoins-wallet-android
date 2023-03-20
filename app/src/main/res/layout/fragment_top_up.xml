@@ -255,7 +255,7 @@
           app:layout_constraintTop_toTopOf="@id/bonus_msg"
           />
 
-      <com.asfoundation.wallet.ui.common.WalletButtonView
+      <com.appcoins.wallet.ui.widgets.WalletButtonView
           android:id="@+id/button"
           android:layout_width="match_parent"
           android:layout_height="@dimen/large_button_height"

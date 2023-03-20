@@ -2,7 +2,7 @@ package com.asfoundation.wallet.analytics
 
 import cm.aptoide.analytics.AnalyticsManager
 import cm.aptoide.analytics.EventLogger
-import com.appcoins.wallet.core.utils.common.Log
+import com.appcoins.wallet.core.utils.android_common.Log
 import io.rakam.api.Rakam
 import org.json.JSONException
 import org.json.JSONObject

@@ -2,6 +2,7 @@ package com.appcoins.wallet.billing.adyen
 
 import com.adyen.checkout.components.model.payments.request.CardPaymentMethod
 import com.appcoins.wallet.billing.util.Error
+import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.appcoins.wallet.commons.Logger
 import com.appcoins.wallet.core.network.microservices.api.AdyenTransactionResponse
 import com.appcoins.wallet.core.network.microservices.api.BrokerVerificationApi

@@ -2,7 +2,7 @@ package com.asfoundation.wallet.analytics
 
 import android.app.Application
 import android.content.Context
-import com.appcoins.wallet.commons.Logger
+import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.appcoins.wallet.core.utils.properties.HostProperties
 import com.appcoins.wallet.gamification.repository.PromotionsRepository
 import com.appcoins.wallet.core.network.backend.model.WalletOrigin
@@ -12,7 +12,7 @@ import com.asfoundation.wallet.logging.RakamReceiver
 import com.asfoundation.wallet.promo_code.repository.PromoCode
 import com.asfoundation.wallet.promo_code.repository.PromoCodeLocalDataSource
 import com.asfoundation.wallet.promotions.model.PromotionsModel
-import com.appcoins.wallet.core.utils.common.Log
+import com.appcoins.wallet.core.utils.android_common.Log
 import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.GoogleApiAvailability
 import dagger.hilt.android.qualifiers.ApplicationContext

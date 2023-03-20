@@ -2,8 +2,7 @@ package com.asfoundation.wallet.ui.iab.payments.carrier.confirm
 
 import androidx.fragment.app.Fragment
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics
-import com.asfoundation.wallet.ui.iab.IabActivity
-import com.appcoins.wallet.core.utils.common.applicationinfo.ApplicationInfoProvider
+import com.appcoins.wallet.core.utils.android_common.applicationinfo.ApplicationInfoProvider
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

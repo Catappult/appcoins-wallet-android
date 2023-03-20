@@ -15,7 +15,7 @@ import com.asfoundation.wallet.C
 import com.asfoundation.wallet.router.Result
 import com.asfoundation.wallet.ui.barcode.BarcodeCaptureActivity
 import com.asfoundation.wallet.ui.iab.IabActivity
-import com.appcoins.wallet.core.utils.common.Log.Companion.e
+import com.appcoins.wallet.core.utils.android_common.Log.Companion.e
 import com.asfoundation.wallet.viewmodel.SendViewModel
 import com.asfoundation.wallet.viewmodel.SendViewModelFactory
 import com.google.android.gms.common.api.CommonStatusCodes

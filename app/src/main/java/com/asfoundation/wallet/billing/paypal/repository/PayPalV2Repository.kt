@@ -2,7 +2,7 @@ package com.asfoundation.wallet.billing.paypal.repository
 
 import com.appcoins.wallet.billing.adyen.AdyenResponseMapper
 import com.appcoins.wallet.billing.adyen.PaymentModel
-import com.appcoins.wallet.commons.Logger
+import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.appcoins.wallet.core.network.microservices.api.BrokerVerificationApi.*
 import com.appcoins.wallet.core.network.microservices.model.*
 import com.asfoundation.wallet.billing.paypal.models.PaypalCreateAgreement

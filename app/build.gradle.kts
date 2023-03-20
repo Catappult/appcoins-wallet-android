@@ -35,7 +35,6 @@ dependencies {
   implementation(project(":legacy:tn"))
   implementation(project(":legacy:airdrop"))
   implementation(project(":legacy:billing"))
-  implementation(project(":legacy:commons"))
   implementation(project(":legacy:gamification"))
   implementation(project(":legacy:permissions"))
   implementation(project(":legacy:appcoinsRewards"))
@@ -52,10 +51,12 @@ dependencies {
   implementation(project(":core:network:zendesk"))
 
   implementation(project(":core:utils:common"))
+  implementation(project(":core:utils:android-common"))
+  implementation(project(":core:utils:jvm-common"))
   implementation(project(":core:utils:properties"))
-
-  implementation(project(":core:utils:common"))
-  implementation(project(":core:utils:properties"))
+  implementation(project(":ui:common"))
+  implementation(project(":ui:arch"))
+  implementation(project(":ui:widgets"))
 
   implementation(libs.kotlin.coroutines)
 

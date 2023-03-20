@@ -1,7 +1,7 @@
 package com.asfoundation.wallet.ui.transact
 
-import com.appcoins.wallet.core.utils.common.CurrencyFormatUtils
-import com.appcoins.wallet.core.utils.common.WalletCurrency
+import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
+import com.appcoins.wallet.core.utils.android_common.WalletCurrency
 import io.reactivex.disposables.CompositeDisposable
 import java.math.BigDecimal
 

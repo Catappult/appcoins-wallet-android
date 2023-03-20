@@ -3,7 +3,7 @@ package com.asfoundation.wallet.repository;
 import androidx.annotation.NonNull;
 import com.appcoins.wallet.core.network.backend.api.IpApi;
 import com.appcoins.wallet.core.network.backend.api.IpResponse;
-import com.appcoins.wallet.core.utils.common.CountryCodeProvider;
+import com.appcoins.wallet.core.utils.jvm_common.CountryCodeProvider;
 import io.reactivex.Single;
 import it.czerwinski.android.hilt.annotations.BoundTo;
 import javax.inject.Inject;

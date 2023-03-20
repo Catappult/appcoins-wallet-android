@@ -6,6 +6,7 @@ import com.appcoins.wallet.appcoins.rewards.repository.WalletService
 import com.appcoins.wallet.bdsbilling.Billing
 import com.appcoins.wallet.commons.MemoryCache
 import com.appcoins.wallet.core.network.microservices.model.Gateway
+import com.appcoins.wallet.core.utils.jvm_common.MemoryCache
 import com.google.gson.Gson
 import io.reactivex.Completable
 import io.reactivex.Single

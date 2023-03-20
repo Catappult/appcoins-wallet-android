@@ -1,6 +1,6 @@
 package com.appcoins.wallet.permissions
 
-import com.appcoins.wallet.commons.Repository
+import com.appcoins.wallet.core.utils.jvm_common.Repository
 import io.reactivex.Observable
 
 class Permissions(private val repository: Repository<String, ApplicationPermission>) {

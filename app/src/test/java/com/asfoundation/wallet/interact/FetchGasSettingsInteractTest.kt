@@ -1,6 +1,6 @@
 package com.asfoundation.wallet.interact
 
-import com.asfoundation.wallet.base.RxSchedulers
+import com.appcoins.wallet.core.utils.android_common.RxSchedulers
 import com.asfoundation.wallet.entity.GasSettings
 import com.asfoundation.wallet.repository.GasSettingsRepositoryType
 import com.asfoundation.wallet.util.FakeSchedulers

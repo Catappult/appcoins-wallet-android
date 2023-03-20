@@ -1,14 +1,14 @@
 package com.asfoundation.wallet.wallets.repository
 
-import com.appcoins.wallet.core.utils.common.BalanceUtils
-import com.asfoundation.wallet.base.RxSchedulers
+import com.appcoins.wallet.core.utils.android_common.BalanceUtils
+import com.appcoins.wallet.core.utils.android_common.RxSchedulers
 import com.asfoundation.wallet.change_currency.use_cases.GetSelectedCurrencyUseCase
 import com.asfoundation.wallet.service.currencies.LocalCurrencyConversionService
 import com.asfoundation.wallet.ui.TokenValue
 import com.asfoundation.wallet.ui.balance.BalanceInteractor
 import com.asfoundation.wallet.ui.balance.TokenBalance
 import com.asfoundation.wallet.ui.iab.FiatValue
-import com.appcoins.wallet.core.utils.common.WalletCurrency
+import com.appcoins.wallet.core.utils.android_common.WalletCurrency
 import com.asfoundation.wallet.wallets.domain.WalletBalance
 import io.reactivex.Single
 import java.math.BigDecimal

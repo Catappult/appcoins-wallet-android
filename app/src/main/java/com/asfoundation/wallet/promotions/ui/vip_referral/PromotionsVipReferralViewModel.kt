@@ -1,9 +1,9 @@
 package com.asfoundation.wallet.promotions.ui.vip_referral
 
-import com.asfoundation.wallet.base.Async
-import com.asfoundation.wallet.base.BaseViewModel
-import com.asfoundation.wallet.base.SideEffect
-import com.asfoundation.wallet.base.ViewState
+import com.appcoins.wallet.ui.arch.Async
+import com.appcoins.wallet.ui.arch.BaseViewModel
+import com.appcoins.wallet.ui.arch.SideEffect
+import com.appcoins.wallet.ui.arch.ViewState
 import com.asfoundation.wallet.promotions.usecases.ConvertToLocalFiatUseCase
 import com.asfoundation.wallet.ui.iab.FiatValue
 import dagger.hilt.android.lifecycle.HiltViewModel

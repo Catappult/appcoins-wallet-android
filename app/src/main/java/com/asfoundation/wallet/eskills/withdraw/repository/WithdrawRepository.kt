@@ -2,7 +2,7 @@ package com.asfoundation.wallet.eskills.withdraw.repository
 
 import com.appcoins.wallet.core.network.backend.api.WithdrawApi
 import com.appcoins.wallet.core.network.backend.model.WithdrawBody
-import com.asfoundation.wallet.base.RxSchedulers
+import com.appcoins.wallet.core.utils.android_common.RxSchedulers
 import com.asfoundation.wallet.eskills.withdraw.domain.SuccessfulWithdraw
 import com.asfoundation.wallet.eskills.withdraw.domain.WithdrawResult
 import io.reactivex.Single

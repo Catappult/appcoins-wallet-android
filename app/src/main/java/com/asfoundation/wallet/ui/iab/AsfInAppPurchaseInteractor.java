@@ -6,7 +6,7 @@ import com.appcoins.wallet.bdsbilling.repository.entity.Purchase;
 import com.appcoins.wallet.billing.BillingMessagesMapper;
 import com.appcoins.wallet.core.network.microservices.model.BillingSupportedType;
 import com.appcoins.wallet.core.network.microservices.model.Transaction;
-import com.asfoundation.wallet.base.RxSchedulers;
+import com.appcoins.wallet.core.utils.android_common.RxSchedulers;
 import com.asfoundation.wallet.entity.GasSettings;
 import com.asfoundation.wallet.entity.TransactionBuilder;
 import com.asfoundation.wallet.entity.Wallet;

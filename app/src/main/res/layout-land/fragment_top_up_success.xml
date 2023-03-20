@@ -45,7 +45,7 @@
       tools:text="1,23 EUR in AppCoins Credits were deposited in your account... Along with a bonus!"
       />
 
-  <com.asfoundation.wallet.ui.common.WalletButtonView
+  <com.appcoins.wallet.ui.widgets.WalletButtonView
       android:id="@+id/button"
       android:layout_width="0dp"
       android:layout_height="@dimen/large_button_height"

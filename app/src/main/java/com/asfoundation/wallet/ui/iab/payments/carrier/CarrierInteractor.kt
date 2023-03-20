@@ -4,8 +4,8 @@ import android.net.Uri
 import com.appcoins.wallet.bdsbilling.WalletService
 import com.appcoins.wallet.billing.carrierbilling.*
 import com.appcoins.wallet.core.network.microservices.model.TransactionStatus
-import com.appcoins.wallet.commons.Logger
-import com.asfoundation.wallet.base.RxSchedulers
+import com.appcoins.wallet.core.utils.android_common.RxSchedulers
+import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.asfoundation.wallet.billing.adyen.PurchaseBundleModel
 import com.asfoundation.wallet.billing.carrier_billing.CarrierBillingRepository
 import com.asfoundation.wallet.billing.partners.AddressService
@@ -34,7 +34,8 @@ class CarrierInteractor @Inject constructor(private val repository: CarrierBilli
                                             private val walletVerificationInteractor: WalletVerificationInteractor,
                                             private val getCurrentPromoCodeUseCase: GetCurrentPromoCodeUseCase,
                                             private val logger: Logger,
-                                            private val rxSchedulers: RxSchedulers) {
+                                            private val rxSchedulers: RxSchedulers
+) {
 
   fun createPayment(phoneNumber: String, packageName: String,
                     origin: String?, transactionData: String, transactionType: String,

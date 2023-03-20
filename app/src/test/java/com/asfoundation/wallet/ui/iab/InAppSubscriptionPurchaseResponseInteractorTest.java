@@ -7,9 +7,9 @@ import com.appcoins.wallet.core.network.microservices.model.BillingSupportedType
 import com.appcoins.wallet.core.network.microservices.model.Gateway;
 import com.appcoins.wallet.core.network.microservices.model.Transaction;
 import com.appcoins.wallet.billing.BillingMessagesMapper;
-import com.appcoins.wallet.commons.MemoryCache;
-import com.appcoins.wallet.core.utils.common.CountryCodeProvider;
-import com.asfoundation.wallet.base.RxSchedulers;
+import com.appcoins.wallet.core.utils.jvm_common.MemoryCache;
+import com.appcoins.wallet.core.utils.jvm_common.CountryCodeProvider;
+import com.appcoins.wallet.core.utils.android_common.RxSchedulers;
 import com.asfoundation.wallet.billing.partners.AddressService;
 import com.asfoundation.wallet.entity.GasSettings;
 import com.asfoundation.wallet.entity.PendingTransaction;

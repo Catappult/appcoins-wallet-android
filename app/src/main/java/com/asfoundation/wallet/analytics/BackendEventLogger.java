@@ -6,7 +6,7 @@ import cm.aptoide.analytics.EventLogger;
 import com.appcoins.wallet.core.network.analytics.AnalyticsAPI;
 import com.appcoins.wallet.core.network.analytics.AnalyticsBody;
 import com.asf.wallet.BuildConfig;
-import com.appcoins.wallet.core.utils.common.Log;
+import com.appcoins.wallet.core.utils.android_common.Log;
 import io.reactivex.schedulers.Schedulers;
 import java.util.Map;
 

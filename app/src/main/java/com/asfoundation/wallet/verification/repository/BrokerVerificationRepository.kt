@@ -2,6 +2,7 @@ package com.asfoundation.wallet.verification.repository
 
 import com.adyen.checkout.core.model.ModelObject
 import com.appcoins.wallet.billing.adyen.*
+import com.appcoins.wallet.core.utils.android_common.extensions.isNoNetworkException
 import com.appcoins.wallet.core.network.microservices.api.BrokerVerificationApi
 import com.appcoins.wallet.core.network.microservices.api.VerificationInfoResponse
 import com.appcoins.wallet.core.network.microservices.model.VerificationPayment

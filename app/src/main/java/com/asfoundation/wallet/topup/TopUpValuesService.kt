@@ -2,7 +2,7 @@ package com.asfoundation.wallet.topup
 
 import com.appcoins.wallet.core.network.microservices.api.TopUpValuesApi
 import com.asf.wallet.BuildConfig
-import com.asfoundation.wallet.util.isNoNetworkException
+import com.appcoins.wallet.core.utils.android_common.extensions.isNoNetworkException
 import io.reactivex.Single
 import javax.inject.Inject
 

@@ -16,8 +16,8 @@ import com.asfoundation.wallet.topup.TopUpActivity.Companion.BILLING_ADDRESS_SUC
 import com.asfoundation.wallet.topup.TopUpActivityView
 import com.asfoundation.wallet.topup.TopUpData
 import com.asfoundation.wallet.topup.TopUpPaymentData
-import com.appcoins.wallet.core.utils.common.CurrencyFormatUtils
-import com.appcoins.wallet.core.utils.common.WalletCurrency
+import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
+import com.appcoins.wallet.core.utils.android_common.WalletCurrency
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import com.jakewharton.rxbinding2.view.RxView
 import dagger.hilt.android.AndroidEntryPoint

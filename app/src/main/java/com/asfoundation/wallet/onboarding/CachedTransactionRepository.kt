@@ -1,7 +1,7 @@
 package com.asfoundation.wallet.onboarding
 
 import com.appcoins.wallet.core.network.backend.api.CachedTransactionApi
-import com.asfoundation.wallet.base.RxSchedulers
+import com.appcoins.wallet.core.utils.android_common.RxSchedulers
 import io.reactivex.Single
 import javax.inject.Inject
 

@@ -9,7 +9,7 @@ import android.view.Window
 import com.asf.wallet.R
 import com.asfoundation.wallet.router.TopUpRouter
 import com.asfoundation.wallet.ui.BaseActivity
-import com.appcoins.wallet.core.utils.common.WalletCurrency
+import com.appcoins.wallet.core.utils.android_common.WalletCurrency
 import com.jakewharton.rxbinding2.view.RxView
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.Observable

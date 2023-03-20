@@ -5,6 +5,7 @@ import com.appcoins.wallet.commons.Logger
 import com.appcoins.wallet.core.network.microservices.api.BrokerVerificationApi
 import com.appcoins.wallet.core.network.microservices.api.SubscriptionBillingApi
 import com.appcoins.wallet.core.network.microservices.model.*
+import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.google.gson.JsonObject
 import io.reactivex.Single
 import javax.inject.Inject

@@ -1,7 +1,7 @@
 package com.asfoundation.wallet.repository;
 
-import com.appcoins.wallet.commons.MemoryCache;
-import com.asfoundation.wallet.base.RxSchedulers;
+import com.appcoins.wallet.core.utils.android_common.RxSchedulers;
+import com.appcoins.wallet.core.utils.jvm_common.MemoryCache;
 import com.asfoundation.wallet.entity.PendingTransaction;
 import com.asfoundation.wallet.util.FakeSchedulers;
 import io.reactivex.Observable;

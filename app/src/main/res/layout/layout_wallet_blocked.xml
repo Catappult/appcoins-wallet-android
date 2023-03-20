@@ -72,7 +72,7 @@
       app:layout_constraintTop_toBottomOf="@id/blocked_body"
       />
 
-  <com.asfoundation.wallet.ui.common.WalletButtonView
+  <com.appcoins.wallet.ui.widgets.WalletButtonView
       android:id="@+id/dismiss_button"
       android:layout_width="wrap_content"
       android:layout_height="@dimen/small_button_height"

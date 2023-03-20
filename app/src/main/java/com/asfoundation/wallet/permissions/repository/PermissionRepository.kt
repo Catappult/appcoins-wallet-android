@@ -1,6 +1,6 @@
 package com.asfoundation.wallet.permissions.repository
 
-import com.appcoins.wallet.commons.Repository
+import com.appcoins.wallet.core.utils.jvm_common.Repository
 import com.appcoins.wallet.permissions.ApplicationPermission
 import io.reactivex.Completable
 import io.reactivex.Observable

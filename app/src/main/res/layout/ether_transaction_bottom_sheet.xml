@@ -80,7 +80,7 @@
 
   </androidx.constraintlayout.widget.ConstraintLayout>
 
-  <com.asfoundation.wallet.ui.common.WalletButtonView
+  <com.appcoins.wallet.ui.widgets.WalletButtonView
       android:id="@+id/ether_transaction_bottom_sheet_copy_clipboard"
       android:layout_width="wrap_content"
       android:layout_height="@dimen/small_button_height"
@@ -95,7 +95,7 @@
       app:layout_constraintEnd_toEndOf="parent"
       />
 
-  <com.asfoundation.wallet.ui.common.WalletButtonView
+  <com.appcoins.wallet.ui.widgets.WalletButtonView
       android:id="@+id/ether_transaction_bottom_sheet_got_it_button"
       android:layout_width="wrap_content"
       android:layout_height="@dimen/small_button_height"

@@ -11,7 +11,7 @@ import com.appcoins.wallet.bdsbilling.ProxyService
 import com.appcoins.wallet.bdsbilling.WalletService
 import com.appcoins.wallet.billing.BillingDependenciesProvider
 import com.appcoins.wallet.billing.BillingMessagesMapper
-import com.appcoins.wallet.commons.Logger
+import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.appcoins.wallet.core.utils.properties.MiscProperties
 import com.appcoins.wallet.core.network.base.MagnesUtils
 import com.appcoins.wallet.core.network.bds.BdsApiSecondary

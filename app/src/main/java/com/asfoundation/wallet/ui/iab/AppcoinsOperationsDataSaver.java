@@ -1,6 +1,6 @@
 package com.asfoundation.wallet.ui.iab;
 
-import com.appcoins.wallet.commons.Repository;
+import com.appcoins.wallet.core.utils.jvm_common.Repository;
 import io.reactivex.Observable;
 import io.reactivex.ObservableSource;
 import io.reactivex.Scheduler;

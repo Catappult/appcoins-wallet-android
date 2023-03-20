@@ -3,10 +3,10 @@ package com.asfoundation.wallet.onboarding.pending_payment
 import com.appcoins.wallet.bdsbilling.repository.BdsRepository
 import com.appcoins.wallet.core.network.microservices.model.BillingSupportedType
 import com.appcoins.wallet.gamification.repository.ForecastBonusAndLevel
-import com.asfoundation.wallet.base.Async
-import com.asfoundation.wallet.base.BaseViewModel
-import com.asfoundation.wallet.base.SideEffect
-import com.asfoundation.wallet.base.ViewState
+import com.appcoins.wallet.ui.arch.Async
+import com.appcoins.wallet.ui.arch.BaseViewModel
+import com.appcoins.wallet.ui.arch.SideEffect
+import com.appcoins.wallet.ui.arch.ViewState
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.onboarding.CachedTransactionRepository
 import com.asfoundation.wallet.onboarding_new_payment.OnboardingPaymentEvents

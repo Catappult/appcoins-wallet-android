@@ -191,7 +191,7 @@
           app:layout_constraintVertical_bias="0.4"
           />
 
-      <com.asfoundation.wallet.ui.common.WalletButtonView
+      <com.appcoins.wallet.ui.widgets.WalletButtonView
           android:id="@+id/more_payment_methods"
           android:layout_width="wrap_content"
           android:layout_height="@dimen/small_button_height"
@@ -205,7 +205,7 @@
           app:layout_constraintTop_toBottomOf="@+id/layout_pre_selected"
           />
 
-      <com.asfoundation.wallet.ui.common.SeparatorView
+      <com.appcoins.wallet.ui.widgets.SeparatorView
           android:id="@+id/bottom_separator_buttons"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"

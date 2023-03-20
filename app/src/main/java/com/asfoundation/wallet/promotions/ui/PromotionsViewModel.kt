@@ -2,9 +2,10 @@ package com.asfoundation.wallet.promotions.ui
 
 
 import android.content.ActivityNotFoundException
+import com.appcoins.wallet.core.utils.android_common.RxSchedulers
 import com.appcoins.wallet.gamification.repository.PromotionsGamificationStats
+import com.appcoins.wallet.ui.arch.*
 import com.asfoundation.wallet.analytics.AnalyticsSetup
-import com.asfoundation.wallet.base.*
 import com.asfoundation.wallet.promotions.PromotionsInteractor
 import com.asfoundation.wallet.promotions.model.PromotionsModel
 import com.asfoundation.wallet.promotions.model.VipReferralInfo
