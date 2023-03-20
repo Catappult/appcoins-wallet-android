@@ -1,12 +1,10 @@
 package com.appcoins.wallet.billing.adyen
 
-import android.util.Log
 import com.adyen.checkout.core.model.ModelObject
 import com.appcoins.wallet.core.network.microservices.api.broker.AdyenApi
 import com.appcoins.wallet.core.network.microservices.api.broker.BrokerBdsApi
 import com.appcoins.wallet.core.network.microservices.api.product.SubscriptionBillingApi
 import com.appcoins.wallet.core.network.microservices.model.*
-import com.appcoins.wallet.core.utils.jvm_common.DevUtils.CUSTOM_TAG
 import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.google.gson.JsonObject
 import io.reactivex.Single
@@ -24,7 +22,6 @@ class AdyenPaymentRepository @Inject constructor(
                       currency: String, walletAddress: String): Single<PaymentInfoModel> {
     return adyenApi.loadPaymentInfo(walletAddress, value, currency, methods.transactionType)
         .map {
-          Log.d(CUSTOM_TAG, "AdyenPaymentRepository: loadPaymentInfo: response $it")
           adyenResponseMapper.map(it, methods)
         }
         .onErrorReturn {
