@@ -4,7 +4,7 @@ import com.appcoins.wallet.appcoins.rewards.repository.BdsAppcoinsRewardsReposit
 import com.appcoins.wallet.appcoins.rewards.repository.RemoteRepository
 import com.appcoins.wallet.appcoins.rewards.repository.WalletService
 import com.appcoins.wallet.bdsbilling.Billing
-import com.appcoins.wallet.commons.MemoryCache
+import com.appcoins.wallet.core.network.microservices.model.Transaction as TransactionCore
 import com.appcoins.wallet.core.network.microservices.model.Gateway
 import com.appcoins.wallet.core.utils.jvm_common.MemoryCache
 import com.google.gson.Gson
@@ -68,29 +68,29 @@ class AppcoinsRewardsTest {
         DEVELOPER_ADDRESS, STORE_ADDRESS, OEM_ADDRESS, PACKAGE_NAME, null, null, null,
         null,
         null)).thenReturn(
-        Single.just(com.appcoins.wallet.bdsbilling.repository.entity.Transaction(UID,
-            com.appcoins.wallet.bdsbilling.repository.entity.Transaction.Status.COMPLETED,
+        Single.just(TransactionCore(UID,
+            TransactionCore.Status.COMPLETED,
             Gateway.unknown(), "0x32453134", null, "orderReference", null, "", null)))
 
     `when`(remoteApi.pay(USER_ADDRESS, USER_ADDRESS_SIGNATURE, PRICE, UNITY_ORIGIN, SKU, TYPE,
         DEVELOPER_ADDRESS, STORE_ADDRESS, OEM_ADDRESS, PACKAGE_NAME, null, null, null,
         null,
         null)).thenReturn(
-        Single.just(com.appcoins.wallet.bdsbilling.repository.entity.Transaction(UID,
-            com.appcoins.wallet.bdsbilling.repository.entity.Transaction.Status.COMPLETED,
+        Single.just(TransactionCore(UID,
+            TransactionCore.Status.COMPLETED,
             Gateway.unknown(), "0x32453134", null, "orderReference", null, "", null)))
 
     `when`(remoteApi.pay(USER_ADDRESS, USER_ADDRESS_SIGNATURE, PRICE, null, SKU, TYPE,
         DEVELOPER_ADDRESS, STORE_ADDRESS, OEM_ADDRESS, PACKAGE_NAME, null, null, null,
         null,
         null)).thenReturn(
-        Single.just(com.appcoins.wallet.bdsbilling.repository.entity.Transaction(UID,
-            com.appcoins.wallet.bdsbilling.repository.entity.Transaction.Status.COMPLETED,
+        Single.just(TransactionCore(UID,
+            TransactionCore.Status.COMPLETED,
             Gateway.unknown(), "0x32453134", null, "orderReference", null, "", null)))
 
     `when`(billing.getAppcoinsTransaction(UID, scheduler)).thenReturn(
-        Single.just(com.appcoins.wallet.bdsbilling.repository.entity.Transaction(UID,
-            com.appcoins.wallet.bdsbilling.repository.entity.Transaction.Status.COMPLETED,
+        Single.just(TransactionCore(UID,
+            TransactionCore.Status.COMPLETED,
             Gateway.unknown(), "0x32453134", null, "orderReference", null, "", null)))
 
     scheduler.advanceTimeBy(1, TimeUnit.DAYS)
