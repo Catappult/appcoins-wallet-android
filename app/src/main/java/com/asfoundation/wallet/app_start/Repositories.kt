@@ -33,7 +33,7 @@ class AppStartRepositoryImpl @Inject constructor(
 @BoundTo(supertype = GooglePlayInstallRepository::class)
 class GooglePlayInstallRepositoryImpl @Inject constructor(
   @ApplicationContext private val context: Context,
-  private val logger: com.appcoins.wallet.core.utils.jvm_common.Logger
+  private val logger: Logger
 ) : GooglePlayInstallRepository {
 
   private val referrerClient: InstallReferrerClient by lazy {

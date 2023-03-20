@@ -46,7 +46,7 @@ class CarrierVerifyModule {
                                      billingAnalytics: BillingAnalytics,
                                      stringProvider: StringProvider,
                                      applicationInfoProvider: ApplicationInfoProvider,
-                                     logger: com.appcoins.wallet.core.utils.jvm_common.Logger
+                                     logger: Logger
   ): CarrierVerifyPresenter {
     return CarrierVerifyPresenter(CompositeDisposable(), fragment as CarrierVerifyView, data,
         navigator, interactor, billingAnalytics, applicationInfoProvider, stringProvider,

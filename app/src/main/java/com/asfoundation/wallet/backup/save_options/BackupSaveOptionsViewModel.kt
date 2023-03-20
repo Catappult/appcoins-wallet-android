@@ -19,7 +19,7 @@ class BackupSaveOptionsViewModel(
   private val data: BackupSaveOptionsData,
   private val sendBackupToEmailUseCase: SendBackupToEmailUseCase,
   private val backupSuccessLogUseCase: BackupSuccessLogUseCase,
-  private val logger: com.appcoins.wallet.core.utils.jvm_common.Logger,
+  private val logger: Logger,
 ) : BaseViewModel<BackupSaveOptionsState, BackupSaveOptionsSideEffect>(
   initialState()
 ) {

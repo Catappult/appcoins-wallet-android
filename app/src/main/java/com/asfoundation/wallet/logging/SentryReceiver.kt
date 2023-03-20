@@ -7,7 +7,7 @@ import io.sentry.event.BreadcrumbBuilder
 import io.sentry.event.Event
 import io.sentry.event.EventBuilder
 
-class SentryReceiver : com.appcoins.wallet.core.utils.jvm_common.LogReceiver {
+class SentryReceiver : LogReceiver {
 
   override fun log(tag: String?, throwable: Throwable?) {
     throwable?.let {

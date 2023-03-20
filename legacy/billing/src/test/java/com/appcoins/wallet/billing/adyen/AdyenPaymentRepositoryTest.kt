@@ -37,7 +37,7 @@ class AdyenPaymentRepositoryTest {
   lateinit var mapper: AdyenResponseMapper
 
   @Mock
-  lateinit var logger: com.appcoins.wallet.core.utils.jvm_common.Logger
+  lateinit var logger: Logger
 
   private lateinit var adyenRepo: AdyenPaymentRepository
 

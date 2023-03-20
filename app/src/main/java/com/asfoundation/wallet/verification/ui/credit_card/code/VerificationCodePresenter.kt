@@ -16,7 +16,7 @@ class VerificationCodePresenter(private val view: VerificationCodeView,
                                 private val ioScheduler: Scheduler,
                                 private val interactor: VerificationCodeInteractor,
                                 private val navigator: VerificationCodeNavigator,
-                                private val logger: com.appcoins.wallet.core.utils.jvm_common.Logger,
+                                private val logger: Logger,
                                 private val analytics: VerificationAnalytics) {
 
   companion object {

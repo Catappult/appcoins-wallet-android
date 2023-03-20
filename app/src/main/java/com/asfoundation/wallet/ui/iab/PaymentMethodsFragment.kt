@@ -101,7 +101,7 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
   lateinit var getWalletInfoUseCase: GetWalletInfoUseCase
 
   @Inject
-  lateinit var logger: com.appcoins.wallet.core.utils.jvm_common.Logger
+  lateinit var logger: Logger
 
   @Inject
   lateinit var paymentMethodsInteractor: PaymentMethodsInteractor

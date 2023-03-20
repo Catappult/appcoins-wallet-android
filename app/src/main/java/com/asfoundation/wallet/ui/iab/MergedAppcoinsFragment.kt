@@ -122,7 +122,7 @@ class MergedAppcoinsFragment : BasePageViewFragment(), MergedAppcoinsView {
   lateinit var mergedAppcoinsInteractor: MergedAppcoinsInteractor
 
   @Inject
-  lateinit var logger: com.appcoins.wallet.core.utils.jvm_common.Logger
+  lateinit var logger: Logger
 
   @Inject
   lateinit var getWalletInfoUseCase: GetWalletInfoUseCase

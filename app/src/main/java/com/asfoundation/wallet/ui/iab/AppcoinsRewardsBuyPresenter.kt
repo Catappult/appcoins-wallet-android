@@ -30,7 +30,7 @@ class AppcoinsRewardsBuyPresenter(
   private val formatter: CurrencyFormatUtils,
   private val gamificationLevel: Int,
   private val appcoinsRewardsBuyInteract: AppcoinsRewardsBuyInteract,
-  private val logger: com.appcoins.wallet.core.utils.jvm_common.Logger
+  private val logger: Logger
 ) {
 
   companion object {

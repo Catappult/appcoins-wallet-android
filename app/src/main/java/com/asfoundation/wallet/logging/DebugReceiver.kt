@@ -4,7 +4,7 @@ import com.appcoins.wallet.core.utils.jvm_common.LogReceiver
 import com.asf.wallet.BuildConfig
 import com.appcoins.wallet.core.utils.android_common.Log
 
-class DebugReceiver : com.appcoins.wallet.core.utils.jvm_common.LogReceiver {
+class DebugReceiver : LogReceiver {
 
   override fun log(tag: String?, throwable: Throwable?) {
     if (BuildConfig.DEBUG) {

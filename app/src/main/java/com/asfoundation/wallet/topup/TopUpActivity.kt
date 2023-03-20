@@ -57,7 +57,7 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, UriNavigator {
   lateinit var walletBlockedInteract: WalletBlockedInteract
 
   @Inject
-  lateinit var logger: com.appcoins.wallet.core.utils.jvm_common.Logger
+  lateinit var logger: Logger
 
   private lateinit var results: PublishRelay<Uri>
   private lateinit var presenter: TopUpActivityPresenter

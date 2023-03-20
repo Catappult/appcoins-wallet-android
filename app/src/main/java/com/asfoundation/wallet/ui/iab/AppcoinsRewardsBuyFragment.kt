@@ -53,7 +53,7 @@ class AppcoinsRewardsBuyFragment : BasePageViewFragment(), AppcoinsRewardsBuyVie
   lateinit var appcoinsRewardsBuyInteract: AppcoinsRewardsBuyInteract
 
   @Inject
-  lateinit var logger: com.appcoins.wallet.core.utils.jvm_common.Logger
+  lateinit var logger: Logger
 
   private lateinit var presenter: AppcoinsRewardsBuyPresenter
   private lateinit var iabView: IabView

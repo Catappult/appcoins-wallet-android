@@ -6,7 +6,7 @@ import com.appcoins.wallet.core.utils.jvm_common.LogReceiver.Companion.DEFAULT_M
 import com.appcoins.wallet.core.utils.jvm_common.LogReceiver.Companion.DEFAULT_THROWABLE_MSG
 import com.flurry.android.FlurryAgent
 
-class FlurryReceiver : com.appcoins.wallet.core.utils.jvm_common.LogReceiver {
+class FlurryReceiver : LogReceiver {
   companion object {
     private const val DEFAULT_ERROR_ID = "ID"
   }

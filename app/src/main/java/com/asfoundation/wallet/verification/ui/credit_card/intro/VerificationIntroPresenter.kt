@@ -17,7 +17,7 @@ class VerificationIntroPresenter(
   private val view: VerificationIntroView,
   private val disposable: CompositeDisposable,
   private val navigator: VerificationIntroNavigator,
-  private val logger: com.appcoins.wallet.core.utils.jvm_common.Logger,
+  private val logger: Logger,
   private val viewScheduler: Scheduler,
   private val ioScheduler: Scheduler,
   private val interactor: VerificationIntroInteractor,

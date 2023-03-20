@@ -27,7 +27,7 @@ class WalletsInteract @Inject constructor(
   private val supportInteractor: SupportInteractor,
   private val preferencesRepository: CommonsPreferencesDataSource,
   private val gamificationRepository: Gamification,
-  private val logger: com.appcoins.wallet.core.utils.jvm_common.Logger,
+  private val logger: Logger,
   private val getCurrentPromoCodeUseCase: GetCurrentPromoCodeUseCase
 ) {
 

@@ -18,7 +18,7 @@ class PayPalV2Repository @Inject constructor(
   private val paypalV2Api: PaypalV2Api,
   private val brokerBdsApi: RemoteRepository.BrokerBdsApi,
   private val adyenResponseMapper: AdyenResponseMapper,
-  private val logger: com.appcoins.wallet.core.utils.jvm_common.Logger
+  private val logger: Logger
 ) {
 
   fun createTransaction(

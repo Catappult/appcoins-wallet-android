@@ -33,7 +33,7 @@ class LocalTopUpPaymentModule {
     topUpAnalytics: TopUpAnalytics,
     navigator: TopUpNavigator,
     currencyFormatUtils: CurrencyFormatUtils,
-    logger: com.appcoins.wallet.core.utils.jvm_common.Logger
+    logger: Logger
   ): LocalTopUpPaymentPresenter {
     return LocalTopUpPaymentPresenter(
       fragment as LocalTopUpPaymentView, fragment.context,

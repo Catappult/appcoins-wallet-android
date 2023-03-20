@@ -31,7 +31,7 @@ class Erc681Receiver : BaseActivity(), Erc681ReceiverView {
   lateinit var transferParser: TransferParser
 
   @Inject
-  lateinit var logger: com.appcoins.wallet.core.utils.jvm_common.Logger
+  lateinit var logger: Logger
 
   @Inject
   lateinit var analytics: PaymentMethodsAnalytics

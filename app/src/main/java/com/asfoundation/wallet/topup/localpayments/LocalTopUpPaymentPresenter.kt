@@ -32,7 +32,7 @@ class LocalTopUpPaymentPresenter(
   private val networkScheduler: Scheduler,
   private val disposables: CompositeDisposable,
   private val data: LocalTopUpPaymentData,
-  private val logger: com.appcoins.wallet.core.utils.jvm_common.Logger
+  private val logger: Logger
 ) {
 
   private var waitingResult: Boolean = false

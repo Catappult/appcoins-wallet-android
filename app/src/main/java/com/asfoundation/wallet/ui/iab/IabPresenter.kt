@@ -28,7 +28,7 @@ class IabPresenter(
   private val getAutoUpdateModelUseCase: GetAutoUpdateModelUseCase,
   private val hasRequiredHardUpdateUseCase: HasRequiredHardUpdateUseCase,
   private val startVipReferralPollingUseCase: StartVipReferralPollingUseCase,
-  private val logger: com.appcoins.wallet.core.utils.jvm_common.Logger,
+  private val logger: Logger,
   private val transaction: TransactionBuilder?,
   private val errorFromReceiver: String? = null
 ) {

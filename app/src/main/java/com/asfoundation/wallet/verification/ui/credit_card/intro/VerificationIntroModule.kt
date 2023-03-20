@@ -20,7 +20,7 @@ class VerificationIntroModule {
   @Provides
   fun providesWalletVerificationIntroPresenter(fragment: Fragment,
                                                navigator: VerificationIntroNavigator,
-                                               logger: com.appcoins.wallet.core.utils.jvm_common.Logger,
+                                               logger: Logger,
                                                interactor: VerificationIntroInteractor,
                                                data: VerificationIntroData,
                                                analytics: VerificationAnalytics): VerificationIntroPresenter {

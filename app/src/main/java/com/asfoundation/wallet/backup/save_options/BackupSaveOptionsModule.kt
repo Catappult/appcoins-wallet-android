@@ -18,7 +18,7 @@ class BackupSaveOptionsModule {
     data: BackupSaveOptionsData,
     sendBackupToEmailUseCase: SendBackupToEmailUseCase,
     backupSuccessLogUseCase: BackupSuccessLogUseCase,
-    logger: com.appcoins.wallet.core.utils.jvm_common.Logger
+    logger: Logger
   ): BackupSaveOptionsViewModelFactory {
     return BackupSaveOptionsViewModelFactory(
       data, sendBackupToEmailUseCase, backupSuccessLogUseCase,

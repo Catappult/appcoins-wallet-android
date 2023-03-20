@@ -73,7 +73,7 @@ class BillingAddressFragment : BasePageViewFragment(), BillingAddressView {
   lateinit var formatter: CurrencyFormatUtils
 
   @Inject
-  lateinit var logger: com.appcoins.wallet.core.utils.jvm_common.Logger
+  lateinit var logger: Logger
 
   @Inject
   lateinit var presenter: BillingAddressPresenter

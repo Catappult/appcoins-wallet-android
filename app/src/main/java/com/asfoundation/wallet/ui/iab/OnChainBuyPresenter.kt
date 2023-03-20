@@ -28,7 +28,7 @@ class OnChainBuyPresenter(
   private val appPackage: String,
   private val uriString: String?,
   private val gamificationLevel: Int,
-  private val logger: com.appcoins.wallet.core.utils.jvm_common.Logger,
+  private val logger: Logger,
   private val onChainBuyInteract: OnChainBuyInteract,
   private val transactionBuilder: TransactionBuilder
 ) {

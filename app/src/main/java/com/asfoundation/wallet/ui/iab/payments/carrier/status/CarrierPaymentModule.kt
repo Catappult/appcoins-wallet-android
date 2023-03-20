@@ -39,7 +39,7 @@ class CarrierPaymentModule {
                                             navigator: CarrierPaymentNavigator,
                                             carrierInteractor: CarrierInteractor,
                                             billingAnalytics: BillingAnalytics,
-                                            logger: com.appcoins.wallet.core.utils.jvm_common.Logger
+                                            logger: Logger
   ): CarrierPaymentPresenter {
     return CarrierPaymentPresenter(
         CompositeDisposable(), fragment as CarrierPaymentView, data, navigator, carrierInteractor,

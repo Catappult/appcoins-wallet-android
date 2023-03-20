@@ -19,7 +19,7 @@ import java.math.BigDecimal
 class TransferConfirmationViewModel internal constructor(
   private val transferConfirmationInteractor: TransferConfirmationInteractor,
   private val gasSettingsRouter: GasSettingsRouter,
-  private val logger: com.appcoins.wallet.core.utils.jvm_common.Logger,
+  private val logger: Logger,
   private val transactionConfirmationNavigator: TransferConfirmationNavigator
 ) : BaseViewModel() {
 

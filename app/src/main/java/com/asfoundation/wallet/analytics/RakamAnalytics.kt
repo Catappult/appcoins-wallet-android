@@ -35,7 +35,7 @@ class RakamAnalytics @Inject constructor(
   @ApplicationContext private val context: Context,
   private val idsRepository: IdsRepository,
   private val promotionsRepository: PromotionsRepository,
-  private val logger: com.appcoins.wallet.core.utils.jvm_common.Logger,
+  private val logger: Logger,
   private val promoCodeLocalDataSource: PromoCodeLocalDataSource
 ) : AnalyticsSetup {
 

@@ -32,7 +32,7 @@ class OneStepPaymentReceiver : BaseActivity() {
   lateinit var walletService: WalletService
 
   @Inject
-  lateinit var logger: com.appcoins.wallet.core.utils.jvm_common.Logger
+  lateinit var logger: Logger
 
   @Inject
   lateinit var transferParser: TransferParser

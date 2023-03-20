@@ -17,7 +17,7 @@ import javax.inject.Inject
 class CarrierBillingRepository @Inject constructor(private val api: CarrierBillingApi,
                                                    private val preferences: CarrierBillingPreferencesRepository,
                                                    private val mapper: CarrierResponseMapper,
-                                                   private val logger: com.appcoins.wallet.core.utils.jvm_common.Logger
+                                                   private val logger: Logger
 ) {
 
   companion object {

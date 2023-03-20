@@ -8,7 +8,7 @@ import io.rakam.api.Rakam
 import org.json.JSONException
 import org.json.JSONObject
 
-class RakamReceiver : com.appcoins.wallet.core.utils.jvm_common.LogReceiver {
+class RakamReceiver : LogReceiver {
   companion object {
     private const val LOG_EVENT_TYPE = "wallet_non_fatal_event"
   }

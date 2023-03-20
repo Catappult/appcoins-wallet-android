@@ -19,7 +19,7 @@ class CarrierPaymentPresenter(private val disposables: CompositeDisposable,
                               private val navigator: CarrierPaymentNavigator,
                               private val carrierInteractor: CarrierInteractor,
                               private val billingAnalytics: BillingAnalytics,
-                              private val logger: com.appcoins.wallet.core.utils.jvm_common.Logger,
+                              private val logger: Logger,
                               private val viewScheduler: Scheduler,
                               private val ioScheduler: Scheduler) {
 

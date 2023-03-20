@@ -19,7 +19,7 @@ class TransferConfirmationModule {
   fun provideConfirmationViewModelFactory(
     interactor: TransferConfirmationInteractor,
     gasSettingsRouter: GasSettingsRouter,
-    logger: com.appcoins.wallet.core.utils.jvm_common.Logger,
+    logger: Logger,
     navigator: TransferConfirmationNavigator) =
     TransferConfirmationViewModelFactory(interactor, gasSettingsRouter, logger, navigator)
 }
@@ -27,7 +27,7 @@ class TransferConfirmationModule {
 class TransferConfirmationViewModelFactory(
   private val transferConfirmationInteractor: TransferConfirmationInteractor,
   private val gasSettingsRouter: GasSettingsRouter,
-  private val logger: com.appcoins.wallet.core.utils.jvm_common.Logger,
+  private val logger: Logger,
   private val transferConfirmationNavigator: TransferConfirmationNavigator) :
   ViewModelProvider.Factory {
 

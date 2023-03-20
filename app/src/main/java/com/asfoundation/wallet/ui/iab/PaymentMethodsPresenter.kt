@@ -39,7 +39,7 @@ class PaymentMethodsPresenter(
   private val paymentMethodsMapper: PaymentMethodsMapper,
   private val formatter: CurrencyFormatUtils,
   private val getWalletInfoUseCase: GetWalletInfoUseCase,
-  private val logger: com.appcoins.wallet.core.utils.jvm_common.Logger,
+  private val logger: Logger,
   private val interactor: PaymentMethodsInteractor,
   private val paymentMethodsData: PaymentMethodsData
 ) {

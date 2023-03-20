@@ -24,8 +24,8 @@ class OneStepTransactionParser @Inject constructor(
   private val billing: Billing,
   private val defaultTokenProvider: DefaultTokenProvider
 ) {
-  private val cache: com.appcoins.wallet.core.utils.jvm_common.Repository<String, TransactionBuilder> =
-    com.appcoins.wallet.core.utils.jvm_common.MemoryCache(
+  private val cache: Repository<String, TransactionBuilder> =
+    MemoryCache(
       BehaviorSubject.create(), HashMap()
     )
 

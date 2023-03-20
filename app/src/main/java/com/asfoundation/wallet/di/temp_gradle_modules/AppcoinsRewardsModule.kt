@@ -33,7 +33,7 @@ class AppcoinsRewardsModule {
 
           override fun signContent(content: String) = walletService.signContent(content)
         },
-      com.appcoins.wallet.core.utils.jvm_common.MemoryCache(
+      MemoryCache(
         BehaviorSubject.create(),
         ConcurrentHashMap()
       ), Schedulers.io(), billing,

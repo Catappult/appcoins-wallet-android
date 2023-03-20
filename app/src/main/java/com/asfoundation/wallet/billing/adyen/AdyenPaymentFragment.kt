@@ -102,7 +102,7 @@ class AdyenPaymentFragment : BasePageViewFragment(), AdyenPaymentView {
   lateinit var servicesErrorMapper: ServicesErrorCodeMapper
 
   @Inject
-  lateinit var logger: com.appcoins.wallet.core.utils.jvm_common.Logger
+  lateinit var logger: Logger
   private lateinit var iabView: IabView
   private lateinit var presenter: AdyenPaymentPresenter
   private lateinit var cardConfiguration: CardConfiguration

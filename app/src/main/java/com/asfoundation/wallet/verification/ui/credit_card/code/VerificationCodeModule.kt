@@ -21,7 +21,7 @@ class VerificationCodeModule {
                                               activityData: VerificationCreditCardActivityData,
                                               verificationCodeInteractor: VerificationCodeInteractor,
                                               verificationCodeNavigator: VerificationCodeNavigator,
-                                              logger: com.appcoins.wallet.core.utils.jvm_common.Logger,
+                                              logger: Logger,
                                               analytics: VerificationAnalytics): VerificationCodePresenter {
     return VerificationCodePresenter(fragment as VerificationCodeView, data, activityData,
         CompositeDisposable(), AndroidSchedulers.mainThread(), Schedulers.io(),

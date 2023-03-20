@@ -22,7 +22,7 @@ class LocalPaymentModule {
                                     interactor: LocalPaymentInteractor,
                                     navigator: LocalPaymentNavigator,
                                     analytics: LocalPaymentAnalytics,
-                                    logger: com.appcoins.wallet.core.utils.jvm_common.Logger,
+                                    logger: Logger,
                                     errorMapper: ErrorMapper): LocalPaymentPresenter {
     return LocalPaymentPresenter(fragment as LocalPaymentView, data, interactor, navigator,
         analytics, AndroidSchedulers.mainThread(), Schedulers.io(), CompositeDisposable(),

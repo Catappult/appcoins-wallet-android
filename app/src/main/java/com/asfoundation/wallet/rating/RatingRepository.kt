@@ -15,7 +15,7 @@ import javax.inject.Inject
 class RatingRepository @Inject constructor(
   private val ratingPreferencesDataSource: RatingPreferencesDataSource,
   private val walletFeedbackApi: WalletFeedbackApi,
-  private val logger: com.appcoins.wallet.core.utils.jvm_common.Logger
+  private val logger: Logger
 ) {
 
   fun saveEnoughSuccessfulTransactions() =

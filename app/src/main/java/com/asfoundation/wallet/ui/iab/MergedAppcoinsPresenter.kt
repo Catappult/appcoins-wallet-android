@@ -32,7 +32,7 @@ class MergedAppcoinsPresenter(
   private val mergedAppcoinsInteractor: MergedAppcoinsInteractor,
   private val gamificationLevel: Int,
   private val navigator: Navigator,
-  private val logger: com.appcoins.wallet.core.utils.jvm_common.Logger,
+  private val logger: Logger,
   private val transactionBuilder: TransactionBuilder,
   private val paymentMethodsMapper: PaymentMethodsMapper,
   private val isSubscription: Boolean

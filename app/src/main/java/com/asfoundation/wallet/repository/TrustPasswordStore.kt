@@ -24,7 +24,7 @@ import javax.inject.Inject
 
 @BoundTo(supertype = PasswordStore::class)
 class TrustPasswordStore @Inject constructor(@ApplicationContext private val context: Context,
-                                             private val logger: com.appcoins.wallet.core.utils.jvm_common.Logger
+                                             private val logger: Logger
 ) :
     PasswordStore {
   companion object {

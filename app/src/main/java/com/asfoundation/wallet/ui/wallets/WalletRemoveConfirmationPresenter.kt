@@ -12,7 +12,7 @@ import java.util.concurrent.TimeUnit
 class WalletRemoveConfirmationPresenter(private val view: WalletRemoveConfirmationView,
                                         private val walletAddress: String,
                                         private val deleteWalletInteract: DeleteWalletInteract,
-                                        private val logger: com.appcoins.wallet.core.utils.jvm_common.Logger,
+                                        private val logger: Logger,
                                         private val disposable: CompositeDisposable,
                                         private val viewScheduler: Scheduler,
                                         private val networkScheduler: Scheduler) {

@@ -32,7 +32,7 @@ class CarrierInteractor @Inject constructor(private val repository: CarrierBilli
                                             private val walletBlockedInteract: WalletBlockedInteract,
                                             private val walletVerificationInteractor: WalletVerificationInteractor,
                                             private val getCurrentPromoCodeUseCase: GetCurrentPromoCodeUseCase,
-                                            private val logger: com.appcoins.wallet.core.utils.jvm_common.Logger,
+                                            private val logger: Logger,
                                             private val rxSchedulers: RxSchedulers
 ) {
 

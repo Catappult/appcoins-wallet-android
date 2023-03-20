@@ -59,7 +59,7 @@ class AdyenPaymentPresenter(
   private val servicesErrorCodeMapper: ServicesErrorCodeMapper,
   private val gamificationLevel: Int,
   private val formatter: CurrencyFormatUtils,
-  private val logger: com.appcoins.wallet.core.utils.jvm_common.Logger
+  private val logger: Logger
 ) {
 
   private var waitingResult = false

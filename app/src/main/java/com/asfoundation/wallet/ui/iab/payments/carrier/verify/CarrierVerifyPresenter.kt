@@ -29,7 +29,7 @@ class CarrierVerifyPresenter(
   private val appInfoProvider: ApplicationInfoProvider,
   private val stringProvider: StringProvider,
   private val formatter: CurrencyFormatUtils,
-  private val logger: com.appcoins.wallet.core.utils.jvm_common.Logger,
+  private val logger: Logger,
   private val networkScheduler: Scheduler,
   private val viewScheduler: Scheduler) {
 
