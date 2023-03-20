@@ -111,7 +111,7 @@ class VerificationCodeFragment : BasePageViewFragment(), VerificationCodeView {
     val amountWithCurrencyAndSign = "${symbol}-$amountFormat"
 
     val dateFormat = convertToDate(date)
-    val duration = com.appcoins.wallet.core.utils.jvm_common.Duration.parse(period)
+    val duration = Duration.parse(period)
 
     val periodInDays = duration.toDays()
     val periodInHours = duration.toHours()

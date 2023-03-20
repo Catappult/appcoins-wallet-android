@@ -39,7 +39,7 @@ class TopUpAdapter(private val listener: Action1<FiatValue>
   class TopUpViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
     fun bind(fiatValue: FiatValue, listener: Action1<FiatValue>) {
-      val formatter = com.appcoins.wallet.core.utils.jvm_common.NumberFormatterUtils.create()
+      val formatter = NumberFormatterUtils.create()
       val text = fiatValue.symbol + formatter.formatNumberWithSuffix(fiatValue.amount.toFloat())
 
       itemView.value.text = text

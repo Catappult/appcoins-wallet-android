@@ -50,7 +50,7 @@ class WatchedTransactionServiceTest {
 
     scheduler = TestScheduler()
     watchedTransactionService = WatchedTransactionService(transactionSender,
-      com.appcoins.wallet.core.utils.jvm_common.MemoryCache(
+      MemoryCache(
         BehaviorSubject.create(),
         ConcurrentHashMap()
       ),

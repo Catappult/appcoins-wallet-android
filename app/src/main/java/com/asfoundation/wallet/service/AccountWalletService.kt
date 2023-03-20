@@ -92,7 +92,7 @@ class AccountWalletService @Inject constructor(
         .flatMap { password ->
           accountKeyService.exportAccount(wallet.address, password, password)
             .map { json ->
-              ECKey.fromPrivate(com.appcoins.wallet.core.utils.jvm_common.WalletUtils.loadCredentials(password, json).ecKeyPair.privateKey)
+              ECKey.fromPrivate(WalletUtils.loadCredentials(password, json).ecKeyPair.privateKey)
             }
         }
         .doOnSuccess { ecKey -> stringECKeyPair = Pair(wallet.address, ecKey) }

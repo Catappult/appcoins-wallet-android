@@ -18,7 +18,7 @@ class PaymentErrorMapper @Inject constructor(private val gson: Gson) {
       is UnknownHostException -> PaymentError(PaymentState.NO_INTERNET)
       is WrongNetworkException -> PaymentError(PaymentState.WRONG_NETWORK)
       is TransactionNotFoundException -> PaymentError(PaymentState.ERROR)
-      is com.appcoins.wallet.core.utils.jvm_common.UnknownTokenException -> PaymentError(PaymentState.UNKNOWN_TOKEN)
+      is UnknownTokenException -> PaymentError(PaymentState.UNKNOWN_TOKEN)
       is TransactionException -> mapTransactionException(throwable)
       else -> PaymentError(PaymentState.ERROR, null, throwable.message)
     }

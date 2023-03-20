@@ -119,7 +119,7 @@ class OnChainBuyPresenter(
 
   private fun showError(throwable: Throwable?, message: String? = null, userMessage: Int? = null) {
     logger.log(TAG, message, throwable)
-    if (throwable is com.appcoins.wallet.core.utils.jvm_common.UnknownTokenException) view.showWrongNetworkError()
+    if (throwable is UnknownTokenException) view.showWrongNetworkError()
     else view.showError()
   }
 

@@ -58,7 +58,7 @@ class MainActivity : AppCompatActivity(),
   }
 
   private fun handleSplashScreenResult() {
-    com.appcoins.wallet.core.utils.jvm_common.RxBus.listen(SplashFinishEvent().javaClass).subscribe {
+    RxBus.listen(SplashFinishEvent().javaClass).subscribe {
       viewModel.handleInitialNavigation()
     }
   }
