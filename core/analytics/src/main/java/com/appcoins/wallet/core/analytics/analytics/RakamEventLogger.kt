@@ -1,8 +1,8 @@
-package com.asfoundation.wallet.analytics
+package com.appcoins.wallet.core.analytics.analytics
 
 import cm.aptoide.analytics.AnalyticsManager
 import cm.aptoide.analytics.EventLogger
-import com.appcoins.wallet.core.utils.android_common.Log
+import com.appcoins.wallet.core.analytics.analytics.logging.Log
 import io.rakam.api.Rakam
 import org.json.JSONException
 import org.json.JSONObject

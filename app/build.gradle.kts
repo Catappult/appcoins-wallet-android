@@ -40,6 +40,7 @@ dependencies {
   implementation(project(":legacy:appcoinsRewards"))
   implementation(project(":legacy:skills"))
   implementation(project(":legacy:ethereumj-android"))
+  implementation(project(":core:analytics"))
   implementation(project(":core:shared-preferences"))
   implementation(project(":core:utils:android-common"))
   implementation(project(":core:utils:jvm-common"))

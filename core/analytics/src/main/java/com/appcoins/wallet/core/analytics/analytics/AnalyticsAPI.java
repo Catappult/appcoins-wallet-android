@@ -1,4 +1,5 @@
-package com.asfoundation.wallet.analytics;
+package com.appcoins.wallet.core.analytics.analytics;
+
 
 import cm.aptoide.analytics.AnalyticsManager;
 import io.reactivex.Completable;
@@ -10,5 +11,5 @@ public interface AnalyticsAPI {
 
   @POST("user/addEvent/action={action}/context=WALLET/name={name}")
   Completable registerEvent(
-      @Path("action") AnalyticsManager.Action action, @Path("name") String eventName, @Body AnalyticsBody body);
+          @Path("action") AnalyticsManager.Action action, @Path("name") String eventName, @Body AnalyticsBody body);
 }

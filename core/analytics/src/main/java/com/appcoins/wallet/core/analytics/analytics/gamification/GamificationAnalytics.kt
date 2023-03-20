@@ -1,4 +1,4 @@
-package com.asfoundation.wallet.analytics.gamification
+package com.appcoins.wallet.core.analytics.analytics.gamification
 
 import cm.aptoide.analytics.AnalyticsManager
 import it.czerwinski.android.hilt.annotations.BoundTo

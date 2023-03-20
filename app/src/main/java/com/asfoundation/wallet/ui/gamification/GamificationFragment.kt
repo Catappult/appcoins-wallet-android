@@ -6,8 +6,8 @@ import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.appcoins.wallet.core.analytics.analytics.gamification.GamificationAnalytics
 import com.asf.wallet.R
-import com.asfoundation.wallet.analytics.gamification.GamificationAnalytics
 import com.appcoins.wallet.ui.common.MarginItemDecoration
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment

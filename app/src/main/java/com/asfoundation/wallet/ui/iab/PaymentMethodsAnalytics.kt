@@ -1,8 +1,8 @@
 package com.asfoundation.wallet.ui.iab
 
 import cm.aptoide.analytics.AnalyticsManager
-import com.asfoundation.wallet.analytics.AnalyticsSetup
-import com.asfoundation.wallet.analytics.TaskTimer
+import com.appcoins.wallet.core.analytics.analytics.AnalyticsSetup
+import com.appcoins.wallet.core.analytics.analytics.TaskTimer
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics
 import javax.inject.Inject
 import javax.inject.Singleton
