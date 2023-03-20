@@ -11,7 +11,7 @@ android {
 }
 
 dependencies {
-    implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar", "*.aar"))))
+    compileOnly(fileTree(mapOf("dir" to "libs", "include" to listOf("*.aar"))))
     implementation(project(":legacy:commons"))
     implementation(project(":core:utils:properties"))
     implementation(libs.jackson.annotation)
