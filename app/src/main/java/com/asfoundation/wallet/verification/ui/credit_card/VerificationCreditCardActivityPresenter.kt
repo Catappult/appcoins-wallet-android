@@ -1,7 +1,7 @@
 package com.asfoundation.wallet.verification.ui.credit_card
 
 import android.os.Bundle
-import com.appcoins.wallet.core.utils.common.RxSchedulers
+import com.appcoins.wallet.core.utils.android_common.RxSchedulers
 import com.asfoundation.wallet.verification.ui.credit_card.code.VerificationCodeFragment
 import com.asfoundation.wallet.verification.ui.credit_card.error.VerificationErrorFragment
 import com.asfoundation.wallet.verification.ui.credit_card.network.VerificationStatus

@@ -3,7 +3,7 @@ package com.asfoundation.wallet.subscriptions.list
 import com.asfoundation.wallet.subscriptions.SubscriptionItem
 import com.asfoundation.wallet.subscriptions.SubscriptionModel
 import com.asfoundation.wallet.subscriptions.UserSubscriptionsInteractor
-import com.appcoins.wallet.core.utils.common.extensions.isNoNetworkException
+import com.appcoins.wallet.core.utils.android_common.extensions.isNoNetworkException
 import io.reactivex.Scheduler
 import io.reactivex.disposables.CompositeDisposable
 import java.util.concurrent.TimeUnit

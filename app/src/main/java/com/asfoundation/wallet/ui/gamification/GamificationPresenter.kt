@@ -8,9 +8,9 @@ import com.appcoins.wallet.core.analytics.analytics.gamification.GamificationAna
 import com.asfoundation.wallet.ui.gamification.GamificationFragment.Companion.GAMIFICATION_INFO_ID
 import com.asfoundation.wallet.ui.gamification.GamificationFragment.Companion.SHOW_REACHED_LEVELS_ID
 import com.asfoundation.wallet.ui.iab.FiatValue
-import com.appcoins.wallet.core.utils.common.CurrencyFormatUtils
-import com.appcoins.wallet.core.utils.common.WalletCurrency
-import com.appcoins.wallet.core.utils.common.extensions.isNoNetworkException
+import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
+import com.appcoins.wallet.core.utils.android_common.WalletCurrency
+import com.appcoins.wallet.core.utils.android_common.extensions.isNoNetworkException
 import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Scheduler

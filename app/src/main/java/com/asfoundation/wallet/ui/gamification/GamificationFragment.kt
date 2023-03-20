@@ -7,9 +7,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.asf.wallet.R
-import com.appcoins.wallet.core.analytics.analytics.gamification.GamificationAnalytics
-import com.appcoins.wallet.core.utils.common.CurrencyFormatUtils
+import com.asfoundation.wallet.analytics.gamification.GamificationAnalytics
 import com.appcoins.wallet.ui.common.MarginItemDecoration
+import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.jakewharton.rxbinding2.view.RxView

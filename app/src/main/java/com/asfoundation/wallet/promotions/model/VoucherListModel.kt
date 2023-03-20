@@ -1,6 +1,6 @@
 package com.asfoundation.wallet.promotions.model
 
-import com.appcoins.wallet.core.utils.common.Error
+import com.appcoins.wallet.core.utils.jvm_common.Error
 
 data class VoucherListModel(val vouchers: List<Voucher>, val error: Error? = null) {
   constructor(error: Error) : this(emptyList(), error)

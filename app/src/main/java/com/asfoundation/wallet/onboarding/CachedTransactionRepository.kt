@@ -1,6 +1,6 @@
 package com.asfoundation.wallet.onboarding
 
-import com.appcoins.wallet.core.utils.common.RxSchedulers
+import com.appcoins.wallet.core.utils.android_common.RxSchedulers
 import com.google.gson.annotations.SerializedName
 import io.reactivex.Single
 import retrofit2.http.GET

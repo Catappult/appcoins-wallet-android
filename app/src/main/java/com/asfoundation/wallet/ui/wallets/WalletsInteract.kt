@@ -1,12 +1,12 @@
 package com.asfoundation.wallet.ui.wallets
 
-import com.appcoins.wallet.commons.Logger
+import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.appcoins.wallet.gamification.Gamification
 import com.asfoundation.wallet.entity.Wallet
 import com.asfoundation.wallet.promo_code.use_cases.GetCurrentPromoCodeUseCase
 import com.asfoundation.wallet.support.SupportInteractor
 import com.asfoundation.wallet.ui.iab.FiatValue
-import com.appcoins.wallet.core.utils.common.extensions.sumByBigDecimal
+import com.appcoins.wallet.core.utils.android_common.extensions.sumByBigDecimal
 import com.asfoundation.wallet.wallets.FetchWalletsInteract
 import com.asfoundation.wallet.wallets.WalletCreatorInteract
 import com.asfoundation.wallet.wallets.usecases.GetWalletInfoUseCase

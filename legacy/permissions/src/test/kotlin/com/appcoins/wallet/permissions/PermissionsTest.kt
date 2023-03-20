@@ -1,6 +1,6 @@
 package com.appcoins.wallet.permissions
 
-import com.appcoins.wallet.commons.MemoryCache
+import com.appcoins.wallet.core.utils.jvm_common.MemoryCache
 import io.reactivex.subjects.BehaviorSubject
 import org.junit.Assert
 import org.junit.Before

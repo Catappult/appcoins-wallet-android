@@ -14,9 +14,9 @@ import androidx.core.text.color
 import com.asf.wallet.R
 import com.asfoundation.wallet.GlideApp
 import com.asfoundation.wallet.ui.iab.IabView
-import com.appcoins.wallet.core.utils.common.CurrencyFormatUtils
-import com.appcoins.wallet.core.utils.common.WalletCurrency
-import com.appcoins.wallet.core.utils.common.getStringSpanned
+import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
+import com.appcoins.wallet.core.utils.android_common.WalletCurrency
+import com.appcoins.wallet.core.utils.android_common.extensions.getStringSpanned
 import com.appcoins.wallet.ui.common.withNoLayoutTransition
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import com.jakewharton.rxbinding2.view.RxView

@@ -1,6 +1,6 @@
 package com.asfoundation.wallet.ui.transact
 
-import com.appcoins.wallet.core.utils.common.WalletCurrency
+import com.appcoins.wallet.core.utils.android_common.WalletCurrency
 import com.google.android.gms.vision.barcode.Barcode
 import io.reactivex.Observable
 import java.io.Serializable

@@ -1,6 +1,6 @@
 package com.asfoundation.wallet.redeem_gift.repository
 
-import com.appcoins.wallet.core.utils.common.RxSchedulers
+import com.appcoins.wallet.core.utils.android_common.RxSchedulers
 import io.reactivex.Completable
 import io.reactivex.Single
 import retrofit2.http.Header

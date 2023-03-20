@@ -2,7 +2,7 @@ package com.asfoundation.wallet.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.appcoins.wallet.commons.Logger
+import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.asfoundation.wallet.router.GasSettingsRouter
 import com.asfoundation.wallet.transfers.TransferConfirmationInteractor
 import com.asfoundation.wallet.transfers.TransferConfirmationNavigator

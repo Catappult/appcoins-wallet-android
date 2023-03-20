@@ -3,9 +3,8 @@ package com.appcoins.wallet.core.analytics.analytics;
 import cm.aptoide.analytics.AnalyticsManager;
 import cm.aptoide.analytics.AnalyticsManager.Action;
 import cm.aptoide.analytics.EventLogger;
-
-import com.appcoins.wallet.core.analytics.BuildConfig;
-import com.appcoins.wallet.core.analytics.analytics.logging.Log;
+import com.asf.wallet.BuildConfig;
+import com.appcoins.wallet.core.utils.android_common.Log;
 import io.reactivex.schedulers.Schedulers;
 import java.util.Map;
 

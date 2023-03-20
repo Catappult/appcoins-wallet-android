@@ -1,6 +1,6 @@
 package com.asfoundation.wallet.ui.iab
 
-import com.appcoins.wallet.core.utils.common.RxSchedulers
+import com.appcoins.wallet.core.utils.android_common.RxSchedulers
 import com.asfoundation.wallet.update_required.use_cases.BuildUpdateIntentUseCase
 import com.asfoundation.wallet.wallets.usecases.GetWalletsModelUseCase
 import io.reactivex.disposables.CompositeDisposable

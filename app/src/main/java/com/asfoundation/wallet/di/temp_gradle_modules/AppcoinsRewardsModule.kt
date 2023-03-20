@@ -6,7 +6,7 @@ import com.appcoins.wallet.appcoins.rewards.repository.BdsAppcoinsRewardsReposit
 import com.appcoins.wallet.bdsbilling.Billing
 import com.appcoins.wallet.bdsbilling.WalletService
 import com.appcoins.wallet.bdsbilling.repository.RemoteRepository
-import com.appcoins.wallet.commons.MemoryCache
+import com.appcoins.wallet.core.utils.jvm_common.MemoryCache
 import com.asfoundation.wallet.billing.CreditsRemoteRepository
 import com.google.gson.Gson
 import dagger.Module

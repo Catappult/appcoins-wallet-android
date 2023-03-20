@@ -3,7 +3,7 @@ package com.asfoundation.wallet.eskills.withdraw.repository
 import com.appcoins.wallet.billing.util.isNoNetworkException
 import com.asfoundation.wallet.eskills.withdraw.domain.FailedWithdraw
 import com.asfoundation.wallet.eskills.withdraw.domain.WithdrawResult
-import com.appcoins.wallet.core.utils.common.extensions.getMessage
+import com.appcoins.wallet.core.utils.android_common.extensions.getMessage
 import com.google.gson.Gson
 import com.google.gson.annotations.SerializedName
 import retrofit2.HttpException

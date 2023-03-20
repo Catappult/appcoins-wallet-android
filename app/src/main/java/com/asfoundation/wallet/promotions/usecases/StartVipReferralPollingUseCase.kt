@@ -4,7 +4,7 @@ import android.util.Log
 import androidx.work.ExistingWorkPolicy
 import androidx.work.WorkManager
 import com.appcoins.wallet.gamification.repository.PromotionsRepository
-import com.appcoins.wallet.core.utils.common.RxSchedulers
+import com.appcoins.wallet.core.utils.android_common.RxSchedulers
 import com.asfoundation.wallet.entity.Wallet
 import com.asfoundation.wallet.promotions.worker.GetVipReferralWorker
 import io.reactivex.Completable

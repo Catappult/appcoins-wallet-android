@@ -6,7 +6,7 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 import com.asfoundation.wallet.C;
 import com.asfoundation.wallet.entity.ErrorEnvelope;
-import com.appcoins.wallet.core.utils.common.Log;
+import com.appcoins.wallet.core.utils.android_common.Log;
 import io.reactivex.disposables.CompositeDisposable;
 
 public class BaseViewModel extends ViewModel {
