@@ -4,8 +4,8 @@ import com.appcoins.wallet.appcoins.rewards.AppcoinsRewards
 import com.appcoins.wallet.appcoins.rewards.AppcoinsRewardsRepository
 import com.appcoins.wallet.appcoins.rewards.Transaction
 import com.appcoins.wallet.bdsbilling.Billing
-import com.appcoins.wallet.bdsbilling.repository.BillingSupportedType
 import com.appcoins.wallet.bdsbilling.repository.entity.Purchase
+import com.appcoins.wallet.core.network.microservices.model.BillingSupportedType
 import com.asfoundation.wallet.billing.partners.AddressService
 import io.reactivex.Completable
 import io.reactivex.Observable

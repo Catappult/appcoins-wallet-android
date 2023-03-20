@@ -1,7 +1,7 @@
 package cm.aptoide.skills.repository
 
-import cm.aptoide.skills.api.RoomApi
-import cm.aptoide.skills.model.RoomResponse
+import com.appcoins.wallet.core.network.eskills.api.RoomApi
+import com.appcoins.wallet.core.network.eskills.model.RoomResponse
 import io.reactivex.Single
 import javax.inject.Inject
 

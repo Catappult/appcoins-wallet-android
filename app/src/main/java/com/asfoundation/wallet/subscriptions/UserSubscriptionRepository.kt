@@ -1,9 +1,10 @@
 package com.asfoundation.wallet.subscriptions
 
-import com.appcoins.wallet.bdsbilling.SubscriptionSubStatus
-import com.appcoins.wallet.bdsbilling.SubscriptionSubStatus.EXPIRED
+import com.appcoins.wallet.core.network.microservices.model.SubscriptionSubStatus
+import com.appcoins.wallet.core.network.microservices.model.SubscriptionSubStatus.EXPIRED
 import com.appcoins.wallet.bdsbilling.WalletService
-import com.appcoins.wallet.bdsbilling.subscriptions.UserSubscriptionsListResponse
+import com.appcoins.wallet.core.network.microservices.model.UserSubscriptionsListResponse
+import com.appcoins.wallet.core.network.microservices.model.UserSubscriptionApi
 import io.reactivex.Observable
 import io.reactivex.functions.BiFunction
 import java.util.*

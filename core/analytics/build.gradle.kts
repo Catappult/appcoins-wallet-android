@@ -15,6 +15,7 @@ dependencies {
     implementation(project(":ui:common"))
     implementation(project(":core:utils:jvm-common"))
     implementation(project(":core:utils:properties"))
+    implementation(project(":core:network:analytics"))
     implementation(libs.jackson.annotation)
     implementation(libs.bundles.analytics)
     implementation(libs.bundles.network)

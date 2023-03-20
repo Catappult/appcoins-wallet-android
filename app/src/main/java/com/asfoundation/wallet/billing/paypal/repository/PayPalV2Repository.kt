@@ -1,22 +1,21 @@
 package com.asfoundation.wallet.billing.paypal.repository
 
-import com.appcoins.wallet.bdsbilling.repository.RemoteRepository
 import com.appcoins.wallet.billing.adyen.AdyenResponseMapper
 import com.appcoins.wallet.billing.adyen.PaymentModel
 import com.appcoins.wallet.core.utils.jvm_common.Logger
+import com.appcoins.wallet.core.network.microservices.api.BrokerVerificationApi.*
+import com.appcoins.wallet.core.network.microservices.model.*
 import com.asfoundation.wallet.billing.paypal.models.PaypalCreateAgreement
 import com.asfoundation.wallet.billing.paypal.models.PaypalCreateToken
-import com.asfoundation.wallet.billing.paypal.models.PaypalTransaction
-import com.google.gson.annotations.SerializedName
+import com.appcoins.wallet.core.network.microservices.model.PaypalTransaction
 import io.reactivex.Completable
 import io.reactivex.Single
 import retrofit2.HttpException
-import retrofit2.http.*
 import javax.inject.Inject
 
 class PayPalV2Repository @Inject constructor(
   private val paypalV2Api: PaypalV2Api,
-  private val brokerBdsApi: RemoteRepository.BrokerBdsApi,
+  private val brokerBdsApi: BrokerBdsApi,
   private val adyenResponseMapper: AdyenResponseMapper,
   private val logger: Logger
 ) {
@@ -141,65 +140,5 @@ class PayPalV2Repository @Inject constructor(
       validity
     )
   }
-
-  interface PaypalV2Api {
-
-    @POST("8.20200815/gateways/paypal/transactions")
-    fun createTransaction(
-      @Query("wallet.address") walletAddress: String,
-      @Query("wallet.signature") walletSignature: String,
-      @Body paypalPayment: PaypalPayment
-    ): Single<PaypalV2StartResponse>
-
-    @POST("8.20200815/gateways/paypal/billing-agreement/token/create")
-    fun createToken(
-      @Query("wallet.address") walletAddress: String,
-      @Query("wallet.signature") walletSignature: String,
-      @Body createTokenRequest: CreateTokenRequest
-    ): Single<PaypalV2CreateTokenResponse>
-
-    @POST("8.20200815/gateways/paypal/billing-agreement/create")
-    fun createBillingAgreement(
-      @Query("wallet.address") walletAddress: String,
-      @Query("wallet.signature") walletSignature: String,
-      @Body token: String
-    ): Single<PaypalV2CreateAgreementResponse>
-
-    @POST("8.20200815/gateways/paypal/billing-agreement/token/cancel")
-    fun cancelToken(
-      @Query("wallet.address") walletAddress: String,
-      @Query("wallet.signature") walletSignature: String,
-      @Body token: String
-    ): Single<String?>
-
-  }
-
-  data class PaypalPayment(
-    @SerializedName("callback_url") val callbackUrl: String?,
-    @SerializedName("domain") val domain: String?,
-    @SerializedName("metadata") val metadata: String?,
-
-    @SerializedName("origin") val origin: String?,
-    @SerializedName("product") val sku: String?,
-    @SerializedName("reference") val reference: String?,
-    @SerializedName("type") val type: String?,
-    @SerializedName("price.currency") val currency: String?,
-    @SerializedName("price.value") val value: String?,
-    @SerializedName("wallets.developer") val developer: String?,
-    @SerializedName("entity.oemid") val entityOemId: String?,
-    @SerializedName("entity.domain") val entityDomain: String?,
-    @SerializedName("entity.promo_code") val entityPromoCode: String?,
-    @SerializedName("wallets.user") val user: String?,
-    @SerializedName("referrer_url") val referrerUrl: String?
-  )
-
-  data class CreateTokenRequest(
-    @SerializedName("urls") val urls: Urls
-  )
-
-  data class Urls(
-    @SerializedName("return") val returnUrl: String,
-    @SerializedName("cancel") val cancelUrl: String
-  )
 
 }

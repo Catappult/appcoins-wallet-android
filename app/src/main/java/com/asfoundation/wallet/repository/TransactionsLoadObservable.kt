@@ -1,6 +1,6 @@
 package com.asfoundation.wallet.repository
 
-import com.asfoundation.wallet.entity.WalletHistory
+import com.appcoins.wallet.core.network.backend.model.WalletHistory
 import io.reactivex.Observable
 import io.reactivex.Observer
 import io.reactivex.disposables.Disposable

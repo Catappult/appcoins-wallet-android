@@ -1,5 +1,6 @@
 package com.asfoundation.wallet;
 
+import com.appcoins.wallet.core.network.airdrop.AirdropService;
 import io.reactivex.Completable;
 import io.reactivex.Observable;
 import io.reactivex.Single;

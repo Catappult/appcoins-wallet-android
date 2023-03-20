@@ -1,8 +1,8 @@
 package com.asfoundation.wallet.referrals
 
 import com.appcoins.wallet.gamification.repository.PromotionsRepository
-import com.appcoins.wallet.gamification.repository.entity.PromotionsResponse
-import com.appcoins.wallet.gamification.repository.entity.ReferralResponse
+import com.appcoins.wallet.core.network.backend.model.PromotionsResponse
+import com.appcoins.wallet.core.network.backend.model.ReferralResponse
 import com.asf.wallet.R
 import com.asfoundation.wallet.interact.EmptyNotification
 import com.asfoundation.wallet.promo_code.use_cases.GetCurrentPromoCodeUseCase

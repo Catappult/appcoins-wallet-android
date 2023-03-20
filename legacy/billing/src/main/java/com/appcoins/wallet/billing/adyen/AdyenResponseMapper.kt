@@ -2,16 +2,18 @@ package com.appcoins.wallet.billing.adyen
 
 import com.adyen.checkout.components.model.PaymentMethodsApiResponse
 import com.adyen.checkout.components.model.payments.response.Action
-import com.appcoins.wallet.bdsbilling.repository.entity.Transaction
 import com.appcoins.wallet.billing.ErrorInfo
 import com.appcoins.wallet.billing.adyen.PaymentModel.Status.*
 import com.appcoins.wallet.billing.common.BillingErrorMapper
-import com.appcoins.wallet.billing.common.response.TransactionResponse
-import com.appcoins.wallet.billing.common.response.TransactionStatus
+import com.appcoins.wallet.core.network.microservices.model.TransactionResponse
+import com.appcoins.wallet.core.network.microservices.model.TransactionStatus
 import com.appcoins.wallet.billing.util.Error
 import com.appcoins.wallet.billing.util.getErrorCodeAndMessage
 import com.appcoins.wallet.billing.util.getMessage
 import com.appcoins.wallet.billing.util.isNoNetworkException
+import com.appcoins.wallet.core.network.microservices.api.AdyenTransactionResponse
+import com.appcoins.wallet.core.network.microservices.model.PaymentMethodsResponse
+import com.appcoins.wallet.core.network.microservices.model.Transaction
 import com.google.gson.Gson
 import com.google.gson.JsonObject
 import retrofit2.HttpException
@@ -34,10 +36,10 @@ open class AdyenResponseMapper @Inject constructor(
       adyenSerializer.deserializePaymentMethods(response)
     return adyenResponse.storedPaymentMethods
       ?.find { it.type == method.adyenType }
-      ?.let { PaymentInfoModel(it, response.price.value, response.price.currency) }
+      ?.let { PaymentInfoModel(it, response.adyenPrice.value, response.adyenPrice.currency) }
       ?: adyenResponse.paymentMethods
         ?.find { it.type == method.adyenType }
-        ?.let { PaymentInfoModel(it, response.price.value, response.price.currency) }
+        ?.let { PaymentInfoModel(it, response.adyenPrice.value, response.adyenPrice.currency) }
       ?: PaymentInfoModel(Error(true))
   }
 
@@ -51,10 +53,10 @@ open class AdyenResponseMapper @Inject constructor(
 
     if (adyenResponse != null) {
       if (adyenResponse.fraudResult != null) {
-        fraudResultsId = adyenResponse.fraudResult.results.map { it.fraudCheckResult.checkId }
+        fraudResultsId = adyenResponse.fraudResult!!.results.map { it.fraudCheckResult.checkId }
       }
       if (adyenResponse.action != null) {
-        actionType = adyenResponse.action.get("type")?.asString
+        actionType = adyenResponse.action!!.get("type")?.asString
         jsonAction = adyenResponse.action
       }
     }

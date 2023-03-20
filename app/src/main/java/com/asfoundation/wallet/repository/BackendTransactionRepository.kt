@@ -1,8 +1,8 @@
 package com.asfoundation.wallet.repository
 
+import com.appcoins.wallet.core.network.backend.model.WalletHistory
 import com.appcoins.wallet.core.utils.android_common.RxSchedulers
 import com.asfoundation.wallet.entity.NetworkInfo
-import com.asfoundation.wallet.entity.WalletHistory
 import com.asfoundation.wallet.interact.DefaultTokenProvider
 import com.asfoundation.wallet.repository.entity.TransactionEntity
 import com.asfoundation.wallet.service.AccountKeystoreService

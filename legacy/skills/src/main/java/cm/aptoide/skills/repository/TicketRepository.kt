@@ -1,8 +1,11 @@
 package cm.aptoide.skills.repository
 
-import cm.aptoide.skills.api.TicketApi
 import cm.aptoide.skills.model.*
-import cm.aptoide.skills.util.EskillsPaymentData
+import com.appcoins.wallet.core.network.eskills.api.TicketApi
+import com.appcoins.wallet.core.network.eskills.model.EskillsPaymentData
+import com.appcoins.wallet.core.network.eskills.model.QueueIdentifier
+import com.appcoins.wallet.core.network.eskills.model.TicketRequest
+import com.appcoins.wallet.core.network.eskills.model.TicketResponse
 import io.reactivex.Single
 import javax.inject.Inject
 

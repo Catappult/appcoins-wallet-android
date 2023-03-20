@@ -2,7 +2,7 @@ package com.asfoundation.wallet.repository;
 
 import com.appcoins.wallet.bdsbilling.BillingPaymentProofSubmission;
 import com.appcoins.wallet.bdsbilling.PaymentProof;
-import com.appcoins.wallet.bdsbilling.repository.entity.Transaction;
+import com.appcoins.wallet.core.network.microservices.model.Transaction;
 import com.asfoundation.wallet.billing.partners.AddressService;
 import com.asfoundation.wallet.billing.partners.AttributionEntity;
 import com.asfoundation.wallet.interact.DefaultTokenProvider;

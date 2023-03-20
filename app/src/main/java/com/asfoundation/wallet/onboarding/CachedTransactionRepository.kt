@@ -1,9 +1,8 @@
 package com.asfoundation.wallet.onboarding
 
+import com.appcoins.wallet.core.network.backend.api.CachedTransactionApi
 import com.appcoins.wallet.core.utils.android_common.RxSchedulers
-import com.google.gson.annotations.SerializedName
 import io.reactivex.Single
-import retrofit2.http.GET
 import javax.inject.Inject
 
 class CachedTransactionRepository @Inject constructor(
@@ -29,23 +28,7 @@ class CachedTransactionRepository @Inject constructor(
         CachedTransaction(null, null, null, null, null, null, 0.0, null)
       }
   }
-
-  interface CachedTransactionApi {
-    @GET("/transaction/inapp/cached_values")
-    fun getCachedTransaction(): Single<CachedTransactionResponse>
-  }
 }
-
-data class CachedTransactionResponse(
-  @SerializedName("url") val referrerUrl: String,
-  val product: String,
-  val domain: String,
-  @SerializedName("callback_url") val callbackUrl: String,
-  val currency: String,
-  @SerializedName("order_reference") val orderReference: String,
-  val value: Double,
-  val signature: String
-)
 
 data class CachedTransaction(
   val referrerUrl: String?,

@@ -1,11 +1,11 @@
 package com.appcoins.wallet.gamification
 
-import com.appcoins.wallet.gamification.repository.ForecastBonusResponse
-import com.appcoins.wallet.gamification.repository.GamificationApi
-import com.appcoins.wallet.gamification.repository.entity.LevelsResponse
-import com.appcoins.wallet.gamification.repository.entity.ReferralResponse
-import com.appcoins.wallet.gamification.repository.entity.UserStatusResponse
-import com.appcoins.wallet.gamification.repository.entity.VipReferralResponse
+import com.appcoins.wallet.core.network.backend.model.ForecastBonusResponse
+import com.appcoins.wallet.core.network.backend.api.GamificationApi
+import com.appcoins.wallet.core.network.backend.model.LevelsResponse
+import com.appcoins.wallet.core.network.backend.model.ReferralResponse
+import com.appcoins.wallet.core.network.backend.model.UserStatusResponse
+import com.appcoins.wallet.core.network.backend.model.VipReferralResponse
 import io.reactivex.Single
 import java.math.BigDecimal
 

@@ -1,6 +1,7 @@
 package com.appcoins.wallet.billing.adyen
 
 import com.adyen.checkout.core.model.ModelObject
+import com.appcoins.wallet.core.network.microservices.model.AdyenBillingAddress
 import com.google.gson.annotations.SerializedName
 
 data class Payment(@SerializedName("payment.method") val adyenPaymentMethod: ModelObject,

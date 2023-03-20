@@ -1,10 +1,10 @@
 package com.appcoins.wallet.gamification.repository
 
 import androidx.room.TypeConverter
-import com.appcoins.wallet.gamification.repository.entity.LevelsResponse
-import com.appcoins.wallet.gamification.repository.entity.PromotionsResponse
-import com.appcoins.wallet.gamification.repository.entity.ReferralResponse
-import com.appcoins.wallet.gamification.repository.entity.WalletOrigin
+import com.appcoins.wallet.core.network.backend.model.LevelsResponse
+import com.appcoins.wallet.core.network.backend.model.PromotionsResponse
+import com.appcoins.wallet.core.network.backend.model.ReferralResponse
+import com.appcoins.wallet.core.network.backend.model.WalletOrigin
 import java.math.BigDecimal
 import java.util.*
 

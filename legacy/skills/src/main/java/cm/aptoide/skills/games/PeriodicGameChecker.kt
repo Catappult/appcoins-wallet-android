@@ -1,8 +1,8 @@
 package cm.aptoide.skills.games
 
-import cm.aptoide.skills.model.RoomResponse
-import cm.aptoide.skills.model.RoomStatus
-import cm.aptoide.skills.model.User
+import com.appcoins.wallet.core.network.eskills.model.RoomResponse
+import com.appcoins.wallet.core.network.eskills.model.RoomStatus
+import com.appcoins.wallet.core.network.eskills.model.User
 import cm.aptoide.skills.repository.RoomRepository
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers

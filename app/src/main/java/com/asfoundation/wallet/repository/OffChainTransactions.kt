@@ -1,8 +1,8 @@
 package com.asfoundation.wallet.repository
 
 import android.annotation.SuppressLint
+import com.appcoins.wallet.core.network.backend.model.WalletHistory
 import com.asf.wallet.BuildConfig
-import com.asfoundation.wallet.entity.WalletHistory
 import io.reactivex.Single
 import retrofit2.HttpException
 import javax.inject.Inject

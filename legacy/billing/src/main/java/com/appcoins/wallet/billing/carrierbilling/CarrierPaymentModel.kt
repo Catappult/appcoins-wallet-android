@@ -1,8 +1,8 @@
 package com.appcoins.wallet.billing.carrierbilling
 
-import com.appcoins.wallet.billing.carrierbilling.response.TransactionCarrier
-import com.appcoins.wallet.billing.common.response.TransactionFee
-import com.appcoins.wallet.billing.common.response.TransactionStatus
+import com.appcoins.wallet.core.network.microservices.model.TransactionCarrier
+import com.appcoins.wallet.core.network.microservices.model.TransactionFee
+import com.appcoins.wallet.core.network.microservices.model.TransactionStatus
 import java.math.BigDecimal
 
 data class CarrierPaymentModel(

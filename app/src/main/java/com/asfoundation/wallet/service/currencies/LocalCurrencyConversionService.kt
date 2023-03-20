@@ -1,26 +1,28 @@
 package com.asfoundation.wallet.service.currencies
 
+import com.appcoins.wallet.core.network.microservices.api.BrokerVerificationApi.TokenToLocalFiatApi
+import com.appcoins.wallet.core.network.microservices.model.ConversionResponseBody
 import com.asfoundation.wallet.ui.iab.FiatValue
 import io.reactivex.Single
-import retrofit2.http.GET
-import retrofit2.http.Path
-import retrofit2.http.Query
 import java.math.RoundingMode
 import javax.inject.Inject
 
 class LocalCurrencyConversionService @Inject constructor(
-    private val tokenToLocalFiatApi: TokenToLocalFiatApi,
-    private val currencyConversionRatesPersistence: CurrencyConversionRatesPersistence) {
+  private val tokenToLocalFiatApi: TokenToLocalFiatApi,
+  private val currencyConversionRatesPersistence: CurrencyConversionRatesPersistence
+) {
 
   val localCurrency: Single<FiatValue>
     get() = getAppcToLocalFiat("1.0", 18)
 
-  fun getAppcToLocalFiat(value: String, scale: Int,
-                         getFromCache: Boolean = false): Single<FiatValue> {
+  fun getAppcToLocalFiat(
+    value: String, scale: Int,
+    getFromCache: Boolean = false
+  ): Single<FiatValue> {
     return if (getFromCache) {
       currencyConversionRatesPersistence.getAppcToLocalFiat(value, scale)
     } else getValueToFiat(value, "APPC", null, scale)
-        .flatMap {
+      .flatMap {
           currencyConversionRatesPersistence.saveRateFromAppcToFiat(value, it.amount
               .toString(), it.currency, it.symbol)
               .andThen(Single.just(it))
@@ -68,21 +70,5 @@ class LocalCurrencyConversionService @Inject constructor(
           FiatValue(response.value
               .setScale(scale, RoundingMode.FLOOR), response.currency, response.sign)
         }
-  }
-
-  interface TokenToLocalFiatApi {
-    @GET("8.20180518/exchanges/{currency}/convert/{value}")
-    fun getValueToTargetFiat(@Path("currency") currency: String,
-                             @Path("value") value: String): Single<ConversionResponseBody>
-
-    @GET("8.20180518/exchanges/{currency}/convert/{value}")
-    fun getValueToTargetFiat(@Path("currency") currency: String,
-                             @Path("value") value: String,
-                             @Query("to")
-                             targetCurrency: String): Single<ConversionResponseBody>
-
-    @GET("8.20180518/exchanges/{currency}/convert/{value}?to=APPC")
-    fun convertFiatToAppc(@Path("currency") currency: String,
-                          @Path("value") value: String): Single<ConversionResponseBody>
   }
 }

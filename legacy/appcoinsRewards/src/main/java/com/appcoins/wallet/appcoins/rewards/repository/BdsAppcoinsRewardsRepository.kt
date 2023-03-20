@@ -1,7 +1,7 @@
 package com.appcoins.wallet.appcoins.rewards.repository
 
 import com.appcoins.wallet.appcoins.rewards.AppcoinsRewardsRepository
-import com.appcoins.wallet.bdsbilling.repository.entity.Transaction
+import com.appcoins.wallet.core.network.microservices.model.Transaction
 import io.reactivex.Single
 import retrofit2.HttpException
 import java.math.BigDecimal

@@ -17,10 +17,11 @@ import cm.aptoide.skills.games.BackgroundGameService
 import cm.aptoide.skills.interfaces.PaymentView
 import cm.aptoide.skills.model.*
 import cm.aptoide.skills.usecase.Status
-import cm.aptoide.skills.util.EskillsPaymentData
+import com.appcoins.wallet.core.network.eskills.model.EskillsPaymentData
 import cm.aptoide.skills.util.EskillsUriParser
 import cm.aptoide.skills.util.RootUtil
 import cm.aptoide.skills.util.UriValidationResult
+import com.appcoins.wallet.core.network.eskills.model.QueueIdentifier
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.Completable
 import io.reactivex.Observable

@@ -1,7 +1,7 @@
 package cm.aptoide.skills.repository
 
 import cm.aptoide.skills.model.WalletAddress
-import cm.aptoide.skills.util.EskillsPaymentData
+import com.appcoins.wallet.core.network.eskills.model.EskillsPaymentData
 import com.appcoins.wallet.sharedpreferences.EskillsPreferencesDataSource
 import com.google.gson.Gson
 import io.reactivex.Single

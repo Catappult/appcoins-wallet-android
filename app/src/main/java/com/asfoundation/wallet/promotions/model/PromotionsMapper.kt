@@ -1,9 +1,9 @@
 package com.asfoundation.wallet.promotions.model
 
+import com.appcoins.wallet.core.network.backend.model.*
 import com.appcoins.wallet.gamification.repository.Levels
 import com.appcoins.wallet.gamification.repository.Status
 import com.appcoins.wallet.gamification.repository.UserStats
-import com.appcoins.wallet.gamification.repository.entity.*
 import com.asfoundation.wallet.entity.Wallet
 import com.asfoundation.wallet.promotions.PromotionsInteractor
 import com.asfoundation.wallet.ui.gamification.GamificationMapper

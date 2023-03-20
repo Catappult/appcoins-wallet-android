@@ -1,7 +1,7 @@
 package com.asfoundation.wallet.subscriptions.db
 
 import androidx.room.TypeConverter
-import com.appcoins.wallet.bdsbilling.SubscriptionSubStatus
+import com.appcoins.wallet.core.network.microservices.model.SubscriptionSubStatus
 import java.math.BigDecimal
 
 class UserSubscriptionsConverter {
