@@ -12,7 +12,8 @@ android {
 
 dependencies {
     compileOnly(fileTree(mapOf("dir" to "libs", "include" to listOf("*.aar"))))
-    implementation(project(":legacy:commons"))
+    implementation(project(":ui:common"))
+    implementation(project(":core:utils:jvm-common"))
     implementation(project(":core:utils:properties"))
     implementation(libs.jackson.annotation)
     implementation(libs.bundles.analytics)

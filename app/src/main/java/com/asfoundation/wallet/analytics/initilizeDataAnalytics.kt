@@ -3,10 +3,10 @@ package com.asfoundation.wallet.analytics
 import android.app.Application
 import android.content.Context
 
-import com.appcoins.wallet.commons.Logger
 import com.appcoins.wallet.core.analytics.analytics.AnalyticsLabels
 import com.appcoins.wallet.core.analytics.analytics.IndicativeAnalytics
 import com.appcoins.wallet.core.analytics.analytics.RakamAnalytics
+import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.appcoins.wallet.gamification.repository.PromotionsRepository
 import com.asf.wallet.BuildConfig
 import com.asfoundation.wallet.identification.DeviceInformation

@@ -2,9 +2,6 @@ package com.appcoins.wallet.core.analytics.analytics
 
 import android.app.Application
 import android.content.Context
-import com.appcoins.wallet.commons.Logger
-import com.google.android.gms.common.ConnectionResult
-import com.google.android.gms.common.GoogleApiAvailability
 import com.appcoins.wallet.core.analytics.BuildConfig
 import com.appcoins.wallet.core.analytics.analytics.logging.Log
 import com.appcoins.wallet.core.utils.properties.HostProperties
