@@ -4,7 +4,7 @@ import android.content.ContentResolver
 import androidx.documentfile.provider.DocumentFile
 import com.appcoins.wallet.bdsbilling.WalletService
 import com.appcoins.wallet.core.network.backend.api.BackupLogApi
-import com.appcoins.wallet.core.network.microservices.api.BackupEmailApi
+import com.appcoins.wallet.core.network.microservices.api.broker.BackupEmailApi
 import com.appcoins.wallet.core.network.microservices.model.EmailBody
 
 import com.appcoins.wallet.core.utils.android_common.RxSchedulers

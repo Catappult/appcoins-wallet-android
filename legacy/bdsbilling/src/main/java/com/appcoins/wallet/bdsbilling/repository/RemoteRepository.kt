@@ -1,11 +1,11 @@
 package com.appcoins.wallet.bdsbilling.repository
 
 import com.appcoins.wallet.bdsbilling.repository.entity.*
-import com.appcoins.wallet.core.network.bds.BdsApiSecondary
-import com.appcoins.wallet.core.network.bds.GetWalletResponse
-import com.appcoins.wallet.core.network.microservices.api.BrokerVerificationApi.BrokerBdsApi
-import com.appcoins.wallet.core.network.microservices.api.InappBillingApi
-import com.appcoins.wallet.core.network.microservices.api.SubscriptionBillingApi
+import com.appcoins.wallet.core.network.bds.api.BdsApiSecondary
+import com.appcoins.wallet.core.network.bds.model.GetWalletResponse
+import com.appcoins.wallet.core.network.microservices.api.broker.BrokerBdsApi
+import com.appcoins.wallet.core.network.microservices.api.product.InappBillingApi
+import com.appcoins.wallet.core.network.microservices.api.product.SubscriptionBillingApi
 import com.appcoins.wallet.core.network.microservices.model.*
 import io.reactivex.Completable
 import io.reactivex.Single

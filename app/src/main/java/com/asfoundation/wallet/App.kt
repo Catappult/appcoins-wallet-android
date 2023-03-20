@@ -14,10 +14,7 @@ import com.appcoins.wallet.billing.BillingMessagesMapper
 import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.appcoins.wallet.core.utils.properties.MiscProperties
 import com.appcoins.wallet.core.network.base.MagnesUtils
-import com.appcoins.wallet.core.network.bds.BdsApiSecondary
-import com.appcoins.wallet.core.network.microservices.api.BrokerVerificationApi
-import com.appcoins.wallet.core.network.microservices.api.InappBillingApi
-import com.appcoins.wallet.core.network.microservices.api.SubscriptionBillingApi
+import com.appcoins.wallet.core.network.bds.api.BdsApiSecondary
 import com.asf.wallet.BuildConfig
 import com.appcoins.wallet.core.analytics.analytics.SentryAnalytics
 import com.asfoundation.wallet.app_start.AppStartProbe
@@ -25,6 +22,9 @@ import com.asfoundation.wallet.app_start.AppStartUseCase
 import com.asfoundation.wallet.app_start.StartMode
 import com.asfoundation.wallet.identification.IdsRepository
 import com.appcoins.wallet.core.analytics.analytics.logging.FlurryReceiver
+import com.appcoins.wallet.core.network.microservices.api.broker.BrokerBdsApi
+import com.appcoins.wallet.core.network.microservices.api.product.InappBillingApi
+import com.appcoins.wallet.core.network.microservices.api.product.SubscriptionBillingApi
 import com.asfoundation.wallet.analytics.initilizeDataAnalytics
 import com.asfoundation.wallet.main.appsflyer.ApkOriginVerification
 import com.asfoundation.wallet.support.AlarmManagerBroadcastReceiver
@@ -65,7 +65,7 @@ class App : MultiDexApplication(), BillingDependenciesProvider {
   lateinit var appcoinsOperationsDataSaver: AppcoinsOperationsDataSaver
 
   @Inject
-  lateinit var brokerBdsApi: BrokerVerificationApi.BrokerBdsApi
+  lateinit var brokerBdsApi: BrokerBdsApi
 
   @Inject
   lateinit var inappApi: InappBillingApi

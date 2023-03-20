@@ -11,7 +11,7 @@ import com.appcoins.wallet.billing.util.Error
 import com.appcoins.wallet.billing.util.getErrorCodeAndMessage
 import com.appcoins.wallet.billing.util.getMessage
 import com.appcoins.wallet.billing.util.isNoNetworkException
-import com.appcoins.wallet.core.network.microservices.api.AdyenTransactionResponse
+import com.appcoins.wallet.core.network.microservices.model.AdyenTransactionResponse
 import com.appcoins.wallet.core.network.microservices.model.PaymentMethodsResponse
 import com.appcoins.wallet.core.network.microservices.model.Transaction
 import com.google.gson.Gson

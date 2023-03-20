@@ -2,6 +2,7 @@ package com.appcoins.wallet.core.network.bds
 
 import com.appcoins.wallet.core.utils.properties.HostProperties
 import com.appcoins.wallet.core.network.base.annotations.DefaultHttpClient
+import com.appcoins.wallet.core.network.bds.api.BdsApiSecondary
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

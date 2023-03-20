@@ -5,9 +5,9 @@ import com.appcoins.wallet.core.network.base.annotations.BlockchainHttpClient
 import com.appcoins.wallet.core.network.base.annotations.DefaultHttpClient
 import com.appcoins.wallet.core.network.microservices.annotations.ProductBlockchainRetrofit
 import com.appcoins.wallet.core.network.microservices.annotations.ProductDefaultRetrofit
-import com.appcoins.wallet.core.network.microservices.api.InappBillingApi
-import com.appcoins.wallet.core.network.microservices.api.SubscriptionBillingApi
-import com.appcoins.wallet.core.network.microservices.api.TopUpValuesApi
+import com.appcoins.wallet.core.network.microservices.api.product.InappBillingApi
+import com.appcoins.wallet.core.network.microservices.api.product.SubscriptionBillingApi
+import com.appcoins.wallet.core.network.microservices.api.product.TopUpValuesApi
 import com.appcoins.wallet.core.network.microservices.model.FiatCurrenciesResponse
 import com.appcoins.wallet.core.network.microservices.model.UserSubscriptionApi
 import dagger.Module

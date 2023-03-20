@@ -1,10 +1,10 @@
 package com.appcoins.wallet.bdsbilling
 
 import com.appcoins.wallet.bdsbilling.repository.*
-import com.appcoins.wallet.core.network.bds.BdsApiSecondary
+import com.appcoins.wallet.core.network.bds.api.BdsApiSecondary
 import com.appcoins.wallet.core.network.bds.Data
 import com.appcoins.wallet.core.network.bds.GetWalletResponse
-import com.appcoins.wallet.core.network.microservices.api.BrokerVerificationApi
+import com.appcoins.wallet.core.network.microservices.api.broker.BrokerVerificationApi
 import com.appcoins.wallet.core.network.microservices.api.InappBillingApi
 import com.appcoins.wallet.core.network.microservices.api.SubscriptionBillingApi
 import com.appcoins.wallet.core.network.microservices.model.Transaction

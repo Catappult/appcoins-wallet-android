@@ -5,21 +5,21 @@ import com.appcoins.wallet.core.analytics.analytics.logging.Log;
 import cm.aptoide.analytics.AnalyticsManager;
 import cm.aptoide.analytics.AnalyticsManager.Action;
 import cm.aptoide.analytics.EventLogger;
-import com.appcoins.wallet.core.network.analytics.AnalyticsAPI;
 import com.appcoins.wallet.core.network.analytics.AnalyticsBody;
+import com.appcoins.wallet.core.network.analytics.api.AnalyticsApi;
 import io.reactivex.schedulers.Schedulers;
 import java.util.Map;
 
 public class BackendEventLogger implements EventLogger {
 
   private static final String TAG = AnalyticsManager.class.getSimpleName();
-  private final AnalyticsAPI api;
+  private final AnalyticsApi api;
 
   private final int versionCode;
   private final String applicationId;
 
 
-  public BackendEventLogger(AnalyticsAPI api, int versionCode, String applicationId  ) {
+  public BackendEventLogger(AnalyticsApi api, int versionCode, String applicationId  ) {
     this.api = api;
     this.versionCode = versionCode;
     this.applicationId = applicationId;

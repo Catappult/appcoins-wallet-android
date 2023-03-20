@@ -80,7 +80,7 @@ class UserStatsRepository @Inject constructor(
 
   private fun filterByDate(promotions: List<PromotionEntity>): List<PromotionEntity> {
     val currentTime = TimeUnit.SECONDS.convert(System.currentTimeMillis(), TimeUnit.MILLISECONDS)
-    return promotions.filter { it.endDate == null || currentTime < it.endDate!! }
+    return promotions.filter { it.endDate == null || currentTime < it.endDate }
   }
 
   private fun mapToPromotionResponse(promotions: List<PromotionEntity>): List<PromotionsResponse> {
@@ -243,7 +243,7 @@ class UserStatsRepository @Inject constructor(
   }
 
   override fun getSeenWalletOrigin(wallet: String): String {
-    return preferences.getSeenWalletOrigin(wallet)!!
+    return preferences.getSeenWalletOrigin(wallet)
   }
 
   override fun isVipCalloutAlreadySeen(wallet: String) =

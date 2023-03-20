@@ -10,7 +10,7 @@ import com.adyen.checkout.components.model.payments.response.Threeds2Fingerprint
 import com.appcoins.wallet.billing.ErrorInfo
 import com.appcoins.wallet.billing.common.BillingErrorMapper
 import com.appcoins.wallet.billing.util.Error
-import com.appcoins.wallet.core.network.microservices.api.AdyenTransactionResponse
+import com.appcoins.wallet.core.network.microservices.model.AdyenTransactionResponse
 import com.appcoins.wallet.core.network.microservices.model.*
 import com.google.gson.Gson
 import com.google.gson.JsonObject

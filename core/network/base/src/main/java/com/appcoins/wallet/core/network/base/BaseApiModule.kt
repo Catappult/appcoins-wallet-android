@@ -1,4 +1,4 @@
-package com.appcoins.wallet.core.network.base.api
+package com.appcoins.wallet.core.network.base
 
 import android.content.Context
 import com.appcoins.wallet.core.network.base.annotations.BaseHttpClient

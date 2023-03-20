@@ -1,4 +1,4 @@
-package com.appcoins.wallet.core.network.microservices.api
+package com.appcoins.wallet.core.network.microservices.model
 
 data class VerificationInfoResponse(
     val currency: String,

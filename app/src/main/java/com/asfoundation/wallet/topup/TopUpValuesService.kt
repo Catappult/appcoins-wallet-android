@@ -1,6 +1,6 @@
 package com.asfoundation.wallet.topup
 
-import com.appcoins.wallet.core.network.microservices.api.TopUpValuesApi
+import com.appcoins.wallet.core.network.microservices.api.product.TopUpValuesApi
 import com.asf.wallet.BuildConfig
 import com.appcoins.wallet.core.utils.android_common.extensions.isNoNetworkException
 import io.reactivex.Single

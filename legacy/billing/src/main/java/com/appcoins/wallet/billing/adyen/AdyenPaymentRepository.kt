@@ -1,17 +1,20 @@
 package com.appcoins.wallet.billing.adyen
 
+import android.util.Log
 import com.adyen.checkout.core.model.ModelObject
-import com.appcoins.wallet.core.network.microservices.api.BrokerVerificationApi
-import com.appcoins.wallet.core.network.microservices.api.SubscriptionBillingApi
+import com.appcoins.wallet.core.network.microservices.api.broker.AdyenApi
+import com.appcoins.wallet.core.network.microservices.api.broker.BrokerBdsApi
+import com.appcoins.wallet.core.network.microservices.api.product.SubscriptionBillingApi
 import com.appcoins.wallet.core.network.microservices.model.*
+import com.appcoins.wallet.core.utils.jvm_common.DevUtils.CUSTOM_TAG
 import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.google.gson.JsonObject
 import io.reactivex.Single
 import javax.inject.Inject
 
 class AdyenPaymentRepository @Inject constructor(
-  private val adyenApi: BrokerVerificationApi.AdyenApi,
-  private val brokerBdsApi: BrokerVerificationApi.BrokerBdsApi,
+  private val adyenApi: AdyenApi,
+  private val brokerBdsApi: BrokerBdsApi,
   private val subscriptionsApi: SubscriptionBillingApi,
   private val adyenResponseMapper: AdyenResponseMapper,
   private val logger: Logger
@@ -20,7 +23,10 @@ class AdyenPaymentRepository @Inject constructor(
   fun loadPaymentInfo(methods: Methods, value: String,
                       currency: String, walletAddress: String): Single<PaymentInfoModel> {
     return adyenApi.loadPaymentInfo(walletAddress, value, currency, methods.transactionType)
-        .map { adyenResponseMapper.map(it, methods) }
+        .map {
+          Log.d(CUSTOM_TAG, "AdyenPaymentRepository: loadPaymentInfo: response $it")
+          adyenResponseMapper.map(it, methods)
+        }
         .onErrorReturn {
           logger.log("AdyenPaymentRepository", it)
           adyenResponseMapper.mapInfoModelError(it)

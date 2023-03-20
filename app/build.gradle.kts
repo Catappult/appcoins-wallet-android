@@ -12,8 +12,8 @@ plugins {
 android {
   defaultConfig {
     applicationId = "com.appcoins.wallet"
-    versionCode = 258
-    versionName = "2.9.1.0"
+    versionCode = 259
+    versionName = "2.9.2.0"
 
     val inputFile = File("$rootDir/appcoins-services.json")
     val json = JsonSlurper().parseText(inputFile.readText()) as Map<*, *>

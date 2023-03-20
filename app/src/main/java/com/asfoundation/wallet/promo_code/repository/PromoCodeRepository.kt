@@ -1,6 +1,6 @@
 package com.asfoundation.wallet.promo_code.repository
 
-import com.appcoins.wallet.core.network.backend.api.PromoCodeBackendApi
+import com.appcoins.wallet.core.network.backend.api.PromoCodeApi
 import com.appcoins.wallet.core.network.backend.model.PromoCodeBonusResponse
 import com.appcoins.wallet.core.analytics.analytics.AnalyticsSetup
 import com.appcoins.wallet.core.utils.android_common.RxSchedulers
@@ -11,14 +11,14 @@ import retrofit2.HttpException
 import javax.inject.Inject
 
 class PromoCodeRepository @Inject constructor(
-  private val promoCodeBackendApi: PromoCodeBackendApi,
+  private val promoCodeApi: PromoCodeApi,
   private val promoCodeLocalDataSource: PromoCodeLocalDataSource,
   private val analyticsSetup: AnalyticsSetup,
   private val rxSchedulers: RxSchedulers
 ) {
 
   fun verifyAndSavePromoCode(promoCodeString: String): Single<PromoCode> {
-    return promoCodeBackendApi.getPromoCodeBonus(promoCodeString)
+    return promoCodeApi.getPromoCodeBonus(promoCodeString)
       .subscribeOn(rxSchedulers.io)
       .doOnSuccess { response ->
         analyticsSetup.setPromoCode(

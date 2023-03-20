@@ -1,5 +1,8 @@
 package com.appcoins.wallet.core.network.backend
 
+import com.appcoins.wallet.core.network.backend.annotations.BackendBlockchainRetrofit
+import com.appcoins.wallet.core.network.backend.annotations.BackendDefaultRetrofit
+import com.appcoins.wallet.core.network.backend.annotations.BackendShortTimeoutRetrofit
 import com.appcoins.wallet.core.network.backend.api.*
 import com.appcoins.wallet.core.network.backend.model.PromotionsDeserializer
 import com.appcoins.wallet.core.network.backend.model.PromotionsResponse
@@ -119,16 +122,16 @@ class BackendApiModule {
   @Provides
   fun providesPromoCodeBackendApi(
     @BackendDefaultRetrofit retrofit: Retrofit
-  ): PromoCodeBackendApi {
-    return retrofit.create(PromoCodeBackendApi::class.java)
+  ): PromoCodeApi {
+    return retrofit.create(PromoCodeApi::class.java)
   }
 
   @Singleton
   @Provides
   fun providesRedeemGiftBackendApi(
     @BackendDefaultRetrofit retrofit: Retrofit
-  ): RedeemGiftBackendApi {
-    return retrofit.create(RedeemGiftBackendApi::class.java)
+  ): RedeemGiftApi {
+    return retrofit.create(RedeemGiftApi::class.java)
   }
 
   @Singleton
@@ -175,8 +178,8 @@ class BackendApiModule {
   @Provides
   fun provideGasService(
     @BackendBlockchainRetrofit retrofit: Retrofit
-  ): GasService {
-    return retrofit.create(GasService::class.java)
+  ): GasServiceApi {
+    return retrofit.create(GasServiceApi::class.java)
   }
 
   @Singleton
