@@ -6,7 +6,6 @@ import com.appcoins.wallet.core.utils.android_common.extensions.isNoNetworkExcep
 import com.appcoins.wallet.core.network.microservices.api.BrokerVerificationApi
 import com.appcoins.wallet.core.network.microservices.api.VerificationInfoResponse
 import com.appcoins.wallet.core.network.microservices.model.VerificationPayment
-import com.asfoundation.wallet.util.isNoNetworkException
 import com.asfoundation.wallet.verification.ui.credit_card.network.VerificationStatus
 import com.asfoundation.wallet.wallets.repository.WalletInfoRepository
 import io.reactivex.Completable

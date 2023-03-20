@@ -12,6 +12,7 @@ import com.appcoins.wallet.core.network.microservices.api.BrokerVerificationApi.
 import com.appcoins.wallet.core.network.microservices.api.TopUpApi
 import com.appcoins.wallet.core.network.microservices.model.CarrierErrorResponse
 import com.appcoins.wallet.core.network.microservices.model.CarrierErrorResponseTypeAdapter
+import com.appcoins.wallet.core.utils.android_common.RxSchedulers
 import com.google.gson.GsonBuilder
 import dagger.Module
 import dagger.Provides

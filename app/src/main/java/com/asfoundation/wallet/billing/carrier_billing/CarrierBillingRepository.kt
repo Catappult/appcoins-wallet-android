@@ -4,7 +4,6 @@ import com.appcoins.wallet.billing.carrierbilling.AvailableCountryListModel
 import com.appcoins.wallet.billing.carrierbilling.CarrierBillingPreferencesRepository
 import com.appcoins.wallet.billing.carrierbilling.CarrierPaymentModel
 import com.appcoins.wallet.core.network.microservices.model.CarrierTransactionBody
-import com.appcoins.wallet.commons.Logger
 import com.appcoins.wallet.core.network.microservices.api.BrokerVerificationApi.CarrierBillingApi
 import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.asf.wallet.BuildConfig

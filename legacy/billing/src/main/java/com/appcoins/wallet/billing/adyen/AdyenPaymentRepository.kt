@@ -1,7 +1,6 @@
 package com.appcoins.wallet.billing.adyen
 
 import com.adyen.checkout.core.model.ModelObject
-import com.appcoins.wallet.commons.Logger
 import com.appcoins.wallet.core.network.microservices.api.BrokerVerificationApi
 import com.appcoins.wallet.core.network.microservices.api.SubscriptionBillingApi
 import com.appcoins.wallet.core.network.microservices.model.*

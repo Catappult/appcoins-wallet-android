@@ -2,7 +2,6 @@ package com.appcoins.wallet.appcoins.rewards
 
 import com.appcoins.wallet.appcoins.rewards.repository.WalletService
 import com.appcoins.wallet.bdsbilling.Billing
-import com.appcoins.wallet.commons.Repository
 import com.appcoins.wallet.core.network.microservices.model.Transaction as CoreTransaction
 import com.appcoins.wallet.core.network.microservices.model.Transaction.Status as CoreStatus
 import com.appcoins.wallet.core.utils.jvm_common.Repository
