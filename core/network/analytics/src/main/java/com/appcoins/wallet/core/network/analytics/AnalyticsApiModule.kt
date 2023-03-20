@@ -1,7 +1,6 @@
 package com.appcoins.wallet.core.network.analytics
 
 import com.appcoins.wallet.core.network.base.annotations.DefaultHttpClient
-import com.appcoins.wallet.core.analytics.analytics.AnalyticsAPI
 import com.fasterxml.jackson.databind.ObjectMapper
 import dagger.Module
 import dagger.Provides
