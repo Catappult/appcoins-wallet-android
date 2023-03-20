@@ -1,4 +1,6 @@
-package com.asfoundation.wallet.analytics;
+package com.appcoins.wallet.core.analytics.analytics;
+
+import com.appcoins.wallet.core.analytics.analytics.logging.Log;
 
 import cm.aptoide.analytics.AnalyticsManager;
 import cm.aptoide.analytics.AnalyticsManager.Action;
@@ -15,8 +17,14 @@ public class BackendEventLogger implements EventLogger {
   private static final String TAG = AnalyticsManager.class.getSimpleName();
   private final AnalyticsAPI api;
 
-  public BackendEventLogger(AnalyticsAPI api) {
+  private final int versionCode;
+  private final String applicationId;
+
+
+  public BackendEventLogger(AnalyticsAPI api, int versionCode, String applicationId  ) {
     this.api = api;
+    this.versionCode = versionCode;
+    this.applicationId = applicationId;
   }
 
   @Override
@@ -32,7 +40,7 @@ public class BackendEventLogger implements EventLogger {
         + "]");
 
     api.registerEvent(action, eventName,
-        new AnalyticsBody(BuildConfig.VERSION_CODE, BuildConfig.APPLICATION_ID, data))
+        new AnalyticsBody(versionCode, applicationId, data))
         .subscribeOn(Schedulers.io())
         .subscribe(() -> Log.d(TAG, "event sent"), Throwable::printStackTrace);
   }

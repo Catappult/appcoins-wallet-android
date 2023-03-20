@@ -5,7 +5,7 @@ import android.content.ActivityNotFoundException
 import com.appcoins.wallet.core.utils.android_common.RxSchedulers
 import com.appcoins.wallet.gamification.repository.PromotionsGamificationStats
 import com.appcoins.wallet.ui.arch.*
-import com.asfoundation.wallet.analytics.AnalyticsSetup
+import com.appcoins.wallet.core.analytics.analytics.AnalyticsSetup
 import com.asfoundation.wallet.promotions.PromotionsInteractor
 import com.asfoundation.wallet.promotions.model.PromotionsModel
 import com.asfoundation.wallet.promotions.model.VipReferralInfo
@@ -74,7 +74,7 @@ class PromotionsViewModel @Inject constructor(
       }
       .doOnNext { promotionsModel ->
         if (promotionsModel.error == null) {
-          analyticsSetup.setWalletOrigin(promotionsModel.walletOrigin)
+          analyticsSetup.setWalletOrigin(promotionsModel.walletOrigin.name)
           setSeenWalletOrigin(promotionsModel.wallet.address, promotionsModel.walletOrigin.name)
           setSeenPromotions(promotionsModel.promotions, promotionsModel.wallet.address)
         }

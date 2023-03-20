@@ -1,4 +1,4 @@
-package com.asfoundation.wallet.analytics
+package com.appcoins.wallet.core.analytics.analytics
 
 object AnalyticsLabels {
   const val APTOIDE_PACKAGE = "aptoide_package"

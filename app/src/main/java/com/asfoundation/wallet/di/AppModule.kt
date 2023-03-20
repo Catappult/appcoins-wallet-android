@@ -25,7 +25,7 @@ import com.asf.appcoins.sdk.contractproxy.AppCoinsAddressProxySdk
 import com.asf.wallet.BuildConfig
 import com.asf.wallet.R
 import com.asfoundation.wallet.C
-import com.asfoundation.wallet.analytics.TaskTimer
+import com.appcoins.wallet.core.analytics.analytics.TaskTimer
 import com.asfoundation.wallet.entity.NetworkInfo
 import com.asfoundation.wallet.ewt.EwtAuthenticatorService
 import com.asfoundation.wallet.logging.DebugReceiver

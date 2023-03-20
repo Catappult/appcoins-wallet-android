@@ -1,4 +1,4 @@
-package com.asfoundation.wallet.analytics;
+package com.appcoins.wallet.core.analytics.analytics;
 
 import cm.aptoide.analytics.KeyValueNormalizer;
 import java.util.HashMap;

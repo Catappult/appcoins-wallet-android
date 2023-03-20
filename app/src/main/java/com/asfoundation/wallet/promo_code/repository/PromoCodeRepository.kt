@@ -3,6 +3,7 @@ package com.asfoundation.wallet.promo_code.repository
 import com.appcoins.wallet.core.network.backend.api.PromoCodeBackendApi
 import com.appcoins.wallet.core.network.backend.model.PromoCodeBonusResponse
 import com.asfoundation.wallet.analytics.AnalyticsSetup
+import com.appcoins.wallet.core.analytics.analytics.AnalyticsSetup
 import com.appcoins.wallet.core.utils.android_common.RxSchedulers
 import io.reactivex.Completable
 import io.reactivex.Observable
@@ -22,12 +23,10 @@ class PromoCodeRepository @Inject constructor(
       .subscribeOn(rxSchedulers.io)
       .doOnSuccess { response ->
         analyticsSetup.setPromoCode(
-          PromoCode(
             response.code,
             response.bonus,
-            validity = ValidityState.ACTIVE,
+            validity = ValidityState.ACTIVE.value,
             response.app.appName
-          )
         )
         promoCodeLocalDataSource.savePromoCode(response, ValidityState.ACTIVE).subscribe()
       }
