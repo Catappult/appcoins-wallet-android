@@ -40,7 +40,7 @@ class BillingWebViewFragment : BasePageViewFragment() {
   @Inject
   lateinit var analytics: BillingAnalytics
   @Inject
-  lateinit var logger: com.appcoins.wallet.core.utils.jvm_common.Logger
+  lateinit var logger: Logger
 
   lateinit var currentUrl: String
   private var executorService: ScheduledExecutorService? = null

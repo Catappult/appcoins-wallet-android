@@ -15,6 +15,7 @@ import com.adyen.checkout.core.api.Environment
 import com.appcoins.wallet.bdsbilling.WalletService
 import com.appcoins.wallet.core.utils.jvm_common.LogReceiver
 import com.appcoins.wallet.core.utils.jvm_common.Logger
+import com.appcoins.wallet.core.utils.jvm_common.SyncExecutor
 import com.aptoide.apk.injector.extractor.data.Extractor
 import com.aptoide.apk.injector.extractor.data.ExtractorV1
 import com.aptoide.apk.injector.extractor.data.ExtractorV2
@@ -241,7 +242,7 @@ internal class AppModule {
   @Singleton
   @Provides
   fun providesExecutorScheduler() = ExecutorScheduler(
-    com.appcoins.wallet.core.utils.jvm_common.SyncExecutor(
+    SyncExecutor(
       1
     ), false)
 

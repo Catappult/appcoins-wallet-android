@@ -3,6 +3,7 @@ package com.asfoundation.wallet.di
 import com.appcoins.wallet.bdsbilling.BillingPaymentProofSubmission
 import com.appcoins.wallet.core.utils.android_common.RxSchedulers
 import com.appcoins.wallet.core.utils.jvm_common.CountryCodeProvider
+import com.appcoins.wallet.core.utils.jvm_common.MemoryCache
 import com.asfoundation.wallet.billing.partners.AddressService
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.interact.DefaultTokenProvider
@@ -43,7 +44,7 @@ class ServiceModule {
             return sendTransactionInteract.buy(transactionBuilder)
           }
         },
-        com.appcoins.wallet.core.utils.jvm_common.MemoryCache(
+        MemoryCache(
           BehaviorSubject.create(),
           ConcurrentHashMap()
         ), paymentErrorMapper,
@@ -72,7 +73,7 @@ class ServiceModule {
             return sendTransactionInteract.buy(transactionBuilder)
           }
         },
-        com.appcoins.wallet.core.utils.jvm_common.MemoryCache(
+        MemoryCache(
           BehaviorSubject.create(),
           ConcurrentHashMap()
         ), paymentErrorMapper,
@@ -98,7 +99,7 @@ class ServiceModule {
     defaultTokenProvider: DefaultTokenProvider
   ): InAppPurchaseService {
     return InAppPurchaseService(
-      com.appcoins.wallet.core.utils.jvm_common.MemoryCache(
+      MemoryCache(
         BehaviorSubject.create(),
         HashMap()
       ), approveService,
@@ -118,7 +119,7 @@ class ServiceModule {
     defaultTokenProvider: DefaultTokenProvider
   ): InAppPurchaseService {
     return InAppPurchaseService(
-      com.appcoins.wallet.core.utils.jvm_common.MemoryCache(
+      MemoryCache(
         BehaviorSubject.create(),
         HashMap()
       ), approveService,
@@ -134,7 +135,7 @@ class ServiceModule {
   ): BdsTransactionService {
     return BdsTransactionService(
       rxSchedulers,
-      com.appcoins.wallet.core.utils.jvm_common.MemoryCache(
+      MemoryCache(
         BehaviorSubject.create(),
         HashMap()
       ),
@@ -158,7 +159,7 @@ class ServiceModule {
             return sendTransactionInteract.approve(transactionBuilder)
           }
         },
-        com.appcoins.wallet.core.utils.jvm_common.MemoryCache(
+        MemoryCache(
           BehaviorSubject.create(),
           ConcurrentHashMap()
         ), paymentErrorMapper,

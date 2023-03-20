@@ -19,7 +19,7 @@ class TopUpActivityPresenter(
   private val viewScheduler: Scheduler,
   private val networkScheduler: Scheduler,
   private val disposables: CompositeDisposable,
-  private val logger: com.appcoins.wallet.core.utils.jvm_common.Logger
+  private val logger: Logger
 ) {
   fun present(isCreating: Boolean) {
     if (isCreating) {

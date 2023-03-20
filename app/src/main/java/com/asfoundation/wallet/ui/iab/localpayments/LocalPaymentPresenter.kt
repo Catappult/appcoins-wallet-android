@@ -31,7 +31,7 @@ class LocalPaymentPresenter(
   private val networkScheduler: Scheduler,
   private val disposables: CompositeDisposable,
   private val context: Context?,
-  private val logger: com.appcoins.wallet.core.utils.jvm_common.Logger,
+  private val logger: Logger,
   private val errorMapper: ErrorMapper
 ) {
 
