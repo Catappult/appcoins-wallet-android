@@ -7,7 +7,7 @@ android {
 }
 
 dependencies {
-  implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar", "*.aar"))))
+  compileOnly(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar", "*.aar"))))
   implementation(project(":core:network:base"))
   implementation(libs.bundles.network)
   implementation(libs.bundles.jackson)
