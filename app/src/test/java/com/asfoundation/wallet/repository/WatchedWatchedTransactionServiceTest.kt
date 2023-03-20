@@ -19,7 +19,7 @@ import java.math.BigInteger
 import java.util.concurrent.ConcurrentHashMap
 
 @RunWith(MockitoJUnitRunner::class)
-class WatchedWatchedTransactionServiceTest {
+class WatchedTransactionServiceTest {
 
   @Mock
   lateinit var pendingTransactionService: PendingTransactionService
