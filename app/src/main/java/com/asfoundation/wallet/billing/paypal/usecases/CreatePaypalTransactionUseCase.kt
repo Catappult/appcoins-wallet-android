@@ -3,7 +3,7 @@ package com.asfoundation.wallet.billing.paypal.usecases
 import com.appcoins.wallet.bdsbilling.WalletService
 import com.asfoundation.wallet.billing.paypal.repository.PayPalV2Repository
 import com.asfoundation.wallet.billing.partners.AddressService
-import com.asfoundation.wallet.billing.paypal.models.PaypalTransaction
+import com.appcoins.wallet.core.network.microservices.model.PaypalTransaction
 import com.asfoundation.wallet.promo_code.use_cases.GetCurrentPromoCodeUseCase
 import io.reactivex.Single
 import javax.inject.Inject

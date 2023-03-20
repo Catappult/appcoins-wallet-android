@@ -2,7 +2,7 @@ package com.asfoundation.wallet.gamification
 
 import com.appcoins.wallet.gamification.Gamification
 import com.appcoins.wallet.gamification.repository.PromotionsGamificationStats
-import com.appcoins.wallet.gamification.repository.entity.GamificationStatus
+import com.appcoins.wallet.core.network.backend.model.GamificationStatus
 import com.asfoundation.wallet.home.usecases.FindDefaultWalletUseCase
 import com.asfoundation.wallet.promo_code.use_cases.GetCurrentPromoCodeUseCase
 import io.reactivex.Observable

@@ -6,8 +6,8 @@ import com.appcoins.wallet.gamification.repository.ForecastBonus
 import com.appcoins.wallet.gamification.repository.ForecastBonusAndLevel
 import com.appcoins.wallet.gamification.repository.PromotionsGamificationStats
 import com.appcoins.wallet.gamification.repository.Levels
-import com.appcoins.wallet.gamification.repository.entity.GamificationResponse
-import com.appcoins.wallet.gamification.repository.entity.PromotionsResponse
+import com.appcoins.wallet.core.network.backend.model.GamificationResponse
+import com.appcoins.wallet.core.network.backend.model.PromotionsResponse
 import com.asfoundation.wallet.entity.Wallet
 import com.asfoundation.wallet.promo_code.use_cases.GetCurrentPromoCodeUseCase
 import com.asfoundation.wallet.service.currencies.LocalCurrencyConversionService

@@ -1,6 +1,6 @@
 package com.appcoins.wallet.gamification.repository
 
-import com.appcoins.wallet.gamification.repository.entity.GamificationStatus
+import com.appcoins.wallet.core.network.backend.model.GamificationStatus
 import java.math.BigDecimal
 
 data class PromotionsGamificationStats(

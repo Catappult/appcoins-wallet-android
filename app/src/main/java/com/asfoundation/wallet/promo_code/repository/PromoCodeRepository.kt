@@ -1,13 +1,13 @@
 package com.asfoundation.wallet.promo_code.repository
 
+import com.appcoins.wallet.core.network.backend.api.PromoCodeBackendApi
+import com.appcoins.wallet.core.network.backend.model.PromoCodeBonusResponse
 import com.appcoins.wallet.core.analytics.analytics.AnalyticsSetup
 import com.appcoins.wallet.core.utils.android_common.RxSchedulers
 import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Single
 import retrofit2.HttpException
-import retrofit2.http.GET
-import retrofit2.http.Path
 import javax.inject.Inject
 
 class PromoCodeRepository @Inject constructor(
@@ -71,11 +71,4 @@ class PromoCodeRepository @Inject constructor(
     promoCodeLocalDataSource.observeSavedPromoCode()
 
   fun removePromoCode(): Completable = promoCodeLocalDataSource.removePromoCode()
-
-  interface PromoCodeBackendApi {
-    @GET("gamification/perks/promo_code/{promoCodeString}/")
-    fun getPromoCodeBonus(
-      @Path("promoCodeString") promoCodeString: String
-    ): Single<PromoCodeBonusResponse>
-  }
 }

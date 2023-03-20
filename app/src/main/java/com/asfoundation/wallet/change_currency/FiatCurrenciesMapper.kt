@@ -1,6 +1,6 @@
 package com.asfoundation.wallet.change_currency
 
-import com.asfoundation.wallet.service.currencies.FiatCurrenciesResponse
+import com.appcoins.wallet.core.network.microservices.model.FiatCurrenciesResponse
 import javax.inject.Inject
 
 class FiatCurrenciesMapper @Inject constructor(){

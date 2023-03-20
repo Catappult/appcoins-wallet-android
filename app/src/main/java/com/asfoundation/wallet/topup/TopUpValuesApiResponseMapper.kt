@@ -1,5 +1,7 @@
 package com.asfoundation.wallet.topup
 
+import com.appcoins.wallet.core.network.microservices.model.TopUpDefaultValuesResponse
+import com.appcoins.wallet.core.network.microservices.model.TopUpLimitValuesResponse
 import com.asfoundation.wallet.ui.iab.FiatValue
 import java.math.BigDecimal
 import javax.inject.Inject

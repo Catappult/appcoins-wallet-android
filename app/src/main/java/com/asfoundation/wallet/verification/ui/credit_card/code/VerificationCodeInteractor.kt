@@ -2,7 +2,7 @@ package com.asfoundation.wallet.verification.ui.credit_card.code
 
 import com.appcoins.wallet.bdsbilling.WalletService
 import com.appcoins.wallet.billing.adyen.VerificationCodeResult
-import com.appcoins.wallet.billing.adyen.VerificationInfoResponse
+import com.appcoins.wallet.core.network.microservices.api.VerificationInfoResponse
 import com.appcoins.wallet.billing.util.Error
 import com.asfoundation.wallet.verification.repository.BrokerVerificationRepository
 import com.asfoundation.wallet.verification.ui.credit_card.WalletVerificationInteractor

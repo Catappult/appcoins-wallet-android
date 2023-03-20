@@ -3,6 +3,9 @@ package cm.aptoide.skills.repository
 import cm.aptoide.skills.model.*
 import cm.aptoide.skills.util.getMessage
 import cm.aptoide.skills.util.isNoNetworkException
+import com.appcoins.wallet.core.network.eskills.model.QueueIdentifier
+import com.appcoins.wallet.core.network.eskills.model.TicketResponse
+import com.appcoins.wallet.core.network.eskills.model.TicketStatus
 import com.google.gson.Gson
 import retrofit2.HttpException
 import javax.inject.Inject

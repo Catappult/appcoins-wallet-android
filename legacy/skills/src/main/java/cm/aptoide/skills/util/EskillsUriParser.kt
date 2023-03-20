@@ -1,6 +1,7 @@
 package cm.aptoide.skills.util
 
 import android.net.Uri
+import com.appcoins.wallet.core.network.eskills.model.EskillsPaymentData
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import javax.inject.Inject
@@ -26,7 +27,7 @@ class EskillsUriParser @Inject constructor() {
     val environment = getEnvironment(parameters)
     val metadata = getMetadata(parameters)
     val numberOfUsers = parameters[EskillsParameters.NUMBER_OF_USERS]?.toInt()
-    return EskillsPaymentData(
+    return com.appcoins.wallet.core.network.eskills.model.EskillsPaymentData(
       scheme!!, host!!, path!!, parameters, userId, userName, domain,
       product,
       price, currency, environment, metadata, numberOfUsers, timeout
@@ -44,11 +45,13 @@ class EskillsUriParser @Inject constructor() {
 
   fun getEnvironment(
     parameters: MutableMap<String, String?>
-  ): EskillsPaymentData.MatchEnvironment? {
+  ): com.appcoins.wallet.core.network.eskills.model.EskillsPaymentData.MatchEnvironment? {
     return try {
       val value = parameters[EskillsParameters.ENVIRONMENT]
       if (value != null) {
-        return EskillsPaymentData.MatchEnvironment.valueOf(value)
+        return com.appcoins.wallet.core.network.eskills.model.EskillsPaymentData.MatchEnvironment.valueOf(
+          value
+        )
       } else {
         return null
       }

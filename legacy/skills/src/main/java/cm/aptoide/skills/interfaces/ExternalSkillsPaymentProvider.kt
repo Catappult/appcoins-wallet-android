@@ -4,7 +4,7 @@ import android.content.Context
 import cm.aptoide.skills.model.CreatedTicket
 import cm.aptoide.skills.model.PaymentResult
 import cm.aptoide.skills.model.Price
-import cm.aptoide.skills.util.EskillsPaymentData
+import com.appcoins.wallet.core.network.eskills.model.EskillsPaymentData
 import io.reactivex.Single
 import java.math.BigDecimal
 

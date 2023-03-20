@@ -1,7 +1,7 @@
 package com.asfoundation.wallet.subscriptions
 
-import com.appcoins.wallet.bdsbilling.SubscriptionSubStatus
-import com.appcoins.wallet.bdsbilling.subscriptions.UserSubscriptionsListResponse
+import com.appcoins.wallet.core.network.microservices.model.SubscriptionSubStatus
+import com.appcoins.wallet.core.network.microservices.model.UserSubscriptionsListResponse
 import com.asfoundation.wallet.util.Period
 import com.appcoins.wallet.core.utils.android_common.extensions.isNoNetworkException
 import java.text.SimpleDateFormat

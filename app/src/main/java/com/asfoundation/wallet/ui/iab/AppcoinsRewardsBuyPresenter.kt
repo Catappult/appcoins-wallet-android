@@ -1,7 +1,7 @@
 package com.asfoundation.wallet.ui.iab
 
 import com.appcoins.wallet.appcoins.rewards.Transaction
-import com.appcoins.wallet.bdsbilling.repository.BillingSupportedType
+import com.appcoins.wallet.core.network.microservices.model.BillingSupportedType
 import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.asf.wallet.R
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics

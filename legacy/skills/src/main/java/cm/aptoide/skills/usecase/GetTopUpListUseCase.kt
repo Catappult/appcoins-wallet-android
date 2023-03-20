@@ -1,10 +1,10 @@
 package cm.aptoide.skills.usecase
 
 import cm.aptoide.skills.interfaces.WalletAddressObtainer
-import cm.aptoide.skills.model.Gateway
-import cm.aptoide.skills.model.TopUpStatus
-import cm.aptoide.skills.model.TransactionType
 import cm.aptoide.skills.repository.TopUpRepository
+import com.appcoins.wallet.core.network.microservices.model.Gateway
+import com.appcoins.wallet.core.network.microservices.model.TopUpStatus
+import com.appcoins.wallet.core.network.microservices.model.TransactionType
 import io.reactivex.Single
 import javax.inject.Inject
 

@@ -1,6 +1,6 @@
 package cm.aptoide.skills.entity
 
-import cm.aptoide.skills.model.QueueIdentifier
+import com.appcoins.wallet.core.network.eskills.model.QueueIdentifier
 import cm.aptoide.skills.model.WalletAddress
 
 data class UserData(

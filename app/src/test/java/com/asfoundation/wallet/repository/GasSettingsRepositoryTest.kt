@@ -1,8 +1,8 @@
 package com.asfoundation.wallet.repository
 
+import com.appcoins.wallet.core.network.backend.api.GasService
+import com.appcoins.wallet.core.network.backend.model.GasPrice
 import com.asfoundation.wallet.entity.GasSettings
-import com.asfoundation.wallet.service.GasPrice
-import com.asfoundation.wallet.service.GasService
 import io.reactivex.Single
 import io.reactivex.observers.TestObserver
 import org.junit.Before

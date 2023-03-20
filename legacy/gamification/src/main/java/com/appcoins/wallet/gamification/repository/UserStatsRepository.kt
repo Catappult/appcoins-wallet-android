@@ -1,5 +1,6 @@
 package com.appcoins.wallet.gamification.repository
 
+import com.appcoins.wallet.core.network.backend.model.*
 import com.appcoins.wallet.gamification.Gamification.Companion.GAMIFICATION_ID
 import com.appcoins.wallet.gamification.Gamification.Companion.REFERRAL_ID
 import com.appcoins.wallet.gamification.GamificationContext

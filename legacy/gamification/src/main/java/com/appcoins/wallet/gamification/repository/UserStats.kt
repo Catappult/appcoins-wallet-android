@@ -1,7 +1,7 @@
 package com.appcoins.wallet.gamification.repository
 
-import com.appcoins.wallet.gamification.repository.entity.PromotionsResponse
-import com.appcoins.wallet.gamification.repository.entity.WalletOrigin
+import com.appcoins.wallet.core.network.backend.model.PromotionsResponse
+import com.appcoins.wallet.core.network.backend.model.WalletOrigin
 import com.google.gson.annotations.SerializedName
 
 data class UserStats(val promotions: List<PromotionsResponse>,

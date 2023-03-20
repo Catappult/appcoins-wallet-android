@@ -1,11 +1,11 @@
 package com.appcoins.wallet.bdsbilling
 
-import com.appcoins.wallet.bdsbilling.repository.BillingSupportedType
-import com.appcoins.wallet.bdsbilling.repository.BillingSupportedType.Companion.isManagedType
-import com.appcoins.wallet.bdsbilling.repository.entity.PaymentMethodEntity
 import com.appcoins.wallet.bdsbilling.repository.entity.Product
 import com.appcoins.wallet.bdsbilling.repository.entity.Purchase
-import com.appcoins.wallet.bdsbilling.repository.entity.Transaction
+import com.appcoins.wallet.core.network.microservices.model.BillingSupportedType
+import com.appcoins.wallet.core.network.microservices.model.BillingSupportedType.Companion.isManagedType
+import com.appcoins.wallet.core.network.microservices.model.PaymentMethodEntity
+import com.appcoins.wallet.core.network.microservices.model.Transaction
 import io.reactivex.Scheduler
 import io.reactivex.Single
 

@@ -2,6 +2,10 @@ package com.asfoundation.wallet.di.temp_gradle_modules
 
 import com.appcoins.wallet.bdsbilling.*
 import com.appcoins.wallet.bdsbilling.repository.*
+import com.appcoins.wallet.core.network.bds.BdsApiSecondary
+import com.appcoins.wallet.core.network.microservices.api.BrokerVerificationApi
+import com.appcoins.wallet.core.network.microservices.api.InappBillingApi
+import com.appcoins.wallet.core.network.microservices.api.SubscriptionBillingApi
 import com.appcoins.wallet.core.utils.properties.MiscProperties
 import com.asf.appcoins.sdk.contractproxy.AppCoinsAddressProxySdk
 import dagger.Module
@@ -17,7 +21,7 @@ class BdsBillingModule {
   @Singleton
   @Provides
   fun providesBillingPaymentProofSubmission(
-    brokerBdsApi: RemoteRepository.BrokerBdsApi,
+    brokerBdsApi: BrokerVerificationApi.BrokerBdsApi,
     inappApi: InappBillingApi,
     walletService: WalletService,
     subscriptionBillingApi: SubscriptionBillingApi,
@@ -41,7 +45,7 @@ class BdsBillingModule {
   @Provides
   fun provideRemoteRepository(
     subscriptionBillingApi: SubscriptionBillingApi,
-    brokerBdsApi: RemoteRepository.BrokerBdsApi,
+    brokerBdsApi: BrokerVerificationApi.BrokerBdsApi,
     inappApi: InappBillingApi,
     api: BdsApiSecondary
   ): RemoteRepository =

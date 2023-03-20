@@ -1,8 +1,8 @@
 package com.appcoins.wallet.gamification
 
 import com.appcoins.wallet.gamification.repository.*
-import com.appcoins.wallet.gamification.repository.entity.GamificationResponse
-import com.appcoins.wallet.gamification.repository.entity.ReferralResponse
+import com.appcoins.wallet.core.network.backend.model.GamificationResponse
+import com.appcoins.wallet.core.network.backend.model.ReferralResponse
 import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Single

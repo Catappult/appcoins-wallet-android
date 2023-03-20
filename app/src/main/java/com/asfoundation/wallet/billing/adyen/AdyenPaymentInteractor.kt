@@ -4,7 +4,7 @@ import android.os.Bundle
 import com.adyen.checkout.core.model.ModelObject
 import com.appcoins.wallet.bdsbilling.WalletService
 import com.appcoins.wallet.billing.BillingMessagesMapper
-import com.appcoins.wallet.billing.adyen.AdyenBillingAddress
+import com.appcoins.wallet.core.network.microservices.model.AdyenBillingAddress
 import com.appcoins.wallet.billing.adyen.AdyenPaymentRepository
 import com.appcoins.wallet.billing.adyen.PaymentInfoModel
 import com.appcoins.wallet.billing.adyen.PaymentModel

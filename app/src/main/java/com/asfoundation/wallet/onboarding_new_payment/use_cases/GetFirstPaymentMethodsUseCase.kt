@@ -1,9 +1,9 @@
 package com.asfoundation.wallet.onboarding_new_payment.use_cases
 
 import com.appcoins.wallet.bdsbilling.repository.BdsRepository
-import com.appcoins.wallet.bdsbilling.repository.entity.FeeEntity
-import com.appcoins.wallet.bdsbilling.repository.entity.FeeType
-import com.appcoins.wallet.bdsbilling.repository.entity.PaymentMethodEntity
+import com.appcoins.wallet.core.network.microservices.model.FeeEntity
+import com.appcoins.wallet.core.network.microservices.model.FeeType
+import com.appcoins.wallet.core.network.microservices.model.PaymentMethodEntity
 import com.asfoundation.wallet.onboarding.CachedTransaction
 import com.asfoundation.wallet.ui.iab.PaymentMethod
 import com.asfoundation.wallet.ui.iab.PaymentMethodFee
