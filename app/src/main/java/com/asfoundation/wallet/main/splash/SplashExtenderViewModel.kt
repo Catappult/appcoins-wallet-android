@@ -2,7 +2,7 @@ package com.asfoundation.wallet.main.splash
 
 import com.appcoins.wallet.gamification.repository.entity.GamificationStatus
 import com.appcoins.wallet.ui.arch.BaseViewModel
-import com.appcoins.wallet.core.utils.common.RxSchedulers
+import com.appcoins.wallet.core.utils.android_common.RxSchedulers
 import com.appcoins.wallet.ui.arch.SideEffect
 import com.appcoins.wallet.ui.arch.ViewState
 import com.asfoundation.wallet.gamification.ObserveUserStatsUseCase

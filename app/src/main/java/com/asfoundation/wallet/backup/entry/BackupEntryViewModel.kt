@@ -1,8 +1,8 @@
 package com.asfoundation.wallet.backup.entry
 
 import com.appcoins.wallet.ui.arch.*
-import com.appcoins.wallet.core.utils.common.CurrencyFormatUtils
-import com.appcoins.wallet.core.utils.common.RxSchedulers
+import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
+import com.appcoins.wallet.core.utils.android_common.RxSchedulers
 import com.asfoundation.wallet.wallets.domain.WalletBalance
 import com.asfoundation.wallet.wallets.usecases.GetWalletInfoUseCase
 

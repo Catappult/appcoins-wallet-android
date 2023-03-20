@@ -4,7 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import com.appcoins.wallet.bdsbilling.WalletService
-import com.appcoins.wallet.commons.Logger
+import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.asf.wallet.R
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.main.MainActivity

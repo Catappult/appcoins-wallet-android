@@ -2,7 +2,7 @@ package com.asfoundation.wallet.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.appcoins.wallet.core.utils.common.BalanceUtils
+import com.appcoins.wallet.core.utils.android_common.BalanceUtils
 import com.asfoundation.wallet.entity.GasSettings
 import com.asfoundation.wallet.entity.NetworkInfo
 import com.asfoundation.wallet.ui.GasSettingsInteractor

@@ -1,6 +1,6 @@
 package com.asfoundation.wallet.backup.save_options
 
-import com.appcoins.wallet.commons.Logger
+import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.asfoundation.wallet.backup.use_cases.BackupSuccessLogUseCase
 import com.asfoundation.wallet.backup.use_cases.SendBackupToEmailUseCase
 import com.appcoins.wallet.ui.arch.BaseViewModel

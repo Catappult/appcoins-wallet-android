@@ -13,7 +13,7 @@ import android.view.animation.AnimationUtils
 import android.webkit.CookieManager
 import android.webkit.WebView
 import android.webkit.WebViewClient
-import com.appcoins.wallet.commons.Logger
+import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.appcoins.wallet.core.utils.properties.HostProperties
 import com.asf.wallet.BuildConfig
 import com.asf.wallet.R

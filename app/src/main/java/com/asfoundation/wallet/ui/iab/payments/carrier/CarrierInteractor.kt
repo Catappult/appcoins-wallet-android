@@ -4,8 +4,8 @@ import android.net.Uri
 import com.appcoins.wallet.bdsbilling.WalletService
 import com.appcoins.wallet.billing.carrierbilling.*
 import com.appcoins.wallet.billing.common.response.TransactionStatus
-import com.appcoins.wallet.commons.Logger
-import com.appcoins.wallet.core.utils.common.RxSchedulers
+import com.appcoins.wallet.core.utils.android_common.RxSchedulers
+import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.asfoundation.wallet.billing.adyen.PurchaseBundleModel
 import com.asfoundation.wallet.billing.carrier_billing.CarrierBillingRepository
 import com.asfoundation.wallet.billing.partners.AddressService

@@ -5,8 +5,8 @@ import android.util.AttributeSet
 import android.view.View
 import android.widget.FrameLayout
 import com.asf.wallet.R
-import com.appcoins.wallet.core.utils.common.CurrencyFormatUtils
-import com.appcoins.wallet.core.utils.common.WalletCurrency
+import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
+import com.appcoins.wallet.core.utils.android_common.WalletCurrency
 import kotlinx.android.synthetic.main.layout_purchase_bonus.view.*
 import java.math.BigDecimal
 

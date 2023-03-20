@@ -8,7 +8,7 @@ import com.appcoins.wallet.bdsbilling.repository.entity.Gateway
 import com.appcoins.wallet.bdsbilling.repository.entity.Transaction
 import com.appcoins.wallet.billing.common.response.TransactionStatus
 import com.appcoins.wallet.billing.util.Error
-import com.appcoins.wallet.commons.Logger
+import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.google.gson.JsonObject
 import io.reactivex.Completable
 import io.reactivex.Single

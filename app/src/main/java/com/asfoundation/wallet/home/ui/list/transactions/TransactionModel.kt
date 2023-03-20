@@ -16,9 +16,9 @@ import com.asfoundation.wallet.GlideApp
 import com.asfoundation.wallet.home.ui.list.HomeListClick
 import com.asfoundation.wallet.transactions.Transaction
 import com.asfoundation.wallet.transactions.TransactionDetails
+import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
+import com.appcoins.wallet.core.utils.android_common.WalletCurrency
 import com.appcoins.wallet.ui.widgets.BaseViewHolder
-import com.appcoins.wallet.core.utils.common.CurrencyFormatUtils
-import com.appcoins.wallet.core.utils.common.WalletCurrency
 import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.load.resource.bitmap.CircleCrop

@@ -2,8 +2,8 @@ package com.asfoundation.wallet.repository;
 
 import androidx.annotation.NonNull;
 import com.appcoins.wallet.bdsbilling.BillingPaymentProofSubmission;
-import com.appcoins.wallet.core.utils.common.CountryCodeProvider;
-import com.appcoins.wallet.core.utils.common.CountryCodeProviderKt;
+import com.appcoins.wallet.core.utils.jvm_common.CountryCodeProvider;
+import com.appcoins.wallet.core.utils.jvm_common.CountryCodeProviderKt;
 import com.asfoundation.wallet.billing.partners.AddressService;
 import com.asfoundation.wallet.entity.TokenInfo;
 import com.asfoundation.wallet.entity.TransactionBuilder;

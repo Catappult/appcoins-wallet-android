@@ -3,7 +3,7 @@ package com.asfoundation.wallet.ui.wallets
 import android.annotation.SuppressLint
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
-import com.appcoins.wallet.core.utils.common.CurrencyFormatUtils
+import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.wallet_rounded_outlined_card.view.*
 

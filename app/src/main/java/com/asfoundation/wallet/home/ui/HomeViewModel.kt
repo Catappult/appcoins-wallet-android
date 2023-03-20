@@ -3,7 +3,7 @@ package com.asfoundation.wallet.home.ui
 import android.content.Intent
 import android.net.Uri
 import android.text.format.DateUtils
-import com.appcoins.wallet.core.utils.common.RxSchedulers
+import com.appcoins.wallet.core.utils.android_common.RxSchedulers
 import com.appcoins.wallet.core.utils.properties.APTOIDE_TOP_APPS_URL
 import com.appcoins.wallet.core.utils.properties.VIP_PROGRAM_BADGE_URL
 import com.appcoins.wallet.gamification.repository.Levels

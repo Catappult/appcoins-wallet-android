@@ -2,11 +2,11 @@ package com.asfoundation.wallet.ui.iab
 
 import com.appcoins.wallet.appcoins.rewards.Transaction
 import com.appcoins.wallet.bdsbilling.repository.BillingSupportedType
-import com.appcoins.wallet.commons.Logger
+import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.asf.wallet.R
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics
 import com.asfoundation.wallet.entity.TransactionBuilder
-import com.appcoins.wallet.core.utils.common.CurrencyFormatUtils
+import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Scheduler

@@ -10,7 +10,7 @@ import android.view.View
 import androidx.annotation.StringRes
 import androidx.fragment.app.Fragment
 import com.appcoins.wallet.billing.AppcoinsBillingBinder
-import com.appcoins.wallet.commons.Logger
+import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.asf.wallet.R
 import com.asfoundation.wallet.backup.BackupNotificationUtils
 import com.asfoundation.wallet.billing.adyen.PaymentType

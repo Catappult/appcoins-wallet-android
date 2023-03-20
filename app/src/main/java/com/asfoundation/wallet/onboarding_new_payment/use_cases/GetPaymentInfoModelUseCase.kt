@@ -4,7 +4,7 @@ import com.appcoins.wallet.bdsbilling.WalletService
 import com.appcoins.wallet.billing.adyen.AdyenPaymentRepository
 import com.appcoins.wallet.billing.adyen.AdyenResponseMapper
 import com.appcoins.wallet.billing.adyen.PaymentInfoModel
-import com.appcoins.wallet.core.utils.common.RxSchedulers
+import com.appcoins.wallet.core.utils.android_common.RxSchedulers
 import com.asfoundation.wallet.billing.adyen.PaymentType
 import io.reactivex.Single
 import javax.inject.Inject

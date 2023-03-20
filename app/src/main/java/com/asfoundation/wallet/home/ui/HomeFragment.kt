@@ -12,9 +12,9 @@ import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.appcoins.wallet.ui.arch.Async
-import com.appcoins.wallet.core.utils.common.CurrencyFormatUtils
-import com.appcoins.wallet.core.utils.common.RootUtil
-import com.appcoins.wallet.core.utils.common.WalletCurrency
+import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
+import com.appcoins.wallet.core.utils.android_common.RootUtil
+import com.appcoins.wallet.core.utils.android_common.WalletCurrency
 import com.asf.wallet.R
 import com.asf.wallet.databinding.FragmentHomeBinding
 import com.appcoins.wallet.ui.arch.SingleStateFragment

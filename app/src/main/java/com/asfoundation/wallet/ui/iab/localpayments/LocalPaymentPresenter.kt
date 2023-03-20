@@ -9,7 +9,7 @@ import com.appcoins.wallet.appcoins.rewards.ErrorInfo.ErrorType
 import com.appcoins.wallet.appcoins.rewards.ErrorMapper
 import com.appcoins.wallet.bdsbilling.repository.entity.Transaction
 import com.appcoins.wallet.bdsbilling.repository.entity.Transaction.Status
-import com.appcoins.wallet.commons.Logger
+import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.asf.wallet.R
 import com.asfoundation.wallet.GlideApp
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics

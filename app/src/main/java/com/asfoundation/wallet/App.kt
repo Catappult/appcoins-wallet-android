@@ -15,7 +15,7 @@ import com.appcoins.wallet.bdsbilling.repository.RemoteRepository
 import com.appcoins.wallet.bdsbilling.repository.SubscriptionBillingApi
 import com.appcoins.wallet.billing.BillingDependenciesProvider
 import com.appcoins.wallet.billing.BillingMessagesMapper
-import com.appcoins.wallet.commons.Logger
+import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.appcoins.wallet.core.utils.properties.MiscProperties
 import com.asf.wallet.BuildConfig
 import com.asfoundation.wallet.analytics.IndicativeAnalytics
