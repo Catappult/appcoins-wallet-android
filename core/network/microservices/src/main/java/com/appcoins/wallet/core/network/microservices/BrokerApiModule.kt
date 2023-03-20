@@ -77,14 +77,6 @@ class BrokerApiModule {
     return retrofit.create(BrokerBdsApi::class.java)
   }
 
-  @Singleton
-  @Provides
-  fun providesSkillsAdyenApi(
-    @BrokerDefaultRetrofit retrofit: Retrofit
-  ): AdyenApi {
-    return retrofit.create(AdyenApi::class.java)
-  }
-
   @Provides
   fun providesCarrierBillingApi1(
     @DefaultHttpClient client: OkHttpClient,

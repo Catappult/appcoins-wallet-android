@@ -5,7 +5,7 @@ import androidx.annotation.StringRes
 import com.adyen.checkout.core.model.ModelObject
 import com.appcoins.wallet.billing.BillingMessagesMapper
 import com.appcoins.wallet.billing.ErrorInfo.ErrorType
-import com.appcoins.wallet.billing.adyen.AdyenBillingAddress
+import com.appcoins.wallet.core.network.microservices.model.AdyenBillingAddress
 import com.appcoins.wallet.billing.adyen.AdyenPaymentRepository
 import com.appcoins.wallet.billing.adyen.AdyenResponseMapper.Companion.REDIRECT
 import com.appcoins.wallet.billing.adyen.AdyenResponseMapper.Companion.THREEDS2

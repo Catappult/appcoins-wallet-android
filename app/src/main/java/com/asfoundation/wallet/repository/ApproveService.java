@@ -38,12 +38,12 @@ public class ApproveService {
         .map(this::map);
   }
 
-  private ApproveTransaction map(Transaction transaction) {
+  private ApproveTransaction map(WatchedTransaction transaction) {
     return new ApproveTransaction(transaction.getKey(),
         mapTransactionState(transaction.getStatus()), transaction.getTransactionHash());
   }
 
-  private Status mapTransactionState(Transaction.Status status) {
+  private Status mapTransactionState(WatchedTransaction.Status status) {
     Status toReturn;
     switch (status) {
       case PENDING:

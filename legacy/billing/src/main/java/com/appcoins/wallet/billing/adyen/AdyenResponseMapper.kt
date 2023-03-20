@@ -12,6 +12,7 @@ import com.appcoins.wallet.billing.util.getErrorCodeAndMessage
 import com.appcoins.wallet.billing.util.getMessage
 import com.appcoins.wallet.billing.util.isNoNetworkException
 import com.appcoins.wallet.core.network.microservices.api.AdyenTransactionResponse
+import com.appcoins.wallet.core.network.microservices.model.PaymentMethodsResponse
 import com.appcoins.wallet.core.network.microservices.model.Transaction
 import com.google.gson.Gson
 import com.google.gson.JsonObject
@@ -35,10 +36,10 @@ open class AdyenResponseMapper @Inject constructor(
       adyenSerializer.deserializePaymentMethods(response)
     return adyenResponse.storedPaymentMethods
       ?.find { it.type == method.adyenType }
-      ?.let { PaymentInfoModel(it, response.price.value, response.price.currency) }
+      ?.let { PaymentInfoModel(it, response.adyenPrice.value, response.adyenPrice.currency) }
       ?: adyenResponse.paymentMethods
         ?.find { it.type == method.adyenType }
-        ?.let { PaymentInfoModel(it, response.price.value, response.price.currency) }
+        ?.let { PaymentInfoModel(it, response.adyenPrice.value, response.adyenPrice.currency) }
       ?: PaymentInfoModel(Error(true))
   }
 

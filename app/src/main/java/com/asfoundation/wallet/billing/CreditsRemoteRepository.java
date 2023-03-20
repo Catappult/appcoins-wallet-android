@@ -1,7 +1,7 @@
 package com.asfoundation.wallet.billing;
 
 import com.appcoins.wallet.bdsbilling.repository.RemoteRepository;
-import com.appcoins.wallet.bdsbilling.repository.entity.Transaction;
+import com.appcoins.wallet.core.network.microservices.model.Transaction;
 import io.reactivex.Completable;
 import io.reactivex.Single;
 import java.math.BigDecimal;

@@ -18,7 +18,7 @@ import org.mockito.Mockito.mock
 import java.math.BigDecimal
 import java.util.*
 
-class OneStepTransactionParserTest {
+class OneStepWatchedTransactionParserTest {
   private lateinit var findDefaultWalletInteract: FindDefaultWalletInteract
   private lateinit var defaultTokenProvider: DefaultTokenProvider
   private lateinit var proxyService: ProxyService

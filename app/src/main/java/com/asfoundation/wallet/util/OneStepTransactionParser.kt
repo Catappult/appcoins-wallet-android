@@ -2,10 +2,10 @@ package com.asfoundation.wallet.util
 
 import com.appcoins.wallet.bdsbilling.Billing
 import com.appcoins.wallet.bdsbilling.ProxyService
-import com.appcoins.wallet.bdsbilling.repository.BillingSupportedType
 import com.appcoins.wallet.bdsbilling.repository.entity.Product
 import com.appcoins.wallet.commons.MemoryCache
 import com.appcoins.wallet.commons.Repository
+import com.appcoins.wallet.core.network.microservices.model.BillingSupportedType
 import com.appcoins.wallet.core.utils.properties.HostProperties
 import com.asf.wallet.BuildConfig
 import com.asfoundation.wallet.entity.Token

@@ -11,10 +11,17 @@ class SubscriptionsMapper {
 
   fun map(subscriptionsResponse: SubscriptionsResponse): List<Product> {
     return ArrayList(subscriptionsResponse.items.map {
-      SubsProduct(it.sku, it.title, it.description,
-          TransactionPrice(it.price.currency, it.price.appc.value.toDouble(), it.price.value.toDouble(),
-              it.price.currency, it.price.symbol), BillingSupportedType.SUBS_TYPE,
-          it.period, it.trialPeriod)
+      SubsProduct(
+        it.sku, it.title, it.description,
+        TransactionPrice(
+          it.subscriptionPrice.currency,
+          it.subscriptionPrice.appc.value.toDouble(),
+          it.subscriptionPrice.value.toDouble(),
+          it.subscriptionPrice.currency,
+          it.subscriptionPrice.symbol
+        ), BillingSupportedType.SUBS_TYPE,
+        it.period, it.trialPeriod
+      )
     })
   }
 

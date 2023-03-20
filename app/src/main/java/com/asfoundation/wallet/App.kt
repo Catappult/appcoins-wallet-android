@@ -9,15 +9,15 @@ import cm.aptoide.analytics.AnalyticsManager
 import com.appcoins.wallet.appcoins.rewards.AppcoinsRewards
 import com.appcoins.wallet.bdsbilling.ProxyService
 import com.appcoins.wallet.bdsbilling.WalletService
-import com.appcoins.wallet.bdsbilling.repository.BdsApiSecondary
-import com.appcoins.wallet.bdsbilling.repository.InappBillingApi
-import com.appcoins.wallet.bdsbilling.repository.RemoteRepository
-import com.appcoins.wallet.bdsbilling.repository.SubscriptionBillingApi
 import com.appcoins.wallet.billing.BillingDependenciesProvider
 import com.appcoins.wallet.billing.BillingMessagesMapper
 import com.appcoins.wallet.commons.Logger
 import com.appcoins.wallet.core.utils.properties.MiscProperties
 import com.appcoins.wallet.core.network.base.MagnesUtils
+import com.appcoins.wallet.core.network.bds.BdsApiSecondary
+import com.appcoins.wallet.core.network.microservices.api.BrokerVerificationApi
+import com.appcoins.wallet.core.network.microservices.api.InappBillingApi
+import com.appcoins.wallet.core.network.microservices.api.SubscriptionBillingApi
 import com.asf.wallet.BuildConfig
 import com.asfoundation.wallet.analytics.IndicativeAnalytics
 import com.asfoundation.wallet.analytics.RakamAnalytics
@@ -66,7 +66,7 @@ class App : MultiDexApplication(), BillingDependenciesProvider {
   lateinit var appcoinsOperationsDataSaver: AppcoinsOperationsDataSaver
 
   @Inject
-  lateinit var brokerBdsApi: RemoteRepository.BrokerBdsApi
+  lateinit var brokerBdsApi: BrokerVerificationApi.BrokerBdsApi
 
   @Inject
   lateinit var inappApi: InappBillingApi

@@ -1,5 +1,6 @@
 package cm.aptoide.skills.repository
 
+import com.appcoins.wallet.core.network.microservices.api.TopUpApi
 import javax.inject.Inject
 import com.appcoins.wallet.core.network.microservices.model.TopUpResponse
 import com.appcoins.wallet.core.network.microservices.model.TopUpStatus

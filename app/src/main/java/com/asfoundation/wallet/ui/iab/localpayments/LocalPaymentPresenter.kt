@@ -7,9 +7,9 @@ import android.os.Bundle
 import android.util.TypedValue
 import com.appcoins.wallet.appcoins.rewards.ErrorInfo.ErrorType
 import com.appcoins.wallet.appcoins.rewards.ErrorMapper
-import com.appcoins.wallet.bdsbilling.repository.entity.Transaction
-import com.appcoins.wallet.bdsbilling.repository.entity.Transaction.Status
 import com.appcoins.wallet.commons.Logger
+import com.appcoins.wallet.core.network.microservices.model.Transaction
+import com.appcoins.wallet.core.network.microservices.model.Transaction.Status
 import com.asf.wallet.R
 import com.asfoundation.wallet.GlideApp
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics

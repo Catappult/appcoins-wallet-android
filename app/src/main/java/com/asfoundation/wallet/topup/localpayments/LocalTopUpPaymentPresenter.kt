@@ -4,8 +4,8 @@ import android.content.Context
 import android.graphics.Bitmap
 import android.os.Bundle
 import android.util.TypedValue
-import com.appcoins.wallet.bdsbilling.repository.entity.Transaction
 import com.appcoins.wallet.commons.Logger
+import com.appcoins.wallet.core.network.microservices.model.Transaction
 import com.asf.wallet.R
 import com.asfoundation.wallet.GlideApp
 import com.asfoundation.wallet.topup.TopUpAnalytics

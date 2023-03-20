@@ -2,6 +2,7 @@ package com.asfoundation.wallet.repository;
 
 import androidx.annotation.NonNull;
 import com.appcoins.wallet.bdsbilling.BillingPaymentProofSubmission;
+import com.appcoins.wallet.core.network.microservices.model.Transaction;
 import com.appcoins.wallet.core.utils.common.CountryCodeProvider;
 import com.appcoins.wallet.core.utils.common.CountryCodeProviderKt;
 import com.asfoundation.wallet.billing.partners.AddressService;
@@ -44,8 +45,7 @@ public class BuyService {
 
   public Completable buy(String key, PaymentTransaction paymentTransaction) {
     TransactionBuilder transactionBuilder = paymentTransaction.getTransactionBuilder();
-    com.appcoins.wallet.bdsbilling.repository.entity.Transaction cachedTransaction =
-        billingPaymentProofSubmission.getTransactionFromUid(key);
+    Transaction cachedTransaction = billingPaymentProofSubmission.getTransactionFromUid(key);
     String storeAddress = getStoreAddress(cachedTransaction);
     String oemAddress = getOemAddress(cachedTransaction);
     return Single.zip(countryCodeProvider.getCountryCode(), defaultTokenProvider.getDefaultToken(),
@@ -59,8 +59,7 @@ public class BuyService {
             payment -> transactionService.sendTransaction(key, payment.getTransactionBuilder()));
   }
 
-  private String getStoreAddress(
-      com.appcoins.wallet.bdsbilling.repository.entity.Transaction transaction) {
+  private String getStoreAddress(Transaction transaction) {
     String tmpStoreAddress = null;
     if (transaction != null && transaction.getWallets() != null) {
       tmpStoreAddress = transaction.getWallets()
@@ -69,8 +68,7 @@ public class BuyService {
     return partnerAddressService.getStoreAddress(tmpStoreAddress);
   }
 
-  private String getOemAddress(
-      com.appcoins.wallet.bdsbilling.repository.entity.Transaction transaction) {
+  private String getOemAddress(Transaction transaction) {
     String tmpOemAddress = null;
     if (transaction != null && transaction.getWallets() != null) {
       tmpOemAddress = transaction.getWallets()
@@ -115,12 +113,12 @@ public class BuyService {
         packageName, CountryCodeProviderKt.convertCountryCode(countryCode));
   }
 
-  private BuyTransaction mapTransaction(Transaction transaction) {
+  private BuyTransaction mapTransaction(WatchedTransaction transaction) {
     return new BuyTransaction(transaction.getKey(), transaction.getTransactionBuilder(),
         mapState(transaction.getStatus()), transaction.getTransactionHash());
   }
 
-  private Status mapState(Transaction.Status status) {
+  private Status mapState(WatchedTransaction.Status status) {
     Status toReturn;
     switch (status) {
       case PENDING:

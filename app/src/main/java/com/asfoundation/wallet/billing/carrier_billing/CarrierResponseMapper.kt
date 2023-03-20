@@ -6,25 +6,30 @@ import com.appcoins.wallet.billing.common.BillingErrorMapper
 import com.appcoins.wallet.core.network.microservices.model.CountryListResponse
 import com.appcoins.wallet.core.network.microservices.model.TransactionResponse
 import com.appcoins.wallet.billing.util.isNoNetworkException
+import com.appcoins.wallet.core.network.microservices.annotations.BrokerDefaultRetrofit
 import com.appcoins.wallet.core.network.microservices.model.CarrierErrorResponse
-import com.asfoundation.wallet.di.annotations.BrokerDefaultRetrofit
 import okhttp3.ResponseBody
 import retrofit2.Converter
 import retrofit2.HttpException
 import retrofit2.Retrofit
 import javax.inject.Inject
 
-class CarrierResponseMapper @Inject constructor(@BrokerDefaultRetrofit private val retrofit: Retrofit,
-                                                private val billingErrorMapper: BillingErrorMapper) {
+class CarrierResponseMapper @Inject constructor(
+  @BrokerDefaultRetrofit
+  private val retrofit: Retrofit,
+  private val billingErrorMapper: BillingErrorMapper
+) {
 
   fun mapPayment(response: CarrierCreateTransactionResponse): CarrierPaymentModel {
-    return CarrierPaymentModel(response.uid, null, null, response.url, response.fee,
-        response.carrier, null, response.status, NoError
+    return CarrierPaymentModel(
+      response.uid, null, null, response.url, response.fee,
+      response.carrier, null, response.status, NoError
     )
   }
 
   fun mapPayment(response: TransactionResponse): CarrierPaymentModel {
-    return CarrierPaymentModel(response.uid, response.hash, response.orderReference, null, null,
+    return CarrierPaymentModel(
+      response.uid, response.hash, response.orderReference, null, null,
         null, response.metadata?.purchaseUid, response.status, NoError
     )
   }

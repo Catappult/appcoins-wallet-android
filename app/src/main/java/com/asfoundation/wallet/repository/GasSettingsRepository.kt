@@ -1,7 +1,7 @@
 package com.asfoundation.wallet.repository
 
+import com.appcoins.wallet.core.network.backend.api.GasService
 import com.asfoundation.wallet.entity.GasSettings
-import com.asfoundation.wallet.service.GasService
 import io.reactivex.Single
 import it.czerwinski.android.hilt.annotations.BoundTo
 import java.math.BigDecimal

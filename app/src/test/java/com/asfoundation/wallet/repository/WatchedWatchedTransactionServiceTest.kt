@@ -19,7 +19,7 @@ import java.math.BigInteger
 import java.util.concurrent.ConcurrentHashMap
 
 @RunWith(MockitoJUnitRunner::class)
-class WatchedTransactionServiceTest {
+class WatchedWatchedTransactionServiceTest {
 
   @Mock
   lateinit var pendingTransactionService: PendingTransactionService
@@ -67,7 +67,7 @@ class WatchedTransactionServiceTest {
     scheduler.triggerActions()
 
     val uri = "uri"
-    val observer = TestObserver<Transaction>()
+    val observer = TestObserver<WatchedTransaction>()
     watchedTransactionService.getTransaction(uri)
         .subscribe(observer)
     scheduler.triggerActions()
@@ -85,9 +85,20 @@ class WatchedTransactionServiceTest {
     pendingTransactionState.onComplete()
 
     observer.assertValues(
-        Transaction(uri, Transaction.Status.PROCESSING, transactionBuilder),
-        Transaction(uri, Transaction.Status.PROCESSING, transactionBuilder, transactionHash),
-        Transaction(uri, Transaction.Status.COMPLETED, transactionBuilder, transactionHash))
+      WatchedTransaction(uri, WatchedTransaction.Status.PROCESSING, transactionBuilder),
+      WatchedTransaction(
+        uri,
+        WatchedTransaction.Status.PROCESSING,
+        transactionBuilder,
+        transactionHash
+      ),
+      WatchedTransaction(
+        uri,
+        WatchedTransaction.Status.COMPLETED,
+        transactionBuilder,
+        transactionHash
+      )
+    )
     observer.assertNoErrors()
   }
 }

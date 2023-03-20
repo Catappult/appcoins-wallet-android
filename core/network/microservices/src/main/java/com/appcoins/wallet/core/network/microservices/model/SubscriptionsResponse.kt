@@ -11,13 +11,15 @@ data class SubscriptionResponse(val sku: String,
                                 val trialPeriod: String?,
                                 val title: String,
                                 val description: String,
-                                val price: Price
+                                val subscriptionPrice: SubscriptionPrice
 )
 
-data class Price(val currency: String, val value: BigDecimal, val label: String, val symbol: String,
-                 val micros: Long, val appc: AppcPrice)
+data class SubscriptionPrice(
+  val currency: String, val value: BigDecimal, val label: String, val symbol: String,
+  val micros: Long, val appc: SubscriptionAppcPrice
+)
 
-data class AppcPrice(val value: BigDecimal, val label: String, val micros: Long)
+data class SubscriptionAppcPrice(val value: BigDecimal, val label: String, val micros: Long)
 
 data class SubscriptionPurchaseListResponse(val items: List<SubscriptionPurchaseResponse>)
 

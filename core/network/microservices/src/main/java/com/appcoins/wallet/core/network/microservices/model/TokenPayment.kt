@@ -1,4 +1,4 @@
-package com.appcoins.wallet.billing.adyen
+package com.appcoins.wallet.core.network.microservices.model
 
 import com.adyen.checkout.core.model.ModelObject
 import com.google.gson.annotations.SerializedName

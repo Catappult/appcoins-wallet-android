@@ -2,10 +2,10 @@ package com.asfoundation.wallet.ui.iab;
 
 import androidx.annotation.NonNull;
 import com.appcoins.wallet.bdsbilling.Billing;
-import com.appcoins.wallet.bdsbilling.repository.BillingSupportedType;
 import com.appcoins.wallet.bdsbilling.repository.entity.Purchase;
-import com.appcoins.wallet.bdsbilling.repository.entity.Transaction;
 import com.appcoins.wallet.billing.BillingMessagesMapper;
+import com.appcoins.wallet.core.network.microservices.model.BillingSupportedType;
+import com.appcoins.wallet.core.network.microservices.model.Transaction;
 import com.asfoundation.wallet.base.RxSchedulers;
 import com.asfoundation.wallet.entity.GasSettings;
 import com.asfoundation.wallet.entity.TransactionBuilder;

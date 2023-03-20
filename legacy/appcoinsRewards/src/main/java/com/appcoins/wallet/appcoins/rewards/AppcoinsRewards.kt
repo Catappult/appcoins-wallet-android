@@ -3,8 +3,8 @@ package com.appcoins.wallet.appcoins.rewards
 import com.appcoins.wallet.appcoins.rewards.repository.WalletService
 import com.appcoins.wallet.bdsbilling.Billing
 import com.appcoins.wallet.commons.Repository
-import com.appcoins.wallet.core.network.microservices.model.Transaction
-import com.appcoins.wallet.core.network.microservices.model.Transaction.Status
+import com.appcoins.wallet.core.network.microservices.model.Transaction as CoreTransaction
+import com.appcoins.wallet.core.network.microservices.model.Transaction.Status as CoreStatus
 import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Scheduler
@@ -90,15 +90,16 @@ class AppcoinsRewards(private val repository: AppcoinsRewardsRepository,
       if (transaction.isBds()) transaction.origin else null
 
   private fun waitTransactionCompletion(
-      createdTransaction: com.appcoins.wallet.bdsbilling.repository.entity.Transaction): Completable {
+    createdTransaction: CoreTransaction
+  ): Completable {
     return Observable.interval(0, 5, TimeUnit.SECONDS, scheduler)
-        .timeInterval()
-        .switchMap {
-          billing.getAppcoinsTransaction(createdTransaction.uid, scheduler)
-              .toObservable()
-        }
-        .takeUntil { pendingTransaction -> pendingTransaction.status != Status.PROCESSING }
-        .ignoreElements()
+      .timeInterval()
+      .switchMap {
+        billing.getAppcoinsTransaction(createdTransaction.uid, scheduler)
+          .toObservable()
+      }
+      .takeUntil { pendingTransaction -> pendingTransaction.status != CoreStatus.PROCESSING }
+      .ignoreElements()
 
   }
 

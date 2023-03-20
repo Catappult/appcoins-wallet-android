@@ -1,7 +1,6 @@
 package com.asfoundation.wallet.subscriptions
 
 import com.appcoins.wallet.bdsbilling.WalletService
-import com.appcoins.wallet.bdsbilling.subscriptions.*
 import com.appcoins.wallet.core.network.microservices.model.*
 import com.asfoundation.wallet.util.Period
 import io.reactivex.Observable

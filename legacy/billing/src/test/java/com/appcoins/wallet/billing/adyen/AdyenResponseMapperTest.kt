@@ -59,7 +59,7 @@ class AdyenResponseMapperTest {
     val jsonObject = JsonObject()
     val paymentResponse =
       PaymentMethodsResponse(
-        Price(
+        AdyenPrice(
           BigDecimal(2),
           TEST_FIAT_CURRENCY
         ), jsonObject
@@ -79,7 +79,7 @@ class AdyenResponseMapperTest {
     val jsonObject = JsonObject()
     val paymentResponse =
       PaymentMethodsResponse(
-        Price(
+        AdyenPrice(
           BigDecimal(2),
           TEST_FIAT_CURRENCY
         ), jsonObject
@@ -110,7 +110,7 @@ class AdyenResponseMapperTest {
     val jsonObject = JsonObject()
     val paymentResponse =
       PaymentMethodsResponse(
-        Price(
+        AdyenPrice(
           BigDecimal(2),
           TEST_FIAT_CURRENCY
         ), jsonObject

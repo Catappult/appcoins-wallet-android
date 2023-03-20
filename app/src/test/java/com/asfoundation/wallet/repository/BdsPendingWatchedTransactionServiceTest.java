@@ -19,7 +19,7 @@ import org.mockito.junit.MockitoJUnitRunner;
 
 import static org.mockito.Mockito.when;
 
-@RunWith(MockitoJUnitRunner.class) public class BdsPendingTransactionServiceTest {
+@RunWith(MockitoJUnitRunner.class) public class BdsPendingWatchedTransactionServiceTest {
 
   public static final String ORDER_REFERENCE = "order_reference";
   private static final String PACKAGE_NAME = "package_name";
