@@ -27,7 +27,7 @@ class EskillsUriParser @Inject constructor() {
     val environment = getEnvironment(parameters)
     val metadata = getMetadata(parameters)
     val numberOfUsers = parameters[EskillsParameters.NUMBER_OF_USERS]?.toInt()
-    return com.appcoins.wallet.core.network.eskills.model.EskillsPaymentData(
+    return EskillsPaymentData(
       scheme!!, host!!, path!!, parameters, userId, userName, domain,
       product,
       price, currency, environment, metadata, numberOfUsers, timeout
@@ -45,11 +45,11 @@ class EskillsUriParser @Inject constructor() {
 
   fun getEnvironment(
     parameters: MutableMap<String, String?>
-  ): com.appcoins.wallet.core.network.eskills.model.EskillsPaymentData.MatchEnvironment? {
+  ): EskillsPaymentData.MatchEnvironment? {
     return try {
       val value = parameters[EskillsParameters.ENVIRONMENT]
       if (value != null) {
-        return com.appcoins.wallet.core.network.eskills.model.EskillsPaymentData.MatchEnvironment.valueOf(
+        return EskillsPaymentData.MatchEnvironment.valueOf(
           value
         )
       } else {
