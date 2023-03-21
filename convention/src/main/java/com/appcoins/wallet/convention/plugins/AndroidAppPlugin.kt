@@ -31,7 +31,7 @@ class AndroidAppPlugin : Plugin<Project> {
           lint {
             abortOnError = false
           }
-          buildConfigFields(project)
+          buildConfigFields(project, rootDir)
           javaCompileOptions {
             annotationProcessorOptions {
               annotationProcessorOptions.arguments["room.schemaLocation"] =

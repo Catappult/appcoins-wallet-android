@@ -14,19 +14,6 @@ android {
     applicationId = "com.appcoins.wallet"
     versionCode = 259
     versionName = "2.9.2.0"
-
-    val inputFile = File("$rootDir/appcoins-services.json")
-    val json = JsonSlurper().parseText(inputFile.readText()) as Map<*, *>
-    buildConfigField(
-      "String",
-      "DEFAULT_OEM_ADDRESS",
-      "\"" + (json["oems"] as Map<*, *>)["default_address"] + "\""
-    )
-    buildConfigField(
-      "String",
-      "DEFAULT_STORE_ADDRESS",
-      "\"" + (json["stores"] as Map<*, *>)["default_address"] + "\""
-    )
   }
 }
 

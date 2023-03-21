@@ -2,7 +2,9 @@ package com.appcoins.wallet.convention.extensions
 
 import com.android.build.api.dsl.ApplicationBuildType
 import com.android.build.api.dsl.ApplicationDefaultConfig
+import groovy.json.JsonSlurper
 import org.gradle.api.Project
+import java.io.File
 
 
 val defaultBuildConfigList = mutableListOf(
@@ -32,7 +34,8 @@ val releaseBuildConfigList = mutableListOf(
   BuildConfigField("String", "INDICATIVE_API_KEY"),
 )
 
-internal fun ApplicationDefaultConfig.buildConfigFields(project: Project) {
+internal fun ApplicationDefaultConfig.buildConfigFields(project: Project, rootDir: File) {
+  handleOemAndStoreAddresses(rootDir)
   for (variable in defaultBuildConfigList) {
     buildConfigField(
       type = variable.type,
@@ -57,6 +60,21 @@ internal fun ApplicationBuildType.buildConfigFields(project: Project, type: Buil
       else project.property(variable.name).toString()
     )
   }
+}
+
+fun ApplicationDefaultConfig.handleOemAndStoreAddresses(rootDir: File) {
+  val inputFile = File("$rootDir/appcoins-services.json")
+  val json = JsonSlurper().parseText(inputFile.readText()) as Map<*, *>
+  buildConfigField(
+    "String",
+    "DEFAULT_OEM_ADDRESS",
+    "\"" + (json["oems"] as Map<*, *>)["default_address"] + "\""
+  )
+  buildConfigField(
+    "String",
+    "DEFAULT_STORE_ADDRESS",
+    "\"" + (json["stores"] as Map<*, *>)["default_address"] + "\""
+  )
 }
 
 data class BuildConfigField(val type: String, val name: String, val value: String? = null)
