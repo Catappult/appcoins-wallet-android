@@ -1,8 +1,13 @@
 package com.appcoins.wallet.core.network.eskills.api
 
+import cm.aptoide.skills.model.*
+import com.appcoins.wallet.core.network.eskills.model.*
 import cm.aptoide.skills.model.EskillsVerification
 import com.appcoins.wallet.core.network.eskills.model.TicketRequest
 import com.appcoins.wallet.core.network.eskills.model.TicketResponse
+import com.appcoins.wallet.core.network.eskills..model.ReferralResponse
+import com.appcoins.wallet.core.network.eskills..model.TicketRequest
+import com.appcoins.wallet.core.network.eskills..model.TicketResponse
 import io.reactivex.Single
 import retrofit2.http.*
 
@@ -31,6 +36,27 @@ interface TicketApi {
     @Path("ticket_id") ticketId: String,
     @Body data: Refunded
   ): Single<TicketResponse>
+
+  @POST("queue/eskills/service/promo/{referral_code}")
+  fun postReferralTransaction(
+    @Header("authorization") authorization: String,
+    @Path("referral_code") referralCode: String,
+  ): Single<ReferralResponse>
+
+  @GET("queue/eskills/service/user/first_time")
+  fun getFirstTimeUserCheck(
+    @Header("authorization") authorization: String,
+  ): Single<FirstTimeUserResponse>
+
+  @GET("queue/eskills/service/promo")
+  fun getReferral(
+    @Header("authorization") authorization: String,
+  ): Single<ReferralResponse>
+
+  @POST("queue/eskills/service/promo")
+  fun createReferral(
+    @Header("authorization") authorization: String,
+  ): Single<ReferralResponse>
 
   data class Refunded(val status: String = "REFUNDED")
 }

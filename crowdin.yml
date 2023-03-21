@@ -98,5 +98,5 @@ files:
         hu: hu
         el: el
         sr-CS: sr
-  - source: /skills/src/main/res/values/strings.xml
-    translation: /skills/src/main/res/values-%android_code%/%original_file_name%
+  - source: /legacy/skills/src/main/res/values/strings.xml
+    translation: /legacy/skills/src/main/res/values-%android_code%/%original_file_name%

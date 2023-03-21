@@ -1,16 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="appcoins_wallet">AppCoins ウォレット</string>
+  <!-- Common -->
+  <string name="start_button">Start</string>
+  <string name="ok">わかりました</string>
+  <string name="cancel">キャンセルする</string>
+  <string name="buy_button">購入</string>
+  <string name="topup_button">トップアップ</string>
   <string name="provide_wallet_creating_wallet_header">ウォレットアドレスを作成中です&#8230;</string>
   <string name="processing_loading_title">エントリーチケットを入手中</string>
   <string name="finding_room_loading_title">対戦相手を待っています</string>
   <string name="finding_room_name_loading_title">対戦相手の参加を\n待っています：</string>
   <string name="finding_room_loading_message">これは、処理には時間がかかることがあります...</string>
   <string name="refunded">返金されました。</string>
-  <string name="ok">わかりました</string>
-  <string name="cancel">キャンセルする</string>
-  <string name="buy_button">購入</string>
-  <string name="topup_button">トップアップ</string>
   <string name="connection_error_body">インターネットに接続されていないようです。接続を確認して、もう一度試してみてください</string>
   <string name="playing_game_notification_title">現在プレイ中のe-Skills</string>
   <string name="playing_game_notification_body">ゲーム情報取得中...</string>
@@ -44,4 +46,7 @@
   <string name="refer_a_friend_error_unavailable_body">This feature is currently unavailable.</string>
   <string name="refer_a_friend_error_invalid_code_body">Invalid code!</string>
   <string name="refer_a_friend_error_user_not_eligible_body">Only for new users!</string>
+  <string name="refer_a_friend_first_time_tooltip">With our Referral Program you\'ll receive a $%s bonus when using your friends code. They\'ll also receive the same amount as bonus to be used on in-app purchases or e-Skills entry tickets.</string>
+  <string name="refer_a_friend_waiting_room_title">Refer a Friend!</string>
+  <string name="refer_a_friend_waiting_from_body">Get a bonus for each friend you invite.</string>
 </resources>

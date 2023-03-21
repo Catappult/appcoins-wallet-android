@@ -30,8 +30,8 @@
   <string name="change_button">Cambiar</string>
   <string name="vip">VIP</string>
   <string name="faq">FAQs</string>
-  <string name="about_us_title">About Us</string>
-  <string name="preferences_title">Preferences</string>
+  <string name="about_us_title">Sobre nosotros</string>
+  <string name="preferences_title">Ajustes</string>
   <string name="low_storage_error">No hay suficiente espacio de almacenamiento</string>
   <string name="no_camera_permission_title">Acceso a la cámara</string>
   <string name="no_camera_permission">AppCoins BDS Wallet necesita permiso para acceder a la cámara para poder escanear códigos QR.</string>
@@ -44,7 +44,7 @@
   <!-- TODO: Remove or change this placeholder text -->
   <string name="title_community">Redes Sociales</string>
   <string name="title_opensource">Desarrollo de código abierto</string>
-  <string name="title_source_code">Source Code</string>
+  <string name="title_source_code">Código fuente</string>
   <string name="title_report_bug">Informa sobre un bug</string>
   <string name="title_support">Apoyo</string>
   <string name="title_permissions">Permisos</string>
@@ -80,7 +80,7 @@
   <string name="unknown_error">Ha ocurrido un error.</string>
   <string name="action_backup_wallet">Hacer un backup</string>
   <string name="no_tokens">Todavía no has añadido tokens personalizados.</string>
-  <string name="title_email">Email Us</string>
+  <string name="title_email">Escríbenos</string>
   <string name="action_donate">Donar</string>
   <!-- Titles -->
   <string name="title_my_address">Recibir</string>
@@ -140,15 +140,15 @@
   <string name="intro_already_have_wallet_button">Ya tengo una wallet</string>
   <string name="intro_get_started_button">Iniciar wallet</string>
   <!-- Intro from game -->
-  <string name="launching_wallet_body">Launching wallet&#8230;</string>
-  <string name="select_method_title">Choose a payment method</string>
-  <string name="bonus_body">Get %s bonus with this purchase.</string>
-  <string name="agree_by_choosing_a_payment_method_body">By choosing a payment method, you agree to the %1$s and %2$s.</string>
-  <string name="pay_with_card_title">Pay with credit/debit card</string>
-  <string name="more_payment_methods_button">More payment methods</string>
-  <string name="bonus_received_body">You received a %s bonus in your wallet.</string>
-  <string name="back_to_the_game_button">Back to the game</string>
-  <string name="other_payment_methos_title">Other payment methods:</string>
+  <string name="launching_wallet_body">Iniciando wallet&#8230;</string>
+  <string name="select_method_title">Elige un método de pago</string>
+  <string name="bonus_body">Recibe un bonus de %s con esta compra.</string>
+  <string name="agree_by_choosing_a_payment_method_body">Al elegir un método de pago aceptas los %1$s y la %2$s.</string>
+  <string name="pay_with_card_title">Paga con tarjeta de crédito/débito</string>
+  <string name="more_payment_methods_button">Más métodos de pago</string>
+  <string name="bonus_received_body">Has recibido un bonus de %s en tu wallet.</string>
+  <string name="back_to_the_game_button">Volver al juego</string>
+  <string name="other_payment_methos_title">Otros métodos de pago:</string>
   <!-- Menus -->
   <!-- Labels -->
   <string name="label_from">Desde</string>
@@ -539,12 +539,12 @@
   <string name="purchase_wallet_blocked_title">Tu saldo en AppCoins Credits está bloqueado</string>
   <string name="purchase_wallet_blocked_body">Debido a un historial de transacciones inisual, tu saldo en AppCoins Credits fue bloqueado. Todavía puedes hacer pagos y transacciones con otros métodos de pago excepto AppCoins Credits.\n\nSi crees que se trata de un error, escríbenos a:</string>
   <string name="purchase_card_error_title">Ups, algo salió mal.</string>
-  <string name="purchase_card_error_general_1">There was a problem with your card. Please try with a different card or payment method.</string>
-  <string name="purchase_card_error_general_2">The transaction has been rejected by your bank. Please try with a different card or payment method.</string>
-  <string name="purchase_card_error_no_funds">It seems you don\'t have enough funds or there\'s a limit on your card. Please try with a different card or payment method.</string>
-  <string name="purchase_card_error_expired">It seems your card is expired. Please try again with a different payment method.</string>
-  <string name="purchase_card_error_invalid_details">Invalid card number. Please check it and try again.</string>
-  <string name="purchase_card_error_not_supported">Your card is not supported yet. Please try again with a different card or payment method.</string>
+  <string name="purchase_card_error_general_1">Hay un problema con tu tarjeta. Prueba con otra tarjeta o con un método de pago diferente.</string>
+  <string name="purchase_card_error_general_2">La transacción ha sido rechazada por tu banco. Prueba con otra tarjeta o con otro método de pago.</string>
+  <string name="purchase_card_error_no_funds">Parece que no tienes suficientes fondos o tu tarjeta tiene un límite. Prueba con otra tarjeta o con un método de pago diferente.</string>
+  <string name="purchase_card_error_expired">Tu tarjeta ha caducado. Prueba de nuevo con un método de pago diferente.</string>
+  <string name="purchase_card_error_invalid_details">Número de tarjeta no válido. Por favor compruébalo y prueba de nuevo.</string>
+  <string name="purchase_card_error_not_supported">Todavía no aceptas este tipo de tarjetas. Prueba de nuevo con una tarjeta o un método de pago diferente.</string>
   <string name="purchase_card_error_security">¿Estás seguro de que la información de seguridad es correcta? Prueba de nuevo.</string>
   <string name="purchase_card_error_wrong_CVV">El CVV/CVC no es correcto. Prueba de nuevo.</string>
   <string name="purchase_card_error_re_insert">¡Registraste esta tarjeta hace mucho tiempo! Inserta los datos de nuevo o usa una diferente.</string>
@@ -568,7 +568,7 @@
   <string name="purchase_error_card_security_validation">Hubo un error en la validación de segundo nivel de esta transacción. Prueba de nuevo.</string>
   <string name="purchase_error_transaction_timeout">Tomaste demasiado tiempo en completar la transacción. Prueba de nuevo.</string>
   <string name="purchase_error_card_already_in_progress">Tu pedido ya ha sido realizado o está en progreso. Por favor, espera.</string>
-  <string name="purchase_error_payment_rejected">The transaction has been rejected. Please try with a different card or payment method.</string>
+  <string name="purchase_error_payment_rejected">La transacción ha sido rechazada. Prueba con otra tarjeta o con otro método de pago.</string>
   <string name="purchase_error_verify_wallet">Valida tu método de pago para completar la compra.</string>
   <string name="purchase_error_verify_card">Valida tu tarjeta para completar esta compra.</string>
   <string name="purachse_error_verify_card_button">VALIDAR TARJETA</string>
@@ -577,9 +577,9 @@
   <string name="purchase_app_needed_body">Necesitas la siguiente app para completar la compra.</string>
   <string name="purchase_apps_needed_body">Necesitas una de las siguientes apps para completar la compra.</string>
   <string name="purchase_error_connection_issue">¡Parece que hay un problema con la conexión a internet! Compruébala y prueba de nuevo.</string>
-  <string name="purchase_error_wrong_pin_body">There was a problem with your pin. Please try again.</string>
-  <string name="purchase_error_3d_body">There was a problem with your 3D authentication. Please try again.</string>
-  <string name="purchase_error_generic_contact_us_body">Oops, something went wrong. Please try again or contact us.</string>
+  <string name="purchase_error_wrong_pin_body">Hay un problema con tu pin. Por favor, prueba de nuevo.</string>
+  <string name="purchase_error_3d_body">Hay un problema con la autenticación 3D. Por favor, prueba de nuevo.</string>
+  <string name="purchase_error_generic_contact_us_body">Ups, algo salió mal. Prueba de nuevo o ponte en contacto con nosotros.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">Dirección</string>
   <string name="purchase_address_address_field">Dirección</string>
@@ -755,7 +755,7 @@
   <string name="pioneer_gamification_body">Un pionero es un jugador anticipado con bonificaciones aumentadas.</string>
   <!--Check for Updates-->
   <string name="check_updates_settings_current_title">Versión actual</string>
-  <string name="check_updates_settings_title">Check for Updates</string>
+  <string name="check_updates_settings_title">Comprobar actualizaciones</string>
   <string name="check_updates_settings_subtitle">Versión actual %s</string>
   <string name="check_updates_checking_body">Buscando una nueva versión</string>
   <string name="check_updates_no_updates_body">¡Tienes la última versión!</string>
@@ -764,7 +764,7 @@
   <string name="check_updates_settings_available_title">Nueva versión disponible</string>
   <string name="check_updates_settings_available_subtitle_button">Toca para actualizar</string>
   <!--Subscriptions-->
-  <string name="subscriptions_settings_title">Manage Subscriptions</string>
+  <string name="subscriptions_settings_title">Gestionar subscripciones</string>
   <string name="subscriptions_title">Subscripciones</string>
   <string name="subscriptions_subscribe_button">Sucríbete</string>
   <string name="subscriptions_active_title">Activa</string>
@@ -929,7 +929,7 @@
   <string name="perks_empty_state_first_purchase_body">¡Haz tu primera compra en un juego o app y desbloquea todas las promociones que tenemos para ti!</string>
   <string name="perks_empty_body">No hay promociones disponibles en estos momentos.</string>
   <!--Fingerprint Authentication-->
-  <string name="fingerprint_settings">Fingerprint Lock</string>
+  <string name="fingerprint_settings">Bloqueo con huella</string>
   <string name="fingerprint_failed_title">¡La autenticación falló!</string>
   <string name="fingerprint_failed_body">Inténtalo de nuevo en %s segundos.</string>
   <string name="fingerprint_authentication_required_title">¡Necesitas autenticarte!</string>

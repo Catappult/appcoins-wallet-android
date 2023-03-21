@@ -1,16 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="appcoins_wallet">AppCoins वॉलेट</string>
+  <!-- Common -->
+  <string name="start_button">Start</string>
+  <string name="ok">ठीक</string>
+  <string name="cancel">रद्द करें</string>
+  <string name="buy_button">खरीदें</string>
+  <string name="topup_button">टॉप अप</string>
   <string name="provide_wallet_creating_wallet_header">वॉलेट पता बना रहा है&#8230;</string>
   <string name="processing_loading_title">Getting your entry ticket</string>
   <string name="finding_room_loading_title">Waiting for opponents</string>
   <string name="finding_room_name_loading_title">Waiting for opponents \nto join the</string>
   <string name="finding_room_loading_message">इसमें कुछ समय लग सकता है...</string>
   <string name="refunded">Your money has been refunded.</string>
-  <string name="ok">ठीक</string>
-  <string name="cancel">रद्द करें</string>
-  <string name="buy_button">खरीदें</string>
-  <string name="topup_button">टॉप अप</string>
   <string name="connection_error_body">शायद आप इंटरनेट से नहीं जुड़े हैं। अपना कनेक्शन जांचें और पुनः प्रयास करें!</string>
   <string name="playing_game_notification_title">Currently playing e-Skills</string>
   <string name="playing_game_notification_body">Getting game info…</string>
@@ -44,4 +46,7 @@
   <string name="refer_a_friend_error_unavailable_body">This feature is currently unavailable.</string>
   <string name="refer_a_friend_error_invalid_code_body">Invalid code!</string>
   <string name="refer_a_friend_error_user_not_eligible_body">Only for new users!</string>
+  <string name="refer_a_friend_first_time_tooltip">With our Referral Program you\'ll receive a $%s bonus when using your friends code. They\'ll also receive the same amount as bonus to be used on in-app purchases or e-Skills entry tickets.</string>
+  <string name="refer_a_friend_waiting_room_title">Refer a Friend!</string>
+  <string name="refer_a_friend_waiting_from_body">Get a bonus for each friend you invite.</string>
 </resources>

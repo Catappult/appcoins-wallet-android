@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+ <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:theme="@style/AppTheme"
+    >
+  <androidx.constraintlayout.widget.ConstraintLayout
+      android:layout_width="@dimen/payment_methods_width"
+      android:layout_height="wrap_content"
+      android:animateLayoutChanges="true"
+      android:background="@drawable/background_card_bottom_rounded"
+      android:paddingHorizontal="@dimen/big_margin"
+      android:paddingVertical="@dimen/big_margin"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      >
+
+
+    <ImageView
+        android:id="@+id/app_icon"
+        android:layout_width="93dp"
+        android:layout_height="93dp"
+        android:src="@drawable/ic_appc"
+        app:layout_constraintVertical_chainStyle="packed"
+        app:layout_constraintBottom_toTopOf="@id/onboarding_title"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+    <TextView
+        android:id="@+id/onboarding_title"
+        style="@style/eSkills.Onboarding.Title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginTop="@dimen/small_margin"
+        android:text="@string/refer_a_friend_first_time_header"
+        app:layout_constraintBottom_toTopOf="@id/onboarding_text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/app_icon"
+
+        />
+    <TextView
+        android:id="@+id/onboarding_text"
+        style="@style/eSkills.Onboarding.Text"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/refer_a_friend_first_time_body"
+        android:layout_marginTop="@dimen/small_margin"
+        app:layout_constraintBottom_toTopOf="@id/referral_display"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/onboarding_title"
+        />
+
+
+    <include
+        android:id="@+id/referral_display"
+        layout="@layout/referral_display"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/small_margin"
+        app:layout_constraintBottom_toTopOf="@id/dialog_buy_buttons_payment_methods"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/onboarding_text"
+        />
+    <include
+        android:id="@+id/dialog_buy_buttons_payment_methods"
+        layout="@layout/pay_ticket_buy_buttons"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/big_margin"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/referral_display"
+        />
+
+  </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

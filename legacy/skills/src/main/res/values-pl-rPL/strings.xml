@@ -1,16 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="appcoins_wallet">Portfel AppCoins</string>
+  <!-- Common -->
+  <string name="start_button">Start</string>
+  <string name="ok">Ok</string>
+  <string name="cancel">Anuluj</string>
+  <string name="buy_button">Kup</string>
+  <string name="topup_button">Doładowanie</string>
   <string name="provide_wallet_creating_wallet_header">Tworzenie adresu portfela&#8230;</string>
   <string name="processing_loading_title">Drukowanie biletu</string>
   <string name="finding_room_loading_title">Czekanie na przeciwnika</string>
   <string name="finding_room_name_loading_title">Oczekiwanie na przeciwników \n</string>
   <string name="finding_room_loading_message">To może potrwać chwilę…</string>
   <string name="refunded">Twoje pieniądze zostały zwrócone.</string>
-  <string name="ok">Ok</string>
-  <string name="cancel">Anuluj</string>
-  <string name="buy_button">Kup</string>
-  <string name="topup_button">Doładowanie</string>
   <string name="connection_error_body">Wygląda na to że nie jesteś podłączony do internetu. Sprawdź połączenie i spróbuj ponownie!</string>
   <string name="playing_game_notification_title">Obecnie gra w e-Skills</string>
   <string name="playing_game_notification_body">Pobieranie info…</string>
@@ -44,4 +46,7 @@
   <string name="refer_a_friend_error_unavailable_body">This feature is currently unavailable.</string>
   <string name="refer_a_friend_error_invalid_code_body">Invalid code!</string>
   <string name="refer_a_friend_error_user_not_eligible_body">Only for new users!</string>
+  <string name="refer_a_friend_first_time_tooltip">With our Referral Program you\'ll receive a $%s bonus when using your friends code. They\'ll also receive the same amount as bonus to be used on in-app purchases or e-Skills entry tickets.</string>
+  <string name="refer_a_friend_waiting_room_title">Refer a Friend!</string>
+  <string name="refer_a_friend_waiting_from_body">Get a bonus for each friend you invite.</string>
 </resources>

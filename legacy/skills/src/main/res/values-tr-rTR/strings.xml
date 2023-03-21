@@ -1,16 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="appcoins_wallet">AppCoins Cüzdan</string>
+  <!-- Common -->
+  <string name="start_button">Start</string>
+  <string name="ok">Tamam</string>
+  <string name="cancel">İptal et</string>
+  <string name="buy_button">Satın Al</string>
+  <string name="topup_button">Yükle</string>
   <string name="provide_wallet_creating_wallet_header">Cüzdan adresi oluşturuluyor&#8230;</string>
   <string name="processing_loading_title">Giriş biletiniz alınıyor</string>
   <string name="finding_room_loading_title">Rakipler bekleniyor</string>
   <string name="finding_room_name_loading_title">Waiting for opponents \nto join the</string>
   <string name="finding_room_loading_message">Bu biraz zaman alabilir…</string>
   <string name="refunded">Paranız iade edildi.</string>
-  <string name="ok">Tamam</string>
-  <string name="cancel">İptal et</string>
-  <string name="buy_button">Satın Al</string>
-  <string name="topup_button">Yükle</string>
   <string name="connection_error_body">İnternete bağlı değilsiniz gibi görünüyor. Bağlantınızı kontrol edip tekrar deneyin!</string>
   <string name="playing_game_notification_title">Şu anda e-Skills\'le oynanıyor</string>
   <string name="playing_game_notification_body">Oyun bilgileri alınıyor…</string>
@@ -22,26 +24,29 @@
   <string name="location_not_available_body">Bunları herkes için kullanılabilir hale getirmek için çok çalışıyoruz, dolayısıyla yakında tekrar gelin!</string>
   <string name="e_skills_room_create_title">Bir oda oluşturun veya bir odaya katılın</string>
   <string name="e_skills_room_create_body">Yeni bir oda yaratın ve rakiplerinizle paylaşın ya da mevcut bir odaya katılın.</string>
-  <string name="e_skills_room_field">Your room name here…</string>
+  <string name="e_skills_room_field">Oda ismin…</string>
   <string name="e_skills_payment_title">Payment with</string>
   <string name="e_skills_payment_body">AppCoins Kredileri</string>
-  <string name="copied_to_clipboard">Copied to the clipboard</string>
-  <string name="processing_payment_title">Processing your payment</string>
+  <string name="copied_to_clipboard">Panoya kopyalandı</string>
+  <string name="processing_payment_title">Ödemen işleniyor</string>
   <string name="purchase_error_title">Hay aksi, bir şeyler ters gitti.</string>
   <string name="purchase_eskills_sku">Giriş bileti</string>
   <string name="shared_room_waiting">Rakiplerin %s adlı odaya katılmaları bekleniyor</string>
-  <string name="rooted_device_blocked_body">Unfortunately, you cannot play e-Skills games with a rooted device.\"</string>
-  <string name="top_up_needed_body">For security reasons, you need to make at least one top-up in your wallet to play e-Skills games.</string>
-  <string name="not_enough_funds_body">You don\'t have enough funds! Please top up to buy the entry ticket.</string>
-  <string name="error_message_local_payment_method_body">Local payment methods aren\'t accepted to purchase an entry fee. Please create a new wallet and top it up with a bank card or PayPal!</string>
-  <string name="update_not_supported_title">Wallet version not supported!</string>
-  <string name="update_not_supported_body">Update the AppCoins Wallet to the latest version.</string>
-  <string name="update_button">Update</string>
+  <string name="rooted_device_blocked_body">Maalesef e-Skills oyunlarını root atılmış bir cihazda oynayamazsın.\"</string>
+  <string name="top_up_needed_body">Güvenlik nedeniyle, e-Skills oyunları oynamak için cüzdanına en az bir yükleme yapman gerekiyor.</string>
+  <string name="not_enough_funds_body">Yeterli bakiyen yok! Giriş bileti almak için lütfen yükleme yap.</string>
+  <string name="error_message_local_payment_method_body">Giriş ücreti satın almak için yerel ödeme yöntemleri kabul edilmiyor. Lütfen yeni bir cüzdan oluştur ve bir banka kartı veya PayPal ile yükleme yap!</string>
+  <string name="update_not_supported_title">Cüzdan sürümü desteklenmiyor!</string>
+  <string name="update_not_supported_body">AppCoins Cüzdanı son sürüme güncelle.</string>
+  <string name="update_button">Güncelle</string>
   <!-- Refer a friend -->
-  <string name="refer_a_friend_waiting_room_tooltip">You and the friends you invite will receive a $%s bonus. You can refer up to 5 friends, and they must be new users. The bonus will be credited in your wallet once they use your invitation code in their first e-Skills game.</string>
-  <string name="refer_a_friend_first_time_header">Ready to show your skills?</string>
-  <string name="refer_a_friend_first_time_body">Beat other players to get a prize in real money! Let\'s start with a practice game with no entry fee.</string>
-  <string name="refer_a_friend_error_unavailable_body">This feature is currently unavailable.</string>
-  <string name="refer_a_friend_error_invalid_code_body">Invalid code!</string>
-  <string name="refer_a_friend_error_user_not_eligible_body">Only for new users!</string>
+  <string name="refer_a_friend_waiting_room_tooltip">Sen ve davet ettiğin arkadaşların $%s bonus kazanacak. En fazla 5 arkadaşına önerebilirsin ve bunlar yeni kullanıcı olmalıdır. Davet kodunu ilk e-Skills oyunlarında kullandıkları anda bonus cüzdanına yüklenecektir.</string>
+  <string name="refer_a_friend_first_time_header">Yeteneklerini göstermeye hazır mısın?</string>
+  <string name="refer_a_friend_first_time_body">Gerçek para cinsinden ödül kazanmak için diğer oyuncuları yen! Giriş ücreti olmayan bir alıştırma oyunuyla başlayalım.</string>
+  <string name="refer_a_friend_error_unavailable_body">Bu özellik şu an mevcut değil.</string>
+  <string name="refer_a_friend_error_invalid_code_body">Geçersiz kod!</string>
+  <string name="refer_a_friend_error_user_not_eligible_body">Yalnızca yeni kullanıcılar için!</string>
+  <string name="refer_a_friend_first_time_tooltip">With our Referral Program you\'ll receive a $%s bonus when using your friends code. They\'ll also receive the same amount as bonus to be used on in-app purchases or e-Skills entry tickets.</string>
+  <string name="refer_a_friend_waiting_room_title">Refer a Friend!</string>
+  <string name="refer_a_friend_waiting_from_body">Davet ettiğin her arkadaşın için bonus kazan.</string>
 </resources>

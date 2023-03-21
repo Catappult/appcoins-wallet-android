@@ -7,4 +7,5 @@
   <dimen name="button_height">36dp</dimen>
   <dimen name="payment_methods_width">340dp</dimen>
   <dimen name="payment_methods_width_landscape">544dp</dimen>
+  <dimen name="onboarding_width_landscape">600dp</dimen>
 </resources>

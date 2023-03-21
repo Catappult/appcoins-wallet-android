@@ -1,16 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="appcoins_wallet">کیف پول AppCoins</string>
+  <!-- Common -->
+  <string name="start_button">Start</string>
+  <string name="ok">اوکی</string>
+  <string name="cancel">لغو</string>
+  <string name="buy_button">خرید</string>
+  <string name="topup_button">افزایش اعتبار</string>
   <string name="provide_wallet_creating_wallet_header">ایجاد آدرس کیف پول&#8230;</string>
   <string name="processing_loading_title">دریافت بلیت ورودی خود</string>
   <string name="finding_room_loading_title">انتظار برای حریف</string>
   <string name="finding_room_name_loading_title">درحال انتظار \nبرای عضو شدن رقیب</string>
   <string name="finding_room_loading_message">اندکی زمان می‌برد…</string>
   <string name="refunded">پول شما بازگردانده شد.</string>
-  <string name="ok">اوکی</string>
-  <string name="cancel">لغو</string>
-  <string name="buy_button">خرید</string>
-  <string name="topup_button">افزایش اعتبار</string>
   <string name="connection_error_body">به نظر می‌رسد به اینترنت متصل نیستید. ارتباط خود را بررسی کنید و دوباره امتحان کنید!</string>
   <string name="playing_game_notification_title">در حال بازی e-Skills</string>
   <string name="playing_game_notification_body">در حال دریاف اطلاعات بازی…</string>
@@ -44,4 +46,7 @@
   <string name="refer_a_friend_error_unavailable_body">This feature is currently unavailable.</string>
   <string name="refer_a_friend_error_invalid_code_body">Invalid code!</string>
   <string name="refer_a_friend_error_user_not_eligible_body">Only for new users!</string>
+  <string name="refer_a_friend_first_time_tooltip">With our Referral Program you\'ll receive a $%s bonus when using your friends code. They\'ll also receive the same amount as bonus to be used on in-app purchases or e-Skills entry tickets.</string>
+  <string name="refer_a_friend_waiting_room_title">Refer a Friend!</string>
+  <string name="refer_a_friend_waiting_from_body">Get a bonus for each friend you invite.</string>
 </resources>

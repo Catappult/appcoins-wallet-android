@@ -27,6 +27,7 @@
         android:layout_marginEnd="24dp"
         android:gravity="center"
         android:lineSpacingExtra="8sp"
+        app:layout_constraintVertical_chainStyle="packed"
         android:text="@string/finding_room_loading_title"
         android:textColor="@color/black_87_alpha"
         android:textSize="24sp"
@@ -50,24 +51,28 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="44dp"
-        android:layout_marginBottom="38dp"
+        android:layout_marginBottom="@dimen/small_margin"
         android:indeterminateDrawable="@drawable/gradient_progress"
         />
 
-    <View
-        android:id="@+id/line_separator_info"
+    <include
+        android:id="@+id/referral_share_display"
+        layout="@layout/share_referral_layout"
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
-        android:background="@color/light_gray"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/big_margin"
+        android:layout_marginBottom="@dimen/big_margin"
+        android:clipChildren="false"
+        android:clipToPadding="false"
+        app:layout_constraintBottom_toTopOf="@id/cancel_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/progressBar"
+        android:visibility="gone"
         />
-
     <Button
         android:id="@+id/cancel_button"
-        style="@style/ButtonStyle"
+        style="@style/CancelButtonStyle"
         android:layout_width="match_parent"
         android:layout_height="36dp"
         android:layout_marginStart="32dp"

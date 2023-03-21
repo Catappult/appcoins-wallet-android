@@ -1,16 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="appcoins_wallet">AppCoins Wallet</string>
+  <!-- Common -->
+  <string name="start_button">Start</string>
+  <string name="ok">U redu</string>
+  <string name="cancel">Otkaži</string>
+  <string name="buy_button">Kupi</string>
+  <string name="topup_button">Dopunite</string>
   <string name="provide_wallet_creating_wallet_header">Pravljenje adrese novčanika&#8230;</string>
   <string name="processing_loading_title">Vaša ulaznica je u pripremi</string>
   <string name="finding_room_loading_title">Čekaju se protivnici</string>
   <string name="finding_room_name_loading_title">Čekaju se protivnici \nda se pridruže</string>
   <string name="finding_room_loading_message">Ovo će možda malo potrajati…</string>
   <string name="refunded">Vaš novac je refundiran.</string>
-  <string name="ok">U redu</string>
-  <string name="cancel">Otkaži</string>
-  <string name="buy_button">Kupi</string>
-  <string name="topup_button">Dopunite</string>
   <string name="connection_error_body">Izgleda da niste povezani na internet. Proverite vezu pa pokušajte ponovo!</string>
   <string name="playing_game_notification_title">Trenutno igrate e-Skills</string>
   <string name="playing_game_notification_body">Prikupljaju se informacije o igri…</string>
@@ -30,18 +32,21 @@
   <string name="purchase_error_title">Ups, došlo je do greške.</string>
   <string name="purchase_eskills_sku">Ulaznica</string>
   <string name="shared_room_waiting">Čekaju se protivnici da se pridruže %s</string>
-  <string name="rooted_device_blocked_body">Unfortunately, you cannot play e-Skills games with a rooted device.\"</string>
-  <string name="top_up_needed_body">For security reasons, you need to make at least one top-up in your wallet to play e-Skills games.</string>
-  <string name="not_enough_funds_body">You don\'t have enough funds! Please top up to buy the entry ticket.</string>
-  <string name="error_message_local_payment_method_body">Local payment methods aren\'t accepted to purchase an entry fee. Please create a new wallet and top it up with a bank card or PayPal!</string>
-  <string name="update_not_supported_title">Wallet version not supported!</string>
-  <string name="update_not_supported_body">Update the AppCoins Wallet to the latest version.</string>
-  <string name="update_button">Update</string>
+  <string name="rooted_device_blocked_body">Nažalost, ne možete igrati e-Skills igre sa \"rutovanim\" uređajem.*</string>
+  <string name="top_up_needed_body">Iz bezbednosnih razloga, potrebno je da dopunite bar jednom svoj novčanik da biste igrali e-Skills igre.</string>
+  <string name="not_enough_funds_body">Nemate dovoljno sredstava! Dopunite da biste kupili ulaznicu.</string>
+  <string name="error_message_local_payment_method_body">Lokalni načini plaćanja nisu podržani za kupovinu ulaznice. Napravite novi novčanik i dopunite ga pomoću bankovne kartice ili PayPal-a!</string>
+  <string name="update_not_supported_title">Verzija novčanika nije podržana!</string>
+  <string name="update_not_supported_body">Ažurirajte AppCoins Wallet na najnoviju verziju.</string>
+  <string name="update_button">Ažuriraj</string>
   <!-- Refer a friend -->
-  <string name="refer_a_friend_waiting_room_tooltip">You and the friends you invite will receive a $%s bonus. You can refer up to 5 friends, and they must be new users. The bonus will be credited in your wallet once they use your invitation code in their first e-Skills game.</string>
-  <string name="refer_a_friend_first_time_header">Ready to show your skills?</string>
-  <string name="refer_a_friend_first_time_body">Beat other players to get a prize in real money! Let\'s start with a practice game with no entry fee.</string>
-  <string name="refer_a_friend_error_unavailable_body">This feature is currently unavailable.</string>
-  <string name="refer_a_friend_error_invalid_code_body">Invalid code!</string>
-  <string name="refer_a_friend_error_user_not_eligible_body">Only for new users!</string>
+  <string name="refer_a_friend_waiting_room_tooltip">Vi i prijatelji koje ste pozvali ćete osvojiti bonus od %s$. Možete pozvati do 5 prijatelja i oni moraju biti novi korisnici. Bonus će biti primenjen na vaš novčanik kada oni iskoriste pozivni kod u svojoj prvoj e-Skills igri.</string>
+  <string name="refer_a_friend_first_time_header">Spremni da pokažete svoje znanje?</string>
+  <string name="refer_a_friend_first_time_body">Pobedite druge igrače da biste osvojili nagradu u vidu pravog novca! Počnimo sa vežbom koja ne zahteva naknadu za učešće.</string>
+  <string name="refer_a_friend_error_unavailable_body">Ova funkcija trenutno nije dostupna.</string>
+  <string name="refer_a_friend_error_invalid_code_body">Nevažeći kod!</string>
+  <string name="refer_a_friend_error_user_not_eligible_body">Samo za nove korisnike!</string>
+  <string name="refer_a_friend_first_time_tooltip">Uz naš program za preporuke, osvojićete bonus od %s$ kada iskoristite kod svojih prijatelja. Oni će takođe osvojiti isti iznos kao bonus koji mogu iskoristiti za kupovine u aplikacijama ili za e-Skills ulaznice.</string>
+  <string name="refer_a_friend_waiting_room_title">Pozovite prijatelja!</string>
+  <string name="refer_a_friend_waiting_from_body">Osvojite bonus za svakog prijatelja koga pozovete.</string>
 </resources>

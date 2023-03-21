@@ -12,6 +12,11 @@
     <item name="android:textSize">16sp</item>
     <item name="android:textColor">#828282</item>
   </style>
+  <style name="TextAppearance.AppCompat.Body1.Roboto.Bold" parent="TextAppearance.AppCompat.Body1">
+    <item name="android:textSize">16sp</item>
+    <item name="android:textColor">#828282</item>
+    <item name="android:fontFamily">@font/roboto_bolt</item>
+  </style>
 
   <style name="Theme.AppCompat.Transparent" parent="Theme.AppCompat">
     <item name="android:windowIsTranslucent">true</item>
@@ -61,6 +66,7 @@
     <item name="android:textSize">16sp</item>
   </style>
 
+
   <style name="eSkills.Payment" />
 
   <style name="eSkills.Payment.TextInputEditText">
@@ -78,10 +84,37 @@
     <item name="colorControlNormal">#000000</item>
     <item name="colorControlHighlight">#000000</item>
     <item name="hintTextAppearance">@style/TextAppearance.MaterialComponents.Subtitle2</item>
+
+  </style><style name="eSkills.Payment.Error">
+    <item name="android:fontFamily">@font/roboto_medium</item>
+    <item name="android:textSize">10sp</item>
+    <item name="android:singleLine">true</item>
+    <item name="android:maxLines">1</item>
+    <item name="android:paddingTop">0dp</item>
+    <item name="android:paddingBottom">0dp</item>
+    <item name="android:textColor">@color/referral_error</item>
   </style>
+
+  <style name="eSkills.ReferralShare"/>
+  <style name="eSkills.ReferralShare.CodeText">
+    <item name="android:fontFamily">@font/roboto_bolt</item>
+    <item name="android:textSize">16sp</item>
+    <item name="android:textColor">@color/white</item>
+  </style>
+  <style name="eSkills.ReferralShare.PopupText">
+    <item name="android:fontFamily">@font/roboto_regular</item>
+    <item name="android:textSize">13sp</item>
+    <item name="android:textColor">@color/white</item>
+  </style>
+
 
   <style name="DialogTextStyle">
     <item name="android:textColor">@color/gray_alpha_8a</item>
+    <item name="android:textSize">18sp</item>
+  </style>
+
+  <style name="BlackTextStyle">
+    <item name="android:textColor">@color/black</item>
     <item name="android:textSize">12sp</item>
   </style>
 
@@ -105,5 +138,23 @@
     <item name="android:paddingEnd">@dimen/big_padding</item>
     <item name="android:minWidth">64dp</item>
     <item name="android:letterSpacing">.09</item>
+  </style>
+
+  <style name="eSkills.Onboarding" />
+
+  <style name="eSkills.Onboarding.Title">
+    <item name="android:fontFamily">@font/roboto_bolt</item>
+    <item name="android:textSize">18sp</item>
+    <item name="android:singleLine">true</item>
+    <item name="android:maxLines">1</item>
+    <item name="android:paddingTop">0dp</item>
+    <item name="android:paddingBottom">0dp</item>
+    <item name="android:textColor">@color/onboarding_font_color</item>
+  </style>
+
+  <style name="eSkills.Onboarding.Text">
+    <item name="android:fontFamily">@font/roboto_medium</item>
+    <item name="android:textSize">14sp</item>
+    <item name="android:textColor">@color/onboarding_font_color</item>
   </style>
 </resources>

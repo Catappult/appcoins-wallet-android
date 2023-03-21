@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/base_constraint"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    >
+
+
+  <androidx.constraintlayout.widget.ConstraintLayout
+      android:id="@+id/container_popup"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:animateLayoutChanges="true"
+      android:background="@drawable/background_popup_balloon"
+      android:paddingVertical="20dp"
+      android:paddingHorizontal="@dimen/big_margin"
+      app:layout_constraintBottom_toTopOf="@id/arrow"
+
+      >
+
+    <TextView
+        android:id="@+id/referral_code"
+        style="@style/eSkills.ReferralShare.PopupText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/refer_a_friend_first_time_tooltip"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        />
+  </androidx.constraintlayout.widget.ConstraintLayout>
+  <ImageView
+      android:id="@+id/arrow"
+      android:scaleType="fitCenter"
+      android:layout_width="20dp"
+      android:layout_height="@dimen/big_margin"
+      android:layout_marginEnd="116dp"
+      android:src="@drawable/arrow_popup_balloon"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/container_popup"
+      app:tint="@color/referral_popup_balloon_bg"
+      />
+</androidx.constraintlayout.widget.ConstraintLayout>
