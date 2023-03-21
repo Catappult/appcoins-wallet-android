@@ -1,8 +1,9 @@
 package com.appcoins.wallet.convention.plugins
 
+import com.android.build.gradle.internal.api.BaseVariantOutputImpl
 import com.android.build.gradle.internal.dsl.BaseAppModuleExtension
 import com.appcoins.wallet.convention.Config
-import com.appcoins.wallet.convention.extensions.BuildConfigType
+import com.appcoins.wallet.convention.extensions.*
 import com.appcoins.wallet.convention.extensions.buildConfigFields
 import com.appcoins.wallet.convention.extensions.configureAndroidAndKotlin
 import com.appcoins.wallet.convention.extensions.libs
@@ -77,17 +78,16 @@ class AndroidAppPlugin : Plugin<Project> {
             initWith(getByName("release"))
             versionNameSuffix = ".staging"
           }
+        }
 
-          applicationVariants.all() { variant ->
-            val sep = "_"
-            val buildType = variant.buildType.name
-            val versionName = variant.versionName
-            val versionCode = variant.versionCode
-            val fileName = "AppCoins_Wallet_v$versionName$sep$versionCode$sep$buildType.apk"
-            variant.outputs.all { output ->
-              val newFile = File(output.outputFile.parent, fileName)
-              output.outputFile.renameTo(newFile)
-            }
+        applicationVariants.all {
+          val sep = "_"
+          val buildType = buildType.name
+          val versionName = versionName
+          val versionCode = versionCode
+          val fileName = "AppCoins_Wallet_v$versionName$sep$versionCode$sep$buildType.apk"
+          outputs.all {
+            (this as BaseVariantOutputImpl).outputFileName = fileName
           }
         }
 
