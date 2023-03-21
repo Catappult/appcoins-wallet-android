@@ -29,9 +29,9 @@
   <string name="got_it_button">Зрозуміло</string>
   <string name="change_button">Змінити</string>
   <string name="vip">VIP</string>
-  <string name="faq">FAQs</string>
-  <string name="about_us_title">About Us</string>
-  <string name="preferences_title">Preferences</string>
+  <string name="faq">ПоЗа</string>
+  <string name="about_us_title">Про нас</string>
+  <string name="preferences_title">Вподобання</string>
   <string name="low_storage_error">Недостатньо місця для зберігання</string>
   <string name="no_camera_permission_title">Дозвіл на доступ до камери</string>
   <string name="no_camera_permission">AppCoins BDS Wallet потребує дозволу на доступ до вашої камери для сканування QR-кодів.</string>
@@ -44,7 +44,7 @@
   <!-- TODO: Remove or change this placeholder text -->
   <string name="title_community">Спільнота</string>
   <string name="title_opensource">Розробка з відкритим кодом</string>
-  <string name="title_source_code">Source Code</string>
+  <string name="title_source_code">Початковий код</string>
   <string name="title_report_bug">Повідомити про помилку</string>
   <string name="title_support">Підтримка</string>
   <string name="title_permissions">Дозволи</string>
@@ -80,7 +80,7 @@
   <string name="unknown_error">Сталася помилка.</string>
   <string name="action_backup_wallet">Резервний гаманець</string>
   <string name="no_tokens">Ви ще не додали жодного токена користувача.</string>
-  <string name="title_email">Email Us</string>
+  <string name="title_email">Напишіть нам</string>
   <string name="action_donate">Пожертвувати</string>
   <!-- Titles -->
   <string name="title_my_address">Отримати</string>
@@ -117,38 +117,38 @@
   <string name="intro_title_third_page">Простий &amp; Легко</string>
   <string name="intro_message_first_page">Ласкаво просимо до революції в економіці додатків.</string>
   <string name="intro_message_second_page">Приватні ключі ніколи не залишають ваш пристрій.</string>
-  <string name="intro_message_third_page">Process all your in-app payments and rewards in AppCoins.</string>
+  <string name="intro_message_third_page">Обробляйте всі свої внутрішні платежі та винагороди в AppCoins.</string>
   <string name="intro_1_title">AppCoins Wallet</string>
   <string name="intro_1_body">Ваша додаток для покупок у додатках.</string>
   <string name="intro_2_title">Грайте більше, Платіть менше</string>
-  <string name="intro_2_body">The best payment wallet for apps and games.</string>
+  <string name="intro_2_body">Найкращий гаманець для платежів у додатках та іграх.</string>
   <string name="intro_3_title">Просто і Легко</string>
-  <string name="intro_3_body">Bonuses on all purchases.</string>
+  <string name="intro_3_body">Бонуси на всі покупки.</string>
   <string name="intro_4_title">Безпека та конфіденційність</string>
-  <string name="intro_4_body">Use bank card, PayPal and your favorite payment methods.</string>
+  <string name="intro_4_body">Використовуйте банківську картку, PayPal та ваші улюблені способи оплати.</string>
   <string name="intro_4_body_2">Усі ваші транзакції завжди безпечні завдяки новітнім технологіям.</string>
   <string name="intro_5_title">Отримайте безкоштовні AppCoins Credits!</string>
   <string name="intro_5_body">Ви заробляєте безкоштовні AppCoins Credits, пробуючи додатки та ігри.</string>
   <string name="intro_creating_wallet_short">Налаштування гаманця для вас&#8230;</string>
   <string name="intro_wallet_created_short">Гаманець створено!</string>
-  <string name="intro_agree_terms_and_conditions_body">By entering the AppCoins Wallet, you agree to the %1$s and %2$s.</string>
+  <string name="intro_agree_terms_and_conditions_body">Увійшовши до AppCoins Wallet, ви погоджуєтесь з умовами %1$s та %2$s.</string>
   <string name="intro_skip_button">ПРОПУСТИТИ</string>
   <string name="intro_welcome_header">Ласкаво просимо до AppCoins Wallet</string>
-  <string name="intro_welcome_body">Top up your wallet or make a purchase in any AppCoins compatible app or game.</string>
-  <string name="intro_welcome_header_2">Up to %s%% Bonus!</string>
-  <string name="intro_welcome_body_2">Bonuses can be used in any app or game.</string>
+  <string name="intro_welcome_body">Поповніть гаманець або здійсніть покупку в будь-якому додатку чи грі, що підтримує AppCoins.</string>
+  <string name="intro_welcome_header_2">Бонус до %s%%!</string>
+  <string name="intro_welcome_body_2">Бонуси можна використовувати в будь-якому додатку або грі.</string>
   <string name="intro_already_have_wallet_button">У мене вже є гаманець</string>
-  <string name="intro_get_started_button">Launch wallet</string>
+  <string name="intro_get_started_button">Запустити гаманець</string>
   <!-- Intro from game -->
-  <string name="launching_wallet_body">Launching wallet&#8230;</string>
-  <string name="select_method_title">Choose a payment method</string>
-  <string name="bonus_body">Get %s bonus with this purchase.</string>
-  <string name="agree_by_choosing_a_payment_method_body">By choosing a payment method, you agree to the %1$s and %2$s.</string>
-  <string name="pay_with_card_title">Pay with credit/debit card</string>
-  <string name="more_payment_methods_button">More payment methods</string>
-  <string name="bonus_received_body">You received a %s bonus in your wallet.</string>
-  <string name="back_to_the_game_button">Back to the game</string>
-  <string name="other_payment_methos_title">Other payment methods:</string>
+  <string name="launching_wallet_body">Запуск гаманця&#8230;</string>
+  <string name="select_method_title">Виберіть спосіб оплати</string>
+  <string name="bonus_body">Отримайте бонус %s з цією покупкою.</string>
+  <string name="agree_by_choosing_a_payment_method_body">Обираючи спосіб оплати, ви погоджуєтесь з умовами %1$s та %2$s.</string>
+  <string name="pay_with_card_title">Оплатіть кредитною/дебетовою карткою</string>
+  <string name="more_payment_methods_button">Більше способів оплати</string>
+  <string name="bonus_received_body">Ви отримали бонус %s на свій гаманець.</string>
+  <string name="back_to_the_game_button">Повернутися до гри</string>
+  <string name="other_payment_methos_title">Інші способи оплати:</string>
   <!-- Menus -->
   <!-- Labels -->
   <string name="label_from">Від</string>
@@ -222,7 +222,7 @@
   <string name="activity_iab_error_message">Сталася помилка, спробуйте ще раз</string>
   <string name="action_try">спробувати</string>
   <string name="activity_transactions_learn_more">Вивчити більше</string>
-  <string name="activity_iab_no_funds_message">Not enough ETH and AppCoins</string>
+  <string name="activity_iab_no_funds_message">Недостатньо ETH та AppCoins</string>
   <string name="activity_iab_no_ethereum_funds_message">Не вистачає Ethereum</string>
   <string name="activity_iab_no_token_funds_message">Не вистачає AppCoins</string>
   <string name="activity_iab_wrong_network_message">Неправильна мережа Ethereum або невідомий токен</string>
@@ -314,7 +314,7 @@
   <string name="gamification_home_body">Отримайте бонус до %s%% у своїх улюблених додатках та іграх!</string>
   <string name="gamification_home_button">ПОЧАТИ ЗАРОБЛЯТИ</string>
   <string name="gamification_level_title">Який мій рівень?</string>
-  <string name="gamification_level_title_new">Get AppCoins Credits!</string>
+  <string name="gamification_level_title_new">Отримайте AppCoins Credits!</string>
   <string name="gamification_level_on_graphic">Рівень %s</string>
   <string name="gamification_APPCapps_button">Додатки &amp; ігри</string>
   <string name="gamification_level_header">Вітаємо, ви %s!</string>
@@ -324,9 +324,9 @@
   <string name="gamification_level_next_lvl_value">%s AppCoins</string>
   <string name="gamification_level_bonus">%s%% БОНУС</string>
   <string name="gamification_level_button_how">ЯК ЦЕ ПРАЦЮЄ</string>
-  <string name="gamification_level_body">You\'ll earn AppCoins Credits when buying items in your favorite apps and games.</string>
+  <string name="gamification_level_body">Ви будете заробляти AppCoins Credits, купуючи товари в улюблених програмах та іграх.</string>
   <string name="gamification_how_header">Як підвищити рівень?</string>
-  <string name="gamification_how_body">You\'ll earn AppCoins Credits when buying items in your favorite apps and games.</string>
+  <string name="gamification_how_body">Ви будете заробляти AppCoins Credits, купуючи предмети в улюблених програмах та іграх.</string>
   <string name="gamification_how_body_new">Чим більше ви витрачаєте на улюблені додатки, тим більший бонус!</string>
   <string name="gamification_how_table_a1">ВИТРАЧАТИ</string>
   <string name="gamification_how_table_b1">БОНУС</string>
@@ -377,7 +377,7 @@
   <string name="provide_wallet_completed_header">Гаманець, пов’язаний з Aptoide!</string>
   <string name="provide_wallet_create_body">Вам потрібна адреса гаманця! Виконайте ці кроки, щоб створити його в AppCoins Wallet.</string>
   <string name="provide_wallet_create_wallet_button">Створити</string>
-  <string name="provide_wallet_creating_wallet_header">Preparing your wallet&#8230;</string>
+  <string name="provide_wallet_creating_wallet_header">Готуємо ваш гаманець&#8230;</string>
   <string name="provide_wallet_created_header">Адреса гаманця створена!</string>
   <string name="provide_wallet_empty_state">Ви ще не дозволили AppCoins Wallet надавати вашу адресу жодній іншій програмі.</string>
   <string name="provide_wallet_status">Дозволити доступ до адреси гаманця</string>
@@ -387,7 +387,7 @@
   <string name="topup_title">Поповнити</string>
   <string name="topup_amount">%s AppCoins Credits</string>
   <string name="topup_bonus_header">У вас є бонус!</string>
-  <string name="topup_bonus_message">%s AppCoins Credits extra will be credited in your wallet.</string>
+  <string name="topup_bonus_message">%s додаткових AppCoins Credits буде зараховано на ваш гаманець.</string>
   <string name="topup_completed_1">%s у AppCoins Credits</string>
   <string name="topup_completed_2_with_bonus">були зараховані на ваш рахунок... Разом з бонусом!</string>
   <string name="topup_completed_2_without_bonus">були внесені на ваш рахунок.</string>
@@ -404,7 +404,7 @@
   <string name="balance_topup_body">Ви можете поповнити свій гаманець за допомогою AppCoins Credits.</string>
   <string name="balance_ethereum_body">Ethereum — це криптовалюта, на якій базуються AppCoins. Ви можете купувати та продавати їх на більшості бірж, це дуже популярно!</string>
   <string name="balance_appcoins_body">AppCoins — це криптовалюта для економіки додатків. Ви можете купувати та продавати її на кількох біржах і використовувати для покупки предметів у додатку.</string>
-  <string name="balance_appccreditos_body">The token to buy in-app items! Top up AppCoins Credits from your wallet or get them for free by using apps. They can also be transferred between friends!</string>
+  <string name="balance_appccreditos_body">Токен для покупки предметів у додатку! Поповнюйте AppCoins Credits зі свого гаманця або отримайте їх безкоштовно за допомогою додатків. Їх також можна передавати між друзями!</string>
   <string name="my_wallets_action_new_wallet">Новий гаманець</string>
   <string name="my_wallets_action_recover_wallet">Відновити гаманець</string>
   <string name="my_wallets_action_backup_wallet">Резервний гаманець</string>
@@ -477,7 +477,7 @@
   <string name="home_empty_discover_apps_button">ВІДКРАЙТЕ НАЙКРАЩІ ДОДАТКИ</string>
   <!--Tokens-->
   <!--Settings-->
-  <string name="title_redeem">Redeem Gift Card</string>
+  <string name="title_redeem">Активувати подарункову картку</string>
   <string name="settings_item_support">Зв\'язатися зі службою підтримки</string>
   <string name="settings_subheader_support">Підтримка</string>
   <string name="settings_subheader_about_us">Про нас</string>
@@ -541,12 +541,12 @@
   <string name="purchase_wallet_blocked_title">Ваш баланс AppCoins Credits заблоковано</string>
   <string name="purchase_wallet_blocked_body">Через незвичайну історію транзакцій ваш баланс AppCoins Credits був заблокований. Ви все одно зможете здійснювати платежі та транзакції іншими методами, окрім AppCoins Credits.\n\nЯкщо ви вважаєте, що це помилка, зв’яжіться з нами за адресою:</string>
   <string name="purchase_card_error_title">Щось пішло не так.</string>
-  <string name="purchase_card_error_general_1">There was a problem with your card. Please try with a different card or payment method.</string>
-  <string name="purchase_card_error_general_2">The transaction has been rejected by your bank. Please try with a different card or payment method.</string>
-  <string name="purchase_card_error_no_funds">It seems you don\'t have enough funds or there\'s a limit on your card. Please try with a different card or payment method.</string>
-  <string name="purchase_card_error_expired">It seems your card is expired. Please try again with a different payment method.</string>
-  <string name="purchase_card_error_invalid_details">Invalid card number. Please check it and try again.</string>
-  <string name="purchase_card_error_not_supported">Your card is not supported yet. Please try again with a different card or payment method.</string>
+  <string name="purchase_card_error_general_1">Виникла проблема з вашою карткою. Спробуйте скористатися іншою карткою або способом оплати.</string>
+  <string name="purchase_card_error_general_2">Ваш банк відхилив транзакцію. Спробуйте з іншою карткою або способом оплати.</string>
+  <string name="purchase_card_error_no_funds">Схоже, у вас недостатньо коштів або на вашій картці встановлено ліміт. Будь ласка, спробуйте з іншою карткою або способом оплати.</string>
+  <string name="purchase_card_error_expired">Здається, термін дії вашої картки закінчився. Будь ласка, повторіть спробу з іншим способом оплати.</string>
+  <string name="purchase_card_error_invalid_details">Неправильний номер картки. Будь ласка, перевірте його та спробуйте ще раз.</string>
+  <string name="purchase_card_error_not_supported">Ваша картка ще не підтримується. Будь ласка, спробуйте ще раз з іншою карткою або способом оплати.</string>
   <string name="purchase_card_error_security">Ви впевнені, що інформація безпеки правильна? Будь ласка, спробуйте ще раз.</string>
   <string name="purchase_card_error_wrong_CVV">Схоже, ваш код CVV/CVC неправильний. Будь ласка, спробуйте ще раз.</string>
   <string name="purchase_card_error_re_insert">Здається, ви вже давно зареєстрували цю картку! Введіть дані картки ще раз або скористайтеся іншою.</string>
@@ -565,12 +565,12 @@
   <string name="purchase_error_try_cheaper_item">Це досить дорого! Будь ласка, спробуйте придбати товар меншої вартості.</string>
   <string name="purchase_error_try_cheaper_item_or_method">Це досить дорого! Будь ласка, спробуйте придбати дешевший товар або спробуйте інший спосіб оплати.</string>
   <string name="transfer_appc_error_no_eth_title">Тобі потрібен Ефір!</string>
-  <string name="transfer_appc_error_no_eth_body">AppCoins transfers fees are paid in Ethereum, so you\'ll need ETH to transfer AppCoins.</string>
+  <string name="transfer_appc_error_no_eth_body">Комісія за переказ AppCoin сплачується в Ethereum, тому вам знадобиться ETH, щоб перевести AppCoins.</string>
   <string name="purchase_error_invalid_credit_card">Недійсний номер банківської картки. Будь ласка, переконайтеся, що всі цифри правильні.</string>
   <string name="purchase_error_card_security_validation">Під час перевірки 2-го рівня цієї транзакції сталася помилка. Будь ласка, спробуйте ще раз.</string>
   <string name="purchase_error_transaction_timeout">Схоже, вам знадобилося занадто багато часу, щоб завершити транзакцію. Будь ласка, спробуйте ще раз.</string>
   <string name="purchase_error_card_already_in_progress">Ваш запит уже оброблено або триває. Будь ласка, зачекайте.</string>
-  <string name="purchase_error_payment_rejected">The transaction has been rejected. Please try with a different card or payment method.</string>
+  <string name="purchase_error_payment_rejected">Транзакцію було відхилено. Будь ласка, спробуйте з іншою карткою або способом оплати.</string>
   <string name="purchase_error_verify_wallet">Підтвердьте спосіб оплати, щоб завершити цю покупку.</string>
   <string name="purchase_error_verify_card">Підтвердьте свою картку, щоб завершити цю покупку.</string>
   <string name="purachse_error_verify_card_button">ПІДТВЕРДИТИ КАРТКУ</string>
@@ -579,9 +579,9 @@
   <string name="purchase_app_needed_body">Щоб завершити покупку, вам потрібен наступний додаток.</string>
   <string name="purchase_apps_needed_body">Щоб завершити покупку, вам знадобиться один із наведених додатків.</string>
   <string name="purchase_error_connection_issue">Здається, виникла проблема з підключенням до Інтернету! Перевірте його та повторіть спробу.</string>
-  <string name="purchase_error_wrong_pin_body">There was a problem with your pin. Please try again.</string>
-  <string name="purchase_error_3d_body">There was a problem with your 3D authentication. Please try again.</string>
-  <string name="purchase_error_generic_contact_us_body">Oops, something went wrong. Please try again or contact us.</string>
+  <string name="purchase_error_wrong_pin_body">Виникла проблема з вашим пін-кодом. Будь ласка, спробуйте ще раз.</string>
+  <string name="purchase_error_3d_body">Виникла проблема з вашою 3D-аутентифікацією. Будь ласка, спробуйте ще раз.</string>
+  <string name="purchase_error_generic_contact_us_body">Ой, щось пішло не так. Будь ласка, спробуйте ще раз або зв\'яжіться з нами.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">Платіжна адреса</string>
   <string name="purchase_address_address_field">Адреса</string>
@@ -655,10 +655,10 @@
   <string name="update_wallet_soft_title">Не відставай!</string>
   <string name="update_wallet_soft_body">Оновлення AppCoins Wallet гарантує найкращий досвід.</string>
   <string name="update_button">Оновити</string>
-  <string name="update_backup_title">Don\'t lose your funds!</string>
-  <string name="update_backup_body">Back up your wallet before updating.</string>
-  <string name="update_backup_date">Last backed up on %s.</string>
-  <string name="update_backup_never">Not backed up yet.</string>
+  <string name="update_backup_title">Не втратьте свої кошти!</string>
+  <string name="update_backup_body">Зробіть резервну копію гаманця перед оновленням.</string>
+  <string name="update_backup_date">Остання резервна копія була створена %s.</string>
+  <string name="update_backup_never">Резервна копія ще не створена.</string>
   <!--Backup and Import-->
   <string name="backup_home_notification_title">Резервне копіювання вашого гаманця</string>
   <string name="backup_home_notification_body">Ви коли-небудь втрачали телефон? Створіть резервну копію гаманця зараз!</string>
@@ -759,7 +759,7 @@
   <string name="pioneer_gamification_body">Pioneer - це ранній користувач із збільшеними бонусами.</string>
   <!--Check for Updates-->
   <string name="check_updates_settings_current_title">Актуальна версія</string>
-  <string name="check_updates_settings_title">Check for Updates</string>
+  <string name="check_updates_settings_title">Перевірте наявність оновлень</string>
   <string name="check_updates_settings_subtitle">Поточна версія %s</string>
   <string name="check_updates_checking_body">Пошук нової версії</string>
   <string name="check_updates_no_updates_body">Ви в курсі!</string>
@@ -768,7 +768,7 @@
   <string name="check_updates_settings_available_title">Доступна нова версія</string>
   <string name="check_updates_settings_available_subtitle_button">Торкніться, щоб оновити</string>
   <!--Subscriptions-->
-  <string name="subscriptions_settings_title">Manage Subscriptions</string>
+  <string name="subscriptions_settings_title">Керування підписками</string>
   <string name="subscriptions_title">Підписки</string>
   <string name="subscriptions_subscribe_button">Підписатися</string>
   <string name="subscriptions_active_title">Активний</string>
@@ -945,7 +945,7 @@
   <string name="perks_empty_state_first_purchase_body">Зробіть свою першу покупку в додатку, сумісному з AppCoins, щоб розблокувати акції, які ми підготували для вас!</string>
   <string name="perks_empty_body">На цей час немає доступних акцій.</string>
   <!--Fingerprint Authentication-->
-  <string name="fingerprint_settings">Fingerprint Lock</string>
+  <string name="fingerprint_settings">Блокування відбитком пальця</string>
   <string name="fingerprint_failed_title">Помилка автентифікації!</string>
   <string name="fingerprint_failed_body">Спробуйте ще раз через %s сек.</string>
   <string name="fingerprint_authentication_required_title">Потрібна аутентифікація!</string>
@@ -1125,9 +1125,9 @@
   <string name="onboarding_1st_body">Поверніться до гри, щоб завершити покупку.</string>
   <string name="onboarding_1st_back_to_game_button">Повернутися до гри</string>
   <string name="onboarding_1st_explore_wallet_button">Або перевірте Гаманець</string>
-  <string name="onboarding_1st_back_to_unknown_game_body">One of the games you\'ve got installed is AppCoins compatible! Do you want to open it?</string>
-  <string name="onboarding_1st_back_to_unknown_game_button">Go to the game</string>
-  <string name="onboarding_1st_explore_wallet_alternative_button">Explore the AppCoins Wallet</string>
+  <string name="onboarding_1st_back_to_unknown_game_body">Одна з встановлених вами ігор сумісна з AppCoins! Бажаєте відкрити її?</string>
+  <string name="onboarding_1st_back_to_unknown_game_button">Перейти до гри</string>
+  <string name="onboarding_1st_explore_wallet_alternative_button">Ознайомтесь з AppCoins Wallet</string>
   <!-- VIP Program -->
   <string name="vip_program_reached_notification_title">Ласкаво просимо до VIP-програми</string>
   <string name="vip_program_reached_notification_body">Тепер ви VIP-користувач із доступом до спеціальних акцій і пропозицій. Натисніть, щоб дізнатися більше!</string>
@@ -1155,6 +1155,6 @@
   <string name="vip_program_max_bonus_title">Насолоджуйтеся бонусом %s%% за кожну покупку</string>
   <string name="vip_program_max_bonus_body">Ви досягли меж сонячної системи.</string>
   <string name="vip_program_max_bonus_short">%s%% Бонус за кожну покупку.</string>
-  <string name="vip_program_referral_notification_title">VIP Referral Code Available!</string>
-  <string name="vip_program_referral_notification_body">Share your code with your community so you all earn while playing!</string>
+  <string name="vip_program_referral_notification_title">Доступний реферальний VIP-код!</string>
+  <string name="vip_program_referral_notification_body">Поділіться своїм кодом зі своєю спільнотою, щоб ви всі заробляли, граючи!</string>
 </resources>

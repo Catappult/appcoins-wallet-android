@@ -1,16 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="appcoins_wallet">Dompet AppCoins</string>
+  <!-- Common -->
+  <string name="start_button">Start</string>
+  <string name="ok">OK</string>
+  <string name="cancel">Batal</string>
+  <string name="buy_button">Beli</string>
+  <string name="topup_button">Tambah Nilai</string>
   <string name="provide_wallet_creating_wallet_header">Mencipta alama dompet&#8230;</string>
   <string name="processing_loading_title">Mendapatkan tiket masuk anda</string>
   <string name="finding_room_loading_title">Menunggu lawan</string>
   <string name="finding_room_name_loading_title">Menunggu lawan \nuntuk sertai</string>
   <string name="finding_room_loading_message">Ini akan mengambil masa sebentar…</string>
   <string name="refunded">Wang anda sudah dikembalikan.</string>
-  <string name="ok">OK</string>
-  <string name="cancel">Batal</string>
-  <string name="buy_button">Beli</string>
-  <string name="topup_button">Tambah Nilai</string>
   <string name="connection_error_body">Nampaknya anda tiada sambungan Internet. Semak sambungan anda dan cuba lagi!</string>
   <string name="playing_game_notification_title">Sedang bermain e-Skills</string>
   <string name="playing_game_notification_body">Mendapatkan maklumat permainan…</string>
@@ -44,4 +46,7 @@
   <string name="refer_a_friend_error_unavailable_body">This feature is currently unavailable.</string>
   <string name="refer_a_friend_error_invalid_code_body">Invalid code!</string>
   <string name="refer_a_friend_error_user_not_eligible_body">Only for new users!</string>
+  <string name="refer_a_friend_first_time_tooltip">With our Referral Program you\'ll receive a $%s bonus when using your friends code. They\'ll also receive the same amount as bonus to be used on in-app purchases or e-Skills entry tickets.</string>
+  <string name="refer_a_friend_waiting_room_title">Refer a Friend!</string>
+  <string name="refer_a_friend_waiting_from_body">Get a bonus for each friend you invite.</string>
 </resources>

@@ -1,16 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="appcoins_wallet">Portafoglio AppCoins</string>
+  <!-- Common -->
+  <string name="start_button">Start</string>
+  <string name="ok">OK</string>
+  <string name="cancel">Annulla</string>
+  <string name="buy_button">Acquista</string>
+  <string name="topup_button">Ricarica</string>
   <string name="provide_wallet_creating_wallet_header">Creazione indirizzo wallet in corso&#8230;</string>
   <string name="processing_loading_title">Ottieni il tuo biglietto d\'ingresso</string>
   <string name="finding_room_loading_title">In attesa di avversari</string>
   <string name="finding_room_name_loading_title">In attesa di avversari \nche si uniscano a</string>
   <string name="finding_room_loading_message">Potrebbe volerci un po\'…</string>
   <string name="refunded">I tuoi fondi sono stati rimborsati.</string>
-  <string name="ok">OK</string>
-  <string name="cancel">Annulla</string>
-  <string name="buy_button">Acquista</string>
-  <string name="topup_button">Ricarica</string>
   <string name="connection_error_body">Sembra che tu non sia connesso a internet. Controlla la connessione e riprova!</string>
   <string name="playing_game_notification_title">Giochi e-Skills in corso</string>
   <string name="playing_game_notification_body">Ottenimento informazioni gioco in corso…</string>
@@ -44,4 +46,7 @@
   <string name="refer_a_friend_error_unavailable_body">This feature is currently unavailable.</string>
   <string name="refer_a_friend_error_invalid_code_body">Invalid code!</string>
   <string name="refer_a_friend_error_user_not_eligible_body">Only for new users!</string>
+  <string name="refer_a_friend_first_time_tooltip">With our Referral Program you\'ll receive a $%s bonus when using your friends code. They\'ll also receive the same amount as bonus to be used on in-app purchases or e-Skills entry tickets.</string>
+  <string name="refer_a_friend_waiting_room_title">Refer a Friend!</string>
+  <string name="refer_a_friend_waiting_from_body">Get a bonus for each friend you invite.</string>
 </resources>

@@ -1,16 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="appcoins_wallet">AppCoins ပိုက္ဆံအိတ္</string>
+  <!-- Common -->
+  <string name="start_button">Start</string>
+  <string name="ok">အိုေက</string>
+  <string name="cancel">ပယ္ဖ်က္မည္</string>
+  <string name="buy_button">ဝယ္မည္</string>
+  <string name="topup_button">ေငြျဖည့္မည္</string>
   <string name="provide_wallet_creating_wallet_header">ပိုက္ဆံအိတ္လိပ္စာကို ျပဳလုပ္ေနပါသည္&#8230;</string>
   <string name="processing_loading_title">သင့္ဝင္ေရာက္ခြင့္ လက္မွတ္ကို ရယူေနပါသည္</string>
   <string name="finding_room_loading_title">ၿပိဳင္ဖက္မ်ားကို ေစာင့္ေနပါသည္</string>
   <string name="finding_room_name_loading_title">ပါဝင္မည့္ \nၿပိဳင္ဖက္မ်ားကို ေစာင့္ေနပါသည္</string>
   <string name="finding_room_loading_message">အခ်ိန္အနည္းငယ္ ၾကာႏိုင္ပါသည္…</string>
   <string name="refunded">သင့္ေငြကို ျပန္အမ္းေပးလိုက္ပါသည္။</string>
-  <string name="ok">အိုေက</string>
-  <string name="cancel">ပယ္ဖ်က္မည္</string>
-  <string name="buy_button">ဝယ္မည္</string>
-  <string name="topup_button">ေငြျဖည့္မည္</string>
   <string name="connection_error_body">သင္ အင္တာနက္ခ်ိတ္ဆက္ထားပံု မရပါ။ ခ်ိတ္ဆက္မႈကို စစ္ေဆးကာ ျပန္ႀကိဳးစားပါ။</string>
   <string name="playing_game_notification_title">လက္ရွိကစားေနေသာ e-Skills</string>
   <string name="playing_game_notification_body">ဂိမ္းအခ်က္အလက္ကို ရယူေနပါသည္…</string>
@@ -38,10 +40,13 @@
   <string name="update_not_supported_body">AppCoins Wallet ကို ေနာက္ဆုံးထြက္ျဖစ္ေအာင္ အပ္ဒိတ္လုပ္ပါ။</string>
   <string name="update_button">အပ္ဒိတ္</string>
   <!-- Refer a friend -->
-  <string name="refer_a_friend_waiting_room_tooltip">You and the friends you invite will receive a $%s bonus. You can refer up to 5 friends, and they must be new users. The bonus will be credited in your wallet once they use your invitation code in their first e-Skills game.</string>
-  <string name="refer_a_friend_first_time_header">Ready to show your skills?</string>
-  <string name="refer_a_friend_first_time_body">Beat other players to get a prize in real money! Let\'s start with a practice game with no entry fee.</string>
-  <string name="refer_a_friend_error_unavailable_body">This feature is currently unavailable.</string>
-  <string name="refer_a_friend_error_invalid_code_body">Invalid code!</string>
-  <string name="refer_a_friend_error_user_not_eligible_body">Only for new users!</string>
+  <string name="refer_a_friend_waiting_room_tooltip">သင္ႏွင့္ သင္ဖိတ္ေခၚထားေသာ သူငယ္ခ်င္းမ်ားသည္ $%s ေဘာနပ္စ္တစ္ခုကို ရရွိပါမည္။ သူငယ္ခ်င္း 5 ဦးအထိ သင္ၫႊန္ေပးႏိုင္ၿပီး ၎တို႔သည္ သုံးစြဲသူအသစ္မ်ား ျဖစ္ရပါမည္။ ၎တို႔၏ ပထမဆုံး e-Skills ဂိမ္းတြင္ သင့္ဖိတ္ေခၚသည့္ကုဒ္ကို အသုံးျပဳလိုက္သည္ႏွင့္ သင့္ပိုက္ဆံအိတ္တြင္ ေဘာနပ္စ္ကို ထည့္ေပးပါမည္။</string>
+  <string name="refer_a_friend_first_time_header">အရည္အေသြးေတြျပဖို႔ အသင့္ပဲလား။</string>
+  <string name="refer_a_friend_first_time_body">ပိုက္ဆံအစစ္ျဖင့္ ရယူရန္ အျခားကစားသူမ်ားကို အႏိုင္ယူလိုက္ပါ။ ဝင္ေၾကးမေပးရေသာ ေလ့က်င့္ေရးဂိမ္း တစ္ခုျဖင့္ စတင္လိုက္ရေအာင္။</string>
+  <string name="refer_a_friend_error_unavailable_body">ဤလုပ္ေဆာင္ခ်က္ကို လက္ရွိတြင္ မရရွိႏိုင္ပါ။</string>
+  <string name="refer_a_friend_error_invalid_code_body">ကုဒ္မမွန္ကန္ပါ</string>
+  <string name="refer_a_friend_error_user_not_eligible_body">အသုံးျပဳသူ အသစ္မ်ားအတြက္သာ။</string>
+  <string name="refer_a_friend_first_time_tooltip">ကြၽႏ္ုပ္တို႔၏ ၫႊန္ေပးသည့္ ပ႐ိုဂရမ္အရ သင့္သူငယ္ခ်င္းမ်ားက ကုဒ္ကိုအသုံးျပဳလွ်င္ $%s ေဘာနပ္စ္တစ္ခုကို သင္ရရွိပါမည္။ ၎တို႔သည္လည္း အက္ပ္အတြင္း ဝယ္ယူမႈမ်ား သို႔မဟုတ္ e-Skills ဝင္ခြင့္လက္မွတ္မ်ားအတြက္ အသုံးျပဳရန္ ယင္းပမာဏကိုပင္ ေဘာနပ္စ္အျဖစ္ ရရွိပါမည္။</string>
+  <string name="refer_a_friend_waiting_room_title">သူငယ္ခ်င္းတစ္ဦးကို ၫႊန္ေပးလိုက္ပါ။</string>
+  <string name="refer_a_friend_waiting_from_body">သင္ဖိတ္ေခၚေသာ သူငယ္ခ်င္း တစ္ဦးစီအတြက္ ေဘာနပ္တစ္ခု ရယူလိုက္ပါ။</string>
 </resources>

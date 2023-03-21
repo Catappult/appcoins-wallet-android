@@ -1,16 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="appcoins_wallet">Кошелёк AppCoins</string>
+  <!-- Common -->
+  <string name="start_button">Start</string>
+  <string name="ok">ОК</string>
+  <string name="cancel">Отменить</string>
+  <string name="buy_button">Купить</string>
+  <string name="topup_button">Пополнить</string>
   <string name="provide_wallet_creating_wallet_header">Создание адреса кошелька&#8230;</string>
   <string name="processing_loading_title">Получаем ваш входной билет...</string>
   <string name="finding_room_loading_title">Ожидание противников...</string>
   <string name="finding_room_name_loading_title">Ожидание пока подключаться \nваши противники</string>
   <string name="finding_room_loading_message">Это может занять некоторое время…</string>
   <string name="refunded">Ваши деньги возвращены.</string>
-  <string name="ok">ОК</string>
-  <string name="cancel">Отменить</string>
-  <string name="buy_button">Купить</string>
-  <string name="topup_button">Пополнить</string>
   <string name="connection_error_body">Кажется, вы не подключены к интернету. Проверьте ваше подключение и попробуйте снова!</string>
   <string name="playing_game_notification_title">Вы играете с e-Skills</string>
   <string name="playing_game_notification_body">Получаем информацию об игре…</string>
@@ -44,4 +46,7 @@
   <string name="refer_a_friend_error_unavailable_body">This feature is currently unavailable.</string>
   <string name="refer_a_friend_error_invalid_code_body">Invalid code!</string>
   <string name="refer_a_friend_error_user_not_eligible_body">Only for new users!</string>
+  <string name="refer_a_friend_first_time_tooltip">With our Referral Program you\'ll receive a $%s bonus when using your friends code. They\'ll also receive the same amount as bonus to be used on in-app purchases or e-Skills entry tickets.</string>
+  <string name="refer_a_friend_waiting_room_title">Refer a Friend!</string>
+  <string name="refer_a_friend_waiting_from_body">Get a bonus for each friend you invite.</string>
 </resources>

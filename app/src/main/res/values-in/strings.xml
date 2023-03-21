@@ -29,9 +29,9 @@
   <string name="got_it_button">Mengerti</string>
   <string name="change_button">Ubah</string>
   <string name="vip">VIP</string>
-  <string name="faq">FAQs</string>
-  <string name="about_us_title">About Us</string>
-  <string name="preferences_title">Preferences</string>
+  <string name="faq">FAQ</string>
+  <string name="about_us_title">Tentang Kami</string>
+  <string name="preferences_title">Preferensi</string>
   <string name="low_storage_error">Ruang penyimpanan tidak cukup</string>
   <string name="no_camera_permission_title">Izin Kamera</string>
   <string name="no_camera_permission">AppCoins BDS Wallet membutuhkan izin untuk mengakses kamera Anda guna memindai kode QR.</string>
@@ -44,7 +44,7 @@
   <!-- TODO: Remove or change this placeholder text -->
   <string name="title_community">Komunitas</string>
   <string name="title_opensource">Pengembangan Open Source</string>
-  <string name="title_source_code">Source Code</string>
+  <string name="title_source_code">Kode Sumber</string>
   <string name="title_report_bug">Laporkan bug</string>
   <string name="title_support">Dukungan</string>
   <string name="title_permissions">Izin</string>
@@ -80,7 +80,7 @@
   <string name="unknown_error">Terjadi kesalahan.</string>
   <string name="action_backup_wallet">Cadangkan Dompet</string>
   <string name="no_tokens">Anda belum menambahkan token kustom mana pun.</string>
-  <string name="title_email">Email Us</string>
+  <string name="title_email">Kirim Email</string>
   <string name="action_donate">Donasikan</string>
   <!-- Titles -->
   <string name="title_my_address">Terima</string>
@@ -140,15 +140,15 @@
   <string name="intro_already_have_wallet_button">Saya sudah punya dompet</string>
   <string name="intro_get_started_button">Luncurkan dompet</string>
   <!-- Intro from game -->
-  <string name="launching_wallet_body">Launching wallet&#8230;</string>
-  <string name="select_method_title">Choose a payment method</string>
-  <string name="bonus_body">Get %s bonus with this purchase.</string>
-  <string name="agree_by_choosing_a_payment_method_body">By choosing a payment method, you agree to the %1$s and %2$s.</string>
-  <string name="pay_with_card_title">Pay with credit/debit card</string>
-  <string name="more_payment_methods_button">More payment methods</string>
-  <string name="bonus_received_body">You received a %s bonus in your wallet.</string>
-  <string name="back_to_the_game_button">Back to the game</string>
-  <string name="other_payment_methos_title">Other payment methods:</string>
+  <string name="launching_wallet_body">Meluncurkan dompet&#8230;</string>
+  <string name="select_method_title">Pilih metode pembayaran</string>
+  <string name="bonus_body">Dapatkan bonus %s dengan pembelian ini.</string>
+  <string name="agree_by_choosing_a_payment_method_body">Dengan memilih metode pembayaran, Anda menyetujui %1$s dan %2$s.</string>
+  <string name="pay_with_card_title">Bayar dengan kartu kredit/debit</string>
+  <string name="more_payment_methods_button">Metode pembayaran lain</string>
+  <string name="bonus_received_body">Anda menerima bonus %s di dompet Anda.</string>
+  <string name="back_to_the_game_button">Kembali ke game</string>
+  <string name="other_payment_methos_title">Metode pembayaran lain:</string>
   <!-- Menus -->
   <!-- Labels -->
   <string name="label_from">Dari</string>
@@ -377,7 +377,7 @@
   <string name="provide_wallet_completed_header">Dompet terkait dengan Aptoide!</string>
   <string name="provide_wallet_create_body">Anda membutuhkan alamat dompet! Ikuti langkah-langkah berikut ini untuk membuatnya di Dompet AppCoins.</string>
   <string name="provide_wallet_create_wallet_button">Buat</string>
-  <string name="provide_wallet_creating_wallet_header">Preparing your wallet&#8230;</string>
+  <string name="provide_wallet_creating_wallet_header">Mempersiapkan dompet&#8230;</string>
   <string name="provide_wallet_created_header">Alamat dompet sudah dibuat!</string>
   <string name="provide_wallet_empty_state">Anda belum mengiizinkan Dompet AppCoins untuk menginformasikan alamat Anda ke aplikasi lain.</string>
   <string name="provide_wallet_status">Izinkan akses ke alamat dompet</string>
@@ -539,12 +539,12 @@
   <string name="purchase_wallet_blocked_title">Saldo Kredit AppCoins Anda diblokir</string>
   <string name="purchase_wallet_blocked_body">Sehubungan dengan riwayat transaksi yang tidak biasa, saldo Kredit AppCoins Anda sudah diblokir. Anda akan tetap bisa melakukan pembayaran dan transaksi dengan metode lain kecuali Kredit AppCoins.\n\nJika Anda yakin ini karena adanya kesalahan, hubungi kami di:</string>
   <string name="purchase_card_error_title">Ups, ada kesalahan.</string>
-  <string name="purchase_card_error_general_1">There was a problem with your card. Please try with a different card or payment method.</string>
-  <string name="purchase_card_error_general_2">The transaction has been rejected by your bank. Please try with a different card or payment method.</string>
-  <string name="purchase_card_error_no_funds">It seems you don\'t have enough funds or there\'s a limit on your card. Please try with a different card or payment method.</string>
-  <string name="purchase_card_error_expired">It seems your card is expired. Please try again with a different payment method.</string>
-  <string name="purchase_card_error_invalid_details">Invalid card number. Please check it and try again.</string>
-  <string name="purchase_card_error_not_supported">Your card is not supported yet. Please try again with a different card or payment method.</string>
+  <string name="purchase_card_error_general_1">Ada masalah dengan kartu Anda. Silakan coba dengan kartu atau metode pembayaran lain.</string>
+  <string name="purchase_card_error_general_2">Transaksi ditolak oleh bank Anda. Silakan coba dengan kartu atau metode pembayaran lain.</string>
+  <string name="purchase_card_error_no_funds">Sepertinya dana yang Anda miliki tidak cukup atau kartu Anda dibatasi. Silakan coba kartu atau metode pembayaran lain.</string>
+  <string name="purchase_card_error_expired">Sepertinya kartu Anda sudah kedaluwarsa. Silakan coba metode pembayaran lain.</string>
+  <string name="purchase_card_error_invalid_details">Nomor kartu tidak valid. Harap periksa dan coba lagi.</string>
+  <string name="purchase_card_error_not_supported">Kartu Anda belum didukung. Silakan coba lagi dengan kartu atau metode pembayaran lain.</string>
   <string name="purchase_card_error_security">Apakah Anda yakin informasi keamanannya benar? Silakan coba lagi.</string>
   <string name="purchase_card_error_wrong_CVV">Kode CVV/CVC Anda sepertinya salah. Silakan coba lagi.</string>
   <string name="purchase_card_error_re_insert">Sepertinya sudah lama sekali kartu ini Anda daftarkan! Masukkan lagi detail kartu atau gunakan kartu yang lain.</string>
@@ -568,7 +568,7 @@
   <string name="purchase_error_card_security_validation">Terjadi kesalahan pada validasi tingkat ke-2 dari transaksi ini. Silakan coba lagi.</string>
   <string name="purchase_error_transaction_timeout">Sepertinya Anda terlalu lama menyelesaikan transaksi. Silakan coba lagi.</string>
   <string name="purchase_error_card_already_in_progress">Permintaan Anda sudah diproses atau sedang dijalankan. Mohon tunggu.</string>
-  <string name="purchase_error_payment_rejected">The transaction has been rejected. Please try with a different card or payment method.</string>
+  <string name="purchase_error_payment_rejected">Transaksi ditolak. Silakan coba dengan kartu atau metode pembayaran lain.</string>
   <string name="purchase_error_verify_wallet">Validasi metode pembayaran Anda untuk menyelesaikan pembelian ini.</string>
   <string name="purchase_error_verify_card">Validasi kartu Anda untuk menyelesaikan pembelian ini.</string>
   <string name="purachse_error_verify_card_button">VALIDASI KARTU</string>
@@ -577,9 +577,9 @@
   <string name="purchase_app_needed_body">Anda membutuhkan aplikasi berikut untuk menyelesaikan pembelian.</string>
   <string name="purchase_apps_needed_body">Anda membutuhkan salah satu aplikasi berikut untuk menyelesaikan pembelian.</string>
   <string name="purchase_error_connection_issue">Sepertinya ada masalah dengan koneksi internet Anda! Silakan periksa lalu coba lagi.</string>
-  <string name="purchase_error_wrong_pin_body">There was a problem with your pin. Please try again.</string>
-  <string name="purchase_error_3d_body">There was a problem with your 3D authentication. Please try again.</string>
-  <string name="purchase_error_generic_contact_us_body">Oops, something went wrong. Please try again or contact us.</string>
+  <string name="purchase_error_wrong_pin_body">Ada masalah dengan pin Anda. Silakan coba lagi.</string>
+  <string name="purchase_error_3d_body">Ada masalah dengan autentikasi 3D Anda. Silakan coba lagi.</string>
+  <string name="purchase_error_generic_contact_us_body">Ups, ada kesalahan. Silakan coba lagi atau hubungi kami.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">Alamat penagihan</string>
   <string name="purchase_address_address_field">Alamat</string>
@@ -754,7 +754,7 @@
   <string name="pioneer_gamification_body">Pelopor adalah pengguna awal dengan bonus yang ditingkatkan.</string>
   <!--Check for Updates-->
   <string name="check_updates_settings_current_title">Versi saat ini</string>
-  <string name="check_updates_settings_title">Check for Updates</string>
+  <string name="check_updates_settings_title">Periksa Pembaruan</string>
   <string name="check_updates_settings_subtitle">Versi saat ini %s</string>
   <string name="check_updates_checking_body">Mencari versi baru</string>
   <string name="check_updates_no_updates_body">Anda sudah up-to-date!</string>
@@ -763,7 +763,7 @@
   <string name="check_updates_settings_available_title">Tersedia versi baru</string>
   <string name="check_updates_settings_available_subtitle_button">Ketuk untuk memperbarui</string>
   <!--Subscriptions-->
-  <string name="subscriptions_settings_title">Manage Subscriptions</string>
+  <string name="subscriptions_settings_title">Kelola Langganan</string>
   <string name="subscriptions_title">Langganan</string>
   <string name="subscriptions_subscribe_button">Berlangganan</string>
   <string name="subscriptions_active_title">Aktif</string>
@@ -922,7 +922,7 @@
   <string name="perks_empty_state_first_purchase_body">Lakukan pembelian pertama Anda di aplikasi yang kompatibel dengan AppCoins untuk membuka promosi yang kami sediakan untuk Anda!</string>
   <string name="perks_empty_body">Tidak tersedia promosi saat ini.</string>
   <!--Fingerprint Authentication-->
-  <string name="fingerprint_settings">Fingerprint Lock</string>
+  <string name="fingerprint_settings">Kunci Sidik Jari</string>
   <string name="fingerprint_failed_title">Otentikasi gagal!</string>
   <string name="fingerprint_failed_body">Silakan coba lagi dalam %s detik.</string>
   <string name="fingerprint_authentication_required_title">Diperlukan otentikasi!</string>

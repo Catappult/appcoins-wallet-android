@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="app_name">محفظة AppCoins</string>
+  <string name="app_name">AppCoins Wallet</string>
   <string name="title_send">إرسال</string>
   <string name="title_send_with_token">إرسال %s</string>
   <string name="title_request">استقبال</string>
@@ -29,9 +29,9 @@
   <string name="got_it_button">تمام</string>
   <string name="change_button">تغيير</string>
   <string name="vip">VIP</string>
-  <string name="faq">FAQs</string>
-  <string name="about_us_title">About Us</string>
-  <string name="preferences_title">Preferences</string>
+  <string name="faq">أسئلة شائعة</string>
+  <string name="about_us_title">من نحن</string>
+  <string name="preferences_title">التفضيلات</string>
   <string name="low_storage_error">لا توجد مساحة كافية للتخزين</string>
   <string name="no_camera_permission_title">تفعيل إذن الكاميرا</string>
   <string name="no_camera_permission">AppCoins BDS Wallet يحتاج إلى إذن للدخول إلى الكاميرا لمسح شيفرة QR.</string>
@@ -44,7 +44,7 @@
   <!-- TODO: Remove or change this placeholder text -->
   <string name="title_community">المجتمع</string>
   <string name="title_opensource">تطوير مفتوح المصدر</string>
-  <string name="title_source_code">Source Code</string>
+  <string name="title_source_code">رمز المصدر</string>
   <string name="title_report_bug">التبليغ عن عطل</string>
   <string name="title_support">الدعم</string>
   <string name="title_permissions">الأذونات</string>
@@ -80,7 +80,7 @@
   <string name="unknown_error">حدث خطأ.</string>
   <string name="action_backup_wallet">محفظة احتياطية</string>
   <string name="no_tokens">لم تقم بعد بإضافة توكن مخصص.</string>
-  <string name="title_email">Email Us</string>
+  <string name="title_email">راسلنا</string>
   <string name="action_donate">تَبرَّع</string>
   <!-- Titles -->
   <string name="title_my_address">استقبل</string>
@@ -140,15 +140,15 @@
   <string name="intro_already_have_wallet_button">لدي محفظة بالفعل</string>
   <string name="intro_get_started_button">إطلاق المحفظة</string>
   <!-- Intro from game -->
-  <string name="launching_wallet_body">Launching wallet&#8230;</string>
-  <string name="select_method_title">Choose a payment method</string>
-  <string name="bonus_body">Get %s bonus with this purchase.</string>
-  <string name="agree_by_choosing_a_payment_method_body">By choosing a payment method, you agree to the %1$s and %2$s.</string>
-  <string name="pay_with_card_title">Pay with credit/debit card</string>
-  <string name="more_payment_methods_button">More payment methods</string>
-  <string name="bonus_received_body">You received a %s bonus in your wallet.</string>
-  <string name="back_to_the_game_button">Back to the game</string>
-  <string name="other_payment_methos_title">Other payment methods:</string>
+  <string name="launching_wallet_body">إطلاق المحفظة&#8230;</string>
+  <string name="select_method_title">اختر وسيلة دفع</string>
+  <string name="bonus_body">احصل على %s مكافأة بهذه المشتريات.</string>
+  <string name="agree_by_choosing_a_payment_method_body">باختيارك وسيلة للدفع، أنت توافق على %1$s و%2$s.</string>
+  <string name="pay_with_card_title">ادفع ببطاقة الائتمان/الدفع المسبق</string>
+  <string name="more_payment_methods_button">وسائل دفع أخرى</string>
+  <string name="bonus_received_body">لقد تلقيتَ مكافأة %s في محفظتك.</string>
+  <string name="back_to_the_game_button">عودة إلى اللعبة</string>
+  <string name="other_payment_methos_title">وسائل دفع أخرى:</string>
   <!-- Menus -->
   <!-- Labels -->
   <string name="label_from">مِن</string>
@@ -377,7 +377,7 @@
   <string name="provide_wallet_completed_header">المحفظة المرتبطة بـAptoide!</string>
   <string name="provide_wallet_create_body">تحتاج لعنوان محفظة! اتبع هذه الخطوات لإنشاء واحدٍ في محفظة AppCoins.</string>
   <string name="provide_wallet_create_wallet_button">إنشاء</string>
-  <string name="provide_wallet_creating_wallet_header">Preparing your wallet&#8230;</string>
+  <string name="provide_wallet_creating_wallet_header">جاري تحضير محفظتك&#8230;</string>
   <string name="provide_wallet_created_header">تم إنشاء عنوان محفظة!</string>
   <string name="provide_wallet_empty_state">لم تسمح لمحفظة AppCoins بإعطاء عنوان محفظتك لأي تطبيقات أخرى بعد.</string>
   <string name="provide_wallet_status">اسمح بالوصول إلى عنوان محفظتك</string>
@@ -540,12 +540,12 @@
   <string name="purchase_wallet_blocked_body">نظرًا لسجل التحويلات غير المعتاد، تم تجميد أرصدة AppCoins لديك. 
 لا يزال بإمكانك الدفع وتبادل الأرصدة من وسائل الدفع الأخرى عدا رصيد AppCoins. \n\n إذا كنت تعتقد بأن هناك خطأ، تواصل معنا على:</string>
   <string name="purchase_card_error_title">ياه، حدث خطأ.</string>
-  <string name="purchase_card_error_general_1">There was a problem with your card. Please try with a different card or payment method.</string>
-  <string name="purchase_card_error_general_2">The transaction has been rejected by your bank. Please try with a different card or payment method.</string>
-  <string name="purchase_card_error_no_funds">It seems you don\'t have enough funds or there\'s a limit on your card. Please try with a different card or payment method.</string>
-  <string name="purchase_card_error_expired">It seems your card is expired. Please try again with a different payment method.</string>
-  <string name="purchase_card_error_invalid_details">Invalid card number. Please check it and try again.</string>
-  <string name="purchase_card_error_not_supported">Your card is not supported yet. Please try again with a different card or payment method.</string>
+  <string name="purchase_card_error_general_1">هناك مشكلة بالبطاقة. يرجى استخدام بطاقة أخرى أو وسيلة دفع أخرى.</string>
+  <string name="purchase_card_error_general_2">التحويل مرفوض من جهة المصرف. يرجى استخدام بطاقة أخرى أو وسيلة دفع أخرى.</string>
+  <string name="purchase_card_error_no_funds">يبدو أنك لا تملك رصيدًا كافيًا أو هناك هناك حدًّا للسحب على بطاقتك. يرجى المحاولة مع بطاقة أخرى أو وسيلة دفع أخرى.</string>
+  <string name="purchase_card_error_expired">يبدو أن بطاقتك انتهت صلاحيتها. يرجى المحاولة مع بطاقة أخرى أو وسيلة دفع أخرى.</string>
+  <string name="purchase_card_error_invalid_details">رقم بطاقة غير صالح. يرجى التأكد والمحاولة مجددًا.</string>
+  <string name="purchase_card_error_not_supported">بطاقتك لا تزال غير مدعومة. يرجى المحاولة مجددًا مع بطاقة أخرى أو وسبة دفع أخرى.</string>
   <string name="purchase_card_error_security">هل أنت متأكد من أن المعلومات الأمنية صحيحة؟ يرجى المحاولة ثانية.</string>
   <string name="purchase_card_error_wrong_CVV">يبدو أن رمز التحقق خطأ. يرجى المحاولة ثانية.</string>
   <string name="purchase_card_error_re_insert">يبدو أنك قد سجلت هذه البطاقة منذ مدة طويلة! أدخل معلومات البطاقة مرة أخرى أو استخدم بطاقة أخرى.</string>
@@ -569,7 +569,7 @@
   <string name="purchase_error_card_security_validation">حدث خطأ في المستوى الثاني من التحقق من هذا التحويل. يرجى المحاولة مجددًا.</string>
   <string name="purchase_error_transaction_timeout">يبدو أنك استغرقت وقتًا طويلًا لإتمام التحويل. يرجى المحاولة مجددًا.</string>
   <string name="purchase_error_card_already_in_progress">تم إتمام طلبك بالفعل أو أنه قيد التنفيذ. يرجى الانتظار.</string>
-  <string name="purchase_error_payment_rejected">The transaction has been rejected. Please try with a different card or payment method.</string>
+  <string name="purchase_error_payment_rejected">التحويل مرفوض. يرجى المحاولة مع بطاقة دفع أخرى أو وسيلة دفع أخرى.</string>
   <string name="purchase_error_verify_wallet">وثّق وسيلة الدفع لديك لإتمام هذه العملية.</string>
   <string name="purchase_error_verify_card">تحقق من بطاقتك لإتمام عملية الشراء هذه.</string>
   <string name="purachse_error_verify_card_button">تحتت من البطاقة</string>
@@ -578,9 +578,9 @@
   <string name="purchase_app_needed_body">أنت بحاجة إلى التطبيق التالي لإتمام عملية الشراء.</string>
   <string name="purchase_apps_needed_body">أنت بحاجة إلى أحد التطبيقات التالية لإتمام عملية الشراء.</string>
   <string name="purchase_error_connection_issue">يبدو أن هناك مشكلة في اتصال الإنترنت! يرجى تفقد الاتصال والمحاولة مجددًا.</string>
-  <string name="purchase_error_wrong_pin_body">There was a problem with your pin. Please try again.</string>
-  <string name="purchase_error_3d_body">There was a problem with your 3D authentication. Please try again.</string>
-  <string name="purchase_error_generic_contact_us_body">Oops, something went wrong. Please try again or contact us.</string>
+  <string name="purchase_error_wrong_pin_body">هناك مشكلة في رقمك السري. يرجى المحاولة مجددًا.</string>
+  <string name="purchase_error_3d_body">هناك مشكلة في المصادقة ثلاثية الأبعاد. يرجى المحاولة مجددًا.</string>
+  <string name="purchase_error_generic_contact_us_body">ييي، حدث خطأ. نرجو المحاولة مجددًا أو التواصل معنا.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">عنوان الفوترة</string>
   <string name="purchase_address_address_field">العنوان</string>
@@ -760,7 +760,7 @@
   <string name="pioneer_gamification_body">الروّاد هم أول المنتمين مع مكافآت متزايدة.</string>
   <!--Check for Updates-->
   <string name="check_updates_settings_current_title">النسخة الحالية</string>
-  <string name="check_updates_settings_title">Check for Updates</string>
+  <string name="check_updates_settings_title">استكشف أي تحديثات</string>
   <string name="check_updates_settings_subtitle">النسخة الحالية %s</string>
   <string name="check_updates_checking_body">جاري البحث عن نسخة جديدة</string>
   <string name="check_updates_no_updates_body">أنت على آخر تحديث!</string>
@@ -769,7 +769,7 @@
   <string name="check_updates_settings_available_title">النسخة الجديدة متوفرة</string>
   <string name="check_updates_settings_available_subtitle_button">انقر للتحديث</string>
   <!--Subscriptions-->
-  <string name="subscriptions_settings_title">Manage Subscriptions</string>
+  <string name="subscriptions_settings_title">إدارة الاشتراكات</string>
   <string name="subscriptions_title">الاشتراكات</string>
   <string name="subscriptions_subscribe_button">اشتراك</string>
   <string name="subscriptions_active_title">مفعّل</string>
@@ -958,7 +958,7 @@
   <string name="perks_empty_state_first_purchase_body">أجر أول عملية شراء في تطبيق AppCoins متوافق لتفتح الترقيات التي أعددناها من أجلك!</string>
   <string name="perks_empty_body">لا تتوفر ترقيات حاليًا.</string>
   <!--Fingerprint Authentication-->
-  <string name="fingerprint_settings">Fingerprint Lock</string>
+  <string name="fingerprint_settings">قفل البصمة</string>
   <string name="fingerprint_failed_title">فشلت الإثبات!</string>
   <string name="fingerprint_failed_body">رجاءً حاول مجددًا بعد %s ثانية.</string>
   <string name="fingerprint_authentication_required_title">الإثبات مطلوب!</string>

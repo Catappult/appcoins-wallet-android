@@ -1,16 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="appcoins_wallet">AppCoins 지갑</string>
+  <!-- Common -->
+  <string name="start_button">Start</string>
+  <string name="ok">OK</string>
+  <string name="cancel">취소</string>
+  <string name="buy_button">구매</string>
+  <string name="topup_button">충전</string>
   <string name="provide_wallet_creating_wallet_header">지갑 주소 생성 중&#8230;</string>
   <string name="processing_loading_title">입장권 받기</string>
   <string name="finding_room_loading_title">상대방을 기다리는 중</string>
   <string name="finding_room_name_loading_title">상대가 합류하기를 \n기다리는 중입니다</string>
   <string name="finding_room_loading_message">이것은 시간이 좀 걸릴 수 있습니다...</string>
   <string name="refunded">귀하의 돈이 환불되었습니다.</string>
-  <string name="ok">OK</string>
-  <string name="cancel">취소</string>
-  <string name="buy_button">구매</string>
-  <string name="topup_button">충전</string>
   <string name="connection_error_body">인터넷에 연결되지 않은 것 같습니다. 인터넷 연결을 확인하시고 다시 시도해 주세요!</string>
   <string name="playing_game_notification_title">현재 e-스킬을 플레이하고 있습니다</string>
   <string name="playing_game_notification_body">게임 정보를 가져오는 중…</string>
@@ -38,10 +40,13 @@
   <string name="update_not_supported_body">최신 버전으로 AppCoins 지갑 업데이트.</string>
   <string name="update_button">업데이트</string>
   <!-- Refer a friend -->
-  <string name="refer_a_friend_waiting_room_tooltip">You and the friends you invite will receive a $%s bonus. You can refer up to 5 friends, and they must be new users. The bonus will be credited in your wallet once they use your invitation code in their first e-Skills game.</string>
-  <string name="refer_a_friend_first_time_header">Ready to show your skills?</string>
-  <string name="refer_a_friend_first_time_body">Beat other players to get a prize in real money! Let\'s start with a practice game with no entry fee.</string>
-  <string name="refer_a_friend_error_unavailable_body">This feature is currently unavailable.</string>
-  <string name="refer_a_friend_error_invalid_code_body">Invalid code!</string>
-  <string name="refer_a_friend_error_user_not_eligible_body">Only for new users!</string>
+  <string name="refer_a_friend_waiting_room_tooltip">당신과 당신이 초대한 친구들은 $%s의 보너스를 받을 것입니다. 친구는 최대 5명까지 조회 가능하며, 신규 사용자여야 합니다. 보너스는 그들이 첫 번째 e-Skills 게임에서 당신의 초대 코드를 사용하면 당신의 지갑에 입금될 것입니다.</string>
+  <string name="refer_a_friend_first_time_header">실력을 보여줄 준비가 되셨나요?</string>
+  <string name="refer_a_friend_first_time_body">다른 플레이어들을 이기고 진짜 돈으로 보상을 받으세요! 참가비가 없는 연습 경기부터 시작합시다.</string>
+  <string name="refer_a_friend_error_unavailable_body">이 기능은 현재 사용할 수 없습니다.</string>
+  <string name="refer_a_friend_error_invalid_code_body">잘못된 코드!</string>
+  <string name="refer_a_friend_error_user_not_eligible_body">신규 사용자 전용!</string>
+  <string name="refer_a_friend_first_time_tooltip">소개 프로그램을 사용하면 친구 코드를 사용할 때 $%s 보너스를 받을 수 있습니다. 또한 앱 내 구매나 e-Skills 입장권에 사용될 보너스와 같은 금액을 받습니다.</string>
+  <string name="refer_a_friend_waiting_room_title">친구에게 소개하세요!</string>
+  <string name="refer_a_friend_waiting_from_body">친구를 초대할 때마다 보너스를 받으세요.</string>
 </resources>
