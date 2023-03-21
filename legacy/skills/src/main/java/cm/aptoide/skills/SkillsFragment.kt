@@ -5,11 +5,9 @@ import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
 import android.text.SpannableStringBuilder
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
 import androidx.activity.OnBackPressedCallback
 import androidx.core.content.ContextCompat
 import androidx.core.text.bold
@@ -26,14 +24,13 @@ import cm.aptoide.skills.util.EskillsUriParser
 import cm.aptoide.skills.util.RootUtil
 import cm.aptoide.skills.util.UriValidationResult
 import com.appcoins.wallet.core.network.eskills.model.QueueIdentifier
+import com.appcoins.wallet.core.network.eskills.model.ReferralResponse
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.schedulers.Schedulers
-import okhttp3.internal.format
 import javax.inject.Inject
 
 

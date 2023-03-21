@@ -1,8 +1,7 @@
 package cm.aptoide.skills.usecase
 
-import android.util.Log
 import cm.aptoide.skills.interfaces.EwtObtainer
-import cm.aptoide.skills.model.ReferralResponse
+import com.appcoins.wallet.core.network.eskills.model.ReferralResponse
 import cm.aptoide.skills.repository.TicketRepository
 import cm.aptoide.skills.util.getErrorCodeAndMessage
 import io.reactivex.Single

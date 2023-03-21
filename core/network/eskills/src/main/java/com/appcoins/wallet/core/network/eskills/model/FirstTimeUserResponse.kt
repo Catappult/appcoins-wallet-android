@@ -1,4 +1,4 @@
-package cm.aptoide.skills.model
+package com.appcoins.wallet.core.network.eskills.model
 
 import com.google.gson.annotations.SerializedName
 

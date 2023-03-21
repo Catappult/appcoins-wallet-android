@@ -11,6 +11,7 @@ import cm.aptoide.skills.usecase.*
 import cm.aptoide.skills.util.UriValidationResult
 import com.appcoins.wallet.core.network.eskills.model.EskillsPaymentData
 import com.appcoins.wallet.core.network.eskills.model.QueueIdentifier
+import com.appcoins.wallet.core.network.eskills.model.ReferralResponse
 import com.appcoins.wallet.core.network.eskills.model.TicketResponse
 import com.appcoins.wallet.core.network.microservices.model.TopUpStatus
 import com.appcoins.wallet.core.network.microservices.model.TransactionType
