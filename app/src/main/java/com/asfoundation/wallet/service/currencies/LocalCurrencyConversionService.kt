@@ -1,6 +1,6 @@
 package com.asfoundation.wallet.service.currencies
 
-import com.appcoins.wallet.core.network.microservices.api.BrokerVerificationApi.TokenToLocalFiatApi
+import com.appcoins.wallet.core.network.microservices.api.broker.TokenToLocalFiatApi
 import com.appcoins.wallet.core.network.microservices.model.ConversionResponseBody
 import com.asfoundation.wallet.ui.iab.FiatValue
 import io.reactivex.Single

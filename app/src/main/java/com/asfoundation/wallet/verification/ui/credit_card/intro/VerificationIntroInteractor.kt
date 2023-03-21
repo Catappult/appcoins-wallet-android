@@ -4,7 +4,7 @@ import com.adyen.checkout.core.model.ModelObject
 import com.appcoins.wallet.bdsbilling.WalletService
 import com.appcoins.wallet.billing.adyen.AdyenPaymentRepository
 import com.appcoins.wallet.billing.adyen.PaymentInfoModel
-import com.appcoins.wallet.core.network.microservices.api.VerificationInfoResponse
+import com.appcoins.wallet.core.network.microservices.model.VerificationInfoResponse
 import com.appcoins.wallet.billing.adyen.VerificationPaymentModel
 import com.asfoundation.wallet.billing.adyen.AdyenPaymentInteractor
 import com.asfoundation.wallet.support.SupportInteractor
@@ -63,7 +63,8 @@ class VerificationIntroInteractor @Inject constructor(
   }
 
   private fun mapToVerificationInfoModel(
-      response: VerificationInfoResponse): VerificationInfoModel {
+      response: VerificationInfoResponse
+  ): VerificationInfoModel {
     return VerificationInfoModel(response.currency, response.symbol, response.value,
         response.digits, response.format, response.period)
   }

@@ -1,18 +1,17 @@
 package com.appcoins.wallet.core.network.microservices
 
-import com.appcoins.wallet.core.utils.properties.HostProperties
 import com.appcoins.wallet.core.network.base.annotations.BlockchainHttpClient
 import com.appcoins.wallet.core.network.base.annotations.DefaultHttpClient
 import com.appcoins.wallet.core.network.microservices.ProductApiModule.FiatCurrenciesApi
 import com.appcoins.wallet.core.network.microservices.annotations.BrokerBlockchainRetrofit
 import com.appcoins.wallet.core.network.microservices.annotations.BrokerDefaultRetrofit
-import com.appcoins.wallet.core.network.microservices.api.BackupEmailApi
-import com.appcoins.wallet.core.network.microservices.api.BrokerVerificationApi
-import com.appcoins.wallet.core.network.microservices.api.BrokerVerificationApi.*
-import com.appcoins.wallet.core.network.microservices.api.TopUpApi
+import com.appcoins.wallet.core.network.microservices.api.*
+import com.appcoins.wallet.core.network.microservices.api.broker.*
+import com.appcoins.wallet.core.network.microservices.api.broker.BrokerVerificationApi.*
 import com.appcoins.wallet.core.network.microservices.model.CarrierErrorResponse
 import com.appcoins.wallet.core.network.microservices.model.CarrierErrorResponseTypeAdapter
 import com.appcoins.wallet.core.utils.android_common.RxSchedulers
+import com.appcoins.wallet.core.utils.properties.HostProperties
 import com.google.gson.GsonBuilder
 import dagger.Module
 import dagger.Provides
@@ -132,7 +131,7 @@ class BrokerApiModule {
   @Singleton
   @Provides
   fun providesTopUpApi(
-          @BrokerDefaultRetrofit retrofit: Retrofit
+    @BrokerDefaultRetrofit retrofit: Retrofit
   ): TopUpApi {
     return retrofit.create(TopUpApi::class.java)
   }

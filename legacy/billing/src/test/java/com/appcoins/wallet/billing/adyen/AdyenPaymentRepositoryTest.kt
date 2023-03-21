@@ -2,10 +2,12 @@ package com.appcoins.wallet.billing.adyen
 
 import com.adyen.checkout.components.model.payments.request.CardPaymentMethod
 import com.appcoins.wallet.billing.util.Error
+import com.appcoins.wallet.core.network.microservices.api.broker.AdyenApi
 import com.appcoins.wallet.core.utils.jvm_common.Logger
-import com.appcoins.wallet.core.network.microservices.api.AdyenTransactionResponse
-import com.appcoins.wallet.core.network.microservices.api.BrokerVerificationApi
-import com.appcoins.wallet.core.network.microservices.api.SubscriptionBillingApi
+import com.appcoins.wallet.core.network.microservices.model.AdyenTransactionResponse
+import com.appcoins.wallet.core.network.microservices.api.broker.BrokerVerificationApi
+import com.appcoins.wallet.core.network.microservices.api.broker.BrokerBdsApi
+import com.appcoins.wallet.core.network.microservices.api.product.SubscriptionBillingApi
 import com.appcoins.wallet.core.network.microservices.model.*
 import com.google.gson.JsonObject
 import io.reactivex.Completable
@@ -23,10 +25,10 @@ import java.math.BigDecimal
 class AdyenPaymentRepositoryTest {
 
   @Mock
-  lateinit var adyenApi: BrokerVerificationApi.AdyenApi
+  lateinit var adyenApi: AdyenApi
 
   @Mock
-  lateinit var brokerBdsApi: BrokerVerificationApi.BrokerBdsApi
+  lateinit var brokerBdsApi: BrokerBdsApi
 
   @Mock
   lateinit var subscriptionsApi: SubscriptionBillingApi

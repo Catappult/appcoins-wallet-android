@@ -1,4 +1,4 @@
-package com.appcoins.wallet.core.network.microservices.api
+package com.appcoins.wallet.core.network.microservices.model
 
 import com.appcoins.wallet.core.network.microservices.model.MakePaymentResponse
 import com.appcoins.wallet.core.network.microservices.model.TransactionMetadata

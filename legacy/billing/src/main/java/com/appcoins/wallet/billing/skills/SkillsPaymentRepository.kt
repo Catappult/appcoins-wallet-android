@@ -2,7 +2,7 @@ package com.appcoins.wallet.billing.skills
 
 import com.appcoins.wallet.billing.adyen.AdyenResponseMapper
 import com.appcoins.wallet.billing.adyen.PaymentModel
-import com.appcoins.wallet.core.network.microservices.api.BrokerVerificationApi
+import com.appcoins.wallet.core.network.microservices.api.broker.AdyenApi
 import com.appcoins.wallet.core.network.microservices.model.Method
 import com.appcoins.wallet.core.network.microservices.model.Payment
 import com.appcoins.wallet.core.network.microservices.model.PaymentRequest
@@ -11,10 +11,9 @@ import javax.inject.Inject
 
 
 class SkillsPaymentRepository @Inject constructor(
-  private val adyenApi: BrokerVerificationApi.AdyenApi,
+  private val adyenApi: AdyenApi,
   private val adyenResponseMapper: AdyenResponseMapper
 ) {
-
 
   fun makeSkillsPayment(
     returnUrl: String,

@@ -1,12 +1,12 @@
 package com.appcoins.wallet.bdsbilling
 
 import com.appcoins.wallet.bdsbilling.repository.*
-import com.appcoins.wallet.core.network.bds.BdsApiSecondary
-import com.appcoins.wallet.core.network.bds.Data
-import com.appcoins.wallet.core.network.bds.GetWalletResponse
-import com.appcoins.wallet.core.network.microservices.api.BrokerVerificationApi
-import com.appcoins.wallet.core.network.microservices.api.InappBillingApi
-import com.appcoins.wallet.core.network.microservices.api.SubscriptionBillingApi
+import com.appcoins.wallet.core.network.bds.api.BdsApiSecondary
+import com.appcoins.wallet.core.network.bds.model.Data
+import com.appcoins.wallet.core.network.bds.model.GetWalletResponse
+import com.appcoins.wallet.core.network.microservices.api.broker.BrokerBdsApi
+import com.appcoins.wallet.core.network.microservices.api.product.InappBillingApi
+import com.appcoins.wallet.core.network.microservices.api.product.SubscriptionBillingApi
 import com.appcoins.wallet.core.network.microservices.model.Transaction
 import com.appcoins.wallet.core.network.microservices.model.Gateway
 import io.reactivex.Completable
@@ -46,7 +46,7 @@ class BillingPaymentProofSubmissionTest {
   }
 
   @Mock
-  lateinit var brokerBdsApi: BrokerVerificationApi.BrokerBdsApi
+  lateinit var brokerBdsApi: BrokerBdsApi
 
   @Mock
   lateinit var inappBdsApi: InappBillingApi

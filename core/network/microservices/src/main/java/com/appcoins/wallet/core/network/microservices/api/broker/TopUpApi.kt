@@ -1,4 +1,4 @@
-package com.appcoins.wallet.core.network.microservices.api;
+package com.appcoins.wallet.core.network.microservices.api.broker;
 
 import com.appcoins.wallet.core.network.microservices.model.TopUpResponse
 import com.appcoins.wallet.core.network.microservices.model.TopUpStatus

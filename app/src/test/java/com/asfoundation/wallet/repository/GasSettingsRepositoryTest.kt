@@ -1,6 +1,6 @@
 package com.asfoundation.wallet.repository
 
-import com.appcoins.wallet.core.network.backend.api.GasService
+import com.appcoins.wallet.core.network.backend.api.GasServiceApi
 import com.appcoins.wallet.core.network.backend.model.GasPrice
 import com.asfoundation.wallet.entity.GasSettings
 import io.reactivex.Single
@@ -18,7 +18,7 @@ import java.math.BigInteger
 class GasSettingsRepositoryTest {
 
   @Mock
-  lateinit var gasService: GasService
+  lateinit var gasServiceApi: GasServiceApi
 
   private lateinit var gasSettingsRepository: GasSettingsRepository
   private lateinit var gasPriceInteger: BigInteger
@@ -28,7 +28,7 @@ class GasSettingsRepositoryTest {
 
   @Before
   fun setUp() {
-    gasSettingsRepository = GasSettingsRepository(gasService)
+    gasSettingsRepository = GasSettingsRepository(gasServiceApi)
     gasPriceInteger = BigInteger(GAS_PRICE)
     gasPriceBigDecimal = BigDecimal(gasPriceInteger)
     gasPrice = GasPrice(gasPriceInteger)
@@ -39,7 +39,7 @@ class GasSettingsRepositoryTest {
 
   @Test
   fun whenFirstTime_shouldLoadFromNetwork() {
-    `when`(gasService.getGasPrice()).thenReturn(Single.just(gasPrice))
+    `when`(gasServiceApi.getGasPrice()).thenReturn(Single.just(gasPrice))
 
     val observable = TestObserver<GasSettings>()
 
@@ -53,12 +53,12 @@ class GasSettingsRepositoryTest {
         .assertValue { it.gasPrice == expected.gasPrice }
         .assertValue { it.gasLimit == expected.gasLimit }
 
-    verify(gasService, times(1)).getGasPrice()
+    verify(gasServiceApi, times(1)).getGasPrice()
   }
 
   @Test
   fun whenException_shouldLoadDefault() {
-    `when`(gasService.getGasPrice()).thenReturn(Single.error(Exception("A Random error")))
+    `when`(gasServiceApi.getGasPrice()).thenReturn(Single.error(Exception("A Random error")))
 
     val observable = TestObserver<GasSettings>()
 
@@ -73,12 +73,12 @@ class GasSettingsRepositoryTest {
         .assertValue { it.gasPrice == expected.gasPrice }
         .assertValue { it.gasLimit == expected.gasLimit }
 
-    verify(gasService, times(1)).getGasPrice()
+    verify(gasServiceApi, times(1)).getGasPrice()
   }
 
   @Test
   fun whenNotTokenTransfer_shouldReturnDefault() {
-    `when`(gasService.getGasPrice()).thenReturn(Single.just(gasPrice))
+    `when`(gasServiceApi.getGasPrice()).thenReturn(Single.just(gasPrice))
 
     val observable = TestObserver<GasSettings>()
 
@@ -93,7 +93,7 @@ class GasSettingsRepositoryTest {
         .assertValue { it.gasPrice == expected.gasPrice }
         .assertValue { it.gasLimit == expected.gasLimit }
 
-    verify(gasService, times(1)).getGasPrice()
+    verify(gasServiceApi, times(1)).getGasPrice()
   }
 
   companion object {

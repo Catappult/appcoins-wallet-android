@@ -11,6 +11,7 @@ data class SubscriptionResponse(val sku: String,
                                 val trialPeriod: String?,
                                 val title: String,
                                 val description: String,
+                                @SerializedName("price")
                                 val subscriptionPrice: SubscriptionPrice
 )
 
