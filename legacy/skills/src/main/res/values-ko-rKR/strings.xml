@@ -40,17 +40,6 @@
   <string name="update_not_supported_body">최신 버전으로 AppCoins 지갑 업데이트.</string>
   <string name="update_button">업데이트</string>
   <!-- Refer a friend -->
-<<<<<<<< HEAD:legacy/skills/src/main/res/values-ko-rKR/strings.xml
-  <string name="refer_a_friend_waiting_room_tooltip">You and the friends you invite will receive a $%s bonus. You can refer up to 5 friends, and they must be new users. The bonus will be credited in your wallet once they use your invitation code in their first e-Skills game.</string>
-  <string name="refer_a_friend_first_time_header">Ready to show your skills?</string>
-  <string name="refer_a_friend_first_time_body">Beat other players to get a prize in real money! Let\'s start with a practice game with no entry fee.</string>
-  <string name="refer_a_friend_error_unavailable_body">This feature is currently unavailable.</string>
-  <string name="refer_a_friend_error_invalid_code_body">Invalid code!</string>
-  <string name="refer_a_friend_error_user_not_eligible_body">Only for new users!</string>
-  <string name="refer_a_friend_first_time_tooltip">With our Referral Program you\'ll receive a $%s bonus when using your friends code. They\'ll also receive the same amount as bonus to be used on in-app purchases or e-Skills entry tickets.</string>
-  <string name="refer_a_friend_waiting_room_title">Refer a Friend!</string>
-  <string name="refer_a_friend_waiting_from_body">Get a bonus for each friend you invite.</string>
-========
   <string name="refer_a_friend_waiting_room_tooltip">당신과 당신이 초대한 친구들은 $%s의 보너스를 받을 것입니다. 친구는 최대 5명까지 조회 가능하며, 신규 사용자여야 합니다. 보너스는 그들이 첫 번째 e-Skills 게임에서 당신의 초대 코드를 사용하면 당신의 지갑에 입금될 것입니다.</string>
   <string name="refer_a_friend_first_time_header">실력을 보여줄 준비가 되셨나요?</string>
   <string name="refer_a_friend_first_time_body">다른 플레이어들을 이기고 진짜 돈으로 보상을 받으세요! 참가비가 없는 연습 경기부터 시작합시다.</string>
@@ -60,5 +49,4 @@
   <string name="refer_a_friend_first_time_tooltip">소개 프로그램을 사용하면 친구 코드를 사용할 때 $%s 보너스를 받을 수 있습니다. 또한 앱 내 구매나 e-Skills 입장권에 사용될 보너스와 같은 금액을 받습니다.</string>
   <string name="refer_a_friend_waiting_room_title">친구에게 소개하세요!</string>
   <string name="refer_a_friend_waiting_from_body">친구를 초대할 때마다 보너스를 받으세요.</string>
->>>>>>>> origin/l10n_dev:skills/src/main/res/values-ko-rKR/strings.xml
 </resources>
