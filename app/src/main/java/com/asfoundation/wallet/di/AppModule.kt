@@ -13,8 +13,9 @@ import androidx.core.app.NotificationCompat
 import androidx.preference.PreferenceManager
 import com.adyen.checkout.core.api.Environment
 import com.appcoins.wallet.bdsbilling.WalletService
-import com.appcoins.wallet.commons.LogReceiver
-import com.appcoins.wallet.commons.Logger
+import com.appcoins.wallet.core.utils.jvm_common.LogReceiver
+import com.appcoins.wallet.core.utils.jvm_common.Logger
+import com.appcoins.wallet.core.utils.jvm_common.SyncExecutor
 import com.aptoide.apk.injector.extractor.data.Extractor
 import com.aptoide.apk.injector.extractor.data.ExtractorV1
 import com.aptoide.apk.injector.extractor.data.ExtractorV2
@@ -24,7 +25,7 @@ import com.asf.appcoins.sdk.contractproxy.AppCoinsAddressProxySdk
 import com.asf.wallet.BuildConfig
 import com.asf.wallet.R
 import com.asfoundation.wallet.C
-import com.asfoundation.wallet.analytics.TaskTimer
+import com.appcoins.wallet.core.analytics.analytics.TaskTimer
 import com.asfoundation.wallet.entity.NetworkInfo
 import com.asfoundation.wallet.ewt.EwtAuthenticatorService
 import com.asfoundation.wallet.logging.DebugReceiver
@@ -37,7 +38,7 @@ import com.asfoundation.wallet.ui.iab.ImageSaver
 import com.asfoundation.wallet.ui.iab.raiden.MultiWalletNonceObtainer
 import com.asfoundation.wallet.ui.iab.raiden.NonceObtainerFactory
 import com.asfoundation.wallet.ui.iab.raiden.Web3jNonceProvider
-import com.asfoundation.wallet.util.SyncExecutor
+import com.appcoins.wallet.core.utils.properties.MiscProperties
 import com.fasterxml.jackson.databind.DeserializationFeature
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.google.gson.Gson
@@ -191,7 +192,7 @@ internal class AppModule {
 
   @Provides
   @Named("payment-gas-limit")
-  fun providePaymentGasLimit(): BigDecimal = BigDecimal(BuildConfig.PAYMENT_GAS_LIMIT)
+  fun providePaymentGasLimit(): BigDecimal = BigDecimal(MiscProperties.PAYMENT_GAS_LIMIT)
 
   @Provides
   fun provideContentResolver(@ApplicationContext context: Context): ContentResolver =
@@ -240,7 +241,10 @@ internal class AppModule {
 
   @Singleton
   @Provides
-  fun providesExecutorScheduler() = ExecutorScheduler(SyncExecutor(1), false)
+  fun providesExecutorScheduler() = ExecutorScheduler(
+    SyncExecutor(
+      1
+    ), false)
 
   @Singleton
   @Provides

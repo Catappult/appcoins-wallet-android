@@ -1,9 +1,8 @@
 package com.appcoins.wallet.bdsbilling.repository
 
-import com.appcoins.wallet.bdsbilling.SubscriptionPurchaseListResponse
-import com.appcoins.wallet.bdsbilling.SubscriptionPurchaseResponse
-import com.appcoins.wallet.bdsbilling.SubscriptionsResponse
-import com.appcoins.wallet.bdsbilling.repository.entity.*
+import com.appcoins.wallet.bdsbilling.repository.entity.Product
+import com.appcoins.wallet.bdsbilling.repository.entity.Purchase
+import com.appcoins.wallet.core.network.microservices.model.*
 
 class BdsApiResponseMapper(private val subscriptionsMapper: SubscriptionsMapper,
                            private val inAppMapper: InAppMapper) {

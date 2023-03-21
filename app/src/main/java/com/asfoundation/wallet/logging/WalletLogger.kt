@@ -1,7 +1,7 @@
 package com.asfoundation.wallet.logging
 
-import com.appcoins.wallet.commons.LogReceiver
-import com.appcoins.wallet.commons.Logger
+import com.appcoins.wallet.core.utils.jvm_common.LogReceiver
+import com.appcoins.wallet.core.utils.jvm_common.Logger
 import javax.inject.Inject
 
 class WalletLogger @Inject constructor(private var logReceivers: ArrayList<LogReceiver>): Logger {

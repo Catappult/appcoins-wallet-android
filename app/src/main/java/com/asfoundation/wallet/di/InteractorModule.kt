@@ -2,10 +2,10 @@ package com.asfoundation.wallet.di
 
 import com.appcoins.wallet.bdsbilling.Billing
 import com.appcoins.wallet.billing.BillingMessagesMapper
-import com.appcoins.wallet.commons.MemoryCache
+import com.appcoins.wallet.core.network.airdrop.AirdropService
 import com.asfoundation.wallet.Airdrop
-import com.asfoundation.wallet.AirdropService
-import com.asfoundation.wallet.base.RxSchedulers
+import com.appcoins.wallet.core.utils.android_common.RxSchedulers
+import com.appcoins.wallet.core.utils.jvm_common.MemoryCache
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.interact.FetchGasSettingsInteract
 import com.asfoundation.wallet.interact.SendTransactionInteract

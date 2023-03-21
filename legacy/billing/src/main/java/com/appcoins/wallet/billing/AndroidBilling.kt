@@ -1,9 +1,9 @@
 package com.appcoins.wallet.billing
 
 import com.appcoins.wallet.bdsbilling.Billing
-import com.appcoins.wallet.bdsbilling.repository.BillingSupportedType
 import com.appcoins.wallet.bdsbilling.repository.entity.Product
 import com.appcoins.wallet.bdsbilling.repository.entity.Purchase
+import com.appcoins.wallet.core.network.microservices.model.BillingSupportedType
 import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
 

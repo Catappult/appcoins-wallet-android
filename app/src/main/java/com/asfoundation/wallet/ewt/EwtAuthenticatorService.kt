@@ -1,7 +1,7 @@
 package com.asfoundation.wallet.ewt
 
 import com.appcoins.wallet.bdsbilling.WalletService
-import com.asfoundation.wallet.util.convertToBase64
+import com.appcoins.wallet.core.utils.android_common.extensions.convertToBase64
 import com.google.gson.JsonObject
 import io.reactivex.Single
 

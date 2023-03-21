@@ -1,6 +1,7 @@
 package cm.aptoide.skills.util
 
 import android.net.Uri
+import com.appcoins.wallet.core.network.eskills.model.EskillsPaymentData
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import javax.inject.Inject
@@ -48,7 +49,9 @@ class EskillsUriParser @Inject constructor() {
     return try {
       val value = parameters[EskillsParameters.ENVIRONMENT]
       if (value != null) {
-        return EskillsPaymentData.MatchEnvironment.valueOf(value)
+        return EskillsPaymentData.MatchEnvironment.valueOf(
+          value
+        )
       } else {
         return null
       }

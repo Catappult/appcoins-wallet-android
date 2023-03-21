@@ -12,12 +12,12 @@ import androidx.lifecycle.lifecycleScope
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.asf.wallet.R
 import com.asf.wallet.databinding.FragmentVerifyPaypalIntroBinding
-import com.asfoundation.wallet.base.Async
-import com.asfoundation.wallet.base.Error
-import com.asfoundation.wallet.base.SingleStateFragment
+import com.appcoins.wallet.ui.arch.Async
+import com.appcoins.wallet.ui.arch.Error
+import com.appcoins.wallet.ui.arch.SingleStateFragment
 import com.asfoundation.wallet.ui.iab.WebViewActivity
-import com.asfoundation.wallet.util.CurrencyFormatUtils
-import com.asfoundation.wallet.util.WalletCurrency
+import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
+import com.appcoins.wallet.core.utils.android_common.WalletCurrency
 import com.asfoundation.wallet.verification.ui.credit_card.intro.VerificationIntroModel
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
@@ -25,7 +25,7 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class VerificationPaypalFragment : BasePageViewFragment(),
-    SingleStateFragment<VerificationPaypalIntroState, VerificationPaypalIntroSideEffect> {
+  SingleStateFragment<VerificationPaypalIntroState, VerificationPaypalIntroSideEffect> {
 
   @Inject
   lateinit var viewModelFactory: VerificationPaypalViewModelFactory

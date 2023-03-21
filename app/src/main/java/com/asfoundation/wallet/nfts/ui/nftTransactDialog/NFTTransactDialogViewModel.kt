@@ -1,9 +1,9 @@
 package com.asfoundation.wallet.nfts.ui.nftTransactDialog
 
-import com.asfoundation.wallet.base.Async
-import com.asfoundation.wallet.base.BaseViewModel
-import com.asfoundation.wallet.base.SideEffect
-import com.asfoundation.wallet.base.ViewState
+import com.appcoins.wallet.ui.arch.Async
+import com.appcoins.wallet.ui.arch.BaseViewModel
+import com.appcoins.wallet.ui.arch.SideEffect
+import com.appcoins.wallet.ui.arch.ViewState
 import com.asfoundation.wallet.nfts.domain.GasInfo
 import com.asfoundation.wallet.nfts.domain.NFTItem
 import com.asfoundation.wallet.nfts.domain.NftTransferResult
@@ -14,10 +14,11 @@ import java.math.BigInteger
 object NFTTransactSideEffect : SideEffect
 
 
-data class NFTTransactState(val data: NFTItem,
-                            val gasPriceAsync: Async<GasInfo> = Async.Uninitialized,
-                            val transactionResultAsync: Async<NftTransferResult> = Async.Uninitialized) :
-    ViewState
+data class NFTTransactState(
+  val data: NFTItem,
+  val gasPriceAsync: Async<GasInfo> = Async.Uninitialized,
+  val transactionResultAsync: Async<NftTransferResult> = Async.Uninitialized
+) : ViewState
 
 class NFTTransactDialogViewModel(private val data: NFTItem,
                                  private val estimateNFTSendGas: EstimateNFTSendGasUseCase,

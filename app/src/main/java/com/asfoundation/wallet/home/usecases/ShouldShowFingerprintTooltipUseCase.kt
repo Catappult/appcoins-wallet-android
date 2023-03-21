@@ -3,16 +3,17 @@ package com.asfoundation.wallet.home.usecases
 import android.content.pm.PackageManager
 import android.os.Build
 import androidx.biometric.BiometricManager
-import com.asfoundation.wallet.fingerprint.FingerprintPreferencesRepositoryContract
-import com.asfoundation.wallet.repository.PreferencesRepositoryType
+import com.appcoins.wallet.sharedpreferences.FingerprintPreferencesDataSource
 import io.reactivex.Single
+import com.appcoins.wallet.sharedpreferences.CommonsPreferencesDataSource
 import javax.inject.Inject
 
 class ShouldShowFingerprintTooltipUseCase @Inject constructor(
-    private val preferencesRepositoryType: PreferencesRepositoryType,
-    private val packageManager: PackageManager,
-    private val fingerprintPreferences: FingerprintPreferencesRepositoryContract,
-    private val biometricManager: BiometricManager) {
+  private val commonsPreferencesDataSource: CommonsPreferencesDataSource,
+  private val packageManager: PackageManager,
+  private val fingerprintPreferences: FingerprintPreferencesDataSource,
+  private val biometricManager: BiometricManager
+) {
 
   private companion object {
     private const val UPDATE_FINGERPRINT_NUMBER_OF_TIMES = 3
@@ -20,9 +21,10 @@ class ShouldShowFingerprintTooltipUseCase @Inject constructor(
 
   operator fun invoke(packageName: String): Single<Boolean> {
     var shouldShow = false
-    if (!preferencesRepositoryType.hasBeenInSettings() && !fingerprintPreferences.hasSeenFingerprintTooltip()
-        && hasFingerprint() && !fingerprintPreferences.hasAuthenticationPermission() &&
-        preferencesRepositoryType.hasSeenPromotionTooltip()) {
+    if (!commonsPreferencesDataSource.hasBeenInSettings() && !fingerprintPreferences.hasSeenFingerprintTooltip()
+      && hasFingerprint() && !fingerprintPreferences.hasAuthenticationPermission() &&
+      commonsPreferencesDataSource.hasSeenPromotionTooltip()
+    ) {
       if (!isFirstInstall(packageName)) {
         shouldShow = true
       } else if (getNumberOfTimesOnHome() >= UPDATE_FINGERPRINT_NUMBER_OF_TIMES) {
@@ -69,5 +71,5 @@ class ShouldShowFingerprintTooltipUseCase @Inject constructor(
     }
   }
 
-  private fun getNumberOfTimesOnHome(): Int = preferencesRepositoryType.getNumberOfTimesOnHome()
+  private fun getNumberOfTimesOnHome(): Int = commonsPreferencesDataSource.getNumberOfTimesOnHome()
 }

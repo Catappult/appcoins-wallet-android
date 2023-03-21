@@ -2,7 +2,7 @@ package com.asfoundation.wallet.ui.iab.localpayments
 
 import androidx.fragment.app.Fragment
 import com.appcoins.wallet.appcoins.rewards.ErrorMapper
-import com.appcoins.wallet.commons.Logger
+import com.appcoins.wallet.core.utils.jvm_common.Logger
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

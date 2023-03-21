@@ -1,6 +1,6 @@
 package com.asfoundation.wallet.transactions
 
-import com.asfoundation.wallet.entity.WalletHistory
+import com.appcoins.wallet.core.network.backend.model.WalletHistory
 import com.asfoundation.wallet.repository.entity.OperationEntity
 import com.asfoundation.wallet.repository.entity.TransactionDetailsEntity
 import com.asfoundation.wallet.repository.entity.TransactionEntity

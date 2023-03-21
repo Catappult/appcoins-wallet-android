@@ -4,7 +4,7 @@ import android.os.Bundle
 import androidx.annotation.StringRes
 import com.adyen.checkout.core.model.ModelObject
 import com.appcoins.wallet.billing.ErrorInfo.ErrorType
-import com.appcoins.wallet.billing.adyen.AdyenBillingAddress
+import com.appcoins.wallet.core.network.microservices.model.AdyenBillingAddress
 import com.appcoins.wallet.billing.adyen.AdyenPaymentRepository
 import com.appcoins.wallet.billing.adyen.AdyenResponseMapper.Companion.REDIRECT
 import com.appcoins.wallet.billing.adyen.AdyenResponseMapper.Companion.THREEDS2
@@ -13,7 +13,7 @@ import com.appcoins.wallet.billing.adyen.AdyenResponseMapper.Companion.THREEDS2F
 import com.appcoins.wallet.billing.adyen.PaymentModel
 import com.appcoins.wallet.billing.adyen.PaymentModel.Status.*
 import com.appcoins.wallet.billing.util.Error
-import com.appcoins.wallet.commons.Logger
+import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.asf.wallet.R
 import com.asfoundation.wallet.billing.address.BillingAddressModel
 import com.asfoundation.wallet.billing.adyen.AdyenErrorCodeMapper.Companion.CVC_DECLINED
@@ -25,8 +25,8 @@ import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
 import com.asfoundation.wallet.ui.iab.Navigator
 import com.asfoundation.wallet.ui.iab.PaymentMethodsAnalytics
 import com.asfoundation.wallet.ui.iab.PaymentMethodsView
-import com.asfoundation.wallet.util.CurrencyFormatUtils
-import com.asfoundation.wallet.util.WalletCurrency
+import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
+import com.appcoins.wallet.core.utils.android_common.WalletCurrency
 import com.google.gson.JsonObject
 import io.reactivex.Completable
 import io.reactivex.Observable

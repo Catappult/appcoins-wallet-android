@@ -1,7 +1,9 @@
 package com.asfoundation.wallet.recover.password
 
 import androidx.lifecycle.SavedStateHandle
-import com.asfoundation.wallet.base.*
+import com.appcoins.wallet.ui.arch.Async
+import com.appcoins.wallet.ui.arch.SideEffect
+import com.appcoins.wallet.ui.arch.ViewState
 import com.asfoundation.wallet.billing.analytics.WalletsAnalytics
 import com.asfoundation.wallet.billing.analytics.WalletsEventSender
 import com.asfoundation.wallet.entity.WalletKeyStore
@@ -34,7 +36,7 @@ class RecoverPasswordViewModel @Inject constructor(
   private val updateWalletNameUseCase: UpdateWalletNameUseCase,
   private val savedStateHandle: SavedStateHandle,
 ) :
-  BaseViewModel<RecoverPasswordState, RecoverPasswordSideEffect>(initialState()) {
+  com.appcoins.wallet.ui.arch.BaseViewModel<RecoverPasswordState, RecoverPasswordSideEffect>(initialState()) {
 
   companion object {
     fun initialState(): RecoverPasswordState {

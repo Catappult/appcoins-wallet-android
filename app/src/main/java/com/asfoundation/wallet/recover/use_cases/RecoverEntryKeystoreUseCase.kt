@@ -5,7 +5,7 @@ import com.asfoundation.wallet.recover.result.RecoverEntryResult
 import com.asfoundation.wallet.recover.result.RecoverEntryResultMapper
 import com.asfoundation.wallet.repository.PasswordStore
 import com.asfoundation.wallet.repository.WalletRepositoryType
-import com.asfoundation.wallet.util.CurrencyFormatUtils
+import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.asfoundation.wallet.wallets.usecases.GetWalletInfoUseCase
 import io.reactivex.Single
 import javax.inject.Inject

@@ -1,6 +1,7 @@
 package com.asfoundation.wallet.nfts.repository
 
-import com.asfoundation.wallet.base.RxSchedulers
+import com.appcoins.wallet.core.network.backend.api.NftApi
+import com.appcoins.wallet.core.utils.android_common.RxSchedulers
 import com.asfoundation.wallet.nfts.domain.GasInfo
 import com.asfoundation.wallet.nfts.domain.NFTItem
 import com.asfoundation.wallet.nfts.domain.NftTransferResult
@@ -25,11 +26,11 @@ import java.math.BigInteger
 import javax.inject.Inject
 
 class NFTRepository @Inject constructor(
-    private val nftApi: NftApi,
-    private val rxSchedulers: RxSchedulers,
-    private val web3j: Web3j,
-    private val localCurrencyConversionService: LocalCurrencyConversionService,
-    private val chainID: Long,
+  private val nftApi: NftApi,
+  private val rxSchedulers: RxSchedulers,
+  private val web3j: Web3j,
+  private val localCurrencyConversionService: LocalCurrencyConversionService,
+  private val chainID: Long,
 ) {
 
   fun getNFTAssetList(address: String): Single<List<NFTItem>> {

@@ -1,9 +1,8 @@
 package cm.aptoide.skills.repository
 
-import android.util.Log
-import cm.aptoide.skills.api.TicketApi
 import cm.aptoide.skills.model.*
-import cm.aptoide.skills.util.EskillsPaymentData
+import com.appcoins.wallet.core.network.eskills.api.TicketApi
+import com.appcoins.wallet.core.network.eskills.model.*
 import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
 import retrofit2.HttpException

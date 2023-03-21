@@ -1,33 +1,31 @@
 package com.asfoundation.wallet.promo_code.repository
 
-import com.asfoundation.wallet.analytics.AnalyticsSetup
-import com.asfoundation.wallet.base.RxSchedulers
+import com.appcoins.wallet.core.network.backend.api.PromoCodeApi
+import com.appcoins.wallet.core.network.backend.model.PromoCodeBonusResponse
+import com.appcoins.wallet.core.analytics.analytics.AnalyticsSetup
+import com.appcoins.wallet.core.utils.android_common.RxSchedulers
 import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Single
 import retrofit2.HttpException
-import retrofit2.http.GET
-import retrofit2.http.Path
 import javax.inject.Inject
 
 class PromoCodeRepository @Inject constructor(
-  private val promoCodeBackendApi: PromoCodeBackendApi,
+  private val promoCodeApi: PromoCodeApi,
   private val promoCodeLocalDataSource: PromoCodeLocalDataSource,
   private val analyticsSetup: AnalyticsSetup,
   private val rxSchedulers: RxSchedulers
 ) {
 
   fun verifyAndSavePromoCode(promoCodeString: String): Single<PromoCode> {
-    return promoCodeBackendApi.getPromoCodeBonus(promoCodeString)
+    return promoCodeApi.getPromoCodeBonus(promoCodeString)
       .subscribeOn(rxSchedulers.io)
       .doOnSuccess { response ->
         analyticsSetup.setPromoCode(
-          PromoCode(
             response.code,
             response.bonus,
-            validity = ValidityState.ACTIVE,
+            validity = ValidityState.ACTIVE.value,
             response.app.appName
-          )
         )
         promoCodeLocalDataSource.savePromoCode(response, ValidityState.ACTIVE).subscribe()
       }
@@ -73,11 +71,4 @@ class PromoCodeRepository @Inject constructor(
     promoCodeLocalDataSource.observeSavedPromoCode()
 
   fun removePromoCode(): Completable = promoCodeLocalDataSource.removePromoCode()
-
-  interface PromoCodeBackendApi {
-    @GET("gamification/perks/promo_code/{promoCodeString}/")
-    fun getPromoCodeBonus(
-      @Path("promoCodeString") promoCodeString: String
-    ): Single<PromoCodeBonusResponse>
-  }
 }

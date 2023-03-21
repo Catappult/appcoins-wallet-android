@@ -1,14 +1,14 @@
 package com.appcoins.wallet.billing.adyen
 
 import com.adyen.checkout.components.model.payments.request.CardPaymentMethod
-import com.appcoins.wallet.bdsbilling.repository.BillingSupportedType
-import com.appcoins.wallet.bdsbilling.repository.RemoteRepository
-import com.appcoins.wallet.bdsbilling.repository.SubscriptionBillingApi
-import com.appcoins.wallet.bdsbilling.repository.entity.Gateway
-import com.appcoins.wallet.bdsbilling.repository.entity.Transaction
-import com.appcoins.wallet.billing.common.response.TransactionStatus
 import com.appcoins.wallet.billing.util.Error
-import com.appcoins.wallet.commons.Logger
+import com.appcoins.wallet.core.network.microservices.api.broker.AdyenApi
+import com.appcoins.wallet.core.utils.jvm_common.Logger
+import com.appcoins.wallet.core.network.microservices.model.AdyenTransactionResponse
+import com.appcoins.wallet.core.network.microservices.api.broker.BrokerVerificationApi
+import com.appcoins.wallet.core.network.microservices.api.broker.BrokerBdsApi
+import com.appcoins.wallet.core.network.microservices.api.product.SubscriptionBillingApi
+import com.appcoins.wallet.core.network.microservices.model.*
 import com.google.gson.JsonObject
 import io.reactivex.Completable
 import io.reactivex.Single
@@ -25,10 +25,10 @@ import java.math.BigDecimal
 class AdyenPaymentRepositoryTest {
 
   @Mock
-  lateinit var adyenApi: AdyenPaymentRepository.AdyenApi
+  lateinit var adyenApi: AdyenApi
 
   @Mock
-  lateinit var brokerBdsApi: RemoteRepository.BrokerBdsApi
+  lateinit var brokerBdsApi: BrokerBdsApi
 
   @Mock
   lateinit var subscriptionsApi: SubscriptionBillingApi
@@ -56,8 +56,12 @@ class AdyenPaymentRepositoryTest {
 
   @Test
   fun loadPaymentInfoTest() {
-    val response = PaymentMethodsResponse(Price(BigDecimal(2),
-        TEST_FIAT_CURRENCY), JsonObject())
+    val response = PaymentMethodsResponse(
+      AdyenPrice(
+        BigDecimal(2),
+        TEST_FIAT_CURRENCY
+      ), JsonObject()
+    )
 
     val model = PaymentInfoModel(null, false, BigDecimal(2),
         TEST_FIAT_CURRENCY)
@@ -119,11 +123,13 @@ class AdyenPaymentRepositoryTest {
         TEST_UID, null, null, null,
         emptyList(), PaymentModel.Status.COMPLETED, null, null)
     Mockito.`when`(
-        adyenApi.submitRedirect(
-            TEST_UID,
-            TEST_WALLET_ADDRESS,
-            TEST_WALLET_SIGNATURE,
-            AdyenPaymentRepository.AdyenPayment(JsonObject(), null)))
+      adyenApi.submitRedirect(
+        TEST_UID,
+        TEST_WALLET_ADDRESS,
+        TEST_WALLET_SIGNATURE,
+        AdyenPayment(JsonObject(), null)
+      )
+    )
         .thenReturn(Single.just(expectedResponse))
     Mockito.`when`(mapper.map(expectedResponse))
         .thenReturn(expectedModel)
@@ -142,11 +148,14 @@ class AdyenPaymentRepositoryTest {
     val testObserver = TestObserver<PaymentModel>()
     val throwable = Throwable("Error")
     val expectedModel = PaymentModel(Error())
-    Mockito.`when`(adyenApi.submitRedirect(
+    Mockito.`when`(
+      adyenApi.submitRedirect(
         TEST_UID,
         TEST_WALLET_ADDRESS,
         TEST_WALLET_SIGNATURE,
-        AdyenPaymentRepository.AdyenPayment(JsonObject(), null)))
+        AdyenPayment(JsonObject(), null)
+      )
+    )
         .thenReturn(Single.error(throwable))
     Mockito.`when`(mapper.mapPaymentModelError(throwable))
         .thenReturn(expectedModel)
@@ -163,8 +172,11 @@ class AdyenPaymentRepositoryTest {
   @Test
   fun disablePaymentTest() {
     Mockito.`when`(
-        adyenApi.disablePayments(AdyenPaymentRepository.DisableWallet(
-            TEST_WALLET_ADDRESS)))
+      adyenApi.disablePayments(
+        DisableWallet(
+          TEST_WALLET_ADDRESS
+        )
+      ))
         .thenReturn(Completable.complete())
     val testObserver = TestObserver<Boolean>()
     adyenRepo.disablePayments(
@@ -177,8 +189,11 @@ class AdyenPaymentRepositoryTest {
   @Test
   fun disablePaymentErrorTest() {
     Mockito.`when`(
-        adyenApi.disablePayments(AdyenPaymentRepository.DisableWallet(
-            TEST_WALLET_ADDRESS)))
+      adyenApi.disablePayments(
+        DisableWallet(
+          TEST_WALLET_ADDRESS
+        )
+      ))
         .thenReturn(Completable.error(Throwable("Error")))
     val testObserver = TestObserver<Boolean>()
     adyenRepo.disablePayments(
@@ -257,15 +272,18 @@ class AdyenPaymentRepositoryTest {
         emptyList(), PaymentModel.Status.COMPLETED, null, null)
 
     Mockito.`when`(
-        adyenApi.makePayment(
-            TEST_WALLET_ADDRESS,
-            TEST_WALLET_SIGNATURE,
-            AdyenPaymentRepository.Payment(modelObject, false, "", "Ecommerce", null, null, null,
-                null, paymentType, null,
-                null, null, BillingSupportedType.INAPP.name,
-                TEST_FIAT_CURRENCY,
-                TEST_FIAT_VALUE,
-                null, null, null, null, null, null)))
+      adyenApi.makeAdyenPayment(
+        TEST_WALLET_ADDRESS,
+        TEST_WALLET_SIGNATURE,
+        PaymentDetails(
+          modelObject, false, "", "Ecommerce", null, null, null,
+          null, paymentType, null,
+          null, null, BillingSupportedType.INAPP.name,
+          TEST_FIAT_CURRENCY,
+          TEST_FIAT_VALUE,
+          null, null, null, null, null, null
+        )
+      ))
         .thenReturn(Single.just(expectedAdyenTransactionResponse))
 
     Mockito.`when`(mapper.map(expectedAdyenTransactionResponse))

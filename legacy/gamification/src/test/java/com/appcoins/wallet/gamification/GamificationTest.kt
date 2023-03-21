@@ -1,6 +1,7 @@
 package com.appcoins.wallet.gamification
 
 import androidx.room.EmptyResultSetException
+import com.appcoins.wallet.core.network.backend.model.*
 import com.appcoins.wallet.gamification.repository.*
 import com.appcoins.wallet.gamification.repository.entity.*
 import io.reactivex.Single

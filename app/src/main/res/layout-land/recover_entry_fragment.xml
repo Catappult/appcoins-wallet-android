@@ -99,7 +99,7 @@
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintTop_toBottomOf="@id/recover_entry_scroll_view"
       >
-    <com.asfoundation.wallet.ui.common.WalletButtonView
+    <com.appcoins.wallet.ui.widgets.WalletButtonView
         android:id="@+id/recover_wallet_button"
         android:layout_width="207dp"
         android:layout_height="@dimen/onboarding_button_height"

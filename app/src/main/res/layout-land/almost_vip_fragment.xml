@@ -93,7 +93,7 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
   </ScrollView>
 
-  <com.asfoundation.wallet.ui.common.WalletButtonView
+  <com.appcoins.wallet.ui.widgets.WalletButtonView
       android:id="@+id/almost_vip_got_it_button"
       android:layout_width="0dp"
       android:layout_height="@dimen/onboarding_button_height"

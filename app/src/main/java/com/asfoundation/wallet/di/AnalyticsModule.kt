@@ -1,12 +1,16 @@
 package com.asfoundation.wallet.di
 
 import cm.aptoide.analytics.AnalyticsManager
+import com.appcoins.wallet.core.network.base.annotations.DefaultHttpClient
+import com.appcoins.wallet.core.analytics.analytics.*
+import com.appcoins.wallet.core.analytics.analytics.BackendEventLogger
+import com.appcoins.wallet.core.network.analytics.api.AnalyticsApi
+import com.asf.wallet.BuildConfig
 import com.asfoundation.wallet.analytics.*
 import com.asfoundation.wallet.app_start.AppStartProbe
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics
 import com.asfoundation.wallet.billing.analytics.PageViewAnalytics
 import com.asfoundation.wallet.billing.analytics.WalletsAnalytics
-import com.asfoundation.wallet.di.annotations.DefaultHttpClient
 import com.asfoundation.wallet.feature_flags.topup.TopUpDefaultValueProbe
 import com.asfoundation.wallet.home.ui.HomeAnalytics
 import com.asfoundation.wallet.main.nav_bar.NavBarAnalytics
@@ -145,7 +149,7 @@ class AnalyticsModule {
   @Singleton
   @Provides
   fun provideAnalyticsManager(
-    @DefaultHttpClient okHttpClient: OkHttpClient, api: AnalyticsAPI,
+    @DefaultHttpClient okHttpClient: OkHttpClient, api: AnalyticsApi,
     @Named("bi_event_list") biEventList: List<String>,
     @Named("rakam_event_list") rakamEventList: List<String>,
     @Named("indicative_event_list") indicativeEventList: List<String>,
@@ -153,7 +157,7 @@ class AnalyticsModule {
     indicativeAnalytics: IndicativeAnalytics
   ): AnalyticsManager {
     return AnalyticsManager.Builder()
-      .addLogger(BackendEventLogger(api), biEventList)
+      .addLogger(BackendEventLogger(api, BuildConfig.VERSION_CODE, BuildConfig.APPLICATION_ID), biEventList)
       .addLogger(IndicativeEventLogger(indicativeAnalytics), indicativeEventList)
       .addLogger(RakamEventLogger(), rakamEventList)
       .addLogger(SentryEventLogger(), sentryEventList)

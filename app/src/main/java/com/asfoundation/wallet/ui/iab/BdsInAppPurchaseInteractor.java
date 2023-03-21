@@ -2,9 +2,9 @@ package com.asfoundation.wallet.ui.iab;
 
 import com.appcoins.wallet.bdsbilling.Billing;
 import com.appcoins.wallet.bdsbilling.BillingPaymentProofSubmission;
-import com.appcoins.wallet.bdsbilling.repository.entity.PaymentMethodEntity;
 import com.appcoins.wallet.bdsbilling.repository.entity.Purchase;
 import com.appcoins.wallet.billing.BillingMessagesMapper;
+import com.appcoins.wallet.core.network.microservices.model.PaymentMethodEntity;
 import com.asfoundation.wallet.entity.TransactionBuilder;
 import io.reactivex.Completable;
 import io.reactivex.Observable;

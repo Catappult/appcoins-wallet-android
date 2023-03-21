@@ -2,7 +2,7 @@ package com.asfoundation.wallet.ui.gamification
 
 import android.view.View
 import com.asf.wallet.R
-import com.asfoundation.wallet.util.CurrencyFormatUtils
+import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import kotlinx.android.synthetic.main.unreached_level_layout.view.*
 import java.text.DecimalFormat
 

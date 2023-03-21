@@ -4,10 +4,10 @@ import androidx.lifecycle.SavedStateHandle
 import com.appcoins.wallet.billing.ErrorInfo
 import com.appcoins.wallet.billing.adyen.PaymentModel
 import com.appcoins.wallet.billing.util.Error
-import com.asfoundation.wallet.base.BaseViewModel
-import com.asfoundation.wallet.base.RxSchedulers
-import com.asfoundation.wallet.base.SideEffect
-import com.asfoundation.wallet.base.ViewState
+import com.appcoins.wallet.ui.arch.BaseViewModel
+import com.appcoins.wallet.core.utils.android_common.RxSchedulers
+import com.appcoins.wallet.ui.arch.SideEffect
+import com.appcoins.wallet.ui.arch.ViewState
 import com.asfoundation.wallet.billing.adyen.AdyenErrorCodeMapper
 import com.asfoundation.wallet.billing.adyen.AdyenPaymentInteractor
 import com.asfoundation.wallet.billing.adyen.PaymentType

@@ -1,9 +1,9 @@
 package com.asfoundation.wallet.change_currency.bottom_sheet
 
-import com.asfoundation.wallet.base.Async
-import com.asfoundation.wallet.base.BaseViewModel
-import com.asfoundation.wallet.base.SideEffect
-import com.asfoundation.wallet.base.ViewState
+import com.appcoins.wallet.ui.arch.Async
+import com.appcoins.wallet.ui.arch.BaseViewModel
+import com.appcoins.wallet.ui.arch.SideEffect
+import com.appcoins.wallet.ui.arch.ViewState
 import com.asfoundation.wallet.change_currency.use_cases.SetSelectedCurrencyUseCase
 import io.reactivex.Scheduler
 
@@ -16,7 +16,7 @@ data class ChooseCurrencyBottomSheetState(val selectedCurrency: String,
                                           val selectedFlag: String?,
                                           val selectedLabel: String,
                                           val selectedConfirmationAsync: Async<Unit> = Async.Uninitialized) :
-    ViewState
+  ViewState
 
 class ChooseCurrencyBottomSheetViewModel(data: ChooseCurrencyBottomSheetData,
                                          private val networkScheduler: Scheduler,

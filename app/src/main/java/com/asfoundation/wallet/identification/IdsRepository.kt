@@ -5,32 +5,32 @@ import android.os.Build
 import android.provider.Settings
 import com.appcoins.wallet.gamification.repository.UserStatsLocalData
 import com.asfoundation.wallet.billing.partners.InstallerService
-import com.asfoundation.wallet.repository.PreferencesRepositoryType
 import dagger.hilt.android.qualifiers.ApplicationContext
 import io.reactivex.Single
+import com.appcoins.wallet.sharedpreferences.CommonsPreferencesDataSource
 import java.util.*
 import javax.inject.Inject
 
 class IdsRepository @Inject constructor(
   @ApplicationContext private val context: Context,
-  private val sharedPreferencesRepository: PreferencesRepositoryType,
+  private val commonsPreferencesDataSource: CommonsPreferencesDataSource,
   private val userStatsLocalData: UserStatsLocalData,
   private val installerService: InstallerService
 ) {
 
   fun getAndroidId(): String {
-    var androidId = sharedPreferencesRepository.getAndroidId()
+    var androidId = commonsPreferencesDataSource.getAndroidId()
     if (androidId.isNotEmpty()) {
       return androidId
     }
     androidId = Settings.Secure.getString(context.contentResolver, Settings.Secure.ANDROID_ID)
 
-    sharedPreferencesRepository.setAndroidId(androidId)
+    commonsPreferencesDataSource.setAndroidId(androidId)
     return androidId
   }
 
   fun getActiveWalletAddress(): String {
-    return sharedPreferencesRepository.getCurrentWalletAddress() ?: ""
+    return commonsPreferencesDataSource.getCurrentWalletAddress() ?: ""
   }
 
   fun getGamificationLevel() = userStatsLocalData.getGamificationLevel()

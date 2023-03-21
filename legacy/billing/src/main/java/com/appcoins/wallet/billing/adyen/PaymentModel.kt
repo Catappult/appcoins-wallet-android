@@ -1,7 +1,7 @@
 package com.appcoins.wallet.billing.adyen
 
 import com.adyen.checkout.components.model.payments.response.Action
-import com.appcoins.wallet.billing.common.response.TransactionResponse
+import com.appcoins.wallet.core.network.microservices.model.TransactionResponse
 import com.appcoins.wallet.billing.util.Error
 import java.io.Serializable
 

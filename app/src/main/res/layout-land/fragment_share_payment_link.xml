@@ -83,7 +83,7 @@
       app:layout_constraintTop_toTopOf="parent"
       />
 
-  <com.asfoundation.wallet.ui.common.WalletButtonView
+  <com.appcoins.wallet.ui.widgets.WalletButtonView
       android:id="@+id/close_btn"
       android:layout_width="wrap_content"
       android:layout_height="@dimen/small_button_height"
@@ -100,7 +100,7 @@
       app:layout_constraintTop_toBottomOf="@id/bottom_separator"
       />
 
-  <com.asfoundation.wallet.ui.common.WalletButtonView
+  <com.appcoins.wallet.ui.widgets.WalletButtonView
       android:id="@+id/share_btn"
       android:layout_width="wrap_content"
       android:layout_height="@dimen/small_button_height"

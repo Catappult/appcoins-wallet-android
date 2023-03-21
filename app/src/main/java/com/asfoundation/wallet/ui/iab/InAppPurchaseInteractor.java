@@ -4,15 +4,16 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import com.appcoins.wallet.bdsbilling.Billing;
-import com.appcoins.wallet.bdsbilling.repository.BillingSupportedType;
-import com.appcoins.wallet.bdsbilling.repository.entity.FeeEntity;
-import com.appcoins.wallet.bdsbilling.repository.entity.FeeType;
-import com.appcoins.wallet.bdsbilling.repository.entity.Gateway;
-import com.appcoins.wallet.bdsbilling.repository.entity.PaymentMethodEntity;
 import com.appcoins.wallet.bdsbilling.repository.entity.Purchase;
-import com.appcoins.wallet.bdsbilling.repository.entity.Transaction;
 import com.appcoins.wallet.billing.BillingMessagesMapper;
 import com.appcoins.wallet.billing.repository.entity.TransactionData;
+import com.appcoins.wallet.core.network.microservices.model.BillingSupportedType;
+import com.appcoins.wallet.core.network.microservices.model.FeeEntity;
+import com.appcoins.wallet.core.network.microservices.model.FeeType;
+import com.appcoins.wallet.core.network.microservices.model.Gateway;
+import com.appcoins.wallet.core.network.microservices.model.PaymentMethodEntity;
+import com.appcoins.wallet.core.network.microservices.model.Transaction;
+import com.appcoins.wallet.core.utils.properties.MiscProperties;
 import com.asf.wallet.BuildConfig;
 import com.asf.wallet.R;
 import com.asfoundation.wallet.backup.NotificationNeeded;
@@ -181,7 +182,7 @@ public class InAppPurchaseInteractor {
           .equalsIgnoreCase(TransactionData.TransactionType.INAPP.name())) {
         return getCompletedPurchase(transaction.getPackageName(), transaction.getProductId(),
             transaction.getPurchaseUid(), transactionBuilder.getType()).map(
-            purchase -> mapToBdsPayment(transaction, purchase))
+                purchase -> mapToBdsPayment(transaction, purchase))
             .observeOn(AndroidSchedulers.mainThread())
             .flatMap(payment -> remove(transaction.getUri()).toSingleDefault(payment));
       } else {
@@ -216,10 +217,8 @@ public class InAppPurchaseInteractor {
   //}
 
   private Single<List<Gateway.Name>> getFilteredGateways(TransactionBuilder transactionBuilder) {
-    return getRewardsBalance()
-        .map( creditsBalance ->
-            getNewPaymentGateways(creditsBalance, false, transactionBuilder.amount())
-        );
+    return getRewardsBalance().map(creditsBalance -> getNewPaymentGateways(creditsBalance, false,
+        transactionBuilder.amount()));
   }
 
   //public Single<Boolean> hasAppcoinsFunds(TransactionBuilder transaction) {
@@ -272,12 +271,12 @@ public class InAppPurchaseInteractor {
   Single<List<PaymentMethod>> getPaymentMethods(TransactionBuilder transaction,
       String transactionValue, String currency) {
     return bdsInAppPurchaseInteractor.getPaymentMethods(transactionValue, currency,
-        transaction.getType(), transaction.getDomain())
+            transaction.getType(), transaction.getDomain())
         .flatMap(paymentMethods -> getAvailablePaymentMethods(transaction, paymentMethods).flatMap(
-            availablePaymentMethods -> Observable.fromIterable(paymentMethods)
-                .map(paymentMethod -> mapPaymentMethods(paymentMethod, availablePaymentMethods))
-                .flatMap(paymentMethod -> retrieveDisableReason(paymentMethod, transaction))
-                .toList())
+                availablePaymentMethods -> Observable.fromIterable(paymentMethods)
+                    .map(paymentMethod -> mapPaymentMethods(paymentMethod, availablePaymentMethods))
+                    .flatMap(paymentMethod -> retrieveDisableReason(paymentMethod, transaction))
+                    .toList())
             .map(this::removePaymentMethods))
         .map(this::swapDisabledPositions)
         .map(this::showTopup);
@@ -328,17 +327,17 @@ public class InAppPurchaseInteractor {
 
   private Observable<Integer> getAppcDisableReason(TransactionBuilder transaction) {
     return getBalanceState(transaction).map(balanceState -> {
-      switch (balanceState) {
-        case NO_ETHER:
-          return R.string.purchase_no_eth_body;
-        case NO_TOKEN:
-        case NO_ETHER_NO_TOKEN:
-          return R.string.purchase_no_appcoins_body;
-        case OK:
-        default:
-          return -1;
-      }
-    })
+          switch (balanceState) {
+            case NO_ETHER:
+              return R.string.purchase_no_eth_body;
+            case NO_TOKEN:
+            case NO_ETHER_NO_TOKEN:
+              return R.string.purchase_no_appcoins_body;
+            case OK:
+            default:
+              return -1;
+          }
+        })
         .toObservable();
   }
 
@@ -356,7 +355,8 @@ public class InAppPurchaseInteractor {
 
   private boolean hasRequiredAptoideVersionInstalled() {
     try {
-      PackageInfo packageInfo = packageManager.getPackageInfo(BuildConfig.APTOIDE_PKG_NAME, 0);
+      PackageInfo packageInfo =
+          packageManager.getPackageInfo(MiscProperties.INSTANCE.getAPTOIDE_PKG_NAME(), 0);
       return packageInfo.versionCode >= EARN_APPCOINS_APTOIDE_VERCODE;
     } catch (Exception e) {
       return false;

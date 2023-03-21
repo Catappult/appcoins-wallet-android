@@ -14,7 +14,7 @@ import androidx.annotation.StringRes;
 import com.airbnb.lottie.FontAssetDelegate;
 import com.airbnb.lottie.LottieAnimationView;
 import com.airbnb.lottie.TextDelegate;
-import com.appcoins.wallet.commons.Logger;
+import com.appcoins.wallet.core.utils.jvm_common.Logger;
 import com.asf.wallet.R;
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics;
 import com.asfoundation.wallet.entity.TransactionBuilder;

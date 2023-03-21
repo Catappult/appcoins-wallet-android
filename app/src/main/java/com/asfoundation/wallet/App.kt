@@ -9,25 +9,24 @@ import cm.aptoide.analytics.AnalyticsManager
 import com.appcoins.wallet.appcoins.rewards.AppcoinsRewards
 import com.appcoins.wallet.bdsbilling.ProxyService
 import com.appcoins.wallet.bdsbilling.WalletService
-import com.appcoins.wallet.bdsbilling.repository.BdsApiSecondary
-import com.appcoins.wallet.bdsbilling.repository.InappBillingApi
-import com.appcoins.wallet.bdsbilling.repository.RemoteRepository
-import com.appcoins.wallet.bdsbilling.repository.SubscriptionBillingApi
 import com.appcoins.wallet.billing.BillingDependenciesProvider
 import com.appcoins.wallet.billing.BillingMessagesMapper
-import com.appcoins.wallet.commons.Logger
+import com.appcoins.wallet.core.utils.jvm_common.Logger
+import com.appcoins.wallet.core.utils.properties.MiscProperties
+import com.appcoins.wallet.core.network.base.MagnesUtils
+import com.appcoins.wallet.core.network.bds.api.BdsApiSecondary
 import com.asf.wallet.BuildConfig
-import com.asfoundation.wallet.analytics.IndicativeAnalytics
-import com.asfoundation.wallet.analytics.RakamAnalytics
-import com.asfoundation.wallet.analytics.SentryAnalytics
+import com.appcoins.wallet.core.analytics.analytics.SentryAnalytics
 import com.asfoundation.wallet.app_start.AppStartProbe
 import com.asfoundation.wallet.app_start.AppStartUseCase
 import com.asfoundation.wallet.app_start.StartMode
-import com.asfoundation.wallet.billing.paypal.repository.MagnesUtils
 import com.asfoundation.wallet.identification.IdsRepository
-import com.asfoundation.wallet.logging.FlurryReceiver
+import com.appcoins.wallet.core.analytics.analytics.logging.FlurryReceiver
+import com.appcoins.wallet.core.network.microservices.api.broker.BrokerBdsApi
+import com.appcoins.wallet.core.network.microservices.api.product.InappBillingApi
+import com.appcoins.wallet.core.network.microservices.api.product.SubscriptionBillingApi
+import com.asfoundation.wallet.analytics.initilizeDataAnalytics
 import com.asfoundation.wallet.main.appsflyer.ApkOriginVerification
-import com.asfoundation.wallet.repository.PreferencesRepositoryType
 import com.asfoundation.wallet.support.AlarmManagerBroadcastReceiver
 import com.asfoundation.wallet.ui.iab.AppcoinsOperationsDataSaver
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
@@ -43,6 +42,7 @@ import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import org.bouncycastle.jce.provider.BouncyCastleProvider
+import com.appcoins.wallet.sharedpreferences.CommonsPreferencesDataSource
 import java.security.Provider
 import java.security.Security
 import java.util.*
@@ -65,7 +65,7 @@ class App : MultiDexApplication(), BillingDependenciesProvider {
   lateinit var appcoinsOperationsDataSaver: AppcoinsOperationsDataSaver
 
   @Inject
-  lateinit var brokerBdsApi: RemoteRepository.BrokerBdsApi
+  lateinit var brokerBdsApi: BrokerBdsApi
 
   @Inject
   lateinit var inappApi: InappBillingApi
@@ -92,19 +92,16 @@ class App : MultiDexApplication(), BillingDependenciesProvider {
   lateinit var logger: Logger
 
   @Inject
-  lateinit var rakamAnalytics: RakamAnalytics
-
-  @Inject
-  lateinit var indicativeAnalytics: IndicativeAnalytics
+  lateinit var initilizeDataAnalytics: initilizeDataAnalytics
 
   @Inject
   lateinit var sentryAnalytics: SentryAnalytics
 
   @Inject
-  lateinit var preferencesRepositoryType: PreferencesRepositoryType
+  lateinit var analyticsManager: AnalyticsManager
 
   @Inject
-  lateinit var analyticsManager: AnalyticsManager
+  lateinit var commonsPreferencesDataSource: CommonsPreferencesDataSource
 
   @Inject
   lateinit var subscriptionBillingApi: SubscriptionBillingApi
@@ -125,7 +122,7 @@ class App : MultiDexApplication(), BillingDependenciesProvider {
     initializeIndicative()
     initializeRakam()
     initiateIntercom()
-    initiateSentry()
+    initializeSentry()
     initializeMagnes()
     setupBouncyCastle()
     initializeWalletId()
@@ -156,15 +153,19 @@ class App : MultiDexApplication(), BillingDependenciesProvider {
   }
 
   private fun initializeRakam() {
-    rakamAnalytics.initialize()
+    initilizeDataAnalytics.initializeRakam()
       .subscribeOn(Schedulers.io())
       .subscribe()
   }
 
   private fun initializeIndicative() {
-    indicativeAnalytics.initialize()
+    initilizeDataAnalytics.initializeIndicative()
       .subscribeOn(Schedulers.io())
       .subscribe()
+  }
+
+  private fun initializeSentry() {
+    initilizeDataAnalytics.initializeSentry().subscribe()
   }
 
   private fun setupRxJava() {
@@ -210,10 +211,6 @@ class App : MultiDexApplication(), BillingDependenciesProvider {
     }
   }
 
-  private fun initiateSentry() {
-    sentryAnalytics.initialize().subscribe()
-  }
-
   private fun initiateIntercom() {
     Intercom.initialize(this, BuildConfig.INTERCOM_API_KEY, BuildConfig.INTERCOM_APP_ID)
     Intercom.client()
@@ -221,10 +218,10 @@ class App : MultiDexApplication(), BillingDependenciesProvider {
   }
 
   private fun initializeWalletId() {
-    if (preferencesRepositoryType.getWalletId() == null) {
+    if (commonsPreferencesDataSource.getWalletId() == null) {
       val id = UUID.randomUUID()
         .toString()
-      preferencesRepositoryType.setWalletId(id)
+      commonsPreferencesDataSource.setWalletId(id)
     }
   }
 
@@ -235,7 +232,7 @@ class App : MultiDexApplication(), BillingDependenciesProvider {
 
   fun analyticsManager() = analyticsManager
 
-  override fun supportedVersion() = BuildConfig.BILLING_SUPPORTED_VERSION
+  override fun supportedVersion() = MiscProperties.BILLING_SUPPORTED_VERSION
 
   override fun brokerBdsApi() = brokerBdsApi
 

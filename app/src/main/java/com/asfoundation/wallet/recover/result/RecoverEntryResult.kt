@@ -1,7 +1,7 @@
 package com.asfoundation.wallet.recover.result
 
 import com.asfoundation.wallet.entity.WalletKeyStore
-import com.asfoundation.wallet.util.CurrencyFormatUtils
+import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.asfoundation.wallet.wallets.usecases.GetWalletInfoUseCase
 import io.reactivex.Single
 

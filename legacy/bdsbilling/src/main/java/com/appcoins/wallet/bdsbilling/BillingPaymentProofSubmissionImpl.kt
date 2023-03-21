@@ -1,7 +1,11 @@
 package com.appcoins.wallet.bdsbilling
 
 import com.appcoins.wallet.bdsbilling.repository.*
-import com.appcoins.wallet.bdsbilling.repository.entity.Transaction
+import com.appcoins.wallet.core.network.bds.api.BdsApiSecondary
+import com.appcoins.wallet.core.network.microservices.api.broker.BrokerBdsApi
+import com.appcoins.wallet.core.network.microservices.api.product.InappBillingApi
+import com.appcoins.wallet.core.network.microservices.api.product.SubscriptionBillingApi
+import com.appcoins.wallet.core.network.microservices.model.Transaction
 import io.reactivex.Completable
 import io.reactivex.Scheduler
 import io.reactivex.Single
@@ -119,12 +123,12 @@ class BillingPaymentProofSubmissionImpl internal constructor(
   class Builder {
     private var walletService: WalletService? = null
     private var networkScheduler: Scheduler = Schedulers.io()
-    private var brokerBdsApi: RemoteRepository.BrokerBdsApi? = null
+    private var brokerBdsApi: BrokerBdsApi? = null
     private var inappApi: InappBillingApi? = null
     private var bdsApiSecondary: BdsApiSecondary? = null
     private var subscriptionBillingApi: SubscriptionBillingApi? = null
 
-    fun setBrokerBdsApi(brokerBdsApi: RemoteRepository.BrokerBdsApi) =
+    fun setBrokerBdsApi(brokerBdsApi: BrokerBdsApi) =
       apply { this.brokerBdsApi = brokerBdsApi }
 
     fun setInappApi(inappApi: InappBillingApi) =

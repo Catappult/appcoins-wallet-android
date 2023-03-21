@@ -12,21 +12,8 @@ plugins {
 android {
   defaultConfig {
     applicationId = "com.appcoins.wallet"
-    versionCode = 258
-    versionName = "2.9.1.0"
-
-    val inputFile = File("$rootDir/appcoins-services.json")
-    val json = JsonSlurper().parseText(inputFile.readText()) as Map<*, *>
-    buildConfigField(
-      "String",
-      "DEFAULT_OEM_ADDRESS",
-      "\"" + (json["oems"] as Map<*, *>)["default_address"] + "\""
-    )
-    buildConfigField(
-      "String",
-      "DEFAULT_STORE_ADDRESS",
-      "\"" + (json["stores"] as Map<*, *>)["default_address"] + "\""
-    )
+    versionCode = 259
+    versionName = "2.9.2.0"
   }
 }
 
@@ -35,12 +22,27 @@ dependencies {
   implementation(project(":legacy:tn"))
   implementation(project(":legacy:airdrop"))
   implementation(project(":legacy:billing"))
-  implementation(project(":legacy:commons"))
   implementation(project(":legacy:gamification"))
   implementation(project(":legacy:permissions"))
   implementation(project(":legacy:appcoinsRewards"))
   implementation(project(":legacy:skills"))
   implementation(project(":legacy:ethereumj-android"))
+  implementation(project(":core:analytics"))
+  implementation(project(":core:shared-preferences"))
+  implementation(project(":core:network:base"))
+  implementation(project(":core:network:airdrop"))
+  implementation(project(":core:network:analytics"))
+  implementation(project(":core:network:backend"))
+  implementation(project(":core:network:bds"))
+  implementation(project(":core:network:eskills"))
+  implementation(project(":core:network:microservices"))
+  implementation(project(":core:network:zendesk"))
+  implementation(project(":core:utils:android-common"))
+  implementation(project(":core:utils:jvm-common"))
+  implementation(project(":core:utils:properties"))
+  implementation(project(":ui:common"))
+  implementation(project(":ui:arch"))
+  implementation(project(":ui:widgets"))
 
   implementation(libs.kotlin.coroutines)
 

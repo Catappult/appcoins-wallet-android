@@ -1,7 +1,8 @@
 package com.appcoins.wallet.gamification.repository
 
+import com.appcoins.wallet.core.network.backend.api.GamificationApi
+import com.appcoins.wallet.core.network.backend.model.*
 import com.appcoins.wallet.gamification.GamificationContext
-import com.appcoins.wallet.gamification.repository.entity.*
 import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers

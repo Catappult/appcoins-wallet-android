@@ -10,7 +10,7 @@ import cm.aptoide.skills.repository.EmptyStoredTicket
 import cm.aptoide.skills.repository.StoredTicket
 import cm.aptoide.skills.repository.StoredTicketInQueue
 import cm.aptoide.skills.repository.TicketRepository
-import cm.aptoide.skills.util.EskillsPaymentData
+import com.appcoins.wallet.core.network.eskills.model.EskillsPaymentData
 import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject

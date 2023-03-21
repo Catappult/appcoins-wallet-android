@@ -2,7 +2,7 @@ package com.asfoundation.wallet.topup
 
 import android.content.Intent
 import android.os.Bundle
-import com.appcoins.wallet.commons.Logger
+import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.asf.wallet.R
 import com.asfoundation.wallet.entity.Wallet
 import com.asfoundation.wallet.promotions.usecases.StartVipReferralPollingUseCase

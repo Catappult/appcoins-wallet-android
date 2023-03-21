@@ -4,7 +4,7 @@ import cm.aptoide.skills.interfaces.ExternalSkillsPaymentProvider
 import cm.aptoide.skills.model.CreatedTicket
 import cm.aptoide.skills.model.PaymentResult
 import cm.aptoide.skills.model.SuccessfulPayment
-import cm.aptoide.skills.util.EskillsPaymentData
+import com.appcoins.wallet.core.network.eskills.model.EskillsPaymentData
 import io.reactivex.Single
 import javax.inject.Inject
 

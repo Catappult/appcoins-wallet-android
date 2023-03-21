@@ -1,5 +1,7 @@
 package cm.aptoide.skills.model
 
+import com.appcoins.wallet.core.network.eskills.model.QueueIdentifier
+import com.appcoins.wallet.core.network.eskills.model.TicketStatus
 import java.math.BigDecimal
 
 sealed class Ticket

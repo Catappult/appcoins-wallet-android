@@ -11,7 +11,7 @@ import com.asf.wallet.R
 import com.asfoundation.wallet.GlideApp
 import com.asfoundation.wallet.nfts.domain.NFTItem
 import com.asfoundation.wallet.nfts.list.NFTClick
-import com.asfoundation.wallet.ui.common.BaseViewHolder
+import com.appcoins.wallet.ui.widgets.BaseViewHolder
 import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.engine.GlideException

@@ -1,12 +1,12 @@
 package com.asfoundation.wallet.repository
 
+import com.appcoins.wallet.core.utils.android_common.BalanceUtils
 import com.asfoundation.wallet.repository.entity.OperationEntity
 import com.asfoundation.wallet.repository.entity.TransactionDetailsEntity
 import com.asfoundation.wallet.repository.entity.TransactionEntity
 import com.asfoundation.wallet.transactions.Operation
 import com.asfoundation.wallet.transactions.Transaction
 import com.asfoundation.wallet.transactions.TransactionDetails
-import com.asfoundation.wallet.util.BalanceUtils
 import java.math.BigDecimal
 import javax.inject.Inject
 

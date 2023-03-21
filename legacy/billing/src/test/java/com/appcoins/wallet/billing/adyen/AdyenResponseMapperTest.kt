@@ -7,15 +7,11 @@ import com.adyen.checkout.components.model.payments.response.RedirectAction
 import com.adyen.checkout.components.model.payments.response.Threeds2Action
 import com.adyen.checkout.components.model.payments.response.Threeds2ChallengeAction
 import com.adyen.checkout.components.model.payments.response.Threeds2FingerprintAction
-import com.appcoins.wallet.bdsbilling.repository.entity.Gateway
-import com.appcoins.wallet.bdsbilling.repository.entity.Metadata
-import com.appcoins.wallet.bdsbilling.repository.entity.Transaction
 import com.appcoins.wallet.billing.ErrorInfo
 import com.appcoins.wallet.billing.common.BillingErrorMapper
-import com.appcoins.wallet.billing.common.response.TransactionMetadata
-import com.appcoins.wallet.billing.common.response.TransactionResponse
-import com.appcoins.wallet.billing.common.response.TransactionStatus
 import com.appcoins.wallet.billing.util.Error
+import com.appcoins.wallet.core.network.microservices.model.AdyenTransactionResponse
+import com.appcoins.wallet.core.network.microservices.model.*
 import com.google.gson.Gson
 import com.google.gson.JsonObject
 import okhttp3.ResponseBody
@@ -63,7 +59,7 @@ class AdyenResponseMapperTest {
     val jsonObject = JsonObject()
     val paymentResponse =
       PaymentMethodsResponse(
-        Price(
+        AdyenPrice(
           BigDecimal(2),
           TEST_FIAT_CURRENCY
         ), jsonObject
@@ -83,7 +79,7 @@ class AdyenResponseMapperTest {
     val jsonObject = JsonObject()
     val paymentResponse =
       PaymentMethodsResponse(
-        Price(
+        AdyenPrice(
           BigDecimal(2),
           TEST_FIAT_CURRENCY
         ), jsonObject
@@ -114,7 +110,7 @@ class AdyenResponseMapperTest {
     val jsonObject = JsonObject()
     val paymentResponse =
       PaymentMethodsResponse(
-        Price(
+        AdyenPrice(
           BigDecimal(2),
           TEST_FIAT_CURRENCY
         ), jsonObject
@@ -367,7 +363,7 @@ class AdyenResponseMapperTest {
       TEST_UID, Transaction.Status.COMPLETED,
       Gateway(Gateway.Name.adyen_v2, "label", "icon"),
       TEST_HASH, Metadata("purchase_uid"),
-      TEST_REFERENCE, com.appcoins.wallet.bdsbilling.repository.entity.Price(
+      TEST_REFERENCE, Price(
         TEST_FIAT_CURRENCY,
         TEST_FIAT_VALUE, "20"
       ), "INAPP", null

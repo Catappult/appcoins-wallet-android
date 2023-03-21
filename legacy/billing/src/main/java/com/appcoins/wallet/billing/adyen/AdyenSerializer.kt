@@ -5,6 +5,7 @@ import com.adyen.checkout.components.model.payments.response.RedirectAction
 import com.adyen.checkout.components.model.payments.response.Threeds2Action
 import com.adyen.checkout.components.model.payments.response.Threeds2ChallengeAction
 import com.adyen.checkout.components.model.payments.response.Threeds2FingerprintAction
+import com.appcoins.wallet.core.network.microservices.model.PaymentMethodsResponse
 import com.google.gson.JsonObject
 import org.json.JSONObject
 import javax.inject.Inject

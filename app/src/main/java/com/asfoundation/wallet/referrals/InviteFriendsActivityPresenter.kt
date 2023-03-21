@@ -1,6 +1,6 @@
 package com.asfoundation.wallet.referrals
 
-import com.asfoundation.wallet.util.isNoNetworkException
+import com.appcoins.wallet.core.utils.android_common.extensions.isNoNetworkException
 import com.asfoundation.wallet.wallets.FindDefaultWalletInteract
 import io.reactivex.Scheduler
 import io.reactivex.disposables.CompositeDisposable

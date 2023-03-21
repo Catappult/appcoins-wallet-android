@@ -1,10 +1,10 @@
 package com.asfoundation.wallet.ui.iab.payments.carrier.status
 
 import com.appcoins.wallet.billing.carrierbilling.CarrierPaymentModel
-import com.appcoins.wallet.billing.common.response.TransactionStatus
+import com.appcoins.wallet.core.network.microservices.model.TransactionStatus
 import com.asf.wallet.R
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics
-import com.appcoins.wallet.commons.Logger
+import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.asfoundation.wallet.ui.iab.payments.carrier.CarrierInteractor
 import io.reactivex.Completable
 import io.reactivex.Observable

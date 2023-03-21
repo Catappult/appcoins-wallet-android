@@ -1,7 +1,7 @@
 package com.asfoundation.wallet.main.use_cases
 
 import com.appcoins.wallet.gamification.repository.PromotionsRepository
-import com.appcoins.wallet.gamification.repository.entity.GamificationStatus
+import com.appcoins.wallet.core.network.backend.model.GamificationStatus
 import com.asfoundation.wallet.home.usecases.ObserveDefaultWalletUseCase
 import io.reactivex.Observable
 import javax.inject.Inject

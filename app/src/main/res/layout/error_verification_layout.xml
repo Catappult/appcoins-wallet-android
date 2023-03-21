@@ -134,7 +134,7 @@
       app:layout_constraintTop_toTopOf="@id/layout_support_logo"
       />
 
-  <com.asfoundation.wallet.ui.common.WalletButtonView
+  <com.appcoins.wallet.ui.widgets.WalletButtonView
       android:id="@+id/maybe_later"
       android:layout_width="match_parent"
       android:layout_height="@dimen/large_button_height"
@@ -149,7 +149,7 @@
       app:layout_constraintVertical_bias="1"
       />
 
-  <com.asfoundation.wallet.ui.common.WalletButtonView
+  <com.appcoins.wallet.ui.widgets.WalletButtonView
       android:id="@+id/try_again"
       android:layout_width="match_parent"
       android:layout_height="@dimen/large_button_height"
@@ -164,7 +164,7 @@
       app:layout_constraintVertical_bias="1"
       />
 
-  <com.asfoundation.wallet.ui.common.WalletButtonView
+  <com.appcoins.wallet.ui.widgets.WalletButtonView
       android:id="@+id/try_again_attempts"
       android:layout_width="match_parent"
       android:layout_height="@dimen/large_button_height"

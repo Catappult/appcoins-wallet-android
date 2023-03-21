@@ -3,14 +3,14 @@ package com.asfoundation.wallet.viewmodel
 import android.app.Activity
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.appcoins.wallet.commons.Logger
+import com.appcoins.wallet.core.utils.jvm_common.Logger
+import com.appcoins.wallet.core.utils.android_common.BalanceUtils
 import com.asfoundation.wallet.entity.GasSettings
 import com.asfoundation.wallet.entity.PendingTransaction
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.router.GasSettingsRouter
 import com.asfoundation.wallet.transfers.TransferConfirmationInteractor
 import com.asfoundation.wallet.transfers.TransferConfirmationNavigator
-import com.asfoundation.wallet.util.BalanceUtils
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import java.math.BigDecimal
