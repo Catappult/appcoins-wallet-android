@@ -1,8 +1,8 @@
 package com.asfoundation.wallet.billing.partners
 
+import com.appcoins.wallet.core.utils.android_common.Log
 import com.appcoins.wallet.core.utils.properties.MiscProperties
 import com.asf.wallet.BuildConfig
-import com.asfoundation.wallet.util.Log
 import io.reactivex.Single
 import it.czerwinski.android.hilt.annotations.BoundTo
 import javax.inject.Inject
