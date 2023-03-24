@@ -4,116 +4,116 @@ msgstr ""
 "X-Crowdin-Project: appcoins\n"
 "X-Crowdin-Project-ID: 454554\n"
 "X-Crowdin-Language: it\n"
-"X-Crowdin-File: /[Catappult.appcoins-wallet-android] dev/app/src/main/res/external_strings/values/perks.po\n"
-"X-Crowdin-File-ID: 6706\n"
+"X-Crowdin-File: /[Catappult.appcoins-wallet-android] dev/ui/common/src/main/res/external_strings/values/perks.po\n"
+"X-Crowdin-File-ID: 14253\n"
 "Project-Id-Version: appcoins\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Italian\n"
 "Language: it_IT\n"
-"PO-Revision-Date: 2022-02-18 19:18\n"
+"PO-Revision-Date: 2023-03-24 11:07\n"
 
 #. Card Title
 #:
 msgid "Earn AppCoins Credits!"
-msgstr "Guadagna AppCoins Credits!"
+msgstr ""
 
 #. Tooltip - APPC Credis disclaimer.
 #:
 msgid "Receive an extra {0}% Bonus in all your purchases in {1}, except when you use AppCoins Credits."
-msgstr "Ricevi un bonus extra del {0}% su tutti i tuoi acquisti su {1}, tranne quelli effettuati in AppCoins Credits."
+msgstr ""
 
 #. Card - Purchase Promotion.
 #:
 msgid "Make a purchase in {0} and receive {1} AppCoins Credits."
-msgstr "Effettua un acquisto in {0} e ricevi {1} AppCoins Credits."
+msgstr ""
 
 #. Receipt - Purchase Promotion.
 #:
 msgid "Because you made a purchase in {0}."
-msgstr "Grazie al tuo acquisto in {0}."
+msgstr ""
 
 #. Card - Expenditure per days Promotion.
 #:
 msgid "Spend {0} {1} in {2} days and receive {3} AppCoins Credits."
-msgstr "Spendi {0} {1} in {2} giorni e ricevi {3} AppCoins Credits."
+msgstr ""
 
 #. Receipt - Expenditure per days Promotion.
 #:
 msgid "Because you spent more than {0} {1} in the last {2} days."
-msgstr "Grazie al tuo acquisto di più di {0} {1} negli ultimi {2} giorni."
+msgstr ""
 
 #. Card - Next Level Promotion.
 #:
 msgid "Reach the next level and receive {0} AppCoins Credits!"
-msgstr "Raggiungi il livello successivo e ricevi {0} AppCoins Credits!"
+msgstr ""
 
 #. Receipt - Expenditure bonus.
 #:
 msgid "Because you reached the next level."
-msgstr "Grazie al raggiungimento del livello successivo."
+msgstr ""
 
 #. Card - Home - Extra Gamification Bonus.
 #:
 msgid "Receive an extra {0}% Bonus in all your purchases in {1}, except when you use AppCoins Credits."
-msgstr "Ricevi un bonus extra del {0}% su tutti i tuoi acquisti su {1}, tranne quelli effettuati in AppCoins Credits."
+msgstr ""
 
 #. Card - Promotions - Extra Gamification Bonus.
 #:
 msgid "Receive an extra {0}% Bonus in all your purchases."
-msgstr "Ricevi un bonus extra del {0}% su tutti i tuoi acquisti."
+msgstr ""
 
 #. Card - First purchase.
 #:
 msgid "Receive an extra {0}% Bonus in your first purchase, except AppCoins Credits, in {1}"
-msgstr "Ricevi un bonus extra del {0}% sul tuo primo acquisto, tranne quelli in AppCoins Credits, in {1}"
+msgstr ""
 
 #. Receipt - First Purchase.
 #:
 msgid "Because of your first purchase in {0}."
-msgstr "Grazie al tuo primo acquisto in {0}."
+msgstr ""
 
 #. Card - First purchase of the day.
 #:
 msgid "Receive an extra {0}% Bonus in your first purchase of the day, except AppCoins Credits, in {1}"
-msgstr "Ricevi un bonus extra del {0}% sul tuo primo acquisto della giornata, tranne quelli in AppCoins Credits, in {1}"
+msgstr ""
 
 #. Receipt - First Purchase of the day.
 #:
 msgid "Because of your first purchase of the day in {0}."
-msgstr "Grazie al tuo primo acquisto della giornata in {0}."
+msgstr ""
 
 #. Title for bonus receipts.
 #:
 msgid "+{0} AppCoins Credits Bonus!"
-msgstr "+{0} AppCoins Credits di bonus!"
+msgstr ""
 
 #. Card - Home - Expendidute per amount Promotion.
 #:
 msgid "Receive {0} AppCoins Credits extra when you spend {1} {2} in {3}."
-msgstr "Ricevi {0} AppCoins Credits extra spendendo {1} {2} in {3}."
+msgstr ""
 
 #. Receipt - Expenditure per amount Promotion.
 #:
 msgid "Because you spent {0} {1} in {2}."
-msgstr "Grazie alla tua spesa di {0} {1} in {2}."
+msgstr ""
 
 #. Card - Expendidure in any game.
 #:
 msgid "Receive {0} AppCoins Credits extra when you spend {1} {2} in AppCoins apps."
-msgstr "Ricevi {0} AppCoins Credits extra spendendo {1} {2} in app AppCoins."
+msgstr ""
 
 #. Receipt - Expenditure in any game.
 #:
 msgid "Because you spent {0} {1} in AppCoins apps."
-msgstr "Grazie alla tua spesa di {0} {1} in app AppCoins."
+msgstr ""
 
 #. Card - Extra bonus in all games.
 #:
 msgid "Receive an extra {0}% Bonus in all your purchases, except when you use AppCoins Credits."
-msgstr "Ricevi un bonus extra del {0}% su tutti i tuoi acquisti, tranne quelli effettuati in AppCoins Credits."
+msgstr ""
 
 #. Card - Title - Common
 #:
 msgid "New Perk Available"
-msgstr "Nuovo vantaggio disponibile"
+msgstr ""
 
