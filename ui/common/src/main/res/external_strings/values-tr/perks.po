@@ -4,116 +4,116 @@ msgstr ""
 "X-Crowdin-Project: appcoins\n"
 "X-Crowdin-Project-ID: 454554\n"
 "X-Crowdin-Language: tr\n"
-"X-Crowdin-File: /[Catappult.appcoins-wallet-android] dev/app/src/main/res/external_strings/values/perks.po\n"
-"X-Crowdin-File-ID: 6706\n"
+"X-Crowdin-File: /[Catappult.appcoins-wallet-android] dev/ui/common/src/main/res/external_strings/values/perks.po\n"
+"X-Crowdin-File-ID: 14253\n"
 "Project-Id-Version: appcoins\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Turkish\n"
 "Language: tr_TR\n"
-"PO-Revision-Date: 2022-02-18 19:19\n"
+"PO-Revision-Date: 2023-03-24 11:07\n"
 
 #. Card Title
 #:
 msgid "Earn AppCoins Credits!"
-msgstr "AppCoins Credits kazanın!"
+msgstr ""
 
 #. Tooltip - APPC Credis disclaimer.
 #:
 msgid "Receive an extra {0}% Bonus in all your purchases in {1}, except when you use AppCoins Credits."
-msgstr "AppCoins Credits kullandığınız zamanlar hariç, {1} adlı oyundaki tüm satın alma işlemlerinizde ekstra %{0} Bonus kazanın."
+msgstr ""
 
 #. Card - Purchase Promotion.
 #:
 msgid "Make a purchase in {0} and receive {1} AppCoins Credits."
-msgstr "{0} oyununda bir satın alma işlemi gerçekleştirin ve {1} AppCoins Credits kazanın."
+msgstr ""
 
 #. Receipt - Purchase Promotion.
 #:
 msgid "Because you made a purchase in {0}."
-msgstr "{0} uygulamasında bir satın alma işlemi gerçekleştirdiğiniz için."
+msgstr ""
 
 #. Card - Expenditure per days Promotion.
 #:
 msgid "Spend {0} {1} in {2} days and receive {3} AppCoins Credits."
-msgstr "{2} gün içinde {0} {1} harcayın ve {3} AppCoins Credits kazanın."
+msgstr ""
 
 #. Receipt - Expenditure per days Promotion.
 #:
 msgid "Because you spent more than {0} {1} in the last {2} days."
-msgstr "Son {2} günde {0} {1} üzerinde bir tutar harcadığınız için."
+msgstr ""
 
 #. Card - Next Level Promotion.
 #:
 msgid "Reach the next level and receive {0} AppCoins Credits!"
-msgstr "Bir sonraki seviyeye ulaşın ve {0} AppCoins Credits kazanın!"
+msgstr ""
 
 #. Receipt - Expenditure bonus.
 #:
 msgid "Because you reached the next level."
-msgstr "Bir sonraki seviyeye ulaştığınız için."
+msgstr ""
 
 #. Card - Home - Extra Gamification Bonus.
 #:
 msgid "Receive an extra {0}% Bonus in all your purchases in {1}, except when you use AppCoins Credits."
-msgstr "AppCoins Credits kullandığınız zamanlar hariç, {1} adlı oyundaki tüm satın alma işlemlerinizde ekstra %{0} Bonus kazanın."
+msgstr ""
 
 #. Card - Promotions - Extra Gamification Bonus.
 #:
 msgid "Receive an extra {0}% Bonus in all your purchases."
-msgstr "Tüm satın alma işlemlerinizde ekstra %{0} Bonus kazanın."
+msgstr ""
 
 #. Card - First purchase.
 #:
 msgid "Receive an extra {0}% Bonus in your first purchase, except AppCoins Credits, in {1}"
-msgstr "AppCoins Credits dışında, {1} oyunundaki ilk satın alma işleminizde ekstra %{0} Bonus kazanın"
+msgstr ""
 
 #. Receipt - First Purchase.
 #:
 msgid "Because of your first purchase in {0}."
-msgstr "{0} uygulamasındaki ilk satın alma işleminiz için."
+msgstr ""
 
 #. Card - First purchase of the day.
 #:
 msgid "Receive an extra {0}% Bonus in your first purchase of the day, except AppCoins Credits, in {1}"
-msgstr "AppCoins Credits dışında, {1} oyunundaki günün ilk satın alma işleminizde ekstra %{0} Bonus kazanın"
+msgstr ""
 
 #. Receipt - First Purchase of the day.
 #:
 msgid "Because of your first purchase of the day in {0}."
-msgstr "{0} uygulamasındaki günün ilk satın alma işleminiz için."
+msgstr ""
 
 #. Title for bonus receipts.
 #:
 msgid "+{0} AppCoins Credits Bonus!"
-msgstr "+{0} AppCoins Credits Bonusu!"
+msgstr ""
 
 #. Card - Home - Expendidute per amount Promotion.
 #:
 msgid "Receive {0} AppCoins Credits extra when you spend {1} {2} in {3}."
-msgstr "{3} uygulamasında {1} {2} harcadığınızda ekstra {0} AppCoins Credits kazanın."
+msgstr ""
 
 #. Receipt - Expenditure per amount Promotion.
 #:
 msgid "Because you spent {0} {1} in {2}."
-msgstr "{2} uygulamasında {0} {1} harcadığınız için."
+msgstr ""
 
 #. Card - Expendidure in any game.
 #:
 msgid "Receive {0} AppCoins Credits extra when you spend {1} {2} in AppCoins apps."
-msgstr "AppCoins uygulamalarında {1} {2} harcadığınızda ekstra {0} AppCoins Credits kazanın."
+msgstr ""
 
 #. Receipt - Expenditure in any game.
 #:
 msgid "Because you spent {0} {1} in AppCoins apps."
-msgstr "AppCoins uygulamalarında {0} {1} harcadığınız için."
+msgstr ""
 
 #. Card - Extra bonus in all games.
 #:
 msgid "Receive an extra {0}% Bonus in all your purchases, except when you use AppCoins Credits."
-msgstr "AppCoins Credits kullandığınız zamanlar hariç, tüm satın alma işlemlerinizde ekstra %{0} Bonus kazanın."
+msgstr ""
 
 #. Card - Title - Common
 #:
 msgid "New Perk Available"
-msgstr "Yeni Özellik Mevcut"
+msgstr ""
 
