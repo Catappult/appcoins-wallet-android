@@ -1,58 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <!-- SDK - Purchasing when wallet is not installed -->
-  <string name="iab_wallet_not_installed_popup_body">Để mua vật phẩm này, trước tiên bạn cần tải %s.</string>
-  <string name="appcoins_wallet">Ví AppCoins</string>
-  <string name="iab_wallet_not_installed_popup_close_button">ĐÓNG</string>
+  <string name="iab_wallet_not_installed_popup_body">To buy this item you first need to get the %s.</string>
+  <string name="appcoins_wallet">AppCoins Wallet</string>
+  <string name="iab_wallet_not_installed_popup_close_button">CLOSE</string>
   <!-- SDK - Purchasing when neither wallet or app store are installed -->
-  <string name="iap_wallet_and_appstore_not_installed_popup_body">Bạn cần Ví AppCoins để thực hiện giao dịch này. Hãy tải về từ Aptoide hoặc Play Store và quay lại để hoàn tất giao dịch mua của bạn!</string>
-  <string name="iap_wallet_and_appstore_not_installed_popup_button">TÔI HIỂU!</string>
+  <string name="iap_wallet_and_appstore_not_installed_popup_body">You need the AppCoins Wallet to make this purchase. Download it from Aptoide or Play Store and come back to complete your purchase!</string>
+  <string name="iap_wallet_and_appstore_not_installed_popup_button">GOT IT!</string>
   <!-- SDK - PoA when wallet is not installed -->
-  <string name="poa_wallet_not_installed_notification_title">Bạn cần có Ví AppCoins!</string>
-  <string name="poa_wallet_not_installed_notification_body">Để nhận phần thưởng của mình, bạn cần có Ví AppCoins.</string>
+  <string name="poa_wallet_not_installed_notification_title">You need the AppCoins Wallet!</string>
+  <string name="poa_wallet_not_installed_notification_body">To get your reward you need the AppCoins Wallet.</string>
   <!-- SDK - Pay as a guest-->
-  <string name="iab_pay_as_guest_title">Thanh toán như khách</string>
-  <string name="iab_pay_as_guest_credit_card">Thẻ tín dụng</string>
+  <string name="iab_pay_as_guest_title">Pay as a guest</string>
+  <string name="iab_pay_as_guest_credit_card">Credit Card</string>
   <string name="iab_pay_as_guest_paypal">PayPal</string>
-  <string name="iab_switch_to_paypal">THANH TOÁN BẰNG PAYPAL</string>
-  <string name="iab_switch_to_credit_card">THANH TOÁN BẰNG THẺ TÍN DỤNG</string>
-  <string name="iab_card_number">Số thẻ</string>
+  <string name="iab_switch_to_paypal">PAY USING PAYPAL</string>
+  <string name="iab_switch_to_credit_card">PAY USING CREDIT CARD</string>
+  <string name="iab_card_number">Card number</string>
   <string name="iab_card_expiry">MM/YY</string>
-  <string name="iab_card_cvv">MÃ CVV</string>
-  <string name="iab_card_cvv_cvc">MÃ CVC/CVV</string>
-  <string name="iab_change_card_button">THAY ĐỔI THẺ</string>
-  <string name="iab_pay_with_wallet_title">Thanh toán bằng Ví AppCoins</string>
-  <string name="iab_pay_with_wallet_reward_title">Nhận lên đến %s%% tiền thưởng!</string>
-  <string name="iab_pay_with_wallet_reward_body">Bạn sẽ nhận được %s trên giao dịch mua này.</string>
-  <string name="iab_pay_with_wallet_reward_no_connection_body">Bạn sẽ nhận được một phần tiền thưởng trên giao dịch mua này.</string>
-  <string name="iab_best_deal">ƯU ĐÃI TỐT NHẤT</string>
-  <string name="iab_purchase_done_title">HOÀN TẤT!</string>
-  <string name="iab_purchase_done_reward_title">Lần tới, bạn sẽ nhận được lên đến %s%% tiền thưởng bằng Ví AppCoins!</string>
-  <string name="iab_purchase_done_reward_no_connection_title">Lần tới, bạn sẽ nhận được phần tiền thưởng bằng Ví AppCoins!</string>
-  <string name="iab_purchase_done_reward_body">Bạn đã nhận được %s trên giao dịch mua này.</string>
-  <string name="iab_purchase_done_title_long">Giao dịch mua đã hoàn tất!</string>
-  <string name="iab_purchase_change_payment_method_button">PHƯƠNG THỨC THANH TOÁN KHÁC</string>
-  <string name="iab_purchase_support_1">Cần trợ giúp?</string>
-  <string name="iab_purchase_support_2_link">Liên hệ bộ phận hỗ trợ.</string>
+  <string name="iab_card_cvv">CVV</string>
+  <string name="iab_card_cvv_cvc">CVC/CVV</string>
+  <string name="iab_change_card_button">CHANGE CARD</string>
+  <string name="iab_pay_with_wallet_title">Pay with AppCoins Wallet</string>
+  <string name="iab_pay_with_wallet_reward_title">Get up to %s%% Bonus!</string>
+  <string name="iab_pay_with_wallet_reward_body">You\'ll receive %s on this purchase.</string>
+  <string name="iab_pay_with_wallet_reward_no_connection_body">You\'ll receive a Bonus on this purchase.</string>
+  <string name="iab_best_deal">BEST DEAL</string>
+  <string name="iab_purchase_done_title">DONE!</string>
+  <string name="iab_purchase_done_reward_title">Next time, get up to %s%% Bonus with the AppCoins Wallet!</string>
+  <string name="iab_purchase_done_reward_no_connection_title">Next time, get a Bonus with the AppCoins Wallet!</string>
+  <string name="iab_purchase_done_reward_body">You could have received %s on this purchase.</string>
+  <string name="iab_purchase_done_title_long">Purchase completed!</string>
+  <string name="iab_purchase_change_payment_method_button">MORE PAYMENT METHODS</string>
+  <string name="iab_purchase_support_1">Need help?</string>
+  <string name="iab_purchase_support_2_link">Contact Support.</string>
   <!-- SDK - Common -->
-  <string name="next_button">KẾ TIẾP</string>
-  <string name="cancel_button">HỦY BỎ</string>
-  <string name="buy_button">MUA</string>
-  <string name="iab_wallet_not_installed_popup_close_install">CÀI ĐẶT VÍ</string>
+  <string name="next_button">NEXT</string>
+  <string name="cancel_button">CANCEL</string>
+  <string name="buy_button">BUY</string>
+  <string name="iab_wallet_not_installed_popup_close_install">INSTALL WALLET</string>
   <string name="button_ok">OK</string>
-  <string name="install_button">Cài đặt</string>
+  <string name="install_button">Install</string>
   <!-- Error messages -->
-  <string name="title_dialog_error">Lỗi</string>
-  <string name="purchase_error_item_owned">Bạn đã sở hữu vật phẩm này rồi!</string>
-  <string name="purchase_card_error_title">Rất tiếc, đã xảy ra lỗi.</string>
-  <string name="purchase_card_error_general_1">Đã xảy ra sự cố với thẻ của bạn. Vui lòng thử lại hoặc liên hệ ngay với chúng tôi.</string>
-  <string name="purchase_card_error_general_2">Giao dịch đã bị ngân hàng của bạn từ chối. Vui lòng thử với một thẻ khác hoặc liên hệ ngay với chúng tôi.</string>
-  <string name="purchase_card_error_no_funds">Có vẻ như bạn không còn đủ tiền hoặc đã đạt đến hạn mức thẻ của mình. Vui lòng thử lại bằng một thẻ khác.</string>
-  <string name="purchase_card_error_expired">Có vẻ như thẻ của bạn đã hết hạn. Hãy thử lại bằng một thẻ khác.</string>
-  <string name="purchase_card_error_invalid_details">Bạn có chắc rằng số thẻ của mình đúng không? Vui lòng kiểm tra và thử lại lần nữa.</string>
-  <string name="purchase_card_error_not_supported">Loại thẻ của bạn chưa được hỗ trợ. Hãy thử lại bằng một thẻ khác.</string>
-  <string name="purchase_card_error_security">Bạn có chắc chắn thông tin bảo mật đúng không? Vui lòng thử lại lần nữa.</string>
-  <string name="purchase_card_error_wrong_CVV">Mã CVV/CVC của bạn có vẻ như không đúng. Vui lòng thử lại lần nữa.</string>
-  <string name="purchase_card_error_CVV">CVV/CVC sai</string>
-  <string name="error_contac_us_body">Nếu vấn đề vẫn không được khắc phục, vui lòng liên hệ ngay với chúng tôi.</string>
+  <string name="title_dialog_error">Error</string>
+  <string name="purchase_error_item_owned">You already own this item!</string>
+  <string name="purchase_card_error_title">Oops, something went wrong.</string>
+  <string name="purchase_card_error_general_1">There was a problem with your card. Please try again or contact us.</string>
+  <string name="purchase_card_error_general_2">The transaction has been rejected by your bank. Please try with a different card or contact us.</string>
+  <string name="purchase_card_error_no_funds">It seems you don\'t have enough funds or there\'s a limit on your card. Please try with a different one.</string>
+  <string name="purchase_card_error_expired">It seems your card has expired. Please try with a different one.</string>
+  <string name="purchase_card_error_invalid_details">Are you sure your card number is correct? Please check and try again.</string>
+  <string name="purchase_card_error_not_supported">Your card type is not supported yet. Try with a different one.</string>
+  <string name="purchase_card_error_security">Are you sure the security information is correct? Please try again.</string>
+  <string name="purchase_card_error_wrong_CVV">Your CVV/CVC code seems to be wrong. Please try again.</string>
+  <string name="purchase_card_error_CVV">Wrong CVV/CVC</string>
+  <string name="error_contac_us_body">If the problem persists please contact us.</string>
 </resources>
