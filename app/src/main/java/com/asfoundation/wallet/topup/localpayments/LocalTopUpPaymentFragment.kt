@@ -169,9 +169,8 @@ class LocalTopUpPaymentFragment : BasePageViewFragment(), LocalTopUpPaymentView 
         maxFrame)
     topup_pending_user_payment_view?.top_up_in_progress_animation?.addAnimatorListener(object :
         Animator.AnimatorListener {
-      override fun onAnimationRepeat(animation: Animator?) = Unit
-
-      override fun onAnimationEnd(animation: Animator?) {
+      override fun onAnimationRepeat(animation: Animator) = Unit
+      override fun onAnimationEnd(animation: Animator) {
         if (minFrame == BUTTON_ANIMATION_START_FRAME) {
           topup_pending_user_payment_view?.top_up_in_progress_animation?.cancelAnimation()
         } else {
@@ -183,9 +182,9 @@ class LocalTopUpPaymentFragment : BasePageViewFragment(), LocalTopUpPaymentView 
         }
       }
 
-      override fun onAnimationCancel(animation: Animator?) = Unit
+      override fun onAnimationCancel(animation: Animator) = Unit
 
-      override fun onAnimationStart(animation: Animator?) {
+      override fun onAnimationStart(animation: Animator) {
         when (minFrame) {
           ANIMATION_STEP_ONE_START_FRAME -> {
             animateShow(step_one)

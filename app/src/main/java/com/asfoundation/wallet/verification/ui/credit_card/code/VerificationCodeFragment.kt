@@ -148,10 +148,10 @@ class VerificationCodeFragment : BasePageViewFragment(), VerificationCodeView {
         else getString(R.string.verification_settings_verified_title)
 
     success_animation.addAnimatorListener(object : Animator.AnimatorListener {
-      override fun onAnimationRepeat(animation: Animator?) = Unit
-      override fun onAnimationEnd(animation: Animator?) = presenter.onAnimationEnd()
-      override fun onAnimationCancel(animation: Animator?) = Unit
-      override fun onAnimationStart(animation: Animator?) = Unit
+      override fun onAnimationRepeat(animation: Animator) = Unit
+      override fun onAnimationEnd(animation: Animator) = presenter.onAnimationEnd()
+      override fun onAnimationCancel(animation: Animator) = Unit
+      override fun onAnimationStart(animation: Animator) = Unit
     })
     code.addTextChangedListener(object : TextWatcher {
       override fun afterTextChanged(s: Editable?) = Unit

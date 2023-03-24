@@ -264,6 +264,7 @@ abstract class TransactionModel : EpoxyModelWithHolder<TransactionModel.Transact
           message = itemView.context.getString(R.string.transaction_type_reverted_topup_body,
               getDate(linkedTx.timeStamp))
         }
+        else -> {}
       }
       revertMessage.text = message
       revertMessage.visibility = View.VISIBLE

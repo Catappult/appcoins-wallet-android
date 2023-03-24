@@ -52,10 +52,10 @@ class SplashExtenderFragment : Fragment(),
 
       views.splashVipAnimation.playAnimation()
       views.splashVipAnimation.addAnimatorListener(object : Animator.AnimatorListener {
-        override fun onAnimationRepeat(animation: Animator?) = Unit
-        override fun onAnimationEnd(animation: Animator?) = finishSplash()
-        override fun onAnimationCancel(animation: Animator?) = Unit
-        override fun onAnimationStart(animation: Animator?) = Unit
+        override fun onAnimationRepeat(animation: Animator) = Unit
+        override fun onAnimationEnd(animation: Animator) = finishSplash()
+        override fun onAnimationCancel(animation: Animator) = Unit
+        override fun onAnimationStart(animation: Animator) = Unit
       })
     } else {
       finishSplash()

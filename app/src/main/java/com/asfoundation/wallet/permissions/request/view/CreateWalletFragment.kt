@@ -76,10 +76,10 @@ class CreateWalletFragment : BasePageViewFragment(), CreateWalletView {
     create_wallet_animation.playAnimation()
     create_wallet_animation.repeatCount = 0
     create_wallet_animation.addAnimatorListener(object : Animator.AnimatorListener {
-      override fun onAnimationRepeat(animation: Animator?) = Unit
-      override fun onAnimationEnd(animation: Animator?) = finishAnimationFinishEvent.accept(Any())
-      override fun onAnimationCancel(animation: Animator?) = Unit
-      override fun onAnimationStart(animation: Animator?) = Unit
+      override fun onAnimationRepeat(animation: Animator) = Unit
+      override fun onAnimationEnd(animation: Animator) = finishAnimationFinishEvent.accept(Any())
+      override fun onAnimationCancel(animation: Animator) = Unit
+      override fun onAnimationStart(animation: Animator) = Unit
     })
   }
 
