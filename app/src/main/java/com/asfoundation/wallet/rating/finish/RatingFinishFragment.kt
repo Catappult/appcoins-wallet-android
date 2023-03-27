@@ -35,13 +35,12 @@ class RatingFinishFragment : BasePageViewFragment(), RatingFinishView {
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
     animation.addAnimatorListener(object : Animator.AnimatorListener {
-      override fun onAnimationEnd(animation: Animator?) {
+      override fun onAnimationEnd(animation: Animator) {
         animationEndSubject.onNext(Unit)
       }
-
-      override fun onAnimationRepeat(animation: Animator?) = Unit
-      override fun onAnimationCancel(animation: Animator?) = Unit
-      override fun onAnimationStart(animation: Animator?) = Unit
+      override fun onAnimationRepeat(animation: Animator) = Unit
+      override fun onAnimationCancel(animation: Animator) = Unit
+      override fun onAnimationStart(animation: Animator) = Unit
     })
     presenter.present()
   }

@@ -197,6 +197,7 @@ class WalletButtonView : FrameLayout {
             views.imageRight.setMargins(0, 0, 0, 0)
           }
         }
+        else -> {}
       }
     } else {
       views.root.isClickable = false

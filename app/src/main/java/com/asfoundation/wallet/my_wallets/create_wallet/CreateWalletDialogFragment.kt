@@ -79,10 +79,10 @@ class CreateWalletDialogFragment : DialogFragment(),
           navigator.navigateBack()
         } else {
           views.createWalletLoading.addAnimatorListener(object : Animator.AnimatorListener {
-            override fun onAnimationRepeat(animation: Animator?) = Unit
-            override fun onAnimationEnd(animation: Animator?) = navigator.navigateBack()
-            override fun onAnimationCancel(animation: Animator?) = Unit
-            override fun onAnimationStart(animation: Animator?) = Unit
+            override fun onAnimationRepeat(animation: Animator) = Unit
+            override fun onAnimationEnd(animation: Animator) = navigator.navigateBack()
+            override fun onAnimationCancel(animation: Animator) = Unit
+            override fun onAnimationStart(animation: Animator) = Unit
           })
         }
         views.createWalletLoading.repeatCount = 0

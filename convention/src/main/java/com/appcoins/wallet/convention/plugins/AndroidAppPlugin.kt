@@ -96,7 +96,8 @@ class AndroidAppPlugin : Plugin<Project> {
           viewBinding = true
           composeOptions {
             kotlinCompilerExtensionVersion = libs.findVersion("androidx.compose").get().toString()
-          }
+          }  // "1.1.0"
+          compose = true
         }
       }
     }

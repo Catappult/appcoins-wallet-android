@@ -141,10 +141,10 @@ class PayPalIABFragment() : BasePageViewFragment() {
     }
     views.successContainer.iabActivityTransactionCompleted.lottie_transaction_success
       .addAnimatorListener(object : Animator.AnimatorListener {
-        override fun onAnimationRepeat(animation: Animator?) = Unit
-        override fun onAnimationEnd(animation: Animator?) = concludeWithSuccess()
-        override fun onAnimationCancel(animation: Animator?) = Unit
-        override fun onAnimationStart(animation: Animator?) = Unit
+        override fun onAnimationRepeat(animation: Animator) = Unit
+        override fun onAnimationEnd(animation: Animator) = concludeWithSuccess()
+        override fun onAnimationCancel(animation: Animator) = Unit
+        override fun onAnimationStart(animation: Animator) = Unit
       })
     views.paypalErrorLayout.layoutSupportIcn.setOnClickListener {
       viewModel.showSupport(gamificationLevel)

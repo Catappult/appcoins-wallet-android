@@ -221,9 +221,8 @@ class LocalPaymentFragment : BasePageViewFragment(), LocalPaymentView {
     pending_user_payment_view?.in_progress_animation?.setMinAndMaxFrame(minFrame, maxFrame)
     pending_user_payment_view?.in_progress_animation?.addAnimatorListener(object :
         Animator.AnimatorListener {
-      override fun onAnimationRepeat(animation: Animator?) = Unit
-
-      override fun onAnimationEnd(animation: Animator?) {
+      override fun onAnimationRepeat(animation: Animator) = Unit
+      override fun onAnimationEnd(animation: Animator) {
         if (maxFrame == LAST_ANIMATION_FRAME) {
           pending_user_payment_view?.in_progress_animation?.cancelAnimation()
         }
@@ -239,10 +238,8 @@ class LocalPaymentFragment : BasePageViewFragment(), LocalPaymentView {
           pending_user_payment_view?.in_progress_animation?.playAnimation()
         }
       }
-
-      override fun onAnimationCancel(animation: Animator?) = Unit
-
-      override fun onAnimationStart(animation: Animator?) {
+      override fun onAnimationCancel(animation: Animator) = Unit
+      override fun onAnimationStart(animation: Animator) {
         when (minFrame) {
           ANIMATION_STEP_ONE_START_FRAME -> {
             animateShow(step_one)
