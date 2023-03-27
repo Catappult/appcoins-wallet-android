@@ -82,6 +82,8 @@ web3j_version = "4.8.8-android"
 androidx_work_version = "2.7.1"
 zxing_android_version = "3.6.0"
 zxing_version = "3.4.0"
+jacoco_version = "0.8.8"
+mockk_version = "1.13.3"
 
 [libraries]
 androidx-navigation-ui = { module = "androidx.navigation:navigation-ui-ktx", version.ref = "androidx_navigation_version" }
@@ -199,6 +201,7 @@ kethereum-erc681 = { module = "com.github.walleth.kethereum:erc681", version.ref
 androidx-security-crypto = { module = "androidx.security:security-crypto", version.ref = "androidx_securitycrypto_version" }
 
 test-mockito = { module = "org.mockito:mockito-core", version.ref = "mockito_version" }
+test-mockk = { module = "io.mockk:mockk", version.ref = "mockk_version" }
 test-espresso = { module = "androidx.test.espresso:espresso-core", version.ref = "espresso_version" }
 test-junit = { module = "junit:junit", version.ref = "junit_version" }
 test-junit-ext = { module = "androidx.test.ext:junit", version.ref = "test_ext_version" }
@@ -224,7 +227,7 @@ androidx-compose = ["compose-ui-viewbinding", "compose-ui-util", "compose-ui-ui"
 network = ["network-retrofit", "network-retrofit-adapter-rxjava", "network-retrofit-converter-gson", "network-retrofit-converter-jackson","network-okhttp", "google-gson"]
 adyen = ["adyen-card", "adyen-redirect", "adyen-3ds2"]
 analytics = ["analytics-sentry", "analytics-indicative", "analytics-flurry", "analytics-rakam", "analytics-appsflyer"]
-testing = ["test-junit", "test-mockito", "test-espresso"]
+testing = ["test-junit", "test-mockito", "test-espresso", "test-mockk"]
 jackson = ["jackson-annotation", "jackson-databind"]
 hilt-implementation = ["hilt-android", "hilt-interface-extensions"]
 hilt-kapt = ["hilt-compiler", "hilt-interface-extensions-processor"]
