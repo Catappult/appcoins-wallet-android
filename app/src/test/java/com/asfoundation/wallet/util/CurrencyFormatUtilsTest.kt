@@ -13,7 +13,7 @@ class CurrencyFormatUtilsTest {
   private val formatter = CurrencyFormatUtils()
   private val value = BigDecimal(123456789.123456)
 
-  /*@Test
+  @Test
   fun formatFiat() {
     Locale.setDefault(Locale.US)
     val formattedValueUs = formatter.formatCurrency(value, WalletCurrency.FIAT)
@@ -346,5 +346,5 @@ class CurrencyFormatUtilsTest {
     val expectedValueUs = "123456789.12"
 
     assertEquals(expectedValueUs, formattedValueUs)
-  }*/
+  }
 }
