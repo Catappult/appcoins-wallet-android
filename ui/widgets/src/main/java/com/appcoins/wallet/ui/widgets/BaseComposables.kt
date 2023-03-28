@@ -14,16 +14,7 @@ fun ActionButton(
   description: String,
   onClick: () -> Unit
 ) {
-//    val interaction = remember { MutableInteractionSource() }
   IconButton(
-//      modifier = Modifier    // to change the ripple animation color
-//        .indication(
-//          interactionSource = interaction,
-//          rememberRipple(
-//            color = colorResource(R.color.white)
-//          )
-//        ),
-//      interactionSource = interaction,
     onClick = {
       onClick()
     }) {

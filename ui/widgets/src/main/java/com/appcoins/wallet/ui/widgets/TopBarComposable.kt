@@ -40,7 +40,7 @@ fun TopBar(
       )
     } else {
       ActionButton(
-        imagePainter = painterResource(R.drawable.ic_back_button),  //TODO icon
+        imagePainter = painterResource(R.drawable.ic_arrow_back),
         description = "Back",
         onClick = onClickBack
       )
@@ -53,7 +53,7 @@ fun TopBar(
         VipBadge()
       }
       ActionButton(
-        imagePainter = painterResource(R.drawable.baseline_notification),  //TODO icon
+        imagePainter = painterResource(R.drawable.ic_notifications),
         description = "Notifications",
         onClick = onClickNotifications
       )

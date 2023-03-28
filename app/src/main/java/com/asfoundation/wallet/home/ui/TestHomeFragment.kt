@@ -15,6 +15,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.unit.dp
+import com.appcoins.wallet.core.utils.android_common.Log
 import com.appcoins.wallet.ui.arch.SingleStateFragment
 import com.appcoins.wallet.ui.widgets.TopBar
 import com.asf.wallet.R
@@ -40,7 +41,10 @@ class TestHomeFragment : BasePageViewFragment(),
           ) {
             TopBar(
               isMainBar = true,
-              isVip = false
+              isVip = false,
+              onClickNotifications = { Log.Companion.d("TestHomeFragment", "Notifications")},
+              onClickSettings = { Log.Companion.d("TestHomeFragment", "Settings")},
+              onClickSupport = { Log.Companion.d("TestHomeFragment", "Support")},
             )
             Card(
               modifier = Modifier

@@ -4,7 +4,6 @@
 
   <!-- Main style guide colors -->
   <color name="styleguide_pink">#FF6381</color>
-  <!--  <color name="styleguide_blue">#111B39</color>-->
   <color name="styleguide_blue">#1A1A24</color>
   <color name="styleguide_blue_secondary">#242333</color>
   <color name="styleguide_dark_grey">#4A4A4A</color>
