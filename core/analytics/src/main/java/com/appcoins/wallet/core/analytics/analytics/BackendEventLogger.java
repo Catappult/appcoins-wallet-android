@@ -37,8 +37,7 @@ public class BackendEventLogger implements EventLogger {
         + context
         + "]");
 
-    api.registerEvent(action, eventName,
-        new AnalyticsBody(versionCode, applicationId, data))
+    api.registerEvent(action.name(), eventName, new AnalyticsBody(versionCode, applicationId, data))
         .subscribeOn(Schedulers.io())
         .subscribe(() -> Log.d(TAG, "event sent"), Throwable::printStackTrace);
   }
