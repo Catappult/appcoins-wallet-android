@@ -3,10 +3,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/home_graph"
-    app:startDestination="@id/home_fragment">
+    app:startDestination="@id/test_toolbar_fragment">
 
   <fragment
       android:id="@+id/home_fragment"
       android:name="com.asfoundation.wallet.home.ui.HomeFragment"
       tools:layout="@layout/fragment_home" />
+<!--TODO remove:-->
+  <fragment
+      android:id="@+id/test_toolbar_fragment"
+      android:name="com.asfoundation.wallet.home.ui.TestHomeFragment"
+       />
 </navigation>
