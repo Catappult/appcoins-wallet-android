@@ -11,7 +11,7 @@ android {
 }
 
 dependencies {
-    compileOnly(fileTree(mapOf("dir" to "libs", "include" to listOf("*.aar"))))
+    compileOnly(fileTree(mapOf("dir" to "libs", "include" to "aptoide-analytics.aar")))
     implementation(project(":ui:common"))
     implementation(project(":core:utils:jvm-common"))
     implementation(project(":core:utils:properties"))
