@@ -1,58 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <!-- SDK - Purchasing when wallet is not installed -->
-  <string name="iab_wallet_not_installed_popup_body">To buy this item you first need to get the %s.</string>
-  <string name="appcoins_wallet">AppCoins Wallet</string>
-  <string name="iab_wallet_not_installed_popup_close_button">CLOSE</string>
+  <string name="iab_wallet_not_installed_popup_body">ਇਸ ਚੀਜ਼ ਨੂੰ ਖਰੀਦਣ ਲਈ ਤੁਹਾਨੂੰ ਪਹਿਲਾਂ %s ਪ੍ਰਾਪਤ ਕਰਨ ਦੀ ਲੋੜ ਹੈ|</string>
+  <string name="appcoins_wallet">ਐਪਸਿੱਕੇ ਬਟੂਆ</string>
+  <string name="iab_wallet_not_installed_popup_close_button">ਬੰਦ</string>
   <!-- SDK - Purchasing when neither wallet or app store are installed -->
-  <string name="iap_wallet_and_appstore_not_installed_popup_body">You need the AppCoins Wallet to make this purchase. Download it from Aptoide or Play Store and come back to complete your purchase!</string>
-  <string name="iap_wallet_and_appstore_not_installed_popup_button">GOT IT!</string>
+  <string name="iap_wallet_and_appstore_not_installed_popup_body">ਤੁਹਾਨੂੰ ਇਹ ਖਰੀਦ ਪੂਰੀ ਕਰਨ ਲਈ ਐਪ ਸਿੱਕੇ ਬਟੂਏ ਦੀ ਜ਼ਰੂਰਤ ਹੈ| ਇਸਨੂੰ ਐਪਟਾਇਡ ਜਾਂ ਪਲੇ ਸਟੋਰ ਤੋਂ ਡਾਉਨਲੋਡ ਕਰੋ ਅਤੇ ਆਪਣੀ ਖਰੀਦ ਨੂੰ ਪੂਰਾ ਕਰਨ ਲਈ ਵਾਪਸ ਆਓ!</string>
+  <string name="iap_wallet_and_appstore_not_installed_popup_button">ਠੀਕ ਹੈ!</string>
   <!-- SDK - PoA when wallet is not installed -->
-  <string name="poa_wallet_not_installed_notification_title">You need the AppCoins Wallet!</string>
-  <string name="poa_wallet_not_installed_notification_body">To get your reward you need the AppCoins Wallet.</string>
+  <string name="poa_wallet_not_installed_notification_title">ਤੁਹਾਨੂੰ ਐਪ ਸਿੱਕੇ ਬਟੂਏ ਦੀ ਜ਼ਰੂਰਤ ਹੈ!</string>
+  <string name="poa_wallet_not_installed_notification_body">ਆਪਣਾ ਇਨਾਮ ਪ੍ਰਾਪਤ ਕਰਨ ਲਈ ਤੁਹਾਨੂੰ ਐਪ ਸਿੱਕੇ ਬਟੂਏ ਦੀ ਜ਼ਰੂਰਤ ਹੈ|</string>
   <!-- SDK - Pay as a guest-->
-  <string name="iab_pay_as_guest_title">Pay as a guest</string>
-  <string name="iab_pay_as_guest_credit_card">Credit Card</string>
-  <string name="iab_pay_as_guest_paypal">PayPal</string>
-  <string name="iab_switch_to_paypal">PAY USING PAYPAL</string>
-  <string name="iab_switch_to_credit_card">PAY USING CREDIT CARD</string>
-  <string name="iab_card_number">Card number</string>
-  <string name="iab_card_expiry">MM/YY</string>
-  <string name="iab_card_cvv">CVV</string>
-  <string name="iab_card_cvv_cvc">CVC/CVV</string>
-  <string name="iab_change_card_button">CHANGE CARD</string>
-  <string name="iab_pay_with_wallet_title">Pay with AppCoins Wallet</string>
-  <string name="iab_pay_with_wallet_reward_title">Get up to %s%% Bonus!</string>
-  <string name="iab_pay_with_wallet_reward_body">You\'ll receive %s on this purchase.</string>
-  <string name="iab_pay_with_wallet_reward_no_connection_body">You\'ll receive a Bonus on this purchase.</string>
-  <string name="iab_best_deal">BEST DEAL</string>
-  <string name="iab_purchase_done_title">DONE!</string>
-  <string name="iab_purchase_done_reward_title">Next time, get up to %s%% Bonus with the AppCoins Wallet!</string>
-  <string name="iab_purchase_done_reward_no_connection_title">Next time, get a Bonus with the AppCoins Wallet!</string>
-  <string name="iab_purchase_done_reward_body">You could have received %s on this purchase.</string>
-  <string name="iab_purchase_done_title_long">Purchase completed!</string>
-  <string name="iab_purchase_change_payment_method_button">MORE PAYMENT METHODS</string>
-  <string name="iab_purchase_support_1">Need help?</string>
-  <string name="iab_purchase_support_2_link">Contact Support.</string>
+  <string name="iab_pay_as_guest_title">ਮਹਿਮਾਨ ਦੇ ਤੌਰ ਤੇ ਭੁਗਤਾਨ ਕਰੋ</string>
+  <string name="iab_pay_as_guest_credit_card">ਕਰੈਡਿਟ ਕਾਰਡ</string>
+  <string name="iab_pay_as_guest_paypal">ਪੇਪਾਲ</string>
+  <string name="iab_switch_to_paypal">ਪੇਪਾਲ ਨਾਲ ਭੁਗਤਾਨ ਕਰੋ</string>
+  <string name="iab_switch_to_credit_card">ਕਰੈਡਿਟ ਕਾਰਡ ਨਾਲ ਭੁਗਤਾਨ ਕਰੋ</string>
+  <string name="iab_card_number">ਕਾਰਡ ਨੰਬਰ</string>
+  <string name="iab_card_expiry">ਐਮ ਐਮ / ਵਾਈ ਵਾਈ</string>
+  <string name="iab_card_cvv">ਸੀਵੀਵੀ</string>
+  <string name="iab_card_cvv_cvc">ਸੀਵੀਸੀ/ਸੀਵੀਵੀ</string>
+  <string name="iab_change_card_button">ਕਾਰਡ ਬਦਲੋ</string>
+  <string name="iab_pay_with_wallet_title">ਐਪ ਸਿੱਕੇ ਬਟੂਏ ਨਾਲ ਭੁਗਤਾਨ ਕਰੋ</string>
+  <string name="iab_pay_with_wallet_reward_title">%s%% ਤੱਕ ਦਾ ਬੋਨਸ ਪ੍ਰਾਪਤ ਕਰੋ!</string>
+  <string name="iab_pay_with_wallet_reward_body">ਤੁਸੀਂ ਇਸ ਖਰੀਦ ਤੇ %s ਤੱਕ ਪ੍ਰਾਪਤ ਕਰੋਗੇ|</string>
+  <string name="iab_pay_with_wallet_reward_no_connection_body">ਤੁਸੀਂ ਇਸ ਖਰੀਦ ਤੇ ਬੋਨਸ ਪ੍ਰਾਪਤ ਕਰੋਗੇ|</string>
+  <string name="iab_best_deal">ਵਧੀਆ ਸੌਦਾ</string>
+  <string name="iab_purchase_done_title">ਹੋ ਗਿਆ!</string>
+  <string name="iab_purchase_done_reward_title">ਅਗਲੀ ਵਾਰ, ਐਪ ਸਿੱਕੇ ਬਟੂਏ ਨਾਲ %s%% ਤੱਕ ਦਾ ਬੋਨਸ ਪ੍ਰਾਪਤ ਕਰੋ!</string>
+  <string name="iab_purchase_done_reward_no_connection_title">ਅਗਲੀ ਵਾਰ, ਐਪ ਸਿੱਕੇ ਬਟੂਏ ਨਾਲ ਬੋਨਸ ਪ੍ਰਾਪਤ ਕਰੋ!</string>
+  <string name="iab_purchase_done_reward_body">ਤੁਸੀਂ ਇਸ ਖਰੀਦ ਤੇ %s ਤੱਕ ਪ੍ਰਾਪਤ ਕਰ ਸੱਕਦੇ ਸੀ|</string>
+  <string name="iab_purchase_done_title_long">ਖਰੀਦ ਪੂਰੀ ਹੋਈ!</string>
+  <string name="iab_purchase_change_payment_method_button">ਭੁਗਤਾਨ ਦੇ ਹੋਰ ਤਰੀਕੇ</string>
+  <string name="iab_purchase_support_1">ਮਦਦ ਦੀ ਲੋੜ ਹੈ?</string>
+  <string name="iab_purchase_support_2_link">ਗਾਕ ਸਹਾਇਤਾ ਨਾਲ ਸੰਪਰਕ ਕਰੋ</string>
   <!-- SDK - Common -->
-  <string name="next_button">NEXT</string>
-  <string name="cancel_button">CANCEL</string>
-  <string name="buy_button">BUY</string>
-  <string name="iab_wallet_not_installed_popup_close_install">INSTALL WALLET</string>
-  <string name="button_ok">OK</string>
-  <string name="install_button">Install</string>
+  <string name="next_button">ਅਗਲਾ</string>
+  <string name="cancel_button">ਕੈਂਸਲ</string>
+  <string name="buy_button">ਖਰੀਦੋ</string>
+  <string name="iab_wallet_not_installed_popup_close_install">ਬਟੂਆ ਭਰੋ</string>
+  <string name="button_ok">ਠੀਕ ਹੈ</string>
+  <string name="install_button">ਇੰਸਟਾਲ</string>
   <!-- Error messages -->
-  <string name="title_dialog_error">Error</string>
-  <string name="purchase_error_item_owned">You already own this item!</string>
-  <string name="purchase_card_error_title">Oops, something went wrong.</string>
-  <string name="purchase_card_error_general_1">There was a problem with your card. Please try again or contact us.</string>
-  <string name="purchase_card_error_general_2">The transaction has been rejected by your bank. Please try with a different card or contact us.</string>
-  <string name="purchase_card_error_no_funds">It seems you don\'t have enough funds or there\'s a limit on your card. Please try with a different one.</string>
-  <string name="purchase_card_error_expired">It seems your card has expired. Please try with a different one.</string>
-  <string name="purchase_card_error_invalid_details">Are you sure your card number is correct? Please check and try again.</string>
-  <string name="purchase_card_error_not_supported">Your card type is not supported yet. Try with a different one.</string>
-  <string name="purchase_card_error_security">Are you sure the security information is correct? Please try again.</string>
-  <string name="purchase_card_error_wrong_CVV">Your CVV/CVC code seems to be wrong. Please try again.</string>
-  <string name="purchase_card_error_CVV">Wrong CVV/CVC</string>
-  <string name="error_contac_us_body">If the problem persists please contact us.</string>
+  <string name="title_dialog_error">ਗਲਤੀ</string>
+  <string name="purchase_error_item_owned">ਤੁਸੀਂ ਪਹਿਲਾਂ ਤੋਂ ਹੀ ਇਸ ਵਸਤੂ ਦੇ ਮਾਲਕ ਹੋ!</string>
+  <string name="purchase_card_error_title">ਓਹ ਹੋ, ਕੁਝ ਗ਼ਲਤ ਹੋਇਆ|</string>
+  <string name="purchase_card_error_general_1">ਤੁਹਾਡੇ ਕਾਰਡ ਨਾਲ ਕੁੱਝ ਸਮੱਸਿਆ ਸੀ| ਕਿਰਪਾ ਕਰਕੇ ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰੋ ਜਾਂ ਸਾਡੇ ਨਾਲ ਸੰਪਰਕ ਕਰੋ|</string>
+  <string name="purchase_card_error_general_2">ਭੁਗਤਾਨ ਨੂੰ ਤੁਹਾਡੇ ਬੈਂਕ ਦੁਆਰਾ ਰੱਦ ਕਰ ਦਿੱਤਾ ਗਿਆ ਹੈ| ਕਿਰਪਾ ਕਰਕੇ ਵੱਖਰੇ ਕਾਰਡ ਨਾਲ ਕੋਸ਼ਿਸ਼ ਕਰੋ ਜਾਂ ਸਾਡੇ ਨਾਲ ਸੰਪਰਕ ਕਰੋ|</string>
+  <string name="purchase_card_error_no_funds">ਅਜਿਹਾ ਲਗਦਾ ਹੈ ਕਿ ਤੁਹਾਡੇ ਕੋਲ ਲੋੜੀਂਦੇ ਪੈਸੇ ਨਹੀਂ ਹਨ ਜਾਂ ਤੁਹਾਡੇ ਕਾਰਡ ਦੀ ਭੁਗਤਾਨ ਦੀ ਕੋਈ ਸੀਮਾ ਹੈ| ਕਿਰਪਾ ਕਰਕੇ ਕਿਸੇ ਵੱਖਰੇ ਕਾਰਡ ਨਾਲ ਕੋਸ਼ਿਸ਼ ਕਰੋ|</string>
+  <string name="purchase_card_error_expired">ਅਜਿਹਾ ਲਗਦਾ ਹੈ ਕਿ ਤੁਹਾਡੇ ਕਾਰਡ ਦੀ ਮਿਆਦ ਖਤਮ ਹੋ ਗਈ ਹੈ| ਕਿਰਪਾ ਕਰਕੇ ਕਿਸੇ ਵੱਖਰੇ ਕਾਰਡ ਨਾਲ ਕੋਸ਼ਿਸ਼ ਕਰੋ|</string>
+  <string name="purchase_card_error_invalid_details">ਕੀ ਤੁਹਾਨੂੰ ਯਕੀਨ ਹੈ ਕਿ ਤੁਹਾਡਾ ਕਾਰਡ ਨੰਬਰ ਸਹੀ ਹੈ? ਕਿਰਪਾ ਕਰਕੇ ਜਾਂਚ ਕਰੋ ਅਤੇ ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰੋ|</string>
+  <string name="purchase_card_error_not_supported">ਤੁਹਾਡੇ ਕਾਰਡ ਦੀ ਕਿਸਮ ਅਜੇ ਸਮਰਥਿਤ ਨਹੀਂ ਹੈ| ਕਿਸੇ ਵੱਖਰੇ ਕਾਰਡ ਨਾਲ ਕੋਸ਼ਿਸ਼ ਕਰੋ|</string>
+  <string name="purchase_card_error_security">ਕੀ ਤੁਹਾਨੂੰ ਯਕੀਨ ਹੈ ਕਿ ਸੁਰੱਖਿਆ ਜਾਣਕਾਰੀ ਸਹੀ ਹੈ? ਮੁੜ ਕੋਸ਼ਿਸ ਕਰੋ ਜੀ|</string>
+  <string name="purchase_card_error_wrong_CVV">ਤੁਹਾਡਾ ਸੀਵੀਵੀ/ਸੀਵੀਸੀ ਕੋਡ ਗਲਤ ਜਾਪਦਾ ਹੈ| ਮੁੜ ਕੋਸ਼ਿਸ ਕਰੋ ਜੀ|</string>
+  <string name="purchase_card_error_CVV">ਗਲਤ ਸੀਵੀਵੀ/ਸੀਵੀਸੀ</string>
+  <string name="error_contac_us_body">ਜੇ ਸਮੱਸਿਆ ਬਣੀ ਰਹਿੰਦੀ ਹੈ ਤਾਂ ਕਿਰਪਾ ਕਰਕੇ ਸਾਡੇ ਨਾਲ ਸੰਪਰਕ ਕਰੋ|</string>
 </resources>
