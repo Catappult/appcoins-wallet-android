@@ -10,110 +10,110 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Hungarian\n"
 "Language: hu_HU\n"
-"PO-Revision-Date: 2023-03-24 11:07\n"
+"PO-Revision-Date: 2023-03-29 11:53\n"
 
 #. Card Title
 #:
 msgid "Earn AppCoins Credits!"
-msgstr ""
+msgstr "Szerezz AppCoins kreditet!"
 
 #. Tooltip - APPC Credis disclaimer.
 #:
 msgid "Receive an extra {0}% Bonus in all your purchases in {1}, except when you use AppCoins Credits."
-msgstr ""
+msgstr "Szerezz extra {0}% bónuszt minden vásárlás után a(z) {1} játékban, kivéve, ha AppCoins kreditet használsz."
 
 #. Card - Purchase Promotion.
 #:
 msgid "Make a purchase in {0} and receive {1} AppCoins Credits."
-msgstr ""
+msgstr "Vásárolj a/az {0} appben és szerezz {1} AppCoins kreditet."
 
 #. Receipt - Purchase Promotion.
 #:
 msgid "Because you made a purchase in {0}."
-msgstr ""
+msgstr "Mivel itt vásároltál: {0}."
 
 #. Card - Expenditure per days Promotion.
 #:
 msgid "Spend {0} {1} in {2} days and receive {3} AppCoins Credits."
-msgstr ""
+msgstr "Költs el a/az {0} {1} összeget {2} napon belül és szerezz {3} AppCoins kreditet."
 
 #. Receipt - Expenditure per days Promotion.
 #:
 msgid "Because you spent more than {0} {1} in the last {2} days."
-msgstr ""
+msgstr "Mert több, mint {0} {1} értékben költöttél az elmúlt {2} napban."
 
 #. Card - Next Level Promotion.
 #:
 msgid "Reach the next level and receive {0} AppCoins Credits!"
-msgstr ""
+msgstr "Érd el a következő szintet és szerezz {0} AppCoins kreditet!"
 
 #. Receipt - Expenditure bonus.
 #:
 msgid "Because you reached the next level."
-msgstr ""
+msgstr "Mert elértél a következő szintre."
 
 #. Card - Home - Extra Gamification Bonus.
 #:
 msgid "Receive an extra {0}% Bonus in all your purchases in {1}, except when you use AppCoins Credits."
-msgstr ""
+msgstr "Szerezz extra {0}% bónuszt minden vásárlás után a(z) {1} játékban, kivéve, ha AppCoins kreditet használsz."
 
 #. Card - Promotions - Extra Gamification Bonus.
 #:
 msgid "Receive an extra {0}% Bonus in all your purchases."
-msgstr ""
+msgstr "Szerezz {0}% bónuszt minden vásárlásnál."
 
 #. Card - First purchase.
 #:
 msgid "Receive an extra {0}% Bonus in your first purchase, except AppCoins Credits, in {1}"
-msgstr ""
+msgstr "Szerezz extra {0}% bónuszt az első vásárlás után az AppCoins krediteket kivéve {1} Appben"
 
 #. Receipt - First Purchase.
 #:
 msgid "Because of your first purchase in {0}."
-msgstr ""
+msgstr "Az első vásárlásod miatt itt: {0}."
 
 #. Card - First purchase of the day.
 #:
 msgid "Receive an extra {0}% Bonus in your first purchase of the day, except AppCoins Credits, in {1}"
-msgstr ""
+msgstr "Szerezz extra {0}% bónuszt a napi első vásárlás után az AppCoins krediteket kivéve a/az {1} appban"
 
 #. Receipt - First Purchase of the day.
 #:
 msgid "Because of your first purchase of the day in {0}."
-msgstr ""
+msgstr "A napi első vásárlás miatt itt: {0}."
 
 #. Title for bonus receipts.
 #:
 msgid "+{0} AppCoins Credits Bonus!"
-msgstr ""
+msgstr "+{0} AppCoins kredit bónusz!"
 
 #. Card - Home - Expendidute per amount Promotion.
 #:
 msgid "Receive {0} AppCoins Credits extra when you spend {1} {2} in {3}."
-msgstr ""
+msgstr "Szerezz extra {0} AppCoins kreditet, amikor {1} {2} költesz el a/az {3} appban."
 
 #. Receipt - Expenditure per amount Promotion.
 #:
 msgid "Because you spent {0} {1} in {2}."
-msgstr ""
+msgstr "Mert elköltöttél {0} {1} összeget a/az {2} appben."
 
 #. Card - Expendidure in any game.
 #:
 msgid "Receive {0} AppCoins Credits extra when you spend {1} {2} in AppCoins apps."
-msgstr ""
+msgstr "Szerezz extra {0} AppCoins kreditet, amikor {1} {2} költesz el AppCoins appokban."
 
 #. Receipt - Expenditure in any game.
 #:
 msgid "Because you spent {0} {1} in AppCoins apps."
-msgstr ""
+msgstr "Mert ennyit költöttél AppCoins appokban: {0} {1}."
 
 #. Card - Extra bonus in all games.
 #:
 msgid "Receive an extra {0}% Bonus in all your purchases, except when you use AppCoins Credits."
-msgstr ""
+msgstr "Szerezz extra {0}% bónuszt minden vásárlás után, kivéve, ha AppCoins kreditet használsz."
 
 #. Card - Title - Common
 #:
 msgid "New Perk Available"
-msgstr ""
+msgstr "Új jutalom érhető el"
 
