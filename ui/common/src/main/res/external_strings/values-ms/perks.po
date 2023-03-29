@@ -10,110 +10,110 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Malay\n"
 "Language: ms_MY\n"
-"PO-Revision-Date: 2023-03-24 11:08\n"
+"PO-Revision-Date: 2023-03-29 11:54\n"
 
 #. Card Title
 #:
 msgid "Earn AppCoins Credits!"
-msgstr ""
+msgstr "Peroleh Kredit AppCoins!"
 
 #. Tooltip - APPC Credis disclaimer.
 #:
 msgid "Receive an extra {0}% Bonus in all your purchases in {1}, except when you use AppCoins Credits."
-msgstr ""
+msgstr "Terima Bonus ekstra {0}% bagi semua pembelian anda dalam {1}, kecuali pembelian dengan Kredit AppCoins."
 
 #. Card - Purchase Promotion.
 #:
 msgid "Make a purchase in {0} and receive {1} AppCoins Credits."
-msgstr ""
+msgstr "Buat pembelian dalam {0} dan terima {1} Kredit AppCoins."
 
 #. Receipt - Purchase Promotion.
 #:
 msgid "Because you made a purchase in {0}."
-msgstr ""
+msgstr "Kerana anda telah buat pembelian dalam {0}."
 
 #. Card - Expenditure per days Promotion.
 #:
 msgid "Spend {0} {1} in {2} days and receive {3} AppCoins Credits."
-msgstr ""
+msgstr "Belanja {0} {1} dalam tempoh {2} hari dan terima {3} Kredit AppCoins."
 
 #. Receipt - Expenditure per days Promotion.
 #:
 msgid "Because you spent more than {0} {1} in the last {2} days."
-msgstr ""
+msgstr "Kerana anda telah belanja lebih daripada {0}{1} dalam tempoh {2} yang lepas."
 
 #. Card - Next Level Promotion.
 #:
 msgid "Reach the next level and receive {0} AppCoins Credits!"
-msgstr ""
+msgstr "Capai tahap seterusnya dan terima {0} Kredit AppCoins!"
 
 #. Receipt - Expenditure bonus.
 #:
 msgid "Because you reached the next level."
-msgstr ""
+msgstr "Kerana anda telah capai tahap seterusnya."
 
 #. Card - Home - Extra Gamification Bonus.
 #:
 msgid "Receive an extra {0}% Bonus in all your purchases in {1}, except when you use AppCoins Credits."
-msgstr ""
+msgstr "Terima Bonus ekstra {0}% bagi semua pembelian anda dalam {1}, kecuali pembelian dengan Kredit AppCoins."
 
 #. Card - Promotions - Extra Gamification Bonus.
 #:
 msgid "Receive an extra {0}% Bonus in all your purchases."
-msgstr ""
+msgstr "Terima Bonus ekstra {0}% bagi semua pembelian anda."
 
 #. Card - First purchase.
 #:
 msgid "Receive an extra {0}% Bonus in your first purchase, except AppCoins Credits, in {1}"
-msgstr ""
+msgstr "Terima bonus ekstra sebanyak {0}% untuk pembelian pertama anda, kecuali Kredit AppCoins dalam {1}"
 
 #. Receipt - First Purchase.
 #:
 msgid "Because of your first purchase in {0}."
-msgstr ""
+msgstr "Atas pembelian pertama anda dalam {0}."
 
 #. Card - First purchase of the day.
 #:
 msgid "Receive an extra {0}% Bonus in your first purchase of the day, except AppCoins Credits, in {1}"
-msgstr ""
+msgstr "Terima bonus ekstra sebanyak {0}% untuk pembelian pertama anda untuk hari ini, kecuali Kredit AppCoins dalam {1}"
 
 #. Receipt - First Purchase of the day.
 #:
 msgid "Because of your first purchase of the day in {0}."
-msgstr ""
+msgstr "Atas pembelian pertama anda untuk hari ini dalam {0}."
 
 #. Title for bonus receipts.
 #:
 msgid "+{0} AppCoins Credits Bonus!"
-msgstr ""
+msgstr "+{0} Bonus Kredit AppCoins!"
 
 #. Card - Home - Expendidute per amount Promotion.
 #:
 msgid "Receive {0} AppCoins Credits extra when you spend {1} {2} in {3}."
-msgstr ""
+msgstr "Terima {0} Kredit AppCoins ekstra bila anda belanja {1} {2} dalam {3}."
 
 #. Receipt - Expenditure per amount Promotion.
 #:
 msgid "Because you spent {0} {1} in {2}."
-msgstr ""
+msgstr "Kerana anda belanja {0} {1} dalam {2}."
 
 #. Card - Expendidure in any game.
 #:
 msgid "Receive {0} AppCoins Credits extra when you spend {1} {2} in AppCoins apps."
-msgstr ""
+msgstr "Terima {0} Kredit AppCoins ekstra bila anda belanja {1} {2} dalam aplikasi AppCoins."
 
 #. Receipt - Expenditure in any game.
 #:
 msgid "Because you spent {0} {1} in AppCoins apps."
-msgstr ""
+msgstr "Kerana anda belanja {0} {1} dalam aplikasi AppCoins."
 
 #. Card - Extra bonus in all games.
 #:
 msgid "Receive an extra {0}% Bonus in all your purchases, except when you use AppCoins Credits."
-msgstr ""
+msgstr "Terima Bonus ekstra {0}% bagi semua pembelian anda, kecuali pembelian dengan Kredit AppCoins."
 
 #. Card - Title - Common
 #:
 msgid "New Perk Available"
-msgstr ""
+msgstr "Faedah Baharu Kini Tersedia"
 
