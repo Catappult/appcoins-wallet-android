@@ -2,17 +2,12 @@ package com.asfoundation.wallet.change_currency.bottom_sheet
 
 import androidx.lifecycle.SavedStateHandle
 import com.appcoins.wallet.core.utils.android_common.Dispatchers
-import com.appcoins.wallet.core.utils.android_common.RxSchedulers
 import com.appcoins.wallet.ui.arch.data.Async
 import com.appcoins.wallet.ui.arch.BaseViewModel
 import com.appcoins.wallet.ui.arch.SideEffect
 import com.appcoins.wallet.ui.arch.ViewState
-import com.asfoundation.wallet.backup.save_on_device.BackupSaveOnDeviceDialogFragment
-import com.asfoundation.wallet.backup.save_on_device.BackupSaveOnDeviceDialogState
-import com.asfoundation.wallet.backup.save_on_device.BackupSaveOnDeviceDialogViewModel
 import com.asfoundation.wallet.change_currency.use_cases.SetSelectedCurrencyUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
-import io.reactivex.Scheduler
 import kotlinx.coroutines.rx2.rxSingle
 import javax.inject.Inject
 
