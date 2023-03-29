@@ -10,110 +10,110 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Punjabi\n"
 "Language: pa_IN\n"
-"PO-Revision-Date: 2023-03-24 11:07\n"
+"PO-Revision-Date: 2023-03-29 11:53\n"
 
 #. Card Title
 #:
 msgid "Earn AppCoins Credits!"
-msgstr ""
+msgstr "ਐਪ ਸਿੱਕੇ ਕ੍ਰੈਡਿਟ ਕਮਾਓ!"
 
 #. Tooltip - APPC Credis disclaimer.
 #:
 msgid "Receive an extra {0}% Bonus in all your purchases in {1}, except when you use AppCoins Credits."
-msgstr ""
+msgstr "ਐਪ ਸਿੱਕੇ ਕ੍ਰੈਡਿਟਾਂ ਨੂੰ ਛੱਡ ਕੇ, {1} ਵਿੱਚ ਤੁਹਾਡੀਆਂ ਸਾਰੀਆਂ ਖਰੀਦਾਂ ਤੇ ਇੱਕ ਵਾਧੂ {0}% ਬੋਨਸ ਪ੍ਰਾਪਤ ਕਰੋ|"
 
 #. Card - Purchase Promotion.
 #:
 msgid "Make a purchase in {0} and receive {1} AppCoins Credits."
-msgstr ""
+msgstr "{0} ਵਿਚ ਖਰੀਦੋ ਅਤੇ {1} ਐਪ ਸਿੱਕੇ ਕ੍ਰੈਡਿਟ ਪ੍ਰਾਪਤ ਕਰੋ|"
 
 #. Receipt - Purchase Promotion.
 #:
 msgid "Because you made a purchase in {0}."
-msgstr ""
+msgstr "ਕਿਉਂਕਿ ਤੁਸੀਂ {0} ਵਿੱਚ ਇੱਕ ਖਰੀਦ ਕੀਤੀ|"
 
 #. Card - Expenditure per days Promotion.
 #:
 msgid "Spend {0} {1} in {2} days and receive {3} AppCoins Credits."
-msgstr ""
+msgstr "{2} ਦਿਨਾਂ ਵਿੱਚ {0} {1} ਖਰਚ ਕਰੋ ਅਤੇ {3} ਐਪ ਸਿੱਕੇ ਕ੍ਰੈਡਿਟ ਪ੍ਰਾਪਤ ਕਰੋ"
 
 #. Receipt - Expenditure per days Promotion.
 #:
 msgid "Because you spent more than {0} {1} in the last {2} days."
-msgstr ""
+msgstr "ਕਿਉਂਕਿ ਤੁਸੀਂ ਆਖਰੀ {2} ਦਿਨਾਂ ਵਿੱਚ {0} {1} ਤੋਂ ਵੱਧ ਖਰਚ ਕੀਤਾ"
 
 #. Card - Next Level Promotion.
 #:
 msgid "Reach the next level and receive {0} AppCoins Credits!"
-msgstr ""
+msgstr "ਅਗਲੇ ਪੱਧਰ ਤੇ ਪਹੁੰਚੋ ਅਤੇ {0} ਐਪ ਸਿੱਕੇ ਕ੍ਰੈਡਿਟ ਪ੍ਰਾਪਤ ਕਰੋ!"
 
 #. Receipt - Expenditure bonus.
 #:
 msgid "Because you reached the next level."
-msgstr ""
+msgstr "ਕਿਉਂਕਿ ਤੁਸੀਂ ਅਗਲੇ ਪੱਧਰ ਤੇ ਪਹੁੰਚ ਗਏ|"
 
 #. Card - Home - Extra Gamification Bonus.
 #:
 msgid "Receive an extra {0}% Bonus in all your purchases in {1}, except when you use AppCoins Credits."
-msgstr ""
+msgstr "ਐਪ ਸਿੱਕੇ ਕ੍ਰੈਡਿਟਾਂ ਨੂੰ ਛੱਡ ਕੇ, {1} ਵਿੱਚ ਤੁਹਾਡੀਆਂ ਸਾਰੀਆਂ ਖਰੀਦਾਂ ਤੇ ਇੱਕ ਵਾਧੂ {0}% ਬੋਨਸ ਪ੍ਰਾਪਤ ਕਰੋ|"
 
 #. Card - Promotions - Extra Gamification Bonus.
 #:
 msgid "Receive an extra {0}% Bonus in all your purchases."
-msgstr ""
+msgstr "ਆਪਣੀਆਂ ਸਾਰੀਆਂ ਖਰੀਦਾਂ ਤੇ {0}% ਵਾਧੂ ਬੋਨਸ ਪ੍ਰਾਪਤ ਕਰੋ|"
 
 #. Card - First purchase.
 #:
 msgid "Receive an extra {0}% Bonus in your first purchase, except AppCoins Credits, in {1}"
-msgstr ""
+msgstr "ਐਪ ਸਿੱਕੇ ਕ੍ਰੈਡਿਟ ਨੂੰ ਛੱਡ ਕੇ, {1} ਵਿੱਚ, ਆਪਣੀ ਪਹਿਲੀ ਖਰੀਦ ਤੇ ਇੱਕ ਵਾਧੂ {0}% ਬੋਨਸ ਪ੍ਰਾਪਤ ਕਰੋ|"
 
 #. Receipt - First Purchase.
 #:
 msgid "Because of your first purchase in {0}."
-msgstr ""
+msgstr "{0} ਵਿੱਚ ਤੁਹਾਡੀ ਪਹਿਲੀ ਖਰੀਦ ਕਰਕੇ|"
 
 #. Card - First purchase of the day.
 #:
 msgid "Receive an extra {0}% Bonus in your first purchase of the day, except AppCoins Credits, in {1}"
-msgstr ""
+msgstr "{1} ਵਿੱਚ, ਐਪ ਸਿੱਕੇ ਕ੍ਰੈਡਿਟ ਨੂੰ ਛੱਡ ਕੇ, , ਆਪਣੀ ਦਿਨ ਦੀ ਪਹਿਲੀ ਖਰੀਦ ਤੇ ਇੱਕ ਵਾਧੂ {0}% ਬੋਨਸ ਪ੍ਰਾਪਤ ਕਰੋ|"
 
 #. Receipt - First Purchase of the day.
 #:
 msgid "Because of your first purchase of the day in {0}."
-msgstr ""
+msgstr "{0} ਵਿੱਚ ਤੁਹਾਡੀ ਦਿਨ ਦੀ ਪਹਿਲੀ ਖਰੀਦ ਕਰਕੇ|"
 
 #. Title for bonus receipts.
 #:
 msgid "+{0} AppCoins Credits Bonus!"
-msgstr ""
+msgstr "+{0} ਐਪ ਸਿੱਕੇ ਕ੍ਰੈਡਿਟ ਬੋਨਸ!"
 
 #. Card - Home - Expendidute per amount Promotion.
 #:
 msgid "Receive {0} AppCoins Credits extra when you spend {1} {2} in {3}."
-msgstr ""
+msgstr "ਤੁਹਾਡੇ ਵੱਲੋਂ {3} ਵਿੱਚ ਖਰਚੇ {1} {2} ਲਈ {0} ਵਾਧੂ ਐਪ ਸਿੱਕ ਕ੍ਰੈਡਿਟ ਪ੍ਰਾਪਤ ਕਰੋ|"
 
 #. Receipt - Expenditure per amount Promotion.
 #:
 msgid "Because you spent {0} {1} in {2}."
-msgstr ""
+msgstr "ਕਿਉਂਕਿ ਤੁਸੀਂ {0} {1} ਨੂੰ {2} ਵਿੱਚ ਖਰਚਿਆ|"
 
 #. Card - Expendidure in any game.
 #:
 msgid "Receive {0} AppCoins Credits extra when you spend {1} {2} in AppCoins apps."
-msgstr ""
+msgstr "ਤੁਹਾਡੇ ਵੱਲੋਂ ਐਪ ਸਿੱਕੇ ਐਪਾਂ ਵਿੱਚ ਖਰਚੇ {1} {2} ਲਈ {0} ਵਾਧੂ ਐਪ ਸਿੱਕ ਕ੍ਰੈਡਿਟ ਪ੍ਰਾਪਤ ਕਰੋ|"
 
 #. Receipt - Expenditure in any game.
 #:
 msgid "Because you spent {0} {1} in AppCoins apps."
-msgstr ""
+msgstr "ਕਿਉਂਕਿ ਤੁਸੀਂ ਐਪ ਸਿੱਕੇ ਐਪਾਂ {0} {1} ਵਿੱਚ ਖਰਚੇ|"
 
 #. Card - Extra bonus in all games.
 #:
 msgid "Receive an extra {0}% Bonus in all your purchases, except when you use AppCoins Credits."
-msgstr ""
+msgstr "ਐਪ ਸਿੱਕੇ ਕ੍ਰੈਡਿਟਾਂ ਨੂੰ ਛੱਡ ਕੇ, ਤੁਹਾਡੀਆਂ ਸਾਰੀਆਂ ਖਰੀਦਾਂ ਤੇ ਇੱਕ ਵਾਧੂ {0}% ਬੋਨਸ ਪ੍ਰਾਪਤ ਕਰੋ|"
 
 #. Card - Title - Common
 #:
 msgid "New Perk Available"
-msgstr ""
+msgstr "ਨਵਾਂ ਲਾਭ ਉਪਲੱਬਧ ਹੈ"
 
