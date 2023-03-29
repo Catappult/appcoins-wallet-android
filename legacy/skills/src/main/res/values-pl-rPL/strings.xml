@@ -40,13 +40,13 @@
   <string name="update_not_supported_body">Zaktualizuj aplikację AppCoins Wallet do najnowszej wersji.</string>
   <string name="update_button">Aktualizuj</string>
   <!-- Refer a friend -->
-  <string name="refer_a_friend_waiting_room_tooltip">You and the friends you invite will receive a $%s bonus. You can refer up to 5 friends, and they must be new users. The bonus will be credited in your wallet once they use your invitation code in their first e-Skills game.</string>
-  <string name="refer_a_friend_first_time_header">Ready to show your skills?</string>
-  <string name="refer_a_friend_first_time_body">Beat other players to get a prize in real money! Let\'s start with a practice game with no entry fee.</string>
-  <string name="refer_a_friend_error_unavailable_body">This feature is currently unavailable.</string>
-  <string name="refer_a_friend_error_invalid_code_body">Invalid code!</string>
-  <string name="refer_a_friend_error_user_not_eligible_body">Only for new users!</string>
-  <string name="refer_a_friend_first_time_tooltip">With our Referral Program you\'ll receive a $%s bonus when using your friends code. They\'ll also receive the same amount as bonus to be used on in-app purchases or e-Skills entry tickets.</string>
-  <string name="refer_a_friend_waiting_room_title">Refer a Friend!</string>
-  <string name="refer_a_friend_waiting_from_body">Get a bonus for each friend you invite.</string>
+  <string name="refer_a_friend_waiting_room_tooltip">Ty i znajomi, których zaprosisz, otrzymacie bonus w wysokości %s$. Zaproś nawet 5 znajomych –którzu będą nowymi użytkownikami. Bonus pojawi się w Twoim portfelu natychmiast po tym, jak użyją kodu z zaproszenia w grze z e-Skills.</string>
+  <string name="refer_a_friend_first_time_header">Gotów pokazać, co potrafisz?</string>
+  <string name="refer_a_friend_first_time_body">Pokonaj innych graczy i wygraj prawdziwe pieniądze! Zaczynamy od bezpłatnej gry treningowej.</string>
+  <string name="refer_a_friend_error_unavailable_body">Ta opcja jest obecnie niedostępna.</string>
+  <string name="refer_a_friend_error_invalid_code_body">Nieprawidłowy kod!</string>
+  <string name="refer_a_friend_error_user_not_eligible_body">Tylko dla nowych użytkowników!</string>
+  <string name="refer_a_friend_first_time_tooltip">Dzięki naszemu Programowi Poleceń otrzymasz bonus $%s przy użyciu kodu znajomych. Otrzymają taką samą kwotę jak Twój bonus – do wykorzystania w zakupach w aplikacji lub biletu e-Skills.</string>
+  <string name="refer_a_friend_waiting_room_title">Poleć znajomego!</string>
+  <string name="refer_a_friend_waiting_from_body">Otrzymaj bonus za każdego zaproszonego znajomego.</string>
 </resources>
