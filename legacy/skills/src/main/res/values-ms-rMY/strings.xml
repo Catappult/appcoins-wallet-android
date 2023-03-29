@@ -40,13 +40,13 @@
   <string name="update_not_supported_body">Kemas kini Dompet AppCoins ke versi terkini.</string>
   <string name="update_button">Kemas kini</string>
   <!-- Refer a friend -->
-  <string name="refer_a_friend_waiting_room_tooltip">You and the friends you invite will receive a $%s bonus. You can refer up to 5 friends, and they must be new users. The bonus will be credited in your wallet once they use your invitation code in their first e-Skills game.</string>
-  <string name="refer_a_friend_first_time_header">Ready to show your skills?</string>
-  <string name="refer_a_friend_first_time_body">Beat other players to get a prize in real money! Let\'s start with a practice game with no entry fee.</string>
-  <string name="refer_a_friend_error_unavailable_body">This feature is currently unavailable.</string>
-  <string name="refer_a_friend_error_invalid_code_body">Invalid code!</string>
-  <string name="refer_a_friend_error_user_not_eligible_body">Only for new users!</string>
-  <string name="refer_a_friend_first_time_tooltip">With our Referral Program you\'ll receive a $%s bonus when using your friends code. They\'ll also receive the same amount as bonus to be used on in-app purchases or e-Skills entry tickets.</string>
-  <string name="refer_a_friend_waiting_room_title">Refer a Friend!</string>
-  <string name="refer_a_friend_waiting_from_body">Get a bonus for each friend you invite.</string>
+  <string name="refer_a_friend_waiting_room_tooltip">Anda dan rakan yang anda jemput akan terima bonus $%s. Anda boleh rujuk 5 orang rakan, dan mereka mestilah pengguna baru. Bonus akan dikreditkan dalam dompet anda sebaik saja mereka guna kod jemputan dalam permainan e-Skills pertama mereka.</string>
+  <string name="refer_a_friend_first_time_header">Dah sedia nak tunjuk hebat?</string>
+  <string name="refer_a_friend_first_time_body">Tumpaskan pemain lain untuk dapat hadiah wang tunai! Jum berlatih dulu tanpa sebarang bayaran masuk.</string>
+  <string name="refer_a_friend_error_unavailable_body">Ciri ini tidak tersedia buat masa ini.</string>
+  <string name="refer_a_friend_error_invalid_code_body">Kod tidak sah!</string>
+  <string name="refer_a_friend_error_user_not_eligible_body">Hanya untuk pengguna baru!</string>
+  <string name="refer_a_friend_first_time_tooltip">Dengan Program Rujukan kami, anda akan terima $%s apabila anda guna kod rakan anda. Mereka juga akan terima bonus berjumlah sama untuk digunakan bagi pembelian dalam aplikasi atau tiket masuk e-Skills.</string>
+  <string name="refer_a_friend_waiting_room_title">Rujuk Rakan!</string>
+  <string name="refer_a_friend_waiting_from_body">Dapat bonus untuk setiap rakan yang dijemput.</string>
 </resources>
