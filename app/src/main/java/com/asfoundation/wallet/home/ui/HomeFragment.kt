@@ -53,9 +53,8 @@ class HomeFragment : BasePageViewFragment(),
   private lateinit var tooltip: View
   private lateinit var popup: PopupWindow
 
-  private val pushNotificationPermissionLauncher = registerForActivityResult(ActivityResultContracts.RequestPermission()) { granted ->
-//    viewModel.inputs.onTurnOnNotificationsClicked(granted)
-  }
+  private val pushNotificationPermissionLauncher =
+    registerForActivityResult(ActivityResultContracts.RequestPermission()) {}
 
   override fun onCreateView(
     inflater: LayoutInflater, container: ViewGroup?,
