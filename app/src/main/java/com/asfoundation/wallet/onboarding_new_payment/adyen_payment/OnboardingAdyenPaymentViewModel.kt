@@ -14,6 +14,7 @@ import com.appcoins.wallet.billing.adyen.PaymentInfoModel
 import com.appcoins.wallet.billing.adyen.PaymentModel
 import com.appcoins.wallet.core.utils.android_common.RxSchedulers
 import com.appcoins.wallet.ui.arch.*
+import com.appcoins.wallet.ui.arch.data.Async
 import com.asfoundation.wallet.billing.adyen.AdyenCardWrapper
 import com.asfoundation.wallet.billing.adyen.AdyenErrorCodeMapper
 import com.asfoundation.wallet.billing.adyen.AdyenPaymentInteractor
