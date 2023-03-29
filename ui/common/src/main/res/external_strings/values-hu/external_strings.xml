@@ -1,58 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <!-- SDK - Purchasing when wallet is not installed -->
-  <string name="iab_wallet_not_installed_popup_body">To buy this item you first need to get the %s.</string>
+  <string name="iab_wallet_not_installed_popup_body">Az elem megvásárlásához a következő szükséges: %s.</string>
   <string name="appcoins_wallet">AppCoins Wallet</string>
-  <string name="iab_wallet_not_installed_popup_close_button">CLOSE</string>
+  <string name="iab_wallet_not_installed_popup_close_button">BEZÁRÁS</string>
   <!-- SDK - Purchasing when neither wallet or app store are installed -->
-  <string name="iap_wallet_and_appstore_not_installed_popup_body">You need the AppCoins Wallet to make this purchase. Download it from Aptoide or Play Store and come back to complete your purchase!</string>
-  <string name="iap_wallet_and_appstore_not_installed_popup_button">GOT IT!</string>
+  <string name="iap_wallet_and_appstore_not_installed_popup_body">A vásárlás befejezéséhez AppCoins Wallet szükséges. Töltsd le az Aptoide-ról vagy a Play Store-ból, majd térj vissza, hogy fejezd be a vásárlást!</string>
+  <string name="iap_wallet_and_appstore_not_installed_popup_button">ÉRTEM!</string>
   <!-- SDK - PoA when wallet is not installed -->
-  <string name="poa_wallet_not_installed_notification_title">You need the AppCoins Wallet!</string>
-  <string name="poa_wallet_not_installed_notification_body">To get your reward you need the AppCoins Wallet.</string>
+  <string name="poa_wallet_not_installed_notification_title">AppCoins Wallet szükséges!</string>
+  <string name="poa_wallet_not_installed_notification_body">A jutalom megszerzéséhez AppCoins Walletra lesz szükséged.</string>
   <!-- SDK - Pay as a guest-->
-  <string name="iab_pay_as_guest_title">Pay as a guest</string>
-  <string name="iab_pay_as_guest_credit_card">Credit Card</string>
+  <string name="iab_pay_as_guest_title">Fizetés, mint vendég</string>
+  <string name="iab_pay_as_guest_credit_card">Bankkártya</string>
   <string name="iab_pay_as_guest_paypal">PayPal</string>
-  <string name="iab_switch_to_paypal">PAY USING PAYPAL</string>
-  <string name="iab_switch_to_credit_card">PAY USING CREDIT CARD</string>
-  <string name="iab_card_number">Card number</string>
-  <string name="iab_card_expiry">MM/YY</string>
+  <string name="iab_switch_to_paypal">FIZETÉS PAYPALLAL</string>
+  <string name="iab_switch_to_credit_card">FIZETÉS BANKKÁRTYÁVAL</string>
+  <string name="iab_card_number">Kártyaszám</string>
+  <string name="iab_card_expiry">HH/ÉÉ</string>
   <string name="iab_card_cvv">CVV</string>
   <string name="iab_card_cvv_cvc">CVC/CVV</string>
-  <string name="iab_change_card_button">CHANGE CARD</string>
-  <string name="iab_pay_with_wallet_title">Pay with AppCoins Wallet</string>
-  <string name="iab_pay_with_wallet_reward_title">Get up to %s%% Bonus!</string>
-  <string name="iab_pay_with_wallet_reward_body">You\'ll receive %s on this purchase.</string>
-  <string name="iab_pay_with_wallet_reward_no_connection_body">You\'ll receive a Bonus on this purchase.</string>
-  <string name="iab_best_deal">BEST DEAL</string>
-  <string name="iab_purchase_done_title">DONE!</string>
-  <string name="iab_purchase_done_reward_title">Next time, get up to %s%% Bonus with the AppCoins Wallet!</string>
-  <string name="iab_purchase_done_reward_no_connection_title">Next time, get a Bonus with the AppCoins Wallet!</string>
-  <string name="iab_purchase_done_reward_body">You could have received %s on this purchase.</string>
-  <string name="iab_purchase_done_title_long">Purchase completed!</string>
-  <string name="iab_purchase_change_payment_method_button">MORE PAYMENT METHODS</string>
-  <string name="iab_purchase_support_1">Need help?</string>
-  <string name="iab_purchase_support_2_link">Contact Support.</string>
+  <string name="iab_change_card_button">KÁRTYA MÓDOSÍTÁSA</string>
+  <string name="iab_pay_with_wallet_title">Fizetés AppCoins Wallettal</string>
+  <string name="iab_pay_with_wallet_reward_title">Szerezz akár %s%% bónuszt!</string>
+  <string name="iab_pay_with_wallet_reward_body">A vásárlás utáni jutalom: %s.</string>
+  <string name="iab_pay_with_wallet_reward_no_connection_body">A vásárlásért bónusz jár neked.</string>
+  <string name="iab_best_deal">A LEGJOBB AJÁNLAT</string>
+  <string name="iab_purchase_done_title">KÉSZ!</string>
+  <string name="iab_purchase_done_reward_title">Legközelebb szerezz akár %s%% bónuszt az AppCoins Wallettal!</string>
+  <string name="iab_purchase_done_reward_no_connection_title">Legközelebb szerezz bónuszt az AppCoins Wallettal!</string>
+  <string name="iab_purchase_done_reward_body">A vásárlás után ennyi jutalom járt volna: %s.</string>
+  <string name="iab_purchase_done_title_long">Vásárlás befejezve!</string>
+  <string name="iab_purchase_change_payment_method_button">TOVÁBBI FIZETÉSI MÓDOK</string>
+  <string name="iab_purchase_support_1">Segítségre van szükséged?</string>
+  <string name="iab_purchase_support_2_link">Kapcsolatfelvétel az ügyfélszolgálattal.</string>
   <!-- SDK - Common -->
-  <string name="next_button">NEXT</string>
-  <string name="cancel_button">CANCEL</string>
-  <string name="buy_button">BUY</string>
-  <string name="iab_wallet_not_installed_popup_close_install">INSTALL WALLET</string>
-  <string name="button_ok">OK</string>
-  <string name="install_button">Install</string>
+  <string name="next_button">KÖVETKEZŐ</string>
+  <string name="cancel_button">MÉGSE</string>
+  <string name="buy_button">VÁSÁRLÁS</string>
+  <string name="iab_wallet_not_installed_popup_close_install">WALLET TELEPÍTÉSE</string>
+  <string name="button_ok">OKÉ</string>
+  <string name="install_button">Telepítés</string>
   <!-- Error messages -->
-  <string name="title_dialog_error">Error</string>
-  <string name="purchase_error_item_owned">You already own this item!</string>
-  <string name="purchase_card_error_title">Oops, something went wrong.</string>
-  <string name="purchase_card_error_general_1">There was a problem with your card. Please try again or contact us.</string>
-  <string name="purchase_card_error_general_2">The transaction has been rejected by your bank. Please try with a different card or contact us.</string>
-  <string name="purchase_card_error_no_funds">It seems you don\'t have enough funds or there\'s a limit on your card. Please try with a different one.</string>
-  <string name="purchase_card_error_expired">It seems your card has expired. Please try with a different one.</string>
-  <string name="purchase_card_error_invalid_details">Are you sure your card number is correct? Please check and try again.</string>
-  <string name="purchase_card_error_not_supported">Your card type is not supported yet. Try with a different one.</string>
-  <string name="purchase_card_error_security">Are you sure the security information is correct? Please try again.</string>
-  <string name="purchase_card_error_wrong_CVV">Your CVV/CVC code seems to be wrong. Please try again.</string>
-  <string name="purchase_card_error_CVV">Wrong CVV/CVC</string>
-  <string name="error_contac_us_body">If the problem persists please contact us.</string>
+  <string name="title_dialog_error">Hiba</string>
+  <string name="purchase_error_item_owned">Neked már megvan ez az elem!</string>
+  <string name="purchase_card_error_title">Hoppá, hiba történt.</string>
+  <string name="purchase_card_error_general_1">Problémát észleltünk a kártyáddal kapcsolatban. Kérjük, próbáld újra vagy vedd fel velünk a kapcsolatot.</string>
+  <string name="purchase_card_error_general_2">A tranzakciót elutasította a bankod. Használj egy másik kártyát vagy vedd fel velünk a kapcsolatot.</string>
+  <string name="purchase_card_error_no_funds">Úgy tűnik, nincs elég pénzed vagy valamilyen limit van a kártyádon. Próbálkozz egy másik kártyával.</string>
+  <string name="purchase_card_error_expired">Úgy tűnik, hogy lejárt a kártyád. Használj egy másikat.</string>
+  <string name="purchase_card_error_invalid_details">Biztos vagy benne, hogy helyes a kártyaszám? Ellenőrizd, majd próbáld újra.</string>
+  <string name="purchase_card_error_not_supported">Ezt a kártyatípust nem támogatjuk. Használj egy másikat.</string>
+  <string name="purchase_card_error_security">Biztos vagy benne, hogy helyes a biztonsági információ? Próbáld újra.</string>
+  <string name="purchase_card_error_wrong_CVV">Úgy tűnik, rossz CVV/CVC kódot adtál meg. Próbáld újra.</string>
+  <string name="purchase_card_error_CVV">Hibás CVV/CVC</string>
+  <string name="error_contac_us_body">Ha a probléma továbbra is fennáll, vedd fe velünk a kapcsolatot.</string>
 </resources>
