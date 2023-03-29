@@ -10,110 +10,110 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Dutch\n"
 "Language: nl_NL\n"
-"PO-Revision-Date: 2023-03-24 11:07\n"
+"PO-Revision-Date: 2023-03-29 11:53\n"
 
 #. Card Title
 #:
 msgid "Earn AppCoins Credits!"
-msgstr ""
+msgstr "Verdien AppCoins Credits!"
 
 #. Tooltip - APPC Credis disclaimer.
 #:
 msgid "Receive an extra {0}% Bonus in all your purchases in {1}, except when you use AppCoins Credits."
-msgstr ""
+msgstr "Krijg een extra bonus van {0}% bij al je aankopen in {1}, behalve als je AppCoins Credits gebruikt."
 
 #. Card - Purchase Promotion.
 #:
 msgid "Make a purchase in {0} and receive {1} AppCoins Credits."
-msgstr ""
+msgstr "Doe een aankoop in {0} en krijg {1} AppCoins Credits."
 
 #. Receipt - Purchase Promotion.
 #:
 msgid "Because you made a purchase in {0}."
-msgstr ""
+msgstr "Omdat je een aankoop in {0} hebt gedaan."
 
 #. Card - Expenditure per days Promotion.
 #:
 msgid "Spend {0} {1} in {2} days and receive {3} AppCoins Credits."
-msgstr ""
+msgstr "Besteed {0} {1} in {2} dagen en krijg {3} AppCoins Credits."
 
 #. Receipt - Expenditure per days Promotion.
 #:
 msgid "Because you spent more than {0} {1} in the last {2} days."
-msgstr ""
+msgstr "Omdat je in de afgelopen {2} dagen meer dan {0} {1} hebt besteed."
 
 #. Card - Next Level Promotion.
 #:
 msgid "Reach the next level and receive {0} AppCoins Credits!"
-msgstr ""
+msgstr "Bereik het volgende niveau en krijg {0} AppCoins Credits!"
 
 #. Receipt - Expenditure bonus.
 #:
 msgid "Because you reached the next level."
-msgstr ""
+msgstr "Omdat je het volgende niveau hebt bereikt."
 
 #. Card - Home - Extra Gamification Bonus.
 #:
 msgid "Receive an extra {0}% Bonus in all your purchases in {1}, except when you use AppCoins Credits."
-msgstr ""
+msgstr "Krijg een extra bonus van {0}% bij al je aankopen in {1}, behalve als je AppCoins Credits gebruikt."
 
 #. Card - Promotions - Extra Gamification Bonus.
 #:
 msgid "Receive an extra {0}% Bonus in all your purchases."
-msgstr ""
+msgstr "Krijg een extra bonus van {0}% bij al je aankopen."
 
 #. Card - First purchase.
 #:
 msgid "Receive an extra {0}% Bonus in your first purchase, except AppCoins Credits, in {1}"
-msgstr ""
+msgstr "Krijg een extra bonus van {0}% voor je eerste aankoop in {1}, met uitzondering van AppCoins Credits."
 
 #. Receipt - First Purchase.
 #:
 msgid "Because of your first purchase in {0}."
-msgstr ""
+msgstr "Vanwege je eerste aankoop in {0}."
 
 #. Card - First purchase of the day.
 #:
 msgid "Receive an extra {0}% Bonus in your first purchase of the day, except AppCoins Credits, in {1}"
-msgstr ""
+msgstr "Krijg een extra bonus van {0}% voor je eerste aankoop van de dag in {1}, met uitzondering van AppCoins Credits"
 
 #. Receipt - First Purchase of the day.
 #:
 msgid "Because of your first purchase of the day in {0}."
-msgstr ""
+msgstr "Vanwege je eerste aankoop van de dag in {0}."
 
 #. Title for bonus receipts.
 #:
 msgid "+{0} AppCoins Credits Bonus!"
-msgstr ""
+msgstr "+ bonus van {0} AppCoins Credits!"
 
 #. Card - Home - Expendidute per amount Promotion.
 #:
 msgid "Receive {0} AppCoins Credits extra when you spend {1} {2} in {3}."
-msgstr ""
+msgstr "Krijg {0} AppCoins Credits extra als je {1} {2} in {3} besteedt."
 
 #. Receipt - Expenditure per amount Promotion.
 #:
 msgid "Because you spent {0} {1} in {2}."
-msgstr ""
+msgstr "Omdat je {0} {1} in {2} hebt besteed."
 
 #. Card - Expendidure in any game.
 #:
 msgid "Receive {0} AppCoins Credits extra when you spend {1} {2} in AppCoins apps."
-msgstr ""
+msgstr "Krijg {0} AppCoins Credits extra als je {1} {2} in AppCoins-apps besteedt."
 
 #. Receipt - Expenditure in any game.
 #:
 msgid "Because you spent {0} {1} in AppCoins apps."
-msgstr ""
+msgstr "Omdat je {0} {1} in AppCoins-apps hebt besteed."
 
 #. Card - Extra bonus in all games.
 #:
 msgid "Receive an extra {0}% Bonus in all your purchases, except when you use AppCoins Credits."
-msgstr ""
+msgstr "Krijg een extra bonus van {0}% bij al je aankopen, behalve als je AppCoins Credits gebruikt."
 
 #. Card - Title - Common
 #:
 msgid "New Perk Available"
-msgstr ""
+msgstr "Nieuw voordeel beschikbaar"
 
