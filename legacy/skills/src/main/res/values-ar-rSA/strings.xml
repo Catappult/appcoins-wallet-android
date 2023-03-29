@@ -40,13 +40,13 @@
   <string name="update_not_supported_body">حدّث AppCoins Wallet إلى أحدث إصدار.</string>
   <string name="update_button">تحديث</string>
   <!-- Refer a friend -->
-  <string name="refer_a_friend_waiting_room_tooltip">You and the friends you invite will receive a $%s bonus. You can refer up to 5 friends, and they must be new users. The bonus will be credited in your wallet once they use your invitation code in their first e-Skills game.</string>
-  <string name="refer_a_friend_first_time_header">Ready to show your skills?</string>
-  <string name="refer_a_friend_first_time_body">Beat other players to get a prize in real money! Let\'s start with a practice game with no entry fee.</string>
-  <string name="refer_a_friend_error_unavailable_body">This feature is currently unavailable.</string>
-  <string name="refer_a_friend_error_invalid_code_body">Invalid code!</string>
-  <string name="refer_a_friend_error_user_not_eligible_body">Only for new users!</string>
-  <string name="refer_a_friend_first_time_tooltip">With our Referral Program you\'ll receive a $%s bonus when using your friends code. They\'ll also receive the same amount as bonus to be used on in-app purchases or e-Skills entry tickets.</string>
-  <string name="refer_a_friend_waiting_room_title">Refer a Friend!</string>
-  <string name="refer_a_friend_waiting_from_body">Get a bonus for each friend you invite.</string>
+  <string name="refer_a_friend_waiting_room_tooltip">أنت وأصدقاؤك الذين تدعوهم ستحصلون على $%s مكافأة. يمكنك دعوة حتى 5 أصدقاء، ويجب أن يكونوا مستخدمين جددًا. ستدخل المكافأة في محفظتك حالما يستخدمون رمز دعوتك في أول لعبة لهم في e-Skills.</string>
+  <string name="refer_a_friend_first_time_header">جاهز لاستعراض مهاراتك؟</string>
+  <string name="refer_a_friend_first_time_body">اهزم اللاعبين الآخرين واحصل على الجائزة في صورة نقود حقيقية! لنبدأ التدريب على الألعاب دون رسوم دخول.</string>
+  <string name="refer_a_friend_error_unavailable_body">هذه الميزة غير متوفرة حاليًّا.</string>
+  <string name="refer_a_friend_error_invalid_code_body">رمز غير صالح!</string>
+  <string name="refer_a_friend_error_user_not_eligible_body">للمستخدمين الجدد فقط!</string>
+  <string name="refer_a_friend_first_time_tooltip">مع برنامجنا للإحالة ستحصل على $%s مكافأة عند استخدام رموز أصدقائك. سيحصلون هم أيضًا على القيمة نفسها من المكافأة لاستخدامها في مشترياتهم داخل التطبيقات أو كتذاكر دخول e-Skills.</string>
+  <string name="refer_a_friend_waiting_room_title">إحالة صديق!</string>
+  <string name="refer_a_friend_waiting_from_body">احصل على مكافأة لكل صديق تدعوه.</string>
 </resources>
