@@ -18,7 +18,7 @@
   <string name="iab_switch_to_credit_card">PAY USING CREDIT CARD</string>
   <string name="iab_card_number">Card number</string>
   <string name="iab_card_expiry">MM/YY</string>
-  <string name="iab_card_cvv">CVV</string>
+  <string name="iab_card_cvv">সিভিভি</string>
   <string name="iab_card_cvv_cvc">CVC/CVV</string>
   <string name="iab_change_card_button">CHANGE CARD</string>
   <string name="iab_pay_with_wallet_title">Pay with AppCoins Wallet</string>
@@ -36,13 +36,13 @@
   <string name="iab_purchase_support_2_link">Contact Support.</string>
   <!-- SDK - Common -->
   <string name="next_button">NEXT</string>
-  <string name="cancel_button">CANCEL</string>
+  <string name="cancel_button">বাতিল</string>
   <string name="buy_button">BUY</string>
   <string name="iab_wallet_not_installed_popup_close_install">INSTALL WALLET</string>
-  <string name="button_ok">OK</string>
+  <string name="button_ok">ঠিক আছে</string>
   <string name="install_button">Install</string>
   <!-- Error messages -->
-  <string name="title_dialog_error">Error</string>
+  <string name="title_dialog_error">ত্রুটি</string>
   <string name="purchase_error_item_owned">You already own this item!</string>
   <string name="purchase_card_error_title">Oops, something went wrong.</string>
   <string name="purchase_card_error_general_1">There was a problem with your card. Please try again or contact us.</string>
