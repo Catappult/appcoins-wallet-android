@@ -1,58 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <!-- SDK - Purchasing when wallet is not installed -->
-  <string name="iab_wallet_not_installed_popup_body">To buy this item you first need to get the %s.</string>
-  <string name="appcoins_wallet">AppCoins Wallet</string>
-  <string name="iab_wallet_not_installed_popup_close_button">CLOSE</string>
+  <string name="iab_wallet_not_installed_popup_body">لشراء هذا العنصر أنت بحاجة أولًا للحصول على %s.</string>
+  <string name="appcoins_wallet">محفظة AppCoins</string>
+  <string name="iab_wallet_not_installed_popup_close_button">إغلاق</string>
   <!-- SDK - Purchasing when neither wallet or app store are installed -->
-  <string name="iap_wallet_and_appstore_not_installed_popup_body">You need the AppCoins Wallet to make this purchase. Download it from Aptoide or Play Store and come back to complete your purchase!</string>
-  <string name="iap_wallet_and_appstore_not_installed_popup_button">GOT IT!</string>
+  <string name="iap_wallet_and_appstore_not_installed_popup_body">أنت بحاجة إلى تطبيق AppCoins Wallet لإتمام الشراء. يمكنك تنزيله من Aptoide أو Play Store والعودة لإتمام الشراء!</string>
+  <string name="iap_wallet_and_appstore_not_installed_popup_button">مفهوم!</string>
   <!-- SDK - PoA when wallet is not installed -->
-  <string name="poa_wallet_not_installed_notification_title">You need the AppCoins Wallet!</string>
-  <string name="poa_wallet_not_installed_notification_body">To get your reward you need the AppCoins Wallet.</string>
+  <string name="poa_wallet_not_installed_notification_title">أنت بحاجة إلى محفظة AppCoins Wallet!</string>
+  <string name="poa_wallet_not_installed_notification_body">للحصول على المكافأة أنت بحاجة إلى محفظة AppCoins Wallet.</string>
   <!-- SDK - Pay as a guest-->
-  <string name="iab_pay_as_guest_title">Pay as a guest</string>
-  <string name="iab_pay_as_guest_credit_card">Credit Card</string>
-  <string name="iab_pay_as_guest_paypal">PayPal</string>
-  <string name="iab_switch_to_paypal">PAY USING PAYPAL</string>
-  <string name="iab_switch_to_credit_card">PAY USING CREDIT CARD</string>
-  <string name="iab_card_number">Card number</string>
-  <string name="iab_card_expiry">MM/YY</string>
-  <string name="iab_card_cvv">CVV</string>
-  <string name="iab_card_cvv_cvc">CVC/CVV</string>
-  <string name="iab_change_card_button">CHANGE CARD</string>
-  <string name="iab_pay_with_wallet_title">Pay with AppCoins Wallet</string>
-  <string name="iab_pay_with_wallet_reward_title">Get up to %s%% Bonus!</string>
-  <string name="iab_pay_with_wallet_reward_body">You\'ll receive %s on this purchase.</string>
-  <string name="iab_pay_with_wallet_reward_no_connection_body">You\'ll receive a Bonus on this purchase.</string>
-  <string name="iab_best_deal">BEST DEAL</string>
-  <string name="iab_purchase_done_title">DONE!</string>
-  <string name="iab_purchase_done_reward_title">Next time, get up to %s%% Bonus with the AppCoins Wallet!</string>
-  <string name="iab_purchase_done_reward_no_connection_title">Next time, get a Bonus with the AppCoins Wallet!</string>
-  <string name="iab_purchase_done_reward_body">You could have received %s on this purchase.</string>
-  <string name="iab_purchase_done_title_long">Purchase completed!</string>
-  <string name="iab_purchase_change_payment_method_button">MORE PAYMENT METHODS</string>
-  <string name="iab_purchase_support_1">Need help?</string>
-  <string name="iab_purchase_support_2_link">Contact Support.</string>
+  <string name="iab_pay_as_guest_title">ادفع كزائر</string>
+  <string name="iab_pay_as_guest_credit_card">بطاقة ائتمان</string>
+  <string name="iab_pay_as_guest_paypal">بايبال</string>
+  <string name="iab_switch_to_paypal">ادفع باستخدام بايبال</string>
+  <string name="iab_switch_to_credit_card">ادفع باستخدام بطاقة ائتمان</string>
+  <string name="iab_card_number">رقم البطاقة</string>
+  <string name="iab_card_expiry">سنة/شهر</string>
+  <string name="iab_card_cvv">رمز التحقق</string>
+  <string name="iab_card_cvv_cvc">رمز التحقق</string>
+  <string name="iab_change_card_button">تغيير البطاقة</string>
+  <string name="iab_pay_with_wallet_title">ادفع باستخدام محفظة AppCoins</string>
+  <string name="iab_pay_with_wallet_reward_title">احصل على مكافأة حتى %s%%!</string>
+  <string name="iab_pay_with_wallet_reward_body">ستحصل على %s على عملية الشراء هذه.</string>
+  <string name="iab_pay_with_wallet_reward_no_connection_body">ستتلقى مكافأة على كل عملية شراء.</string>
+  <string name="iab_best_deal">أفضل صفقة</string>
+  <string name="iab_purchase_done_title">انتهينا!</string>
+  <string name="iab_purchase_done_reward_title">في المرة القادمة، احصل على مكافأة تصل إلى %s%% مع محفظة AppCoins Wallet!</string>
+  <string name="iab_purchase_done_reward_no_connection_title">في المرة القادمة، احصل على مكافأة مع محفظة Appcoins Wallet!</string>
+  <string name="iab_purchase_done_reward_body">كان بإمكانك الحصول على %s على عملية الشراء هذه.</string>
+  <string name="iab_purchase_done_title_long">انتهت عملية الشراء!</string>
+  <string name="iab_purchase_change_payment_method_button">وسائل دفع أخرى</string>
+  <string name="iab_purchase_support_1">تحتاج مساعدة؟</string>
+  <string name="iab_purchase_support_2_link">تواصل مع الدعم.</string>
   <!-- SDK - Common -->
-  <string name="next_button">NEXT</string>
-  <string name="cancel_button">CANCEL</string>
-  <string name="buy_button">BUY</string>
-  <string name="iab_wallet_not_installed_popup_close_install">INSTALL WALLET</string>
-  <string name="button_ok">OK</string>
-  <string name="install_button">Install</string>
+  <string name="next_button">التالي</string>
+  <string name="cancel_button">إلغاء</string>
+  <string name="buy_button">شراء</string>
+  <string name="iab_wallet_not_installed_popup_close_install">تثبيت المحفظة</string>
+  <string name="button_ok">موافق</string>
+  <string name="install_button">تثبيت</string>
   <!-- Error messages -->
-  <string name="title_dialog_error">Error</string>
-  <string name="purchase_error_item_owned">You already own this item!</string>
-  <string name="purchase_card_error_title">Oops, something went wrong.</string>
-  <string name="purchase_card_error_general_1">There was a problem with your card. Please try again or contact us.</string>
-  <string name="purchase_card_error_general_2">The transaction has been rejected by your bank. Please try with a different card or contact us.</string>
-  <string name="purchase_card_error_no_funds">It seems you don\'t have enough funds or there\'s a limit on your card. Please try with a different one.</string>
-  <string name="purchase_card_error_expired">It seems your card has expired. Please try with a different one.</string>
-  <string name="purchase_card_error_invalid_details">Are you sure your card number is correct? Please check and try again.</string>
-  <string name="purchase_card_error_not_supported">Your card type is not supported yet. Try with a different one.</string>
-  <string name="purchase_card_error_security">Are you sure the security information is correct? Please try again.</string>
-  <string name="purchase_card_error_wrong_CVV">Your CVV/CVC code seems to be wrong. Please try again.</string>
-  <string name="purchase_card_error_CVV">Wrong CVV/CVC</string>
-  <string name="error_contac_us_body">If the problem persists please contact us.</string>
+  <string name="title_dialog_error">خطأ</string>
+  <string name="purchase_error_item_owned">أنت تملك هذا العنصر بالفعل!</string>
+  <string name="purchase_card_error_title">ياه، حدث خطأ.</string>
+  <string name="purchase_card_error_general_1">هناك مشكلة ببطاقتك. يرجى المحاولة مجددًا أو التواصل معنا.</string>
+  <string name="purchase_card_error_general_2">تم رفض التحويل من قبل البنك الخاص بك. يرجى المحاولة ببطاقة أخرى أو التواصل معنا.</string>
+  <string name="purchase_card_error_no_funds">يبدو أنك لا تملك رصيدًا كافيًا أو أن هناك حدًا على بطاقتك. يرجى المحاولة ببطاقة أخرى.</string>
+  <string name="purchase_card_error_expired">يبدو أن بطاقتك قد انتهت صلاحيتها. يرجى المحاولة ببطاقة أخرى.</string>
+  <string name="purchase_card_error_invalid_details">هل أنت متأكد من أن رقم بطاقتك صحيح؟ يرجى التحقق والمحاولة مجددًا.</string>
+  <string name="purchase_card_error_not_supported">إن نوع بطاقتك غير مدعوم حاليًا. حاول مع بطاقة أخرى.</string>
+  <string name="purchase_card_error_security">هل أنت متأكد من أن المعلومات الأمنية صحيحة؟ يرجى المحاولة ثانية.</string>
+  <string name="purchase_card_error_wrong_CVV">يبدو أن رمز التحقق خطأ. يرجى المحاولة ثانية.</string>
+  <string name="purchase_card_error_CVV">رمز تحقق خاطئ</string>
+  <string name="error_contac_us_body">إذا استمرت هذه المشكلة، يرجى التواصل معنا.</string>
 </resources>
