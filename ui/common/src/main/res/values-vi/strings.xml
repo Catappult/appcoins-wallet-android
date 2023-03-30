@@ -133,8 +133,6 @@
   <string name="intro_wallet_created_short">Đã tạo ví!</string>
   <string name="intro_agree_terms_and_conditions_body">Bằng cách nhập Ví AppCoins, bạn đồng ý với %1$s và %2$s.</string>
   <string name="intro_skip_button">BỎ QUA</string>
-  <string name="intro_welcome_header">Chào mừng bạn đến với Ví AppCoins</string>
-  <string name="intro_welcome_body">Nạp tiền vào ví của bạn hoặc mua hàng trong bất kỳ ứng dụng hoặc trò chơi nào tương thích với AppCoins.</string>
   <string name="intro_welcome_header_2">Tiền thưởng lên đến %s%%!</string>
   <string name="intro_welcome_body_2">Tiền thưởng có thể được sử dụng trong bất kỳ ứng dụng hoặc trò chơi nào.</string>
   <string name="intro_already_have_wallet_button">Tôi đã có ví rồi</string>
@@ -383,7 +381,6 @@
   <string name="provide_wallet_status">Cho phép truy cập vào địa chỉ ví</string>
   <string name="provide_wallet_cancel">@string/cancel_button</string>
   <!-- Top Up -->
-  <string name="topup_home_button">Nạp tiền</string>
   <string name="topup_title">Nạp tiền</string>
   <string name="topup_amount">%s AppCoins Credits</string>
   <string name="topup_bonus_header">Bạn vừa nhận được một khoản tiền thưởng!</string>
@@ -462,6 +459,12 @@
   <string name="skip_button">Bỏ qua bây giờ</string>
   <string name="understand_button">Tôi hiểu</string>
   <string name="install_button">Cài đặt</string>
+  <string name="get_button">Get</string>
+  <string name="see_all_button">See all</string>
+  <string name="transfer_button">Transfer</string>
+  <string name="top_up_button">Top Up</string>
+  <string name="back_up_button">Back up wallet</string>
+  <string name="play_button">Play</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Tôi đồng ý với %1$s và %2$s của Ví AppCoins.</string>
   <string name="terms_and_conditions_error">Vui lòng chấp nhận Điều khoản và Điều kiện và Chính sách bảo mật của chúng tôi để tiếp tục</string>
@@ -1128,4 +1131,36 @@
   <string name="vip_program_max_bonus_short">%s%% tiền thưởng trên mỗi giao dịch mua.</string>
   <string name="vip_program_referral_notification_title">Mã giới thiệu VIP khả dụng!</string>
   <string name="vip_program_referral_notification_body">Chia sẻ mã với cộng đồng để tất cả các bạn đều nhận được tiền khi chơi!</string>
+  <!-- Refactor Home -->
+  <string name="intro_welcome_header">Chào mừng bạn đến với Ví AppCoins</string>
+  <string name="intro_welcome_body">Nạp tiền vào ví của bạn hoặc mua hàng trong bất kỳ ứng dụng hoặc trò chơi nào tương thích với AppCoins.</string>
+  <string name="intro_appcoins_games_header">Discover Games with AppCoins</string>
+  <string name="intro_active_promotions_header">Active Promotions</string>
+  <string name="topup_home_button">Nạp tiền</string>
+  <string name="intro_home_button">Home</string>
+  <string name="intro_rewards_button">Rewards</string>
+  <plurals name="days">
+    <item quantity="other">DAYS</item>
+  </plurals>
+  <plurals name="hours">
+    <item quantity="other">HOURS</item>
+  </plurals>
+  <plurals name="minutes">
+    <item quantity="other">MINUTES</item>
+  </plurals>
+  <plurals name="seconds">
+    <item quantity="other">SECONDS</item>
+  </plurals>
+  <string name="intro_transactions_header">Transactions</string>
+  <string name="intro_backup_card_title">Don\'t loose your funds!</string>
+  <string name="intro_backup_card_body">Back up your wallet and keep it safe all times.</string>
+  <string name="rewards_spend_to_next_level_body">Spend more %1$s%2$s to reach the net level!</string>
+  <string name="rewards_current_bonus_title">%s%% bonus on every purchase</string>
+  <string name="rewards_eskills_card_title">Earn Money!</string>
+  <string name="rewards_eskills_card_body">Beat other players with e-Skills</string>
+  <string name="rewards_promo_code_card_title">Promo Codes</string>
+  <string name="rewards_promo_code_card_body">Use a promo code to get special deals!</string>
+  <string name="rewards_promo_code_status">Status:</string>
+  <string name="rewards_promo_code_status_active">Active</string>
+  <string name="rewards_promo_code_status_expired">Expired</string>
 </resources>
