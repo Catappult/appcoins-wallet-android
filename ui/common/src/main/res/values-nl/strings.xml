@@ -26,7 +26,7 @@
   <string name="network_label">Netwerk</string>
   <string name="credits">Credits</string>
   <string name="label_new">Nieuw</string>
-  <string name="got_it_button">Got it</string>
+  <string name="got_it_button">Begrepen</string>
   <string name="change_button">Wijzigen</string>
   <string name="vip">VIP</string>
   <string name="faq">FAQ\'s</string>
@@ -374,7 +374,7 @@
   <string name="provide_wallet_allow_once_button">Eenmalig toestaan</string>
   <string name="provide_wallet_completed_header">Wallet is aan Aptoide gekoppeld!</string>
   <string name="provide_wallet_create_body">Je hebt een wallet-adres nodig! Volg deze stappen om via de AppCoins Wallet een adres aan te maken.</string>
-  <string name="provide_wallet_create_wallet_button">Create</string>
+  <string name="provide_wallet_create_wallet_button">Aanmaken</string>
   <string name="provide_wallet_creating_wallet_header">Je wallet voorbereiden&#8230;</string>
   <string name="provide_wallet_created_header">Wallet-adres is aangemaakt!</string>
   <string name="provide_wallet_empty_state">Je hebt AppCoins Wallet nog geen toestemming gegeven om je adres aan een andere app door te geven.</string>
@@ -461,9 +461,9 @@
   <string name="install_button">Installeren</string>
   <string name="get_button">Get</string>
   <string name="see_all_button">See all</string>
-  <string name="transfer_button">Transfer</string>
-  <string name="top_up_button">Top Up</string>
-  <string name="back_up_button">Back up wallet</string>
+  <string name="transfer_button">Overschrijven</string>
+  <string name="top_up_button">Opwaarderen</string>
+  <string name="back_up_button">Back-up van wallet maken</string>
   <string name="play_button">Play</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Ik ga akkoord met de %1$s en het %2$s van AppCoins Wallet.</string>
@@ -621,7 +621,7 @@
   <string name="referral_share_sheet_title">Deel de link met de uitnodiging via:</string>
   <string name="referral_view_unverified_body">Receive %s worth of AppCoins Credits for each friend. You first need to verify your wallet.</string>
   <string name="referral_view_verify_button">Wallet verifiëren</string>
-  <string name="referral_view_i_have_been_invited_button">I\'ve been invited</string>
+  <string name="referral_view_i_have_been_invited_button">Ik ben uitgenodigd</string>
   <string name="referral_view_dropup_menu_friends_invited">Vrienden uitgenodigd</string>
   <string name="referral_view_dropup_menu_earned">Verdiend</string>
   <string name="referral_dropup_menu_friends_title_1">Vrienden uitgenodigd</string>
@@ -671,7 +671,7 @@
   <string name="import_wallet_keystore_private_keys">Keystore of privésleutels</string>
   <string name="import_wallet_from_file_title">Of vanuit bestand herstellen</string>
   <string name="import_wallet_file_button">Vanuit bestand herstellen</string>
-  <string name="import_wallet_button">Recover wallet</string>
+  <string name="import_wallet_button">Wallet herstellen</string>
   <string name="import_wallet_password_body">Deze wallet is met een wachtwoord beveiligd!</string>
   <string name="import_wallet_wrong_password_body">Oeps, verkeerd wachtwoord!</string>
   <string name="error_invalid_private_key">Ongeldige privésleutel</string>
@@ -690,7 +690,7 @@
   <string name="backup_confirmation_tips_2"><b>Bestand opslaan</b> op een USB-stick.</string>
   <string name="backup_confirmation_tips_3"><b>Bestand kopiëren</b> naar een persoonlijke en veilige cloudopslag.</string>
   <string name="backup_tooltip_body">Maak een back-up van je wallet!</string>
-  <string name="backup_tooltip_later_button">Maybe later</string>
+  <string name="backup_tooltip_later_button">Misschien later</string>
   <string name="backup_tooltip_backup_button">Back-up maken</string>
   <string name="backup_notification_title">Maak een back-up van je wallet!</string>
   <string name="backup_notification_body">Beveilig je saldo en zorg ervoor dat je altijd toegang tot je wallet hebt.</string>
@@ -719,10 +719,10 @@
   <string name="wallets_imported_body">Wallet is met succes hersteld</string>
   <string name="wallets_2nd_view_balance_title">Saldo:</string>
   <string name="wallets_2nd_view_other_wallets_title">Andere wallets</string>
-  <string name="wallets_2nd_view_import_button">Recover wallet</string>
+  <string name="wallets_2nd_view_import_button">Wallet herstellen</string>
   <string name="wallets_2nd_view_create_button">Nieuwe aanmaken</string>
   <string name="wallet_view_copy_button">Kopiëren</string>
-  <string name="wallet_view_share_button">Share</string>
+  <string name="wallet_view_share_button">Delen</string>
   <string name="wallet_view_total_balance_title">Totale saldo</string>
   <string name="wallet_view_remove_button">Wallet verwijderen</string>
   <string name="wallet_view_backup_button">Back-up van wallet maken</string>
@@ -747,7 +747,7 @@
   <string name="transfer_send_token_title">Token:</string>
   <string name="transfer_send_amount_title">Bedrag</string>
   <string name="transfer_send_current_balance_title">Huidige saldo:</string>
-  <string name="transfer_send_button">Send</string>
+  <string name="transfer_send_button">Sturen</string>
   <string name="transfer_receive_body">Deel je wallet-adres om saldo te ontvangen.</string>
   <!--Support Notifications-->
   <string name="support_new_message_title">Je hebt een nieuw bericht!</string>
@@ -867,7 +867,7 @@
   <string name="carrier_billing_enter_pin_body">Voer de pincode in die je via sms hebt ontvangen.</string>
   <string name="carrier_billing_code_field">Je code...</string>
   <string name="carrier_billing_code_resend_button">Code opnieuw versturen</string>
-  <string name="carrier_billing_submit_button">Submit</string>
+  <string name="carrier_billing_submit_button">Versturen</string>
   <string name="carrier_billing_number_not_supported">Het lijkt erop dat je telefoonnummer niet compatibel met deze betaalmethode is.</string>
   <string name="carrier_billing_terms_disclaimer">Door op \'verzenden\' te tikken, bevestig je dat je de algemene voorwaarden en het privacybeleid accepteert.</string>
   <string name="carrier_billing_help_1">Hulp nodig?</string>
@@ -990,7 +990,7 @@
   <string name="voucher_buy_header">Voucher voor %s</string>
   <string name="voucher_buy_short_header">Voucher:</string>
   <string name="voucher_buy_no_game_title">Heb je geen %s?</string>
-  <string name="voucher_buy_no_game_install_button">Download now</string>
+  <string name="voucher_buy_no_game_install_button">Download nu</string>
   <string name="voucher_code_title">Vouchercode</string>
   <string name="voucher_instructions_body">Ga naar %s en gebruik de code om je voucher in te wisselen.</string>
   <string name="voucher_instructions_transactions">Je kunt de vouchercode altijd in de transactiegeschiedenis terugvinden.</string>
@@ -1096,13 +1096,13 @@
   <string name="mywallet_unverified_body">Verifieer een betaalmethode om blokkades te voorkomen.</string>
   <string name="mywallet_backed_up_date">Je hebt op %s een back-up van je wallet gemaakt.</string>
   <string name="mywallet_backup_again_button">Opnieuw een back-up maken</string>
-  <string name="mywallet_verify_payment_method_button">Verify new card</string>
+  <string name="mywallet_verify_payment_method_button">Nieuwe kaart verifiëren</string>
   <string name="mywallet_choose_name_header">Kies een naam voor je wallet</string>
   <string name="mywallet_choose_name_field">Voer hier de naam van je wallet in...</string>
   <string name="mywallet_choose_name_confirmed">Naam van de wallet is gewijzigd</string>
   <string name="mywallet_unnamed_wallet">Wallet %s heeft geen naam</string>
   <string name="mywallet_swithing_wallets_title">Wallet wijzigen...</string>
-  <string name="mywallet_address_title">Address:</string>
+  <string name="mywallet_address_title">Adres:</string>
   <!-- Onboarding for new users coming from an iap -->
   <string name="onboarding_1st_title">Gefeliciteerd! Je hebt de AppCoins Wallet geïnstalleerd.</string>
   <string name="onboarding_1st_body">Ga terug naar de game om je aankoop te voltooien.</string>
@@ -1168,12 +1168,12 @@
   <string name="intro_backup_card_title">Don\'t loose your funds!</string>
   <string name="intro_backup_card_body">Back up your wallet and keep it safe all times.</string>
   <string name="rewards_spend_to_next_level_body">Spend more %1$s%2$s to reach the net level!</string>
-  <string name="rewards_current_bonus_title">%s%% bonus on every purchase</string>
+  <string name="rewards_current_bonus_title">%s%% bonus bij elke aankoop</string>
   <string name="rewards_eskills_card_title">Earn Money!</string>
   <string name="rewards_eskills_card_body">Beat other players with e-Skills</string>
   <string name="rewards_promo_code_card_title">Promo Codes</string>
   <string name="rewards_promo_code_card_body">Use a promo code to get special deals!</string>
   <string name="rewards_promo_code_status">Status:</string>
-  <string name="rewards_promo_code_status_active">Active</string>
-  <string name="rewards_promo_code_status_expired">Expired</string>
+  <string name="rewards_promo_code_status_active">Actief</string>
+  <string name="rewards_promo_code_status_expired">Verlopen</string>
 </resources>
