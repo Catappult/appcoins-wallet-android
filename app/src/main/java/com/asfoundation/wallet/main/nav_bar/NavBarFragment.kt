@@ -5,6 +5,18 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material.BottomAppBar
+import androidx.compose.material.MaterialTheme
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
@@ -13,12 +25,15 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI.onNavDestinationSelected
 import androidx.navigation.ui.setupWithNavController
 import by.kirich1409.viewbindingdelegate.viewBinding
-import com.asf.wallet.R
-import com.asf.wallet.databinding.NavBarFragmentBinding
 import com.appcoins.wallet.ui.arch.SingleStateFragment
 import com.appcoins.wallet.ui.common.createColoredString
 import com.appcoins.wallet.ui.common.setTextFromColored
+import com.appcoins.wallet.ui.common.theme.GuidelineColors
+import com.appcoins.wallet.ui.widgets.component.RoundedButtonWithIcon
+import com.asf.wallet.R
+import com.asf.wallet.databinding.NavBarFragmentBinding
 import com.asfoundation.wallet.main.MainActivity
+import com.asfoundation.wallet.ui.bottom_navigation.Destinations
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import com.google.android.material.bottomnavigation.BottomNavigationItemView
 import com.google.android.material.bottomnavigation.BottomNavigationMenuView
@@ -56,12 +71,74 @@ class NavBarFragment : BasePageViewFragment(),
     viewModel.collectStateAndEvents(lifecycle, viewLifecycleOwner.lifecycleScope)
     setBottomNavListener()
     setVipCalloutClickListener()
+    views.composeView.setContent { MaterialTheme { BottomNavigationHome() } }
+  }
+
+  private val selectedItem = mutableStateOf(Destinations.HOME.ordinal)
+
+  @Composable
+  fun BottomNavigationHome() {
+    BottomAppBar(
+      backgroundColor = GuidelineColors.purple,
+      cutoutShape = CircleShape,
+      elevation = 8.dp,
+      modifier = Modifier.height(72.dp),
+      content = {
+        Row(
+          horizontalArrangement = Arrangement.SpaceEvenly,
+          modifier = Modifier.fillMaxWidth()
+        ) {
+
+          navigationItems().forEach { item ->
+            RoundedButtonWithIcon(
+              id = item.id.ordinal,
+              icon = item.icon,
+              label = item.label,
+              selected = selectedItem.value == item.id.ordinal,
+              onClick = item.onClick,
+              selectedItem = selectedItem
+            )
+          }
+        }
+      }
+    )
+  }
+
+  @Preview
+  @Composable
+  fun PreviewBottomNavigationHome() {
+    BottomNavigationHome()
   }
 
   override fun onResume() {
     super.onResume()
     viewModel.handleVipCallout()
   }
+
+  private fun navigationItems() = listOf(
+    NavigationItem(
+      id = Destinations.HOME,
+      label = R.string.topup_home_button,
+      icon = R.drawable.ic_home,
+      selected = true,
+      onClick = { navigator.navigateToHome() }
+    ),
+    NavigationItem(
+      id = Destinations.REWARDS,
+      label = R.string.perks_title,
+      icon = R.drawable.ic_rewards,
+      selected = false,
+      onClick = { navigator.navigateToPromotions() }
+    )
+  )
+
+  data class NavigationItem(
+    val id: Destinations,
+    val icon: Int,
+    val label: Int,
+    val selected: Boolean,
+    val onClick: () -> Unit = { }
+  )
 
   private fun initHostFragments() {
     navHostFragment = childFragmentManager.findFragmentById(
