@@ -4,6 +4,11 @@ plugins {
 
 android {
   namespace = "com.appcoins.wallet.ui.common"
+  defaultConfig {
+    buildFeatures {
+      compose = true
+    }
+  }
 }
 
 dependencies {

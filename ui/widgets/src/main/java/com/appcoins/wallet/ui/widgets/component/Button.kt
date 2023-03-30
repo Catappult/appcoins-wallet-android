@@ -11,43 +11,43 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import com.appcoins.wallet.ui.common.theme.GuidelineColors
-
+import com.appcoins.wallet.ui.common.theme.WalletColors
 
 @Composable
 fun RoundedButtonWithIcon(
-  id: Int = 0,
   icon: Int,
   label: Int,
-  selected: Boolean,
   onClick: () -> Unit,
-  selectedItem: MutableState<Int>
+  destinationId: Int = 0,
+  selected: Boolean = true,
+  clickedItem: MutableState<Int>? = null
 ) {
   Button(
     onClick = {
       onClick.invoke()
-      selectedItem.value = id
+      if (clickedItem != null) clickedItem.value = destinationId
     },
     modifier = Modifier
       .height(48.dp),
     shape = CircleShape,
     colors = ButtonDefaults.buttonColors(
-      backgroundColor = if (selected) GuidelineColors.pink else GuidelineColors.purple
+      backgroundColor = if (selected) WalletColors.pink else WalletColors.purple
     ),
     elevation = null
   ) {
     Row(verticalAlignment = Alignment.CenterVertically) {
+      val contentColor = if (selected) Color.White else WalletColors.grey
       Icon(
         painter = painterResource(id = icon),
         contentDescription = null,
-        tint = Color.White,
+        tint = contentColor,
         modifier = Modifier.size(24.dp)
       )
       Spacer(modifier = Modifier.width(8.dp))
       Text(
         text = stringResource(label),
         style = MaterialTheme.typography.button,
-        color = Color.White
+        color = contentColor
       )
     }
   }

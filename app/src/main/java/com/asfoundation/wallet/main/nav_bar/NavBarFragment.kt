@@ -13,7 +13,6 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.BottomAppBar
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -28,7 +27,7 @@ import by.kirich1409.viewbindingdelegate.viewBinding
 import com.appcoins.wallet.ui.arch.SingleStateFragment
 import com.appcoins.wallet.ui.common.createColoredString
 import com.appcoins.wallet.ui.common.setTextFromColored
-import com.appcoins.wallet.ui.common.theme.GuidelineColors
+import com.appcoins.wallet.ui.common.theme.WalletColors
 import com.appcoins.wallet.ui.widgets.component.RoundedButtonWithIcon
 import com.asf.wallet.R
 import com.asf.wallet.databinding.NavBarFragmentBinding
@@ -74,29 +73,26 @@ class NavBarFragment : BasePageViewFragment(),
     views.composeView.setContent { MaterialTheme { BottomNavigationHome() } }
   }
 
-  private val selectedItem = mutableStateOf(Destinations.HOME.ordinal)
-
   @Composable
   fun BottomNavigationHome() {
     BottomAppBar(
-      backgroundColor = GuidelineColors.purple,
+      backgroundColor = WalletColors.purple,
       cutoutShape = CircleShape,
-      elevation = 8.dp,
-      modifier = Modifier.height(72.dp),
+      modifier = Modifier.height(64.dp),
       content = {
         Row(
           horizontalArrangement = Arrangement.SpaceEvenly,
           modifier = Modifier.fillMaxWidth()
         ) {
 
-          navigationItems().forEach { item ->
+          viewModel.navigationItems().forEach { item ->
             RoundedButtonWithIcon(
-              id = item.id.ordinal,
+              destinationId = item.destination.ordinal,
               icon = item.icon,
               label = item.label,
-              selected = selectedItem.value == item.id.ordinal,
-              onClick = item.onClick,
-              selectedItem = selectedItem
+              selected = viewModel.clickedItem.value == item.destination.ordinal,
+              onClick = { navigateToDestination(item.destination) },
+              clickedItem = viewModel.clickedItem
             )
           }
         }
@@ -115,30 +111,12 @@ class NavBarFragment : BasePageViewFragment(),
     viewModel.handleVipCallout()
   }
 
-  private fun navigationItems() = listOf(
-    NavigationItem(
-      id = Destinations.HOME,
-      label = R.string.topup_home_button,
-      icon = R.drawable.ic_home,
-      selected = true,
-      onClick = { navigator.navigateToHome() }
-    ),
-    NavigationItem(
-      id = Destinations.REWARDS,
-      label = R.string.perks_title,
-      icon = R.drawable.ic_rewards,
-      selected = false,
-      onClick = { navigator.navigateToPromotions() }
-    )
-  )
-
-  data class NavigationItem(
-    val id: Destinations,
-    val icon: Int,
-    val label: Int,
-    val selected: Boolean,
-    val onClick: () -> Unit = { }
-  )
+  private fun navigateToDestination(destinations: Destinations) {
+    when (destinations) {
+      Destinations.HOME -> navigator.navigateToHome()
+      Destinations.REWARDS -> navigator.navigateToMyWallets() //TODO Change it to Rewards
+    }
+  }
 
   private fun initHostFragments() {
     navHostFragment = childFragmentManager.findFragmentById(

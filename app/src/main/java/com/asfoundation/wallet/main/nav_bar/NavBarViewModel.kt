@@ -1,16 +1,20 @@
 package com.asfoundation.wallet.main.nav_bar
 
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.viewModelScope
-import com.asfoundation.wallet.app_start.AppStartUseCase
-import com.asfoundation.wallet.app_start.StartMode
 import com.appcoins.wallet.ui.arch.BaseViewModel
 import com.appcoins.wallet.ui.arch.SideEffect
 import com.appcoins.wallet.ui.arch.ViewState
+import com.asf.wallet.R
+import com.asfoundation.wallet.app_start.AppStartUseCase
+import com.asfoundation.wallet.app_start.StartMode
 import com.asfoundation.wallet.main.use_cases.HasSeenPromotionTooltipUseCase
 import com.asfoundation.wallet.main.use_cases.IsNewVipUseCase
 import com.asfoundation.wallet.main.use_cases.SetVipPromotionsSeenUseCase
 import com.asfoundation.wallet.promotions.PromotionUpdateScreen
 import com.asfoundation.wallet.promotions.PromotionsInteractor
+import com.asfoundation.wallet.ui.bottom_navigation.Destinations
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
@@ -35,6 +39,8 @@ class NavBarViewModel @Inject constructor(
   private val setVipPromotionsSeenUseCase: SetVipPromotionsSeenUseCase,
   private val appStartUseCase: AppStartUseCase
 ) : BaseViewModel<NavBarState, NavBarSideEffect>(NavBarState()) {
+
+  val clickedItem: MutableState<Int> = mutableStateOf(Destinations.HOME.ordinal)
 
   init {
     handlePromotionUpdateNotification()
@@ -96,4 +102,19 @@ class NavBarViewModel @Inject constructor(
     setVipPromotionsSeenUseCase(true)
       .scopedSubscribe()
   }
+
+  fun navigationItems() = listOf(
+    NavigationItem(
+      destination = Destinations.HOME,
+      label = R.string.intro_home_button,
+      icon = R.drawable.ic_home,
+      selected = true
+    ),
+    NavigationItem(
+      destination = Destinations.REWARDS,
+      label = R.string.intro_rewards_button,
+      icon = R.drawable.ic_rewards,
+      selected = false
+    )
+  )
 }

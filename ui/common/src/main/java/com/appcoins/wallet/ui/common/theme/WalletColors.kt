@@ -2,7 +2,7 @@ package com.appcoins.wallet.ui.common.theme
 
 import androidx.compose.ui.graphics.Color
 
-object GuidelineColors {
+object WalletColors {
   val pink = Color(0xFFFF6381)
   val darkPurple = Color(0xFF1A1A24)
   val purple = Color(0xFF242333)
