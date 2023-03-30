@@ -26,7 +26,7 @@
   <string name="network_label">ネットワーク</string>
   <string name="credits">クレジット</string>
   <string name="label_new">新しい</string>
-  <string name="got_it_button">Got it</string>
+  <string name="got_it_button">了解</string>
   <string name="change_button">変更</string>
   <string name="vip">VIP</string>
   <string name="faq">FAQ</string>
@@ -346,7 +346,7 @@
   <string name="gamification_transaction_title">@string/gamification_level_bonus</string>
   <string name="gamification_purchase_header">この購入にはボーナスが付きます！</string>
   <string name="gamification_purchase_header_part_1">購入特典:</string>
-  <string name="gamification_purchase_header_part_2">%s in AppCoins Credits</string>
+  <string name="gamification_purchase_header_part_2">AppCoinsクレジットで%s</string>
   <string name="gamification_purchase_body">このボーナスは、次回の購入でご利用いただけます。</string>
   <string name="gamification_purchase_completed_bonus_received_done">完了</string>
   <string name="gamification_purchase_completed_bonus_received">ボーナスを受け取りました</string>
@@ -374,7 +374,7 @@
   <string name="provide_wallet_allow_once_button">一度許可する</string>
   <string name="provide_wallet_completed_header">ウォレットがAptoideと結合しました！</string>
   <string name="provide_wallet_create_body">あなたはウォレットアドレスが必要です！ AppCoins ウォレットで作成するには、次の手順に従ってください。</string>
-  <string name="provide_wallet_create_wallet_button">Create</string>
+  <string name="provide_wallet_create_wallet_button">作成</string>
   <string name="provide_wallet_creating_wallet_header">ウオレットの準備中&#8230;</string>
   <string name="provide_wallet_created_header">ウォレットアドレスが作成されました！</string>
   <string name="provide_wallet_empty_state">あなたはまだAppCoins ウォレットによりアドレスを他のアプリに提供することを許可していません。</string>
@@ -389,7 +389,7 @@
   <string name="topup_completed_2_with_bonus">がアカウントに入金されました.. そしてボーナスも獲得!</string>
   <string name="topup_completed_2_without_bonus">が口座に入金されました。</string>
   <string name="topup_bonus_header_part_1">チャージボーナス：</string>
-  <string name="topup_bonus_header_part_2">%s in AppCoins Credits</string>
+  <string name="topup_bonus_header_part_2">AppCoinsクレジットで%s</string>
   <string name="topup_bonus_body">このボーナスは、次回の購入でご利用いただけます。</string>
   <string name="topup_minimum_value">最低チャージ額は%sです</string>
   <string name="topup_maximum_value">最高チャージ額は%sです</string>
@@ -461,9 +461,9 @@
   <string name="install_button">インストール</string>
   <string name="get_button">Get</string>
   <string name="see_all_button">See all</string>
-  <string name="transfer_button">Transfer</string>
-  <string name="top_up_button">Top Up</string>
-  <string name="back_up_button">Back up wallet</string>
+  <string name="transfer_button">移動</string>
+  <string name="top_up_button">トップアップ</string>
+  <string name="back_up_button">ウォレットをバックアップ</string>
   <string name="play_button">Play</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">AppCoins Walletの%1$sと%2$sに同意します。</string>
@@ -621,7 +621,7 @@
   <string name="referral_share_sheet_title">招待リンクを共有：</string>
   <string name="referral_view_unverified_body">友達1人につき%s相当のAppCoinsクレジットを受け取ることができます。まず、あなたのウォレットを確認する必要があります。</string>
   <string name="referral_view_verify_button">ウオレットの認証</string>
-  <string name="referral_view_i_have_been_invited_button">I\'ve been invited</string>
+  <string name="referral_view_i_have_been_invited_button">すでに招待されている方</string>
   <string name="referral_view_dropup_menu_friends_invited">招待済みの友達</string>
   <string name="referral_view_dropup_menu_earned">獲得額</string>
   <string name="referral_dropup_menu_friends_title_1">招待済みの友達</string>
@@ -671,7 +671,7 @@
   <string name="import_wallet_keystore_private_keys">キーストアまたは秘密鍵</string>
   <string name="import_wallet_from_file_title">またはファイルからの復元</string>
   <string name="import_wallet_file_button">ファイルからの復元</string>
-  <string name="import_wallet_button">Recover wallet</string>
+  <string name="import_wallet_button">ウォレットの復元</string>
   <string name="import_wallet_password_body">このウォレットはパスワードで保護されています！</string>
   <string name="import_wallet_wrong_password_body">間違ったパスワードです！</string>
   <string name="error_invalid_private_key">無効な秘密鍵です</string>
@@ -690,7 +690,7 @@
   <string name="backup_confirmation_tips_2"><b>USBメモリ</b>に保存する。</string>
   <string name="backup_confirmation_tips_3">安全なプライベートクラウドストレージに<b>コピー</b>する。</string>
   <string name="backup_tooltip_body">ウォレットのバックアップを取っておきましょう！</string>
-  <string name="backup_tooltip_later_button">Maybe later</string>
+  <string name="backup_tooltip_later_button">後で</string>
   <string name="backup_tooltip_backup_button">バックアップ</string>
   <string name="backup_notification_title">ウォレットのバックアップを取っておきましょう！</string>
   <string name="backup_notification_body">資金を安全に保管し、常にウォレットにアクセスできるようにしておきましょう。</string>
@@ -718,10 +718,10 @@
   <string name="wallets_imported_body">ウォレットの復元に成功しました</string>
   <string name="wallets_2nd_view_balance_title">残高:</string>
   <string name="wallets_2nd_view_other_wallets_title">他のウォレット</string>
-  <string name="wallets_2nd_view_import_button">Recover wallet</string>
+  <string name="wallets_2nd_view_import_button">ウォレットの復元</string>
   <string name="wallets_2nd_view_create_button">新規作成</string>
   <string name="wallet_view_copy_button">コピー</string>
-  <string name="wallet_view_share_button">Share</string>
+  <string name="wallet_view_share_button">共有する</string>
   <string name="wallet_view_total_balance_title">合計残高</string>
   <string name="wallet_view_remove_button">ウォレットの削除</string>
   <string name="wallet_view_backup_button">ウォレットをバックアップ</string>
@@ -746,7 +746,7 @@
   <string name="transfer_send_token_title">トークン：</string>
   <string name="transfer_send_amount_title">量</string>
   <string name="transfer_send_current_balance_title">現在の残高：</string>
-  <string name="transfer_send_button">Send</string>
+  <string name="transfer_send_button">送信</string>
   <string name="transfer_receive_body">資金を受け取るにはウォレットのアドレスを共有してください。</string>
   <!--Support Notifications-->
   <string name="support_new_message_title">新しいメッセージを受け取りました！</string>
@@ -783,7 +783,7 @@
   <string name="subscriptions_expiration_body">%sに期限切れ</string>
   <string name="subscriptions_canceled_body">キャンセル済み</string>
   <string name="subscriptions_details_disclaimer">次回のお支払い時には、為替レートによりAppCoinの価値が変動する場合があります。</string>
-  <string name="subscriptions_details_button">Details</string>
+  <string name="subscriptions_details_button">詳細</string>
   <string name="subscriptions_manage_button">サブスクリプションの管理</string>
   <string name="subscriptions_cancel_button">サブスクリプションのキャンセル</string>
   <string name="subscriptions_renew_subscription_button">サブスクリプションの更新</string>
@@ -866,7 +866,7 @@
   <string name="carrier_billing_enter_pin_body">SMSで受け取ったPINを入力してください。</string>
   <string name="carrier_billing_code_field">コードを入力...</string>
   <string name="carrier_billing_code_resend_button">コードを再送信</string>
-  <string name="carrier_billing_submit_button">Submit</string>
+  <string name="carrier_billing_submit_button">提出する</string>
   <string name="carrier_billing_number_not_supported">あなたの番号は、この支払い方法に対応していないようです。</string>
   <string name="carrier_billing_terms_disclaimer">「送信」をタップすることで「利用規約」と「プライバシーポリシー」に同意したことになります。</string>
   <string name="carrier_billing_help_1">ヘルプが必要ですか？</string>
@@ -1087,13 +1087,13 @@
   <string name="mywallet_unverified_body">支払い方法を確認することで、詰まりを回避することができます。</string>
   <string name="mywallet_backed_up_date">%sにウォレットをバックアップしました。</string>
   <string name="mywallet_backup_again_button">再度バックアップ</string>
-  <string name="mywallet_verify_payment_method_button">Verify new card</string>
+  <string name="mywallet_verify_payment_method_button">新しいカードの認証</string>
   <string name="mywallet_choose_name_header">ウォレットの名前を決める</string>
   <string name="mywallet_choose_name_field">ここにウォレットの名前...</string>
   <string name="mywallet_choose_name_confirmed">ウォレット名が変更されました</string>
   <string name="mywallet_unnamed_wallet">名前なしウォレット %s</string>
   <string name="mywallet_swithing_wallets_title">ウォレットの入れ替え中...</string>
-  <string name="mywallet_address_title">Address:</string>
+  <string name="mywallet_address_title">住所:</string>
   <!-- Onboarding for new users coming from an iap -->
   <string name="onboarding_1st_title">おめでとうございます。AppCoins Walletのインストールが完了しました。</string>
   <string name="onboarding_1st_body">ゲームに戻り、購入を完了させてください。</string>
@@ -1137,7 +1137,7 @@
   <string name="intro_appcoins_games_header">Discover Games with AppCoins</string>
   <string name="intro_active_promotions_header">Active Promotions</string>
   <string name="topup_home_button">トップアップします。</string>
-  <string name="intro_home_button">Home</string>
+  <string name="intro_home_button">ホーム</string>
   <string name="intro_rewards_button">Rewards</string>
   <plurals name="days">
     <item quantity="other">DAYS</item>
@@ -1155,12 +1155,12 @@
   <string name="intro_backup_card_title">Don\'t loose your funds!</string>
   <string name="intro_backup_card_body">Back up your wallet and keep it safe all times.</string>
   <string name="rewards_spend_to_next_level_body">Spend more %1$s%2$s to reach the net level!</string>
-  <string name="rewards_current_bonus_title">%s%% bonus on every purchase</string>
+  <string name="rewards_current_bonus_title">購入毎に最大%s%%のボーナス</string>
   <string name="rewards_eskills_card_title">Earn Money!</string>
   <string name="rewards_eskills_card_body">Beat other players with e-Skills</string>
   <string name="rewards_promo_code_card_title">Promo Codes</string>
   <string name="rewards_promo_code_card_body">Use a promo code to get special deals!</string>
-  <string name="rewards_promo_code_status">Status:</string>
-  <string name="rewards_promo_code_status_active">Active</string>
-  <string name="rewards_promo_code_status_expired">Expired</string>
+  <string name="rewards_promo_code_status">状況:</string>
+  <string name="rewards_promo_code_status_active">有効</string>
+  <string name="rewards_promo_code_status_expired">期限切れ</string>
 </resources>
