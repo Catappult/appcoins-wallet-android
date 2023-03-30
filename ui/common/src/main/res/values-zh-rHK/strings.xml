@@ -1137,7 +1137,7 @@
   <string name="intro_appcoins_games_header">Discover Games with AppCoins</string>
   <string name="intro_active_promotions_header">Active Promotions</string>
   <string name="topup_home_button">Top Up</string>
-  <string name="intro_home_button">Home</string>
+  <string name="intro_home_button">首页</string>
   <string name="intro_rewards_button">Rewards</string>
   <plurals name="days">
     <item quantity="other">DAYS</item>
