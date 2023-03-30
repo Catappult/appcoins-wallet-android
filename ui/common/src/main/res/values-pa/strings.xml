@@ -29,8 +29,8 @@
   <string name="got_it_button">ਮਿਲ ਗਿਆ</string>
   <string name="change_button">ਬਦਲੋ</string>
   <string name="vip">ਵੀਈਪੀ</string>
-  <string name="faq">FAQs</string>
-  <string name="about_us_title">About Us</string>
+  <string name="faq">ਸਵਾਲ ਜਵਾਬ</string>
+  <string name="about_us_title">ਸਾਡੇ ਬਾਰੇ</string>
   <string name="preferences_title">Preferences</string>
   <string name="low_storage_error">ਸਟੋਰੇਜ ਲਈ ਕਾਫ਼ੀ ਜਗ੍ਹਾ ਕਾਫੀ ਨਹੀਂ ਹੈ</string>
   <string name="no_camera_permission_title">ਕੈਮਰਾ ਅਧਿਕਾਰ</string>
@@ -346,7 +346,7 @@
   <string name="gamification_transaction_title">@string/gamification_level_bonus</string>
   <string name="gamification_purchase_header">ਇਸ ਖਰੀਦ ਵਿੱਚ ਇੱਕ ਬੋਨਸ ਹੈ!</string>
   <string name="gamification_purchase_header_part_1">ਖਰੀਦ ਦਾ ਬੋਨਸ:</string>
-  <string name="gamification_purchase_header_part_2">%s in AppCoins Credits</string>
+  <string name="gamification_purchase_header_part_2">ਐਪ ਸਿੱਕੇ ਕ੍ਰੈਡਿਟਾਂ ਵਿੱਚ %s</string>
   <string name="gamification_purchase_body">ਤੁਸੀਂ ਇਸ ਬੋਨਸ ਨੂੰ ਆਪਣੀ ਅਗਲੀ ਖਰੀਦ ਵਿਚ ਵਰਤ ਸਕਦੇ ਹੋ|</string>
   <string name="gamification_purchase_completed_bonus_received_done">ਹੋ ਗਿਆ!</string>
   <string name="gamification_purchase_completed_bonus_received">ਬੋਨਸ ਪ੍ਰਾਪਤ ਹੋਇਆ</string>
@@ -374,7 +374,7 @@
   <string name="provide_wallet_allow_once_button">ਇੱਕ ਵਾਰ ਮਨਜ਼ੂਰੀ ਦਿਓ</string>
   <string name="provide_wallet_completed_header">ਬਟੂਆ ਐਪਟਾਇਡ ਨਾਲ ਜੋੜਿਆ ਗਿਆ!</string>
   <string name="provide_wallet_create_body">ਤੁਹਾਨੂੰ ਬਟੂਏ ਦੇ ਇੱਕ ਪਤੇ ਦੀ ਲੋੜ ਹੈ! ਐਪ ਸਿੱਕੇ ਬਟੂਏ ਵਿੱਚ ਇੱਕ ਬਣਾਉਣ ਲਈ ਇਨ੍ਹਾਂ ਚਰਣਾਂ ​​ਦੀ ਪਾਲਣਾ ਕਰੋ|</string>
-  <string name="provide_wallet_create_wallet_button">Create</string>
+  <string name="provide_wallet_create_wallet_button">ਬਣਾਓ</string>
   <string name="provide_wallet_creating_wallet_header">Preparing your wallet&#8230;</string>
   <string name="provide_wallet_created_header">ਬਟੂਏ ਦਾ ਪਤਾ ਬਣਾਇਆ ਗਿਆ!</string>
   <string name="provide_wallet_empty_state">ਤੁਸੀ ਐਪ ਸਿੱਕੇ ਬਟੂਏ ਨੂੰ ਕਿਸੇ ਵੀ ਹੋਰ ਐਪ ਨੂੰ ਐਪ ਸਿੱਕੇ ਬਟੂਏ ਦਾ ਪਤਾ ਦੱਸਣ ਦੀ ਆਗਿਆ ਨਹੀਂ ਦਿੱਤੀ|</string>
@@ -389,7 +389,7 @@
   <string name="topup_completed_2_with_bonus">ਤੁਹਾਡੇ ਖਾਤੇ ਵਿੱਚ ਜਮ੍ਹਾਂ ਕੀਤੇ ਗਏ... ਬੋਨਸ ਦੇ ਨਾਲ!</string>
   <string name="topup_completed_2_without_bonus">ਤੁਹਾਡੇ ਖਾਤੇ ਵਿੱਚ ਜਮ੍ਹਾ ਕੀਤੇ ਗਏ ਸਨ|</string>
   <string name="topup_bonus_header_part_1">ਬੋਨਸ ਦਾ ਰਿਚਾਰਜ:</string>
-  <string name="topup_bonus_header_part_2">%s in AppCoins Credits</string>
+  <string name="topup_bonus_header_part_2">ਐਪ ਸਿੱਕੇ ਕ੍ਰੈਡਿਟਾਂ ਵਿੱਚ %s</string>
   <string name="topup_bonus_body">ਤੁਸੀਂ ਇਸ ਬੋਨਸ ਨੂੰ ਆਪਣੀ ਅਗਲੀ ਖਰੀਦ ਵਿਚ ਵਰਤ ਸਕਦੇ ਹੋ|</string>
   <string name="topup_minimum_value">ਪੈਸੇ ਭਰਨ ਦਾ ਨਿਊਨਤਮ ਮੁੱਲ %s ਹੈ|</string>
   <string name="topup_maximum_value">ਪੈਸੇ ਭਰਨ ਦਾ ਅਧਿਕਤਮ ਮੁੱਲ %s ਹੈ|</string>
@@ -461,9 +461,9 @@
   <string name="install_button">ਇੰਸਟਾਲ</string>
   <string name="get_button">Get</string>
   <string name="see_all_button">See all</string>
-  <string name="transfer_button">Transfer</string>
-  <string name="top_up_button">Top Up</string>
-  <string name="back_up_button">Back up wallet</string>
+  <string name="transfer_button">ਟ੍ਰਾਂਸਫਰ</string>
+  <string name="top_up_button">ਟੋਪ ਅੱਪ</string>
+  <string name="back_up_button">ਬੈਕਅਪ ਬਟੂਆ</string>
   <string name="play_button">Play</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">ਮੈਂ ਐਪ ਸਿੱਕੇ ਬਟੂਏ %1$s ਅਤੇ %2$s ਨਾਲ ਸਹਿਮਤ ਹਾਂ|</string>
@@ -621,7 +621,7 @@
   <string name="referral_share_sheet_title">ਸੱਦੇ ਵਾਲੇ ਲਿੰਕ ਨੂੰ ਇਸ ਰਾਹੀਂ ਸਾਂਝਾ ਕਰੋ:</string>
   <string name="referral_view_unverified_body">ਹਰ ਇੱਕ ਦੋਸਤ ਲਈ %s ਮੁੱਲ ਦੇ ਐਪ ਸਿੱਕੇ ਕ੍ਰੈਡਿਟ ਪ੍ਰਾਪਤ ਕਰੋ। ਤੁਹਾਨੂੰ ਪਹਿਲਾਂ ਆਪਣੇ ਬਟੂਏ ਦੀ ਪੁਸ਼ਟੀ ਕਰਨ ਦੀ ਲੋੜ ਹੈ।</string>
   <string name="referral_view_verify_button">ਬਟੂਏ ਦੀ ਤਸਦੀਕ ਕਰੋ</string>
-  <string name="referral_view_i_have_been_invited_button">I\'ve been invited</string>
+  <string name="referral_view_i_have_been_invited_button">ਮੈਨੂੰ ਬੁਲਾਇਆ ਗਿਆ ਹੈ</string>
   <string name="referral_view_dropup_menu_friends_invited">ਦੋਸਤ ਬੁਲਾਏ ਗਏ</string>
   <string name="referral_view_dropup_menu_earned">ਕਮਾਏ</string>
   <string name="referral_dropup_menu_friends_title_1">ਦੋਸਤ ਬੁਲਾਏ ਗਏ</string>
@@ -671,7 +671,7 @@
   <string name="import_wallet_keystore_private_keys">ਚਾਬੀ ਸਟੋਰ ਜਾਂ ਨਿਜੀ ਕੁੰਜੀਆਂ</string>
   <string name="import_wallet_from_file_title">ਜਾਂ ਫਾਈਲ ਤੋਂ ਰਿਕਵਰ ਕਰੋ</string>
   <string name="import_wallet_file_button">ਫਾਈਲ ਤੋਂ ਰਿਕਵਰ ਕਰੋ</string>
-  <string name="import_wallet_button">Recover wallet</string>
+  <string name="import_wallet_button">ਬਟੂਆ ਮੁੜ ਪ੍ਰਾਪਤ ਕਰੋ</string>
   <string name="import_wallet_password_body">ਇਹ ਬਟੂਆ ਪਾਸਵਰਡ ਨਾਲ ਸੁਰੱਖਿਅਤ ਹੈ!</string>
   <string name="import_wallet_wrong_password_body">ਓਹ ਹੋ, ਗਲਤ ਪਾਸਵਰਡ!</string>
   <string name="error_invalid_private_key">ਗਲਤ ਨਿਜੀ ਚਾਬੀ</string>
@@ -690,7 +690,7 @@
   <string name="backup_confirmation_tips_2">ਇਸਨੂੰ ਇੱਕ ਯੂਐਸਬੀ ਡਰਾਈਵ ਤੇ <b>ਸੁਰੱਖਿਅਤ</b> ਕਰੋ|</string>
   <string name="backup_confirmation_tips_3">ਇਸ ਨੂੰ ਇੱਕ ਨਿਜੀ ਅਤੇ ਸੁਰੱਖਿਅਤ ਕਲਾਉਡ ਸਟੋਰੇਜ ਤੇ <b>ਕਾਪੀ</b> ਕਰੋ|</string>
   <string name="backup_tooltip_body">ਆਪਣੇ ਬਟੂਏ ਦਾ ਬੈਕਅਪ ਬਣਾਓ!</string>
-  <string name="backup_tooltip_later_button">Maybe later</string>
+  <string name="backup_tooltip_later_button">ਫੇਰ ਕਦੇ</string>
   <string name="backup_tooltip_backup_button">ਬੈਕਅੱਪ ਕਰੋ</string>
   <string name="backup_notification_title">ਆਪਣੇ ਬਟੂਏ ਦਾ ਬੈਕਅਪ ਬਣਾਓ!</string>
   <string name="backup_notification_body">ਆਪਣੇ ਫੰਡਾਂ ਨੂੰ ਸੁਰੱਖਿਅਤ ਰੱਖੋ ਅਤੇ ਇਹ ਸੁਨਿਸ਼ਚਿਤ ਕਰੋ ਕਿ ਤੁਸੀਂ ਹਮੇਸ਼ਾਂ ਆਪਣੇ ਬਟੂਏ ਨੂੰ ਵਰਤ ਕਰ ਸਕਦੇ ਹੋ|</string>
@@ -700,7 +700,7 @@
   <string name="backup_additional_security_password_not_march">ਪਾਸਵਰਡ ਮੇਲ ਨਹੀਂ ਖਾਂਦੇ|</string>
   <string name="import_wallet_recovering_body">ਬਟੂਆ ਮੁੜ ਪ੍ਰਾਪਤ ਹੋ ਰਿਹਾ ਹੈ...</string>
   <string name="backup_skip_title">ਮੈਂ ਸਮਝਦਾ/ਸਮਝਦੀ ਹਾਂ ਕਿ ਜੇਕਰ ਮੈਂ ਆਪਣੀ ਬਟੂਆ ਕੁੰਜੀ ਦਾ ਬੈਕਅੱਪ ਨਹੀਂ ਲਿਆ ਤਾਂ ਮੈਂ ਆਪਣੇ ਫੰਡ ਗੁਆ ਸਕਦਾ ਹਾਂ।</string>
-  <string name="backup_wallet_button">Backup wallet</string>
+  <string name="backup_wallet_button">ਬੈਕਅਪ ਬਟੂਆ</string>
   <string name="backup_success_save_on_email">ਤੁਹਾਡੀ ਬੈਕਅੱਪ ਫਾਈਲ ਤੁਹਾਡੀ ਈਮੇਲ ਵਿੱਚ ਹੈ।</string>
   <string name="backup_success_save_on_device">ਤੁਹਾਡੀ ਬੈਕਅੱਪ ਫਾਈਲ ਤੁਹਾਡੀ ਡਿਵਾਈਸ ਵਿੱਚ ਹੈ।</string>
   <string name="backup_popup_title">ਹੁਣੇ ਆਪਣੇ ਬਟੂਏ ਦਾ ਬੈਕਅੱਪ ਲਓ!</string>
@@ -719,10 +719,10 @@
   <string name="wallets_imported_body">ਬਟੂਆ ਸਫਲਤਾਪੂਰਵਕ ਠੀਕ ਹੋ ਗਿਆ</string>
   <string name="wallets_2nd_view_balance_title">ਰਕਮ:</string>
   <string name="wallets_2nd_view_other_wallets_title">ਹੋਰ ਬਟੂਏ</string>
-  <string name="wallets_2nd_view_import_button">Recover wallet</string>
+  <string name="wallets_2nd_view_import_button">ਬਟੂਆ ਮੁੜ ਪ੍ਰਾਪਤ ਕਰੋ</string>
   <string name="wallets_2nd_view_create_button">ਨਵਾਂ ਬਣਾਓ</string>
   <string name="wallet_view_copy_button">ਕਾਪੀ ਕਰੋ</string>
-  <string name="wallet_view_share_button">Share</string>
+  <string name="wallet_view_share_button">ਸ਼ੇਅਰ</string>
   <string name="wallet_view_total_balance_title">ਕੁੱਲ ਰਕਮ</string>
   <string name="wallet_view_remove_button">ਬਟੂਆ ਹਟਾਓ</string>
   <string name="wallet_view_backup_button">ਬੈਕਅਪ ਬਟੂਆ</string>
@@ -747,7 +747,7 @@
   <string name="transfer_send_token_title">ਟੋਕਨ:</string>
   <string name="transfer_send_amount_title">ਰਕਮ</string>
   <string name="transfer_send_current_balance_title">ਮੌਜੂਦਾ ਬਕਾਇਆ:</string>
-  <string name="transfer_send_button">Send</string>
+  <string name="transfer_send_button">ਭੇਜੋ</string>
   <string name="transfer_receive_body">ਪੈਸੇ ਪ੍ਰਾਪਤ ਕਰਨ ਲਈ ਆਪਣੇ ਬਟੂਏ ਦਾ ਪਤਾ ਸਾਂਝਾ ਕਰੋ|</string>
   <!--Support Notifications-->
   <string name="support_new_message_title">ਤੁਹਾਨੂੰ ਇੱਕ ਨਵਾਂ ਮੈਸਜ ਆਇਆ ਹੈ!</string>
@@ -784,7 +784,7 @@
   <string name="subscriptions_expiration_body">%s ਨੂੰ ਇਹ ਖਤਮ ਹੁੰਦਾ ਹੈ</string>
   <string name="subscriptions_canceled_body">ਰੱਦ</string>
   <string name="subscriptions_details_disclaimer">ਐਕਸਚੇਂਜ ਰੇਟ ਕਾਰਨ ਅਗਲੇ ਭੁਗਤਾਨ ਲਈ ਮੁੱਲ ਵੱਖਰਾ ਹੋ ਸਕਦਾ ਹੈ|</string>
-  <string name="subscriptions_details_button">Details</string>
+  <string name="subscriptions_details_button">ਵੇਰਵਾ</string>
   <string name="subscriptions_manage_button">ਸਬਸਕ੍ਰਿਪਸ਼ਨ ਦਾ ਪ੍ਰਬੰਧਨ</string>
   <string name="subscriptions_cancel_button">ਕੈਂਸਲ ਸਬਸਕ੍ਰਿਪਸ਼ਨ</string>
   <string name="subscriptions_renew_subscription_button">ਸਬਸਕ੍ਰਿਪਸ਼ਨ ਰੀਨਿਊ ਕਰੋ</string>
@@ -867,7 +867,7 @@
   <string name="carrier_billing_enter_pin_body">ਕਿਰਪਾ ਕਰਕੇ ਐਸਐਮਐਸ ਦੁਆਰਾ ਪ੍ਰਾਪਤ ਕੀਤਾ ਕੋਡ ਭਰੋ|</string>
   <string name="carrier_billing_code_field">ਤੁਹਾਡਾ ਕੋਡ...</string>
   <string name="carrier_billing_code_resend_button">ਕੋਡ ਦੁਬਾਰਾ ਭੇਜੋ</string>
-  <string name="carrier_billing_submit_button">Submit</string>
+  <string name="carrier_billing_submit_button">ਜਮ੍ਹਾਂ ਕਰੋ</string>
   <string name="carrier_billing_number_not_supported">ਅਜਿਹਾ ਲਗਦਾ ਹੈ ਕਿ ਤੁਹਾਡਾ ਫੋਨ ਨੰਬਰ ਇਸ ਭੁਗਤਾਨ ਵਿਧੀ ਦੇ ਅਨੁਕੂਲ ਨਹੀਂ ਹੈ|</string>
   <string name="carrier_billing_terms_disclaimer">ਜਮ੍ਹਾਂ ਕਰੋ ਤੇ ਦੱਬ ਕੇ, ਤੁਸੀਂ ਪੁਸ਼ਟੀ ਕਰਦੇ ਹੋ ਕਿ ਤੁਸੀਂ ਨਿਯਮ ਅਤੇ ਸ਼ਰਤਾਂ ਅਤੇ ਗੋਪਨੀਯਤਾ ਨੀਤੀ ਨੂੰ ਸਵੀਕਾਰਦੇ ਹੋ|</string>
   <string name="carrier_billing_help_1">ਮਦਦ ਦੀ ਲੋੜ ਹੈ?</string>
@@ -1065,9 +1065,9 @@
   <string name="nfts_title">ਐਨਐਫਟੀ</string>
   <string name="nfts_no_nfts">ਤੁਹਾਡੇ ਕੋਲ ਇਸ ਬਟੂਏ ਵਿੱਚ ਕੋਈ ਐਨਐਫਟੀ ਨਹੀਂ ਹੈ!</string>
   <string name="nfts_transact_button">ਇਹ ਐਨਐਫਟੀ ਭੇਜੋ</string>
-  <string name="nfts_transact_button_send">Send</string>
-  <string name="nfts_transact_button_next">Next</string>
-  <string name="nfts_transact_button_done">Done</string>
+  <string name="nfts_transact_button_send">ਭੇਜੋ</string>
+  <string name="nfts_transact_button_next">ਅਗਲਾ</string>
+  <string name="nfts_transact_button_done">ਹੋ ਗਿਆ</string>
   <string name="nfts_transact_button_success">ਮਿਲ ਗਿਆ</string>
   <string name="nfts_transact_tip">ਆਪਣੇ ਦੋਸਤ ਦੇ ਬਟੂਏ ਦਾ ਪਤਾ ਭਰੋ|</string>
   <string name="nfts_transact_input_tip">ਬਟੂਏ ਦਾ ਪਤਾ ਇੱਥੇ...</string>
@@ -1075,8 +1075,8 @@
   <string name="nfts_generic_error">ਓਹ ਹੋ, ਕੁਝ ਗ਼ਲਤ ਹੋਇਆ|</string>
   <string name="nfts_transact_gas_title">ਕੀ ਤੁਸੀਂ ਜਲਦੀ ਵਿੱਚ ਹੋ?</string>
   <string name="nfts_transact_gas_description">ਚੁਣੋ ਕਿ ਤੁਸੀਂ ਫੀਸਾਂ ਵਿੱਚ ਕਿੰਨਾ ਭੁਗਤਾਨ ਕਰਨਾ ਚਾਹੁੰਦੇ ਹੋ। ਫ਼ੀਸ ਜਿੰਨੀ ਜ਼ਿਆਦਾ ਹੋਵੇਗੀ, ਟ੍ਰਾਂਜੈਕਸ਼ਨ ਓਨੀ ਹੀ ਤੇਜ਼ ਹੋਵੇਗੀ।</string>
-  <string name="nfts_transact_gas_price">Gas Price</string>
-  <string name="nfts_transact_gas_limit">Gas Limit</string>
+  <string name="nfts_transact_gas_price">ਗੈਸ ਦਾ ਮੁੱਲ</string>
+  <string name="nfts_transact_gas_limit">ਗੈਸ ਦੀ ਸੀਮਾ</string>
   <string name="nfts_transact_gas_fee_message">ਟ੍ਰਾਂਜੈਕਸ਼ਨ ਫੀ</string>
   <string name="nfts_transact_error_no_funds">ਕਾਫ਼ੀ ਪੈਸੇ ਨਹੀਂ ਹਨ! ਤੁਹਾਡੇ ਕੋਲ ਫੀਸਾਂ ਦਾ ਭੁਗਤਾਨ ਕਰਨ ਲਈ ਲੋੜੀਂਦਾ ਈਟੀਐੱਚ ਨਹੀਂ ਹੈ।</string>
   <string name="nfts_transact_error_low_gas">ਗੈਸ ਬਹੁਤ ਘੱਟ ਹੈ! ਤੁਹਾਡੇ ਲੈਣ-ਦੇਣ ਨੂੰ ਸਵੀਕਾਰ ਕਰਨ ਲਈ ਨੈੱਟਵਰਕ ਲਈ ਆਪਣੀ ਗੈਸ ਵਧਾਓ।</string>
@@ -1086,7 +1086,7 @@
   <string name="gift_card_field">ਕਾਰਡ ਕੋਡ ਇੱਥੇ...</string>
   <string name="gift_card_done_title">ਕੋਡ ਰੀਡੀਮ ਕੀਤਾ ਗਿਆ!</string>
   <string name="gift_card_done_body">ਆਪਣੀ ਲੈਣ-ਦੇਣ ਸੂਚੀ ਦੀ ਜਾਂਚ ਕਰੋ।</string>
-  <string name="gift_card_error_general_title">Something went wrong!</string>
+  <string name="gift_card_error_general_title">ਕੁੱਝ ਗਲਤ ਹੋ ਗਿਆ!</string>
   <string name="gift_card_error_general_body">ਕਿਰਪਾ ਕਰਕੇ ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰੋ ਜਾਂ ਕੋਈ ਵੱਖਰਾ ਕੋਡ ਵਰਤੋ।</string>
   <string name="gift_card_error_used_title">ਇਹ ਕੋਡ ਪਹਿਲਾਂ ਹੀ ਵਰਤਿਆ ਜਾ ਚੁੱਕਾ ਹੈ!</string>
   <string name="gift_card_error_new_users_title">ਇਹ ਕੋਡ ਸਿਰਫ ਨਵੇਂ ਉਪਭੋਗਤਾਵਾਂ ਲਈ ਹੈ!</string>
@@ -1096,7 +1096,7 @@
   <string name="mywallet_unverified_body">ਰੁਕਾਵਟਾਂ ਤੋਂ ਬਚਣ ਲਈ ਭੁਗਤਾਨ ਵਿਧੀ ਦੀ ਪੁਸ਼ਟੀ ਕਰੋ।</string>
   <string name="mywallet_backed_up_date">ਤੁਸੀਂ %s ਤੇ ਆਪਣੇ ਬਟੂਏ ਦਾ ਬੈਕਅੱਪ ਲਿਆ ਹੈ।</string>
   <string name="mywallet_backup_again_button">ਦੁਬਾਰਾ ਬੈਕਅੱਪ ਲਓ</string>
-  <string name="mywallet_verify_payment_method_button">Verify new card</string>
+  <string name="mywallet_verify_payment_method_button">ਨਵੇਂ ਕਾਰਡ ਦੀ ਤਸਦੀਕ ਕਰੋ</string>
   <string name="mywallet_choose_name_header">ਆਪਣੇ ਬਟੂਏ ਲਈ ਇੱਕ ਨਾਮ ਚੁਣੋ</string>
   <string name="mywallet_choose_name_field">ਬਟੂਏ ਦਾ ਨਾਮ ਇੱਥੇ...</string>
   <string name="mywallet_choose_name_confirmed">ਬਟੂਏ ਦਾ ਨਾਮ ਬਦਲਿਆ ਗਿਆ</string>
@@ -1114,7 +1114,7 @@
   <!-- VIP Program -->
   <string name="vip_program_reached_notification_title">ਵੀਆਈਪੀ ਪ੍ਰੋਗਰਾਮ ਵਿੱਚ ਤੁਹਾਡਾ ਸੁਆਗਤ ਹੈ</string>
   <string name="vip_program_reached_notification_body">ਤੁਸੀਂ ਹੁਣ ਵਿਸ਼ੇਸ਼ ਤਰੱਕੀਆਂ ਅਤੇ ਸੌਦਿਆਂ ਤੱਕ ਪਹੁੰਚ ਵਾਲੇ ਇੱਕ ਵੀਆਈਪੀ ਉਪਭੋਗਤਾ ਹੋ। ਹੋਰ ਵੇਰਵਿਆਂ ਲਈ ਟੈਪ ਕਰੋ!</string>
-  <string name="vip_program_almost_notification_title">Almost there!</string>
+  <string name="vip_program_almost_notification_title">ਲਗਭਗ ਉਥੇ!</string>
   <string name="vip_program_almost_notification_body">ਤੁਸੀਂ ਇੱਕ ਵੀਆਈਪੀ ਉਪਭੋਗਤਾ ਬਣਨ ਜਾ ਰਹੇ ਹੋ। ਹੋਰ ਵੇਰਵਿਆਂ ਲਈ ਟੈਪ ਕਰੋ!</string>
   <string name="vip_program_almost_onboarding_title">ਤੁਸੀਂ ਇੱਕ ਵੀਆਈਪੀ ਉਪਭੋਗਤਾ ਬਣਨ ਜਾ ਰਹੇ ਹੋ!</string>
   <string name="vip_program_almost_onboarding_body">ਵਿਸ਼ੇਸ਼ ਤਰੱਕੀਆਂ ਅਤੇ ਸੌਦਿਆਂ ਤੱਕ ਪਹੁੰਚ ਕਰਨ ਲਈ ਖੇਡਣਾ ਅਤੇ ਖਰੀਦਦਾਰੀ ਕਰਨਾ ਜਾਰੀ ਰੱਖੋ। ਅਲਟੀਮੇਟ ਖਿਡਾਰੀ ਬਣਨ ਲਈ ਤਿਆਰ ਹੋ?</string>
@@ -1174,6 +1174,6 @@
   <string name="rewards_promo_code_card_title">Promo Codes</string>
   <string name="rewards_promo_code_card_body">Use a promo code to get special deals!</string>
   <string name="rewards_promo_code_status">Status:</string>
-  <string name="rewards_promo_code_status_active">Active</string>
-  <string name="rewards_promo_code_status_expired">Expired</string>
+  <string name="rewards_promo_code_status_active">ਐਕਟਿਵ</string>
+  <string name="rewards_promo_code_status_expired">ਮਿਆਦ ਪੁੱਗ ਗਈ</string>
 </resources>
