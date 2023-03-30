@@ -26,7 +26,7 @@
   <string name="network_label">Réseau</string>
   <string name="credits">Crédits</string>
   <string name="label_new">Nouveau</string>
-  <string name="got_it_button">Got it</string>
+  <string name="got_it_button">Je l\'ai eu</string>
   <string name="change_button">Changer</string>
   <string name="vip">VIP</string>
   <string name="faq">FAQs</string>
@@ -346,7 +346,7 @@
   <string name="gamification_transaction_title">@string/gamification_level_bonus</string>
   <string name="gamification_purchase_header">Cet achat a un bonus !</string>
   <string name="gamification_purchase_header_part_1">Bonus d\'achat :</string>
-  <string name="gamification_purchase_header_part_2">%s in AppCoins Credits</string>
+  <string name="gamification_purchase_header_part_2">%s en crédits AppCoins</string>
   <string name="gamification_purchase_body">Vous pouvez utiliser ce bonus pour votre prochain achat.</string>
   <string name="gamification_purchase_completed_bonus_received_done">Terminé !</string>
   <string name="gamification_purchase_completed_bonus_received">Bonus Reçu</string>
@@ -374,7 +374,7 @@
   <string name="provide_wallet_allow_once_button">Autoriser une fois</string>
   <string name="provide_wallet_completed_header">Portefeuille associé à Aptoide !</string>
   <string name="provide_wallet_create_body">Vous avez besoin d’une adresse de portefeuille ! Suivez ces étapes pour en créer un dans le Portefeuille AppCoins.</string>
-  <string name="provide_wallet_create_wallet_button">Create</string>
+  <string name="provide_wallet_create_wallet_button">Créer</string>
   <string name="provide_wallet_creating_wallet_header">Préparation de votre portefeuille&#8230;</string>
   <string name="provide_wallet_created_header">Adresse de portefeuille créé !</string>
   <string name="provide_wallet_empty_state">Vous n’avez pas encore autorisé le portefeuille AppCoins à fournir votre adresse à n’importe quelle autre application.</string>
@@ -389,7 +389,7 @@
   <string name="topup_completed_2_with_bonus">ont été déposés sur votre compte... Avec un bonus !</string>
   <string name="topup_completed_2_without_bonus">ont été crédités sur votre compte.</string>
   <string name="topup_bonus_header_part_1">Bonus de recharge :</string>
-  <string name="topup_bonus_header_part_2">%s in AppCoins Credits</string>
+  <string name="topup_bonus_header_part_2">%s en crédits AppCoins</string>
   <string name="topup_bonus_body">Vous pouvez utiliser ce bonus pour votre prochain achat.</string>
   <string name="topup_minimum_value">La valeur minimale de la recharge est de %s</string>
   <string name="topup_maximum_value">La valeur maximale de la recharge est de %s</string>
@@ -461,9 +461,9 @@
   <string name="install_button">Installer</string>
   <string name="get_button">Get</string>
   <string name="see_all_button">See all</string>
-  <string name="transfer_button">Transfer</string>
-  <string name="top_up_button">Top Up</string>
-  <string name="back_up_button">Back up wallet</string>
+  <string name="transfer_button">Transfert</string>
+  <string name="top_up_button">Recharger</string>
+  <string name="back_up_button">Sauvegarde portefeuille</string>
   <string name="play_button">Play</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">J\'accepte les %1$s et %2$s du portefeuille AppCoins.</string>
@@ -621,7 +621,7 @@
   <string name="referral_share_sheet_title">Partager le lien d\'invitation via :</string>
   <string name="referral_view_unverified_body">Recevez %s de crédits AppCoins pour chaque ami. Vous devez d\'abord vérifier votre portefeuille.</string>
   <string name="referral_view_verify_button">Vérifier le portefeuille</string>
-  <string name="referral_view_i_have_been_invited_button">I\'ve been invited</string>
+  <string name="referral_view_i_have_been_invited_button">J\'ai été invité</string>
   <string name="referral_view_dropup_menu_friends_invited">Amis invités</string>
   <string name="referral_view_dropup_menu_earned">Gagnés</string>
   <string name="referral_dropup_menu_friends_title_1">Amis invités</string>
@@ -671,7 +671,7 @@
   <string name="import_wallet_keystore_private_keys">Keystore ou clés privées</string>
   <string name="import_wallet_from_file_title">Ou récupérer à partir d\'un fichier</string>
   <string name="import_wallet_file_button">Récupérer à partir d\'un fichier</string>
-  <string name="import_wallet_button">Recover wallet</string>
+  <string name="import_wallet_button">Récupérer le portefeuille</string>
   <string name="import_wallet_password_body">Ce portefeuille est protégé par un mot de passe !</string>
   <string name="import_wallet_wrong_password_body">Oups, mauvais mot de passe !</string>
   <string name="error_invalid_private_key">Clé privée invalide</string>
@@ -690,7 +690,7 @@
   <string name="backup_confirmation_tips_2"><b>Enregistrez-le</b> sur une clé USB.</string>
   <string name="backup_confirmation_tips_3"><b>Copiez-le</b> sur un stockage cloud privé et sécurisé.</string>
   <string name="backup_tooltip_body">Faites une sauvegarde de votre portefeuille !</string>
-  <string name="backup_tooltip_later_button">Maybe later</string>
+  <string name="backup_tooltip_later_button">Peut-être plus tard</string>
   <string name="backup_tooltip_backup_button">Sauvegarde</string>
   <string name="backup_notification_title">Faites une sauvegarde de votre portefeuille !</string>
   <string name="backup_notification_body">Gardez vos fonds en sécurité et assurez-vous que vous pouvez toujours accéder à votre portefeuille.</string>
@@ -719,10 +719,10 @@
   <string name="wallets_imported_body">Portefeuille récupéré avec succès</string>
   <string name="wallets_2nd_view_balance_title">Solde :</string>
   <string name="wallets_2nd_view_other_wallets_title">Autres portefeuilles</string>
-  <string name="wallets_2nd_view_import_button">Recover wallet</string>
+  <string name="wallets_2nd_view_import_button">Récupérer le portefeuille</string>
   <string name="wallets_2nd_view_create_button">Créer un nouveau</string>
   <string name="wallet_view_copy_button">Copie</string>
-  <string name="wallet_view_share_button">Share</string>
+  <string name="wallet_view_share_button">Partagez</string>
   <string name="wallet_view_total_balance_title">Solde total</string>
   <string name="wallet_view_remove_button">Supprimer le portefeuille</string>
   <string name="wallet_view_backup_button">Sauvegarde portefeuille</string>
@@ -747,7 +747,7 @@
   <string name="transfer_send_token_title">Jeton :</string>
   <string name="transfer_send_amount_title">Montant</string>
   <string name="transfer_send_current_balance_title">Solde actuel :</string>
-  <string name="transfer_send_button">Send</string>
+  <string name="transfer_send_button">Envoyer</string>
   <string name="transfer_receive_body">Partagez l\'adresse de votre portefeuille pour recevoir des fonds.</string>
   <!--Support Notifications-->
   <string name="support_new_message_title">Vous avez un nouveau message !</string>
@@ -784,7 +784,7 @@
   <string name="subscriptions_expiration_body">Expire le %s</string>
   <string name="subscriptions_canceled_body">Annulé</string>
   <string name="subscriptions_details_disclaimer">La valeur des AppCoins peut varier pour le prochain paiement en raison du taux de change.</string>
-  <string name="subscriptions_details_button">Details</string>
+  <string name="subscriptions_details_button">Détails</string>
   <string name="subscriptions_manage_button">Gérer l\'abonnement</string>
   <string name="subscriptions_cancel_button">Annuler l\'abonnement</string>
   <string name="subscriptions_renew_subscription_button">Renouveler l\'abonnement</string>
@@ -867,7 +867,7 @@
   <string name="carrier_billing_enter_pin_body">Veuillez saisir le code PIN reçu par SMS.</string>
   <string name="carrier_billing_code_field">Votre code...</string>
   <string name="carrier_billing_code_resend_button">Renvoyer le code</string>
-  <string name="carrier_billing_submit_button">Submit</string>
+  <string name="carrier_billing_submit_button">Envoyer</string>
   <string name="carrier_billing_number_not_supported">Il semble que votre numéro ne soit pas compatible avec ce mode de paiement.</string>
   <string name="carrier_billing_terms_disclaimer">En cliquant sur \"Soumettre\", vous confirmez que vous acceptez les conditions générales et la politique de confidentialité.</string>
   <string name="carrier_billing_help_1">Besoin d\'aide ?</string>
@@ -1096,13 +1096,13 @@
   <string name="mywallet_unverified_body">Vérifiez un mode de paiement pour éviter les blocages.</string>
   <string name="mywallet_backed_up_date">Vous avez sauvegardé votre portefeuille sur %s.</string>
   <string name="mywallet_backup_again_button">Sauvegarder à nouveau</string>
-  <string name="mywallet_verify_payment_method_button">Verify new card</string>
+  <string name="mywallet_verify_payment_method_button">Vérifier la nouvelle carte</string>
   <string name="mywallet_choose_name_header">Choisissez un nom pour votre portefeuille</string>
   <string name="mywallet_choose_name_field">Le nom du portefeuille ici...</string>
   <string name="mywallet_choose_name_confirmed">Nom du portefeuille changé</string>
   <string name="mywallet_unnamed_wallet">Pas de nom de portefeuille %s</string>
   <string name="mywallet_swithing_wallets_title">Changement de portefeuille...</string>
-  <string name="mywallet_address_title">Address:</string>
+  <string name="mywallet_address_title">Adresse:</string>
   <!-- Onboarding for new users coming from an iap -->
   <string name="onboarding_1st_title">Félicitations ! Vous avez installé le portefeuille AppCoins.</string>
   <string name="onboarding_1st_body">Retournez dans le jeu pour terminer votre achat.</string>
@@ -1168,12 +1168,12 @@
   <string name="intro_backup_card_title">Don\'t loose your funds!</string>
   <string name="intro_backup_card_body">Back up your wallet and keep it safe all times.</string>
   <string name="rewards_spend_to_next_level_body">Spend more %1$s%2$s to reach the net level!</string>
-  <string name="rewards_current_bonus_title">%s%% bonus on every purchase</string>
+  <string name="rewards_current_bonus_title">%s%% de Bonus sur chaque achat</string>
   <string name="rewards_eskills_card_title">Earn Money!</string>
   <string name="rewards_eskills_card_body">Beat other players with e-Skills</string>
   <string name="rewards_promo_code_card_title">Promo Codes</string>
   <string name="rewards_promo_code_card_body">Use a promo code to get special deals!</string>
-  <string name="rewards_promo_code_status">Status:</string>
-  <string name="rewards_promo_code_status_active">Active</string>
-  <string name="rewards_promo_code_status_expired">Expired</string>
+  <string name="rewards_promo_code_status">Statut:</string>
+  <string name="rewards_promo_code_status_active">Activer</string>
+  <string name="rewards_promo_code_status_expired">Expiré</string>
 </resources>
