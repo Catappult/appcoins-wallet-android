@@ -26,7 +26,7 @@
   <string name="network_label">شبکه</string>
   <string name="credits">اعتبارات</string>
   <string name="label_new">جدید</string>
-  <string name="got_it_button">Got it</string>
+  <string name="got_it_button">متوجه شدم</string>
   <string name="change_button">تغییر</string>
   <string name="vip">VIP</string>
   <string name="faq">سوالات متداول</string>
@@ -346,7 +346,7 @@
   <string name="gamification_transaction_title">@string/gamification_level_bonus</string>
   <string name="gamification_purchase_header">این خرید همراه با پاداش است!</string>
   <string name="gamification_purchase_header_part_1">پاداش خرید:</string>
-  <string name="gamification_purchase_header_part_2">%s in AppCoins Credits</string>
+  <string name="gamification_purchase_header_part_2">%s در اعتبار AppCoins</string>
   <string name="gamification_purchase_body">شما می‌توانید از این پاداش در خرید بعدی خود استفاده کنید.</string>
   <string name="gamification_purchase_completed_bonus_received_done">تمام!</string>
   <string name="gamification_purchase_completed_bonus_received">پاداش دریافت شد</string>
@@ -374,7 +374,7 @@
   <string name="provide_wallet_allow_once_button">یک بار اجازه بده</string>
   <string name="provide_wallet_completed_header">کیف پول مربوط به Aptoide!</string>
   <string name="provide_wallet_create_body">شما نیاز به یک آدرس کیف پول دارید! این مراحل را برای ایجاد یک در کیف پول AppCoins دنبال کنید.</string>
-  <string name="provide_wallet_create_wallet_button">Create</string>
+  <string name="provide_wallet_create_wallet_button">ساختن</string>
   <string name="provide_wallet_creating_wallet_header">آماده‌سازی کیف پول شما&#8230;</string>
   <string name="provide_wallet_created_header">کیف پول ساخته شد!</string>
   <string name="provide_wallet_empty_state">شما به کیف پول AppCoins اجازه ندادید که آدرس شما را به هیچ اپلیکیشن دیگری بدهد.</string>
@@ -389,7 +389,7 @@
   <string name="topup_completed_2_with_bonus">در حساب شما قرار گرفت... به همراه یک پاداش!</string>
   <string name="topup_completed_2_without_bonus">به حساب‌کاربری شما پرداخت شده‌است.</string>
   <string name="topup_bonus_header_part_1">پاداش افزایشی:</string>
-  <string name="topup_bonus_header_part_2">%s in AppCoins Credits</string>
+  <string name="topup_bonus_header_part_2">%s در اعتبار AppCoins</string>
   <string name="topup_bonus_body">شما می‌توانید از این پاداش در خرید بعدی خود استفاده کنید.</string>
   <string name="topup_minimum_value">حداقل مقدار افزایش برابر %s است</string>
   <string name="topup_maximum_value">حداکثر مقدار افزایش برابر %s است</string>
@@ -461,9 +461,9 @@
   <string name="install_button">نصب</string>
   <string name="get_button">Get</string>
   <string name="see_all_button">See all</string>
-  <string name="transfer_button">Transfer</string>
-  <string name="top_up_button">Top Up</string>
-  <string name="back_up_button">Back up wallet</string>
+  <string name="transfer_button">انتقال</string>
+  <string name="top_up_button">افزایش اعتبار</string>
+  <string name="back_up_button">بک‌آپ کیف پول</string>
   <string name="play_button">Play</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">با %1$s و %2$s کیف پول AppCoins موافقم.</string>
@@ -621,7 +621,7 @@
   <string name="referral_share_sheet_title">لینک دعوت را به اشتراک بگذارید:</string>
   <string name="referral_view_unverified_body">برای هر دوست به ارزش %s AppCoins Credits دریافت کنید. ابتدا باید کیف پول خود را معتبرسازی کنید.</string>
   <string name="referral_view_verify_button">تایید کیف پول</string>
-  <string name="referral_view_i_have_been_invited_button">I\'ve been invited</string>
+  <string name="referral_view_i_have_been_invited_button">دعوت شده‌ام</string>
   <string name="referral_view_dropup_menu_friends_invited">دوستان دعوت‌شده</string>
   <string name="referral_view_dropup_menu_earned">کسب شده</string>
   <string name="referral_dropup_menu_friends_title_1">دوستان دعوت‌شده</string>
@@ -671,7 +671,7 @@
   <string name="import_wallet_keystore_private_keys">Keystore یا private keys</string>
   <string name="import_wallet_from_file_title">یا بازیابی از فایل</string>
   <string name="import_wallet_file_button">بازیابی از فایل</string>
-  <string name="import_wallet_button">Recover wallet</string>
+  <string name="import_wallet_button">بازیابی کیف‌پول</string>
   <string name="import_wallet_password_body">این کیف‌پول با رمز، محافظت شده‌است!</string>
   <string name="import_wallet_wrong_password_body">اوه، رمز عبور اشتباه است!</string>
   <string name="error_invalid_private_key">کلید خصوصی غیرمعتبر</string>
@@ -690,7 +690,7 @@
   <string name="backup_confirmation_tips_2">آن را روی یک USB <b>ذخیره کنید.</b></string>
   <string name="backup_confirmation_tips_3">آن را به یک ذخیره ابری شخصی و امن <b>منتقل کنید.</b></string>
   <string name="backup_tooltip_body">از کیف پول خود یک بک‌آپ بگیرید!</string>
-  <string name="backup_tooltip_later_button">Maybe later</string>
+  <string name="backup_tooltip_later_button">شاید بعدا</string>
   <string name="backup_tooltip_backup_button">بک‌آپ</string>
   <string name="backup_notification_title">از کیف پول خود یک بک‌آپ بگیرید!</string>
   <string name="backup_notification_body">پول‌های خود را امن نگه دارید و مطمئن شوید که همیشه قادر به دسترسی به کیف پول خود هستید.</string>
@@ -719,10 +719,10 @@
   <string name="wallets_imported_body">کیف‌پول با موفقیت بازیابی شد</string>
   <string name="wallets_2nd_view_balance_title">تراز:</string>
   <string name="wallets_2nd_view_other_wallets_title">سایر کیف‌پول‌ها</string>
-  <string name="wallets_2nd_view_import_button">Recover wallet</string>
+  <string name="wallets_2nd_view_import_button">بازیابی کیف‌پول</string>
   <string name="wallets_2nd_view_create_button">ساختن</string>
   <string name="wallet_view_copy_button">کپی</string>
-  <string name="wallet_view_share_button">Share</string>
+  <string name="wallet_view_share_button">اشتراک‌گذاری</string>
   <string name="wallet_view_total_balance_title">تراز کلی</string>
   <string name="wallet_view_remove_button">حذف کیف‌پول</string>
   <string name="wallet_view_backup_button">بک‌آپ کیف پول</string>
@@ -747,7 +747,7 @@
   <string name="transfer_send_token_title">ژتون:</string>
   <string name="transfer_send_amount_title">مقدار</string>
   <string name="transfer_send_current_balance_title">تراز فعلی:</string>
-  <string name="transfer_send_button">Send</string>
+  <string name="transfer_send_button">ارسال</string>
   <string name="transfer_receive_body">برای دریافت وجه، نشانی کیف‌پول خود را به اشتراک بگذارید.</string>
   <!--Support Notifications-->
   <string name="support_new_message_title">پیام جدیدی دریافت کرده‌اید!</string>
@@ -784,7 +784,7 @@
   <string name="subscriptions_expiration_body">در %s منقضی می‌شود</string>
   <string name="subscriptions_canceled_body">لغو شده‌</string>
   <string name="subscriptions_details_disclaimer">ارزش در AppCoins ممکن است با توجه به نرخ تبدیل برای پرداخت بعدی شما تغییر کند.</string>
-  <string name="subscriptions_details_button">Details</string>
+  <string name="subscriptions_details_button">جزئیات</string>
   <string name="subscriptions_manage_button">مدیریت آبونمان‌ها</string>
   <string name="subscriptions_cancel_button">لغو آبونمان</string>
   <string name="subscriptions_renew_subscription_button">تجدید آبونمان</string>
@@ -867,7 +867,7 @@
   <string name="carrier_billing_enter_pin_body">لطفا PIN را که از طریق SMS دریافت کردید وارد کنید.</string>
   <string name="carrier_billing_code_field">کد شما...</string>
   <string name="carrier_billing_code_resend_button">ارسال مجدد کد</string>
-  <string name="carrier_billing_submit_button">Submit</string>
+  <string name="carrier_billing_submit_button">ارسال</string>
   <string name="carrier_billing_number_not_supported">به نظر می‌رسد شماره شما با روش پرداخت مطابقت ندارد.</string>
   <string name="carrier_billing_terms_disclaimer">با کلیک روی ارسال، تایید می‌کنید که شرایط و ضوابط سیاست حفظ حریم خصوصی را قبول کرده‌اید.</string>
   <string name="carrier_billing_help_1">نیاز به کمک دارید؟</string>
@@ -990,7 +990,7 @@
   <string name="voucher_buy_header">ووچر برای %s</string>
   <string name="voucher_buy_short_header">ووچر:</string>
   <string name="voucher_buy_no_game_title">آیا %s ندارید؟</string>
-  <string name="voucher_buy_no_game_install_button">Download now</string>
+  <string name="voucher_buy_no_game_install_button">همین حالا دانلود کنید</string>
   <string name="voucher_code_title">کد ووچر</string>
   <string name="voucher_instructions_body">به %s بروید و کد را برای آزادکردن ووچر خود استفاده کنید.</string>
   <string name="voucher_instructions_transactions">همیشه می‌توانید کد ووچر را در تاریخچه تراکنش‌ها پیدا کنید.</string>
@@ -1096,13 +1096,13 @@
   <string name="mywallet_unverified_body">یک روش پرداخت را برای جلوگیری از بلوکه شدن تایید کنید.</string>
   <string name="mywallet_backed_up_date">شما از کیف پول خود را در %s بک‌آپ گرفته‌اید.</string>
   <string name="mywallet_backup_again_button">بک‌آپ مجدد</string>
-  <string name="mywallet_verify_payment_method_button">Verify new card</string>
+  <string name="mywallet_verify_payment_method_button">تایید کارت جدید</string>
   <string name="mywallet_choose_name_header">نامی برای فایل کیف پول خود انتخاب کنید</string>
   <string name="mywallet_choose_name_field">نام کیف‌پول در اینجا...</string>
   <string name="mywallet_choose_name_confirmed">نام کیف‌پول تغییر کرد</string>
   <string name="mywallet_unnamed_wallet">کیف پول بی نام %s</string>
   <string name="mywallet_swithing_wallets_title">تعویض کیف‌پول‌ها...</string>
-  <string name="mywallet_address_title">Address:</string>
+  <string name="mywallet_address_title">نشانی:</string>
   <!-- Onboarding for new users coming from an iap -->
   <string name="onboarding_1st_title">تبریک! شما AppCoins Wallet را نصب کردید.</string>
   <string name="onboarding_1st_body">برای تکمیل خرید به بازی برگردید.</string>
@@ -1173,7 +1173,7 @@
   <string name="rewards_eskills_card_body">Beat other players with e-Skills</string>
   <string name="rewards_promo_code_card_title">Promo Codes</string>
   <string name="rewards_promo_code_card_body">Use a promo code to get special deals!</string>
-  <string name="rewards_promo_code_status">Status:</string>
-  <string name="rewards_promo_code_status_active">Active</string>
-  <string name="rewards_promo_code_status_expired">Expired</string>
+  <string name="rewards_promo_code_status">وضعیت:</string>
+  <string name="rewards_promo_code_status_active">فعال</string>
+  <string name="rewards_promo_code_status_expired">منقضی</string>
 </resources>
