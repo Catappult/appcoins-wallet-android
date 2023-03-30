@@ -26,7 +26,7 @@
   <string name="network_label">网络</string>
   <string name="credits">制作组</string>
   <string name="label_new">新</string>
-  <string name="got_it_button">Got it</string>
+  <string name="got_it_button">明白了</string>
   <string name="change_button">更改</string>
   <string name="vip">VIP</string>
   <string name="faq">常见问题</string>
@@ -346,7 +346,7 @@
   <string name="gamification_transaction_title">@string/gamification_level_bonus</string>
   <string name="gamification_purchase_header">这次购买有奖励！</string>
   <string name="gamification_purchase_header_part_1">购买奖励：</string>
-  <string name="gamification_purchase_header_part_2">%s in AppCoins Credits</string>
+  <string name="gamification_purchase_header_part_2">%s的AppCoins积金</string>
   <string name="gamification_purchase_body">你可以在下次购买中使用此奖金。</string>
   <string name="gamification_purchase_completed_bonus_received_done">完成！</string>
   <string name="gamification_purchase_completed_bonus_received">奖金已收到</string>
@@ -374,7 +374,7 @@
   <string name="provide_wallet_allow_once_button">允许一次</string>
   <string name="provide_wallet_completed_header">钱包已关联到Aptoide！</string>
   <string name="provide_wallet_create_body">你需要一个钱包地址！请按照以下步骤在AppCoins Wallet中创建一个钱包地址。</string>
-  <string name="provide_wallet_create_wallet_button">Create</string>
+  <string name="provide_wallet_create_wallet_button">创建</string>
   <string name="provide_wallet_creating_wallet_header">准备你的钱包&#8230;</string>
   <string name="provide_wallet_created_header">钱包地址已创建！</string>
   <string name="provide_wallet_empty_state">你还没有允许AppCoins Wallet向任何其他应用提供你的地址。</string>
@@ -389,7 +389,7 @@
   <string name="topup_completed_2_with_bonus">已存入你的帐户...奖金也已存入！</string>
   <string name="topup_completed_2_without_bonus">已存入你的帐户。</string>
   <string name="topup_bonus_header_part_1">充值奖金：</string>
-  <string name="topup_bonus_header_part_2">%s in AppCoins Credits</string>
+  <string name="topup_bonus_header_part_2">%s的AppCoins积金</string>
   <string name="topup_bonus_body">你可以在下次购买中使用此奖金。</string>
   <string name="topup_minimum_value">最低充值额为%s</string>
   <string name="topup_maximum_value">最高充值额为%s</string>
@@ -461,9 +461,9 @@
   <string name="install_button">安装</string>
   <string name="get_button">Get</string>
   <string name="see_all_button">See all</string>
-  <string name="transfer_button">Transfer</string>
-  <string name="top_up_button">Top Up</string>
-  <string name="back_up_button">Back up wallet</string>
+  <string name="transfer_button">转账</string>
+  <string name="top_up_button">充值</string>
+  <string name="back_up_button">备份钱包</string>
   <string name="play_button">Play</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">我同意AppCoins Wallet的%1$s和%2$s。</string>
@@ -621,7 +621,7 @@
   <string name="referral_share_sheet_title">分享链接到：</string>
   <string name="referral_view_unverified_body">Receive %s worth of AppCoins Credits for each friend. You first need to verify your wallet.</string>
   <string name="referral_view_verify_button">验证钱包</string>
-  <string name="referral_view_i_have_been_invited_button">I\'ve been invited</string>
+  <string name="referral_view_i_have_been_invited_button">我已被邀请</string>
   <string name="referral_view_dropup_menu_friends_invited">已邀请好友</string>
   <string name="referral_view_dropup_menu_earned">已获取</string>
   <string name="referral_dropup_menu_friends_title_1">已邀请好友</string>
@@ -671,7 +671,7 @@
   <string name="import_wallet_keystore_private_keys">密钥库或私钥</string>
   <string name="import_wallet_from_file_title">或者从文件恢复</string>
   <string name="import_wallet_file_button">从文件恢复</string>
-  <string name="import_wallet_button">Recover wallet</string>
+  <string name="import_wallet_button">恢复钱包</string>
   <string name="import_wallet_password_body">此钱包受密码保护！</string>
   <string name="import_wallet_wrong_password_body">糟糕，密码错误！</string>
   <string name="error_invalid_private_key">无效的私钥</string>
@@ -690,7 +690,7 @@
   <string name="backup_confirmation_tips_2">将其<b>保存</b>在 USB 驱动器上。</string>
   <string name="backup_confirmation_tips_3">将其<b>复制</b>到安全的私有云存储中。</string>
   <string name="backup_tooltip_body">备份您的钱包！</string>
-  <string name="backup_tooltip_later_button">Maybe later</string>
+  <string name="backup_tooltip_later_button">以后再说</string>
   <string name="backup_tooltip_backup_button">备份</string>
   <string name="backup_notification_title">备份您的钱包！</string>
   <string name="backup_notification_body">确保资金安全，确保您随时均可访问钱包。</string>
@@ -718,10 +718,10 @@
   <string name="wallets_imported_body">已成功恢复钱包</string>
   <string name="wallets_2nd_view_balance_title">余额：</string>
   <string name="wallets_2nd_view_other_wallets_title">其他钱包</string>
-  <string name="wallets_2nd_view_import_button">Recover wallet</string>
+  <string name="wallets_2nd_view_import_button">恢复钱包</string>
   <string name="wallets_2nd_view_create_button">新建</string>
   <string name="wallet_view_copy_button">复制</string>
-  <string name="wallet_view_share_button">Share</string>
+  <string name="wallet_view_share_button">分享</string>
   <string name="wallet_view_total_balance_title">总余额</string>
   <string name="wallet_view_remove_button">删除钱包</string>
   <string name="wallet_view_backup_button">备份钱包</string>
@@ -746,7 +746,7 @@
   <string name="transfer_send_token_title">代币：</string>
   <string name="transfer_send_amount_title">金额</string>
   <string name="transfer_send_current_balance_title">当前余额：</string>
-  <string name="transfer_send_button">Send</string>
+  <string name="transfer_send_button">发送</string>
   <string name="transfer_receive_body">分享你的钱包地址以收款。</string>
   <!--Support Notifications-->
   <string name="support_new_message_title">您有新消息！</string>
@@ -783,7 +783,7 @@
   <string name="subscriptions_expiration_body">到期日期%s</string>
   <string name="subscriptions_canceled_body">已取消</string>
   <string name="subscriptions_details_disclaimer">AppCoins下次付款的价值可能因汇率而有所不同。</string>
-  <string name="subscriptions_details_button">Details</string>
+  <string name="subscriptions_details_button">详情</string>
   <string name="subscriptions_manage_button">管理订购</string>
   <string name="subscriptions_cancel_button">取消订购</string>
   <string name="subscriptions_renew_subscription_button">更新订购</string>
@@ -866,7 +866,7 @@
   <string name="carrier_billing_enter_pin_body">请输入通过短信收到的PIN码。</string>
   <string name="carrier_billing_code_field">您的代码...</string>
   <string name="carrier_billing_code_resend_button">重新发送代码</string>
-  <string name="carrier_billing_submit_button">Submit</string>
+  <string name="carrier_billing_submit_button">提交</string>
   <string name="carrier_billing_number_not_supported">您的号码似乎与此付款方式不兼容。</string>
   <string name="carrier_billing_terms_disclaimer">点击“提交”即表示，您确认接受条款与条件以及隐私政策。</string>
   <string name="carrier_billing_help_1">需要帮助？</string>
@@ -1087,13 +1087,13 @@
   <string name="mywallet_unverified_body">验证付款方式以避免收到阻拦。</string>
   <string name="mywallet_backed_up_date">你在%s上备份了钱包。</string>
   <string name="mywallet_backup_again_button">再次备份</string>
-  <string name="mywallet_verify_payment_method_button">Verify new card</string>
+  <string name="mywallet_verify_payment_method_button">验证新卡</string>
   <string name="mywallet_choose_name_header">为钱包选择名称</string>
   <string name="mywallet_choose_name_field">钱包名称在这里输入......</string>
   <string name="mywallet_choose_name_confirmed">钱包名称已更改</string>
   <string name="mywallet_unnamed_wallet">无名称钱包%s</string>
   <string name="mywallet_swithing_wallets_title">更换钱包...</string>
-  <string name="mywallet_address_title">Address:</string>
+  <string name="mywallet_address_title">地址:</string>
   <!-- Onboarding for new users coming from an iap -->
   <string name="onboarding_1st_title">恭喜！你已安装AppCoins钱包。</string>
   <string name="onboarding_1st_body">返回游戏以完成购买。</string>
@@ -1160,7 +1160,7 @@
   <string name="rewards_eskills_card_body">Beat other players with e-Skills</string>
   <string name="rewards_promo_code_card_title">Promo Codes</string>
   <string name="rewards_promo_code_card_body">Use a promo code to get special deals!</string>
-  <string name="rewards_promo_code_status">Status:</string>
-  <string name="rewards_promo_code_status_active">Active</string>
-  <string name="rewards_promo_code_status_expired">Expired</string>
+  <string name="rewards_promo_code_status">状态:</string>
+  <string name="rewards_promo_code_status_active">激活</string>
+  <string name="rewards_promo_code_status_expired">已到期</string>
 </resources>
