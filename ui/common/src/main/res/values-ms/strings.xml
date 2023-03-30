@@ -26,7 +26,7 @@
   <string name="network_label">Rangkaian</string>
   <string name="credits">Kredit</string>
   <string name="label_new">Baharu</string>
-  <string name="got_it_button">Got it</string>
+  <string name="got_it_button">Berjaya</string>
   <string name="change_button">Tukar</string>
   <string name="vip">VIP</string>
   <string name="faq">FAQ</string>
@@ -346,7 +346,7 @@
   <string name="gamification_transaction_title">@string/gamification_level_bonus</string>
   <string name="gamification_purchase_header">Ada bonus utk pembelian ini!</string>
   <string name="gamification_purchase_header_part_1">Beli Bonus:</string>
-  <string name="gamification_purchase_header_part_2">%s in AppCoins Credits</string>
+  <string name="gamification_purchase_header_part_2">%s dalam Kredit AppCoins</string>
   <string name="gamification_purchase_body">Anda boleh gunakan bonus ini dalam pembelian anda yang seterusnya.</string>
   <string name="gamification_purchase_completed_bonus_received_done">Selesai!</string>
   <string name="gamification_purchase_completed_bonus_received">Bonus Diterima</string>
@@ -374,7 +374,7 @@
   <string name="provide_wallet_allow_once_button">Izin sekali</string>
   <string name="provide_wallet_completed_header">Dompet dipautkan dengan Aptoide!</string>
   <string name="provide_wallet_create_body">Anda perlukan alamat dompet! Ikuti langkah-langkh ini untuk menciptanya dalam Dompet AppCoins.</string>
-  <string name="provide_wallet_create_wallet_button">Create</string>
+  <string name="provide_wallet_create_wallet_button">Cipta</string>
   <string name="provide_wallet_creating_wallet_header">Menyediakan dompet anda&#8230;</string>
   <string name="provide_wallet_created_header">Alamat dompet dicipta!</string>
   <string name="provide_wallet_empty_state">Anda belum izinkan Dompet AppCoins untuk berikan alamat anda kepada mana-mana aplikasi.</string>
@@ -389,7 +389,7 @@
   <string name="topup_completed_2_with_bonus">telah didepositkan ke akaun anda... Dengan bonus sekali!</string>
   <string name="topup_completed_2_without_bonus">telah dimasukkan ke akaun anda.</string>
   <string name="topup_bonus_header_part_1">Bonus Tambah Nilai:</string>
-  <string name="topup_bonus_header_part_2">%s in AppCoins Credits</string>
+  <string name="topup_bonus_header_part_2">%s dalam Kredit AppCoins</string>
   <string name="topup_bonus_body">Anda boleh gunakan bonus ini dalam pembelian anda yang seterusnya.</string>
   <string name="topup_minimum_value">Tambah nilai minimum ialah %s</string>
   <string name="topup_maximum_value">Tambah nilai maksimum ialah %s</string>
@@ -461,9 +461,9 @@
   <string name="install_button">Pasang</string>
   <string name="get_button">Get</string>
   <string name="see_all_button">See all</string>
-  <string name="transfer_button">Transfer</string>
-  <string name="top_up_button">Top Up</string>
-  <string name="back_up_button">Back up wallet</string>
+  <string name="transfer_button">Pindahan</string>
+  <string name="top_up_button">Tambah Nilai</string>
+  <string name="back_up_button">Buat sandaran dompet</string>
   <string name="play_button">Play</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Saya setuju dengan %1$s dan %2$s Dompet AppCoins.</string>
@@ -621,7 +621,7 @@
   <string name="referral_share_sheet_title">Kongsi pautan jemputan melalui:</string>
   <string name="referral_view_unverified_body">Dapatkan Kredit AppCoins sebanyak %s bagi setiap rakan. Anda perlu sahkan dompet terlebih dahulu.</string>
   <string name="referral_view_verify_button">Sahkan dompet</string>
-  <string name="referral_view_i_have_been_invited_button">I\'ve been invited</string>
+  <string name="referral_view_i_have_been_invited_button">Saya telah dijemput</string>
   <string name="referral_view_dropup_menu_friends_invited">Rakan telah dijemput</string>
   <string name="referral_view_dropup_menu_earned">Diperoleh</string>
   <string name="referral_dropup_menu_friends_title_1">Rakan Telah Dijemput</string>
@@ -671,7 +671,7 @@
   <string name="import_wallet_keystore_private_keys">Kunci gedung atau kunci peribadi</string>
   <string name="import_wallet_from_file_title">Atau pulihkan dari fail</string>
   <string name="import_wallet_file_button">Pulihkan dari fail</string>
-  <string name="import_wallet_button">Recover wallet</string>
+  <string name="import_wallet_button">Dapatkan semula dompet</string>
   <string name="import_wallet_password_body">Dompet ini dilindungi kata laluan!</string>
   <string name="import_wallet_wrong_password_body">Oops, kata laluan salah!</string>
   <string name="error_invalid_private_key">Kunci peribadi tidak sah</string>
@@ -690,7 +690,7 @@
   <string name="backup_confirmation_tips_2"><b>Simpan</b> di dalam pemacu USB.</string>
   <string name="backup_confirmation_tips_3"><b>Salin</b> ke storan awan peribadi dan selamat.</string>
   <string name="backup_tooltip_body">Buat sandaran untuk dompet anda!</string>
-  <string name="backup_tooltip_later_button">Maybe later</string>
+  <string name="backup_tooltip_later_button">Nanti</string>
   <string name="backup_tooltip_backup_button">Buat sandaran</string>
   <string name="backup_notification_title">Buat sandaran untuk dompet anda!</string>
   <string name="backup_notification_body">Pastikan dana anda selamat dan pastikan anda sentiasa boleh mengakses dompet anda.</string>
@@ -718,10 +718,10 @@
   <string name="wallets_imported_body">Dompet berjaya didapatkan kembali</string>
   <string name="wallets_2nd_view_balance_title">Baki:</string>
   <string name="wallets_2nd_view_other_wallets_title">Dompet Lain</string>
-  <string name="wallets_2nd_view_import_button">Recover wallet</string>
+  <string name="wallets_2nd_view_import_button">Dapatkan semula dompet</string>
   <string name="wallets_2nd_view_create_button">Cipta baru</string>
   <string name="wallet_view_copy_button">Salin</string>
-  <string name="wallet_view_share_button">Share</string>
+  <string name="wallet_view_share_button">Kongsi</string>
   <string name="wallet_view_total_balance_title">Jumlah Baki</string>
   <string name="wallet_view_remove_button">Alih keluar dompet</string>
   <string name="wallet_view_backup_button">Buat sandaran dompet</string>
@@ -746,7 +746,7 @@
   <string name="transfer_send_token_title">Token:</string>
   <string name="transfer_send_amount_title">Amaun</string>
   <string name="transfer_send_current_balance_title">Baki Semasa:</string>
-  <string name="transfer_send_button">Send</string>
+  <string name="transfer_send_button">Hantar</string>
   <string name="transfer_receive_body">Kongsi alamat dompet anda untuk terima dana.</string>
   <!--Support Notifications-->
   <string name="support_new_message_title">Anda ada mesej baharu!</string>
@@ -783,7 +783,7 @@
   <string name="subscriptions_expiration_body">Luput pada %s</string>
   <string name="subscriptions_canceled_body">Dibatalkan</string>
   <string name="subscriptions_details_disclaimer">Nilai dalam AppCoins mungkin berubah pada pembayaran seterusnya kerana kadar pertukaran wang.</string>
-  <string name="subscriptions_details_button">Details</string>
+  <string name="subscriptions_details_button">Butiran</string>
   <string name="subscriptions_manage_button">Urus langganan</string>
   <string name="subscriptions_cancel_button">Batal langganan</string>
   <string name="subscriptions_renew_subscription_button">Baharui langganan</string>
@@ -866,7 +866,7 @@
   <string name="carrier_billing_enter_pin_body">Sila masukkan PIN yang diterima melalui SMS.</string>
   <string name="carrier_billing_code_field">Kod anda...</string>
   <string name="carrier_billing_code_resend_button">Hantar semula kod</string>
-  <string name="carrier_billing_submit_button">Submit</string>
+  <string name="carrier_billing_submit_button">Hantar</string>
   <string name="carrier_billing_number_not_supported">Nampaknya nombor telefon anda tidak serasi dengan kaedah pembayaran ini.</string>
   <string name="carrier_billing_terms_disclaimer">Dengan mengetik Hantar, anda mengesahkan bahawa anda bersetuju dengan Terma dan Syarat serta Dasar Privasi.</string>
   <string name="carrier_billing_help_1">Perlu bantuan?</string>
@@ -981,7 +981,7 @@
   <string name="voucher_buy_header">Baucar untuk %s</string>
   <string name="voucher_buy_short_header">Baucar:</string>
   <string name="voucher_buy_no_game_title">Ada %s?</string>
-  <string name="voucher_buy_no_game_install_button">Download now</string>
+  <string name="voucher_buy_no_game_install_button">Muat turun sekarang</string>
   <string name="voucher_code_title">Kod Baucar</string>
   <string name="voucher_instructions_body">Pergi ke %s dan gunakan kod untuk menebus baucar anda.</string>
   <string name="voucher_instructions_transactions">Anda boleh lihat kod baucar dalam sejarah transaksi.</string>
@@ -1087,13 +1087,13 @@
   <string name="mywallet_unverified_body">Sahkan kaedah pembayaran untuk elak sekatan.</string>
   <string name="mywallet_backed_up_date">Anda telah sandarkan dompet anda di %s.</string>
   <string name="mywallet_backup_again_button">Sandar semula</string>
-  <string name="mywallet_verify_payment_method_button">Verify new card</string>
+  <string name="mywallet_verify_payment_method_button">Sahkan kad baru</string>
   <string name="mywallet_choose_name_header">Pilih nama untuk dompet anda</string>
   <string name="mywallet_choose_name_field">Nama dompet di sini...</string>
   <string name="mywallet_choose_name_confirmed">Nama dompet diubah</string>
   <string name="mywallet_unnamed_wallet">Dompet tanpa nama %s</string>
   <string name="mywallet_swithing_wallets_title">Menukar dompet...</string>
-  <string name="mywallet_address_title">Address:</string>
+  <string name="mywallet_address_title">Alamat:</string>
   <!-- Onboarding for new users coming from an iap -->
   <string name="onboarding_1st_title">Tahniah! Anda sudah pasang Dompet AppCoins.</string>
   <string name="onboarding_1st_body">Kembali ke permainan untuk lengkapkan pembelian anda.</string>
@@ -1155,12 +1155,12 @@
   <string name="intro_backup_card_title">Don\'t loose your funds!</string>
   <string name="intro_backup_card_body">Back up your wallet and keep it safe all times.</string>
   <string name="rewards_spend_to_next_level_body">Spend more %1$s%2$s to reach the net level!</string>
-  <string name="rewards_current_bonus_title">%s%% bonus on every purchase</string>
+  <string name="rewards_current_bonus_title">bonus %s%% bagi setiap pembelian</string>
   <string name="rewards_eskills_card_title">Earn Money!</string>
   <string name="rewards_eskills_card_body">Beat other players with e-Skills</string>
   <string name="rewards_promo_code_card_title">Promo Codes</string>
   <string name="rewards_promo_code_card_body">Use a promo code to get special deals!</string>
   <string name="rewards_promo_code_status">Status:</string>
-  <string name="rewards_promo_code_status_active">Active</string>
-  <string name="rewards_promo_code_status_expired">Expired</string>
+  <string name="rewards_promo_code_status_active">Aktif</string>
+  <string name="rewards_promo_code_status_expired">Luput</string>
 </resources>
