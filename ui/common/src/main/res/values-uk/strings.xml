@@ -26,7 +26,7 @@
   <string name="network_label">Мережа</string>
   <string name="credits">Кредити</string>
   <string name="label_new">Новий</string>
-  <string name="got_it_button">Got it</string>
+  <string name="got_it_button">Зрозуміло</string>
   <string name="change_button">Змінити</string>
   <string name="vip">VIP</string>
   <string name="faq">ПоЗа</string>
@@ -346,7 +346,7 @@
   <string name="gamification_transaction_title">@string/gamification_level_bonus</string>
   <string name="gamification_purchase_header">Ця покупка має бонус!</string>
   <string name="gamification_purchase_header_part_1">Бонус за покупку:</string>
-  <string name="gamification_purchase_header_part_2">%s in AppCoins Credits</string>
+  <string name="gamification_purchase_header_part_2">%s у AppCoins Credits</string>
   <string name="gamification_purchase_body">Ви можете використати цей бонус під час наступної покупки.</string>
   <string name="gamification_purchase_completed_bonus_received_done">Готово!</string>
   <string name="gamification_purchase_completed_bonus_received">Бонус Отримано</string>
@@ -374,7 +374,7 @@
   <string name="provide_wallet_allow_once_button">Дозволити один раз</string>
   <string name="provide_wallet_completed_header">Гаманець, пов’язаний з Aptoide!</string>
   <string name="provide_wallet_create_body">Вам потрібна адреса гаманця! Виконайте ці кроки, щоб створити його в AppCoins Wallet.</string>
-  <string name="provide_wallet_create_wallet_button">Create</string>
+  <string name="provide_wallet_create_wallet_button">Створити</string>
   <string name="provide_wallet_creating_wallet_header">Готуємо ваш гаманець&#8230;</string>
   <string name="provide_wallet_created_header">Адреса гаманця створена!</string>
   <string name="provide_wallet_empty_state">Ви ще не дозволили AppCoins Wallet надавати вашу адресу жодній іншій програмі.</string>
@@ -389,7 +389,7 @@
   <string name="topup_completed_2_with_bonus">були зараховані на ваш рахунок... Разом з бонусом!</string>
   <string name="topup_completed_2_without_bonus">були внесені на ваш рахунок.</string>
   <string name="topup_bonus_header_part_1">Бонус за поповнення:</string>
-  <string name="topup_bonus_header_part_2">%s in AppCoins Credits</string>
+  <string name="topup_bonus_header_part_2">%s у AppCoins Credits</string>
   <string name="topup_bonus_body">Ви можете використати цей бонус під час наступної покупки.</string>
   <string name="topup_minimum_value">Мінімальна вартість поповнення – %s</string>
   <string name="topup_maximum_value">Максимальна вартість поповнення – %s</string>
@@ -463,9 +463,9 @@
   <string name="install_button">Встановити</string>
   <string name="get_button">Get</string>
   <string name="see_all_button">See all</string>
-  <string name="transfer_button">Transfer</string>
-  <string name="top_up_button">Top Up</string>
-  <string name="back_up_button">Back up wallet</string>
+  <string name="transfer_button">Переведення</string>
+  <string name="top_up_button">Поповнити</string>
+  <string name="back_up_button">Резервна копія гаманця</string>
   <string name="play_button">Play</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Я погоджуюся з %1$s і %2$s AppCoins Wallet\'s.</string>
@@ -623,7 +623,7 @@
   <string name="referral_share_sheet_title">Поділитися посиланням на запрошення через:</string>
   <string name="referral_view_unverified_body">Отримайте %s AppCoins Credits для кожного друга. Спочатку потрібно підтвердити свій гаманець.</string>
   <string name="referral_view_verify_button">Підтвердьте гаманець</string>
-  <string name="referral_view_i_have_been_invited_button">I\'ve been invited</string>
+  <string name="referral_view_i_have_been_invited_button">Мене запросили</string>
   <string name="referral_view_dropup_menu_friends_invited">Друзі запрошені</string>
   <string name="referral_view_dropup_menu_earned">Зароблено</string>
   <string name="referral_dropup_menu_friends_title_1">Друзі запрошені</string>
@@ -673,7 +673,7 @@
   <string name="import_wallet_keystore_private_keys">Сховище ключів або приватні ключі</string>
   <string name="import_wallet_from_file_title">Або відновити з файлу</string>
   <string name="import_wallet_file_button">Відновити з файлу</string>
-  <string name="import_wallet_button">Recover wallet</string>
+  <string name="import_wallet_button">Відновити гаманець</string>
   <string name="import_wallet_password_body">Цей гаманець захищений паролем!</string>
   <string name="import_wallet_wrong_password_body">Ой, неправильний пароль!</string>
   <string name="error_invalid_private_key">Недійсний приватний ключ</string>
@@ -692,7 +692,7 @@
   <string name="backup_confirmation_tips_2"><b>Зберегти</b> на USB-накопичувач.</string>
   <string name="backup_confirmation_tips_3"><b>Скопіюйте</b> у приватне та безпечне хмарне сховище.</string>
   <string name="backup_tooltip_body">Зробіть резервну копію свого гаманця!</string>
-  <string name="backup_tooltip_later_button">Maybe later</string>
+  <string name="backup_tooltip_later_button">Можливо пізніше</string>
   <string name="backup_tooltip_backup_button">Резервне копіювання</string>
   <string name="backup_notification_title">Зробіть резервну копію свого гаманця!</string>
   <string name="backup_notification_body">Зберігайте свої кошти в безпеці та переконайтеся, що ви завжди можете отримати доступ до свого гаманця.</string>
@@ -723,10 +723,10 @@
   <string name="wallets_imported_body">Гаманець успішно відновлено</string>
   <string name="wallets_2nd_view_balance_title">Баланс:</string>
   <string name="wallets_2nd_view_other_wallets_title">Інші гаманці</string>
-  <string name="wallets_2nd_view_import_button">Recover wallet</string>
+  <string name="wallets_2nd_view_import_button">Відновити гаманець</string>
   <string name="wallets_2nd_view_create_button">Створити новий</string>
   <string name="wallet_view_copy_button">Копіювати</string>
-  <string name="wallet_view_share_button">Share</string>
+  <string name="wallet_view_share_button">Поділитися</string>
   <string name="wallet_view_total_balance_title">Загальний баланс</string>
   <string name="wallet_view_remove_button">Видалити гаманець</string>
   <string name="wallet_view_backup_button">Резервна копія гаманця</string>
@@ -751,7 +751,7 @@
   <string name="transfer_send_token_title">Токен:</string>
   <string name="transfer_send_amount_title">Рахунок</string>
   <string name="transfer_send_current_balance_title">Поточний баланс:</string>
-  <string name="transfer_send_button">Send</string>
+  <string name="transfer_send_button">Надіслати</string>
   <string name="transfer_receive_body">Поділіться адресою гаманця, щоб отримати кошти.</string>
   <!--Support Notifications-->
   <string name="support_new_message_title">Ви отримали нове повідомлення!</string>
@@ -788,7 +788,7 @@
   <string name="subscriptions_expiration_body">Термін дії закінчується %s</string>
   <string name="subscriptions_canceled_body">Скасовано</string>
   <string name="subscriptions_details_disclaimer">Значення в AppCoins може змінюватися для наступного платежу через обмінний курс.</string>
-  <string name="subscriptions_details_button">Details</string>
+  <string name="subscriptions_details_button">Деталі</string>
   <string name="subscriptions_manage_button">Керувати підпискою</string>
   <string name="subscriptions_cancel_button">Скасувати підписку</string>
   <string name="subscriptions_renew_subscription_button">Відновити підписку</string>
@@ -871,7 +871,7 @@
   <string name="carrier_billing_enter_pin_body">Будь ласка, введіть PIN-код, отриманий через SMS.</string>
   <string name="carrier_billing_code_field">Ваш код...</string>
   <string name="carrier_billing_code_resend_button">Надіслати код повторно</string>
-  <string name="carrier_billing_submit_button">Submit</string>
+  <string name="carrier_billing_submit_button">Відправити</string>
   <string name="carrier_billing_number_not_supported">Схоже, ваш номер несумісний із цим способом оплати.</string>
   <string name="carrier_billing_terms_disclaimer">Натискаючи «Надіслати», ви підтверджуєте, що приймаєте Загальні положення та умови та Політику конфіденційності.</string>
   <string name="carrier_billing_help_1">Потрібна допомога?</string>
@@ -1010,7 +1010,7 @@
   <string name="voucher_buy_header">Ваучер на %s</string>
   <string name="voucher_buy_short_header">Ваучер:</string>
   <string name="voucher_buy_no_game_title">У вас немає %s?</string>
-  <string name="voucher_buy_no_game_install_button">Download now</string>
+  <string name="voucher_buy_no_game_install_button">Скачати зараз</string>
   <string name="voucher_code_title">Код ваучера</string>
   <string name="voucher_instructions_body">Перейдіть до %s і скористайтеся кодом, щоб активувати свій ваучер.</string>
   <string name="voucher_instructions_transactions">Ви завжди можете знайти код ваучера в історії транзакцій.</string>
@@ -1122,7 +1122,7 @@
   <string name="mywallet_choose_name_confirmed">Назву гаманця змінено</string>
   <string name="mywallet_unnamed_wallet">Безіменний гаманець %s</string>
   <string name="mywallet_swithing_wallets_title">Зміна гаманців...</string>
-  <string name="mywallet_address_title">Address:</string>
+  <string name="mywallet_address_title">Адреса:</string>
   <!-- Onboarding for new users coming from an iap -->
   <string name="onboarding_1st_title">Вітаємо! Ви встановили AppCoins Wallet.</string>
   <string name="onboarding_1st_body">Поверніться до гри, щоб завершити покупку.</string>
@@ -1166,7 +1166,7 @@
   <string name="intro_appcoins_games_header">Discover Games with AppCoins</string>
   <string name="intro_active_promotions_header">Active Promotions</string>
   <string name="topup_home_button">Поповнити</string>
-  <string name="intro_home_button">Home</string>
+  <string name="intro_home_button">На домашню</string>
   <string name="intro_rewards_button">Rewards</string>
   <plurals name="days">
     <item quantity="one">DAY</item>
@@ -1196,12 +1196,12 @@
   <string name="intro_backup_card_title">Don\'t loose your funds!</string>
   <string name="intro_backup_card_body">Back up your wallet and keep it safe all times.</string>
   <string name="rewards_spend_to_next_level_body">Spend more %1$s%2$s to reach the net level!</string>
-  <string name="rewards_current_bonus_title">%s%% bonus on every purchase</string>
+  <string name="rewards_current_bonus_title">%s%% бонус за кожну покупку</string>
   <string name="rewards_eskills_card_title">Earn Money!</string>
   <string name="rewards_eskills_card_body">Beat other players with e-Skills</string>
   <string name="rewards_promo_code_card_title">Promo Codes</string>
   <string name="rewards_promo_code_card_body">Use a promo code to get special deals!</string>
-  <string name="rewards_promo_code_status">Status:</string>
-  <string name="rewards_promo_code_status_active">Active</string>
-  <string name="rewards_promo_code_status_expired">Expired</string>
+  <string name="rewards_promo_code_status">Статус:</string>
+  <string name="rewards_promo_code_status_active">Активний</string>
+  <string name="rewards_promo_code_status_expired">Термін дії закінчився</string>
 </resources>
