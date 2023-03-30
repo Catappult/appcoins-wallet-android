@@ -26,7 +26,7 @@
   <string name="network_label">Δίκτυο</string>
   <string name="credits">Σχετικά με εμάς</string>
   <string name="label_new">Νέο</string>
-  <string name="got_it_button">Got it</string>
+  <string name="got_it_button">Το κατάλαβα</string>
   <string name="change_button">Αλλαγή</string>
   <string name="vip">VIP</string>
   <string name="faq">Συχνές Ερωτήσεις</string>
@@ -346,7 +346,7 @@
   <string name="gamification_transaction_title">@string/gamification_level_bonus</string>
   <string name="gamification_purchase_header">Αυτή η αγορά έχει ένα bonus!</string>
   <string name="gamification_purchase_header_part_1">Bonus Αγοράς:</string>
-  <string name="gamification_purchase_header_part_2">%s in AppCoins Credits</string>
+  <string name="gamification_purchase_header_part_2">%s σε AppCoins Credits</string>
   <string name="gamification_purchase_body">Μπορείτε να χρησιμοποιήσετε αυτό το bonus στην επόμενη αγορά σας.</string>
   <string name="gamification_purchase_completed_bonus_received_done">Τέλος!</string>
   <string name="gamification_purchase_completed_bonus_received">Το bonus ελήφθη</string>
@@ -374,7 +374,7 @@
   <string name="provide_wallet_allow_once_button">Να επιτραπεί μία φορά</string>
   <string name="provide_wallet_completed_header">Το wallet συσχετίστηκε με το Aptoide!</string>
   <string name="provide_wallet_create_body">Χρειάζεστε διεύθυνση wallet! Ακολουθήστε αυτά τα βήματα για να δημιουργήσετε μία στο AppCoins Wallet.</string>
-  <string name="provide_wallet_create_wallet_button">Create</string>
+  <string name="provide_wallet_create_wallet_button">Δημιουργία</string>
   <string name="provide_wallet_creating_wallet_header">Ετοιμάζοντας το wallet&#8230; σας</string>
   <string name="provide_wallet_created_header">Η διεύθυνση wallet δημιουργήθηκε!</string>
   <string name="provide_wallet_empty_state">Δεν έχετε δώσει ακόμη άδεια στο AppCoins Wallet να παρέχει τη διεύθυνσή σας σε άλλη εφαρμογή.</string>
@@ -389,7 +389,7 @@
   <string name="topup_completed_2_with_bonus">κατατέθηκαν στον λογαριασμό σας... Μαζί με ένα bonus!</string>
   <string name="topup_completed_2_without_bonus">κατατέθηκαν στον λογαριασμό σας.</string>
   <string name="topup_bonus_header_part_1">Bonus Φόρτισης:</string>
-  <string name="topup_bonus_header_part_2">%s in AppCoins Credits</string>
+  <string name="topup_bonus_header_part_2">%s σε AppCoins Credits</string>
   <string name="topup_bonus_body">Μπορείτε να χρησιμοποιήσετε αυτό το bonus στην επόμενη αγορά σας.</string>
   <string name="topup_minimum_value">Η ελάχιστη τιμή φόρτισης είναι %s</string>
   <string name="topup_maximum_value">Η μέγιστη τιμή φόρτισης είναι %s</string>
@@ -461,9 +461,9 @@
   <string name="install_button">Εγκατάσταση</string>
   <string name="get_button">Get</string>
   <string name="see_all_button">See all</string>
-  <string name="transfer_button">Transfer</string>
-  <string name="top_up_button">Top Up</string>
-  <string name="back_up_button">Back up wallet</string>
+  <string name="transfer_button">Μεταφορά</string>
+  <string name="top_up_button">Φόρτιση</string>
+  <string name="back_up_button">Δημιουργία αντιγράφου ασφαλείας Wallet</string>
   <string name="play_button">Play</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Συμφωνώ με %1$s και %2$s του AppCoins Wallet.</string>
@@ -621,7 +621,7 @@
   <string name="referral_share_sheet_title">Κοινοποίηση συνδέσμου πρόσκλησης μέσω:</string>
   <string name="referral_view_unverified_body">Λάβετε AppCoins Credits αξίας %s για κάθε φίλο. Πρώτα πρέπει να επαληθεύσετε το wallet σας.</string>
   <string name="referral_view_verify_button">Επαλήθευση Wallet</string>
-  <string name="referral_view_i_have_been_invited_button">I\'ve been invited</string>
+  <string name="referral_view_i_have_been_invited_button">Έχω προσκληθεί</string>
   <string name="referral_view_dropup_menu_friends_invited">Προσκεκλημένοι φίλοι</string>
   <string name="referral_view_dropup_menu_earned">Κερδήθηκαν</string>
   <string name="referral_dropup_menu_friends_title_1">Προσκεκλημένοι φίλοι</string>
@@ -671,7 +671,7 @@
   <string name="import_wallet_keystore_private_keys">Keystore ή ιδιωτικά κλειδιά</string>
   <string name="import_wallet_from_file_title">Ή ανακτήστε το μέσω αρχείου</string>
   <string name="import_wallet_file_button">Ανάκτηση από αρχείο</string>
-  <string name="import_wallet_button">Recover wallet</string>
+  <string name="import_wallet_button">Ανάκτηση wallet</string>
   <string name="import_wallet_password_body">Αυτό το wallet προστατεύεται από κωδικό!</string>
   <string name="import_wallet_wrong_password_body">Ωχ, λανθασμένος κωδικός πρόσβασης!</string>
   <string name="error_invalid_private_key">Μη έγκυρο ιδιωτικό κλειδί</string>
@@ -690,7 +690,7 @@
   <string name="backup_confirmation_tips_2"><b>Αποθηκεύστε το</b> σε μονάδα USB.</string>
   <string name="backup_confirmation_tips_3"><b>Αντιγράψτε το</b> σε ιδιωτικό και ασφαλή αποθηκευτικό χώρο cloud.</string>
   <string name="backup_tooltip_body">Δημιουργήστε αντίγραφο ασφαλείας του wallet σας!</string>
-  <string name="backup_tooltip_later_button">Maybe later</string>
+  <string name="backup_tooltip_later_button">Ίσως αργότερα</string>
   <string name="backup_tooltip_backup_button">Δημιουργία αντιγράφου ασφαλείας</string>
   <string name="backup_notification_title">Δημιουργήστε αντίγραφο ασφαλείας του wallet σας!</string>
   <string name="backup_notification_body">Διατηρήστε ασφαλή τα χρήματά σας και εξασφαλίστε ότι θα έχετε πάντα πρόσβαση στο wallet σας.</string>
@@ -720,10 +720,10 @@ Wallets</item>
   <string name="wallets_imported_body">Επιτυχής ανάκτηση wallet</string>
   <string name="wallets_2nd_view_balance_title">Υπόλοιπο:</string>
   <string name="wallets_2nd_view_other_wallets_title">Άλλα wallet</string>
-  <string name="wallets_2nd_view_import_button">Recover wallet</string>
+  <string name="wallets_2nd_view_import_button">Ανάκτηση wallet</string>
   <string name="wallets_2nd_view_create_button">Δημιουργία νέου</string>
   <string name="wallet_view_copy_button">Αντιγραφή</string>
-  <string name="wallet_view_share_button">Share</string>
+  <string name="wallet_view_share_button">Κοινοποίηση</string>
   <string name="wallet_view_total_balance_title">Συνολικό Υπόλοιπο</string>
   <string name="wallet_view_remove_button">Αφαίρεση Wallet</string>
   <string name="wallet_view_backup_button">Δημιουργία αντιγράφου ασφαλείας Wallet</string>
@@ -748,7 +748,7 @@ Wallets</item>
   <string name="transfer_send_token_title">Token:</string>
   <string name="transfer_send_amount_title">Ποσό</string>
   <string name="transfer_send_current_balance_title">Τρέχον Υπόλοιπο:</string>
-  <string name="transfer_send_button">Send</string>
+  <string name="transfer_send_button">Αποστολή</string>
   <string name="transfer_receive_body">Κοινοποιήστε τη διεύθυνση του wallet σας για να λάβετε χρήματα.</string>
   <!--Support Notifications-->
   <string name="support_new_message_title">Έχετε ένα νέο μήνυμα!</string>
@@ -785,7 +785,7 @@ Wallets</item>
   <string name="subscriptions_expiration_body">Λήξη στις %s</string>
   <string name="subscriptions_canceled_body">Ακυρώθηκε</string>
   <string name="subscriptions_details_disclaimer">Η αξία σε AppCoins ενδέχεται να διαφέρει σε επόμενη πληρωμή λόγω της συναλλαγματικής ισοτιμίας.</string>
-  <string name="subscriptions_details_button">Details</string>
+  <string name="subscriptions_details_button">Λεπτομέρειες</string>
   <string name="subscriptions_manage_button">Διαχείριση εγγραφής</string>
   <string name="subscriptions_cancel_button">Ακύρωση εγγραφής</string>
   <string name="subscriptions_renew_subscription_button">Ανανέωση εγγραφής</string>
@@ -868,7 +868,7 @@ Wallets</item>
   <string name="carrier_billing_enter_pin_body">Παρακαλούμε, εισαγάγετε το PIN που ελήφθη μέσω SMS.</string>
   <string name="carrier_billing_code_field">Ο κωδικός σας...</string>
   <string name="carrier_billing_code_resend_button">Αποστολή κωδικού εκ νέου</string>
-  <string name="carrier_billing_submit_button">Submit</string>
+  <string name="carrier_billing_submit_button">Υποβολή</string>
   <string name="carrier_billing_number_not_supported">Φαίνεται πως ο αριθμός σας δεν είναι συμβατός με αυτή τη μέθοδο πληρωμής.</string>
   <string name="carrier_billing_terms_disclaimer">Πατώντας Υποβολή, επιβεβαιώνετε ότι αποδέχεστε τους Όρους και Προϋποθέσεις και την Πολιτική Απορρήτου.</string>
   <string name="carrier_billing_help_1">Χρειάζεστε βοήθεια;</string>
@@ -991,7 +991,7 @@ Wallets</item>
   <string name="voucher_buy_header">Voucher για %s</string>
   <string name="voucher_buy_short_header">Voucher:</string>
   <string name="voucher_buy_no_game_title">Δεν έχετε %s;</string>
-  <string name="voucher_buy_no_game_install_button">Download now</string>
+  <string name="voucher_buy_no_game_install_button">Κάντε download τώρα</string>
   <string name="voucher_code_title">Κωδικός Voucher</string>
   <string name="voucher_instructions_body">Μεταβείτε στο %s και χρησιμοποιήστε τον κωδικό για να εξαργυρώσετε το voucher σας.</string>
   <string name="voucher_instructions_transactions">Ο κωδικός voucher είναι πάντα διαθέσιμος στο ιστορικό συναλλαγών.</string>
@@ -1169,12 +1169,12 @@ Wallets</item>
   <string name="intro_backup_card_title">Don\'t loose your funds!</string>
   <string name="intro_backup_card_body">Back up your wallet and keep it safe all times.</string>
   <string name="rewards_spend_to_next_level_body">Spend more %1$s%2$s to reach the net level!</string>
-  <string name="rewards_current_bonus_title">%s%% bonus on every purchase</string>
+  <string name="rewards_current_bonus_title">%s%% bonus σε κάθε αγορά</string>
   <string name="rewards_eskills_card_title">Earn Money!</string>
   <string name="rewards_eskills_card_body">Beat other players with e-Skills</string>
   <string name="rewards_promo_code_card_title">Promo Codes</string>
   <string name="rewards_promo_code_card_body">Use a promo code to get special deals!</string>
-  <string name="rewards_promo_code_status">Status:</string>
-  <string name="rewards_promo_code_status_active">Active</string>
-  <string name="rewards_promo_code_status_expired">Expired</string>
+  <string name="rewards_promo_code_status">Κατάσταση:</string>
+  <string name="rewards_promo_code_status_active">Ενεργές</string>
+  <string name="rewards_promo_code_status_expired">Έληξε</string>
 </resources>
