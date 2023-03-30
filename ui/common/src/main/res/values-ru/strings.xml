@@ -26,7 +26,7 @@
   <string name="network_label">Сеть</string>
   <string name="credits">Информация</string>
   <string name="label_new">Новое</string>
-  <string name="got_it_button">Got it</string>
+  <string name="got_it_button">Ясно</string>
   <string name="change_button">Изменить</string>
   <string name="vip">VIP</string>
   <string name="faq">Часто задаваемые вопросы</string>
@@ -346,7 +346,7 @@
   <string name="gamification_transaction_title">@string/gamification_level_bonus</string>
   <string name="gamification_purchase_header">На эту покупку есть бонус!</string>
   <string name="gamification_purchase_header_part_1">Бонус за покупку:</string>
-  <string name="gamification_purchase_header_part_2">%s in AppCoins Credits</string>
+  <string name="gamification_purchase_header_part_2">%s в AppCoins Credits</string>
   <string name="gamification_purchase_body">Вы можете использовать этот бонус при вашей следующей покупке.</string>
   <string name="gamification_purchase_completed_bonus_received_done">Готово!</string>
   <string name="gamification_purchase_completed_bonus_received">Бонус получен</string>
@@ -374,7 +374,7 @@
   <string name="provide_wallet_allow_once_button">Разрешить один раз</string>
   <string name="provide_wallet_completed_header">Кошелёк связан с Aptoide!</string>
   <string name="provide_wallet_create_body">Вам нужен адрес кошелька! Выполните следующие действия, чтобы создать его в AppCoins Wallet.</string>
-  <string name="provide_wallet_create_wallet_button">Create</string>
+  <string name="provide_wallet_create_wallet_button">Создать</string>
   <string name="provide_wallet_creating_wallet_header">Готовим ваш кошелёк&#8230;</string>
   <string name="provide_wallet_created_header">Адрес кошелька создан!</string>
   <string name="provide_wallet_empty_state">Вы пока не разрешили кошельку AppCoins предоставлять ваш адрес другим приложениям.</string>
@@ -389,7 +389,7 @@
   <string name="topup_completed_2_with_bonus">были размещены на вашем счёте... а также бонус!</string>
   <string name="topup_completed_2_without_bonus">были зачислены на ваш аккаунт.</string>
   <string name="topup_bonus_header_part_1">Дополнительный бонус:</string>
-  <string name="topup_bonus_header_part_2">%s in AppCoins Credits</string>
+  <string name="topup_bonus_header_part_2">%s в AppCoins Credits</string>
   <string name="topup_bonus_body">Вы можете использовать этот бонус при вашей следующей покупке.</string>
   <string name="topup_minimum_value">Минимальный размер бонуса – %s</string>
   <string name="topup_maximum_value">Максимальный размер бонуса – %s</string>
@@ -461,9 +461,9 @@
   <string name="install_button">Установить</string>
   <string name="get_button">Get</string>
   <string name="see_all_button">See all</string>
-  <string name="transfer_button">Transfer</string>
-  <string name="top_up_button">Top Up</string>
-  <string name="back_up_button">Back up wallet</string>
+  <string name="transfer_button">Перевод</string>
+  <string name="top_up_button">Пополнить</string>
+  <string name="back_up_button">Сделать бэкап кошелька</string>
   <string name="play_button">Play</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Я согласен с %1$s и %2$s AppCoins Wallet.</string>
@@ -621,7 +621,7 @@
   <string name="referral_share_sheet_title">Поделиться ссылкой-приглашением через:</string>
   <string name="referral_view_unverified_body">Получите %s в AppCoins Credits за каждого друга. Сначала нужно подтвердить ваш кошелёк.</string>
   <string name="referral_view_verify_button">Подтвердить кошелёк</string>
-  <string name="referral_view_i_have_been_invited_button">I\'ve been invited</string>
+  <string name="referral_view_i_have_been_invited_button">Меня пригласили</string>
   <string name="referral_view_dropup_menu_friends_invited">Друзей приглашено</string>
   <string name="referral_view_dropup_menu_earned">Заработано</string>
   <string name="referral_dropup_menu_friends_title_1">Друзей приглашено</string>
@@ -671,7 +671,7 @@
   <string name="import_wallet_keystore_private_keys">Хранилище ключей или закрытый ключ</string>
   <string name="import_wallet_from_file_title">Или восстановите из файла</string>
   <string name="import_wallet_file_button">Восстановить из файла</string>
-  <string name="import_wallet_button">Recover wallet</string>
+  <string name="import_wallet_button">Восстановить кошелёк</string>
   <string name="import_wallet_password_body">Этот кошелёк защищен паролем!</string>
   <string name="import_wallet_wrong_password_body">Ой, неверный пароль!</string>
   <string name="error_invalid_private_key">Недопустимый приватный ключ</string>
@@ -690,7 +690,7 @@
   <string name="backup_confirmation_tips_2"><b>Сохраните</b> на диск USB.</string>
   <string name="backup_confirmation_tips_3"><b>Скопируйте</b> в личное безопасное облачное хранилище.</string>
   <string name="backup_tooltip_body">Сделать резервную копию кошелька!</string>
-  <string name="backup_tooltip_later_button">Maybe later</string>
+  <string name="backup_tooltip_later_button">Может быть позже</string>
   <string name="backup_tooltip_backup_button">Бэкап</string>
   <string name="backup_notification_title">Сделайте резервную копию кошелька!</string>
   <string name="backup_notification_body">Обезопасьте ваши средства и гарантируйте, что у вас всегда будет доступ к вашему кошельку.</string>
@@ -721,10 +721,10 @@
   <string name="wallets_imported_body">Кошелёк успешно восстановлен</string>
   <string name="wallets_2nd_view_balance_title">Баланс:</string>
   <string name="wallets_2nd_view_other_wallets_title">Другие кошельки</string>
-  <string name="wallets_2nd_view_import_button">Recover wallet</string>
+  <string name="wallets_2nd_view_import_button">Восстановить кошелёк</string>
   <string name="wallets_2nd_view_create_button">Создать новый</string>
   <string name="wallet_view_copy_button">Скопировать</string>
-  <string name="wallet_view_share_button">Share</string>
+  <string name="wallet_view_share_button">Поделиться</string>
   <string name="wallet_view_total_balance_title">Общий баланс</string>
   <string name="wallet_view_remove_button">Удалить кошелёк</string>
   <string name="wallet_view_backup_button">Сделать бэкап кошелька</string>
@@ -749,7 +749,7 @@
   <string name="transfer_send_token_title">Валюта:</string>
   <string name="transfer_send_amount_title">Сумма</string>
   <string name="transfer_send_current_balance_title">Текущий баланс:</string>
-  <string name="transfer_send_button">Send</string>
+  <string name="transfer_send_button">Отправить</string>
   <string name="transfer_receive_body">Поделитесь адресом своего кошелька, чтобы получить средства.</string>
   <!--Support Notifications-->
   <string name="support_new_message_title">У вас новое сообщение!</string>
@@ -786,7 +786,7 @@
   <string name="subscriptions_expiration_body">Истекает %s</string>
   <string name="subscriptions_canceled_body">Отменена</string>
   <string name="subscriptions_details_disclaimer">Стоимость в AppCoins может измениться для следующего платежа из-за курса обмена.</string>
-  <string name="subscriptions_details_button">Details</string>
+  <string name="subscriptions_details_button">Детали</string>
   <string name="subscriptions_manage_button">Управление подписками</string>
   <string name="subscriptions_cancel_button">Отменить подписку</string>
   <string name="subscriptions_renew_subscription_button">Продлить подписку</string>
@@ -869,7 +869,7 @@
   <string name="carrier_billing_enter_pin_body">Пожалуйста, введите PIN, полученный в SMS.</string>
   <string name="carrier_billing_code_field">Ваш код...</string>
   <string name="carrier_billing_code_resend_button">Переслать код</string>
-  <string name="carrier_billing_submit_button">Submit</string>
+  <string name="carrier_billing_submit_button">Отправить</string>
   <string name="carrier_billing_number_not_supported">Похоже, ваш номер телефона несовместим с этим способом оплаты.</string>
   <string name="carrier_billing_terms_disclaimer">Нажимая \"Подтвердить\", вы принимаете Условия и ограничения, а также Политику конфиденциальности.</string>
   <string name="carrier_billing_help_1">Нужна помощь?</string>
@@ -1008,7 +1008,7 @@
   <string name="voucher_buy_header">Купон для %s</string>
   <string name="voucher_buy_short_header">Купон:</string>
   <string name="voucher_buy_no_game_title">У вас ещё нет %s?</string>
-  <string name="voucher_buy_no_game_install_button">Download now</string>
+  <string name="voucher_buy_no_game_install_button">Загрузите сейчас</string>
   <string name="voucher_code_title">Код из купона</string>
   <string name="voucher_instructions_body">Перейдите на %s и используйте код, чтобы погасить ваш купон.</string>
   <string name="voucher_instructions_transactions">Вы всегда можете найти код купона в истории ваших транзакций.</string>
@@ -1114,7 +1114,7 @@
   <string name="mywallet_unverified_body">Подтвердите способ оплаты, чтобы избежать блокировки.</string>
   <string name="mywallet_backed_up_date">Вы создали резервную копию своего кошелька на %s.</string>
   <string name="mywallet_backup_again_button">Сделать бэкап снова</string>
-  <string name="mywallet_verify_payment_method_button">Verify new card</string>
+  <string name="mywallet_verify_payment_method_button">Подтвердить новую карту</string>
   <string name="mywallet_choose_name_header">Выберите название для своего кошелька</string>
   <string name="mywallet_choose_name_field">Название кошелька здесь...</string>
   <string name="mywallet_choose_name_confirmed">Название кошелька изменено</string>
@@ -1164,7 +1164,7 @@
   <string name="intro_appcoins_games_header">Discover Games with AppCoins</string>
   <string name="intro_active_promotions_header">Active Promotions</string>
   <string name="topup_home_button">Пополнить</string>
-  <string name="intro_home_button">Home</string>
+  <string name="intro_home_button">Главная</string>
   <string name="intro_rewards_button">Rewards</string>
   <plurals name="days">
     <item quantity="one">DAY</item>
@@ -1194,12 +1194,12 @@
   <string name="intro_backup_card_title">Don\'t loose your funds!</string>
   <string name="intro_backup_card_body">Back up your wallet and keep it safe all times.</string>
   <string name="rewards_spend_to_next_level_body">Spend more %1$s%2$s to reach the net level!</string>
-  <string name="rewards_current_bonus_title">%s%% bonus on every purchase</string>
+  <string name="rewards_current_bonus_title">бонус %s%% за каждую покупку</string>
   <string name="rewards_eskills_card_title">Earn Money!</string>
   <string name="rewards_eskills_card_body">Beat other players with e-Skills</string>
   <string name="rewards_promo_code_card_title">Promo Codes</string>
   <string name="rewards_promo_code_card_body">Use a promo code to get special deals!</string>
-  <string name="rewards_promo_code_status">Status:</string>
-  <string name="rewards_promo_code_status_active">Active</string>
-  <string name="rewards_promo_code_status_expired">Expired</string>
+  <string name="rewards_promo_code_status">Статус:</string>
+  <string name="rewards_promo_code_status_active">Активен</string>
+  <string name="rewards_promo_code_status_expired">Истёк</string>
 </resources>
