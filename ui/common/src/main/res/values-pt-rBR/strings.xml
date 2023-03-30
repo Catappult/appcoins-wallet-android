@@ -26,7 +26,7 @@
   <string name="network_label">Rede</string>
   <string name="credits">Créditos</string>
   <string name="label_new">Novo</string>
-  <string name="got_it_button">Got it</string>
+  <string name="got_it_button">Entendi</string>
   <string name="change_button">Alterar</string>
   <string name="vip">VIP</string>
   <string name="faq">FAQs</string>
@@ -346,7 +346,7 @@
   <string name="gamification_transaction_title">@string/gamification_level_bonus</string>
   <string name="gamification_purchase_header">Esta compra tem um bônus!</string>
   <string name="gamification_purchase_header_part_1">Bônus de Compra:</string>
-  <string name="gamification_purchase_header_part_2">%s in AppCoins Credits</string>
+  <string name="gamification_purchase_header_part_2">%s em Créditos AppCoins</string>
   <string name="gamification_purchase_body">Você pode usar este bônus em sua próxima compra.</string>
   <string name="gamification_purchase_completed_bonus_received_done">Pronto!</string>
   <string name="gamification_purchase_completed_bonus_received">Bônus Recebido</string>
@@ -374,7 +374,7 @@
   <string name="provide_wallet_allow_once_button">Permitir uma vez</string>
   <string name="provide_wallet_completed_header">Carteira associada à Aptoide!</string>
   <string name="provide_wallet_create_body">Você precisa de um endereço da carteira! Siga estes passos para criar uma na AppCoins Wallet.</string>
-  <string name="provide_wallet_create_wallet_button">Create</string>
+  <string name="provide_wallet_create_wallet_button">Criar</string>
   <string name="provide_wallet_creating_wallet_header">Preparando a sua carteira&#8230;</string>
   <string name="provide_wallet_created_header">Endereço da carteira criado!</string>
   <string name="provide_wallet_empty_state">Você não autorizou ainda a AppCoins Wallet fornecer seu endereço para outro app.</string>
@@ -389,7 +389,7 @@
   <string name="topup_completed_2_with_bonus">foram depositados em sua conta... Além de um bônus!</string>
   <string name="topup_completed_2_without_bonus">foram depositados em sua conta.</string>
   <string name="topup_bonus_header_part_1">Bônus Adicional:</string>
-  <string name="topup_bonus_header_part_2">%s in AppCoins Credits</string>
+  <string name="topup_bonus_header_part_2">%s em Créditos AppCoins</string>
   <string name="topup_bonus_body">Você pode usar este bônus em sua próxima compra.</string>
   <string name="topup_minimum_value">O valor mínimo de recarga é %s</string>
   <string name="topup_maximum_value">O valor máximo de recarga é %s</string>
@@ -461,9 +461,9 @@
   <string name="install_button">Instalar</string>
   <string name="get_button">Get</string>
   <string name="see_all_button">See all</string>
-  <string name="transfer_button">Transfer</string>
-  <string name="top_up_button">Top Up</string>
-  <string name="back_up_button">Back up wallet</string>
+  <string name="transfer_button">Transferir</string>
+  <string name="top_up_button">Depositar</string>
+  <string name="back_up_button">Fazer backup da wallet</string>
   <string name="play_button">Play</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Eu concordo com os %1$s e %2$s da AppCoins Wallet.</string>
@@ -621,7 +621,7 @@
   <string name="referral_share_sheet_title">Compartilhar convite via:</string>
   <string name="referral_view_unverified_body">Receba %s em Créditos AppCoins por cada amigo. Primeiro você precisa verificar sua carteira.</string>
   <string name="referral_view_verify_button">Verificar wallet</string>
-  <string name="referral_view_i_have_been_invited_button">I\'ve been invited</string>
+  <string name="referral_view_i_have_been_invited_button">Você foi convidado</string>
   <string name="referral_view_dropup_menu_friends_invited">Amigos convidados</string>
   <string name="referral_view_dropup_menu_earned">Recebido</string>
   <string name="referral_dropup_menu_friends_title_1">Amigos Convidados</string>
@@ -671,7 +671,7 @@
   <string name="import_wallet_keystore_private_keys">Keystore ou chaves privadas</string>
   <string name="import_wallet_from_file_title">Ou recupere do arquivo</string>
   <string name="import_wallet_file_button">Recuperar do arquivo</string>
-  <string name="import_wallet_button">Recover wallet</string>
+  <string name="import_wallet_button">Recuperar wallet</string>
   <string name="import_wallet_password_body">Esta wallet está protegida com senha!</string>
   <string name="import_wallet_wrong_password_body">Ops, senha incorreta!</string>
   <string name="error_invalid_private_key">Chave privada inválida</string>
@@ -690,7 +690,7 @@
   <string name="backup_confirmation_tips_2"><b>Salve-o</b> em uma unidade USB.</string>
   <string name="backup_confirmation_tips_3"><b>Copie-o</b> para um armazenamento em nuvem privativo e seguro.</string>
   <string name="backup_tooltip_body">Faça um backup da sua wallet!</string>
-  <string name="backup_tooltip_later_button">Maybe later</string>
+  <string name="backup_tooltip_later_button">Talvez depois</string>
   <string name="backup_tooltip_backup_button">Backup</string>
   <string name="backup_notification_title">Faça um backup da sua wallet!</string>
   <string name="backup_notification_body">Mantenha seus fundos seguros e tenha sempre acesso à sua carteira.</string>
@@ -719,10 +719,10 @@
   <string name="wallets_imported_body">Wallet recuperada com sucesso</string>
   <string name="wallets_2nd_view_balance_title">Saldo:</string>
   <string name="wallets_2nd_view_other_wallets_title">Outras Wallets</string>
-  <string name="wallets_2nd_view_import_button">Recover wallet</string>
+  <string name="wallets_2nd_view_import_button">Recuperar wallet</string>
   <string name="wallets_2nd_view_create_button">Criar nova</string>
   <string name="wallet_view_copy_button">Copiar</string>
-  <string name="wallet_view_share_button">Share</string>
+  <string name="wallet_view_share_button">Compartilhar</string>
   <string name="wallet_view_total_balance_title">Saldo Total</string>
   <string name="wallet_view_remove_button">Remover wallet</string>
   <string name="wallet_view_backup_button">Fazer backup da wallet</string>
@@ -747,7 +747,7 @@
   <string name="transfer_send_token_title">Token:</string>
   <string name="transfer_send_amount_title">Quantia</string>
   <string name="transfer_send_current_balance_title">Saldo Atual:</string>
-  <string name="transfer_send_button">Send</string>
+  <string name="transfer_send_button">Enviar</string>
   <string name="transfer_receive_body">Compartilhe o endereço de sua wallet para receber créditos.</string>
   <!--Support Notifications-->
   <string name="support_new_message_title">Você tem uma nova mensagem!</string>
@@ -784,7 +784,7 @@
   <string name="subscriptions_expiration_body">Expira em %s</string>
   <string name="subscriptions_canceled_body">Cancelada</string>
   <string name="subscriptions_details_disclaimer">O valor em AppCoins pode variar no próximo pagamento devido à taxa de câmbio.</string>
-  <string name="subscriptions_details_button">Details</string>
+  <string name="subscriptions_details_button">Detalhes</string>
   <string name="subscriptions_manage_button">Gerenciar assinatura</string>
   <string name="subscriptions_cancel_button">Cancelar assinatura</string>
   <string name="subscriptions_renew_subscription_button">Renovar assinatura</string>
@@ -867,7 +867,7 @@
   <string name="carrier_billing_enter_pin_body">Digite o PIN recebido via SMS.</string>
   <string name="carrier_billing_code_field">Seu código...</string>
   <string name="carrier_billing_code_resend_button">Reenviar código</string>
-  <string name="carrier_billing_submit_button">Submit</string>
+  <string name="carrier_billing_submit_button">Enviar</string>
   <string name="carrier_billing_number_not_supported">Parece que seu número não é compatível com esta forma de pagamento.</string>
   <string name="carrier_billing_terms_disclaimer">Ao tocar em Enviar, você confirma que aceita os Termos e Condições e a Política de Privacidade.</string>
   <string name="carrier_billing_help_1">Precisa ajuda?</string>
@@ -990,7 +990,7 @@
   <string name="voucher_buy_header">Voucher para %s</string>
   <string name="voucher_buy_short_header">Voucher:</string>
   <string name="voucher_buy_no_game_title">Você não tem o %s?</string>
-  <string name="voucher_buy_no_game_install_button">Download now</string>
+  <string name="voucher_buy_no_game_install_button">Baixe agora</string>
   <string name="voucher_code_title">Código do Voucher</string>
   <string name="voucher_instructions_body">Acesse %s e use o código para resgatar seu voucher.</string>
   <string name="voucher_instructions_transactions">Você sempre encontrará o código do voucher no histórico de transações.</string>
@@ -1096,13 +1096,13 @@
   <string name="mywallet_unverified_body">Verifique uma forma de pagamento para evitar bloqueios.</string>
   <string name="mywallet_backed_up_date">Você fez backup de sua carteira em %s.</string>
   <string name="mywallet_backup_again_button">Fazer backup novamente</string>
-  <string name="mywallet_verify_payment_method_button">Verify new card</string>
+  <string name="mywallet_verify_payment_method_button">Verificar novo cartão</string>
   <string name="mywallet_choose_name_header">Escolha um nome para sua carteira</string>
   <string name="mywallet_choose_name_field">Nome da carteira aqui...</string>
   <string name="mywallet_choose_name_confirmed">Nome da carteira alterado</string>
   <string name="mywallet_unnamed_wallet">Sem nome na carteira %s</string>
   <string name="mywallet_swithing_wallets_title">Trocando de carteira...</string>
-  <string name="mywallet_address_title">Address:</string>
+  <string name="mywallet_address_title">Endereço:</string>
   <!-- Onboarding for new users coming from an iap -->
   <string name="onboarding_1st_title">Parabéns! Você instalou a AppCoins Wallet.</string>
   <string name="onboarding_1st_body">Volte ao jogo para concluir sua compra.</string>
@@ -1146,7 +1146,7 @@
   <string name="intro_appcoins_games_header">Discover Games with AppCoins</string>
   <string name="intro_active_promotions_header">Active Promotions</string>
   <string name="topup_home_button">Depositar</string>
-  <string name="intro_home_button">Home</string>
+  <string name="intro_home_button">Início</string>
   <string name="intro_rewards_button">Rewards</string>
   <plurals name="days">
     <item quantity="one">DAY</item>
@@ -1168,12 +1168,12 @@
   <string name="intro_backup_card_title">Don\'t loose your funds!</string>
   <string name="intro_backup_card_body">Back up your wallet and keep it safe all times.</string>
   <string name="rewards_spend_to_next_level_body">Spend more %1$s%2$s to reach the net level!</string>
-  <string name="rewards_current_bonus_title">%s%% bonus on every purchase</string>
+  <string name="rewards_current_bonus_title">%s% bônus em cada compra</string>
   <string name="rewards_eskills_card_title">Earn Money!</string>
   <string name="rewards_eskills_card_body">Beat other players with e-Skills</string>
   <string name="rewards_promo_code_card_title">Promo Codes</string>
   <string name="rewards_promo_code_card_body">Use a promo code to get special deals!</string>
   <string name="rewards_promo_code_status">Status:</string>
-  <string name="rewards_promo_code_status_active">Active</string>
-  <string name="rewards_promo_code_status_expired">Expired</string>
+  <string name="rewards_promo_code_status_active">Ativo</string>
+  <string name="rewards_promo_code_status_expired">Expirado</string>
 </resources>
