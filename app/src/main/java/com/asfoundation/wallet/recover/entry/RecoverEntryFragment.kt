@@ -4,6 +4,7 @@ import android.Manifest
 import android.app.Activity
 import android.content.Intent
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -68,7 +69,13 @@ class RecoverEntryFragment : BasePageViewFragment(),
       navigator.navigateBack(fromActivity = !isOnboardingLayout)
     }
     views.recoverWalletOptions.recoverFromFileButton.setOnClickListener {
-      requestPermissionsLauncher.launch(Manifest.permission.READ_EXTERNAL_STORAGE)
+      // For Android 33 and beyond, the READ_EXTERNAL_STORAGE permission does not work. Though it's
+      // still needed for backward compatibility.
+      if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) {
+        requestPermissionsLauncher.launch(Manifest.permission.READ_EXTERNAL_STORAGE)
+      } else {
+        navigator.launchFileIntent(storageIntentLauncher, viewModel.filePath())
+      }
     }
     views.recoverWalletButton.setOnClickListener {
       viewModel.handleRecoverClick(
