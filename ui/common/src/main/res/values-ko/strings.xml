@@ -26,7 +26,7 @@
   <string name="network_label">네트워크</string>
   <string name="credits">크레딧</string>
   <string name="label_new">신규</string>
-  <string name="got_it_button">Got it</string>
+  <string name="got_it_button">알겠습니다</string>
   <string name="change_button">변경</string>
   <string name="vip">VIP</string>
   <string name="faq">자주묻는 질문</string>
@@ -346,7 +346,7 @@
   <string name="gamification_transaction_title">@string/gamification_level_bonus</string>
   <string name="gamification_purchase_header">이 구매에는 보너스가 있습니다!</string>
   <string name="gamification_purchase_header_part_1">보너스 구매</string>
-  <string name="gamification_purchase_header_part_2">%s in AppCoins Credits</string>
+  <string name="gamification_purchase_header_part_2">AppCoins 크레디트로 %s</string>
   <string name="gamification_purchase_body">다음 구매에서 이 보너스를 사용하실 수 있습니다.</string>
   <string name="gamification_purchase_completed_bonus_received_done">완료!</string>
   <string name="gamification_purchase_completed_bonus_received">받은 보너스</string>
@@ -374,7 +374,7 @@
   <string name="provide_wallet_allow_once_button">한 번 허용</string>
   <string name="provide_wallet_completed_header">Aptoide로 지갑 연결 됨!</string>
   <string name="provide_wallet_create_body">지갑 주소가 필요합니다! 다음 단계들을 따라서 AppCoins 지갑을 생성하세요.</string>
-  <string name="provide_wallet_create_wallet_button">Create</string>
+  <string name="provide_wallet_create_wallet_button">생성</string>
   <string name="provide_wallet_creating_wallet_header">지갑 준비하기&#8230;</string>
   <string name="provide_wallet_created_header">지갑 주소 생성 됨!</string>
   <string name="provide_wallet_empty_state">다른 앱으로 귀하의 주소를 제공하기 위해 AppCoins 지갑을 아직 허용하지 않았습니다.</string>
@@ -389,7 +389,7 @@
   <string name="topup_completed_2_with_bonus">귀하의 계정에 입금되었습니다... 보너스도 같이요!</string>
   <string name="topup_completed_2_without_bonus">귀하의 계정에 입금되었습니다.</string>
   <string name="topup_bonus_header_part_1">탑-업 보너스:</string>
-  <string name="topup_bonus_header_part_2">%s in AppCoins Credits</string>
+  <string name="topup_bonus_header_part_2">AppCoins 크레디트로 %s</string>
   <string name="topup_bonus_body">다음 구매에서 이 보너스를 사용하실 수 있습니다.</string>
   <string name="topup_minimum_value">최소 탑-업 레벨은 %s 입니다</string>
   <string name="topup_maximum_value">최대 탑-업 레벨은 %s 입니다</string>
@@ -461,9 +461,9 @@
   <string name="install_button">설치</string>
   <string name="get_button">Get</string>
   <string name="see_all_button">See all</string>
-  <string name="transfer_button">Transfer</string>
-  <string name="top_up_button">Top Up</string>
-  <string name="back_up_button">Back up wallet</string>
+  <string name="transfer_button">전송</string>
+  <string name="top_up_button">충전</string>
+  <string name="back_up_button">지갑 백업하기</string>
   <string name="play_button">Play</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">AppCoins 지갑의 %1$s 그리고 %2$s 에 동의합니다.</string>
@@ -621,7 +621,7 @@
   <string name="referral_share_sheet_title">다음을 통해 초대 링크 공유:</string>
   <string name="referral_view_unverified_body">각 친구에 대해 %s 상당의 AppCoins 크레디트를 받으십시오. 먼저 지갑을 확인해야 합니다.</string>
   <string name="referral_view_verify_button">지갑 확인</string>
-  <string name="referral_view_i_have_been_invited_button">I\'ve been invited</string>
+  <string name="referral_view_i_have_been_invited_button">초대받았습니다</string>
   <string name="referral_view_dropup_menu_friends_invited">초대한 친구</string>
   <string name="referral_view_dropup_menu_earned">수익</string>
   <string name="referral_dropup_menu_friends_title_1">초대한 친구</string>
@@ -671,7 +671,7 @@
   <string name="import_wallet_keystore_private_keys">키스토어 또는 개인 키</string>
   <string name="import_wallet_from_file_title">또는 파일에서 복구</string>
   <string name="import_wallet_file_button">파일에서 복구</string>
-  <string name="import_wallet_button">Recover wallet</string>
+  <string name="import_wallet_button">지갑 복구</string>
   <string name="import_wallet_password_body">이 지갑의 비밀번호는 보호되어 있습니다!</string>
   <string name="import_wallet_wrong_password_body">이런, 잘못된 비밀번호입니다!</string>
   <string name="error_invalid_private_key">잘못된 비밀 키</string>
@@ -690,7 +690,7 @@
   <string name="backup_confirmation_tips_2">USB 드라이브에 <b>저장</b>합니다.</string>
   <string name="backup_confirmation_tips_3">개인적이고 안전한 클라우드 저장소에 <b>복사</b>합니다</string>
   <string name="backup_tooltip_body">지갑의 백업 만들기</string>
-  <string name="backup_tooltip_later_button">Maybe later</string>
+  <string name="backup_tooltip_later_button">다음 기회로</string>
   <string name="backup_tooltip_backup_button">백업</string>
   <string name="backup_notification_title">지갑의 백업 만들기</string>
   <string name="backup_notification_body">자금을 안전하게 보관하고 지갑에 항상 접근할 수 있는지 확인하세요.</string>
@@ -718,10 +718,10 @@
   <string name="wallets_imported_body">지갑이 성공적으로 복구되었습니다</string>
   <string name="wallets_2nd_view_balance_title">잔액:</string>
   <string name="wallets_2nd_view_other_wallets_title">다른 지갑</string>
-  <string name="wallets_2nd_view_import_button">Recover wallet</string>
+  <string name="wallets_2nd_view_import_button">지갑 복구</string>
   <string name="wallets_2nd_view_create_button">신규 생성</string>
   <string name="wallet_view_copy_button">복사</string>
-  <string name="wallet_view_share_button">Share</string>
+  <string name="wallet_view_share_button">공유</string>
   <string name="wallet_view_total_balance_title">총 잔액</string>
   <string name="wallet_view_remove_button">지갑 제거</string>
   <string name="wallet_view_backup_button">지갑 백업하기</string>
@@ -746,7 +746,7 @@
   <string name="transfer_send_token_title">토큰:</string>
   <string name="transfer_send_amount_title">금액</string>
   <string name="transfer_send_current_balance_title">현재 잔액:</string>
-  <string name="transfer_send_button">Send</string>
+  <string name="transfer_send_button">전송</string>
   <string name="transfer_receive_body">자본 수신을 위해 지갑 주소를 공유하세요.</string>
   <!--Support Notifications-->
   <string name="support_new_message_title">새로운 메시지를 받았습니다!</string>
@@ -783,7 +783,7 @@
   <string name="subscriptions_expiration_body">%s에 만료됩니다</string>
   <string name="subscriptions_canceled_body">취소됨</string>
   <string name="subscriptions_details_disclaimer">환율로 인하여 다음 구매 시 AppCoins의 가치는 달라질 수 있습니다.</string>
-  <string name="subscriptions_details_button">Details</string>
+  <string name="subscriptions_details_button">상세내용</string>
   <string name="subscriptions_manage_button">구독 관리</string>
   <string name="subscriptions_cancel_button">구독 취소</string>
   <string name="subscriptions_renew_subscription_button">가입 갱신</string>
@@ -866,7 +866,7 @@
   <string name="carrier_billing_enter_pin_body">SMS로 받은 PIN을 입력하세요.</string>
   <string name="carrier_billing_code_field">코드...</string>
   <string name="carrier_billing_code_resend_button">코드 재전송</string>
-  <string name="carrier_billing_submit_button">Submit</string>
+  <string name="carrier_billing_submit_button">제출</string>
   <string name="carrier_billing_number_not_supported">귀하의 번호가 이 지불 방식과 호환되지 않습니다.</string>
   <string name="carrier_billing_terms_disclaimer">제출을 함으로써, 이용 약관과 개인 정보 보호 정책에 동의하는 것입니다.</string>
   <string name="carrier_billing_help_1">도움이 필요하신가요?</string>
@@ -981,7 +981,7 @@
   <string name="voucher_buy_header">%s 바우처</string>
   <string name="voucher_buy_short_header">바우처:</string>
   <string name="voucher_buy_no_game_title">%s 이(가) 없나요?</string>
-  <string name="voucher_buy_no_game_install_button">Download now</string>
+  <string name="voucher_buy_no_game_install_button">지금 다운로드</string>
   <string name="voucher_code_title">바우처 코드</string>
   <string name="voucher_instructions_body">%s로 가서 이 코드를 사용하여 바우처를 리딤 하세요.</string>
   <string name="voucher_instructions_transactions">거래 이력에서 언제든지 바우처 코드를 확인할 수 있습니다.</string>
@@ -1087,13 +1087,13 @@
   <string name="mywallet_unverified_body">차단을 방지하려면 결제 방법을 확인하십시오.</string>
   <string name="mywallet_backed_up_date">%s에 지갑을 백업하셨습니다.</string>
   <string name="mywallet_backup_again_button">다시 백업하기</string>
-  <string name="mywallet_verify_payment_method_button">Verify new card</string>
+  <string name="mywallet_verify_payment_method_button">새로운 카드 검증</string>
   <string name="mywallet_choose_name_header">지갑 이름을 선택하세요.</string>
   <string name="mywallet_choose_name_field">여기에 지갑 이름 입력...</string>
   <string name="mywallet_choose_name_confirmed">지갑 이름이 변경되었습니다</string>
   <string name="mywallet_unnamed_wallet">이름 없는 지갑 %s</string>
   <string name="mywallet_swithing_wallets_title">지갑 변경중...</string>
-  <string name="mywallet_address_title">Address:</string>
+  <string name="mywallet_address_title">주소:</string>
   <!-- Onboarding for new users coming from an iap -->
   <string name="onboarding_1st_title">축하합니다! AppCoins 지갑을 설치하셨습니다.</string>
   <string name="onboarding_1st_body">구매 완료를 위해서 게임으로 돌아가세요.</string>
@@ -1137,7 +1137,7 @@
   <string name="intro_appcoins_games_header">Discover Games with AppCoins</string>
   <string name="intro_active_promotions_header">Active Promotions</string>
   <string name="topup_home_button">충전</string>
-  <string name="intro_home_button">Home</string>
+  <string name="intro_home_button">홈</string>
   <string name="intro_rewards_button">Rewards</string>
   <plurals name="days">
     <item quantity="other">DAYS</item>
@@ -1155,12 +1155,12 @@
   <string name="intro_backup_card_title">Don\'t loose your funds!</string>
   <string name="intro_backup_card_body">Back up your wallet and keep it safe all times.</string>
   <string name="rewards_spend_to_next_level_body">Spend more %1$s%2$s to reach the net level!</string>
-  <string name="rewards_current_bonus_title">%s%% bonus on every purchase</string>
+  <string name="rewards_current_bonus_title">모든 구매 시마다 %s%% 보너스</string>
   <string name="rewards_eskills_card_title">Earn Money!</string>
   <string name="rewards_eskills_card_body">Beat other players with e-Skills</string>
   <string name="rewards_promo_code_card_title">Promo Codes</string>
   <string name="rewards_promo_code_card_body">Use a promo code to get special deals!</string>
-  <string name="rewards_promo_code_status">Status:</string>
-  <string name="rewards_promo_code_status_active">Active</string>
-  <string name="rewards_promo_code_status_expired">Expired</string>
+  <string name="rewards_promo_code_status">상태:</string>
+  <string name="rewards_promo_code_status_active">활성</string>
+  <string name="rewards_promo_code_status_expired">만료됨</string>
 </resources>
