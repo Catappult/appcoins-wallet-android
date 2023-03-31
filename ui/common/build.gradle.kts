@@ -7,8 +7,7 @@ android {
   defaultConfig {
     buildFeatures {
       composeOptions {
-        kotlinCompilerExtensionVersion =
-          "1.3.1"  // TODO libs.findVersion("androidx.compose").get().toString()
+        kotlinCompilerExtensionVersion = libs.versions.androidx.compose.asProvider().get()
       }
       compose = true
     }
