@@ -6,6 +6,10 @@ android {
   namespace = "com.appcoins.wallet.ui.common"
   defaultConfig {
     buildFeatures {
+      composeOptions {
+        kotlinCompilerExtensionVersion =
+          "1.3.1"  // TODO libs.findVersion("androidx.compose").get().toString()
+      }
       compose = true
     }
   }
