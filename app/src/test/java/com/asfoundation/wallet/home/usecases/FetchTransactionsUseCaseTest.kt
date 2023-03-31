@@ -13,6 +13,7 @@ class FetchTransactionsUseCaseTest {
 
   // Create a mock of the TransactionRepositoryType interface
   private val mockTransactionRepository: TransactionRepositoryType = mockk()
+  private val fetchTransactionsUseCase = FetchTransactionsUseCase(mockTransactionRepository)
 
   @Test
   fun `when invoke is called, it should fetch transactions from repository`() {
@@ -23,15 +24,15 @@ class FetchTransactionsUseCaseTest {
     val expectedTransactions = listOf<Transaction>()
 
     // Mock the behavior of the transaction repository
-    every { mockTransactionRepository.fetchTransaction(wallet) } returns Observable.just(expectedTransactions)
+    every { mockTransactionRepository.fetchTransactions(wallet) } returns Observable.just(
+      expectedTransactions
+    )
 
     // Call the method being tested
     val testObserver = TestObserver<List<Transaction>>()
-    mockTransactionRepository.fetchTransaction(wallet).subscribe(testObserver)
+    fetchTransactionsUseCase.invoke(wallet).subscribe(testObserver)
 
     // Verify that the method returns the expected output
-    assert(testObserver.values().first() is List<Transaction>)
-    testObserver.assertComplete()
-    testObserver.assertNoErrors()
+    assert(testObserver.values() == expectedTransactions)
   }
 }

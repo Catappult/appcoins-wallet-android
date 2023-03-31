@@ -251,6 +251,7 @@ class HomeViewModel @Inject constructor(
         }
       }
       .subscribeOn(rxSchedulers.io)
+      .observeOn(AndroidSchedulers.mainThread())
       .onErrorReturnItem(emptyList())
   }
 
