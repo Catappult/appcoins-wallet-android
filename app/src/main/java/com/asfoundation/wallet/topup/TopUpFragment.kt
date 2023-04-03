@@ -30,6 +30,7 @@ import com.asfoundation.wallet.ui.iab.PaymentMethod
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.appcoins.wallet.core.utils.android_common.WalletCurrency
 import com.appcoins.wallet.ui.common.convertDpToPx
+import com.asf.wallet.databinding.FragmentTopUpBinding
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import com.jakewharton.rxbinding2.view.RxView
 import com.jakewharton.rxbinding2.widget.RxTextView
@@ -40,9 +41,6 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.PublishSubject
-import kotlinx.android.synthetic.main.fragment_top_up.*
-import kotlinx.android.synthetic.main.no_network_retry_only_layout.*
-import kotlinx.android.synthetic.main.view_purchase_bonus.view.*
 import rx.functions.Action1
 import java.math.BigDecimal
 import javax.inject.Inject
@@ -115,6 +113,43 @@ class TopUpFragment : BasePageViewFragment(), TopUpFragmentView {
     }
   }
 
+  private var _binding: FragmentTopUpBinding? = null
+  // This property is only valid between onCreateView and
+  // onDestroyView.
+  private val binding get() = _binding!!
+
+  // fragment_top_up.xml
+  private val rv_default_values get() = binding.rvDefaultValues
+  private val top_up_container get() = binding.topUpContainer
+  private val main_currency_code get() = binding.mainCurrencyCode
+  private val main_value get() = binding.mainValue
+  private val converted_value get() = binding.convertedValue
+  private val swap_value_button get() = binding.swapValueButton
+  private val swap_value_label get() = binding.swapValueLabel
+  private val value_warning_icon get() = binding.valueWarningIcon
+  private val top_separator_topup get() = binding.topSeparatorTopup
+  private val value_warning_text get() = binding.valueWarningText
+  private val payment_container get() = binding.paymentContainer
+  private val payment_methods get() = binding.paymentMethods
+  private val payments_skeleton get() = binding.paymentsSkeleton
+  private val bot_separator get() = binding.botSeparator
+  private val bonus_msg get() = binding.bonusMsg
+  private val button get() = binding.button
+  private val bottom_separator get() = binding.bottomSeparator
+  private val bonus_layout get() = binding.bonusLayout.root
+  private val bonus_layout_skeleton get() = binding.bonusLayoutSkeleton.root
+  private val bonus_msg_skeleton get() = binding.bonusMsgSkeleton.root
+  private val no_network get() = binding.noNetwork.root
+  private val error_topup get() = binding.errorTopup.root
+
+  // no_network_retry_only_layout.xml
+  private val retry_button get() = binding.noNetwork.retryButton
+  private val retry_animation get() = binding.noNetwork.retryAnimation
+
+  // view_purchase_bonus.xml
+  private val bonus_header_1 get() = binding.bonusLayout.bonusHeader1
+  private val bonus_value get() = binding.bonusLayout.bonusValue
+
   override fun onDetach() {
     super.onDetach()
     topUpActivityView = null
@@ -140,7 +175,8 @@ class TopUpFragment : BasePageViewFragment(), TopUpFragmentView {
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                             savedInstanceState: Bundle?): View? {
     fragmentContainer = container!!
-    return inflater.inflate(R.layout.fragment_top_up, container, false)
+    _binding = FragmentTopUpBinding.inflate(inflater, container, false)
+    return binding.root
   }
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -511,8 +547,8 @@ class TopUpFragment : BasePageViewFragment(), TopUpFragmentView {
     val scaledBonus = bonus.max(BigDecimal("0.01"))
     val currency = "~$bonusCurrency".takeIf { bonus < BigDecimal("0.01") } ?: bonusCurrency
     bonusValue = scaledBonus
-    bonus_layout.bonus_header_1.text = getString(R.string.topup_bonus_header_part_1)
-    bonus_layout.bonus_value.text = getString(R.string.topup_bonus_header_part_2,
+    bonus_header_1.text = getString(R.string.topup_bonus_header_part_1)
+    bonus_value.text = getString(R.string.topup_bonus_header_part_2,
         currency + formatter.formatCurrency(scaledBonus, WalletCurrency.FIAT))
   }
 
