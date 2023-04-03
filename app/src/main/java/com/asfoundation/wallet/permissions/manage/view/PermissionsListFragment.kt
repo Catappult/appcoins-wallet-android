@@ -9,9 +9,9 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.appcoins.wallet.permissions.ApplicationPermission
 import com.appcoins.wallet.permissions.PermissionName
-import com.asf.wallet.R
 import com.asfoundation.wallet.permissions.PermissionsInteractor
 import com.appcoins.wallet.core.utils.android_common.applicationinfo.ApplicationInfoProvider
+import com.asf.wallet.databinding.FragmentPermissionsListLayoutBinding
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import com.jakewharton.rxrelay2.BehaviorRelay
 import dagger.hilt.android.AndroidEntryPoint
@@ -21,7 +21,6 @@ import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
-import kotlinx.android.synthetic.main.fragment_permissions_list_layout.*
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -39,6 +38,15 @@ class PermissionsListFragment : BasePageViewFragment(), PermissionsListView {
   private lateinit var appInfoProvider: ApplicationInfoProvider
   private lateinit var permissionClick: BehaviorRelay<ApplicationPermissionViewData>
   private var toolbarManager: ToolbarManager? = null
+
+  private var _binding: FragmentPermissionsListLayoutBinding? = null
+  // This property is only valid between onCreateView and
+// onDestroyView.
+  private val binding get() = _binding!!
+
+  private val permissions_recycler_view get() = binding.permissionsRecyclerView
+  private val empty_state_view get() = binding.emptyStateView
+
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     presenter =
@@ -95,7 +103,8 @@ class PermissionsListFragment : BasePageViewFragment(), PermissionsListView {
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                             savedInstanceState: Bundle?): View? {
-    return inflater.inflate(R.layout.fragment_permissions_list_layout, container, false)
+    _binding = FragmentPermissionsListLayoutBinding.inflate(inflater, container, false)
+    return binding.root
   }
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
