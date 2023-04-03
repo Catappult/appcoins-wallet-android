@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.asf.wallet.R
+import com.asf.wallet.databinding.FragmentCreateWalletLayoutBinding
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import com.asfoundation.wallet.wallets.WalletCreatorInteract
 import com.jakewharton.rxbinding2.view.RxView
@@ -14,7 +15,6 @@ import com.jakewharton.rxrelay2.BehaviorRelay
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
-import kotlinx.android.synthetic.main.fragment_create_wallet_layout.*
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -29,6 +29,20 @@ class CreateWalletFragment : BasePageViewFragment(), CreateWalletView {
   private lateinit var presenter: CreateWalletPresenter
   private lateinit var navigator: CreateWalletNavigator
   private lateinit var finishAnimationFinishEvent: BehaviorRelay<Any>
+
+  private var _binding: FragmentCreateWalletLayoutBinding? = null
+  // This property is only valid between onCreateView and
+  // onDestroyView.
+  private val binding get() = _binding!!
+
+  private val create_wallet_animation get() = binding.createWalletAnimation
+  private val provide_wallet_create_wallet_icon get() = binding.provideWalletCreateWalletIcon
+  private val provide_wallet_create_body get() = binding.provideWalletCreateBody
+  private val provide_wallet_create_wallet_button get() = binding.provideWalletCreateWalletButton
+  private val provide_wallet_cancel get() = binding.provideWalletCancel
+  private val create_wallet_group get() = binding.createWalletGroup
+  private val create_wallet_text get() = binding.createWalletText
+
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     presenter = CreateWalletPresenter(this, CompositeDisposable(), interactor,
@@ -48,7 +62,8 @@ class CreateWalletFragment : BasePageViewFragment(), CreateWalletView {
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                             savedInstanceState: Bundle?): View? {
-    return inflater.inflate(R.layout.fragment_create_wallet_layout, container, false)
+    _binding = FragmentCreateWalletLayoutBinding.inflate(inflater, container, false)
+    return binding.root
   }
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
