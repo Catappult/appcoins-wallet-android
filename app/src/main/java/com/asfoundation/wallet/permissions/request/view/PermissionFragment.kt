@@ -14,6 +14,7 @@ import com.asf.wallet.R
 import com.asfoundation.wallet.permissions.PermissionsInteractor
 import com.appcoins.wallet.core.utils.android_common.applicationinfo.ApplicationInfoModel
 import com.appcoins.wallet.core.utils.android_common.applicationinfo.ApplicationInfoProvider
+import com.asf.wallet.databinding.FragmentPermissionsLayoutBinding
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import com.jakewharton.rxbinding2.view.RxView
 import dagger.hilt.android.AndroidEntryPoint
@@ -24,8 +25,6 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 import io.reactivex.functions.BiFunction
 import io.reactivex.schedulers.Schedulers
-import kotlinx.android.synthetic.main.fragment_permissions_layout.*
-import kotlinx.android.synthetic.main.provide_wallet_always_allow_wallet_apps_layout.*
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
@@ -57,6 +56,23 @@ class PermissionFragment : BasePageViewFragment(), PermissionFragmentView {
   private lateinit var presenter: PermissionsFragmentPresenter
   private var disposable: Disposable? = null
 
+  private var _binding: FragmentPermissionsLayoutBinding? = null
+  // This property is only valid between onCreateView and
+// onDestroyView.
+  private val binding get() = _binding!!
+
+  // fragment_permissions_layout.xml
+  private val main_view get() = binding.mainView
+  private val provide_wallet_always_allow_body get() = binding.provideWalletAlwaysAllowBody
+  private val provide_wallet_cancel get() = binding.provideWalletCancel
+  private val provide_wallet_always_allow_app_wallet_address get() = binding.provideWalletAlwaysAllowAppWalletAddress
+  private val progress get() = binding.progress
+  private val provide_wallet_always_allow_button get() = binding.provideWalletAlwaysAllowButton
+  private val provide_wallet_allow_once_button get() = binding.provideWalletAllowOnceButton
+
+  // provide_wallet_always_allow_wallet_apps_layout.xml
+  private val provide_wallet_always_allow_app_icon get() = binding.provideWalletAlwaysAllowWalletAppsLayout.provideWalletAlwaysAllowAppIcon
+
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     val permission: PermissionName = arguments?.getSerializable(PERMISSION_KEY) as PermissionName
@@ -68,7 +84,8 @@ class PermissionFragment : BasePageViewFragment(), PermissionFragmentView {
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                             savedInstanceState: Bundle?): View? {
-    return inflater.inflate(R.layout.fragment_permissions_layout, container, false)
+    _binding = FragmentPermissionsLayoutBinding.inflate(inflater, container, false)
+    return binding.root
   }
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
