@@ -12,6 +12,7 @@ import com.asfoundation.wallet.GlideApp
 import com.asfoundation.wallet.subscriptions.SubscriptionItem
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.appcoins.wallet.core.utils.android_common.WalletCurrency
+import com.asf.wallet.databinding.FragmentSubscriptionCancelBinding
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.Request
@@ -21,9 +22,6 @@ import com.bumptech.glide.request.target.Target
 import com.bumptech.glide.request.transition.Transition
 import com.jakewharton.rxbinding2.view.RxView
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.fragment_subscription_cancel.*
-import kotlinx.android.synthetic.main.layout_subscription_info.*
-import kotlinx.android.synthetic.main.no_network_retry_only_layout.*
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -35,6 +33,30 @@ class SubscriptionCancelFragment : BasePageViewFragment(), SubscriptionCancelVie
   @Inject
   lateinit var presenter: SubscriptionCancelPresenter
 
+  private var _binding: FragmentSubscriptionCancelBinding? = null
+  // This property is only valid between onCreateView and
+  // onDestroyView.
+  private val binding get() = _binding!!
+
+  // fragment_subscription_cancel.xml
+  private val back_button get() = binding.backButton
+  private val cancel_subscription get() = binding.cancelSubscription
+  private val loading_animation get() = binding.loadingAnimation
+  private val layout_content get() = binding.layoutContent
+  private val error get() = binding.error
+
+  // layout_subscription_info.xml
+  private val app_name get() = binding.layoutSubscriptionInfo.appName
+  private val app_icon get() = binding.layoutSubscriptionInfo.appIcon
+  private val app_icon_skeleton get() = binding.layoutSubscriptionInfo.appIconSkeleton.root
+  private val sku_name get() = binding.layoutSubscriptionInfo.skuName
+  private val total_value get() = binding.layoutSubscriptionInfo.totalValue
+  private val total_value_appc get() = binding.layoutSubscriptionInfo.totalValueAppc
+
+  // no_network_retry_only_layout.xml
+  private val no_network_retry_only_layout get() = binding.noNetworkRetryOnlyLayout.root
+  private val retry_animation get() = binding.noNetworkRetryOnlyLayout.retryAnimation
+  private val retry_button get() = binding.noNetworkRetryOnlyLayout.retryButton
 
   override fun onAttach(context: Context) {
     super.onAttach(context)
@@ -43,7 +65,8 @@ class SubscriptionCancelFragment : BasePageViewFragment(), SubscriptionCancelVie
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                             savedInstanceState: Bundle?): View? {
-    return inflater.inflate(R.layout.fragment_subscription_cancel, container, false)
+    _binding = FragmentSubscriptionCancelBinding.inflate(inflater, container, false)
+    return binding.root
   }
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
