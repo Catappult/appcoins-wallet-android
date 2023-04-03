@@ -8,11 +8,11 @@ import android.view.ViewGroup
 import com.asf.wallet.R
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.appcoins.wallet.core.utils.android_common.WalletCurrency
+import com.asf.wallet.databinding.InviteFriendsVerificationLayoutBinding
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import com.jakewharton.rxbinding2.view.RxView
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.disposables.CompositeDisposable
-import kotlinx.android.synthetic.main.invite_friends_verification_layout.*
 import java.math.BigDecimal
 import javax.inject.Inject
 
@@ -23,6 +23,16 @@ class InviteFriendsVerificationFragment : BasePageViewFragment(), InviteFriendsV
   lateinit var formatter: CurrencyFormatUtils
   private lateinit var presenter: InviteFriendsVerificationPresenter
   private lateinit var activity: InviteFriendsActivityView
+
+  private var _binding: InviteFriendsVerificationLayoutBinding? = null
+  // This property is only valid between onCreateView and
+  // onDestroyView.
+  private val binding get() = _binding!!
+
+  // invite_friends_verification_layout.xml
+  private val verification_description get() = binding.verificationDescription
+  private val verify_button get() = binding.verifyButton
+  private val invited_button get() = binding.invitedButton
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
@@ -44,7 +54,8 @@ class InviteFriendsVerificationFragment : BasePageViewFragment(), InviteFriendsV
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                             savedInstanceState: Bundle?): View? {
-    return inflater.inflate(R.layout.invite_friends_verification_layout, container, false)
+    _binding = InviteFriendsVerificationLayoutBinding.inflate(inflater, container, false)
+    return binding.root
   }
 
   private fun setDescriptionText() {
