@@ -5,11 +5,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.asf.wallet.R
+import com.asf.wallet.databinding.FragmentRatingPositiveBinding
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import com.jakewharton.rxbinding2.view.RxView
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.Observable
-import kotlinx.android.synthetic.main.fragment_rating_positive.*
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -18,9 +18,22 @@ class RatingPositiveFragment : BasePageViewFragment(), RatingPositiveView {
   @Inject
   lateinit var presenter: RatingPositivePresenter
 
+  private var _binding: FragmentRatingPositiveBinding? = null
+  // This property is only valid between onCreateView and
+  // onDestroyView.
+  private val binding get() = _binding!!
+
+  private val title get() = binding.title
+  private val description get() = binding.description
+  private val animation get() = binding.animation
+  private val rate_app_button get() = binding.rateAppButton
+  private val remind_me_later_button get() = binding.remindMeLaterButton
+  private val no_button get() = binding.noButton
+
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                             savedInstanceState: Bundle?): View? {
-    return inflater.inflate(R.layout.fragment_rating_positive, container, false)
+    _binding = FragmentRatingPositiveBinding.inflate(inflater, container, false)
+    return binding.root
   }
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
