@@ -8,14 +8,12 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import com.asf.wallet.R
+import com.asf.wallet.databinding.FragmentRatingNegativeBinding
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import com.jakewharton.rxbinding2.view.RxView
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.Observable
-import kotlinx.android.synthetic.main.fragment_rating_entry.no_button
-import kotlinx.android.synthetic.main.fragment_rating_negative.*
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -24,9 +22,22 @@ class RatingNegativeFragment : BasePageViewFragment(), RatingNegativeView {
   @Inject
   lateinit var presenter: RatingNegativePresenter
 
+  private var _binding: FragmentRatingNegativeBinding? = null
+  // This property is only valid between onCreateView and
+  // onDestroyView.
+  private val binding get() = _binding!!
+
+  // fragment_rating_negative.xml
+  private val animation get() = binding.animation
+  private val feedback_input_text get() = binding.feedbackInputText
+  private val submit_button get() = binding.submitButton
+  private val progress_bar get() = binding.progressBar
+  private val no_button get() = binding.noButton
+
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                             savedInstanceState: Bundle?): View? {
-    return inflater.inflate(R.layout.fragment_rating_negative, container, false)
+    _binding = FragmentRatingNegativeBinding.inflate(inflater, container, false)
+    return binding.root
   }
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
