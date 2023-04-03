@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment
 import com.appcoins.wallet.billing.AppcoinsBillingBinder
 import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.asf.wallet.R
+import com.asf.wallet.databinding.TopUpActivityLayoutBinding
 import com.asfoundation.wallet.backup.BackupNotificationUtils
 import com.asfoundation.wallet.billing.adyen.PaymentType
 import com.asfoundation.wallet.billing.paypal.PayPalTopupFragment
@@ -32,12 +33,6 @@ import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
-import kotlinx.android.synthetic.main.error_top_up_layout.*
-import kotlinx.android.synthetic.main.support_error_layout.error_message
-import kotlinx.android.synthetic.main.support_error_layout.layout_support_icn
-import kotlinx.android.synthetic.main.support_error_layout.layout_support_logo
-import kotlinx.android.synthetic.main.top_up_activity_layout.*
-import kotlinx.android.synthetic.main.topup_bar_layout.*
 import java.util.*
 import javax.inject.Inject
 
@@ -64,6 +59,24 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, UriNavigator {
   private var isFinishingPurchase = false
   private var firstImpression = true
 
+  private var _binding: TopUpActivityLayoutBinding? = null
+  // This property is only valid between onCreateView and
+  // onDestroyView.
+  private val binding get() = _binding!!
+
+  // error_top_up_layout.xml
+  private val error_message get() = binding.layoutError.errorMessage
+  private val try_again get() = binding.layoutError.tryAgain
+  private val layout_support_icn get() = binding.layoutError.layoutSupportIcn
+  private val layout_support_logo get() = binding.layoutError.layoutSupportLogo
+
+  // top_up_activity_layout.xml
+  private val fragment_container get() = binding.fragmentContainer
+  private val layout_error get() = binding.layoutError.root
+
+  // topup_bar_layout.xml
+  private val bar_back_button get() = binding.topBar.barBackButton
+
   companion object {
     @JvmStatic
     fun newIntent(context: Context) = Intent(context, TopUpActivity::class.java)
@@ -80,7 +93,8 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, UriNavigator {
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-    setContentView(R.layout.top_up_activity_layout)
+    _binding = TopUpActivityLayoutBinding.inflate(layoutInflater)
+    setContentView(binding.root)
     presenter = TopUpActivityPresenter(
       this,
       topUpInteractor,
