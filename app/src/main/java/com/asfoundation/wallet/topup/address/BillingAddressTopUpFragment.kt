@@ -18,13 +18,11 @@ import com.asfoundation.wallet.topup.TopUpData
 import com.asfoundation.wallet.topup.TopUpPaymentData
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.appcoins.wallet.core.utils.android_common.WalletCurrency
+import com.asf.wallet.databinding.FragmentBillingAddressTopUpBinding
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import com.jakewharton.rxbinding2.view.RxView
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.Observable
-import kotlinx.android.synthetic.main.fragment_billing_address_top_up.*
-import kotlinx.android.synthetic.main.layout_billing_address.*
-import kotlinx.android.synthetic.main.view_purchase_bonus.view.*
 import java.math.BigDecimal
 import javax.inject.Inject
 
@@ -63,9 +61,44 @@ class BillingAddressTopUpFragment : BasePageViewFragment(), BillingAddressTopUpV
 
   private lateinit var topUpView: TopUpActivityView
 
+  private var _binding: FragmentBillingAddressTopUpBinding? = null
+  // This property is only valid between onCreateView and
+  // onDestroyView.
+  private val binding get() = _binding!!
+
+  // fragment_billing_address_top_up.xml
+  private val button get() = binding.button
+  private val loading get() = binding.loading
+  private val title get() = binding.title
+  private val bonus_msg get() = binding.bonusMsg
+  private val converted_value get() = binding.convertedValue
+  private val main_value get() = binding.mainValue
+  private val main_currency_code get() = binding.mainCurrencyCode
+  private val bonus_layout get() = binding.bonusLayout.root
+  private val billing_info_container get() = binding.billingInfoContainer.root
+
+  // layout_billing_address.xml
+  private val address_layout get() = binding.billingInfoContainer.addressLayout
+  private val address get() = binding.billingInfoContainer.address
+  private val number_layout get() = binding.billingInfoContainer.numberLayout
+  private val number get() = binding.billingInfoContainer.number
+  private val city_layout get() = binding.billingInfoContainer.cityLayout
+  private val city get() = binding.billingInfoContainer.city
+  private val zipcode_layout get() = binding.billingInfoContainer.zipcodeLayout
+  private val zipcode get() = binding.billingInfoContainer.zipcode
+  private val state_layout get() = binding.billingInfoContainer.stateLayout
+  private val state get() = binding.billingInfoContainer.state
+  private val country_layout get() = binding.billingInfoContainer.countryLayout
+  private val country get() = binding.billingInfoContainer.country
+
+  // view_purchase_bonus.xml
+  private val bonus_header_1 get() = binding.bonusLayout.bonusHeader1
+  private val bonus_value get() = binding.bonusLayout.bonusValue
+
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                             savedInstanceState: Bundle?): View? {
-    return inflater.inflate(R.layout.fragment_billing_address_top_up, container, false)
+    _binding = FragmentBillingAddressTopUpBinding.inflate(inflater, container, false)
+    return binding.root
   }
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -179,8 +212,8 @@ class BillingAddressTopUpFragment : BasePageViewFragment(), BillingAddressTopUpV
       val scaledBonus = data.bonusValue.max(BigDecimal("0.01"))
       val currency = "~${data.fiatCurrencySymbol}".takeIf { data.bonusValue < BigDecimal("0.01") }
           ?: data.fiatCurrencySymbol
-      bonus_layout?.bonus_header_1?.text = getString(R.string.topup_bonus_header_part_1)
-      bonus_layout?.bonus_value?.text = getString(R.string.topup_bonus_header_part_2,
+      bonus_header_1?.text = getString(R.string.topup_bonus_header_part_1)
+      bonus_value?.text = getString(R.string.topup_bonus_header_part_2,
           currency + formatter.formatCurrency(scaledBonus, WalletCurrency.FIAT))
     }
   }
