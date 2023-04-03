@@ -15,6 +15,7 @@ import com.asfoundation.wallet.subscriptions.Status
 import com.asfoundation.wallet.subscriptions.SubscriptionItem
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.appcoins.wallet.core.utils.android_common.WalletCurrency
+import com.asf.wallet.databinding.FragmentSubscriptionDetailsBinding
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.Request
@@ -25,12 +26,6 @@ import com.bumptech.glide.request.transition.Transition
 import com.jakewharton.rxbinding2.view.RxView
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.Observable
-import kotlinx.android.synthetic.main.fragment_subscription_details.*
-import kotlinx.android.synthetic.main.generic_error_retry_only_layout.*
-import kotlinx.android.synthetic.main.layout_active_subscription_content.*
-import kotlinx.android.synthetic.main.layout_expired_subscription_content.*
-import kotlinx.android.synthetic.main.layout_expired_subscription_content.view.*
-import kotlinx.android.synthetic.main.no_network_retry_only_layout.*
 import java.text.SimpleDateFormat
 import java.util.*
 import javax.inject.Inject
@@ -44,6 +39,50 @@ class SubscriptionDetailsFragment : BasePageViewFragment(), SubscriptionDetailsV
   @Inject
   lateinit var presenter: SubscriptionDetailsPresenter
 
+  private var _binding: FragmentSubscriptionDetailsBinding? = null
+  // This property is only valid between onCreateView and
+  // onDestroyView.
+  private val binding get() = _binding!!
+
+  // fragment_subscription_details.xml
+  private val cancel_subscription get() = binding.cancelSubscription
+  private val renew_subscription get() = binding.renewSubscription
+  private val app_icon get() = binding.appIcon
+  private val main_layout get() = binding.mainLayout
+  private val app_icon_skeleton get() = binding.appIconSkeleton.root
+  private val app_name get() = binding.appName
+  private val sku_name get() = binding.skuName
+  private val status_icon get() = binding.statusIcon
+  private val status get() = binding.status
+  private val expires_on get() = binding.expiresOn
+  private val info get() = binding.info
+  private val info_text get() = binding.infoText
+  private val loading_animation get() = binding.loadingAnimation
+  private val no_network_retry_only_layout get() = binding.noNetworkRetryOnlyLayout.root
+  private val generic_error_retry_only_layout get() = binding.genericErrorRetryOnlyLayout.root
+  private val layout_expired_subscription_content get() = binding.layoutExpiredSubscriptionContent.root
+  private val layout_active_subscription_content get() = binding.layoutActiveSubscriptionContent.root
+
+  // layout_expired_subscription_content.xml
+  private val expired_payment_method_value get() = binding.layoutExpiredSubscriptionContent.paymentMethodValue
+  private val last_bill_value get() = binding.layoutExpiredSubscriptionContent.lastBillValue
+  private val start_date_value get() = binding.layoutExpiredSubscriptionContent.startDateValue
+
+  // generic_error_retry_only_layout.xml
+  private val generic_retry_button get() = binding.genericErrorRetryOnlyLayout.genericRetryButton
+
+  // layout_active_subscription_content.xml
+  private val total_value get() = binding.layoutActiveSubscriptionContent.totalValue
+  private val total_value_appc get() = binding.layoutActiveSubscriptionContent.totalValueAppc
+  private val next_payment_value get() = binding.layoutActiveSubscriptionContent.nextPaymentValue
+  private val active_payment_method_value get() = binding.layoutActiveSubscriptionContent.paymentMethodValue
+  private val active_payment_method_icon get() = binding.layoutActiveSubscriptionContent.paymentMethodIcon
+
+  // no_network_retry_only_layout.xml
+  private val retry_button get() = binding.noNetworkRetryOnlyLayout.retryButton
+  private val retry_animation get() = binding.noNetworkRetryOnlyLayout.retryAnimation
+
+
   override fun onAttach(context: Context) {
     super.onAttach(context)
     activity?.title = getString(R.string.subscriptions_title)
@@ -51,7 +90,8 @@ class SubscriptionDetailsFragment : BasePageViewFragment(), SubscriptionDetailsV
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                             savedInstanceState: Bundle?): View? {
-    return inflater.inflate(R.layout.fragment_subscription_details, container, false)
+    _binding = FragmentSubscriptionDetailsBinding.inflate(inflater, container, false)
+    return binding.root
   }
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -118,7 +158,7 @@ class SubscriptionDetailsFragment : BasePageViewFragment(), SubscriptionDetailsV
 
     status.text = getString(R.string.subscriptions_active_title)
     status_icon.setImageResource(R.drawable.ic_active)
-    layout_active_subscription_content.payment_method_value.text = subscriptionItem.paymentMethod
+    active_payment_method_value.text = subscriptionItem.paymentMethod
     status.setTextColor(ResourcesCompat.getColor(resources, R.color.styleguide_green, null))
 
     sku_name.text = subscriptionItem.itemName
@@ -161,8 +201,7 @@ class SubscriptionDetailsFragment : BasePageViewFragment(), SubscriptionDetailsV
 
     subscriptionItem.ended?.let { last_bill_value.text = formatDate(it) }
     subscriptionItem.started?.let { start_date_value.text = formatDate(it) }
-    layout_expired_subscription_content.payment_method_value.text =
-        subscriptionItem.paymentMethod
+    expired_payment_method_value.text = subscriptionItem.paymentMethod
   }
 
   private fun setCanceledInfo(subscriptionItem: SubscriptionItem) {
@@ -198,7 +237,7 @@ class SubscriptionDetailsFragment : BasePageViewFragment(), SubscriptionDetailsV
         .into(target)
     GlideApp.with(context)
         .load(paymentIcon)
-        .into(layout_active_subscription_content.payment_method_icon)
+        .into(active_payment_method_icon)
   }
 
   private val target = object : Target<Bitmap> {
