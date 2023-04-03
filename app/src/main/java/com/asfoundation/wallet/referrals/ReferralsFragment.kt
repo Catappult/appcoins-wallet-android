@@ -9,12 +9,11 @@ import android.view.ViewGroup
 import com.asf.wallet.R
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.appcoins.wallet.core.utils.android_common.WalletCurrency
+import com.asf.wallet.databinding.ReferralsLayoutBinding
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import com.jakewharton.rxbinding2.view.RxView
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.disposables.CompositeDisposable
-import kotlinx.android.synthetic.main.invited_friends_animation_list.*
-import kotlinx.android.synthetic.main.referrals_layout.*
 import java.math.BigDecimal
 import javax.inject.Inject
 import kotlin.math.roundToInt
@@ -26,6 +25,26 @@ class ReferralsFragment : BasePageViewFragment(), ReferralsView {
 
   @Inject
   lateinit var formatter: CurrencyFormatUtils
+
+  private var _binding: ReferralsLayoutBinding? = null
+  // This property is only valid between onCreateView and
+  // onDestroyView.
+  private val binding get() = _binding!!
+
+  // referrals_layout.xml
+  private val friends_invited get() = binding.friendsInvited
+  private val number_friends_invited get() = binding.numberFriendsInvited
+  private val total_earned get() = binding.totalEarned
+  private val referral_explanation get() = binding.referralExplanation
+  private val invitations_progress_bar get() = binding.invitationsProgressBar
+  private val bottom_sheet_header get() = binding.bottomSheetHeader
+
+  // invited_friends_animation_list.xml
+  private val friend_animation_1 get() = binding.friendsList.friendAnimation1
+  private val friend_animation_2 get() = binding.friendsList.friendAnimation2
+  private val friend_animation_3 get() = binding.friendsList.friendAnimation3
+  private val friend_animation_4 get() = binding.friendsList.friendAnimation4
+  private val friend_animation_5 get() = binding.friendsList.friendAnimation5
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
@@ -39,7 +58,8 @@ class ReferralsFragment : BasePageViewFragment(), ReferralsView {
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                             savedInstanceState: Bundle?): View? {
-    return inflater.inflate(R.layout.referrals_layout, container, false)
+    _binding = ReferralsLayoutBinding.inflate(inflater, container, false)
+    return binding.root
   }
 
   override fun setupLayout() {
