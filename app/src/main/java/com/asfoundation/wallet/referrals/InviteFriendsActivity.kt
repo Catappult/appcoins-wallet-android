@@ -8,6 +8,7 @@ import android.view.View.*
 import androidx.core.app.ShareCompat
 import androidx.fragment.app.Fragment
 import com.asf.wallet.R
+import com.asf.wallet.databinding.InviteFriendsActivityLayoutBinding
 import com.asfoundation.wallet.router.ExternalBrowserRouter
 import com.asfoundation.wallet.ui.BaseActivity
 import com.asfoundation.wallet.verification.ui.credit_card.VerificationCreditCardActivity
@@ -20,8 +21,6 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.PublishSubject
 import io.reactivex.subjects.ReplaySubject
-import kotlinx.android.synthetic.main.invite_friends_activity_layout.*
-import kotlinx.android.synthetic.main.no_network_retry_only_layout.*
 import java.math.BigDecimal
 import javax.inject.Inject
 
@@ -40,9 +39,20 @@ class InviteFriendsActivity : BaseActivity(), InviteFriendsActivityView {
   @Inject
   lateinit var walletInteract: FindDefaultWalletInteract
 
+  private var _binding: InviteFriendsActivityLayoutBinding? = null
+  // This property is only valid between onCreateView and
+  // onDestroyView.
+  private val binding get() = _binding!!
+
+  private val fragment_container get() = binding.fragmentContainer
+  private val no_network get() = binding.noNetwork
+  private val retry_button get() = binding.noNetworkRetryOnlyLayout.retryButton
+  private val retry_animation get() = binding.noNetworkRetryOnlyLayout.retryAnimation
+
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-    setContentView(R.layout.invite_friends_activity_layout)
+    _binding = InviteFriendsActivityLayoutBinding.inflate(layoutInflater)
+    setContentView(binding.root)
     toolbar()
     infoButtonSubject = PublishSubject.create()
     infoButtonInitializeSubject = ReplaySubject.create()
