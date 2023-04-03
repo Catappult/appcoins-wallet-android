@@ -14,11 +14,11 @@ import com.airbnb.lottie.TextDelegate
 import com.asf.wallet.R
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.appcoins.wallet.core.utils.android_common.WalletCurrency
+import com.asf.wallet.databinding.FragmentTopUpSuccessBinding
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import com.jakewharton.rxbinding2.view.RxView
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.Observable
-import kotlinx.android.synthetic.main.fragment_top_up_success.*
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -81,6 +81,15 @@ class TopUpSuccessFragment : BasePageViewFragment(), TopUpSuccessFragmentView {
     }
   }
 
+  private var _binding: FragmentTopUpSuccessBinding? = null
+  // This property is only valid between onCreateView and
+  // onDestroyView.
+  private val binding get() = _binding!!
+
+  private val top_up_success_animation get() = binding.topUpSuccessAnimation
+  private val button get() = binding.button
+  private val value get() = binding.value
+
   override fun onAttach(context: Context) {
     super.onAttach(context)
     if (context !is TopUpActivityView) {
@@ -98,7 +107,8 @@ class TopUpSuccessFragment : BasePageViewFragment(), TopUpSuccessFragmentView {
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                             savedInstanceState: Bundle?): View? {
-    return inflater.inflate(R.layout.fragment_top_up_success, container, false)
+    _binding = FragmentTopUpSuccessBinding.inflate(inflater, container, false)
+    return binding.root
   }
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
