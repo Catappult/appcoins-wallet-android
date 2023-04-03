@@ -9,14 +9,13 @@ import android.view.View.VISIBLE
 import android.view.ViewGroup
 import com.asf.wallet.R
 import com.appcoins.wallet.core.utils.android_common.extensions.scaleToString
+import com.asf.wallet.databinding.InviteFriendsFragmentLayoutBinding
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.jakewharton.rxbinding2.view.RxView
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable
-import kotlinx.android.synthetic.main.invite_friends_fragment_layout.*
-import kotlinx.android.synthetic.main.referral_notification_card.*
 import java.math.BigDecimal
 import javax.inject.Inject
 
@@ -29,6 +28,22 @@ class InviteFriendsFragment : BasePageViewFragment(), InviteFriendsFragmentView 
   private lateinit var presenter: InviteFriendsFragmentPresenter
   private var activity: InviteFriendsActivityView? = null
   private lateinit var referralsBottomSheet: BottomSheetBehavior<View>
+
+  private var _binding: InviteFriendsFragmentLayoutBinding? = null
+  // This property is only valid between onCreateView and
+  // onDestroyView.
+  private val binding get() = _binding!!
+
+  // invite_friends_fragment_layout.xml
+  private val bottom_sheet_fragment_container get() = binding.bottomSheetFragmentContainer
+  private val referral_description get() = binding.referralDescription
+  private val share_invite_button get() = binding.shareInviteButton
+  private val background_fade_animation get() = binding.backgroundFadeAnimation
+
+  // referral_notification_card.xml
+  private val notification_title get() = binding.referralNotificationCard.notificationTitle
+  private val notification_image get() = binding.referralNotificationCard.notificationImage
+  private val referral_notification_card get() = binding.referralNotificationCard.root
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
@@ -59,7 +74,8 @@ class InviteFriendsFragment : BasePageViewFragment(), InviteFriendsFragmentView 
             ReferralsFragment.newInstance(amount, pendingAmount, currency, completedInvites,
                 receivedAmount, maxAmount, available, isRedeemed))
         .commit()
-    return inflater.inflate(R.layout.invite_friends_fragment_layout, container, false)
+    _binding = InviteFriendsFragmentLayoutBinding.inflate(inflater, container, false)
+    return binding.root
   }
 
   private fun animateBackgroundFade() {
