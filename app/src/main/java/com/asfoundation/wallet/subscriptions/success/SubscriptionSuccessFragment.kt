@@ -7,11 +7,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.asf.wallet.R
+import com.asf.wallet.databinding.FragmentSubscriptionCancelSuccessBinding
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import com.jakewharton.rxbinding2.view.RxView
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.Observable
-import kotlinx.android.synthetic.main.fragment_subscription_cancel_success.*
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -20,9 +20,19 @@ class SubscriptionSuccessFragment : BasePageViewFragment(), SubscriptionSuccessV
   @Inject
   lateinit var presenter: SubscriptionSuccessPresenter
 
+  private var _binding: FragmentSubscriptionCancelSuccessBinding? = null
+  // This property is only valid between onCreateView and
+  // onDestroyView.
+  private val binding get() = _binding!!
+
+  private val success_animation get() = binding.successAnimation
+  private val update_title get() = binding.updateTitle
+  private val continue_button get() = binding.continueButton
+
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                             savedInstanceState: Bundle?): View? {
-    return inflater.inflate(R.layout.fragment_subscription_cancel_success, container, false)
+    _binding = FragmentSubscriptionCancelSuccessBinding.inflate(inflater, container, false)
+    return binding.root
   }
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
