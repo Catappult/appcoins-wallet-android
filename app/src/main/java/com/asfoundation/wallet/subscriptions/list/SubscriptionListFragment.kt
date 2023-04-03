@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DividerItemDecoration
 import com.asf.wallet.R
+import com.asf.wallet.databinding.FragmentSubscriptionListBinding
 import com.asfoundation.wallet.subscriptions.SubscriptionAdapter
 import com.asfoundation.wallet.subscriptions.SubscriptionItem
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
@@ -13,9 +14,6 @@ import com.jakewharton.rxbinding2.view.RxView
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
-import kotlinx.android.synthetic.main.fragment_subscription_list.*
-import kotlinx.android.synthetic.main.generic_error_retry_only_layout.*
-import kotlinx.android.synthetic.main.no_network_retry_only_layout.*
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -27,6 +25,30 @@ class SubscriptionListFragment : BasePageViewFragment(), SubscriptionListView {
   private lateinit var expiredAdapter: SubscriptionAdapter
   private var clickSubject: PublishSubject<Pair<SubscriptionItem, View>>? = null
 
+  private var _binding: FragmentSubscriptionListBinding? = null
+  // This property is only valid between onCreateView and
+  // onDestroyView.
+  private val binding get() = _binding!!
+
+  // fragment_subscription_list.xml
+  private val rvActiveSubs get() = binding.rvActiveSubs
+  private val rvExpiredSubs get() = binding.rvExpiredSubs
+  private val active_title get() = binding.activeTitle
+  private val expired_title get() = binding.expiredTitle
+  private val main_layout get() = binding.mainLayout
+  private val generic_error_retry_only_layout get() = binding.genericErrorRetryOnlyLayout.root
+  private val loading_animation get() = binding.loadingAnimation
+  private val no_network_retry_only_layout get() = binding.noNetworkRetryOnlyLayout.root
+  private val layout_no_subscriptions get() = binding.layoutNoSubscriptions.root
+
+  // generic_error_retry_only_layout.xml
+  private val generic_retry_animation get() = binding.genericErrorRetryOnlyLayout.genericRetryAnimation
+  private val generic_retry_button get() = binding.genericErrorRetryOnlyLayout.genericRetryButton
+
+  // no_network_retry_only_layout.xml
+  private val retry_animation get() = binding.noNetworkRetryOnlyLayout.retryAnimation
+  private val retry_button get() = binding.noNetworkRetryOnlyLayout.retryButton
+
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     clickSubject = PublishSubject.create()
@@ -34,7 +56,8 @@ class SubscriptionListFragment : BasePageViewFragment(), SubscriptionListView {
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                             savedInstanceState: Bundle?): View? {
-    return inflater.inflate(R.layout.fragment_subscription_list, container, false)
+    _binding = FragmentSubscriptionListBinding.inflate(inflater, container, false)
+    return binding.root
   }
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
