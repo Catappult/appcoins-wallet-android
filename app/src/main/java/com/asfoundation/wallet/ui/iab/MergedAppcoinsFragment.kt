@@ -26,6 +26,7 @@ import com.asfoundation.wallet.navigator.UriNavigator
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.asfoundation.wallet.util.Period
 import com.appcoins.wallet.core.utils.android_common.WalletCurrency
+import com.asf.wallet.databinding.MergedAppcoinsLayoutBinding
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import com.asfoundation.wallet.wallets.usecases.GetWalletInfoUseCase
 import com.jakewharton.rxbinding2.view.RxView
@@ -35,16 +36,6 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.PublishSubject
-import kotlinx.android.synthetic.main.appcoins_radio_button.*
-import kotlinx.android.synthetic.main.credits_radio_button.*
-import kotlinx.android.synthetic.main.credits_radio_button.view.*
-import kotlinx.android.synthetic.main.dialog_buy_buttons.*
-import kotlinx.android.synthetic.main.iab_error_layout.*
-import kotlinx.android.synthetic.main.merged_appcoins_layout.*
-import kotlinx.android.synthetic.main.payment_methods_header.*
-import kotlinx.android.synthetic.main.support_error_layout.*
-import kotlinx.android.synthetic.main.view_purchase_bonus.*
-import kotlinx.android.synthetic.main.view_purchase_bonus.view.*
 import java.math.BigDecimal
 import javax.inject.Inject
 
@@ -237,6 +228,65 @@ class MergedAppcoinsFragment : BasePageViewFragment(), MergedAppcoinsView {
     }
   }
 
+  private var _binding: MergedAppcoinsLayoutBinding? = null
+  // This property is only valid between onCreateView and
+  // onDestroyView.
+  private val binding get() = _binding!!
+
+  // merged_appcoins_layout.xml
+  private val payment_method_main_view get() = binding.paymentMethodMainView
+  private val loading_view get() = binding.loadingView
+  private val payment_methods get() = binding.paymentMethods
+  private val skeleton_credits get() = binding.skeletonCredits.root
+  private val payment_methods_group get() = binding.paymentMethodsGroup
+  private val appcoins_bonus_layout get() = binding.appcoinsRadio.appcoinsBonusLayout?.root
+  private val bonus_layout get() = binding.bonusLayout?.root
+  private val bonus_msg get() = binding.bonusMsg
+  private val credits_radio get() = binding.creditsRadio.root
+  private val skeleton_appcoins get() = binding.skeletonAppcoins?.root
+  private val info get() = binding.info
+  private val info_text get() = binding.infoText
+  private val merged_error_layout get() = binding.mergedErrorLayout.root
+  private val appcoins_radio get() = binding.appcoinsRadio.root
+
+  // support_error_layout.xml
+  private val layout_support_icn get() = binding.mergedErrorLayout.genericErrorLayout.layoutSupportIcn
+  private val layout_support_logo get() = binding.mergedErrorLayout.genericErrorLayout.layoutSupportLogo
+  private val error_message get() = binding.mergedErrorLayout.genericErrorLayout.errorMessage
+
+  // iab_error_layout.xml
+  private val error_dismiss get() = binding.mergedErrorLayout.errorDismiss
+
+  // payment_methods_header.xml
+  private val appc_price get() = binding.paymentMethodsHeader.appcPrice
+  private val appc_price_skeleton get() = binding.paymentMethodsHeader.appcPriceSkeleton.root
+  private val fiat_price get() = binding.paymentMethodsHeader.fiatPrice
+  private val fiat_price_skeleton get() = binding.paymentMethodsHeader.fiatPriceSkeleton.root
+  private val app_name get() = binding.paymentMethodsHeader.appName
+  private val app_icon get() = binding.paymentMethodsHeader.appIcon
+  private val app_sku_description get() = binding.paymentMethodsHeader.appSkuDescription
+
+  // credits_radio_button.xml
+  private val credits_radio_button get() = binding.creditsRadio.creditsRadioButton
+  private val credits_balances_group get() = binding.creditsRadio.creditsBalancesGroup
+  private val credits_fiat_balance get() = binding.creditsRadio.creditsFiatBalance
+
+  // appcoins_radio_button.xml
+  private val appcoins_radio_button get() = binding.appcoinsRadio.appcoinsRadioButton
+  private val appc_balances_group get() = binding.appcoinsRadio.appcBalancesGroup
+  private val balance_fiat_appc_eth get() = binding.appcoinsRadio.balanceFiatAppcEth
+  private val title get() = binding.appcoinsRadio.title
+  private val message get() = binding.appcoinsRadio.message
+  private val icon get() = binding.appcoinsRadio.icon
+
+  // view_purchase_bonus.xml
+  private val bonus_value get() = binding.appcoinsRadio.appcoinsBonusLayout?.bonusValue
+
+  // dialog_buy_buttons_payment_methods.xml
+  private val buy_button get() = binding.dialogBuyButtonsPaymentMethods.buyButton
+  private val cancel_button get() = binding.dialogBuyButtonsPaymentMethods.cancelButton
+
+
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     @Suppress("DEPRECATION")
@@ -272,7 +322,10 @@ class MergedAppcoinsFragment : BasePageViewFragment(), MergedAppcoinsView {
     inflater: LayoutInflater,
     container: ViewGroup?,
     savedInstanceState: Bundle?
-  ): View? = inflater.inflate(R.layout.merged_appcoins_layout, container, false)
+  ): View? {
+    _binding = MergedAppcoinsLayoutBinding.inflate(inflater, container, false)
+    return binding.root
+  }
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
@@ -302,8 +355,7 @@ class MergedAppcoinsFragment : BasePageViewFragment(), MergedAppcoinsView {
   private fun setBonus() {
     if (bonus.isNotEmpty()) {
       //Build string for both landscape (header) and portrait (radio button) bonus layout
-      appcoins_radio?.bonus_value?.text =
-        getString(R.string.gamification_purchase_header_part_2, bonus)
+      // appcoins_radio?.bonus_value?.text = getString(R.string.gamification_purchase_header_part_2, bonus)
       bonus_value?.text = getString(R.string.gamification_purchase_header_part_2, bonus)
 
       //Set visibility for both landscape (header) and portrait (radio button) bonus layout
@@ -334,9 +386,9 @@ class MergedAppcoinsFragment : BasePageViewFragment(), MergedAppcoinsView {
         view = appcoins_radio,
         selectedRadioButton = appcoins_radio_button,
         unSelectedRadioButton = credits_radio_button,
-        title = appcoins_radio.title,
-        message = appcoins_radio.message,
-        icon = appcoins_radio.icon,
+        title = title,
+        message = message,
+        icon = icon,
         bonusView = appcoins_bonus_layout,
         balanceGroup = appc_balances_group,
         method = APPC
@@ -345,9 +397,9 @@ class MergedAppcoinsFragment : BasePageViewFragment(), MergedAppcoinsView {
       setDisabledRadio(
         view = appcoins_radio,
         radioButton = appcoins_radio_button,
-        title = appcoins_radio.title,
-        message = appcoins_radio.message,
-        icon = appcoins_radio.icon,
+        title = title,
+        message = message,
+        icon = icon,
         bonusLayout = appcoins_bonus_layout,
         balanceGroup = appc_balances_group,
         disabledReason = appcDisabledReason,
@@ -359,9 +411,9 @@ class MergedAppcoinsFragment : BasePageViewFragment(), MergedAppcoinsView {
         view = credits_radio,
         selectedRadioButton = credits_radio_button,
         unSelectedRadioButton = appcoins_radio_button,
-        title = credits_radio.title,
-        message = credits_radio.message,
-        icon = credits_radio.icon,
+        title = title,
+        message = message,
+        icon = icon,
         bonusView = null,
         balanceGroup = credits_balances_group,
         method = CREDITS
@@ -371,9 +423,9 @@ class MergedAppcoinsFragment : BasePageViewFragment(), MergedAppcoinsView {
       setDisabledRadio(
         view = credits_radio,
         radioButton = credits_radio_button,
-        title = credits_radio.title,
-        message = credits_radio.message,
-        icon = credits_radio.icon,
+        title = title,
+        message = message,
+        icon = icon,
         bonusLayout = null,
         balanceGroup = credits_balances_group,
         disabledReason = creditsDisableReason,
