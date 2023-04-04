@@ -8,9 +8,12 @@ import com.asfoundation.wallet.promo_code.use_cases.GetUpdatedPromoCodeUseCase
 import com.asfoundation.wallet.promo_code.use_cases.ObservePromoCodeUseCase
 import com.asfoundation.wallet.ui.wallets.WalletsModel
 import com.asfoundation.wallet.update_required.use_cases.BuildUpdateIntentUseCase
+import com.github.michaelbull.result.get
 import io.reactivex.Scheduler
 import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.rx2.rxSingle
 
 class SettingsPresenter(
   private val view: SettingsView,
@@ -188,11 +191,11 @@ class SettingsPresenter(
   }
 
   private fun setCurrencyPreference() {
-    disposables.add(getChangeFiatCurrencyModelUseCase()
+    disposables.add(rxSingle(Dispatchers.IO) { getChangeFiatCurrencyModelUseCase() }
       .observeOn(viewScheduler)
       .doOnSuccess {
-        for (fiatCurrency in it.list) {
-          if (fiatCurrency.currency == it.selectedCurrency) {
+        for (fiatCurrency in it.get()!!.list) {
+          if (fiatCurrency.currency == it.get()!!.selectedCurrency) {
             view.setCurrencyPreference(fiatCurrency)
             break
           }
