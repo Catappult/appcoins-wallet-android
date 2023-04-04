@@ -45,6 +45,8 @@ dependencies {
   implementation(project(":ui:widgets"))
 
   implementation(libs.kotlin.coroutines)
+  implementation(libs.kotlin.coroutines.rx2)
+  implementation(libs.bundles.result)
 
   implementation(libs.viewbinding.delegate)
   implementation(libs.androidx.core.ktx)
