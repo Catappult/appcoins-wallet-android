@@ -1,20 +1,20 @@
 package com.asfoundation.wallet.change_currency
 
 import androidx.room.*
-import io.reactivex.Completable
-import io.reactivex.Single
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface FiatCurrenciesDao {
   @Query(
-      "SELECT * FROM FiatCurrencyEntity WHERE currency = :currency LIMIT 1")
-  fun getFiatCurrency(currency: String): Single<FiatCurrencyEntity>
+    "SELECT * FROM FiatCurrencyEntity WHERE currency = :currency LIMIT 1"
+  )
+  fun getFiatCurrency(currency: String): FiatCurrencyEntity
 
   @Query("SELECT *  FROM FiatCurrencyEntity")
-  fun getFiatCurrencies(): Single<List<FiatCurrencyEntity>>
+  fun getFiatCurrencies(): List<FiatCurrencyEntity>
 
   @Insert(onConflict = OnConflictStrategy.REPLACE)
-  fun saveCurrency(fiatCurrency: FiatCurrencyEntity): Completable
+  fun saveCurrency(fiatCurrency: FiatCurrencyEntity)
 
   @Insert(onConflict = OnConflictStrategy.REPLACE)
   fun saveAll(fiatCurrencyList: List<FiatCurrencyEntity>)
