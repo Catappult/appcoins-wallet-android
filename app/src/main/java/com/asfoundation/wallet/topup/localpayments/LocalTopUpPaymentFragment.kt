@@ -12,15 +12,10 @@ import com.asfoundation.wallet.topup.TopUpActivityView
 import com.asfoundation.wallet.topup.TopUpData
 import com.asfoundation.wallet.topup.TopUpPaymentData
 import com.appcoins.wallet.core.utils.android_common.WalletCurrency
+import com.asf.wallet.databinding.LocalTopupPaymentLayoutBinding
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import com.jakewharton.rxbinding2.view.RxView
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.error_top_up_layout.*
-import kotlinx.android.synthetic.main.local_topup_payment_layout.*
-import kotlinx.android.synthetic.main.no_network_retry_only_layout.*
-import kotlinx.android.synthetic.main.pending_user_payment_view.*
-import kotlinx.android.synthetic.main.support_error_layout.view.*
-import kotlinx.android.synthetic.main.topup_pending_user_payment_view.view.*
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
@@ -33,6 +28,45 @@ class LocalTopUpPaymentFragment : BasePageViewFragment(), LocalTopUpPaymentView 
   private lateinit var activityView: TopUpActivityView
   private var minFrame = 0
   private var maxFrame = 40
+
+  private var _binding: LocalTopupPaymentLayoutBinding? = null
+  // This property is only valid between onCreateView and
+  // onDestroyView.
+  private val binding get() = _binding!!
+
+  // error_top_up_layout.xml
+  private val error_message get() = binding.errorView.errorMessage
+  private val layout_support_logo get() = binding.errorView.layoutSupportLogo
+  private val layout_support_icn get() = binding.errorView.layoutSupportIcn
+  private val try_again get() = binding.errorView.tryAgain
+
+  // local_topup_payment_layout.xml
+  private val main_content get() = binding.mainContent
+  private val main_currency_code get() = binding.mainCurrencyCode
+  private val main_value get() = binding.mainValue
+  private val converted_value get() = binding.convertedValue
+  private val loading get() = binding.loading
+  private val topup_pending_user_payment_view get() = binding.topupPendingUserPaymentView.root
+  private val no_network get() = binding.noNetwork.root
+  private val error_view get() = binding.errorView.root
+
+  // no_network_retry_only_layout.xml
+  private val retry_button get() = binding.noNetwork.retryButton
+  private val retry_animation get() = binding.noNetwork.retryAnimation
+
+  // pending_user_payment_view.xml
+
+  // support_error_layout.xml
+
+  // topup_pending_user_payment_view.xml
+  private val next_steps_title get() = binding.topupPendingUserPaymentView.nextStepsTitle
+  private val top_up_in_progress_animation get() = binding.topupPendingUserPaymentView.topUpInProgressAnimation
+  private val step_one get() = binding.topupPendingUserPaymentView.stepOne
+  private val step_one_desc get() = binding.topupPendingUserPaymentView.stepOneDesc
+  private val step_two get() = binding.topupPendingUserPaymentView.stepTwo
+  private val step_two_desc get() = binding.topupPendingUserPaymentView.stepTwoDesc
+  private val got_it_button get() = binding.topupPendingUserPaymentView.gotItButton
+
 
   companion object {
 
@@ -73,7 +107,8 @@ class LocalTopUpPaymentFragment : BasePageViewFragment(), LocalTopUpPaymentView 
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                             savedInstanceState: Bundle?): View? {
-    return inflater.inflate(R.layout.local_topup_payment_layout, container, false)
+    _binding = LocalTopupPaymentLayoutBinding.inflate(inflater, container, false)
+    return binding.root
   }
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -101,7 +136,7 @@ class LocalTopUpPaymentFragment : BasePageViewFragment(), LocalTopUpPaymentView 
     main_content.visibility = View.GONE
     no_network.visibility = View.GONE
     topup_pending_user_payment_view.visibility = View.GONE
-    error_view?.error_message?.text = getString(R.string.unknown_error)
+    error_message?.text = getString(R.string.unknown_error)
     error_view?.visibility = View.VISIBLE
   }
 
@@ -158,27 +193,27 @@ class LocalTopUpPaymentFragment : BasePageViewFragment(), LocalTopUpPaymentView 
 
     step_one_desc.text = stepOneText
 
-    topup_pending_user_payment_view?.top_up_in_progress_animation?.updateBitmap("image_0",
+    top_up_in_progress_animation?.updateBitmap("image_0",
         paymentMethodIcon)
 
     playAnimation()
   }
 
   private fun playAnimation() {
-    topup_pending_user_payment_view?.top_up_in_progress_animation?.setMinAndMaxFrame(minFrame,
+    top_up_in_progress_animation?.setMinAndMaxFrame(minFrame,
         maxFrame)
-    topup_pending_user_payment_view?.top_up_in_progress_animation?.addAnimatorListener(object :
+    top_up_in_progress_animation?.addAnimatorListener(object :
         Animator.AnimatorListener {
       override fun onAnimationRepeat(animation: Animator) = Unit
       override fun onAnimationEnd(animation: Animator) {
         if (minFrame == BUTTON_ANIMATION_START_FRAME) {
-          topup_pending_user_payment_view?.top_up_in_progress_animation?.cancelAnimation()
+          top_up_in_progress_animation?.cancelAnimation()
         } else {
           minFrame += ANIMATION_FRAME_INCREMENT
           maxFrame += ANIMATION_FRAME_INCREMENT
-          topup_pending_user_payment_view?.top_up_in_progress_animation?.setMinAndMaxFrame(minFrame,
+          top_up_in_progress_animation?.setMinAndMaxFrame(minFrame,
               maxFrame)
-          topup_pending_user_payment_view?.top_up_in_progress_animation?.playAnimation()
+          top_up_in_progress_animation?.playAnimation()
         }
       }
 
@@ -198,7 +233,7 @@ class LocalTopUpPaymentFragment : BasePageViewFragment(), LocalTopUpPaymentView 
         }
       }
     })
-    topup_pending_user_payment_view?.top_up_in_progress_animation?.playAnimation()
+    top_up_in_progress_animation?.playAnimation()
   }
 
   private fun animateShow(view: View, viewToAnimateInTheEnd: View? = null) {
