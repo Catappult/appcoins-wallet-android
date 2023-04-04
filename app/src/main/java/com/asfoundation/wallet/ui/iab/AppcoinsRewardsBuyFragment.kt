@@ -13,6 +13,7 @@ import com.asf.wallet.R
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
+import com.asf.wallet.databinding.RewardPaymentLayoutBinding
 import com.asfoundation.wallet.util.TransferParser
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import com.jakewharton.rxbinding2.view.RxView
@@ -20,11 +21,6 @@ import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
-import kotlinx.android.synthetic.main.fragment_iab_transaction_completed.*
-import kotlinx.android.synthetic.main.iab_error_layout.*
-import kotlinx.android.synthetic.main.iab_error_layout.generic_error_layout
-import kotlinx.android.synthetic.main.reward_payment_layout.*
-import kotlinx.android.synthetic.main.support_error_layout.*
 import java.math.BigDecimal
 import javax.inject.Inject
 
@@ -58,11 +54,35 @@ class AppcoinsRewardsBuyFragment : BasePageViewFragment(), AppcoinsRewardsBuyVie
   private lateinit var presenter: AppcoinsRewardsBuyPresenter
   private lateinit var iabView: IabView
 
+  private var _binding: RewardPaymentLayoutBinding? = null
+  // This property is only valid between onCreateView and
+  // onDestroyView.
+  private val binding get() = _binding!!
+
+  // fragment_iab_transaction_completed.xml
+  private val iab_activity_transaction_completed get() = binding.fragmentIabTransactionCompleted.iabActivityTransactionCompleted
+  private val lottie_transaction_success get() = binding.fragmentIabTransactionCompleted.lottieTransactionSuccess
+
+  // iab_error_layout.xml
+  private val error_dismiss get() = binding.genericErrorLayout.errorDismiss
+  private val generic_error_layout get() = binding.genericErrorLayout.genericErrorLayout.root
+
+  // reward_payment_layout.xml
+  private val loading_view get() = binding.loadingView
+
+  // support_error_layout.xml
+  private val error_message get() = binding.genericErrorLayout.genericErrorLayout.errorMessage
+  private val layout_support_icn get() = binding.genericErrorLayout.genericErrorLayout.layoutSupportIcn
+  private val layout_support_logo get() = binding.genericErrorLayout.genericErrorLayout.layoutSupportLogo
+
   override fun onCreateView(
     inflater: LayoutInflater,
     container: ViewGroup?,
     savedInstanceState: Bundle?
-  ): View? = inflater.inflate(R.layout.reward_payment_layout, container, false)
+  ): View? {
+    _binding = RewardPaymentLayoutBinding.inflate(inflater, container, false)
+    return binding.root
+  }
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
