@@ -25,6 +25,7 @@ import com.appcoins.wallet.core.utils.android_common.KeyboardUtils
 import com.appcoins.wallet.core.utils.android_common.WalletCurrency
 import com.asf.wallet.BuildConfig
 import com.asf.wallet.R
+import com.asf.wallet.databinding.FragmentAdyenTopUpBinding
 import com.asfoundation.wallet.billing.address.BillingAddressModel
 import com.asfoundation.wallet.billing.adyen.*
 import com.asfoundation.wallet.service.ServicesErrorCodeMapper
@@ -46,15 +47,6 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.PublishSubject
 import io.reactivex.subjects.ReplaySubject
-import kotlinx.android.synthetic.main.adyen_credit_card_pre_selected.*
-import kotlinx.android.synthetic.main.error_top_up_layout.*
-import kotlinx.android.synthetic.main.error_top_up_layout.view.*
-import kotlinx.android.synthetic.main.fragment_adyen_top_up.*
-import kotlinx.android.synthetic.main.no_network_retry_only_layout.*
-import kotlinx.android.synthetic.main.selected_payment_method_cc.*
-import kotlinx.android.synthetic.main.support_error_layout.layout_support_icn
-import kotlinx.android.synthetic.main.support_error_layout.layout_support_logo
-import kotlinx.android.synthetic.main.view_purchase_bonus.view.*
 import java.math.BigDecimal
 import javax.inject.Inject
 
@@ -104,6 +96,56 @@ class AdyenTopUpFragment : BasePageViewFragment(), AdyenTopUpView {
   private var isStored = false
   private var billingAddressModel: BillingAddressModel? = null
 
+  private var _binding: FragmentAdyenTopUpBinding? = null
+  // This property is only valid between onCreateView and
+  // onDestroyView.
+  private val binding get() = _binding!!
+
+  // adyen_credit_card_pre_selected.xml
+
+
+  // error_top_up_layout.xml
+  private val error_message get() = binding.fragmentAdyenError.errorMessage
+  private val error_verify_wallet_button get() = binding.fragmentAdyenError.errorVerifyWalletButton
+  private val error_title get() = binding.fragmentAdyenError.errorTitle
+  private val topup_error_animation get() = binding.fragmentAdyenError.topupErrorAnimation
+  private val try_again get() = binding.fragmentAdyenError.tryAgain
+  private val layout_support_icn get() = binding.fragmentAdyenError.layoutSupportIcn
+  private val layout_support_logo get() = binding.fragmentAdyenError.layoutSupportLogo
+
+
+  // fragment_adyen_top_up.xml
+  private val top_up_container get() = binding.topUpContainer
+  private val main_currency_code get() = binding.mainCurrencyCode
+  private val main_value get() = binding.mainValue
+  private val converted_value get() = binding.convertedValue
+  private val top_separator_topup get() = binding.topSeparatorTopup
+  private val credit_card_info_container get() = binding.creditCardInfoContainer
+  private val change_card_button get() = binding.changeCardButton
+  private val loading get() = binding.loading
+  private val bonus_msg get() = binding.bonusMsg
+  private val button get() = binding.button
+  private val adyen_card_form get() = binding.adyenCardForm.root
+  private val bonus_layout get() = binding.bonusLayout.root
+  private val no_network get() = binding.noNetwork.root
+  private val fragment_adyen_error get() = binding.fragmentAdyenError.root
+
+  // no_network_retry_only_layout.xml
+  private val retry_button get() = binding.noNetwork.retryButton
+  private val retry_animation get() = binding.noNetwork.retryAnimation
+
+  // selected_payment_method_cc.xml
+  private val adyen_card_form_pre_selected get() = binding.adyenCardForm.adyenCardFormPreSelected
+  private val payment_method_ic get() = binding.adyenCardForm.paymentMethodIc
+  private val adyen_card_form_pre_selected_number get() = binding.adyenCardForm.adyenCardFormPreSelectedNumber
+
+  // support_error_layout.xml
+
+
+  // view_purchase_bonus.xml
+  private val bonus_header_1 get() = binding.bonusLayout.bonusHeader1
+  private val bonus_value get() = binding.bonusLayout.bonusValue
+
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     paymentDataSubject = ReplaySubject.createWithSize(1)
@@ -141,7 +183,8 @@ class AdyenTopUpFragment : BasePageViewFragment(), AdyenTopUpView {
     inflater: LayoutInflater, container: ViewGroup?,
     savedInstanceState: Bundle?
   ): View? {
-    return inflater.inflate(R.layout.fragment_adyen_top_up, container, false)
+    _binding = FragmentAdyenTopUpBinding.inflate(inflater, container, false)
+    return binding.root
   }
 
   override fun onSaveInstanceState(outState: Bundle) {
@@ -265,7 +308,7 @@ class AdyenTopUpFragment : BasePageViewFragment(), AdyenTopUpView {
     top_up_container.visibility = GONE
 
     val message = getString(stringRes)
-    fragment_adyen_error?.error_message?.text = message
+    error_message?.text = message
     fragment_adyen_error?.visibility = VISIBLE
   }
 
@@ -364,7 +407,7 @@ class AdyenTopUpFragment : BasePageViewFragment(), AdyenTopUpView {
   private fun handleLayoutVisibility(isStored: Boolean) {
     adyenCardView.showInputFields(!isStored)
     change_card_button?.visibility = if (isStored) VISIBLE else GONE
-    change_card_button_pre_selected?.visibility = if (isStored) VISIBLE else GONE
+    //change_card_button_pre_selected?.visibility = if (isStored) VISIBLE else GONE
   }
 
   override fun setupRedirectComponent() {
@@ -393,8 +436,8 @@ class AdyenTopUpFragment : BasePageViewFragment(), AdyenTopUpView {
   private fun buildBonusString(bonus: BigDecimal, bonusCurrency: String) {
     val scaledBonus = bonus.max(BigDecimal("0.01"))
     val currency = "~$bonusCurrency".takeIf { bonus < BigDecimal("0.01") } ?: bonusCurrency
-    bonus_layout.bonus_header_1.text = getString(R.string.topup_bonus_header_part_1)
-    bonus_layout.bonus_value.text = getString(
+    bonus_header_1.text = getString(R.string.topup_bonus_header_part_1)
+    bonus_value.text = getString(
       R.string.topup_bonus_header_part_2,
       currency + formatter.formatCurrency(scaledBonus, WalletCurrency.FIAT)
     )
@@ -405,8 +448,9 @@ class AdyenTopUpFragment : BasePageViewFragment(), AdyenTopUpView {
   override fun getPaymentDetails() = paymentDetailsSubject!!
 
   override fun forgetCardClick(): Observable<Any> {
-    return if (change_card_button != null) RxView.clicks(change_card_button)
-    else RxView.clicks(change_card_button_pre_selected)
+    return RxView.clicks(change_card_button)
+    //return if (change_card_button != null) RxView.clicks(change_card_button)
+    //else RxView.clicks(change_card_button_pre_selected)
   }
 
   // TODO: Refactor this to pass the whole Intent.
