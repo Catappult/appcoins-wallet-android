@@ -85,7 +85,9 @@
           />
     </com.google.android.material.textfield.TextInputLayout>
 
-    <include layout="@layout/currency_choose_layout" />
+    <include
+        android:id="@+id/currency_choose_layout"
+        layout="@layout/currency_choose_layout" />
 
     <TextView
         android:id="@+id/transact_fragment_balance"
@@ -97,7 +99,7 @@
         app:layout_constraintBottom_toTopOf="@id/send_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/currency_selector"
+        app:layout_constraintTop_toBottomOf="@id/currency_choose_layout"
         tools:text="Current balance: 867 APPC-C"
         />
 

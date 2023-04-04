@@ -15,6 +15,7 @@ import android.widget.Toast
 import android.widget.Toast.LENGTH_SHORT
 import com.asf.wallet.R
 import com.appcoins.wallet.core.utils.android_common.WalletCurrency
+import com.asf.wallet.databinding.TransactFragmentLayoutBinding
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import com.google.android.gms.vision.barcode.Barcode
 import com.google.android.material.snackbar.Snackbar
@@ -24,8 +25,6 @@ import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.Observable
 import io.reactivex.subjects.BehaviorSubject
 import io.reactivex.subjects.PublishSubject
-import kotlinx.android.synthetic.main.currency_choose_layout.*
-import kotlinx.android.synthetic.main.transact_fragment_layout.*
 import java.math.BigDecimal
 import java.util.*
 import javax.inject.Inject
@@ -43,6 +42,21 @@ class TransferFragment : BasePageViewFragment(), TransferFragmentView {
   private lateinit var doneClick: PublishSubject<Any>
   private lateinit var qrCodeResult: BehaviorSubject<Barcode>
 
+  private var _binding: TransactFragmentLayoutBinding? = null
+  // This property is only valid between onCreateView and
+  // onDestroyView.
+  private val binding get() = _binding!!
+
+  private val transact_fragment_amount get() = binding.transactFragmentAmount
+  private val send_button get() = binding.sendButton
+  private val currency_selector get() = binding.currencyChooseLayout.currencySelector
+  private val transact_fragment_balance get() = binding.transactFragmentBalance
+  private val transact_fragment_recipient_address get() = binding.transactFragmentRecipientAddress
+  private val transact_fragment_amount_layout get() = binding.transactFragmentAmountLayout
+  private val transact_fragment_recipient_address_layout get() = binding.transactFragmentRecipientAddressLayout
+  private val scan_barcode_button get() = binding.scanBarcodeButton
+  private val title get() = binding.title
+
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     doneClick = PublishSubject.create()
@@ -51,7 +65,8 @@ class TransferFragment : BasePageViewFragment(), TransferFragmentView {
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                             savedInstanceState: Bundle?): View? {
-    return inflater.inflate(R.layout.transact_fragment_layout, container, false)
+    _binding = TransactFragmentLayoutBinding.inflate(inflater, container, false)
+    return binding.root
   }
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
