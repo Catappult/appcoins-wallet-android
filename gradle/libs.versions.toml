@@ -154,6 +154,7 @@ hilt-interface-extensions-processor = { module = "it.czerwinski.android.hilt:hil
 kotlin-stdlib = { module = "org.jetbrains.kotlin:kotlin-stdlib", version.ref = "kotlin_version" }
 kotlin-coroutines = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "coroutines_version" }
 kotlin-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "coroutines_version" }
+kotlin-coroutines-rx2 = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-rx2", version.ref = "coroutines_version" }
 kotlin-result = { module = "com.michael-bull.kotlin-result:kotlin-result", version.ref = "michel_bull_kotlin_result" }
 kotlin-result-coroutines = { module = "com.michael-bull.kotlin-result:kotlin-result-coroutines", version.ref = "michel_bull_kotlin_result" }
 
