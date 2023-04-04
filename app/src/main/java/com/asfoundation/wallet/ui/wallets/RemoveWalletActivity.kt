@@ -7,18 +7,26 @@ import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
 import com.asf.wallet.R
+import com.asf.wallet.databinding.RemoveWalletActivityLayoutBinding
 import com.asfoundation.wallet.backup.BackupActivity
 import com.asfoundation.wallet.ui.AuthenticationPromptActivity
 import com.asfoundation.wallet.ui.BaseActivity
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
-import kotlinx.android.synthetic.main.remove_wallet_activity_layout.*
 
 @AndroidEntryPoint
 class RemoveWalletActivity : BaseActivity(), RemoveWalletActivityView {
 
   private var authenticationResultSubject: PublishSubject<Boolean>? = null
+
+  private var _binding: RemoveWalletActivityLayoutBinding? = null
+  // This property is only valid between onCreateView and
+  // onDestroyView.
+  private val binding get() = _binding!!
+
+  private val wallet_remove_animation get() = binding.walletRemoveAnimation
+  private val remove_wallet_animation get() = binding.removeWalletAnimation
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
