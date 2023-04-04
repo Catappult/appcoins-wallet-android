@@ -9,11 +9,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import com.asf.wallet.R
+import com.asf.wallet.databinding.EtherTransactionBottomSheetBinding
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.jakewharton.rxbinding2.view.RxView
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.ether_transaction_bottom_sheet.*
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -22,6 +22,16 @@ class EtherTransactionBottomSheetFragment : BottomSheetDialogFragment(),
 
   @Inject
   lateinit var presenter: EtherTransactionBottomSheetPresenter
+
+  private var _binding: EtherTransactionBottomSheetBinding? = null
+  // This property is only valid between onCreateView and
+  // onDestroyView.
+  private val binding get() = _binding!!
+
+  private val ether_transaction_bottom_sheet_hash_string get() = binding.etherTransactionBottomSheetHashString
+  private val ether_transaction_bottom_sheet_rectangle get() = binding.etherTransactionBottomSheetRectangle
+  private val ether_transaction_bottom_sheet_copy_clipboard get() = binding.etherTransactionBottomSheetCopyClipboard
+  private val ether_transaction_bottom_sheet_got_it_button get() = binding.etherTransactionBottomSheetGotItButton
 
   init {
     isCancelable = false
@@ -53,7 +63,8 @@ class EtherTransactionBottomSheetFragment : BottomSheetDialogFragment(),
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                             savedInstanceState: Bundle?): View? {
-    return inflater.inflate(R.layout.ether_transaction_bottom_sheet, container, false)
+    _binding = EtherTransactionBottomSheetBinding.inflate(inflater, container, false)
+    return binding.root
   }
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
