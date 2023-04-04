@@ -13,10 +13,10 @@ import com.asfoundation.wallet.ui.wallets.WalletsAdapter
 import com.asfoundation.wallet.ui.wallets.WalletsModel
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.appcoins.wallet.ui.common.addBottomItemDecoration
+import com.asf.wallet.databinding.SettingsWalletBottomSheetLayoutBinding
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.subjects.PublishSubject
-import kotlinx.android.synthetic.main.settings_wallet_bottom_sheet_layout.*
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -29,6 +29,13 @@ class SettingsWalletsBottomSheetFragment : BasePageViewFragment(), SettingsWalle
   lateinit var presenter: SettingsWalletsBottomSheetPresenter
 
   private var uiEventListener: PublishSubject<String>? = null
+
+  private var _binding: SettingsWalletBottomSheetLayoutBinding? = null
+  // This property is only valid between onCreateView and
+  // onDestroyView.
+  private val binding get() = _binding!!
+
+  private val bottom_sheet_wallets_cards get() = binding.bottomSheetWalletsCards
 
   companion object {
 
@@ -52,7 +59,10 @@ class SettingsWalletsBottomSheetFragment : BasePageViewFragment(), SettingsWalle
     inflater: LayoutInflater,
     container: ViewGroup?,
     savedInstanceState: Bundle?
-  ): View? = inflater.inflate(R.layout.settings_wallet_bottom_sheet_layout, container, false)
+  ): View? {
+    _binding = SettingsWalletBottomSheetLayoutBinding.inflate(inflater, container, false)
+    return binding.root
+  }
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
