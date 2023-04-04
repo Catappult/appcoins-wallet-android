@@ -7,13 +7,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import com.asf.wallet.R
+import com.asf.wallet.databinding.AuthenticationErrorFragmentBinding
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.jakewharton.rxbinding2.view.RxView
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.disposables.CompositeDisposable
-import kotlinx.android.synthetic.main.authentication_error_fragment.*
-import kotlinx.android.synthetic.main.fragment_balance.faded_background
 
 @AndroidEntryPoint
 class AuthenticationErrorFragment : BasePageViewFragment(), AuthenticationErrorView {
@@ -29,6 +28,17 @@ class AuthenticationErrorFragment : BasePageViewFragment(), AuthenticationErrorV
       throw IllegalArgumentException("Error message not found")
     }
   }
+
+  private var _binding: AuthenticationErrorFragmentBinding? = null
+  // This property is only valid between onCreateView and
+  // onDestroyView.
+  private val binding get() = _binding!!
+
+  // authentication_error_fragment.xml
+  private val bottom_error_fragment_container get() = binding.bottomErrorFragmentContainer
+  private val faded_background get() = binding.fadedBackground
+
+  // fragment_balance.xml
 
   companion object {
     private const val ERROR_TIMER_KEY = "error_message"
@@ -64,7 +74,8 @@ class AuthenticationErrorFragment : BasePageViewFragment(), AuthenticationErrorV
         .replace(R.id.bottom_error_fragment_container,
             AuthenticationErrorBottomSheetFragment.newInstance(errorTimer))
         .commit()
-    return inflater.inflate(R.layout.authentication_error_fragment, container, false)
+    _binding = AuthenticationErrorFragmentBinding.inflate(inflater, container, false)
+    return binding.root
   }
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
