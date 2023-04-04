@@ -5,7 +5,7 @@ import android.os.Bundle
 import android.view.View
 import com.appcoins.wallet.bdsbilling.WalletService
 import com.appcoins.wallet.core.utils.jvm_common.Logger
-import com.asf.wallet.R
+import com.asf.wallet.databinding.ActivityIabWalletCreationBinding
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.main.MainActivity
 import com.asfoundation.wallet.ui.iab.IabActivity.Companion.PRODUCT_NAME
@@ -16,7 +16,6 @@ import com.asfoundation.wallet.util.TransferParser
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
-import kotlinx.android.synthetic.main.activity_iab_wallet_creation.*
 import javax.inject.Inject
 
 /**
@@ -40,6 +39,14 @@ class Erc681Receiver : BaseActivity(), Erc681ReceiverView {
   lateinit var inAppPurchaseInteractor: InAppPurchaseInteractor
   private lateinit var presenter: Erc681ReceiverPresenter
 
+  private var _binding: ActivityIabWalletCreationBinding? = null
+  // This property is only valid between onCreateView and
+  // onDestroyView.
+  private val binding get() = _binding!!
+
+  private val create_wallet_animation get() = binding.createWalletAnimation
+  private val create_wallet_text get() = binding.createWalletText
+  private val create_wallet_card get() = binding.createWalletCard
 
   companion object {
     const val REQUEST_CODE = 234
@@ -48,7 +55,8 @@ class Erc681Receiver : BaseActivity(), Erc681ReceiverView {
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     if (savedInstanceState == null) analytics.startTimingForSdkTotalEvent()
-    setContentView(R.layout.activity_iab_wallet_creation)
+    _binding = ActivityIabWalletCreationBinding.inflate(layoutInflater)
+    setContentView(binding.root)
     val productName = intent.extras?.getString(PRODUCT_NAME, "")
     presenter =
       Erc681ReceiverPresenter(
