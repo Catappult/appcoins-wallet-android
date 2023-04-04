@@ -13,10 +13,9 @@ import com.asf.wallet.R
 import com.asfoundation.wallet.ui.iab.IabView
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.appcoins.wallet.core.utils.android_common.WalletCurrency
+import com.asf.wallet.databinding.FragmentCarrierPaymentStatusBinding
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.fragment_carrier_payment_status.*
-import kotlinx.android.synthetic.main.fragment_iab_transaction_completed.view.*
 import java.math.BigDecimal
 import javax.inject.Inject
 
@@ -30,9 +29,22 @@ class CarrierPaymentFragment : BasePageViewFragment(), CarrierPaymentView {
   lateinit var presenter: CarrierPaymentPresenter
   lateinit var iabView: IabView
 
+  private var _binding: FragmentCarrierPaymentStatusBinding? = null
+  // This property is only valid between onCreateView and
+  // onDestroyView.
+  private val binding get() = _binding!!
+
+  // fragment_carrier_payment_status.xml
+  private val complete_payment_view get() = binding.completePaymentView.root
+  private val progress_bar get() = binding.progressBar
+
+  // fragment_iab_transaction_completed.xml
+  private val lottie_transaction_success get() = binding.completePaymentView.lottieTransactionSuccess
+
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                             savedInstanceState: Bundle?): View? {
-    return inflater.inflate(R.layout.fragment_carrier_payment_status, container, false)
+    _binding = FragmentCarrierPaymentStatusBinding.inflate(inflater, container, false)
+    return binding.root
   }
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -49,20 +61,20 @@ class CarrierPaymentFragment : BasePageViewFragment(), CarrierPaymentView {
 
   override fun initializeView(bonusValue: BigDecimal?, currency: String) {
     if (bonusValue != null) {
-      complete_payment_view.lottie_transaction_success.setAnimation(
+      lottie_transaction_success.setAnimation(
           R.raw.transaction_complete_bonus_animation)
-      val textDelegate = TextDelegate(complete_payment_view.lottie_transaction_success)
+      val textDelegate = TextDelegate(lottie_transaction_success)
       textDelegate.setText("bonus_value", getBonusMessage(bonusValue, currency))
       textDelegate.setText("bonus_received",
           resources.getString(R.string.gamification_purchase_completed_bonus_received))
-      complete_payment_view.lottie_transaction_success.setTextDelegate(textDelegate)
-      complete_payment_view.lottie_transaction_success.setFontAssetDelegate(object :
+      lottie_transaction_success.setTextDelegate(textDelegate)
+      lottie_transaction_success.setFontAssetDelegate(object :
           FontAssetDelegate() {
         override fun fetchFont(fontFamily: String?) =
             Typeface.create("sans-serif-medium", Typeface.BOLD)
       })
     } else {
-      complete_payment_view.lottie_transaction_success.setAnimation(R.raw.success_animation)
+      lottie_transaction_success.setAnimation(R.raw.success_animation)
     }
   }
 
@@ -110,7 +122,7 @@ class CarrierPaymentFragment : BasePageViewFragment(), CarrierPaymentView {
   }
 
   override fun getFinishedDuration(): Long =
-      complete_payment_view.lottie_transaction_success.duration
+      lottie_transaction_success.duration
 
   companion object {
     val TAG = CarrierPaymentFragment::class.java.simpleName
