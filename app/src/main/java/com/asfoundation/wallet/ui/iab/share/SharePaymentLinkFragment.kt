@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.core.app.ShareCompat
 import androidx.core.content.res.ResourcesCompat
 import com.asf.wallet.R
+import com.asf.wallet.databinding.FragmentSharePaymentLinkBinding
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics
 import com.asfoundation.wallet.ui.iab.IabView
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
@@ -17,7 +18,6 @@ import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
-import kotlinx.android.synthetic.main.fragment_share_payment_link.*
 import java.math.BigDecimal
 import javax.inject.Inject
 
@@ -128,6 +128,17 @@ class SharePaymentLinkFragment : BasePageViewFragment(),
     }
   }
 
+  private var _binding: FragmentSharePaymentLinkBinding? = null
+  // This property is only valid between onCreateView and
+  // onDestroyView.
+  private val binding get() = _binding!!
+
+  // fragment_share_payment_link.xml
+  private val note get() = binding.note
+  private val share_link_title get() = binding.shareLinkTitle
+  private val share_btn get() = binding.shareBtn
+  private val close_btn get() = binding.closeBtn
+
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     if (savedInstanceState == null) {
@@ -140,7 +151,8 @@ class SharePaymentLinkFragment : BasePageViewFragment(),
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                             savedInstanceState: Bundle?): View? {
-    return inflater.inflate(R.layout.fragment_share_payment_link, container, false)
+    _binding = FragmentSharePaymentLinkBinding.inflate(inflater, container, false)
+    return binding.root
   }
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
