@@ -17,13 +17,12 @@ import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.appcoins.wallet.core.utils.properties.HostProperties
 import com.asf.wallet.BuildConfig
 import com.asf.wallet.R
+import com.asf.wallet.databinding.WebviewFragmentBinding
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics
 import com.asfoundation.wallet.billing.paypal.PaypalReturnSchemas
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.webview_fragment.*
-import kotlinx.android.synthetic.main.webview_fragment.view.*
 import java.net.URISyntaxException
 import java.util.concurrent.Executors
 import java.util.concurrent.ScheduledExecutorService
@@ -47,6 +46,19 @@ class BillingWebViewFragment : BasePageViewFragment() {
   private var webViewActivity: WebViewActivity? = null
   private var asyncDetailsShown = false
   private val TAG = BillingWebViewFragment::class.java.name
+
+  private var _binding: WebviewFragmentBinding? = null
+  // This property is only valid between onCreateView and
+  // onDestroyView.
+  private val binding get() = _binding!!
+
+  private val webview get() = binding.webview
+  private val warning_get_bt get() = binding.warningGetBt
+  private val warning_cancel_bt get() = binding.warningCancelBt
+  private val webview_progress_bar get() = binding.webviewProgressBar
+  private val warning_group get() = binding.warningGroup
+  private val warning_name_tv get() = binding.warningNameTv
+  private val warning_app_iv get() = binding.warningAppIv
 
   companion object {
     private const val CARRIER_BILLING_RETURN_SCHEMA = "https://%s/return/carrier_billing"
@@ -114,9 +126,9 @@ class BillingWebViewFragment : BasePageViewFragment() {
     inflater: LayoutInflater, container: ViewGroup?,
     savedInstanceState: Bundle?
   ): View? {
-    val view = inflater.inflate(R.layout.webview_fragment, container, false)
+    _binding = WebviewFragmentBinding.inflate(inflater, container, false)
 
-    view.webview.webViewClient = object : WebViewClient() {
+    webview.webViewClient = object : WebViewClient() {
       override fun shouldOverrideUrlLoading(view: WebView, clickUrl: String): Boolean {
         when {
           clickUrl.contains(LOCAL_PAYMENTS_SCHEMA) ||
@@ -162,18 +174,18 @@ class BillingWebViewFragment : BasePageViewFragment() {
         }
       }
     }
-    view.webview.settings.javaScriptEnabled = true
-    view.webview.settings.domStorageEnabled = true
-    view.webview.settings.useWideViewPort = true
-    view.webview.loadUrl(currentUrl)
+    webview.settings.javaScriptEnabled = true
+    webview.settings.domStorageEnabled = true
+    webview.settings.useWideViewPort = true
+    webview.loadUrl(currentUrl)
 
-    view?.warning_get_bt?.setOnClickListener {
+    warning_get_bt?.setOnClickListener {
       dismissGetAppWarning()
       currentExtAppSelected?.let {
         openDownloadExternalApp(it)
       }
     }
-    view?.warning_cancel_bt?.setOnClickListener {
+    warning_cancel_bt?.setOnClickListener {
       dismissGetAppWarning()
     }
 
@@ -294,14 +306,14 @@ class BillingWebViewFragment : BasePageViewFragment() {
 
   private fun showGetAppWarning(appInfo: ExternalAppEnum) {
     currentExtAppSelected = appInfo
-    view?.warning_group?.startAnimation(AnimationUtils.loadAnimation(context,R.anim.pop_in_animation))
-    view?.warning_group?.visibility = View.VISIBLE
-    view?.warning_name_tv?.text = appInfo.appName
-    view?.warning_app_iv?.setImageResource(appInfo.appIcon)
+    warning_group?.startAnimation(AnimationUtils.loadAnimation(context,R.anim.pop_in_animation))
+    warning_group?.visibility = View.VISIBLE
+    warning_name_tv?.text = appInfo.appName
+    warning_app_iv?.setImageResource(appInfo.appIcon)
   }
 
   private fun dismissGetAppWarning() {
-    view?.warning_group?.startAnimation(AnimationUtils.loadAnimation(context,R.anim.pop_out_animation))
-    view?.warning_group?.visibility = View.GONE
+    warning_group?.startAnimation(AnimationUtils.loadAnimation(context,R.anim.pop_out_animation))
+    warning_group?.visibility = View.GONE
   }
 }
