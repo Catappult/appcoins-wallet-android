@@ -11,13 +11,12 @@ import android.view.ViewGroup
 import androidx.core.widget.doOnTextChanged
 import com.asf.wallet.R
 import com.appcoins.wallet.ui.common.withNoLayoutTransition
+import com.asf.wallet.databinding.FragmentCarrierVerifyPhoneBinding
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import com.jakewharton.rxbinding2.view.RxView
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
-import kotlinx.android.synthetic.main.dialog_buy_buttons_payment_methods.*
-import kotlinx.android.synthetic.main.fragment_carrier_verify_phone.*
 import java.math.BigDecimal
 import java.util.*
 import javax.inject.Inject
@@ -30,9 +29,34 @@ class CarrierVerifyFragment : BasePageViewFragment(), CarrierVerifyView {
 
   private val phoneNumberChangedSubject = PublishSubject.create<Any>()
 
+  private var _binding: FragmentCarrierVerifyPhoneBinding? = null
+  // This property is only valid between onCreateView and
+  // onDestroyView.
+  private val binding get() = _binding!!
+
+  // fragment_carrier_verify_phone.xml
+  private val disclaimer get() = binding.disclaimer
+  private val field_error_text get() = binding.fieldErrorText
+  private val country_code_picker get() = binding.countryCodePicker
+  private val phone_number get() = binding.phoneNumber
+  private val payment_methods_header get() = binding.paymentMethodsHeader
+  private val purchase_bonus get() = binding.purchaseBonus
+  private val other_payments_button get() = binding.otherPaymentsButton
+  private val saved_phone_number_confirmed get() = binding.savedPhoneNumberConfirmed
+  private val change_phone_number_button get() = binding.changePhoneNumberButton
+  private val title get() = binding.title
+  private val phone_number_skeleton get() = binding.phoneNumberSkeleton.root
+  private val phone_number_layout get() = binding.phoneNumberLayout
+  private val progress_bar get() = binding.progressBar
+
+  // dialog_buy_buttons_payment_methods.xml and dialog_buy_buttons.xml
+  private val buy_button get() = binding.dialogBuyButtonsPaymentMethods?.buyButton ?: binding.dialogBuyButtons?.buyButton!!
+  private val cancel_button get() = binding.dialogBuyButtonsPaymentMethods?.cancelButton ?: binding.dialogBuyButtons?.cancelButton!!
+
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                             savedInstanceState: Bundle?): View? {
-    return inflater.inflate(R.layout.fragment_carrier_verify_phone, container, false)
+    _binding = FragmentCarrierVerifyPhoneBinding.inflate(inflater, container, false)
+    return binding.root
   }
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
