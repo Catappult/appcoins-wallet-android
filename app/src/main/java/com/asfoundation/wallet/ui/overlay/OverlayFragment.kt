@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.view.ViewTreeObserver
 import androidx.fragment.app.Fragment
 import com.asf.wallet.R
+import com.asf.wallet.databinding.OverlayFragmentBinding
 import com.asfoundation.wallet.main.nav_bar.NavBarFragmentNavigator
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import com.google.android.material.bottomnavigation.BottomNavigationItemView
@@ -16,7 +17,6 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.jakewharton.rxbinding2.view.RxView
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.Observable
-import kotlinx.android.synthetic.main.overlay_fragment.*
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -35,6 +35,17 @@ class OverlayFragment : BasePageViewFragment(), OverlayView {
       throw IllegalArgumentException("item not found")
     }
   }
+
+  private var _binding: OverlayFragmentBinding? = null
+  // This property is only valid between onCreateView and
+  // onDestroyView.
+  private val binding get() = _binding!!
+
+  private val overlay_bottom_navigation get() = binding.overlayBottomNavigation
+  private val arrow_down_tip get() = binding.arrowDownTip
+  private val discover_button get() = binding.discoverButton
+  private val dismiss_button get() = binding.dismissButton
+  private val overlay_container get() = binding.overlayContainer
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
