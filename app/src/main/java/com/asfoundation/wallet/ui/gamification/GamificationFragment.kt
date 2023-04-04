@@ -10,6 +10,7 @@ import com.appcoins.wallet.core.analytics.analytics.gamification.GamificationAna
 import com.asf.wallet.R
 import com.appcoins.wallet.ui.common.MarginItemDecoration
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
+import com.asf.wallet.databinding.FragmentGamificationBinding
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.jakewharton.rxbinding2.view.RxView
@@ -18,9 +19,6 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.PublishSubject
-import kotlinx.android.synthetic.main.bonus_updated_layout.*
-import kotlinx.android.synthetic.main.fragment_gamification.*
-import kotlinx.android.synthetic.main.gamification_info_bottom_sheet.*
 import java.text.SimpleDateFormat
 import java.util.*
 import javax.inject.Inject
@@ -46,6 +44,28 @@ class GamificationFragment : BasePageViewFragment(), GamificationView {
   private var onBackPressedSubject: PublishSubject<Any>? = null
   private lateinit var detailsBottomSheet: BottomSheetBehavior<View>
 
+  private var _binding: FragmentGamificationBinding? = null
+  // This property is only valid between onCreateView and
+  // onDestroyView.
+  private val binding get() = _binding!!
+
+  // fragment_gamification.xml
+  private val bottom_sheet_fragment_container get() = binding.bottomSheetFragmentContainer.root
+  private val bottomsheet_coordinator_container get() = binding.bottomsheetCoordinatorContainer
+  private val gamification_recycler_view get() = binding.gamificationRecyclerView
+  private val bonus_earned get() = binding.bonusEarned
+  private val bonus_earned_skeleton get() = binding.bonusEarnedSkeleton
+  private val bonus_update get() = binding.bonusUpdate.root
+  private val total_spend get() = binding.totalSpend
+  private val total_spend_skeleton get() = binding.totalSpendSkeleton
+  private val gamification_scroll_view get() = binding.gamificationScrollView
+
+  // gamification_info_bottom_sheet.xml
+  private val got_it_button get() = binding.bottomSheetFragmentContainer.gotItButton
+
+  // bonus_updated_layout.xml
+  private val bonus_update_text get() = binding.bonusUpdate.bonusUpdateText
+
   companion object {
     const val SHOW_REACHED_LEVELS_ID = "SHOW_REACHED_LEVELS"
     const val GAMIFICATION_INFO_ID = "GAMIFICATION_INFO"
@@ -69,7 +89,8 @@ class GamificationFragment : BasePageViewFragment(), GamificationView {
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                             savedInstanceState: Bundle?): View? {
-    return inflater.inflate(R.layout.fragment_gamification, container, false)
+    _binding = FragmentGamificationBinding.inflate(inflater, container, false)
+    return binding.root
   }
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
