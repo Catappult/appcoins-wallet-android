@@ -11,6 +11,7 @@ import androidx.appcompat.widget.ListPopupWindow
 import com.asf.wallet.R
 import com.asfoundation.wallet.backup.BackupActivity
 import com.appcoins.wallet.core.utils.android_common.RxSchedulers
+import com.asf.wallet.databinding.IabUpdateRequiredLayoutBinding
 import com.asfoundation.wallet.ui.wallets.WalletsModel
 import com.asfoundation.wallet.update_required.use_cases.BuildUpdateIntentUseCase
 import com.asfoundation.wallet.update_required.wallets_list.WalletSelectionAdapter
@@ -21,8 +22,6 @@ import com.google.android.material.snackbar.Snackbar
 import com.jakewharton.rxbinding2.view.RxView
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.disposables.CompositeDisposable
-import kotlinx.android.synthetic.main.dialog_buy_buttons.view.*
-import kotlinx.android.synthetic.main.iab_update_required_layout.*
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -45,6 +44,19 @@ class IabUpdateRequiredFragment : BasePageViewFragment(), IabUpdateRequiredView 
   @Inject
   lateinit var rxSchedulers: RxSchedulers
 
+  private var _binding: IabUpdateRequiredLayoutBinding? = null
+  // This property is only valid between onCreateView and
+  // onDestroyView.
+  private val binding get() = _binding!!
+
+  // iab_update_required_layout.xml
+  private val main_layout get() = binding.mainLayout
+  private val update_required_backup_button get() = binding.updateRequiredBackupButton
+
+  // dialog_buy_buttons.xml
+  private val buy_button get() = binding.updateDialogButtons.buyButton
+  private val cancel_button get() = binding.updateDialogButtons.cancelButton
+
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     presenter = IabUpdateRequiredPresenter(
@@ -65,8 +77,8 @@ class IabUpdateRequiredFragment : BasePageViewFragment(), IabUpdateRequiredView 
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
-    update_dialog_buttons.buy_button.setText(getString(R.string.update_button))
-    update_dialog_buttons.cancel_button.setText(getString(R.string.cancel_button))
+    buy_button.setText(getString(R.string.update_button))
+    cancel_button.setText(getString(R.string.cancel_button))
     presenter.present()
   }
 
@@ -74,14 +86,15 @@ class IabUpdateRequiredFragment : BasePageViewFragment(), IabUpdateRequiredView 
     inflater: LayoutInflater, container: ViewGroup?,
     savedInstanceState: Bundle?
   ): View? {
-    return inflater.inflate(R.layout.iab_update_required_layout, container, false)
+    _binding = IabUpdateRequiredLayoutBinding.inflate(inflater, container, false)
+    return binding.root
   }
 
   override fun navigateToIntent(intent: Intent) = startActivity(intent)
 
-  override fun updateClick() = RxView.clicks(update_dialog_buttons.buy_button)
+  override fun updateClick() = RxView.clicks(buy_button)
 
-  override fun cancelClick() = RxView.clicks(update_dialog_buttons.cancel_button)
+  override fun cancelClick() = RxView.clicks(cancel_button)
 
   override fun backupClick() = RxView.clicks(update_required_backup_button)
 
