@@ -8,6 +8,7 @@ import android.view.Window
 import androidx.core.content.res.ResourcesCompat
 import androidx.navigation.ActivityNavigator
 import com.asf.wallet.R
+import com.asf.wallet.databinding.QrCodeLayoutBinding
 import com.asfoundation.wallet.ui.BaseActivity
 import com.asfoundation.wallet.util.generateQrCode
 import com.asfoundation.wallet.wallets.FindDefaultWalletInteract
@@ -15,7 +16,6 @@ import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
-import kotlinx.android.synthetic.main.qr_code_layout.*
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -25,12 +25,21 @@ class QrCodeActivity : BaseActivity(), QrCodeView {
   lateinit var findDefaultWalletInteract: FindDefaultWalletInteract
   private lateinit var presenter: QrCodePresenter
 
+  private var _binding: QrCodeLayoutBinding? = null
+  // This property is only valid between onCreateView and
+  // onDestroyView.
+  private val binding get() = _binding!!
+
+  private val main_layout get() = binding.mainLayout
+  private val qr_image get() = binding.qrImage
+
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
 
     setAnimationOptions()
 
-    setContentView(R.layout.qr_code_layout)
+    _binding = QrCodeLayoutBinding.inflate(layoutInflater)
+    setContentView(binding.root)
     main_layout.setOnClickListener { onBackPressed() }
     presenter =
         QrCodePresenter(this, findDefaultWalletInteract, CompositeDisposable(),
