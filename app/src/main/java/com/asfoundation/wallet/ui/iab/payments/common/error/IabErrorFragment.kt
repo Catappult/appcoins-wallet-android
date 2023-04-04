@@ -6,12 +6,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.StringRes
 import com.asf.wallet.R
+import com.asf.wallet.databinding.FragmentIabErrorBinding
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import com.jakewharton.rxbinding2.view.RxView
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.Observable
-import kotlinx.android.synthetic.main.dialog_buy_buttons.*
-import kotlinx.android.synthetic.main.fragment_iab_error.*
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -20,11 +19,26 @@ class IabErrorFragment : BasePageViewFragment(), IabErrorView {
   @Inject
   lateinit var presenter: IabErrorPresenter
 
+  private var _binding: FragmentIabErrorBinding? = null
+  // This property is only valid between onCreateView and
+  // onDestroyView.
+  private val binding get() = _binding!!
+
+  // fragment_iab_error.xml
+  private val error_message get() = binding.errorMessage
+  private val layout_support_logo get() = binding.layoutSupportLogo
+  private val layout_support_icn get() = binding.layoutSupportIcn
+
+    // dialog_buy_buttons.xml
+  private val buy_button get() = binding.dialogBuyButtons.buyButton
+  private val cancel_button get() = binding.dialogBuyButtons.cancelButton
+
   override fun onCreateView(
     inflater: LayoutInflater, container: ViewGroup?,
     savedInstanceState: Bundle?
   ): View? {
-    return inflater.inflate(R.layout.fragment_iab_error, container, false)
+    _binding = FragmentIabErrorBinding.inflate(inflater, container, false)
+    return binding.root
   }
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
