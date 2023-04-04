@@ -23,6 +23,7 @@ import com.asfoundation.wallet.ui.iab.PaymentMethodsView.PaymentMethodId
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.asfoundation.wallet.util.Period
 import com.appcoins.wallet.core.utils.android_common.WalletCurrency
+import com.asf.wallet.databinding.PaymentMethodsLayoutBinding
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import com.asfoundation.wallet.wallets.usecases.GetWalletInfoUseCase
 import com.jakewharton.rxbinding2.view.RxView
@@ -35,15 +36,6 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.BehaviorSubject
 import io.reactivex.subjects.PublishSubject
-import kotlinx.android.synthetic.main.dialog_buy_buttons_payment_methods.*
-import kotlinx.android.synthetic.main.iab_error_layout.*
-import kotlinx.android.synthetic.main.iab_error_layout.view.*
-import kotlinx.android.synthetic.main.payment_methods_header.*
-import kotlinx.android.synthetic.main.payment_methods_layout.*
-import kotlinx.android.synthetic.main.payment_methods_layout.error_message
-import kotlinx.android.synthetic.main.selected_payment_method.*
-import kotlinx.android.synthetic.main.support_error_layout.*
-import kotlinx.android.synthetic.main.support_error_layout.view.error_message
 import java.math.BigDecimal
 import javax.inject.Inject
 
@@ -120,6 +112,57 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
   private var bonusMessageValue = ""
   private var bonusValue: BigDecimal? = null
 
+  private var _binding: PaymentMethodsLayoutBinding? = null
+  // This property is only valid between onCreateView and
+  // onDestroyView.
+  private val binding get() = _binding!!
+
+  // payment_methods_layout.xml
+  private val payment_method_main_view get() = binding.paymentMethodMainView
+  private val loading_view get() = binding.loadingView
+  private val processing_loading get() = binding.processingLoading
+  private val mid_separator get() = binding.midSeparator
+  private val payment_methods get() = binding.paymentMethods
+  private val payment_methods_radio_list get() = binding.paymentMethodsRadioList
+  private val payments_skeleton get() = binding.paymentsSkeleton
+  private val layout_pre_selected get() = binding.layoutPreSelected.root
+  private val more_payment_methods get() = binding.morePaymentMethods
+  private val payment_methods_list_group get() = binding.paymentMethodsListGroup
+  private val pre_selected_payment_method_group get() = binding.preSelectedPaymentMethodGroup
+  private val bonus_view get() = binding.bonusView
+  private val error_message get() = binding.errorMessage.root
+  private val bottom_separator get() = binding.bottomSeparator
+
+  // iab_error_layout.xml
+  private val error_dismiss get() = binding.errorMessage.errorDismiss
+
+  // support_error_layout.xml
+  private val support_error_layout_error_dismiss get() = binding.errorMessage.genericErrorLayout.errorMessage
+  private val contact_us get() = binding.errorMessage.genericErrorLayout.contactUs
+  private val layout_support_icn get() = binding.errorMessage.genericErrorLayout.layoutSupportIcn
+  private val layout_support_logo get() = binding.errorMessage.genericErrorLayout.layoutSupportLogo
+
+  // payment_methods_header.xml
+  private val appc_price get() = binding.paymentMethodsHeader.appcPrice
+  private val app_icon get() = binding.paymentMethodsHeader.appIcon
+  private val app_name get() = binding.paymentMethodsHeader.appName
+  private val app_sku_description get() = binding.paymentMethodsHeader.appSkuDescription
+  private val fiat_price get() = binding.paymentMethodsHeader.fiatPrice
+  private val fiat_price_skeleton get() = binding.paymentMethodsHeader.fiatPriceSkeleton.root
+  private val appc_price_skeleton get() = binding.paymentMethodsHeader.appcPriceSkeleton.root
+
+  // selected_payment_method.xml
+  private val payment_method_ic get() = binding.layoutPreSelected.paymentMethodIc
+  private val payment_method_description_single get() = binding.layoutPreSelected.paymentMethodDescriptionSingle
+  private val payment_method_description get() = binding.layoutPreSelected.paymentMethodDescription
+  private val payment_method_secondary get() = binding.layoutPreSelected.paymentMethodSecondary
+  private val payment_method_fee get() = binding.layoutPreSelected.paymentMethodFee
+  private val payment_method_fee_value get() = binding.layoutPreSelected.paymentMethodFeeValue
+
+  // dialog_buy_buttons_payment_methods.xml
+  private val buy_button get() = binding.dialogBuyButtonsPaymentMethods.buyButton
+  private val cancel_button get() = binding.dialogBuyButtonsPaymentMethods.cancelButton
+
   override fun onAttach(context: Context) {
     super.onAttach(context)
     check(context is IabView) { "Payment Methods Fragment must be attached to IAB activity" }
@@ -182,7 +225,8 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
     container: ViewGroup?,
     savedInstanceState: Bundle?
   ): View? {
-    return inflater.inflate(R.layout.payment_methods_layout, container, false)
+    _binding = PaymentMethodsLayoutBinding.inflate(inflater, container, false)
+    return binding.root
   }
 
   override fun onSaveInstanceState(outState: Bundle) {
@@ -353,9 +397,9 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
 
   override fun showError(message: Int) {
     payment_method_main_view.visibility = View.GONE
-    error_message.error_dismiss.setText(getString(R.string.ok))
+    error_dismiss.setText(getString(R.string.ok))
     error_message.visibility = View.VISIBLE
-    error_message.generic_error_layout.error_message.setText(message)
+    support_error_layout_error_dismiss.setText(message)
   }
 
   override fun showItemAlreadyOwnedError() {
@@ -363,7 +407,7 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
     iabView.disableBack()
     error_dismiss.setText(getString(R.string.ok))
     error_message.visibility = View.VISIBLE
-    generic_error_layout.error_message.setText(R.string.purchase_error_incomplete_transaction_body)
+    support_error_layout_error_dismiss.setText(R.string.purchase_error_incomplete_transaction_body)
     layout_support_icn.visibility = View.GONE
     layout_support_logo.visibility = View.GONE
     contact_us.visibility = View.GONE
