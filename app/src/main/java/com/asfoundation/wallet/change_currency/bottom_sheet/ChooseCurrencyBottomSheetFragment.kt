@@ -24,18 +24,13 @@ import javax.inject.Inject
 class ChooseCurrencyBottomSheetFragment : BottomSheetDialogFragment(),
   SingleStateFragment<ChooseCurrencyBottomSheetState, ChooseCurrencyBottomSideEffect> {
 
-
-  @Inject
-  lateinit var chooseCurrencyBottomSheetViewModelFactory: ChooseCurrencyBottomSheetViewModelFactory
-
   @Inject
   lateinit var navigator: ChooseCurrencyBottomSheetNavigator
 
-  private val viewModel: ChooseCurrencyBottomSheetViewModel by viewModels { chooseCurrencyBottomSheetViewModelFactory }
+  private val viewModel: ChooseCurrencyBottomSheetViewModel by viewModels()
   private val views by viewBinding(ChooseCurrencyBottomSheetBinding::bind)
 
   companion object {
-
     const val FLAG = "flag"
     const val CURRENCY = "currency"
     const val LABEL = "label"
@@ -87,14 +82,14 @@ class ChooseCurrencyBottomSheetFragment : BottomSheetDialogFragment(),
     }
   }
 
-  fun setChooseCurrencyBottomSheetData(selectedCurrency: String, selectedFlag: String?,
-                                       selectedLabel: String) {
+  private fun setChooseCurrencyBottomSheetData(selectedCurrency: String, selectedFlag: String?,
+                                               selectedLabel: String) {
     setCurrencyFlag(selectedFlag)
-    setCurrencyShort(selectedCurrency)
-    setCurrencyLabel(selectedLabel)
+    views.chooseCurrencyShort.text = selectedCurrency
+    views.chooseCurrencyLabel.text = selectedLabel
   }
 
-  fun setCurrencyFlag(currencyFlag: String?) {
+  private fun setCurrencyFlag(currencyFlag: String?) {
     GlideApp
       .with(requireContext())
       .load(
@@ -108,15 +103,7 @@ class ChooseCurrencyBottomSheetFragment : BottomSheetDialogFragment(),
       .into(views.chooseCurrencyFlag)
   }
 
-  fun setCurrencyShort(currencyShort: String) {
-    views.chooseCurrencyShort.text = currencyShort
-  }
-
-  fun setCurrencyLabel(currencyLabel: String) {
-    views.chooseCurrencyLabel.text = currencyLabel
-  }
-
-  fun setSelectedConfirmation(selectedConfirmationAsync: Async<Unit>) {
+  private fun setSelectedConfirmation(selectedConfirmationAsync: Async<Unit>) {
     when (selectedConfirmationAsync) {
       is Async.Uninitialized -> {
       }

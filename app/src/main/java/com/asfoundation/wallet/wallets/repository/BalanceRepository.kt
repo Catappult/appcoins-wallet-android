@@ -1,6 +1,7 @@
 package com.asfoundation.wallet.wallets.repository
 
 import com.appcoins.wallet.core.utils.android_common.BalanceUtils
+import com.appcoins.wallet.core.utils.android_common.Dispatchers
 import com.appcoins.wallet.core.utils.android_common.RxSchedulers
 import com.asfoundation.wallet.change_currency.use_cases.GetSelectedCurrencyUseCase
 import com.asfoundation.wallet.service.currencies.LocalCurrencyConversionService
@@ -10,7 +11,9 @@ import com.asfoundation.wallet.ui.balance.TokenBalance
 import com.asfoundation.wallet.ui.iab.FiatValue
 import com.appcoins.wallet.core.utils.android_common.WalletCurrency
 import com.asfoundation.wallet.wallets.domain.WalletBalance
+import com.github.michaelbull.result.get
 import io.reactivex.Single
+import kotlinx.coroutines.rx2.rxSingle
 import java.math.BigDecimal
 import java.math.BigInteger
 import java.math.RoundingMode
@@ -19,7 +22,8 @@ import javax.inject.Inject
 class BalanceRepository @Inject constructor(
   private val getSelectedCurrencyUseCase: GetSelectedCurrencyUseCase,
   private val localCurrencyConversionService: LocalCurrencyConversionService,
-  private val rxSchedulers: RxSchedulers
+  private val rxSchedulers: RxSchedulers,
+  private val dispatchers: Dispatchers
 ) {
 
   companion object {
@@ -42,31 +46,30 @@ class BalanceRepository @Inject constructor(
     val eth = BalanceUtils.weiToEth(ethWei.toBigDecimal())
       .setScale(FIAT_SCALE, RoundingMode.FLOOR)
 
-    return getSelectedCurrencyUseCase(bypass = false)
+    return rxSingle(dispatchers.io) { getSelectedCurrencyUseCase(bypass = false) }
       .flatMap { targetCurrency ->
         Single.zip(
           localCurrencyConversionService.getValueToFiat(
             credits.toString(), "APPC",
-            targetCurrency, FIAT_SCALE
+            targetCurrency.get(), FIAT_SCALE
           )
             .subscribeOn(rxSchedulers.io),
           localCurrencyConversionService.getValueToFiat(
-            appc.toString(), "APPC", targetCurrency,
+            appc.toString(), "APPC", targetCurrency.get(),
             FIAT_SCALE
           )
             .subscribeOn(rxSchedulers.io),
           localCurrencyConversionService.getValueToFiat(
-            eth.toString(), "ETH", targetCurrency,
+            eth.toString(), "ETH", targetCurrency.get(),
             FIAT_SCALE
           )
-            .subscribeOn(rxSchedulers.io),
-          { creditsFiat, appcFiat, ethFiat ->
-            return@zip mapToWalletBalance(
-              credits, creditsFiat.amount, appc, appcFiat.amount,
-              eth, ethFiat.amount, creditsFiat.currency, creditsFiat.symbol
-            )
-          }
-        )
+            .subscribeOn(rxSchedulers.io)
+        ) { creditsFiat, appcFiat, ethFiat ->
+          return@zip mapToWalletBalance(
+            credits, creditsFiat.amount, appc, appcFiat.amount,
+            eth, ethFiat.amount, creditsFiat.currency, creditsFiat.symbol
+          )
+        }
       }
       .subscribeOn(rxSchedulers.io)
   }
