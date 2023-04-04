@@ -10,11 +10,11 @@ import com.asf.wallet.R
 import com.asfoundation.wallet.router.TopUpRouter
 import com.asfoundation.wallet.ui.BaseActivity
 import com.appcoins.wallet.core.utils.android_common.WalletCurrency
+import com.asf.wallet.databinding.ActivityTokenDetailsBinding
 import com.jakewharton.rxbinding2.view.RxView
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable
-import kotlinx.android.synthetic.main.activity_token_details.*
 
 @AndroidEntryPoint
 class TokenDetailsActivity : BaseActivity(), TokenDetailsView {
@@ -22,6 +22,19 @@ class TokenDetailsActivity : BaseActivity(), TokenDetailsView {
   private var contentVisible = false
   private lateinit var token: TokenDetailsId
   private lateinit var presenter: TokenDetailsPresenter
+
+  private var _binding: ActivityTokenDetailsBinding? = null
+  // This property is only valid between onCreateView and
+  // onDestroyView.
+  private val binding get() = _binding!!
+
+  private val container get() = binding.container
+  private val token_icon get() = binding.tokenIcon
+  private val token_name get() = binding.tokenName
+  private val token_symbol get() = binding.tokenSymbol
+  private val token_description get() = binding.tokenDescription
+  private val topup_btn get() = binding.topupBtn
+  private val close_btn get() = binding.closeBtn
 
   override fun onResume() {
     super.onResume()
@@ -47,7 +60,8 @@ class TokenDetailsActivity : BaseActivity(), TokenDetailsView {
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     window.requestFeature(Window.FEATURE_ACTIVITY_TRANSITIONS)
-    setContentView(R.layout.activity_token_details)
+    _binding = ActivityTokenDetailsBinding.inflate(layoutInflater)
+    setContentView(binding.root)
     presenter = TokenDetailsPresenter(this, CompositeDisposable())
     savedInstanceState?.let {
       contentVisible = it.getBoolean(PARAM_ENTERING)
