@@ -13,6 +13,8 @@ import com.appcoins.wallet.billing.AppcoinsBillingBinder.Companion.EXTRA_BDS_IAP
 import com.appcoins.wallet.billing.repository.entity.TransactionData
 import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.asf.wallet.R
+import com.asf.wallet.databinding.ActivityIabBinding
+import com.asf.wallet.databinding.ActivityTokenDetailsBinding
 import com.asfoundation.wallet.backup.BackupNotificationUtils
 import com.asfoundation.wallet.billing.address.BillingAddressFragment
 import com.asfoundation.wallet.billing.adyen.AdyenPaymentFragment
@@ -42,9 +44,6 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.PublishSubject
-import kotlinx.android.synthetic.main.activity_iab.*
-import kotlinx.android.synthetic.main.iab_error_layout.*
-import kotlinx.android.synthetic.main.support_error_layout.*
 import java.lang.Thread.sleep
 import java.math.BigDecimal
 import java.util.*
@@ -86,13 +85,31 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
   private var authenticationResultSubject: PublishSubject<Boolean>? = null
   private var errorFromReceiver: String? = null
 
+  private var _binding: ActivityIabBinding? = null
+  // This property is only valid between onCreateView and
+  // onDestroyView.
+  private val binding get() = _binding!!
+
+  // activity_iab.xml
+  private val fragment_container get() = binding.fragmentContainer
+  private val layout_error get() = binding.layoutError
+  private val wallet_logo_layout get() = binding.walletLogoLayout.root
+
+  // iab_error_layout.xml
+  private val error_dismiss get() = binding.iabErrorLayout.errorDismiss
+
+  // support_error_layout.xml
+  private val layout_support_logo get() = binding.iabErrorLayout.genericErrorLayout.layoutSupportLogo
+  private val layout_support_icn get() = binding.iabErrorLayout.genericErrorLayout.layoutSupportIcn
+  private val error_message get() = binding.iabErrorLayout.genericErrorLayout.errorMessage
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     backButtonPress = PublishRelay.create()
     results = PublishRelay.create()
     authenticationResultSubject = PublishSubject.create()
-    setContentView(R.layout.activity_iab)
+    _binding = ActivityIabBinding.inflate(layoutInflater)
+    setContentView(binding.root)
     isBds = intent.getBooleanExtra(IS_BDS_EXTRA, false)
     developerPayload = intent.getStringExtra(DEVELOPER_PAYLOAD)
     uri = intent.getStringExtra(URI)
