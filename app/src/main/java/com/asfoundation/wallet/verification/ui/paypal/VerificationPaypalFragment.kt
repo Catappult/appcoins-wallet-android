@@ -12,8 +12,8 @@ import androidx.lifecycle.lifecycleScope
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.asf.wallet.R
 import com.asf.wallet.databinding.FragmentVerifyPaypalIntroBinding
-import com.appcoins.wallet.ui.arch.Async
-import com.appcoins.wallet.ui.arch.Error
+import com.appcoins.wallet.ui.arch.data.Async
+import com.appcoins.wallet.ui.arch.data.Error
 import com.appcoins.wallet.ui.arch.SingleStateFragment
 import com.asfoundation.wallet.ui.iab.WebViewActivity
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
