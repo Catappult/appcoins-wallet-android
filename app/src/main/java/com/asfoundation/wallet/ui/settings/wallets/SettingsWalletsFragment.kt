@@ -7,12 +7,12 @@ import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import androidx.fragment.app.Fragment
 import com.asf.wallet.R
+import com.asf.wallet.databinding.SettingsWalletsLayoutBinding
 import com.asfoundation.wallet.ui.settings.wallets.bottomsheet.SettingsWalletsBottomSheetFragment
 import com.asfoundation.wallet.ui.wallets.WalletsModel
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.jakewharton.rxbinding2.view.RxView
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.fragment_balance.*
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -21,6 +21,14 @@ class SettingsWalletsFragment : Fragment(), SettingsWalletsView {
   @Inject
   lateinit var presenter: SettingsWalletsPresenter
   private lateinit var walletsBottomSheet: BottomSheetBehavior<View>
+
+  private var _binding: SettingsWalletsLayoutBinding? = null
+  // This property is only valid between onCreateView and
+  // onDestroyView.
+  private val binding get() = _binding!!
+
+  private val bottom_sheet_fragment_container get() = binding.bottomSheetFragmentContainer
+  private val faded_background get() = binding.fadedBackground
 
   companion object {
     private const val WALLET_MODEL_KEY = "wallet_model"
@@ -43,7 +51,8 @@ class SettingsWalletsFragment : Fragment(), SettingsWalletsView {
         .replace(R.id.bottom_sheet_fragment_container,
             SettingsWalletsBottomSheetFragment.newInstance(walletsModel))
         .commit()
-    return inflater.inflate(R.layout.settings_wallets_layout, container, false)
+    _binding = SettingsWalletsLayoutBinding.inflate(inflater, container, false)
+    return binding.root
   }
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
