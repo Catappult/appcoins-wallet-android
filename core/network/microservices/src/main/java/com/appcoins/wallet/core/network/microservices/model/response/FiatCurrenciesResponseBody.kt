@@ -1,4 +1,4 @@
-package com.appcoins.wallet.core.network.microservices.model
+package com.appcoins.wallet.core.network.microservices.model.response
 
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.google.gson.annotations.SerializedName
