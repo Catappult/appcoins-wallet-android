@@ -8,14 +8,13 @@ import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.widget.Toolbar
 import com.asf.wallet.R
+import com.asf.wallet.databinding.ActivityRewardsLevelBinding
 import com.asfoundation.wallet.ui.BaseActivity
 import com.jakewharton.rxbinding2.view.RxView
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.subjects.PublishSubject
-import kotlinx.android.synthetic.main.activity_rewards_level.*
-import kotlinx.android.synthetic.main.no_network_retry_only_layout.*
 
 @AndroidEntryPoint
 class GamificationActivity : BaseActivity(), GamificationActivityView {
@@ -26,10 +25,23 @@ class GamificationActivity : BaseActivity(), GamificationActivityView {
   private var backEnabled = true
   private var onBackPressedSubject: PublishSubject<Any>? = null
 
+  private var _binding: ActivityRewardsLevelBinding? = null
+  // This property is only valid between onCreateView and
+  // onDestroyView.
+  private val binding get() = _binding!!
+
+  // activity_rewards_level.xml
+  private val gamification_no_network get() = binding.gamificationNoNetwork
+  private val fragment_container get() = binding.fragmentContainer
+
+  // no_network_retry_only_layout.xml
+  private val retry_button get() = binding.noNetworkRetryOnlyLayout.retryButton
+  private val retry_animation get() = binding.noNetworkRetryOnlyLayout.retryAnimation
+
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-
-    setContentView(R.layout.activity_rewards_level)
+    _binding = ActivityRewardsLevelBinding.inflate(layoutInflater)
+    setContentView(binding.root)
     toolbar = toolbar()
     onBackPressedSubject = PublishSubject.create()
     setTitle(getString(R.string.gamif_title, bonus.toString()))
