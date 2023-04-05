@@ -6,7 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.appcoins.wallet.core.utils.jvm_common.Logger
-import com.asf.wallet.R
+import com.asf.wallet.databinding.RemoveWalletSecondLayoutBinding
 import com.asfoundation.wallet.interact.DeleteWalletInteract
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import com.jakewharton.rxbinding2.view.RxView
@@ -14,8 +14,6 @@ import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
-import kotlinx.android.synthetic.main.remove_wallet_balance.*
-import kotlinx.android.synthetic.main.remove_wallet_second_layout.*
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -28,6 +26,22 @@ class WalletRemoveConfirmationFragment : BasePageViewFragment(), WalletRemoveCon
   lateinit var logger: Logger
   private lateinit var presenter: WalletRemoveConfirmationPresenter
   private lateinit var activityView: RemoveWalletActivityView
+
+  private var _binding: RemoveWalletSecondLayoutBinding? = null
+  // This property is only valid between onCreateView and
+  // onDestroyView.
+  private val binding get() = _binding!!
+
+  // remove_wallet_balance.xml
+  private val wallet_address get() = binding.removeBalance.walletAddress
+  private val wallet_balance get() = binding.removeBalance.walletBalance
+  private val balance_appcoins get() = binding.removeBalance.balanceAppcoins
+  private val balance_credits get() = binding.removeBalance.balanceCredits
+  private val balance_ethereum get() = binding.removeBalance.balanceEthereum
+
+  // remove_wallet_second_layout.xml
+  private val no_remove_wallet_button get() = binding.noRemoveWalletButton
+  private val yes_remove_wallet_button get() = binding.yesRemoveWalletButton
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
@@ -46,7 +60,8 @@ class WalletRemoveConfirmationFragment : BasePageViewFragment(), WalletRemoveCon
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                             savedInstanceState: Bundle?): View? {
-    return inflater.inflate(R.layout.remove_wallet_second_layout, container, false)
+    _binding = RemoveWalletSecondLayoutBinding.inflate(inflater, container, false)
+    return binding.root
   }
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
