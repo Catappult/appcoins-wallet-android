@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
 import com.asf.wallet.R
+import com.asf.wallet.databinding.ActivityWalletVerificationBinding
 import com.asfoundation.wallet.recover.entry.RecoverEntryFragment
 import com.asfoundation.wallet.ui.BaseActivity
 import com.asfoundation.wallet.verification.ui.credit_card.code.VerificationCodeFragment
@@ -14,7 +15,6 @@ import com.asfoundation.wallet.verification.ui.credit_card.error.VerificationErr
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
-import kotlinx.android.synthetic.main.activity_wallet_verification.*
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -35,9 +35,17 @@ class VerificationCreditCardActivity : BaseActivity(), VerificationCreditCardAct
 
   private val toolbarBackPressSubject = PublishSubject.create<String>()
 
+  private var _binding: ActivityWalletVerificationBinding? = null
+  // This property is only valid between onCreateView and
+  // onDestroyView.
+  private val binding get() = _binding!!
+
+  private val progress_bar get() = binding.progressBar
+
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-    setContentView(R.layout.activity_wallet_verification)
+    _binding = ActivityWalletVerificationBinding.inflate(layoutInflater)
+    setContentView(binding.root)
     val isWalletVerified = intent.getBooleanExtra(IS_WALLET_VERIFIED, false)
     val title =
         if (isWalletVerified) R.string.verify_card_title else R.string.verification_settings_unverified_title
