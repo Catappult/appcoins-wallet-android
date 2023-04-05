@@ -17,17 +17,13 @@ import com.asfoundation.wallet.util.AdyenCardView
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.appcoins.wallet.core.utils.android_common.KeyboardUtils
 import com.appcoins.wallet.core.utils.android_common.WalletCurrency
+import com.asf.wallet.databinding.FragmentVerificationIntroBinding
 import com.asfoundation.wallet.verification.ui.credit_card.VerificationCreditCardActivityView
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import com.jakewharton.rxbinding2.view.RxView
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.Observable
 import io.reactivex.subjects.BehaviorSubject
-import kotlinx.android.synthetic.main.error_top_up_layout.*
-import kotlinx.android.synthetic.main.error_top_up_layout.view.*
-import kotlinx.android.synthetic.main.fragment_verification_intro.*
-import kotlinx.android.synthetic.main.no_network_retry_only_layout.*
-import kotlinx.android.synthetic.main.selected_payment_method_cc.*
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -55,6 +51,36 @@ class VerificationIntroFragment : BasePageViewFragment(), VerificationIntroView 
   private var isStored = false
   private var paymentDataSubject: BehaviorSubject<AdyenCardWrapper> = BehaviorSubject.create()
 
+  private var _binding: FragmentVerificationIntroBinding? = null
+  // This property is only valid between onCreateView and
+  // onDestroyView.
+  private val binding get() = _binding!!
+
+  // fragment_verification_intro.xml
+  private val adyen_card_form get() = binding.adyenCardForm.root
+  private val description get() = binding.description
+  private val change_card_button get() = binding.changeCardButton
+  private val submit get() = binding.submit
+  private val cancel get() = binding.cancel
+  private val no_network get() = binding.noNetwork.root
+  private val fragment_adyen_error get() = binding.fragmentAdyenError.root
+  private val content_container get() = binding.contentContainer
+  private val progress_bar get() = binding.progressBar
+
+  // error_top_up_layout.xml
+  private val layout_support_icn get() = binding.fragmentAdyenError.layoutSupportIcn
+  private val layout_support_logo get() = binding.fragmentAdyenError.layoutSupportLogo
+  private val try_again get() = binding.fragmentAdyenError.tryAgain
+  private val error_message get() = binding.fragmentAdyenError.errorMessage
+
+  // no_network_retry_only_layout.xml
+  private val retry_button get() = binding.noNetwork.retryButton
+
+  // selected_payment_method_cc.xml
+  private val adyen_card_form_pre_selected get() = binding.adyenCardForm.adyenCardFormPreSelected
+  private val adyen_card_form_pre_selected_number get() = binding.adyenCardForm.adyenCardFormPreSelectedNumber
+  private val payment_method_ic get() = binding.adyenCardForm.paymentMethodIc
+
   override fun onAttach(context: Context) {
     super.onAttach(context)
 
@@ -70,7 +96,8 @@ class VerificationIntroFragment : BasePageViewFragment(), VerificationIntroView 
     inflater: LayoutInflater, container: ViewGroup?,
     savedInstanceState: Bundle?
   ): View? {
-    return inflater.inflate(R.layout.fragment_verification_intro, container, false)
+    _binding = FragmentVerificationIntroBinding.inflate(inflater, container, false)
+    return binding.root
   }
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -214,7 +241,7 @@ class VerificationIntroFragment : BasePageViewFragment(), VerificationIntroView 
     content_container.visibility = View.GONE
 
     val message = getString(stringRes)
-    fragment_adyen_error?.error_message?.text = message
+    error_message?.text = message
     fragment_adyen_error?.visibility = View.VISIBLE
   }
 
