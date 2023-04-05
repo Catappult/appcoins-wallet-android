@@ -4,14 +4,13 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import com.asf.wallet.R
+import com.asf.wallet.databinding.LayoutWalletBlockedBinding
 import com.asfoundation.wallet.ui.BaseActivity
 import com.jakewharton.rxbinding2.view.RxView
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
-import kotlinx.android.synthetic.main.layout_wallet_blocked.*
 
 @AndroidEntryPoint
 class WalletBlockedActivity : BaseActivity(),
@@ -26,9 +25,18 @@ class WalletBlockedActivity : BaseActivity(),
     }
   }
 
+  private var _binding: LayoutWalletBlockedBinding? = null
+  // This property is only valid between onCreateView and
+  // onDestroyView.
+  private val binding get() = _binding!!
+
+  private val blocked_email get() = binding.blockedEmail
+  private val dismiss_button get() = binding.dismissButton
+
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-    setContentView(R.layout.layout_wallet_blocked)
+    _binding = LayoutWalletBlockedBinding.inflate(layoutInflater)
+    setContentView(binding.root)
 
     presenter =
         WalletBlockedPresenter(this,
