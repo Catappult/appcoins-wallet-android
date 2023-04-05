@@ -1,7 +1,7 @@
 package com.asfoundation.wallet.my_wallets.name
 
 import androidx.lifecycle.SavedStateHandle
-import com.appcoins.wallet.ui.arch.Async
+import com.appcoins.wallet.ui.arch.data.Async
 import com.appcoins.wallet.ui.arch.BaseViewModel
 import com.appcoins.wallet.ui.arch.SideEffect
 import com.appcoins.wallet.ui.arch.ViewState

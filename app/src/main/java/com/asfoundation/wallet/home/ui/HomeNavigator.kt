@@ -10,7 +10,6 @@ import com.asf.wallet.R
 import com.asfoundation.wallet.C
 import com.asfoundation.wallet.backup.BackupActivity
 import com.asfoundation.wallet.backup.triggers.BackupTriggerDialogFragment
-import com.appcoins.wallet.ui.arch.Navigator
 import com.asfoundation.wallet.change_currency.ChangeFiatCurrencyActivity
 import com.asfoundation.wallet.main.nav_bar.NavBarFragmentNavigator
 import com.asfoundation.wallet.rating.RatingActivity
@@ -19,6 +18,7 @@ import com.asfoundation.wallet.ui.BaseActivity
 import com.asfoundation.wallet.ui.balance.TransactionDetailActivity
 import com.asfoundation.wallet.ui.settings.SettingsActivity
 import com.appcoins.wallet.sharedpreferences.BackupTriggerPreferencesDataSource
+import com.appcoins.wallet.ui.arch.data.Navigator
 import javax.inject.Inject
 
 class HomeNavigator @Inject constructor(

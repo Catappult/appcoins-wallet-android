@@ -1,4 +1,4 @@
-package com.appcoins.wallet.ui.arch
+package com.appcoins.wallet.ui.arch.data
 
 import androidx.navigation.NavController
 import androidx.navigation.NavDirections

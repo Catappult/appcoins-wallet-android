@@ -61,6 +61,7 @@ ksp_version = "1.8.10-1.0.9"
 ktx_version = "1.3.0"
 lottie_version = "6.0.0"
 material_version = "1.3.0"
+michel_bull_kotlin_result="1.1.16"
 mockito_version = "3.3.0"
 okhttp_version = "4.8.1"
 paranoid_version = "0.3.3"
@@ -153,6 +154,8 @@ hilt-interface-extensions-processor = { module = "it.czerwinski.android.hilt:hil
 kotlin-stdlib = { module = "org.jetbrains.kotlin:kotlin-stdlib", version.ref = "kotlin_version" }
 kotlin-coroutines = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "coroutines_version" }
 kotlin-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "coroutines_version" }
+kotlin-result = { module = "com.michael-bull.kotlin-result:kotlin-result", version.ref = "michel_bull_kotlin_result" }
+kotlin-result-coroutines = { module = "com.michael-bull.kotlin-result:kotlin-result-coroutines", version.ref = "michel_bull_kotlin_result" }
 
 rx-rxjava = { module = "io.reactivex.rxjava2:rxjava", version.ref = "rxjava_version" }
 rx-rxandroid = { module = "io.reactivex.rxjava2:rxandroid", version.ref = "rxandroid_version" }
@@ -231,6 +234,7 @@ jackson = ["jackson-annotation", "jackson-databind"]
 hilt-implementation = ["hilt-android", "hilt-interface-extensions"]
 hilt-kapt = ["hilt-compiler", "hilt-interface-extensions-processor"]
 rx = ["rx-rxjava", "rx-rxandroid", "rx-rxbinding"]
+result = ["kotlin-result-coroutines", "kotlin-result"]
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "gradle_plugin_version" }
