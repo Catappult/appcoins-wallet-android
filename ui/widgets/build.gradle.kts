@@ -8,6 +8,10 @@ android {
   defaultConfig {
     buildFeatures {
       viewBinding = true
+      composeOptions {
+        kotlinCompilerExtensionVersion = libs.versions.androidx.compose.asProvider().get()
+      }
+      compose = true
     }
   }
 }
@@ -17,6 +21,7 @@ dependencies {
 
   implementation(libs.androidx.recyclerview)
   implementation(libs.androidx.navigation.ui)
+  implementation(libs.bundles.androidx.compose)
 
   implementation(libs.zxing.android)
   implementation(libs.glide)

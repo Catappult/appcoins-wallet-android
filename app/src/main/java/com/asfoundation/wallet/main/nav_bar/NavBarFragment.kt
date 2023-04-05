@@ -5,6 +5,17 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material.BottomAppBar
+import androidx.compose.material.MaterialTheme
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
@@ -13,12 +24,15 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI.onNavDestinationSelected
 import androidx.navigation.ui.setupWithNavController
 import by.kirich1409.viewbindingdelegate.viewBinding
-import com.asf.wallet.R
-import com.asf.wallet.databinding.NavBarFragmentBinding
 import com.appcoins.wallet.ui.arch.SingleStateFragment
 import com.appcoins.wallet.ui.common.createColoredString
 import com.appcoins.wallet.ui.common.setTextFromColored
+import com.appcoins.wallet.ui.common.theme.WalletColors
+import com.appcoins.wallet.ui.widgets.component.RoundedButtonWithIcon
+import com.asf.wallet.R
+import com.asf.wallet.databinding.NavBarFragmentBinding
 import com.asfoundation.wallet.main.MainActivity
+import com.asfoundation.wallet.ui.bottom_navigation.Destinations
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import com.google.android.material.bottomnavigation.BottomNavigationItemView
 import com.google.android.material.bottomnavigation.BottomNavigationMenuView
@@ -56,11 +70,52 @@ class NavBarFragment : BasePageViewFragment(),
     viewModel.collectStateAndEvents(lifecycle, viewLifecycleOwner.lifecycleScope)
     setBottomNavListener()
     setVipCalloutClickListener()
+    views.composeView.setContent { MaterialTheme { BottomNavigationHome() } }
+  }
+
+  @Composable
+  fun BottomNavigationHome() {
+    BottomAppBar(
+      backgroundColor = WalletColors.purple,
+      cutoutShape = CircleShape,
+      modifier = Modifier.height(64.dp),
+      content = {
+        Row(
+          horizontalArrangement = Arrangement.SpaceEvenly,
+          modifier = Modifier.fillMaxWidth()
+        ) {
+
+          viewModel.navigationItems().forEach { item ->
+            RoundedButtonWithIcon(
+              destinationId = item.destination.ordinal,
+              icon = item.icon,
+              label = item.label,
+              selected = viewModel.clickedItem.value == item.destination.ordinal,
+              onClick = { navigateToDestination(item.destination) },
+              clickedItem = viewModel.clickedItem
+            )
+          }
+        }
+      }
+    )
+  }
+
+  @Preview
+  @Composable
+  fun PreviewBottomNavigationHome() {
+    BottomNavigationHome()
   }
 
   override fun onResume() {
     super.onResume()
     viewModel.handleVipCallout()
+  }
+
+  private fun navigateToDestination(destinations: Destinations) {
+    when (destinations) {
+      Destinations.HOME -> navigator.navigateToHome()
+      Destinations.REWARDS -> navigator.navigateToMyWallets() //TODO Change it to Rewards
+    }
   }
 
   private fun initHostFragments() {
