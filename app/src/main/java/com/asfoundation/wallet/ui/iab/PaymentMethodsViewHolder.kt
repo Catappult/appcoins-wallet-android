@@ -12,9 +12,19 @@ import com.asf.wallet.R
 import com.asfoundation.wallet.GlideApp
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.appcoins.wallet.core.utils.android_common.WalletCurrency
-import kotlinx.android.synthetic.main.item_payment_method.view.*
+import com.asf.wallet.databinding.ItemPaymentMethodBinding
 
 class PaymentMethodsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+
+  private val binding by lazy { ItemPaymentMethodBinding.bind(itemView) }
+
+  private val payment_method_ic get() = binding.paymentMethodIc
+  private val radio_button get() = binding.radioButton
+  private val checkout_topup_button get() = binding.checkoutTopupButton
+  private val payment_method_description get() = binding.paymentMethodDescription
+  private val payment_method_fee get() = binding.paymentMethodFee
+  private val payment_method_fee_value get() = binding.paymentMethodFeeValue
+  private val payment_method_reason get() = binding.paymentMethodReason
 
   fun bind(
       data: PaymentMethod,
@@ -24,23 +34,23 @@ class PaymentMethodsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemVie
   ) {
     GlideApp.with(itemView.context)
         .load(data.iconUrl)
-        .into(itemView.payment_method_ic)
+        .into(payment_method_ic)
 
     val selected = data.isEnabled && checked
-    itemView.radio_button.isChecked = selected
-    itemView.radio_button.isEnabled = data.isEnabled
+    radio_button.isChecked = selected
+    radio_button.isEnabled = data.isEnabled
 
     handleDescription(data, selected)
     handleFee(data.fee, data.isEnabled)
 
     if (data.isEnabled) {
       itemView.setOnClickListener(listener)
-      itemView.radio_button.visibility = View.VISIBLE
+      radio_button.visibility = View.VISIBLE
       hideDisableReason()
-      removeAlphaScale(itemView.payment_method_ic)
+      removeAlphaScale(payment_method_ic)
     } else {
       itemView.setOnClickListener(null)
-      itemView.radio_button.visibility = View.INVISIBLE
+      radio_button.visibility = View.INVISIBLE
       itemView.background = null
       if (data.disabledReason != null) {
         showDisableReason(data.disabledReason)
@@ -48,40 +58,40 @@ class PaymentMethodsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemVie
         hideDisableReason()
       }
 
-      applyAlphaScale(itemView.payment_method_ic)
+      applyAlphaScale(payment_method_ic)
     }
-    itemView.checkout_topup_button.setOnClickListener(onClickListener)
+    checkout_topup_button.setOnClickListener(onClickListener)
     if (data.showTopup) {
-      itemView.checkout_topup_button.visibility = View.VISIBLE
-      itemView.radio_button.visibility = View.GONE
+      checkout_topup_button.visibility = View.VISIBLE
+      radio_button.visibility = View.GONE
     } else {
-      itemView.checkout_topup_button.visibility = View.GONE
-      itemView.radio_button.visibility = View.VISIBLE
+      checkout_topup_button.visibility = View.GONE
+      radio_button.visibility = View.VISIBLE
     }
   }
 
   private fun handleDescription(data: PaymentMethod, selected: Boolean) {
-    itemView.payment_method_description.text = data.label
+    payment_method_description.text = data.label
     if (selected) {
-      itemView.payment_method_description.setTextColor(
+      payment_method_description.setTextColor(
           ContextCompat.getColor(itemView.context, R.color.styleguide_black_transparent_80))
-      itemView.payment_method_description.typeface =
+      payment_method_description.typeface =
           Typeface.create("sans-serif-medium", Typeface.NORMAL)
     } else {
-      itemView.payment_method_description.setTextColor(
+      payment_method_description.setTextColor(
           ContextCompat.getColor(itemView.context, R.color.styleguide_dark_grey))
-      itemView.payment_method_description.typeface = Typeface.create("sans-serif", Typeface.NORMAL)
+      payment_method_description.typeface = Typeface.create("sans-serif", Typeface.NORMAL)
     }
   }
 
   private fun handleFee(fee: PaymentMethodFee?, enabled: Boolean) {
     if (fee?.isValidFee() == true) {
-      itemView.payment_method_fee.visibility = View.VISIBLE
+      payment_method_fee.visibility = View.VISIBLE
       val formattedValue = CurrencyFormatUtils()
           .formatPaymentCurrency(fee.amount!!, WalletCurrency.FIAT)
-      itemView.payment_method_fee_value.text = "$formattedValue ${fee.currency}"
+      payment_method_fee_value.text = "$formattedValue ${fee.currency}"
 
-      itemView.payment_method_fee_value.apply {
+      payment_method_fee_value.apply {
         if (enabled) {
           this.setTextColor(ContextCompat.getColor(itemView.context, R.color.styleguide_pink))
           this.typeface = Typeface.create("sans-serif-medium", Typeface.NORMAL)
@@ -92,7 +102,7 @@ class PaymentMethodsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemVie
       }
 
     } else {
-      itemView.payment_method_fee.visibility = View.GONE
+      payment_method_fee.visibility = View.GONE
     }
   }
 
@@ -112,14 +122,14 @@ class PaymentMethodsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemVie
 
   private fun showDisableReason(@StringRes reason: Int?) {
     reason?.let {
-      itemView.payment_method_reason.visibility = View.VISIBLE
-      itemView.payment_method_reason.text = itemView.context.getString(it)
+      payment_method_reason.visibility = View.VISIBLE
+      payment_method_reason.text = itemView.context.getString(it)
     }
   }
 
   private fun hideDisableReason() {
-    itemView.payment_method_reason.visibility = View.GONE
-    itemView.payment_method_reason.text = null
+    payment_method_reason.visibility = View.GONE
+    payment_method_reason.text = null
   }
 
 
