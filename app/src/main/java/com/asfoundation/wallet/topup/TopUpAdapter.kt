@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.asf.wallet.R
 import com.asfoundation.wallet.ui.iab.FiatValue
 import com.appcoins.wallet.core.utils.jvm_common.NumberFormatterUtils
-import kotlinx.android.synthetic.main.item_top_value.view.*
+import com.asf.wallet.databinding.ItemTopValueBinding
 import rx.functions.Action1
 
 
@@ -38,11 +38,15 @@ class TopUpAdapter(private val listener: Action1<FiatValue>
 
   class TopUpViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
+    private val binding by lazy { ItemTopValueBinding.bind(itemView) }
+
+    private val value get() = binding.value
+
     fun bind(fiatValue: FiatValue, listener: Action1<FiatValue>) {
       val formatter = NumberFormatterUtils.create()
       val text = fiatValue.symbol + formatter.formatNumberWithSuffix(fiatValue.amount.toFloat())
 
-      itemView.value.text = text
+      value.text = text
       itemView.setOnClickListener { listener.call(fiatValue) }
     }
   }
