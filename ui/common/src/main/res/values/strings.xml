@@ -144,8 +144,6 @@
   <string name="intro_wallet_created_short">Wallet created!</string>
   <string name="intro_agree_terms_and_conditions_body">By entering the AppCoins Wallet, you agree to the %1$s and %2$s.</string>
   <string name="intro_skip_button">SKIP</string>
-  <string name="intro_welcome_header">Welcome to the AppCoins Wallet</string>
-  <string name="intro_welcome_body">Top up your wallet or make a purchase in any AppCoins compatible app or game.</string>
   <string name="intro_welcome_header_2">Up to %s%% Bonus!</string>
   <string name="intro_welcome_body_2">Bonuses can be used in any app or game.</string>
   <string name="intro_already_have_wallet_button">I already have a wallet</string>
@@ -405,7 +403,6 @@
   <string name="provide_wallet_cancel">@string/cancel_button</string>
 
   <!-- Top Up -->
-  <string name="topup_home_button">Top Up</string>
   <string name="topup_title">Top Up</string>
   <string name="topup_amount">%s AppCoins Credits</string>
   <string name="topup_bonus_header">You\'ve got a Bonus!</string>
@@ -497,6 +494,12 @@
   <string name="skip_button">Skip for now</string>
   <string name="understand_button">I understand</string>
   <string name="install_button">Install</string>
+  <string name="get_button">Get</string>
+  <string name="see_all_button">See all</string>
+  <string name="transfer_button">Transfer</string>
+  <string name="top_up_button">Top Up</string>
+  <string name="back_up_button">Back up wallet</string>
+  <string name="play_button">Play</string>
 
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">I agree to AppCoins Wallet\'s %1$s and %2$s.</string>
@@ -1249,5 +1252,63 @@
   <string name="vip_program_max_bonus_short">%s%% Bonus on every purchase.</string>
   <string name="vip_program_referral_notification_title">VIP Referral Code Available!</string>
   <string name="vip_program_referral_notification_body">Share your code with your community so you all earn while playing!</string>
+
+<!-- Refactor Home -->
+  <string name="intro_welcome_header">Welcome to the AppCoins Wallet</string>
+  <string name="intro_welcome_body">Top up your wallet or make a purchase in any AppCoins compatible app or game.</string>
+  <string name="intro_appcoins_games_header">Discover Games with AppCoins</string>
+  <string name="intro_active_promotions_header">Active Promotions</string>
+  <string name="topup_home_button">Top Up</string>
+  <string name="intro_home_button">Home</string>
+  <string name="intro_rewards_button">Rewards</string>
+  <plurals name="days">
+    <item quantity="zero">DAYS</item>
+    <item quantity="one">DAY</item>
+    <item quantity="two">DAYS</item>
+    <item quantity="few">DAYS</item>
+    <item quantity="many">DAYS</item>
+    <item quantity="other">DAYS</item>
+  </plurals>
+  <plurals name="hours">
+    <item quantity="zero">HOURS</item>
+    <item quantity="one">HOUR</item>
+    <item quantity="two">HOURS</item>
+    <item quantity="few">HOURS</item>
+    <item quantity="many">HOURS</item>
+    <item quantity="other">HOURS</item>
+  </plurals>
+  <plurals name="minutes">
+    <item quantity="zero">MINUTES</item>
+    <item quantity="one">MINUTE</item>
+    <item quantity="two">MINUTES</item>
+    <item quantity="few">MINUTES</item>
+    <item quantity="many">MINUTES</item>
+    <item quantity="other">MINUTES</item>
+  </plurals>
+  <plurals name="seconds">
+    <item quantity="zero">SECONDS</item>
+    <item quantity="one">SECOND</item>
+    <item quantity="two">SECONDS</item>
+    <item quantity="few">SECONDS</item>
+    <item quantity="many">SECONDS</item>
+    <item quantity="other">SECONDS</item>
+  </plurals>
+
+  <string name="intro_transactions_header">Transactions</string>
+  <string name="intro_backup_card_title">Don\'t loose your funds!</string>
+  <string name="intro_backup_card_body">Back up your wallet and keep it safe all times.</string>
+  <string name="rewards_spend_to_next_level_body">Spend more %1$s%2$s to reach the net level!</string>
+  <string name="rewards_current_bonus_title">%s%% bonus on every purchase</string>
+  <string name="rewards_eskills_card_title">Earn Money!</string>
+  <string name="rewards_eskills_card_body">Beat other players with e-Skills</string>
+  <string name="rewards_promo_code_card_title">Promo Codes</string>
+  <string name="rewards_promo_code_card_body">Use a promo code to get special deals!</string>
+  <string name="rewards_promo_code_status">Status:</string>
+  <string name="rewards_promo_code_status_active">Active</string>
+  <string name="rewards_promo_code_status_expired">Expired</string>
+
+
+
+
 
 </resources>

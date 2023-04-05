@@ -1,6 +1,6 @@
 files:
-  - source: /app/src/main/res/values/strings.xml
-    translation: /app/src/main/res/values-%android_code%/%original_file_name%
+  - source: /ui/common/src/main/res/values/strings.xml
+    translation: /ui/common/src/main/res/values-%android_code%/%original_file_name%
     languages_mapping:
       android_code:
         ar: ar
@@ -32,8 +32,8 @@ files:
         hu: hu
         el: el
         sr-CS: sr
-  - source: /app/src/main/res/external_strings/values/external_strings.xml
-    translation: /app/src/main/res/external_strings/values-%android_code%/%original_file_name%
+  - source: /ui/common/src/main/res/external_strings/values/external_strings.xml
+    translation: /ui/common/src/main/res/external_strings/values-%android_code%/%original_file_name%
     languages_mapping:
       android_code:
         ar: ar
@@ -65,8 +65,8 @@ files:
         hu: hu
         el: el
         sr-CS: sr
-  - source: /app/src/main/res/external_strings/values/perks.po
-    translation: /app/src/main/res/external_strings/values-%android_code%/%original_file_name%
+  - source: /ui/common/src/main/res/external_strings/values/perks.po
+    translation: /ui/common/src/main/res/external_strings/values-%android_code%/%original_file_name%
     languages_mapping:
       android_code:
         ar: ar
