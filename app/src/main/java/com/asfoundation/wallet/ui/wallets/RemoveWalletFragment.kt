@@ -5,20 +5,31 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.asf.wallet.R
+import com.asf.wallet.databinding.RemoveWalletFirstLayoutBinding
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import com.jakewharton.rxbinding2.view.RxView
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
-import kotlinx.android.synthetic.main.remove_wallet_first_layout.*
-import kotlinx.android.synthetic.main.wallet_outlined_card.*
 
 @AndroidEntryPoint
 class RemoveWalletFragment : BasePageViewFragment(), RemoveWalletView {
 
   private lateinit var presenter: RemoveWalletPresenter
   private lateinit var activityView: RemoveWalletActivityView
+
+  private var _binding: RemoveWalletFirstLayoutBinding? = null
+  // This property is only valid between onCreateView and
+  // onDestroyView.
+  private val binding get() = _binding!!
+
+  // wallet_outlined_card.xml
+  private val wallet_address get() = binding.walletCard.walletAddress
+  private val wallet_balance get() = binding.walletCard.walletBalance
+
+  // remove_wallet_first_layout.xml
+  private val backup_button get() = binding.backupButton
+  private val no_backup_button get() = binding.noBackupButton
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
@@ -37,7 +48,8 @@ class RemoveWalletFragment : BasePageViewFragment(), RemoveWalletView {
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                             savedInstanceState: Bundle?): View? {
-    return inflater.inflate(R.layout.remove_wallet_first_layout, container, false)
+    _binding = RemoveWalletFirstLayoutBinding.inflate(inflater, container, false)
+    return binding.root
   }
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
