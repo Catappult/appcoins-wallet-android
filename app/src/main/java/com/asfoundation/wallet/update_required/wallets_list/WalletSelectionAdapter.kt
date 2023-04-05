@@ -34,7 +34,6 @@ class WalletSelectionAdapter(
 
     val dateLong = getItem(position)["wallet_backup_date"]!!.toLong()
 
-
     views.findViewById<TextView>(R.id.wallet_selection_name)?.text = getItem(position)["wallet_name"]
     views.findViewById<TextView>(R.id.wallet_selection_balance)?.text = getItem(position)["wallet_balance"]
 
