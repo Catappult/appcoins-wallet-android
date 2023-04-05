@@ -30,7 +30,8 @@ class RemoveWalletActivity : BaseActivity(), RemoveWalletActivityView {
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-    setContentView(R.layout.remove_wallet_activity_layout)
+    _binding = RemoveWalletActivityLayoutBinding.inflate(layoutInflater)
+    setContentView(binding.root)
     toolbar()
     authenticationResultSubject = PublishSubject.create()
     if (savedInstanceState == null) navigateToInitialRemoveWalletView()
