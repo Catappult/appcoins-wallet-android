@@ -13,12 +13,11 @@ import androidx.compose.material.Text
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.ComposeView
-import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.unit.dp
 import com.appcoins.wallet.core.utils.android_common.Log
 import com.appcoins.wallet.ui.arch.SingleStateFragment
+import com.appcoins.wallet.ui.common.theme.WalletColors
 import com.appcoins.wallet.ui.widgets.TopBar
-import com.asf.wallet.R
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 
 //TODO to be removed. for testing
@@ -33,7 +32,7 @@ class TestHomeFragment : BasePageViewFragment(),
       setContent {
         Surface(
           modifier = Modifier.fillMaxSize(),
-          color = colorResource(R.color.styleguide_blue)
+          color = WalletColors.styleguide_blue
         ) {
           Column(
             modifier = Modifier
@@ -54,7 +53,7 @@ class TestHomeFragment : BasePageViewFragment(),
                   top = 16.dp
                 ),
               shape = RoundedCornerShape(8.dp),
-              backgroundColor = colorResource(R.color.styleguide_blue_secondary),
+              backgroundColor = WalletColors.styleguide_blue_secondary,
             ) {
               Column(
                 modifier = Modifier
@@ -67,7 +66,7 @@ class TestHomeFragment : BasePageViewFragment(),
                 Text(
                   text = "Home Screen",
                   style = MaterialTheme.typography.h5,
-                  color = colorResource(R.color.styleguide_white)
+                  color = WalletColors.styleguide_white
                 )
               }
             }

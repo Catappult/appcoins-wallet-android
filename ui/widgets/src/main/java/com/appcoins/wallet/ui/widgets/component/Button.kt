@@ -31,12 +31,12 @@ fun RoundedButtonWithIcon(
       .height(48.dp),
     shape = CircleShape,
     colors = ButtonDefaults.buttonColors(
-      backgroundColor = if (selected) WalletColors.pink else WalletColors.purple
+      backgroundColor = if (selected) WalletColors.styleguide_pink else WalletColors.styleguide_blue_secondary
     ),
     elevation = null
   ) {
     Row(verticalAlignment = Alignment.CenterVertically) {
-      val contentColor = if (selected) Color.White else WalletColors.grey
+      val contentColor = if (selected) Color.White else WalletColors.styleguide_medium_grey
       Icon(
         painter = painterResource(id = icon),
         contentDescription = null,
