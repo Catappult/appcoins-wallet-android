@@ -8,10 +8,10 @@ import com.appcoins.wallet.billing.adyen.VerificationCodeResult
 import com.asf.wallet.R
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.appcoins.wallet.core.utils.android_common.WalletCurrency
+import com.asf.wallet.databinding.ErrorVerificationLayoutBinding
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import com.jakewharton.rxbinding2.view.RxView
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.error_verification_layout.*
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -23,9 +23,27 @@ class VerificationErrorFragment : BasePageViewFragment(), VerificationErrorView 
   @Inject
   lateinit var formatter: CurrencyFormatUtils
 
+  private var _binding: ErrorVerificationLayoutBinding? = null
+  // This property is only valid between onCreateView and
+  // onDestroyView.
+  private val binding get() = _binding!!
+
+  private val error_message get() = binding.errorMessage
+  private val error_title get() = binding.errorTitle
+  private val contact_us get() = binding.contactUs
+  private val layout_support_logo get() = binding.layoutSupportLogo
+  private val layout_support_icn get() = binding.layoutSupportIcn
+  private val error_message_2 get() = binding.errorMessage2
+  private val error_title_2 get() = binding.errorTitle2
+  private val try_again get() = binding.tryAgain
+  private val attempts_group get() = binding.attemptsGroup
+  private val maybe_later get() = binding.maybeLater
+  private val try_again_attempts get() = binding.tryAgainAttempts
+
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                             savedInstanceState: Bundle?): View? {
-    return inflater.inflate(R.layout.error_verification_layout, container, false)
+    _binding = ErrorVerificationLayoutBinding.inflate(inflater, container, false)
+    return binding.root
   }
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
