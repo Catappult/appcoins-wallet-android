@@ -72,6 +72,7 @@ class CarrierFeeFragment : BasePageViewFragment(), CarrierFeeView {
     iabView.enableBack()
     presenter.stop()
     super.onDestroyView()
+    _binding = null
   }
 
   override fun onAttach(context: Context) {

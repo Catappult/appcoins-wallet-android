@@ -60,13 +60,14 @@ class SkillsFragment : Fragment(), PaymentView {
   lateinit var eskillsUriParser: EskillsUriParser
 
   private lateinit var disposable: CompositeDisposable
-  private lateinit var binding: FragmentSkillsBinding
+  private var _binding: FragmentSkillsBinding? = null
+  private val binding get() = _binding!!
 
   override fun onCreateView(
     inflater: LayoutInflater, container: ViewGroup?,
     savedInstanceState: Bundle?
   ): View {
-    binding = FragmentSkillsBinding.inflate(inflater, container, false)
+    _binding = FragmentSkillsBinding.inflate(inflater, container, false)
     return binding.root
   }
 
@@ -470,6 +471,7 @@ class SkillsFragment : Fragment(), PaymentView {
   override fun onDestroyView() {
     disposable.clear()
     super.onDestroyView()
+    _binding = null
   }
 
   private fun getEskillsUri(): UriValidationResult {

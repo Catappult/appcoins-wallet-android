@@ -152,6 +152,7 @@ class GamificationFragment : BasePageViewFragment(), GamificationView {
   override fun onDestroyView() {
     presenter.stop()
     super.onDestroyView()
+    _binding = null
   }
 
   override fun getHomeBackPressed() = activityView.backPressed()

@@ -520,6 +520,7 @@ class AdyenTopUpFragment : BasePageViewFragment(), AdyenTopUpView {
   override fun onDestroyView() {
     presenter.stop()
     super.onDestroyView()
+    _binding = null
   }
 
   override fun onDestroy() {

@@ -110,6 +110,7 @@ class AppcoinsRewardsBuyFragment : BasePageViewFragment(), AppcoinsRewardsBuyVie
   override fun onDestroyView() {
     presenter.stop()
     super.onDestroyView()
+    _binding = null
   }
 
   override fun finish(purchase: Purchase) = finish(purchase, null)

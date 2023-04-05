@@ -167,6 +167,7 @@ class InviteFriendsActivity : BaseActivity(), InviteFriendsActivityView {
     infoButtonSubject = null
     infoButtonInitializeSubject = null
     super.onDestroy()
+    _binding = null
   }
 
 }

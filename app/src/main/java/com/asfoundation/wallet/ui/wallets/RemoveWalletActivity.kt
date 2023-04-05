@@ -60,6 +60,7 @@ class RemoveWalletActivity : BaseActivity(), RemoveWalletActivityView {
   override fun onDestroy() {
     authenticationResultSubject = null
     super.onDestroy()
+    _binding = null
   }
 
   private fun navigateToInitialRemoveWalletView() {

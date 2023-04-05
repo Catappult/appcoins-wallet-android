@@ -116,6 +116,7 @@ class IabUpdateRequiredFragment : BasePageViewFragment(), IabUpdateRequiredView 
   override fun onDestroyView() {
     super.onDestroyView()
     presenter.stop()
+    _binding = null
   }
 
   override fun setDropDownMenu(walletsModel: WalletsModel) {

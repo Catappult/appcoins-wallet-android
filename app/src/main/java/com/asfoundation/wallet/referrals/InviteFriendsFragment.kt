@@ -130,6 +130,7 @@ class InviteFriendsFragment : BasePageViewFragment(), InviteFriendsFragmentView 
   override fun onDestroyView() {
     presenter.stop()
     super.onDestroyView()
+    _binding = null
   }
 
   private val receivedAmount: BigDecimal by lazy {

@@ -273,5 +273,6 @@ class VerificationIntroFragment : BasePageViewFragment(), VerificationIntroView 
   override fun onDestroyView() {
     presenter.stop()
     super.onDestroyView()
+    _binding = null
   }
 }

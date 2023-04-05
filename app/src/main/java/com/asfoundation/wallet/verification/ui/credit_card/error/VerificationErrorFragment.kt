@@ -96,6 +96,7 @@ class VerificationErrorFragment : BasePageViewFragment(), VerificationErrorView 
   override fun onDestroyView() {
     presenter.stop()
     super.onDestroyView()
+    _binding = null
   }
 
   companion object {

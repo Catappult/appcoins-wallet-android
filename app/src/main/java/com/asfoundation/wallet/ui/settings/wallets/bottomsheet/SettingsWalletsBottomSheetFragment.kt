@@ -93,5 +93,6 @@ class SettingsWalletsBottomSheetFragment : BasePageViewFragment(), SettingsWalle
   override fun onDestroyView() {
     super.onDestroyView()
     presenter.stop()
+    _binding = null
   }
 }

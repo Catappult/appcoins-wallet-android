@@ -87,5 +87,6 @@ class AuthenticationErrorBottomSheetFragment : Fragment(), AuthenticationErrorBo
   override fun onDestroyView() {
     presenter.stop()
     super.onDestroyView()
+    _binding = null
   }
 }

@@ -75,6 +75,7 @@ class InviteFriendsVerificationFragment : BasePageViewFragment(), InviteFriendsV
   override fun onDestroyView() {
     presenter.stop()
     super.onDestroyView()
+    _binding = null
   }
 
   val amount: BigDecimal by lazy {

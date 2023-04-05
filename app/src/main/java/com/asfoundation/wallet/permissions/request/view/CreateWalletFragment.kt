@@ -77,6 +77,7 @@ class CreateWalletFragment : BasePageViewFragment(), CreateWalletView {
     create_wallet_animation.removeAllUpdateListeners()
     create_wallet_animation.removeAllLottieOnCompositionLoadedListener()
     super.onDestroyView()
+    _binding = null
   }
 
   override fun getOnCreateWalletClick() = RxView.clicks(provide_wallet_create_wallet_button)

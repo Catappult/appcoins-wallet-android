@@ -95,6 +95,7 @@ class CarrierPaymentFragment : BasePageViewFragment(), CarrierPaymentView {
     unlockRotation()
     presenter.stop()
     super.onDestroyView()
+    _binding = null
   }
 
   override fun onAttach(context: Context) {

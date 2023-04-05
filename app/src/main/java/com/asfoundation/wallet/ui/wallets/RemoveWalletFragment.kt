@@ -74,6 +74,7 @@ class RemoveWalletFragment : BasePageViewFragment(), RemoveWalletView {
   override fun onDestroyView() {
     presenter.stop()
     super.onDestroyView()
+    _binding = null
   }
 
   private val walletAddress: String by lazy {

@@ -67,6 +67,7 @@ class SettingsWalletsFragment : Fragment(), SettingsWalletsView {
         AnimationUtils.loadAnimation(context, R.anim.fast_100s_fade_out_animation)
     faded_background.visibility = View.GONE
     presenter.stop()
+    _binding = null
   }
 
   override fun showBottomSheet() {

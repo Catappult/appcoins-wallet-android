@@ -163,5 +163,6 @@ class PermissionFragment : BasePageViewFragment(), PermissionFragmentView {
     presenter.stop()
     disposable?.dispose()
     super.onDestroyView()
+    _binding = null
   }
 }

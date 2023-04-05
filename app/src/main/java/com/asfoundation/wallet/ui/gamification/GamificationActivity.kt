@@ -99,6 +99,7 @@ class GamificationActivity : BaseActivity(), GamificationActivityView {
   override fun onDestroy() {
     presenter.stop()
     super.onDestroy()
+    _binding = null
   }
 
   private val bonus: Int by lazy {

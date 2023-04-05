@@ -97,6 +97,7 @@ class WalletRemoveConfirmationFragment : BasePageViewFragment(), WalletRemoveCon
   override fun onDestroyView() {
     presenter.stop()
     super.onDestroyView()
+    _binding = null
   }
 
   private val walletAddress: String by lazy {

@@ -658,6 +658,7 @@ class MergedAppcoinsFragment : BasePageViewFragment(), MergedAppcoinsView {
     credits_radio_button.setOnCheckedChangeListener(null)
     credits_radio.setOnClickListener(null)
     super.onDestroyView()
+    _binding = null
   }
 
   override fun onDestroy() {

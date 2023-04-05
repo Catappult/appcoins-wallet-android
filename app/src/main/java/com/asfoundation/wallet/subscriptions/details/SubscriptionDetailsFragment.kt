@@ -221,6 +221,7 @@ class SubscriptionDetailsFragment : BasePageViewFragment(), SubscriptionDetailsV
   override fun onDestroyView() {
     presenter.stop()
     super.onDestroyView()
+    _binding = null
   }
 
   private fun formatDate(date: Date): String {

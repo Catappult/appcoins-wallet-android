@@ -72,6 +72,7 @@ class TokenDetailsActivity : BaseActivity(), TokenDetailsView {
   override fun onDestroy() {
     presenter.stop()
     super.onDestroy()
+    _binding = null
   }
 
   override fun onSaveInstanceState(outState: Bundle) {

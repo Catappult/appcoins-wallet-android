@@ -176,6 +176,7 @@ class SharePaymentLinkFragment : BasePageViewFragment(),
   override fun onDestroyView() {
     presenter.stop()
     super.onDestroyView()
+    _binding = null
   }
 
   override fun getShareButtonClick(): Observable<SharePaymentLinkFragmentView.SharePaymentData> {

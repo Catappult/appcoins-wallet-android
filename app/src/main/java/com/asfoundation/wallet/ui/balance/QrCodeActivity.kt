@@ -75,6 +75,7 @@ class QrCodeActivity : BaseActivity(), QrCodeView {
   override fun onDestroy() {
     presenter.stop()
     super.onDestroy()
+    _binding = null
   }
 
   override fun finish() {

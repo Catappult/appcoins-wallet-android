@@ -723,6 +723,8 @@ class AdyenPaymentFragment : BasePageViewFragment(), AdyenPaymentView {
     iabView.enableBack()
     presenter.stop()
     super.onDestroyView()
+    _bindingCreditCardLayout = null
+    _bindingCreditCardPreSelected = null
   }
 
   override fun onDestroy() {

@@ -85,6 +85,7 @@ class EarnAppcoinsFragment : BasePageViewFragment(), EarnAppcoinsView {
     iabView.enableBack()
     presenter.destroy()
     super.onDestroyView()
+    _binding = null
   }
 
   val domain: String by lazy {

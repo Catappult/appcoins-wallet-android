@@ -164,6 +164,7 @@ class SubscriptionListFragment : BasePageViewFragment(), SubscriptionListView {
   override fun onDestroyView() {
     presenter.stop()
     super.onDestroyView()
+    _binding = null
   }
 
   companion object {

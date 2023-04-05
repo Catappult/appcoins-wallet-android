@@ -119,6 +119,7 @@ class OverlayFragment : BasePageViewFragment(), OverlayView {
   override fun onDestroyView() {
     presenter.stop()
     super.onDestroyView()
+    _binding = null
   }
 
   companion object {

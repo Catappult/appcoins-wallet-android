@@ -118,6 +118,7 @@ class PermissionsListFragment : BasePageViewFragment(), PermissionsListView {
   override fun onDestroyView() {
     presenter.stop()
     super.onDestroyView()
+    _binding = null
   }
 
 }

@@ -252,5 +252,6 @@ class BillingAddressTopUpFragment : BasePageViewFragment(), BillingAddressTopUpV
   override fun onDestroyView() {
     presenter.stop()
     super.onDestroyView()
+    _binding = null
   }
 }

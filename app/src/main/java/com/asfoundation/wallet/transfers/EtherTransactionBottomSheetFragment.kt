@@ -99,5 +99,6 @@ class EtherTransactionBottomSheetFragment : BottomSheetDialogFragment(),
   override fun onDestroyView() {
     super.onDestroyView()
     presenter.stop()
+    _binding = null
   }
 }

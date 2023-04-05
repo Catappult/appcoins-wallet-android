@@ -193,5 +193,6 @@ class TransferFragment : BasePageViewFragment(), TransferFragmentView {
   override fun onDestroyView() {
     presenter.stop()
     super.onDestroyView()
+    _binding = null
   }
 }

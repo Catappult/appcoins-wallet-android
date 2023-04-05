@@ -50,6 +50,7 @@ class IabErrorFragment : BasePageViewFragment(), IabErrorView {
   override fun onDestroyView() {
     presenter.stop()
     super.onDestroyView()
+    _binding = null
   }
 
   private fun setupUi() {

@@ -77,6 +77,7 @@ class SubscriptionSuccessFragment : BasePageViewFragment(), SubscriptionSuccessV
   override fun onDestroyView() {
     presenter.stop()
     super.onDestroyView()
+    _binding = null
   }
 
   enum class SubscriptionSuccess { CANCEL, RENEW }

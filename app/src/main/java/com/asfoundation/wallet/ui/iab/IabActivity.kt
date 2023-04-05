@@ -607,6 +607,7 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
   override fun onDestroy() {
     backButtonPress = null
     super.onDestroy()
+    _binding = null
   }
 
   private fun getSkuDescription(): String = when {

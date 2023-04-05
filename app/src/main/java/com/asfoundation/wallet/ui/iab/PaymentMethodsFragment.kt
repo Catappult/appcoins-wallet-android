@@ -238,6 +238,7 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
     presenter.stop()
     compositeDisposable.clear()
     super.onDestroyView()
+    _binding = null
   }
 
   override fun showPaymentMethods(

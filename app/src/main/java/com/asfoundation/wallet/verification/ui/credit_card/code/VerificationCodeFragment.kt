@@ -275,5 +275,6 @@ class VerificationCodeFragment : BasePageViewFragment(), VerificationCodeView {
   override fun onDestroyView() {
     presenter.stop()
     super.onDestroyView()
+    _binding = null
   }
 }

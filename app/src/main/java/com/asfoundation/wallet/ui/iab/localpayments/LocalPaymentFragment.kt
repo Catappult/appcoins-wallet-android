@@ -137,6 +137,7 @@ class LocalPaymentFragment : BasePageViewFragment(), LocalPaymentView {
   override fun onDestroyView() {
     localPaymentPresenter.handleStop()
     super.onDestroyView()
+    _binding = null
   }
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,

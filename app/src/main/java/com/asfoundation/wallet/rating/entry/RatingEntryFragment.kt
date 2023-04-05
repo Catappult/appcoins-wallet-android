@@ -41,6 +41,7 @@ class RatingEntryFragment : BasePageViewFragment(), RatingEntryView {
   override fun onDestroyView() {
     presenter.stop()
     super.onDestroyView()
+    _binding = null
   }
 
   override fun yesClickEvent(): Observable<Any> {
