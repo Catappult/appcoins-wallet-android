@@ -22,8 +22,7 @@ import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import com.jakewharton.rxbinding2.view.RxView
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.Observable
-import kotlinx.android.synthetic.main.dialog_buy_buttons_payment_methods.*
-import kotlinx.android.synthetic.main.fragment_carrier_confirm.*
+import com.asf.wallet.databinding.FragmentCarrierConfirmBinding
 import java.math.BigDecimal
 import java.util.*
 import javax.inject.Inject
@@ -38,11 +37,29 @@ class CarrierFeeFragment : BasePageViewFragment(), CarrierFeeView {
 
   lateinit var iabView: IabView
 
+  private var _binding: FragmentCarrierConfirmBinding? = null
+  // This property is only valid between onCreateView and
+  // onDestroyView.
+  private val binding get() = _binding!!
+
+  // fragment_carrier_confirm.xml
+  private val payment_methods_header get() = binding.paymentMethodsHeader
+  private val fiat_price_text get() = binding.fiatPriceText
+  private val fee_title get() = binding.feeTitle
+  private val appc_price_text get() = binding.appcPriceText
+  private val carrier_image get() = binding.carrierImage
+  private val purchase_bonus get() = binding.purchaseBonus
+
+  // dialog_buy_buttons_payment_methods.xml
+  private val cancel_button get() = binding.dialogBuyButtons.cancelButton
+  private val buy_button get() = binding.dialogBuyButtons.buyButton
+
   override fun onCreateView(
     inflater: LayoutInflater, container: ViewGroup?,
     savedInstanceState: Bundle?
   ): View? {
-    return inflater.inflate(R.layout.fragment_carrier_confirm, container, false)
+    _binding = FragmentCarrierConfirmBinding.inflate(inflater, container, false)
+    return binding.root
   }
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
