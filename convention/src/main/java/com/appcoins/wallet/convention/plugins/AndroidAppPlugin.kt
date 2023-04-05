@@ -3,7 +3,7 @@ package com.appcoins.wallet.convention.plugins
 import com.android.build.gradle.internal.api.BaseVariantOutputImpl
 import com.android.build.gradle.internal.dsl.BaseAppModuleExtension
 import com.appcoins.wallet.convention.Config
-import com.appcoins.wallet.convention.extensions.*
+import com.appcoins.wallet.convention.extensions.BuildConfigType
 import com.appcoins.wallet.convention.extensions.buildConfigFields
 import com.appcoins.wallet.convention.extensions.configureAndroidAndKotlin
 import com.appcoins.wallet.convention.extensions.libs
@@ -11,6 +11,7 @@ import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.apply
 import org.gradle.kotlin.dsl.configure
+import kotlin.collections.set
 
 class AndroidAppPlugin : Plugin<Project> {
   override fun apply(target: Project) {

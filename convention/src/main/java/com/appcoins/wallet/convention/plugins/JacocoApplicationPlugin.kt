@@ -7,15 +7,15 @@ import org.gradle.api.Project
 import org.gradle.kotlin.dsl.getByType
 
 class JacocoApplicationPlugin : Plugin<Project> {
-    override fun apply(target: Project) {
-        with(target) {
-            with(pluginManager) {
-                apply("org.gradle.jacoco")
-            }
+  override fun apply(target: Project) {
+    with(target) {
+      with(pluginManager) {
+        apply("org.gradle.jacoco")
+      }
 
-            val extension = extensions.getByType<ApplicationAndroidComponentsExtension>()
-            configureJacoco(extension)
-        }
+      val extension = extensions.getByType<ApplicationAndroidComponentsExtension>()
+      configureJacoco(extension)
     }
+  }
 
 }
