@@ -15,15 +15,12 @@ import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.appcoins.wallet.core.utils.jvm_common.Duration
 import com.appcoins.wallet.core.utils.android_common.KeyboardUtils
 import com.appcoins.wallet.core.utils.android_common.WalletCurrency
+import com.asf.wallet.databinding.FragmentVerificationCodeBinding
 import com.asfoundation.wallet.verification.ui.credit_card.VerificationCreditCardActivityView
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import com.jakewharton.rxbinding2.view.RxView
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.Observable
-import kotlinx.android.synthetic.main.error_top_up_layout.*
-import kotlinx.android.synthetic.main.fragment_verification_code.*
-import kotlinx.android.synthetic.main.layout_verify_example.view.*
-import kotlinx.android.synthetic.main.no_network_retry_only_layout.*
 import java.util.*
 import javax.inject.Inject
 
@@ -37,6 +34,34 @@ class VerificationCodeFragment : BasePageViewFragment(), VerificationCodeView {
   lateinit var formatter: CurrencyFormatUtils
 
   private lateinit var activityView: VerificationCreditCardActivityView
+
+  private var _binding: FragmentVerificationCodeBinding? = null
+  // This property is only valid between onCreateView and
+  // onDestroyView.
+  private val binding get() = _binding!!
+
+  // fragment_verification_code.xml
+  private val code get() = binding.code
+  private val confirm get() = binding.confirm
+  private val code_title get() = binding.codeTitle
+  private val code_disclaimer get() = binding.codeDisclaimer
+  private val success_message get() = binding.successMessage
+  private val success_animation get() = binding.successAnimation
+  private val wrong_code_error get() = binding.wrongCodeError
+  private val change_card_button get() = binding.changeCardButton
+  private val progress_bar get() = binding.progressBar
+  private val content_container get() = binding.contentContainer
+  private val no_network get() = binding.noNetwork.root
+  private val maybe_later get() = binding.maybeLater
+
+  // layout_verify_example.xml
+  private val description_value get() = binding.layoutExample.descriptionValue
+  private val trans_date_value get() = binding.layoutExample.transDateValue
+  private val amount_value get() = binding.layoutExample.amountValue
+  private val arrow_desc get() = binding.layoutExample.arrowDesc
+
+  // no_network_retry_only_layout.xml
+  private val retry_button get() = binding.noNetwork.retryButton
 
   companion object {
 
@@ -89,7 +114,8 @@ class VerificationCodeFragment : BasePageViewFragment(), VerificationCodeView {
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                             savedInstanceState: Bundle?): View? {
-    return inflater.inflate(R.layout.fragment_verification_code, container, false)
+    _binding = FragmentVerificationCodeBinding.inflate(inflater, container, false)
+    return binding.root
   }
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -137,10 +163,10 @@ class VerificationCodeFragment : BasePageViewFragment(), VerificationCodeView {
       confirm.isEnabled = codeString?.length == digits
     }
 
-    layout_example.trans_date_value.text = dateFormat
-    layout_example.description_value.text = format
-    layout_example.amount_value.text = amountWithCurrencyAndSign
-    layout_example.arrow_desc.text = periodFormat
+    trans_date_value.text = dateFormat
+    description_value.text = format
+    amount_value.text = amountWithCurrencyAndSign
+    arrow_desc.text = periodFormat
     code_title.text = codeTitle
     code_disclaimer.text = codeDisclaimer
     success_message.text =
@@ -236,10 +262,6 @@ class VerificationCodeFragment : BasePageViewFragment(), VerificationCodeView {
       .map { code.text.toString() }
 
   override fun getChangeCardClicks() = RxView.clicks(change_card_button)
-
-  override fun getSupportClicks(): Observable<Any> {
-    return Observable.merge(RxView.clicks(layout_support_logo), RxView.clicks(layout_support_icn))
-  }
 
   override fun retryClick() = RxView.clicks(retry_button)
 
