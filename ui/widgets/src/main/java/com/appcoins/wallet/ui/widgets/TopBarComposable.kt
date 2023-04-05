@@ -9,10 +9,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.appcoins.wallet.ui.common.theme.WalletColors
 
 @Composable
 fun TopBar(
@@ -23,51 +24,56 @@ fun TopBar(
   onClickSupport: () -> Unit = {},
   onClickBack: () -> Unit = {}
 ) {
-  Row(
+  TopAppBar(
     modifier = Modifier
-      .background(colorResource(R.color.styleguide_blue))
-      .fillMaxWidth()
-      .height(64.dp)
-      .padding(start = 16.dp, end = 4.dp),
-    verticalAlignment = Alignment.CenterVertically
-  ){
-    if (isMainBar) {
-      Image(
-        painter = painterResource(R.drawable.ic_app_logo),
-        "Wallet",
-        modifier = Modifier
-          .heightIn(max = 24.dp)
-      )
-    } else {
-      ActionButton(
-        imagePainter = painterResource(R.drawable.ic_arrow_back),
-        description = "Back",
-        onClick = onClickBack
-      )
-    }
+      .height(64.dp),
+    backgroundColor = WalletColors.styleguide_blue,
+    elevation = 4.dp,
+  ) {
+    Row(
+      modifier = Modifier
+        .fillMaxWidth()
+        .padding(start = 16.dp, end = 4.dp),
+      verticalAlignment = Alignment.CenterVertically
+    ) {
+      if (isMainBar) {
+        Image(
+          painter = painterResource(R.drawable.ic_app_logo),
+          "Wallet",
+          modifier = Modifier
+            .heightIn(max = 24.dp)
+        )
+      } else {
+        ActionButton(
+          imagePainter = painterResource(R.drawable.ic_arrow_back),
+          description = "Back",
+          onClick = onClickBack
+        )
+      }
 
-    Spacer(Modifier.weight(1f))
+      Spacer(Modifier.weight(1f))
 
-    if (isMainBar) {
-      if (isVip) {
-        VipBadge()
+      if (isMainBar) {
+        if (isVip) {
+          VipBadge()
+        }
+        ActionButton(
+          imagePainter = painterResource(R.drawable.ic_notifications),
+          description = "Notifications",
+          onClick = onClickNotifications
+        )
+        ActionButton(
+          imagePainter = painterResource(R.drawable.ic_settings_white_24dp),
+          description = "Settings",
+          onClick = onClickSettings
+        )
       }
       ActionButton(
-        imagePainter = painterResource(R.drawable.ic_notifications),
-        description = "Notifications",
-        onClick = onClickNotifications
-      )
-      ActionButton(
-        imagePainter = painterResource(R.drawable.ic_settings_white_24dp),
-        description = "Settings",
-        onClick = onClickSettings
+        imagePainter = painterResource(R.drawable.ic_settings_support),
+        description = "Support",
+        onClick = onClickSupport
       )
     }
-    ActionButton(
-      imagePainter = painterResource(R.drawable.ic_settings_support),
-      description = "Support",
-      onClick = onClickSupport
-    )
   }
 }
 
@@ -78,7 +84,7 @@ fun VipBadge() {
       .height(32.dp)
       .width(65.dp)
       .clip(RoundedCornerShape(16.dp, 16.dp, 16.dp, 16.dp))
-      .background(colorResource(R.color.styleguide_vip_yellow_transparent_40))
+      .background(WalletColors.styleguide_vip_yellow_transparent_40)
       .padding(start = 6.dp, end = 8.dp),
     verticalAlignment = Alignment.CenterVertically
   ) {
@@ -89,9 +95,18 @@ fun VipBadge() {
         .padding(top = 2.dp)
     )
     Spacer(Modifier.weight(1f))
-    Text (
+    Text(
       stringResource(R.string.vip),
-      color = colorResource(id = R.color.styleguide_white)
+      color = WalletColors.styleguide_white
     )
   }
+}
+
+@Preview
+@Composable
+fun TopBarPreview() {
+  TopBar(
+    isMainBar = true,
+    isVip = true,
+  )
 }
