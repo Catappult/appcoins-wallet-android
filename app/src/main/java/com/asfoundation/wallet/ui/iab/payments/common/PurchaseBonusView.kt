@@ -2,12 +2,13 @@ package com.asfoundation.wallet.ui.iab.payments.common
 
 import android.content.Context
 import android.util.AttributeSet
+import android.view.LayoutInflater
 import android.view.View
 import android.widget.FrameLayout
 import com.asf.wallet.R
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.appcoins.wallet.core.utils.android_common.WalletCurrency
-import kotlinx.android.synthetic.main.layout_purchase_bonus.view.*
+import com.asf.wallet.databinding.LayoutPurchaseBonusBinding
 import java.math.BigDecimal
 
 /**
@@ -17,15 +18,23 @@ import java.math.BigDecimal
  * achieves the same effect.
  */
 class PurchaseBonusView : FrameLayout {
+
+  private val binding: LayoutPurchaseBonusBinding
   private val formatter = CurrencyFormatUtils()
 
   private var showHeader: Boolean = true
+
+  private val bonus_value get() = binding.bonusValue
+  private val bonus_layout get() = binding.bonusLayout
+  private val bonus_msg get() = binding.bonusMsg
+  private val bonus_layout_skeleton get() = binding.bonusLayoutSkeleton.root
+  private val bonus_msg_skeleton get() = binding.bonusMsgSkeleton.root
 
   constructor(context: Context) : this(context, null)
   constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0)
   constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs,
       defStyleAttr) {
-    inflate(context, R.layout.layout_purchase_bonus, this)
+    binding = LayoutPurchaseBonusBinding.inflate(LayoutInflater.from(context), this, false)
   }
 
   fun setPurchaseBonusHeaderValue(bonus: BigDecimal, currencySymbol: String) {
