@@ -18,6 +18,7 @@ import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.appcoins.wallet.core.utils.android_common.WalletCurrency
 import com.appcoins.wallet.core.utils.android_common.extensions.getStringSpanned
 import com.appcoins.wallet.ui.common.withNoLayoutTransition
+import com.appcoins.wallet.ui.widgets.WalletButtonView
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import com.jakewharton.rxbinding2.view.RxView
 import dagger.hilt.android.AndroidEntryPoint
@@ -51,8 +52,8 @@ class CarrierFeeFragment : BasePageViewFragment(), CarrierFeeView {
   private val purchase_bonus get() = binding.purchaseBonus
 
   // dialog_buy_buttons_payment_methods.xml
-  private val cancel_button get() = binding.dialogBuyButtons.cancelButton
-  private val buy_button get() = binding.dialogBuyButtons.buyButton
+  private val cancel_button get() = binding.dialogBuyButtonsPaymentMethods?.cancelButton ?: binding.dialogBuyButtons?.cancelButton!!
+  private val buy_button get() = binding.dialogBuyButtonsPaymentMethods?.buyButton ?: binding.dialogBuyButtons?.buyButton!!
 
   override fun onCreateView(
     inflater: LayoutInflater, container: ViewGroup?,
