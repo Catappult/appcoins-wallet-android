@@ -76,7 +76,7 @@ class NavBarFragment : BasePageViewFragment(),
   @Composable
   fun BottomNavigationHome() {
     BottomAppBar(
-      backgroundColor = WalletColors.purple,
+      backgroundColor = WalletColors.styleguide_blue_secondary,
       cutoutShape = CircleShape,
       modifier = Modifier.height(64.dp),
       content = {
