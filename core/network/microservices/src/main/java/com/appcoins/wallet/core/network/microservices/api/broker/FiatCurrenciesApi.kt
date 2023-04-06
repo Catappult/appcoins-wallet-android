@@ -7,5 +7,5 @@ import retrofit2.http.GET
 
 interface FiatCurrenciesApi {
   @GET("8.20210201/currencies?type=FIAT&icon.height=128")
-  fun getFiatCurrencies(): ApiResult<FiatCurrenciesResponse, Error>
+  suspend fun getFiatCurrencies(): ApiResult<FiatCurrenciesResponse, Error>
 }
