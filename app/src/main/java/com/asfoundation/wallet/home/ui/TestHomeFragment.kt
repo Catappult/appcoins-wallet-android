@@ -19,51 +19,7 @@ class TestHomeFragment : BasePageViewFragment(),
   ): View {
     return ComposeView(requireContext()).apply {
       setContent {
-
         HomeScreen()
-
-//        Surface(
-//          modifier = Modifier.fillMaxSize(),
-//          color = colorResource(R.color.styleguide_blue)
-//        ) {
-//          Column(
-//            modifier = Modifier
-//              .fillMaxSize()
-//          ) {
-//            TopBar(
-//              isMainBar = true,
-//              isVip = false,
-//              onClickNotifications = { Log.Companion.d("TestHomeFragment", "Notifications")},
-//              onClickSettings = { Log.Companion.d("TestHomeFragment", "Settings")},
-//              onClickSupport = { Log.Companion.d("TestHomeFragment", "Support")},
-//            )
-//            Card(
-//              modifier = Modifier
-//                .padding(
-//                  start = 16.dp,
-//                  end = 16.dp,
-//                  top = 16.dp
-//                ),
-//              shape = RoundedCornerShape(8.dp),
-//              backgroundColor = colorResource(R.color.styleguide_blue_secondary),
-//            ) {
-//              Column(
-//                modifier = Modifier
-//                  .height(200.dp)
-//                  .padding(16.dp)
-//                  .fillMaxSize(),
-//                verticalArrangement = Arrangement.Center,
-//                horizontalAlignment = Alignment.CenterHorizontally
-//              ){
-//                Text(
-//                  text = "Home Screen",
-//                  style = MaterialTheme.typography.h5,
-//                  color = colorResource(R.color.styleguide_white)
-//                )
-//              }
-//            }
-//          }
-//        }
       }
     }
   }
