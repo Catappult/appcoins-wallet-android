@@ -11,15 +11,17 @@ class ChangeFiatCurrencyController : TypedEpoxyController<ChangeFiatCurrency>() 
 
   override fun buildModels(model: ChangeFiatCurrency) {
     val selectedItem =
-        model.list.find { fiatCurrency -> fiatCurrency.currency == model.selectedCurrency }!!
+        model.list.find { fiatCurrency -> fiatCurrency.currency == model.selectedCurrency }
 
-    add(
-        FiatCurrencyModel_()
-            .id(selectedItem.currency)
-            .fiatCurrency(selectedItem)
-            .selected(true)
-            .clickListener(clickListener)
-    )
+    selectedItem?.let { selected ->
+      add(
+          FiatCurrencyModel_()
+              .id(selected.currency)
+              .fiatCurrency(selected)
+              .selected(true)
+              .clickListener(clickListener)
+      )
+    }
     for (fiatCurrency in model.list) {
       if (selectedItem != fiatCurrency) {
         add(

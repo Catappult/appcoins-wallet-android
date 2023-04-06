@@ -1,12 +1,12 @@
 package com.appcoins.wallet.core.network.base.call_adapter
 
+import com.appcoins.wallet.ui.arch.data.Error
 import com.github.michaelbull.result.Result
 import retrofit2.Call
 import retrofit2.CallAdapter
 import retrofit2.Retrofit
 import java.lang.reflect.ParameterizedType
 import java.lang.reflect.Type
-import com.appcoins.wallet.ui.arch.data.Error
 
 class ApiResultCallAdapterFactory : CallAdapter.Factory() {
 

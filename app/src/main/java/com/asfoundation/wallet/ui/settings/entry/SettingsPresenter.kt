@@ -195,11 +195,13 @@ class SettingsPresenter(
   private fun setCurrencyPreference() {
     disposables.add(rxSingle(Dispatchers.IO) { getChangeFiatCurrencyModelUseCase() }
       .observeOn(viewScheduler)
-      .doOnSuccess {
-        for (fiatCurrency in it.get()!!.list) {
-          if (fiatCurrency.currency == it.get()!!.selectedCurrency) {
-            view.setCurrencyPreference(fiatCurrency)
-            break
+      .doOnSuccess { result ->
+        result.get()?.let {
+          for (fiatCurrency in it.list) {
+            if (fiatCurrency.currency == it.selectedCurrency) {
+              view.setCurrencyPreference(fiatCurrency)
+              break
+            }
           }
         }
       }
