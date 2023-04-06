@@ -1,4 +1,4 @@
-package com.asfoundation.wallet.home.ui
+package com.asfoundation.wallet.wallet_v3.home
 
 import cm.aptoide.analytics.AnalyticsManager
 import java.util.*
@@ -19,7 +19,8 @@ class HomeAnalytics @Inject constructor(private val analytics: AnalyticsManager)
   fun openApp(uniqueName: String, packageName: String) {
     analytics.logEvent(
         hashMapOf<String, Any>(Pair(UNIQUE_NAME, uniqueName), Pair(PACKAGE_NAME, packageName)),
-        OPEN_APPLICATION, AnalyticsManager.Action.OPEN, WALLET)
+        OPEN_APPLICATION, AnalyticsManager.Action.OPEN, WALLET
+    )
   }
 
   fun sendAction(action: String) {
