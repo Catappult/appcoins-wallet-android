@@ -33,6 +33,7 @@
   <string name="purchase_eskills_sku">بطاقة الدخول</string>
   <string name="shared_room_waiting">في انتظار خصومك للانضمام إلى %s</string>
   <string name="rooted_device_blocked_body">لسوء الحظ، لا يمكنك التمتع بألعاب e_Skills بجهاز خضع للتجذير (روت).\"</string>
+  <string name="update_wallet">Update wallet</string>
   <string name="top_up_needed_body">لأسباب أمنية، أنت بحاجة إلى زيادة رصيدك لمرة واحدة على الأقل في محفظتك لتلعب ألعاب e-Skills.</string>
   <string name="not_enough_funds_body">ليس لديك رصيد كافٍ! يرجى زيادة رصيدك لتشتري تذكِرة الدخول.</string>
   <string name="error_message_local_payment_method_body">وسائل الدفع المحلية غير مقبولة لدفع رسوم الدخول. يرجى إنشاء محفظة جديدة وزيادة الرصيد فيها ببطاقة بنكية أو بحساب PayPal!</string>
@@ -40,13 +41,14 @@
   <string name="update_not_supported_body">حدّث AppCoins Wallet إلى أحدث إصدار.</string>
   <string name="update_button">تحديث</string>
   <!-- Refer a friend -->
-  <string name="refer_a_friend_waiting_room_tooltip">أنت وأصدقاؤك الذين تدعوهم ستحصلون على $%s مكافأة. يمكنك دعوة حتى 5 أصدقاء، ويجب أن يكونوا مستخدمين جددًا. ستدخل المكافأة في محفظتك حالما يستخدمون رمز دعوتك في أول لعبة لهم في e-Skills.</string>
+  <string name="refer_a_friend_waiting_room_tooltip">You and the friends you invite will receive a $%s bonus. You can invite up to 5 friends, and they must be new users. The bonus will be credited in your wallet once they use your invitation code in their first e-Skills game.</string>
   <string name="refer_a_friend_first_time_header">جاهز لاستعراض مهاراتك؟</string>
   <string name="refer_a_friend_first_time_body">اهزم اللاعبين الآخرين واحصل على الجائزة في صورة نقود حقيقية! لنبدأ التدريب على الألعاب دون رسوم دخول.</string>
   <string name="refer_a_friend_error_unavailable_body">هذه الميزة غير متوفرة حاليًّا.</string>
   <string name="refer_a_friend_error_invalid_code_body">رمز غير صالح!</string>
   <string name="refer_a_friend_error_user_not_eligible_body">للمستخدمين الجدد فقط!</string>
   <string name="refer_a_friend_first_time_tooltip">مع برنامجنا للإحالة ستحصل على $%s مكافأة عند استخدام رموز أصدقائك. سيحصلون هم أيضًا على القيمة نفسها من المكافأة لاستخدامها في مشترياتهم داخل التطبيقات أو كتذاكر دخول e-Skills.</string>
-  <string name="refer_a_friend_waiting_room_title">إحالة صديق!</string>
+  <string name="refer_a_friend_waiting_room_title">Invite a Friend!</string>
   <string name="refer_a_friend_waiting_from_body">احصل على مكافأة لكل صديق تدعوه.</string>
+  <string name="refer_a_friend_invitation_message">You\'ve been invited to play %1$s! Use the invite code %2$s after downloading it from %3$s.</string>
 </resources>
