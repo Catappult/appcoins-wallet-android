@@ -33,6 +33,7 @@
   <string name="purchase_eskills_sku">Входной билет</string>
   <string name="shared_room_waiting">Ожидание противников в %s</string>
   <string name="rooted_device_blocked_body">К сожалению, вы не можете играть в игры e-Skills на рутованном устройстве.</string>
+  <string name="update_wallet">Update wallet</string>
   <string name="top_up_needed_body">Из соображений безопасности вам необходимо сделать хотя бы одно пополнение своего кошелька, чтобы играть в игры e-Skills.</string>
   <string name="not_enough_funds_body">У вас недостаточно средств! Пожалуйста, пополните баланс, чтобы купить входной билет.</string>
   <string name="error_message_local_payment_method_body">Местные способы оплаты не принимаются для оплаты вступительного взноса. Пожалуйста, создайте новый кошелек и пополните его с помощью банковской карты или PayPal!</string>
@@ -40,13 +41,14 @@
   <string name="update_not_supported_body">Обновите AppCoins Wallet до последней версии.</string>
   <string name="update_button">Обновить</string>
   <!-- Refer a friend -->
-  <string name="refer_a_friend_waiting_room_tooltip">Вы и друзья, которых вы пригласили, получите бонус $%s. Вы можете пригласить до 5 друзей, и они должны быть новыми пользователями. Бонус будет зачислен на ваш кошелек как только они воспользуются вашим пригласительным кодом в своей первой игре e-Skills.</string>
+  <string name="refer_a_friend_waiting_room_tooltip">You and the friends you invite will receive a $%s bonus. You can invite up to 5 friends, and they must be new users. The bonus will be credited in your wallet once they use your invitation code in their first e-Skills game.</string>
   <string name="refer_a_friend_first_time_header">Готовы показать свой скилл?</string>
   <string name="refer_a_friend_first_time_body">Обыграйте других игроков, чтобы получить приз реальными деньгами! Начнем с тренировочной игры без вступительного взноса.</string>
   <string name="refer_a_friend_error_unavailable_body">Эта возможность сейчас недоступна.</string>
   <string name="refer_a_friend_error_invalid_code_body">Неверный код!</string>
   <string name="refer_a_friend_error_user_not_eligible_body">Только для новых пользователей!</string>
   <string name="refer_a_friend_first_time_tooltip">С нашей реферальной программой вы получите бонус $%s при использовании кода вашего друга. Он также получит эту сумму в качестве бонуса, который можно использовать для покупок в приложении или входных билетов e-Skills.</string>
-  <string name="refer_a_friend_waiting_room_title">Пригласите друга!</string>
+  <string name="refer_a_friend_waiting_room_title">Invite a Friend!</string>
   <string name="refer_a_friend_waiting_from_body">Получите бонус за каждого приглашенного друга.</string>
+  <string name="refer_a_friend_invitation_message">You\'ve been invited to play %1$s! Use the invite code %2$s after downloading it from %3$s.</string>
 </resources>
