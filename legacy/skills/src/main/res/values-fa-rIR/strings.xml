@@ -33,6 +33,7 @@
   <string name="purchase_eskills_sku">بلیت ورود</string>
   <string name="shared_room_waiting">درحال انتظار برای عضو شدن در %s</string>
   <string name="rooted_device_blocked_body">متاسفانه نمی‌توانید با یک دستگاه rooted بازی‌های e-Skills انجام دهید.</string>
+  <string name="update_wallet">Update wallet</string>
   <string name="top_up_needed_body">به دلایل امنیتی، برای بازی‌های e-Skills باید حداقل یک بار کیف پول خود را شارژ کنید.</string>
   <string name="not_enough_funds_body">سرمایه کافی ندارید! برای خرید بلیت ورودی شارژ کنید.</string>
   <string name="error_message_local_payment_method_body">روش‌ها پرداخت محلی برای خرید بلیت ورودی مورد قبول نیستند. لطفا کیف پول جدیدی بسازید و آن را با کارت بانکی یا پی‌پال شارژ کنید!</string>
@@ -40,13 +41,14 @@
   <string name="update_not_supported_body">کیف پول AppCoins خود را به آخرین نسخه بروزرسانی کنید.</string>
   <string name="update_button">بروزرسانی</string>
   <!-- Refer a friend -->
-  <string name="refer_a_friend_waiting_room_tooltip">شما و دوستی که دعوت می‌کنید، یک پاداش %s$ دریافت خواهد کرد. می‌توانید تا ۵ دوست معرفی کنید که کاربر تازه باشند. پاداش به کیف پول شما واریز می‌شود، زمانیکه آن‌ها از کد دعوت شما در بازیهای e-Skills استفاده کنند.</string>
+  <string name="refer_a_friend_waiting_room_tooltip">You and the friends you invite will receive a $%s bonus. You can invite up to 5 friends, and they must be new users. The bonus will be credited in your wallet once they use your invitation code in their first e-Skills game.</string>
   <string name="refer_a_friend_first_time_header">آیا آماده نمایش مهارت‌های خود هستید؟</string>
   <string name="refer_a_friend_first_time_body">سایر بازیکنان را شکست دهید تا پول واقعی ببرید! بیایید با یک بازی آموزشی بدین هزینه ورودی شروع کنیم.</string>
   <string name="refer_a_friend_error_unavailable_body">این قابلیت درحال حاضر موجود نیست.</string>
   <string name="refer_a_friend_error_invalid_code_body">کد نامعتبر!</string>
   <string name="refer_a_friend_error_user_not_eligible_body">تنها برای کاربران جدید!</string>
   <string name="refer_a_friend_first_time_tooltip">با برنامه معرفی ما، یک پاداش %s$ دریافت خواهید کرد با استفاده از کد دوستان خود. آن‌ها نیز پاداش مشابهی برای خریدهای داخل اپلیکیشنی و بلیت ورودی بازی‌های e-Skills دریافت خواهند کرد.</string>
-  <string name="refer_a_friend_waiting_room_title">معرفی دوست!</string>
+  <string name="refer_a_friend_waiting_room_title">Invite a Friend!</string>
   <string name="refer_a_friend_waiting_from_body">برای هر دوستی که دعوت می‌کنید، پاداش بگیرید.</string>
+  <string name="refer_a_friend_invitation_message">You\'ve been invited to play %1$s! Use the invite code %2$s after downloading it from %3$s.</string>
 </resources>
