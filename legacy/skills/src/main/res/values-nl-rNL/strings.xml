@@ -33,6 +33,7 @@
   <string name="purchase_eskills_sku">Toegangsticket</string>
   <string name="shared_room_waiting">Wachten tot tegenstanders zich aansluiten bij %s</string>
   <string name="rooted_device_blocked_body">Helaas kun je geen e-Skills games spelen met een geroot apparaat.</string>
+  <string name="update_wallet">Update wallet</string>
   <string name="top_up_needed_body">Om veiligheidsredenen moet je je wallet minimaal één keer opwaarderen om e-Skills games te kunnen spelen.</string>
   <string name="not_enough_funds_body">Je hebt niet genoeg saldo! Waardeer op om het toegangsticket te kopen.</string>
   <string name="error_message_local_payment_method_body">Lokale betaalmethoden worden niet geaccepteerd om de toegangsprijs te betalen. Maak een nieuwe wallet aan en gebruik een betaalkaart of PayPal om op te waarderen!</string>
@@ -40,13 +41,14 @@
   <string name="update_not_supported_body">Update de AppCoins Wallet naar de nieuwste versie.</string>
   <string name="update_button">Bijwerken</string>
   <!-- Refer a friend -->
-  <string name="refer_a_friend_waiting_room_tooltip">Jij en de vrienden die je uitnodigt, ontvangen een bonus van $ %s. Je kunt maximaal 5 vrienden doorverwijzen en dit moeten nieuwe gebruikers zijn. De bonus wordt aan je wallet toegevoegd zodra ze jouw uitnodigingscode in hun eerste e-Skills game gebruiken.</string>
+  <string name="refer_a_friend_waiting_room_tooltip">You and the friends you invite will receive a $%s bonus. You can invite up to 5 friends, and they must be new users. The bonus will be credited in your wallet once they use your invitation code in their first e-Skills game.</string>
   <string name="refer_a_friend_first_time_header">Klaar om je vaardigheden te tonen?</string>
   <string name="refer_a_friend_first_time_body">Versla andere spelers om een prijs in echt geld te verdienen! Laten we beginnen met een wedstrijd zonder toegangsprijs om te oefenen.</string>
   <string name="refer_a_friend_error_unavailable_body">Deze functie is momenteel niet beschikbaar.</string>
   <string name="refer_a_friend_error_invalid_code_body">Ongeldige code!</string>
   <string name="refer_a_friend_error_user_not_eligible_body">Alleen voor nieuwe gebruikers!</string>
   <string name="refer_a_friend_first_time_tooltip">Met ons verwijzingsprogramma krijg je een bonus van $ %s als je vrienden jouw uitnodigingscode gebruiken. Je vrienden krijgen dezelfde bonus en kunnen het bedrag voor in-app aankopen of toegangstickets voor e-Skills games gebruiken.</string>
-  <string name="refer_a_friend_waiting_room_title">Verwijs een vriend!</string>
+  <string name="refer_a_friend_waiting_room_title">Invite a Friend!</string>
   <string name="refer_a_friend_waiting_from_body">Krijg een bonus voor elke vriend die je uitnodigt.</string>
+  <string name="refer_a_friend_invitation_message">You\'ve been invited to play %1$s! Use the invite code %2$s after downloading it from %3$s.</string>
 </resources>
