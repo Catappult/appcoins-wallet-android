@@ -1,4 +1,4 @@
-package com.asfoundation.wallet.wallet_v3.home
+package com.asfoundation.wallet.wallet.home
 
 import android.os.Build
 import android.os.Bundle
@@ -39,6 +39,7 @@ import javax.inject.Inject
 
 // Before moving this screen into the :home module, all home dependencies need to be independent
 // from the :app module.
+// TODO rename class after completed
 @AndroidEntryPoint
 class HomeFragment_new: BasePageViewFragment(), SingleStateFragment<HomeState, HomeSideEffect> {
 

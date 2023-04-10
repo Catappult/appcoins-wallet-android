@@ -29,10 +29,10 @@ import com.asfoundation.wallet.support.SupportNotificationProperties
 import com.asfoundation.wallet.transactions.Transaction
 import com.asfoundation.wallet.ui.widget.entity.TransactionsModel
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
-import com.asfoundation.wallet.wallet_v3.home.HomeNavigator
-import com.asfoundation.wallet.wallet_v3.home.HomeSideEffect
-import com.asfoundation.wallet.wallet_v3.home.HomeState
-import com.asfoundation.wallet.wallet_v3.home.HomeViewModel
+import com.asfoundation.wallet.wallet.home.HomeNavigator
+import com.asfoundation.wallet.wallet.home.HomeSideEffect
+import com.asfoundation.wallet.wallet.home.HomeState
+import com.asfoundation.wallet.wallet.home.HomeViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import io.intercom.android.sdk.Intercom
 import java.math.BigDecimal

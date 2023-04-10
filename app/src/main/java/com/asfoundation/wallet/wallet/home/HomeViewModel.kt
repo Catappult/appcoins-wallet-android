@@ -1,4 +1,4 @@
-package com.asfoundation.wallet.wallet_v3.home
+package com.asfoundation.wallet.wallet.home
 
 import android.content.Intent
 import android.net.Uri
