@@ -33,6 +33,7 @@
   <string name="purchase_eskills_sku">Ingresso</string>
   <string name="shared_room_waiting">Aguardando oponentes para entrar em %s</string>
   <string name="rooted_device_blocked_body">Infelizmente, você não pode jogar jogos e-Skills com um dispositivo rooteado.</string>
+  <string name="update_wallet">Update wallet</string>
   <string name="top_up_needed_body">Por motivos de segurança, você precisa fazer pelo menos uma recarga em sua carteira para jogar jogos e-Skills.</string>
   <string name="not_enough_funds_body">Você não tem fundos o suficiente! Por favor, recarregue para comprar o ticket de entrada.</string>
   <string name="error_message_local_payment_method_body">Métodos de pagamento locais não são aceitos para comprar uma taxa de inscrição. Por favor, crie uma nova carteira e adquira créditos com um cartão bancário ou PayPal!</string>
@@ -40,13 +41,14 @@
   <string name="update_not_supported_body">Atualize a AppCoins Wallet para a versão mais recente.</string>
   <string name="update_button">Atualizar</string>
   <!-- Refer a friend -->
-  <string name="refer_a_friend_waiting_room_tooltip">Você e os amigos que convidar receberão um bônus de $%s. Você pode indicar até 5 amigos, e eles devem ser novos usuários. O bônus será creditado na sua carteira assim que eles usarem o seu código de convite em seu primeiro jogo e-Skills.</string>
+  <string name="refer_a_friend_waiting_room_tooltip">You and the friends you invite will receive a $%s bonus. You can invite up to 5 friends, and they must be new users. The bonus will be credited in your wallet once they use your invitation code in their first e-Skills game.</string>
   <string name="refer_a_friend_first_time_header">Pronto para mostrar suas habilidades?</string>
   <string name="refer_a_friend_first_time_body">Derrote outros jogadores e ganhe um prêmio em dinheiro real! Vamos começar com um jogo de treino sem taxa de inscrição.</string>
   <string name="refer_a_friend_error_unavailable_body">Este recurso está indisponível no momento.</string>
   <string name="refer_a_friend_error_invalid_code_body">Código inválido!</string>
   <string name="refer_a_friend_error_user_not_eligible_body">Somente para novos jogadores!</string>
   <string name="refer_a_friend_first_time_tooltip">Com nosso Programa de Indicação, você receberá um bônus de $%s ao usar o código de seu amigo. Eles também receberão o mesmo valor como bônus para ser usado em compras no app ou tíquetes de entrada em e-Skills.</string>
-  <string name="refer_a_friend_waiting_room_title">Indique um Amigo!</string>
+  <string name="refer_a_friend_waiting_room_title">Invite a Friend!</string>
   <string name="refer_a_friend_waiting_from_body">Receba um bônus por cada amigo que convidar.</string>
+  <string name="refer_a_friend_invitation_message">You\'ve been invited to play %1$s! Use the invite code %2$s after downloading it from %3$s.</string>
 </resources>
