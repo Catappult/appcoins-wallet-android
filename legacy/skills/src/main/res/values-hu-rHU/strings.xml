@@ -33,6 +33,7 @@
   <string name="purchase_eskills_sku">Belépőjegy</string>
   <string name="shared_room_waiting">Az ellenfelek csatlakozására várunk a(z) %s játékban</string>
   <string name="rooted_device_blocked_body">Az e-Skills játékokat sajnos nem tudod rootolt eszközzel játszani.\"</string>
+  <string name="update_wallet">Update wallet</string>
   <string name="top_up_needed_body">Biztonsági okokból az e-Skills játékok megnyitásához el kell végezned legalább egy befizetést.</string>
   <string name="not_enough_funds_body">Nincs elég pénzed. Kérjük, fizess be a belépőjegy megvételéhez.</string>
   <string name="error_message_local_payment_method_body">A belépőjegyet nem lehet megvásárolni helyi fizetési módokkal. Hozz létre egy új pénztárcát, és küldj rá pénzt egy bankkártya vagy PayPal segítségével!</string>
@@ -40,13 +41,14 @@
   <string name="update_not_supported_body">Szerezd be az AppCoins Wallet legújabb verzióját.</string>
   <string name="update_button">Frissítés</string>
   <!-- Refer a friend -->
-  <string name="refer_a_friend_waiting_room_tooltip">Te és a meghívott barátod is $%s bónuszt kaptok. Legfeljebb 5 barátot hívhatsz meg, ők pedig legyenek új felhasználók. A bónusz akkor érkezik meg a tárcádba, amikor a te kódodat használják az első e-Skills játékuk során.</string>
+  <string name="refer_a_friend_waiting_room_tooltip">You and the friends you invite will receive a $%s bonus. You can invite up to 5 friends, and they must be new users. The bonus will be credited in your wallet once they use your invitation code in their first e-Skills game.</string>
   <string name="refer_a_friend_first_time_header">Készen állsz, hogy megmutasd, mit tudsz?</string>
   <string name="refer_a_friend_first_time_body">Verj meg más játékosokat a tényleges pénznyereményekért! Jöjjön egy kis gyakorlás, ezúttal nincs belépődíj.</string>
   <string name="refer_a_friend_error_unavailable_body">Ez a funkció most épp nem érhető el.</string>
   <string name="refer_a_friend_error_invalid_code_body">Érvénytelen kód!</string>
   <string name="refer_a_friend_error_user_not_eligible_body">Csak új felhasználók számára!</string>
   <string name="refer_a_friend_first_time_tooltip">Az Ajánlási programunkkal $%s bónuszt kapsz, ha egy barátod kódját használod. Ők is ugyanekkora bónuszt kapnak, amit alkalmazáson belüli vásárlásokra vagy e-Skills belépőre költhetnek el.</string>
-  <string name="refer_a_friend_waiting_room_title">Hívd meg egy barátod!</string>
+  <string name="refer_a_friend_waiting_room_title">Invite a Friend!</string>
   <string name="refer_a_friend_waiting_from_body">Bónusz minden barát után.</string>
+  <string name="refer_a_friend_invitation_message">You\'ve been invited to play %1$s! Use the invite code %2$s after downloading it from %3$s.</string>
 </resources>
