@@ -10,7 +10,7 @@
 
   </style>
 
-  <style name="MaterialAppTheme" parent="Theme.MaterialComponents.Light.DarkActionBar">
+  <style name="MaterialAppTheme" parent="Theme.Material3.Light">
     <!-- Customize your theme here. -->
     <item name="colorPrimary">@color/colorPrimary</item>
     <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
@@ -21,6 +21,10 @@
     <item name="actionMenuTextColor">@color/styleguide_white</item>
     <item name="android:windowContentOverlay">@null</item>
     <item name="android:windowContentTransitions">true</item>
+
+    <item name="android:windowBackground">@color/white</item>
+    <item name="colorSecondaryContainer">@android:color/transparent</item>
+    <item name="colorOnSurface">@color/white</item>
   </style>
 
   <style name="AppBottomSheetDialogThemeNotDraggable" parent="@style/ThemeOverlay.MaterialComponents.BottomSheetDialog">
@@ -671,10 +675,9 @@
     <item name="android:lineSpacingExtra">2sp</item>
   </style>
 
-  <style name="SwitchCompactStyle">
-    <item name="colorControlActivated">@color/styleguide_pink</item>
-    <item name="colorSwitchThumbNormal">@color/styleguide_medium_grey</item>
-    <item name="android:colorForeground">@color/styleguide_medium_grey</item>
+  <style name="SwitchCompactStyle" parent="Widget.Material3.CompoundButton.Switch">
+    <item name="thumbTint">@color/switch_thumb_tint</item>
+    <item name="trackTint">@color/switch_track_tint</item>
   </style>
 
   <style name="WalletValidationTextStyle.Title" parent="TextAppearance.AppCompat.Body1.Roboto.Medium">
