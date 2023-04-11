@@ -21,7 +21,6 @@ dependencies {
 
   implementation(libs.androidx.recyclerview)
   implementation(libs.androidx.navigation.ui)
-  implementation(libs.bundles.androidx.compose)
 
   implementation(libs.zxing.android)
   implementation(libs.glide)
@@ -29,4 +28,5 @@ dependencies {
   kapt(libs.epoxy.processor)
   implementation(libs.viewbinding.delegate)
   implementation(libs.androidx.appcompact)
+  implementation(libs.bundles.androidx.compose)
 }
