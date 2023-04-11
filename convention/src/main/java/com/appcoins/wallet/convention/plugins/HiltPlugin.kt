@@ -16,6 +16,7 @@ class HiltPlugin : Plugin<Project> {
         apply("org.jetbrains.kotlin.kapt")
       }
       dependencies {
+        "implementation"(libs["androidx-compose-hilt-navigation"])
         "implementation"(libs["hilt.android"])
         "kapt"(libs["hilt.compiler"])
         "implementation"(libs["hilt.interface.extensions"])
