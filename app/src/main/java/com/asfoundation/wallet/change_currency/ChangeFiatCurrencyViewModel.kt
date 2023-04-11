@@ -34,7 +34,7 @@ class ChangeFiatCurrencyViewModel @Inject constructor(
   private fun showChangeFiatCurrency() {
     viewModelScope.launch {
       suspend { getChangeFiatCurrencyModelUseCase() }
-        .mapResultAsyncToState {
+        .mapResultAsyncToState() {
           copy(changeFiatCurrencyAsync = it)
         }
     }
