@@ -327,7 +327,7 @@ class AdyenPaymentFragment : BasePageViewFragment(), AdyenPaymentView {
   }
 
   override fun showLoading() {
-    fragment_credit_card_authorization_progress_bar?.visibility = VISIBLE
+    fragment_credit_card_authorization_progress_bar.visibility = VISIBLE
     if (isPreSelected) {
       payment_methods?.visibility = View.INVISIBLE
     } else {

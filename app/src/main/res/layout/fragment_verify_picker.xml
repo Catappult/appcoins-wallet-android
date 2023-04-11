@@ -23,7 +23,9 @@
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_marginTop="@dimen/big_margin"
+      app:cardBackgroundColor="@color/white"
       app:cardElevation="0dp"
+      app:strokeWidth="0dp"
       app:rippleColor="@color/styleguide_dark_grey"
       app:shapeAppearance="@style/MyWallets.Shapes.Rounded8"
       >
@@ -60,7 +62,9 @@
       android:layout_height="wrap_content"
       android:layout_marginTop="15dp"
       android:layout_marginBottom="15dp"
+      app:cardBackgroundColor="@color/white"
       app:cardElevation="0dp"
+      app:strokeWidth="0dp"
       app:rippleColor="@color/styleguide_dark_grey"
       app:shapeAppearance="@style/MyWallets.Shapes.Rounded8"
       >

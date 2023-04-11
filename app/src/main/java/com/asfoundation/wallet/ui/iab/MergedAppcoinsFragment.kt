@@ -14,7 +14,6 @@ import android.view.animation.AnimationUtils
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.annotation.StringRes
-import androidx.appcompat.widget.AppCompatRadioButton
 import androidx.constraintlayout.widget.Group
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -29,6 +28,7 @@ import com.appcoins.wallet.core.utils.android_common.WalletCurrency
 import com.asf.wallet.databinding.MergedAppcoinsLayoutBinding
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import com.asfoundation.wallet.wallets.usecases.GetWalletInfoUseCase
+import com.google.android.material.radiobutton.MaterialRadioButton
 import com.jakewharton.rxbinding2.view.RxView
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.Observable
@@ -443,7 +443,7 @@ class MergedAppcoinsFragment : BasePageViewFragment(), MergedAppcoinsView {
 
   private fun setDisabledRadio(
     view: View,
-    radioButton: AppCompatRadioButton,
+    radioButton: MaterialRadioButton,
     title: TextView,
     message: TextView,
     icon: ImageView,
@@ -470,8 +470,8 @@ class MergedAppcoinsFragment : BasePageViewFragment(), MergedAppcoinsView {
 
   private fun setEnabledRadio(
     view: View,
-    selectedRadioButton: AppCompatRadioButton,
-    unSelectedRadioButton: AppCompatRadioButton,
+    selectedRadioButton: MaterialRadioButton,
+    unSelectedRadioButton: MaterialRadioButton,
     title: TextView,
     message: TextView,
     icon: ImageView,

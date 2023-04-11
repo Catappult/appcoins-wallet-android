@@ -24,7 +24,16 @@
 
     <item name="android:windowBackground">@color/white</item>
     <item name="colorSecondaryContainer">@android:color/transparent</item>
-    <item name="colorOnSurface">@color/white</item>
+    <item name="radioButtonStyle">@style/Widget.App.RadioButton</item>
+  </style>
+
+  <style name="Widget.App.RadioButton" parent="Widget.Material3.CompoundButton.RadioButton">
+    <item name="materialThemeOverlay">@style/ThemeOverlay.App.RadioButton</item>
+  </style>
+
+  <style name="ThemeOverlay.App.RadioButton" parent="">
+    <item name="colorOnSurface">@color/styleguide_dark_grey</item>
+    <item name="colorPrimary">@color/styleguide_red</item>
   </style>
 
   <style name="AppBottomSheetDialogThemeNotDraggable" parent="@style/ThemeOverlay.MaterialComponents.BottomSheetDialog">
@@ -76,7 +85,7 @@
     <item name="android:windowAllowEnterTransitionOverlap">true</item>
   </style>
 
-  <style name="Theme.AppCompat.Transparent" parent="Theme.AppCompat">
+  <style name="Theme.AppCompat.Transparent" parent="Theme.Material3.Light">
     <item name="android:windowIsTranslucent">true</item>
     <item name="android:windowContentOverlay">@null</item>
     <item name="windowNoTitle">true</item>
@@ -308,8 +317,13 @@
     <item name="android:textSize">10sp</item>
   </style>
 
-  <style name="PaymentMethodsRadioButtonNoPadding" parent="Theme.AppCompat.Light">
-    <item name="android:buttonTint">@color/radio_button_color</item>
+  <style name="PaymentMethodsRadioButtonNoPadding" parent="Widget.Material3.CompoundButton.RadioButton">
+    <item name="useMaterialThemeColors">false</item>
+    <item name="buttonTint">@color/radio_button_color</item>
+    <item name="android:textAppearance">@style/RadioButton.TextAppearance</item>
+  </style>
+
+  <style name="RadioButton.TextAppearance" parent="">
     <item name="android:textColor">@color/radio_button_text_color</item>
     <item name="android:textSize">12sp</item>
   </style>

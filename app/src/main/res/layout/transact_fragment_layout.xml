@@ -38,7 +38,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/title"
         >
-      <EditText
+      <com.google.android.material.textfield.TextInputEditText
           android:id="@+id/transact_fragment_recipient_address"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
@@ -75,7 +75,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/transact_fragment_recipient_address_layout"
         >
-      <EditText
+      <com.google.android.material.textfield.TextInputEditText
           android:id="@+id/transact_fragment_amount"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
