@@ -34,9 +34,9 @@ class QrCodeActivity : BaseActivity(), QrCodeView {
   private val qr_image get() = binding.qrImage
 
   override fun onCreate(savedInstanceState: Bundle?) {
-    super.onCreate(savedInstanceState)
-
     setAnimationOptions()
+
+    super.onCreate(savedInstanceState)
 
     _binding = QrCodeLayoutBinding.inflate(layoutInflater)
     setContentView(binding.root)
