@@ -102,6 +102,7 @@ dependencies {
   implementation(libs.shimmer)
   implementation(libs.glide)
   kapt(libs.glide.compiler)
+  implementation(libs.bundles.coil)
 
   implementation(libs.epoxy)
   kapt(libs.epoxy.processor)
