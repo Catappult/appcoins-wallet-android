@@ -3,14 +3,15 @@ package com.appcoins.wallet.convention.plugins
 import com.android.build.gradle.internal.api.BaseVariantOutputImpl
 import com.android.build.gradle.internal.dsl.BaseAppModuleExtension
 import com.appcoins.wallet.convention.Config
-import com.appcoins.wallet.convention.extensions.*
+import com.appcoins.wallet.convention.extensions.BuildConfigType
 import com.appcoins.wallet.convention.extensions.buildConfigFields
 import com.appcoins.wallet.convention.extensions.configureAndroidAndKotlin
 import com.appcoins.wallet.convention.extensions.libs
 import org.gradle.api.Plugin
 import org.gradle.api.Project
+import org.gradle.kotlin.dsl.apply
 import org.gradle.kotlin.dsl.configure
-import java.io.File
+import kotlin.collections.set
 
 class AndroidAppPlugin : Plugin<Project> {
   override fun apply(target: Project) {
@@ -20,6 +21,7 @@ class AndroidAppPlugin : Plugin<Project> {
         apply("kotlin-android")
         apply("kotlin-android-extensions")
         apply("kotlin-kapt")
+        apply<JacocoApplicationPlugin>()
       }
 
       extensions.configure<BaseAppModuleExtension> {
@@ -53,6 +55,7 @@ class AndroidAppPlugin : Plugin<Project> {
         buildTypes {
           debug {
             isMinifyEnabled = false
+            enableUnitTestCoverage = true
             applicationIdSuffix = ".dev"
             versionNameSuffix = ".dev"
             proguardFiles(getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro")
