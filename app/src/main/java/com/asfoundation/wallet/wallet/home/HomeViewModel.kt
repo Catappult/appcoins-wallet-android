@@ -1,4 +1,4 @@
-package com.asfoundation.wallet.home.ui
+package com.asfoundation.wallet.wallet.home
 
 import android.content.Intent
 import android.net.Uri
@@ -99,7 +99,6 @@ class HomeViewModel @Inject constructor(
 ) : BaseViewModel<HomeState, HomeSideEffect>(initialState()) {
 
   private val UPDATE_INTERVAL = 30 * DateUtils.SECOND_IN_MILLIS
-  private val MINUS_ONE = BigDecimal("-1")
   private val refreshData = BehaviorSubject.createDefault(true)
   private val refreshCardNotifications = BehaviorSubject.createDefault(true)
 
@@ -369,14 +368,12 @@ class HomeViewModel @Inject constructor(
           state.transactionsModelAsync.value?.transactionsWalletModel
         if (model != null) {
           val wallet = model.wallet
-          if (wallet.address != null) {
-            sendSideEffect { HomeSideEffect.NavigateToBackup(wallet.address) }
-            walletsEventSender.sendCreateBackupEvent(
-              WalletsAnalytics.ACTION_CREATE,
-              WalletsAnalytics.CONTEXT_CARD,
-              WalletsAnalytics.STATUS_SUCCESS
-            )
-          }
+          sendSideEffect { HomeSideEffect.NavigateToBackup(wallet.address) }
+          walletsEventSender.sendCreateBackupEvent(
+            WalletsAnalytics.ACTION_CREATE,
+            WalletsAnalytics.CONTEXT_CARD,
+            WalletsAnalytics.STATUS_SUCCESS
+          )
         }
       }
       CardNotificationAction.NONE -> {}

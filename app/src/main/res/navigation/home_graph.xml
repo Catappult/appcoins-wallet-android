@@ -12,6 +12,6 @@
 <!--TODO remove:-->
   <fragment
       android:id="@+id/test_toolbar_fragment"
-      android:name="com.asfoundation.wallet.home.ui.TestHomeFragment"
+      android:name="com.asfoundation.wallet.wallet.home.HomeFragment_new"
        />
 </navigation>

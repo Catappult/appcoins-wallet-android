@@ -29,21 +29,24 @@ import com.asfoundation.wallet.support.SupportNotificationProperties
 import com.asfoundation.wallet.transactions.Transaction
 import com.asfoundation.wallet.ui.widget.entity.TransactionsModel
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
+import com.asfoundation.wallet.wallet.home.HomeNavigator
+import com.asfoundation.wallet.wallet.home.HomeSideEffect
+import com.asfoundation.wallet.wallet.home.HomeState
+import com.asfoundation.wallet.wallet.home.HomeViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import io.intercom.android.sdk.Intercom
 import java.math.BigDecimal
 import javax.inject.Inject
 
+// TODO to be removed
 @AndroidEntryPoint
 class HomeFragment : BasePageViewFragment(),
   SingleStateFragment<HomeState, HomeSideEffect> {
 
   @Inject
   lateinit var navigator: HomeNavigator
-
   @Inject
   lateinit var formatter: CurrencyFormatUtils
-
   private val viewModel: HomeViewModel by viewModels()
 
   private var _views: FragmentHomeBinding? = null

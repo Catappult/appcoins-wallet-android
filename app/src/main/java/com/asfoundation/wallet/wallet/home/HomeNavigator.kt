@@ -1,4 +1,4 @@
-package com.asfoundation.wallet.home.ui
+package com.asfoundation.wallet.wallet.home
 
 import android.content.ActivityNotFoundException
 import android.content.Intent
