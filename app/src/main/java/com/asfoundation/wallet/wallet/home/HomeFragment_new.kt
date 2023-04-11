@@ -7,6 +7,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
@@ -27,14 +28,20 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.appcoins.wallet.core.utils.android_common.RootUtil
+import com.appcoins.wallet.core.utils.android_common.WalletCurrency
+import com.appcoins.wallet.ui.arch.Async
 import com.appcoins.wallet.ui.arch.SingleStateFragment
 import com.appcoins.wallet.ui.common.theme.WalletColors
+import com.appcoins.wallet.ui.widgets.BalanceCard
 import com.appcoins.wallet.ui.widgets.TopBar
 import com.asf.wallet.R
+import com.asfoundation.wallet.entity.GlobalBalance
 import com.asfoundation.wallet.support.SupportNotificationProperties
+import com.asfoundation.wallet.ui.iab.FiatValue
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
 import io.intercom.android.sdk.Intercom
+import java.math.BigDecimal
 import javax.inject.Inject
 
 // Before moving this screen into the :home module, all home dependencies need to be independent
@@ -130,10 +137,15 @@ class HomeFragment_new: BasePageViewFragment(), SingleStateFragment<HomeState, H
         .verticalScroll(rememberScrollState())
         .padding(padding),
     ) {
+      BalanceCard(
+        balance = viewModel.balance.value.symbol + viewModel.balance.value.amount,
+        currencyCode = viewModel.balance.value.currency,
+        onClickCurrencies = { viewModel.onCurrencySelectorClick() },
+        onClickTransfer = { Toast.makeText(context, "In progress", Toast.LENGTH_SHORT).show() },
+        onClickBackup = { viewModel.onBackupClick() },
+        onClickTopUp = { viewModel.onTopUpClick() }
+      )
       //TODO replace with home composables
-      DummyCard()
-      DummyCard()
-      DummyCard()
       DummyCard()
       DummyCard()
     }
@@ -177,7 +189,7 @@ class HomeFragment_new: BasePageViewFragment(), SingleStateFragment<HomeState, H
   override fun onStateChanged(state: HomeState) {
     // TODO set transaction list elements. setData(state.transactionsModelAsync, state.defaultWalletBalanceAsync)
     // TODO refreshing. setRefreshLayout(state.defaultWalletBalanceAsync, state.transactionsModelAsync)
-    // TODO setBalance(state.defaultWalletBalanceAsync)
+    setBalance(state.defaultWalletBalanceAsync)
     showVipBadge(state.showVipBadge)
     // TODO updateSupportIcon(state.unreadMessages)
   }
@@ -203,6 +215,7 @@ class HomeFragment_new: BasePageViewFragment(), SingleStateFragment<HomeState, H
         sideEffect.triggerSource
       )
       HomeSideEffect.NavigateToChangeCurrency -> navigator.navigateToCurrencySelector()
+      HomeSideEffect.NavigateToTopUp -> navigator.navigateToTopUp()
     }
   }
 
@@ -230,6 +243,30 @@ class HomeFragment_new: BasePageViewFragment(), SingleStateFragment<HomeState, H
         .setBackgroundColor(ResourcesCompat.getColor(resources, R.color.transparent, null))
       alertDialog.getButton(android.app.AlertDialog.BUTTON_NEGATIVE)
         .setTextColor(ResourcesCompat.getColor(resources, R.color.styleguide_pink, null))
+    }
+  }
+
+  private fun setBalance(balanceAsync: Async<GlobalBalance>) {
+    when (balanceAsync) {
+      Async.Uninitialized,
+      is Async.Loading -> {
+        //TODO loading
+      }
+      is Async.Success -> {
+        val creditsBalanceFiat = balanceAsync().walletBalance.creditsOnlyFiat
+        val creditsFiatAmount =
+          formatter.formatCurrency(creditsBalanceFiat.amount, WalletCurrency.FIAT)
+
+        if (creditsBalanceFiat.amount > BigDecimal("-1") && creditsBalanceFiat.symbol.isNotEmpty()
+        ) {
+          viewModel.balance.value = FiatValue(
+            amount = BigDecimal(creditsFiatAmount),
+            symbol = creditsBalanceFiat.symbol,
+            currency = creditsBalanceFiat.currency
+          )
+        }
+      }
+      else -> Unit
     }
   }
 

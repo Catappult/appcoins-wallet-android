@@ -13,14 +13,14 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import com.appcoins.wallet.ui.arch.Async
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.appcoins.wallet.core.utils.android_common.RootUtil
 import com.appcoins.wallet.core.utils.android_common.WalletCurrency
-import com.asf.wallet.R
-import com.asf.wallet.databinding.FragmentHomeBinding
+import com.appcoins.wallet.ui.arch.Async
 import com.appcoins.wallet.ui.arch.SingleStateFragment
 import com.appcoins.wallet.ui.common.convertDpToPx
+import com.asf.wallet.R
+import com.asf.wallet.databinding.FragmentHomeBinding
 import com.asfoundation.wallet.entity.GlobalBalance
 import com.asfoundation.wallet.home.ui.list.HomeController
 import com.asfoundation.wallet.home.ui.list.HomeListClick
@@ -219,6 +219,7 @@ class HomeFragment : BasePageViewFragment(),
         sideEffect.triggerSource
       )
       HomeSideEffect.NavigateToChangeCurrency -> navigator.navigateToCurrencySelector()
+      HomeSideEffect.NavigateToTopUp -> navigator.navigateToTopUp()
     }
   }
 

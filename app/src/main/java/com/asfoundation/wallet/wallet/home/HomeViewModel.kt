@@ -3,16 +3,17 @@ package com.asfoundation.wallet.wallet.home
 import android.content.Intent
 import android.net.Uri
 import android.text.format.DateUtils
+import androidx.compose.runtime.mutableStateOf
+import com.appcoins.wallet.core.network.backend.model.GamificationStatus
 import com.appcoins.wallet.core.utils.android_common.RxSchedulers
 import com.appcoins.wallet.core.utils.properties.APTOIDE_TOP_APPS_URL
 import com.appcoins.wallet.core.utils.properties.VIP_PROGRAM_BADGE_URL
 import com.appcoins.wallet.gamification.repository.Levels
-import com.appcoins.wallet.core.network.backend.model.GamificationStatus
-import com.appcoins.wallet.ui.arch.*
 import com.appcoins.wallet.sharedpreferences.BackupTriggerPreferencesDataSource
 import com.appcoins.wallet.sharedpreferences.BackupTriggerPreferencesDataSource.TriggerSource
 import com.appcoins.wallet.sharedpreferences.BackupTriggerPreferencesDataSource.TriggerSource.FIRST_PURCHASE
 import com.appcoins.wallet.sharedpreferences.BackupTriggerPreferencesDataSource.TriggerSource.NEW_LEVEL
+import com.appcoins.wallet.ui.arch.*
 import com.asfoundation.wallet.backup.triggers.TriggerUtils.toJson
 import com.asfoundation.wallet.backup.use_cases.ShouldShowBackupTriggerUseCase
 import com.asfoundation.wallet.billing.analytics.WalletsAnalytics
@@ -24,6 +25,7 @@ import com.asfoundation.wallet.home.usecases.*
 import com.asfoundation.wallet.referrals.CardNotification
 import com.asfoundation.wallet.transactions.Transaction
 import com.asfoundation.wallet.ui.balance.TokenBalance
+import com.asfoundation.wallet.ui.iab.FiatValue
 import com.asfoundation.wallet.ui.widget.entity.TransactionsModel
 import com.asfoundation.wallet.ui.widget.holder.CardNotificationAction
 import com.asfoundation.wallet.update_required.use_cases.BuildUpdateIntentUseCase.Companion.PLAY_APP_VIEW_URL
@@ -60,6 +62,7 @@ sealed class HomeSideEffect : SideEffect {
 
   object NavigateToMyWallets : HomeSideEffect()
   object NavigateToChangeCurrency : HomeSideEffect()
+  object NavigateToTopUp : HomeSideEffect()
 }
 
 data class HomeState(
@@ -101,6 +104,7 @@ class HomeViewModel @Inject constructor(
   private val UPDATE_INTERVAL = 30 * DateUtils.SECOND_IN_MILLIS
   private val refreshData = BehaviorSubject.createDefault(true)
   private val refreshCardNotifications = BehaviorSubject.createDefault(true)
+  val balance = mutableStateOf(FiatValue())
 
   companion object {
     fun initialState(): HomeState {
@@ -342,11 +346,29 @@ class HomeViewModel @Inject constructor(
     sendSideEffect { HomeSideEffect.NavigateToMyWallets }
   }
 
+  fun onTopUpClick() {
+    sendSideEffect { HomeSideEffect.NavigateToTopUp }
+  }
+
   fun onTransactionDetailsClick(transaction: Transaction) {
     sendSideEffect {
       state.defaultWalletBalanceAsync.value?.let {
         HomeSideEffect.NavigateToDetails(transaction, it.walletBalance.creditsOnlyFiat.currency)
       }
+    }
+  }
+
+  fun onBackupClick() {
+    val model: TransactionsWalletModel? =
+      state.transactionsModelAsync.value?.transactionsWalletModel
+    if (model != null) {
+      val wallet = model.wallet
+      sendSideEffect { HomeSideEffect.NavigateToBackup(wallet.address) }
+      walletsEventSender.sendCreateBackupEvent(
+        WalletsAnalytics.ACTION_CREATE,
+        WalletsAnalytics.CONTEXT_CARD,
+        WalletsAnalytics.STATUS_SUCCESS
+      )
     }
   }
 
@@ -364,17 +386,7 @@ class HomeViewModel @Inject constructor(
         dismissNotification(cardNotification)
       }
       CardNotificationAction.BACKUP -> {
-        val model: TransactionsWalletModel? =
-          state.transactionsModelAsync.value?.transactionsWalletModel
-        if (model != null) {
-          val wallet = model.wallet
-          sendSideEffect { HomeSideEffect.NavigateToBackup(wallet.address) }
-          walletsEventSender.sendCreateBackupEvent(
-            WalletsAnalytics.ACTION_CREATE,
-            WalletsAnalytics.CONTEXT_CARD,
-            WalletsAnalytics.STATUS_SUCCESS
-          )
-        }
+        onBackupClick()
       }
       CardNotificationAction.NONE -> {}
     }

@@ -1,6 +1,5 @@
 package com.appcoins.wallet.ui.widgets
 
-import androidx.appcompat.widget.MenuPopupWindow.MenuDropDownListView
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
@@ -15,14 +14,12 @@ import androidx.compose.ui.unit.dp
 import com.appcoins.wallet.ui.common.theme.WalletColors
 import com.appcoins.wallet.ui.widgets.component.BalanceValue
 import com.appcoins.wallet.ui.widgets.component.ButtonWithIcon
-import java.math.BigDecimal
-import java.util.*
 
 @Composable
 fun BalanceCard(
-  balance: BigDecimal,
-  currency: Currency,
-  menuItems: List<MenuDropDownListView>,
+  balance: String,
+  currencyCode: String,
+  onClickCurrencies: () -> Unit,
   onClickTransfer: () -> Unit,
   onClickTopUp: () -> Unit,
   onClickBackup: (() -> Unit)? = null,
@@ -40,11 +37,11 @@ fun BalanceCard(
           modifier = Modifier.fillMaxWidth(),
           horizontalArrangement = Arrangement.SpaceBetween
         ) {
-          BalanceValue(balance, currency)
+          BalanceValue(balance, currencyCode, onClickCurrencies)
           VectorIconButton(
             imageVector = Icons.Default.MoreVert,
             contentDescription = R.string.action_more_details,
-            onClick = {}) //TODO show $menuItems
+            onClick = {}) //TODO create Bottom Sheet using @BalanceCardMenuOptions
         }
         Spacer(modifier = Modifier.height(12.dp))
         Row(
@@ -90,9 +87,9 @@ fun BalanceCard(
 @Composable
 fun PreviewBalanceCard() {
   BalanceCard(
-    balance = BigDecimal(30.12),
-    currency = Currency.getAvailableCurrencies().first { it.displayName.equals("Euro") },
-    menuItems = listOf(),
+    balance = "€ 30.12",
+    currencyCode = "Eur",
+    onClickCurrencies = {},
     onClickTransfer = {},
     onClickBackup = {},
     onClickTopUp = {}
