@@ -30,7 +30,8 @@ fun ButtonWithIcon(
     onClick = onClick,
     shape = CircleShape,
     colors = ButtonDefaults.buttonColors(backgroundColor = backgroundColor),
-    elevation = null
+    elevation = null,
+    modifier = Modifier.defaultMinSize(minHeight = 40.dp)
   ) {
     Row(verticalAlignment = Alignment.CenterVertically) {
       Icon(
@@ -59,7 +60,9 @@ fun ButtonWithText(
 ) {
   Button(
     onClick = { onClick.invoke() },
-    modifier = Modifier.fillMaxWidth(),
+    modifier = Modifier
+      .fillMaxWidth()
+      .defaultMinSize(minHeight = 40.dp),
     shape = CircleShape,
     colors = ButtonDefaults.buttonColors(backgroundColor = backgroundColor),
     border = BorderStroke(width = 1.dp, color = outlineColor ?: Color.Transparent)

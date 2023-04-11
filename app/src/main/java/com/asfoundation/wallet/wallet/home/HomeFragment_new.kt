@@ -28,7 +28,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.appcoins.wallet.core.utils.android_common.RootUtil
-import com.appcoins.wallet.core.utils.android_common.WalletCurrency
+import com.appcoins.wallet.core.utils.android_common.WalletCurrency.FIAT
 import com.appcoins.wallet.ui.arch.Async
 import com.appcoins.wallet.ui.arch.SingleStateFragment
 import com.appcoins.wallet.ui.common.theme.WalletColors
@@ -37,7 +37,6 @@ import com.appcoins.wallet.ui.widgets.TopBar
 import com.asf.wallet.R
 import com.asfoundation.wallet.entity.GlobalBalance
 import com.asfoundation.wallet.support.SupportNotificationProperties
-import com.asfoundation.wallet.ui.iab.FiatValue
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
 import io.intercom.android.sdk.Intercom
@@ -137,14 +136,18 @@ class HomeFragment_new: BasePageViewFragment(), SingleStateFragment<HomeState, H
         .verticalScroll(rememberScrollState())
         .padding(padding),
     ) {
-      BalanceCard(
-        balance = viewModel.balance.value.symbol + viewModel.balance.value.amount,
-        currencyCode = viewModel.balance.value.currency,
-        onClickCurrencies = { viewModel.onCurrencySelectorClick() },
-        onClickTransfer = { Toast.makeText(context, "In progress", Toast.LENGTH_SHORT).show() },
-        onClickBackup = { viewModel.onBackupClick() },
-        onClickTopUp = { viewModel.onTopUpClick() }
-      )
+      with(viewModel.balance.value) {
+        BalanceCard(
+          balance = symbol + formatter.formatCurrency(amount, FIAT),
+          currencyCode = currency,
+          onClickCurrencies = { viewModel.onCurrencySelectorClick() },
+          onClickTransfer = {
+            Toast.makeText(context, "In progress", Toast.LENGTH_SHORT).show()
+          }, //TODO create transfer screen
+          onClickBackup = { viewModel.onBackupClick() },
+          onClickTopUp = { viewModel.onTopUpClick() }
+        )
+      }
       //TODO replace with home composables
       DummyCard()
       DummyCard()
@@ -252,20 +255,10 @@ class HomeFragment_new: BasePageViewFragment(), SingleStateFragment<HomeState, H
       is Async.Loading -> {
         //TODO loading
       }
-      is Async.Success -> {
-        val creditsBalanceFiat = balanceAsync().walletBalance.creditsOnlyFiat
-        val creditsFiatAmount =
-          formatter.formatCurrency(creditsBalanceFiat.amount, WalletCurrency.FIAT)
-
-        if (creditsBalanceFiat.amount > BigDecimal("-1") && creditsBalanceFiat.symbol.isNotEmpty()
-        ) {
-          viewModel.balance.value = FiatValue(
-            amount = BigDecimal(creditsFiatAmount),
-            symbol = creditsBalanceFiat.symbol,
-            currency = creditsBalanceFiat.currency
-          )
+      is Async.Success ->
+        with(balanceAsync().walletBalance.creditsOnlyFiat) {
+          if (amount >= BigDecimal.ZERO && symbol.isNotEmpty()) viewModel.balance.value = this
         }
-      }
       else -> Unit
     }
   }
