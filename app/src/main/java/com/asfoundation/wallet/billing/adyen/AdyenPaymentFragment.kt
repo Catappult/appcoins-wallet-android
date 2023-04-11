@@ -339,8 +339,8 @@ class AdyenPaymentFragment : BasePageViewFragment(), AdyenPaymentView {
       change_card_button?.visibility = View.INVISIBLE
       cancel_button.visibility = View.INVISIBLE
       buy_button.visibility = View.INVISIBLE
-      fiat_price_skeleton?.visibility = GONE
-      appc_price_skeleton?.visibility = GONE
+      fiat_price_skeleton.visibility = GONE
+      appc_price_skeleton.visibility = GONE
     }
   }
 
@@ -362,7 +362,7 @@ class AdyenPaymentFragment : BasePageViewFragment(), AdyenPaymentView {
 
   override fun showSuccess(renewal: Date?) {
     iab_activity_transaction_completed.visibility = VISIBLE
-    fragment_credit_card_authorization_progress_bar?.visibility = GONE
+    fragment_credit_card_authorization_progress_bar.visibility = GONE
     if (isSubscription && renewal != null) {
       next_payment_date.visibility = VISIBLE
       setBonusMessage(renewal)
@@ -371,7 +371,7 @@ class AdyenPaymentFragment : BasePageViewFragment(), AdyenPaymentView {
       main_view?.visibility = GONE
       main_view_pre_selected?.visibility = GONE
     } else {
-      fragment_credit_card_authorization_progress_bar?.visibility = GONE
+      fragment_credit_card_authorization_progress_bar.visibility = GONE
       credit_card_info?.visibility = GONE
       lottie_transaction_success.visibility = VISIBLE
       fragment_adyen_error?.visibility = GONE
@@ -526,8 +526,8 @@ class AdyenPaymentFragment : BasePageViewFragment(), AdyenPaymentView {
       appc_price.text = "~${appc_price.text}"
     }
     fiat_price.text = fiatText
-    fiat_price_skeleton?.visibility = GONE
-    appc_price_skeleton?.visibility = GONE
+    fiat_price_skeleton.visibility = GONE
+    appc_price_skeleton.visibility = GONE
     fiat_price.visibility = VISIBLE
     appc_price.visibility = VISIBLE
   }
