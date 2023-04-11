@@ -32,8 +32,8 @@
   </style>
 
   <style name="ThemeOverlay.App.RadioButton" parent="">
-    <item name="colorOnSurface">@color/styleguide_dark_grey</item>
-    <item name="colorPrimary">@color/styleguide_red</item>
+    <item name="colorOnSurface">@color/radio_button_color</item>
+    <item name="colorPrimary">@color/radio_button_color</item>
   </style>
 
   <style name="AppBottomSheetDialogThemeNotDraggable" parent="@style/ThemeOverlay.MaterialComponents.BottomSheetDialog">
