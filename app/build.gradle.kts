@@ -43,6 +43,7 @@ dependencies {
   implementation(project(":ui:common"))
   implementation(project(":ui:arch"))
   implementation(project(":ui:widgets"))
+  implementation(project(":home"))
 
   implementation(libs.kotlin.coroutines)
 

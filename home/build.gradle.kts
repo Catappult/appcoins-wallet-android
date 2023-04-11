@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-  namespace = "com.appcoins.wallet.ui.widgets"
+  namespace = "com.appcoins.wallet.home"
   defaultConfig {
     buildFeatures {
       viewBinding = true
@@ -18,10 +18,12 @@ android {
 
 dependencies {
   implementation(project(":ui:common"))
-  implementation(project(":core:utils:android-common"))
+  implementation(project(":ui:arch"))
+  implementation(project(":ui:widgets"))
 
   implementation(libs.androidx.recyclerview)
   implementation(libs.androidx.navigation.ui)
+  implementation(libs.bundles.androidx.compose)
 
   implementation(libs.zxing.android)
   implementation(libs.glide)
@@ -29,5 +31,4 @@ dependencies {
   kapt(libs.epoxy.processor)
   implementation(libs.viewbinding.delegate)
   implementation(libs.androidx.appcompact)
-  implementation(libs.bundles.androidx.compose)
 }

@@ -1,5 +1,8 @@
 package com.appcoins.wallet.ui.widgets
 
+import android.app.Activity
+import android.content.Context
+import android.content.ContextWrapper
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -9,10 +12,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.appcoins.wallet.core.utils.android_common.extensions.getActivity
 import com.appcoins.wallet.ui.common.theme.WalletColors
 
 @Composable
@@ -22,7 +27,7 @@ fun TopBar(
   onClickNotifications: () -> Unit = {},
   onClickSettings: () -> Unit = {},
   onClickSupport: () -> Unit = {},
-  onClickBack: () -> Unit = {}
+  onClickBack: (() -> Unit)? = null
 ) {
   TopAppBar(
     modifier = Modifier
@@ -44,11 +49,21 @@ fun TopBar(
             .heightIn(max = 24.dp)
         )
       } else {
-        ActionButton(
-          imagePainter = painterResource(R.drawable.ic_arrow_back),
-          description = "Back",
-          onClick = onClickBack
-        )
+        if (onClickBack != null)
+          ActionButton(
+            imagePainter = painterResource(R.drawable.ic_arrow_back),
+            description = "Back",
+            onClick = onClickBack
+          )
+        else {
+          val activity = LocalContext.current.getActivity()
+          if (activity != null)
+            ActionButton(
+              imagePainter = painterResource(R.drawable.ic_arrow_back),
+              description = "Back",
+              onClick = { activity.onBackPressed() }
+            )
+        }
       }
 
       Spacer(Modifier.weight(1f))
