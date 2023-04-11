@@ -246,6 +246,7 @@ jackson = ["jackson-annotation", "jackson-databind"]
 hilt-implementation = ["hilt-android", "hilt-interface-extensions", "androidx-compose-hilt-navigation"]
 hilt-kapt = ["hilt-compiler", "hilt-interface-extensions-processor"]
 rx = ["rx-rxjava", "rx-rxandroid", "rx-rxbinding"]
+result = ["kotlin-result-coroutines", "kotlin-result"]
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "gradle_plugin_version" }
