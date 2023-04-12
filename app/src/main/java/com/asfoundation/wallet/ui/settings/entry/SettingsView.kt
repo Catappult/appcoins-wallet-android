@@ -50,6 +50,10 @@ interface SettingsView {
 
   fun setBackupPreference()
 
+  fun setManageWalletPreference()
+
+  fun setAccountPreference()
+
   fun setManageSubscriptionsPreference()
 
   fun removeFingerprintPreference()

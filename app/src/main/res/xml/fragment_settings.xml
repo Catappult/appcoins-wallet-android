@@ -1,48 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-  <com.asfoundation.wallet.promo_code.SettingsPreferencePromoCodeState
-      android:icon="@drawable/ic_influencer"
-      android:key="pref_promo_code"
-      android:layout="@layout/preference_promo_code_layout"
-      android:title="@string/promo_code_settings_title" />
-
-  <Preference
-      android:icon="@drawable/ic_settings_redeem"
-      android:key="pref_redeem"
-      android:layout="@layout/preference_without_summary_layout"
-      android:title="@string/title_redeem" />
-
-  <Preference
-      android:icon="@drawable/ic_withdraw_icon"
-      android:key="pref_withdraw"
-      android:layout="@layout/preference_without_summary_layout"
-      android:title="@string/e_skills_withdraw_settings_title" />
-
-  <Preference
-      android:icon="@drawable/ic_backup_black"
-      android:key="pref_backup"
-      android:layout="@layout/preference_without_summary_layout"
-      android:title="@string/action_backup_wallet" />
-  <Preference
-      android:icon="@drawable/ic_restore_black"
-      android:key="pref_restore"
-      android:layout="@layout/preference_without_summary_layout"
-      android:title="@string/import_wallet_title" />
-
-  <Preference
-      android:icon="@drawable/ic_manage_subscriptions"
-      android:key="pref_manage_subscriptions"
-      android:layout="@layout/preference_without_summary_layout"
-      android:title="@string/subscriptions_settings_title" />
-
   <PreferenceCategory
-      android:layout="@layout/preference_category_layout"
-      android:title="@string/preferences_title"
+      android:layout="@layout/preference_category_header_layout"
+      android:title="@string/action_settings"
       app:allowDividerAbove="false">
+
+    <!-- TODO change to string resources-->
+    <Preference
+        android:icon="@drawable/ic_manage_wallet"
+        android:key="pref_manage_wallet"
+        android:layout="@layout/preference_without_summary_layout"
+        android:title="Manage wallet" />
+
+    <Preference
+        android:icon="@drawable/ic_manage_subscriptions"
+        android:key="pref_manage_subscriptions"
+        android:layout="@layout/preference_without_summary_layout"
+        android:title="@string/subscriptions_settings_title" />
+
+    <!-- TODO change to string resources-->
+    <Preference
+        android:icon="@drawable/ic_account"
+        android:key="pref_account"
+        android:layout="@layout/preference_without_summary_layout"
+        android:title="Account" />
 
     <com.asfoundation.wallet.change_currency.SettingsCurrencyPreference
         android:icon="@drawable/ic_currency"
@@ -50,44 +36,19 @@
         android:layout="@layout/preferences_with_active_currency_layout"
         android:title="@string/change_currency_settings_title" />
 
+    <!-- TODO change string to "Fingerprint"-->
     <SwitchPreferenceCompat
+        tools:layout="@layout/preference_fingerprint"
         android:id="@+id/preference_fingerprint"
         android:icon="@drawable/ic_settings_fingerprint"
         android:key="pref_fingerprint"
         android:title="@string/fingerprint_settings" />
 
     <Preference
-        android:icon="@drawable/ic_settings_permissions"
-        android:key="pref_permissions"
-        android:layout="@layout/preference_without_summary_layout"
-        android:title="@string/permissions_title" />
-
-  </PreferenceCategory>
-
-  <PreferenceCategory
-      android:key="pref_support"
-      android:layout="@layout/preference_category_layout"
-      android:title="@string/title_support"
-      app:allowDividerAbove="false">
-
-    <Preference
-        android:icon="@drawable/ic_settings_faqs"
-        android:key="pref_faqs"
-        android:layout="@layout/preference_without_summary_layout"
-        android:title="@string/faq" />
-
-    <Preference
-        android:icon="@drawable/ic_issue_report"
-        android:key="pref_contact_support"
-        android:layout="@layout/preference_without_summary_layout"
-        android:title="@string/settings_item_support" />
-
-    <Preference
-        android:icon="@drawable/ic_settings_email"
-        android:key="pref_email"
-        android:layout="@layout/preference_without_summary_layout"
-        android:title="@string/title_email" />
-
+        android:icon="@drawable/ic_updates"
+        android:key="pref_version"
+        android:layout="@layout/preference_with_summary_layout"
+        android:title="@string/check_updates_settings_title" />
   </PreferenceCategory>
 
   <PreferenceCategory
@@ -97,59 +58,115 @@
       app:allowDividerAbove="false">
 
     <Preference
-        android:icon="@drawable/ic_settings_twt"
+        android:icon="@drawable/ic_twitter"
         android:key="pref_twitter"
         android:layout="@layout/preference_without_summary_layout"
         android:title="@string/twitter" />
 
     <Preference
-        android:icon="@drawable/ic_settings_telegram"
-        android:key="pref_telegram"
-        android:layout="@layout/preference_without_summary_layout"
-        android:title="@string/telegram" />
-
-    <Preference
-        android:icon="@drawable/ic_settings_fb"
+        android:icon="@drawable/ic_facebook"
         android:key="pref_facebook"
         android:layout="@layout/preference_without_summary_layout"
         android:title="@string/facebook" />
 
     <Preference
-        android:icon="@drawable/ic_settings_sourcecode"
-        android:key="pref_source_code"
+        android:icon="@drawable/ic_telegram"
+        android:key="pref_telegram"
         android:layout="@layout/preference_without_summary_layout"
-        android:title="@string/title_source_code" />
-
+        android:title="@string/telegram" />
   </PreferenceCategory>
 
   <PreferenceCategory
+      android:key="pref_support"
       android:layout="@layout/preference_category_layout"
-      android:title="@string/about_us_title"
+      android:title="@string/title_support"
       app:allowDividerAbove="false">
 
     <Preference
-        android:icon="@drawable/ic_settings_privacypolicy"
+        android:icon="@drawable/ic_faqs"
+        android:key="pref_faqs"
+        android:layout="@layout/preference_without_summary_layout"
+        android:title="@string/faq" />
+
+    <Preference
+        android:icon="@drawable/ic_support"
+        android:key="pref_contact_support"
+        android:layout="@layout/preference_without_summary_layout"
+        android:title="@string/settings_item_support" />
+
+    <Preference
+        android:icon="@drawable/ic_privacy_policy"
         android:key="pref_privacy_policy"
         android:layout="@layout/preference_without_summary_layout"
         android:title="@string/title_privacy_policy" />
 
     <Preference
-        android:icon="@drawable/ic_settings_termsconditions"
+        android:icon="@drawable/ic_terms_conditions"
         android:key="pref_terms_condition"
         android:layout="@layout/preference_without_summary_layout"
         android:title="@string/title_terms" />
 
+  </PreferenceCategory>
+
+  <PreferenceCategory
+      android:layout="@layout/preference_category_layout"
+      android:title="@string/title_opensource"
+      app:allowDividerAbove="false">
+
     <Preference
-        android:icon="@drawable/ic_settings_credits"
+        android:icon="@drawable/ic_open_source"
+        android:key="pref_source_code"
+        android:layout="@layout/preference_without_summary_layout"
+        android:title="@string/title_source_code" />
+
+    <Preference
+        android:icon="@drawable/ic_heart"
         android:key="pref_credits"
         android:layout="@layout/preference_without_summary_layout"
         android:title="@string/credits" />
-
-    <Preference
-        android:icon="@drawable/ic_check_for_update"
-        android:key="pref_version"
-        android:layout="@layout/preference_with_summary_layout"
-        android:title="@string/check_updates_settings_title" />
   </PreferenceCategory>
 
+  <!-- TODO exclude-->
+  <PreferenceCategory
+      android:layout="@layout/preference_category_layout"
+      android:title="@string/preferences_title"
+      app:allowDividerAbove="false"
+      app:isPreferenceVisible="false">
+
+    <com.asfoundation.wallet.promo_code.SettingsPreferencePromoCodeState
+        android:icon="@drawable/ic_influencer"
+        android:key="pref_promo_code"
+        android:layout="@layout/preference_promo_code_layout"
+        android:title="@string/promo_code_settings_title" />
+    <Preference
+        android:icon="@drawable/ic_settings_redeem"
+        android:key="pref_redeem"
+        android:layout="@layout/preference_without_summary_layout"
+        android:title="@string/title_redeem" />
+    <Preference
+        android:icon="@drawable/ic_withdraw_icon"
+        android:key="pref_withdraw"
+        android:layout="@layout/preference_without_summary_layout"
+        android:title="@string/e_skills_withdraw_settings_title" />
+    <Preference
+        android:icon="@drawable/ic_backup_black"
+        android:key="pref_backup"
+        android:layout="@layout/preference_without_summary_layout"
+        android:title="@string/action_backup_wallet" />
+    <Preference
+        android:icon="@drawable/ic_restore_black"
+        android:key="pref_restore"
+        android:layout="@layout/preference_without_summary_layout"
+        android:title="@string/import_wallet_title" />
+    <Preference
+        android:icon="@drawable/ic_settings_permissions"
+        android:key="pref_permissions"
+        android:layout="@layout/preference_without_summary_layout"
+        android:title="@string/permissions_title" />
+    <Preference
+        android:icon="@drawable/ic_settings_email"
+        android:key="pref_email"
+        android:layout="@layout/preference_without_summary_layout"
+        android:title="@string/title_email" />
+  </PreferenceCategory>
 </PreferenceScreen>

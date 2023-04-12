@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal"
     android:background="@color/styleguide_blue"
+    android:orientation="horizontal"
     >
 
   <TextView
@@ -13,10 +13,11 @@
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_marginStart="24dp"
-      android:layout_marginTop="24dp"
-      android:layout_marginBottom="12dp"
-      android:textColor="@color/styleguide_dark_grey"
+      android:layout_marginTop="12dp"
+      android:layout_marginBottom="24dp"
+      android:textColor="@color/styleguide_white"
+      android:textSize="24sp"
+      android:textStyle="bold"
       tools:text="@string/action_settings"
       />
-
 </LinearLayout>

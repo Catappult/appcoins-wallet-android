@@ -53,6 +53,8 @@ class SettingsPresenter(
     view.setTermsConditionsPreference()
     view.setCreditsPreference()
     view.setVersionPreference()
+    view.setManageWalletPreference()
+    view.setAccountPreference()
     view.setRestorePreference()
     view.setBackupPreference()
     view.setManageSubscriptionsPreference()
