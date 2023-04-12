@@ -225,10 +225,10 @@ class AdyenPaymentFragment : BasePageViewFragment(), AdyenPaymentView {
     inflater: LayoutInflater,
     container: ViewGroup?,
     savedInstanceState: Bundle?
-  ): View? = if (isPreSelected) {
-    inflater.inflate(R.layout.adyen_credit_card_pre_selected, container, false)
+  ): View = if (isPreSelected) {
+    AdyenCreditCardPreSelectedBinding.inflate(inflater).root
   } else {
-    inflater.inflate(R.layout.adyen_credit_card_layout, container, false)
+    AdyenCreditCardLayoutBinding.inflate(inflater).root
   }
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

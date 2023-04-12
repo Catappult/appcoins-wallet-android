@@ -38,9 +38,7 @@ class RemoveWalletFragment : BasePageViewFragment(), RemoveWalletView {
   }
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                            savedInstanceState: Bundle?): View? {
-    return inflater.inflate(R.layout.remove_wallet_first_layout, container, false)
-  }
+                            savedInstanceState: Bundle?): View = RemoveWalletFirstLayoutBinding.inflate(inflater).root
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)

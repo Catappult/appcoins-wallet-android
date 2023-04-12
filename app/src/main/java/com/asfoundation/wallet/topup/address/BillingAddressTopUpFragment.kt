@@ -8,6 +8,7 @@ import android.view.View
 import android.view.View.VISIBLE
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import androidx.fragment.app.Fragment
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.asf.wallet.R
 import com.asfoundation.wallet.billing.address.BillingAddressModel
@@ -65,9 +66,7 @@ class BillingAddressTopUpFragment : BasePageViewFragment(), BillingAddressTopUpV
   private val binding by viewBinding(FragmentBillingAddressTopUpBinding::bind)
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                            savedInstanceState: Bundle?): View? {
-    return inflater.inflate(R.layout.fragment_billing_address_top_up, container, false)
-  }
+                            savedInstanceState: Bundle?): View = FragmentBillingAddressTopUpBinding.inflate(inflater).root
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)

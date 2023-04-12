@@ -44,9 +44,7 @@ class RecoverEntryFragment : BasePageViewFragment(),
   override fun onCreateView(
     inflater: LayoutInflater, @Nullable container: ViewGroup?,
     @Nullable savedInstanceState: Bundle?
-  ): View? {
-    return inflater.inflate(R.layout.recover_entry_fragment, container, false)
-  }
+  ): View = RecoverEntryFragmentBinding.inflate(inflater).root
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)

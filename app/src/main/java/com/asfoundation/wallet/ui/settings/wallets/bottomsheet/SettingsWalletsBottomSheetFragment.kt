@@ -55,7 +55,7 @@ class SettingsWalletsBottomSheetFragment : BasePageViewFragment(), SettingsWalle
     inflater: LayoutInflater,
     container: ViewGroup?,
     savedInstanceState: Bundle?
-  ): View? = inflater.inflate(R.layout.settings_wallet_bottom_sheet_layout, container, false)
+  ): View = SettingsWalletBottomSheetLayoutBinding.inflate(inflater).root
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)

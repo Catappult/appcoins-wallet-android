@@ -42,9 +42,7 @@ class SubscriptionCancelFragment : BasePageViewFragment(), SubscriptionCancelVie
   }
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                            savedInstanceState: Bundle?): View? {
-    return inflater.inflate(R.layout.fragment_subscription_cancel, container, false)
-  }
+                            savedInstanceState: Bundle?): View = FragmentSubscriptionCancelBinding.inflate(inflater).root
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)

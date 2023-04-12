@@ -69,9 +69,7 @@ class GamificationFragment : BasePageViewFragment(), GamificationView {
   }
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                            savedInstanceState: Bundle?): View? {
-    return inflater.inflate(R.layout.fragment_gamification, container, false)
-  }
+                            savedInstanceState: Bundle?): View = FragmentGamificationBinding.inflate(inflater).root
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)

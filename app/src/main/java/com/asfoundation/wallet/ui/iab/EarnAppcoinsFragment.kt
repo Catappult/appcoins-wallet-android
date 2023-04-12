@@ -57,9 +57,7 @@ class EarnAppcoinsFragment : BasePageViewFragment(), EarnAppcoinsView {
   override fun onCreateView(
     inflater: LayoutInflater, container: ViewGroup?,
     savedInstanceState: Bundle?
-  ): View? {
-    return inflater.inflate(R.layout.earn_appcoins_layout, container, false)
-  }
+  ): View = EarnAppcoinsLayoutBinding.inflate(inflater).root
 
   override fun backButtonClick(): Observable<Any> {
     return RxView.clicks(binding.dialogBuyButtonsPaymentMethods.cancelButton)

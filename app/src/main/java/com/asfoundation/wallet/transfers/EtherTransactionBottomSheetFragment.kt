@@ -55,9 +55,7 @@ class EtherTransactionBottomSheetFragment : BottomSheetDialogFragment(),
   }
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                            savedInstanceState: Bundle?): View? {
-    return inflater.inflate(R.layout.ether_transaction_bottom_sheet, container, false)
-  }
+                            savedInstanceState: Bundle?): View = EtherTransactionBottomSheetBinding.inflate(inflater).root
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)

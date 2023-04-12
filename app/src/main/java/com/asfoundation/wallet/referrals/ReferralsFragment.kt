@@ -40,9 +40,7 @@ class ReferralsFragment : BasePageViewFragment(), ReferralsView {
   }
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                            savedInstanceState: Bundle?): View? {
-    return inflater.inflate(R.layout.referrals_layout, container, false)
-  }
+                            savedInstanceState: Bundle?): View = ReferralsLayoutBinding.inflate(inflater).root
 
   override fun setupLayout() {
     val totalAvailable = completedInvites + available

@@ -34,9 +34,7 @@ class SubscriptionListFragment : BasePageViewFragment(), SubscriptionListView {
   }
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                            savedInstanceState: Bundle?): View? {
-    return inflater.inflate(R.layout.fragment_subscription_list, container, false)
-  }
+                            savedInstanceState: Bundle?): View = FragmentSubscriptionListBinding.inflate(inflater).root
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)

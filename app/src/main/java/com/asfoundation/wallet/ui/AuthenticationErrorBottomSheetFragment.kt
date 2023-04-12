@@ -46,9 +46,7 @@ class AuthenticationErrorBottomSheetFragment : Fragment(), AuthenticationErrorBo
   }
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                            savedInstanceState: Bundle?): View? {
-    return inflater.inflate(R.layout.authentication_error_bottomsheet, container, false)
-  }
+                            savedInstanceState: Bundle?): View = AuthenticationErrorBottomsheetBinding.inflate(inflater).root
 
   override fun getButtonClick() = RxView.clicks(binding.retryAuthentication)
 

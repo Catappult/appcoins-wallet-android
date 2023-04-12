@@ -115,9 +115,7 @@ class BillingWebViewFragment : BasePageViewFragment() {
   override fun onCreateView(
     inflater: LayoutInflater, container: ViewGroup?,
     savedInstanceState: Bundle?
-  ): View? {
-    return inflater.inflate(R.layout.webview_fragment, container, false)
-  }
+  ): View = WebviewFragmentBinding.inflate(inflater).root
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)

@@ -98,9 +98,7 @@ class PermissionsListFragment : BasePageViewFragment(), PermissionsListView {
   }
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                            savedInstanceState: Bundle?): View? {
-    return inflater.inflate(R.layout.fragment_permissions_list_layout, container, false)
-  }
+                            savedInstanceState: Bundle?): View = FragmentPermissionsListLayoutBinding.inflate(inflater).root
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)

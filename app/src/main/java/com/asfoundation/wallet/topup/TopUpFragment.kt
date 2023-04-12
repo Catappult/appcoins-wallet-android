@@ -141,7 +141,7 @@ class TopUpFragment : BasePageViewFragment(), TopUpFragmentView {
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                             savedInstanceState: Bundle?): View? {
     fragmentContainer = container!!
-    return inflater.inflate(R.layout.fragment_top_up, container, false)
+    return FragmentTopUpBinding.inflate(inflater).root
   }
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

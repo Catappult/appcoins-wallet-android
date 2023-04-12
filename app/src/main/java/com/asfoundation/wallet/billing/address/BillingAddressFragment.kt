@@ -82,9 +82,7 @@ class BillingAddressFragment : BasePageViewFragment(), BillingAddressView {
   override fun onCreateView(
     inflater: LayoutInflater, container: ViewGroup?,
     savedInstanceState: Bundle?
-  ): View? {
-    return inflater.inflate(R.layout.fragment_billing_address, container, false)
-  }
+  ): View = FragmentBillingAddressBinding.inflate(inflater).root
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)

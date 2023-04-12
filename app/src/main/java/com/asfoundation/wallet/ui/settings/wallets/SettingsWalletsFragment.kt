@@ -46,7 +46,7 @@ class SettingsWalletsFragment : Fragment(), SettingsWalletsView {
         .replace(R.id.bottom_sheet_fragment_container,
             SettingsWalletsBottomSheetFragment.newInstance(walletsModel))
         .commit()
-    return inflater.inflate(R.layout.settings_wallets_layout, container, false)
+    return SettingsWalletsLayoutBinding.inflate(layoutInflater).root
   }
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

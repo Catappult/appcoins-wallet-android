@@ -48,9 +48,7 @@ class SubscriptionDetailsFragment : BasePageViewFragment(), SubscriptionDetailsV
   }
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                            savedInstanceState: Bundle?): View? {
-    return inflater.inflate(R.layout.fragment_subscription_details, container, false)
-  }
+                            savedInstanceState: Bundle?): View = FragmentSubscriptionDetailsBinding.inflate(inflater).root
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)

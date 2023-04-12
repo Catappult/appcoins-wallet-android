@@ -70,9 +70,7 @@ class LocalTopUpPaymentFragment : BasePageViewFragment(), LocalTopUpPaymentView 
   }
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                            savedInstanceState: Bundle?): View? {
-    return inflater.inflate(R.layout.local_topup_payment_layout, container, false)
-  }
+                            savedInstanceState: Bundle?): View = LocalTopupPaymentLayoutBinding.inflate(inflater).root
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)

@@ -111,9 +111,7 @@ class LocalPaymentFragment : BasePageViewFragment(), LocalPaymentView {
   }
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                            savedInstanceState: Bundle?): View? {
-    return inflater.inflate(R.layout.local_payment_layout, container, false)
-  }
+                            savedInstanceState: Bundle?): View = LocalPaymentLayoutBinding.inflate(inflater).root
 
   override fun getErrorDismissClick() = RxView.clicks(binding.errorView.errorDismiss)
 

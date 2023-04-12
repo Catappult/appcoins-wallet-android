@@ -88,9 +88,7 @@ class VerificationCodeFragment : BasePageViewFragment(), VerificationCodeView {
   }
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                            savedInstanceState: Bundle?): View? {
-    return inflater.inflate(R.layout.fragment_verification_code, container, false)
-  }
+                            savedInstanceState: Bundle?): View = FragmentVerificationCodeBinding.inflate(inflater).root
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)

@@ -84,9 +84,7 @@ class OverlayFragment : BasePageViewFragment(), OverlayView {
   }
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                            savedInstanceState: Bundle?): View? {
-    return inflater.inflate(R.layout.overlay_fragment, container, false)
-  }
+                            savedInstanceState: Bundle?): View = OverlayFragmentBinding.inflate(inflater).root
 
   override fun discoverClick(): Observable<Any> {
     return RxView.clicks(binding.discoverButton)

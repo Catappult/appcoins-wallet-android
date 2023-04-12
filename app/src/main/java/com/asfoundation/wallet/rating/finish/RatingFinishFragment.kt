@@ -31,9 +31,7 @@ class RatingFinishFragment : BasePageViewFragment(), RatingFinishView {
   }
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                            savedInstanceState: Bundle?): View? {
-    return inflater.inflate(R.layout.fragment_rating_finish, container, false)
-  }
+                            savedInstanceState: Bundle?): View = FragmentRatingFinishBinding.inflate(inflater).root
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)

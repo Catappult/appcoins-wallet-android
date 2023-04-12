@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.asf.wallet.R
 import com.appcoins.wallet.core.utils.android_common.extensions.scaleToString
+import com.asf.wallet.databinding.InviteFriendsActivityLayoutBinding
 import com.asf.wallet.databinding.InviteFriendsFragmentLayoutBinding
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import com.google.android.material.bottomsheet.BottomSheetBehavior
@@ -61,7 +62,7 @@ class InviteFriendsFragment : BasePageViewFragment(), InviteFriendsFragmentView 
             ReferralsFragment.newInstance(amount, pendingAmount, currency, completedInvites,
                 receivedAmount, maxAmount, available, isRedeemed))
         .commit()
-    return inflater.inflate(R.layout.invite_friends_fragment_layout, container, false)
+    return InviteFriendsFragmentLayoutBinding.inflate(inflater).root
   }
 
   private fun animateBackgroundFade() {

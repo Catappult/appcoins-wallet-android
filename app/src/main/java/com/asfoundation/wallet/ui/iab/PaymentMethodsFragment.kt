@@ -176,9 +176,7 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
     inflater: LayoutInflater,
     container: ViewGroup?,
     savedInstanceState: Bundle?
-  ): View? {
-    return inflater.inflate(R.layout.payment_methods_layout, container, false)
-  }
+  ): View = PaymentMethodsLayoutBinding.inflate(inflater).root
 
   override fun onSaveInstanceState(outState: Bundle) {
     super.onSaveInstanceState(outState)

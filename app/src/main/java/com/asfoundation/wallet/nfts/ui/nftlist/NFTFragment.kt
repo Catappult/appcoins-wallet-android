@@ -31,9 +31,7 @@ class NFTFragment : BasePageViewFragment(),
   private val views by viewBinding(FragmentNftsBinding::bind)
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                            savedInstanceState: Bundle?): View? {
-    return inflater.inflate(R.layout.fragment_nfts, container, false)
-  }
+                            savedInstanceState: Bundle?): View = FragmentNftsBinding.inflate(inflater).root
 
   override fun onResume() {
     super.onResume()

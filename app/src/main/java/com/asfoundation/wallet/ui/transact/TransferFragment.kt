@@ -52,9 +52,7 @@ class TransferFragment : BasePageViewFragment(), TransferFragmentView {
   }
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                            savedInstanceState: Bundle?): View? {
-    return inflater.inflate(R.layout.transact_fragment_layout, container, false)
-  }
+                            savedInstanceState: Bundle?): View = TransactFragmentLayoutBinding.inflate(inflater).root
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)

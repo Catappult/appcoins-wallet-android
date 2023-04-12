@@ -68,9 +68,7 @@ class VerificationIntroFragment : BasePageViewFragment(), VerificationIntroView 
   override fun onCreateView(
     inflater: LayoutInflater, container: ViewGroup?,
     savedInstanceState: Bundle?
-  ): View? {
-    return inflater.inflate(R.layout.fragment_verification_intro, container, false)
-  }
+  ): View = FragmentVerificationIntroBinding.inflate(inflater).root
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)

@@ -24,9 +24,7 @@ class SubscriptionSuccessFragment : BasePageViewFragment(), SubscriptionSuccessV
   private val binding by viewBinding(FragmentSubscriptionCancelSuccessBinding::bind)
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                            savedInstanceState: Bundle?): View? {
-    return inflater.inflate(R.layout.fragment_subscription_cancel_success, container, false)
-  }
+                            savedInstanceState: Bundle?): View = FragmentSubscriptionCancelSuccessBinding.inflate(inflater).root
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)

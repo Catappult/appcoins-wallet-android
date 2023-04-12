@@ -43,9 +43,7 @@ class CarrierFeeFragment : BasePageViewFragment(), CarrierFeeView {
   override fun onCreateView(
     inflater: LayoutInflater, container: ViewGroup?,
     savedInstanceState: Bundle?
-  ): View? {
-    return inflater.inflate(R.layout.fragment_carrier_confirm, container, false)
-  }
+  ): View = FragmentCarrierConfirmBinding.inflate(inflater).root
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)

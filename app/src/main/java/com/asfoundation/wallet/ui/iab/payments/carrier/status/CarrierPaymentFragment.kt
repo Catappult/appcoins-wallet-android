@@ -33,9 +33,7 @@ class CarrierPaymentFragment : BasePageViewFragment(), CarrierPaymentView {
   private val views by viewBinding(FragmentCarrierPaymentStatusBinding::bind)
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                            savedInstanceState: Bundle?): View? {
-    return inflater.inflate(R.layout.fragment_carrier_payment_status, container, false)
-  }
+                            savedInstanceState: Bundle?): View = FragmentCarrierPaymentStatusBinding.inflate(inflater).root
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)

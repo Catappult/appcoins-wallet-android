@@ -100,9 +100,7 @@ class TopUpSuccessFragment : BasePageViewFragment(), TopUpSuccessFragmentView {
   }
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                            savedInstanceState: Bundle?): View? {
-    return inflater.inflate(R.layout.fragment_top_up_success, container, false)
-  }
+                            savedInstanceState: Bundle?): View = FragmentTopUpSuccessBinding.inflate(inflater).root
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     presenter.present()

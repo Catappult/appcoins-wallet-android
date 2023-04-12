@@ -135,9 +135,7 @@ class AdyenTopUpFragment : BasePageViewFragment(), AdyenTopUpView {
   override fun onCreateView(
     inflater: LayoutInflater, container: ViewGroup?,
     savedInstanceState: Bundle?
-  ): View? {
-    return inflater.inflate(R.layout.fragment_adyen_top_up, container, false)
-  }
+  ): View = FragmentAdyenTopUpBinding.inflate(inflater).root
 
   override fun onSaveInstanceState(outState: Bundle) {
     super.onSaveInstanceState(outState)

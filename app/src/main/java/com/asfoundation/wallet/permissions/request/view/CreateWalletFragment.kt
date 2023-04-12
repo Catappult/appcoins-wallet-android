@@ -51,9 +51,7 @@ class CreateWalletFragment : BasePageViewFragment(), CreateWalletView {
   }
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                            savedInstanceState: Bundle?): View? {
-    return inflater.inflate(R.layout.fragment_create_wallet_layout, container, false)
-  }
+                            savedInstanceState: Bundle?): View = FragmentCreateWalletLayoutBinding.inflate(inflater).root
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)

@@ -39,7 +39,7 @@ class CreateWalletDialogFragment : DialogFragment(),
   override fun onCreateView(
     inflater: LayoutInflater, container: ViewGroup?,
     savedInstanceState: Bundle?
-  ): View? = inflater.inflate(R.layout.fragment_create_wallet_dialog_layout, container, false)
+  ): View = FragmentCreateWalletDialogLayoutBinding.inflate(inflater).root
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)

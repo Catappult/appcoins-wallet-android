@@ -32,7 +32,7 @@ class NameDialogFragment : BottomSheetDialogFragment(),
     inflater: LayoutInflater,
     container: ViewGroup?,
     savedInstanceState: Bundle?
-  ): View = inflater.inflate(R.layout.fragment_my_wallets_name, container, false)
+  ): View = FragmentMyWalletsNameBinding.inflate(inflater).root
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)

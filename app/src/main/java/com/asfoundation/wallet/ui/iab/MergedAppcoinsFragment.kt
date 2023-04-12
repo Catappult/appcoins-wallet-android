@@ -266,7 +266,7 @@ class MergedAppcoinsFragment : BasePageViewFragment(), MergedAppcoinsView {
     inflater: LayoutInflater,
     container: ViewGroup?,
     savedInstanceState: Bundle?
-  ): View? = inflater.inflate(R.layout.merged_appcoins_layout, container, false)
+  ): View = MergedAppcoinsLayoutBinding.inflate(inflater).root
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)

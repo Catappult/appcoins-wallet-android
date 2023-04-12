@@ -46,9 +46,7 @@ class InviteFriendsVerificationFragment : BasePageViewFragment(), InviteFriendsV
   }
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                            savedInstanceState: Bundle?): View? {
-    return inflater.inflate(R.layout.invite_friends_verification_layout, container, false)
-  }
+                            savedInstanceState: Bundle?): View = InviteFriendsVerificationLayoutBinding.inflate(inflater).root
 
   private fun setDescriptionText() {
     val formattedAmount = formatter.formatCurrency(amount, WalletCurrency.FIAT)

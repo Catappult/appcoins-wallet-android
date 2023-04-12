@@ -66,7 +66,7 @@ class AuthenticationErrorFragment : BasePageViewFragment(), AuthenticationErrorV
         .replace(R.id.bottom_error_fragment_container,
             AuthenticationErrorBottomSheetFragment.newInstance(errorTimer))
         .commit()
-    return inflater.inflate(R.layout.authentication_error_fragment, container, false)
+    return AuthenticationErrorFragmentBinding.inflate(inflater).root
   }
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

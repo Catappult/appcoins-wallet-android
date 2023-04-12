@@ -54,9 +54,7 @@ class VerificationPaypalFragment : BasePageViewFragment(),
   }
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                            savedInstanceState: Bundle?): View? {
-    return inflater.inflate(R.layout.fragment_verify_paypal_intro, container, false)
-  }
+                            savedInstanceState: Bundle?): View = FragmentVerifyPaypalIntroBinding.inflate(inflater).root
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)

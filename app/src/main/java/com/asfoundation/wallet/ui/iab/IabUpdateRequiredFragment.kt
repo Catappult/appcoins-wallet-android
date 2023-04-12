@@ -75,9 +75,7 @@ class IabUpdateRequiredFragment : BasePageViewFragment(), IabUpdateRequiredView 
   override fun onCreateView(
     inflater: LayoutInflater, container: ViewGroup?,
     savedInstanceState: Bundle?
-  ): View? {
-    return inflater.inflate(R.layout.iab_update_required_layout, container, false)
-  }
+  ): View = IabUpdateRequiredLayoutBinding.inflate(inflater).root
 
   override fun navigateToIntent(intent: Intent) = startActivity(intent)
 

@@ -54,9 +54,7 @@ class AppcoinsCreditsTransferSuccessFragment : BasePageViewFragment(),
   }
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                            savedInstanceState: Bundle?): View? {
-    return inflater.inflate(R.layout.transact_success_fragment_layout, container, false)
-  }
+                            savedInstanceState: Bundle?): View = TransactSuccessFragmentLayoutBinding.inflate(inflater).root
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)

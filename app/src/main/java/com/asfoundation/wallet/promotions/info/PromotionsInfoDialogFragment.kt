@@ -17,9 +17,7 @@ class PromotionsInfoDialogFragment : BottomSheetDialogFragment() {
   private val views by viewBinding(GamificationInfoBottomSheetBinding::bind)
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                            savedInstanceState: Bundle?): View? {
-    return inflater.inflate(R.layout.gamification_info_bottom_sheet, container, false)
-  }
+                            savedInstanceState: Bundle?): View = GamificationInfoBottomSheetBinding.inflate(inflater).root
 
   override fun onStart() {
     val behavior = BottomSheetBehavior.from(requireView().parent as View)
