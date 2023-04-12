@@ -40,13 +40,11 @@ class TopUpAdapter(private val listener: Action1<FiatValue>
 
     private val binding by lazy { ItemTopValueBinding.bind(itemView) }
 
-    private val value get() = binding.value
-
     fun bind(fiatValue: FiatValue, listener: Action1<FiatValue>) {
       val formatter = NumberFormatterUtils.create()
       val text = fiatValue.symbol + formatter.formatNumberWithSuffix(fiatValue.amount.toFloat())
 
-      value.text = text
+      binding.value.text = text
       itemView.setOnClickListener { listener.call(fiatValue) }
     }
   }

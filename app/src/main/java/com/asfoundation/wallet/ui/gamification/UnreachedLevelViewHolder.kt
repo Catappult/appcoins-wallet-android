@@ -14,14 +14,11 @@ class UnreachedLevelViewHolder(
 
     private val binding by lazy { UnreachedLevelLayoutBinding.bind(itemView) }
 
-    private val locked_text get() = binding.lockedText
-    private val locked_bonus get() = binding.lockedBonus
-
   override fun bind(level: LevelItem) {
-    locked_text.text = itemView.context.getString(R.string.gamif_next_goals,
+      binding.lockedText.text = itemView.context.getString(R.string.gamif_next_goals,
         currencyFormatUtils.formatGamificationValues(level.amount))
     val df = DecimalFormat("###.#")
-    locked_bonus.text =
+        binding.lockedBonus.text =
         itemView.context.getString(R.string.gamif_bonus, df.format(level.bonus))
   }
 }

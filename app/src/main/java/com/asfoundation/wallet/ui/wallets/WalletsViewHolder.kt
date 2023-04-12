@@ -15,12 +15,10 @@ class WalletsViewHolder(
 
   private val binding by lazy { WalletRoundedOutlinedCardBinding.bind(itemView) }
 
-  private val wallet_address get() = binding.walletAddress
-  private val wallet_balance get() = binding.walletBalance
   @SuppressLint("SetTextI18n")
   fun bind(item: WalletBalance) {
-    wallet_address.text = item.walletName
-    wallet_balance.text =
+    binding.walletAddress.text = item.walletName
+    binding.walletBalance.text =
       "${item.balance.symbol}${currencyFormatUtils.formatCurrency(item.balance.amount)}"
     itemView.setOnClickListener { uiEventListener.onNext(item.walletAddress) }
   }

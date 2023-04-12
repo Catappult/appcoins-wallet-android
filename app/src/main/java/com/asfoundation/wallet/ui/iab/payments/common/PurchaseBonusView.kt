@@ -24,12 +24,6 @@ class PurchaseBonusView : FrameLayout {
 
   private var showHeader: Boolean = true
 
-  private val bonus_value get() = binding.bonusValue
-  private val bonus_layout get() = binding.bonusLayout
-  private val bonus_msg get() = binding.bonusMsg
-  private val bonus_layout_skeleton get() = binding.bonusLayoutSkeleton.root
-  private val bonus_msg_skeleton get() = binding.bonusMsgSkeleton.root
-
   constructor(context: Context) : this(context, null)
   constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0)
   constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs,
@@ -52,38 +46,38 @@ class PurchaseBonusView : FrameLayout {
   }
 
   fun setPurchaseBonusHeaderValue(valueText: String) {
-    bonus_value.text = valueText
+    binding.bonusValue.text = valueText
   }
 
   fun hidePurchaseBonusHeader() {
     showHeader = false
-    bonus_layout.visibility = View.INVISIBLE
+    binding.bonusLayout.visibility = View.INVISIBLE
   }
 
   fun showPurchaseBonusHeader() {
     showHeader = true
-    bonus_layout.visibility = View.VISIBLE
+    binding.bonusLayout.visibility = View.VISIBLE
   }
 
   fun setPurchaseBonusDescription(description: Int) {
-    bonus_msg.text = context.getString(description)
-    bonus_msg.visibility = View.VISIBLE
-    bonus_layout.visibility = View.INVISIBLE
+    binding.bonusMsg.text = context.getString(description)
+    binding.bonusMsg.visibility = View.VISIBLE
+    binding.bonusLayout.visibility = View.INVISIBLE
   }
 
   fun showSkeleton() {
     if (showHeader) {
-      bonus_layout.visibility = View.INVISIBLE
-      bonus_layout_skeleton.visibility = View.VISIBLE
+      binding.bonusLayout.visibility = View.INVISIBLE
+      binding.bonusLayoutSkeleton.root.visibility = View.VISIBLE
     }
-    bonus_msg_skeleton.visibility = View.VISIBLE
+    binding.bonusMsgSkeleton.root.visibility = View.VISIBLE
   }
 
   fun hideSkeleton() {
     if (showHeader) {
-      bonus_layout.visibility = View.VISIBLE
-      bonus_layout_skeleton.visibility = View.GONE
+      binding.bonusLayout.visibility = View.VISIBLE
+      binding.bonusLayoutSkeleton.root.visibility = View.GONE
     }
-    bonus_msg_skeleton.visibility = View.GONE
+    binding.bonusMsgSkeleton.root.visibility = View.GONE
   }
 }

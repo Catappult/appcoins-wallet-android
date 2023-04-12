@@ -94,7 +94,7 @@ class AppcoinsRewardsBuyFragment : BasePageViewFragment(), AppcoinsRewardsBuyVie
   override fun finish(purchase: Purchase) = finish(purchase, null)
 
   override fun showLoading() {
-    binding.genericErrorLayout.genericErrorLayout.root.visibility = View.GONE
+    binding.genericErrorLayout.genericPurchaseErrorLayout.visibility = View.GONE
     binding.fragmentIabTransactionCompleted.iabActivityTransactionCompleted.visibility = View.INVISIBLE
     binding.loadingView.visibility = View.VISIBLE
   }
@@ -107,7 +107,7 @@ class AppcoinsRewardsBuyFragment : BasePageViewFragment(), AppcoinsRewardsBuyVie
     hideLoading()
     binding.genericErrorLayout.errorDismiss.setText(getString(R.string.ok))
     binding.genericErrorLayout.genericErrorLayout.errorMessage.setText(R.string.activity_iab_no_network_message)
-    binding.genericErrorLayout.genericErrorLayout.root.visibility = View.VISIBLE
+    binding.genericErrorLayout.genericPurchaseErrorLayout.visibility = View.VISIBLE
   }
 
   override fun getOkErrorClick() = RxView.clicks(binding.genericErrorLayout.errorDismiss)
@@ -121,7 +121,7 @@ class AppcoinsRewardsBuyFragment : BasePageViewFragment(), AppcoinsRewardsBuyVie
   override fun showError(message: Int?) {
     binding.genericErrorLayout.errorDismiss.setText(getString(R.string.back_button))
     binding.genericErrorLayout.genericErrorLayout.errorMessage.text = getString(message ?: R.string.activity_iab_error_message)
-    binding.genericErrorLayout.genericErrorLayout.root.visibility = View.VISIBLE
+    binding.genericErrorLayout.genericPurchaseErrorLayout.visibility = View.VISIBLE
     hideLoading()
   }
 
@@ -160,7 +160,7 @@ class AppcoinsRewardsBuyFragment : BasePageViewFragment(), AppcoinsRewardsBuyVie
 
   override fun showTransactionCompleted() {
     binding.loadingView.visibility = View.GONE
-    binding.genericErrorLayout.genericErrorLayout.root.visibility = View.GONE
+    binding.genericErrorLayout.genericPurchaseErrorLayout.visibility = View.GONE
     binding.fragmentIabTransactionCompleted.iabActivityTransactionCompleted.visibility = View.VISIBLE
   }
 

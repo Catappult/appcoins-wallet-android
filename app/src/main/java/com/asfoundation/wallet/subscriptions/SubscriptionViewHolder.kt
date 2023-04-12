@@ -22,57 +22,49 @@ class SubscriptionViewHolder(itemView: View, private val currencyFormatUtils: Cu
 
     private val binding by lazy { SubscriptionItemBinding.bind(itemView) }
 
-    private val app_name get() = binding.appName
-    private val app_icon get() = binding.appIcon
-    private val more_button get() = binding.moreButton
-    private val item_parent get() = binding.itemParent
-    private val app_icon_skeleton get() = binding.appIconSkeleton.root
-    private val expires_on get() = binding.expiresOn
-    private val recurrence_value get() = binding.recurrenceValue
-
   fun bind(item: SubscriptionItem, clickCallback: PublishSubject<Pair<SubscriptionItem, View>>?,
            position: Int) {
     itemView.apply {
-      app_name.text = item.appName
-      app_icon.transitionName = "app_name_transition $position"
+        binding.appName.text = item.appName
+        binding.appIcon.transitionName = "app_name_transition $position"
 
       if ((item.status == Status.CANCELED || item.status == Status.PAUSED)) {
         showToExpireInfo(this, item)
       } else {
         showPriceInfo(this, item)
       }
-      more_button.setOnClickListener { clickCallback?.onNext(Pair(item, app_icon)) }
-      item_parent.setOnClickListener { clickCallback?.onNext(Pair(item, app_icon)) }
+        binding.moreButton.setOnClickListener { clickCallback?.onNext(Pair(item, binding.appIcon)) }
+        binding.itemParent.setOnClickListener { clickCallback?.onNext(Pair(item, binding.appIcon)) }
     }
 
     GlideApp.with(itemView.context)
         .asBitmap()
         .load(item.appIcon)
         .apply { RequestOptions().dontTransform() }
-        .listener(SkeletonGlideRequestListener(app_icon_skeleton))
+        .listener(SkeletonGlideRequestListener(binding.appIconSkeleton.root))
         .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
-        .into(app_icon)
+        .into(binding.appIcon)
   }
 
   private fun showPriceInfo(view: View, item: SubscriptionItem) {
     val formattedAmount = currencyFormatUtils.formatCurrency(item.fiatAmount)
-    expires_on.visibility = View.GONE
-    recurrence_value.visibility = View.VISIBLE
+      binding.expiresOn.visibility = View.GONE
+      binding.recurrenceValue.visibility = View.VISIBLE
 
     item.period?.let {
-      recurrence_value.text = it.mapToSubsFrequency(view.context,
+        binding.recurrenceValue.text = it.mapToSubsFrequency(view.context,
           view.context.getString(R.string.value_fiat, formattedAmount, item.fiatSymbol))
     }
   }
 
   private fun showToExpireInfo(view: View, item: SubscriptionItem) {
-    recurrence_value.visibility = View.GONE
-    expires_on.visibility = View.VISIBLE
+      binding.recurrenceValue.visibility = View.GONE
+      binding.expiresOn.visibility = View.VISIBLE
 
     val dateFormat = SimpleDateFormat("MMM dd", Locale.getDefault())
 
     item.expiry?.let {
-      expires_on.text = view.context.getString(R.string.subscriptions_expiration_body,
+        binding.expiresOn.text = view.context.getString(R.string.subscriptions_expiration_body,
           dateFormat.format(it))
     }
   }
