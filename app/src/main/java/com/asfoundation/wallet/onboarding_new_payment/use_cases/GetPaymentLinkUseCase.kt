@@ -3,8 +3,8 @@ package com.asfoundation.wallet.onboarding_new_payment.use_cases
 import com.appcoins.wallet.bdsbilling.WalletService
 import com.appcoins.wallet.bdsbilling.repository.RemoteRepository
 import com.asfoundation.wallet.billing.partners.AddressService
+import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.promo_code.use_cases.GetCurrentPromoCodeUseCase
-import com.asfoundation.wallet.ui.iab.localpayments.LocalPaymentData
 import io.reactivex.Single
 import javax.inject.Inject
 
@@ -15,15 +15,17 @@ class GetPaymentLinkUseCase @Inject constructor(
     private val getCurrentPromoCodeUseCase: GetCurrentPromoCodeUseCase,
 ) {
     operator fun invoke(
-        data: LocalPaymentData,
+        data: TransactionBuilder,
+        currency: String,
+        packageName: String,
     ) : Single<String> {
         return walletService.getAndSignCurrentWalletAddress()
             .flatMap { walletAddressModel ->
-                partnerAddressService.getAttributionEntity(data.packageName)
+                partnerAddressService.getAttributionEntity(packageName)
                     .flatMap { attributionEntity ->
                         getCurrentPromoCodeUseCase().flatMap { promoCode ->
-                            remoteRepository.createLocalPaymentTransaction(data.paymentId, data.packageName,
-                                data.fiatAmount, data.currency, data.skuId, data.type, data.origin, data.developerAddress,
+                            remoteRepository.createLocalPaymentTransaction(data.chainId.toString(), packageName,
+                                data.amount().toString(), currency, data.skuId, data.type, data.origin, data.fromAddress(),
                                 attributionEntity.oemId, attributionEntity.domain, promoCode.code,
                                 data.payload,
                                 data.callbackUrl, data.orderReference,

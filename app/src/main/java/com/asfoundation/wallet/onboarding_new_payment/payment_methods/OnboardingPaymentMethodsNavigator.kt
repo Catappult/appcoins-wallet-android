@@ -83,7 +83,18 @@ class OnboardingPaymentMethodsNavigator @Inject constructor(
 
   fun navigateToPaypalDirect() = Unit
 
-  fun navigateToLocalPayment() = Unit
+  fun navigateToLocalPayment(transactionBuilder: TransactionBuilder, amount: String,
+                             currency: String
+  ) {
+    navigate(
+      fragment.findNavController(),
+      OnboardingPaymentMethodsFragmentDirections.actionNavigateToOnboardingLocalPayment(
+        transactionBuilder,
+        amount,
+        currency
+      )
+    )
+  }
 
   fun navigateToCarrierBilling() = Unit
 

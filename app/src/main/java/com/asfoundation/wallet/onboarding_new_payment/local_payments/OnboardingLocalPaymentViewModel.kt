@@ -1,40 +1,38 @@
 package com.asfoundation.wallet.onboarding_new_payment.local_payments
 
-import android.graphics.Bitmap
-import android.graphics.drawable.BitmapDrawable
+
 import android.net.Uri
-import android.os.Bundle
-import android.util.TypedValue
+import androidx.activity.result.ActivityResult
+
 import androidx.lifecycle.SavedStateHandle
 import com.appcoins.wallet.appcoins.rewards.ErrorInfo
-import com.appcoins.wallet.billing.adyen.PaymentModel
+import com.appcoins.wallet.appcoins.rewards.ErrorMapper
 import com.appcoins.wallet.core.network.microservices.model.Transaction
-import com.appcoins.wallet.ui.arch.Async
 import com.appcoins.wallet.ui.arch.BaseViewModel
 import com.appcoins.wallet.ui.arch.SideEffect
 import com.appcoins.wallet.ui.arch.ViewState
-import com.asf.wallet.R
-import com.asfoundation.wallet.GlideApp
-import com.asfoundation.wallet.billing.adyen.AdyenErrorCodeMapper
-import com.asfoundation.wallet.billing.analytics.BillingAnalytics
+import com.asf.wallet.BuildConfig
 import com.asfoundation.wallet.onboarding_new_payment.OnboardingPaymentEvents
-import com.asfoundation.wallet.onboarding_new_payment.payment_result.OnboardingPaymentResultSideEffect
-import com.asfoundation.wallet.onboarding_new_payment.payment_result.OnboardingPaymentResultState
 import com.asfoundation.wallet.onboarding_new_payment.use_cases.GetPaymentLinkUseCase
 import com.asfoundation.wallet.onboarding_new_payment.use_cases.GetTopUpPaymentLinkUseCase
-import com.asfoundation.wallet.ui.iab.PaymentMethod
-import com.asfoundation.wallet.ui.iab.localpayments.LocalPaymentPresenter
+import com.asfoundation.wallet.ui.iab.WebViewActivity
+import com.asfoundation.wallet.ui.iab.localpayments.LocalPaymentInteractor
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.Completable
-import io.reactivex.Observable
-import io.reactivex.Single
-import java.util.concurrent.TimeUnit
+import io.reactivex.Scheduler
 import javax.inject.Inject
 
 
 sealed class OnboardingLocalPaymentSideEffect : SideEffect {
-    data class NavigateToLink(val uri: Uri) : OnboardingLocalPaymentSideEffect()
-    data class NavigateBackToGame(val appPackageName: String) : OnboardingLocalPaymentSideEffect()
+    data class NavigateToWebView(val uri: String) : OnboardingLocalPaymentSideEffect()
+    object NavigateBackToPaymentMethods : OnboardingLocalPaymentSideEffect()
+    data class HandleWebViewResult(val uri: Uri) : OnboardingLocalPaymentSideEffect()
+    object ShowLoading : OnboardingLocalPaymentSideEffect()
+    object ShowError : OnboardingLocalPaymentSideEffect()
+    object ShowSuccess : OnboardingLocalPaymentSideEffect()
+
+    object ShowCompletablePayment : OnboardingLocalPaymentSideEffect()
+    object ShowVerification : OnboardingLocalPaymentSideEffect()
 }
 
 
@@ -45,129 +43,102 @@ class OnboardingLocalPaymentViewModel @Inject constructor(
     private val getPaymentLinkUseCase: GetPaymentLinkUseCase,
     private val getTopUpPaymentLinkUseCase: GetTopUpPaymentLinkUseCase,
     private val events: OnboardingPaymentEvents,
+    private val errorMapper: ErrorMapper,
+    private val localPaymentInteractor: LocalPaymentInteractor,
     savedStateHandle: SavedStateHandle
 ) :
     BaseViewModel<OnboardingLocalPaymentState, OnboardingLocalPaymentSideEffect>(
         OnboardingLocalPaymentState
     ) {
 
-    private var waitingResult: Boolean = false
+    private var args: OnboardingLocalPaymentFragmentArgs =
+        OnboardingLocalPaymentFragmentArgs.fromSavedStateHandle(savedStateHandle)
+
+    private lateinit var scheduler: Scheduler
 
     init {
-        onViewCreatedRequestLink()
-        handlePaymentRedirect()
-        handleOkErrorButtonClick()
-        handleOkBuyButtonClick()
-        handleSupportClicks()
+        getPaymentLink()
     }
 
-    private fun handlePaymentResult() {
-        when {
-            args.paymentModel.resultCode.equals("AUTHORISED", true) -> {
-                handleAuthorisedPayment()
-            }
-            args.paymentModel.refusalCode != null -> {
-                handlePaymentRefusal()
-            }
-            args.paymentModel.error.hasError -> {
-                when (args.paymentModel.error.errorInfo?.errorType) {
-                    com.appcoins.wallet.billing.ErrorInfo.ErrorType.BILLING_ADDRESS -> {
+    fun handleWebViewResult(result: ActivityResult) {
+        when (result.resultCode) {
+            WebViewActivity.FAIL -> {
+                sendSideEffect { OnboardingLocalPaymentSideEffect.ShowError }
 
-                    }
-                    else -> {
-                        events.sendPaymentErrorEvent(args.transactionBuilder, args.paymentType)
-                        sendSideEffect { OnboardingPaymentResultSideEffect.ShowPaymentError(args.paymentModel.error) }
-                    }
-                }
             }
-            args.paymentModel.status == PaymentModel.Status.CANCELED -> {
-                sendSideEffect { OnboardingPaymentResultSideEffect.NavigateBackToPaymentMethods }
+            WebViewActivity.SUCCESS -> {
+                events.sendPaymentConclusionEvents(
+                    BuildConfig.APPLICATION_ID,
+                    args.transactionBuilder.skuId,
+                    args.transactionBuilder.amount(),
+                    args.transactionBuilder.type,
+                    args.transactionBuilder.chainId.toString()
+                )
+                sendSideEffect { OnboardingLocalPaymentSideEffect.ShowSuccess }
             }
-            else -> {
-                sendSideEffect { OnboardingPaymentResultSideEffect.ShowPaymentError(args.paymentModel.error) }
+            WebViewActivity.USER_CANCEL -> {
+                events.sendPayPalConfirmationEvent(args.transactionBuilder, "cancel")
+                sendSideEffect { OnboardingLocalPaymentSideEffect.ShowError }
             }
         }
     }
 
-    private fun handleAuthorisedPayment() {
-        adyenPaymentInteractor.getPaymentLinkUseCase(args.paymentModel.uid)
-            .doOnNext { authorisedPaymentModel ->
-                when {
-                    authorisedPaymentModel.status == PaymentModel.Status.COMPLETED -> {
-                        events.sendPaymentSuccessEvent(args.transactionBuilder, args.paymentType)
-                        createBundle(
-                            authorisedPaymentModel.hash,
-                            authorisedPaymentModel.orderReference,
-                            authorisedPaymentModel.purchaseUid
-                        ).map { purchaseBundleModel ->
-                            events.sendPaymentSuccessFinishEvents(args.transactionBuilder, args.paymentType)
-                            sendSideEffect {
-                                setOnboardingCompletedUseCase()
-                                OnboardingPaymentResultSideEffect.ShowPaymentSuccess(
-                                    purchaseBundleModel
-                                )
-                            }
-                        }.subscribe()
-                    }
-                    isPaymentFailed(authorisedPaymentModel.status) -> {
-                        events.sendPaymentErrorEvent(
-                            args.transactionBuilder,
-                            args.paymentType,
-                            authorisedPaymentModel.error.errorInfo?.httpCode,
-                            buildRefusalReason(
-                                authorisedPaymentModel.status,
-                                authorisedPaymentModel.error.errorInfo?.text
-                            )
-                        )
-                        sendSideEffect {
-                            OnboardingPaymentResultSideEffect.ShowPaymentError(
-                                authorisedPaymentModel.error
-                            )
+    private fun handleSyncCompletedStatus(transactionResponse: Transaction): Completable {
+        args.transactionBuilder.let { transaction ->
+            return localPaymentInteractor.getCompletePurchaseBundle(
+                transaction.type, transaction.fromAddress(), transaction.skuId,
+                transactionResponse.metadata?.purchaseUid, transactionResponse.orderReference, transactionResponse.hash,
+                scheduler
+            )
+                .doOnSuccess {
+                    events.sendPaymentConclusionEvents(
+                        transaction.fromAddress(), transaction.skuId, transaction.amount(),
+                        transaction.type, transaction.chainId.toString()
+                    )
+                    events.sendRevenueEvent(args.transactionBuilder.amount().toString())
+                }
+                .flatMapCompletable {
+                    Completable.fromAction { sendSideEffect { OnboardingLocalPaymentSideEffect.ShowCompletablePayment } }
+                }
+        }
+    }
+
+    private fun handleFraudFlow() {
+        localPaymentInteractor.isWalletBlocked()
+            .doOnSuccess { blocked ->
+                if (blocked) {
+                    localPaymentInteractor.isWalletVerified().doAfterSuccess {
+                        if (it) {
+                            sendSideEffect { OnboardingLocalPaymentSideEffect.ShowError }
+                            //view.showError(R.string.purchase_error_wallet_block_code_403)
+                        } else {
+                            sendSideEffect { OnboardingLocalPaymentSideEffect.ShowVerification }
                         }
-                    }
-                    else -> {
-                        events.sendPaymentErrorEvent(
-                            args.transactionBuilder,
-                            args.paymentType,
-                            authorisedPaymentModel.error.errorInfo?.httpCode,
-                            buildRefusalReason(
-                                authorisedPaymentModel.status,
-                                authorisedPaymentModel.error.errorInfo?.text
-                            )
-                        )
-                        sendSideEffect {
-                            OnboardingPaymentResultSideEffect.ShowPaymentError(
-                                authorisedPaymentModel.error
-                            )
-                        }
-                    }
+                    }.scopedSubscribe()
+                } else {
+                    sendSideEffect { OnboardingLocalPaymentSideEffect.ShowError }
+                    //R.string.purchase_error_wallet_block_code_403
                 }
             }.scopedSubscribe()
     }
 
-    private fun handlePaymentRefusal() {
-        var riskRules: String? = null
-        args.paymentModel.refusalCode?.let { code ->
-            when (code) {
-                AdyenErrorCodeMapper.FRAUD -> {
-                    handleFraudFlow(args.paymentModel.error, code)
-                    riskRules = args.paymentModel.fraudResultIds.sorted().joinToString(separator = "-")
-                }
-                else -> sendSideEffect {
-                    OnboardingPaymentResultSideEffect.ShowPaymentError(
-                        args.paymentModel.error,
-                        code
-                    )
-                }
+    private fun getPaymentLink() {
+        getPaymentLinkUseCase(
+            data = args.transactionBuilder,
+            currency = args.currency,
+            packageName = args.transactionBuilder.productName
+        ).doAfterSuccess {
+            args.transactionBuilder.let {
+                events.sendLocalNavigationToUrlEvents(
+                    BuildConfig.APPLICATION_ID,
+                    it.skuId,
+                    it.amount().toString(),
+                    it.type,
+                    it.chainId.toString()
+                )
             }
-        }
-        events.sendPaymentErrorEvent(
-            args.transactionBuilder,
-            args.paymentType,
-            args.paymentModel.refusalCode,
-            args.paymentModel.refusalReason,
-            riskRules
-        )
+            sendSideEffect { OnboardingLocalPaymentSideEffect.NavigateToWebView(it) }
+        }.scopedSubscribe()
     }
 
 }
