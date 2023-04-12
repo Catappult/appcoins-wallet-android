@@ -3,7 +3,7 @@
   <string name="app_name">AppCoins Wallet</string>
   <string name="title_send">Enviar</string>
   <string name="title_send_with_token">Enviar %s</string>
-  <string name="title_request">Recibir Tokens</string>
+  <string name="title_request">Recibir</string>
   <string name="title_import">Recuperar Wallet</string>
   <!--Bottom navigation-->
   <string name="bottom_navigation_my_wallets">Mis Wallets</string>
