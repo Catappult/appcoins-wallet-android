@@ -13,6 +13,7 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.TextView
 import android.widget.Toast
 import android.widget.Toast.LENGTH_SHORT
+import by.kirich1409.viewbindingdelegate.viewBinding
 import com.asf.wallet.R
 import com.appcoins.wallet.core.utils.android_common.WalletCurrency
 import com.asf.wallet.databinding.TransactFragmentLayoutBinding
@@ -42,20 +43,7 @@ class TransferFragment : BasePageViewFragment(), TransferFragmentView {
   private lateinit var doneClick: PublishSubject<Any>
   private lateinit var qrCodeResult: BehaviorSubject<Barcode>
 
-  private var _binding: TransactFragmentLayoutBinding? = null
-  // This property is only valid between onCreateView and
-  // onDestroyView.
-  private val binding get() = _binding!!
-
-  private val transact_fragment_amount get() = binding.transactFragmentAmount
-  private val send_button get() = binding.sendButton
-  private val currency_selector get() = binding.currencyChooseLayout.currencySelector
-  private val transact_fragment_balance get() = binding.transactFragmentBalance
-  private val transact_fragment_recipient_address get() = binding.transactFragmentRecipientAddress
-  private val transact_fragment_amount_layout get() = binding.transactFragmentAmountLayout
-  private val transact_fragment_recipient_address_layout get() = binding.transactFragmentRecipientAddressLayout
-  private val scan_barcode_button get() = binding.scanBarcodeButton
-  private val title get() = binding.title
+  private val binding by viewBinding(TransactFragmentLayoutBinding::bind)
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
@@ -65,14 +53,13 @@ class TransferFragment : BasePageViewFragment(), TransferFragmentView {
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                             savedInstanceState: Bundle?): View? {
-    _binding = TransactFragmentLayoutBinding.inflate(inflater, container, false)
-    return binding.root
+    return inflater.inflate(R.layout.transact_fragment_layout, container, false)
   }
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
     presenter.present()
-    transact_fragment_amount.setOnEditorActionListener(
+    binding.transactFragmentAmount.setOnEditorActionListener(
         TextView.OnEditorActionListener { _: TextView?, actionId: Int, _: KeyEvent? ->
           if (actionId == EditorInfo.IME_ACTION_DONE) {
             doneClick.onNext(Any())
@@ -93,13 +80,13 @@ class TransferFragment : BasePageViewFragment(), TransferFragmentView {
   }
 
   override fun getCurrencyChange(): Observable<TransferFragmentView.Currency> {
-    return RxRadioGroup.checkedChanges(currency_selector)
-        .map { map(currency_selector.checkedRadioButtonId) }
+    return RxRadioGroup.checkedChanges(binding.currencyChooseLayout.currencySelector)
+        .map { map(binding.currencyChooseLayout.currencySelector.checkedRadioButtonId) }
   }
 
   override fun showBalance(balance: String,
                            currency: WalletCurrency) {
-    transact_fragment_balance.text =
+    binding.transactFragmentBalance.text =
         getString(R.string.p2p_send_current_balance_message, balance, currency.symbol)
   }
 
@@ -109,55 +96,55 @@ class TransferFragment : BasePageViewFragment(), TransferFragmentView {
   }
 
   override fun showAddress(address: String) {
-    transact_fragment_recipient_address.setText(address)
+    binding.transactFragmentRecipientAddress.setText(address)
   }
 
   override fun getSendClick(): Observable<TransferFragmentView.TransferData> {
-    return Observable.merge(doneClick, RxView.clicks(send_button))
+    return Observable.merge(doneClick, RxView.clicks(binding.sendButton))
         .map {
           var amount = BigDecimal.ZERO
-          if (transact_fragment_amount.text.toString()
+          if (binding.transactFragmentAmount.text.toString()
                   .isNotEmpty()) {
-            amount = transact_fragment_amount.text.toString()
+            amount = binding.transactFragmentAmount.text.toString()
                 .toBigDecimal()
           }
           TransferFragmentView.TransferData(
-              transact_fragment_recipient_address.text.toString()
+            binding.transactFragmentRecipientAddress.text.toString()
                   .toLowerCase(Locale.ROOT),
-              map(currency_selector.checkedRadioButtonId), amount)
+              map(binding.currencyChooseLayout.currencySelector.checkedRadioButtonId), amount)
         }
   }
 
   override fun showInvalidWalletAddress() {
-    transact_fragment_amount_layout.error = null
-    transact_fragment_recipient_address_layout.error = getString(R.string.p2p_send_error_address)
-    scan_barcode_button.visibility = View.GONE
+    binding.transactFragmentAmountLayout.error = null
+    binding.transactFragmentRecipientAddressLayout.error = getString(R.string.p2p_send_error_address)
+    binding.scanBarcodeButton.visibility = View.GONE
   }
 
   override fun getQrCodeResult(): Observable<Barcode> = qrCodeResult
 
   override fun getQrCodeButtonClick(): Observable<Any> {
-    return RxView.clicks(scan_barcode_button)
+    return RxView.clicks(binding.scanBarcodeButton)
   }
 
   override fun showUnknownError() {
-    Snackbar.make(title, R.string.error_general, Snackbar.LENGTH_LONG)
+    Snackbar.make(binding.title, R.string.error_general, Snackbar.LENGTH_LONG)
         .show()
   }
 
   override fun showNoNetworkError() {
-    Snackbar.make(title, R.string.connection_error_body, Snackbar.LENGTH_LONG)
+    Snackbar.make(binding.title, R.string.connection_error_body, Snackbar.LENGTH_LONG)
         .show()
   }
 
   override fun showInvalidAmountError() {
-    transact_fragment_recipient_address_layout.error = null
-    transact_fragment_amount_layout.error = getString(R.string.p2p_send_error_amount_zero)
+    binding.transactFragmentRecipientAddressLayout.error = null
+    binding.transactFragmentAmountLayout.error = getString(R.string.p2p_send_error_amount_zero)
   }
 
   override fun showNotEnoughFunds() {
-    transact_fragment_recipient_address_layout.error = null
-    transact_fragment_amount_layout.error = getString(R.string.p2p_send_error_not_enough_funds)
+    binding.transactFragmentRecipientAddressLayout.error = null
+    binding.transactFragmentAmountLayout.error = getString(R.string.p2p_send_error_not_enough_funds)
   }
 
   override fun hideKeyboard() {
@@ -193,6 +180,5 @@ class TransferFragment : BasePageViewFragment(), TransferFragmentView {
   override fun onDestroyView() {
     presenter.stop()
     super.onDestroyView()
-    _binding = null
   }
 }

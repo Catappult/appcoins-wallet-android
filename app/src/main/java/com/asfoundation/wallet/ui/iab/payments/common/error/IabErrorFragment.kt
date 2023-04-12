@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.StringRes
+import by.kirich1409.viewbindingdelegate.viewBinding
 import com.asf.wallet.R
 import com.asf.wallet.databinding.FragmentIabErrorBinding
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
@@ -19,26 +20,13 @@ class IabErrorFragment : BasePageViewFragment(), IabErrorView {
   @Inject
   lateinit var presenter: IabErrorPresenter
 
-  private var _binding: FragmentIabErrorBinding? = null
-  // This property is only valid between onCreateView and
-  // onDestroyView.
-  private val binding get() = _binding!!
-
-  // fragment_iab_error.xml
-  private val error_message get() = binding.errorMessage
-  private val layout_support_logo get() = binding.layoutSupportLogo
-  private val layout_support_icn get() = binding.layoutSupportIcn
-
-    // dialog_buy_buttons.xml
-  private val buy_button get() = binding.dialogBuyButtons.buyButton
-  private val cancel_button get() = binding.dialogBuyButtons.cancelButton
+  private val binding by viewBinding(FragmentIabErrorBinding::bind)
 
   override fun onCreateView(
     inflater: LayoutInflater, container: ViewGroup?,
     savedInstanceState: Bundle?
   ): View? {
-    _binding = FragmentIabErrorBinding.inflate(inflater, container, false)
-    return binding.root
+    return inflater.inflate(R.layout.fragment_iab_error, container, false)
   }
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -50,24 +38,23 @@ class IabErrorFragment : BasePageViewFragment(), IabErrorView {
   override fun onDestroyView() {
     presenter.stop()
     super.onDestroyView()
-    _binding = null
   }
 
   private fun setupUi() {
-    buy_button.setText(getString(R.string.back_button))
-    cancel_button.setText(getString(R.string.button_cancel))
+    binding.dialogBuyButtons.buyButton.setText(getString(R.string.back_button))
+    binding.dialogBuyButtons.cancelButton.setText(getString(R.string.button_cancel))
   }
 
-  override fun cancelClickEvent(): Observable<Any> = RxView.clicks(cancel_button)
+  override fun cancelClickEvent(): Observable<Any> = RxView.clicks(binding.dialogBuyButtons.cancelButton)
 
-  override fun backClickEvent(): Observable<Any> = RxView.clicks(buy_button)
+  override fun backClickEvent(): Observable<Any> = RxView.clicks(binding.dialogBuyButtons.buyButton)
 
-  override fun getSupportLogoClicks() = RxView.clicks(layout_support_logo)
+  override fun getSupportLogoClicks() = RxView.clicks(binding.layoutSupportLogo)
 
-  override fun getSupportIconClicks() = RxView.clicks(layout_support_icn)
+  override fun getSupportIconClicks() = RxView.clicks(binding.layoutSupportIcn)
 
   override fun setErrorMessage(errorMessage: String) {
-    error_message.text = errorMessage
+    binding.errorMessage.text = errorMessage
   }
 
   companion object {

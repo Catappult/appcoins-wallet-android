@@ -7,6 +7,7 @@ import android.view.MenuItem
 import android.view.View.*
 import androidx.core.app.ShareCompat
 import androidx.fragment.app.Fragment
+import by.kirich1409.viewbindingdelegate.viewBinding
 import com.asf.wallet.R
 import com.asf.wallet.databinding.InviteFriendsActivityLayoutBinding
 import com.asfoundation.wallet.router.ExternalBrowserRouter
@@ -39,20 +40,11 @@ class InviteFriendsActivity : BaseActivity(), InviteFriendsActivityView {
   @Inject
   lateinit var walletInteract: FindDefaultWalletInteract
 
-  private var _binding: InviteFriendsActivityLayoutBinding? = null
-  // This property is only valid between onCreateView and
-  // onDestroyView.
-  private val binding get() = _binding!!
-
-  private val fragment_container get() = binding.fragmentContainer
-  private val no_network get() = binding.noNetwork
-  private val retry_button get() = binding.noNetworkRetryOnlyLayout.retryButton
-  private val retry_animation get() = binding.noNetworkRetryOnlyLayout.retryAnimation
+  private val binding by viewBinding(InviteFriendsActivityLayoutBinding::bind)
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-    _binding = InviteFriendsActivityLayoutBinding.inflate(layoutInflater)
-    setContentView(binding.root)
+    setContentView(R.layout.invite_friends_activity_layout)
     toolbar()
     infoButtonSubject = PublishSubject.create()
     infoButtonInitializeSubject = ReplaySubject.create()
@@ -132,8 +124,8 @@ class InviteFriendsActivity : BaseActivity(), InviteFriendsActivityView {
   }
 
   private fun hideNoNetworkView() {
-    fragment_container.visibility = VISIBLE
-    no_network.visibility = GONE
+    binding.fragmentContainer.visibility = VISIBLE
+    binding.noNetwork.visibility = GONE
   }
 
   private fun navigateTo(fragment: Fragment) {
@@ -143,19 +135,19 @@ class InviteFriendsActivity : BaseActivity(), InviteFriendsActivityView {
   }
 
   override fun retryClick(): Observable<Any> {
-    return RxView.clicks(retry_button)
+    return RxView.clicks(binding.noNetworkRetryOnlyLayout.retryButton)
   }
 
   override fun showNetworkErrorView() {
-    no_network.visibility = VISIBLE
-    retry_button.visibility = VISIBLE
-    retry_animation.visibility = GONE
-    fragment_container.visibility = GONE
+    binding.noNetwork.visibility = VISIBLE
+    binding.noNetworkRetryOnlyLayout.retryButton.visibility = VISIBLE
+    binding.noNetworkRetryOnlyLayout.retryAnimation.visibility = GONE
+    binding.fragmentContainer.visibility = GONE
   }
 
   override fun showRetryAnimation() {
-    retry_button.visibility = INVISIBLE
-    retry_animation.visibility = VISIBLE
+    binding.noNetworkRetryOnlyLayout.retryButton.visibility = INVISIBLE
+    binding.noNetworkRetryOnlyLayout.retryAnimation.visibility = VISIBLE
   }
 
   override fun onPause() {
@@ -167,7 +159,6 @@ class InviteFriendsActivity : BaseActivity(), InviteFriendsActivityView {
     infoButtonSubject = null
     infoButtonInitializeSubject = null
     super.onDestroy()
-    _binding = null
   }
 
 }

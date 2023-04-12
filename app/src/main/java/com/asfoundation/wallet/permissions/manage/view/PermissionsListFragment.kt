@@ -7,10 +7,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import by.kirich1409.viewbindingdelegate.viewBinding
 import com.appcoins.wallet.permissions.ApplicationPermission
 import com.appcoins.wallet.permissions.PermissionName
 import com.asfoundation.wallet.permissions.PermissionsInteractor
 import com.appcoins.wallet.core.utils.android_common.applicationinfo.ApplicationInfoProvider
+import com.asf.wallet.R
 import com.asf.wallet.databinding.FragmentPermissionsListLayoutBinding
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import com.jakewharton.rxrelay2.BehaviorRelay
@@ -39,13 +41,7 @@ class PermissionsListFragment : BasePageViewFragment(), PermissionsListView {
   private lateinit var permissionClick: BehaviorRelay<ApplicationPermissionViewData>
   private var toolbarManager: ToolbarManager? = null
 
-  private var _binding: FragmentPermissionsListLayoutBinding? = null
-  // This property is only valid between onCreateView and
-// onDestroyView.
-  private val binding get() = _binding!!
-
-  private val permissions_recycler_view get() = binding.permissionsRecyclerView
-  private val empty_state_view get() = binding.emptyStateView
+  private val views by viewBinding(FragmentPermissionsListLayoutBinding::bind)
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
@@ -79,13 +75,13 @@ class PermissionsListFragment : BasePageViewFragment(), PermissionsListView {
   }
 
   override fun showEmptyState() {
-    empty_state_view.visibility = View.VISIBLE
-    permissions_recycler_view.visibility = View.GONE
+    views.emptyStateView.visibility = View.VISIBLE
+    views.permissionsRecyclerView.visibility = View.GONE
   }
 
   override fun showPermissions(permissions: List<ApplicationPermission>): Completable {
-    empty_state_view.visibility = View.GONE
-    permissions_recycler_view.visibility = View.VISIBLE
+    views.emptyStateView.visibility = View.GONE
+    views.permissionsRecyclerView.visibility = View.VISIBLE
     return Single.fromCallable { map(permissions) }
         .subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())
@@ -103,14 +99,13 @@ class PermissionsListFragment : BasePageViewFragment(), PermissionsListView {
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                             savedInstanceState: Bundle?): View? {
-    _binding = FragmentPermissionsListLayoutBinding.inflate(inflater, container, false)
-    return binding.root
+    return inflater.inflate(R.layout.fragment_permissions_list_layout, container, false)
   }
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
-    permissions_recycler_view.adapter = adapter
-    permissions_recycler_view.layoutManager = LinearLayoutManager(context)
+    views.permissionsRecyclerView.adapter = adapter
+    views.permissionsRecyclerView.layoutManager = LinearLayoutManager(context)
     toolbarManager?.setupToolbar()
     presenter.present()
   }
@@ -118,7 +113,6 @@ class PermissionsListFragment : BasePageViewFragment(), PermissionsListView {
   override fun onDestroyView() {
     presenter.stop()
     super.onDestroyView()
-    _binding = null
   }
 
 }

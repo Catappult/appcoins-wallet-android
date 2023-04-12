@@ -13,6 +13,7 @@ import android.view.animation.AnimationUtils
 import android.webkit.CookieManager
 import android.webkit.WebView
 import android.webkit.WebViewClient
+import by.kirich1409.viewbindingdelegate.viewBinding
 import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.appcoins.wallet.core.utils.properties.HostProperties
 import com.asf.wallet.BuildConfig
@@ -47,18 +48,7 @@ class BillingWebViewFragment : BasePageViewFragment() {
   private var asyncDetailsShown = false
   private val TAG = BillingWebViewFragment::class.java.name
 
-  private var _binding: WebviewFragmentBinding? = null
-  // This property is only valid between onCreateView and
-  // onDestroyView.
-  private val binding get() = _binding!!
-
-  private val webview get() = binding.webview
-  private val warning_get_bt get() = binding.warningGetBt
-  private val warning_cancel_bt get() = binding.warningCancelBt
-  private val webview_progress_bar get() = binding.webviewProgressBar
-  private val warning_group get() = binding.warningGroup
-  private val warning_name_tv get() = binding.warningNameTv
-  private val warning_app_iv get() = binding.warningAppIv
+  private val binding by viewBinding(WebviewFragmentBinding::bind)
 
   companion object {
     private const val CARRIER_BILLING_RETURN_SCHEMA = "https://%s/return/carrier_billing"
@@ -126,14 +116,17 @@ class BillingWebViewFragment : BasePageViewFragment() {
     inflater: LayoutInflater, container: ViewGroup?,
     savedInstanceState: Bundle?
   ): View? {
-    _binding = WebviewFragmentBinding.inflate(inflater, container, false)
+    return inflater.inflate(R.layout.webview_fragment, container, false)
+  }
 
-    webview.webViewClient = object : WebViewClient() {
+  override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    super.onViewCreated(view, savedInstanceState)
+    binding.webview.webViewClient = object : WebViewClient() {
       override fun shouldOverrideUrlLoading(view: WebView, clickUrl: String): Boolean {
         when {
           clickUrl.contains(LOCAL_PAYMENTS_SCHEMA) ||
-              clickUrl.contains(ADYEN_PAYMENT_SCHEMA) ||
-              clickUrl.contains(PAYPAL_SUCCESS_SCHEMA) -> {
+                  clickUrl.contains(ADYEN_PAYMENT_SCHEMA) ||
+                  clickUrl.contains(PAYPAL_SUCCESS_SCHEMA) -> {
             currentUrl = clickUrl
             finishWithValidations(clickUrl)
           }
@@ -167,29 +160,27 @@ class BillingWebViewFragment : BasePageViewFragment() {
         if (!url.contains("/redirect")) {
           val timeout = timeoutReference.getAndSet(null)
           timeout?.cancel(false)
-          webview_progress_bar?.visibility = View.GONE
+          binding.webviewProgressBar.visibility = View.GONE
         }
         if (url.contains(ASYNC_PAYMENT_FORM_SHOWN_SCHEMA)) {
           asyncDetailsShown = true
         }
       }
     }
-    webview.settings.javaScriptEnabled = true
-    webview.settings.domStorageEnabled = true
-    webview.settings.useWideViewPort = true
-    webview.loadUrl(currentUrl)
+    binding.webview.settings.javaScriptEnabled = true
+    binding.webview.settings.domStorageEnabled = true
+    binding.webview.settings.useWideViewPort = true
+    binding.webview.loadUrl(currentUrl)
 
-    warning_get_bt?.setOnClickListener {
+    binding.warningGetBt.setOnClickListener {
       dismissGetAppWarning()
       currentExtAppSelected?.let {
         openDownloadExternalApp(it)
       }
     }
-    warning_cancel_bt?.setOnClickListener {
+    binding.warningCancelBt.setOnClickListener {
       dismissGetAppWarning()
     }
-
-    return view
   }
 
   private fun openDownloadExternalApp(appInfo: ExternalAppEnum) {
@@ -217,7 +208,7 @@ class BillingWebViewFragment : BasePageViewFragment() {
 
   fun handleBackPressed(): Boolean {
     return if (asyncDetailsShown) {
-      webview.loadUrl(CODAPAY_BACK_URL)
+      binding.webview.loadUrl(CODAPAY_BACK_URL)
       asyncDetailsShown = false
       true
     } else {
@@ -306,14 +297,14 @@ class BillingWebViewFragment : BasePageViewFragment() {
 
   private fun showGetAppWarning(appInfo: ExternalAppEnum) {
     currentExtAppSelected = appInfo
-    warning_group?.startAnimation(AnimationUtils.loadAnimation(context,R.anim.pop_in_animation))
-    warning_group?.visibility = View.VISIBLE
-    warning_name_tv?.text = appInfo.appName
-    warning_app_iv?.setImageResource(appInfo.appIcon)
+    binding.warningGroup.startAnimation(AnimationUtils.loadAnimation(context,R.anim.pop_in_animation))
+    binding.warningGroup.visibility = View.VISIBLE
+    binding.warningNameTv.text = appInfo.appName
+    binding.warningAppIv.setImageResource(appInfo.appIcon)
   }
 
   private fun dismissGetAppWarning() {
-    warning_group?.startAnimation(AnimationUtils.loadAnimation(context,R.anim.pop_out_animation))
-    warning_group?.visibility = View.GONE
+    binding.warningGroup.startAnimation(AnimationUtils.loadAnimation(context,R.anim.pop_out_animation))
+    binding.warningGroup.visibility = View.GONE
   }
 }

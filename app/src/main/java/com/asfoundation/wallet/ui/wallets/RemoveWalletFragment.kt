@@ -5,6 +5,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import by.kirich1409.viewbindingdelegate.viewBinding
+import com.asf.wallet.R
 import com.asf.wallet.databinding.RemoveWalletFirstLayoutBinding
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import com.jakewharton.rxbinding2.view.RxView
@@ -18,18 +20,7 @@ class RemoveWalletFragment : BasePageViewFragment(), RemoveWalletView {
   private lateinit var presenter: RemoveWalletPresenter
   private lateinit var activityView: RemoveWalletActivityView
 
-  private var _binding: RemoveWalletFirstLayoutBinding? = null
-  // This property is only valid between onCreateView and
-  // onDestroyView.
-  private val binding get() = _binding!!
-
-  // wallet_outlined_card.xml
-  private val wallet_address get() = binding.walletCard.walletAddress
-  private val wallet_balance get() = binding.walletCard.walletBalance
-
-  // remove_wallet_first_layout.xml
-  private val backup_button get() = binding.backupButton
-  private val no_backup_button get() = binding.noBackupButton
+  private val views by viewBinding(RemoveWalletFirstLayoutBinding::bind)
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
@@ -48,8 +39,7 @@ class RemoveWalletFragment : BasePageViewFragment(), RemoveWalletView {
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                             savedInstanceState: Bundle?): View? {
-    _binding = RemoveWalletFirstLayoutBinding.inflate(inflater, container, false)
-    return binding.root
+    return inflater.inflate(R.layout.remove_wallet_first_layout, container, false)
   }
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -58,23 +48,22 @@ class RemoveWalletFragment : BasePageViewFragment(), RemoveWalletView {
     presenter.present()
   }
 
-  override fun backUpWalletClick() = RxView.clicks(backup_button)
+  override fun backUpWalletClick() = RxView.clicks(views.backupButton)
 
-  override fun noBackUpWalletClick() = RxView.clicks(no_backup_button)
+  override fun noBackUpWalletClick() = RxView.clicks(views.noBackupButton)
 
   override fun navigateToBackUp() = activityView.navigateToBackUp(walletAddress)
 
   override fun proceedWithRemoveWallet() = activityView.navigateToWalletRemoveConfirmation()
 
   private fun setWalletBalance() {
-    wallet_address.text = walletAddress
-    wallet_balance.text = fiatBalance
+    views.walletCard.walletAddress.text = walletAddress
+    views.walletCard.walletBalance.text = fiatBalance
   }
 
   override fun onDestroyView() {
     presenter.stop()
     super.onDestroyView()
-    _binding = null
   }
 
   private val walletAddress: String by lazy {

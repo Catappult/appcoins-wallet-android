@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import by.kirich1409.viewbindingdelegate.viewBinding
 import com.adyen.checkout.card.CardConfiguration
 import com.adyen.checkout.core.api.Environment
 import com.appcoins.wallet.billing.adyen.PaymentInfoModel
@@ -51,35 +52,7 @@ class VerificationIntroFragment : BasePageViewFragment(), VerificationIntroView 
   private var isStored = false
   private var paymentDataSubject: BehaviorSubject<AdyenCardWrapper> = BehaviorSubject.create()
 
-  private var _binding: FragmentVerificationIntroBinding? = null
-  // This property is only valid between onCreateView and
-  // onDestroyView.
-  private val binding get() = _binding!!
-
-  // fragment_verification_intro.xml
-  private val adyen_card_form get() = binding.adyenCardForm.root
-  private val description get() = binding.description
-  private val change_card_button get() = binding.changeCardButton
-  private val submit get() = binding.submit
-  private val cancel get() = binding.cancel
-  private val no_network get() = binding.noNetwork.root
-  private val fragment_adyen_error get() = binding.fragmentAdyenError.root
-  private val content_container get() = binding.contentContainer
-  private val progress_bar get() = binding.progressBar
-
-  // error_top_up_layout.xml
-  private val layout_support_icn get() = binding.fragmentAdyenError.layoutSupportIcn
-  private val layout_support_logo get() = binding.fragmentAdyenError.layoutSupportLogo
-  private val try_again get() = binding.fragmentAdyenError.tryAgain
-  private val error_message get() = binding.fragmentAdyenError.errorMessage
-
-  // no_network_retry_only_layout.xml
-  private val retry_button get() = binding.noNetwork.retryButton
-
-  // selected_payment_method_cc.xml
-  private val adyen_card_form_pre_selected get() = binding.adyenCardForm.adyenCardFormPreSelected
-  private val adyen_card_form_pre_selected_number get() = binding.adyenCardForm.adyenCardFormPreSelectedNumber
-  private val payment_method_ic get() = binding.adyenCardForm.paymentMethodIc
+  private val views by viewBinding(FragmentVerificationIntroBinding::bind)
 
   override fun onAttach(context: Context) {
     super.onAttach(context)
@@ -96,8 +69,7 @@ class VerificationIntroFragment : BasePageViewFragment(), VerificationIntroView 
     inflater: LayoutInflater, container: ViewGroup?,
     savedInstanceState: Bundle?
   ): View? {
-    _binding = FragmentVerificationIntroBinding.inflate(inflater, container, false)
-    return binding.root
+    return inflater.inflate(R.layout.fragment_verification_intro, container, false)
   }
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -112,7 +84,7 @@ class VerificationIntroFragment : BasePageViewFragment(), VerificationIntroView 
   }
 
   private fun setupUi() {
-    adyenCardView = AdyenCardView(adyen_card_form)
+    adyenCardView = AdyenCardView(views.adyenCardForm.root)
     setupCardConfiguration()
   }
 
@@ -129,7 +101,7 @@ class VerificationIntroFragment : BasePageViewFragment(), VerificationIntroView 
       verificationIntroModel.verificationInfoModel.value,
       WalletCurrency.FIAT
     )
-    description.text = getString(
+    views.description.text = getString(
       R.string.card_verification_charde_disclaimer,
       "${verificationIntroModel.verificationInfoModel.symbol}$amount"
     )
@@ -145,7 +117,7 @@ class VerificationIntroFragment : BasePageViewFragment(), VerificationIntroView 
 
   private fun handleLayoutVisibility(isStored: Boolean) {
     adyenCardView.showInputFields(!isStored)
-    change_card_button.visibility = if (isStored) View.VISIBLE else View.GONE
+    views.changeCardButton.visibility = if (isStored) View.VISIBLE else View.GONE
     if (isStored) {
       view?.let { KeyboardUtils.showKeyboard(it) }
     }
@@ -157,11 +129,11 @@ class VerificationIntroFragment : BasePageViewFragment(), VerificationIntroView 
   ) {
     if (forget) adyenCardView.clear(this)
     val cardComponent = paymentInfoModel.cardComponent!!(this, cardConfiguration)
-    adyen_card_form_pre_selected?.attach(cardComponent, this)
+    views.adyenCardForm.adyenCardFormPreSelected.attach(cardComponent, this)
     cardComponent.observe(this) {
       adyenCardView.setError(null)
       if (it != null && it.isValid) {
-        submit.isEnabled = true
+        views.submit.isEnabled = true
         view?.let { view -> KeyboardUtils.hideKeyboard(view) }
         it.data.paymentMethod?.let { paymentMethod ->
           val hasCvc = !paymentMethod.encryptedSecurityCode.isNullOrEmpty()
@@ -175,46 +147,46 @@ class VerificationIntroFragment : BasePageViewFragment(), VerificationIntroView 
           )
         }
       } else {
-        submit.isEnabled = false
+        views.submit.isEnabled = false
       }
     }
   }
 
   private fun setStoredPaymentInformation(isStored: Boolean) {
     if (isStored) {
-      adyen_card_form_pre_selected_number?.text = adyenCardView.cardNumber
-      adyen_card_form_pre_selected_number?.visibility = View.VISIBLE
-      payment_method_ic?.setImageDrawable(adyenCardView.cardImage)
+      views.adyenCardForm.adyenCardFormPreSelectedNumber.text = adyenCardView.cardNumber
+      views.adyenCardForm.adyenCardFormPreSelectedNumber.visibility = View.VISIBLE
+      views.adyenCardForm.paymentMethodIc.setImageDrawable(adyenCardView.cardImage)
     } else {
-      adyen_card_form_pre_selected_number?.visibility = View.GONE
-      payment_method_ic?.visibility = View.GONE
+      views.adyenCardForm.adyenCardFormPreSelectedNumber.visibility = View.GONE
+      views.adyenCardForm.paymentMethodIc.visibility = View.GONE
     }
   }
 
-  override fun getCancelClicks() = RxView.clicks(cancel)
+  override fun getCancelClicks() = RxView.clicks(views.cancel)
 
-  override fun getSubmitClicks() = RxView.clicks(submit)
+  override fun getSubmitClicks() = RxView.clicks(views.submit)
 
-  override fun forgetCardClick(): Observable<Any> = RxView.clicks(change_card_button)
+  override fun forgetCardClick(): Observable<Any> = RxView.clicks(views.changeCardButton)
 
-  override fun getTryAgainClicks() = RxView.clicks(try_again)
+  override fun getTryAgainClicks() = RxView.clicks(views.fragmentAdyenError.tryAgain)
 
-  override fun retryClick() = RxView.clicks(retry_button)
+  override fun retryClick() = RxView.clicks(views.noNetwork.retryButton)
 
   override fun getSupportClicks(): Observable<Any> {
-    return Observable.merge(RxView.clicks(layout_support_logo), RxView.clicks(layout_support_icn))
+    return Observable.merge(RxView.clicks(views.fragmentAdyenError.layoutSupportLogo), RxView.clicks(views.fragmentAdyenError.layoutSupportIcn))
   }
 
   override fun showLoading() {
-    no_network.visibility = View.GONE
-    fragment_adyen_error?.visibility = View.GONE
-    content_container.visibility = View.GONE
-    progress_bar.visibility = View.VISIBLE
+    views.noNetwork.root.visibility = View.GONE
+    views.fragmentAdyenError.root.visibility = View.GONE
+    views.contentContainer.visibility = View.GONE
+    views.progressBar.visibility = View.VISIBLE
   }
 
   override fun hideLoading() {
-    progress_bar.visibility = View.GONE
-    content_container.visibility = View.VISIBLE
+    views.progressBar.visibility = View.GONE
+    views.contentContainer.visibility = View.VISIBLE
     activityView.hideLoading()
   }
 
@@ -230,31 +202,31 @@ class VerificationIntroFragment : BasePageViewFragment(), VerificationIntroView 
 
   override fun showNetworkError() {
     unlockRotation()
-    progress_bar.visibility = View.GONE
-    content_container.visibility = View.GONE
-    no_network.visibility = View.VISIBLE
+    views.progressBar.visibility = View.GONE
+    views.contentContainer.visibility = View.GONE
+    views.noNetwork.root.visibility = View.VISIBLE
   }
 
   override fun showSpecificError(stringRes: Int) {
     unlockRotation()
-    progress_bar.visibility = View.GONE
-    content_container.visibility = View.GONE
+    views.progressBar.visibility = View.GONE
+    views.contentContainer.visibility = View.GONE
 
     val message = getString(stringRes)
-    error_message?.text = message
-    fragment_adyen_error?.visibility = View.VISIBLE
+    views.fragmentAdyenError.errorMessage.text = message
+    views.fragmentAdyenError.root.visibility = View.VISIBLE
   }
 
   override fun showCvvError() {
     unlockRotation()
-    progress_bar.visibility = View.GONE
-    submit.isEnabled = false
+    views.progressBar.visibility = View.GONE
+    views.submit.isEnabled = false
     if (isStored) {
-      change_card_button.visibility = View.VISIBLE
+      views.changeCardButton.visibility = View.VISIBLE
     } else {
-      change_card_button.visibility = View.INVISIBLE
+      views.changeCardButton.visibility = View.INVISIBLE
     }
-    content_container.visibility = View.VISIBLE
+    views.contentContainer.visibility = View.VISIBLE
     adyenCardView.setError(getString(R.string.purchase_card_error_CVV))
   }
 
@@ -273,6 +245,5 @@ class VerificationIntroFragment : BasePageViewFragment(), VerificationIntroView 
   override fun onDestroyView() {
     presenter.stop()
     super.onDestroyView()
-    _binding = null
   }
 }

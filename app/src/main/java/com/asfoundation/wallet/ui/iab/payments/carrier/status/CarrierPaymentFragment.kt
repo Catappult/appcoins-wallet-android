@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import by.kirich1409.viewbindingdelegate.viewBinding
 import com.airbnb.lottie.FontAssetDelegate
 import com.airbnb.lottie.TextDelegate
 import com.asf.wallet.R
@@ -29,22 +30,11 @@ class CarrierPaymentFragment : BasePageViewFragment(), CarrierPaymentView {
   lateinit var presenter: CarrierPaymentPresenter
   lateinit var iabView: IabView
 
-  private var _binding: FragmentCarrierPaymentStatusBinding? = null
-  // This property is only valid between onCreateView and
-  // onDestroyView.
-  private val binding get() = _binding!!
-
-  // fragment_carrier_payment_status.xml
-  private val complete_payment_view get() = binding.completePaymentView.root
-  private val progress_bar get() = binding.progressBar
-
-  // fragment_iab_transaction_completed.xml
-  private val lottie_transaction_success get() = binding.completePaymentView.lottieTransactionSuccess
+  private val views by viewBinding(FragmentCarrierPaymentStatusBinding::bind)
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                             savedInstanceState: Bundle?): View? {
-    _binding = FragmentCarrierPaymentStatusBinding.inflate(inflater, container, false)
-    return binding.root
+    return inflater.inflate(R.layout.fragment_carrier_payment_status, container, false)
   }
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -61,20 +51,20 @@ class CarrierPaymentFragment : BasePageViewFragment(), CarrierPaymentView {
 
   override fun initializeView(bonusValue: BigDecimal?, currency: String) {
     if (bonusValue != null) {
-      lottie_transaction_success.setAnimation(
+      views.completePaymentView.lottieTransactionSuccess.setAnimation(
           R.raw.transaction_complete_bonus_animation)
-      val textDelegate = TextDelegate(lottie_transaction_success)
+      val textDelegate = TextDelegate(views.completePaymentView.lottieTransactionSuccess)
       textDelegate.setText("bonus_value", getBonusMessage(bonusValue, currency))
       textDelegate.setText("bonus_received",
           resources.getString(R.string.gamification_purchase_completed_bonus_received))
-      lottie_transaction_success.setTextDelegate(textDelegate)
-      lottie_transaction_success.setFontAssetDelegate(object :
+      views.completePaymentView.lottieTransactionSuccess.setTextDelegate(textDelegate)
+      views.completePaymentView.lottieTransactionSuccess.setFontAssetDelegate(object :
           FontAssetDelegate() {
         override fun fetchFont(fontFamily: String?) =
             Typeface.create("sans-serif-medium", Typeface.BOLD)
       })
     } else {
-      lottie_transaction_success.setAnimation(R.raw.success_animation)
+      views.completePaymentView.lottieTransactionSuccess.setAnimation(R.raw.success_animation)
     }
   }
 
@@ -95,7 +85,6 @@ class CarrierPaymentFragment : BasePageViewFragment(), CarrierPaymentView {
     unlockRotation()
     presenter.stop()
     super.onDestroyView()
-    _binding = null
   }
 
   override fun onAttach(context: Context) {
@@ -113,17 +102,17 @@ class CarrierPaymentFragment : BasePageViewFragment(), CarrierPaymentView {
   }
 
   override fun setLoading() {
-    progress_bar.visibility = View.VISIBLE
-    complete_payment_view.visibility = View.INVISIBLE
+    views.progressBar.visibility = View.VISIBLE
+    views.completePaymentView.root.visibility = View.INVISIBLE
   }
 
   override fun showFinishedTransaction() {
-    complete_payment_view.visibility = View.VISIBLE
-    progress_bar.visibility = View.INVISIBLE
+    views.completePaymentView.root.visibility = View.VISIBLE
+    views.progressBar.visibility = View.INVISIBLE
   }
 
   override fun getFinishedDuration(): Long =
-      lottie_transaction_success.duration
+      views.completePaymentView.lottieTransactionSuccess.duration
 
   companion object {
     val TAG = CarrierPaymentFragment::class.java.simpleName

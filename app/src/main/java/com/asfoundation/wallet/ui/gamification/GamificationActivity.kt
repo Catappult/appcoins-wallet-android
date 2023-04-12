@@ -7,6 +7,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.widget.Toolbar
+import by.kirich1409.viewbindingdelegate.viewBinding
 import com.asf.wallet.R
 import com.asf.wallet.databinding.ActivityRewardsLevelBinding
 import com.asfoundation.wallet.ui.BaseActivity
@@ -25,23 +26,11 @@ class GamificationActivity : BaseActivity(), GamificationActivityView {
   private var backEnabled = true
   private var onBackPressedSubject: PublishSubject<Any>? = null
 
-  private var _binding: ActivityRewardsLevelBinding? = null
-  // This property is only valid between onCreateView and
-  // onDestroyView.
-  private val binding get() = _binding!!
-
-  // activity_rewards_level.xml
-  private val gamification_no_network get() = binding.gamificationNoNetwork
-  private val fragment_container get() = binding.fragmentContainer
-
-  // no_network_retry_only_layout.xml
-  private val retry_button get() = binding.noNetworkRetryOnlyLayout.retryButton
-  private val retry_animation get() = binding.noNetworkRetryOnlyLayout.retryAnimation
+  private val binding by viewBinding(ActivityRewardsLevelBinding::bind)
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-    _binding = ActivityRewardsLevelBinding.inflate(layoutInflater)
-    setContentView(binding.root)
+    setContentView(R.layout.activity_rewards_level)
     toolbar = toolbar()
     onBackPressedSubject = PublishSubject.create()
     setTitle(getString(R.string.gamif_title, bonus.toString()))
@@ -70,7 +59,7 @@ class GamificationActivity : BaseActivity(), GamificationActivityView {
     return super.onCreateOptionsMenu(menu)
   }
 
-  override fun retryClick() = RxView.clicks(retry_button)
+  override fun retryClick() = RxView.clicks(binding.noNetworkRetryOnlyLayout.retryButton)
 
   override fun loadGamificationView() {
     toolbar?.menu?.removeItem(R.id.action_info)
@@ -80,26 +69,25 @@ class GamificationActivity : BaseActivity(), GamificationActivityView {
   }
 
   override fun showNetworkErrorView() {
-    gamification_no_network.visibility = View.VISIBLE
-    retry_button.visibility = View.VISIBLE
-    retry_animation.visibility = View.GONE
-    fragment_container.visibility = View.GONE
+    binding.gamificationNoNetwork.visibility = View.VISIBLE
+    binding.noNetworkRetryOnlyLayout.retryButton.visibility = View.VISIBLE
+    binding.noNetworkRetryOnlyLayout.retryAnimation.visibility = View.GONE
+    binding.fragmentContainer.visibility = View.GONE
   }
 
   override fun showRetryAnimation() {
-    retry_button.visibility = View.INVISIBLE
-    retry_animation.visibility = View.VISIBLE
+    binding.noNetworkRetryOnlyLayout.retryButton.visibility = View.INVISIBLE
+    binding.noNetworkRetryOnlyLayout.retryAnimation.visibility = View.VISIBLE
   }
 
   override fun showMainView() {
-    fragment_container.visibility = View.VISIBLE
-    gamification_no_network.visibility = View.GONE
+    binding.fragmentContainer.visibility = View.VISIBLE
+    binding.gamificationNoNetwork.visibility = View.GONE
   }
 
   override fun onDestroy() {
     presenter.stop()
     super.onDestroy()
-    _binding = null
   }
 
   private val bonus: Int by lazy {

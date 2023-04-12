@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.transition.Transition
 import android.view.View
 import android.view.Window
+import by.kirich1409.viewbindingdelegate.viewBinding
 import com.asf.wallet.R
 import com.asfoundation.wallet.router.TopUpRouter
 import com.asfoundation.wallet.ui.BaseActivity
@@ -23,18 +24,7 @@ class TokenDetailsActivity : BaseActivity(), TokenDetailsView {
   private lateinit var token: TokenDetailsId
   private lateinit var presenter: TokenDetailsPresenter
 
-  private var _binding: ActivityTokenDetailsBinding? = null
-  // This property is only valid between onCreateView and
-  // onDestroyView.
-  private val binding get() = _binding!!
-
-  private val container get() = binding.container
-  private val token_icon get() = binding.tokenIcon
-  private val token_name get() = binding.tokenName
-  private val token_symbol get() = binding.tokenSymbol
-  private val token_description get() = binding.tokenDescription
-  private val topup_btn get() = binding.topupBtn
-  private val close_btn get() = binding.closeBtn
+  private val binding by viewBinding(ActivityTokenDetailsBinding::bind)
 
   override fun onResume() {
     super.onResume()
@@ -60,8 +50,7 @@ class TokenDetailsActivity : BaseActivity(), TokenDetailsView {
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     window.requestFeature(Window.FEATURE_ACTIVITY_TRANSITIONS)
-    _binding = ActivityTokenDetailsBinding.inflate(layoutInflater)
-    setContentView(binding.root)
+    setContentView(R.layout.activity_token_details)
     presenter = TokenDetailsPresenter(this, CompositeDisposable())
     savedInstanceState?.let {
       contentVisible = it.getBoolean(PARAM_ENTERING)
@@ -72,7 +61,6 @@ class TokenDetailsActivity : BaseActivity(), TokenDetailsView {
   override fun onDestroy() {
     presenter.stop()
     super.onDestroy()
-    _binding = null
   }
 
   override fun onSaveInstanceState(outState: Bundle) {
@@ -83,31 +71,31 @@ class TokenDetailsActivity : BaseActivity(), TokenDetailsView {
   private fun setContent(tokenDetailsId: TokenDetailsId) {
     when (tokenDetailsId) {
       TokenDetailsId.ETHER -> {
-        token_icon.setImageResource(R.drawable.ic_eth_token)
-        token_name.text = getString(R.string.ethereum_token_name)
-        token_symbol.text = "(${WalletCurrency.ETHEREUM.symbol})"
-        token_description.text = getString(R.string.balance_ethereum_body)
+        binding.tokenIcon.setImageResource(R.drawable.ic_eth_token)
+        binding.tokenName.text = getString(R.string.ethereum_token_name)
+        binding.tokenSymbol.text = "(${WalletCurrency.ETHEREUM.symbol})"
+        binding.tokenDescription.text = getString(R.string.balance_ethereum_body)
       }
       TokenDetailsId.APPC -> {
-        token_icon.setImageResource(R.drawable.ic_appc_token)
-        token_name.text = getString(R.string.appc_token_name)
-        token_symbol.text = "(${WalletCurrency.APPCOINS.symbol})"
-        token_description.text = getString(R.string.balance_appcoins_body)
+        binding.tokenIcon.setImageResource(R.drawable.ic_appc_token)
+        binding.tokenName.text = getString(R.string.appc_token_name)
+        binding.tokenSymbol.text = "(${WalletCurrency.APPCOINS.symbol})"
+        binding.tokenDescription.text = getString(R.string.balance_appcoins_body)
       }
       TokenDetailsId.APPC_CREDITS -> {
-        token_icon.setImageResource(R.drawable.ic_appc_c_token)
-        token_name.text = getString(R.string.appc_credits_token_name)
-        token_symbol.text = "(${WalletCurrency.CREDITS.symbol})"
-        token_description.text = getString(R.string.balance_appccreditos_body)
+        binding.tokenIcon.setImageResource(R.drawable.ic_appc_c_token)
+        binding.tokenName.text = getString(R.string.appc_credits_token_name)
+        binding.tokenSymbol.text = "(${WalletCurrency.CREDITS.symbol})"
+        binding.tokenDescription.text = getString(R.string.balance_appccreditos_body)
       }
     }
   }
 
   override fun onBackPressed() {
-    token_symbol.visibility = View.INVISIBLE
-    token_description.visibility = View.INVISIBLE
-    close_btn.visibility = View.INVISIBLE
-    topup_btn.visibility = View.INVISIBLE
+    binding.tokenSymbol.visibility = View.INVISIBLE
+    binding.tokenDescription.visibility = View.INVISIBLE
+    binding.closeBtn.visibility = View.INVISIBLE
+    binding.topupBtn.visibility = View.INVISIBLE
     super.onBackPressed()
   }
 
@@ -127,11 +115,11 @@ class TokenDetailsActivity : BaseActivity(), TokenDetailsView {
 
       override fun onTransitionEnd(transition: Transition) {
         if (!contentVisible) {
-          token_symbol.visibility = View.VISIBLE
-          token_description.visibility = View.VISIBLE
-          close_btn.visibility = View.VISIBLE
+          binding.tokenSymbol.visibility = View.VISIBLE
+          binding.tokenDescription.visibility = View.VISIBLE
+          binding.closeBtn.visibility = View.VISIBLE
           if (token == TokenDetailsId.APPC_CREDITS) {
-            topup_btn.visibility = View.VISIBLE
+            binding.topupBtn.visibility = View.VISIBLE
           }
           contentVisible = true
         }
@@ -148,17 +136,17 @@ class TokenDetailsActivity : BaseActivity(), TokenDetailsView {
     })
 
     if (contentVisible) {
-      token_symbol.visibility = View.VISIBLE
-      token_description.visibility = View.VISIBLE
-      close_btn.visibility = View.VISIBLE
+      binding.tokenSymbol.visibility = View.VISIBLE
+      binding.tokenDescription.visibility = View.VISIBLE
+      binding.closeBtn.visibility = View.VISIBLE
       if (token == TokenDetailsId.APPC_CREDITS) {
-        topup_btn.visibility = View.VISIBLE
+        binding.topupBtn.visibility = View.VISIBLE
       }
     }
   }
 
   override fun getOkClick(): Observable<Any> {
-    return RxView.clicks(close_btn)
+    return RxView.clicks(binding.closeBtn)
   }
 
   override fun close() {
@@ -166,7 +154,7 @@ class TokenDetailsActivity : BaseActivity(), TokenDetailsView {
   }
 
   override fun getTopUpClick(): Observable<Any> {
-    return RxView.clicks(topup_btn)
+    return RxView.clicks(binding.topupBtn)
   }
 
   override fun showTopUp() {

@@ -7,6 +7,7 @@ import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.view.ViewGroup
+import by.kirich1409.viewbindingdelegate.viewBinding
 import com.asf.wallet.R
 import com.appcoins.wallet.core.utils.android_common.extensions.scaleToString
 import com.asf.wallet.databinding.InviteFriendsFragmentLayoutBinding
@@ -29,21 +30,7 @@ class InviteFriendsFragment : BasePageViewFragment(), InviteFriendsFragmentView 
   private var activity: InviteFriendsActivityView? = null
   private lateinit var referralsBottomSheet: BottomSheetBehavior<View>
 
-  private var _binding: InviteFriendsFragmentLayoutBinding? = null
-  // This property is only valid between onCreateView and
-  // onDestroyView.
-  private val binding get() = _binding!!
-
-  // invite_friends_fragment_layout.xml
-  private val bottom_sheet_fragment_container get() = binding.bottomSheetFragmentContainer
-  private val referral_description get() = binding.referralDescription
-  private val share_invite_button get() = binding.shareInviteButton
-  private val background_fade_animation get() = binding.backgroundFadeAnimation
-
-  // referral_notification_card.xml
-  private val notification_title get() = binding.referralNotificationCard.notificationTitle
-  private val notification_image get() = binding.referralNotificationCard.notificationImage
-  private val referral_notification_card get() = binding.referralNotificationCard.root
+  private val binding by viewBinding(InviteFriendsFragmentLayoutBinding::bind)
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
@@ -61,7 +48,7 @@ class InviteFriendsFragment : BasePageViewFragment(), InviteFriendsFragmentView 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
     referralsBottomSheet =
-        BottomSheetBehavior.from(bottom_sheet_fragment_container)
+        BottomSheetBehavior.from(binding.bottomSheetFragmentContainer)
     animateBackgroundFade()
     setTextValues()
     presenter.present()
@@ -74,8 +61,7 @@ class InviteFriendsFragment : BasePageViewFragment(), InviteFriendsFragmentView 
             ReferralsFragment.newInstance(amount, pendingAmount, currency, completedInvites,
                 receivedAmount, maxAmount, available, isRedeemed))
         .commit()
-    _binding = InviteFriendsFragmentLayoutBinding.inflate(inflater, container, false)
-    return binding.root
+    return inflater.inflate(R.layout.invite_friends_fragment_layout, container, false)
   }
 
   private fun animateBackgroundFade() {
@@ -84,22 +70,22 @@ class InviteFriendsFragment : BasePageViewFragment(), InviteFriendsFragmentView 
       }
 
       override fun onSlide(bottomSheet: View, slideOffset: Float) {
-        background_fade_animation?.progress = slideOffset
+        binding.backgroundFadeAnimation.progress = slideOffset
       }
     })
   }
 
   private fun setTextValues() {
-    referral_description.text =
+    binding.referralDescription.text =
         getString(R.string.referral_view_verified_body,
             currency + amount.scaleToString(2))
-    notification_title.text =
+    binding.referralNotificationCard.notificationTitle.text =
         getString(R.string.referral_notification_bonus_pending_title,
             currency + pendingAmount.scaleToString(2))
   }
 
   override fun shareLinkClick(): Observable<Any> {
-    return RxView.clicks(share_invite_button)
+    return RxView.clicks(binding.shareInviteButton)
   }
 
 
@@ -110,12 +96,12 @@ class InviteFriendsFragment : BasePageViewFragment(), InviteFriendsFragmentView 
   override fun showNotificationCard(pendingAmount: BigDecimal, symbol: String,
                                     icon: Int?) {
     if (pendingAmount.toDouble() > 0) {
-      icon?.let { notification_image.setImageResource(icon) }
-      notification_title.text = getString(R.string.referral_notification_bonus_pending_title,
+      icon?.let { binding.referralNotificationCard.notificationImage.setImageResource(icon) }
+      binding.referralNotificationCard.notificationTitle.text = getString(R.string.referral_notification_bonus_pending_title,
           "$symbol${pendingAmount.scaleToString(2)}")
-      referral_notification_card.visibility = VISIBLE
+      binding.referralNotificationCard.root.visibility = VISIBLE
     } else {
-      referral_notification_card.visibility = GONE
+      binding.referralNotificationCard.root.visibility = GONE
     }
   }
 
@@ -130,7 +116,6 @@ class InviteFriendsFragment : BasePageViewFragment(), InviteFriendsFragmentView 
   override fun onDestroyView() {
     presenter.stop()
     super.onDestroyView()
-    _binding = null
   }
 
   private val receivedAmount: BigDecimal by lazy {

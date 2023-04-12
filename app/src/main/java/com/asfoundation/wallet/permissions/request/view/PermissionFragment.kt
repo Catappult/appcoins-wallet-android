@@ -9,6 +9,7 @@ import android.text.style.StyleSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import by.kirich1409.viewbindingdelegate.viewBinding
 import com.appcoins.wallet.permissions.PermissionName
 import com.asf.wallet.R
 import com.asfoundation.wallet.permissions.PermissionsInteractor
@@ -56,22 +57,7 @@ class PermissionFragment : BasePageViewFragment(), PermissionFragmentView {
   private lateinit var presenter: PermissionsFragmentPresenter
   private var disposable: Disposable? = null
 
-  private var _binding: FragmentPermissionsLayoutBinding? = null
-  // This property is only valid between onCreateView and
-// onDestroyView.
-  private val binding get() = _binding!!
-
-  // fragment_permissions_layout.xml
-  private val main_view get() = binding.mainView
-  private val provide_wallet_always_allow_body get() = binding.provideWalletAlwaysAllowBody
-  private val provide_wallet_cancel get() = binding.provideWalletCancel
-  private val provide_wallet_always_allow_app_wallet_address get() = binding.provideWalletAlwaysAllowAppWalletAddress
-  private val progress get() = binding.progress
-  private val provide_wallet_always_allow_button get() = binding.provideWalletAlwaysAllowButton
-  private val provide_wallet_allow_once_button get() = binding.provideWalletAllowOnceButton
-
-  // provide_wallet_always_allow_wallet_apps_layout.xml
-  private val provide_wallet_always_allow_app_icon get() = binding.provideWalletAlwaysAllowWalletAppsLayout.provideWalletAlwaysAllowAppIcon
+  private val views by viewBinding(FragmentPermissionsLayoutBinding::bind)
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
@@ -84,13 +70,12 @@ class PermissionFragment : BasePageViewFragment(), PermissionFragmentView {
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                             savedInstanceState: Bundle?): View? {
-    _binding = FragmentPermissionsLayoutBinding.inflate(inflater, container, false)
-    return binding.root
+    return inflater.inflate(R.layout.fragment_permissions_layout, container, false)
   }
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
-    main_view.visibility = View.INVISIBLE
+    views.mainView.visibility = View.INVISIBLE
     presenter.present()
   }
 
@@ -102,7 +87,7 @@ class PermissionFragment : BasePageViewFragment(), PermissionFragmentView {
         .subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())
         .doOnSuccess { app ->
-          provide_wallet_always_allow_app_icon.setImageDrawable(app.icon)
+          views.provideWalletAlwaysAllowWalletAppsLayout.provideWalletAlwaysAllowAppIcon.setImageDrawable(app.icon)
 
           val message = getString(R.string.provide_wallet_body, app.appName)
           val spannedMessage = SpannableString(message)
@@ -116,27 +101,27 @@ class PermissionFragment : BasePageViewFragment(), PermissionFragmentView {
           spannedMessage.setSpan(StyleSpan(BOLD), message.indexOf(app.appName),
               message.indexOf(app.appName) + app.appName.length,
               Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
-          provide_wallet_always_allow_body.text = spannedMessage
-          progress.visibility = View.GONE
-          main_view.visibility = View.VISIBLE
+          views.provideWalletAlwaysAllowBody.text = spannedMessage
+          views.progress.visibility = View.GONE
+          views.mainView.visibility = View.VISIBLE
         }
         .subscribe()
   }
 
   override fun showWalletAddress(wallet: String) {
-    provide_wallet_always_allow_app_wallet_address.text = wallet
+    views.provideWalletAlwaysAllowAppWalletAddress.text = wallet
   }
 
   override fun getAllowButtonClick(): Observable<Any> {
-    return RxView.clicks(provide_wallet_always_allow_button)
+    return RxView.clicks(views.provideWalletAlwaysAllowButton)
   }
 
   override fun getAllowOnceClick(): Observable<Any> {
-    return RxView.clicks(provide_wallet_allow_once_button)
+    return RxView.clicks(views.provideWalletAllowOnceButton)
   }
 
   override fun getCancelClick(): Observable<Any> {
-    return RxView.clicks(provide_wallet_cancel)
+    return RxView.clicks(views.provideWalletCancel)
   }
 
   override fun closeCancel() {
@@ -163,6 +148,5 @@ class PermissionFragment : BasePageViewFragment(), PermissionFragmentView {
     presenter.stop()
     disposable?.dispose()
     super.onDestroyView()
-    _binding = null
   }
 }

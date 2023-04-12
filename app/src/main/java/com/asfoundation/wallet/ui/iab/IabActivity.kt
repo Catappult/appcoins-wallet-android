@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.annotation.StringRes
 import androidx.fragment.app.Fragment
+import by.kirich1409.viewbindingdelegate.viewBinding
 import com.appcoins.wallet.billing.AppcoinsBillingBinder
 import com.appcoins.wallet.billing.AppcoinsBillingBinder.Companion.EXTRA_BDS_IAP
 import com.appcoins.wallet.billing.repository.entity.TransactionData
@@ -85,31 +86,14 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
   private var authenticationResultSubject: PublishSubject<Boolean>? = null
   private var errorFromReceiver: String? = null
 
-  private var _binding: ActivityIabBinding? = null
-  // This property is only valid between onCreateView and
-  // onDestroyView.
-  private val binding get() = _binding!!
-
-  // activity_iab.xml
-  private val fragment_container get() = binding.fragmentContainer
-  private val layout_error get() = binding.layoutError
-  private val wallet_logo_layout get() = binding.walletLogoLayout.root
-
-  // iab_error_layout.xml
-  private val error_dismiss get() = binding.iabErrorLayout.errorDismiss
-
-  // support_error_layout.xml
-  private val layout_support_logo get() = binding.iabErrorLayout.genericErrorLayout.layoutSupportLogo
-  private val layout_support_icn get() = binding.iabErrorLayout.genericErrorLayout.layoutSupportIcn
-  private val error_message get() = binding.iabErrorLayout.genericErrorLayout.errorMessage
+  private val binding by viewBinding(ActivityIabBinding::bind)
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     backButtonPress = PublishRelay.create()
     results = PublishRelay.create()
     authenticationResultSubject = PublishSubject.create()
-    _binding = ActivityIabBinding.inflate(layoutInflater)
-    setContentView(binding.root)
+    setContentView(R.layout.activity_iab)
     isBds = intent.getBooleanExtra(IS_BDS_EXTRA, false)
     developerPayload = intent.getStringExtra(DEVELOPER_PAYLOAD)
     uri = intent.getStringExtra(URI)
@@ -210,7 +194,7 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
     startActivityForResult(WebViewActivity.newIntent(this, url), WEB_VIEW_REQUEST_CODE)
 
   override fun showVerification(isWalletVerified: Boolean) {
-    fragment_container.visibility = View.GONE
+    binding.fragmentContainer.visibility = View.GONE
     val intent = VerificationCreditCardActivity.newIntent(this, isWalletVerified)
       .apply { intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP }
     startActivity(intent)
@@ -407,8 +391,8 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
         transaction?.type,
         ignoreCase = true
       )
-    layout_error.visibility = View.GONE
-    fragment_container.visibility = View.VISIBLE
+    binding.layoutError.visibility = View.GONE
+    binding.fragmentContainer.visibility = View.VISIBLE
 
     supportFragmentManager.beginTransaction()
       .replace(
@@ -539,16 +523,16 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
   }
 
   override fun showError(@StringRes error: Int) {
-    fragment_container.visibility = View.GONE
-    layout_error.visibility = View.VISIBLE
-    error_message.text = getText(error)
-    wallet_logo_layout.visibility = View.GONE
+    binding.fragmentContainer.visibility = View.GONE
+    binding.layoutError.visibility = View.VISIBLE
+    binding.iabErrorLayout.genericErrorLayout.errorMessage.text = getText(error)
+    binding.walletLogoLayout.root.visibility = View.GONE
   }
 
   override fun getSupportClicks(): Observable<Any> =
-    Observable.merge(RxView.clicks(layout_support_logo), RxView.clicks(layout_support_icn))
+    Observable.merge(RxView.clicks(binding.iabErrorLayout.genericErrorLayout.layoutSupportLogo), RxView.clicks(binding.iabErrorLayout.genericErrorLayout.layoutSupportIcn))
 
-  override fun errorDismisses() = RxView.clicks(error_dismiss)
+  override fun errorDismisses() = RxView.clicks(binding.iabErrorLayout.errorDismiss)
 
   override fun launchPerkBonusAndGamificationService(address: String) =
     PerkBonusAndGamificationService.buildService(this, address)
@@ -607,7 +591,6 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
   override fun onDestroy() {
     backButtonPress = null
     super.onDestroy()
-    _binding = null
   }
 
   private fun getSkuDescription(): String = when {

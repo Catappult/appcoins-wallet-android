@@ -5,6 +5,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import by.kirich1409.viewbindingdelegate.viewBinding
+import com.asf.wallet.R
 import com.asf.wallet.databinding.FragmentRatingFinishBinding
 import com.asfoundation.wallet.rating.RatingActivity
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
@@ -21,12 +23,7 @@ class RatingFinishFragment : BasePageViewFragment(), RatingFinishView {
 
   private val animationEndSubject = PublishSubject.create<Any>()
 
-  private var _binding: FragmentRatingFinishBinding? = null
-  // This property is only valid between onCreateView and
-  // onDestroyView.
-  private val binding get() = _binding!!
-
-  private val animation get() = binding.animation
+  private val binding by viewBinding(FragmentRatingFinishBinding::bind)
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
@@ -35,13 +32,12 @@ class RatingFinishFragment : BasePageViewFragment(), RatingFinishView {
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                             savedInstanceState: Bundle?): View? {
-    _binding = FragmentRatingFinishBinding.inflate(inflater, container, false)
-    return binding.root
+    return inflater.inflate(R.layout.fragment_rating_finish, container, false)
   }
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
-    animation.addAnimatorListener(object : Animator.AnimatorListener {
+    binding.animation.addAnimatorListener(object : Animator.AnimatorListener {
       override fun onAnimationEnd(animation: Animator) {
         animationEndSubject.onNext(Unit)
       }

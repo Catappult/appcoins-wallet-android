@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import by.kirich1409.viewbindingdelegate.viewBinding
 import com.asf.wallet.R
 import com.asf.wallet.databinding.FragmentRatingPositiveBinding
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
@@ -18,22 +19,11 @@ class RatingPositiveFragment : BasePageViewFragment(), RatingPositiveView {
   @Inject
   lateinit var presenter: RatingPositivePresenter
 
-  private var _binding: FragmentRatingPositiveBinding? = null
-  // This property is only valid between onCreateView and
-  // onDestroyView.
-  private val binding get() = _binding!!
-
-  private val title get() = binding.title
-  private val description get() = binding.description
-  private val animation get() = binding.animation
-  private val rate_app_button get() = binding.rateAppButton
-  private val remind_me_later_button get() = binding.remindMeLaterButton
-  private val no_button get() = binding.noButton
+  private val binding by viewBinding(FragmentRatingPositiveBinding::bind)
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                             savedInstanceState: Bundle?): View? {
-    _binding = FragmentRatingPositiveBinding.inflate(inflater, container, false)
-    return binding.root
+    return inflater.inflate(R.layout.fragment_rating_positive, container, false)
   }
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -43,33 +33,32 @@ class RatingPositiveFragment : BasePageViewFragment(), RatingPositiveView {
 
   override fun initializeView(isNotFirstTime: Boolean) {
     if (isNotFirstTime) {
-      title.setText(R.string.rate_us_back_title)
-      description.setText(R.string.rate_us_back_body)
-      animation.setMinFrame(196)
-      animation.setMaxFrame(196)
+      binding.title.setText(R.string.rate_us_back_title)
+      binding.description.setText(R.string.rate_us_back_body)
+      binding.animation.setMinFrame(196)
+      binding.animation.setMaxFrame(196)
     } else {
-      animation.setMinFrame(97)
-      animation.setMaxFrame(196)
-      animation.playAnimation()
+      binding.animation.setMinFrame(97)
+      binding.animation.setMaxFrame(196)
+      binding.animation.playAnimation()
     }
   }
 
   override fun rateAppClickEvent(): Observable<Any> {
-    return RxView.clicks(rate_app_button)
+    return RxView.clicks(binding.rateAppButton)
   }
 
   override fun remindMeLaterClickEvent(): Observable<Any> {
-    return RxView.clicks(remind_me_later_button)
+    return RxView.clicks(binding.remindMeLaterButton)
   }
 
   override fun noClickEvent(): Observable<Any> {
-    return RxView.clicks(no_button)
+    return RxView.clicks(binding.noButton)
   }
 
   override fun onDestroyView() {
     presenter.stop()
     super.onDestroyView()
-    _binding = null
   }
 
   companion object {

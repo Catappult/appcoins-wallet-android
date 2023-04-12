@@ -9,6 +9,7 @@ import android.text.style.StyleSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import by.kirich1409.viewbindingdelegate.viewBinding
 import com.airbnb.lottie.FontAssetDelegate
 import com.airbnb.lottie.TextDelegate
 import com.asf.wallet.R
@@ -81,14 +82,7 @@ class TopUpSuccessFragment : BasePageViewFragment(), TopUpSuccessFragmentView {
     }
   }
 
-  private var _binding: FragmentTopUpSuccessBinding? = null
-  // This property is only valid between onCreateView and
-  // onDestroyView.
-  private val binding get() = _binding!!
-
-  private val top_up_success_animation get() = binding.topUpSuccessAnimation
-  private val button get() = binding.button
-  private val value get() = binding.value
+  private val binding by viewBinding(FragmentTopUpSuccessBinding::bind)
 
   override fun onAttach(context: Context) {
     super.onAttach(context)
@@ -107,8 +101,7 @@ class TopUpSuccessFragment : BasePageViewFragment(), TopUpSuccessFragmentView {
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                             savedInstanceState: Bundle?): View? {
-    _binding = FragmentTopUpSuccessBinding.inflate(inflater, container, false)
-    return binding.root
+    return inflater.inflate(R.layout.fragment_top_up_success, container, false)
   }
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -118,25 +111,24 @@ class TopUpSuccessFragment : BasePageViewFragment(), TopUpSuccessFragmentView {
   override fun onDestroyView() {
     presenter.stop()
     super.onDestroyView()
-    _binding = null
   }
 
   override fun show() {
     if (bonus.isNotEmpty() && bonus != "0") {
-      top_up_success_animation.setAnimation(R.raw.top_up_bonus_success_animation)
+      binding.topUpSuccessAnimation.setAnimation(R.raw.top_up_bonus_success_animation)
       setAnimationText()
       formatBonusSuccessMessage()
     } else {
-      top_up_success_animation.setAnimation(R.raw.top_up_success_animation)
+      binding.topUpSuccessAnimation.setAnimation(R.raw.top_up_success_animation)
       formatSuccessMessage()
     }
-    top_up_success_animation.playAnimation()
+    binding.topUpSuccessAnimation.playAnimation()
   }
 
   override fun clean() {
-    top_up_success_animation.removeAllAnimatorListeners()
-    top_up_success_animation.removeAllUpdateListeners()
-    top_up_success_animation.removeAllLottieOnCompositionLoadedListener()
+    binding.topUpSuccessAnimation.removeAllAnimatorListeners()
+    binding.topUpSuccessAnimation.removeAllUpdateListeners()
+    binding.topUpSuccessAnimation.removeAllLottieOnCompositionLoadedListener()
   }
 
   override fun close() {
@@ -144,17 +136,17 @@ class TopUpSuccessFragment : BasePageViewFragment(), TopUpSuccessFragmentView {
   }
 
   override fun getOKClicks(): Observable<Any> {
-    return RxView.clicks(button)
+    return RxView.clicks(binding.button)
   }
 
   private fun setAnimationText() {
     val formattedBonus = formatter.formatCurrency(bonus, WalletCurrency.FIAT)
-    val textDelegate = TextDelegate(top_up_success_animation)
+    val textDelegate = TextDelegate(binding.topUpSuccessAnimation)
     textDelegate.setText("bonus_value", "$currencySymbol$formattedBonus")
     textDelegate.setText("bonus_received",
         resources.getString(R.string.gamification_purchase_completed_bonus_received))
-    top_up_success_animation.setTextDelegate(textDelegate)
-    top_up_success_animation.setFontAssetDelegate(object : FontAssetDelegate() {
+    binding.topUpSuccessAnimation.setTextDelegate(textDelegate)
+    binding.topUpSuccessAnimation.setFontAssetDelegate(object : FontAssetDelegate() {
       override fun fetchFont(fontFamily: String?): Typeface {
         return Typeface.create("sans-serif-medium", Typeface.BOLD)
       }
@@ -187,6 +179,6 @@ class TopUpSuccessFragment : BasePageViewFragment(), TopUpSuccessFragmentView {
     val boldStyle = StyleSpan(Typeface.BOLD)
     val sb = SpannableString(secondStringFormat)
     sb.setSpan(boldStyle, 0, firstStringLength, Spannable.SPAN_INCLUSIVE_INCLUSIVE)
-    value.text = sb
+    binding.value.text = sb
   }
 }

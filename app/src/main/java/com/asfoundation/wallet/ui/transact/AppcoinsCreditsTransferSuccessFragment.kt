@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import by.kirich1409.viewbindingdelegate.viewBinding
 import com.asf.wallet.R
 import com.asfoundation.wallet.ui.ActivityResultSharer
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
@@ -41,14 +42,7 @@ class AppcoinsCreditsTransferSuccessFragment : BasePageViewFragment(),
   private lateinit var presenter: AppcoinsCreditsTransactSuccessPresenter
   private lateinit var navigator: TransactNavigator
 
-  private var _binding: TransactSuccessFragmentLayoutBinding? = null
-  // This property is only valid between onCreateView and
-  // onDestroyView.
-  private val binding get() = _binding!!
-
-  private val transfer_success_ok_button get() = binding.transferSuccessOkButton
-  private val transfer_success_wallet get() = binding.transferSuccessWallet
-  private val transfer_success_message get() = binding.transferSuccessMessage
+  private val binding by viewBinding(TransactSuccessFragmentLayoutBinding::bind)
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
@@ -61,8 +55,7 @@ class AppcoinsCreditsTransferSuccessFragment : BasePageViewFragment(),
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                             savedInstanceState: Bundle?): View? {
-    _binding = TransactSuccessFragmentLayoutBinding.inflate(inflater, container, false)
-    return binding.root
+    return inflater.inflate(R.layout.transact_success_fragment_layout, container, false)
   }
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -71,7 +64,7 @@ class AppcoinsCreditsTransferSuccessFragment : BasePageViewFragment(),
   }
 
   override fun getOkClick(): Observable<Any> {
-    return RxView.clicks(transfer_success_ok_button)
+    return RxView.clicks(binding.transferSuccessOkButton)
   }
 
   override fun onAttach(context: Context) {
@@ -88,14 +81,13 @@ class AppcoinsCreditsTransferSuccessFragment : BasePageViewFragment(),
   }
 
   override fun setup(amount: String, currency: String, toAddress: String) {
-    transfer_success_wallet.text = toAddress
-    transfer_success_message.text =
+    binding.transferSuccessWallet.text = toAddress
+    binding.transferSuccessMessage.text =
         getString(R.string.p2p_send_confirmation_message, amount, currency)
   }
 
   override fun onDestroyView() {
     presenter.stop()
     super.onDestroyView()
-    _binding = null
   }
 }

@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import by.kirich1409.viewbindingdelegate.viewBinding
 import com.asf.wallet.R
 import com.asf.wallet.databinding.FragmentCreateWalletLayoutBinding
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
@@ -30,18 +31,7 @@ class CreateWalletFragment : BasePageViewFragment(), CreateWalletView {
   private lateinit var navigator: CreateWalletNavigator
   private lateinit var finishAnimationFinishEvent: BehaviorRelay<Any>
 
-  private var _binding: FragmentCreateWalletLayoutBinding? = null
-  // This property is only valid between onCreateView and
-  // onDestroyView.
-  private val binding get() = _binding!!
-
-  private val create_wallet_animation get() = binding.createWalletAnimation
-  private val provide_wallet_create_wallet_icon get() = binding.provideWalletCreateWalletIcon
-  private val provide_wallet_create_body get() = binding.provideWalletCreateBody
-  private val provide_wallet_create_wallet_button get() = binding.provideWalletCreateWalletButton
-  private val provide_wallet_cancel get() = binding.provideWalletCancel
-  private val create_wallet_group get() = binding.createWalletGroup
-  private val create_wallet_text get() = binding.createWalletText
+  private val views by viewBinding(FragmentCreateWalletLayoutBinding::bind)
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
@@ -62,8 +52,7 @@ class CreateWalletFragment : BasePageViewFragment(), CreateWalletView {
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                             savedInstanceState: Bundle?): View? {
-    _binding = FragmentCreateWalletLayoutBinding.inflate(inflater, container, false)
-    return binding.root
+    return inflater.inflate(R.layout.fragment_create_wallet_layout, container, false)
   }
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -73,25 +62,24 @@ class CreateWalletFragment : BasePageViewFragment(), CreateWalletView {
 
   override fun onDestroyView() {
     presenter.stop()
-    create_wallet_animation.removeAllAnimatorListeners()
-    create_wallet_animation.removeAllUpdateListeners()
-    create_wallet_animation.removeAllLottieOnCompositionLoadedListener()
+    views.createWalletAnimation.removeAllAnimatorListeners()
+    views.createWalletAnimation.removeAllUpdateListeners()
+    views.createWalletAnimation.removeAllLottieOnCompositionLoadedListener()
     super.onDestroyView()
-    _binding = null
   }
 
-  override fun getOnCreateWalletClick() = RxView.clicks(provide_wallet_create_wallet_button)
+  override fun getOnCreateWalletClick() = RxView.clicks(views.provideWalletCreateWalletButton)
 
-  override fun getCancelClick() = RxView.clicks(provide_wallet_cancel)
+  override fun getCancelClick() = RxView.clicks(views.provideWalletCancel)
 
   override fun closeSuccess() = navigator.closeSuccess()
 
   override fun showFinishAnimation() {
-    create_wallet_animation.setAnimation(R.raw.success_animation)
-    create_wallet_text.text = getText(R.string.provide_wallet_created_header)
-    create_wallet_animation.playAnimation()
-    create_wallet_animation.repeatCount = 0
-    create_wallet_animation.addAnimatorListener(object : Animator.AnimatorListener {
+    views.createWalletAnimation.setAnimation(R.raw.success_animation)
+    views.createWalletText.text = getText(R.string.provide_wallet_created_header)
+    views.createWalletAnimation.playAnimation()
+    views.createWalletAnimation.repeatCount = 0
+    views.createWalletAnimation.addAnimatorListener(object : Animator.AnimatorListener {
       override fun onAnimationRepeat(animation: Animator) = Unit
       override fun onAnimationEnd(animation: Animator) = finishAnimationFinishEvent.accept(Any())
       override fun onAnimationCancel(animation: Animator) = Unit
@@ -104,9 +92,9 @@ class CreateWalletFragment : BasePageViewFragment(), CreateWalletView {
   override fun closeCancel() = navigator.closeCancel()
 
   override fun showLoading() {
-    create_wallet_group.visibility = View.INVISIBLE
-    create_wallet_animation.visibility = View.VISIBLE
-    create_wallet_text.visibility = View.VISIBLE
-    create_wallet_animation.playAnimation()
+    views.createWalletGroup.visibility = View.INVISIBLE
+    views.createWalletAnimation.visibility = View.VISIBLE
+    views.createWalletText.visibility = View.VISIBLE
+    views.createWalletAnimation.playAnimation()
   }
 }

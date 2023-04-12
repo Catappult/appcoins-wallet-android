@@ -10,6 +10,7 @@ import android.text.format.DateFormat
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import by.kirich1409.viewbindingdelegate.viewBinding
 import com.asf.wallet.R
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.appcoins.wallet.core.utils.jvm_common.Duration
@@ -35,33 +36,7 @@ class VerificationCodeFragment : BasePageViewFragment(), VerificationCodeView {
 
   private lateinit var activityView: VerificationCreditCardActivityView
 
-  private var _binding: FragmentVerificationCodeBinding? = null
-  // This property is only valid between onCreateView and
-  // onDestroyView.
-  private val binding get() = _binding!!
-
-  // fragment_verification_code.xml
-  private val code get() = binding.code
-  private val confirm get() = binding.confirm
-  private val code_title get() = binding.codeTitle
-  private val code_disclaimer get() = binding.codeDisclaimer
-  private val success_message get() = binding.successMessage
-  private val success_animation get() = binding.successAnimation
-  private val wrong_code_error get() = binding.wrongCodeError
-  private val change_card_button get() = binding.changeCardButton
-  private val progress_bar get() = binding.progressBar
-  private val content_container get() = binding.contentContainer
-  private val no_network get() = binding.noNetwork.root
-  private val maybe_later get() = binding.maybeLater
-
-  // layout_verify_example.xml
-  private val description_value get() = binding.layoutExample.descriptionValue
-  private val trans_date_value get() = binding.layoutExample.transDateValue
-  private val amount_value get() = binding.layoutExample.amountValue
-  private val arrow_desc get() = binding.layoutExample.arrowDesc
-
-  // no_network_retry_only_layout.xml
-  private val retry_button get() = binding.noNetwork.retryButton
+  private val views by viewBinding(FragmentVerificationCodeBinding::bind)
 
   companion object {
 
@@ -114,8 +89,7 @@ class VerificationCodeFragment : BasePageViewFragment(), VerificationCodeView {
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                             savedInstanceState: Bundle?): View? {
-    _binding = FragmentVerificationCodeBinding.inflate(inflater, container, false)
-    return binding.root
+    return inflater.inflate(R.layout.fragment_verification_code, container, false)
   }
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -125,7 +99,7 @@ class VerificationCodeFragment : BasePageViewFragment(), VerificationCodeView {
 
   override fun onSaveInstanceState(outState: Bundle) {
     super.onSaveInstanceState(outState)
-    outState.apply { putString(CODE_KEY, code?.let { code.text.toString() } ?: "") }
+    outState.apply { putString(CODE_KEY, views.code.toString()) }
   }
 
 
@@ -154,94 +128,94 @@ class VerificationCodeFragment : BasePageViewFragment(), VerificationCodeView {
           periodInHours.toInt(), amountWithCurrency, periodInHours.toString())
     }
 
-    code.setEms(digits)
-    code.filters = arrayOf(InputFilter.LengthFilter(digits))
+    views.code.setEms(digits)
+    views.code.filters = arrayOf(InputFilter.LengthFilter(digits))
 
     savedInstance?.let {
       val codeString = it.getString(CODE_KEY, "")
-      code.setText(codeString)
-      confirm.isEnabled = codeString?.length == digits
+      views.code.setText(codeString)
+      views.confirm.isEnabled = codeString?.length == digits
     }
 
-    trans_date_value.text = dateFormat
-    description_value.text = format
-    amount_value.text = amountWithCurrencyAndSign
-    arrow_desc.text = periodFormat
-    code_title.text = codeTitle
-    code_disclaimer.text = codeDisclaimer
-    success_message.text =
+    views.layoutExample.transDateValue.text = dateFormat
+    views.layoutExample.descriptionValue.text = format
+    views.layoutExample.amountValue.text = amountWithCurrencyAndSign
+    views.layoutExample.arrowDesc.text = periodFormat
+    views.codeTitle.text = codeTitle
+    views.codeDisclaimer.text = codeDisclaimer
+    views.successMessage.text =
         if (isWalletVerified) getString(R.string.verification_settings_card_verified_title)
         else getString(R.string.verification_settings_verified_title)
 
-    success_animation.addAnimatorListener(object : Animator.AnimatorListener {
+    views.successAnimation.addAnimatorListener(object : Animator.AnimatorListener {
       override fun onAnimationRepeat(animation: Animator) = Unit
       override fun onAnimationEnd(animation: Animator) = presenter.onAnimationEnd()
       override fun onAnimationCancel(animation: Animator) = Unit
       override fun onAnimationStart(animation: Animator) = Unit
     })
-    code.addTextChangedListener(object : TextWatcher {
+    views.code.addTextChangedListener(object : TextWatcher {
       override fun afterTextChanged(s: Editable?) = Unit
       override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) = Unit
       override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
         hideWrongCodeError()
-        confirm.isEnabled = s?.length == digits
+        views.confirm.isEnabled = s?.length == digits
       }
     })
   }
 
   override fun showWrongCodeError() {
-    code_title.visibility = View.VISIBLE
-    code.visibility = View.VISIBLE
-    code_disclaimer.visibility = View.VISIBLE
-    wrong_code_error.visibility = View.VISIBLE
+    views.codeTitle.visibility = View.VISIBLE
+    views.code.visibility = View.VISIBLE
+    views.codeDisclaimer.visibility = View.VISIBLE
+    views.wrongCodeError.visibility = View.VISIBLE
 
-    code.setBackgroundResource(R.drawable.background_edittext_error)
+    views.code.setBackgroundResource(R.drawable.background_edittext_error)
   }
 
   fun hideWrongCodeError() {
-    wrong_code_error.visibility = View.GONE
-    code.setBackgroundResource(R.drawable.background_edittext)
+    views.wrongCodeError.visibility = View.GONE
+    views.code.setBackgroundResource(R.drawable.background_edittext)
   }
 
   override fun showLoading() {
-    code_title.visibility = View.INVISIBLE
-    code.visibility = View.INVISIBLE
-    wrong_code_error.visibility = View.INVISIBLE
-    code_disclaimer.visibility = View.INVISIBLE
-    change_card_button.visibility = View.INVISIBLE
-    progress_bar.visibility = View.VISIBLE
+    views.codeTitle.visibility = View.INVISIBLE
+    views.code.visibility = View.INVISIBLE
+    views.wrongCodeError.visibility = View.INVISIBLE
+    views.codeDisclaimer.visibility = View.INVISIBLE
+    views.changeCardButton.visibility = View.INVISIBLE
+    views.progressBar.visibility = View.VISIBLE
   }
 
   override fun hideLoading() {
-    content_container.visibility = View.VISIBLE
-    code_title.visibility = View.VISIBLE
-    code.visibility = View.VISIBLE
-    code_disclaimer.visibility = View.VISIBLE
-    change_card_button.visibility = View.VISIBLE
-    progress_bar.visibility = View.GONE
+    views.contentContainer.visibility = View.VISIBLE
+    views.codeTitle.visibility = View.VISIBLE
+    views.code.visibility = View.VISIBLE
+    views.codeDisclaimer.visibility = View.VISIBLE
+    views.changeCardButton.visibility = View.VISIBLE
+    views.progressBar.visibility = View.GONE
     activityView.hideLoading()
   }
 
   override fun showVerificationCode() {
-    content_container.visibility = View.VISIBLE
-    no_network.visibility = View.GONE
+    views.contentContainer.visibility = View.VISIBLE
+    views.noNetwork.root.visibility = View.GONE
   }
 
   override fun showSuccess() {
-    no_network.visibility = View.GONE
-    content_container.visibility = View.GONE
-    progress_bar.visibility = View.GONE
+    views.noNetwork.root.visibility = View.GONE
+    views.contentContainer.visibility = View.GONE
+    views.progressBar.visibility = View.GONE
 
-    success_animation.visibility = View.VISIBLE
-    success_message.visibility = View.VISIBLE
-    success_animation.playAnimation()
+    views.successAnimation.visibility = View.VISIBLE
+    views.successMessage.visibility = View.VISIBLE
+    views.successAnimation.playAnimation()
   }
 
   override fun showNetworkError() {
     unlockRotation()
-    progress_bar.visibility = View.GONE
-    content_container.visibility = View.GONE
-    no_network.visibility = View.VISIBLE
+    views.progressBar.visibility = View.GONE
+    views.contentContainer.visibility = View.GONE
+    views.noNetwork.root.visibility = View.VISIBLE
   }
 
   override fun hideKeyboard() {
@@ -256,14 +230,14 @@ class VerificationCodeFragment : BasePageViewFragment(), VerificationCodeView {
     activityView.unlockRotation()
   }
 
-  override fun getMaybeLaterClicks() = RxView.clicks(maybe_later)
+  override fun getMaybeLaterClicks() = RxView.clicks(views.maybeLater)
 
-  override fun getConfirmClicks(): Observable<String> = RxView.clicks(confirm)
-      .map { code.text.toString() }
+  override fun getConfirmClicks(): Observable<String> = RxView.clicks(views.confirm)
+      .map { views.code.text.toString() }
 
-  override fun getChangeCardClicks() = RxView.clicks(change_card_button)
+  override fun getChangeCardClicks() = RxView.clicks(views.changeCardButton)
 
-  override fun retryClick() = RxView.clicks(retry_button)
+  override fun retryClick() = RxView.clicks(views.noNetwork.retryButton)
 
   private fun convertToDate(ts: Long): String {
     val cal = Calendar.getInstance(Locale.ENGLISH)
@@ -275,6 +249,5 @@ class VerificationCodeFragment : BasePageViewFragment(), VerificationCodeView {
   override fun onDestroyView() {
     presenter.stop()
     super.onDestroyView()
-    _binding = null
   }
 }

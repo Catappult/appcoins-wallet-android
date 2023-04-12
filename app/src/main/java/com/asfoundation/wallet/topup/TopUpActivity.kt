@@ -9,6 +9,7 @@ import android.view.MenuItem
 import android.view.View
 import androidx.annotation.StringRes
 import androidx.fragment.app.Fragment
+import by.kirich1409.viewbindingdelegate.viewBinding
 import com.appcoins.wallet.billing.AppcoinsBillingBinder
 import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.asf.wallet.R
@@ -59,23 +60,7 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, UriNavigator {
   private var isFinishingPurchase = false
   private var firstImpression = true
 
-  private var _binding: TopUpActivityLayoutBinding? = null
-  // This property is only valid between onCreateView and
-  // onDestroyView.
-  private val binding get() = _binding!!
-
-  // error_top_up_layout.xml
-  private val error_message get() = binding.layoutError.errorMessage
-  private val try_again get() = binding.layoutError.tryAgain
-  private val layout_support_icn get() = binding.layoutError.layoutSupportIcn
-  private val layout_support_logo get() = binding.layoutError.layoutSupportLogo
-
-  // top_up_activity_layout.xml
-  private val fragment_container get() = binding.fragmentContainer
-  private val layout_error get() = binding.layoutError.root
-
-  // topup_bar_layout.xml
-  private val bar_back_button get() = binding.topBar.barBackButton
+  private val views by viewBinding(TopUpActivityLayoutBinding::bind)
 
   companion object {
     @JvmStatic
@@ -93,8 +78,7 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, UriNavigator {
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-    _binding = TopUpActivityLayoutBinding.inflate(layoutInflater)
-    setContentView(binding.root)
+    setContentView(R.layout.top_up_activity_layout)
     presenter = TopUpActivityPresenter(
       this,
       topUpInteractor,
@@ -109,7 +93,7 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, UriNavigator {
     if (savedInstanceState != null && savedInstanceState.containsKey(FIRST_IMPRESSION)) {
       firstImpression = savedInstanceState.getBoolean(FIRST_IMPRESSION)
     }
-    bar_back_button.setOnClickListener { super.onBackPressed() }
+    views.topBar.barBackButton.setOnClickListener { super.onBackPressed() }
   }
 
   override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -122,12 +106,12 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, UriNavigator {
     supportFragmentManager.beginTransaction()
       .replace(R.id.fragment_container, TopUpFragment.newInstance(packageName))
       .commit()
-    layout_error.visibility = View.GONE
-    fragment_container.visibility = View.VISIBLE
+    views.layoutError.root.visibility = View.GONE
+    views.fragmentContainer.visibility = View.VISIBLE
   }
 
   override fun showVerification() {
-    fragment_container.visibility = View.GONE
+    views.fragmentContainer.visibility = View.GONE
     val intent = VerificationCreditCardActivity.newIntent(this)
       .apply {
         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
@@ -137,12 +121,12 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, UriNavigator {
   }
 
   override fun showError(@StringRes error: Int) {
-    layout_error.visibility = View.VISIBLE
-    error_message.text = getText(error)
+    views.layoutError.root.visibility = View.VISIBLE
+    views.layoutError.errorMessage.text = getText(error)
   }
 
   override fun getSupportClicks(): Observable<Any> {
-    return Observable.merge(RxView.clicks(layout_support_logo), RxView.clicks(layout_support_icn))
+    return Observable.merge(RxView.clicks(views.layoutError.layoutSupportLogo), RxView.clicks(views.layoutError.layoutSupportIcn))
   }
 
   override fun navigateToAdyenPayment(paymentType: PaymentType, data: TopUpPaymentData) {
@@ -292,7 +276,7 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, UriNavigator {
     requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LOCKED
   }
 
-  override fun getTryAgainClicks() = RxView.clicks(try_again)
+  override fun getTryAgainClicks() = RxView.clicks(views.layoutError.tryAgain)
 
   override fun setFinishingPurchase(newState: Boolean) {
     isFinishingPurchase = newState

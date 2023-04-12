@@ -8,6 +8,7 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import by.kirich1409.viewbindingdelegate.viewBinding
 import com.asf.wallet.R
 import com.asf.wallet.databinding.FragmentRatingNegativeBinding
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
@@ -22,22 +23,11 @@ class RatingNegativeFragment : BasePageViewFragment(), RatingNegativeView {
   @Inject
   lateinit var presenter: RatingNegativePresenter
 
-  private var _binding: FragmentRatingNegativeBinding? = null
-  // This property is only valid between onCreateView and
-  // onDestroyView.
-  private val binding get() = _binding!!
-
-  // fragment_rating_negative.xml
-  private val animation get() = binding.animation
-  private val feedback_input_text get() = binding.feedbackInputText
-  private val submit_button get() = binding.submitButton
-  private val progress_bar get() = binding.progressBar
-  private val no_button get() = binding.noButton
+  private val views by viewBinding(FragmentRatingNegativeBinding::bind)
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                             savedInstanceState: Bundle?): View? {
-    _binding = FragmentRatingNegativeBinding.inflate(inflater, container, false)
-    return binding.root
+    return inflater.inflate(R.layout.fragment_rating_negative, container, false)
   }
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -48,16 +38,16 @@ class RatingNegativeFragment : BasePageViewFragment(), RatingNegativeView {
   }
 
   private fun setAndRunAnimation() {
-    animation.setMinFrame(97)
-    animation.setMaxFrame(123)
-    animation.playAnimation()
-    animation.addAnimatorListener(object : Animator.AnimatorListener {
+    views.animation.setMinFrame(97)
+    views.animation.setMaxFrame(123)
+    views.animation.playAnimation()
+    views.animation.addAnimatorListener(object : Animator.AnimatorListener {
       override fun onAnimationRepeat(anim: Animator) = Unit
       override fun onAnimationEnd(anim: Animator) {
-        if (animation.minFrame == 97f) {
-          animation.setMaxFrame(283)
-          animation.setMinFrame(219)
-          animation.playAnimation()
+        if (views.animation.minFrame == 97f) {
+          views.animation.setMaxFrame(283)
+          views.animation.setMinFrame(219)
+          views.animation.playAnimation()
         }
       }
 
@@ -67,9 +57,9 @@ class RatingNegativeFragment : BasePageViewFragment(), RatingNegativeView {
   }
 
   private fun setTextWatcher() {
-    feedback_input_text.addTextWatcher(object : TextWatcher {
+    views.feedbackInputText.addTextWatcher(object : TextWatcher {
       override fun afterTextChanged(s: Editable?) {
-        if (!TextUtils.isEmpty(s)) feedback_input_text.reset()
+        if (!TextUtils.isEmpty(s)) views.feedbackInputText.reset()
       }
 
       override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) = Unit
@@ -78,28 +68,27 @@ class RatingNegativeFragment : BasePageViewFragment(), RatingNegativeView {
   }
 
   override fun submitClickEvent(): Observable<String> {
-    return RxView.clicks(submit_button)
-        .map { feedback_input_text.getText() }
+    return RxView.clicks(views.submitButton)
+        .map { views.feedbackInputText.getText() }
   }
 
   override fun noClickEvent(): Observable<Any> {
-    return RxView.clicks(no_button)
+    return RxView.clicks(views.noButton)
   }
 
   override fun setLoading() {
-    progress_bar.visibility = View.VISIBLE
-    feedback_input_text.visibility = View.INVISIBLE
-    submit_button.isEnabled = false
+    views.progressBar.visibility = View.VISIBLE
+    views.feedbackInputText.visibility = View.INVISIBLE
+    views.submitButton.isEnabled = false
   }
 
   override fun showEmptySuggestionsError() {
-    feedback_input_text.setError(getString(R.string.rate_us_improve_field__empty_error))
+    views.feedbackInputText.setError(getString(R.string.rate_us_improve_field__empty_error))
   }
 
   override fun onDestroyView() {
     presenter.stop()
     super.onDestroyView()
-    _binding = null
   }
 
   companion object {

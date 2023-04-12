@@ -6,6 +6,7 @@ import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
+import by.kirich1409.viewbindingdelegate.viewBinding
 import com.asf.wallet.R
 import com.asf.wallet.databinding.ActivityWalletVerificationBinding
 import com.asfoundation.wallet.recover.entry.RecoverEntryFragment
@@ -35,17 +36,11 @@ class VerificationCreditCardActivity : BaseActivity(), VerificationCreditCardAct
 
   private val toolbarBackPressSubject = PublishSubject.create<String>()
 
-  private var _binding: ActivityWalletVerificationBinding? = null
-  // This property is only valid between onCreateView and
-  // onDestroyView.
-  private val binding get() = _binding!!
-
-  private val progress_bar get() = binding.progressBar
+  private val views by viewBinding(ActivityWalletVerificationBinding::bind)
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-    _binding = ActivityWalletVerificationBinding.inflate(layoutInflater)
-    setContentView(binding.root)
+    setContentView(R.layout.activity_wallet_verification)
     val isWalletVerified = intent.getBooleanExtra(IS_WALLET_VERIFIED, false)
     val title =
         if (isWalletVerified) R.string.verify_card_title else R.string.verification_settings_unverified_title
@@ -97,6 +92,6 @@ class VerificationCreditCardActivity : BaseActivity(), VerificationCreditCardAct
   }
 
   override fun hideLoading() {
-    progress_bar.visibility = View.GONE
+    views.progressBar.visibility = View.GONE
   }
 }

@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import by.kirich1409.viewbindingdelegate.viewBinding
 import com.asf.wallet.R
 import com.asf.wallet.databinding.AuthenticationErrorBottomsheetBinding
 import com.jakewharton.rxbinding2.view.RxView
@@ -23,13 +24,7 @@ class AuthenticationErrorBottomSheetFragment : Fragment(), AuthenticationErrorBo
     }
   }
 
-  private var _binding: AuthenticationErrorBottomsheetBinding? = null
-  // This property is only valid between onCreateView and
-  // onDestroyView.
-  private val binding get() = _binding!!
-
-  private val retry_authentication get() = binding.retryAuthentication
-  private val authentication_error_message get() = binding.authenticationErrorMessage
+  private val binding by viewBinding(AuthenticationErrorBottomsheetBinding::bind)
 
   companion object {
     private const val ERROR_TIMER_KEY = "error_message"
@@ -52,11 +47,10 @@ class AuthenticationErrorBottomSheetFragment : Fragment(), AuthenticationErrorBo
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                             savedInstanceState: Bundle?): View? {
-    _binding = AuthenticationErrorBottomsheetBinding.inflate(inflater, container, false)
-    return binding.root
+    return inflater.inflate(R.layout.authentication_error_bottomsheet, container, false)
   }
 
-  override fun getButtonClick() = RxView.clicks(retry_authentication)
+  override fun getButtonClick() = RxView.clicks(binding.retryAuthentication)
 
   override fun retryAuthentication() {
     val parent = provideParentFragment()
@@ -64,7 +58,7 @@ class AuthenticationErrorBottomSheetFragment : Fragment(), AuthenticationErrorBo
   }
 
   override fun setMessage() {
-    authentication_error_message.text = getString(R.string.fingerprint_failed_body, errorTimer.toString())
+    binding.authenticationErrorMessage.text = getString(R.string.fingerprint_failed_body, errorTimer.toString())
   }
 
   override fun setupUi() {
@@ -87,6 +81,5 @@ class AuthenticationErrorBottomSheetFragment : Fragment(), AuthenticationErrorBo
   override fun onDestroyView() {
     presenter.stop()
     super.onDestroyView()
-    _binding = null
   }
 }

@@ -4,6 +4,8 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import by.kirich1409.viewbindingdelegate.viewBinding
+import com.asf.wallet.R
 import com.asf.wallet.databinding.LayoutWalletBlockedBinding
 import com.asfoundation.wallet.ui.BaseActivity
 import com.jakewharton.rxbinding2.view.RxView
@@ -25,18 +27,11 @@ class WalletBlockedActivity : BaseActivity(),
     }
   }
 
-  private var _binding: LayoutWalletBlockedBinding? = null
-  // This property is only valid between onCreateView and
-  // onDestroyView.
-  private val binding get() = _binding!!
-
-  private val blocked_email get() = binding.blockedEmail
-  private val dismiss_button get() = binding.dismissButton
+  private val views by viewBinding(LayoutWalletBlockedBinding::bind)
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-    _binding = LayoutWalletBlockedBinding.inflate(layoutInflater)
-    setContentView(binding.root)
+    setContentView(R.layout.layout_wallet_blocked)
 
     presenter =
         WalletBlockedPresenter(this,
@@ -50,11 +45,11 @@ class WalletBlockedActivity : BaseActivity(),
   }
 
   override fun getDismissCLicks(): Observable<Any> {
-    return RxView.clicks(dismiss_button)
+    return RxView.clicks(views.dismissButton)
   }
 
   override fun getEmailClicks(): Observable<Any> {
-    return RxView.clicks(blocked_email)
+    return RxView.clicks(views.blockedEmail)
   }
 
   override fun openEmail() {

@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import by.kirich1409.viewbindingdelegate.viewBinding
 import com.asf.wallet.R
 import com.asfoundation.wallet.GlideApp
 import com.asfoundation.wallet.subscriptions.SubscriptionItem
@@ -33,30 +34,7 @@ class SubscriptionCancelFragment : BasePageViewFragment(), SubscriptionCancelVie
   @Inject
   lateinit var presenter: SubscriptionCancelPresenter
 
-  private var _binding: FragmentSubscriptionCancelBinding? = null
-  // This property is only valid between onCreateView and
-  // onDestroyView.
-  private val binding get() = _binding!!
-
-  // fragment_subscription_cancel.xml
-  private val back_button get() = binding.backButton
-  private val cancel_subscription get() = binding.cancelSubscription
-  private val loading_animation get() = binding.loadingAnimation
-  private val layout_content get() = binding.layoutContent
-  private val error get() = binding.error
-
-  // layout_subscription_info.xml
-  private val app_name get() = binding.layoutSubscriptionInfo.appName
-  private val app_icon get() = binding.layoutSubscriptionInfo.appIcon
-  private val app_icon_skeleton get() = binding.layoutSubscriptionInfo.appIconSkeleton.root
-  private val sku_name get() = binding.layoutSubscriptionInfo.skuName
-  private val total_value get() = binding.layoutSubscriptionInfo.totalValue
-  private val total_value_appc get() = binding.layoutSubscriptionInfo.totalValueAppc
-
-  // no_network_retry_only_layout.xml
-  private val no_network_retry_only_layout get() = binding.noNetworkRetryOnlyLayout.root
-  private val retry_animation get() = binding.noNetworkRetryOnlyLayout.retryAnimation
-  private val retry_button get() = binding.noNetworkRetryOnlyLayout.retryButton
+  private val binding by viewBinding(FragmentSubscriptionCancelBinding::bind)
 
   override fun onAttach(context: Context) {
     super.onAttach(context)
@@ -65,8 +43,7 @@ class SubscriptionCancelFragment : BasePageViewFragment(), SubscriptionCancelVie
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                             savedInstanceState: Bundle?): View? {
-    _binding = FragmentSubscriptionCancelBinding.inflate(inflater, container, false)
-    return binding.root
+    return inflater.inflate(R.layout.fragment_subscription_cancel, container, false)
   }
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -74,39 +51,39 @@ class SubscriptionCancelFragment : BasePageViewFragment(), SubscriptionCancelVie
     presenter.present()
   }
 
-  override fun getBackClicks() = RxView.clicks(back_button)
+  override fun getBackClicks() = RxView.clicks(binding.backButton)
 
-  override fun getCancelClicks() = RxView.clicks(cancel_subscription)
+  override fun getCancelClicks() = RxView.clicks(binding.cancelSubscription)
 
   override fun showLoading() {
-    error.visibility = View.GONE
-    no_network_retry_only_layout.visibility = View.GONE
-    layout_content.visibility = View.GONE
-    loading_animation.visibility = View.VISIBLE
+    binding.error.visibility = View.GONE
+    binding.noNetworkRetryOnlyLayout.root.visibility = View.GONE
+    binding.layoutContent.visibility = View.GONE
+    binding.loadingAnimation.visibility = View.VISIBLE
   }
 
   override fun showCancelError() {
-    no_network_retry_only_layout.visibility = View.GONE
-    loading_animation.visibility = View.GONE
-    layout_content.visibility = View.VISIBLE
-    error.visibility = View.VISIBLE
+    binding.noNetworkRetryOnlyLayout.root.visibility = View.GONE
+    binding.loadingAnimation.visibility = View.GONE
+    binding.layoutContent.visibility = View.VISIBLE
+    binding.error.visibility = View.VISIBLE
   }
 
   override fun showSubscriptionDetails(subscriptionItem: SubscriptionItem) {
-    no_network_retry_only_layout.visibility = View.GONE
-    error.visibility = View.GONE
-    loading_animation.visibility = View.INVISIBLE
-    layout_content.visibility = View.VISIBLE
+    binding.noNetworkRetryOnlyLayout.root.visibility = View.GONE
+    binding.error.visibility = View.GONE
+    binding.loadingAnimation.visibility = View.INVISIBLE
+    binding.layoutContent.visibility = View.VISIBLE
 
     loadImage(subscriptionItem.appIcon)
 
-    app_name.text = subscriptionItem.appName
-    sku_name.text = subscriptionItem.itemName
+    binding.layoutSubscriptionInfo.appName.text = subscriptionItem.appName
+    binding.layoutSubscriptionInfo.skuName.text = subscriptionItem.itemName
 
     val formattedAmount = currencyFormatUtils.formatCurrency(subscriptionItem.fiatAmount)
-    total_value.text = subscriptionItem.period?.mapToSubsFrequency(requireContext(),
+    binding.layoutSubscriptionInfo.totalValue.text = subscriptionItem.period?.mapToSubsFrequency(requireContext(),
         getString(R.string.value_fiat, subscriptionItem.fiatSymbol, formattedAmount))
-    total_value_appc.text = String.format("~%s / APPC",
+    binding.layoutSubscriptionInfo.totalValueAppc.text = String.format("~%s / APPC",
         currencyFormatUtils.formatCurrency(subscriptionItem.appcAmount, WalletCurrency.CREDITS))
   }
 
@@ -114,14 +91,14 @@ class SubscriptionCancelFragment : BasePageViewFragment(), SubscriptionCancelVie
     val target = object : Target<Bitmap> {
 
       override fun onLoadStarted(placeholder: Drawable?) {
-        app_icon.visibility = View.INVISIBLE
-        app_icon_skeleton.visibility = View.VISIBLE
+        binding.layoutSubscriptionInfo.appIcon.visibility = View.INVISIBLE
+        binding.layoutSubscriptionInfo.appIconSkeleton.root.visibility = View.VISIBLE
       }
 
       override fun onLoadFailed(errorDrawable: Drawable?) {
         startPostponedEnterTransition()
-        app_icon.visibility = View.INVISIBLE
-        app_icon_skeleton.visibility = View.VISIBLE
+        binding.layoutSubscriptionInfo.appIcon.visibility = View.INVISIBLE
+        binding.layoutSubscriptionInfo.appIconSkeleton.root.visibility = View.VISIBLE
       }
 
       override fun getSize(cb: SizeReadyCallback) {
@@ -130,9 +107,9 @@ class SubscriptionCancelFragment : BasePageViewFragment(), SubscriptionCancelVie
 
       override fun onResourceReady(resource: Bitmap, transition: Transition<in Bitmap>?) {
         startPostponedEnterTransition()
-        app_icon?.visibility = View.VISIBLE
-        app_icon_skeleton?.visibility = View.INVISIBLE
-        app_icon?.setImageBitmap(resource)
+        binding.layoutSubscriptionInfo.appIcon.visibility = View.VISIBLE
+        binding.layoutSubscriptionInfo.appIconSkeleton.root.visibility = View.INVISIBLE
+        binding.layoutSubscriptionInfo.appIcon.setImageBitmap(resource)
       }
 
       override fun getRequest(): Request? = null
@@ -155,29 +132,28 @@ class SubscriptionCancelFragment : BasePageViewFragment(), SubscriptionCancelVie
   }
 
   override fun showNoNetworkError() {
-    retry_animation.visibility = View.GONE
-    layout_content.visibility = View.GONE
-    error.visibility = View.GONE
-    retry_button.visibility = View.VISIBLE
-    loading_animation.visibility = View.GONE
-    no_network_retry_only_layout.visibility = View.VISIBLE
+    binding.noNetworkRetryOnlyLayout.retryAnimation.visibility = View.GONE
+    binding.layoutContent.visibility = View.GONE
+    binding.error.visibility = View.GONE
+    binding.noNetworkRetryOnlyLayout.retryButton.visibility = View.VISIBLE
+    binding.loadingAnimation.visibility = View.GONE
+    binding.noNetworkRetryOnlyLayout.root.visibility = View.VISIBLE
   }
 
-  override fun getRetryNetworkClicks() = RxView.clicks(retry_button)
+  override fun getRetryNetworkClicks() = RxView.clicks(binding.noNetworkRetryOnlyLayout.retryButton)
 
   override fun showNoNetworkRetryAnimation() {
-    retry_button.visibility = View.INVISIBLE
-    retry_animation.visibility = View.VISIBLE
+    binding.noNetworkRetryOnlyLayout.retryButton.visibility = View.INVISIBLE
+    binding.noNetworkRetryOnlyLayout.retryAnimation.visibility = View.VISIBLE
   }
 
   override fun setTransitionName(transitionName: String) {
-    app_icon.transitionName = transitionName
+    binding.layoutSubscriptionInfo.appIcon.transitionName = transitionName
   }
 
   override fun onDestroyView() {
     presenter.stop()
     super.onDestroyView()
-    _binding = null
   }
 
   companion object {

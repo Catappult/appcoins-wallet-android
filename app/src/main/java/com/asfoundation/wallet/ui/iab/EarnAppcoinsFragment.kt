@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import by.kirich1409.viewbindingdelegate.viewBinding
 import com.asf.wallet.R
 import com.asf.wallet.databinding.EarnAppcoinsLayoutBinding
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics
@@ -26,13 +27,7 @@ class EarnAppcoinsFragment : BasePageViewFragment(), EarnAppcoinsView {
   @Inject
   lateinit var analytics: BillingAnalytics
 
-  private var _binding: EarnAppcoinsLayoutBinding? = null
-  // This property is only valid between onCreateView and
-  // onDestroyView.
-  private val binding get() = _binding!!
-
-  private val buy_button get() = binding.dialogBuyButtonsPaymentMethods.buyButton
-  private val cancel_button get() = binding.dialogBuyButtonsPaymentMethods.cancelButton
+  private val binding by viewBinding(EarnAppcoinsLayoutBinding::bind)
 
   override fun onCreate(savedInstanceState: Bundle?) {
     if (savedInstanceState == null) {
@@ -52,8 +47,8 @@ class EarnAppcoinsFragment : BasePageViewFragment(), EarnAppcoinsView {
   }
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-    buy_button.setText(getString(R.string.discover_button))
-    cancel_button.setText(getString(R.string.back_button))
+    binding.dialogBuyButtonsPaymentMethods.buyButton.setText(getString(R.string.discover_button))
+    binding.dialogBuyButtonsPaymentMethods.cancelButton.setText(getString(R.string.back_button))
     iabView.disableBack()
     presenter.present()
     super.onViewCreated(view, savedInstanceState)
@@ -63,16 +58,15 @@ class EarnAppcoinsFragment : BasePageViewFragment(), EarnAppcoinsView {
     inflater: LayoutInflater, container: ViewGroup?,
     savedInstanceState: Bundle?
   ): View? {
-    _binding = EarnAppcoinsLayoutBinding.inflate(inflater, container, false)
-    return binding.root
+    return inflater.inflate(R.layout.earn_appcoins_layout, container, false)
   }
 
   override fun backButtonClick(): Observable<Any> {
-    return RxView.clicks(cancel_button)
+    return RxView.clicks(binding.dialogBuyButtonsPaymentMethods.cancelButton)
   }
 
   override fun discoverButtonClick(): Observable<Any> {
-    return RxView.clicks(buy_button)
+    return RxView.clicks(binding.dialogBuyButtonsPaymentMethods.buyButton)
   }
 
   override fun navigateBack() {
@@ -85,7 +79,6 @@ class EarnAppcoinsFragment : BasePageViewFragment(), EarnAppcoinsView {
     iabView.enableBack()
     presenter.destroy()
     super.onDestroyView()
-    _binding = null
   }
 
   val domain: String by lazy {

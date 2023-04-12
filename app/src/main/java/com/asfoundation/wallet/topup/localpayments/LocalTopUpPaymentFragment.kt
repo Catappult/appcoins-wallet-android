@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import by.kirich1409.viewbindingdelegate.viewBinding
 import com.asf.wallet.R
 import com.asfoundation.wallet.topup.TopUpActivityView
 import com.asfoundation.wallet.topup.TopUpData
@@ -29,44 +30,7 @@ class LocalTopUpPaymentFragment : BasePageViewFragment(), LocalTopUpPaymentView 
   private var minFrame = 0
   private var maxFrame = 40
 
-  private var _binding: LocalTopupPaymentLayoutBinding? = null
-  // This property is only valid between onCreateView and
-  // onDestroyView.
-  private val binding get() = _binding!!
-
-  // error_top_up_layout.xml
-  private val error_message get() = binding.errorView.errorMessage
-  private val layout_support_logo get() = binding.errorView.layoutSupportLogo
-  private val layout_support_icn get() = binding.errorView.layoutSupportIcn
-  private val try_again get() = binding.errorView.tryAgain
-
-  // local_topup_payment_layout.xml
-  private val main_content get() = binding.mainContent
-  private val main_currency_code get() = binding.mainCurrencyCode
-  private val main_value get() = binding.mainValue
-  private val converted_value get() = binding.convertedValue
-  private val loading get() = binding.loading
-  private val topup_pending_user_payment_view get() = binding.topupPendingUserPaymentView.root
-  private val no_network get() = binding.noNetwork.root
-  private val error_view get() = binding.errorView.root
-
-  // no_network_retry_only_layout.xml
-  private val retry_button get() = binding.noNetwork.retryButton
-  private val retry_animation get() = binding.noNetwork.retryAnimation
-
-  // pending_user_payment_view.xml
-
-  // support_error_layout.xml
-
-  // topup_pending_user_payment_view.xml
-  private val next_steps_title get() = binding.topupPendingUserPaymentView.nextStepsTitle
-  private val top_up_in_progress_animation get() = binding.topupPendingUserPaymentView.topUpInProgressAnimation
-  private val step_one get() = binding.topupPendingUserPaymentView.stepOne
-  private val step_one_desc get() = binding.topupPendingUserPaymentView.stepOneDesc
-  private val step_two get() = binding.topupPendingUserPaymentView.stepTwo
-  private val step_two_desc get() = binding.topupPendingUserPaymentView.stepTwoDesc
-  private val got_it_button get() = binding.topupPendingUserPaymentView.gotItButton
-
+  private val binding by viewBinding(LocalTopupPaymentLayoutBinding::bind)
 
   companion object {
 
@@ -107,8 +71,7 @@ class LocalTopUpPaymentFragment : BasePageViewFragment(), LocalTopUpPaymentView 
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                             savedInstanceState: Bundle?): View? {
-    _binding = LocalTopupPaymentLayoutBinding.inflate(inflater, container, false)
-    return binding.root
+    return inflater.inflate(R.layout.local_topup_payment_layout, container, false)
   }
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -118,61 +81,61 @@ class LocalTopUpPaymentFragment : BasePageViewFragment(), LocalTopUpPaymentView 
 
   override fun showValues(value: String, currency: String, appcValue: String,
                           selectedCurrencyType: String) {
-    main_value.visibility = View.VISIBLE
+    binding.mainValue.visibility = View.VISIBLE
     if (selectedCurrencyType == TopUpData.FIAT_CURRENCY) {
-      main_value.setText(value)
-      main_currency_code.text = currency
-      converted_value.text = "$appcValue ${WalletCurrency.CREDITS.symbol}"
+      binding.mainValue.setText(value)
+      binding.mainCurrencyCode.text = currency
+      binding.convertedValue.text = "$appcValue ${WalletCurrency.CREDITS.symbol}"
     } else {
-      main_value.setText(appcValue)
-      main_currency_code.text = WalletCurrency.CREDITS.symbol
-      converted_value.text = "$value $currency"
+      binding.mainValue.setText(appcValue)
+      binding.mainCurrencyCode.text = WalletCurrency.CREDITS.symbol
+      binding.convertedValue.text = "$value $currency"
     }
   }
 
   override fun showError() {
     activityView.unlockRotation()
-    loading.visibility = View.GONE
-    main_content.visibility = View.GONE
-    no_network.visibility = View.GONE
-    topup_pending_user_payment_view.visibility = View.GONE
-    error_message?.text = getString(R.string.unknown_error)
-    error_view?.visibility = View.VISIBLE
+    binding.loading.visibility = View.GONE
+    binding.mainContent.visibility = View.GONE
+    binding.noNetwork.root.visibility = View.GONE
+    binding.topupPendingUserPaymentView.root.visibility = View.GONE
+    binding.errorView.errorMessage.text = getString(R.string.unknown_error)
+    binding.errorView.root.visibility = View.VISIBLE
   }
 
   override fun showNetworkError() {
     activityView.unlockRotation()
-    loading.visibility = View.GONE
-    main_content.visibility = View.GONE
-    topup_pending_user_payment_view.visibility = View.GONE
-    error_view?.visibility = View.GONE
-    no_network.visibility = View.VISIBLE
+    binding.loading.visibility = View.GONE
+    binding.mainContent.visibility = View.GONE
+    binding.topupPendingUserPaymentView.root.visibility = View.GONE
+    binding.errorView.root.visibility = View.GONE
+    binding.noNetwork.root.visibility = View.VISIBLE
   }
 
-  override fun getSupportIconClicks() = RxView.clicks(layout_support_icn)
+  override fun getSupportIconClicks() = RxView.clicks(binding.errorView.layoutSupportIcn)
 
-  override fun getSupportLogoClicks() = RxView.clicks(layout_support_logo)
+  override fun getSupportLogoClicks() = RxView.clicks(binding.errorView.layoutSupportLogo)
 
-  override fun getGotItClick() = RxView.clicks(got_it_button)
+  override fun getGotItClick() = RxView.clicks(binding.topupPendingUserPaymentView.gotItButton)
 
-  override fun getTryAgainClick() = RxView.clicks(try_again)
+  override fun getTryAgainClick() = RxView.clicks(binding.errorView.tryAgain)
 
-  override fun retryClick() = RxView.clicks(retry_button)
+  override fun retryClick() = RxView.clicks(binding.noNetwork.retryButton)
 
   override fun close() = activityView.close()
 
   override fun showRetryAnimation() {
-    retry_button.visibility = View.INVISIBLE
-    retry_animation.visibility = View.VISIBLE
+    binding.noNetwork.retryButton.visibility = View.INVISIBLE
+    binding.noNetwork.retryAnimation.visibility = View.VISIBLE
   }
 
   override fun showProcessingLoading() {
     activityView.lockOrientation()
-    loading.visibility = View.VISIBLE
-    topup_pending_user_payment_view.visibility = View.GONE
-    main_content.visibility = View.GONE
-    error_view?.visibility = View.GONE
-    no_network.visibility = View.GONE
+    binding.loading.visibility = View.VISIBLE
+    binding.topupPendingUserPaymentView.root.visibility = View.GONE
+    binding.mainContent.visibility = View.GONE
+    binding.errorView.root.visibility = View.GONE
+    binding.noNetwork.root.visibility = View.GONE
   }
 
   override fun onSaveInstanceState(outState: Bundle) {
@@ -183,37 +146,37 @@ class LocalTopUpPaymentFragment : BasePageViewFragment(), LocalTopUpPaymentView 
   override fun showPendingUserPayment(paymentMethodIcon: Bitmap,
                                       paymentLabel: String) {
     activityView.unlockRotation()
-    loading.visibility = View.GONE
-    error_view?.visibility = View.GONE
-    no_network.visibility = View.GONE
-    main_content.visibility = View.GONE
-    topup_pending_user_payment_view.visibility = View.VISIBLE
+    binding.loading.visibility = View.GONE
+    binding.errorView.root.visibility = View.GONE
+    binding.noNetwork.root.visibility = View.GONE
+    binding.mainContent.visibility = View.GONE
+    binding.topupPendingUserPaymentView.root.visibility = View.VISIBLE
     val placeholder = getString(R.string.async_steps_1_no_notification)
     val stepOneText = String.format(placeholder, paymentLabel)
 
-    step_one_desc.text = stepOneText
+    binding.topupPendingUserPaymentView.stepOneDesc.text = stepOneText
 
-    top_up_in_progress_animation?.updateBitmap("image_0",
+    binding.topupPendingUserPaymentView.topUpInProgressAnimation.updateBitmap("image_0",
         paymentMethodIcon)
 
     playAnimation()
   }
 
   private fun playAnimation() {
-    top_up_in_progress_animation?.setMinAndMaxFrame(minFrame,
+    binding.topupPendingUserPaymentView.topUpInProgressAnimation.setMinAndMaxFrame(minFrame,
         maxFrame)
-    top_up_in_progress_animation?.addAnimatorListener(object :
+    binding.topupPendingUserPaymentView.topUpInProgressAnimation.addAnimatorListener(object :
         Animator.AnimatorListener {
       override fun onAnimationRepeat(animation: Animator) = Unit
       override fun onAnimationEnd(animation: Animator) {
         if (minFrame == BUTTON_ANIMATION_START_FRAME) {
-          top_up_in_progress_animation?.cancelAnimation()
+          binding.topupPendingUserPaymentView.topUpInProgressAnimation.cancelAnimation()
         } else {
           minFrame += ANIMATION_FRAME_INCREMENT
           maxFrame += ANIMATION_FRAME_INCREMENT
-          top_up_in_progress_animation?.setMinAndMaxFrame(minFrame,
+          binding.topupPendingUserPaymentView.topUpInProgressAnimation.setMinAndMaxFrame(minFrame,
               maxFrame)
-          top_up_in_progress_animation?.playAnimation()
+          binding.topupPendingUserPaymentView.topUpInProgressAnimation.playAnimation()
         }
       }
 
@@ -222,18 +185,18 @@ class LocalTopUpPaymentFragment : BasePageViewFragment(), LocalTopUpPaymentView 
       override fun onAnimationStart(animation: Animator) {
         when (minFrame) {
           ANIMATION_STEP_ONE_START_FRAME -> {
-            animateShow(step_one)
-            animateShow(step_one_desc)
+            animateShow(binding.topupPendingUserPaymentView.stepOne)
+            animateShow(binding.topupPendingUserPaymentView.stepOneDesc)
           }
           ANIMATION_STEP_TWO_START_FRAME -> {
-            animateShow(step_two)
-            animateShow(step_two_desc, got_it_button)
+            animateShow(binding.topupPendingUserPaymentView.stepTwo)
+            animateShow(binding.topupPendingUserPaymentView.stepTwoDesc, binding.topupPendingUserPaymentView.gotItButton)
           }
           else -> return
         }
       }
     })
-    top_up_in_progress_animation?.playAnimation()
+    binding.topupPendingUserPaymentView.topUpInProgressAnimation.playAnimation()
   }
 
   private fun animateShow(view: View, viewToAnimateInTheEnd: View? = null) {
@@ -266,7 +229,6 @@ class LocalTopUpPaymentFragment : BasePageViewFragment(), LocalTopUpPaymentView 
   override fun onDestroyView() {
     super.onDestroyView()
     presenter.stop()
-    _binding = null
   }
 
   override fun onDestroy() {

@@ -6,6 +6,7 @@ import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
+import by.kirich1409.viewbindingdelegate.viewBinding
 import com.asf.wallet.R
 import com.asf.wallet.databinding.RemoveWalletActivityLayoutBinding
 import com.asfoundation.wallet.backup.BackupActivity
@@ -20,18 +21,11 @@ class RemoveWalletActivity : BaseActivity(), RemoveWalletActivityView {
 
   private var authenticationResultSubject: PublishSubject<Boolean>? = null
 
-  private var _binding: RemoveWalletActivityLayoutBinding? = null
-  // This property is only valid between onCreateView and
-  // onDestroyView.
-  private val binding get() = _binding!!
-
-  private val wallet_remove_animation get() = binding.walletRemoveAnimation
-  private val remove_wallet_animation get() = binding.removeWalletAnimation
+  private val binding by viewBinding(RemoveWalletActivityLayoutBinding::bind)
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-    _binding = RemoveWalletActivityLayoutBinding.inflate(layoutInflater)
-    setContentView(binding.root)
+    setContentView(R.layout.remove_wallet_activity_layout)
     toolbar()
     authenticationResultSubject = PublishSubject.create()
     if (savedInstanceState == null) navigateToInitialRemoveWalletView()
@@ -48,20 +42,19 @@ class RemoveWalletActivity : BaseActivity(), RemoveWalletActivityView {
 
   override fun onOptionsItemSelected(item: MenuItem): Boolean {
     if (item.itemId == android.R.id.home) {
-      if (wallet_remove_animation == null || wallet_remove_animation.visibility != View.VISIBLE) super.onBackPressed()
+      if (binding.walletRemoveAnimation == null || binding.walletRemoveAnimation.visibility != View.VISIBLE) super.onBackPressed()
       return true
     }
     return super.onOptionsItemSelected(item)
   }
 
   override fun onBackPressed() {
-    if (wallet_remove_animation == null || wallet_remove_animation.visibility != View.VISIBLE) super.onBackPressed()
+    if (binding.walletRemoveAnimation == null || binding.walletRemoveAnimation.visibility != View.VISIBLE) super.onBackPressed()
   }
 
   override fun onDestroy() {
     authenticationResultSubject = null
     super.onDestroy()
-    _binding = null
   }
 
   private fun navigateToInitialRemoveWalletView() {
@@ -95,9 +88,9 @@ class RemoveWalletActivity : BaseActivity(), RemoveWalletActivityView {
 
   override fun showRemoveWalletAnimation() {
     requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LOCKED
-    wallet_remove_animation.visibility = View.VISIBLE
-    remove_wallet_animation.repeatCount = 0
-    remove_wallet_animation.playAnimation()
+    binding.walletRemoveAnimation.visibility = View.VISIBLE
+    binding.removeWalletAnimation.repeatCount = 0
+    binding.removeWalletAnimation.playAnimation()
   }
 
   override fun showAuthentication() {

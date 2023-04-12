@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import by.kirich1409.viewbindingdelegate.viewBinding
 import com.asf.wallet.R
 import com.asfoundation.wallet.ui.settings.wallets.SettingsWalletsView
 import com.asfoundation.wallet.ui.wallets.WalletBalance
@@ -30,12 +31,7 @@ class SettingsWalletsBottomSheetFragment : BasePageViewFragment(), SettingsWalle
 
   private var uiEventListener: PublishSubject<String>? = null
 
-  private var _binding: SettingsWalletBottomSheetLayoutBinding? = null
-  // This property is only valid between onCreateView and
-  // onDestroyView.
-  private val binding get() = _binding!!
-
-  private val bottom_sheet_wallets_cards get() = binding.bottomSheetWalletsCards
+  private val binding by viewBinding(SettingsWalletBottomSheetLayoutBinding::bind)
 
   companion object {
 
@@ -59,10 +55,7 @@ class SettingsWalletsBottomSheetFragment : BasePageViewFragment(), SettingsWalle
     inflater: LayoutInflater,
     container: ViewGroup?,
     savedInstanceState: Bundle?
-  ): View? {
-    _binding = SettingsWalletBottomSheetLayoutBinding.inflate(inflater, container, false)
-    return binding.root
-  }
+  ): View? = inflater.inflate(R.layout.settings_wallet_bottom_sheet_layout, container, false)
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
@@ -70,7 +63,7 @@ class SettingsWalletsBottomSheetFragment : BasePageViewFragment(), SettingsWalle
   }
 
   override fun setupUi(walletsBalance: List<WalletBalance>) {
-    with(bottom_sheet_wallets_cards) {
+    with(binding.bottomSheetWalletsCards) {
       addBottomItemDecoration(resources.getDimension(R.dimen.wallets_card_margin))
       isNestedScrollingEnabled = false
       layoutManager = LinearLayoutManager(context).apply {
@@ -93,6 +86,5 @@ class SettingsWalletsBottomSheetFragment : BasePageViewFragment(), SettingsWalle
   override fun onDestroyView() {
     super.onDestroyView()
     presenter.stop()
-    _binding = null
   }
 }
