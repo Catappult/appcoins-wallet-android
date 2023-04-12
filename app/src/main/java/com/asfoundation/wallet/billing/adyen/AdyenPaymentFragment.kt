@@ -12,15 +12,22 @@ import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.LinearLayout
+import android.widget.RelativeLayout
+import android.widget.TextView
 import androidx.annotation.StringRes
+import androidx.constraintlayout.widget.ConstraintLayout
 import com.adyen.checkout.adyen3ds2.Adyen3DS2Component
 import com.adyen.checkout.adyen3ds2.Adyen3DS2Configuration
 import com.adyen.checkout.card.CardConfiguration
+import com.adyen.checkout.card.CardView
 import com.adyen.checkout.components.model.payments.response.Action
 import com.adyen.checkout.core.api.Environment
 import com.adyen.checkout.redirect.RedirectComponent
 import com.adyen.checkout.redirect.RedirectConfiguration
 import com.airbnb.lottie.FontAssetDelegate
+import com.airbnb.lottie.LottieAnimationView
 import com.airbnb.lottie.TextDelegate
 import com.appcoins.wallet.bdsbilling.Billing
 import com.appcoins.wallet.billing.adyen.PaymentInfoModel
@@ -29,6 +36,7 @@ import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.appcoins.wallet.core.utils.android_common.KeyboardUtils
 import com.appcoins.wallet.core.utils.android_common.WalletCurrency
+import com.appcoins.wallet.ui.widgets.WalletButtonView
 import com.asf.wallet.BuildConfig
 import com.asf.wallet.R
 import com.asf.wallet.databinding.AdyenCreditCardLayoutBinding
@@ -47,6 +55,7 @@ import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
 import com.asfoundation.wallet.ui.iab.PaymentMethodsAnalytics
 import com.asfoundation.wallet.util.*
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
+import com.facebook.shimmer.ShimmerFrameLayout
 import com.jakewharton.rxbinding2.view.RxView
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.Observable
@@ -109,83 +118,73 @@ class AdyenPaymentFragment : BasePageViewFragment(), AdyenPaymentView {
   private var billingAddressInput: PublishSubject<Boolean>? = null
   private var billingAddressModel: BillingAddressModel? = null
 
-  private var _bindingCreditCardPreSelected: AdyenCreditCardPreSelectedBinding? = null
-  private var _bindingCreditCardLayout: AdyenCreditCardLayoutBinding? = null
+  private val bindingCreditCardPreSelected : AdyenCreditCardPreSelectedBinding? by lazy { if (isPreSelected) AdyenCreditCardPreSelectedBinding.bind(requireView()) else null }
+  private val bindingCreditCardLayout : AdyenCreditCardLayoutBinding? by lazy { if (!isPreSelected) AdyenCreditCardLayoutBinding.bind(requireView()) else null }
 
   // dialog_buy_buttons.xml
-  private val buy_button get() = _bindingCreditCardPreSelected?.dialogBuyButtonsPaymentMethods?.buyButton ?: _bindingCreditCardLayout?.dialogBuyButtons?.buyButton!!
-  private val cancel_button get() = _bindingCreditCardPreSelected?.dialogBuyButtonsPaymentMethods?.cancelButton ?: _bindingCreditCardLayout?.dialogBuyButtons?.cancelButton!!
+  private val buy_button : WalletButtonView get() = bindingCreditCardPreSelected?.dialogBuyButtonsPaymentMethods?.buyButton ?: bindingCreditCardLayout?.dialogBuyButtons?.buyButton!!
+  private val cancel_button : WalletButtonView get() = bindingCreditCardPreSelected?.dialogBuyButtonsPaymentMethods?.cancelButton ?: bindingCreditCardLayout?.dialogBuyButtons?.cancelButton!!
 
   // dialog_buy_buttons_adyen_error.xml
-  private val error_cancel get() = _bindingCreditCardPreSelected?.dialogBuyButtonsError?.errorCancel ?: _bindingCreditCardLayout?.errorButtons?.errorCancel!!
-  private val error_back get() = _bindingCreditCardPreSelected?.dialogBuyButtonsError?.errorBack ?: _bindingCreditCardLayout?.errorButtons?.errorBack!!
-  private val error_try_again get() = _bindingCreditCardPreSelected?.dialogBuyButtonsError?.errorTryAgain ?: _bindingCreditCardLayout?.errorButtons?.errorTryAgain!!
+  private val error_cancel : WalletButtonView get() = bindingCreditCardPreSelected?.dialogBuyButtonsError?.errorCancel ?: bindingCreditCardLayout?.errorButtons?.errorCancel!!
+  private val error_back : WalletButtonView get() = bindingCreditCardPreSelected?.dialogBuyButtonsError?.errorBack ?: bindingCreditCardLayout?.errorButtons?.errorBack!!
+  private val error_try_again : WalletButtonView get() = bindingCreditCardPreSelected?.dialogBuyButtonsError?.errorTryAgain ?: bindingCreditCardLayout?.errorButtons?.errorTryAgain!!
 
   // iab_error_layout.xml
-  private val error_dismiss get() = _bindingCreditCardPreSelected?.fragmentIabErrorPreSelected?.errorDismiss ?: _bindingCreditCardLayout?.fragmentIabError?.errorDismiss!!
+  private val error_dismiss: WalletButtonView get() = bindingCreditCardPreSelected?.fragmentIabErrorPreSelected?.errorDismiss ?: bindingCreditCardLayout?.fragmentIabError?.errorDismiss!!
 
   // support_error_layout.xml
-  private val error_message get() = _bindingCreditCardPreSelected?.fragmentIabErrorPreSelected?.genericErrorLayout?.errorMessage ?: _bindingCreditCardLayout?.fragmentIabError?.genericErrorLayout?.errorMessage!!
-  private val validation_success_animation get() = _bindingCreditCardPreSelected?.fragmentIabErrorPreSelected?.genericErrorLayout?.validationSuccessAnimation ?: _bindingCreditCardLayout?.fragmentIabError?.genericErrorLayout?.validationSuccessAnimation!!
-  private val error_verify_wallet_button get() = _bindingCreditCardPreSelected?.fragmentIabErrorPreSelected?.genericErrorLayout?.errorVerifyWalletButton ?: _bindingCreditCardLayout?.fragmentIabError?.genericErrorLayout?.errorVerifyWalletButton!!
-  private val error_verify_card_button get() = _bindingCreditCardPreSelected?.fragmentIabErrorPreSelected?.genericErrorLayout?.errorVerifyCardButton ?: _bindingCreditCardLayout?.fragmentIabError?.genericErrorLayout?.errorVerifyCardButton!!
-  private val contact_us get() = _bindingCreditCardPreSelected?.fragmentIabErrorPreSelected?.genericErrorLayout?.contactUs ?: _bindingCreditCardLayout?.fragmentIabError?.genericErrorLayout?.contactUs!!
-  private val error_button_barrier get() = _bindingCreditCardPreSelected?.fragmentIabErrorPreSelected?.genericErrorLayout?.errorButtonBarrier ?: _bindingCreditCardLayout?.fragmentIabError?.genericErrorLayout?.errorButtonBarrier!!
-  private val layout_support_logo get() = _bindingCreditCardPreSelected?.fragmentIabErrorPreSelected?.genericErrorLayout?.layoutSupportLogo ?: _bindingCreditCardLayout?.fragmentIabError?.genericErrorLayout?.layoutSupportLogo!!
-  private val layout_support_icn get() = _bindingCreditCardPreSelected?.fragmentIabErrorPreSelected?.genericErrorLayout?.layoutSupportIcn ?: _bindingCreditCardLayout?.fragmentIabError?.genericErrorLayout?.layoutSupportIcn!!
+  private val error_message: TextView get() = bindingCreditCardPreSelected?.fragmentIabErrorPreSelected?.genericErrorLayout?.errorMessage ?: bindingCreditCardLayout?.fragmentIabError?.genericErrorLayout?.errorMessage!!
+  private val error_verify_wallet_button: WalletButtonView get() = bindingCreditCardPreSelected?.fragmentIabErrorPreSelected?.genericErrorLayout?.errorVerifyWalletButton ?: bindingCreditCardLayout?.fragmentIabError?.genericErrorLayout?.errorVerifyWalletButton!!
+  private val error_verify_card_button: WalletButtonView get() = bindingCreditCardPreSelected?.fragmentIabErrorPreSelected?.genericErrorLayout?.errorVerifyCardButton ?: bindingCreditCardLayout?.fragmentIabError?.genericErrorLayout?.errorVerifyCardButton!!
+  private val layout_support_logo: ImageView get() = bindingCreditCardPreSelected?.fragmentIabErrorPreSelected?.genericErrorLayout?.layoutSupportLogo ?: bindingCreditCardLayout?.fragmentIabError?.genericErrorLayout?.layoutSupportLogo!!
+  private val layout_support_icn: ImageView get() = bindingCreditCardPreSelected?.fragmentIabErrorPreSelected?.genericErrorLayout?.layoutSupportIcn ?: bindingCreditCardLayout?.fragmentIabError?.genericErrorLayout?.layoutSupportIcn!!
 
   // view_purchase_bonus.xml
-  private val bonus_placeholder get() = _bindingCreditCardPreSelected?.bonusLayoutPreSelected?.bonusPlaceholder ?: _bindingCreditCardLayout?.bonusLayout?.bonusPlaceholder!!
-  private val bonus_header_1 get() = _bindingCreditCardPreSelected?.bonusLayoutPreSelected?.bonusHeader1 ?: _bindingCreditCardLayout?.bonusLayout?.bonusHeader1!!
-  private val bonus_value get() = _bindingCreditCardPreSelected?.bonusLayoutPreSelected?.bonusValue ?: _bindingCreditCardLayout?.bonusLayout?.bonusValue!!
+  private val bonus_value : TextView get() = bindingCreditCardPreSelected?.bonusLayoutPreSelected?.bonusValue ?: bindingCreditCardLayout?.bonusLayout?.bonusValue!!
 
   // selected_payment_method_cc.xml
-  private val adyen_card_form_pre_selected get() = _bindingCreditCardPreSelected?.layoutPreSelected?.adyenCardFormPreSelected ?: _bindingCreditCardLayout?.adyenCardForm?.adyenCardFormPreSelected!!
-  private val payment_method_ic get() = _bindingCreditCardPreSelected?.layoutPreSelected?.paymentMethodIc ?: _bindingCreditCardLayout?.adyenCardForm?.paymentMethodIc!!
-  private val adyen_card_form_pre_selected_number get() = _bindingCreditCardPreSelected?.layoutPreSelected?.adyenCardFormPreSelectedNumber ?: _bindingCreditCardLayout?.adyenCardForm?.adyenCardFormPreSelectedNumber!!
+  private val adyen_card_form_pre_selected: CardView get() = bindingCreditCardPreSelected?.layoutPreSelected?.adyenCardFormPreSelected ?: bindingCreditCardLayout?.adyenCardForm?.adyenCardFormPreSelected!!
+  private val payment_method_ic : ImageView get() = bindingCreditCardPreSelected?.layoutPreSelected?.paymentMethodIc ?: bindingCreditCardLayout?.adyenCardForm?.paymentMethodIc!!
+  private val adyen_card_form_pre_selected_number : TextView get() = bindingCreditCardPreSelected?.layoutPreSelected?.adyenCardFormPreSelectedNumber ?: bindingCreditCardLayout?.adyenCardForm?.adyenCardFormPreSelectedNumber!!
 
   // payment_methods_header.xml
-  private val app_icon get() = _bindingCreditCardPreSelected?.paymentMethodsHeader?.appIcon ?: _bindingCreditCardLayout?.paymentMethodsHeader?.appIcon!!
-  private val app_name get() = _bindingCreditCardPreSelected?.paymentMethodsHeader?.appName ?: _bindingCreditCardLayout?.paymentMethodsHeader?.appName!!
-  private val app_sku_description get() = _bindingCreditCardPreSelected?.paymentMethodsHeader?.appSkuDescription ?: _bindingCreditCardLayout?.paymentMethodsHeader?.appSkuDescription!!
-  private val fiat_price get() = _bindingCreditCardPreSelected?.paymentMethodsHeader?.fiatPrice ?: _bindingCreditCardLayout?.paymentMethodsHeader?.fiatPrice!!
-  private val appc_price get() = _bindingCreditCardPreSelected?.paymentMethodsHeader?.appcPrice ?: _bindingCreditCardLayout?.paymentMethodsHeader?.appcPrice!!
+  private val app_icon : ImageView get() = bindingCreditCardPreSelected?.paymentMethodsHeader?.appIcon ?: bindingCreditCardLayout?.paymentMethodsHeader?.appIcon!!
+  private val app_name : TextView get() = bindingCreditCardPreSelected?.paymentMethodsHeader?.appName ?: bindingCreditCardLayout?.paymentMethodsHeader?.appName!!
+  private val app_sku_description : TextView get() = bindingCreditCardPreSelected?.paymentMethodsHeader?.appSkuDescription ?: bindingCreditCardLayout?.paymentMethodsHeader?.appSkuDescription!!
+  private val fiat_price : TextView get() = bindingCreditCardPreSelected?.paymentMethodsHeader?.fiatPrice ?: bindingCreditCardLayout?.paymentMethodsHeader?.fiatPrice!!
+  private val appc_price : TextView get() = bindingCreditCardPreSelected?.paymentMethodsHeader?.appcPrice ?: bindingCreditCardLayout?.paymentMethodsHeader?.appcPrice!!
 
   // fragment_iab_transaction_completed.xml
-  private val transaction_success_text get() = _bindingCreditCardPreSelected?.fragmentIabTransactionCompleted?.transactionSuccessText ?: _bindingCreditCardLayout?.fragmentIabTransactionCompleted?.transactionSuccessText!!
-  private val lottie_transaction_success get() = _bindingCreditCardPreSelected?.fragmentIabTransactionCompleted?.lottieTransactionSuccess ?: _bindingCreditCardLayout?.fragmentIabTransactionCompleted?.lottieTransactionSuccess!!
-  private val next_payment_date get() = _bindingCreditCardPreSelected?.fragmentIabTransactionCompleted?.nextPaymentDate ?: _bindingCreditCardLayout?.fragmentIabTransactionCompleted?.nextPaymentDate!!
+  private val lottie_transaction_success : LottieAnimationView get() = bindingCreditCardPreSelected?.fragmentIabTransactionCompleted?.lottieTransactionSuccess ?: bindingCreditCardLayout?.fragmentIabTransactionCompleted?.lottieTransactionSuccess!!
+  private val next_payment_date  : TextView get() = bindingCreditCardPreSelected?.fragmentIabTransactionCompleted?.nextPaymentDate ?: bindingCreditCardLayout?.fragmentIabTransactionCompleted?.nextPaymentDate!!
 
   // adyen_credit_card_layout.xml and adyen_credit_card_pre_selected.xml
-  private val fragment_credit_card_authorization_progress_bar get() = _bindingCreditCardPreSelected?.fragmentCreditCardAuthorizationProgressBar ?: _bindingCreditCardLayout?.fragmentCreditCardAuthorizationProgressBar!!
-  private val fiat_price_skeleton get() = _bindingCreditCardPreSelected?.paymentMethodsHeader?.fiatPriceSkeleton?.root ?: _bindingCreditCardLayout?.paymentMethodsHeader?.fiatPriceSkeleton?.root!!
-  private val appc_price_skeleton get() = _bindingCreditCardPreSelected?.paymentMethodsHeader?.appcPriceSkeleton?.root ?: _bindingCreditCardLayout?.paymentMethodsHeader?.appcPriceSkeleton?.root!!
-  private val iab_activity_transaction_completed get() = _bindingCreditCardPreSelected?.fragmentIabTransactionCompleted?.iabActivityTransactionCompleted ?: _bindingCreditCardLayout?.fragmentIabTransactionCompleted?.iabActivityTransactionCompleted!!
+  private val fragment_credit_card_authorization_progress_bar : LottieAnimationView get() = bindingCreditCardPreSelected?.fragmentCreditCardAuthorizationProgressBar ?: bindingCreditCardLayout?.fragmentCreditCardAuthorizationProgressBar!!
+  private val fiat_price_skeleton : ShimmerFrameLayout get() = bindingCreditCardPreSelected?.paymentMethodsHeader?.fiatPriceSkeleton?.root ?: bindingCreditCardLayout?.paymentMethodsHeader?.fiatPriceSkeleton?.root!!
+  private val appc_price_skeleton : ShimmerFrameLayout get() = bindingCreditCardPreSelected?.paymentMethodsHeader?.appcPriceSkeleton?.root ?: bindingCreditCardLayout?.paymentMethodsHeader?.appcPriceSkeleton?.root!!
+  private val iab_activity_transaction_completed : ConstraintLayout get() = bindingCreditCardPreSelected?.fragmentIabTransactionCompleted?.iabActivityTransactionCompleted ?: bindingCreditCardLayout?.fragmentIabTransactionCompleted?.iabActivityTransactionCompleted!!
 
   // adyen_credit_card_layout.xml
-  private val main_view get() = _bindingCreditCardLayout?.mainView
-  private val credit_card_info get() = _bindingCreditCardLayout?.creditCardInfo
-  private val line_separator get() = _bindingCreditCardLayout?.lineSeparator
-  private val cc_info_view get() = _bindingCreditCardLayout?.ccInfoView
-  private val change_card_button get() = _bindingCreditCardLayout?.changeCardButton
-  private val bonus_msg get() = _bindingCreditCardLayout?.bonusMsg
-  private val bonus_layout get() = _bindingCreditCardLayout?.bonusLayout?.root
-  private val adyen_card_form get() = _bindingCreditCardLayout?.adyenCardForm?.root
-  private val fragment_adyen_error get() = _bindingCreditCardLayout?.fragmentAdyenError?.root
-  private val error_buttons get() = _bindingCreditCardLayout?.errorButtons?.root
+  private val main_view : RelativeLayout? get() = bindingCreditCardLayout?.mainView
+  private val credit_card_info : ConstraintLayout? get() = bindingCreditCardLayout?.creditCardInfo
+  private val change_card_button : WalletButtonView? get() = bindingCreditCardLayout?.changeCardButton
+  private val bonus_msg : TextView? get() = bindingCreditCardLayout?.bonusMsg
+  private val bonus_layout : LinearLayout? get() = bindingCreditCardLayout?.bonusLayout?.root
+  private val adyen_card_form : ConstraintLayout? get() = bindingCreditCardLayout?.adyenCardForm?.root
+  private val fragment_adyen_error : ConstraintLayout? get() = bindingCreditCardLayout?.fragmentAdyenError?.root
+  private val error_buttons : LinearLayout? get() = bindingCreditCardLayout?.errorButtons?.root
 
   // adyen_credit_card_pre_selected.xml
-  private val main_view_pre_selected get() = _bindingCreditCardPreSelected?.mainViewPreSelected
-  private val payment_methods get() = _bindingCreditCardPreSelected?.paymentMethods
-  private val payment_scroll get() = _bindingCreditCardPreSelected?.paymentScroll
-  private val change_card_button_pre_selected get() = _bindingCreditCardPreSelected?.changeCardButtonPreSelected
-  private val more_payment_methods get() = _bindingCreditCardPreSelected?.morePaymentMethods!!
-  private val bonus_msg_pre_selected get() = _bindingCreditCardPreSelected?.bonusMsgPreSelected
-  private val bottom_separator_buttons get() = _bindingCreditCardPreSelected?.bottomSeparatorButtons
-  private val bonus_layout_pre_selected get() = _bindingCreditCardPreSelected?.bonusLayoutPreSelected?.root
-  private val layout_pre_selected get() = _bindingCreditCardPreSelected?.layoutPreSelected?.root
-  private val fragment_adyen_error_pre_selected get() = _bindingCreditCardPreSelected?.fragmentAdyenErrorPreSelected?.root
-  private val dialog_buy_buttons_error get() = _bindingCreditCardPreSelected?.dialogBuyButtonsError?.root
+  private val main_view_pre_selected : RelativeLayout? get() = bindingCreditCardPreSelected?.mainViewPreSelected
+  private val payment_methods : ConstraintLayout? get() = bindingCreditCardPreSelected?.paymentMethods
+  private val change_card_button_pre_selected: WalletButtonView? get() = bindingCreditCardPreSelected?.changeCardButtonPreSelected
+  private val more_payment_methods: WalletButtonView get() = bindingCreditCardPreSelected?.morePaymentMethods!!
+  private val bonus_msg_pre_selected: TextView? get() = bindingCreditCardPreSelected?.bonusMsgPreSelected
+  private val bonus_layout_pre_selected : LinearLayout? get() = bindingCreditCardPreSelected?.bonusLayoutPreSelected?.root
+  private val layout_pre_selected : ConstraintLayout? get() = bindingCreditCardPreSelected?.layoutPreSelected?.root
+  private val fragment_adyen_error_pre_selected : ConstraintLayout? get() = bindingCreditCardPreSelected?.fragmentAdyenErrorPreSelected?.root
+  private val dialog_buy_buttons_error : LinearLayout? get() = bindingCreditCardPreSelected?.dialogBuyButtonsError?.root
 
 
   override fun onCreate(savedInstanceState: Bundle?) {
@@ -227,11 +226,9 @@ class AdyenPaymentFragment : BasePageViewFragment(), AdyenPaymentView {
     container: ViewGroup?,
     savedInstanceState: Bundle?
   ): View? = if (isPreSelected) {
-    _bindingCreditCardPreSelected = AdyenCreditCardPreSelectedBinding.inflate(inflater, container, false)
-    _bindingCreditCardPreSelected?.root
+    inflater.inflate(R.layout.adyen_credit_card_pre_selected, container, false)
   } else {
-    _bindingCreditCardLayout = AdyenCreditCardLayoutBinding.inflate(inflater, container, false)
-    _bindingCreditCardLayout?.root
+    inflater.inflate(R.layout.adyen_credit_card_layout, container, false)
   }
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -254,7 +251,7 @@ class AdyenPaymentFragment : BasePageViewFragment(), AdyenPaymentView {
   }
 
   private fun setupUi() {
-    adyenCardView = AdyenCardView(_bindingCreditCardPreSelected?.layoutPreSelected?.adyenCardFormPreSelected ?: _bindingCreditCardLayout?.adyenCardForm?.root)
+    adyenCardView = AdyenCardView(adyen_card_form_pre_selected)
     setupTransactionCompleteAnimation()
     handleBuyButtonText()
     if (paymentType == PaymentType.CARD.name) setupCardConfiguration()
@@ -723,8 +720,6 @@ class AdyenPaymentFragment : BasePageViewFragment(), AdyenPaymentView {
     iabView.enableBack()
     presenter.stop()
     super.onDestroyView()
-    _bindingCreditCardLayout = null
-    _bindingCreditCardPreSelected = null
   }
 
   override fun onDestroy() {
