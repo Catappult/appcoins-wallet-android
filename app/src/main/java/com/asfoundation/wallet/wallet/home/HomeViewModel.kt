@@ -107,7 +107,7 @@ class HomeViewModel @Inject constructor(
   private val refreshData = BehaviorSubject.createDefault(true)
   private val refreshCardNotifications = BehaviorSubject.createDefault(true)
   val balance = mutableStateOf(FiatValue())
-  val showBalanceCard = mutableStateOf(false)
+  val newWallet = mutableStateOf(false)
 
   companion object {
     fun initialState(): HomeState {

@@ -137,9 +137,9 @@ class HomeFragment_new: BasePageViewFragment(), SingleStateFragment<HomeState, H
         .verticalScroll(rememberScrollState())
         .padding(padding),
     ) {
-      if (viewModel.showBalanceCard.value) {
         with(viewModel.balance.value) {
           BalanceCard(
+            newWallet = viewModel.newWallet.value,
             showBackup = viewModel.state.showBackup,
             balance = symbol + formatter.formatCurrency(amount, FIAT),
             currencyCode = currency,
@@ -152,7 +152,6 @@ class HomeFragment_new: BasePageViewFragment(), SingleStateFragment<HomeState, H
             } // TODO create bottom sheet
           )
         }
-      }
       //TODO replace with home composables
       DummyCard()
       DummyCard()
@@ -277,7 +276,7 @@ class HomeFragment_new: BasePageViewFragment(), SingleStateFragment<HomeState, H
         //TODO loading
       }
       is Async.Success ->
-        viewModel.showBalanceCard.value = transactionsModel().transactions.isNotEmpty()
+        viewModel.newWallet.value = transactionsModel().transactions.isEmpty()
       else -> Unit
     }
   }
