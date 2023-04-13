@@ -27,8 +27,11 @@ import by.kirich1409.viewbindingdelegate.viewBinding
 import com.appcoins.wallet.ui.arch.SingleStateFragment
 import com.appcoins.wallet.ui.common.createColoredString
 import com.appcoins.wallet.ui.common.setTextFromColored
-import com.appcoins.wallet.ui.common.theme.WalletColors
-import com.appcoins.wallet.ui.widgets.component.RoundedButtonWithIcon
+import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_blue_secondary
+import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_medium_grey
+import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_pink
+import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_white
+import com.appcoins.wallet.ui.widgets.component.ButtonWithIcon
 import com.asf.wallet.R
 import com.asf.wallet.databinding.NavBarFragmentBinding
 import com.asfoundation.wallet.main.MainActivity
@@ -76,7 +79,7 @@ class NavBarFragment : BasePageViewFragment(),
   @Composable
   fun BottomNavigationHome() {
     BottomAppBar(
-      backgroundColor = WalletColors.styleguide_blue_secondary,
+      backgroundColor = styleguide_blue_secondary,
       cutoutShape = CircleShape,
       modifier = Modifier.height(64.dp),
       content = {
@@ -86,13 +89,18 @@ class NavBarFragment : BasePageViewFragment(),
         ) {
 
           viewModel.navigationItems().forEach { item ->
-            RoundedButtonWithIcon(
-              destinationId = item.destination.ordinal,
+            val selected = viewModel.clickedItem.value == item.destination.ordinal
+            ButtonWithIcon(
               icon = item.icon,
               label = item.label,
-              selected = viewModel.clickedItem.value == item.destination.ordinal,
-              onClick = { navigateToDestination(item.destination) },
-              clickedItem = viewModel.clickedItem
+              backgroundColor = if (selected) styleguide_pink else styleguide_blue_secondary,
+              labelColor = if (selected) styleguide_white else styleguide_medium_grey,
+              iconColor = if (selected) styleguide_white else styleguide_medium_grey,
+              iconSize = 24.dp,
+              onClick = {
+                viewModel.clickedItem.value = item.destination.ordinal
+                navigateToDestination(item.destination)
+              }
             )
           }
         }

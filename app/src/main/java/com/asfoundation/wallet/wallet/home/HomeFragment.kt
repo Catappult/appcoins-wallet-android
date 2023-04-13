@@ -7,6 +7,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
@@ -29,15 +30,21 @@ import androidx.navigation.Navigation
 import androidx.navigation.fragment.NavHostFragment
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.appcoins.wallet.core.utils.android_common.RootUtil
+import com.appcoins.wallet.core.utils.android_common.WalletCurrency.FIAT
+import com.appcoins.wallet.ui.arch.Async
 import com.appcoins.wallet.ui.arch.SingleStateFragment
 import com.appcoins.wallet.ui.common.theme.WalletColors
 import com.appcoins.wallet.ui.widgets.NftCard
+import com.appcoins.wallet.ui.widgets.BalanceCard
 import com.appcoins.wallet.ui.widgets.TopBar
 import com.asf.wallet.R
+import com.asfoundation.wallet.entity.GlobalBalance
 import com.asfoundation.wallet.support.SupportNotificationProperties
+import com.asfoundation.wallet.ui.widget.entity.TransactionsModel
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
 import io.intercom.android.sdk.Intercom
+import java.math.BigDecimal
 import javax.inject.Inject
 
 // Before moving this screen into the :home module, all home dependencies need to be independent
@@ -133,6 +140,21 @@ class HomeFragment: BasePageViewFragment(), SingleStateFragment<HomeState, HomeS
         .verticalScroll(rememberScrollState())
         .padding(padding),
     ) {
+        with(viewModel.balance.value) {
+          BalanceCard(
+            newWallet = viewModel.newWallet.value,
+            showBackup = viewModel.state.showBackup,
+            balance = symbol + formatter.formatCurrency(amount, FIAT),
+            currencyCode = currency,
+            onClickCurrencies = { viewModel.onCurrencySelectorClick() },
+            onClickTransfer = { viewModel.onTransferClick() },
+            onClickBackup = { viewModel.onBackupClick() },
+            onClickTopUp = { viewModel.onTopUpClick() },
+            onClickMenuOptions = {
+              Toast.makeText(context, "In progress", Toast.LENGTH_SHORT).show()
+            } // TODO create bottom sheet
+          )
+        }
       //TODO replace with home composables
       DummyCard()
       DummyCard()
@@ -183,8 +205,9 @@ class HomeFragment: BasePageViewFragment(), SingleStateFragment<HomeState, HomeS
   override fun onStateChanged(state: HomeState) {
     // TODO set transaction list elements. setData(state.transactionsModelAsync, state.defaultWalletBalanceAsync)
     // TODO refreshing. setRefreshLayout(state.defaultWalletBalanceAsync, state.transactionsModelAsync)
-    // TODO setBalance(state.defaultWalletBalanceAsync)
+    setBalance(state.defaultWalletBalanceAsync)
     showVipBadge(state.showVipBadge)
+    setTransactions(state.transactionsModelAsync)
     // TODO updateSupportIcon(state.unreadMessages)
   }
 
@@ -209,6 +232,8 @@ class HomeFragment: BasePageViewFragment(), SingleStateFragment<HomeState, HomeS
         sideEffect.triggerSource
       )
       HomeSideEffect.NavigateToChangeCurrency -> navigator.navigateToCurrencySelector()
+      HomeSideEffect.NavigateToTopUp -> navigator.navigateToTopUp()
+      HomeSideEffect.NavigateToTransfer -> navigator.navigateToTransfer()
     }
   }
 
@@ -236,6 +261,32 @@ class HomeFragment: BasePageViewFragment(), SingleStateFragment<HomeState, HomeS
         .setBackgroundColor(ResourcesCompat.getColor(resources, R.color.transparent, null))
       alertDialog.getButton(android.app.AlertDialog.BUTTON_NEGATIVE)
         .setTextColor(ResourcesCompat.getColor(resources, R.color.styleguide_pink, null))
+    }
+  }
+
+  private fun setBalance(balanceAsync: Async<GlobalBalance>) {
+    when (balanceAsync) {
+      Async.Uninitialized,
+      is Async.Loading -> {
+        //TODO loading
+      }
+      is Async.Success ->
+        with(balanceAsync().walletBalance.creditsOnlyFiat) {
+          if (amount >= BigDecimal.ZERO && symbol.isNotEmpty()) viewModel.balance.value = this
+        }
+      else -> Unit
+    }
+  }
+
+  private fun setTransactions(transactionsModel: Async<TransactionsModel>) {
+    when (transactionsModel) {
+      Async.Uninitialized,
+      is Async.Loading -> {
+        //TODO loading
+      }
+      is Async.Success ->
+        viewModel.newWallet.value = transactionsModel().transactions.isEmpty()
+      else -> Unit
     }
   }
 
