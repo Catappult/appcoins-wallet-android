@@ -89,7 +89,7 @@
 
     <activity
         android:name="com.asfoundation.wallet.ui.settings.SettingsActivity"
-        android:label="@string/title_activity_settings" />
+        android:label="" />
     <activity
         android:name="com.asfoundation.wallet.ui.balance.TransactionDetailActivity"
         android:label="" />

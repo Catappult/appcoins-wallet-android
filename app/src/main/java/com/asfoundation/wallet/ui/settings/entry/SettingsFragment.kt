@@ -8,6 +8,7 @@ import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.SwitchPreferenceCompat
@@ -168,6 +169,28 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
     val restorePreference = findPreference<Preference>("pref_restore")
     restorePreference?.setOnPreferenceClickListener {
       presenter.onRecoverWalletPreferenceClick()
+      false
+    }
+  }
+
+  override fun setManageWalletPreference() {
+    val backupPreference = findPreference<Preference>("pref_manage_wallet")
+    backupPreference?.setOnPreferenceClickListener {
+      walletsEventSender.sendCreateBackupEvent( // TODO create manage wallet screen
+        null,
+        WalletsAnalytics.SETTINGS,
+        null
+      )
+      presenter.onBackupPreferenceClick()
+      false
+    }
+  }
+
+  override fun setAccountPreference() {
+    val accountPreference = findPreference<Preference>("pref_account")
+    accountPreference?.setOnPreferenceClickListener {
+      Toast.makeText(context, "In Progress", Toast.LENGTH_SHORT)
+        .show() // TODO create account screen
       false
     }
   }
