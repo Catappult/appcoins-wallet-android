@@ -6,11 +6,13 @@ import android.net.Uri
 import android.widget.Toast
 import androidx.core.app.ShareCompat
 import androidx.fragment.app.Fragment
+import androidx.navigation.NavController
+import com.appcoins.wallet.sharedpreferences.BackupTriggerPreferencesDataSource
+import com.appcoins.wallet.ui.arch.Navigator
 import com.asf.wallet.R
 import com.asfoundation.wallet.C
 import com.asfoundation.wallet.backup.BackupActivity
 import com.asfoundation.wallet.backup.triggers.BackupTriggerDialogFragment
-import com.appcoins.wallet.ui.arch.Navigator
 import com.asfoundation.wallet.change_currency.ChangeFiatCurrencyActivity
 import com.asfoundation.wallet.main.nav_bar.NavBarFragmentNavigator
 import com.asfoundation.wallet.rating.RatingActivity
@@ -18,7 +20,6 @@ import com.asfoundation.wallet.transactions.Transaction
 import com.asfoundation.wallet.ui.BaseActivity
 import com.asfoundation.wallet.ui.balance.TransactionDetailActivity
 import com.asfoundation.wallet.ui.settings.SettingsActivity
-import com.appcoins.wallet.sharedpreferences.BackupTriggerPreferencesDataSource
 import javax.inject.Inject
 
 class HomeNavigator @Inject constructor(
@@ -102,6 +103,12 @@ class HomeNavigator @Inject constructor(
         flags = Intent.FLAG_ACTIVITY_SINGLE_TOP
       }
     openIntent(intent)
+  }
+
+  fun navigateToNfts(
+    mainNavController: NavController
+  ) {
+    mainNavController.navigate(R.id.action_navigate_to_nfts)
   }
 
   fun openIntent(intent: Intent) = fragment.requireContext()

@@ -25,10 +25,13 @@ import androidx.compose.ui.unit.dp
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.Navigation
+import androidx.navigation.fragment.NavHostFragment
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.appcoins.wallet.core.utils.android_common.RootUtil
 import com.appcoins.wallet.ui.arch.SingleStateFragment
 import com.appcoins.wallet.ui.common.theme.WalletColors
+import com.appcoins.wallet.ui.widgets.NftCard
 import com.appcoins.wallet.ui.widgets.TopBar
 import com.asf.wallet.R
 import com.asfoundation.wallet.support.SupportNotificationProperties
@@ -41,7 +44,7 @@ import javax.inject.Inject
 // from the :app module.
 // TODO rename class after completed
 @AndroidEntryPoint
-class HomeFragment_new: BasePageViewFragment(), SingleStateFragment<HomeState, HomeSideEffect> {
+class HomeFragment: BasePageViewFragment(), SingleStateFragment<HomeState, HomeSideEffect> {
 
   @Inject
   lateinit var navigator: HomeNavigator
@@ -136,6 +139,9 @@ class HomeFragment_new: BasePageViewFragment(), SingleStateFragment<HomeState, H
       DummyCard()
       DummyCard()
       DummyCard()
+      NftCard(
+        onClick = { navigateToNft() }
+      )
     }
   }
 
@@ -235,6 +241,15 @@ class HomeFragment_new: BasePageViewFragment(), SingleStateFragment<HomeState, H
 
   private fun showVipBadge(shouldShow: Boolean) {
     isVip = shouldShow
+  }
+
+  private fun navigateToNft() {
+    val navHostFragment = requireActivity().supportFragmentManager.findFragmentById(
+      R.id.main_host_container
+    ) as NavHostFragment
+    val navController = navHostFragment.navController
+
+    navigator.navigateToNfts(navController)
   }
 
 }
