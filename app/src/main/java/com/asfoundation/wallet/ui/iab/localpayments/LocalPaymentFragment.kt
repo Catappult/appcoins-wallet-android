@@ -36,7 +36,7 @@ class LocalPaymentFragment : BasePageViewFragment(), LocalPaymentView {
   private var minFrame = 0
   private var maxFrame = 40
 
-  private val binding by viewBinding(LocalPaymentLayoutBinding::bind)
+  private val binding by lazy { LocalPaymentLayoutBinding.bind(requireView()) }
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)

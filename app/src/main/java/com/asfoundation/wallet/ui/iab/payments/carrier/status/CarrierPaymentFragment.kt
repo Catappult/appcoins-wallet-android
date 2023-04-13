@@ -30,7 +30,7 @@ class CarrierPaymentFragment : BasePageViewFragment(), CarrierPaymentView {
   lateinit var presenter: CarrierPaymentPresenter
   lateinit var iabView: IabView
 
-  private val views by viewBinding(FragmentCarrierPaymentStatusBinding::bind)
+  private val views by lazy { FragmentCarrierPaymentStatusBinding.bind(requireView()) }
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                             savedInstanceState: Bundle?): View = FragmentCarrierPaymentStatusBinding.inflate(inflater).root

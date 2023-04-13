@@ -55,7 +55,7 @@ class AppcoinsRewardsBuyFragment : BasePageViewFragment(), AppcoinsRewardsBuyVie
   private lateinit var presenter: AppcoinsRewardsBuyPresenter
   private lateinit var iabView: IabView
 
-  private val binding by viewBinding(RewardPaymentLayoutBinding::bind)
+  private val binding by lazy { RewardPaymentLayoutBinding.bind(requireView()) }
 
   override fun onCreateView(
     inflater: LayoutInflater,
