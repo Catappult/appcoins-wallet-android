@@ -20,6 +20,7 @@ import com.asfoundation.wallet.transactions.Transaction
 import com.asfoundation.wallet.ui.BaseActivity
 import com.asfoundation.wallet.ui.balance.TransactionDetailActivity
 import com.asfoundation.wallet.ui.settings.SettingsActivity
+import com.asfoundation.wallet.ui.transact.TransferActivity
 import javax.inject.Inject
 
 class HomeNavigator @Inject constructor(
@@ -108,6 +109,12 @@ class HomeNavigator @Inject constructor(
       .apply {
         flags = Intent.FLAG_ACTIVITY_SINGLE_TOP
       }
+    openIntent(intent)
+  }
+
+  fun navigateToTransfer() {
+    val intent = TransferActivity.newIntent(fragment.requireContext())
+    intent.flags = Intent.FLAG_ACTIVITY_SINGLE_TOP
     openIntent(intent)
   }
 

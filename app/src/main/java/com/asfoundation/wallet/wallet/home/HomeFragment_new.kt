@@ -37,6 +37,7 @@ import com.appcoins.wallet.ui.widgets.TopBar
 import com.asf.wallet.R
 import com.asfoundation.wallet.entity.GlobalBalance
 import com.asfoundation.wallet.support.SupportNotificationProperties
+import com.asfoundation.wallet.ui.widget.entity.TransactionsModel
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
 import io.intercom.android.sdk.Intercom
@@ -136,17 +137,21 @@ class HomeFragment_new: BasePageViewFragment(), SingleStateFragment<HomeState, H
         .verticalScroll(rememberScrollState())
         .padding(padding),
     ) {
-      with(viewModel.balance.value) {
-        BalanceCard(
-          balance = symbol + formatter.formatCurrency(amount, FIAT),
-          currencyCode = currency,
-          onClickCurrencies = { viewModel.onCurrencySelectorClick() },
-          onClickTransfer = {
-            Toast.makeText(context, "In progress", Toast.LENGTH_SHORT).show()
-          }, //TODO create transfer screen
-          onClickBackup = { viewModel.onBackupClick() },
-          onClickTopUp = { viewModel.onTopUpClick() }
-        )
+      if (viewModel.showBalanceCard.value) {
+        with(viewModel.balance.value) {
+          BalanceCard(
+            showBackup = viewModel.state.showBackup,
+            balance = symbol + formatter.formatCurrency(amount, FIAT),
+            currencyCode = currency,
+            onClickCurrencies = { viewModel.onCurrencySelectorClick() },
+            onClickTransfer = { viewModel.onTransferClick() },
+            onClickBackup = { viewModel.onBackupClick() },
+            onClickTopUp = { viewModel.onTopUpClick() },
+            onClickMenuOptions = {
+              Toast.makeText(context, "In progress", Toast.LENGTH_SHORT).show()
+            } // TODO create bottom sheet
+          )
+        }
       }
       //TODO replace with home composables
       DummyCard()
@@ -194,6 +199,7 @@ class HomeFragment_new: BasePageViewFragment(), SingleStateFragment<HomeState, H
     // TODO refreshing. setRefreshLayout(state.defaultWalletBalanceAsync, state.transactionsModelAsync)
     setBalance(state.defaultWalletBalanceAsync)
     showVipBadge(state.showVipBadge)
+    setTransactions(state.transactionsModelAsync)
     // TODO updateSupportIcon(state.unreadMessages)
   }
 
@@ -219,6 +225,7 @@ class HomeFragment_new: BasePageViewFragment(), SingleStateFragment<HomeState, H
       )
       HomeSideEffect.NavigateToChangeCurrency -> navigator.navigateToCurrencySelector()
       HomeSideEffect.NavigateToTopUp -> navigator.navigateToTopUp()
+      HomeSideEffect.NavigateToTransfer -> navigator.navigateToTransfer()
     }
   }
 
@@ -259,6 +266,18 @@ class HomeFragment_new: BasePageViewFragment(), SingleStateFragment<HomeState, H
         with(balanceAsync().walletBalance.creditsOnlyFiat) {
           if (amount >= BigDecimal.ZERO && symbol.isNotEmpty()) viewModel.balance.value = this
         }
+      else -> Unit
+    }
+  }
+
+  private fun setTransactions(transactionsModel: Async<TransactionsModel>) {
+    when (transactionsModel) {
+      Async.Uninitialized,
+      is Async.Loading -> {
+        //TODO loading
+      }
+      is Async.Success ->
+        viewModel.showBalanceCard.value = transactionsModel().transactions.isNotEmpty()
       else -> Unit
     }
   }

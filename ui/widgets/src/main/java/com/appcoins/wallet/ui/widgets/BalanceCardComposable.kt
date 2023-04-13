@@ -22,7 +22,9 @@ fun BalanceCard(
   onClickCurrencies: () -> Unit,
   onClickTransfer: () -> Unit,
   onClickTopUp: () -> Unit,
-  onClickBackup: (() -> Unit)? = null,
+  onClickBackup: () -> Unit,
+  onClickMenuOptions: () -> Unit,
+  showBackup: Boolean = true
 ) {
   Card(
     backgroundColor = WalletColors.styleguide_blue_secondary,
@@ -41,7 +43,8 @@ fun BalanceCard(
           VectorIconButton(
             imageVector = Icons.Default.MoreVert,
             contentDescription = R.string.action_more_details,
-            onClick = {}) //TODO create Bottom Sheet using @BalanceCardMenuOptions
+            onClick = onClickMenuOptions
+          )
         }
         Spacer(modifier = Modifier.height(12.dp))
         Row(
@@ -67,7 +70,7 @@ fun BalanceCard(
         }
       }
 
-      if (onClickBackup != null) {
+      if (showBackup) {
         Surface(
           modifier = Modifier
             .fillMaxWidth()
@@ -92,6 +95,8 @@ fun PreviewBalanceCard() {
     onClickCurrencies = {},
     onClickTransfer = {},
     onClickBackup = {},
-    onClickTopUp = {}
+    onClickTopUp = {},
+    onClickMenuOptions = {},
+    showBackup = true
   )
 }

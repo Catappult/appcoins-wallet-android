@@ -63,13 +63,15 @@ sealed class HomeSideEffect : SideEffect {
   object NavigateToMyWallets : HomeSideEffect()
   object NavigateToChangeCurrency : HomeSideEffect()
   object NavigateToTopUp : HomeSideEffect()
+  object NavigateToTransfer : HomeSideEffect()
 }
 
 data class HomeState(
   val transactionsModelAsync: Async<TransactionsModel> = Async.Uninitialized,
   val defaultWalletBalanceAsync: Async<GlobalBalance> = Async.Uninitialized,
   val showVipBadge: Boolean = false,
-  val unreadMessages: Boolean = false
+  val unreadMessages: Boolean = false,
+  val showBackup: Boolean = false
 ) : ViewState
 
 @HiltViewModel
@@ -105,6 +107,7 @@ class HomeViewModel @Inject constructor(
   private val refreshData = BehaviorSubject.createDefault(true)
   private val refreshCardNotifications = BehaviorSubject.createDefault(true)
   val balance = mutableStateOf(FiatValue())
+  val showBalanceCard = mutableStateOf(false)
 
   companion object {
     fun initialState(): HomeState {
@@ -350,6 +353,10 @@ class HomeViewModel @Inject constructor(
     sendSideEffect { HomeSideEffect.NavigateToTopUp }
   }
 
+  fun onTransferClick() {
+    sendSideEffect { HomeSideEffect.NavigateToTransfer }
+  }
+
   fun onTransactionDetailsClick(transaction: Transaction) {
     sendSideEffect {
       state.defaultWalletBalanceAsync.value?.let {
@@ -396,6 +403,7 @@ class HomeViewModel @Inject constructor(
     getWalletInfoUseCase(null, cached = false, updateFiat = false)
       .flatMap { walletInfo ->
         shouldShowBackupTriggerUseCase(walletInfo.wallet).map { shouldShow ->
+          setState { copy(showBackup = !walletInfo.hasBackup) }
           if (shouldShow &&
             backupTriggerPreferences.getTriggerState(walletInfo.wallet) &&
             !walletInfo.hasBackup

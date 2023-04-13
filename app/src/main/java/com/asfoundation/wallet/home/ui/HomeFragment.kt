@@ -220,6 +220,7 @@ class HomeFragment : BasePageViewFragment(),
       )
       HomeSideEffect.NavigateToChangeCurrency -> navigator.navigateToCurrencySelector()
       HomeSideEffect.NavigateToTopUp -> navigator.navigateToTopUp()
+      HomeSideEffect.NavigateToTransfer -> navigator.navigateToTransfer()
     }
   }
 
