@@ -179,7 +179,7 @@ class AdyenPaymentFragment : BasePageViewFragment(), AdyenPaymentView {
   private val main_view_pre_selected : RelativeLayout? get() = bindingCreditCardPreSelected?.mainViewPreSelected
   private val payment_methods : ConstraintLayout? get() = bindingCreditCardPreSelected?.paymentMethods
   private val change_card_button_pre_selected: WalletButtonView? get() = bindingCreditCardPreSelected?.changeCardButtonPreSelected
-  private val more_payment_methods: WalletButtonView get() = bindingCreditCardPreSelected?.morePaymentMethods!!
+  private val more_payment_methods: WalletButtonView? get() = bindingCreditCardPreSelected?.morePaymentMethods
   private val bonus_msg_pre_selected: TextView? get() = bindingCreditCardPreSelected?.bonusMsgPreSelected
   private val bonus_layout_pre_selected : LinearLayout? get() = bindingCreditCardPreSelected?.bonusLayoutPreSelected?.root
   private val layout_pre_selected : ConstraintLayout? get() = bindingCreditCardPreSelected?.layoutPreSelected?.root
@@ -483,7 +483,7 @@ class AdyenPaymentFragment : BasePageViewFragment(), AdyenPaymentView {
 
   }
 
-  override fun getMorePaymentMethodsClicks() = RxView.clicks(more_payment_methods)
+  override fun getMorePaymentMethodsClicks() = RxView.clicks(more_payment_methods!!)
 
   override fun showMoreMethods() {
     main_view?.let { KeyboardUtils.hideKeyboard(it) }
