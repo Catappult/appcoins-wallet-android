@@ -80,4 +80,10 @@
 
   </fragment>
 
+  <include app:graph="@navigation/nft_graph" />
+
+  <action
+      android:id="@+id/action_navigate_to_nfts"
+      app:destination="@id/nft_graph" />
+
 </navigation>

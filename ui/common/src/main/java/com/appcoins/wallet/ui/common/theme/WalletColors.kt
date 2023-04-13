@@ -17,5 +17,5 @@ object WalletColors {
   val styleguide_vip_yellow_transparent_40 = Color(0x66EFA226)
 
   val darkGrey = Color(0xFF8E93A1)
-  val lightGrey = Color(0xFFF5F5FA)
+  val text_lightGrey = Color(0xFFF5F5FA)
 }
