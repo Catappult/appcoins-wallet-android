@@ -6,6 +6,7 @@ import android.net.Uri
 import android.widget.Toast
 import androidx.core.app.ShareCompat
 import androidx.fragment.app.Fragment
+import androidx.navigation.NavController
 import com.appcoins.wallet.sharedpreferences.BackupTriggerPreferencesDataSource
 import com.appcoins.wallet.ui.arch.Navigator
 import com.asf.wallet.R
@@ -116,6 +117,12 @@ class HomeNavigator @Inject constructor(
     val intent = TransferActivity.newIntent(fragment.requireContext())
     intent.flags = Intent.FLAG_ACTIVITY_SINGLE_TOP
     openIntent(intent)
+  }
+
+  fun navigateToNfts(
+    mainNavController: NavController
+  ) {
+    mainNavController.navigate(R.id.action_navigate_to_nfts)
   }
 
   fun openIntent(intent: Intent) = fragment.requireContext()

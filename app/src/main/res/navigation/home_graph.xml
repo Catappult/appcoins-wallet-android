@@ -3,15 +3,17 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/home_graph"
-    app:startDestination="@id/test_toolbar_fragment">
+    app:startDestination="@id/home_fragment">
+
+  <include app:graph="@navigation/nft_graph" />
 
   <fragment
       android:id="@+id/home_fragment"
-      android:name="com.asfoundation.wallet.home.ui.HomeFragment"
-      tools:layout="@layout/fragment_home" />
-<!--TODO remove:-->
-  <fragment
-      android:id="@+id/test_toolbar_fragment"
-      android:name="com.asfoundation.wallet.wallet.home.HomeFragment_new"
-       />
+      android:name="com.asfoundation.wallet.wallet.home.HomeFragment"
+      tools:layout="@layout/fragment_home">
+    <action
+        android:id="@+id/action_navigate_to_nfts"
+        app:destination="@id/nft_graph" />
+  </fragment>
+
 </navigation>

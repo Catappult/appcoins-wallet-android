@@ -40,7 +40,7 @@ import javax.inject.Inject
 
 // TODO to be removed
 @AndroidEntryPoint
-class HomeFragment : BasePageViewFragment(),
+class HomeFragment_old : BasePageViewFragment(),
   SingleStateFragment<HomeState, HomeSideEffect> {
 
   @Inject
