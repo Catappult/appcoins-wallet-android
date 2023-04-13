@@ -5,13 +5,13 @@
     android:layout_height="match_parent"
     android:id="@+id/container"
     >
-  <include
+  <androidx.compose.ui.platform.ComposeView
       android:id="@+id/app_bar"
-      layout="@layout/fragment_preference_toolbar"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       app:layout_constraintTop_toTopOf="parent"
       />
+
   <FrameLayout
       android:id="@+id/fragment_container"
       android:layout_width="match_parent"

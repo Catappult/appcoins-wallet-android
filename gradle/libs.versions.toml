@@ -130,6 +130,7 @@ compose-ui-preview = { module = "androidx.compose.ui:ui-tooling-preview", versio
 compose-ui-ui = { module = "androidx.compose.ui:ui", version.ref = "androidx_compose" }
 compose-ui-util = { module = "androidx.compose.ui:ui-util", version.ref = "androidx_compose" }
 compose-ui-viewbinding = { module = "androidx.compose.ui:ui-viewbinding", version.ref = "androidx_compose" }
+compose-activity = { module = "androidx.activity:activity-compose", version.ref = "androidx_compose" }
 
 network-retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit_version" }
 network-retrofit-adapter-rxjava = { module = "com.squareup.retrofit2:adapter-rxjava2", version.ref = "retrofit_version" }
@@ -222,8 +223,8 @@ gradlePlugin-bintray = { module = "com.jfrog.bintray.gradle:gradle-bintray-plugi
 androidx-room = ["androidx-room-runtime", "androidx-room-rxjava2", "androidx-room-ktx"]
 androidx-lifecycle = ["androidx-lifecycle-ktx-runtime", "androidx-lifecycle-ktx-viewmodel", "androidx-lifecycle-ktx-viewmodel-savedstate", "androidx-lifecycle-ktx-common-java8", "androidx-lifecycle-extensions"]
 androidx-work = ["androidx-work-runtime", "androidx-work-rxjava2"]
-androidx-compose = ["compose-ui-viewbinding", "compose-ui-util", "compose-ui-ui", "compose-ui-preview", "compose-ui-tooling", "compose-ui-test", "compose-material-material", "compose-foundation-layout", "compose-foundation-foundation", "compose-animation-animation"]
-network = ["network-retrofit", "network-retrofit-adapter-rxjava", "network-retrofit-converter-gson", "network-retrofit-converter-jackson","network-okhttp", "google-gson"]
+androidx-compose = ["compose-ui-viewbinding", "compose-ui-util", "compose-ui-ui", "compose-ui-preview", "compose-ui-tooling", "compose-ui-test", "compose-material-material", "compose-foundation-layout", "compose-foundation-foundation", "compose-animation-animation", "compose-activity"]
+network = ["network-retrofit", "network-retrofit-adapter-rxjava", "network-retrofit-converter-gson", "network-retrofit-converter-jackson", "network-okhttp", "google-gson"]
 adyen = ["adyen-card", "adyen-redirect", "adyen-3ds2"]
 analytics = ["analytics-sentry", "analytics-indicative", "analytics-flurry", "analytics-rakam", "analytics-appsflyer"]
 testing = ["test-junit", "test-mockito", "test-espresso"]
