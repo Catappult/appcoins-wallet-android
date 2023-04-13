@@ -85,7 +85,7 @@
     <item name="android:windowAllowEnterTransitionOverlap">true</item>
   </style>
 
-  <style name="Theme.AppCompat.Transparent" parent="Theme.Material3.Light">
+  <style name="Theme.AppCompat.Transparent" parent="Theme.Material3.Light.Dialog.Alert">
     <item name="android:windowIsTranslucent">true</item>
     <item name="android:windowContentOverlay">@null</item>
     <item name="windowNoTitle">true</item>
