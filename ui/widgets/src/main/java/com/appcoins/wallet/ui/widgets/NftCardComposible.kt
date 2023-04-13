@@ -16,7 +16,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.appcoins.wallet.ui.common.theme.WalletColors
-import com.appcoins.wallet.ui.common.theme.WalletColors.text_lightGrey
+import com.appcoins.wallet.ui.common.theme.WalletColors.textLightGrey
 
 @Composable
 fun NftCard(
@@ -48,7 +48,7 @@ fun NftCard(
         text = "AppCoins Wallet now support NFTs",    //TODO replace string
         fontSize = 16.sp,
         fontWeight = FontWeight.Bold,
-        color = text_lightGrey,
+        color = textLightGrey,
         lineHeight = 24.sp,
         modifier = Modifier
           .align(Alignment.CenterVertically)
