@@ -14,7 +14,7 @@
     app:layout_constraintTop_toBottomOf="@id/transact_fragment_amount_layout"
     tools:showIn="@layout/transact_fragment_layout"
     >
-  <androidx.appcompat.widget.AppCompatRadioButton
+  <com.google.android.material.radiobutton.MaterialRadioButton
       android:id="@+id/appcoins_credits_radio_button"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
@@ -22,14 +22,14 @@
       android:checked="true"
       android:text="@string/p2p_send_currency_appc_c"
       />
-  <androidx.appcompat.widget.AppCompatRadioButton
+  <com.google.android.material.radiobutton.MaterialRadioButton
       android:id="@+id/appcoins_radio_button"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_marginEnd="@dimen/big_margin"
       android:text="@string/p2p_send_currency_appc"
       />
-  <androidx.appcompat.widget.AppCompatRadioButton
+  <com.google.android.material.radiobutton.MaterialRadioButton
       android:id="@+id/ethereum_credits_radio_button"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"

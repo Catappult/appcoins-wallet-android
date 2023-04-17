@@ -49,9 +49,7 @@ class BackupSkipDialogFragment : BottomSheetDialogFragment(),
   override fun onCreateView(
     inflater: LayoutInflater, container: ViewGroup?,
     savedInstanceState: Bundle?
-  ): View? {
-    return inflater.inflate(R.layout.backup_skip_dialog_fragment, container, false)
-  }
+  ): View = BackupSkipDialogFragmentBinding.inflate(layoutInflater).root
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)

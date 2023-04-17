@@ -14,6 +14,7 @@ dependencies {
   implementation(project(":core:network:eskills"))
   implementation(project(":core:network:microservices"))
   implementation(libs.androidx.core.ktx)
+  implementation(libs.viewbinding.delegate)
   implementation(libs.androidx.appcompact)
   implementation(libs.androidx.fragment.ktx)
   implementation(libs.google.material)

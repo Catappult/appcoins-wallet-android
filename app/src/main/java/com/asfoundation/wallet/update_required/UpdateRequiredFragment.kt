@@ -40,9 +40,7 @@ class UpdateRequiredFragment : BasePageViewFragment(),
   override fun onCreateView(
     inflater: LayoutInflater, container: ViewGroup?,
     savedInstanceState: Bundle?
-  ): View? {
-    return inflater.inflate(R.layout.update_required_fragment, container, false)
-  }
+  ): View = UpdateRequiredFragmentBinding.inflate(inflater).root
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)

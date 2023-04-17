@@ -19,7 +19,7 @@ class AndroidAppPlugin : Plugin<Project> {
       with(pluginManager) {
         apply("com.android.application")
         apply("kotlin-android")
-        apply("kotlin-android-extensions")
+        apply("kotlin-parcelize")
         apply("kotlin-kapt")
         apply<JacocoApplicationPlugin>()
       }
@@ -96,9 +96,11 @@ class AndroidAppPlugin : Plugin<Project> {
 
         buildFeatures {
           buildConfig = true
-          viewBinding = true
+          viewBinding {
+            enable = true
+          }
           composeOptions {
-            kotlinCompilerExtensionVersion = libs.findVersion("androidx.compose").get().toString()
+            kotlinCompilerExtensionVersion = "1.4.4"
           }  // "1.1.0"
           compose = true
         }

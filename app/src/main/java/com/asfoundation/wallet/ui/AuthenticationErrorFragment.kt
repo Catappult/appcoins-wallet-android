@@ -6,14 +6,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
+import by.kirich1409.viewbindingdelegate.viewBinding
 import com.asf.wallet.R
+import com.asf.wallet.databinding.AuthenticationErrorFragmentBinding
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.jakewharton.rxbinding2.view.RxView
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.disposables.CompositeDisposable
-import kotlinx.android.synthetic.main.authentication_error_fragment.*
-import kotlinx.android.synthetic.main.fragment_balance.faded_background
 
 @AndroidEntryPoint
 class AuthenticationErrorFragment : BasePageViewFragment(), AuthenticationErrorView {
@@ -29,6 +29,8 @@ class AuthenticationErrorFragment : BasePageViewFragment(), AuthenticationErrorV
       throw IllegalArgumentException("Error message not found")
     }
   }
+
+  private val binding by viewBinding(AuthenticationErrorFragmentBinding::bind)
 
   companion object {
     private const val ERROR_TIMER_KEY = "error_message"
@@ -64,21 +66,21 @@ class AuthenticationErrorFragment : BasePageViewFragment(), AuthenticationErrorV
         .replace(R.id.bottom_error_fragment_container,
             AuthenticationErrorBottomSheetFragment.newInstance(errorTimer))
         .commit()
-    return inflater.inflate(R.layout.authentication_error_fragment, container, false)
+    return AuthenticationErrorFragmentBinding.inflate(inflater).root
   }
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
     authenticationBottomSheet =
-        BottomSheetBehavior.from(bottom_error_fragment_container)
+        BottomSheetBehavior.from(binding.bottomErrorFragmentContainer)
     presenter.present()
   }
 
   override fun onDestroyView() {
     super.onDestroyView()
-    faded_background.animation =
+    binding.fadedBackground.animation =
         AnimationUtils.loadAnimation(context, R.anim.fast_100s_fade_out_animation)
-    faded_background.visibility = View.GONE
+    binding.fadedBackground.visibility = View.GONE
     presenter.stop()
   }
 
@@ -101,6 +103,6 @@ class AuthenticationErrorFragment : BasePageViewFragment(), AuthenticationErrorV
     activityView.onRetryButtonClick()
   }
 
-  override fun outsideOfBottomSheetClick() = RxView.clicks(faded_background)
+  override fun outsideOfBottomSheetClick() = RxView.clicks(binding.fadedBackground)
 
 }

@@ -58,6 +58,7 @@
             />
       </androidx.constraintlayout.widget.ConstraintLayout>
       <include
+          android:id="@+id/backup_creation_options"
           layout="@layout/backup_save_options_options"
           android:layout_width="0dp"
           android:layout_height="wrap_content"

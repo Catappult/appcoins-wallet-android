@@ -56,6 +56,7 @@ fun MoreDialogStateItem.toWalletItemView(view: View, action: (String) -> Unit) =
   (view as MaterialCardView).run {
     setOnClickListener(onTap(action))
     (getChildAt(0) as LinearLayoutCompat).run {
+      strokeWidth = 0
       setBackgroundColor(backgroundColor(context))
       getChildAt(0).visibility = checkMarkVisibility
       (getChildAt(2) as TextView).run {

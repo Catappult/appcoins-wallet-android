@@ -55,9 +55,7 @@ class BackupEntryFragment : BasePageViewFragment(),
   override fun onCreateView(
     inflater: LayoutInflater, container: ViewGroup?,
     savedInstanceState: Bundle?
-  ): View? {
-    return inflater.inflate(R.layout.backup_entry_fragment, container, false)
-  }
+  ): View = BackupEntryFragmentBinding.inflate(layoutInflater).root
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)

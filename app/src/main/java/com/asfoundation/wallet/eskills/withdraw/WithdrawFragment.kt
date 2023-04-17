@@ -40,9 +40,7 @@ class WithdrawFragment : BasePageViewFragment(),
     inflater: LayoutInflater,
     container: ViewGroup?,
     savedInstanceState: Bundle?
-  ): View? {
-    return inflater.inflate(R.layout.fragment_withdraw, container, false)
-  }
+  ): View = FragmentWithdrawBinding.inflate(inflater).root
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)

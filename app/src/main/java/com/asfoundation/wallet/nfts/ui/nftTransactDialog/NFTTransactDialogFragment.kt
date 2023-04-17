@@ -36,9 +36,7 @@ class NFTTransactDialogFragment : BottomSheetDialogFragment(),
   private val views by viewBinding(FragmentNftTransactBinding::bind)
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                            savedInstanceState: Bundle?): View? {
-    return inflater.inflate(R.layout.fragment_nft_transact, container, false)
-  }
+                            savedInstanceState: Bundle?): View = FragmentNftTransactBinding.inflate(inflater).root
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)

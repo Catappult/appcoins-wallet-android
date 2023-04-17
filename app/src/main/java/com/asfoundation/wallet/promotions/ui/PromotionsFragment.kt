@@ -56,9 +56,7 @@ class PromotionsFragment : BasePageViewFragment(),
   override fun onCreateView(
     inflater: LayoutInflater, container: ViewGroup?,
     savedInstanceState: Bundle?
-  ): View? {
-    return inflater.inflate(R.layout.fragment_promotions, container, false)
-  }
+  ): View = FragmentPromotionsBinding.inflate(inflater).root
 
   override fun onResume() {
     super.onResume()
