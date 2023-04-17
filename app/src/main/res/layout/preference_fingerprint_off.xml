@@ -54,19 +54,19 @@
           tools:text="Pref Title"
           />
 
-      <com.google.android.material.switchmaterial.SwitchMaterial
-          android:id="@+id/pref_authentication_switch_off"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:layout_marginEnd="28dp"
-          android:checked="false"
-          android:clickable="false"
-          android:focusable="false"
-          android:theme="@style/SwitchCompactStyle"
-          app:layout_constraintBottom_toBottomOf="parent"
-          app:layout_constraintEnd_toEndOf="parent"
-          app:layout_constraintTop_toTopOf="parent"
-          />
+    <com.google.android.material.switchmaterial.SwitchMaterial
+        android:id="@+id/pref_authentication_switch_off"
+        style="@style/SwitchCompactStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="28dp"
+        android:checked="false"
+        android:clickable="false"
+        android:focusable="false"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        />
 
       <androidx.constraintlayout.widget.Guideline
           android:id="@+id/guideline_vertical"

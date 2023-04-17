@@ -74,7 +74,7 @@ class CarrierPaymentPresenter(private val disposables: CompositeDisposable,
         .andThen(carrierInteractor.savePhoneNumber(data.phoneNumber))
         .observeOn(viewScheduler)
         .andThen(Completable.fromAction { view.showFinishedTransaction() }
-            .andThen(Completable.timer(view.getFinishedDuration(), TimeUnit.MILLISECONDS))
+            .andThen(Completable.timer(view.getFinishedDuration(), TimeUnit.MILLISECONDS, viewScheduler))
             .andThen(finishPayment(payment)))
   }
 

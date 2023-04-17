@@ -384,7 +384,7 @@ class AdyenPaymentPresenter(
 
   private fun handleSuccessTransaction(purchaseBundleModel: PurchaseBundleModel): Completable =
     Completable.fromAction { view.showSuccess(purchaseBundleModel.renewal) }
-      .andThen(Completable.timer(view.getAnimationDuration(), TimeUnit.MILLISECONDS))
+      .andThen(Completable.timer(view.getAnimationDuration(), TimeUnit.MILLISECONDS, viewScheduler))
       .andThen(Completable.fromAction { navigator.popView(purchaseBundleModel.bundle) })
 
   private fun retrieveFailedReason(uid: String): Completable =

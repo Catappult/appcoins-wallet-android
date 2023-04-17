@@ -7,7 +7,9 @@ import android.view.View.INVISIBLE
 import android.view.ViewGroup
 import android.view.ViewTreeObserver
 import androidx.fragment.app.Fragment
+import by.kirich1409.viewbindingdelegate.viewBinding
 import com.asf.wallet.R
+import com.asf.wallet.databinding.OverlayFragmentBinding
 import com.asfoundation.wallet.main.nav_bar.NavBarFragmentNavigator
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import com.google.android.material.bottomnavigation.BottomNavigationItemView
@@ -16,7 +18,6 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.jakewharton.rxbinding2.view.RxView
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.Observable
-import kotlinx.android.synthetic.main.overlay_fragment.*
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -36,6 +37,8 @@ class OverlayFragment : BasePageViewFragment(), OverlayView {
     }
   }
 
+  private val binding by viewBinding(OverlayFragmentBinding::bind)
+
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
     handleItemAndArrowPosition()
@@ -44,18 +47,18 @@ class OverlayFragment : BasePageViewFragment(), OverlayView {
 
   private fun handleItemAndArrowPosition() {
     //Highlights the correct BN item
-    val size = overlay_bottom_navigation.menu.size()
+    val size = binding.overlayBottomNavigation.menu.size()
     for (i in 0 until size) {
       if (i != item) {
-        overlay_bottom_navigation.menu.getItem(i)
+        binding.overlayBottomNavigation.menu.getItem(i)
             .icon = null
-        overlay_bottom_navigation.menu.getItem(i)
+        binding.overlayBottomNavigation.menu.getItem(i)
             .title = ""
       }
     }
     //If selected view is not on the first half of the Bottom Navigation hide arrow
     if (item > size / 2) {
-      arrow_down_tip.visibility = INVISIBLE
+      binding.arrowDownTip.visibility = INVISIBLE
     } else {
       setArrowPosition()
     }
@@ -63,7 +66,7 @@ class OverlayFragment : BasePageViewFragment(), OverlayView {
   }
 
   private fun setArrowPosition() {
-    val bottomNavigationMenuView = (overlay_bottom_navigation as BottomNavigationView)
+    val bottomNavigationMenuView = (binding.overlayBottomNavigation as BottomNavigationView)
         .getChildAt(0) as BottomNavigationMenuView
     val promotionsIcon = bottomNavigationMenuView.getChildAt(item)
     val itemView = promotionsIcon as BottomNavigationItemView
@@ -74,23 +77,21 @@ class OverlayFragment : BasePageViewFragment(), OverlayView {
             icon.viewTreeObserver.removeOnGlobalLayoutListener(this)
             val location = IntArray(2)
             icon.getLocationInWindow(location)
-            arrow_down_tip.x =
-                location[0] * 1f + (icon.width / 2f) - (arrow_down_tip.width / 2f)
+            binding.arrowDownTip.x =
+                location[0] * 1f + (icon.width / 2f) - (binding.arrowDownTip.width / 2f)
           }
         })
   }
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                            savedInstanceState: Bundle?): View? {
-    return inflater.inflate(R.layout.overlay_fragment, container, false)
-  }
+                            savedInstanceState: Bundle?): View = OverlayFragmentBinding.inflate(inflater).root
 
   override fun discoverClick(): Observable<Any> {
-    return RxView.clicks(discover_button)
+    return RxView.clicks(binding.discoverButton)
   }
 
   override fun dismissClick(): Observable<Any> {
-    return RxView.clicks(dismiss_button)
+    return RxView.clicks(binding.dismissButton)
   }
 
   override fun dismissView() {
@@ -98,7 +99,7 @@ class OverlayFragment : BasePageViewFragment(), OverlayView {
   }
 
   override fun overlayClick(): Observable<Any> {
-    return RxView.clicks(overlay_container)
+    return RxView.clicks(binding.overlayContainer)
   }
 
   override fun navigateToPromotions() {

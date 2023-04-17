@@ -61,9 +61,7 @@ class NavBarFragment : BasePageViewFragment(),
   override fun onCreateView(
     inflater: LayoutInflater, container: ViewGroup?,
     savedInstanceState: Bundle?
-  ): View? {
-    return inflater.inflate(R.layout.nav_bar_fragment, container, false)
-  }
+  ): View = NavBarFragmentBinding.inflate(inflater).root
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)

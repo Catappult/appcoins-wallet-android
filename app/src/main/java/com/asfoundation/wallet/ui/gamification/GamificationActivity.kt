@@ -7,15 +7,15 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.widget.Toolbar
+import by.kirich1409.viewbindingdelegate.viewBinding
 import com.asf.wallet.R
+import com.asf.wallet.databinding.ActivityRewardsLevelBinding
 import com.asfoundation.wallet.ui.BaseActivity
 import com.jakewharton.rxbinding2.view.RxView
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.subjects.PublishSubject
-import kotlinx.android.synthetic.main.activity_rewards_level.*
-import kotlinx.android.synthetic.main.no_network_retry_only_layout.*
 
 @AndroidEntryPoint
 class GamificationActivity : BaseActivity(), GamificationActivityView {
@@ -26,9 +26,10 @@ class GamificationActivity : BaseActivity(), GamificationActivityView {
   private var backEnabled = true
   private var onBackPressedSubject: PublishSubject<Any>? = null
 
+  private val binding by viewBinding(ActivityRewardsLevelBinding::bind)
+
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-
     setContentView(R.layout.activity_rewards_level)
     toolbar = toolbar()
     onBackPressedSubject = PublishSubject.create()
@@ -58,7 +59,7 @@ class GamificationActivity : BaseActivity(), GamificationActivityView {
     return super.onCreateOptionsMenu(menu)
   }
 
-  override fun retryClick() = RxView.clicks(retry_button)
+  override fun retryClick() = RxView.clicks(binding.noNetworkRetryOnlyLayout.retryButton)
 
   override fun loadGamificationView() {
     toolbar?.menu?.removeItem(R.id.action_info)
@@ -68,20 +69,20 @@ class GamificationActivity : BaseActivity(), GamificationActivityView {
   }
 
   override fun showNetworkErrorView() {
-    gamification_no_network.visibility = View.VISIBLE
-    retry_button.visibility = View.VISIBLE
-    retry_animation.visibility = View.GONE
-    fragment_container.visibility = View.GONE
+    binding.gamificationNoNetwork.visibility = View.VISIBLE
+    binding.noNetworkRetryOnlyLayout.retryButton.visibility = View.VISIBLE
+    binding.noNetworkRetryOnlyLayout.retryAnimation.visibility = View.GONE
+    binding.fragmentContainer.visibility = View.GONE
   }
 
   override fun showRetryAnimation() {
-    retry_button.visibility = View.INVISIBLE
-    retry_animation.visibility = View.VISIBLE
+    binding.noNetworkRetryOnlyLayout.retryButton.visibility = View.INVISIBLE
+    binding.noNetworkRetryOnlyLayout.retryAnimation.visibility = View.VISIBLE
   }
 
   override fun showMainView() {
-    fragment_container.visibility = View.VISIBLE
-    gamification_no_network.visibility = View.GONE
+    binding.fragmentContainer.visibility = View.VISIBLE
+    binding.gamificationNoNetwork.visibility = View.GONE
   }
 
   override fun onDestroy() {

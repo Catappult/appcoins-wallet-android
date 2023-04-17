@@ -2,7 +2,7 @@ package com.asfoundation.wallet.onboarding_new_payment.payment_methods
 
 import android.net.Uri
 import androidx.lifecycle.SavedStateHandle
-import com.appcoins.wallet.ui.arch.Async
+import com.appcoins.wallet.ui.arch.data.Async
 import com.appcoins.wallet.ui.arch.BaseViewModel
 import com.appcoins.wallet.ui.arch.SideEffect
 import com.appcoins.wallet.ui.arch.ViewState

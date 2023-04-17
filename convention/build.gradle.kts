@@ -44,5 +44,13 @@ gradlePlugin {
       id = "appcoins.hilt"
       implementationClass = "com.appcoins.wallet.convention.plugins.HiltPlugin"
     }
+    register("JacocoApp") {
+      id = "appcoins.jacoco.app"
+      implementationClass = "com.appcoins.wallet.convention.plugins.JacocoApplicationPlugin"
+    }
+    register("JacocoLibrary") {
+      id = "appcoins.jacoco.library"
+      implementationClass = "com.appcoins.wallet.convention.plugins.JacocoLibraryPlugin"
+    }
   }
 }

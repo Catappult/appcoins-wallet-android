@@ -5,7 +5,6 @@
     style="@style/PaymentMethods.DialogCardStyle"
     android:animateLayoutChanges="true"
     android:theme="@style/MaterialAppTheme"
-    tools:viewBindingIgnore="true"
     >
 
   <com.asfoundation.wallet.ui.iab.payments.common.PaymentsHeaderView
@@ -108,7 +107,7 @@
       />
 
   <include
-      android:id="@+id/dialog_buy_buttons"
+      android:id="@+id/dialog_buy_buttons_payment_methods"
       layout="@layout/dialog_buy_buttons_payment_methods"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"

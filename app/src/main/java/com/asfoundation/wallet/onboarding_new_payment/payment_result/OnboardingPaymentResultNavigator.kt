@@ -7,7 +7,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResult
 import androidx.navigation.fragment.findNavController
 import com.asf.wallet.R
-import com.appcoins.wallet.ui.arch.Navigator
+import com.appcoins.wallet.ui.arch.data.Navigator
 import com.asfoundation.wallet.onboarding.pending_payment.OnboardingPaymentFragment.Companion.ONBOARDING_PAYMENT_CONCLUSION
 import com.asfoundation.wallet.verification.ui.credit_card.VerificationCreditCardActivity
 import javax.inject.Inject

@@ -6,7 +6,9 @@ import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
+import by.kirich1409.viewbindingdelegate.viewBinding
 import com.asf.wallet.R
+import com.asf.wallet.databinding.ActivityWalletVerificationBinding
 import com.asfoundation.wallet.recover.entry.RecoverEntryFragment
 import com.asfoundation.wallet.ui.BaseActivity
 import com.asfoundation.wallet.verification.ui.credit_card.code.VerificationCodeFragment
@@ -14,7 +16,6 @@ import com.asfoundation.wallet.verification.ui.credit_card.error.VerificationErr
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
-import kotlinx.android.synthetic.main.activity_wallet_verification.*
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -34,6 +35,8 @@ class VerificationCreditCardActivity : BaseActivity(), VerificationCreditCardAct
   lateinit var presenter: VerificationCreditCardActivityPresenter
 
   private val toolbarBackPressSubject = PublishSubject.create<String>()
+
+  private val views by viewBinding(ActivityWalletVerificationBinding::bind)
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
@@ -89,6 +92,6 @@ class VerificationCreditCardActivity : BaseActivity(), VerificationCreditCardAct
   }
 
   override fun hideLoading() {
-    progress_bar.visibility = View.GONE
+    views.progressBar.visibility = View.GONE
   }
 }

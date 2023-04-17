@@ -5,7 +5,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import com.appcoins.wallet.gamification.repository.ForecastBonusAndLevel
 import com.asf.wallet.R
-import com.appcoins.wallet.ui.arch.Navigator
+import com.appcoins.wallet.ui.arch.data.Navigator
 import com.asfoundation.wallet.entity.TransactionBuilder
 import javax.inject.Inject
 
