@@ -6,7 +6,6 @@ import com.appcoins.wallet.convention.Config
 import com.appcoins.wallet.convention.extensions.BuildConfigType
 import com.appcoins.wallet.convention.extensions.buildConfigFields
 import com.appcoins.wallet.convention.extensions.configureAndroidAndKotlin
-import com.appcoins.wallet.convention.extensions.libs
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.apply
@@ -100,8 +99,8 @@ class AndroidAppPlugin : Plugin<Project> {
             enable = true
           }
           composeOptions {
-            kotlinCompilerExtensionVersion = "1.4.4"
-          }  // "1.1.0"
+            kotlinCompilerExtensionVersion = "1.4.3"
+          }
           compose = true
         }
       }

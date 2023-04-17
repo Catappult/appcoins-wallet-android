@@ -8,7 +8,7 @@ import androidx.core.app.ShareCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import com.appcoins.wallet.sharedpreferences.BackupTriggerPreferencesDataSource
-import com.appcoins.wallet.ui.arch.Navigator
+import com.appcoins.wallet.ui.arch.data.Navigator
 import com.asf.wallet.R
 import com.asfoundation.wallet.C
 import com.asfoundation.wallet.backup.BackupActivity
@@ -22,8 +22,6 @@ import com.asfoundation.wallet.ui.BaseActivity
 import com.asfoundation.wallet.ui.balance.TransactionDetailActivity
 import com.asfoundation.wallet.ui.settings.SettingsActivity
 import com.asfoundation.wallet.ui.transact.TransferActivity
-import com.appcoins.wallet.sharedpreferences.BackupTriggerPreferencesDataSource
-import com.appcoins.wallet.ui.arch.data.Navigator
 import javax.inject.Inject
 
 class HomeNavigator @Inject constructor(
