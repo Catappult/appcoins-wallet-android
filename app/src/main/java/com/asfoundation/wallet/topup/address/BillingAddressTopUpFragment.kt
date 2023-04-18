@@ -8,6 +8,8 @@ import android.view.View
 import android.view.View.VISIBLE
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import androidx.fragment.app.Fragment
+import by.kirich1409.viewbindingdelegate.viewBinding
 import com.asf.wallet.R
 import com.asfoundation.wallet.billing.address.BillingAddressModel
 import com.asfoundation.wallet.billing.address.BillingAddressTextWatcher
@@ -18,13 +20,11 @@ import com.asfoundation.wallet.topup.TopUpData
 import com.asfoundation.wallet.topup.TopUpPaymentData
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.appcoins.wallet.core.utils.android_common.WalletCurrency
+import com.asf.wallet.databinding.FragmentBillingAddressTopUpBinding
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import com.jakewharton.rxbinding2.view.RxView
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.Observable
-import kotlinx.android.synthetic.main.fragment_billing_address_top_up.*
-import kotlinx.android.synthetic.main.layout_billing_address.*
-import kotlinx.android.synthetic.main.view_purchase_bonus.view.*
 import java.math.BigDecimal
 import javax.inject.Inject
 
@@ -63,10 +63,10 @@ class BillingAddressTopUpFragment : BasePageViewFragment(), BillingAddressTopUpV
 
   private lateinit var topUpView: TopUpActivityView
 
+  private val binding by viewBinding(FragmentBillingAddressTopUpBinding::bind)
+
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                            savedInstanceState: Bundle?): View? {
-    return inflater.inflate(R.layout.fragment_billing_address_top_up, container, false)
-  }
+                            savedInstanceState: Bundle?): View = FragmentBillingAddressTopUpBinding.inflate(inflater).root
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
@@ -82,30 +82,30 @@ class BillingAddressTopUpFragment : BasePageViewFragment(), BillingAddressTopUpV
     savedBillingAddress?.let { setupSavedBillingAddress(savedBillingAddress) }
     setupFieldsListener()
     setupStateAdapter()
-    button.setText(getString(R.string.topup_home_button))
+    binding.button.setText(getString(R.string.topup_home_button))
   }
 
   private fun setupSavedBillingAddress(savedBillingAddress: BillingAddressModel) {
-    address.setText(savedBillingAddress.address)
-    city.setText(savedBillingAddress.city)
-    zipcode.setText(savedBillingAddress.zipcode)
-    state.setText(savedBillingAddress.state)
-    country.setText(savedBillingAddress.country)
-    number.setText(savedBillingAddress.number)
+    binding.billingInfoContainer.address.setText(savedBillingAddress.address)
+    binding.billingInfoContainer.city.setText(savedBillingAddress.city)
+    binding.billingInfoContainer.zipcode.setText(savedBillingAddress.zipcode)
+    binding.billingInfoContainer.state.setText(savedBillingAddress.state)
+    binding.billingInfoContainer.country.setText(savedBillingAddress.country)
+    binding.billingInfoContainer.number.setText(savedBillingAddress.number)
   }
 
   private fun setupFieldsListener() {
-    address.addTextChangedListener(BillingAddressTextWatcher(address_layout))
-    number.addTextChangedListener(BillingAddressTextWatcher(number_layout))
-    city.addTextChangedListener(BillingAddressTextWatcher(city_layout))
-    zipcode.addTextChangedListener(BillingAddressTextWatcher(zipcode_layout))
-    state.addTextChangedListener(BillingAddressTextWatcher(state_layout))
+    binding.billingInfoContainer.address.addTextChangedListener(BillingAddressTextWatcher(binding.billingInfoContainer.addressLayout))
+    binding.billingInfoContainer.number.addTextChangedListener(BillingAddressTextWatcher(binding.billingInfoContainer.numberLayout))
+    binding.billingInfoContainer.city.addTextChangedListener(BillingAddressTextWatcher(binding.billingInfoContainer.cityLayout))
+    binding.billingInfoContainer.zipcode.addTextChangedListener(BillingAddressTextWatcher(binding.billingInfoContainer.zipcodeLayout))
+    binding.billingInfoContainer.state.addTextChangedListener(BillingAddressTextWatcher(binding.billingInfoContainer.stateLayout))
   }
 
   private fun setupStateAdapter() {
     val languages = resources.getStringArray(R.array.states)
     val adapter = ArrayAdapter(requireContext(), R.layout.item_billing_address_state, languages)
-    state.setAdapter(adapter)
+    binding.billingInfoContainer.state.setAdapter(adapter)
   }
 
   override fun finishSuccess(billingAddressModel: BillingAddressModel) {
@@ -115,16 +115,16 @@ class BillingAddressTopUpFragment : BasePageViewFragment(), BillingAddressTopUpV
   }
 
   override fun submitClicks(): Observable<BillingAddressModel> {
-    return RxView.clicks(button)
+    return RxView.clicks(binding.button)
         .filter { validateFields() }
         .map {
           BillingAddressModel(
-              address.text.toString(),
-              city.text.toString(),
-              zipcode.text.toString(),
-              state.text.toString(),
-              country.text.toString(),
-              number.text.toString(),
+            binding.billingInfoContainer.address.text.toString(),
+            binding.billingInfoContainer.city.text.toString(),
+            binding.billingInfoContainer.zipcode.text.toString(),
+            binding.billingInfoContainer.state.text.toString(),
+            binding.billingInfoContainer.country.text.toString(),
+            binding.billingInfoContainer.number.text.toString(),
               false
           )
         }
@@ -132,34 +132,34 @@ class BillingAddressTopUpFragment : BasePageViewFragment(), BillingAddressTopUpV
 
   private fun validateFields(): Boolean {
     var valid = true
-    if (address.text.isNullOrEmpty()) {
+    if (binding.billingInfoContainer.address.text.isNullOrEmpty()) {
       valid = false
-      address_layout.error = getString(R.string.error_field_required)
+      binding.billingInfoContainer.addressLayout.error = getString(R.string.error_field_required)
     }
 
-    if (number.text.isNullOrEmpty()) {
+    if (binding.billingInfoContainer.number.text.isNullOrEmpty()) {
       valid = false
-      number_layout.error = getString(R.string.error_field_required)
+      binding.billingInfoContainer.numberLayout.error = getString(R.string.error_field_required)
     }
 
-    if (city.text.isNullOrEmpty()) {
+    if (binding.billingInfoContainer.city.text.isNullOrEmpty()) {
       valid = false
-      city_layout.error = getString(R.string.error_field_required)
+      binding.billingInfoContainer.cityLayout.error = getString(R.string.error_field_required)
     }
 
-    if (zipcode.text.isNullOrEmpty()) {
+    if (binding.billingInfoContainer.zipcode.text.isNullOrEmpty()) {
       valid = false
-      zipcode_layout.error = getString(R.string.error_field_required)
+      binding.billingInfoContainer.zipcodeLayout.error = getString(R.string.error_field_required)
     }
 
-    if (state.text.isNullOrEmpty()) {
+    if (binding.billingInfoContainer.state.text.isNullOrEmpty()) {
       valid = false
-      state_layout.error = getString(R.string.error_field_required)
+      binding.billingInfoContainer.stateLayout.error = getString(R.string.error_field_required)
     }
 
-    if (country.text.isNullOrEmpty()) {
+    if (binding.billingInfoContainer.country.text.isNullOrEmpty()) {
       valid = false
-      country_layout.error = getString(R.string.error_field_required)
+      binding.billingInfoContainer.countryLayout.error = getString(R.string.error_field_required)
     }
 
     return valid
@@ -174,46 +174,46 @@ class BillingAddressTopUpFragment : BasePageViewFragment(), BillingAddressTopUpV
 
   private fun showBonus(data: TopUpPaymentData) {
     if (data.bonusValue.compareTo(BigDecimal.ZERO) != 0) {
-      bonus_layout?.visibility = VISIBLE
-      bonus_msg?.visibility = VISIBLE
+      binding.bonusLayout.root.visibility = VISIBLE
+      binding.bonusMsg.visibility = VISIBLE
       val scaledBonus = data.bonusValue.max(BigDecimal("0.01"))
       val currency = "~${data.fiatCurrencySymbol}".takeIf { data.bonusValue < BigDecimal("0.01") }
           ?: data.fiatCurrencySymbol
-      bonus_layout?.bonus_header_1?.text = getString(R.string.topup_bonus_header_part_1)
-      bonus_layout?.bonus_value?.text = getString(R.string.topup_bonus_header_part_2,
+      binding.bonusLayout.bonusHeader1.text = getString(R.string.topup_bonus_header_part_1)
+      binding.bonusLayout.bonusValue.text = getString(R.string.topup_bonus_header_part_2,
           currency + formatter.formatCurrency(scaledBonus, WalletCurrency.FIAT))
     }
   }
 
   private fun showValues(data: TopUpPaymentData, fiatAmount: String, fiatCurrency: String) {
-    main_value.visibility = VISIBLE
+    binding.mainValue.visibility = VISIBLE
     val formattedValue = formatter.formatCurrency(data.appcValue, WalletCurrency.CREDITS)
     if (data.selectedCurrencyType == TopUpData.FIAT_CURRENCY) {
-      main_value.setText(fiatAmount)
-      main_currency_code.text = fiatCurrency
-      converted_value.text = "$formattedValue ${WalletCurrency.CREDITS.symbol}"
+      binding.mainValue.setText(fiatAmount)
+      binding.mainCurrencyCode.text = fiatCurrency
+      binding.convertedValue.text = "$formattedValue ${WalletCurrency.CREDITS.symbol}"
     } else {
-      main_value.setText(formattedValue)
-      main_currency_code.text = WalletCurrency.CREDITS.symbol
-      converted_value.text = "$fiatAmount $fiatCurrency"
+      binding.mainValue.setText(formattedValue)
+      binding.mainCurrencyCode.text = WalletCurrency.CREDITS.symbol
+      binding.convertedValue.text = "$fiatAmount $fiatCurrency"
     }
   }
 
   override fun showLoading() {
     topUpView.lockOrientation()
-    loading.visibility = VISIBLE
-    billing_info_container.visibility = View.INVISIBLE
-    title.visibility = View.INVISIBLE
-    button.isEnabled = false
+    binding.loading.visibility = VISIBLE
+    binding.billingInfoContainer.root.visibility = View.INVISIBLE
+    binding.title.visibility = View.INVISIBLE
+    binding.button.isEnabled = false
   }
 
   override fun hideLoading() {
     topUpView.unlockRotation()
-    button.visibility = VISIBLE
-    loading.visibility = View.GONE
-    button.isEnabled = true
-    title.visibility = VISIBLE
-    billing_info_container.visibility = VISIBLE
+    binding.button.visibility = VISIBLE
+    binding.loading.visibility = View.GONE
+    binding.button.isEnabled = true
+    binding.title.visibility = VISIBLE
+    binding.billingInfoContainer.root.visibility = VISIBLE
   }
 
   override fun onDestroyView() {

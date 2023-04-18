@@ -25,7 +25,7 @@ class BalanceDetailsFragment : BottomSheetDialogFragment() {
     inflater: LayoutInflater,
     container: ViewGroup?,
     savedInstanceState: Bundle?
-  ): View? = inflater.inflate(R.layout.fragment_my_wallets_balance_details, container, false)
+  ): View = FragmentMyWalletsBalanceDetailsBinding.inflate(inflater).root
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)

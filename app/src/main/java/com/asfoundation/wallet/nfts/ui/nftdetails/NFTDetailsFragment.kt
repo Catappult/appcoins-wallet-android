@@ -37,9 +37,7 @@ class NFTDetailsFragment : BasePageViewFragment(),
   private val views by viewBinding(FragmentNftBinding::bind)
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                            savedInstanceState: Bundle?): View? {
-    return inflater.inflate(R.layout.fragment_nft, container, false)
-  }
+                            savedInstanceState: Bundle?): View = FragmentNftBinding.inflate(inflater).root
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)

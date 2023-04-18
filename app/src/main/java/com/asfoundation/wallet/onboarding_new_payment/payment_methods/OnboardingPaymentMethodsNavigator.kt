@@ -9,8 +9,8 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.appcoins.wallet.gamification.repository.ForecastBonusAndLevel
 import com.asf.wallet.R
-import com.appcoins.wallet.ui.arch.Navigator
-import com.appcoins.wallet.ui.arch.navigate
+import com.appcoins.wallet.ui.arch.data.Navigator
+import com.appcoins.wallet.ui.arch.data.navigate
 import com.asfoundation.wallet.billing.adyen.PaymentType
 import com.asfoundation.wallet.entity.TransactionBuilder
 import javax.inject.Inject

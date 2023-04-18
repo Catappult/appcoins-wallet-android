@@ -12,7 +12,7 @@ import by.kirich1409.viewbindingdelegate.viewBinding
 import com.appcoins.wallet.core.utils.android_common.BalanceUtils
 import com.asf.wallet.R
 import com.asf.wallet.databinding.FragmentNftTransactBinding
-import com.appcoins.wallet.ui.arch.Async
+import com.appcoins.wallet.ui.arch.data.Async
 import com.appcoins.wallet.ui.arch.SingleStateFragment
 import com.asfoundation.wallet.nfts.domain.FailedNftTransfer
 import com.asfoundation.wallet.nfts.domain.GasInfo
@@ -36,9 +36,7 @@ class NFTTransactDialogFragment : BottomSheetDialogFragment(),
   private val views by viewBinding(FragmentNftTransactBinding::bind)
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                            savedInstanceState: Bundle?): View? {
-    return inflater.inflate(R.layout.fragment_nft_transact, container, false)
-  }
+                            savedInstanceState: Bundle?): View = FragmentNftTransactBinding.inflate(inflater).root
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)

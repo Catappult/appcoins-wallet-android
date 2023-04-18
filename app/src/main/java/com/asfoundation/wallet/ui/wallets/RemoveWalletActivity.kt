@@ -6,19 +6,22 @@ import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
+import by.kirich1409.viewbindingdelegate.viewBinding
 import com.asf.wallet.R
+import com.asf.wallet.databinding.RemoveWalletActivityLayoutBinding
 import com.asfoundation.wallet.backup.BackupActivity
 import com.asfoundation.wallet.ui.AuthenticationPromptActivity
 import com.asfoundation.wallet.ui.BaseActivity
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
-import kotlinx.android.synthetic.main.remove_wallet_activity_layout.*
 
 @AndroidEntryPoint
 class RemoveWalletActivity : BaseActivity(), RemoveWalletActivityView {
 
   private var authenticationResultSubject: PublishSubject<Boolean>? = null
+
+  private val binding by viewBinding(RemoveWalletActivityLayoutBinding::bind)
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
@@ -39,14 +42,14 @@ class RemoveWalletActivity : BaseActivity(), RemoveWalletActivityView {
 
   override fun onOptionsItemSelected(item: MenuItem): Boolean {
     if (item.itemId == android.R.id.home) {
-      if (wallet_remove_animation == null || wallet_remove_animation.visibility != View.VISIBLE) super.onBackPressed()
+      if (binding.walletRemoveAnimation == null || binding.walletRemoveAnimation.visibility != View.VISIBLE) super.onBackPressed()
       return true
     }
     return super.onOptionsItemSelected(item)
   }
 
   override fun onBackPressed() {
-    if (wallet_remove_animation == null || wallet_remove_animation.visibility != View.VISIBLE) super.onBackPressed()
+    if (binding.walletRemoveAnimation == null || binding.walletRemoveAnimation.visibility != View.VISIBLE) super.onBackPressed()
   }
 
   override fun onDestroy() {
@@ -85,9 +88,9 @@ class RemoveWalletActivity : BaseActivity(), RemoveWalletActivityView {
 
   override fun showRemoveWalletAnimation() {
     requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LOCKED
-    wallet_remove_animation.visibility = View.VISIBLE
-    remove_wallet_animation.repeatCount = 0
-    remove_wallet_animation.playAnimation()
+    binding.walletRemoveAnimation.visibility = View.VISIBLE
+    binding.removeWalletAnimation.repeatCount = 0
+    binding.removeWalletAnimation.playAnimation()
   }
 
   override fun showAuthentication() {

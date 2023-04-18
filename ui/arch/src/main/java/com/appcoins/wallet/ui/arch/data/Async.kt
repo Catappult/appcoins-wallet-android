@@ -1,4 +1,4 @@
-package com.appcoins.wallet.ui.arch
+package com.appcoins.wallet.ui.arch.data
 
 /**
  * Sealed class that represents the state of an asynchronous operation on View State.

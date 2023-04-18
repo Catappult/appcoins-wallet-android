@@ -7,7 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.app.ShareCompat
 import androidx.core.content.res.ResourcesCompat
+import by.kirich1409.viewbindingdelegate.viewBinding
 import com.asf.wallet.R
+import com.asf.wallet.databinding.FragmentSharePaymentLinkBinding
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics
 import com.asfoundation.wallet.ui.iab.IabView
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
@@ -17,7 +19,6 @@ import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
-import kotlinx.android.synthetic.main.fragment_share_payment_link.*
 import java.math.BigDecimal
 import javax.inject.Inject
 
@@ -128,6 +129,8 @@ class SharePaymentLinkFragment : BasePageViewFragment(),
     }
   }
 
+  private val binding by viewBinding(FragmentSharePaymentLinkBinding::bind)
+
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     if (savedInstanceState == null) {
@@ -139,9 +142,7 @@ class SharePaymentLinkFragment : BasePageViewFragment(),
   }
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                            savedInstanceState: Bundle?): View? {
-    return inflater.inflate(R.layout.fragment_share_payment_link, container, false)
-  }
+                            savedInstanceState: Bundle?): View = FragmentSharePaymentLinkBinding.inflate(inflater).root
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
@@ -167,9 +168,9 @@ class SharePaymentLinkFragment : BasePageViewFragment(),
   }
 
   override fun getShareButtonClick(): Observable<SharePaymentLinkFragmentView.SharePaymentData> {
-    return RxView.clicks(share_btn)
+    return RxView.clicks(binding.shareBtn)
         .map {
-          val message = if (note.text.isNotEmpty()) note.text.toString() else null
+          val message = if (binding.note.text.isNotEmpty()) binding.note.text.toString() else null
           SharePaymentLinkFragmentView.SharePaymentData(domain, skuId, message, originalAmount,
               originalCurrency, paymentMethod, amount.toFloat()
               .toString(), type)
@@ -177,9 +178,9 @@ class SharePaymentLinkFragment : BasePageViewFragment(),
   }
 
   override fun getCancelButtonClick(): Observable<SharePaymentLinkFragmentView.SharePaymentData> {
-    return RxView.clicks(close_btn)
+    return RxView.clicks(binding.closeBtn)
         .map {
-          val message = if (note.text.isNotEmpty()) note.text.toString() else null
+          val message = if (binding.note.text.isNotEmpty()) binding.note.text.toString() else null
           SharePaymentLinkFragmentView.SharePaymentData(domain, skuId, message, originalAmount,
               originalCurrency, paymentMethod, amount.toFloat()
               .toString(), type)
@@ -187,27 +188,27 @@ class SharePaymentLinkFragment : BasePageViewFragment(),
   }
 
   override fun showFetchingLinkInfo() {
-    share_link_title.text = getString(R.string.askafriend_generating_link_message)
-    share_link_title.setTextColor(
+    binding.shareLinkTitle.text = getString(R.string.askafriend_generating_link_message)
+    binding.shareLinkTitle.setTextColor(
         ResourcesCompat.getColor(resources, R.color.styleguide_black, null))
-    close_btn.visibility = View.INVISIBLE
-    share_btn.visibility = View.INVISIBLE
+    binding.closeBtn.visibility = View.INVISIBLE
+    binding.shareBtn.visibility = View.INVISIBLE
   }
 
   override fun showErrorInfo() {
-    share_link_title.text = getString(R.string.askafriend_generating_link_error_message)
-    share_link_title.setTextColor(
+    binding.shareLinkTitle.text = getString(R.string.askafriend_generating_link_error_message)
+    binding.shareLinkTitle.setTextColor(
         ResourcesCompat.getColor(resources, R.color.styleguide_red, null))
-    close_btn.visibility = View.VISIBLE
-    share_btn.visibility = View.VISIBLE
+    binding.closeBtn.visibility = View.VISIBLE
+    binding.shareBtn.visibility = View.VISIBLE
   }
 
   override fun shareLink(url: String) {
-    share_link_title.text = getString(R.string.askafriend_share_body)
-    share_link_title.setTextColor(
+    binding.shareLinkTitle.text = getString(R.string.askafriend_share_body)
+    binding.shareLinkTitle.setTextColor(
         ResourcesCompat.getColor(resources, R.color.styleguide_black, null))
-    close_btn.visibility = View.VISIBLE
-    share_btn.visibility = View.VISIBLE
+    binding.closeBtn.visibility = View.VISIBLE
+    binding.shareBtn.visibility = View.VISIBLE
 
     activity?.let {
       ShareCompat.IntentBuilder.from(it)

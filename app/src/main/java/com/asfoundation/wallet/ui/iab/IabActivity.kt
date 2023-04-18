@@ -8,11 +8,14 @@ import android.os.Bundle
 import android.view.View
 import androidx.annotation.StringRes
 import androidx.fragment.app.Fragment
+import by.kirich1409.viewbindingdelegate.viewBinding
 import com.appcoins.wallet.billing.AppcoinsBillingBinder
 import com.appcoins.wallet.billing.AppcoinsBillingBinder.Companion.EXTRA_BDS_IAP
 import com.appcoins.wallet.billing.repository.entity.TransactionData
 import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.asf.wallet.R
+import com.asf.wallet.databinding.ActivityIabBinding
+import com.asf.wallet.databinding.ActivityTokenDetailsBinding
 import com.asfoundation.wallet.backup.BackupNotificationUtils
 import com.asfoundation.wallet.billing.address.BillingAddressFragment
 import com.asfoundation.wallet.billing.adyen.AdyenPaymentFragment
@@ -42,9 +45,6 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.PublishSubject
-import kotlinx.android.synthetic.main.activity_iab.*
-import kotlinx.android.synthetic.main.iab_error_layout.*
-import kotlinx.android.synthetic.main.support_error_layout.*
 import java.lang.Thread.sleep
 import java.math.BigDecimal
 import java.util.*
@@ -86,6 +86,7 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
   private var authenticationResultSubject: PublishSubject<Boolean>? = null
   private var errorFromReceiver: String? = null
 
+  private val binding by viewBinding(ActivityIabBinding::bind)
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
@@ -193,7 +194,7 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
     startActivityForResult(WebViewActivity.newIntent(this, url), WEB_VIEW_REQUEST_CODE)
 
   override fun showVerification(isWalletVerified: Boolean) {
-    fragment_container.visibility = View.GONE
+    binding.fragmentContainer.visibility = View.GONE
     val intent = VerificationCreditCardActivity.newIntent(this, isWalletVerified)
       .apply { intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP }
     startActivity(intent)
@@ -390,8 +391,8 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
         transaction?.type,
         ignoreCase = true
       )
-    layout_error.visibility = View.GONE
-    fragment_container.visibility = View.VISIBLE
+    binding.layoutError.visibility = View.GONE
+    binding.fragmentContainer.visibility = View.VISIBLE
 
     supportFragmentManager.beginTransaction()
       .replace(
@@ -522,16 +523,16 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
   }
 
   override fun showError(@StringRes error: Int) {
-    fragment_container.visibility = View.GONE
-    layout_error.visibility = View.VISIBLE
-    error_message.text = getText(error)
-    wallet_logo_layout.visibility = View.GONE
+    binding.fragmentContainer.visibility = View.GONE
+    binding.layoutError.visibility = View.VISIBLE
+    binding.iabErrorLayout.genericErrorLayout.errorMessage.text = getText(error)
+    binding.walletLogoLayout.root.visibility = View.GONE
   }
 
   override fun getSupportClicks(): Observable<Any> =
-    Observable.merge(RxView.clicks(layout_support_logo), RxView.clicks(layout_support_icn))
+    Observable.merge(RxView.clicks(binding.iabErrorLayout.genericErrorLayout.layoutSupportLogo), RxView.clicks(binding.iabErrorLayout.genericErrorLayout.layoutSupportIcn))
 
-  override fun errorDismisses() = RxView.clicks(error_dismiss)
+  override fun errorDismisses() = RxView.clicks(binding.iabErrorLayout.errorDismiss)
 
   override fun launchPerkBonusAndGamificationService(address: String) =
     PerkBonusAndGamificationService.buildService(this, address)

@@ -199,7 +199,7 @@ class OnChainBuyPresenter(
   private fun handleSuccessTransaction(bundle: Bundle): Completable {
     return Completable.fromAction { view.showTransactionCompleted() }
       .subscribeOn(viewScheduler)
-      .andThen(Completable.timer(view.getAnimationDuration(), TimeUnit.MILLISECONDS))
+      .andThen(Completable.timer(view.getAnimationDuration(), TimeUnit.MILLISECONDS, viewScheduler))
       .andThen(Completable.fromRunnable { view.finish(bundle) })
   }
 
