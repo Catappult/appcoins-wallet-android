@@ -10,7 +10,7 @@ import androidx.lifecycle.lifecycleScope
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.asf.wallet.R
 import com.asf.wallet.databinding.RecoverPasswordFragmentBinding
-import com.appcoins.wallet.ui.arch.Async
+import com.appcoins.wallet.ui.arch.data.Async
 import com.appcoins.wallet.ui.arch.SingleStateFragment
 import com.asfoundation.wallet.my_wallets.create_wallet.CreateWalletDialogFragment
 import com.asfoundation.wallet.recover.RecoverActivity.Companion.ONBOARDING_LAYOUT
@@ -39,9 +39,7 @@ class RecoverPasswordFragment : BasePageViewFragment(),
   override fun onCreateView(
     inflater: LayoutInflater, @Nullable container: ViewGroup?,
     @Nullable savedInstanceState: Bundle?
-  ): View? {
-    return inflater.inflate(R.layout.recover_password_fragment, container, false)
-  }
+  ): View = RecoverPasswordFragmentBinding.inflate(inflater).root
 
   override fun onViewCreated(view: View, @Nullable savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)

@@ -49,6 +49,7 @@ abstract class PerkModel : EpoxyModelWithHolder<PerkModel.PerkHolder>() {
       when (icon?.type) {
         TransactionDetails.Icon.Type.FILE -> uri = "file:" + icon.uri
         TransactionDetails.Icon.Type.URL -> uri = icon.uri
+        else -> {}
       }
     }
     GlideApp.with(holder.itemView.context)

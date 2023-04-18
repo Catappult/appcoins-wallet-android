@@ -36,9 +36,9 @@ class AlmostVipDialogFragment : BasePageViewDialogFragment(),
   override fun onCreateView(
     inflater: LayoutInflater, container: ViewGroup?,
     savedInstanceState: Bundle?
-  ): View? {
+  ): View {
     if (showing) dismiss() else showing = true
-    return inflater.inflate(R.layout.almost_vip_fragment, container, false)
+    return AlmostVipFragmentBinding.inflate(inflater).root
   }
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

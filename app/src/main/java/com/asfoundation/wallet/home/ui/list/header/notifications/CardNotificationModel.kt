@@ -18,7 +18,6 @@ import com.asfoundation.wallet.referrals.ReferralNotification
 import com.appcoins.wallet.ui.widgets.BaseViewHolder
 import com.appcoins.wallet.ui.widgets.WalletButtonView
 import com.asfoundation.wallet.ui.widget.holder.CardNotificationAction
-import kotlinx.android.synthetic.main.item_card_notification.view.*
 
 @EpoxyModelClass
 abstract class CardNotificationModel :
@@ -87,7 +86,7 @@ abstract class CardNotificationModel :
           .load(notification.noResIcon)
           .error(R.drawable.ic_promotions_default)
           .circleCrop()
-          .into(holder.itemView.notification_image)
+          .into(holder.image)
       }
       else -> {
         holder.image.visibility = View.VISIBLE
@@ -119,7 +118,7 @@ abstract class CardNotificationModel :
       holder.positiveButton.setOnClickListener { }
     } else {
       notification.positiveButtonText?.let {
-        holder.itemView.notification_positive_button.setTextRes(it)
+        holder.positiveButton.setTextRes(it)
       }
       holder.itemView.setOnClickListener { }
       holder.positiveButton.setOnClickListener {

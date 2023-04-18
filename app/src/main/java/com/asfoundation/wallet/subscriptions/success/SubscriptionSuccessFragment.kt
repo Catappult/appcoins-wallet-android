@@ -6,12 +6,13 @@ import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import by.kirich1409.viewbindingdelegate.viewBinding
 import com.asf.wallet.R
+import com.asf.wallet.databinding.FragmentSubscriptionCancelSuccessBinding
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import com.jakewharton.rxbinding2.view.RxView
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.Observable
-import kotlinx.android.synthetic.main.fragment_subscription_cancel_success.*
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -20,10 +21,10 @@ class SubscriptionSuccessFragment : BasePageViewFragment(), SubscriptionSuccessV
   @Inject
   lateinit var presenter: SubscriptionSuccessPresenter
 
+  private val binding by viewBinding(FragmentSubscriptionCancelSuccessBinding::bind)
+
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                            savedInstanceState: Bundle?): View? {
-    return inflater.inflate(R.layout.fragment_subscription_cancel_success, container, false)
-  }
+                            savedInstanceState: Bundle?): View = FragmentSubscriptionCancelSuccessBinding.inflate(inflater).root
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
@@ -34,12 +35,12 @@ class SubscriptionSuccessFragment : BasePageViewFragment(), SubscriptionSuccessV
   override fun setupUi(successType: SubscriptionSuccess) {
     when (successType) {
       SubscriptionSuccess.CANCEL -> {
-        success_animation.setAnimation(R.raw.subscription_cancel_success)
-        update_title.text = getString(R.string.subscriptions_cancel_confirmation_title)
+        binding.successAnimation.setAnimation(R.raw.subscription_cancel_success)
+        binding.updateTitle.text = getString(R.string.subscriptions_cancel_confirmation_title)
       }
       SubscriptionSuccess.RENEW -> {
-        success_animation.setAnimation(R.raw.success_animation)
-        update_title.text = getString(R.string.subscriptions_renewed_confirmation_title)
+        binding.successAnimation.setAnimation(R.raw.success_animation)
+        binding.updateTitle.text = getString(R.string.subscriptions_renewed_confirmation_title)
       }
     }
   }
@@ -57,7 +58,7 @@ class SubscriptionSuccessFragment : BasePageViewFragment(), SubscriptionSuccessV
     }
   }
 
-  override fun getContinueClicks(): Observable<Any> = RxView.clicks(continue_button)
+  override fun getContinueClicks(): Observable<Any> = RxView.clicks(binding.continueButton)
 
   override fun onAttach(context: Context) {
     super.onAttach(context)
