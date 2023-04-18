@@ -6,9 +6,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Card
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -53,8 +51,8 @@ data class GameCardData(
 @Composable
 fun CardItem(gameCardData: GameCardData, onCardClick: () -> Unit) {
   Card(
-    backgroundColor = WalletColors.styleguide_blue_secondary,
-    elevation = 4.dp,
+    colors = CardDefaults.cardColors(WalletColors.styleguide_blue_secondary) ,
+    elevation = CardDefaults.cardElevation(4.dp),
     shape = RoundedCornerShape(8.dp),
     modifier = Modifier
       .width(300.dp)
@@ -91,8 +89,8 @@ fun CardItem(gameCardData: GameCardData, onCardClick: () -> Unit) {
         verticalAlignment = Alignment.CenterVertically
       ) {
         Card(
-          backgroundColor = WalletColors.styleguide_blue_secondary,
-          elevation = 4.dp,
+          colors = CardDefaults.cardColors(WalletColors.styleguide_blue_secondary),
+          elevation = CardDefaults.cardElevation(4.dp),
           shape = RoundedCornerShape(8.dp),
           modifier = Modifier
             .size(52.dp),
