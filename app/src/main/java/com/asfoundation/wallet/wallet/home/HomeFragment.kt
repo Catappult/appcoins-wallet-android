@@ -34,9 +34,7 @@ import com.appcoins.wallet.core.utils.android_common.WalletCurrency.FIAT
 import com.appcoins.wallet.ui.arch.Async
 import com.appcoins.wallet.ui.arch.SingleStateFragment
 import com.appcoins.wallet.ui.common.theme.WalletColors
-import com.appcoins.wallet.ui.widgets.NftCard
-import com.appcoins.wallet.ui.widgets.BalanceCard
-import com.appcoins.wallet.ui.widgets.TopBar
+import com.appcoins.wallet.ui.widgets.*
 import com.asf.wallet.R
 import com.asfoundation.wallet.entity.GlobalBalance
 import com.asfoundation.wallet.support.SupportNotificationProperties
@@ -45,6 +43,7 @@ import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
 import io.intercom.android.sdk.Intercom
 import java.math.BigDecimal
+import java.time.LocalDateTime
 import javax.inject.Inject
 
 // Before moving this screen into the :home module, all home dependencies need to be independent
@@ -157,10 +156,25 @@ class HomeFragment: BasePageViewFragment(), SingleStateFragment<HomeState, HomeS
         }
       //TODO replace with home composables
       DummyCard()
-      DummyCard()
-      DummyCard()
-      DummyCard()
-      DummyCard()
+      GamesBundle(
+        listOf(
+          GameCardData(  // TODO API missing
+            title = "Mobile Legends",
+            gameIcon = "https://cdn6.aptoide.com/imgs/b/3/e/b3e336be6c4874605cbc597d811d1822_icon.png?w=128",
+            gameBackground = "https://cdn6.aptoide.com/imgs/e/e/0/ee0469bf46c9a4423baf41fe8dd59b43_screen.jpg",
+            gamePackage = "com.mobile.legends",
+            onClick = { }
+          ),
+          GameCardData(
+            title = "Lords Mobile",
+            gameIcon = "https://cdn6.aptoide.com/imgs/0/7/e/07eb83a511499243706f0c791b0b8969_icon.png?w=128",
+            gameBackground = "https://cdn6.aptoide.com/imgs/4/d/a/4dafe1624f6f5d626e8761dbe903e9a0_screen.jpg",
+            gamePackage = "com.igg.android.lordsmobile",
+            onClick = { }
+          )
+        ),
+        onCardClick = { }    //TODO
+      )
       NftCard(
         onClick = { navigateToNft() }
       )
