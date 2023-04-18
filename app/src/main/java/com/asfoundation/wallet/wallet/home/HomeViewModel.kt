@@ -22,6 +22,10 @@ import com.asfoundation.wallet.entity.GlobalBalance
 import com.asfoundation.wallet.entity.Wallet
 import com.asfoundation.wallet.gamification.ObserveUserStatsUseCase
 import com.asfoundation.wallet.home.usecases.*
+import com.asfoundation.wallet.promotions.model.PromoCodeItem
+import com.asfoundation.wallet.promotions.model.Promotion
+import com.asfoundation.wallet.promotions.ui.PromotionsState
+import com.asfoundation.wallet.promotions.usecases.GetPromotionsUseCase
 import com.asfoundation.wallet.referrals.CardNotification
 import com.asfoundation.wallet.transactions.Transaction
 import com.asfoundation.wallet.ui.balance.TokenBalance
@@ -41,6 +45,7 @@ import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.subjects.BehaviorSubject
 import java.math.BigDecimal
+import java.util.Collections.copy
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 import javax.inject.Named
@@ -68,6 +73,7 @@ sealed class HomeSideEffect : SideEffect {
 
 data class HomeState(
   val transactionsModelAsync: Async<TransactionsModel> = Async.Uninitialized,
+  val promotionsModelAsync: Async<Promotion> = Async.Uninitialized,
   val defaultWalletBalanceAsync: Async<GlobalBalance> = Async.Uninitialized,
   val showVipBadge: Boolean = false,
   val unreadMessages: Boolean = false,
@@ -81,6 +87,7 @@ class HomeViewModel @Inject constructor(
   private val shouldShowBackupTriggerUseCase: ShouldShowBackupTriggerUseCase,
   private val observeWalletInfoUseCase: ObserveWalletInfoUseCase,
   private val getWalletInfoUseCase: GetWalletInfoUseCase,
+  private val getPromotionsUseCase: GetPromotionsUseCase,
   private val shouldOpenRatingDialogUseCase: ShouldOpenRatingDialogUseCase,
   private val updateTransactionsNumberUseCase: UpdateTransactionsNumberUseCase,
   private val findNetworkInfoUseCase: FindNetworkInfoUseCase,

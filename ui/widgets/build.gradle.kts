@@ -30,4 +30,6 @@ dependencies {
   implementation(libs.viewbinding.delegate)
   implementation(libs.androidx.appcompact)
   implementation(libs.bundles.androidx.compose)
+  implementation(libs.compose.coil)
+
 }

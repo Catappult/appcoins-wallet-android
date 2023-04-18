@@ -39,6 +39,7 @@ import com.appcoins.wallet.ui.widgets.BalanceCard
 import com.appcoins.wallet.ui.widgets.TopBar
 import com.asf.wallet.R
 import com.asfoundation.wallet.entity.GlobalBalance
+import com.asfoundation.wallet.promotions.model.PromoCodeItem
 import com.asfoundation.wallet.support.SupportNotificationProperties
 import com.asfoundation.wallet.ui.widget.entity.TransactionsModel
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment

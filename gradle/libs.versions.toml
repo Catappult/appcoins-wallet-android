@@ -41,6 +41,7 @@ firebase_messaging = "20.2.1"
 flurry_version = "14.0.0"
 flexbox_version = "3.0.0"
 glide_version = "4.12.0"
+coil_version = "2.3.0"
 google_services = "4.3.5"
 gradle_bintray_version = "1.7.3"
 gradle_version = "3.3.2"
@@ -130,6 +131,7 @@ compose-ui-preview = { module = "androidx.compose.ui:ui-tooling-preview", versio
 compose-ui-ui = { module = "androidx.compose.ui:ui", version.ref = "androidx_compose" }
 compose-ui-util = { module = "androidx.compose.ui:ui-util", version.ref = "androidx_compose" }
 compose-ui-viewbinding = { module = "androidx.compose.ui:ui-viewbinding", version.ref = "androidx_compose" }
+compose-coil = { module = "io.coil-kt:coil-compose", version.ref = "coil_version" }
 compose-activity = { module = "androidx.activity:activity-compose", version.ref = "androidx_compose" }
 
 network-retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit_version" }

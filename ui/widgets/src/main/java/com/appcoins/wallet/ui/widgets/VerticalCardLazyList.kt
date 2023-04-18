@@ -35,13 +35,6 @@ class VerticalCardLazyList {
 
     //This is sample to use this HorizontalCardList
 
-    data class CardItemTest(
-        val title: String,
-        val subtitle: String,
-        val promotionTime: LocalDateTime,
-        val action: () -> Unit
-    )
-
     @Composable
     fun CardItem(item: Any, onCardClick: Unit) {
         if (item is CardItemTest) {
@@ -83,19 +76,25 @@ class VerticalCardLazyList {
                 title = "Card 1",
                 subtitle = "Subtitle 1",
                 promotionTime = LocalDateTime.of(2023, 4, 4, 10, 20),
-                action = { }
+                action = { },
+                imageUrl = "https://example.com",
+                urlRedirect = "https://example.com"
             ),
             CardItemTest(
                 title = "Card 2",
                 subtitle = "Subtitle 2",
                 promotionTime = LocalDateTime.of(2023, 3, 1, 0, 30),
-                action = { }
+                action = { },
+                imageUrl = "https://example.com",
+                urlRedirect = "https://example.com"
             ),
             CardItemTest(
                 title = "Card 3",
                 subtitle = "Subtitle 3",
                 promotionTime = LocalDateTime.of(2023, 3, 2, 10, 0),
-                action = { }
+                action = { },
+                imageUrl = "https://example.com",
+                urlRedirect = "https://example.com"
             )
         )
         VerticalCardList(contents = items, onCardClick = {})
