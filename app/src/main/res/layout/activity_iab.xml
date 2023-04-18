@@ -4,16 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:paddingStart="@dimen/big_margin"
+    android:paddingTop="@dimen/big_margin"
+    android:paddingEnd="@dimen/big_margin"
+    android:paddingBottom="@dimen/normal_margin"
     >
 
   <FrameLayout
       android:id="@+id/layout_error"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:layout_marginStart="@dimen/big_margin"
-      android:layout_marginTop="@dimen/big_margin"
-      android:layout_marginEnd="@dimen/big_margin"
-      android:layout_marginBottom="@dimen/normal_margin"
       android:background="@drawable/background_card"
       android:descendantFocusability="beforeDescendants"
       android:visibility="gone"
@@ -25,6 +25,7 @@
       >
 
     <include
+        android:id="@+id/iab_error_layout"
         layout="@layout/iab_error_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -34,11 +35,6 @@
   <com.google.android.material.card.MaterialCardView
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:layout_margin="8dp"
-      android:layout_marginStart="@dimen/normal_margin"
-      android:layout_marginTop="@dimen/big_margin"
-      android:layout_marginEnd="@dimen/normal_margin"
-      android:layout_marginBottom="@dimen/normal_margin"
       android:theme="@style/Theme.MaterialComponents"
       app:cardBackgroundColor="@color/styleguide_white"
       app:cardCornerRadius="8dp"

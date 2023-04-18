@@ -19,6 +19,7 @@ class AndroidLibraryPlugin : Plugin<Project> {
         apply("kotlin-android")
         apply("kotlin-kapt")
         apply<HiltPlugin>()
+        apply<JacocoLibraryPlugin>()
       }
 
       extensions.configure<LibraryExtension> {

@@ -7,7 +7,7 @@ android {
   defaultConfig {
     buildFeatures {
       composeOptions {
-        kotlinCompilerExtensionVersion = libs.versions.androidx.compose.asProvider().get()
+        kotlinCompilerExtensionVersion = libs.versions.androidx.compose.compiler.get()
       }
       compose = true
     }

@@ -4,14 +4,15 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import by.kirich1409.viewbindingdelegate.viewBinding
 import com.appcoins.wallet.billing.adyen.VerificationCodeResult
 import com.asf.wallet.R
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.appcoins.wallet.core.utils.android_common.WalletCurrency
+import com.asf.wallet.databinding.ErrorVerificationLayoutBinding
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import com.jakewharton.rxbinding2.view.RxView
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.error_verification_layout.*
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -23,10 +24,10 @@ class VerificationErrorFragment : BasePageViewFragment(), VerificationErrorView 
   @Inject
   lateinit var formatter: CurrencyFormatUtils
 
+  private val views by viewBinding(ErrorVerificationLayoutBinding::bind)
+
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                            savedInstanceState: Bundle?): View? {
-    return inflater.inflate(R.layout.error_verification_layout, container, false)
-  }
+                            savedInstanceState: Bundle?): View = ErrorVerificationLayoutBinding.inflate(inflater).root
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
@@ -37,43 +38,43 @@ class VerificationErrorFragment : BasePageViewFragment(), VerificationErrorView 
                               symbol: String) {
     when (errorType) {
       VerificationCodeResult.ErrorType.TOO_MANY_ATTEMPTS -> {
-        error_message.visibility = View.GONE
-        error_title.visibility = View.GONE
-        contact_us.visibility = View.INVISIBLE
-        layout_support_logo.visibility = View.INVISIBLE
-        layout_support_icn.visibility = View.INVISIBLE
+        views.errorMessage.visibility = View.GONE
+        views.errorTitle.visibility = View.GONE
+        views.contactUs.visibility = View.INVISIBLE
+        views.layoutSupportLogo.visibility = View.INVISIBLE
+        views.layoutSupportIcn.visibility = View.INVISIBLE
 
-        error_message_2.visibility = View.VISIBLE
-        error_title_2.visibility = View.VISIBLE
-        try_again.visibility = View.GONE
-        attempts_group.visibility = View.VISIBLE
+        views.errorMessage2.visibility = View.VISIBLE
+        views.errorTitle2.visibility = View.VISIBLE
+        views.tryAgain.visibility = View.GONE
+        views.attemptsGroup.visibility = View.VISIBLE
 
         val amountWithCurrency =
             "$symbol${formatter.formatCurrency(amount, WalletCurrency.FIAT)}"
-        error_title_2.text =
+        views.errorTitle2.text =
             getString(R.string.card_verification_no_attempts_title, amountWithCurrency)
       }
       VerificationCodeResult.ErrorType.WRONG_CODE,
       VerificationCodeResult.ErrorType.OTHER -> {
-        error_message.visibility = View.VISIBLE
-        error_title.visibility = View.VISIBLE
-        contact_us.visibility = View.VISIBLE
-        layout_support_logo.visibility = View.VISIBLE
-        layout_support_icn.visibility = View.VISIBLE
+        views.errorMessage.visibility = View.VISIBLE
+        views.errorTitle.visibility = View.VISIBLE
+        views.contactUs.visibility = View.VISIBLE
+        views.layoutSupportLogo.visibility = View.VISIBLE
+        views.layoutSupportIcn.visibility = View.VISIBLE
 
-        error_message_2.visibility = View.GONE
-        error_title_2.visibility = View.GONE
-        try_again.visibility = View.VISIBLE
-        attempts_group.visibility = View.GONE
+        views.errorMessage2.visibility = View.GONE
+        views.errorTitle2.visibility = View.GONE
+        views.tryAgain.visibility = View.VISIBLE
+        views.attemptsGroup.visibility = View.GONE
       }
     }
   }
 
-  override fun getMaybeLaterClicks() = RxView.clicks(maybe_later)
+  override fun getMaybeLaterClicks() = RxView.clicks(views.maybeLater)
 
-  override fun getTryAgainClicks() = RxView.clicks(try_again)
+  override fun getTryAgainClicks() = RxView.clicks(views.tryAgain)
 
-  override fun getTryAgainAttemptsClicks() = RxView.clicks(try_again_attempts)
+  override fun getTryAgainAttemptsClicks() = RxView.clicks(views.tryAgainAttempts)
 
   override fun onDestroyView() {
     presenter.stop()

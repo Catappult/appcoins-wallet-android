@@ -9,9 +9,8 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material.BottomAppBar
-import androidx.compose.material.MaterialTheme
+import androidx.compose.material3.BottomAppBar
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
@@ -61,9 +60,7 @@ class NavBarFragment : BasePageViewFragment(),
   override fun onCreateView(
     inflater: LayoutInflater, container: ViewGroup?,
     savedInstanceState: Bundle?
-  ): View? {
-    return inflater.inflate(R.layout.nav_bar_fragment, container, false)
-  }
+  ): View = NavBarFragmentBinding.inflate(inflater).root
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
@@ -79,8 +76,7 @@ class NavBarFragment : BasePageViewFragment(),
   @Composable
   fun BottomNavigationHome() {
     BottomAppBar(
-      backgroundColor = styleguide_blue_secondary,
-      cutoutShape = CircleShape,
+      containerColor = styleguide_blue_secondary,
       modifier = Modifier.height(64.dp),
       content = {
         Row(

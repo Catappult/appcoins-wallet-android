@@ -5,16 +5,29 @@ import android.text.TextWatcher
 import android.util.AttributeSet
 import android.view.View
 import android.widget.FrameLayout
+import android.widget.LinearLayout
+import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
 import com.asf.wallet.R
-import kotlinx.android.synthetic.main.multiline_input_layout.view.*
+import com.google.android.material.textfield.TextInputEditText
 
 class MultilineInputText : FrameLayout {
+
+  private val input_text : TextInputEditText
+  private val error_text : TextView
+  private val root_view : ConstraintLayout
+  private val error_layout : LinearLayout
 
   constructor(context: Context) : this(context, null)
   constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0)
   constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs,
       defStyleAttr) {
     inflate(context, R.layout.multiline_input_layout, this)
+
+    input_text = findViewById(R.id.input_text)
+    error_text = findViewById(R.id.error_text)
+    root_view = findViewById(R.id.root_view)
+    error_layout = findViewById(R.id.error_layout)
   }
 
   fun getText(): String {

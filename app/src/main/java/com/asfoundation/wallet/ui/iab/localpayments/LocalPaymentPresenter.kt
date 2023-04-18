@@ -217,7 +217,7 @@ class LocalPaymentPresenter(
       .observeOn(viewScheduler)
       .flatMapCompletable {
         Completable.fromAction { view.showCompletedPayment() }
-          .andThen(Completable.timer(view.getAnimationDuration(), TimeUnit.MILLISECONDS))
+          .andThen(Completable.timer(view.getAnimationDuration(), TimeUnit.MILLISECONDS, viewScheduler))
           .andThen(Completable.fromAction { view.popView(it.bundle, data.paymentId) })
       }
   }

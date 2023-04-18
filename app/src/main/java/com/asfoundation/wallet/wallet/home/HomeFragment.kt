@@ -13,7 +13,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.*
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -26,13 +26,12 @@ import androidx.compose.ui.unit.dp
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.Navigation
 import androidx.navigation.fragment.NavHostFragment
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.appcoins.wallet.core.utils.android_common.RootUtil
 import com.appcoins.wallet.core.utils.android_common.WalletCurrency.FIAT
-import com.appcoins.wallet.ui.arch.Async
 import com.appcoins.wallet.ui.arch.SingleStateFragment
+import com.appcoins.wallet.ui.arch.data.Async
 import com.appcoins.wallet.ui.common.theme.WalletColors
 import com.appcoins.wallet.ui.widgets.*
 import com.asf.wallet.R
@@ -103,25 +102,24 @@ class HomeFragment: BasePageViewFragment(), SingleStateFragment<HomeState, HomeS
     viewModel.stopRefreshingData()
   }
 
+  @OptIn(ExperimentalMaterial3Api::class)
   @Composable
   fun HomeScreen(
     modifier: Modifier = Modifier,
   ) {
-    val scaffoldState = rememberScaffoldState()
     Scaffold(
-      scaffoldState = scaffoldState,
       topBar = {
-        Surface(elevation = 4.dp) {
+        Surface(shadowElevation = 4.dp) {
           TopBar(
             isMainBar = true,
             isVip = isVip,
-            onClickNotifications = { Log.d("TestHomeFragment", "Notifications")},
+            onClickNotifications = { Log.d("TestHomeFragment", "Notifications") },
             onClickSettings = { viewModel.onSettingsClick() },
             onClickSupport = { viewModel.showSupportScreen(false) },
           )
         }
       },
-      backgroundColor = WalletColors.styleguide_blue,
+      containerColor = WalletColors.styleguide_blue,
       modifier = modifier
     ) { padding ->
       HomeScreenContent(
@@ -193,7 +191,7 @@ class HomeFragment: BasePageViewFragment(), SingleStateFragment<HomeState, HomeS
         .fillMaxWidth()
         .height(200.dp),
       shape = RoundedCornerShape(8.dp),
-      backgroundColor =  WalletColors.styleguide_blue_secondary,
+      colors = CardDefaults.cardColors(WalletColors.styleguide_blue_secondary),
     ) {
       Column(
         modifier = Modifier
@@ -203,8 +201,8 @@ class HomeFragment: BasePageViewFragment(), SingleStateFragment<HomeState, HomeS
       ) {
         Text(
           text = "Home Screen",
-          style = MaterialTheme.typography.h5,
-          color =  WalletColors.styleguide_white
+          style = MaterialTheme.typography.titleMedium,
+          color = WalletColors.styleguide_white
         )
       }
     }

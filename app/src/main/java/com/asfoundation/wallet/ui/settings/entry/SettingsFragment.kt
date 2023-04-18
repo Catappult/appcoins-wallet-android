@@ -13,6 +13,8 @@ import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.SwitchPreferenceCompat
 import com.asf.wallet.R
+import com.asf.wallet.databinding.PreferenceFingerprintBinding
+import com.asf.wallet.databinding.PreferenceFingerprintOffBinding
 import com.asfoundation.wallet.billing.analytics.PageViewAnalytics
 import com.asfoundation.wallet.billing.analytics.WalletsAnalytics
 import com.asfoundation.wallet.billing.analytics.WalletsEventSender
@@ -28,8 +30,6 @@ import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
-import kotlinx.android.synthetic.main.preference_fingerprint.*
-import kotlinx.android.synthetic.main.preference_fingerprint_off.*
 import java.util.*
 import javax.inject.Inject
 
@@ -219,11 +219,7 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
   }
 
   override fun toggleFingerprint(enabled: Boolean) {
-    if (pref_authentication_switch == null && pref_authentication_switch_off == null) {
-      setFingerprintPreference(enabled)
-    }
-    pref_authentication_switch?.isChecked = enabled
-    pref_authentication_switch_off?.isChecked = enabled
+    setFingerprintPreference(enabled)
   }
 
   override fun setFingerprintPreference(hasAuthenticationPermission: Boolean) {

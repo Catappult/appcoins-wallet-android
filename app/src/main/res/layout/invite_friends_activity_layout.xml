@@ -33,6 +33,7 @@
       app:layout_constraintTop_toTopOf="parent"
       >
     <include
+        android:id="@+id/no_network_retry_only_layout"
         layout="@layout/no_network_retry_only_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

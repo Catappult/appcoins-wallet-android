@@ -68,9 +68,7 @@ class OnboardingFragment : BasePageViewFragment(),
   override fun onCreateView(
     inflater: LayoutInflater, @Nullable container: ViewGroup?,
     @Nullable savedInstanceState: Bundle?
-  ): View? {
-    return inflater.inflate(R.layout.fragment_onboarding, container, false)
-  }
+  ): View = FragmentOnboardingBinding.inflate(inflater).root
 
   override fun onViewCreated(view: View, @Nullable savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
