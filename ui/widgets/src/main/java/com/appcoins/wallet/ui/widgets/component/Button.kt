@@ -1,9 +1,18 @@
 package com.appcoins.wallet.ui.widgets.component
 
 import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.defaultMinSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material3.*
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -64,6 +73,31 @@ fun ButtonWithText(
     onClick = { onClick.invoke() },
     modifier = Modifier
       .fillMaxWidth()
+      .defaultMinSize(minHeight = 40.dp),
+    shape = CircleShape,
+    colors = ButtonDefaults.buttonColors(containerColor = backgroundColor),
+    border = BorderStroke(width = 1.dp, color = outlineColor ?: Color.Transparent)
+  ) {
+    Text(
+      text = stringResource(label),
+      style = MaterialTheme.typography.bodyMedium,
+      color = labelColor,
+      fontWeight = FontWeight.Bold
+    )
+  }
+}
+
+@Composable
+fun ButtonWithTextExpanded(
+  label: Int,
+  onClick: () -> Unit,
+  backgroundColor: Color = Color.Transparent,
+  labelColor: Color,
+  outlineColor: Color? = null
+) {
+  Button(
+    onClick = { onClick.invoke() },
+    modifier = Modifier
       .defaultMinSize(minHeight = 40.dp),
     shape = CircleShape,
     colors = ButtonDefaults.buttonColors(containerColor = backgroundColor),

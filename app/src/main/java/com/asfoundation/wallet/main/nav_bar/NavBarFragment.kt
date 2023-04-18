@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
@@ -77,7 +78,9 @@ class NavBarFragment : BasePageViewFragment(),
   fun BottomNavigationHome() {
     BottomAppBar(
       containerColor = styleguide_blue_secondary,
-      modifier = Modifier.height(64.dp),
+      modifier = Modifier
+        .height(64.dp)
+        .padding(top = 1.dp),
       content = {
         Row(
           horizontalArrangement = Arrangement.SpaceEvenly,
