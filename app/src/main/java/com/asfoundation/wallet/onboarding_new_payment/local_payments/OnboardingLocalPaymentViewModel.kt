@@ -1,16 +1,15 @@
 package com.asfoundation.wallet.onboarding_new_payment.local_payments
 
-
-import android.net.Uri
 import androidx.activity.result.ActivityResult
 
 import androidx.lifecycle.SavedStateHandle
-import com.appcoins.wallet.appcoins.rewards.ErrorInfo
 import com.appcoins.wallet.appcoins.rewards.ErrorMapper
+import com.appcoins.wallet.billing.adyen.PaymentInfoModel
 import com.appcoins.wallet.core.network.microservices.model.Transaction
 import com.appcoins.wallet.ui.arch.BaseViewModel
 import com.appcoins.wallet.ui.arch.SideEffect
 import com.appcoins.wallet.ui.arch.ViewState
+import com.appcoins.wallet.ui.arch.data.Async
 import com.asf.wallet.BuildConfig
 import com.asfoundation.wallet.onboarding_new_payment.OnboardingPaymentEvents
 import com.asfoundation.wallet.onboarding_new_payment.use_cases.GetPaymentLinkUseCase
@@ -26,29 +25,25 @@ import javax.inject.Inject
 sealed class OnboardingLocalPaymentSideEffect : SideEffect {
     data class NavigateToWebView(val uri: String) : OnboardingLocalPaymentSideEffect()
     object NavigateBackToPaymentMethods : OnboardingLocalPaymentSideEffect()
-    data class HandleWebViewResult(val uri: Uri) : OnboardingLocalPaymentSideEffect()
     object ShowLoading : OnboardingLocalPaymentSideEffect()
     object ShowError : OnboardingLocalPaymentSideEffect()
     object ShowSuccess : OnboardingLocalPaymentSideEffect()
 
     object ShowCompletablePayment : OnboardingLocalPaymentSideEffect()
-    object ShowVerification : OnboardingLocalPaymentSideEffect()
 }
 
 
-object OnboardingLocalPaymentState : ViewState
+data class OnboardingLocalPaymentState(val paymentInfoModel: Async<PaymentInfoModel> = Async.Uninitialized, val urlString: Async<String> = Async.Uninitialized) :
+    ViewState
 
 @HiltViewModel
 class OnboardingLocalPaymentViewModel @Inject constructor(
     private val getPaymentLinkUseCase: GetPaymentLinkUseCase,
-    private val getTopUpPaymentLinkUseCase: GetTopUpPaymentLinkUseCase,
     private val events: OnboardingPaymentEvents,
-    private val errorMapper: ErrorMapper,
-    private val localPaymentInteractor: LocalPaymentInteractor,
     savedStateHandle: SavedStateHandle
 ) :
     BaseViewModel<OnboardingLocalPaymentState, OnboardingLocalPaymentSideEffect>(
-        OnboardingLocalPaymentState
+        OnboardingLocalPaymentState()
     ) {
 
     private var args: OnboardingLocalPaymentFragmentArgs =
@@ -83,51 +78,12 @@ class OnboardingLocalPaymentViewModel @Inject constructor(
         }
     }
 
-    private fun handleSyncCompletedStatus(transactionResponse: Transaction): Completable {
-        args.transactionBuilder.let { transaction ->
-            return localPaymentInteractor.getCompletePurchaseBundle(
-                transaction.type, transaction.fromAddress(), transaction.skuId,
-                transactionResponse.metadata?.purchaseUid, transactionResponse.orderReference, transactionResponse.hash,
-                scheduler
-            )
-                .doOnSuccess {
-                    events.sendPaymentConclusionEvents(
-                        transaction.fromAddress(), transaction.skuId, transaction.amount(),
-                        transaction.type, transaction.chainId.toString()
-                    )
-                    events.sendRevenueEvent(args.transactionBuilder.amount().toString())
-                }
-                .flatMapCompletable {
-                    Completable.fromAction { sendSideEffect { OnboardingLocalPaymentSideEffect.ShowCompletablePayment } }
-                }
-        }
-    }
-
-    private fun handleFraudFlow() {
-        localPaymentInteractor.isWalletBlocked()
-            .doOnSuccess { blocked ->
-                if (blocked) {
-                    localPaymentInteractor.isWalletVerified().doAfterSuccess {
-                        if (it) {
-                            sendSideEffect { OnboardingLocalPaymentSideEffect.ShowError }
-                            //view.showError(R.string.purchase_error_wallet_block_code_403)
-                        } else {
-                            sendSideEffect { OnboardingLocalPaymentSideEffect.ShowVerification }
-                        }
-                    }.scopedSubscribe()
-                } else {
-                    sendSideEffect { OnboardingLocalPaymentSideEffect.ShowError }
-                    //R.string.purchase_error_wallet_block_code_403
-                }
-            }.scopedSubscribe()
-    }
-
     private fun getPaymentLink() {
         getPaymentLinkUseCase(
             data = args.transactionBuilder,
             currency = args.currency,
-            packageName = args.transactionBuilder.productName
-        ).doAfterSuccess {
+            packageName = args.transactionBuilder.domain
+        ).asAsyncToState {
             args.transactionBuilder.let {
                 events.sendLocalNavigationToUrlEvents(
                     BuildConfig.APPLICATION_ID,
@@ -137,7 +93,8 @@ class OnboardingLocalPaymentViewModel @Inject constructor(
                     it.chainId.toString()
                 )
             }
-            sendSideEffect { OnboardingLocalPaymentSideEffect.NavigateToWebView(it) }
+            copy(urlString = it)
+
         }.scopedSubscribe()
     }
 

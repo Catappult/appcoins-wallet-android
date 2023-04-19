@@ -19,7 +19,7 @@ class PaymentMethodsController :
       /**
        * if condition to only show both credit card and paypal without making bigger changes
        */
-      if (paymentMethod.id == "credit_card" || paymentMethod.id == "paypal") {
+      if (paymentMethod.id != "ask_friend") {
         add(
           PaymentMethodModel_()
             .id(paymentMethod.id)

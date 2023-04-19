@@ -18,7 +18,7 @@ class GetOtherPaymentMethodsUseCase @Inject constructor() {
   operator fun invoke(paymentList: List<PaymentMethod>): List<PaymentMethod> {
     val otherPaymentMethods: MutableList<PaymentMethod> = mutableListOf()
     for (method in paymentList) {
-      if (method.id != CC_ID && method.id != PAYPAL_ID && method.id != ASK_SOMEONE_TO_PAY_ID) {
+      if (method.id == ASK_SOMEONE_TO_PAY_ID) {
         otherPaymentMethods.add(method)
       }
     }
