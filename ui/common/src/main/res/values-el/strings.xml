@@ -894,6 +894,7 @@ Wallets</item>
   <string name="perks_gamif_subtitle">Όσο περισσότερα ξοδεύετε στις αγαπημένες σας εφαρμογές, τόσο μεγαλύτερο θα είναι το bonus!</string>
   <string name="perks_title">Προωθήσεις</string>
   <string name="perks_body">Μείνετε συντονισμένοι! Έχουμε ειδικές προωθήσεις για εσάς.</string>
+  <string name="promotion_ends_short_title">Promotion ends in</string>
   <plurals name="promotion_ends">
     <item quantity="one">Η προώθηση τελειώνει σε %s ημέρα.</item>
     <item quantity="other">Η προώθηση τελειώνει σε %s ημέρες.</item>
