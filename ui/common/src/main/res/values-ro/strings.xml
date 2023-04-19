@@ -894,6 +894,7 @@
   <string name="perks_gamif_subtitle">Cu cât cheltuiești mai mult în aplicațiile tale preferate, cu atât mai mare va fi bonusul!</string>
   <string name="perks_title">Promoții</string>
   <string name="perks_body">Fii pe fază! Avem promoții speciale pentru tine.</string>
+  <string name="promotion_ends_short_title">Promotion ends in</string>
   <plurals name="promotion_ends">
     <item quantity="one">Promoția se încheie în %s zi.</item>
     <item quantity="few">Promoția se încheie în %s zile.</item>
