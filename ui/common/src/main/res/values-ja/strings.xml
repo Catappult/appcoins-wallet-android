@@ -892,6 +892,7 @@
   <string name="perks_gamif_subtitle">お気に入りのアプリで使えば使うほど、ボーナスが大きくなります！</string>
   <string name="perks_title">プロモーション</string>
   <string name="perks_body">ご期待ください。特別なキャンペーンをご用意しています。</string>
+  <string name="promotion_ends_short_title">Promotion ends in</string>
   <plurals name="promotion_ends">
     <item quantity="other">プロモーションは %s日で終了します。</item>
   </plurals>
