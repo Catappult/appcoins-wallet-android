@@ -892,6 +892,7 @@
   <string name="perks_gamif_subtitle">သင့္စိတ္ႀကိဳက္အက္ပ္မ်ားတြင္ မ်ားမ်ားပို၍ သံုးစြဲေလ ေဘာနပ္စ္ပိုမ်ားေလ ျဖစ္ပါသည္။</string>
   <string name="perks_title">ပ႐ိုမိုးရွင္းမ်ား</string>
   <string name="perks_body">နားစြင့္ထားလိုက္ပါ။ သင့္အတြက္ အထူးပ႐ိုမိုးရွင္းမ်ား ရွိပါသည္။</string>
+  <string name="promotion_ends_short_title">Promotion ends in</string>
   <plurals name="promotion_ends">
     <item quantity="other">ပ႐ိုမိုးရွင္းသည္ %s ရက္အၾကာတြင္ ၿပီးဆံံုးမည္ ျဖစ္ပါသည္။</item>
   </plurals>
