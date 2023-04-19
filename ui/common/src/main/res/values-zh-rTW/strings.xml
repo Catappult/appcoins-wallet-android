@@ -892,6 +892,7 @@
   <string name="perks_gamif_subtitle">您在喜愛的應用程式中花費越多，獎勵越多！</string>
   <string name="perks_title">促銷</string>
   <string name="perks_body">請不要走開，我們為您找到了一個特別優惠！</string>
+  <string name="promotion_ends_short_title">Promotion ends in</string>
   <plurals name="promotion_ends">
     <item quantity="other">促銷在%s天後結束</item>
   </plurals>
