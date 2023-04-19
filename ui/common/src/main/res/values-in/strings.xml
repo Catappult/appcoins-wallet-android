@@ -892,6 +892,7 @@
   <string name="perks_gamif_subtitle">Semakin banyak yang Anda habiskan di aplikasi favorit, semakin besar bonusnya!</string>
   <string name="perks_title">Promosi</string>
   <string name="perks_body">Jangan kemana-mana! Kami punya promosi khusus untuk Anda.</string>
+  <string name="promotion_ends_short_title">Promotion ends in</string>
   <plurals name="promotion_ends">
     <item quantity="other">Promosi akan berakhir %s hari lagi.</item>
   </plurals>
