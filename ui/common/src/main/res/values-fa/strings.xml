@@ -893,6 +893,7 @@
   <string name="perks_gamif_subtitle">هر چه بیشتر در اپلیکیشن‌های محبوب خود خرج کنید، پاداش بزرگتر خواهد بود!</string>
   <string name="perks_title">پیشنهادات تشویقی</string>
   <string name="perks_body">منتظر باشید! پیشنهادات تشویقی ویژه‌ای برای شما دارید.</string>
+  <string name="promotion_ends_short_title">Promotion ends in</string>
   <plurals name="promotion_ends">
     <item quantity="one">پیشنهاد تشویقی در %s روز به پایان می‌رسد.</item>
     <item quantity="other">پیشنهاد تشویقی در %s روز به پایان می‌رسد.</item>
