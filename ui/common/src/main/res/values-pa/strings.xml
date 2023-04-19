@@ -893,6 +893,7 @@
   <string name="perks_gamif_subtitle">ਤੁਸੀਂ ਆਪਣੀਆਂ ਮਨਪਸੰਦ ਐਪਾਂ ਵਿਚ ਜਿੰਨਾ ਜ਼ਿਆਦਾ ਖਰਚੋਗੇ, ਓਨਾ ਵੱਡਾ ਬੋਨਸ ਹੋਵੇਗਾ!</string>
   <string name="perks_title">ਪ੍ਰਚਾਰ</string>
   <string name="perks_body">ਸਾਡੇ ਨਾਲ ਜੁੜੇ ਰਹੇ! ਸਾਡੇ ਕੋਲ ਤੁਹਾਡੇ ਲਈ ਵਿਸ਼ੇਸ਼ ਆਫਰਾਂ ਹਨ|</string>
+  <string name="promotion_ends_short_title">Promotion ends in</string>
   <plurals name="promotion_ends">
     <item quantity="one">ਆਫਰ %s ਦਿਨ ਵਿੱਚ ਖਤਮ ਹੋ ਰਿਹਾ ਹੈ|</item>
     <item quantity="other">ਆਫਰ %s ਦਿਨਾਂ ਵਿੱਚ ਖਤਮ ਹੋ ਰਿਹਾ ਹੈ|</item>
