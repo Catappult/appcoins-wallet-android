@@ -894,6 +894,7 @@
   <string name="perks_gamif_subtitle">ยิ่งคุณซื้อแอปที่คุณชื่นชอบมากเท่าไหร่ ก็จะยิ่งได้รับโบนัสมากขึ้น!</string>
   <string name="perks_title">โปรโมชั่น</string>
   <string name="perks_body">คอยติดตาม! พวกเรามีโปรโมชั่นพิเศษสำหรับคุณ</string>
+  <string name="promotion_ends_short_title">Promotion ends in</string>
   <plurals name="promotion_ends">
     <item quantity="other">โปรโมชันจะสิ้นสุดใน %s วัน</item>
   </plurals>
