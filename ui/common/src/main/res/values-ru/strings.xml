@@ -895,6 +895,7 @@
   <string name="perks_gamif_subtitle">Чем больше вы тратите в ваших любимых приложениях – тем больше бонус!</string>
   <string name="perks_title">Продвижения</string>
   <string name="perks_body">Будьте в курсе! У нас есть специальные предложения для вас.</string>
+  <string name="promotion_ends_short_title">Promotion ends in</string>
   <plurals name="promotion_ends">
     <item quantity="one">Акция завершается через %s день.</item>
     <item quantity="few">Акция завершается через %s дня.</item>
