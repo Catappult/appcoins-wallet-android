@@ -5,9 +5,10 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material.Card
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
@@ -43,27 +44,27 @@ class HorizontalCardLazyList {
     @Composable
     fun CardItem(card: Card, onCardClick: () -> Unit) {
         Card(
-            backgroundColor = MaterialTheme.colors.background,
-            elevation = 2.dp,
-            shape = MaterialTheme.shapes.medium,
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(200.dp)
+          colors = CardDefaults.cardColors(MaterialTheme.colorScheme.background),
+          elevation = CardDefaults.cardElevation(2.dp),
+          shape = MaterialTheme.shapes.medium,
+          modifier = Modifier
+            .fillMaxWidth()
+            .height(200.dp)
         ) {
-            Column(modifier = Modifier.clickable { onCardClick }) {
-                Column(modifier = Modifier.padding(16.dp)) {
-                    Text(text = card.title, style = MaterialTheme.typography.h5)
-                    Text(
-                        text = card.subtitle,
-                        style = MaterialTheme.typography.subtitle1,
-                        modifier = Modifier.padding(top = 8.dp)
-                    )
-                    Text(
-                        text = "Promotion starts on ${card.promotionTime}",
-                        style = MaterialTheme.typography.caption,
-                        modifier = Modifier.padding(top = 8.dp)
-                    )
-                }
+          Column(modifier = Modifier.clickable { onCardClick.invoke() }) {
+            Column(modifier = Modifier.padding(16.dp)) {
+              Text(text = card.title, style = MaterialTheme.typography.titleMedium)
+              Text(
+                text = card.subtitle,
+                style = MaterialTheme.typography.bodyMedium,
+                modifier = Modifier.padding(top = 8.dp)
+              )
+              Text(
+                text = "Promotion starts on ${card.promotionTime}",
+                style = MaterialTheme.typography.bodySmall,
+                modifier = Modifier.padding(top = 8.dp)
+              )
+            }
             }
         }
     }

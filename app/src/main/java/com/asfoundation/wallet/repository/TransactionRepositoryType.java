@@ -10,7 +10,7 @@ public interface TransactionRepositoryType {
 
   Single<List<Transaction>> fetchNewTransactions(String wallet);
 
-  Observable<List<Transaction>> fetchTransaction(String wallet);
+  Observable<List<Transaction>> fetchTransactions(String wallet);
 
   Single<String> createTransaction(TransactionBuilder transactionBuilder, String password);
 

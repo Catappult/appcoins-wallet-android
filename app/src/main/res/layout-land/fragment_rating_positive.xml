@@ -18,6 +18,7 @@
       android:layout_height="102dp"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent"
+      app:layout_constraintBottom_toTopOf="@id/image_and_text_barrier"
       app:lottie_autoPlay="true"
       app:lottie_loop="false"
       app:lottie_rawRes="@raw/rateus_feedback_animation"
@@ -43,9 +44,17 @@
       android:layout_height="wrap_content"
       android:layout_marginTop="10dp"
       android:text="@string/rate_us_possitive_thanks_body"
-      app:layout_constraintBottom_toBottomOf="@+id/animation"
+      app:layout_constraintBottom_toBottomOf="@+id/image_and_text_barrier"
       app:layout_constraintStart_toStartOf="@+id/title"
       app:layout_constraintTop_toBottomOf="@+id/title"
+      />
+
+  <androidx.constraintlayout.widget.Barrier
+      android:id="@+id/image_and_text_barrier"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      app:barrierDirection="bottom"
+      app:constraint_referenced_ids="animation, description"
       />
 
   <com.appcoins.wallet.ui.widgets.WalletButtonView
@@ -56,6 +65,8 @@
       app:buttonColor="@color/styleguide_dark_grey"
       app:buttonText="@string/no_thanks_button"
       app:buttonType="text"
+      app:layout_constraintVertical_bias="1"
+      app:layout_constraintTop_toBottomOf="@id/image_and_text_barrier"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toStartOf="@+id/remind_me_later_button"
       app:layout_constraintStart_toStartOf="parent"
@@ -69,6 +80,8 @@
       app:buttonText="@string/remind_later_button"
       app:buttonType="text"
       app:buttonColor="@color/styleguide_dark_grey"
+      app:layout_constraintVertical_bias="1"
+      app:layout_constraintTop_toBottomOf="@id/image_and_text_barrier"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toStartOf="@+id/rate_app_button"
       app:layout_constraintStart_toEndOf="@id/no_button"
@@ -81,6 +94,8 @@
       android:layout_gravity="center_vertical"
       app:buttonText="@string/rate_us_possitive_rate_button"
       app:buttonType="text"
+      app:layout_constraintVertical_bias="1"
+      app:layout_constraintTop_toBottomOf="@id/image_and_text_barrier"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toEndOf="@id/remind_me_later_button"

@@ -47,13 +47,7 @@ class PromoCodeSuccessBottomSheetFragment : BottomSheetDialogFragment(),
   override fun onCreateView(
     inflater: LayoutInflater, container: ViewGroup?,
     savedInstanceState: Bundle?
-  ): View? {
-    return inflater.inflate(
-      R.layout.settings_promo_code_success_bottom_sheet_layout,
-      container,
-      false
-    )
-  }
+  ): View = SettingsPromoCodeSuccessBottomSheetLayoutBinding.inflate(inflater).root
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)

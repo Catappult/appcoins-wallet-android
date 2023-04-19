@@ -1,8 +1,8 @@
 package com.asfoundation.wallet.nfts.ui.nftdetails
 
 import androidx.navigation.NavController
-import com.appcoins.wallet.ui.arch.Navigator
-import com.appcoins.wallet.ui.arch.navigate
+import com.appcoins.wallet.ui.arch.data.Navigator
+import com.appcoins.wallet.ui.arch.data.navigate
 import com.asfoundation.wallet.nfts.domain.NFTItem
 import javax.inject.Inject
 

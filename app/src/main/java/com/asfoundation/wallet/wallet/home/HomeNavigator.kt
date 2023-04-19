@@ -8,7 +8,7 @@ import androidx.core.app.ShareCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import com.appcoins.wallet.sharedpreferences.BackupTriggerPreferencesDataSource
-import com.appcoins.wallet.ui.arch.Navigator
+import com.appcoins.wallet.ui.arch.data.Navigator
 import com.asf.wallet.R
 import com.asfoundation.wallet.C
 import com.asfoundation.wallet.backup.BackupActivity

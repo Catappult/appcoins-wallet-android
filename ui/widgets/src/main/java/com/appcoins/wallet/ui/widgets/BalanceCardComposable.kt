@@ -1,12 +1,21 @@
 package com.appcoins.wallet.ui.widgets
 
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.absolutePadding
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Card
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.MoreVert
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -14,6 +23,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -34,7 +44,7 @@ fun BalanceCard(
   newWallet: Boolean = true
 ) {
   Card(
-    backgroundColor = WalletColors.styleguide_blue_secondary,
+    colors = CardDefaults.cardColors(WalletColors.styleguide_blue_secondary),
     modifier = Modifier
       .fillMaxWidth()
       .padding(16.dp)
@@ -110,7 +120,11 @@ fun BalanceCardNewUser(onClickTopUp: () -> Unit) {
     Text(
       modifier = Modifier.padding(top = 16.dp, bottom = 24.dp),
       text = stringResource(id = R.string.intro_welcome_body),
-      style = TextStyle(color = WalletColors.styleguide_white, fontSize = 14.sp)
+      style = TextStyle(
+        color = WalletColors.styleguide_white,
+        fontSize = 14.sp,
+        textAlign = TextAlign.Center
+      )
     )
     ButtonWithIcon(
       icon = R.drawable.ic_topup,
@@ -136,5 +150,37 @@ fun PreviewBalanceCard() {
     onClickMenuOptions = {},
     showBackup = true,
     newWallet = false
+  )
+}
+
+@Preview
+@Composable
+fun PreviewBalanceCardWithoutBackup() {
+  BalanceCard(
+    balance = "€ 30.12",
+    currencyCode = "Eur",
+    onClickCurrencies = {},
+    onClickTransfer = {},
+    onClickBackup = {},
+    onClickTopUp = {},
+    onClickMenuOptions = {},
+    showBackup = false,
+    newWallet = false
+  )
+}
+
+@Preview
+@Composable
+fun PreviewNewWalletBalanceCard() {
+  BalanceCard(
+    balance = "€ 30.12",
+    currencyCode = "Eur",
+    onClickCurrencies = {},
+    onClickTransfer = {},
+    onClickBackup = {},
+    onClickTopUp = {},
+    onClickMenuOptions = {},
+    showBackup = true,
+    newWallet = true
   )
 }

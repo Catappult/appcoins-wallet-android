@@ -53,9 +53,9 @@ class BackupTriggerDialogFragment : BottomSheetDialogFragment(),
   override fun onCreateView(
     inflater: LayoutInflater, container: ViewGroup?,
     savedInstanceState: Bundle?
-  ): View? {
+  ): View {
     if (showing) dismiss() else showing = true
-    return inflater.inflate(R.layout.backup_trigger_dialog_fragment, container, false)
+    return BackupTriggerDialogFragmentBinding.inflate(inflater).root
   }
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

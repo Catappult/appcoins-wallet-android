@@ -5,20 +5,22 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import by.kirich1409.viewbindingdelegate.viewBinding
 import com.asf.wallet.R
+import com.asf.wallet.databinding.RemoveWalletFirstLayoutBinding
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import com.jakewharton.rxbinding2.view.RxView
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
-import kotlinx.android.synthetic.main.remove_wallet_first_layout.*
-import kotlinx.android.synthetic.main.wallet_outlined_card.*
 
 @AndroidEntryPoint
 class RemoveWalletFragment : BasePageViewFragment(), RemoveWalletView {
 
   private lateinit var presenter: RemoveWalletPresenter
   private lateinit var activityView: RemoveWalletActivityView
+
+  private val views by viewBinding(RemoveWalletFirstLayoutBinding::bind)
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
@@ -36,9 +38,7 @@ class RemoveWalletFragment : BasePageViewFragment(), RemoveWalletView {
   }
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                            savedInstanceState: Bundle?): View? {
-    return inflater.inflate(R.layout.remove_wallet_first_layout, container, false)
-  }
+                            savedInstanceState: Bundle?): View = RemoveWalletFirstLayoutBinding.inflate(inflater).root
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
@@ -46,17 +46,17 @@ class RemoveWalletFragment : BasePageViewFragment(), RemoveWalletView {
     presenter.present()
   }
 
-  override fun backUpWalletClick() = RxView.clicks(backup_button)
+  override fun backUpWalletClick() = RxView.clicks(views.backupButton)
 
-  override fun noBackUpWalletClick() = RxView.clicks(no_backup_button)
+  override fun noBackUpWalletClick() = RxView.clicks(views.noBackupButton)
 
   override fun navigateToBackUp() = activityView.navigateToBackUp(walletAddress)
 
   override fun proceedWithRemoveWallet() = activityView.navigateToWalletRemoveConfirmation()
 
   private fun setWalletBalance() {
-    wallet_address.text = walletAddress
-    wallet_balance.text = fiatBalance
+    views.walletCard.walletAddress.text = walletAddress
+    views.walletCard.walletBalance.text = fiatBalance
   }
 
   override fun onDestroyView() {

@@ -13,6 +13,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.text.bold
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import by.kirich1409.viewbindingdelegate.viewBinding
 import cm.aptoide.skills.databinding.FragmentSkillsBinding
 import cm.aptoide.skills.entity.UserData
 import cm.aptoide.skills.games.BackgroundGameService
@@ -60,15 +61,13 @@ class SkillsFragment : Fragment(), PaymentView {
   lateinit var eskillsUriParser: EskillsUriParser
 
   private lateinit var disposable: CompositeDisposable
-  private lateinit var binding: FragmentSkillsBinding
+
+  private val views by viewBinding(FragmentSkillsBinding::bind)
 
   override fun onCreateView(
     inflater: LayoutInflater, container: ViewGroup?,
     savedInstanceState: Bundle?
-  ): View {
-    binding = FragmentSkillsBinding.inflate(inflater, container, false)
-    return binding.root
-  }
+  ): View = FragmentSkillsBinding.inflate(inflater).root
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
@@ -86,7 +85,7 @@ class SkillsFragment : Fragment(), PaymentView {
 
     showPurchaseTicketLayout()
 
-    binding.payTicketLayout.dialogBuyButtonsPaymentMethods.cancelButton.setOnClickListener {
+    views.payTicketLayout.dialogBuyButtonsPaymentMethods.cancelButton.setOnClickListener {
       viewModel.cancelPayment()
     }
   }
@@ -101,38 +100,38 @@ class SkillsFragment : Fragment(), PaymentView {
       is UriValidationResult.Invalid -> showError(eSkillsPaymentData.requestCode)
       is UriValidationResult.Valid -> setupPurchaseTicketLayout(eSkillsPaymentData.paymentData)
     }
-    binding.payTicketLayout.root.visibility = View.VISIBLE
+    views.payTicketLayout.root.visibility = View.VISIBLE
   }
 
 
   private fun setupQueueIdLayout() {
-    binding.payTicketLayout.payTicketRoomDetails.openCardButton.setOnClickListener {
-      if (binding.payTicketLayout.payTicketRoomDetails.roomCreateBody.visibility == View.GONE) {
+    views.payTicketLayout.payTicketRoomDetails.openCardButton.setOnClickListener {
+      if (views.payTicketLayout.payTicketRoomDetails.roomCreateBody.visibility == View.GONE) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-          binding.payTicketLayout.payTicketRoomDetails.createRoomTitle.setTextAppearance(
+          views.payTicketLayout.payTicketRoomDetails.createRoomTitle.setTextAppearance(
             R.style.DialogTitleStyle
           )
         } else {
-          binding.payTicketLayout.payTicketRoomDetails.createRoomTitle.setTextAppearance(
+          views.payTicketLayout.payTicketRoomDetails.createRoomTitle.setTextAppearance(
             requireContext(),
             R.style.DialogTitleStyle
           )
         }
-        binding.payTicketLayout.payTicketRoomDetails.openCardButton.rotation = 180F
-        binding.payTicketLayout.payTicketRoomDetails.roomCreateBody.visibility = View.VISIBLE
+        views.payTicketLayout.payTicketRoomDetails.openCardButton.rotation = 180F
+        views.payTicketLayout.payTicketRoomDetails.roomCreateBody.visibility = View.VISIBLE
       } else {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-          binding.payTicketLayout.payTicketRoomDetails.createRoomTitle.setTextAppearance(
+          views.payTicketLayout.payTicketRoomDetails.createRoomTitle.setTextAppearance(
             R.style.DialogTextStyle
           )
         } else {
-          binding.payTicketLayout.payTicketRoomDetails.createRoomTitle.setTextAppearance(
+          views.payTicketLayout.payTicketRoomDetails.createRoomTitle.setTextAppearance(
             requireContext(),
             R.style.DialogTextStyle
           )
         }
-        binding.payTicketLayout.payTicketRoomDetails.openCardButton.rotation = 0F
-        binding.payTicketLayout.payTicketRoomDetails.roomCreateBody.visibility = View.GONE
+        views.payTicketLayout.payTicketRoomDetails.openCardButton.rotation = 0F
+        views.payTicketLayout.payTicketRoomDetails.roomCreateBody.visibility = View.GONE
       }
     }
   }
@@ -156,7 +155,7 @@ class SkillsFragment : Fragment(), PaymentView {
 
   private fun setupOnboarding(eSkillsPaymentData: EskillsPaymentData) {
     eSkillsPaymentData.environment = EskillsPaymentData.MatchEnvironment.SANDBOX
-    binding.onboardingLayout.root.visibility = View.VISIBLE
+    views.onboardingLayout.root.visibility = View.VISIBLE
     setupAppNameAndIcon(eSkillsPaymentData.packageName, true)
     setupOnboardingTicketButtons(eSkillsPaymentData)
   }
@@ -176,57 +175,57 @@ class SkillsFragment : Fragment(), PaymentView {
       showRootError()
     }
     else{
-      binding.onboardingLayout.dialogBuyButtonsPaymentMethods.buyButton.text = getString(R.string.start_button)
-      binding.onboardingLayout.referralDisplay.tooltip.referralCode.text =
+      views.onboardingLayout.dialogBuyButtonsPaymentMethods.buyButton.text = getString(R.string.start_button)
+      views.onboardingLayout.referralDisplay.tooltip.referralCode.text =
         String.format(getString(R.string.refer_a_friend_first_time_tooltip),BONUS_VALUE)
-      val tooltip_btn = binding.onboardingLayout.referralDisplay.actionButtonTooltipReferral
+      val tooltip_btn = views.onboardingLayout.referralDisplay.actionButtonTooltipReferral
       tooltip_btn
         .setOnClickListener {
-          if (binding.onboardingLayout.referralDisplay.tooltip.root.visibility == View.GONE){
-            binding.onboardingLayout.referralDisplay.tooltip.root.visibility = View.VISIBLE
+          if (views.onboardingLayout.referralDisplay.tooltip.root.visibility == View.GONE){
+            views.onboardingLayout.referralDisplay.tooltip.root.visibility = View.VISIBLE
           }
           else{
-            binding.onboardingLayout.referralDisplay.tooltip.root.visibility = View.GONE
+            views.onboardingLayout.referralDisplay.tooltip.root.visibility = View.GONE
           }
         }
-      binding.onboardingLayout.dialogBuyButtonsPaymentMethods.cancelButton.setOnClickListener {
+      views.onboardingLayout.dialogBuyButtonsPaymentMethods.cancelButton.setOnClickListener {
         viewModel.cancelPayment()
       }
-      binding.onboardingLayout.dialogBuyButtonsPaymentMethods.buyButton.setOnClickListener {
-        binding.onboardingLayout.dialogBuyButtonsPaymentMethods.buyButton.isEnabled = false
-        val referralCode = binding.onboardingLayout.referralDisplay.referralCode.text.toString()
+      views.onboardingLayout.dialogBuyButtonsPaymentMethods.buyButton.setOnClickListener {
+        views.onboardingLayout.dialogBuyButtonsPaymentMethods.buyButton.isEnabled = false
+        val referralCode = views.onboardingLayout.referralDisplay.referralCode.text.toString()
         if (!referralCode.isEmpty()){
           when (viewModel.useReferralCode(referralCode)) {
             is FailedReferral.GenericError -> {
-              binding.onboardingLayout.referralDisplay.referralCode.setTextColor(
+              views.onboardingLayout.referralDisplay.referralCode.setTextColor(
                 Color.RED)
-              binding.onboardingLayout.referralDisplay.errorMessage.visibility = View.VISIBLE
-              binding.onboardingLayout.referralDisplay.errorMessage.text = getString(R.string.refer_a_friend_error_unavailable_body)
-              binding.onboardingLayout.dialogBuyButtonsPaymentMethods.buyButton.isEnabled = true
+              views.onboardingLayout.referralDisplay.errorMessage.visibility = View.VISIBLE
+              views.onboardingLayout.referralDisplay.errorMessage.text = getString(R.string.refer_a_friend_error_unavailable_body)
+              views.onboardingLayout.dialogBuyButtonsPaymentMethods.buyButton.isEnabled = true
             }
             is FailedReferral.NotEligibleError -> {
-              binding.onboardingLayout.referralDisplay.referralCode.setTextColor(
+              views.onboardingLayout.referralDisplay.referralCode.setTextColor(
                 Color.RED)
-              binding.onboardingLayout.referralDisplay.errorMessage.visibility = View.VISIBLE
-              binding.onboardingLayout.referralDisplay.errorMessage.text = getString(R.string.refer_a_friend_error_user_not_eligible_body)
-              binding.onboardingLayout.dialogBuyButtonsPaymentMethods.buyButton.isEnabled = true
+              views.onboardingLayout.referralDisplay.errorMessage.visibility = View.VISIBLE
+              views.onboardingLayout.referralDisplay.errorMessage.text = getString(R.string.refer_a_friend_error_user_not_eligible_body)
+              views.onboardingLayout.dialogBuyButtonsPaymentMethods.buyButton.isEnabled = true
             }
             is FailedReferral.NotFoundError -> {
-              binding.onboardingLayout.referralDisplay.referralCode.setTextColor(
+              views.onboardingLayout.referralDisplay.referralCode.setTextColor(
                 Color.RED)
-              binding.onboardingLayout.referralDisplay.errorMessage.visibility = View.VISIBLE
-              binding.onboardingLayout.referralDisplay.errorMessage.text = getString(R.string.refer_a_friend_error_invalid_code_body)
-              binding.onboardingLayout.dialogBuyButtonsPaymentMethods.buyButton.isEnabled = true
+              views.onboardingLayout.referralDisplay.errorMessage.visibility = View.VISIBLE
+              views.onboardingLayout.referralDisplay.errorMessage.text = getString(R.string.refer_a_friend_error_invalid_code_body)
+              views.onboardingLayout.dialogBuyButtonsPaymentMethods.buyButton.isEnabled = true
             }
             is SuccessfulReferral -> {
-              binding.onboardingLayout.root.visibility = View.GONE
+              views.onboardingLayout.root.visibility = View.GONE
               createAndPayTicket(eSkillsPaymentData,true)
             }
 
           }
         }
         else{
-          binding.onboardingLayout.root.visibility = View.GONE
+          views.onboardingLayout.root.visibility = View.GONE
           createAndPayTicket(eSkillsPaymentData,true)
         }
       }
@@ -238,13 +237,13 @@ class SkillsFragment : Fragment(), PaymentView {
       showRootError()
     } else {
       hidePaymentRelatedText()
-      binding.payTicketLayout.dialogBuyButtonsPaymentMethods.buyButton.setOnClickListener {
-        binding.payTicketLayout.dialogBuyButtonsPaymentMethods.buyButton.isEnabled = false
-        val queueId = binding.payTicketLayout.payTicketRoomDetails.roomId.text.toString()
+      views.payTicketLayout.dialogBuyButtonsPaymentMethods.buyButton.setOnClickListener {
+        views.payTicketLayout.dialogBuyButtonsPaymentMethods.buyButton.isEnabled = false
+        val queueId = views.payTicketLayout.payTicketRoomDetails.roomId.text.toString()
         if (queueId.isNotBlank()) {
           eSkillsPaymentData.queueId = QueueIdentifier(queueId.trim(), true)
         }
-        binding.payTicketLayout.root.visibility = View.GONE
+        views.payTicketLayout.root.visibility = View.GONE
         createAndPayTicket(eSkillsPaymentData)
       }
     }
@@ -254,11 +253,11 @@ class SkillsFragment : Fragment(), PaymentView {
     eSkillsPaymentData: EskillsPaymentData
   ) {
 
-    binding.payTicketLayout.payTicketRoomDetails.copyButton.setOnClickListener {
-      val queueId = binding.payTicketLayout.payTicketRoomDetails.roomId.text.toString()
+    views.payTicketLayout.payTicketRoomDetails.copyButton.setOnClickListener {
+      val queueId = views.payTicketLayout.payTicketRoomDetails.roomId.text.toString()
       if (queueId.isNotEmpty()) {
         viewModel.saveQueueIdToClipboard(queueId.trim())
-        val tooltip = binding.payTicketLayout.payTicketRoomDetails.tooltipClipboard
+        val tooltip = views.payTicketLayout.payTicketRoomDetails.tooltipClipboard
         tooltip.visibility = View.VISIBLE
         view?.postDelayed({ tooltip.visibility = View.GONE }, CLIPBOARD_TOOLTIP_DELAY_SECONDS)
       }
@@ -271,21 +270,21 @@ class SkillsFragment : Fragment(), PaymentView {
       .map {
         if (it.first < it.second.amount) { // Not enough funds
           showNoFundsWarning()
-          binding.payTicketLayout.dialogBuyButtonsPaymentMethods.buyButton.text =
+          views.payTicketLayout.dialogBuyButtonsPaymentMethods.buyButton.text =
             getString(R.string.topup_button)
-          binding.payTicketLayout.dialogBuyButtonsPaymentMethods.buyButton.setOnClickListener {
+          views.payTicketLayout.dialogBuyButtonsPaymentMethods.buyButton.setOnClickListener {
             sendUserToTopUpFlow()
           }
         } else if (viewModel.getVerification() == EskillsVerification.VERIFIED) {
-          binding.payTicketLayout.dialogBuyButtonsPaymentMethods.buyButton.text =
+          views.payTicketLayout.dialogBuyButtonsPaymentMethods.buyButton.text =
             getString(R.string.buy_button)
-          binding.payTicketLayout.dialogBuyButtonsPaymentMethods.buyButton.setOnClickListener {
-            binding.payTicketLayout.dialogBuyButtonsPaymentMethods.buyButton.isEnabled = false
-            val queueId = binding.payTicketLayout.payTicketRoomDetails.roomId.text.toString()
+          views.payTicketLayout.dialogBuyButtonsPaymentMethods.buyButton.setOnClickListener {
+            views.payTicketLayout.dialogBuyButtonsPaymentMethods.buyButton.isEnabled = false
+            val queueId = views.payTicketLayout.payTicketRoomDetails.roomId.text.toString()
             if (queueId.isNotBlank()) {
               eSkillsPaymentData.queueId = QueueIdentifier(queueId.trim(), true)
             }
-            binding.payTicketLayout.root.visibility = View.GONE
+            views.payTicketLayout.root.visibility = View.GONE
             createAndPayTicket(eSkillsPaymentData)
           }
         } else if (RootUtil.isDeviceRooted()) {
@@ -293,29 +292,29 @@ class SkillsFragment : Fragment(), PaymentView {
         } else {
           when (getTopUpListStatus()) {
             Status.AVAILABLE -> {
-              binding.payTicketLayout.dialogBuyButtonsPaymentMethods.buyButton.text =
+              views.payTicketLayout.dialogBuyButtonsPaymentMethods.buyButton.text =
                 getString(R.string.buy_button)
-              binding.payTicketLayout.dialogBuyButtonsPaymentMethods.buyButton.setOnClickListener {
-                binding.payTicketLayout.dialogBuyButtonsPaymentMethods.buyButton.isEnabled = false
-                val queueId = binding.payTicketLayout.payTicketRoomDetails.roomId.text.toString()
+              views.payTicketLayout.dialogBuyButtonsPaymentMethods.buyButton.setOnClickListener {
+                views.payTicketLayout.dialogBuyButtonsPaymentMethods.buyButton.isEnabled = false
+                val queueId = views.payTicketLayout.payTicketRoomDetails.roomId.text.toString()
                 if (queueId.isNotBlank()) {
                   eSkillsPaymentData.queueId = QueueIdentifier(queueId.trim(), true)
                 }
-                binding.payTicketLayout.root.visibility = View.GONE
+                views.payTicketLayout.root.visibility = View.GONE
                 createAndPayTicket(eSkillsPaymentData)
               }
             }
             Status.NO_TOPUP -> {
               showNeedsTopUpWarning()
-              binding.payTicketLayout.dialogBuyButtonsPaymentMethods.buyButton.text =
+              views.payTicketLayout.dialogBuyButtonsPaymentMethods.buyButton.text =
                 getString(R.string.topup_button)
-              binding.payTicketLayout.dialogBuyButtonsPaymentMethods.buyButton.setOnClickListener {
+              views.payTicketLayout.dialogBuyButtonsPaymentMethods.buyButton.setOnClickListener {
                 sendUserToTopUpFlow()
               }
             }
             Status.PAYMENT_METHOD_NOT_SUPPORTED -> {
               showPaymentMethodNotSupported()
-              binding.payTicketLayout.dialogBuyButtonsPaymentMethods.buyButton.visibility =
+              views.payTicketLayout.dialogBuyButtonsPaymentMethods.buyButton.visibility =
                 View.GONE
             }
           }
@@ -338,16 +337,16 @@ class SkillsFragment : Fragment(), PaymentView {
     val appName = packageManager.getApplicationLabel(appInfo)
     val appIcon = packageManager.getApplicationIcon(packageName)
     if(onboarding){
-      binding.onboardingLayout.appIcon.setImageDrawable(appIcon)
+      views.onboardingLayout.appIcon.setImageDrawable(appIcon)
     }
     else{
-      binding.payTicketLayout.payTicketHeader.appName.text = appName
-      binding.payTicketLayout.payTicketHeader.appIcon.setImageDrawable(appIcon)
+      views.payTicketLayout.payTicketHeader.appName.text = appName
+      views.payTicketLayout.payTicketHeader.appIcon.setImageDrawable(appIcon)
     }
   }
 
   private fun updateHeaderInfo(eSkillsPaymentData: EskillsPaymentData) {
-    val details = binding.payTicketLayout.payTicketPaymentMethodsDetails
+    val details = views.payTicketLayout.payTicketPaymentMethodsDetails
     disposable.addAll(
       viewModel.getLocalFiatAmount(eSkillsPaymentData.price!!, eSkillsPaymentData.currency!!)
         .observeOn(AndroidSchedulers.mainThread())
@@ -429,21 +428,21 @@ class SkillsFragment : Fragment(), PaymentView {
   }
 
   private fun hidePaymentRelatedText() {
-    binding.payTicketLayout.payTicketPaymentMethodsDetails.appcCreditsIcon?.visibility = View.GONE
-    binding.payTicketLayout.payTicketPaymentMethodsDetails.paymentTitle?.visibility = View.GONE
-    binding.payTicketLayout.payTicketPaymentMethodsDetails.paymentBody?.visibility = View.GONE
-    binding.payTicketLayout.payTicketPaymentMethodsDetails.fiatPrice.visibility = View.GONE
-    binding.payTicketLayout.payTicketPaymentMethodsDetails.appcPrice.visibility = View.GONE
-    binding.payTicketLayout.dialogBuyButtonsPaymentMethods.buyButton.text = getString(R.string.ok)
+    views.payTicketLayout.payTicketPaymentMethodsDetails.appcCreditsIcon?.visibility = View.GONE
+    views.payTicketLayout.payTicketPaymentMethodsDetails.paymentTitle?.visibility = View.GONE
+    views.payTicketLayout.payTicketPaymentMethodsDetails.paymentBody?.visibility = View.GONE
+    views.payTicketLayout.payTicketPaymentMethodsDetails.fiatPrice.visibility = View.GONE
+    views.payTicketLayout.payTicketPaymentMethodsDetails.appcPrice.visibility = View.GONE
+    views.payTicketLayout.dialogBuyButtonsPaymentMethods.buyButton.text = getString(R.string.ok)
   }
 
   private fun showRegionNotSupportedError() {
-    binding.loadingTicketLayout.root.visibility = View.GONE
-    binding.refundTicketLayout.root.visibility = View.GONE
-    binding.walletVersionNotSupportedLayout.root.visibility = View.GONE
-    binding.errorLayout.root.visibility = View.GONE
-    binding.geofencingLayout.root.visibility = View.VISIBLE
-    binding.geofencingLayout.okButton.setOnClickListener {
+    views.loadingTicketLayout.root.visibility = View.GONE
+    views.refundTicketLayout.root.visibility = View.GONE
+    views.walletVersionNotSupportedLayout.root.visibility = View.GONE
+    views.errorLayout.root.visibility = View.GONE
+    views.geofencingLayout.root.visibility = View.VISIBLE
+    views.geofencingLayout.okButton.setOnClickListener {
       finishWithError(SkillsViewModel.RESULT_REGION_NOT_SUPPORTED)
     }
   }
@@ -454,9 +453,9 @@ class SkillsFragment : Fragment(), PaymentView {
   }
 
   private fun showRefundedLayout() {
-    binding.loadingTicketLayout.root.visibility = View.GONE
-    binding.refundTicketLayout.root.visibility = View.VISIBLE
-    binding.refundTicketLayout.refundOkButton.setOnClickListener { requireActivity().finish() }
+    views.loadingTicketLayout.root.visibility = View.GONE
+    views.refundTicketLayout.root.visibility = View.VISIBLE
+    views.refundTicketLayout.refundOkButton.setOnClickListener { requireActivity().finish() }
   }
 
   override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -493,33 +492,33 @@ class SkillsFragment : Fragment(), PaymentView {
   }
 
   private fun showWalletCreationLoadingAnimation() {
-    binding.createWalletLayout.root.visibility = View.VISIBLE
-    binding.createWalletLayout.createWalletAnimation.playAnimation()
+    views.createWalletLayout.root.visibility = View.VISIBLE
+    views.createWalletLayout.createWalletAnimation.playAnimation()
   }
 
   private fun endWalletCreationLoadingAnimation() {
-    binding.createWalletLayout.root.visibility = View.GONE
+    views.createWalletLayout.root.visibility = View.GONE
   }
 
   private fun showRoomLoading(isCancelActive: Boolean, queueIdentifier: QueueIdentifier? = null) {
     if (isCancelActive) {
       if (queueIdentifier != null && queueIdentifier.setByUser) {
-        binding.loadingTicketLayout.loadingTitle.text = SpannableStringBuilder()
+        views.loadingTicketLayout.loadingTitle.text = SpannableStringBuilder()
           .append(getString(R.string.finding_room_name_loading_title))
           .bold { append(" ${queueIdentifier.id}") }
       } else {
-        binding.loadingTicketLayout.loadingTitle.text =
+        views.loadingTicketLayout.loadingTitle.text =
           getString(R.string.finding_room_loading_title)
       }
-      binding.loadingTicketLayout.cancelButton.isEnabled = true
-      binding.loadingTicketLayout.cancelButton.setOnClickListener {
+      views.loadingTicketLayout.cancelButton.isEnabled = true
+      views.loadingTicketLayout.cancelButton.setOnClickListener {
         disposable.add(viewModel.cancelTicket()
           .subscribe { _, _ -> })
       }
     } else {
-      binding.loadingTicketLayout.loadingTitle.text = getString(R.string.processing_loading_title)
+      views.loadingTicketLayout.loadingTitle.text = getString(R.string.processing_loading_title)
     }
-    binding.loadingTicketLayout.root.visibility = View.VISIBLE
+    views.loadingTicketLayout.root.visibility = View.VISIBLE
   }
 
 
@@ -529,7 +528,7 @@ class SkillsFragment : Fragment(), PaymentView {
       .doOnSuccess { referralResponse ->
         if (referralResponse.available) {
           setReferralLayout(referralResponse)
-          binding.loadingTicketLayout.referralShareDisplay.baseConstraint.visibility = View.VISIBLE
+          views.loadingTicketLayout.referralShareDisplay.baseConstraint.visibility = View.VISIBLE
         }
         else{
           if (referralResponse.count!= 0)//If not default error Referral
@@ -540,18 +539,18 @@ class SkillsFragment : Fragment(), PaymentView {
   }
 
   private fun setReferralLayout(referralResponse: ReferralResponse) {
-    binding.loadingTicketLayout.referralShareDisplay.actionButtonShareReferral
+    views.loadingTicketLayout.referralShareDisplay.actionButtonShareReferral
       .setOnClickListener {
         startActivity(viewModel.buildShareIntent(referralResponse.referralCode))
       }
-    binding.loadingTicketLayout.referralShareDisplay.tooltip.popupText.text =
+    views.loadingTicketLayout.referralShareDisplay.tooltip.popupText.text =
       String.format(getString(R.string.refer_a_friend_waiting_room_tooltip), '1')
     val tooltipBtn =
-      binding.loadingTicketLayout.referralShareDisplay.actionButtonTooltipReferral
+      views.loadingTicketLayout.referralShareDisplay.actionButtonTooltipReferral
     tooltipBtn
       .setOnClickListener {
-        if (binding.loadingTicketLayout.referralShareDisplay.tooltip.root.visibility == View.VISIBLE) {
-          binding.loadingTicketLayout.referralShareDisplay.tooltip.root.visibility = View.INVISIBLE
+        if (views.loadingTicketLayout.referralShareDisplay.tooltip.root.visibility == View.VISIBLE) {
+          views.loadingTicketLayout.referralShareDisplay.tooltip.root.visibility = View.INVISIBLE
           tooltipBtn.setImageDrawable(
             ContextCompat.getDrawable(
               requireContext(),
@@ -559,7 +558,7 @@ class SkillsFragment : Fragment(), PaymentView {
             )
           )
         } else {
-          binding.loadingTicketLayout.referralShareDisplay.tooltip.root.visibility =
+          views.loadingTicketLayout.referralShareDisplay.tooltip.root.visibility =
             View.VISIBLE
           tooltipBtn.setImageDrawable(
             ContextCompat.getDrawable(
@@ -570,15 +569,15 @@ class SkillsFragment : Fragment(), PaymentView {
         }
 
       }
-    binding.loadingTicketLayout.root
+    views.loadingTicketLayout.root
       .setOnClickListener {
-        if (binding.loadingTicketLayout.referralShareDisplay.tooltip.root.visibility == View.VISIBLE) {
-          binding.loadingTicketLayout.referralShareDisplay.tooltip.root.visibility = View.INVISIBLE
-          binding.loadingTicketLayout.referralShareDisplay.actionButtonTooltipReferral.colorFilter =
+        if (views.loadingTicketLayout.referralShareDisplay.tooltip.root.visibility == View.VISIBLE) {
+          views.loadingTicketLayout.referralShareDisplay.tooltip.root.visibility = View.INVISIBLE
+          views.loadingTicketLayout.referralShareDisplay.actionButtonTooltipReferral.colorFilter =
             null
         }
       }
-    binding.loadingTicketLayout.referralShareDisplay.referralCode.text =
+    views.loadingTicketLayout.referralShareDisplay.referralCode.text =
       referralResponse.referralCode
 
   }
@@ -608,12 +607,12 @@ class SkillsFragment : Fragment(), PaymentView {
   }
 
   override fun showLoading() {
-    binding.geofencingLayout.root.visibility = View.GONE
-    binding.walletVersionNotSupportedLayout.root.visibility = View.GONE
-    binding.refundTicketLayout.root.visibility = View.GONE
-    binding.errorLayout.root.visibility = View.GONE
-    binding.loadingTicketLayout.loadingTitle.text = getString(R.string.processing_payment_title)
-    binding.loadingTicketLayout.root.visibility = View.VISIBLE
+    views.geofencingLayout.root.visibility = View.GONE
+    views.walletVersionNotSupportedLayout.root.visibility = View.GONE
+    views.refundTicketLayout.root.visibility = View.GONE
+    views.errorLayout.root.visibility = View.GONE
+    views.loadingTicketLayout.loadingTitle.text = getString(R.string.processing_payment_title)
+    views.loadingTicketLayout.root.visibility = View.VISIBLE
   }
 
   override fun hideLoading() {
@@ -621,12 +620,12 @@ class SkillsFragment : Fragment(), PaymentView {
   }
 
   override fun showError(errorCode: Int) {
-    binding.loadingTicketLayout.root.visibility = View.GONE
-    binding.refundTicketLayout.root.visibility = View.GONE
-    binding.geofencingLayout.root.visibility = View.GONE
-    binding.walletVersionNotSupportedLayout.root.visibility = View.GONE
-    binding.errorLayout.root.visibility = View.VISIBLE
-    binding.errorLayout.errorOkButton.setOnClickListener {
+    views.loadingTicketLayout.root.visibility = View.GONE
+    views.refundTicketLayout.root.visibility = View.GONE
+    views.geofencingLayout.root.visibility = View.GONE
+    views.walletVersionNotSupportedLayout.root.visibility = View.GONE
+    views.errorLayout.root.visibility = View.VISIBLE
+    views.errorLayout.errorOkButton.setOnClickListener {
       finishWithError(errorCode)
     }
   }
@@ -641,27 +640,27 @@ class SkillsFragment : Fragment(), PaymentView {
   }
 
   override fun showNoNetworkError() {
-    binding.loadingTicketLayout.root.visibility = View.GONE
-    binding.refundTicketLayout.root.visibility = View.GONE
-    binding.errorLayout.root.visibility = View.GONE
-    binding.noNetworkLayout.root.visibility = View.VISIBLE
-    binding.noNetworkLayout.noNetworkOkButton.setOnClickListener {
+    views.loadingTicketLayout.root.visibility = View.GONE
+    views.refundTicketLayout.root.visibility = View.GONE
+    views.errorLayout.root.visibility = View.GONE
+    views.noNetworkLayout.root.visibility = View.VISIBLE
+    views.noNetworkLayout.noNetworkOkButton.setOnClickListener {
       finishWithError(SkillsViewModel.RESULT_SERVICE_UNAVAILABLE)
     }
   }
 
   override fun showRootError() {
-    binding.errorLayout.errorMessage.text = getString(R.string.rooted_device_blocked_body)
+    views.errorLayout.errorMessage.text = getString(R.string.rooted_device_blocked_body)
     showError(SkillsViewModel.RESULT_ROOT_ERROR)
   }
 
   override fun showWalletVersionNotSupportedError() {
-    binding.loadingTicketLayout.root.visibility = View.GONE
-    binding.refundTicketLayout.root.visibility = View.GONE
-    binding.errorLayout.root.visibility = View.GONE
-    binding.geofencingLayout.root.visibility = View.GONE
-    binding.walletVersionNotSupportedLayout.root.visibility = View.VISIBLE
-    binding.walletVersionNotSupportedLayout.updateButton.setOnClickListener {
+    views.loadingTicketLayout.root.visibility = View.GONE
+    views.refundTicketLayout.root.visibility = View.GONE
+    views.errorLayout.root.visibility = View.GONE
+    views.geofencingLayout.root.visibility = View.GONE
+    views.walletVersionNotSupportedLayout.root.visibility = View.VISIBLE
+    views.walletVersionNotSupportedLayout.updateButton.setOnClickListener {
       startActivity(viewModel.buildUpdateIntent())
       finishWithError(SkillsViewModel.RESULT_WALLET_VERSION_ERROR)
     }
@@ -669,37 +668,37 @@ class SkillsFragment : Fragment(), PaymentView {
 
   // Only temporary
   override fun showNeedsTopUpWarning() {
-    binding.errorLayout.errorMessage.text = getString(R.string.top_up_needed_body)
-    binding.loadingTicketLayout.root.visibility = View.GONE
-    binding.refundTicketLayout.root.visibility = View.GONE
-    binding.geofencingLayout.root.visibility = View.GONE
-    binding.walletVersionNotSupportedLayout.root.visibility = View.GONE
-    binding.errorLayout.root.visibility = View.VISIBLE
-    binding.errorLayout.errorOkButton.setOnClickListener {
-      binding.errorLayout.root.visibility = View.GONE
+    views.errorLayout.errorMessage.text = getString(R.string.top_up_needed_body)
+    views.loadingTicketLayout.root.visibility = View.GONE
+    views.refundTicketLayout.root.visibility = View.GONE
+    views.geofencingLayout.root.visibility = View.GONE
+    views.walletVersionNotSupportedLayout.root.visibility = View.GONE
+    views.errorLayout.root.visibility = View.VISIBLE
+    views.errorLayout.errorOkButton.setOnClickListener {
+      views.errorLayout.root.visibility = View.GONE
     }
   }
 
   override fun showPaymentMethodNotSupported() {
-    binding.errorLayout.errorMessage.text =
+    views.errorLayout.errorMessage.text =
       getString(R.string.error_message_local_payment_method_body)
-    binding.loadingTicketLayout.root.visibility = View.GONE
-    binding.refundTicketLayout.root.visibility = View.GONE
-    binding.geofencingLayout.root.visibility = View.GONE
-    binding.errorLayout.root.visibility = View.VISIBLE
-    binding.errorLayout.errorOkButton.setOnClickListener {
-      binding.errorLayout.root.visibility = View.GONE
+    views.loadingTicketLayout.root.visibility = View.GONE
+    views.refundTicketLayout.root.visibility = View.GONE
+    views.geofencingLayout.root.visibility = View.GONE
+    views.errorLayout.root.visibility = View.VISIBLE
+    views.errorLayout.errorOkButton.setOnClickListener {
+      views.errorLayout.root.visibility = View.GONE
     }
   }
 
   override fun showNoFundsWarning() {
-    binding.errorLayout.errorMessage.text = getString(R.string.not_enough_funds_body)
-    binding.loadingTicketLayout.root.visibility = View.GONE
-    binding.refundTicketLayout.root.visibility = View.GONE
-    binding.geofencingLayout.root.visibility = View.GONE
-    binding.errorLayout.root.visibility = View.VISIBLE
-    binding.errorLayout.errorOkButton.setOnClickListener {
-      binding.errorLayout.root.visibility = View.GONE
+    views.errorLayout.errorMessage.text = getString(R.string.not_enough_funds_body)
+    views.loadingTicketLayout.root.visibility = View.GONE
+    views.refundTicketLayout.root.visibility = View.GONE
+    views.geofencingLayout.root.visibility = View.GONE
+    views.errorLayout.root.visibility = View.VISIBLE
+    views.errorLayout.errorOkButton.setOnClickListener {
+      views.errorLayout.root.visibility = View.GONE
     }
   }
 

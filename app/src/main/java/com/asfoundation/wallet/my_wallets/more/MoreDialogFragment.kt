@@ -30,7 +30,7 @@ class MoreDialogFragment : BottomSheetDialogFragment(),
     inflater: LayoutInflater,
     container: ViewGroup?,
     savedInstanceState: Bundle?
-  ): View? = inflater.inflate(R.layout.fragment_my_wallets_more, container, false)
+  ): View = FragmentMyWalletsMoreBinding.inflate(inflater).root
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
