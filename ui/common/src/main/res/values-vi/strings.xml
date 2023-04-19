@@ -892,6 +892,7 @@
   <string name="perks_gamif_subtitle">Bạn càng dùng nhiều tiền trong các ứng dụng yêu thích, tiền thưởng cũng sẽ càng lớn!</string>
   <string name="perks_title">Khuyến mãi</string>
   <string name="perks_body">Cùng đón chờ! Chúng tôi có chương trình khuyến mãi đặc biệt dành cho bạn.</string>
+  <string name="promotion_ends_short_title">Promotion ends in</string>
   <plurals name="promotion_ends">
     <item quantity="other">Chương trình khuyến mãi sẽ kết thúc trong %s ngày.</item>
   </plurals>
