@@ -892,6 +892,7 @@
   <string name="perks_gamif_subtitle">좋아하는 앱을 더 많이 사용하면 할수록 더 큰 보너스를 받게 됩니다!</string>
   <string name="perks_title">프로모션</string>
   <string name="perks_body">기대해 주세요! 당신을 위한 특별 프로모션을 준비하고 있습니다.</string>
+  <string name="promotion_ends_short_title">Promotion ends in</string>
   <plurals name="promotion_ends">
     <item quantity="other">프로모션은 %s일 안에 끝납니다.</item>
   </plurals>
