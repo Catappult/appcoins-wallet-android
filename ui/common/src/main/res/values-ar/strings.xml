@@ -898,6 +898,7 @@
   <string name="perks_gamif_subtitle">كلما أنفقت أكثر في تطبيقاتك المفضلة، كانت المكافأة أكبر!</string>
   <string name="perks_title">ترقيات</string>
   <string name="perks_body">ترقّبوا! لدينا ترقيات خاصة من أجلك.</string>
+  <string name="promotion_ends_short_title">Promotion ends in</string>
   <plurals name="promotion_ends">
     <item quantity="zero">تنتهي الترقيات خلال %s يومًا.</item>
     <item quantity="one">تنتهي الترقية خلال يوم واحد.</item>
