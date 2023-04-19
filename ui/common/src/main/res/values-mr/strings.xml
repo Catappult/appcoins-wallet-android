@@ -897,6 +897,7 @@
   <string name="perks_gamif_subtitle">आपण आपल्या आवडत्या अॅप्समध्ये जितका जास्त खर्च कराल, तितका मोठा बोनस मिळेल!</string>
   <string name="perks_title">प्रमोशन्स</string>
   <string name="perks_body">संलग्न रहा! आपल्यासाठी आमच्याकडे खास प्रमोशन्स आहेत.</string>
+  <string name="promotion_ends_short_title">Promotion ends in</string>
   <plurals name="promotion_ends">
     <item quantity="one">%s दिवसात प्रमोशन संपत आहे.
 
