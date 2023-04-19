@@ -10,7 +10,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.appcoins.wallet.ui.common.theme.WalletColors
 import com.appcoins.wallet.ui.widgets.component.AlertMessageWithIcon
-import com.appcoins.wallet.ui.widgets.component.ButtonWithText
+import com.appcoins.wallet.ui.widgets.component.LargeButtonWithText
 
 @Composable
 fun BackupAlertCard(onClickButton: () -> Unit) {
@@ -21,7 +21,7 @@ fun BackupAlertCard(onClickButton: () -> Unit) {
       message = "${stringResource(id = R.string.backup_wallet_tooltip)} ${stringResource(id = R.string.backup_title)}"
     )
     Spacer(modifier = Modifier.height(16.dp))
-    ButtonWithText(
+    LargeButtonWithText(
       label = R.string.action_backup_wallet,
       outlineColor = WalletColors.styleguide_white,
       labelColor = WalletColors.styleguide_white,

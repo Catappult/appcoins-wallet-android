@@ -62,7 +62,7 @@ fun ButtonWithIcon(
 }
 
 @Composable
-fun ButtonWithText(
+fun LargeButtonWithText(
   label: Int,
   onClick: () -> Unit,
   backgroundColor: Color = Color.Transparent,
@@ -88,7 +88,7 @@ fun ButtonWithText(
 }
 
 @Composable
-fun ButtonWithTextExpanded(
+fun ButtonWithText(
   label: Int,
   onClick: () -> Unit,
   backgroundColor: Color = Color.Transparent,
@@ -128,7 +128,7 @@ fun PreviewRoundedButtonWithIcon() {
 @Preview
 @Composable
 fun PreviewButtonWithText() {
-  ButtonWithText(
+  LargeButtonWithText(
     backgroundColor = WalletColors.styleguide_pink,
     labelColor = WalletColors.styleguide_white,
     label = R.string.action_add_wallet,

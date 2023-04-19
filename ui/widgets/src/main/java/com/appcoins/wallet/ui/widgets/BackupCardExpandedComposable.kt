@@ -9,7 +9,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.appcoins.wallet.ui.common.theme.WalletColors
 import com.appcoins.wallet.ui.widgets.component.AlertMessageWithIcon
-import com.appcoins.wallet.ui.widgets.component.ButtonWithTextExpanded
+import com.appcoins.wallet.ui.widgets.component.ButtonWithText
 
 @Composable
 fun BackupAlertCardExpanded(onClickButton: () -> Unit) {
@@ -19,7 +19,7 @@ fun BackupAlertCardExpanded(onClickButton: () -> Unit) {
       title = stringResource(id = R.string.intro_backup_card_title),
       message = "${stringResource(id = R.string.backup_wallet_tooltip)} ${stringResource(id = R.string.backup_title)}"
     )
-    ButtonWithTextExpanded(
+    ButtonWithText(
       label = R.string.action_backup_wallet,
       outlineColor = WalletColors.styleguide_white,
       labelColor = WalletColors.styleguide_white,
