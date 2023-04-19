@@ -893,6 +893,7 @@
   <string name="perks_gamif_subtitle">Favori uygulamalarınızda ne kadar fazla harcarsanız o kadar fazla bonus kazanırsınız!</string>
   <string name="perks_title">Promosyonlar</string>
   <string name="perks_body">Takipte kalın! Sizin için özel promosyonlarımız var.</string>
+  <string name="promotion_ends_short_title">Promotion ends in</string>
   <plurals name="promotion_ends">
     <item quantity="one">Promosyon %s gün içinde sona eriyor.</item>
     <item quantity="other">Promosyon %s gün içinde sona eriyor.</item>
