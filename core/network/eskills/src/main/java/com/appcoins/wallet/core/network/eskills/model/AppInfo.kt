@@ -1,11 +1,9 @@
 package com.appcoins.wallet.core.network.eskills.model
 
-import com.google.gson.annotations.SerializedName
+import com.fasterxml.jackson.annotation.JsonProperty
 
-class AppInfo(
-  @SerializedName("data") val data: AppData
+data class AppInfo(
+  @JsonProperty("data")
+  var data: AppData
 )
 
-class AppData(
-  @SerializedName("uname") val uname: String
-)
