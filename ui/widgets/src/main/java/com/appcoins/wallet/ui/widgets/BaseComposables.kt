@@ -1,6 +1,7 @@
 package com.appcoins.wallet.ui.widgets
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
@@ -44,10 +45,10 @@ fun VectorIconButton(imageVector: ImageVector, contentDescription: Int, onClick:
       modifier =
       Modifier
         .size(32.dp)
-        .background(WalletColors.styleguide_blue, shape = RoundedCornerShape(8.dp)),
+        .background(WalletColors.styleguide_blue, shape = RoundedCornerShape(8.dp))
+        .padding(4.dp)
     )
   }
-
 }
 
 @Preview
