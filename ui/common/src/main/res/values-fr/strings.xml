@@ -893,6 +893,7 @@
   <string name="perks_gamif_subtitle">Plus vous dépensez dans vos applications préférées, plus le bonus est important !</string>
   <string name="perks_title">Promotions</string>
   <string name="perks_body">Restez à l\'écoute ! Nous avons des promotions spéciales pour vous.</string>
+  <string name="promotion_ends_short_title">Promotion ends in</string>
   <plurals name="promotion_ends">
     <item quantity="one">La promotion se termine dans %s jour.</item>
     <item quantity="other">La promotion se termine dans %s jours.</item>
