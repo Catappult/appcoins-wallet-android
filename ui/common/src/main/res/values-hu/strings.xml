@@ -893,6 +893,7 @@
   <string name="perks_gamif_subtitle">Minél többet költesz a kedvenc alkalmazásaiban, annál nagyobb a bónusz!</string>
   <string name="perks_title">Promóciók</string>
   <string name="perks_body">Maradj velünk! Különleges promóciók várnak rád.</string>
+  <string name="promotion_ends_short_title">Promotion ends in</string>
   <plurals name="promotion_ends">
     <item quantity="one">A promóció %s nap múlva ér véget.</item>
     <item quantity="other">A promóció %s nap múlva ér véget.</item>
