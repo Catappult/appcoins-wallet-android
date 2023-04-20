@@ -1,7 +1,10 @@
 package com.appcoins.wallet.ui.widgets
 
+import android.content.ActivityNotFoundException
+import android.content.Context
+import android.content.Intent
+import android.net.Uri
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
@@ -11,22 +14,24 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.core.content.ContextCompat.startActivity
 import coil.compose.AsyncImage
 import com.appcoins.wallet.ui.common.theme.WalletColors
-import java.time.LocalDateTime
+
 
 @Composable
 fun GamesBundle(
   items: List<GameCardData>,
-  onCardClick: () -> Unit
+  fetchFromApiCallback: () -> Unit
 ) {
+  fetchFromApiCallback()
   LazyRow(
     modifier = Modifier.padding(
       top = 16.dp
@@ -35,7 +40,7 @@ fun GamesBundle(
     horizontalArrangement = Arrangement.spacedBy(16.dp)
   ) {
     items(items) { item ->
-      CardItem(gameCardData = item, onCardClick = onCardClick)
+      CardItem(gameCardData = item)
     }
   }
 }
@@ -48,12 +53,17 @@ data class GameCardData(
   val onClick: () -> Unit
 )
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun CardItem(gameCardData: GameCardData, onCardClick: () -> Unit) {
+private fun CardItem(
+  gameCardData: GameCardData
+) {
+  val context = LocalContext.current
   Card(
     colors = CardDefaults.cardColors(WalletColors.styleguide_blue_secondary) ,
     elevation = CardDefaults.cardElevation(4.dp),
     shape = RoundedCornerShape(8.dp),
+    onClick = { openGame(gameCardData.gamePackage, context) },
     modifier = Modifier
       .width(300.dp)
       .height(150.dp)
@@ -127,32 +137,30 @@ fun CardItem(gameCardData: GameCardData, onCardClick: () -> Unit) {
             .align(Alignment.Bottom)
             .padding(bottom = 6.dp, end = 12.dp)
         )
-
       }
     }
-
-//    Column(
-//      modifier = Modifier
-//        .clickable { onCardClick }
-//    ) {
-//      Column(/*modifier = Modifier.padding(16.dp)*/) {
-//
-//
-//
-////        Text(text = gameCardData.title, style = MaterialTheme.typography.h5)
-////        Text(
-////          text = gameCardData.title,
-////          style = MaterialTheme.typography.subtitle1,
-////          modifier = Modifier.padding(top = 8.dp)
-////        )
-////        Text(
-////          text = "Promotion starts on ${gameCardData.title}",
-////          style = MaterialTheme.typography.caption,
-////          modifier = Modifier.padding(top = 8.dp)
-////        )
-//      }
-//    }
   }
+}
+
+private fun openGame(gamePackage: String, context: Context) {
+  try {
+    val launchIntent: Intent? = context.packageManager.getLaunchIntentForPackage(gamePackage)
+    if (launchIntent != null)
+      startActivity(context, launchIntent, null)
+    else
+      getGame(gamePackage, context)
+  } catch (e: Throwable) {
+    getGame(gamePackage, context)
+  }
+}
+
+private fun getGame(gamePackage: String, context: Context) {
+  try {
+    val intent = Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=$gamePackage"))
+    startActivity(context, intent, null)
+  } catch (e: ActivityNotFoundException) {
+
+    }
 }
 
 @Preview
@@ -175,7 +183,5 @@ fun previewGamesBundle() {
         onClick = { }
       )
     )
-  ) {
-
-  }
+  )
 }

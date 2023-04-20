@@ -171,7 +171,7 @@ class HomeFragment: BasePageViewFragment(), SingleStateFragment<HomeState, HomeS
             onClick = { }
           )
         ),
-        onCardClick = { }    //TODO
+
       )
       NftCard(
         onClick = { navigateToNft() }
