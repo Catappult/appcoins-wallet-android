@@ -28,7 +28,7 @@ import com.appcoins.wallet.ui.common.theme.WalletColors
 
 @Composable
 fun GamesBundle(
-  items: List<GameCardData>,
+  items: List<GameData>,
   fetchFromApiCallback: () -> Unit
 ) {
   fetchFromApiCallback()
@@ -45,18 +45,10 @@ fun GamesBundle(
   }
 }
 
-data class GameCardData(
-  val title: String,
-  val gameIcon: String,
-  val gameBackground: String,
-  val gamePackage: String,
-  val onClick: () -> Unit
-)
-
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun CardItem(
-  gameCardData: GameCardData
+  gameCardData: GameData
 ) {
   val context = LocalContext.current
   Card(
@@ -156,32 +148,47 @@ private fun openGame(gamePackage: String, context: Context) {
 
 private fun getGame(gamePackage: String, context: Context) {
   try {
-    val intent = Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=$gamePackage"))
+    val intent = Intent(
+      Intent.ACTION_VIEW,
+      Uri.parse("market://details?id=$gamePackage")
+    )
+    intent.setPackage("cm.aptoide.pt")
     startActivity(context, intent, null)
-  } catch (e: ActivityNotFoundException) {
-
-    }
+  } catch (_: ActivityNotFoundException) {
+    // no store, go to aptoide webpage
+    val intent = Intent(
+      Intent.ACTION_VIEW,
+      Uri.parse("https://en.aptoide.com/")
+    )
+    startActivity(context, intent, null)
+  }
 }
+
+data class GameData(
+  val title: String,
+  val gameIcon: String,
+  val gameBackground: String,
+  val gamePackage: String
+)
 
 @Preview
 @Composable
-fun previewGamesBundle() {
+fun PreviewGamesBundle() {
   GamesBundle(
     items = listOf(
-      GameCardData(
+      GameData(
         title = "Mobile Legends",
         gameIcon = "https://cdn6.aptoide.com/imgs/b/3/e/b3e336be6c4874605cbc597d811d1822_icon.png?w=128",
         gameBackground = "https://cdn6.aptoide.com/imgs/e/e/0/ee0469bf46c9a4423baf41fe8dd59b43_screen.jpg",
         gamePackage = "com.mobile.legends",
-        onClick = { }
       ),
-      GameCardData(
+      GameData(
         title = "Lords Mobile",
         gameIcon = "https://cdn6.aptoide.com/imgs/0/7/e/07eb83a511499243706f0c791b0b8969_icon.png?w=128",
         gameBackground = "https://cdn6.aptoide.com/imgs/4/d/a/4dafe1624f6f5d626e8761dbe903e9a0_screen.jpg",
         gamePackage = "com.igg.android.lordsmobile",
-        onClick = { }
       )
-    )
+    ),
+    {}
   )
 }

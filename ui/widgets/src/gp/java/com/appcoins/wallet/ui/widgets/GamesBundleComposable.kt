@@ -15,5 +15,4 @@ data class GameCardData(
   val gameIcon: String,
   val gameBackground: String,
   val gamePackage: String,
-  val onClick: () -> Unit
 )

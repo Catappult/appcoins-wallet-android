@@ -4,6 +4,7 @@ import android.content.Intent
 import android.net.Uri
 import android.text.format.DateUtils
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import com.appcoins.wallet.core.network.backend.model.GamificationStatus
 import com.appcoins.wallet.core.utils.android_common.RxSchedulers
 import com.appcoins.wallet.core.utils.properties.APTOIDE_TOP_APPS_URL
@@ -15,6 +16,7 @@ import com.appcoins.wallet.sharedpreferences.BackupTriggerPreferencesDataSource.
 import com.appcoins.wallet.sharedpreferences.BackupTriggerPreferencesDataSource.TriggerSource.NEW_LEVEL
 import com.appcoins.wallet.ui.arch.*
 import com.appcoins.wallet.ui.arch.data.Async
+import com.appcoins.wallet.ui.widgets.GameData
 import com.asfoundation.wallet.backup.triggers.TriggerUtils.toJson
 import com.asfoundation.wallet.backup.use_cases.ShouldShowBackupTriggerUseCase
 import com.asfoundation.wallet.billing.analytics.WalletsAnalytics
@@ -89,6 +91,7 @@ class HomeViewModel @Inject constructor(
   private val findDefaultWalletUseCase: FindDefaultWalletUseCase,
   private val observeDefaultWalletUseCase: ObserveDefaultWalletUseCase,
   private val dismissCardNotificationUseCase: DismissCardNotificationUseCase,
+  private val getGamesListingUseCase: GetGamesListingUseCase,
   private val getLevelsUseCase: GetLevelsUseCase,
   private val getUserLevelUseCase: GetUserLevelUseCase,
   private val observeUserStatsUseCase: ObserveUserStatsUseCase,
@@ -109,6 +112,7 @@ class HomeViewModel @Inject constructor(
   private val refreshCardNotifications = BehaviorSubject.createDefault(true)
   val balance = mutableStateOf(FiatValue())
   val newWallet = mutableStateOf(false)
+  val gamesList = mutableStateOf(listOf<GameData>())
 
   companion object {
     fun initialState(): HomeState {
@@ -277,6 +281,17 @@ class HomeViewModel @Inject constructor(
         Single.error(IllegalStateException(status.name))
       }
       .toObservable()
+  }
+
+  fun fetchGamesListing() {
+    getGamesListingUseCase()
+      .subscribeOn(rxSchedulers.io)
+      .subscribe (
+        {
+          gamesList.value = it
+        },
+        { e -> e.printStackTrace() }
+      )
   }
 
   private fun verifyUserLevel() {
