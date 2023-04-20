@@ -49,8 +49,6 @@ class OnboardingLocalPaymentViewModel @Inject constructor(
     private var args: OnboardingLocalPaymentFragmentArgs =
         OnboardingLocalPaymentFragmentArgs.fromSavedStateHandle(savedStateHandle)
 
-    private lateinit var scheduler: Scheduler
-
     init {
         getPaymentLink()
     }
@@ -84,13 +82,13 @@ class OnboardingLocalPaymentViewModel @Inject constructor(
             currency = args.currency,
             packageName = args.transactionBuilder.domain
         ).asAsyncToState {
-            args.transactionBuilder.let {
+            args.transactionBuilder.let { transactionBuilder ->
                 events.sendLocalNavigationToUrlEvents(
                     BuildConfig.APPLICATION_ID,
-                    it.skuId,
-                    it.amount().toString(),
-                    it.type,
-                    it.chainId.toString()
+                    transactionBuilder.skuId,
+                    transactionBuilder.amount().toString(),
+                    transactionBuilder.type,
+                    transactionBuilder.chainId.toString()
                 )
             }
             copy(urlString = it)

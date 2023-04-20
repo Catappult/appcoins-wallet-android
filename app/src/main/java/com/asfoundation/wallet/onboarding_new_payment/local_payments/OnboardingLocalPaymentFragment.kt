@@ -162,8 +162,4 @@ class OnboardingLocalPaymentFragment : BasePageViewFragment(),
         bundle.putString(InAppPurchaseInteractor.PRE_SELECTED_PAYMENT_METHOD_KEY, paymentId)
     }
 
-    enum class ViewState {
-        NONE, COMPLETED, PENDING_USER_PAYMENT, ERROR, LOADING
-    }
-
 }
