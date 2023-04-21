@@ -32,11 +32,8 @@
   <string name="purchase_error_title">Oups, quelque chose s\'est mal passé.</string>
   <string name="purchase_eskills_sku">Ticket d\'entrée</string>
   <string name="shared_room_waiting">En attente d\'adversaires pour %s</string>
-  <string name="rooted_device_blocked_body">Malheureusement, vous ne pouvez pas jouer aux jeux e-Skills avec un appareil rooté.\"</string>
   <string name="update_wallet">Update wallet</string>
-  <string name="top_up_needed_body">Pour des raisons de sécurité, vous devez effectuer au moins une recharge dans votre portefeuille pour jouer aux jeux e-Skills.</string>
-  <string name="not_enough_funds_body">Vous n\'avez pas assez de fonds ! Veuillez recharger pour acheter le billet d\'entrée.</string>
-  <string name="error_message_local_payment_method_body">Les méthodes de paiement locales ne sont pas acceptées pour acheter les frais d\'inscription. Veuillez créer un nouveau portefeuille et le recharger avec une carte bancaire ou PayPal !</string>
+  <!-- Update wallet -->
   <string name="update_not_supported_title">La version Wallet n\'est pas prise en charge !</string>
   <string name="update_not_supported_body">Mettez à jour le AppCoins Wallet vers la dernière version.</string>
   <string name="update_button">Mise à jour</string>
@@ -51,4 +48,10 @@
   <string name="refer_a_friend_waiting_room_title">Invite a Friend!</string>
   <string name="refer_a_friend_waiting_from_body">Obtenez un bonus pour chaque ami que vous invitez.</string>
   <string name="refer_a_friend_invitation_message">You\'ve been invited to play %1$s! Use the invite code %2$s after downloading it from %3$s.</string>
+  <!-- Error messages -->
+  <string name="error_vpn_not_permitted_title">e-Skills games cannot be played with an active VPN. Please disable it and try again!</string>
+  <string name="top_up_needed_body">Pour des raisons de sécurité, vous devez effectuer au moins une recharge dans votre portefeuille pour jouer aux jeux e-Skills.</string>
+  <string name="not_enough_funds_body">Vous n\'avez pas assez de fonds ! Veuillez recharger pour acheter le billet d\'entrée.</string>
+  <string name="error_message_local_payment_method_body">Les méthodes de paiement locales ne sont pas acceptées pour acheter les frais d\'inscription. Veuillez créer un nouveau portefeuille et le recharger avec une carte bancaire ou PayPal !</string>
+  <string name="rooted_device_blocked_body">Unfortunately, you cannot play e-Skills games with a rooted device.</string>
 </resources>
