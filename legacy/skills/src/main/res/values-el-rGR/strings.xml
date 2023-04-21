@@ -32,11 +32,8 @@
   <string name="purchase_error_title">Ωχ, κάτι πήγε στραβά.</string>
   <string name="purchase_eskills_sku">Εισιτήριο εισόδου</string>
   <string name="shared_room_waiting">Αναμονή αντιπάλων για να μπουν στο %s</string>
-  <string name="rooted_device_blocked_body">Δυστυχώς δεν μπορείτε να παίξετε παιχνίδια e-Skills με συσκευή \"rooted.\"</string>
   <string name="update_wallet">Update wallet</string>
-  <string name="top_up_needed_body">Για λόγους ασφαλείας, πρέπει να εκτελέσετε τουλάχιστον μία φόρτιση στο wallet σας για να παίξετε παιχνίδια e-Skills.</string>
-  <string name="not_enough_funds_body">Δεν έχετε αρκετά χρήματα! Παρακαλούμε φορτίστε για να αγοράσετε το εισιτήριο εισόδου.</string>
-  <string name="error_message_local_payment_method_body">Οι τοπικές μέθοδοι πληρωμής δεν γίνονται αποδεκτές για την αγορά ενός εισιτηρίου εισόδου. Παρακαλούμε δημιουργήστε ένα νέο wallet και φορτίστε το με μία τραπεζική κάρτα ή με PayPal!</string>
+  <!-- Update wallet -->
   <string name="update_not_supported_title">Μη υποστηριζόμενη έκδοση wallet!</string>
   <string name="update_not_supported_body">Ενημερώστε το AppCoins Wallet στην τελευταία έκδοση.</string>
   <string name="update_button">Ενημέρωση</string>
@@ -51,4 +48,10 @@
   <string name="refer_a_friend_waiting_room_title">Invite a Friend!</string>
   <string name="refer_a_friend_waiting_from_body">Get a bonus for each friend you invite.</string>
   <string name="refer_a_friend_invitation_message">You\'ve been invited to play %1$s! Use the invite code %2$s after downloading it from %3$s.</string>
+  <!-- Error messages -->
+  <string name="error_vpn_not_permitted_title">e-Skills games cannot be played with an active VPN. Please disable it and try again!</string>
+  <string name="top_up_needed_body">Για λόγους ασφαλείας, πρέπει να εκτελέσετε τουλάχιστον μία φόρτιση στο wallet σας για να παίξετε παιχνίδια e-Skills.</string>
+  <string name="not_enough_funds_body">Δεν έχετε αρκετά χρήματα! Παρακαλούμε φορτίστε για να αγοράσετε το εισιτήριο εισόδου.</string>
+  <string name="error_message_local_payment_method_body">Οι τοπικές μέθοδοι πληρωμής δεν γίνονται αποδεκτές για την αγορά ενός εισιτηρίου εισόδου. Παρακαλούμε δημιουργήστε ένα νέο wallet και φορτίστε το με μία τραπεζική κάρτα ή με PayPal!</string>
+  <string name="rooted_device_blocked_body">Unfortunately, you cannot play e-Skills games with a rooted device.</string>
 </resources>
