@@ -32,11 +32,8 @@
   <string name="purchase_error_title">Ojej, coś poszło nie tak.</string>
   <string name="purchase_eskills_sku">Bilet wstępu</string>
   <string name="shared_room_waiting">Oczekiwanie na przeciwników w %s</string>
-  <string name="rooted_device_blocked_body">Niestety nie możesz korzystać z e-Skills na zakorzenionym urządzeniu</string>
   <string name="update_wallet">Update wallet</string>
-  <string name="top_up_needed_body">Ze względów bezpieczeństwa musisz uzupełnić portfel przynajmnije raz, by grać w gry e-Skills.</string>
-  <string name="not_enough_funds_body">Brak wystarczających środków! Doładuj portfel, by kupić bilet wstępu.</string>
-  <string name="error_message_local_payment_method_body">Lokalne metody płatności nie są akceptowane do zakupu wejścia. Utwórz nowy portfel i uzupełnij go kartą bankową lub PayPal!</string>
+  <!-- Update wallet -->
   <string name="update_not_supported_title">Ta wersja portfela nie jest obsługiwana!</string>
   <string name="update_not_supported_body">Zaktualizuj aplikację AppCoins Wallet do najnowszej wersji.</string>
   <string name="update_button">Aktualizuj</string>
@@ -51,4 +48,10 @@
   <string name="refer_a_friend_waiting_room_title">Invite a Friend!</string>
   <string name="refer_a_friend_waiting_from_body">Otrzymaj bonus za każdego zaproszonego znajomego.</string>
   <string name="refer_a_friend_invitation_message">You\'ve been invited to play %1$s! Use the invite code %2$s after downloading it from %3$s.</string>
+  <!-- Error messages -->
+  <string name="error_vpn_not_permitted_title">e-Skills games cannot be played with an active VPN. Please disable it and try again!</string>
+  <string name="top_up_needed_body">Ze względów bezpieczeństwa musisz uzupełnić portfel przynajmnije raz, by grać w gry e-Skills.</string>
+  <string name="not_enough_funds_body">Brak wystarczających środków! Doładuj portfel, by kupić bilet wstępu.</string>
+  <string name="error_message_local_payment_method_body">Lokalne metody płatności nie są akceptowane do zakupu wejścia. Utwórz nowy portfel i uzupełnij go kartą bankową lub PayPal!</string>
+  <string name="rooted_device_blocked_body">Unfortunately, you cannot play e-Skills games with a rooted device.</string>
 </resources>
