@@ -32,11 +32,8 @@
   <string name="purchase_error_title">Ups, došlo je do greške.</string>
   <string name="purchase_eskills_sku">Ulaznica</string>
   <string name="shared_room_waiting">Čekaju se protivnici da se pridruže %s</string>
-  <string name="rooted_device_blocked_body">Nažalost, ne možete igrati e-Skills igre sa \"rutovanim\" uređajem.*</string>
   <string name="update_wallet">Update wallet</string>
-  <string name="top_up_needed_body">Iz bezbednosnih razloga, potrebno je da dopunite bar jednom svoj novčanik da biste igrali e-Skills igre.</string>
-  <string name="not_enough_funds_body">Nemate dovoljno sredstava! Dopunite da biste kupili ulaznicu.</string>
-  <string name="error_message_local_payment_method_body">Lokalni načini plaćanja nisu podržani za kupovinu ulaznice. Napravite novi novčanik i dopunite ga pomoću bankovne kartice ili PayPal-a!</string>
+  <!-- Update wallet -->
   <string name="update_not_supported_title">Verzija novčanika nije podržana!</string>
   <string name="update_not_supported_body">Ažurirajte AppCoins Wallet na najnoviju verziju.</string>
   <string name="update_button">Ažuriraj</string>
@@ -51,4 +48,10 @@
   <string name="refer_a_friend_waiting_room_title">Invite a Friend!</string>
   <string name="refer_a_friend_waiting_from_body">Osvojite bonus za svakog prijatelja koga pozovete.</string>
   <string name="refer_a_friend_invitation_message">You\'ve been invited to play %1$s! Use the invite code %2$s after downloading it from %3$s.</string>
+  <!-- Error messages -->
+  <string name="error_vpn_not_permitted_title">e-Skills games cannot be played with an active VPN. Please disable it and try again!</string>
+  <string name="top_up_needed_body">Iz bezbednosnih razloga, potrebno je da dopunite bar jednom svoj novčanik da biste igrali e-Skills igre.</string>
+  <string name="not_enough_funds_body">Nemate dovoljno sredstava! Dopunite da biste kupili ulaznicu.</string>
+  <string name="error_message_local_payment_method_body">Lokalni načini plaćanja nisu podržani za kupovinu ulaznice. Napravite novi novčanik i dopunite ga pomoću bankovne kartice ili PayPal-a!</string>
+  <string name="rooted_device_blocked_body">Unfortunately, you cannot play e-Skills games with a rooted device.</string>
 </resources>
