@@ -32,11 +32,8 @@
   <string name="purchase_error_title">問題が発生しました。</string>
   <string name="purchase_eskills_sku">エントリーチケット</string>
   <string name="shared_room_waiting">対戦相手が%sに参加するのを待っています</string>
-  <string name="rooted_device_blocked_body">残念ながら、ルート化されたデバイスではe-Skillsのゲームをプレイすることはできません。</string>
   <string name="update_wallet">Update wallet</string>
-  <string name="top_up_needed_body">セキュリティ上の理由から、e-Skillsのゲームをプレイするには、ウォレットに少なくとも1回のトップアップを行う必要があります。</string>
-  <string name="not_enough_funds_body">資金が足りません。エントリーチケットを購入するためにチャージしてください。</string>
-  <string name="error_message_local_payment_method_body">エントリーチケットの購入には、現地での支払い方法は認められていません。新しいウォレットを作成し、銀行カードまたはPayPalでチャージしてください。</string>
+  <!-- Update wallet -->
   <string name="update_not_supported_title">ウォレットのバージョンに対応していません</string>
   <string name="update_not_supported_body">AppCoins Walletを最新バージョンに更新</string>
   <string name="update_button">アップデート</string>
@@ -51,4 +48,10 @@
   <string name="refer_a_friend_waiting_room_title">Invite a Friend!</string>
   <string name="refer_a_friend_waiting_from_body">Get a bonus for each friend you invite.</string>
   <string name="refer_a_friend_invitation_message">You\'ve been invited to play %1$s! Use the invite code %2$s after downloading it from %3$s.</string>
+  <!-- Error messages -->
+  <string name="error_vpn_not_permitted_title">e-Skills games cannot be played with an active VPN. Please disable it and try again!</string>
+  <string name="top_up_needed_body">セキュリティ上の理由から、e-Skillsのゲームをプレイするには、ウォレットに少なくとも1回のトップアップを行う必要があります。</string>
+  <string name="not_enough_funds_body">資金が足りません。エントリーチケットを購入するためにチャージしてください。</string>
+  <string name="error_message_local_payment_method_body">エントリーチケットの購入には、現地での支払い方法は認められていません。新しいウォレットを作成し、銀行カードまたはPayPalでチャージしてください。</string>
+  <string name="rooted_device_blocked_body">Unfortunately, you cannot play e-Skills games with a rooted device.</string>
 </resources>
