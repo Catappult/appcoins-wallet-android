@@ -32,11 +32,8 @@
   <string name="purchase_error_title">Ops! Qualcosa è andato storto.</string>
   <string name="purchase_eskills_sku">Biglietto d\'ingresso</string>
   <string name="shared_room_waiting">In attesa di avversari che si uniscano a %s</string>
-  <string name="rooted_device_blocked_body">Purtroppo non è possibile usare i giochi e-Skills da un dispositivo con permesso di root.\"</string>
   <string name="update_wallet">Update wallet</string>
-  <string name="top_up_needed_body">Per motivi di sicurezza è necessario effettuare almeno una ricarica sul wallet prima di usare i giochi e-Skills.</string>
-  <string name="not_enough_funds_body">Non hai abbastanza fondi! Effettua una ricarica per acquistare il biglietto d\'ingresso.</string>
-  <string name="error_message_local_payment_method_body">I metodi di pagamento locali non sono validi per l\'acquisto di un biglietto d\'ingresso. Crea un nuovo wallet e ricaricalo con una carta o con PayPal!</string>
+  <!-- Update wallet -->
   <string name="update_not_supported_title">Versione wallet non supportata!</string>
   <string name="update_not_supported_body">Aggiorna l\'AppCoins Wallet all\'utima versione disponibile.</string>
   <string name="update_button">Aggiorna</string>
@@ -51,4 +48,10 @@
   <string name="refer_a_friend_waiting_room_title">Invite a Friend!</string>
   <string name="refer_a_friend_waiting_from_body">Get a bonus for each friend you invite.</string>
   <string name="refer_a_friend_invitation_message">You\'ve been invited to play %1$s! Use the invite code %2$s after downloading it from %3$s.</string>
+  <!-- Error messages -->
+  <string name="error_vpn_not_permitted_title">e-Skills games cannot be played with an active VPN. Please disable it and try again!</string>
+  <string name="top_up_needed_body">Per motivi di sicurezza è necessario effettuare almeno una ricarica sul wallet prima di usare i giochi e-Skills.</string>
+  <string name="not_enough_funds_body">Non hai abbastanza fondi! Effettua una ricarica per acquistare il biglietto d\'ingresso.</string>
+  <string name="error_message_local_payment_method_body">I metodi di pagamento locali non sono validi per l\'acquisto di un biglietto d\'ingresso. Crea un nuovo wallet e ricaricalo con una carta o con PayPal!</string>
+  <string name="rooted_device_blocked_body">Unfortunately, you cannot play e-Skills games with a rooted device.</string>
 </resources>
