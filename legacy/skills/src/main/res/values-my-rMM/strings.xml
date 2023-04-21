@@ -32,11 +32,8 @@
   <string name="purchase_error_title">အိုး တစ္ခုခု မွားသြားပါသည္။</string>
   <string name="purchase_eskills_sku">ဝင္ေရာက္ခြင့္လက္မွတ္</string>
   <string name="shared_room_waiting">%s တြင္ ပါဝင္မည့္ ၿပိဳင္ဖက္မ်ားကို ေစာင့္ေနပါသည္</string>
-  <string name="rooted_device_blocked_body">ကံမေကာင္းစြာျဖင့္ Root လုပ္ထားေသာ ကိရိယာတစ္ခုတြင္ e-Skills ဂိမ္းမ်ားကို သင္မကစားႏိုင္ပါ။\"</string>
   <string name="update_wallet">Update wallet</string>
-  <string name="top_up_needed_body">လုံၿခဳံေရး အေၾကာင္းရင္းမ်ားအတြက္ e-Skills ဂိမ္းမ်ားကို ကစားရန္ သင့္ပိုက္ဆံအိတ္ကို အနည္းဆုံးတစ္ႀကိမ္ ေငြျဖည့္ရန္ လိုအပ္ပါသည္။</string>
-  <string name="not_enough_funds_body">သင့္တြင္ ေငြအလုံအေလာက္ မရွိပါ။ ဝင္ခြင့္လက္မွတ္ ဝယ္ယူရန္ ေငြျဖည့္ေပးပါ။</string>
-  <string name="error_message_local_payment_method_body">ဝင္ေၾကးကို ဝယ္ယူရန္ ေဒသတြင္း ေငြေပးေခ်မႈ နည္းလမ္းမ်ားကို လက္မခံပါ။ ပိုက္ဆံအိတ္အသစ္ တစ္ခုျပဳလုပ္ကာ ဘဏ္ကဒ္ သို႔မဟုတ္ PayPal ျဖင့္ ေငြျဖည့္ေပးပါ။</string>
+  <!-- Update wallet -->
   <string name="update_not_supported_title">ပိုက္ဆံအိတ္ ဗားရွင္းကို ပံ့ပိုးမႈ မေပးပါ။</string>
   <string name="update_not_supported_body">AppCoins Wallet ကို ေနာက္ဆုံးထြက္ျဖစ္ေအာင္ အပ္ဒိတ္လုပ္ပါ။</string>
   <string name="update_button">အပ္ဒိတ္</string>
@@ -51,4 +48,10 @@
   <string name="refer_a_friend_waiting_room_title">Invite a Friend!</string>
   <string name="refer_a_friend_waiting_from_body">သင္ဖိတ္ေခၚေသာ သူငယ္ခ်င္း တစ္ဦးစီအတြက္ ေဘာနပ္တစ္ခု ရယူလိုက္ပါ။</string>
   <string name="refer_a_friend_invitation_message">You\'ve been invited to play %1$s! Use the invite code %2$s after downloading it from %3$s.</string>
+  <!-- Error messages -->
+  <string name="error_vpn_not_permitted_title">e-Skills games cannot be played with an active VPN. Please disable it and try again!</string>
+  <string name="top_up_needed_body">လုံၿခဳံေရး အေၾကာင္းရင္းမ်ားအတြက္ e-Skills ဂိမ္းမ်ားကို ကစားရန္ သင့္ပိုက္ဆံအိတ္ကို အနည္းဆုံးတစ္ႀကိမ္ ေငြျဖည့္ရန္ လိုအပ္ပါသည္။</string>
+  <string name="not_enough_funds_body">သင့္တြင္ ေငြအလုံအေလာက္ မရွိပါ။ ဝင္ခြင့္လက္မွတ္ ဝယ္ယူရန္ ေငြျဖည့္ေပးပါ။</string>
+  <string name="error_message_local_payment_method_body">ဝင္ေၾကးကို ဝယ္ယူရန္ ေဒသတြင္း ေငြေပးေခ်မႈ နည္းလမ္းမ်ားကို လက္မခံပါ။ ပိုက္ဆံအိတ္အသစ္ တစ္ခုျပဳလုပ္ကာ ဘဏ္ကဒ္ သို႔မဟုတ္ PayPal ျဖင့္ ေငြျဖည့္ေပးပါ။</string>
+  <string name="rooted_device_blocked_body">Unfortunately, you cannot play e-Skills games with a rooted device.</string>
 </resources>
