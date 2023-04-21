@@ -5,7 +5,8 @@ import com.appcoins.wallet.core.network.eskills.model.AppInfo
 import io.reactivex.Single
 import javax.inject.Inject
 
-class AppMetaDataRepository @Inject constructor(private val appDataApi: AppDataApi)  {
+class AppMetaDataRepository @Inject constructor(
+  private val appDataApi: AppDataApi)  {
 
   fun getMeta(
     packageName: String
