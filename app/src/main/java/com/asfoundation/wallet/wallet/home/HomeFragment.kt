@@ -9,9 +9,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
@@ -21,6 +23,9 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.ComposeView
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.core.content.res.ResourcesCompat
@@ -28,6 +33,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.NavHostFragment
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
+import com.appcoins.wallet.core.utils.android_common.DateFormatterUtils
 import com.appcoins.wallet.core.utils.android_common.RootUtil
 import com.appcoins.wallet.core.utils.android_common.WalletCurrency.FIAT
 import com.appcoins.wallet.ui.arch.SingleStateFragment
@@ -36,9 +42,15 @@ import com.appcoins.wallet.ui.common.theme.WalletColors
 import com.appcoins.wallet.ui.widgets.BalanceCard
 import com.appcoins.wallet.ui.widgets.NftCard
 import com.appcoins.wallet.ui.widgets.TopBar
+import com.appcoins.wallet.ui.widgets.TransactionCard
 import com.asf.wallet.R
+import com.asfoundation.wallet.C.ETHER_DECIMALS
 import com.asfoundation.wallet.entity.GlobalBalance
 import com.asfoundation.wallet.support.SupportNotificationProperties
+import com.asfoundation.wallet.transactions.Transaction
+import com.asfoundation.wallet.transactions.Transaction.*
+import com.asfoundation.wallet.transactions.Transaction.TransactionType.*
+import com.asfoundation.wallet.transactions.TransactionDetails
 import com.asfoundation.wallet.ui.widget.entity.TransactionsModel
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
@@ -154,42 +166,67 @@ class HomeFragment: BasePageViewFragment(), SingleStateFragment<HomeState, HomeS
           )
         }
       //TODO replace with home composables
-      DummyCard()
-      DummyCard()
-      DummyCard()
-      DummyCard()
-      DummyCard()
+      TransactionsList(transactionsGrouped = viewModel.transactionsGrouped.value)
       NftCard(
         onClick = { navigateToNft() }
       )
     }
   }
 
+  @OptIn(ExperimentalFoundationApi::class)
   @Composable
-  fun DummyCard() {
-    Card(
+  fun TransactionsList(
+    transactionsGrouped: Map<String, List<Transaction>>
+  ) {
+    Column(
       modifier = Modifier
-        .padding(
-          start = 16.dp,
-          end = 16.dp,
-          top = 16.dp
-        )
-        .fillMaxWidth()
-        .height(200.dp),
-      shape = RoundedCornerShape(8.dp),
-      colors = CardDefaults.cardColors(WalletColors.styleguide_blue_secondary),
+        .heightIn(0.dp, 400.dp)
+        .padding(horizontal = 16.dp)
     ) {
-      Column(
-        modifier = Modifier
-          .padding(16.dp),
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
-      ) {
-        Text(
-          text = "Home Screen",
-          style = MaterialTheme.typography.titleMedium,
-          color = WalletColors.styleguide_white
-        )
+      Text(
+        text = stringResource(R.string.intro_transactions_header),
+        modifier = Modifier.padding(start = 8.dp, bottom = 8.dp),
+        style = MaterialTheme.typography.bodyMedium,
+        fontWeight = FontWeight.Bold,
+        color = WalletColors.styleguide_dark_grey
+      )
+      Card(
+        colors = CardDefaults.cardColors(WalletColors.styleguide_blue_secondary)
+      )
+      {
+        Box(
+          contentAlignment = Alignment.TopEnd
+        ) {
+          LazyColumn(userScrollEnabled = false, modifier = Modifier.padding(vertical = 8.dp)) {
+            transactionsGrouped.forEach { (date, transactionsForDate) ->
+              stickyHeader {
+                Text(
+                  text = date,
+                  color = WalletColors.styleguide_medium_grey,
+                  modifier = Modifier.padding(start = 16.dp, bottom = 8.dp, top = 16.dp),
+                  style = MaterialTheme.typography.bodySmall
+                )
+              }
+              items(transactionsForDate) { transaction ->
+                TransactionCard(
+                  icon = painterResource(id = transaction.cardInfoByType().icon),
+                  title = stringResource(id = transaction.cardInfoByType().title),
+                  description = transaction.cardInfoByType().description,
+                  amount = transaction.cardInfoByType().amount,
+                  currency = transaction.cardInfoByType().currency,
+                  subIcon = transaction.cardInfoByType().subIcon
+                )
+              }
+            }
+          }
+          TextButton(onClick = {}) {
+            Text(
+              text = stringResource(R.string.see_all_button),
+              color = WalletColors.styleguide_pink,
+              style = MaterialTheme.typography.bodyMedium,
+            )
+          }
+        }
       }
     }
   }
@@ -198,6 +235,127 @@ class HomeFragment: BasePageViewFragment(), SingleStateFragment<HomeState, HomeS
   @Composable
   fun HomeScreenPreview() {
     HomeScreen()
+  }
+
+  @Preview
+  @Composable
+  fun PreviewTransactionList() {
+    TransactionsList(
+      mapOf(
+        "Apr, 20 2023" to listOf<Transaction>(
+          Transaction(
+            "",
+            BONUS,
+            null,
+            Method.APPC,
+            "Title",
+            "Subtitle",
+            Perk.PACKAGE_PERK,
+            "",
+            123456,
+            12345,
+            TransactionStatus.SUCCESS,
+            "APPC",
+            "",
+            "",
+            TransactionDetails(
+              "",
+              TransactionDetails.Icon(TransactionDetails.Icon.Type.FILE, ""),
+              ""
+            ),
+            "APP-C",
+            listOf(),
+            listOf(),
+            "12.0",
+            "€",
+            ""
+          ),
+          Transaction(
+            "",
+            BONUS,
+            null,
+            Method.APPC,
+            "Title",
+            "Subtitle",
+            Perk.PACKAGE_PERK,
+            "",
+            123456,
+            12345,
+            TransactionStatus.SUCCESS,
+            "APPC",
+            "",
+            "",
+            TransactionDetails(
+              "",
+              TransactionDetails.Icon(TransactionDetails.Icon.Type.FILE, ""),
+              ""
+            ),
+            "APP-C",
+            listOf(),
+            listOf(),
+            "12.0",
+            "APP_CC",
+            ""
+          )
+        ),
+        "Apr, 19 2023" to listOf<Transaction>(
+          Transaction(
+            "",
+            BONUS,
+            null,
+            Method.APPC,
+            "Title",
+            "Subtitle",
+            Perk.PACKAGE_PERK,
+            "",
+            123456,
+            12345,
+            TransactionStatus.SUCCESS,
+            "APPC",
+            "",
+            "",
+            TransactionDetails(
+              "",
+              TransactionDetails.Icon(TransactionDetails.Icon.Type.FILE, ""),
+              ""
+            ),
+            "APP-C",
+            listOf(),
+            listOf(),
+            "12.0",
+            "APP_CC",
+            ""
+          ),
+          Transaction(
+            "",
+            BONUS,
+            null,
+            Method.APPC,
+            "Title",
+            "Subtitle",
+            Perk.PACKAGE_PERK,
+            "",
+            123456,
+            12345,
+            TransactionStatus.SUCCESS,
+            "APPC",
+            "",
+            "",
+            TransactionDetails(
+              "",
+              TransactionDetails.Icon(TransactionDetails.Icon.Type.FILE, ""),
+              ""
+            ),
+            "APP-C",
+            listOf(),
+            listOf(),
+            "12.0",
+            "APP_CC",
+            ""
+          )
+        )
+      )
+    )
   }
 
   override fun onStateChanged(state: HomeState) {
@@ -282,8 +440,14 @@ class HomeFragment: BasePageViewFragment(), SingleStateFragment<HomeState, HomeS
       is Async.Loading -> {
         //TODO loading
       }
-      is Async.Success ->
+
+      is Async.Success -> {
         viewModel.newWallet.value = transactionsModel().transactions.isEmpty()
+        viewModel.transactionsGrouped.value =
+          transactionsModel().transactions.groupBy { DateFormatterUtils.getDate(it.timeStamp) }
+        println(transactionsModel().transactions.distinctBy { it.transactionId }.size.toString() + " " + viewModel.transactionsGrouped.value)
+      }
+
       else -> Unit
     }
   }
@@ -300,5 +464,44 @@ class HomeFragment: BasePageViewFragment(), SingleStateFragment<HomeState, HomeS
 
     navigator.navigateToNfts(navController)
   }
+
+  private fun Transaction.cardInfoByType() = when (this.type) {
+    STANDARD -> TODO()
+    IAP -> TODO()
+    ADS -> TODO()
+    IAP_OFFCHAIN -> TODO()
+    ADS_OFFCHAIN -> TODO()
+    BONUS -> TransactionCardInfo(
+      icon = R.drawable.ic_transaction_reward,
+      title = R.string.transaction_type_bonus,
+      amount = formatter.getScaledValue(value, ETHER_DECIMALS.toLong(), "", false),
+      currency = currency
+    )
+
+    TOP_UP -> TransactionCardInfo(
+      icon = R.drawable.ic_transaction_topup,
+      title = R.string.topup_title,
+      amount = formatter.getScaledValue(paidAmount!!, 0, "", false),
+      currency = "${
+        formatter.getScaledValue(
+          value,
+          ETHER_DECIMALS.toLong(),
+          currency ?: "",
+          false
+        )
+      } $currency"
+    )
+
+    TRANSFER_OFF_CHAIN -> TODO()
+    BONUS_REVERT -> TODO()
+    TOP_UP_REVERT -> TODO()
+    IAP_REVERT -> TODO()
+    SUBS_OFFCHAIN -> TODO()
+    ESKILLS_REWARD -> TODO()
+    ESKILLS -> TODO()
+    TRANSFER -> TODO()
+    ETHER_TRANSFER -> TODO()
+  }
+
 
 }

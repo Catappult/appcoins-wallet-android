@@ -3,6 +3,7 @@ package com.asfoundation.wallet.wallet.home
 import android.content.Intent
 import android.net.Uri
 import android.text.format.DateUtils
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import com.appcoins.wallet.core.network.backend.model.GamificationStatus
 import com.appcoins.wallet.core.utils.android_common.RxSchedulers
@@ -109,6 +110,7 @@ class HomeViewModel @Inject constructor(
   private val refreshCardNotifications = BehaviorSubject.createDefault(true)
   val balance = mutableStateOf(FiatValue())
   val newWallet = mutableStateOf(false)
+  val transactionsGrouped: MutableState<Map<String, List<Transaction>>> = mutableStateOf(emptyMap())
 
   companion object {
     fun initialState(): HomeState {

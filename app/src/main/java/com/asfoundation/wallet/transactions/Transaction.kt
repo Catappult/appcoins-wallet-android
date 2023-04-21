@@ -46,4 +46,13 @@ data class Transaction(
 
   @Parcelize
   enum class TransactionStatus : Parcelable { SUCCESS, FAILED, PENDING }
+
+  data class TransactionCardInfo(
+    val icon: Int,
+    val title: Int,
+    val description: String? = null,
+    val amount: String? = null,
+    val currency: String? = null,
+    val subIcon: Int? = null
+  )
 }
