@@ -32,11 +32,8 @@
   <string name="purchase_error_title">ييي، حدث خطأ.</string>
   <string name="purchase_eskills_sku">بطاقة الدخول</string>
   <string name="shared_room_waiting">في انتظار خصومك للانضمام إلى %s</string>
-  <string name="rooted_device_blocked_body">لسوء الحظ، لا يمكنك التمتع بألعاب e_Skills بجهاز خضع للتجذير (روت).\"</string>
   <string name="update_wallet">Update wallet</string>
-  <string name="top_up_needed_body">لأسباب أمنية، أنت بحاجة إلى زيادة رصيدك لمرة واحدة على الأقل في محفظتك لتلعب ألعاب e-Skills.</string>
-  <string name="not_enough_funds_body">ليس لديك رصيد كافٍ! يرجى زيادة رصيدك لتشتري تذكِرة الدخول.</string>
-  <string name="error_message_local_payment_method_body">وسائل الدفع المحلية غير مقبولة لدفع رسوم الدخول. يرجى إنشاء محفظة جديدة وزيادة الرصيد فيها ببطاقة بنكية أو بحساب PayPal!</string>
+  <!-- Update wallet -->
   <string name="update_not_supported_title">نسخة المحفظة غير مدعومة!</string>
   <string name="update_not_supported_body">حدّث AppCoins Wallet إلى أحدث إصدار.</string>
   <string name="update_button">تحديث</string>
@@ -51,4 +48,10 @@
   <string name="refer_a_friend_waiting_room_title">Invite a Friend!</string>
   <string name="refer_a_friend_waiting_from_body">احصل على مكافأة لكل صديق تدعوه.</string>
   <string name="refer_a_friend_invitation_message">You\'ve been invited to play %1$s! Use the invite code %2$s after downloading it from %3$s.</string>
+  <!-- Error messages -->
+  <string name="error_vpn_not_permitted_title">e-Skills games cannot be played with an active VPN. Please disable it and try again!</string>
+  <string name="top_up_needed_body">لأسباب أمنية، أنت بحاجة إلى زيادة رصيدك لمرة واحدة على الأقل في محفظتك لتلعب ألعاب e-Skills.</string>
+  <string name="not_enough_funds_body">ليس لديك رصيد كافٍ! يرجى زيادة رصيدك لتشتري تذكِرة الدخول.</string>
+  <string name="error_message_local_payment_method_body">وسائل الدفع المحلية غير مقبولة لدفع رسوم الدخول. يرجى إنشاء محفظة جديدة وزيادة الرصيد فيها ببطاقة بنكية أو بحساب PayPal!</string>
+  <string name="rooted_device_blocked_body">Unfortunately, you cannot play e-Skills games with a rooted device.</string>
 </resources>
