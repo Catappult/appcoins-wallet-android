@@ -401,6 +401,7 @@ class SkillsFragment : Fragment(), PaymentView {
 
   private fun handleFailedTicketResult(ticket: FailedTicket) {
     when (ticket.status) {
+      ErrorStatus.VPN_NOT_SUPPORTED -> showVpnNotSupportedError()
       ErrorStatus.REGION_NOT_SUPPORTED -> showRegionNotSupportedError()
       ErrorStatus.WALLET_VERSION_NOT_SUPPORTED -> showWalletVersionNotSupportedError()
       ErrorStatus.NO_NETWORK -> showNoNetworkError()
@@ -444,6 +445,19 @@ class SkillsFragment : Fragment(), PaymentView {
     views.geofencingLayout.root.visibility = View.VISIBLE
     views.geofencingLayout.okButton.setOnClickListener {
       finishWithError(SkillsViewModel.RESULT_REGION_NOT_SUPPORTED)
+    }
+  }
+
+  private fun showVpnNotSupportedError() {
+    views.loadingTicketLayout.root.visibility = View.GONE
+    views.refundTicketLayout.root.visibility = View.GONE
+    views.walletVersionNotSupportedLayout.root.visibility = View.GONE
+    views.errorLayout.root.visibility = View.GONE
+    views.geofencingLayout.root.visibility = View.VISIBLE
+    views.geofencingLayout.errorTitle.text = getString(R.string.error_vpn_not_permitted_title)
+    views.geofencingLayout.errorMessage.visibility = View.GONE
+    views.geofencingLayout.okButton.setOnClickListener {
+      finishWithError(SkillsViewModel.RESULT_VPN_NOT_SUPPORTED)
     }
   }
 
