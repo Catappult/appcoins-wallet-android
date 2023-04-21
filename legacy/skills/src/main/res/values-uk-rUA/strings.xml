@@ -32,11 +32,8 @@
   <string name="purchase_error_title">Упс. Щось пішло не так.</string>
   <string name="purchase_eskills_sku">Вхідний квиток</string>
   <string name="shared_room_waiting">Чекаємо, поки опоненти приєднаються до %s</string>
-  <string name="rooted_device_blocked_body">На жаль, ви не можете грати в ігри e-Skills на пристрої, який отримав рутинг.\"</string>
   <string name="update_wallet">Update wallet</string>
-  <string name="top_up_needed_body">З міркувань безпеки ви маєте поповнити свій гаманець принаймні один раз, щоб грати в ігри e-Skills.</string>
-  <string name="not_enough_funds_body">У вас недостатньо коштів! Будь ласка, поповніть рахунок, щоб придбати вхідний квиток.</string>
-  <string name="error_message_local_payment_method_body">Місцеві способи оплати не приймаються для оплати вступного внеску. Будь ласка, створіть новий гаманець і поповніть його за допомогою банківської картки або PayPal!</string>
+  <!-- Update wallet -->
   <string name="update_not_supported_title">Ця версія гаманця не підтримується!</string>
   <string name="update_not_supported_body">Оновіть AppCoins Wallet до останньої версії.</string>
   <string name="update_button">Оновити</string>
@@ -51,4 +48,10 @@
   <string name="refer_a_friend_waiting_room_title">Invite a Friend!</string>
   <string name="refer_a_friend_waiting_from_body">Отримайте бонус за кожного запрошеного друга.</string>
   <string name="refer_a_friend_invitation_message">You\'ve been invited to play %1$s! Use the invite code %2$s after downloading it from %3$s.</string>
+  <!-- Error messages -->
+  <string name="error_vpn_not_permitted_title">e-Skills games cannot be played with an active VPN. Please disable it and try again!</string>
+  <string name="top_up_needed_body">З міркувань безпеки ви маєте поповнити свій гаманець принаймні один раз, щоб грати в ігри e-Skills.</string>
+  <string name="not_enough_funds_body">У вас недостатньо коштів! Будь ласка, поповніть рахунок, щоб придбати вхідний квиток.</string>
+  <string name="error_message_local_payment_method_body">Місцеві способи оплати не приймаються для оплати вступного внеску. Будь ласка, створіть новий гаманець і поповніть його за допомогою банківської картки або PayPal!</string>
+  <string name="rooted_device_blocked_body">Unfortunately, you cannot play e-Skills games with a rooted device.</string>
 </resources>
