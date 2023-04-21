@@ -4,7 +4,6 @@ import android.content.Intent
 import android.net.Uri
 import android.text.format.DateUtils
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.setValue
 import com.appcoins.wallet.core.network.backend.model.GamificationStatus
 import com.appcoins.wallet.core.utils.android_common.RxSchedulers
 import com.appcoins.wallet.core.utils.properties.APTOIDE_TOP_APPS_URL
@@ -286,10 +285,8 @@ class HomeViewModel @Inject constructor(
   fun fetchGamesListing() {
     getGamesListingUseCase()
       .subscribeOn(rxSchedulers.io)
-      .subscribe (
-        {
-          gamesList.value = it
-        },
+      .scopedSubscribe(
+        { gamesList.value = it },
         { e -> e.printStackTrace() }
       )
   }

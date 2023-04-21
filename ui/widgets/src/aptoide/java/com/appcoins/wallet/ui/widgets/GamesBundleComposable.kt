@@ -32,15 +32,17 @@ fun GamesBundle(
   fetchFromApiCallback: () -> Unit
 ) {
   fetchFromApiCallback()
-  LazyRow(
-    modifier = Modifier.padding(
-      top = 16.dp
-    ),
-    contentPadding = PaddingValues(horizontal = 16.dp),
-    horizontalArrangement = Arrangement.spacedBy(16.dp)
-  ) {
-    items(items) { item ->
-      CardItem(gameCardData = item)
+  if (items.isNotEmpty()) {
+    LazyRow(
+      modifier = Modifier.padding(
+        top = 16.dp
+      ),
+      contentPadding = PaddingValues(horizontal = 16.dp),
+      horizontalArrangement = Arrangement.spacedBy(16.dp)
+    ) {
+      items(items) { item ->
+        CardItem(gameCardData = item)
+      }
     }
   }
 }

@@ -153,11 +153,9 @@ class HomeFragment: BasePageViewFragment(), SingleStateFragment<HomeState, HomeS
         }
       //TODO replace with home composables
       DummyCard()
-      if (viewModel.gamesList.value.isNotEmpty()) {
-        GamesBundle(
-          viewModel.gamesList.value
-        ) { viewModel.fetchGamesListing() }
-      }
+      GamesBundle(
+        viewModel.gamesList.value
+      ) { viewModel.fetchGamesListing() }
       NftCard(
         onClick = { navigateToNft() }
       )
