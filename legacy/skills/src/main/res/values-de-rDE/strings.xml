@@ -32,11 +32,8 @@
   <string name="purchase_error_title">Upps, etwas ist schiefgelaufen.</string>
   <string name="purchase_eskills_sku">Ticket eingeben</string>
   <string name="shared_room_waiting">Warten auf Gegenspieler die %s beitreten</string>
-  <string name="rooted_device_blocked_body">Leider kannst du mit einem gerooteten Gerät keine e-Skills Spiele spielen.</string>
   <string name="update_wallet">Update wallet</string>
-  <string name="top_up_needed_body">Aus Sicherheitsgründen musst du mindestens eine Aufladung in deine Wallet machen, um e-Skills Spiele zu spielen.</string>
-  <string name="not_enough_funds_body">Du hast nicht genug Geld! Bitte lade auf, um die Eintrittskarte zu kaufen.</string>
-  <string name="error_message_local_payment_method_body">Lokale Zahlungsmethoden werden für den Kauf einer Teilnahmegebühr nicht akzeptiert. Bitte erstelle eine neue Wallet und lade sie mit einer Bankkarte oder PayPal auf!</string>
+  <!-- Update wallet -->
   <string name="update_not_supported_title">Wallet-Version nicht unterstützt!</string>
   <string name="update_not_supported_body">Aktualisiere die AppCoins Wallet auf die neueste Version.</string>
   <string name="update_button">Update</string>
@@ -51,4 +48,10 @@
   <string name="refer_a_friend_waiting_room_title">Invite a Friend!</string>
   <string name="refer_a_friend_waiting_from_body">Erhalte einen Bonus für jeden Freund, den du einlädst.</string>
   <string name="refer_a_friend_invitation_message">You\'ve been invited to play %1$s! Use the invite code %2$s after downloading it from %3$s.</string>
+  <!-- Error messages -->
+  <string name="error_vpn_not_permitted_title">e-Skills games cannot be played with an active VPN. Please disable it and try again!</string>
+  <string name="top_up_needed_body">Aus Sicherheitsgründen musst du mindestens eine Aufladung in deine Wallet machen, um e-Skills Spiele zu spielen.</string>
+  <string name="not_enough_funds_body">Du hast nicht genug Geld! Bitte lade auf, um die Eintrittskarte zu kaufen.</string>
+  <string name="error_message_local_payment_method_body">Lokale Zahlungsmethoden werden für den Kauf einer Teilnahmegebühr nicht akzeptiert. Bitte erstelle eine neue Wallet und lade sie mit einer Bankkarte oder PayPal auf!</string>
+  <string name="rooted_device_blocked_body">Unfortunately, you cannot play e-Skills games with a rooted device.</string>
 </resources>
