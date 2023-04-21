@@ -32,11 +32,8 @@
   <string name="purchase_error_title">糟糕，出错了。</string>
   <string name="purchase_eskills_sku">入场券</string>
   <string name="shared_room_waiting">正在等待对手加入%s</string>
-  <string name="rooted_device_blocked_body">很遗憾，你不能使用根设备游玩e-Skills游戏。</string>
   <string name="update_wallet">Update wallet</string>
-  <string name="top_up_needed_body">出于安全原因，你需要在钱包中至少充值一次才能游玩e-Skills游戏。</string>
-  <string name="not_enough_funds_body">你的资金不足！请充值以购买入场券。</string>
-  <string name="error_message_local_payment_method_body">不接受以本地付款方式付费购买入场券。请创建新钱包，然后用银行卡或PayPal为该钱包充值！</string>
+  <!-- Update wallet -->
   <string name="update_not_supported_title">钱包版本不受支持！</string>
   <string name="update_not_supported_body">请将AppCoins Wallet更新至最新版本。</string>
   <string name="update_button">更新</string>
@@ -51,4 +48,10 @@
   <string name="refer_a_friend_waiting_room_title">Invite a Friend!</string>
   <string name="refer_a_friend_waiting_from_body">每邀请一个好友均可获得奖励。</string>
   <string name="refer_a_friend_invitation_message">You\'ve been invited to play %1$s! Use the invite code %2$s after downloading it from %3$s.</string>
+  <!-- Error messages -->
+  <string name="error_vpn_not_permitted_title">e-Skills games cannot be played with an active VPN. Please disable it and try again!</string>
+  <string name="top_up_needed_body">出于安全原因，你需要在钱包中至少充值一次才能游玩e-Skills游戏。</string>
+  <string name="not_enough_funds_body">你的资金不足！请充值以购买入场券。</string>
+  <string name="error_message_local_payment_method_body">不接受以本地付款方式付费购买入场券。请创建新钱包，然后用银行卡或PayPal为该钱包充值！</string>
+  <string name="rooted_device_blocked_body">Unfortunately, you cannot play e-Skills games with a rooted device.</string>
 </resources>
