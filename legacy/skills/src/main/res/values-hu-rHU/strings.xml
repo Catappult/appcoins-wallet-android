@@ -32,11 +32,8 @@
   <string name="purchase_error_title">Hoppá, valami baj történt.</string>
   <string name="purchase_eskills_sku">Belépőjegy</string>
   <string name="shared_room_waiting">Az ellenfelek csatlakozására várunk a(z) %s játékban</string>
-  <string name="rooted_device_blocked_body">Az e-Skills játékokat sajnos nem tudod rootolt eszközzel játszani.\"</string>
   <string name="update_wallet">Update wallet</string>
-  <string name="top_up_needed_body">Biztonsági okokból az e-Skills játékok megnyitásához el kell végezned legalább egy befizetést.</string>
-  <string name="not_enough_funds_body">Nincs elég pénzed. Kérjük, fizess be a belépőjegy megvételéhez.</string>
-  <string name="error_message_local_payment_method_body">A belépőjegyet nem lehet megvásárolni helyi fizetési módokkal. Hozz létre egy új pénztárcát, és küldj rá pénzt egy bankkártya vagy PayPal segítségével!</string>
+  <!-- Update wallet -->
   <string name="update_not_supported_title">Nem támogatjuk a Wallet ezen verzióját!</string>
   <string name="update_not_supported_body">Szerezd be az AppCoins Wallet legújabb verzióját.</string>
   <string name="update_button">Frissítés</string>
@@ -51,4 +48,10 @@
   <string name="refer_a_friend_waiting_room_title">Invite a Friend!</string>
   <string name="refer_a_friend_waiting_from_body">Bónusz minden barát után.</string>
   <string name="refer_a_friend_invitation_message">You\'ve been invited to play %1$s! Use the invite code %2$s after downloading it from %3$s.</string>
+  <!-- Error messages -->
+  <string name="error_vpn_not_permitted_title">e-Skills games cannot be played with an active VPN. Please disable it and try again!</string>
+  <string name="top_up_needed_body">Biztonsági okokból az e-Skills játékok megnyitásához el kell végezned legalább egy befizetést.</string>
+  <string name="not_enough_funds_body">Nincs elég pénzed. Kérjük, fizess be a belépőjegy megvételéhez.</string>
+  <string name="error_message_local_payment_method_body">A belépőjegyet nem lehet megvásárolni helyi fizetési módokkal. Hozz létre egy új pénztárcát, és küldj rá pénzt egy bankkártya vagy PayPal segítségével!</string>
+  <string name="rooted_device_blocked_body">Unfortunately, you cannot play e-Skills games with a rooted device.</string>
 </resources>
