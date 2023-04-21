@@ -32,11 +32,8 @@
   <string name="purchase_error_title">اوه، مشکلی پیش آمده است.</string>
   <string name="purchase_eskills_sku">بلیت ورود</string>
   <string name="shared_room_waiting">درحال انتظار برای عضو شدن در %s</string>
-  <string name="rooted_device_blocked_body">متاسفانه نمی‌توانید با یک دستگاه rooted بازی‌های e-Skills انجام دهید.</string>
   <string name="update_wallet">Update wallet</string>
-  <string name="top_up_needed_body">به دلایل امنیتی، برای بازی‌های e-Skills باید حداقل یک بار کیف پول خود را شارژ کنید.</string>
-  <string name="not_enough_funds_body">سرمایه کافی ندارید! برای خرید بلیت ورودی شارژ کنید.</string>
-  <string name="error_message_local_payment_method_body">روش‌ها پرداخت محلی برای خرید بلیت ورودی مورد قبول نیستند. لطفا کیف پول جدیدی بسازید و آن را با کارت بانکی یا پی‌پال شارژ کنید!</string>
+  <!-- Update wallet -->
   <string name="update_not_supported_title">نسخه کیف پول قبل پشتیبانی نیست!</string>
   <string name="update_not_supported_body">کیف پول AppCoins خود را به آخرین نسخه بروزرسانی کنید.</string>
   <string name="update_button">بروزرسانی</string>
@@ -51,4 +48,10 @@
   <string name="refer_a_friend_waiting_room_title">Invite a Friend!</string>
   <string name="refer_a_friend_waiting_from_body">برای هر دوستی که دعوت می‌کنید، پاداش بگیرید.</string>
   <string name="refer_a_friend_invitation_message">You\'ve been invited to play %1$s! Use the invite code %2$s after downloading it from %3$s.</string>
+  <!-- Error messages -->
+  <string name="error_vpn_not_permitted_title">e-Skills games cannot be played with an active VPN. Please disable it and try again!</string>
+  <string name="top_up_needed_body">به دلایل امنیتی، برای بازی‌های e-Skills باید حداقل یک بار کیف پول خود را شارژ کنید.</string>
+  <string name="not_enough_funds_body">سرمایه کافی ندارید! برای خرید بلیت ورودی شارژ کنید.</string>
+  <string name="error_message_local_payment_method_body">روش‌ها پرداخت محلی برای خرید بلیت ورودی مورد قبول نیستند. لطفا کیف پول جدیدی بسازید و آن را با کارت بانکی یا پی‌پال شارژ کنید!</string>
+  <string name="rooted_device_blocked_body">Unfortunately, you cannot play e-Skills games with a rooted device.</string>
 </resources>
