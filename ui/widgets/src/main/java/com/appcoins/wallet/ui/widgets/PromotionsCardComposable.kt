@@ -1,18 +1,17 @@
 package com.appcoins.wallet.ui.widgets
 
-import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.Image
+import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -41,71 +40,130 @@ private fun CardFutureItemExample() {
 }
 
 
-
 @Composable
-fun PromotionsCardComposable(cardItem: CardItemTest) {
-    val borderColor = if (cardItem.hasVipPromotion) {
-        WalletColors.styleguide_vip_yellow
-    } else {
-        Color.Transparent
-    }
-    Card(
-        colors = CardDefaults.cardColors(WalletColors.styleguide_blue_secondary),
-        modifier = Modifier
-            .clip(shape = RoundedCornerShape(8.dp))
-            .zIndex(4f),
-        border = BorderStroke(2.dp, borderColor)
-    ) {
-        Column(modifier = Modifier.padding(8.dp, 8.dp, 8.dp, 8.dp)) {
-            ImageWithTitleAndDescription(cardItem.imageUrl, cardItem.title, cardItem.subtitle)
-            Spacer(modifier = Modifier.height(12.dp))
-            if(!cardItem.hasFuturePromotion) {
-            Text(
-                // use string - promotion_ends_short_title when PR is merged by Carlos
-                text = "Promotion ends in",
-                color = WalletColors.styleguide_light_grey,
-                fontSize = 10.sp
-            )
-            Column {
-                Row(modifier = Modifier.fillMaxWidth()) {
-                    // compare - (cardItem.promotionTime.isAfter(LocalDateTime.now())
-                        BoxWithTextAndDetail(cardItem.promotionTime.dayOfMonth.toString(), "DAYS")
-                        BoxWithTextAndDetail(cardItem.promotionTime.hour.toString(), "HOURS")
-                        BoxWithTextAndDetail(cardItem.promotionTime.minute.toString(), "MINUTES")
-                        BoxWithTextAndDetail(cardItem.promotionTime.second.toString(), "SECONDS")
-                    Column(
-                        modifier = Modifier.fillMaxWidth(),
-                        horizontalAlignment = Alignment.End,
-                    ) {
-                        Text(
-                            text = "GET",
-                            fontWeight = FontWeight.Bold,
-                            color = WalletColors.styleguide_pink,
-                            fontSize = 14.sp,
-                            modifier = Modifier
-                                .padding(start = 16.dp, top = 16.dp, end = 16.dp)
-                                .clickable(onClick = cardItem.action)
-                        )
-                    }
-                }
+fun PromotionsCardComposable(cardItem: CardPromotionItem) {
+    var borderColor = Color.Transparent
+    var topEndRoundedCornerCard = 16.dp
+    Column {
+        if (cardItem.hasVipPromotion) {
+            //Set Changes in VIP Cards
+            borderColor = WalletColors.styleguide_vip_yellow
+            topEndRoundedCornerCard = 0.dp
+            Box(
+                modifier = Modifier
+                    .align(Alignment.End)
+                    .clip(RoundedCornerShape(topEnd = 8.dp, topStart = 8.dp))
+                    .background(WalletColors.styleguide_vip_yellow)
+            ) {
+                Text(
+                    //Need string to Carlos Translator
+                    text = "Vip Offer",
+                    fontSize = 12.sp,
+                    color = WalletColors.styleguide_light_grey,
+                    modifier = Modifier.padding(
+                        top = 6.dp,
+                        end = 14.dp,
+                        start = 14.dp,
+                        bottom = 6.dp
+                    )
+                )
             }
-            } else {
-                Column {
-                    Row(modifier = Modifier.fillMaxWidth()) {
-                        IconWithText("Available Soon")
-                        Column(
-                            modifier = Modifier.fillMaxWidth(),
-                            horizontalAlignment = Alignment.End,
+        }
+        Surface(
+            color = WalletColors.styleguide_blue_secondary,
+            modifier = Modifier
+                .border(
+                    border = BorderStroke(2.dp, borderColor),
+                    shape = RoundedCornerShape(
+                        bottomEnd = 16.dp,
+                        bottomStart = 16.dp,
+                        topEnd = topEndRoundedCornerCard,
+                        topStart = 16.dp
+                    )
+                )
+                .clip(
+                    shape = RoundedCornerShape(
+                        bottomEnd = 16.dp,
+                        bottomStart = 16.dp,
+                        topEnd = topEndRoundedCornerCard,
+                        topStart = 16.dp
+                    )
+                )
+                .zIndex(4f)
+        ) {
+            Column(modifier = Modifier.padding(8.dp, 8.dp, 8.dp, 8.dp)) {
+                ImageWithTitleAndDescription(cardItem.imageUrl, cardItem.title, cardItem.subtitle)
+                Spacer(modifier = Modifier.height(12.dp))
+                if (!cardItem.hasFuturePromotion) {
+                    Text(
+                        // use string - promotion_ends_short_title when PR is merged by Carlos
+                        text = "Promotion ends in",
+                        color = WalletColors.styleguide_light_grey,
+                        fontSize = 10.sp
+                    )
+                    Column(
+                        modifier = Modifier
+                            .height(49.dp)
+                    ) {
+                        Row(
+                            modifier = Modifier.fillMaxSize(),
+                            horizontalArrangement = Arrangement.Start
                         ) {
-                            Text(
-                                text = "GET",
-                                fontWeight = FontWeight.Bold,
-                                color = WalletColors.styleguide_pink,
-                                fontSize = 14.sp,
-                                modifier = Modifier
-                                    .padding(start = 16.dp, top = 8.dp, end = 16.dp, bottom = 21.dp)
-                                    .clickable(onClick = cardItem.action)
+                            // compare - (cardItem.promotionTime.isAfter(LocalDateTime.now())
+                            BoxWithTextAndDetail(
+                                cardItem.promotionEndTime.dayOfMonth.toString(),
+                                "DAYS"
                             )
+                            BoxWithTextAndDetail(cardItem.promotionEndTime.hour.toString(), "HOURS")
+                            BoxWithTextAndDetail(
+                                cardItem.promotionEndTime.minute.toString(),
+                                "MINUTES"
+                            )
+                            BoxWithTextAndDetail(
+                                cardItem.promotionEndTime.second.toString(),
+                                "SECONDS"
+                            )
+                            Column(
+                                modifier = Modifier.fillMaxSize(),
+                                horizontalAlignment = Alignment.End,
+                                verticalArrangement = Arrangement.Center,
+                            ) {
+                                Text(
+                                    text = "GET",
+                                    fontWeight = FontWeight.Bold,
+                                    color = WalletColors.styleguide_pink,
+                                    fontSize = 14.sp,
+                                    modifier = Modifier
+                                        .padding(end = 6.dp)
+                                        .clickable(onClick = cardItem.action)
+                                        .align(Alignment.End)
+                                )
+                            }
+                        }
+                    }
+                } else {
+                    Column(
+                        modifier = Modifier
+                            .height(49.dp)
+                    ) {
+                        Row(modifier = Modifier.fillMaxSize()) {
+                            IconWithText("Available Soon")
+                            Column(
+                                modifier = Modifier.fillMaxSize(),
+                                horizontalAlignment = Alignment.End,
+                                verticalArrangement = Arrangement.Center,
+                            ) {
+                                Text(
+                                    text = "GET",
+                                    fontWeight = FontWeight.Bold,
+                                    color = WalletColors.styleguide_pink,
+                                    fontSize = 14.sp,
+                                    modifier = Modifier
+                                        .padding(end = 6.dp)
+                                        .clickable(onClick = cardItem.action)
+                                        .align(Alignment.End)
+                                )
+                            }
                         }
                     }
                 }
@@ -116,68 +174,66 @@ fun PromotionsCardComposable(cardItem: CardItemTest) {
 
 @Composable
 fun BoxWithTextAndDetail(text: String, detail: String) {
-    Box {
-        Card(
-            colors = CardDefaults.cardColors(WalletColors.styleguide_blue_secondary),
-            modifier = Modifier
-                .padding(6.dp, 6.dp, 6.dp, 6.dp)
-                .width(41.dp)
-                .height(39.dp)
-                .clip(shape = RoundedCornerShape(8.dp))
-                .zIndex(8f)
+    Card(
+        colors = CardDefaults.cardColors(WalletColors.styleguide_black),
+        modifier = Modifier
+            .padding(top = 6.dp, bottom = 6.dp, end = 3.dp)
+            .width(41.dp)
+            .height(39.dp)
+            .clip(shape = RoundedCornerShape(3.dp))
+            .zIndex(8f)
+    ) {
+        Column(
+            modifier = Modifier.fillMaxSize(),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center
         ) {
-            Column(
-                horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.Center
-            ) {
-                Text(
-                    text = text,
-                    fontWeight = FontWeight.Bold,
-                    fontSize = 14.sp,
-                    color = WalletColors.styleguide_light_grey,
-                    modifier = Modifier.padding(top = 6.dp)
-                )
-                Text(
-                    text = detail,
-                    fontSize = 7.sp,
-                    color = WalletColors.styleguide_light_grey,
-                    modifier = Modifier.padding(start = 6.dp, bottom = 6.dp, end = 6.dp)
-                )
-            }
+            Text(
+                text = text,
+                fontWeight = FontWeight.Bold,
+                fontSize = 14.sp,
+                color = WalletColors.styleguide_light_grey,
+            )
+            Text(
+                text = detail,
+                fontSize = 7.sp,
+                color = WalletColors.styleguide_light_grey,
+            )
         }
     }
 }
 
 @Composable
 fun IconWithText(text: String) {
-    Box {
-        Column {
-            Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.padding(start = 19.dp, top = 8.dp)) {
-                Image(
-                    painter = painterResource(R.drawable.ic_clock),
-                    colorFilter = ColorFilter.tint(WalletColors.styleguide_pink),
-                    modifier = Modifier
-                        .height(14.dp)
-                        .width(14.dp)
-                        .align(Alignment.CenterVertically),
-                    contentDescription = null
-                )
-                Text(
-                    text = text,
-                    fontWeight = FontWeight.Bold,
-                    color = WalletColors.styleguide_dark_grey,
-                    modifier = Modifier.padding(start = 8.dp),
-                    maxLines = 1,
-                    fontSize = 12.sp
-                )
-            }
+    Column {
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            modifier = Modifier.padding(start = 19.dp, top = 12.dp)
+        ) {
+            Image(
+                painter = painterResource(R.drawable.ic_clock),
+                colorFilter = ColorFilter.tint(WalletColors.styleguide_pink),
+                modifier = Modifier
+                    .height(14.dp)
+                    .width(14.dp)
+                    .align(Alignment.CenterVertically),
+                contentDescription = null
+            )
+            Text(
+                text = text,
+                fontWeight = FontWeight.Bold,
+                color = WalletColors.styleguide_dark_grey,
+                modifier = Modifier.padding(start = 8.dp),
+                maxLines = 1,
+                fontSize = 12.sp
+            )
         }
     }
 }
 
 
 @Composable
-fun ImageWithTitleAndDescription(imageUrl: String, title: String, description: String) {
+fun ImageWithTitleAndDescription(imageUrl: String?, title: String?, description: String?) {
     Column {
         Row(verticalAlignment = Alignment.CenterVertically) {
             SubcomposeAsyncImage(
@@ -186,25 +242,30 @@ fun ImageWithTitleAndDescription(imageUrl: String, title: String, description: S
                     CircularProgressIndicator()
                 },
                 contentDescription = null,
+                contentScale = ContentScale.Fit,
                 modifier = Modifier
                     .width(56.dp)
                     .clip(shape = RoundedCornerShape(8.dp))
             )
-            Column(modifier = Modifier.padding(start = 12.dp)) {
+            Column(
+                modifier = Modifier
+                    .widthIn(min = 0.dp, max = 240.dp)
+                    .padding(start = 12.dp)
+            ) {
                 Text(
-                    text = title,
+                    text = title ?: "",
                     fontWeight = FontWeight.Bold,
                     color = WalletColors.styleguide_dark_grey,
                     maxLines = 1,
                     fontSize = 12.sp
                 )
                 Text(
-                    text = description,
+                    text = description ?: "",
                     fontWeight = FontWeight.Bold,
                     maxLines = 2,
+                    style = MaterialTheme.typography.bodyMedium,
                     color = WalletColors.styleguide_white,
-                    fontSize = 14.sp,
-                    modifier = Modifier.padding(top = 4.dp, end = 16.dp)
+                    modifier = Modifier.padding(top = 4.dp, end = 8.dp)
                 )
             }
         }
@@ -212,21 +273,23 @@ fun ImageWithTitleAndDescription(imageUrl: String, title: String, description: S
 }
 
 //Test Itens
-data class CardItemTest(
-    val title: String,
-    val subtitle: String,
-    val promotionTime: LocalDateTime,
-    val imageUrl: String,
-    val urlRedirect: String,
+data class CardPromotionItem(
+    val title: String?,
+    val subtitle: String?,
+    val promotionStartTime: LocalDateTime,
+    val promotionEndTime: LocalDateTime,
+    val imageUrl: String?,
+    val urlRedirect: String?,
     val hasVipPromotion: Boolean,
     val hasFuturePromotion: Boolean,
     val action: () -> Unit
 )
 
-val cardItem = CardItemTest(
+val cardItem = CardPromotionItem(
     title = "Days of empire",
     subtitle = "Receive an extra 15% Bonus in all your purchases.",
-    promotionTime = LocalDateTime.now(),
+    promotionStartTime = LocalDateTime.now(),
+    promotionEndTime = LocalDateTime.now(),
     imageUrl = "https://img.freepik.com/vetores-gratis/astronauta-bonito-relaxamento-frio-na-ilustracao-do-icone-do-vetor-dos-desenhos-animados-do-controlador-de-jogo-conceito-de-icone-de-ciencia-de-tecnologia-isolado-vetor-premium-estilo-flat-cartoon_138676-3717.jpg?w=2000",
     urlRedirect = "https://example.com",
     hasVipPromotion = false,
@@ -234,10 +297,11 @@ val cardItem = CardItemTest(
     action = { /* handle click action */ }
 )
 
-val vipCardItem = CardItemTest(
+val vipCardItem = CardPromotionItem(
     title = "Days of empire",
     subtitle = "Receive an extra 15% Bonus in all your purchases.",
-    promotionTime = LocalDateTime.now(),
+    promotionStartTime = LocalDateTime.now(),
+    promotionEndTime = LocalDateTime.now(),
     imageUrl = "https://img.freepik.com/vetores-gratis/astronauta-bonito-relaxamento-frio-na-ilustracao-do-icone-do-vetor-dos-desenhos-animados-do-controlador-de-jogo-conceito-de-icone-de-ciencia-de-tecnologia-isolado-vetor-premium-estilo-flat-cartoon_138676-3717.jpg?w=2000",
     urlRedirect = "https://example.com",
     hasVipPromotion = true,
@@ -245,10 +309,11 @@ val vipCardItem = CardItemTest(
     action = { /* handle click action */ }
 )
 
-val futureCardItem = CardItemTest(
+val futureCardItem = CardPromotionItem(
     title = "Days of empire",
     subtitle = "Receive an extra 15% Bonus in all your purchases.",
-    promotionTime = LocalDateTime.now(),
+    promotionStartTime = LocalDateTime.now(),
+    promotionEndTime = LocalDateTime.now(),
     imageUrl = "https://img.freepik.com/vetores-gratis/astronauta-bonito-relaxamento-frio-na-ilustracao-do-icone-do-vetor-dos-desenhos-animados-do-controlador-de-jogo-conceito-de-icone-de-ciencia-de-tecnologia-isolado-vetor-premium-estilo-flat-cartoon_138676-3717.jpg?w=2000",
     urlRedirect = "https://example.com",
     hasVipPromotion = false,
