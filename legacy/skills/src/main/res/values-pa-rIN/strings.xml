@@ -32,11 +32,8 @@
   <string name="purchase_error_title">ਓਹ ਹੋ, ਕੁਝ ਗਲਤ ਹੋ ਗਿਆ|</string>
   <string name="purchase_eskills_sku">ਦਾਖਲਾ ਟਿਕਟ</string>
   <string name="shared_room_waiting">ਵਿਰੋਧੀਆਂ ਦੀ %s ਵਿੱਚ ਸ਼ਾਮਲ ਹੋਣ ਦੀ ਉਡੀਕ ਕੀਤੀ ਜਾ ਰਹੀ ਹੈ</string>
-  <string name="rooted_device_blocked_body">ਬਦਕਿਸਮਤੀ ਨਾਲ, ਤੁਸੀਂ ਰੂਟਡ ਡਿਵਾਈਸ ਨਾਲ ਈ-ਸਕਿੱਲ ਗੇਮਾਂ ਨਹੀਂ ਖੇਡ ਸਕਦੇ ਹੋ।\"</string>
   <string name="update_wallet">Update wallet</string>
-  <string name="top_up_needed_body">ਸੁਰੱਖਿਆ ਕਾਰਣ ਕਰਕੇ, ਤੁਹਾਨੂੰ ਈ-ਸਕਿੱਲ ਗੇਮਾਂ ਖੇਡਣ ਲਈ ਆਪਣੇ ਬਟੂਏ ਵਿੱਚ ਘੱਟੋ-ਘੱਟ ਇੱਕ ਟਾਪ-ਅੱਪ ਕਰਨ ਦੀ ਲੋੜ ਹੈ।</string>
-  <string name="not_enough_funds_body">ਤੁਹਾਡੇ ਕੋਲ ਲੋੜੀਂਦੇ ਪੈਸੇ ਨਹੀਂ ਹਨ! ਕਿਰਪਾ ਕਰਕੇ ਐਂਟਰੀ ਟਿਕਟ ਖਰੀਦਣ ਲਈ ਟਾਪ ਅੱਪ ਕਰੋ।</string>
-  <string name="error_message_local_payment_method_body">ਐਂਟਰੀ ਫੀਸ ਖਰੀਦਣ ਲਈ ਸਥਾਨਕ ਭੁਗਤਾਨ ਵਿਧੀਆਂ ਨੂੰ ਸਵੀਕਾਰ ਨਹੀਂ ਕੀਤਾ ਜਾਂਦਾ ਹੈ। ਕਿਰਪਾ ਕਰਕੇ ਇੱਕ ਨਵਾਂ ਬਟੂਆ ਬਣਾਓ ਅਤੇ ਇਸਨੂੰ ਬੈਂਕ ਕਾਰਡ ਜਾਂ ਪੇਪਾਲ ਨਾਲ ਰੀਚਾਰਜ ਕਰੋ!</string>
+  <!-- Update wallet -->
   <string name="update_not_supported_title">ਬਟੂਆ ਸੰਸਕਰਣ ਸਮਰਥਿਤ ਨਹੀਂ ਹੈ!</string>
   <string name="update_not_supported_body">ਐਪ ਸਿੱਕੇ ਬਟੂਏ ਨੂੰ ਨਵੀਨਤਮ ਸੰਸਕਰਣ ਵਿੱਚ ਅੱਪਡੇਟ ਕਰੋ।</string>
   <string name="update_button">ਅੱਪਡੇਟ</string>
@@ -51,4 +48,10 @@
   <string name="refer_a_friend_waiting_room_title">Invite a Friend!</string>
   <string name="refer_a_friend_waiting_from_body">Get a bonus for each friend you invite.</string>
   <string name="refer_a_friend_invitation_message">You\'ve been invited to play %1$s! Use the invite code %2$s after downloading it from %3$s.</string>
+  <!-- Error messages -->
+  <string name="error_vpn_not_permitted_title">e-Skills games cannot be played with an active VPN. Please disable it and try again!</string>
+  <string name="top_up_needed_body">ਸੁਰੱਖਿਆ ਕਾਰਣ ਕਰਕੇ, ਤੁਹਾਨੂੰ ਈ-ਸਕਿੱਲ ਗੇਮਾਂ ਖੇਡਣ ਲਈ ਆਪਣੇ ਬਟੂਏ ਵਿੱਚ ਘੱਟੋ-ਘੱਟ ਇੱਕ ਟਾਪ-ਅੱਪ ਕਰਨ ਦੀ ਲੋੜ ਹੈ।</string>
+  <string name="not_enough_funds_body">ਤੁਹਾਡੇ ਕੋਲ ਲੋੜੀਂਦੇ ਪੈਸੇ ਨਹੀਂ ਹਨ! ਕਿਰਪਾ ਕਰਕੇ ਐਂਟਰੀ ਟਿਕਟ ਖਰੀਦਣ ਲਈ ਟਾਪ ਅੱਪ ਕਰੋ।</string>
+  <string name="error_message_local_payment_method_body">ਐਂਟਰੀ ਫੀਸ ਖਰੀਦਣ ਲਈ ਸਥਾਨਕ ਭੁਗਤਾਨ ਵਿਧੀਆਂ ਨੂੰ ਸਵੀਕਾਰ ਨਹੀਂ ਕੀਤਾ ਜਾਂਦਾ ਹੈ। ਕਿਰਪਾ ਕਰਕੇ ਇੱਕ ਨਵਾਂ ਬਟੂਆ ਬਣਾਓ ਅਤੇ ਇਸਨੂੰ ਬੈਂਕ ਕਾਰਡ ਜਾਂ ਪੇਪਾਲ ਨਾਲ ਰੀਚਾਰਜ ਕਰੋ!</string>
+  <string name="rooted_device_blocked_body">Unfortunately, you cannot play e-Skills games with a rooted device.</string>
 </resources>
