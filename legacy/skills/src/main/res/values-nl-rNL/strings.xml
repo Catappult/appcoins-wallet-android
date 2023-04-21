@@ -32,11 +32,8 @@
   <string name="purchase_error_title">Oeps, er is iets fout gegaan.</string>
   <string name="purchase_eskills_sku">Toegangsticket</string>
   <string name="shared_room_waiting">Wachten tot tegenstanders zich aansluiten bij %s</string>
-  <string name="rooted_device_blocked_body">Helaas kun je geen e-Skills games spelen met een geroot apparaat.</string>
   <string name="update_wallet">Update wallet</string>
-  <string name="top_up_needed_body">Om veiligheidsredenen moet je je wallet minimaal één keer opwaarderen om e-Skills games te kunnen spelen.</string>
-  <string name="not_enough_funds_body">Je hebt niet genoeg saldo! Waardeer op om het toegangsticket te kopen.</string>
-  <string name="error_message_local_payment_method_body">Lokale betaalmethoden worden niet geaccepteerd om de toegangsprijs te betalen. Maak een nieuwe wallet aan en gebruik een betaalkaart of PayPal om op te waarderen!</string>
+  <!-- Update wallet -->
   <string name="update_not_supported_title">Wallet-versie wordt niet ondersteund!</string>
   <string name="update_not_supported_body">Update de AppCoins Wallet naar de nieuwste versie.</string>
   <string name="update_button">Bijwerken</string>
@@ -51,4 +48,10 @@
   <string name="refer_a_friend_waiting_room_title">Invite a Friend!</string>
   <string name="refer_a_friend_waiting_from_body">Krijg een bonus voor elke vriend die je uitnodigt.</string>
   <string name="refer_a_friend_invitation_message">You\'ve been invited to play %1$s! Use the invite code %2$s after downloading it from %3$s.</string>
+  <!-- Error messages -->
+  <string name="error_vpn_not_permitted_title">e-Skills games cannot be played with an active VPN. Please disable it and try again!</string>
+  <string name="top_up_needed_body">Om veiligheidsredenen moet je je wallet minimaal één keer opwaarderen om e-Skills games te kunnen spelen.</string>
+  <string name="not_enough_funds_body">Je hebt niet genoeg saldo! Waardeer op om het toegangsticket te kopen.</string>
+  <string name="error_message_local_payment_method_body">Lokale betaalmethoden worden niet geaccepteerd om de toegangsprijs te betalen. Maak een nieuwe wallet aan en gebruik een betaalkaart of PayPal om op te waarderen!</string>
+  <string name="rooted_device_blocked_body">Unfortunately, you cannot play e-Skills games with a rooted device.</string>
 </resources>
