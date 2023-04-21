@@ -32,11 +32,8 @@
   <string name="purchase_error_title">Oops, ada yang tak kena.</string>
   <string name="purchase_eskills_sku">Tiket masuk</string>
   <string name="shared_room_waiting">Menunggu lawan untuk sertai %s</string>
-  <string name="rooted_device_blocked_body">Alamak, anda tak boleh main permainan e-Skills dengan peranti akar.\"</string>
   <string name="update_wallet">Update wallet</string>
-  <string name="top_up_needed_body">Untuk tujuan keselamatan, anda perlu tambah nilai minimum satu kali dalam dompet anda untuk main permainan e-Skills.</string>
-  <string name="not_enough_funds_body">Dana anda tidak cukup! Sila tambah nilai untuk beli tiket masuk.</string>
-  <string name="error_message_local_payment_method_body">Kaedah pembayaran tempatan tidak diterima untuk bayar yuran masuk. Sila cipta dompet baru dan tambah nilai dengan kad bank atau PayPal!</string>
+  <!-- Update wallet -->
   <string name="update_not_supported_title">Versi dompet tidak disokong!</string>
   <string name="update_not_supported_body">Kemas kini Dompet AppCoins ke versi terkini.</string>
   <string name="update_button">Kemas kini</string>
@@ -51,4 +48,10 @@
   <string name="refer_a_friend_waiting_room_title">Invite a Friend!</string>
   <string name="refer_a_friend_waiting_from_body">Dapat bonus untuk setiap rakan yang dijemput.</string>
   <string name="refer_a_friend_invitation_message">You\'ve been invited to play %1$s! Use the invite code %2$s after downloading it from %3$s.</string>
+  <!-- Error messages -->
+  <string name="error_vpn_not_permitted_title">e-Skills games cannot be played with an active VPN. Please disable it and try again!</string>
+  <string name="top_up_needed_body">Untuk tujuan keselamatan, anda perlu tambah nilai minimum satu kali dalam dompet anda untuk main permainan e-Skills.</string>
+  <string name="not_enough_funds_body">Dana anda tidak cukup! Sila tambah nilai untuk beli tiket masuk.</string>
+  <string name="error_message_local_payment_method_body">Kaedah pembayaran tempatan tidak diterima untuk bayar yuran masuk. Sila cipta dompet baru dan tambah nilai dengan kad bank atau PayPal!</string>
+  <string name="rooted_device_blocked_body">Unfortunately, you cannot play e-Skills games with a rooted device.</string>
 </resources>
