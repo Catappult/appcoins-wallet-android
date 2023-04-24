@@ -1141,6 +1141,7 @@
   <string name="vip_program_max_bonus_short">%s%% bónusz minden vásárlás után.</string>
   <string name="vip_program_referral_notification_title">Elérhető egy VIP ajánlási kód!</string>
   <string name="vip_program_referral_notification_body">Oszd meg a kódod a közösségeddel, hogy játék közben is pénzt kereshess!</string>
+  <string name="vip_program_title_vip_offer">VIP Offer</string>
   <!-- Refactor Home -->
   <string name="intro_welcome_header">Üdv az AppCoins Walletban</string>
   <string name="intro_welcome_body">Töltsd fel a tárcád vagy vásárolj bármely AppCoinsszal kompatibilis appban vagy játékban.</string>
