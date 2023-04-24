@@ -1150,6 +1150,7 @@
   <string name="vip_program_max_bonus_short">Bonus de %s%% la fiecare achiziție.</string>
   <string name="vip_program_referral_notification_title">Cod de recomandare VIP disponibil!</string>
   <string name="vip_program_referral_notification_body">Distribuie codul tău în comunitatea ta și toată lumea va câștiga în timp ce se joacă!</string>
+  <string name="vip_program_title_vip_offer">VIP Offer</string>
   <!-- Refactor Home -->
   <string name="intro_welcome_header">Bine ai venit la AppCoins Wallet</string>
   <string name="intro_welcome_body">Alimentează-ți portofelul sau fă o achiziție în orice aplicație sau joc compatibil cu AppCoins.</string>
