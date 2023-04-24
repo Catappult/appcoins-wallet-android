@@ -1132,6 +1132,7 @@
   <string name="vip_program_max_bonus_short">%s%% tiền thưởng trên mỗi giao dịch mua.</string>
   <string name="vip_program_referral_notification_title">Mã giới thiệu VIP khả dụng!</string>
   <string name="vip_program_referral_notification_body">Chia sẻ mã với cộng đồng để tất cả các bạn đều nhận được tiền khi chơi!</string>
+  <string name="vip_program_title_vip_offer">VIP Offer</string>
   <!-- Refactor Home -->
   <string name="intro_welcome_header">Chào mừng bạn đến với Ví AppCoins</string>
   <string name="intro_welcome_body">Nạp tiền vào ví của bạn hoặc mua hàng trong bất kỳ ứng dụng hoặc trò chơi nào tương thích với AppCoins.</string>
