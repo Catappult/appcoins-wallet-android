@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.Color
 import android.graphics.Typeface
 import android.net.Uri
 import android.os.Bundle
@@ -134,7 +135,7 @@ class AdyenPaymentFragment : BasePageViewFragment(), AdyenPaymentView {
   private val error_dismiss: WalletButtonView get() = bindingCreditCardPreSelected?.fragmentIabErrorPreSelected?.errorDismiss ?: bindingCreditCardLayout?.fragmentIabError?.errorDismiss!!
 
   // support_error_layout.xml
-  private val error_message: TextView get() = bindingCreditCardPreSelected?.fragmentIabErrorPreSelected?.genericErrorLayout?.errorMessage ?: bindingCreditCardLayout?.fragmentIabError?.genericErrorLayout?.errorMessage!!
+  private val error_message: TextView get() = bindingCreditCardLayout?.fragmentAdyenError?.errorMessage ?: bindingCreditCardLayout?.fragmentIabError?.genericErrorLayout?.errorMessage ?: bindingCreditCardLayout?.fragmentIabError?.genericErrorLayout?.errorMessage!!
   private val error_verify_wallet_button: WalletButtonView get() = bindingCreditCardPreSelected?.fragmentIabErrorPreSelected?.genericErrorLayout?.errorVerifyWalletButton ?: bindingCreditCardLayout?.fragmentIabError?.genericErrorLayout?.errorVerifyWalletButton!!
   private val error_verify_card_button: WalletButtonView get() = bindingCreditCardPreSelected?.fragmentIabErrorPreSelected?.genericErrorLayout?.errorVerifyCardButton ?: bindingCreditCardLayout?.fragmentIabError?.genericErrorLayout?.errorVerifyCardButton!!
   private val layout_support_logo: ImageView get() = bindingCreditCardPreSelected?.fragmentIabErrorPreSelected?.genericErrorLayout?.layoutSupportLogo ?: bindingCreditCardLayout?.fragmentIabError?.genericErrorLayout?.layoutSupportLogo!!
@@ -433,7 +434,8 @@ class AdyenPaymentFragment : BasePageViewFragment(), AdyenPaymentView {
     val message = getString(stringRes)
 
     error_message.text = message
-    //fragment_adyen_error_pre_selected?.error_message?.text = message
+//    error_message.visibility = View.VISIBLE
+//    error_message.setTextColor(Color.RED)
     fragment_adyen_error?.visibility = VISIBLE
     fragment_adyen_error_pre_selected?.visibility = VISIBLE
   }
