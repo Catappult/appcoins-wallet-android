@@ -1141,6 +1141,7 @@
   <string name="vip_program_max_bonus_short">%s%% پاداش برای هر خرید</string>
   <string name="vip_program_referral_notification_title">کد معرفی VIP موجود است!</string>
   <string name="vip_program_referral_notification_body">کد خود را با دوستان خود به اشتراک بگذارید تا همگی درحال بازی درآمد داشته باشید!</string>
+  <string name="vip_program_title_vip_offer">VIP Offer</string>
   <!-- Refactor Home -->
   <string name="intro_welcome_header">به AppCoins Wallet خوش آمدید</string>
   <string name="intro_welcome_body">کیف پول خود را شارژ کنید تا بتوانید در هر اپلیکیشن و بازی سازگار با AppCoins خرید کنید.</string>
