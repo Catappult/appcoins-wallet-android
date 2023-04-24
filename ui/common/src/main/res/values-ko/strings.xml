@@ -1132,6 +1132,7 @@
   <string name="vip_program_max_bonus_short">모든 구매 시마다 %s%% 보너스.</string>
   <string name="vip_program_referral_notification_title">VIP 소개 코드 사용 가능!</string>
   <string name="vip_program_referral_notification_body">커뮤니티와 코드를 공유하여 게임을 하면서 돈을 벌 수 있습니다!</string>
+  <string name="vip_program_title_vip_offer">VIP Offer</string>
   <!-- Refactor Home -->
   <string name="intro_welcome_header">AppCoins 지갑에 오신 것을 환영합니다</string>
   <string name="intro_welcome_body">AppCoins과 호환되는 앱이나 게임에서 지갑을 충전하거나 구매하세요.</string>
