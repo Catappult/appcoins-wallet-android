@@ -3,9 +3,7 @@ package com.asfoundation.wallet.onboarding_new_payment.local_payments
 import androidx.activity.result.ActivityResult
 
 import androidx.lifecycle.SavedStateHandle
-import com.appcoins.wallet.appcoins.rewards.ErrorMapper
 import com.appcoins.wallet.billing.adyen.PaymentInfoModel
-import com.appcoins.wallet.core.network.microservices.model.Transaction
 import com.appcoins.wallet.ui.arch.BaseViewModel
 import com.appcoins.wallet.ui.arch.SideEffect
 import com.appcoins.wallet.ui.arch.ViewState
@@ -13,12 +11,8 @@ import com.appcoins.wallet.ui.arch.data.Async
 import com.asf.wallet.BuildConfig
 import com.asfoundation.wallet.onboarding_new_payment.OnboardingPaymentEvents
 import com.asfoundation.wallet.onboarding_new_payment.use_cases.GetPaymentLinkUseCase
-import com.asfoundation.wallet.onboarding_new_payment.use_cases.GetTopUpPaymentLinkUseCase
 import com.asfoundation.wallet.ui.iab.WebViewActivity
-import com.asfoundation.wallet.ui.iab.localpayments.LocalPaymentInteractor
 import dagger.hilt.android.lifecycle.HiltViewModel
-import io.reactivex.Completable
-import io.reactivex.Scheduler
 import javax.inject.Inject
 
 
@@ -77,10 +71,12 @@ class OnboardingLocalPaymentViewModel @Inject constructor(
     }
 
     private fun getPaymentLink() {
-        getPaymentLinkUseCase(
+                getPaymentLinkUseCase(
             data = args.transactionBuilder,
             currency = args.currency,
-            packageName = args.transactionBuilder.domain
+            packageName = args.transactionBuilder.domain,
+            amount = args.amount,
+            paymentType = args.paymentType
         ).asAsyncToState {
             args.transactionBuilder.let { transactionBuilder ->
                 events.sendLocalNavigationToUrlEvents(
@@ -94,6 +90,10 @@ class OnboardingLocalPaymentViewModel @Inject constructor(
             copy(urlString = it)
 
         }.scopedSubscribe()
+    }
+
+    fun handleBackButton() {
+        sendSideEffect { OnboardingLocalPaymentSideEffect.NavigateBackToPaymentMethods }
     }
 
 }

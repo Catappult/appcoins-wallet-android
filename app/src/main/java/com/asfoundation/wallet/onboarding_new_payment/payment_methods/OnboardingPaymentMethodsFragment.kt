@@ -83,6 +83,7 @@ class OnboardingPaymentMethodsFragment : BasePageViewFragment(),
                 is PaymentMethodClick.PaypalDirectClick -> navigator.navigateToPaypalDirect()
                 is PaymentMethodClick.LocalPaymentClick -> navigator.navigateToLocalPayment(
                     args.transactionBuilder,
+                    paymentMethodClick.idItem,
                     args.amount,
                     args.currency
                 )

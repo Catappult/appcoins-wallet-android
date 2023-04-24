@@ -4,7 +4,7 @@ sealed class PaymentMethodClick {
   object CreditCardClick : PaymentMethodClick()
   object PaypalAdyenClick : PaymentMethodClick()
   object PaypalDirectClick : PaymentMethodClick()
-  object LocalPaymentClick : PaymentMethodClick()
+  data class LocalPaymentClick(val idItem: String) : PaymentMethodClick()
   object CarrierBillingClick : PaymentMethodClick()
   object ShareLinkPaymentClick : PaymentMethodClick()
   object OtherPaymentMethods : PaymentMethodClick()

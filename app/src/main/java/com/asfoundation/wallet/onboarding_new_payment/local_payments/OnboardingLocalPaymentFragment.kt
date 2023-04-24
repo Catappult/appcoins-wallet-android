@@ -51,6 +51,7 @@ class OnboardingLocalPaymentFragment : BasePageViewFragment(),
         super.onViewCreated(view, savedInstanceState)
         args = OnboardingLocalPaymentFragmentArgs.fromBundle(requireArguments())
         createResultLauncher()
+        clickListeners()
         viewModel.collectStateAndEvents(lifecycle, viewLifecycleOwner.lifecycleScope)
     }
 
@@ -107,6 +108,12 @@ class OnboardingLocalPaymentFragment : BasePageViewFragment(),
             OnboardingLocalPaymentSideEffect.ShowLoading -> showProcessingLoading()
             OnboardingLocalPaymentSideEffect.ShowSuccess -> showCompletedPayment()
             OnboardingLocalPaymentSideEffect.ShowCompletablePayment -> showCompletedPayment()
+        }
+    }
+
+    private fun clickListeners() {
+        binding.errorView.errorDismiss.setOnClickListener {
+            viewModel.handleBackButton()
         }
     }
 

@@ -97,6 +97,10 @@
         app:argType="com.asfoundation.wallet.entity.TransactionBuilder" />
 
     <argument
+        android:name="payment_type"
+        app:argType="string" />
+
+    <argument
         android:name="amount"
         app:argType="string" />
     <argument

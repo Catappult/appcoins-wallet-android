@@ -16,6 +16,8 @@ class GetPaymentLinkUseCase @Inject constructor(
 ) {
     operator fun invoke(
         data: TransactionBuilder,
+        amount: String,
+        paymentType: String,
         currency: String,
         packageName: String,
     ) : Single<String> {
@@ -24,8 +26,8 @@ class GetPaymentLinkUseCase @Inject constructor(
                 partnerAddressService.getAttributionEntity(packageName)
                     .flatMap { attributionEntity ->
                         getCurrentPromoCodeUseCase().flatMap { promoCode ->
-                            remoteRepository.createLocalPaymentTransaction(data.chainId.toString(), packageName,
-                                data.amount().toString(), currency, data.skuId, data.type, data.origin, data.fromAddress(),
+                            remoteRepository.createLocalPaymentTransaction(paymentType, packageName,
+                                amount, currency, data.skuId, data.type, data.origin, data.toAddress(),
                                 attributionEntity.oemId, attributionEntity.domain, promoCode.code,
                                 data.payload,
                                 data.callbackUrl, data.orderReference,
