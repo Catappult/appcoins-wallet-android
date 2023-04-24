@@ -1132,6 +1132,7 @@
   <string name="vip_program_max_bonus_short">ဝယ္ယူမႈတိုင္းတြင္ %s%% ေဘာနပ္စ္။</string>
   <string name="vip_program_referral_notification_title">VIP လႊဲေပးသည့္ကုဒ္ကို ရရွိႏိုင္ပါသည္။</string>
   <string name="vip_program_referral_notification_body">သင့္ကုဒ္ကို သင့္အသိုင္းအဝိုင္းတြင္ မွ်ေဝျခင္းျဖင့္ ကစားစဥ္တြင္ သင္တို႔အားလုံး ရရွိမည္ ျဖစ္ပါသည္။</string>
+  <string name="vip_program_title_vip_offer">VIP Offer</string>
   <!-- Refactor Home -->
   <string name="intro_welcome_header">AppCoins Wallet မွ ႀကိဳဆိုပါသည္</string>
   <string name="intro_welcome_body">သင့္ပိုက္ဆံအိတ္ကို ေငြျဖည့္ပါ သို႔မဟုတ္ AppCoins အသုံးျပဳႏိုင္ေသာ မည္သည့္အက္ပ္ သို႔မဟုတ္ ဂိမ္းတြင္မဆို ဝယ္ယူမႈ တစ္ခုခုကို ျပဳလုပ္ပါ။</string>
