@@ -19,7 +19,8 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.ui.zIndex
 import coil.compose.SubcomposeAsyncImage
 import com.appcoins.wallet.ui.common.theme.WalletColors
-import java.time.LocalDateTime
+import kotlinx.coroutines.delay
+import java.time.Duration
 
 @Preview
 @Composable
@@ -109,20 +110,7 @@ fun PromotionsCardComposable(cardItem: CardPromotionItem) {
                             modifier = Modifier.fillMaxSize(),
                             horizontalArrangement = Arrangement.Start
                         ) {
-                            // compare - (cardItem.promotionTime.isAfter(LocalDateTime.now())
-                            BoxWithTextAndDetail(
-                                cardItem.promotionEndTime.dayOfMonth.toString(),
-                                "DAYS"
-                            )
-                            BoxWithTextAndDetail(cardItem.promotionEndTime.hour.toString(), "HOURS")
-                            BoxWithTextAndDetail(
-                                cardItem.promotionEndTime.minute.toString(),
-                                "MINUTES"
-                            )
-                            BoxWithTextAndDetail(
-                                cardItem.promotionEndTime.second.toString(),
-                                "SECONDS"
-                            )
+                            CountDownTimer(cardItem.promotionEndTime)
                             Column(
                                 modifier = Modifier.fillMaxSize(),
                                 horizontalAlignment = Alignment.End,
@@ -170,6 +158,40 @@ fun PromotionsCardComposable(cardItem: CardPromotionItem) {
             }
         }
     }
+}
+
+@Composable
+fun CountDownTimer(endDateTime: Long) {
+    val remainingTime = remember { mutableStateOf(Duration.ZERO) }
+    val endDateInMillis = endDateTime * 1000L
+
+    LaunchedEffect(Unit) {
+        while (true) {
+            remainingTime.value = Duration.ofMillis(endDateInMillis - System.currentTimeMillis())
+            if (remainingTime.value < Duration.ZERO) {
+                remainingTime.value = Duration.ZERO
+                //Break while in Home
+                break
+            }
+            delay(1000)
+        }
+    }
+    BoxWithTextAndDetail(
+        text =  remainingTime.value.toDays().toString(),
+        detail = "Days"
+    )
+    BoxWithTextAndDetail(
+        text = (remainingTime.value.toHours() % 24).toString(),
+        detail = "Hours"
+    )
+    BoxWithTextAndDetail(
+        text = (remainingTime.value.toMinutes() % 60).toString(),
+        detail = "Minutes"
+    )
+    BoxWithTextAndDetail(
+        text = (remainingTime.value.seconds % 60).toString(),
+        detail = "Seconds"
+    )
 }
 
 @Composable
@@ -276,8 +298,8 @@ fun ImageWithTitleAndDescription(imageUrl: String?, title: String?, description:
 data class CardPromotionItem(
     val title: String?,
     val subtitle: String?,
-    val promotionStartTime: LocalDateTime,
-    val promotionEndTime: LocalDateTime,
+    val promotionStartTime: Long?,
+    val promotionEndTime: Long,
     val imageUrl: String?,
     val urlRedirect: String?,
     val hasVipPromotion: Boolean,
@@ -288,8 +310,8 @@ data class CardPromotionItem(
 val cardItem = CardPromotionItem(
     title = "Days of empire",
     subtitle = "Receive an extra 15% Bonus in all your purchases.",
-    promotionStartTime = LocalDateTime.now(),
-    promotionEndTime = LocalDateTime.now(),
+    promotionStartTime = System.currentTimeMillis(),
+    promotionEndTime = System.currentTimeMillis(),
     imageUrl = "https://img.freepik.com/vetores-gratis/astronauta-bonito-relaxamento-frio-na-ilustracao-do-icone-do-vetor-dos-desenhos-animados-do-controlador-de-jogo-conceito-de-icone-de-ciencia-de-tecnologia-isolado-vetor-premium-estilo-flat-cartoon_138676-3717.jpg?w=2000",
     urlRedirect = "https://example.com",
     hasVipPromotion = false,
@@ -300,8 +322,8 @@ val cardItem = CardPromotionItem(
 val vipCardItem = CardPromotionItem(
     title = "Days of empire",
     subtitle = "Receive an extra 15% Bonus in all your purchases.",
-    promotionStartTime = LocalDateTime.now(),
-    promotionEndTime = LocalDateTime.now(),
+    promotionStartTime = System.currentTimeMillis(),
+    promotionEndTime = System.currentTimeMillis(),
     imageUrl = "https://img.freepik.com/vetores-gratis/astronauta-bonito-relaxamento-frio-na-ilustracao-do-icone-do-vetor-dos-desenhos-animados-do-controlador-de-jogo-conceito-de-icone-de-ciencia-de-tecnologia-isolado-vetor-premium-estilo-flat-cartoon_138676-3717.jpg?w=2000",
     urlRedirect = "https://example.com",
     hasVipPromotion = true,
@@ -312,8 +334,8 @@ val vipCardItem = CardPromotionItem(
 val futureCardItem = CardPromotionItem(
     title = "Days of empire",
     subtitle = "Receive an extra 15% Bonus in all your purchases.",
-    promotionStartTime = LocalDateTime.now(),
-    promotionEndTime = LocalDateTime.now(),
+    promotionStartTime = System.currentTimeMillis(),
+    promotionEndTime = System.currentTimeMillis(),
     imageUrl = "https://img.freepik.com/vetores-gratis/astronauta-bonito-relaxamento-frio-na-ilustracao-do-icone-do-vetor-dos-desenhos-animados-do-controlador-de-jogo-conceito-de-icone-de-ciencia-de-tecnologia-isolado-vetor-premium-estilo-flat-cartoon_138676-3717.jpg?w=2000",
     urlRedirect = "https://example.com",
     hasVipPromotion = false,

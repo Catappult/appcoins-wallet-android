@@ -41,7 +41,6 @@ import com.appcoins.wallet.ui.widgets.*
 import com.asf.wallet.R
 import com.asfoundation.wallet.entity.GlobalBalance
 import com.asfoundation.wallet.promotions.model.DefaultItem
-import com.asfoundation.wallet.promotions.model.PromoCodeItem
 import com.asfoundation.wallet.promotions.model.PromotionsModel
 import com.asfoundation.wallet.support.SupportNotificationProperties
 import com.asfoundation.wallet.ui.widget.entity.TransactionsModel
@@ -49,9 +48,6 @@ import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
 import io.intercom.android.sdk.Intercom
 import java.math.BigDecimal
-import java.time.Instant
-import java.time.LocalDateTime
-import java.time.ZoneId
 import javax.inject.Inject
 
 // Before moving this screen into the :home module, all home dependencies need to be independent
@@ -328,16 +324,8 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
                         val cardItem = CardPromotionItem(
                             promotion.appName,
                             promotion.description,
-                            promotion.startDate?.let {
-                                LocalDateTime.ofInstant(
-                                    Instant.ofEpochMilli(it),
-                                    ZoneId.systemDefault()
-                                )
-                            } ?: LocalDateTime.now(),
-                            LocalDateTime.ofInstant(
-                                Instant.ofEpochMilli(promotion.endDate),
-                                ZoneId.systemDefault()
-                            ),
+                            promotion.startDate,
+                            promotion.endDate,
                             promotion.icon,
                             promotion.detailsLink,
                             false,
