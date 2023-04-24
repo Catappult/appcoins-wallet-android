@@ -1178,6 +1178,7 @@
   <string name="vip_program_max_bonus_short">%s%% مكافأة في كل عملية شراء.</string>
   <string name="vip_program_referral_notification_title">يتوفر رمز إحالة VIP!</string>
   <string name="vip_program_referral_notification_body">شارك رمزك مع مجتمعك لتكسبوا جميعًا بينما تلعبون!</string>
+  <string name="vip_program_title_vip_offer">VIP Offer</string>
   <!-- Refactor Home -->
   <string name="intro_welcome_header">أهلا بك بمحفظة AppCoins Wallet</string>
   <string name="intro_welcome_body">أضف إلى المحفظة أو أجرِ عملية شراء في أي تطبيق أو لُعبة تتوافق مع AppCoins.</string>
