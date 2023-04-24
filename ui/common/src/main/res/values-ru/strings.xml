@@ -1159,6 +1159,7 @@
   <string name="vip_program_max_bonus_short">Бонус %s%% за каждую покупку.</string>
   <string name="vip_program_referral_notification_title">Доступен реферальный VIP-код!</string>
   <string name="vip_program_referral_notification_body">Поделитесь своим кодом со своим сообществом, чтобы вы все зарабатывали, играя!</string>
+  <string name="vip_program_title_vip_offer">VIP Offer</string>
   <!-- Refactor Home -->
   <string name="intro_welcome_header">Добро пожаловать в AppCoins Wallet</string>
   <string name="intro_welcome_body">Пополните свой кошелек или совершите покупку в любом приложении или игре, совместимом с AppCoins.</string>
