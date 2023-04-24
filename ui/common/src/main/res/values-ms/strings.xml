@@ -1132,6 +1132,7 @@
   <string name="vip_program_max_bonus_short">Bonus %s%% bagi setiap pembelian.</string>
   <string name="vip_program_referral_notification_title">Kod Rujukan VIP Tersedia!</string>
   <string name="vip_program_referral_notification_body">Kongsi kod anda dengan komuniti. Dapat ganjaran sambil bermain!</string>
+  <string name="vip_program_title_vip_offer">VIP Offer</string>
   <!-- Refactor Home -->
   <string name="intro_welcome_header">Selamat datang ke Dompet AppCoins</string>
   <string name="intro_welcome_body">Tambah nilai dompet anda atau buat pembelian dalam aplikasi atau permainan yang serasi dengan AppCoins.</string>
