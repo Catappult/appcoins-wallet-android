@@ -1150,6 +1150,7 @@
   <string name="vip_program_max_bonus_short">%s%% bonusa za svaku kupovinu.</string>
   <string name="vip_program_referral_notification_title">Dostupan je VIP kod za preporuku!</string>
   <string name="vip_program_referral_notification_body">Podelite kod sa svojom zajednicom da biste mogli da zarađujete dok se igrate!</string>
+  <string name="vip_program_title_vip_offer">VIP Offer</string>
   <!-- Refactor Home -->
   <string name="intro_welcome_header">Dobro došli u AppCoins Wallet</string>
   <string name="intro_welcome_body">Dopunite svoj novčanik ili obavite kupovinu u bilo kojoj aplikaciji ili igri kompatibilnim sa AppCoins.</string>
