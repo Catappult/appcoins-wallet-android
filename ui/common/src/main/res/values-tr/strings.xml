@@ -1141,6 +1141,7 @@
   <string name="vip_program_max_bonus_short">Her satın alma işleminde %s%% bonus.</string>
   <string name="vip_program_referral_notification_title">VIP Tavsiye Kodu Mevcut!</string>
   <string name="vip_program_referral_notification_body">Kodunu topluluğunla paylaş, böylece hepiniz oynarken kazanın!</string>
+  <string name="vip_program_title_vip_offer">VIP Offer</string>
   <!-- Refactor Home -->
   <string name="intro_welcome_header">AppCoins Wallet\'a hoş geldiniz</string>
   <string name="intro_welcome_body">Cüzdanını doldur veya AppCoins uyumlu herhangi bir uygulama veya oyunda bir satın alma işlemi yap.</string>
