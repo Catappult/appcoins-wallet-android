@@ -13,6 +13,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.pluralStringResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
@@ -58,7 +60,7 @@ fun PromotionsCardComposable(cardItem: CardPromotionItem) {
             ) {
                 Text(
                     //Need string to Carlos Translator
-                    text = "Vip Offer",
+                    text = stringResource(id = R.string.vip_program_title_vip_offer),
                     fontSize = 12.sp,
                     color = WalletColors.styleguide_light_grey,
                     modifier = Modifier.padding(
@@ -97,8 +99,7 @@ fun PromotionsCardComposable(cardItem: CardPromotionItem) {
                 Spacer(modifier = Modifier.height(12.dp))
                 if (!cardItem.hasFuturePromotion) {
                     Text(
-                        // use string - promotion_ends_short_title when PR is merged by Carlos
-                        text = "Promotion ends in",
+                        text = stringResource(id = R.string.promotion_ends_short_title),
                         color = WalletColors.styleguide_light_grey,
                         fontSize = 10.sp
                     )
@@ -117,7 +118,7 @@ fun PromotionsCardComposable(cardItem: CardPromotionItem) {
                                 verticalArrangement = Arrangement.Center,
                             ) {
                                 Text(
-                                    text = "GET",
+                                    text = stringResource(id = R.string.get_button),
                                     fontWeight = FontWeight.Bold,
                                     color = WalletColors.styleguide_pink,
                                     fontSize = 14.sp,
@@ -135,14 +136,14 @@ fun PromotionsCardComposable(cardItem: CardPromotionItem) {
                             .height(49.dp)
                     ) {
                         Row(modifier = Modifier.fillMaxSize()) {
-                            IconWithText("Available Soon")
+                            IconWithText(stringResource(id = R.string.perks_available_soon_short))
                             Column(
                                 modifier = Modifier.fillMaxSize(),
                                 horizontalAlignment = Alignment.End,
                                 verticalArrangement = Arrangement.Center,
                             ) {
                                 Text(
-                                    text = "GET",
+                                    text = stringResource(id = R.string.get_button),
                                     fontWeight = FontWeight.Bold,
                                     color = WalletColors.styleguide_pink,
                                     fontSize = 14.sp,
@@ -178,19 +179,19 @@ fun CountDownTimer(endDateTime: Long) {
     }
     BoxWithTextAndDetail(
         text =  remainingTime.value.toDays().toString(),
-        detail = "Days"
+        detail = pluralStringResource(id = R.plurals.days, count = remainingTime.value.toDays().toInt())
     )
     BoxWithTextAndDetail(
         text = (remainingTime.value.toHours() % 24).toString(),
-        detail = "Hours"
+        detail = pluralStringResource(id = R.plurals.hours, count = (remainingTime.value.toHours() % 24).toInt())
     )
     BoxWithTextAndDetail(
         text = (remainingTime.value.toMinutes() % 60).toString(),
-        detail = "Minutes"
+        detail = pluralStringResource(id = R.plurals.minutes, count = (remainingTime.value.toMinutes() % 60).toInt())
     )
     BoxWithTextAndDetail(
         text = (remainingTime.value.seconds % 60).toString(),
-        detail = "Seconds"
+        detail = pluralStringResource(id = R.plurals.minutes, count = (remainingTime.value.seconds % 60).toInt())
     )
 }
 

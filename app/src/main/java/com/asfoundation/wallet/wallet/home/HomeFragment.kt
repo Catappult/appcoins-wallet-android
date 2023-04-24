@@ -162,7 +162,7 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
             if (!viewModel.activePromotions.isEmpty()) {
                 Text(
                     //Need string to Carlos Translator
-                    text = "Active Promotions",
+                    text = getString(R.string.intro_active_promotions_header),
                     fontSize = 14.sp,
                     fontWeight = FontWeight.Bold,
                     color = WalletColors.styleguide_dark_grey,
