@@ -1141,6 +1141,7 @@
   <string name="vip_program_max_bonus_short">%s%% bonus bij elke aankoop.</string>
   <string name="vip_program_referral_notification_title">VIP-verwijzingscode beschikbaar!</string>
   <string name="vip_program_referral_notification_body">Deel je code met de community, zodat iedereen tijdens het spelen AppCoins kan verdienen!</string>
+  <string name="vip_program_title_vip_offer">VIP Offer</string>
   <!-- Refactor Home -->
   <string name="intro_welcome_header">Welkom bij de AppCoins Wallet</string>
   <string name="intro_welcome_body">Voeg saldo toe aan je wallet of doe een aankoop in een app of game die AppCoins ondersteunt.</string>
