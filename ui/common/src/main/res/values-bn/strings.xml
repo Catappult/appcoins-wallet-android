@@ -1141,6 +1141,7 @@
   <string name="vip_program_max_bonus_short">%s%% Bonus on every purchase.</string>
   <string name="vip_program_referral_notification_title">VIP Referral Code Available!</string>
   <string name="vip_program_referral_notification_body">Share your code with your community so you all earn while playing!</string>
+  <string name="vip_program_title_vip_offer">VIP Offer</string>
   <!-- Refactor Home -->
   <string name="intro_welcome_header">Welcome to the AppCoins Wallet</string>
   <string name="intro_welcome_body">Top up your wallet or make a purchase in any AppCoins compatible app or game.</string>
