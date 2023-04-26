@@ -66,6 +66,7 @@ sealed class HomeSideEffect : SideEffect {
   object NavigateToChangeCurrency : HomeSideEffect()
   object NavigateToTopUp : HomeSideEffect()
   object NavigateToTransfer : HomeSideEffect()
+  object NavigateToTransactionsList : HomeSideEffect()
 }
 
 data class HomeState(
@@ -395,12 +396,16 @@ class HomeViewModel @Inject constructor(
         sendSideEffect { HomeSideEffect.NavigateToIntent(buildAutoUpdateIntent()) }
         dismissNotification(cardNotification)
       }
+
       CardNotificationAction.BACKUP -> {
         onBackupClick()
       }
+
       CardNotificationAction.NONE -> {}
     }
   }
+
+  fun onSeeAllTransactionsClick() = sendSideEffect { HomeSideEffect.NavigateToTransactionsList }
 
   private fun handleBackupTrigger() {
     getWalletInfoUseCase(null, cached = false, updateFiat = false)

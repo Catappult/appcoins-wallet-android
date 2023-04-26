@@ -31,6 +31,7 @@ import androidx.compose.ui.unit.dp
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.appcoins.wallet.core.utils.android_common.DateFormatterUtils
@@ -44,13 +45,11 @@ import com.appcoins.wallet.ui.widgets.NftCard
 import com.appcoins.wallet.ui.widgets.TopBar
 import com.appcoins.wallet.ui.widgets.TransactionCard
 import com.asf.wallet.R
-import com.asfoundation.wallet.C.ETHER_DECIMALS
 import com.asfoundation.wallet.entity.GlobalBalance
 import com.asfoundation.wallet.support.SupportNotificationProperties
 import com.asfoundation.wallet.transactions.Transaction
 import com.asfoundation.wallet.transactions.Transaction.*
 import com.asfoundation.wallet.transactions.Transaction.TransactionType.*
-import com.asfoundation.wallet.transactions.TransactionDetails
 import com.asfoundation.wallet.ui.widget.entity.TransactionsModel
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
@@ -207,19 +206,24 @@ class HomeFragment: BasePageViewFragment(), SingleStateFragment<HomeState, HomeS
                   style = MaterialTheme.typography.bodySmall
                 )
               }
+
               items(transactionsForDate) { transaction ->
-                TransactionCard(
-                  icon = painterResource(id = transaction.cardInfoByType().icon),
-                  title = stringResource(id = transaction.cardInfoByType().title),
-                  description = transaction.cardInfoByType().description,
-                  amount = transaction.cardInfoByType().amount,
-                  currency = transaction.cardInfoByType().currency,
-                  subIcon = transaction.cardInfoByType().subIcon
-                )
+                with(transaction.cardInfoByType()) {
+                  TransactionCard(
+                    icon = painterResource(id = icon),
+                    title = stringResource(id = title),
+                    description = description,
+                    amount = amount,
+                    currency = currency,
+                    subIcon = subIcon,
+                    onClick = { viewModel.onTransactionDetailsClick(transaction) }
+                  )
+                }
+
               }
             }
           }
-          TextButton(onClick = {}) {
+          TextButton(onClick = { viewModel.onSeeAllTransactionsClick() }) {
             Text(
               text = stringResource(R.string.see_all_button),
               color = WalletColors.styleguide_pink,
@@ -235,127 +239,6 @@ class HomeFragment: BasePageViewFragment(), SingleStateFragment<HomeState, HomeS
   @Composable
   fun HomeScreenPreview() {
     HomeScreen()
-  }
-
-  @Preview
-  @Composable
-  fun PreviewTransactionList() {
-    TransactionsList(
-      mapOf(
-        "Apr, 20 2023" to listOf<Transaction>(
-          Transaction(
-            "",
-            BONUS,
-            null,
-            Method.APPC,
-            "Title",
-            "Subtitle",
-            Perk.PACKAGE_PERK,
-            "",
-            123456,
-            12345,
-            TransactionStatus.SUCCESS,
-            "APPC",
-            "",
-            "",
-            TransactionDetails(
-              "",
-              TransactionDetails.Icon(TransactionDetails.Icon.Type.FILE, ""),
-              ""
-            ),
-            "APP-C",
-            listOf(),
-            listOf(),
-            "12.0",
-            "€",
-            ""
-          ),
-          Transaction(
-            "",
-            BONUS,
-            null,
-            Method.APPC,
-            "Title",
-            "Subtitle",
-            Perk.PACKAGE_PERK,
-            "",
-            123456,
-            12345,
-            TransactionStatus.SUCCESS,
-            "APPC",
-            "",
-            "",
-            TransactionDetails(
-              "",
-              TransactionDetails.Icon(TransactionDetails.Icon.Type.FILE, ""),
-              ""
-            ),
-            "APP-C",
-            listOf(),
-            listOf(),
-            "12.0",
-            "APP_CC",
-            ""
-          )
-        ),
-        "Apr, 19 2023" to listOf<Transaction>(
-          Transaction(
-            "",
-            BONUS,
-            null,
-            Method.APPC,
-            "Title",
-            "Subtitle",
-            Perk.PACKAGE_PERK,
-            "",
-            123456,
-            12345,
-            TransactionStatus.SUCCESS,
-            "APPC",
-            "",
-            "",
-            TransactionDetails(
-              "",
-              TransactionDetails.Icon(TransactionDetails.Icon.Type.FILE, ""),
-              ""
-            ),
-            "APP-C",
-            listOf(),
-            listOf(),
-            "12.0",
-            "APP_CC",
-            ""
-          ),
-          Transaction(
-            "",
-            BONUS,
-            null,
-            Method.APPC,
-            "Title",
-            "Subtitle",
-            Perk.PACKAGE_PERK,
-            "",
-            123456,
-            12345,
-            TransactionStatus.SUCCESS,
-            "APPC",
-            "",
-            "",
-            TransactionDetails(
-              "",
-              TransactionDetails.Icon(TransactionDetails.Icon.Type.FILE, ""),
-              ""
-            ),
-            "APP-C",
-            listOf(),
-            listOf(),
-            "12.0",
-            "APP_CC",
-            ""
-          )
-        )
-      )
-    )
   }
 
   override fun onStateChanged(state: HomeState) {
@@ -382,14 +265,19 @@ class HomeFragment: BasePageViewFragment(), SingleStateFragment<HomeState, HomeS
       is HomeSideEffect.NavigateToBackup -> navigator.navigateToBackup(
         sideEffect.walletAddress
       )
+
       is HomeSideEffect.NavigateToIntent -> navigator.openIntent(sideEffect.intent)
       is HomeSideEffect.ShowBackupTrigger -> navigator.navigateToBackupTrigger(
         sideEffect.walletAddress,
         sideEffect.triggerSource
       )
+
       HomeSideEffect.NavigateToChangeCurrency -> navigator.navigateToCurrencySelector()
       HomeSideEffect.NavigateToTopUp -> navigator.navigateToTopUp()
       HomeSideEffect.NavigateToTransfer -> navigator.navigateToTransfer()
+      HomeSideEffect.NavigateToTransactionsList -> navigator.navigateToTransactionsList(
+        navController()
+      )
     }
   }
 
@@ -443,9 +331,9 @@ class HomeFragment: BasePageViewFragment(), SingleStateFragment<HomeState, HomeS
 
       is Async.Success -> {
         viewModel.newWallet.value = transactionsModel().transactions.isEmpty()
-        viewModel.transactionsGrouped.value =
-          transactionsModel().transactions.groupBy { DateFormatterUtils.getDate(it.timeStamp) }
-        println(transactionsModel().transactions.distinctBy { it.transactionId }.size.toString() + " " + viewModel.transactionsGrouped.value)
+        viewModel.transactionsGrouped.value = transactionsModel().transactions
+          .take(3)
+          .groupBy { DateFormatterUtils.getDate(it.timeStamp) }
       }
 
       else -> Unit
@@ -456,52 +344,12 @@ class HomeFragment: BasePageViewFragment(), SingleStateFragment<HomeState, HomeS
     isVip = shouldShow
   }
 
-  private fun navigateToNft() {
+  private fun navigateToNft() = navigator.navigateToNfts(navController())
+
+  private fun navController(): NavController {
     val navHostFragment = requireActivity().supportFragmentManager.findFragmentById(
       R.id.main_host_container
     ) as NavHostFragment
-    val navController = navHostFragment.navController
-
-    navigator.navigateToNfts(navController)
+    return navHostFragment.navController
   }
-
-  private fun Transaction.cardInfoByType() = when (this.type) {
-    STANDARD -> TODO()
-    IAP -> TODO()
-    ADS -> TODO()
-    IAP_OFFCHAIN -> TODO()
-    ADS_OFFCHAIN -> TODO()
-    BONUS -> TransactionCardInfo(
-      icon = R.drawable.ic_transaction_reward,
-      title = R.string.transaction_type_bonus,
-      amount = formatter.getScaledValue(value, ETHER_DECIMALS.toLong(), "", false),
-      currency = currency
-    )
-
-    TOP_UP -> TransactionCardInfo(
-      icon = R.drawable.ic_transaction_topup,
-      title = R.string.topup_title,
-      amount = formatter.getScaledValue(paidAmount!!, 0, "", false),
-      currency = "${
-        formatter.getScaledValue(
-          value,
-          ETHER_DECIMALS.toLong(),
-          currency ?: "",
-          false
-        )
-      } $currency"
-    )
-
-    TRANSFER_OFF_CHAIN -> TODO()
-    BONUS_REVERT -> TODO()
-    TOP_UP_REVERT -> TODO()
-    IAP_REVERT -> TODO()
-    SUBS_OFFCHAIN -> TODO()
-    ESKILLS_REWARD -> TODO()
-    ESKILLS -> TODO()
-    TRANSFER -> TODO()
-    ETHER_TRANSFER -> TODO()
-  }
-
-
 }

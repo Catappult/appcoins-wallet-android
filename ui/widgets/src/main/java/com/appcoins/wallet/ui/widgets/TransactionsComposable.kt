@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -27,6 +28,7 @@ import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_blue_secondar
 import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_light_grey
 import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_medium_grey
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TransactionCard(
   icon: Painter,
@@ -34,11 +36,13 @@ fun TransactionCard(
   description: String?,
   amount: String?,
   currency: String?,
-  subIcon: Int?
+  subIcon: Int?,
+  onClick: () -> Unit
 ) {
   Card(
     modifier = Modifier.fillMaxWidth(),
     colors = CardDefaults.cardColors(containerColor = styleguide_blue_secondary),
+    onClick = onClick
   ) {
     Row(
       horizontalArrangement = Arrangement.SpaceBetween,
@@ -110,5 +114,5 @@ fun PreviewTransactionCard() {
     amount = "-12.73",
     currency = "-30.45 APPC-C",
     subIcon = R.drawable.ic_transaction_reverted_mini
-  )
+  ) { }
 }

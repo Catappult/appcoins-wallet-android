@@ -5,7 +5,6 @@ import java.math.RoundingMode
 import java.text.DecimalFormat
 import java.text.NumberFormat
 import javax.inject.Inject
-import kotlin.math.pow
 
 class CurrencyFormatUtils @Inject constructor() {
 
@@ -26,24 +25,6 @@ class CurrencyFormatUtils @Inject constructor() {
       WalletCurrency.CREDITS -> formatCurrencyCredits(value.toDouble())
       WalletCurrency.ETHEREUM -> formatCurrencyEth(value.toDouble())
     }
-  }
-
-  fun getScaledValue(
-    valueStr: String, decimals: Long, currencySymbol: String,
-    flipSign: Boolean
-  ): String {
-    val sign = if (flipSign) -1 else 1
-    val walletCurrency = WalletCurrency.mapToWalletCurrency(currencySymbol);
-    val value = BigDecimal(valueStr).divide(
-      BigDecimal(
-        10.toDouble()
-          .pow(decimals.toDouble())
-      )
-    )
-      .multiply(sign.toBigDecimal())
-    // In case of positive value, we need to explicitly put the "+" sign
-    val signedString = if (value > BigDecimal.ZERO) "+" else ""
-    return signedString + formatCurrency(value, walletCurrency)
   }
 
   fun formatCurrency(value: String, currencyType: WalletCurrency): String {
