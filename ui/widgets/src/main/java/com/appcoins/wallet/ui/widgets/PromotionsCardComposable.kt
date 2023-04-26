@@ -268,6 +268,7 @@ fun ImageWithTitleAndDescription(imageUrl: String?, title: String?, description:
                 contentScale = ContentScale.Fit,
                 modifier = Modifier
                     .width(56.dp)
+                    .height(56.dp)
                     .clip(shape = RoundedCornerShape(8.dp))
             )
             Column(
