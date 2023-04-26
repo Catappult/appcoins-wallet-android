@@ -26,7 +26,7 @@ import com.asfoundation.wallet.topup.TopUpData.Companion.APPC_C_CURRENCY
 import com.asfoundation.wallet.topup.TopUpData.Companion.DEFAULT_VALUE
 import com.asfoundation.wallet.topup.TopUpData.Companion.FIAT_CURRENCY
 import com.asfoundation.wallet.topup.paymentMethods.TopUpPaymentMethodsAdapter
-import com.asfoundation.wallet.ui.iab.FiatValue
+import com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue
 import com.asfoundation.wallet.ui.iab.PaymentMethod
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.appcoins.wallet.core.utils.android_common.WalletCurrency
@@ -65,7 +65,7 @@ class TopUpFragment : BasePageViewFragment(), TopUpFragmentView {
   private lateinit var paymentMethods: List<PaymentMethod>
   private lateinit var topUpAdapter: TopUpAdapter
   private lateinit var keyboardEvents: PublishSubject<Boolean>
-  private var valueSubject: PublishSubject<FiatValue>? = null
+  private var valueSubject: PublishSubject<com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue>? = null
   private var topUpActivityView: TopUpActivityView? = null
   private var selectedCurrency = FIAT_CURRENCY
   private var switchingCurrency = false
@@ -253,7 +253,7 @@ class TopUpFragment : BasePageViewFragment(), TopUpFragmentView {
     setupCurrencyData(selectedCurrency, localCurrency.code, amount, APPC_C_SYMBOL, DEFAULT_VALUE)
   }
 
-  override fun setValuesAdapter(values: List<FiatValue>) {
+  override fun setValuesAdapter(values: List<com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue>) {
     val addMargin = values.size <= getTopUpValuesSpanCount()
     binding.rvDefaultValues.addItemDecoration(
         DividerItemDecoration(context, LinearLayoutManager.HORIZONTAL))

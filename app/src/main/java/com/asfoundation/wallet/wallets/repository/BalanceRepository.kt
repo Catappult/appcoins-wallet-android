@@ -3,12 +3,12 @@ package com.asfoundation.wallet.wallets.repository
 import com.appcoins.wallet.core.utils.android_common.BalanceUtils
 import com.appcoins.wallet.core.utils.android_common.Dispatchers
 import com.appcoins.wallet.core.utils.android_common.RxSchedulers
-import com.asfoundation.wallet.change_currency.use_cases.GetSelectedCurrencyUseCase
-import com.asfoundation.wallet.service.currencies.LocalCurrencyConversionService
+import com.appcoins.wallet.feature.changecurrency.data.use_cases.GetSelectedCurrencyUseCase
+import com.appcoins.wallet.feature.changecurrency.data.currencies.LocalCurrencyConversionService
 import com.asfoundation.wallet.ui.TokenValue
 import com.asfoundation.wallet.ui.balance.BalanceInteractor
 import com.asfoundation.wallet.ui.balance.TokenBalance
-import com.asfoundation.wallet.ui.iab.FiatValue
+import com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue
 import com.appcoins.wallet.core.utils.android_common.WalletCurrency
 import com.asfoundation.wallet.wallets.domain.WalletBalance
 import com.github.michaelbull.result.get
@@ -20,8 +20,8 @@ import java.math.RoundingMode
 import javax.inject.Inject
 
 class BalanceRepository @Inject constructor(
-  private val getSelectedCurrencyUseCase: GetSelectedCurrencyUseCase,
-  private val localCurrencyConversionService: LocalCurrencyConversionService,
+  private val getSelectedCurrencyUseCase: com.appcoins.wallet.feature.changecurrency.data.use_cases.GetSelectedCurrencyUseCase,
+  private val localCurrencyConversionService: com.appcoins.wallet.feature.changecurrency.data.currencies.LocalCurrencyConversionService,
   private val rxSchedulers: RxSchedulers,
   private val dispatchers: Dispatchers
 ) {
@@ -83,17 +83,29 @@ class BalanceRepository @Inject constructor(
     val creditsToken =
       mapToTokenBalance(
         creditsValue, APPC_C_CURRENCY, WalletCurrency.CREDITS.symbol,
-        FiatValue(creditsFiatAmount, fiatCurrency, fiatSymbol)
+        com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue(
+          creditsFiatAmount,
+          fiatCurrency,
+          fiatSymbol
+        )
       )
     val appcToken =
       mapToTokenBalance(
         appcValue, APPC_CURRENCY, WalletCurrency.APPCOINS.symbol,
-        FiatValue(appcFiatAmount, fiatCurrency, fiatSymbol)
+        com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue(
+          appcFiatAmount,
+          fiatCurrency,
+          fiatSymbol
+        )
       )
     val ethToken =
       mapToTokenBalance(
         ethValue, ETH_CURRENCY, WalletCurrency.ETHEREUM.symbol,
-        FiatValue(ethFiatAmount, fiatCurrency, fiatSymbol)
+        com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue(
+          ethFiatAmount,
+          fiatCurrency,
+          fiatSymbol
+        )
       )
     val balance = getOverrallBalance(creditsToken, appcToken, ethToken)
     val creditsFiat = getCreditsFiatBalance(creditsToken, appcToken)
@@ -110,7 +122,7 @@ class BalanceRepository @Inject constructor(
     tokenValue: BigDecimal,
     tokenCurrency: String,
     tokenSymbol: String,
-    fiatValue: FiatValue
+    fiatValue: com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue
   ): TokenBalance {
     return TokenBalance(TokenValue(tokenValue, tokenCurrency, tokenSymbol), fiatValue)
   }
@@ -118,21 +130,29 @@ class BalanceRepository @Inject constructor(
   private fun getOverrallBalance(
     creditsBalance: TokenBalance, appcBalance: TokenBalance,
     ethBalance: TokenBalance
-  ): FiatValue {
+  ): com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue {
     var balance =
       getAddBalanceValue(BalanceInteractor.BIG_DECIMAL_MINUS_ONE, creditsBalance.fiat.amount)
     balance = getAddBalanceValue(balance, appcBalance.fiat.amount)
     balance = getAddBalanceValue(balance, ethBalance.fiat.amount)
-    return FiatValue(balance, appcBalance.fiat.currency, appcBalance.fiat.symbol)
+    return com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue(
+      balance,
+      appcBalance.fiat.currency,
+      appcBalance.fiat.symbol
+    )
   }
 
   private fun getCreditsFiatBalance(
     creditsBalance: TokenBalance,
     appcBalance: TokenBalance
-  ): FiatValue {
+  ): com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue {
     val balance =
       getAddBalanceValue(BalanceInteractor.BIG_DECIMAL_MINUS_ONE, creditsBalance.fiat.amount)
-    return FiatValue(balance, appcBalance.fiat.currency, appcBalance.fiat.symbol)
+    return com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue(
+      balance,
+      appcBalance.fiat.currency,
+      appcBalance.fiat.symbol
+    )
   }
 
   private fun getAddBalanceValue(currentValue: BigDecimal, value: BigDecimal): BigDecimal {

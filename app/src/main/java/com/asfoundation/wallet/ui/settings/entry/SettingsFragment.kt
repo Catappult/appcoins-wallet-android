@@ -13,13 +13,10 @@ import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.SwitchPreferenceCompat
 import com.asf.wallet.R
-import com.asf.wallet.databinding.PreferenceFingerprintBinding
-import com.asf.wallet.databinding.PreferenceFingerprintOffBinding
 import com.asfoundation.wallet.billing.analytics.PageViewAnalytics
 import com.asfoundation.wallet.billing.analytics.WalletsAnalytics
 import com.asfoundation.wallet.billing.analytics.WalletsEventSender
 import com.asfoundation.wallet.change_currency.ChangeFiatCurrencyActivity
-import com.asfoundation.wallet.change_currency.FiatCurrencyEntity
 import com.asfoundation.wallet.change_currency.SettingsCurrencyPreference
 import com.asfoundation.wallet.permissions.manage.view.ManagePermissionsActivity
 import com.asfoundation.wallet.promo_code.SettingsPreferencePromoCodeState
@@ -138,7 +135,7 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
     }
   }
 
-  override fun setCurrencyPreference(selectedCurrency: FiatCurrencyEntity) {
+  override fun setCurrencyPreference(selectedCurrency: com.appcoins.wallet.feature.changecurrency.data.FiatCurrencyEntity) {
     val settingsCurrencyPreference = findPreference<SettingsCurrencyPreference>("pref_currency")
     settingsCurrencyPreference?.setCurrency(selectedCurrency)
     settingsCurrencyPreference?.setOnPreferenceClickListener {

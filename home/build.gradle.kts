@@ -17,8 +17,8 @@ android {
 }
 
 dependencies {
+  implementation(project(":core:arch"))
   implementation(project(":ui:common"))
-  implementation(project(":ui:arch"))
   implementation(project(":ui:widgets"))
 
   implementation(libs.androidx.recyclerview)

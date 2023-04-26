@@ -8,7 +8,7 @@ import com.asfoundation.wallet.home.usecases.FindDefaultWalletUseCase
 import com.asfoundation.wallet.home.usecases.FindNetworkInfoUseCase
 import com.asfoundation.wallet.router.ExternalBrowserRouter
 import com.asfoundation.wallet.router.TransactionDetailRouter
-import com.asfoundation.wallet.service.currencies.LocalCurrencyConversionService
+import com.appcoins.wallet.feature.changecurrency.data.currencies.LocalCurrencyConversionService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -26,7 +26,7 @@ class TransactionDetailModule {
     externalBrowserRouter: ExternalBrowserRouter,
     displayChatUseCase: DisplayChatUseCase,
     transactionDetailRouter: TransactionDetailRouter,
-    localCurrencyConversionService: LocalCurrencyConversionService
+    localCurrencyConversionService: com.appcoins.wallet.feature.changecurrency.data.currencies.LocalCurrencyConversionService
   ): TransactionDetailViewModelFactory {
     return TransactionDetailViewModelFactory(
       findDefaultWalletUseCase, findNetworkInfoUseCase,

@@ -14,7 +14,7 @@ import com.asfoundation.wallet.billing.address.BillingAddressRepository
 import com.asfoundation.wallet.billing.partners.AddressService
 import com.asfoundation.wallet.promo_code.use_cases.GetCurrentPromoCodeUseCase
 import com.asfoundation.wallet.support.SupportInteractor
-import com.asfoundation.wallet.ui.iab.FiatValue
+import com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
 import com.asfoundation.wallet.verification.ui.credit_card.WalletVerificationInteractor
 import com.asfoundation.wallet.wallet_blocked.WalletBlockedInteract
@@ -149,7 +149,7 @@ class AdyenPaymentInteractor @Inject constructor(
     )
   }
 
-  fun convertToLocalFiat(doubleValue: Double): Single<FiatValue> {
+  fun convertToLocalFiat(doubleValue: Double): Single<com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue> {
     return inAppPurchaseInteractor.convertToLocalFiat(doubleValue)
   }
 

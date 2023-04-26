@@ -64,13 +64,13 @@ class PaymentMethodsInteractor @Inject constructor(
       inAppPurchaseInteractor.resume(uri, transactionType, packageName, productName,
           developerPayload, isBds, type, transaction)
 
-  fun convertAppcToLocalFiat(appcValue: Double): Single<FiatValue> =
+  fun convertAppcToLocalFiat(appcValue: Double): Single<com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue> =
       inAppPurchaseInteractor.convertToLocalFiat(appcValue)
 
-  fun convertCurrencyToLocalFiat(value: Double, currency: String): Single<FiatValue> =
+  fun convertCurrencyToLocalFiat(value: Double, currency: String): Single<com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue> =
       inAppPurchaseInteractor.convertFiatToLocalFiat(value, currency)
 
-  fun convertCurrencyToAppc(value: Double, currency: String): Single<FiatValue> =
+  fun convertCurrencyToAppc(value: Double, currency: String): Single<com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue> =
       inAppPurchaseInteractor.convertFiatToAppc(value, currency)
 
 

@@ -16,7 +16,7 @@ import com.asfoundation.wallet.billing.partners.PartnerAddressService
 import com.asfoundation.wallet.promo_code.repository.PromoCode
 import com.asfoundation.wallet.promo_code.use_cases.GetCurrentPromoCodeUseCase
 import com.asfoundation.wallet.support.SupportInteractor
-import com.asfoundation.wallet.ui.iab.FiatValue
+import com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
 import com.asfoundation.wallet.util.FakeSchedulers
 import com.asfoundation.wallet.verification.ui.credit_card.WalletVerificationInteractor
@@ -255,8 +255,11 @@ class AdyenPaymentInteractorTest {
 
   @Test
   fun convertToFiatTest() {
-    val testObserver = TestObserver<FiatValue>()
-    val expectedFiatValue = FiatValue(BigDecimal(2), TEST_FIAT_CURRENCY)
+    val testObserver = TestObserver<com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue>()
+    val expectedFiatValue = com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue(
+      BigDecimal(2),
+      TEST_FIAT_CURRENCY
+    )
     Mockito.`when`(inAppPurchaseInteractor.convertToFiat(2.0, TEST_FIAT_CURRENCY))
         .thenReturn(Single.just(expectedFiatValue))
 
@@ -301,8 +304,11 @@ class AdyenPaymentInteractorTest {
 
   @Test
   fun convertToLocalFiatTest() {
-    val testObserver = TestObserver<FiatValue>()
-    val expectedFiatValue = FiatValue(BigDecimal(2), TEST_FIAT_CURRENCY)
+    val testObserver = TestObserver<com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue>()
+    val expectedFiatValue = com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue(
+      BigDecimal(2),
+      TEST_FIAT_CURRENCY
+    )
     Mockito.`when`(inAppPurchaseInteractor.convertToLocalFiat(2.0))
         .thenReturn(Single.just(expectedFiatValue))
 

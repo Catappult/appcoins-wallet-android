@@ -7,7 +7,6 @@ android {
 }
 
 dependencies {
-  implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
   implementation(project(":core:network:microservices"))
   implementation(project(":core:network:bds"))
   implementation(project(":core:utils:jvm-common"))

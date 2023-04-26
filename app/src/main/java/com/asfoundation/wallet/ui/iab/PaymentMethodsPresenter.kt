@@ -45,7 +45,7 @@ class PaymentMethodsPresenter(
 ) {
 
   private var cachedGamificationLevel = 0
-  private var cachedFiatValue: FiatValue? = null
+  private var cachedFiatValue: com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue? = null
   private var cachedPaymentNavigationData: PaymentNavigationData? = null
   private var viewState: ViewState = ViewState.DEFAULT
   private var hasStartedAuth = false
@@ -63,7 +63,7 @@ class PaymentMethodsPresenter(
     savedInstanceState?.let {
       cachedGamificationLevel = savedInstanceState.getInt(GAMIFICATION_LEVEL)
       hasStartedAuth = savedInstanceState.getBoolean(HAS_STARTED_AUTH)
-      cachedFiatValue = savedInstanceState.getSerializable(FIAT_VALUE) as FiatValue?
+      cachedFiatValue = savedInstanceState.getSerializable(FIAT_VALUE) as com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue?
       cachedPaymentNavigationData =
         savedInstanceState.getSerializable(PAYMENT_NAVIGATION_DATA) as PaymentNavigationData?
     }
@@ -501,7 +501,7 @@ class PaymentMethodsPresenter(
 
   private fun selectPaymentMethod(
     paymentMethods: List<PaymentMethod>,
-    fiatValue: FiatValue,
+    fiatValue: com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue,
     isBonusActive: Boolean
   ) {
     val fiatAmount = formatter.formatPaymentCurrency(fiatValue.amount, WalletCurrency.FIAT)
@@ -631,7 +631,7 @@ class PaymentMethodsPresenter(
   }
 
   private fun showPaymentMethods(
-    fiatValue: FiatValue,
+    fiatValue: com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue,
     paymentMethods: List<PaymentMethod>,
     paymentMethodId: String,
     fiatAmount: String,
@@ -671,7 +671,7 @@ class PaymentMethodsPresenter(
   }
 
   private fun showPreSelectedPaymentMethod(
-    fiatValue: FiatValue,
+    fiatValue: com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue,
     paymentMethod: PaymentMethod,
     fiatAmount: String,
     appcAmount: String,
@@ -828,7 +828,7 @@ class PaymentMethodsPresenter(
 
   fun stop() = disposables.clear()
 
-  private fun getPaymentMethods(fiatValue: FiatValue): Single<List<PaymentMethod>> =
+  private fun getPaymentMethods(fiatValue: com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue): Single<List<PaymentMethod>> =
     if (paymentMethodsData.isBds) {
       interactor.getPaymentMethods(transaction, fiatValue.amount.toString(), fiatValue.currency)
         .map { interactor.mergeAppcoins(it) }
@@ -968,7 +968,7 @@ class PaymentMethodsPresenter(
     outState.putSerializable(PAYMENT_NAVIGATION_DATA, cachedPaymentNavigationData)
   }
 
-  private fun getPurchaseFiatValue(): Single<FiatValue> {
+  private fun getPurchaseFiatValue(): Single<com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue> {
     // TODO when adding new currency configurable on the settings we need to update this logic to be
     //  aligned with the currency the user chooses
     val billingSupportedType = BillingSupportedType.valueOfInsensitive(transaction.type)
@@ -986,7 +986,7 @@ class PaymentMethodsPresenter(
         // converting, avoiding this way a additional call to the backend
         transaction.amount(BigDecimal(price.appcoinsAmount.toString()))
         transaction.productName = product.title
-        return@map FiatValue(
+        return@map com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue(
           BigDecimal(price.amount.toString()),
           price.currency,
           price.currencySymbol
@@ -1016,7 +1016,7 @@ class PaymentMethodsPresenter(
       transaction.originalOneStepCurrency
     }
 
-  private fun setTransactionAppcValue(transaction: TransactionBuilder): Single<FiatValue> =
+  private fun setTransactionAppcValue(transaction: TransactionBuilder): Single<com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue> =
     if (transaction.amount().compareTo(BigDecimal.ZERO) == 0) {
       interactor.convertCurrencyToAppc(getOriginalValue().toDouble(), getOriginalCurrency())
         .map { appcValue ->
@@ -1024,7 +1024,12 @@ class PaymentMethodsPresenter(
           appcValue
         }
     } else {
-      Single.just(FiatValue(transaction.amount(), "APPC"))
+      Single.just(
+        com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue(
+          transaction.amount(),
+          "APPC"
+        )
+      )
     }
 
   private fun setLoadedPayment(paymentMethodId: String) {

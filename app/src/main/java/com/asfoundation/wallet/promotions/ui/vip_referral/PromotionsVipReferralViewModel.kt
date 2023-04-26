@@ -5,13 +5,13 @@ import com.appcoins.wallet.ui.arch.BaseViewModel
 import com.appcoins.wallet.ui.arch.SideEffect
 import com.appcoins.wallet.ui.arch.ViewState
 import com.asfoundation.wallet.promotions.usecases.ConvertToLocalFiatUseCase
-import com.asfoundation.wallet.ui.iab.FiatValue
+import com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 
 data class PromotionsVipReferralState(
-  val convertTotalAsync: Async<FiatValue> = Async.Uninitialized,
+  val convertTotalAsync: Async<com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue> = Async.Uninitialized,
   val shouldShowDefault: Boolean = false
 ) : ViewState
 

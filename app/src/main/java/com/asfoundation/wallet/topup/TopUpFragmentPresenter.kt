@@ -3,7 +3,7 @@ package com.asfoundation.wallet.topup
 import android.os.Bundle
 import com.asfoundation.wallet.billing.adyen.PaymentType
 import com.asfoundation.wallet.topup.TopUpData.Companion.DEFAULT_VALUE
-import com.asfoundation.wallet.ui.iab.FiatValue
+import com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.appcoins.wallet.core.utils.android_common.Log
 import com.appcoins.wallet.core.utils.android_common.extensions.isNoNetworkException
@@ -226,7 +226,7 @@ class TopUpFragmentPresenter(
           || data.currency.appcValue.matches(NUMERIC_REGEX.toRegex())
     }
 
-  private fun getConvertedValue(data: TopUpData): Observable<FiatValue> =
+  private fun getConvertedValue(data: TopUpData): Observable<com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue> =
     if (data.selectedCurrencyType == TopUpData.FIAT_CURRENCY
       && data.currency.fiatValue != DEFAULT_VALUE
     ) {
@@ -237,7 +237,12 @@ class TopUpFragmentPresenter(
     ) {
       interactor.convertAppc(data.currency.appcValue).toObservable()
     } else {
-      Observable.just(FiatValue(BigDecimal.ZERO, ""))
+      Observable.just(
+        com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue(
+          BigDecimal.ZERO,
+          ""
+        )
+      )
     }
 
   private fun handlePaymentMethodSelected() {
@@ -314,7 +319,7 @@ class TopUpFragmentPresenter(
     )
   }
 
-  private fun handleValueWarning(maxValue: FiatValue, minValue: FiatValue, amount: BigDecimal) {
+  private fun handleValueWarning(maxValue: com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue, minValue: com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue, amount: BigDecimal) {
     val localCurrency = " ${maxValue.currency}"
     when {
       amount == BigDecimal(-1) -> {

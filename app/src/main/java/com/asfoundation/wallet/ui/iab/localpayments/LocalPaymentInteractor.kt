@@ -12,7 +12,7 @@ import com.asfoundation.wallet.billing.adyen.PurchaseBundleModel
 import com.asfoundation.wallet.billing.partners.AddressService
 import com.asfoundation.wallet.promo_code.use_cases.GetCurrentPromoCodeUseCase
 import com.asfoundation.wallet.support.SupportInteractor
-import com.asfoundation.wallet.ui.iab.FiatValue
+import com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
 import com.asfoundation.wallet.verification.ui.credit_card.WalletVerificationInteractor
 import com.asfoundation.wallet.wallet_blocked.WalletBlockedInteract
@@ -111,7 +111,7 @@ class LocalPaymentInteractor @Inject constructor(private val walletService: Wall
     return billingMessagesMapper.topUpBundle(priceAmount, priceCurrency, bonus, fiatCurrencySymbol)
   }
 
-  fun convertToFiat(appcAmount: Double, toCurrency: String): Single<FiatValue> {
+  fun convertToFiat(appcAmount: Double, toCurrency: String): Single<com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue> {
     return inAppPurchaseInteractor.convertToFiat(appcAmount, toCurrency)
   }
 

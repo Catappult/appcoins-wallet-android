@@ -1,8 +1,8 @@
 package com.asfoundation.wallet.repository
 
 import com.asfoundation.wallet.service.TokenRateService
-import com.asfoundation.wallet.service.currencies.LocalCurrencyConversionService
-import com.asfoundation.wallet.ui.iab.FiatValue
+import com.appcoins.wallet.feature.changecurrency.data.currencies.LocalCurrencyConversionService
+import com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue
 import io.reactivex.Single
 import javax.inject.Inject
 

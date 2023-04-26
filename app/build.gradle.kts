@@ -40,9 +40,11 @@ dependencies {
   implementation(project(":core:utils:android-common"))
   implementation(project(":core:utils:jvm-common"))
   implementation(project(":core:utils:properties"))
+  implementation(project(":core:arch"))
   implementation(project(":ui:common"))
-  implementation(project(":ui:arch"))
   implementation(project(":ui:widgets"))
+  implementation(project(":feature:change-currency:data"))
+  implementation(project(":feature:change-currency:ui"))
   implementation(project(":home"))
 
   implementation(libs.kotlin.coroutines)

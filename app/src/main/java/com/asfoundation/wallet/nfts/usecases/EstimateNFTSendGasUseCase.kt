@@ -1,7 +1,7 @@
 package com.asfoundation.wallet.nfts.usecases
 
 import com.appcoins.wallet.core.utils.android_common.Dispatchers
-import com.asfoundation.wallet.change_currency.use_cases.GetSelectedCurrencyUseCase
+import com.appcoins.wallet.feature.changecurrency.data.use_cases.GetSelectedCurrencyUseCase
 import com.asfoundation.wallet.nfts.domain.GasInfo
 import com.asfoundation.wallet.nfts.domain.NFTItem
 import com.asfoundation.wallet.nfts.repository.NFTRepository
@@ -13,7 +13,7 @@ import javax.inject.Inject
 
 class EstimateNFTSendGasUseCase @Inject constructor(
   private val getCurrentWallet: GetCurrentWalletUseCase,
-  private val getSelectedCurrencyUseCase: GetSelectedCurrencyUseCase,
+  private val getSelectedCurrencyUseCase: com.appcoins.wallet.feature.changecurrency.data.use_cases.GetSelectedCurrencyUseCase,
   private val NFTRepository: NFTRepository,
   private val dispatchers: Dispatchers
 ) {

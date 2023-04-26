@@ -1,6 +1,6 @@
 package com.asfoundation.wallet.topup
 
-import com.asfoundation.wallet.ui.iab.FiatValue
+import com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue
 import com.asfoundation.wallet.ui.iab.PaymentMethod
 import io.reactivex.Observable
 import java.math.BigDecimal
@@ -34,8 +34,8 @@ interface TopUpFragmentView {
   fun showNoNetworkError()
   fun showRetryAnimation()
   fun retryClick(): Observable<Any>
-  fun getValuesClicks(): Observable<FiatValue>
-  fun setValuesAdapter(values: List<FiatValue>)
+  fun getValuesClicks(): Observable<com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue>
+  fun setValuesAdapter(values: List<com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue>)
   fun showValuesAdapter()
   fun hideValuesAdapter()
   fun getKeyboardEvents(): Observable<Boolean>

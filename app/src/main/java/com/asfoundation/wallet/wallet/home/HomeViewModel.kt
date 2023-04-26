@@ -26,7 +26,7 @@ import com.asfoundation.wallet.home.usecases.*
 import com.asfoundation.wallet.referrals.CardNotification
 import com.asfoundation.wallet.transactions.Transaction
 import com.asfoundation.wallet.ui.balance.TokenBalance
-import com.asfoundation.wallet.ui.iab.FiatValue
+import com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue
 import com.asfoundation.wallet.ui.widget.entity.TransactionsModel
 import com.asfoundation.wallet.ui.widget.holder.CardNotificationAction
 import com.asfoundation.wallet.update_required.use_cases.BuildUpdateIntentUseCase.Companion.PLAY_APP_VIEW_URL
@@ -107,7 +107,7 @@ class HomeViewModel @Inject constructor(
   private val UPDATE_INTERVAL = 30 * DateUtils.SECOND_IN_MILLIS
   private val refreshData = BehaviorSubject.createDefault(true)
   private val refreshCardNotifications = BehaviorSubject.createDefault(true)
-  val balance = mutableStateOf(FiatValue())
+  val balance = mutableStateOf(com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue())
   val newWallet = mutableStateOf(false)
 
   companion object {

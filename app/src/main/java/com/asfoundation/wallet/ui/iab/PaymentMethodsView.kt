@@ -43,13 +43,13 @@ interface PaymentMethodsView {
 
   fun getBuyClick(): Observable<Any>
 
-  fun showCarrierBilling(fiatValue: FiatValue, isPreselected: Boolean)
+  fun showCarrierBilling(fiatValue: com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue, isPreselected: Boolean)
 
-  fun showPaypal(gamificationLevel: Int, fiatValue: FiatValue, frequency: String?,
+  fun showPaypal(gamificationLevel: Int, fiatValue: com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue, frequency: String?,
                  isSubscription: Boolean)
 
-  fun showPaypalV2(gamificationLevel: Int, fiatValue: FiatValue, frequency: String?,
-                 isSubscription: Boolean)
+  fun showPaypalV2(gamificationLevel: Int, fiatValue: com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue, frequency: String?,
+                   isSubscription: Boolean)
 
   fun showAdyen(fiatAmount: BigDecimal,
                 fiatCurrency: String,
@@ -57,7 +57,7 @@ interface PaymentMethodsView {
                 iconUrl: String?, gamificationLevel: Int, frequency: String?,
                 isSubscription: Boolean)
 
-  fun showCreditCard(gamificationLevel: Int, fiatValue: FiatValue, frequency: String?,
+  fun showCreditCard(gamificationLevel: Int, fiatValue: com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue, frequency: String?,
                      isSubscription: Boolean)
 
   fun showAppCoins(gamificationLevel: Int, transaction: TransactionBuilder)
@@ -82,7 +82,7 @@ interface PaymentMethodsView {
 
   fun showBuy()
 
-  fun showMergedAppcoins(gamificationLevel: Int, fiatValue: FiatValue,
+  fun showMergedAppcoins(gamificationLevel: Int, fiatValue: com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue,
                          transaction: TransactionBuilder, frequency: String?,
                          isSubscription: Boolean)
 

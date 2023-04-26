@@ -28,6 +28,6 @@ class AppcoinsRewardsBuyInteract @Inject constructor(
 
   fun removeAsyncLocalPayment() = inAppPurchaseInteractor.removeAsyncLocalPayment()
 
-  fun convertToFiat(appcValue: Double, currency: String): Single<FiatValue> =
+  fun convertToFiat(appcValue: Double, currency: String): Single<com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue> =
       inAppPurchaseInteractor.convertToFiat(appcValue, currency)
 }

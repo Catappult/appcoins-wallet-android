@@ -5,7 +5,7 @@ import com.appcoins.wallet.gamification.Gamification
 import com.asfoundation.wallet.entity.Wallet
 import com.asfoundation.wallet.promo_code.use_cases.GetCurrentPromoCodeUseCase
 import com.asfoundation.wallet.support.SupportInteractor
-import com.asfoundation.wallet.ui.iab.FiatValue
+import com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue
 import com.appcoins.wallet.core.utils.android_common.extensions.sumByBigDecimal
 import com.asfoundation.wallet.wallets.FetchWalletsInteract
 import com.asfoundation.wallet.wallets.WalletCreatorInteract
@@ -89,11 +89,15 @@ class WalletsInteract @Inject constructor(
         .ignoreElement()
     }
 
-  private fun getTotalBalance(walletBalance: List<WalletBalance>): FiatValue {
-    if (walletBalance.isEmpty()) return FiatValue()
+  private fun getTotalBalance(walletBalance: List<WalletBalance>): com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue {
+    if (walletBalance.isEmpty()) return com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue()
     val totalBalance = walletBalance.sumByBigDecimal { it.balance.amount }
     val wallet = walletBalance[0]
-    return FiatValue(totalBalance, wallet.balance.currency, wallet.balance.symbol)
+    return com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue(
+      totalBalance,
+      wallet.balance.currency,
+      wallet.balance.symbol
+    )
   }
 
   private fun retrieveWallets(): Observable<List<Wallet>> = fetchWalletsInteract.fetch()

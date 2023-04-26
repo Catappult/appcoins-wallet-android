@@ -7,22 +7,22 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.asf.wallet.R
-import com.asfoundation.wallet.ui.iab.FiatValue
+import com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue
 import com.appcoins.wallet.core.utils.jvm_common.NumberFormatterUtils
 import com.asf.wallet.databinding.ItemTopValueBinding
 import rx.functions.Action1
 
 
-class TopUpAdapter(private val listener: Action1<FiatValue>
-) : ListAdapter<FiatValue, TopUpAdapter.TopUpViewHolder>(FiatValueCallback()) {
+class TopUpAdapter(private val listener: Action1<com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue>
+) : ListAdapter<com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue, TopUpAdapter.TopUpViewHolder>(FiatValueCallback()) {
 
 
-  class FiatValueCallback : DiffUtil.ItemCallback<FiatValue>() {
-    override fun areItemsTheSame(oldItem: FiatValue, newItem: FiatValue): Boolean {
+  class FiatValueCallback : DiffUtil.ItemCallback<com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue>() {
+    override fun areItemsTheSame(oldItem: com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue, newItem: com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue): Boolean {
       return oldItem.amount == newItem.amount
     }
 
-    override fun areContentsTheSame(oldItem: FiatValue, newItem: FiatValue): Boolean {
+    override fun areContentsTheSame(oldItem: com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue, newItem: com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue): Boolean {
       return oldItem == newItem
     }
   }
@@ -40,7 +40,7 @@ class TopUpAdapter(private val listener: Action1<FiatValue>
 
     private val binding by lazy { ItemTopValueBinding.bind(itemView) }
 
-    fun bind(fiatValue: FiatValue, listener: Action1<FiatValue>) {
+    fun bind(fiatValue: com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue, listener: Action1<com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue>) {
       val formatter = NumberFormatterUtils.create()
       val text = fiatValue.symbol + formatter.formatNumberWithSuffix(fiatValue.amount.toFloat())
 

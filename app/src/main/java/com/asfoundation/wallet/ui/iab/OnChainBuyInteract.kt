@@ -63,7 +63,7 @@ class OnChainBuyInteract @Inject constructor(
   fun getTopUpChannelSuggestionValues(price: BigDecimal): List<BigDecimal> =
       inAppPurchaseInteractor.getTopUpChannelSuggestionValues(price)
 
-  fun convertToFiat(appcValue: Double, currency: String): Single<FiatValue> =
+  fun convertToFiat(appcValue: Double, currency: String): Single<com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue> =
       inAppPurchaseInteractor.convertToFiat(appcValue, currency)
 
   fun getBillingMessagesMapper(): BillingMessagesMapper =

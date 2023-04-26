@@ -11,7 +11,6 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.asf.wallet.R
-import com.asf.wallet.databinding.BackupSaveOptionsOptionsBinding
 import com.appcoins.wallet.ui.arch.SingleStateFragment
 import com.asf.wallet.databinding.BackupSaveOptionsFragmentBinding
 import com.asfoundation.wallet.billing.analytics.WalletsAnalytics

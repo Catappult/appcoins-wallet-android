@@ -11,7 +11,7 @@ import com.asfoundation.wallet.billing.carrier_billing.CarrierBillingRepository
 import com.asfoundation.wallet.billing.partners.AddressService
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.promo_code.use_cases.GetCurrentPromoCodeUseCase
-import com.asfoundation.wallet.ui.iab.FiatValue
+import com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
 import com.asfoundation.wallet.ui.iab.PaymentMethodsView
 import com.asfoundation.wallet.ui.iab.payments.common.model.WalletAddresses
@@ -137,7 +137,7 @@ class CarrierInteractor @Inject constructor(private val repository: CarrierBilli
     return uri.getQueryParameter("why") ?: "Unknown Error"
   }
 
-  fun convertToFiat(amount: Double, currency: String): Single<FiatValue> {
+  fun convertToFiat(amount: Double, currency: String): Single<com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue> {
     return inAppPurchaseInteractor.convertToFiat(amount, currency)
   }
 

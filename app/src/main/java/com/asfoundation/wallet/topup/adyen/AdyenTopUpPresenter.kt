@@ -27,7 +27,7 @@ import com.asfoundation.wallet.billing.adyen.PaymentType
 import com.asfoundation.wallet.service.ServicesErrorCodeMapper
 import com.asfoundation.wallet.topup.TopUpAnalytics
 import com.asfoundation.wallet.topup.TopUpData
-import com.asfoundation.wallet.ui.iab.FiatValue
+import com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue
 import com.asfoundation.wallet.ui.iab.Navigator
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.appcoins.wallet.core.utils.android_common.WalletCurrency
@@ -524,7 +524,7 @@ class AdyenTopUpPresenter(
     return if (selectedCurrency == TopUpData.FIAT_CURRENCY) {
       Single.just(BigDecimal(amount))
     } else adyenPaymentInteractor.convertToLocalFiat(BigDecimal(appcValue).toDouble())
-      .map(FiatValue::amount)
+      .map(com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue::amount)
   }
 
   private fun createBundle(

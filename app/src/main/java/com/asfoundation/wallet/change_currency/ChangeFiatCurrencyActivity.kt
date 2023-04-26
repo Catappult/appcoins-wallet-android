@@ -3,12 +3,23 @@ package com.asfoundation.wallet.change_currency
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import com.asf.wallet.R
+import androidx.activity.compose.setContent
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material3.Surface
+import androidx.compose.ui.Modifier
+import com.appcoins.wallet.feature.changecurrency.ui.ChangeFiatCurrencyRoute
+import com.appcoins.wallet.ui.common.theme.WalletTheme
+import com.asfoundation.wallet.home.usecases.DisplayChatUseCase
 import com.asfoundation.wallet.ui.BaseActivity
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class ChangeFiatCurrencyActivity : BaseActivity() {
+
+  @Inject
+  lateinit var displayChat: DisplayChatUseCase
+
   companion object {
     @JvmStatic
     fun newIntent(context: Context): Intent {
@@ -18,13 +29,15 @@ class ChangeFiatCurrencyActivity : BaseActivity() {
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-    setContentView(R.layout.activity_change_fiat_currency)
-    setTitle(R.string.change_currency_title)
-    toolbar()
-    if (savedInstanceState == null) {
-      supportFragmentManager.beginTransaction()
-          .replace(R.id.fragment_container, ChangeFiatCurrencyFragment.newInstance())
-          .commit()
+    setContent {
+      WalletTheme {
+        Surface(modifier = Modifier.fillMaxSize()) {
+          ChangeFiatCurrencyRoute(
+            onExitClick = { this.finishAffinity() },
+            chatClick = { displayChat() }
+          )
+        }
+      }
     }
   }
 }

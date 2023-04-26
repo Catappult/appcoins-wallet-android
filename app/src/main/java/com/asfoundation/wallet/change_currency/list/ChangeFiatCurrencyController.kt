@@ -1,15 +1,15 @@
 package com.asfoundation.wallet.change_currency.list
 
 import com.airbnb.epoxy.TypedEpoxyController
-import com.asfoundation.wallet.change_currency.ChangeFiatCurrency
-import com.asfoundation.wallet.change_currency.FiatCurrencyEntity
+import com.appcoins.wallet.feature.changecurrency.data.ChangeFiatCurrency
+import com.appcoins.wallet.feature.changecurrency.data.FiatCurrencyEntity
 import com.asfoundation.wallet.change_currency.list.model.FiatCurrencyModel_
 
-class ChangeFiatCurrencyController : TypedEpoxyController<ChangeFiatCurrency>() {
+class ChangeFiatCurrencyController : TypedEpoxyController<com.appcoins.wallet.feature.changecurrency.data.ChangeFiatCurrency>() {
 
-  var clickListener: ((FiatCurrencyEntity) -> Unit)? = null
+  var clickListener: ((com.appcoins.wallet.feature.changecurrency.data.FiatCurrencyEntity) -> Unit)? = null
 
-  override fun buildModels(model: ChangeFiatCurrency) {
+  override fun buildModels(model: com.appcoins.wallet.feature.changecurrency.data.ChangeFiatCurrency) {
     val selectedItem =
         model.list.find { fiatCurrency -> fiatCurrency.currency == model.selectedCurrency }
 

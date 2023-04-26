@@ -10,8 +10,8 @@ import com.appcoins.wallet.core.network.backend.model.GamificationResponse
 import com.appcoins.wallet.core.network.backend.model.PromotionsResponse
 import com.asfoundation.wallet.entity.Wallet
 import com.asfoundation.wallet.promo_code.use_cases.GetCurrentPromoCodeUseCase
-import com.asfoundation.wallet.service.currencies.LocalCurrencyConversionService
-import com.asfoundation.wallet.ui.iab.FiatValue
+import com.appcoins.wallet.feature.changecurrency.data.currencies.LocalCurrencyConversionService
+import com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue
 import com.asfoundation.wallet.wallets.FindDefaultWalletInteract
 import io.reactivex.Completable
 import io.reactivex.Observable
@@ -22,7 +22,7 @@ import javax.inject.Inject
 
 class GamificationInteractor @Inject constructor(private val gamification: Gamification,
                                                  private val defaultWallet: FindDefaultWalletInteract,
-                                                 private val conversionService: LocalCurrencyConversionService,
+                                                 private val conversionService: com.appcoins.wallet.feature.changecurrency.data.currencies.LocalCurrencyConversionService,
                                                  private val getCurrentPromoCodeUseCase: GetCurrentPromoCodeUseCase) {
 
   private var isBonusActiveAndValid: Boolean = false
@@ -59,7 +59,7 @@ class GamificationInteractor @Inject constructor(private val gamification: Gamif
                         promoCodeString),
                     conversionService.localCurrency,
                     gamification.getUserBonusAndLevel(wallet.address, promoCode.code),
-                    Function3 { appcBonusValue: ForecastBonus, localCurrency: FiatValue, userBonusAndLevel: ForecastBonusAndLevel ->
+                    Function3 { appcBonusValue: ForecastBonus, localCurrency: com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue, userBonusAndLevel: ForecastBonusAndLevel ->
                       map(appcBonusValue, localCurrency, userBonusAndLevel, amount)
                     })
               }
@@ -68,7 +68,7 @@ class GamificationInteractor @Inject constructor(private val gamification: Gamif
   }
 
 
-  private fun map(forecastBonus: ForecastBonus, fiatValue: FiatValue,
+  private fun map(forecastBonus: ForecastBonus, fiatValue: com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue,
                   forecastBonusAndLevel: ForecastBonusAndLevel,
                   amount: BigDecimal): ForecastBonusAndLevel {
     val status = getBonusStatus(forecastBonus, forecastBonusAndLevel)
@@ -106,9 +106,15 @@ class GamificationInteractor @Inject constructor(private val gamification: Gamif
   }
 
   fun getAppcToLocalFiat(value: String, scale: Int,
-                         getFromCache: Boolean = false): Single<FiatValue> {
+                         getFromCache: Boolean = false): Single<com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue> {
     return conversionService.getAppcToLocalFiat(value, scale, getFromCache)
-        .onErrorReturn { FiatValue(BigDecimal("-1"), "", "") }
+        .onErrorReturn {
+          com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue(
+            BigDecimal("-1"),
+            "",
+            ""
+          )
+        }
   }
 
   fun isBonusActiveAndValid(): Boolean {

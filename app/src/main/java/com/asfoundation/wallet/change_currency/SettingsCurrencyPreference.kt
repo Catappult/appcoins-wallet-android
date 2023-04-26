@@ -15,7 +15,7 @@ import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 
 class SettingsCurrencyPreference(context: Context, attrs: AttributeSet?) :
     Preference(context, attrs) {
-  private var selectedCurrency: FiatCurrencyEntity? = null
+  private var selectedCurrency: com.appcoins.wallet.feature.changecurrency.data.FiatCurrencyEntity? = null
   private var currency: TextView? = null
   private var flag: ImageView? = null
   var preferenceClickListener: View.OnClickListener? = null
@@ -32,7 +32,7 @@ class SettingsCurrencyPreference(context: Context, attrs: AttributeSet?) :
     setFlagImageView()
   }
 
-  fun setCurrency(selectedCurrency: FiatCurrencyEntity) {
+  fun setCurrency(selectedCurrency: com.appcoins.wallet.feature.changecurrency.data.FiatCurrencyEntity) {
     this.selectedCurrency = selectedCurrency
     setCurrencyTextView()
     setFlagImageView()

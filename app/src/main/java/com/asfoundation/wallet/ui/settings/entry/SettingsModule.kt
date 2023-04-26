@@ -1,7 +1,7 @@
 package com.asfoundation.wallet.ui.settings.entry
 
 import androidx.fragment.app.Fragment
-import com.asfoundation.wallet.change_currency.use_cases.GetChangeFiatCurrencyModelUseCase
+import com.appcoins.wallet.feature.changecurrency.data.use_cases.GetChangeFiatCurrencyModelUseCase
 import com.asfoundation.wallet.update_required.use_cases.BuildUpdateIntentUseCase
 import com.asfoundation.wallet.promo_code.use_cases.GetUpdatedPromoCodeUseCase
 import com.asfoundation.wallet.promo_code.use_cases.ObservePromoCodeUseCase
@@ -22,7 +22,7 @@ class SettingsModule {
                                 interactor: SettingsInteractor,
                                 data: SettingsData,
                                 buildUpdateIntentUseCase: BuildUpdateIntentUseCase,
-                                getChangeFiatCurrencyModelUseCase: GetChangeFiatCurrencyModelUseCase,
+                                getChangeFiatCurrencyModelUseCase: com.appcoins.wallet.feature.changecurrency.data.use_cases.GetChangeFiatCurrencyModelUseCase,
                                 getUpdatedPromoCodeUseCase: GetUpdatedPromoCodeUseCase,
                                 observePromoCodeUseCase: ObservePromoCodeUseCase): SettingsPresenter {
     return SettingsPresenter(settingsFragment as SettingsView, navigator, Schedulers.io(),

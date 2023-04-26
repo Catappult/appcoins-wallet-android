@@ -9,7 +9,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import by.kirich1409.viewbindingdelegate.viewBinding
-import com.asf.wallet.R
 import com.asf.wallet.databinding.SplashExtenderFragmentBinding
 import com.appcoins.wallet.ui.arch.SingleStateFragment
 import com.appcoins.wallet.core.utils.jvm_common.RxBus

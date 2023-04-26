@@ -72,7 +72,7 @@ class MergedAppcoinsPresenter(
         val creditsFiatBalance = walletInfo.walletBalance.creditsBalance.fiat
         val creditsAmount = walletInfo.walletBalance.creditsBalance.token.amount
         val appcFiatValue =
-          FiatValue(
+          com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue(
             appcFiatBalance.amount.plus(ethFiatBalance.amount),
             appcFiatBalance.currency,
             appcFiatBalance.symbol
