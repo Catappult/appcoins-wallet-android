@@ -162,6 +162,7 @@ class HomeFragment: BasePageViewFragment(), SingleStateFragment<HomeState, HomeS
       NftCard(
         onClick = { navigateToNft() }
       )
+      Spacer(modifier = Modifier.padding(32.dp))
     }
   }
 
