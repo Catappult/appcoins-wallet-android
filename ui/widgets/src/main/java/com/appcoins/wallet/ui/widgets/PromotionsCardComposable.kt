@@ -114,10 +114,11 @@ fun PromotionsCardComposable(cardItem: CardPromotionItem) {
                             horizontalArrangement = Arrangement.Start
                         ) {
                             CountDownTimer(cardItem.promotionEndTime)
-                            Column(
-                                modifier = Modifier.fillMaxSize(),
-                                horizontalAlignment = Alignment.End,
-                                verticalArrangement = Arrangement.Center,
+                            Box(
+                                modifier = Modifier
+                                    .fillMaxSize()
+                                    .fillMaxHeight()
+                                    .background(Color.Transparent),
                             ) {
                                 Text(
                                     text = stringResource(id = R.string.get_button),
@@ -126,8 +127,8 @@ fun PromotionsCardComposable(cardItem: CardPromotionItem) {
                                     fontSize = 14.sp,
                                     modifier = Modifier
                                         .padding(end = 6.dp)
+                                        .align(Alignment.CenterEnd)
                                         .clickable(onClick = cardItem.action)
-                                        .align(Alignment.End)
                                 )
                             }
                         }
