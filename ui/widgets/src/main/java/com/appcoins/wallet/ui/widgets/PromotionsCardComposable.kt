@@ -71,6 +71,8 @@ fun PromotionsCardComposable(cardItem: CardPromotionItem) {
                     )
                 )
             }
+        } else {
+            Spacer(modifier = Modifier.height(28.dp))
         }
         Surface(
             color = WalletColors.styleguide_blue_secondary,

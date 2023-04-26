@@ -31,6 +31,7 @@ import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.NavHostFragment
+import com.appcoins.wallet.core.network.backend.model.GamificationStatus
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.appcoins.wallet.core.utils.android_common.RootUtil
 import com.appcoins.wallet.core.utils.android_common.WalletCurrency.FIAT
@@ -166,7 +167,7 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
                     fontSize = 14.sp,
                     fontWeight = FontWeight.Bold,
                     color = WalletColors.styleguide_dark_grey,
-                    modifier = Modifier.padding(top = 27.dp, end = 13.dp, start = 24.dp, bottom = 8.dp)
+                    modifier = Modifier.padding(top = 27.dp, end = 13.dp, start = 24.dp)
                 )
             }
             LazyRow(
@@ -328,7 +329,7 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
                             promotion.endDate,
                             promotion.icon,
                             promotion.detailsLink,
-                            false,
+                            promotion.gamificationStatus == GamificationStatus.VIP || promotion.gamificationStatus == GamificationStatus.VIP_MAX,
                             false,
                             {}
                         )
