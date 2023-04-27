@@ -50,7 +50,7 @@ data class Transaction(
   data class TransactionCardInfo(
     val icon: Int,
     val title: Int,
-    val description: String? = null,
+    val description: Int? = null,
     val amount: String? = null,
     val currency: String? = null,
     val subIcon: Int? = null

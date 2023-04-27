@@ -21,6 +21,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -33,7 +34,7 @@ import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_medium_grey
 fun TransactionCard(
   icon: Painter,
   title: String,
-  description: String?,
+  description: Int?,
   amount: String?,
   currency: String?,
   subIcon: Int?,
@@ -62,9 +63,10 @@ fun TransactionCard(
             style = MaterialTheme.typography.bodyMedium
           )
           if (description != null) Text(
-            text = description,
+            text = stringResource(description),
             color = styleguide_medium_grey,
             style = MaterialTheme.typography.bodySmall,
+            maxLines = 2
           )
         }
       }
@@ -110,7 +112,7 @@ fun PreviewTransactionCard() {
   TransactionCard(
     icon = painterResource(id = R.drawable.ic_transaction_reverted_reward),
     title = "Reverted Purchase Bonus",
-    description = "The Bonus you received on Mar, 14 2022 has been reverted.",
+    description = R.string.bonus_body,
     amount = "-12.73",
     currency = "-30.45 APPC-C",
     subIcon = R.drawable.ic_transaction_reverted_mini

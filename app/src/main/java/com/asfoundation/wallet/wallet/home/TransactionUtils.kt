@@ -76,15 +76,16 @@ fun TransactionModel.cardInfoByType() = when (this.type) {
   "Purchase Bonus" -> Transaction.TransactionCardInfo(
     icon = R.drawable.ic_transaction_reward,
     title = R.string.transaction_type_bonus,
-    amount = mainAmount + mainCurrency,
-    currency = convertedAmount + convertedCurrency
+    description = R.string.bonus_body,
+    amount = mainAmount,
+    currency = "$convertedAmount $convertedCurrency"
   )
 
   "Top-Up" -> Transaction.TransactionCardInfo(
     icon = R.drawable.ic_transaction_topup,
     title = R.string.topup_title,
-    amount = mainAmount + mainCurrency,
-    currency = convertedAmount + convertedCurrency
+    amount = mainAmount,
+    currency = "$convertedAmount $convertedCurrency"
   )
 
   else -> TODO()
