@@ -6,12 +6,12 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 
 data class TypographySize(
-  val XXL: TextStyle,
-  val XL: TextStyle,
-  val L: TextStyle,
-  val M: TextStyle,
-  val S: TextStyle,
-  val XS: TextStyle,
+  val sp26: TextStyle,
+  val sp24: TextStyle,
+  val sp22: TextStyle,
+  val sp16: TextStyle,
+  val sp14: TextStyle,
+  val sp12: TextStyle,
   val XXS: TextStyle
 )
 
@@ -23,32 +23,32 @@ data class TypographyType(
 
 val WalletTypography = TypographyType(
   regular = TypographySize(
-    XXL = TextStyle(
+    sp26 = TextStyle(
       fontWeight = FontWeight.Normal,
       fontSize = 26.sp,
       lineHeight = 34.sp,
     ),
-    XL = TextStyle(
+    sp24 = TextStyle(
       fontWeight = FontWeight.Normal,
       fontSize = 24.sp,
       lineHeight = 32.sp,
     ),
-    L = TextStyle(
+    sp22 = TextStyle(
       fontWeight = FontWeight.Normal,
       fontSize = 22.sp,
       lineHeight = 30.sp,
     ),
-    M = TextStyle(
+    sp16 = TextStyle(
       fontWeight = FontWeight.Normal,
       fontSize = 16.sp,
       lineHeight = 24.sp,
     ),
-    S = TextStyle(
+    sp14 = TextStyle(
       fontWeight = FontWeight.Normal,
       fontSize = 14.sp,
       lineHeight = 20.sp,
     ),
-    XS = TextStyle(
+    sp12 = TextStyle(
       fontWeight = FontWeight.Normal,
       fontSize = 12.sp,
       lineHeight = 16.sp,
@@ -60,32 +60,32 @@ val WalletTypography = TypographyType(
     ),
   ),
   medium = TypographySize(
-    XXL = TextStyle(
+    sp26 = TextStyle(
       fontWeight = FontWeight.Medium,
       fontSize = 26.sp,
       lineHeight = 34.sp,
     ),
-    XL = TextStyle(
+    sp24 = TextStyle(
       fontWeight = FontWeight.Medium,
       fontSize = 24.sp,
       lineHeight = 32.sp,
     ),
-    L = TextStyle(
+    sp22 = TextStyle(
       fontWeight = FontWeight.Medium,
       fontSize = 22.sp,
       lineHeight = 30.sp,
     ),
-    M = TextStyle(
+    sp16 = TextStyle(
       fontWeight = FontWeight.Medium,
       fontSize = 16.sp,
       lineHeight = 24.sp,
     ),
-    S = TextStyle(
+    sp14 = TextStyle(
       fontWeight = FontWeight.Medium,
       fontSize = 14.sp,
       lineHeight = 20.sp,
     ),
-    XS = TextStyle(
+    sp12 = TextStyle(
       fontWeight = FontWeight.Medium,
       fontSize = 12.sp,
       lineHeight = 16.sp,
@@ -97,32 +97,32 @@ val WalletTypography = TypographyType(
     ),
   ),
   bold = TypographySize(
-    XXL = TextStyle(
+    sp26 = TextStyle(
       fontWeight = FontWeight.Bold,
       fontSize = 26.sp,
       lineHeight = 34.sp,
     ),
-    XL = TextStyle(
+    sp24 = TextStyle(
       fontWeight = FontWeight.Bold,
       fontSize = 24.sp,
       lineHeight = 32.sp,
     ),
-    L = TextStyle(
+    sp22 = TextStyle(
       fontWeight = FontWeight.Bold,
       fontSize = 22.sp,
       lineHeight = 30.sp,
     ),
-    M = TextStyle(
+    sp16 = TextStyle(
       fontWeight = FontWeight.Bold,
       fontSize = 16.sp,
       lineHeight = 24.sp,
     ),
-    S = TextStyle(
+    sp14 = TextStyle(
       fontWeight = FontWeight.Bold,
       fontSize = 14.sp,
       lineHeight = 20.sp,
     ),
-    XS = TextStyle(
+    sp12 = TextStyle(
       fontWeight = FontWeight.Bold,
       fontSize = 12.sp,
       lineHeight = 16.sp,
