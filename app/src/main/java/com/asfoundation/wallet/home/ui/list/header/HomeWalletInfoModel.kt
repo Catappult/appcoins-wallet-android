@@ -9,7 +9,7 @@ import com.airbnb.epoxy.EpoxyModelClass
 import com.airbnb.epoxy.EpoxyModelWithHolder
 import com.airbnb.lottie.LottieAnimationView
 import com.asf.wallet.R
-import com.appcoins.wallet.ui.arch.data.Async
+import com.appcoins.wallet.core.arch.data.Async
 import com.asfoundation.wallet.entity.GlobalBalance
 import com.asfoundation.wallet.home.ui.list.HomeListClick
 import com.asfoundation.wallet.ui.balance.TokenBalance

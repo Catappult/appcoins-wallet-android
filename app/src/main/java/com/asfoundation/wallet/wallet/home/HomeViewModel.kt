@@ -4,6 +4,9 @@ import android.content.Intent
 import android.net.Uri
 import android.text.format.DateUtils
 import androidx.compose.runtime.mutableStateOf
+import com.appcoins.wallet.core.arch.BaseViewModel
+import com.appcoins.wallet.core.arch.SideEffect
+import com.appcoins.wallet.core.arch.ViewState
 import com.appcoins.wallet.core.network.backend.model.GamificationStatus
 import com.appcoins.wallet.core.utils.android_common.RxSchedulers
 import com.appcoins.wallet.core.utils.properties.APTOIDE_TOP_APPS_URL
@@ -14,7 +17,7 @@ import com.appcoins.wallet.sharedpreferences.BackupTriggerPreferencesDataSource.
 import com.appcoins.wallet.sharedpreferences.BackupTriggerPreferencesDataSource.TriggerSource.FIRST_PURCHASE
 import com.appcoins.wallet.sharedpreferences.BackupTriggerPreferencesDataSource.TriggerSource.NEW_LEVEL
 import com.appcoins.wallet.ui.arch.*
-import com.appcoins.wallet.ui.arch.data.Async
+import com.appcoins.wallet.core.arch.data.Async
 import com.asfoundation.wallet.backup.triggers.TriggerUtils.toJson
 import com.asfoundation.wallet.backup.use_cases.ShouldShowBackupTriggerUseCase
 import com.asfoundation.wallet.billing.analytics.WalletsAnalytics
@@ -26,7 +29,6 @@ import com.asfoundation.wallet.home.usecases.*
 import com.asfoundation.wallet.referrals.CardNotification
 import com.asfoundation.wallet.transactions.Transaction
 import com.asfoundation.wallet.ui.balance.TokenBalance
-import com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue
 import com.asfoundation.wallet.ui.widget.entity.TransactionsModel
 import com.asfoundation.wallet.ui.widget.holder.CardNotificationAction
 import com.asfoundation.wallet.update_required.use_cases.BuildUpdateIntentUseCase.Companion.PLAY_APP_VIEW_URL

@@ -1,8 +1,8 @@
 package com.appcoins.wallet.feature.changecurrency.data.use_cases
 
 import com.appcoins.wallet.feature.changecurrency.data.ChangeFiatCurrency
-import com.appcoins.wallet.ui.arch.data.DataResult
-import com.appcoins.wallet.ui.arch.data.toDataResult
+import com.appcoins.wallet.core.arch.data.DataResult
+import com.appcoins.wallet.core.arch.data.toDataResult
 import com.appcoins.wallet.feature.changecurrency.data.FiatCurrenciesRepository
 import com.appcoins.wallet.feature.changecurrency.data.currencies.LocalCurrencyConversionService
 import com.github.michaelbull.result.unwrap

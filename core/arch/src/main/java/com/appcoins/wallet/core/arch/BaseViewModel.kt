@@ -1,12 +1,12 @@
-package com.appcoins.wallet.ui.arch
+package com.appcoins.wallet.core.arch
 
 import androidx.annotation.CallSuper
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.appcoins.wallet.core.utils.android_common.extensions.isNoNetworkException
-import com.appcoins.wallet.ui.arch.data.Async
-import com.appcoins.wallet.ui.arch.data.DataResult
-import com.appcoins.wallet.ui.arch.data.Error
+import com.appcoins.wallet.core.arch.data.Async
+import com.appcoins.wallet.core.arch.data.DataResult
+import com.appcoins.wallet.core.arch.data.Error
 import com.github.michaelbull.result.Err
 import com.github.michaelbull.result.Ok
 import io.reactivex.Completable

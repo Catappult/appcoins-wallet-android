@@ -10,8 +10,8 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.asf.wallet.R
-import com.appcoins.wallet.ui.arch.data.Navigator
-import com.appcoins.wallet.ui.arch.data.navigate
+import com.appcoins.wallet.core.arch.data.Navigator
+import com.appcoins.wallet.core.arch.data.navigate
 import com.asfoundation.wallet.promotions.ui.vip_referral.PromotionsVipReferralFragment
 import com.asfoundation.wallet.referrals.InviteFriendsActivity
 import com.asfoundation.wallet.ui.BaseActivity

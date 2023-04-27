@@ -8,8 +8,8 @@ import android.provider.DocumentsContract
 import androidx.activity.result.ActivityResultLauncher
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import com.appcoins.wallet.ui.arch.data.Navigator
-import com.appcoins.wallet.ui.arch.data.navigate
+import com.appcoins.wallet.core.arch.data.Navigator
+import com.appcoins.wallet.core.arch.data.navigate
 import com.asfoundation.wallet.entity.WalletKeyStore
 import com.asfoundation.wallet.recover.RecoverActivity
 import javax.inject.Inject

@@ -1,4 +1,4 @@
-package com.appcoins.wallet.ui.arch.data
+package com.appcoins.wallet.core.arch.data
 
 import com.github.michaelbull.result.Err
 import com.github.michaelbull.result.Ok

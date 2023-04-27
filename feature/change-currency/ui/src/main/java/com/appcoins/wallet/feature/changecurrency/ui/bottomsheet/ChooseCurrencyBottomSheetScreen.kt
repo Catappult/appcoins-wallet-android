@@ -13,7 +13,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.appcoins.wallet.core.utils.jvm_common.DevUtils.CUSTOM_TAG
-import com.appcoins.wallet.ui.arch.data.Async
+import com.appcoins.wallet.core.arch.data.Async
 import com.appcoins.wallet.ui.common.R
 import com.appcoins.wallet.ui.common.theme.WalletColors
 import com.appcoins.wallet.ui.common.theme.WalletTypography
@@ -64,12 +64,12 @@ private fun ChooseCurrencyScreen(
     )
     Text(
       text = chosenCurrency?.currency!!,
-      style = WalletTypography.medium.L,
+      style = WalletTypography.medium.sp22,
       modifier = Modifier.padding(top = 8.dp)
     )
     Text(
       text = chosenCurrency.label!!,
-      style = WalletTypography.medium.M,
+      style = WalletTypography.medium.sp16,
       color = WalletColors.styleguide_medium_grey,
       modifier = Modifier.padding(top = 4.dp, bottom = 16.dp)
     )
@@ -77,7 +77,7 @@ private fun ChooseCurrencyScreen(
       label = R.string.confirm_button,
       onClick = { currencyConfirmationClick(chosenCurrency.currency) },
       backgroundColor = WalletColors.styleguide_pink,
-      labelColor = WalletColors.styleguide_white
+      labelColor = MaterialTheme.colorScheme.primaryContainer
     )
   }
 }

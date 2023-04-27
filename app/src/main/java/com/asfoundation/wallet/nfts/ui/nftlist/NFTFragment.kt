@@ -8,8 +8,8 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.asf.wallet.databinding.FragmentNftsBinding
-import com.appcoins.wallet.ui.arch.data.Async
-import com.appcoins.wallet.ui.arch.SingleStateFragment
+import com.appcoins.wallet.core.arch.data.Async
+import com.appcoins.wallet.core.arch.SingleStateFragment
 import com.asfoundation.wallet.nfts.domain.NFTItem
 import com.asfoundation.wallet.nfts.list.NFTsController
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment

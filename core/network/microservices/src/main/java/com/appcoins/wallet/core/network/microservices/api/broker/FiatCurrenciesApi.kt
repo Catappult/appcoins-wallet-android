@@ -1,6 +1,6 @@
 package com.appcoins.wallet.core.network.microservices.api.broker
 
-import com.appcoins.wallet.ui.arch.data.Error
+import com.appcoins.wallet.core.arch.data.Error
 import com.appcoins.wallet.core.network.base.call_adapter.ApiResult
 import com.appcoins.wallet.core.network.microservices.model.response.FiatCurrenciesResponse
 import retrofit2.http.GET

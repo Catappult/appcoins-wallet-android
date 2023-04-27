@@ -20,7 +20,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.appcoins.wallet.feature.changecurrency.data.ChangeFiatCurrency
 import com.appcoins.wallet.feature.changecurrency.data.FiatCurrencyEntity
 import com.appcoins.wallet.feature.changecurrency.ui.bottomsheet.ChooseCurrencyRoute
-import com.appcoins.wallet.ui.arch.data.Async
+import com.appcoins.wallet.core.arch.data.Async
 import com.appcoins.wallet.ui.common.theme.WalletColors
 import com.appcoins.wallet.ui.common.theme.WalletTheme
 import com.appcoins.wallet.ui.common.theme.WalletTypography
@@ -90,7 +90,7 @@ private fun ChangeFiatCurrencyList(
     item {
       Text(
         text = stringResource(id = CommonR.string.change_currency_title),
-        style = WalletTypography.bold.L,
+        style = WalletTypography.bold.sp22,
         modifier = Modifier
           .padding(horizontal = 16.dp, vertical = 16.dp),
       )
@@ -150,11 +150,11 @@ private fun CurrencyItem(
       ) {
         Text(
           text = currencyItem.currency,
-          style = WalletTypography.medium.L
+          style = WalletTypography.medium.sp22
         )
         Text(
           text = currencyItem.label!!,
-          style = WalletTypography.medium.S
+          style = WalletTypography.medium.sp14
         )
       }
       if (isSelected) {

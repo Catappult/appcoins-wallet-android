@@ -9,7 +9,7 @@ import com.airbnb.epoxy.EpoxyModel
 import com.airbnb.epoxy.EpoxyViewHolder
 import com.airbnb.epoxy.Typed2EpoxyController
 import com.asf.wallet.R
-import com.appcoins.wallet.ui.arch.data.Async
+import com.appcoins.wallet.core.arch.data.Async
 import com.asfoundation.wallet.entity.GlobalBalance
 import com.asfoundation.wallet.home.ui.list.header.HeaderModelGroup
 import com.asfoundation.wallet.home.ui.list.transactions.DateModel_

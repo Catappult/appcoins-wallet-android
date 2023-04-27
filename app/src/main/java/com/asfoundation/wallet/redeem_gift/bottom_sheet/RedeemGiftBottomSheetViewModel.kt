@@ -1,9 +1,9 @@
 package com.asfoundation.wallet.redeem_gift.bottom_sheet
 
-import com.appcoins.wallet.ui.arch.data.Async
-import com.appcoins.wallet.ui.arch.BaseViewModel
-import com.appcoins.wallet.ui.arch.SideEffect
-import com.appcoins.wallet.ui.arch.ViewState
+import com.appcoins.wallet.core.arch.data.Async
+import com.appcoins.wallet.core.arch.BaseViewModel
+import com.appcoins.wallet.core.arch.SideEffect
+import com.appcoins.wallet.core.arch.ViewState
 import com.asfoundation.wallet.redeem_gift.repository.RedeemCode
 import com.asfoundation.wallet.redeem_gift.use_cases.RedeemGiftUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel

@@ -3,7 +3,7 @@ plugins {
 }
 
 android {
-  namespace = "com.appcoins.wallet.ui.arch"
+  namespace = "com.appcoins.wallet.core.arch"
 }
 
 dependencies {

@@ -1,6 +1,6 @@
 package com.appcoins.wallet.core.network.base.call_adapter
 
-import com.appcoins.wallet.ui.arch.data.Error
+import com.appcoins.wallet.core.arch.data.Error
 import com.github.michaelbull.result.Result
 import retrofit2.Call
 import retrofit2.CallAdapter

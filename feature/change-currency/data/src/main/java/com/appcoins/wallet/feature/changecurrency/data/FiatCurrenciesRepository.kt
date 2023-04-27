@@ -6,9 +6,10 @@ import com.appcoins.wallet.core.utils.android_common.Dispatchers
 import com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue
 import com.appcoins.wallet.feature.changecurrency.data.currencies.LocalCurrencyConversionService
 import com.appcoins.wallet.sharedpreferences.FiatCurrenciesPreferencesDataSource
-import com.appcoins.wallet.ui.arch.data.DataResult
-import com.appcoins.wallet.ui.arch.data.toDataResult
+import com.appcoins.wallet.core.arch.data.DataResult
+import com.appcoins.wallet.core.arch.data.toDataResult
 import com.github.michaelbull.result.map
+import com.github.michaelbull.result.onFailure
 import com.github.michaelbull.result.onSuccess
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.rx2.await
@@ -33,6 +34,9 @@ class FiatCurrenciesRepository @Inject constructor(
         }
         .onSuccess {
           fiatCurrenciesDao.replaceAllBy(it)
+        }
+        .onFailure {
+
         }
     }
 

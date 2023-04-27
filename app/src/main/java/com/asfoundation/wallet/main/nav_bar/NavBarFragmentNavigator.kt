@@ -6,8 +6,8 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import com.asf.wallet.NavBarGraphDirections
 import com.asf.wallet.R
-import com.appcoins.wallet.ui.arch.data.Navigator
-import com.appcoins.wallet.ui.arch.data.navigate
+import com.appcoins.wallet.core.arch.data.Navigator
+import com.appcoins.wallet.core.arch.data.navigate
 import com.asfoundation.wallet.main.MainActivity
 import com.asfoundation.wallet.topup.TopUpActivity
 import com.asfoundation.wallet.ui.overlay.OverlayFragment
