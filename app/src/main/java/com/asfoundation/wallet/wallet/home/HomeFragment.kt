@@ -11,9 +11,8 @@ import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyRow
-import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -25,7 +24,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.ComposeView
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -45,10 +43,6 @@ import com.appcoins.wallet.core.utils.android_common.WalletCurrency.FIAT
 import com.appcoins.wallet.ui.arch.SingleStateFragment
 import com.appcoins.wallet.ui.arch.data.Async
 import com.appcoins.wallet.ui.common.theme.WalletColors
-import com.appcoins.wallet.ui.widgets.BalanceCard
-import com.appcoins.wallet.ui.widgets.NftCard
-import com.appcoins.wallet.ui.widgets.TopBar
-import com.appcoins.wallet.ui.widgets.TransactionCard
 import com.appcoins.wallet.ui.widgets.*
 import com.asf.wallet.R
 import com.asfoundation.wallet.entity.GlobalBalance
@@ -185,6 +179,7 @@ class HomeFragment: BasePageViewFragment(), SingleStateFragment<HomeState, HomeS
           modifier = Modifier.padding(top = 27.dp, end = 13.dp, start = 24.dp)
         )
       }
+
       LazyRow(
         modifier = Modifier.padding(vertical = 8.dp),
         contentPadding = PaddingValues(horizontal = 16.dp),
@@ -194,9 +189,11 @@ class HomeFragment: BasePageViewFragment(), SingleStateFragment<HomeState, HomeS
           PromotionsCardComposable(cardItem = promotion)
         }
       }
+
       GamesBundle(
         viewModel.gamesList.value
       ) { viewModel.fetchGamesListing() }
+
       NftCard(
         onClick = { navigateToNft() }
       )
