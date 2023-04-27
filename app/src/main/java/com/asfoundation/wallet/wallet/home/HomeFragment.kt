@@ -11,6 +11,8 @@ import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
@@ -23,16 +25,19 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.ComposeView
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
+import com.appcoins.wallet.core.network.backend.model.GamificationStatus
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.appcoins.wallet.core.utils.android_common.DateFormatterUtils
 import com.appcoins.wallet.core.utils.android_common.RootUtil
@@ -44,8 +49,11 @@ import com.appcoins.wallet.ui.widgets.BalanceCard
 import com.appcoins.wallet.ui.widgets.NftCard
 import com.appcoins.wallet.ui.widgets.TopBar
 import com.appcoins.wallet.ui.widgets.TransactionCard
+import com.appcoins.wallet.ui.widgets.*
 import com.asf.wallet.R
 import com.asfoundation.wallet.entity.GlobalBalance
+import com.asfoundation.wallet.promotions.model.DefaultItem
+import com.asfoundation.wallet.promotions.model.PromotionsModel
 import com.asfoundation.wallet.support.SupportNotificationProperties
 import com.asfoundation.wallet.transactions.Transaction
 import com.asfoundation.wallet.transactions.Transaction.*
@@ -164,11 +172,35 @@ class HomeFragment: BasePageViewFragment(), SingleStateFragment<HomeState, HomeS
             } // TODO create bottom sheet
           )
         }
-      //TODO replace with home composables
+
       TransactionsList(transactionsGrouped = viewModel.transactionsGrouped.value)
+
+      if (!viewModel.activePromotions.isEmpty()) {
+        Text(
+          //Need string to Carlos Translator
+          text = getString(R.string.intro_active_promotions_header),
+          fontSize = 14.sp,
+          fontWeight = FontWeight.Bold,
+          color = WalletColors.styleguide_dark_grey,
+          modifier = Modifier.padding(top = 27.dp, end = 13.dp, start = 24.dp)
+        )
+      }
+      LazyRow(
+        modifier = Modifier.padding(vertical = 8.dp),
+        contentPadding = PaddingValues(horizontal = 16.dp),
+        horizontalArrangement = Arrangement.spacedBy(16.dp)
+      ) {
+        items(viewModel.activePromotions) { promotion ->
+          PromotionsCardComposable(cardItem = promotion)
+        }
+      }
+      GamesBundle(
+        viewModel.gamesList.value
+      ) { viewModel.fetchGamesListing() }
       NftCard(
         onClick = { navigateToNft() }
       )
+      Spacer(modifier = Modifier.padding(32.dp))
     }
   }
 
@@ -247,6 +279,7 @@ class HomeFragment: BasePageViewFragment(), SingleStateFragment<HomeState, HomeS
     setBalance(state.defaultWalletBalanceAsync)
     showVipBadge(state.showVipBadge)
     setTransactions(state.transactionsModelAsync)
+    setPromotions(state.promotionsModelAsync)
     // TODO updateSupportIcon(state.unreadMessages)
   }
 
@@ -258,6 +291,7 @@ class HomeFragment: BasePageViewFragment(), SingleStateFragment<HomeState, HomeS
       is HomeSideEffect.NavigateToSettings -> navigator.navigateToSettings(
         sideEffect.turnOnFingerprint
       )
+
       is HomeSideEffect.NavigateToShare -> navigator.handleShare(sideEffect.url)
       is HomeSideEffect.NavigateToDetails -> navigator.navigateToTransactionDetails(
         sideEffect.transaction, sideEffect.balanceCurrency
@@ -334,6 +368,37 @@ class HomeFragment: BasePageViewFragment(), SingleStateFragment<HomeState, HomeS
         viewModel.transactionsGrouped.value = transactionsModel().transactions
           .take(3)
           .groupBy { DateFormatterUtils.getDate(it.timeStamp) }
+      }
+
+      else -> Unit
+    }
+  }
+
+  private fun setPromotions(promotionsModel: Async<PromotionsModel>) {
+    when (promotionsModel) {
+      Async.Uninitialized,
+      is Async.Loading -> {
+        //TODO loading
+      }
+
+      is Async.Success -> {
+        viewModel.activePromotions.clear()
+        promotionsModel.value!!.perks.forEach { promotion ->
+          if (promotion is DefaultItem) {
+            val cardItem = CardPromotionItem(
+              promotion.appName,
+              promotion.description,
+              promotion.startDate,
+              promotion.endDate,
+              promotion.icon,
+              promotion.detailsLink,
+              promotion.gamificationStatus == GamificationStatus.VIP || promotion.gamificationStatus == GamificationStatus.VIP_MAX,
+              false,
+              {}
+            )
+            viewModel.activePromotions.add(cardItem)
+          }
+        }
       }
 
       else -> Unit
