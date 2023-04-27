@@ -10,6 +10,8 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
@@ -21,12 +23,15 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.ComposeView
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.NavHostFragment
+import com.appcoins.wallet.core.network.backend.model.GamificationStatus
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.appcoins.wallet.core.utils.android_common.RootUtil
 import com.appcoins.wallet.core.utils.android_common.WalletCurrency.FIAT
@@ -36,6 +41,8 @@ import com.appcoins.wallet.ui.common.theme.WalletColors
 import com.appcoins.wallet.ui.widgets.*
 import com.asf.wallet.R
 import com.asfoundation.wallet.entity.GlobalBalance
+import com.asfoundation.wallet.promotions.model.DefaultItem
+import com.asfoundation.wallet.promotions.model.PromotionsModel
 import com.asfoundation.wallet.support.SupportNotificationProperties
 import com.asfoundation.wallet.ui.widget.entity.TransactionsModel
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
@@ -152,6 +159,25 @@ class HomeFragment: BasePageViewFragment(), SingleStateFragment<HomeState, HomeS
           )
         }
       //TODO replace with home composables
+      if (!viewModel.activePromotions.isEmpty()) {
+        Text(
+          //Need string to Carlos Translator
+          text = getString(R.string.intro_active_promotions_header),
+          fontSize = 14.sp,
+          fontWeight = FontWeight.Bold,
+          color = WalletColors.styleguide_dark_grey,
+          modifier = Modifier.padding(top = 27.dp, end = 13.dp, start = 24.dp)
+        )
+      }
+      LazyRow(
+        modifier = Modifier.padding(vertical = 8.dp),
+        contentPadding = PaddingValues(horizontal = 16.dp),
+        horizontalArrangement = Arrangement.spacedBy(16.dp)
+      ) {
+        items(viewModel.activePromotions) { promotion ->
+          PromotionsCardComposable(cardItem = promotion)
+        }
+      }
       DummyCard()
       GamesBundle(
         viewModel.gamesList.value
@@ -198,14 +224,15 @@ class HomeFragment: BasePageViewFragment(), SingleStateFragment<HomeState, HomeS
     HomeScreen()
   }
 
-  override fun onStateChanged(state: HomeState) {
-    // TODO set transaction list elements. setData(state.transactionsModelAsync, state.defaultWalletBalanceAsync)
-    // TODO refreshing. setRefreshLayout(state.defaultWalletBalanceAsync, state.transactionsModelAsync)
-    setBalance(state.defaultWalletBalanceAsync)
-    showVipBadge(state.showVipBadge)
-    setTransactions(state.transactionsModelAsync)
-    // TODO updateSupportIcon(state.unreadMessages)
-  }
+    override fun onStateChanged(state: HomeState) {
+        // TODO set transaction list elements. setData(state.transactionsModelAsync, state.defaultWalletBalanceAsync)
+        // TODO refreshing. setRefreshLayout(state.defaultWalletBalanceAsync, state.transactionsModelAsync)
+        setBalance(state.defaultWalletBalanceAsync)
+        showVipBadge(state.showVipBadge)
+        setTransactions(state.transactionsModelAsync)
+        setPromotions(state.promotionsModelAsync)
+        // TODO updateSupportIcon(state.unreadMessages)
+    }
 
   override fun onSideEffect(sideEffect: HomeSideEffect) {
     when (sideEffect) {
@@ -282,6 +309,35 @@ class HomeFragment: BasePageViewFragment(), SingleStateFragment<HomeState, HomeS
       }
       is Async.Success ->
         viewModel.newWallet.value = transactionsModel().transactions.isEmpty()
+      else -> Unit
+    }
+  }
+
+  private fun setPromotions(promotionsModel: Async<PromotionsModel>) {
+    when (promotionsModel) {
+      Async.Uninitialized,
+      is Async.Loading -> {
+        //TODO loading
+      }
+      is Async.Success -> {
+        viewModel.activePromotions.clear()
+        promotionsModel.value!!.perks.forEach { promotion ->
+          if (promotion is DefaultItem) {
+            val cardItem = CardPromotionItem(
+              promotion.appName,
+              promotion.description,
+              promotion.startDate,
+              promotion.endDate,
+              promotion.icon,
+              promotion.detailsLink,
+              promotion.gamificationStatus == GamificationStatus.VIP || promotion.gamificationStatus == GamificationStatus.VIP_MAX,
+              false,
+              {}
+            )
+            viewModel.activePromotions.add(cardItem)
+          }
+        }
+      }
       else -> Unit
     }
   }

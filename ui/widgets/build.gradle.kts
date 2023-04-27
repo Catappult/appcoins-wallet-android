@@ -30,5 +30,6 @@ dependencies {
   implementation(libs.viewbinding.delegate)
   implementation(libs.androidx.appcompact)
   implementation(libs.bundles.androidx.compose)
-  implementation("io.coil-kt:coil-compose:2.3.0") //TODO delete when merge is done
+  implementation(libs.compose.coil)
+
 }
