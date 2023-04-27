@@ -4,13 +4,16 @@ import androidx.activity.result.ActivityResult
 
 import androidx.lifecycle.SavedStateHandle
 import com.appcoins.wallet.billing.adyen.PaymentInfoModel
+import com.appcoins.wallet.core.network.microservices.model.Transaction
 import com.appcoins.wallet.ui.arch.BaseViewModel
 import com.appcoins.wallet.ui.arch.SideEffect
 import com.appcoins.wallet.ui.arch.ViewState
 import com.appcoins.wallet.ui.arch.data.Async
 import com.asf.wallet.BuildConfig
+import com.asf.wallet.R
 import com.asfoundation.wallet.onboarding_new_payment.OnboardingPaymentEvents
 import com.asfoundation.wallet.onboarding_new_payment.use_cases.GetPaymentLinkUseCase
+import com.asfoundation.wallet.onboarding_new_payment.use_cases.GetTransactionStatusUseCase
 import com.asfoundation.wallet.ui.iab.WebViewActivity
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
@@ -20,25 +23,29 @@ sealed class OnboardingLocalPaymentSideEffect : SideEffect {
     data class NavigateToWebView(val uri: String) : OnboardingLocalPaymentSideEffect()
     object NavigateBackToPaymentMethods : OnboardingLocalPaymentSideEffect()
     object ShowLoading : OnboardingLocalPaymentSideEffect()
-    object ShowError : OnboardingLocalPaymentSideEffect()
+    data class ShowError(val message: Int?) : OnboardingLocalPaymentSideEffect()
     object ShowSuccess : OnboardingLocalPaymentSideEffect()
-
-    object ShowCompletablePayment : OnboardingLocalPaymentSideEffect()
+    object ShowPendingPayment : OnboardingLocalPaymentSideEffect()
 }
 
 
-data class OnboardingLocalPaymentState(val paymentInfoModel: Async<PaymentInfoModel> = Async.Uninitialized, val urlString: Async<String> = Async.Uninitialized) :
+data class OnboardingLocalPaymentState(
+    val transaction: Async<Transaction> = Async.Uninitialized
+) :
     ViewState
 
 @HiltViewModel
 class OnboardingLocalPaymentViewModel @Inject constructor(
     private val getPaymentLinkUseCase: GetPaymentLinkUseCase,
     private val events: OnboardingPaymentEvents,
+    private val getTransactionStatusUseCase: GetTransactionStatusUseCase,
     savedStateHandle: SavedStateHandle
 ) :
     BaseViewModel<OnboardingLocalPaymentState, OnboardingLocalPaymentSideEffect>(
         OnboardingLocalPaymentState()
     ) {
+
+    private var transactionUid: String? = null
 
     private var args: OnboardingLocalPaymentFragmentArgs =
         OnboardingLocalPaymentFragmentArgs.fromSavedStateHandle(savedStateHandle)
@@ -50,28 +57,20 @@ class OnboardingLocalPaymentViewModel @Inject constructor(
     fun handleWebViewResult(result: ActivityResult) {
         when (result.resultCode) {
             WebViewActivity.FAIL -> {
-                sendSideEffect { OnboardingLocalPaymentSideEffect.ShowError }
-
+                sendSideEffect { OnboardingLocalPaymentSideEffect.ShowError(R.string.unknown_error) }
             }
             WebViewActivity.SUCCESS -> {
-                events.sendPaymentConclusionEvents(
-                    BuildConfig.APPLICATION_ID,
-                    args.transactionBuilder.skuId,
-                    args.transactionBuilder.amount(),
-                    args.transactionBuilder.type,
-                    args.transactionBuilder.chainId.toString()
-                )
-                sendSideEffect { OnboardingLocalPaymentSideEffect.ShowSuccess }
+                getTransactionStatus()
             }
             WebViewActivity.USER_CANCEL -> {
                 events.sendPayPalConfirmationEvent(args.transactionBuilder, "cancel")
-                sendSideEffect { OnboardingLocalPaymentSideEffect.ShowError }
+                sendSideEffect { OnboardingLocalPaymentSideEffect.ShowError(null) }
             }
         }
     }
 
     private fun getPaymentLink() {
-                getPaymentLinkUseCase(
+        getPaymentLinkUseCase(
             data = args.transactionBuilder,
             currency = args.currency,
             packageName = args.transactionBuilder.domain,
@@ -87,9 +86,50 @@ class OnboardingLocalPaymentViewModel @Inject constructor(
                     transactionBuilder.chainId.toString()
                 )
             }
-            copy(urlString = it)
-
+            transactionUid = it.value?.uid
+            copy(transaction = it)
         }.scopedSubscribe()
+    }
+
+    private fun getTransactionStatus() {
+        transactionUid?.let { uid ->
+            getTransactionStatusUseCase(
+                uid = uid
+            ).map {
+                when(it.status) {
+                    Transaction.Status.COMPLETED -> {
+                        events.sendPaymentConclusionEvents(
+                            BuildConfig.APPLICATION_ID,
+                            args.transactionBuilder.skuId,
+                            args.transactionBuilder.amount(),
+                            args.transactionBuilder.type,
+                            args.transactionBuilder.chainId.toString()
+                        )
+                        sendSideEffect { OnboardingLocalPaymentSideEffect.ShowSuccess }
+                    }
+                    Transaction.Status.INVALID_TRANSACTION,
+                    Transaction.Status.FAILED,
+                    Transaction.Status.CANCELED,
+                    -> sendSideEffect {
+                        OnboardingLocalPaymentSideEffect.ShowError(
+                            R.string.purchase_error_wallet_block_code_403
+                        )
+                    }
+                    Transaction.Status.FRAUD -> sendSideEffect {
+                        OnboardingLocalPaymentSideEffect.ShowError(
+                            R.string.purchase_error_wallet_block_code_403
+                        )
+                    }
+                    Transaction.Status.PENDING,
+                    Transaction.Status.PENDING_SERVICE_AUTHORIZATION,
+                    Transaction.Status.PROCESSING,
+                    Transaction.Status.PENDING_USER_PAYMENT -> {
+                        sendSideEffect { OnboardingLocalPaymentSideEffect.ShowPendingPayment }
+                    }
+                    Transaction.Status.SETTLED -> {}
+                }
+            }.scopedSubscribe()
+        }
     }
 
     fun handleBackButton() {

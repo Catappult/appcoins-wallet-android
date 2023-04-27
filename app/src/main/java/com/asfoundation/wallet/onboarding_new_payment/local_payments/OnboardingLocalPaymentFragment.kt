@@ -1,8 +1,6 @@
 package com.asfoundation.wallet.onboarding_new_payment.local_payments
 
-import android.app.Activity
 import android.content.Intent
-import android.graphics.Bitmap
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -56,31 +54,21 @@ class OnboardingLocalPaymentFragment : BasePageViewFragment(),
     }
 
     override fun onStateChanged(state: OnboardingLocalPaymentState) {
-        when (state.paymentInfoModel) {
+        when (state.transaction) {
             Async.Uninitialized,
             is Async.Loading -> {
                 showProcessingLoading()
             }
             is Async.Success -> {
-                showCompletedPayment()
+                state.transaction.value?.url?.let {
+                    navigator.navigateToWebView(
+                        it,
+                        webViewLauncher
+                    )
+                }
             }
             is Async.Fail -> {
-                showError()
-            }
-        }
-        when (state.urlString) {
-            Async.Uninitialized,
-            is Async.Loading -> {
-                showProcessingLoading()
-            }
-            is Async.Success -> {
-                navigator.navigateToWebView(
-                    state.urlString.value!!,
-                    webViewLauncher
-                )
-            }
-            is Async.Fail -> {
-                showError()
+                showError(null)
             }
         }
     }
@@ -104,10 +92,10 @@ class OnboardingLocalPaymentFragment : BasePageViewFragment(),
 
             }
             OnboardingLocalPaymentSideEffect.NavigateBackToPaymentMethods -> navigator.navigateBackToPaymentMethods()
-            OnboardingLocalPaymentSideEffect.ShowError -> showError()
+            is OnboardingLocalPaymentSideEffect.ShowError -> showError(message = sideEffect.message)
             OnboardingLocalPaymentSideEffect.ShowLoading -> showProcessingLoading()
-            OnboardingLocalPaymentSideEffect.ShowSuccess -> showCompletedPayment()
-            OnboardingLocalPaymentSideEffect.ShowCompletablePayment -> showCompletedPayment()
+             OnboardingLocalPaymentSideEffect.ShowSuccess -> showCompletedPayment()
+            OnboardingLocalPaymentSideEffect.ShowPendingPayment -> showPendingUserPayment()
         }
     }
 
@@ -117,7 +105,7 @@ class OnboardingLocalPaymentFragment : BasePageViewFragment(),
         }
     }
 
-    fun showProcessingLoading() {
+    private fun showProcessingLoading() {
         binding.progressBar.visibility = View.VISIBLE
         binding.errorView.root.visibility = View.GONE
         binding.pendingUserPaymentView.root.visibility = View.GONE
@@ -134,7 +122,19 @@ class OnboardingLocalPaymentFragment : BasePageViewFragment(),
         binding.completePaymentView.visibility = View.GONE
     }
 
-    fun showCompletedPayment() {
+    private fun showPendingUserPayment() {
+        binding.errorView.root.visibility = View.GONE
+        binding.completePaymentView.visibility = View.GONE
+        binding.progressBar.visibility = View.GONE
+        binding.pendingUserPaymentView.root.visibility = View.VISIBLE
+
+        val placeholder = getString(R.string.async_steps_1_no_notification)
+        val stepOneText = String.format(placeholder, args.paymentType)
+
+        binding.pendingUserPaymentView.stepOneDesc.text = stepOneText
+    }
+
+    private fun showCompletedPayment() {
         binding.progressBar.visibility = View.GONE
         binding.errorView.root.visibility = View.GONE
         binding.pendingUserPaymentView.root.visibility = View.GONE
@@ -144,9 +144,10 @@ class OnboardingLocalPaymentFragment : BasePageViewFragment(),
         binding.pendingUserPaymentView.inProgressAnimation.cancelAnimation()
     }
 
-    fun showError() {
+    fun showError(message: Int?) {
         binding.errorView.genericErrorLayout.errorMessage.text = getString(R.string.ok)
-        binding.errorView.genericErrorLayout.errorMessage.text = getString(errorMessage)
+        message?.let { errorMessage = it }
+        binding.errorView.genericErrorLayout.errorMessage.text = getString(message ?: errorMessage)
         binding.pendingUserPaymentView.root.visibility = View.GONE
         binding.completePaymentView.visibility = View.GONE
         binding.pendingUserPaymentView.inProgressAnimation.cancelAnimation()
