@@ -310,6 +310,23 @@ abstract class BaseViewModel<S : ViewState, E : SideEffect>(initialState: S) : V
    * Subscribes safely to this view model scope. Once the ViewModel is cleared, this subscription
    * is also cleared.
    */
+  protected fun <T> Single<T>.scopedSubscribe(
+    onSuccessAction: ((T) -> Unit)? = null,
+    onErrorAction: ((Throwable) -> Unit)? = null
+  ): Disposable {
+    val disposable = subscribe(
+      { if (onSuccessAction != null) onSuccessAction(it) },
+      { onErrorAction?.invoke(it) }
+    )
+    return disposable.apply {
+      compositeDisposable.add(this)
+    }
+  }
+
+  /**
+   * Subscribes safely to this view model scope. Once the ViewModel is cleared, this subscription
+   * is also cleared.
+   */
   protected fun Completable.scopedSubscribe(
     onErrorAction: ((Throwable) -> Unit)? = null
   ): Disposable {

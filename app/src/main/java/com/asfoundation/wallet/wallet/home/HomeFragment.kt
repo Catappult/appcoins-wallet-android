@@ -33,9 +33,7 @@ import com.appcoins.wallet.core.utils.android_common.WalletCurrency.FIAT
 import com.appcoins.wallet.ui.arch.SingleStateFragment
 import com.appcoins.wallet.ui.arch.data.Async
 import com.appcoins.wallet.ui.common.theme.WalletColors
-import com.appcoins.wallet.ui.widgets.BalanceCard
-import com.appcoins.wallet.ui.widgets.NftCard
-import com.appcoins.wallet.ui.widgets.TopBar
+import com.appcoins.wallet.ui.widgets.*
 import com.asf.wallet.R
 import com.asfoundation.wallet.entity.GlobalBalance
 import com.asfoundation.wallet.support.SupportNotificationProperties
@@ -155,10 +153,9 @@ class HomeFragment: BasePageViewFragment(), SingleStateFragment<HomeState, HomeS
         }
       //TODO replace with home composables
       DummyCard()
-      DummyCard()
-      DummyCard()
-      DummyCard()
-      DummyCard()
+      GamesBundle(
+        viewModel.gamesList.value
+      ) { viewModel.fetchGamesListing() }
       NftCard(
         onClick = { navigateToNft() }
       )

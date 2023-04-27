@@ -197,4 +197,12 @@ class BackendApiModule {
   ): WithdrawApi {
     return retrofit.create(WithdrawApi::class.java)
   }
+
+  @Singleton
+  @Provides
+  fun providesGamesApi(
+    @BackendDefaultRetrofit retrofit: Retrofit
+  ): GamesApi {
+    return retrofit.create(GamesApi::class.java)
+  }
 }
