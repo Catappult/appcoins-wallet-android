@@ -17,6 +17,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.res.painterResource
@@ -28,425 +29,53 @@ import com.appcoins.wallet.ui.common.theme.WalletColors
 import com.appcoins.wallet.ui.widgets.TopBar
 import com.appcoins.wallet.ui.widgets.TransactionCard
 import com.asf.wallet.R
-import com.asfoundation.wallet.transactions.Transaction.TransactionStatus.SUCCESS
 import com.asfoundation.wallet.transactions.Transaction.TransactionType.*
+import com.asfoundation.wallet.transactions.TransactionsListViewModel.*
+import com.asfoundation.wallet.transactions.TransactionsListViewModel.UiState.Success
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import com.asfoundation.wallet.wallet.home.cardInfoByType
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class TransactionsListFragment : BasePageViewFragment() {
   private val viewModel: TransactionsListViewModel by viewModels()
 
-  val transactions = mapOf(
-    "Apr, 24  2023" to listOf(
-      Transaction(
-        transactionId = "0xceb9d0d0dbf0c4bbe1f60b4252868218435b5e2dbaeb807ff556d7c2b707cb12",
-        type = TOP_UP,
-        subType = null,
-        method = Transaction.Method.APPC_C,
-        title = null,
-        description = null,
-        perk = null,
-        approveTransactionId = null,
-        timeStamp = 1682328974384,
-        processedTime = 1682328974747,
-        status = SUCCESS,
-        value = "135787313022899994624",
-        from = "0x31a16adf2d5fc73f149fbb779d20c036678b1bbd",
-        to = "0xdf584cfc73008ab8253e4bbb1c30e65bbc026f9f",
-        details = null,
-        currency = "APPC",
-        operations = listOf(),
-        linkedTx = listOf(),
-        paidAmount = "12.00",
-        paidCurrency = "EUR",
-        orderReference = null
-      ),
-      Transaction(
-        transactionId = "0xceb9d0d0dbf0c4bbe1f60b4252868218435b5e2dbaeb807ff556d7c2b707cb12",
-        type = BONUS,
-        subType = null,
-        method = Transaction.Method.APPC_C,
-        title = null,
-        description = null,
-        perk = null,
-        approveTransactionId = null,
-        timeStamp = 1682328974384,
-        processedTime = 1682328974747,
-        status = SUCCESS,
-        value = "135787313022899994624",
-        from = "0x31a16adf2d5fc73f149fbb779d20c036678b1bbd",
-        to = "0xdf584cfc73008ab8253e4bbb1c30e65bbc026f9f",
-        details = null,
-        currency = "APPC",
-        operations = listOf(),
-        linkedTx = listOf(),
-        paidAmount = null,
-        paidCurrency = null,
-        orderReference = null
-      )
-    ),
-    "Apr, 23  2023" to listOf(
-      Transaction(
-        transactionId = "0xceb9d0d0dbf0c4bbe1f60b4252868218435b5e2dbaeb807ff556d7c2b707cb12",
-        type = TOP_UP,
-        subType = null,
-        method = Transaction.Method.APPC_C,
-        title = null,
-        description = null,
-        perk = null,
-        approveTransactionId = null,
-        timeStamp = 1682328974384,
-        processedTime = 1682328974747,
-        status = SUCCESS,
-        value = "135787313022899994624",
-        from = "0x31a16adf2d5fc73f149fbb779d20c036678b1bbd",
-        to = "0xdf584cfc73008ab8253e4bbb1c30e65bbc026f9f",
-        details = null,
-        currency = "APPC",
-        operations = listOf(),
-        linkedTx = listOf(),
-        paidAmount = "12.00",
-        paidCurrency = "EUR",
-        orderReference = null
-      ),
-      Transaction(
-        transactionId = "0xceb9d0d0dbf0c4bbe1f60b4252868218435b5e2dbaeb807ff556d7c2b707cb12",
-        type = BONUS,
-        subType = null,
-        method = Transaction.Method.APPC_C,
-        title = null,
-        description = null,
-        perk = null,
-        approveTransactionId = null,
-        timeStamp = 1682328974384,
-        processedTime = 1682328974747,
-        status = SUCCESS,
-        value = "135787313022899994624",
-        from = "0x31a16adf2d5fc73f149fbb779d20c036678b1bbd",
-        to = "0xdf584cfc73008ab8253e4bbb1c30e65bbc026f9f",
-        details = null,
-        currency = "APPC",
-        operations = listOf(),
-        linkedTx = listOf(),
-        paidAmount = null,
-        paidCurrency = null,
-        orderReference = null
-      )
-    ),
-    "Apr, 22  2023" to listOf(
-      Transaction(
-        transactionId = "0xceb9d0d0dbf0c4bbe1f60b4252868218435b5e2dbaeb807ff556d7c2b707cb12",
-        type = TOP_UP,
-        subType = null,
-        method = Transaction.Method.APPC_C,
-        title = null,
-        description = null,
-        perk = null,
-        approveTransactionId = null,
-        timeStamp = 1682328974384,
-        processedTime = 1682328974747,
-        status = SUCCESS,
-        value = "135787313022899994624",
-        from = "0x31a16adf2d5fc73f149fbb779d20c036678b1bbd",
-        to = "0xdf584cfc73008ab8253e4bbb1c30e65bbc026f9f",
-        details = null,
-        currency = "APPC",
-        operations = listOf(),
-        linkedTx = listOf(),
-        paidAmount = "12.00",
-        paidCurrency = "EUR",
-        orderReference = null
-      ),
-      Transaction(
-        transactionId = "0xceb9d0d0dbf0c4bbe1f60b4252868218435b5e2dbaeb807ff556d7c2b707cb12",
-        type = BONUS,
-        subType = null,
-        method = Transaction.Method.APPC_C,
-        title = null,
-        description = null,
-        perk = null,
-        approveTransactionId = null,
-        timeStamp = 1682328974384,
-        processedTime = 1682328974747,
-        status = SUCCESS,
-        value = "135787313022899994624",
-        from = "0x31a16adf2d5fc73f149fbb779d20c036678b1bbd",
-        to = "0xdf584cfc73008ab8253e4bbb1c30e65bbc026f9f",
-        details = null,
-        currency = "APPC",
-        operations = listOf(),
-        linkedTx = listOf(),
-        paidAmount = null,
-        paidCurrency = null,
-        orderReference = null
-      )
-    ),
-    "Apr, 21  2023" to listOf(
-      Transaction(
-        transactionId = "0xceb9d0d0dbf0c4bbe1f60b4252868218435b5e2dbaeb807ff556d7c2b707cb12",
-        type = TOP_UP,
-        subType = null,
-        method = Transaction.Method.APPC_C,
-        title = null,
-        description = null,
-        perk = null,
-        approveTransactionId = null,
-        timeStamp = 1682328974384,
-        processedTime = 1682328974747,
-        status = SUCCESS,
-        value = "135787313022899994624",
-        from = "0x31a16adf2d5fc73f149fbb779d20c036678b1bbd",
-        to = "0xdf584cfc73008ab8253e4bbb1c30e65bbc026f9f",
-        details = null,
-        currency = "APPC",
-        operations = listOf(),
-        linkedTx = listOf(),
-        paidAmount = "12.00",
-        paidCurrency = "EUR",
-        orderReference = null
-      ),
-      Transaction(
-        transactionId = "0xceb9d0d0dbf0c4bbe1f60b4252868218435b5e2dbaeb807ff556d7c2b707cb12",
-        type = BONUS,
-        subType = null,
-        method = Transaction.Method.APPC_C,
-        title = null,
-        description = null,
-        perk = null,
-        approveTransactionId = null,
-        timeStamp = 1682328974384,
-        processedTime = 1682328974747,
-        status = SUCCESS,
-        value = "135787313022899994624",
-        from = "0x31a16adf2d5fc73f149fbb779d20c036678b1bbd",
-        to = "0xdf584cfc73008ab8253e4bbb1c30e65bbc026f9f",
-        details = null,
-        currency = "APPC",
-        operations = listOf(),
-        linkedTx = listOf(),
-        paidAmount = null,
-        paidCurrency = null,
-        orderReference = null
-      )
-    ),
-    "Apr, 20  2023" to listOf(
-      Transaction(
-        transactionId = "0xceb9d0d0dbf0c4bbe1f60b4252868218435b5e2dbaeb807ff556d7c2b707cb12",
-        type = TOP_UP,
-        subType = null,
-        method = Transaction.Method.APPC_C,
-        title = null,
-        description = null,
-        perk = null,
-        approveTransactionId = null,
-        timeStamp = 1682328974384,
-        processedTime = 1682328974747,
-        status = SUCCESS,
-        value = "135787313022899994624",
-        from = "0x31a16adf2d5fc73f149fbb779d20c036678b1bbd",
-        to = "0xdf584cfc73008ab8253e4bbb1c30e65bbc026f9f",
-        details = null,
-        currency = "APPC",
-        operations = listOf(),
-        linkedTx = listOf(),
-        paidAmount = "12.00",
-        paidCurrency = "EUR",
-        orderReference = null
-      ),
-      Transaction(
-        transactionId = "0xceb9d0d0dbf0c4bbe1f60b4252868218435b5e2dbaeb807ff556d7c2b707cb12",
-        type = BONUS,
-        subType = null,
-        method = Transaction.Method.APPC_C,
-        title = null,
-        description = null,
-        perk = null,
-        approveTransactionId = null,
-        timeStamp = 1682328974384,
-        processedTime = 1682328974747,
-        status = SUCCESS,
-        value = "135787313022899994624",
-        from = "0x31a16adf2d5fc73f149fbb779d20c036678b1bbd",
-        to = "0xdf584cfc73008ab8253e4bbb1c30e65bbc026f9f",
-        details = null,
-        currency = "APPC",
-        operations = listOf(),
-        linkedTx = listOf(),
-        paidAmount = null,
-        paidCurrency = null,
-        orderReference = null
-      )
-    ),
-    "Apr, 19  2023" to listOf(
-      Transaction(
-        transactionId = "0xceb9d0d0dbf0c4bbe1f60b4252868218435b5e2dbaeb807ff556d7c2b707cb12",
-        type = TOP_UP,
-        subType = null,
-        method = Transaction.Method.APPC_C,
-        title = null,
-        description = null,
-        perk = null,
-        approveTransactionId = null,
-        timeStamp = 1682328974384,
-        processedTime = 1682328974747,
-        status = SUCCESS,
-        value = "135787313022899994624",
-        from = "0x31a16adf2d5fc73f149fbb779d20c036678b1bbd",
-        to = "0xdf584cfc73008ab8253e4bbb1c30e65bbc026f9f",
-        details = null,
-        currency = "APPC",
-        operations = listOf(),
-        linkedTx = listOf(),
-        paidAmount = "12.00",
-        paidCurrency = "EUR",
-        orderReference = null
-      ),
-      Transaction(
-        transactionId = "0xceb9d0d0dbf0c4bbe1f60b4252868218435b5e2dbaeb807ff556d7c2b707cb12",
-        type = BONUS,
-        subType = null,
-        method = Transaction.Method.APPC_C,
-        title = null,
-        description = null,
-        perk = null,
-        approveTransactionId = null,
-        timeStamp = 1682328974384,
-        processedTime = 1682328974747,
-        status = SUCCESS,
-        value = "135787313022899994624",
-        from = "0x31a16adf2d5fc73f149fbb779d20c036678b1bbd",
-        to = "0xdf584cfc73008ab8253e4bbb1c30e65bbc026f9f",
-        details = null,
-        currency = "APPC",
-        operations = listOf(),
-        linkedTx = listOf(),
-        paidAmount = null,
-        paidCurrency = null,
-        orderReference = null
-      )
-    ),
-    "Apr, 18  2023" to listOf(
-      Transaction(
-        transactionId = "0xceb9d0d0dbf0c4bbe1f60b4252868218435b5e2dbaeb807ff556d7c2b707cb12",
-        type = TOP_UP,
-        subType = null,
-        method = Transaction.Method.APPC_C,
-        title = null,
-        description = null,
-        perk = null,
-        approveTransactionId = null,
-        timeStamp = 1682328974384,
-        processedTime = 1682328974747,
-        status = SUCCESS,
-        value = "135787313022899994624",
-        from = "0x31a16adf2d5fc73f149fbb779d20c036678b1bbd",
-        to = "0xdf584cfc73008ab8253e4bbb1c30e65bbc026f9f",
-        details = null,
-        currency = "APPC",
-        operations = listOf(),
-        linkedTx = listOf(),
-        paidAmount = "12.00",
-        paidCurrency = "EUR",
-        orderReference = null
-      ),
-      Transaction(
-        transactionId = "0xceb9d0d0dbf0c4bbe1f60b4252868218435b5e2dbaeb807ff556d7c2b707cb12",
-        type = BONUS,
-        subType = null,
-        method = Transaction.Method.APPC_C,
-        title = null,
-        description = null,
-        perk = null,
-        approveTransactionId = null,
-        timeStamp = 1682328974384,
-        processedTime = 1682328974747,
-        status = SUCCESS,
-        value = "135787313022899994624",
-        from = "0x31a16adf2d5fc73f149fbb779d20c036678b1bbd",
-        to = "0xdf584cfc73008ab8253e4bbb1c30e65bbc026f9f",
-        details = null,
-        currency = "APPC",
-        operations = listOf(),
-        linkedTx = listOf(),
-        paidAmount = null,
-        paidCurrency = null,
-        orderReference = null
-      )
-    ),
-    "Apr, 17  2023" to listOf(
-      Transaction(
-        transactionId = "0xceb9d0d0dbf0c4bbe1f60b4252868218435b5e2dbaeb807ff556d7c2b707cb12",
-        type = TOP_UP,
-        subType = null,
-        method = Transaction.Method.APPC_C,
-        title = null,
-        description = null,
-        perk = null,
-        approveTransactionId = null,
-        timeStamp = 1682328974384,
-        processedTime = 1682328974747,
-        status = SUCCESS,
-        value = "135787313022899994624",
-        from = "0x31a16adf2d5fc73f149fbb779d20c036678b1bbd",
-        to = "0xdf584cfc73008ab8253e4bbb1c30e65bbc026f9f",
-        details = null,
-        currency = "APPC",
-        operations = listOf(),
-        linkedTx = listOf(),
-        paidAmount = "12.00",
-        paidCurrency = "EUR",
-        orderReference = null
-      ),
-      Transaction(
-        transactionId = "0xceb9d0d0dbf0c4bbe1f60b4252868218435b5e2dbaeb807ff556d7c2b707cb12",
-        type = BONUS,
-        subType = null,
-        method = Transaction.Method.APPC_C,
-        title = null,
-        description = null,
-        perk = null,
-        approveTransactionId = null,
-        timeStamp = 1682328974384,
-        processedTime = 1682328974747,
-        status = SUCCESS,
-        value = "135787313022899994624",
-        from = "0x31a16adf2d5fc73f149fbb779d20c036678b1bbd",
-        to = "0xdf584cfc73008ab8253e4bbb1c30e65bbc026f9f",
-        details = null,
-        currency = "APPC",
-        operations = listOf(),
-        linkedTx = listOf(),
-        paidAmount = null,
-        paidCurrency = null,
-        orderReference = null
-      )
-    ),
-  )
-
-  @OptIn(ExperimentalMaterial3Api::class)
   override fun onCreateView(
     inflater: LayoutInflater, container: ViewGroup?,
     savedInstanceState: Bundle?
   ): View {
     return ComposeView(requireContext()).apply {
       setContent {
-        Scaffold(
-          topBar = {
-            Surface(shadowElevation = 4.dp) {
-              TopBar(isMainBar = false)
-            }
-          },
-          containerColor = WalletColors.styleguide_blue
-        ) { padding ->
-          TransactionsList(paddingValues = padding, transactionsGrouped = transactions)
+        TransactionsView(viewModel.uiState.collectAsState().value)
+      }
+    }
+  }
+
+  @OptIn(ExperimentalMaterial3Api::class)
+  @Composable
+  fun TransactionsView(uiState: UiState) {
+    Scaffold(
+      topBar = {
+        Surface(shadowElevation = 4.dp) {
+          TopBar(isMainBar = false)
         }
+      },
+      containerColor = WalletColors.styleguide_blue
+    ) { padding ->
+      when (uiState) {
+        is Success -> TransactionsList(
+          paddingValues = padding,
+          transactionsGrouped = uiState.transactions
+        )
+
+        else -> {}
       }
     }
   }
 
   @Composable
   fun TransactionsList(
-    transactionsGrouped: Map<String, List<Transaction>>,
+    transactionsGrouped: Map<String, List<TransactionModel>>,
     paddingValues: PaddingValues
   ) {
     LazyColumn(
