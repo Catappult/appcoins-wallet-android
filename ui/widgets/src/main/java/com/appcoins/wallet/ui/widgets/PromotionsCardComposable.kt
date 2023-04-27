@@ -110,27 +110,20 @@ fun PromotionsCardComposable(cardItem: CardPromotionItem) {
                             .height(49.dp)
                     ) {
                         Row(
-                            modifier = Modifier.fillMaxSize(),
-                            horizontalArrangement = Arrangement.Start
+                            modifier = Modifier.fillMaxWidth(),
+                            horizontalArrangement = Arrangement.SpaceBetween,
+                            verticalAlignment = Alignment.CenterVertically
                         ) {
                             CountDownTimer(cardItem.promotionEndTime)
-                            Box(
+                            Text(
+                                text = stringResource(id = R.string.get_button),
+                                fontWeight = FontWeight.Bold,
+                                color = WalletColors.styleguide_pink,
+                                fontSize = 14.sp,
                                 modifier = Modifier
-                                    .fillMaxSize()
-                                    .fillMaxHeight()
-                                    .background(Color.Transparent),
-                            ) {
-                                Text(
-                                    text = stringResource(id = R.string.get_button),
-                                    fontWeight = FontWeight.Bold,
-                                    color = WalletColors.styleguide_pink,
-                                    fontSize = 14.sp,
-                                    modifier = Modifier
-                                        .padding(end = 6.dp)
-                                        .align(Alignment.CenterEnd)
-                                        .clickable(onClick = cardItem.action)
-                                )
-                            }
+                                    .padding(end = 6.dp, start = 85.dp)
+                                    .clickable(onClick = cardItem.action)
+                            )
                         }
                     }
                 } else {
@@ -138,24 +131,21 @@ fun PromotionsCardComposable(cardItem: CardPromotionItem) {
                         modifier = Modifier
                             .height(49.dp)
                     ) {
-                        Row(modifier = Modifier.fillMaxSize()) {
+                        Row(
+                            modifier = Modifier.fillMaxWidth(),
+                            horizontalArrangement = Arrangement.SpaceBetween,
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
                             IconWithText(stringResource(id = R.string.perks_available_soon_short))
-                            Column(
-                                modifier = Modifier.fillMaxSize(),
-                                horizontalAlignment = Alignment.End,
-                                verticalArrangement = Arrangement.Center,
-                            ) {
-                                Text(
-                                    text = stringResource(id = R.string.get_button),
-                                    fontWeight = FontWeight.Bold,
-                                    color = WalletColors.styleguide_pink,
-                                    fontSize = 14.sp,
-                                    modifier = Modifier
-                                        .padding(end = 6.dp)
-                                        .clickable(onClick = cardItem.action)
-                                        .align(Alignment.End)
-                                )
-                            }
+                            Text(
+                                text = stringResource(id = R.string.get_button),
+                                fontWeight = FontWeight.Bold,
+                                color = WalletColors.styleguide_pink,
+                                fontSize = 14.sp,
+                                modifier = Modifier
+                                    .padding(end = 6.dp, start = 67.dp)
+                                    .clickable(onClick = cardItem.action)
+                            )
                         }
                     }
                 }
@@ -180,26 +170,42 @@ fun CountDownTimer(endDateTime: Long) {
             delay(1000)
         }
     }
-    BoxWithTextAndDetail(
-        text =  remainingTime.value.toDays().toString(),
-        detail = pluralStringResource(id = R.plurals.days, count = remainingTime.value.toDays().toInt())
-    )
-    BoxWithTextAndDetail(
-        text = (remainingTime.value.toHours() % 24).toString(),
-        detail = pluralStringResource(id = R.plurals.hours, count = (remainingTime.value.toHours() % 24).toInt())
-    )
-    BoxWithTextAndDetail(
-        text = (remainingTime.value.toMinutes() % 60).toString(),
-        detail = pluralStringResource(id = R.plurals.minutes, count = (remainingTime.value.toMinutes() % 60).toInt())
-    )
-    BoxWithTextAndDetail(
-        text = (remainingTime.value.seconds % 60).toString(),
-        detail = pluralStringResource(id = R.plurals.minutes, count = (remainingTime.value.seconds % 60).toInt())
-    )
+    Row(
+        horizontalArrangement = Arrangement.Start,
+    ) {
+        CardWithTextAndDetail(
+            text = remainingTime.value.toDays().toString(),
+            detail = pluralStringResource(
+                id = R.plurals.days,
+                count = remainingTime.value.toDays().toInt()
+            )
+        )
+        CardWithTextAndDetail(
+            text = (remainingTime.value.toHours() % 24).toString(),
+            detail = pluralStringResource(
+                id = R.plurals.hours,
+                count = (remainingTime.value.toHours() % 24).toInt()
+            )
+        )
+        CardWithTextAndDetail(
+            text = (remainingTime.value.toMinutes() % 60).toString(),
+            detail = pluralStringResource(
+                id = R.plurals.minutes,
+                count = (remainingTime.value.toMinutes() % 60).toInt()
+            )
+        )
+        CardWithTextAndDetail(
+            text = (remainingTime.value.seconds % 60).toString(),
+            detail = pluralStringResource(
+                id = R.plurals.seconds,
+                count = (remainingTime.value.seconds % 60).toInt()
+            )
+        )
+    }
 }
 
 @Composable
-fun BoxWithTextAndDetail(text: String, detail: String) {
+fun CardWithTextAndDetail(text: String, detail: String) {
     Card(
         colors = CardDefaults.cardColors(WalletColors.styleguide_black),
         modifier = Modifier
@@ -231,29 +237,26 @@ fun BoxWithTextAndDetail(text: String, detail: String) {
 
 @Composable
 fun IconWithText(text: String) {
-    Column {
-        Row(
-            verticalAlignment = Alignment.CenterVertically,
-            modifier = Modifier.padding(start = 19.dp, top = 12.dp)
-        ) {
-            Image(
-                painter = painterResource(R.drawable.ic_clock),
-                colorFilter = ColorFilter.tint(WalletColors.styleguide_pink),
-                modifier = Modifier
-                    .height(14.dp)
-                    .width(14.dp)
-                    .align(Alignment.CenterVertically),
-                contentDescription = null
-            )
-            Text(
-                text = text,
-                fontWeight = FontWeight.Bold,
-                color = WalletColors.styleguide_dark_grey,
-                modifier = Modifier.padding(start = 8.dp),
-                maxLines = 1,
-                fontSize = 12.sp
-            )
-        }
+    Row(
+        verticalAlignment = Alignment.CenterVertically,
+        modifier = Modifier.padding(start = 19.dp, top = 12.dp)
+    ) {
+        Image(
+            painter = painterResource(R.drawable.ic_clock),
+            colorFilter = ColorFilter.tint(WalletColors.styleguide_pink),
+            modifier = Modifier
+                .height(14.dp)
+                .width(14.dp),
+            contentDescription = null
+        )
+        Text(
+            text = text,
+            fontWeight = FontWeight.Bold,
+            color = WalletColors.styleguide_dark_grey,
+            modifier = Modifier.padding(start = 8.dp),
+            maxLines = 1,
+            fontSize = 12.sp
+        )
     }
 }
 
