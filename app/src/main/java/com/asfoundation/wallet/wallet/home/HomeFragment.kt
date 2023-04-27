@@ -179,9 +179,9 @@ class HomeFragment: BasePageViewFragment(), SingleStateFragment<HomeState, HomeS
         }
       }
       DummyCard()
-      DummyCard()
-      DummyCard()
-      DummyCard()
+      GamesBundle(
+        viewModel.gamesList.value
+      ) { viewModel.fetchGamesListing() }
       NftCard(
         onClick = { navigateToNft() }
       )

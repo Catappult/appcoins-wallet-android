@@ -17,6 +17,7 @@ import com.appcoins.wallet.sharedpreferences.BackupTriggerPreferencesDataSource.
 import com.appcoins.wallet.ui.arch.*
 import com.appcoins.wallet.ui.arch.data.Async
 import com.appcoins.wallet.ui.widgets.CardPromotionItem
+import com.appcoins.wallet.ui.widgets.GameData
 import com.asfoundation.wallet.backup.triggers.TriggerUtils.toJson
 import com.asfoundation.wallet.backup.use_cases.ShouldShowBackupTriggerUseCase
 import com.asfoundation.wallet.billing.analytics.WalletsAnalytics
@@ -101,6 +102,7 @@ class HomeViewModel @Inject constructor(
   private val findDefaultWalletUseCase: FindDefaultWalletUseCase,
   private val observeDefaultWalletUseCase: ObserveDefaultWalletUseCase,
   private val dismissCardNotificationUseCase: DismissCardNotificationUseCase,
+  private val getGamesListingUseCase: GetGamesListingUseCase,
   private val getLevelsUseCase: GetLevelsUseCase,
   private val getUserLevelUseCase: GetUserLevelUseCase,
   private val observeUserStatsUseCase: ObserveUserStatsUseCase,
@@ -121,6 +123,7 @@ class HomeViewModel @Inject constructor(
   private val refreshCardNotifications = BehaviorSubject.createDefault(true)
   val balance = mutableStateOf(FiatValue())
   val newWallet = mutableStateOf(false)
+  val gamesList = mutableStateOf(listOf<GameData>())
   val activePromotions = mutableStateListOf<CardPromotionItem>()
 
   companion object {
@@ -291,6 +294,15 @@ class HomeViewModel @Inject constructor(
         Single.error(IllegalStateException(status.name))
       }
       .toObservable()
+  }
+
+  fun fetchGamesListing() {
+    getGamesListingUseCase()
+      .subscribeOn(rxSchedulers.io)
+      .scopedSubscribe(
+        { gamesList.value = it },
+        { e -> e.printStackTrace() }
+      )
   }
 
   private fun verifyUserLevel() {
