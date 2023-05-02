@@ -2,6 +2,7 @@ package com.asfoundation.wallet.ui.iab.localpayments
 
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import com.appcoins.wallet.bdsbilling.WalletService
 import com.appcoins.wallet.bdsbilling.repository.RemoteRepository
 import com.appcoins.wallet.billing.BillingMessagesMapper
@@ -39,8 +40,8 @@ class LocalPaymentInteractor @Inject constructor(private val walletService: Wall
           .flatMap { walletVerificationInteractor.isVerified(it.address, it.signedAddress) }
           .onErrorReturn { true }
 
-  fun getPaymentLink(packageName: String, fiatAmount: String?, fiatCurrency: String?,
-                     paymentMethod: String, productName: String?, type: String, origin: String?,
+  fun getPaymentLink(paymentMethod: String,packageName: String, fiatAmount: String?, fiatCurrency: String?,
+                     productName: String?, type: String, origin: String?,
                      walletDeveloper: String?, developerPayload: String?,
                      callbackUrl: String?, orderReference: String?,
                      referrerUrl: String?): Single<String> {

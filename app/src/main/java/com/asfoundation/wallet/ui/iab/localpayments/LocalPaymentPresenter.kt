@@ -91,8 +91,8 @@ class LocalPaymentPresenter(
   private fun onViewCreatedRequestLink() {
     disposables.add(
       localPaymentInteractor.getPaymentLink(
-        data.packageName, data.fiatAmount,
-        data.currency, data.paymentId, data.skuId, data.type, data.origin,
+        data.paymentId,data.packageName, data.fiatAmount,
+        data.currency, data.skuId, data.type, data.origin,
         data.developerAddress, data.payload, data.callbackUrl, data.orderReference,
         data.referrerUrl
       )
