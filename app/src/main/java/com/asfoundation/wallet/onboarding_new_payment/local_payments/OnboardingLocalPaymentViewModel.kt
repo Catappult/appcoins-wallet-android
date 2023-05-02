@@ -50,6 +50,7 @@ class OnboardingLocalPaymentViewModel @Inject constructor(
     private val JOB_UPDATE_INTERVAL_MS = 20 * DateUtils.SECOND_IN_MILLIS
     private val JOB_TIMEOUT_MS = 60 * DateUtils.SECOND_IN_MILLIS
     private var jobTransactionStatus: Job? = null
+    private val timerTransactionStatus = Timer()
     val scope = CoroutineScope(Dispatchers.Main)
 
     private var args: OnboardingLocalPaymentFragmentArgs =
@@ -66,8 +67,7 @@ class OnboardingLocalPaymentViewModel @Inject constructor(
             }
             WebViewActivity.SUCCESS -> {
                 // Set up a Timer to call getTransactionStatus() every 10 seconds
-                val timer = Timer()
-                timer.schedule(object : TimerTask() {
+                timerTransactionStatus.schedule(object : TimerTask() {
                     override fun run() {
                         scope.launch {
                             getTransactionStatus()
@@ -78,7 +78,7 @@ class OnboardingLocalPaymentViewModel @Inject constructor(
                 jobTransactionStatus = scope.launch {
                     delay(JOB_TIMEOUT_MS)
                     sendSideEffect { OnboardingLocalPaymentSideEffect.ShowError(null) }
-                    timer.cancel()
+                    timerTransactionStatus.cancel()
                 }
             }
             WebViewActivity.USER_CANCEL -> {
@@ -118,6 +118,7 @@ class OnboardingLocalPaymentViewModel @Inject constructor(
                 when (it.status) {
                     Transaction.Status.COMPLETED -> {
                         jobTransactionStatus?.cancel()
+                        timerTransactionStatus.cancel()
                         events.sendPaymentConclusionEvents(
                             BuildConfig.APPLICATION_ID,
                             args.transactionBuilder.skuId,
@@ -132,6 +133,7 @@ class OnboardingLocalPaymentViewModel @Inject constructor(
                     Transaction.Status.CANCELED,
                     Transaction.Status.FRAUD -> {
                         jobTransactionStatus?.cancel()
+                        timerTransactionStatus.cancel()
                         sendSideEffect {
                             OnboardingLocalPaymentSideEffect.ShowError(
                                 R.string.purchase_error_wallet_block_code_403
