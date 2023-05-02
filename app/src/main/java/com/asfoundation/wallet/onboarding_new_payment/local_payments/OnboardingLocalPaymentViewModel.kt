@@ -1,9 +1,9 @@
 package com.asfoundation.wallet.onboarding_new_payment.local_payments
 
+import android.text.format.DateUtils
 import androidx.activity.result.ActivityResult
 
 import androidx.lifecycle.SavedStateHandle
-import com.appcoins.wallet.billing.adyen.PaymentInfoModel
 import com.appcoins.wallet.core.network.microservices.model.Transaction
 import com.appcoins.wallet.ui.arch.BaseViewModel
 import com.appcoins.wallet.ui.arch.SideEffect
@@ -16,6 +16,9 @@ import com.asfoundation.wallet.onboarding_new_payment.use_cases.GetPaymentLinkUs
 import com.asfoundation.wallet.onboarding_new_payment.use_cases.GetTransactionStatusUseCase
 import com.asfoundation.wallet.ui.iab.WebViewActivity
 import dagger.hilt.android.lifecycle.HiltViewModel
+import io.reactivex.Observable
+import io.reactivex.disposables.Disposable
+import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 
@@ -46,6 +49,8 @@ class OnboardingLocalPaymentViewModel @Inject constructor(
     ) {
 
     private var transactionUid: String? = null
+    private val UPDATE_INTERVAL = 10 * DateUtils.SECOND_IN_MILLIS
+    private var disposableTransactionStatus: Disposable? = null
 
     private var args: OnboardingLocalPaymentFragmentArgs =
         OnboardingLocalPaymentFragmentArgs.fromSavedStateHandle(savedStateHandle)
@@ -60,7 +65,12 @@ class OnboardingLocalPaymentViewModel @Inject constructor(
                 sendSideEffect { OnboardingLocalPaymentSideEffect.ShowError(R.string.unknown_error) }
             }
             WebViewActivity.SUCCESS -> {
-                getTransactionStatus()
+                disposableTransactionStatus = Observable.interval(UPDATE_INTERVAL, TimeUnit.SECONDS)
+                    .timeout(60, TimeUnit.SECONDS)
+                    .subscribe(
+                        { getTransactionStatus() },
+                        { sendSideEffect { OnboardingLocalPaymentSideEffect.ShowError(null) } }
+                    )
             }
             WebViewActivity.USER_CANCEL -> {
                 events.sendPayPalConfirmationEvent(args.transactionBuilder, "cancel")
@@ -96,8 +106,9 @@ class OnboardingLocalPaymentViewModel @Inject constructor(
             getTransactionStatusUseCase(
                 uid = uid
             ).map {
-                when(it.status) {
+                when (it.status) {
                     Transaction.Status.COMPLETED -> {
+                        disposableTransactionStatus?.dispose()
                         events.sendPaymentConclusionEvents(
                             BuildConfig.APPLICATION_ID,
                             args.transactionBuilder.skuId,
@@ -110,15 +121,13 @@ class OnboardingLocalPaymentViewModel @Inject constructor(
                     Transaction.Status.INVALID_TRANSACTION,
                     Transaction.Status.FAILED,
                     Transaction.Status.CANCELED,
-                    -> sendSideEffect {
-                        OnboardingLocalPaymentSideEffect.ShowError(
-                            R.string.purchase_error_wallet_block_code_403
-                        )
-                    }
-                    Transaction.Status.FRAUD -> sendSideEffect {
-                        OnboardingLocalPaymentSideEffect.ShowError(
-                            R.string.purchase_error_wallet_block_code_403
-                        )
+                    Transaction.Status.FRAUD -> {
+                        disposableTransactionStatus?.dispose()
+                        sendSideEffect {
+                            OnboardingLocalPaymentSideEffect.ShowError(
+                                R.string.purchase_error_wallet_block_code_403
+                            )
+                        }
                     }
                     Transaction.Status.PENDING,
                     Transaction.Status.PENDING_SERVICE_AUTHORIZATION,
