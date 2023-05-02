@@ -94,8 +94,7 @@ class OnboardingLocalPaymentFragment : BasePageViewFragment(),
             OnboardingLocalPaymentSideEffect.NavigateBackToPaymentMethods -> navigator.navigateBackToPaymentMethods()
             is OnboardingLocalPaymentSideEffect.ShowError -> showError(message = sideEffect.message)
             OnboardingLocalPaymentSideEffect.ShowLoading -> showProcessingLoading()
-             OnboardingLocalPaymentSideEffect.ShowSuccess -> showCompletedPayment()
-            OnboardingLocalPaymentSideEffect.ShowPendingPayment -> showPendingUserPayment()
+            OnboardingLocalPaymentSideEffect.ShowSuccess -> showCompletedPayment()
         }
     }
 
@@ -120,18 +119,6 @@ class OnboardingLocalPaymentFragment : BasePageViewFragment(),
         binding.fragmentIabTransactionCompleted.lottieTransactionSuccess.cancelAnimation()
         binding.pendingUserPaymentView.root.visibility = View.GONE
         binding.completePaymentView.visibility = View.GONE
-    }
-
-    private fun showPendingUserPayment() {
-        binding.errorView.root.visibility = View.GONE
-        binding.completePaymentView.visibility = View.GONE
-        binding.progressBar.visibility = View.GONE
-        binding.pendingUserPaymentView.root.visibility = View.VISIBLE
-
-        val placeholder = getString(R.string.async_steps_1_no_notification)
-        val stepOneText = String.format(placeholder, args.paymentType)
-
-        binding.pendingUserPaymentView.stepOneDesc.text = stepOneText
     }
 
     private fun showCompletedPayment() {
