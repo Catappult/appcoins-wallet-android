@@ -21,11 +21,12 @@ class GetPaymentInfoModelUseCase @Inject constructor(
     paymentType: String, value: String,
     currency: String
   ): Single<PaymentInfoModel> {
-    return walletService.getWalletAddress()
+    return walletService.getAndSignCurrentWalletAddress()
       .subscribeOn(rxSchedulers.io)
-      .flatMap { walletAddress ->
+      .flatMap { walletModel ->
         adyenApi.loadPaymentInfo(
-          walletAddress,
+          walletModel.address,
+          walletModel.signedAddress,
           value,
           currency,
           mapPaymentToService(paymentType).transactionType
