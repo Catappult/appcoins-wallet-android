@@ -12,6 +12,7 @@ import com.appcoins.wallet.billing.util.Error
 import com.appcoins.wallet.core.utils.android_common.RxSchedulers
 import com.asfoundation.wallet.billing.address.BillingAddressRepository
 import com.asfoundation.wallet.billing.partners.AddressService
+import com.asfoundation.wallet.ewt.EwtAuthenticatorService
 import com.asfoundation.wallet.promo_code.use_cases.GetCurrentPromoCodeUseCase
 import com.asfoundation.wallet.support.SupportInteractor
 import com.asfoundation.wallet.ui.iab.FiatValue
@@ -38,6 +39,7 @@ class AdyenPaymentInteractor @Inject constructor(
   private val walletVerificationInteractor: WalletVerificationInteractor,
   private val billingAddressRepository: BillingAddressRepository,
   private val getCurrentPromoCodeUseCase: GetCurrentPromoCodeUseCase,
+  private val ewtObtainer: EwtAuthenticatorService,
   private val rxSchedulers: RxSchedulers
 ) {
 
@@ -56,13 +58,28 @@ class AdyenPaymentInteractor @Inject constructor(
   }
 
   fun loadPaymentInfo(
-    methods: AdyenPaymentRepository.Methods, value: String,
+    methods: AdyenPaymentRepository.Methods,
+    value: String,
     currency: String
   ): Single<PaymentInfoModel> {
-    return walletService.getAndSignCurrentWalletAddress()
-      .flatMap {
+    return Single.zip(
+      walletService.getAndSignCurrentWalletAddress().subscribeOn(rxSchedulers.io),
+      ewtObtainer.getEwtAuthentication().subscribeOn(rxSchedulers.io)
+    ) { walletModel, ewt ->
+      Pair(walletModel, ewt)
+    }
+      .flatMap { pair ->
+        val walletModel = pair.first
+        val ewt = pair.second
         adyenPaymentRepository
-          .loadPaymentInfo(methods, value, currency, it.address, it.signedAddress)
+          .loadPaymentInfo(
+            methods,
+            value,
+            currency,
+            walletModel.address,
+            walletModel.signedAddress,
+            ewt
+          )
       }
   }
 

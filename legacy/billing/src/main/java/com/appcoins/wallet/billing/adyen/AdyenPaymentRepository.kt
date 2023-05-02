@@ -18,9 +18,15 @@ class AdyenPaymentRepository @Inject constructor(
   private val logger: Logger
 ) {
 
-  fun loadPaymentInfo(methods: Methods, value: String,
-                      currency: String, walletAddress: String, walletSignature: String): Single<PaymentInfoModel> {
-    return adyenApi.loadPaymentInfo(walletAddress, walletSignature, value, currency, methods.transactionType)
+  fun loadPaymentInfo(
+    methods: Methods,
+    value: String,
+    currency: String,
+    walletAddress: String,
+    walletSignature: String,
+    ewt: String
+  ): Single<PaymentInfoModel> {
+    return adyenApi.loadPaymentInfo(walletAddress, walletSignature, /*ewt,*/ value, currency, methods.transactionType)
         .map {
           adyenResponseMapper.map(it, methods)
         }
