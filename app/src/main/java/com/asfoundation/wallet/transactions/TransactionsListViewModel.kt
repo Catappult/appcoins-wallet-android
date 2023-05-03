@@ -2,9 +2,10 @@ package com.asfoundation.wallet.transactions
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.appcoins.wallet.core.network.backend.ApiError
+import com.appcoins.wallet.core.network.backend.ApiFailure
 import com.appcoins.wallet.core.network.backend.ApiException
 import com.appcoins.wallet.core.network.backend.ApiSuccess
+import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.asfoundation.wallet.home.usecases.FetchTransactionsHistoryUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -16,21 +17,25 @@ import javax.inject.Inject
 
 @HiltViewModel
 class TransactionsListViewModel @Inject constructor(
-  private val fetchTransactionsHistoryUseCase: FetchTransactionsHistoryUseCase
+  private val fetchTransactionsHistoryUseCase: FetchTransactionsHistoryUseCase,
+  private val logger: Logger
 ) : ViewModel() {
-
   private val _uiState = MutableStateFlow<UiState>(UiState.Idle)
   var uiState: StateFlow<UiState> = _uiState
+
+  companion object {
+    private val TAG = TransactionsListViewModel::class.java.name
+  }
 
   init {
     fetchTransactions()
   }
 
-  fun fetchTransactions() {
+  private fun fetchTransactions() {
     viewModelScope.launch {
-      fetchTransactionsHistoryUseCase("0xdf584cfc73008ab8253e4bbb1c30e65bbc026f9f")
-        .onStart { } //TODO() Loading
-        .catch { } //TODO() Logger
+      fetchTransactionsHistoryUseCase("")
+        .onStart { _uiState.value = UiState.Loading }
+        .catch { logger.log(TAG, it) }
         .collect { result ->
           when (result) {
             is ApiSuccess -> {
@@ -41,7 +46,7 @@ class TransactionsListViewModel @Inject constructor(
               )
             }
 
-            is ApiError -> {}
+            is ApiFailure -> {}
 
             is ApiException -> {}
           }

@@ -1,7 +1,7 @@
 package com.asfoundation.wallet.transactions
 
 import android.os.Parcelable
-import kotlinx.android.parcel.Parcelize
+import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class Transaction(
@@ -48,9 +48,10 @@ data class Transaction(
   enum class TransactionStatus : Parcelable { SUCCESS, FAILED, PENDING }
 
   data class TransactionCardInfo(
-    val icon: Int,
     val title: Int,
-    val description: Int? = null,
+    val icon: Int? = null,
+    val appIcon: String? = null,
+    val description: String? = null,
     val amount: String? = null,
     val currency: String? = null,
     val subIcon: Int? = null

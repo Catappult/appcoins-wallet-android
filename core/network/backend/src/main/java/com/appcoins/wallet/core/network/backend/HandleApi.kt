@@ -10,10 +10,10 @@ suspend fun <T : Any> handleApi(execute: suspend () -> Response<T>): ApiResult<T
     if (response.isSuccessful && body != null) {
       ApiSuccess(body)
     } else {
-      ApiError(code = response.code(), message = response.message())
+      ApiFailure(code = response.code(), message = response.message())
     }
   } catch (e: HttpException) {
-    ApiError(code = e.code(), message = e.message())
+    ApiFailure(code = e.code(), message = e.message())
   } catch (e: Throwable) {
     ApiException(e)
   }
@@ -21,5 +21,5 @@ suspend fun <T : Any> handleApi(execute: suspend () -> Response<T>): ApiResult<T
 
 sealed interface ApiResult<T : Any>
 class ApiSuccess<T : Any>(val data: T) : ApiResult<T>
-class ApiError<T : Any>(val code: Int, val message: String?) : ApiResult<T>
+class ApiFailure<T : Any>(val code: Int, val message: String?) : ApiResult<T>
 class ApiException<T : Any>(val e: Throwable) : ApiResult<T>

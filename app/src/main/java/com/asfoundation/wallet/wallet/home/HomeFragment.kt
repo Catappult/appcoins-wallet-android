@@ -18,13 +18,13 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.ComposeView
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -49,11 +49,14 @@ import com.asfoundation.wallet.entity.GlobalBalance
 import com.asfoundation.wallet.promotions.model.DefaultItem
 import com.asfoundation.wallet.promotions.model.PromotionsModel
 import com.asfoundation.wallet.support.SupportNotificationProperties
-import com.asfoundation.wallet.transactions.Transaction
 import com.asfoundation.wallet.transactions.Transaction.*
 import com.asfoundation.wallet.transactions.Transaction.TransactionType.*
+import com.asfoundation.wallet.transactions.TransactionModel
 import com.asfoundation.wallet.ui.widget.entity.TransactionsModel
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
+import com.asfoundation.wallet.wallet.home.HomeViewModel.UiState
+import com.asfoundation.wallet.wallet.home.HomeViewModel.UiState.Loading
+import com.asfoundation.wallet.wallet.home.HomeViewModel.UiState.Success
 import dagger.hilt.android.AndroidEntryPoint
 import io.intercom.android.sdk.Intercom
 import java.math.BigDecimal
@@ -167,7 +170,7 @@ class HomeFragment: BasePageViewFragment(), SingleStateFragment<HomeState, HomeS
           )
         }
 
-      TransactionsList(transactionsGrouped = viewModel.transactionsGrouped.value)
+      TransactionsCard(transactionsState = viewModel.uiState.collectAsState().value)
 
       if (!viewModel.activePromotions.isEmpty()) {
         Text(
@@ -201,10 +204,9 @@ class HomeFragment: BasePageViewFragment(), SingleStateFragment<HomeState, HomeS
     }
   }
 
-  @OptIn(ExperimentalFoundationApi::class)
   @Composable
-  fun TransactionsList(
-    transactionsGrouped: Map<String, List<Transaction>>
+  fun TransactionsCard(
+    transactionsState: UiState
   ) {
     Column(
       modifier = Modifier
@@ -222,44 +224,66 @@ class HomeFragment: BasePageViewFragment(), SingleStateFragment<HomeState, HomeS
         colors = CardDefaults.cardColors(WalletColors.styleguide_blue_secondary)
       )
       {
-        Box(
-          contentAlignment = Alignment.TopEnd
-        ) {
-          LazyColumn(userScrollEnabled = false, modifier = Modifier.padding(vertical = 8.dp)) {
-            transactionsGrouped.forEach { (date, transactionsForDate) ->
-              stickyHeader {
-                Text(
-                  text = date,
-                  color = WalletColors.styleguide_medium_grey,
-                  modifier = Modifier.padding(start = 16.dp, bottom = 8.dp, top = 16.dp),
-                  style = MaterialTheme.typography.bodySmall
-                )
-              }
-
-              items(transactionsForDate) { transaction ->
-                with(transaction.cardInfoByType()) {
-                  TransactionCard(
-                    icon = painterResource(id = icon),
-                    title = stringResource(id = title),
-                    description = description,
-                    amount = amount,
-                    currency = currency,
-                    subIcon = subIcon,
-                    onClick = { viewModel.onTransactionDetailsClick(transaction) }
-                  )
-                }
-
-              }
+        when (transactionsState) {
+          is Success -> TransactionsList(transactionsState.transactions)
+          is Loading -> {
+            Row(
+              modifier = Modifier
+                .fillMaxWidth()
+                .defaultMinSize(minHeight = 160.dp),
+              verticalAlignment = Alignment.CenterVertically,
+              horizontalArrangement = Arrangement.Center
+            ) {
+              CircularProgressIndicator()
             }
           }
-          TextButton(onClick = { viewModel.onSeeAllTransactionsClick() }) {
+
+          else -> {}
+        }
+      }
+    }
+  }
+
+  @OptIn(ExperimentalFoundationApi::class)
+  @Composable
+  fun TransactionsList(transactionsGrouped: Map<String, List<TransactionModel>>) {
+    Box(
+      contentAlignment = Alignment.TopEnd
+    ) {
+      LazyColumn(userScrollEnabled = false, modifier = Modifier.padding(vertical = 8.dp)) {
+        transactionsGrouped.forEach { (date, transactionsForDate) ->
+          stickyHeader {
             Text(
-              text = stringResource(R.string.see_all_button),
-              color = WalletColors.styleguide_pink,
-              style = MaterialTheme.typography.bodyMedium,
+              text = date,
+              color = WalletColors.styleguide_medium_grey,
+              modifier = Modifier.padding(start = 16.dp, bottom = 8.dp, top = 16.dp),
+              style = MaterialTheme.typography.bodySmall
             )
           }
+
+          items(transactionsForDate) { transaction ->
+            with(transaction.cardInfoByType()) {
+              TransactionCard(
+                icon = icon,
+                appIcon = appIcon,
+                title = stringResource(id = title),
+                description = description,
+                amount = amount,
+                currency = currency,
+                subIcon = subIcon,
+                onClick = { }
+              )
+            }
+
+          }
         }
+      }
+      TextButton(onClick = { viewModel.onSeeAllTransactionsClick() }) {
+        Text(
+          text = stringResource(R.string.see_all_button),
+          color = WalletColors.styleguide_pink,
+          style = MaterialTheme.typography.bodyMedium,
+        )
       }
     }
   }

@@ -1,171 +1,215 @@
 package com.asfoundation.wallet.wallet.home
 
-import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
-import com.appcoins.wallet.core.utils.android_common.WalletCurrency
 import com.asf.wallet.R
-import com.asfoundation.wallet.C
-import com.asfoundation.wallet.transactions.Transaction
-import com.asfoundation.wallet.transactions.Transaction.TransactionType.ADS
-import com.asfoundation.wallet.transactions.Transaction.TransactionType.ADS_OFFCHAIN
-import com.asfoundation.wallet.transactions.Transaction.TransactionType.BONUS
-import com.asfoundation.wallet.transactions.Transaction.TransactionType.BONUS_REVERT
-import com.asfoundation.wallet.transactions.Transaction.TransactionType.ESKILLS
-import com.asfoundation.wallet.transactions.Transaction.TransactionType.ESKILLS_REWARD
-import com.asfoundation.wallet.transactions.Transaction.TransactionType.ETHER_TRANSFER
-import com.asfoundation.wallet.transactions.Transaction.TransactionType.IAP
-import com.asfoundation.wallet.transactions.Transaction.TransactionType.IAP_OFFCHAIN
-import com.asfoundation.wallet.transactions.Transaction.TransactionType.IAP_REVERT
-import com.asfoundation.wallet.transactions.Transaction.TransactionType.STANDARD
-import com.asfoundation.wallet.transactions.Transaction.TransactionType.SUBS_OFFCHAIN
-import com.asfoundation.wallet.transactions.Transaction.TransactionType.TOP_UP
-import com.asfoundation.wallet.transactions.Transaction.TransactionType.TOP_UP_REVERT
-import com.asfoundation.wallet.transactions.Transaction.TransactionType.TRANSFER
-import com.asfoundation.wallet.transactions.Transaction.TransactionType.TRANSFER_OFF_CHAIN
+import com.asfoundation.wallet.transactions.Transaction.TransactionCardInfo
 import com.asfoundation.wallet.transactions.TransactionModel
-import java.math.BigDecimal
-import java.math.RoundingMode
-import java.text.NumberFormat
-import kotlin.math.pow
-
-fun Transaction.cardInfoByType() = when (this.type) {
-  BONUS -> Transaction.TransactionCardInfo(
-    icon = R.drawable.ic_transaction_reward,
-    title = R.string.transaction_type_bonus,
-    amount = getScaledValue(value, C.ETHER_DECIMALS.toLong(), "", false),
-    currency = currency
-  )
-
-  TOP_UP -> Transaction.TransactionCardInfo(
-    icon = R.drawable.ic_transaction_topup,
-    title = R.string.topup_title,
-    amount = "${
-      getScaledValue(
-        paidAmount!!,
-        0,
-        currency ?: "",
-        false
-      )
-    } $paidCurrency",
-    currency = "${
-      getScaledValue(
-        value,
-        C.ETHER_DECIMALS.toLong(),
-        currency ?: "",
-        false
-      )
-    } $currency"
-  )
-
-  STANDARD -> TODO()
-  IAP -> TODO()
-  ADS -> TODO()
-  IAP_OFFCHAIN -> TODO()
-  ADS_OFFCHAIN -> TODO()
-  TRANSFER_OFF_CHAIN -> TODO()
-  BONUS_REVERT -> TODO()
-  TOP_UP_REVERT -> TODO()
-  IAP_REVERT -> TODO()
-  SUBS_OFFCHAIN -> TODO()
-  ESKILLS_REWARD -> TODO()
-  ESKILLS -> TODO()
-  TRANSFER -> TODO()
-  ETHER_TRANSFER -> TODO()
-}
+import com.asfoundation.wallet.transactions.TransactionType.EXTRA_BONUS
+import com.asfoundation.wallet.transactions.TransactionType.E_SKILLS_REWARD
+import com.asfoundation.wallet.transactions.TransactionType.E_SKILLS_TICKET_REFUND
+import com.asfoundation.wallet.transactions.TransactionType.FUNDS_RECEIVED
+import com.asfoundation.wallet.transactions.TransactionType.FUNDS_SENT
+import com.asfoundation.wallet.transactions.TransactionType.GIFT_CARD
+import com.asfoundation.wallet.transactions.TransactionType.IN_APP_PURCHASE
+import com.asfoundation.wallet.transactions.TransactionType.PROMO_CODE_BONUS
+import com.asfoundation.wallet.transactions.TransactionType.PURCHASE_BONUS
+import com.asfoundation.wallet.transactions.TransactionType.PURCHASE_REFUND
+import com.asfoundation.wallet.transactions.TransactionType.REJECTED_E_SKILLS_TICKET
+import com.asfoundation.wallet.transactions.TransactionType.REJECTED_PURCHASE
+import com.asfoundation.wallet.transactions.TransactionType.REJECTED_SUBSCRIPTION_PURCHASE
+import com.asfoundation.wallet.transactions.TransactionType.REJECTED_TOP_UP
+import com.asfoundation.wallet.transactions.TransactionType.REVERTED_EXTRA_BONUS
+import com.asfoundation.wallet.transactions.TransactionType.REVERTED_PROMO_CODE_BONUS
+import com.asfoundation.wallet.transactions.TransactionType.REVERTED_PURCHASE_BONUS
+import com.asfoundation.wallet.transactions.TransactionType.REVERTED_TOP_UP
+import com.asfoundation.wallet.transactions.TransactionType.SUBSCRIPTION_PAYMENT
+import com.asfoundation.wallet.transactions.TransactionType.SUBSCRIPTION_REFUND
+import com.asfoundation.wallet.transactions.TransactionType.TOP_UP
+import com.asfoundation.wallet.transactions.TransactionType.VOUCHER_PURCHASE
 
 fun TransactionModel.cardInfoByType() = when (this.type) {
-  "Purchase Bonus" -> Transaction.TransactionCardInfo(
+  PURCHASE_BONUS -> TransactionCardInfo(
     icon = R.drawable.ic_transaction_reward,
-    title = R.string.transaction_type_bonus,
-    description = R.string.bonus_body,
+    title = R.string.error_general,
+    description = description,
     amount = mainAmount,
-    currency = "$convertedAmount $convertedCurrency"
+    currency = convertedAmount
   )
 
-  "Top-Up" -> Transaction.TransactionCardInfo(
+  TOP_UP -> TransactionCardInfo(
     icon = R.drawable.ic_transaction_topup,
     title = R.string.topup_title,
     amount = mainAmount,
-    currency = "$convertedAmount $convertedCurrency"
+    currency = convertedAmount
   )
 
-  else -> TODO()
-}
-
-fun getScaledValue(
-  valueStr: String, decimals: Long, currencySymbol: String,
-  flipSign: Boolean
-): String {
-  val sign = if (flipSign) -1 else 1
-  val walletCurrency = WalletCurrency.mapToWalletCurrency(currencySymbol)
-  val value = BigDecimal(valueStr).divide(
-    BigDecimal(
-      10.toDouble()
-        .pow(decimals.toDouble())
-    )
+  GIFT_CARD -> TransactionCardInfo(
+    icon = R.drawable.ic_transaction_gift,
+    title = R.string.error_general,
+    amount = mainAmount,
+    currency = convertedAmount
   )
-    .multiply(sign.toBigDecimal())
-  // In case of positive value, we need to explicitly put the "+" sign
-  val signedString = if (value > BigDecimal.ZERO) "+" else ""
-  return signedString + formatCurrency(value, walletCurrency)
-}
 
-fun formatCurrency(value: BigDecimal, currencyType: WalletCurrency): String {
-  return when (currencyType) {
-    WalletCurrency.FIAT -> formatCurrencyFiat(value.toDouble())
-    WalletCurrency.APPCOINS -> formatCurrencyAppcoins(value.toDouble())
-    WalletCurrency.CREDITS -> formatCurrencyCredits(value.toDouble())
-    WalletCurrency.ETHEREUM -> formatCurrencyEth(value.toDouble())
-  }
-}
+  EXTRA_BONUS -> TransactionCardInfo(
+    icon = R.drawable.ic_transaction_gift,
+    title = R.string.error_general,
+    amount = mainAmount,
+    description = description,
+    currency = convertedAmount
+  )
 
-private fun formatCurrencyFiat(
-  value: Double,
-  rounding: RoundingMode = RoundingMode.FLOOR
-): String {
-  val fiatFormatter = NumberFormat.getNumberInstance()
-    .apply {
-      minimumFractionDigits = CurrencyFormatUtils.FIAT_SCALE
-      maximumFractionDigits = CurrencyFormatUtils.FIAT_SCALE
-      roundingMode = rounding
-    }
-  return fiatFormatter.format(value)
-}
+  PROMO_CODE_BONUS -> TransactionCardInfo(
+    icon = R.drawable.ic_transaction_gift,
+    title = R.string.error_general,
+    amount = mainAmount,
+    currency = convertedAmount
+  )
 
-private fun formatCurrencyAppcoins(
-  value: Double,
-  rounding: RoundingMode = RoundingMode.FLOOR
-): String {
-  val appcFormatter = NumberFormat.getNumberInstance()
-    .apply {
-      minimumFractionDigits = CurrencyFormatUtils.APPC_SCALE
-      maximumFractionDigits = CurrencyFormatUtils.APPC_SCALE
-      roundingMode = rounding
-    }
-  return appcFormatter.format(value)
-}
+  REVERTED_PURCHASE_BONUS -> TransactionCardInfo(
+    icon = R.drawable.ic_transaction_reverted_reward,
+    title = R.string.error_general,
+    amount = mainAmount,
+    description = description,
+    currency = convertedAmount,
+    subIcon = R.drawable.ic_transaction_reverted_mini
+  )
 
-private fun formatCurrencyCredits(
-  value: Double,
-  rounding: RoundingMode = RoundingMode.FLOOR
-): String {
-  val creditsFormatter = NumberFormat.getNumberInstance()
-    .apply {
-      minimumFractionDigits = CurrencyFormatUtils.CREDITS_SCALE
-      maximumFractionDigits = CurrencyFormatUtils.CREDITS_SCALE
-      roundingMode = rounding
-    }
-  return creditsFormatter.format(value)
-}
+  REVERTED_EXTRA_BONUS -> TransactionCardInfo(
+    icon = R.drawable.ic_transaction_reverted_gift,
+    title = R.string.error_general,
+    amount = mainAmount,
+    description = description,
+    subIcon = R.drawable.ic_transaction_reverted_mini,
+    currency = convertedAmount
+  )
 
-private fun formatCurrencyEth(
-  value: Double,
-  rounding: RoundingMode = RoundingMode.FLOOR
-): String {
-  val ethFormatter = NumberFormat.getNumberInstance()
-    .apply {
-      minimumFractionDigits = CurrencyFormatUtils.ETH_SCALE
-      maximumFractionDigits = CurrencyFormatUtils.ETH_SCALE
-      roundingMode = rounding
-    }
-  return ethFormatter.format(value)
+  REVERTED_PROMO_CODE_BONUS -> TransactionCardInfo(
+    icon = R.drawable.ic_transaction_reverted_gift,
+    title = R.string.error_general,
+    amount = mainAmount,
+    description = description,
+    subIcon = R.drawable.ic_transaction_reverted_mini,
+    currency = convertedAmount
+  )
+
+  E_SKILLS_REWARD -> TransactionCardInfo(
+    icon = R.drawable.ic_transaction_reward,
+    title = R.string.transaction_type_eskills_reward,
+    description = description,
+    amount = mainAmount,
+    currency = convertedAmount
+  )
+
+  E_SKILLS_TICKET_REFUND -> TransactionCardInfo(
+    appIcon = appIcon,
+    title = R.string.error_general,
+    description = description,
+    amount = mainAmount,
+    currency = convertedAmount
+  )
+
+  REJECTED_E_SKILLS_TICKET -> TransactionCardInfo(
+    appIcon = appIcon,
+    title = R.string.error_general,
+    amount = mainAmount,
+    description = description,
+    currency = convertedAmount,
+    subIcon = R.drawable.ic_transaction_reverted_mini
+  )
+
+  FUNDS_SENT -> TransactionCardInfo(
+    icon = R.drawable.ic_transaction_transfer,
+    title = R.string.title_send,
+    amount = mainAmount,
+    description = description,
+    currency = convertedAmount
+  )
+
+  FUNDS_RECEIVED -> TransactionCardInfo(
+    icon = R.drawable.ic_transaction_transfer,
+    title = R.string.error_general,
+    amount = mainAmount,
+    description = description,
+    currency = convertedAmount
+  )
+
+  IN_APP_PURCHASE -> TransactionCardInfo(
+    appIcon = appIcon,
+    title = R.string.transaction_type_iab,
+    amount = mainAmount,
+    description = description,
+    currency = convertedAmount
+  )
+
+  PURCHASE_REFUND -> TransactionCardInfo(
+    icon = R.drawable.ic_transaction_reverted_reward,
+    title = R.string.error_general,
+    amount = mainAmount,
+    description = description,
+    currency = convertedAmount,
+    subIcon = R.drawable.ic_transaction_refund_mini
+  )
+
+  REJECTED_PURCHASE -> TransactionCardInfo(
+    icon = R.drawable.ic_transaction_reverted_reward,
+    title = R.string.error_general,
+    amount = mainAmount,
+    description = description,
+    currency = convertedAmount,
+    subIcon = R.drawable.ic_transaction_reverted_mini
+  )
+
+  REVERTED_TOP_UP -> TransactionCardInfo(
+    icon = R.drawable.ic_transaction_reverted,
+    title = R.string.error_general,
+    amount = mainAmount,
+    currency = convertedAmount,
+  )
+
+  REJECTED_TOP_UP -> TransactionCardInfo(
+    icon = R.drawable.ic_transaction_rejected_topup,
+    title = R.string.error_general,
+    amount = mainAmount,
+    currency = convertedAmount,
+  )
+
+  SUBSCRIPTION_PAYMENT -> TransactionCardInfo(
+    appIcon = appIcon,
+    title = R.string.error_general,
+    amount = mainAmount,
+    description = description,
+    currency = convertedAmount
+  )
+
+  SUBSCRIPTION_REFUND -> TransactionCardInfo(
+    appIcon = appIcon,
+    title = R.string.error_general,
+    amount = mainAmount,
+    description = description,
+    currency = convertedAmount,
+    subIcon = R.drawable.ic_transaction_refund_mini
+  )
+
+  REJECTED_SUBSCRIPTION_PURCHASE -> TransactionCardInfo(
+    appIcon = appIcon,
+    title = R.string.error_general,
+    amount = mainAmount,
+    description = description,
+    currency = convertedAmount,
+    subIcon = R.drawable.ic_transaction_reverted_mini
+  )
+
+  VOUCHER_PURCHASE -> TransactionCardInfo(
+    appIcon = appIcon,
+    title = R.string.error_general,
+    amount = mainAmount,
+    description = description,
+    currency = convertedAmount,
+  )
+
+  else -> TransactionCardInfo(
+    icon = R.drawable.ic_transaction_transfer,
+    title = R.string.error_general,
+    amount = mainAmount,
+    currency = convertedAmount
+  )
 }
