@@ -255,7 +255,8 @@
   <string name="transaction_type_standard">Overboeking</string>
   <string name="transaction_type_bonus">Bonus</string>
   <string name="transaction_type_eskills_reward">Beloning voor e-Skills</string>
-  <string name="transaction_type_eskills">Aankoop voor e-Skills</string>
+  <string name="transaction_type_eskills">e-Skills Entry Ticket</string>
+  <string name="transaction_type_eskills_ticke_refund">e-Skills Ticket Refund</string>
   <string name="transaction_type_voucher">E-voucher</string>
   <string name="transaction_type_voucher_title">Voucher voor %s</string>
   <string name="transaction_type_reverted_bonus_title">Teruggedraaide bonus</string>
@@ -286,6 +287,10 @@
   <string name="dialog_credit_card_cvv">CVV</string>
   <string name="dialog_bank_card">Creditcard/betaalkaart</string>
   <string name="dialog_expiry_date">Vervaldatum</string>
+  <string name="transaction_type_purchase_bonus">Purchase Bonus</string>
+  <string name="transaction_type_promo_code_bonus">Promo Code Bonus</string>
+  <string name="transaction_type_extra_bonus">Extra Bonus</string>
+  <string name="transaction_type_topup">Top-up</string>
   <string name="activity_airdrop_title">Bevestig dat je geen robot bent om AppCoins te kunnen ontvangen</string>
   <string name="activity_airdrop_details">Dit is alleen voor de veiligheid.</string>
   <string name="activity_airdrop_hint">Voer de tekens in die worden weergegeven</string>
