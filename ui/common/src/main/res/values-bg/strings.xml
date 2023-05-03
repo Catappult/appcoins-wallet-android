@@ -255,7 +255,8 @@
   <string name="transaction_type_standard">Трансфер</string>
   <string name="transaction_type_bonus">Бонус</string>
   <string name="transaction_type_eskills_reward">e-Skills Reward</string>
-  <string name="transaction_type_eskills">e-Skills Purchase</string>
+  <string name="transaction_type_eskills">e-Skills Entry Ticket</string>
+  <string name="transaction_type_eskills_ticke_refund">e-Skills Ticket Refund</string>
   <string name="transaction_type_voucher">e-Voucher</string>
   <string name="transaction_type_voucher_title">Voucher for %s</string>
   <string name="transaction_type_reverted_bonus_title">Reverted Bonus</string>
@@ -286,6 +287,10 @@
   <string name="dialog_credit_card_cvv">CVV</string>
   <string name="dialog_bank_card">Credit/debit card</string>
   <string name="dialog_expiry_date">Expiry date</string>
+  <string name="transaction_type_purchase_bonus">Purchase Bonus</string>
+  <string name="transaction_type_promo_code_bonus">Promo Code Bonus</string>
+  <string name="transaction_type_extra_bonus">Extra Bonus</string>
+  <string name="transaction_type_topup">Top-up</string>
   <string name="activity_airdrop_title">Потвърди, че си човек, за да получиш AppCoins</string>
   <string name="activity_airdrop_details">Това е просто мярка за сигурност.</string>
   <string name="activity_airdrop_hint">Въведи думите в изображението</string>
