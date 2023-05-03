@@ -255,7 +255,8 @@
   <string name="transaction_type_standard">हस्तांतरण</string>
   <string name="transaction_type_bonus">बोनस</string>
   <string name="transaction_type_eskills_reward">e-Skills Reward</string>
-  <string name="transaction_type_eskills">इ-स्किल्स खरेदी</string>
+  <string name="transaction_type_eskills">e-Skills Entry Ticket</string>
+  <string name="transaction_type_eskills_ticke_refund">e-Skills Ticket Refund</string>
   <string name="transaction_type_voucher">इ-व्हाऊचर</string>
   <string name="transaction_type_voucher_title">%s साठी व्हाऊचर</string>
   <string name="transaction_type_reverted_bonus_title">परत केलेला बोनस</string>
@@ -286,6 +287,10 @@
   <string name="dialog_credit_card_cvv">सीव्हीव्ही</string>
   <string name="dialog_bank_card">क्रेडीट/डेबीट कार्ड</string>
   <string name="dialog_expiry_date">कालबाह्यता तारीख</string>
+  <string name="transaction_type_purchase_bonus">Purchase Bonus</string>
+  <string name="transaction_type_promo_code_bonus">Promo Code Bonus</string>
+  <string name="transaction_type_extra_bonus">Extra Bonus</string>
+  <string name="transaction_type_topup">Top-up</string>
   <string name="activity_airdrop_title">अॅपकॉइन्स मिळविण्यासाठी आपण मानव आहात याची पुष्टी करा</string>
   <string name="activity_airdrop_details">हे फक्त सुरक्षिततेबाबत आहे.</string>
   <string name="activity_airdrop_hint">चित्रातील शब्द लिहा</string>
