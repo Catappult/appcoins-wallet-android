@@ -255,7 +255,8 @@
   <string name="transaction_type_standard">โอนย้าย</string>
   <string name="transaction_type_bonus">โบนัส</string>
   <string name="transaction_type_eskills_reward">รางวัล e-Skill</string>
-  <string name="transaction_type_eskills">ซื้อ e-Skills</string>
+  <string name="transaction_type_eskills">e-Skills Entry Ticket</string>
+  <string name="transaction_type_eskills_ticke_refund">e-Skills Ticket Refund</string>
   <string name="transaction_type_voucher">เวาเชอร์อิเล็กทรอนิกส์</string>
   <string name="transaction_type_voucher_title">บัตรกำนัลสำหรับ %s</string>
   <string name="transaction_type_reverted_bonus_title">โบนัสเงินคืน</string>
@@ -286,6 +287,10 @@
   <string name="dialog_credit_card_cvv">CVV</string>
   <string name="dialog_bank_card">บัตรเครดิต/เดบิต</string>
   <string name="dialog_expiry_date">วันหมดอายุ</string>
+  <string name="transaction_type_purchase_bonus">Purchase Bonus</string>
+  <string name="transaction_type_promo_code_bonus">Promo Code Bonus</string>
+  <string name="transaction_type_extra_bonus">Extra Bonus</string>
+  <string name="transaction_type_topup">Top-up</string>
   <string name="activity_airdrop_title">ยืนยันว่า คุณเป็นคนที่จะได้รับ AppCoins</string>
   <string name="activity_airdrop_details">นี้เป็นเพียงสิ่งปลอดภัย</string>
   <string name="activity_airdrop_hint">พิมพ์คำในภาพ</string>
