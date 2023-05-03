@@ -26,7 +26,7 @@ class AdyenPaymentRepository @Inject constructor(
     walletSignature: String,
     ewt: String
   ): Single<PaymentInfoModel> {
-    return adyenApi.loadPaymentInfo(walletAddress, walletSignature, /*ewt,*/ value, currency, methods.transactionType)
+    return adyenApi.loadPaymentInfo(walletAddress, walletSignature, ewt, value, currency, methods.transactionType)
         .map {
           adyenResponseMapper.map(it, methods)
         }

@@ -37,7 +37,7 @@ class GetPaymentInfoModelUseCase @Inject constructor(
         adyenApi.loadPaymentInfo(
           walletModel.address,
           walletModel.signedAddress,
-//          ewt,
+          "123456789",
           value,
           currency,
           mapPaymentToService(paymentType).transactionType,

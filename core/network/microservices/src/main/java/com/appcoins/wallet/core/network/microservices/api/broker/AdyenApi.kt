@@ -25,7 +25,7 @@ interface AdyenApi {
   fun loadPaymentInfo(
     @Query("wallet.address") walletAddress: String,
     @Query("wallet.signature") walletSignature: String,
-//    @Header("authorization") authorization: String,
+    @Header("authorization") authorization: String,
     @Query("price.value") value: String,
     @Query("price.currency") currency: String,
     @Query("method") methods: String
