@@ -255,7 +255,8 @@
   <string name="transaction_type_standard">تحويل</string>
   <string name="transaction_type_bonus">علاوة</string>
   <string name="transaction_type_eskills_reward">جائزة مهارة إلكترونية</string>
-  <string name="transaction_type_eskills">سلعة مهارة إلكترونية</string>
+  <string name="transaction_type_eskills">e-Skills Entry Ticket</string>
+  <string name="transaction_type_eskills_ticke_refund">e-Skills Ticket Refund</string>
   <string name="transaction_type_voucher">قسيمة إلكترونية</string>
   <string name="transaction_type_voucher_title">القسيمة لـ %s</string>
   <string name="transaction_type_reverted_bonus_title">مكافأة راجعة</string>
@@ -286,6 +287,10 @@
   <string name="dialog_credit_card_cvv">الرمز السري</string>
   <string name="dialog_bank_card">بطاقة ائتمان/مسبقة الدفع</string>
   <string name="dialog_expiry_date">تاريخ الانتهاء</string>
+  <string name="transaction_type_purchase_bonus">Purchase Bonus</string>
+  <string name="transaction_type_promo_code_bonus">Promo Code Bonus</string>
+  <string name="transaction_type_extra_bonus">Extra Bonus</string>
+  <string name="transaction_type_topup">Top-up</string>
   <string name="activity_airdrop_title">قم بتأكيد كونك إنسانًا لتستقبل الأبكوينز</string>
   <string name="activity_airdrop_details">هذه أمر أمني محض.</string>
   <string name="activity_airdrop_hint">اكتب الكلمات التي في الصورة</string>
