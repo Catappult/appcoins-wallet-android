@@ -255,7 +255,8 @@
   <string name="transaction_type_standard">ਟ੍ਰਾਂਸਫਰ</string>
   <string name="transaction_type_bonus">ਬੋਨਸ</string>
   <string name="transaction_type_eskills_reward">ਈ-ਹੁਨਰ ਇਨਾਮ</string>
-  <string name="transaction_type_eskills">ਈ-ਹੁਨਰ ਖਰੀਦਦਾਰੀ</string>
+  <string name="transaction_type_eskills">e-Skills Entry Ticket</string>
+  <string name="transaction_type_eskills_ticke_refund">e-Skills Ticket Refund</string>
   <string name="transaction_type_voucher">ਈ-ਵਾਊਚਰ</string>
   <string name="transaction_type_voucher_title">%s ਲਈ ਵਾਊਚਰ</string>
   <string name="transaction_type_reverted_bonus_title">ਵਾਪਸ ਕੀਤਾ ਬੋਨਸ</string>
@@ -286,6 +287,10 @@
   <string name="dialog_credit_card_cvv">ਸੀਵੀਵੀ</string>
   <string name="dialog_bank_card">ਕ੍ਰੈਡਿਟ/ਡੈਬਿਟ ਕਾਰਡ</string>
   <string name="dialog_expiry_date">ਆਖਰੀ ਤਾਰੀਖ</string>
+  <string name="transaction_type_purchase_bonus">Purchase Bonus</string>
+  <string name="transaction_type_promo_code_bonus">Promo Code Bonus</string>
+  <string name="transaction_type_extra_bonus">Extra Bonus</string>
+  <string name="transaction_type_topup">Top-up</string>
   <string name="activity_airdrop_title">ਐਪ ਸਿੱਕੇ ਪ੍ਰਾਪਤ ਕਰਨ ਲਈ ਪੁਸ਼ਟੀ ਕਰੋ ਕਿ ਤੁਸੀਂ ਇੱਕ ਮਨੁੱਖ ਹੋ</string>
   <string name="activity_airdrop_details">ਇਹ ਕੇਵਲ ਇੱਕ ਸੁਰੱਖਿਆ ਚੀਜ਼ ਹੈ|</string>
   <string name="activity_airdrop_hint">ਚਿੱਤਰ ਵਿੱਚ ਦਿੱਤੇ ਸ਼ਬਦਾਂ ਨੂੰ ਟਾਈਪ ਕਰੋ</string>
