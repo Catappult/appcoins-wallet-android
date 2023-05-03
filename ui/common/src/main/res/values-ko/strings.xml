@@ -255,7 +255,8 @@
   <string name="transaction_type_standard">전송</string>
   <string name="transaction_type_bonus">보너스</string>
   <string name="transaction_type_eskills_reward">Eskills Reward</string>
-  <string name="transaction_type_eskills">e-스킬 구매</string>
+  <string name="transaction_type_eskills">e-Skills Entry Ticket</string>
+  <string name="transaction_type_eskills_ticke_refund">e-Skills Ticket Refund</string>
   <string name="transaction_type_voucher">e-바우처</string>
   <string name="transaction_type_voucher_title">%s 바우처</string>
   <string name="transaction_type_reverted_bonus_title">복귀된 보너스</string>
@@ -286,6 +287,10 @@
   <string name="dialog_credit_card_cvv">CVV</string>
   <string name="dialog_bank_card">신용/직불 카드</string>
   <string name="dialog_expiry_date">만료일</string>
+  <string name="transaction_type_purchase_bonus">Purchase Bonus</string>
+  <string name="transaction_type_promo_code_bonus">Promo Code Bonus</string>
+  <string name="transaction_type_extra_bonus">Extra Bonus</string>
+  <string name="transaction_type_topup">Top-up</string>
   <string name="activity_airdrop_title">AppCoins를 받으려면 귀하가 사람인지 확인해주십시오</string>
   <string name="activity_airdrop_details">이것은 보안일 뿐입니다.</string>
   <string name="activity_airdrop_hint">이미지에 있는 단어를 입력하십시오</string>
