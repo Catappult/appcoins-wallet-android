@@ -255,7 +255,8 @@
   <string name="transaction_type_standard">Chuyển khoản</string>
   <string name="transaction_type_bonus">Tiền thưởng</string>
   <string name="transaction_type_eskills_reward">Phần thưởng e-Skills</string>
-  <string name="transaction_type_eskills">Mua hàng e-Skills</string>
+  <string name="transaction_type_eskills">e-Skills Entry Ticket</string>
+  <string name="transaction_type_eskills_ticke_refund">e-Skills Ticket Refund</string>
   <string name="transaction_type_voucher">Phiếu mua hàng điện tử</string>
   <string name="transaction_type_voucher_title">Phiếu mua hàng dành cho %s</string>
   <string name="transaction_type_reverted_bonus_title">Tiền thưởng hoàn nguyên</string>
@@ -286,6 +287,10 @@
   <string name="dialog_credit_card_cvv">Mã CVV</string>
   <string name="dialog_bank_card">Thẻ tín dụng/ghi nợ</string>
   <string name="dialog_expiry_date">Ngày hết hạn</string>
+  <string name="transaction_type_purchase_bonus">Purchase Bonus</string>
+  <string name="transaction_type_promo_code_bonus">Promo Code Bonus</string>
+  <string name="transaction_type_extra_bonus">Extra Bonus</string>
+  <string name="transaction_type_topup">Top-up</string>
   <string name="activity_airdrop_title">Xác nhận bạn là con người để nhận AppCoin</string>
   <string name="activity_airdrop_details">Đây chỉ là yếu tố bảo mật.</string>
   <string name="activity_airdrop_hint">Nhập từ trong ảnh</string>
