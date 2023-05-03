@@ -255,7 +255,8 @@
   <string name="transaction_type_standard">Trasferisci</string>
   <string name="transaction_type_bonus">Bonus</string>
   <string name="transaction_type_eskills_reward">Premio e-Skills</string>
-  <string name="transaction_type_eskills">Acquisto e-Skills</string>
+  <string name="transaction_type_eskills">e-Skills Entry Ticket</string>
+  <string name="transaction_type_eskills_ticke_refund">e-Skills Ticket Refund</string>
   <string name="transaction_type_voucher">e-Voucher</string>
   <string name="transaction_type_voucher_title">Voucher per %s</string>
   <string name="transaction_type_reverted_bonus_title">Bonus eliminato</string>
@@ -286,6 +287,10 @@
   <string name="dialog_credit_card_cvv">CVV</string>
   <string name="dialog_bank_card">Carta di credito/debito</string>
   <string name="dialog_expiry_date">Data di scadenza</string>
+  <string name="transaction_type_purchase_bonus">Purchase Bonus</string>
+  <string name="transaction_type_promo_code_bonus">Promo Code Bonus</string>
+  <string name="transaction_type_extra_bonus">Extra Bonus</string>
+  <string name="transaction_type_topup">Top-up</string>
   <string name="activity_airdrop_title">Conferma di essere un umano per ricevere AppCoin</string>
   <string name="activity_airdrop_details">E\' solo una questione di sicurezza.</string>
   <string name="activity_airdrop_hint">Digita le parole nell\'immagine</string>
