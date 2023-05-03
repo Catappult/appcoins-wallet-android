@@ -255,7 +255,8 @@
   <string name="transaction_type_standard">လႊဲေျပာင္းမည္</string>
   <string name="transaction_type_bonus">ေဘာနပ္စ္</string>
   <string name="transaction_type_eskills_reward">e-Skills ဆု</string>
-  <string name="transaction_type_eskills">e-Skills ဝယ္ယူမႈ</string>
+  <string name="transaction_type_eskills">e-Skills Entry Ticket</string>
+  <string name="transaction_type_eskills_ticke_refund">e-Skills Ticket Refund</string>
   <string name="transaction_type_voucher">အီးေဘာက္ခ်ာ</string>
   <string name="transaction_type_voucher_title">%s အတြက္ ေဘာက္ခ်ာ</string>
   <string name="transaction_type_reverted_bonus_title">ျပန္ပို႔ခဲ့ေသာဘောနပ္စ္</string>
@@ -286,6 +287,10 @@
   <string name="dialog_credit_card_cvv">CVV</string>
   <string name="dialog_bank_card">ခရက္ဒစ္/ဒက္ဘစ္ကဒ္</string>
   <string name="dialog_expiry_date">သက္တမ္းကုန္ရက္</string>
+  <string name="transaction_type_purchase_bonus">Purchase Bonus</string>
+  <string name="transaction_type_promo_code_bonus">Promo Code Bonus</string>
+  <string name="transaction_type_extra_bonus">Extra Bonus</string>
+  <string name="transaction_type_topup">Top-up</string>
   <string name="activity_airdrop_title">AppCoins ကို ရရွိရန္အတြက္ သင္သည္ လူသားျဖစ္ေၾကာင္း အတည္ျပဳပါ</string>
   <string name="activity_airdrop_details">ယင္းသည္ လံုၿခံဳေရးကိစၥအတြက္သာ ျဖစ္ပါသည္။</string>
   <string name="activity_airdrop_hint">ပံုတြင္ စကားလံုးမ်ားကို ႐ိုက္ထည့္ပါ</string>
