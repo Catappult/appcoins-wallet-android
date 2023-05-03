@@ -255,7 +255,8 @@
   <string name="transaction_type_standard">Перевод</string>
   <string name="transaction_type_bonus">Бонус</string>
   <string name="transaction_type_eskills_reward">Награда e-Skills</string>
-  <string name="transaction_type_eskills">Покупка e-Skills</string>
+  <string name="transaction_type_eskills">e-Skills Entry Ticket</string>
+  <string name="transaction_type_eskills_ticke_refund">e-Skills Ticket Refund</string>
   <string name="transaction_type_voucher">Купон</string>
   <string name="transaction_type_voucher_title">Купон для %s</string>
   <string name="transaction_type_reverted_bonus_title">Бонус отменён</string>
@@ -286,6 +287,10 @@
   <string name="dialog_credit_card_cvv">CVV</string>
   <string name="dialog_bank_card">Кредитная/дебитовая карта</string>
   <string name="dialog_expiry_date">Дата окончания действия</string>
+  <string name="transaction_type_purchase_bonus">Purchase Bonus</string>
+  <string name="transaction_type_promo_code_bonus">Promo Code Bonus</string>
+  <string name="transaction_type_extra_bonus">Extra Bonus</string>
+  <string name="transaction_type_topup">Top-up</string>
   <string name="activity_airdrop_title">Подтвердите, что вы человек, чтобы получить AppCoins</string>
   <string name="activity_airdrop_details">Это просто для обеспечения безопасности.</string>
   <string name="activity_airdrop_hint">Введите слова на картинке</string>
