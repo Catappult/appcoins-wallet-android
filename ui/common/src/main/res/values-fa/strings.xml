@@ -255,7 +255,8 @@
   <string name="transaction_type_standard">انتقال</string>
   <string name="transaction_type_bonus">جایزه</string>
   <string name="transaction_type_eskills_reward">پاداش e-Skills</string>
-  <string name="transaction_type_eskills">خرید e-Skills</string>
+  <string name="transaction_type_eskills">e-Skills Entry Ticket</string>
+  <string name="transaction_type_eskills_ticke_refund">e-Skills Ticket Refund</string>
   <string name="transaction_type_voucher">ووچر الکترونیکی</string>
   <string name="transaction_type_voucher_title">ووچر برای %s</string>
   <string name="transaction_type_reverted_bonus_title">پاداش برگشت داده شده</string>
@@ -286,6 +287,10 @@
   <string name="dialog_credit_card_cvv">CVV</string>
   <string name="dialog_bank_card">کارت اعتباری / بانکی</string>
   <string name="dialog_expiry_date">تاریخ انقضا</string>
+  <string name="transaction_type_purchase_bonus">Purchase Bonus</string>
+  <string name="transaction_type_promo_code_bonus">Promo Code Bonus</string>
+  <string name="transaction_type_extra_bonus">Extra Bonus</string>
+  <string name="transaction_type_topup">Top-up</string>
   <string name="activity_airdrop_title">تایید کنید که انسان هستید تا AppCoins دریافت کنید</string>
   <string name="activity_airdrop_details">این فقط یک کار امنیتی است.</string>
   <string name="activity_airdrop_hint">کلمات داخل تصویر را تایپ کنید</string>
