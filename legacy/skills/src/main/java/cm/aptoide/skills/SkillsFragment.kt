@@ -373,7 +373,7 @@ class SkillsFragment : Fragment(), PaymentView {
   private fun createAndPayTicket(eskillsPaymentData: EskillsPaymentData, onboarding: Boolean = false) {
     if(eskillsPaymentData.environment == EskillsPaymentData.MatchEnvironment.LIVE && getCachedValue(
         ESKILLS_REFERRAL_KEY))
-      getReferralAndActivateLayout()
+      getReferralAndActivateLayout(eskillsPaymentData)
     disposable.add(
       handleWalletCreationIfNeeded()
         .takeUntil { it != WALLET_CREATING_STATUS }
@@ -401,6 +401,7 @@ class SkillsFragment : Fragment(), PaymentView {
 
   private fun handleFailedTicketResult(ticket: FailedTicket) {
     when (ticket.status) {
+      ErrorStatus.VPN_NOT_SUPPORTED -> showVpnNotSupportedError()
       ErrorStatus.REGION_NOT_SUPPORTED -> showRegionNotSupportedError()
       ErrorStatus.WALLET_VERSION_NOT_SUPPORTED -> showWalletVersionNotSupportedError()
       ErrorStatus.NO_NETWORK -> showNoNetworkError()
@@ -444,6 +445,19 @@ class SkillsFragment : Fragment(), PaymentView {
     views.geofencingLayout.root.visibility = View.VISIBLE
     views.geofencingLayout.okButton.setOnClickListener {
       finishWithError(SkillsViewModel.RESULT_REGION_NOT_SUPPORTED)
+    }
+  }
+
+  private fun showVpnNotSupportedError() {
+    views.loadingTicketLayout.root.visibility = View.GONE
+    views.refundTicketLayout.root.visibility = View.GONE
+    views.walletVersionNotSupportedLayout.root.visibility = View.GONE
+    views.errorLayout.root.visibility = View.GONE
+    views.geofencingLayout.root.visibility = View.VISIBLE
+    views.geofencingLayout.errorTitle.text = getString(R.string.error_vpn_not_permitted_title)
+    views.geofencingLayout.errorMessage.visibility = View.GONE
+    views.geofencingLayout.okButton.setOnClickListener {
+      finishWithError(SkillsViewModel.RESULT_VPN_NOT_SUPPORTED)
     }
   }
 
@@ -522,12 +536,12 @@ class SkillsFragment : Fragment(), PaymentView {
   }
 
 
-  private fun getReferralAndActivateLayout() {
+  private fun getReferralAndActivateLayout(eSkillsPaymentData: EskillsPaymentData) {
     disposable.add(viewModel.getReferral()
       .observeOn(AndroidSchedulers.mainThread())
       .doOnSuccess { referralResponse ->
         if (referralResponse.available) {
-          setReferralLayout(referralResponse)
+          setReferralLayout(eSkillsPaymentData, referralResponse)
           views.loadingTicketLayout.referralShareDisplay.baseConstraint.visibility = View.VISIBLE
         }
         else{
@@ -538,47 +552,68 @@ class SkillsFragment : Fragment(), PaymentView {
       .subscribe())
   }
 
-  private fun setReferralLayout(referralResponse: ReferralResponse) {
-    views.loadingTicketLayout.referralShareDisplay.actionButtonShareReferral
-      .setOnClickListener {
-        startActivity(viewModel.buildShareIntent(referralResponse.referralCode))
-      }
-    views.loadingTicketLayout.referralShareDisplay.tooltip.popupText.text =
-      String.format(getString(R.string.refer_a_friend_waiting_room_tooltip), '1')
-    val tooltipBtn =
-      views.loadingTicketLayout.referralShareDisplay.actionButtonTooltipReferral
-    tooltipBtn
-      .setOnClickListener {
-        if (views.loadingTicketLayout.referralShareDisplay.tooltip.root.visibility == View.VISIBLE) {
-          views.loadingTicketLayout.referralShareDisplay.tooltip.root.visibility = View.INVISIBLE
-          tooltipBtn.setImageDrawable(
-            ContextCompat.getDrawable(
-              requireContext(),
-              R.drawable.tooltip_orange
-            )
-          )
-        } else {
-          views.loadingTicketLayout.referralShareDisplay.tooltip.root.visibility =
-            View.VISIBLE
-          tooltipBtn.setImageDrawable(
-            ContextCompat.getDrawable(
-              requireContext(),
-              R.drawable.tooltip_white
-            )
-          )
-        }
+  private fun setReferralLayout(eSkillsPaymentData: EskillsPaymentData, referralResponse: ReferralResponse) {
+        views.loadingTicketLayout.referralShareDisplay.actionButtonShareReferral
+          .setOnClickListener {
+            disposable.add(viewModel.getReferralShareText(eSkillsPaymentData.packageName)
+              .observeOn(AndroidSchedulers.mainThread())
+              .doOnSuccess{appData ->
+                startActivity(viewModel.buildShareIntent(
+                  String.format(getString(R.string.refer_a_friend_invitation_message),
+                    appData.name,
+                    referralResponse.referralCode,
+                    String.format("https://%s.en.aptoide.com.",appData.uname)
+                  )))
+              }
+              .doOnError {
+                startActivity(viewModel.buildShareIntent(
+                  String.format(getString(R.string.refer_a_friend_invitation_message),
+                    eSkillsPaymentData.packageName,
+                    referralResponse.referralCode,
+                    "https://en.aptoide.com."
+                  )))
+              }
+              .subscribe())
 
-      }
-    views.loadingTicketLayout.root
-      .setOnClickListener {
-        if (views.loadingTicketLayout.referralShareDisplay.tooltip.root.visibility == View.VISIBLE) {
-          views.loadingTicketLayout.referralShareDisplay.tooltip.root.visibility = View.INVISIBLE
-          views.loadingTicketLayout.referralShareDisplay.actionButtonTooltipReferral.colorFilter =
-            null
-        }
-      }
-    views.loadingTicketLayout.referralShareDisplay.referralCode.text =
-      referralResponse.referralCode
+          }
+        views.loadingTicketLayout.referralShareDisplay.tooltip.popupText.text =
+          String.format(getString(R.string.refer_a_friend_waiting_room_tooltip), '1')
+        val tooltipBtn =
+          views.loadingTicketLayout.referralShareDisplay.actionButtonTooltipReferral
+        tooltipBtn
+          .setOnClickListener {
+            if (views.loadingTicketLayout.referralShareDisplay.tooltip.root.visibility == View.VISIBLE) {
+              views.loadingTicketLayout.referralShareDisplay.tooltip.root.visibility = View.INVISIBLE
+              tooltipBtn.setImageDrawable(
+                ContextCompat.getDrawable(
+                  requireContext(),
+                  R.drawable.tooltip_orange
+                )
+              )
+            } else {
+              views.loadingTicketLayout.referralShareDisplay.tooltip.root.visibility =
+                View.VISIBLE
+              tooltipBtn.setImageDrawable(
+                ContextCompat.getDrawable(
+                  requireContext(),
+                  R.drawable.tooltip_white
+                )
+              )
+            }
+
+          }
+        views.loadingTicketLayout.root
+          .setOnClickListener {
+            if (views.loadingTicketLayout.referralShareDisplay.tooltip.root.visibility == View.VISIBLE) {
+              views.loadingTicketLayout.referralShareDisplay.tooltip.root.visibility = View.INVISIBLE
+              views.loadingTicketLayout.referralShareDisplay.actionButtonTooltipReferral.colorFilter =
+                null
+            }
+          }
+        views.loadingTicketLayout.referralShareDisplay.referralCode.text =
+          referralResponse.referralCode
+
+
 
   }
 

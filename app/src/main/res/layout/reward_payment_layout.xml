@@ -7,8 +7,8 @@
     android:animateLayoutChanges="true"
     android:background="@drawable/background_card"
     android:elevation="2dp"
-    android:minHeight="160dp"
     android:minWidth="@dimen/payment_methods_width"
+    android:minHeight="160dp"
     >
 
   <include
@@ -30,10 +30,23 @@
       app:layout_constraintTop_toTopOf="parent"
       />
 
-  <include
-      android:id="@+id/fragment_iab_transaction_completed"
-      layout="@layout/fragment_iab_transaction_completed"
-      android:visibility="invisible"
-      />
+  <androidx.constraintlayout.widget.ConstraintLayout
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      >
+    <include
+        android:id="@+id/fragment_iab_transaction_completed"
+        layout="@layout/fragment_iab_transaction_completed"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+  </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -68,6 +68,7 @@ class AdyenPaymentRepositoryTest {
     Mockito.`when`(
         adyenApi.loadPaymentInfo(
             TEST_WALLET_ADDRESS,
+            TEST_WALLET_SIGNATURE,
             TEST_FIAT_VALUE,
             TEST_FIAT_CURRENCY,
             AdyenPaymentRepository.Methods.CREDIT_CARD.transactionType))
@@ -77,10 +78,13 @@ class AdyenPaymentRepositoryTest {
         .thenReturn(model)
     val testObserver = TestObserver<PaymentInfoModel>()
 
-    adyenRepo.loadPaymentInfo(AdyenPaymentRepository.Methods.CREDIT_CARD,
+    adyenRepo.loadPaymentInfo(
+        AdyenPaymentRepository.Methods.CREDIT_CARD,
         TEST_FIAT_VALUE,
         TEST_FIAT_CURRENCY,
-        TEST_WALLET_ADDRESS)
+        TEST_WALLET_ADDRESS,
+        TEST_WALLET_SIGNATURE
+    )
         .subscribe(testObserver)
 
     testObserver.assertNoErrors()
@@ -94,19 +98,24 @@ class AdyenPaymentRepositoryTest {
     Mockito.`when`(
         adyenApi.loadPaymentInfo(
             TEST_WALLET_ADDRESS,
+            TEST_WALLET_SIGNATURE,
             TEST_FIAT_VALUE,
             TEST_FIAT_CURRENCY,
-            AdyenPaymentRepository.Methods.CREDIT_CARD.transactionType))
+            AdyenPaymentRepository.Methods.CREDIT_CARD.transactionType)
+    )
         .thenReturn(Single.error(throwable))
 
     Mockito.`when`(mapper.mapInfoModelError(throwable))
         .thenReturn(model)
     val testObserver = TestObserver<PaymentInfoModel>()
 
-    adyenRepo.loadPaymentInfo(AdyenPaymentRepository.Methods.CREDIT_CARD,
+    adyenRepo.loadPaymentInfo(
+        AdyenPaymentRepository.Methods.CREDIT_CARD,
         TEST_FIAT_VALUE,
         TEST_FIAT_CURRENCY,
-        TEST_WALLET_ADDRESS)
+        TEST_WALLET_ADDRESS,
+        TEST_WALLET_SIGNATURE
+    )
         .subscribe(testObserver)
 
     testObserver.assertNoErrors()

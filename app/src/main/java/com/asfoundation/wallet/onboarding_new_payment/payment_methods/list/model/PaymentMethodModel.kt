@@ -58,7 +58,7 @@ abstract class PaymentMethodModel : EpoxyModelWithHolder<PaymentMethodModel.Paym
         clickListener?.invoke(PaymentMethodClick.ShareLinkPaymentClick)
       }
       PaymentMethodsView.SelectedPaymentMethod.LOCAL_PAYMENTS -> {
-        clickListener?.invoke(PaymentMethodClick.LocalPaymentClick)
+        clickListener?.invoke(PaymentMethodClick.LocalPaymentClick(paymentMethod.id))
       }
       PaymentMethodsView.SelectedPaymentMethod.CARRIER_BILLING -> {
         clickListener?.invoke(PaymentMethodClick.CarrierBillingClick)
