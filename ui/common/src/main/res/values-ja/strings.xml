@@ -255,7 +255,8 @@
   <string name="transaction_type_standard">移動</string>
   <string name="transaction_type_bonus">ボーナス</string>
   <string name="transaction_type_eskills_reward">e-Skills Reward</string>
-  <string name="transaction_type_eskills">e-Skills購入</string>
+  <string name="transaction_type_eskills">e-Skills Entry Ticket</string>
+  <string name="transaction_type_eskills_ticke_refund">e-Skills Ticket Refund</string>
   <string name="transaction_type_voucher">eギフト券</string>
   <string name="transaction_type_voucher_title">%sのクーポン</string>
   <string name="transaction_type_reverted_bonus_title">還元されたボーナス</string>
@@ -286,6 +287,10 @@
   <string name="dialog_credit_card_cvv">CVV</string>
   <string name="dialog_bank_card">クレジット/デビットカード</string>
   <string name="dialog_expiry_date">有効期限</string>
+  <string name="transaction_type_purchase_bonus">Purchase Bonus</string>
+  <string name="transaction_type_promo_code_bonus">Promo Code Bonus</string>
+  <string name="transaction_type_extra_bonus">Extra Bonus</string>
+  <string name="transaction_type_topup">Top-up</string>
   <string name="activity_airdrop_title">あなたがAppCoinsを受け取る人間であることを確認してください</string>
   <string name="activity_airdrop_details">これはセキュリティ上の問題です。</string>
   <string name="activity_airdrop_hint">画像にある文字をタイプしてください</string>
