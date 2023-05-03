@@ -255,7 +255,8 @@
   <string name="transaction_type_standard">轉賬</string>
   <string name="transaction_type_bonus">獎勵</string>
   <string name="transaction_type_eskills_reward">e-Skills Reward</string>
-  <string name="transaction_type_eskills">e-Skills Purchase</string>
+  <string name="transaction_type_eskills">e-Skills Entry Ticket</string>
+  <string name="transaction_type_eskills_ticke_refund">e-Skills Ticket Refund</string>
   <string name="transaction_type_voucher">電子兌換券</string>
   <string name="transaction_type_voucher_title">%s兌換券</string>
   <string name="transaction_type_reverted_bonus_title">退回獎勵</string>
@@ -286,6 +287,10 @@
   <string name="dialog_credit_card_cvv">CVV</string>
   <string name="dialog_bank_card">信用卡/金融卡</string>
   <string name="dialog_expiry_date">到期日</string>
+  <string name="transaction_type_purchase_bonus">Purchase Bonus</string>
+  <string name="transaction_type_promo_code_bonus">Promo Code Bonus</string>
+  <string name="transaction_type_extra_bonus">Extra Bonus</string>
+  <string name="transaction_type_topup">Top-up</string>
   <string name="activity_airdrop_title">完成驗證以接收您的AppCoins</string>
   <string name="activity_airdrop_details">這只是為了保證安全。</string>
   <string name="activity_airdrop_hint">請輸入圖中的文字</string>
