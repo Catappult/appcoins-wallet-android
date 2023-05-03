@@ -44,6 +44,7 @@ class AdyenPaymentRepositoryTest {
   companion object {
     private const val TEST_WALLET_ADDRESS = "0x123"
     private const val TEST_WALLET_SIGNATURE = "0x987"
+    private const val TEST_EWT = "123456789"
     private const val TEST_FIAT_VALUE = "2.0"
     private const val TEST_FIAT_CURRENCY = "EUR"
     private const val TEST_UID = "uid"
@@ -69,6 +70,7 @@ class AdyenPaymentRepositoryTest {
         adyenApi.loadPaymentInfo(
             TEST_WALLET_ADDRESS,
             TEST_WALLET_SIGNATURE,
+            TEST_EWT,
             TEST_FIAT_VALUE,
             TEST_FIAT_CURRENCY,
             AdyenPaymentRepository.Methods.CREDIT_CARD.transactionType))
@@ -83,7 +85,8 @@ class AdyenPaymentRepositoryTest {
         TEST_FIAT_VALUE,
         TEST_FIAT_CURRENCY,
         TEST_WALLET_ADDRESS,
-        TEST_WALLET_SIGNATURE
+        TEST_WALLET_SIGNATURE,
+        TEST_EWT
     )
         .subscribe(testObserver)
 
@@ -99,6 +102,7 @@ class AdyenPaymentRepositoryTest {
         adyenApi.loadPaymentInfo(
             TEST_WALLET_ADDRESS,
             TEST_WALLET_SIGNATURE,
+            TEST_EWT,
             TEST_FIAT_VALUE,
             TEST_FIAT_CURRENCY,
             AdyenPaymentRepository.Methods.CREDIT_CARD.transactionType)
@@ -114,7 +118,8 @@ class AdyenPaymentRepositoryTest {
         TEST_FIAT_VALUE,
         TEST_FIAT_CURRENCY,
         TEST_WALLET_ADDRESS,
-        TEST_WALLET_SIGNATURE
+        TEST_WALLET_SIGNATURE,
+        TEST_EWT
     )
         .subscribe(testObserver)
 
