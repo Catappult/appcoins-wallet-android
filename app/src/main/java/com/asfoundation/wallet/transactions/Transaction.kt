@@ -1,6 +1,7 @@
 package com.asfoundation.wallet.transactions
 
 import android.os.Parcelable
+import androidx.compose.ui.text.style.TextDecoration
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
@@ -54,6 +55,7 @@ data class Transaction(
     val description: String? = null,
     val amount: String? = null,
     val currency: String? = null,
-    val subIcon: Int? = null
+    val subIcon: Int? = null,
+    val textDecoration: TextDecoration = TextDecoration.None
   )
 }

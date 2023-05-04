@@ -149,7 +149,6 @@ class HomeViewModel @Inject constructor(
 
   init {
     handleWalletData()
-    fetchTransactionData()
     verifyUserLevel()
     handleUnreadConversationCount()
     handleRateUsDialogVisibility()

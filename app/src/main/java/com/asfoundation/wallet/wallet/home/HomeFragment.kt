@@ -53,7 +53,6 @@ import com.asfoundation.wallet.transactions.Transaction.TransactionType.*
 import com.asfoundation.wallet.transactions.TransactionModel
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import com.asfoundation.wallet.wallet.home.HomeViewModel.UiState
-import com.asfoundation.wallet.wallet.home.HomeViewModel.UiState.Loading
 import com.asfoundation.wallet.wallet.home.HomeViewModel.UiState.Success
 import dagger.hilt.android.AndroidEntryPoint
 import io.intercom.android.sdk.Intercom
@@ -219,23 +218,14 @@ class HomeFragment: BasePageViewFragment(), SingleStateFragment<HomeState, HomeS
         color = WalletColors.styleguide_dark_grey
       )
       Card(
-        colors = CardDefaults.cardColors(WalletColors.styleguide_blue_secondary)
+        colors = CardDefaults.cardColors(WalletColors.styleguide_blue_secondary),
+        modifier = Modifier
+          .fillMaxWidth()
+          .defaultMinSize(minHeight = 80.dp)
       )
       {
         when (transactionsState) {
           is Success -> TransactionsList(transactionsState.transactions)
-          is Loading -> {
-            Row(
-              modifier = Modifier
-                .fillMaxWidth()
-                .defaultMinSize(minHeight = 160.dp),
-              verticalAlignment = Alignment.CenterVertically,
-              horizontalArrangement = Arrangement.Center
-            ) {
-              CircularProgressIndicator()
-            }
-          }
-
           else -> {}
         }
       }
@@ -267,9 +257,10 @@ class HomeFragment: BasePageViewFragment(), SingleStateFragment<HomeState, HomeS
                 title = stringResource(id = title),
                 description = description,
                 amount = amount,
-                currency = currency,
+                convertedAmount = currency,
                 subIcon = subIcon,
-                onClick = { }
+                onClick = { },
+                textDecoration = textDecoration
               )
             }
 

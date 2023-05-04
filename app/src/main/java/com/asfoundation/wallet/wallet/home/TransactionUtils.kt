@@ -1,30 +1,10 @@
 package com.asfoundation.wallet.wallet.home
 
+import androidx.compose.ui.text.style.TextDecoration
 import com.asf.wallet.R
 import com.asfoundation.wallet.transactions.Transaction.TransactionCardInfo
 import com.asfoundation.wallet.transactions.TransactionModel
-import com.asfoundation.wallet.transactions.TransactionType
-import com.asfoundation.wallet.transactions.TransactionType.EXTRA_BONUS
-import com.asfoundation.wallet.transactions.TransactionType.E_SKILLS_REWARD
-import com.asfoundation.wallet.transactions.TransactionType.E_SKILLS_TICKET_REFUND
-import com.asfoundation.wallet.transactions.TransactionType.FUNDS_RECEIVED
-import com.asfoundation.wallet.transactions.TransactionType.FUNDS_SENT
-import com.asfoundation.wallet.transactions.TransactionType.GIFT_CARD
-import com.asfoundation.wallet.transactions.TransactionType.IN_APP_PURCHASE
-import com.asfoundation.wallet.transactions.TransactionType.PROMO_CODE_BONUS
-import com.asfoundation.wallet.transactions.TransactionType.PURCHASE_BONUS
-import com.asfoundation.wallet.transactions.TransactionType.PURCHASE_REFUND
-import com.asfoundation.wallet.transactions.TransactionType.REJECTED_E_SKILLS_TICKET
-import com.asfoundation.wallet.transactions.TransactionType.REJECTED_PURCHASE
-import com.asfoundation.wallet.transactions.TransactionType.REJECTED_SUBSCRIPTION_PURCHASE
-import com.asfoundation.wallet.transactions.TransactionType.REJECTED_TOP_UP
-import com.asfoundation.wallet.transactions.TransactionType.REVERTED_EXTRA_BONUS
-import com.asfoundation.wallet.transactions.TransactionType.REVERTED_PROMO_CODE_BONUS
-import com.asfoundation.wallet.transactions.TransactionType.REVERTED_PURCHASE_BONUS
-import com.asfoundation.wallet.transactions.TransactionType.REVERTED_TOP_UP
-import com.asfoundation.wallet.transactions.TransactionType.SUBSCRIPTION_PAYMENT
-import com.asfoundation.wallet.transactions.TransactionType.SUBSCRIPTION_REFUND
-import com.asfoundation.wallet.transactions.TransactionType.TOP_UP
+import com.asfoundation.wallet.transactions.TransactionType.*
 
 fun TransactionModel.cardInfoByType() = when (this.type) {
   PURCHASE_BONUS -> TransactionCardInfo(
@@ -114,7 +94,8 @@ fun TransactionModel.cardInfoByType() = when (this.type) {
     amount = mainAmount,
     description = description,
     currency = convertedAmount,
-    subIcon = R.drawable.ic_transaction_rejected_mini
+    subIcon = R.drawable.ic_transaction_rejected_mini,
+    textDecoration = TextDecoration.LineThrough
   )
 
   FUNDS_SENT -> TransactionCardInfo(
@@ -156,7 +137,8 @@ fun TransactionModel.cardInfoByType() = when (this.type) {
     amount = mainAmount,
     description = description,
     currency = convertedAmount,
-    subIcon = R.drawable.ic_transaction_rejected_mini
+    subIcon = R.drawable.ic_transaction_rejected_mini,
+    textDecoration = TextDecoration.LineThrough
   )
 
   REVERTED_TOP_UP -> TransactionCardInfo(
@@ -171,6 +153,7 @@ fun TransactionModel.cardInfoByType() = when (this.type) {
     title = R.string.transaction_type_rejected_topup,
     amount = mainAmount,
     currency = convertedAmount,
+    textDecoration = TextDecoration.LineThrough
   )
 
   SUBSCRIPTION_PAYMENT -> TransactionCardInfo(
@@ -196,10 +179,11 @@ fun TransactionModel.cardInfoByType() = when (this.type) {
     amount = mainAmount,
     description = description,
     currency = convertedAmount,
-    subIcon = R.drawable.ic_transaction_rejected_mini
+    subIcon = R.drawable.ic_transaction_rejected_mini,
+    textDecoration = TextDecoration.LineThrough
   )
 
-  TransactionType.E_SKILLS_ENTRY_TICKET -> TransactionCardInfo(
+  E_SKILLS_ENTRY_TICKET -> TransactionCardInfo(
     appIcon = appIcon,
     title = R.string.transaction_type_eskills,
     amount = mainAmount,
@@ -207,7 +191,7 @@ fun TransactionModel.cardInfoByType() = when (this.type) {
     currency = convertedAmount,
   )
 
-  TransactionType.OTHER -> TransactionCardInfo(
+  OTHER -> TransactionCardInfo(
     icon = R.drawable.ic_transaction_transfer,
     title = R.string.error_general,
     amount = mainAmount,

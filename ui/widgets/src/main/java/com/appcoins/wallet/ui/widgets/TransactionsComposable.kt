@@ -24,6 +24,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -40,9 +41,10 @@ fun TransactionCard(
   title: String,
   description: String?,
   amount: String?,
-  currency: String?,
+  convertedAmount: String?,
   subIcon: Int?,
-  onClick: () -> Unit
+  onClick: () -> Unit,
+  textDecoration: TextDecoration
 ) {
   Card(
     modifier = Modifier.fillMaxWidth(),
@@ -85,15 +87,17 @@ fun TransactionCard(
           textAlign = TextAlign.End,
           color = styleguide_light_grey,
           maxLines = 1,
-          overflow = TextOverflow.Ellipsis
+          overflow = TextOverflow.Ellipsis,
+          textDecoration = textDecoration
         )
-        if (currency != null) Text(
-          text = currency,
+        if (convertedAmount != null) Text(
+          text = convertedAmount,
           color = styleguide_dark_grey,
           style = MaterialTheme.typography.bodySmall,
           textAlign = TextAlign.End,
           maxLines = 1,
-          overflow = TextOverflow.Ellipsis
+          overflow = TextOverflow.Ellipsis,
+          textDecoration = textDecoration
         )
       }
     }
@@ -138,7 +142,9 @@ fun PreviewTransactionCard() {
     title = "Reverted Purchase Bonus test used to verify UI",
     description = "AppCoins Trivial demo sample used to test the UI",
     amount = "-12,21238745674839837456.73",
-    currency = "-12,5000000000000000000.00 APPC-C",
-    subIcon = R.drawable.ic_transaction_rejected_mini
-  ) { }
+    convertedAmount = "-12,5000000000000000000.00 APPC-C",
+    subIcon = R.drawable.ic_transaction_rejected_mini,
+    { },
+    TextDecoration.LineThrough
+  )
 }
