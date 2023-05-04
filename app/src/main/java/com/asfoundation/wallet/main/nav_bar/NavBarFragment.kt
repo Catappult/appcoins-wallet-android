@@ -5,14 +5,22 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.BottomAppBar
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat
@@ -26,11 +34,13 @@ import by.kirich1409.viewbindingdelegate.viewBinding
 import com.appcoins.wallet.core.arch.SingleStateFragment
 import com.appcoins.wallet.ui.common.createColoredString
 import com.appcoins.wallet.ui.common.setTextFromColored
+import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_blue
 import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_blue_secondary
 import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_medium_grey
 import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_pink
 import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_white
 import com.appcoins.wallet.ui.widgets.component.ButtonWithIcon
+import com.appcoins.wallet.ui.widgets.expanded
 import com.asf.wallet.R
 import com.asf.wallet.databinding.NavBarFragmentBinding
 import com.asfoundation.wallet.main.MainActivity
@@ -75,33 +85,57 @@ class NavBarFragment : BasePageViewFragment(),
 
   @Composable
   fun BottomNavigationHome() {
-    BottomAppBar(
-      containerColor = styleguide_blue_secondary,
-      modifier = Modifier.height(64.dp),
-      content = {
-        Row(
-          horizontalArrangement = Arrangement.SpaceEvenly,
-          modifier = Modifier.fillMaxWidth()
+    BoxWithConstraints {
+      if (expanded()) {
+        Card(
+          colors = CardDefaults.cardColors(containerColor = styleguide_blue),
+          modifier = Modifier
+            .padding(8.dp)
+            .clip(CircleShape)
         ) {
-
-          viewModel.navigationItems().forEach { item ->
-            val selected = viewModel.clickedItem.value == item.destination.ordinal
-            ButtonWithIcon(
-              icon = item.icon,
-              label = item.label,
-              backgroundColor = if (selected) styleguide_pink else styleguide_blue_secondary,
-              labelColor = if (selected) styleguide_white else styleguide_medium_grey,
-              iconColor = if (selected) styleguide_white else styleguide_medium_grey,
-              iconSize = 24.dp,
-              onClick = {
-                viewModel.clickedItem.value = item.destination.ordinal
-                navigateToDestination(item.destination)
-              }
-            )
+          Row(
+            modifier = Modifier
+              .padding(vertical = 4.dp, horizontal = 8.dp)
+              .background(shape = CircleShape, color = styleguide_blue)
+          ) {
+            NavigationItems(styleguide_blue)
           }
         }
+      } else {
+        BottomAppBar(
+          containerColor = styleguide_blue_secondary,
+          modifier = Modifier
+            .height(64.dp),
+          content = {
+            Row(
+              horizontalArrangement = Arrangement.SpaceEvenly,
+              modifier = Modifier.fillMaxWidth()
+            ) {
+              NavigationItems(styleguide_blue_secondary)
+            }
+          }
+        )
       }
-    )
+    }
+  }
+
+  @Composable
+  fun NavigationItems(background: Color) {
+    viewModel.navigationItems().forEach { item ->
+      val selected = viewModel.clickedItem.value == item.destination.ordinal
+      ButtonWithIcon(
+        icon = item.icon,
+        label = item.label,
+        backgroundColor = if (selected) styleguide_pink else background,
+        labelColor = if (selected) styleguide_white else styleguide_medium_grey,
+        iconColor = if (selected) styleguide_white else styleguide_medium_grey,
+        iconSize = 24.dp,
+        onClick = {
+          viewModel.clickedItem.value = item.destination.ordinal
+          navigateToDestination(item.destination)
+        }
+      )
+    }
   }
 
   @Preview

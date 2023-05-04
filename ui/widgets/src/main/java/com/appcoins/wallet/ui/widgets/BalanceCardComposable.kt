@@ -1,6 +1,7 @@
 package com.appcoins.wallet.ui.widgets
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -43,66 +44,84 @@ fun BalanceCard(
   showBackup: Boolean = true,
   newWallet: Boolean = true
 ) {
-  Card(
-    colors = CardDefaults.cardColors(WalletColors.styleguide_blue_secondary),
-    modifier = Modifier
-      .fillMaxWidth()
-      .padding(16.dp)
-      .clip(shape = RoundedCornerShape(8.dp))
-  ) {
-    if (newWallet) {
-      BalanceCardNewUser(onClickTopUp = onClickTopUp)
+  BoxWithConstraints {
+    if (expanded()) {
+      BalanceCardExpanded(
+        balance = balance,
+        currencyCode = currencyCode,
+        onClickCurrencies = onClickCurrencies,
+        onClickTransfer = onClickTransfer,
+        onClickTopUp = onClickTopUp,
+        onClickBackup = onClickBackup,
+        onClickMenuOptions = onClickMenuOptions,
+        showBackup = showBackup,
+        newWallet = newWallet
+      )
     } else {
-      Column {
-        Column(modifier = Modifier.padding(16.dp)) {
-          Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.SpaceBetween
-          ) {
-            BalanceValue(balance, currencyCode, onClickCurrencies)
-            VectorIconButton(
-              imageVector = Icons.Default.MoreVert,
-              contentDescription = R.string.action_more_details,
-              onClick = onClickMenuOptions
-            )
+      Card(
+        colors = CardDefaults.cardColors(WalletColors.styleguide_blue_secondary),
+        modifier = Modifier
+          .fillMaxWidth()
+          .padding(16.dp)
+          .clip(shape = RoundedCornerShape(8.dp))
+      ) {
+        if (newWallet) {
+          BalanceCardNewUser(onClickTopUp = onClickTopUp)
+        } else {
+          Column {
+            Column(modifier = Modifier.padding(16.dp)) {
+              Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween
+              ) {
+                BalanceValue(balance, currencyCode, onClickCurrencies)
+                VectorIconButton(
+                  imageVector = Icons.Default.MoreVert,
+                  contentDescription = R.string.action_more_details,
+                  onClick = onClickMenuOptions
+                )
+              }
+              Spacer(modifier = Modifier.height(12.dp))
+              Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween
+              ) {
+                ButtonWithIcon(
+                  icon = R.drawable.ic_transfer,
+                  label = R.string.transfer_button,
+                  onClick = onClickTransfer,
+                  backgroundColor = WalletColors.styleguide_blue,
+                  labelColor = WalletColors.styleguide_white,
+                  iconColor = WalletColors.styleguide_pink,
+                  iconSize = 14.dp
+                )
+                ButtonWithIcon(
+                  icon = R.drawable.ic_topup,
+                  label = R.string.top_up_button,
+                  onClick = onClickTopUp,
+                  backgroundColor = WalletColors.styleguide_pink,
+                  labelColor = WalletColors.styleguide_white,
+                  iconColor = WalletColors.styleguide_white
+                )
+              }
+            }
+            if (showBackup) {
+              Surface(
+                modifier =
+                Modifier
+                  .fillMaxWidth()
+                  .absolutePadding(top = 4.dp, bottom = 4.dp)
+                  .size(1.dp),
+                color = WalletColors.styleguide_blue,
+                content = {})
+              Column(modifier = Modifier.padding(16.dp)) { BackupAlertCard(onClickBackup) }
+            }
           }
-          Spacer(modifier = Modifier.height(12.dp))
-          Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.SpaceBetween
-          ) {
-            ButtonWithIcon(
-              icon = R.drawable.ic_transfer,
-              label = R.string.transfer_button,
-              onClick = onClickTransfer,
-              backgroundColor = WalletColors.styleguide_blue,
-              labelColor = WalletColors.styleguide_white,
-              iconColor = WalletColors.styleguide_pink
-            )
-            ButtonWithIcon(
-              icon = R.drawable.ic_topup,
-              label = R.string.top_up_button,
-              onClick = onClickTopUp,
-              backgroundColor = WalletColors.styleguide_pink,
-              labelColor = WalletColors.styleguide_white,
-              iconColor = WalletColors.styleguide_white
-            )
-          }
-        }
-        if (showBackup) {
-          Surface(
-            modifier =
-            Modifier
-              .fillMaxWidth()
-              .absolutePadding(top = 4.dp, bottom = 4.dp)
-              .size(1.dp),
-            color = WalletColors.styleguide_blue,
-            content = {})
-          Column(modifier = Modifier.padding(16.dp)) { BackupAlertCard(onClickBackup) }
         }
       }
     }
   }
+
 }
 
 @Composable

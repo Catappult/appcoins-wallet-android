@@ -3,6 +3,7 @@ package com.asfoundation.wallet.wallet.home
 import android.content.Intent
 import android.net.Uri
 import android.text.format.DateUtils
+import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import com.appcoins.wallet.core.arch.BaseViewModel
 import com.appcoins.wallet.core.arch.SideEffect
@@ -18,6 +19,8 @@ import com.appcoins.wallet.sharedpreferences.BackupTriggerPreferencesDataSource.
 import com.appcoins.wallet.sharedpreferences.BackupTriggerPreferencesDataSource.TriggerSource.NEW_LEVEL
 import com.appcoins.wallet.core.arch.*
 import com.appcoins.wallet.core.arch.data.Async
+import com.appcoins.wallet.ui.widgets.CardPromotionItem
+import com.appcoins.wallet.ui.widgets.GameData
 import com.asfoundation.wallet.backup.triggers.TriggerUtils.toJson
 import com.asfoundation.wallet.backup.use_cases.ShouldShowBackupTriggerUseCase
 import com.asfoundation.wallet.billing.analytics.WalletsAnalytics
@@ -26,9 +29,14 @@ import com.asfoundation.wallet.entity.GlobalBalance
 import com.asfoundation.wallet.entity.Wallet
 import com.asfoundation.wallet.gamification.ObserveUserStatsUseCase
 import com.asfoundation.wallet.home.usecases.*
+import com.asfoundation.wallet.promotions.model.PromotionsModel
+import com.asfoundation.wallet.promotions.ui.PromotionsState
+import com.asfoundation.wallet.promotions.usecases.GetPromotionsUseCase
+import com.asfoundation.wallet.promotions.usecases.SetSeenPromotionsUseCase
 import com.asfoundation.wallet.referrals.CardNotification
 import com.asfoundation.wallet.transactions.Transaction
 import com.asfoundation.wallet.ui.balance.TokenBalance
+import com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue
 import com.asfoundation.wallet.ui.widget.entity.TransactionsModel
 import com.asfoundation.wallet.ui.widget.holder.CardNotificationAction
 import com.asfoundation.wallet.update_required.use_cases.BuildUpdateIntentUseCase.Companion.PLAY_APP_VIEW_URL
@@ -71,6 +79,7 @@ sealed class HomeSideEffect : SideEffect {
 
 data class HomeState(
   val transactionsModelAsync: Async<TransactionsModel> = Async.Uninitialized,
+  val promotionsModelAsync: Async<PromotionsModel> = Async.Uninitialized,
   val defaultWalletBalanceAsync: Async<GlobalBalance> = Async.Uninitialized,
   val showVipBadge: Boolean = false,
   val unreadMessages: Boolean = false,
@@ -84,6 +93,8 @@ class HomeViewModel @Inject constructor(
   private val shouldShowBackupTriggerUseCase: ShouldShowBackupTriggerUseCase,
   private val observeWalletInfoUseCase: ObserveWalletInfoUseCase,
   private val getWalletInfoUseCase: GetWalletInfoUseCase,
+  private val getPromotionsUseCase: GetPromotionsUseCase,
+  private val setSeenPromotionsUseCase: SetSeenPromotionsUseCase,
   private val shouldOpenRatingDialogUseCase: ShouldOpenRatingDialogUseCase,
   private val updateTransactionsNumberUseCase: UpdateTransactionsNumberUseCase,
   private val findNetworkInfoUseCase: FindNetworkInfoUseCase,
@@ -91,6 +102,7 @@ class HomeViewModel @Inject constructor(
   private val findDefaultWalletUseCase: FindDefaultWalletUseCase,
   private val observeDefaultWalletUseCase: ObserveDefaultWalletUseCase,
   private val dismissCardNotificationUseCase: DismissCardNotificationUseCase,
+  private val getGamesListingUseCase: GetGamesListingUseCase,
   private val getLevelsUseCase: GetLevelsUseCase,
   private val getUserLevelUseCase: GetUserLevelUseCase,
   private val observeUserStatsUseCase: ObserveUserStatsUseCase,
@@ -109,8 +121,10 @@ class HomeViewModel @Inject constructor(
   private val UPDATE_INTERVAL = 30 * DateUtils.SECOND_IN_MILLIS
   private val refreshData = BehaviorSubject.createDefault(true)
   private val refreshCardNotifications = BehaviorSubject.createDefault(true)
-  val balance = mutableStateOf(com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue())
+  val balance = mutableStateOf(FiatValue())
   val newWallet = mutableStateOf(false)
+  val gamesList = mutableStateOf(listOf<GameData>())
+  val activePromotions = mutableStateListOf<CardPromotionItem>()
 
   companion object {
     fun initialState(): HomeState {
@@ -124,6 +138,7 @@ class HomeViewModel @Inject constructor(
     handleUnreadConversationCount()
     handleRateUsDialogVisibility()
     handleBackupTrigger()
+    fetchPromotions()
   }
 
   private fun handleWalletData() {
@@ -279,6 +294,15 @@ class HomeViewModel @Inject constructor(
         Single.error(IllegalStateException(status.name))
       }
       .toObservable()
+  }
+
+  fun fetchGamesListing() {
+    getGamesListingUseCase()
+      .subscribeOn(rxSchedulers.io)
+      .scopedSubscribe(
+        { gamesList.value = it },
+        { e -> e.printStackTrace() }
+      )
   }
 
   private fun verifyUserLevel() {
@@ -442,4 +466,20 @@ class HomeViewModel @Inject constructor(
       backupTriggerPreferences.getTriggerSource(walletAddress),
       TriggerSource::class.java
     )
+
+  private fun fetchPromotions() {
+    getPromotionsUseCase()
+      .subscribeOn(rxSchedulers.io)
+      .asAsyncToState(HomeState::promotionsModelAsync) {
+        copy(promotionsModelAsync = it)
+      }
+      .doOnNext { promotionsModel ->
+        if (promotionsModel.error == null) {
+          setSeenPromotionsUseCase(promotionsModel.promotions, promotionsModel.wallet.address)
+        }
+      }
+      .repeatableScopedSubscribe(PromotionsState::promotionsModelAsync.name) { e ->
+        e.printStackTrace()
+      }
+  }
 }
