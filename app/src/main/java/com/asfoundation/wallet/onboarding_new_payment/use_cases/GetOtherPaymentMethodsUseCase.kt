@@ -10,15 +10,13 @@ import javax.inject.Inject
 class GetOtherPaymentMethodsUseCase @Inject constructor() {
 
   companion object {
-    private const val PAYPAL_ID = "paypal"
-    private const val CC_ID = "credit_card"
-    private const val ASK_SOMEONE_TO_PAY_ID = "ask_friend"
+    private const val CARRIE_BILLING = "onebip"
   }
 
   operator fun invoke(paymentList: List<PaymentMethod>): List<PaymentMethod> {
     val otherPaymentMethods: MutableList<PaymentMethod> = mutableListOf()
     for (method in paymentList) {
-      if (method.id != CC_ID && method.id != PAYPAL_ID && method.id != ASK_SOMEONE_TO_PAY_ID) {
+      if (method.id == CARRIE_BILLING) {
         otherPaymentMethods.add(method)
       }
     }
