@@ -53,7 +53,7 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class AdyenTopUpFragment : BasePageViewFragment(), AdyenTopUpView {
-
+  //
   @Inject
   internal lateinit var inAppPurchaseInteractor: InAppPurchaseInteractor
 
