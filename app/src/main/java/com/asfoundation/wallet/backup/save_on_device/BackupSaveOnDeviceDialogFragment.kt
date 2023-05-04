@@ -15,17 +15,18 @@ import androidx.documentfile.provider.DocumentFile
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import by.kirich1409.viewbindingdelegate.viewBinding
+import com.appcoins.wallet.core.arch.SingleStateFragment
 import com.asf.wallet.R
 import com.asf.wallet.databinding.BackupSaveOnDeviceDialogFragmentBinding
-import com.appcoins.wallet.core.arch.SingleStateFragment
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @AndroidEntryPoint
 class BackupSaveOnDeviceDialogFragment : BottomSheetDialogFragment(),
-  SingleStateFragment<BackupSaveOnDeviceDialogState, BackupSaveOnDeviceDialogSideEffect> {
+    SingleStateFragment<BackupSaveOnDeviceDialogState, BackupSaveOnDeviceDialogSideEffect> {
 
   @Inject
   lateinit var navigator: BackupSaveOnDeviceDialogNavigator
@@ -43,13 +44,13 @@ class BackupSaveOnDeviceDialogFragment : BottomSheetDialogFragment(),
 
     @JvmStatic
     fun newInstance(walletAddress: String, password: String) =
-      BackupSaveOnDeviceDialogFragment()
-        .apply {
-          arguments = Bundle().apply {
-            putString(WALLET_ADDRESS_KEY, walletAddress)
-            putString(PASSWORD_KEY, password)
-          }
-        }
+        BackupSaveOnDeviceDialogFragment()
+            .apply {
+              arguments = Bundle().apply {
+                putString(WALLET_ADDRESS_KEY, walletAddress)
+                putString(PASSWORD_KEY, password)
+              }
+            }
   }
 
   override fun onCreate(savedInstanceState: Bundle?) {
@@ -59,28 +60,32 @@ class BackupSaveOnDeviceDialogFragment : BottomSheetDialogFragment(),
 
   private fun createLaunchers() {
     openDocumentTreeResultLauncher = registerForActivityResult(
-      ActivityResultContracts.StartActivityForResult()
+        ActivityResultContracts.StartActivityForResult()
     ) { activityResult ->
       val data = activityResult.data
       if (activityResult.resultCode == Activity.RESULT_OK && data != null) {
         data.data?.let {
           val documentFile = DocumentFile.fromTreeUri(requireContext(), it)
-          viewModel.saveBackupFile(views.fileNameInput.getText(), documentFile)
+          lifecycleScope.launch {
+            viewModel.saveBackupFile(views.fileNameInput.getText(), documentFile)
+          }
         }
       }
     }
     requestPermissionsLauncher = registerForActivityResult(
-      ActivityResultContracts.RequestPermission()
+        ActivityResultContracts.RequestPermission()
     ) { isGranted ->
       if (isGranted) {
-        viewModel.saveBackupFile(views.fileNameInput.getText())
+        lifecycleScope.launch {
+          viewModel.saveBackupFile(views.fileNameInput.getText())
+        }
       }
     }
   }
 
   override fun onCreateView(
-    inflater: LayoutInflater, container: ViewGroup?,
-    savedInstanceState: Bundle?
+      inflater: LayoutInflater, container: ViewGroup?,
+      savedInstanceState: Bundle?
   ): View = BackupSaveOnDeviceDialogFragmentBinding.inflate(layoutInflater).root
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -127,11 +132,11 @@ class BackupSaveOnDeviceDialogFragment : BottomSheetDialogFragment(),
   }
 
   override fun onSideEffect(sideEffect: BackupSaveOnDeviceDialogSideEffect) =
-    when (sideEffect) {
-      is BackupSaveOnDeviceDialogSideEffect.NavigateToSuccess ->
-        navigator.navigateToSuccessScreen(sideEffect.walletAddress)
-      BackupSaveOnDeviceDialogSideEffect.ShowError -> showError()
-    }
+      when (sideEffect) {
+        is BackupSaveOnDeviceDialogSideEffect.NavigateToSuccess ->
+          navigator.navigateToSuccessScreen(sideEffect.walletAddress)
+        BackupSaveOnDeviceDialogSideEffect.ShowError -> showError()
+      }
 
   fun showError() {
     Toast.makeText(context, R.string.error_export, Toast.LENGTH_LONG).show()

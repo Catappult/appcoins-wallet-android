@@ -1,11 +1,11 @@
 package com.asfoundation.wallet.backup.save_options
 
-import com.appcoins.wallet.core.utils.jvm_common.Logger
-import com.asfoundation.wallet.backup.use_cases.BackupSuccessLogUseCase
-import com.asfoundation.wallet.backup.use_cases.SendBackupToEmailUseCase
 import com.appcoins.wallet.core.arch.BaseViewModel
 import com.appcoins.wallet.core.arch.SideEffect
 import com.appcoins.wallet.core.arch.ViewState
+import com.appcoins.wallet.core.utils.jvm_common.Logger
+import com.asfoundation.wallet.backup.use_cases.BackupSuccessLogUseCase
+import com.asfoundation.wallet.backup.use_cases.SendBackupToEmailUseCase
 
 sealed class BackupSaveOptionsSideEffect : SideEffect {
   data class NavigateToSuccess(val walletAddress: String) : BackupSaveOptionsSideEffect()
@@ -16,12 +16,12 @@ object BackupSaveOptionsState : ViewState
 
 
 class BackupSaveOptionsViewModel(
-  private val data: BackupSaveOptionsData,
-  private val sendBackupToEmailUseCase: SendBackupToEmailUseCase,
-  private val backupSuccessLogUseCase: BackupSuccessLogUseCase,
-  private val logger: Logger,
+    private val data: BackupSaveOptionsData,
+    private val sendBackupToEmailUseCase: SendBackupToEmailUseCase,
+    private val backupSuccessLogUseCase: BackupSuccessLogUseCase,
+    private val logger: Logger,
 ) : BaseViewModel<BackupSaveOptionsState, BackupSaveOptionsSideEffect>(
-  initialState()
+    initialState()
 ) {
 
   companion object {
@@ -32,11 +32,20 @@ class BackupSaveOptionsViewModel(
     }
   }
 
-  fun sendBackupToEmail(text: String) {
-    sendBackupToEmailUseCase(data.walletAddress, data.password, text)
-      .andThen(backupSuccessLogUseCase(data.walletAddress))
-      .doOnComplete { sendSideEffect { BackupSaveOptionsSideEffect.NavigateToSuccess(data.walletAddress) } }
-      .scopedSubscribe { showError(it) }
+  suspend fun sendBackupToEmail(text: String) {
+    runCatching {
+      sendBackupToEmailUseCase(data.walletAddress, data.password, text)
+    }.onSuccess {
+      backupSuccessLogUseCase(data.walletAddress).let {}
+    }.onFailure {
+      showError(it)
+    }
+    try {
+      backupSuccessLogUseCase(data.walletAddress).let {}
+      sendSideEffect { BackupSaveOptionsSideEffect.NavigateToSuccess(data.walletAddress) }
+    } catch (e: Exception) {
+      showError(e)
+    }
   }
 
   private fun showError(throwable: Throwable) {

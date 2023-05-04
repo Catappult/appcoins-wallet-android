@@ -2,15 +2,15 @@ package com.asfoundation.wallet.backup.use_cases
 
 import com.asfoundation.wallet.repository.PasswordStore
 import com.asfoundation.wallet.repository.WalletRepositoryType
-import io.reactivex.Single
+import kotlinx.coroutines.rx2.await
 import javax.inject.Inject
 
 class CreateBackupUseCase @Inject constructor(private val walletRepository: WalletRepositoryType,
                                               private val passwordStore: PasswordStore) {
-
-  operator fun invoke(walletAddress: String,
-                      password: String): Single<String> {
-    return passwordStore.getPassword(walletAddress)
-        .flatMap { walletRepository.exportWallet(walletAddress, it, password) }
+  suspend operator fun invoke(
+      walletAddress: String,
+      password: String): String {
+    val retrievedPassword = passwordStore.getPassword(walletAddress).await()
+    return walletRepository.exportWallet(walletAddress, retrievedPassword, password).await()
   }
 }
