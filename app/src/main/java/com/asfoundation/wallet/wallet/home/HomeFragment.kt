@@ -37,7 +37,6 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import com.appcoins.wallet.core.network.backend.model.GamificationStatus
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
-import com.appcoins.wallet.core.utils.android_common.DateFormatterUtils
 import com.appcoins.wallet.core.utils.android_common.RootUtil
 import com.appcoins.wallet.core.utils.android_common.WalletCurrency.FIAT
 import com.appcoins.wallet.ui.arch.SingleStateFragment
@@ -52,7 +51,6 @@ import com.asfoundation.wallet.support.SupportNotificationProperties
 import com.asfoundation.wallet.transactions.Transaction.*
 import com.asfoundation.wallet.transactions.Transaction.TransactionType.*
 import com.asfoundation.wallet.transactions.TransactionModel
-import com.asfoundation.wallet.ui.widget.entity.TransactionsModel
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import com.asfoundation.wallet.wallet.home.HomeViewModel.UiState
 import com.asfoundation.wallet.wallet.home.HomeViewModel.UiState.Loading
@@ -299,7 +297,6 @@ class HomeFragment: BasePageViewFragment(), SingleStateFragment<HomeState, HomeS
     // TODO refreshing. setRefreshLayout(state.defaultWalletBalanceAsync, state.transactionsModelAsync)
     setBalance(state.defaultWalletBalanceAsync)
     showVipBadge(state.showVipBadge)
-    setTransactions(state.transactionsModelAsync)
     setPromotions(state.promotionsModelAsync)
     // TODO updateSupportIcon(state.unreadMessages)
   }
@@ -373,24 +370,6 @@ class HomeFragment: BasePageViewFragment(), SingleStateFragment<HomeState, HomeS
         with(balanceAsync().walletBalance.creditsOnlyFiat) {
           if (amount >= BigDecimal.ZERO && symbol.isNotEmpty()) viewModel.balance.value = this
         }
-      else -> Unit
-    }
-  }
-
-  private fun setTransactions(transactionsModel: Async<TransactionsModel>) {
-    when (transactionsModel) {
-      Async.Uninitialized,
-      is Async.Loading -> {
-        //TODO loading
-      }
-
-      is Async.Success -> {
-        viewModel.newWallet.value = transactionsModel().transactions.isEmpty()
-        viewModel.transactionsGrouped.value = transactionsModel().transactions
-          .take(3)
-          .groupBy { DateFormatterUtils.getDate(it.timeStamp) }
-      }
-
       else -> Unit
     }
   }
