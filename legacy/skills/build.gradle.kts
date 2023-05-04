@@ -13,6 +13,7 @@ dependencies {
   implementation(project(":core:shared-preferences"))
   implementation(project(":core:network:eskills"))
   implementation(project(":core:network:microservices"))
+  implementation(project(":core:network:analytics"))
   implementation(libs.androidx.core.ktx)
   implementation(libs.viewbinding.delegate)
   implementation(libs.androidx.appcompact)
