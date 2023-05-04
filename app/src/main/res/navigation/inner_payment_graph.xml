@@ -32,6 +32,10 @@
     <action
         android:id="@+id/action_navigate_to_onboarding_adyen_payment"
         app:destination="@id/onboarding_adyen_payment_fragment" />
+
+    <action
+        android:id="@+id/action_navigate_to_onboarding_local_payment"
+        app:destination="@id/onboarding_local_payment_fragment" />
   </fragment>
   <fragment
       android:id="@+id/onboarding_adyen_payment_fragment"
@@ -81,5 +85,30 @@
     <argument
         android:name="forecast_bonus"
         app:argType="com.appcoins.wallet.gamification.repository.ForecastBonusAndLevel" />
+  </fragment>
+
+  <fragment
+      android:id="@+id/onboarding_local_payment_fragment"
+      android:name="com.asfoundation.wallet.onboarding_new_payment.local_payments.OnboardingLocalPaymentFragment"
+      tools:layout="@layout/local_payment_layout">
+
+    <argument
+        android:name="transaction_builder"
+        app:argType="com.asfoundation.wallet.entity.TransactionBuilder" />
+
+    <argument
+        android:name="payment_type"
+        app:argType="string" />
+
+    <argument
+        android:name="amount"
+        app:argType="string" />
+    <argument
+        android:name="currency"
+        app:argType="string" />
+
+    <action
+        android:id="@+id/action_navigate_to_onboarding_payment_result"
+        app:destination="@id/onboarding_payment_result_fragment" />
   </fragment>
 </navigation>

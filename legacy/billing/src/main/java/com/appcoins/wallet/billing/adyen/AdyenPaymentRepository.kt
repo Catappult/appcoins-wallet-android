@@ -19,8 +19,8 @@ class AdyenPaymentRepository @Inject constructor(
 ) {
 
   fun loadPaymentInfo(methods: Methods, value: String,
-                      currency: String, walletAddress: String): Single<PaymentInfoModel> {
-    return adyenApi.loadPaymentInfo(walletAddress, value, currency, methods.transactionType)
+                      currency: String, walletAddress: String, walletSignature: String): Single<PaymentInfoModel> {
+    return adyenApi.loadPaymentInfo(walletAddress, walletSignature, value, currency, methods.transactionType)
         .map {
           adyenResponseMapper.map(it, methods)
         }
