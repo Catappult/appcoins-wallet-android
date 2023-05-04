@@ -1,13 +1,13 @@
 package com.appcoins.wallet.feature.changecurrency.data
 
 import android.content.Context
+import com.appcoins.wallet.core.arch.data.DataResult
+import com.appcoins.wallet.core.arch.data.toDataResult
 import com.appcoins.wallet.core.network.microservices.api.broker.FiatCurrenciesApi
 import com.appcoins.wallet.core.utils.android_common.Dispatchers
 import com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue
 import com.appcoins.wallet.feature.changecurrency.data.currencies.LocalCurrencyConversionService
 import com.appcoins.wallet.sharedpreferences.FiatCurrenciesPreferencesDataSource
-import com.appcoins.wallet.core.arch.data.DataResult
-import com.appcoins.wallet.core.arch.data.toDataResult
 import com.github.michaelbull.result.map
 import com.github.michaelbull.result.onFailure
 import com.github.michaelbull.result.onSuccess
@@ -39,7 +39,6 @@ class FiatCurrenciesRepository @Inject constructor(
 
         }
     }
-
 
   suspend fun getCurrenciesList(): DataResult<List<FiatCurrencyEntity>> =
     withContext(dispatchers.io) {
