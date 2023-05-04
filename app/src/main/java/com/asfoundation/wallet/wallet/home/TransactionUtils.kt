@@ -3,6 +3,7 @@ package com.asfoundation.wallet.wallet.home
 import com.asf.wallet.R
 import com.asfoundation.wallet.transactions.Transaction.TransactionCardInfo
 import com.asfoundation.wallet.transactions.TransactionModel
+import com.asfoundation.wallet.transactions.TransactionType
 import com.asfoundation.wallet.transactions.TransactionType.EXTRA_BONUS
 import com.asfoundation.wallet.transactions.TransactionType.E_SKILLS_REWARD
 import com.asfoundation.wallet.transactions.TransactionType.E_SKILLS_TICKET_REFUND
@@ -24,12 +25,11 @@ import com.asfoundation.wallet.transactions.TransactionType.REVERTED_TOP_UP
 import com.asfoundation.wallet.transactions.TransactionType.SUBSCRIPTION_PAYMENT
 import com.asfoundation.wallet.transactions.TransactionType.SUBSCRIPTION_REFUND
 import com.asfoundation.wallet.transactions.TransactionType.TOP_UP
-import com.asfoundation.wallet.transactions.TransactionType.VOUCHER_PURCHASE
 
 fun TransactionModel.cardInfoByType() = when (this.type) {
   PURCHASE_BONUS -> TransactionCardInfo(
     icon = R.drawable.ic_transaction_reward,
-    title = R.string.error_general,
+    title = R.string.transaction_type_purchase_bonus,
     description = description,
     amount = mainAmount,
     currency = convertedAmount
@@ -37,21 +37,21 @@ fun TransactionModel.cardInfoByType() = when (this.type) {
 
   TOP_UP -> TransactionCardInfo(
     icon = R.drawable.ic_transaction_topup,
-    title = R.string.topup_title,
+    title = R.string.transaction_type_topup,
     amount = mainAmount,
     currency = convertedAmount
   )
 
   GIFT_CARD -> TransactionCardInfo(
     icon = R.drawable.ic_transaction_gift,
-    title = R.string.error_general,
+    title = R.string.transaction_type_gift_card,
     amount = mainAmount,
     currency = convertedAmount
   )
 
   EXTRA_BONUS -> TransactionCardInfo(
     icon = R.drawable.ic_transaction_gift,
-    title = R.string.error_general,
+    title = R.string.transaction_type_extra_bonus,
     amount = mainAmount,
     description = description,
     currency = convertedAmount
@@ -59,35 +59,35 @@ fun TransactionModel.cardInfoByType() = when (this.type) {
 
   PROMO_CODE_BONUS -> TransactionCardInfo(
     icon = R.drawable.ic_transaction_gift,
-    title = R.string.error_general,
+    title = R.string.transaction_type_promo_code_bonus,
     amount = mainAmount,
     currency = convertedAmount
   )
 
   REVERTED_PURCHASE_BONUS -> TransactionCardInfo(
     icon = R.drawable.ic_transaction_reverted_reward,
-    title = R.string.error_general,
+    title = R.string.transaction_type_reverted_purchase_bonus,
     amount = mainAmount,
     description = description,
     currency = convertedAmount,
-    subIcon = R.drawable.ic_transaction_reverted_mini
+    subIcon = R.drawable.ic_transaction_refund_reverted_mini
   )
 
   REVERTED_EXTRA_BONUS -> TransactionCardInfo(
     icon = R.drawable.ic_transaction_reverted_gift,
-    title = R.string.error_general,
+    title = R.string.transaction_type_reverted_extra_bonus,
     amount = mainAmount,
     description = description,
-    subIcon = R.drawable.ic_transaction_reverted_mini,
+    subIcon = R.drawable.ic_transaction_refund_reverted_mini,
     currency = convertedAmount
   )
 
   REVERTED_PROMO_CODE_BONUS -> TransactionCardInfo(
     icon = R.drawable.ic_transaction_reverted_gift,
-    title = R.string.error_general,
+    title = R.string.transaction_type_reverted_promo_code_bonus,
     amount = mainAmount,
     description = description,
-    subIcon = R.drawable.ic_transaction_reverted_mini,
+    subIcon = R.drawable.ic_transaction_refund_reverted_mini,
     currency = convertedAmount
   )
 
@@ -101,24 +101,25 @@ fun TransactionModel.cardInfoByType() = when (this.type) {
 
   E_SKILLS_TICKET_REFUND -> TransactionCardInfo(
     appIcon = appIcon,
-    title = R.string.error_general,
+    title = R.string.transaction_type_eskills_ticke_refund,
     description = description,
     amount = mainAmount,
-    currency = convertedAmount
+    currency = convertedAmount,
+    subIcon = R.drawable.ic_transaction_refund_reverted_mini
   )
 
   REJECTED_E_SKILLS_TICKET -> TransactionCardInfo(
     appIcon = appIcon,
-    title = R.string.error_general,
+    title = R.string.transaction_type_rejected_eskills_ticket,
     amount = mainAmount,
     description = description,
     currency = convertedAmount,
-    subIcon = R.drawable.ic_transaction_reverted_mini
+    subIcon = R.drawable.ic_transaction_rejected_mini
   )
 
   FUNDS_SENT -> TransactionCardInfo(
     icon = R.drawable.ic_transaction_transfer,
-    title = R.string.title_send,
+    title = R.string.transaction_type_funds_sent,
     amount = mainAmount,
     description = description,
     currency = convertedAmount
@@ -126,7 +127,7 @@ fun TransactionModel.cardInfoByType() = when (this.type) {
 
   FUNDS_RECEIVED -> TransactionCardInfo(
     icon = R.drawable.ic_transaction_transfer,
-    title = R.string.error_general,
+    title = R.string.transaction_type_funds_received,
     amount = mainAmount,
     description = description,
     currency = convertedAmount
@@ -142,39 +143,39 @@ fun TransactionModel.cardInfoByType() = when (this.type) {
 
   PURCHASE_REFUND -> TransactionCardInfo(
     icon = R.drawable.ic_transaction_reverted_reward,
-    title = R.string.error_general,
+    title = R.string.transaction_type_reverted_purchase_title,
     amount = mainAmount,
     description = description,
     currency = convertedAmount,
-    subIcon = R.drawable.ic_transaction_refund_mini
+    subIcon = R.drawable.ic_transaction_refund_reverted_mini
   )
 
   REJECTED_PURCHASE -> TransactionCardInfo(
     icon = R.drawable.ic_transaction_reverted_reward,
-    title = R.string.error_general,
+    title = R.string.transaction_type_rejected_purchase,
     amount = mainAmount,
     description = description,
     currency = convertedAmount,
-    subIcon = R.drawable.ic_transaction_reverted_mini
+    subIcon = R.drawable.ic_transaction_rejected_mini
   )
 
   REVERTED_TOP_UP -> TransactionCardInfo(
     icon = R.drawable.ic_transaction_reverted,
-    title = R.string.error_general,
+    title = R.string.transaction_type_reverted_topup,
     amount = mainAmount,
     currency = convertedAmount,
   )
 
   REJECTED_TOP_UP -> TransactionCardInfo(
     icon = R.drawable.ic_transaction_rejected_topup,
-    title = R.string.error_general,
+    title = R.string.transaction_type_rejected_topup,
     amount = mainAmount,
     currency = convertedAmount,
   )
 
   SUBSCRIPTION_PAYMENT -> TransactionCardInfo(
     appIcon = appIcon,
-    title = R.string.error_general,
+    title = R.string.transaction_type_subscription_payment,
     amount = mainAmount,
     description = description,
     currency = convertedAmount
@@ -182,34 +183,35 @@ fun TransactionModel.cardInfoByType() = when (this.type) {
 
   SUBSCRIPTION_REFUND -> TransactionCardInfo(
     appIcon = appIcon,
-    title = R.string.error_general,
+    title = R.string.transaction_type_refund_subscription,
     amount = mainAmount,
     description = description,
     currency = convertedAmount,
-    subIcon = R.drawable.ic_transaction_refund_mini
+    subIcon = R.drawable.ic_transaction_refund_reverted_mini
   )
 
   REJECTED_SUBSCRIPTION_PURCHASE -> TransactionCardInfo(
     appIcon = appIcon,
-    title = R.string.error_general,
+    title = R.string.transaction_type_rejected_subscription_purchase,
     amount = mainAmount,
     description = description,
     currency = convertedAmount,
-    subIcon = R.drawable.ic_transaction_reverted_mini
+    subIcon = R.drawable.ic_transaction_rejected_mini
   )
 
-  VOUCHER_PURCHASE -> TransactionCardInfo(
+  TransactionType.E_SKILLS_ENTRY_TICKET -> TransactionCardInfo(
     appIcon = appIcon,
-    title = R.string.error_general,
+    title = R.string.transaction_type_eskills,
     amount = mainAmount,
     description = description,
     currency = convertedAmount,
   )
 
-  else -> TransactionCardInfo(
+  TransactionType.OTHER -> TransactionCardInfo(
     icon = R.drawable.ic_transaction_transfer,
     title = R.string.error_general,
     amount = mainAmount,
-    currency = convertedAmount
+    description = description,
+    currency = convertedAmount,
   )
 }

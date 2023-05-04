@@ -25,6 +25,7 @@ class TransactionsListViewModel @Inject constructor(
   private val getSelectedCurrencyUseCase: GetSelectedCurrencyUseCase,
   private val logger: Logger
 ) : ViewModel() {
+  private lateinit var defaultCurrency: String
   private val _uiState = MutableStateFlow<UiState>(UiState.Idle)
   var uiState: StateFlow<UiState> = _uiState
 
@@ -40,6 +41,7 @@ class TransactionsListViewModel @Inject constructor(
     Observable.combineLatest(
       getSelectedCurrencyUseCase(false).toObservable(), observeDefaultWalletUseCase()
     ) { selectedCurrency, wallet ->
+      defaultCurrency = selectedCurrency
       fetchTransactions(wallet.address, selectedCurrency)
     }.subscribe()
   }
@@ -54,7 +56,7 @@ class TransactionsListViewModel @Inject constructor(
             is ApiSuccess -> {
               _uiState.value = UiState.Success(
                 result.data
-                  .map { it.toModel() }
+                  .map { it.toModel(defaultCurrency) }
                   .groupBy { it.date }
               )
             }

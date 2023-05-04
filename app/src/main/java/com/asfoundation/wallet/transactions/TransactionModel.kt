@@ -4,13 +4,10 @@ import com.appcoins.wallet.core.network.backend.model.TransactionResponse
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils.Companion.DEFAULT_SCALE
 import com.appcoins.wallet.core.utils.android_common.DateFormatterUtils
 import com.asfoundation.wallet.C.ETHER_DECIMALS
-import com.asfoundation.wallet.transactions.TransactionType.BURN
 import com.asfoundation.wallet.transactions.TransactionType.EXTRA_BONUS
 import com.asfoundation.wallet.transactions.TransactionType.E_SKILLS_ENTRY_TICKET
 import com.asfoundation.wallet.transactions.TransactionType.E_SKILLS_REWARD
 import com.asfoundation.wallet.transactions.TransactionType.E_SKILLS_TICKET_REFUND
-import com.asfoundation.wallet.transactions.TransactionType.E_SKILLS_WITHDRAW
-import com.asfoundation.wallet.transactions.TransactionType.FEE
 import com.asfoundation.wallet.transactions.TransactionType.FUNDS_RECEIVED
 import com.asfoundation.wallet.transactions.TransactionType.FUNDS_SENT
 import com.asfoundation.wallet.transactions.TransactionType.GIFT_CARD
@@ -30,12 +27,14 @@ import com.asfoundation.wallet.transactions.TransactionType.REVERTED_TOP_UP
 import com.asfoundation.wallet.transactions.TransactionType.SUBSCRIPTION_PAYMENT
 import com.asfoundation.wallet.transactions.TransactionType.SUBSCRIPTION_REFUND
 import com.asfoundation.wallet.transactions.TransactionType.TOP_UP
-import com.asfoundation.wallet.transactions.TransactionType.VOUCHER_PURCHASE
-import com.asfoundation.wallet.transactions.TransactionType.WITHDRAW
 import java.math.BigDecimal
 import java.math.RoundingMode
 import java.text.NumberFormat
 import java.util.Currency
+
+const val POSITIVE_SIGN = "+"
+const val NEGATIVE_SIGN = "-"
+const val CURRENCY_CODE_LENGHT = 3
 
 data class TransactionModel(
   val id: String,
@@ -47,46 +46,42 @@ data class TransactionModel(
   val convertedAmount: String
 )
 
-fun TransactionResponse.toModel(): TransactionModel {
+fun TransactionResponse.toModel(selectedCurrency: String): TransactionModel {
   return TransactionModel(
     id = txId,
     type = type.toTransactionType(),
     date = DateFormatterUtils.getDate(processedTime),
     appIcon = appIcon,
     description = bonusDescription ?: app,
-    mainAmount = paidAmount() ?: amount(),
-    convertedAmount = if (paidAmount() == null) amountCurrency else "${amount()} $amountCurrency",
+    mainAmount = paidAmount(selectedCurrency) ?: amount(),
+    convertedAmount = if (paidAmount(selectedCurrency) == null) amountCurrency else "${amount()} $amountCurrency",
   )
 }
 
-enum class TransactionType {
-  GIFT_CARD,
-  PURCHASE_BONUS,
-  EXTRA_BONUS,
-  PROMO_CODE_BONUS,
-  REVERTED_PURCHASE_BONUS,
-  REVERTED_EXTRA_BONUS,
-  REVERTED_PROMO_CODE_BONUS,
-  BURN,
-  E_SKILLS_ENTRY_TICKET,
-  E_SKILLS_WITHDRAW,
-  E_SKILLS_REWARD,
-  E_SKILLS_TICKET_REFUND,
-  REJECTED_E_SKILLS_TICKET,
-  FEE,
-  FUNDS_SENT,
-  FUNDS_RECEIVED,
-  IN_APP_PURCHASE,
-  PURCHASE_REFUND,
-  REJECTED_PURCHASE,
-  WITHDRAW,
-  TOP_UP,
-  REVERTED_TOP_UP,
-  REJECTED_TOP_UP,
-  SUBSCRIPTION_PAYMENT,
-  SUBSCRIPTION_REFUND,
-  REJECTED_SUBSCRIPTION_PURCHASE,
-  VOUCHER_PURCHASE,
+
+enum class TransactionType(val sign: String = "") {
+  TOP_UP(sign = POSITIVE_SIGN),
+  GIFT_CARD(sign = POSITIVE_SIGN),
+  PURCHASE_BONUS(sign = POSITIVE_SIGN),
+  EXTRA_BONUS(sign = POSITIVE_SIGN),
+  PROMO_CODE_BONUS(sign = POSITIVE_SIGN),
+  E_SKILLS_REWARD(sign = POSITIVE_SIGN),
+  E_SKILLS_TICKET_REFUND(sign = POSITIVE_SIGN),
+  FUNDS_RECEIVED(sign = POSITIVE_SIGN),
+  PURCHASE_REFUND(sign = POSITIVE_SIGN),
+  SUBSCRIPTION_REFUND(sign = POSITIVE_SIGN),
+  REJECTED_TOP_UP(sign = POSITIVE_SIGN),
+  REJECTED_PURCHASE(sign = POSITIVE_SIGN),
+  REJECTED_E_SKILLS_TICKET(sign = POSITIVE_SIGN),
+  REJECTED_SUBSCRIPTION_PURCHASE(sign = POSITIVE_SIGN),
+  SUBSCRIPTION_PAYMENT(sign = NEGATIVE_SIGN),
+  REVERTED_PURCHASE_BONUS(sign = NEGATIVE_SIGN),
+  REVERTED_EXTRA_BONUS(sign = NEGATIVE_SIGN),
+  REVERTED_PROMO_CODE_BONUS(sign = NEGATIVE_SIGN),
+  E_SKILLS_ENTRY_TICKET(sign = NEGATIVE_SIGN),
+  FUNDS_SENT(sign = NEGATIVE_SIGN),
+  IN_APP_PURCHASE(sign = NEGATIVE_SIGN),
+  REVERTED_TOP_UP(sign = NEGATIVE_SIGN),
   OTHER
 }
 
@@ -99,63 +94,48 @@ fun String.toTransactionType(): TransactionType {
     "Reverted Purchase Bonus" -> REVERTED_PURCHASE_BONUS
     "Reverted Extra Bonus" -> REVERTED_EXTRA_BONUS
     "Reverted Promo Code Bonus" -> REVERTED_PROMO_CODE_BONUS
-    "Burn" -> BURN
     "e-Skills Entry Ticket" -> E_SKILLS_ENTRY_TICKET
-    "e-Skills Withdraw" -> E_SKILLS_WITHDRAW
     "e-Skills Reward" -> E_SKILLS_REWARD
     "e-Skills Ticket Refund" -> E_SKILLS_TICKET_REFUND
     "Rejected e-Skills Ticket" -> REJECTED_E_SKILLS_TICKET
-    "Fee" -> FEE
     "Funds Sent" -> FUNDS_SENT
     "Funds Received" -> FUNDS_RECEIVED
     "In-App Purchase" -> IN_APP_PURCHASE
     "Purchase Refund" -> PURCHASE_REFUND
     "Rejected Purchase" -> REJECTED_PURCHASE
-    "Withdraw" -> WITHDRAW
     "Top-Up" -> TOP_UP
     "Reverted Top-Up" -> REVERTED_TOP_UP
     "Rejected Top-Up" -> REJECTED_TOP_UP
     "Subscription Payment" -> SUBSCRIPTION_PAYMENT
     "Subscription Refund" -> SUBSCRIPTION_REFUND
     "Rejected Subscription Purchase" -> REJECTED_SUBSCRIPTION_PURCHASE
-    "Voucher Purchase" -> VOUCHER_PURCHASE
     else -> OTHER
   }
 }
 
+private fun TransactionResponse.paidAmount(selectedCurrency: String): String? {
+  val sign = type.toTransactionType().sign
+  return defaultCurrencyAmount.formatMoney(selectedCurrency.currencySymbol(), sign)
+    ?: paidCurrencyAmount.formatMoney(paidCurrency.currencySymbol(), sign)
+}
 
-private fun TransactionResponse.paidAmount(): String? =
-  (defaultCurrencyAmount ?: paidCurrencyAmount).formatMoney()
-    .addCurrencyAndSign(paidCurrency.currencySymbol())
-
-private fun TransactionResponse.amount() = amount.format18decimals()
+private fun TransactionResponse.amount() =
+  amount.format18decimals(sign = type.toTransactionType().sign)
 
 fun String?.currencySymbol(): String =
-  try {
-    Currency.getInstance(this).symbol
-  } catch (e: Exception) {
-    ""
-  }
+  if (this != null && this.length == CURRENCY_CODE_LENGHT) Currency.getInstance(this).symbol
+  else ""
 
-fun String?.formatMoney(): String? = if (this == null) this else
-  numberFormatter().format(BigDecimal(this))
+fun String?.formatMoney(currencySymbol: String, sign: String): String? =
+  if (this == null) this else sign + currencySymbol + numberFormatter().format(BigDecimal(this))
 
-fun String.format18decimals(): String {
+fun String.format18decimals(sign: String): String {
   val value = BigDecimal(this).divide(BigDecimal.TEN.pow(ETHER_DECIMALS))
-  return numberFormatter().format(value).addSign(value > BigDecimal.ZERO)
+  return sign + numberFormatter().format(value)
 }
 
-fun String?.addCurrencyAndSign(currencySymbol: String): String? {
-  return if (this != null) {
-    val prefix = if (BigDecimal(this) > BigDecimal.ZERO) "+$currencySymbol" else currencySymbol
-    prefix + this
-  } else this
-}
-
-fun String.addSign(isPositive: Boolean) = if (isPositive) "+$this" else this
-
-fun numberFormatter(): NumberFormat = NumberFormat.getNumberInstance()
-  .apply {
+fun numberFormatter(): NumberFormat =
+  NumberFormat.getNumberInstance().apply {
     minimumFractionDigits = DEFAULT_SCALE
     maximumFractionDigits = DEFAULT_SCALE
     roundingMode = RoundingMode.FLOOR

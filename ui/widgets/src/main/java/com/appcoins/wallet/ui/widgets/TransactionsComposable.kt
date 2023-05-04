@@ -139,6 +139,6 @@ fun PreviewTransactionCard() {
     description = "AppCoins Trivial demo sample used to test the UI",
     amount = "-12,21238745674839837456.73",
     currency = "-12,5000000000000000000.00 APPC-C",
-    subIcon = R.drawable.ic_transaction_reverted_mini
+    subIcon = R.drawable.ic_transaction_rejected_mini
   ) { }
 }

@@ -45,7 +45,6 @@ import com.asfoundation.wallet.ui.widget.entity.TransactionsModel
 import com.asfoundation.wallet.ui.widget.holder.CardNotificationAction
 import com.asfoundation.wallet.update_required.use_cases.BuildUpdateIntentUseCase.Companion.PLAY_APP_VIEW_URL
 import com.asfoundation.wallet.viewmodel.TransactionsWalletModel
-import com.asfoundation.wallet.wallet.home.HomeViewModel.UiState.Loading
 import com.asfoundation.wallet.wallet.home.HomeViewModel.UiState.Success
 import com.asfoundation.wallet.wallets.domain.WalletBalance
 import com.asfoundation.wallet.wallets.usecases.GetWalletInfoUseCase
@@ -60,7 +59,6 @@ import io.reactivex.subjects.BehaviorSubject
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.launch
 import java.math.BigDecimal
 import java.util.concurrent.TimeUnit
@@ -132,6 +130,7 @@ class HomeViewModel @Inject constructor(
   private val logger: Logger
 ) : BaseViewModel<HomeState, HomeSideEffect>(initialState()) {
 
+  private lateinit var defaultCurrency: String
   private val UPDATE_INTERVAL = 30 * DateUtils.SECOND_IN_MILLIS
   private val refreshData = BehaviorSubject.createDefault(true)
   private val refreshCardNotifications = BehaviorSubject.createDefault(true)
@@ -150,7 +149,7 @@ class HomeViewModel @Inject constructor(
 
   init {
     handleWalletData()
-    observeTransactionData()
+    fetchTransactionData()
     verifyUserLevel()
     handleUnreadConversationCount()
     handleRateUsDialogVisibility()
@@ -200,10 +199,11 @@ class HomeViewModel @Inject constructor(
       .subscribeOn(rxSchedulers.io)
   }
 
-  private fun observeTransactionData() {
+  private fun fetchTransactionData() {
     Observable.combineLatest(
       getSelectedCurrencyUseCase(false).toObservable(), observeDefaultWalletUseCase()
     ) { selectedCurrency, wallet ->
+      defaultCurrency = selectedCurrency
       fetchTransactions(wallet, selectedCurrency)
     }.subscribe()
   }
@@ -235,7 +235,7 @@ class HomeViewModel @Inject constructor(
           .asAsyncToState(HomeState::defaultWalletBalanceAsync) {
             copy(defaultWalletBalanceAsync = it)
           }
-      }
+      }.doOnNext { fetchTransactionData() }
   }
 
   private fun mapWalletValue(walletBalance: WalletBalance): GlobalBalance {
@@ -286,7 +286,6 @@ class HomeViewModel @Inject constructor(
         limit = 4,
         currency = selectedCurrency
       )
-        .onStart { _uiState.value = Loading }
         .catch { logger.log(TAG, it) }
         .collect { result ->
           when (result) {
@@ -294,7 +293,7 @@ class HomeViewModel @Inject constructor(
               newWallet.value = result.data.isEmpty()
               _uiState.value = Success(
                 result.data
-                  .map { it.toModel() }
+                  .map { it.toModel(defaultCurrency) }
                   .take(
                     with(result.data) {
                       if (last().txId == get(lastIndex - 1).parentTxId) size else size - 1
