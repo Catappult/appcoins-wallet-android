@@ -202,7 +202,7 @@ class HomeFragment_old : BasePageViewFragment(),
     when (sideEffect) {
       is HomeSideEffect.NavigateToBrowser -> navigator.navigateToBrowser(sideEffect.uri)
       is HomeSideEffect.NavigateToRateUs -> navigator.navigateToRateUs(sideEffect.shouldNavigate)
-      HomeSideEffect.NavigateToMyWallets -> navigator.navigateToMyWallets()
+      HomeSideEffect.NavigateToReward -> navigator.navigateToReward()
       is HomeSideEffect.NavigateToSettings -> navigator.navigateToSettings(
         sideEffect.turnOnFingerprint
       )

@@ -44,7 +44,6 @@ dependencies {
   implementation(project(":ui:arch"))
   implementation(project(":ui:widgets"))
   implementation(project(":home"))
-  //implementation(project(":feature:rewards"))
 
   implementation(libs.kotlin.coroutines)
 

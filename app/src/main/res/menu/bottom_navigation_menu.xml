@@ -9,6 +9,10 @@
       android:icon="@drawable/ic_promotions_v2"
       android:title="@string/bottom_navigation_promotions" />
   <item
+      android:id="@+id/reward_graph"
+      android:icon="@drawable/ic_rewards"
+      android:title="Rewards" />
+  <item
       android:id="@+id/my_wallets_graph"
       android:icon="@drawable/ic_balance"
       android:title="@string/bottom_navigation_my_wallets" />
