@@ -24,11 +24,11 @@ interface TransactionsApi {
   @GET(value = "/appc/wallet/{wallet}/history")
   suspend fun getTransactionHistory(
     @Path("wallet") wallet: String,
-    @Query("limit") limit: Int = 100,
+    @Query("limit") limit: Int = 10,
     @Query("offset") offset: Int = 0,
     @Query("from") startingDate: String? = null,
     @Query("to") endingDate: String? = null,
-    @Query("default_currency") defaultCurrency: String? = "EUR",
+    @Query("default_currency") defaultCurrency: String,
   ): Response<List<TransactionResponse>>
 
   fun getTransactionsById(

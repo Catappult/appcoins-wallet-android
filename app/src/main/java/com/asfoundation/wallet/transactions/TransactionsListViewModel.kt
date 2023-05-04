@@ -2,12 +2,15 @@ package com.asfoundation.wallet.transactions
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.appcoins.wallet.core.network.backend.ApiFailure
 import com.appcoins.wallet.core.network.backend.ApiException
+import com.appcoins.wallet.core.network.backend.ApiFailure
 import com.appcoins.wallet.core.network.backend.ApiSuccess
 import com.appcoins.wallet.core.utils.jvm_common.Logger
+import com.asfoundation.wallet.change_currency.use_cases.GetSelectedCurrencyUseCase
 import com.asfoundation.wallet.home.usecases.FetchTransactionsHistoryUseCase
+import com.asfoundation.wallet.home.usecases.ObserveDefaultWalletUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import io.reactivex.Observable
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch
@@ -18,6 +21,8 @@ import javax.inject.Inject
 @HiltViewModel
 class TransactionsListViewModel @Inject constructor(
   private val fetchTransactionsHistoryUseCase: FetchTransactionsHistoryUseCase,
+  private val observeDefaultWalletUseCase: ObserveDefaultWalletUseCase,
+  private val getSelectedCurrencyUseCase: GetSelectedCurrencyUseCase,
   private val logger: Logger
 ) : ViewModel() {
   private val _uiState = MutableStateFlow<UiState>(UiState.Idle)
@@ -28,12 +33,20 @@ class TransactionsListViewModel @Inject constructor(
   }
 
   init {
-    fetchTransactions()
+    observeWalletData()
   }
 
-  private fun fetchTransactions() {
+  private fun observeWalletData() {
+    Observable.combineLatest(
+      getSelectedCurrencyUseCase(false).toObservable(), observeDefaultWalletUseCase()
+    ) { selectedCurrency, wallet ->
+      fetchTransactions(wallet.address, selectedCurrency)
+    }.subscribe()
+  }
+
+  private fun fetchTransactions(walletAddress: String, selectedCurrency: String) {
     viewModelScope.launch {
-      fetchTransactionsHistoryUseCase("")
+      fetchTransactionsHistoryUseCase(wallet = walletAddress, currency = selectedCurrency)
         .onStart { _uiState.value = UiState.Loading }
         .catch { logger.log(TAG, it) }
         .collect { result ->

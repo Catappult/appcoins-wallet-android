@@ -3,12 +3,11 @@ package com.asfoundation.wallet.wallet.home
 import android.content.Intent
 import android.net.Uri
 import android.text.format.DateUtils
-import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.viewModelScope
-import com.appcoins.wallet.core.network.backend.ApiFailure
 import com.appcoins.wallet.core.network.backend.ApiException
+import com.appcoins.wallet.core.network.backend.ApiFailure
 import com.appcoins.wallet.core.network.backend.ApiSuccess
 import com.appcoins.wallet.core.network.backend.model.GamificationStatus
 import com.appcoins.wallet.core.utils.android_common.RxSchedulers
@@ -18,7 +17,6 @@ import com.appcoins.wallet.core.utils.properties.VIP_PROGRAM_BADGE_URL
 import com.appcoins.wallet.gamification.repository.Levels
 import com.appcoins.wallet.sharedpreferences.BackupTriggerPreferencesDataSource
 import com.appcoins.wallet.sharedpreferences.BackupTriggerPreferencesDataSource.TriggerSource
-import com.appcoins.wallet.sharedpreferences.BackupTriggerPreferencesDataSource.TriggerSource.FIRST_PURCHASE
 import com.appcoins.wallet.sharedpreferences.BackupTriggerPreferencesDataSource.TriggerSource.NEW_LEVEL
 import com.appcoins.wallet.ui.arch.*
 import com.appcoins.wallet.ui.arch.data.Async
@@ -28,6 +26,7 @@ import com.asfoundation.wallet.backup.triggers.TriggerUtils.toJson
 import com.asfoundation.wallet.backup.use_cases.ShouldShowBackupTriggerUseCase
 import com.asfoundation.wallet.billing.analytics.WalletsAnalytics
 import com.asfoundation.wallet.billing.analytics.WalletsEventSender
+import com.asfoundation.wallet.change_currency.use_cases.GetSelectedCurrencyUseCase
 import com.asfoundation.wallet.entity.GlobalBalance
 import com.asfoundation.wallet.entity.Wallet
 import com.asfoundation.wallet.gamification.ObserveUserStatsUseCase
@@ -111,7 +110,6 @@ class HomeViewModel @Inject constructor(
   private val shouldOpenRatingDialogUseCase: ShouldOpenRatingDialogUseCase,
   private val updateTransactionsNumberUseCase: UpdateTransactionsNumberUseCase,
   private val findNetworkInfoUseCase: FindNetworkInfoUseCase,
-  private val fetchTransactionsUseCase: FetchTransactionsUseCase,
   private val findDefaultWalletUseCase: FindDefaultWalletUseCase,
   private val observeDefaultWalletUseCase: ObserveDefaultWalletUseCase,
   private val dismissCardNotificationUseCase: DismissCardNotificationUseCase,
@@ -127,6 +125,7 @@ class HomeViewModel @Inject constructor(
   private val displayChatUseCase: DisplayChatUseCase,
   private val displayConversationListOrChatUseCase: DisplayConversationListOrChatUseCase,
   private val fetchTransactionsHistoryUseCase: FetchTransactionsHistoryUseCase,
+  private val getSelectedCurrencyUseCase: GetSelectedCurrencyUseCase,
   @Named("package-name") private val walletPackageName: String,
   private val walletsEventSender: WalletsEventSender,
   private val rxSchedulers: RxSchedulers,
@@ -140,7 +139,6 @@ class HomeViewModel @Inject constructor(
   val newWallet = mutableStateOf(false)
   val gamesList = mutableStateOf(listOf<GameData>())
   val activePromotions = mutableStateListOf<CardPromotionItem>()
-  val transactionsGrouped: MutableState<Map<String, List<Transaction>>> = mutableStateOf(emptyMap())
 
   companion object {
     private val TAG = HomeViewModel::class.java.name
@@ -152,6 +150,7 @@ class HomeViewModel @Inject constructor(
 
   init {
     handleWalletData()
+    observeTransactionData()
     verifyUserLevel()
     handleUnreadConversationCount()
     handleRateUsDialogVisibility()
@@ -199,6 +198,14 @@ class HomeViewModel @Inject constructor(
     )
       .map {}
       .subscribeOn(rxSchedulers.io)
+  }
+
+  private fun observeTransactionData() {
+    Observable.combineLatest(
+      getSelectedCurrencyUseCase(false).toObservable(), observeDefaultWalletUseCase()
+    ) { selectedCurrency, wallet ->
+      fetchTransactions(wallet, selectedCurrency)
+    }.subscribe()
   }
 
   private fun updateRegisterUser(wallet: Wallet): Completable {
@@ -249,11 +256,8 @@ class HomeViewModel @Inject constructor(
   ): Observable<TransactionsWalletModel> {
     if (walletModel == null) return Observable.empty()
     val retainValue = if (walletModel.isNewWallet) null else HomeState::transactionsModelAsync
-
-    fetchTransactions(walletModel.wallet)
-
     return Observable.combineLatest(
-      getTransactions(walletModel.wallet), getCardNotifications(),
+      Observable.just(listOf()), getCardNotifications(),
       getMaxBonus(), observeNetworkAndWallet()
     ) { transactions: List<Transaction>, notifications: List<CardNotification>, maxBonus: Double, transactionsWalletModel: TransactionsWalletModel ->
       createTransactionsModel(
@@ -275,42 +279,27 @@ class HomeViewModel @Inject constructor(
     return TransactionsModel(transactions, notifications, maxBonus, transactionsWalletModel)
   }
 
-  /**
-   * Transactions are refreshed every [.UPDATE_INTERVAL] seconds, and stops while [.refreshData] is
-   * false
-   */
-  private fun getTransactions(wallet: Wallet): Observable<List<Transaction>>? {
-    return Observable.interval(0, UPDATE_INTERVAL, TimeUnit.MILLISECONDS)
-      .flatMap { observeRefreshData() }
-      .switchMap { fetchTransactionsUseCase(wallet.address) }
-      .doOnNext {
-        if (it.isNotEmpty() &&
-          getTriggerSourceJson(wallet.address) ==
-          TriggerSource.NOT_SEEN
-        ) {
-          backupTriggerPreferences.setTriggerState(
-            walletAddress = wallet.address,
-            active = true,
-            triggerSource = FIRST_PURCHASE.toJson()
-          )
-        }
-      }
-      .subscribeOn(rxSchedulers.io)
-      .onErrorReturnItem(emptyList())
-  }
-
-  private fun fetchTransactions(wallet: Wallet) {
+  private fun fetchTransactions(wallet: Wallet, selectedCurrency: String) {
     viewModelScope.launch {
-      fetchTransactionsHistoryUseCase(wallet.address)
+      fetchTransactionsHistoryUseCase(
+        wallet = wallet.address,
+        limit = 4,
+        currency = selectedCurrency
+      )
         .onStart { _uiState.value = Loading }
         .catch { logger.log(TAG, it) }
         .collect { result ->
           when (result) {
             is ApiSuccess -> {
+              newWallet.value = result.data.isEmpty()
               _uiState.value = Success(
                 result.data
                   .map { it.toModel() }
-                  .take(3)
+                  .take(
+                    with(result.data) {
+                      if (last().txId == get(lastIndex - 1).parentTxId) size else size - 1
+                    }
+                  )
                   .groupBy { it.date }
               )
             }
