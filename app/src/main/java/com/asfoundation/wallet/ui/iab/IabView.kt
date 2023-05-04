@@ -168,4 +168,6 @@ interface IabView {
   fun authenticationResult(success: Boolean)
 
   fun showTopupFlow()
+
+  var webViewResultCode: String?
 }
