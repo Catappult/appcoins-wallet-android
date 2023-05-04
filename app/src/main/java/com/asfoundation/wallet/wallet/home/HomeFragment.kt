@@ -205,31 +205,29 @@ class HomeFragment: BasePageViewFragment(), SingleStateFragment<HomeState, HomeS
   fun TransactionsCard(
     transactionsState: UiState
   ) {
-    Column(
-      modifier = Modifier
-        .heightIn(0.dp, 400.dp)
-        .padding(horizontal = 16.dp)
-    ) {
-      Text(
-        text = stringResource(R.string.intro_transactions_header),
-        modifier = Modifier.padding(start = 8.dp, bottom = 8.dp),
-        style = MaterialTheme.typography.bodyMedium,
-        fontWeight = FontWeight.Bold,
-        color = WalletColors.styleguide_dark_grey
-      )
-      Card(
-        colors = CardDefaults.cardColors(WalletColors.styleguide_blue_secondary),
-        modifier = Modifier
-          .fillMaxWidth()
-          .defaultMinSize(minHeight = 80.dp)
-      )
-      {
-        when (transactionsState) {
-          is Success -> TransactionsList(transactionsState.transactions)
-          else -> {}
+    when (transactionsState) {
+      is Success -> {
+        Column(
+          modifier = Modifier
+            .heightIn(0.dp, 400.dp)
+            .padding(horizontal = 16.dp)
+        ) {
+          Text(
+            text = stringResource(R.string.intro_transactions_header),
+            modifier = Modifier.padding(start = 8.dp, bottom = 8.dp),
+            style = MaterialTheme.typography.bodyMedium,
+            fontWeight = FontWeight.Bold,
+            color = WalletColors.styleguide_dark_grey
+          )
+          Card(colors = CardDefaults.cardColors(WalletColors.styleguide_blue_secondary)) {
+            TransactionsList(transactionsState.transactions)
+          }
         }
       }
+
+      else -> {}
     }
+
   }
 
   @OptIn(ExperimentalFoundationApi::class)
