@@ -41,8 +41,8 @@ class HomeNavigator @Inject constructor(
     openIntent(intent)
   }
 
-  fun navigateToMyWallets() {
-    navBarFragmentNavigator.navigateToMyWallets()
+  fun navigateToReward() {
+    navBarFragmentNavigator.navigateToRewards()
   }
 
   fun navigateToPromotions() {

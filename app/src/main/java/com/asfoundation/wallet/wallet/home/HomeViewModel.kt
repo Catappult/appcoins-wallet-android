@@ -26,8 +26,6 @@ import com.asfoundation.wallet.entity.GlobalBalance
 import com.asfoundation.wallet.entity.Wallet
 import com.asfoundation.wallet.gamification.ObserveUserStatsUseCase
 import com.asfoundation.wallet.home.usecases.*
-import com.asfoundation.wallet.promotions.model.PromoCodeItem
-import com.asfoundation.wallet.promotions.model.Promotion
 import com.asfoundation.wallet.promotions.model.PromotionsModel
 import com.asfoundation.wallet.promotions.ui.PromotionsState
 import com.asfoundation.wallet.promotions.usecases.GetPromotionsUseCase
@@ -51,7 +49,6 @@ import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.subjects.BehaviorSubject
 import java.math.BigDecimal
-import java.util.Collections.copy
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 import javax.inject.Named
@@ -71,7 +68,7 @@ sealed class HomeSideEffect : SideEffect {
     val triggerSource: TriggerSource
   ) : HomeSideEffect()
 
-  object NavigateToMyWallets : HomeSideEffect()
+  object NavigateToReward : HomeSideEffect()
   object NavigateToChangeCurrency : HomeSideEffect()
   object NavigateToTopUp : HomeSideEffect()
   object NavigateToTransfer : HomeSideEffect()
@@ -373,7 +370,7 @@ class HomeViewModel @Inject constructor(
   }
 
   fun onBalanceClick() {
-    sendSideEffect { HomeSideEffect.NavigateToMyWallets }
+    sendSideEffect { HomeSideEffect.NavigateToReward }
   }
 
   fun onTopUpClick() {
