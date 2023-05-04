@@ -32,6 +32,17 @@ class AndroidLibraryPlugin : Plugin<Project> {
             initWith(getByName("release"))
           }
         }
+
+        flavorDimensions.add(Config.distributionFlavorDimension)
+        productFlavors {
+          create(Config.googlePlayDistribution) {
+            dimension = Config.distributionFlavorDimension
+          }
+          create(Config.aptoidePlayDistribution) {
+            dimension = Config.distributionFlavorDimension
+          }
+        }
+
       }
 
       dependencies {
