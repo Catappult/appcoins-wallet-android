@@ -80,7 +80,7 @@ sealed class HomeSideEffect : SideEffect {
     val triggerSource: TriggerSource
   ) : HomeSideEffect()
 
-  object NavigateToMyWallets : HomeSideEffect()
+  object NavigateToReward : HomeSideEffect()
   object NavigateToChangeCurrency : HomeSideEffect()
   object NavigateToTopUp : HomeSideEffect()
   object NavigateToTransfer : HomeSideEffect()
@@ -405,7 +405,7 @@ class HomeViewModel @Inject constructor(
   }
 
   fun onBalanceClick() {
-    sendSideEffect { HomeSideEffect.NavigateToMyWallets }
+    sendSideEffect { HomeSideEffect.NavigateToReward }
   }
 
   fun onTopUpClick() {
