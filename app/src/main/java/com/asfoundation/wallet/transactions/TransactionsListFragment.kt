@@ -60,7 +60,7 @@ class TransactionsListFragment : BasePageViewFragment() {
     Scaffold(
       topBar = {
         Surface(shadowElevation = 4.dp) {
-          TopBar(isMainBar = false)
+          TopBar(isMainBar = false, onClickSupport = { viewModel.displayChat() })
         }
       },
       containerColor = WalletColors.styleguide_blue

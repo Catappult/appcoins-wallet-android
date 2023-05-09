@@ -7,6 +7,7 @@ import com.appcoins.wallet.core.network.backend.ApiFailure
 import com.appcoins.wallet.core.network.backend.ApiSuccess
 import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.asfoundation.wallet.change_currency.use_cases.GetSelectedCurrencyUseCase
+import com.asfoundation.wallet.home.usecases.DisplayChatUseCase
 import com.asfoundation.wallet.home.usecases.FetchTransactionsHistoryUseCase
 import com.asfoundation.wallet.home.usecases.ObserveDefaultWalletUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -23,6 +24,7 @@ class TransactionsListViewModel @Inject constructor(
   private val fetchTransactionsHistoryUseCase: FetchTransactionsHistoryUseCase,
   private val observeDefaultWalletUseCase: ObserveDefaultWalletUseCase,
   private val getSelectedCurrencyUseCase: GetSelectedCurrencyUseCase,
+  private val displayChatUseCase: DisplayChatUseCase,
   private val logger: Logger
 ) : ViewModel() {
   private lateinit var defaultCurrency: String
@@ -35,6 +37,10 @@ class TransactionsListViewModel @Inject constructor(
 
   init {
     observeWalletData()
+  }
+
+  fun displayChat() {
+    displayChatUseCase()
   }
 
   private fun observeWalletData() {
