@@ -24,8 +24,10 @@ sealed class RewardSideEffect : SideEffect {
   data class NavigateToSettings(val turnOnFingerprint: Boolean = false) : RewardSideEffect()
 }
 
-data class RewardState(val showVipBadge: Boolean = false,
-                       val promotionsModelAsync: Async<PromotionsModel> = Async.Uninitialized) : ViewState
+data class RewardState(
+  val showVipBadge: Boolean = false,
+  val promotionsModelAsync: Async<PromotionsModel> = Async.Uninitialized
+) : ViewState
 
 @HiltViewModel
 class RewardViewModel @Inject constructor(
