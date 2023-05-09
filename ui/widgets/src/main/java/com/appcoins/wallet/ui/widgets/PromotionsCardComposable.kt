@@ -42,11 +42,18 @@ private fun CardFutureItemExample() {
     PromotionsCardComposable(cardItem = futureCardItem)
 }
 
+@Preview
+@Composable
+private fun CardVerticalItemExample() {
+    PromotionsCardComposable(cardItem = verticalCardItem)
+}
+
 
 @Composable
 fun PromotionsCardComposable(cardItem: CardPromotionItem) {
     var borderColor = Color.Transparent
     var topEndRoundedCornerCard = 16.dp
+    val spacerSize = if (cardItem.hasVerticalList) 8.dp else 16.dp
     Column {
         if (cardItem.hasVipPromotion) {
             //Set Changes in VIP Cards
@@ -72,7 +79,7 @@ fun PromotionsCardComposable(cardItem: CardPromotionItem) {
                 )
             }
         } else {
-            Spacer(modifier = Modifier.height(28.dp))
+            Spacer(modifier = Modifier.height(spacerSize))
         }
         Surface(
             color = WalletColors.styleguide_blue_secondary,
@@ -97,7 +104,7 @@ fun PromotionsCardComposable(cardItem: CardPromotionItem) {
                 .zIndex(4f)
         ) {
             Column(modifier = Modifier.padding(8.dp, 8.dp, 8.dp, 8.dp)) {
-                ImageWithTitleAndDescription(cardItem.imageUrl, cardItem.title, cardItem.subtitle)
+                ImageWithTitleAndDescription(cardItem.imageUrl, cardItem.title, cardItem.subtitle, cardItem.hasVerticalList)
                 Spacer(modifier = Modifier.height(12.dp))
                 if (!cardItem.hasFuturePromotion) {
                     Text(
@@ -121,7 +128,7 @@ fun PromotionsCardComposable(cardItem: CardPromotionItem) {
                                 color = WalletColors.styleguide_pink,
                                 fontSize = 14.sp,
                                 modifier = Modifier
-                                    .padding(end = 6.dp, start = 85.dp)
+                                    .padding(end = 26.dp, start = 85.dp)
                                     .clickable(onClick = cardItem.action)
                             )
                         }
@@ -262,7 +269,8 @@ fun IconWithText(text: String) {
 
 
 @Composable
-fun ImageWithTitleAndDescription(imageUrl: String?, title: String?, description: String?) {
+fun ImageWithTitleAndDescription(imageUrl: String?, title: String?, description: String?, hasVerticalList: Boolean) {
+    val maxColumnWidth = if (hasVerticalList) 300.dp else 240.dp
     Column {
         Row(verticalAlignment = Alignment.CenterVertically) {
             SubcomposeAsyncImage(
@@ -279,7 +287,7 @@ fun ImageWithTitleAndDescription(imageUrl: String?, title: String?, description:
             )
             Column(
                 modifier = Modifier
-                    .widthIn(min = 0.dp, max = 240.dp)
+                    .widthIn(min = 0.dp, max = maxColumnWidth)
                     .padding(start = 12.dp)
             ) {
                 Text(
@@ -312,6 +320,7 @@ data class CardPromotionItem(
     val urlRedirect: String?,
     val hasVipPromotion: Boolean,
     val hasFuturePromotion: Boolean,
+    val hasVerticalList: Boolean,
     val action: () -> Unit
 )
 
@@ -324,6 +333,20 @@ val cardItem = CardPromotionItem(
     urlRedirect = "https://example.com",
     hasVipPromotion = false,
     hasFuturePromotion = false,
+    hasVerticalList = false,
+    action = { /* handle click action */ }
+)
+
+val verticalCardItem = CardPromotionItem(
+    title = "Days of empire",
+    subtitle = "Receive an extra 15% Bonus in all your purchases.",
+    promotionStartTime = System.currentTimeMillis(),
+    promotionEndTime = System.currentTimeMillis(),
+    imageUrl = "https://img.freepik.com/vetores-gratis/astronauta-bonito-relaxamento-frio-na-ilustracao-do-icone-do-vetor-dos-desenhos-animados-do-controlador-de-jogo-conceito-de-icone-de-ciencia-de-tecnologia-isolado-vetor-premium-estilo-flat-cartoon_138676-3717.jpg?w=2000",
+    urlRedirect = "https://example.com",
+    hasVipPromotion = false,
+    hasFuturePromotion = false,
+    hasVerticalList = true,
     action = { /* handle click action */ }
 )
 
@@ -336,6 +359,7 @@ val vipCardItem = CardPromotionItem(
     urlRedirect = "https://example.com",
     hasVipPromotion = true,
     hasFuturePromotion = false,
+    hasVerticalList = false,
     action = { /* handle click action */ }
 )
 
@@ -348,5 +372,6 @@ val futureCardItem = CardPromotionItem(
     urlRedirect = "https://example.com",
     hasVipPromotion = false,
     hasFuturePromotion = true,
+    hasVerticalList = false,
     action = { /* handle click action */ }
 )

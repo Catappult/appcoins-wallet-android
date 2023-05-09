@@ -159,25 +159,7 @@ class HomeFragment: BasePageViewFragment(), SingleStateFragment<HomeState, HomeS
           )
         }
       //TODO replace with home composables
-      if (!viewModel.activePromotions.isEmpty()) {
-        Text(
-          //Need string to Carlos Translator
-          text = getString(R.string.intro_active_promotions_header),
-          fontSize = 14.sp,
-          fontWeight = FontWeight.Bold,
-          color = WalletColors.styleguide_dark_grey,
-          modifier = Modifier.padding(top = 27.dp, end = 13.dp, start = 24.dp)
-        )
-      }
-      LazyRow(
-        modifier = Modifier.padding(vertical = 8.dp),
-        contentPadding = PaddingValues(horizontal = 16.dp),
-        horizontalArrangement = Arrangement.spacedBy(16.dp)
-      ) {
-        items(viewModel.activePromotions) { promotion ->
-          PromotionsCardComposable(cardItem = promotion)
-        }
-      }
+      promotionsList()
       DummyCard()
       GamesBundle(
         viewModel.gamesList.value
@@ -186,6 +168,28 @@ class HomeFragment: BasePageViewFragment(), SingleStateFragment<HomeState, HomeS
         onClick = { navigateToNft() }
       )
       Spacer(modifier = Modifier.padding(32.dp))
+    }
+  }
+
+  @Composable
+  fun promotionsList() {
+    if (!viewModel.activePromotions.isEmpty()) {
+      Text(
+        text = getString(R.string.intro_active_promotions_header),
+        fontSize = 14.sp,
+        fontWeight = FontWeight.Bold,
+        color = WalletColors.styleguide_dark_grey,
+        modifier = Modifier.padding(top = 27.dp, end = 13.dp, start = 24.dp)
+      )
+    }
+    LazyRow(
+      modifier = Modifier.padding(vertical = 8.dp),
+      contentPadding = PaddingValues(horizontal = 16.dp),
+      horizontalArrangement = Arrangement.spacedBy(16.dp)
+    ) {
+      items(viewModel.activePromotions) { promotion ->
+        PromotionsCardComposable(cardItem = promotion)
+      }
     }
   }
 
@@ -332,7 +336,8 @@ class HomeFragment: BasePageViewFragment(), SingleStateFragment<HomeState, HomeS
               promotion.detailsLink,
               promotion.gamificationStatus == GamificationStatus.VIP || promotion.gamificationStatus == GamificationStatus.VIP_MAX,
               false,
-              {}
+              false,
+              action = { promotion.detailsLink?.let { openGame(it, requireContext()) } }
             )
             viewModel.activePromotions.add(cardItem)
           }
