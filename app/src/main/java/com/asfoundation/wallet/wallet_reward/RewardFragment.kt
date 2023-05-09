@@ -5,7 +5,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -18,18 +17,15 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.ComposeView
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.appcoins.wallet.ui.arch.SingleStateFragment
 import com.appcoins.wallet.ui.common.theme.WalletColors
-import com.appcoins.wallet.ui.widgets.ActionCard
 import com.appcoins.wallet.ui.widgets.RewardsActions
 import com.appcoins.wallet.ui.widgets.TopBar
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
-
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -97,9 +93,9 @@ class RewardFragment : BasePageViewFragment(), SingleStateFragment<RewardState, 
         ) {
             DummyCard()
             RewardsActions(
-                { },
-                { },
-                { }
+                { navigator.navigateToWithdrawScreen() },
+                { navigator.showPromoCodeFragment() },
+                { navigator.showGiftCardFragment() }
             )
             DummyCard()
         }

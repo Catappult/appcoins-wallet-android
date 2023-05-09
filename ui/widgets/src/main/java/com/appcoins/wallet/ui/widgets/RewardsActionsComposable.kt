@@ -83,8 +83,7 @@ fun ActionCard(
       .height(200.dp)
       .clickable { onClick() },
     shape = RoundedCornerShape(8.dp),
-    colors = CardDefaults.cardColors(WalletColors.styleguide_blue_secondary)
-    ,
+    colors = CardDefaults.cardColors(WalletColors.styleguide_blue_secondary),
   ) {
     Column(
       modifier = Modifier
