@@ -60,7 +60,7 @@ class TransactionsListFragment : BasePageViewFragment() {
     Scaffold(
       topBar = {
         Surface(shadowElevation = 4.dp) {
-          TopBar(isMainBar = false)
+          TopBar(isMainBar = false, onClickSupport = { viewModel.displayChat() })
         }
       },
       containerColor = WalletColors.styleguide_blue
@@ -131,7 +131,7 @@ class TransactionsListFragment : BasePageViewFragment() {
                 title = stringResource(id = title),
                 description = description,
                 amount = amount,
-                convertedAmount = currency,
+                convertedAmount = convertedAmount,
                 subIcon = subIcon,
                 onClick = { },
                 textDecoration = textDecoration

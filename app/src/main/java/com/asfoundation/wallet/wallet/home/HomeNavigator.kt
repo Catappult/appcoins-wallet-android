@@ -3,6 +3,7 @@ package com.asfoundation.wallet.wallet.home
 import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.net.Uri
+import android.os.Bundle
 import android.widget.Toast
 import androidx.core.app.ShareCompat
 import androidx.fragment.app.Fragment
@@ -129,6 +130,13 @@ class HomeNavigator @Inject constructor(
     mainNavController: NavController
   ) {
     mainNavController.navigate(R.id.action_navigate_to_transactions_list)
+  }
+
+  fun navigateToTransactionDetails(
+    mainNavController: NavController, id: String
+  ) {
+    val bundle = Bundle().putString("transaction_id", id)
+    mainNavController.navigate(R.id.action_navigate_to_transaction_details)
   }
 
   fun openIntent(intent: Intent) = fragment.requireContext()

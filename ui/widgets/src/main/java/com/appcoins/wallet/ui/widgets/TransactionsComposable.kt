@@ -14,6 +14,7 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -22,13 +23,17 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import coil.compose.SubcomposeAsyncImage
+import com.appcoins.wallet.ui.common.theme.WalletColors
+import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_blue
 import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_blue_secondary
 import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_dark_grey
 import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_light_grey
@@ -59,7 +64,7 @@ fun TransactionCard(
         .padding(vertical = 8.dp, horizontal = 16.dp)
     ) {
       Row(verticalAlignment = Alignment.CenterVertically) {
-        TransactionItem(icon, appIcon, subIcon)
+        TransactionIcon(icon, appIcon, subIcon)
         Spacer(modifier = Modifier.padding(14.dp))
         Column(modifier = Modifier.widthIn(0.dp, 168.dp)) {
           Text(
@@ -105,18 +110,18 @@ fun TransactionCard(
 }
 
 @Composable
-fun TransactionItem(icon: Int?, appIcon: String?, subIcon: Int?) {
+fun TransactionIcon(icon: Int?, appIcon: String?, subIcon: Int? = null, imageSize: Dp = 40.dp) {
   Box(contentAlignment = Alignment.BottomEnd) {
     if (icon != null) Icon(
       painter = painterResource(id = icon),
       contentDescription = null,
       tint = Color.Unspecified,
-      modifier = Modifier.size(40.dp)
+      modifier = Modifier.size(imageSize)
     ) else {
       SubcomposeAsyncImage(
         model = appIcon,
         contentDescription = "Game Icon",
-        modifier = Modifier.size(40.dp),
+        modifier = Modifier.size(imageSize),
         contentScale = ContentScale.Crop,
         loading = {
           CircularProgressIndicator()
@@ -130,7 +135,154 @@ fun TransactionItem(icon: Int?, appIcon: String?, subIcon: Int?) {
       modifier = Modifier.size(24.dp)
     )
   }
+}
 
+@Composable
+fun TransactionDetailHeader(
+  icon: Int?,
+  appIcon: String?,
+  amount: String?,
+  convertedAmount: String?,
+  subIcon: Int?,
+  type: String?,
+  textDecoration: TextDecoration,
+  description: String?
+) {
+  Column(modifier = Modifier.padding(top = 24.dp, bottom = 16.dp)) {
+    Row(
+      modifier = Modifier
+        .padding(bottom = 16.dp)
+        .fillMaxWidth(),
+      horizontalArrangement = Arrangement.SpaceBetween,
+      verticalAlignment = Alignment.CenterVertically
+    ) {
+      Column(horizontalAlignment = Alignment.Start, modifier = Modifier.widthIn(0.dp, 320.dp)) {
+        if (amount != null) Text(
+          text = amount,
+          fontWeight = FontWeight.Bold,
+          style = MaterialTheme.typography.headlineSmall,
+          textAlign = TextAlign.End,
+          color = styleguide_light_grey,
+          maxLines = 1,
+          overflow = TextOverflow.Ellipsis,
+          textDecoration = textDecoration
+        )
+        if (convertedAmount != null) Text(
+          text = convertedAmount,
+          color = styleguide_dark_grey,
+          style = MaterialTheme.typography.bodySmall,
+          textAlign = TextAlign.End,
+          maxLines = 1,
+          overflow = TextOverflow.Ellipsis,
+          textDecoration = textDecoration
+        )
+        if (type != null) Text(
+          text = type,
+          color = styleguide_light_grey,
+          style = MaterialTheme.typography.bodySmall,
+          maxLines = 2,
+          overflow = TextOverflow.Ellipsis
+        )
+      }
+      TransactionIcon(icon, appIcon, subIcon, 56.dp)
+    }
+
+    if (description != null) TransactionDetailLinkedHeader(
+      description,
+      R.drawable.ic_alert_circle,
+      appIcon
+    )
+  }
+
+}
+
+@Composable
+fun TransactionDetailLinkedHeader(description: String, icon: Int?, appIcon: String?) {
+  Card(colors = CardDefaults.cardColors(styleguide_blue), modifier = Modifier.fillMaxWidth()) {
+    Row(modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp)) {
+      TransactionIcon(icon = icon, appIcon = appIcon, imageSize = 32.dp)
+      Text(
+        text = description,
+        color = styleguide_light_grey,
+        style = MaterialTheme.typography.bodySmall,
+        maxLines = 2,
+        overflow = TextOverflow.Ellipsis,
+        modifier = Modifier.padding(horizontal = 16.dp)
+      )
+    }
+  }
+}
+
+@Composable
+fun TransactionDetailItem(
+  label: String,
+  data: String,
+  dataColor: Color = styleguide_light_grey,
+  allowCopy: Boolean = false,
+  onClick: () -> Unit = {}
+) {
+  Row(
+    horizontalArrangement = Arrangement.SpaceBetween,
+    verticalAlignment = Alignment.CenterVertically,
+    modifier = Modifier.fillMaxWidth()
+  ) {
+    Text(
+      text = label,
+      color = styleguide_dark_grey,
+      style = MaterialTheme.typography.bodySmall,
+    )
+    Row(
+      verticalAlignment = Alignment.CenterVertically,
+      modifier = Modifier.padding(start = 48.dp)
+    ) {
+      if (allowCopy) IconButton(onClick = onClick) {
+        Icon(
+          painter = painterResource(R.drawable.ic_copy),
+          contentDescription = stringResource(R.string.copy),
+          tint = WalletColors.styleguide_pink,
+          modifier = Modifier.size(14.dp)
+        )
+      }
+      Text(
+        text = data,
+        color = dataColor,
+        style = MaterialTheme.typography.bodySmall,
+        maxLines = 1,
+        overflow = TextOverflow.Ellipsis,
+        modifier = Modifier
+          .widthIn(0.dp, 160.dp)
+          .padding(vertical = if (allowCopy) 0.dp else 16.dp)
+      )
+    }
+  }
+
+}
+
+
+@Preview
+@Composable
+fun PreviewTransactionCardHeader() {
+  TransactionDetailHeader(
+    icon = null,
+    appIcon = "",
+    type = "Purchase Refund",
+    amount = "-€12,21238.73",
+    convertedAmount = "-12,5000.00 APPC-C",
+    subIcon = R.drawable.ic_transaction_rejected_mini,
+    textDecoration = TextDecoration.LineThrough,
+    description = "The Bonus of 10% you received on Mar, 14 2022 has been reverted."
+  )
+}
+
+@Preview
+@Composable
+fun PreviewTransactionDetailItem() {
+  TransactionDetailItem(
+    label = "Order ID",
+    data = "APT453473277845346",
+    dataColor = WalletColors.styleguide_green,
+    allowCopy = true
+  )
 }
 
 @Preview
@@ -141,7 +293,7 @@ fun PreviewTransactionCard() {
     appIcon = "",
     title = "Reverted Purchase Bonus test used to verify UI",
     description = "AppCoins Trivial demo sample used to test the UI",
-    amount = "-12,21238745674839837456.73",
+    amount = "-€12,21238745674839837456.73",
     convertedAmount = "-12,5000000000000000000.00 APPC-C",
     subIcon = R.drawable.ic_transaction_rejected_mini,
     { },

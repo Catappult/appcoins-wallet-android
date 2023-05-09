@@ -207,22 +207,23 @@ class HomeFragment: BasePageViewFragment(), SingleStateFragment<HomeState, HomeS
   ) {
     when (transactionsState) {
       is Success -> {
-        Column(
-          modifier = Modifier
-            .heightIn(0.dp, 400.dp)
-            .padding(horizontal = 16.dp)
-        ) {
-          Text(
-            text = stringResource(R.string.intro_transactions_header),
-            modifier = Modifier.padding(start = 8.dp, bottom = 8.dp),
-            style = MaterialTheme.typography.bodyMedium,
-            fontWeight = FontWeight.Bold,
-            color = WalletColors.styleguide_dark_grey
-          )
-          Card(colors = CardDefaults.cardColors(WalletColors.styleguide_blue_secondary)) {
-            TransactionsList(transactionsState.transactions)
+        if (transactionsState.transactions.isNotEmpty())
+          Column(
+            modifier = Modifier
+              .heightIn(0.dp, 400.dp)
+              .padding(horizontal = 16.dp)
+          ) {
+            Text(
+              text = stringResource(R.string.intro_transactions_header),
+              modifier = Modifier.padding(start = 8.dp, bottom = 8.dp),
+              style = MaterialTheme.typography.bodyMedium,
+              fontWeight = FontWeight.Bold,
+              color = WalletColors.styleguide_dark_grey
+            )
+            Card(colors = CardDefaults.cardColors(WalletColors.styleguide_blue_secondary)) {
+              TransactionsList(transactionsState.transactions)
+            }
           }
-        }
       }
 
       else -> {}
@@ -255,9 +256,9 @@ class HomeFragment: BasePageViewFragment(), SingleStateFragment<HomeState, HomeS
                 title = stringResource(id = title),
                 description = description,
                 amount = amount,
-                convertedAmount = currency,
+                convertedAmount = convertedAmount,
                 subIcon = subIcon,
-                onClick = { },
+                onClick = { navigateToTransactionDetails(transaction.id) },
                 textDecoration = textDecoration
               )
             }
@@ -399,6 +400,9 @@ class HomeFragment: BasePageViewFragment(), SingleStateFragment<HomeState, HomeS
   }
 
   private fun navigateToNft() = navigator.navigateToNfts(navController())
+
+  private fun navigateToTransactionDetails(id: String) =
+    navigator.navigateToTransactionDetails(navController(), id)
 
   private fun navController(): NavController {
     val navHostFragment = requireActivity().supportFragmentManager.findFragmentById(

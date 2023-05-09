@@ -261,6 +261,7 @@
   <string name="notification_wrong_network_poa">You\'re using a dev version of the AppCoins Wallet. Please download the official release to process the reward.</string>
 
   <!-- transaction details -->
+  <string name="transaction_details_header">Transaction detail</string>
   <string name="transaction_status_success">Success</string>
   <string name="transaction_status_pending">Pending</string>
   <string name="transaction_status_failed">Failed</string>
@@ -292,9 +293,11 @@
   <string name="miuraiden_trans_details_close">µRaiden channel closed</string>
   <string name="ellipsize">\u0020• • •</string>
   <string name="transaction_status_label">Status</string>
+  <string name="transaction_date_label">Date</string>
   <string name="transaction_category_label">Category</string>
   <string name="transaction_order_reference_label">Order ID</string>
   <string name="transaction_details_label">Details</string>
+  <string name="transaction_more_details_label">More Details</string>
   <string name="transaction_to_label">To</string>
   <string name="dialog_credit_card_remember">Remember Card</string>
   <string name="notification_payment_refused">Payment Refused</string>

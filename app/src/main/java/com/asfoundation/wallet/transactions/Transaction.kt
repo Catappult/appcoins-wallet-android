@@ -54,8 +54,14 @@ data class Transaction(
     val appIcon: String? = null,
     val description: String? = null,
     val amount: String? = null,
-    val currency: String? = null,
+    val convertedAmount: String? = null,
     val subIcon: Int? = null,
-    val textDecoration: TextDecoration = TextDecoration.None
+    val textDecoration: TextDecoration = TextDecoration.None,
+    val id: String? = null,
+    val status: StatusType,
+    val date: String,
+    val from: String? = null,
+    val to: String? = null,
+    val transactionUrl: String
   )
 }

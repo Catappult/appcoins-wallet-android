@@ -7,4 +7,8 @@
   <fragment
       android:id="@+id/transactions_fragment"
       android:name="com.asfoundation.wallet.transactions.TransactionsListFragment" />
+
+  <fragment
+      android:id="@+id/transactions_details_fragment"
+      android:name="com.asfoundation.wallet.transactions.TransactionDetailsFragment" />
 </navigation>
