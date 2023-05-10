@@ -17,6 +17,7 @@ import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.zIndex
 import coil.compose.SubcomposeAsyncImage
@@ -127,15 +128,7 @@ fun PromotionsCardComposable(cardItem: CardPromotionItem) {
               verticalAlignment = Alignment.CenterVertically
             ) {
               CountDownTimer(cardItem.promotionEndTime)
-              Text(
-                text = stringResource(id = R.string.get_button),
-                fontWeight = FontWeight.Bold,
-                color = WalletColors.styleguide_pink,
-                fontSize = 14.sp,
-                modifier = Modifier
-                    .padding(end = 26.dp, start = 85.dp)
-                    .clickable(onClick = cardItem.action)
-              )
+              GetText(cardItem.action, 85.dp)
             }
           }
         } else {
@@ -149,15 +142,7 @@ fun PromotionsCardComposable(cardItem: CardPromotionItem) {
               verticalAlignment = Alignment.CenterVertically
             ) {
               IconWithText(stringResource(id = R.string.perks_available_soon_short))
-              Text(
-                text = stringResource(id = R.string.get_button),
-                fontWeight = FontWeight.Bold,
-                color = WalletColors.styleguide_pink,
-                fontSize = 14.sp,
-                modifier = Modifier
-                    .padding(end = 6.dp, start = 67.dp)
-                    .clickable(onClick = cardItem.action)
-              )
+              GetText(cardItem.action, 0.dp)
             }
           }
         }
@@ -268,6 +253,21 @@ fun IconWithText(text: String) {
       modifier = Modifier.padding(start = 8.dp),
       maxLines = 1,
       fontSize = 12.sp
+    )
+  }
+}
+
+@Composable
+fun GetText(action: () -> Unit, startPaddingValue: Dp) {
+  if (BuildConfig.FLAVOR == "aptoide") {
+    Text(
+      text = stringResource(id = R.string.get_button),
+      fontWeight = FontWeight.Bold,
+      color = WalletColors.styleguide_pink,
+      fontSize = 14.sp,
+      modifier = Modifier
+        .padding(end = 26.dp, start = startPaddingValue)
+        .clickable(onClick = action)
     )
   }
 }
