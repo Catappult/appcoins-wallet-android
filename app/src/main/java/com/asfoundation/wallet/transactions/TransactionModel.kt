@@ -9,6 +9,7 @@ import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_light_grey
 import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_red
 import com.asf.wallet.R
 import com.asfoundation.wallet.C.ETHER_DECIMALS
+import com.asfoundation.wallet.transactions.StatusType.FAILED
 import com.asfoundation.wallet.transactions.StatusType.PENDING
 import com.asfoundation.wallet.transactions.StatusType.REJECTED
 import com.asfoundation.wallet.transactions.StatusType.REVERTED
@@ -138,7 +139,8 @@ fun String.toTransactionType(): TransactionType {
 
 enum class StatusType(val description: Int, val color: Color) {
   SUCCESS(description = R.string.transaction_status_success, color = styleguide_green),
-  REJECTED(description = R.string.transaction_status_failed, color = styleguide_red),
+  FAILED(description = R.string.transaction_status_failed, color = styleguide_red),
+  REJECTED(description = R.string.transaction_status_rejected, color = styleguide_red),
   REVERTED(description = R.string.transaction_status_reverted, color = styleguide_red),
   PENDING(description = R.string.transaction_status_pending, color = styleguide_light_grey)
 }
@@ -148,6 +150,7 @@ fun String.toStatusType() =
     "Success" -> SUCCESS
     "Rejected" -> REJECTED
     "Reverted" -> REVERTED
+    "Failed" -> FAILED
     else -> PENDING
   }
 

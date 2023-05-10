@@ -265,6 +265,7 @@
   <string name="transaction_status_pending">Pending</string>
   <string name="transaction_status_failed">Failed</string>
   <string name="transaction_status_reverted">Reverted</string>
+  <string name="transaction_status_rejected">Rejected</string>
   <string name="transaction_type_iab">In-App Purchase</string>
   <string name="transaction_type_poa">Reward</string>
   <string name="transaction_type_poa_offchain">@string/transaction_type_poa</string>
