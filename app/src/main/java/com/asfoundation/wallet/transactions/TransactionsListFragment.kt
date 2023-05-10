@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -109,6 +110,8 @@ class TransactionsListFragment : BasePageViewFragment() {
       }
 
       transactionsGrouped.forEach { (date, transactionsForDate) ->
+        val maxHeight = (transactionsForDate.size * 80).dp
+
         item {
           Text(
             text = date,
@@ -118,24 +121,28 @@ class TransactionsListFragment : BasePageViewFragment() {
           )
         }
 
-        items(transactionsForDate) { transaction ->
+        item {
           Card(
             modifier = Modifier
               .padding(horizontal = 16.dp, vertical = 4.dp),
             colors = CardDefaults.cardColors(containerColor = WalletColors.styleguide_blue_secondary)
           ) {
-            with(transaction.cardInfoByType()) {
-              TransactionCard(
-                icon = icon,
-                appIcon = appIcon,
-                title = stringResource(id = title),
-                description = description,
-                amount = amount,
-                convertedAmount = convertedAmount,
-                subIcon = subIcon,
-                onClick = { },
-                textDecoration = textDecoration
-              )
+            LazyColumn(userScrollEnabled = false, modifier = Modifier.heightIn(0.dp, maxHeight)) {
+              items(transactionsForDate) { transaction ->
+                with(transaction.cardInfoByType()) {
+                  TransactionCard(
+                    icon = icon,
+                    appIcon = appIcon,
+                    title = stringResource(id = title),
+                    description = description,
+                    amount = amount,
+                    convertedAmount = convertedAmount,
+                    subIcon = subIcon,
+                    onClick = { },
+                    textDecoration = textDecoration
+                  )
+                }
+              }
             }
           }
         }
