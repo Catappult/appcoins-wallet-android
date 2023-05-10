@@ -96,7 +96,7 @@ fun VipBadge() {
   ) {
     Image(
       painter = painterResource(R.drawable.ic_vip_badge),
-      contentDescription = "Vip",
+      contentDescription = stringResource(R.string.vip),
       modifier = Modifier
         .padding(top = 2.dp)
     )

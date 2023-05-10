@@ -120,7 +120,7 @@ fun TransactionIcon(icon: Int?, appIcon: String?, subIcon: Int? = null, imageSiz
     ) else {
       SubcomposeAsyncImage(
         model = appIcon,
-        contentDescription = "Game Icon",
+        contentDescription = null,
         modifier = Modifier.size(imageSize),
         contentScale = ContentScale.Crop,
         loading = {

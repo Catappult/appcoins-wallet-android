@@ -2,9 +2,9 @@ package com.asfoundation.wallet.transactions
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.appcoins.wallet.core.network.backend.ApiException
-import com.appcoins.wallet.core.network.backend.ApiFailure
-import com.appcoins.wallet.core.network.backend.ApiSuccess
+import com.appcoins.wallet.core.network.base.call_adapter.ApiException
+import com.appcoins.wallet.core.network.base.call_adapter.ApiFailure
+import com.appcoins.wallet.core.network.base.call_adapter.ApiSuccess
 import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.asfoundation.wallet.change_currency.use_cases.GetSelectedCurrencyUseCase
 import com.asfoundation.wallet.home.usecases.DisplayChatUseCase
@@ -40,7 +40,7 @@ class TransactionsListViewModel @Inject constructor(
   }
 
   fun displayChat() {
-    displayChatUseCase.invoke()
+    displayChatUseCase()
   }
 
   private fun observeWalletData() {

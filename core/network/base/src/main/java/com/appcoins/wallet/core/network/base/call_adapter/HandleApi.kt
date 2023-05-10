@@ -1,9 +1,9 @@
-package com.appcoins.wallet.core.network.backend
+package com.appcoins.wallet.core.network.base.call_adapter
 
 import retrofit2.HttpException
 import retrofit2.Response
 
-suspend fun <T : Any> handleApi(execute: suspend () -> Response<T>): ApiResult<T> {
+suspend fun <T : Any> handleApi(execute: suspend () -> Response<T>): Result<T> {
   return try {
     val response = execute()
     val body = response.body()
@@ -19,7 +19,12 @@ suspend fun <T : Any> handleApi(execute: suspend () -> Response<T>): ApiResult<T
   }
 }
 
-sealed interface ApiResult<T : Any>
-class ApiSuccess<T : Any>(val data: T) : ApiResult<T>
-class ApiFailure<T : Any>(val code: Int, val message: String?) : ApiResult<T>
-class ApiException<T : Any>(val e: Throwable) : ApiResult<T>
+sealed interface Result<T : Any>
+class ApiSuccess<T : Any>(val data: T) :
+  Result<T>
+
+class ApiFailure<T : Any>(val code: Int, val message: String?) :
+  Result<T>
+
+class ApiException<T : Any>(val e: Throwable) :
+  Result<T>
