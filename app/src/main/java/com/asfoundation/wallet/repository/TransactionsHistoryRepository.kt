@@ -1,9 +1,9 @@
 package com.asfoundation.wallet.repository
 
-import com.appcoins.wallet.core.network.backend.ApiResult
-import com.appcoins.wallet.core.network.backend.handleApi
 import com.appcoins.wallet.core.network.backend.model.TransactionResponse
 import com.appcoins.wallet.core.network.backend.remote.RemoteTransactionDataSource
+import com.appcoins.wallet.core.network.base.call_adapter.Result
+import com.appcoins.wallet.core.network.base.call_adapter.handleApi
 import it.czerwinski.android.hilt.annotations.BoundTo
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
@@ -16,7 +16,7 @@ interface TransactionsHistoryRepository {
     wallet: String,
     limit: Int,
     currency: String
-  ): Flow<ApiResult<List<TransactionResponse>>>
+  ): Flow<Result<List<TransactionResponse>>>
 }
 
 @BoundTo(supertype = TransactionsHistoryRepository::class)
@@ -25,16 +25,16 @@ class DefaultTransactionsHistoryRepository @Inject constructor(
 ) : TransactionsHistoryRepository {
   override suspend fun fetchTransactions(
     wallet: String, limit: Int, currency: String
-  ): Flow<ApiResult<List<TransactionResponse>>> {
+  ): Flow<Result<List<TransactionResponse>>> {
 
     return flow {
-        emit(handleApi {
-          remoteTransactionDataSource.getTransactionsHistory(
-            wallet,
-            selectedCurrency = currency,
-            limit
-          )
-        })
+      emit(handleApi {
+        remoteTransactionDataSource.getTransactionsHistory(
+          wallet,
+          selectedCurrency = currency,
+          limit
+        )
+      })
     }.flowOn(Dispatchers.IO)
   }
 }
