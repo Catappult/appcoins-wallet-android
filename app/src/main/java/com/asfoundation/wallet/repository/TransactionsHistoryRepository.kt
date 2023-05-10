@@ -1,15 +1,15 @@
 package com.asfoundation.wallet.repository
 
+import com.appcoins.wallet.core.network.backend.api.TransactionsApi
 import com.appcoins.wallet.core.network.backend.model.TransactionResponse
-import com.appcoins.wallet.core.network.backend.remote.RemoteTransactionDataSource
 import com.appcoins.wallet.core.network.base.call_adapter.Result
 import com.appcoins.wallet.core.network.base.call_adapter.handleApi
 import it.czerwinski.android.hilt.annotations.BoundTo
+import javax.inject.Inject
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
-import javax.inject.Inject
 
 interface TransactionsHistoryRepository {
   suspend fun fetchTransactions(
@@ -20,21 +20,22 @@ interface TransactionsHistoryRepository {
 }
 
 @BoundTo(supertype = TransactionsHistoryRepository::class)
-class DefaultTransactionsHistoryRepository @Inject constructor(
-  private val remoteTransactionDataSource: RemoteTransactionDataSource
-) : TransactionsHistoryRepository {
+class DefaultTransactionsHistoryRepository @Inject constructor(private val api: TransactionsApi) :
+  TransactionsHistoryRepository {
   override suspend fun fetchTransactions(
-    wallet: String, limit: Int, currency: String
+    wallet: String,
+    limit: Int,
+    currency: String
   ): Flow<Result<List<TransactionResponse>>> {
 
     return flow {
-      emit(handleApi {
-        remoteTransactionDataSource.getTransactionsHistory(
-          wallet,
-          selectedCurrency = currency,
-          limit
-        )
-      })
-    }.flowOn(Dispatchers.IO)
+      emit(
+        handleApi {
+          api.getTransactionHistory(
+            wallet = wallet, defaultCurrency = currency, limit = limit
+          )
+        })
+    }
+      .flowOn(Dispatchers.IO)
   }
 }

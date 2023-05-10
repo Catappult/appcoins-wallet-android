@@ -106,7 +106,6 @@ class HomeViewModel @Inject constructor(
   private val getPromotionsUseCase: GetPromotionsUseCase,
   private val setSeenPromotionsUseCase: SetSeenPromotionsUseCase,
   private val shouldOpenRatingDialogUseCase: ShouldOpenRatingDialogUseCase,
-  private val updateTransactionsNumberUseCase: UpdateTransactionsNumberUseCase,
   private val findNetworkInfoUseCase: FindNetworkInfoUseCase,
   private val findDefaultWalletUseCase: FindDefaultWalletUseCase,
   private val observeDefaultWalletUseCase: ObserveDefaultWalletUseCase,
@@ -256,14 +255,13 @@ class HomeViewModel @Inject constructor(
     if (walletModel == null) return Observable.empty()
     val retainValue = if (walletModel.isNewWallet) null else HomeState::transactionsModelAsync
     return Observable.combineLatest(
-      Observable.just(listOf()), getCardNotifications(),
+      getCardNotifications(),
       getMaxBonus(), observeNetworkAndWallet()
-    ) { transactions: List<Transaction>, notifications: List<CardNotification>, maxBonus: Double, transactionsWalletModel: TransactionsWalletModel ->
+    ) { notifications: List<CardNotification>, maxBonus: Double, transactionsWalletModel: TransactionsWalletModel ->
       createTransactionsModel(
-        transactions, notifications, maxBonus, transactionsWalletModel
+        notifications, maxBonus, transactionsWalletModel
       )
     }
-      .doOnNext { (transactions) -> updateTransactionsNumberUseCase(transactions) }
       .subscribeOn(rxSchedulers.io)
       .observeOn(rxSchedulers.main)
       .asAsyncToState(retainValue) { copy(transactionsModelAsync = it) }
@@ -271,11 +269,10 @@ class HomeViewModel @Inject constructor(
   }
 
   private fun createTransactionsModel(
-    transactions: List<Transaction>,
     notifications: List<CardNotification>, maxBonus: Double,
     transactionsWalletModel: TransactionsWalletModel
   ): TransactionsModel {
-    return TransactionsModel(transactions, notifications, maxBonus, transactionsWalletModel)
+    return TransactionsModel(notifications, maxBonus, transactionsWalletModel)
   }
 
   private fun fetchTransactions(wallet: Wallet, selectedCurrency: String) {
