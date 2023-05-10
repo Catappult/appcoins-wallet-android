@@ -75,65 +75,73 @@ fun TransactionCard(
             maxLines = 1,
             overflow = TextOverflow.Ellipsis
           )
-          if (description != null) Text(
-            text = description,
-            color = styleguide_dark_grey,
-            style = MaterialTheme.typography.bodySmall,
-            maxLines = 2,
-            overflow = TextOverflow.Ellipsis
-          )
+          if (description != null)
+            Text(
+              text = description,
+              color = styleguide_dark_grey,
+              style = MaterialTheme.typography.bodySmall,
+              maxLines = 2,
+              overflow = TextOverflow.Ellipsis
+            )
         }
       }
       Column(horizontalAlignment = Alignment.End) {
-        if (amount != null) Text(
-          text = amount,
-          fontWeight = FontWeight.Bold,
-          style = MaterialTheme.typography.bodyMedium,
-          textAlign = TextAlign.End,
-          color = styleguide_light_grey,
-          maxLines = 1,
-          overflow = TextOverflow.Ellipsis,
-          textDecoration = textDecoration
-        )
-        if (convertedAmount != null) Text(
-          text = convertedAmount,
-          color = styleguide_dark_grey,
-          style = MaterialTheme.typography.bodySmall,
-          textAlign = TextAlign.End,
-          maxLines = 1,
-          overflow = TextOverflow.Ellipsis,
-          textDecoration = textDecoration
-        )
+        if (amount != null)
+          Text(
+            text = amount,
+            fontWeight = FontWeight.Bold,
+            style = MaterialTheme.typography.bodyMedium,
+            textAlign = TextAlign.End,
+            color = styleguide_light_grey,
+            maxLines = 1,
+            overflow = TextOverflow.Ellipsis,
+            textDecoration = textDecoration
+          )
+        if (convertedAmount != null)
+          Text(
+            text = convertedAmount,
+            color = styleguide_dark_grey,
+            style = MaterialTheme.typography.bodySmall,
+            textAlign = TextAlign.End,
+            maxLines = 1,
+            overflow = TextOverflow.Ellipsis,
+            textDecoration = textDecoration
+          )
       }
     }
   }
 }
 
 @Composable
-fun TransactionIcon(icon: Int?, appIcon: String?, subIcon: Int? = null, imageSize: Dp = 40.dp) {
+fun TransactionIcon(
+  icon: Int? = null,
+  appIcon: String? = null,
+  subIcon: Int? = null,
+  imageSize: Dp = 40.dp
+) {
   Box(contentAlignment = Alignment.BottomEnd) {
-    if (icon != null) Icon(
-      painter = painterResource(id = icon),
-      contentDescription = null,
-      tint = Color.Unspecified,
-      modifier = Modifier.size(imageSize)
-    ) else {
+    if (icon != null)
+      Icon(
+        painter = painterResource(id = icon),
+        contentDescription = null,
+        tint = Color.Unspecified,
+        modifier = Modifier.size(imageSize)
+      )
+    else {
       SubcomposeAsyncImage(
         model = appIcon,
         contentDescription = null,
         modifier = Modifier.size(imageSize),
         contentScale = ContentScale.Crop,
-        loading = {
-          CircularProgressIndicator()
-        }
-      )
+        loading = { CircularProgressIndicator() })
     }
-    if (subIcon != null) Icon(
-      painter = painterResource(subIcon),
-      contentDescription = null,
-      tint = Color.Unspecified,
-      modifier = Modifier.size(24.dp)
-    )
+    if (subIcon != null)
+      Icon(
+        painter = painterResource(subIcon),
+        contentDescription = null,
+        tint = Color.Unspecified,
+        modifier = Modifier.size(24.dp)
+      )
   }
 }
 
@@ -157,50 +165,52 @@ fun TransactionDetailHeader(
       verticalAlignment = Alignment.CenterVertically
     ) {
       Column(horizontalAlignment = Alignment.Start, modifier = Modifier.widthIn(0.dp, 320.dp)) {
-        if (amount != null) Text(
-          text = amount,
-          fontWeight = FontWeight.Bold,
-          style = MaterialTheme.typography.headlineSmall,
-          textAlign = TextAlign.End,
-          color = styleguide_light_grey,
-          maxLines = 1,
-          overflow = TextOverflow.Ellipsis,
-          textDecoration = textDecoration
-        )
-        if (convertedAmount != null) Text(
-          text = convertedAmount,
-          color = styleguide_dark_grey,
-          style = MaterialTheme.typography.bodySmall,
-          textAlign = TextAlign.End,
-          maxLines = 1,
-          overflow = TextOverflow.Ellipsis,
-          textDecoration = textDecoration
-        )
-        if (type != null) Text(
-          text = type,
-          color = styleguide_light_grey,
-          style = MaterialTheme.typography.bodySmall,
-          maxLines = 2,
-          overflow = TextOverflow.Ellipsis
-        )
+        if (amount != null)
+          Text(
+            text = amount,
+            fontWeight = FontWeight.Bold,
+            style = MaterialTheme.typography.headlineSmall,
+            textAlign = TextAlign.End,
+            color = styleguide_light_grey,
+            maxLines = 1,
+            overflow = TextOverflow.Ellipsis,
+            textDecoration = textDecoration
+          )
+        if (convertedAmount != null)
+          Text(
+            text = convertedAmount,
+            color = styleguide_dark_grey,
+            style = MaterialTheme.typography.bodySmall,
+            textAlign = TextAlign.End,
+            maxLines = 1,
+            overflow = TextOverflow.Ellipsis,
+            textDecoration = textDecoration
+          )
+        if (type != null)
+          Text(
+            text = type,
+            color = styleguide_light_grey,
+            style = MaterialTheme.typography.bodySmall,
+            maxLines = 2,
+            overflow = TextOverflow.Ellipsis
+          )
       }
       TransactionIcon(icon, appIcon, subIcon, 56.dp)
     }
 
-    if (description != null) TransactionDetailLinkedHeader(
-      description,
-      R.drawable.ic_alert_circle,
-      appIcon
-    )
+    if (description != null)
+      TransactionDetailLinkedHeader(
+        description = description, icon = R.drawable.ic_alert_circle, appIcon = appIcon
+      )
   }
-
 }
 
 @Composable
-fun TransactionDetailLinkedHeader(description: String, icon: Int?, appIcon: String?) {
+fun TransactionDetailLinkedHeader(description: String, icon: Int? = null, appIcon: String? = null) {
   Card(colors = CardDefaults.cardColors(styleguide_blue), modifier = Modifier.fillMaxWidth()) {
     Row(modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp)) {
-      TransactionIcon(icon = icon, appIcon = appIcon, imageSize = 32.dp)
+      if (appIcon == null) TransactionIcon(icon = icon, imageSize = 32.dp)
+      else TransactionIcon(appIcon = appIcon, imageSize = 32.dp)
       Text(
         text = description,
         color = styleguide_light_grey,
@@ -235,29 +245,29 @@ fun TransactionDetailItem(
       verticalAlignment = Alignment.CenterVertically,
       modifier = Modifier.padding(start = 48.dp)
     ) {
-      if (allowCopy) IconButton(onClick = onClick) {
-        Icon(
-          painter = painterResource(R.drawable.ic_copy),
-          contentDescription = stringResource(R.string.copy),
-          tint = WalletColors.styleguide_pink,
-          modifier = Modifier.size(14.dp)
-        )
-      }
+      if (allowCopy)
+        IconButton(onClick = onClick) {
+          Icon(
+            painter = painterResource(R.drawable.ic_copy),
+            contentDescription = stringResource(R.string.copy),
+            tint = WalletColors.styleguide_pink,
+            modifier = Modifier.size(14.dp)
+          )
+        }
       Text(
         text = data,
         color = dataColor,
         style = MaterialTheme.typography.bodySmall,
         maxLines = 1,
         overflow = TextOverflow.Ellipsis,
-        modifier = Modifier
+        modifier =
+        Modifier
           .widthIn(0.dp, 160.dp)
           .padding(vertical = if (allowCopy) 0.dp else 16.dp)
       )
     }
   }
-
 }
-
 
 @Preview
 @Composable
@@ -296,7 +306,7 @@ fun PreviewTransactionCard() {
     amount = "-€12,21238745674839837456.73",
     convertedAmount = "-12,5000000000000000000.00 APPC-C",
     subIcon = R.drawable.ic_transaction_rejected_mini,
-    { },
+    {},
     TextDecoration.LineThrough
   )
 }

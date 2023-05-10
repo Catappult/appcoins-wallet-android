@@ -1,9 +1,9 @@
 package com.asfoundation.wallet.transactions
 
+import android.os.Parcelable
 import androidx.compose.ui.graphics.Color
 import com.appcoins.wallet.core.network.backend.model.TransactionResponse
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils.Companion.DEFAULT_SCALE
-import com.appcoins.wallet.core.utils.android_common.DateFormatterUtils
 import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_green
 import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_light_grey
 import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_red
@@ -36,6 +36,7 @@ import com.asfoundation.wallet.transactions.TransactionType.REVERTED_TOP_UP
 import com.asfoundation.wallet.transactions.TransactionType.SUBSCRIPTION_PAYMENT
 import com.asfoundation.wallet.transactions.TransactionType.SUBSCRIPTION_REFUND
 import com.asfoundation.wallet.transactions.TransactionType.TOP_UP
+import kotlinx.parcelize.Parcelize
 import java.math.BigDecimal
 import java.math.RoundingMode
 import java.text.NumberFormat
@@ -46,36 +47,40 @@ const val NEGATIVE_SIGN = "-"
 const val CURRENCY_CODE_LENGHT = 3
 const val TRANSACTION_BASE_URL = "https://appcexplorer.io/transaction/"
 
+@Parcelize
 data class TransactionModel(
   val id: String,
   val status: StatusType,
   val type: TransactionType,
   val date: String,
   val mainAmount: String,
+  val app: String?,
   val description: String?,
   val appIcon: String?,
   val convertedAmount: String,
   val from: String,
   val to: String,
   val transactionUrl: String
-)
+) : Parcelable
 
 fun TransactionResponse.toModel(selectedCurrency: String): TransactionModel {
   return TransactionModel(
     id = txId,
     status = status.toStatusType(),
     type = type.toTransactionType(),
-    date = DateFormatterUtils.getDate(processedTime),
+    date = processedTime,
+    app = app,
     appIcon = appIcon,
-    description = bonusDescription ?: app,
+    description = bonusDescription,
     mainAmount = paidAmount(selectedCurrency) ?: amount(),
-    convertedAmount = if (paidAmount(selectedCurrency) == null) amountCurrency else "${amount()} $amountCurrency",
+    convertedAmount =
+    if (paidAmount(selectedCurrency) == null) amountCurrency
+    else "${amount()} $amountCurrency",
     from = sender,
     to = receiver,
     transactionUrl = "$TRANSACTION_BASE_URL$txId"
   )
 }
-
 
 enum class TransactionType(val sign: String = "") {
   TOP_UP(sign = POSITIVE_SIGN),
@@ -138,13 +143,13 @@ enum class StatusType(val description: Int, val color: Color) {
   PENDING(description = R.string.transaction_status_pending, color = styleguide_light_grey)
 }
 
-fun String.toStatusType() = when (this) {
-  "Success" -> SUCCESS
-  "Rejected" -> REJECTED
-  "Reverted" -> REVERTED
-  else -> PENDING
-}
-
+fun String.toStatusType() =
+  when (this) {
+    "Success" -> SUCCESS
+    "Rejected" -> REJECTED
+    "Reverted" -> REVERTED
+    else -> PENDING
+  }
 
 private fun TransactionResponse.paidAmount(selectedCurrency: String): String? {
   val sign = type.toTransactionType().sign

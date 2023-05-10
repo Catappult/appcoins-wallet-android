@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.appcoins.wallet.core.network.base.call_adapter.ApiException
 import com.appcoins.wallet.core.network.base.call_adapter.ApiFailure
 import com.appcoins.wallet.core.network.base.call_adapter.ApiSuccess
+import com.appcoins.wallet.core.utils.android_common.DateFormatterUtils.getDay
 import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.asfoundation.wallet.change_currency.use_cases.GetSelectedCurrencyUseCase
 import com.asfoundation.wallet.home.usecases.DisplayChatUseCase
@@ -20,7 +21,9 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class TransactionsListViewModel @Inject constructor(
+class TransactionsListViewModel
+@Inject
+constructor(
   private val fetchTransactionsHistoryUseCase: FetchTransactionsHistoryUseCase,
   private val observeDefaultWalletUseCase: ObserveDefaultWalletUseCase,
   private val getSelectedCurrencyUseCase: GetSelectedCurrencyUseCase,
@@ -46,10 +49,12 @@ class TransactionsListViewModel @Inject constructor(
   private fun observeWalletData() {
     Observable.combineLatest(
       getSelectedCurrencyUseCase(false).toObservable(), observeDefaultWalletUseCase()
-    ) { selectedCurrency, wallet ->
+    ) { selectedCurrency,
+        wallet ->
       defaultCurrency = selectedCurrency
       fetchTransactions(wallet.address, selectedCurrency)
-    }.subscribe()
+    }
+      .subscribe()
   }
 
   private fun fetchTransactions(walletAddress: String, selectedCurrency: String) {
@@ -60,15 +65,14 @@ class TransactionsListViewModel @Inject constructor(
         .collect { result ->
           when (result) {
             is ApiSuccess -> {
-              _uiState.value = UiState.Success(
-                result.data
-                  .map { it.toModel(defaultCurrency) }
-                  .groupBy { it.date }
-              )
+              _uiState.value =
+                UiState.Success(
+                  result.data
+                    .map { it.toModel(defaultCurrency) }
+                    .groupBy { it.date.getDay() })
             }
 
             is ApiFailure -> {}
-
             is ApiException -> {}
           }
         }

@@ -29,6 +29,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.fragment.app.viewModels
+import androidx.navigation.NavController
+import androidx.navigation.fragment.NavHostFragment
 import com.appcoins.wallet.ui.common.theme.WalletColors
 import com.appcoins.wallet.ui.widgets.TopBar
 import com.appcoins.wallet.ui.widgets.TransactionCard
@@ -37,21 +39,23 @@ import com.asfoundation.wallet.transactions.Transaction.TransactionType.*
 import com.asfoundation.wallet.transactions.TransactionsListViewModel.*
 import com.asfoundation.wallet.transactions.TransactionsListViewModel.UiState.*
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
-import com.asfoundation.wallet.wallet.home.cardInfoByType
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class TransactionsListFragment : BasePageViewFragment() {
+  @Inject
+  lateinit var transactionsNavigator: TransactionsNavigator
+
   private val viewModel: TransactionsListViewModel by viewModels()
 
   override fun onCreateView(
-    inflater: LayoutInflater, container: ViewGroup?,
+    inflater: LayoutInflater,
+    container: ViewGroup?,
     savedInstanceState: Bundle?
   ): View {
     return ComposeView(requireContext()).apply {
-      setContent {
-        TransactionsView(viewModel.uiState.collectAsState().value)
-      }
+      setContent { TransactionsView(viewModel.uiState.collectAsState().value) }
     }
   }
 
@@ -67,10 +71,10 @@ class TransactionsListFragment : BasePageViewFragment() {
       containerColor = WalletColors.styleguide_blue
     ) { padding ->
       when (uiState) {
-        is Success -> TransactionsList(
-          paddingValues = padding,
-          transactionsGrouped = uiState.transactions
-        )
+        is Success ->
+          TransactionsList(
+            paddingValues = padding, transactionsGrouped = uiState.transactions
+          )
 
         Loading -> {
           Row(
@@ -92,17 +96,13 @@ class TransactionsListFragment : BasePageViewFragment() {
     transactionsGrouped: Map<String, List<TransactionModel>>,
     paddingValues: PaddingValues
   ) {
-    LazyColumn(
-      modifier = Modifier
-        .padding(paddingValues)
-        .fillMaxSize()
-    )
-    {
+    LazyColumn(modifier = Modifier
+      .padding(paddingValues)
+      .fillMaxSize()) {
       item {
         Text(
           text = stringResource(R.string.intro_transactions_header),
-          modifier = Modifier
-            .padding(horizontal = 24.dp, vertical = 8.dp),
+          modifier = Modifier.padding(horizontal = 24.dp, vertical = 8.dp),
           style = MaterialTheme.typography.headlineSmall,
           fontWeight = FontWeight.Bold,
           color = WalletColors.styleguide_light_grey,
@@ -123,11 +123,15 @@ class TransactionsListFragment : BasePageViewFragment() {
 
         item {
           Card(
-            modifier = Modifier
-              .padding(horizontal = 16.dp, vertical = 4.dp),
-            colors = CardDefaults.cardColors(containerColor = WalletColors.styleguide_blue_secondary)
+            modifier = Modifier.padding(horizontal = 16.dp, vertical = 4.dp),
+            colors =
+            CardDefaults.cardColors(
+              containerColor = WalletColors.styleguide_blue_secondary
+            )
           ) {
-            LazyColumn(userScrollEnabled = false, modifier = Modifier.heightIn(0.dp, maxHeight)) {
+            LazyColumn(
+              userScrollEnabled = false, modifier = Modifier.heightIn(0.dp, maxHeight)
+            ) {
               items(transactionsForDate) { transaction ->
                 with(transaction.cardInfoByType()) {
                   TransactionCard(
@@ -138,7 +142,7 @@ class TransactionsListFragment : BasePageViewFragment() {
                     amount = amount,
                     convertedAmount = convertedAmount,
                     subIcon = subIcon,
-                    onClick = { },
+                    onClick = { navigateToTransactionDetails(transaction) },
                     textDecoration = textDecoration
                   )
                 }
@@ -149,5 +153,14 @@ class TransactionsListFragment : BasePageViewFragment() {
       }
     }
   }
-}
 
+  private fun navigateToTransactionDetails(transaction: TransactionModel) =
+    transactionsNavigator.navigateToTransactionDetails(navController(), transaction)
+
+  private fun navController(): NavController {
+    val navHostFragment =
+      requireActivity().supportFragmentManager.findFragmentById(R.id.main_host_container)
+          as NavHostFragment
+    return navHostFragment.navController
+  }
+}
