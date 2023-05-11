@@ -304,6 +304,12 @@
   <string name="transaction_type_funds_sent">Funds Sent</string>
   <string name="transaction_type_funds_received">Funds Received</string>
   <string name="transaction_type_gift_card">Gift Card</string>
+  <string name="transaction_date_label">Date</string>
+  <string name="transaction_more_details_label">More Details</string>
+  <string name="transaction_rejected_body">This purchase has been rejected.\nFor more information contact support.</string>
+  <string name="transaction_reverted_body">This purchase has been reverted.\nFor more information contact support.</string>
+  <string name="transaction_status_rejected">Rejected</string>
+  <string name="transaction_details_header">Transaction detail</string>
   <string name="activity_airdrop_title">অ্যাপকয়েনে কিছু গ্রহণ করার জন্য প্রমান করুন আপনি মানুষ</string>
   <string name="activity_airdrop_details">এটি শুধুমাত্র একটি নিরাপত্তা জিনিস।</string>
   <string name="activity_airdrop_hint">ছবিতে থাকা শব্দ টাইপ করুন</string>
