@@ -4,6 +4,7 @@ import android.os.Parcelable
 import androidx.compose.ui.graphics.Color
 import com.appcoins.wallet.core.network.backend.model.TransactionResponse
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils.Companion.DEFAULT_SCALE
+import com.appcoins.wallet.core.utils.properties.HostProperties.TRANSACTION_DETAILS_HOST
 import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_green
 import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_light_grey
 import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_red
@@ -46,7 +47,6 @@ import java.util.Currency
 const val POSITIVE_SIGN = "+"
 const val NEGATIVE_SIGN = "-"
 const val CURRENCY_CODE_LENGHT = 3
-const val TRANSACTION_BASE_URL = "https://appcexplorer.io/transaction/"
 
 @Parcelize
 data class TransactionModel(
@@ -79,7 +79,7 @@ fun TransactionResponse.toModel(selectedCurrency: String): TransactionModel {
     else "${amount()} $amountCurrency",
     from = sender,
     to = receiver,
-    transactionUrl = "$TRANSACTION_BASE_URL$txId"
+    transactionUrl = "$TRANSACTION_DETAILS_HOST$txId"
   )
 }
 
