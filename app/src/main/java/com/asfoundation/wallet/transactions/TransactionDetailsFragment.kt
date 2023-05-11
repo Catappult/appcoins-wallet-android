@@ -215,7 +215,7 @@ class TransactionDetailsFragment : BasePageViewFragment() {
                 onClick = { viewModel.displayChat() }, modifier = Modifier.width(160.dp)
               ) {
                 Icon(
-                  painter = painterResource(R.drawable.ic_support),
+                  painter = painterResource(R.drawable.ic_support_chat),
                   contentDescription = stringResource(R.string.title_support),
                   tint = Color.Unspecified,
                 )
