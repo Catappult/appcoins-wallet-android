@@ -12,6 +12,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
@@ -62,9 +63,9 @@ fun PromotionsCardComposable(cardItem: CardPromotionItem) {
       topEndRoundedCornerCard = 0.dp
       Box(
         modifier = Modifier
-            .align(Alignment.End)
-            .clip(RoundedCornerShape(topEnd = 8.dp, topStart = 8.dp))
-            .background(WalletColors.styleguide_vip_yellow)
+          .align(Alignment.End)
+          .clip(RoundedCornerShape(topEnd = 8.dp, topStart = 8.dp))
+          .background(WalletColors.styleguide_vip_yellow)
       ) {
         Text(
           //Need string to Carlos Translator
@@ -85,24 +86,24 @@ fun PromotionsCardComposable(cardItem: CardPromotionItem) {
     Surface(
       color = WalletColors.styleguide_blue_secondary,
       modifier = Modifier
-          .border(
-              border = BorderStroke(2.dp, borderColor),
-              shape = RoundedCornerShape(
-                  bottomEnd = 16.dp,
-                  bottomStart = 16.dp,
-                  topEnd = topEndRoundedCornerCard,
-                  topStart = 16.dp
-              )
+        .border(
+          border = BorderStroke(2.dp, borderColor),
+          shape = RoundedCornerShape(
+            bottomEnd = 16.dp,
+            bottomStart = 16.dp,
+            topEnd = topEndRoundedCornerCard,
+            topStart = 16.dp
           )
-          .clip(
-              shape = RoundedCornerShape(
-                  bottomEnd = 16.dp,
-                  bottomStart = 16.dp,
-                  topEnd = topEndRoundedCornerCard,
-                  topStart = 16.dp
-              )
+        )
+        .clip(
+          shape = RoundedCornerShape(
+            bottomEnd = 16.dp,
+            bottomStart = 16.dp,
+            topEnd = topEndRoundedCornerCard,
+            topStart = 16.dp
           )
-          .zIndex(4f)
+        )
+        .zIndex(4f)
     ) {
       Column(modifier = Modifier.padding(8.dp, 8.dp, 8.dp, 8.dp)) {
         ImageWithTitleAndDescription(
@@ -128,7 +129,8 @@ fun PromotionsCardComposable(cardItem: CardPromotionItem) {
               verticalAlignment = Alignment.CenterVertically
             ) {
               CountDownTimer(cardItem.promotionEndTime)
-              GetText(cardItem.action, 85.dp)
+              //TODO: Change urlRedirect to PackageName When api updated
+              GetText(cardItem.action, 85.dp, cardItem.urlRedirect)
             }
           }
         } else {
@@ -142,7 +144,8 @@ fun PromotionsCardComposable(cardItem: CardPromotionItem) {
               verticalAlignment = Alignment.CenterVertically
             ) {
               IconWithText(stringResource(id = R.string.perks_available_soon_short))
-              GetText(cardItem.action, 0.dp)
+              //TODO: Change urlRedirect to PackageName When api updated
+              GetText(cardItem.action, 0.dp, cardItem.urlRedirect)
             }
           }
         }
@@ -204,13 +207,13 @@ fun CountDownTimer(endDateTime: Long) {
 @Composable
 fun CardWithTextAndDetail(text: String, detail: String) {
   Card(
-    colors = CardDefaults.cardColors(WalletColors.styleguide_black),
+    colors = CardDefaults.cardColors(WalletColors.styleguide_black.copy(alpha = 0.2F)),
     modifier = Modifier
-        .padding(top = 6.dp, bottom = 6.dp, end = 3.dp)
-        .width(41.dp)
-        .height(39.dp)
-        .clip(shape = RoundedCornerShape(3.dp))
-        .zIndex(8f)
+      .padding(top = 6.dp, bottom = 6.dp, end = 3.dp)
+      .width(41.dp)
+      .height(39.dp)
+      .clip(shape = RoundedCornerShape(3.dp))
+      .zIndex(8f)
   ) {
     Column(
       modifier = Modifier.fillMaxSize(),
@@ -242,8 +245,8 @@ fun IconWithText(text: String) {
       painter = painterResource(R.drawable.ic_clock),
       colorFilter = ColorFilter.tint(WalletColors.styleguide_pink),
       modifier = Modifier
-          .height(14.dp)
-          .width(14.dp),
+        .height(14.dp)
+        .width(14.dp),
       contentDescription = null
     )
     Text(
@@ -258,10 +261,22 @@ fun IconWithText(text: String) {
 }
 
 @Composable
-fun GetText(action: () -> Unit, startPaddingValue: Dp) {
-  if (BuildConfig.FLAVOR == "aptoide") {
+fun GetText(action: () -> Unit, startPaddingValue: Dp, packageName: String?) {
+  val hasGameInstall =
+    isPackageGameInstalled(packageName, packageManager = LocalContext.current.packageManager)
+  if (BuildConfig.FLAVOR == "gp" && hasGameInstall) {
     Text(
-      text = stringResource(id = R.string.get_button),
+      text = stringResource(id = R.string.play_button),
+      fontWeight = FontWeight.Bold,
+      color = WalletColors.styleguide_pink,
+      fontSize = 14.sp,
+      modifier = Modifier
+        .padding(end = 26.dp, start = startPaddingValue)
+        .clickable(onClick = action)
+    )
+  } else if (BuildConfig.FLAVOR != "gp") {
+    Text(
+      text = stringResource(id = if (hasGameInstall) R.string.play_button else R.string.get_button),
       fontWeight = FontWeight.Bold,
       color = WalletColors.styleguide_pink,
       fontSize = 14.sp,
@@ -291,14 +306,14 @@ fun ImageWithTitleAndDescription(
         contentDescription = null,
         contentScale = ContentScale.Fit,
         modifier = Modifier
-            .width(56.dp)
-            .height(56.dp)
-            .clip(shape = RoundedCornerShape(8.dp))
+          .width(56.dp)
+          .height(56.dp)
+          .clip(shape = RoundedCornerShape(8.dp))
       )
       Column(
         modifier = Modifier
-            .widthIn(min = 0.dp, max = maxColumnWidth)
-            .padding(start = 12.dp)
+          .widthIn(min = 0.dp, max = maxColumnWidth)
+          .padding(start = 12.dp)
       ) {
         Text(
           text = title ?: "",
