@@ -8,6 +8,24 @@
   <fragment
       android:id="@+id/reward_fragment"
       android:name="com.asfoundation.wallet.wallet_reward.RewardFragment">
+    <action
+        android:id="@+id/action_navigate_promo_code"
+        app:destination="@id/promo_code_fragment" />
+    <action
+        android:id="@+id/action_navigate_gift_card"
+        app:destination="@id/gift_card_fragment" />
   </fragment>
+
+  <dialog
+      android:id="@+id/promo_code_fragment"
+      android:name="com.asfoundation.wallet.promo_code.bottom_sheet.entry.PromoCodeBottomSheetFragment"
+      tools:layout="@layout/settings_promo_code_bottom_sheet_layout">
+  </dialog>
+
+  <dialog
+      android:id="@+id/gift_card_fragment"
+      android:name="com.asfoundation.wallet.redeem_gift.bottom_sheet.RedeemGiftBottomSheetFragment"
+      tools:layout="@layout/settings_redeem_gift_bottom_sheet_layout">
+  </dialog>
 
 </navigation>

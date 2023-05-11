@@ -31,6 +31,7 @@ import com.appcoins.wallet.core.network.backend.model.GamificationStatus
 import com.appcoins.wallet.ui.arch.SingleStateFragment
 import com.appcoins.wallet.ui.arch.data.Async
 import com.appcoins.wallet.ui.common.theme.WalletColors
+import com.appcoins.wallet.ui.widgets.RewardsActions
 import com.appcoins.wallet.ui.widgets.CardPromotionItem
 import com.appcoins.wallet.ui.widgets.PromotionsCardComposable
 import com.appcoins.wallet.ui.widgets.TopBar
@@ -40,7 +41,6 @@ import com.asfoundation.wallet.promotions.model.DefaultItem
 import com.asfoundation.wallet.promotions.model.FutureItem
 import com.asfoundation.wallet.promotions.model.PromotionsModel
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
-
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -107,7 +107,11 @@ class RewardFragment : BasePageViewFragment(), SingleStateFragment<RewardState, 
         .padding(padding),
     ) {
       DummyCard()
-      DummyCard()
+        RewardsActions(
+            { navigator.navigateToWithdrawScreen() },
+            { navigator.showPromoCodeFragment() },
+            { navigator.showGiftCardFragment() }
+        )
       PromotionsList()
       Spacer(modifier = Modifier.padding(32.dp))
     }
