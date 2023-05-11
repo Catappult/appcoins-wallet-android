@@ -326,7 +326,7 @@
   <string name="transaction_reverted_body">This purchase has been reverted.\nFor more information contact support.</string>
   <string name="transaction_status_rejected">Rejected</string>
   <string name="transaction_details_header">Transaction detail</string>
-  <string name="transaction_type_iab">In-App Purchase</string>
+ 
 
   <string name="activity_airdrop_title">Confirm you are a human to receive AppCoins</string>
   <string name="activity_airdrop_details">This is just a security thing.</string>
