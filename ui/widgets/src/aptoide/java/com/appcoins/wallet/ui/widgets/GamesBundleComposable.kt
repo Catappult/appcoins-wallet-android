@@ -68,7 +68,7 @@ private fun CardItem(
     ) {
       AsyncImage(
         model = gameCardData.gameBackground,
-        contentDescription = "Game Icon",
+        contentDescription = null,
         modifier = Modifier.fillMaxSize(),
         contentScale = ContentScale.Crop
       )
@@ -104,7 +104,7 @@ private fun CardItem(
           ) {
             AsyncImage(
               model = gameCardData.gameIcon,
-              contentDescription = "Game Icon",
+              contentDescription = null,
               modifier = Modifier
                 .size(52.dp),
               contentScale = ContentScale.Crop
