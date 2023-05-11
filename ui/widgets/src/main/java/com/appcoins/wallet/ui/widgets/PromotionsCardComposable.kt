@@ -112,8 +112,8 @@ fun PromotionsCardComposable(cardItem: CardPromotionItem) {
           cardItem.subtitle,
           cardItem.hasVerticalList
         )
-        Spacer(modifier = Modifier.height(12.dp))
         if (!cardItem.hasFuturePromotion) {
+          Spacer(modifier = Modifier.height(12.dp))
           Text(
             text = stringResource(id = R.string.promotion_ends_short_title),
             color = WalletColors.styleguide_light_grey,
@@ -134,9 +134,10 @@ fun PromotionsCardComposable(cardItem: CardPromotionItem) {
             }
           }
         } else {
+          Spacer(modifier = Modifier.height(20.dp))
           Column(
             modifier = Modifier
-              .height(49.dp)
+              .height(40.dp)
           ) {
             Row(
               modifier = Modifier.fillMaxWidth(),
@@ -239,7 +240,7 @@ fun CardWithTextAndDetail(text: String, detail: String) {
 fun IconWithText(text: String) {
   Row(
     verticalAlignment = Alignment.CenterVertically,
-    modifier = Modifier.padding(start = 19.dp, top = 12.dp)
+    modifier = Modifier.padding(start = 10.dp)
   ) {
     Image(
       painter = painterResource(R.drawable.ic_clock),

@@ -29,15 +29,9 @@ import com.appcoins.wallet.core.network.backend.model.GamificationStatus
 import com.appcoins.wallet.ui.arch.SingleStateFragment
 import com.appcoins.wallet.ui.arch.data.Async
 import com.appcoins.wallet.ui.common.theme.WalletColors
-import com.appcoins.wallet.ui.widgets.RewardsActions
-import com.appcoins.wallet.ui.widgets.CardPromotionItem
-import com.appcoins.wallet.ui.widgets.PromotionsCardComposable
-import com.appcoins.wallet.ui.widgets.TopBar
-import com.appcoins.wallet.ui.widgets.openGame
+import com.appcoins.wallet.ui.widgets.*
 import com.asf.wallet.R
-import com.asfoundation.wallet.promotions.model.DefaultItem
-import com.asfoundation.wallet.promotions.model.FutureItem
-import com.asfoundation.wallet.promotions.model.PromotionsModel
+import com.asfoundation.wallet.promotions.model.*
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -105,11 +99,12 @@ class RewardFragment : BasePageViewFragment(), SingleStateFragment<RewardState, 
         .padding(padding),
     ) {
       DummyCard()
-        RewardsActions(
-            { navigator.navigateToWithdrawScreen() },
-            { navigator.showPromoCodeFragment() },
-            { navigator.showGiftCardFragment() }
-        )
+      RewardsActions(
+        { navigator.navigateToWithdrawScreen() },
+        { navigator.showPromoCodeFragment() },
+        { navigator.showGiftCardFragment() }
+      )
+      viewModel.activePromoCode.value?.let { ActivePromoCodeComposable(cardItem = it) }
       PromotionsList()
       Spacer(modifier = Modifier.padding(32.dp))
     }
@@ -140,7 +135,6 @@ class RewardFragment : BasePageViewFragment(), SingleStateFragment<RewardState, 
         PromotionsCardComposable(cardItem = promotion)
       }
     }
-
   }
 
   @Composable
@@ -227,6 +221,16 @@ class RewardFragment : BasePageViewFragment(), SingleStateFragment<RewardState, 
               action = { promotion.detailsLink?.let { openGame(it, requireContext()) } }
             )
             viewModel.promotions.add(cardItem)
+          } else if (promotion is PromoCodeItem) {
+            val cardItem = ActiveCardPromoCodeItem(
+              promotion.appName,
+              promotion.description,
+              promotion.icon,
+              promotion.detailsLink,
+              true,
+              action = { promotion.detailsLink?.let { openGame(it, requireContext()) } }
+            )
+            viewModel.activePromoCode.value = cardItem
           }
         }
       }
