@@ -23,9 +23,9 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.appcoins.wallet.ui.arch.SingleStateFragment
 import com.appcoins.wallet.ui.common.theme.WalletColors
+import com.appcoins.wallet.ui.widgets.RewardsActions
 import com.appcoins.wallet.ui.widgets.TopBar
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
-
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -92,7 +92,11 @@ class RewardFragment : BasePageViewFragment(), SingleStateFragment<RewardState, 
                 .padding(padding),
         ) {
             DummyCard()
-            DummyCard()
+            RewardsActions(
+                { navigator.navigateToWithdrawScreen() },
+                { navigator.showPromoCodeFragment() },
+                { navigator.showGiftCardFragment() }
+            )
             DummyCard()
         }
     }
