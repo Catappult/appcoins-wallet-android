@@ -14,7 +14,7 @@ import androidx.lifecycle.lifecycleScope
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.asf.wallet.R
 import com.asf.wallet.databinding.BackupEntryFragmentBinding
-import com.appcoins.wallet.ui.arch.Async
+import com.appcoins.wallet.ui.arch.data.Async
 import com.appcoins.wallet.ui.arch.SingleStateFragment
 import com.asfoundation.wallet.billing.analytics.WalletsAnalytics
 import com.asfoundation.wallet.billing.analytics.WalletsEventSender
@@ -55,9 +55,7 @@ class BackupEntryFragment : BasePageViewFragment(),
   override fun onCreateView(
     inflater: LayoutInflater, container: ViewGroup?,
     savedInstanceState: Bundle?
-  ): View? {
-    return inflater.inflate(R.layout.backup_entry_fragment, container, false)
-  }
+  ): View = BackupEntryFragmentBinding.inflate(inflater).root
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
@@ -68,8 +66,8 @@ class BackupEntryFragment : BasePageViewFragment(),
 
     views.backupBtn.setOnClickListener {
       var password = ""
-      if (views.passwordToggle?.backupPasswordToggle?.isChecked == true) {
-        password = views.passwordToggle!!.backupPasswordInput.getText()
+      if (views.passwordToggle.backupPasswordToggle.isChecked) {
+        password = views.passwordToggle.backupPasswordInput.getText()
       }
       walletsEventSender.sendBackupInfoEvent(
         WalletsAnalytics.ACTION_NEXT,
@@ -84,12 +82,12 @@ class BackupEntryFragment : BasePageViewFragment(),
   }
 
   private fun setPasswordToggleListener() {
-    views.passwordToggle?.backupPasswordToggle?.setOnCheckedChangeListener { _, isChecked ->
+    views.passwordToggle.backupPasswordToggle.setOnCheckedChangeListener { _, isChecked ->
       if (isChecked) {
-        views.passwordToggle?.passwordGroup?.isVisible = true
+        views.passwordToggle.passwordGroup.isVisible = true
         handlePasswordFields()
       } else {
-        views.passwordToggle?.passwordGroup?.isVisible = false
+        views.passwordToggle.passwordGroup.isVisible = false
         views.backupBtn.isEnabled = true
       }
     }
@@ -112,18 +110,18 @@ class BackupEntryFragment : BasePageViewFragment(),
       }
     }
 
-    views.passwordToggle?.backupPasswordInput?.addTextChangedListener(passwordTextWatcher)
-    views.passwordToggle?.backupRepeatPasswordInput?.addTextChangedListener(passwordTextWatcher)
+    views.passwordToggle.backupPasswordInput.addTextChangedListener(passwordTextWatcher)
+    views.passwordToggle.backupRepeatPasswordInput.addTextChangedListener(passwordTextWatcher)
   }
 
   private fun handlePasswordFields() {
-    val password = views.passwordToggle?.backupPasswordInput?.getText()
-    val repeatedPassword = views.passwordToggle?.backupRepeatPasswordInput?.getText()
+    val password = views.passwordToggle.backupPasswordInput.getText()
+    val repeatedPassword = views.passwordToggle.backupRepeatPasswordInput.getText()
 
-    if (views.passwordToggle?.passwordGroup?.isVisible == false) {
+    if (views.passwordToggle.passwordGroup.isVisible == false) {
       showPasswordError(false)
       views.backupBtn.isEnabled = true
-    } else if (password!!.isEmpty() || repeatedPassword!!.isEmpty()) {
+    } else if (password.isEmpty() || repeatedPassword.isEmpty()) {
       showPasswordError(false)
       views.backupBtn.isEnabled = false
     } else if (password.isNotEmpty() && password != repeatedPassword) {
@@ -141,11 +139,11 @@ class BackupEntryFragment : BasePageViewFragment(),
     if (shouldShow) {
       errorMessage = getString(R.string.backup_additional_security_password_not_march)
     }
-    views.passwordToggle?.backupRepeatPasswordInput?.setError(errorMessage)
+    views.passwordToggle.backupRepeatPasswordInput.setError(errorMessage)
   }
 
   private fun setTransitionListener() {
-    views.passwordToggle?.backupPasswordToggleLayout?.layoutTransition?.addTransitionListener(object :
+    views.passwordToggle.backupPasswordToggleLayout.layoutTransition?.addTransitionListener(object :
       LayoutTransition.TransitionListener {
       override fun startTransition(
         transition: LayoutTransition?, container: ViewGroup?,

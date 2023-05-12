@@ -28,8 +28,6 @@ interface VerificationCodeView {
 
   fun getConfirmClicks(): Observable<String>
 
-  fun getSupportClicks(): Observable<Any>
-
   fun retryClick(): Observable<Any>
 
   fun showWrongCodeError()

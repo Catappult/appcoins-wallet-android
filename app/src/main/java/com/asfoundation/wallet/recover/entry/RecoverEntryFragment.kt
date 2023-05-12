@@ -4,6 +4,7 @@ import android.Manifest
 import android.app.Activity
 import android.content.Intent
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -16,7 +17,7 @@ import androidx.lifecycle.lifecycleScope
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.asf.wallet.R
 import com.asf.wallet.databinding.RecoverEntryFragmentBinding
-import com.appcoins.wallet.ui.arch.Async
+import com.appcoins.wallet.ui.arch.data.Async
 import com.appcoins.wallet.ui.arch.SingleStateFragment
 import com.asfoundation.wallet.my_wallets.create_wallet.CreateWalletDialogFragment
 import com.asfoundation.wallet.recover.RecoverActivity.Companion.ONBOARDING_LAYOUT
@@ -43,9 +44,7 @@ class RecoverEntryFragment : BasePageViewFragment(),
   override fun onCreateView(
     inflater: LayoutInflater, @Nullable container: ViewGroup?,
     @Nullable savedInstanceState: Bundle?
-  ): View? {
-    return inflater.inflate(R.layout.recover_entry_fragment, container, false)
-  }
+  ): View = RecoverEntryFragmentBinding.inflate(inflater).root
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
@@ -68,7 +67,13 @@ class RecoverEntryFragment : BasePageViewFragment(),
       navigator.navigateBack(fromActivity = !isOnboardingLayout)
     }
     views.recoverWalletOptions.recoverFromFileButton.setOnClickListener {
-      requestPermissionsLauncher.launch(Manifest.permission.READ_EXTERNAL_STORAGE)
+      // For Android 33 and beyond, the READ_EXTERNAL_STORAGE permission does not work. Though it's
+      // still needed for backward compatibility.
+      if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) {
+        requestPermissionsLauncher.launch(Manifest.permission.READ_EXTERNAL_STORAGE)
+      } else {
+        navigator.launchFileIntent(storageIntentLauncher, viewModel.filePath())
+      }
     }
     views.recoverWalletButton.setOnClickListener {
       viewModel.handleRecoverClick(

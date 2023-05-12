@@ -2,6 +2,8 @@ package com.asfoundation.wallet.verification.ui.paypal
 
 import com.appcoins.wallet.billing.adyen.AdyenPaymentRepository
 import com.appcoins.wallet.ui.arch.*
+import com.appcoins.wallet.ui.arch.data.Async
+import com.appcoins.wallet.ui.arch.data.Error
 import com.asfoundation.wallet.ui.iab.WebViewActivity
 import com.asfoundation.wallet.verification.ui.credit_card.WalletVerificationInteractor
 import com.asfoundation.wallet.verification.ui.credit_card.intro.VerificationIntroModel

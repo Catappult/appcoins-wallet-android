@@ -9,7 +9,7 @@ import androidx.lifecycle.lifecycleScope
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.asf.wallet.R
 import com.asf.wallet.databinding.FragmentNftsBinding
-import com.appcoins.wallet.ui.arch.Async
+import com.appcoins.wallet.ui.arch.data.Async
 import com.appcoins.wallet.ui.arch.SingleStateFragment
 import com.asfoundation.wallet.nfts.domain.NFTItem
 import com.asfoundation.wallet.nfts.list.NFTsController
@@ -31,9 +31,7 @@ class NFTFragment : BasePageViewFragment(),
   private val views by viewBinding(FragmentNftsBinding::bind)
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                            savedInstanceState: Bundle?): View? {
-    return inflater.inflate(R.layout.fragment_nfts, container, false)
-  }
+                            savedInstanceState: Bundle?): View = FragmentNftsBinding.inflate(inflater).root
 
   override fun onResume() {
     super.onResume()

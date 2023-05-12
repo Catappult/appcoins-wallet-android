@@ -8,9 +8,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import by.kirich1409.viewbindingdelegate.viewBinding
 import com.airbnb.lottie.FontAssetDelegate
 import com.airbnb.lottie.TextDelegate
 import com.asf.wallet.R
+import com.asf.wallet.databinding.LocalPaymentLayoutBinding
 import com.asfoundation.wallet.ui.iab.IabView
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
 import com.asfoundation.wallet.ui.iab.localpayments.LocalPaymentView.ViewState
@@ -18,12 +20,6 @@ import com.asfoundation.wallet.ui.iab.localpayments.LocalPaymentView.ViewState.*
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import com.jakewharton.rxbinding2.view.RxView
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.fragment_iab_transaction_completed.view.*
-import kotlinx.android.synthetic.main.iab_error_layout.view.*
-import kotlinx.android.synthetic.main.local_payment_layout.*
-import kotlinx.android.synthetic.main.pending_user_payment_view.*
-import kotlinx.android.synthetic.main.pending_user_payment_view.view.*
-import kotlinx.android.synthetic.main.support_error_layout.*
 import java.math.BigDecimal
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
@@ -40,11 +36,12 @@ class LocalPaymentFragment : BasePageViewFragment(), LocalPaymentView {
   private var minFrame = 0
   private var maxFrame = 40
 
+  private val binding by lazy { LocalPaymentLayoutBinding.bind(requireView()) }
+
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     status = NONE
   }
-
 
   override fun onSaveInstanceState(outState: Bundle) {
     super.onSaveInstanceState(outState)
@@ -68,11 +65,11 @@ class LocalPaymentFragment : BasePageViewFragment(), LocalPaymentView {
 
   override fun setupUi(bonus: String?) {
     if (bonus?.isNotBlank() == true) {
-      complete_payment_view.lottie_transaction_success.setAnimation(
+      binding.fragmentIabTransactionCompleted.lottieTransactionSuccess.setAnimation(
           R.raw.top_up_bonus_success_animation)
       setAnimationText(bonus)
     } else {
-      complete_payment_view.lottie_transaction_success.setAnimation(R.raw.top_up_success_animation)
+      binding.fragmentIabTransactionCompleted.lottieTransactionSuccess.setAnimation(R.raw.top_up_success_animation)
     }
 
     iabView.disableBack()
@@ -96,12 +93,12 @@ class LocalPaymentFragment : BasePageViewFragment(), LocalPaymentView {
   }
 
   private fun setAnimationText(bonus: String?) {
-    val textDelegate = TextDelegate(complete_payment_view.lottie_transaction_success)
+    val textDelegate = TextDelegate(binding.fragmentIabTransactionCompleted.lottieTransactionSuccess)
     textDelegate.setText("bonus_value", bonus)
     textDelegate.setText("bonus_received",
         resources.getString(R.string.gamification_purchase_completed_bonus_received))
-    complete_payment_view.lottie_transaction_success.setTextDelegate(textDelegate)
-    complete_payment_view.lottie_transaction_success.setFontAssetDelegate(object :
+    binding.fragmentIabTransactionCompleted.lottieTransactionSuccess.setTextDelegate(textDelegate)
+    binding.fragmentIabTransactionCompleted.lottieTransactionSuccess.setFontAssetDelegate(object :
         FontAssetDelegate() {
       override fun fetchFont(fontFamily: String?) =
           Typeface.create("sans-serif-medium", Typeface.BOLD)
@@ -114,99 +111,97 @@ class LocalPaymentFragment : BasePageViewFragment(), LocalPaymentView {
   }
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                            savedInstanceState: Bundle?): View? {
-    return inflater.inflate(R.layout.local_payment_layout, container, false)
-  }
+                            savedInstanceState: Bundle?): View = LocalPaymentLayoutBinding.inflate(inflater).root
 
-  override fun getErrorDismissClick() = RxView.clicks(error_view.error_dismiss)
+  override fun getErrorDismissClick() = RxView.clicks(binding.errorView.errorDismiss)
 
-  override fun getSupportLogoClicks() = RxView.clicks(layout_support_logo)
+  override fun getSupportLogoClicks() = RxView.clicks(binding.errorView.genericErrorLayout.layoutSupportLogo)
 
-  override fun getSupportIconClicks() = RxView.clicks(layout_support_icn)
+  override fun getSupportIconClicks() = RxView.clicks(binding.errorView.genericErrorLayout.layoutSupportIcn)
 
-  override fun getGotItClick() = RxView.clicks(got_it_button)
+  override fun getGotItClick() = RxView.clicks(binding.pendingUserPaymentView.gotItButton)
 
   override fun showVerification() = iabView.showVerification(false)
 
   override fun showProcessingLoading() {
     status = LOADING
-    progress_bar.visibility = View.VISIBLE
-    error_view.visibility = View.GONE
-    pending_user_payment_view.visibility = View.GONE
-    pending_user_payment_view.in_progress_animation.cancelAnimation()
-    complete_payment_view.lottie_transaction_success.cancelAnimation()
+    binding.progressBar.visibility = View.VISIBLE
+    binding.errorView.root.visibility = View.GONE
+    binding.pendingUserPaymentView.root.visibility = View.GONE
+    binding.pendingUserPaymentView.inProgressAnimation.cancelAnimation()
+    binding.fragmentIabTransactionCompleted.lottieTransactionSuccess.cancelAnimation()
   }
 
   override fun hideLoading() {
-    progress_bar.visibility = View.GONE
-    error_view.visibility = View.GONE
-    pending_user_payment_view.in_progress_animation.cancelAnimation()
-    complete_payment_view.lottie_transaction_success.cancelAnimation()
-    pending_user_payment_view.visibility = View.GONE
-    complete_payment_view.visibility = View.GONE
+    binding.progressBar.visibility = View.GONE
+    binding.errorView.root.visibility = View.GONE
+    binding.pendingUserPaymentView.inProgressAnimation.cancelAnimation()
+    binding.fragmentIabTransactionCompleted.lottieTransactionSuccess.cancelAnimation()
+    binding.pendingUserPaymentView.root.visibility = View.GONE
+    binding.completePaymentView.visibility = View.GONE
   }
 
   override fun showCompletedPayment() {
     status = COMPLETED
-    progress_bar.visibility = View.GONE
-    error_view.visibility = View.GONE
-    pending_user_payment_view.visibility = View.GONE
-    complete_payment_view.visibility = View.VISIBLE
-    complete_payment_view.iab_activity_transaction_completed.visibility = View.VISIBLE
-    complete_payment_view.lottie_transaction_success.playAnimation()
-    pending_user_payment_view.in_progress_animation.cancelAnimation()
+    binding.progressBar.visibility = View.GONE
+    binding.errorView.root.visibility = View.GONE
+    binding.pendingUserPaymentView.root.visibility = View.GONE
+    binding.completePaymentView.visibility = View.VISIBLE
+    binding.fragmentIabTransactionCompleted.iabActivityTransactionCompleted.visibility = View.VISIBLE
+    binding.fragmentIabTransactionCompleted.lottieTransactionSuccess.playAnimation()
+    binding.pendingUserPaymentView.inProgressAnimation.cancelAnimation()
   }
 
   override fun showPendingUserPayment(paymentMethodLabel: String?, paymentMethodIcon: Bitmap,
                                       applicationIcon: Bitmap) {
     status = PENDING_USER_PAYMENT
-    error_view.visibility = View.GONE
-    complete_payment_view.visibility = View.GONE
-    progress_bar.visibility = View.GONE
-    pending_user_payment_view?.visibility = View.VISIBLE
+    binding.errorView.root.visibility = View.GONE
+    binding.completePaymentView.visibility = View.GONE
+    binding.progressBar.visibility = View.GONE
+    binding.pendingUserPaymentView.root.visibility = View.VISIBLE
 
     val placeholder = getString(R.string.async_steps_1_no_notification)
     val stepOneText = String.format(placeholder, paymentMethodLabel)
 
-    step_one_desc.text = stepOneText
+    binding.pendingUserPaymentView.stepOneDesc.text = stepOneText
 
-    pending_user_payment_view?.in_progress_animation?.updateBitmap("image_0", paymentMethodIcon)
-    pending_user_payment_view?.in_progress_animation?.updateBitmap("image_1", applicationIcon)
+    binding.pendingUserPaymentView.inProgressAnimation.updateBitmap("image_0", paymentMethodIcon)
+    binding.pendingUserPaymentView.inProgressAnimation.updateBitmap("image_1", applicationIcon)
 
     playAnimation()
   }
 
   override fun showError(message: Int?) {
     status = ERROR
-    error_message.text = getString(R.string.ok)
+    binding.errorView.genericErrorLayout.errorMessage.text = getString(R.string.ok)
     message?.let { errorMessage = it }
-    error_message.text = getString(message ?: errorMessage)
-    pending_user_payment_view.visibility = View.GONE
-    complete_payment_view.visibility = View.GONE
-    pending_user_payment_view.in_progress_animation.cancelAnimation()
-    complete_payment_view.lottie_transaction_success.cancelAnimation()
-    progress_bar.visibility = View.GONE
-    error_view.visibility = View.VISIBLE
+    binding.errorView.genericErrorLayout.errorMessage.text = getString(message ?: errorMessage)
+    binding.pendingUserPaymentView.root.visibility = View.GONE
+    binding.completePaymentView.visibility = View.GONE
+    binding.pendingUserPaymentView.inProgressAnimation.cancelAnimation()
+    binding.fragmentIabTransactionCompleted.lottieTransactionSuccess.cancelAnimation()
+    binding.progressBar.visibility = View.GONE
+    binding.errorView.root.visibility = View.VISIBLE
   }
 
   override fun dismissError() {
     status = NONE
-    error_view.visibility = View.GONE
+    binding.errorView.root.visibility = View.GONE
     iabView.finishWithError()
   }
 
   override fun close() {
     status = NONE
-    progress_bar.visibility = View.GONE
-    error_view.visibility = View.GONE
-    pending_user_payment_view.in_progress_animation.cancelAnimation()
-    complete_payment_view.lottie_transaction_success.cancelAnimation()
-    pending_user_payment_view.visibility = View.GONE
-    complete_payment_view.visibility = View.GONE
+    binding.progressBar.visibility = View.GONE
+    binding.errorView.root.visibility = View.GONE
+    binding.pendingUserPaymentView.inProgressAnimation.cancelAnimation()
+    binding.fragmentIabTransactionCompleted.lottieTransactionSuccess.cancelAnimation()
+    binding.pendingUserPaymentView.root.visibility = View.GONE
+    binding.completePaymentView.visibility = View.GONE
     iabView.close(Bundle())
   }
 
-  override fun getAnimationDuration() = complete_payment_view.lottie_transaction_success.duration
+  override fun getAnimationDuration() = binding.fragmentIabTransactionCompleted.lottieTransactionSuccess.duration
 
   override fun popView(bundle: Bundle, paymentId: String) {
     bundle.putString(InAppPurchaseInteractor.PRE_SELECTED_PAYMENT_METHOD_KEY, paymentId)
@@ -218,46 +213,43 @@ class LocalPaymentFragment : BasePageViewFragment(), LocalPaymentView {
   }
 
   private fun playAnimation() {
-    pending_user_payment_view?.in_progress_animation?.setMinAndMaxFrame(minFrame, maxFrame)
-    pending_user_payment_view?.in_progress_animation?.addAnimatorListener(object :
+    binding.pendingUserPaymentView.inProgressAnimation.setMinAndMaxFrame(minFrame, maxFrame)
+    binding.pendingUserPaymentView.inProgressAnimation.addAnimatorListener(object :
         Animator.AnimatorListener {
-      override fun onAnimationRepeat(animation: Animator?) = Unit
-
-      override fun onAnimationEnd(animation: Animator?) {
+      override fun onAnimationRepeat(animation: Animator) = Unit
+      override fun onAnimationEnd(animation: Animator) {
         if (maxFrame == LAST_ANIMATION_FRAME) {
-          pending_user_payment_view?.in_progress_animation?.cancelAnimation()
+          binding.pendingUserPaymentView.inProgressAnimation.cancelAnimation()
         }
         if (minFrame == BUTTON_ANIMATION_START_FRAME) {
           minFrame += LAST_ANIMATION_FRAME_INCREMENT
           maxFrame += LAST_ANIMATION_FRAME_INCREMENT
-          pending_user_payment_view?.in_progress_animation?.setMinAndMaxFrame(minFrame, maxFrame)
-          pending_user_payment_view?.in_progress_animation?.playAnimation()
+          binding.pendingUserPaymentView.inProgressAnimation.setMinAndMaxFrame(minFrame, maxFrame)
+          binding.pendingUserPaymentView.inProgressAnimation.playAnimation()
         } else {
           minFrame += MID_ANIMATION_FRAME_INCREMENT
           maxFrame += MID_ANIMATION_FRAME_INCREMENT
-          pending_user_payment_view?.in_progress_animation?.setMinAndMaxFrame(minFrame, maxFrame)
-          pending_user_payment_view?.in_progress_animation?.playAnimation()
+          binding.pendingUserPaymentView.inProgressAnimation.setMinAndMaxFrame(minFrame, maxFrame)
+          binding.pendingUserPaymentView.inProgressAnimation.playAnimation()
         }
       }
-
-      override fun onAnimationCancel(animation: Animator?) = Unit
-
-      override fun onAnimationStart(animation: Animator?) {
+      override fun onAnimationCancel(animation: Animator) = Unit
+      override fun onAnimationStart(animation: Animator) {
         when (minFrame) {
           ANIMATION_STEP_ONE_START_FRAME -> {
-            animateShow(step_one)
-            animateShow(step_one_desc)
+            animateShow(binding.pendingUserPaymentView.stepOne)
+            animateShow(binding.pendingUserPaymentView.stepOneDesc)
           }
           ANIMATION_STEP_TWO_START_FRAME -> {
-            animateShow(step_two)
-            animateShow(step_two_desc)
+            animateShow(binding.pendingUserPaymentView.stepTwo)
+            animateShow(binding.pendingUserPaymentView.stepTwoDesc)
           }
-          BUTTON_ANIMATION_START_FRAME -> animateButton(got_it_button)
+          BUTTON_ANIMATION_START_FRAME -> animateButton(binding.pendingUserPaymentView.gotItButton)
           else -> return
         }
       }
     })
-    pending_user_payment_view?.in_progress_animation?.playAnimation()
+    binding.pendingUserPaymentView.inProgressAnimation.playAnimation()
   }
 
   private fun animateShow(view: View) {

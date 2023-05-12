@@ -91,8 +91,8 @@ class LocalPaymentPresenter(
   private fun onViewCreatedRequestLink() {
     disposables.add(
       localPaymentInteractor.getPaymentLink(
-        data.packageName, data.fiatAmount,
-        data.currency, data.paymentId, data.skuId, data.type, data.origin,
+        data.paymentId,data.packageName, data.fiatAmount,
+        data.currency, data.skuId, data.type, data.origin,
         data.developerAddress, data.payload, data.callbackUrl, data.orderReference,
         data.referrerUrl
       )
@@ -217,7 +217,7 @@ class LocalPaymentPresenter(
       .observeOn(viewScheduler)
       .flatMapCompletable {
         Completable.fromAction { view.showCompletedPayment() }
-          .andThen(Completable.timer(view.getAnimationDuration(), TimeUnit.MILLISECONDS))
+          .andThen(Completable.timer(view.getAnimationDuration(), TimeUnit.MILLISECONDS, viewScheduler))
           .andThen(Completable.fromAction { view.popView(it.bundle, data.paymentId) })
       }
   }

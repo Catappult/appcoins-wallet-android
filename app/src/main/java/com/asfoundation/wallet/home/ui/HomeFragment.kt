@@ -2,16 +2,18 @@ package com.asfoundation.wallet.home.ui
 
 import android.annotation.SuppressLint
 import android.app.AlertDialog
+import android.os.Build
 import android.os.Bundle
 import android.preference.PreferenceManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.PopupWindow
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import com.appcoins.wallet.ui.arch.Async
+import com.appcoins.wallet.ui.arch.data.Async
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.appcoins.wallet.core.utils.android_common.RootUtil
 import com.appcoins.wallet.core.utils.android_common.WalletCurrency
@@ -51,6 +53,9 @@ class HomeFragment : BasePageViewFragment(),
   private lateinit var tooltip: View
   private lateinit var popup: PopupWindow
 
+  private val pushNotificationPermissionLauncher =
+    registerForActivityResult(ActivityResultContracts.RequestPermission()) {}
+
   override fun onCreateView(
     inflater: LayoutInflater, container: ViewGroup?,
     savedInstanceState: Bundle?
@@ -72,6 +77,7 @@ class HomeFragment : BasePageViewFragment(),
     views.toolbar.actionButtonSupport.setOnClickListener { viewModel.showSupportScreen(false) }
     views.toolbar.actionButtonSettings.setOnClickListener { viewModel.onSettingsClick() }
     viewModel.collectStateAndEvents(lifecycle, viewLifecycleOwner.lifecycleScope)
+    askNotificationsPermission()
   }
 
   override fun onPause() {
@@ -246,5 +252,14 @@ class HomeFragment : BasePageViewFragment(),
 
   private fun onTransactionClick(transaction: Transaction) {
     viewModel.onTransactionDetailsClick(transaction)
+  }
+
+  private fun askNotificationsPermission() {
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+      // Android OS manages when to ask for permission. After android 11, the default behavior is
+      // to only prompt for permission if needed, and if the user didn't deny it twice before. If
+      // the user just dismissed it without denying, then it'll prompt again next time.
+      pushNotificationPermissionLauncher.launch(android.Manifest.permission.POST_NOTIFICATIONS)
+    }
   }
 }

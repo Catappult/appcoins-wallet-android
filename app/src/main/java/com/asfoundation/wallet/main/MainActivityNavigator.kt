@@ -4,8 +4,8 @@ import android.content.Context
 import android.content.Intent
 import androidx.activity.result.ActivityResultLauncher
 import androidx.navigation.NavController
-import com.appcoins.wallet.ui.arch.Navigator
-import com.appcoins.wallet.ui.arch.navigate
+import com.appcoins.wallet.ui.arch.data.Navigator
+import com.appcoins.wallet.ui.arch.data.navigate
 import com.asfoundation.wallet.main.splash.SplashExtenderFragmentDirections
 import com.asfoundation.wallet.ui.AuthenticationPromptActivity
 import javax.inject.Inject

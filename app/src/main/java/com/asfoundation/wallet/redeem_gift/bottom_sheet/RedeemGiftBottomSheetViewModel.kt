@@ -1,6 +1,6 @@
 package com.asfoundation.wallet.redeem_gift.bottom_sheet
 
-import com.appcoins.wallet.ui.arch.Async
+import com.appcoins.wallet.ui.arch.data.Async
 import com.appcoins.wallet.ui.arch.BaseViewModel
 import com.appcoins.wallet.ui.arch.SideEffect
 import com.appcoins.wallet.ui.arch.ViewState

@@ -5,6 +5,7 @@
     android:id="@+id/iab_activity_transaction_completed"
     android:layout_width="match_parent"
     android:layout_height="260dp"
+    android:layout_gravity="center"
     android:layout_marginStart="80dp"
     android:layout_marginEnd="80dp"
     android:visibility="gone"

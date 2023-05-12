@@ -13,7 +13,7 @@ android {
   defaultConfig {
     applicationId = "com.appcoins.wallet"
     versionCode = 260
-    versionName = "2.10.0.0"
+    versionName = "2.10.0"
   }
 }
 
@@ -69,6 +69,7 @@ dependencies {
 
   implementation(libs.bundles.androidx.lifecycle)
   implementation(libs.bundles.androidx.work)
+  implementation(libs.bundles.androidx.compose)
 
   implementation(libs.bundles.network)
 
