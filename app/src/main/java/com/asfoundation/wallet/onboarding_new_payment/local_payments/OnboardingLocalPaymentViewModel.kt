@@ -48,9 +48,10 @@ class OnboardingLocalPaymentViewModel @Inject constructor(
 
     private var transactionUid: String? = null
     private val JOB_UPDATE_INTERVAL_MS = 20 * DateUtils.SECOND_IN_MILLIS
-    private val JOB_TIMEOUT_MS = 60 * DateUtils.SECOND_IN_MILLIS
+    private val JOB_TIMEOUT_MS = 180 * DateUtils.SECOND_IN_MILLIS
     private var jobTransactionStatus: Job? = null
     private val timerTransactionStatus = Timer()
+    private var isTimerRunning = false
     val scope = CoroutineScope(Dispatchers.Main)
 
     private var args: OnboardingLocalPaymentFragmentArgs =
@@ -62,30 +63,41 @@ class OnboardingLocalPaymentViewModel @Inject constructor(
 
     fun handleWebViewResult(result: ActivityResult) {
         when (result.resultCode) {
-            WebViewActivity.FAIL -> {
-                sendSideEffect { OnboardingLocalPaymentSideEffect.ShowError(R.string.unknown_error) }
-            }
+            WebViewActivity.FAIL,
             WebViewActivity.SUCCESS -> {
-                // Set up a Timer to call getTransactionStatus() every 10 seconds
-                timerTransactionStatus.schedule(object : TimerTask() {
-                    override fun run() {
-                        scope.launch {
-                            getTransactionStatus()
-                        }
-                    }
-                }, 0L, JOB_UPDATE_INTERVAL_MS)
-                // Set up a CoroutineJob that will automatically cancel after 60 seconds
-                jobTransactionStatus = scope.launch {
-                    delay(JOB_TIMEOUT_MS)
-                    sendSideEffect { OnboardingLocalPaymentSideEffect.ShowError(null) }
-                    timerTransactionStatus.cancel()
-                }
+                startTransactionStatusTimer()
             }
             WebViewActivity.USER_CANCEL -> {
                 events.sendPayPalConfirmationEvent(args.transactionBuilder, "cancel")
-                sendSideEffect { OnboardingLocalPaymentSideEffect.ShowError(null) }
+                sendSideEffect { OnboardingLocalPaymentSideEffect.ShowError(R.string.unknown_error) }
             }
         }
+    }
+
+    private fun startTransactionStatusTimer() {
+        // Set up a Timer to call getTransactionStatus() every 20 seconds
+        if (!isTimerRunning) {
+            timerTransactionStatus.schedule(object : TimerTask() {
+                override fun run() {
+                    scope.launch {
+                        getTransactionStatus()
+                    }
+                }
+            }, 0L, JOB_UPDATE_INTERVAL_MS)
+            isTimerRunning = true
+            // Set up a CoroutineJob that will automatically cancel after 180 seconds
+            jobTransactionStatus = scope.launch {
+                delay(JOB_TIMEOUT_MS)
+                sendSideEffect { OnboardingLocalPaymentSideEffect.ShowError(R.string.unknown_error) }
+                timerTransactionStatus.cancel()
+            }
+        }
+    }
+
+    fun stopTransactionStatusTimer() {
+        jobTransactionStatus?.cancel()
+        timerTransactionStatus.cancel()
+        isTimerRunning = false
     }
 
     private fun getPaymentLink() {
@@ -117,8 +129,7 @@ class OnboardingLocalPaymentViewModel @Inject constructor(
             ).map {
                 when (it.status) {
                     Transaction.Status.COMPLETED -> {
-                        jobTransactionStatus?.cancel()
-                        timerTransactionStatus.cancel()
+                        stopTransactionStatusTimer()
                         events.sendPaymentConclusionEvents(
                             BuildConfig.APPLICATION_ID,
                             args.transactionBuilder.skuId,
@@ -132,8 +143,7 @@ class OnboardingLocalPaymentViewModel @Inject constructor(
                     Transaction.Status.FAILED,
                     Transaction.Status.CANCELED,
                     Transaction.Status.FRAUD -> {
-                        jobTransactionStatus?.cancel()
-                        timerTransactionStatus.cancel()
+                        stopTransactionStatusTimer()
                         sendSideEffect {
                             OnboardingLocalPaymentSideEffect.ShowError(
                                 R.string.purchase_error_wallet_block_code_403
@@ -144,8 +154,7 @@ class OnboardingLocalPaymentViewModel @Inject constructor(
                     Transaction.Status.PENDING_SERVICE_AUTHORIZATION,
                     Transaction.Status.PROCESSING,
                     Transaction.Status.PENDING_USER_PAYMENT,
-                    Transaction.Status.SETTLED -> {
-                    }
+                    Transaction.Status.SETTLED -> {}
                 }
             }.scopedSubscribe()
         }
