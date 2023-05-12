@@ -198,6 +198,7 @@ class AdyenPaymentFragment : BasePageViewFragment(), AdyenPaymentView {
     compositeDisposable = CompositeDisposable()
     presenter = AdyenPaymentPresenter(
       view = this,
+      iabView = iabView,
       disposables = compositeDisposable,
       viewScheduler = AndroidSchedulers.mainThread(),
       networkScheduler = Schedulers.io(),
