@@ -125,6 +125,12 @@ class HomeNavigator @Inject constructor(
     mainNavController.navigate(R.id.action_navigate_to_nfts)
   }
 
+  fun navigateToTransactionsList(
+    mainNavController: NavController
+  ) {
+    mainNavController.navigate(R.id.action_navigate_to_transactions_list)
+  }
+
   fun openIntent(intent: Intent) = fragment.requireContext()
     .startActivity(intent)
 }
