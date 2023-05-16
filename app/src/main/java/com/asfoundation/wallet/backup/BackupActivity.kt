@@ -32,12 +32,13 @@ class BackupActivity : BaseActivity() {
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.activity_backup)
-    if (!intent.getBooleanExtra(IS_BACKUP_TRIGGER, false)) {
-      findViewById<AppBarLayout>(R.id.backup_wallet_app_bar).visibility = View.VISIBLE
-      toolbar()
+    if (savedInstanceState == null) {
+      if (!intent.getBooleanExtra(IS_BACKUP_TRIGGER, false)) {
+        findViewById<AppBarLayout>(R.id.backup_wallet_app_bar).visibility = View.VISIBLE
+        toolbar()
+      }
+      intent.getStringExtra(WALLET_ADDRESS_KEY)?.let { navigator.showBackupScreen(it) }
     }
-    intent.getStringExtra(WALLET_ADDRESS_KEY)?.let { navigator.showBackupScreen(it) }
-
   }
 
   override fun onOptionsItemSelected(item: MenuItem): Boolean {

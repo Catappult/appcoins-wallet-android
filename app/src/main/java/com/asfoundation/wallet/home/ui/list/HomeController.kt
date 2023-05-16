@@ -12,16 +12,9 @@ import com.asf.wallet.R
 import com.appcoins.wallet.core.arch.data.Async
 import com.asfoundation.wallet.entity.GlobalBalance
 import com.asfoundation.wallet.home.ui.list.header.HeaderModelGroup
-import com.asfoundation.wallet.home.ui.list.transactions.DateModel_
 import com.asfoundation.wallet.home.ui.list.transactions.LoadingModel_
-import com.asfoundation.wallet.home.ui.list.transactions.PerkModel_
-import com.asfoundation.wallet.home.ui.list.transactions.TransactionModel_
-import com.asfoundation.wallet.home.ui.list.transactions.empty.EmptyTransactionsModel_
-import com.asfoundation.wallet.transactions.Transaction
 import com.asfoundation.wallet.ui.widget.entity.TransactionsModel
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
-import java.util.*
-import kotlin.collections.HashSet
 
 class HomeController : Typed2EpoxyController<Async<TransactionsModel>, Async<GlobalBalance>>(
     EpoxyAsyncUtil.getAsyncBackgroundHandler(), EpoxyAsyncUtil.getAsyncBackgroundHandler()) {
@@ -41,71 +34,11 @@ class HomeController : Typed2EpoxyController<Async<TransactionsModel>, Async<Glo
         val txModel = txModelAsync()
         if (txModel == null) {
           add(LoadingModel_().id("transactions_loading"))
-        } else {
-          add(getTransactions(txModel))
         }
       }
       is Async.Fail -> Unit
-      is Async.Success -> add(getTransactions(txModelAsync()))
+      is Async.Success -> Unit
     }
-  }
-
-  private fun getTransactions(txModel: TransactionsModel): List<EpoxyModel<*>> {
-    val modelList = mutableListOf<EpoxyModel<*>>()
-    if (txModel.transactions.isEmpty()) {
-      modelList.add(
-          EmptyTransactionsModel_()
-              .id("empty_transactions_model")
-              .bonus(txModel.maxBonus)
-              .clickListener(homeClickListener)
-      )
-      return modelList
-    }
-    // Add the transaction list and non-repeated dates
-    // Note that it assumes that the transaction list is already ordered
-    val dateHashSet = HashSet<Long>()
-    for (transaction in txModel.transactions) {
-      // Add date if it hasn't been added yet
-      val date = roundTimeStamp(transaction.timeStamp)
-      if (!dateHashSet.contains(date.time)) {
-        modelList.add(
-            DateModel_()
-                .id(date.time)
-                .date(date)
-        )
-        dateHashSet.add(date.time)
-      }
-      // Add the transaction
-      if (transaction.subType == Transaction.SubType.PERK_PROMOTION) {
-        modelList.add(
-            PerkModel_()
-                .id(transaction.transactionId)
-                .transaction(transaction)
-                .clickListener(homeClickListener)
-        )
-      } else {
-        modelList.add(
-            TransactionModel_()
-                .id(transaction.transactionId)
-                .tx(transaction)
-                .defaultAddress(txModel.transactionsWalletModel.wallet.address)
-                .currency(txModel.transactionsWalletModel.networkInfo.symbol)
-                .formatter(formatter)
-                .clickListener(homeClickListener)
-        )
-      }
-    }
-    return modelList
-  }
-
-  private fun roundTimeStamp(timeStampInSec: Long): Date {
-    val calendar = Calendar.getInstance(TimeZone.getTimeZone("UTC"))
-    calendar.timeInMillis = timeStampInSec
-    calendar[Calendar.MILLISECOND] = 999
-    calendar[Calendar.SECOND] = 59
-    calendar[Calendar.MINUTE] = 59
-    calendar[Calendar.HOUR_OF_DAY] = 23
-    return calendar.time
   }
 
   override fun onModelBound(holder: EpoxyViewHolder, boundModel: EpoxyModel<*>, position: Int,

@@ -32,10 +32,10 @@ class NavBarFragmentNavigator @Inject constructor(
     view.performClick()
   }
 
-  fun navigateToMyWallets() {
+  fun navigateToRewards() {
     val bottomNavView: BottomNavigationView =
       fragment.requireActivity().findViewById(R.id.bottom_nav)
-    val view: View = bottomNavView.findViewById(R.id.my_wallets_graph)
+    val view: View = bottomNavView.findViewById(R.id.reward_graph)
     view.performClick()
   }
 

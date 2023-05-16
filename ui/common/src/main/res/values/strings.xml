@@ -271,7 +271,8 @@
   <string name="transaction_type_standard">Transfer</string>
   <string name="transaction_type_bonus">Bonus</string>
   <string name="transaction_type_eskills_reward">e-Skills Reward</string>
-  <string name="transaction_type_eskills">e-Skills Purchase</string>
+  <string name="transaction_type_eskills">e-Skills Entry Ticket</string>
+  <string name="transaction_type_eskills_ticke_refund">e-Skills Ticket Refund</string>
   <string name="transaction_type_voucher">e-Voucher</string>
   <string name="transaction_type_voucher_title">Voucher for %s</string>
   <string name="transaction_type_reverted_bonus_title">Reverted Bonus</string>
@@ -302,6 +303,30 @@
   <string name="dialog_credit_card_cvv">CVV</string>
   <string name="dialog_bank_card">Credit/debit card</string>
   <string name="dialog_expiry_date">Expiry date</string>
+  <string name="transaction_type_purchase_bonus">Purchase Bonus</string>
+  <string name="transaction_type_promo_code_bonus">Promo Code Bonus</string>
+  <string name="transaction_type_extra_bonus">Extra Bonus</string>
+  <string name="transaction_type_topup">Top-up</string>
+  <string name="transaction_type_reverted_purchase_bonus">Reverted Purchase Bonus</string>
+  <string name="transaction_type_reverted_promo_code_bonus">Reverted Promo Code Bonus</string>
+  <string name="transaction_type_reverted_extra_bonus">Reverted Extra Bonus</string>
+  <string name="transaction_type_reverted_topup">Reverted Top-up</string>
+  <string name="transaction_type_rejected_topup">Rejected Top-up</string>
+  <string name="transaction_type_rejected_subscription_purchase">Rejected Subscription Purchase</string>
+  <string name="transaction_type_rejected_purchase">Rejected Purchase</string>
+  <string name="transaction_type_rejected_eskills_ticket">Rejected e-Skills Ticket</string>
+  <string name="transaction_type_refund_subscription">Subscription Refund</string>
+  <string name="transaction_type_subscription_payment">Subscription Payment</string>
+  <string name="transaction_type_funds_sent">Funds Sent</string>
+  <string name="transaction_type_funds_received">Funds Received</string>
+  <string name="transaction_type_gift_card">Gift Card</string>
+  <string name="transaction_date_label">Date</string>
+  <string name="transaction_more_details_label">More Details</string>
+  <string name="transaction_rejected_body">This purchase has been rejected.\nFor more information contact support.</string>
+  <string name="transaction_reverted_body">This purchase has been reverted.\nFor more information contact support.</string>
+  <string name="transaction_status_rejected">Rejected</string>
+  <string name="transaction_details_header">Transaction detail</string>
+ 
 
   <string name="activity_airdrop_title">Confirm you are a human to receive AppCoins</string>
   <string name="activity_airdrop_details">This is just a security thing.</string>

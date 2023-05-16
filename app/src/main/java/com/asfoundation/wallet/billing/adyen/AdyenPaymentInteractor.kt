@@ -59,8 +59,11 @@ class AdyenPaymentInteractor @Inject constructor(
     methods: AdyenPaymentRepository.Methods, value: String,
     currency: String
   ): Single<PaymentInfoModel> {
-    return walletService.getWalletAddress()
-      .flatMap { adyenPaymentRepository.loadPaymentInfo(methods, value, currency, it) }
+    return walletService.getAndSignCurrentWalletAddress()
+      .flatMap {
+        adyenPaymentRepository
+          .loadPaymentInfo(methods, value, currency, it.address, it.signedAddress)
+      }
   }
 
   fun makePayment(

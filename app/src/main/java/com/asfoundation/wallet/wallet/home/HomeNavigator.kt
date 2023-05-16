@@ -41,8 +41,8 @@ class HomeNavigator @Inject constructor(
     openIntent(intent)
   }
 
-  fun navigateToMyWallets() {
-    navBarFragmentNavigator.navigateToMyWallets()
+  fun navigateToReward() {
+    navBarFragmentNavigator.navigateToRewards()
   }
 
   fun navigateToPromotions() {
@@ -123,6 +123,12 @@ class HomeNavigator @Inject constructor(
     mainNavController: NavController
   ) {
     mainNavController.navigate(R.id.action_navigate_to_nfts)
+  }
+
+  fun navigateToTransactionsList(
+    mainNavController: NavController
+  ) {
+    mainNavController.navigate(R.id.action_navigate_to_transactions_list)
   }
 
   fun openIntent(intent: Intent) = fragment.requireContext()
