@@ -249,7 +249,7 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
                 title = stringResource(id = title),
                 description = description ?: app,
                 amount = amount,
-                convertedAmount = convertedAmount,
+                convertedAmount = amountSubtitle,
                 subIcon = subIcon,
                 onClick = { navigateToTransactionDetails(transaction) },
                 textDecoration = textDecoration

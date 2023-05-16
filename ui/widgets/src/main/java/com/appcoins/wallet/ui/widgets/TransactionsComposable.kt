@@ -120,21 +120,21 @@ fun TransactionIcon(
   imageSize: Dp = 40.dp
 ) {
   Box(contentAlignment = Alignment.BottomEnd) {
-    if (icon != null)
-      Icon(
-        painter = painterResource(id = icon),
-        contentDescription = null,
-        tint = Color.Unspecified,
-        modifier = Modifier.size(imageSize)
-      )
-    else {
+    if (appIcon != null)
       SubcomposeAsyncImage(
         model = appIcon,
         contentDescription = null,
         modifier = Modifier.size(imageSize),
         contentScale = ContentScale.Crop,
         loading = { CircularProgressIndicator() })
-    }
+    else
+      Icon(
+        painter = painterResource(id = icon ?: R.drawable.ic_transaction_fallback),
+        contentDescription = null,
+        tint = Color.Unspecified,
+        modifier = Modifier.size(imageSize)
+      )
+
     if (subIcon != null)
       Icon(
         painter = painterResource(subIcon),
@@ -152,6 +152,7 @@ fun TransactionDetailHeader(
   amount: String?,
   convertedAmount: String?,
   subIcon: Int?,
+  linkedIcon: Int?,
   type: String?,
   textDecoration: TextDecoration,
   description: String?
@@ -200,7 +201,9 @@ fun TransactionDetailHeader(
 
     if (description != null)
       TransactionDetailLinkedHeader(
-        description = description, icon = R.drawable.ic_alert_circle, appIcon = appIcon
+        description = description,
+        icon = linkedIcon ?: R.drawable.ic_alert_circle,
+        appIcon = appIcon
       )
   }
 }
@@ -208,9 +211,12 @@ fun TransactionDetailHeader(
 @Composable
 fun TransactionDetailLinkedHeader(description: String, icon: Int? = null, appIcon: String? = null) {
   Card(colors = CardDefaults.cardColors(styleguide_blue), modifier = Modifier.fillMaxWidth()) {
-    Row(modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp)) {
-      if (appIcon == null) TransactionIcon(icon = icon, imageSize = 32.dp)
-      else TransactionIcon(appIcon = appIcon, imageSize = 32.dp)
+    Row(
+      modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp),
+      verticalAlignment = Alignment.CenterVertically
+    ) {
+      if (appIcon != null) TransactionIcon(appIcon = appIcon, imageSize = 32.dp)
+      else TransactionIcon(icon = icon, imageSize = 32.dp)
       Text(
         text = description,
         color = styleguide_light_grey,
@@ -274,7 +280,8 @@ fun TransactionDetailItem(
 fun PreviewTransactionCardHeader() {
   TransactionDetailHeader(
     icon = null,
-    appIcon = "",
+    appIcon = null,
+    linkedIcon = null,
     type = "Purchase Refund",
     amount = "-€12,21238.73",
     convertedAmount = "-12,5000.00 APPC-C",
@@ -300,7 +307,7 @@ fun PreviewTransactionDetailItem() {
 fun PreviewTransactionCard() {
   TransactionCard(
     icon = null,
-    appIcon = "",
+    appIcon = null,
     title = "Reverted Purchase Bonus test used to verify UI",
     description = "AppCoins Trivial demo sample used to test the UI",
     amount = "-€12,21238745674839837456.73",

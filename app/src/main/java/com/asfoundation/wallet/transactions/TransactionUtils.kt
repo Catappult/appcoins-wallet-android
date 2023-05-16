@@ -1,30 +1,8 @@
 package com.asfoundation.wallet.transactions
 
 import androidx.compose.ui.text.style.TextDecoration
+import com.appcoins.wallet.core.network.backend.model.TransactionTypeResponse.*
 import com.asf.wallet.R
-import com.asfoundation.wallet.transactions.TransactionType.EXTRA_BONUS
-import com.asfoundation.wallet.transactions.TransactionType.E_SKILLS_ENTRY_TICKET
-import com.asfoundation.wallet.transactions.TransactionType.E_SKILLS_REWARD
-import com.asfoundation.wallet.transactions.TransactionType.E_SKILLS_TICKET_REFUND
-import com.asfoundation.wallet.transactions.TransactionType.FUNDS_RECEIVED
-import com.asfoundation.wallet.transactions.TransactionType.FUNDS_SENT
-import com.asfoundation.wallet.transactions.TransactionType.GIFT_CARD
-import com.asfoundation.wallet.transactions.TransactionType.IN_APP_PURCHASE
-import com.asfoundation.wallet.transactions.TransactionType.OTHER
-import com.asfoundation.wallet.transactions.TransactionType.PROMO_CODE_BONUS
-import com.asfoundation.wallet.transactions.TransactionType.PURCHASE_BONUS
-import com.asfoundation.wallet.transactions.TransactionType.PURCHASE_REFUND
-import com.asfoundation.wallet.transactions.TransactionType.REJECTED_E_SKILLS_TICKET
-import com.asfoundation.wallet.transactions.TransactionType.REJECTED_PURCHASE
-import com.asfoundation.wallet.transactions.TransactionType.REJECTED_SUBSCRIPTION_PURCHASE
-import com.asfoundation.wallet.transactions.TransactionType.REJECTED_TOP_UP
-import com.asfoundation.wallet.transactions.TransactionType.REVERTED_EXTRA_BONUS
-import com.asfoundation.wallet.transactions.TransactionType.REVERTED_PROMO_CODE_BONUS
-import com.asfoundation.wallet.transactions.TransactionType.REVERTED_PURCHASE_BONUS
-import com.asfoundation.wallet.transactions.TransactionType.REVERTED_TOP_UP
-import com.asfoundation.wallet.transactions.TransactionType.SUBSCRIPTION_PAYMENT
-import com.asfoundation.wallet.transactions.TransactionType.SUBSCRIPTION_REFUND
-import com.asfoundation.wallet.transactions.TransactionType.TOP_UP
 
 data class TransactionCardInfo(
     val id: String? = null,
@@ -32,9 +10,10 @@ data class TransactionCardInfo(
     val icon: Int? = null,
     val app: String? = null,
     val appIcon: String? = null,
+    val linkedIcon: Int? = null,
     val description: String? = null,
     val amount: String? = null,
-    val convertedAmount: String? = null,
+    val amountSubtitle: String? = null,
     val subIcon: Int? = null,
     val textDecoration: TextDecoration = TextDecoration.None,
     val status: StatusType,
@@ -53,31 +32,30 @@ fun TransactionModel.cardInfoByType() =
                 title = R.string.transaction_type_purchase_bonus,
                 description = description,
                 app = app,
-                amount = mainAmount,
-                convertedAmount = convertedAmount,
-                date = date,
-                status = status,
-                transactionUrl = transactionUrl,
-                id = id
-            )
-
-        TOP_UP ->
-            TransactionCardInfo(
-                icon = R.drawable.ic_transaction_topup,
-                title = R.string.transaction_type_topup,
-                amount = mainAmount,
-                convertedAmount = convertedAmount,
+                amount = amount,
+                amountSubtitle = amountSubtitle,
                 date = date,
                 status = status,
                 transactionUrl = transactionUrl
             )
 
-        GIFT_CARD ->
+        TOPUP ->
+            TransactionCardInfo(
+                icon = R.drawable.ic_transaction_topup,
+                title = R.string.transaction_type_topup,
+                amount = amount,
+                amountSubtitle = amountSubtitle,
+                date = date,
+                status = status,
+                transactionUrl = transactionUrl
+            )
+
+        GIFTCARD ->
             TransactionCardInfo(
                 icon = R.drawable.ic_transaction_gift,
                 title = R.string.transaction_type_gift_card,
-                amount = mainAmount,
-                convertedAmount = convertedAmount,
+                amount = amount,
+                amountSubtitle = amountSubtitle,
                 date = date,
                 status = status,
                 transactionUrl = transactionUrl
@@ -87,10 +65,10 @@ fun TransactionModel.cardInfoByType() =
             TransactionCardInfo(
                 icon = R.drawable.ic_transaction_gift,
                 title = R.string.transaction_type_extra_bonus,
-                amount = mainAmount,
+                amount = amount,
                 description = description,
                 app = app,
-                convertedAmount = convertedAmount,
+                amountSubtitle = amountSubtitle,
                 date = date,
                 status = status,
                 transactionUrl = transactionUrl
@@ -100,8 +78,8 @@ fun TransactionModel.cardInfoByType() =
             TransactionCardInfo(
                 icon = R.drawable.ic_transaction_gift,
                 title = R.string.transaction_type_promo_code_bonus,
-                amount = mainAmount,
-                convertedAmount = convertedAmount,
+                amount = amount,
+                amountSubtitle = amountSubtitle,
                 date = date,
                 status = status,
                 transactionUrl = transactionUrl
@@ -111,27 +89,26 @@ fun TransactionModel.cardInfoByType() =
             TransactionCardInfo(
                 icon = R.drawable.ic_transaction_reverted_reward,
                 title = R.string.transaction_type_reverted_purchase_bonus,
-                amount = mainAmount,
+                amount = amount,
                 description = description,
                 app = app,
-                convertedAmount = convertedAmount,
+                amountSubtitle = amountSubtitle,
                 date = date,
                 status = status,
                 transactionUrl = transactionUrl,
                 subIcon = R.drawable.ic_transaction_refund_reverted_mini,
-                failedMessage = R.string.transaction_reverted_body,
-                id = id
+                failedMessage = R.string.transaction_reverted_body
             )
 
         REVERTED_EXTRA_BONUS ->
             TransactionCardInfo(
                 icon = R.drawable.ic_transaction_reverted_gift,
                 title = R.string.transaction_type_reverted_extra_bonus,
-                amount = mainAmount,
+                amount = amount,
                 description = description,
                 app = app,
                 subIcon = R.drawable.ic_transaction_refund_reverted_mini,
-                convertedAmount = convertedAmount,
+                amountSubtitle = amountSubtitle,
                 date = date,
                 status = status,
                 transactionUrl = transactionUrl,
@@ -142,38 +119,38 @@ fun TransactionModel.cardInfoByType() =
             TransactionCardInfo(
                 icon = R.drawable.ic_transaction_reverted_gift,
                 title = R.string.transaction_type_reverted_promo_code_bonus,
-                amount = mainAmount,
+                amount = amount,
                 description = description,
                 app = app,
                 subIcon = R.drawable.ic_transaction_refund_reverted_mini,
-                convertedAmount = convertedAmount,
+                amountSubtitle = amountSubtitle,
                 date = date,
                 status = status,
                 transactionUrl = transactionUrl,
                 failedMessage = R.string.transaction_reverted_body
             )
 
-        E_SKILLS_REWARD ->
+        ESKILLS_REWARD ->
             TransactionCardInfo(
                 icon = R.drawable.ic_transaction_reward,
                 title = R.string.transaction_type_eskills_reward,
                 description = description,
                 app = app,
-                amount = mainAmount,
-                convertedAmount = convertedAmount,
+                amount = amount,
+                amountSubtitle = amountSubtitle,
                 date = date,
                 status = status,
                 transactionUrl = transactionUrl
             )
 
-        E_SKILLS_TICKET_REFUND ->
+        ESKILLS_TICKET_REFUND ->
             TransactionCardInfo(
                 appIcon = appIcon,
                 title = R.string.transaction_type_eskills_ticke_refund,
                 description = description,
                 app = app,
-                amount = mainAmount,
-                convertedAmount = convertedAmount,
+                amount = amount,
+                amountSubtitle = amountSubtitle,
                 date = date,
                 status = status,
                 transactionUrl = transactionUrl,
@@ -181,14 +158,13 @@ fun TransactionModel.cardInfoByType() =
                 failedMessage = R.string.transaction_reverted_body
             )
 
-        REJECTED_E_SKILLS_TICKET ->
+        REJECTED_ESKILLS_TICKET ->
             TransactionCardInfo(
                 appIcon = appIcon,
                 title = R.string.transaction_type_rejected_eskills_ticket,
-                amount = mainAmount,
-                description = description,
+                amount = amount,
                 app = app,
-                convertedAmount = convertedAmount,
+                amountSubtitle = amountSubtitle,
                 date = date,
                 status = status,
                 transactionUrl = transactionUrl,
@@ -201,98 +177,91 @@ fun TransactionModel.cardInfoByType() =
             TransactionCardInfo(
                 icon = R.drawable.ic_transaction_transfer,
                 title = R.string.transaction_type_funds_sent,
-                amount = mainAmount,
-                description = description,
-                app = app,
-                convertedAmount = convertedAmount,
+                amount = amount,
+                amountSubtitle = amountSubtitle,
                 date = date,
                 status = status,
                 transactionUrl = transactionUrl,
-                to = to
+                to = to,
+                from = from
             )
 
         FUNDS_RECEIVED ->
             TransactionCardInfo(
                 icon = R.drawable.ic_transaction_transfer,
                 title = R.string.transaction_type_funds_received,
-                amount = mainAmount,
-                description = description,
-                app = app,
-                convertedAmount = convertedAmount,
+                amount = amount,
+                amountSubtitle = amountSubtitle,
                 date = date,
                 status = status,
                 transactionUrl = transactionUrl,
-                from = from
+                from = from,
+                to = to
             )
 
-        IN_APP_PURCHASE ->
+        INAPP_PURCHASE ->
             TransactionCardInfo(
                 appIcon = appIcon,
                 title = R.string.transaction_type_iab,
-                amount = mainAmount,
-                description = description,
+                amount = amount,
                 app = app,
-                convertedAmount = convertedAmount,
+                amountSubtitle = amountSubtitle,
                 date = date,
                 status = status,
                 transactionUrl = transactionUrl,
-                id = id,
-                to = to
+                id = orderId,
+                to = to,
+                from = from
             )
 
         PURCHASE_REFUND ->
             TransactionCardInfo(
                 icon = R.drawable.ic_transaction_reverted_reward,
                 title = R.string.transaction_type_reverted_purchase_title,
-                amount = mainAmount,
+                amount = amount,
                 description = description,
                 app = app,
-                convertedAmount = convertedAmount,
+                amountSubtitle = amountSubtitle,
                 date = date,
                 status = status,
                 transactionUrl = transactionUrl,
                 subIcon = R.drawable.ic_transaction_refund_reverted_mini,
                 failedMessage = R.string.transaction_reverted_body,
-                id = id,
-                to = to
             )
 
         REJECTED_PURCHASE ->
             TransactionCardInfo(
                 icon = R.drawable.ic_transaction_reverted_reward,
                 title = R.string.transaction_type_rejected_purchase,
-                amount = mainAmount,
-                description = description,
+                amount = amount,
                 app = app,
-                convertedAmount = convertedAmount,
+                amountSubtitle = amountSubtitle,
                 date = date,
                 status = status,
                 transactionUrl = transactionUrl,
                 subIcon = R.drawable.ic_transaction_rejected_mini,
                 textDecoration = TextDecoration.LineThrough,
-                failedMessage = R.string.transaction_rejected_body,
-                id = id,
-                to = to
+                failedMessage = R.string.transaction_rejected_body
             )
 
-        REVERTED_TOP_UP ->
+        REVERTED_TOPUP ->
             TransactionCardInfo(
                 icon = R.drawable.ic_transaction_reverted,
                 title = R.string.transaction_type_reverted_topup,
-                amount = mainAmount,
-                convertedAmount = convertedAmount,
+                amount = amount,
+                amountSubtitle = amountSubtitle,
                 date = date,
                 status = status,
                 transactionUrl = transactionUrl,
                 failedMessage = R.string.transaction_reverted_body
             )
 
-        REJECTED_TOP_UP ->
+        REJECTED_TOPUP ->
             TransactionCardInfo(
                 icon = R.drawable.ic_transaction_rejected_topup,
                 title = R.string.transaction_type_rejected_topup,
-                amount = mainAmount,
-                convertedAmount = convertedAmount,
+                amount = amount,
+                amountSubtitle = amountSubtitle,
                 date = date,
                 status = status,
                 transactionUrl = transactionUrl,
@@ -304,23 +273,25 @@ fun TransactionModel.cardInfoByType() =
             TransactionCardInfo(
                 appIcon = appIcon,
                 title = R.string.transaction_type_subscription_payment,
-                amount = mainAmount,
-                description = description,
+                amount = amount,
                 app = app,
-                convertedAmount = convertedAmount,
+                amountSubtitle = amountSubtitle,
                 date = date,
                 status = status,
-                transactionUrl = transactionUrl
+                transactionUrl = transactionUrl,
+                id = orderId,
+                to = to,
+                from = from
             )
 
         SUBSCRIPTION_REFUND ->
             TransactionCardInfo(
                 appIcon = appIcon,
                 title = R.string.transaction_type_refund_subscription,
-                amount = mainAmount,
+                amount = amount,
                 description = description,
                 app = app,
-                convertedAmount = convertedAmount,
+                amountSubtitle = amountSubtitle,
                 date = date,
                 status = status,
                 transactionUrl = transactionUrl,
@@ -332,43 +303,56 @@ fun TransactionModel.cardInfoByType() =
             TransactionCardInfo(
                 appIcon = appIcon,
                 title = R.string.transaction_type_rejected_subscription_purchase,
-                amount = mainAmount,
-                description = description,
+                amount = amount,
                 app = app,
-                convertedAmount = convertedAmount,
+                amountSubtitle = amountSubtitle,
                 date = date,
                 status = status,
                 transactionUrl = transactionUrl,
                 failedMessage = R.string.transaction_rejected_body,
                 subIcon = R.drawable.ic_transaction_rejected_mini,
                 textDecoration = TextDecoration.LineThrough,
-                id = id,
-                to = to
             )
 
-        E_SKILLS_ENTRY_TICKET ->
+        ESKILLS_ENTRY_TICKET ->
             TransactionCardInfo(
                 appIcon = appIcon,
                 title = R.string.transaction_type_eskills,
-                amount = mainAmount,
+                amount = amount,
                 description = description,
                 app = app,
-                convertedAmount = convertedAmount,
+                amountSubtitle = amountSubtitle,
+                date = date,
+                status = status,
+                transactionUrl = transactionUrl,
+                id = orderId,
+                to = to,
+                from = from
+            )
+
+        ESKILLS_WITHDRAW ->
+            TransactionCardInfo(
+                icon = R.drawable.ic_transaction_reward,
+                title = R.string.e_skills_withdraw_title,
+                amount = amount,
+                app = app,
+                amountSubtitle = amountSubtitle,
                 date = date,
                 status = status,
                 transactionUrl = transactionUrl,
             )
 
-        OTHER ->
+        BURN, FEE, WITHDRAW, VOUCHER_PURCHASE -> {
             TransactionCardInfo(
-                icon = R.drawable.ic_transaction_transfer,
-                title = R.string.error_general,
-                amount = mainAmount,
+                icon = R.drawable.ic_transaction_fallback,
+                title = R.string.subtitle_transaction_num,
+                amount = amount,
                 description = description,
                 app = app,
-                convertedAmount = convertedAmount,
+                amountSubtitle = amountSubtitle,
                 date = date,
                 status = status,
                 transactionUrl = transactionUrl,
             )
+        }
     }

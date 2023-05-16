@@ -151,11 +151,12 @@ class TransactionDetailsFragment : BasePageViewFragment() {
                 icon = icon,
                 appIcon = appIcon,
                 amount = amount,
-                convertedAmount = convertedAmount,
+                convertedAmount = amountSubtitle,
                 subIcon = subIcon,
                 type = stringResource(title),
                 textDecoration = textDecoration,
-                description = description
+                description = description,
+                linkedIcon = linkedIcon
               )
 
               TransactionDetailItem(
@@ -247,7 +248,7 @@ class TransactionDetailsFragment : BasePageViewFragment() {
         amount = "-€12.73",
         app = "Horizon",
         description = "Rejected Purchase",
-        convertedAmount = "-30.45 APPC-C",
+        amountSubtitle = "-30.45 APPC-C",
         subIcon = R.drawable.ic_transaction_rejected_mini,
         textDecoration = TextDecoration.LineThrough,
         date = "Aug, 30 2022, 12:30AM",

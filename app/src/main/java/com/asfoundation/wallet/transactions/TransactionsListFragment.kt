@@ -140,7 +140,7 @@ class TransactionsListFragment : BasePageViewFragment() {
                     title = stringResource(id = title),
                     description = description,
                     amount = amount,
-                    convertedAmount = convertedAmount,
+                    convertedAmount = amountSubtitle,
                     subIcon = subIcon,
                     onClick = { navigateToTransactionDetails(transaction) },
                     textDecoration = textDecoration
