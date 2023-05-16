@@ -27,6 +27,7 @@ import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_orange
 import com.appcoins.wallet.ui.widgets.GamificationHeader
 import com.appcoins.wallet.ui.widgets.RewardsActions
 import com.appcoins.wallet.ui.widgets.TopBar
+import com.asf.wallet.R
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -94,10 +95,14 @@ class RewardFragment : BasePageViewFragment(), SingleStateFragment<RewardState, 
                 .padding(padding),
         ) {
             GamificationHeader(
-                { /*TODO navigate to gamification */ },
-                indicatorColor = styleguide_orange, // TODO
-                currentProgress = 8000,  //TODO
-                maxProgress = 15000  //TODO
+                onClick = { navigator.navigateToGamification(cachedBonus = 16.0) },  //TODO
+                indicatorColor = styleguide_orange,
+                valueSpendForNextLevel = "16",
+                currencySpend = "AppCoins Credits",
+                currentProgress = 8000,
+                maxProgress = 15000,
+                bonusValue = "16",
+                planetDrawable = R.drawable.gamification_jupiter_reached
             )
             RewardsActions(
                 { navigator.navigateToWithdrawScreen() },

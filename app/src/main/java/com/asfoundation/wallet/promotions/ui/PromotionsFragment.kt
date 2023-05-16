@@ -294,6 +294,7 @@ class PromotionsFragment : BasePageViewFragment(),
     }
   }
 
+  //TODO
   private fun hideAllGamificationHeaderLayouts() {
     views.currentLevelHeader.almostVipLevelHeader.root.visibility = View.GONE
     views.currentLevelHeader.vipLevelHeader.root.visibility = View.GONE

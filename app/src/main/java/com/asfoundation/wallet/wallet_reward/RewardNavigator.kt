@@ -8,6 +8,7 @@ import com.appcoins.wallet.ui.arch.data.navigate
 import com.asfoundation.wallet.eskills.withdraw.WithdrawActivity
 import com.asfoundation.wallet.promo_code.bottom_sheet.entry.PromoCodeBottomSheetFragment
 import com.asfoundation.wallet.redeem_gift.bottom_sheet.RedeemGiftBottomSheetFragment
+import com.asfoundation.wallet.ui.gamification.GamificationActivity
 import com.asfoundation.wallet.ui.settings.SettingsActivity
 import javax.inject.Inject
 
@@ -43,4 +44,9 @@ class RewardNavigator @Inject constructor(
       .apply { flags = Intent.FLAG_ACTIVITY_SINGLE_TOP or Intent.FLAG_ACTIVITY_NEW_TASK }
     fragment.requireContext().startActivity(intent)
   }
+
+  fun navigateToGamification(cachedBonus: Double) {
+    fragment.startActivity(GamificationActivity.newIntent(fragment.requireContext(), cachedBonus))
+  }
+
 }

@@ -1,5 +1,6 @@
 package com.appcoins.wallet.ui.widgets
 
+import androidx.annotation.DrawableRes
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -15,9 +16,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.semantics.Role.Companion.Image
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -34,8 +33,12 @@ import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_orange
 fun GamificationHeader(
   onClick: () -> Unit,
   indicatorColor: Color,
-  currentProgress: Int, // float?
-  maxProgress: Int
+  valueSpendForNextLevel: String,
+  currencySpend: String,
+  currentProgress: Int,
+  maxProgress: Int,
+  bonusValue: String,
+  @DrawableRes planetDrawable: Int
 ) {
   Card(
     modifier = Modifier
@@ -71,8 +74,8 @@ fun GamificationHeader(
             .padding(start = 16.dp, top = 16.dp),
           verticalArrangement = Arrangement.SpaceEvenly,
         ) {
-          Text( // TODO string from values
-            text = stringResource(id = R.string.rewards_spend_to_next_level_body, "16", "$"),
+          Text(
+            text = stringResource(id = R.string.rewards_spend_to_next_level_body, valueSpendForNextLevel, currencySpend),
             style = MaterialTheme.typography.titleMedium,
             color = WalletColors.styleguide_white,
           )
@@ -105,7 +108,7 @@ fun GamificationHeader(
             .fillMaxHeight()
         ) {
           Image(
-            painter = painterResource(id = R.drawable.gamification_jupiter_reached),  //TODO
+            painter = painterResource(id = planetDrawable), //R.drawable.gamification_jupiter_reached
             contentDescription = "Planet",
             modifier = Modifier
               .size(82.dp)
@@ -136,7 +139,7 @@ fun GamificationHeader(
         )
 
         Text(
-          text = stringResource(id = R.string.vip_program_max_bonus_short, "16"),  //TODO value
+          text = stringResource(id = R.string.vip_program_max_bonus_short, bonusValue),
           fontSize = 16.sp,
           fontWeight = FontWeight.Bold,
           color = WalletColors.styleguide_light_grey,
@@ -165,9 +168,13 @@ fun GamificationHeader(
 @Composable
 fun PreviewRewardsGamification() {
   GamificationHeader(
-    { },
-    styleguide_orange,
-    100,
-  300
+    onClick = { },
+    indicatorColor = styleguide_orange,
+    valueSpendForNextLevel = "16",
+    currencySpend = "AppCoins Credits",
+    currentProgress = 8000,
+    maxProgress = 15000,
+    bonusValue = "16",
+    planetDrawable = R.drawable.gamification_jupiter_reached
   )
 }
