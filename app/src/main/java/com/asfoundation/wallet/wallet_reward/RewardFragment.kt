@@ -23,6 +23,8 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.appcoins.wallet.ui.arch.SingleStateFragment
 import com.appcoins.wallet.ui.common.theme.WalletColors
+import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_orange
+import com.appcoins.wallet.ui.widgets.GamificationHeader
 import com.appcoins.wallet.ui.widgets.RewardsActions
 import com.appcoins.wallet.ui.widgets.TopBar
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
@@ -91,7 +93,12 @@ class RewardFragment : BasePageViewFragment(), SingleStateFragment<RewardState, 
                 .verticalScroll(rememberScrollState())
                 .padding(padding),
         ) {
-            DummyCard()
+            GamificationHeader(
+                { /*TODO navigate to gamification */ },
+                indicatorColor = styleguide_orange, // TODO
+                currentProgress = 8000,  //TODO
+                maxProgress = 15000  //TODO
+            )
             RewardsActions(
                 { navigator.navigateToWithdrawScreen() },
                 { navigator.showPromoCodeFragment() },
