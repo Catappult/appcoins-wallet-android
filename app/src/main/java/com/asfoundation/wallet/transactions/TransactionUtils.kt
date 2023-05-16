@@ -10,7 +10,6 @@ data class TransactionCardInfo(
     val icon: Int? = null,
     val app: String? = null,
     val appIcon: String? = null,
-    val linkedIcon: Int? = null,
     val description: String? = null,
     val amount: String? = null,
     val amountSubtitle: String? = null,

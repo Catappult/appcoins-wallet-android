@@ -155,8 +155,7 @@ class TransactionDetailsFragment : BasePageViewFragment() {
                 subIcon = subIcon,
                 type = stringResource(title),
                 textDecoration = textDecoration,
-                description = description,
-                linkedIcon = linkedIcon
+                description = description
               )
 
               TransactionDetailItem(

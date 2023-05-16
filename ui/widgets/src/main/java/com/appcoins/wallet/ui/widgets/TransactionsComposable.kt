@@ -152,7 +152,6 @@ fun TransactionDetailHeader(
   amount: String?,
   convertedAmount: String?,
   subIcon: Int?,
-  linkedIcon: Int?,
   type: String?,
   textDecoration: TextDecoration,
   description: String?
@@ -199,23 +198,22 @@ fun TransactionDetailHeader(
       TransactionIcon(icon, appIcon, subIcon, 56.dp)
     }
 
-    if (description != null)
+    if (description != null && appIcon != null)
       TransactionDetailLinkedHeader(
         description = description,
-        icon = linkedIcon ?: R.drawable.ic_alert_circle,
         appIcon = appIcon
       )
   }
 }
 
 @Composable
-fun TransactionDetailLinkedHeader(description: String, icon: Int? = null, appIcon: String? = null) {
+fun TransactionDetailLinkedHeader(description: String, appIcon: String? = null) {
   Card(colors = CardDefaults.cardColors(styleguide_blue), modifier = Modifier.fillMaxWidth()) {
     Row(
       modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp),
       verticalAlignment = Alignment.CenterVertically
     ) {
-      TransactionIcon(appIcon = appIcon, icon = icon, imageSize = 32.dp)
+      TransactionIcon(appIcon = appIcon, imageSize = 32.dp)
       Text(
         text = description,
         color = styleguide_light_grey,
@@ -280,7 +278,6 @@ fun PreviewTransactionCardHeader() {
   TransactionDetailHeader(
     icon = null,
     appIcon = null,
-    linkedIcon = null,
     type = "Purchase Refund",
     amount = "-€12,21238.73",
     convertedAmount = "-12,5000.00 APPC-C",
