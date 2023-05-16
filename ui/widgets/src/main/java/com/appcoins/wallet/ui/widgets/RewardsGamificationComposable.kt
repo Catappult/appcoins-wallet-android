@@ -8,6 +8,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -20,6 +21,10 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.airbnb.lottie.compose.LottieAnimation
+import com.airbnb.lottie.compose.LottieCompositionSpec
+import com.airbnb.lottie.compose.animateLottieCompositionAsState
+import com.airbnb.lottie.compose.rememberLottieComposition
 import com.appcoins.wallet.ui.common.theme.WalletColors
 import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_grey_blue
 import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_grey_blue_background
@@ -120,14 +125,16 @@ fun GamificationHeader(
         horizontalArrangement = Arrangement.SpaceBetween,
       )
       {
-        Image(
-          painter = painterResource(R.drawable.ic_bonus),  //TODO replace with anim
-          "bonus image",
+        val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.bonus_gift_animation))
+        val progress by animateLottieCompositionAsState(composition, iterations = Int.MAX_VALUE)
+        LottieAnimation(
           modifier = Modifier
-            .height(32.dp)
-            .width(32.dp)
-            .align(Alignment.CenterVertically)
+            .size(32.dp)
+            .align(Alignment.CenterVertically),
+          composition = composition,
+          progress = { progress }
         )
+
         Text(
           text = stringResource(id = R.string.vip_program_max_bonus_short, "16"),  //TODO value
           fontSize = 16.sp,
