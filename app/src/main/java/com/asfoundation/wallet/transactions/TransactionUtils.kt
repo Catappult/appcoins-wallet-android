@@ -342,7 +342,10 @@ fun TransactionModel.cardInfoByType() =
                 transactionUrl = transactionUrl,
             )
 
-        BURN, FEE, WITHDRAW, VOUCHER_PURCHASE -> {
+        FEE,
+        BURN,
+        WITHDRAW,
+        VOUCHER_PURCHASE -> {
             TransactionCardInfo(
                 icon = R.drawable.ic_transaction_fallback,
                 title = R.string.subtitle_transaction_num,

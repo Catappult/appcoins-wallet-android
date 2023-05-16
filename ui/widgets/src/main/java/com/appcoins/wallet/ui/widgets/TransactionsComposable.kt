@@ -215,8 +215,7 @@ fun TransactionDetailLinkedHeader(description: String, icon: Int? = null, appIco
       modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp),
       verticalAlignment = Alignment.CenterVertically
     ) {
-      if (appIcon != null) TransactionIcon(appIcon = appIcon, imageSize = 32.dp)
-      else TransactionIcon(icon = icon, imageSize = 32.dp)
+      TransactionIcon(appIcon = appIcon, icon = icon, imageSize = 32.dp)
       Text(
         text = description,
         color = styleguide_light_grey,
