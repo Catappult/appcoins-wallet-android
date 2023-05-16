@@ -1,7 +1,33 @@
 package com.asfoundation.wallet.transactions
 
 import androidx.compose.ui.text.style.TextDecoration
-import com.appcoins.wallet.core.network.backend.model.TransactionTypeResponse.*
+import com.appcoins.wallet.core.network.backend.model.TransactionTypeResponse.BURN
+import com.appcoins.wallet.core.network.backend.model.TransactionTypeResponse.ESKILLS_ENTRY_TICKET
+import com.appcoins.wallet.core.network.backend.model.TransactionTypeResponse.ESKILLS_REWARD
+import com.appcoins.wallet.core.network.backend.model.TransactionTypeResponse.ESKILLS_TICKET_REFUND
+import com.appcoins.wallet.core.network.backend.model.TransactionTypeResponse.ESKILLS_WITHDRAW
+import com.appcoins.wallet.core.network.backend.model.TransactionTypeResponse.EXTRA_BONUS
+import com.appcoins.wallet.core.network.backend.model.TransactionTypeResponse.FEE
+import com.appcoins.wallet.core.network.backend.model.TransactionTypeResponse.FUNDS_RECEIVED
+import com.appcoins.wallet.core.network.backend.model.TransactionTypeResponse.FUNDS_SENT
+import com.appcoins.wallet.core.network.backend.model.TransactionTypeResponse.GIFTCARD
+import com.appcoins.wallet.core.network.backend.model.TransactionTypeResponse.INAPP_PURCHASE
+import com.appcoins.wallet.core.network.backend.model.TransactionTypeResponse.PROMO_CODE_BONUS
+import com.appcoins.wallet.core.network.backend.model.TransactionTypeResponse.PURCHASE_BONUS
+import com.appcoins.wallet.core.network.backend.model.TransactionTypeResponse.PURCHASE_REFUND
+import com.appcoins.wallet.core.network.backend.model.TransactionTypeResponse.REJECTED_ESKILLS_TICKET
+import com.appcoins.wallet.core.network.backend.model.TransactionTypeResponse.REJECTED_PURCHASE
+import com.appcoins.wallet.core.network.backend.model.TransactionTypeResponse.REJECTED_SUBSCRIPTION_PURCHASE
+import com.appcoins.wallet.core.network.backend.model.TransactionTypeResponse.REJECTED_TOPUP
+import com.appcoins.wallet.core.network.backend.model.TransactionTypeResponse.REVERTED_EXTRA_BONUS
+import com.appcoins.wallet.core.network.backend.model.TransactionTypeResponse.REVERTED_PROMO_CODE_BONUS
+import com.appcoins.wallet.core.network.backend.model.TransactionTypeResponse.REVERTED_PURCHASE_BONUS
+import com.appcoins.wallet.core.network.backend.model.TransactionTypeResponse.REVERTED_TOPUP
+import com.appcoins.wallet.core.network.backend.model.TransactionTypeResponse.SUBSCRIPTION_PAYMENT
+import com.appcoins.wallet.core.network.backend.model.TransactionTypeResponse.SUBSCRIPTION_REFUND
+import com.appcoins.wallet.core.network.backend.model.TransactionTypeResponse.TOPUP
+import com.appcoins.wallet.core.network.backend.model.TransactionTypeResponse.VOUCHER_PURCHASE
+import com.appcoins.wallet.core.network.backend.model.TransactionTypeResponse.WITHDRAW
 import com.asf.wallet.R
 
 data class TransactionCardInfo(
@@ -30,6 +56,7 @@ fun TransactionModel.cardInfoByType() =
                 icon = R.drawable.ic_transaction_reward,
                 title = R.string.transaction_type_purchase_bonus,
                 description = description,
+                appIcon = appIcon,
                 app = app,
                 amount = amount,
                 amountSubtitle = amountSubtitle,
@@ -67,6 +94,7 @@ fun TransactionModel.cardInfoByType() =
                 amount = amount,
                 description = description,
                 app = app,
+                appIcon = appIcon,
                 amountSubtitle = amountSubtitle,
                 date = date,
                 status = status,
@@ -134,6 +162,7 @@ fun TransactionModel.cardInfoByType() =
                 icon = R.drawable.ic_transaction_reward,
                 title = R.string.transaction_type_eskills_reward,
                 description = description,
+                appIcon = appIcon,
                 app = app,
                 amount = amount,
                 amountSubtitle = amountSubtitle,
@@ -203,6 +232,7 @@ fun TransactionModel.cardInfoByType() =
                 appIcon = appIcon,
                 title = R.string.transaction_type_iab,
                 amount = amount,
+                description = description,
                 app = app,
                 amountSubtitle = amountSubtitle,
                 date = date,

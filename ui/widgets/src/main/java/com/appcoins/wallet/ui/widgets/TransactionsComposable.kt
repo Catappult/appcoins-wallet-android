@@ -120,7 +120,14 @@ fun TransactionIcon(
   imageSize: Dp = 40.dp
 ) {
   Box(contentAlignment = Alignment.BottomEnd) {
-    if (appIcon != null)
+    if (icon != null)
+      Icon(
+        painter = painterResource(id = icon),
+        contentDescription = null,
+        tint = Color.Unspecified,
+        modifier = Modifier.size(imageSize)
+      )
+    else if (appIcon != null)
       SubcomposeAsyncImage(
         model = appIcon,
         contentDescription = null,
@@ -129,7 +136,7 @@ fun TransactionIcon(
         loading = { CircularProgressIndicator() })
     else
       Icon(
-        painter = painterResource(id = icon ?: R.drawable.ic_transaction_fallback),
+        painter = painterResource(id = R.drawable.ic_transaction_fallback),
         contentDescription = null,
         tint = Color.Unspecified,
         modifier = Modifier.size(imageSize)
@@ -303,7 +310,7 @@ fun PreviewTransactionDetailItem() {
 fun PreviewTransactionCard() {
   TransactionCard(
     icon = null,
-    appIcon = null,
+    appIcon = "",
     title = "Reverted Purchase Bonus test used to verify UI",
     description = "AppCoins Trivial demo sample used to test the UI",
     amount = "-€12,21238745674839837456.73",
