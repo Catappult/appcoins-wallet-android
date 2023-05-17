@@ -26,7 +26,6 @@ import com.asfoundation.wallet.backup.triggers.TriggerUtils.toJson
 import com.asfoundation.wallet.backup.use_cases.ShouldShowBackupTriggerUseCase
 import com.asfoundation.wallet.billing.analytics.WalletsAnalytics
 import com.asfoundation.wallet.billing.analytics.WalletsEventSender
-import com.asfoundation.wallet.change_currency.use_cases.GetSelectedCurrencyUseCase
 import com.asfoundation.wallet.entity.GlobalBalance
 import com.asfoundation.wallet.entity.Wallet
 import com.asfoundation.wallet.gamification.ObserveUserStatsUseCase
@@ -41,6 +40,7 @@ import com.asfoundation.wallet.transactions.TransactionModel
 import com.asfoundation.wallet.transactions.toModel
 import com.asfoundation.wallet.ui.balance.TokenBalance
 import com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue
+import com.appcoins.wallet.feature.changecurrency.data.use_cases.GetSelectedCurrencyUseCase
 import com.asfoundation.wallet.ui.widget.entity.TransactionsModel
 import com.asfoundation.wallet.ui.widget.holder.CardNotificationAction
 import com.asfoundation.wallet.update_required.use_cases.BuildUpdateIntentUseCase.Companion.PLAY_APP_VIEW_URL
@@ -49,6 +49,7 @@ import com.asfoundation.wallet.wallet.home.HomeViewModel.UiState.Success
 import com.asfoundation.wallet.wallets.domain.WalletBalance
 import com.asfoundation.wallet.wallets.usecases.GetWalletInfoUseCase
 import com.asfoundation.wallet.wallets.usecases.ObserveWalletInfoUseCase
+import com.github.michaelbull.result.unwrap
 import com.google.gson.Gson
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.Completable
@@ -60,6 +61,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.rx2.rxSingle
 import java.math.BigDecimal
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
@@ -199,10 +201,10 @@ class HomeViewModel @Inject constructor(
 
   private fun fetchTransactionData() {
     Observable.combineLatest(
-      getSelectedCurrencyUseCase(false).toObservable(), observeDefaultWalletUseCase()
+      rxSingle { getSelectedCurrencyUseCase(false) }.toObservable(), observeDefaultWalletUseCase()
     ) { selectedCurrency, wallet ->
-      defaultCurrency = selectedCurrency
-      fetchTransactions(wallet, selectedCurrency)
+      defaultCurrency = selectedCurrency.unwrap()
+      fetchTransactions(wallet, defaultCurrency)
     }.subscribe()
   }
 

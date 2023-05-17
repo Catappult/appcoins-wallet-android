@@ -5,10 +5,10 @@ import androidx.activity.result.ActivityResult
 
 import androidx.lifecycle.SavedStateHandle
 import com.appcoins.wallet.core.network.microservices.model.Transaction
-import com.appcoins.wallet.ui.arch.BaseViewModel
-import com.appcoins.wallet.ui.arch.SideEffect
-import com.appcoins.wallet.ui.arch.ViewState
-import com.appcoins.wallet.ui.arch.data.Async
+import com.appcoins.wallet.core.arch.BaseViewModel
+import com.appcoins.wallet.core.arch.SideEffect
+import com.appcoins.wallet.core.arch.ViewState
+import com.appcoins.wallet.core.arch.data.Async
 import com.asf.wallet.BuildConfig
 import com.asf.wallet.R
 import com.asfoundation.wallet.onboarding_new_payment.OnboardingPaymentEvents

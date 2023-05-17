@@ -26,8 +26,8 @@ import androidx.compose.ui.unit.sp
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.appcoins.wallet.core.network.backend.model.GamificationStatus
-import com.appcoins.wallet.ui.arch.SingleStateFragment
-import com.appcoins.wallet.ui.arch.data.Async
+import com.appcoins.wallet.core.arch.SingleStateFragment
+import com.appcoins.wallet.core.arch.data.Async
 import com.appcoins.wallet.ui.common.theme.WalletColors
 import com.appcoins.wallet.ui.widgets.RewardsActions
 import com.appcoins.wallet.ui.widgets.CardPromotionItem

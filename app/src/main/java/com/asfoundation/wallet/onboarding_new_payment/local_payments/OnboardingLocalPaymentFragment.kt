@@ -11,8 +11,8 @@ import androidx.annotation.Nullable
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
-import com.appcoins.wallet.ui.arch.SingleStateFragment
-import com.appcoins.wallet.ui.arch.data.Async
+import com.appcoins.wallet.core.arch.SingleStateFragment
+import com.appcoins.wallet.core.arch.data.Async
 import com.asf.wallet.R
 import com.asf.wallet.databinding.LocalPaymentLayoutBinding
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
