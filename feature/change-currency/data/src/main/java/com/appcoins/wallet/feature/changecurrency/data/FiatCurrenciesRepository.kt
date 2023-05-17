@@ -11,6 +11,7 @@ import com.appcoins.wallet.sharedpreferences.FiatCurrenciesPreferencesDataSource
 import com.github.michaelbull.result.map
 import com.github.michaelbull.result.onFailure
 import com.github.michaelbull.result.onSuccess
+import com.github.michaelbull.result.unwrap
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.rx2.await
 import kotlinx.coroutines.withContext
@@ -19,35 +20,34 @@ import javax.inject.Inject
 class FiatCurrenciesRepository @Inject constructor(
   private val fiatCurrenciesApi: FiatCurrenciesApi,
   private val fiatCurrenciesPreferencesDataSource: FiatCurrenciesPreferencesDataSource,
-  private val fiatCurrenciesMapper: FiatCurrenciesMapper,
   private val fiatCurrenciesDao: FiatCurrenciesDao,
   private val conversionService: LocalCurrencyConversionService,
   private val dispatchers: Dispatchers,
   @ApplicationContext private val context: Context
 ) {
 
-  private suspend fun fetchCurrenciesList(): DataResult<List<FiatCurrencyEntity>> =
+  private suspend fun fetchCurrenciesList(): DataResult<List<FiatCurrency>> =
     withContext(dispatchers.io) {
       fiatCurrenciesApi.getFiatCurrencies()
         .map { response ->
-          fiatCurrenciesMapper.mapResponseToCurrencyList(response)
+          response.mapResponseToCurrencyListEntity()
         }
         .onSuccess {
           fiatCurrenciesDao.replaceAllBy(it)
         }
-        .onFailure {
-
+        .map {
+          it.mapToCurrency()
         }
     }
 
-  suspend fun getCurrenciesList(): DataResult<List<FiatCurrencyEntity>> =
+  suspend fun getCurrenciesList(): DataResult<List<FiatCurrency>> =
     withContext(dispatchers.io) {
       val versionCode = context.packageManager.getPackageInfo(context.packageName, 0).versionCode
       if (fiatCurrenciesPreferencesDataSource.getCurrencyListLastVersion() != versionCode) {
         fiatCurrenciesPreferencesDataSource.setCurrencyListLastVersion(versionCode)
         return@withContext fetchCurrenciesList()
       } else {
-        fiatCurrenciesDao.getFiatCurrencies().toDataResult()
+        fiatCurrenciesDao.getFiatCurrencies().mapToCurrency().toDataResult()
       }
     }
 

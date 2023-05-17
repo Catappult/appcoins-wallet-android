@@ -21,6 +21,7 @@ import com.appcoins.wallet.feature.changecurrency.data.ChangeFiatCurrency
 import com.appcoins.wallet.feature.changecurrency.data.FiatCurrencyEntity
 import com.appcoins.wallet.feature.changecurrency.ui.bottomsheet.ChooseCurrencyRoute
 import com.appcoins.wallet.core.arch.data.Async
+import com.appcoins.wallet.feature.changecurrency.data.FiatCurrency
 import com.appcoins.wallet.ui.common.theme.WalletColors
 import com.appcoins.wallet.ui.common.theme.WalletTheme
 import com.appcoins.wallet.ui.common.theme.WalletTypography
@@ -113,13 +114,13 @@ private fun ChangeFiatCurrencyList(
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun CurrencyItem(
-  currencyItem: FiatCurrencyEntity,
+  currencyItem: FiatCurrency,
   isSelected: Boolean = false,
   onExitClick: () -> Unit,
 ) {
   val bottomSheetState = rememberModalBottomSheetState(skipPartiallyExpanded = false)
   var openBottomSheet by rememberSaveable { mutableStateOf(false) }
-  var chosenCurrency: FiatCurrencyEntity? by rememberSaveable { mutableStateOf(null) }
+  var chosenCurrency: FiatCurrency? by rememberSaveable { mutableStateOf(null) }
 
   Card(
     shape = shapes.large,
@@ -187,13 +188,13 @@ private fun ChangeFiatCurrencyListPreview() {
       model = ChangeFiatCurrency(
         selectedCurrency = "EUR",
         list = listOf(
-          FiatCurrencyEntity(
+          FiatCurrency(
             currency = "EUR",
             label = "Euro",
             flag = "https://upload.wikimedia.org/wikipedia/commons/b/b7/Flag_of_Europe.svg",
             sign = "€",
           ),
-          FiatCurrencyEntity(
+          FiatCurrency(
             currency = "USD",
             label = "United States Dollar",
             flag = "https://upload.wikimedia.org/wikipedia/commons/b/b7/Flag_of_Europe.svg",

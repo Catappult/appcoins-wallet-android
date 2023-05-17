@@ -11,11 +11,12 @@ import androidx.preference.PreferenceViewHolder
 import com.asf.wallet.R
 import com.asfoundation.wallet.GlideApp
 import com.appcoins.wallet.core.utils.android_common.extensions.safeLet
+import com.appcoins.wallet.feature.changecurrency.data.FiatCurrency
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 
 class SettingsCurrencyPreference(context: Context, attrs: AttributeSet?) :
     Preference(context, attrs) {
-  private var selectedCurrency: com.appcoins.wallet.feature.changecurrency.data.FiatCurrencyEntity? = null
+  private var selectedCurrency: FiatCurrency? = null
   private var currency: TextView? = null
   private var flag: ImageView? = null
   var preferenceClickListener: View.OnClickListener? = null
@@ -32,7 +33,7 @@ class SettingsCurrencyPreference(context: Context, attrs: AttributeSet?) :
     setFlagImageView()
   }
 
-  fun setCurrency(selectedCurrency: com.appcoins.wallet.feature.changecurrency.data.FiatCurrencyEntity) {
+  fun setCurrency(selectedCurrency: FiatCurrency) {
     this.selectedCurrency = selectedCurrency
     setCurrencyTextView()
     setFlagImageView()
