@@ -7,14 +7,17 @@ import android.widget.Toast
 import androidx.core.app.ShareCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
+import androidx.navigation.fragment.findNavController
 import com.appcoins.wallet.sharedpreferences.BackupTriggerPreferencesDataSource
 import com.appcoins.wallet.ui.arch.data.Navigator
+import com.appcoins.wallet.ui.arch.data.navigate
 import com.asf.wallet.R
 import com.asfoundation.wallet.C
 import com.asfoundation.wallet.backup.BackupActivity
 import com.asfoundation.wallet.backup.triggers.BackupTriggerDialogFragment
 import com.asfoundation.wallet.change_currency.ChangeFiatCurrencyActivity
 import com.asfoundation.wallet.main.nav_bar.NavBarFragmentNavigator
+import com.asfoundation.wallet.my_wallets.main.MyWalletsFragmentDirections
 import com.asfoundation.wallet.rating.RatingActivity
 import com.asfoundation.wallet.topup.TopUpActivity
 import com.asfoundation.wallet.transactions.Transaction
@@ -47,6 +50,10 @@ class HomeNavigator @Inject constructor(
 
   fun navigateToPromotions() {
     navBarFragmentNavigator.navigateToPromotions()
+  }
+
+  fun navigateToMyWallets() {
+    navigate(fragment.findNavController(), HomeFragmentDirections.actionNavigateToMyWallets())
   }
 
   fun navigateToBrowser(uri: Uri) {

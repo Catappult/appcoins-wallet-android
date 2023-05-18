@@ -14,6 +14,7 @@ import com.appcoins.wallet.ui.widgets.CardPromotionItem
 import com.asfoundation.wallet.home.usecases.DisplayChatUseCase
 import com.asfoundation.wallet.home.usecases.DisplayConversationListOrChatUseCase
 import com.asfoundation.wallet.promotions.model.PromotionsModel
+import com.asfoundation.wallet.promotions.model.VipReferralInfo
 import com.asfoundation.wallet.promotions.ui.PromotionsState
 import com.asfoundation.wallet.promotions.usecases.GetPromotionsUseCase
 import com.asfoundation.wallet.promotions.usecases.SetSeenPromotionsUseCase
@@ -46,6 +47,7 @@ class RewardViewModel @Inject constructor(
 
   val promotions = mutableStateListOf<CardPromotionItem>()
   val gamificationHeaderModel = mutableStateOf<GamificationHeaderModel?>(null)
+  val vipReferralModel = mutableStateOf<VipReferralInfo?>(null)
 
   companion object {
     fun initialState(): RewardState {

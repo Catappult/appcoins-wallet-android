@@ -27,6 +27,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.NavController
+import androidx.navigation.fragment.NavHostFragment
 import com.appcoins.wallet.core.network.backend.model.GamificationStatus
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.appcoins.wallet.gamification.repository.PromotionsGamificationStats
@@ -139,6 +141,21 @@ class RewardFragment : BasePageViewFragment(), SingleStateFragment<RewardState, 
           bonusValue = df.format(viewModel.gamificationHeaderModel.value!!.bonusPercentage),
           planetDrawable = viewModel.gamificationHeaderModel.value!!.planetImage
         )
+        if (viewModel.vipReferralModel.value != null) {
+          VipReferralCard (
+            {
+              navigator.navigateToVipReferral(
+                bonus = viewModel.vipReferralModel.value!!.vipBonus,
+                code = viewModel.vipReferralModel.value!!.vipCode,
+                totalEarned = viewModel.vipReferralModel.value!!.totalEarned,
+                numberReferrals = viewModel.vipReferralModel.value!!.numberReferrals,
+                mainNavController = navController()
+              )
+            },
+            viewModel.vipReferralModel.value!!.vipBonus
+          )
+        }
+
       } else if (
         viewModel.gamificationHeaderModel.value != null &&
         viewModel.gamificationHeaderModel.value?.bonusPercentage!! > 0.0 &&
@@ -281,6 +298,10 @@ class RewardFragment : BasePageViewFragment(), SingleStateFragment<RewardState, 
 
         setGamification(promotionsModel, promotionsGamificationStats)
 
+        promotionsModel.value!!.vipReferralInfo?.let {
+          viewModel.vipReferralModel.value = it
+        }
+
       }
       else -> Unit
     }
@@ -324,6 +345,13 @@ class RewardFragment : BasePageViewFragment(), SingleStateFragment<RewardState, 
 
   private fun showVipBadge(shouldShow: Boolean) {
     isVip = shouldShow
+  }
+
+  private fun navController(): NavController {
+    val navHostFragment = requireActivity().supportFragmentManager.findFragmentById(
+      R.id.main_host_container
+    ) as NavHostFragment
+    return navHostFragment.navController
   }
 
 }
