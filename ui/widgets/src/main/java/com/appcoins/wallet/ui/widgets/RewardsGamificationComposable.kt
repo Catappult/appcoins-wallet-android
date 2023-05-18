@@ -62,21 +62,22 @@ fun GamificationHeader(
     shape = RoundedCornerShape(8.dp),
     colors = CardDefaults.cardColors(WalletColors.styleguide_blue_secondary),
   ) {
-    Column (
+    Column(
       modifier = Modifier
         .fillMaxSize(),
       verticalArrangement = Arrangement.SpaceBetween
-        )
+    )
     {
 
-      Row (   // Top main content
+      Row(   // Top main content
         modifier = Modifier
           .fillMaxWidth()
           .height(122.dp),
         horizontalArrangement = Arrangement.SpaceBetween
       )
       {
-        Column(  // spend text, progressBar, progress
+        Column(
+          // spend text, progressBar, progress
           modifier = Modifier
             .fillMaxHeight()
             .weight(2F)
@@ -84,17 +85,22 @@ fun GamificationHeader(
           verticalArrangement = Arrangement.SpaceEvenly,
         ) {
           Text(
-            text = stringResource(id = R.string.rewards_spend_to_next_level_body, valueSpendForNextLevel, currencySpend),
+            text = stringResource(
+              id = R.string.rewards_spend_to_next_level_body,
+              valueSpendForNextLevel,
+              currencySpend
+            ),
             style = MaterialTheme.typography.titleMedium,
             color = WalletColors.styleguide_white,
           )
-          Column(  // progressBar, progress
+          Column(
+            // progressBar, progress
             modifier = Modifier
               .padding(top = 8.dp),
             verticalArrangement = Arrangement.SpaceEvenly,
           ) {
             LinearProgressIndicator(
-              progress = currentProgress.toFloat()/maxProgress.toFloat(),
+              progress = currentProgress.toFloat() / maxProgress.toFloat(),
               modifier = Modifier
                 .background(Color.Transparent)
                 .clip(CircleShape)
@@ -138,7 +144,8 @@ fun GamificationHeader(
       }
 
 
-      Row (   // Bottom main content
+      Row(
+        // Bottom main content
         modifier = Modifier
           .fillMaxWidth()
           .height(48.dp)
@@ -240,12 +247,12 @@ fun GamificationHeaderPartner(
     shape = RoundedCornerShape(8.dp),
     colors = CardDefaults.cardColors(WalletColors.styleguide_blue_secondary),
   ) {
-    Box (
+    Box(
       contentAlignment = Alignment.Center,
       modifier = Modifier
         .fillMaxSize()
         .align(Alignment.CenterHorizontally)
-        ) {
+    ) {
       Row(   // Bottom main content
         modifier = Modifier
           .fillMaxWidth()
@@ -328,11 +335,11 @@ fun VipReferralCard(
           .width(64.dp)
           .align(Alignment.CenterVertically)
       )
-      Column (
+      Column(
         modifier = Modifier
           .fillMaxSize()
           .weight(1f)
-          ) {
+      ) {
         Text(
           text = stringResource(R.string.vip_program_referral_button_title),
           style = MaterialTheme.typography.titleMedium,

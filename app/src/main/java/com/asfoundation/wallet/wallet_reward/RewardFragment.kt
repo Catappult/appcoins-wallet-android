@@ -120,7 +120,7 @@ class RewardFragment : BasePageViewFragment(), SingleStateFragment<RewardState, 
         .verticalScroll(rememberScrollState())
         .padding(padding),
     ) {
-      if(
+      if (
         viewModel.gamificationHeaderModel.value != null &&
         viewModel.gamificationHeaderModel.value?.bonusPercentage != null &&
         viewModel.gamificationHeaderModel.value?.bonusPercentage!! >= 10.0
@@ -142,7 +142,7 @@ class RewardFragment : BasePageViewFragment(), SingleStateFragment<RewardState, 
           planetDrawable = viewModel.gamificationHeaderModel.value!!.planetImage
         )
         if (viewModel.vipReferralModel.value != null) {
-          VipReferralCard (
+          VipReferralCard(
             {
               navigator.navigateToVipReferral(
                 bonus = viewModel.vipReferralModel.value!!.vipBonus,
@@ -204,35 +204,6 @@ class RewardFragment : BasePageViewFragment(), SingleStateFragment<RewardState, 
       }
     }
 
-  }
-
-  @Composable
-  fun DummyCard() {
-    Card(
-      modifier = Modifier
-        .padding(
-          start = 16.dp,
-          end = 16.dp,
-          top = 16.dp
-        )
-        .fillMaxWidth()
-        .height(200.dp),
-      shape = RoundedCornerShape(8.dp),
-      colors = CardDefaults.cardColors(WalletColors.styleguide_blue_secondary),
-    ) {
-      Column(
-        modifier = Modifier
-          .padding(16.dp),
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
-      ) {
-        Text(
-          text = "Reward Screen",
-          style = MaterialTheme.typography.titleMedium,
-          color = WalletColors.styleguide_white
-        )
-      }
-    }
   }
 
   @Preview(showBackground = true)
@@ -320,22 +291,21 @@ class RewardFragment : BasePageViewFragment(), SingleStateFragment<RewardState, 
         (promotionsModel.value?.promotions?.get(0) as? GamificationItem)
 
 
-      gamificationItem?.let {gamificationItem ->
+      gamificationItem?.let { gamificationItem ->
         viewModel.gamificationHeaderModel.value =
           GamificationHeaderModel(
             color = gamificationItem.levelColor,
             planetImage = gamificationItem.planet,
             spendMoreAmount = if (gamificationItem.toNextLevelAmount != null)
-                currencyFormatUtils.formatGamificationValues(gamificationItem.toNextLevelAmount)
-              else
-                "" ,
+              currencyFormatUtils.formatGamificationValues(gamificationItem.toNextLevelAmount)
+            else
+              "",
             currentSpent = promotionsGamificationStats.value!!.totalSpend.toInt(),
             nextLevelSpent = if (promotionsGamificationStats.value!!.nextLevelAmount != null)
-                promotionsGamificationStats.value!!.nextLevelAmount!!.toInt()
-              else
-                null ,
+              promotionsGamificationStats.value!!.nextLevelAmount!!.toInt()
+            else
+              null,
             bonusPercentage = gamificationItem.bonus,
-            //TODO isVipMax = gamificationItem?.gamificationStatus == GamificationStatus.VIP_MAX
           )
       }
 
