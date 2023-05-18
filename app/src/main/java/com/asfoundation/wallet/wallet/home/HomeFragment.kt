@@ -382,11 +382,12 @@ class HomeFragment: BasePageViewFragment(), SingleStateFragment<HomeState, HomeS
               promotion.startDate,
               promotion.endDate,
               promotion.icon,
-              promotion.detailsLink,
+              promotion.actionUrl,
+              promotion.packageName,
               promotion.gamificationStatus == GamificationStatus.VIP || promotion.gamificationStatus == GamificationStatus.VIP_MAX,
               false,
               false,
-              action = { promotion.detailsLink?.let { openGame(it, requireContext()) } }
+              action = {  openGame(promotion.packageName ?: promotion.actionUrl, requireContext()) }
             )
             viewModel.activePromotions.add(cardItem)
           }

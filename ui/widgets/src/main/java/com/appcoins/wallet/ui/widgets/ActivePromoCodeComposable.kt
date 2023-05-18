@@ -110,8 +110,7 @@ fun ActivePromoCodeComposable(cardItem: ActiveCardPromoCodeItem) {
                 fontSize = 14.sp
               )
             }
-            //TODO: Change urlRedirect to PackageName When api updated
-            GetText(cardItem.action, 0.dp, cardItem.urlRedirect)
+            GetText(cardItem.action, 0.dp, cardItem.packageName)
           }
         }
       }
@@ -126,6 +125,7 @@ data class ActiveCardPromoCodeItem(
   val subtitle: String?,
   val imageUrl: String?,
   val urlRedirect: String?,
+  val packageName: String?,
   val status: Boolean,
   val action: () -> Unit
 )
@@ -135,6 +135,7 @@ val promoCodeItem = ActiveCardPromoCodeItem(
   subtitle = "Receive an extra 15% Bonus in all your purchases.",
   imageUrl = "https://img.freepik.com/vetores-gratis/astronauta-bonito-relaxamento-frio-na-ilustracao-do-icone-do-vetor-dos-desenhos-animados-do-controlador-de-jogo-conceito-de-icone-de-ciencia-de-tecnologia-isolado-vetor-premium-estilo-flat-cartoon_138676-3717.jpg?w=2000",
   urlRedirect = "https://example.com",
+  packageName = null,
   status  = true,
   action = { /* handle click action */ }
 )
