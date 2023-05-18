@@ -165,7 +165,7 @@ fun GamificationHeader(
         )
 
         Text(
-          text = stringResource(id = R.string.vip_program_max_bonus_short, bonusValue),
+          text = stringResource(id = R.string.rewards_bonus_every_purchase_title, bonusValue),
           fontSize = 16.sp,
           fontWeight = FontWeight.Bold,
           color = WalletColors.styleguide_light_grey,
@@ -217,7 +217,7 @@ fun GamificationHeaderNoPurchases() {
         contentDescription = "Locked"
       )
       Text(
-        text = stringResource(id = R.string.promotions_empty_first_purchase_body),
+        text = stringResource(id = R.string.rewards_make_first_purchase_body),
         fontSize = 16.sp,
         fontWeight = FontWeight.Bold,
         color = WalletColors.styleguide_light_grey,

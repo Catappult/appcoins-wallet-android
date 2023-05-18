@@ -12,6 +12,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -45,7 +46,7 @@ fun NftCard(
           .align(Alignment.CenterVertically)
       )
       Text(
-        text = "AppCoins Wallet now support NFTs",    //TODO replace string
+        text = stringResource(id = R.string.home_nft_title),
         fontSize = 16.sp,
         fontWeight = FontWeight.Bold,
         color = WalletColors.styleguide_light_grey,
