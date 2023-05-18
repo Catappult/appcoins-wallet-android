@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -61,54 +62,77 @@ fun TransactionCard(
       verticalAlignment = Alignment.CenterVertically,
       modifier = Modifier
         .fillMaxWidth()
+        .defaultMinSize(minHeight = 64.dp)
         .padding(vertical = 8.dp, horizontal = 16.dp)
     ) {
       Row(verticalAlignment = Alignment.CenterVertically) {
         TransactionIcon(icon, appIcon, subIcon)
-        Spacer(modifier = Modifier.padding(14.dp))
-        Column(modifier = Modifier.widthIn(0.dp, 168.dp)) {
-          Text(
-            text = title,
-            fontWeight = FontWeight.Bold,
-            color = styleguide_light_grey,
-            style = MaterialTheme.typography.bodyMedium,
-            maxLines = 1,
-            overflow = TextOverflow.Ellipsis
-          )
-          if (description != null)
+        Spacer(modifier = Modifier.padding(start = 16.dp))
+        Row(
+          modifier = Modifier.fillMaxWidth(),
+          horizontalArrangement = Arrangement.SpaceBetween,
+          verticalAlignment = Alignment.CenterVertically
+        ) {
+          Column(modifier = Modifier.fillMaxWidth(0.6f)) {
             Text(
-              text = description,
-              color = styleguide_dark_grey,
-              style = MaterialTheme.typography.bodySmall,
-              maxLines = 2,
+              text = title,
+              fontWeight = FontWeight.Bold,
+              color = styleguide_light_grey,
+              style = MaterialTheme.typography.bodyMedium,
+              maxLines = 1,
               overflow = TextOverflow.Ellipsis
             )
+            if (description != null)
+              Text(
+                text = description,
+                color = styleguide_dark_grey,
+                style = MaterialTheme.typography.bodySmall,
+                maxLines = 2,
+                overflow = TextOverflow.Ellipsis
+              )
+          }
+          Column(horizontalAlignment = Alignment.End, modifier = Modifier.fillMaxWidth(0.9f)) {
+            if (amount != null)
+              Text(
+                text = amount,
+                fontWeight = FontWeight.Bold,
+                style = MaterialTheme.typography.bodyMedium,
+                textAlign = TextAlign.End,
+                color = styleguide_light_grey,
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis,
+                textDecoration = textDecoration
+              )
+            if (convertedAmount != null)
+              Text(
+                text = convertedAmount,
+                color = styleguide_dark_grey,
+                style = MaterialTheme.typography.bodySmall,
+                textAlign = TextAlign.End,
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis,
+                textDecoration = textDecoration
+              )
+          }
+
         }
       }
-      Column(horizontalAlignment = Alignment.End) {
-        if (amount != null)
-          Text(
-            text = amount,
-            fontWeight = FontWeight.Bold,
-            style = MaterialTheme.typography.bodyMedium,
-            textAlign = TextAlign.End,
-            color = styleguide_light_grey,
-            maxLines = 1,
-            overflow = TextOverflow.Ellipsis,
-            textDecoration = textDecoration
-          )
-        if (convertedAmount != null)
-          Text(
-            text = convertedAmount,
-            color = styleguide_dark_grey,
-            style = MaterialTheme.typography.bodySmall,
-            textAlign = TextAlign.End,
-            maxLines = 1,
-            overflow = TextOverflow.Ellipsis,
-            textDecoration = textDecoration
-          )
-      }
     }
+  }
+}
+
+@Composable
+fun TransactionSeparator(text: String) {
+  Row(
+    modifier = Modifier
+      .fillMaxWidth()
+      .padding(top = 16.dp, bottom = 8.dp, start = 8.dp)
+  ) {
+    Text(
+      text = text,
+      color = styleguide_dark_grey,
+      style = MaterialTheme.typography.bodySmall,
+    )
   }
 }
 
@@ -171,7 +195,7 @@ fun TransactionDetailHeader(
       horizontalArrangement = Arrangement.SpaceBetween,
       verticalAlignment = Alignment.CenterVertically
     ) {
-      Column(horizontalAlignment = Alignment.Start, modifier = Modifier.widthIn(0.dp, 320.dp)) {
+      Column(horizontalAlignment = Alignment.Start, modifier = Modifier.fillMaxWidth(0.8f)) {
         if (amount != null)
           Text(
             text = amount,
@@ -286,7 +310,7 @@ fun PreviewTransactionCardHeader() {
     icon = null,
     appIcon = null,
     type = "Purchase Refund",
-    amount = "-€12,21238.73",
+    amount = "-€12,21238745674839837456.73",
     convertedAmount = "-12,5000.00 APPC-C",
     subIcon = R.drawable.ic_transaction_rejected_mini,
     textDecoration = TextDecoration.LineThrough,
@@ -318,5 +342,13 @@ fun PreviewTransactionCard() {
     subIcon = R.drawable.ic_transaction_rejected_mini,
     {},
     TextDecoration.LineThrough
+  )
+}
+
+@Preview
+@Composable
+fun PreviewTransactionSeparator() {
+  TransactionSeparator(
+    text = "Jun, 13 2022"
   )
 }

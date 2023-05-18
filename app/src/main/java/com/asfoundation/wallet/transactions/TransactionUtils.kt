@@ -361,7 +361,7 @@ fun TransactionModel.cardInfoByType() =
 
         ESKILLS_WITHDRAW ->
             TransactionCardInfo(
-                icon = R.drawable.ic_transaction_reward,
+                icon = R.drawable.ic_transaction_eskill,
                 title = R.string.e_skills_withdraw_title,
                 amount = amount,
                 app = app,
