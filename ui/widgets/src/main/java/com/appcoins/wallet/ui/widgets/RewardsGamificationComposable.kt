@@ -1,6 +1,11 @@
 package com.appcoins.wallet.ui.widgets
 
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.graphics.Canvas
+import android.graphics.drawable.Drawable
 import androidx.annotation.DrawableRes
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -14,12 +19,16 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.asImageBitmap
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.core.content.ContextCompat
 import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.animateLottieCompositionAsState
@@ -38,7 +47,7 @@ fun GamificationHeader(
   currentProgress: Int,
   maxProgress: Int,
   bonusValue: String,
-  @DrawableRes planetDrawable: Int
+  planetDrawable: Drawable?
 ) {
   Card(
     modifier = Modifier
@@ -107,13 +116,23 @@ fun GamificationHeader(
             .weight(1F)
             .fillMaxHeight()
         ) {
-          Image(
-            painter = painterResource(id = planetDrawable), //R.drawable.gamification_jupiter_reached
-            contentDescription = "Planet",
-            modifier = Modifier
-              .size(82.dp)
-              .align(Alignment.Center)
-          )
+          planetDrawable?.let {
+            val bitmap = Bitmap.createBitmap(
+              planetDrawable.intrinsicWidth,
+              planetDrawable.intrinsicHeight,
+              Bitmap.Config.ARGB_8888
+            )
+            val canvas = Canvas(bitmap)
+            planetDrawable.setBounds(0, 0, canvas.width, canvas.height)
+            planetDrawable.draw(canvas)
+            Image(
+              bitmap = bitmap.asImageBitmap(),
+              contentDescription = "Planet",
+              modifier = Modifier
+                .size(82.dp)
+                .align(Alignment.Center)
+            )
+          }
         }
 
       }
@@ -164,6 +183,104 @@ fun GamificationHeader(
   }
 }
 
+@Composable
+fun GamificationHeaderNoPurchases() {
+  Card(
+    modifier = Modifier
+      .padding(
+        start = 16.dp,
+        end = 16.dp,
+        top = 16.dp
+      )
+      .fillMaxWidth()
+      .height(170.dp),
+    shape = RoundedCornerShape(8.dp),
+    border = BorderStroke(1.dp, WalletColors.styleguide_pink),
+    colors = CardDefaults.cardColors(WalletColors.styleguide_blue_secondary),
+  ) {
+    Column(
+      modifier = Modifier
+        .fillMaxSize(),
+      verticalArrangement = Arrangement.SpaceEvenly,
+      horizontalAlignment = Alignment.CenterHorizontally
+    )
+    {
+      Image(
+        painter = painterResource(id = R.drawable.ic_locked),
+        contentDescription = "Locked"
+      )
+      Text(
+        text = stringResource(id = R.string.promotions_empty_first_purchase_body),
+        fontSize = 16.sp,
+        fontWeight = FontWeight.Bold,
+        color = WalletColors.styleguide_light_grey,
+        lineHeight = 24.sp,
+        textAlign = TextAlign.Center,
+        modifier = Modifier
+          .padding(horizontal = 16.dp)
+          .weight(1f, fill = false)
+      )
+    }
+  }
+}
+
+@Composable
+fun GamificationHeaderPartner(
+  bonusPercentage: String
+) {
+  Card(
+    modifier = Modifier
+      .padding(
+        start = 16.dp,
+        end = 16.dp,
+        top = 16.dp
+      )
+      .fillMaxWidth()
+      .height(72.dp),
+    shape = RoundedCornerShape(8.dp),
+    colors = CardDefaults.cardColors(WalletColors.styleguide_blue_secondary),
+  ) {
+    Box (
+      contentAlignment = Alignment.Center,
+      modifier = Modifier
+        .fillMaxSize()
+        .align(Alignment.CenterHorizontally)
+        ) {
+      Row(   // Bottom main content
+        modifier = Modifier
+          .fillMaxWidth()
+          .height(48.dp)
+          .padding(horizontal = 16.dp),
+        horizontalArrangement = Arrangement.SpaceEvenly,
+        verticalAlignment = Alignment.CenterVertically
+      )
+      {
+        val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.bonus_gift_animation))
+        val progress by animateLottieCompositionAsState(composition, iterations = Int.MAX_VALUE)
+        LottieAnimation(
+          modifier = Modifier
+            .size(48.dp)
+            .align(Alignment.CenterVertically),
+          composition = composition,
+          progress = { progress }
+        )
+
+        Text(
+          text = stringResource(id = R.string.vip_program_max_bonus_short, bonusPercentage),
+          fontSize = 16.sp,
+          fontWeight = FontWeight.Bold,
+          color = WalletColors.styleguide_light_grey,
+          lineHeight = 24.sp,
+          modifier = Modifier
+            .align(Alignment.CenterVertically)
+            .padding(horizontal = 6.dp)
+            .weight(1f, fill = false)
+        )
+      }
+    }
+  }
+}
+
 @Preview
 @Composable
 fun PreviewRewardsGamification() {
@@ -175,6 +292,82 @@ fun PreviewRewardsGamification() {
     currentProgress = 8000,
     maxProgress = 15000,
     bonusValue = "16",
-    planetDrawable = R.drawable.gamification_jupiter_reached
+    planetDrawable = null
   )
+}
+
+@Composable
+fun VipReferralCard(
+  onClick: () -> Unit
+) {
+  Card(
+    colors = CardDefaults.cardColors(WalletColors.styleguide_blue_secondary),
+    modifier = Modifier
+      .fillMaxWidth()
+      .padding(16.dp)
+      .clip(shape = RoundedCornerShape(8.dp))
+      .clickable { onClick() },
+  ) {
+    Row(
+      modifier = Modifier
+        .fillMaxWidth()
+        .padding(20.dp),
+      horizontalArrangement = Arrangement.Start,
+    ) {
+      Image(
+        painter = painterResource(R.drawable.ic_vip_badge),  //TODO
+        "VIP",
+        modifier = Modifier
+          .height(64.dp)
+          .width(64.dp)
+          .align(Alignment.CenterVertically)
+      )
+      Column (
+
+          ) {
+        Text(
+          text = stringResource(R.string.vip_program_referral_button_title),
+          style = MaterialTheme.typography.titleMedium,
+          color = WalletColors.styleguide_white,
+          modifier = Modifier
+            .padding(horizontal = 20.dp)
+            .weight(1f, fill = false)
+        )
+        Text(
+          text = stringResource(R.string.vip_program_referral_button_title),
+          style = MaterialTheme.typography.bodyMedium,
+          color = WalletColors.styleguide_dark_grey,
+          modifier = Modifier
+            .padding(horizontal = 20.dp)
+            .weight(1f, fill = false)
+        )
+      }
+      Image(
+        painter = painterResource(R.drawable.ic_arrow_right),
+        "Arrow",
+        modifier = Modifier
+          .height(36.dp)
+          .width(36.dp)
+          .align(Alignment.CenterVertically)
+      )
+    }
+  }
+}
+
+@Preview
+@Composable
+fun PreviewRewardsGamificationNoPurchases() {
+  GamificationHeaderNoPurchases()
+}
+
+@Preview
+@Composable
+fun PreviewRewardsGamificationPartner() {
+  GamificationHeaderPartner("5")
+}
+
+@Preview
+@Composable
+fun PreviewRewardsVip() {
+  VipReferralCard({ })
 }
