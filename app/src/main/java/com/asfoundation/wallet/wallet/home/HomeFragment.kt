@@ -20,6 +20,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -60,7 +61,6 @@ import javax.inject.Inject
 
 // Before moving this screen into the :home module, all home dependencies need to be independent
 // from the :app module.
-// TODO rename class after completed
 @AndroidEntryPoint
 class HomeFragment: BasePageViewFragment(), SingleStateFragment<HomeState, HomeSideEffect> {
 
@@ -88,7 +88,6 @@ class HomeFragment: BasePageViewFragment(), SingleStateFragment<HomeState, HomeS
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
-    // TODO transactions list
     viewModel.collectStateAndEvents(lifecycle, viewLifecycleOwner.lifecycleScope)
     askNotificationsPermission()
   }
@@ -145,35 +144,32 @@ class HomeFragment: BasePageViewFragment(), SingleStateFragment<HomeState, HomeS
   internal fun HomeScreenContent(
     padding: PaddingValues
   ) {
+    var openBottomSheet by rememberSaveable { mutableStateOf(false) }
+
     Column(
       modifier = Modifier
         .verticalScroll(rememberScrollState())
         .padding(padding),
     ) {
-        with(viewModel.balance.value) {
-          BalanceCard(
-            newWallet = viewModel.newWallet.value,
-            showBackup = viewModel.state.showBackup,
-            balance = symbol + formatter.formatCurrency(amount, FIAT),
-            currencyCode = currency,
-            onClickCurrencies = { viewModel.onCurrencySelectorClick() },
-            onClickTransfer = { viewModel.onTransferClick() },
-            onClickBackup = { viewModel.onBackupClick() },
-            onClickTopUp = { viewModel.onTopUpClick() },
-            onClickMenuOptions = { navigateToManageWallet() }
-          )
-        }
-
+      with(viewModel.balance.value) {
+        BalanceCard(
+          newWallet = viewModel.newWallet.value,
+          showBackup = viewModel.state.showBackup,
+          balance = symbol + formatter.formatCurrency(amount, FIAT),
+          currencyCode = currency,
+          onClickCurrencies = { viewModel.onCurrencySelectorClick() },
+          onClickTransfer = { viewModel.onTransferClick() },
+          onClickBackup = { viewModel.onBackupClick() },
+          onClickTopUp = { viewModel.onTopUpClick() },
+          onClickMenuOptions = { openBottomSheet = !openBottomSheet }
+        )
+      }
       TransactionsCard(transactionsState = viewModel.uiState.collectAsState().value)
-      promotionsList()
-      GamesBundle(
-        viewModel.gamesList.value
-      ) { viewModel.fetchGamesListing() }
-
-      NftCard(
-        onClick = { navigateToNft() }
-      )
+      PromotionsList()
+      GamesBundle(viewModel.gamesList.value) { viewModel.fetchGamesListing() }
+      NftCard(onClick = { navigateToNft() })
       Spacer(modifier = Modifier.padding(32.dp))
+      WalletOptionsBottomSheet(openBottomSheet)
     }
   }
 
@@ -208,7 +204,7 @@ class HomeFragment: BasePageViewFragment(), SingleStateFragment<HomeState, HomeS
   }
 
   @Composable
-  fun promotionsList() {
+  fun PromotionsList() {
     if (!viewModel.activePromotions.isEmpty()) {
       Text(
         text = getString(R.string.intro_active_promotions_header),
@@ -274,6 +270,11 @@ class HomeFragment: BasePageViewFragment(), SingleStateFragment<HomeState, HomeS
     }
   }
 
+  @Composable
+  fun WalletOptionsBottomSheet(openBottomSheet: Boolean) {
+    if (openBottomSheet) navigateToManageWallet()
+  }
+
   @Preview(showBackground = true)
   @Composable
   fun HomeScreenPreview() {
@@ -281,7 +282,6 @@ class HomeFragment: BasePageViewFragment(), SingleStateFragment<HomeState, HomeS
   }
 
   override fun onStateChanged(state: HomeState) {
-    // TODO set transaction list elements. setData(state.transactionsModelAsync, state.defaultWalletBalanceAsync)
     // TODO refreshing. setRefreshLayout(state.defaultWalletBalanceAsync, state.transactionsModelAsync)
     setBalance(state.defaultWalletBalanceAsync)
     showVipBadge(state.showVipBadge)
@@ -339,7 +339,7 @@ class HomeFragment: BasePageViewFragment(), SingleStateFragment<HomeState, HomeS
       val alertDialog = android.app.AlertDialog.Builder(context)
         .setTitle(R.string.root_title)
         .setMessage(R.string.root_body)
-        .setNegativeButton(R.string.ok) { dialog, which -> }
+        .setNegativeButton(R.string.ok) { _, _ -> }
         .show()
       alertDialog.getButton(android.app.AlertDialog.BUTTON_NEGATIVE)
         .setBackgroundColor(ResourcesCompat.getColor(resources, R.color.transparent, null))
@@ -381,8 +381,8 @@ class HomeFragment: BasePageViewFragment(), SingleStateFragment<HomeState, HomeS
               promotion.icon,
               promotion.detailsLink,
               promotion.gamificationStatus == GamificationStatus.VIP || promotion.gamificationStatus == GamificationStatus.VIP_MAX,
-              false,
-              false,
+              hasFuturePromotion = false,
+              hasVerticalList = false,
               action = { promotion.detailsLink?.let { openGame(it, requireContext()) } }
             )
             viewModel.activePromotions.add(cardItem)
