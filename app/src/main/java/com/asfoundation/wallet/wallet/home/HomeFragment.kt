@@ -20,6 +20,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -43,6 +45,7 @@ import com.appcoins.wallet.ui.arch.SingleStateFragment
 import com.appcoins.wallet.ui.arch.data.Async
 import com.appcoins.wallet.ui.common.theme.WalletColors
 import com.appcoins.wallet.ui.widgets.*
+import com.appcoins.wallet.ui.widgets.component.ButtonWithIcon
 import com.asf.wallet.R
 import com.asfoundation.wallet.entity.GlobalBalance
 import com.asfoundation.wallet.promotions.model.DefaultItem
@@ -56,6 +59,7 @@ import com.asfoundation.wallet.wallet.home.HomeViewModel.UiState
 import com.asfoundation.wallet.wallet.home.HomeViewModel.UiState.Success
 import dagger.hilt.android.AndroidEntryPoint
 import io.intercom.android.sdk.Intercom
+import kotlinx.coroutines.launch
 import java.math.BigDecimal
 import javax.inject.Inject
 
@@ -140,11 +144,16 @@ class HomeFragment: BasePageViewFragment(), SingleStateFragment<HomeState, HomeS
     }
   }
 
+  @OptIn(ExperimentalMaterial3Api::class)
   @Composable
   internal fun HomeScreenContent(
     padding: PaddingValues
   ) {
     var openBottomSheet by rememberSaveable { mutableStateOf(false) }
+    val skipPartiallyExpanded by remember { mutableStateOf(false) }
+    val scope = rememberCoroutineScope()
+    val bottomSheetState =
+      rememberModalBottomSheetState(skipPartiallyExpanded = skipPartiallyExpanded)
 
     Column(
       modifier = Modifier
@@ -169,7 +178,20 @@ class HomeFragment: BasePageViewFragment(), SingleStateFragment<HomeState, HomeS
       GamesBundle(viewModel.gamesList.value) { viewModel.fetchGamesListing() }
       NftCard(onClick = { navigateToNft() })
       Spacer(modifier = Modifier.padding(32.dp))
-      WalletOptionsBottomSheet(openBottomSheet)
+
+      if (openBottomSheet) {
+        ModalBottomSheet(
+          onDismissRequest = { openBottomSheet = false },
+          sheetState = bottomSheetState,
+          containerColor = WalletColors.styleguide_blue_secondary,
+          content = walletOptionsBottomSheet(
+            onManageWalletClick = {
+              scope.launch { bottomSheetState.hide() }
+                .invokeOnCompletion { navigateToManageWallet() }
+            }
+          )
+        )
+      }
     }
   }
 
@@ -271,9 +293,34 @@ class HomeFragment: BasePageViewFragment(), SingleStateFragment<HomeState, HomeS
   }
 
   @Composable
-  fun WalletOptionsBottomSheet(openBottomSheet: Boolean) {
-    if (openBottomSheet) navigateToManageWallet()
-  }
+  fun walletOptionsBottomSheet(onManageWalletClick: () -> Unit): @Composable (ColumnScope.() -> Unit) =
+    {
+      Column(
+        Modifier
+          .fillMaxWidth()
+          .padding(bottom = 32.dp), verticalArrangement = Arrangement.Center
+      ) {
+        ButtonWithIcon(
+          R.drawable.ic_manage_wallet,
+          R.string.wallets_title,
+          onClick = onManageWalletClick,
+          labelColor = WalletColors.styleguide_white
+        )
+        ButtonWithIcon(
+          R.drawable.ic_recover_wallet,
+          R.string.my_wallets_action_recover_wallet,
+          onClick = onManageWalletClick,
+          labelColor = WalletColors.styleguide_white
+        )
+        ButtonWithIcon(
+          R.drawable.ic_backup_white,
+          R.string.backup_button,
+          onClick = onManageWalletClick,
+          labelColor = WalletColors.styleguide_white,
+          iconColor = WalletColors.styleguide_pink
+        )
+      }
+    }
 
   @Preview(showBackground = true)
   @Composable
