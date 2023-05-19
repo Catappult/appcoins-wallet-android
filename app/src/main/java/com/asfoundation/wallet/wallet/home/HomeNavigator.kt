@@ -125,6 +125,12 @@ class HomeNavigator @Inject constructor(
     mainNavController.navigate(R.id.action_navigate_to_nfts)
   }
 
+  fun navigateToManageWallet(
+    mainNavController: NavController
+  ) {
+    mainNavController.navigate(R.id.action_navigate_to_manage_wallet)
+  }
+
   fun navigateToTransactionsList(
     mainNavController: NavController
   ) {

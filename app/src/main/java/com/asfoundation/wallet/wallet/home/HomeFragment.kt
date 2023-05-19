@@ -7,7 +7,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.*
@@ -161,9 +160,7 @@ class HomeFragment: BasePageViewFragment(), SingleStateFragment<HomeState, HomeS
             onClickTransfer = { viewModel.onTransferClick() },
             onClickBackup = { viewModel.onBackupClick() },
             onClickTopUp = { viewModel.onTopUpClick() },
-            onClickMenuOptions = {
-              Toast.makeText(context, "In progress", Toast.LENGTH_SHORT).show()
-            } // TODO create bottom sheet
+            onClickMenuOptions = { navigateToManageWallet() }
           )
         }
 
@@ -402,6 +399,8 @@ class HomeFragment: BasePageViewFragment(), SingleStateFragment<HomeState, HomeS
   }
 
   private fun navigateToNft() = navigator.navigateToNfts(navController())
+
+  private fun navigateToManageWallet() = navigator.navigateToManageWallet(navController())
 
   private fun navController(): NavController {
     val navHostFragment = requireActivity().supportFragmentManager.findFragmentById(
