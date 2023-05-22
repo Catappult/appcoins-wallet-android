@@ -608,6 +608,8 @@
   <string name="purchase_error_wrong_pin_body">هناك مشكلة في رقمك السري. يرجى المحاولة مجددًا.</string>
   <string name="purchase_error_3d_body">هناك مشكلة في المصادقة ثلاثية الأبعاد. يرجى المحاولة مجددًا.</string>
   <string name="purchase_error_generic_contact_us_body">ييي، حدث خطأ. نرجو المحاولة مجددًا أو التواصل معنا.</string>
+  <string name="error_blocked_wallet_title">Blocked Wallet</string>
+  <string name="error_blocked_wallet_body">For security reasons, your wallet has been blocked. Please contact us for more information.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">عنوان الفوترة</string>
   <string name="purchase_address_address_field">العنوان</string>
@@ -1255,4 +1257,8 @@
   <string name="rewards_promo_code_status">الحالة:</string>
   <string name="rewards_promo_code_status_active">نشط</string>
   <string name="rewards_promo_code_status_expired">منتهي الصلاحية</string>
+  <string name="home_nft_title">The AppCoins Wallet now supports NFTs</string>
+  <!-- Rewards Home -->
+  <string name="rewards_make_first_purchase_body">Make your first purchase in an AppCoins compatible game and unlock a bonus in every purchase.</string>
+  <string name="rewards_bonus_every_purchase_title">Enjoy a %s%% bonus in every purchase</string>
 </resources>
