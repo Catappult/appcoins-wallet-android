@@ -28,13 +28,13 @@ import com.asfoundation.wallet.ui.gamification.GamificationMapper
 import com.appcoins.wallet.ui.common.MarginItemDecoration
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.appcoins.wallet.ui.common.setMargins
-import com.asfoundation.wallet.viewmodel.BasePageViewFragment
+import com.wallet.appcoins.core.legacy_base.legacy.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
 import java.text.DecimalFormat
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class PromotionsFragment : BasePageViewFragment(),
+class PromotionsFragment : com.wallet.appcoins.core.legacy_base.legacy.BasePageViewFragment(null),
   SingleStateFragment<PromotionsState, PromotionsSideEffect> {
 
   @Inject

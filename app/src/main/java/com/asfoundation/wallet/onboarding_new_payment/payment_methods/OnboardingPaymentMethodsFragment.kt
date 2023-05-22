@@ -28,13 +28,13 @@ import com.asfoundation.wallet.onboarding_new_payment.payment_methods.list.Payme
 import com.asfoundation.wallet.onboarding_new_payment.payment_methods.list.PaymentMethodsController
 import com.asfoundation.wallet.ui.iab.PaymentMethod
 import com.asfoundation.wallet.ui.iab.PaymentMethodsMapper
-import com.asfoundation.wallet.viewmodel.BasePageViewFragment
+import com.wallet.appcoins.core.legacy_base.legacy.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 
 @AndroidEntryPoint
-class OnboardingPaymentMethodsFragment : BasePageViewFragment(),
+class OnboardingPaymentMethodsFragment : com.wallet.appcoins.core.legacy_base.legacy.BasePageViewFragment(null),
   SingleStateFragment<OnboardingPaymentMethodsState, OnboardingPaymentMethodsSideEffect> {
 
   private val viewModel: OnboardingPaymentMethodsViewModel by viewModels()

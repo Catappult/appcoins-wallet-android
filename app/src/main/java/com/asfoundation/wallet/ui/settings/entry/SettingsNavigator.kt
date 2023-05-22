@@ -4,13 +4,13 @@ import android.content.Intent
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
 import com.asf.wallet.R
-import com.asfoundation.wallet.backup.BackupActivity
+import com.appcoins.wallet.feature.backup.ui.BackupActivity
 import com.asfoundation.wallet.eskills.withdraw.WithdrawActivity
 import com.asfoundation.wallet.promo_code.bottom_sheet.entry.PromoCodeBottomSheetFragment
 import com.asfoundation.wallet.recover.RecoverActivity
 import com.asfoundation.wallet.ui.AuthenticationPromptActivity
 import com.asfoundation.wallet.ui.settings.wallets.SettingsWalletsFragment
-import com.asfoundation.wallet.ui.wallets.WalletsModel
+import com.appcoins.wallet.feature.walletInfo.data.wallet.domain.WalletsModel
 import com.asfoundation.wallet.redeem_gift.bottom_sheet.RedeemGiftBottomSheetFragment
 import javax.inject.Inject
 
@@ -31,7 +31,7 @@ class SettingsNavigator @Inject constructor(
 
   fun navigateToBackup(walletAddress: String) {
     activity.startActivity(
-      BackupActivity.newIntent(
+      com.appcoins.wallet.feature.backup.ui.BackupActivity.newIntent(
         activity,
         walletAddress,
         isBackupTrigger = false

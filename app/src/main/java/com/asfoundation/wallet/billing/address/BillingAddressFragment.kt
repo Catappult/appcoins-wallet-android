@@ -16,7 +16,7 @@ import com.asfoundation.wallet.ui.iab.IabView
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.appcoins.wallet.core.utils.android_common.WalletCurrency
 import com.asf.wallet.databinding.FragmentBillingAddressBinding
-import com.asfoundation.wallet.viewmodel.BasePageViewFragment
+import com.wallet.appcoins.core.legacy_base.legacy.BasePageViewFragment
 import com.jakewharton.rxbinding2.view.RxView
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.Observable
@@ -24,7 +24,7 @@ import java.math.BigDecimal
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class BillingAddressFragment : BasePageViewFragment(), BillingAddressView {
+class BillingAddressFragment : com.wallet.appcoins.core.legacy_base.legacy.BasePageViewFragment(null), BillingAddressView {
 
   companion object {
 

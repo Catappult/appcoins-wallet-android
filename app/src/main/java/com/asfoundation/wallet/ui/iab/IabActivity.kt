@@ -15,12 +15,11 @@ import com.appcoins.wallet.billing.repository.entity.TransactionData
 import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.asf.wallet.R
 import com.asf.wallet.databinding.ActivityIabBinding
-import com.asf.wallet.databinding.ActivityTokenDetailsBinding
 import com.asfoundation.wallet.backup.BackupNotificationUtils
 import com.asfoundation.wallet.billing.address.BillingAddressFragment
 import com.asfoundation.wallet.billing.adyen.AdyenPaymentFragment
 import com.asfoundation.wallet.billing.adyen.PaymentType
-import com.asfoundation.wallet.billing.analytics.BillingAnalytics
+import com.appcoins.wallet.core.analytics.analytics.legacy.BillingAnalytics
 import com.asfoundation.wallet.billing.paypal.PayPalIABFragment
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.navigator.UriNavigator
@@ -28,7 +27,7 @@ import com.asfoundation.wallet.promotions.usecases.StartVipReferralPollingUseCas
 import com.asfoundation.wallet.topup.TopUpActivity
 import com.asfoundation.wallet.transactions.PerkBonusAndGamificationService
 import com.asfoundation.wallet.ui.AuthenticationPromptActivity
-import com.asfoundation.wallet.ui.BaseActivity
+import com.wallet.appcoins.core.legacy_base.legacy.BaseActivity
 import com.asfoundation.wallet.ui.iab.IabInteract.Companion.PRE_SELECTED_PAYMENT_METHOD_KEY
 import com.asfoundation.wallet.ui.iab.localpayments.LocalPaymentFragment
 import com.asfoundation.wallet.ui.iab.payments.carrier.verify.CarrierVerifyFragment
@@ -52,7 +51,7 @@ import javax.inject.Inject
 
 
 @AndroidEntryPoint
-class IabActivity : BaseActivity(), IabView, UriNavigator {
+class IabActivity : com.wallet.appcoins.core.legacy_base.legacy.BaseActivity(), IabView, UriNavigator {
 
   @Inject
   lateinit var billingAnalytics: BillingAnalytics

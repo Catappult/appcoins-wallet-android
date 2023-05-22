@@ -32,13 +32,13 @@ import com.asfoundation.wallet.billing.adyen.AdyenCardWrapper
 import com.asfoundation.wallet.billing.adyen.PaymentType
 import com.asfoundation.wallet.util.AdyenCardView
 import com.appcoins.wallet.core.utils.android_common.KeyboardUtils
-import com.asfoundation.wallet.viewmodel.BasePageViewFragment
+import com.wallet.appcoins.core.legacy_base.legacy.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 
 @AndroidEntryPoint
-class OnboardingAdyenPaymentFragment : BasePageViewFragment(),
+class OnboardingAdyenPaymentFragment : com.wallet.appcoins.core.legacy_base.legacy.BasePageViewFragment(null),
   SingleStateFragment<OnboardingAdyenPaymentState, OnboardingAdyenPaymentSideEffect> {
 
   private val viewModel: OnboardingAdyenPaymentViewModel by viewModels()

@@ -11,11 +11,11 @@ import com.asf.wallet.databinding.AlmostVipFragmentBinding
 import com.appcoins.wallet.core.arch.SingleStateFragment
 import com.asfoundation.wallet.promotions.ui.PromotionsSideEffect
 import com.asfoundation.wallet.promotions.ui.PromotionsState
-import com.asfoundation.wallet.viewmodel.BasePageViewDialogFragment
+import com.wallet.appcoins.core.legacy_base.legacy.BasePageViewDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class AlmostVipDialogFragment : BasePageViewDialogFragment(),
+class AlmostVipDialogFragment : com.wallet.appcoins.core.legacy_base.legacy.BasePageViewDialogFragment(),
   SingleStateFragment<PromotionsState, PromotionsSideEffect> {
 
   private val views by viewBinding(AlmostVipFragmentBinding::bind)

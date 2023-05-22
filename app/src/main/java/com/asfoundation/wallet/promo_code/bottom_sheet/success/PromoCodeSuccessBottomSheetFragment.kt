@@ -13,7 +13,7 @@ import com.appcoins.wallet.core.arch.SideEffect
 import com.appcoins.wallet.core.arch.SingleStateFragment
 import com.appcoins.wallet.core.arch.ViewState
 import com.asfoundation.wallet.promo_code.bottom_sheet.PromoCodeBottomSheetNavigator
-import com.asfoundation.wallet.promo_code.repository.PromoCode
+import com.appcoins.wallet.feature.promocode.data.repository.PromoCode
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
@@ -34,7 +34,7 @@ class PromoCodeSuccessBottomSheetFragment : BottomSheetDialogFragment(),
     private const val PROMO_CODE = "promo_code"
 
     @JvmStatic
-    fun newInstance(promoCode: PromoCode): PromoCodeSuccessBottomSheetFragment {
+    fun newInstance(promoCode: com.appcoins.wallet.feature.promocode.data.repository.PromoCode): PromoCodeSuccessBottomSheetFragment {
       return PromoCodeSuccessBottomSheetFragment()
         .apply {
           arguments = Bundle().apply {
@@ -52,7 +52,7 @@ class PromoCodeSuccessBottomSheetFragment : BottomSheetDialogFragment(),
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
 
-    showSuccess(requireArguments().getSerializable(PROMO_CODE) as PromoCode)
+    showSuccess(requireArguments().getSerializable(PROMO_CODE) as com.appcoins.wallet.feature.promocode.data.repository.PromoCode)
     views.promoCodeBottomSheetSuccessGotItButton.setOnClickListener { navigator.navigateBack() }
   }
 
@@ -71,7 +71,7 @@ class PromoCodeSuccessBottomSheetFragment : BottomSheetDialogFragment(),
   override fun onSideEffect(sideEffect: SideEffect) = Unit
 
   @SuppressLint("StringFormatMatches")
-  private fun showSuccess(promoCode: PromoCode) {
+  private fun showSuccess(promoCode: com.appcoins.wallet.feature.promocode.data.repository.PromoCode) {
     views.promoCodeBottomSheetSuccessAnimation.visibility = View.VISIBLE
     views.promoCodeBottomSheetSuccessAnimation.setAnimation(R.raw.success_animation)
     views.promoCodeBottomSheetSuccessAnimation.setAnimation(R.raw.success_animation)

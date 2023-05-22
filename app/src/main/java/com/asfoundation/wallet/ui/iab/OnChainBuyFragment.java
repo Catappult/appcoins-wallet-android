@@ -16,9 +16,9 @@ import com.airbnb.lottie.LottieAnimationView;
 import com.airbnb.lottie.TextDelegate;
 import com.appcoins.wallet.core.utils.jvm_common.Logger;
 import com.asf.wallet.R;
-import com.asfoundation.wallet.billing.analytics.BillingAnalytics;
+import com.appcoins.wallet.core.analytics.analytics.legacy.BillingAnalytics;
 import com.asfoundation.wallet.entity.TransactionBuilder;
-import com.asfoundation.wallet.viewmodel.BasePageViewFragment;
+import com.appcoins.wallet.core.arch.legacy.BasePageViewFragment;
 import com.jakewharton.rxbinding2.view.RxView;
 import dagger.hilt.android.AndroidEntryPoint;
 import io.reactivex.Observable;
@@ -65,6 +65,10 @@ import static com.asfoundation.wallet.ui.iab.IabActivity.TRANSACTION_AMOUNT;
   private View supportIcon;
   private View supportLogo;
   private int gamificationLevel;
+
+  public OnChainBuyFragment() {
+    super(null);
+  }
 
   public static OnChainBuyFragment newInstance(Bundle extras, String data, boolean bdsIap,
       TransactionBuilder transaction, String bonus, int gamificationLevel) {

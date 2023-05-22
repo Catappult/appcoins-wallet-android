@@ -17,7 +17,7 @@ import com.asfoundation.wallet.ui.iab.PaymentMethodsView.SelectedPaymentMethod.*
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.appcoins.wallet.core.utils.android_common.WalletCurrency
 import com.appcoins.wallet.core.utils.android_common.extensions.isNoNetworkException
-import com.asfoundation.wallet.wallets.usecases.GetWalletInfoUseCase
+import com.appcoins.wallet.feature.walletInfo.data.usecases.GetWalletInfoUseCase
 import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Scheduler
@@ -30,18 +30,18 @@ import java.util.*
 import java.util.concurrent.TimeUnit
 
 class PaymentMethodsPresenter(
-  private val view: PaymentMethodsView,
-  private val viewScheduler: Scheduler,
-  private val networkThread: Scheduler,
-  private val disposables: CompositeDisposable,
-  private val analytics: PaymentMethodsAnalytics,
-  private val transaction: TransactionBuilder,
-  private val paymentMethodsMapper: PaymentMethodsMapper,
-  private val formatter: CurrencyFormatUtils,
-  private val getWalletInfoUseCase: GetWalletInfoUseCase,
-  private val logger: Logger,
-  private val interactor: PaymentMethodsInteractor,
-  private val paymentMethodsData: PaymentMethodsData
+    private val view: PaymentMethodsView,
+    private val viewScheduler: Scheduler,
+    private val networkThread: Scheduler,
+    private val disposables: CompositeDisposable,
+    private val analytics: PaymentMethodsAnalytics,
+    private val transaction: TransactionBuilder,
+    private val paymentMethodsMapper: PaymentMethodsMapper,
+    private val formatter: CurrencyFormatUtils,
+    private val getWalletInfoUseCase: com.appcoins.wallet.feature.walletInfo.data.usecases.GetWalletInfoUseCase,
+    private val logger: Logger,
+    private val interactor: PaymentMethodsInteractor,
+    private val paymentMethodsData: PaymentMethodsData
 ) {
 
   private var cachedGamificationLevel = 0

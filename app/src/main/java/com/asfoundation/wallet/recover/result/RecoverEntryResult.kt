@@ -2,7 +2,10 @@ package com.asfoundation.wallet.recover.result
 
 import com.asfoundation.wallet.entity.WalletKeyStore
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
-import com.asfoundation.wallet.wallets.usecases.GetWalletInfoUseCase
+import com.appcoins.wallet.feature.walletInfo.data.FailedRestore
+import com.appcoins.wallet.feature.walletInfo.data.RestoreResult
+import com.appcoins.wallet.feature.walletInfo.data.SuccessfulRestore
+import com.appcoins.wallet.feature.walletInfo.data.usecases.GetWalletInfoUseCase
 import io.reactivex.Single
 
 sealed class RecoverEntryResult
@@ -25,9 +28,9 @@ sealed class FailedEntryRecover : RecoverEntryResult() {
 }
 
 class RecoverEntryResultMapper(
-  private val getWalletInfoUseCase: GetWalletInfoUseCase,
-  private val currencyFormatUtils: CurrencyFormatUtils,
-  private val walletKeyStore: WalletKeyStore
+    private val getWalletInfoUseCase: com.appcoins.wallet.feature.walletInfo.data.usecases.GetWalletInfoUseCase,
+    private val currencyFormatUtils: CurrencyFormatUtils,
+    private val walletKeyStore: WalletKeyStore
 ) {
   fun map(restoreResult: RestoreResult): Single<RecoverEntryResult> = when (restoreResult) {
     is SuccessfulRestore ->

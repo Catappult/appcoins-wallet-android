@@ -19,12 +19,12 @@ import com.asfoundation.wallet.ui.iab.WebViewActivity
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.appcoins.wallet.core.utils.android_common.WalletCurrency
 import com.asfoundation.wallet.verification.ui.credit_card.intro.VerificationIntroModel
-import com.asfoundation.wallet.viewmodel.BasePageViewFragment
+import com.wallet.appcoins.core.legacy_base.legacy.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class VerificationPaypalFragment : BasePageViewFragment(),
+class VerificationPaypalFragment : com.wallet.appcoins.core.legacy_base.legacy.BasePageViewFragment(null),
   SingleStateFragment<VerificationPaypalIntroState, VerificationPaypalIntroSideEffect> {
 
   @Inject

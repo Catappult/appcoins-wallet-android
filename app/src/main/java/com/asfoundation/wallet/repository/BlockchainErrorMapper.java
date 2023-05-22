@@ -1,6 +1,7 @@
 package com.asfoundation.wallet.repository;
 
 import com.appcoins.wallet.core.utils.jvm_common.UnknownTokenException;
+import com.appcoins.wallet.feature.walletInfo.data.wallet.WalletNotFoundException;
 import java.net.UnknownHostException;
 import javax.inject.Inject;
 

@@ -13,7 +13,7 @@ import by.kirich1409.viewbindingdelegate.viewBinding
 import com.asf.wallet.R
 import com.appcoins.wallet.ui.common.withNoLayoutTransition
 import com.asf.wallet.databinding.FragmentCarrierVerifyPhoneBinding
-import com.asfoundation.wallet.viewmodel.BasePageViewFragment
+import com.wallet.appcoins.core.legacy_base.legacy.BasePageViewFragment
 import com.jakewharton.rxbinding2.view.RxView
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.Observable
@@ -23,7 +23,7 @@ import java.util.*
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class CarrierVerifyFragment : BasePageViewFragment(), CarrierVerifyView {
+class CarrierVerifyFragment : com.wallet.appcoins.core.legacy_base.legacy.BasePageViewFragment(null), CarrierVerifyView {
 
   @Inject
   lateinit var presenter: CarrierVerifyPresenter

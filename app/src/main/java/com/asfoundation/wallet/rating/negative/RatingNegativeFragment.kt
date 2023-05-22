@@ -11,14 +11,14 @@ import android.view.ViewGroup
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.asf.wallet.R
 import com.asf.wallet.databinding.FragmentRatingNegativeBinding
-import com.asfoundation.wallet.viewmodel.BasePageViewFragment
+import com.wallet.appcoins.core.legacy_base.legacy.BasePageViewFragment
 import com.jakewharton.rxbinding2.view.RxView
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.Observable
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class RatingNegativeFragment : BasePageViewFragment(), RatingNegativeView {
+class RatingNegativeFragment : com.wallet.appcoins.core.legacy_base.legacy.BasePageViewFragment(null), RatingNegativeView {
 
   @Inject
   lateinit var presenter: RatingNegativePresenter

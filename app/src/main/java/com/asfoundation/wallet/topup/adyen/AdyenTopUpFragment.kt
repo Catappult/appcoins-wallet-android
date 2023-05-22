@@ -39,7 +39,7 @@ import com.asfoundation.wallet.topup.TopUpPaymentData
 import com.asfoundation.wallet.topup.address.BillingAddressTopUpFragment.Companion.BILLING_ADDRESS_MODEL
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
 import com.asfoundation.wallet.util.*
-import com.asfoundation.wallet.viewmodel.BasePageViewFragment
+import com.wallet.appcoins.core.legacy_base.legacy.BasePageViewFragment
 import com.jakewharton.rxbinding2.view.RxView
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.Observable
@@ -52,7 +52,7 @@ import java.math.BigDecimal
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class AdyenTopUpFragment : BasePageViewFragment(), AdyenTopUpView {
+class AdyenTopUpFragment : com.wallet.appcoins.core.legacy_base.legacy.BasePageViewFragment(null), AdyenTopUpView {
 
   @Inject
   internal lateinit var inAppPurchaseInteractor: InAppPurchaseInteractor

@@ -6,16 +6,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import by.kirich1409.viewbindingdelegate.viewBinding
-import com.asf.wallet.R
 import com.asf.wallet.databinding.RemoveWalletFirstLayoutBinding
-import com.asfoundation.wallet.viewmodel.BasePageViewFragment
+import com.wallet.appcoins.core.legacy_base.legacy.BasePageViewFragment
 import com.jakewharton.rxbinding2.view.RxView
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 
 @AndroidEntryPoint
-class RemoveWalletFragment : BasePageViewFragment(), RemoveWalletView {
+class RemoveWalletFragment : com.wallet.appcoins.core.legacy_base.legacy.BasePageViewFragment(null), RemoveWalletView {
 
   private lateinit var presenter: RemoveWalletPresenter
   private lateinit var activityView: RemoveWalletActivityView

@@ -4,7 +4,7 @@ import android.content.Intent
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import com.asf.wallet.R
-import com.asfoundation.wallet.C
+import com.appcoins.wallet.core.utils.jvm_common.C
 import com.asfoundation.wallet.entity.TokenInfo
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.interact.DefaultTokenProvider

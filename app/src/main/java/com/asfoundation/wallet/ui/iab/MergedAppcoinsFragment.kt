@@ -20,15 +20,15 @@ import androidx.fragment.app.Fragment
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.asf.wallet.R
-import com.asfoundation.wallet.billing.analytics.BillingAnalytics
+import com.appcoins.wallet.core.analytics.analytics.legacy.BillingAnalytics
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.navigator.UriNavigator
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.asfoundation.wallet.util.Period
 import com.appcoins.wallet.core.utils.android_common.WalletCurrency
 import com.asf.wallet.databinding.MergedAppcoinsLayoutBinding
-import com.asfoundation.wallet.viewmodel.BasePageViewFragment
-import com.asfoundation.wallet.wallets.usecases.GetWalletInfoUseCase
+import com.wallet.appcoins.core.legacy_base.legacy.BasePageViewFragment
+import com.appcoins.wallet.feature.walletInfo.data.usecases.GetWalletInfoUseCase
 import com.google.android.material.radiobutton.MaterialRadioButton
 import com.jakewharton.rxbinding2.view.RxView
 import dagger.hilt.android.AndroidEntryPoint
@@ -41,7 +41,7 @@ import java.math.BigDecimal
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class MergedAppcoinsFragment : BasePageViewFragment(), MergedAppcoinsView {
+class MergedAppcoinsFragment : com.wallet.appcoins.core.legacy_base.legacy.BasePageViewFragment(null), MergedAppcoinsView {
 
   companion object {
     private const val FIAT_AMOUNT_KEY = "fiat_amount"
@@ -117,7 +117,7 @@ class MergedAppcoinsFragment : BasePageViewFragment(), MergedAppcoinsView {
   lateinit var logger: Logger
 
   @Inject
-  lateinit var getWalletInfoUseCase: GetWalletInfoUseCase
+  lateinit var getWalletInfoUseCase: com.appcoins.wallet.feature.walletInfo.data.usecases.GetWalletInfoUseCase
 
   @Inject
   lateinit var paymentMethodsMapper: PaymentMethodsMapper

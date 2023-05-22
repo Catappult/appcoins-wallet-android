@@ -7,7 +7,7 @@ import android.os.Bundle
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.asf.wallet.R
 import com.asf.wallet.databinding.LayoutWalletBlockedBinding
-import com.asfoundation.wallet.ui.BaseActivity
+import com.wallet.appcoins.core.legacy_base.legacy.BaseActivity
 import com.jakewharton.rxbinding2.view.RxView
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.Observable
@@ -15,7 +15,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 
 @AndroidEntryPoint
-class WalletBlockedActivity : BaseActivity(),
+class WalletBlockedActivity : com.wallet.appcoins.core.legacy_base.legacy.BaseActivity(),
     WalletBlockedView {
 
   private lateinit var presenter: WalletBlockedPresenter

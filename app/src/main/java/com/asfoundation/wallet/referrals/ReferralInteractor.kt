@@ -5,10 +5,10 @@ import com.appcoins.wallet.core.network.backend.model.PromotionsResponse
 import com.appcoins.wallet.core.network.backend.model.ReferralResponse
 import com.asf.wallet.R
 import com.asfoundation.wallet.interact.EmptyNotification
-import com.asfoundation.wallet.promo_code.use_cases.GetCurrentPromoCodeUseCase
+import com.appcoins.wallet.feature.promocode.data.use_cases.GetCurrentPromoCodeUseCase
 import com.asfoundation.wallet.ui.widget.holder.CardNotificationAction
 import com.appcoins.wallet.core.utils.android_common.extensions.scaleToString
-import com.asfoundation.wallet.wallets.FindDefaultWalletInteract
+import com.appcoins.wallet.feature.walletInfo.data.FindDefaultWalletInteract
 import io.reactivex.Completable
 import io.reactivex.Maybe
 import io.reactivex.Single
@@ -19,10 +19,10 @@ import javax.inject.Inject
 
 @BoundTo(supertype = ReferralInteractorContract::class)
 class ReferralInteractor @Inject constructor(
-  private val preferences: ReferralPreferencesDataSource,
-  private val defaultWallet: FindDefaultWalletInteract,
-  private val promotionsRepository: PromotionsRepository,
-  private val getCurrentPromoCodeUseCase: GetCurrentPromoCodeUseCase
+    private val preferences: ReferralPreferencesDataSource,
+    private val defaultWallet: com.appcoins.wallet.feature.walletInfo.data.FindDefaultWalletInteract,
+    private val promotionsRepository: PromotionsRepository,
+    private val getCurrentPromoCodeUseCase: com.appcoins.wallet.feature.promocode.data.use_cases.GetCurrentPromoCodeUseCase
 ) :
   ReferralInteractorContract {
 

@@ -10,7 +10,7 @@ import com.asf.wallet.R
 import com.asf.wallet.databinding.FragmentSubscriptionListBinding
 import com.asfoundation.wallet.subscriptions.SubscriptionAdapter
 import com.asfoundation.wallet.subscriptions.SubscriptionItem
-import com.asfoundation.wallet.viewmodel.BasePageViewFragment
+import com.wallet.appcoins.core.legacy_base.legacy.BasePageViewFragment
 import com.jakewharton.rxbinding2.view.RxView
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.Observable
@@ -18,7 +18,7 @@ import io.reactivex.subjects.PublishSubject
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class SubscriptionListFragment : BasePageViewFragment(), SubscriptionListView {
+class SubscriptionListFragment : com.wallet.appcoins.core.legacy_base.legacy.BasePageViewFragment(null), SubscriptionListView {
 
   @Inject
   lateinit var presenter: SubscriptionListPresenter

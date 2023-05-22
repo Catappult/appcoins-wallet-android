@@ -9,7 +9,7 @@ import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.asfoundation.wallet.util.QRUri
 import com.appcoins.wallet.core.utils.android_common.WalletCurrency
 import com.appcoins.wallet.core.utils.android_common.extensions.isNoNetworkException
-import com.asfoundation.wallet.wallets.usecases.GetWalletInfoUseCase
+import com.appcoins.wallet.feature.walletInfo.data.usecases.GetWalletInfoUseCase
 import com.google.android.gms.common.api.CommonStatusCodes
 import com.google.android.gms.vision.barcode.Barcode
 import io.reactivex.Completable
@@ -23,7 +23,7 @@ import java.util.concurrent.TimeUnit
 class TransferFragmentPresenter(private val view: TransferFragmentView,
                                 private val disposables: CompositeDisposable,
                                 private val onResumeDisposables: CompositeDisposable,
-                                private val getWalletInfoUseCase: GetWalletInfoUseCase,
+                                private val getWalletInfoUseCase: com.appcoins.wallet.feature.walletInfo.data.usecases.GetWalletInfoUseCase,
                                 private val interactor: TransferInteractor,
                                 private val navigator: TransferFragmentNavigator,
                                 private val ioScheduler: Scheduler,

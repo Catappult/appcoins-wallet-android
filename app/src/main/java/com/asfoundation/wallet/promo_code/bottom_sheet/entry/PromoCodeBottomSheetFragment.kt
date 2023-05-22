@@ -14,9 +14,9 @@ import com.asf.wallet.R
 import com.asf.wallet.databinding.SettingsPromoCodeBottomSheetLayoutBinding
 import com.appcoins.wallet.core.arch.data.Async
 import com.appcoins.wallet.core.arch.SingleStateFragment
-import com.asfoundation.wallet.promo_code.FailedPromoCode
-import com.asfoundation.wallet.promo_code.PromoCodeResult
-import com.asfoundation.wallet.promo_code.SuccessfulPromoCode
+import com.appcoins.wallet.feature.promocode.data.FailedPromoCode
+import com.appcoins.wallet.feature.promocode.data.PromoCodeResult
+import com.appcoins.wallet.feature.promocode.data.SuccessfulPromoCode
 import com.asfoundation.wallet.promo_code.bottom_sheet.PromoCodeBottomSheetNavigator
 import com.appcoins.wallet.core.utils.android_common.KeyboardUtils
 import com.appcoins.wallet.ui.widgets.WalletTextFieldView
@@ -93,7 +93,7 @@ class PromoCodeBottomSheetFragment : BottomSheetDialogFragment(),
         }
       }
       is Async.Fail -> {
-        handleErrorState(FailedPromoCode.InvalidCode(clickAsync.error.throwable))
+        handleErrorState(com.appcoins.wallet.feature.promocode.data.FailedPromoCode.InvalidCode(clickAsync.error.throwable))
       }
       is Async.Success -> {
         handleClickSuccessState(state.submitPromoCodeAsync.value)
@@ -108,8 +108,8 @@ class PromoCodeBottomSheetFragment : BottomSheetDialogFragment(),
   }
 
   fun initializePromoCode(
-    storedPromoCodeAsync: Async<PromoCodeResult>,
-    shouldShowDefault: Boolean
+      storedPromoCodeAsync: Async<com.appcoins.wallet.feature.promocode.data.PromoCodeResult>,
+      shouldShowDefault: Boolean
   ) {
     when (storedPromoCodeAsync) {
       is Async.Uninitialized,
@@ -118,7 +118,7 @@ class PromoCodeBottomSheetFragment : BottomSheetDialogFragment(),
       }
       is Async.Fail -> {
         if (storedPromoCodeAsync.value != null) {
-          handleErrorState(FailedPromoCode.GenericError(storedPromoCodeAsync.error.throwable))
+          handleErrorState(com.appcoins.wallet.feature.promocode.data.FailedPromoCode.GenericError(storedPromoCodeAsync.error.throwable))
         }
       }
       is Async.Success -> {
@@ -127,9 +127,9 @@ class PromoCodeBottomSheetFragment : BottomSheetDialogFragment(),
     }
   }
 
-  private fun handleClickSuccessState(promoCode: PromoCodeResult?) {
+  private fun handleClickSuccessState(promoCode: com.appcoins.wallet.feature.promocode.data.PromoCodeResult?) {
     when (promoCode) {
-      is SuccessfulPromoCode -> {
+      is com.appcoins.wallet.feature.promocode.data.SuccessfulPromoCode -> {
         promoCode.promoCode.code?.let {
           if (viewModel.isFirstSuccess) {
             KeyboardUtils.hideKeyboard(view)
@@ -143,11 +143,11 @@ class PromoCodeBottomSheetFragment : BottomSheetDialogFragment(),
   }
 
   private fun handlePromoCodeSuccessState(
-    promoCodeResult: PromoCodeResult,
-    shouldShowDefault: Boolean
+      promoCodeResult: com.appcoins.wallet.feature.promocode.data.PromoCodeResult,
+      shouldShowDefault: Boolean
   ) {
     when (promoCodeResult) {
-      is SuccessfulPromoCode -> {
+      is com.appcoins.wallet.feature.promocode.data.SuccessfulPromoCode -> {
         if (shouldShowDefault) {
           showDefaultScreen()
         } else {
@@ -158,17 +158,17 @@ class PromoCodeBottomSheetFragment : BottomSheetDialogFragment(),
     }
   }
 
-  private fun handleErrorState(promoCodeResult: PromoCodeResult?) {
+  private fun handleErrorState(promoCodeResult: com.appcoins.wallet.feature.promocode.data.PromoCodeResult?) {
     showDefaultScreen()
     views.promoCodeBottomSheetSubmitButton.isEnabled = false
     when (promoCodeResult) {
-      is FailedPromoCode.InvalidCode -> {
+      is com.appcoins.wallet.feature.promocode.data.FailedPromoCode.InvalidCode -> {
         views.promoCodeBottomSheetString.setError(getString(R.string.promo_code_view_error))
       }
-      is FailedPromoCode.ExpiredCode -> {
+      is com.appcoins.wallet.feature.promocode.data.FailedPromoCode.ExpiredCode -> {
         views.promoCodeBottomSheetString.setError(getString(R.string.promo_code_error_not_available))
       }
-      is FailedPromoCode.GenericError -> {
+      is com.appcoins.wallet.feature.promocode.data.FailedPromoCode.GenericError -> {
         views.promoCodeBottomSheetString.setError(getString(R.string.promo_code_error_invalid_user))
       }
       else -> return

@@ -19,7 +19,7 @@ import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.appcoins.wallet.core.utils.android_common.WalletCurrency
 import com.appcoins.wallet.core.utils.android_common.extensions.getStringSpanned
 import com.appcoins.wallet.ui.common.withNoLayoutTransition
-import com.asfoundation.wallet.viewmodel.BasePageViewFragment
+import com.wallet.appcoins.core.legacy_base.legacy.BasePageViewFragment
 import com.jakewharton.rxbinding2.view.RxView
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.Observable
@@ -29,7 +29,7 @@ import java.util.*
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class CarrierFeeFragment : BasePageViewFragment(), CarrierFeeView {
+class CarrierFeeFragment : com.wallet.appcoins.core.legacy_base.legacy.BasePageViewFragment(null), CarrierFeeView {
 
   private val formatter = CurrencyFormatUtils()
 

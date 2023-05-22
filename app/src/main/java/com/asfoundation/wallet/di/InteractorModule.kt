@@ -15,7 +15,7 @@ import com.asfoundation.wallet.ui.airdrop.AirdropInteractor
 import com.asfoundation.wallet.ui.airdrop.AppcoinsTransactionService
 import com.asfoundation.wallet.ui.iab.AsfInAppPurchaseInteractor
 import com.asfoundation.wallet.util.TransferParser
-import com.asfoundation.wallet.wallets.FindDefaultWalletInteract
+import com.appcoins.wallet.feature.walletInfo.data.FindDefaultWalletInteract
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -60,14 +60,14 @@ class InteractorModule {
   @Provides
   @Named("ASF_BDS_IN_APP_INTERACTOR")
   fun provideAsfBdsInAppPurchaseInteractor(
-    @Named("IN_APP_PURCHASE_SERVICE") inAppPurchaseService: InAppPurchaseService,
-    defaultWalletInteract: FindDefaultWalletInteract,
-    gasSettingsInteract: FetchGasSettingsInteract,
-    @Named("payment-gas-limit") paymentGasLimit: BigDecimal, parser: TransferParser,
-    billing: Billing, currencyConversionService: CurrencyConversionService,
-    bdsTransactionService: BdsTransactionService,
-    billingMessagesMapper: BillingMessagesMapper,
-    rxSchedulers: RxSchedulers
+      @Named("IN_APP_PURCHASE_SERVICE") inAppPurchaseService: InAppPurchaseService,
+      defaultWalletInteract: com.appcoins.wallet.feature.walletInfo.data.FindDefaultWalletInteract,
+      gasSettingsInteract: FetchGasSettingsInteract,
+      @Named("payment-gas-limit") paymentGasLimit: BigDecimal, parser: TransferParser,
+      billing: Billing, currencyConversionService: CurrencyConversionService,
+      bdsTransactionService: BdsTransactionService,
+      billingMessagesMapper: BillingMessagesMapper,
+      rxSchedulers: RxSchedulers
   ): AsfInAppPurchaseInteractor {
     return AsfInAppPurchaseInteractor(
       inAppPurchaseService, defaultWalletInteract,
@@ -82,14 +82,14 @@ class InteractorModule {
   @Provides
   @Named("ASF_IN_APP_INTERACTOR")
   fun provideAsfInAppPurchaseInteractor(
-    @Named("ASF_IN_APP_PURCHASE_SERVICE") inAppPurchaseService: InAppPurchaseService,
-    defaultWalletInteract: FindDefaultWalletInteract,
-    gasSettingsInteract: FetchGasSettingsInteract,
-    @Named("payment-gas-limit") paymentGasLimit: BigDecimal, parser: TransferParser,
-    billing: Billing, currencyConversionService: CurrencyConversionService,
-    bdsTransactionService: BdsTransactionService,
-    billingMessagesMapper: BillingMessagesMapper,
-    rxSchedulers: RxSchedulers
+      @Named("ASF_IN_APP_PURCHASE_SERVICE") inAppPurchaseService: InAppPurchaseService,
+      defaultWalletInteract: com.appcoins.wallet.feature.walletInfo.data.FindDefaultWalletInteract,
+      gasSettingsInteract: FetchGasSettingsInteract,
+      @Named("payment-gas-limit") paymentGasLimit: BigDecimal, parser: TransferParser,
+      billing: Billing, currencyConversionService: CurrencyConversionService,
+      bdsTransactionService: BdsTransactionService,
+      billingMessagesMapper: BillingMessagesMapper,
+      rxSchedulers: RxSchedulers
   ): AsfInAppPurchaseInteractor {
     return AsfInAppPurchaseInteractor(
       inAppPurchaseService, defaultWalletInteract,
@@ -102,10 +102,10 @@ class InteractorModule {
   @Singleton
   @Provides
   fun provideAirdropInteractor(
-    pendingTransactionService: PendingTransactionService,
-    airdropService: AirdropService,
-    findDefaultWalletInteract: FindDefaultWalletInteract,
-    airdropChainIdMapper: AirdropChainIdMapper
+      pendingTransactionService: PendingTransactionService,
+      airdropService: AirdropService,
+      findDefaultWalletInteract: com.appcoins.wallet.feature.walletInfo.data.FindDefaultWalletInteract,
+      airdropChainIdMapper: AirdropChainIdMapper
   ): AirdropInteractor {
     return AirdropInteractor(
       Airdrop(

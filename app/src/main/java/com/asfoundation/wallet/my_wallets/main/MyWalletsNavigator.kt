@@ -8,10 +8,10 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.ActivityNavigatorExtras
 import androidx.navigation.NavController
 import com.asf.wallet.R
-import com.asfoundation.wallet.C
+import com.appcoins.wallet.core.utils.jvm_common.C
 import com.appcoins.wallet.core.arch.data.Navigator
 import com.appcoins.wallet.core.arch.data.navigate
-import com.asfoundation.wallet.entity.Wallet
+import com.appcoins.wallet.feature.walletInfo.data.wallet.domain.Wallet
 import com.asfoundation.wallet.ui.MyAddressActivity
 import com.asfoundation.wallet.ui.transact.TransferActivity
 import javax.inject.Inject

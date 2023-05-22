@@ -7,7 +7,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import by.kirich1409.viewbindingdelegate.viewBinding
 import com.airbnb.lottie.FontAssetDelegate
 import com.airbnb.lottie.TextDelegate
 import com.asf.wallet.R
@@ -15,13 +14,13 @@ import com.asfoundation.wallet.ui.iab.IabView
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.appcoins.wallet.core.utils.android_common.WalletCurrency
 import com.asf.wallet.databinding.FragmentCarrierPaymentStatusBinding
-import com.asfoundation.wallet.viewmodel.BasePageViewFragment
+import com.wallet.appcoins.core.legacy_base.legacy.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
 import java.math.BigDecimal
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class CarrierPaymentFragment : BasePageViewFragment(), CarrierPaymentView {
+class CarrierPaymentFragment : com.wallet.appcoins.core.legacy_base.legacy.BasePageViewFragment(null), CarrierPaymentView {
 
   @Inject
   lateinit var formatter: CurrencyFormatUtils

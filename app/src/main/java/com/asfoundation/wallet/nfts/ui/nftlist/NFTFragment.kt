@@ -12,12 +12,12 @@ import com.appcoins.wallet.core.arch.data.Async
 import com.appcoins.wallet.core.arch.SingleStateFragment
 import com.asfoundation.wallet.nfts.domain.NFTItem
 import com.asfoundation.wallet.nfts.list.NFTsController
-import com.asfoundation.wallet.viewmodel.BasePageViewFragment
+import com.wallet.appcoins.core.legacy_base.legacy.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class NFTFragment : BasePageViewFragment(),
+class NFTFragment : com.wallet.appcoins.core.legacy_base.legacy.BasePageViewFragment(null),
   SingleStateFragment<NFTState, NFTSideEffect> {
 
 

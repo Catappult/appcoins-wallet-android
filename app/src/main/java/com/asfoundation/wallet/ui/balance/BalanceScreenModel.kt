@@ -1,10 +1,8 @@
 package com.asfoundation.wallet.ui.balance
 
-import com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue
-
 data class BalanceScreenModel(
-  val overallFiat: com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue,
-  val creditsBalance: TokenBalance,
-  val appcBalance: TokenBalance,
-  val ethBalance: TokenBalance
+    val overallFiat: com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue,
+    val creditsBalance: com.appcoins.wallet.feature.walletInfo.data.domain.TokenBalance,
+    val appcBalance: com.appcoins.wallet.feature.walletInfo.data.domain.TokenBalance,
+    val ethBalance: com.appcoins.wallet.feature.walletInfo.data.domain.TokenBalance
 )

@@ -10,9 +10,9 @@ import androidx.core.content.res.ResourcesCompat
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.asf.wallet.R
 import com.asf.wallet.databinding.FragmentSharePaymentLinkBinding
-import com.asfoundation.wallet.billing.analytics.BillingAnalytics
+import com.appcoins.wallet.core.analytics.analytics.legacy.BillingAnalytics
 import com.asfoundation.wallet.ui.iab.IabView
-import com.asfoundation.wallet.viewmodel.BasePageViewFragment
+import com.wallet.appcoins.core.legacy_base.legacy.BasePageViewFragment
 import com.jakewharton.rxbinding2.view.RxView
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.Observable
@@ -23,7 +23,7 @@ import java.math.BigDecimal
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class SharePaymentLinkFragment : BasePageViewFragment(),
+class SharePaymentLinkFragment : com.wallet.appcoins.core.legacy_base.legacy.BasePageViewFragment(null),
     SharePaymentLinkFragmentView {
 
   @Inject

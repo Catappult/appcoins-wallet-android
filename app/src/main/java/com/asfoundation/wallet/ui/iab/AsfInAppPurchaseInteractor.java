@@ -10,7 +10,7 @@ import com.appcoins.wallet.core.utils.android_common.RxSchedulers;
 import com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue;
 import com.asfoundation.wallet.entity.GasSettings;
 import com.asfoundation.wallet.entity.TransactionBuilder;
-import com.asfoundation.wallet.entity.Wallet;
+import com.appcoins.wallet.feature.walletInfo.data.wallet.domain.Wallet;
 import com.asfoundation.wallet.interact.FetchGasSettingsInteract;
 import com.asfoundation.wallet.repository.BdsTransactionService;
 import com.asfoundation.wallet.repository.CurrencyConversionService;

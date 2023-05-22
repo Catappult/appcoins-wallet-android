@@ -8,10 +8,9 @@ import android.view.ViewGroup
 import android.view.ViewTreeObserver
 import androidx.fragment.app.Fragment
 import by.kirich1409.viewbindingdelegate.viewBinding
-import com.asf.wallet.R
 import com.asf.wallet.databinding.OverlayFragmentBinding
 import com.asfoundation.wallet.main.nav_bar.NavBarFragmentNavigator
-import com.asfoundation.wallet.viewmodel.BasePageViewFragment
+import com.wallet.appcoins.core.legacy_base.legacy.BasePageViewFragment
 import com.google.android.material.bottomnavigation.BottomNavigationItemView
 import com.google.android.material.bottomnavigation.BottomNavigationMenuView
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -21,7 +20,7 @@ import io.reactivex.Observable
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class OverlayFragment : BasePageViewFragment(), OverlayView {
+class OverlayFragment : com.wallet.appcoins.core.legacy_base.legacy.BasePageViewFragment(null), OverlayView {
 
   @Inject
   lateinit var presenter: OverlayPresenter

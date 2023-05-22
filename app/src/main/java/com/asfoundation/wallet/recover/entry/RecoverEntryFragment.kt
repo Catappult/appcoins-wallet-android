@@ -24,12 +24,12 @@ import com.asfoundation.wallet.recover.RecoverActivity.Companion.ONBOARDING_LAYO
 import com.asfoundation.wallet.recover.result.FailedEntryRecover
 import com.asfoundation.wallet.recover.result.RecoverEntryResult
 import com.asfoundation.wallet.recover.result.SuccessfulEntryRecover
-import com.asfoundation.wallet.viewmodel.BasePageViewFragment
+import com.wallet.appcoins.core.legacy_base.legacy.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class RecoverEntryFragment : BasePageViewFragment(),
+class RecoverEntryFragment : com.wallet.appcoins.core.legacy_base.legacy.BasePageViewFragment(null),
   SingleStateFragment<RecoverEntryState, RecoverEntrySideEffect> {
 
   @Inject

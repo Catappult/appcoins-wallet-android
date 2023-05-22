@@ -12,9 +12,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.Toolbar;
+import com.appcoins.wallet.core.arch.legacy.BaseActivity;
 import com.asf.wallet.R;
 import com.asfoundation.wallet.entity.NetworkInfo;
-import com.asfoundation.wallet.entity.Wallet;
+import com.appcoins.wallet.feature.walletInfo.data.wallet.domain.Wallet;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.MultiFormatWriter;
 import com.google.zxing.common.BitMatrix;
@@ -22,7 +24,7 @@ import com.journeyapps.barcodescanner.BarcodeEncoder;
 import dagger.hilt.android.AndroidEntryPoint;
 import javax.inject.Inject;
 
-import static com.asfoundation.wallet.C.Key.WALLET;
+import static com.appcoins.wallet.core.utils.jvm_common.C.Key.WALLET;
 
 @AndroidEntryPoint public class MyAddressActivity extends BaseActivity
     implements View.OnClickListener {
@@ -49,6 +51,20 @@ import static com.asfoundation.wallet.C.Key.WALLET;
     ((ImageView) findViewById(R.id.qr_image)).setImageBitmap(qrCode);
   }
 
+  /**
+   * function hardcoded temporarily, must be changed
+   * @return
+   */
+  protected Toolbar toolbar() {
+    Toolbar toolbar = findViewById(R.id.toolbar);
+    toolbar.setVisibility(View.VISIBLE);
+    if (toolbar != null) {
+      setSupportActionBar(toolbar);
+      toolbar.setTitle(getTitle());
+    }
+    enableDisplayHomeAsUp();
+    return toolbar;
+  }
   @Override public boolean onOptionsItemSelected(MenuItem item) {
     if (item.getItemId() == android.R.id.home) {
       onBackPressed();

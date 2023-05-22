@@ -11,7 +11,7 @@ import com.asf.wallet.R
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.appcoins.wallet.core.utils.android_common.WalletCurrency
 import com.asf.wallet.databinding.ReferralsLayoutBinding
-import com.asfoundation.wallet.viewmodel.BasePageViewFragment
+import com.wallet.appcoins.core.legacy_base.legacy.BasePageViewFragment
 import com.jakewharton.rxbinding2.view.RxView
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.disposables.CompositeDisposable
@@ -20,7 +20,7 @@ import javax.inject.Inject
 import kotlin.math.roundToInt
 
 @AndroidEntryPoint
-class ReferralsFragment : BasePageViewFragment(), ReferralsView {
+class ReferralsFragment : com.wallet.appcoins.core.legacy_base.legacy.BasePageViewFragment(null), ReferralsView {
 
   private lateinit var presenter: ReferralsPresenter
 

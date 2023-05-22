@@ -14,7 +14,7 @@ import com.asfoundation.wallet.subscriptions.SubscriptionItem
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.appcoins.wallet.core.utils.android_common.WalletCurrency
 import com.asf.wallet.databinding.FragmentSubscriptionCancelBinding
-import com.asfoundation.wallet.viewmodel.BasePageViewFragment
+import com.wallet.appcoins.core.legacy_base.legacy.BasePageViewFragment
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.Request
 import com.bumptech.glide.request.RequestOptions
@@ -26,7 +26,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class SubscriptionCancelFragment : BasePageViewFragment(), SubscriptionCancelView {
+class SubscriptionCancelFragment : com.wallet.appcoins.core.legacy_base.legacy.BasePageViewFragment(null), SubscriptionCancelView {
 
   @Inject
   lateinit var currencyFormatUtils: CurrencyFormatUtils

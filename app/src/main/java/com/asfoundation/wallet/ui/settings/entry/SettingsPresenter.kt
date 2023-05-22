@@ -4,9 +4,9 @@ import android.content.Intent
 import android.hardware.biometrics.BiometricManager
 import android.os.Bundle
 import com.appcoins.wallet.feature.changecurrency.data.use_cases.GetChangeFiatCurrencyModelUseCase
-import com.asfoundation.wallet.promo_code.use_cases.GetUpdatedPromoCodeUseCase
-import com.asfoundation.wallet.promo_code.use_cases.ObservePromoCodeUseCase
-import com.asfoundation.wallet.ui.wallets.WalletsModel
+import com.appcoins.wallet.feature.promocode.data.use_cases.GetUpdatedPromoCodeUseCase
+import com.appcoins.wallet.feature.promocode.data.use_cases.ObservePromoCodeUseCase
+import com.appcoins.wallet.feature.walletInfo.data.wallet.domain.WalletsModel
 import com.asfoundation.wallet.update_required.use_cases.BuildUpdateIntentUseCase
 import com.github.michaelbull.result.get
 import io.reactivex.Scheduler
@@ -16,17 +16,17 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.rx2.rxSingle
 
 class SettingsPresenter(
-  private val view: SettingsView,
-  private val navigator: SettingsNavigator,
-  private val networkScheduler: Scheduler,
-  private val viewScheduler: Scheduler,
-  private val disposables: CompositeDisposable,
-  private val settingsInteractor: SettingsInteractor,
-  private val settingsData: SettingsData,
-  private val buildUpdateIntentUseCase: BuildUpdateIntentUseCase,
-  private val getChangeFiatCurrencyModelUseCase: GetChangeFiatCurrencyModelUseCase,
-  private val getUpdatedPromoCodeUseCase: GetUpdatedPromoCodeUseCase,
-  private val observePromoCodeUseCase: ObservePromoCodeUseCase
+    private val view: SettingsView,
+    private val navigator: SettingsNavigator,
+    private val networkScheduler: Scheduler,
+    private val viewScheduler: Scheduler,
+    private val disposables: CompositeDisposable,
+    private val settingsInteractor: SettingsInteractor,
+    private val settingsData: SettingsData,
+    private val buildUpdateIntentUseCase: BuildUpdateIntentUseCase,
+    private val getChangeFiatCurrencyModelUseCase: GetChangeFiatCurrencyModelUseCase,
+    private val getUpdatedPromoCodeUseCase: com.appcoins.wallet.feature.promocode.data.use_cases.GetUpdatedPromoCodeUseCase,
+    private val observePromoCodeUseCase: com.appcoins.wallet.feature.promocode.data.use_cases.ObservePromoCodeUseCase
 ) {
 
 

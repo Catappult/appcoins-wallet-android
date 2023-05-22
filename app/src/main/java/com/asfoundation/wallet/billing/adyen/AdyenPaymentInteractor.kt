@@ -12,11 +12,9 @@ import com.appcoins.wallet.billing.util.Error
 import com.appcoins.wallet.core.utils.android_common.RxSchedulers
 import com.asfoundation.wallet.billing.address.BillingAddressRepository
 import com.asfoundation.wallet.billing.partners.AddressService
-import com.asfoundation.wallet.promo_code.use_cases.GetCurrentPromoCodeUseCase
-import com.asfoundation.wallet.support.SupportInteractor
+import com.wallet.appcoins.feature.support.data.SupportInteractor
 import com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
-import com.asfoundation.wallet.verification.ui.credit_card.WalletVerificationInteractor
 import com.asfoundation.wallet.wallet_blocked.WalletBlockedInteract
 import com.google.gson.JsonObject
 import io.reactivex.Completable
@@ -28,17 +26,17 @@ import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 class AdyenPaymentInteractor @Inject constructor(
-  private val adyenPaymentRepository: AdyenPaymentRepository,
-  private val inAppPurchaseInteractor: InAppPurchaseInteractor,
-  private val billingMessagesMapper: BillingMessagesMapper,
-  private val partnerAddressService: AddressService,
-  private val walletService: WalletService,
-  private val supportInteractor: SupportInteractor,
-  private val walletBlockedInteract: WalletBlockedInteract,
-  private val walletVerificationInteractor: WalletVerificationInteractor,
-  private val billingAddressRepository: BillingAddressRepository,
-  private val getCurrentPromoCodeUseCase: GetCurrentPromoCodeUseCase,
-  private val rxSchedulers: RxSchedulers
+    private val adyenPaymentRepository: AdyenPaymentRepository,
+    private val inAppPurchaseInteractor: InAppPurchaseInteractor,
+    private val billingMessagesMapper: BillingMessagesMapper,
+    private val partnerAddressService: AddressService,
+    private val walletService: WalletService,
+    private val supportInteractor: com.wallet.appcoins.feature.support.data.SupportInteractor,
+    private val walletBlockedInteract: WalletBlockedInteract,
+    private val walletVerificationInteractor: com.appcoins.wallet.feature.walletInfo.data.verification.WalletVerificationInteractor,
+    private val billingAddressRepository: BillingAddressRepository,
+    private val getCurrentPromoCodeUseCase: com.appcoins.wallet.feature.promocode.data.use_cases.GetCurrentPromoCodeUseCase,
+    private val rxSchedulers: RxSchedulers
 ) {
 
   fun forgetBillingAddress() = billingAddressRepository.forgetBillingAddress()

@@ -1,15 +1,15 @@
 package com.asfoundation.wallet.recover.use_cases
 
-import com.asfoundation.wallet.backup.use_cases.BackupSuccessLogUseCase
-import com.asfoundation.wallet.wallets.usecases.GetWalletInfoUseCase
+import com.appcoins.wallet.feature.backup.data.use_cases.BackupSuccessLogUseCase
+import com.appcoins.wallet.feature.walletInfo.data.usecases.GetWalletInfoUseCase
 import io.reactivex.Completable
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.rx2.rxCompletable
 import javax.inject.Inject
 
 class UpdateBackupStateFromRecoverUseCase @Inject constructor(
-    private val getWalletInfoUseCase: GetWalletInfoUseCase,
-    private val backupSuccessLogUseCase: BackupSuccessLogUseCase
+    private val getWalletInfoUseCase: com.appcoins.wallet.feature.walletInfo.data.usecases.GetWalletInfoUseCase,
+    private val backupSuccessLogUseCase: com.appcoins.wallet.feature.backup.data.use_cases.BackupSuccessLogUseCase
 ) {
 
   operator fun invoke(): Completable {

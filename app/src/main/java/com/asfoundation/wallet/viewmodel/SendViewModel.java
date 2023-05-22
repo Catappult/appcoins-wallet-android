@@ -8,7 +8,7 @@ import androidx.lifecycle.MutableLiveData;
 import com.asfoundation.wallet.entity.Address;
 import com.asfoundation.wallet.entity.GasSettings;
 import com.asfoundation.wallet.entity.TransactionBuilder;
-import com.asfoundation.wallet.entity.Wallet;
+import com.appcoins.wallet.feature.walletInfo.data.wallet.domain.Wallet;
 import com.asfoundation.wallet.interact.FetchGasSettingsInteract;
 import com.asfoundation.wallet.router.Result;
 import com.asfoundation.wallet.router.TransactionsRouter;

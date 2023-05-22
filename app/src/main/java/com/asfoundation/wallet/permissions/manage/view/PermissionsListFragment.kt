@@ -12,9 +12,8 @@ import com.appcoins.wallet.permissions.ApplicationPermission
 import com.appcoins.wallet.permissions.PermissionName
 import com.asfoundation.wallet.permissions.PermissionsInteractor
 import com.appcoins.wallet.core.utils.android_common.applicationinfo.ApplicationInfoProvider
-import com.asf.wallet.R
 import com.asf.wallet.databinding.FragmentPermissionsListLayoutBinding
-import com.asfoundation.wallet.viewmodel.BasePageViewFragment
+import com.wallet.appcoins.core.legacy_base.legacy.BasePageViewFragment
 import com.jakewharton.rxrelay2.BehaviorRelay
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.Completable
@@ -26,7 +25,7 @@ import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class PermissionsListFragment : BasePageViewFragment(), PermissionsListView {
+class PermissionsListFragment : com.wallet.appcoins.core.legacy_base.legacy.BasePageViewFragment(null), PermissionsListView {
   companion object {
     fun newInstance(): Fragment {
       return PermissionsListFragment()

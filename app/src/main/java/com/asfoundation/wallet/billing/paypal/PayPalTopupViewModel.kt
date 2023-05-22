@@ -10,7 +10,7 @@ import com.asf.wallet.R
 import com.appcoins.wallet.core.utils.android_common.RxSchedulers
 import com.appcoins.wallet.core.network.microservices.model.PaypalTransaction
 import com.asfoundation.wallet.billing.paypal.usecases.*
-import com.asfoundation.wallet.support.SupportInteractor
+import com.wallet.appcoins.feature.support.data.SupportInteractor
 import com.asfoundation.wallet.topup.TopUpAnalytics
 import com.appcoins.wallet.core.utils.android_common.toSingleEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -19,15 +19,15 @@ import javax.inject.Inject
 
 @HiltViewModel
 class PayPalTopupViewModel @Inject constructor(
-  private val createPaypalTransactionTopupUseCase: CreatePaypalTransactionTopupUseCase,
-  private val createPaypalTokenUseCase: CreatePaypalTokenUseCase,
-  private val createPaypalAgreementUseCase: CreatePaypalAgreementUseCase,
-  private val waitForSuccessPaypalUseCase: WaitForSuccessPaypalUseCase,
-  private val cancelPaypalTokenUseCase: CancelPaypalTokenUseCase,
-  private val billingMessagesMapper: BillingMessagesMapper,
-  private val supportInteractor: SupportInteractor,
-  private val topUpAnalytics: TopUpAnalytics,
-  rxSchedulers: RxSchedulers
+    private val createPaypalTransactionTopupUseCase: CreatePaypalTransactionTopupUseCase,
+    private val createPaypalTokenUseCase: CreatePaypalTokenUseCase,
+    private val createPaypalAgreementUseCase: CreatePaypalAgreementUseCase,
+    private val waitForSuccessPaypalUseCase: WaitForSuccessPaypalUseCase,
+    private val cancelPaypalTokenUseCase: CancelPaypalTokenUseCase,
+    private val billingMessagesMapper: BillingMessagesMapper,
+    private val supportInteractor: com.wallet.appcoins.feature.support.data.SupportInteractor,
+    private val topUpAnalytics: TopUpAnalytics,
+    rxSchedulers: RxSchedulers
 ) : ViewModel() {
 
   sealed class State {

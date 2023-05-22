@@ -1,9 +1,9 @@
 package com.asfoundation.wallet.navigator
 
 import android.content.Intent
-import com.asfoundation.wallet.ui.BaseActivity
+import com.wallet.appcoins.core.legacy_base.legacy.BaseActivity
 
-abstract class ActivityNavigator : BaseActivity(), ActivityNavigatorContract {
+abstract class ActivityNavigator : com.wallet.appcoins.core.legacy_base.legacy.BaseActivity(), ActivityNavigatorContract {
 
   override fun startActivityForResult(intent: Intent, intentTitle: Int,
                                       fileIntentCode: Int) {

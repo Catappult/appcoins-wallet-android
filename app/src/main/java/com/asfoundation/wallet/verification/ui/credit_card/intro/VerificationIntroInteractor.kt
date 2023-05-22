@@ -7,19 +7,17 @@ import com.appcoins.wallet.billing.adyen.PaymentInfoModel
 import com.appcoins.wallet.core.network.microservices.model.VerificationInfoResponse
 import com.appcoins.wallet.billing.adyen.VerificationPaymentModel
 import com.asfoundation.wallet.billing.adyen.AdyenPaymentInteractor
-import com.asfoundation.wallet.support.SupportInteractor
-import com.asfoundation.wallet.verification.repository.BrokerVerificationRepository
-import com.asfoundation.wallet.verification.ui.credit_card.WalletVerificationInteractor
+import com.wallet.appcoins.feature.support.data.SupportInteractor
 import io.reactivex.Completable
 import io.reactivex.Single
 import javax.inject.Inject
 
 class VerificationIntroInteractor @Inject constructor(
-  private val brokerVerificationRepository: BrokerVerificationRepository,
-  private val adyenPaymentInteractor: AdyenPaymentInteractor,
-  private val walletService: WalletService,
-  private val supportInteractor: SupportInteractor,
-  private val walletVerificationInteractor: WalletVerificationInteractor
+    private val brokerVerificationRepository: com.appcoins.wallet.feature.walletInfo.data.verification.BrokerVerificationRepository,
+    private val adyenPaymentInteractor: AdyenPaymentInteractor,
+    private val walletService: WalletService,
+    private val supportInteractor: com.wallet.appcoins.feature.support.data.SupportInteractor,
+    private val walletVerificationInteractor: com.appcoins.wallet.feature.walletInfo.data.verification.WalletVerificationInteractor
 ) {
 
   companion object {
@@ -41,7 +39,7 @@ class VerificationIntroInteractor @Inject constructor(
   fun makePayment(adyenPaymentMethod: ModelObject, shouldStoreMethod: Boolean,
                   returnUrl: String): Single<VerificationPaymentModel> {
     return walletVerificationInteractor.makeVerificationPayment(
-        WalletVerificationInteractor.VerificationType.CREDIT_CARD, adyenPaymentMethod,
+        com.appcoins.wallet.feature.walletInfo.data.verification.WalletVerificationInteractor.VerificationType.CREDIT_CARD, adyenPaymentMethod,
         shouldStoreMethod, returnUrl)
   }
 

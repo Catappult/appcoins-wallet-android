@@ -21,13 +21,13 @@ import com.asfoundation.wallet.billing.adyen.AdyenErrorCodeMapper
 import com.asfoundation.wallet.onboarding_new_payment.getPurchaseBonusMessage
 import com.asfoundation.wallet.service.ServicesErrorCodeMapper
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
-import com.asfoundation.wallet.viewmodel.BasePageViewFragment
+import com.wallet.appcoins.core.legacy_base.legacy.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
 import org.apache.commons.lang3.StringUtils
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class OnboardingPaymentResultFragment : BasePageViewFragment(),
+class OnboardingPaymentResultFragment : com.wallet.appcoins.core.legacy_base.legacy.BasePageViewFragment(null),
   SingleStateFragment<OnboardingPaymentResultState, OnboardingPaymentResultSideEffect> {
 
   private val viewModel: OnboardingPaymentResultViewModel by viewModels()

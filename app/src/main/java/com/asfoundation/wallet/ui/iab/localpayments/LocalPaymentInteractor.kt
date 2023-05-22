@@ -10,11 +10,8 @@ import com.appcoins.wallet.core.network.microservices.model.Transaction.Status
 import com.appcoins.wallet.core.network.microservices.model.Transaction.Status.*
 import com.asfoundation.wallet.billing.adyen.PurchaseBundleModel
 import com.asfoundation.wallet.billing.partners.AddressService
-import com.asfoundation.wallet.promo_code.use_cases.GetCurrentPromoCodeUseCase
-import com.asfoundation.wallet.support.SupportInteractor
-import com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue
+import com.wallet.appcoins.feature.support.data.SupportInteractor
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
-import com.asfoundation.wallet.verification.ui.credit_card.WalletVerificationInteractor
 import com.asfoundation.wallet.wallet_blocked.WalletBlockedInteract
 import io.reactivex.Completable
 import io.reactivex.Observable
@@ -26,10 +23,10 @@ class LocalPaymentInteractor @Inject constructor(private val walletService: Wall
                                                  private val partnerAddressService: AddressService,
                                                  private val inAppPurchaseInteractor: InAppPurchaseInteractor,
                                                  private val billingMessagesMapper: BillingMessagesMapper,
-                                                 private val supportInteractor: SupportInteractor,
+                                                 private val supportInteractor: com.wallet.appcoins.feature.support.data.SupportInteractor,
                                                  private val walletBlockedInteract: WalletBlockedInteract,
-                                                 private val walletVerificationInteractor: WalletVerificationInteractor,
-                                                 private val getCurrentPromoCodeUseCase: GetCurrentPromoCodeUseCase,
+                                                 private val walletVerificationInteractor: com.appcoins.wallet.feature.walletInfo.data.verification.WalletVerificationInteractor,
+                                                 private val getCurrentPromoCodeUseCase: com.appcoins.wallet.feature.promocode.data.use_cases.GetCurrentPromoCodeUseCase,
                                                  private val remoteRepository: RemoteRepository) {
 
   fun isWalletBlocked() = walletBlockedInteract.isWalletBlocked()

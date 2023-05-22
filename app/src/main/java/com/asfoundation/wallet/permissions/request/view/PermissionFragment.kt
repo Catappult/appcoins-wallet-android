@@ -16,7 +16,7 @@ import com.asfoundation.wallet.permissions.PermissionsInteractor
 import com.appcoins.wallet.core.utils.android_common.applicationinfo.ApplicationInfoModel
 import com.appcoins.wallet.core.utils.android_common.applicationinfo.ApplicationInfoProvider
 import com.asf.wallet.databinding.FragmentPermissionsLayoutBinding
-import com.asfoundation.wallet.viewmodel.BasePageViewFragment
+import com.wallet.appcoins.core.legacy_base.legacy.BasePageViewFragment
 import com.jakewharton.rxbinding2.view.RxView
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.Observable
@@ -30,7 +30,7 @@ import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class PermissionFragment : BasePageViewFragment(), PermissionFragmentView {
+class PermissionFragment : com.wallet.appcoins.core.legacy_base.legacy.BasePageViewFragment(null), PermissionFragmentView {
   companion object {
     private const val CALLING_PACKAGE = "calling_package_key"
     private const val PERMISSION_KEY = "permission_key"

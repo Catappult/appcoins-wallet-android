@@ -5,16 +5,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import by.kirich1409.viewbindingdelegate.viewBinding
-import com.asf.wallet.R
 import com.asf.wallet.databinding.FragmentRatingEntryBinding
-import com.asfoundation.wallet.viewmodel.BasePageViewFragment
+import com.wallet.appcoins.core.legacy_base.legacy.BasePageViewFragment
 import com.jakewharton.rxbinding2.view.RxView
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.Observable
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class RatingEntryFragment : BasePageViewFragment(), RatingEntryView {
+class RatingEntryFragment : com.wallet.appcoins.core.legacy_base.legacy.BasePageViewFragment(null), RatingEntryView {
 
   @Inject
   lateinit var presenter: RatingEntryPresenter

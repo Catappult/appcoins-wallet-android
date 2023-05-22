@@ -23,7 +23,7 @@ import com.asfoundation.wallet.topup.address.BillingAddressTopUpFragment
 import com.asfoundation.wallet.topup.adyen.AdyenTopUpFragment
 import com.asfoundation.wallet.topup.localpayments.LocalTopUpPaymentFragment
 import com.asfoundation.wallet.transactions.PerkBonusAndGamificationService
-import com.asfoundation.wallet.ui.BaseActivity
+import com.wallet.appcoins.core.legacy_base.legacy.BaseActivity
 import com.asfoundation.wallet.ui.iab.WebViewActivity
 import com.asfoundation.wallet.verification.ui.credit_card.VerificationCreditCardActivity
 import com.asfoundation.wallet.wallet_blocked.WalletBlockedInteract
@@ -38,7 +38,7 @@ import java.util.*
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class TopUpActivity : BaseActivity(), TopUpActivityView, UriNavigator {
+class TopUpActivity : com.wallet.appcoins.core.legacy_base.legacy.BaseActivity(), TopUpActivityView, UriNavigator {
 
   @Inject
   lateinit var topUpInteractor: TopUpInteractor

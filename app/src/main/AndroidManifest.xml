@@ -245,7 +245,7 @@
         tools:ignore="LockedOrientationActivity" />
 
     <activity
-        android:name="com.asfoundation.wallet.backup.BackupActivity"
+        android:name="com.appcoins.wallet.feature.backup.ui.BackupActivity"
         android:label="@string/action_backup_wallet"
         android:theme="@style/MaterialAppTheme" />
 

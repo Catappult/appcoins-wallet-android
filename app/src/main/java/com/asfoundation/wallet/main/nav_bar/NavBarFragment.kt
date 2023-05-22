@@ -45,14 +45,14 @@ import com.asf.wallet.R
 import com.asf.wallet.databinding.NavBarFragmentBinding
 import com.asfoundation.wallet.main.MainActivity
 import com.asfoundation.wallet.ui.bottom_navigation.Destinations
-import com.asfoundation.wallet.viewmodel.BasePageViewFragment
+import com.wallet.appcoins.core.legacy_base.legacy.BasePageViewFragment
 import com.google.android.material.bottomnavigation.BottomNavigationItemView
 import com.google.android.material.bottomnavigation.BottomNavigationMenuView
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class NavBarFragment : BasePageViewFragment(),
+class NavBarFragment : com.wallet.appcoins.core.legacy_base.legacy.BasePageViewFragment(null),
   SingleStateFragment<NavBarState, NavBarSideEffect> {
 
   private lateinit var navHostFragment: NavHostFragment

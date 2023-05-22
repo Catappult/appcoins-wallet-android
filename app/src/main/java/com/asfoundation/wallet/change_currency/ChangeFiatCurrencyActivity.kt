@@ -7,15 +7,15 @@ import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
+import com.wallet.appcoins.core.legacy_base.legacy.BaseActivity
 import com.appcoins.wallet.feature.changecurrency.ui.ChangeFiatCurrencyRoute
 import com.appcoins.wallet.ui.common.theme.WalletTheme
 import com.asfoundation.wallet.home.usecases.DisplayChatUseCase
-import com.asfoundation.wallet.ui.BaseActivity
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class ChangeFiatCurrencyActivity : BaseActivity() {
+class ChangeFiatCurrencyActivity : com.wallet.appcoins.core.legacy_base.legacy.BaseActivity() {
 
   @Inject
   lateinit var displayChat: DisplayChatUseCase

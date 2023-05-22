@@ -43,7 +43,7 @@ import com.asf.wallet.databinding.AdyenCreditCardLayoutBinding
 import com.asf.wallet.databinding.AdyenCreditCardPreSelectedBinding
 import com.asfoundation.wallet.billing.address.BillingAddressFragment.Companion.BILLING_ADDRESS_MODEL
 import com.asfoundation.wallet.billing.address.BillingAddressModel
-import com.asfoundation.wallet.billing.analytics.BillingAnalytics
+import com.appcoins.wallet.core.analytics.analytics.legacy.BillingAnalytics
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.navigator.UriNavigator
 import com.asfoundation.wallet.service.ServicesErrorCodeMapper
@@ -54,7 +54,7 @@ import com.asfoundation.wallet.ui.iab.IabView
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
 import com.asfoundation.wallet.ui.iab.PaymentMethodsAnalytics
 import com.asfoundation.wallet.util.*
-import com.asfoundation.wallet.viewmodel.BasePageViewFragment
+import com.wallet.appcoins.core.legacy_base.legacy.BasePageViewFragment
 import com.facebook.shimmer.ShimmerFrameLayout
 import com.jakewharton.rxbinding2.view.RxView
 import dagger.hilt.android.AndroidEntryPoint
@@ -71,7 +71,7 @@ import java.util.*
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class AdyenPaymentFragment : BasePageViewFragment(), AdyenPaymentView {
+class AdyenPaymentFragment : com.wallet.appcoins.core.legacy_base.legacy.BasePageViewFragment(null), AdyenPaymentView {
 
   @Inject
   lateinit var inAppPurchaseInteractor: InAppPurchaseInteractor

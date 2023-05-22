@@ -5,13 +5,14 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
+import androidx.appcompat.widget.Toolbar
+import com.wallet.appcoins.core.legacy_base.legacy.BaseActivity
 import com.asf.wallet.R
-import com.asfoundation.wallet.ui.BaseActivity
 import com.google.android.material.appbar.AppBarLayout
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class RecoverActivity : BaseActivity() {
+class RecoverActivity : com.wallet.appcoins.core.legacy_base.legacy.BaseActivity() {
 
   companion object {
     const val ONBOARDING_LAYOUT = "onboarding_layout"
@@ -30,6 +31,21 @@ class RecoverActivity : BaseActivity() {
       findViewById<AppBarLayout>(R.id.recover_wallet_app_bar).visibility = View.VISIBLE
       toolbar()
     }
+  }
+
+  /**
+   * function hardcoded temporarily, must be changed
+   * @return
+   */
+  override fun toolbar(): Toolbar {
+    val toolbar = findViewById<Toolbar>(R.id.toolbar)
+    toolbar!!.visibility = View.VISIBLE
+    if (toolbar != null) {
+      setSupportActionBar(toolbar)
+      toolbar.title = title
+    }
+    enableDisplayHomeAsUp()
+    return toolbar
   }
 
   override fun onOptionsItemSelected(item: MenuItem): Boolean {

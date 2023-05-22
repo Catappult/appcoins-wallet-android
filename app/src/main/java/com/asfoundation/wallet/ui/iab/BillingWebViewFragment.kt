@@ -19,9 +19,9 @@ import com.appcoins.wallet.core.utils.properties.HostProperties
 import com.asf.wallet.BuildConfig
 import com.asf.wallet.R
 import com.asf.wallet.databinding.WebviewFragmentBinding
-import com.asfoundation.wallet.billing.analytics.BillingAnalytics
+import com.appcoins.wallet.core.analytics.analytics.legacy.BillingAnalytics
 import com.asfoundation.wallet.billing.paypal.PaypalReturnSchemas
-import com.asfoundation.wallet.viewmodel.BasePageViewFragment
+import com.wallet.appcoins.core.legacy_base.legacy.BasePageViewFragment
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import java.net.URISyntaxException
@@ -32,7 +32,7 @@ import java.util.concurrent.atomic.AtomicReference
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class BillingWebViewFragment : BasePageViewFragment() {
+class BillingWebViewFragment : com.wallet.appcoins.core.legacy_base.legacy.BasePageViewFragment(null) {
   private val timeoutReference: AtomicReference<ScheduledFuture<*>?> = AtomicReference()
 
   @Inject

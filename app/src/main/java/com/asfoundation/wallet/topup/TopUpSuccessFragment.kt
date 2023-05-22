@@ -16,14 +16,14 @@ import com.asf.wallet.R
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.appcoins.wallet.core.utils.android_common.WalletCurrency
 import com.asf.wallet.databinding.FragmentTopUpSuccessBinding
-import com.asfoundation.wallet.viewmodel.BasePageViewFragment
+import com.wallet.appcoins.core.legacy_base.legacy.BasePageViewFragment
 import com.jakewharton.rxbinding2.view.RxView
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.Observable
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class TopUpSuccessFragment : BasePageViewFragment(), TopUpSuccessFragmentView {
+class TopUpSuccessFragment : com.wallet.appcoins.core.legacy_base.legacy.BasePageViewFragment(null), TopUpSuccessFragmentView {
 
   companion object {
     @JvmStatic

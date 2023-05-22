@@ -3,11 +3,11 @@ package com.asfoundation.wallet.util
 import com.appcoins.wallet.bdsbilling.Billing
 import com.appcoins.wallet.bdsbilling.ProxyService
 import com.asfoundation.wallet.entity.TokenInfo
-import com.asfoundation.wallet.entity.Wallet
+import com.appcoins.wallet.feature.walletInfo.data.wallet.domain.Wallet
 import com.asfoundation.wallet.interact.DefaultTokenProvider
 import com.asfoundation.wallet.service.TokenRateService
 import com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue
-import com.asfoundation.wallet.wallets.FindDefaultWalletInteract
+import com.appcoins.wallet.feature.walletInfo.data.FindDefaultWalletInteract
 import io.reactivex.Single
 import org.junit.Before
 import org.junit.Test
@@ -19,7 +19,7 @@ import java.math.BigDecimal
 import java.util.*
 
 class OneStepWatchedTransactionParserTest {
-  private lateinit var findDefaultWalletInteract: FindDefaultWalletInteract
+  private lateinit var findDefaultWalletInteract: com.appcoins.wallet.feature.walletInfo.data.FindDefaultWalletInteract
   private lateinit var defaultTokenProvider: DefaultTokenProvider
   private lateinit var proxyService: ProxyService
   private lateinit var billing: Billing
@@ -43,7 +43,8 @@ class OneStepWatchedTransactionParserTest {
   @Before
   fun before() {
     findDefaultWalletInteract =
-        mock<FindDefaultWalletInteract>(FindDefaultWalletInteract::class.java)
+        mock<com.appcoins.wallet.feature.walletInfo.data.FindDefaultWalletInteract>(
+            com.appcoins.wallet.feature.walletInfo.data.FindDefaultWalletInteract::class.java)
     proxyService = mock<ProxyService>(ProxyService::class.java)
     billing = mock<Billing>(Billing::class.java)
     conversionService = mock<TokenRateService>(TokenRateService::class.java)

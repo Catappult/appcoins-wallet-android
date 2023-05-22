@@ -11,13 +11,13 @@ import androidx.lifecycle.lifecycleScope
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.asf.wallet.databinding.OnboardingGpInstallFragmentBinding
 import com.appcoins.wallet.core.arch.SingleStateFragment
-import com.asfoundation.wallet.viewmodel.BasePageViewFragment
+import com.wallet.appcoins.core.legacy_base.legacy.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 
 @AndroidEntryPoint
-class OnboardingGPInstallFragment : BasePageViewFragment(),
+class OnboardingGPInstallFragment : com.wallet.appcoins.core.legacy_base.legacy.BasePageViewFragment(null),
   SingleStateFragment<OnboardingGPInstallState, OnboardingGPInstallSideEffect> {
 
   private val views by viewBinding(OnboardingGpInstallFragmentBinding::bind)

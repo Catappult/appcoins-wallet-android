@@ -12,7 +12,7 @@ import com.asf.wallet.R
 import com.appcoins.wallet.core.arch.data.Async
 import com.asfoundation.wallet.entity.GlobalBalance
 import com.asfoundation.wallet.home.ui.list.HomeListClick
-import com.asfoundation.wallet.ui.balance.TokenBalance
+import com.appcoins.wallet.feature.walletInfo.data.domain.TokenBalance
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.appcoins.wallet.core.utils.android_common.WalletCurrency
 import com.appcoins.wallet.ui.widgets.BaseViewHolder
@@ -74,7 +74,7 @@ abstract class HomeWalletInfoModel : EpoxyModelWithHolder<HomeWalletInfoModel.Wa
     balanceSubtitle.text = subtitle
   }
 
-  private fun creditsString(creditsBalance: TokenBalance): String {
+  private fun creditsString(creditsBalance: com.appcoins.wallet.feature.walletInfo.data.domain.TokenBalance): String {
     return "${
       formatter.formatCurrency(
         creditsBalance.token.amount,

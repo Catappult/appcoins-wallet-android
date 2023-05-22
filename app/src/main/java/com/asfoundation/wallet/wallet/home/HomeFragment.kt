@@ -43,9 +43,9 @@ import com.asf.wallet.R
 import com.asfoundation.wallet.entity.GlobalBalance
 import com.asfoundation.wallet.promotions.model.DefaultItem
 import com.asfoundation.wallet.promotions.model.PromotionsModel
-import com.asfoundation.wallet.support.SupportNotificationProperties
+import com.wallet.appcoins.feature.support.data.SupportNotificationProperties
 import com.asfoundation.wallet.ui.widget.entity.TransactionsModel
-import com.asfoundation.wallet.viewmodel.BasePageViewFragment
+import com.wallet.appcoins.core.legacy_base.legacy.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
 import io.intercom.android.sdk.Intercom
 import java.math.BigDecimal
@@ -55,7 +55,7 @@ import javax.inject.Inject
 // from the :app module.
 // TODO rename class after completed
 @AndroidEntryPoint
-class HomeFragment: BasePageViewFragment(), SingleStateFragment<HomeState, HomeSideEffect> {
+class HomeFragment: com.wallet.appcoins.core.legacy_base.legacy.BasePageViewFragment(null), SingleStateFragment<HomeState, HomeSideEffect> {
 
   @Inject
   lateinit var navigator: HomeNavigator
@@ -90,7 +90,7 @@ class HomeFragment: BasePageViewFragment(), SingleStateFragment<HomeState, HomeS
     super.onResume()
     val fromSupportNotification =
       requireActivity().intent.getBooleanExtra(
-        SupportNotificationProperties.SUPPORT_NOTIFICATION_CLICK,
+        com.wallet.appcoins.feature.support.data.SupportNotificationProperties.SUPPORT_NOTIFICATION_CLICK,
         false
       )
     if (!fromSupportNotification) {

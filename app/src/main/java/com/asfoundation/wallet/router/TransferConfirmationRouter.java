@@ -4,13 +4,13 @@ import android.app.Activity;
 import android.content.Intent;
 import com.asfoundation.wallet.entity.TransactionBuilder;
 import com.asfoundation.wallet.transfers.TransferConfirmationActivity;
-import com.asfoundation.wallet.ui.ActivityResultSharer;
+import com.appcoins.wallet.core.arch.legacy.ActivityResultSharer;
 import io.reactivex.Observable;
 import io.reactivex.subjects.PublishSubject;
 import javax.inject.Inject;
 import org.jetbrains.annotations.Nullable;
 
-import static com.asfoundation.wallet.C.EXTRA_TRANSACTION_BUILDER;
+import static com.appcoins.wallet.core.utils.jvm_common.C.EXTRA_TRANSACTION_BUILDER;
 
 public class TransferConfirmationRouter implements ActivityResultSharer.ActivityResultListener {
 

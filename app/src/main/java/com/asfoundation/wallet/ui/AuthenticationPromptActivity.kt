@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.biometric.BiometricPrompt
 import androidx.core.content.ContextCompat
+import com.wallet.appcoins.core.legacy_base.legacy.BaseActivity
 import com.asf.wallet.R
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.Observable
@@ -14,7 +15,7 @@ import io.reactivex.subjects.PublishSubject
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class AuthenticationPromptActivity : BaseActivity(), AuthenticationPromptView {
+class AuthenticationPromptActivity : com.wallet.appcoins.core.legacy_base.legacy.BaseActivity(), AuthenticationPromptView {
 
   @Inject
   lateinit var fingerprintInteractor: FingerprintInteractor
@@ -69,6 +70,8 @@ class AuthenticationPromptActivity : BaseActivity(), AuthenticationPromptView {
           }
         })
   }
+
+
 
   override fun onResume() {
     super.onResume()

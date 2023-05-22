@@ -17,7 +17,7 @@ import com.asfoundation.wallet.subscriptions.SubscriptionItem
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.appcoins.wallet.core.utils.android_common.WalletCurrency
 import com.asf.wallet.databinding.FragmentSubscriptionDetailsBinding
-import com.asfoundation.wallet.viewmodel.BasePageViewFragment
+import com.wallet.appcoins.core.legacy_base.legacy.BasePageViewFragment
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.Request
 import com.bumptech.glide.request.RequestOptions
@@ -32,7 +32,7 @@ import java.util.*
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class SubscriptionDetailsFragment : BasePageViewFragment(), SubscriptionDetailsView {
+class SubscriptionDetailsFragment : com.wallet.appcoins.core.legacy_base.legacy.BasePageViewFragment(null), SubscriptionDetailsView {
 
   @Inject
   lateinit var currencyFormatUtils: CurrencyFormatUtils

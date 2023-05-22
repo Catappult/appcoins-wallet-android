@@ -8,14 +8,14 @@ import androidx.annotation.StringRes
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.asf.wallet.R
 import com.asf.wallet.databinding.FragmentIabErrorBinding
-import com.asfoundation.wallet.viewmodel.BasePageViewFragment
+import com.wallet.appcoins.core.legacy_base.legacy.BasePageViewFragment
 import com.jakewharton.rxbinding2.view.RxView
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.Observable
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class IabErrorFragment : BasePageViewFragment(), IabErrorView {
+class IabErrorFragment : com.wallet.appcoins.core.legacy_base.legacy.BasePageViewFragment(null), IabErrorView {
 
   @Inject
   lateinit var presenter: IabErrorPresenter

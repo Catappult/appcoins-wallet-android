@@ -2,7 +2,7 @@ package com.asfoundation.wallet.ui.settings.entry
 
 import android.content.Intent
 import com.appcoins.wallet.feature.changecurrency.data.FiatCurrencyEntity
-import com.asfoundation.wallet.promo_code.repository.PromoCode
+import com.appcoins.wallet.feature.promocode.data.repository.PromoCode
 import io.reactivex.Observable
 
 
@@ -10,7 +10,7 @@ interface SettingsView {
 
   fun setRedeemCodePreference(walletAddress: String)
 
-  fun setPromoCodePreference(promoCode: PromoCode)
+  fun setPromoCodePreference(promoCode: com.appcoins.wallet.feature.promocode.data.repository.PromoCode)
 
   fun showError()
 

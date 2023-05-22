@@ -17,7 +17,7 @@ import by.kirich1409.viewbindingdelegate.viewBinding
 import com.asf.wallet.R
 import com.appcoins.wallet.core.utils.android_common.WalletCurrency
 import com.asf.wallet.databinding.TransactFragmentLayoutBinding
-import com.asfoundation.wallet.viewmodel.BasePageViewFragment
+import com.wallet.appcoins.core.legacy_base.legacy.BasePageViewFragment
 import com.google.android.gms.vision.barcode.Barcode
 import com.google.android.material.snackbar.Snackbar
 import com.jakewharton.rxbinding2.view.RxView
@@ -31,7 +31,7 @@ import java.util.*
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class TransferFragment : BasePageViewFragment(), TransferFragmentView {
+class TransferFragment : com.wallet.appcoins.core.legacy_base.legacy.BasePageViewFragment(null), TransferFragmentView {
 
   companion object {
     fun newInstance() = TransferFragment()

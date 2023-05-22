@@ -25,10 +25,10 @@ import com.asfoundation.wallet.entity.GlobalBalance
 import com.asfoundation.wallet.home.ui.list.HomeController
 import com.asfoundation.wallet.home.ui.list.HomeListClick
 import com.asfoundation.wallet.home.ui.list.transactions.empty.EmptyTransactionsModel.Companion.CAROUSEL_GAMIFICATION
-import com.asfoundation.wallet.support.SupportNotificationProperties
+import com.wallet.appcoins.feature.support.data.SupportNotificationProperties
 import com.asfoundation.wallet.transactions.Transaction
 import com.asfoundation.wallet.ui.widget.entity.TransactionsModel
-import com.asfoundation.wallet.viewmodel.BasePageViewFragment
+import com.wallet.appcoins.core.legacy_base.legacy.BasePageViewFragment
 import com.asfoundation.wallet.wallet.home.HomeNavigator
 import com.asfoundation.wallet.wallet.home.HomeSideEffect
 import com.asfoundation.wallet.wallet.home.HomeState
@@ -40,7 +40,7 @@ import javax.inject.Inject
 
 // TODO to be removed
 @AndroidEntryPoint
-class HomeFragment_old : BasePageViewFragment(),
+class HomeFragment_old : com.wallet.appcoins.core.legacy_base.legacy.BasePageViewFragment(null),
   SingleStateFragment<HomeState, HomeSideEffect> {
 
   @Inject
@@ -93,7 +93,7 @@ class HomeFragment_old : BasePageViewFragment(),
     super.onResume()
     val fromSupportNotification =
       requireActivity().intent.getBooleanExtra(
-        SupportNotificationProperties.SUPPORT_NOTIFICATION_CLICK,
+        com.wallet.appcoins.feature.support.data.SupportNotificationProperties.SUPPORT_NOTIFICATION_CLICK,
         false
       )
     if (!fromSupportNotification) {

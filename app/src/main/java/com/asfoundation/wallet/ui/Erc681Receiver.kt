@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.View
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.appcoins.wallet.bdsbilling.WalletService
+import com.wallet.appcoins.core.legacy_base.legacy.BaseActivity
 import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.asf.wallet.R
 import com.asf.wallet.databinding.ActivityIabWalletCreationBinding
@@ -24,7 +25,7 @@ import javax.inject.Inject
  * Created by trinkes on 13/03/2018.
  */
 @AndroidEntryPoint
-class Erc681Receiver : BaseActivity(), Erc681ReceiverView {
+class Erc681Receiver : com.wallet.appcoins.core.legacy_base.legacy.BaseActivity(), Erc681ReceiverView {
   @Inject
   lateinit var walletService: WalletService
 

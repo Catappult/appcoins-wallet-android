@@ -25,7 +25,7 @@ import com.asfoundation.wallet.ui.iab.IabNavigator
 import com.asfoundation.wallet.ui.iab.IabView
 import com.asfoundation.wallet.ui.iab.Navigator
 import com.asfoundation.wallet.ui.iab.WebViewActivity
-import com.asfoundation.wallet.viewmodel.BasePageViewFragment
+import com.wallet.appcoins.core.legacy_base.legacy.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.disposables.CompositeDisposable
 import org.apache.commons.lang3.StringUtils
@@ -33,7 +33,7 @@ import java.math.BigDecimal
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class PayPalIABFragment() : BasePageViewFragment() {
+class PayPalIABFragment() : com.wallet.appcoins.core.legacy_base.legacy.BasePageViewFragment(null) {
 
   @Inject
   lateinit var navigator: PayPalIABNavigator

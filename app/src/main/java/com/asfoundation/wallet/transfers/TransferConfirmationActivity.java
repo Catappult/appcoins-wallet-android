@@ -13,12 +13,12 @@ import androidx.lifecycle.ViewModelProvider;
 import com.appcoins.wallet.core.utils.android_common.BalanceUtils;
 import com.appcoins.wallet.ui.widgets.WalletButtonView;
 import com.asf.wallet.R;
-import com.asfoundation.wallet.C;
+import com.appcoins.wallet.core.utils.jvm_common.C;
 import com.asfoundation.wallet.entity.ErrorEnvelope;
 import com.asfoundation.wallet.entity.GasSettings;
 import com.asfoundation.wallet.entity.PendingTransaction;
 import com.asfoundation.wallet.entity.TransactionBuilder;
-import com.asfoundation.wallet.ui.BaseActivity;
+import com.appcoins.wallet.core.arch.legacy.BaseActivity;
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils;
 import com.appcoins.wallet.core.utils.android_common.Log;
 import com.appcoins.wallet.core.utils.android_common.WalletCurrency;
@@ -28,9 +28,9 @@ import com.asfoundation.wallet.viewmodel.TransferConfirmationViewModelFactory;
 import dagger.hilt.android.AndroidEntryPoint;
 import javax.inject.Inject;
 
-import static com.asfoundation.wallet.C.EXTRA_GAS_SETTINGS;
-import static com.asfoundation.wallet.C.EXTRA_TRANSACTION_BUILDER;
-import static com.asfoundation.wallet.C.GWEI_UNIT;
+import static com.appcoins.wallet.core.utils.jvm_common.C.EXTRA_GAS_SETTINGS;
+import static com.appcoins.wallet.core.utils.jvm_common.C.EXTRA_TRANSACTION_BUILDER;
+import static com.appcoins.wallet.core.utils.jvm_common.C.GWEI_UNIT;
 
 @AndroidEntryPoint public class TransferConfirmationActivity extends BaseActivity {
   private static final String TAG = TransferConfirmationActivity.class.getSimpleName();

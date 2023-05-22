@@ -9,7 +9,7 @@ import android.view.Window
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.asf.wallet.R
 import com.asfoundation.wallet.router.TopUpRouter
-import com.asfoundation.wallet.ui.BaseActivity
+import com.wallet.appcoins.core.legacy_base.legacy.BaseActivity
 import com.appcoins.wallet.core.utils.android_common.WalletCurrency
 import com.asf.wallet.databinding.ActivityTokenDetailsBinding
 import com.jakewharton.rxbinding2.view.RxView
@@ -18,7 +18,7 @@ import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable
 
 @AndroidEntryPoint
-class TokenDetailsActivity : BaseActivity(), TokenDetailsView {
+class TokenDetailsActivity : com.wallet.appcoins.core.legacy_base.legacy.BaseActivity(), TokenDetailsView {
 
   private var contentVisible = false
   private lateinit var token: TokenDetailsId

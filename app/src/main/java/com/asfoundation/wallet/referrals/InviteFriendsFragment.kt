@@ -10,9 +10,8 @@ import android.view.ViewGroup
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.asf.wallet.R
 import com.appcoins.wallet.core.utils.android_common.extensions.scaleToString
-import com.asf.wallet.databinding.InviteFriendsActivityLayoutBinding
 import com.asf.wallet.databinding.InviteFriendsFragmentLayoutBinding
-import com.asfoundation.wallet.viewmodel.BasePageViewFragment
+import com.wallet.appcoins.core.legacy_base.legacy.BasePageViewFragment
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.jakewharton.rxbinding2.view.RxView
 import dagger.hilt.android.AndroidEntryPoint
@@ -22,7 +21,7 @@ import java.math.BigDecimal
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class InviteFriendsFragment : BasePageViewFragment(), InviteFriendsFragmentView {
+class InviteFriendsFragment : com.wallet.appcoins.core.legacy_base.legacy.BasePageViewFragment(null), InviteFriendsFragmentView {
 
   @Inject
   lateinit var referralInteractor: ReferralInteractorContract

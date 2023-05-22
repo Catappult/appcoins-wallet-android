@@ -1,15 +1,15 @@
 package com.asfoundation.wallet.permissions.request.view
 
-import com.asfoundation.wallet.wallets.WalletCreatorInteract
+import com.appcoins.wallet.feature.walletInfo.data.WalletCreatorInteract
 import io.reactivex.Scheduler
 import io.reactivex.disposables.CompositeDisposable
 import java.util.concurrent.TimeUnit
 
 class CreateWalletPresenter(
-  private val view: CreateWalletView,
-  private val disposables: CompositeDisposable,
-  private val interactor: WalletCreatorInteract,
-  private val viewScheduler: Scheduler
+    private val view: CreateWalletView,
+    private val disposables: CompositeDisposable,
+    private val interactor: com.appcoins.wallet.feature.walletInfo.data.WalletCreatorInteract,
+    private val viewScheduler: Scheduler
 ) {
   fun present() {
     handleOnCreateWalletClick()

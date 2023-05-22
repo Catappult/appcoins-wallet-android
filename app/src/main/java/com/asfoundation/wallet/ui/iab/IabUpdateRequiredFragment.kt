@@ -10,15 +10,14 @@ import androidx.appcompat.content.res.AppCompatResources
 import androidx.appcompat.widget.ListPopupWindow
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.asf.wallet.R
-import com.asfoundation.wallet.backup.BackupActivity
 import com.appcoins.wallet.core.utils.android_common.RxSchedulers
 import com.asf.wallet.databinding.IabUpdateRequiredLayoutBinding
-import com.asfoundation.wallet.ui.wallets.WalletsModel
+import com.appcoins.wallet.feature.walletInfo.data.wallet.domain.WalletsModel
 import com.asfoundation.wallet.update_required.use_cases.BuildUpdateIntentUseCase
 import com.asfoundation.wallet.update_required.wallets_list.WalletSelectionAdapter
-import com.asfoundation.wallet.viewmodel.BasePageViewFragment
-import com.asfoundation.wallet.wallets.usecases.GetCurrentWalletUseCase
-import com.asfoundation.wallet.wallets.usecases.GetWalletsModelUseCase
+import com.wallet.appcoins.core.legacy_base.legacy.BasePageViewFragment
+import com.appcoins.wallet.feature.walletInfo.data.usecases.GetCurrentWalletUseCase
+import com.appcoins.wallet.feature.walletInfo.data.usecases.GetWalletsModelUseCase
 import com.google.android.material.snackbar.Snackbar
 import com.jakewharton.rxbinding2.view.RxView
 import dagger.hilt.android.AndroidEntryPoint
@@ -26,7 +25,7 @@ import io.reactivex.disposables.CompositeDisposable
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class IabUpdateRequiredFragment : BasePageViewFragment(), IabUpdateRequiredView {
+class IabUpdateRequiredFragment : com.wallet.appcoins.core.legacy_base.legacy.BasePageViewFragment(null), IabUpdateRequiredView {
 
   private lateinit var presenter: IabUpdateRequiredPresenter
   private lateinit var iabView: IabView
@@ -37,10 +36,10 @@ class IabUpdateRequiredFragment : BasePageViewFragment(), IabUpdateRequiredView 
   lateinit var buildUpdateIntentUseCase: BuildUpdateIntentUseCase
 
   @Inject
-  lateinit var getCurrentWalletUseCase: GetCurrentWalletUseCase
+  lateinit var getCurrentWalletUseCase: com.appcoins.wallet.feature.walletInfo.data.usecases.GetCurrentWalletUseCase
 
   @Inject
-  lateinit var getWalletsModelUseCase: GetWalletsModelUseCase
+  lateinit var getWalletsModelUseCase: com.appcoins.wallet.feature.walletInfo.data.usecases.GetWalletsModelUseCase
 
   @Inject
   lateinit var rxSchedulers: RxSchedulers
@@ -87,7 +86,7 @@ class IabUpdateRequiredFragment : BasePageViewFragment(), IabUpdateRequiredView 
 
   override fun navigateToBackup(walletAddress: String) {
     requireContext().startActivity(
-      BackupActivity.newIntent(
+      com.appcoins.wallet.feature.backup.ui.BackupActivity.newIntent(
         context = requireContext(),
         walletAddress = walletAddress,
         isBackupTrigger = false

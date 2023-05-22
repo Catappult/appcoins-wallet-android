@@ -3,8 +3,7 @@ package com.asfoundation.wallet.ui.iab
 import com.asf.wallet.R
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.repository.InAppPurchaseService
-import com.asfoundation.wallet.support.SupportInteractor
-import com.asfoundation.wallet.ui.balance.BalanceInteractor
+import com.wallet.appcoins.feature.support.data.SupportInteractor
 import com.asfoundation.wallet.wallet_blocked.WalletBlockedInteract
 import com.appcoins.wallet.sharedpreferences.FingerprintPreferencesDataSource
 import io.reactivex.Completable
@@ -12,11 +11,11 @@ import io.reactivex.Single
 import javax.inject.Inject
 
 class MergedAppcoinsInteractor @Inject constructor(
-  private val balanceInteractor: BalanceInteractor,
-  private val walletBlockedInteract: WalletBlockedInteract,
-  private val supportInteractor: SupportInteractor,
-  private val inAppPurchaseInteractor: InAppPurchaseInteractor,
-  private val fingerprintPreferences: FingerprintPreferencesDataSource
+    private val balanceInteractor: com.appcoins.wallet.feature.walletInfo.data.balance.BalanceInteractor,
+    private val walletBlockedInteract: WalletBlockedInteract,
+    private val supportInteractor: com.wallet.appcoins.feature.support.data.SupportInteractor,
+    private val inAppPurchaseInteractor: InAppPurchaseInteractor,
+    private val fingerprintPreferences: FingerprintPreferencesDataSource
 ) {
 
   fun showSupport(gamificationLevel: Int): Completable {

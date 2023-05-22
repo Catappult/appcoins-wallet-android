@@ -10,9 +10,9 @@ import androidx.navigation.ActivityNavigator
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.asf.wallet.R
 import com.asf.wallet.databinding.QrCodeLayoutBinding
-import com.asfoundation.wallet.ui.BaseActivity
+import com.wallet.appcoins.core.legacy_base.legacy.BaseActivity
 import com.asfoundation.wallet.util.generateQrCode
-import com.asfoundation.wallet.wallets.FindDefaultWalletInteract
+import com.appcoins.wallet.feature.walletInfo.data.FindDefaultWalletInteract
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -20,10 +20,10 @@ import io.reactivex.disposables.CompositeDisposable
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class QrCodeActivity : BaseActivity(), QrCodeView {
+class QrCodeActivity : com.wallet.appcoins.core.legacy_base.legacy.BaseActivity(), QrCodeView {
 
   @Inject
-  lateinit var findDefaultWalletInteract: FindDefaultWalletInteract
+  lateinit var findDefaultWalletInteract: com.appcoins.wallet.feature.walletInfo.data.FindDefaultWalletInteract
   private lateinit var presenter: QrCodePresenter
 
   private val binding by viewBinding(QrCodeLayoutBinding::bind)

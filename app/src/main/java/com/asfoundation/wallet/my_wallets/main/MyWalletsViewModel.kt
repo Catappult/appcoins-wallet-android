@@ -5,11 +5,11 @@ import com.appcoins.wallet.core.arch.BaseViewModel
 import com.appcoins.wallet.core.arch.SideEffect
 import com.appcoins.wallet.core.arch.ViewState
 import com.asfoundation.wallet.home.usecases.ObserveDefaultWalletUseCase
-import com.asfoundation.wallet.ui.balance.BalanceInteractor
-import com.asfoundation.wallet.ui.balance.BalanceVerificationModel
+import com.appcoins.wallet.feature.walletInfo.data.balance.BalanceInteractor
+import com.appcoins.wallet.feature.walletInfo.data.verification.BalanceVerificationModel
 import com.asfoundation.wallet.ui.wallets.WalletDetailsInteractor
-import com.asfoundation.wallet.wallets.domain.WalletInfo
-import com.asfoundation.wallet.wallets.usecases.ObserveWalletInfoUseCase
+import com.appcoins.wallet.feature.walletInfo.data.domain.WalletInfo
+import com.appcoins.wallet.feature.walletInfo.data.usecases.ObserveWalletInfoUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
@@ -17,16 +17,16 @@ import javax.inject.Inject
 object MyWalletsSideEffect : SideEffect
 
 data class MyWalletsState(
-  val walletVerifiedAsync: Async<BalanceVerificationModel> = Async.Uninitialized,
-  val walletInfoAsync: Async<WalletInfo> = Async.Uninitialized
+    val walletVerifiedAsync: Async<com.appcoins.wallet.feature.walletInfo.data.verification.BalanceVerificationModel> = Async.Uninitialized,
+    val walletInfoAsync: Async<com.appcoins.wallet.feature.walletInfo.data.domain.WalletInfo> = Async.Uninitialized
 ) : ViewState
 
 @HiltViewModel
 class MyWalletsViewModel @Inject constructor(
-  private val balanceInteractor: BalanceInteractor,
-  private val walletDetailsInteractor: WalletDetailsInteractor,
-  private val observeWalletInfoUseCase: ObserveWalletInfoUseCase,
-  private val observeDefaultWalletUseCase: ObserveDefaultWalletUseCase
+    private val balanceInteractor: com.appcoins.wallet.feature.walletInfo.data.balance.BalanceInteractor,
+    private val walletDetailsInteractor: WalletDetailsInteractor,
+    private val observeWalletInfoUseCase: com.appcoins.wallet.feature.walletInfo.data.usecases.ObserveWalletInfoUseCase,
+    private val observeDefaultWalletUseCase: ObserveDefaultWalletUseCase
 ) : BaseViewModel<MyWalletsState, MyWalletsSideEffect>(initialState()) {
 
   companion object {

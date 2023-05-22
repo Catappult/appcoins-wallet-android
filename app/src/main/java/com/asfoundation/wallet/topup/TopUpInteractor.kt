@@ -7,11 +7,8 @@ import com.appcoins.wallet.core.network.microservices.model.PaymentMethodEntity
 import com.appcoins.wallet.gamification.repository.ForecastBonusAndLevel
 import com.asfoundation.wallet.backup.NotificationNeeded
 import com.asfoundation.wallet.feature_flags.topup.TopUpDefaultValueUseCase
-import com.asfoundation.wallet.promo_code.use_cases.GetCurrentPromoCodeUseCase
-import com.appcoins.wallet.feature.changecurrency.data.currencies.LocalCurrencyConversionService
-import com.asfoundation.wallet.support.SupportInteractor
+import com.wallet.appcoins.feature.support.data.SupportInteractor
 import com.asfoundation.wallet.ui.gamification.GamificationInteractor
-import com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
 import com.asfoundation.wallet.ui.iab.PaymentMethod
 import com.asfoundation.wallet.ui.iab.PaymentMethodFee
@@ -24,15 +21,15 @@ import java.math.BigDecimal
 import javax.inject.Inject
 
 class TopUpInteractor @Inject constructor(
-  private val repository: BdsRepository,
-  private val conversionService: com.appcoins.wallet.feature.changecurrency.data.currencies.LocalCurrencyConversionService,
-  private val gamificationInteractor: GamificationInteractor,
-  private val topUpValuesService: TopUpValuesService,
-  private var walletBlockedInteract: WalletBlockedInteract,
-  private var inAppPurchaseInteractor: InAppPurchaseInteractor,
-  private var supportInteractor: SupportInteractor,
-  private var topUpDefaultValueUseCase: TopUpDefaultValueUseCase,
-  private val getCurrentPromoCodeUseCase: GetCurrentPromoCodeUseCase
+    private val repository: BdsRepository,
+    private val conversionService: com.appcoins.wallet.feature.changecurrency.data.currencies.LocalCurrencyConversionService,
+    private val gamificationInteractor: GamificationInteractor,
+    private val topUpValuesService: TopUpValuesService,
+    private var walletBlockedInteract: WalletBlockedInteract,
+    private var inAppPurchaseInteractor: InAppPurchaseInteractor,
+    private var supportInteractor: com.wallet.appcoins.feature.support.data.SupportInteractor,
+    private var topUpDefaultValueUseCase: TopUpDefaultValueUseCase,
+    private val getCurrentPromoCodeUseCase: com.appcoins.wallet.feature.promocode.data.use_cases.GetCurrentPromoCodeUseCase
 ) {
 
   private val chipValueIndexMap: LinkedHashMap<com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue, Int> = LinkedHashMap()

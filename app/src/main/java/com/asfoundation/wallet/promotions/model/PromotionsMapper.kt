@@ -4,7 +4,7 @@ import com.appcoins.wallet.core.network.backend.model.*
 import com.appcoins.wallet.gamification.repository.Levels
 import com.appcoins.wallet.gamification.repository.Status
 import com.appcoins.wallet.gamification.repository.UserStats
-import com.asfoundation.wallet.entity.Wallet
+import com.appcoins.wallet.feature.walletInfo.data.wallet.domain.Wallet
 import com.asfoundation.wallet.promotions.PromotionsInteractor
 import com.asfoundation.wallet.ui.gamification.GamificationMapper
 import java.util.concurrent.TimeUnit
@@ -13,11 +13,11 @@ import javax.inject.Inject
 class PromotionsMapper @Inject constructor(private val gamificationMapper: GamificationMapper) {
 
   fun mapToPromotionsModel(
-    userStats: UserStats,
-    levels: Levels,
-    wallet: Wallet,
-    vouchersListModel: VoucherListModel,
-    vipReferralResponse: VipReferralResponse
+      userStats: UserStats,
+      levels: Levels,
+      wallet: Wallet,
+      vouchersListModel: VoucherListModel,
+      vipReferralResponse: VipReferralResponse
   ): PromotionsModel {
     var gamificationAvailable = false
     var referralAvailable = false

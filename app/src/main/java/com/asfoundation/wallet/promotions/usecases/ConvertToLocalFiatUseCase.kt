@@ -1,10 +1,7 @@
 package com.asfoundation.wallet.promotions.usecases
 
 import com.appcoins.wallet.core.utils.android_common.Dispatchers
-import com.appcoins.wallet.feature.changecurrency.data.use_cases.GetSelectedCurrencyUseCase
-import com.appcoins.wallet.feature.changecurrency.data.currencies.LocalCurrencyConversionService
-import com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue
-import com.asfoundation.wallet.wallets.repository.BalanceRepository
+import com.appcoins.wallet.feature.walletInfo.data.BalanceRepository
 import com.github.michaelbull.result.get
 import io.reactivex.Single
 import kotlinx.coroutines.rx2.rxSingle
@@ -21,7 +18,7 @@ class ConvertToLocalFiatUseCase @Inject constructor(
       .flatMap { targetCurrency ->
         localCurrencyConversionService.getValueToFiat(
           valueToConvert, originalCurrency,
-          targetCurrency.get(), BalanceRepository.FIAT_SCALE
+          targetCurrency.get(), com.appcoins.wallet.feature.walletInfo.data.BalanceRepository.FIAT_SCALE
         )
       }
   }

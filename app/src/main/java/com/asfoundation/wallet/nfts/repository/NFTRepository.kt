@@ -6,8 +6,7 @@ import com.asfoundation.wallet.nfts.domain.GasInfo
 import com.asfoundation.wallet.nfts.domain.NFTItem
 import com.asfoundation.wallet.nfts.domain.NftTransferResult
 import com.asfoundation.wallet.nfts.domain.SuccessfulNftTransfer
-import com.appcoins.wallet.feature.changecurrency.data.currencies.LocalCurrencyConversionService
-import com.asfoundation.wallet.wallets.repository.BalanceRepository
+import com.appcoins.wallet.feature.walletInfo.data.BalanceRepository
 import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
 import org.web3j.abi.FunctionEncoder
@@ -55,7 +54,7 @@ class NFTRepository @Inject constructor(
     return Single.fromCallable {
       val rate = localCurrencyConversionService.getValueToFiat(
         "1.0", "ETH", selectedCurrency,
-        BalanceRepository.FIAT_SCALE
+        com.appcoins.wallet.feature.walletInfo.data.BalanceRepository.FIAT_SCALE
       )
         .blockingGet()
       val estimateGasTransaction =

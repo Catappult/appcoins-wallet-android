@@ -3,8 +3,8 @@ package com.asfoundation.wallet.ui.settings.entry
 import androidx.fragment.app.Fragment
 import com.appcoins.wallet.feature.changecurrency.data.use_cases.GetChangeFiatCurrencyModelUseCase
 import com.asfoundation.wallet.update_required.use_cases.BuildUpdateIntentUseCase
-import com.asfoundation.wallet.promo_code.use_cases.GetUpdatedPromoCodeUseCase
-import com.asfoundation.wallet.promo_code.use_cases.ObservePromoCodeUseCase
+import com.appcoins.wallet.feature.promocode.data.use_cases.GetUpdatedPromoCodeUseCase
+import com.appcoins.wallet.feature.promocode.data.use_cases.ObservePromoCodeUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -23,8 +23,8 @@ class SettingsModule {
                                 data: SettingsData,
                                 buildUpdateIntentUseCase: BuildUpdateIntentUseCase,
                                 getChangeFiatCurrencyModelUseCase: com.appcoins.wallet.feature.changecurrency.data.use_cases.GetChangeFiatCurrencyModelUseCase,
-                                getUpdatedPromoCodeUseCase: GetUpdatedPromoCodeUseCase,
-                                observePromoCodeUseCase: ObservePromoCodeUseCase): SettingsPresenter {
+                                getUpdatedPromoCodeUseCase: com.appcoins.wallet.feature.promocode.data.use_cases.GetUpdatedPromoCodeUseCase,
+                                observePromoCodeUseCase: com.appcoins.wallet.feature.promocode.data.use_cases.ObservePromoCodeUseCase): SettingsPresenter {
     return SettingsPresenter(settingsFragment as SettingsView, navigator, Schedulers.io(),
         AndroidSchedulers.mainThread(), CompositeDisposable(), interactor, data, buildUpdateIntentUseCase,
         getChangeFiatCurrencyModelUseCase, getUpdatedPromoCodeUseCase, observePromoCodeUseCase)

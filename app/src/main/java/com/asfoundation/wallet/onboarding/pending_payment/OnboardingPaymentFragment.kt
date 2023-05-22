@@ -16,13 +16,13 @@ import com.appcoins.wallet.core.arch.data.Async
 import com.appcoins.wallet.core.arch.SingleStateFragment
 import com.asfoundation.wallet.onboarding_new_payment.getPurchaseBonusMessage
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
-import com.asfoundation.wallet.viewmodel.BasePageViewFragment
+import com.wallet.appcoins.core.legacy_base.legacy.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 
 @AndroidEntryPoint
-class OnboardingPaymentFragment : BasePageViewFragment(),
+class OnboardingPaymentFragment : com.wallet.appcoins.core.legacy_base.legacy.BasePageViewFragment(null),
   SingleStateFragment<OnboardingPaymentState, OnboardingPaymentSideEffect> {
 
   private val viewModel: OnboardingPaymentViewModel by viewModels()

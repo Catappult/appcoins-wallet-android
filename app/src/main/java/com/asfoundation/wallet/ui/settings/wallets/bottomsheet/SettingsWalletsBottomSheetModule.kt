@@ -1,9 +1,9 @@
 package com.asfoundation.wallet.ui.settings.wallets.bottomsheet
 
 import androidx.fragment.app.Fragment
-import com.asfoundation.wallet.billing.analytics.WalletsEventSender
+import com.appcoins.wallet.core.analytics.analytics.legacy.WalletsEventSender
 import com.asfoundation.wallet.ui.settings.wallets.bottomsheet.SettingsWalletsBottomSheetFragment.Companion.WALLET_MODEL_KEY
-import com.asfoundation.wallet.ui.wallets.WalletsModel
+import com.appcoins.wallet.feature.walletInfo.data.wallet.domain.WalletsModel
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

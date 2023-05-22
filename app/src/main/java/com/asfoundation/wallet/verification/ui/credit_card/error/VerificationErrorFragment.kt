@@ -10,13 +10,13 @@ import com.asf.wallet.R
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.appcoins.wallet.core.utils.android_common.WalletCurrency
 import com.asf.wallet.databinding.ErrorVerificationLayoutBinding
-import com.asfoundation.wallet.viewmodel.BasePageViewFragment
+import com.wallet.appcoins.core.legacy_base.legacy.BasePageViewFragment
 import com.jakewharton.rxbinding2.view.RxView
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class VerificationErrorFragment : BasePageViewFragment(), VerificationErrorView {
+class VerificationErrorFragment : com.wallet.appcoins.core.legacy_base.legacy.BasePageViewFragment(null), VerificationErrorView {
 
   @Inject
   lateinit var presenter: VerificationErrorPresenter

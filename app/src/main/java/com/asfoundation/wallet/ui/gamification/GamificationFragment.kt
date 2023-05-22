@@ -12,7 +12,7 @@ import com.asf.wallet.R
 import com.appcoins.wallet.ui.common.MarginItemDecoration
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.asf.wallet.databinding.FragmentGamificationBinding
-import com.asfoundation.wallet.viewmodel.BasePageViewFragment
+import com.wallet.appcoins.core.legacy_base.legacy.BasePageViewFragment
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.jakewharton.rxbinding2.view.RxView
 import dagger.hilt.android.AndroidEntryPoint
@@ -25,7 +25,7 @@ import java.util.*
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class GamificationFragment : BasePageViewFragment(), GamificationView {
+class GamificationFragment : com.wallet.appcoins.core.legacy_base.legacy.BasePageViewFragment(null), GamificationView {
 
   @Inject
   lateinit var interactor: GamificationInteractor

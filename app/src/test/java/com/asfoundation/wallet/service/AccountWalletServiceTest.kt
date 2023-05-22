@@ -1,10 +1,11 @@
 package com.asfoundation.wallet.service
 
 import com.appcoins.wallet.bdsbilling.WalletAddressModel
-import com.asfoundation.wallet.entity.Wallet
-import com.asfoundation.wallet.repository.PasswordStore
-import com.asfoundation.wallet.repository.WalletRepositoryType
-import com.asfoundation.wallet.wallets.WalletCreatorInteract
+import com.appcoins.wallet.feature.walletInfo.data.AccountKeystoreService
+import com.appcoins.wallet.feature.walletInfo.data.wallet.domain.Wallet
+import com.appcoins.wallet.feature.walletInfo.data.authentication.PasswordStore
+import com.appcoins.wallet.feature.walletInfo.data.repository.WalletRepositoryType
+import com.appcoins.wallet.feature.walletInfo.data.WalletCreatorInteract
 import io.reactivex.Single
 import io.reactivex.internal.schedulers.ExecutorScheduler
 import io.reactivex.observers.TestObserver
@@ -26,15 +27,15 @@ class AccountWalletServiceTest {
   lateinit var passwordStore: PasswordStore
 
   @Mock
-  lateinit var walletCreatorInteract: WalletCreatorInteract
+  lateinit var walletCreatorInteract: com.appcoins.wallet.feature.walletInfo.data.WalletCreatorInteract
 
   @Mock
-  lateinit var walletRepository: WalletRepositoryType
+  lateinit var walletRepository: com.appcoins.wallet.feature.walletInfo.data.repository.WalletRepositoryType
 
   @Mock
   lateinit var syncScheduler: ExecutorScheduler
 
-  private lateinit var accountWalletService: AccountWalletService
+  private lateinit var accountWalletService: com.appcoins.wallet.feature.walletInfo.data.wallet.AccountWalletService
 
   companion object {
     const val KEYSTORE =
@@ -51,7 +52,8 @@ class AccountWalletServiceTest {
     `when`(accountKeyService.exportAccount(any(), any(), any())).thenReturn(Single.just(KEYSTORE))
 
     accountWalletService =
-        AccountWalletService(accountKeyService, passwordStore, walletCreatorInteract,
+        com.appcoins.wallet.feature.walletInfo.data.wallet.AccountWalletService(accountKeyService,
+            passwordStore, walletCreatorInteract,
             walletRepository, syncScheduler)
   }
 

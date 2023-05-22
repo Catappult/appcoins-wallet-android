@@ -1,14 +1,14 @@
 package com.asfoundation.wallet.referrals
 
 import com.appcoins.wallet.core.utils.android_common.extensions.isNoNetworkException
-import com.asfoundation.wallet.wallets.FindDefaultWalletInteract
+import com.appcoins.wallet.feature.walletInfo.data.FindDefaultWalletInteract
 import io.reactivex.Scheduler
 import io.reactivex.disposables.CompositeDisposable
 import java.util.concurrent.TimeUnit
 
 class InviteFriendsActivityPresenter(private val activity: InviteFriendsActivityView,
                                      private val referralInteractor: ReferralInteractorContract,
-                                     private val walletInteract: FindDefaultWalletInteract,
+                                     private val walletInteract: com.appcoins.wallet.feature.walletInfo.data.FindDefaultWalletInteract,
                                      private val disposables: CompositeDisposable,
                                      private val networkScheduler: Scheduler,
                                      private val viewScheduler: Scheduler) {

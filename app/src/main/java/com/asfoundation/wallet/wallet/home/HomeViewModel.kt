@@ -19,12 +19,12 @@ import com.appcoins.wallet.sharedpreferences.BackupTriggerPreferencesDataSource.
 import com.appcoins.wallet.sharedpreferences.BackupTriggerPreferencesDataSource.TriggerSource.NEW_LEVEL
 import com.appcoins.wallet.ui.widgets.CardPromotionItem
 import com.appcoins.wallet.ui.widgets.GameData
-import com.asfoundation.wallet.backup.triggers.TriggerUtils.toJson
-import com.asfoundation.wallet.backup.use_cases.ShouldShowBackupTriggerUseCase
-import com.asfoundation.wallet.billing.analytics.WalletsAnalytics
-import com.asfoundation.wallet.billing.analytics.WalletsEventSender
+import com.appcoins.wallet.feature.backup.ui.triggers.TriggerUtils.toJson
+import com.appcoins.wallet.feature.backup.data.use_cases.ShouldShowBackupTriggerUseCase
+import com.appcoins.wallet.core.analytics.analytics.legacy.WalletsAnalytics
+import com.appcoins.wallet.core.analytics.analytics.legacy.WalletsEventSender
 import com.asfoundation.wallet.entity.GlobalBalance
-import com.asfoundation.wallet.entity.Wallet
+import com.appcoins.wallet.feature.walletInfo.data.wallet.domain.Wallet
 import com.asfoundation.wallet.gamification.ObserveUserStatsUseCase
 import com.asfoundation.wallet.home.usecases.*
 import com.asfoundation.wallet.promotions.model.PromotionsModel
@@ -33,14 +33,14 @@ import com.asfoundation.wallet.promotions.usecases.GetPromotionsUseCase
 import com.asfoundation.wallet.promotions.usecases.SetSeenPromotionsUseCase
 import com.asfoundation.wallet.referrals.CardNotification
 import com.asfoundation.wallet.transactions.Transaction
-import com.asfoundation.wallet.ui.balance.TokenBalance
+import com.appcoins.wallet.feature.walletInfo.data.domain.TokenBalance
 import com.asfoundation.wallet.ui.widget.entity.TransactionsModel
 import com.asfoundation.wallet.ui.widget.holder.CardNotificationAction
 import com.asfoundation.wallet.update_required.use_cases.BuildUpdateIntentUseCase.Companion.PLAY_APP_VIEW_URL
 import com.asfoundation.wallet.viewmodel.TransactionsWalletModel
-import com.asfoundation.wallet.wallets.domain.WalletBalance
-import com.asfoundation.wallet.wallets.usecases.GetWalletInfoUseCase
-import com.asfoundation.wallet.wallets.usecases.ObserveWalletInfoUseCase
+import com.appcoins.wallet.feature.walletInfo.data.domain.WalletBalance
+import com.appcoins.wallet.feature.walletInfo.data.usecases.GetWalletInfoUseCase
+import com.appcoins.wallet.feature.walletInfo.data.usecases.ObserveWalletInfoUseCase
 import com.google.gson.Gson
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.Completable
@@ -89,9 +89,9 @@ data class HomeState(
 class HomeViewModel @Inject constructor(
     private val analytics: HomeAnalytics,
     private val backupTriggerPreferences: BackupTriggerPreferencesDataSource,
-    private val shouldShowBackupTriggerUseCase: ShouldShowBackupTriggerUseCase,
-    private val observeWalletInfoUseCase: ObserveWalletInfoUseCase,
-    private val getWalletInfoUseCase: GetWalletInfoUseCase,
+    private val shouldShowBackupTriggerUseCase: com.appcoins.wallet.feature.backup.data.use_cases.ShouldShowBackupTriggerUseCase,
+    private val observeWalletInfoUseCase: com.appcoins.wallet.feature.walletInfo.data.usecases.ObserveWalletInfoUseCase,
+    private val getWalletInfoUseCase: com.appcoins.wallet.feature.walletInfo.data.usecases.GetWalletInfoUseCase,
     private val getPromotionsUseCase: GetPromotionsUseCase,
     private val setSeenPromotionsUseCase: SetSeenPromotionsUseCase,
     private val shouldOpenRatingDialogUseCase: ShouldOpenRatingDialogUseCase,
@@ -212,7 +212,7 @@ class HomeViewModel @Inject constructor(
         }
   }
 
-  private fun mapWalletValue(walletBalance: WalletBalance): GlobalBalance {
+  private fun mapWalletValue(walletBalance: com.appcoins.wallet.feature.walletInfo.data.domain.WalletBalance): GlobalBalance {
     return GlobalBalance(
         walletBalance, shouldShow(walletBalance.appcBalance, 0.01),
         shouldShow(walletBalance.creditsBalance, 0.01),
@@ -220,7 +220,7 @@ class HomeViewModel @Inject constructor(
     )
   }
 
-  private fun shouldShow(tokenBalance: TokenBalance, threshold: Double): Boolean {
+  private fun shouldShow(tokenBalance: com.appcoins.wallet.feature.walletInfo.data.domain.TokenBalance, threshold: Double): Boolean {
     return (tokenBalance.token.amount >= BigDecimal(threshold) &&
         tokenBalance.fiat.amount.toDouble() >= threshold)
   }

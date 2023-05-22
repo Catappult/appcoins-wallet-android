@@ -5,9 +5,9 @@ import android.net.Uri
 import android.os.Bundle
 import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.asf.wallet.R
-import com.asfoundation.wallet.billing.analytics.BillingAnalytics
+import com.appcoins.wallet.core.analytics.analytics.legacy.BillingAnalytics
 import com.asfoundation.wallet.entity.TransactionBuilder
-import com.asfoundation.wallet.entity.Wallet
+import com.appcoins.wallet.feature.walletInfo.data.wallet.domain.Wallet
 import com.asfoundation.wallet.promotions.usecases.StartVipReferralPollingUseCase
 import com.asfoundation.wallet.ui.AuthenticationPromptActivity
 import com.asfoundation.wallet.ui.iab.IabInteract.Companion.PRE_SELECTED_PAYMENT_METHOD_KEY
@@ -19,18 +19,18 @@ import io.reactivex.disposables.CompositeDisposable
 import java.util.concurrent.TimeUnit
 
 class IabPresenter(
-  private val view: IabView,
-  private val networkScheduler: Scheduler,
-  private val viewScheduler: Scheduler,
-  private val disposable: CompositeDisposable,
-  private val billingAnalytics: BillingAnalytics,
-  private val iabInteract: IabInteract,
-  private val getAutoUpdateModelUseCase: GetAutoUpdateModelUseCase,
-  private val hasRequiredHardUpdateUseCase: HasRequiredHardUpdateUseCase,
-  private val startVipReferralPollingUseCase: StartVipReferralPollingUseCase,
-  private val logger: Logger,
-  private val transaction: TransactionBuilder?,
-  private val errorFromReceiver: String? = null
+    private val view: IabView,
+    private val networkScheduler: Scheduler,
+    private val viewScheduler: Scheduler,
+    private val disposable: CompositeDisposable,
+    private val billingAnalytics: BillingAnalytics,
+    private val iabInteract: IabInteract,
+    private val getAutoUpdateModelUseCase: GetAutoUpdateModelUseCase,
+    private val hasRequiredHardUpdateUseCase: HasRequiredHardUpdateUseCase,
+    private val startVipReferralPollingUseCase: StartVipReferralPollingUseCase,
+    private val logger: Logger,
+    private val transaction: TransactionBuilder?,
+    private val errorFromReceiver: String? = null
 ) {
 
   private var firstImpression = true

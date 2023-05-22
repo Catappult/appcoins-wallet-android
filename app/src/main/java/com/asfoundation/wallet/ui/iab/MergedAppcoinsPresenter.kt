@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.util.Pair
 import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.asf.wallet.R
-import com.asfoundation.wallet.billing.analytics.BillingAnalytics
+import com.appcoins.wallet.core.analytics.analytics.legacy.BillingAnalytics
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.ui.iab.MergedAppcoinsFragment.Companion.APPC
 import com.asfoundation.wallet.ui.iab.MergedAppcoinsFragment.Companion.CREDITS
@@ -12,7 +12,7 @@ import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.appcoins.wallet.core.utils.android_common.Log
 import com.appcoins.wallet.core.utils.android_common.WalletCurrency
 import com.appcoins.wallet.core.utils.android_common.extensions.isNoNetworkException
-import com.asfoundation.wallet.wallets.usecases.GetWalletInfoUseCase
+import com.appcoins.wallet.feature.walletInfo.data.usecases.GetWalletInfoUseCase
 import io.reactivex.Observable
 import io.reactivex.Scheduler
 import io.reactivex.Single
@@ -21,21 +21,21 @@ import java.math.BigDecimal
 import java.util.concurrent.TimeUnit
 
 class MergedAppcoinsPresenter(
-  private val view: MergedAppcoinsView,
-  private val disposables: CompositeDisposable,
-  private val resumeDisposables: CompositeDisposable,
-  private val viewScheduler: Scheduler,
-  private val networkScheduler: Scheduler,
-  private val analytics: BillingAnalytics,
-  private val formatter: CurrencyFormatUtils,
-  private val getWalletInfoUseCase: GetWalletInfoUseCase,
-  private val mergedAppcoinsInteractor: MergedAppcoinsInteractor,
-  private val gamificationLevel: Int,
-  private val navigator: Navigator,
-  private val logger: Logger,
-  private val transactionBuilder: TransactionBuilder,
-  private val paymentMethodsMapper: PaymentMethodsMapper,
-  private val isSubscription: Boolean
+    private val view: MergedAppcoinsView,
+    private val disposables: CompositeDisposable,
+    private val resumeDisposables: CompositeDisposable,
+    private val viewScheduler: Scheduler,
+    private val networkScheduler: Scheduler,
+    private val analytics: BillingAnalytics,
+    private val formatter: CurrencyFormatUtils,
+    private val getWalletInfoUseCase: com.appcoins.wallet.feature.walletInfo.data.usecases.GetWalletInfoUseCase,
+    private val mergedAppcoinsInteractor: MergedAppcoinsInteractor,
+    private val gamificationLevel: Int,
+    private val navigator: Navigator,
+    private val logger: Logger,
+    private val transactionBuilder: TransactionBuilder,
+    private val paymentMethodsMapper: PaymentMethodsMapper,
+    private val isSubscription: Boolean
 ) {
 
   private var cachedSelectedPaymentId: String? = null
