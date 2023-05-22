@@ -21,6 +21,8 @@
       />
   <TextView
       android:id="@+id/terms_conditions_body"
+      style="@style/TextS"
+      android:textColor="@color/styleguide_white"
       android:layout_width="0dp"
       android:layout_height="wrap_content"
       android:layout_marginStart="@dimen/normal_margin"
@@ -30,7 +32,6 @@
       app:layout_constraintTop_toTopOf="parent"
       app:layout_constraintBottom_toBottomOf="parent"
       android:text="@string/intro_agree_terms_and_conditions_body"
-      style="@style/OnboardingValuesBodyTextStyle"
       />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

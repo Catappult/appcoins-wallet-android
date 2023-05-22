@@ -6,15 +6,15 @@ import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.view.ViewGroup
+import by.kirich1409.viewbindingdelegate.viewBinding
 import com.asf.wallet.R
-import com.asfoundation.wallet.util.CurrencyFormatUtils
-import com.asfoundation.wallet.util.WalletCurrency
+import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
+import com.appcoins.wallet.core.utils.android_common.WalletCurrency
+import com.asf.wallet.databinding.ReferralsLayoutBinding
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import com.jakewharton.rxbinding2.view.RxView
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.disposables.CompositeDisposable
-import kotlinx.android.synthetic.main.invited_friends_animation_list.*
-import kotlinx.android.synthetic.main.referrals_layout.*
 import java.math.BigDecimal
 import javax.inject.Inject
 import kotlin.math.roundToInt
@@ -27,6 +27,8 @@ class ReferralsFragment : BasePageViewFragment(), ReferralsView {
   @Inject
   lateinit var formatter: CurrencyFormatUtils
 
+  private val binding by viewBinding(ReferralsLayoutBinding::bind)
+
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     presenter = ReferralsPresenter(this, CompositeDisposable())
@@ -38,30 +40,28 @@ class ReferralsFragment : BasePageViewFragment(), ReferralsView {
   }
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                            savedInstanceState: Bundle?): View? {
-    return inflater.inflate(R.layout.referrals_layout, container, false)
-  }
+                            savedInstanceState: Bundle?): View = ReferralsLayoutBinding.inflate(inflater).root
 
   override fun setupLayout() {
     val totalAvailable = completedInvites + available
-    friends_invited.text = String.format("%d/%d", completedInvites, totalAvailable)
-    friends_invited.visibility = VISIBLE
-    number_friends_invited.text = String.format("%d/%d", completedInvites, totalAvailable)
-    total_earned.text = currency.plus(formatter.formatCurrency(getTotalEarned(),
+    binding.friendsInvited.text = String.format("%d/%d", completedInvites, totalAvailable)
+    binding.friendsInvited.visibility = VISIBLE
+    binding.numberFriendsInvited.text = String.format("%d/%d", completedInvites, totalAvailable)
+    binding.totalEarned.text = currency.plus(formatter.formatCurrency(getTotalEarned(),
         WalletCurrency.FIAT))
-    total_earned.visibility = VISIBLE
+    binding.totalEarned.visibility = VISIBLE
     val individualEarn = currency.plus(formatter.formatCurrency(amount, WalletCurrency.FIAT))
     val totalEarn =
         currency.plus(formatter.formatCurrency(amount.multiply(BigDecimal(totalAvailable)),
             WalletCurrency.FIAT))
-    referral_explanation.text =
+    binding.referralExplanation.text =
         getString(R.string.referral_dropup_menu_requirements_body, individualEarn, totalEarn)
-    invitations_progress_bar.progress =
+    binding.invitationsProgressBar.progress =
         ((100 / (completedInvites.toDouble() + available.toDouble())) * completedInvites).roundToInt()
     setFriendsAnimations(completedInvites, completedInvites + available)
   }
 
-  override fun bottomSheetHeaderClick() = RxView.clicks(bottom_sheet_header)
+  override fun bottomSheetHeaderClick() = RxView.clicks(binding.bottomSheetHeader)
 
   override fun changeBottomSheetState() {
     val parentFragment = provideParentFragment()
@@ -83,8 +83,8 @@ class ReferralsFragment : BasePageViewFragment(), ReferralsView {
 
   private fun setFriendsAnimations(invited: Int, totalInvitations: Int) {
     val friendsAnimation =
-        arrayOf(friend_animation_1, friend_animation_2, friend_animation_3, friend_animation_4,
-            friend_animation_5)
+        arrayOf(binding.friendsList.friendAnimation1, binding.friendsList.friendAnimation2, binding.friendsList.friendAnimation3, binding.friendsList.friendAnimation4,
+          binding.friendsList.friendAnimation5)
 
     for (animationIndex in friendsAnimation.indices) {
       if (animationIndex < invited) {

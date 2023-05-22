@@ -1,7 +1,7 @@
 package com.asfoundation.wallet.my_wallets.create_wallet
 
 import androidx.navigation.NavController
-import com.asfoundation.wallet.base.Navigator
+import com.appcoins.wallet.ui.arch.data.Navigator
 import javax.inject.Inject
 
 class CreateWalletDialogNavigator @Inject constructor(private val navController: NavController) :

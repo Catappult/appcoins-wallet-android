@@ -1,3 +1,0 @@
-include ':skills'
-include ':app', ':tn', ':airdrop', ':billing', ':appcoinsRewards', ':bdsbilling', ':commons', ':gamification', ':permissions'
-include ':ethereumj-android'

@@ -7,16 +7,16 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import by.kirich1409.viewbindingdelegate.viewBinding
 import com.airbnb.lottie.FontAssetDelegate
 import com.airbnb.lottie.TextDelegate
 import com.asf.wallet.R
 import com.asfoundation.wallet.ui.iab.IabView
-import com.asfoundation.wallet.util.CurrencyFormatUtils
-import com.asfoundation.wallet.util.WalletCurrency
+import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
+import com.appcoins.wallet.core.utils.android_common.WalletCurrency
+import com.asf.wallet.databinding.FragmentCarrierPaymentStatusBinding
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.fragment_carrier_payment_status.*
-import kotlinx.android.synthetic.main.fragment_iab_transaction_completed.view.*
 import java.math.BigDecimal
 import javax.inject.Inject
 
@@ -30,10 +30,10 @@ class CarrierPaymentFragment : BasePageViewFragment(), CarrierPaymentView {
   lateinit var presenter: CarrierPaymentPresenter
   lateinit var iabView: IabView
 
+  private val views by lazy { FragmentCarrierPaymentStatusBinding.bind(requireView()) }
+
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                            savedInstanceState: Bundle?): View? {
-    return inflater.inflate(R.layout.fragment_carrier_payment_status, container, false)
-  }
+                            savedInstanceState: Bundle?): View = FragmentCarrierPaymentStatusBinding.inflate(inflater).root
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
@@ -49,20 +49,20 @@ class CarrierPaymentFragment : BasePageViewFragment(), CarrierPaymentView {
 
   override fun initializeView(bonusValue: BigDecimal?, currency: String) {
     if (bonusValue != null) {
-      complete_payment_view.lottie_transaction_success.setAnimation(
+      views.completePaymentView.lottieTransactionSuccess.setAnimation(
           R.raw.transaction_complete_bonus_animation)
-      val textDelegate = TextDelegate(complete_payment_view.lottie_transaction_success)
+      val textDelegate = TextDelegate(views.completePaymentView.lottieTransactionSuccess)
       textDelegate.setText("bonus_value", getBonusMessage(bonusValue, currency))
       textDelegate.setText("bonus_received",
           resources.getString(R.string.gamification_purchase_completed_bonus_received))
-      complete_payment_view.lottie_transaction_success.setTextDelegate(textDelegate)
-      complete_payment_view.lottie_transaction_success.setFontAssetDelegate(object :
+      views.completePaymentView.lottieTransactionSuccess.setTextDelegate(textDelegate)
+      views.completePaymentView.lottieTransactionSuccess.setFontAssetDelegate(object :
           FontAssetDelegate() {
         override fun fetchFont(fontFamily: String?) =
             Typeface.create("sans-serif-medium", Typeface.BOLD)
       })
     } else {
-      complete_payment_view.lottie_transaction_success.setAnimation(R.raw.success_animation)
+      views.completePaymentView.lottieTransactionSuccess.setAnimation(R.raw.success_animation)
     }
   }
 
@@ -100,17 +100,17 @@ class CarrierPaymentFragment : BasePageViewFragment(), CarrierPaymentView {
   }
 
   override fun setLoading() {
-    progress_bar.visibility = View.VISIBLE
-    complete_payment_view.visibility = View.INVISIBLE
+    views.progressBar.visibility = View.VISIBLE
+    views.completePaymentView.root.visibility = View.INVISIBLE
   }
 
   override fun showFinishedTransaction() {
-    complete_payment_view.visibility = View.VISIBLE
-    progress_bar.visibility = View.INVISIBLE
+    views.completePaymentView.root.visibility = View.VISIBLE
+    views.progressBar.visibility = View.INVISIBLE
   }
 
   override fun getFinishedDuration(): Long =
-      complete_payment_view.lottie_transaction_success.duration
+      views.completePaymentView.lottieTransactionSuccess.duration
 
   companion object {
     val TAG = CarrierPaymentFragment::class.java.simpleName

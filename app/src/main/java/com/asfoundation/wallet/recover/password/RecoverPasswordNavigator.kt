@@ -2,12 +2,13 @@ package com.asfoundation.wallet.recover.password
 
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import com.asfoundation.wallet.base.Navigator
-import com.asfoundation.wallet.base.navigate
+import com.appcoins.wallet.ui.arch.data.Navigator
+import com.appcoins.wallet.ui.arch.data.navigate
 import com.asfoundation.wallet.recover.RecoverActivity
 import javax.inject.Inject
 
-class RecoverPasswordNavigator @Inject constructor(val fragment: Fragment) : Navigator {
+class RecoverPasswordNavigator @Inject constructor(val fragment: Fragment) :
+  Navigator {
 
   fun navigateToCreateWalletDialog(isFromOnboarding: Boolean) {
     navigate(

@@ -2,16 +2,16 @@ package com.asfoundation.wallet.ui.iab.payments.carrier.verify
 
 import com.appcoins.wallet.billing.carrierbilling.*
 import com.appcoins.wallet.billing.carrierbilling.ForbiddenError.ForbiddenType
-import com.appcoins.wallet.billing.common.response.TransactionStatus
+import com.appcoins.wallet.core.network.microservices.model.TransactionStatus
 import com.asf.wallet.R
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics
-import com.appcoins.wallet.commons.Logger
+import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.asfoundation.wallet.ui.iab.payments.carrier.CarrierInteractor
-import com.asfoundation.wallet.util.CurrencyFormatUtils
-import com.asfoundation.wallet.util.StringProvider
-import com.asfoundation.wallet.util.WalletCurrency
-import com.asfoundation.wallet.util.applicationinfo.ApplicationInfoProvider
-import com.asfoundation.wallet.util.safeLet
+import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
+import com.appcoins.wallet.ui.common.StringProvider
+import com.appcoins.wallet.core.utils.android_common.WalletCurrency
+import com.appcoins.wallet.core.utils.android_common.applicationinfo.ApplicationInfoProvider
+import com.appcoins.wallet.core.utils.android_common.extensions.safeLet
 import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Scheduler
@@ -20,18 +20,18 @@ import java.math.BigDecimal
 import java.util.*
 
 class CarrierVerifyPresenter(
-    private val disposables: CompositeDisposable,
-    private val view: CarrierVerifyView,
-    private val data: CarrierVerifyData,
-    private val navigator: CarrierVerifyNavigator,
-    private val interactor: CarrierInteractor,
-    private val billingAnalytics: BillingAnalytics,
-    private val appInfoProvider: ApplicationInfoProvider,
-    private val stringProvider: StringProvider,
-    private val formatter: CurrencyFormatUtils,
-    private val logger: Logger,
-    private val networkScheduler: Scheduler,
-    private val viewScheduler: Scheduler) {
+  private val disposables: CompositeDisposable,
+  private val view: CarrierVerifyView,
+  private val data: CarrierVerifyData,
+  private val navigator: CarrierVerifyNavigator,
+  private val interactor: CarrierInteractor,
+  private val billingAnalytics: BillingAnalytics,
+  private val appInfoProvider: ApplicationInfoProvider,
+  private val stringProvider: StringProvider,
+  private val formatter: CurrencyFormatUtils,
+  private val logger: Logger,
+  private val networkScheduler: Scheduler,
+  private val viewScheduler: Scheduler) {
 
   fun present() {
     initializeView()

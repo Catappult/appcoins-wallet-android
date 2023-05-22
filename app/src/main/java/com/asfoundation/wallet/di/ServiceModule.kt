@@ -1,14 +1,14 @@
 package com.asfoundation.wallet.di
 
 import com.appcoins.wallet.bdsbilling.BillingPaymentProofSubmission
-import com.appcoins.wallet.commons.MemoryCache
-import com.asfoundation.wallet.base.RxSchedulers
+import com.appcoins.wallet.core.utils.android_common.RxSchedulers
+import com.appcoins.wallet.core.utils.jvm_common.CountryCodeProvider
+import com.appcoins.wallet.core.utils.jvm_common.MemoryCache
 import com.asfoundation.wallet.billing.partners.AddressService
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.interact.DefaultTokenProvider
 import com.asfoundation.wallet.interact.SendTransactionInteract
 import com.asfoundation.wallet.repository.*
-import com.asfoundation.wallet.util.CountryCodeProvider
 import com.asfoundation.wallet.wallets.usecases.HasEnoughBalanceUseCase
 import dagger.Module
 import dagger.Provides
@@ -43,7 +43,11 @@ class ServiceModule {
           override fun send(transactionBuilder: TransactionBuilder): Single<String> {
             return sendTransactionInteract.buy(transactionBuilder)
           }
-        }, MemoryCache(BehaviorSubject.create(), ConcurrentHashMap()), paymentErrorMapper,
+        },
+        MemoryCache(
+          BehaviorSubject.create(),
+          ConcurrentHashMap()
+        ), paymentErrorMapper,
         Schedulers.io(),
         pendingTransactionService
       ), NoValidateTransactionValidator(), defaultTokenProvider,
@@ -68,7 +72,11 @@ class ServiceModule {
           override fun send(transactionBuilder: TransactionBuilder): Single<String> {
             return sendTransactionInteract.buy(transactionBuilder)
           }
-        }, MemoryCache(BehaviorSubject.create(), ConcurrentHashMap()), paymentErrorMapper,
+        },
+        MemoryCache(
+          BehaviorSubject.create(),
+          ConcurrentHashMap()
+        ), paymentErrorMapper,
         Schedulers.io(),
         bdsPendingTransactionService
       ),
@@ -91,7 +99,10 @@ class ServiceModule {
     defaultTokenProvider: DefaultTokenProvider
   ): InAppPurchaseService {
     return InAppPurchaseService(
-      MemoryCache(BehaviorSubject.create(), HashMap()), approveService,
+      MemoryCache(
+        BehaviorSubject.create(),
+        HashMap()
+      ), approveService,
       allowanceService, buyService, Schedulers.io(), paymentErrorMapper, hasEnoughBalanceUseCase,
       defaultTokenProvider
     )
@@ -108,7 +119,10 @@ class ServiceModule {
     defaultTokenProvider: DefaultTokenProvider
   ): InAppPurchaseService {
     return InAppPurchaseService(
-      MemoryCache(BehaviorSubject.create(), HashMap()), approveService,
+      MemoryCache(
+        BehaviorSubject.create(),
+        HashMap()
+      ), approveService,
       allowanceService, buyService, Schedulers.io(), paymentErrorMapper, hasEnoughBalanceUseCase,
       defaultTokenProvider
     )
@@ -120,7 +134,11 @@ class ServiceModule {
     bdsPendingTransactionService: BdsPendingTransactionService, rxSchedulers: RxSchedulers,
   ): BdsTransactionService {
     return BdsTransactionService(
-      rxSchedulers, MemoryCache(BehaviorSubject.create(), HashMap()),
+      rxSchedulers,
+      MemoryCache(
+        BehaviorSubject.create(),
+        HashMap()
+      ),
       CompositeDisposable(), bdsPendingTransactionService
     )
   }
@@ -140,7 +158,11 @@ class ServiceModule {
           override fun send(transactionBuilder: TransactionBuilder): Single<String> {
             return sendTransactionInteract.approve(transactionBuilder)
           }
-        }, MemoryCache(BehaviorSubject.create(), ConcurrentHashMap()), paymentErrorMapper,
+        },
+        MemoryCache(
+          BehaviorSubject.create(),
+          ConcurrentHashMap()
+        ), paymentErrorMapper,
         Schedulers.io(),
         noWaitPendingTransactionService
       ),

@@ -7,9 +7,9 @@ import android.os.Bundle
 import android.util.TypedValue
 import com.appcoins.wallet.appcoins.rewards.ErrorInfo.ErrorType
 import com.appcoins.wallet.appcoins.rewards.ErrorMapper
-import com.appcoins.wallet.bdsbilling.repository.entity.Transaction
-import com.appcoins.wallet.bdsbilling.repository.entity.Transaction.Status
-import com.appcoins.wallet.commons.Logger
+import com.appcoins.wallet.core.utils.jvm_common.Logger
+import com.appcoins.wallet.core.network.microservices.model.Transaction
+import com.appcoins.wallet.core.network.microservices.model.Transaction.Status
 import com.asf.wallet.R
 import com.asfoundation.wallet.GlideApp
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics
@@ -91,8 +91,8 @@ class LocalPaymentPresenter(
   private fun onViewCreatedRequestLink() {
     disposables.add(
       localPaymentInteractor.getPaymentLink(
-        data.packageName, data.fiatAmount,
-        data.currency, data.paymentId, data.skuId, data.type, data.origin,
+        data.paymentId,data.packageName, data.fiatAmount,
+        data.currency, data.skuId, data.type, data.origin,
         data.developerAddress, data.payload, data.callbackUrl, data.orderReference,
         data.referrerUrl
       )
@@ -217,7 +217,7 @@ class LocalPaymentPresenter(
       .observeOn(viewScheduler)
       .flatMapCompletable {
         Completable.fromAction { view.showCompletedPayment() }
-          .andThen(Completable.timer(view.getAnimationDuration(), TimeUnit.MILLISECONDS))
+          .andThen(Completable.timer(view.getAnimationDuration(), TimeUnit.MILLISECONDS, viewScheduler))
           .andThen(Completable.fromAction { view.popView(it.bundle, data.paymentId) })
       }
   }

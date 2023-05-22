@@ -1,9 +1,9 @@
 package com.asfoundation.wallet.topup
 
 import com.appcoins.wallet.bdsbilling.repository.BdsRepository
-import com.appcoins.wallet.bdsbilling.repository.entity.FeeEntity
-import com.appcoins.wallet.bdsbilling.repository.entity.FeeType
-import com.appcoins.wallet.bdsbilling.repository.entity.PaymentMethodEntity
+import com.appcoins.wallet.core.network.microservices.model.FeeEntity
+import com.appcoins.wallet.core.network.microservices.model.FeeType
+import com.appcoins.wallet.core.network.microservices.model.PaymentMethodEntity
 import com.appcoins.wallet.gamification.repository.ForecastBonusAndLevel
 import com.asfoundation.wallet.backup.NotificationNeeded
 import com.asfoundation.wallet.feature_flags.topup.TopUpDefaultValueUseCase

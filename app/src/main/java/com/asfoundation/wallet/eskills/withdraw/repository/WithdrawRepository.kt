@@ -1,9 +1,12 @@
 package com.asfoundation.wallet.eskills.withdraw.repository
 
-import com.asfoundation.wallet.base.RxSchedulers
+import com.appcoins.wallet.core.network.backend.api.WithdrawApi
+import com.appcoins.wallet.core.network.backend.model.WithdrawBody
+import com.appcoins.wallet.core.utils.android_common.RxSchedulers
 import com.asfoundation.wallet.eskills.withdraw.domain.SuccessfulWithdraw
 import com.asfoundation.wallet.eskills.withdraw.domain.WithdrawResult
 import io.reactivex.Single
+import com.appcoins.wallet.sharedpreferences.WithdrawPreferencesDataSource
 import java.math.BigDecimal
 import javax.inject.Inject
 
@@ -11,7 +14,7 @@ class WithdrawRepository @Inject constructor(
   private val withdrawApi: WithdrawApi,
   private val mapper: WithdrawApiMapper,
   private val schedulers: RxSchedulers,
-  private val withdrawLocalStorage: WithdrawLocalStorage
+  private val withdrawLocalStorage: WithdrawPreferencesDataSource
 ) {
 
   fun getAvailableAmount(ewt: String): Single<BigDecimal> {
@@ -29,6 +32,10 @@ class WithdrawRepository @Inject constructor(
   }
 
   fun getStoredUserEmail(): Single<String> {
-    return withdrawLocalStorage.getUserEmail()
+    return Single.fromCallable {
+      return@fromCallable withdrawLocalStorage.getUserEmail() ?: throw RuntimeException(
+        "Couldn't find user e-mail."
+      )
+    }
   }
 }

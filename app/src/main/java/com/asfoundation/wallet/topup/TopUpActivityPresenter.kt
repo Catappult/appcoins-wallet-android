@@ -2,7 +2,7 @@ package com.asfoundation.wallet.topup
 
 import android.content.Intent
 import android.os.Bundle
-import com.appcoins.wallet.commons.Logger
+import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.asf.wallet.R
 import com.asfoundation.wallet.entity.Wallet
 import com.asfoundation.wallet.promotions.usecases.StartVipReferralPollingUseCase
@@ -49,13 +49,19 @@ class TopUpActivityPresenter(
 
   fun processActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
     if (requestCode == TopUpActivity.WEB_VIEW_REQUEST_CODE) {
-      if (resultCode == WebViewActivity.SUCCESS && data != null) {
-        data.data?.let { view.acceptResult(it) } ?: view.cancelPayment()
-      } else if (resultCode == WebViewActivity.FAIL) {
-        if (data?.dataString?.contains(BillingWebViewFragment.OPEN_SUPPORT) == true) {
-          logger.log(TAG, Exception("ActivityResult ${data.dataString}"))
-          cancelPaymentAndShowSupport()
-        } else {
+      when (resultCode) {
+        WebViewActivity.FAIL -> {
+          if (data?.dataString?.contains(BillingWebViewFragment.OPEN_SUPPORT) == true) {
+            logger.log(TAG, Exception("ActivityResult ${data.dataString}"))
+            cancelPaymentAndShowSupport()
+          } else {
+            view.cancelPayment()
+          }
+        }
+        WebViewActivity.SUCCESS -> {
+          data?.data?.let { view.acceptResult(it) } ?: view.cancelPayment()
+        }
+        WebViewActivity.USER_CANCEL -> {
           view.cancelPayment()
         }
       }

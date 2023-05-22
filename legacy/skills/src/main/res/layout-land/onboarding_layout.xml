@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:theme="@style/AppTheme"
+    >
+
+  <androidx.constraintlayout.widget.ConstraintLayout
+      android:layout_width="@dimen/onboarding_width_landscape"
+      android:layout_height="wrap_content"
+      android:animateLayoutChanges="true"
+      android:background="@drawable/background_card_bottom_rounded"
+      android:paddingHorizontal="@dimen/big_margin"
+      android:paddingVertical="@dimen/big_margin"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      >
+
+    <ImageView
+        android:id="@+id/app_icon"
+        android:src="@drawable/ic_appc"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/big_margin"
+        app:layout_constraintVertical_chainStyle="packed"
+        app:layout_constraintBottom_toTopOf="@id/onboarding_title"
+        app:layout_constraintEnd_toStartOf="@id/guideline_vertical_separator"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+    <TextView
+        android:id="@+id/onboarding_title"
+        style="@style/eSkills.Onboarding.Title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/big_margin"
+        android:layout_marginBottom="@dimen/small_margin"
+        android:layout_marginEnd="@dimen/big_margin"
+        android:text="@string/refer_a_friend_first_time_header"
+        app:layout_constraintStart_toStartOf="@id/app_icon"
+        app:layout_constraintEnd_toStartOf="@id/guideline_vertical_separator"
+        app:layout_constraintTop_toBottomOf="@+id/app_icon"
+        app:layout_constraintBottom_toTopOf="@+id/onboarding_text"
+        />
+
+    <TextView
+        android:id="@+id/onboarding_text"
+        style="@style/eSkills.Onboarding.Text"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/refer_a_friend_first_time_body"
+        android:layout_marginEnd="@dimen/big_margin"
+        app:layout_constraintEnd_toStartOf="@id/guideline_vertical_separator"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/onboarding_title"
+        app:layout_constraintBottom_toTopOf="@+id/guideline_horizonal_separator"
+        />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_vertical_separator"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:visibility="invisible"
+        app:layout_constraintGuide_begin="246dp"
+        />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_horizonal_separator"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:visibility="invisible"
+        app:layout_constraintGuide_percent="0.81877023"
+        />
+    <View
+        android:id="@+id/line_separator_info"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:background="@color/light_gray"
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@+id/onboarding_title"
+        />
+
+    <include
+        android:id="@+id/referral_display"
+        layout="@layout/referral_display"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@+id/guideline_horizonal_separator"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/guideline_vertical_separator"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+
+
+    <include
+        android:id="@+id/dialog_buy_buttons_payment_methods"
+        layout="@layout/pay_ticket_buy_buttons"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/small_margin"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/guideline_horizonal_separator"
+        />
+
+  </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

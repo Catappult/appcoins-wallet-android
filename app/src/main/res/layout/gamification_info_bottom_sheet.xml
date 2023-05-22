@@ -6,25 +6,36 @@
     android:layout_height="match_parent"
     android:background="@drawable/background_white_card_top"
     android:orientation="vertical"
-    android:paddingTop="31dp"
     android:paddingHorizontal="24dp"
     android:paddingBottom="36dp"
     android:clipToPadding="false"
     android:clipChildren="false"
     >
 
+  <ImageView
+      android:id="@+id/draggable_bar"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="@dimen/normal_margin"
+      app:layout_constraintTop_toTopOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      android:src="@drawable/pull_up_home_bar"
+      />
+
   <TextView
       android:id="@+id/description"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
+      android:layout_marginTop="@dimen/big_margin"
       android:text="@string/perks_purchases_disclaimer_body"
       style="@style/BottomSheetInfoTextStyle"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toTopOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/draggable_bar"
       />
 
-  <com.asfoundation.wallet.ui.common.WalletButtonView
+  <com.appcoins.wallet.ui.widgets.WalletButtonView
       android:id="@+id/got_it_button"
       android:layout_width="wrap_content"
       android:layout_height="@dimen/small_button_height"

@@ -18,10 +18,11 @@ import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import by.kirich1409.viewbindingdelegate.viewBinding
-import com.asf.wallet.BuildConfig
+import com.appcoins.wallet.core.utils.properties.PRIVACY_POLICY_URL
+import com.appcoins.wallet.core.utils.properties.TERMS_CONDITIONS_URL
+import com.appcoins.wallet.ui.arch.SingleStateFragment
 import com.asf.wallet.R
 import com.asf.wallet.databinding.FragmentOnboardingBinding
-import com.asfoundation.wallet.base.SingleStateFragment
 import com.asfoundation.wallet.my_wallets.create_wallet.CreateWalletDialogFragment
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
@@ -67,9 +68,7 @@ class OnboardingFragment : BasePageViewFragment(),
   override fun onCreateView(
     inflater: LayoutInflater, @Nullable container: ViewGroup?,
     @Nullable savedInstanceState: Bundle?
-  ): View? {
-    return inflater.inflate(R.layout.fragment_onboarding, container, false)
-  }
+  ): View = FragmentOnboardingBinding.inflate(inflater).root
 
   override fun onViewCreated(view: View, @Nullable savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
@@ -130,8 +129,8 @@ class OnboardingFragment : BasePageViewFragment(),
       )
 
     val spannableString = SpannableString(termsPolicyTickBox)
-    setLinkToString(spannableString, termsConditions, Uri.parse(BuildConfig.TERMS_CONDITIONS_URL))
-    setLinkToString(spannableString, privacyPolicy, Uri.parse(BuildConfig.PRIVACY_POLICY_URL))
+    setLinkToString(spannableString, termsConditions, Uri.parse(TERMS_CONDITIONS_URL))
+    setLinkToString(spannableString, privacyPolicy, Uri.parse(PRIVACY_POLICY_URL))
 
     views.onboardingTermsConditions.termsConditionsBody.text = spannableString
     views.onboardingTermsConditions.termsConditionsBody.isClickable = true

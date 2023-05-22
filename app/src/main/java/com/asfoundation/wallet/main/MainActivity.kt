@@ -11,8 +11,8 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import com.asf.wallet.R
-import com.asfoundation.wallet.base.SingleStateFragment
-import com.asfoundation.wallet.util.RxBus
+import com.appcoins.wallet.ui.arch.SingleStateFragment
+import com.appcoins.wallet.core.utils.jvm_common.RxBus
 import com.asfoundation.wallet.main.splash.bus.SplashFinishEvent
 import com.asfoundation.wallet.support.SupportNotificationProperties.SUPPORT_NOTIFICATION_CLICK
 import com.asfoundation.wallet.ui.AuthenticationPromptActivity
@@ -52,7 +52,7 @@ class MainActivity : AppCompatActivity(),
 
   private fun initNavController() {
     val navHostFragment = supportFragmentManager.findFragmentById(
-      R.id.full_host_container
+      R.id.main_host_container
     ) as NavHostFragment
     navController = navHostFragment.navController
   }

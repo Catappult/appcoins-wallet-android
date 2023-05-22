@@ -1,6 +1,6 @@
 package com.asfoundation.wallet.billing.paypal.models
 
-import com.asfoundation.wallet.billing.paypal.repository.PaypalV2CreateTokenResponse
+import com.appcoins.wallet.core.network.microservices.model.PaypalV2CreateTokenResponse
 
 data class PaypalCreateToken(
   val token: String,

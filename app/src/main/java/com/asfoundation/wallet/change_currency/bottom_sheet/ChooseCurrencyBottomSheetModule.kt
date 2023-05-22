@@ -25,7 +25,7 @@ class ChooseCurrencyBottomSheetModule {
     fragment.requireArguments()
         .apply {
           return ChooseCurrencyBottomSheetData(
-              getString(ChooseCurrencyBottomSheetFragment.FLAG) as String,
+              getString(ChooseCurrencyBottomSheetFragment.FLAG),
               getString(ChooseCurrencyBottomSheetFragment.CURRENCY) as String,
               getString(ChooseCurrencyBottomSheetFragment.LABEL) as String,
               getString(ChooseCurrencyBottomSheetFragment.SIGN) as String)

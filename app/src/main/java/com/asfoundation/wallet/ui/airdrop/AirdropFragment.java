@@ -17,7 +17,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import com.asf.wallet.R;
 import com.asfoundation.wallet.GlideApp;
-import com.asfoundation.wallet.util.Log;
+import com.appcoins.wallet.core.utils.android_common.Log;
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;

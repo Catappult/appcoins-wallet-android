@@ -11,19 +11,19 @@ import android.view.ViewGroup
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.text.buildSpannedString
 import androidx.core.text.color
+import by.kirich1409.viewbindingdelegate.viewBinding
 import com.asf.wallet.R
 import com.asfoundation.wallet.GlideApp
 import com.asfoundation.wallet.ui.iab.IabView
-import com.asfoundation.wallet.util.CurrencyFormatUtils
-import com.asfoundation.wallet.util.WalletCurrency
-import com.asfoundation.wallet.util.getStringSpanned
-import com.asfoundation.wallet.util.withNoLayoutTransition
+import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
+import com.appcoins.wallet.core.utils.android_common.WalletCurrency
+import com.appcoins.wallet.core.utils.android_common.extensions.getStringSpanned
+import com.appcoins.wallet.ui.common.withNoLayoutTransition
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import com.jakewharton.rxbinding2.view.RxView
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.Observable
-import kotlinx.android.synthetic.main.dialog_buy_buttons_payment_methods.*
-import kotlinx.android.synthetic.main.fragment_carrier_confirm.*
+import com.asf.wallet.databinding.FragmentCarrierConfirmBinding
 import java.math.BigDecimal
 import java.util.*
 import javax.inject.Inject
@@ -38,12 +38,12 @@ class CarrierFeeFragment : BasePageViewFragment(), CarrierFeeView {
 
   lateinit var iabView: IabView
 
+  private val views by viewBinding(FragmentCarrierConfirmBinding::bind)
+
   override fun onCreateView(
     inflater: LayoutInflater, container: ViewGroup?,
     savedInstanceState: Bundle?
-  ): View? {
-    return inflater.inflate(R.layout.fragment_carrier_confirm, container, false)
-  }
+  ): View = FragmentCarrierConfirmBinding.inflate(inflater).root
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
@@ -66,12 +66,17 @@ class CarrierFeeFragment : BasePageViewFragment(), CarrierFeeView {
   private fun setupUi() {
     iabView.disableBack()
 
-    cancel_button.setText(getString(R.string.back_button))
-    cancel_button.visibility = View.VISIBLE
+    (views.dialogBuyButtonsPaymentMethods?.cancelButton ?: views.dialogBuyButtons?.cancelButton)?.run {
+      setText(getString(R.string.back_button))
+      visibility = View.VISIBLE
+    }
 
-    buy_button.setText(getString(R.string.action_next))
-    buy_button.visibility = View.VISIBLE
-    buy_button.isEnabled = false
+    (views.dialogBuyButtonsPaymentMethods?.buyButton ?: views.dialogBuyButtons?.buyButton)?.run {
+      setText(getString(R.string.action_next))
+      visibility = View.VISIBLE
+      isEnabled = false
+    }
+
   }
 
   override fun initializeView(
@@ -80,12 +85,12 @@ class CarrierFeeFragment : BasePageViewFragment(), CarrierFeeView {
     bonusAmount: BigDecimal?, carrierName: String,
     carrierImage: String, carrierFeeFiat: BigDecimal
   ) {
-    buy_button.isEnabled = true
-    payment_methods_header.setDescription(skuDescription)
-    payment_methods_header.hidePrice(
+    (views.dialogBuyButtonsPaymentMethods?.buyButton ?: views.dialogBuyButtons?.buyButton!!).isEnabled = true
+    views.paymentMethodsHeader.setDescription(skuDescription)
+    views.paymentMethodsHeader.hidePrice(
       resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT
     )
-    payment_methods_header.hideSkeleton()
+    views.paymentMethodsHeader.hideSkeleton()
 
     val fiat =
       "${
@@ -97,35 +102,35 @@ class CarrierFeeFragment : BasePageViewFragment(), CarrierFeeView {
         WalletCurrency.APPCOINS
       )
     } ${WalletCurrency.APPCOINS.symbol}"
-    fiat_price_text.text = fiat
-    appc_price_text.text = appc
+    views.fiatPriceText.text = fiat
+    views.appcPriceText.text = appc
 
     val feeString: SpannedString = buildSpannedString {
       color(ResourcesCompat.getColor(resources, R.color.styleguide_pink, null)) {
         append("${formatter.formatPaymentCurrency(carrierFeeFiat, WalletCurrency.FIAT)} $currency")
       }
     }
-    fee_title.text =
+    views.feeTitle.text =
       context?.getStringSpanned(R.string.carrier_billing_carrier_fees_body, feeString)
 
     GlideApp.with(requireContext())
       .load(carrierImage)
-      .into(carrier_image)
+      .into(views.carrierImage)
 
-    purchase_bonus.withNoLayoutTransition {
+    views.purchaseBonus.withNoLayoutTransition {
       if (bonusAmount != null) {
-        purchase_bonus.visibility = View.VISIBLE
-        purchase_bonus.setPurchaseBonusHeaderValue(bonusAmount, mapCurrencyCodeToSymbol(currency))
-        purchase_bonus.hideSkeleton()
+        views.purchaseBonus.visibility = View.VISIBLE
+        views.purchaseBonus.setPurchaseBonusHeaderValue(bonusAmount, mapCurrencyCodeToSymbol(currency))
+        views.purchaseBonus.hideSkeleton()
       } else {
-        purchase_bonus.visibility = View.GONE
+        views.purchaseBonus.visibility = View.GONE
       }
     }
   }
 
   override fun setAppDetails(appName: String, icon: Drawable) {
-    payment_methods_header.setTitle(appName)
-    payment_methods_header.setIcon(icon)
+    views.paymentMethodsHeader.setTitle(appName)
+    views.paymentMethodsHeader.setIcon(icon)
   }
 
   private fun mapCurrencyCodeToSymbol(currencyCode: String): String {
@@ -137,7 +142,7 @@ class CarrierFeeFragment : BasePageViewFragment(), CarrierFeeView {
   }
 
   override fun cancelButtonEvent(): Observable<Any> {
-    return RxView.clicks(cancel_button)
+    return RxView.clicks((views.dialogBuyButtonsPaymentMethods?.cancelButton ?: views.dialogBuyButtons?.cancelButton!!))
   }
 
   override fun systemBackEvent(): Observable<Any> {
@@ -145,7 +150,7 @@ class CarrierFeeFragment : BasePageViewFragment(), CarrierFeeView {
   }
 
 
-  override fun nextClickEvent(): Observable<Any> = RxView.clicks(buy_button)
+  override fun nextClickEvent(): Observable<Any> = RxView.clicks((views.dialogBuyButtonsPaymentMethods?.buyButton ?: views.dialogBuyButtons?.buyButton!!))
 
   companion object {
 

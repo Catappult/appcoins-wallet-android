@@ -52,7 +52,7 @@
       tools:text="@string/purchase_card_error_general_2"
       />
 
-  <com.asfoundation.wallet.ui.common.WalletButtonView
+  <com.appcoins.wallet.ui.widgets.WalletButtonView
       android:id="@+id/error_verify_wallet_button"
       android:layout_width="220dp"
       android:layout_height="@dimen/small_button_height"
@@ -125,7 +125,7 @@
       app:layout_constraintTop_toTopOf="@id/layout_support_logo"
       />
 
-  <com.asfoundation.wallet.ui.common.WalletButtonView
+  <com.appcoins.wallet.ui.widgets.WalletButtonView
       android:id="@+id/try_again"
       android:layout_width="0dp"
       android:layout_height="@dimen/large_button_height"

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="appcoins_wallet">AppCoins Wallet</string>
+  <!-- Common -->
+  <string name="start_button">Start</string>
+  <string name="ok">OK</string>
+  <string name="cancel">Cancelar</string>
+  <string name="buy_button">Comprar</string>
+  <string name="topup_button">Carregar</string>
+  <string name="provide_wallet_creating_wallet_header">A criar o endereço da wallet&#8230;</string>
+  <string name="processing_loading_title">A obter o teu bilhete de entrada</string>
+  <string name="finding_room_loading_title">À espera de adversários</string>
+  <string name="finding_room_name_loading_title">À espera de adversários \npara se juntarem a</string>
+  <string name="finding_room_loading_message">Isto pode demorar um pouco…</string>
+  <string name="refunded">O teu dinheiro foi reembolsado.</string>
+  <string name="connection_error_body">Parece que não estás ligado à Internet. Por favor verifica a ligação e tenta novamente!</string>
+  <string name="playing_game_notification_title">Atualmente a jogar e-Skills</string>
+  <string name="playing_game_notification_body">A obter informações do jogo...</string>
+  <string name="finish_game_notification_title">O teu jogo e-Skills terminou</string>
+  <string name="won_game_notification_body">You won! Your wallet is now %1$.2f$ heavier!</string>
+  <string name="lost_game_notification_body">Perdeste... Melhor sorte da próxima vez!</string>
+  <string name="dismiss_button">Dispensar</string>
+  <string name="location_not_available_title">Os jogos e-Skills não estão disponíveis na tua localização</string>
+  <string name="location_not_available_body">Estamos a trabalhar arduamente para levar estes a toda a gente, por isso volta em breve!</string>
+  <string name="e_skills_room_create_title">Cria ou junta-te a uma sala</string>
+  <string name="e_skills_room_create_body">Cria uma nova sala e partilha-a com os teus adversários ou junta-te a uma sala já existente.</string>
+  <string name="e_skills_room_field">O nome da tua sala aqui…</string>
+  <string name="e_skills_payment_title">Pagamento com</string>
+  <string name="e_skills_payment_body">AppCoins Credits</string>
+  <string name="copied_to_clipboard">Copiado para a área de transferência</string>
+  <string name="processing_payment_title">A processar o teu pagamento</string>
+  <string name="purchase_error_title">Ups, algo correu mal.</string>
+  <string name="purchase_eskills_sku">Bilhete de entrada</string>
+  <string name="shared_room_waiting">À espera que adversários se juntem a %s</string>
+  <string name="rooted_device_blocked_body">Infelizmente, não podes jogar jogos de e-Skills com um dispositivo enraizado.</string>
+  <string name="top_up_needed_body">Por razões de segurança, tens de fazer pelo menos uma recarga na tua wallet para jogar jogos de e-Skills.</string>
+  <string name="not_enough_funds_body">Não tens fundos suficientes! Por favor, recarrega para comprares o bilhete de entrada.</string>
+  <string name="error_message_local_payment_method_body">Os métodos de pagamento locais não são aceites para a compra de um bilhete de entrada. Por favor, cria uma nova wallet e recarregue-a com um cartão bancário ou PayPal!</string>
+  <string name="update_not_supported_title">Versão da wallet não suportada!</string>
+  <string name="update_not_supported_body">Atualiza a AppCoins Wallet para a versão mais recente.</string>
+  <string name="update_button">Atualizar</string>
+  <!-- Refer a friend -->
+  <string name="refer_a_friend_waiting_room_tooltip">Tu e os amigos que convidares vão receber um bónus de $%s. Podes indicar até 5 amigos, e têm de ser novos utilizadores. O bónus será creditado na tua wallet assim que eles usem o teu código de convite no seu primeiro jogo e-Skills.</string>
+  <string name="refer_a_friend_first_time_header">Pronto para mostrares as tuas skills?</string>
+  <string name="refer_a_friend_first_time_body">Vence outros jogadores para receberes um prémio em dinheiro real! Vamos começar com um jogo de treino sem taxa de entrada.</string>
+  <string name="refer_a_friend_error_unavailable_body">Esta característica atualmente está indisponível.</string>
+  <string name="refer_a_friend_error_invalid_code_body">Código inválido!</string>
+  <string name="refer_a_friend_error_user_not_eligible_body">Apenas para novos utilizadores!</string>
+  <string name="refer_a_friend_first_time_tooltip">With our Referral Program you\'ll receive a $%s bonus when using your friends code. They\'ll also receive the same amount as bonus to be used on in-app purchases or e-Skills entry tickets.</string>
+  <string name="refer_a_friend_waiting_room_title">Refer a Friend!</string>
+  <string name="refer_a_friend_waiting_from_body">Get a bonus for each friend you invite.</string>
+</resources>

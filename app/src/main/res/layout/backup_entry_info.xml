@@ -6,6 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     app:cardCornerRadius="@dimen/round_corner"
+    card_view:strokeWidth="0dp"
     card_view:cardBackgroundColor="@android:color/transparent"
     card_view:cardElevation="0dp"
     >
@@ -68,13 +69,14 @@
         style="@style/WalletBackupTextStyle.Bold.White.Big"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
         android:layout_marginHorizontal="@dimen/big_margin"
         android:layout_marginTop="16dp"
         android:text="@string/backup_title"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/backup_separator"
-        card_view:layout_constraintBottom_toTopOf="@id/backup_description_text"
+        app:layout_constraintBottom_toTopOf="@id/backup_description_text"
         />
 
     <TextView

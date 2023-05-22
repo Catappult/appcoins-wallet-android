@@ -37,7 +37,7 @@ import com.asf.wallet.R;
 import com.asfoundation.wallet.ui.BaseActivity;
 import com.asfoundation.wallet.ui.camera.CameraSource;
 import com.asfoundation.wallet.ui.camera.CameraSourcePreview;
-import com.asfoundation.wallet.util.Log;
+import com.appcoins.wallet.core.utils.android_common.Log;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.gms.common.api.CommonStatusCodes;

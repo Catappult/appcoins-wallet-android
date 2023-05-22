@@ -12,7 +12,8 @@ import androidx.lifecycle.lifecycleScope
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.asf.wallet.R
 import com.asf.wallet.databinding.BackupSaveOptionsOptionsBinding
-import com.asfoundation.wallet.base.SingleStateFragment
+import com.appcoins.wallet.ui.arch.SingleStateFragment
+import com.asf.wallet.databinding.BackupSaveOptionsFragmentBinding
 import com.asfoundation.wallet.billing.analytics.WalletsAnalytics
 import com.asfoundation.wallet.billing.analytics.WalletsEventSender
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
@@ -33,7 +34,7 @@ class BackupSaveOptionsFragment : BasePageViewFragment(),
   lateinit var walletsEventSender: WalletsEventSender
 
   private val viewModel: BackupSaveOptionsViewModel by viewModels { backupSaveOptionsViewModelFactory }
-  private val views by viewBinding(BackupSaveOptionsOptionsBinding::bind)
+  private val views by viewBinding(BackupSaveOptionsFragmentBinding::bind)
 
   companion object {
 
@@ -56,31 +57,29 @@ class BackupSaveOptionsFragment : BasePageViewFragment(),
   override fun onCreateView(
     inflater: LayoutInflater, container: ViewGroup?,
     savedInstanceState: Bundle?
-  ): View? {
-    return inflater.inflate(R.layout.backup_save_options_fragment, container, false)
-  }
+  ): View = BackupSaveOptionsFragmentBinding.inflate(layoutInflater).root
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
-    views.emailInput.addTextChangedListener(object : TextWatcher {
+    views.backupCreationOptions.emailInput.addTextChangedListener(object : TextWatcher {
       override fun beforeTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) = Unit
       override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
-        views.emailButton.isEnabled =
+        views.backupCreationOptions.emailButton.isEnabled =
           s.isNotEmpty() && android.util.Patterns.EMAIL_ADDRESS.matcher(s)
             .matches()
       }
 
       override fun afterTextChanged(s: Editable) = Unit
     })
-    views.emailButton.setOnClickListener {
+    views.backupCreationOptions.emailButton.setOnClickListener {
       walletsEventSender.sendBackupConfirmationEvent(
         WalletsAnalytics.ACTION_SEND_EMAIL
       )
-      viewModel.sendBackupToEmail(views.emailInput.getText())
+      viewModel.sendBackupToEmail(views.backupCreationOptions.emailInput?.getText() ?: "")
     }
-    views.emailButton.isEnabled =
+    views.backupCreationOptions.emailButton.isEnabled =
       false // this needs to be after setOnClickListener, otherwise button will be clickable
-    views.deviceButton.setOnClickListener {
+    views.backupCreationOptions.deviceButton.setOnClickListener {
       walletsEventSender.sendBackupConfirmationEvent(
         WalletsAnalytics.ACTION_SAVE
       )

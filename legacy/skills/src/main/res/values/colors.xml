@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <!-- Main style guide colors -->
+  <color name="styleguide_pink">#FF6381</color>
+  <color name="styleguide_blue">#111B39</color>
+  <color name="styleguide_medium_grey">#C9C9C9</color>
+  <color name="styleguide_light_grey">#F5F5F5</color>
+  <color name="styleguide_white">#FFFFFFFF</color>
+
+  <color name="white">#FFFFFFFF</color>
+  <color name="black">#000000</color>
+  <color name="transparent">#00000000</color>
+
+  <color name="colorPrimary">#fc9d48</color>
+  <color name="colorPrimaryDark">#e44b46</color>
+  <color name="colorAccent">#e44b46</color>
+  <color name="statusBarColor">#154868</color>
+  <color name="btn_start_gradient_color">#fc9d48</color>
+  <color name="btn_end_gradient_color">#ff578c</color>
+  <color name="btn_text_disable_color">#42000000</color>
+  <color name="btn_text_enable_color">#ffffff</color>
+  <color name="btn_disable_color">#00000000</color>
+  <color name="btn_cancel_text">#8f000000</color>
+  <color name="dialog_buy_value_text">#4e4e4e</color>
+
+  <color name="gray_alpha_8a">#8a000000</color>
+  <color name="black_87_alpha">#de000000</color>
+  <color name="grey_alpha_active_54">#8a000000</color>
+  <color name="light_gray">#ddd</color>
+  <color name="appcoins_header_background">#F0F0F0</color>
+
+  <color name="btn_light_enabled_color">#e44b46</color>
+  <color name="pending_payment_text_color">#727272</color>
+
+  <color name="room_create_background">#33D9D9D9</color>
+
+  <color name="skeleton_light_base_color">#f0f0f0</color>
+  <color name="skeleton_higlight_color">#d2d2d2</color>
+
+  <color name="dialog_buy_fiat_value">#000000</color>
+  <color name="dialog_secondary_price">#828282</color>
+
+  <color name="referral_background_start">#FAB766</color>
+  <color name="referral_background_end">#F17D5A</color>
+
+  <color name="referral_error">#FF2E37</color>
+  <color name="onboarding_font_color">#001727</color>
+
+  <color name="referral_share_color">#19061A</color>
+  <color name="referral_popup_balloon_bg">#001727</color> s
+
+</resources>

@@ -17,8 +17,8 @@ import androidx.annotation.ColorRes
 import androidx.appcompat.widget.LinearLayoutCompat
 import androidx.core.content.ContextCompat
 import androidx.core.view.updatePadding
+import com.appcoins.wallet.ui.common.convertDpToPx
 import com.asf.wallet.R
-import com.asfoundation.wallet.util.convertDpToPx
 import com.google.android.material.card.MaterialCardView
 
 // Create new item view
@@ -56,6 +56,7 @@ fun MoreDialogStateItem.toWalletItemView(view: View, action: (String) -> Unit) =
   (view as MaterialCardView).run {
     setOnClickListener(onTap(action))
     (getChildAt(0) as LinearLayoutCompat).run {
+      strokeWidth = 0
       setBackgroundColor(backgroundColor(context))
       getChildAt(0).visibility = checkMarkVisibility
       (getChildAt(2) as TextView).run {

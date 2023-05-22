@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="appcoins_wallet">AppCoins钱包</string>
+  <!-- Common -->
+  <string name="start_button">Start</string>
+  <string name="ok">确定</string>
+  <string name="cancel">取消</string>
+  <string name="buy_button">购买</string>
+  <string name="topup_button">充值</string>
+  <string name="provide_wallet_creating_wallet_header">正在创建钱包地址&#8230;</string>
+  <string name="processing_loading_title">获取入场券</string>
+  <string name="finding_room_loading_title">正在等待对手</string>
+  <string name="finding_room_name_loading_title">正在等待\n对手加入</string>
+  <string name="finding_room_loading_message">可能需要一点时间..…</string>
+  <string name="refunded">你的金额已被退还。</string>
+  <string name="connection_error_body">你似乎没有连接到互联网。请检查你的连接并重试！</string>
+  <string name="playing_game_notification_title">当前游玩的e-Skills</string>
+  <string name="playing_game_notification_body">正在获得游戏信息……</string>
+  <string name="finish_game_notification_title">你的e-Skills游戏已完成</string>
+  <string name="won_game_notification_body">You won! Your wallet is now %1$.2f$ heavier!</string>
+  <string name="lost_game_notification_body">你输了……下次好运吧！</string>
+  <string name="dismiss_button">取消</string>
+  <string name="location_not_available_title">e-Skills游戏在你的位置不可用</string>
+  <string name="location_not_available_body">我们正在努力向所有人开放，请尽快回来吧！</string>
+  <string name="e_skills_room_create_title">创建或加入房间</string>
+  <string name="e_skills_room_create_body">创建新房间并与对手分享房间或加入现有房间。</string>
+  <string name="e_skills_room_field">此处是你的房间名称……</string>
+  <string name="e_skills_payment_title">支付</string>
+  <string name="e_skills_payment_body">AppCoins积金</string>
+  <string name="copied_to_clipboard">已复制到剪贴板</string>
+  <string name="processing_payment_title">处理付款</string>
+  <string name="purchase_error_title">糟糕，出错了。</string>
+  <string name="purchase_eskills_sku">入场券</string>
+  <string name="shared_room_waiting">正在等待对手加入%s</string>
+  <string name="rooted_device_blocked_body">很遗憾，你不能使用根设备游玩e-Skills游戏。</string>
+  <string name="top_up_needed_body">出于安全原因，你需要在钱包中至少充值一次才能游玩e-Skills游戏。</string>
+  <string name="not_enough_funds_body">你的资金不足！请充值以购买入场券。</string>
+  <string name="error_message_local_payment_method_body">不接受以本地付款方式付费购买入场券。请创建新钱包，然后用银行卡或PayPal为该钱包充值！</string>
+  <string name="update_not_supported_title">钱包版本不受支持！</string>
+  <string name="update_not_supported_body">请将AppCoins Wallet更新至最新版本。</string>
+  <string name="update_button">更新</string>
+  <!-- Refer a friend -->
+  <string name="refer_a_friend_waiting_room_tooltip">You and the friends you invite will receive a $%s bonus. You can refer up to 5 friends, and they must be new users. The bonus will be credited in your wallet once they use your invitation code in their first e-Skills game.</string>
+  <string name="refer_a_friend_first_time_header">Ready to show your skills?</string>
+  <string name="refer_a_friend_first_time_body">Beat other players to get a prize in real money! Let\'s start with a practice game with no entry fee.</string>
+  <string name="refer_a_friend_error_unavailable_body">This feature is currently unavailable.</string>
+  <string name="refer_a_friend_error_invalid_code_body">Invalid code!</string>
+  <string name="refer_a_friend_error_user_not_eligible_body">Only for new users!</string>
+  <string name="refer_a_friend_first_time_tooltip">With our Referral Program you\'ll receive a $%s bonus when using your friends code. They\'ll also receive the same amount as bonus to be used on in-app purchases or e-Skills entry tickets.</string>
+  <string name="refer_a_friend_waiting_room_title">Refer a Friend!</string>
+  <string name="refer_a_friend_waiting_from_body">Get a bonus for each friend you invite.</string>
+</resources>

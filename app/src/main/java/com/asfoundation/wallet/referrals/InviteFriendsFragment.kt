@@ -7,16 +7,17 @@ import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.view.ViewGroup
+import by.kirich1409.viewbindingdelegate.viewBinding
 import com.asf.wallet.R
-import com.asfoundation.wallet.util.scaleToString
+import com.appcoins.wallet.core.utils.android_common.extensions.scaleToString
+import com.asf.wallet.databinding.InviteFriendsActivityLayoutBinding
+import com.asf.wallet.databinding.InviteFriendsFragmentLayoutBinding
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.jakewharton.rxbinding2.view.RxView
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable
-import kotlinx.android.synthetic.main.invite_friends_fragment_layout.*
-import kotlinx.android.synthetic.main.referral_notification_card.*
 import java.math.BigDecimal
 import javax.inject.Inject
 
@@ -29,6 +30,8 @@ class InviteFriendsFragment : BasePageViewFragment(), InviteFriendsFragmentView 
   private lateinit var presenter: InviteFriendsFragmentPresenter
   private var activity: InviteFriendsActivityView? = null
   private lateinit var referralsBottomSheet: BottomSheetBehavior<View>
+
+  private val binding by viewBinding(InviteFriendsFragmentLayoutBinding::bind)
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
@@ -46,7 +49,7 @@ class InviteFriendsFragment : BasePageViewFragment(), InviteFriendsFragmentView 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
     referralsBottomSheet =
-        BottomSheetBehavior.from(bottom_sheet_fragment_container)
+        BottomSheetBehavior.from(binding.bottomSheetFragmentContainer)
     animateBackgroundFade()
     setTextValues()
     presenter.present()
@@ -59,7 +62,7 @@ class InviteFriendsFragment : BasePageViewFragment(), InviteFriendsFragmentView 
             ReferralsFragment.newInstance(amount, pendingAmount, currency, completedInvites,
                 receivedAmount, maxAmount, available, isRedeemed))
         .commit()
-    return inflater.inflate(R.layout.invite_friends_fragment_layout, container, false)
+    return InviteFriendsFragmentLayoutBinding.inflate(inflater).root
   }
 
   private fun animateBackgroundFade() {
@@ -68,22 +71,22 @@ class InviteFriendsFragment : BasePageViewFragment(), InviteFriendsFragmentView 
       }
 
       override fun onSlide(bottomSheet: View, slideOffset: Float) {
-        background_fade_animation?.progress = slideOffset
+        binding.backgroundFadeAnimation.progress = slideOffset
       }
     })
   }
 
   private fun setTextValues() {
-    referral_description.text =
+    binding.referralDescription.text =
         getString(R.string.referral_view_verified_body,
             currency + amount.scaleToString(2))
-    notification_title.text =
+    binding.referralNotificationCard.notificationTitle.text =
         getString(R.string.referral_notification_bonus_pending_title,
             currency + pendingAmount.scaleToString(2))
   }
 
   override fun shareLinkClick(): Observable<Any> {
-    return RxView.clicks(share_invite_button)
+    return RxView.clicks(binding.shareInviteButton)
   }
 
 
@@ -94,12 +97,12 @@ class InviteFriendsFragment : BasePageViewFragment(), InviteFriendsFragmentView 
   override fun showNotificationCard(pendingAmount: BigDecimal, symbol: String,
                                     icon: Int?) {
     if (pendingAmount.toDouble() > 0) {
-      icon?.let { notification_image.setImageResource(icon) }
-      notification_title.text = getString(R.string.referral_notification_bonus_pending_title,
+      icon?.let { binding.referralNotificationCard.notificationImage.setImageResource(icon) }
+      binding.referralNotificationCard.notificationTitle.text = getString(R.string.referral_notification_bonus_pending_title,
           "$symbol${pendingAmount.scaleToString(2)}")
-      referral_notification_card.visibility = VISIBLE
+      binding.referralNotificationCard.root.visibility = VISIBLE
     } else {
-      referral_notification_card.visibility = GONE
+      binding.referralNotificationCard.root.visibility = GONE
     }
   }
 

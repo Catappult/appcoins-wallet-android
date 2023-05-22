@@ -1,5 +1,7 @@
 package com.asfoundation.wallet.util
 
+import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
+import com.appcoins.wallet.core.utils.android_common.WalletCurrency
 import org.junit.Assert.assertEquals
 import org.junit.Test
 import java.math.BigDecimal

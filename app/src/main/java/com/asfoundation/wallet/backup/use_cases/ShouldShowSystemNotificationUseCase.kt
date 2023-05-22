@@ -1,15 +1,15 @@
 package com.asfoundation.wallet.backup.use_cases
 
-import com.asfoundation.wallet.backup.repository.preferences.BackupSystemNotificationPreferences
-import com.asfoundation.wallet.repository.SharedPreferencesRepository
 import com.asfoundation.wallet.wallets.domain.WalletInfo
 import io.reactivex.Single
+import com.appcoins.wallet.sharedpreferences.BackupSystemNotificationPreferencesDataSource
+import com.appcoins.wallet.sharedpreferences.CommonsPreferencesDataSource
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 class ShouldShowSystemNotificationUseCase @Inject constructor(
-  private val sharedPreferencesRepository: SharedPreferencesRepository,
-  private val backupSystemNotificationPreferences: BackupSystemNotificationPreferences
+  private val commonsPreferencesDataSource: CommonsPreferencesDataSource,
+  private val backupSystemNotificationPreferences: BackupSystemNotificationPreferencesDataSource
 ) {
 
   companion object {
@@ -31,7 +31,7 @@ class ShouldShowSystemNotificationUseCase @Inject constructor(
   }
 
   private fun meetsCountConditions(walletAddress: String): Boolean {
-    val count = sharedPreferencesRepository.getWalletPurchasesCount(walletAddress)
+    val count = commonsPreferencesDataSource.getWalletPurchasesCount(walletAddress)
     return count > 0 && count % PURCHASE_NOTIFICATION_THRESHOLD == 0
   }
 }

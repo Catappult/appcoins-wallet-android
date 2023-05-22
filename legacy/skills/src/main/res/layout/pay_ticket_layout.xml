@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:theme="@style/AppTheme"
+    >
+  <androidx.constraintlayout.widget.ConstraintLayout
+      android:layout_width="@dimen/payment_methods_width"
+      android:layout_height="wrap_content"
+      android:animateLayoutChanges="true"
+      android:background="@drawable/background_card_bottom_rounded"
+      android:paddingHorizontal="@dimen/big_margin"
+      android:paddingVertical="@dimen/big_margin"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      >
+
+    <include
+        android:id="@+id/pay_ticket_header"
+        layout="@layout/pay_ticket_header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintVertical_chainStyle="packed"
+        app:layout_constraintBottom_toTopOf="@id/pay_ticket_payment_methods_details"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+    <include
+        android:id="@+id/pay_ticket_payment_methods_details"
+        layout="@layout/pay_ticket_payment_methods_details"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/small_margin"
+        app:layout_constraintEnd_toEndOf="@+id/pay_ticket_header"
+        app:layout_constraintTop_toBottomOf="@+id/pay_ticket_header"
+        app:layout_constraintBottom_toTopOf="@+id/pay_ticket_room_details"
+        />
+
+    <include
+        android:id="@+id/pay_ticket_room_details"
+        layout="@layout/pay_ticket_room_details"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/mid_margin"
+        app:layout_constraintBottom_toTopOf="@id/dialog_buy_buttons_payment_methods"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/pay_ticket_payment_methods_details"
+        />
+
+    <include
+        android:id="@+id/dialog_buy_buttons_payment_methods"
+        layout="@layout/pay_ticket_buy_buttons"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/mid_margin"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/pay_ticket_room_details"
+        />
+
+  </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

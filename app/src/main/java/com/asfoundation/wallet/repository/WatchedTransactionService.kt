@@ -1,6 +1,6 @@
 package com.asfoundation.wallet.repository
 
-import com.appcoins.wallet.commons.Repository
+import com.appcoins.wallet.core.utils.jvm_common.Repository
 import com.asfoundation.wallet.entity.TransactionBuilder
 import io.reactivex.Completable
 import io.reactivex.Observable
@@ -9,46 +9,69 @@ import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
 import java.util.concurrent.TimeUnit
 
-class WatchedTransactionService(private val transactionSender: TransactionSender,
-                                private val cache: Repository<String, Transaction>,
-                                private val paymentErrorMapper: PaymentErrorMapper,
-                                private val scheduler: Scheduler,
-                                private val transactionTracker: TrackTransactionService) {
+class WatchedTransactionService(
+  private val transactionSender: TransactionSender,
+  private val cache: Repository<String, WatchedTransaction>,
+  private val paymentErrorMapper: PaymentErrorMapper,
+  private val scheduler: Scheduler,
+  private val transactionTracker: TrackTransactionService
+) {
 
   fun start() {
     cache.all
         .observeOn(scheduler)
-        .flatMapCompletable { paymentTransactions ->
-          Observable.fromIterable(paymentTransactions)
-              .filter { transaction -> transaction.status == Transaction.Status.PENDING }
-              .flatMapCompletable { executeTransaction(it) }
-        }
-        .doOnError { it.printStackTrace() }
-        .retry()
-        .subscribe()
+      .flatMapCompletable { paymentTransactions ->
+        Observable.fromIterable(paymentTransactions)
+          .filter { transaction -> transaction.status == WatchedTransaction.Status.PENDING }
+          .flatMapCompletable { executeTransaction(it) }
+      }
+      .doOnError { it.printStackTrace() }
+      .retry()
+      .subscribe()
   }
 
-  private fun executeTransaction(transaction: Transaction): Completable {
-    return cache.save(transaction.key,
-        Transaction(transaction.key, Transaction.Status.PROCESSING, transaction.transactionBuilder))
-        .observeOn(scheduler)
-        .andThen(transactionSender.send(transaction.transactionBuilder)
-            .flatMapCompletable { hash ->
-              cache.save(transaction.key,
-                  Transaction(transaction.key, Transaction.Status.PROCESSING,
-                      transaction.transactionBuilder, hash))
-                  .andThen(transactionTracker.checkTransactionState(hash)
-                      .retryWhen { retryOnTransactionNotFound(it) }
-                      .ignoreElements()
-                      .andThen(cache.save(transaction.key,
-                          Transaction(transaction.key, Transaction.Status.COMPLETED,
-                              transaction.transactionBuilder, hash))))
-            })
+  private fun executeTransaction(watchedTransaction: WatchedTransaction): Completable {
+    return cache.save(
+      watchedTransaction.key,
+      WatchedTransaction(
+        watchedTransaction.key,
+        WatchedTransaction.Status.PROCESSING,
+        watchedTransaction.transactionBuilder
+      )
+    )
+      .observeOn(scheduler)
+      .andThen(
+        transactionSender.send(watchedTransaction.transactionBuilder)
+          .flatMapCompletable { hash ->
+            cache.save(
+              watchedTransaction.key,
+              WatchedTransaction(
+                watchedTransaction.key, WatchedTransaction.Status.PROCESSING,
+                watchedTransaction.transactionBuilder, hash
+              )
+            )
+              .andThen(transactionTracker.checkTransactionState(hash)
+                .retryWhen { retryOnTransactionNotFound(it) }
+                .ignoreElements()
+                .andThen(
+                  cache.save(
+                    watchedTransaction.key,
+                    WatchedTransaction(
+                      watchedTransaction.key, WatchedTransaction.Status.COMPLETED,
+                      watchedTransaction.transactionBuilder, hash
+                    )
+                  )
+                ))
+          })
         .doOnError {
           it.printStackTrace()
-          cache.saveSync(transaction.key,
-              Transaction(transaction.key, enumValueOf(paymentErrorMapper.map(it).paymentState.name),
-                  transaction.transactionBuilder))
+          cache.saveSync(
+            watchedTransaction.key,
+            WatchedTransaction(
+              watchedTransaction.key, enumValueOf(paymentErrorMapper.map(it).paymentState.name),
+              watchedTransaction.transactionBuilder
+            )
+          )
         }
   }
 
@@ -63,31 +86,35 @@ class WatchedTransactionService(private val transactionSender: TransactionSender
   }
 
   fun sendTransaction(key: String, transactionBuilder: TransactionBuilder): Completable {
-    return cache.save(key, Transaction(key, Transaction.Status.PENDING, transactionBuilder))
+    return cache.save(
+      key,
+      WatchedTransaction(key, WatchedTransaction.Status.PENDING, transactionBuilder)
+    )
   }
 
-  fun getTransaction(key: String): Observable<Transaction> =
-      cache.get(key)
-          .filter { it.status != Transaction.Status.PENDING }
+  fun getTransaction(key: String): Observable<WatchedTransaction> =
+    cache.get(key)
+      .filter { it.status != WatchedTransaction.Status.PENDING }
 
 
-  fun getAll(): Observable<List<Transaction>> =
-      cache.all.flatMapSingle { transactions ->
-        Observable.fromIterable(transactions)
-            .filter { it.status != Transaction.Status.PENDING }
-            .toList()
-      }
+  fun getAll(): Observable<List<WatchedTransaction>> =
+    cache.all.flatMapSingle { transactions ->
+      Observable.fromIterable(transactions)
+        .filter { it.status != WatchedTransaction.Status.PENDING }
+        .toList()
+    }
 
 
   fun remove(key: String): Completable = cache.remove(key)
 
 }
 
-data class Transaction(
-    val key: String,
-    val status: Status,
-    val transactionBuilder: TransactionBuilder,
-    val transactionHash: String? = null) {
+data class WatchedTransaction(
+  val key: String,
+  val status: Status,
+  val transactionBuilder: TransactionBuilder,
+  val transactionHash: String? = null
+) {
 
   enum class Status {
     PENDING, PROCESSING, COMPLETED, ERROR, WRONG_NETWORK, NONCE_ERROR, UNKNOWN_TOKEN, NO_TOKENS,

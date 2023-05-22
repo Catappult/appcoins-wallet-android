@@ -1,7 +1,9 @@
 package com.asfoundation.wallet.recover.entry
 
 import android.net.Uri
-import com.asfoundation.wallet.base.*
+import com.appcoins.wallet.core.utils.android_common.RxSchedulers
+import com.appcoins.wallet.ui.arch.*
+import com.appcoins.wallet.ui.arch.data.Async
 import com.asfoundation.wallet.billing.analytics.WalletsAnalytics
 import com.asfoundation.wallet.billing.analytics.WalletsEventSender
 import com.asfoundation.wallet.entity.WalletKeyStore

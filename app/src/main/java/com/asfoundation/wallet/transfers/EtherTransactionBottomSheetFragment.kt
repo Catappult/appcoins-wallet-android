@@ -8,12 +8,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import by.kirich1409.viewbindingdelegate.viewBinding
 import com.asf.wallet.R
+import com.asf.wallet.databinding.EtherTransactionBottomSheetBinding
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.jakewharton.rxbinding2.view.RxView
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.ether_transaction_bottom_sheet.*
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -22,6 +23,8 @@ class EtherTransactionBottomSheetFragment : BottomSheetDialogFragment(),
 
   @Inject
   lateinit var presenter: EtherTransactionBottomSheetPresenter
+
+  private val binding by viewBinding(EtherTransactionBottomSheetBinding::bind)
 
   init {
     isCancelable = false
@@ -52,9 +55,7 @@ class EtherTransactionBottomSheetFragment : BottomSheetDialogFragment(),
   }
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                            savedInstanceState: Bundle?): View? {
-    return inflater.inflate(R.layout.ether_transaction_bottom_sheet, container, false)
-  }
+                            savedInstanceState: Bundle?): View = EtherTransactionBottomSheetBinding.inflate(inflater).root
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
@@ -63,16 +64,16 @@ class EtherTransactionBottomSheetFragment : BottomSheetDialogFragment(),
   }
 
   override fun getTheme(): Int {
-    return R.style.AppBottomSheetDialogTheme
+    return R.style.AppBottomSheetDialogThemeNotDraggable
   }
 
   override fun setTransactionHash(transactionHash: String) {
-    ether_transaction_bottom_sheet_hash_string.text = transactionHash
+    binding.etherTransactionBottomSheetHashString.text = transactionHash
   }
 
-  override fun getEtherScanClick() = RxView.clicks(ether_transaction_bottom_sheet_rectangle)
+  override fun getEtherScanClick() = RxView.clicks(binding.etherTransactionBottomSheetRectangle)
 
-  override fun getClipboardClick() = RxView.clicks(ether_transaction_bottom_sheet_copy_clipboard)
+  override fun getClipboardClick() = RxView.clicks(binding.etherTransactionBottomSheetCopyClipboard)
 
   override fun copyToClipboard(transactionHash: String) {
     val clipboard = activity?.getSystemService(CLIPBOARD_SERVICE) as ClipboardManager
@@ -83,7 +84,7 @@ class EtherTransactionBottomSheetFragment : BottomSheetDialogFragment(),
         .show()
   }
 
-  override fun getOkClick() = RxView.clicks(ether_transaction_bottom_sheet_got_it_button)
+  override fun getOkClick() = RxView.clicks(binding.etherTransactionBottomSheetGotItButton)
 
   override fun onDestroyView() {
     super.onDestroyView()

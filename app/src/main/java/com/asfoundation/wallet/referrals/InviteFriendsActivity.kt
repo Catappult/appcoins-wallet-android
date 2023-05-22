@@ -7,7 +7,9 @@ import android.view.MenuItem
 import android.view.View.*
 import androidx.core.app.ShareCompat
 import androidx.fragment.app.Fragment
+import by.kirich1409.viewbindingdelegate.viewBinding
 import com.asf.wallet.R
+import com.asf.wallet.databinding.InviteFriendsActivityLayoutBinding
 import com.asfoundation.wallet.router.ExternalBrowserRouter
 import com.asfoundation.wallet.ui.BaseActivity
 import com.asfoundation.wallet.verification.ui.credit_card.VerificationCreditCardActivity
@@ -20,8 +22,6 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.PublishSubject
 import io.reactivex.subjects.ReplaySubject
-import kotlinx.android.synthetic.main.invite_friends_activity_layout.*
-import kotlinx.android.synthetic.main.no_network_retry_only_layout.*
 import java.math.BigDecimal
 import javax.inject.Inject
 
@@ -39,6 +39,8 @@ class InviteFriendsActivity : BaseActivity(), InviteFriendsActivityView {
 
   @Inject
   lateinit var walletInteract: FindDefaultWalletInteract
+
+  private val binding by viewBinding(InviteFriendsActivityLayoutBinding::bind)
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
@@ -122,8 +124,8 @@ class InviteFriendsActivity : BaseActivity(), InviteFriendsActivityView {
   }
 
   private fun hideNoNetworkView() {
-    fragment_container.visibility = VISIBLE
-    no_network.visibility = GONE
+    binding.fragmentContainer.visibility = VISIBLE
+    binding.noNetwork.visibility = GONE
   }
 
   private fun navigateTo(fragment: Fragment) {
@@ -133,19 +135,19 @@ class InviteFriendsActivity : BaseActivity(), InviteFriendsActivityView {
   }
 
   override fun retryClick(): Observable<Any> {
-    return RxView.clicks(retry_button)
+    return RxView.clicks(binding.noNetworkRetryOnlyLayout.retryButton)
   }
 
   override fun showNetworkErrorView() {
-    no_network.visibility = VISIBLE
-    retry_button.visibility = VISIBLE
-    retry_animation.visibility = GONE
-    fragment_container.visibility = GONE
+    binding.noNetwork.visibility = VISIBLE
+    binding.noNetworkRetryOnlyLayout.retryButton.visibility = VISIBLE
+    binding.noNetworkRetryOnlyLayout.retryAnimation.visibility = GONE
+    binding.fragmentContainer.visibility = GONE
   }
 
   override fun showRetryAnimation() {
-    retry_button.visibility = INVISIBLE
-    retry_animation.visibility = VISIBLE
+    binding.noNetworkRetryOnlyLayout.retryButton.visibility = INVISIBLE
+    binding.noNetworkRetryOnlyLayout.retryAnimation.visibility = VISIBLE
   }
 
   override fun onPause() {

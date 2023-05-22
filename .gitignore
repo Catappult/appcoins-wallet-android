@@ -48,3 +48,7 @@ gen-external-apklibs
 
 # Room auto generated
 /*/schemas/
+
+#Misc
+*.keystore
+android-magnessdk-5.3.0.aar

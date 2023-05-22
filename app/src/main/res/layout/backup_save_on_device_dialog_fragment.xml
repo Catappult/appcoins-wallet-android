@@ -10,6 +10,18 @@
     android:clipToPadding="false"
     android:orientation="vertical"
     >
+
+  <ImageView
+      android:id="@+id/draggable_bar"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="@dimen/normal_margin"
+      app:layout_constraintTop_toTopOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      android:src="@drawable/pull_up_home_bar"
+      />
+
   <TextView
       android:id="@+id/dialog_title"
       android:layout_width="wrap_content"
@@ -25,7 +37,7 @@
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintHorizontal_bias="0.0"
       app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toTopOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/draggable_bar"
       />
   <TextView
       android:id="@+id/dialog_subtitle"
@@ -67,7 +79,7 @@
       tools:visibility="visible"
       />
 
-  <com.asfoundation.wallet.ui.common.WalletTextFieldView
+  <com.appcoins.wallet.ui.widgets.WalletTextFieldView
       android:id="@+id/file_name_input"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
@@ -79,7 +91,7 @@
       app:textFieldType="outlined"
       />
 
-  <com.asfoundation.wallet.ui.common.WalletButtonView
+  <com.appcoins.wallet.ui.widgets.WalletButtonView
       android:id="@+id/backup_cancel"
       android:layout_width="wrap_content"
       android:layout_height="@dimen/small_button_height"
@@ -94,7 +106,7 @@
       app:layout_constraintTop_toTopOf="@+id/backup_save"
       />
 
-  <com.asfoundation.wallet.ui.common.WalletButtonView
+  <com.appcoins.wallet.ui.widgets.WalletButtonView
       android:id="@+id/backup_save"
       android:layout_width="wrap_content"
       android:layout_height="@dimen/small_button_height"

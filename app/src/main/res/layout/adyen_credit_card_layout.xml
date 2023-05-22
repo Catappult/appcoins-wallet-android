@@ -7,14 +7,14 @@
     android:layout_gravity="center"
     android:theme="@style/AdyenMaterialAppTheme"
     >
-  <LinearLayout
+  <RelativeLayout
       android:id="@id/main_view"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:animateLayoutChanges="true"
       android:orientation="vertical"
       >
-    <RelativeLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/credit_card_info"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -30,9 +30,12 @@
           layout="@layout/payment_methods_header"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          />
+          app:layout_constraintTop_toTopOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintBottom_toTopOf="@id/line_separator" />
 
-      <com.asfoundation.wallet.ui.common.SeparatorView
+      <com.appcoins.wallet.ui.widgets.SeparatorView
           android:id="@+id/line_separator"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
@@ -40,6 +43,10 @@
           android:layout_marginBottom="18dp"
           app:line_orientation="horizontal"
           app:line_type="dashed"
+          app:layout_constraintTop_toBottomOf="@id/payment_methods_header"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintBottom_toTopOf="@id/cc_info_view"
           />
 
       <ScrollView
@@ -49,8 +56,11 @@
           android:layout_below="@id/line_separator"
           android:overScrollMode="never"
           android:scrollbars="none"
-          tools:visibility="visible"
-          >
+          app:layout_constraintTop_toBottomOf="@id/line_separator"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintBottom_toTopOf="@id/bonus_layout"
+          tools:visibility="visible">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -64,7 +74,7 @@
               android:layout_height="wrap_content"
               />
 
-          <com.asfoundation.wallet.ui.common.WalletButtonView
+          <com.appcoins.wallet.ui.widgets.WalletButtonView
               android:id="@+id/change_card_button"
               android:layout_width="wrap_content"
               android:layout_height="@dimen/small_button_height"
@@ -116,7 +126,10 @@
           android:layout_marginEnd="@dimen/big_margin"
           android:visibility="invisible"
           tools:visibility="visible"
-          />
+          app:layout_constraintTop_toBottomOf="@id/cc_info_view"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintBottom_toTopOf="@id/bonus_msg" />
 
       <TextView
           android:id="@+id/bonus_msg"
@@ -131,7 +144,10 @@
           android:text="@string/gamification_purchase_body"
           android:visibility="invisible"
           tools:visibility="visible"
-          />
+          app:layout_constraintTop_toBottomOf="@id/bonus_layout"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintBottom_toTopOf="@id/dialog_buy_buttons"/>
 
       <include
           android:id="@+id/dialog_buy_buttons"
@@ -140,6 +156,10 @@
           android:layout_height="wrap_content"
           android:layout_below="@id/bonus_msg"
           android:layout_marginTop="10dp"
+          app:layout_constraintTop_toBottomOf="@id/bonus_msg"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintBottom_toTopOf="@id/error_buttons"
           />
 
       <include
@@ -150,16 +170,21 @@
           android:layout_below="@id/cc_info_view"
           android:layout_marginTop="10dp"
           android:visibility="gone"
+          app:layout_constraintTop_toBottomOf="@id/dialog_buy_buttons"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintBottom_toBottomOf="parent"
           />
 
-    </RelativeLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <include
+        android:id="@+id/fragment_iab_transaction_completed"
         layout="@layout/fragment_iab_transaction_completed"
         tools:visibility="gone"
         />
 
-  </LinearLayout>
+  </RelativeLayout>
 
   <include
       android:id="@+id/fragment_iab_error"

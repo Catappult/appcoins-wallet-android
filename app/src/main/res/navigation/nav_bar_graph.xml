@@ -18,15 +18,27 @@
   <!-- TopUpActivity needs to be refactor with its own graph and fragment -->
   <activity
       android:id="@+id/top_up_activity"
-      android:name="com.asfoundation.wallet.topup.TopUpActivity" />
+      android:name="com.asfoundation.wallet.topup.TopUpActivity"
+      tools:layout="@layout/top_up_activity_layout"
+      />
 
   <action
       android:id="@+id/action_navigate_to_gp_install_fragment"
       app:destination="@id/onboarding_gp_install_fragment" />
 
+  <action
+      android:id="@+id/action_navigate_to_first_payment_fragment"
+      app:destination="@id/onboarding_payment_fragment" />
+
   <fragment
       android:id="@+id/onboarding_gp_install_fragment"
       android:name="com.asfoundation.wallet.onboarding.gp_install.OnboardingGPInstallFragment"
       tools:layout="@layout/onboarding_gp_install_fragment">
+  </fragment>
+
+  <fragment
+      android:id="@+id/onboarding_payment_fragment"
+      android:name="com.asfoundation.wallet.onboarding.pending_payment.OnboardingPaymentFragment"
+      tools:layout="@layout/fragment_onboarding_payment">
   </fragment>
 </navigation>

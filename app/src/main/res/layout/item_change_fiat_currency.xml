@@ -7,6 +7,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:theme="@style/MaterialAppTheme"
+    app:strokeWidth="0dp"
     app:cardCornerRadius="0dp"
     app:cardBackgroundColor="@color/styleguide_white"
     app:rippleColor="@color/styleguide_medium_grey"

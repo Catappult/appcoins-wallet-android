@@ -1,6 +1,7 @@
 package com.asfoundation.wallet.billing.partners
 
 import android.content.Context
+import android.content.pm.PackageManager
 import dagger.hilt.android.qualifiers.ApplicationContext
 import io.reactivex.Single
 import it.czerwinski.android.hilt.annotations.BoundTo
@@ -10,13 +11,14 @@ import javax.inject.Inject
 
 @BoundTo(supertype = IExtractOemId::class)
 class OemIdExtractorV1 @Inject constructor(@ApplicationContext private val context: Context) :
-    IExtractOemId {
+  IExtractOemId {
+  @Throws(PackageManager.NameNotFoundException::class)
   override fun extract(packageName: String): Single<String> {
     return Single.create {
       try {
         var oemId = ""
         val sourceDir =
-            getPackageName(context, packageName)
+          getPackageName(context, packageName)
         val myZipFile = ZipFile(sourceDir)
         val entry = myZipFile.getEntry("META-INF/attrib")
         entry?.let {

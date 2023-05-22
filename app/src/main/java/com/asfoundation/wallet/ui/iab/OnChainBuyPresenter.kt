@@ -2,12 +2,12 @@ package com.asfoundation.wallet.ui.iab
 
 import android.os.Bundle
 import com.appcoins.wallet.billing.BillingMessagesMapper
-import com.appcoins.wallet.commons.Logger
+import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.asf.wallet.R
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.ui.iab.AsfInAppPurchaseInteractor.CurrentPaymentStep
-import com.asfoundation.wallet.util.UnknownTokenException
+import com.appcoins.wallet.core.utils.jvm_common.UnknownTokenException
 import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Scheduler
@@ -199,7 +199,7 @@ class OnChainBuyPresenter(
   private fun handleSuccessTransaction(bundle: Bundle): Completable {
     return Completable.fromAction { view.showTransactionCompleted() }
       .subscribeOn(viewScheduler)
-      .andThen(Completable.timer(view.getAnimationDuration(), TimeUnit.MILLISECONDS))
+      .andThen(Completable.timer(view.getAnimationDuration(), TimeUnit.MILLISECONDS, viewScheduler))
       .andThen(Completable.fromRunnable { view.finish(bundle) })
   }
 

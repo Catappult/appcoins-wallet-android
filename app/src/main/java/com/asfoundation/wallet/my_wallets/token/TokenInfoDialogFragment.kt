@@ -11,7 +11,7 @@ import by.kirich1409.viewbindingdelegate.viewBinding
 import com.asf.wallet.R
 import com.asf.wallet.databinding.FragmentTokenInfoBinding
 import com.asfoundation.wallet.GlideApp
-import com.asfoundation.wallet.base.SingleStateFragment
+import com.appcoins.wallet.ui.arch.SingleStateFragment
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
@@ -19,7 +19,7 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class TokenInfoDialogFragment : BottomSheetDialogFragment(),
-    SingleStateFragment<TokenInfoState, TokenInfoSideEffect> {
+  SingleStateFragment<TokenInfoState, TokenInfoSideEffect> {
 
   @Inject
   lateinit var viewModelFactory: TokenInfoDialogViewModelFactory
@@ -31,9 +31,7 @@ class TokenInfoDialogFragment : BottomSheetDialogFragment(),
   private val views by viewBinding(FragmentTokenInfoBinding::bind)
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                            savedInstanceState: Bundle?): View? {
-    return inflater.inflate(R.layout.fragment_token_info, container, false)
-  }
+                            savedInstanceState: Bundle?): View = FragmentTokenInfoBinding.inflate(inflater).root
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
@@ -48,7 +46,7 @@ class TokenInfoDialogFragment : BottomSheetDialogFragment(),
     super.onStart()
   }
 
-  override fun getTheme(): Int = R.style.AppBottomSheetDialogTheme
+  override fun getTheme(): Int = R.style.AppBottomSheetDialogThemeDraggable
 
   override fun onStateChanged(state: TokenInfoState) {
     views.title.text = state.title

@@ -2,12 +2,13 @@ package com.asfoundation.wallet.ui.iab.payments.common
 
 import android.content.Context
 import android.util.AttributeSet
+import android.view.LayoutInflater
 import android.view.View
 import android.widget.FrameLayout
 import com.asf.wallet.R
-import com.asfoundation.wallet.util.CurrencyFormatUtils
-import com.asfoundation.wallet.util.WalletCurrency
-import kotlinx.android.synthetic.main.layout_purchase_bonus.view.*
+import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
+import com.appcoins.wallet.core.utils.android_common.WalletCurrency
+import com.asf.wallet.databinding.LayoutPurchaseBonusBinding
 import java.math.BigDecimal
 
 /**
@@ -17,6 +18,8 @@ import java.math.BigDecimal
  * achieves the same effect.
  */
 class PurchaseBonusView : FrameLayout {
+
+  private val binding: LayoutPurchaseBonusBinding
   private val formatter = CurrencyFormatUtils()
 
   private var showHeader: Boolean = true
@@ -25,7 +28,7 @@ class PurchaseBonusView : FrameLayout {
   constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0)
   constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs,
       defStyleAttr) {
-    inflate(context, R.layout.layout_purchase_bonus, this)
+    binding = LayoutPurchaseBonusBinding.inflate(LayoutInflater.from(context), this, false)
   }
 
   fun setPurchaseBonusHeaderValue(bonus: BigDecimal, currencySymbol: String) {
@@ -43,38 +46,38 @@ class PurchaseBonusView : FrameLayout {
   }
 
   fun setPurchaseBonusHeaderValue(valueText: String) {
-    bonus_value.text = valueText
+    binding.bonusValue.text = valueText
   }
 
   fun hidePurchaseBonusHeader() {
     showHeader = false
-    bonus_layout.visibility = View.INVISIBLE
+    binding.bonusLayout.visibility = View.INVISIBLE
   }
 
   fun showPurchaseBonusHeader() {
     showHeader = true
-    bonus_layout.visibility = View.VISIBLE
+    binding.bonusLayout.visibility = View.VISIBLE
   }
 
   fun setPurchaseBonusDescription(description: Int) {
-    bonus_msg.text = context.getString(description)
-    bonus_msg.visibility = View.VISIBLE
-    bonus_layout.visibility = View.INVISIBLE
+    binding.bonusMsg.text = context.getString(description)
+    binding.bonusMsg.visibility = View.VISIBLE
+    binding.bonusLayout.visibility = View.INVISIBLE
   }
 
   fun showSkeleton() {
     if (showHeader) {
-      bonus_layout.visibility = View.INVISIBLE
-      bonus_layout_skeleton.visibility = View.VISIBLE
+      binding.bonusLayout.visibility = View.INVISIBLE
+      binding.bonusLayoutSkeleton.root.visibility = View.VISIBLE
     }
-    bonus_msg_skeleton.visibility = View.VISIBLE
+    binding.bonusMsgSkeleton.root.visibility = View.VISIBLE
   }
 
   fun hideSkeleton() {
     if (showHeader) {
-      bonus_layout.visibility = View.VISIBLE
-      bonus_layout_skeleton.visibility = View.GONE
+      binding.bonusLayout.visibility = View.VISIBLE
+      binding.bonusLayoutSkeleton.root.visibility = View.GONE
     }
-    bonus_msg_skeleton.visibility = View.GONE
+    binding.bonusMsgSkeleton.root.visibility = View.GONE
   }
 }

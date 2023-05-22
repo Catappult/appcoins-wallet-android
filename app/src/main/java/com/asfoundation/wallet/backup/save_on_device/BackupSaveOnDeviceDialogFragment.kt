@@ -17,7 +17,7 @@ import androidx.lifecycle.lifecycleScope
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.asf.wallet.R
 import com.asf.wallet.databinding.BackupSaveOnDeviceDialogFragmentBinding
-import com.asfoundation.wallet.base.SingleStateFragment
+import com.appcoins.wallet.ui.arch.SingleStateFragment
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
@@ -81,7 +81,7 @@ class BackupSaveOnDeviceDialogFragment : BottomSheetDialogFragment(),
   override fun onCreateView(
     inflater: LayoutInflater, container: ViewGroup?,
     savedInstanceState: Bundle?
-  ): View? = inflater.inflate(R.layout.backup_save_on_device_dialog_fragment, container, false)
+  ): View = BackupSaveOnDeviceDialogFragmentBinding.inflate(layoutInflater).root
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
@@ -108,7 +108,7 @@ class BackupSaveOnDeviceDialogFragment : BottomSheetDialogFragment(),
     super.onStart()
   }
 
-  override fun getTheme(): Int = R.style.AppBottomSheetDialogThemeNoFloating
+  override fun getTheme(): Int = R.style.AppBottomSheetDialogThemeDraggable
 
   override fun onStateChanged(state: BackupSaveOnDeviceDialogState) {
     state.fileName()?.also { setFileName(it) }

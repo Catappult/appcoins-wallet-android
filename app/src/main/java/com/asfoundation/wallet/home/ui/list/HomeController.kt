@@ -9,7 +9,7 @@ import com.airbnb.epoxy.EpoxyModel
 import com.airbnb.epoxy.EpoxyViewHolder
 import com.airbnb.epoxy.Typed2EpoxyController
 import com.asf.wallet.R
-import com.asfoundation.wallet.base.Async
+import com.appcoins.wallet.ui.arch.data.Async
 import com.asfoundation.wallet.entity.GlobalBalance
 import com.asfoundation.wallet.home.ui.list.header.HeaderModelGroup
 import com.asfoundation.wallet.home.ui.list.transactions.DateModel_
@@ -19,7 +19,7 @@ import com.asfoundation.wallet.home.ui.list.transactions.TransactionModel_
 import com.asfoundation.wallet.home.ui.list.transactions.empty.EmptyTransactionsModel_
 import com.asfoundation.wallet.transactions.Transaction
 import com.asfoundation.wallet.ui.widget.entity.TransactionsModel
-import com.asfoundation.wallet.util.CurrencyFormatUtils
+import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import java.util.*
 import kotlin.collections.HashSet
 
@@ -31,7 +31,8 @@ class HomeController : Typed2EpoxyController<Async<TransactionsModel>, Async<Glo
   var homeClickListener: ((HomeListClick) -> Unit)? = null
 
   override fun buildModels(txModelAsync: Async<TransactionsModel>,
-                           balanceAsync: Async<GlobalBalance>) {
+                           balanceAsync: Async<GlobalBalance>
+  ) {
     add(HeaderModelGroup(txModelAsync, balanceAsync, formatter, homeClickListener))
 
     when (txModelAsync) {

@@ -1,8 +1,8 @@
 package com.asfoundation.wallet.my_wallets.balance_details
 
 import androidx.navigation.NavController
-import com.asfoundation.wallet.base.Navigator
-import com.asfoundation.wallet.base.navigate
+import com.appcoins.wallet.ui.arch.data.Navigator
+import com.appcoins.wallet.ui.arch.data.navigate
 import javax.inject.Inject
 
 class BalanceDetailsNavigator @Inject constructor(private val navController: NavController) :

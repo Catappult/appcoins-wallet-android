@@ -10,7 +10,7 @@ import androidx.lifecycle.lifecycleScope
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.asf.wallet.R
 import com.asf.wallet.databinding.FragmentMyWalletsMoreBinding
-import com.asfoundation.wallet.base.SingleStateFragment
+import com.appcoins.wallet.ui.arch.SingleStateFragment
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
@@ -30,7 +30,7 @@ class MoreDialogFragment : BottomSheetDialogFragment(),
     inflater: LayoutInflater,
     container: ViewGroup?,
     savedInstanceState: Bundle?
-  ): View? = inflater.inflate(R.layout.fragment_my_wallets_more, container, false)
+  ): View = FragmentMyWalletsMoreBinding.inflate(inflater).root
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
@@ -49,7 +49,7 @@ class MoreDialogFragment : BottomSheetDialogFragment(),
     viewModel.refreshData()
   }
 
-  override fun getTheme(): Int = R.style.AppBottomSheetDialogTheme
+  override fun getTheme(): Int = R.style.AppBottomSheetDialogThemeDraggable
 
   override fun onStateChanged(state: MoreDialogState) {
     val wallets = state.walletsAsync()
@@ -70,6 +70,10 @@ class MoreDialogFragment : BottomSheetDialogFragment(),
           }
         }
       }
+    }
+
+    views.scrollviewMyWallets.run {
+      post { fullScroll(View.FOCUS_DOWN) }
     }
   }
 

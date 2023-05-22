@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:theme="@style/AppTheme"
+    >
+
+  <androidx.constraintlayout.widget.ConstraintLayout
+      android:layout_width="@dimen/payment_methods_width_landscape"
+      android:layout_height="wrap_content"
+      android:animateLayoutChanges="true"
+      android:background="@drawable/background_card_bottom_rounded"
+      android:paddingHorizontal="@dimen/big_margin"
+      android:paddingVertical="@dimen/big_margin"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      >
+
+    <include
+        android:id="@+id/pay_ticket_header"
+        layout="@layout/pay_ticket_header"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/big_margin"
+        app:layout_constraintVertical_chainStyle="packed"
+        app:layout_constraintVertical_bias="0.0"
+        app:layout_constraintBottom_toTopOf="@id/pay_ticket_payment_methods_details"
+        app:layout_constraintEnd_toStartOf="@id/guideline_vertical_separator"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+    <include
+        android:id="@+id/pay_ticket_payment_methods_details"
+        layout="@layout/pay_ticket_payment_methods_details"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/big_margin"
+        android:layout_marginBottom="@dimen/small_margin"
+        android:layout_marginEnd="@dimen/big_margin"
+        app:layout_constraintStart_toStartOf="@id/pay_ticket_header"
+        app:layout_constraintEnd_toStartOf="@id/guideline_vertical_separator"
+        app:layout_constraintTop_toBottomOf="@+id/pay_ticket_header"
+        app:layout_constraintBottom_toTopOf="@+id/guideline_horizonal_separator"
+        />
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_vertical_separator"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.45"
+      />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_horizonal_separator"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_end="40dp"
+        />
+    <View
+        android:id="@+id/line_separator_info"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:background="@color/light_gray"
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@+id/pay_ticket_payment_methods_details"
+        />
+
+    <include
+        android:id="@+id/pay_ticket_room_details"
+        layout="@layout/pay_ticket_room_details"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/big_margin"
+        android:layout_marginBottom="@dimen/small_margin"
+        app:layout_constraintVertical_bias="0.0"
+        app:layout_constraintBottom_toTopOf="@+id/guideline_horizonal_separator"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/guideline_vertical_separator"
+        app:layout_constraintTop_toTopOf="@+id/pay_ticket_header"
+        />
+
+
+    <include
+        android:id="@+id/dialog_buy_buttons_payment_methods"
+        layout="@layout/pay_ticket_buy_buttons"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/small_margin"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/guideline_horizonal_separator"
+        />
+
+  </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,6 +1,6 @@
 package com.asfoundation.wallet.referrals
 
-import com.asfoundation.wallet.util.isNoNetworkException
+import com.appcoins.wallet.core.utils.android_common.extensions.isNoNetworkException
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers

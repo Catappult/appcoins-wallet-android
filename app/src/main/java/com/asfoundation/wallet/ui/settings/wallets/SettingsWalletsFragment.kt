@@ -6,13 +6,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import androidx.fragment.app.Fragment
+import by.kirich1409.viewbindingdelegate.viewBinding
 import com.asf.wallet.R
+import com.asf.wallet.databinding.SettingsWalletsLayoutBinding
 import com.asfoundation.wallet.ui.settings.wallets.bottomsheet.SettingsWalletsBottomSheetFragment
 import com.asfoundation.wallet.ui.wallets.WalletsModel
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.jakewharton.rxbinding2.view.RxView
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.fragment_balance.*
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -21,6 +22,8 @@ class SettingsWalletsFragment : Fragment(), SettingsWalletsView {
   @Inject
   lateinit var presenter: SettingsWalletsPresenter
   private lateinit var walletsBottomSheet: BottomSheetBehavior<View>
+
+  private val views by viewBinding(SettingsWalletsLayoutBinding::bind)
 
   companion object {
     private const val WALLET_MODEL_KEY = "wallet_model"
@@ -43,20 +46,20 @@ class SettingsWalletsFragment : Fragment(), SettingsWalletsView {
         .replace(R.id.bottom_sheet_fragment_container,
             SettingsWalletsBottomSheetFragment.newInstance(walletsModel))
         .commit()
-    return inflater.inflate(R.layout.settings_wallets_layout, container, false)
+    return SettingsWalletsLayoutBinding.inflate(layoutInflater).root
   }
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
-    walletsBottomSheet = BottomSheetBehavior.from(bottom_sheet_fragment_container)
+    walletsBottomSheet = BottomSheetBehavior.from(views.bottomSheetFragmentContainer)
     presenter.present()
   }
 
   override fun onDestroyView() {
     super.onDestroyView()
-    faded_background.animation =
+    views.fadedBackground.animation =
         AnimationUtils.loadAnimation(context, R.anim.fast_100s_fade_out_animation)
-    faded_background.visibility = View.GONE
+    views.fadedBackground.visibility = View.GONE
     presenter.stop()
   }
 
@@ -74,7 +77,7 @@ class SettingsWalletsFragment : Fragment(), SettingsWalletsView {
     })
   }
 
-  override fun outsideOfBottomSheetClick() = RxView.clicks(faded_background)
+  override fun outsideOfBottomSheetClick() = RxView.clicks(views.fadedBackground)
 
   private val walletsModel: WalletsModel by lazy {
     if (requireArguments().containsKey(WALLET_MODEL_KEY)) {

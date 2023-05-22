@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    >
+
+  <ImageView
+      android:id="@+id/app_icon"
+      android:layout_width="48dp"
+      android:layout_height="48dp"
+      android:src="@drawable/ic_appc"
+      app:layout_constraintEnd_toStartOf="@id/app_name"
+      app:layout_constraintHorizontal_bias="0"
+      app:layout_constraintHorizontal_chainStyle="packed"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      app:layout_constraintVertical_bias="0"
+      app:layout_constraintVertical_chainStyle="packed"
+      />
+  <TextView
+      android:id="@+id/app_name"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="13dp"
+      android:layout_toEndOf="@id/app_icon"
+      android:ellipsize="end"
+      android:maxLines="1"
+      android:textColor="@color/black_87_alpha"
+      android:textSize="16sp"
+      app:layout_constraintBottom_toTopOf="@id/app_sku_description"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintHorizontal_bias="0"
+      app:layout_constraintStart_toEndOf="@id/app_icon"
+      app:layout_constraintTop_toTopOf="@id/app_icon"
+      tools:text="Application Very Large Name"
+      />
+
+  <TextView
+      android:id="@+id/app_sku_description"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_below="@id/app_name"
+      android:layout_toEndOf="@id/app_icon"
+      android:ellipsize="end"
+      android:maxLines="1"
+      android:text="@string/purchase_eskills_sku"
+      android:textColor="@color/grey_alpha_active_54"
+      android:textSize="12sp"
+      app:layout_constraintBottom_toBottomOf="@id/app_icon"
+      app:layout_constraintStart_toStartOf="@id/app_name"
+      app:layout_constraintTop_toBottomOf="@id/app_name"
+      />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

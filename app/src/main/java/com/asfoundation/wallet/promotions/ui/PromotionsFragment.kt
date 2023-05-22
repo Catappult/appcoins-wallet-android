@@ -14,20 +14,20 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.NavHostFragment
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.appcoins.wallet.gamification.repository.PromotionsGamificationStats
-import com.appcoins.wallet.gamification.repository.entity.GamificationStatus
+import com.appcoins.wallet.core.network.backend.model.GamificationStatus
 import com.asf.wallet.R
 import com.asf.wallet.databinding.FragmentPromotionsBinding
-import com.asfoundation.wallet.base.Async
-import com.asfoundation.wallet.base.SingleStateFragment
+import com.appcoins.wallet.ui.arch.data.Async
+import com.appcoins.wallet.ui.arch.SingleStateFragment
 import com.asfoundation.wallet.promotions.model.GamificationItem
 import com.asfoundation.wallet.promotions.model.PromotionsModel
 import com.asfoundation.wallet.promotions.model.VipReferralInfo
 import com.asfoundation.wallet.promotions.ui.list.PromotionClick
 import com.asfoundation.wallet.promotions.ui.list.PromotionsController
-import com.asfoundation.wallet.ui.common.setMargins
 import com.asfoundation.wallet.ui.gamification.GamificationMapper
-import com.asfoundation.wallet.ui.widget.MarginItemDecoration
-import com.asfoundation.wallet.util.CurrencyFormatUtils
+import com.appcoins.wallet.ui.common.MarginItemDecoration
+import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
+import com.appcoins.wallet.ui.common.setMargins
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
 import java.text.DecimalFormat
@@ -56,9 +56,7 @@ class PromotionsFragment : BasePageViewFragment(),
   override fun onCreateView(
     inflater: LayoutInflater, container: ViewGroup?,
     savedInstanceState: Bundle?
-  ): View? {
-    return inflater.inflate(R.layout.fragment_promotions, container, false)
-  }
+  ): View = FragmentPromotionsBinding.inflate(inflater).root
 
   override fun onResume() {
     super.onResume()
@@ -101,15 +99,11 @@ class PromotionsFragment : BasePageViewFragment(),
         navigator.navigateToInfo()
       }
       is PromotionsSideEffect.NavigateToVipReferral -> {
-        val mainNav: NavHostFragment = requireActivity().supportFragmentManager.findFragmentById(
-          R.id.full_host_container
-        ) as NavHostFragment
         navigator.navigateToVipReferral(
           sideEffect.bonus,
           sideEffect.promoCodeVip,
           sideEffect.totalEarned,
-          sideEffect.numberReferrals,
-          mainNav.navController
+          sideEffect.numberReferrals
         )
       }
       PromotionsSideEffect.NavigateToInviteFriends -> navigator.navigateToInviteFriends()
@@ -130,7 +124,7 @@ class PromotionsFragment : BasePageViewFragment(),
           showLoading()
           showPromotionSkeleton()
         } else {
-          if (asyncPromotionsModel.value.error == PromotionsModel.Status.NO_NETWORK) {
+          if (asyncPromotionsModel.value?.error == PromotionsModel.Status.NO_NETWORK) {
             showNoNetworkErrorLoading()
           }
         }

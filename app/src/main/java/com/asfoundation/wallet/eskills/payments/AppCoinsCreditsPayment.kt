@@ -1,7 +1,7 @@
 package com.asfoundation.wallet.eskills.payments
 
 import cm.aptoide.skills.model.*
-import cm.aptoide.skills.util.EskillsPaymentData
+import com.appcoins.wallet.core.network.eskills.model.EskillsPaymentData
 import com.appcoins.wallet.bdsbilling.Billing
 import com.asfoundation.wallet.ui.iab.RewardPayment
 import com.asfoundation.wallet.ui.iab.RewardsManager
@@ -39,14 +39,18 @@ class AppCoinsCreditsPayment @Inject constructor(private val rewardsManager: Rew
         .map { WalletAddress.fromValue(it) }
   }
 
-  private fun handlePaymentStatus(transaction: RewardPayment,
-                                  eskillsPaymentData: EskillsPaymentData): Single<PaymentResult> {
+  private fun handlePaymentStatus(
+    transaction: RewardPayment,
+    eskillsPaymentData: EskillsPaymentData
+  ): Single<PaymentResult> {
     return when (transaction.status) {
       Status.COMPLETED -> {
-        rewardsManager.getTransaction(eskillsPaymentData.packageName, eskillsPaymentData.product,
-            eskillsPaymentData.price!!)
-            .firstOrError()
-            .flatMap { Single.just(SuccessfulPayment) }
+        rewardsManager.getTransaction(
+          eskillsPaymentData.packageName, eskillsPaymentData.product,
+          eskillsPaymentData.price!!
+        )
+          .firstOrError()
+          .flatMap { Single.just(SuccessfulPayment) }
       }
       Status.ERROR -> Single.just(FailedPayment.GenericError(transaction.errorMessage))
       Status.FORBIDDEN -> Single.just(FailedPayment.FraudError(transaction.errorMessage))

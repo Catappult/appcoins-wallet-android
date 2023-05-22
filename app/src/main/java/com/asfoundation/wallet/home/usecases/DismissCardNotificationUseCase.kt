@@ -1,25 +1,23 @@
 package com.asfoundation.wallet.home.usecases
 
 import com.appcoins.wallet.gamification.repository.PromotionsRepository
-import com.asfoundation.wallet.backup.BackupNotification
 import com.asfoundation.wallet.interact.UpdateNotification
 import com.asfoundation.wallet.promotions.PromotionNotification
 import com.asfoundation.wallet.promotions.PromotionUpdateScreen
 import com.asfoundation.wallet.referrals.CardNotification
 import com.asfoundation.wallet.referrals.ReferralNotification
-import com.asfoundation.wallet.referrals.SharedPreferencesReferralLocalData
 import com.asfoundation.wallet.repository.AutoUpdateRepository
-import com.asfoundation.wallet.repository.BackupRestorePreferencesRepository
-import com.asfoundation.wallet.repository.PreferencesRepositoryType
-import com.asfoundation.wallet.util.scaleToString
+import com.appcoins.wallet.core.utils.android_common.extensions.scaleToString
 import io.reactivex.Completable
+import com.appcoins.wallet.sharedpreferences.ReferralPreferencesDataSource
+import com.appcoins.wallet.sharedpreferences.CommonsPreferencesDataSource
 import javax.inject.Inject
 
 class DismissCardNotificationUseCase @Inject constructor(
   private val findDefaultWalletUseCase: FindDefaultWalletUseCase,
-  private val preferences: SharedPreferencesReferralLocalData,
+  private val preferences: ReferralPreferencesDataSource,
   private val autoUpdateRepository: AutoUpdateRepository,
-  private val sharedPreferencesRepository: PreferencesRepositoryType,
+  private val commonsPreferencesDataSource: CommonsPreferencesDataSource,
   private val promotionsRepo: PromotionsRepository
 ) {
 
@@ -35,17 +33,21 @@ class DismissCardNotificationUseCase @Inject constructor(
   private fun referralDismiss(referralNotification: ReferralNotification): Completable {
     return findDefaultWalletUseCase()
       .flatMapCompletable {
-        preferences.savePendingAmountNotification(
-          it.address,
-          referralNotification.pendingAmount.scaleToString(2)
-        )
+        Completable.fromCallable {
+          preferences.savePendingAmountNotification(
+            it.address,
+            referralNotification.pendingAmount.scaleToString(2)
+          )
+        }
       }
   }
 
   private fun autoUpdateDismiss(): Completable {
     return autoUpdateRepository.loadAutoUpdateModel(false)
       .flatMapCompletable {
-        sharedPreferencesRepository.saveAutoUpdateCardDismiss(it.updateVersionCode)
+        Completable.fromCallable {
+          commonsPreferencesDataSource.saveAutoUpdateCardDismiss(it.updateVersionCode)
+        }
       }
   }
 

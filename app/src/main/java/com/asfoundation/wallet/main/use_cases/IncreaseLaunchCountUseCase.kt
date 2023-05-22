@@ -1,10 +1,11 @@
 package com.asfoundation.wallet.main.use_cases
 
-import com.asfoundation.wallet.repository.PreferencesRepositoryType
+import com.appcoins.wallet.sharedpreferences.CommonsPreferencesDataSource
 import javax.inject.Inject
 
 class IncreaseLaunchCountUseCase @Inject constructor(
-    val preferencesRepositoryType: PreferencesRepositoryType) {
+  val commonsPreferencesDataSource: CommonsPreferencesDataSource
+) {
 
   companion object {
     // An high arbitrary number that conceivably will cover any future use case
@@ -12,8 +13,8 @@ class IncreaseLaunchCountUseCase @Inject constructor(
   }
 
   operator fun invoke() {
-    if (preferencesRepositoryType.getNumberOfTimesOnHome() <= MAX_NUMBER_OF_TIMES) {
-      preferencesRepositoryType.increaseTimesOnHome()
+    if (commonsPreferencesDataSource.getNumberOfTimesOnHome() <= MAX_NUMBER_OF_TIMES) {
+      commonsPreferencesDataSource.increaseTimesOnHome()
     }
   }
 }

@@ -1,10 +1,8 @@
 package com.asfoundation.wallet.ui.iab.payments.carrier.status
 
 import androidx.fragment.app.Fragment
-import com.appcoins.wallet.commons.Logger
+import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics
-import com.asfoundation.wallet.navigator.UriNavigator
-import com.asfoundation.wallet.ui.iab.IabActivity
 import com.asfoundation.wallet.ui.iab.payments.carrier.CarrierInteractor
 import dagger.Module
 import dagger.Provides
@@ -41,7 +39,8 @@ class CarrierPaymentModule {
                                             navigator: CarrierPaymentNavigator,
                                             carrierInteractor: CarrierInteractor,
                                             billingAnalytics: BillingAnalytics,
-                                            logger: Logger): CarrierPaymentPresenter {
+                                            logger: Logger
+  ): CarrierPaymentPresenter {
     return CarrierPaymentPresenter(
         CompositeDisposable(), fragment as CarrierPaymentView, data, navigator, carrierInteractor,
         billingAnalytics, logger, AndroidSchedulers.mainThread(), Schedulers.io())

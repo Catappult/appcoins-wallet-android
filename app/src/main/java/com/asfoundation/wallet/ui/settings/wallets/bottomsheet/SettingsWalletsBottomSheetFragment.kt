@@ -6,17 +6,18 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import by.kirich1409.viewbindingdelegate.viewBinding
 import com.asf.wallet.R
 import com.asfoundation.wallet.ui.settings.wallets.SettingsWalletsView
 import com.asfoundation.wallet.ui.wallets.WalletBalance
 import com.asfoundation.wallet.ui.wallets.WalletsAdapter
 import com.asfoundation.wallet.ui.wallets.WalletsModel
-import com.asfoundation.wallet.util.CurrencyFormatUtils
-import com.asfoundation.wallet.util.addBottomItemDecoration
+import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
+import com.appcoins.wallet.ui.common.addBottomItemDecoration
+import com.asf.wallet.databinding.SettingsWalletBottomSheetLayoutBinding
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.subjects.PublishSubject
-import kotlinx.android.synthetic.main.settings_wallet_bottom_sheet_layout.*
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -29,6 +30,8 @@ class SettingsWalletsBottomSheetFragment : BasePageViewFragment(), SettingsWalle
   lateinit var presenter: SettingsWalletsBottomSheetPresenter
 
   private var uiEventListener: PublishSubject<String>? = null
+
+  private val binding by viewBinding(SettingsWalletBottomSheetLayoutBinding::bind)
 
   companion object {
 
@@ -52,7 +55,7 @@ class SettingsWalletsBottomSheetFragment : BasePageViewFragment(), SettingsWalle
     inflater: LayoutInflater,
     container: ViewGroup?,
     savedInstanceState: Bundle?
-  ): View? = inflater.inflate(R.layout.settings_wallet_bottom_sheet_layout, container, false)
+  ): View = SettingsWalletBottomSheetLayoutBinding.inflate(inflater).root
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
@@ -60,7 +63,7 @@ class SettingsWalletsBottomSheetFragment : BasePageViewFragment(), SettingsWalle
   }
 
   override fun setupUi(walletsBalance: List<WalletBalance>) {
-    with(bottom_sheet_wallets_cards) {
+    with(binding.bottomSheetWalletsCards) {
       addBottomItemDecoration(resources.getDimension(R.dimen.wallets_card_margin))
       isNestedScrollingEnabled = false
       layoutManager = LinearLayoutManager(context).apply {

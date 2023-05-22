@@ -15,11 +15,11 @@ class PendingPurchaseFlowUseCaseImpl @Inject constructor(
 ) : PendingPurchaseFlowUseCase {
   override operator fun invoke(): StartMode.PendingPurchaseFlow? {
     val cachedTransaction = cachedTransaction.getCachedTransaction().blockingGet()
-    return if (cachedTransaction.packageName != null) {
+    return if (cachedTransaction.signature != null) {
       StartMode.PendingPurchaseFlow(
         integrationFlow = "osp",
-        sku = cachedTransaction.sku!!,
-        packageName = cachedTransaction.packageName,
+        sku = cachedTransaction.sku,
+        packageName = cachedTransaction.packageName!!,
         callbackUrl = cachedTransaction.callbackUrl,
         currency = cachedTransaction.currency,
         orderReference = cachedTransaction.orderReference,

@@ -6,19 +6,22 @@ import io.reactivex.Single
 import javax.inject.Inject
 
 
-class OemIdExtractorService @Inject constructor(private val extractorV1: OemIdExtractorV1,
-                                                private val extractorV2: OemIdExtractorV2) {
+class OemIdExtractorService @Inject constructor(
+  private val extractorV1: OemIdExtractorV1,
+  private val extractorV2: OemIdExtractorV2
+) {
 
   fun extractOemId(packageName: String): Single<String> {
     return extractorV2.extract(packageName)
-        .doOnSuccess { extracted -> check(extracted.isNotEmpty()) }
-        .onErrorResumeNext(extractorV1.extract(packageName))
+      .doOnSuccess { extracted -> check(extracted.isNotEmpty()) }
+      .onErrorResumeNext(extractorV1.extract(packageName))
+      .onErrorResumeNext(Single.just(""))
   }
 }
 
 @Throws(PackageManager.NameNotFoundException::class)
 fun getPackageName(context: Context, packageName: String): String {
   return context.packageManager
-      .getPackageInfo(packageName, 0)
-      .applicationInfo.sourceDir
+    .getPackageInfo(packageName, 0)
+    .applicationInfo.sourceDir
 }

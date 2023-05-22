@@ -9,15 +9,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.widget.doOnTextChanged
+import by.kirich1409.viewbindingdelegate.viewBinding
 import com.asf.wallet.R
-import com.asfoundation.wallet.util.withNoLayoutTransition
+import com.appcoins.wallet.ui.common.withNoLayoutTransition
+import com.asf.wallet.databinding.FragmentCarrierVerifyPhoneBinding
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import com.jakewharton.rxbinding2.view.RxView
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
-import kotlinx.android.synthetic.main.dialog_buy_buttons_payment_methods.*
-import kotlinx.android.synthetic.main.fragment_carrier_verify_phone.*
 import java.math.BigDecimal
 import java.util.*
 import javax.inject.Inject
@@ -30,10 +30,10 @@ class CarrierVerifyFragment : BasePageViewFragment(), CarrierVerifyView {
 
   private val phoneNumberChangedSubject = PublishSubject.create<Any>()
 
+  private val binding by viewBinding(FragmentCarrierVerifyPhoneBinding::bind)
+
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                            savedInstanceState: Bundle?): View? {
-    return inflater.inflate(R.layout.fragment_carrier_verify_phone, container, false)
-  }
+                            savedInstanceState: Bundle?): View = FragmentCarrierVerifyPhoneBinding.inflate(inflater).root
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
@@ -43,7 +43,7 @@ class CarrierVerifyFragment : BasePageViewFragment(), CarrierVerifyView {
 
   override fun onSaveInstanceState(outState: Bundle) {
     super.onSaveInstanceState(outState)
-    outState.putBoolean(IS_PHONE_ERROR_VISIBLE_KEY, field_error_text?.visibility == View.VISIBLE)
+    outState.putBoolean(IS_PHONE_ERROR_VISIBLE_KEY, binding.fieldErrorText.visibility == View.VISIBLE)
   }
 
   override fun onViewStateRestored(savedInstanceState: Bundle?) {
@@ -61,22 +61,26 @@ class CarrierVerifyFragment : BasePageViewFragment(), CarrierVerifyView {
   }
 
   private fun setupUi() {
-    cancel_button.setText(getString(R.string.back_button))
-    cancel_button.visibility = View.VISIBLE
+    (binding.dialogBuyButtonsPaymentMethods?.cancelButton ?: binding.dialogBuyButtons?.cancelButton)?.run {
+      setText(getString(R.string.back_button))
+      visibility = View.VISIBLE
+    }
 
-    buy_button.setText(getString(R.string.action_next))
-    buy_button.visibility = View.VISIBLE
-    buy_button.isEnabled = false
+    (binding.dialogBuyButtonsPaymentMethods?.buyButton ?: binding.dialogBuyButtons?.buyButton)?.run {
+      setText(getString(R.string.action_next))
+      visibility = View.VISIBLE
+      isEnabled = false
+    }
 
-    country_code_picker.imageViewFlag.alpha = 0.7f
-    country_code_picker.registerCarrierNumberEditText(phone_number)
-    country_code_picker.textView_selectedCountry.typeface =
+    binding.countryCodePicker.imageViewFlag.alpha = 0.7f
+    binding.countryCodePicker.registerCarrierNumberEditText(binding.phoneNumber)
+    binding.countryCodePicker.textView_selectedCountry.typeface =
         Typeface.create("sans-serif-medium", Typeface.NORMAL)
 
-    country_code_picker.setOnCountryChangeListener {
+    binding.countryCodePicker.setOnCountryChangeListener {
       phoneNumberChangedSubject.onNext(Unit)
     }
-    phone_number.doOnTextChanged { _, _, _, _ ->
+    binding.phoneNumber.doOnTextChanged { _, _, _, _ ->
       phoneNumberChangedSubject.onNext(Unit)
     }
   }
@@ -85,80 +89,80 @@ class CarrierVerifyFragment : BasePageViewFragment(), CarrierVerifyView {
                               appcAmount: BigDecimal,
                               skuDescription: String, bonusAmount: BigDecimal?,
                               preselected: Boolean) {
-    payment_methods_header.setDescription(skuDescription)
-    payment_methods_header.setPrice(fiatAmount, appcAmount, currency)
-    payment_methods_header.showPrice()
-    payment_methods_header.hideSkeleton()
+    binding.paymentMethodsHeader.setDescription(skuDescription)
+    binding.paymentMethodsHeader.setPrice(fiatAmount, appcAmount, currency)
+    binding.paymentMethodsHeader.showPrice()
+    binding.paymentMethodsHeader.hideSkeleton()
 
-    purchase_bonus.withNoLayoutTransition {
+    binding.purchaseBonus.withNoLayoutTransition {
       if (bonusAmount != null) {
-        purchase_bonus.visibility = View.VISIBLE
-        purchase_bonus.setPurchaseBonusHeaderValue(bonusAmount, mapCurrencyCodeToSymbol(currency))
-        purchase_bonus.hideSkeleton()
+        binding.purchaseBonus.visibility = View.VISIBLE
+        binding.purchaseBonus.setPurchaseBonusHeaderValue(bonusAmount, mapCurrencyCodeToSymbol(currency))
+        binding.purchaseBonus.hideSkeleton()
       } else {
-        purchase_bonus.visibility = View.GONE
+        binding.purchaseBonus.visibility = View.GONE
       }
     }
 
     if (preselected) {
-      other_payments_button.withNoLayoutTransition {
-        other_payments_button.visibility = View.VISIBLE
+      binding.otherPaymentsButton.withNoLayoutTransition {
+        binding.otherPaymentsButton.visibility = View.VISIBLE
       }
-      cancel_button.setText(getString(R.string.cancel_button))
+      (binding.dialogBuyButtonsPaymentMethods?.cancelButton ?: binding.dialogBuyButtons?.cancelButton)?.setText(getString(R.string.cancel_button))
       if (resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT) {
-        val marginParams = purchase_bonus.layoutParams as ViewGroup.MarginLayoutParams
+        val marginParams = binding.purchaseBonus.layoutParams as ViewGroup.MarginLayoutParams
         marginParams.topMargin = 0
       }
     }
   }
 
   override fun setAppDetails(appName: String, icon: Drawable) {
-    payment_methods_header.setTitle(appName)
-    payment_methods_header.setIcon(icon)
+    binding.paymentMethodsHeader.setTitle(appName)
+    binding.paymentMethodsHeader.setIcon(icon)
   }
 
   override fun filterCountries(countryListString: String, defaultCountry: String?) {
-    country_code_picker.setCustomMasterCountries(countryListString)
+    binding.countryCodePicker.setCustomMasterCountries(countryListString)
     defaultCountry?.let { country ->
-      country_code_picker.setCountryForNameCode(country)
-      country_code_picker.holder.requestLayout()
+      binding.countryCodePicker.setCountryForNameCode(country)
+      binding.countryCodePicker.holder.requestLayout()
     }
   }
 
   override fun showSavedPhoneNumber(phoneNumber: String) {
-    country_code_picker.fullNumber = phoneNumber
-    saved_phone_number_confirmed.visibility = View.VISIBLE
-    change_phone_number_button.visibility = View.VISIBLE
-    title.text = getString(R.string.carrier_billing_insert_phone_previously_used)
+    binding.countryCodePicker.fullNumber = phoneNumber
+    binding.savedPhoneNumberConfirmed.visibility = View.VISIBLE
+    binding.changePhoneNumberButton.visibility = View.VISIBLE
+    binding.title.text = getString(R.string.carrier_billing_insert_phone_previously_used)
     setPhoneNumberViewsEditable(false)
   }
 
   override fun hideSavedPhoneNumber(clearText: Boolean) {
-    if (clearText) phone_number.setText("")
-    title.text = getString(R.string.carrier_billing_insert_phone_body)
-    saved_phone_number_confirmed.visibility = View.GONE
-    change_phone_number_button.visibility = View.GONE
+    if (clearText) binding.phoneNumber.setText("")
+    binding.title.text = getString(R.string.carrier_billing_insert_phone_body)
+    binding.savedPhoneNumberConfirmed.visibility = View.GONE
+    binding.changePhoneNumberButton.visibility = View.GONE
     setPhoneNumberViewsEditable(true)
   }
 
   private fun setPhoneNumberViewsEditable(editable: Boolean) {
-    country_code_picker.setCcpClickable(editable)
-    phone_number.isFocusable = editable
-    phone_number.isClickable = editable
+    binding.countryCodePicker.setCcpClickable(editable)
+    binding.phoneNumber.isFocusable = editable
+    binding.phoneNumber.isClickable = editable
   }
 
   override fun showPhoneNumberLayout() {
-    phone_number_skeleton.visibility = View.GONE
-    phone_number_layout.visibility = View.VISIBLE
+    binding.phoneNumberSkeleton.root.visibility = View.GONE
+    binding.phoneNumberLayout.visibility = View.VISIBLE
   }
 
   override fun changeButtonClick(): Observable<Any> {
-    return RxView.clicks(change_phone_number_button)
+    return RxView.clicks(binding.changePhoneNumberButton)
   }
 
   override fun focusOnPhoneNumber() {
-    phone_number.isFocusableInTouchMode = true
-    phone_number.requestFocus()
+    binding.phoneNumber.isFocusableInTouchMode = true
+    binding.phoneNumber.requestFocus()
   }
 
   private fun mapCurrencyCodeToSymbol(currencyCode: String): String {
@@ -169,53 +173,53 @@ class CarrierVerifyFragment : BasePageViewFragment(), CarrierVerifyView {
           .symbol
   }
 
-  override fun backEvent(): Observable<Any> = RxView.clicks(cancel_button)
+  override fun backEvent(): Observable<Any> = RxView.clicks(binding.dialogBuyButtonsPaymentMethods?.cancelButton ?: binding.dialogBuyButtons?.cancelButton!!)
 
   override fun nextClickEvent(): Observable<String> {
-    return RxView.clicks(buy_button)
-        .map { country_code_picker.fullNumberWithPlus.toString() }
+    return RxView.clicks(binding.dialogBuyButtonsPaymentMethods?.buyButton ?: binding.dialogBuyButtons?.buyButton!!)
+        .map { binding.countryCodePicker.fullNumberWithPlus.toString() }
   }
 
   override fun phoneNumberChangeEvent(): Observable<Pair<String, Boolean>> {
     return phoneNumberChangedSubject
         .map {
-          Pair(country_code_picker.fullNumberWithPlus.toString(),
-              country_code_picker.isValidFullNumber)
+          Pair(binding.countryCodePicker.fullNumberWithPlus.toString(),
+            binding.countryCodePicker.isValidFullNumber)
         }
   }
 
   override fun setLoading() {
-    title.visibility = View.INVISIBLE
-    disclaimer.visibility = View.INVISIBLE
-    phone_number_layout.visibility = View.INVISIBLE
-    if (change_phone_number_button.visibility == View.VISIBLE) {
-      change_phone_number_button.visibility = View.INVISIBLE
+    binding.title.visibility = View.INVISIBLE
+    binding.disclaimer.visibility = View.INVISIBLE
+    binding.phoneNumberLayout.visibility = View.INVISIBLE
+    if (binding.changePhoneNumberButton.visibility == View.VISIBLE) {
+      binding.changePhoneNumberButton.visibility = View.INVISIBLE
     }
-    progress_bar.visibility = View.VISIBLE
+    binding.progressBar.visibility = View.VISIBLE
     removePhoneNumberFieldError()
-    buy_button.isEnabled = false
+    (binding.dialogBuyButtonsPaymentMethods?.buyButton ?: binding.dialogBuyButtons?.buyButton!!).isEnabled = false
   }
 
   override fun showInvalidPhoneNumberError() {
-    buy_button.isEnabled = true
-    phone_number_layout.setBackgroundResource(R.drawable.rectangle_outline_red_radius_8dp)
-    field_error_text.visibility = View.VISIBLE
-    title.visibility = View.VISIBLE
-    disclaimer.visibility = View.VISIBLE
-    phone_number_layout.visibility = View.VISIBLE
-    if (change_phone_number_button.visibility == View.INVISIBLE) {
-      change_phone_number_button.visibility = View.VISIBLE
+    (binding.dialogBuyButtonsPaymentMethods?.buyButton ?: binding.dialogBuyButtons?.buyButton!!).isEnabled = true
+    binding.phoneNumberLayout.setBackgroundResource(R.drawable.rectangle_outline_red_radius_8dp)
+    binding.fieldErrorText.visibility = View.VISIBLE
+    binding.title.visibility = View.VISIBLE
+    binding.disclaimer.visibility = View.VISIBLE
+    binding.phoneNumberLayout.visibility = View.VISIBLE
+    if (binding.changePhoneNumberButton.visibility == View.INVISIBLE) {
+      binding.changePhoneNumberButton.visibility = View.VISIBLE
     }
-    progress_bar.visibility = View.INVISIBLE
+    binding.progressBar.visibility = View.INVISIBLE
   }
 
   override fun removePhoneNumberFieldError() {
-    field_error_text.visibility = View.GONE
-    phone_number_layout.setBackgroundResource(R.drawable.rectangle_outline_grey_radius_8dp)
+    binding.fieldErrorText.visibility = View.GONE
+    binding.phoneNumberLayout.setBackgroundResource(R.drawable.rectangle_outline_grey_radius_8dp)
   }
 
   override fun setNextButtonEnabled(enabled: Boolean) {
-    buy_button.isEnabled = enabled
+    (binding.dialogBuyButtonsPaymentMethods?.buyButton ?: binding.dialogBuyButtons?.buyButton!!).isEnabled = enabled
   }
 
   override fun unlockRotation() {
@@ -227,7 +231,7 @@ class CarrierVerifyFragment : BasePageViewFragment(), CarrierVerifyView {
   }
 
   override fun otherPaymentMethodsEvent(): Observable<Any> {
-    return RxView.clicks(other_payments_button)
+    return RxView.clicks(binding.otherPaymentsButton)
   }
 
   companion object {

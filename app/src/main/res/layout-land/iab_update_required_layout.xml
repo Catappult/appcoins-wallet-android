@@ -121,7 +121,7 @@
         app:layout_constraintTop_toBottomOf="@id/update_required_backup_title"
         />
 
-    <com.asfoundation.wallet.ui.common.WalletButtonView
+    <com.appcoins.wallet.ui.widgets.WalletButtonView
         android:id="@+id/update_required_backup_button"
         android:layout_width="0dp"
         android:layout_height="36dp"

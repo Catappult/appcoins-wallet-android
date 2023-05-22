@@ -2,11 +2,13 @@ package com.asfoundation.wallet.ui.iab.localpayments
 
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import com.appcoins.wallet.bdsbilling.WalletService
 import com.appcoins.wallet.bdsbilling.repository.RemoteRepository
-import com.appcoins.wallet.bdsbilling.repository.entity.Transaction
-import com.appcoins.wallet.bdsbilling.repository.entity.Transaction.Status.*
 import com.appcoins.wallet.billing.BillingMessagesMapper
+import com.appcoins.wallet.core.network.microservices.model.Transaction
+import com.appcoins.wallet.core.network.microservices.model.Transaction.Status
+import com.appcoins.wallet.core.network.microservices.model.Transaction.Status.*
 import com.asfoundation.wallet.billing.adyen.PurchaseBundleModel
 import com.asfoundation.wallet.billing.partners.AddressService
 import com.asfoundation.wallet.promo_code.use_cases.GetCurrentPromoCodeUseCase
@@ -38,8 +40,8 @@ class LocalPaymentInteractor @Inject constructor(private val walletService: Wall
           .flatMap { walletVerificationInteractor.isVerified(it.address, it.signedAddress) }
           .onErrorReturn { true }
 
-  fun getPaymentLink(packageName: String, fiatAmount: String?, fiatCurrency: String?,
-                     paymentMethod: String, productName: String?, type: String, origin: String?,
+  fun getPaymentLink(paymentMethod: String,packageName: String, fiatAmount: String?, fiatCurrency: String?,
+                     productName: String?, type: String, origin: String?,
                      walletDeveloper: String?, developerPayload: String?,
                      callbackUrl: String?, orderReference: String?,
                      referrerUrl: String?): Single<String> {
@@ -78,12 +80,12 @@ class LocalPaymentInteractor @Inject constructor(private val walletService: Wall
           .filter { isEndingState(it.status, async) }
           .distinctUntilChanged { transaction -> transaction.status }
 
-  private fun isEndingState(status: Transaction.Status, async: Boolean) =
-      (status == PENDING_USER_PAYMENT && async) ||
-          status == COMPLETED ||
-          status == FAILED ||
-          status == CANCELED ||
-          status == INVALID_TRANSACTION
+  private fun isEndingState(status: Status, async: Boolean) =
+    (status == PENDING_USER_PAYMENT && async) ||
+        status == COMPLETED ||
+        status == FAILED ||
+        status == CANCELED ||
+        status == INVALID_TRANSACTION
 
   fun getCompletePurchaseBundle(type: String, merchantName: String, sku: String?,
                                 purchaseUid: String?,

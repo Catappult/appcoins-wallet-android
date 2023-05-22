@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.asf.wallet.R
 import com.asf.wallet.databinding.FragmentMyWalletsBalanceDetailsBinding
-import com.asfoundation.wallet.util.getDrawableURI
+import com.appcoins.wallet.core.utils.android_common.extensions.getDrawableURI
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
@@ -25,7 +25,7 @@ class BalanceDetailsFragment : BottomSheetDialogFragment() {
     inflater: LayoutInflater,
     container: ViewGroup?,
     savedInstanceState: Bundle?
-  ): View? = inflater.inflate(R.layout.fragment_my_wallets_balance_details, container, false)
+  ): View = FragmentMyWalletsBalanceDetailsBinding.inflate(inflater).root
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
@@ -39,7 +39,7 @@ class BalanceDetailsFragment : BottomSheetDialogFragment() {
     super.onStart()
   }
 
-  override fun getTheme(): Int = R.style.AppBottomSheetDialogTheme
+  override fun getTheme(): Int = R.style.AppBottomSheetDialogThemeDraggable
 
   private fun setData() = requireArguments().run {
     views.totalBalanceTextView.text = getString(FIAT_BALANCE_KEY)

@@ -4,7 +4,7 @@ import android.graphics.Rect
 import android.util.TypedValue
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
-import com.asfoundation.wallet.util.convertDpToPx
+import com.appcoins.wallet.ui.common.convertDpToPx
 
 
 class TopUpItemDecorator(private val size: Int, private val addMargin: Boolean) :

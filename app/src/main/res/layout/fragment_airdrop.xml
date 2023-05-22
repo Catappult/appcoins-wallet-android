@@ -91,7 +91,7 @@
 
     </com.google.android.material.textfield.TextInputLayout>
 
-    <com.asfoundation.wallet.ui.common.WalletButtonView
+    <com.appcoins.wallet.ui.widgets.WalletButtonView
         android:id="@+id/submit_btn"
         android:enabled="true"
         android:layout_width="wrap_content"

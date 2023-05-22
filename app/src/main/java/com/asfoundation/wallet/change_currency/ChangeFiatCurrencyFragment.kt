@@ -10,8 +10,8 @@ import androidx.lifecycle.lifecycleScope
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.asf.wallet.R
 import com.asf.wallet.databinding.FragmentChangeFiatCurrencyBinding
-import com.asfoundation.wallet.base.Async
-import com.asfoundation.wallet.base.SingleStateFragment
+import com.appcoins.wallet.ui.arch.data.Async
+import com.appcoins.wallet.ui.arch.SingleStateFragment
 import com.asfoundation.wallet.change_currency.list.ChangeFiatCurrencyController
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
@@ -19,7 +19,7 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class ChangeFiatCurrencyFragment : BasePageViewFragment(),
-    SingleStateFragment<ChangeFiatCurrencyState, ChangeFiatCurrencySideEffect> {
+  SingleStateFragment<ChangeFiatCurrencyState, ChangeFiatCurrencySideEffect> {
 
   @Inject
   lateinit var changeFiatCurrencyNavigator: ChangeFiatCurrencyNavigator
@@ -30,10 +30,7 @@ class ChangeFiatCurrencyFragment : BasePageViewFragment(),
   private val changeFiatCurrencyController = ChangeFiatCurrencyController()
 
   override fun onCreateView(inflater: LayoutInflater, @Nullable container: ViewGroup?,
-                            @Nullable savedInstanceState: Bundle?): View? {
-    return inflater.inflate(R.layout.fragment_change_fiat_currency, container, false)
-  }
-
+                            @Nullable savedInstanceState: Bundle?): View = FragmentChangeFiatCurrencyBinding.inflate(inflater).root
 
   override fun onViewCreated(view: View, @Nullable savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)

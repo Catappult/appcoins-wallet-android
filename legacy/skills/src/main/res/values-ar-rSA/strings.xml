@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="appcoins_wallet">محفظة AppCoins</string>
+  <!-- Common -->
+  <string name="start_button">Start</string>
+  <string name="ok">موافق</string>
+  <string name="cancel">إلغاء</string>
+  <string name="buy_button">شراء</string>
+  <string name="topup_button">إضافة</string>
+  <string name="provide_wallet_creating_wallet_header">إنشاء عنوان محفظة&#8230;</string>
+  <string name="processing_loading_title">الحصول على بطاقة دخولك</string>
+  <string name="finding_room_loading_title">في انتظار الخصوم</string>
+  <string name="finding_room_name_loading_title">في انتظار الخصم \nلينضم إلى</string>
+  <string name="finding_room_loading_message">قد يستغرق هذا بعض الوقت…</string>
+  <string name="refunded">تمت استعادة أموالك.</string>
+  <string name="connection_error_body">يبدو أنك غير متصل بالإنترنت. افحص اتصالك بالإنترنت وحاول مجددًا!</string>
+  <string name="playing_game_notification_title">e-Skills التي تلعبها حاليًا</string>
+  <string name="playing_game_notification_body">معلومات اللعبة قادمة…</string>
+  <string name="finish_game_notification_title">انتهت لعبتك من e-Skills</string>
+  <string name="won_game_notification_body">You won! Your wallet is now %1$.2f$ heavier!</string>
+  <string name="lost_game_notification_body">لقد خسرت… حظًّا أوفر المرة القادمة!</string>
+  <string name="dismiss_button">تجاهل</string>
+  <string name="location_not_available_title">ألعاب e-Skills ليست متوفرة في منطقتك</string>
+  <string name="location_not_available_body">نحن نعمل بكل جهدنا لنوصل هذه إلى الجميع، ننصحك بأن تعود قريبًا!</string>
+  <string name="e_skills_room_create_title">أنشئ أو انضم إلى غرفة</string>
+  <string name="e_skills_room_create_body">أنشئ غرفة جديدة وشاركها مع خصومك أو انضم إلى غرفة موجودة مسبقًا.</string>
+  <string name="e_skills_room_field">اسم غرفتك هنا…</string>
+  <string name="e_skills_payment_title">الدفع بواسطة</string>
+  <string name="e_skills_payment_body">أرصدة AppCoins</string>
+  <string name="copied_to_clipboard">تم النسخ إلى الحافظة</string>
+  <string name="processing_payment_title">الدفع قيد التنفيذ</string>
+  <string name="purchase_error_title">ييي، حدث خطأ.</string>
+  <string name="purchase_eskills_sku">بطاقة الدخول</string>
+  <string name="shared_room_waiting">في انتظار خصومك للانضمام إلى %s</string>
+  <string name="rooted_device_blocked_body">لسوء الحظ، لا يمكنك التمتع بألعاب e_Skills بجهاز خضع للتجذير (روت).\"</string>
+  <string name="top_up_needed_body">لأسباب أمنية، أنت بحاجة إلى زيادة رصيدك لمرة واحدة على الأقل في محفظتك لتلعب ألعاب e-Skills.</string>
+  <string name="not_enough_funds_body">ليس لديك رصيد كافٍ! يرجى زيادة رصيدك لتشتري تذكِرة الدخول.</string>
+  <string name="error_message_local_payment_method_body">وسائل الدفع المحلية غير مقبولة لدفع رسوم الدخول. يرجى إنشاء محفظة جديدة وزيادة الرصيد فيها ببطاقة بنكية أو بحساب PayPal!</string>
+  <string name="update_not_supported_title">نسخة المحفظة غير مدعومة!</string>
+  <string name="update_not_supported_body">حدّث AppCoins Wallet إلى أحدث إصدار.</string>
+  <string name="update_button">تحديث</string>
+  <!-- Refer a friend -->
+  <string name="refer_a_friend_waiting_room_tooltip">You and the friends you invite will receive a $%s bonus. You can refer up to 5 friends, and they must be new users. The bonus will be credited in your wallet once they use your invitation code in their first e-Skills game.</string>
+  <string name="refer_a_friend_first_time_header">Ready to show your skills?</string>
+  <string name="refer_a_friend_first_time_body">Beat other players to get a prize in real money! Let\'s start with a practice game with no entry fee.</string>
+  <string name="refer_a_friend_error_unavailable_body">This feature is currently unavailable.</string>
+  <string name="refer_a_friend_error_invalid_code_body">Invalid code!</string>
+  <string name="refer_a_friend_error_user_not_eligible_body">Only for new users!</string>
+  <string name="refer_a_friend_first_time_tooltip">With our Referral Program you\'ll receive a $%s bonus when using your friends code. They\'ll also receive the same amount as bonus to be used on in-app purchases or e-Skills entry tickets.</string>
+  <string name="refer_a_friend_waiting_room_title">Refer a Friend!</string>
+  <string name="refer_a_friend_waiting_from_body">Get a bonus for each friend you invite.</string>
+</resources>

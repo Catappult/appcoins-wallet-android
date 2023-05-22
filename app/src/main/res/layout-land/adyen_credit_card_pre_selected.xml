@@ -113,7 +113,7 @@
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
               />
-          <com.asfoundation.wallet.ui.common.WalletButtonView
+          <com.appcoins.wallet.ui.widgets.WalletButtonView
               android:id="@+id/change_card_button_pre_selected"
               android:layout_width="wrap_content"
               android:layout_height="@dimen/small_button_height"
@@ -137,7 +137,7 @@
         </RelativeLayout>
       </ScrollView>
 
-      <com.asfoundation.wallet.ui.common.WalletButtonView
+      <com.appcoins.wallet.ui.widgets.WalletButtonView
           android:id="@+id/more_payment_methods"
           android:layout_width="wrap_content"
           android:layout_height="@dimen/small_button_height"
@@ -197,6 +197,7 @@
   </RelativeLayout>
 
   <include
+      android:id="@+id/fragment_iab_transaction_completed"
       layout="@layout/fragment_iab_transaction_completed"
       tools:visibility="gone"
       />

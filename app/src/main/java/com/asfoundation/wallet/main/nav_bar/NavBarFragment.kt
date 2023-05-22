@@ -2,7 +2,6 @@ package com.asfoundation.wallet.main.nav_bar
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,10 +15,10 @@ import androidx.navigation.ui.setupWithNavController
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.asf.wallet.R
 import com.asf.wallet.databinding.NavBarFragmentBinding
-import com.asfoundation.wallet.base.SingleStateFragment
+import com.appcoins.wallet.ui.arch.SingleStateFragment
+import com.appcoins.wallet.ui.common.createColoredString
+import com.appcoins.wallet.ui.common.setTextFromColored
 import com.asfoundation.wallet.main.MainActivity
-import com.asfoundation.wallet.util.createColoredString
-import com.asfoundation.wallet.util.setTextFromColored
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import com.google.android.material.bottomnavigation.BottomNavigationItemView
 import com.google.android.material.bottomnavigation.BottomNavigationMenuView
@@ -45,9 +44,7 @@ class NavBarFragment : BasePageViewFragment(),
   override fun onCreateView(
     inflater: LayoutInflater, container: ViewGroup?,
     savedInstanceState: Bundle?
-  ): View? {
-    return inflater.inflate(R.layout.nav_bar_fragment, container, false)
-  }
+  ): View = NavBarFragmentBinding.inflate(inflater).root
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
@@ -82,6 +79,7 @@ class NavBarFragment : BasePageViewFragment(),
     when (sideEffect) {
       NavBarSideEffect.ShowPromotionsTooltip -> showPromotionsOverlay()
       NavBarSideEffect.ShowOnboardingGPInstall -> showOnboardingIap()
+      NavBarSideEffect.ShowOnboardingPendingPayment -> showOnboardingPayment()
     }
   }
 
@@ -108,6 +106,11 @@ class NavBarFragment : BasePageViewFragment(),
   private fun showOnboardingIap() {
     views.fullHostContainer.visibility = View.VISIBLE
     navigator.showOnboardingGPInstallScreen(fullHostFragment.navController)
+  }
+
+  private fun showOnboardingPayment() {
+    views.fullHostContainer.visibility = View.VISIBLE
+    navigator.showOnboardingPaymentScreen(fullHostFragment.navController)
   }
 
   @SuppressLint("SetTextI18n", "ResourceType")

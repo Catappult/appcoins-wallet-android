@@ -5,14 +5,15 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import by.kirich1409.viewbindingdelegate.viewBinding
 import com.asf.wallet.R
-import com.asfoundation.wallet.util.CurrencyFormatUtils
-import com.asfoundation.wallet.util.WalletCurrency
+import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
+import com.appcoins.wallet.core.utils.android_common.WalletCurrency
+import com.asf.wallet.databinding.InviteFriendsVerificationLayoutBinding
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import com.jakewharton.rxbinding2.view.RxView
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.disposables.CompositeDisposable
-import kotlinx.android.synthetic.main.invite_friends_verification_layout.*
 import java.math.BigDecimal
 import javax.inject.Inject
 
@@ -23,6 +24,8 @@ class InviteFriendsVerificationFragment : BasePageViewFragment(), InviteFriendsV
   lateinit var formatter: CurrencyFormatUtils
   private lateinit var presenter: InviteFriendsVerificationPresenter
   private lateinit var activity: InviteFriendsActivityView
+
+  private val binding by viewBinding(InviteFriendsVerificationLayoutBinding::bind)
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
@@ -43,19 +46,17 @@ class InviteFriendsVerificationFragment : BasePageViewFragment(), InviteFriendsV
   }
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                            savedInstanceState: Bundle?): View? {
-    return inflater.inflate(R.layout.invite_friends_verification_layout, container, false)
-  }
+                            savedInstanceState: Bundle?): View = InviteFriendsVerificationLayoutBinding.inflate(inflater).root
 
   private fun setDescriptionText() {
     val formattedAmount = formatter.formatCurrency(amount, WalletCurrency.FIAT)
-    verification_description.text = getString(R.string.referral_view_unverified_body,
+    binding.verificationDescription.text = getString(R.string.referral_view_unverified_body,
         currency.plus(formattedAmount))
   }
 
-  override fun verifyButtonClick() = RxView.clicks(verify_button)
+  override fun verifyButtonClick() = RxView.clicks(binding.verifyButton)
 
-  override fun beenInvitedClick() = RxView.clicks(invited_button)
+  override fun beenInvitedClick() = RxView.clicks(binding.invitedButton)
 
   override fun navigateToWalletValidation(beenInvited: Boolean) {
     activity.navigateToWalletValidation(beenInvited)

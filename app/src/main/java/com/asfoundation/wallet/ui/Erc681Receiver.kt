@@ -3,9 +3,11 @@ package com.asfoundation.wallet.ui
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import by.kirich1409.viewbindingdelegate.viewBinding
 import com.appcoins.wallet.bdsbilling.WalletService
-import com.appcoins.wallet.commons.Logger
+import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.asf.wallet.R
+import com.asf.wallet.databinding.ActivityIabWalletCreationBinding
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.main.MainActivity
 import com.asfoundation.wallet.ui.iab.IabActivity.Companion.PRODUCT_NAME
@@ -16,7 +18,6 @@ import com.asfoundation.wallet.util.TransferParser
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
-import kotlinx.android.synthetic.main.activity_iab_wallet_creation.*
 import javax.inject.Inject
 
 /**
@@ -40,6 +41,7 @@ class Erc681Receiver : BaseActivity(), Erc681ReceiverView {
   lateinit var inAppPurchaseInteractor: InAppPurchaseInteractor
   private lateinit var presenter: Erc681ReceiverPresenter
 
+  private val binding by viewBinding(ActivityIabWalletCreationBinding::bind)
 
   companion object {
     const val REQUEST_CODE = 234
@@ -95,19 +97,19 @@ class Erc681Receiver : BaseActivity(), Erc681ReceiverView {
   }
 
   override fun endAnimation() {
-    create_wallet_animation?.visibility = View.INVISIBLE
-    create_wallet_text?.visibility = View.INVISIBLE
-    create_wallet_card?.visibility = View.INVISIBLE
-    create_wallet_animation?.removeAllAnimatorListeners()
-    create_wallet_animation?.removeAllUpdateListeners()
-    create_wallet_animation?.removeAllLottieOnCompositionLoadedListener()
+    binding.createWalletAnimation.visibility = View.INVISIBLE
+    binding.createWalletText.visibility = View.INVISIBLE
+    binding.createWalletCard.visibility = View.INVISIBLE
+    binding.createWalletAnimation.removeAllAnimatorListeners()
+    binding.createWalletAnimation.removeAllUpdateListeners()
+    binding.createWalletAnimation.removeAllLottieOnCompositionLoadedListener()
   }
 
   override fun showLoadingAnimation() {
-    create_wallet_animation?.visibility = View.VISIBLE
-    create_wallet_card?.visibility = View.VISIBLE
-    create_wallet_text?.visibility = View.VISIBLE
-    create_wallet_animation?.playAnimation()
+    binding.createWalletAnimation.visibility = View.VISIBLE
+    binding.createWalletCard.visibility = View.VISIBLE
+    binding.createWalletText.visibility = View.VISIBLE
+    binding.createWalletAnimation.playAnimation()
   }
 
   override fun onPause() {

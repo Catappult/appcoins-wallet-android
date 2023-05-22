@@ -11,8 +11,8 @@ import androidx.lifecycle.lifecycleScope
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.asf.wallet.R
 import com.asf.wallet.databinding.SplashExtenderFragmentBinding
-import com.asfoundation.wallet.base.SingleStateFragment
-import com.asfoundation.wallet.util.RxBus
+import com.appcoins.wallet.ui.arch.SingleStateFragment
+import com.appcoins.wallet.core.utils.jvm_common.RxBus
 import com.asfoundation.wallet.main.splash.bus.SplashFinishEvent
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -26,9 +26,7 @@ class SplashExtenderFragment : Fragment(),
   override fun onCreateView(
     inflater: LayoutInflater, container: ViewGroup?,
     savedInstanceState: Bundle?
-  ): View? {
-    return inflater.inflate(R.layout.splash_extender_fragment, container, false)
-  }
+  ): View = SplashExtenderFragmentBinding.inflate(inflater).root
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
@@ -52,10 +50,10 @@ class SplashExtenderFragment : Fragment(),
 
       views.splashVipAnimation.playAnimation()
       views.splashVipAnimation.addAnimatorListener(object : Animator.AnimatorListener {
-        override fun onAnimationRepeat(animation: Animator?) = Unit
-        override fun onAnimationEnd(animation: Animator?) = finishSplash()
-        override fun onAnimationCancel(animation: Animator?) = Unit
-        override fun onAnimationStart(animation: Animator?) = Unit
+        override fun onAnimationRepeat(animation: Animator) = Unit
+        override fun onAnimationEnd(animation: Animator) = finishSplash()
+        override fun onAnimationCancel(animation: Animator) = Unit
+        override fun onAnimationStart(animation: Animator) = Unit
       })
     } else {
       finishSplash()

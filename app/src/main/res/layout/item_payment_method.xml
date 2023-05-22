@@ -12,14 +12,16 @@
     android:paddingBottom="8dp"
     >
 
-  <androidx.appcompat.widget.AppCompatRadioButton
+  <com.google.android.material.radiobutton.MaterialRadioButton
       android:id="@+id/radio_button"
-      style="@style/PaymentMethodsRadioButtonNoPadding"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:clickable="false"
       android:scaleX="0.8"
       android:scaleY="0.8"
+      app:useMaterialThemeColors="false"
+      app:buttonTint="@color/radio_button_color"
+      android:textAppearance="@style/RadioButton.TextAppearance"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent"
@@ -72,7 +74,7 @@
       tools:text="You need ETH to pay for the gas."
       />
 
-  <com.asfoundation.wallet.ui.common.WalletButtonView
+  <com.appcoins.wallet.ui.widgets.WalletButtonView
       android:id="@+id/checkout_topup_button"
       android:layout_width="wrap_content"
       android:layout_height="@dimen/small_button_height"

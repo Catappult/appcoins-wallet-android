@@ -12,12 +12,12 @@ import androidx.lifecycle.lifecycleScope
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.asf.wallet.R
 import com.asf.wallet.databinding.SettingsRedeemGiftBottomSheetLayoutBinding
-import com.asfoundation.wallet.base.Async
-import com.asfoundation.wallet.base.SingleStateFragment
+import com.appcoins.wallet.ui.arch.data.Async
+import com.appcoins.wallet.ui.arch.SingleStateFragment
 import com.asfoundation.wallet.redeem_gift.repository.FailedRedeem
 import com.asfoundation.wallet.redeem_gift.repository.SuccessfulRedeem
-import com.asfoundation.wallet.util.KeyboardUtils
-import com.asfoundation.wallet.util.setReadOnly
+import com.appcoins.wallet.core.utils.android_common.KeyboardUtils
+import com.appcoins.wallet.ui.common.setReadOnly
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
@@ -42,9 +42,7 @@ class RedeemGiftBottomSheetFragment : BottomSheetDialogFragment(),
   }
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                            savedInstanceState: Bundle?): View? {
-    return inflater.inflate(R.layout.settings_redeem_gift_bottom_sheet_layout, container, false)
-  }
+                            savedInstanceState: Bundle?): View = SettingsRedeemGiftBottomSheetLayoutBinding.inflate(inflater).root
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
@@ -78,7 +76,7 @@ class RedeemGiftBottomSheetFragment : BottomSheetDialogFragment(),
   }
 
   override fun getTheme(): Int {
-    return R.style.AppBottomSheetDialogThemeNoFloating
+    return R.style.AppBottomSheetDialogThemeDraggable
   }
 
   override fun onStateChanged(state: RedeemGiftBottomSheetState) {

@@ -12,12 +12,12 @@ import androidx.lifecycle.lifecycleScope
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.asf.wallet.R
 import com.asf.wallet.databinding.FragmentVerifyPaypalIntroBinding
-import com.asfoundation.wallet.base.Async
-import com.asfoundation.wallet.base.Error
-import com.asfoundation.wallet.base.SingleStateFragment
+import com.appcoins.wallet.ui.arch.data.Async
+import com.appcoins.wallet.ui.arch.data.Error
+import com.appcoins.wallet.ui.arch.SingleStateFragment
 import com.asfoundation.wallet.ui.iab.WebViewActivity
-import com.asfoundation.wallet.util.CurrencyFormatUtils
-import com.asfoundation.wallet.util.WalletCurrency
+import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
+import com.appcoins.wallet.core.utils.android_common.WalletCurrency
 import com.asfoundation.wallet.verification.ui.credit_card.intro.VerificationIntroModel
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
@@ -25,7 +25,7 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class VerificationPaypalFragment : BasePageViewFragment(),
-    SingleStateFragment<VerificationPaypalIntroState, VerificationPaypalIntroSideEffect> {
+  SingleStateFragment<VerificationPaypalIntroState, VerificationPaypalIntroSideEffect> {
 
   @Inject
   lateinit var viewModelFactory: VerificationPaypalViewModelFactory
@@ -48,13 +48,13 @@ class VerificationPaypalFragment : BasePageViewFragment(),
       viewModel.successPayment()
     } else if (resultCode == WebViewActivity.FAIL) {
       viewModel.failPayment()
+    } else if (resultCode == WebViewActivity.USER_CANCEL) {
+      viewModel.cancelPayment()
     }
   }
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                            savedInstanceState: Bundle?): View? {
-    return inflater.inflate(R.layout.fragment_verify_paypal_intro, container, false)
-  }
+                            savedInstanceState: Bundle?): View = FragmentVerifyPaypalIntroBinding.inflate(inflater).root
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
@@ -95,6 +95,8 @@ class VerificationPaypalFragment : BasePageViewFragment(),
   private fun setError(error: Error) {
     if (error is Error.ApiError.NetworkError)
       showNetworkError()
+    else if (error.throwable.message.equals(WebViewActivity.USER_CANCEL_THROWABLE))
+      handleUserCancelError()
     else
       showGenericError()
   }
@@ -142,6 +144,11 @@ class VerificationPaypalFragment : BasePageViewFragment(),
       views.genericError.tryAgain.visibility = View.GONE
     }
     views.genericError.errorMessage.text = getString(R.string.unknown_error)
+  }
+
+  private fun handleUserCancelError() {
+    hideAll()
+    navigator.navigateBack()
   }
 
   private fun hideAll() {

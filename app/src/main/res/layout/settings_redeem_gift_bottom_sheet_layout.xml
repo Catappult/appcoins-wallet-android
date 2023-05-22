@@ -8,9 +8,20 @@
     android:clipChildren="false"
     android:clipToPadding="false"
     android:orientation="vertical"
-    android:paddingVertical="@dimen/half_large_margin"
+    android:paddingBottom="@dimen/half_large_margin"
     android:paddingHorizontal="@dimen/half_large_margin"
     >
+
+  <ImageView
+      android:id="@+id/draggable_bar"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="@dimen/normal_margin"
+      app:layout_constraintTop_toTopOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      android:src="@drawable/pull_up_home_bar"
+      />
 
   <!--  Insert gift code: -->
   <TextView
@@ -19,8 +30,12 @@
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:text="@string/gift_card_title"
+      android:layout_marginTop="@dimen/big_margin"
+
+      app:layout_constraintHorizontal_bias="0.0"
       app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toTopOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/draggable_bar"
       />
 
   <androidx.constraintlayout.widget.ConstraintLayout
@@ -54,7 +69,7 @@
 
   </androidx.constraintlayout.widget.ConstraintLayout>
 
-  <com.asfoundation.wallet.ui.common.WalletButtonView
+  <com.appcoins.wallet.ui.widgets.WalletButtonView
       android:id="@+id/redeem_gift_bottom_sheet_submit_button"
       android:layout_width="0dp"
       android:layout_height="@dimen/onboarding_button_height"
@@ -67,7 +82,7 @@
       app:layout_constraintBottom_toBottomOf="parent"
       />
 
-  <com.asfoundation.wallet.widget.SystemView
+  <com.appcoins.wallet.ui.widgets.SystemView
       android:id="@+id/redeem_gift_bottom_sheet_system_view"
       android:layout_width="match_parent"
       android:layout_height="match_parent"
@@ -124,7 +139,7 @@
       app:layout_constraintTop_toBottomOf="@id/redeem_gift_bottom_sheet_success_title"
       />
 
-  <com.asfoundation.wallet.ui.common.WalletButtonView
+  <com.appcoins.wallet.ui.widgets.WalletButtonView
       android:id="@+id/redeem_gift_bottom_sheet_success_got_it_button"
       android:layout_width="0dp"
       android:layout_height="@dimen/onboarding_button_height"
@@ -183,7 +198,7 @@
       app:layout_constraintTop_toBottomOf="@id/redeem_gift_bottom_sheet_error_title"
       />
 
-  <com.asfoundation.wallet.ui.common.WalletButtonView
+  <com.appcoins.wallet.ui.widgets.WalletButtonView
       android:id="@+id/redeem_gift_bottom_sheet_error_button"
       android:layout_width="0dp"
       android:layout_height="@dimen/onboarding_button_height"

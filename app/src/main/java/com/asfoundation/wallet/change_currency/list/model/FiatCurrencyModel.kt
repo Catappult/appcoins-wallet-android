@@ -11,7 +11,7 @@ import com.airbnb.epoxy.EpoxyModelWithHolder
 import com.asf.wallet.R
 import com.asfoundation.wallet.GlideApp
 import com.asfoundation.wallet.change_currency.FiatCurrencyEntity
-import com.asfoundation.wallet.ui.common.BaseViewHolder
+import com.appcoins.wallet.ui.widgets.BaseViewHolder
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.google.android.material.card.MaterialCardView
 
@@ -29,12 +29,16 @@ abstract class FiatCurrencyModel : EpoxyModelWithHolder<FiatCurrencyModel.FiatCu
 
   override fun bind(holder: FiatCurrencyHolder) {
     GlideApp
-        .with(holder.itemView.context)
-        .load(Uri.parse(fiatCurrency.flag))
-        .transition(DrawableTransitionOptions.withCrossFade())
-        .circleCrop()
-        .into(holder.fiatFlag)
-
+      .with(holder.itemView.context)
+      .load(
+        if (fiatCurrency.flag != null)
+          Uri.parse(fiatCurrency.flag)
+        else
+          R.drawable.currency_flag_placeholder
+      )
+      .transition(DrawableTransitionOptions.withCrossFade())
+      .circleCrop()
+      .into(holder.fiatFlag)
     holder.shortCurrency.text = fiatCurrency.currency
     holder.longCurrency.text = fiatCurrency.label
 

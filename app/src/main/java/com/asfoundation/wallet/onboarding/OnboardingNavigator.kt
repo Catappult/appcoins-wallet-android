@@ -7,11 +7,12 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.asf.wallet.R
-import com.asfoundation.wallet.base.Navigator
-import com.asfoundation.wallet.base.navigate
+import com.appcoins.wallet.ui.arch.data.Navigator
+import com.appcoins.wallet.ui.arch.data.navigate
 import javax.inject.Inject
 
-class OnboardingNavigator @Inject constructor(private val fragment: Fragment) : Navigator {
+class OnboardingNavigator @Inject constructor(private val fragment: Fragment) :
+  Navigator {
 
   fun navigateToNavBar() {
     navigate(

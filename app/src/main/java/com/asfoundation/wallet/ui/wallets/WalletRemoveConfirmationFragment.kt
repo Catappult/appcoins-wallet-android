@@ -5,8 +5,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.appcoins.wallet.commons.Logger
+import by.kirich1409.viewbindingdelegate.viewBinding
+import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.asf.wallet.R
+import com.asf.wallet.databinding.RemoveWalletSecondLayoutBinding
 import com.asfoundation.wallet.interact.DeleteWalletInteract
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import com.jakewharton.rxbinding2.view.RxView
@@ -14,8 +16,6 @@ import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
-import kotlinx.android.synthetic.main.remove_wallet_balance.*
-import kotlinx.android.synthetic.main.remove_wallet_second_layout.*
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -28,6 +28,8 @@ class WalletRemoveConfirmationFragment : BasePageViewFragment(), WalletRemoveCon
   lateinit var logger: Logger
   private lateinit var presenter: WalletRemoveConfirmationPresenter
   private lateinit var activityView: RemoveWalletActivityView
+
+  private val binding by viewBinding(RemoveWalletSecondLayoutBinding::bind)
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
@@ -45,9 +47,7 @@ class WalletRemoveConfirmationFragment : BasePageViewFragment(), WalletRemoveCon
   }
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                            savedInstanceState: Bundle?): View? {
-    return inflater.inflate(R.layout.remove_wallet_second_layout, container, false)
-  }
+                            savedInstanceState: Bundle?): View = RemoveWalletSecondLayoutBinding.inflate(inflater).root
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
@@ -55,9 +55,9 @@ class WalletRemoveConfirmationFragment : BasePageViewFragment(), WalletRemoveCon
     presenter.present()
   }
 
-  override fun noButtonClick() = RxView.clicks(no_remove_wallet_button)
+  override fun noButtonClick() = RxView.clicks(binding.noRemoveWalletButton)
 
-  override fun yesButtonClick() = RxView.clicks(yes_remove_wallet_button)
+  override fun yesButtonClick() = RxView.clicks(binding.yesRemoveWalletButton)
 
   override fun navigateBack() {
     activity?.onBackPressed()
@@ -72,11 +72,11 @@ class WalletRemoveConfirmationFragment : BasePageViewFragment(), WalletRemoveCon
   override fun authenticationResult() = activityView.authenticationResult()
 
   private fun setWalletBalance() {
-    wallet_address.text = walletAddress
-    wallet_balance.text = fiatBalance
-    balance_appcoins.text = appcoinsBalance
-    balance_credits.text = creditsBalance
-    balance_ethereum.text = ethereumBalance
+    binding.removeBalance.walletAddress.text = walletAddress
+    binding.removeBalance.walletBalance.text = fiatBalance
+    binding.removeBalance.balanceAppcoins.text = appcoinsBalance
+    binding.removeBalance.balanceCredits.text = creditsBalance
+    binding.removeBalance.balanceEthereum.text = ethereumBalance
   }
 
   override fun onDestroyView() {

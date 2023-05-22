@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.security.keystore.KeyGenParameterSpec;
 import android.security.keystore.KeyProperties;
 import android.security.keystore.UserNotAuthenticatedException;
+import com.appcoins.wallet.core.utils.android_common.Log;
 import com.asf.wallet.R;
 import com.asfoundation.wallet.entity.ServiceErrorException;
 import java.io.ByteArrayOutputStream;

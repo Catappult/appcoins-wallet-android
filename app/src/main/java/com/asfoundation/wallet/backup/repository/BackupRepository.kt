@@ -3,13 +3,13 @@ package com.asfoundation.wallet.backup.repository
 import android.content.ContentResolver
 import androidx.documentfile.provider.DocumentFile
 import com.appcoins.wallet.bdsbilling.WalletService
-import com.asfoundation.wallet.base.RxSchedulers
-import com.asfoundation.wallet.util.convertToBase64
+import com.appcoins.wallet.core.network.backend.api.BackupLogApi
+import com.appcoins.wallet.core.network.microservices.api.broker.BackupEmailApi
+import com.appcoins.wallet.core.network.microservices.model.EmailBody
+
+import com.appcoins.wallet.core.utils.android_common.RxSchedulers
+import com.appcoins.wallet.core.utils.android_common.extensions.convertToBase64
 import io.reactivex.Completable
-import retrofit2.http.Body
-import retrofit2.http.Header
-import retrofit2.http.POST
-import retrofit2.http.Query
 import java.io.IOException
 import javax.inject.Inject
 
@@ -59,21 +59,5 @@ class BackupRepository @Inject constructor(
   fun logBackupSuccess(ewt: String): Completable {
     return backupLogApi.logBackupSuccess(ewt)
       .subscribeOn(rxSchedulers.io)
-  }
-
-  interface BackupEmailApi {
-    @POST("8.20210201/wallet/backup")
-    fun sendBackupEmail(
-      @Query("wallet.address") walletAddress: String,
-      @Query("wallet.signature") walletSignature: String,
-      @Body emailBody: EmailBody
-    ): Completable
-  }
-
-  interface BackupLogApi {
-    @POST("/transaction/wallet/backup/")
-    fun logBackupSuccess(
-      @Header("authorization") authorization: String
-    ): Completable
   }
 }

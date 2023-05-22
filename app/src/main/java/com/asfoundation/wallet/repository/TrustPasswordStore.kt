@@ -4,13 +4,12 @@ import android.content.Context
 import android.os.Build
 import android.preference.PreferenceManager
 import android.widget.Toast
-import com.appcoins.wallet.commons.Logger
+import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.asfoundation.wallet.entity.ServiceErrorException
 import com.asfoundation.wallet.util.KS
 import com.asfoundation.wallet.util.KS.ANDROID_KEY_STORE
 import com.wallet.pwd.trustapp.PasswordManager
 import dagger.hilt.android.qualifiers.ApplicationContext
-import dagger.hilt.components.SingletonComponent
 import io.reactivex.Completable
 import io.reactivex.Single
 import it.czerwinski.android.hilt.annotations.BoundTo
@@ -25,7 +24,8 @@ import javax.inject.Inject
 
 @BoundTo(supertype = PasswordStore::class)
 class TrustPasswordStore @Inject constructor(@ApplicationContext private val context: Context,
-                                             private val logger: Logger) :
+                                             private val logger: Logger
+) :
     PasswordStore {
   companion object {
     private val TAG = TrustPasswordStore::class.java.simpleName

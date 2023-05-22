@@ -9,15 +9,15 @@ import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import by.kirich1409.viewbindingdelegate.viewBinding
+import com.appcoins.wallet.core.utils.android_common.BalanceUtils
 import com.asf.wallet.R
 import com.asf.wallet.databinding.FragmentNftTransactBinding
-import com.asfoundation.wallet.base.Async
-import com.asfoundation.wallet.base.SingleStateFragment
+import com.appcoins.wallet.ui.arch.data.Async
+import com.appcoins.wallet.ui.arch.SingleStateFragment
 import com.asfoundation.wallet.nfts.domain.FailedNftTransfer
 import com.asfoundation.wallet.nfts.domain.GasInfo
 import com.asfoundation.wallet.nfts.domain.NftTransferResult
 import com.asfoundation.wallet.nfts.domain.SuccessfulNftTransfer
-import com.asfoundation.wallet.util.BalanceUtils
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
@@ -27,7 +27,7 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class NFTTransactDialogFragment : BottomSheetDialogFragment(),
-    SingleStateFragment<NFTTransactState, NFTTransactSideEffect> {
+  SingleStateFragment<NFTTransactState, NFTTransactSideEffect> {
 
   @Inject
   lateinit var viewModelFactory: NFTTransactDialogViewModelFactory
@@ -36,9 +36,7 @@ class NFTTransactDialogFragment : BottomSheetDialogFragment(),
   private val views by viewBinding(FragmentNftTransactBinding::bind)
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                            savedInstanceState: Bundle?): View? {
-    return inflater.inflate(R.layout.fragment_nft_transact, container, false)
-  }
+                            savedInstanceState: Bundle?): View = FragmentNftTransactBinding.inflate(inflater).root
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
@@ -52,7 +50,7 @@ class NFTTransactDialogFragment : BottomSheetDialogFragment(),
     super.onStart()
   }
 
-  override fun getTheme(): Int = R.style.AppBottomSheetDialogTheme
+  override fun getTheme(): Int = R.style.AppBottomSheetDialogThemeDraggable
 
   override fun onStateChanged(state: NFTTransactState) {
 

@@ -6,13 +6,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import by.kirich1409.viewbindingdelegate.viewBinding
 import com.appcoins.wallet.bdsbilling.repository.entity.Purchase
 import com.appcoins.wallet.billing.BillingMessagesMapper
-import com.appcoins.wallet.commons.Logger
+import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.asf.wallet.R
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics
 import com.asfoundation.wallet.entity.TransactionBuilder
-import com.asfoundation.wallet.util.CurrencyFormatUtils
+import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
+import com.asf.wallet.databinding.RewardPaymentLayoutBinding
 import com.asfoundation.wallet.util.TransferParser
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import com.jakewharton.rxbinding2.view.RxView
@@ -20,11 +22,6 @@ import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
-import kotlinx.android.synthetic.main.fragment_iab_transaction_completed.*
-import kotlinx.android.synthetic.main.iab_error_layout.*
-import kotlinx.android.synthetic.main.iab_error_layout.generic_error_layout
-import kotlinx.android.synthetic.main.reward_payment_layout.*
-import kotlinx.android.synthetic.main.support_error_layout.*
 import java.math.BigDecimal
 import javax.inject.Inject
 
@@ -58,11 +55,13 @@ class AppcoinsRewardsBuyFragment : BasePageViewFragment(), AppcoinsRewardsBuyVie
   private lateinit var presenter: AppcoinsRewardsBuyPresenter
   private lateinit var iabView: IabView
 
+  private val binding by lazy { RewardPaymentLayoutBinding.bind(requireView()) }
+
   override fun onCreateView(
     inflater: LayoutInflater,
     container: ViewGroup?,
     savedInstanceState: Bundle?
-  ): View? = inflater.inflate(R.layout.reward_payment_layout, container, false)
+  ): View = RewardPaymentLayoutBinding.inflate(inflater).root
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
@@ -95,34 +94,34 @@ class AppcoinsRewardsBuyFragment : BasePageViewFragment(), AppcoinsRewardsBuyVie
   override fun finish(purchase: Purchase) = finish(purchase, null)
 
   override fun showLoading() {
-    generic_error_layout.visibility = View.GONE
-    iab_activity_transaction_completed.visibility = View.INVISIBLE
-    loading_view.visibility = View.VISIBLE
+    binding.genericErrorLayout.genericPurchaseErrorLayout.visibility = View.GONE
+    binding.fragmentIabTransactionCompleted.iabActivityTransactionCompleted.visibility = View.INVISIBLE
+    binding.loadingView.visibility = View.VISIBLE
   }
 
   override fun hideLoading() {
-    loading_view.visibility = View.GONE
+    binding.loadingView.visibility = View.GONE
   }
 
   override fun showNoNetworkError() {
     hideLoading()
-    error_dismiss.setText(getString(R.string.ok))
-    error_message.setText(R.string.activity_iab_no_network_message)
-    generic_error_layout.visibility = View.VISIBLE
+    binding.genericErrorLayout.errorDismiss.setText(getString(R.string.ok))
+    binding.genericErrorLayout.genericErrorLayout.errorMessage.setText(R.string.activity_iab_no_network_message)
+    binding.genericErrorLayout.genericPurchaseErrorLayout.visibility = View.VISIBLE
   }
 
-  override fun getOkErrorClick() = RxView.clicks(error_dismiss)
+  override fun getOkErrorClick() = RxView.clicks(binding.genericErrorLayout.errorDismiss)
 
-  override fun getSupportIconClick() = RxView.clicks(layout_support_icn)
+  override fun getSupportIconClick() = RxView.clicks(binding.genericErrorLayout.genericErrorLayout.layoutSupportIcn)
 
-  override fun getSupportLogoClick() = RxView.clicks(layout_support_logo)
+  override fun getSupportLogoClick() = RxView.clicks(binding.genericErrorLayout.genericErrorLayout.layoutSupportLogo)
 
   override fun close() = iabView.close(billingMessagesMapper.mapCancellation())
 
   override fun showError(message: Int?) {
-    error_dismiss.setText(getString(R.string.back_button))
-    error_message.text = getString(message ?: R.string.activity_iab_error_message)
-    generic_error_layout.visibility = View.VISIBLE
+    binding.genericErrorLayout.errorDismiss.setText(getString(R.string.back_button))
+    binding.genericErrorLayout.genericErrorLayout.errorMessage.text = getString(message ?: R.string.activity_iab_error_message)
+    binding.genericErrorLayout.genericPurchaseErrorLayout.visibility = View.VISIBLE
     hideLoading()
   }
 
@@ -160,12 +159,12 @@ class AppcoinsRewardsBuyFragment : BasePageViewFragment(), AppcoinsRewardsBuyVie
   override fun showVerification() = iabView.showVerification(false)
 
   override fun showTransactionCompleted() {
-    loading_view.visibility = View.GONE
-    generic_error_layout.visibility = View.GONE
-    iab_activity_transaction_completed.visibility = View.VISIBLE
+    binding.loadingView.visibility = View.GONE
+    binding.genericErrorLayout.genericPurchaseErrorLayout.visibility = View.GONE
+    binding.fragmentIabTransactionCompleted.iabActivityTransactionCompleted.visibility = View.VISIBLE
   }
 
-  override fun getAnimationDuration() = lottie_transaction_success.duration
+  override fun getAnimationDuration() = binding.fragmentIabTransactionCompleted.lottieTransactionSuccess.duration
 
   override fun lockRotation() = iabView.lockRotation()
 
@@ -176,7 +175,7 @@ class AppcoinsRewardsBuyFragment : BasePageViewFragment(), AppcoinsRewardsBuyVie
   }
 
   private fun setupTransactionCompleteAnimation() =
-    lottie_transaction_success.setAnimation(R.raw.success_animation)
+    binding.fragmentIabTransactionCompleted.lottieTransactionSuccess.setAnimation(R.raw.success_animation)
 
   private val isBds: Boolean by lazy {
     if (requireArguments().containsKey(IS_BDS)) {

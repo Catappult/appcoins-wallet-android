@@ -1,12 +1,12 @@
 package com.asfoundation.wallet.ui.iab
 
 import com.appcoins.wallet.appcoins.rewards.Transaction
-import com.appcoins.wallet.bdsbilling.repository.BillingSupportedType
-import com.appcoins.wallet.commons.Logger
+import com.appcoins.wallet.core.network.microservices.model.BillingSupportedType
+import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.asf.wallet.R
 import com.asfoundation.wallet.billing.analytics.BillingAnalytics
 import com.asfoundation.wallet.entity.TransactionBuilder
-import com.asfoundation.wallet.util.CurrencyFormatUtils
+import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Scheduler
@@ -109,7 +109,7 @@ class AppcoinsRewardsBuyPresenter(
   ): Completable {
     sendPaymentErrorEvent(transaction)
     return when (transaction.status) {
-      Status.PROCESSING -> Completable.fromAction { view.showLoading() }
+      Status.PROCESSING -> Completable.fromAction { view.showLoading() }.subscribeOn(viewScheduler)
       Status.COMPLETED -> {
         if (isBds && isManagedPaymentType(transactionBuilder.type)) {
           val billingType = BillingSupportedType.valueOfProductType(transactionBuilder.type)
@@ -117,7 +117,7 @@ class AppcoinsRewardsBuyPresenter(
             .flatMapCompletable { purchase ->
               Completable.fromAction { view.showTransactionCompleted() }
                 .subscribeOn(viewScheduler)
-                .andThen(Completable.timer(view.getAnimationDuration(), TimeUnit.MILLISECONDS))
+                .andThen(Completable.timer(view.getAnimationDuration(), TimeUnit.MILLISECONDS, viewScheduler))
                 .andThen(Completable.fromAction { appcoinsRewardsBuyInteract.removeAsyncLocalPayment() })
                 .andThen(Completable.fromAction {
                   view.finish(purchase, transaction.orderReference)
@@ -136,7 +136,7 @@ class AppcoinsRewardsBuyPresenter(
             .map(Transaction::txId).flatMapCompletable { transactionId ->
               Completable.fromAction { view.showTransactionCompleted() }
                 .subscribeOn(viewScheduler)
-                .andThen(Completable.timer(view.getAnimationDuration(), TimeUnit.MILLISECONDS))
+                .andThen(Completable.timer(view.getAnimationDuration(), TimeUnit.MILLISECONDS, viewScheduler))
                 .andThen(Completable.fromAction { view.finish(transactionId) })
             }
         }

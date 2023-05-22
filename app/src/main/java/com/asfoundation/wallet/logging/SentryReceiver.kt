@@ -1,6 +1,6 @@
 package com.asfoundation.wallet.logging
 
-import com.appcoins.wallet.commons.LogReceiver
+import com.appcoins.wallet.core.utils.jvm_common.LogReceiver
 import io.sentry.Sentry
 import io.sentry.event.Breadcrumb
 import io.sentry.event.BreadcrumbBuilder

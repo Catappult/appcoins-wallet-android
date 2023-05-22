@@ -1,9 +1,9 @@
 package com.asfoundation.wallet.redeem_gift.bottom_sheet
 
-import com.asfoundation.wallet.base.Async
-import com.asfoundation.wallet.base.BaseViewModel
-import com.asfoundation.wallet.base.SideEffect
-import com.asfoundation.wallet.base.ViewState
+import com.appcoins.wallet.ui.arch.data.Async
+import com.appcoins.wallet.ui.arch.BaseViewModel
+import com.appcoins.wallet.ui.arch.SideEffect
+import com.appcoins.wallet.ui.arch.ViewState
 import com.asfoundation.wallet.redeem_gift.repository.RedeemCode
 import com.asfoundation.wallet.redeem_gift.use_cases.RedeemGiftUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -14,7 +14,8 @@ sealed class RedeemGiftBottomSheetSideEffect : SideEffect {
 }
 
 data class RedeemGiftBottomSheetState(val submitRedeemAsync: Async<RedeemCode> = Async.Uninitialized,
-                                      val shouldShowDefault: Boolean = false) : ViewState
+                                      val shouldShowDefault: Boolean = false) :
+  ViewState
 
 @HiltViewModel
 class RedeemGiftBottomSheetViewModel @Inject constructor(

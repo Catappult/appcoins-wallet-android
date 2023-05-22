@@ -7,14 +7,14 @@ import android.view.ViewGroup
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.asf.wallet.R
 import com.asf.wallet.databinding.BackupSkipDialogFragmentBinding
-import com.asfoundation.wallet.backup.repository.preferences.BackupTriggerPreferences
 import com.asfoundation.wallet.backup.triggers.BackupTriggerDialogFragment
-import com.asfoundation.wallet.base.SideEffect
-import com.asfoundation.wallet.base.SingleStateFragment
-import com.asfoundation.wallet.base.ViewState
+import com.appcoins.wallet.ui.arch.SideEffect
+import com.appcoins.wallet.ui.arch.SingleStateFragment
+import com.appcoins.wallet.ui.arch.ViewState
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
+import com.appcoins.wallet.sharedpreferences.BackupTriggerPreferencesDataSource
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -26,7 +26,7 @@ class BackupSkipDialogFragment : BottomSheetDialogFragment(),
   lateinit var navigator: BackupSkipDialogNavigator
 
   @Inject
-  lateinit var backupTriggerPreferences: BackupTriggerPreferences
+  lateinit var backupTriggerPreferences: BackupTriggerPreferencesDataSource
 
   private val views by viewBinding(BackupSkipDialogFragmentBinding::bind)
 
@@ -34,7 +34,7 @@ class BackupSkipDialogFragment : BottomSheetDialogFragment(),
     @JvmStatic
     fun newInstance(
       walletAddress: String,
-      triggerSource: BackupTriggerPreferences.TriggerSource
+      triggerSource: BackupTriggerPreferencesDataSource.TriggerSource
     ): BackupSkipDialogFragment {
       return BackupSkipDialogFragment()
         .apply {
@@ -49,9 +49,7 @@ class BackupSkipDialogFragment : BottomSheetDialogFragment(),
   override fun onCreateView(
     inflater: LayoutInflater, container: ViewGroup?,
     savedInstanceState: Bundle?
-  ): View? {
-    return inflater.inflate(R.layout.backup_skip_dialog_fragment, container, false)
-  }
+  ): View = BackupSkipDialogFragmentBinding.inflate(layoutInflater).root
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
@@ -64,7 +62,7 @@ class BackupSkipDialogFragment : BottomSheetDialogFragment(),
     views.cancel.setOnClickListener {
       navigator.navigateBack(
         requireArguments().getString(BackupTriggerDialogFragment.WALLET_ADDRESS_KEY)!!,
-        requireArguments().getSerializable(BackupTriggerDialogFragment.TRIGGER_SOURCE)!! as BackupTriggerPreferences.TriggerSource
+        requireArguments().getSerializable(BackupTriggerDialogFragment.TRIGGER_SOURCE)!! as BackupTriggerPreferencesDataSource.TriggerSource
       )
     }
   }
@@ -76,7 +74,7 @@ class BackupSkipDialogFragment : BottomSheetDialogFragment(),
   }
 
   override fun getTheme(): Int {
-    return R.style.AppBottomSheetDialogThemeNoFloating
+    return R.style.AppBottomSheetDialogThemeNotDraggable
   }
 
   override fun onStateChanged(state: ViewState) = Unit

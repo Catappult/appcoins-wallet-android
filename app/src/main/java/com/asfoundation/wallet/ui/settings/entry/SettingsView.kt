@@ -61,4 +61,6 @@ interface SettingsView {
   fun updateFingerPrintListener(enabled: Boolean)
 
   fun setWithdrawPreference()
+
+  fun setFaqsPreference()
 }

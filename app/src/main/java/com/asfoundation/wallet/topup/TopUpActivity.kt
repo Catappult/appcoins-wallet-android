@@ -9,9 +9,11 @@ import android.view.MenuItem
 import android.view.View
 import androidx.annotation.StringRes
 import androidx.fragment.app.Fragment
+import by.kirich1409.viewbindingdelegate.viewBinding
 import com.appcoins.wallet.billing.AppcoinsBillingBinder
-import com.appcoins.wallet.commons.Logger
+import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.asf.wallet.R
+import com.asf.wallet.databinding.TopUpActivityLayoutBinding
 import com.asfoundation.wallet.backup.BackupNotificationUtils
 import com.asfoundation.wallet.billing.adyen.PaymentType
 import com.asfoundation.wallet.billing.paypal.PayPalTopupFragment
@@ -32,12 +34,6 @@ import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
-import kotlinx.android.synthetic.main.error_top_up_layout.*
-import kotlinx.android.synthetic.main.support_error_layout.error_message
-import kotlinx.android.synthetic.main.support_error_layout.layout_support_icn
-import kotlinx.android.synthetic.main.support_error_layout.layout_support_logo
-import kotlinx.android.synthetic.main.top_up_activity_layout.*
-import kotlinx.android.synthetic.main.topup_bar_layout.*
 import java.util.*
 import javax.inject.Inject
 
@@ -63,6 +59,8 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, UriNavigator {
   private lateinit var presenter: TopUpActivityPresenter
   private var isFinishingPurchase = false
   private var firstImpression = true
+
+  private val views by viewBinding(TopUpActivityLayoutBinding::bind)
 
   companion object {
     @JvmStatic
@@ -95,7 +93,7 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, UriNavigator {
     if (savedInstanceState != null && savedInstanceState.containsKey(FIRST_IMPRESSION)) {
       firstImpression = savedInstanceState.getBoolean(FIRST_IMPRESSION)
     }
-    bar_back_button.setOnClickListener { super.onBackPressed() }
+    views.topBar.barBackButton.setOnClickListener { super.onBackPressed() }
   }
 
   override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -108,12 +106,12 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, UriNavigator {
     supportFragmentManager.beginTransaction()
       .replace(R.id.fragment_container, TopUpFragment.newInstance(packageName))
       .commit()
-    layout_error.visibility = View.GONE
-    fragment_container.visibility = View.VISIBLE
+    views.layoutError.root.visibility = View.GONE
+    views.fragmentContainer.visibility = View.VISIBLE
   }
 
   override fun showVerification() {
-    fragment_container.visibility = View.GONE
+    views.fragmentContainer.visibility = View.GONE
     val intent = VerificationCreditCardActivity.newIntent(this)
       .apply {
         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
@@ -123,12 +121,12 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, UriNavigator {
   }
 
   override fun showError(@StringRes error: Int) {
-    layout_error.visibility = View.VISIBLE
-    error_message.text = getText(error)
+    views.layoutError.root.visibility = View.VISIBLE
+    views.layoutError.errorMessage.text = getText(error)
   }
 
   override fun getSupportClicks(): Observable<Any> {
-    return Observable.merge(RxView.clicks(layout_support_logo), RxView.clicks(layout_support_icn))
+    return Observable.merge(RxView.clicks(views.layoutError.layoutSupportLogo), RxView.clicks(views.layoutError.layoutSupportIcn))
   }
 
   override fun navigateToAdyenPayment(paymentType: PaymentType, data: TopUpPaymentData) {
@@ -278,7 +276,7 @@ class TopUpActivity : BaseActivity(), TopUpActivityView, UriNavigator {
     requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LOCKED
   }
 
-  override fun getTryAgainClicks() = RxView.clicks(try_again)
+  override fun getTryAgainClicks() = RxView.clicks(views.layoutError.tryAgain)
 
   override fun setFinishingPurchase(newState: Boolean) {
     isFinishingPurchase = newState

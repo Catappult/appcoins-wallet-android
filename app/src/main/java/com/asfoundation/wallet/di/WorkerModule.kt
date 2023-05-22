@@ -5,7 +5,7 @@ import androidx.work.Configuration
 import androidx.work.DelegatingWorkerFactory
 import androidx.work.WorkManager
 import com.asfoundation.wallet.promotions.worker.GetVipReferralWorkerFactory
-import com.asfoundation.wallet.util.Log
+import com.appcoins.wallet.core.utils.android_common.Log
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
