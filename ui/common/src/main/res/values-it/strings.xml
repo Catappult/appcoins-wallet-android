@@ -489,6 +489,7 @@
   <string name="top_up_button">Ricarica</string>
   <string name="back_up_button">Effettua il backup del wallet</string>
   <string name="play_button">Play</string>
+  <string name="manage_wallet_button">Manage wallet</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Acconsento ai %1$s e all\'%2$s dell\'AppCoins Wallet.</string>
   <string name="terms_and_conditions_error">Accetta i nostri Termini e condizioni e l\'Informativa sulla privacy per continuare</string>
