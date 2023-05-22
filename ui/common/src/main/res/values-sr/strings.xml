@@ -489,6 +489,7 @@
   <string name="top_up_button">Dopunite</string>
   <string name="back_up_button">Napravi rezervnu kopiju novčanika</string>
   <string name="play_button">Play</string>
+  <string name="manage_wallet_button">Manage wallet</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Prihvatam dokumente %1$s i %2$s aplikacije AppCoins Wallet.</string>
   <string name="terms_and_conditions_error">Prihvatite naše Uslove i odredbe i Smernice za privatnost da biste nastavili</string>
