@@ -45,6 +45,7 @@ import com.appcoins.wallet.ui.arch.SingleStateFragment
 import com.appcoins.wallet.ui.arch.data.Async
 import com.appcoins.wallet.ui.common.theme.WalletColors
 import com.appcoins.wallet.ui.widgets.*
+import com.appcoins.wallet.ui.widgets.component.ButtonType
 import com.appcoins.wallet.ui.widgets.component.ButtonWithIcon
 import com.asf.wallet.R
 import com.asfoundation.wallet.entity.GlobalBalance
@@ -188,7 +189,15 @@ class HomeFragment: BasePageViewFragment(), SingleStateFragment<HomeState, HomeS
             onManageWalletClick = {
               scope.launch { bottomSheetState.hide() }
                 .invokeOnCompletion { navigateToManageWallet() }
-            }
+            },
+            onRecoverWalletClick = {
+              scope.launch { bottomSheetState.hide() }
+                .invokeOnCompletion { viewModel.onRecoverClick() }
+            },
+            onBackupWalletClick = {
+              scope.launch { bottomSheetState.hide() }
+                .invokeOnCompletion { viewModel.onBackupClick() }
+            },
           )
         )
       }
@@ -293,31 +302,41 @@ class HomeFragment: BasePageViewFragment(), SingleStateFragment<HomeState, HomeS
   }
 
   @Composable
-  fun walletOptionsBottomSheet(onManageWalletClick: () -> Unit): @Composable (ColumnScope.() -> Unit) =
+  fun walletOptionsBottomSheet(
+    onManageWalletClick: () -> Unit,
+    onRecoverWalletClick: () -> Unit,
+    onBackupWalletClick: () -> Unit
+  ): @Composable (ColumnScope.() -> Unit) =
     {
       Column(
         Modifier
           .fillMaxWidth()
-          .padding(bottom = 32.dp), verticalArrangement = Arrangement.Center
+          .padding(start = 16.dp, bottom = 48.dp), verticalArrangement = Arrangement.Center
       ) {
         ButtonWithIcon(
           R.drawable.ic_manage_wallet,
           R.string.wallets_title,
           onClick = onManageWalletClick,
-          labelColor = WalletColors.styleguide_white
+          labelColor = WalletColors.styleguide_white,
+          buttonType = ButtonType.LARGE,
+          iconSize = 16.dp
         )
         ButtonWithIcon(
           R.drawable.ic_recover_wallet,
           R.string.my_wallets_action_recover_wallet,
-          onClick = onManageWalletClick,
-          labelColor = WalletColors.styleguide_white
+          onClick = onRecoverWalletClick,
+          labelColor = WalletColors.styleguide_white,
+          buttonType = ButtonType.LARGE,
+          iconSize = 16.dp
         )
         ButtonWithIcon(
           R.drawable.ic_backup_white,
-          R.string.backup_button,
-          onClick = onManageWalletClick,
+          R.string.my_wallets_action_backup_wallet,
+          onClick = onBackupWalletClick,
           labelColor = WalletColors.styleguide_white,
-          iconColor = WalletColors.styleguide_pink
+          iconColor = WalletColors.styleguide_pink,
+          buttonType = ButtonType.LARGE,
+          iconSize = 16.dp
         )
       }
     }
@@ -353,6 +372,7 @@ class HomeFragment: BasePageViewFragment(), SingleStateFragment<HomeState, HomeS
         sideEffect.walletAddress
       )
 
+      is HomeSideEffect.NavigateToRecover -> navigator.navigateToRecoverWallet()
       is HomeSideEffect.NavigateToIntent -> navigator.openIntent(sideEffect.intent)
       is HomeSideEffect.ShowBackupTrigger -> navigator.navigateToBackupTrigger(
         sideEffect.walletAddress,

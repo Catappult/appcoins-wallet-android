@@ -85,6 +85,7 @@ sealed class HomeSideEffect : SideEffect {
   object NavigateToTopUp : HomeSideEffect()
   object NavigateToTransfer : HomeSideEffect()
   object NavigateToTransactionsList : HomeSideEffect()
+  object NavigateToRecover : HomeSideEffect()
 }
 
 data class HomeState(
@@ -435,6 +436,8 @@ class HomeViewModel @Inject constructor(
       )
     }
   }
+
+  fun onRecoverClick() = sendSideEffect { HomeSideEffect.NavigateToRecover }
 
   fun onNotificationClick(
     cardNotification: CardNotification,
