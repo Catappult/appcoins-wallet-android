@@ -3,8 +3,7 @@ package com.asfoundation.wallet.repository
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.appcoins.wallet.core.network.backend.api.TransactionsApi
-import com.asfoundation.wallet.transactions.TransactionModel
-import com.asfoundation.wallet.transactions.toModel
+import com.appcoins.wallet.core.network.backend.model.TransactionResponse
 import retrofit2.HttpException
 import java.io.IOException
 
@@ -13,8 +12,8 @@ class TransactionsHistoryPagingSource(
   val backend: TransactionsApi,
   val wallet: String,
   val currency: String
-) : PagingSource<String, TransactionModel>() {
-  override suspend fun load(params: LoadParams<String>): LoadResult<String, TransactionModel> {
+) : PagingSource<String, TransactionResponse>() {
+  override suspend fun load(params: LoadParams<String>): LoadResult<String, TransactionResponse> {
     return try {
       val data = backend.getTransactionHistory(
         wallet = wallet,
@@ -24,20 +23,22 @@ class TransactionsHistoryPagingSource(
       ).body()
 
       LoadResult.Page(
-        data = data!!.map { it.toModel(currency) },
+        data = data!!.map { it },
         prevKey = null,
-        nextKey = data.last().processedTime
+        nextKey = if (data.isNotEmpty()) data.last().processedTime else null
       )
     } catch (e: IOException) {
       LoadResult.Error(e)
     } catch (e: HttpException) {
       LoadResult.Error(e)
+    } catch (e: Exception) {
+      LoadResult.Error(e)
     }
   }
 
-  override fun getRefreshKey(state: PagingState<String, TransactionModel>): String? {
+  override fun getRefreshKey(state: PagingState<String, TransactionResponse>): String? {
     val anchorPosition = state.anchorPosition ?: return null
     val transaction = state.closestItemToPosition(anchorPosition) ?: return null
-    return transaction.date
+    return transaction.processedTime
   }
 }

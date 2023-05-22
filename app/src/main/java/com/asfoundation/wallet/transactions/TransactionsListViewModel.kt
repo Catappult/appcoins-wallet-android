@@ -74,7 +74,11 @@ constructor(
     )
       .flow
       .catch { logger.log(TAG, it) }
-      .map { pagingData -> pagingData.map { UiModel.TransactionItem(it) } }
+      .map { pagingData ->
+        pagingData
+          .map { it.toModel(walletInfo.currency) }
+          .map { UiModel.TransactionItem(it) }
+      }
       .map {
         it.insertSeparators { before, after ->
           if (after == null) return@insertSeparators null
