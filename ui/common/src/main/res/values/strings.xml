@@ -525,6 +525,7 @@
   <string name="top_up_button">Top Up</string>
   <string name="back_up_button">Back up wallet</string>
   <string name="play_button">Play</string>
+  <string name="manage_wallet_button">Manage wallet</string>
 
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">I agree to AppCoins Wallet\'s %1$s and %2$s.</string>
