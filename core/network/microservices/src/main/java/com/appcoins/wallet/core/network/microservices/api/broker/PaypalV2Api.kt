@@ -8,28 +8,28 @@ import retrofit2.http.Query
 
 interface PaypalV2Api {
 
-  @POST("8.20200815/gateways/paypal/transactions")
+  @POST("8.20230522/gateways/paypal/transactions")
   fun createTransaction(
     @Query("wallet.address") walletAddress: String,
     @Query("wallet.signature") walletSignature: String,
     @Body paypalPayment: PaypalPayment
   ): Single<PaypalV2StartResponse>
 
-  @POST("8.20200815/gateways/paypal/billing-agreement/token/create")
+  @POST("8.20230522/gateways/paypal/billing-agreement/token/create")
   fun createToken(
     @Query("wallet.address") walletAddress: String,
     @Query("wallet.signature") walletSignature: String,
     @Body createTokenRequest: CreateTokenRequest
   ): Single<PaypalV2CreateTokenResponse>
 
-  @POST("8.20200815/gateways/paypal/billing-agreement/create")
+  @POST("8.20230522/gateways/paypal/billing-agreement/create")
   fun createBillingAgreement(
     @Query("wallet.address") walletAddress: String,
     @Query("wallet.signature") walletSignature: String,
     @Body token: String
   ): Single<PaypalV2CreateAgreementResponse>
 
-  @POST("8.20200815/gateways/paypal/billing-agreement/token/cancel")
+  @POST("8.20230522/gateways/paypal/billing-agreement/token/cancel")
   fun cancelToken(
     @Query("wallet.address") walletAddress: String,
     @Query("wallet.signature") walletSignature: String,
