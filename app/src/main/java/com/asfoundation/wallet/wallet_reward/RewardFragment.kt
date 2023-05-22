@@ -139,7 +139,9 @@ class RewardFragment : BasePageViewFragment(), SingleStateFragment<RewardState, 
           currentProgress = viewModel.gamificationHeaderModel.value!!.currentSpent,
           maxProgress = viewModel.gamificationHeaderModel.value!!.nextLevelSpent ?: 0,
           bonusValue = df.format(viewModel.gamificationHeaderModel.value!!.bonusPercentage),
-          planetDrawable = viewModel.gamificationHeaderModel.value!!.planetImage
+          planetDrawable = viewModel.gamificationHeaderModel.value!!.planetImage,
+          isVip = viewModel.gamificationHeaderModel.value!!.isVip,
+          isMaxVip = viewModel.gamificationHeaderModel.value!!.isMaxVip
         )
         if (viewModel.vipReferralModel.value != null) {
           VipReferralCard(
@@ -288,7 +290,7 @@ class RewardFragment : BasePageViewFragment(), SingleStateFragment<RewardState, 
       promotionsModel.value?.promotions != null
     ) {
       val gamificationItem: GamificationItem? =
-        (promotionsModel.value?.promotions?.get(0) as? GamificationItem)
+        (promotionsModel.value?.promotions?.getOrNull(0) as? GamificationItem)
 
 
       gamificationItem?.let { gamificationItem ->
@@ -306,6 +308,8 @@ class RewardFragment : BasePageViewFragment(), SingleStateFragment<RewardState, 
             else
               null,
             bonusPercentage = gamificationItem.bonus,
+            isVip = gamificationItem.level >= 8,
+            isMaxVip = gamificationItem.level >= 9
           )
       }
 

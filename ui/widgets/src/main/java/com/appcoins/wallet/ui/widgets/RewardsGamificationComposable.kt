@@ -37,6 +37,7 @@ import com.appcoins.wallet.ui.common.theme.WalletColors
 import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_grey_blue
 import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_grey_blue_background
 import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_orange
+import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_vip_yellow
 
 @Composable
 fun GamificationHeader(
@@ -47,7 +48,9 @@ fun GamificationHeader(
   currentProgress: Int,
   maxProgress: Int,
   bonusValue: String,
-  planetDrawable: Drawable?
+  planetDrawable: Drawable?,
+  isVip: Boolean,
+  isMaxVip: Boolean
 ) {
   Card(
     modifier = Modifier
@@ -76,46 +79,67 @@ fun GamificationHeader(
         horizontalArrangement = Arrangement.SpaceBetween
       )
       {
-        Column(
-          // spend text, progressBar, progress
-          modifier = Modifier
-            .fillMaxHeight()
-            .weight(2F)
-            .padding(start = 16.dp, top = 16.dp),
-          verticalArrangement = Arrangement.SpaceEvenly,
-        ) {
-          Text(
-            text = stringResource(
-              id = R.string.rewards_spend_to_next_level_body,
-              valueSpendForNextLevel,
-              currencySpend
-            ),
-            style = MaterialTheme.typography.titleMedium,
-            color = WalletColors.styleguide_white,
-          )
+        if (isMaxVip) {
           Column(
-            // progressBar, progress
+            // vip text
             modifier = Modifier
-              .padding(top = 8.dp),
-            verticalArrangement = Arrangement.SpaceEvenly,
+              .fillMaxHeight()
+              .weight(2F)
+              .padding(start = 16.dp, top = 22.dp),
+            verticalArrangement = Arrangement.Top,
           ) {
-            LinearProgressIndicator(
-              progress = currentProgress.toFloat() / maxProgress.toFloat(),
-              modifier = Modifier
-                .background(Color.Transparent)
-                .clip(CircleShape)
-                .height(8.dp),
-              color = indicatorColor,
-              trackColor = styleguide_grey_blue,
-            )
             Text(
-              text = "$currentProgress / $maxProgress",
-              style = MaterialTheme.typography.bodyMedium,
-              color = WalletColors.styleguide_dark_grey,
-              modifier = Modifier
-                .align(alignment = Alignment.End)
+              text = stringResource(
+                id = R.string.vip_program_max_bonus_body,
+                valueSpendForNextLevel,
+                currencySpend
+              ),
+              style = MaterialTheme.typography.titleMedium,
+              color = WalletColors.styleguide_white,
             )
           }
+        } else {
+          Column(
+            // spend text, progressBar, progress
+            modifier = Modifier
+              .fillMaxHeight()
+              .weight(2F)
+              .padding(start = 16.dp, top = 16.dp),
+            verticalArrangement = Arrangement.SpaceEvenly,
+          ) {
+            Text(
+              text = stringResource(
+                id = R.string.rewards_spend_to_next_level_body,
+                valueSpendForNextLevel,
+                currencySpend
+              ),
+              style = MaterialTheme.typography.titleMedium,
+              color = WalletColors.styleguide_white,
+            )
+            Column(
+              // progressBar, progress
+              modifier = Modifier
+                .padding(top = 8.dp),
+              verticalArrangement = Arrangement.SpaceEvenly,
+            ) {
+              LinearProgressIndicator(
+                progress = currentProgress.toFloat() / maxProgress.toFloat(),
+                modifier = Modifier
+                  .background(Color.Transparent)
+                  .clip(CircleShape)
+                  .height(8.dp),
+                color = if (isVip) styleguide_vip_yellow else indicatorColor,
+                trackColor = styleguide_grey_blue,
+              )
+              Text(
+                text = "$currentProgress / $maxProgress",
+                style = MaterialTheme.typography.bodyMedium,
+                color = WalletColors.styleguide_dark_grey,
+                modifier = Modifier
+                  .align(alignment = Alignment.End)
+              )
+            }
+        }
         }
         Box(
           modifier = Modifier
@@ -288,21 +312,6 @@ fun GamificationHeaderPartner(
   }
 }
 
-@Preview
-@Composable
-fun PreviewRewardsGamification() {
-  GamificationHeader(
-    onClick = { },
-    indicatorColor = styleguide_orange,
-    valueSpendForNextLevel = "16",
-    currencySpend = "AppCoins Credits",
-    currentProgress = 8000,
-    maxProgress = 15000,
-    bonusValue = "16",
-    planetDrawable = null
-  )
-}
-
 @Composable
 fun VipReferralCard(
   onClick: () -> Unit,
@@ -367,6 +376,40 @@ fun VipReferralCard(
       )
     }
   }
+}
+
+@Preview
+@Composable
+fun PreviewRewardsGamification() {
+  GamificationHeader(
+    onClick = { },
+    indicatorColor = styleguide_orange,
+    valueSpendForNextLevel = "16",
+    currencySpend = "AppCoins Credits",
+    currentProgress = 8000,
+    maxProgress = 15000,
+    bonusValue = "16",
+    planetDrawable = null,
+    isVip = true,
+    isMaxVip = false
+  )
+}
+
+@Preview
+@Composable
+fun PreviewRewardsGamificationMaxVip() {
+  GamificationHeader(
+    onClick = { },
+    indicatorColor = styleguide_orange,
+    valueSpendForNextLevel = "16",
+    currencySpend = "AppCoins Credits",
+    currentProgress = 8000,
+    maxProgress = 15000,
+    bonusValue = "16",
+    planetDrawable = null,
+    isVip = true,
+    isMaxVip = true
+  )
 }
 
 @Preview

@@ -8,5 +8,7 @@ data class GamificationHeaderModel(
   val spendMoreAmount: String,
   val currentSpent: Int,
   val nextLevelSpent: Int?,
-  val bonusPercentage: Double
+  val bonusPercentage: Double,
+  val isVip: Boolean,
+  val isMaxVip: Boolean
 )
