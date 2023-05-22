@@ -315,7 +315,7 @@ class HomeFragment: BasePageViewFragment(), SingleStateFragment<HomeState, HomeS
       ) {
         ButtonWithIcon(
           R.drawable.ic_manage_wallet,
-          R.string.wallets_title,
+          R.string.manage_wallet_button,
           onClick = onManageWalletClick,
           labelColor = WalletColors.styleguide_white,
           buttonType = ButtonType.LARGE,
