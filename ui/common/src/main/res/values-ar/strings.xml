@@ -489,6 +489,7 @@
   <string name="top_up_button">إضافة</string>
   <string name="back_up_button">نسخ احتياطي للمحفظة</string>
   <string name="play_button">Play</string>
+  <string name="manage_wallet_button">Manage wallet</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">أوافق على %1$s و%2$s الخاصة بـ AppCoins Wallet.</string>
   <string name="terms_and_conditions_error">يرجى قبول القواعد والشروط وسياسة الخصوصية لمتابعة</string>
