@@ -516,13 +516,13 @@ public class InAppPurchaseInteractor {
     }
     PaymentMethodFee paymentMethodFee = mapPaymentMethodFee(paymentMethod.getFee());
     return new PaymentMethod(paymentMethod.getId(), paymentMethod.getLabel(),
-        paymentMethod.getIconUrl(), paymentMethod.getAsync(), paymentMethodFee, false,
-        null, false,
+        paymentMethod.getIconUrl(), paymentMethod.getAsync(), paymentMethodFee, false, null, false,
         isToShowPaypalLogout(paymentMethod));
   }
 
   private Boolean isToShowPaypalLogout(PaymentMethodEntity paymentMethod) {
-    return paymentMethod.getId().equals("paypal_v2") /* && hasLogin */;  //TODO
+    return paymentMethod.getId()
+        .equals("paypal_v2") /* && hasLogin */;  //TODO
   }
 
   private PaymentMethodFee mapPaymentMethodFee(FeeEntity feeEntity) {

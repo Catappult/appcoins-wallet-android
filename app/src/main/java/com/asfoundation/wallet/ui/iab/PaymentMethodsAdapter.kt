@@ -26,8 +26,10 @@ class PaymentMethodsAdapter(
   fun getSelectedItem() = selectedItem
 
   override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PaymentMethodsViewHolder {
-    return PaymentMethodsViewHolder(LayoutInflater.from(parent.context)
-        .inflate(R.layout.item_payment_method, parent, false))
+    return PaymentMethodsViewHolder(
+      LayoutInflater.from(parent.context)
+        .inflate(R.layout.item_payment_method, parent, false)
+    )
   }
 
   override fun getItemCount() = paymentMethods.size

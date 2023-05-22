@@ -388,7 +388,8 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
       binding.paymentMethods.visibility = View.VISIBLE
       removeSkeletons()
       if (binding.dialogBuyButtonsPaymentMethods.buyButton.tag != null && binding.dialogBuyButtonsPaymentMethods.buyButton.tag is Boolean) {
-        binding.dialogBuyButtonsPaymentMethods.buyButton.isEnabled = binding.dialogBuyButtonsPaymentMethods.buyButton.tag as Boolean
+        binding.dialogBuyButtonsPaymentMethods.buyButton.isEnabled =
+          binding.dialogBuyButtonsPaymentMethods.buyButton.tag as Boolean
       } else {
         binding.dialogBuyButtonsPaymentMethods.buyButton.isEnabled = true
       }
@@ -405,7 +406,8 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
     }
   }
 
-  override fun getCancelClick(): Observable<Any> = RxView.clicks(binding.dialogBuyButtonsPaymentMethods.cancelButton)
+  override fun getCancelClick(): Observable<Any> =
+    RxView.clicks(binding.dialogBuyButtonsPaymentMethods.cancelButton)
 
   override fun getSelectedPaymentMethod(hasPreSelectedPaymentMethod: Boolean): PaymentMethod {
     if (!isPreSelected && ::paymentMethodsAdapter.isInitialized.not()) return PaymentMethod()
@@ -429,9 +431,11 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
   override fun errorDismisses(): Observable<Any> = RxView.clicks(binding.errorMessage.errorDismiss)
     .map { itemAlreadyOwnedError }
 
-  override fun getSupportLogoClicks() = RxView.clicks(binding.errorMessage.genericErrorLayout.layoutSupportLogo)
+  override fun getSupportLogoClicks() =
+    RxView.clicks(binding.errorMessage.genericErrorLayout.layoutSupportLogo)
 
-  override fun getSupportIconClicks() = RxView.clicks(binding.errorMessage.genericErrorLayout.layoutSupportIcn)
+  override fun getSupportIconClicks() =
+    RxView.clicks(binding.errorMessage.genericErrorLayout.layoutSupportIcn)
 
   override fun showAuthenticationActivity() = iabView.showAuthenticationActivity()
 
@@ -442,7 +446,8 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
     binding.processingLoading.visibility = View.VISIBLE
   }
 
-  override fun getBuyClick(): Observable<Any> = RxView.clicks(binding.dialogBuyButtonsPaymentMethods.buyButton)
+  override fun getBuyClick(): Observable<Any> =
+    RxView.clicks(binding.dialogBuyButtonsPaymentMethods.buyButton)
 
   override fun showCarrierBilling(fiatValue: FiatValue, isPreselected: Boolean) =
     iabView.showCarrierBilling(fiatValue.currency, fiatValue.amount, bonusValue, isPreselected)
@@ -574,7 +579,8 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
       preSelectedPaymentMethod!!.map(PaymentMethod::id)
     )
 
-  override fun getMorePaymentMethodsClicks(): Observable<Any> = RxView.clicks(binding.morePaymentMethods)
+  override fun getMorePaymentMethodsClicks(): Observable<Any> =
+    RxView.clicks(binding.morePaymentMethods)
 
   override fun showLocalPayment(
     selectedPaymentMethod: String,
@@ -622,7 +628,8 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
   override fun onBackPressed(): Observable<Any> =
     iabView.backButtonPress().map { itemAlreadyOwnedError }
 
-  override fun showNext() = binding.dialogBuyButtonsPaymentMethods.buyButton.setText(getString(R.string.action_next))
+  override fun showNext() =
+    binding.dialogBuyButtonsPaymentMethods.buyButton.setText(getString(R.string.action_next))
 
   override fun showBuy() = setBuyButtonText()
 
@@ -694,7 +701,8 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
 
   private fun setupAppNameAndIcon() {
     if (isDonation) {
-      binding.paymentMethodsHeader.appSkuDescription.text = resources.getString(R.string.item_donation)
+      binding.paymentMethodsHeader.appSkuDescription.text =
+        resources.getString(R.string.item_donation)
       binding.paymentMethodsHeader.appName.text = resources.getString(R.string.item_donation)
     } else {
       compositeDisposable.add(Single.defer { Single.just(appPackage) }

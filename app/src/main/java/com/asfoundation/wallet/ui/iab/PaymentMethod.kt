@@ -23,9 +23,9 @@ open class PaymentMethod(
 }
 
 data class PaymentMethodFee(
-    val isExact: Boolean,
-    val amount: BigDecimal?,
-    val currency: String?
+  val isExact: Boolean,
+  val amount: BigDecimal?,
+  val currency: String?
 ) {
 
   fun isValidFee() = isExact && amount != null && currency != null

@@ -10,10 +10,10 @@ import android.widget.PopupMenu
 import androidx.annotation.StringRes
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
-import com.asf.wallet.R
-import com.asfoundation.wallet.GlideApp
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.appcoins.wallet.core.utils.android_common.WalletCurrency
+import com.asf.wallet.R
+import com.asfoundation.wallet.GlideApp
 import com.asf.wallet.databinding.ItemPaymentMethodBinding
 
 class PaymentMethodsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -21,14 +21,14 @@ class PaymentMethodsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemVie
   private val binding by lazy { ItemPaymentMethodBinding.bind(itemView) }
 
   fun bind(
-      data: PaymentMethod,
-      checked: Boolean,
-      listener: View.OnClickListener,
-      onClickListener: View.OnClickListener
+    data: PaymentMethod,
+    checked: Boolean,
+    listener: View.OnClickListener,
+    onClickListener: View.OnClickListener
   ) {
     GlideApp.with(itemView.context)
-        .load(data.iconUrl)
-        .into(binding.paymentMethodIc)
+      .load(data.iconUrl)
+      .into(binding.paymentMethodIc)
 
     val selected = data.isEnabled && checked
     binding.radioButton.isChecked = selected
@@ -63,8 +63,8 @@ class PaymentMethodsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemVie
       binding.radioButton.visibility = View.VISIBLE
     }
     if (data.showLogout) {
-      itemView.payment_more_logout.visibility = View.VISIBLE
-      itemView.payment_more_logout.setOnClickListener {
+      binding.paymentMoreLogout.visibility = View.VISIBLE
+      binding.paymentMoreLogout.setOnClickListener {
         val popup = PopupMenu(itemView.context.applicationContext, it)
         popup.menuInflater.inflate(R.menu.logout_menu, popup.menu)
         popup.setOnMenuItemClickListener { menuItem: MenuItem ->
@@ -77,7 +77,7 @@ class PaymentMethodsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemVie
         popup.show()
       }
     } else {
-      itemView.payment_more_logout.visibility = View.GONE
+      binding.paymentMoreLogout.visibility = View.GONE
     }
   }
 
@@ -85,12 +85,14 @@ class PaymentMethodsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemVie
     binding.paymentMethodDescription.text = data.label
     if (selected) {
       binding.paymentMethodDescription.setTextColor(
-          ContextCompat.getColor(itemView.context, R.color.styleguide_black_transparent_80))
+        ContextCompat.getColor(itemView.context, R.color.styleguide_black_transparent_80)
+      )
       binding.paymentMethodDescription.typeface =
-          Typeface.create("sans-serif-medium", Typeface.NORMAL)
+        Typeface.create("sans-serif-medium", Typeface.NORMAL)
     } else {
       binding.paymentMethodDescription.setTextColor(
-          ContextCompat.getColor(itemView.context, R.color.styleguide_dark_grey))
+        ContextCompat.getColor(itemView.context, R.color.styleguide_dark_grey)
+      )
       binding.paymentMethodDescription.typeface = Typeface.create("sans-serif", Typeface.NORMAL)
     }
   }
@@ -99,7 +101,7 @@ class PaymentMethodsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemVie
     if (fee?.isValidFee() == true) {
       binding.paymentMethodFee.visibility = View.VISIBLE
       val formattedValue = CurrencyFormatUtils()
-          .formatPaymentCurrency(fee.amount!!, WalletCurrency.FIAT)
+        .formatPaymentCurrency(fee.amount!!, WalletCurrency.FIAT)
       binding.paymentMethodFeeValue.text = "$formattedValue ${fee.currency}"
 
       binding.paymentMethodFeeValue.apply {
@@ -107,7 +109,12 @@ class PaymentMethodsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemVie
           this.setTextColor(ContextCompat.getColor(itemView.context, R.color.styleguide_pink))
           this.typeface = Typeface.create("sans-serif-medium", Typeface.NORMAL)
         } else {
-          this.setTextColor(ContextCompat.getColor(itemView.context, R.color.styleguide_black_transparent_80))
+          this.setTextColor(
+            ContextCompat.getColor(
+              itemView.context,
+              R.color.styleguide_black_transparent_80
+            )
+          )
           this.typeface = Typeface.create("sans-serif", Typeface.NORMAL)
         }
       }
