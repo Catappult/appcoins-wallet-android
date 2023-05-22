@@ -489,6 +489,7 @@
   <string name="top_up_button">Befizetés</string>
   <string name="back_up_button">Tárca biztonsági mentése</string>
   <string name="play_button">Play</string>
+  <string name="manage_wallet_button">Manage wallet</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Beleegyezem a következőbe: AppCoins Wallet %1$s és %2$s.</string>
   <string name="terms_and_conditions_error">A folytatáshoz kérjük, fogadd el a Felhasználási feltételeket és az Adatvédelmi szabályzatot</string>
