@@ -489,6 +489,7 @@
   <string name="top_up_button">ေငြျဖည့္မည္</string>
   <string name="back_up_button">ပိုက္ဆံအိတ္ကို အရန္ထားရွိမည္</string>
   <string name="play_button">Play</string>
+  <string name="manage_wallet_button">Manage wallet</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">AppCoins Wallet ၏ %1$s ႏွင့္ %2$s ကို သေဘာတူပါသည္။</string>
   <string name="terms_and_conditions_error">ဆက္လုပ္ႏိုင္ရန္ ကၽြႏ္ုပ္တို႔၏ စည္းမ်ဥ္းစည္းကမ္းမ်ားႏွင့္ ကုိယ္ေရးလံုၿခံဳမႈ မူ၀ါဒကို လက္ခံေပးပါ</string>
