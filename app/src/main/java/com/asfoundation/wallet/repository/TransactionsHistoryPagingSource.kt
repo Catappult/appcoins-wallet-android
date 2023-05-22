@@ -25,7 +25,7 @@ class TransactionsHistoryPagingSource(
       LoadResult.Page(
         data = data!!.map { it },
         prevKey = null,
-        nextKey = if (data.isNotEmpty()) data.last().processedTime else null
+        nextKey = data.lastOrNull()?.processedTime
       )
     } catch (e: IOException) {
       LoadResult.Error(e)
