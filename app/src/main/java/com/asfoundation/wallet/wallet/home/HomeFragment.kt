@@ -45,8 +45,7 @@ import com.appcoins.wallet.ui.arch.SingleStateFragment
 import com.appcoins.wallet.ui.arch.data.Async
 import com.appcoins.wallet.ui.common.theme.WalletColors
 import com.appcoins.wallet.ui.widgets.*
-import com.appcoins.wallet.ui.widgets.component.ButtonType
-import com.appcoins.wallet.ui.widgets.component.ButtonWithIcon
+import com.appcoins.wallet.ui.widgets.component.BottomSheetButton
 import com.asf.wallet.R
 import com.asfoundation.wallet.entity.GlobalBalance
 import com.asfoundation.wallet.promotions.model.DefaultItem
@@ -311,32 +310,22 @@ class HomeFragment: BasePageViewFragment(), SingleStateFragment<HomeState, HomeS
       Column(
         Modifier
           .fillMaxWidth()
-          .padding(start = 16.dp, bottom = 48.dp), verticalArrangement = Arrangement.Center
+          .padding(bottom = 48.dp), verticalArrangement = Arrangement.Center
       ) {
-        ButtonWithIcon(
+        BottomSheetButton(
           R.drawable.ic_manage_wallet,
           R.string.manage_wallet_button,
-          onClick = onManageWalletClick,
-          labelColor = WalletColors.styleguide_white,
-          buttonType = ButtonType.LARGE,
-          iconSize = 16.dp
+          onClick = onManageWalletClick
         )
-        ButtonWithIcon(
+        BottomSheetButton(
           R.drawable.ic_recover_wallet,
           R.string.my_wallets_action_recover_wallet,
-          onClick = onRecoverWalletClick,
-          labelColor = WalletColors.styleguide_white,
-          buttonType = ButtonType.LARGE,
-          iconSize = 16.dp
+          onClick = onRecoverWalletClick
         )
-        ButtonWithIcon(
+        BottomSheetButton(
           R.drawable.ic_backup_white,
           R.string.my_wallets_action_backup_wallet,
-          onClick = onBackupWalletClick,
-          labelColor = WalletColors.styleguide_white,
-          iconColor = WalletColors.styleguide_pink,
-          buttonType = ButtonType.LARGE,
-          iconSize = 16.dp
+          onClick = onBackupWalletClick
         )
       }
     }

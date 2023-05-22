@@ -293,7 +293,7 @@ class HomeViewModel @Inject constructor(
                   .map { it.toModel(defaultCurrency) }
                   .take(
                     with(result.data) {
-                      if (isEmpty() || last().txId == get(lastIndex - 1).parentTxId) size
+                      if (size < 4 || last().txId == get(lastIndex - 1).parentTxId) size
                       else size - 1
                     }
                   )
