@@ -607,6 +607,8 @@
   <string name="purchase_error_wrong_pin_body">핀에 문제가 있습니다. 다시 시도하세요.</string>
   <string name="purchase_error_3d_body">3D 인증에 문제가 있습니다. 다시 시도하세요.</string>
   <string name="purchase_error_generic_contact_us_body">이런, 무언가 잘못되었습니다. 다시 시도하거나 당사에 문의해 주세요.</string>
+  <string name="error_blocked_wallet_title">Blocked Wallet</string>
+  <string name="error_blocked_wallet_body">For security reasons, your wallet has been blocked. Please contact us for more information.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">청구지 주소</string>
   <string name="purchase_address_address_field">주소</string>
@@ -1189,4 +1191,8 @@
   <string name="rewards_promo_code_status">상태:</string>
   <string name="rewards_promo_code_status_active">활성</string>
   <string name="rewards_promo_code_status_expired">만료됨</string>
+  <string name="home_nft_title">The AppCoins Wallet now supports NFTs</string>
+  <!-- Rewards Home -->
+  <string name="rewards_make_first_purchase_body">Make your first purchase in an AppCoins compatible game and unlock a bonus in every purchase.</string>
+  <string name="rewards_bonus_every_purchase_title">Enjoy a %s%% bonus in every purchase</string>
 </resources>
