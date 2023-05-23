@@ -9,18 +9,15 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.ComposeView
-import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -35,7 +32,6 @@ import com.appcoins.wallet.gamification.repository.PromotionsGamificationStats
 import com.appcoins.wallet.ui.arch.SingleStateFragment
 import com.appcoins.wallet.ui.arch.data.Async
 import com.appcoins.wallet.ui.common.theme.WalletColors
-import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_orange
 import com.appcoins.wallet.ui.widgets.*
 import com.asf.wallet.R
 import com.asfoundation.wallet.promotions.model.DefaultItem
@@ -46,7 +42,6 @@ import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
 import java.text.DecimalFormat
 import javax.inject.Inject
-
 
 @AndroidEntryPoint
 class RewardFragment : BasePageViewFragment(), SingleStateFragment<RewardState, RewardSideEffect> {
@@ -80,7 +75,6 @@ class RewardFragment : BasePageViewFragment(), SingleStateFragment<RewardState, 
 
   override fun onResume() {
     super.onResume()
-//    viewModel.fetchPromotions()
     viewModel.fetchGamificationStats()
   }
 
@@ -120,63 +114,65 @@ class RewardFragment : BasePageViewFragment(), SingleStateFragment<RewardState, 
         .verticalScroll(rememberScrollState())
         .padding(padding),
     ) {
-      if (
-        viewModel.gamificationHeaderModel.value != null &&
-        viewModel.gamificationHeaderModel.value?.bonusPercentage != null &&
-        viewModel.gamificationHeaderModel.value?.bonusPercentage!! >= 10.0
-      ) {
-        GamificationHeader(
-          onClick = {
-            navigator.navigateToGamification(
-              cachedBonus = viewModel.gamificationHeaderModel.value!!.bonusPercentage
-            )
-          },
-          indicatorColor = Color(
-            viewModel.gamificationHeaderModel.value!!.color
-          ),
-          valueSpendForNextLevel = viewModel.gamificationHeaderModel.value!!.spendMoreAmount,
-          currencySpend = " AppCoins Credits",
-          currentProgress = viewModel.gamificationHeaderModel.value!!.currentSpent,
-          maxProgress = viewModel.gamificationHeaderModel.value!!.nextLevelSpent ?: 0,
-          bonusValue = df.format(viewModel.gamificationHeaderModel.value!!.bonusPercentage),
-          planetDrawable = viewModel.gamificationHeaderModel.value!!.planetImage,
-          isVip = viewModel.gamificationHeaderModel.value!!.isVip,
-          isMaxVip = viewModel.gamificationHeaderModel.value!!.isMaxVip
-        )
-        if (viewModel.vipReferralModel.value != null) {
-          VipReferralCard(
-            {
-              navigator.navigateToVipReferral(
-                bonus = viewModel.vipReferralModel.value!!.vipBonus,
-                code = viewModel.vipReferralModel.value!!.vipCode,
-                totalEarned = viewModel.vipReferralModel.value!!.totalEarned,
-                numberReferrals = viewModel.vipReferralModel.value!!.numberReferrals,
-                mainNavController = navController()
+      with(viewModel.gamificationHeaderModel.value) {
+        if (
+          this != null &&
+          this.bonusPercentage >= 10.0
+        ) {
+          GamificationHeader(
+            onClick = {
+              navigator.navigateToGamification(
+                cachedBonus = this.bonusPercentage
               )
             },
-            viewModel.vipReferralModel.value!!.vipBonus
+            indicatorColor = Color(
+              this.color
+            ),
+            valueSpendForNextLevel = this.spendMoreAmount,
+            currencySpend = " AppCoins Credits",
+            currentProgress = this.currentSpent,
+            maxProgress = this.nextLevelSpent ?: 0,
+            bonusValue = df.format(this.bonusPercentage),
+            planetDrawable = this.planetImage,
+            isVip = this.isVip,
+            isMaxVip = this.isMaxVip
           )
+          with(viewModel.vipReferralModel.value) {
+            if (this != null) {
+              VipReferralCard(
+                {
+                  navigator.navigateToVipReferral(
+                    bonus = this.vipBonus,
+                    code = this.vipCode,
+                    totalEarned = this.totalEarned,
+                    numberReferrals = this.numberReferrals,
+                    mainNavController = navController()
+                  )
+                },
+                this.vipBonus
+              )
+            }
+          }
+        } else if (
+          this != null &&
+          this.bonusPercentage > 0.0 &&
+          this.bonusPercentage < 10.0
+        ) {
+          GamificationHeaderPartner(
+            df.format(this.bonusPercentage)
+          )
+        } else {
+          GamificationHeaderNoPurchases()
         }
 
-      } else if (
-        viewModel.gamificationHeaderModel.value != null &&
-        viewModel.gamificationHeaderModel.value?.bonusPercentage!! > 0.0 &&
-        viewModel.gamificationHeaderModel.value?.bonusPercentage!! < 10.0
-      ) {
-        GamificationHeaderPartner(
-          df.format(viewModel.gamificationHeaderModel.value?.bonusPercentage)
+        RewardsActions(
+          { navigator.navigateToWithdrawScreen() },
+          { navigator.showPromoCodeFragment() },
+          { navigator.showGiftCardFragment() }
         )
-      } else {
-        GamificationHeaderNoPurchases()
+        PromotionsList()
+        Spacer(modifier = Modifier.padding(32.dp))
       }
-
-      RewardsActions(
-        { navigator.navigateToWithdrawScreen() },
-        { navigator.showPromoCodeFragment() },
-        { navigator.showGiftCardFragment() }
-      )
-      PromotionsList()
-      Spacer(modifier = Modifier.padding(32.dp))
     }
   }
 

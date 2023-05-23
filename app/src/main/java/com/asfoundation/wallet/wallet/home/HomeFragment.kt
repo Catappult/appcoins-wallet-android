@@ -163,7 +163,6 @@ class HomeFragment: BasePageViewFragment(), SingleStateFragment<HomeState, HomeS
             onClickTopUp = { viewModel.onTopUpClick() },
             onClickMenuOptions = {
               Toast.makeText(context, "In progress", Toast.LENGTH_SHORT).show()
-              navigator.navigateToMyWallets()
             } // TODO create bottom sheet
           )
         }

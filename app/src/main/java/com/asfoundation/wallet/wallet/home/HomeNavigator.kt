@@ -52,10 +52,6 @@ class HomeNavigator @Inject constructor(
     navBarFragmentNavigator.navigateToPromotions()
   }
 
-  fun navigateToMyWallets() {
-    navigate(fragment.findNavController(), HomeFragmentDirections.actionNavigateToMyWallets())
-  }
-
   fun navigateToBrowser(uri: Uri) {
     try {
       val launchBrowser = Intent(Intent.ACTION_VIEW, uri)
