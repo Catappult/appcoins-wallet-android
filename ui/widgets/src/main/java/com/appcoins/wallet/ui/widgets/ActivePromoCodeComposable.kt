@@ -41,7 +41,6 @@ fun ActivePromoCodeComposable(cardItem: ActiveCardPromoCodeItem) {
         .background(WalletColors.styleguide_pink)
     ) {
       Text(
-        //Need string to Carlos Translator
         text = stringResource(id = R.string.promo_code_settings_title),
         fontSize = 12.sp,
         color = WalletColors.styleguide_light_grey,
@@ -73,17 +72,17 @@ fun ActivePromoCodeComposable(cardItem: ActiveCardPromoCodeItem) {
         )
         .zIndex(4f)
     ) {
-      Column(modifier = Modifier.padding(8.dp, 8.dp, 8.dp, 8.dp)) {
+      Column(modifier = Modifier.padding(8.dp)) {
         ImageWithTitleAndDescription(
           cardItem.imageUrl,
           cardItem.title,
           cardItem.subtitle,
           true
         )
-        Spacer(modifier = Modifier.height(20.dp))
+        Spacer(modifier = Modifier.height(24.dp))
         Column(
           modifier = Modifier
-            .height(38.dp)
+            .height(32.dp)
         ) {
           Row(
             modifier = Modifier.fillMaxWidth(),
@@ -92,7 +91,7 @@ fun ActivePromoCodeComposable(cardItem: ActiveCardPromoCodeItem) {
           ) {
             Row(
               verticalAlignment = Alignment.CenterVertically,
-              modifier = Modifier.padding(start = 10.dp)
+              modifier = Modifier.padding(start = 8.dp)
             ) {
               Text(
                 text = stringResource(R.string.rewards_promo_code_status),
