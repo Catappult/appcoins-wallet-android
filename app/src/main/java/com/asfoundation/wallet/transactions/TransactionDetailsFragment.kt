@@ -24,7 +24,6 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -54,7 +53,6 @@ import com.appcoins.wallet.ui.widgets.TransactionDetailItem
 import com.appcoins.wallet.ui.widgets.component.ButtonType
 import com.appcoins.wallet.ui.widgets.component.ButtonWithText
 import com.asf.wallet.R
-import com.asfoundation.wallet.transactions.Transaction.TransactionType.*
 import com.asfoundation.wallet.transactions.TransactionDetailsViewModel.UiState
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
@@ -84,7 +82,6 @@ class TransactionDetailsFragment : BasePageViewFragment() {
     }
   }
 
-  @OptIn(ExperimentalMaterial3Api::class)
   @Composable
   fun TransactionDetailView(uiState: UiState) {
     Scaffold(
@@ -188,7 +185,7 @@ class TransactionDetailsFragment : BasePageViewFragment() {
               Spacer(modifier = Modifier.padding(vertical = 16.dp))
 
               ButtonWithText(
-                label = R.string.transaction_more_details_label,
+                label = stringResource(R.string.transaction_more_details_label),
                 onClick = { openTransactionUrl(transactionUrl) },
                 labelColor = styleguide_light_grey,
                 outlineColor = styleguide_light_grey,
