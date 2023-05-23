@@ -51,7 +51,8 @@ import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_light_grey
 import com.appcoins.wallet.ui.widgets.TopBar
 import com.appcoins.wallet.ui.widgets.TransactionDetailHeader
 import com.appcoins.wallet.ui.widgets.TransactionDetailItem
-import com.appcoins.wallet.ui.widgets.component.LargeButtonWithText
+import com.appcoins.wallet.ui.widgets.component.ButtonType
+import com.appcoins.wallet.ui.widgets.component.ButtonWithText
 import com.asf.wallet.R
 import com.asfoundation.wallet.transactions.Transaction.TransactionType.*
 import com.asfoundation.wallet.transactions.TransactionDetailsViewModel.UiState
@@ -186,11 +187,12 @@ class TransactionDetailsFragment : BasePageViewFragment() {
 
               Spacer(modifier = Modifier.padding(vertical = 16.dp))
 
-              LargeButtonWithText(
+              ButtonWithText(
                 label = R.string.transaction_more_details_label,
                 onClick = { openTransactionUrl(transactionUrl) },
                 labelColor = styleguide_light_grey,
-                outlineColor = styleguide_light_grey
+                outlineColor = styleguide_light_grey,
+                buttonType = ButtonType.LARGE
               )
             }
           }

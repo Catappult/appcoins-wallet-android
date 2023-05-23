@@ -10,6 +10,7 @@ import com.appcoins.wallet.core.network.backend.model.GamificationStatus
 import com.appcoins.wallet.core.network.base.call_adapter.ApiException
 import com.appcoins.wallet.core.network.base.call_adapter.ApiFailure
 import com.appcoins.wallet.core.network.base.call_adapter.ApiSuccess
+import com.appcoins.wallet.core.utils.android_common.DateFormatterUtils.getDay
 import com.appcoins.wallet.core.utils.android_common.RxSchedulers
 import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.appcoins.wallet.core.utils.properties.APTOIDE_TOP_APPS_URL
@@ -299,7 +300,7 @@ constructor(
                       else size - 1
                     }
                   )
-                  .groupBy { it.date }
+                  .groupBy { it.date.getDay() }
               )
             }
 
