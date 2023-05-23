@@ -74,7 +74,7 @@ fun BalanceCardExpanded(
               )
               Spacer(modifier = Modifier.padding(16.dp))
               ButtonWithIcon(
-                icon = R.drawable.ic_topup,
+                icon = R.drawable.ic_plus_v3,
                 label = R.string.top_up_button,
                 onClick = onClickTopUp,
                 backgroundColor = WalletColors.styleguide_pink,
@@ -135,7 +135,7 @@ private fun BalanceCardNewUserExpanded(onClickTopUp: () -> Unit) {
       )
     }
     ButtonWithIcon(
-      icon = R.drawable.ic_topup,
+      icon = R.drawable.ic_plus_v3,
       label = R.string.top_up_button,
       onClick = onClickTopUp,
       backgroundColor = WalletColors.styleguide_pink,
