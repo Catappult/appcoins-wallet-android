@@ -221,7 +221,7 @@ class HomeFragment_old : BasePageViewFragment(),
       HomeSideEffect.NavigateToChangeCurrency -> navigator.navigateToCurrencySelector()
       HomeSideEffect.NavigateToTopUp -> navigator.navigateToTopUp()
       HomeSideEffect.NavigateToTransfer -> navigator.navigateToTransfer()
-      HomeSideEffect.NavigateToTransactionsList -> {}
+      else -> {}
     }
   }
 

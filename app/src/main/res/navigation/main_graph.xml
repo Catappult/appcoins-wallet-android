@@ -86,6 +86,12 @@
       android:id="@+id/action_navigate_to_nfts"
       app:destination="@id/nft_graph" />
 
+  <include app:graph="@navigation/manage_wallet_graph" />
+
+  <action
+      android:id="@+id/action_navigate_to_manage_wallet"
+      app:destination="@id/manage_wallet_graph" />
+
   <include app:graph="@navigation/transactions_graph" />
 
   <action

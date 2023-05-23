@@ -19,6 +19,7 @@ import com.asfoundation.wallet.change_currency.ChangeFiatCurrencyActivity
 import com.asfoundation.wallet.main.nav_bar.NavBarFragmentNavigator
 import com.asfoundation.wallet.my_wallets.main.MyWalletsFragmentDirections
 import com.asfoundation.wallet.rating.RatingActivity
+import com.asfoundation.wallet.recover.RecoverActivity
 import com.asfoundation.wallet.topup.TopUpActivity
 import com.asfoundation.wallet.transactions.Transaction
 import com.asfoundation.wallet.ui.BaseActivity
@@ -52,10 +53,6 @@ constructor(
 
   fun navigateToPromotions() {
     navBarFragmentNavigator.navigateToPromotions()
-  }
-
-  fun navigateToMyWallets() {
-    navigate(fragment.findNavController(), HomeFragmentDirections.actionNavigateToMyWallets())
   }
 
   fun navigateToBrowser(uri: Uri) {
@@ -95,6 +92,14 @@ constructor(
     openIntent(intent)
   }
 
+  fun navigateToRecoverWallet() {
+    val intent = RecoverActivity.newIntent(fragment.requireContext(), onboardingLayout = false)
+      .apply {
+        flags = Intent.FLAG_ACTIVITY_SINGLE_TOP
+      }
+    openIntent(intent)
+  }
+
   fun navigateToTopUp() {
     val intent =
       TopUpActivity.newIntent(fragment.requireContext()).apply {
@@ -130,5 +135,18 @@ constructor(
     mainNavController.navigate(R.id.action_navigate_to_nfts)
   }
 
-  fun openIntent(intent: Intent) = fragment.requireContext().startActivity(intent)
+  fun navigateToManageWallet(
+    mainNavController: NavController
+  ) {
+    mainNavController.navigate(R.id.action_navigate_to_manage_wallet)
+  }
+
+  fun navigateToTransactionsList(
+    mainNavController: NavController
+  ) {
+    mainNavController.navigate(R.id.action_navigate_to_transactions_list)
+  }
+
+  fun openIntent(intent: Intent) = fragment.requireContext()
+    .startActivity(intent)
 }
