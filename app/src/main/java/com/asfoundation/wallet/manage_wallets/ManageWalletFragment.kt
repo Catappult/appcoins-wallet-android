@@ -40,9 +40,12 @@ import androidx.fragment.app.viewModels
 import com.appcoins.wallet.ui.common.theme.WalletColors
 import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_blue
 import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_blue_secondary
+import com.appcoins.wallet.ui.widgets.BalanceItem
 import com.appcoins.wallet.ui.widgets.TopBar
+import com.appcoins.wallet.ui.widgets.TotalBalance
 import com.appcoins.wallet.ui.widgets.VectorIconButton
 import com.appcoins.wallet.ui.widgets.component.BottomSheetButton
+import com.appcoins.wallet.ui.widgets.component.ButtonWithText
 import com.asf.wallet.R
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
@@ -82,6 +85,7 @@ class ManageWalletFragment : BasePageViewFragment() {
         .padding(padding),
     ) {
       ScreenHeader()
+      BalanceBottomSheet()
     }
   }
 
@@ -93,7 +97,7 @@ class ManageWalletFragment : BasePageViewFragment() {
       modifier = Modifier.fillMaxWidth()
     ) {
       ScreenTitle()
-      BalanceBottomSheet()
+      ManagementOptionsBottomSheet()
     }
   }
 
@@ -110,7 +114,7 @@ class ManageWalletFragment : BasePageViewFragment() {
 
   @OptIn(ExperimentalMaterial3Api::class)
   @Composable
-  fun BalanceBottomSheet() {
+  fun ManagementOptionsBottomSheet() {
     var openBottomSheet by rememberSaveable { mutableStateOf(false) }
     val skipPartiallyExpanded by remember { mutableStateOf(false) }
     val scope = rememberCoroutineScope()
@@ -165,6 +169,62 @@ class ManageWalletFragment : BasePageViewFragment() {
                 .launch { bottomSheetState.hide() }
                 .invokeOnCompletion { /*navigator.navigateToRemoveWallet()*/ }
             })
+        }
+      }
+    }
+  }
+
+
+  @OptIn(ExperimentalMaterial3Api::class)
+  @Composable
+  fun BalanceBottomSheet() {
+    var openBottomSheet by rememberSaveable { mutableStateOf(false) }
+    val skipPartiallyExpanded by remember { mutableStateOf(false) }
+    val bottomSheetState =
+      rememberModalBottomSheetState(skipPartiallyExpanded = skipPartiallyExpanded)
+
+    Row(
+      horizontalArrangement = Arrangement.SpaceBetween,
+      verticalAlignment = CenterVertically,
+      modifier = Modifier
+        .padding(start = 16.dp)
+        .fillMaxWidth()
+    ) {
+      Text(
+        "Melissa Wallet", //TODO
+        color = WalletColors.styleguide_light_grey,
+        style = MaterialTheme.typography.bodySmall
+      )
+      ButtonWithText(
+        label = "€124,54",//TODO
+        onClick = { openBottomSheet = !openBottomSheet },
+        labelColor = WalletColors.styleguide_light_grey
+      )
+    }
+
+    if (openBottomSheet) {
+      ModalBottomSheet(
+        onDismissRequest = { openBottomSheet = false },
+        sheetState = bottomSheetState,
+        containerColor = styleguide_blue_secondary
+      ) {
+        Column(
+          Modifier
+            .fillMaxWidth()
+            .padding(start = 16.dp, end = 16.dp, bottom = 48.dp),
+          verticalArrangement = Arrangement.spacedBy(16.dp)
+        ) {
+          TotalBalance("€128,34", "5345,23 APPC")//TODO
+          Row(
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = CenterVertically,
+            modifier = Modifier.fillMaxWidth()
+          ) {//TODO
+            BalanceItem(R.drawable.ic_appc_token, R.string.appc_token_name, "5244 APPC")
+            BalanceItem(R.drawable.ic_appc_c_token, R.string.appc_credits_token_name, "5244 APPC-C")
+            BalanceItem(R.drawable.ic_eth_token, R.string.ethereum_token_name, "5244 ETH")
+          }
+
         }
       }
     }
