@@ -51,6 +51,8 @@ import com.asfoundation.wallet.support.SupportNotificationProperties
 import com.asfoundation.wallet.transactions.Transaction.*
 import com.asfoundation.wallet.transactions.Transaction.TransactionType.*
 import com.asfoundation.wallet.transactions.TransactionModel
+import com.asfoundation.wallet.transactions.TransactionsNavigator
+import com.asfoundation.wallet.transactions.cardInfoByType
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import com.asfoundation.wallet.wallet.home.HomeViewModel.UiState
 import com.asfoundation.wallet.wallet.home.HomeViewModel.UiState.Success
@@ -63,10 +65,14 @@ import javax.inject.Inject
 // from the :app module.
 // TODO rename class after completed
 @AndroidEntryPoint
-class HomeFragment: BasePageViewFragment(), SingleStateFragment<HomeState, HomeSideEffect> {
+class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, HomeSideEffect> {
 
   @Inject
   lateinit var navigator: HomeNavigator
+
+  @Inject
+  lateinit var transactionsNavigator: TransactionsNavigator
+
   @Inject
   lateinit var formatter: CurrencyFormatUtils
   private val viewModel: HomeViewModel by viewModels()
@@ -77,14 +83,11 @@ class HomeFragment: BasePageViewFragment(), SingleStateFragment<HomeState, HomeS
   private var isVip by mutableStateOf(false)
 
   override fun onCreateView(
-    inflater: LayoutInflater, container: ViewGroup?,
+    inflater: LayoutInflater,
+    container: ViewGroup?,
     savedInstanceState: Bundle?
   ): View {
-    return ComposeView(requireContext()).apply {
-      setContent {
-        HomeScreen()
-      }
-    }
+    return ComposeView(requireContext()).apply { setContent { HomeScreen() } }
   }
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -97,15 +100,13 @@ class HomeFragment: BasePageViewFragment(), SingleStateFragment<HomeState, HomeS
   override fun onResume() {
     super.onResume()
     val fromSupportNotification =
-      requireActivity().intent.getBooleanExtra(
-        SupportNotificationProperties.SUPPORT_NOTIFICATION_CLICK,
-        false
-      )
+      requireActivity()
+        .intent
+        .getBooleanExtra(SupportNotificationProperties.SUPPORT_NOTIFICATION_CLICK, false)
     if (!fromSupportNotification) {
       viewModel.updateData()
       checkRoot()
-      Intercom.client()
-        .handlePushMessage()
+      Intercom.client().handlePushMessage()
     } else {
       requireActivity().finish()
     }
@@ -181,17 +182,13 @@ class HomeFragment: BasePageViewFragment(), SingleStateFragment<HomeState, HomeS
   }
 
   @Composable
-  fun TransactionsCard(
-    transactionsState: UiState
-  ) {
+  fun TransactionsCard(transactionsState: UiState) {
     when (transactionsState) {
       is Success -> {
         if (transactionsState.transactions.isNotEmpty())
-          Column(
-            modifier = Modifier
-              .heightIn(0.dp, 400.dp)
-              .padding(horizontal = 16.dp)
-          ) {
+          Column(modifier = Modifier
+            .heightIn(0.dp, 400.dp)
+            .padding(horizontal = 16.dp)) {
             Text(
               text = stringResource(R.string.intro_transactions_header),
               modifier = Modifier.padding(start = 8.dp, bottom = 8.dp),
@@ -204,10 +201,8 @@ class HomeFragment: BasePageViewFragment(), SingleStateFragment<HomeState, HomeS
             }
           }
       }
-
       else -> {}
     }
-
   }
 
   @Composable
@@ -235,9 +230,7 @@ class HomeFragment: BasePageViewFragment(), SingleStateFragment<HomeState, HomeS
   @OptIn(ExperimentalFoundationApi::class)
   @Composable
   fun TransactionsList(transactionsGrouped: Map<String, List<TransactionModel>>) {
-    Box(
-      contentAlignment = Alignment.TopEnd
-    ) {
+    Box(contentAlignment = Alignment.TopEnd) {
       LazyColumn(userScrollEnabled = false, modifier = Modifier.padding(vertical = 8.dp)) {
         transactionsGrouped.forEach { (date, transactionsForDate) ->
           stickyHeader {
@@ -255,15 +248,14 @@ class HomeFragment: BasePageViewFragment(), SingleStateFragment<HomeState, HomeS
                 icon = icon,
                 appIcon = appIcon,
                 title = stringResource(id = title),
-                description = description,
+                description = description ?: app,
                 amount = amount,
-                convertedAmount = currency,
+                convertedAmount = amountSubtitle,
                 subIcon = subIcon,
-                onClick = { },
+                onClick = { navigateToTransactionDetails(transaction) },
                 textDecoration = textDecoration
               )
             }
-
           }
         }
       }
@@ -318,9 +310,8 @@ class HomeFragment: BasePageViewFragment(), SingleStateFragment<HomeState, HomeS
       HomeSideEffect.NavigateToChangeCurrency -> navigator.navigateToCurrencySelector()
       HomeSideEffect.NavigateToTopUp -> navigator.navigateToTopUp()
       HomeSideEffect.NavigateToTransfer -> navigator.navigateToTransfer()
-      HomeSideEffect.NavigateToTransactionsList -> navigator.navigateToTransactionsList(
-        navController()
-      )
+      HomeSideEffect.NavigateToTransactionsList ->
+        transactionsNavigator.navigateToTransactionsList(navController())
     }
   }
 
@@ -371,7 +362,6 @@ class HomeFragment: BasePageViewFragment(), SingleStateFragment<HomeState, HomeS
       is Async.Loading -> {
         //TODO loading
       }
-
       is Async.Success -> {
         viewModel.activePromotions.clear()
         promotionsModel.value!!.perks.forEach { promotion ->
@@ -382,11 +372,12 @@ class HomeFragment: BasePageViewFragment(), SingleStateFragment<HomeState, HomeS
               promotion.startDate,
               promotion.endDate,
               promotion.icon,
-              promotion.detailsLink,
+              promotion.actionUrl,
+              promotion.packageName,
               promotion.gamificationStatus == GamificationStatus.VIP || promotion.gamificationStatus == GamificationStatus.VIP_MAX,
               false,
               false,
-              action = { promotion.detailsLink?.let { openGame(it, requireContext()) } }
+              action = {  openGame(promotion.packageName ?: promotion.actionUrl, requireContext()) }
             )
             viewModel.activePromotions.add(cardItem)
           }
@@ -402,6 +393,9 @@ class HomeFragment: BasePageViewFragment(), SingleStateFragment<HomeState, HomeS
   }
 
   private fun navigateToNft() = navigator.navigateToNfts(navController())
+
+  private fun navigateToTransactionDetails(transaction: TransactionModel) =
+    transactionsNavigator.navigateToTransactionDetails(navController(), transaction)
 
   private fun navController(): NavController {
     val navHostFragment = requireActivity().supportFragmentManager.findFragmentById(

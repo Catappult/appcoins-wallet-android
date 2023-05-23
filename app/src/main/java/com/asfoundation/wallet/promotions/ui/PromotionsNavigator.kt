@@ -39,15 +39,9 @@ class PromotionsNavigator @Inject constructor(private val fragment: Fragment) :
     bonus: String,
     code: String,
     totalEarned: String,
-    numberReferrals: String,
-    mainNavController: NavController
+    numberReferrals: String
   ) {
-    val bundle = Bundle()
-    bundle.putString(PromotionsVipReferralFragment.BONUS_PERCENT, bonus)
-    bundle.putString(PromotionsVipReferralFragment.PROMO_REFERRAL, code)
-    bundle.putString(PromotionsVipReferralFragment.EARNED_VALUE, totalEarned)
-    bundle.putString(PromotionsVipReferralFragment.EARNED_TOTAL, numberReferrals)
-    mainNavController.navigate(R.id.action_navigate_to_vip_referral, bundle)
+    navigate(fragment.findNavController(), PromotionsFragmentDirections.actionNavigateToVipReferral(bonus, code, totalEarned, numberReferrals))
   }
 
   fun handleShare(link: String) {

@@ -10,6 +10,7 @@ import com.appcoins.wallet.ui.arch.BaseViewModel
 import com.appcoins.wallet.ui.arch.SideEffect
 import com.appcoins.wallet.ui.arch.ViewState
 import com.appcoins.wallet.ui.arch.data.Async
+import com.appcoins.wallet.ui.widgets.ActiveCardPromoCodeItem
 import com.appcoins.wallet.ui.widgets.CardPromotionItem
 import com.asfoundation.wallet.home.usecases.DisplayChatUseCase
 import com.asfoundation.wallet.home.usecases.DisplayConversationListOrChatUseCase
@@ -48,6 +49,7 @@ class RewardViewModel @Inject constructor(
   val promotions = mutableStateListOf<CardPromotionItem>()
   val gamificationHeaderModel = mutableStateOf<GamificationHeaderModel?>(null)
   val vipReferralModel = mutableStateOf<VipReferralInfo?>(null)
+  val activePromoCode = mutableStateOf<ActiveCardPromoCodeItem?>(null)
 
   companion object {
     fun initialState(): RewardState {
