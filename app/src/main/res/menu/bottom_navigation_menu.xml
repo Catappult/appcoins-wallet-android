@@ -18,7 +18,7 @@
       android:title="@string/bottom_navigation_my_wallets" />
   <item
       android:id="@+id/top_up_activity"
-      android:icon="@drawable/ic_topup"
+      android:icon="@drawable/ic_plus_v3"
       android:title="@string/topup_title"
       android:actionLayout="@layout/bottom_nav_top_up_item"/>
 </menu>

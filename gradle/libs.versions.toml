@@ -88,6 +88,8 @@ zxing_android_version = "3.6.0"
 zxing_version = "3.4.0"
 jacoco_version = "0.8.8"
 mockk_version = "1.13.3"
+paging_version = "3.1.1"
+paging_compose_version = "1.0.0-alpha19"
 
 [libraries]
 androidx-navigation-ui = { module = "androidx.navigation:navigation-ui-ktx", version.ref = "androidx_navigation_version" }
@@ -204,6 +206,8 @@ jackson-databind = { module = "com.fasterxml.jackson.core:jackson-databind", ver
 spongycastle-core = { module = "com.madgag.spongycastle:core", version.ref = "spongycastle_version" }
 spongycastle-prov = { module = "com.madgag.spongycastle:prov", version.ref = "spongycastle_version" }
 android-desugar = { module = "com.android.tools:desugar_jdk_libs", version.ref = "desugar_version" }
+paging = { module = "androidx.paging:paging-runtime", version.ref = "paging_version" }
+paging_compose = { module = "androidx.paging:paging-compose", version.ref = "paging_compose_version" }
 
 web3j = { module = "org.web3j:core", version.ref = "web3j_version" }
 kethereum-erc681 = { module = "com.github.walleth.kethereum:erc681", version.ref = "erc681_version" }
@@ -242,6 +246,7 @@ hilt-implementation = ["hilt-android", "hilt-interface-extensions"]
 hilt-kapt = ["hilt-compiler", "hilt-interface-extensions-processor"]
 rx = ["rx-rxjava", "rx-rxandroid", "rx-rxbinding"]
 result = ["kotlin-result-coroutines", "kotlin-result"]
+paging = ["paging", "paging_compose"]
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "gradle_plugin_version" }
