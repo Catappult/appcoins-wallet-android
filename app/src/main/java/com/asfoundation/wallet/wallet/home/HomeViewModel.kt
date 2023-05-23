@@ -84,6 +84,7 @@ sealed class HomeSideEffect : SideEffect {
   object NavigateToTopUp : HomeSideEffect()
   object NavigateToTransfer : HomeSideEffect()
   object NavigateToTransactionsList : HomeSideEffect()
+  object NavigateToRecover : HomeSideEffect()
 }
 
 data class HomeState(
@@ -290,17 +291,17 @@ constructor(
           when (result) {
             is ApiSuccess -> {
               newWallet.value = result.data.isEmpty()
-              _uiState.value =
-                Success(
-                  result.data
-                    .map { it.toModel(defaultCurrency) }
-                    .take(
-                      with(result.data) {
-                        if (isEmpty() || last().txId == get(lastIndex - 1).parentTxId)
-                          size
-                        else size - 1
-                      })
-                    .groupBy { it.date.getDay() })
+              _uiState.value = Success(
+                result.data
+                  .map { it.toModel(defaultCurrency) }
+                  .take(
+                    with(result.data) {
+                      if (size < 4 || last().txId == get(lastIndex - 1).parentTxId) size
+                      else size - 1
+                    }
+                  )
+                  .groupBy { it.date.getDay() }
+              )
             }
 
             is ApiFailure -> {}
@@ -434,6 +435,8 @@ constructor(
       )
     }
   }
+
+  fun onRecoverClick() = sendSideEffect { HomeSideEffect.NavigateToRecover }
 
   fun onNotificationClick(
     cardNotification: CardNotification,

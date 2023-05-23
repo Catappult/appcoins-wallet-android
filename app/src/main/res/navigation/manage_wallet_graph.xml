@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/manage_wallet_graph"
+    app:startDestination="@id/manage_wallet_fragment">
+
+  <fragment
+      android:id="@+id/manage_wallet_fragment"
+      android:name="com.asfoundation.wallet.manage_wallets.ManageWalletFragment" />
+</navigation>

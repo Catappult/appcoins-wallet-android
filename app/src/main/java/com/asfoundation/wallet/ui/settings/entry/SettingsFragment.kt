@@ -13,8 +13,6 @@ import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.SwitchPreferenceCompat
 import com.asf.wallet.R
-import com.asf.wallet.databinding.PreferenceFingerprintBinding
-import com.asf.wallet.databinding.PreferenceFingerprintOffBinding
 import com.asfoundation.wallet.billing.analytics.PageViewAnalytics
 import com.asfoundation.wallet.billing.analytics.WalletsAnalytics
 import com.asfoundation.wallet.billing.analytics.WalletsEventSender
@@ -30,7 +28,7 @@ import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
-import java.util.*
+import java.util.Locale
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -174,14 +172,9 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
   }
 
   override fun setManageWalletPreference() {
-    val backupPreference = findPreference<Preference>("pref_manage_wallet")
-    backupPreference?.setOnPreferenceClickListener {
-      walletsEventSender.sendCreateBackupEvent( // TODO create manage wallet screen
-        null,
-        WalletsAnalytics.SETTINGS,
-        null
-      )
-      presenter.onBackupPreferenceClick()
+    val manageWalletPreference = findPreference<Preference>("pref_manage_wallet")
+    manageWalletPreference?.setOnPreferenceClickListener {
+      presenter.onManageWalletPreferenceClick()
       false
     }
   }
