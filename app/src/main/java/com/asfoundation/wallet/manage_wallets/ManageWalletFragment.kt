@@ -24,6 +24,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -37,6 +38,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.fragment.app.viewModels
+import com.appcoins.wallet.core.utils.android_common.AmountUtils.formatMoney
 import com.appcoins.wallet.ui.common.theme.WalletColors
 import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_blue
 import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_blue_secondary
@@ -48,6 +50,7 @@ import com.appcoins.wallet.ui.widgets.component.BottomSheetButton
 import com.appcoins.wallet.ui.widgets.component.ButtonWithText
 import com.asf.wallet.R
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
+import com.asfoundation.wallet.wallets.domain.WalletBalance
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -85,7 +88,10 @@ class ManageWalletFragment : BasePageViewFragment() {
         .padding(padding),
     ) {
       ScreenHeader()
-      BalanceBottomSheet()
+      when (val uiState = viewModel.uiState.collectAsState().value) {
+        is ManageWalletViewModel.UiState.Balance -> BalanceBottomSheet(uiState.balance)
+        else -> {}
+      }
     }
   }
 
@@ -174,10 +180,9 @@ class ManageWalletFragment : BasePageViewFragment() {
     }
   }
 
-
   @OptIn(ExperimentalMaterial3Api::class)
   @Composable
-  fun BalanceBottomSheet() {
+  fun BalanceBottomSheet(balance: WalletBalance) {
     var openBottomSheet by rememberSaveable { mutableStateOf(false) }
     val skipPartiallyExpanded by remember { mutableStateOf(false) }
     val bottomSheetState =
@@ -191,12 +196,12 @@ class ManageWalletFragment : BasePageViewFragment() {
         .fillMaxWidth()
     ) {
       Text(
-        "Melissa Wallet", //TODO
-        color = WalletColors.styleguide_light_grey,
-        style = MaterialTheme.typography.bodySmall
+        "Melissa Wallet", // TODO
+        color = WalletColors.styleguide_light_grey, style = MaterialTheme.typography.bodySmall
       )
       ButtonWithText(
-        label = "€124,54",//TODO
+        label = balance.creditsOnlyFiat.amount.toString()
+          .formatMoney(balance.creditsOnlyFiat.symbol, "") ?: "",
         onClick = { openBottomSheet = !openBottomSheet },
         labelColor = WalletColors.styleguide_light_grey
       )
@@ -209,22 +214,45 @@ class ManageWalletFragment : BasePageViewFragment() {
         containerColor = styleguide_blue_secondary
       ) {
         Column(
-          Modifier
+          modifier = Modifier
             .fillMaxWidth()
             .padding(start = 16.dp, end = 16.dp, bottom = 48.dp),
           verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
-          TotalBalance("€128,34", "5345,23 APPC")//TODO
+          TotalBalance(
+            amount = balance.creditsOnlyFiat.amount.toString()
+              .formatMoney(balance.creditsOnlyFiat.symbol, "") ?: "",
+            convertedAmount = "${
+              balance.creditsBalance.token.amount.toString().formatMoney()
+            } ${balance.creditsBalance.token.symbol}"
+          )
           Row(
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = CenterVertically,
             modifier = Modifier.fillMaxWidth()
-          ) {//TODO
-            BalanceItem(R.drawable.ic_appc_token, R.string.appc_token_name, "5244 APPC")
-            BalanceItem(R.drawable.ic_appc_c_token, R.string.appc_credits_token_name, "5244 APPC-C")
-            BalanceItem(R.drawable.ic_eth_token, R.string.ethereum_token_name, "5244 ETH")
+          ) {
+            BalanceItem(
+              icon = R.drawable.ic_appc_token,
+              currencyName = R.string.appc_token_name,
+              balance = "${
+                balance.appcBalance.token.amount.toString().formatMoney()
+              } ${balance.appcBalance.token.symbol}"
+            )
+            BalanceItem(
+              icon = R.drawable.ic_appc_c_token,
+              currencyName = R.string.appc_credits_token_name,
+              balance = "${
+                balance.creditsBalance.token.amount.toString().formatMoney()
+              } ${balance.creditsBalance.token.symbol}"
+            )
+            BalanceItem(
+              icon = R.drawable.ic_eth_token,
+              currencyName = R.string.ethereum_token_name,
+              balance = "${
+                balance.ethBalance.token.amount.toString().formatMoney()
+              } ${balance.ethBalance.token.symbol}"
+            )
           }
-
         }
       }
     }
