@@ -112,8 +112,8 @@ fun PromotionsCardComposable(cardItem: CardPromotionItem) {
           cardItem.subtitle,
           cardItem.hasVerticalList
         )
-        Spacer(modifier = Modifier.height(12.dp))
         if (!cardItem.hasFuturePromotion) {
+          Spacer(modifier = Modifier.height(12.dp))
           Text(
             text = stringResource(id = R.string.promotion_ends_short_title),
             color = WalletColors.styleguide_light_grey,
@@ -129,14 +129,14 @@ fun PromotionsCardComposable(cardItem: CardPromotionItem) {
               verticalAlignment = Alignment.CenterVertically
             ) {
               CountDownTimer(cardItem.promotionEndTime)
-              //TODO: Change urlRedirect to PackageName When api updated
-              GetText(cardItem.action, 85.dp, cardItem.urlRedirect)
+              GetText(cardItem.action, 85.dp, cardItem.packageName)
             }
           }
         } else {
+          Spacer(modifier = Modifier.height(20.dp))
           Column(
             modifier = Modifier
-              .height(49.dp)
+              .height(40.dp)
           ) {
             Row(
               modifier = Modifier.fillMaxWidth(),
@@ -144,8 +144,7 @@ fun PromotionsCardComposable(cardItem: CardPromotionItem) {
               verticalAlignment = Alignment.CenterVertically
             ) {
               IconWithText(stringResource(id = R.string.perks_available_soon_short))
-              //TODO: Change urlRedirect to PackageName When api updated
-              GetText(cardItem.action, 0.dp, cardItem.urlRedirect)
+              GetText(cardItem.action, 0.dp, cardItem.packageName)
             }
           }
         }
@@ -239,7 +238,7 @@ fun CardWithTextAndDetail(text: String, detail: String) {
 fun IconWithText(text: String) {
   Row(
     verticalAlignment = Alignment.CenterVertically,
-    modifier = Modifier.padding(start = 19.dp, top = 12.dp)
+    modifier = Modifier.padding(start = 10.dp)
   ) {
     Image(
       painter = painterResource(R.drawable.ic_clock),
@@ -343,6 +342,7 @@ data class CardPromotionItem(
   val promotionEndTime: Long,
   val imageUrl: String?,
   val urlRedirect: String?,
+  val packageName: String?,
   val hasVipPromotion: Boolean,
   val hasFuturePromotion: Boolean,
   val hasVerticalList: Boolean,
@@ -356,6 +356,7 @@ val cardItem = CardPromotionItem(
   promotionEndTime = System.currentTimeMillis(),
   imageUrl = "https://img.freepik.com/vetores-gratis/astronauta-bonito-relaxamento-frio-na-ilustracao-do-icone-do-vetor-dos-desenhos-animados-do-controlador-de-jogo-conceito-de-icone-de-ciencia-de-tecnologia-isolado-vetor-premium-estilo-flat-cartoon_138676-3717.jpg?w=2000",
   urlRedirect = "https://example.com",
+  packageName = null,
   hasVipPromotion = false,
   hasFuturePromotion = false,
   hasVerticalList = false,
@@ -369,6 +370,7 @@ val verticalCardItem = CardPromotionItem(
   promotionEndTime = System.currentTimeMillis(),
   imageUrl = "https://img.freepik.com/vetores-gratis/astronauta-bonito-relaxamento-frio-na-ilustracao-do-icone-do-vetor-dos-desenhos-animados-do-controlador-de-jogo-conceito-de-icone-de-ciencia-de-tecnologia-isolado-vetor-premium-estilo-flat-cartoon_138676-3717.jpg?w=2000",
   urlRedirect = "https://example.com",
+  packageName = null,
   hasVipPromotion = false,
   hasFuturePromotion = false,
   hasVerticalList = true,
@@ -382,6 +384,7 @@ val vipCardItem = CardPromotionItem(
   promotionEndTime = System.currentTimeMillis(),
   imageUrl = "https://img.freepik.com/vetores-gratis/astronauta-bonito-relaxamento-frio-na-ilustracao-do-icone-do-vetor-dos-desenhos-animados-do-controlador-de-jogo-conceito-de-icone-de-ciencia-de-tecnologia-isolado-vetor-premium-estilo-flat-cartoon_138676-3717.jpg?w=2000",
   urlRedirect = "https://example.com",
+  packageName = null,
   hasVipPromotion = true,
   hasFuturePromotion = false,
   hasVerticalList = false,
@@ -395,6 +398,7 @@ val futureCardItem = CardPromotionItem(
   promotionEndTime = System.currentTimeMillis(),
   imageUrl = "https://img.freepik.com/vetores-gratis/astronauta-bonito-relaxamento-frio-na-ilustracao-do-icone-do-vetor-dos-desenhos-animados-do-controlador-de-jogo-conceito-de-icone-de-ciencia-de-tecnologia-isolado-vetor-premium-estilo-flat-cartoon_138676-3717.jpg?w=2000",
   urlRedirect = "https://example.com",
+  packageName = null,
   hasVipPromotion = false,
   hasFuturePromotion = true,
   hasVerticalList = false,
