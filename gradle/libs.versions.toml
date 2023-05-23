@@ -139,6 +139,7 @@ compose-ui-viewbinding = { module = "androidx.compose.ui:ui-viewbinding", versio
 compose-coil = { module = "io.coil-kt:coil-compose", version.ref = "coil_version" }
 compose-activity = { module = "androidx.activity:activity-compose", version.ref = "androidx_compose" }
 compose-compiler = { module = "androidx.compose.compiler:compiler", version.ref = "androidx_compose_compiler" }
+compose-lottie = { module = "com.airbnb.android:lottie-compose", version.ref = "lottie_version" }
 
 network-retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit_version" }
 network-retrofit-adapter-rxjava = { module = "com.squareup.retrofit2:adapter-rxjava2", version.ref = "retrofit_version" }
