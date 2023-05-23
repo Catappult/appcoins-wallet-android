@@ -210,6 +210,7 @@ class PromotionsFragment : BasePageViewFragment(),
     views.noPromotions.root.visibility = View.GONE
   }
 
+  //TODO:
   private fun showPromotionsHeader(
     promotionsModel: PromotionsModel,
     promotionsGamificationStats: PromotionsGamificationStats,
@@ -251,6 +252,7 @@ class PromotionsFragment : BasePageViewFragment(),
     }
   }
 
+  // TODO:
   private fun getGamificationHeaderBinding(gamificationHeaderItem: GamificationItem): GamificationHeaderBindingAdapter {
     return when (gamificationHeaderItem.gamificationStatus) {
       GamificationStatus.APPROACHING_VIP -> {
@@ -288,6 +290,7 @@ class PromotionsFragment : BasePageViewFragment(),
     }
   }
 
+  //TODO
   private fun hideAllGamificationHeaderLayouts() {
     views.currentLevelHeader.almostVipLevelHeader.root.visibility = View.GONE
     views.currentLevelHeader.vipLevelHeader.root.visibility = View.GONE
@@ -295,6 +298,7 @@ class PromotionsFragment : BasePageViewFragment(),
     views.currentLevelHeader.regularLevelHeader.root.visibility = View.GONE
   }
 
+  // TODO:
   private fun showGamificationHeaderColors(
     gamificationHeaderLayout: GamificationHeaderBindingAdapter,
     gamificationHeaderItem: GamificationItem
@@ -331,6 +335,7 @@ class PromotionsFragment : BasePageViewFragment(),
     }
   }
 
+  //TODO:
   private fun showGamificationHeaderText(
     gamificationHeaderLayout: GamificationHeaderBindingAdapter,
     gamificationHeaderItem: GamificationItem
@@ -364,6 +369,7 @@ class PromotionsFragment : BasePageViewFragment(),
     }
   }
 
+  //TODO:
   private fun setMaxVipTextAppearance(
     title: AppCompatTextView?,
     subtitle: AppCompatTextView?
@@ -379,6 +385,7 @@ class PromotionsFragment : BasePageViewFragment(),
     subtitle?.setTextColor(ContextCompat.getColor(requireContext(), R.color.styleguide_white))
   }
 
+  // TODO:
   private fun showGamificationHeaderProgress(
     gamificationHeaderLayout: GamificationHeaderBindingAdapter,
     promotionsGamificationStats: PromotionsGamificationStats
@@ -403,6 +410,7 @@ class PromotionsFragment : BasePageViewFragment(),
     views.promotionsListTitleLayout.root.visibility = View.VISIBLE
   }
 
+  // TODO:
   private fun showNoPromotionsScreen(
     promotionsModel: PromotionsModel,
     promotionsGamificationStats: PromotionsGamificationStats,

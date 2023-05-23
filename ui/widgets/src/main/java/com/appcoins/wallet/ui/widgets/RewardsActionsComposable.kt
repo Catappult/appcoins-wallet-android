@@ -32,7 +32,6 @@ fun RewardsActions(
   Row(
     modifier = Modifier
       .horizontalScroll(scrollState)
-//      .fillMaxWidth()
   ) {
     Spacer(
       modifier = Modifier

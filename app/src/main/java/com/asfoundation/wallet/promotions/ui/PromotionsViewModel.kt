@@ -75,8 +75,8 @@ class PromotionsViewModel @Inject constructor(
       }
       .doOnNext { promotionsModel ->
         if (promotionsModel.error == null) {
-          analyticsSetup.setWalletOrigin(promotionsModel.walletOrigin.name)
-          setSeenWalletOrigin(promotionsModel.wallet.address, promotionsModel.walletOrigin.name)
+          analyticsSetup.setWalletOrigin(promotionsModel.walletOrigin.name)   //TODO
+          setSeenWalletOrigin(promotionsModel.wallet.address, promotionsModel.walletOrigin.name)  //TODO
           setSeenPromotions(promotionsModel.promotions, promotionsModel.wallet.address)
         }
       }
