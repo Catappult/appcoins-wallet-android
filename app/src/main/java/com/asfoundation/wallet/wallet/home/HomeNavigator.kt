@@ -25,7 +25,9 @@ import com.asfoundation.wallet.ui.settings.SettingsActivity
 import com.asfoundation.wallet.ui.transact.TransferActivity
 import javax.inject.Inject
 
-class HomeNavigator @Inject constructor(
+class HomeNavigator
+@Inject
+constructor(
   private val fragment: Fragment,
   private val navBarFragmentNavigator: NavBarFragmentNavigator
 ) : Navigator {
@@ -54,12 +56,10 @@ class HomeNavigator @Inject constructor(
     try {
       val launchBrowser = Intent(Intent.ACTION_VIEW, uri)
       launchBrowser.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-      fragment.requireContext()
-        .startActivity(launchBrowser)
+      fragment.requireContext().startActivity(launchBrowser)
     } catch (exception: ActivityNotFoundException) {
       exception.printStackTrace()
-      Toast.makeText(fragment.requireContext(), R.string.unknown_error, Toast.LENGTH_SHORT)
-        .show()
+      Toast.makeText(fragment.requireContext(), R.string.unknown_error, Toast.LENGTH_SHORT).show()
     }
   }
 
@@ -73,8 +73,8 @@ class HomeNavigator @Inject constructor(
 
   fun navigateToTransactionDetails(transaction: Transaction, globalBalanceCurrency: String) {
     with(fragment.requireContext()) {
-      val intent = Intent(this, TransactionDetailActivity::class.java)
-        .apply {
+      val intent =
+        Intent(this, TransactionDetailActivity::class.java).apply {
           putExtra(C.Key.TRANSACTION, transaction)
           putExtra(C.Key.GLOBAL_BALANCE_CURRENCY, globalBalanceCurrency)
         }
@@ -85,9 +85,7 @@ class HomeNavigator @Inject constructor(
   fun navigateToBackup(walletAddress: String) {
     val intent =
       BackupActivity.newIntent(fragment.requireContext(), walletAddress, isBackupTrigger = false)
-        .apply {
-          flags = Intent.FLAG_ACTIVITY_SINGLE_TOP
-        }
+        .apply { flags = Intent.FLAG_ACTIVITY_SINGLE_TOP }
     openIntent(intent)
   }
 
@@ -100,8 +98,10 @@ class HomeNavigator @Inject constructor(
   }
 
   fun navigateToTopUp() {
-    val intent = TopUpActivity.newIntent(fragment.requireContext())
-      .apply { flags = Intent.FLAG_ACTIVITY_SINGLE_TOP or Intent.FLAG_ACTIVITY_NEW_TASK }
+    val intent =
+      TopUpActivity.newIntent(fragment.requireContext()).apply {
+        flags = Intent.FLAG_ACTIVITY_SINGLE_TOP or Intent.FLAG_ACTIVITY_NEW_TASK
+      }
     fragment.requireContext().startActivity(intent)
   }
 
@@ -115,8 +115,8 @@ class HomeNavigator @Inject constructor(
   }
 
   fun navigateToCurrencySelector() {
-    val intent = ChangeFiatCurrencyActivity.newIntent(fragment.requireContext())
-      .apply {
+    val intent =
+      ChangeFiatCurrencyActivity.newIntent(fragment.requireContext()).apply {
         flags = Intent.FLAG_ACTIVITY_SINGLE_TOP
       }
     openIntent(intent)
@@ -128,9 +128,7 @@ class HomeNavigator @Inject constructor(
     openIntent(intent)
   }
 
-  fun navigateToNfts(
-    mainNavController: NavController
-  ) {
+  fun navigateToNfts(mainNavController: NavController) {
     mainNavController.navigate(R.id.action_navigate_to_nfts)
   }
 

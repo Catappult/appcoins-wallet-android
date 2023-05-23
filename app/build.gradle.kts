@@ -1,5 +1,3 @@
-import groovy.json.JsonSlurper
-
 plugins {
   id("appcoins.android.app")
   id("appcoins.room")
@@ -115,6 +113,8 @@ dependencies {
   implementation(libs.commons.lang3)
   implementation(libs.android.support.annotations)
   implementation(libs.android.installreferrer)
+
+  implementation(libs.bundles.paging)
 
   testImplementation(libs.bundles.testing)
   androidTestImplementation(libs.test.junit.ext)
