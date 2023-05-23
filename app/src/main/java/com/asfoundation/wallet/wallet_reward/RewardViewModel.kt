@@ -3,7 +3,6 @@ package com.asfoundation.wallet.wallet_reward
 
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.ui.graphics.Color
 import com.appcoins.wallet.core.utils.android_common.RxSchedulers
 import com.appcoins.wallet.gamification.repository.PromotionsGamificationStats
 import com.appcoins.wallet.ui.arch.BaseViewModel
@@ -20,8 +19,6 @@ import com.asfoundation.wallet.promotions.ui.PromotionsState
 import com.asfoundation.wallet.promotions.usecases.GetPromotionsUseCase
 import com.asfoundation.wallet.promotions.usecases.SetSeenPromotionsUseCase
 import com.asfoundation.wallet.ui.gamification.GamificationInteractor
-import com.asfoundation.wallet.wallet.home.HomeState
-
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 

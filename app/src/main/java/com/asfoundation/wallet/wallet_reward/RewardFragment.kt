@@ -34,10 +34,7 @@ import com.appcoins.wallet.ui.arch.data.Async
 import com.appcoins.wallet.ui.common.theme.WalletColors
 import com.appcoins.wallet.ui.widgets.*
 import com.asf.wallet.R
-import com.asfoundation.wallet.promotions.model.DefaultItem
-import com.asfoundation.wallet.promotions.model.FutureItem
-import com.asfoundation.wallet.promotions.model.GamificationItem
-import com.asfoundation.wallet.promotions.model.PromotionsModel
+import com.asfoundation.wallet.promotions.model.*
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
 import java.text.DecimalFormat
@@ -247,7 +244,7 @@ class RewardFragment : BasePageViewFragment(), SingleStateFragment<RewardState, 
               promotion.gamificationStatus == GamificationStatus.VIP || promotion.gamificationStatus == GamificationStatus.VIP_MAX,
               false,
               true,
-              action = {  openGame(promotion.packageName ?: promotion.actionUrl, requireContext()) }
+              action = { openGame(promotion.packageName ?: promotion.actionUrl, requireContext()) }
             )
             viewModel.promotions.add(cardItem)
           } else if (promotion is FutureItem) {
@@ -262,7 +259,7 @@ class RewardFragment : BasePageViewFragment(), SingleStateFragment<RewardState, 
               promotion.gamificationStatus == GamificationStatus.VIP || promotion.gamificationStatus == GamificationStatus.VIP_MAX,
               true,
               true,
-              action = {  openGame(promotion.packageName ?: promotion.actionUrl, requireContext()) }
+              action = { openGame(promotion.packageName ?: promotion.actionUrl, requireContext()) }
             )
             viewModel.promotions.add(cardItem)
           } else if (promotion is PromoCodeItem) {
@@ -273,7 +270,7 @@ class RewardFragment : BasePageViewFragment(), SingleStateFragment<RewardState, 
               promotion.actionUrl,
               promotion.packageName,
               true,
-              action = {  openGame(promotion.packageName ?: promotion.actionUrl, requireContext()) }
+              action = { openGame(promotion.packageName ?: promotion.actionUrl, requireContext()) }
             )
             viewModel.activePromoCode.value = cardItem
           }
