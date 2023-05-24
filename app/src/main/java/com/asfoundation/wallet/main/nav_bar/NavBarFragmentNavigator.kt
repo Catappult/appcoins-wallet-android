@@ -9,6 +9,7 @@ import com.asf.wallet.R
 import com.appcoins.wallet.core.arch.data.Navigator
 import com.appcoins.wallet.core.arch.data.navigate
 import com.asfoundation.wallet.main.MainActivity
+import com.asfoundation.wallet.my_wallets.main.MyWalletsFragmentDirections
 import com.asfoundation.wallet.topup.TopUpActivity
 import com.asfoundation.wallet.ui.overlay.OverlayFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView

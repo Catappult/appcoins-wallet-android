@@ -7,9 +7,13 @@ import android.content.pm.PackageManager
 import android.net.Uri
 import androidx.core.content.ContextCompat.startActivity
 
-fun openGame(gamePackage: String, context: Context) {
+fun openGame(gamePackage: String?, context: Context) {
   try {
-    val launchIntent: Intent? = context.packageManager.getLaunchIntentForPackage(gamePackage)
+    val launchIntent: Intent? = gamePackage?.let {
+      context.packageManager.getLaunchIntentForPackage(
+        it
+      )
+    }
     if (launchIntent != null)
       startActivity(context, launchIntent, null)
     else
@@ -31,7 +35,7 @@ fun isPackageGameInstalled(packageName: String?, packageManager: PackageManager)
   }
 }
 
-private fun getGame(gamePackage: String, context: Context) {
+private fun getGame(gamePackage: String?, context: Context) {
   try {
     val intent = Intent(
       Intent.ACTION_VIEW,
