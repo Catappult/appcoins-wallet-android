@@ -4,24 +4,35 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Arrangement.Absolute.SpaceBetween
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.AccountCircle
+import androidx.compose.material.icons.filled.Clear
+import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.filled.MoreVert
+import androidx.compose.material.icons.filled.Share
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -32,30 +43,41 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment.Companion.CenterVertically
+import androidx.compose.ui.Alignment.Companion.End
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.fragment.app.viewModels
 import com.appcoins.wallet.core.utils.android_common.AmountUtils.formatMoney
+import com.appcoins.wallet.core.utils.android_common.extensions.StringUtils.masked
 import com.appcoins.wallet.ui.common.theme.WalletColors
 import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_blue
 import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_blue_secondary
+import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_pink
+import com.appcoins.wallet.ui.widgets.BackupAlertCard
 import com.appcoins.wallet.ui.widgets.BalanceItem
 import com.appcoins.wallet.ui.widgets.TopBar
 import com.appcoins.wallet.ui.widgets.TotalBalance
 import com.appcoins.wallet.ui.widgets.VectorIconButton
+import com.appcoins.wallet.ui.widgets.VerifyWalletAlertCard
 import com.appcoins.wallet.ui.widgets.component.BottomSheetButton
-import com.appcoins.wallet.ui.widgets.component.ButtonWithText
 import com.asf.wallet.R
+import com.asfoundation.wallet.my_wallets.more.MoreDialogNavigator
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
-import com.asfoundation.wallet.wallets.domain.WalletBalance
+import com.asfoundation.wallet.wallets.domain.WalletInfo
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class ManageWalletFragment : BasePageViewFragment() {
+
+  @Inject
+  lateinit var navigator: MoreDialogNavigator
+
   private val viewModel: ManageWalletViewModel by viewModels()
 
   override fun onCreateView(
@@ -87,23 +109,114 @@ class ManageWalletFragment : BasePageViewFragment() {
         .verticalScroll(rememberScrollState())
         .padding(padding),
     ) {
-      ScreenHeader()
       when (val uiState = viewModel.uiState.collectAsState().value) {
-        is ManageWalletViewModel.UiState.Balance -> BalanceBottomSheet(uiState.balance)
+        is ManageWalletViewModel.UiState.Success -> ActiveWalletCard(uiState.walletInfo)
         else -> {}
       }
     }
   }
 
   @Composable
-  fun ScreenHeader() {
+  fun ActiveWalletCard(walletInfo: WalletInfo) {
+    ScreenHeader(walletInfo)
+    Column(horizontalAlignment = End, modifier = Modifier.padding(16.dp)) {
+      ActiveWalletIndicator()
+      Card(
+        colors = CardDefaults.cardColors(styleguide_blue_secondary),
+        border = BorderStroke(1.dp, styleguide_pink),
+        shape = RoundedCornerShape(bottomEnd = 16.dp, bottomStart = 16.dp, topStart = 16.dp)
+      ) {
+        Column(
+          modifier =
+          Modifier.padding(start = 16.dp, top = 8.dp, end = 16.dp, bottom = 24.dp)
+        ) {
+          BalanceBottomSheet(walletInfo)
+          ActiveWalletOptions(walletInfo.wallet)
+          Spacer(modifier = Modifier.height(24.dp))
+          BackupAlertCard(onClickButton = {})
+          Separator()
+          VerifyWalletAlertCard(onClickButton = {})
+        }
+      }
+    }
+  }
+
+  @Composable
+  fun ActiveWalletIndicator() {
+    Surface(
+      color = styleguide_pink,
+      shape = RoundedCornerShape(topEnd = 16.dp, topStart = 16.dp)
+    ) {
+      Text(
+        modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp),
+        text = stringResource(R.string.wallets_active_wallet_title),
+        color = styleguide_blue,
+        style = MaterialTheme.typography.bodySmall
+      )
+    }
+
+  }
+
+  @Composable
+  fun Separator() {
+    Surface(
+      modifier = Modifier
+        .fillMaxWidth()
+        .padding(vertical = 24.dp)
+        .height(1.dp),
+      color = styleguide_blue,
+      content = {})
+  }
+
+  @Composable
+  fun ActiveWalletOptions(wallet: String) {
+    Row(
+      modifier = Modifier.fillMaxWidth(),
+      verticalAlignment = CenterVertically,
+      horizontalArrangement = Arrangement.SpaceBetween
+    ) {
+      Column {
+        Text(
+          text = stringResource(R.string.transfer_send_recipient_title),
+          style = MaterialTheme.typography.bodySmall,
+          color = WalletColors.styleguide_dark_grey
+        )
+        Text(
+          text = wallet.masked(),
+          style = MaterialTheme.typography.bodySmall,
+          color = WalletColors.styleguide_light_grey
+        )
+      }
+      Row {
+        VectorIconButton(
+          imageVector = Icons.Default.Edit,
+          contentDescription = R.string.action_edit,
+          onClick = {})
+        VectorIconButton(
+          imageVector = Icons.Default.Clear,
+          contentDescription = R.string.action_edit,
+          onClick = {})
+        VectorIconButton(
+          imageVector = Icons.Default.Share,
+          contentDescription = R.string.action_edit,
+          onClick = {})
+        VectorIconButton(
+          imageVector = Icons.Default.AccountCircle,
+          contentDescription = R.string.action_edit,
+          onClick = {})
+      }
+    }
+  }
+
+  @Composable
+  fun ScreenHeader(walletInfo: WalletInfo) {
     Row(
       horizontalArrangement = SpaceBetween,
       verticalAlignment = CenterVertically,
       modifier = Modifier.fillMaxWidth()
     ) {
       ScreenTitle()
-      ManagementOptionsBottomSheet()
+      ManagementOptionsBottomSheet(walletInfo)
     }
   }
 
@@ -120,7 +233,7 @@ class ManageWalletFragment : BasePageViewFragment() {
 
   @OptIn(ExperimentalMaterial3Api::class)
   @Composable
-  fun ManagementOptionsBottomSheet() {
+  fun ManagementOptionsBottomSheet(walletInfo: WalletInfo) {
     var openBottomSheet by rememberSaveable { mutableStateOf(false) }
     val skipPartiallyExpanded by remember { mutableStateOf(false) }
     val scope = rememberCoroutineScope()
@@ -157,7 +270,10 @@ class ManageWalletFragment : BasePageViewFragment() {
             onClick = {
               scope
                 .launch { bottomSheetState.hide() }
-                .invokeOnCompletion { /*navigator.navigateToCreateNewWallet()*/ }
+                .invokeOnCompletion {
+                  openBottomSheet = !openBottomSheet
+                  navigator.navigateToCreateNewWallet()
+                }
             })
           BottomSheetButton(
             R.drawable.ic_recover_wallet,
@@ -165,7 +281,10 @@ class ManageWalletFragment : BasePageViewFragment() {
             onClick = {
               scope
                 .launch { bottomSheetState.hide() }
-                .invokeOnCompletion { /*navigator.navigateToRestoreWallet()*/ }
+                .invokeOnCompletion {
+                  openBottomSheet = !openBottomSheet
+                  navigator.navigateToRestoreWallet()
+                }
             })
           BottomSheetButton(
             R.drawable.ic_delete_v3,
@@ -173,7 +292,21 @@ class ManageWalletFragment : BasePageViewFragment() {
             onClick = {
               scope
                 .launch { bottomSheetState.hide() }
-                .invokeOnCompletion { /*navigator.navigateToRemoveWallet()*/ }
+                .invokeOnCompletion {
+                  openBottomSheet = !openBottomSheet
+                  navigator.navigateToRemoveWallet(
+                    walletAddress = walletInfo.wallet,
+                    totalFiatBalance =
+                    walletInfo.walletBalance.overallFiat.amount.toString(),
+                    appcoinsBalance =
+                    walletInfo.walletBalance.appcBalance.token.amount.toString(),
+                    creditsBalance =
+                    walletInfo.walletBalance.creditsBalance.token.amount
+                      .toString(),
+                    ethereumBalance =
+                    walletInfo.walletBalance.ethBalance.token.amount.toString()
+                  )
+                }
             })
         }
       }
@@ -182,7 +315,8 @@ class ManageWalletFragment : BasePageViewFragment() {
 
   @OptIn(ExperimentalMaterial3Api::class)
   @Composable
-  fun BalanceBottomSheet(balance: WalletBalance) {
+  fun BalanceBottomSheet(walletInfo: WalletInfo) {
+    val balance = walletInfo.walletBalance
     var openBottomSheet by rememberSaveable { mutableStateOf(false) }
     val skipPartiallyExpanded by remember { mutableStateOf(false) }
     val bottomSheetState =
@@ -191,20 +325,25 @@ class ManageWalletFragment : BasePageViewFragment() {
     Row(
       horizontalArrangement = Arrangement.SpaceBetween,
       verticalAlignment = CenterVertically,
-      modifier = Modifier
-        .padding(start = 16.dp)
-        .fillMaxWidth()
+      modifier = Modifier.fillMaxWidth()
     ) {
       Text(
-        "Melissa Wallet", // TODO
-        color = WalletColors.styleguide_light_grey, style = MaterialTheme.typography.bodySmall
+        walletInfo.name,
+        color = WalletColors.styleguide_light_grey,
+        style = MaterialTheme.typography.bodySmall
       )
-      ButtonWithText(
-        label = balance.creditsOnlyFiat.amount.toString()
-          .formatMoney(balance.creditsOnlyFiat.symbol, "") ?: "",
-        onClick = { openBottomSheet = !openBottomSheet },
-        labelColor = WalletColors.styleguide_light_grey
-      )
+      TextButton(onClick = { openBottomSheet = !openBottomSheet }) {
+        Text(
+          text =
+          balance.creditsOnlyFiat.amount
+            .toString()
+            .formatMoney(balance.creditsOnlyFiat.symbol, "")
+            ?: "",
+          style = MaterialTheme.typography.bodyMedium,
+          color = WalletColors.styleguide_light_grey,
+          fontWeight = FontWeight.Bold
+        )
+      }
     }
 
     if (openBottomSheet) {
@@ -214,15 +353,20 @@ class ManageWalletFragment : BasePageViewFragment() {
         containerColor = styleguide_blue_secondary
       ) {
         Column(
-          modifier = Modifier
+          modifier =
+          Modifier
             .fillMaxWidth()
             .padding(start = 16.dp, end = 16.dp, bottom = 48.dp),
           verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
           TotalBalance(
-            amount = balance.creditsOnlyFiat.amount.toString()
-              .formatMoney(balance.creditsOnlyFiat.symbol, "") ?: "",
-            convertedAmount = "${
+            amount =
+            balance.creditsOnlyFiat.amount
+              .toString()
+              .formatMoney(balance.creditsOnlyFiat.symbol, "")
+              ?: "",
+            convertedAmount =
+            "${
               balance.creditsBalance.token.amount.toString().formatMoney()
             } ${balance.creditsBalance.token.symbol}"
           )
@@ -234,21 +378,24 @@ class ManageWalletFragment : BasePageViewFragment() {
             BalanceItem(
               icon = R.drawable.ic_appc_token,
               currencyName = R.string.appc_token_name,
-              balance = "${
+              balance =
+              "${
                 balance.appcBalance.token.amount.toString().formatMoney()
               } ${balance.appcBalance.token.symbol}"
             )
             BalanceItem(
               icon = R.drawable.ic_appc_c_token,
               currencyName = R.string.appc_credits_token_name,
-              balance = "${
+              balance =
+              "${
                 balance.creditsBalance.token.amount.toString().formatMoney()
               } ${balance.creditsBalance.token.symbol}"
             )
             BalanceItem(
               icon = R.drawable.ic_eth_token,
               currencyName = R.string.ethereum_token_name,
-              balance = "${
+              balance =
+              "${
                 balance.ethBalance.token.amount.toString().formatMoney()
               } ${balance.ethBalance.token.symbol}"
             )
@@ -256,5 +403,11 @@ class ManageWalletFragment : BasePageViewFragment() {
         }
       }
     }
+  }
+
+  @Preview
+  @Composable
+  fun PreviewActiveWalletOptions() {
+    ActiveWalletOptions("a24863cb-e586-472f-9e8a-622834c20c52")
   }
 }

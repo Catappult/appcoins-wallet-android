@@ -188,15 +188,24 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
           content = walletOptionsBottomSheet(
             onManageWalletClick = {
               scope.launch { bottomSheetState.hide() }
-                .invokeOnCompletion { navigateToManageWallet() }
+                .invokeOnCompletion {
+                  openBottomSheet = !openBottomSheet
+                  navigateToManageWallet()
+                }
             },
             onRecoverWalletClick = {
               scope.launch { bottomSheetState.hide() }
-                .invokeOnCompletion { viewModel.onRecoverClick() }
+                .invokeOnCompletion {
+                  openBottomSheet = !openBottomSheet
+                  viewModel.onRecoverClick()
+                }
             },
             onBackupWalletClick = {
               scope.launch { bottomSheetState.hide() }
-                .invokeOnCompletion { viewModel.onBackupClick() }
+                .invokeOnCompletion {
+                  openBottomSheet = !openBottomSheet
+                  viewModel.onBackupClick()
+                }
             },
           )
         )

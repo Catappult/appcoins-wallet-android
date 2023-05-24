@@ -2,7 +2,7 @@ package com.asfoundation.wallet.manage_wallets
 
 import androidx.lifecycle.ViewModel
 import com.asfoundation.wallet.home.usecases.DisplayChatUseCase
-import com.asfoundation.wallet.wallets.domain.WalletBalance
+import com.asfoundation.wallet.wallets.domain.WalletInfo
 import com.asfoundation.wallet.wallets.usecases.ObserveWalletInfoUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.Observable
@@ -35,7 +35,7 @@ constructor(
       .flatMap {
         observeWalletInfoUseCase(null, update = true, updateFiat = true)
           .map { walletInfo ->
-            _uiState.value = UiState.Balance(walletInfo.walletBalance)
+            _uiState.value = UiState.Success(walletInfo)
           }
       }
       .subscribe()
@@ -43,6 +43,6 @@ constructor(
   sealed class UiState {
     object Idle : UiState()
     object Loading : UiState()
-    data class Balance(val balance: WalletBalance) : UiState()
+    data class Success(val walletInfo: WalletInfo) : UiState()
   }
 }
