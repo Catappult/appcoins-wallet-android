@@ -9,9 +9,7 @@ import com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue
 import com.appcoins.wallet.feature.changecurrency.data.currencies.LocalCurrencyConversionService
 import com.appcoins.wallet.sharedpreferences.FiatCurrenciesPreferencesDataSource
 import com.github.michaelbull.result.map
-import com.github.michaelbull.result.onFailure
 import com.github.michaelbull.result.onSuccess
-import com.github.michaelbull.result.unwrap
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.rx2.await
 import kotlinx.coroutines.withContext
