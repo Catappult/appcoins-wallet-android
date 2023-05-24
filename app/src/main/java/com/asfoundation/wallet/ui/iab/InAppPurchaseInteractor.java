@@ -522,7 +522,7 @@ public class InAppPurchaseInteractor {
 
   private Boolean isToShowPaypalLogout(PaymentMethodEntity paymentMethod) {
     return paymentMethod.getId()
-        .equals("paypal_v2") /* && hasLogin */;  //TODO
+        .equals(PaymentMethodsView.PaymentMethodId.PAYPAL_V2.getId());
   }
 
   private PaymentMethodFee mapPaymentMethodFee(FeeEntity feeEntity) {

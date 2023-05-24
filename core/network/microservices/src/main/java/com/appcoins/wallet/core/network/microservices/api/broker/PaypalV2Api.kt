@@ -3,6 +3,7 @@ package com.appcoins.wallet.core.network.microservices.api.broker
 import com.appcoins.wallet.core.network.microservices.model.*
 import io.reactivex.Single
 import retrofit2.http.Body
+import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.Query
 
@@ -35,4 +36,17 @@ interface PaypalV2Api {
     @Query("wallet.signature") walletSignature: String,
     @Body token: String
   ): Single<String?>
+
+  @GET("8.20230522/gateways/paypal/billing-agreement")
+  fun getCurrentBillingAgreement(
+    @Query("wallet.address") walletAddress: String,
+    @Query("wallet.signature") walletSignature: String,
+  ): Single<PaypalV2GetAgreementResponse>
+
+  @POST("8.20230522/gateways/paypal/billing-agreement/cancel")
+  fun removeBillingAgreement(
+    @Query("wallet.address") walletAddress: String,
+    @Query("wallet.signature") walletSignature: String,
+  ): Single<Result<String?>>
+
 }

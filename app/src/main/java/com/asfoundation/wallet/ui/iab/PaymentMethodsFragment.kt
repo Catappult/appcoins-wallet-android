@@ -25,6 +25,8 @@ import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.asfoundation.wallet.util.Period
 import com.appcoins.wallet.core.utils.android_common.WalletCurrency
 import com.asf.wallet.databinding.PaymentMethodsLayoutBinding
+import com.asfoundation.wallet.billing.paypal.usecases.IsPaypalAgreementCreatedUseCase
+import com.asfoundation.wallet.billing.paypal.usecases.RemovePaypalBillingAgreementUseCase
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import com.asfoundation.wallet.wallets.usecases.GetWalletInfoUseCase
 import com.jakewharton.rxbinding2.view.RxView
@@ -91,13 +93,19 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
   lateinit var formatter: CurrencyFormatUtils
 
   @Inject
+  lateinit var paymentMethodsInteractor: PaymentMethodsInteractor
+
+  @Inject
   lateinit var getWalletInfoUseCase: GetWalletInfoUseCase
 
   @Inject
-  lateinit var logger: Logger
+  lateinit var removePaypalBillingAgreementUseCase: RemovePaypalBillingAgreementUseCase
 
   @Inject
-  lateinit var paymentMethodsInteractor: PaymentMethodsInteractor
+  lateinit var isPaypalAgreementCreatedUseCase: IsPaypalAgreementCreatedUseCase
+
+  @Inject
+  lateinit var logger: Logger
 
   private lateinit var presenter: PaymentMethodsPresenter
   private lateinit var iabView: IabView
@@ -148,6 +156,8 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
       paymentMethodsMapper = paymentMethodsMapper,
       formatter = formatter,
       getWalletInfoUseCase = getWalletInfoUseCase,
+      removePaypalBillingAgreementUseCase = removePaypalBillingAgreementUseCase,
+      isPaypalAgreementCreatedUseCase = isPaypalAgreementCreatedUseCase,
       logger = logger,
       interactor = paymentMethodsInteractor,
       paymentMethodsData = paymentMethodsData
@@ -198,10 +208,11 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
     appcEnabled: Boolean,
     creditsEnabled: Boolean,
     frequency: String?,
-    isSubscription: Boolean
+    isSubscription: Boolean,
+    showLogoutPaypal: Boolean
   ) {
     updateHeaderInfo(currency, fiatAmount, appcAmount, frequency, isSubscription)
-    setupPaymentMethods(paymentMethods, paymentMethodId)
+    setupPaymentMethods(paymentMethods, paymentMethodId, showLogoutPaypal)
     if (paymentMethods.size == 1 && paymentMethods[0].id == PaymentMethodId.APPC_CREDITS.id) {
       hideBonus()
     }
@@ -216,7 +227,8 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
 
   private fun setupPaymentMethods(
     paymentMethods: MutableList<PaymentMethod>,
-    paymentMethodId: String
+    paymentMethodId: String,
+    showLogoutPaypal: Boolean
   ) {
     if (paymentMethods.size == 1 && paymentMethods[0].showTopup) {
       binding.dialogBuyButtonsPaymentMethods.buyButton.tag = !paymentMethods[0].showTopup
@@ -228,7 +240,18 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
     binding.midSeparator?.visibility = View.VISIBLE
     if (paymentMethods.isNotEmpty()) {
       paymentMethodsAdapter =
-        PaymentMethodsAdapter(paymentMethods, paymentMethodId, paymentMethodClick, topupClick)
+        PaymentMethodsAdapter(
+          paymentMethods = paymentMethods,
+          paymentMethodId = paymentMethodId,
+          paymentMethodClick = paymentMethodClick,
+          topupClick = topupClick,
+          showPaypalLogout = showLogoutPaypal,
+          wasLoggedOut = { presenter.wasLoggedOut },
+          logoutCallback = {
+            presenter.removePaypalBillingAgreement()
+            presenter.wasLoggedOut = true
+          }
+        )
       binding.paymentMethodsRadioList.adapter = paymentMethodsAdapter
       paymentMethodList.clear()
       paymentMethodList.addAll(paymentMethods)

@@ -30,8 +30,11 @@ import com.asfoundation.wallet.ui.iab.FiatValue
 import com.asfoundation.wallet.ui.iab.PaymentMethod
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.appcoins.wallet.core.utils.android_common.WalletCurrency
+import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.appcoins.wallet.ui.common.convertDpToPx
 import com.asf.wallet.databinding.FragmentTopUpBinding
+import com.asfoundation.wallet.billing.paypal.usecases.IsPaypalAgreementCreatedUseCase
+import com.asfoundation.wallet.billing.paypal.usecases.RemovePaypalBillingAgreementUseCase
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import com.jakewharton.rxbinding2.view.RxView
 import com.jakewharton.rxbinding2.widget.RxTextView
@@ -53,10 +56,19 @@ class TopUpFragment : BasePageViewFragment(), TopUpFragmentView {
   lateinit var interactor: TopUpInteractor
 
   @Inject
+  lateinit var removePaypalBillingAgreementUseCase: RemovePaypalBillingAgreementUseCase
+
+  @Inject
+  lateinit var isPaypalAgreementCreatedUseCase: IsPaypalAgreementCreatedUseCase
+
+  @Inject
   lateinit var topUpAnalytics: TopUpAnalytics
 
   @Inject
   lateinit var formatter: CurrencyFormatUtils
+
+  @Inject
+  lateinit var logger: Logger
 
   private lateinit var adapter: TopUpPaymentMethodsAdapter
   private lateinit var presenter: TopUpFragmentPresenter
@@ -133,9 +145,21 @@ class TopUpFragment : BasePageViewFragment(), TopUpFragmentView {
     paymentMethodClick = PublishRelay.create()
     valueSubject = PublishSubject.create()
     keyboardEvents = PublishSubject.create()
-    presenter = TopUpFragmentPresenter(this, topUpActivityView, interactor,
-        AndroidSchedulers.mainThread(), Schedulers.io(), CompositeDisposable(), topUpAnalytics,
-        formatter, savedInstanceState?.getString(SELECTED_VALUE_PARAM))
+    presenter = TopUpFragmentPresenter(
+      view = this,
+      activity = topUpActivityView,
+      interactor = interactor,
+      removePaypalBillingAgreementUseCase = removePaypalBillingAgreementUseCase,
+      isPaypalAgreementCreatedUseCase = isPaypalAgreementCreatedUseCase,
+      viewScheduler = AndroidSchedulers.mainThread(),
+      networkScheduler = Schedulers.io(),
+      disposables = CompositeDisposable(),
+      topUpAnalytics = topUpAnalytics,
+      formatter = formatter,
+      selectedValue = savedInstanceState?.getString(SELECTED_VALUE_PARAM),
+      logger = logger,
+      networkThread = Schedulers.io(),
+    )
   }
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -173,9 +197,18 @@ class TopUpFragment : BasePageViewFragment(), TopUpFragmentView {
     presenter.onSavedInstance(outState)
   }
 
-  override fun setupPaymentMethods(paymentMethods: List<PaymentMethod>) {
+  override fun setupPaymentMethods(paymentMethods: List<PaymentMethod>, showLogoutPaypal: Boolean) {
     this@TopUpFragment.paymentMethods = paymentMethods
-    adapter = TopUpPaymentMethodsAdapter(paymentMethods, paymentMethodClick)
+    adapter = TopUpPaymentMethodsAdapter(
+      paymentMethods = paymentMethods,
+      paymentMethodClick = paymentMethodClick,
+      showPaypalLogout = showLogoutPaypal,
+      wasLoggedOut = { presenter.wasLoggedOut },
+      logoutCallback = {
+        presenter.removePaypalBillingAgreement()
+        presenter.wasLoggedOut = true
+      }
+    )
     selectPaymentMethod(paymentMethods)
 
     binding.paymentMethods.adapter = adapter

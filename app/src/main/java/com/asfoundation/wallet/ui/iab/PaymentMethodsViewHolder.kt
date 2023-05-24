@@ -24,7 +24,10 @@ class PaymentMethodsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemVie
     data: PaymentMethod,
     checked: Boolean,
     listener: View.OnClickListener,
-    onClickListener: View.OnClickListener
+    onClickListenerTopup: View.OnClickListener,
+    showPaypalLogout: Boolean,
+    onClickPaypalLogout: () -> Unit,
+    wasLoggedOut: () -> Boolean
   ) {
     GlideApp.with(itemView.context)
       .load(data.iconUrl)
@@ -54,7 +57,7 @@ class PaymentMethodsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemVie
 
       applyAlphaScale(binding.paymentMethodIc)
     }
-    binding.checkoutTopupButton.setOnClickListener(onClickListener)
+    binding.checkoutTopupButton.setOnClickListener(onClickListenerTopup)
     if (data.showTopup) {
       binding.checkoutTopupButton.visibility = View.VISIBLE
       binding.radioButton.visibility = View.GONE
@@ -63,12 +66,16 @@ class PaymentMethodsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemVie
       binding.radioButton.visibility = View.VISIBLE
     }
     if (data.showLogout) {
-      binding.paymentMoreLogout.visibility = View.VISIBLE
+      binding.paymentMoreLogout.visibility = if (showPaypalLogout && !wasLoggedOut())
+        View.VISIBLE
+      else
+        View.GONE
       binding.paymentMoreLogout.setOnClickListener {
         val popup = PopupMenu(itemView.context.applicationContext, it)
         popup.menuInflater.inflate(R.menu.logout_menu, popup.menu)
         popup.setOnMenuItemClickListener { menuItem: MenuItem ->
-          // TODO send click callback to parent.
+          binding.paymentMoreLogout.visibility = View.GONE
+          onClickPaypalLogout()
           return@setOnMenuItemClickListener true
         }
 //        popup.setOnDismissListener {
