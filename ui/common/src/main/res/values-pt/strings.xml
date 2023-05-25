@@ -490,6 +490,7 @@
   <string name="back_up_button">Back up da wallet</string>
   <string name="play_button">Play</string>
   <string name="manage_wallet_button">Manage wallet</string>
+  <string name="log_out_button">Log out</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Eu concordo com os %1$s e a %2$s da AppCoins Wallet.</string>
   <string name="terms_and_conditions_error">Por favor aceita os nossos Termos e Condições e a Política de Privacidade para continuar</string>
@@ -610,6 +611,7 @@
   <string name="purchase_error_generic_contact_us_body">Ups, alguma coisa correu mal. Por favor tenta novamente ou contacta-nos.</string>
   <string name="error_blocked_wallet_title">Blocked Wallet</string>
   <string name="error_blocked_wallet_body">For security reasons, your wallet has been blocked. Please contact us for more information.</string>
+  <string name="purchase_paypal_additional_fees_disclaimer_body">Additional fees may apply.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">Morada de faturação</string>
   <string name="purchase_address_address_field">Morada</string>
