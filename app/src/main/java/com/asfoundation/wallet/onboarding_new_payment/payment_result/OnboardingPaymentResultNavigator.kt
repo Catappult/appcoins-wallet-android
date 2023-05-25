@@ -1,6 +1,7 @@
 package com.asfoundation.wallet.onboarding_new_payment.payment_result
 
 import android.content.Intent
+import android.content.pm.ActivityInfo
 import android.content.pm.PackageManager
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
@@ -34,10 +35,12 @@ class OnboardingPaymentResultNavigator @Inject constructor(
   }
 
   fun navigateToHome() {
+    fragment.requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED
     fragment.setFragmentResult(ONBOARDING_PAYMENT_CONCLUSION, bundleOf("fragmentEnded" to "result"))
   }
 
   fun navigateBackToPaymentMethods() {
+    fragment.requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED
     fragment.findNavController()
       .popBackStack(R.id.onboarding_payment_methods_fragment, inclusive = false)
   }

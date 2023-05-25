@@ -4,13 +4,13 @@ import androidx.compose.runtime.Composable
 
 @Composable
 fun GamesBundle(
-  items: List<GameCardData>,
+  items: List<GameData>,
   fetchFromApiCallback: () -> Unit
 ) {
 
 }
 
-data class GameCardData(
+data class GameData(
   val title: String,
   val gameIcon: String,
   val gameBackground: String,

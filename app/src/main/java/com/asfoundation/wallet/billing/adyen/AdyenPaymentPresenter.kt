@@ -18,7 +18,7 @@ import com.asf.wallet.R
 import com.asfoundation.wallet.billing.address.BillingAddressModel
 import com.asfoundation.wallet.billing.adyen.AdyenErrorCodeMapper.Companion.CVC_DECLINED
 import com.asfoundation.wallet.billing.adyen.AdyenErrorCodeMapper.Companion.FRAUD
-import com.appcoins.wallet.core.analytics.analytics.legacy.BillingAnalytics
+import com.asfoundation.wallet.billing.analytics.BillingAnalytics
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.service.ServicesErrorCodeMapper
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
@@ -38,28 +38,28 @@ import java.math.BigDecimal
 import java.util.concurrent.TimeUnit
 
 class AdyenPaymentPresenter(
-    private val view: AdyenPaymentView,
-    private val disposables: CompositeDisposable,
-    private val viewScheduler: Scheduler,
-    private val networkScheduler: Scheduler,
-    private val returnUrl: String,
-    private val analytics: BillingAnalytics,
-    private val paymentAnalytics: PaymentMethodsAnalytics,
-    private val origin: String?,
-    private val adyenPaymentInteractor: AdyenPaymentInteractor,
-    private val skillsPaymentInteractor: SkillsPaymentInteractor,
-    private val transactionBuilder: TransactionBuilder,
-    private val navigator: Navigator,
-    private val paymentType: String,
-    private val amount: BigDecimal,
-    private val currency: String,
-    private val skills: Boolean,
-    private val isPreSelected: Boolean,
-    private val adyenErrorCodeMapper: AdyenErrorCodeMapper,
-    private val servicesErrorCodeMapper: ServicesErrorCodeMapper,
-    private val gamificationLevel: Int,
-    private val formatter: CurrencyFormatUtils,
-    private val logger: Logger
+  private val view: AdyenPaymentView,
+  private val disposables: CompositeDisposable,
+  private val viewScheduler: Scheduler,
+  private val networkScheduler: Scheduler,
+  private val returnUrl: String,
+  private val analytics: BillingAnalytics,
+  private val paymentAnalytics: PaymentMethodsAnalytics,
+  private val origin: String?,
+  private val adyenPaymentInteractor: AdyenPaymentInteractor,
+  private val skillsPaymentInteractor: SkillsPaymentInteractor,
+  private val transactionBuilder: TransactionBuilder,
+  private val navigator: Navigator,
+  private val paymentType: String,
+  private val amount: BigDecimal,
+  private val currency: String,
+  private val skills: Boolean,
+  private val isPreSelected: Boolean,
+  private val adyenErrorCodeMapper: AdyenErrorCodeMapper,
+  private val servicesErrorCodeMapper: ServicesErrorCodeMapper,
+  private val gamificationLevel: Int,
+  private val formatter: CurrencyFormatUtils,
+  private val logger: Logger
 ) {
 
   private var waitingResult = false

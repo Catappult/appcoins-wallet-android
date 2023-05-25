@@ -48,7 +48,18 @@ class OnboardingPaymentMethodsViewModel @Inject constructor(
   private fun handlePaymentMethods() {
     cachedTransactionRepository.getCachedTransaction()
       .flatMap { cachedTransaction ->
-        getFirstPaymentMethodsUseCase(cachedTransaction)
+        var diffCachedTransaction = cachedTransaction
+         if (cachedTransaction.value <= 0.0) {
+           diffCachedTransaction = cachedTransaction.copy(
+             value = args.amount.toDouble()
+           )
+         }
+        if (cachedTransaction.currency.isNullOrEmpty()) {
+          diffCachedTransaction = diffCachedTransaction.copy(
+            currency = args.currency
+          )
+        }
+        getFirstPaymentMethodsUseCase(diffCachedTransaction)
           // to only use getFirstPaymentMethodsUseCase and remove the doOnSuccess after all methods are ready
           .doOnSuccess { availablePaymentMethods ->
             setState {

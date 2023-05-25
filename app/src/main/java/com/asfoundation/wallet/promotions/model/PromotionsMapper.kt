@@ -151,7 +151,9 @@ class PromotionsMapper @Inject constructor(private val gamificationMapper: Gamif
       genericResponse.appName,
       genericResponse.startDate,
       genericResponse.endDate,
-      genericResponse.detailsLink
+      genericResponse.detailsLink,
+      genericResponse.actionUrl,
+      genericResponse.packageName
     )
   }
 
@@ -191,7 +193,9 @@ class PromotionsMapper @Inject constructor(private val gamificationMapper: Gamif
       genericResponse.appName,
       genericResponse.startDate,
       genericResponse.endDate,
-      genericResponse.detailsLink
+      genericResponse.detailsLink,
+      genericResponse.actionUrl,
+      genericResponse.packageName
     )
   }
 
@@ -203,7 +207,9 @@ class PromotionsMapper @Inject constructor(private val gamificationMapper: Gamif
       genericResponse.appName,
       genericResponse.icon,
       genericResponse.startDate,
-      genericResponse.endDate
+      genericResponse.endDate,
+      genericResponse.actionUrl,
+      genericResponse.packageName
     )
   }
 

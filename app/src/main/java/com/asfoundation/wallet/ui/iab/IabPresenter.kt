@@ -34,6 +34,7 @@ class IabPresenter(
 ) {
 
   private var firstImpression = true
+  var webViewResultCode: String? = null
 
   companion object {
     private val TAG = IabActivity::class.java.name
@@ -233,6 +234,7 @@ class IabPresenter(
           sendPaypalUrlEvent(data)
           sendPayPalConfirmationEvent("buy")
         }
+        view.webViewResultCode = data?.let { getQueryParameter(it, "resultCode") }
         view.successWebViewResult(data!!.data)
       }
       WebViewActivity.USER_CANCEL -> {

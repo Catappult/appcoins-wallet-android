@@ -151,10 +151,10 @@ class AdyenPaymentInteractorTest {
   fun loadPaymentInfoTest() {
     val testObserver = TestObserver<PaymentInfoModel>()
     val expectedModel = PaymentInfoModel(null, false, BigDecimal(2), TEST_FIAT_CURRENCY)
-    Mockito.`when`(walletService.getWalletAddress())
-        .thenReturn(Single.just(TEST_WALLET_ADDRESS))
+    Mockito.`when`(walletService.getAndSignCurrentWalletAddress())
+        .thenReturn(Single.just(WalletAddressModel(TEST_WALLET_ADDRESS, TEST_WALLET_SIGNATURE)))
     Mockito.`when`(repository.loadPaymentInfo(AdyenPaymentRepository.Methods.CREDIT_CARD,
-        TEST_FIAT_VALUE, TEST_FIAT_CURRENCY, TEST_WALLET_ADDRESS))
+        TEST_FIAT_VALUE, TEST_FIAT_CURRENCY, TEST_WALLET_ADDRESS, TEST_WALLET_SIGNATURE))
         .thenReturn(Single.just(expectedModel))
 
     interactor.loadPaymentInfo(AdyenPaymentRepository.Methods.CREDIT_CARD,

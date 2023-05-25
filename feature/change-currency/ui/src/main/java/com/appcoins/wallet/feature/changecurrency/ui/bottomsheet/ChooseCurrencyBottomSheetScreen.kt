@@ -14,6 +14,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.appcoins.wallet.core.utils.jvm_common.DevUtils.CUSTOM_TAG
 import com.appcoins.wallet.core.arch.data.Async
+import com.appcoins.wallet.feature.changecurrency.data.FiatCurrency
 import com.appcoins.wallet.ui.common.R
 import com.appcoins.wallet.ui.common.theme.WalletColors
 import com.appcoins.wallet.ui.common.theme.WalletTypography
@@ -23,7 +24,7 @@ import com.appcoins.wallet.feature.changecurrency.data.FiatCurrencyEntity
 
 @Composable
 internal fun ChooseCurrencyRoute(
-  chosenCurrency: FiatCurrencyEntity?,
+  chosenCurrency: FiatCurrency?,
   viewModel: ChooseCurrencyBottomSheetViewModel = hiltViewModel(),
   onExitClick: () -> Unit
 ) {
@@ -47,7 +48,7 @@ internal fun ChooseCurrencyRoute(
 
 @Composable
 private fun ChooseCurrencyScreen(
-  chosenCurrency: FiatCurrencyEntity?,
+  chosenCurrency: FiatCurrency?,
   currencyConfirmationClick: (String) -> Unit,
 ) {
   Column(
@@ -86,7 +87,7 @@ private fun ChooseCurrencyScreen(
 @Composable
 private fun ChooseCurrencyPreview() {
   ChooseCurrencyScreen(
-    chosenCurrency = FiatCurrencyEntity(
+    chosenCurrency = FiatCurrency(
       "EUR",
       label = "Euro",
       flag = "https://upload.wikimedia.org/wikipedia/commons/b/b7/Flag_of_Europe.svg",

@@ -147,7 +147,7 @@ class NavBarFragment : BasePageViewFragment(),
   private fun navigateToDestination(destinations: Destinations) {
     when (destinations) {
       Destinations.HOME -> navigator.navigateToHome()
-      Destinations.REWARDS -> navigator.navigateToMyWallets() //TODO Change it to Rewards
+      Destinations.REWARDS -> navigator.navigateToRewards()
     }
   }
 

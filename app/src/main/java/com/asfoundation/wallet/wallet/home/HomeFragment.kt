@@ -31,21 +31,21 @@ import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.NavHostFragment
-import com.appcoins.wallet.core.arch.SingleStateFragment
-import com.appcoins.wallet.core.arch.data.Async
 import com.appcoins.wallet.core.network.backend.model.GamificationStatus
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.appcoins.wallet.core.utils.android_common.RootUtil
 import com.appcoins.wallet.core.utils.android_common.WalletCurrency.FIAT
+import com.appcoins.wallet.core.arch.SingleStateFragment
+import com.appcoins.wallet.core.arch.data.Async
 import com.appcoins.wallet.ui.common.theme.WalletColors
 import com.appcoins.wallet.ui.widgets.*
 import com.asf.wallet.R
 import com.asfoundation.wallet.entity.GlobalBalance
 import com.asfoundation.wallet.promotions.model.DefaultItem
 import com.asfoundation.wallet.promotions.model.PromotionsModel
-import com.asfoundation.wallet.support.SupportNotificationProperties.SUPPORT_NOTIFICATION_CLICK
+import com.asfoundation.wallet.support.SupportNotificationProperties
 import com.asfoundation.wallet.ui.widget.entity.TransactionsModel
-import com.wallet.appcoins.core.legacy_base.BasePageViewFragment
+import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
 import io.intercom.android.sdk.Intercom
 import java.math.BigDecimal
@@ -90,7 +90,7 @@ class HomeFragment: BasePageViewFragment(), SingleStateFragment<HomeState, HomeS
     super.onResume()
     val fromSupportNotification =
       requireActivity().intent.getBooleanExtra(
-        SUPPORT_NOTIFICATION_CLICK,
+        SupportNotificationProperties.SUPPORT_NOTIFICATION_CLICK,
         false
       )
     if (!fromSupportNotification) {

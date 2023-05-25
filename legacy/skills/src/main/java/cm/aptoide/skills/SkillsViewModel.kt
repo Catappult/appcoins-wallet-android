@@ -9,10 +9,7 @@ import cm.aptoide.skills.interfaces.WalletAddressObtainer
 import cm.aptoide.skills.model.*
 import cm.aptoide.skills.usecase.*
 import cm.aptoide.skills.util.UriValidationResult
-import com.appcoins.wallet.core.network.eskills.model.EskillsPaymentData
-import com.appcoins.wallet.core.network.eskills.model.QueueIdentifier
-import com.appcoins.wallet.core.network.eskills.model.ReferralResponse
-import com.appcoins.wallet.core.network.eskills.model.TicketResponse
+import com.appcoins.wallet.core.network.eskills.model.*
 import com.appcoins.wallet.core.network.microservices.model.TopUpStatus
 import com.appcoins.wallet.core.network.microservices.model.TransactionType
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -50,7 +47,8 @@ class SkillsViewModel @Inject constructor(
   private val useReferralUseCase: UseReferralUseCase,
   private val userFirstTimeCheckUseCase: UserFirstTimeCheckUseCase,
   private val buildShareReferralIntentUseCase: BuildShareReferralIntentUseCase,
-  private val getReferralUseCase: GetReferralUseCase
+  private val getReferralUseCase: GetReferralUseCase,
+  private val referralShareTextBuilderUseCase: ReferralShareTextBuilderUseCase
 ) : ViewModel() {
   lateinit var ticketId: String
   private val closeView: PublishSubject<Pair<Int, UserData>> = PublishSubject.create()
@@ -65,6 +63,7 @@ class SkillsViewModel @Inject constructor(
     const val RESULT_INVALID_USERNAME = 8
     const val RESULT_ROOT_ERROR = 9
     const val RESULT_WALLET_VERSION_ERROR = 10
+    const val RESULT_VPN_NOT_SUPPORTED = 11
     const val GET_ROOM_RETRY_MILLIS = 3000L
     const val AUTHENTICATION_REQUEST_CODE = 33
   }
@@ -266,6 +265,10 @@ class SkillsViewModel @Inject constructor(
             }
         }
       }
+  }
+
+  fun getReferralShareText(packageName: String): Single<AppData> {
+    return referralShareTextBuilderUseCase(packageName)
   }
 
   fun getReferral(): Single<ReferralResponse> {

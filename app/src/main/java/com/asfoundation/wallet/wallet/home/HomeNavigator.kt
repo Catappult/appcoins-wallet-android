@@ -7,19 +7,21 @@ import android.widget.Toast
 import androidx.core.app.ShareCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
-import com.appcoins.wallet.core.arch.data.Navigator
-import com.appcoins.wallet.core.utils.jvm_common.C
 import com.appcoins.wallet.sharedpreferences.BackupTriggerPreferencesDataSource
+import com.appcoins.wallet.core.arch.data.Navigator
 import com.asf.wallet.R
+import com.asfoundation.wallet.C
+import com.asfoundation.wallet.backup.BackupActivity
+import com.asfoundation.wallet.backup.triggers.BackupTriggerDialogFragment
 import com.asfoundation.wallet.change_currency.ChangeFiatCurrencyActivity
 import com.asfoundation.wallet.main.nav_bar.NavBarFragmentNavigator
 import com.asfoundation.wallet.rating.RatingActivity
 import com.asfoundation.wallet.topup.TopUpActivity
 import com.asfoundation.wallet.transactions.Transaction
+import com.asfoundation.wallet.ui.BaseActivity
 import com.asfoundation.wallet.ui.balance.TransactionDetailActivity
 import com.asfoundation.wallet.ui.settings.SettingsActivity
 import com.asfoundation.wallet.ui.transact.TransferActivity
-import com.wallet.appcoins.core.legacy_base.BaseActivity
 import javax.inject.Inject
 
 class HomeNavigator @Inject constructor(
@@ -81,7 +83,7 @@ class HomeNavigator @Inject constructor(
 
   fun navigateToBackup(walletAddress: String) {
     val intent =
-      com.appcoins.wallet.feature.backup.ui.BackupActivity.newIntent(fragment.requireContext(), walletAddress, isBackupTrigger = false)
+      BackupActivity.newIntent(fragment.requireContext(), walletAddress, isBackupTrigger = false)
         .apply {
           flags = Intent.FLAG_ACTIVITY_SINGLE_TOP
         }
@@ -98,7 +100,7 @@ class HomeNavigator @Inject constructor(
     walletAddress: String,
     triggerSource: BackupTriggerPreferencesDataSource.TriggerSource
   ) {
-    val bottomSheet = com.appcoins.wallet.feature.backup.ui.triggers.BackupTriggerDialogFragment.newInstance(walletAddress, triggerSource)
+    val bottomSheet = BackupTriggerDialogFragment.newInstance(walletAddress, triggerSource)
     bottomSheet.isCancelable = false
     bottomSheet.show(fragment.parentFragmentManager, "BackupTrigger")
   }

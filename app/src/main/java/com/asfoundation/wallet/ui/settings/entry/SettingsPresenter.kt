@@ -132,6 +132,10 @@ class SettingsPresenter(
     )
   }
 
+  fun onManageWalletPreferenceClick() {
+    navigator.navigateToManageWallet()
+  }
+
   fun onBackupPreferenceClick() {
     disposables.add(settingsInteractor.retrieveWallets()
       .subscribeOn(networkScheduler)

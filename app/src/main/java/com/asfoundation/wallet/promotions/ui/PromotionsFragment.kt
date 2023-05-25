@@ -99,15 +99,11 @@ class PromotionsFragment : BasePageViewFragment(),
         navigator.navigateToInfo()
       }
       is PromotionsSideEffect.NavigateToVipReferral -> {
-        val mainNav: NavHostFragment = requireActivity().supportFragmentManager.findFragmentById(
-          R.id.full_host_container
-        ) as NavHostFragment
         navigator.navigateToVipReferral(
           sideEffect.bonus,
           sideEffect.promoCodeVip,
           sideEffect.totalEarned,
-          sideEffect.numberReferrals,
-          mainNav.navController
+          sideEffect.numberReferrals
         )
       }
       PromotionsSideEffect.NavigateToInviteFriends -> navigator.navigateToInviteFriends()

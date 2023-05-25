@@ -86,4 +86,28 @@
       android:id="@+id/action_navigate_to_nfts"
       app:destination="@id/nft_graph" />
 
+  <include app:graph="@navigation/manage_wallet_graph" />
+
+  <action
+      android:id="@+id/action_navigate_to_manage_wallet"
+      app:destination="@id/manage_wallet_graph" />
+
+  <include app:graph="@navigation/transactions_graph" />
+
+  <action
+      android:id="@+id/action_navigate_to_transactions_list"
+      app:destination="@id/transactions_graph" />
+
+  <action
+      android:id="@+id/action_navigate_to_transaction_details"
+      app:destination="@id/transactions_details_fragment">
+    <argument
+        android:name="transaction_id"
+        app:argType="string" />
+  </action>
+
+  <fragment
+      android:id="@+id/transactions_details_fragment"
+      android:name="com.asfoundation.wallet.transactions.TransactionDetailsFragment" />
+
 </navigation>

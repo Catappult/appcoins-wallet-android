@@ -16,6 +16,7 @@ class GetFirstPaymentMethodsUseCase @Inject constructor(private val bdsRepositor
   companion object {
     private const val APPC_ID = "appcoins"
     private const val CREDITS_ID = "appcoins_credits"
+    private const val ASK_SOMEONE_TO_PAY_ID = "ask_friend"
   }
 
   operator fun invoke(cachedTransaction: CachedTransaction): Single<List<PaymentMethod>> {

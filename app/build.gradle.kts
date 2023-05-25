@@ -10,8 +10,8 @@ plugins {
 android {
   defaultConfig {
     applicationId = "com.appcoins.wallet"
-    versionCode = 259
-    versionName = "2.9.2.0"
+    versionCode = 261
+    versionName = "2.11.0"
   }
 }
 
@@ -124,6 +124,8 @@ dependencies {
   implementation(libs.commons.lang3)
   implementation(libs.android.support.annotations)
   implementation(libs.android.installreferrer)
+
+  implementation(libs.bundles.paging)
 
   testImplementation(libs.bundles.testing)
   androidTestImplementation(libs.test.junit.ext)
