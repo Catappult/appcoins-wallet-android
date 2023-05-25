@@ -69,7 +69,7 @@ fun ButtonWithIcon(
 
 @Composable
 fun ButtonWithText(
-  label: Int,
+  label: String,
   onClick: () -> Unit,
   backgroundColor: Color = Color.Transparent,
   labelColor: Color,
@@ -86,7 +86,7 @@ fun ButtonWithText(
     border = BorderStroke(width = 1.dp, color = outlineColor ?: Color.Transparent)
   ) {
     Text(
-      text = stringResource(label),
+      text = label,
       style = MaterialTheme.typography.bodyMedium,
       color = labelColor,
       fontWeight = FontWeight.Bold
@@ -162,7 +162,7 @@ fun PreviewButtonWithText() {
   ButtonWithText(
     backgroundColor = WalletColors.styleguide_pink,
     labelColor = WalletColors.styleguide_white,
-    label = R.string.action_add_wallet,
+    label = stringResource(R.string.action_add_wallet),
     onClick = {})
 }
 
@@ -172,7 +172,7 @@ fun PreviewLargeButtonWithText() {
   ButtonWithText(
     backgroundColor = WalletColors.styleguide_pink,
     labelColor = WalletColors.styleguide_white,
-    label = R.string.action_add_wallet,
+    label = stringResource(R.string.action_add_wallet),
     onClick = {},
     buttonType = LARGE
   )
