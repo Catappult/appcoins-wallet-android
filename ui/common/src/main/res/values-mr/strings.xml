@@ -490,6 +490,7 @@
   <string name="back_up_button">वॉलेट बॅकअप करा</string>
   <string name="play_button">Play</string>
   <string name="manage_wallet_button">Manage wallet</string>
+  <string name="log_out_button">Log out</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">मला अॅपकॉइन्स वॉलेटच्या %1$s आणि %2$s मान्य आहेत.</string>
   <string name="terms_and_conditions_error">चालू ठेवण्यासाठी कृपया आमच्या अटी आणि शर्ती मंजुर करा</string>
@@ -610,6 +611,7 @@
   <string name="purchase_error_generic_contact_us_body">अरेरे, काहीतरी चूक झाली. कृपया पुन्हा प्रयत्न करा वा आमच्याशी संपर्क साधा.</string>
   <string name="error_blocked_wallet_title">Blocked Wallet</string>
   <string name="error_blocked_wallet_body">For security reasons, your wallet has been blocked. Please contact us for more information.</string>
+  <string name="purchase_paypal_additional_fees_disclaimer_body">Additional fees may apply.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">बिलिंग पत्ता</string>
   <string name="purchase_address_address_field">पत्ता</string>
