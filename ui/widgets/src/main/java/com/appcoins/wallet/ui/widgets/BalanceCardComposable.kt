@@ -177,7 +177,7 @@ fun BalanceItem(icon: Int, currencyName: Int, balance: String) {
       horizontalAlignment = Alignment.CenterHorizontally,
       modifier = Modifier
         .width(width = 112.dp)
-        .padding(vertical = 8.dp),
+        .padding(vertical = 8.dp, horizontal = 4.dp),
       verticalArrangement = Arrangement.Center
     ) {
       Icon(
