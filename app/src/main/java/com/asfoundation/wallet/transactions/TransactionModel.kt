@@ -5,20 +5,17 @@ import androidx.compose.ui.graphics.Color
 import com.appcoins.wallet.core.network.backend.model.StatusResponse
 import com.appcoins.wallet.core.network.backend.model.TransactionResponse
 import com.appcoins.wallet.core.network.backend.model.TransactionTypeResponse
-import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils.Companion.DEFAULT_SCALE
+import com.appcoins.wallet.core.utils.android_common.AmountUtils.format18decimals
+import com.appcoins.wallet.core.utils.android_common.AmountUtils.formatMoney
 import com.appcoins.wallet.core.utils.properties.HostProperties.TRANSACTION_DETAILS_HOST
 import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_green
 import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_light_grey
 import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_red
 import com.asf.wallet.R
-import com.asfoundation.wallet.C.ETHER_DECIMALS
 import com.asfoundation.wallet.transactions.StatusType.PENDING
 import com.asfoundation.wallet.transactions.StatusType.REJECTED
 import com.asfoundation.wallet.transactions.StatusType.SUCCESS
 import kotlinx.parcelize.Parcelize
-import java.math.BigDecimal
-import java.math.RoundingMode
-import java.text.NumberFormat
 import java.util.Currency
 
 const val CURRENCY_CODE_LENGTH = 3
@@ -84,17 +81,3 @@ fun String?.currencySymbol(): String =
   if (this != null && this.length == CURRENCY_CODE_LENGTH) Currency.getInstance(this).symbol
   else ""
 
-fun String?.formatMoney(currencySymbol: String, sign: String): String? =
-  if (this == null) this else sign + currencySymbol + numberFormatter().format(BigDecimal(this))
-
-fun String.format18decimals(sign: String): String {
-  val value = BigDecimal(this).divide(BigDecimal.TEN.pow(ETHER_DECIMALS))
-  return sign + numberFormatter().format(value)
-}
-
-fun numberFormatter(): NumberFormat =
-  NumberFormat.getNumberInstance().apply {
-    minimumFractionDigits = DEFAULT_SCALE
-    maximumFractionDigits = DEFAULT_SCALE
-    roundingMode = RoundingMode.FLOOR
-  }

@@ -23,7 +23,7 @@ fun BackupAlertCard(onClickButton: () -> Unit) {
     )
     Spacer(modifier = Modifier.height(16.dp))
     ButtonWithText(
-      label = R.string.action_backup_wallet,
+      label = stringResource(R.string.action_backup_wallet),
       outlineColor = WalletColors.styleguide_white,
       labelColor = WalletColors.styleguide_white,
       onClick = onClickButton,
