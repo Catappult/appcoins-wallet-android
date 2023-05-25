@@ -4,126 +4,142 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/styleguide_blue"
     >
+
   <androidx.constraintlayout.widget.ConstraintLayout
       android:id="@+id/gamification_header"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:background="@drawable/background_white_card_top"
+      android:layout_marginTop="16dp"
+      android:background="@color/styleguide_blue"
       android:elevation="2dp"
       android:paddingBottom="10dp"
       app:layout_constraintTop_toTopOf="parent"
       >
-    <View
-        android:layout_width="1dp"
-        android:layout_height="0dp"
-        android:background="#35979797"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="@id/amount_spent_text"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/total_spend"
-        />
 
-    <TextView
-        android:id="@+id/bonus_earned"
-        style="@style/GamificationBottomPeekTextStyle"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/card_view_total_money"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="12dp"
-        android:layout_marginEnd="4dp"
-        android:layout_marginBottom="4dp"
-        android:gravity="center"
-        android:visibility="invisible"
-        app:layout_constraintEnd_toEndOf="@id/vertical_guideline4"
+        android:layout_height="79dp"
+        android:layout_marginStart="16dp"
+        android:background="@drawable/oval_styleguide_blue_secondary_background"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/card_view_total_appc"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="$8.60"
-        tools:visibility="visible"
-        />
+        >
 
-    <com.airbnb.lottie.LottieAnimationView
-        android:id="@+id/bonus_earned_skeleton"
-        android:layout_width="wrap_content"
-        android:layout_height="16dp"
-        android:layout_marginTop="18dp"
-        app:layout_constraintEnd_toEndOf="@id/vertical_guideline4"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:lottie_autoPlay="true"
-        app:lottie_enableMergePathsForKitKatAndAbove="true"
-        app:lottie_loop="true"
-        app:lottie_rawRes="@raw/gamification_peek_skeleton"
-        />
+      <TextView
+          android:id="@+id/bonus_earned"
+          style="@style/GamificationBottomPeekTextStyle.TitleMedium"
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="4dp"
+          android:layout_marginTop="12dp"
+          android:layout_marginEnd="4dp"
+          android:layout_marginBottom="4dp"
+          android:gravity="center"
+          android:textColor="@color/styleguide_light_grey"
+          android:visibility="invisible"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toTopOf="parent"
+          tools:text="$8.60"
+          tools:visibility="visible"
+          />
 
-    <TextView
-        style="@style/GamificationBottomPeekTextStyle.Body"
+      <com.airbnb.lottie.LottieAnimationView
+          android:id="@+id/bonus_earned_skeleton"
+          android:layout_width="wrap_content"
+          android:layout_height="16dp"
+          android:layout_marginTop="18dp"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toTopOf="parent"
+          app:lottie_autoPlay="true"
+          app:lottie_enableMergePathsForKitKatAndAbove="true"
+          app:lottie_loop="true"
+          app:lottie_rawRes="@raw/gamification_peek_skeleton"
+          />
+
+      <TextView
+          style="@style/GamificationBottomPeekTextStyle.Body"
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="2dp"
+          android:gravity="center"
+          android:paddingStart="24dp"
+          android:paddingEnd="24dp"
+          android:text="@string/gamif_bonus_received"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toBottomOf="@id/bonus_earned"
+          />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/card_view_total_appc"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="2dp"
-        android:gravity="center"
-        android:paddingStart="16dp"
-        android:paddingEnd="16dp"
-        android:text="@string/gamif_bonus_received"
-        app:layout_constraintEnd_toEndOf="@id/vertical_guideline4"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/bonus_earned"
-        />
-
-    <TextView
-        android:id="@+id/total_spend"
-        style="@style/GamificationBottomPeekTextStyle"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="12dp"
-        android:layout_marginEnd="4dp"
-        android:gravity="center"
-        android:visibility="invisible"
+        android:layout_height="79dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/oval_styleguide_blue_secondary_background"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@id/vertical_guideline4"
+        app:layout_constraintStart_toEndOf="@id/card_view_total_money"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="89.20 APPC"
-        tools:visibility="visible"
-        />
+        >
 
-    <com.airbnb.lottie.LottieAnimationView
-        android:id="@+id/total_spend_skeleton"
-        android:layout_width="wrap_content"
-        android:layout_height="16dp"
-        android:layout_marginTop="18dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@id/vertical_guideline4"
-        app:layout_constraintTop_toTopOf="parent"
-        app:lottie_autoPlay="true"
-        app:lottie_enableMergePathsForKitKatAndAbove="true"
-        app:lottie_loop="true"
-        app:lottie_rawRes="@raw/gamification_peek_skeleton"
-        />
+      <TextView
+          android:id="@+id/total_spend"
+          style="@style/GamificationBottomPeekTextStyle.TitleMedium"
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="4dp"
+          android:layout_marginTop="12dp"
+          android:layout_marginEnd="4dp"
+          android:gravity="center"
+          android:visibility="invisible"
+          android:backgroundTint="@color/styleguide_light_grey"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toTopOf="parent"
+          tools:text="89.20 APPC"
+          tools:visibility="visible"
+          />
 
-    <TextView
-        android:id="@+id/amount_spent_text"
-        style="@style/GamificationBottomPeekTextStyle.Body"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="2dp"
-        android:gravity="center"
-        android:paddingStart="16dp"
-        android:paddingEnd="16dp"
-        android:text="@string/gamif_spent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@id/vertical_guideline4"
-        app:layout_constraintTop_toBottomOf="@id/total_spend"
-        />
+      <com.airbnb.lottie.LottieAnimationView
+          android:id="@+id/total_spend_skeleton"
+          android:layout_width="wrap_content"
+          android:layout_height="16dp"
+          android:layout_marginTop="18dp"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toTopOf="parent"
+          app:lottie_autoPlay="true"
+          app:lottie_enableMergePathsForKitKatAndAbove="true"
+          app:lottie_loop="true"
+          app:lottie_rawRes="@raw/gamification_peek_skeleton"
+          />
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/vertical_guideline4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.5"
-        />
+      <TextView
+          android:id="@+id/amount_spent_text"
+          style="@style/GamificationBottomPeekTextStyle.Body"
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="2dp"
+          android:gravity="center"
+          android:paddingStart="24dp"
+          android:paddingEnd="24dp"
+          android:text="@string/gamif_spent"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="@id/card_view_total_appc"
+          app:layout_constraintTop_toBottomOf="@id/total_spend"
+          />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
   </androidx.constraintlayout.widget.ConstraintLayout>
   <androidx.core.widget.NestedScrollView
       android:id="@+id/gamification_scroll_view"
@@ -140,12 +156,13 @@
           android:layout_width="4dp"
           android:layout_height="0dp"
           android:layout_marginStart="46dp"
+          android:layout_marginTop="48dp"
           android:layout_marginBottom="16dp"
           android:background="#33d4d4d4"
           android:orientation="vertical"
           app:layout_constraintBottom_toBottomOf="@id/gamification_recycler_view"
           app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toTopOf="parent"
+          app:layout_constraintTop_toTopOf="@id/gamification_recycler_view"
           />
       <androidx.recyclerview.widget.RecyclerView
           android:id="@+id/gamification_recycler_view"
@@ -153,6 +170,7 @@
           android:layout_height="0dp"
           android:layout_marginStart="10dp"
           android:layout_marginEnd="10dp"
+          android:backgroundTint="@color/styleguide_blue"
           android:clipToPadding="false"
           android:orientation="vertical"
           android:overScrollMode="never"
@@ -170,6 +188,7 @@
           android:layout_height="wrap_content"
           android:layout_marginTop="14dp"
           android:layout_marginBottom="8dp"
+          android:backgroundTint="@color/styleguide_blue"
           android:visibility="gone"
           app:layout_constraintBottom_toBottomOf="parent"
           app:layout_constraintEnd_toEndOf="parent"
@@ -183,15 +202,15 @@
       android:id="@+id/bottomsheet_coordinator_container"
       android:layout_width="match_parent"
       android:layout_height="match_parent"
-      app:layout_constraintTop_toTopOf="parent"
+      android:backgroundTint="@color/styleguide_black_transparent_80"
+      android:clickable="true"
+      android:elevation="2dp"
+      android:focusable="true"
+      android:visibility="gone"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
-      android:background="@color/styleguide_black_transparent_80"
-      android:elevation="2dp"
-      android:visibility="gone"
-      android:clickable="true"
-      android:focusable="true"
+      app:layout_constraintTop_toTopOf="parent"
       >
 
     <include
