@@ -1,6 +1,6 @@
 package com.appcoins.wallet.feature.changecurrency.ui.bottomsheet
 
-import android.util.Log
+import androidx.activity.compose.LocalOnBackPressedDispatcherOwner
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.*
@@ -12,7 +12,6 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.appcoins.wallet.core.utils.jvm_common.DevUtils.CUSTOM_TAG
 import com.appcoins.wallet.core.arch.data.Async
 import com.appcoins.wallet.feature.changecurrency.data.FiatCurrency
 import com.appcoins.wallet.ui.common.R
@@ -20,36 +19,38 @@ import com.appcoins.wallet.ui.common.theme.WalletColors
 import com.appcoins.wallet.ui.common.theme.WalletTypography
 import com.appcoins.wallet.ui.widgets.WalletImage
 import com.appcoins.wallet.ui.widgets.component.ButtonWithText
-import com.appcoins.wallet.feature.changecurrency.data.FiatCurrencyEntity
 
 @Composable
 internal fun ChooseCurrencyRoute(
   chosenCurrency: FiatCurrency?,
   viewModel: ChooseCurrencyBottomSheetViewModel = hiltViewModel(),
+  bottomSheetStateHandle: () -> Unit,
   onExitClick: () -> Unit
 ) {
   ChooseCurrencyScreen(
     chosenCurrency = chosenCurrency,
-    currencyConfirmationClick = viewModel::currencyConfirmationClick
+    currencyConfirmationClick = viewModel::currencyConfirmationClick,
+    bottomSheetStateHandle = bottomSheetStateHandle,
   )
+  val onBackPressedDispatcher = LocalOnBackPressedDispatcherOwner.current
   val state by viewModel.stateFlow.collectAsState()
   when (state.selectedConfirmationAsync) {
     Async.Uninitialized,
     is Async.Loading -> Unit
     is Async.Success -> {
       onExitClick()
-      Log.d(CUSTOM_TAG, ": ChooseCurrencyScreen: confirm success")
+//      onBackPressedDispatcher?.onBackPressedDispatcher?.onBackPressed()
     }
     is Async.Fail -> {
-      Log.d(CUSTOM_TAG, ": ChooseCurrencyScreen: fail ")
     }
   }
 }
 
 @Composable
-private fun ChooseCurrencyScreen(
+fun ChooseCurrencyScreen(
   chosenCurrency: FiatCurrency?,
   currencyConfirmationClick: (String) -> Unit,
+  bottomSheetStateHandle: () -> Unit,
 ) {
   Column(
     modifier = Modifier
@@ -76,7 +77,10 @@ private fun ChooseCurrencyScreen(
     )
     ButtonWithText(
       label = R.string.confirm_button,
-      onClick = { currencyConfirmationClick(chosenCurrency.currency) },
+      onClick = {
+        currencyConfirmationClick(chosenCurrency.currency)
+        bottomSheetStateHandle()
+      },
       backgroundColor = WalletColors.styleguide_pink,
       labelColor = MaterialTheme.colorScheme.primaryContainer
     )
@@ -93,6 +97,7 @@ private fun ChooseCurrencyPreview() {
       flag = "https://upload.wikimedia.org/wikipedia/commons/b/b7/Flag_of_Europe.svg",
       sign = "€"
     ),
-    currencyConfirmationClick = {}
+    currencyConfirmationClick = {},
+    bottomSheetStateHandle = {},
   )
 }

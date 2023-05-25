@@ -17,55 +17,39 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.appcoins.wallet.feature.changecurrency.data.ChangeFiatCurrency
-import com.appcoins.wallet.feature.changecurrency.data.FiatCurrencyEntity
-import com.appcoins.wallet.feature.changecurrency.ui.bottomsheet.ChooseCurrencyRoute
 import com.appcoins.wallet.core.arch.data.Async
+import com.appcoins.wallet.feature.changecurrency.data.ChangeFiatCurrency
 import com.appcoins.wallet.feature.changecurrency.data.FiatCurrency
+import com.appcoins.wallet.feature.changecurrency.ui.bottomsheet.ChooseCurrencyRoute
 import com.appcoins.wallet.ui.common.theme.WalletColors
 import com.appcoins.wallet.ui.common.theme.WalletTheme
 import com.appcoins.wallet.ui.common.theme.WalletTypography
 import com.appcoins.wallet.ui.common.theme.shapes
-import com.appcoins.wallet.ui.widgets.TopBar
 import com.appcoins.wallet.ui.widgets.WalletImage
+import kotlinx.coroutines.launch
 import com.appcoins.wallet.ui.common.R as CommonR
 
 @Composable
 fun ChangeFiatCurrencyRoute(
   onExitClick: () -> Unit,
-  chatClick: () -> Unit,
   viewModel: ChangeFiatCurrencyViewModel = hiltViewModel(),
 ) {
   val changeFiatCurrencyState by viewModel.stateFlow.collectAsState()
-  Scaffold(
-    topBar = {
-      Surface(
-        shadowElevation = 4.dp,
-      ) {
-        TopBar(isMainBar = false, onClickSupport = { chatClick() })
-      }
-    },
-    modifier = Modifier
-  ) { padding ->
-    ChangeFiatCurrencyScreen(
-      changeFiatCurrencyState = changeFiatCurrencyState,
-      scaffoldPadding = padding,
-      onExitClick = onExitClick
-    )
-  }
+  ChangeFiatCurrencyScreen(
+    changeFiatCurrencyState = changeFiatCurrencyState,
+    onExitClick = onExitClick
+  )
 }
 
 @Composable
 fun ChangeFiatCurrencyScreen(
   changeFiatCurrencyState: ChangeFiatCurrencyState,
-  scaffoldPadding: PaddingValues,
   onExitClick: () -> Unit
 ) {
   when (changeFiatCurrencyState.changeFiatCurrencyAsync) {
     Async.Uninitialized,
     is Async.Loading -> Unit
     is Async.Success -> ChangeFiatCurrencyList(
-      scaffoldPadding = scaffoldPadding,
       model = changeFiatCurrencyState.changeFiatCurrencyAsync.value!!,
       onExitClick = onExitClick
     )
@@ -75,7 +59,6 @@ fun ChangeFiatCurrencyScreen(
 
 @Composable
 private fun ChangeFiatCurrencyList(
-  scaffoldPadding: PaddingValues,
   model: ChangeFiatCurrency,
   onExitClick: () -> Unit
 ) {
@@ -85,7 +68,6 @@ private fun ChangeFiatCurrencyList(
   LazyColumn(
     modifier = Modifier
       .fillMaxSize()
-      .padding(top = scaffoldPadding.calculateTopPadding())
       .padding(horizontal = 16.dp),
   ) {
     item {
@@ -118,8 +100,10 @@ private fun CurrencyItem(
   isSelected: Boolean = false,
   onExitClick: () -> Unit,
 ) {
-  val bottomSheetState = rememberModalBottomSheetState(skipPartiallyExpanded = false)
+  val skipPartiallyExpanded by remember { mutableStateOf(false) }
+  val bottomSheetState = rememberModalBottomSheetState(skipPartiallyExpanded = skipPartiallyExpanded)
   var openBottomSheet by rememberSaveable { mutableStateOf(false) }
+  val scope = rememberCoroutineScope()
   var chosenCurrency: FiatCurrency? by rememberSaveable { mutableStateOf(null) }
 
   Card(
@@ -175,10 +159,19 @@ private fun CurrencyItem(
       sheetState = bottomSheetState,
       containerColor = WalletColors.styleguide_blue,
     ) {
-      ChooseCurrencyRoute(chosenCurrency, onExitClick = onExitClick)
+      ChooseCurrencyRoute(
+        chosenCurrency = chosenCurrency,
+        bottomSheetStateHandle = {
+          scope.launch { bottomSheetState.hide() }.invokeOnCompletion {
+            openBottomSheet = !openBottomSheet
+          }
+        },
+        onExitClick = onExitClick
+      )
     }
   }
 }
+
 
 @Preview("ChangeFiatCurrencyList")
 @Composable
@@ -203,7 +196,6 @@ private fun ChangeFiatCurrencyListPreview() {
         )
       ),
       onExitClick = {},
-      scaffoldPadding = PaddingValues(0.dp)
     )
   }
 }
