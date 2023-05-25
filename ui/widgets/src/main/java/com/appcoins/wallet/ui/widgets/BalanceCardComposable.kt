@@ -122,7 +122,12 @@ fun BalanceCard(
                   .size(1.dp),
                 color = WalletColors.styleguide_blue,
                 content = {})
-              Column(modifier = Modifier.padding(16.dp)) { BackupAlertCard(onClickBackup) }
+              Column(modifier = Modifier.padding(16.dp)) {
+                BackupAlertCard(
+                  onClickBackup,
+                  hasBackup = false
+                )
+              }
             }
           }
         }

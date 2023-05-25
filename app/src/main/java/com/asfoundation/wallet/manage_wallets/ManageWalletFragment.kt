@@ -23,7 +23,6 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.material.icons.filled.Share
@@ -70,6 +69,8 @@ import com.appcoins.wallet.ui.widgets.VectorIconButton
 import com.appcoins.wallet.ui.widgets.VerifyWalletAlertCard
 import com.appcoins.wallet.ui.widgets.component.BottomSheetButton
 import com.asf.wallet.R
+import com.asfoundation.wallet.manage_wallets.ManageWalletViewModel.UiState.Success
+import com.asfoundation.wallet.my_wallets.main.MyWalletsNavigator
 import com.asfoundation.wallet.my_wallets.more.MoreDialogNavigator
 import com.asfoundation.wallet.transactions.TransactionDetailsFragment
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
@@ -83,6 +84,9 @@ class ManageWalletFragment : BasePageViewFragment() {
 
   @Inject
   lateinit var navigator: MoreDialogNavigator
+
+  @Inject
+  lateinit var myWalletsNavigator: MyWalletsNavigator
 
   private val viewModel: ManageWalletViewModel by viewModels()
 
@@ -104,27 +108,27 @@ class ManageWalletFragment : BasePageViewFragment() {
       },
       containerColor = styleguide_blue
     ) { padding ->
-      ManageWalletContent(padding = padding)
-    }
-  }
-
-  @Composable
-  internal fun ManageWalletContent(padding: PaddingValues) {
-    Column(
-      modifier = Modifier
-        .verticalScroll(rememberScrollState())
-        .padding(padding),
-    ) {
       when (val uiState = viewModel.uiState.collectAsState().value) {
-        is ManageWalletViewModel.UiState.Success -> ActiveWalletCard(uiState.walletInfo)
+        is Success -> ManageWalletContent(padding = padding, uiState.walletInfo)
         else -> {}
       }
     }
   }
 
   @Composable
+  internal fun ManageWalletContent(padding: PaddingValues, walletInfo: WalletInfo) {
+    Column(
+      modifier = Modifier
+        .verticalScroll(rememberScrollState())
+        .padding(padding),
+    ) {
+      ScreenHeader(walletInfo)
+      ActiveWalletCard(walletInfo)
+    }
+  }
+
+  @Composable
   fun ActiveWalletCard(walletInfo: WalletInfo) {
-    ScreenHeader(walletInfo)
     Column(horizontalAlignment = End, modifier = Modifier.padding(16.dp)) {
       ActiveWalletIndicator()
       Card(
@@ -139,9 +143,15 @@ class ManageWalletFragment : BasePageViewFragment() {
           BalanceBottomSheet(walletInfo)
           ActiveWalletOptions(walletInfo.wallet)
           Spacer(modifier = Modifier.height(24.dp))
-          BackupAlertCard(onClickButton = {})
+          BackupAlertCard(
+            onClickButton = { myWalletsNavigator.navigateToBackupWallet(walletInfo.wallet) },
+            hasBackup = walletInfo.hasBackup
+          )
           Separator()
-          VerifyWalletAlertCard(onClickButton = {})
+          VerifyWalletAlertCard(
+            onClickButton = { myWalletsNavigator.navigateToVerifyCreditCard() },
+            verified = walletInfo.verified
+          )
         }
       }
     }
@@ -251,7 +261,10 @@ class ManageWalletFragment : BasePageViewFragment() {
       VectorIconButton(
         imageVector = Icons.Default.MoreVert,
         contentDescription = R.string.action_more_details,
-        onClick = { openBottomSheet = !openBottomSheet })
+        onClick = { openBottomSheet = !openBottomSheet },
+        paddingIcon = 4.dp,
+        background = styleguide_blue_secondary
+      )
     }
 
     if (openBottomSheet) {
@@ -330,7 +343,7 @@ class ManageWalletFragment : BasePageViewFragment() {
       modifier = Modifier.fillMaxWidth()
     ) {
       Text(
-        walletInfo.name,
+        text = walletInfo.name,
         color = WalletColors.styleguide_light_grey,
         style = MaterialTheme.typography.bodySmall
       )

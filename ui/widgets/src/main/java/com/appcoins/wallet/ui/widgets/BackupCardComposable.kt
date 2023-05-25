@@ -14,30 +14,32 @@ import com.appcoins.wallet.ui.widgets.component.ButtonType
 import com.appcoins.wallet.ui.widgets.component.ButtonWithText
 
 @Composable
-fun BackupAlertCard(onClickButton: () -> Unit) {
+fun BackupAlertCard(onClickButton: () -> Unit, hasBackup: Boolean) {
   AlertCard(
     onClickButton = onClickButton,
-    title = R.string.intro_backup_card_title,
-    message = R.string.backup_wallet_tooltip,
-    buttonLabel = R.string.action_backup_wallet
+    title = if (hasBackup) R.string.backup_confirmation_no_share_title else R.string.my_wallets_action_backup_wallet,
+    message = if (hasBackup) R.string.mywallet_backed_up_date else R.string.backup_wallet_tooltip,
+    buttonLabel = if (hasBackup) R.string.mywallet_backup_again_button else R.string.action_backup_wallet,
+    icon = if (hasBackup) R.drawable.ic_check_circle else R.drawable.ic_alert_circle
   )
 }
 
 @Composable
-fun VerifyWalletAlertCard(onClickButton: () -> Unit) {
+fun VerifyWalletAlertCard(onClickButton: () -> Unit, verified: Boolean) {
   AlertCard(
     onClickButton = onClickButton,
-    title = R.string.referral_verification_title,
+    title = if (verified) R.string.verification_settings_verified_title else R.string.referral_verification_title,
     message = R.string.mywallet_unverified_body,
-    buttonLabel = R.string.referral_verification_title
+    buttonLabel = if (verified) R.string.mywallet_verify_payment_method_button else R.string.referral_verification_title,
+    icon = if (verified) R.drawable.ic_check_circle else R.drawable.ic_alert_circle
   )
 }
 
 @Composable
-fun AlertCard(onClickButton: () -> Unit, title: Int, message: Int, buttonLabel: Int) {
+fun AlertCard(onClickButton: () -> Unit, title: Int, message: Int, buttonLabel: Int, icon: Int) {
   Column {
     AlertMessageWithIcon(
-      icon = R.drawable.ic_alert_circle,
+      icon = icon,
       title = stringResource(id = title),
       message = "${stringResource(id = message)} ${stringResource(id = R.string.backup_title)}"
     )
@@ -55,11 +57,11 @@ fun AlertCard(onClickButton: () -> Unit, title: Int, message: Int, buttonLabel: 
 @Preview
 @Composable
 fun PreviewBackupAlertCard() {
-  BackupAlertCard(onClickButton = {})
+  BackupAlertCard(onClickButton = {}, true)
 }
 
 @Preview
 @Composable
 fun PreviewVerifyAlertCard() {
-  VerifyWalletAlertCard(onClickButton = {})
+  VerifyWalletAlertCard(onClickButton = {}, true)
 }
