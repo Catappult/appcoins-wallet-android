@@ -1,9 +1,13 @@
 package com.asfoundation.wallet.manage_wallets
 
+import android.content.ClipData
+import android.content.ClipboardManager
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Arrangement.Absolute.SpaceBetween
@@ -20,7 +24,6 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountCircle
-import androidx.compose.material.icons.filled.Clear
 import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.material.icons.filled.Share
@@ -46,10 +49,12 @@ import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.Alignment.Companion.End
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.ComposeView
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.core.app.ShareCompat
 import androidx.fragment.app.viewModels
 import com.appcoins.wallet.core.utils.android_common.AmountUtils.formatMoney
 import com.appcoins.wallet.core.utils.android_common.extensions.StringUtils.masked
@@ -66,6 +71,7 @@ import com.appcoins.wallet.ui.widgets.VerifyWalletAlertCard
 import com.appcoins.wallet.ui.widgets.component.BottomSheetButton
 import com.asf.wallet.R
 import com.asfoundation.wallet.my_wallets.more.MoreDialogNavigator
+import com.asfoundation.wallet.transactions.TransactionDetailsFragment
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import com.asfoundation.wallet.wallets.domain.WalletInfo
 import dagger.hilt.android.AndroidEntryPoint
@@ -143,10 +149,7 @@ class ManageWalletFragment : BasePageViewFragment() {
 
   @Composable
   fun ActiveWalletIndicator() {
-    Surface(
-      color = styleguide_pink,
-      shape = RoundedCornerShape(topEnd = 16.dp, topStart = 16.dp)
-    ) {
+    Surface(color = styleguide_pink, shape = RoundedCornerShape(topEnd = 16.dp, topStart = 16.dp)) {
       Text(
         modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp),
         text = stringResource(R.string.wallets_active_wallet_title),
@@ -154,7 +157,6 @@ class ManageWalletFragment : BasePageViewFragment() {
         style = MaterialTheme.typography.bodySmall
       )
     }
-
   }
 
   @Composable
@@ -193,17 +195,17 @@ class ManageWalletFragment : BasePageViewFragment() {
           contentDescription = R.string.action_edit,
           onClick = {})
         VectorIconButton(
-          imageVector = Icons.Default.Clear,
-          contentDescription = R.string.action_edit,
+          painter = painterResource(R.drawable.ic_qrcode),
+          contentDescription = R.string.scan_qr,
           onClick = {})
         VectorIconButton(
           imageVector = Icons.Default.Share,
-          contentDescription = R.string.action_edit,
-          onClick = {})
+          contentDescription = R.string.wallet_view_share_button,
+          onClick = { shareAddress(wallet) })
         VectorIconButton(
-          imageVector = Icons.Default.AccountCircle,
-          contentDescription = R.string.action_edit,
-          onClick = {})
+          painter = painterResource(R.drawable.ic_copy_to_clip),
+          contentDescription = R.string.wallet_view_copy_button,
+          onClick = { copyAddressToClipBoard(wallet) })
       }
     }
   }
@@ -353,8 +355,7 @@ class ManageWalletFragment : BasePageViewFragment() {
         containerColor = styleguide_blue_secondary
       ) {
         Column(
-          modifier =
-          Modifier
+          modifier = Modifier
             .fillMaxWidth()
             .padding(start = 16.dp, end = 16.dp, bottom = 48.dp),
           verticalArrangement = Arrangement.spacedBy(16.dp)
@@ -393,9 +394,7 @@ class ManageWalletFragment : BasePageViewFragment() {
             )
             BalanceItem(
               icon = R.drawable.ic_eth_token,
-              currencyName = R.string.ethereum_token_name,
-              balance =
-              "${
+              currencyName = R.string.ethereum_token_name, balance = "${
                 balance.ethBalance.token.amount.toString().formatMoney()
               } ${balance.ethBalance.token.symbol}"
             )
@@ -404,6 +403,18 @@ class ManageWalletFragment : BasePageViewFragment() {
       }
     }
   }
+
+  private fun copyAddressToClipBoard(address: String) {
+    val clipboard =
+      requireActivity().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+    val clip = ClipData.newPlainText(TransactionDetailsFragment.ORDER_KEY, address)
+    clipboard.setPrimaryClip(clip)
+    Toast.makeText(context, R.string.copied_to_clipboard, Toast.LENGTH_SHORT).show()
+  }
+
+  fun shareAddress(walletAddress: String) =
+    ShareCompat.IntentBuilder(requireActivity()).setText(walletAddress).setType("text/plain")
+      .setChooserTitle(resources.getString(R.string.share_via)).startChooser()
 
   @Preview
   @Composable
