@@ -6,6 +6,7 @@ import com.appcoins.wallet.core.network.microservices.model.FeeType
 import com.appcoins.wallet.core.network.microservices.model.PaymentMethodEntity
 import com.appcoins.wallet.gamification.repository.ForecastBonusAndLevel
 import com.asfoundation.wallet.backup.NotificationNeeded
+import com.asfoundation.wallet.billing.paypal.PaypalSupportedCurrencies
 import com.asfoundation.wallet.feature_flags.topup.TopUpDefaultValueUseCase
 import com.asfoundation.wallet.promo_code.use_cases.GetCurrentPromoCodeUseCase
 import com.asfoundation.wallet.service.currencies.LocalCurrencyConversionService
@@ -43,7 +44,7 @@ class TopUpInteractor @Inject constructor(
       direct = true,
       transactionType = "TOPUP"
     )
-      .map { mapPaymentMethods(it) }
+      .map { mapPaymentMethods(it, currency) }
 
   fun isWalletBlocked() = walletBlockedInteract.isWalletBlocked()
 
@@ -65,7 +66,8 @@ class TopUpInteractor @Inject constructor(
     conversionService.getFiatToAppc(currency, value, scale)
 
   private fun mapPaymentMethods(
-    paymentMethods: List<PaymentMethodEntity>
+    paymentMethods: List<PaymentMethodEntity>,
+    currency: String
   ): List<PaymentMethod> = paymentMethods.map {
     PaymentMethod(
       id = it.id,
@@ -75,12 +77,20 @@ class TopUpInteractor @Inject constructor(
       fee = mapPaymentMethodFee(it.fee),
       isEnabled = it.isAvailable(),
       disabledReason = null,
-      showLogout = isToShowPaypalLogout(it)
+      showLogout = isToShowPaypalLogout(it),
+      showExtraFeesMessage = hasExtraFees(it, currency)
     )
   }
 
   private fun isToShowPaypalLogout(paymentMethod: PaymentMethodEntity): Boolean {
     return (paymentMethod.id == PaymentMethodsView.PaymentMethodId.PAYPAL_V2.id)
+  }
+
+  private fun hasExtraFees(paymentMethod: PaymentMethodEntity, currency: String): Boolean {
+    return (
+        paymentMethod.id == PaymentMethodsView.PaymentMethodId.PAYPAL_V2.id &&
+        !PaypalSupportedCurrencies.currencies.contains(currency)
+        )
   }
 
   private fun mapPaymentMethodFee(feeEntity: FeeEntity?): PaymentMethodFee? = feeEntity?.let {

@@ -78,14 +78,16 @@ class PaymentMethodsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemVie
           onClickPaypalLogout()
           return@setOnMenuItemClickListener true
         }
-//        popup.setOnDismissListener {
-//          // Respond to popup being dismissed.
-//        }
         popup.show()
       }
     } else {
       binding.paymentMoreLogout.visibility = View.GONE
     }
+    binding.paymentMethodInfo.visibility =
+      if (data.showExtraFeesMessage) View.VISIBLE else View.GONE
+    binding.paymentMethodInfoImage.visibility =
+      if (data.showExtraFeesMessage) View.VISIBLE else View.GONE
+
   }
 
   private fun handleDescription(data: PaymentMethod, selected: Boolean) {

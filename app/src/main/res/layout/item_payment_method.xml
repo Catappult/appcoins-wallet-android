@@ -19,12 +19,12 @@
       android:clickable="false"
       android:scaleX="0.8"
       android:scaleY="0.8"
-      app:useMaterialThemeColors="false"
-      app:buttonTint="@color/radio_button_color"
       android:textAppearance="@style/RadioButton.TextAppearance"
+      app:buttonTint="@color/radio_button_color"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent"
+      app:useMaterialThemeColors="false"
       />
 
   <ImageView
@@ -66,12 +66,47 @@
       android:textColor="#929292"
       android:textSize="11sp"
       android:visibility="gone"
-      app:layout_constraintBottom_toBottomOf="@id/payment_method_ic"
+      app:layout_constraintBottom_toTopOf="@id/payment_method_info_image"
       app:layout_constraintEnd_toStartOf="@id/payment_method_fee"
       app:layout_constraintHorizontal_bias="0"
       app:layout_constraintStart_toEndOf="@id/payment_method_ic"
       app:layout_constraintTop_toBottomOf="@id/payment_method_description"
       tools:text="You need ETH to pay for the gas."
+      />
+
+  <ImageView
+      android:id="@+id/payment_method_info_image"
+      android:layout_width="12dp"
+      android:layout_height="12dp"
+      android:layout_marginStart="17dp"
+      android:layout_marginTop="6dp"
+      android:scaleType="centerInside"
+      android:src="@drawable/ic_info_message"
+      android:visibility="gone"
+      app:layout_constraintBottom_toBottomOf="@id/payment_method_ic"
+      app:layout_constraintHorizontal_bias="0"
+      app:layout_constraintStart_toEndOf="@id/payment_method_ic"
+      app:layout_constraintTop_toBottomOf="@id/payment_method_reason"
+      />
+
+  <TextView
+      android:id="@+id/payment_method_info"
+      style="@style/TopUpTextStyle"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="4dp"
+      android:ellipsize="end"
+      android:gravity="start"
+      android:text="@string/purchase_paypal_additional_fees_disclaimer_body"
+      android:textColor="@color/styleguide_info_blue"
+      android:textSize="10sp"
+      android:visibility="gone"
+      app:layout_constraintBottom_toBottomOf="@id/payment_method_info_image"
+      app:layout_constraintEnd_toStartOf="@id/payment_method_fee"
+      app:layout_constraintHorizontal_bias="0"
+      app:layout_constraintStart_toEndOf="@id/payment_method_info_image"
+      app:layout_constraintTop_toTopOf="@id/payment_method_info_image"
+      tools:ignore="SmallSp"
       />
 
   <com.appcoins.wallet.ui.widgets.WalletButtonView
@@ -92,16 +127,16 @@
 
   <ImageButton
       android:id="@+id/payment_more_logout"
-      android:foregroundTint="@color/black"
-      android:background="?attr/selectableItemBackgroundBorderless"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
+      android:layout_marginEnd="@dimen/normal_margin"
+      android:background="?attr/selectableItemBackgroundBorderless"
       android:contentDescription="Logout"
+      android:foregroundTint="@color/black"
       android:src="@drawable/ic_more"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="@+id/payment_method_fee"
       app:layout_constraintTop_toTopOf="parent"
-      android:layout_marginEnd="@dimen/normal_margin"
       />
 
   <LinearLayout
@@ -115,7 +150,7 @@
       app:layout_constraintHorizontal_bias="1"
       app:layout_constraintStart_toEndOf="@id/payment_method_description"
       app:layout_constraintTop_toTopOf="@+id/payment_method_description"
-      tools:visibility="visible"
+
       >
 
     <TextView
