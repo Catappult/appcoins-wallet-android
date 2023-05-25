@@ -490,6 +490,7 @@
   <string name="back_up_button">备份钱包</string>
   <string name="play_button">Play</string>
   <string name="manage_wallet_button">Manage wallet</string>
+  <string name="log_out_button">Log out</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">我同意AppCoins Wallet的%1$s和%2$s。</string>
   <string name="terms_and_conditions_error">请接受我们的条款和条件以及隐私政策以继续</string>
@@ -610,6 +611,7 @@
   <string name="purchase_error_generic_contact_us_body">糟糕，出现错误。请重试或联系我们。</string>
   <string name="error_blocked_wallet_title">Blocked Wallet</string>
   <string name="error_blocked_wallet_body">For security reasons, your wallet has been blocked. Please contact us for more information.</string>
+  <string name="purchase_paypal_additional_fees_disclaimer_body">Additional fees may apply.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">帐单地址</string>
   <string name="purchase_address_address_field">地址</string>
