@@ -490,6 +490,7 @@
   <string name="back_up_button">Tárca biztonsági mentése</string>
   <string name="play_button">Play</string>
   <string name="manage_wallet_button">Manage wallet</string>
+  <string name="log_out_button">Log out</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Beleegyezem a következőbe: AppCoins Wallet %1$s és %2$s.</string>
   <string name="terms_and_conditions_error">A folytatáshoz kérjük, fogadd el a Felhasználási feltételeket és az Adatvédelmi szabályzatot</string>
@@ -610,6 +611,7 @@
   <string name="purchase_error_generic_contact_us_body">Hoppá, hiba történt. Próbáld újra később vagy vedd fel velünk a kapcsolatot.</string>
   <string name="error_blocked_wallet_title">Blocked Wallet</string>
   <string name="error_blocked_wallet_body">For security reasons, your wallet has been blocked. Please contact us for more information.</string>
+  <string name="purchase_paypal_additional_fees_disclaimer_body">Additional fees may apply.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">Számlázási cím</string>
   <string name="purchase_address_address_field">Cím</string>
