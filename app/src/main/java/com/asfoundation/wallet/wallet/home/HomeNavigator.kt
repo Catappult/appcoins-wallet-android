@@ -7,19 +7,19 @@ import android.widget.Toast
 import androidx.core.app.ShareCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
-import com.appcoins.wallet.sharedpreferences.BackupTriggerPreferencesDataSource
 import com.appcoins.wallet.core.arch.data.Navigator
-import com.asf.wallet.R
 import com.appcoins.wallet.core.utils.jvm_common.C
+import com.appcoins.wallet.sharedpreferences.BackupTriggerPreferencesDataSource
+import com.asf.wallet.R
 import com.asfoundation.wallet.change_currency.ChangeFiatCurrencyActivity
 import com.asfoundation.wallet.main.nav_bar.NavBarFragmentNavigator
 import com.asfoundation.wallet.rating.RatingActivity
 import com.asfoundation.wallet.topup.TopUpActivity
 import com.asfoundation.wallet.transactions.Transaction
-import com.wallet.appcoins.core.legacy_base.legacy.BaseActivity
 import com.asfoundation.wallet.ui.balance.TransactionDetailActivity
 import com.asfoundation.wallet.ui.settings.SettingsActivity
 import com.asfoundation.wallet.ui.transact.TransferActivity
+import com.wallet.appcoins.core.legacy_base.BaseActivity
 import javax.inject.Inject
 
 class HomeNavigator @Inject constructor(
@@ -61,7 +61,7 @@ class HomeNavigator @Inject constructor(
   }
 
   fun handleShare(link: String) {
-    ShareCompat.IntentBuilder.from(fragment.activity as com.wallet.appcoins.core.legacy_base.legacy.BaseActivity)
+    ShareCompat.IntentBuilder.from(fragment.activity as BaseActivity)
       .setText(link)
       .setType("text/plain")
       .setChooserTitle(fragment.resources.getString(R.string.referral_share_sheet_title))

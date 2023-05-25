@@ -10,15 +10,15 @@ import com.asf.wallet.R
 import com.asf.wallet.databinding.ActivitySettingsBinding
 import com.asfoundation.wallet.home.usecases.DisplayChatUseCase
 import com.asfoundation.wallet.ui.AuthenticationPromptActivity
-import com.wallet.appcoins.core.legacy_base.legacy.BaseActivity
 import com.asfoundation.wallet.ui.settings.entry.SettingsFragment
+import com.wallet.appcoins.core.legacy_base.BaseActivity
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class SettingsActivity : com.wallet.appcoins.core.legacy_base.legacy.BaseActivity(), SettingsActivityView {
+class SettingsActivity : BaseActivity(), SettingsActivityView {
 
   @Inject
   lateinit var displayChat: DisplayChatUseCase

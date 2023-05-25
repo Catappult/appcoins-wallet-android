@@ -6,7 +6,6 @@ import android.view.View
 import cm.aptoide.skills.SkillsActivity
 import com.airbnb.lottie.LottieAnimationView
 import com.appcoins.wallet.bdsbilling.WalletService
-import com.wallet.appcoins.core.legacy_base.legacy.BaseActivity
 import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.asf.wallet.R
 import com.asfoundation.wallet.entity.TransactionBuilder
@@ -16,6 +15,7 @@ import com.asfoundation.wallet.ui.iab.IabActivity.Companion.newIntent
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
 import com.asfoundation.wallet.ui.iab.PaymentMethodsAnalytics
 import com.asfoundation.wallet.util.TransferParser
+import com.wallet.appcoins.core.legacy_base.BaseActivity
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -24,7 +24,7 @@ import java.util.*
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class OneStepPaymentReceiver : com.wallet.appcoins.core.legacy_base.legacy.BaseActivity() {
+class OneStepPaymentReceiver : BaseActivity() {
   @Inject
   lateinit var inAppPurchaseInteractor: InAppPurchaseInteractor
 

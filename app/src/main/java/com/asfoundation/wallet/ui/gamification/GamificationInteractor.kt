@@ -1,16 +1,17 @@
 package com.asfoundation.wallet.ui.gamification
 
+import com.appcoins.wallet.core.network.backend.model.GamificationResponse
+import com.appcoins.wallet.core.network.backend.model.PromotionsResponse
+import com.appcoins.wallet.feature.changecurrency.data.currencies.LocalCurrencyConversionService
+import com.appcoins.wallet.feature.promocode.data.use_cases.GetCurrentPromoCodeUseCase
+import com.appcoins.wallet.feature.walletInfo.data.wallet.FindDefaultWalletInteract
+import com.appcoins.wallet.feature.walletInfo.data.wallet.domain.Wallet
 import com.appcoins.wallet.gamification.Gamification
 import com.appcoins.wallet.gamification.GamificationContext
 import com.appcoins.wallet.gamification.repository.ForecastBonus
 import com.appcoins.wallet.gamification.repository.ForecastBonusAndLevel
-import com.appcoins.wallet.gamification.repository.PromotionsGamificationStats
 import com.appcoins.wallet.gamification.repository.Levels
-import com.appcoins.wallet.core.network.backend.model.GamificationResponse
-import com.appcoins.wallet.core.network.backend.model.PromotionsResponse
-import com.appcoins.wallet.feature.walletInfo.data.wallet.domain.Wallet
-import com.appcoins.wallet.feature.promocode.data.use_cases.GetCurrentPromoCodeUseCase
-import com.appcoins.wallet.feature.walletInfo.data.FindDefaultWalletInteract
+import com.appcoins.wallet.gamification.repository.PromotionsGamificationStats
 import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Single
@@ -19,9 +20,9 @@ import java.math.BigDecimal
 import javax.inject.Inject
 
 class GamificationInteractor @Inject constructor(private val gamification: Gamification,
-                                                 private val defaultWallet: com.appcoins.wallet.feature.walletInfo.data.FindDefaultWalletInteract,
-                                                 private val conversionService: com.appcoins.wallet.feature.changecurrency.data.currencies.LocalCurrencyConversionService,
-                                                 private val getCurrentPromoCodeUseCase: com.appcoins.wallet.feature.promocode.data.use_cases.GetCurrentPromoCodeUseCase) {
+                                                 private val defaultWallet: FindDefaultWalletInteract,
+                                                 private val conversionService: LocalCurrencyConversionService,
+                                                 private val getCurrentPromoCodeUseCase: GetCurrentPromoCodeUseCase) {
 
   private var isBonusActiveAndValid: Boolean = false
 

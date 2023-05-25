@@ -11,22 +11,22 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import by.kirich1409.viewbindingdelegate.viewBinding
-import com.asf.wallet.R
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
-import com.appcoins.wallet.core.utils.jvm_common.Duration
 import com.appcoins.wallet.core.utils.android_common.KeyboardUtils
 import com.appcoins.wallet.core.utils.android_common.WalletCurrency
+import com.appcoins.wallet.core.utils.jvm_common.Duration
+import com.asf.wallet.R
 import com.asf.wallet.databinding.FragmentVerificationCodeBinding
 import com.asfoundation.wallet.verification.ui.credit_card.VerificationCreditCardActivityView
-import com.wallet.appcoins.core.legacy_base.legacy.BasePageViewFragment
 import com.jakewharton.rxbinding2.view.RxView
+import com.wallet.appcoins.core.legacy_base.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.Observable
 import java.util.*
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class VerificationCodeFragment : com.wallet.appcoins.core.legacy_base.legacy.BasePageViewFragment(null), VerificationCodeView {
+class VerificationCodeFragment : BasePageViewFragment(), VerificationCodeView {
 
   @Inject
   lateinit var presenter: VerificationCodePresenter

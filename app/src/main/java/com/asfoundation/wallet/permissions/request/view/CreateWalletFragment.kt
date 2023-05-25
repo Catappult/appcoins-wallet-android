@@ -7,25 +7,25 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import by.kirich1409.viewbindingdelegate.viewBinding
+import com.appcoins.wallet.feature.walletInfo.data.wallet.WalletCreatorInteract
 import com.asf.wallet.R
 import com.asf.wallet.databinding.FragmentCreateWalletLayoutBinding
-import com.wallet.appcoins.core.legacy_base.legacy.BasePageViewFragment
-import com.appcoins.wallet.feature.walletInfo.data.WalletCreatorInteract
 import com.jakewharton.rxbinding2.view.RxView
 import com.jakewharton.rxrelay2.BehaviorRelay
+import com.wallet.appcoins.core.legacy_base.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class CreateWalletFragment : com.wallet.appcoins.core.legacy_base.legacy.BasePageViewFragment(null), CreateWalletView {
+class CreateWalletFragment : BasePageViewFragment(), CreateWalletView {
   companion object {
     fun newInstance() = CreateWalletFragment()
   }
 
   @Inject
-  lateinit var interactor: com.appcoins.wallet.feature.walletInfo.data.WalletCreatorInteract
+  lateinit var interactor: WalletCreatorInteract
 
   private lateinit var presenter: CreateWalletPresenter
   private lateinit var navigator: CreateWalletNavigator

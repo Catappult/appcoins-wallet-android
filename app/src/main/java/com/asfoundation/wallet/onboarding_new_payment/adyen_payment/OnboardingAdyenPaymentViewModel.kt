@@ -53,7 +53,7 @@ class OnboardingAdyenPaymentViewModel @Inject constructor(
     private val events: OnboardingPaymentEvents,
     private val getPaymentInfoModelUseCase: GetPaymentInfoModelUseCase,
     private val transactionOriginUseCase: GetTransactionOriginUseCase,
-    private val supportInteractor: com.wallet.appcoins.feature.support.data.SupportInteractor,
+    private val supportInteractor: SupportInteractor,
     private val rxSchedulers: RxSchedulers,
     savedStateHandle: SavedStateHandle
 ) :

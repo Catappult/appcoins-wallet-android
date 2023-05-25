@@ -8,17 +8,17 @@ import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.widget.Toolbar
 import by.kirich1409.viewbindingdelegate.viewBinding
-import com.wallet.appcoins.core.legacy_base.legacy.BaseActivity
 import com.asf.wallet.R
 import com.asf.wallet.databinding.ActivityRewardsLevelBinding
 import com.jakewharton.rxbinding2.view.RxView
+import com.wallet.appcoins.core.legacy_base.BaseActivity
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.subjects.PublishSubject
 
 @AndroidEntryPoint
-class GamificationActivity : com.wallet.appcoins.core.legacy_base.legacy.BaseActivity(), GamificationActivityView {
+class GamificationActivity : BaseActivity(), GamificationActivityView {
 
   private lateinit var menu: Menu
   private lateinit var presenter: GamificationActivityPresenter
@@ -57,7 +57,7 @@ class GamificationActivity : com.wallet.appcoins.core.legacy_base.legacy.BaseAct
    * function hardcoded temporarily, must be changed
    * @return
    */
-  override fun toolbar(): Toolbar {
+   fun toolbar(): Toolbar {
     val toolbar = findViewById<Toolbar>(R.id.toolbar)
     toolbar!!.visibility = View.VISIBLE
     if (toolbar != null) {

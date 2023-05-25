@@ -8,16 +8,16 @@ import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.widget.Toolbar
 import by.kirich1409.viewbindingdelegate.viewBinding
-import com.wallet.appcoins.core.legacy_base.legacy.BaseActivity
 import com.asf.wallet.R
 import com.asf.wallet.databinding.RemoveWalletActivityLayoutBinding
 import com.asfoundation.wallet.ui.AuthenticationPromptActivity
+import com.wallet.appcoins.core.legacy_base.BaseActivity
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
 
 @AndroidEntryPoint
-class RemoveWalletActivity : com.wallet.appcoins.core.legacy_base.legacy.BaseActivity(), RemoveWalletActivityView {
+class RemoveWalletActivity : BaseActivity(), RemoveWalletActivityView {
 
   private var authenticationResultSubject: PublishSubject<Boolean>? = null
 
@@ -35,7 +35,7 @@ class RemoveWalletActivity : com.wallet.appcoins.core.legacy_base.legacy.BaseAct
    * function hardcoded temporarily, must be changed
    * @return
    */
-  override fun toolbar(): Toolbar? {
+   fun toolbar(): Toolbar? {
     val toolbar = findViewById<Toolbar>(R.id.toolbar)
     toolbar!!.visibility = View.VISIBLE
     if (toolbar != null) {

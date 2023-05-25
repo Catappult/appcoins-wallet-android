@@ -5,15 +5,16 @@ import com.appcoins.wallet.appcoins.rewards.ErrorMapper
 import com.appcoins.wallet.bdsbilling.Billing
 import com.appcoins.wallet.bdsbilling.repository.entity.Product
 import com.appcoins.wallet.core.network.microservices.model.BillingSupportedType
+import com.appcoins.wallet.feature.promocode.data.use_cases.GetCurrentPromoCodeUseCase
 import com.appcoins.wallet.gamification.repository.ForecastBonusAndLevel
+import com.appcoins.wallet.sharedpreferences.FingerprintPreferencesDataSource
 import com.asfoundation.wallet.billing.adyen.PurchaseBundleModel
 import com.asfoundation.wallet.entity.PendingTransaction
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.repository.BdsPendingTransactionService
-import com.wallet.appcoins.feature.support.data.SupportInteractor
 import com.asfoundation.wallet.ui.gamification.GamificationInteractor
 import com.asfoundation.wallet.wallet_blocked.WalletBlockedInteract
-import com.appcoins.wallet.sharedpreferences.FingerprintPreferencesDataSource
+import com.wallet.appcoins.feature.support.data.SupportInteractor
 import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Scheduler
@@ -22,7 +23,7 @@ import java.math.BigDecimal
 import javax.inject.Inject
 
 class PaymentMethodsInteractor @Inject constructor(
-    private val supportInteractor: com.wallet.appcoins.feature.support.data.SupportInteractor,
+    private val supportInteractor: SupportInteractor,
     private val gamificationInteractor: GamificationInteractor,
     private val walletBlockedInteract: WalletBlockedInteract,
     private val inAppPurchaseInteractor: InAppPurchaseInteractor,
@@ -30,7 +31,7 @@ class PaymentMethodsInteractor @Inject constructor(
     private val billing: Billing,
     private val errorMapper: ErrorMapper,
     private val bdsPendingTransactionService: BdsPendingTransactionService,
-    private val getCurrentPromoCodeUseCase: com.appcoins.wallet.feature.promocode.data.use_cases.GetCurrentPromoCodeUseCase
+    private val getCurrentPromoCodeUseCase: GetCurrentPromoCodeUseCase
 ) {
 
 

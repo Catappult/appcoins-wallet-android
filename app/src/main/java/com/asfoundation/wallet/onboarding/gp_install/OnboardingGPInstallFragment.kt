@@ -9,15 +9,15 @@ import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import by.kirich1409.viewbindingdelegate.viewBinding
-import com.asf.wallet.databinding.OnboardingGpInstallFragmentBinding
 import com.appcoins.wallet.core.arch.SingleStateFragment
-import com.wallet.appcoins.core.legacy_base.legacy.BasePageViewFragment
+import com.asf.wallet.databinding.OnboardingGpInstallFragmentBinding
+import com.wallet.appcoins.core.legacy_base.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 
 @AndroidEntryPoint
-class OnboardingGPInstallFragment : com.wallet.appcoins.core.legacy_base.legacy.BasePageViewFragment(null),
+class OnboardingGPInstallFragment : BasePageViewFragment(),
   SingleStateFragment<OnboardingGPInstallState, OnboardingGPInstallSideEffect> {
 
   private val views by viewBinding(OnboardingGpInstallFragmentBinding::bind)

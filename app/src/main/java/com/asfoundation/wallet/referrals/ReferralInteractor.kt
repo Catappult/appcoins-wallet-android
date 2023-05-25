@@ -1,28 +1,28 @@
 package com.asfoundation.wallet.referrals
 
-import com.appcoins.wallet.gamification.repository.PromotionsRepository
 import com.appcoins.wallet.core.network.backend.model.PromotionsResponse
 import com.appcoins.wallet.core.network.backend.model.ReferralResponse
+import com.appcoins.wallet.core.utils.android_common.extensions.scaleToString
+import com.appcoins.wallet.feature.promocode.data.use_cases.GetCurrentPromoCodeUseCase
+import com.appcoins.wallet.feature.walletInfo.data.wallet.FindDefaultWalletInteract
+import com.appcoins.wallet.gamification.repository.PromotionsRepository
+import com.appcoins.wallet.sharedpreferences.ReferralPreferencesDataSource
 import com.asf.wallet.R
 import com.asfoundation.wallet.interact.EmptyNotification
-import com.appcoins.wallet.feature.promocode.data.use_cases.GetCurrentPromoCodeUseCase
 import com.asfoundation.wallet.ui.widget.holder.CardNotificationAction
-import com.appcoins.wallet.core.utils.android_common.extensions.scaleToString
-import com.appcoins.wallet.feature.walletInfo.data.FindDefaultWalletInteract
 import io.reactivex.Completable
 import io.reactivex.Maybe
 import io.reactivex.Single
 import it.czerwinski.android.hilt.annotations.BoundTo
-import com.appcoins.wallet.sharedpreferences.ReferralPreferencesDataSource
 import java.math.BigDecimal
 import javax.inject.Inject
 
 @BoundTo(supertype = ReferralInteractorContract::class)
 class ReferralInteractor @Inject constructor(
-    private val preferences: ReferralPreferencesDataSource,
-    private val defaultWallet: com.appcoins.wallet.feature.walletInfo.data.FindDefaultWalletInteract,
-    private val promotionsRepository: PromotionsRepository,
-    private val getCurrentPromoCodeUseCase: com.appcoins.wallet.feature.promocode.data.use_cases.GetCurrentPromoCodeUseCase
+        private val preferences: ReferralPreferencesDataSource,
+        private val defaultWallet: FindDefaultWalletInteract,
+        private val promotionsRepository: PromotionsRepository,
+        private val getCurrentPromoCodeUseCase: GetCurrentPromoCodeUseCase
 ) :
   ReferralInteractorContract {
 

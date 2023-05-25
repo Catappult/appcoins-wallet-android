@@ -1,5 +1,6 @@
 package com.asfoundation.wallet.ui.wallets
 
+import com.appcoins.wallet.feature.promocode.data.use_cases.GetCurrentPromoCodeUseCase
 import com.appcoins.wallet.gamification.Gamification
 import com.asfoundation.wallet.interact.SetDefaultWalletInteractor
 import com.wallet.appcoins.feature.support.data.SupportInteractor
@@ -8,9 +9,9 @@ import javax.inject.Inject
 
 class WalletDetailsInteractor @Inject constructor(
     private val setDefaultWalletInteractor: SetDefaultWalletInteractor,
-    private val supportInteractor: com.wallet.appcoins.feature.support.data.SupportInteractor,
+    private val supportInteractor: SupportInteractor,
     private val gamificationRepository: Gamification,
-    private val getCurrentPromoCodeUseCase: com.appcoins.wallet.feature.promocode.data.use_cases.GetCurrentPromoCodeUseCase
+    private val getCurrentPromoCodeUseCase: GetCurrentPromoCodeUseCase
 ) {
 
   fun setActiveWallet(address: String): Completable = setDefaultWalletInteractor.set(address)

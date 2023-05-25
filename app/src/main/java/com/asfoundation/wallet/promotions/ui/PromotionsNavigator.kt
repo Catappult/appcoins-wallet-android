@@ -9,13 +9,13 @@ import androidx.core.app.ShareCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
-import com.asf.wallet.R
 import com.appcoins.wallet.core.arch.data.Navigator
 import com.appcoins.wallet.core.arch.data.navigate
+import com.asf.wallet.R
 import com.asfoundation.wallet.promotions.ui.vip_referral.PromotionsVipReferralFragment
 import com.asfoundation.wallet.referrals.InviteFriendsActivity
-import com.wallet.appcoins.core.legacy_base.legacy.BaseActivity
 import com.asfoundation.wallet.ui.gamification.GamificationActivity
+import com.wallet.appcoins.core.legacy_base.BaseActivity
 import javax.inject.Inject
 
 
@@ -51,7 +51,7 @@ class PromotionsNavigator @Inject constructor(private val fragment: Fragment) :
   }
 
   fun handleShare(link: String) {
-    ShareCompat.IntentBuilder.from(fragment.activity as com.wallet.appcoins.core.legacy_base.legacy.BaseActivity)
+    ShareCompat.IntentBuilder.from(fragment.activity as BaseActivity)
       .setText(link)
       .setType("text/plain")
       .setChooserTitle(fragment.resources.getString(R.string.referral_share_sheet_title))

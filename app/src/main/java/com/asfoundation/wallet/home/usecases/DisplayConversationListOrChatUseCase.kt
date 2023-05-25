@@ -5,7 +5,7 @@ import io.intercom.android.sdk.Intercom
 import javax.inject.Inject
 
 class DisplayConversationListOrChatUseCase @Inject constructor(
-    private val supportRepository: com.wallet.appcoins.feature.support.data.SupportRepository) {
+    private val supportRepository: SupportRepository) {
 
   @Suppress("DEPRECATION")
   operator fun invoke() {

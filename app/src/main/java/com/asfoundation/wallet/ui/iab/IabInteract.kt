@@ -1,17 +1,18 @@
 package com.asfoundation.wallet.ui.iab
 
+import com.appcoins.wallet.feature.promocode.data.use_cases.GetCurrentPromoCodeUseCase
 import com.appcoins.wallet.gamification.Gamification
 import com.asfoundation.wallet.backup.NotificationNeeded
-import com.wallet.appcoins.feature.support.data.SupportInteractor
 import com.asfoundation.wallet.wallet_blocked.WalletBlockedInteract
+import com.wallet.appcoins.feature.support.data.SupportInteractor
 import io.reactivex.Single
 import javax.inject.Inject
 
 class IabInteract @Inject constructor(private val inAppPurchaseInteractor: InAppPurchaseInteractor,
-                                      private val supportInteractor: com.wallet.appcoins.feature.support.data.SupportInteractor,
+                                      private val supportInteractor: SupportInteractor,
                                       private val gamificationRepository: Gamification,
                                       private val walletBlockedInteract: WalletBlockedInteract,
-                                      private val getCurrentPromoCodeUseCase: com.appcoins.wallet.feature.promocode.data.use_cases.GetCurrentPromoCodeUseCase) {
+                                      private val getCurrentPromoCodeUseCase: GetCurrentPromoCodeUseCase) {
 
   companion object {
     const val PRE_SELECTED_PAYMENT_METHOD_KEY = "PRE_SELECTED_PAYMENT_METHOD_KEY"

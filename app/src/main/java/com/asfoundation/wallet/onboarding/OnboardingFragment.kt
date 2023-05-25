@@ -18,18 +18,18 @@ import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import by.kirich1409.viewbindingdelegate.viewBinding
+import com.appcoins.wallet.core.arch.SingleStateFragment
 import com.appcoins.wallet.core.utils.properties.PRIVACY_POLICY_URL
 import com.appcoins.wallet.core.utils.properties.TERMS_CONDITIONS_URL
-import com.appcoins.wallet.core.arch.SingleStateFragment
 import com.asf.wallet.R
 import com.asf.wallet.databinding.FragmentOnboardingBinding
 import com.asfoundation.wallet.my_wallets.create_wallet.CreateWalletDialogFragment
-import com.wallet.appcoins.core.legacy_base.legacy.BasePageViewFragment
+import com.wallet.appcoins.core.legacy_base.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class OnboardingFragment : com.wallet.appcoins.core.legacy_base.legacy.BasePageViewFragment(null),
+class OnboardingFragment : BasePageViewFragment(),
   SingleStateFragment<OnboardingState, OnboardingSideEffect> {
 
   @Inject

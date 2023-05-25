@@ -8,19 +8,19 @@ import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.widget.Toolbar
 import by.kirich1409.viewbindingdelegate.viewBinding
-import com.wallet.appcoins.core.legacy_base.legacy.BaseActivity
 import com.asf.wallet.R
 import com.asf.wallet.databinding.ActivityWalletVerificationBinding
 import com.asfoundation.wallet.recover.entry.RecoverEntryFragment
 import com.asfoundation.wallet.verification.ui.credit_card.code.VerificationCodeFragment
 import com.asfoundation.wallet.verification.ui.credit_card.error.VerificationErrorFragment
+import com.wallet.appcoins.core.legacy_base.BaseActivity
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class VerificationCreditCardActivity : com.wallet.appcoins.core.legacy_base.legacy.BaseActivity(), VerificationCreditCardActivityView {
+class VerificationCreditCardActivity : BaseActivity(), VerificationCreditCardActivityView {
 
   companion object {
     const val IS_WALLET_VERIFIED = "is_wallet_verified"
@@ -54,7 +54,7 @@ class VerificationCreditCardActivity : com.wallet.appcoins.core.legacy_base.lega
    * function hardcoded temporarily, must be changed
    * @return
    */
-  override fun toolbar(): Toolbar? {
+   fun toolbar(): Toolbar? {
     val toolbar = findViewById<Toolbar>(R.id.toolbar)
     toolbar!!.visibility = View.VISIBLE
     if (toolbar != null) {

@@ -15,13 +15,13 @@ import com.asf.wallet.R
 import com.asf.wallet.databinding.SettingsWalletBottomSheetLayoutBinding
 import com.asfoundation.wallet.ui.settings.wallets.SettingsWalletsView
 import com.asfoundation.wallet.ui.wallets.WalletsAdapter
-import com.wallet.appcoins.core.legacy_base.legacy.BasePageViewFragment
+import com.wallet.appcoins.core.legacy_base.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.subjects.PublishSubject
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class SettingsWalletsBottomSheetFragment : com.wallet.appcoins.core.legacy_base.legacy.BasePageViewFragment(null), SettingsWalletsBottomSheetView {
+class SettingsWalletsBottomSheetFragment : BasePageViewFragment(), SettingsWalletsBottomSheetView {
 
   @Inject
   lateinit var currencyFormatter: CurrencyFormatUtils

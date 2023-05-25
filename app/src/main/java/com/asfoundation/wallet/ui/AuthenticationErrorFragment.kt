@@ -9,14 +9,14 @@ import android.view.animation.AnimationUtils
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.asf.wallet.R
 import com.asf.wallet.databinding.AuthenticationErrorFragmentBinding
-import com.wallet.appcoins.core.legacy_base.legacy.BasePageViewFragment
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.jakewharton.rxbinding2.view.RxView
+import com.wallet.appcoins.core.legacy_base.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.disposables.CompositeDisposable
 
 @AndroidEntryPoint
-class AuthenticationErrorFragment : com.wallet.appcoins.core.legacy_base.legacy.BasePageViewFragment(null), AuthenticationErrorView {
+class AuthenticationErrorFragment : BasePageViewFragment(), AuthenticationErrorView {
 
   private lateinit var presenter: AuthenticationErrorPresenter
   private lateinit var activityView: AuthenticationPromptView

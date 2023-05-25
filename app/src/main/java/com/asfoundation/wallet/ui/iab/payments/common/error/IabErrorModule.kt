@@ -30,7 +30,7 @@ class IabErrorModule {
   fun providesIabErrorPresenter(fragment: Fragment,
                                 data: IabErrorData,
                                 navigator: IabErrorNavigator,
-                                supportInteractor: com.wallet.appcoins.feature.support.data.SupportInteractor): IabErrorPresenter {
+                                supportInteractor: SupportInteractor): IabErrorPresenter {
     return IabErrorPresenter(fragment as IabErrorView, data, navigator, supportInteractor,
         CompositeDisposable())
   }

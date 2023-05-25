@@ -1,5 +1,6 @@
 plugins{
   id("appcoins.android.library")
+  id("appcoins.room")
 }
 
 android{

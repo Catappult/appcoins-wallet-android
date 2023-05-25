@@ -14,14 +14,14 @@ import android.widget.TextView
 import android.widget.Toast
 import android.widget.Toast.LENGTH_SHORT
 import by.kirich1409.viewbindingdelegate.viewBinding
-import com.asf.wallet.R
 import com.appcoins.wallet.core.utils.android_common.WalletCurrency
+import com.asf.wallet.R
 import com.asf.wallet.databinding.TransactFragmentLayoutBinding
-import com.wallet.appcoins.core.legacy_base.legacy.BasePageViewFragment
 import com.google.android.gms.vision.barcode.Barcode
 import com.google.android.material.snackbar.Snackbar
 import com.jakewharton.rxbinding2.view.RxView
 import com.jakewharton.rxbinding2.widget.RxRadioGroup
+import com.wallet.appcoins.core.legacy_base.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.Observable
 import io.reactivex.subjects.BehaviorSubject
@@ -31,7 +31,7 @@ import java.util.*
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class TransferFragment : com.wallet.appcoins.core.legacy_base.legacy.BasePageViewFragment(null), TransferFragmentView {
+class TransferFragment : BasePageViewFragment(), TransferFragmentView {
 
   companion object {
     fun newInstance() = TransferFragment()

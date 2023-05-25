@@ -34,7 +34,6 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import com.asf.wallet.R;
-import com.appcoins.wallet.core.arch.legacy.BaseActivity;
 import com.asfoundation.wallet.ui.camera.CameraSource;
 import com.asfoundation.wallet.ui.camera.CameraSourcePreview;
 import com.appcoins.wallet.core.utils.android_common.Log;
@@ -44,6 +43,8 @@ import com.google.android.gms.common.api.CommonStatusCodes;
 import com.google.android.gms.vision.MultiProcessor;
 import com.google.android.gms.vision.barcode.Barcode;
 import com.google.android.gms.vision.barcode.BarcodeDetector;
+import com.wallet.appcoins.core.legacy_base.BaseActivity;
+
 import java.io.IOException;
 
 public final class BarcodeCaptureActivity extends BaseActivity

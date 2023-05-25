@@ -16,15 +16,15 @@ import com.asfoundation.wallet.ui.iab.IabView
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
 import com.asfoundation.wallet.ui.iab.localpayments.LocalPaymentView.ViewState
 import com.asfoundation.wallet.ui.iab.localpayments.LocalPaymentView.ViewState.*
-import com.wallet.appcoins.core.legacy_base.legacy.BasePageViewFragment
 import com.jakewharton.rxbinding2.view.RxView
+import com.wallet.appcoins.core.legacy_base.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
 import java.math.BigDecimal
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class LocalPaymentFragment : com.wallet.appcoins.core.legacy_base.legacy.BasePageViewFragment(null), LocalPaymentView {
+class LocalPaymentFragment : BasePageViewFragment(), LocalPaymentView {
 
   @Inject
   lateinit var localPaymentPresenter: LocalPaymentPresenter

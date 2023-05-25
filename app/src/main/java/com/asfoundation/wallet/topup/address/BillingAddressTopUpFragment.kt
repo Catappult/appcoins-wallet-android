@@ -9,7 +9,10 @@ import android.view.View.VISIBLE
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import by.kirich1409.viewbindingdelegate.viewBinding
+import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
+import com.appcoins.wallet.core.utils.android_common.WalletCurrency
 import com.asf.wallet.R
+import com.asf.wallet.databinding.FragmentBillingAddressTopUpBinding
 import com.asfoundation.wallet.billing.address.BillingAddressModel
 import com.asfoundation.wallet.billing.address.BillingAddressTextWatcher
 import com.asfoundation.wallet.topup.TopUpActivity.Companion.BILLING_ADDRESS_REQUEST_CODE
@@ -17,18 +20,15 @@ import com.asfoundation.wallet.topup.TopUpActivity.Companion.BILLING_ADDRESS_SUC
 import com.asfoundation.wallet.topup.TopUpActivityView
 import com.asfoundation.wallet.topup.TopUpData
 import com.asfoundation.wallet.topup.TopUpPaymentData
-import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
-import com.appcoins.wallet.core.utils.android_common.WalletCurrency
-import com.asf.wallet.databinding.FragmentBillingAddressTopUpBinding
-import com.wallet.appcoins.core.legacy_base.legacy.BasePageViewFragment
 import com.jakewharton.rxbinding2.view.RxView
+import com.wallet.appcoins.core.legacy_base.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.Observable
 import java.math.BigDecimal
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class BillingAddressTopUpFragment : com.wallet.appcoins.core.legacy_base.legacy.BasePageViewFragment(null), BillingAddressTopUpView {
+class BillingAddressTopUpFragment : BasePageViewFragment(), BillingAddressTopUpView {
 
   companion object {
 

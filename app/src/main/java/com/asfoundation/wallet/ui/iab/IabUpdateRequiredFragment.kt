@@ -9,23 +9,23 @@ import android.view.ViewGroup
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.appcompat.widget.ListPopupWindow
 import by.kirich1409.viewbindingdelegate.viewBinding
-import com.asf.wallet.R
 import com.appcoins.wallet.core.utils.android_common.RxSchedulers
-import com.asf.wallet.databinding.IabUpdateRequiredLayoutBinding
 import com.appcoins.wallet.feature.walletInfo.data.wallet.domain.WalletsModel
+import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.GetCurrentWalletUseCase
+import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.GetWalletsModelUseCase
+import com.asf.wallet.R
+import com.asf.wallet.databinding.IabUpdateRequiredLayoutBinding
 import com.asfoundation.wallet.update_required.use_cases.BuildUpdateIntentUseCase
 import com.asfoundation.wallet.update_required.wallets_list.WalletSelectionAdapter
-import com.wallet.appcoins.core.legacy_base.legacy.BasePageViewFragment
-import com.appcoins.wallet.feature.walletInfo.data.usecases.GetCurrentWalletUseCase
-import com.appcoins.wallet.feature.walletInfo.data.usecases.GetWalletsModelUseCase
 import com.google.android.material.snackbar.Snackbar
 import com.jakewharton.rxbinding2.view.RxView
+import com.wallet.appcoins.core.legacy_base.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.disposables.CompositeDisposable
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class IabUpdateRequiredFragment : com.wallet.appcoins.core.legacy_base.legacy.BasePageViewFragment(null), IabUpdateRequiredView {
+class IabUpdateRequiredFragment : BasePageViewFragment(), IabUpdateRequiredView {
 
   private lateinit var presenter: IabUpdateRequiredPresenter
   private lateinit var iabView: IabView
@@ -36,10 +36,10 @@ class IabUpdateRequiredFragment : com.wallet.appcoins.core.legacy_base.legacy.Ba
   lateinit var buildUpdateIntentUseCase: BuildUpdateIntentUseCase
 
   @Inject
-  lateinit var getCurrentWalletUseCase: com.appcoins.wallet.feature.walletInfo.data.usecases.GetCurrentWalletUseCase
+  lateinit var getCurrentWalletUseCase: GetCurrentWalletUseCase
 
   @Inject
-  lateinit var getWalletsModelUseCase: com.appcoins.wallet.feature.walletInfo.data.usecases.GetWalletsModelUseCase
+  lateinit var getWalletsModelUseCase: GetWalletsModelUseCase
 
   @Inject
   lateinit var rxSchedulers: RxSchedulers

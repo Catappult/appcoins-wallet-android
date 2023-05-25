@@ -11,7 +11,7 @@ class TopUpValuesApiResponseMapper @Inject constructor(){
 
   fun map(defaultValues: TopUpDefaultValuesResponse): TopUpValuesModel {
     return TopUpValuesModel(ArrayList(defaultValues.items.map {
-      com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue(
+      FiatValue(
         BigDecimal(it.price.fiat.value), it.price.fiat.currency.code,
         it.price.fiat.currency.sign
       )

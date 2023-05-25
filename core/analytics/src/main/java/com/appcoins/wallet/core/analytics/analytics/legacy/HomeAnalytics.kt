@@ -1,7 +1,6 @@
-package com.asfoundation.wallet.wallet.home
+package com.appcoins.wallet.core.analytics.analytics.legacy
 
 import cm.aptoide.analytics.AnalyticsManager
-import java.util.*
 import javax.inject.Inject
 
 class HomeAnalytics @Inject constructor(private val analytics: AnalyticsManager) {

@@ -6,12 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.BoxWithConstraints
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.Card
@@ -45,14 +40,14 @@ import com.asf.wallet.R
 import com.asf.wallet.databinding.NavBarFragmentBinding
 import com.asfoundation.wallet.main.MainActivity
 import com.asfoundation.wallet.ui.bottom_navigation.Destinations
-import com.wallet.appcoins.core.legacy_base.legacy.BasePageViewFragment
 import com.google.android.material.bottomnavigation.BottomNavigationItemView
 import com.google.android.material.bottomnavigation.BottomNavigationMenuView
+import com.wallet.appcoins.core.legacy_base.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class NavBarFragment : com.wallet.appcoins.core.legacy_base.legacy.BasePageViewFragment(null),
+class NavBarFragment : BasePageViewFragment(),
   SingleStateFragment<NavBarState, NavBarSideEffect> {
 
   private lateinit var navHostFragment: NavHostFragment

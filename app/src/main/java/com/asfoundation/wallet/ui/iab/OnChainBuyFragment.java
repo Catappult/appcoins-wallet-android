@@ -18,8 +18,9 @@ import com.appcoins.wallet.core.utils.jvm_common.Logger;
 import com.asf.wallet.R;
 import com.appcoins.wallet.core.analytics.analytics.legacy.BillingAnalytics;
 import com.asfoundation.wallet.entity.TransactionBuilder;
-import com.appcoins.wallet.core.arch.legacy.BasePageViewFragment;
 import com.jakewharton.rxbinding2.view.RxView;
+import com.wallet.appcoins.core.legacy_base.BasePageViewFragment;
+
 import dagger.hilt.android.AndroidEntryPoint;
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -66,9 +67,6 @@ import static com.asfoundation.wallet.ui.iab.IabActivity.TRANSACTION_AMOUNT;
   private View supportLogo;
   private int gamificationLevel;
 
-  public OnChainBuyFragment() {
-    super(null);
-  }
 
   public static OnChainBuyFragment newInstance(Bundle extras, String data, boolean bdsIap,
       TransactionBuilder transaction, String bonus, int gamificationLevel) {

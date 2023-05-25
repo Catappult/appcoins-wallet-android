@@ -4,12 +4,12 @@ import com.appcoins.wallet.bdsbilling.BillingPaymentProofSubmission
 import com.appcoins.wallet.core.utils.android_common.RxSchedulers
 import com.appcoins.wallet.core.utils.jvm_common.CountryCodeProvider
 import com.appcoins.wallet.core.utils.jvm_common.MemoryCache
+import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.HasEnoughBalanceUseCase
 import com.asfoundation.wallet.billing.partners.AddressService
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.interact.DefaultTokenProvider
 import com.asfoundation.wallet.interact.SendTransactionInteract
 import com.asfoundation.wallet.repository.*
-import com.appcoins.wallet.feature.walletInfo.data.usecases.HasEnoughBalanceUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -91,12 +91,12 @@ class ServiceModule {
   @Provides
   @Named("IN_APP_PURCHASE_SERVICE")
   fun provideInAppPurchaseService(
-      @Named("APPROVE_SERVICE_BDS") approveService: ApproveService,
-      allowanceService: AllowanceService,
-      @Named("BUY_SERVICE_BDS") buyService: BuyService,
-      hasEnoughBalanceUseCase: com.appcoins.wallet.feature.walletInfo.data.usecases.HasEnoughBalanceUseCase,
-      paymentErrorMapper: PaymentErrorMapper,
-      defaultTokenProvider: DefaultTokenProvider
+          @Named("APPROVE_SERVICE_BDS") approveService: ApproveService,
+          allowanceService: AllowanceService,
+          @Named("BUY_SERVICE_BDS") buyService: BuyService,
+          hasEnoughBalanceUseCase: HasEnoughBalanceUseCase,
+          paymentErrorMapper: PaymentErrorMapper,
+          defaultTokenProvider: DefaultTokenProvider
   ): InAppPurchaseService {
     return InAppPurchaseService(
       MemoryCache(
@@ -114,7 +114,7 @@ class ServiceModule {
   fun provideInAppPurchaseServiceAsf(
       @Named("APPROVE_SERVICE_ON_CHAIN") approveService: ApproveService,
       allowanceService: AllowanceService, @Named("BUY_SERVICE_ON_CHAIN") buyService: BuyService,
-      hasEnoughBalanceUseCase: com.appcoins.wallet.feature.walletInfo.data.usecases.HasEnoughBalanceUseCase,
+      hasEnoughBalanceUseCase: HasEnoughBalanceUseCase,
       paymentErrorMapper: PaymentErrorMapper,
       defaultTokenProvider: DefaultTokenProvider
   ): InAppPurchaseService {

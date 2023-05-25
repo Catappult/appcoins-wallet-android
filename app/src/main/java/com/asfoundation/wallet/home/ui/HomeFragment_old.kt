@@ -13,11 +13,11 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import com.appcoins.wallet.core.arch.SingleStateFragment
+import com.appcoins.wallet.core.arch.data.Async
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.appcoins.wallet.core.utils.android_common.RootUtil
 import com.appcoins.wallet.core.utils.android_common.WalletCurrency
-import com.appcoins.wallet.core.arch.SingleStateFragment
-import com.appcoins.wallet.core.arch.data.Async
 import com.appcoins.wallet.ui.common.convertDpToPx
 import com.asf.wallet.R
 import com.asf.wallet.databinding.FragmentHomeBinding
@@ -25,14 +25,14 @@ import com.asfoundation.wallet.entity.GlobalBalance
 import com.asfoundation.wallet.home.ui.list.HomeController
 import com.asfoundation.wallet.home.ui.list.HomeListClick
 import com.asfoundation.wallet.home.ui.list.transactions.empty.EmptyTransactionsModel.Companion.CAROUSEL_GAMIFICATION
-import com.wallet.appcoins.feature.support.data.SupportNotificationProperties
+import com.asfoundation.wallet.support.SupportNotificationProperties.SUPPORT_NOTIFICATION_CLICK
 import com.asfoundation.wallet.transactions.Transaction
 import com.asfoundation.wallet.ui.widget.entity.TransactionsModel
-import com.wallet.appcoins.core.legacy_base.legacy.BasePageViewFragment
 import com.asfoundation.wallet.wallet.home.HomeNavigator
 import com.asfoundation.wallet.wallet.home.HomeSideEffect
 import com.asfoundation.wallet.wallet.home.HomeState
 import com.asfoundation.wallet.wallet.home.HomeViewModel
+import com.wallet.appcoins.core.legacy_base.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
 import io.intercom.android.sdk.Intercom
 import java.math.BigDecimal
@@ -40,7 +40,7 @@ import javax.inject.Inject
 
 // TODO to be removed
 @AndroidEntryPoint
-class HomeFragment_old : com.wallet.appcoins.core.legacy_base.legacy.BasePageViewFragment(null),
+class HomeFragment_old : BasePageViewFragment(),
   SingleStateFragment<HomeState, HomeSideEffect> {
 
   @Inject
@@ -93,7 +93,7 @@ class HomeFragment_old : com.wallet.appcoins.core.legacy_base.legacy.BasePageVie
     super.onResume()
     val fromSupportNotification =
       requireActivity().intent.getBooleanExtra(
-        com.wallet.appcoins.feature.support.data.SupportNotificationProperties.SUPPORT_NOTIFICATION_CLICK,
+        SUPPORT_NOTIFICATION_CLICK,
         false
       )
     if (!fromSupportNotification) {

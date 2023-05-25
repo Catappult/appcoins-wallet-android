@@ -24,11 +24,11 @@ import com.asfoundation.wallet.ui.iab.PaymentMethodsView.PaymentMethodId
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.asfoundation.wallet.util.Period
 import com.appcoins.wallet.core.utils.android_common.WalletCurrency
+import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.GetWalletInfoUseCase
 import com.asf.wallet.databinding.PaymentMethodsLayoutBinding
-import com.wallet.appcoins.core.legacy_base.legacy.BasePageViewFragment
-import com.appcoins.wallet.feature.walletInfo.data.usecases.GetWalletInfoUseCase
 import com.jakewharton.rxbinding2.view.RxView
 import com.jakewharton.rxrelay2.PublishRelay
+import com.wallet.appcoins.core.legacy_base.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.Observable
 import io.reactivex.Single
@@ -41,7 +41,7 @@ import java.math.BigDecimal
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class PaymentMethodsFragment : com.wallet.appcoins.core.legacy_base.legacy.BasePageViewFragment(null), PaymentMethodsView {
+class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
 
   companion object {
     private const val IS_BDS = "isBds"
@@ -91,7 +91,7 @@ class PaymentMethodsFragment : com.wallet.appcoins.core.legacy_base.legacy.BaseP
   lateinit var formatter: CurrencyFormatUtils
 
   @Inject
-  lateinit var getWalletInfoUseCase: com.appcoins.wallet.feature.walletInfo.data.usecases.GetWalletInfoUseCase
+  lateinit var getWalletInfoUseCase: GetWalletInfoUseCase
 
   @Inject
   lateinit var logger: Logger

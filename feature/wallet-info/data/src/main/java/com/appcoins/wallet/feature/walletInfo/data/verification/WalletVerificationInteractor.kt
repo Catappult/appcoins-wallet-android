@@ -32,7 +32,7 @@ class WalletVerificationInteractor @Inject constructor(
     return brokerVerificationRepository.removeCachedWalletValidationStatus(address)
   }
 
-  internal fun makeVerificationPayment(verificationType: VerificationType,
+   fun makeVerificationPayment(verificationType: VerificationType,
                                        adyenPaymentMethod: ModelObject, shouldStoreMethod: Boolean,
                                        returnUrl: String): Single<VerificationPaymentModel> {
     return walletService.getAndSignCurrentWalletAddress()
@@ -56,7 +56,7 @@ class WalletVerificationInteractor @Inject constructor(
         }
   }
 
-  internal fun confirmVerificationCode(code: String): Single<VerificationCodeResult> {
+   fun confirmVerificationCode(code: String): Single<VerificationCodeResult> {
     return walletService.getAndSignCurrentWalletAddress()
         .flatMap { addressModel ->
           brokerVerificationRepository.validateCode(code, addressModel.address,

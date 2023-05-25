@@ -6,7 +6,7 @@ import java.util.*
 import javax.inject.Inject
 
 class RegisterSupportUserUseCase @Inject constructor(
-    private val supportRepository: com.wallet.appcoins.feature.support.data.SupportRepository) {
+    private val supportRepository: SupportRepository) {
 
   operator fun invoke(level: Int, walletAddress: String) {
     // force lowercase to make sure 2 users are not registered with the same wallet address, where

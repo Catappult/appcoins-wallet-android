@@ -8,7 +8,7 @@ import android.view.View;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import com.asf.wallet.R;
-import com.appcoins.wallet.core.arch.legacy.BaseActivity;
+import com.wallet.appcoins.core.legacy_base.BaseActivity;
 
 public class AirdropActivity extends BaseActivity implements AirdropFragment.AirdropBack {
   public static Intent newIntent(Context context) {

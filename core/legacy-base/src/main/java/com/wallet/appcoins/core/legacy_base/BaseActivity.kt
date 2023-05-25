@@ -1,114 +1,100 @@
-package com.wallet.appcoins.core.legacy_base;
+package com.wallet.appcoins.core.legacy_base
 
-import android.content.Intent;
-import android.os.Bundle;
-import android.view.MenuItem;
-import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import cm.aptoide.analytics.AnalyticsManager;
-import com.appcoins.wallet.core.analytics.analytics.legacy.PageViewAnalytics;
-import com.appcoins.wallet.core.legacy_base.R;
-import com.appcoins.wallet.core.utils.android_common.KeyboardUtils;
-import com.google.android.material.appbar.CollapsingToolbarLayout;
-import java.util.ArrayList;
-import java.util.List;
-import javax.inject.Inject;
-import org.jetbrains.annotations.NotNull;
+import android.R
+import android.content.Intent
+import android.os.Bundle
+import android.view.MenuItem
+import android.view.WindowManager
+import androidx.appcompat.app.AppCompatActivity
+import cm.aptoide.analytics.AnalyticsManager
+import com.appcoins.wallet.core.analytics.analytics.legacy.PageViewAnalytics
+import com.appcoins.wallet.core.utils.android_common.KeyboardUtils
+import com.wallet.appcoins.core.legacy_base.ActivityResultSharer.ActivityResultListener
+import javax.inject.Inject
 
-public abstract class BaseActivity  extends AppCompatActivity implements ActivityResultSharer  { //TransferConfirmationActivity bug
+abstract class BaseActivity : AppCompatActivity(), ActivityResultSharer {
+    private var activityResultListeners: MutableList<ActivityResultListener>? = null
 
-  private List<ActivityResultListener> activityResultListeners;
-  private PageViewAnalytics pageViewAnalytics;
 
-  @Inject public AnalyticsManager analyticsManager;
+    @Inject
+    lateinit var analyticsManager: AnalyticsManager
 
-  @Override protected void onCreate(@Nullable Bundle savedInstanceState) {
-    activityResultListeners = new ArrayList<>();
-    pageViewAnalytics = new PageViewAnalytics(analyticsManager);
-    super.onCreate(savedInstanceState);
-    Window window = getWindow();
+    @Inject
+    lateinit var pageViewAnalytics: PageViewAnalytics
 
-    // clear FLAG_TRANSLUCENT_STATUS flag:
-    window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+    override fun onCreate(savedInstanceState: Bundle?) {
+        activityResultListeners = ArrayList()
+        super.onCreate(savedInstanceState)
+        val window = window
 
-    // add FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS flag to the window
-    window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-  }
+        // clear FLAG_TRANSLUCENT_STATUS flag:
+        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
 
-  protected void sendPageViewEvent() {
-    pageViewAnalytics.sendPageViewEvent(getClass().getSimpleName());
-  }
-
-  /** Testing the functionality of the base activity without this 2 functions
-  protected Toolbar toolbar() {
-    Toolbar toolbar = findViewById(R.id.toolbar);
-    toolbar.setVisibility(View.VISIBLE);
-    if (toolbar != null) {
-      setSupportActionBar(toolbar);
-      toolbar.setTitle(getTitle());
+        // add FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS flag to the window
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
     }
-    enableDisplayHomeAsUp();
-    return toolbar;
-  }
 
-  protected void setCollapsingTitle(String title) {
-    CollapsingToolbarLayout collapsing = findViewById(R.id.toolbar_layout);
-    if (collapsing != null) {
-      collapsing.setTitle(title);
+    protected fun sendPageViewEvent() {
+        pageViewAnalytics!!.sendPageViewEvent(javaClass.simpleName)
     }
-  }
-   **/
 
-  protected void setTitle(String title) {
-    ActionBar actionBar = getSupportActionBar();
-    if (actionBar != null) {
-      actionBar.setTitle(title);
+    /** Testing the functionality of the base activity without this 2 functions
+     * protected Toolbar toolbar() {
+     * Toolbar toolbar = findViewById(R.id.toolbar);
+     * toolbar.setVisibility(View.VISIBLE);
+     * if (toolbar != null) {
+     * setSupportActionBar(toolbar);
+     * toolbar.setTitle(getTitle());
+     * }
+     * enableDisplayHomeAsUp();
+     * return toolbar;
+     * }
+     *
+     * protected void setCollapsingTitle(String title) {
+     * CollapsingToolbarLayout collapsing = findViewById(R.id.toolbar_layout);
+     * if (collapsing != null) {
+     * collapsing.setTitle(title);
+     * }
+     * }
+     */
+    protected fun setTitle(title: String?) {
+        val actionBar = supportActionBar
+        if (actionBar != null) {
+            actionBar.title = title
+        }
     }
-  }
 
-
-
-  protected void enableDisplayHomeAsUp() {
-    ActionBar actionBar = getSupportActionBar();
-    if (actionBar != null) {
-      actionBar.setDisplayHomeAsUpEnabled(true);
+    protected fun enableDisplayHomeAsUp() {
+        val actionBar = supportActionBar
+        actionBar?.setDisplayHomeAsUpEnabled(true)
     }
-  }
 
-  protected void disableDisplayHomeAsUp() {
-    ActionBar actionBar = getSupportActionBar();
-    if (actionBar != null) {
-      actionBar.setDisplayHomeAsUpEnabled(false);
+    protected fun disableDisplayHomeAsUp() {
+        val actionBar = supportActionBar
+        actionBar?.setDisplayHomeAsUpEnabled(false)
     }
-  }
 
-  @Override public boolean onOptionsItemSelected(MenuItem item) {
-    if (item.getItemId() == android.R.id.home) {
-      KeyboardUtils.hideKeyboard(getWindow().getDecorView()
-          .getRootView());
-      finish();
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == R.id.home) {
+            KeyboardUtils.hideKeyboard(window.decorView
+                    .rootView)
+            finish()
+        }
+        return true
     }
-    return true;
-  }
 
-  @Override public void addOnActivityListener(@NotNull ActivityResultListener listener) {
-    activityResultListeners.add(listener);
-  }
-
-  @Override public void remove(@NotNull ActivityResultListener listener) {
-    activityResultListeners.remove(listener);
-  }
-
-  @Override
-  protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-    super.onActivityResult(requestCode, resultCode, data);
-    for (ActivityResultListener listener : activityResultListeners) {
-      listener.onActivityResult(requestCode, resultCode, data);
+    override fun addOnActivityListener(listener: ActivityResultListener) {
+        activityResultListeners!!.add(listener)
     }
-  }
+
+    override fun remove(listener: ActivityResultListener) {
+        activityResultListeners!!.remove(listener)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        for (listener in activityResultListeners!!) {
+            listener.onActivityResult(requestCode, resultCode, data)
+        }
+    }
 }

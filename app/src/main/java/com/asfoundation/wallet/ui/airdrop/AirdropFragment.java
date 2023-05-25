@@ -18,11 +18,12 @@ import androidx.annotation.Nullable;
 import com.asf.wallet.R;
 import com.asfoundation.wallet.GlideApp;
 import com.appcoins.wallet.core.utils.android_common.Log;
-import com.appcoins.wallet.core.arch.legacy.BasePageViewFragment;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 import com.google.android.material.textfield.TextInputEditText;
 import com.jakewharton.rxbinding2.view.RxView;
+import com.wallet.appcoins.core.legacy_base.BasePageViewFragment;
+
 import dagger.hilt.android.AndroidEntryPoint;
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -44,10 +45,6 @@ import javax.inject.Inject;
   private AlertDialog errorDialog;
   private BehaviorSubject<Object> terminateStateConsumed;
   private AirdropBack airdropBack;
-
-  public AirdropFragment() {
-    super(null);
-  }
 
   public static AirdropFragment newInstance() {
     return new AirdropFragment();

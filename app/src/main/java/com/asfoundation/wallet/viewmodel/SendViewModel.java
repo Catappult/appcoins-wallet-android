@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.net.Uri;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
+
+import com.appcoins.wallet.feature.walletInfo.data.wallet.FindDefaultWalletInteract;
 import com.asfoundation.wallet.entity.Address;
 import com.asfoundation.wallet.entity.GasSettings;
 import com.asfoundation.wallet.entity.TransactionBuilder;
@@ -15,7 +17,6 @@ import com.asfoundation.wallet.router.TransactionsRouter;
 import com.asfoundation.wallet.router.TransferConfirmationRouter;
 import com.asfoundation.wallet.util.QRUri;
 import com.asfoundation.wallet.util.TransferParser;
-import com.asfoundation.wallet.wallets.FindDefaultWalletInteract;
 import com.google.android.gms.vision.barcode.Barcode;
 import io.reactivex.disposables.CompositeDisposable;
 import java.math.BigDecimal;
@@ -37,9 +38,9 @@ public class SendViewModel extends BaseViewModel {
   private TransactionBuilder transactionBuilder;
 
   SendViewModel(FindDefaultWalletInteract findDefaultWalletInteract,
-      FetchGasSettingsInteract fetchGasSettingsInteract,
-      TransferConfirmationRouter transferConfirmationRouter, TransferParser transferParser,
-      TransactionsRouter transactionsRouter) {
+                FetchGasSettingsInteract fetchGasSettingsInteract,
+                TransferConfirmationRouter transferConfirmationRouter, TransferParser transferParser,
+                TransactionsRouter transactionsRouter) {
     this.findDefaultWalletInteract = findDefaultWalletInteract;
     this.fetchGasSettingsInteract = fetchGasSettingsInteract;
     this.transferConfirmationRouter = transferConfirmationRouter;

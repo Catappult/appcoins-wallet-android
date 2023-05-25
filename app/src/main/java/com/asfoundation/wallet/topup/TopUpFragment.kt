@@ -31,10 +31,10 @@ import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.appcoins.wallet.core.utils.android_common.WalletCurrency
 import com.appcoins.wallet.ui.common.convertDpToPx
 import com.asf.wallet.databinding.FragmentTopUpBinding
-import com.wallet.appcoins.core.legacy_base.legacy.BasePageViewFragment
 import com.jakewharton.rxbinding2.view.RxView
 import com.jakewharton.rxbinding2.widget.RxTextView
 import com.jakewharton.rxrelay2.PublishRelay
+import com.wallet.appcoins.core.legacy_base.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -46,7 +46,7 @@ import java.math.BigDecimal
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class TopUpFragment : com.wallet.appcoins.core.legacy_base.legacy.BasePageViewFragment(null), TopUpFragmentView {
+class TopUpFragment : BasePageViewFragment(), TopUpFragmentView {
 
   @Inject
   lateinit var interactor: TopUpInteractor

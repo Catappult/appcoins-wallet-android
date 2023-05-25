@@ -3,12 +3,12 @@ package com.asfoundation.wallet.verification.ui.paypal
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.widget.Toolbar
-import com.wallet.appcoins.core.legacy_base.legacy.BaseActivity
 import com.asf.wallet.R
+import com.wallet.appcoins.core.legacy_base.BaseActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class VerificationPaypalActivity : com.wallet.appcoins.core.legacy_base.legacy.BaseActivity() {
+class VerificationPaypalActivity : BaseActivity() {
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
@@ -29,7 +29,7 @@ class VerificationPaypalActivity : com.wallet.appcoins.core.legacy_base.legacy.B
    * function hardcoded temporarily, must be changed
    * @return
    */
-  override fun toolbar(): Toolbar? {
+   fun toolbar(): Toolbar? {
     val toolbar = findViewById<Toolbar>(R.id.toolbar)
     toolbar!!.visibility = View.VISIBLE
     if (toolbar != null) {

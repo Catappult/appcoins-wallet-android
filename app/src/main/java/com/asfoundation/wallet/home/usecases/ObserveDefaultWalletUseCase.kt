@@ -1,13 +1,13 @@
 package com.asfoundation.wallet.home.usecases
 
 import com.appcoins.wallet.feature.walletInfo.data.wallet.domain.Wallet
-import com.appcoins.wallet.feature.walletInfo.data.repository.WalletRepositoryType
+import com.appcoins.wallet.feature.walletInfo.data.wallet.repository.WalletRepositoryType
 import io.reactivex.Observable
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
 class ObserveDefaultWalletUseCase @Inject constructor(
-    private val walletRepository: com.appcoins.wallet.feature.walletInfo.data.repository.WalletRepositoryType) {
+    private val walletRepository: WalletRepositoryType) {
 
   operator fun invoke(): Observable<Wallet> {
     return walletRepository.observeDefaultWallet()

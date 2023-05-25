@@ -11,7 +11,6 @@ import android.widget.ImageButton
 import android.widget.Toast
 import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.ViewModelProvider
-import com.wallet.appcoins.core.legacy_base.legacy.BaseActivity
 import com.appcoins.wallet.core.utils.android_common.Log.Companion.e
 import com.appcoins.wallet.core.utils.jvm_common.C
 import com.asf.wallet.R
@@ -23,13 +22,14 @@ import com.asfoundation.wallet.viewmodel.SendViewModelFactory
 import com.google.android.gms.common.api.CommonStatusCodes
 import com.google.android.gms.vision.barcode.Barcode
 import com.google.android.material.textfield.TextInputLayout
+import com.wallet.appcoins.core.legacy_base.BaseActivity
 import dagger.hilt.android.AndroidEntryPoint
 import java.math.BigDecimal
 import java.text.NumberFormat
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class SendActivity : com.wallet.appcoins.core.legacy_base.legacy.BaseActivity() {
+class SendActivity : BaseActivity() {
   @Inject
   lateinit var sendViewModelFactory: SendViewModelFactory
   lateinit var viewModel: SendViewModel
@@ -83,7 +83,7 @@ class SendActivity : com.wallet.appcoins.core.legacy_base.legacy.BaseActivity() 
    * function hardcoded temporarily, must be changed
    * @return
    */
-  override fun toolbar(): Toolbar {
+   fun toolbar(): Toolbar {
     val toolbar = findViewById<Toolbar>(R.id.toolbar)
     toolbar!!.visibility = View.VISIBLE
     if (toolbar != null) {

@@ -8,8 +8,8 @@ import androidx.fragment.app.Fragment
 import com.appcoins.wallet.permissions.PermissionName
 import com.asf.wallet.R
 import com.asfoundation.wallet.permissions.PermissionsInteractor
-import com.wallet.appcoins.core.legacy_base.legacy.BaseActivity
 import com.jakewharton.rxrelay2.BehaviorRelay
+import com.wallet.appcoins.core.legacy_base.BaseActivity
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -17,7 +17,7 @@ import io.reactivex.disposables.CompositeDisposable
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class PermissionsActivity : com.wallet.appcoins.core.legacy_base.legacy.BaseActivity(), PermissionsActivityView, PermissionFragmentNavigator,
+class PermissionsActivity : BaseActivity(), PermissionsActivityView, PermissionFragmentNavigator,
     CreateWalletNavigator {
 
   companion object {

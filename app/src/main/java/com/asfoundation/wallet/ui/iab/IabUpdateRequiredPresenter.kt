@@ -1,16 +1,16 @@
 package com.asfoundation.wallet.ui.iab
 
 import com.appcoins.wallet.core.utils.android_common.RxSchedulers
+import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.GetWalletsModelUseCase
 import com.asfoundation.wallet.update_required.use_cases.BuildUpdateIntentUseCase
-import com.appcoins.wallet.feature.walletInfo.data.usecases.GetWalletsModelUseCase
 import io.reactivex.disposables.CompositeDisposable
 
 class IabUpdateRequiredPresenter(
-    private val view: IabUpdateRequiredView,
-    private val disposables: CompositeDisposable,
-    private val buildUpdateIntentUseCase: BuildUpdateIntentUseCase,
-    private val getWalletsModelUseCase: com.appcoins.wallet.feature.walletInfo.data.usecases.GetWalletsModelUseCase,
-    private val rxSchedulers: RxSchedulers
+        private val view: IabUpdateRequiredView,
+        private val disposables: CompositeDisposable,
+        private val buildUpdateIntentUseCase: BuildUpdateIntentUseCase,
+        private val getWalletsModelUseCase: GetWalletsModelUseCase,
+        private val rxSchedulers: RxSchedulers
 ) {
 
   fun present() {

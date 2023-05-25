@@ -32,10 +32,11 @@ import com.airbnb.lottie.TextDelegate
 import com.appcoins.wallet.bdsbilling.Billing
 import com.appcoins.wallet.billing.adyen.PaymentInfoModel
 import com.appcoins.wallet.billing.repository.entity.TransactionData
-import com.appcoins.wallet.core.utils.jvm_common.Logger
+import com.appcoins.wallet.core.analytics.analytics.legacy.BillingAnalytics
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.appcoins.wallet.core.utils.android_common.KeyboardUtils
 import com.appcoins.wallet.core.utils.android_common.WalletCurrency
+import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.appcoins.wallet.ui.widgets.WalletButtonView
 import com.asf.wallet.BuildConfig
 import com.asf.wallet.R
@@ -43,7 +44,6 @@ import com.asf.wallet.databinding.AdyenCreditCardLayoutBinding
 import com.asf.wallet.databinding.AdyenCreditCardPreSelectedBinding
 import com.asfoundation.wallet.billing.address.BillingAddressFragment.Companion.BILLING_ADDRESS_MODEL
 import com.asfoundation.wallet.billing.address.BillingAddressModel
-import com.appcoins.wallet.core.analytics.analytics.legacy.BillingAnalytics
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.navigator.UriNavigator
 import com.asfoundation.wallet.service.ServicesErrorCodeMapper
@@ -54,9 +54,9 @@ import com.asfoundation.wallet.ui.iab.IabView
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
 import com.asfoundation.wallet.ui.iab.PaymentMethodsAnalytics
 import com.asfoundation.wallet.util.*
-import com.wallet.appcoins.core.legacy_base.legacy.BasePageViewFragment
 import com.facebook.shimmer.ShimmerFrameLayout
 import com.jakewharton.rxbinding2.view.RxView
+import com.wallet.appcoins.core.legacy_base.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -71,7 +71,7 @@ import java.util.*
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class AdyenPaymentFragment : com.wallet.appcoins.core.legacy_base.legacy.BasePageViewFragment(null), AdyenPaymentView {
+class AdyenPaymentFragment : BasePageViewFragment(), AdyenPaymentView {
 
   @Inject
   lateinit var inAppPurchaseInteractor: InAppPurchaseInteractor

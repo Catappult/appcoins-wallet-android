@@ -9,7 +9,7 @@ import com.asfoundation.wallet.home.usecases.DisplayConversationListOrChatUseCas
 import com.asfoundation.wallet.main.use_cases.HasAuthenticationPermissionUseCase
 import com.asfoundation.wallet.main.use_cases.IncreaseLaunchCountUseCase
 import com.asfoundation.wallet.onboarding.use_cases.ShouldShowOnboardingUseCase
-import com.wallet.appcoins.feature.support.data.SupportNotificationProperties.SUPPORT_NOTIFICATION_CLICK
+import com.asfoundation.wallet.support.SupportNotificationProperties.SUPPORT_NOTIFICATION_CLICK
 import com.asfoundation.wallet.update_required.use_cases.GetAutoUpdateModelUseCase
 import com.asfoundation.wallet.update_required.use_cases.HasRequiredHardUpdateUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel

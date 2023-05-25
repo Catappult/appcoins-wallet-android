@@ -1,18 +1,19 @@
 package com.asfoundation.wallet.ui.iab
 
 import com.appcoins.wallet.bdsbilling.WalletService
-import com.wallet.appcoins.feature.support.data.SupportInteractor
+import com.appcoins.wallet.feature.walletInfo.data.verification.WalletVerificationInteractor
 import com.asfoundation.wallet.wallet_blocked.WalletBlockedInteract
+import com.wallet.appcoins.feature.support.data.SupportInteractor
 import io.reactivex.Completable
 import io.reactivex.Single
 import javax.inject.Inject
 
 class AppcoinsRewardsBuyInteract @Inject constructor(
     private val inAppPurchaseInteractor: InAppPurchaseInteractor,
-    private val supportInteractor: com.wallet.appcoins.feature.support.data.SupportInteractor,
+    private val supportInteractor: SupportInteractor,
     private val walletService: WalletService,
     private val walletBlockedInteract: WalletBlockedInteract,
-    private val walletVerificationInteractor: com.appcoins.wallet.feature.walletInfo.data.verification.WalletVerificationInteractor) {
+    private val walletVerificationInteractor: WalletVerificationInteractor) {
 
   fun isWalletBlocked() = walletBlockedInteract.isWalletBlocked()
 

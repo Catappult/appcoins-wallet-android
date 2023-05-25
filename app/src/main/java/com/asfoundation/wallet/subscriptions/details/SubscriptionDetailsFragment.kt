@@ -10,14 +10,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.res.ResourcesCompat
 import by.kirich1409.viewbindingdelegate.viewBinding
+import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
+import com.appcoins.wallet.core.utils.android_common.WalletCurrency
 import com.asf.wallet.R
+import com.asf.wallet.databinding.FragmentSubscriptionDetailsBinding
 import com.asfoundation.wallet.GlideApp
 import com.asfoundation.wallet.subscriptions.Status
 import com.asfoundation.wallet.subscriptions.SubscriptionItem
-import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
-import com.appcoins.wallet.core.utils.android_common.WalletCurrency
-import com.asf.wallet.databinding.FragmentSubscriptionDetailsBinding
-import com.wallet.appcoins.core.legacy_base.legacy.BasePageViewFragment
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.Request
 import com.bumptech.glide.request.RequestOptions
@@ -25,6 +24,7 @@ import com.bumptech.glide.request.target.SizeReadyCallback
 import com.bumptech.glide.request.target.Target
 import com.bumptech.glide.request.transition.Transition
 import com.jakewharton.rxbinding2.view.RxView
+import com.wallet.appcoins.core.legacy_base.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.Observable
 import java.text.SimpleDateFormat
@@ -32,7 +32,7 @@ import java.util.*
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class SubscriptionDetailsFragment : com.wallet.appcoins.core.legacy_base.legacy.BasePageViewFragment(null), SubscriptionDetailsView {
+class SubscriptionDetailsFragment : BasePageViewFragment(), SubscriptionDetailsView {
 
   @Inject
   lateinit var currencyFormatUtils: CurrencyFormatUtils

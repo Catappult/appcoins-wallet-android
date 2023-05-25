@@ -13,7 +13,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
-import com.appcoins.wallet.core.arch.legacy.BaseActivity;
 import com.asf.wallet.R;
 import com.asfoundation.wallet.entity.NetworkInfo;
 import com.appcoins.wallet.feature.walletInfo.data.wallet.domain.Wallet;
@@ -21,6 +20,8 @@ import com.google.zxing.BarcodeFormat;
 import com.google.zxing.MultiFormatWriter;
 import com.google.zxing.common.BitMatrix;
 import com.journeyapps.barcodescanner.BarcodeEncoder;
+import com.wallet.appcoins.core.legacy_base.BaseActivity;
+
 import dagger.hilt.android.AndroidEntryPoint;
 import javax.inject.Inject;
 

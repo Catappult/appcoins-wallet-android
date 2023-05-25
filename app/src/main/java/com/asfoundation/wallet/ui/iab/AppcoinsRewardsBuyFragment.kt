@@ -8,15 +8,15 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.appcoins.wallet.bdsbilling.repository.entity.Purchase
 import com.appcoins.wallet.billing.BillingMessagesMapper
+import com.appcoins.wallet.core.analytics.analytics.legacy.BillingAnalytics
+import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.asf.wallet.R
-import com.appcoins.wallet.core.analytics.analytics.legacy.BillingAnalytics
-import com.asfoundation.wallet.entity.TransactionBuilder
-import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.asf.wallet.databinding.RewardPaymentLayoutBinding
+import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.util.TransferParser
-import com.wallet.appcoins.core.legacy_base.legacy.BasePageViewFragment
 import com.jakewharton.rxbinding2.view.RxView
+import com.wallet.appcoins.core.legacy_base.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -25,7 +25,7 @@ import java.math.BigDecimal
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class AppcoinsRewardsBuyFragment : com.wallet.appcoins.core.legacy_base.legacy.BasePageViewFragment(null), AppcoinsRewardsBuyView {
+class AppcoinsRewardsBuyFragment : BasePageViewFragment(), AppcoinsRewardsBuyView {
 
   @Inject
   lateinit var rewardsManager: RewardsManager

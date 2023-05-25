@@ -6,13 +6,13 @@ import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.widget.Toolbar
-import com.wallet.appcoins.core.legacy_base.legacy.BaseActivity
 import com.asf.wallet.R
 import com.google.android.material.appbar.AppBarLayout
+import com.wallet.appcoins.core.legacy_base.BaseActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class RecoverActivity : com.wallet.appcoins.core.legacy_base.legacy.BaseActivity() {
+class RecoverActivity : BaseActivity() {
 
   companion object {
     const val ONBOARDING_LAYOUT = "onboarding_layout"
@@ -37,7 +37,7 @@ class RecoverActivity : com.wallet.appcoins.core.legacy_base.legacy.BaseActivity
    * function hardcoded temporarily, must be changed
    * @return
    */
-  override fun toolbar(): Toolbar {
+  fun toolbar(): Toolbar {
     val toolbar = findViewById<Toolbar>(R.id.toolbar)
     toolbar!!.visibility = View.VISIBLE
     if (toolbar != null) {

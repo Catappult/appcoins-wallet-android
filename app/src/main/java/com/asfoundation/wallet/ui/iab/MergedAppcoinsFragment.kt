@@ -26,11 +26,11 @@ import com.asfoundation.wallet.navigator.UriNavigator
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.asfoundation.wallet.util.Period
 import com.appcoins.wallet.core.utils.android_common.WalletCurrency
+import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.GetWalletInfoUseCase
 import com.asf.wallet.databinding.MergedAppcoinsLayoutBinding
-import com.wallet.appcoins.core.legacy_base.legacy.BasePageViewFragment
-import com.appcoins.wallet.feature.walletInfo.data.usecases.GetWalletInfoUseCase
 import com.google.android.material.radiobutton.MaterialRadioButton
 import com.jakewharton.rxbinding2.view.RxView
+import com.wallet.appcoins.core.legacy_base.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -41,7 +41,7 @@ import java.math.BigDecimal
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class MergedAppcoinsFragment : com.wallet.appcoins.core.legacy_base.legacy.BasePageViewFragment(null), MergedAppcoinsView {
+class MergedAppcoinsFragment : BasePageViewFragment(), MergedAppcoinsView {
 
   companion object {
     private const val FIAT_AMOUNT_KEY = "fiat_amount"
@@ -117,7 +117,7 @@ class MergedAppcoinsFragment : com.wallet.appcoins.core.legacy_base.legacy.BaseP
   lateinit var logger: Logger
 
   @Inject
-  lateinit var getWalletInfoUseCase: com.appcoins.wallet.feature.walletInfo.data.usecases.GetWalletInfoUseCase
+  lateinit var getWalletInfoUseCase: GetWalletInfoUseCase
 
   @Inject
   lateinit var paymentMethodsMapper: PaymentMethodsMapper

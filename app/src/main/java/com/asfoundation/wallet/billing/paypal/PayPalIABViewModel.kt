@@ -30,7 +30,7 @@ class PayPalIABViewModel @Inject constructor(
     private val createSuccessBundleUseCase: CreateSuccessBundleUseCase,
     private val cancelPaypalTokenUseCase: CancelPaypalTokenUseCase,
     private val adyenPaymentInteractor: AdyenPaymentInteractor,
-    private val supportInteractor: com.wallet.appcoins.feature.support.data.SupportInteractor,
+    private val supportInteractor: SupportInteractor,
     rxSchedulers: RxSchedulers,
     private val analytics: BillingAnalytics,
     private val paymentAnalytics: PaymentMethodsAnalytics

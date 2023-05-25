@@ -6,12 +6,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import by.kirich1409.viewbindingdelegate.viewBinding
-import com.asf.wallet.R
-import com.wallet.appcoins.core.legacy_base.legacy.ActivityResultSharer
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
+import com.asf.wallet.R
 import com.asf.wallet.databinding.TransactSuccessFragmentLayoutBinding
-import com.wallet.appcoins.core.legacy_base.legacy.BasePageViewFragment
 import com.jakewharton.rxbinding2.view.RxView
+import com.wallet.appcoins.core.legacy_base.ActivityResultSharer
+import com.wallet.appcoins.core.legacy_base.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable
@@ -19,7 +19,7 @@ import java.math.BigDecimal
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class AppcoinsCreditsTransferSuccessFragment : com.wallet.appcoins.core.legacy_base.legacy.BasePageViewFragment(null),
+class AppcoinsCreditsTransferSuccessFragment : BasePageViewFragment(),
     AppcoinsCreditsTransactSuccessView {
   companion object {
     private const val AMOUNT_SENT_KEY = "AMOUNT_SENT"
@@ -70,7 +70,7 @@ class AppcoinsCreditsTransferSuccessFragment : com.wallet.appcoins.core.legacy_b
     when (context) {
       is TransactNavigator -> navigator = context
       else -> throw IllegalArgumentException(
-          "${this.javaClass.simpleName} has to be attached to an activity that implements ${com.wallet.appcoins.core.legacy_base.legacy.ActivityResultSharer::class}")
+          "${this.javaClass.simpleName} has to be attached to an activity that implements ${ActivityResultSharer::class}")
     }
   }
 

@@ -8,12 +8,12 @@ import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.view.ViewGroup
 import by.kirich1409.viewbindingdelegate.viewBinding
-import com.asf.wallet.R
 import com.appcoins.wallet.core.utils.android_common.extensions.scaleToString
+import com.asf.wallet.R
 import com.asf.wallet.databinding.InviteFriendsFragmentLayoutBinding
-import com.wallet.appcoins.core.legacy_base.legacy.BasePageViewFragment
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.jakewharton.rxbinding2.view.RxView
+import com.wallet.appcoins.core.legacy_base.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable
@@ -21,7 +21,7 @@ import java.math.BigDecimal
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class InviteFriendsFragment : com.wallet.appcoins.core.legacy_base.legacy.BasePageViewFragment(null), InviteFriendsFragmentView {
+class InviteFriendsFragment : BasePageViewFragment(), InviteFriendsFragmentView {
 
   @Inject
   lateinit var referralInteractor: ReferralInteractorContract

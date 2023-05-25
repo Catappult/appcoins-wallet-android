@@ -46,6 +46,7 @@ dependencies {
   implementation(project(":feature:change-currency:ui"))
   implementation(project(":feature:wallet-info:data"))
   implementation(project(":feature:backup:data"))
+  implementation(project(":feature:support:data"))
   implementation(project(":feature:backup:ui"))
   implementation(project(":feature:promo-code:data"))
   implementation(project(":home"))

@@ -10,21 +10,21 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import by.kirich1409.viewbindingdelegate.viewBinding
+import com.appcoins.wallet.core.arch.SingleStateFragment
 import com.asf.wallet.R
 import com.asf.wallet.databinding.FragmentNftBinding
-import com.appcoins.wallet.core.arch.SingleStateFragment
-import com.wallet.appcoins.core.legacy_base.legacy.BasePageViewFragment
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.bumptech.glide.request.RequestListener
+import com.wallet.appcoins.core.legacy_base.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class NFTDetailsFragment : com.wallet.appcoins.core.legacy_base.legacy.BasePageViewFragment(null),
+class NFTDetailsFragment : BasePageViewFragment(),
   SingleStateFragment<NFTDetailsState, NFTDetailsSideEffect> {
 
   @Inject

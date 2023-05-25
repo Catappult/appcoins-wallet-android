@@ -13,29 +13,29 @@ import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import com.asf.wallet.R
-import com.asf.wallet.databinding.FragmentMyWalletsBinding
-import com.appcoins.wallet.core.arch.data.Async
-import com.appcoins.wallet.core.arch.SingleStateFragment
 import com.appcoins.wallet.core.analytics.analytics.legacy.WalletsAnalytics
 import com.appcoins.wallet.core.analytics.analytics.legacy.WalletsEventSender
-import com.appcoins.wallet.feature.walletInfo.data.wallet.domain.Wallet
-import com.asfoundation.wallet.ui.MyAddressActivity
-import com.appcoins.wallet.feature.walletInfo.data.domain.TokenBalance
+import com.appcoins.wallet.core.arch.SingleStateFragment
+import com.appcoins.wallet.core.arch.data.Async
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.appcoins.wallet.core.utils.android_common.WalletCurrency
+import com.appcoins.wallet.feature.walletInfo.data.balance.TokenBalance
+import com.appcoins.wallet.feature.walletInfo.data.wallet.domain.Wallet
+import com.appcoins.wallet.feature.walletInfo.data.wallet.domain.WalletInfo
+import com.asf.wallet.R
+import com.asf.wallet.databinding.FragmentMyWalletsBinding
+import com.asfoundation.wallet.ui.MyAddressActivity
 import com.asfoundation.wallet.util.generateQrCode
-import com.wallet.appcoins.core.legacy_base.legacy.BasePageViewFragment
-import com.appcoins.wallet.feature.walletInfo.data.domain.WalletInfo
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.snackbar.Snackbar
+import com.wallet.appcoins.core.legacy_base.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
 import java.math.BigDecimal
 import java.util.*
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class MyWalletsFragment : com.wallet.appcoins.core.legacy_base.legacy.BasePageViewFragment(null),
+class MyWalletsFragment : BasePageViewFragment(),
   SingleStateFragment<MyWalletsState, MyWalletsSideEffect> {
 
   @Inject
@@ -46,6 +46,7 @@ class MyWalletsFragment : com.wallet.appcoins.core.legacy_base.legacy.BasePageVi
 
   @Inject
   lateinit var walletsEventSender: WalletsEventSender
+
 
   private val viewModel: MyWalletsViewModel by viewModels()
 
@@ -83,6 +84,7 @@ class MyWalletsFragment : com.wallet.appcoins.core.legacy_base.legacy.BasePageVi
   }
 
   override fun onStateChanged(state: MyWalletsState) {
+
     when (val asyncValue = state.walletInfoAsync) {
       Async.Uninitialized,
       is Async.Loading -> {
@@ -147,7 +149,7 @@ class MyWalletsFragment : com.wallet.appcoins.core.legacy_base.legacy.BasePageVi
     views.myWalletsContent.actionButtonCopyAddress.isEnabled = false
   }
 
-  private fun com.appcoins.wallet.feature.walletInfo.data.domain.WalletInfo.showWalletInfo() {
+  private fun WalletInfo.showWalletInfo() {
     try {
       val logo = ResourcesCompat.getDrawable(resources, R.drawable.ic_appc_token, null)
       val mergedQrCode = wallet.generateQrCode(requireActivity().windowManager, logo!!)
@@ -220,7 +222,7 @@ class MyWalletsFragment : com.wallet.appcoins.core.legacy_base.legacy.BasePageVi
     views.myWalletsContent.backupButton.visibility = View.GONE
   }
 
-  private fun com.appcoins.wallet.feature.walletInfo.data.domain.WalletInfo.showBackup() {
+  private fun WalletInfo.showBackup() {
     val imageRes = if (hasBackup) R.drawable.ic_check_circle else R.drawable.ic_alert_circle
     val colorRes = if (hasBackup) R.color.styleguide_white else R.color.styleguide_pink
     val titleRes = if (hasBackup) {
@@ -351,7 +353,7 @@ class MyWalletsFragment : com.wallet.appcoins.core.legacy_base.legacy.BasePageVi
       "-1"
     }
 
-  private fun com.appcoins.wallet.feature.walletInfo.data.domain.TokenBalance.getTokenValueText(tokenCurrency: WalletCurrency): String =
+  private fun TokenBalance.getTokenValueText(tokenCurrency: WalletCurrency): String =
     "${
       if (token.amount.compareTo(BigDecimal("-1")) == 1) {
         formatter.formatCurrency(token.amount, tokenCurrency)

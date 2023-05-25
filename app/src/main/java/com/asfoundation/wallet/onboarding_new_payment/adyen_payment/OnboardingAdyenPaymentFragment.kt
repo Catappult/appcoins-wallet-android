@@ -23,22 +23,22 @@ import com.adyen.checkout.redirect.RedirectComponent
 import com.adyen.checkout.redirect.RedirectConfiguration
 import com.appcoins.wallet.billing.adyen.PaymentInfoModel
 import com.appcoins.wallet.billing.repository.entity.TransactionData
+import com.appcoins.wallet.core.arch.SingleStateFragment
+import com.appcoins.wallet.core.arch.data.Async
+import com.appcoins.wallet.core.utils.android_common.KeyboardUtils
 import com.asf.wallet.BuildConfig
 import com.asf.wallet.R
 import com.asf.wallet.databinding.OnboardingAdyenPaymentFragmentBinding
-import com.appcoins.wallet.core.arch.data.Async
-import com.appcoins.wallet.core.arch.SingleStateFragment
 import com.asfoundation.wallet.billing.adyen.AdyenCardWrapper
 import com.asfoundation.wallet.billing.adyen.PaymentType
 import com.asfoundation.wallet.util.AdyenCardView
-import com.appcoins.wallet.core.utils.android_common.KeyboardUtils
-import com.wallet.appcoins.core.legacy_base.legacy.BasePageViewFragment
+import com.wallet.appcoins.core.legacy_base.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 
 @AndroidEntryPoint
-class OnboardingAdyenPaymentFragment : com.wallet.appcoins.core.legacy_base.legacy.BasePageViewFragment(null),
+class OnboardingAdyenPaymentFragment : BasePageViewFragment(),
   SingleStateFragment<OnboardingAdyenPaymentState, OnboardingAdyenPaymentSideEffect> {
 
   private val viewModel: OnboardingAdyenPaymentViewModel by viewModels()

@@ -11,12 +11,13 @@ import android.os.Build
 import android.os.SystemClock
 import androidx.core.app.NotificationCompat
 import com.asf.wallet.R
-import com.wallet.appcoins.feature.support.data.SupportNotificationProperties.ACTION_CHECK_MESSAGES
-import com.wallet.appcoins.feature.support.data.SupportNotificationProperties.ACTION_DISMISS
-import com.wallet.appcoins.feature.support.data.SupportNotificationProperties.ACTION_KEY
-import com.wallet.appcoins.feature.support.data.SupportNotificationProperties.CHANNEL_ID
-import com.wallet.appcoins.feature.support.data.SupportNotificationProperties.CHANNEL_NAME
-import com.wallet.appcoins.feature.support.data.SupportNotificationProperties.NOTIFICATION_SERVICE_ID
+import com.asfoundation.wallet.support.SupportNotificationProperties.ACTION_CHECK_MESSAGES
+import com.asfoundation.wallet.support.SupportNotificationProperties.ACTION_DISMISS
+import com.asfoundation.wallet.support.SupportNotificationProperties.ACTION_KEY
+import com.asfoundation.wallet.support.SupportNotificationProperties.CHANNEL_ID
+import com.asfoundation.wallet.support.SupportNotificationProperties.CHANNEL_NAME
+import com.asfoundation.wallet.support.SupportNotificationProperties.NOTIFICATION_SERVICE_ID
+
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
@@ -89,7 +90,7 @@ class AlarmManagerBroadcastReceiver : BroadcastReceiver() {
   }
 
   private fun createNotificationClickIntent(context: Context): PendingIntent {
-    val intent = com.wallet.appcoins.feature.support.data.SupportNotificationBroadcastReceiver.newIntent(context)
+    val intent = SupportNotificationBroadcastReceiver.newIntent(context)
     intent.putExtra(ACTION_KEY, ACTION_CHECK_MESSAGES)
     return PendingIntent.getActivity(
       context,
@@ -103,7 +104,7 @@ class AlarmManagerBroadcastReceiver : BroadcastReceiver() {
   }
 
   private fun createNotificationDismissIntent(context: Context): PendingIntent {
-    val intent = com.wallet.appcoins.feature.support.data.SupportNotificationBroadcastReceiver.newIntent(context)
+    val intent = SupportNotificationBroadcastReceiver.newIntent(context)
     intent.putExtra(ACTION_KEY, ACTION_DISMISS)
     return PendingIntent.getActivity(
       context,

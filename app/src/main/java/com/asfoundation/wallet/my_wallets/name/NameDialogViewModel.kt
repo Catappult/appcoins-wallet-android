@@ -1,11 +1,11 @@
 package com.asfoundation.wallet.my_wallets.name
 
 import androidx.lifecycle.SavedStateHandle
-import com.appcoins.wallet.core.arch.data.Async
 import com.appcoins.wallet.core.arch.BaseViewModel
 import com.appcoins.wallet.core.arch.SideEffect
 import com.appcoins.wallet.core.arch.ViewState
-import com.appcoins.wallet.feature.walletInfo.data.usecases.UpdateWalletNameUseCase
+import com.appcoins.wallet.core.arch.data.Async
+import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.UpdateWalletNameUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
@@ -21,8 +21,8 @@ data class NameDialogState(
 
 @HiltViewModel
 class NameDialogViewModel @Inject constructor(
-    savedStateHandle: SavedStateHandle,
-    private val updateWalletNameUseCase: com.appcoins.wallet.feature.walletInfo.data.usecases.UpdateWalletNameUseCase,
+        savedStateHandle: SavedStateHandle,
+        private val updateWalletNameUseCase: UpdateWalletNameUseCase,
 ) :
   BaseViewModel<NameDialogState, NameDialogSideEffect>(initialState(savedStateHandle)) {
 

@@ -6,13 +6,13 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.appcoins.wallet.billing.BillingMessagesMapper
 import com.appcoins.wallet.billing.adyen.PaymentModel
-import com.asf.wallet.R
-import com.appcoins.wallet.core.utils.android_common.RxSchedulers
 import com.appcoins.wallet.core.network.microservices.model.PaypalTransaction
-import com.asfoundation.wallet.billing.paypal.usecases.*
-import com.wallet.appcoins.feature.support.data.SupportInteractor
-import com.asfoundation.wallet.topup.TopUpAnalytics
+import com.appcoins.wallet.core.utils.android_common.RxSchedulers
 import com.appcoins.wallet.core.utils.android_common.toSingleEvent
+import com.asf.wallet.R
+import com.asfoundation.wallet.billing.paypal.usecases.*
+import com.asfoundation.wallet.topup.TopUpAnalytics
+import com.wallet.appcoins.feature.support.data.SupportInteractor
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.disposables.CompositeDisposable
 import javax.inject.Inject
@@ -25,7 +25,7 @@ class PayPalTopupViewModel @Inject constructor(
     private val waitForSuccessPaypalUseCase: WaitForSuccessPaypalUseCase,
     private val cancelPaypalTokenUseCase: CancelPaypalTokenUseCase,
     private val billingMessagesMapper: BillingMessagesMapper,
-    private val supportInteractor: com.wallet.appcoins.feature.support.data.SupportInteractor,
+    private val supportInteractor: SupportInteractor,
     private val topUpAnalytics: TopUpAnalytics,
     rxSchedulers: RxSchedulers
 ) : ViewModel() {

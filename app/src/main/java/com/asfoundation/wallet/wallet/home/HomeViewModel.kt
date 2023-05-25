@@ -5,13 +5,23 @@ import android.net.Uri
 import android.text.format.DateUtils
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
+import com.appcoins.wallet.core.analytics.analytics.legacy.HomeAnalytics
+import com.appcoins.wallet.core.analytics.analytics.legacy.WalletsAnalytics
+import com.appcoins.wallet.core.analytics.analytics.legacy.WalletsEventSender
 import com.appcoins.wallet.core.arch.*
 import com.appcoins.wallet.core.arch.data.Async
 import com.appcoins.wallet.core.network.backend.model.GamificationStatus
 import com.appcoins.wallet.core.utils.android_common.RxSchedulers
 import com.appcoins.wallet.core.utils.properties.APTOIDE_TOP_APPS_URL
 import com.appcoins.wallet.core.utils.properties.VIP_PROGRAM_BADGE_URL
+import com.appcoins.wallet.feature.backup.data.use_cases.ShouldShowBackupTriggerUseCase
+import com.appcoins.wallet.feature.backup.ui.triggers.TriggerUtils.toJson
 import com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue
+import com.appcoins.wallet.feature.walletInfo.data.balance.TokenBalance
+import com.appcoins.wallet.feature.walletInfo.data.balance.WalletBalance
+import com.appcoins.wallet.feature.walletInfo.data.wallet.domain.Wallet
+import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.GetWalletInfoUseCase
+import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.ObserveWalletInfoUseCase
 import com.appcoins.wallet.gamification.repository.Levels
 import com.appcoins.wallet.sharedpreferences.BackupTriggerPreferencesDataSource
 import com.appcoins.wallet.sharedpreferences.BackupTriggerPreferencesDataSource.TriggerSource
@@ -19,12 +29,7 @@ import com.appcoins.wallet.sharedpreferences.BackupTriggerPreferencesDataSource.
 import com.appcoins.wallet.sharedpreferences.BackupTriggerPreferencesDataSource.TriggerSource.NEW_LEVEL
 import com.appcoins.wallet.ui.widgets.CardPromotionItem
 import com.appcoins.wallet.ui.widgets.GameData
-import com.appcoins.wallet.feature.backup.ui.triggers.TriggerUtils.toJson
-import com.appcoins.wallet.feature.backup.data.use_cases.ShouldShowBackupTriggerUseCase
-import com.appcoins.wallet.core.analytics.analytics.legacy.WalletsAnalytics
-import com.appcoins.wallet.core.analytics.analytics.legacy.WalletsEventSender
 import com.asfoundation.wallet.entity.GlobalBalance
-import com.appcoins.wallet.feature.walletInfo.data.wallet.domain.Wallet
 import com.asfoundation.wallet.gamification.ObserveUserStatsUseCase
 import com.asfoundation.wallet.home.usecases.*
 import com.asfoundation.wallet.promotions.model.PromotionsModel
@@ -33,14 +38,10 @@ import com.asfoundation.wallet.promotions.usecases.GetPromotionsUseCase
 import com.asfoundation.wallet.promotions.usecases.SetSeenPromotionsUseCase
 import com.asfoundation.wallet.referrals.CardNotification
 import com.asfoundation.wallet.transactions.Transaction
-import com.appcoins.wallet.feature.walletInfo.data.domain.TokenBalance
 import com.asfoundation.wallet.ui.widget.entity.TransactionsModel
 import com.asfoundation.wallet.ui.widget.holder.CardNotificationAction
 import com.asfoundation.wallet.update_required.use_cases.BuildUpdateIntentUseCase.Companion.PLAY_APP_VIEW_URL
 import com.asfoundation.wallet.viewmodel.TransactionsWalletModel
-import com.appcoins.wallet.feature.walletInfo.data.domain.WalletBalance
-import com.appcoins.wallet.feature.walletInfo.data.usecases.GetWalletInfoUseCase
-import com.appcoins.wallet.feature.walletInfo.data.usecases.ObserveWalletInfoUseCase
 import com.google.gson.Gson
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.Completable
@@ -87,34 +88,34 @@ data class HomeState(
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
-    private val analytics: HomeAnalytics,
-    private val backupTriggerPreferences: BackupTriggerPreferencesDataSource,
-    private val shouldShowBackupTriggerUseCase: com.appcoins.wallet.feature.backup.data.use_cases.ShouldShowBackupTriggerUseCase,
-    private val observeWalletInfoUseCase: com.appcoins.wallet.feature.walletInfo.data.usecases.ObserveWalletInfoUseCase,
-    private val getWalletInfoUseCase: com.appcoins.wallet.feature.walletInfo.data.usecases.GetWalletInfoUseCase,
-    private val getPromotionsUseCase: GetPromotionsUseCase,
-    private val setSeenPromotionsUseCase: SetSeenPromotionsUseCase,
-    private val shouldOpenRatingDialogUseCase: ShouldOpenRatingDialogUseCase,
-    private val updateTransactionsNumberUseCase: UpdateTransactionsNumberUseCase,
-    private val findNetworkInfoUseCase: FindNetworkInfoUseCase,
-    private val fetchTransactionsUseCase: FetchTransactionsUseCase,
-    private val findDefaultWalletUseCase: FindDefaultWalletUseCase,
-    private val observeDefaultWalletUseCase: ObserveDefaultWalletUseCase,
-    private val dismissCardNotificationUseCase: DismissCardNotificationUseCase,
-    private val getGamesListingUseCase: GetGamesListingUseCase,
-    private val getLevelsUseCase: GetLevelsUseCase,
-    private val getUserLevelUseCase: GetUserLevelUseCase,
-    private val observeUserStatsUseCase: ObserveUserStatsUseCase,
-    private val getLastShownUserLevelUseCase: GetLastShownUserLevelUseCase,
-    private val updateLastShownUserLevelUseCase: UpdateLastShownUserLevelUseCase,
-    private val getCardNotificationsUseCase: GetCardNotificationsUseCase,
-    private val registerSupportUserUseCase: RegisterSupportUserUseCase,
-    private val getUnreadConversationsCountEventsUseCase: GetUnreadConversationsCountEventsUseCase,
-    private val displayChatUseCase: DisplayChatUseCase,
-    private val displayConversationListOrChatUseCase: DisplayConversationListOrChatUseCase,
-    @Named("package-name") private val walletPackageName: String,
-    private val walletsEventSender: WalletsEventSender,
-    private val rxSchedulers: RxSchedulers
+        private val analytics: HomeAnalytics,
+        private val backupTriggerPreferences: BackupTriggerPreferencesDataSource,
+        private val shouldShowBackupTriggerUseCase: ShouldShowBackupTriggerUseCase,
+        private val observeWalletInfoUseCase: ObserveWalletInfoUseCase,
+        private val getWalletInfoUseCase: GetWalletInfoUseCase,
+        private val getPromotionsUseCase: GetPromotionsUseCase,
+        private val setSeenPromotionsUseCase: SetSeenPromotionsUseCase,
+        private val shouldOpenRatingDialogUseCase: ShouldOpenRatingDialogUseCase,
+        private val updateTransactionsNumberUseCase: UpdateTransactionsNumberUseCase,
+        private val findNetworkInfoUseCase: FindNetworkInfoUseCase,
+        private val fetchTransactionsUseCase: FetchTransactionsUseCase,
+        private val findDefaultWalletUseCase: FindDefaultWalletUseCase,
+        private val observeDefaultWalletUseCase: ObserveDefaultWalletUseCase,
+        private val dismissCardNotificationUseCase: DismissCardNotificationUseCase,
+        private val getGamesListingUseCase: GetGamesListingUseCase,
+        private val getLevelsUseCase: GetLevelsUseCase,
+        private val getUserLevelUseCase: GetUserLevelUseCase,
+        private val observeUserStatsUseCase: ObserveUserStatsUseCase,
+        private val getLastShownUserLevelUseCase: GetLastShownUserLevelUseCase,
+        private val updateLastShownUserLevelUseCase: UpdateLastShownUserLevelUseCase,
+        private val getCardNotificationsUseCase: GetCardNotificationsUseCase,
+        private val registerSupportUserUseCase: RegisterSupportUserUseCase,
+        private val getUnreadConversationsCountEventsUseCase: GetUnreadConversationsCountEventsUseCase,
+        private val displayChatUseCase: DisplayChatUseCase,
+        private val displayConversationListOrChatUseCase: DisplayConversationListOrChatUseCase,
+        @Named("package-name") private val walletPackageName: String,
+        private val walletsEventSender: WalletsEventSender,
+        private val rxSchedulers: RxSchedulers
 ) : BaseViewModel<HomeState, HomeSideEffect>(initialState()) {
 
   private val UPDATE_INTERVAL = 30 * DateUtils.SECOND_IN_MILLIS
@@ -212,7 +213,7 @@ class HomeViewModel @Inject constructor(
         }
   }
 
-  private fun mapWalletValue(walletBalance: com.appcoins.wallet.feature.walletInfo.data.domain.WalletBalance): GlobalBalance {
+  private fun mapWalletValue(walletBalance: WalletBalance): GlobalBalance {
     return GlobalBalance(
         walletBalance, shouldShow(walletBalance.appcBalance, 0.01),
         shouldShow(walletBalance.creditsBalance, 0.01),
@@ -220,7 +221,7 @@ class HomeViewModel @Inject constructor(
     )
   }
 
-  private fun shouldShow(tokenBalance: com.appcoins.wallet.feature.walletInfo.data.domain.TokenBalance, threshold: Double): Boolean {
+  private fun shouldShow(tokenBalance: TokenBalance, threshold: Double): Boolean {
     return (tokenBalance.token.amount >= BigDecimal(threshold) &&
         tokenBalance.fiat.amount.toDouble() >= threshold)
   }

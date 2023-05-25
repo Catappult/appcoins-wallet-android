@@ -14,7 +14,7 @@ import com.asf.wallet.R
 import com.appcoins.wallet.core.arch.SingleStateFragment
 import com.appcoins.wallet.core.utils.jvm_common.RxBus
 import com.asfoundation.wallet.main.splash.bus.SplashFinishEvent
-import com.wallet.appcoins.feature.support.data.SupportNotificationProperties.SUPPORT_NOTIFICATION_CLICK
+import com.asfoundation.wallet.support.SupportNotificationProperties.SUPPORT_NOTIFICATION_CLICK
 import com.asfoundation.wallet.ui.AuthenticationPromptActivity
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject

@@ -2,7 +2,7 @@ package com.asfoundation.wallet.ui.transact
 
 import androidx.fragment.app.Fragment
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
-import com.appcoins.wallet.feature.walletInfo.data.usecases.GetWalletInfoUseCase
+import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.GetWalletInfoUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -17,7 +17,7 @@ class TransferFragmentModule {
 
   @Provides
   fun providesTransferFragmentPresenter(fragment: Fragment,
-                                        getWalletInfoUseCase: com.appcoins.wallet.feature.walletInfo.data.usecases.GetWalletInfoUseCase,
+                                        getWalletInfoUseCase: GetWalletInfoUseCase,
                                         interactor: TransferInteractor,
                                         data: TransferFragmentData,
                                         navigator: TransferFragmentNavigator,

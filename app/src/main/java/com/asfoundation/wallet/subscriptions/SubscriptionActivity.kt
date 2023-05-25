@@ -6,14 +6,14 @@ import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.widget.Toolbar
-import com.wallet.appcoins.core.legacy_base.legacy.BaseActivity
 import com.asf.wallet.R
 import com.asfoundation.wallet.subscriptions.list.SubscriptionListFragment
 import com.asfoundation.wallet.subscriptions.success.SubscriptionSuccessFragment
+import com.wallet.appcoins.core.legacy_base.BaseActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class SubscriptionActivity : com.wallet.appcoins.core.legacy_base.legacy.BaseActivity() {
+class SubscriptionActivity : BaseActivity() {
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
@@ -28,7 +28,7 @@ class SubscriptionActivity : com.wallet.appcoins.core.legacy_base.legacy.BaseAct
    * function hardcoded temporarily, must be changed
    * @return
    */
-  override fun toolbar(): Toolbar {
+   fun toolbar(): Toolbar {
     val toolbar = findViewById<Toolbar>(R.id.toolbar)
     toolbar!!.visibility = View.VISIBLE
     if (toolbar != null) {

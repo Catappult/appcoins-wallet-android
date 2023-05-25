@@ -5,8 +5,8 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.biometric.BiometricPrompt
 import androidx.core.content.ContextCompat
-import com.wallet.appcoins.core.legacy_base.legacy.BaseActivity
 import com.asf.wallet.R
+import com.wallet.appcoins.core.legacy_base.BaseActivity
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -15,7 +15,7 @@ import io.reactivex.subjects.PublishSubject
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class AuthenticationPromptActivity : com.wallet.appcoins.core.legacy_base.legacy.BaseActivity(), AuthenticationPromptView {
+class AuthenticationPromptActivity : BaseActivity(), AuthenticationPromptView {
 
   @Inject
   lateinit var fingerprintInteractor: FingerprintInteractor

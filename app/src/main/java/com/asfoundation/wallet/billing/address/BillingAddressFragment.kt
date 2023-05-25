@@ -10,21 +10,21 @@ import android.view.View.VISIBLE
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import by.kirich1409.viewbindingdelegate.viewBinding
-import com.appcoins.wallet.core.utils.jvm_common.Logger
-import com.asf.wallet.R
-import com.asfoundation.wallet.ui.iab.IabView
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.appcoins.wallet.core.utils.android_common.WalletCurrency
+import com.appcoins.wallet.core.utils.jvm_common.Logger
+import com.asf.wallet.R
 import com.asf.wallet.databinding.FragmentBillingAddressBinding
-import com.wallet.appcoins.core.legacy_base.legacy.BasePageViewFragment
+import com.asfoundation.wallet.ui.iab.IabView
 import com.jakewharton.rxbinding2.view.RxView
+import com.wallet.appcoins.core.legacy_base.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.Observable
 import java.math.BigDecimal
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class BillingAddressFragment : com.wallet.appcoins.core.legacy_base.legacy.BasePageViewFragment(null), BillingAddressView {
+class BillingAddressFragment : BasePageViewFragment(), BillingAddressView {
 
   companion object {
 

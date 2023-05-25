@@ -21,7 +21,7 @@ internal class Erc681ReceiverPresenter(private val view: Erc681ReceiverView,
     if (savedInstanceState == null) {
       disposables.add(
         handleWalletCreationIfNeeded()
-          .takeUntil { it != com.appcoins.wallet.feature.walletInfo.data.wallet.WalletGetterStatus.CREATING.toString() }
+          .takeUntil { it != WalletGetterStatus.CREATING.toString() }
           .flatMap {
             transferParser.parse(data)
               .map { transactionBuilder ->

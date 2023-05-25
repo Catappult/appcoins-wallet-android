@@ -4,20 +4,18 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View.GONE
-import android.view.View.INVISIBLE
-import android.view.View.VISIBLE
+import android.view.View.*
 import androidx.appcompat.widget.Toolbar
 import androidx.core.app.ShareCompat
 import androidx.fragment.app.Fragment
 import by.kirich1409.viewbindingdelegate.viewBinding
-import com.wallet.appcoins.core.legacy_base.legacy.BaseActivity
 import com.appcoins.wallet.feature.walletInfo.data.wallet.FindDefaultWalletInteract
 import com.asf.wallet.R
 import com.asf.wallet.databinding.InviteFriendsActivityLayoutBinding
 import com.asfoundation.wallet.router.ExternalBrowserRouter
 import com.asfoundation.wallet.verification.ui.credit_card.VerificationCreditCardActivity
 import com.jakewharton.rxbinding2.view.RxView
+import com.wallet.appcoins.core.legacy_base.BaseActivity
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -29,7 +27,7 @@ import java.math.BigDecimal
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class InviteFriendsActivity : com.wallet.appcoins.core.legacy_base.legacy.BaseActivity(), InviteFriendsActivityView {
+class InviteFriendsActivity : BaseActivity(), InviteFriendsActivityView {
 
   private lateinit var menu: Menu
   private lateinit var presenter: InviteFriendsActivityPresenter
@@ -62,7 +60,7 @@ class InviteFriendsActivity : com.wallet.appcoins.core.legacy_base.legacy.BaseAc
    * function hardcoded temporarily, must be changed
    * @return
    */
-  override fun toolbar(): Toolbar {
+   fun toolbar(): Toolbar {
     val toolbar = findViewById<Toolbar>(R.id.toolbar)
     toolbar!!.visibility = VISIBLE
     if (toolbar != null) {
