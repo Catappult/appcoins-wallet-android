@@ -11,12 +11,22 @@ import com.github.michaelbull.result.Err
 import com.github.michaelbull.result.Ok
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import kotlin.reflect.KProperty1
 
-abstract class NewBaseViewModel<S : ViewState>(initialState: S) : ViewModel() {
+abstract class NewBaseViewModel<S : ViewState, E : SideEffect>(initialState: S) : ViewModel() {
 
+  private val sideEffectsChannel = Channel<E>(Channel.BUFFERED)
+  val sideEffectsFlow = sideEffectsChannel.receiveAsFlow()
+
+  protected fun sendSideEffect(eventBlock: S.() -> E?) {
+    viewModelScope.launch {
+      val sideEffect = stateFlow.value.eventBlock()
+      sideEffect?.let { se -> sideEffectsChannel.send(se) }
+    }
+  }
   private val _stateFlow: MutableStateFlow<S> = MutableStateFlow(initialState)
   val stateFlow: StateFlow<S> = _stateFlow
   val state: S get() = stateFlow.value
