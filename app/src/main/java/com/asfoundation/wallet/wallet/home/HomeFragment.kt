@@ -360,7 +360,7 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
         sideEffect.triggerSource
       )
 
-      HomeSideEffect.NavigateToChangeCurrency -> navigator.navigateToCurrencySelector()
+      HomeSideEffect.NavigateToChangeCurrency -> navigator.navigateToCurrencySelector(navController())
       HomeSideEffect.NavigateToTopUp -> navigator.navigateToTopUp()
       HomeSideEffect.NavigateToTransfer -> navigator.navigateToTransfer()
       HomeSideEffect.NavigateToTransactionsList ->

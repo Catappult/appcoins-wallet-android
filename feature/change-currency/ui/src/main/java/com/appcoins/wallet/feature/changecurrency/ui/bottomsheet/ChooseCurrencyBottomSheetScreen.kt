@@ -1,6 +1,5 @@
 package com.appcoins.wallet.feature.changecurrency.ui.bottomsheet
 
-import androidx.activity.compose.LocalOnBackPressedDispatcherOwner
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.*
@@ -9,6 +8,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -25,21 +25,17 @@ internal fun ChooseCurrencyRoute(
   chosenCurrency: FiatCurrency?,
   viewModel: ChooseCurrencyBottomSheetViewModel = hiltViewModel(),
   bottomSheetStateHandle: () -> Unit,
-  onExitClick: () -> Unit
 ) {
   ChooseCurrencyScreen(
     chosenCurrency = chosenCurrency,
     currencyConfirmationClick = viewModel::currencyConfirmationClick,
-    bottomSheetStateHandle = bottomSheetStateHandle,
   )
-  val onBackPressedDispatcher = LocalOnBackPressedDispatcherOwner.current
   val state by viewModel.stateFlow.collectAsState()
   when (state.selectedConfirmationAsync) {
     Async.Uninitialized,
     is Async.Loading -> Unit
     is Async.Success -> {
-      onExitClick()
-//      onBackPressedDispatcher?.onBackPressedDispatcher?.onBackPressed()
+      bottomSheetStateHandle()
     }
     is Async.Fail -> {
     }
@@ -50,7 +46,6 @@ internal fun ChooseCurrencyRoute(
 fun ChooseCurrencyScreen(
   chosenCurrency: FiatCurrency?,
   currencyConfirmationClick: (String) -> Unit,
-  bottomSheetStateHandle: () -> Unit,
 ) {
   Column(
     modifier = Modifier
@@ -76,10 +71,9 @@ fun ChooseCurrencyScreen(
       modifier = Modifier.padding(top = 4.dp, bottom = 16.dp)
     )
     ButtonWithText(
-      label = R.string.confirm_button,
+      label = stringResource(id = R.string.confirm_button),
       onClick = {
         currencyConfirmationClick(chosenCurrency.currency)
-        bottomSheetStateHandle()
       },
       backgroundColor = WalletColors.styleguide_pink,
       labelColor = MaterialTheme.colorScheme.primaryContainer
@@ -97,7 +91,6 @@ private fun ChooseCurrencyPreview() {
       flag = "https://upload.wikimedia.org/wikipedia/commons/b/b7/Flag_of_Europe.svg",
       sign = "€"
     ),
-    currencyConfirmationClick = {},
-    bottomSheetStateHandle = {},
+    currencyConfirmationClick = {}
   )
 }

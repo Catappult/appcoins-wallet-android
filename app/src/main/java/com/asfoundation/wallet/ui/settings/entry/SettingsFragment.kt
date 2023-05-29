@@ -144,7 +144,7 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
       parentFragmentManager
         .beginTransaction()
         .replace(
-          R.id.fragment_container,
+          R.id.container,
           ChangeFiatCurrencyFragment.newInstance()
         ).commit()
       false
