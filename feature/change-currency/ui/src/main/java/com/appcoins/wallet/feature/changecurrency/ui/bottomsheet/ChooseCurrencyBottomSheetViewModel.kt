@@ -13,6 +13,8 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.rx2.rxSingle
 import javax.inject.Inject
 
+object ChooseCurrencyBottomSheetSideEffect : SideEffect
+
 data class ChooseCurrencyBottomSheetState(
   val selectedConfirmationAsync: Async<Unit> = Async.Uninitialized
 ) : ViewState
@@ -20,7 +22,7 @@ data class ChooseCurrencyBottomSheetState(
 @HiltViewModel
 class ChooseCurrencyBottomSheetViewModel @Inject constructor(
   private val setSelectedCurrencyUseCase: SetSelectedCurrencyUseCase,
-) : NewBaseViewModel<ChooseCurrencyBottomSheetState>(
+) : NewBaseViewModel<ChooseCurrencyBottomSheetState, ChooseCurrencyBottomSheetSideEffect>(
   ChooseCurrencyBottomSheetState()
 ) {
 
