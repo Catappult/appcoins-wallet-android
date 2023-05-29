@@ -2,6 +2,8 @@ package com.appcoins.wallet.feature.changecurrency.ui
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.verticalScroll
@@ -84,26 +86,29 @@ private fun ChangeFiatCurrencyList(
     model.list.find { fiatCurrency -> fiatCurrency.currency == model.selectedCurrency }
   val bottomSheetState = rememberModalBottomSheetState(skipPartiallyExpanded = false)
 
-  Column(
+  LazyColumn(
     modifier = Modifier
       .fillMaxSize()
-      .verticalScroll(rememberScrollState())
       .padding(top = scaffoldPadding.calculateTopPadding())
       .padding(horizontal = 16.dp)
   ) {
-    Text(
-      text = stringResource(id = CommonR.string.change_currency_title),
-      style = WalletTypography.bold.sp22,
-      modifier = Modifier
-        .padding(horizontal = 16.dp, vertical = 16.dp),
-    )
-    CurrencyItem(
-      currencyItem = selectedItem!!,
-      isSelected = true,
-      onExitClick = onExitClick,
-      bottomSheetState = bottomSheetState,
-    )
-    for (currencyItem in model.list) {
+    item {
+      Text(
+        text = stringResource(id = CommonR.string.change_currency_title),
+        style = WalletTypography.bold.sp22,
+        modifier = Modifier
+          .padding(horizontal = 16.dp, vertical = 16.dp),
+      )
+    }
+    item {
+      CurrencyItem(
+        currencyItem = selectedItem!!,
+        isSelected = true,
+        onExitClick = onExitClick,
+        bottomSheetState = bottomSheetState,
+      )
+    }
+    items(model.list) { currencyItem ->
       if (selectedItem != currencyItem) {
         CurrencyItem(
           currencyItem = currencyItem,
