@@ -1,7 +1,7 @@
 package com.appcoins.wallet.feature.backup.ui.entry
 
 import androidx.lifecycle.viewModelScope
-import com.appcoins.wallet.core.arch.BaseViewModel
+import com.appcoins.wallet.core.arch.NewBaseViewModel
 import com.appcoins.wallet.core.arch.SideEffect
 import com.appcoins.wallet.core.arch.ViewState
 import com.appcoins.wallet.core.arch.data.Async
@@ -45,12 +45,12 @@ class BackupEntryViewModel(
       val walletInfo = withContext(dispatchers.io) {
         getWalletInfoUseCase(data.walletAddress, cached = true, updateFiat = false).await()
       }
-      suspend { mapBalance(walletInfo.walletBalance) }.mapAsyncToState(
+      suspend { mapBalance(walletInfo.walletBalance) }.mapSuspendToAsync(
           BackupEntryState::balanceAsync) { copy(balanceAsync = it) }
     }
   }
 
-  private fun mapBalance(walletBalance: WalletBalance): com.appcoins.wallet.feature.backup.data.Balance {
+  private fun mapBalance(walletBalance: WalletBalance): Balance {
     val balance = walletBalance.overallFiat
     return Balance(balance.symbol,
         currencyFormatUtils.formatCurrency(balance.amount))
