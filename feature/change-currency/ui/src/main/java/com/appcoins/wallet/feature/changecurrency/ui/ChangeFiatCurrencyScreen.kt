@@ -4,7 +4,9 @@ import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
@@ -17,23 +19,23 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.appcoins.wallet.feature.changecurrency.data.ChangeFiatCurrency
-import com.appcoins.wallet.feature.changecurrency.data.FiatCurrencyEntity
-import com.appcoins.wallet.feature.changecurrency.ui.bottomsheet.ChooseCurrencyRoute
 import com.appcoins.wallet.core.arch.data.Async
+import com.appcoins.wallet.feature.changecurrency.data.ChangeFiatCurrency
 import com.appcoins.wallet.feature.changecurrency.data.FiatCurrency
+import com.appcoins.wallet.feature.changecurrency.ui.bottomsheet.ChooseCurrencyRoute
 import com.appcoins.wallet.ui.common.theme.WalletColors
 import com.appcoins.wallet.ui.common.theme.WalletTheme
 import com.appcoins.wallet.ui.common.theme.WalletTypography
 import com.appcoins.wallet.ui.common.theme.shapes
 import com.appcoins.wallet.ui.widgets.TopBar
 import com.appcoins.wallet.ui.widgets.WalletImage
+import kotlinx.coroutines.launch
 import com.appcoins.wallet.ui.common.R as CommonR
 
 @Composable
 fun ChangeFiatCurrencyRoute(
   onExitClick: () -> Unit,
-  chatClick: () -> Unit,
+  onChatClick: () -> Unit,
   viewModel: ChangeFiatCurrencyViewModel = hiltViewModel(),
 ) {
   val changeFiatCurrencyState by viewModel.stateFlow.collectAsState()
@@ -42,7 +44,7 @@ fun ChangeFiatCurrencyRoute(
       Surface(
         shadowElevation = 4.dp,
       ) {
-        TopBar(isMainBar = false, onClickSupport = { chatClick() })
+        TopBar(isMainBar = false, onClickSupport = { onChatClick() })
       }
     },
     modifier = Modifier
@@ -57,8 +59,8 @@ fun ChangeFiatCurrencyRoute(
 
 @Composable
 fun ChangeFiatCurrencyScreen(
-  changeFiatCurrencyState: ChangeFiatCurrencyState,
   scaffoldPadding: PaddingValues,
+  changeFiatCurrencyState: ChangeFiatCurrencyState,
   onExitClick: () -> Unit
 ) {
   when (changeFiatCurrencyState.changeFiatCurrencyAsync) {
@@ -73,6 +75,7 @@ fun ChangeFiatCurrencyScreen(
   }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun ChangeFiatCurrencyList(
   scaffoldPadding: PaddingValues,
@@ -81,12 +84,13 @@ private fun ChangeFiatCurrencyList(
 ) {
   val selectedItem =
     model.list.find { fiatCurrency -> fiatCurrency.currency == model.selectedCurrency }
+  val bottomSheetState = rememberModalBottomSheetState(skipPartiallyExpanded = false)
 
   LazyColumn(
     modifier = Modifier
       .fillMaxSize()
       .padding(top = scaffoldPadding.calculateTopPadding())
-      .padding(horizontal = 16.dp),
+      .padding(horizontal = 16.dp)
   ) {
     item {
       Text(
@@ -100,12 +104,17 @@ private fun ChangeFiatCurrencyList(
       CurrencyItem(
         currencyItem = selectedItem!!,
         isSelected = true,
-        onExitClick = onExitClick
+        onExitClick = onExitClick,
+        bottomSheetState = bottomSheetState,
       )
     }
     items(model.list) { currencyItem ->
       if (selectedItem != currencyItem) {
-        CurrencyItem(currencyItem = currencyItem, onExitClick = onExitClick)
+        CurrencyItem(
+          currencyItem = currencyItem,
+          onExitClick = onExitClick,
+          bottomSheetState = bottomSheetState,
+        )
       }
     }
   }
@@ -117,9 +126,10 @@ private fun CurrencyItem(
   currencyItem: FiatCurrency,
   isSelected: Boolean = false,
   onExitClick: () -> Unit,
+  bottomSheetState: SheetState
 ) {
-  val bottomSheetState = rememberModalBottomSheetState(skipPartiallyExpanded = false)
   var openBottomSheet by rememberSaveable { mutableStateOf(false) }
+  val scope = rememberCoroutineScope()
   var chosenCurrency: FiatCurrency? by rememberSaveable { mutableStateOf(null) }
 
   Card(
@@ -171,11 +181,25 @@ private fun CurrencyItem(
   }
   if (openBottomSheet) {
     ModalBottomSheet(
-      onDismissRequest = { openBottomSheet = false },
+      onDismissRequest = {
+        openBottomSheet = false
+        chosenCurrency = null
+      },
       sheetState = bottomSheetState,
-      containerColor = WalletColors.styleguide_blue,
+      containerColor = WalletColors.styleguide_blue
     ) {
-      ChooseCurrencyRoute(chosenCurrency, onExitClick = onExitClick)
+      chosenCurrency?.let {
+        ChooseCurrencyRoute(
+          chosenCurrency = chosenCurrency,
+          bottomSheetStateHandle = {
+            scope.launch { bottomSheetState.hide() }.invokeOnCompletion {
+              openBottomSheet = !openBottomSheet
+              chosenCurrency = null
+              onExitClick()
+            }
+          },
+        )
+      }
     }
   }
 }

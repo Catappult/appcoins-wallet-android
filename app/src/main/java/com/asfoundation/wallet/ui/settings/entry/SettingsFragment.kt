@@ -14,13 +14,14 @@ import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.SwitchPreferenceCompat
 import com.appcoins.wallet.feature.changecurrency.data.FiatCurrency
 import com.asf.wallet.R
-import com.appcoins.wallet.core.analytics.analytics.legacy.PageViewAnalytics
-import com.appcoins.wallet.core.analytics.analytics.legacy.WalletsAnalytics
-import com.appcoins.wallet.core.analytics.analytics.legacy.WalletsEventSender
+import com.asfoundation.wallet.billing.analytics.PageViewAnalytics
+import com.asfoundation.wallet.billing.analytics.WalletsAnalytics
+import com.asfoundation.wallet.billing.analytics.WalletsEventSender
 import com.asfoundation.wallet.change_currency.ChangeFiatCurrencyActivity
 import com.asfoundation.wallet.change_currency.SettingsCurrencyPreference
 import com.asfoundation.wallet.permissions.manage.view.ManagePermissionsActivity
 import com.asfoundation.wallet.promo_code.SettingsPreferencePromoCodeState
+import com.asfoundation.wallet.promo_code.repository.PromoCode
 import com.asfoundation.wallet.subscriptions.SubscriptionActivity
 import com.asfoundation.wallet.ui.settings.SettingsActivityView
 import com.google.android.material.snackbar.Snackbar
@@ -195,7 +196,7 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
     }
   }
 
-  override fun setPromoCodePreference(promoCode: com.appcoins.wallet.feature.promocode.data.repository.PromoCode) {
+  override fun setPromoCodePreference(promoCode: PromoCode) {
     val promoCodePreference = findPreference<SettingsPreferencePromoCodeState>("pref_promo_code")
     promoCodePreference?.setPromoCode(promoCode)
     promoCodePreference?.setOnPreferenceClickListener {

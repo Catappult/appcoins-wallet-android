@@ -20,7 +20,7 @@ fun BackupAlertCardExpanded(onClickButton: () -> Unit) {
       message = "${stringResource(id = R.string.backup_wallet_tooltip)} ${stringResource(id = R.string.backup_title)}"
     )
     ButtonWithText(
-      label = R.string.action_backup_wallet,
+      label = stringResource(R.string.action_backup_wallet),
       outlineColor = WalletColors.styleguide_white,
       labelColor = WalletColors.styleguide_white,
       onClick = onClickButton

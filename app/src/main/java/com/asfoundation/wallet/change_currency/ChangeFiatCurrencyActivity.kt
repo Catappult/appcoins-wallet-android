@@ -10,7 +10,7 @@ import androidx.compose.ui.Modifier
 import com.appcoins.wallet.feature.changecurrency.ui.ChangeFiatCurrencyRoute
 import com.appcoins.wallet.ui.common.theme.WalletTheme
 import com.asfoundation.wallet.home.usecases.DisplayChatUseCase
-import com.wallet.appcoins.core.legacy_base.BaseActivity
+import com.asfoundation.wallet.ui.BaseActivity
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 

@@ -1,6 +1,5 @@
 package com.appcoins.wallet.feature.changecurrency.ui.bottomsheet
 
-import android.util.Log
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.*
@@ -9,10 +8,10 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.appcoins.wallet.core.utils.jvm_common.DevUtils.CUSTOM_TAG
 import com.appcoins.wallet.core.arch.data.Async
 import com.appcoins.wallet.feature.changecurrency.data.FiatCurrency
 import com.appcoins.wallet.ui.common.R
@@ -20,34 +19,31 @@ import com.appcoins.wallet.ui.common.theme.WalletColors
 import com.appcoins.wallet.ui.common.theme.WalletTypography
 import com.appcoins.wallet.ui.widgets.WalletImage
 import com.appcoins.wallet.ui.widgets.component.ButtonWithText
-import com.appcoins.wallet.feature.changecurrency.data.FiatCurrencyEntity
 
 @Composable
 internal fun ChooseCurrencyRoute(
   chosenCurrency: FiatCurrency?,
   viewModel: ChooseCurrencyBottomSheetViewModel = hiltViewModel(),
-  onExitClick: () -> Unit
+  bottomSheetStateHandle: () -> Unit,
 ) {
   ChooseCurrencyScreen(
     chosenCurrency = chosenCurrency,
-    currencyConfirmationClick = viewModel::currencyConfirmationClick
+    currencyConfirmationClick = viewModel::currencyConfirmationClick,
   )
   val state by viewModel.stateFlow.collectAsState()
   when (state.selectedConfirmationAsync) {
     Async.Uninitialized,
     is Async.Loading -> Unit
     is Async.Success -> {
-      onExitClick()
-      Log.d(CUSTOM_TAG, ": ChooseCurrencyScreen: confirm success")
+      bottomSheetStateHandle()
     }
     is Async.Fail -> {
-      Log.d(CUSTOM_TAG, ": ChooseCurrencyScreen: fail ")
     }
   }
 }
 
 @Composable
-private fun ChooseCurrencyScreen(
+fun ChooseCurrencyScreen(
   chosenCurrency: FiatCurrency?,
   currencyConfirmationClick: (String) -> Unit,
 ) {
@@ -75,8 +71,10 @@ private fun ChooseCurrencyScreen(
       modifier = Modifier.padding(top = 4.dp, bottom = 16.dp)
     )
     ButtonWithText(
-      label = R.string.confirm_button,
-      onClick = { currencyConfirmationClick(chosenCurrency.currency) },
+      label = stringResource(id = R.string.confirm_button),
+      onClick = {
+        currencyConfirmationClick(chosenCurrency.currency)
+      },
       backgroundColor = WalletColors.styleguide_pink,
       labelColor = MaterialTheme.colorScheme.primaryContainer
     )

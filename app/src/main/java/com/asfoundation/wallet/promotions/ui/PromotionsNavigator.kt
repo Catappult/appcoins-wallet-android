@@ -9,13 +9,13 @@ import androidx.core.app.ShareCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
+import com.asf.wallet.R
 import com.appcoins.wallet.core.arch.data.Navigator
 import com.appcoins.wallet.core.arch.data.navigate
-import com.asf.wallet.R
 import com.asfoundation.wallet.promotions.ui.vip_referral.PromotionsVipReferralFragment
 import com.asfoundation.wallet.referrals.InviteFriendsActivity
+import com.asfoundation.wallet.ui.BaseActivity
 import com.asfoundation.wallet.ui.gamification.GamificationActivity
-import com.wallet.appcoins.core.legacy_base.BaseActivity
 import javax.inject.Inject
 
 

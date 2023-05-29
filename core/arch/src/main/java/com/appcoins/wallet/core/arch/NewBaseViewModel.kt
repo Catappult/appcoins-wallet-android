@@ -47,7 +47,7 @@ abstract class NewBaseViewModel<S : ViewState>(initialState: S) : ViewModel() {
    * Example usage:
    *   viewModelScope.launch {
    *     interactor.getLatestDataFlow()
-   *         .mapAsyncToState(HomeState::dataAsync) { async -> copy(dataAsync = async) }
+   *         .mapFlowToAsync(HomeState::dataAsync) { async -> copy(dataAsync = async) }
    *         .collect()
    *   }
    *
@@ -87,33 +87,6 @@ abstract class NewBaseViewModel<S : ViewState>(initialState: S) : ViewModel() {
   }
 
   /**
-   * Executes this suspend function and wraps the its state in Async. It automatically emits
-   * Async.Loading on execute and Async.Fail on uncaught exception.
-   *
-   * Example usage:
-   *   viewModelScope.launch {
-   *     suspend { interactor.getData() }
-   *         .mapAsyncToState(HomeState::dataAsync) { async -> copy(dataAsync = async) }
-   *   }
-   *
-   * @param retainValue A state property that will be retained in case of Loading or Fail
-   * @param reducer A reducer that receives the result of this suspend function as well as the
-   *                current state and returns the new state to be set.
-   */
-  protected suspend fun <T : Any?> (suspend () -> T).mapSuspendToAsync(
-    retainValue: KProperty1<S, Async<T>>? = null,
-    reducer: S.(Async<T>) -> S
-  ) {
-    setState { reducer(Async.Loading(retainValue?.get(this)?.value)) }
-    try {
-      val result = this.invoke()
-      setState { reducer(Async.Success(result)) }
-    } catch (e: Exception) {
-      setState { reducer(Async.Fail(Error.UnknownError(e), retainValue?.get(this)?.value)) }
-    }
-  }
-
-  /**
    * Executes this suspend function and maps [DataResult] to [Async]. It automatically emits
    * Async.Loading on execute and Async.Fail on uncaught exception.
    */
@@ -140,6 +113,33 @@ abstract class NewBaseViewModel<S : ViewState>(initialState: S) : ViewModel() {
       is Err -> setState {
         reducer(Async.Fail(error, retainValue?.get(this)?.value))
       }
+    }
+  }
+
+  /**
+   * Executes this suspend function and wraps the its state in Async. It automatically emits
+   * Async.Loading on execute and Async.Fail on uncaught exception.
+   *
+   * Example usage:
+   *   viewModelScope.launch {
+   *     suspend { interactor.getData() }
+   *         .mapSuspendToAsync(HomeState::dataAsync) { async -> copy(dataAsync = async) }
+   *   }
+   *
+   * @param retainValue A state property that will be retained in case of Loading or Fail
+   * @param reducer A reducer that receives the result of this suspend function as well as the
+   *                current state and returns the new state to be set.
+   */
+  protected suspend fun <T : Any?> (suspend () -> T).mapSuspendToAsync(
+    retainValue: KProperty1<S, Async<T>>? = null,
+    reducer: S.(Async<T>) -> S
+  ) {
+    setState { reducer(Async.Loading(retainValue?.get(this)?.value)) }
+    try {
+      val result = this.invoke()
+      setState { reducer(Async.Success(result)) }
+    } catch (e: Exception) {
+      setState { reducer(Async.Fail(Error.UnknownError(e), retainValue?.get(this)?.value)) }
     }
   }
 

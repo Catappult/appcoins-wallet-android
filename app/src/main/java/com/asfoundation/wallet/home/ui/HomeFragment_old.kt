@@ -218,7 +218,7 @@ class HomeFragment_old : BasePageViewFragment(),
         sideEffect.walletAddress,
         sideEffect.triggerSource
       )
-      HomeSideEffect.NavigateToChangeCurrency -> navigator.navigateToCurrencySelector()
+//      HomeSideEffect.NavigateToChangeCurrency -> navigator.navigateToCurrencySelector()
       HomeSideEffect.NavigateToTopUp -> navigator.navigateToTopUp()
       HomeSideEffect.NavigateToTransfer -> navigator.navigateToTransfer()
       else -> {}

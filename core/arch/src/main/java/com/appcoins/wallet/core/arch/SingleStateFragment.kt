@@ -27,4 +27,14 @@ interface SingleStateFragment<S : ViewState, E : SideEffect> {
         }
         .launchIn(scope)
   }
+
+  fun NewBaseViewModel<S>.collectStateAndEvents(lifecycle: Lifecycle,
+                                                scope: LifecycleCoroutineScope) {
+    stateFlow
+      .flowWithLifecycle(lifecycle, Lifecycle.State.STARTED)
+      .onEach { state ->
+        onStateChanged(state)
+      }
+      .launchIn(scope)
+  }
 }
