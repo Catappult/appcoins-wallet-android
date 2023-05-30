@@ -12,7 +12,8 @@ interface PaypalV2Api {
 
   @POST("8.20230522/gateways/paypal/transactions")
   fun createTransaction(
-//    @Header("PayPal-Mock-Response") mockHeader: String, // uncomment for testing errors in dev
+    // uncomment for testing errors in dev (don't push it uncommented):
+    // @Header("PayPal-Mock-Response") mockHeader: String,
     @Query("wallet.address") walletAddress: String,
     @Query("wallet.signature") walletSignature: String,
     @Body paypalPayment: PaypalPayment
