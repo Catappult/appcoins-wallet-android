@@ -429,7 +429,7 @@
   <string name="my_wallets_action_new_wallet">Dompet baru</string>
   <string name="my_wallets_action_recover_wallet">Dapatkan semula dompet</string>
   <string name="my_wallets_action_backup_wallet">Dompet sandaran</string>
-  <string name="my_wallets_action_verify_new_card">Sahkan kad baru</string>
+  <string name="my_wallets_action_verify_new_card">Verify new card</string>
   <string name="my_wallets_action_delete_wallet">Hapus dompet</string>
   <!--Ask a friend for funds-->
   <string name="askafriend_payment_option_button">Minta seseorang bayarkan</string>
@@ -534,11 +534,11 @@
   <string name="verification_notification_reward_already_received_body">Nombor telefon ini telah digunakan untuk menerima ganjaran ini 😔</string>
   <string name="verification_insert_phone_field_phone_used_already_error">Nombor telah digunakan.</string>
   <string name="verification_insert_code_error_common">Oops, ada sesuatu yang tidak kena. Cuba lagi!</string>
-  <string name="verification_settings_unverified_title">Sahkan Dompet</string>
+  <string name="verification_settings_unverified_title">Verify Payment Method</string>
   <string name="verification_settings_unverified_body">Dapatkan ganjaran dan jemput rakan</string>
   <string name="verification_settings_verified_title">Dompet Disahkan</string>
-  <string name="verification_settings_verifying_title">Mengesahkan dompet…</string>
-  <string name="verification_verified_paypal_description">Wang anda akan dikembalikan segera. Dompet anda akan disahkan sebentar lagi.</string>
+  <string name="verification_settings_verifying_title">Verifying…</string>
+  <string name="verification_verified_paypal_description">You will be refunded immediately. Your payment method will be verified shortly.</string>
   <string name="verification_verify_paypal_description">Transaksi minimum sebanyak %s akan dibuat untuk mengesahkan akaun anda. Ia akan dikembalikan segera.</string>
   <string name="verification_verify_paypal_button">Sahkan Sekarang</string>
   <string name="verification_settings_card_verified_title">Kad Disahkan</string>
@@ -598,9 +598,9 @@
   <string name="purchase_error_transaction_timeout">Nampaknya anda ambil masa terlalu lama untuk selesaikan transaksi. Sila cuba lagi.</string>
   <string name="purchase_error_card_already_in_progress">Permintaan anda telah diproses atau sedang berlangsung. Sila tunggu.</string>
   <string name="purchase_error_payment_rejected">Transaksi ditolak. Sila cuba semula dengan kad atau kaedah pembayaran lain.</string>
-  <string name="purchase_error_verify_wallet">Sahkan kaedah pembayaran anda untuk selesaikan pembelian ini.</string>
-  <string name="purchase_error_verify_card">Sahkan kad anda untuk selesaikan pembelian ini.</string>
-  <string name="purachse_error_verify_card_button">SAHKAN KAD</string>
+  <string name="purchase_error_verify_wallet">Verify your payment method to complete this purchase.</string>
+  <string name="purchase_error_verify_card">Verify your card to complete this purchase.</string>
+  <string name="purachse_error_verify_card_button">VERIFY CARD</string>
   <string name="purchase_eskills_sku">Tiket masuk</string>
   <string name="purchase_paytmupi_install_disclaimer">Anda perlu memasang aplikasi Paytm UPI.</string>
   <string name="purchase_app_needed_body">Anda perlukan aplikasi berikut untuk lengkapkan pembelian.</string>
@@ -635,8 +635,8 @@
   <string name="referral_onboarding_body">Anda dan rakan anda boleh dapat sehingga %s dengan Program Rujukan kami!</string>
   <string name="referral_onboarding_body_no_connection">Anda dan rakan anda boleh dapat Kredit AppCoins dengan Program Rujukan kami!</string>
   <string name="referral_onboarding_redeem_button">Saya telah dijemput</string>
-  <string name="referral_verification_title">Sahkan Dompet Anda</string>
-  <string name="referral_verification_body">Anda perlu sahkan dompet anda untuk sertai Program Rujukan. Kami akan hantar kod pengesahan kepada anda melalui SMS.</string>
+  <string name="referral_verification_title">Verify Payment Method</string>
+  <string name="referral_verification_body">You need to verify your payment method to participate in the Referral Program. We\'ll sent you a verification code via SMS.</string>
   <string name="referral_verification_confirmation_title">Jemputan anda telah disahkan!</string>
   <string name="referral_verification_confirmation_body">Anda akan dapat sebanyak %1$s Kredit AppCoins bagi pembelian pertama dalam aplikasi anda. Pembelian pertama anda mestilah lebih %2$s menggunakan mana-mana kaedah bayaran selain Kredit AppCoins.</string>
   <string name="referral_verification_not_invited_title">Nampaknya nombor ini tidak dijemput&#8230;</string>
@@ -649,8 +649,8 @@
   <string name="referral_view_share_link_button">Kongsi pautan jemputan</string>
   <string name="referral_view_notifications_title">Pemberitahuan</string>
   <string name="referral_share_sheet_title">Kongsi pautan jemputan melalui:</string>
-  <string name="referral_view_unverified_body">Dapatkan Kredit AppCoins sebanyak %s bagi setiap rakan. Anda perlu sahkan dompet terlebih dahulu.</string>
-  <string name="referral_view_verify_button">Sahkan dompet</string>
+  <string name="referral_view_unverified_body">Receive %s worth of AppCoins Credits for each friend. You first need to verify your payment method.</string>
+  <string name="referral_view_verify_button">Verify payment method</string>
   <string name="referral_view_i_have_been_invited_button">Saya telah dijemput</string>
   <string name="referral_view_dropup_menu_friends_invited">Rakan telah dijemput</string>
   <string name="referral_view_dropup_menu_earned">Diperoleh</string>
@@ -981,7 +981,7 @@
   <string name="rate_us_back_title">Nak bantu kami?</string>
   <string name="rate_us_back_body">Nilai Dompet AppCoins di gedung aplikasi supaya kami boleh tambah baik.</string>
   <!--Card verification-->
-  <string name="card_verification_body">Sahkan kad kredit/debit anda untuk buat bayaran.</string>
+  <string name="card_verification_body">Verify your credit/debit card to make payments.</string>
   <string name="card_verification_charde_disclaimer">Caj sebanyak %s akan dikenakan pada kad anda, dan kami akan memulangkannya semula setelah anda sahkan kod. Urus niaga ini boleh mengambil masa beberapa minit sehingga beberapa hari bergantung pada bank anda.</string>
   <string name="card_verification_code_title">Semak kod pada butiran transaksi</string>
   <string name="card_verification_code_body">Kod unik akan terpapar pada rumusan transaksi yang disediakan oleh pengeluar kad anda.</string>
@@ -999,13 +999,17 @@
   </plurals>
   <string name="card_verification_code_other_card_button">Cuba kad lain</string>
   <string name="card_verification_code_wrong_error">Kod salah</string>
-  <string name="card_verification_wallets_one_step_title">Satu lagi langkah untuk pengesahan</string>
+  <string name="card_verification_wallets_one_step_title">One more step to verify</string>
   <string name="card_verification_wallets_one_step_body">Masukkan kod yang tertera pada butiran transaksi.</string>
   <string name="card_verification_wallets_insert_bode_button">Masukkan kod</string>
   <string name="card_verification_no_attempts_title">Oops, anda telah masukkan kod yang salah berulang kali, jadi %1$s akan dikembalikan ke kad anda.</string>
   <string name="card_verification_no_attempts_body">Sila mulakan proses pengesahan sekali lagi.</string>
-  <string name="wallet_verify_header">Sahkan sekurang-kurangnya satu kaedah pembayaran</string>
-  <string name="verify_card_title">Sahkan Kad</string>
+  <string name="wallet_verify_header">Verify at least one payment method</string>
+  <string name="verify_card_title">Verify Card</string>
+  <string name="verify_card_button">Verify bank card</string>
+  <string name="verify_paypal_button">Verify PayPal account</string>
+  <string name="card_verification_body_new">%s will be charged to your card and immediately refunded. Check your card statement for the validation code and insert it here.</string>
+  <string name="card_verification_disclaimer_body">Please note that the confirmation code may appear in the refund notification.</string>
   <!--Vouchers-->
   <string name="voucher_card_body_1">Beli baucar ini dan dapatkan</string>
   <string name="voucher_card_body_2"> bonus sehingga %s%%.</string>
@@ -1114,8 +1118,8 @@
   <string name="gift_card_error_new_users_title">Kod ini hanya untuk pengguna baru!</string>
   <string name="gift_card_error_try_with_different_body">Cuba sekali lagi dengan kod lain.</string>
   <!-- My Wallet -->
-  <string name="mywallet_unverified_title">Dompet Tidak Disahkan</string>
-  <string name="mywallet_unverified_body">Sahkan kaedah pembayaran untuk elak sekatan.</string>
+  <string name="mywallet_unverified_title">Verify a Payment Method</string>
+  <string name="mywallet_unverified_body">Confirm a payment method to avoid blockages.</string>
   <string name="mywallet_backed_up_date">Anda telah sandarkan dompet anda di %s.</string>
   <string name="mywallet_backup_again_button">Sandar semula</string>
   <string name="mywallet_verify_payment_method_button">Sahkan kad baru</string>
