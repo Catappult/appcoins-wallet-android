@@ -429,7 +429,7 @@
   <string name="my_wallets_action_new_wallet">کیف‌پول جدید</string>
   <string name="my_wallets_action_recover_wallet">بازیابی کیف‌پول</string>
   <string name="my_wallets_action_backup_wallet">پشتیبان‌گیری از کیف‌پول</string>
-  <string name="my_wallets_action_verify_new_card">تایید کارت جدید</string>
+  <string name="my_wallets_action_verify_new_card">Verify new card</string>
   <string name="my_wallets_action_delete_wallet">حذف کیف‌پول</string>
   <!--Ask a friend for funds-->
   <string name="askafriend_payment_option_button">از کسی بخواهید پرداخت کند</string>
@@ -534,11 +534,11 @@
   <string name="verification_notification_reward_already_received_body">این شماره تلفن قبلا برای دریافت این پاداش استفاده شده است 😔</string>
   <string name="verification_insert_phone_field_phone_used_already_error">شماره قبلا استفاده شده است.</string>
   <string name="verification_insert_code_error_common">مشکلی پیش آمده است. دوباره امتحان کنید!</string>
-  <string name="verification_settings_unverified_title">تایید کیف پول</string>
+  <string name="verification_settings_unverified_title">Verify Payment Method</string>
   <string name="verification_settings_unverified_body">پاداش دریافت کنید و دوستان را دعوت کنید</string>
   <string name="verification_settings_verified_title">کیف پول تاییدشد</string>
-  <string name="verification_settings_verifying_title">معتبرسازی کیف پول…</string>
-  <string name="verification_verified_paypal_description">مبلغ برداشتی فورا بازگردانده می‌شود. کیف پول شما بزودی تایید هویت می‌شود.</string>
+  <string name="verification_settings_verifying_title">Verifying…</string>
+  <string name="verification_verified_paypal_description">You will be refunded immediately. Your payment method will be verified shortly.</string>
   <string name="verification_verify_paypal_description">برای تایید حساب کاربری شما، یک تراکنش حداقل %s از حساب شما انجام می‌شود. فورا بازگردانده خواهد شد.</string>
   <string name="verification_verify_paypal_button">تایید همین حالا</string>
   <string name="verification_settings_card_verified_title">کارت تایید شد</string>
@@ -598,9 +598,9 @@
   <string name="purchase_error_transaction_timeout">زمان سپری شده برای کامل کردن تراکنش به پایان رسیده‌است. لطفا دوباره اقدام کنید.</string>
   <string name="purchase_error_card_already_in_progress">درخواست شده قبلا اجرا شده و یا در حال اجراست. لطفا منتظر بمانید.</string>
   <string name="purchase_error_payment_rejected">این تراکنش رد شده است. لطفا با کارت یا روش پرداخت دیگری مجددا امتحان کنید.</string>
-  <string name="purchase_error_verify_wallet">برای تکمیل این خرید، کارت خود را معتبرسازی کنید.</string>
-  <string name="purchase_error_verify_card">برای تکمیل این خرید، کارت خود را معتبرسازی کنید.</string>
-  <string name="purachse_error_verify_card_button">معتبرسازی کارت</string>
+  <string name="purchase_error_verify_wallet">Verify your payment method to complete this purchase.</string>
+  <string name="purchase_error_verify_card">Verify your card to complete this purchase.</string>
+  <string name="purachse_error_verify_card_button">VERIFY CARD</string>
   <string name="purchase_eskills_sku">بلیت ورود</string>
   <string name="purchase_paytmupi_install_disclaimer">شما باید اپلیکیشن Paytm UPI را نصب کنید.</string>
   <string name="purchase_app_needed_body">برای تکمیل خرید باید اپلیکیشن را دنبال کنید.</string>
@@ -635,8 +635,8 @@
   <string name="referral_onboarding_body">شما و دوستان شما می‌توانید از برنامه همکاری ما تا %s کسب درآمد کنید!</string>
   <string name="referral_onboarding_body_no_connection">شما و دوستان شما می‌توانید از برنامه همکاری ما، اعتبار AppCoins کسب کنید!</string>
   <string name="referral_onboarding_redeem_button">دعوت شده‌ام</string>
-  <string name="referral_verification_title">کیف پول خود را تاییدکنید</string>
-  <string name="referral_verification_body">برای مشارکت در برنامه برنامه همکاری باید کیف پول خود را تایید کنید. یک کد تاییدیه از طریق اس‌ام‌اس برای شما ارسال می‌کنیم.</string>
+  <string name="referral_verification_title">Verify Payment Method</string>
+  <string name="referral_verification_body">You need to verify your payment method to participate in the Referral Program. We\'ll sent you a verification code via SMS.</string>
   <string name="referral_verification_confirmation_title">دعوت شما معتبر است!</string>
   <string name="referral_verification_confirmation_body">در اولین خرید داخل اپلیکیشنی خود، به ارزش %1$s اعتبار AppCoins دریافت خواهید کرد. اولین خرید شما باید بیش از %2$s باشد و به هر طریقی به جز اعتبار AppCoins انجام شده باشد.</string>
   <string name="referral_verification_not_invited_title">به نظر می‌رسد که این شماره دعوت نشده‌است&#8230;</string>
@@ -649,8 +649,8 @@
   <string name="referral_view_share_link_button">لینک دعوت را به اشتراک بگذارید</string>
   <string name="referral_view_notifications_title">اعلانات</string>
   <string name="referral_share_sheet_title">لینک دعوت را به اشتراک بگذارید:</string>
-  <string name="referral_view_unverified_body">برای هر دوست به ارزش %s AppCoins Credits دریافت کنید. ابتدا باید کیف پول خود را معتبرسازی کنید.</string>
-  <string name="referral_view_verify_button">تایید کیف پول</string>
+  <string name="referral_view_unverified_body">Receive %s worth of AppCoins Credits for each friend. You first need to verify your payment method.</string>
+  <string name="referral_view_verify_button">Verify payment method</string>
   <string name="referral_view_i_have_been_invited_button">دعوت شده‌ام</string>
   <string name="referral_view_dropup_menu_friends_invited">دوستان دعوت‌شده</string>
   <string name="referral_view_dropup_menu_earned">کسب شده</string>
@@ -988,7 +988,7 @@
   <string name="rate_us_back_title">آیا می‌خواهید به ما کمک کنید؟</string>
   <string name="rate_us_back_body">AppCoins Wallet را در فروشگاه اپلیکیشن رتبه بندی کنید تا بتوانیم آن را بهتر کنیم.</string>
   <!--Card verification-->
-  <string name="card_verification_body">برای پرداخت، کارت اعتباری خود معتبرسازی کنید.</string>
+  <string name="card_verification_body">Verify your credit/debit card to make payments.</string>
   <string name="card_verification_charde_disclaimer">ما کارت شما را %s شارژ خواهیم کرد و با تایید کد، آن را برگشت خواهیم زد. با توجه به بانک شما می‌تواند چند دقیقه تا چند روز طول بکشد.</string>
   <string name="card_verification_code_title">کد را در جزییات تراکنش بررسی کنید</string>
   <string name="card_verification_code_body">یک کد ویژه در خلاصه تراکنش توسط بانک شما دیده می‌شود.</string>
@@ -1008,13 +1008,17 @@
   </plurals>
   <string name="card_verification_code_other_card_button">با یک کارت دیگر امتحان کنید</string>
   <string name="card_verification_code_wrong_error">کد اشتباه</string>
-  <string name="card_verification_wallets_one_step_title">یک قدم دیگر تا تایید</string>
+  <string name="card_verification_wallets_one_step_title">One more step to verify</string>
   <string name="card_verification_wallets_one_step_body">کدی را که در جزییات تراکنش است را وارد کنید.</string>
   <string name="card_verification_wallets_insert_bode_button">وارد کردن کد</string>
   <string name="card_verification_no_attempts_title">کد اشتباهی را به دفعات وارد کرده اید پس %1$s به کارت شما بازگردانده خواهد شد.</string>
   <string name="card_verification_no_attempts_body">لطفا پروسه تایید هویت را مجدد شروع کنید.</string>
-  <string name="wallet_verify_header">حداقل یک روش پرداخت را معتبرسازی کنید</string>
-  <string name="verify_card_title">تایید کارت</string>
+  <string name="wallet_verify_header">Verify at least one payment method</string>
+  <string name="verify_card_title">Verify Card</string>
+  <string name="verify_card_button">Verify bank card</string>
+  <string name="verify_paypal_button">Verify PayPal account</string>
+  <string name="card_verification_body_new">%s will be charged to your card and immediately refunded. Check your card statement for the validation code and insert it here.</string>
+  <string name="card_verification_disclaimer_body">Please note that the confirmation code may appear in the refund notification.</string>
   <!--Vouchers-->
   <string name="voucher_card_body_1">این ووچر را بخرید و دریافت کنید</string>
   <string name="voucher_card_body_2"> تا %s%% پاداش.</string>
@@ -1123,8 +1127,8 @@
   <string name="gift_card_error_new_users_title">این کد تنها بربای کاربران جدید است!</string>
   <string name="gift_card_error_try_with_different_body">لطفا مجددا با کد متفاوتی امتحان کنید.</string>
   <!-- My Wallet -->
-  <string name="mywallet_unverified_title">کیف پول تاییدنشده</string>
-  <string name="mywallet_unverified_body">یک روش پرداخت را برای جلوگیری از بلوکه شدن تایید کنید.</string>
+  <string name="mywallet_unverified_title">Verify a Payment Method</string>
+  <string name="mywallet_unverified_body">Confirm a payment method to avoid blockages.</string>
   <string name="mywallet_backed_up_date">شما از کیف پول خود را در %s بک‌آپ گرفته‌اید.</string>
   <string name="mywallet_backup_again_button">بک‌آپ مجدد</string>
   <string name="mywallet_verify_payment_method_button">تایید کارت جدید</string>
