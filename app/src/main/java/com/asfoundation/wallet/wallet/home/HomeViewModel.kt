@@ -5,28 +5,40 @@ import android.net.Uri
 import android.text.format.DateUtils
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
+import androidx.lifecycle.viewModelScope
+import com.appcoins.wallet.core.analytics.analytics.legacy.HomeAnalytics
+import com.appcoins.wallet.core.analytics.analytics.legacy.WalletsAnalytics
+import com.appcoins.wallet.core.analytics.analytics.legacy.WalletsEventSender
 import com.appcoins.wallet.core.arch.BaseViewModel
 import com.appcoins.wallet.core.arch.SideEffect
 import com.appcoins.wallet.core.arch.ViewState
+import com.appcoins.wallet.core.arch.data.Async
 import com.appcoins.wallet.core.network.backend.model.GamificationStatus
+import com.appcoins.wallet.core.network.base.call_adapter.ApiException
+import com.appcoins.wallet.core.network.base.call_adapter.ApiFailure
+import com.appcoins.wallet.core.network.base.call_adapter.ApiSuccess
+import com.appcoins.wallet.core.utils.android_common.DateFormatterUtils.getDay
+import com.appcoins.wallet.core.utils.android_common.Dispatchers
 import com.appcoins.wallet.core.utils.android_common.RxSchedulers
+import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.appcoins.wallet.core.utils.properties.APTOIDE_TOP_APPS_URL
 import com.appcoins.wallet.core.utils.properties.VIP_PROGRAM_BADGE_URL
+import com.appcoins.wallet.feature.backup.data.use_cases.ShouldShowBackupTriggerUseCase
+import com.appcoins.wallet.feature.backup.ui.triggers.TriggerUtils.toJson
+import com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue
+import com.appcoins.wallet.feature.changecurrency.data.use_cases.GetSelectedCurrencyUseCase
+import com.appcoins.wallet.feature.walletInfo.data.balance.TokenBalance
+import com.appcoins.wallet.feature.walletInfo.data.balance.WalletBalance
+import com.appcoins.wallet.feature.walletInfo.data.wallet.domain.Wallet
+import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.GetWalletInfoUseCase
+import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.ObserveWalletInfoUseCase
 import com.appcoins.wallet.gamification.repository.Levels
 import com.appcoins.wallet.sharedpreferences.BackupTriggerPreferencesDataSource
 import com.appcoins.wallet.sharedpreferences.BackupTriggerPreferencesDataSource.TriggerSource
-import com.appcoins.wallet.sharedpreferences.BackupTriggerPreferencesDataSource.TriggerSource.FIRST_PURCHASE
 import com.appcoins.wallet.sharedpreferences.BackupTriggerPreferencesDataSource.TriggerSource.NEW_LEVEL
-import com.appcoins.wallet.core.arch.*
-import com.appcoins.wallet.core.arch.data.Async
 import com.appcoins.wallet.ui.widgets.CardPromotionItem
 import com.appcoins.wallet.ui.widgets.GameData
-import com.asfoundation.wallet.backup.triggers.TriggerUtils.toJson
-import com.asfoundation.wallet.backup.use_cases.ShouldShowBackupTriggerUseCase
-import com.asfoundation.wallet.billing.analytics.WalletsAnalytics
-import com.asfoundation.wallet.billing.analytics.WalletsEventSender
 import com.asfoundation.wallet.entity.GlobalBalance
-import com.asfoundation.wallet.entity.Wallet
 import com.asfoundation.wallet.gamification.ObserveUserStatsUseCase
 import com.asfoundation.wallet.home.usecases.*
 import com.asfoundation.wallet.promotions.model.PromotionsModel
@@ -35,15 +47,14 @@ import com.asfoundation.wallet.promotions.usecases.GetPromotionsUseCase
 import com.asfoundation.wallet.promotions.usecases.SetSeenPromotionsUseCase
 import com.asfoundation.wallet.referrals.CardNotification
 import com.asfoundation.wallet.transactions.Transaction
-import com.asfoundation.wallet.ui.balance.TokenBalance
-import com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue
+import com.asfoundation.wallet.transactions.TransactionModel
+import com.asfoundation.wallet.transactions.toModel
 import com.asfoundation.wallet.ui.widget.entity.TransactionsModel
 import com.asfoundation.wallet.ui.widget.holder.CardNotificationAction
 import com.asfoundation.wallet.update_required.use_cases.BuildUpdateIntentUseCase.Companion.PLAY_APP_VIEW_URL
 import com.asfoundation.wallet.viewmodel.TransactionsWalletModel
-import com.asfoundation.wallet.wallets.domain.WalletBalance
-import com.asfoundation.wallet.wallets.usecases.GetWalletInfoUseCase
-import com.asfoundation.wallet.wallets.usecases.ObserveWalletInfoUseCase
+import com.asfoundation.wallet.wallet.home.HomeViewModel.UiState.Success
+import com.github.michaelbull.result.unwrap
 import com.google.gson.Gson
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.Completable
@@ -55,6 +66,12 @@ import java.math.BigDecimal
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 import javax.inject.Named
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.rx2.rxObservable
+import kotlinx.coroutines.rx2.rxSingle
 
 sealed class HomeSideEffect : SideEffect {
   data class NavigateToBrowser(val uri: Uri) : HomeSideEffect()
@@ -66,15 +83,15 @@ sealed class HomeSideEffect : SideEffect {
 
   data class NavigateToBackup(val walletAddress: String) : HomeSideEffect()
   data class NavigateToIntent(val intent: Intent) : HomeSideEffect()
-  data class ShowBackupTrigger(
-    val walletAddress: String,
-    val triggerSource: TriggerSource
-  ) : HomeSideEffect()
+  data class ShowBackupTrigger(val walletAddress: String, val triggerSource: TriggerSource) :
+    HomeSideEffect()
 
-  object NavigateToMyWallets : HomeSideEffect()
+  object NavigateToReward : HomeSideEffect()
   object NavigateToChangeCurrency : HomeSideEffect()
   object NavigateToTopUp : HomeSideEffect()
   object NavigateToTransfer : HomeSideEffect()
+  object NavigateToTransactionsList : HomeSideEffect()
+  object NavigateToRecover : HomeSideEffect()
 }
 
 data class HomeState(
@@ -87,7 +104,9 @@ data class HomeState(
 ) : ViewState
 
 @HiltViewModel
-class HomeViewModel @Inject constructor(
+class HomeViewModel
+@Inject
+constructor(
   private val analytics: HomeAnalytics,
   private val backupTriggerPreferences: BackupTriggerPreferencesDataSource,
   private val shouldShowBackupTriggerUseCase: ShouldShowBackupTriggerUseCase,
@@ -96,9 +115,7 @@ class HomeViewModel @Inject constructor(
   private val getPromotionsUseCase: GetPromotionsUseCase,
   private val setSeenPromotionsUseCase: SetSeenPromotionsUseCase,
   private val shouldOpenRatingDialogUseCase: ShouldOpenRatingDialogUseCase,
-  private val updateTransactionsNumberUseCase: UpdateTransactionsNumberUseCase,
   private val findNetworkInfoUseCase: FindNetworkInfoUseCase,
-  private val fetchTransactionsUseCase: FetchTransactionsUseCase,
   private val findDefaultWalletUseCase: FindDefaultWalletUseCase,
   private val observeDefaultWalletUseCase: ObserveDefaultWalletUseCase,
   private val dismissCardNotificationUseCase: DismissCardNotificationUseCase,
@@ -113,11 +130,16 @@ class HomeViewModel @Inject constructor(
   private val getUnreadConversationsCountEventsUseCase: GetUnreadConversationsCountEventsUseCase,
   private val displayChatUseCase: DisplayChatUseCase,
   private val displayConversationListOrChatUseCase: DisplayConversationListOrChatUseCase,
+  private val fetchTransactionsHistoryUseCase: FetchTransactionsHistoryUseCase,
+  private val getSelectedCurrencyUseCase: GetSelectedCurrencyUseCase,
   @Named("package-name") private val walletPackageName: String,
   private val walletsEventSender: WalletsEventSender,
-  private val rxSchedulers: RxSchedulers
+  private val rxSchedulers: RxSchedulers,
+  private val dispatchers: Dispatchers,
+  private val logger: Logger
 ) : BaseViewModel<HomeState, HomeSideEffect>(initialState()) {
 
+  private lateinit var defaultCurrency: String
   private val UPDATE_INTERVAL = 30 * DateUtils.SECOND_IN_MILLIS
   private val refreshData = BehaviorSubject.createDefault(true)
   private val refreshCardNotifications = BehaviorSubject.createDefault(true)
@@ -127,10 +149,12 @@ class HomeViewModel @Inject constructor(
   val activePromotions = mutableStateListOf<CardPromotionItem>()
 
   companion object {
-    fun initialState(): HomeState {
-      return HomeState()
-    }
+    private val TAG = HomeViewModel::class.java.name
+    fun initialState() = HomeState()
   }
+
+  private val _uiState = MutableStateFlow<UiState>(UiState.Idle)
+  var uiState: StateFlow<UiState> = _uiState
 
   init {
     handleWalletData()
@@ -183,6 +207,15 @@ class HomeViewModel @Inject constructor(
       .subscribeOn(rxSchedulers.io)
   }
 
+  private fun fetchTransactionData() {
+    Observable.combineLatest(
+      rxSingle { getSelectedCurrencyUseCase(false) }.toObservable(), observeDefaultWalletUseCase()
+    ) { selectedCurrency, wallet ->
+      defaultCurrency = selectedCurrency.unwrap()
+      fetchTransactions(wallet, defaultCurrency)
+    }.subscribe()
+  }
+
   private fun updateRegisterUser(wallet: Wallet): Completable {
     return getUserLevelUseCase()
       .subscribeOn(rxSchedulers.io)
@@ -211,11 +244,13 @@ class HomeViewModel @Inject constructor(
             copy(defaultWalletBalanceAsync = it)
           }
       }
+      .doOnNext { fetchTransactionData() }
   }
 
   private fun mapWalletValue(walletBalance: WalletBalance): GlobalBalance {
     return GlobalBalance(
-      walletBalance, shouldShow(walletBalance.appcBalance, 0.01),
+      walletBalance,
+      shouldShow(walletBalance.appcBalance, 0.01),
       shouldShow(walletBalance.creditsBalance, 0.01),
       shouldShow(walletBalance.ethBalance, 0.0001)
     )
@@ -232,14 +267,13 @@ class HomeViewModel @Inject constructor(
     if (walletModel == null) return Observable.empty()
     val retainValue = if (walletModel.isNewWallet) null else HomeState::transactionsModelAsync
     return Observable.combineLatest(
-      getTransactions(walletModel.wallet), getCardNotifications(),
+      getCardNotifications(),
       getMaxBonus(), observeNetworkAndWallet()
-    ) { transactions: List<Transaction>, notifications: List<CardNotification>, maxBonus: Double, transactionsWalletModel: TransactionsWalletModel ->
+    ) { notifications: List<CardNotification>, maxBonus: Double, transactionsWalletModel: TransactionsWalletModel ->
       createTransactionsModel(
-        transactions, notifications, maxBonus, transactionsWalletModel
+        notifications, maxBonus, transactionsWalletModel
       )
     }
-      .doOnNext { (transactions) -> updateTransactionsNumberUseCase(transactions) }
       .subscribeOn(rxSchedulers.io)
       .observeOn(rxSchedulers.main)
       .asAsyncToState(retainValue) { copy(transactionsModelAsync = it) }
@@ -247,39 +281,45 @@ class HomeViewModel @Inject constructor(
   }
 
   private fun createTransactionsModel(
-    transactions: List<Transaction>,
     notifications: List<CardNotification>, maxBonus: Double,
     transactionsWalletModel: TransactionsWalletModel
   ): TransactionsModel {
-    return TransactionsModel(transactions, notifications, maxBonus, transactionsWalletModel)
+    return TransactionsModel(notifications, maxBonus, transactionsWalletModel)
   }
 
-  /**
-   * Transactions are refreshed every [.UPDATE_INTERVAL] seconds, and stops while [.refreshData] is
-   * false
-   */
-  private fun getTransactions(wallet: Wallet): Observable<List<Transaction>>? {
-    return Observable.interval(0, UPDATE_INTERVAL, TimeUnit.MILLISECONDS)
-      .flatMap { observeRefreshData() }
-      .switchMap { fetchTransactionsUseCase(wallet.address) }
-      .doOnNext {
-        if (it.isNotEmpty() &&
-          getTriggerSourceJson(wallet.address) ==
-          TriggerSource.NOT_SEEN
-        ) {
-          backupTriggerPreferences.setTriggerState(
-            walletAddress = wallet.address,
-            active = true,
-            triggerSource = FIRST_PURCHASE.toJson()
-          )
+  private fun fetchTransactions(wallet: Wallet, selectedCurrency: String) {
+    viewModelScope.launch {
+      fetchTransactionsHistoryUseCase(
+        wallet = wallet.address, limit = 4, currency = selectedCurrency
+      )
+        .catch { logger.log(TAG, it) }
+        .collect { result ->
+          when (result) {
+            is ApiSuccess -> {
+              newWallet.value = result.data.isEmpty()
+              _uiState.value = Success(
+                result.data
+                  .map { it.toModel(defaultCurrency) }
+                  .take(
+                    with(result.data) {
+                      if (size < 4 || last().txId == get(lastIndex - 1).parentTxId) size
+                      else size - 1
+                    }
+                  )
+                  .groupBy { it.date.getDay() }
+              )
+            }
+
+            is ApiFailure -> {}
+            is ApiException -> {}
+          }
         }
-      }
-      .subscribeOn(rxSchedulers.io)
-      .onErrorReturnItem(emptyList())
+    }
   }
 
   private fun getCardNotifications(): Observable<List<CardNotification>> {
-    return refreshCardNotifications.flatMapSingle { getCardNotificationsUseCase() }
+    return refreshCardNotifications
+      .flatMapSingle { getCardNotificationsUseCase() }
       .subscribeOn(rxSchedulers.io)
       .onErrorReturnItem(emptyList())
   }
@@ -299,33 +339,29 @@ class HomeViewModel @Inject constructor(
   fun fetchGamesListing() {
     getGamesListingUseCase()
       .subscribeOn(rxSchedulers.io)
-      .scopedSubscribe(
-        { gamesList.value = it },
-        { e -> e.printStackTrace() }
-      )
+      .scopedSubscribe({ gamesList.value = it }, { e -> e.printStackTrace() })
   }
 
   private fun verifyUserLevel() {
     findDefaultWalletUseCase()
       .flatMapObservable { wallet ->
-        observeUserStatsUseCase()
-          .flatMapSingle { gamificationStats ->
-            val userLevel = gamificationStats.level
-            val isVipLevel =
-              gamificationStats.gamificationStatus == GamificationStatus.VIP ||
-                  gamificationStats.gamificationStatus == GamificationStatus.VIP_MAX
-            setState { copy(showVipBadge = isVipLevel) }
-            getLastShownUserLevelUseCase(wallet.address).doOnSuccess { lastShownLevel ->
-              if (userLevel > lastShownLevel) {
-                updateLastShownUserLevelUseCase(wallet.address, userLevel)
-                backupTriggerPreferences.setTriggerState(
-                  walletAddress = wallet.address,
-                  active = true,
-                  triggerSource = NEW_LEVEL.toJson()
-                )
-              }
+        observeUserStatsUseCase().flatMapSingle { gamificationStats ->
+          val userLevel = gamificationStats.level
+          val isVipLevel =
+            gamificationStats.gamificationStatus == GamificationStatus.VIP ||
+                gamificationStats.gamificationStatus == GamificationStatus.VIP_MAX
+          setState { copy(showVipBadge = isVipLevel) }
+          getLastShownUserLevelUseCase(wallet.address).doOnSuccess { lastShownLevel ->
+            if (userLevel > lastShownLevel) {
+              updateLastShownUserLevelUseCase(wallet.address, userLevel)
+              backupTriggerPreferences.setTriggerState(
+                walletAddress = wallet.address,
+                active = true,
+                triggerSource = NEW_LEVEL.toJson()
+              )
             }
           }
+        }
       }
       .scopedSubscribe { e -> e.printStackTrace() }
   }
@@ -373,7 +409,7 @@ class HomeViewModel @Inject constructor(
   }
 
   fun onBalanceClick() {
-    sendSideEffect { HomeSideEffect.NavigateToMyWallets }
+    sendSideEffect { HomeSideEffect.NavigateToReward }
   }
 
   fun onTopUpClick() {
@@ -406,30 +442,36 @@ class HomeViewModel @Inject constructor(
     }
   }
 
+  fun onRecoverClick() = sendSideEffect { HomeSideEffect.NavigateToRecover }
+
   fun onNotificationClick(
     cardNotification: CardNotification,
     cardNotificationAction: CardNotificationAction
   ) {
     when (cardNotificationAction) {
       CardNotificationAction.DISMISS -> dismissNotification(cardNotification)
-      CardNotificationAction.DISCOVER -> sendSideEffect {
-        HomeSideEffect.NavigateToBrowser(Uri.parse(APTOIDE_TOP_APPS_URL))
-      }
+      CardNotificationAction.DISCOVER ->
+        sendSideEffect { HomeSideEffect.NavigateToBrowser(Uri.parse(APTOIDE_TOP_APPS_URL)) }
+
       CardNotificationAction.UPDATE -> {
         sendSideEffect { HomeSideEffect.NavigateToIntent(buildAutoUpdateIntent()) }
         dismissNotification(cardNotification)
       }
+
       CardNotificationAction.BACKUP -> {
         onBackupClick()
       }
+
       CardNotificationAction.NONE -> {}
     }
   }
 
+  fun onSeeAllTransactionsClick() = sendSideEffect { HomeSideEffect.NavigateToTransactionsList }
+
   private fun handleBackupTrigger() {
     getWalletInfoUseCase(null, cached = false, updateFiat = false)
       .flatMap { walletInfo ->
-        shouldShowBackupTriggerUseCase(walletInfo.wallet).map { shouldShow ->
+        rxSingle(dispatchers.io) { shouldShowBackupTriggerUseCase(walletInfo.wallet)}.map { shouldShow ->
           setState { copy(showBackup = !walletInfo.hasBackup) }
           if (shouldShow &&
             backupTriggerPreferences.getTriggerState(walletInfo.wallet) &&
@@ -437,8 +479,7 @@ class HomeViewModel @Inject constructor(
           ) {
             sendSideEffect {
               HomeSideEffect.ShowBackupTrigger(
-                walletInfo.wallet,
-                getTriggerSourceJson(walletInfo.wallet)
+                walletInfo.wallet, getTriggerSourceJson(walletInfo.wallet)
               )
             }
           }
@@ -462,17 +503,15 @@ class HomeViewModel @Inject constructor(
   }
 
   private fun getTriggerSourceJson(walletAddress: String) =
-    Gson().fromJson(
-      backupTriggerPreferences.getTriggerSource(walletAddress),
-      TriggerSource::class.java
-    )
+    Gson()
+      .fromJson(
+        backupTriggerPreferences.getTriggerSource(walletAddress), TriggerSource::class.java
+      )
 
   private fun fetchPromotions() {
     getPromotionsUseCase()
       .subscribeOn(rxSchedulers.io)
-      .asAsyncToState(HomeState::promotionsModelAsync) {
-        copy(promotionsModelAsync = it)
-      }
+      .asAsyncToState(HomeState::promotionsModelAsync) { copy(promotionsModelAsync = it) }
       .doOnNext { promotionsModel ->
         if (promotionsModel.error == null) {
           setSeenPromotionsUseCase(promotionsModel.promotions, promotionsModel.wallet.address)
@@ -481,5 +520,11 @@ class HomeViewModel @Inject constructor(
       .repeatableScopedSubscribe(PromotionsState::promotionsModelAsync.name) { e ->
         e.printStackTrace()
       }
+  }
+
+  sealed class UiState {
+    object Idle : UiState()
+    object Loading : UiState()
+    data class Success(val transactions: Map<String, List<TransactionModel>>) : UiState()
   }
 }

@@ -26,7 +26,7 @@ class BackupEntryViewModel(
     private val getWalletInfoUseCase: GetWalletInfoUseCase,
     private val currencyFormatUtils: CurrencyFormatUtils,
     private val dispatchers: Dispatchers,
-) : BaseViewModel<BackupEntryState, BackupEntrySideEffect>(
+) : NewBaseViewModel<BackupEntryState, BackupEntrySideEffect>(
     initialState(data)
 ) {
 

@@ -1,9 +1,9 @@
 package com.asfoundation.wallet.manage_wallets
 
 import androidx.lifecycle.ViewModel
+import com.appcoins.wallet.feature.walletInfo.data.balance.WalletBalance
+import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.ObserveWalletInfoUseCase
 import com.asfoundation.wallet.home.usecases.DisplayChatUseCase
-import com.asfoundation.wallet.wallets.domain.WalletBalance
-import com.asfoundation.wallet.wallets.usecases.ObserveWalletInfoUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.Observable
 import kotlinx.coroutines.flow.MutableStateFlow

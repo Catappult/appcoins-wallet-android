@@ -39,6 +39,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.fragment.app.viewModels
 import com.appcoins.wallet.core.utils.android_common.AmountUtils.formatMoney
+import com.appcoins.wallet.feature.walletInfo.data.balance.WalletBalance
 import com.appcoins.wallet.ui.common.theme.WalletColors
 import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_blue
 import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_blue_secondary
@@ -49,8 +50,7 @@ import com.appcoins.wallet.ui.widgets.VectorIconButton
 import com.appcoins.wallet.ui.widgets.component.BottomSheetButton
 import com.appcoins.wallet.ui.widgets.component.ButtonWithText
 import com.asf.wallet.R
-import com.asfoundation.wallet.viewmodel.BasePageViewFragment
-import com.asfoundation.wallet.wallets.domain.WalletBalance
+import com.wallet.appcoins.core.legacy_base.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 

@@ -56,9 +56,9 @@ import com.asfoundation.wallet.transactions.Transaction.TransactionType.*
 import com.asfoundation.wallet.transactions.TransactionModel
 import com.asfoundation.wallet.transactions.TransactionsNavigator
 import com.asfoundation.wallet.transactions.cardInfoByType
-import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import com.asfoundation.wallet.wallet.home.HomeViewModel.UiState
 import com.asfoundation.wallet.wallet.home.HomeViewModel.UiState.Success
+import com.wallet.appcoins.core.legacy_base.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
 import io.intercom.android.sdk.Intercom
 import kotlinx.coroutines.launch
@@ -360,7 +360,7 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
         sideEffect.triggerSource
       )
 
-      HomeSideEffect.NavigateToChangeCurrency -> navigator.navigateToCurrencySelector()
+      HomeSideEffect.NavigateToChangeCurrency -> navigator.navigateToCurrencySelector(navController())
       HomeSideEffect.NavigateToTopUp -> navigator.navigateToTopUp()
       HomeSideEffect.NavigateToTransfer -> navigator.navigateToTransfer()
       HomeSideEffect.NavigateToTransactionsList ->

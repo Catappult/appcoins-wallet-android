@@ -54,7 +54,7 @@ import com.appcoins.wallet.ui.widgets.component.ButtonType
 import com.appcoins.wallet.ui.widgets.component.ButtonWithText
 import com.asf.wallet.R
 import com.asfoundation.wallet.transactions.TransactionDetailsViewModel.UiState
-import com.asfoundation.wallet.viewmodel.BasePageViewFragment
+import com.wallet.appcoins.core.legacy_base.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
