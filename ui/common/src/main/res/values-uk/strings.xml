@@ -429,7 +429,7 @@
   <string name="my_wallets_action_new_wallet">Новий гаманець</string>
   <string name="my_wallets_action_recover_wallet">Відновити гаманець</string>
   <string name="my_wallets_action_backup_wallet">Резервний гаманець</string>
-  <string name="my_wallets_action_verify_new_card">Підтвердити нову картку</string>
+  <string name="my_wallets_action_verify_new_card">Verify new card</string>
   <string name="my_wallets_action_delete_wallet">Видалити гаманець</string>
   <!--Ask a friend for funds-->
   <string name="askafriend_payment_option_button">Попросити когось заплатити</string>
@@ -536,11 +536,11 @@
   <string name="verification_notification_reward_already_received_body">Цей номер телефону вже використано для отримання цієї винагороди 😔</string>
   <string name="verification_insert_phone_field_phone_used_already_error">Номер уже використаний.</string>
   <string name="verification_insert_code_error_common">Щось пішло не так. Спробуйте ще раз!</string>
-  <string name="verification_settings_unverified_title">Підтвердьте гаманець</string>
+  <string name="verification_settings_unverified_title">Verify Payment Method</string>
   <string name="verification_settings_unverified_body">Отримуйте винагороди та запрошуйте друзів</string>
   <string name="verification_settings_verified_title">Гаманець підтверджено</string>
-  <string name="verification_settings_verifying_title">Підтвердження гаманця…</string>
-  <string name="verification_verified_paypal_description">Вам негайно повернуть гроші. Незабаром ваш гаманець буде перевірено.</string>
+  <string name="verification_settings_verifying_title">Verifying…</string>
+  <string name="verification_verified_paypal_description">You will be refunded immediately. Your payment method will be verified shortly.</string>
   <string name="verification_verify_paypal_description">Для підтвердження вашого облікового запису буде здійснено мінімальну транзакцію в розмірі %s. Кошти буде повернено негайно.</string>
   <string name="verification_verify_paypal_button">Перевірити зараз</string>
   <string name="verification_settings_card_verified_title">Картка підтверджена</string>
@@ -600,9 +600,9 @@
   <string name="purchase_error_transaction_timeout">Схоже, вам знадобилося занадто багато часу, щоб завершити транзакцію. Будь ласка, спробуйте ще раз.</string>
   <string name="purchase_error_card_already_in_progress">Ваш запит уже оброблено або триває. Будь ласка, зачекайте.</string>
   <string name="purchase_error_payment_rejected">Транзакцію було відхилено. Будь ласка, спробуйте з іншою карткою або способом оплати.</string>
-  <string name="purchase_error_verify_wallet">Підтвердьте спосіб оплати, щоб завершити цю покупку.</string>
-  <string name="purchase_error_verify_card">Підтвердьте свою картку, щоб завершити цю покупку.</string>
-  <string name="purachse_error_verify_card_button">ПІДТВЕРДИТИ КАРТКУ</string>
+  <string name="purchase_error_verify_wallet">Verify your payment method to complete this purchase.</string>
+  <string name="purchase_error_verify_card">Verify your card to complete this purchase.</string>
+  <string name="purachse_error_verify_card_button">VERIFY CARD</string>
   <string name="purchase_eskills_sku">Вхідний квиток</string>
   <string name="purchase_paytmupi_install_disclaimer">Вам потрібно встановити додаток Paytm UPI.</string>
   <string name="purchase_app_needed_body">Щоб завершити покупку, вам потрібен наступний додаток.</string>
@@ -637,8 +637,8 @@
   <string name="referral_onboarding_body">Ви та ваші друзі можете заробити до %s за допомогою нашої реферальної програми!</string>
   <string name="referral_onboarding_body_no_connection">Ви та ваші друзі можете заробляти AppCoins Credits за допомогою нашої реферальної програми!</string>
   <string name="referral_onboarding_redeem_button">Мене запросили</string>
-  <string name="referral_verification_title">Підтвердьте свій гаманець</string>
-  <string name="referral_verification_body">Щоб взяти участь у реферальній програмі, вам потрібно підтвердити свій гаманець. Ми надішлемо вам код підтвердження через SMS.</string>
+  <string name="referral_verification_title">Verify Payment Method</string>
+  <string name="referral_verification_body">You need to verify your payment method to participate in the Referral Program. We\'ll sent you a verification code via SMS.</string>
   <string name="referral_verification_confirmation_title">Ваше запрошення підтверджено!</string>
   <string name="referral_verification_confirmation_body">Ви отримаєте AppCoins Credits на суму %1$s під час першої покупки в додатку. Ваша перша покупка має бути вище %2$s з будь-яким способом оплати, крім AppCoins Credits.</string>
   <string name="referral_verification_not_invited_title">Здається, цей номер не був запрошений&#8230;</string>
@@ -651,8 +651,8 @@
   <string name="referral_view_share_link_button">Поділитися посиланням із запрошенням</string>
   <string name="referral_view_notifications_title">Сповіщення</string>
   <string name="referral_share_sheet_title">Поділитися посиланням на запрошення через:</string>
-  <string name="referral_view_unverified_body">Отримайте %s AppCoins Credits для кожного друга. Спочатку потрібно підтвердити свій гаманець.</string>
-  <string name="referral_view_verify_button">Підтвердьте гаманець</string>
+  <string name="referral_view_unverified_body">Receive %s worth of AppCoins Credits for each friend. You first need to verify your payment method.</string>
+  <string name="referral_view_verify_button">Verify payment method</string>
   <string name="referral_view_i_have_been_invited_button">Мене запросили</string>
   <string name="referral_view_dropup_menu_friends_invited">Друзі запрошені</string>
   <string name="referral_view_dropup_menu_earned">Зароблено</string>
@@ -1004,7 +1004,7 @@
   <string name="rate_us_back_title">Хочеш нам допомогти?</string>
   <string name="rate_us_back_body">Оцініть AppCoins Wallet в app store, щоб ми могли його покращити.</string>
   <!--Card verification-->
-  <string name="card_verification_body">Підтвердьте свою кредитну/дебетову картку для здійснення платежів.</string>
+  <string name="card_verification_body">Verify your credit/debit card to make payments.</string>
   <string name="card_verification_charde_disclaimer">Ми стягнемо %s з вашої картки й повернемо кошти, як тільки ви підтвердите код. Залежно від вашого банку це може тривати від кількох хвилин до кількох днів.</string>
   <string name="card_verification_code_title">Перевірте код в деталях транзакції</string>
   <string name="card_verification_code_body">Унікальний код з’явиться в підсумку транзакції, наданому емітентом вашої картки.</string>
@@ -1028,13 +1028,17 @@
   </plurals>
   <string name="card_verification_code_other_card_button">Спробуйте з іншою карткою</string>
   <string name="card_verification_code_wrong_error">Невірний код</string>
-  <string name="card_verification_wallets_one_step_title">Ще один крок для підтвердження</string>
+  <string name="card_verification_wallets_one_step_title">One more step to verify</string>
   <string name="card_verification_wallets_one_step_body">Введіть код, який відображається в деталях транзакції.</string>
   <string name="card_verification_wallets_insert_bode_button">Вставте код</string>
   <string name="card_verification_no_attempts_title">На жаль, ви занадто багато разів вставили неправильний код, тому %1$s буде повернено на вашу картку.</string>
   <string name="card_verification_no_attempts_body">Будь ласка, почніть процес перевірки знову.</string>
-  <string name="wallet_verify_header">Перевірте принаймні один спосіб оплати</string>
-  <string name="verify_card_title">Підтвердити картку</string>
+  <string name="wallet_verify_header">Verify at least one payment method</string>
+  <string name="verify_card_title">Verify Card</string>
+  <string name="verify_card_button">Verify bank card</string>
+  <string name="verify_paypal_button">Verify PayPal account</string>
+  <string name="card_verification_body_new">%s will be charged to your card and immediately refunded. Check your card statement for the validation code and insert it here.</string>
+  <string name="card_verification_disclaimer_body">Please note that the confirmation code may appear in the refund notification.</string>
   <!--Vouchers-->
   <string name="voucher_card_body_1">Купіть цей ваучер і отримайте</string>
   <string name="voucher_card_body_2">до %s%% бонусу.</string>
@@ -1143,8 +1147,8 @@
   <string name="gift_card_error_new_users_title">Цей код тільки для нових користувачів!</string>
   <string name="gift_card_error_try_with_different_body">Будь ласка, спробуйте ще раз або скористайтеся іншим кодом.</string>
   <!-- My Wallet -->
-  <string name="mywallet_unverified_title">Неперевірений гаманець</string>
-  <string name="mywallet_unverified_body">Підтвердьте спосіб оплати, щоб уникнути блокування.</string>
+  <string name="mywallet_unverified_title">Verify a Payment Method</string>
+  <string name="mywallet_unverified_body">Confirm a payment method to avoid blockages.</string>
   <string name="mywallet_backed_up_date">Ви створили резервну копію свого гаманця на %s.</string>
   <string name="mywallet_backup_again_button">Повторіть резервне копіювання</string>
   <string name="mywallet_verify_payment_method_button">Підтвердити нову картку</string>
