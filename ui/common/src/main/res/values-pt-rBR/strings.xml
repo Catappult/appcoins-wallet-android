@@ -429,7 +429,7 @@
   <string name="my_wallets_action_new_wallet">Nova wallet</string>
   <string name="my_wallets_action_recover_wallet">Recuperar wallet</string>
   <string name="my_wallets_action_backup_wallet">Fazer Backup da Wallet</string>
-  <string name="my_wallets_action_verify_new_card">Verificar novo cartão</string>
+  <string name="my_wallets_action_verify_new_card">Verify new card</string>
   <string name="my_wallets_action_delete_wallet">Excluir wallet</string>
   <!--Ask a friend for funds-->
   <string name="askafriend_payment_option_button">Peça para alguém pagar</string>
@@ -534,11 +534,11 @@
   <string name="verification_notification_reward_already_received_body">Este número de telefone já foi utilizado para receber esta recompensa 😔</string>
   <string name="verification_insert_phone_field_phone_used_already_error">Número já utilizado.</string>
   <string name="verification_insert_code_error_common">Opa, algo deu errado. Tente novamente!</string>
-  <string name="verification_settings_unverified_title">Verificar Wallet</string>
+  <string name="verification_settings_unverified_title">Verify Payment Method</string>
   <string name="verification_settings_unverified_body">Ganhe recompensas e convide amigos</string>
   <string name="verification_settings_verified_title">Wallet Verificada</string>
-  <string name="verification_settings_verifying_title">Verificando Wallet…</string>
-  <string name="verification_verified_paypal_description">Você será reembolsado imediatamente. Sua carteira será verificada em breve.</string>
+  <string name="verification_settings_verifying_title">Verifying…</string>
+  <string name="verification_verified_paypal_description">You will be refunded immediately. Your payment method will be verified shortly.</string>
   <string name="verification_verify_paypal_description">Uma pequena transação de %s será feita para confirmar sua conta. O valor será devolvido imediatamente.</string>
   <string name="verification_verify_paypal_button">Verificar Agora</string>
   <string name="verification_settings_card_verified_title">Cartão Verificado</string>
@@ -598,9 +598,9 @@
   <string name="purchase_error_transaction_timeout">Parece que você demorou muito para concluir a transação. Por favor, tente novamente.</string>
   <string name="purchase_error_card_already_in_progress">Sua solicitação já foi processada ou está em andamento. Por favor, aguarde.</string>
   <string name="purchase_error_payment_rejected">A transação foi rejeitada pelo seu banco. Por favor, tente com um cartão ou método de pagamento diferente.</string>
-  <string name="purchase_error_verify_wallet">Valide seu método de pagamento para concluir esta compra.</string>
-  <string name="purchase_error_verify_card">Valide seu cartão para completar essa compra.</string>
-  <string name="purachse_error_verify_card_button">VALIDAR CARTÃO</string>
+  <string name="purchase_error_verify_wallet">Verify your payment method to complete this purchase.</string>
+  <string name="purchase_error_verify_card">Verify your card to complete this purchase.</string>
+  <string name="purachse_error_verify_card_button">VERIFY CARD</string>
   <string name="purchase_eskills_sku">Ingresso</string>
   <string name="purchase_paytmupi_install_disclaimer">Você precisará instalar o aplicativo Paytm UPI.</string>
   <string name="purchase_app_needed_body">Você precisa do seguinte app para concluir sua compra.</string>
@@ -635,8 +635,8 @@
   <string name="referral_onboarding_body">Você e seus amigos podem ganhar até %s com nosso Programa de Recompensas!</string>
   <string name="referral_onboarding_body_no_connection">Você e seus amigos podem ganhar Créditos AppCoins com nosso Programa de Recompensas!</string>
   <string name="referral_onboarding_redeem_button">Você foi convidado</string>
-  <string name="referral_verification_title">Verificar Sua Wallet</string>
-  <string name="referral_verification_body">Você precisa verificar sua wallet para participar do Programa de Recompensas. Nós enviaremos um código de verificação via SMS.</string>
+  <string name="referral_verification_title">Verify Payment Method</string>
+  <string name="referral_verification_body">You need to verify your payment method to participate in the Referral Program. We\'ll sent you a verification code via SMS.</string>
   <string name="referral_verification_confirmation_title">Seu convite foi validado!</string>
   <string name="referral_verification_confirmation_body">Você receberá %1$s em Créditos AppCoins na sua primeira compra dentro de um aplicativo. Sua primeira compra precisa ser acima de %2$s com qualquer método de pagamento diferente de Créditos AppCoins.</string>
   <string name="referral_verification_not_invited_title">Parece que este número não foi convidado&#8230;</string>
@@ -649,8 +649,8 @@
   <string name="referral_view_share_link_button">Compartilhar link de convite</string>
   <string name="referral_view_notifications_title">Notificações</string>
   <string name="referral_share_sheet_title">Compartilhar convite via:</string>
-  <string name="referral_view_unverified_body">Receba %s em Créditos AppCoins por cada amigo. Primeiro você precisa verificar sua carteira.</string>
-  <string name="referral_view_verify_button">Verificar wallet</string>
+  <string name="referral_view_unverified_body">Receive %s worth of AppCoins Credits for each friend. You first need to verify your payment method.</string>
+  <string name="referral_view_verify_button">Verify payment method</string>
   <string name="referral_view_i_have_been_invited_button">Você foi convidado</string>
   <string name="referral_view_dropup_menu_friends_invited">Amigos convidados</string>
   <string name="referral_view_dropup_menu_earned">Recebido</string>
@@ -988,7 +988,7 @@
   <string name="rate_us_back_title">Gostaria de nos ajudar?</string>
   <string name="rate_us_back_body">Avalie o AppCoins Wallet na app store para que possamos melhorá-lo.</string>
   <!--Card verification-->
-  <string name="card_verification_body">Valide o seu cartão de crédito/débito para efetuar pagamentos.</string>
+  <string name="card_verification_body">Verify your credit/debit card to make payments.</string>
   <string name="card_verification_charde_disclaimer">Cobraremos %s do seu cartão e o reembolsaremos assim que você confirmar o código. Dependendo de seu banco, pode levar entre minutos e até alguns dias.</string>
   <string name="card_verification_code_title">Verifique o código nos detalhes da transação</string>
   <string name="card_verification_code_body">Um código único será exibido no resumo da transação fornecido pelo emissor do seu cartão.</string>
@@ -1008,13 +1008,17 @@
   </plurals>
   <string name="card_verification_code_other_card_button">Tente com outro cartão</string>
   <string name="card_verification_code_wrong_error">Código incorreto</string>
-  <string name="card_verification_wallets_one_step_title">Mais uma etapa para validar</string>
+  <string name="card_verification_wallets_one_step_title">One more step to verify</string>
   <string name="card_verification_wallets_one_step_body">Insira o código que aparece nos detalhes da transação.</string>
   <string name="card_verification_wallets_insert_bode_button">Inserir código</string>
   <string name="card_verification_no_attempts_title">Ops, você inseriu um código errado muitas vezes, por isso, %1$s s será reembolsado em seu cartão.</string>
   <string name="card_verification_no_attempts_body">Por favor, reinicie o processo de verificação.</string>
-  <string name="wallet_verify_header">Valide pelo menos um método de pagamento</string>
-  <string name="verify_card_title">Verificar Cartão</string>
+  <string name="wallet_verify_header">Verify at least one payment method</string>
+  <string name="verify_card_title">Verify Card</string>
+  <string name="verify_card_button">Verify bank card</string>
+  <string name="verify_paypal_button">Verify PayPal account</string>
+  <string name="card_verification_body_new">%s will be charged to your card and immediately refunded. Check your card statement for the validation code and insert it here.</string>
+  <string name="card_verification_disclaimer_body">Please note that the confirmation code may appear in the refund notification.</string>
   <!--Vouchers-->
   <string name="voucher_card_body_1">Compre este voucher e receba</string>
   <string name="voucher_card_body_2"> até %s%% de bônus.</string>
@@ -1123,8 +1127,8 @@
   <string name="gift_card_error_new_users_title">Este código é apenas para novos usuários!</string>
   <string name="gift_card_error_try_with_different_body">Tente novamente com um diferente.</string>
   <!-- My Wallet -->
-  <string name="mywallet_unverified_title">Wallet Não Verificada</string>
-  <string name="mywallet_unverified_body">Verifique uma forma de pagamento para evitar bloqueios.</string>
+  <string name="mywallet_unverified_title">Verify a Payment Method</string>
+  <string name="mywallet_unverified_body">Confirm a payment method to avoid blockages.</string>
   <string name="mywallet_backed_up_date">Você fez backup de sua carteira em %s.</string>
   <string name="mywallet_backup_again_button">Fazer backup novamente</string>
   <string name="mywallet_verify_payment_method_button">Verificar novo cartão</string>
