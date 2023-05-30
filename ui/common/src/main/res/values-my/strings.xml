@@ -429,7 +429,7 @@
   <string name="my_wallets_action_new_wallet">ပိုက္ဆံအိတ္အသစ္</string>
   <string name="my_wallets_action_recover_wallet">ပိုက္ဆံအိတ္ကို ျပန္လည္ရယူမည္</string>
   <string name="my_wallets_action_backup_wallet">ပိုက္ဆံအိတ္ကို အရန္ထားရွိမည္</string>
-  <string name="my_wallets_action_verify_new_card">ကဒ္အသစ္ကို အတည္ျပဳမည္</string>
+  <string name="my_wallets_action_verify_new_card">Verify new card</string>
   <string name="my_wallets_action_delete_wallet">ပိုက္ဆံအိတ္ကိုဖ်က္မည္</string>
   <!--Ask a friend for funds-->
   <string name="askafriend_payment_option_button">ေပးေခ်ရန္ တစံုတေယာက္ကို ေျပာပါ</string>
@@ -534,11 +534,11 @@
   <string name="verification_notification_reward_already_received_body">ဤဆုကို ရယူရန္အတြက္ ဤဖုန္းနံပါတ္ကို အသံုးျပဳထားၿပီး ျဖစ္ပါသည္။</string>
   <string name="verification_insert_phone_field_phone_used_already_error">နံပါတ္ကို အသံုးျပဳထားၿပီး ျဖစ္ပါသည္။</string>
   <string name="verification_insert_code_error_common">အိုး တခုခုမွားသြားပါသည္။ ျပန္ႀကိဳးစားပါ။</string>
-  <string name="verification_settings_unverified_title">ပိုက္ဆံအိတ္ကို အတည္ျပဳမည္</string>
+  <string name="verification_settings_unverified_title">Verify Payment Method</string>
   <string name="verification_settings_unverified_body">ဆုမ်ားကို ရယူကာ သူငယ္ခ်င္းမ်ားကို ဖိတ္ေခၚလိုက္ပါ</string>
   <string name="verification_settings_verified_title">ပိုက္ဆံအိတ္ကို အတည္ျပဳၿပီးပါၿပီ</string>
-  <string name="verification_settings_verifying_title">ပိုက္ဆံအိတ္ကို အတည္ျပဳေနပါသည္…</string>
-  <string name="verification_verified_paypal_description">သင့္ကို ခ်က္ခ်င္းေငြျပန္အမ္းေပးပါမည္။ သင့္ပိုက္ဆံအိတ္ကို အခ်ိန္အနည္းငယ္အတြင္း အတည္ျပဳေပးပါမည္။</string>
+  <string name="verification_settings_verifying_title">Verifying…</string>
+  <string name="verification_verified_paypal_description">You will be refunded immediately. Your payment method will be verified shortly.</string>
   <string name="verification_verify_paypal_description">သင့္အေကာင့္ကို အတည္ျပဳရန္ အနည္းဆုံး ေငြလႊဲေျပာင္းမႈျဖစ္သည့္ %s ကို ျပဳလုပ္ပါမည္။ ယင္းကို ခ်က္ခ်င္းေငြျပန္အမ္းေပးပါမည္။</string>
   <string name="verification_verify_paypal_button">ယခုပင္ အတည္ျပဳမည္</string>
   <string name="verification_settings_card_verified_title">ကဒ္ကိုအတည္ျပဳလိုက္ပါသည္</string>
@@ -598,9 +598,9 @@
   <string name="purchase_error_transaction_timeout">ေငြလႊဲေျပာင္းမႈကို ၿပီးေအာင္လုပ္ရန္ သင္အခ်ိန္အလြန္ၾကာေနပုံ ရပါသည္။ ျပန္ႀကိဳးစားေပးပါ။</string>
   <string name="purchase_error_card_already_in_progress">သင့္ေတာင္းဆိုမႈကို စီစဥ္ေဆာင္႐ြက္ထားၿပီး သို႔မဟုတ္ ေဆာင္႐ြက္ေနဆဲ ျဖစ္ပါသည္။ ေစာင့္ေပးပါ။</string>
   <string name="purchase_error_payment_rejected">ေငြလႊဲေျပာင္းမႈကို ျငင္းဆန္လိုက္ပါသည္။ အျခားကဒ္ သို႔မဟုတ္ ေငြေပးေခ်မႈ နည္းလမ္းတစ္ခုျဖင့္ ႀကိဳးစားၾကည့္ေပးပါ။</string>
-  <string name="purchase_error_verify_wallet">ဤဝယ္ယူမႈကို ၿပီးစီးေစရန္ သင့္ေငြေပးေခ်မႈ နည္းလမ္းကို အတည္ျပဳပါ။</string>
-  <string name="purchase_error_verify_card">ဤဝယ္ယူမႈကို ၿပီးစီးေစရန္ သင့္ကဒ္ကို အတည္ျပဳပါ။</string>
-  <string name="purachse_error_verify_card_button">ကဒ္ကို အတည္ျပဳမည္</string>
+  <string name="purchase_error_verify_wallet">Verify your payment method to complete this purchase.</string>
+  <string name="purchase_error_verify_card">Verify your card to complete this purchase.</string>
+  <string name="purachse_error_verify_card_button">VERIFY CARD</string>
   <string name="purchase_eskills_sku">ဝင္ေရာက္ခြင့္လက္မွတ္</string>
   <string name="purchase_paytmupi_install_disclaimer">Paytm UPI အက္ပ္ကို ထည့္သြင္းရန္ လိုအပ္ပါသည္။</string>
   <string name="purchase_app_needed_body">သင့္ဝယ္ယူမႈ ၿပီးစီးေစရန္ ေအာက္ပါအက္ပ္ကို လိုအပ္ပါသည္။</string>
@@ -635,8 +635,8 @@
   <string name="referral_onboarding_body">ကၽြႏ္ုပ္တို႔၏ ညႊန္ေပးသည့္ အစီအစဥ္ျဖင့္ သင္ႏွင့္ သင့္သူငယ္ခ်င္းမ်ားသည္ %s အထိ ရရွိႏိုင္ပါသည္။</string>
   <string name="referral_onboarding_body_no_connection">ကၽြႏ္ုုပ္တို႔၏ ညႊန္ေပးသည့္ အစီအစဥ္ျဖင့္ သင္ႏွင့္သင့္သူငယ္ခ်င္းမ်ားသည္ AppCoins Credit မ်ားကို ရယူႏိုင္ပါသည္။</string>
   <string name="referral_onboarding_redeem_button">ကၽြႏ္ုပ္ကို ဖိတ္ေခၚထားပါသည္</string>
-  <string name="referral_verification_title">သင့္ပိုက္ဆံအိတ္ကို အတည္ျပဳပါ</string>
-  <string name="referral_verification_body">ညႊန္ေပးသည့္ အစီအစဥ္တြင္ ပါ၀င္ေဆာင္ရြက္ႏိုင္ရန္အတြက္ သင့္ပိုက္ဆံအိတ္ကို အတည္ျပဳရန္ လိုအပ္ပါသည္။ အတည္ျပဳရန္ ကုဒ္တစ္ခုကို မက္ေဆ့ဂ်္မွတဆင့္ ေပးပို႔ပါမည္။</string>
+  <string name="referral_verification_title">Verify Payment Method</string>
+  <string name="referral_verification_body">You need to verify your payment method to participate in the Referral Program. We\'ll sent you a verification code via SMS.</string>
   <string name="referral_verification_confirmation_title">သင့္ဖိတ္ေခၚမႈကိုု အတည္ျပဳၿပီးပါၿပီ။</string>
   <string name="referral_verification_confirmation_body">သင့္ပထမဆံုး အက္ပ္အတြင္း၀ယ္ယူမႈတြင္ %1$s တန္ဖိုးရွိေသာ AppCoins Credit မ်ားကို ရရွိပါမည္။ သင့္ပထမဆံုး ၀ယ္ယူမႈသည္ %2$s ထက္ ပိုရမည္ျဖစ္ကာ ppCoins Credit မ်ားမွလြဲ၍ အျခားမည္သည့္ ေငြေပးေခ်မႈနည္းလမ္းျဖင့္မဆို ျပဳလုပ္ရပါမည္။</string>
   <string name="referral_verification_not_invited_title">ဤနံပါတ္ကို ဖိတ္ေခၚထားပံုမရပါ&#8230;</string>
@@ -649,8 +649,8 @@
   <string name="referral_view_share_link_button">ဖိတ္ေခၚသည့္လင့္ခ္ကို မွ်ေဝမည္</string>
   <string name="referral_view_notifications_title">အသိေပးခ်က္မ်ား</string>
   <string name="referral_share_sheet_title">ဖိတ္ေခၚသည့္လင့္ခ္ကို ေအာက္ပါမွတဆင့္ မွ်ေ၀မည္ -</string>
-  <string name="referral_view_unverified_body">Receive %s worth of AppCoins Credits for each friend. You first need to verify your wallet.</string>
-  <string name="referral_view_verify_button">ပိုက္ဆံအိတ္ကို အတည္ျပဳမည္</string>
+  <string name="referral_view_unverified_body">Receive %s worth of AppCoins Credits for each friend. You first need to verify your payment method.</string>
+  <string name="referral_view_verify_button">Verify payment method</string>
   <string name="referral_view_i_have_been_invited_button">ကၽြႏ္ုပ္ကို ဖိတ္ေခၚထားပါသည္</string>
   <string name="referral_view_dropup_menu_friends_invited">သူငယ္ခ်င္းမ်ားကို ဖိတ္ေခၚထားပါသည္</string>
   <string name="referral_view_dropup_menu_earned">ရရွိခဲ့သည္</string>
@@ -981,7 +981,7 @@
   <string name="rate_us_back_title">ကၽြႏ္ုပ္တို႔ကို ကူညီလိုပါသလား။</string>
   <string name="rate_us_back_body">AppCoins Wallet ကို ပိုမိုေကာင္းမြန္ေအာင္ ကၽြႏ္ုပ္တို႔ျပဳလုပ္ႏိုင္ေစရန္ အက္ပ္စတိုးတြင္ အဆင့္သတ္မွတ္ေပးပါ။</string>
   <!--Card verification-->
-  <string name="card_verification_body">ေငြေပးေခ်မႈမ်ား ျပဳလုပ္ရန္ သင့္ခရက္ဒစ္/ဒက္ဘစ္ကဒ္ကို အတည္ျပဳပါ။</string>
+  <string name="card_verification_body">Verify your credit/debit card to make payments.</string>
   <string name="card_verification_charde_disclaimer">သင့္ကဒ္ကို %s ေကာက္ခံမည္ျဖစ္ကာ ကုဒ္ကိုသင္အတည္ျပဳလိုက္သည္ႏွင့္ ေငြျပန္အမ္းေပးပါမည္။ သင့္ဘဏ္အေပၚ မူတည္၍ ယင္းသည္ မိနစ္ပိုင္းမွ ရက္အနည္းငယ္အထိ ၾကာႏိုင္ပါသည္။</string>
   <string name="card_verification_code_title">ေငြလႊဲေျပာင္းမႈ အေသးစိတ္မ်ားပါ ကုဒ္ကို စစ္ေဆးပါ</string>
   <string name="card_verification_code_body">သင့္ကဒ္ကိုထုတ္ေပးသူကေပးေသာ ေငြလႊဲေျပာင္းမႈ အက်ဥ္းခ်ဳပ္တြင္ သီးျခားကုဒ္တစ္ခု ေတြ႕ရပါမည္။</string>
@@ -999,13 +999,17 @@
   </plurals>
   <string name="card_verification_code_other_card_button">အျခားကဒ္ျဖင့္ စမ္းၾကည့္ပါ</string>
   <string name="card_verification_code_wrong_error">မွားယြင္းေသာကုဒ္</string>
-  <string name="card_verification_wallets_one_step_title">အတည္ျပဳရန္ ေနာက္ထပ္တစ္ဆင့္</string>
+  <string name="card_verification_wallets_one_step_title">One more step to verify</string>
   <string name="card_verification_wallets_one_step_body">ေငြလႊဲေျပာင္းမႈ အေသးစိတ္မ်ားတြင္ ျမင္ရေသာကုဒ္ကိုထည့္ပါ။</string>
   <string name="card_verification_wallets_insert_bode_button">ကုဒ္ကိုထည့္ပါ</string>
   <string name="card_verification_no_attempts_title">အိုး သင္က မွားယြင္းေသာကုဒ္တစ္ခုကို အႀကိမ္မ်ားစြာ ထည့္သြင္းခဲ့ေသာေၾကာင့္ %1$s ကို သင့္ကဒ္သို႔ ေငြျပန္အမ္းေပးမည္ ျဖစ္ပါသည္။</string>
   <string name="card_verification_no_attempts_body">အတည္ျပဳသည့္ လုပ္ငန္းစဥ္ကို ျပန္လည္စတင္ေပးပါ။</string>
-  <string name="wallet_verify_header">ေငြေပးေခ်မႈနည္းလမ္း အနည္းဆုံးတစ္ခုကို အတည္ျပဳပါ</string>
-  <string name="verify_card_title">ကဒ္ကိုအတည္ျပဳမည္</string>
+  <string name="wallet_verify_header">Verify at least one payment method</string>
+  <string name="verify_card_title">Verify Card</string>
+  <string name="verify_card_button">Verify bank card</string>
+  <string name="verify_paypal_button">Verify PayPal account</string>
+  <string name="card_verification_body_new">%s will be charged to your card and immediately refunded. Check your card statement for the validation code and insert it here.</string>
+  <string name="card_verification_disclaimer_body">Please note that the confirmation code may appear in the refund notification.</string>
   <!--Vouchers-->
   <string name="voucher_card_body_1">ဤေဘာက္ခ်ာကို ဝယ္ယူကာ ရယူလိုက္ပါ</string>
   <string name="voucher_card_body_2"> %s%% အထိ ေဘာနပ္စ္။</string>
@@ -1114,8 +1118,8 @@
   <string name="gift_card_error_new_users_title">ဤကုဒ္သည္ အသုံးျပဳသူ အသစ္မ်ားအတြက္သာ ျဖစ္ပါသည္။</string>
   <string name="gift_card_error_try_with_different_body">အျခားတစ္ခုျဖင့္ ျပန္ႀကိဳးစားေပးပါ။</string>
   <!-- My Wallet -->
-  <string name="mywallet_unverified_title">အတည္မျပဳထားေသာ ပိုက္ဆံအိတ္</string>
-  <string name="mywallet_unverified_body">ပိတ္ပင္မႈမ်ားကို ေရွာင္ၾကဥ္ရန္ ေငြေပးေခ်သည့္ နည္းလမ္းတစ္ခုကို အတည္ျပဳပါ။</string>
+  <string name="mywallet_unverified_title">Verify a Payment Method</string>
+  <string name="mywallet_unverified_body">Confirm a payment method to avoid blockages.</string>
   <string name="mywallet_backed_up_date">%s တြင္ သင့္ပိုက္ဆံအိတ္ကို အရန္သိမ္းဆည္းလိုက္ပါသည္။</string>
   <string name="mywallet_backup_again_button">ထပ္မံ၍ အရန္သိမ္းဆည္းမည္</string>
   <string name="mywallet_verify_payment_method_button">ကဒ္အသစ္ကို အတည္ျပဳမည္</string>
