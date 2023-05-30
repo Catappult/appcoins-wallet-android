@@ -429,7 +429,7 @@
   <string name="my_wallets_action_new_wallet">Ví mới</string>
   <string name="my_wallets_action_recover_wallet">Khôi phục ví</string>
   <string name="my_wallets_action_backup_wallet">Sao lưu ví</string>
-  <string name="my_wallets_action_verify_new_card">Xác minh thẻ mới</string>
+  <string name="my_wallets_action_verify_new_card">Verify new card</string>
   <string name="my_wallets_action_delete_wallet">Xóa ví</string>
   <!--Ask a friend for funds-->
   <string name="askafriend_payment_option_button">Nhờ ai đó thanh toán</string>
@@ -534,11 +534,11 @@
   <string name="verification_notification_reward_already_received_body">Số điện thoại này đã được sử dụng để nhận phần thưởng này 😔</string>
   <string name="verification_insert_phone_field_phone_used_already_error">Số điện thoại này đã được sử dụng.</string>
   <string name="verification_insert_code_error_common">Rất tiếc, đã xảy ra lỗi. Vui lòng thử lại!</string>
-  <string name="verification_settings_unverified_title">Xác minh Ví</string>
+  <string name="verification_settings_unverified_title">Verify Payment Method</string>
   <string name="verification_settings_unverified_body">Mời bạn bè và Nhận phần thưởng</string>
   <string name="verification_settings_verified_title">Ví đã được xác minh</string>
-  <string name="verification_settings_verifying_title">Đang xác minh ví…</string>
-  <string name="verification_verified_paypal_description">Bạn sẽ được hoàn tiền ngay lập tức. Ví của bạn sẽ sớm được xác minh.</string>
+  <string name="verification_settings_verifying_title">Verifying…</string>
+  <string name="verification_verified_paypal_description">You will be refunded immediately. Your payment method will be verified shortly.</string>
   <string name="verification_verify_paypal_description">Một giao dịch tối thiểu %s sẽ được thực hiện để xác nhận tài khoản của bạn. Số tiền này sẽ được hoàn lại ngay lập tức.</string>
   <string name="verification_verify_paypal_button">Xác minh ngay</string>
   <string name="verification_settings_card_verified_title">Đã xác minh thẻ</string>
@@ -598,9 +598,9 @@
   <string name="purchase_error_transaction_timeout">Có vẻ như bạn đã mất quá nhiều thời gian để hoàn thành giao dịch. Vui lòng thử lại.</string>
   <string name="purchase_error_card_already_in_progress">Yêu cầu của bạn đã được xử lý hoặc đang được xử lý. Vui lòng chờ.</string>
   <string name="purchase_error_payment_rejected">Giao dịch bị từ chối. Vui lòng thử với một thẻ hoặc phương thức thanh toán khác.</string>
-  <string name="purchase_error_verify_wallet">Xác thực phương thức thanh toán của bạn để hoàn tất giao dịch mua này.</string>
-  <string name="purchase_error_verify_card">Xác thực thẻ của bạn để hoàn tất giao dịch mua này.</string>
-  <string name="purachse_error_verify_card_button">XÁC THỰC THẺ</string>
+  <string name="purchase_error_verify_wallet">Verify your payment method to complete this purchase.</string>
+  <string name="purchase_error_verify_card">Verify your card to complete this purchase.</string>
+  <string name="purachse_error_verify_card_button">VERIFY CARD</string>
   <string name="purchase_eskills_sku">Vé tham gia</string>
   <string name="purchase_paytmupi_install_disclaimer">Bạn sẽ cần cài đặt ứng dụng Paytm UPI.</string>
   <string name="purchase_app_needed_body">Bạn cần ứng dụng sau để hoàn tất giao dịch mua của mình.</string>
@@ -635,8 +635,8 @@
   <string name="referral_onboarding_body">Bạn và bạn bè của mình có thể nhận đến %s với Chương Trình Giới Thiệu của chúng tôi!</string>
   <string name="referral_onboarding_body_no_connection">Bạn và bạn bè của mình có thể kiếm AppCoins Credits bằng Chương Trình Giới Thiệu của chúng tôi!</string>
   <string name="referral_onboarding_redeem_button">Tôi đã được mời</string>
-  <string name="referral_verification_title">Xác minh Ví của bạn</string>
-  <string name="referral_verification_body">Bạn cần xác minh ví của mình để tham gia vào Chương Trình Giới Thiệu. Chúng tôi sẽ gửi bạn mã xác nhận qua tin nhắn SMS.</string>
+  <string name="referral_verification_title">Verify Payment Method</string>
+  <string name="referral_verification_body">You need to verify your payment method to participate in the Referral Program. We\'ll sent you a verification code via SMS.</string>
   <string name="referral_verification_confirmation_title">Lời mời của bạn đã được xác thực!</string>
   <string name="referral_verification_confirmation_body">Bạn sẽ nhận được %1$s bằng AppCoins Credits trên giao dịch mua trong ứng dụng đầu tiên của mình. Giao dịch mua đầu tiên của bạn phải trên %2$s bằng bất kỳ phương thức thanh toán nào khác ngoài AppCoins Credits.</string>
   <string name="referral_verification_not_invited_title">Dường như số này không được mời&#8230;</string>
@@ -649,8 +649,8 @@
   <string name="referral_view_share_link_button">Chia sẻ liên kết mời</string>
   <string name="referral_view_notifications_title">Thông báo</string>
   <string name="referral_share_sheet_title">Chia sẻ liên kết mời qua:</string>
-  <string name="referral_view_unverified_body">Nhận %s AppCoins Credits cho mỗi người bạn. Trước tiên, bạn cần xác minh ví của mình.</string>
-  <string name="referral_view_verify_button">Xác minh ví</string>
+  <string name="referral_view_unverified_body">Receive %s worth of AppCoins Credits for each friend. You first need to verify your payment method.</string>
+  <string name="referral_view_verify_button">Verify payment method</string>
   <string name="referral_view_i_have_been_invited_button">Tôi đã được mời</string>
   <string name="referral_view_dropup_menu_friends_invited">Bạn bè đã mời</string>
   <string name="referral_view_dropup_menu_earned">Đã nhận</string>
@@ -981,7 +981,7 @@
   <string name="rate_us_back_title">Bạn muốn giúp chúng tôi?</string>
   <string name="rate_us_back_body">Xếp hạng Ví AppCoins trên cửa hàng ứng dụng để chúng tôi có thể cải thiện nó.</string>
   <!--Card verification-->
-  <string name="card_verification_body">Xác thực thẻ tín dụng / thẻ ghi nợ của bạn để thực hiện thanh toán.</string>
+  <string name="card_verification_body">Verify your credit/debit card to make payments.</string>
   <string name="card_verification_charde_disclaimer">Chúng tôi sẽ tính phí %s vào thẻ của bạn và sẽ hoàn lại tiền ngay khi bạn xác nhận mã. Tùy thuộc vào ngân hàng của bạn, có thể sẽ mất từ vài phút đến vài ngày.</string>
   <string name="card_verification_code_title">Kiểm tra mã trong chi tiết giao dịch</string>
   <string name="card_verification_code_body">Mã sẽ xuất hiện trong bản tóm tắt giao dịch do công ty phát hành thẻ của bạn cung cấp.</string>
@@ -999,13 +999,17 @@
   </plurals>
   <string name="card_verification_code_other_card_button">Thử với một thẻ khác</string>
   <string name="card_verification_code_wrong_error">Sai mã</string>
-  <string name="card_verification_wallets_one_step_title">Một bước nữa để xác thực</string>
+  <string name="card_verification_wallets_one_step_title">One more step to verify</string>
   <string name="card_verification_wallets_one_step_body">Chèn mã hiển thị trong chi tiết giao dịch.</string>
   <string name="card_verification_wallets_insert_bode_button">Nhập mã</string>
   <string name="card_verification_no_attempts_title">Rất tiếc, bạn đã chèn sai mã quá nhiều lần nên %1$s sẽ được hoàn lại vào thẻ của bạn.</string>
   <string name="card_verification_no_attempts_body">Vui lòng bắt đầu lại quá trình xác minh.</string>
-  <string name="wallet_verify_header">Xác thực ít nhất một phương thức thanh toán</string>
-  <string name="verify_card_title">Xác minh thẻ</string>
+  <string name="wallet_verify_header">Verify at least one payment method</string>
+  <string name="verify_card_title">Verify Card</string>
+  <string name="verify_card_button">Verify bank card</string>
+  <string name="verify_paypal_button">Verify PayPal account</string>
+  <string name="card_verification_body_new">%s will be charged to your card and immediately refunded. Check your card statement for the validation code and insert it here.</string>
+  <string name="card_verification_disclaimer_body">Please note that the confirmation code may appear in the refund notification.</string>
   <!--Vouchers-->
   <string name="voucher_card_body_1">Mua phiếu mua hàng này và nhận</string>
   <string name="voucher_card_body_2"> lên đến %s%% tiền thưởng.</string>
@@ -1114,8 +1118,8 @@
   <string name="gift_card_error_new_users_title">Mã này chỉ dành cho người dùng mới!</string>
   <string name="gift_card_error_try_with_different_body">Vui lòng thử lại với một cái khác.</string>
   <!-- My Wallet -->
-  <string name="mywallet_unverified_title">Ví chưa xác minh</string>
-  <string name="mywallet_unverified_body">Xác minh phương thức thanh toán để tránh bị tắc nghẽn.</string>
+  <string name="mywallet_unverified_title">Verify a Payment Method</string>
+  <string name="mywallet_unverified_body">Confirm a payment method to avoid blockages.</string>
   <string name="mywallet_backed_up_date">Bạn đã sao lưu ví của mình trên %s.</string>
   <string name="mywallet_backup_again_button">Sao lưu lại</string>
   <string name="mywallet_verify_payment_method_button">Xác minh thẻ mới</string>
