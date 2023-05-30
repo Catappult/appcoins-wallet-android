@@ -429,7 +429,7 @@
   <string name="my_wallets_action_new_wallet">新钱包</string>
   <string name="my_wallets_action_recover_wallet">恢复钱包</string>
   <string name="my_wallets_action_backup_wallet">备份钱包</string>
-  <string name="my_wallets_action_verify_new_card">验证新卡</string>
+  <string name="my_wallets_action_verify_new_card">Verify new card</string>
   <string name="my_wallets_action_delete_wallet">删除钱包</string>
   <!--Ask a friend for funds-->
   <string name="askafriend_payment_option_button">请求他人支付</string>
@@ -534,11 +534,11 @@
   <string name="verification_notification_reward_already_received_body">此电话号码已被用于接收奖励😔</string>
   <string name="verification_insert_phone_field_phone_used_already_error">已使用此号码。</string>
   <string name="verification_insert_code_error_common">糟糕，出现错误。请重试！</string>
-  <string name="verification_settings_unverified_title">验证钱包</string>
+  <string name="verification_settings_unverified_title">Verify Payment Method</string>
   <string name="verification_settings_unverified_body">获取奖励和邀请好友</string>
   <string name="verification_settings_verified_title">已验证钱包</string>
-  <string name="verification_settings_verifying_title">正在验证钱包……</string>
-  <string name="verification_verified_paypal_description">我们会立即退款。你的钱包很快就会通过验证。</string>
+  <string name="verification_settings_verifying_title">Verifying…</string>
+  <string name="verification_verified_paypal_description">You will be refunded immediately. Your payment method will be verified shortly.</string>
   <string name="verification_verify_paypal_description">我们将进行%s最小额度交易以确认你的帐户。我们会立即退款。</string>
   <string name="verification_verify_paypal_button">立即验证</string>
   <string name="verification_settings_card_verified_title">已验证卡</string>
@@ -598,9 +598,9 @@
   <string name="purchase_error_transaction_timeout">你完成交易的时间似乎太长。请重试。</string>
   <string name="purchase_error_card_already_in_progress">你的请求已被处理或正在处理。请稍候。</string>
   <string name="purchase_error_payment_rejected">交易已被拒绝。请尝试使用其他卡或与付款方式。</string>
-  <string name="purchase_error_verify_wallet">验证你的支付方式以完成本次购买。</string>
-  <string name="purchase_error_verify_card">验证你的卡以完成本次购买。</string>
-  <string name="purachse_error_verify_card_button">验证卡</string>
+  <string name="purchase_error_verify_wallet">Verify your payment method to complete this purchase.</string>
+  <string name="purchase_error_verify_card">Verify your card to complete this purchase.</string>
+  <string name="purachse_error_verify_card_button">VERIFY CARD</string>
   <string name="purchase_eskills_sku">入场券</string>
   <string name="purchase_paytmupi_install_disclaimer">你需要安装Paytm UPI应用。</string>
   <string name="purchase_app_needed_body">你需要以下应用才能完成购买。</string>
@@ -635,8 +635,8 @@
   <string name="referral_onboarding_body">通过推介项目，你和你的好友最多可获取%s！</string>
   <string name="referral_onboarding_body_no_connection">通过推介项目，您和您的好友可获得AppCoins积金！</string>
   <string name="referral_onboarding_redeem_button">我已被邀请</string>
-  <string name="referral_verification_title">验证钱包</string>
-  <string name="referral_verification_body">你需要验证钱包方可参与推荐项目。我们将通过短信向你发送验证码。</string>
+  <string name="referral_verification_title">Verify Payment Method</string>
+  <string name="referral_verification_body">You need to verify your payment method to participate in the Referral Program. We\'ll sent you a verification code via SMS.</string>
   <string name="referral_verification_confirmation_title">你的邀请已通过验证！</string>
   <string name="referral_verification_confirmation_body">首次进行应用内购买，您可以获得价值%1$s的AppCoins积金。首次购买必须使用AppCoins积金之外的任何支付方式，且金额必须超过%2$s。</string>
   <string name="referral_verification_not_invited_title">此号码似乎未被邀请&#8230;</string>
@@ -649,8 +649,8 @@
   <string name="referral_view_share_link_button">分享邀请链接</string>
   <string name="referral_view_notifications_title">通知</string>
   <string name="referral_share_sheet_title">分享链接到：</string>
-  <string name="referral_view_unverified_body">Receive %s worth of AppCoins Credits for each friend. You first need to verify your wallet.</string>
-  <string name="referral_view_verify_button">验证钱包</string>
+  <string name="referral_view_unverified_body">Receive %s worth of AppCoins Credits for each friend. You first need to verify your payment method.</string>
+  <string name="referral_view_verify_button">Verify payment method</string>
   <string name="referral_view_i_have_been_invited_button">我已被邀请</string>
   <string name="referral_view_dropup_menu_friends_invited">已邀请好友</string>
   <string name="referral_view_dropup_menu_earned">已获取</string>
@@ -981,7 +981,7 @@
   <string name="rate_us_back_title">想帮助我们吗？</string>
   <string name="rate_us_back_body">在应用商店上给AppCoins Wallet评分，以便我们对其进行改进。</string>
   <!--Card verification-->
-  <string name="card_verification_body">验证你的信用卡/借记卡来进行付款。</string>
+  <string name="card_verification_body">Verify your credit/debit card to make payments.</string>
   <string name="card_verification_charde_disclaimer">我们会从你的卡里扣除%的费用，你确认了代码后，我们就会退款。 根据你的银行情况，这可能需要几分钟到几天的时间。</string>
   <string name="card_verification_code_title">在交易详细信息中查看代码</string>
   <string name="card_verification_code_body">一个唯一代码将出现在发卡银行提供的交易摘要中。</string>
@@ -999,13 +999,17 @@
   </plurals>
   <string name="card_verification_code_other_card_button">使用另一张卡尝试</string>
   <string name="card_verification_code_wrong_error">代码错误</string>
-  <string name="card_verification_wallets_one_step_title">验证还差一步</string>
+  <string name="card_verification_wallets_one_step_title">One more step to verify</string>
   <string name="card_verification_wallets_one_step_body">输入交易详细信息中出现的代码。</string>
   <string name="card_verification_wallets_insert_bode_button">输入代码</string>
   <string name="card_verification_no_attempts_title">糟糕，您输入的错误代码次数过多，因此%1$s将退款至您的卡中。</string>
   <string name="card_verification_no_attempts_body">请重新开始验证过程。</string>
-  <string name="wallet_verify_header">验证至少一种付款方式</string>
-  <string name="verify_card_title">验证卡</string>
+  <string name="wallet_verify_header">Verify at least one payment method</string>
+  <string name="verify_card_title">Verify Card</string>
+  <string name="verify_card_button">Verify bank card</string>
+  <string name="verify_paypal_button">Verify PayPal account</string>
+  <string name="card_verification_body_new">%s will be charged to your card and immediately refunded. Check your card statement for the validation code and insert it here.</string>
+  <string name="card_verification_disclaimer_body">Please note that the confirmation code may appear in the refund notification.</string>
   <!--Vouchers-->
   <string name="voucher_card_body_1">购买优惠券并获取</string>
   <string name="voucher_card_body_2">高达 %s%% 的奖励。</string>
@@ -1114,8 +1118,8 @@
   <string name="gift_card_error_new_users_title">这个代码仅适用于新用户！</string>
   <string name="gift_card_error_try_with_different_body">请重试不同的代码。</string>
   <!-- My Wallet -->
-  <string name="mywallet_unverified_title">钱包未验证</string>
-  <string name="mywallet_unverified_body">验证付款方式以避免收到阻拦。</string>
+  <string name="mywallet_unverified_title">Verify a Payment Method</string>
+  <string name="mywallet_unverified_body">Confirm a payment method to avoid blockages.</string>
   <string name="mywallet_backed_up_date">你在%s上备份了钱包。</string>
   <string name="mywallet_backup_again_button">再次备份</string>
   <string name="mywallet_verify_payment_method_button">验证新卡</string>
