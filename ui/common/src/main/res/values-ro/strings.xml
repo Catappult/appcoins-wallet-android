@@ -429,7 +429,7 @@
   <string name="my_wallets_action_new_wallet">Portofel nou</string>
   <string name="my_wallets_action_recover_wallet">Recuperează portofel</string>
   <string name="my_wallets_action_backup_wallet">Copie de rezervă portofel</string>
-  <string name="my_wallets_action_verify_new_card">Verifică un card nou</string>
+  <string name="my_wallets_action_verify_new_card">Verify new card</string>
   <string name="my_wallets_action_delete_wallet">Șterge portofel</string>
   <!--Ask a friend for funds-->
   <string name="askafriend_payment_option_button">Roagă pe cineva să plătească</string>
@@ -534,11 +534,11 @@
   <string name="verification_notification_reward_already_received_body">Acest număr de telefon a fost folosit deja pentru a primi această recompensă 😔</string>
   <string name="verification_insert_phone_field_phone_used_already_error">Număr deja folosit.</string>
   <string name="verification_insert_code_error_common">Ups, ceva nu a mers cum trebuie. Încearcă din nou!</string>
-  <string name="verification_settings_unverified_title">Verifică portofel</string>
+  <string name="verification_settings_unverified_title">Verify Payment Method</string>
   <string name="verification_settings_unverified_body">Primește recompense și invită prieteni</string>
   <string name="verification_settings_verified_title">Portofel verificat</string>
-  <string name="verification_settings_verifying_title">Se verifică portofelul…</string>
-  <string name="verification_verified_paypal_description">Suma va fi rambursată imediat. Portofelul tău va fi verificat în cel mai scurt timp.</string>
+  <string name="verification_settings_verifying_title">Verifying…</string>
+  <string name="verification_verified_paypal_description">You will be refunded immediately. Your payment method will be verified shortly.</string>
   <string name="verification_verify_paypal_description">Va fi efectuată o tranzacție minimă de %s pentru a-ți confirma contul. Suma va fi rambursată imediat.</string>
   <string name="verification_verify_paypal_button">Verifică acum</string>
   <string name="verification_settings_card_verified_title">Card verificat</string>
@@ -598,9 +598,9 @@
   <string name="purchase_error_transaction_timeout">Se pare că ai avut nevoie de prea mult timp pentru finalizarea tranzacției. Încearcă din nou.</string>
   <string name="purchase_error_card_already_in_progress">Cererea ta a fost deja procesată sau este în curs de procesare. Te rugăm să aștepți.</string>
   <string name="purchase_error_payment_rejected">Tranzacția a fost refuzată. Încearcă din nou cu un alt card sau o altă metodă de plată.</string>
-  <string name="purchase_error_verify_wallet">Validează-ți metoda de plată pentru a finaliza această achiziție.</string>
-  <string name="purchase_error_verify_card">Validează-ți cardul pentru a finaliza această achiziție.</string>
-  <string name="purachse_error_verify_card_button">VALIDEAZĂ CARD</string>
+  <string name="purchase_error_verify_wallet">Verify your payment method to complete this purchase.</string>
+  <string name="purchase_error_verify_card">Verify your card to complete this purchase.</string>
+  <string name="purachse_error_verify_card_button">VERIFY CARD</string>
   <string name="purchase_eskills_sku">Tichet de intrare</string>
   <string name="purchase_paytmupi_install_disclaimer">Trebuie să instalezi aplicația Paytm UPI.</string>
   <string name="purchase_app_needed_body">Ai nevoie de următoarea aplicație pentru a finaliza achiziția.</string>
@@ -635,8 +635,8 @@
   <string name="referral_onboarding_body">Tu și prietenii tăi puteți câștiga până la %s cu Programul nostru de referință!</string>
   <string name="referral_onboarding_body_no_connection">Tu și prietenii tăi puteți câștiga AppCoins Credits cu Programul nostru de referință!</string>
   <string name="referral_onboarding_redeem_button">Am fost invitat</string>
-  <string name="referral_verification_title">Verifică-ți portofelul</string>
-  <string name="referral_verification_body">Trebuie să îți verifici portofelul pentru a participa la Programul de referință. Îți vom trimite un cod de verificare prin SMS.</string>
+  <string name="referral_verification_title">Verify Payment Method</string>
+  <string name="referral_verification_body">You need to verify your payment method to participate in the Referral Program. We\'ll sent you a verification code via SMS.</string>
   <string name="referral_verification_confirmation_title">Invitația ta a fost validată!</string>
   <string name="referral_verification_confirmation_body">Vei primi AppCoins Credits în valoare de %1$s la prima ta cumpărătură in-app. Prima ta cumpărătură trebuie să aibă o valoare peste %2$s cu orice metodă de plată, cu excepția AppCoins Credits.</string>
   <string name="referral_verification_not_invited_title">Se pare că acest număr nu a fost invitat&#8230;</string>
@@ -649,8 +649,8 @@
   <string name="referral_view_share_link_button">Distribuie link invitație</string>
   <string name="referral_view_notifications_title">Notificări</string>
   <string name="referral_share_sheet_title">Distribuie link de invitația via:</string>
-  <string name="referral_view_unverified_body">Vei primi AppCoins Credits în valoare de %s pentru fiecare prieten. Dar, mai întâi, trebuie să îți verifici portofelul.</string>
-  <string name="referral_view_verify_button">Verifică portofel</string>
+  <string name="referral_view_unverified_body">Receive %s worth of AppCoins Credits for each friend. You first need to verify your payment method.</string>
+  <string name="referral_view_verify_button">Verify payment method</string>
   <string name="referral_view_i_have_been_invited_button">Am fost invitat</string>
   <string name="referral_view_dropup_menu_friends_invited">Prieteni invitați</string>
   <string name="referral_view_dropup_menu_earned">Câștigați</string>
@@ -995,7 +995,7 @@
   <string name="rate_us_back_title">Vrei să ne dai o mână de ajutor?</string>
   <string name="rate_us_back_body">Evaluează AppCoins Wallet în App Store pentru a ne ajuta să îl îmbunătățim.</string>
   <!--Card verification-->
-  <string name="card_verification_body">Validează-ți cardul de credit/debit pentru a face plăți.</string>
+  <string name="card_verification_body">Verify your credit/debit card to make payments.</string>
   <string name="card_verification_charde_disclaimer">Vom debita %s de pe cardul tău și vom rambursa suma imediat după ce confirmi codul. În funcție de banca ta, rambursarea poate dura între câteva minute și câteva zile.</string>
   <string name="card_verification_code_title">Verifică codul în detaliile tranzacției</string>
   <string name="card_verification_code_body">Un cod unic va apărea în rezumatul tranzacției furnizat de emitentul cardului tău.</string>
@@ -1017,13 +1017,17 @@
   </plurals>
   <string name="card_verification_code_other_card_button">Încearcă cu un alt card</string>
   <string name="card_verification_code_wrong_error">Cod greșit</string>
-  <string name="card_verification_wallets_one_step_title">Încă un pas pentru validare</string>
+  <string name="card_verification_wallets_one_step_title">One more step to verify</string>
   <string name="card_verification_wallets_one_step_body">Introdu codul care apare în detaliile tranzacției.</string>
   <string name="card_verification_wallets_insert_bode_button">Introdu cod</string>
   <string name="card_verification_no_attempts_title">Ups, ai introdus greșit codul de prea multe ori, astfel că suma de %1$s va fi rambursată pe cardul tău.</string>
   <string name="card_verification_no_attempts_body">Te rugăm să reîncepi procesul de verificare.</string>
-  <string name="wallet_verify_header">Validează cel puțin o metodă de plată</string>
-  <string name="verify_card_title">Verifică card</string>
+  <string name="wallet_verify_header">Verify at least one payment method</string>
+  <string name="verify_card_title">Verify Card</string>
+  <string name="verify_card_button">Verify bank card</string>
+  <string name="verify_paypal_button">Verify PayPal account</string>
+  <string name="card_verification_body_new">%s will be charged to your card and immediately refunded. Check your card statement for the validation code and insert it here.</string>
+  <string name="card_verification_disclaimer_body">Please note that the confirmation code may appear in the refund notification.</string>
   <!--Vouchers-->
   <string name="voucher_card_body_1">Cumpără acest voucher și primești</string>
   <string name="voucher_card_body_2"> un bonus de până la %s%%.</string>
@@ -1132,8 +1136,8 @@
   <string name="gift_card_error_new_users_title">Acest cod este valabil doar pentru utilizatorii noi!</string>
   <string name="gift_card_error_try_with_different_body">Încearcă din nou sau folosește altul.</string>
   <!-- My Wallet -->
-  <string name="mywallet_unverified_title">Portofel neverificat</string>
-  <string name="mywallet_unverified_body">Verifică o metodă de plată pentru a evita blocaje.</string>
+  <string name="mywallet_unverified_title">Verify a Payment Method</string>
+  <string name="mywallet_unverified_body">Confirm a payment method to avoid blockages.</string>
   <string name="mywallet_backed_up_date">Ai făcut o copie de rezervă a portofelului tău pe %s.</string>
   <string name="mywallet_backup_again_button">Fă o copie de rezervă nouă</string>
   <string name="mywallet_verify_payment_method_button">Verifică un card nou</string>
