@@ -429,7 +429,7 @@
   <string name="my_wallets_action_new_wallet">新規ウオレット</string>
   <string name="my_wallets_action_recover_wallet">ウォレットの復元</string>
   <string name="my_wallets_action_backup_wallet">ウォレットをバックアップ</string>
-  <string name="my_wallets_action_verify_new_card">新しいカードの認証</string>
+  <string name="my_wallets_action_verify_new_card">Verify new card</string>
   <string name="my_wallets_action_delete_wallet">ウオレットの削除</string>
   <!--Ask a friend for funds-->
   <string name="askafriend_payment_option_button">誰かに支払いをしてもらう</string>
@@ -534,11 +534,11 @@
   <string name="verification_notification_reward_already_received_body">この電話番号は、すでにこの報酬を受け取るために使用されています😔。</string>
   <string name="verification_insert_phone_field_phone_used_already_error">すでに使用されている番号です。</string>
   <string name="verification_insert_code_error_common">問題が発生しました。再試行してください。</string>
-  <string name="verification_settings_unverified_title">ウオレットの認証</string>
+  <string name="verification_settings_unverified_title">Verify Payment Method</string>
   <string name="verification_settings_unverified_body">リワードをゲットして友達を招待</string>
   <string name="verification_settings_verified_title">ウオレット認証済み</string>
-  <string name="verification_settings_verifying_title">ウオレットの認証中...</string>
-  <string name="verification_verified_paypal_description">すぐに返金されます。ウォレット間もなく確認されます。</string>
+  <string name="verification_settings_verifying_title">Verifying…</string>
+  <string name="verification_verified_paypal_description">You will be refunded immediately. Your payment method will be verified shortly.</string>
   <string name="verification_verify_paypal_description">アカウントの確認のため、%sの最小限の取引が行われます。これはすぐに返金されます。</string>
   <string name="verification_verify_paypal_button">今すぐ確認</string>
   <string name="verification_settings_card_verified_title">カード認証済み</string>
@@ -598,9 +598,9 @@
   <string name="purchase_error_transaction_timeout">トランザクションの完了に時間がかかりすぎたようです。もう一度お試しください。</string>
   <string name="purchase_error_card_already_in_progress">あなたのリクエストはすでに処理済みか、処理中です。しばらくお待ちください。</string>
   <string name="purchase_error_payment_rejected">取引は拒否されました。別のカードや支払い方法をお試しください。</string>
-  <string name="purchase_error_verify_wallet">支払い方法を確認し、この購入を完了します。</string>
-  <string name="purchase_error_verify_card">この購入を完了するためには支払い方法を確認してください。</string>
-  <string name="purachse_error_verify_card_button">カードの確認</string>
+  <string name="purchase_error_verify_wallet">Verify your payment method to complete this purchase.</string>
+  <string name="purchase_error_verify_card">Verify your card to complete this purchase.</string>
+  <string name="purachse_error_verify_card_button">VERIFY CARD</string>
   <string name="purchase_eskills_sku">エントリーチケット</string>
   <string name="purchase_paytmupi_install_disclaimer">Paytm UPIアプリをインストールする必要があります。</string>
   <string name="purchase_app_needed_body">購入手続きには、以下のアプリが必要です。</string>
@@ -635,8 +635,8 @@
   <string name="referral_onboarding_body">紹介プログラムであなたとあなたのお友達は最大%sの報酬を得ることができます！</string>
   <string name="referral_onboarding_body_no_connection">あなたとあなたの友人は、紹介プログラムでAppCoinsクレジットを獲得できます！</string>
   <string name="referral_onboarding_redeem_button">すでに招待されている方</string>
-  <string name="referral_verification_title">ウォレットの認証</string>
-  <string name="referral_verification_body">紹介プログラムに参加するには、ウォレットの認証が必要です。SMSで認証コードをお送りします。</string>
+  <string name="referral_verification_title">Verify Payment Method</string>
+  <string name="referral_verification_body">You need to verify your payment method to participate in the Referral Program. We\'ll sent you a verification code via SMS.</string>
   <string name="referral_verification_confirmation_title">あなたの招待が有効になりました。</string>
   <string name="referral_verification_confirmation_body">初めてのアプリ内購入で、%1$s相当のAppCoins Creditsを獲得できます。初回購入は、AppCoins Credits以外の支払い方法で、%2$s以上の購入である必要があります。</string>
   <string name="referral_verification_not_invited_title">この番号は招待されていないようです&#8230;</string>
@@ -649,8 +649,8 @@
   <string name="referral_view_share_link_button">招待リンクを共有</string>
   <string name="referral_view_notifications_title">通知</string>
   <string name="referral_share_sheet_title">招待リンクを共有：</string>
-  <string name="referral_view_unverified_body">友達1人につき%s相当のAppCoinsクレジットを受け取ることができます。まず、あなたのウォレットを確認する必要があります。</string>
-  <string name="referral_view_verify_button">ウオレットの認証</string>
+  <string name="referral_view_unverified_body">Receive %s worth of AppCoins Credits for each friend. You first need to verify your payment method.</string>
+  <string name="referral_view_verify_button">Verify payment method</string>
   <string name="referral_view_i_have_been_invited_button">すでに招待されている方</string>
   <string name="referral_view_dropup_menu_friends_invited">招待済みの友達</string>
   <string name="referral_view_dropup_menu_earned">獲得額</string>
@@ -981,7 +981,7 @@
   <string name="rate_us_back_title">ご協力していただけますか？</string>
   <string name="rate_us_back_body">改善のため、アプリストアでAppCoins Walletを評価する。</string>
   <!--Card verification-->
-  <string name="card_verification_body">クレジットカード/デビットカードを有効にして、支払いを行ってください。</string>
+  <string name="card_verification_body">Verify your credit/debit card to make payments.</string>
   <string name="card_verification_charde_disclaimer">お客様のカードには%sが請求され、コードを確認した後に返金されます。お使いの銀行によっては、数分から数日かかる場合もあります。</string>
   <string name="card_verification_code_title">取引明細のコードを確認</string>
   <string name="card_verification_code_body">カード発行会社が提供する取引の概要に固有のコードが表示されます。</string>
@@ -999,13 +999,17 @@
   </plurals>
   <string name="card_verification_code_other_card_button">他のカードで試す。</string>
   <string name="card_verification_code_wrong_error">間違ったコード</string>
-  <string name="card_verification_wallets_one_step_title">認証までのもう１ステップ</string>
+  <string name="card_verification_wallets_one_step_title">One more step to verify</string>
   <string name="card_verification_wallets_one_step_body">取引明細に表示されるコードを入力してください。</string>
   <string name="card_verification_wallets_insert_bode_button">コードの入力</string>
   <string name="card_verification_no_attempts_title">間違ったコードが何回も入力されたので、%1$sはあなたのカードに返金されます。</string>
   <string name="card_verification_no_attempts_body">再度、認証プロセスを開始してください。</string>
-  <string name="wallet_verify_header">少なくとも1つの支払い方法を確認してください</string>
-  <string name="verify_card_title">カードの認証</string>
+  <string name="wallet_verify_header">Verify at least one payment method</string>
+  <string name="verify_card_title">Verify Card</string>
+  <string name="verify_card_button">Verify bank card</string>
+  <string name="verify_paypal_button">Verify PayPal account</string>
+  <string name="card_verification_body_new">%s will be charged to your card and immediately refunded. Check your card statement for the validation code and insert it here.</string>
+  <string name="card_verification_disclaimer_body">Please note that the confirmation code may appear in the refund notification.</string>
   <!--Vouchers-->
   <string name="voucher_card_body_1">このクーポンを購入して</string>
   <string name="voucher_card_body_2"> 最大%s%% のボーナスをゲット</string>
@@ -1114,8 +1118,8 @@
   <string name="gift_card_error_new_users_title">このコードは新規ユーザー限定です！</string>
   <string name="gift_card_error_try_with_different_body">別のもので再度お試しください。</string>
   <!-- My Wallet -->
-  <string name="mywallet_unverified_title">未認証のウォレット</string>
-  <string name="mywallet_unverified_body">支払い方法を確認することで、詰まりを回避することができます。</string>
+  <string name="mywallet_unverified_title">Verify a Payment Method</string>
+  <string name="mywallet_unverified_body">Confirm a payment method to avoid blockages.</string>
   <string name="mywallet_backed_up_date">%sにウォレットをバックアップしました。</string>
   <string name="mywallet_backup_again_button">再度バックアップ</string>
   <string name="mywallet_verify_payment_method_button">新しいカードの認証</string>
