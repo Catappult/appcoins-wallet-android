@@ -429,7 +429,7 @@
   <string name="my_wallets_action_new_wallet">Νέο wallet</string>
   <string name="my_wallets_action_recover_wallet">Ανάκτηση wallet</string>
   <string name="my_wallets_action_backup_wallet">Αντίγραφο Ασφαλείας Wallet</string>
-  <string name="my_wallets_action_verify_new_card">Επαλήθευση νέας κάρτας</string>
+  <string name="my_wallets_action_verify_new_card">Verify new card</string>
   <string name="my_wallets_action_delete_wallet">Διαγραφή wallet</string>
   <!--Ask a friend for funds-->
   <string name="askafriend_payment_option_button">Ζητήστε από άλλον να πληρώσει</string>
@@ -534,11 +534,11 @@
   <string name="verification_notification_reward_already_received_body">Αυτός ο αριθμός τηλεφώνου έχει ήδη χρησιμοποιηθεί για τη λήψη αυτής της αμοιβής 😔</string>
   <string name="verification_insert_phone_field_phone_used_already_error">Ο αριθμός χρησιμοποιείται ήδη.</string>
   <string name="verification_insert_code_error_common">Ωχ, κάτι πήγε στραβά. Προσπαθήστε ξανά!</string>
-  <string name="verification_settings_unverified_title">Επαλήθευση Wallet</string>
+  <string name="verification_settings_unverified_title">Verify Payment Method</string>
   <string name="verification_settings_unverified_body">Λάβετε αμοιβές και προσκαλέστε φίλους</string>
   <string name="verification_settings_verified_title">Το Wallet επαληθεύθηκε</string>
-  <string name="verification_settings_verifying_title">Επαλήθευση Wallet...</string>
-  <string name="verification_verified_paypal_description">Θα γίνει άμεσα επιστροφή. Το wallet σας θα επαληθευτεί σύντομα.</string>
+  <string name="verification_settings_verifying_title">Verifying…</string>
+  <string name="verification_verified_paypal_description">You will be refunded immediately. Your payment method will be verified shortly.</string>
   <string name="verification_verify_paypal_description">Θα πραγματοποιηθεί μία ελάχιστη συναλλαγή ποσού %s ώστε να επιβεβαιωθεί ο λογαριασμός σας. Θα σας επιστραφεί άμεσα.</string>
   <string name="verification_verify_paypal_button">Επαλήθευση τώρα</string>
   <string name="verification_settings_card_verified_title">Η κάρτα έχει επαληθευτεί</string>
@@ -598,9 +598,9 @@
   <string name="purchase_error_transaction_timeout">Φαίνεται ότι αργήσατε πολύ να ολοκληρώσετε τη συναλλαγή. Παρακαλούμε δοκιμάστε ξανά.</string>
   <string name="purchase_error_card_already_in_progress">Το αίτημα σας δέχτηκε ήδη επεξεργασία ή βρίσκεται σε επεξεργασία. Παρακαλούμε περιμένετε.</string>
   <string name="purchase_error_payment_rejected">Η συναλλαγή απορρίφθηκε. Παρακαλούμε δοκιμάστε με μία διαφορετική κάρτα ή μέθοδο πληρωμής.</string>
-  <string name="purchase_error_verify_wallet">Επαληθεύστε τη μέθοδο πληρωμής σας για να ολοκληρώσετε αυτή την αγορά.</string>
-  <string name="purchase_error_verify_card">Επαληθεύστε την κάρτα σας για να ολοκληρώσετε αυτή την αγορά.</string>
-  <string name="purachse_error_verify_card_button">ΕΠΑΛΗΘΕΥΣΗ ΚΑΡΤΑΣ</string>
+  <string name="purchase_error_verify_wallet">Verify your payment method to complete this purchase.</string>
+  <string name="purchase_error_verify_card">Verify your card to complete this purchase.</string>
+  <string name="purachse_error_verify_card_button">VERIFY CARD</string>
   <string name="purchase_eskills_sku">Εισιτήριο εισόδου</string>
   <string name="purchase_paytmupi_install_disclaimer">Θα χρειαστεί να εγκαταστήσετε την εφαρμογή Paytm UPI.</string>
   <string name="purchase_app_needed_body">Χρειάζεστε την παρακάτω εφαρμογή για να ολοκληρώσετε την αγορά σας.</string>
@@ -635,8 +635,8 @@
   <string name="referral_onboarding_body">Εσείς και οι φίλοι σας μπορείτε να λάβετε έως %s με το Πρόγραμμα Σύστασης!</string>
   <string name="referral_onboarding_body_no_connection">Εσείς και οι φίλοι σας μπορείτε να λάβετε AppCoins Credits με το Πρόγραμμα Σύστασης!</string>
   <string name="referral_onboarding_redeem_button">Έχω προσκληθεί</string>
-  <string name="referral_verification_title">Επαληθεύστε το Wallet σας</string>
-  <string name="referral_verification_body">Για να συμμετάσχετε στο Πρόγραμμα Σύστασης, πρέπει να επαληθεύσετε το wallet σας. Θα σας στείλουμε έναν κωδικό επαλήθευσης μέσω SMS.</string>
+  <string name="referral_verification_title">Verify Payment Method</string>
+  <string name="referral_verification_body">You need to verify your payment method to participate in the Referral Program. We\'ll sent you a verification code via SMS.</string>
   <string name="referral_verification_confirmation_title">Η πρόσκλησή σας επικυρώθηκε!</string>
   <string name="referral_verification_confirmation_body">Θα λάβετε AppCoins Credits αξίας %1$s στην πρώτη σας αγορά εντός εφαρμογών. Η πρώτη σας αγορά πρέπει να είναι πάνω από %2$s με οποιαδήποτε μέθοδο, εκτός από τη χρήση AppCoins Credits.</string>
   <string name="referral_verification_not_invited_title">Φαίνεται ότι αυτός ο αριθμός δεν έχει λάβει πρόσκληση&#8230;</string>
@@ -649,8 +649,8 @@
   <string name="referral_view_share_link_button">Κοινοποίηση συνδέσμου πρόσκλησης</string>
   <string name="referral_view_notifications_title">Ειδοποιήσεις</string>
   <string name="referral_share_sheet_title">Κοινοποίηση συνδέσμου πρόσκλησης μέσω:</string>
-  <string name="referral_view_unverified_body">Λάβετε AppCoins Credits αξίας %s για κάθε φίλο. Πρώτα πρέπει να επαληθεύσετε το wallet σας.</string>
-  <string name="referral_view_verify_button">Επαλήθευση Wallet</string>
+  <string name="referral_view_unverified_body">Receive %s worth of AppCoins Credits for each friend. You first need to verify your payment method.</string>
+  <string name="referral_view_verify_button">Verify payment method</string>
   <string name="referral_view_i_have_been_invited_button">Έχω προσκληθεί</string>
   <string name="referral_view_dropup_menu_friends_invited">Προσκεκλημένοι φίλοι</string>
   <string name="referral_view_dropup_menu_earned">Κερδήθηκαν</string>
@@ -989,7 +989,7 @@ Wallets</item>
   <string name="rate_us_back_title">Θέλετε να μας βοηθήσετε;</string>
   <string name="rate_us_back_body">Αξιολογήστε το AppCoins Wallet στο store εφαρμογών, ώστε να το βελτιώσουμε.</string>
   <!--Card verification-->
-  <string name="card_verification_body">Επαληθεύστε την πιστωτική/χρεωστική κάρτα σας για να κάνετε πληρωμές.</string>
+  <string name="card_verification_body">Verify your credit/debit card to make payments.</string>
   <string name="card_verification_charde_disclaimer">Θα χρεώσουμε %s στην κάρτα σας και θα τα επιστρέψουμε μόλις επιβεβαιώσετε τον κωδικό. Ανάλογα με την τράπεζά σας, μπορεί να πάρει από λίγα λεπτά μέχρι μερικές μέρες.</string>
   <string name="card_verification_code_title">Ελέγξτε τον κωδικό στις λεπτομέρειες συναλλαγής</string>
   <string name="card_verification_code_body">Ένας μοναδικός κωδικός θα εμφανιστεί στη σύνοψη συναλλαγής που παρέχεται από τον εκδότη της κάρτας σας.</string>
@@ -1009,13 +1009,17 @@ Wallets</item>
   </plurals>
   <string name="card_verification_code_other_card_button">Δοκιμάστε με άλλη κάρτα</string>
   <string name="card_verification_code_wrong_error">Λανθασμένος κωδικός</string>
-  <string name="card_verification_wallets_one_step_title">Ένα ακόμη βήμα για επικύρωση</string>
+  <string name="card_verification_wallets_one_step_title">One more step to verify</string>
   <string name="card_verification_wallets_one_step_body">Εισαγάγετε τον κωδικό που εμφανίζεται στις λεπτομέρειες συναλλαγής.</string>
   <string name="card_verification_wallets_insert_bode_button">Εισαγάγετε τον κωδικό</string>
   <string name="card_verification_no_attempts_title">Φαίνεται πως έχετε εισαγάγει επανειλημμένα λανθασμένο κωδικό. %1$s θα επιστραφούν στην κάρτα σας.</string>
   <string name="card_verification_no_attempts_body">Παρακαλούμε, ξεκινήστε εκ νέου τη διαδικασία επαλήθευσης.</string>
-  <string name="wallet_verify_header">Επαληθεύστε τουλάχιστον μία μέθοδο πληρωμής</string>
-  <string name="verify_card_title">Επαλήθευση κάρτας</string>
+  <string name="wallet_verify_header">Verify at least one payment method</string>
+  <string name="verify_card_title">Verify Card</string>
+  <string name="verify_card_button">Verify bank card</string>
+  <string name="verify_paypal_button">Verify PayPal account</string>
+  <string name="card_verification_body_new">%s will be charged to your card and immediately refunded. Check your card statement for the validation code and insert it here.</string>
+  <string name="card_verification_disclaimer_body">Please note that the confirmation code may appear in the refund notification.</string>
   <!--Vouchers-->
   <string name="voucher_card_body_1">Αγοράστε αυτό το voucher και λάβετε</string>
   <string name="voucher_card_body_2"> έως %s%% bonus.</string>
@@ -1124,8 +1128,8 @@ Wallets</item>
   <string name="gift_card_error_new_users_title">Αυτός ο κωδικός είναι μόνο για νέους χρήστες!</string>
   <string name="gift_card_error_try_with_different_body">Παρακαλούμε δοκιμάστε ξανά με έναν διαφορετικό.</string>
   <!-- My Wallet -->
-  <string name="mywallet_unverified_title">Μη επαληθευμένο wallet</string>
-  <string name="mywallet_unverified_body">Επαληθεύστε μία μέθοδο πληρωμής για να αποφύγετε αποκλεισμούς.</string>
+  <string name="mywallet_unverified_title">Verify a Payment Method</string>
+  <string name="mywallet_unverified_body">Confirm a payment method to avoid blockages.</string>
   <string name="mywallet_backed_up_date">Δημιουργήσατε ένα αντίγραφο ασφαλείας του wallet σας στο %s.</string>
   <string name="mywallet_backup_again_button">Δημιουργία αντιγράφου ασφαλείας ξανά</string>
   <string name="mywallet_verify_payment_method_button">Επαληθεύστε τη νέα κάρτα</string>
