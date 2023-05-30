@@ -33,6 +33,8 @@ class PayPalV2Repository @Inject constructor(
     referrerUrl: String?
   ): Single<PaypalTransaction> {
     return paypalV2Api.createTransaction(
+      // uncomment for testing errors in dev
+      HeaderPaypalMock(MockCodes.INSTRUMENT_DECLINED .name).toJson(),
       walletAddress,
       walletSignature,
       PaypalPayment(
@@ -62,8 +64,10 @@ class PayPalV2Repository @Inject constructor(
         )
       }
       .onErrorReturn {
-        val errorCode = (it as? HttpException)?.code()
-        handleCreateTransactionErrorCodes(errorCode)
+        val httpException = (it as? HttpException)
+        val errorCode = httpException?.code()
+        val errorContent = httpException?.response()?.errorBody()?.string()
+        handleCreateTransactionErrorCodes(errorCode, errorContent)
       }
 
   }
@@ -151,22 +155,25 @@ class PayPalV2Repository @Inject constructor(
       walletAddress,
       walletSignature
     )
-      .ignoreElement()   //TODO test
+      .ignoreElement()
   }
 
-  private fun handleCreateTransactionErrorCodes(errorCode: Int?): PaypalTransaction {
+  private fun handleCreateTransactionErrorCodes(errorCode: Int?, errorContent: String?): PaypalTransaction {
     val validity = when (errorCode) {
       404 -> PaypalTransaction.PaypalValidityState.NO_BILLING_AGREEMENT
+      400 -> PaypalTransaction.PaypalValidityState.NO_BILLING_AGREEMENT
       else -> PaypalTransaction.PaypalValidityState.NO_BILLING_AGREEMENT
-      // Until all payment errors are treated, if the payment fails with a previous billing
-      // agreement, then alway tries to login again once
+      // If the payment fails with a previous billing agreement, then always tries to login
+      // again once
 //      else -> PaypalTransaction.PaypalValidityState.ERROR
     }
     return PaypalTransaction(
       null,
       null,
       null,
-      validity
+      validity,
+      errorCode.toString(),
+      errorContent ?: ""
     )
   }
 

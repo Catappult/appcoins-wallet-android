@@ -4,6 +4,7 @@ import com.appcoins.wallet.core.network.microservices.model.*
 import io.reactivex.Single
 import retrofit2.http.Body
 import retrofit2.http.GET
+import retrofit2.http.Header
 import retrofit2.http.POST
 import retrofit2.http.Query
 
@@ -11,6 +12,7 @@ interface PaypalV2Api {
 
   @POST("8.20230522/gateways/paypal/transactions")
   fun createTransaction(
+    @Header("PayPal-Mock-Response") mockHeader: String, // uncomment for testing errors in dev
     @Query("wallet.address") walletAddress: String,
     @Query("wallet.signature") walletSignature: String,
     @Body paypalPayment: PaypalPayment
