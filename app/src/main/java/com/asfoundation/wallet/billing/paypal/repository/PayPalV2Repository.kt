@@ -34,7 +34,7 @@ class PayPalV2Repository @Inject constructor(
   ): Single<PaypalTransaction> {
     return paypalV2Api.createTransaction(
       // uncomment for testing errors in dev
-      HeaderPaypalMock(MockCodes.INSTRUMENT_DECLINED .name).toJson(),
+      //HeaderPaypalMock(MockCodes.INSTRUMENT_DECLINED .name).toJson(),
       walletAddress,
       walletSignature,
       PaypalPayment(
