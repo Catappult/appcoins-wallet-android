@@ -2,7 +2,6 @@ package com.asfoundation.wallet.ui.settings.entry
 
 import android.app.AlertDialog
 import android.content.ActivityNotFoundException
-import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
@@ -30,7 +29,7 @@ import com.asfoundation.wallet.permissions.manage.view.ManagePermissionsActivity
 import com.asfoundation.wallet.promo_code.SettingsPreferencePromoCodeState
 import com.asfoundation.wallet.promo_code.repository.PromoCode
 import com.asfoundation.wallet.subscriptions.SubscriptionActivity
-import com.asfoundation.wallet.ui.settings.SettingsActivityView
+import com.asfoundation.wallet.ui.AuthenticationPromptActivity
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.Observable
@@ -50,12 +49,13 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
 
   @Inject
   lateinit var presenter: SettingsPresenter
-  private lateinit var activityView: SettingsActivityView
   private var switchSubject: PublishSubject<Unit>? = null
+  private var authenticationResultSubject: PublishSubject<Boolean>? = null
+
 
   companion object {
-
     const val TURN_ON_FINGERPRINT = "turn_on_fingerprint"
+    private const val AUTHENTICATION_REQUEST_CODE = 33
 
     @JvmStatic
     fun newInstance(turnOnFingerprint: Boolean = false): SettingsFragment {
@@ -67,17 +67,11 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
     }
   }
 
-  override fun onAttach(context: Context) {
-    super.onAttach(context)
-    if (context is SettingsActivityView) {
-      activityView = context
-    }
-  }
-
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     switchSubject = PublishSubject.create()
     presenter.setFingerPrintPreference()
+    authenticationResultSubject = PublishSubject.create()
   }
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -116,7 +110,17 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
 
   override fun onDestroy() {
     switchSubject = null
+    authenticationResultSubject = null
     super.onDestroy()
+  }
+
+  @Deprecated("Deprecated in Java")
+  override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+    super.onActivityResult(requestCode, resultCode, data)
+    if (requestCode == AUTHENTICATION_REQUEST_CODE)
+      if (resultCode == AuthenticationPromptActivity.RESULT_OK) {
+        authenticationResultSubject?.onNext(true)
+      }
   }
 
   override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
@@ -232,10 +236,7 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
 
   override fun navigateToIntent(intent: Intent) = startActivity(intent)
 
-  override fun authenticationResult(): Observable<Boolean> {
-    return Observable.just(false)
-    activityView.authenticationResult()
-  }
+  override fun authenticationResult(): Observable<Boolean> = authenticationResultSubject!!
 
   override fun toggleFingerprint(enabled: Boolean) {
     setFingerprintPreference(enabled)
