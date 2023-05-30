@@ -75,7 +75,7 @@ class PayPalTopupViewModel @Inject constructor(
                   errorCode = it.errorCode,
                   errorDetails = it.errorMessage ?: ""
                 )
-                _state.postValue(State.Error(R.string.purchase_card_error_title))
+                _state.postValue(State.Error(R.string.purchase_error_paypal))
               }
             }
             PaypalTransaction.PaypalValidityState.PENDING -> {
@@ -84,19 +84,19 @@ class PayPalTopupViewModel @Inject constructor(
             PaypalTransaction.PaypalValidityState.ERROR -> {
               Log.d(TAG, "Paypal transaction error")
               topUpAnalytics.sendPaypalErrorEvent(errorDetails = "Paypal transaction error")
-              _state.postValue(State.Error(R.string.purchase_card_error_title))
+              _state.postValue(State.Error(R.string.purchase_error_paypal))
             }
             null -> {
               Log.d(TAG, "Paypal transaction error")
               topUpAnalytics.sendPaypalErrorEvent(errorDetails = "Paypal transaction error")
-              _state.postValue(State.Error(R.string.purchase_card_error_title))
+              _state.postValue(State.Error(R.string.purchase_error_paypal))
             }
           }
         }
         .subscribe({}, {
           Log.d(TAG, it.toString())
           topUpAnalytics.sendPaypalErrorEvent(errorDetails = "Paypal transaction error")
-          _state.postValue(State.Error(R.string.purchase_card_error_title))
+          _state.postValue(State.Error(R.string.purchase_error_paypal))
         })
     )
   }

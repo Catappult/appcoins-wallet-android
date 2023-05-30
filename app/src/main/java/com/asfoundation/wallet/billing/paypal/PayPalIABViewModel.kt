@@ -87,7 +87,7 @@ class PayPalIABViewModel @Inject constructor(
               } else {
                 Log.d(TAG, "No paypal billing agreement")
                 sendPaymentErrorEvent(it.errorCode, it.errorMessage, transactionBuilder)
-                _state.postValue(State.Error(R.string.purchase_card_error_title))
+                _state.postValue(State.Error(R.string.purchase_error_paypal))
               }
             }
             PaypalTransaction.PaypalValidityState.PENDING -> {
@@ -99,7 +99,7 @@ class PayPalIABViewModel @Inject constructor(
                 errorMessage = "Paypal transaction error.",
                 transactionBuilder = transactionBuilder
               )
-              _state.postValue(State.Error(R.string.purchase_card_error_title))
+              _state.postValue(State.Error(R.string.purchase_error_paypal))
             }
             null -> {
               Log.d(TAG, "Paypal transaction error")
@@ -107,7 +107,7 @@ class PayPalIABViewModel @Inject constructor(
                 errorMessage = "Paypal transaction error.",
                 transactionBuilder = transactionBuilder
               )
-              _state.postValue(State.Error(R.string.purchase_card_error_title))
+              _state.postValue(State.Error(R.string.purchase_error_paypal))
             }
           }
         }
@@ -117,7 +117,7 @@ class PayPalIABViewModel @Inject constructor(
             errorMessage = "Paypal transaction error.",
             transactionBuilder = transactionBuilder
           )
-          _state.postValue(State.Error(R.string.purchase_card_error_title))
+          _state.postValue(State.Error(R.string.purchase_error_paypal))
         })
     )
   }
