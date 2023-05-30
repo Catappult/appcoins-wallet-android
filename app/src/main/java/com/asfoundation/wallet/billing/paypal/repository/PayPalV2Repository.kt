@@ -165,7 +165,6 @@ class PayPalV2Repository @Inject constructor(
       else -> PaypalTransaction.PaypalValidityState.NO_BILLING_AGREEMENT
       // If the payment fails with a previous billing agreement, then always tries to login
       // again once
-//      else -> PaypalTransaction.PaypalValidityState.ERROR
     }
     return PaypalTransaction(
       null,

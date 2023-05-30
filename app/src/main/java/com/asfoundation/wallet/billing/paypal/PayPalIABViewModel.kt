@@ -77,7 +77,6 @@ class PayPalIABViewModel @Inject constructor(
         .doOnSuccess {
           when (it?.validity) {
             PaypalTransaction.PaypalValidityState.COMPLETED -> {
-              Log.d(TAG, "Successful Paypal payment ")
               getSuccessBundle(it.hash, null, it.uid, transactionBuilder)
             }
             PaypalTransaction.PaypalValidityState.NO_BILLING_AGREEMENT -> {
@@ -128,7 +127,6 @@ class PayPalIABViewModel @Inject constructor(
         .subscribeOn(networkScheduler)
         .observeOn(viewScheduler)
         .doOnSuccess {
-          Log.d(TAG, "Successful Token creation ")
           authenticatedToken = it.token
           _state.postValue(State.WebViewAuthentication(it.redirect.url))
         }
@@ -153,7 +151,6 @@ class PayPalIABViewModel @Inject constructor(
           .subscribeOn(networkScheduler)
           .observeOn(viewScheduler)
           .doOnSuccess {
-            Log.d(TAG, "Successful Agreement creation: ${it.uid}")
             // after creating the billing agreement, don't create a new token if it fails
             attemptTransaction(
               createTokenIfNeeded = false,
@@ -195,7 +192,6 @@ class PayPalIABViewModel @Inject constructor(
           {
             when (it.status) {
               PaymentModel.Status.COMPLETED -> {
-                Log.d(TAG, "Settled transaction polling completed")
                 getSuccessBundle(it.hash, null, it.uid, transactionBuilder)
               }
               PaymentModel.Status.FAILED, PaymentModel.Status.FRAUD, PaymentModel.Status.CANCELED,
