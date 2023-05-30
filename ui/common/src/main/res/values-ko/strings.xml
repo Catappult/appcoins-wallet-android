@@ -429,7 +429,7 @@
   <string name="my_wallets_action_new_wallet">새로운 지갑</string>
   <string name="my_wallets_action_recover_wallet">지갑 복구</string>
   <string name="my_wallets_action_backup_wallet">지갑 백업하기</string>
-  <string name="my_wallets_action_verify_new_card">새로운 카드 검증</string>
+  <string name="my_wallets_action_verify_new_card">Verify new card</string>
   <string name="my_wallets_action_delete_wallet">지갑 삭제</string>
   <!--Ask a friend for funds-->
   <string name="askafriend_payment_option_button">누군가에게 지불하라고 하세요</string>
@@ -534,11 +534,11 @@
   <string name="verification_notification_reward_already_received_body">이 전화번호는 이 보상을 받기 위해 이미 사용된 번호입니다 😔</string>
   <string name="verification_insert_phone_field_phone_used_already_error">이미 사용된 번호.</string>
   <string name="verification_insert_code_error_common">이런, 무언가 잘못되었습니다. 다시 시도해 주세요!</string>
-  <string name="verification_settings_unverified_title">지갑 확인</string>
+  <string name="verification_settings_unverified_title">Verify Payment Method</string>
   <string name="verification_settings_unverified_body">보상을 받고 친구를 초대하세요</string>
   <string name="verification_settings_verified_title">지갑 확인됨</string>
-  <string name="verification_settings_verifying_title">지갑 확인중…</string>
-  <string name="verification_verified_paypal_description">즉시 환불해 드리겠습니다. 곧 지갑에서 확인할 수 있습니다.</string>
+  <string name="verification_settings_verifying_title">Verifying…</string>
+  <string name="verification_verified_paypal_description">You will be refunded immediately. Your payment method will be verified shortly.</string>
   <string name="verification_verify_paypal_description">계정을 확인하기 위해 최소 %s의 거래가 이루어집니다. 즉시 환불해 드리겠습니다.</string>
   <string name="verification_verify_paypal_button">지금 확인</string>
   <string name="verification_settings_card_verified_title">카드 검증됨</string>
@@ -598,9 +598,9 @@
   <string name="purchase_error_transaction_timeout">거래를 완료하는 데 너무 오래 걸리고 있습니다. 다시 시도하십시오.</string>
   <string name="purchase_error_card_already_in_progress">요청이 이미 처리되었거나 진행 중입니다. 기다려 주세요.</string>
   <string name="purchase_error_payment_rejected">거래가 거부되었습니다. 다른 카드 또는 결제 방법으로 시도하세요.</string>
-  <string name="purchase_error_verify_wallet">이 구매를 완료하려면 결제 방법을 확인하십시오.</string>
-  <string name="purchase_error_verify_card">이 구매를 완료하려면 카드를 확인하십시오.</string>
-  <string name="purachse_error_verify_card_button">카드 확인</string>
+  <string name="purchase_error_verify_wallet">Verify your payment method to complete this purchase.</string>
+  <string name="purchase_error_verify_card">Verify your card to complete this purchase.</string>
+  <string name="purachse_error_verify_card_button">VERIFY CARD</string>
   <string name="purchase_eskills_sku">입장권</string>
   <string name="purchase_paytmupi_install_disclaimer">Paytm UPI 앱을 설치해야 합니다.</string>
   <string name="purchase_app_needed_body">구매를 완료하기 위해서 다음의 앱이 필요합니다.</string>
@@ -635,8 +635,8 @@
   <string name="referral_onboarding_body">레퍼럴 프로그램을 통해 당신과 친구들이 %s까지 벌 수 있습니다.</string>
   <string name="referral_onboarding_body_no_connection">레퍼럴 프로그램을 통해 당신과 친구들이 AppCoins 크레디트를 벌 수 있습니다!</string>
   <string name="referral_onboarding_redeem_button">초대받았습니다</string>
-  <string name="referral_verification_title">직ㅂ 확인</string>
-  <string name="referral_verification_body">레퍼럴 프로그램에 참여하기 위해서는 지갑 인증이 필요합니다. SMS로 인증 코드를 전송하게 됩니다.</string>
+  <string name="referral_verification_title">Verify Payment Method</string>
+  <string name="referral_verification_body">You need to verify your payment method to participate in the Referral Program. We\'ll sent you a verification code via SMS.</string>
   <string name="referral_verification_confirmation_title">초대가 확인되었습니다!</string>
   <string name="referral_verification_confirmation_body">첫 번째 앱 내 구매시에 %1$s 상당의 AppCoins 크레디트를 받게 됩니다. 첫 번째 구매는AppCoins 크레디트 이외의 지불 방식으로 %2$s 이상이 되어야 합니다.</string>
   <string name="referral_verification_not_invited_title">이 번호는 초대받지 않은 것 같습니다&#8230;</string>
@@ -649,8 +649,8 @@
   <string name="referral_view_share_link_button">초대 링크 공유</string>
   <string name="referral_view_notifications_title">알림</string>
   <string name="referral_share_sheet_title">다음을 통해 초대 링크 공유:</string>
-  <string name="referral_view_unverified_body">각 친구에 대해 %s 상당의 AppCoins 크레디트를 받으십시오. 먼저 지갑을 확인해야 합니다.</string>
-  <string name="referral_view_verify_button">지갑 확인</string>
+  <string name="referral_view_unverified_body">Receive %s worth of AppCoins Credits for each friend. You first need to verify your payment method.</string>
+  <string name="referral_view_verify_button">Verify payment method</string>
   <string name="referral_view_i_have_been_invited_button">초대받았습니다</string>
   <string name="referral_view_dropup_menu_friends_invited">초대한 친구</string>
   <string name="referral_view_dropup_menu_earned">수익</string>
@@ -981,7 +981,7 @@
   <string name="rate_us_back_title">도와주시겠어요?</string>
   <string name="rate_us_back_body">AppCoins 지갑을 평가해서 개선할 수 있도록 해 주세요.</string>
   <!--Card verification-->
-  <string name="card_verification_body">결제하려면 신용 카드/직불 카드를 확인하십시오.</string>
+  <string name="card_verification_body">Verify your credit/debit card to make payments.</string>
   <string name="card_verification_charde_disclaimer">%s을(를) 카드에 충전해드릴것이고, 코드를 확인하시면 환불해 드립니다. 은행에 따라 몇 분에서 며칠 정도 걸릴 수 있습니다.</string>
   <string name="card_verification_code_title">거래 상세에서 이 코드를 확인하세요</string>
   <string name="card_verification_code_body">카드 발급사에서 제공한 거래 요약정보에 이 유일한 코드가 표시됩니다.</string>
@@ -999,13 +999,17 @@
   </plurals>
   <string name="card_verification_code_other_card_button">다른 카드로 시도</string>
   <string name="card_verification_code_wrong_error">잘못된 코드</string>
-  <string name="card_verification_wallets_one_step_title">인증을 위한 추가적인 한 단계</string>
+  <string name="card_verification_wallets_one_step_title">One more step to verify</string>
   <string name="card_verification_wallets_one_step_body">거래 상세 내용에 있는 코드를 입력하세요.</string>
   <string name="card_verification_wallets_insert_bode_button">코드 입력</string>
   <string name="card_verification_no_attempts_title">이런, 잘못된 코드를 여러번 입력하셔서 %1$s 금액이 카드로 환불됩니다.</string>
   <string name="card_verification_no_attempts_body">인증 절차를 다시 진행해 주세요.</string>
-  <string name="wallet_verify_header">하나 이상의 지급 방법을 확인하십시오</string>
-  <string name="verify_card_title">카드 검증</string>
+  <string name="wallet_verify_header">Verify at least one payment method</string>
+  <string name="verify_card_title">Verify Card</string>
+  <string name="verify_card_button">Verify bank card</string>
+  <string name="verify_paypal_button">Verify PayPal account</string>
+  <string name="card_verification_body_new">%s will be charged to your card and immediately refunded. Check your card statement for the validation code and insert it here.</string>
+  <string name="card_verification_disclaimer_body">Please note that the confirmation code may appear in the refund notification.</string>
   <!--Vouchers-->
   <string name="voucher_card_body_1">이 바우처를 구매하고 받는</string>
   <string name="voucher_card_body_2"> 최대 %s%% 보너스.</string>
@@ -1114,8 +1118,8 @@
   <string name="gift_card_error_new_users_title">이 코드는 새 사용자만 사용할 수 있습니다!</string>
   <string name="gift_card_error_try_with_different_body">다른 계정으로 다시 시도하십시오.</string>
   <!-- My Wallet -->
-  <string name="mywallet_unverified_title">미확인된 지갑</string>
-  <string name="mywallet_unverified_body">차단을 방지하려면 결제 방법을 확인하십시오.</string>
+  <string name="mywallet_unverified_title">Verify a Payment Method</string>
+  <string name="mywallet_unverified_body">Confirm a payment method to avoid blockages.</string>
   <string name="mywallet_backed_up_date">%s에 지갑을 백업하셨습니다.</string>
   <string name="mywallet_backup_again_button">다시 백업하기</string>
   <string name="mywallet_verify_payment_method_button">새로운 카드 검증</string>
