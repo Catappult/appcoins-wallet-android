@@ -144,7 +144,9 @@ class ManageWalletFragment : BasePageViewFragment() {
           ActiveWalletOptions(walletInfo.wallet)
           Spacer(modifier = Modifier.height(24.dp))
           BackupAlertCard(
-            onClickButton = { myWalletsNavigator.navigateToBackupWallet(walletInfo.wallet) },
+            onClickButton = {
+              myWalletsNavigator.navigateToBackupWallet(walletInfo.wallet)
+            },
             hasBackup = walletInfo.hasBackup,
             backupDate = walletInfo.backupDate
           )
@@ -369,7 +371,8 @@ class ManageWalletFragment : BasePageViewFragment() {
         containerColor = styleguide_blue_secondary
       ) {
         Column(
-          modifier = Modifier
+          modifier =
+          Modifier
             .fillMaxWidth()
             .padding(start = 16.dp, end = 16.dp, bottom = 48.dp),
           verticalArrangement = Arrangement.spacedBy(16.dp)
@@ -408,7 +411,9 @@ class ManageWalletFragment : BasePageViewFragment() {
             )
             BalanceItem(
               icon = R.drawable.ic_eth_token,
-              currencyName = R.string.ethereum_token_name, balance = "${
+              currencyName = R.string.ethereum_token_name,
+              balance =
+              "${
                 balance.ethBalance.token.amount.toString().formatMoney()
               } ${balance.ethBalance.token.symbol}"
             )
@@ -427,8 +432,11 @@ class ManageWalletFragment : BasePageViewFragment() {
   }
 
   fun shareAddress(walletAddress: String) =
-    ShareCompat.IntentBuilder(requireActivity()).setText(walletAddress).setType("text/plain")
-      .setChooserTitle(resources.getString(R.string.share_via)).startChooser()
+    ShareCompat.IntentBuilder(requireActivity())
+      .setText(walletAddress)
+      .setType("text/plain")
+      .setChooserTitle(resources.getString(R.string.share_via))
+      .startChooser()
 
   @Preview
   @Composable

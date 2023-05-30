@@ -1,9 +1,10 @@
 package com.asfoundation.wallet.wallets.repository
 
+import com.appcoins.wallet.core.analytics.analytics.SentryEventLogger
 import com.appcoins.wallet.core.network.backend.api.WalletInfoApi
 import com.appcoins.wallet.core.network.backend.model.WalletInfoResponse
-import com.appcoins.wallet.core.analytics.analytics.SentryEventLogger
 import com.appcoins.wallet.core.utils.android_common.RxSchedulers
+import com.appcoins.wallet.core.utils.android_common.extensions.StringUtils.masked
 import com.asfoundation.wallet.wallets.db.WalletInfoDao
 import com.asfoundation.wallet.wallets.db.entity.WalletInfoEntity
 import com.asfoundation.wallet.wallets.domain.WalletBalance
@@ -13,7 +14,7 @@ import io.reactivex.Observable
 import io.reactivex.Single
 import java.math.BigDecimal
 import java.math.BigInteger
-import java.util.*
+import java.util.Locale
 import javax.inject.Inject
 
 class WalletInfoRepository @Inject constructor(
@@ -125,7 +126,7 @@ class WalletInfoRepository @Inject constructor(
   private fun WalletInfoEntity.toWalletInfo() =
     WalletInfo(
       wallet = wallet,
-      name = name?.ifEmpty { null } ?: wallet.replaceRange(IntRange(6, wallet.length - 5), " ··· "),
+      name = name?.ifEmpty { null } ?: wallet.masked(),
       walletBalance = balanceRepository.mapToWalletBalance(
         creditsValue = balanceRepository.roundToEth(appcCreditsBalanceWei),
         creditsFiatAmount = appcCreditsBalanceFiat ?: BigDecimal.ZERO,

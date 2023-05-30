@@ -7,11 +7,18 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
+import android.widget.FrameLayout
 import android.widget.Toast
+import androidx.compose.ui.platform.ComposeView
+import androidx.navigation.NavController
+import androidx.navigation.fragment.NavHostFragment
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.SwitchPreferenceCompat
+import com.appcoins.wallet.ui.widgets.TopBar
 import com.asf.wallet.R
 import com.asfoundation.wallet.billing.analytics.PageViewAnalytics
 import com.asfoundation.wallet.billing.analytics.WalletsAnalytics
@@ -30,6 +37,7 @@ import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
 import java.util.Locale
 import javax.inject.Inject
+
 
 @AndroidEntryPoint
 class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
@@ -61,10 +69,9 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
 
   override fun onAttach(context: Context) {
     super.onAttach(context)
-    if (context !is SettingsActivityView) {
-      throw IllegalStateException("Settings Fragment must be attached to Settings Activity")
+    if (context is SettingsActivityView) {
+      activityView = context
     }
-    activityView = context
   }
 
   override fun onCreate(savedInstanceState: Bundle?) {
@@ -73,14 +80,28 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
     presenter.setFingerPrintPreference()
   }
 
-  override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
-    setPreferencesFromResource(R.xml.fragment_settings, rootKey)
-  }
-
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
     presenter.present(savedInstanceState)
+    view.findViewById<ComposeView>(R.id.app_bar).apply {
+      setContent {
+        TopBar(isMainBar = false, onClickSupport = { presenter.displayChat() })
+      }
+    }
   }
+
+  override fun onCreateView(
+    inflater: LayoutInflater,
+    container: ViewGroup?,
+    savedInstanceState: Bundle?
+  ): View {
+    val layout = inflater.inflate(R.layout.fragment_settings, container, false)
+    val settingsContainer = layout.findViewById<FrameLayout>(R.id.settings_container_view)
+    val settingsView = super.onCreateView(inflater, settingsContainer, savedInstanceState)
+    settingsContainer.addView(settingsView)
+    return layout
+  }
+
 
   override fun onResume() {
     super.onResume()
@@ -96,6 +117,10 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
   override fun onDestroy() {
     switchSubject = null
     super.onDestroy()
+  }
+
+  override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
+    setPreferencesFromResource(R.xml.settings_options, rootKey)
   }
 
   private fun startBrowserActivity(uri: Uri, newTaskFlag: Boolean) {
@@ -174,7 +199,7 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
   override fun setManageWalletPreference() {
     val manageWalletPreference = findPreference<Preference>("pref_manage_wallet")
     manageWalletPreference?.setOnPreferenceClickListener {
-      presenter.onManageWalletPreferenceClick()
+      presenter.onManageWalletPreferenceClick(navController())
       false
     }
   }
@@ -208,7 +233,8 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
   override fun navigateToIntent(intent: Intent) = startActivity(intent)
 
   override fun authenticationResult(): Observable<Boolean> {
-    return activityView.authenticationResult()
+    return Observable.just(false)
+    activityView.authenticationResult()
   }
 
   override fun toggleFingerprint(enabled: Boolean) {
@@ -418,5 +444,12 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
       e.printStackTrace()
     }
     return version
+  }
+
+  private fun navController(): NavController {
+    val navHostFragment = requireActivity().supportFragmentManager.findFragmentById(
+      R.id.main_host_container
+    ) as NavHostFragment
+    return navHostFragment.navController
   }
 }

@@ -10,7 +10,6 @@
       android:title="@string/action_settings"
       app:allowDividerAbove="false">
 
-    <!-- TODO change to string resources-->
     <Preference
         android:icon="@drawable/ic_manage_wallet"
         android:key="pref_manage_wallet"
@@ -23,7 +22,6 @@
         android:layout="@layout/preference_without_summary_layout"
         android:title="@string/subscriptions_settings_title" />
 
-    <!-- TODO change to string resources-->
     <Preference
         android:icon="@drawable/ic_account"
         android:key="pref_account"

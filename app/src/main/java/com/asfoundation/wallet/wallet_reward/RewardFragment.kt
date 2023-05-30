@@ -216,6 +216,7 @@ class RewardFragment : BasePageViewFragment(), SingleStateFragment<RewardState, 
   override fun onSideEffect(sideEffect: RewardSideEffect) {
     when (sideEffect) {
       is RewardSideEffect.NavigateToSettings -> navigator.navigateToSettings(
+        navController(),
         sideEffect.turnOnFingerprint
       )
     }

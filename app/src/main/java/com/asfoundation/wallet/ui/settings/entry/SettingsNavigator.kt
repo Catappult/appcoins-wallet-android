@@ -3,16 +3,16 @@ package com.asfoundation.wallet.ui.settings.entry
 import android.content.Intent
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
+import androidx.navigation.NavController
 import com.asf.wallet.R
 import com.asfoundation.wallet.backup.BackupActivity
 import com.asfoundation.wallet.eskills.withdraw.WithdrawActivity
-import com.asfoundation.wallet.manage_wallets.ManageWalletFragment
 import com.asfoundation.wallet.promo_code.bottom_sheet.entry.PromoCodeBottomSheetFragment
 import com.asfoundation.wallet.recover.RecoverActivity
+import com.asfoundation.wallet.redeem_gift.bottom_sheet.RedeemGiftBottomSheetFragment
 import com.asfoundation.wallet.ui.AuthenticationPromptActivity
 import com.asfoundation.wallet.ui.settings.wallets.SettingsWalletsFragment
 import com.asfoundation.wallet.ui.wallets.WalletsModel
-import com.asfoundation.wallet.redeem_gift.bottom_sheet.RedeemGiftBottomSheetFragment
 import javax.inject.Inject
 
 class SettingsNavigator @Inject constructor(
@@ -30,15 +30,8 @@ class SettingsNavigator @Inject constructor(
     activity.startActivityForResult(intent, AUTHENTICATION_REQUEST_CODE)
   }
 
-  fun navigateToManageWallet() {
-    fragmentManager.beginTransaction()
-      .setCustomAnimations(
-        R.anim.fade_in_animation, R.anim.fragment_fade_out_animation,
-        R.anim.fade_in_animation, R.anim.fragment_fade_out_animation
-      )
-      .replace(R.id.container, ManageWalletFragment())
-      .addToBackStack(ManageWalletFragment::class.java.simpleName)
-      .commit()
+  fun navigateToManageWallet(navController: NavController) {
+    navController.navigate(R.id.action_navigate_to_manage_wallet)
   }
 
   fun navigateToBackup(walletAddress: String) {

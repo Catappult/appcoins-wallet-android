@@ -8,11 +8,9 @@ import com.appcoins.wallet.ui.arch.data.Navigator
 import com.appcoins.wallet.ui.arch.data.navigate
 import com.asf.wallet.R
 import com.asfoundation.wallet.eskills.withdraw.WithdrawActivity
-import com.asfoundation.wallet.promo_code.bottom_sheet.entry.PromoCodeBottomSheetFragment
 import com.asfoundation.wallet.promotions.ui.vip_referral.PromotionsVipReferralFragment
-import com.asfoundation.wallet.redeem_gift.bottom_sheet.RedeemGiftBottomSheetFragment
 import com.asfoundation.wallet.ui.gamification.GamificationActivity
-import com.asfoundation.wallet.ui.settings.SettingsActivity
+import com.asfoundation.wallet.ui.settings.entry.SettingsFragment
 import javax.inject.Inject
 
 class RewardNavigator @Inject constructor(
@@ -20,13 +18,14 @@ class RewardNavigator @Inject constructor(
   private val navController: NavController
 ) : Navigator {
 
-  fun navigateToSettings(turnOnFingerprint: Boolean = false) {
-    val intent = SettingsActivity.newIntent(fragment.requireContext(), turnOnFingerprint)
-    openIntent(intent)
+  fun navigateToSettings(
+    mainNavController: NavController,
+    turnOnFingerprint: Boolean = false
+  ) {
+    val bundle = Bundle()
+    bundle.putBoolean(SettingsFragment.TURN_ON_FINGERPRINT, turnOnFingerprint)
+    mainNavController.navigate(resId = R.id.action_navigate_to_settings, args = bundle)
   }
-
-  fun openIntent(intent: Intent) = fragment.requireContext()
-    .startActivity(intent)
 
   fun showPromoCodeFragment() {
     navigate(
