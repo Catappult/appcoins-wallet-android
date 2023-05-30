@@ -429,7 +429,7 @@
   <string name="my_wallets_action_new_wallet">ਨਵਾਂ ਬਟੂਆ</string>
   <string name="my_wallets_action_recover_wallet">ਬਟੂਆ ਮੁੜ ਪ੍ਰਾਪਤ ਕਰੋ</string>
   <string name="my_wallets_action_backup_wallet">ਬੈਕਅਪ ਬਟੂਆ</string>
-  <string name="my_wallets_action_verify_new_card">ਨਵੇਂ ਕਾਰਡ ਦੀ ਤਸਦੀਕ ਕਰੋ</string>
+  <string name="my_wallets_action_verify_new_card">Verify new card</string>
   <string name="my_wallets_action_delete_wallet">ਬਟੂਆ ਡੀਲੀਟ ਕਰੋ</string>
   <!--Ask a friend for funds-->
   <string name="askafriend_payment_option_button">ਕਿਸੇ ਨੂੰ ਭੁਗਤਾਨ ਕਰਨ ਲਈ ਕਹੋ</string>
@@ -534,11 +534,11 @@
   <string name="verification_notification_reward_already_received_body">ਇਸ ਇਨਾਮ ਨੂੰ ਪ੍ਰਾਪਤ ਕਰਨ ਲਈ ਇਹ ਫੋਨ ਨੰਬਰ ਪਹਿਲਾਂ ਹੀ ਵਰਤਿਆ ਜਾ ਚੁੱਕਾ ਹੈ 😔</string>
   <string name="verification_insert_phone_field_phone_used_already_error">ਨੰਬਰ ਪਹਿਲਾਂ ਹੀ ਵਰਤਿਆ ਗਿਆ ਹੈ|</string>
   <string name="verification_insert_code_error_common">ਓਹ ਹੋ, ਕੁਝ ਗ਼ਲਤ ਹੋਇਆ| ਮੁੜ ਕੋਸ਼ਿਸ ਕਰੋ ਜੀ!</string>
-  <string name="verification_settings_unverified_title">ਬਟੂਏ ਦੀ ਤਸਦੀਕ ਕਰੋ</string>
+  <string name="verification_settings_unverified_title">Verify Payment Method</string>
   <string name="verification_settings_unverified_body">ਇਨਾਮ ਪ੍ਰਾਪਤ ਕਰੋ ਅਤੇ ਦੋਸਤਾਂ ਨੂੰ ਸੱਦਾ ਦਿਓ</string>
   <string name="verification_settings_verified_title">ਬਟੂਏ ਦੀ ਤਸਦੀਕ ਕੀਤੀ ਗਈ</string>
-  <string name="verification_settings_verifying_title">ਬਟੂਏ ਦੀ ਪੁਸ਼ਟੀ ਕੀਤੀ ਜਾ ਰਹੀ ਹੈ...</string>
-  <string name="verification_verified_paypal_description">ਤੁਹਾਨੂੰ ਤੁਰੰਤ ਹੀ ਰਿਫੰਡ ਕੀਤਾ ਜਾਵੇਗਾ। ਤੁਹਾਡੇ ਬਟੂਏ ਦੀ ਜਲਦੀ ਹੀ ਪੁਸ਼ਟੀ ਕੀਤੀ ਜਾਵੇਗੀ।</string>
+  <string name="verification_settings_verifying_title">Verifying…</string>
+  <string name="verification_verified_paypal_description">You will be refunded immediately. Your payment method will be verified shortly.</string>
   <string name="verification_verify_paypal_description">ਤੁਹਾਡੇ ਖਾਤੇ ਦੀ ਪੁਸ਼ਟੀ ਕਰਨ ਲਈ ਘੱਟੋ-ਘੱਟ %s ਦਾ ਲੈਣ-ਦੇਣ ਕੀਤਾ ਜਾਵੇਗਾ। ਇਸ ਨੂੰ ਤੁਰੰਤ ਵਾਪਸ ਕਰ ਦਿੱਤਾ ਜਾਵੇਗਾ।</string>
   <string name="verification_verify_paypal_button">ਹੁਣੇ ਪੁਸ਼ਟੀ ਕਰੋ</string>
   <string name="verification_settings_card_verified_title">ਕਾਰਡ ਦੀ ਤਸਦੀਕ ਕੀਤੀ ਗਈ</string>
@@ -598,9 +598,9 @@
   <string name="purchase_error_transaction_timeout">ਅਜਿਹਾ ਲਗਦਾ ਹੈ ਕਿ ਟ੍ਰਾਂਜੈਕਸ਼ਨ ਨੂੰ ਪੂਰਾ ਕਰਨ ਲਈ ਤੁਸੀ ਬਹੁਤ ਸਮਾਂ ਲਗਾ ਦਿੱਤਾ| ਮੁੜ ਕੋਸ਼ਿਸ ਕਰੋ ਜੀ|</string>
   <string name="purchase_error_card_already_in_progress">ਤੁਹਾਡੀ ਬੇਨਤੀ ਤੇ ਪਹਿਲਾਂ ਹੀ ਕਾਰਵਾਈ ਕੀਤੀ ਜਾ ਚੁੱਕੀ ਹੈ ਜਾਂ ਜਾਰੀ ਹੈ| ਕ੍ਰਿਪਾ ਕਰਕੇ ਉਡੀਕ ਕਰੋ|</string>
   <string name="purchase_error_payment_rejected">The transaction has been rejected. Please try with a different card or payment method.</string>
-  <string name="purchase_error_verify_wallet">ਇਸ ਖਰੀਦ ਨੂੰ ਪੂਰਾ ਕਰਨ ਲਈ ਆਪਣੇ ਭੁਗਤਾਨ ਦੇ ਢੰਗ ਨੂੰ ਪ੍ਰਮਾਣਿਤ ਕਰੋ।</string>
-  <string name="purchase_error_verify_card">ਇਸ ਖਰੀਦ ਨੂੰ ਪੂਰਾ ਕਰਨ ਲਈ ਆਪਣੇ ਕਾਰਡ ਨੂੰ ਪ੍ਰਮਾਣਿਤ ਕਰੋ।</string>
-  <string name="purachse_error_verify_card_button">ਕਾਰਡ ਪ੍ਰਮਾਣਿਤ ਕਰੋ</string>
+  <string name="purchase_error_verify_wallet">Verify your payment method to complete this purchase.</string>
+  <string name="purchase_error_verify_card">Verify your card to complete this purchase.</string>
+  <string name="purachse_error_verify_card_button">VERIFY CARD</string>
   <string name="purchase_eskills_sku">ਦਾਖਲਾ ਟਿਕਟ</string>
   <string name="purchase_paytmupi_install_disclaimer">ਤੁਹਾਨੂੰ ਪੈਟੀਐਮ ਯੂਪੀਆਈ ਐਪ ਨੂੰ ਇੰਸਟਾਲ ਕਰਨ ਦੀ ਲੋੜ ਹੋਵੇਗੀ।</string>
   <string name="purchase_app_needed_body">ਆਪਣੀ ਖਰੀਦ ਨੂੰ ਪੂਰਾ ਕਰਨ ਲਈ ਤੁਹਾਨੂੰ ਹੇਠਾਂ ਦਿੱਤੀ ਐਪ ਦੀ ਲੋੜ ਹੈ।</string>
@@ -635,8 +635,8 @@
   <string name="referral_onboarding_body">ਤੁਸੀਂ ਅਤੇ ਤੁਹਾਡੇ ਦੋਸਤ ਸਾਡੇ ਰੈਫਰਲ ਪ੍ਰੋਗਰਾਮ ਨਾਲ %s ਤੱਕ ਕਮਾ ਸਕਦੇ ਹੋ!</string>
   <string name="referral_onboarding_body_no_connection">ਤੁਸੀਂ ਅਤੇ ਤੁਹਾਡੇ ਦੋਸਤ ਸਾਡੇ ਰੈਫਰਲ ਪ੍ਰੋਗਰਾਮ ਨਾਲ ਐਪ ਸਿੱਕੇ ਕਮਾ ਸਕਦੇ ਹੋ!</string>
   <string name="referral_onboarding_redeem_button">ਮੈਨੂੰ ਬੁਲਾਇਆ ਗਿਆ ਹੈ</string>
-  <string name="referral_verification_title">ਆਪਣੇ ਬਟੂਏ ਦੀ ਤਸਦੀਕ ਕਰੋ</string>
-  <string name="referral_verification_body">ਰੈਫਰਲ ਪ੍ਰੋਗਰਾਮ ਵਿਚ ਹਿੱਸਾ ਲੈਣ ਲਈ ਤੁਹਾਨੂੰ ਆਪਣੇ ਬਟੂਏ ਦੀ ਤਸਦੀਕ ਕਰਨ ਦੀ ਜ਼ਰੂਰਤ ਹੈ| ਅਸੀਂ ਤੁਹਾਨੂੰ ਐਸਐਮਐਸ ਦੁਆਰਾ ਇੱਕ ਪ੍ਰਮਾਣੀਕਰਨ ਕੋਡ ਭੇਜਾਂਗੇ|</string>
+  <string name="referral_verification_title">Verify Payment Method</string>
+  <string name="referral_verification_body">You need to verify your payment method to participate in the Referral Program. We\'ll sent you a verification code via SMS.</string>
   <string name="referral_verification_confirmation_title">ਤੁਹਾਡਾ ਸੱਦਾ ਪ੍ਰਮਾਣਿਤ ਕੀਤਾ ਗਿਆ ਸੀ!</string>
   <string name="referral_verification_confirmation_body">ਤੁਸੀਂ ਆਪਣੀ ਪਹਿਲੀ ਇਨ-ਐਪ ਖਰੀਦ ਤੇ %1$s ਦੇ ਐਪਸਿੱਕੇ ਕ੍ਰੈਡਿਟ ਪ੍ਰਾਪਤ ਕਰੋਗੇ| ਤੁਹਾਡੀ ਪਹਿਲੀ ਖਰੀਦ ਐਪ ਸਿੱਕੇ ਕ੍ਰੈਡਿਟ ਤੋਂ ਇਲਾਵਾ ਕਿਸੇ ਵੀ ਭੁਗਤਾਨ ਵਿਧੀ ਨਾਲ %2$s ਤੋਂ ਵੱਧ ਹੋਣੀ ਚਾਹੀਦੀ ਹੈ|</string>
   <string name="referral_verification_not_invited_title">ਅਜਿਹਾ ਲਗਦਾ ਹੈ ਕਿ ਇਸ ਨੰਬਰ ਨੂੰ ਬੁਲਾਇਆ ਨਹੀਂ ਗਿਆ ਸੀ&#8230;</string>
@@ -649,8 +649,8 @@
   <string name="referral_view_share_link_button">ਸੱਦੇ ਵਾਲੇ ਲਿੰਕ ਨੂੰ ਸਾਂਝਾ ਕਰੋ</string>
   <string name="referral_view_notifications_title">ਨੋਟੀਫਿਕੇਸ਼ਨ</string>
   <string name="referral_share_sheet_title">ਸੱਦੇ ਵਾਲੇ ਲਿੰਕ ਨੂੰ ਇਸ ਰਾਹੀਂ ਸਾਂਝਾ ਕਰੋ:</string>
-  <string name="referral_view_unverified_body">ਹਰ ਇੱਕ ਦੋਸਤ ਲਈ %s ਮੁੱਲ ਦੇ ਐਪ ਸਿੱਕੇ ਕ੍ਰੈਡਿਟ ਪ੍ਰਾਪਤ ਕਰੋ। ਤੁਹਾਨੂੰ ਪਹਿਲਾਂ ਆਪਣੇ ਬਟੂਏ ਦੀ ਪੁਸ਼ਟੀ ਕਰਨ ਦੀ ਲੋੜ ਹੈ।</string>
-  <string name="referral_view_verify_button">ਬਟੂਏ ਦੀ ਤਸਦੀਕ ਕਰੋ</string>
+  <string name="referral_view_unverified_body">Receive %s worth of AppCoins Credits for each friend. You first need to verify your payment method.</string>
+  <string name="referral_view_verify_button">Verify payment method</string>
   <string name="referral_view_i_have_been_invited_button">ਮੈਨੂੰ ਬੁਲਾਇਆ ਗਿਆ ਹੈ</string>
   <string name="referral_view_dropup_menu_friends_invited">ਦੋਸਤ ਬੁਲਾਏ ਗਏ</string>
   <string name="referral_view_dropup_menu_earned">ਕਮਾਏ</string>
@@ -988,7 +988,7 @@
   <string name="rate_us_back_title">ਸਾਡੀ ਮਦਦ ਕਰਨਾ ਚਾਹੁੰਦੇ ਹੋ?</string>
   <string name="rate_us_back_body">ਐਪ ਸਟੋਰ ਤੇ ਐਪ ਸਿੱਕੇ ਬਟੂਏ ਨੂੰ ਰੇਟ ਕਰੋ ਤਾਂ ਜੋ ਅਸੀਂ ਇਸ ਵਿੱਚ ਸੁਧਾਰ ਕਰ ਸਕੀਏ|</string>
   <!--Card verification-->
-  <string name="card_verification_body">ਭੁਗਤਾਨ ਕਰਨ ਲਈ ਆਪਣੇ ਕ੍ਰੈਡਿਟ/ਡੈਬਿਟ ਕਾਰਡ ਨੂੰ ਸ਼ਾਮਲ ਕਰੋ।</string>
+  <string name="card_verification_body">Verify your credit/debit card to make payments.</string>
   <string name="card_verification_charde_disclaimer">ਅਸੀਂ ਤੁਹਾਡੇ ਕਾਰਡ ਤੋਂ %s ਰੁਪਏ ਕਟਾਂਗੇ ਅਤੇ ਜਦੋਂ ਤੁਸੀਂ ਕੋਡ ਦੀ ਪੁਸ਼ਟੀ ਕਰੋਗੇ ਤਾਂ ਅਸੀਂ ਉਹ ਪੈਸੇ ਵਾਪਸ ਕਰ ਦੇਵਾਂਗੇ| ਤੁਹਾਡੇ ਬੈਂਕ ਤੇ ਨਿਰਭਰ ਕਰਦਿਆਂ, ਇਸ ਵਿੱਚ ਮਿੰਟਾਂ ਤੋਂ ਲੈ ਕੇ ਕੁੱਝ ਦਿਨਾਂ ਤੱਕ ਦਾ ਸਮਾਂ ਲੱਗ ਸਕਦਾ ਹੈ|</string>
   <string name="card_verification_code_title">ਲੈਣਦੇਣ ਦੇ ਵੇਰਵੇਆਂ ਵਿੱਚ ਕੋਡ ਦੀ ਜਾਂਚ ਕਰੋ</string>
   <string name="card_verification_code_body">ਤੁਹਾਡੇ ਕਾਰਡ ਦੇ ਜਾਰੀਕਰਤਾ ਦੁਆਰਾ ਪ੍ਰਦਾਨ ਕੀਤੇ ਸੌਦੇ ਦੇ ਸੰਖੇਪ ਵਿੱਚ ਇੱਕ ਵਿਲੱਖਣ ਕੋਡ ਦਿਖਾਈ ਦੇਵੇਗਾ|</string>
@@ -1008,13 +1008,17 @@
   </plurals>
   <string name="card_verification_code_other_card_button">ਕਿਸੇ ਹੋਰ ਕਾਰਡ ਨਾਲ ਕੋਸ਼ਿਸ਼ ਕਰੋ</string>
   <string name="card_verification_code_wrong_error">ਗਲਤ ਕੋਡ</string>
-  <string name="card_verification_wallets_one_step_title">ਪ੍ਰਮਾਣਿਤ ਕਰਨ ਲਈ ਇੱਕ ਹੋਰ ਕਦਮ</string>
+  <string name="card_verification_wallets_one_step_title">One more step to verify</string>
   <string name="card_verification_wallets_one_step_body">ਲੈਣ-ਦੇਣ ਦੇ ਵੇਰਵਿਆਂ ਵਿੱਚ ਦਿਸ ਰਿਹਾ ਕੋਡ ਭਰੋ|</string>
   <string name="card_verification_wallets_insert_bode_button">ਕੋਡ ਭਰੋ</string>
   <string name="card_verification_no_attempts_title">ਓਹ ਹੋ, ਤੁਸੀਂ ਬਹੁਤ ਵਾਰ ਗਲਤ ਕੋਡ ਪਾਇਆ ਹੈ ਤਾਂ %1$s ਤੁਹਾਡੇ ਕਾਰਡ ਤੇ ਵਾਪਸ ਕਰ ਦਿੱਤਾ ਜਾਵੇਗਾ|</string>
   <string name="card_verification_no_attempts_body">ਕਿਰਪਾ ਕਰਕੇ, ਪੁਸ਼ਟੀਕਰਣ ਪ੍ਰਕਿਰਿਆ ਦੁਬਾਰਾ ਸ਼ੁਰੂ ਕਰੋ|</string>
-  <string name="wallet_verify_header">ਘੱਟੋ-ਘੱਟ ਇੱਕ ਭੁਗਤਾਨ ਵਿਧੀ ਨੂੰ ਪ੍ਰਮਾਣਿਤ ਕਰੋ</string>
-  <string name="verify_card_title">ਕਾਰਡ ਦੀ ਤਸਦੀਕ ਕਰੋ</string>
+  <string name="wallet_verify_header">Verify at least one payment method</string>
+  <string name="verify_card_title">Verify Card</string>
+  <string name="verify_card_button">Verify bank card</string>
+  <string name="verify_paypal_button">Verify PayPal account</string>
+  <string name="card_verification_body_new">%s will be charged to your card and immediately refunded. Check your card statement for the validation code and insert it here.</string>
+  <string name="card_verification_disclaimer_body">Please note that the confirmation code may appear in the refund notification.</string>
   <!--Vouchers-->
   <string name="voucher_card_body_1">ਇਹ ਵਾਊਚਰ ਖਰੀਦੋ ਅਤੇ ਪ੍ਰਾਪਤ ਕਰੋ</string>
   <string name="voucher_card_body_2"> %s%% ਤੱਕ ਦਾ ਬੋਨਸ|</string>
@@ -1123,8 +1127,8 @@
   <string name="gift_card_error_new_users_title">ਇਹ ਕੋਡ ਸਿਰਫ ਨਵੇਂ ਉਪਭੋਗਤਾਵਾਂ ਲਈ ਹੈ!</string>
   <string name="gift_card_error_try_with_different_body">ਕਿਰਪਾ ਕਰਕੇ ਦੁਬਾਰਾ ਕੋਸ਼ਿਸ਼ ਕਰੋ, ਕੋਈ ਵੱਖਰਾ ਕੋਡ ਵਰਤੋ।</string>
   <!-- My Wallet -->
-  <string name="mywallet_unverified_title">ਪ੍ਰਮਾਣਿਤ ਨਾ ਕੀਤਾ ਬਟੂਆ</string>
-  <string name="mywallet_unverified_body">ਰੁਕਾਵਟਾਂ ਤੋਂ ਬਚਣ ਲਈ ਭੁਗਤਾਨ ਵਿਧੀ ਦੀ ਪੁਸ਼ਟੀ ਕਰੋ।</string>
+  <string name="mywallet_unverified_title">Verify a Payment Method</string>
+  <string name="mywallet_unverified_body">Confirm a payment method to avoid blockages.</string>
   <string name="mywallet_backed_up_date">ਤੁਸੀਂ %s ਤੇ ਆਪਣੇ ਬਟੂਏ ਦਾ ਬੈਕਅੱਪ ਲਿਆ ਹੈ।</string>
   <string name="mywallet_backup_again_button">ਦੁਬਾਰਾ ਬੈਕਅੱਪ ਲਓ</string>
   <string name="mywallet_verify_payment_method_button">ਨਵੇਂ ਕਾਰਡ ਦੀ ਤਸਦੀਕ ਕਰੋ</string>
