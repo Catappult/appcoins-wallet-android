@@ -5,6 +5,7 @@ import com.appcoins.wallet.appcoins.rewards.ErrorMapper
 import com.appcoins.wallet.bdsbilling.Billing
 import com.appcoins.wallet.bdsbilling.repository.entity.Product
 import com.appcoins.wallet.core.network.microservices.model.BillingSupportedType
+import com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue
 import com.appcoins.wallet.gamification.repository.ForecastBonusAndLevel
 import com.asfoundation.wallet.billing.adyen.PurchaseBundleModel
 import com.asfoundation.wallet.entity.PendingTransaction
@@ -64,13 +65,13 @@ class PaymentMethodsInteractor @Inject constructor(
       inAppPurchaseInteractor.resume(uri, transactionType, packageName, productName,
           developerPayload, isBds, type, transaction)
 
-  fun convertAppcToLocalFiat(appcValue: Double): Single<com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue> =
+  fun convertAppcToLocalFiat(appcValue: Double): Single<FiatValue> =
       inAppPurchaseInteractor.convertToLocalFiat(appcValue)
 
-  fun convertCurrencyToLocalFiat(value: Double, currency: String): Single<com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue> =
+  fun convertCurrencyToLocalFiat(value: Double, currency: String): Single<FiatValue> =
       inAppPurchaseInteractor.convertFiatToLocalFiat(value, currency)
 
-  fun convertCurrencyToAppc(value: Double, currency: String): Single<com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue> =
+  fun convertCurrencyToAppc(value: Double, currency: String): Single<FiatValue> =
       inAppPurchaseInteractor.convertFiatToAppc(value, currency)
 
 

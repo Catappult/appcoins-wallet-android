@@ -34,8 +34,8 @@ interface TopUpFragmentView {
   fun showNoNetworkError()
   fun showRetryAnimation()
   fun retryClick(): Observable<Any>
-  fun getValuesClicks(): Observable<com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue>
-  fun setValuesAdapter(values: List<com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue>)
+  fun getValuesClicks(): Observable<FiatValue>
+  fun setValuesAdapter(values: List<FiatValue>)
   fun showValuesAdapter()
   fun hideValuesAdapter()
   fun getKeyboardEvents(): Observable<Boolean>

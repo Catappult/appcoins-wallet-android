@@ -524,7 +524,7 @@ class AdyenTopUpPresenter(
     return if (selectedCurrency == TopUpData.FIAT_CURRENCY) {
       Single.just(BigDecimal(amount))
     } else adyenPaymentInteractor.convertToLocalFiat(BigDecimal(appcValue).toDouble())
-      .map(com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue::amount)
+      .map(FiatValue::amount)
   }
 
   private fun createBundle(

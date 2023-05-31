@@ -12,6 +12,7 @@ import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.appcoins.wallet.core.utils.android_common.Log
 import com.appcoins.wallet.core.utils.android_common.WalletCurrency
 import com.appcoins.wallet.core.utils.android_common.extensions.isNoNetworkException
+import com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue
 import com.asfoundation.wallet.wallets.usecases.GetWalletInfoUseCase
 import io.reactivex.Observable
 import io.reactivex.Scheduler
@@ -72,7 +73,7 @@ class MergedAppcoinsPresenter(
         val creditsFiatBalance = walletInfo.walletBalance.creditsBalance.fiat
         val creditsAmount = walletInfo.walletBalance.creditsBalance.token.amount
         val appcFiatValue =
-          com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue(
+          FiatValue(
             appcFiatBalance.amount.plus(ethFiatBalance.amount),
             appcFiatBalance.currency,
             appcFiatBalance.symbol

@@ -26,7 +26,7 @@ class TransactionDetailModule {
     externalBrowserRouter: ExternalBrowserRouter,
     displayChatUseCase: DisplayChatUseCase,
     transactionDetailRouter: TransactionDetailRouter,
-    localCurrencyConversionService: com.appcoins.wallet.feature.changecurrency.data.currencies.LocalCurrencyConversionService
+    localCurrencyConversionService: LocalCurrencyConversionService
   ): TransactionDetailViewModelFactory {
     return TransactionDetailViewModelFactory(
       findDefaultWalletUseCase, findNetworkInfoUseCase,

@@ -29,7 +29,7 @@ class NFTRepository @Inject constructor(
   private val nftApi: NftApi,
   private val rxSchedulers: RxSchedulers,
   private val web3j: Web3j,
-  private val localCurrencyConversionService: com.appcoins.wallet.feature.changecurrency.data.currencies.LocalCurrencyConversionService,
+  private val localCurrencyConversionService: LocalCurrencyConversionService,
   private val chainID: Long,
 ) {
 

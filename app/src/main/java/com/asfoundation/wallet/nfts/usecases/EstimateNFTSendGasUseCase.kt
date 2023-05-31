@@ -13,7 +13,7 @@ import javax.inject.Inject
 
 class EstimateNFTSendGasUseCase @Inject constructor(
   private val getCurrentWallet: GetCurrentWalletUseCase,
-  private val getSelectedCurrencyUseCase: com.appcoins.wallet.feature.changecurrency.data.use_cases.GetSelectedCurrencyUseCase,
+  private val getSelectedCurrencyUseCase: GetSelectedCurrencyUseCase,
   private val NFTRepository: NFTRepository,
   private val dispatchers: Dispatchers
 ) {

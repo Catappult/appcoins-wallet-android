@@ -89,11 +89,11 @@ class WalletsInteract @Inject constructor(
         .ignoreElement()
     }
 
-  private fun getTotalBalance(walletBalance: List<WalletBalance>): com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue {
-    if (walletBalance.isEmpty()) return com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue()
+  private fun getTotalBalance(walletBalance: List<WalletBalance>): FiatValue {
+    if (walletBalance.isEmpty()) return FiatValue()
     val totalBalance = walletBalance.sumByBigDecimal { it.balance.amount }
     val wallet = walletBalance[0]
-    return com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue(
+    return FiatValue(
       totalBalance,
       wallet.balance.currency,
       wallet.balance.symbol

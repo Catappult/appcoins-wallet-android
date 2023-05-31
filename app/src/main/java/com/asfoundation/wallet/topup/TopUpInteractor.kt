@@ -25,7 +25,7 @@ import javax.inject.Inject
 
 class TopUpInteractor @Inject constructor(
   private val repository: BdsRepository,
-  private val conversionService: com.appcoins.wallet.feature.changecurrency.data.currencies.LocalCurrencyConversionService,
+  private val conversionService: LocalCurrencyConversionService,
   private val gamificationInteractor: GamificationInteractor,
   private val topUpValuesService: TopUpValuesService,
   private var walletBlockedInteract: WalletBlockedInteract,
@@ -35,7 +35,7 @@ class TopUpInteractor @Inject constructor(
   private val getCurrentPromoCodeUseCase: GetCurrentPromoCodeUseCase
 ) {
 
-  private val chipValueIndexMap: LinkedHashMap<com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue, Int> = LinkedHashMap()
+  private val chipValueIndexMap: LinkedHashMap<FiatValue, Int> = LinkedHashMap()
   private var limitValues: TopUpLimitValues = TopUpLimitValues()
 
   fun getPaymentMethods(value: String, currency: String): Single<List<PaymentMethod>> =

@@ -20,8 +20,8 @@ import java.math.RoundingMode
 import javax.inject.Inject
 
 class BalanceRepository @Inject constructor(
-  private val getSelectedCurrencyUseCase: com.appcoins.wallet.feature.changecurrency.data.use_cases.GetSelectedCurrencyUseCase,
-  private val localCurrencyConversionService: com.appcoins.wallet.feature.changecurrency.data.currencies.LocalCurrencyConversionService,
+  private val getSelectedCurrencyUseCase: GetSelectedCurrencyUseCase,
+  private val localCurrencyConversionService: LocalCurrencyConversionService,
   private val rxSchedulers: RxSchedulers,
   private val dispatchers: Dispatchers
 ) {
@@ -83,7 +83,7 @@ class BalanceRepository @Inject constructor(
     val creditsToken =
       mapToTokenBalance(
         creditsValue, APPC_C_CURRENCY, WalletCurrency.CREDITS.symbol,
-        com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue(
+        FiatValue(
           creditsFiatAmount,
           fiatCurrency,
           fiatSymbol
@@ -92,7 +92,7 @@ class BalanceRepository @Inject constructor(
     val appcToken =
       mapToTokenBalance(
         appcValue, APPC_CURRENCY, WalletCurrency.APPCOINS.symbol,
-        com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue(
+        FiatValue(
           appcFiatAmount,
           fiatCurrency,
           fiatSymbol
@@ -101,7 +101,7 @@ class BalanceRepository @Inject constructor(
     val ethToken =
       mapToTokenBalance(
         ethValue, ETH_CURRENCY, WalletCurrency.ETHEREUM.symbol,
-        com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue(
+        FiatValue(
           ethFiatAmount,
           fiatCurrency,
           fiatSymbol
@@ -122,7 +122,7 @@ class BalanceRepository @Inject constructor(
     tokenValue: BigDecimal,
     tokenCurrency: String,
     tokenSymbol: String,
-    fiatValue: com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue
+    fiatValue: FiatValue
   ): TokenBalance {
     return TokenBalance(TokenValue(tokenValue, tokenCurrency, tokenSymbol), fiatValue)
   }
@@ -130,12 +130,12 @@ class BalanceRepository @Inject constructor(
   private fun getOverrallBalance(
     creditsBalance: TokenBalance, appcBalance: TokenBalance,
     ethBalance: TokenBalance
-  ): com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue {
+  ): FiatValue {
     var balance =
       getAddBalanceValue(BalanceInteractor.BIG_DECIMAL_MINUS_ONE, creditsBalance.fiat.amount)
     balance = getAddBalanceValue(balance, appcBalance.fiat.amount)
     balance = getAddBalanceValue(balance, ethBalance.fiat.amount)
-    return com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue(
+    return FiatValue(
       balance,
       appcBalance.fiat.currency,
       appcBalance.fiat.symbol
@@ -145,10 +145,10 @@ class BalanceRepository @Inject constructor(
   private fun getCreditsFiatBalance(
     creditsBalance: TokenBalance,
     appcBalance: TokenBalance
-  ): com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue {
+  ): FiatValue {
     val balance =
       getAddBalanceValue(BalanceInteractor.BIG_DECIMAL_MINUS_ONE, creditsBalance.fiat.amount)
-    return com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue(
+    return FiatValue(
       balance,
       appcBalance.fiat.currency,
       appcBalance.fiat.symbol

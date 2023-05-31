@@ -22,7 +22,7 @@ import javax.inject.Inject
 
 class GamificationInteractor @Inject constructor(private val gamification: Gamification,
                                                  private val defaultWallet: FindDefaultWalletInteract,
-                                                 private val conversionService: com.appcoins.wallet.feature.changecurrency.data.currencies.LocalCurrencyConversionService,
+                                                 private val conversionService: LocalCurrencyConversionService,
                                                  private val getCurrentPromoCodeUseCase: GetCurrentPromoCodeUseCase) {
 
   private var isBonusActiveAndValid: Boolean = false
@@ -59,7 +59,7 @@ class GamificationInteractor @Inject constructor(private val gamification: Gamif
                         promoCodeString),
                     conversionService.localCurrency,
                     gamification.getUserBonusAndLevel(wallet.address, promoCode.code),
-                    Function3 { appcBonusValue: ForecastBonus, localCurrency: com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue, userBonusAndLevel: ForecastBonusAndLevel ->
+                    Function3 { appcBonusValue: ForecastBonus, localCurrency: FiatValue, userBonusAndLevel: ForecastBonusAndLevel ->
                       map(appcBonusValue, localCurrency, userBonusAndLevel, amount)
                     })
               }
@@ -68,7 +68,7 @@ class GamificationInteractor @Inject constructor(private val gamification: Gamif
   }
 
 
-  private fun map(forecastBonus: ForecastBonus, fiatValue: com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue,
+  private fun map(forecastBonus: ForecastBonus, fiatValue: FiatValue,
                   forecastBonusAndLevel: ForecastBonusAndLevel,
                   amount: BigDecimal): ForecastBonusAndLevel {
     val status = getBonusStatus(forecastBonus, forecastBonusAndLevel)
@@ -106,10 +106,10 @@ class GamificationInteractor @Inject constructor(private val gamification: Gamif
   }
 
   fun getAppcToLocalFiat(value: String, scale: Int,
-                         getFromCache: Boolean = false): Single<com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue> {
+                         getFromCache: Boolean = false): Single<FiatValue> {
     return conversionService.getAppcToLocalFiat(value, scale, getFromCache)
         .onErrorReturn {
-          com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue(
+          FiatValue(
             BigDecimal("-1"),
             "",
             ""

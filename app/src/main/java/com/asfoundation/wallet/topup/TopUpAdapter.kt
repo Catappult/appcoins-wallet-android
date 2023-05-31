@@ -13,16 +13,16 @@ import com.asf.wallet.databinding.ItemTopValueBinding
 import rx.functions.Action1
 
 
-class TopUpAdapter(private val listener: Action1<com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue>
-) : ListAdapter<com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue, TopUpAdapter.TopUpViewHolder>(FiatValueCallback()) {
+class TopUpAdapter(private val listener: Action1<FiatValue>
+) : ListAdapter<FiatValue, TopUpAdapter.TopUpViewHolder>(FiatValueCallback()) {
 
 
-  class FiatValueCallback : DiffUtil.ItemCallback<com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue>() {
-    override fun areItemsTheSame(oldItem: com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue, newItem: com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue): Boolean {
+  class FiatValueCallback : DiffUtil.ItemCallback<FiatValue>() {
+    override fun areItemsTheSame(oldItem: FiatValue, newItem: FiatValue): Boolean {
       return oldItem.amount == newItem.amount
     }
 
-    override fun areContentsTheSame(oldItem: com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue, newItem: com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue): Boolean {
+    override fun areContentsTheSame(oldItem: FiatValue, newItem: FiatValue): Boolean {
       return oldItem == newItem
     }
   }
@@ -40,7 +40,7 @@ class TopUpAdapter(private val listener: Action1<com.appcoins.wallet.feature.cha
 
     private val binding by lazy { ItemTopValueBinding.bind(itemView) }
 
-    fun bind(fiatValue: com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue, listener: Action1<com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue>) {
+    fun bind(fiatValue: FiatValue, listener: Action1<FiatValue>) {
       val formatter = NumberFormatterUtils.create()
       val text = fiatValue.symbol + formatter.formatNumberWithSuffix(fiatValue.amount.toFloat())
 

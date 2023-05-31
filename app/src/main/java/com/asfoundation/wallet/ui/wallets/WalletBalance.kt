@@ -6,11 +6,10 @@ import java.io.Serializable
 data class WalletBalance(
   val walletName: String,
   val walletAddress: String,
-  val balance: com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue,
+  val balance: FiatValue,
   val isActiveWallet: Boolean,
   val backupDate: Long
 ) : Serializable {
 
-  constructor() : this("", "",
-    com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue(), false, 0)
+  constructor() : this("", "", FiatValue(), false, 0)
 }

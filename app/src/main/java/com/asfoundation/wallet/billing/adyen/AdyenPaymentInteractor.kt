@@ -152,7 +152,7 @@ class AdyenPaymentInteractor @Inject constructor(
     )
   }
 
-  fun convertToLocalFiat(doubleValue: Double): Single<com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue> {
+  fun convertToLocalFiat(doubleValue: Double): Single<FiatValue> {
     return inAppPurchaseInteractor.convertToLocalFiat(doubleValue)
   }
 

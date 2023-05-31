@@ -11,7 +11,7 @@ class TopUpValuesApiResponseMapper @Inject constructor(){
 
   fun map(defaultValues: TopUpDefaultValuesResponse): TopUpValuesModel {
     return TopUpValuesModel(ArrayList(defaultValues.items.map {
-      com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue(
+      FiatValue(
         BigDecimal(it.price.fiat.value), it.price.fiat.currency.code,
         it.price.fiat.currency.sign
       )
@@ -20,11 +20,11 @@ class TopUpValuesApiResponseMapper @Inject constructor(){
 
   fun mapValues(limitValuesResponse: TopUpLimitValuesResponse): TopUpLimitValues {
     return TopUpLimitValues(
-      com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue(
+      FiatValue(
         BigDecimal(limitValuesResponse.values.min), limitValuesResponse.currency.code,
         limitValuesResponse.currency.sign
       ),
-      com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue(
+      FiatValue(
         BigDecimal(limitValuesResponse.values.max), limitValuesResponse.currency.code,
         limitValuesResponse.currency.sign
       )
