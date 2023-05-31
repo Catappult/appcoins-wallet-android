@@ -27,20 +27,21 @@ fun TopBar(
   onClickSupport: () -> Unit = {},
   onClickBack: (() -> Unit)? = null
 ) {
-  TopAppBar(modifier = Modifier.height(64.dp),
+  TopAppBar(
     colors = TopAppBarDefaults.mediumTopAppBarColors(WalletColors.styleguide_blue),
     title = { },
     actions = {
       Row(
         modifier = Modifier
           .fillMaxWidth()
-          .padding(start = 16.dp, end = 4.dp),
+          .padding(start = 16.dp, end = 4.dp)
+          .height(64.dp),
         verticalAlignment = Alignment.CenterVertically
       ) {
         if (isMainBar) {
           Image(
             painter = painterResource(R.drawable.ic_app_logo),
-            "Wallet",
+            null,
             modifier = Modifier.heightIn(max = 24.dp)
           )
         } else {
