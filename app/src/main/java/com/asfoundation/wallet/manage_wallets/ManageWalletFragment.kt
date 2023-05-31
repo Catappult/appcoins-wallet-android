@@ -51,6 +51,7 @@ import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.core.app.ShareCompat
@@ -73,10 +74,15 @@ import com.asfoundation.wallet.manage_wallets.ManageWalletViewModel.UiState.Succ
 import com.asfoundation.wallet.my_wallets.main.MyWalletsNavigator
 import com.asfoundation.wallet.my_wallets.more.MoreDialogNavigator
 import com.asfoundation.wallet.transactions.TransactionDetailsFragment
+import com.asfoundation.wallet.ui.TokenValue
+import com.asfoundation.wallet.ui.balance.TokenBalance
+import com.asfoundation.wallet.ui.iab.FiatValue
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
+import com.asfoundation.wallet.wallets.domain.WalletBalance
 import com.asfoundation.wallet.wallets.domain.WalletInfo
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import java.math.BigDecimal
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -106,7 +112,7 @@ class ManageWalletFragment : BasePageViewFragment() {
           TopBar(isMainBar = false, onClickSupport = { viewModel.displayChat() })
         }
       },
-      containerColor = styleguide_blue
+      containerColor = styleguide_blue,
     ) { padding ->
       when (val uiState = viewModel.uiState.collectAsState().value) {
         is Success -> ManageWalletContent(padding = padding, uiState.walletInfo)
@@ -347,8 +353,11 @@ class ManageWalletFragment : BasePageViewFragment() {
     ) {
       Text(
         text = walletInfo.name,
+        modifier = Modifier.fillMaxWidth(0.5f),
         color = WalletColors.styleguide_light_grey,
-        style = MaterialTheme.typography.bodySmall
+        style = MaterialTheme.typography.bodySmall,
+        maxLines = 1,
+        overflow = TextOverflow.Ellipsis,
       )
       TextButton(onClick = { openBottomSheet = !openBottomSheet }) {
         Text(
@@ -359,7 +368,9 @@ class ManageWalletFragment : BasePageViewFragment() {
             ?: "",
           style = MaterialTheme.typography.bodyMedium,
           color = WalletColors.styleguide_light_grey,
-          fontWeight = FontWeight.Bold
+          fontWeight = FontWeight.Bold,
+          maxLines = 1,
+          overflow = TextOverflow.Ellipsis
         )
       }
     }
@@ -442,5 +453,23 @@ class ManageWalletFragment : BasePageViewFragment() {
   @Composable
   fun PreviewActiveWalletOptions() {
     ActiveWalletOptions("a24863cb-e586-472f-9e8a-622834c20c52")
+  }
+
+  @Preview
+  @Composable
+  fun PreviewHeader() {
+    val fiatValue = FiatValue(amount = BigDecimal(123456), "EUR", "€")
+    val tokenBalance = TokenBalance(TokenValue(BigDecimal.TEN, "EUR"), fiatValue)
+    BalanceBottomSheet(
+      walletInfo = WalletInfo(
+        "a24863cb-e586-472f-9e8a-622834c20c52",
+        "a24863cb-e586-472f-9e8a-622834c20c52a24863cb-e586-472f-9e8a-622834c20c52",
+        WalletBalance(fiatValue, fiatValue, tokenBalance, tokenBalance, tokenBalance),
+        blocked = false,
+        verified = true,
+        logging = false,
+        backupDate = 987654L
+      )
+    )
   }
 }
