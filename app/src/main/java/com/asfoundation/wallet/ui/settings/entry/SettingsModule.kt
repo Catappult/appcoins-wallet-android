@@ -3,8 +3,6 @@ package com.asfoundation.wallet.ui.settings.entry
 import androidx.fragment.app.Fragment
 import com.asfoundation.wallet.change_currency.use_cases.GetChangeFiatCurrencyModelUseCase
 import com.asfoundation.wallet.home.usecases.DisplayChatUseCase
-import com.asfoundation.wallet.promo_code.use_cases.GetUpdatedPromoCodeUseCase
-import com.asfoundation.wallet.promo_code.use_cases.ObservePromoCodeUseCase
 import com.asfoundation.wallet.update_required.use_cases.BuildUpdateIntentUseCase
 import dagger.Module
 import dagger.Provides
@@ -17,7 +15,6 @@ import io.reactivex.schedulers.Schedulers
 @InstallIn(FragmentComponent::class)
 @Module
 class SettingsModule {
-
   @Provides
   fun providesSettingsPresenter(
     settingsFragment: Fragment,
@@ -26,8 +23,6 @@ class SettingsModule {
     data: SettingsData,
     buildUpdateIntentUseCase: BuildUpdateIntentUseCase,
     getChangeFiatCurrencyModelUseCase: GetChangeFiatCurrencyModelUseCase,
-    getUpdatedPromoCodeUseCase: GetUpdatedPromoCodeUseCase,
-    observePromoCodeUseCase: ObservePromoCodeUseCase,
     displayChatUseCase: DisplayChatUseCase
   ): SettingsPresenter {
     return SettingsPresenter(
@@ -40,8 +35,6 @@ class SettingsModule {
       data,
       buildUpdateIntentUseCase,
       getChangeFiatCurrencyModelUseCase,
-      getUpdatedPromoCodeUseCase,
-      observePromoCodeUseCase,
       displayChatUseCase
     )
   }

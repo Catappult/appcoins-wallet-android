@@ -11,6 +11,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
 import android.widget.Toast
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.ui.platform.ComposeView
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
@@ -20,23 +22,18 @@ import androidx.preference.SwitchPreferenceCompat
 import com.appcoins.wallet.ui.widgets.TopBar
 import com.asf.wallet.R
 import com.asfoundation.wallet.billing.analytics.PageViewAnalytics
-import com.asfoundation.wallet.billing.analytics.WalletsAnalytics
 import com.asfoundation.wallet.billing.analytics.WalletsEventSender
 import com.asfoundation.wallet.change_currency.ChangeFiatCurrencyActivity
 import com.asfoundation.wallet.change_currency.FiatCurrencyEntity
 import com.asfoundation.wallet.change_currency.SettingsCurrencyPreference
 import com.asfoundation.wallet.permissions.manage.view.ManagePermissionsActivity
-import com.asfoundation.wallet.promo_code.SettingsPreferencePromoCodeState
-import com.asfoundation.wallet.promo_code.repository.PromoCode
 import com.asfoundation.wallet.subscriptions.SubscriptionActivity
 import com.asfoundation.wallet.ui.AuthenticationPromptActivity
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
-import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
 import java.util.Locale
 import javax.inject.Inject
-
 
 @AndroidEntryPoint
 class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
@@ -50,12 +47,11 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
   @Inject
   lateinit var presenter: SettingsPresenter
   private var switchSubject: PublishSubject<Unit>? = null
-  private var authenticationResultSubject: PublishSubject<Boolean>? = null
+  private lateinit var authenticationResultLauncher: ActivityResultLauncher<Intent>
 
 
   companion object {
     const val TURN_ON_FINGERPRINT = "turn_on_fingerprint"
-    private const val AUTHENTICATION_REQUEST_CODE = 33
 
     @JvmStatic
     fun newInstance(turnOnFingerprint: Boolean = false): SettingsFragment {
@@ -71,7 +67,7 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
     super.onCreate(savedInstanceState)
     switchSubject = PublishSubject.create()
     presenter.setFingerPrintPreference()
-    authenticationResultSubject = PublishSubject.create()
+    handleAuthenticationResult()
   }
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -96,7 +92,6 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
     return layout
   }
 
-
   override fun onResume() {
     super.onResume()
     pageViewAnalytics.sendPageViewEvent(javaClass.simpleName)
@@ -110,16 +105,20 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
 
   override fun onDestroy() {
     switchSubject = null
-    authenticationResultSubject = null
+    authenticationResultLauncher.unregister()
     super.onDestroy()
   }
 
-  @Deprecated("Deprecated in Java")
-  override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-    super.onActivityResult(requestCode, resultCode, data)
-    if (requestCode == AUTHENTICATION_REQUEST_CODE)
-      if (resultCode == AuthenticationPromptActivity.RESULT_OK) {
-        authenticationResultSubject?.onNext(true)
+  private fun handleAuthenticationResult() {
+    authenticationResultLauncher =
+      registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+        if (result.resultCode == AuthenticationPromptActivity.RESULT_OK) {
+          val hasPermission = presenter.hasAuthenticationPermission()
+          presenter.changeAuthorizationPermission()
+          toggleFingerprint(!hasPermission)
+        } else {
+          Toast.makeText(context, R.string.unknown_error, Toast.LENGTH_SHORT).show()
+        }
       }
   }
 
@@ -179,27 +178,6 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
     }
   }
 
-  override fun setBackupPreference() {
-    val backupPreference = findPreference<Preference>("pref_backup")
-    backupPreference?.setOnPreferenceClickListener {
-      walletsEventSender.sendCreateBackupEvent(
-        null,
-        WalletsAnalytics.SETTINGS,
-        null
-      )
-      presenter.onBackupPreferenceClick()
-      false
-    }
-  }
-
-  override fun setRestorePreference() {
-    val restorePreference = findPreference<Preference>("pref_restore")
-    restorePreference?.setOnPreferenceClickListener {
-      presenter.onRecoverWalletPreferenceClick()
-      false
-    }
-  }
-
   override fun setManageWalletPreference() {
     val manageWalletPreference = findPreference<Preference>("pref_manage_wallet")
     manageWalletPreference?.setOnPreferenceClickListener {
@@ -217,26 +195,9 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
     }
   }
 
-  override fun setRedeemCodePreference(walletAddress: String) {
-    val redeemPreference = findPreference<Preference>("pref_redeem")
-    redeemPreference?.setOnPreferenceClickListener {
-      presenter.onRedeemGiftPreferenceClick()
-      false
-    }
-  }
-
-  override fun setPromoCodePreference(promoCode: PromoCode) {
-    val promoCodePreference = findPreference<SettingsPreferencePromoCodeState>("pref_promo_code")
-    promoCodePreference?.setPromoCode(promoCode)
-    promoCodePreference?.setOnPreferenceClickListener {
-      presenter.onPromoCodePreferenceClick()
-      false
-    }
-  }
-
   override fun navigateToIntent(intent: Intent) = startActivity(intent)
 
-  override fun authenticationResult(): Observable<Boolean> = authenticationResultSubject!!
+  override fun authenticationResult(): ActivityResultLauncher<Intent> = authenticationResultLauncher
 
   override fun toggleFingerprint(enabled: Boolean) {
     setFingerprintPreference(enabled)
@@ -309,16 +270,6 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
     }
   }
 
-
-  override fun setWithdrawPreference() {
-    val bugReportPreference = findPreference<Preference>("pref_withdraw")
-    bugReportPreference?.setOnPreferenceClickListener {
-      presenter.onWithdrawClicked()
-      false
-    }
-
-  }
-
   override fun setFaqsPreference() {
     val faqsPreference = findPreference<Preference>("pref_faqs")
     faqsPreference?.setOnPreferenceClickListener {
@@ -333,7 +284,6 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
       false
     }
   }
-
 
   override fun setTwitterPreference() {
     val twitterPreference = findPreference<Preference>("pref_twitter")
