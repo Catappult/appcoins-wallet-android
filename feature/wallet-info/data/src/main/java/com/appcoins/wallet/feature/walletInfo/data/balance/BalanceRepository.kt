@@ -4,6 +4,7 @@ import com.appcoins.wallet.core.utils.android_common.BalanceUtils
 import com.appcoins.wallet.core.utils.android_common.Dispatchers
 import com.appcoins.wallet.core.utils.android_common.RxSchedulers
 import com.appcoins.wallet.core.utils.android_common.WalletCurrency
+import com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue
 import com.appcoins.wallet.feature.changecurrency.data.currencies.LocalCurrencyConversionService
 import com.appcoins.wallet.feature.changecurrency.data.use_cases.GetSelectedCurrencyUseCase
 import com.github.michaelbull.result.get

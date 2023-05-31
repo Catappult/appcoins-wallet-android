@@ -6,6 +6,7 @@ import com.asfoundation.wallet.topup.TopUpData.Companion.DEFAULT_VALUE
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.appcoins.wallet.core.utils.android_common.Log
 import com.appcoins.wallet.core.utils.android_common.extensions.isNoNetworkException
+import com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue
 import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Scheduler

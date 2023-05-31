@@ -30,6 +30,7 @@ import com.asfoundation.wallet.topup.TopUpData
 import com.asfoundation.wallet.ui.iab.Navigator
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.appcoins.wallet.core.utils.android_common.WalletCurrency
+import com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue
 import com.google.gson.JsonObject
 import io.reactivex.Completable
 import io.reactivex.Observable

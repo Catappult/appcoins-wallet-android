@@ -1,14 +1,15 @@
-package com.asfoundation.wallet.wallets.repository
+package com.appcoins.wallet.feature.walletInfo.data.wallet.repository
 
 import com.appcoins.wallet.core.analytics.analytics.SentryEventLogger
 import com.appcoins.wallet.core.network.backend.api.WalletInfoApi
 import com.appcoins.wallet.core.network.backend.model.WalletInfoResponse
 import com.appcoins.wallet.core.utils.android_common.RxSchedulers
 import com.appcoins.wallet.core.utils.android_common.extensions.StringUtils.masked
-import com.asfoundation.wallet.wallets.db.WalletInfoDao
-import com.asfoundation.wallet.wallets.db.entity.WalletInfoEntity
-import com.asfoundation.wallet.wallets.domain.WalletBalance
-import com.asfoundation.wallet.wallets.domain.WalletInfo
+import com.appcoins.wallet.feature.walletInfo.data.balance.BalanceRepository
+import com.appcoins.wallet.feature.walletInfo.data.balance.WalletBalance
+import com.appcoins.wallet.feature.walletInfo.data.wallet.db.WalletInfoDao
+import com.appcoins.wallet.feature.walletInfo.data.wallet.db.entity.WalletInfoEntity
+import com.appcoins.wallet.feature.walletInfo.data.wallet.domain.WalletInfo
 import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Single
