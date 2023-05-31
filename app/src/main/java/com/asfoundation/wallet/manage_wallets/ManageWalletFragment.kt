@@ -19,9 +19,9 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.filled.MoreVert
@@ -77,13 +77,14 @@ import com.asfoundation.wallet.my_wallets.more.MoreDialogNavigator
 import com.asfoundation.wallet.transactions.TransactionDetailsFragment
 import com.asfoundation.wallet.ui.TokenValue
 import com.asfoundation.wallet.ui.balance.TokenBalance
+import com.asfoundation.wallet.ui.wallets.WalletBalance
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
-import com.asfoundation.wallet.wallets.domain.WalletBalance
 import com.asfoundation.wallet.wallets.domain.WalletInfo
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import java.math.BigDecimal
 import javax.inject.Inject
+
 
 @AndroidEntryPoint
 class ManageWalletFragment : BasePageViewFragment() {
@@ -115,21 +116,30 @@ class ManageWalletFragment : BasePageViewFragment() {
       containerColor = styleguide_blue,
     ) { padding ->
       when (val uiState = viewModel.uiState.collectAsState().value) {
-        is Success -> ManageWalletContent(padding = padding, uiState.walletInfo)
+        is Success -> ManageWalletContent(
+          padding = padding,
+          uiState.activeWalletInfo,
+          uiState.inactiveWallets
+        )
+
         else -> {}
       }
     }
   }
 
   @Composable
-  internal fun ManageWalletContent(padding: PaddingValues, walletInfo: WalletInfo) {
-    Column(
-      modifier = Modifier
-        .verticalScroll(rememberScrollState())
-        .padding(padding),
-    ) {
-      ScreenHeader(walletInfo)
-      ActiveWalletCard(walletInfo)
+  internal fun ManageWalletContent(
+    padding: PaddingValues,
+    walletInfo: WalletInfo,
+    inactiveWallets: List<WalletBalance>
+  ) {
+    LazyColumn(modifier = Modifier.padding(padding)) {
+      item { ScreenHeader(walletInfo) }
+      item { ActiveWalletCard(walletInfo) }
+
+      items(inactiveWallets) { wallet ->
+        InactiveWalletCard(wallet)
+      }
     }
   }
 
@@ -434,6 +444,45 @@ class ManageWalletFragment : BasePageViewFragment() {
     }
   }
 
+  @Composable
+  fun InactiveWalletCard(walletBalance: WalletBalance) {
+    Card(
+      colors = CardDefaults.cardColors(styleguide_blue_secondary),
+      modifier = Modifier
+        .padding(horizontal = 16.dp)
+        .padding(bottom = 16.dp)
+    ) {
+      Row(
+        horizontalArrangement = Arrangement.SpaceBetween,
+        verticalAlignment = CenterVertically,
+        modifier = Modifier
+          .fillMaxWidth()
+          .padding(vertical = 24.dp, horizontal = 16.dp)
+      ) {
+        Text(
+          text = walletBalance.walletName,
+          modifier = Modifier.fillMaxWidth(0.5f),
+          color = WalletColors.styleguide_dark_grey,
+          style = MaterialTheme.typography.bodySmall,
+          maxLines = 1,
+          overflow = TextOverflow.Ellipsis,
+        )
+        Text(
+          text =
+          walletBalance.balance.amount
+            .toString()
+            .formatMoney(walletBalance.balance.symbol, "")
+            ?: "",
+          style = MaterialTheme.typography.bodyMedium,
+          color = WalletColors.styleguide_dark_grey,
+          fontWeight = FontWeight.Bold,
+          maxLines = 1,
+          overflow = TextOverflow.Ellipsis
+        )
+      }
+    }
+  }
+
   private fun copyAddressToClipBoard(address: String) {
     val clipboard =
       requireActivity().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
@@ -464,10 +513,31 @@ class ManageWalletFragment : BasePageViewFragment() {
       walletInfo = WalletInfo(
         "a24863cb-e586-472f-9e8a-622834c20c52",
         "a24863cb-e586-472f-9e8a-622834c20c52a24863cb-e586-472f-9e8a-622834c20c52",
-        WalletBalance(fiatValue, fiatValue, tokenBalance, tokenBalance, tokenBalance),
+        com.asfoundation.wallet.wallets.domain.WalletBalance(
+          fiatValue,
+          fiatValue,
+          tokenBalance,
+          tokenBalance,
+          tokenBalance
+        ),
         blocked = false,
         verified = true,
         logging = false,
+        backupDate = 987654L
+      )
+    )
+  }
+
+  @Preview
+  @Composable
+  fun PreviewInactiveWallet() {
+    val fiatValue = FiatValue(amount = BigDecimal(123456), "EUR", "€")
+    InactiveWalletCard(
+      WalletBalance(
+        walletName = "a24863cb-e586-472f-9e8a-622834c20c52",
+        walletAddress = "a24863cb-e586-472f-9e8a-622834c20c52a24863cb-e586-472f-9e8a-622834c20c52",
+        balance = fiatValue,
+        isActiveWallet = true,
         backupDate = 987654L
       )
     )
