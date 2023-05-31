@@ -2,7 +2,7 @@ package com.asfoundation.wallet.transactions
 
 import android.os.Bundle
 import androidx.navigation.NavController
-import com.appcoins.wallet.ui.arch.data.Navigator
+import com.appcoins.wallet.core.arch.data.Navigator
 import com.asf.wallet.R
 import com.asfoundation.wallet.transactions.TransactionDetailsFragment.Companion.TRANSACTION_KEY
 import javax.inject.Inject

@@ -1,6 +1,5 @@
 package com.appcoins.wallet.core.network.microservices
 
-import com.appcoins.wallet.core.utils.properties.HostProperties
 import com.appcoins.wallet.core.network.base.annotations.BlockchainHttpClient
 import com.appcoins.wallet.core.network.base.annotations.DefaultHttpClient
 import com.appcoins.wallet.core.network.microservices.annotations.ProductBlockchainRetrofit
@@ -8,18 +7,16 @@ import com.appcoins.wallet.core.network.microservices.annotations.ProductDefault
 import com.appcoins.wallet.core.network.microservices.api.product.InappBillingApi
 import com.appcoins.wallet.core.network.microservices.api.product.SubscriptionBillingApi
 import com.appcoins.wallet.core.network.microservices.api.product.TopUpValuesApi
-import com.appcoins.wallet.core.network.microservices.model.FiatCurrenciesResponse
 import com.appcoins.wallet.core.network.microservices.model.UserSubscriptionApi
+import com.appcoins.wallet.core.utils.properties.HostProperties
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import io.reactivex.Single
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.http.GET
 import javax.inject.Singleton
 
 @InstallIn(SingletonComponent::class)
@@ -31,7 +28,7 @@ class ProductApiModule {
   @Singleton
   @Provides
   @ProductBlockchainRetrofit
-  fun provideSubscriptionsBlockchainRetrofit(@BlockchainHttpClient client: OkHttpClient): Retrofit =
+  fun provideProductBlockchainRetrofit(@BlockchainHttpClient client: OkHttpClient): Retrofit =
     Retrofit.Builder()
       .baseUrl(productUrl)
       .client(client)
@@ -42,7 +39,7 @@ class ProductApiModule {
   @Singleton
   @Provides
   @ProductDefaultRetrofit
-  fun provideSubscriptionsDefaultRetrofit(@DefaultHttpClient client: OkHttpClient): Retrofit =
+  fun provideProductDefaultRetrofit(@DefaultHttpClient client: OkHttpClient): Retrofit =
     Retrofit.Builder()
       .baseUrl(productUrl)
       .client(client)
@@ -74,9 +71,4 @@ class ProductApiModule {
     @ProductDefaultRetrofit retrofit: Retrofit
   ): UserSubscriptionApi =
     retrofit.create(UserSubscriptionApi::class.java)
-
-  interface FiatCurrenciesApi {
-    @GET("8.20210201/currencies?type=FIAT&icon.height=128")
-    fun getFiatCurrencies(): Single<FiatCurrenciesResponse>
-  }
 }

@@ -10,10 +10,11 @@ import androidx.paging.insertSeparators
 import androidx.paging.map
 import com.appcoins.wallet.core.utils.android_common.DateFormatterUtils.getDay
 import com.appcoins.wallet.core.utils.jvm_common.Logger
-import com.asfoundation.wallet.change_currency.use_cases.GetSelectedCurrencyUseCase
+import com.appcoins.wallet.feature.changecurrency.data.use_cases.GetSelectedCurrencyUseCase
 import com.asfoundation.wallet.home.usecases.DisplayChatUseCase
 import com.asfoundation.wallet.home.usecases.FetchTransactionsHistoryPagingUseCase
 import com.asfoundation.wallet.home.usecases.ObserveDefaultWalletUseCase
+import com.github.michaelbull.result.unwrap
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.Observable
 import kotlinx.coroutines.flow.Flow
@@ -21,6 +22,9 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.onStart
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.rx2.rxSingle
 import javax.inject.Inject
 
 @HiltViewModel
@@ -50,17 +54,16 @@ constructor(
 
   private fun getWalletInfo() {
     Observable.combineLatest(
-      getSelectedCurrencyUseCase(false).toObservable(), observeDefaultWalletUseCase()
+      rxSingle { getSelectedCurrencyUseCase(false) }.toObservable(), observeDefaultWalletUseCase()
     ) { selectedCurrency, wallet ->
-      UiState.Success(WalletInfoModel(wallet.address, selectedCurrency))
+      UiState.Success(WalletInfoModel(wallet.address, selectedCurrency.unwrap()))
     }
       .doOnSubscribe {
         _uiState.value = UiState.Loading
       }
       .doOnNext { newState ->
         _uiState.value = newState
-      }
-      .subscribe()
+      }.subscribe()
   }
 
   fun fetchTransactions(

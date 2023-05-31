@@ -16,8 +16,8 @@ import androidx.lifecycle.lifecycleScope
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.appcoins.wallet.core.utils.android_common.RootUtil
 import com.appcoins.wallet.core.utils.android_common.WalletCurrency
-import com.appcoins.wallet.ui.arch.SingleStateFragment
-import com.appcoins.wallet.ui.arch.data.Async
+import com.appcoins.wallet.core.arch.SingleStateFragment
+import com.appcoins.wallet.core.arch.data.Async
 import com.appcoins.wallet.ui.common.convertDpToPx
 import com.asf.wallet.R
 import com.asf.wallet.databinding.FragmentHomeBinding
@@ -218,7 +218,7 @@ class HomeFragment_old : BasePageViewFragment(),
         sideEffect.walletAddress,
         sideEffect.triggerSource
       )
-      HomeSideEffect.NavigateToChangeCurrency -> navigator.navigateToCurrencySelector()
+//      HomeSideEffect.NavigateToChangeCurrency -> navigator.navigateToCurrencySelector()
       HomeSideEffect.NavigateToTopUp -> navigator.navigateToTopUp()
       HomeSideEffect.NavigateToTransfer -> navigator.navigateToTransfer()
       else -> {}

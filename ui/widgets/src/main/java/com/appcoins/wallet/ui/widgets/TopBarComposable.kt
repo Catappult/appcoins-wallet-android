@@ -27,7 +27,9 @@ fun TopBar(
   onClickSupport: () -> Unit = {},
   onClickBack: (() -> Unit)? = null
 ) {
-  TopAppBar(modifier = Modifier.height(64.dp),
+  TopAppBar(
+    modifier = Modifier
+      .fillMaxWidth(),
     colors = TopAppBarDefaults.mediumTopAppBarColors(WalletColors.styleguide_blue),
     title = { },
     actions = {
@@ -87,11 +89,10 @@ fun TopBar(
 fun VipBadge() {
   Row(
     modifier = Modifier
-      .height(32.dp)
-      .width(65.dp)
+      .size(width = 65.dp, height = 32.dp)
       .clip(RoundedCornerShape(16.dp, 16.dp, 16.dp, 16.dp))
       .background(WalletColors.styleguide_vip_yellow_transparent_40)
-      .padding(start = 6.dp, end = 8.dp),
+      .padding(start = 8.dp, end = 8.dp),
     verticalAlignment = Alignment.CenterVertically
   ) {
     Image(
@@ -100,7 +101,6 @@ fun VipBadge() {
       modifier = Modifier
         .padding(top = 2.dp)
     )
-    Spacer(Modifier.weight(1f))
     Text(stringResource(R.string.vip), color = WalletColors.styleguide_white)
   }
 }

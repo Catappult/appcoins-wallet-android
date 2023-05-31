@@ -7,17 +7,13 @@ import android.widget.Toast
 import androidx.core.app.ShareCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
-import androidx.navigation.fragment.findNavController
+import com.appcoins.wallet.core.arch.data.Navigator
 import com.appcoins.wallet.sharedpreferences.BackupTriggerPreferencesDataSource
-import com.appcoins.wallet.ui.arch.data.Navigator
-import com.appcoins.wallet.ui.arch.data.navigate
 import com.asf.wallet.R
 import com.asfoundation.wallet.C
 import com.asfoundation.wallet.backup.BackupActivity
 import com.asfoundation.wallet.backup.triggers.BackupTriggerDialogFragment
-import com.asfoundation.wallet.change_currency.ChangeFiatCurrencyActivity
 import com.asfoundation.wallet.main.nav_bar.NavBarFragmentNavigator
-import com.asfoundation.wallet.my_wallets.main.MyWalletsFragmentDirections
 import com.asfoundation.wallet.rating.RatingActivity
 import com.asfoundation.wallet.recover.RecoverActivity
 import com.asfoundation.wallet.topup.TopUpActivity
@@ -117,12 +113,10 @@ constructor(
     bottomSheet.show(fragment.parentFragmentManager, "BackupTrigger")
   }
 
-  fun navigateToCurrencySelector() {
-    val intent =
-      ChangeFiatCurrencyActivity.newIntent(fragment.requireContext()).apply {
-        flags = Intent.FLAG_ACTIVITY_SINGLE_TOP
-      }
-    openIntent(intent)
+  fun navigateToCurrencySelector(
+    mainNavController: NavController
+  ) {
+    mainNavController.navigate(R.id.action_navigate_to_change_fiat_currency)
   }
 
   fun navigateToTransfer() {

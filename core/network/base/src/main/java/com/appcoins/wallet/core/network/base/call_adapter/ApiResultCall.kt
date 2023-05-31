@@ -11,7 +11,7 @@ import retrofit2.Converter
 import retrofit2.Response
 import java.io.IOException
 import java.lang.reflect.Type
-import com.appcoins.wallet.ui.arch.data.Error
+import com.appcoins.wallet.core.arch.data.Error
 
 class ApiResultCall<T, E>(private val call: Call<T>,
                           private val successType: Type,
@@ -43,7 +43,8 @@ class ApiResultCall<T, E>(private val call: Call<T>,
     } else {
       val errorBody = errorBody()
       val convertedBody = if (errorBody == null) {
-        return Err(Error.ApiError.UnknownError(IllegalStateException("Unexpected null error body."))
+        return Err(
+          Error.ApiError.UnknownError(IllegalStateException("Unexpected null error body."))
         )
       } else {
         try {

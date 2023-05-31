@@ -3,7 +3,7 @@ package com.asfoundation.wallet.topup
 import android.os.Bundle
 import com.asfoundation.wallet.billing.adyen.PaymentType
 import com.asfoundation.wallet.topup.TopUpData.Companion.DEFAULT_VALUE
-import com.asfoundation.wallet.ui.iab.FiatValue
+import com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.appcoins.wallet.core.utils.android_common.Log
 import com.appcoins.wallet.core.utils.android_common.extensions.isNoNetworkException
@@ -237,7 +237,12 @@ class TopUpFragmentPresenter(
     ) {
       interactor.convertAppc(data.currency.appcValue).toObservable()
     } else {
-      Observable.just(FiatValue(BigDecimal.ZERO, ""))
+      Observable.just(
+        FiatValue(
+          BigDecimal.ZERO,
+          ""
+        )
+      )
     }
 
   private fun handlePaymentMethodSelected() {

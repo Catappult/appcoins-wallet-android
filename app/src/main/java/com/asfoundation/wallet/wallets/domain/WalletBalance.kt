@@ -1,7 +1,7 @@
 package com.asfoundation.wallet.wallets.domain
 
 import com.asfoundation.wallet.ui.balance.TokenBalance
-import com.asfoundation.wallet.ui.iab.FiatValue
+import com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue
 
 data class WalletBalance(
   val overallFiat: FiatValue,
