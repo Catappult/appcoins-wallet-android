@@ -13,8 +13,8 @@
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_marginStart="24dp"
-      android:layout_marginTop="24dp"
-      android:layout_marginBottom="12dp"
+      android:layout_marginTop="16dp"
+      android:layout_marginBottom="8dp"
       android:textColor="@color/styleguide_dark_grey"
       tools:text="@string/action_settings"
       />

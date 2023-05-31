@@ -111,7 +111,7 @@ class LocalPaymentInteractor @Inject constructor(private val walletService: Wall
     return billingMessagesMapper.topUpBundle(priceAmount, priceCurrency, bonus, fiatCurrencySymbol)
   }
 
-  fun convertToFiat(appcAmount: Double, toCurrency: String): Single<com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue> {
+  fun convertToFiat(appcAmount: Double, toCurrency: String): Single<FiatValue> {
     return inAppPurchaseInteractor.convertToFiat(appcAmount, toCurrency)
   }
 

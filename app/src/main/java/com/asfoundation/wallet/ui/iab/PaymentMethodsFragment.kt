@@ -16,7 +16,7 @@ import androidx.fragment.app.Fragment
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.asf.wallet.R
-import com.appcoins.wallet.core.utils.jvm_common.C.Key.TRANSACTION
+import com.asfoundation.wallet.C.Key.TRANSACTION
 import com.asfoundation.wallet.GlideApp
 import com.asfoundation.wallet.billing.adyen.PaymentType
 import com.asfoundation.wallet.entity.TransactionBuilder
@@ -24,11 +24,12 @@ import com.asfoundation.wallet.ui.iab.PaymentMethodsView.PaymentMethodId
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.asfoundation.wallet.util.Period
 import com.appcoins.wallet.core.utils.android_common.WalletCurrency
-import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.GetWalletInfoUseCase
+import com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue
 import com.asf.wallet.databinding.PaymentMethodsLayoutBinding
+import com.asfoundation.wallet.viewmodel.BasePageViewFragment
+import com.asfoundation.wallet.wallets.usecases.GetWalletInfoUseCase
 import com.jakewharton.rxbinding2.view.RxView
 import com.jakewharton.rxrelay2.PublishRelay
-import com.wallet.appcoins.core.legacy_base.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.Observable
 import io.reactivex.Single
@@ -444,12 +445,12 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
 
   override fun getBuyClick(): Observable<Any> = RxView.clicks(binding.dialogBuyButtonsPaymentMethods.buyButton)
 
-  override fun showCarrierBilling(fiatValue: com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue, isPreselected: Boolean) =
+  override fun showCarrierBilling(fiatValue: FiatValue, isPreselected: Boolean) =
     iabView.showCarrierBilling(fiatValue.currency, fiatValue.amount, bonusValue, isPreselected)
 
   override fun showPaypal(
     gamificationLevel: Int,
-    fiatValue: com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue,
+    fiatValue: FiatValue,
     frequency: String?,
     isSubscription: Boolean
   ) {
@@ -469,7 +470,7 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
 
   override fun showPaypalV2(
     gamificationLevel: Int,
-    fiatValue: com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue,
+    fiatValue: FiatValue,
     frequency: String?,
     isSubscription: Boolean
   ) {
@@ -515,7 +516,7 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
 
   override fun showCreditCard(
     gamificationLevel: Int,
-    fiatValue: com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue,
+    fiatValue: FiatValue,
     frequency: String?,
     isSubscription: Boolean
   ) = iabView.showAdyenPayment(
@@ -634,7 +635,7 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
 
   override fun showMergedAppcoins(
     gamificationLevel: Int,
-    fiatValue: com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue,
+    fiatValue: FiatValue,
     transaction: TransactionBuilder,
     frequency: String?,
     isSubscription: Boolean

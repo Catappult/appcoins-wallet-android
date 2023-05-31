@@ -1,34 +1,34 @@
-package com.appcoins.wallet.feature.walletInfo.data.wallet
+package com.asfoundation.wallet.ui.wallets
 
-import com.appcoins.wallet.core.utils.android_common.extensions.sumByBigDecimal
 import com.appcoins.wallet.core.utils.jvm_common.Logger
-import com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue
-import com.appcoins.wallet.feature.promocode.data.use_cases.GetCurrentPromoCodeUseCase
-import com.appcoins.wallet.feature.walletInfo.data.balance.WalletInfoSimple
-import com.appcoins.wallet.feature.walletInfo.data.wallet.domain.Wallet
-import com.appcoins.wallet.feature.walletInfo.data.wallet.domain.WalletsModel
-import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.GetWalletInfoUseCase
-import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.ObserveWalletInfoUseCase
 import com.appcoins.wallet.gamification.Gamification
-import com.appcoins.wallet.sharedpreferences.CommonsPreferencesDataSource
-import com.wallet.appcoins.feature.support.data.SupportInteractor
+import com.asfoundation.wallet.entity.Wallet
+import com.asfoundation.wallet.promo_code.use_cases.GetCurrentPromoCodeUseCase
+import com.asfoundation.wallet.support.SupportInteractor
+import com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue
+import com.appcoins.wallet.core.utils.android_common.extensions.sumByBigDecimal
+import com.asfoundation.wallet.wallets.FetchWalletsInteract
+import com.asfoundation.wallet.wallets.WalletCreatorInteract
+import com.asfoundation.wallet.wallets.usecases.GetWalletInfoUseCase
+import com.asfoundation.wallet.wallets.usecases.ObserveWalletInfoUseCase
 import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
+import com.appcoins.wallet.sharedpreferences.CommonsPreferencesDataSource
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 class WalletsInteract @Inject constructor(
-    private val observeWalletInfoUseCase: ObserveWalletInfoUseCase,
-    private val getWalletInfoUseCase: GetWalletInfoUseCase,
-    private val fetchWalletsInteract: FetchWalletsInteract,
-    private val walletCreatorInteract: WalletCreatorInteract,
-    private val supportInteractor: SupportInteractor,
-    private val preferencesRepository: CommonsPreferencesDataSource,
-    private val gamificationRepository: Gamification,
-    private val logger: Logger,
-    private val getCurrentPromoCodeUseCase: GetCurrentPromoCodeUseCase
+  private val observeWalletInfoUseCase: ObserveWalletInfoUseCase,
+  private val getWalletInfoUseCase: GetWalletInfoUseCase,
+  private val fetchWalletsInteract: FetchWalletsInteract,
+  private val walletCreatorInteract: WalletCreatorInteract,
+  private val supportInteractor: SupportInteractor,
+  private val preferencesRepository: CommonsPreferencesDataSource,
+  private val gamificationRepository: Gamification,
+  private val logger: Logger,
+  private val getCurrentPromoCodeUseCase: GetCurrentPromoCodeUseCase
 ) {
 
   fun observeWalletsModel(): Observable<WalletsModel> =
@@ -37,7 +37,7 @@ class WalletsInteract @Inject constructor(
       .flatMap { observeWalletInfoUseCase(it.address, update = true, updateFiat = false) }
       .map {
         listOf(
-          WalletInfoSimple(
+          WalletBalance(
             it.name,
             it.wallet,
             it.walletBalance.overallFiat,
@@ -53,8 +53,8 @@ class WalletsInteract @Inject constructor(
       .throttleLast(100, TimeUnit.MILLISECONDS)
       .map { list ->
         val totalBalance = getTotalBalance(list)
-        val balanceComparator = compareByDescending<WalletInfoSimple> { it.balance.amount }
-        val walletsSorted = list.sortedWith(balanceComparator.thenBy(WalletInfoSimple::walletAddress))
+        val balanceComparator = compareByDescending<WalletBalance> { it.balance.amount }
+        val walletsSorted = list.sortedWith(balanceComparator.thenBy(WalletBalance::walletAddress))
         WalletsModel(totalBalance, walletsSorted.size, walletsSorted)
       }
 
@@ -62,7 +62,7 @@ class WalletsInteract @Inject constructor(
     .flatMapIterable { list -> list }
     .flatMap { getWalletInfoUseCase(it.address, cached = true, updateFiat = false).toObservable() }
     .map {
-      WalletInfoSimple(
+      WalletBalance(
         it.name,
         it.wallet,
         it.walletBalance.overallFiat,
@@ -74,8 +74,8 @@ class WalletsInteract @Inject constructor(
     .toList()
     .map { list ->
       val totalBalance = getTotalBalance(list)
-      val balanceComparator = compareByDescending<WalletInfoSimple> { it.balance.amount }
-      val walletsSorted = list.sortedWith(balanceComparator.thenBy(WalletInfoSimple::walletAddress))
+      val balanceComparator = compareByDescending<WalletBalance> { it.balance.amount }
+      val walletsSorted = list.sortedWith(balanceComparator.thenBy(WalletBalance::walletAddress))
       WalletsModel(totalBalance, walletsSorted.size, walletsSorted)
     }
 
@@ -89,7 +89,7 @@ class WalletsInteract @Inject constructor(
         .ignoreElement()
     }
 
-  private fun getTotalBalance(walletBalance: List<WalletInfoSimple>): FiatValue {
+  private fun getTotalBalance(walletBalance: List<WalletBalance>): FiatValue {
     if (walletBalance.isEmpty()) return FiatValue()
     val totalBalance = walletBalance.sumByBigDecimal { it.balance.amount }
     val wallet = walletBalance[0]

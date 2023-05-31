@@ -83,7 +83,7 @@ class RewardFragment : BasePageViewFragment(), SingleStateFragment<RewardState, 
   ) {
     Scaffold(
       topBar = {
-        Surface(shadowElevation = 4.dp) {
+        Surface {
           TopBar(
             isMainBar = true,
             isVip = isVip,
@@ -216,6 +216,7 @@ class RewardFragment : BasePageViewFragment(), SingleStateFragment<RewardState, 
   override fun onSideEffect(sideEffect: RewardSideEffect) {
     when (sideEffect) {
       is RewardSideEffect.NavigateToSettings -> navigator.navigateToSettings(
+        navController(),
         sideEffect.turnOnFingerprint
       )
     }

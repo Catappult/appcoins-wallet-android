@@ -2,6 +2,7 @@ package com.asfoundation.wallet.ui.iab
 
 import android.os.Bundle
 import androidx.annotation.StringRes
+import com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue
 import com.asfoundation.wallet.billing.adyen.PaymentType
 import com.asfoundation.wallet.entity.TransactionBuilder
 import io.reactivex.Observable
@@ -43,12 +44,12 @@ interface PaymentMethodsView {
 
   fun getBuyClick(): Observable<Any>
 
-  fun showCarrierBilling(fiatValue: com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue, isPreselected: Boolean)
+  fun showCarrierBilling(fiatValue: FiatValue, isPreselected: Boolean)
 
-  fun showPaypal(gamificationLevel: Int, fiatValue: com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue, frequency: String?,
+  fun showPaypal(gamificationLevel: Int, fiatValue: FiatValue, frequency: String?,
                  isSubscription: Boolean)
 
-  fun showPaypalV2(gamificationLevel: Int, fiatValue: com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue, frequency: String?,
+  fun showPaypalV2(gamificationLevel: Int, fiatValue: FiatValue, frequency: String?,
                    isSubscription: Boolean)
 
   fun showAdyen(fiatAmount: BigDecimal,
@@ -57,7 +58,7 @@ interface PaymentMethodsView {
                 iconUrl: String?, gamificationLevel: Int, frequency: String?,
                 isSubscription: Boolean)
 
-  fun showCreditCard(gamificationLevel: Int, fiatValue: com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue, frequency: String?,
+  fun showCreditCard(gamificationLevel: Int, fiatValue: FiatValue, frequency: String?,
                      isSubscription: Boolean)
 
   fun showAppCoins(gamificationLevel: Int, transaction: TransactionBuilder)
@@ -82,7 +83,7 @@ interface PaymentMethodsView {
 
   fun showBuy()
 
-  fun showMergedAppcoins(gamificationLevel: Int, fiatValue: com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue,
+  fun showMergedAppcoins(gamificationLevel: Int, fiatValue: FiatValue,
                          transaction: TransactionBuilder, frequency: String?,
                          isSubscription: Boolean)
 

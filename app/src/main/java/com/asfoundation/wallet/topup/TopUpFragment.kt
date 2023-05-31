@@ -64,7 +64,7 @@ class TopUpFragment : BasePageViewFragment(), TopUpFragmentView {
   private lateinit var paymentMethods: List<PaymentMethod>
   private lateinit var topUpAdapter: TopUpAdapter
   private lateinit var keyboardEvents: PublishSubject<Boolean>
-  private var valueSubject: PublishSubject<com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue>? = null
+  private var valueSubject: PublishSubject<FiatValue>? = null
   private var topUpActivityView: TopUpActivityView? = null
   private var selectedCurrency = FIAT_CURRENCY
   private var switchingCurrency = false
@@ -252,7 +252,7 @@ class TopUpFragment : BasePageViewFragment(), TopUpFragmentView {
     setupCurrencyData(selectedCurrency, localCurrency.code, amount, APPC_C_SYMBOL, DEFAULT_VALUE)
   }
 
-  override fun setValuesAdapter(values: List<com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue>) {
+  override fun setValuesAdapter(values: List<FiatValue>) {
     val addMargin = values.size <= getTopUpValuesSpanCount()
     binding.rvDefaultValues.addItemDecoration(
         DividerItemDecoration(context, LinearLayoutManager.HORIZONTAL))

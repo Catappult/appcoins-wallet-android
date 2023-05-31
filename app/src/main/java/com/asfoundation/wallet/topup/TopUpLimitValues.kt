@@ -4,8 +4,8 @@ import com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue
 import com.appcoins.wallet.core.utils.jvm_common.Error
 import java.math.BigDecimal
 
-data class TopUpLimitValues(val minValue: com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue = INITIAL_LIMIT_VALUE,
-                            val maxValue: com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue = INITIAL_LIMIT_VALUE,
+data class TopUpLimitValues(val minValue: FiatValue = INITIAL_LIMIT_VALUE,
+                            val maxValue: FiatValue = INITIAL_LIMIT_VALUE,
                             val error: Error = Error()
 ) {
 
@@ -16,7 +16,6 @@ data class TopUpLimitValues(val minValue: com.appcoins.wallet.feature.changecurr
   )
 
   companion object {
-    val INITIAL_LIMIT_VALUE =
-      com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue(BigDecimal(-1), "", "")
+    val INITIAL_LIMIT_VALUE = FiatValue(BigDecimal(-1), "", "")
   }
 }

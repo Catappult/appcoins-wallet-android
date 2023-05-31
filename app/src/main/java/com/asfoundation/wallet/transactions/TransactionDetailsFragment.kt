@@ -86,7 +86,7 @@ class TransactionDetailsFragment : BasePageViewFragment() {
   fun TransactionDetailView(uiState: UiState) {
     Scaffold(
       topBar = {
-        Surface(shadowElevation = 4.dp) {
+        Surface {
           TopBar(isMainBar = false, onClickSupport = { viewModel.displayChat() })
         }
       },

@@ -50,7 +50,7 @@ class GamificationPresenter(private val view: GamificationView,
   private fun handleLevelInformation(sendEvent: Boolean) {
     disposables.add(
         Observable.zip(gamification.getLevels(), getUserStatsAndBonusEarned(),
-            BiFunction { levels: Levels, statsAndBonusEarnedPromotions: Pair<PromotionsGamificationStats, com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue> ->
+            BiFunction { levels: Levels, statsAndBonusEarnedPromotions: Pair<PromotionsGamificationStats, FiatValue> ->
               mapToGamificationInfo(levels, statsAndBonusEarnedPromotions.first, statsAndBonusEarnedPromotions.second)
             })
             .subscribeOn(networkScheduler)
@@ -71,7 +71,7 @@ class GamificationPresenter(private val view: GamificationView,
   }
 
   private fun mapToGamificationInfo(levels: Levels, promotionsGamificationStats: PromotionsGamificationStats,
-                                    bonusEarned: com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue
+                                    bonusEarned: FiatValue
   ): GamificationInfo {
     var status = Status.UNKNOWN_ERROR
     if (levels.status == Levels.Status.OK && promotionsGamificationStats.resultState == PromotionsGamificationStats.ResultState.OK) {
@@ -125,7 +125,7 @@ class GamificationPresenter(private val view: GamificationView,
     return Pair(hiddenList, shownList)
   }
 
-  private fun getUserStatsAndBonusEarned(): Observable<Pair<PromotionsGamificationStats, com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue>> {
+  private fun getUserStatsAndBonusEarned(): Observable<Pair<PromotionsGamificationStats, FiatValue>> {
     return gamification.getUserStats()
         .flatMap { stats ->
           if (stats.resultState == PromotionsGamificationStats.ResultState.OK) {
@@ -134,7 +134,7 @@ class GamificationPresenter(private val view: GamificationView,
                 .toObservable()
           } else {
             Observable.just(Pair(stats,
-              com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue(
+              FiatValue(
                 BigDecimal.ONE.negate(),
                 ""
               )

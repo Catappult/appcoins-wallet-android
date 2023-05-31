@@ -2,6 +2,7 @@ package com.asfoundation.wallet.service.currencies
 
 import android.content.Context
 import androidx.room.Room
+import com.appcoins.wallet.feature.changecurrency.data.FiatCurrenciesDao
 import com.appcoins.wallet.feature.changecurrency.data.currencies.CurrencyConversionRatesPersistence
 import com.appcoins.wallet.feature.changecurrency.data.currencies.RoomCurrencyConversionRatesPersistence
 import dagger.Module
@@ -36,7 +37,7 @@ class CurrenciesDbModule {
 
   @Singleton
   @Provides
-  fun provideFiatCurrenciesDao(database: CurrenciesDatabase): com.appcoins.wallet.feature.changecurrency.data.FiatCurrenciesDao {
+  fun provideFiatCurrenciesDao(database: CurrenciesDatabase): FiatCurrenciesDao {
     return database.fiatCurrenciesDao()
   }
 }

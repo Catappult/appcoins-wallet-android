@@ -225,7 +225,7 @@ class TopUpFragmentPresenter(
           || data.currency.appcValue.matches(NUMERIC_REGEX.toRegex())
     }
 
-  private fun getConvertedValue(data: TopUpData): Observable<com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue> =
+  private fun getConvertedValue(data: TopUpData): Observable<FiatValue> =
     if (data.selectedCurrencyType == TopUpData.FIAT_CURRENCY
       && data.currency.fiatValue != DEFAULT_VALUE
     ) {
@@ -237,7 +237,7 @@ class TopUpFragmentPresenter(
       interactor.convertAppc(data.currency.appcValue).toObservable()
     } else {
       Observable.just(
-        com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue(
+        FiatValue(
           BigDecimal.ZERO,
           ""
         )
@@ -318,7 +318,7 @@ class TopUpFragmentPresenter(
     )
   }
 
-  private fun handleValueWarning(maxValue: com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue, minValue: com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue, amount: BigDecimal) {
+  private fun handleValueWarning(maxValue: FiatValue, minValue: FiatValue, amount: BigDecimal) {
     val localCurrency = " ${maxValue.currency}"
     when {
       amount == BigDecimal(-1) -> {

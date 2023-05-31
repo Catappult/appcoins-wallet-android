@@ -4,17 +4,18 @@ import com.appcoins.wallet.bdsbilling.repository.BdsRepository
 import com.appcoins.wallet.core.network.microservices.model.FeeEntity
 import com.appcoins.wallet.core.network.microservices.model.FeeType
 import com.appcoins.wallet.core.network.microservices.model.PaymentMethodEntity
-import com.appcoins.wallet.feature.changecurrency.data.currencies.LocalCurrencyConversionService
-import com.appcoins.wallet.feature.promocode.data.use_cases.GetCurrentPromoCodeUseCase
 import com.appcoins.wallet.gamification.repository.ForecastBonusAndLevel
 import com.asfoundation.wallet.backup.NotificationNeeded
 import com.asfoundation.wallet.feature_flags.topup.TopUpDefaultValueUseCase
+import com.asfoundation.wallet.promo_code.use_cases.GetCurrentPromoCodeUseCase
+import com.appcoins.wallet.feature.changecurrency.data.currencies.LocalCurrencyConversionService
+import com.asfoundation.wallet.support.SupportInteractor
 import com.asfoundation.wallet.ui.gamification.GamificationInteractor
+import com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
 import com.asfoundation.wallet.ui.iab.PaymentMethod
 import com.asfoundation.wallet.ui.iab.PaymentMethodFee
 import com.asfoundation.wallet.wallet_blocked.WalletBlockedInteract
-import com.wallet.appcoins.feature.support.data.SupportInteractor
 import io.reactivex.Completable
 import io.reactivex.Single
 import kotlinx.coroutines.MainScope
@@ -23,18 +24,18 @@ import java.math.BigDecimal
 import javax.inject.Inject
 
 class TopUpInteractor @Inject constructor(
-        private val repository: BdsRepository,
-        private val conversionService: LocalCurrencyConversionService,
-        private val gamificationInteractor: GamificationInteractor,
-        private val topUpValuesService: TopUpValuesService,
-        private var walletBlockedInteract: WalletBlockedInteract,
-        private var inAppPurchaseInteractor: InAppPurchaseInteractor,
-        private var supportInteractor: SupportInteractor,
-        private var topUpDefaultValueUseCase: TopUpDefaultValueUseCase,
-        private val getCurrentPromoCodeUseCase: GetCurrentPromoCodeUseCase
+  private val repository: BdsRepository,
+  private val conversionService: LocalCurrencyConversionService,
+  private val gamificationInteractor: GamificationInteractor,
+  private val topUpValuesService: TopUpValuesService,
+  private var walletBlockedInteract: WalletBlockedInteract,
+  private var inAppPurchaseInteractor: InAppPurchaseInteractor,
+  private var supportInteractor: SupportInteractor,
+  private var topUpDefaultValueUseCase: TopUpDefaultValueUseCase,
+  private val getCurrentPromoCodeUseCase: GetCurrentPromoCodeUseCase
 ) {
 
-  private val chipValueIndexMap: LinkedHashMap<com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue, Int> = LinkedHashMap()
+  private val chipValueIndexMap: LinkedHashMap<FiatValue, Int> = LinkedHashMap()
   private var limitValues: TopUpLimitValues = TopUpLimitValues()
 
   fun getPaymentMethods(value: String, currency: String): Single<List<PaymentMethod>> =

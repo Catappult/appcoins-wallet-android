@@ -2,11 +2,12 @@ package com.asfoundation.wallet.ui.iab
 
 import com.appcoins.wallet.bdsbilling.WalletService
 import com.appcoins.wallet.billing.BillingMessagesMapper
-import com.appcoins.wallet.feature.walletInfo.data.verification.WalletVerificationInteractor
+import com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue
 import com.asfoundation.wallet.entity.TransactionBuilder
+import com.asfoundation.wallet.support.SupportInteractor
 import com.asfoundation.wallet.ui.iab.AsfInAppPurchaseInteractor.CurrentPaymentStep
+import com.asfoundation.wallet.verification.ui.credit_card.WalletVerificationInteractor
 import com.asfoundation.wallet.wallet_blocked.WalletBlockedInteract
-import com.wallet.appcoins.feature.support.data.SupportInteractor
 import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Single
@@ -63,7 +64,7 @@ class OnChainBuyInteract @Inject constructor(
   fun getTopUpChannelSuggestionValues(price: BigDecimal): List<BigDecimal> =
       inAppPurchaseInteractor.getTopUpChannelSuggestionValues(price)
 
-  fun convertToFiat(appcValue: Double, currency: String): Single<com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue> =
+  fun convertToFiat(appcValue: Double, currency: String): Single<FiatValue> =
       inAppPurchaseInteractor.convertToFiat(appcValue, currency)
 
   fun getBillingMessagesMapper(): BillingMessagesMapper =

@@ -85,7 +85,8 @@ fun BalanceCard(
                 VectorIconButton(
                   imageVector = Icons.Default.MoreVert,
                   contentDescription = R.string.action_more_details,
-                  onClick = onClickMenuOptions
+                  onClick = onClickMenuOptions,
+                  paddingIcon = 4.dp
                 )
               }
               Spacer(modifier = Modifier.height(12.dp))
@@ -121,7 +122,12 @@ fun BalanceCard(
                   .size(1.dp),
                 color = WalletColors.styleguide_blue,
                 content = {})
-              Column(modifier = Modifier.padding(16.dp)) { BackupAlertCard(onClickBackup) }
+              Column(modifier = Modifier.padding(16.dp)) {
+                BackupAlertCard(
+                  onClickBackup,
+                  hasBackup = false
+                )
+              }
             }
           }
         }
@@ -224,7 +230,8 @@ fun BalanceCardNewUser(onClickTopUp: () -> Unit) {
       TextStyle(
         color = WalletColors.styleguide_white,
         fontSize = 14.sp,
-        textAlign = TextAlign.Center
+        textAlign = TextAlign.Center,
+        fontWeight = FontWeight.Medium
       )
     )
     ButtonWithIcon(

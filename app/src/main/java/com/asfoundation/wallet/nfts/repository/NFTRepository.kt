@@ -2,17 +2,17 @@ package com.asfoundation.wallet.nfts.repository
 
 import com.appcoins.wallet.core.network.backend.api.NftApi
 import com.appcoins.wallet.core.utils.android_common.RxSchedulers
-import com.appcoins.wallet.feature.changecurrency.data.currencies.LocalCurrencyConversionService
 import com.asfoundation.wallet.nfts.domain.GasInfo
 import com.asfoundation.wallet.nfts.domain.NFTItem
 import com.asfoundation.wallet.nfts.domain.NftTransferResult
 import com.asfoundation.wallet.nfts.domain.SuccessfulNftTransfer
+import com.appcoins.wallet.feature.changecurrency.data.currencies.LocalCurrencyConversionService
+import com.asfoundation.wallet.wallets.repository.BalanceRepository
 import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
 import org.web3j.abi.FunctionEncoder
 import org.web3j.abi.TypeReference
 import org.web3j.abi.datatypes.*
-import org.web3j.abi.datatypes.Function
 import org.web3j.abi.datatypes.generated.Uint256
 import org.web3j.crypto.Credentials
 import org.web3j.crypto.RawTransaction
@@ -26,11 +26,11 @@ import java.math.BigInteger
 import javax.inject.Inject
 
 class NFTRepository @Inject constructor(
-        private val nftApi: NftApi,
-        private val rxSchedulers: RxSchedulers,
-        private val web3j: Web3j,
-        private val localCurrencyConversionService: LocalCurrencyConversionService,
-        private val chainID: Long,
+  private val nftApi: NftApi,
+  private val rxSchedulers: RxSchedulers,
+  private val web3j: Web3j,
+  private val localCurrencyConversionService: LocalCurrencyConversionService,
+  private val chainID: Long,
 ) {
 
   fun getNFTAssetList(address: String): Single<List<NFTItem>> {
@@ -55,7 +55,7 @@ class NFTRepository @Inject constructor(
     return Single.fromCallable {
       val rate = localCurrencyConversionService.getValueToFiat(
         "1.0", "ETH", selectedCurrency,
-        FIAT_SCALE
+        BalanceRepository.FIAT_SCALE
       )
         .blockingGet()
       val estimateGasTransaction =

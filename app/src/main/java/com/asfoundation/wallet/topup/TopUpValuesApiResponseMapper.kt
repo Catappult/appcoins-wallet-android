@@ -20,11 +20,11 @@ class TopUpValuesApiResponseMapper @Inject constructor(){
 
   fun mapValues(limitValuesResponse: TopUpLimitValuesResponse): TopUpLimitValues {
     return TopUpLimitValues(
-      com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue(
+      FiatValue(
         BigDecimal(limitValuesResponse.values.min), limitValuesResponse.currency.code,
         limitValuesResponse.currency.sign
       ),
-      com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue(
+      FiatValue(
         BigDecimal(limitValuesResponse.values.max), limitValuesResponse.currency.code,
         limitValuesResponse.currency.sign
       )

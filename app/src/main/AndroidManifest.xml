@@ -86,10 +86,6 @@
         <category android:name="android.intent.category.LAUNCHER" />
       </intent-filter>
     </activity>
-
-    <activity
-        android:name="com.asfoundation.wallet.ui.settings.SettingsActivity"
-        android:label="" />
     <activity
         android:name="com.asfoundation.wallet.ui.balance.TransactionDetailActivity"
         android:label="" />
@@ -161,12 +157,6 @@
       </intent-filter>
     </activity>
     <activity android:name="com.asfoundation.wallet.permissions.manage.view.ManagePermissionsActivity" />
-    <activity
-        android:name="com.asfoundation.wallet.change_currency.ChangeFiatCurrencyActivity"
-        android:label="@string/change_currency_title" />
-    <activity
-        android:name="com.asfoundation.wallet.change_currency.ChangeFiatCurrencyActivityNew"
-        android:label="@string/change_currency_title" />
     <activity
         android:name="com.asfoundation.wallet.ui.iab.IabActivity"
         android:exported="true"

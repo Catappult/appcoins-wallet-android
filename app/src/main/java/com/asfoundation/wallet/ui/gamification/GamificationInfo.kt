@@ -6,7 +6,7 @@ import java.math.BigDecimal
 import java.util.*
 
 data class GamificationInfo(val currentLevel: Int, val totalSpend: BigDecimal,
-                            val totalEarned: com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue?,
+                            val totalEarned: FiatValue?,
                             val nextLevelAmount: BigDecimal?,
                             val levels: List<Levels.Level>,
                             val updateDate: Date?,

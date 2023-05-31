@@ -252,8 +252,8 @@ class AdyenPaymentInteractorTest {
 
   @Test
   fun convertToFiatTest() {
-    val testObserver = TestObserver<com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue>()
-    val expectedFiatValue = com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue(
+    val testObserver = TestObserver<FiatValue>()
+    val expectedFiatValue = FiatValue(
       BigDecimal(2),
       TEST_FIAT_CURRENCY
     )
@@ -301,8 +301,8 @@ class AdyenPaymentInteractorTest {
 
   @Test
   fun convertToLocalFiatTest() {
-    val testObserver = TestObserver<com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue>()
-    val expectedFiatValue = com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue(
+    val testObserver = TestObserver<FiatValue>()
+    val expectedFiatValue = FiatValue(
       BigDecimal(2),
       TEST_FIAT_CURRENCY
     )

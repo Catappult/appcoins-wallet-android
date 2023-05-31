@@ -37,12 +37,12 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
+import com.appcoins.wallet.core.arch.SingleStateFragment
+import com.appcoins.wallet.core.arch.data.Async
 import com.appcoins.wallet.core.network.backend.model.GamificationStatus
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.appcoins.wallet.core.utils.android_common.RootUtil
 import com.appcoins.wallet.core.utils.android_common.WalletCurrency.FIAT
-import com.appcoins.wallet.core.arch.SingleStateFragment
-import com.appcoins.wallet.core.arch.data.Async
 import com.appcoins.wallet.ui.common.theme.WalletColors
 import com.appcoins.wallet.ui.widgets.*
 import com.appcoins.wallet.ui.widgets.component.BottomSheetButton
@@ -119,14 +119,13 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
     viewModel.stopRefreshingData()
   }
 
-  @OptIn(ExperimentalMaterial3Api::class)
   @Composable
   fun HomeScreen(
     modifier: Modifier = Modifier,
   ) {
     Scaffold(
       topBar = {
-        Surface(shadowElevation = 4.dp) {
+        Surface {
           TopBar(
             isMainBar = true,
             isVip = isVip,
@@ -188,15 +187,24 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
           content = walletOptionsBottomSheet(
             onManageWalletClick = {
               scope.launch { bottomSheetState.hide() }
-                .invokeOnCompletion { navigateToManageWallet() }
+                .invokeOnCompletion {
+                  openBottomSheet = !openBottomSheet
+                  navigateToManageWallet()
+                }
             },
             onRecoverWalletClick = {
               scope.launch { bottomSheetState.hide() }
-                .invokeOnCompletion { viewModel.onRecoverClick() }
+                .invokeOnCompletion {
+                  openBottomSheet = !openBottomSheet
+                  viewModel.onRecoverClick()
+                }
             },
             onBackupWalletClick = {
               scope.launch { bottomSheetState.hide() }
-                .invokeOnCompletion { viewModel.onBackupClick() }
+                .invokeOnCompletion {
+                  openBottomSheet = !openBottomSheet
+                  viewModel.onBackupClick()
+                }
             },
           )
         )
@@ -340,19 +348,12 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
     when (sideEffect) {
       is HomeSideEffect.NavigateToBrowser -> navigator.navigateToBrowser(sideEffect.uri)
       is HomeSideEffect.NavigateToRateUs -> navigator.navigateToRateUs(sideEffect.shouldNavigate)
-      HomeSideEffect.NavigateToReward -> navigator.navigateToReward()
       is HomeSideEffect.NavigateToSettings -> navigator.navigateToSettings(
+        navController(),
         sideEffect.turnOnFingerprint
       )
 
-      is HomeSideEffect.NavigateToShare -> navigator.handleShare(sideEffect.url)
-      is HomeSideEffect.NavigateToDetails -> navigator.navigateToTransactionDetails(
-        sideEffect.transaction, sideEffect.balanceCurrency
-      )
-      is HomeSideEffect.NavigateToBackup -> navigator.navigateToBackup(
-        sideEffect.walletAddress
-      )
-
+      is HomeSideEffect.NavigateToBackup -> navigator.navigateToBackup(sideEffect.walletAddress)
       is HomeSideEffect.NavigateToRecover -> navigator.navigateToRecoverWallet()
       is HomeSideEffect.NavigateToIntent -> navigator.openIntent(sideEffect.intent)
       is HomeSideEffect.ShowBackupTrigger -> navigator.navigateToBackupTrigger(
@@ -360,11 +361,13 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
         sideEffect.triggerSource
       )
 
+      HomeSideEffect.NavigateToReward -> navigator.navigateToReward()
       HomeSideEffect.NavigateToChangeCurrency -> navigator.navigateToCurrencySelector(navController())
       HomeSideEffect.NavigateToTopUp -> navigator.navigateToTopUp()
       HomeSideEffect.NavigateToTransfer -> navigator.navigateToTransfer()
-      HomeSideEffect.NavigateToTransactionsList ->
-        transactionsNavigator.navigateToTransactionsList(navController())
+      HomeSideEffect.NavigateToTransactionsList -> transactionsNavigator.navigateToTransactionsList(
+        navController()
+      )
     }
   }
 

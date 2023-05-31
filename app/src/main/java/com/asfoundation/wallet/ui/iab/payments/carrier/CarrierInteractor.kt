@@ -40,11 +40,11 @@ class CarrierInteractor @Inject constructor(private val repository: CarrierBilli
                     origin: String?, transactionData: String, transactionType: String,
                     currency: String,
                     value: String): Single<CarrierPaymentModel> {
-    return Single.zip(getAddresses(packageName), getTransactionBuilder(transactionData),
-        BiFunction { addrs: WalletAddresses, builder: TransactionBuilder ->
-          TransactionDataDetails(addrs, builder)
-        })
-        .flatMap { details ->
+    return Single.zip(getAddresses(packageName), getTransactionBuilder(transactionData)
+    ) { addrs: WalletAddresses, builder: TransactionBuilder ->
+      TransactionDataDetails(addrs, builder)
+    }
+      .flatMap { details ->
           getCurrentPromoCodeUseCase().flatMap { promoCode ->
             repository.makePayment(details.addrs.userAddress, details.addrs.signedAddress,
                 phoneNumber, packageName, origin, details.builder.skuId,
@@ -107,10 +107,13 @@ class CarrierInteractor @Inject constructor(private val repository: CarrierBilli
   private fun getAddresses(packageName: String): Single<WalletAddresses> {
     return Single.zip(walletService.getAndSignCurrentWalletAddress()
         .subscribeOn(rxSchedulers.io), partnerAddressService.getAttributionEntity(packageName)
-        .subscribeOn(rxSchedulers.io), BiFunction { addressModel, attributionEntity ->
-      WalletAddresses(addressModel.address, addressModel.signedAddress, attributionEntity.oemId,
-          attributionEntity.domain)
-    })
+        .subscribeOn(rxSchedulers.io)
+    ) { addressModel, attributionEntity ->
+      WalletAddresses(
+        addressModel.address, addressModel.signedAddress, attributionEntity.oemId,
+        attributionEntity.domain
+      )
+    }
   }
 
   private fun observeTransactionUpdates(uid: String, walletAddress: String,
@@ -136,7 +139,7 @@ class CarrierInteractor @Inject constructor(private val repository: CarrierBilli
     return uri.getQueryParameter("why") ?: "Unknown Error"
   }
 
-  fun convertToFiat(amount: Double, currency: String): Single<com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue> {
+  fun convertToFiat(amount: Double, currency: String): Single<FiatValue> {
     return inAppPurchaseInteractor.convertToFiat(amount, currency)
   }
 

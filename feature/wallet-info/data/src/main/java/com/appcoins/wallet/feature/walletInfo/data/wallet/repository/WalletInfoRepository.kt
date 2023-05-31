@@ -1,14 +1,14 @@
-package com.appcoins.wallet.feature.walletInfo.data.wallet.repository
+package com.asfoundation.wallet.wallets.repository
 
 import com.appcoins.wallet.core.analytics.analytics.SentryEventLogger
 import com.appcoins.wallet.core.network.backend.api.WalletInfoApi
 import com.appcoins.wallet.core.network.backend.model.WalletInfoResponse
 import com.appcoins.wallet.core.utils.android_common.RxSchedulers
-import com.appcoins.wallet.feature.walletInfo.data.balance.BalanceRepository
-import com.appcoins.wallet.feature.walletInfo.data.balance.WalletBalance
-import com.appcoins.wallet.feature.walletInfo.data.wallet.db.WalletInfoDao
-import com.appcoins.wallet.feature.walletInfo.data.wallet.db.entity.WalletInfoEntity
-import com.appcoins.wallet.feature.walletInfo.data.wallet.domain.WalletInfo
+import com.appcoins.wallet.core.utils.android_common.extensions.StringUtils.masked
+import com.asfoundation.wallet.wallets.db.WalletInfoDao
+import com.asfoundation.wallet.wallets.db.entity.WalletInfoEntity
+import com.asfoundation.wallet.wallets.domain.WalletBalance
+import com.asfoundation.wallet.wallets.domain.WalletInfo
 import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Single
@@ -18,11 +18,11 @@ import java.util.Locale
 import javax.inject.Inject
 
 class WalletInfoRepository @Inject constructor(
-    private val api: WalletInfoApi,
-    private val walletInfoDao: WalletInfoDao,
-    private val balanceRepository: BalanceRepository,
-    private val sentryEventLogger: SentryEventLogger,
-    private val rxSchedulers: RxSchedulers
+  private val api: WalletInfoApi,
+  private val walletInfoDao: WalletInfoDao,
+  private val balanceRepository: BalanceRepository,
+  private val sentryEventLogger: SentryEventLogger,
+  private val rxSchedulers: RxSchedulers
 ) {
 
   fun getLatestWalletInfo(walletAddress: String, updateFiatValues: Boolean): Single<WalletInfo> =
@@ -126,7 +126,7 @@ class WalletInfoRepository @Inject constructor(
   private fun WalletInfoEntity.toWalletInfo() =
     WalletInfo(
       wallet = wallet,
-      name = name?.ifEmpty { null } ?: wallet.replaceRange(IntRange(6, wallet.length - 5), " ··· "),
+      name = name?.ifEmpty { null } ?: wallet.masked(),
       walletBalance = balanceRepository.mapToWalletBalance(
         creditsValue = balanceRepository.roundToEth(appcCreditsBalanceWei),
         creditsFiatAmount = appcCreditsBalanceFiat ?: BigDecimal.ZERO,
