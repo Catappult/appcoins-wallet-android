@@ -108,7 +108,7 @@ class ManageWalletFragment : BasePageViewFragment() {
   fun ManageWalletView() {
     Scaffold(
       topBar = {
-        Surface(shadowElevation = 4.dp) {
+        Surface {
           TopBar(isMainBar = false, onClickSupport = { viewModel.displayChat() })
         }
       },

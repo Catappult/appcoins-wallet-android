@@ -83,7 +83,7 @@ class RewardFragment : BasePageViewFragment(), SingleStateFragment<RewardState, 
   ) {
     Scaffold(
       topBar = {
-        Surface(shadowElevation = 4.dp) {
+        Surface {
           TopBar(
             isMainBar = true,
             isVip = isVip,

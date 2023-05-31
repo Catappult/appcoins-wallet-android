@@ -125,7 +125,7 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
   ) {
     Scaffold(
       topBar = {
-        Surface(shadowElevation = 4.dp) {
+        Surface {
           TopBar(
             isMainBar = true,
             isVip = isVip,
