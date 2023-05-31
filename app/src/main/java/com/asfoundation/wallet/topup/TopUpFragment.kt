@@ -207,6 +207,9 @@ class TopUpFragment : BasePageViewFragment(), TopUpFragmentView {
       logoutCallback = {
         presenter.removePaypalBillingAgreement()
         presenter.wasLoggedOut = true
+        presenter.showingLogout = false
+        setNextButton()
+        showAsLoading()
       }
     )
     selectPaymentMethod(paymentMethods)
@@ -280,6 +283,18 @@ class TopUpFragment : BasePageViewFragment(), TopUpFragmentView {
       val imm = context?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager?
       imm?.showSoftInput(view, InputMethodManager.SHOW_FORCED)
     }
+  }
+
+  override fun showAsLoading() {
+    setNextButtonState(enabled = false)
+    binding.paymentsSkeleton.visibility = View.VISIBLE
+    binding.paymentMethods.visibility = View.INVISIBLE
+  }
+
+  override fun hideLoading() {
+    setNextButtonState(enabled = true)
+    binding.paymentsSkeleton.visibility = View.GONE
+    binding.paymentMethods.visibility = View.VISIBLE
   }
 
   override fun setDefaultAmountValue(amount: String) {
@@ -534,6 +549,14 @@ class TopUpFragment : BasePageViewFragment(), TopUpFragmentView {
     binding.rvDefaultValues.visibility = View.GONE
     binding.errorTopup.root.startAnimation(AnimationUtils.loadAnimation(context,R.anim.pop_in_animation))
     binding.errorTopup.root.visibility = View.VISIBLE
+  }
+
+  override fun setNextButton() {
+    binding.button.setTextRes(R.string.action_next)
+  }
+
+  override fun setTopupButton() {
+    binding.button.setTextRes(R.string.topup_button)
   }
 
   private fun hideKeyboard() {

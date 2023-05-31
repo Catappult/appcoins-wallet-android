@@ -11,6 +11,7 @@ import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.asfoundation.wallet.billing.paypal.usecases.IsPaypalAgreementCreatedUseCase
 import com.asfoundation.wallet.billing.paypal.usecases.RemovePaypalBillingAgreementUseCase
 import com.asfoundation.wallet.ui.iab.PaymentMethodsPresenter
+import com.asfoundation.wallet.ui.iab.PaymentMethodsView
 import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Scheduler
@@ -38,6 +39,7 @@ class TopUpFragmentPresenter(
   private var cachedGamificationLevel = 0
   private var hasDefaultValues = false
   var wasLoggedOut = false
+  var showingLogout = false
 
   companion object {
     private val TAG = TopUpFragmentPresenter::class.java.name
@@ -98,9 +100,10 @@ class TopUpFragmentPresenter(
     ) { paymentMethods, showPaypalLogout -> Pair(paymentMethods, showPaypalLogout) }
       .doOnSuccess { methodsAndLogout ->
         if (methodsAndLogout.first.isNotEmpty()) {
+          showingLogout = (methodsAndLogout.second && !wasLoggedOut)
           view.setupPaymentMethods(
             paymentMethods = methodsAndLogout.first,
-            showLogoutPaypal = (methodsAndLogout.second && !wasLoggedOut)
+            showLogoutPaypal = showingLogout
           )
         } else {
           view.showNoMethodsError()
@@ -259,9 +262,20 @@ class TopUpFragmentPresenter(
 
   private fun handlePaymentMethodSelected() {
     disposables.add(view.getPaymentMethodClick()
-      .doOnNext { view.paymentMethodsFocusRequest() }
+      .doOnNext {
+        view.paymentMethodsFocusRequest()
+        setNextButton(it)
+      }
       .subscribe({}, { it.printStackTrace() })
     )
+  }
+
+  private fun setNextButton(methodSelected: String?) {
+    if (methodSelected == PaymentMethodsView.PaymentMethodId.PAYPAL_V2.id && showingLogout) {
+      view.setTopupButton()
+    } else {
+      view.setNextButton()
+    }
   }
 
   private fun loadBonusIntoView(
@@ -413,8 +427,14 @@ class TopUpFragmentPresenter(
         .subscribeOn(networkThread)
         .observeOn(viewScheduler)
         .subscribe(
-          { android.util.Log.d(PaymentMethodsPresenter.TAG, "Agreement removed") },
-          { logger.log(PaymentMethodsPresenter.TAG, "Agreement Not Removed") }
+          {
+            view.hideLoading()
+            android.util.Log.d(PaymentMethodsPresenter.TAG, "Agreement removed")
+          },
+          {
+            view.hideLoading()
+            logger.log(PaymentMethodsPresenter.TAG, "Agreement Not Removed")
+          }
         )
     )
   }
