@@ -11,11 +11,13 @@ import androidx.compose.material3.IconButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.appcoins.wallet.ui.common.theme.WalletColors
 
@@ -36,7 +38,13 @@ fun ActionButton(
 }
 
 @Composable
-fun VectorIconButton(imageVector: ImageVector, contentDescription: Int, onClick: () -> Unit) {
+fun VectorIconButton(
+  imageVector: ImageVector,
+  contentDescription: Int,
+  onClick: () -> Unit,
+  paddingIcon: Dp = 8.dp,
+  background: Color = WalletColors.styleguide_blue
+) {
   IconButton(onClick = onClick) {
     Icon(
       imageVector = imageVector,
@@ -45,17 +53,49 @@ fun VectorIconButton(imageVector: ImageVector, contentDescription: Int, onClick:
       modifier =
       Modifier
         .size(32.dp)
-        .background(WalletColors.styleguide_blue, shape = RoundedCornerShape(8.dp))
-        .padding(4.dp)
+        .background(background, shape = RoundedCornerShape(8.dp))
+        .padding(paddingIcon)
     )
   }
 }
+
+@Composable
+fun VectorIconButton(
+  painter: Painter,
+  contentDescription: Int,
+  onClick: () -> Unit,
+  paddingIcon: Dp = 8.dp,
+  background: Color = WalletColors.styleguide_blue
+) {
+  IconButton(onClick = onClick) {
+    Icon(
+      painter = painter,
+      contentDescription = stringResource(id = contentDescription),
+      tint = Color.White,
+      modifier =
+      Modifier
+        .size(32.dp)
+        .background(background, shape = RoundedCornerShape(8.dp))
+        .padding(paddingIcon)
+    )
+  }
+}
+
 
 @Preview
 @Composable
 fun PreviewVectorIconButton() {
   VectorIconButton(
     imageVector = Icons.Default.MoreVert,
+    contentDescription = R.string.action_more_details,
+    onClick = { })
+}
+
+@Preview
+@Composable
+fun PreviewIconButton() {
+  VectorIconButton(
+    painter = painterResource(R.drawable.ic_copy_to_clip),
     contentDescription = R.string.action_more_details,
     onClick = { })
 }

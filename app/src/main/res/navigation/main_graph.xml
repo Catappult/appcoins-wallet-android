@@ -92,6 +92,18 @@
       android:id="@+id/action_navigate_to_manage_wallet"
       app:destination="@id/manage_wallet_graph" />
 
+  <action
+      android:id="@+id/action_navigate_to_settings"
+      app:destination="@id/settings_fragment">
+    <argument
+        android:name="turn_on_fingerprint"
+        app:argType="boolean" />
+  </action>
+
+  <fragment
+      android:id="@+id/settings_fragment"
+      android:name="com.asfoundation.wallet.ui.settings.entry.SettingsFragment" />
+
   <include app:graph="@navigation/transactions_graph" />
 
   <action

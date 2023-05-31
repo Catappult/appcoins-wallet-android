@@ -1,10 +1,94 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/manage_wallet_graph"
     app:startDestination="@id/manage_wallet_fragment">
 
   <fragment
       android:id="@+id/manage_wallet_fragment"
-      android:name="com.asfoundation.wallet.manage_wallets.ManageWalletFragment" />
+      android:name="com.asfoundation.wallet.manage_wallets.ManageWalletFragment">
+    <action
+        android:id="@+id/action_navigate_to_verify_credit_card"
+        app:destination="@id/verify_credit_card_wallet_activity" />
+    <action
+        android:id="@+id/action_navigate_to_verify_paypal"
+        app:destination="@id/verify_paypal_wallet_activity" />
+    <action
+        android:id="@+id/action_navigate_to_backup_wallet"
+        app:destination="@id/backup_wallet_activity" />
+    <action
+        android:id="@+id/action_navigate_to_create_wallet"
+        app:destination="@id/create_wallet_dialog_fragment" />
+    <action
+        android:id="@+id/action_navigate_to_recover_wallet"
+        app:destination="@id/recover_wallet_activity" />
+    <action
+        android:id="@+id/action_navigate_to_remove_wallet"
+        app:destination="@id/remove_wallet_activity" />
+  </fragment>
+
+  <activity
+      android:id="@+id/verify_paypal_wallet_activity"
+      android:name="com.asfoundation.wallet.verification.ui.paypal.VerificationPaypalActivity"
+      tools:layout="@layout/activity_wallet_paypal_verification" />
+
+  <activity
+      android:id="@+id/verify_credit_card_wallet_activity"
+      android:name="com.asfoundation.wallet.verification.ui.credit_card.VerificationCreditCardActivity"
+      tools:layout="@layout/activity_wallet_verification">
+    <argument
+        android:name="is_wallet_verified"
+        app:argType="boolean" />
+  </activity>
+
+  <activity
+      android:id="@+id/backup_wallet_activity"
+      android:name="com.asfoundation.wallet.backup.BackupActivity"
+      tools:layout="@layout/activity_backup">
+    <argument
+        android:name="wallet_address"
+        app:argType="string" />
+  </activity>
+
+  <activity
+      android:id="@+id/remove_wallet_activity"
+      android:name="com.asfoundation.wallet.ui.wallets.RemoveWalletActivity"
+      tools:layout="@layout/remove_wallet_activity_layout">
+    <argument
+        android:name="wallet_address"
+        app:argType="string" />
+    <argument
+        android:name="fiat_balance"
+        app:argType="string" />
+    <argument
+        android:name="appc_balance"
+        app:argType="string" />
+    <argument
+        android:name="credits_balance"
+        app:argType="string" />
+    <argument
+        android:name="ethereum_balance"
+        app:argType="string" />
+  </activity>
+
+  <dialog
+      android:id="@+id/create_wallet_dialog_fragment"
+      android:name="com.asfoundation.wallet.my_wallets.create_wallet.CreateWalletDialogFragment"
+      tools:layout="@layout/fragment_create_wallet_dialog_layout">
+    <!-- temporary argument to differentiate the recover from a creation -->
+    <argument
+        android:name="needs_wallet_creation"
+        app:argType="boolean" />
+  </dialog>
+
+  <activity
+      android:id="@+id/recover_wallet_activity"
+      android:name="com.asfoundation.wallet.recover.RecoverActivity"
+      tools:layout="@layout/recover_wallet_activity">
+    <argument
+        android:name="onboarding_layout"
+        app:argType="boolean" />
+  </activity>
+
 </navigation>

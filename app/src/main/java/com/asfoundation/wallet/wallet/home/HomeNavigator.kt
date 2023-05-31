@@ -3,24 +3,21 @@ package com.asfoundation.wallet.wallet.home
 import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.net.Uri
+import android.os.Bundle
 import android.widget.Toast
-import androidx.core.app.ShareCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
-import com.appcoins.wallet.core.arch.data.Navigator
 import com.appcoins.wallet.sharedpreferences.BackupTriggerPreferencesDataSource
+import com.appcoins.wallet.core.arch.data.Navigator
+import com.appcoins.wallet.core.arch.data.navigate
 import com.asf.wallet.R
-import com.asfoundation.wallet.C
 import com.asfoundation.wallet.backup.BackupActivity
 import com.asfoundation.wallet.backup.triggers.BackupTriggerDialogFragment
 import com.asfoundation.wallet.main.nav_bar.NavBarFragmentNavigator
 import com.asfoundation.wallet.rating.RatingActivity
 import com.asfoundation.wallet.recover.RecoverActivity
 import com.asfoundation.wallet.topup.TopUpActivity
-import com.asfoundation.wallet.transactions.Transaction
-import com.asfoundation.wallet.ui.BaseActivity
-import com.asfoundation.wallet.ui.balance.TransactionDetailActivity
-import com.asfoundation.wallet.ui.settings.SettingsActivity
+import com.asfoundation.wallet.ui.settings.entry.SettingsFragment
 import com.asfoundation.wallet.ui.transact.TransferActivity
 import javax.inject.Inject
 
@@ -38,17 +35,8 @@ constructor(
     }
   }
 
-  fun navigateToSettings(turnOnFingerprint: Boolean = false) {
-    val intent = SettingsActivity.newIntent(fragment.requireContext(), turnOnFingerprint)
-    openIntent(intent)
-  }
-
   fun navigateToReward() {
     navBarFragmentNavigator.navigateToRewards()
-  }
-
-  fun navigateToPromotions() {
-    navBarFragmentNavigator.navigateToPromotions()
   }
 
   fun navigateToBrowser(uri: Uri) {
@@ -59,25 +47,6 @@ constructor(
     } catch (exception: ActivityNotFoundException) {
       exception.printStackTrace()
       Toast.makeText(fragment.requireContext(), R.string.unknown_error, Toast.LENGTH_SHORT).show()
-    }
-  }
-
-  fun handleShare(link: String) {
-    ShareCompat.IntentBuilder.from(fragment.activity as BaseActivity)
-      .setText(link)
-      .setType("text/plain")
-      .setChooserTitle(fragment.resources.getString(R.string.referral_share_sheet_title))
-      .startChooser()
-  }
-
-  fun navigateToTransactionDetails(transaction: Transaction, globalBalanceCurrency: String) {
-    with(fragment.requireContext()) {
-      val intent =
-        Intent(this, TransactionDetailActivity::class.java).apply {
-          putExtra(C.Key.TRANSACTION, transaction)
-          putExtra(C.Key.GLOBAL_BALANCE_CURRENCY, globalBalanceCurrency)
-        }
-      startActivity(intent)
     }
   }
 
@@ -135,10 +104,13 @@ constructor(
     mainNavController.navigate(R.id.action_navigate_to_manage_wallet)
   }
 
-  fun navigateToTransactionsList(
-    mainNavController: NavController
+  fun navigateToSettings(
+    mainNavController: NavController,
+    turnOnFingerprint: Boolean = false
   ) {
-    mainNavController.navigate(R.id.action_navigate_to_transactions_list)
+    val bundle = Bundle()
+    bundle.putBoolean(SettingsFragment.TURN_ON_FINGERPRINT, turnOnFingerprint)
+    mainNavController.navigate(resId = R.id.action_navigate_to_settings, args = bundle)
   }
 
   fun openIntent(intent: Intent) = fragment.requireContext()

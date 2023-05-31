@@ -36,7 +36,6 @@ import com.asfoundation.wallet.promotions.ui.PromotionsState
 import com.asfoundation.wallet.promotions.usecases.GetPromotionsUseCase
 import com.asfoundation.wallet.promotions.usecases.SetSeenPromotionsUseCase
 import com.asfoundation.wallet.referrals.CardNotification
-import com.asfoundation.wallet.transactions.Transaction
 import com.asfoundation.wallet.transactions.TransactionModel
 import com.asfoundation.wallet.transactions.toModel
 import com.asfoundation.wallet.ui.balance.TokenBalance
@@ -72,10 +71,6 @@ sealed class HomeSideEffect : SideEffect {
   data class NavigateToBrowser(val uri: Uri) : HomeSideEffect()
   data class NavigateToRateUs(val shouldNavigate: Boolean) : HomeSideEffect()
   data class NavigateToSettings(val turnOnFingerprint: Boolean = false) : HomeSideEffect()
-  data class NavigateToShare(val url: String) : HomeSideEffect()
-  data class NavigateToDetails(val transaction: Transaction, val balanceCurrency: String) :
-    HomeSideEffect()
-
   data class NavigateToBackup(val walletAddress: String) : HomeSideEffect()
   data class NavigateToIntent(val intent: Intent) : HomeSideEffect()
   data class ShowBackupTrigger(val walletAddress: String, val triggerSource: TriggerSource) :
@@ -402,10 +397,6 @@ constructor(
     sendSideEffect { HomeSideEffect.NavigateToSettings() }
   }
 
-  fun onBalanceClick() {
-    sendSideEffect { HomeSideEffect.NavigateToReward }
-  }
-
   fun onTopUpClick() {
     sendSideEffect { HomeSideEffect.NavigateToTopUp }
   }
@@ -414,13 +405,6 @@ constructor(
     sendSideEffect { HomeSideEffect.NavigateToTransfer }
   }
 
-  fun onTransactionDetailsClick(transaction: Transaction) {
-    sendSideEffect {
-      state.defaultWalletBalanceAsync.value?.let {
-        HomeSideEffect.NavigateToDetails(transaction, it.walletBalance.creditsOnlyFiat.currency)
-      }
-    }
-  }
 
   fun onBackupClick() {
     val model: TransactionsWalletModel? =
