@@ -8,10 +8,10 @@ import com.appcoins.wallet.gamification.repository.ForecastBonusAndLevel
 import com.asfoundation.wallet.backup.NotificationNeeded
 import com.asfoundation.wallet.feature_flags.topup.TopUpDefaultValueUseCase
 import com.asfoundation.wallet.promo_code.use_cases.GetCurrentPromoCodeUseCase
-import com.asfoundation.wallet.service.currencies.LocalCurrencyConversionService
+import com.appcoins.wallet.feature.changecurrency.data.currencies.LocalCurrencyConversionService
 import com.asfoundation.wallet.support.SupportInteractor
 import com.asfoundation.wallet.ui.gamification.GamificationInteractor
-import com.asfoundation.wallet.ui.iab.FiatValue
+import com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
 import com.asfoundation.wallet.ui.iab.PaymentMethod
 import com.asfoundation.wallet.ui.iab.PaymentMethodFee
@@ -55,10 +55,10 @@ class TopUpInteractor @Inject constructor(
         }
     }
 
-  fun convertAppc(value: String): Single<FiatValue> =
+  fun convertAppc(value: String): Single<com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue> =
     conversionService.getAppcToLocalFiat(value, 2)
 
-  fun convertLocal(currency: String, value: String, scale: Int): Single<FiatValue> =
+  fun convertLocal(currency: String, value: String, scale: Int): Single<com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue> =
     conversionService.getFiatToAppc(currency, value, scale)
 
   private fun mapPaymentMethods(
@@ -110,7 +110,7 @@ class TopUpInteractor @Inject constructor(
   fun isBonusValidAndActive(forecastBonusAndLevel: ForecastBonusAndLevel): Boolean =
     gamificationInteractor.isBonusActiveAndValid(forecastBonusAndLevel)
 
-  private fun cacheChipValues(chipValues: List<FiatValue>) {
+  private fun cacheChipValues(chipValues: List<com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue>) {
     for (index in chipValues.indices) {
       chipValueIndexMap[chipValues[index]] = index
     }

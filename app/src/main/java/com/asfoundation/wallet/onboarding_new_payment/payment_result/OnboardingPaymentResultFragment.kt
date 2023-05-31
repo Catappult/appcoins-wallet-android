@@ -16,7 +16,7 @@ import com.appcoins.wallet.billing.ErrorInfo
 import com.appcoins.wallet.billing.util.Error
 import com.asf.wallet.R
 import com.asf.wallet.databinding.OnboardingPaymentResultFragmentBinding
-import com.appcoins.wallet.ui.arch.SingleStateFragment
+import com.appcoins.wallet.core.arch.SingleStateFragment
 import com.asfoundation.wallet.billing.adyen.AdyenErrorCodeMapper
 import com.asfoundation.wallet.onboarding_new_payment.getPurchaseBonusMessage
 import com.asfoundation.wallet.service.ServicesErrorCodeMapper

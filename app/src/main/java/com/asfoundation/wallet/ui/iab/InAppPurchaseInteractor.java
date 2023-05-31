@@ -14,7 +14,7 @@ import com.appcoins.wallet.core.network.microservices.model.Gateway;
 import com.appcoins.wallet.core.network.microservices.model.PaymentMethodEntity;
 import com.appcoins.wallet.core.network.microservices.model.Transaction;
 import com.appcoins.wallet.core.utils.properties.MiscProperties;
-import com.asf.wallet.BuildConfig;
+import com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue;
 import com.asf.wallet.R;
 import com.asfoundation.wallet.backup.NotificationNeeded;
 import com.asfoundation.wallet.backup.use_cases.ShouldShowSystemNotificationUseCase;

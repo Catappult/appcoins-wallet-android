@@ -12,7 +12,7 @@ import androidx.lifecycle.lifecycleScope
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.asf.wallet.R
 import com.asf.wallet.databinding.FragmentNftBinding
-import com.appcoins.wallet.ui.arch.SingleStateFragment
+import com.appcoins.wallet.core.arch.SingleStateFragment
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource

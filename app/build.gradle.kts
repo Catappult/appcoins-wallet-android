@@ -38,12 +38,16 @@ dependencies {
   implementation(project(":core:utils:android-common"))
   implementation(project(":core:utils:jvm-common"))
   implementation(project(":core:utils:properties"))
+  implementation(project(":core:arch"))
   implementation(project(":ui:common"))
-  implementation(project(":ui:arch"))
   implementation(project(":ui:widgets"))
+  implementation(project(":feature:change-currency:data"))
+  implementation(project(":feature:change-currency:ui"))
   implementation(project(":home"))
 
   implementation(libs.kotlin.coroutines)
+  implementation(libs.kotlin.coroutines.rx2)
+  implementation(libs.bundles.result)
 
   implementation(libs.viewbinding.delegate)
   implementation(libs.androidx.core.ktx)
@@ -99,6 +103,7 @@ dependencies {
   implementation(libs.shimmer)
   implementation(libs.glide)
   kapt(libs.glide.compiler)
+  implementation(libs.bundles.coil)
 
   implementation(libs.epoxy)
   kapt(libs.epoxy.processor)

@@ -3,13 +3,17 @@ package com.asfoundation.wallet.ui.settings.entry
 import android.content.Intent
 import android.hardware.biometrics.BiometricManager
 import android.os.Bundle
+import com.appcoins.wallet.feature.changecurrency.data.use_cases.GetChangeFiatCurrencyModelUseCase
+import com.asfoundation.wallet.ui.wallets.WalletsModel
 import androidx.navigation.NavController
-import com.asfoundation.wallet.change_currency.use_cases.GetChangeFiatCurrencyModelUseCase
 import com.asfoundation.wallet.home.usecases.DisplayChatUseCase
 import com.asfoundation.wallet.update_required.use_cases.BuildUpdateIntentUseCase
+import com.github.michaelbull.result.get
 import io.reactivex.Scheduler
 import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.rx2.rxSingle
 
 class SettingsPresenter(
   private val view: SettingsView,
@@ -137,11 +141,16 @@ class SettingsPresenter(
     settingsInteractor.changeAuthorizationPermission(!hasAuthenticationPermission())
 
   private fun setCurrencyPreference() {
-    disposables.add(getChangeFiatCurrencyModelUseCase().observeOn(viewScheduler).doOnSuccess {
-      for (fiatCurrency in it.list) {
-        if (fiatCurrency.currency == it.selectedCurrency) {
-          view.setCurrencyPreference(fiatCurrency)
-          break
+    disposables.add(rxSingle(Dispatchers.IO) { getChangeFiatCurrencyModelUseCase() }
+      .observeOn(viewScheduler)
+      .doOnSuccess { result ->
+        result.get()?.let {
+          for (fiatCurrency in it.list) {
+            if (fiatCurrency.currency == it.selectedCurrency) {
+              view.setCurrencyPreference(fiatCurrency)
+              break
+            }
+          }
         }
       }
     }.subscribeOn(networkScheduler).subscribe())

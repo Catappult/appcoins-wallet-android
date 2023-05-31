@@ -6,7 +6,7 @@ import com.asfoundation.wallet.nfts.domain.GasInfo
 import com.asfoundation.wallet.nfts.domain.NFTItem
 import com.asfoundation.wallet.nfts.domain.NftTransferResult
 import com.asfoundation.wallet.nfts.domain.SuccessfulNftTransfer
-import com.asfoundation.wallet.service.currencies.LocalCurrencyConversionService
+import com.appcoins.wallet.feature.changecurrency.data.currencies.LocalCurrencyConversionService
 import com.asfoundation.wallet.wallets.repository.BalanceRepository
 import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers

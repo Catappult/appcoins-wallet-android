@@ -2,6 +2,7 @@ package com.asfoundation.wallet.ui.iab
 
 import android.os.Bundle
 import androidx.annotation.StringRes
+import com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue
 import com.asfoundation.wallet.billing.adyen.PaymentType
 import com.asfoundation.wallet.entity.TransactionBuilder
 import io.reactivex.Observable
@@ -49,7 +50,7 @@ interface PaymentMethodsView {
                  isSubscription: Boolean)
 
   fun showPaypalV2(gamificationLevel: Int, fiatValue: FiatValue, frequency: String?,
-                 isSubscription: Boolean)
+                   isSubscription: Boolean)
 
   fun showAdyen(fiatAmount: BigDecimal,
                 fiatCurrency: String,

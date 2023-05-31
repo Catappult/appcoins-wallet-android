@@ -158,9 +158,6 @@
     </activity>
     <activity android:name="com.asfoundation.wallet.permissions.manage.view.ManagePermissionsActivity" />
     <activity
-        android:name="com.asfoundation.wallet.change_currency.ChangeFiatCurrencyActivity"
-        android:label="@string/change_currency_title" />
-    <activity
         android:name="com.asfoundation.wallet.ui.iab.IabActivity"
         android:exported="true"
         android:launchMode="singleTask"

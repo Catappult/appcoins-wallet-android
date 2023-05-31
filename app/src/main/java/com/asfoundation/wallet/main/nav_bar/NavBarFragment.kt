@@ -31,7 +31,7 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI.onNavDestinationSelected
 import androidx.navigation.ui.setupWithNavController
 import by.kirich1409.viewbindingdelegate.viewBinding
-import com.appcoins.wallet.ui.arch.SingleStateFragment
+import com.appcoins.wallet.core.arch.SingleStateFragment
 import com.appcoins.wallet.ui.common.createColoredString
 import com.appcoins.wallet.ui.common.setTextFromColored
 import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_blue

@@ -17,6 +17,7 @@ import com.asfoundation.wallet.ui.iab.PaymentMethodsView.SelectedPaymentMethod.*
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.appcoins.wallet.core.utils.android_common.WalletCurrency
 import com.appcoins.wallet.core.utils.android_common.extensions.isNoNetworkException
+import com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue
 import com.asfoundation.wallet.wallets.usecases.GetWalletInfoUseCase
 import io.reactivex.Completable
 import io.reactivex.Observable
@@ -45,7 +46,7 @@ class PaymentMethodsPresenter(
 ) {
 
   private var cachedGamificationLevel = 0
-  private var cachedFiatValue: FiatValue? = null
+  private var cachedFiatValue: com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue? = null
   private var cachedPaymentNavigationData: PaymentNavigationData? = null
   private var viewState: ViewState = ViewState.DEFAULT
   private var hasStartedAuth = false
@@ -63,7 +64,7 @@ class PaymentMethodsPresenter(
     savedInstanceState?.let {
       cachedGamificationLevel = savedInstanceState.getInt(GAMIFICATION_LEVEL)
       hasStartedAuth = savedInstanceState.getBoolean(HAS_STARTED_AUTH)
-      cachedFiatValue = savedInstanceState.getSerializable(FIAT_VALUE) as FiatValue?
+      cachedFiatValue = savedInstanceState.getSerializable(FIAT_VALUE) as com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue?
       cachedPaymentNavigationData =
         savedInstanceState.getSerializable(PAYMENT_NAVIGATION_DATA) as PaymentNavigationData?
     }
@@ -1024,7 +1025,12 @@ class PaymentMethodsPresenter(
           appcValue
         }
     } else {
-      Single.just(FiatValue(transaction.amount(), "APPC"))
+      Single.just(
+        FiatValue(
+          transaction.amount(),
+          "APPC"
+        )
+      )
     }
 
   private fun setLoadedPayment(paymentMethodId: String) {

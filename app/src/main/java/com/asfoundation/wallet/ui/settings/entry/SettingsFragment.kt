@@ -19,16 +19,17 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.SwitchPreferenceCompat
+import com.appcoins.wallet.feature.changecurrency.data.FiatCurrency
 import com.appcoins.wallet.ui.widgets.TopBar
 import com.asf.wallet.R
 import com.asfoundation.wallet.billing.analytics.PageViewAnalytics
 import com.asfoundation.wallet.billing.analytics.WalletsEventSender
-import com.asfoundation.wallet.change_currency.ChangeFiatCurrencyActivity
-import com.asfoundation.wallet.change_currency.FiatCurrencyEntity
+import com.asfoundation.wallet.change_currency.ChangeFiatCurrencyFragment
 import com.asfoundation.wallet.change_currency.SettingsCurrencyPreference
 import com.asfoundation.wallet.permissions.manage.view.ManagePermissionsActivity
 import com.asfoundation.wallet.subscriptions.SubscriptionActivity
 import com.asfoundation.wallet.ui.AuthenticationPromptActivity
+import com.asfoundation.wallet.ui.settings.SettingsActivityView
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.subjects.PublishSubject
@@ -164,16 +165,16 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
     }
   }
 
-  override fun setCurrencyPreference(selectedCurrency: FiatCurrencyEntity) {
+  override fun setCurrencyPreference(selectedCurrency: FiatCurrency) {
     val settingsCurrencyPreference = findPreference<SettingsCurrencyPreference>("pref_currency")
     settingsCurrencyPreference?.setCurrency(selectedCurrency)
     settingsCurrencyPreference?.setOnPreferenceClickListener {
-      context?.let {
-        val intent = ChangeFiatCurrencyActivity.newIntent(it)
-          .apply { flags = Intent.FLAG_ACTIVITY_SINGLE_TOP }
-        startActivity(intent)
-      }
-
+      parentFragmentManager
+        .beginTransaction()
+        .replace(
+          R.id.container,
+          ChangeFiatCurrencyFragment.newInstance()
+        ).commit()
       false
     }
   }

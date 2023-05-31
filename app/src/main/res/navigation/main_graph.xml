@@ -111,6 +111,10 @@
       app:destination="@id/transactions_graph" />
 
   <action
+      android:id="@+id/action_navigate_to_change_fiat_currency"
+      app:destination="@id/change_fiat_currency_fragment"/>
+
+  <action
       android:id="@+id/action_navigate_to_transaction_details"
       app:destination="@id/transactions_details_fragment">
     <argument
@@ -121,5 +125,9 @@
   <fragment
       android:id="@+id/transactions_details_fragment"
       android:name="com.asfoundation.wallet.transactions.TransactionDetailsFragment" />
+
+  <fragment
+      android:id="@+id/change_fiat_currency_fragment"
+      android:name="com.asfoundation.wallet.change_currency.ChangeFiatCurrencyFragment" />
 
 </navigation>

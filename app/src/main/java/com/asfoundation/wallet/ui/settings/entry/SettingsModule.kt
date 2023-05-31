@@ -1,7 +1,7 @@
 package com.asfoundation.wallet.ui.settings.entry
 
 import androidx.fragment.app.Fragment
-import com.asfoundation.wallet.change_currency.use_cases.GetChangeFiatCurrencyModelUseCase
+import com.appcoins.wallet.feature.changecurrency.data.use_cases.GetChangeFiatCurrencyModelUseCase
 import com.asfoundation.wallet.home.usecases.DisplayChatUseCase
 import com.asfoundation.wallet.update_required.use_cases.BuildUpdateIntentUseCase
 import dagger.Module
@@ -42,8 +42,8 @@ class SettingsModule {
   @Provides
   fun providesSettingsData(settingsFragment: Fragment): SettingsData {
     settingsFragment.requireArguments()
-        .apply {
-          return SettingsData(getBoolean(SettingsFragment.TURN_ON_FINGERPRINT, false))
-        }
+      .apply {
+        return SettingsData(getBoolean(SettingsFragment.TURN_ON_FINGERPRINT, false))
+      }
   }
 }

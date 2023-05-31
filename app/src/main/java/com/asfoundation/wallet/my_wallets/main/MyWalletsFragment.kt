@@ -15,15 +15,14 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.asf.wallet.R
 import com.asf.wallet.databinding.FragmentMyWalletsBinding
-import com.appcoins.wallet.ui.arch.data.Async
-import com.appcoins.wallet.ui.arch.SingleStateFragment
+import com.appcoins.wallet.core.arch.data.Async
+import com.appcoins.wallet.core.arch.SingleStateFragment
 import com.asfoundation.wallet.billing.analytics.WalletsAnalytics
 import com.asfoundation.wallet.billing.analytics.WalletsEventSender
 import com.asfoundation.wallet.entity.Wallet
 import com.asfoundation.wallet.ui.MyAddressActivity
 import com.asfoundation.wallet.ui.balance.BalanceVerificationStatus
 import com.asfoundation.wallet.ui.balance.TokenBalance
-import com.asfoundation.wallet.ui.iab.FiatValue
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.appcoins.wallet.core.utils.android_common.WalletCurrency
 import com.asfoundation.wallet.util.generateQrCode
@@ -346,7 +345,7 @@ class MyWalletsFragment : BasePageViewFragment(),
 
   override fun onSideEffect(sideEffect: MyWalletsSideEffect) = Unit
 
-  private fun FiatValue.getFiatBalanceText(): String =
+  private fun com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue.getFiatBalanceText(): String =
     if (amount.compareTo(BigDecimal("-1")) == 1) {
       symbol + formatter.formatCurrency(amount)
     } else {
