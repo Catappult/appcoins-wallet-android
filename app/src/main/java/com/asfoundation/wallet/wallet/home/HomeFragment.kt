@@ -37,12 +37,12 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
+import com.appcoins.wallet.core.arch.SingleStateFragment
+import com.appcoins.wallet.core.arch.data.Async
 import com.appcoins.wallet.core.network.backend.model.GamificationStatus
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.appcoins.wallet.core.utils.android_common.RootUtil
 import com.appcoins.wallet.core.utils.android_common.WalletCurrency.FIAT
-import com.appcoins.wallet.core.arch.SingleStateFragment
-import com.appcoins.wallet.core.arch.data.Async
 import com.appcoins.wallet.ui.common.theme.WalletColors
 import com.appcoins.wallet.ui.widgets.*
 import com.appcoins.wallet.ui.widgets.component.BottomSheetButton
@@ -362,7 +362,6 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
       )
 
       HomeSideEffect.NavigateToReward -> navigator.navigateToReward()
-      HomeSideEffect.NavigateToChangeCurrency -> navigator.navigateToCurrencySelector()
       HomeSideEffect.NavigateToChangeCurrency -> navigator.navigateToCurrencySelector(navController())
       HomeSideEffect.NavigateToTopUp -> navigator.navigateToTopUp()
       HomeSideEffect.NavigateToTransfer -> navigator.navigateToTransfer()

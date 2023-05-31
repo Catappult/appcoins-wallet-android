@@ -3,9 +3,8 @@ package com.asfoundation.wallet.ui.settings.entry
 import android.content.Intent
 import android.hardware.biometrics.BiometricManager
 import android.os.Bundle
-import com.appcoins.wallet.feature.changecurrency.data.use_cases.GetChangeFiatCurrencyModelUseCase
-import com.asfoundation.wallet.ui.wallets.WalletsModel
 import androidx.navigation.NavController
+import com.appcoins.wallet.feature.changecurrency.data.use_cases.GetChangeFiatCurrencyModelUseCase
 import com.asfoundation.wallet.home.usecases.DisplayChatUseCase
 import com.asfoundation.wallet.update_required.use_cases.BuildUpdateIntentUseCase
 import com.github.michaelbull.result.get
@@ -153,8 +152,10 @@ class SettingsPresenter(
           }
         }
       }
-    }.subscribeOn(networkScheduler).subscribe())
+      .subscribeOn(networkScheduler)
+      .subscribe())
   }
 
   fun displayChat() = displayChatUseCase()
 }
+

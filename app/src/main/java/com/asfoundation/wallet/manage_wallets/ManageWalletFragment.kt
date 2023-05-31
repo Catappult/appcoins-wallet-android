@@ -58,6 +58,7 @@ import androidx.core.app.ShareCompat
 import androidx.fragment.app.viewModels
 import com.appcoins.wallet.core.utils.android_common.AmountUtils.formatMoney
 import com.appcoins.wallet.core.utils.android_common.extensions.StringUtils.masked
+import com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue
 import com.appcoins.wallet.ui.common.theme.WalletColors
 import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_blue
 import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_blue_secondary
@@ -76,7 +77,6 @@ import com.asfoundation.wallet.my_wallets.more.MoreDialogNavigator
 import com.asfoundation.wallet.transactions.TransactionDetailsFragment
 import com.asfoundation.wallet.ui.TokenValue
 import com.asfoundation.wallet.ui.balance.TokenBalance
-import com.asfoundation.wallet.ui.iab.FiatValue
 import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import com.asfoundation.wallet.wallets.domain.WalletBalance
 import com.asfoundation.wallet.wallets.domain.WalletInfo

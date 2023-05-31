@@ -29,7 +29,6 @@ import com.asfoundation.wallet.change_currency.SettingsCurrencyPreference
 import com.asfoundation.wallet.permissions.manage.view.ManagePermissionsActivity
 import com.asfoundation.wallet.subscriptions.SubscriptionActivity
 import com.asfoundation.wallet.ui.AuthenticationPromptActivity
-import com.asfoundation.wallet.ui.settings.SettingsActivityView
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.subjects.PublishSubject
@@ -172,7 +171,7 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
       parentFragmentManager
         .beginTransaction()
         .replace(
-          R.id.container,
+          R.id.settings_container_view,
           ChangeFiatCurrencyFragment.newInstance()
         ).commit()
       false
