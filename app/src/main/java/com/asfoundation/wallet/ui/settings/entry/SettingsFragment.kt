@@ -168,12 +168,14 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
     val settingsCurrencyPreference = findPreference<SettingsCurrencyPreference>("pref_currency")
     settingsCurrencyPreference?.setCurrency(selectedCurrency)
     settingsCurrencyPreference?.setOnPreferenceClickListener {
-      parentFragmentManager
-        .beginTransaction()
-        .replace(
-          R.id.fragment_settings_root,
-          ChangeFiatCurrencyFragment.newInstance()
-        ).commit()
+      presenter.onChangeCurrencyPreferenceClick(navController())
+//      parentFragmentManager
+//        .beginTransaction()
+//        .replace(
+//          R.id.settings_container_view,
+//          ChangeFiatCurrencyFragment.newInstance()
+//        ).addToBackStack(null)
+//        .commit()
       false
     }
   }

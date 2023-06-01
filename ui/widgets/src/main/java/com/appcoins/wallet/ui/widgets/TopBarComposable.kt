@@ -66,11 +66,11 @@ fun TopBar(
           if (isVip) {
             VipBadge()
           }
-          ActionButton(
-            imagePainter = painterResource(R.drawable.ic_notifications),
-            description = "Notifications",
-            onClick = onClickNotifications
-          )
+//          ActionButton(
+//            imagePainter = painterResource(R.drawable.ic_notifications),
+//            description = "Notifications",
+//            onClick = onClickNotifications
+//          )
           ActionButton(
             imagePainter = painterResource(R.drawable.ic_settings_white_24dp),
             description = "Settings",
@@ -93,8 +93,9 @@ fun VipBadge() {
       .size(width = 64.dp, height = 32.dp)
       .clip(RoundedCornerShape(16.dp, 16.dp, 16.dp, 16.dp))
       .background(WalletColors.styleguide_vip_yellow_transparent_40)
-      .padding(start = 8.dp, end = 8.dp),
-    verticalAlignment = Alignment.CenterVertically
+      .padding(start = 4.dp, end = 4.dp),
+    verticalAlignment = Alignment.CenterVertically,
+    horizontalArrangement = Arrangement.Center
   ) {
     Image(
       painter = painterResource(R.drawable.ic_vip_badge),

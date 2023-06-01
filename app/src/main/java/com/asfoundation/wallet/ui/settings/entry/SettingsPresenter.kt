@@ -112,6 +112,10 @@ class SettingsPresenter(
     navigator.navigateToManageWallet(navController)
   }
 
+  fun onChangeCurrencyPreferenceClick(navController: NavController) {
+    navigator.navigateToChangeCurrency(navController)
+  }
+
   fun onBugReportClicked() = settingsInteractor.displaySupportScreen()
 
   fun redirectToStore() {
