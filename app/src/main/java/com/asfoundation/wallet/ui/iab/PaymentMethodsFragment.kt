@@ -250,6 +250,7 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
           logoutCallback = {
             presenter.removePaypalBillingAgreement()
             presenter.wasLoggedOut = true
+            showProgressBarLoading()
           }
         )
       binding.paymentMethodsRadioList.adapter = paymentMethodsAdapter

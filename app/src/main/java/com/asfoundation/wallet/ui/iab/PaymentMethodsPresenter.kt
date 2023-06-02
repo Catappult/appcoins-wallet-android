@@ -1031,8 +1031,14 @@ class PaymentMethodsPresenter(
         .subscribeOn(networkThread)
         .observeOn(viewScheduler)
         .subscribe(
-          { Log.d(TAG, "Agreement removed") },
-          { logger.log(TAG, "Agreement Not Removed") }
+          {
+            Log.d(TAG, "Agreement removed")
+            view.hideLoading()
+          },
+          {
+            logger.log(TAG, "Agreement Not Removed")
+            view.hideLoading()
+          }
         )
     )
   }
