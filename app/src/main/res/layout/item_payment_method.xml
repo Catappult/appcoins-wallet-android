@@ -87,7 +87,21 @@
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toEndOf="@+id/payment_method_description"
       app:layout_constraintTop_toTopOf="parent"
-      tools:visibility="visible"
+
+      />
+
+  <ImageButton
+      android:id="@+id/payment_more_logout"
+      android:foregroundTint="@color/black"
+      android:background="?attr/selectableItemBackgroundBorderless"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:contentDescription="Logout"
+      android:src="@drawable/ic_more"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="@+id/payment_method_fee"
+      app:layout_constraintTop_toTopOf="parent"
+      android:layout_marginEnd="@dimen/normal_margin"
       />
 
   <LinearLayout

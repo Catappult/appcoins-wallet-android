@@ -12,6 +12,7 @@ import com.appcoins.wallet.core.network.microservices.model.PaypalTransaction
 import io.reactivex.Completable
 import io.reactivex.Single
 import retrofit2.HttpException
+import retrofit2.Response
 import javax.inject.Inject
 
 class PayPalV2Repository @Inject constructor(
@@ -116,14 +117,41 @@ class PayPalV2Repository @Inject constructor(
       .ignoreElement()
   }
 
-  fun getTransaction(uid: String, walletAddress: String,
-                     signedWalletAddress: String): Single<PaymentModel> {
+  fun getTransaction(
+    uid: String, walletAddress: String,
+    signedWalletAddress: String
+  ): Single<PaymentModel> {
     return brokerBdsApi.getAppcoinsTransaction(uid, walletAddress, signedWalletAddress)
       .map { adyenResponseMapper.map(it) }
       .onErrorReturn {
         logger.log("AdyenPaymentRepository", it)
         adyenResponseMapper.mapPaymentModelError(it)
       }
+  }
+
+  fun getCurrentBillingAgreement(
+    walletAddress: String,
+    walletSignature: String
+  ): Single<Boolean> {
+    return paypalV2Api.getCurrentBillingAgreement(
+      walletAddress,
+      walletSignature
+    )
+      .map { response: PaypalV2GetAgreementResponse ->
+        response.uid.isNotEmpty()
+      }
+      .onErrorReturn { false }
+  }
+
+  fun removeBillingAgreement(
+    walletAddress: String,
+    walletSignature: String
+  ): Completable {
+    return paypalV2Api.removeBillingAgreement(
+      walletAddress,
+      walletSignature
+    )
+      .ignoreElement()   //TODO test
   }
 
   private fun handleCreateTransactionErrorCodes(errorCode: Int?): PaypalTransaction {

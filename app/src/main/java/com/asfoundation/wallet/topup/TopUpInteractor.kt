@@ -11,10 +11,7 @@ import com.asfoundation.wallet.promo_code.use_cases.GetCurrentPromoCodeUseCase
 import com.asfoundation.wallet.service.currencies.LocalCurrencyConversionService
 import com.asfoundation.wallet.support.SupportInteractor
 import com.asfoundation.wallet.ui.gamification.GamificationInteractor
-import com.asfoundation.wallet.ui.iab.FiatValue
-import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
-import com.asfoundation.wallet.ui.iab.PaymentMethod
-import com.asfoundation.wallet.ui.iab.PaymentMethodFee
+import com.asfoundation.wallet.ui.iab.*
 import com.asfoundation.wallet.wallet_blocked.WalletBlockedInteract
 import io.reactivex.Completable
 import io.reactivex.Single
@@ -39,7 +36,13 @@ class TopUpInteractor @Inject constructor(
   private var limitValues: TopUpLimitValues = TopUpLimitValues()
 
   fun getPaymentMethods(value: String, currency: String): Single<List<PaymentMethod>> =
-    repository.getPaymentMethods(value, currency, "fiat", true, "TOPUP")
+    repository.getPaymentMethods(
+      value = value,
+      currency = currency,
+      currencyType = "fiat",
+      direct = true,
+      transactionType = "TOPUP"
+    )
       .map { mapPaymentMethods(it) }
 
   fun isWalletBlocked() = walletBlockedInteract.isWalletBlocked()
@@ -65,9 +68,19 @@ class TopUpInteractor @Inject constructor(
     paymentMethods: List<PaymentMethodEntity>
   ): List<PaymentMethod> = paymentMethods.map {
     PaymentMethod(
-      it.id, it.label, it.iconUrl, it.async,
-      mapPaymentMethodFee(it.fee), it.isAvailable(), null
+      id = it.id,
+      label = it.label,
+      iconUrl = it.iconUrl,
+      async = it.async,
+      fee = mapPaymentMethodFee(it.fee),
+      isEnabled = it.isAvailable(),
+      disabledReason = null,
+      showLogout = isToShowPaypalLogout(it)
     )
+  }
+
+  private fun isToShowPaypalLogout(paymentMethod: PaymentMethodEntity): Boolean {
+    return (paymentMethod.id == PaymentMethodsView.PaymentMethodId.PAYPAL_V2.id)
   }
 
   private fun mapPaymentMethodFee(feeEntity: FeeEntity?): PaymentMethodFee? = feeEntity?.let {
@@ -122,17 +135,4 @@ class TopUpInteractor @Inject constructor(
 
   fun getWalletAddress(): Single<String> = inAppPurchaseInteractor.walletAddress
 
-  fun getABTestingExperiment(): Single<Int> = Single.create {
-    MainScope().launch {
-      it.onSuccess(topUpDefaultValueUseCase.getVariant() ?: 1)
-    }
-  }
-
-  fun setABTestingExperimentImpression() = MainScope().launch {
-    topUpDefaultValueUseCase.setImpressed()
-  }
-
-  fun setABTestingExperimentTopUpEvent(appcValue: Double) = MainScope().launch {
-    topUpDefaultValueUseCase.setTopUpWith(appcValue)
-  }
 }

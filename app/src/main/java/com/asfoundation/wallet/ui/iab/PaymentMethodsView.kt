@@ -8,14 +8,18 @@ import io.reactivex.Observable
 import java.math.BigDecimal
 
 interface PaymentMethodsView {
-  fun showPaymentMethods(paymentMethods: MutableList<PaymentMethod>,
-                         currency: String, paymentMethodId: String, fiatAmount: String,
-                         appcAmount: String, appcEnabled: Boolean, creditsEnabled: Boolean,
-                         frequency: String?, isSubscription: Boolean)
+  fun showPaymentMethods(
+    paymentMethods: MutableList<PaymentMethod>,
+    currency: String, paymentMethodId: String, fiatAmount: String,
+    appcAmount: String, appcEnabled: Boolean, creditsEnabled: Boolean,
+    frequency: String?, isSubscription: Boolean, showLogoutPaypal: Boolean
+  )
 
-  fun showPreSelectedPaymentMethod(paymentMethod: PaymentMethod, currency: String,
-                                   fiatAmount: String, appcAmount: String, isBonusActive: Boolean,
-                                   frequency: String?, isSubscription: Boolean)
+  fun showPreSelectedPaymentMethod(
+    paymentMethod: PaymentMethod, currency: String,
+    fiatAmount: String, appcAmount: String, isBonusActive: Boolean,
+    frequency: String?, isSubscription: Boolean
+  )
 
   fun showError(message: Int)
 
@@ -45,20 +49,28 @@ interface PaymentMethodsView {
 
   fun showCarrierBilling(fiatValue: FiatValue, isPreselected: Boolean)
 
-  fun showPaypal(gamificationLevel: Int, fiatValue: FiatValue, frequency: String?,
-                 isSubscription: Boolean)
+  fun showPaypal(
+    gamificationLevel: Int, fiatValue: FiatValue, frequency: String?,
+    isSubscription: Boolean
+  )
 
-  fun showPaypalV2(gamificationLevel: Int, fiatValue: FiatValue, frequency: String?,
-                 isSubscription: Boolean)
+  fun showPaypalV2(
+    gamificationLevel: Int, fiatValue: FiatValue, frequency: String?,
+    isSubscription: Boolean
+  )
 
-  fun showAdyen(fiatAmount: BigDecimal,
-                fiatCurrency: String,
-                paymentType: PaymentType,
-                iconUrl: String?, gamificationLevel: Int, frequency: String?,
-                isSubscription: Boolean)
+  fun showAdyen(
+    fiatAmount: BigDecimal,
+    fiatCurrency: String,
+    paymentType: PaymentType,
+    iconUrl: String?, gamificationLevel: Int, frequency: String?,
+    isSubscription: Boolean
+  )
 
-  fun showCreditCard(gamificationLevel: Int, fiatValue: FiatValue, frequency: String?,
-                     isSubscription: Boolean)
+  fun showCreditCard(
+    gamificationLevel: Int, fiatValue: FiatValue, frequency: String?,
+    isSubscription: Boolean
+  )
 
   fun showAppCoins(gamificationLevel: Int, transaction: TransactionBuilder)
 
@@ -70,9 +82,11 @@ interface PaymentMethodsView {
 
   fun getMorePaymentMethodsClicks(): Observable<Any>
 
-  fun showLocalPayment(selectedPaymentMethod: String, iconUrl: String, label: String,
-                       async: Boolean, fiatAmount: String, fiatCurrency: String,
-                       gamificationLevel: Int)
+  fun showLocalPayment(
+    selectedPaymentMethod: String, iconUrl: String, label: String,
+    async: Boolean, fiatAmount: String, fiatCurrency: String,
+    gamificationLevel: Int
+  )
 
   fun setPurchaseBonus(bonus: BigDecimal, currency: String, @StringRes bonusText: Int)
 
@@ -82,9 +96,11 @@ interface PaymentMethodsView {
 
   fun showBuy()
 
-  fun showMergedAppcoins(gamificationLevel: Int, fiatValue: FiatValue,
-                         transaction: TransactionBuilder, frequency: String?,
-                         isSubscription: Boolean)
+  fun showMergedAppcoins(
+    gamificationLevel: Int, fiatValue: FiatValue,
+    transaction: TransactionBuilder, frequency: String?,
+    isSubscription: Boolean
+  )
 
   fun showSubscribe()
 
@@ -117,8 +133,8 @@ interface PaymentMethodsView {
   fun showTopupFlow()
 
   enum class SelectedPaymentMethod {
-    PAYPAL, PAYPAL_V2, CREDIT_CARD, APPC, APPC_CREDITS, MERGED_APPC, SHARE_LINK, LOCAL_PAYMENTS, EARN_APPC,
-    CARRIER_BILLING, ERROR
+    PAYPAL, PAYPAL_V2, CREDIT_CARD, APPC, APPC_CREDITS, MERGED_APPC, SHARE_LINK, LOCAL_PAYMENTS,
+    EARN_APPC, CARRIER_BILLING, ERROR
   }
 
   enum class PaymentMethodId(val id: String) {
