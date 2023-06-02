@@ -1,15 +1,16 @@
 package com.asfoundation.wallet.manage_wallets
 
-import android.text.format.DateUtils
 import androidx.lifecycle.ViewModel
 import com.asfoundation.wallet.home.usecases.DisplayChatUseCase
+import com.asfoundation.wallet.ui.wallets.WalletBalance
+import com.asfoundation.wallet.ui.wallets.WalletDetailsInteractor
+import com.asfoundation.wallet.ui.wallets.WalletsInteract
 import com.asfoundation.wallet.wallets.domain.WalletInfo
 import com.asfoundation.wallet.wallets.usecases.ObserveWalletInfoUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.Observable
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 @HiltViewModel
@@ -17,7 +18,9 @@ class ManageWalletViewModel
 @Inject
 constructor(
   private val displayChatUseCase: DisplayChatUseCase,
-  private val observeWalletInfoUseCase: ObserveWalletInfoUseCase
+  private val observeWalletInfoUseCase: ObserveWalletInfoUseCase,
+  private val walletsInteract: WalletsInteract,
+  private val walletDetailsInteractor: WalletDetailsInteractor,
 ) : ViewModel() {
 
   private val _uiState = MutableStateFlow<UiState>(UiState.Idle)
@@ -28,27 +31,34 @@ constructor(
   }
 
   init {
-    observeBalance()
+    getWallets()
   }
 
-  private fun observeBalance() =
-    Observable
-      .interval(0, UPDATE_INTERVAL, TimeUnit.MILLISECONDS)
-      .flatMap {
-        observeWalletInfoUseCase(null, update = true, updateFiat = true)
-          .map { walletInfo ->
-            _uiState.value = UiState.Success(walletInfo)
-          }
+  private fun getWallets() {
+    Observable.combineLatest(
+      observeWalletInfoUseCase(null, update = true, updateFiat = true),
+      walletsInteract.observeWalletsModel()
+    ) { activeWalletInfo, inactiveWallets ->
+      UiState.Success(activeWalletInfo, inactiveWallets.wallets.filter { !it.isActiveWallet })
+    }
+      .doOnSubscribe {
+        _uiState.value = UiState.Loading
       }
-      .subscribe()
+      .doOnNext { newState ->
+        _uiState.value = newState
+      }.subscribe()
+  }
 
   sealed class UiState {
     object Idle : UiState()
     object Loading : UiState()
-    data class Success(val walletInfo: WalletInfo) : UiState()
+    data class Success(val activeWalletInfo: WalletInfo, val inactiveWallets: List<WalletBalance>) :
+      UiState()
   }
 
-  companion object {
-    const val UPDATE_INTERVAL = 30 * DateUtils.SECOND_IN_MILLIS
+  fun changeActiveWallet(wallet: String) {
+    walletDetailsInteractor.setActiveWallet(wallet)
+      .doOnComplete { TODO() }
+      .subscribe()
   }
 }
