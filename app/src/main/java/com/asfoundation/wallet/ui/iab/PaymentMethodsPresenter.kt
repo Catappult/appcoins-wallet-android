@@ -442,7 +442,7 @@ class PaymentMethodsPresenter(
         zip(
           getPaymentMethods(fiatValue)
             .subscribeOn(networkThread),
-          interactor.getEarningBonus(transaction.domain, transaction.amount())
+          interactor.getEarningBonus(transaction.domain,  transaction.amount(), null)
             .subscribeOn(networkThread),
           isPaypalAgreementCreatedUseCase()
             .subscribeOn(networkThread)

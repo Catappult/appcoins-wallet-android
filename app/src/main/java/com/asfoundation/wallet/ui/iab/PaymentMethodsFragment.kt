@@ -397,8 +397,6 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
 
   override fun showSkeletonLoading() {
     showPaymentsSkeletonLoading()
-    binding.bonusView.visibility = View.VISIBLE
-    binding.bonusView.showSkeleton()
   }
 
   override fun showProgressBarLoading() {
@@ -645,7 +643,7 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
     val formattedBonus = formatter.formatCurrency(scaledBonus, WalletCurrency.FIAT)
     bonusMessageValue = newCurrencyString + formattedBonus
     bonusValue = bonus
-    binding.bonusView.setPurchaseBonusHeaderValue(bonus, currency)
+    binding.bonusLayout.bonusValue.text = context?.getString(R.string.gamification_purchase_header_part_2, bonusMessageValue)
   }
 
   override fun onBackPressed(): Observable<Any> =
@@ -690,34 +688,30 @@ class PaymentMethodsFragment : BasePageViewFragment(), PaymentMethodsView {
   )
 
   override fun showBonus(@StringRes bonusText: Int) {
-    binding.bonusView.visibility = View.VISIBLE
-    binding.bonusView.setPurchaseBonusDescription(R.string.gamification_purchase_body)
-    binding.bonusView.showPurchaseBonusHeader()
-    binding.bonusView.setPurchaseBonusDescription(bonusText)
-    binding.bottomSeparator?.visibility = View.VISIBLE
-    binding.bonusView.hideSkeleton()
+    changeBonusVisibility(View.VISIBLE)
+    binding.bonusMsg.text = context?.getString(bonusText)
   }
 
   override fun removeBonus() {
-    bonusMessageValue = ""
+   bonusMessageValue = ""
     bonusValue = null
-    binding.bonusView.visibility = View.GONE
-    binding.bottomSeparator?.visibility = View.GONE
-    binding.bonusView.hideSkeleton()
+    changeBonusVisibility(View.GONE)
+  }
+
+  private fun changeBonusVisibility(visibility: Int) {
+    binding.bonusLayout.root.visibility = visibility
+    binding.bottomSeparator?.visibility = visibility
+    binding.bonusMsg.visibility = visibility
   }
 
   override fun hideBonus() {
-    binding.bonusView.visibility = View.INVISIBLE
-    binding.bottomSeparator?.visibility = View.INVISIBLE
-    binding.bonusView.hideSkeleton()
+    changeBonusVisibility(View.INVISIBLE)
   }
 
   override fun replaceBonus() {
-    binding.bonusView.visibility = View.INVISIBLE
-    binding.bottomSeparator?.visibility = View.VISIBLE
-    binding.bonusView.setPurchaseBonusDescription(R.string.purchase_poa_body)
-    binding.bonusView.hidePurchaseBonusHeader()
-    binding.bonusView.hideSkeleton()
+    changeBonusVisibility(View.INVISIBLE)
+    binding.bonusMsg.text = context?.getString(R.string.purchase_poa_body)
+    binding.bonusMsg.visibility = View.VISIBLE
   }
 
   override fun onAuthenticationResult(): Observable<Boolean> = iabView.onAuthenticationResult()
