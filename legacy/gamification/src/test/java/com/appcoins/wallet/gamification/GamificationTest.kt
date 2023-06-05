@@ -359,7 +359,7 @@ class GamificationTest {
     api.bonusResponse = Single.just(
       ForecastBonusResponse(BigDecimal.ONE, 0, ForecastBonusResponse.Status.ACTIVE)
     )
-    val testObserver = gamification.getEarningBonus(WALLET, PACKAGE_NAME, BigDecimal.ONE, "")
+    val testObserver = gamification.getEarningBonus(WALLET, PACKAGE_NAME, BigDecimal.ONE, "", null)
       .test()
     testObserver.assertValue(ForecastBonus(ForecastBonus.Status.ACTIVE, BigDecimal.ONE))
   }
@@ -367,7 +367,7 @@ class GamificationTest {
   @Test
   fun getBonusNoNetwork() {
     api.bonusResponse = Single.error(UnknownHostException())
-    val testObserver = gamification.getEarningBonus(WALLET, PACKAGE_NAME, BigDecimal.ONE, "")
+    val testObserver = gamification.getEarningBonus(WALLET, PACKAGE_NAME, BigDecimal.ONE, "", null)
       .test()
     testObserver.assertValue(ForecastBonus(ForecastBonus.Status.NO_NETWORK))
   }

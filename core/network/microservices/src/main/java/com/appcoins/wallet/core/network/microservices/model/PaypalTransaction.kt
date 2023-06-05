@@ -5,6 +5,8 @@ data class PaypalTransaction(
   val hash: String?,
   val status: TransactionStatus?,
   val validity: PaypalValidityState?,
+  val errorCode: String? = null,
+  val errorMessage: String? = null
 ) {
 
   enum class PaypalValidityState(val value: Int) {

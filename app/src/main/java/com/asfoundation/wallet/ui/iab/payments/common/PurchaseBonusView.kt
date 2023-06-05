@@ -19,7 +19,7 @@ import java.math.BigDecimal
  */
 class PurchaseBonusView : FrameLayout {
 
-  private val binding: LayoutPurchaseBonusBinding
+  private val binding = LayoutPurchaseBonusBinding.inflate(LayoutInflater.from(context), this, false)
   private val formatter = CurrencyFormatUtils()
 
   private var showHeader: Boolean = true
@@ -27,9 +27,7 @@ class PurchaseBonusView : FrameLayout {
   constructor(context: Context) : this(context, null)
   constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0)
   constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs,
-      defStyleAttr) {
-    binding = LayoutPurchaseBonusBinding.inflate(LayoutInflater.from(context), this, false)
-  }
+      defStyleAttr)
 
   fun setPurchaseBonusHeaderValue(bonus: BigDecimal, currencySymbol: String) {
     var scaledBonus = bonus.stripTrailingZeros()
