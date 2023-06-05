@@ -12,6 +12,7 @@ import com.appcoins.wallet.core.network.microservices.model.PaypalTransaction
 import io.reactivex.Completable
 import io.reactivex.Single
 import retrofit2.HttpException
+import retrofit2.Response
 import javax.inject.Inject
 
 class PayPalV2Repository @Inject constructor(
@@ -32,6 +33,8 @@ class PayPalV2Repository @Inject constructor(
     referrerUrl: String?
   ): Single<PaypalTransaction> {
     return paypalV2Api.createTransaction(
+      // uncomment for testing errors in dev
+      //HeaderPaypalMock(MockCodes.INSTRUMENT_DECLINED .name).toJson(),
       walletAddress,
       walletSignature,
       PaypalPayment(
@@ -61,8 +64,10 @@ class PayPalV2Repository @Inject constructor(
         )
       }
       .onErrorReturn {
-        val errorCode = (it as? HttpException)?.code()
-        handleCreateTransactionErrorCodes(errorCode)
+        val httpException = (it as? HttpException)
+        val errorCode = httpException?.code()
+        val errorContent = httpException?.response()?.errorBody()?.string()
+        handleCreateTransactionErrorCodes(errorCode, errorContent)
       }
 
   }
@@ -116,8 +121,10 @@ class PayPalV2Repository @Inject constructor(
       .ignoreElement()
   }
 
-  fun getTransaction(uid: String, walletAddress: String,
-                     signedWalletAddress: String): Single<PaymentModel> {
+  fun getTransaction(
+    uid: String, walletAddress: String,
+    signedWalletAddress: String
+  ): Single<PaymentModel> {
     return brokerBdsApi.getAppcoinsTransaction(uid, walletAddress, signedWalletAddress)
       .map { adyenResponseMapper.map(it) }
       .onErrorReturn {
@@ -126,19 +133,46 @@ class PayPalV2Repository @Inject constructor(
       }
   }
 
-  private fun handleCreateTransactionErrorCodes(errorCode: Int?): PaypalTransaction {
+  fun getCurrentBillingAgreement(
+    walletAddress: String,
+    walletSignature: String
+  ): Single<Boolean> {
+    return paypalV2Api.getCurrentBillingAgreement(
+      walletAddress,
+      walletSignature
+    )
+      .map { response: PaypalV2GetAgreementResponse ->
+        response.uid.isNotEmpty()
+      }
+      .onErrorReturn { false }
+  }
+
+  fun removeBillingAgreement(
+    walletAddress: String,
+    walletSignature: String
+  ): Completable {
+    return paypalV2Api.removeBillingAgreement(
+      walletAddress,
+      walletSignature
+    )
+      .ignoreElement()
+  }
+
+  private fun handleCreateTransactionErrorCodes(errorCode: Int?, errorContent: String?): PaypalTransaction {
     val validity = when (errorCode) {
       404 -> PaypalTransaction.PaypalValidityState.NO_BILLING_AGREEMENT
+      400 -> PaypalTransaction.PaypalValidityState.NO_BILLING_AGREEMENT
       else -> PaypalTransaction.PaypalValidityState.NO_BILLING_AGREEMENT
-      // Until all payment errors are treated, if the payment fails with a previous billing
-      // agreement, then alway tries to login again once
-//      else -> PaypalTransaction.PaypalValidityState.ERROR
+      // If the payment fails with a previous billing agreement, then always tries to login
+      // again once
     }
     return PaypalTransaction(
       null,
       null,
       null,
-      validity
+      validity,
+      errorCode.toString(),
+      errorContent ?: ""
     )
   }
 

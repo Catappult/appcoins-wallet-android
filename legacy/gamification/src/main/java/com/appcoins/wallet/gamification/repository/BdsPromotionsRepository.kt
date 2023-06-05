@@ -113,9 +113,10 @@ class BdsPromotionsRepository @Inject constructor(
   override fun getForecastBonus(
     wallet: String, packageName: String,
     amount: BigDecimal,
-    promoCodeString: String?
+    promoCodeString: String?,
+    currency: String?
   ): Single<ForecastBonus> =
-    api.getForecastBonus(wallet, packageName, amount, "APPC", promoCodeString)
+    api.getForecastBonus(wallet, packageName, amount, currency ?: "APPC", promoCodeString)
       .map { map(it) }
       .onErrorReturn { mapForecastError(it) }
 

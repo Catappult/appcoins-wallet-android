@@ -52,7 +52,7 @@ import javax.inject.Inject
 
 
 @AndroidEntryPoint
-class IabActivity : BaseActivity(), IabView, UriNavigator {
+class IabActivity() : BaseActivity(), IabView, UriNavigator {
 
   @Inject
   lateinit var billingAnalytics: BillingAnalytics
@@ -85,6 +85,7 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
   private var uri: String? = null
   private var authenticationResultSubject: PublishSubject<Boolean>? = null
   private var errorFromReceiver: String? = null
+  override var webViewResultCode: String? = null
 
   private val binding by viewBinding(ActivityIabBinding::bind)
 
@@ -530,7 +531,10 @@ class IabActivity : BaseActivity(), IabView, UriNavigator {
   }
 
   override fun getSupportClicks(): Observable<Any> =
-    Observable.merge(RxView.clicks(binding.iabErrorLayout.genericErrorLayout.layoutSupportLogo), RxView.clicks(binding.iabErrorLayout.genericErrorLayout.layoutSupportIcn))
+    Observable.merge(
+      RxView.clicks(binding.iabErrorLayout.genericErrorLayout.layoutSupportLogo),
+      RxView.clicks(binding.iabErrorLayout.genericErrorLayout.layoutSupportIcn)
+    )
 
   override fun errorDismisses() = RxView.clicks(binding.iabErrorLayout.errorDismiss)
 

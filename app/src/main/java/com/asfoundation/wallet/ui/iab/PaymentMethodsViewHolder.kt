@@ -3,15 +3,17 @@ package com.asfoundation.wallet.ui.iab
 import android.graphics.ColorMatrix
 import android.graphics.ColorMatrixColorFilter
 import android.graphics.Typeface
+import android.view.MenuItem
 import android.view.View
 import android.widget.ImageView
+import android.widget.PopupMenu
 import androidx.annotation.StringRes
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
-import com.asf.wallet.R
-import com.asfoundation.wallet.GlideApp
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.appcoins.wallet.core.utils.android_common.WalletCurrency
+import com.asf.wallet.R
+import com.asfoundation.wallet.GlideApp
 import com.asf.wallet.databinding.ItemPaymentMethodBinding
 
 class PaymentMethodsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -19,14 +21,17 @@ class PaymentMethodsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemVie
   private val binding by lazy { ItemPaymentMethodBinding.bind(itemView) }
 
   fun bind(
-      data: PaymentMethod,
-      checked: Boolean,
-      listener: View.OnClickListener,
-      onClickListener: View.OnClickListener
+    data: PaymentMethod,
+    checked: Boolean,
+    listener: View.OnClickListener,
+    onClickListenerTopup: View.OnClickListener,
+    showPaypalLogout: Boolean,
+    onClickPaypalLogout: () -> Unit,
+    wasLoggedOut: () -> Boolean
   ) {
     GlideApp.with(itemView.context)
-        .load(data.iconUrl)
-        .into(binding.paymentMethodIc)
+      .load(data.iconUrl)
+      .into(binding.paymentMethodIc)
 
     val selected = data.isEnabled && checked
     binding.radioButton.isChecked = selected
@@ -52,7 +57,7 @@ class PaymentMethodsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemVie
 
       applyAlphaScale(binding.paymentMethodIc)
     }
-    binding.checkoutTopupButton.setOnClickListener(onClickListener)
+    binding.checkoutTopupButton.setOnClickListener(onClickListenerTopup)
     if (data.showTopup) {
       binding.checkoutTopupButton.visibility = View.VISIBLE
       binding.radioButton.visibility = View.GONE
@@ -60,18 +65,43 @@ class PaymentMethodsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemVie
       binding.checkoutTopupButton.visibility = View.GONE
       binding.radioButton.visibility = View.VISIBLE
     }
+    if (data.showLogout) {
+      binding.paymentMoreLogout.visibility = if (showPaypalLogout && !wasLoggedOut())
+        View.VISIBLE
+      else
+        View.GONE
+      binding.paymentMoreLogout.setOnClickListener {
+        val popup = PopupMenu(itemView.context.applicationContext, it)
+        popup.menuInflater.inflate(R.menu.logout_menu, popup.menu)
+        popup.setOnMenuItemClickListener { menuItem: MenuItem ->
+          binding.paymentMoreLogout.visibility = View.GONE
+          onClickPaypalLogout()
+          return@setOnMenuItemClickListener true
+        }
+        popup.show()
+      }
+    } else {
+      binding.paymentMoreLogout.visibility = View.GONE
+    }
+    binding.paymentMethodInfo.visibility =
+      if (data.showExtraFeesMessage) View.VISIBLE else View.GONE
+    binding.paymentMethodInfoImage.visibility =
+      if (data.showExtraFeesMessage) View.VISIBLE else View.GONE
+
   }
 
   private fun handleDescription(data: PaymentMethod, selected: Boolean) {
     binding.paymentMethodDescription.text = data.label
     if (selected) {
       binding.paymentMethodDescription.setTextColor(
-          ContextCompat.getColor(itemView.context, R.color.styleguide_black_transparent_80))
+        ContextCompat.getColor(itemView.context, R.color.styleguide_black_transparent_80)
+      )
       binding.paymentMethodDescription.typeface =
-          Typeface.create("sans-serif-medium", Typeface.NORMAL)
+        Typeface.create("sans-serif-medium", Typeface.NORMAL)
     } else {
       binding.paymentMethodDescription.setTextColor(
-          ContextCompat.getColor(itemView.context, R.color.styleguide_dark_grey))
+        ContextCompat.getColor(itemView.context, R.color.styleguide_dark_grey)
+      )
       binding.paymentMethodDescription.typeface = Typeface.create("sans-serif", Typeface.NORMAL)
     }
   }
@@ -80,7 +110,7 @@ class PaymentMethodsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemVie
     if (fee?.isValidFee() == true) {
       binding.paymentMethodFee.visibility = View.VISIBLE
       val formattedValue = CurrencyFormatUtils()
-          .formatPaymentCurrency(fee.amount!!, WalletCurrency.FIAT)
+        .formatPaymentCurrency(fee.amount!!, WalletCurrency.FIAT)
       binding.paymentMethodFeeValue.text = "$formattedValue ${fee.currency}"
 
       binding.paymentMethodFeeValue.apply {
@@ -88,7 +118,12 @@ class PaymentMethodsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemVie
           this.setTextColor(ContextCompat.getColor(itemView.context, R.color.styleguide_pink))
           this.typeface = Typeface.create("sans-serif-medium", Typeface.NORMAL)
         } else {
-          this.setTextColor(ContextCompat.getColor(itemView.context, R.color.styleguide_black_transparent_80))
+          this.setTextColor(
+            ContextCompat.getColor(
+              itemView.context,
+              R.color.styleguide_black_transparent_80
+            )
+          )
           this.typeface = Typeface.create("sans-serif", Typeface.NORMAL)
         }
       }
