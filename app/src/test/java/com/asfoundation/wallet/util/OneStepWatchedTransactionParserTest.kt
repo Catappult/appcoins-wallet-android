@@ -7,7 +7,7 @@ import com.appcoins.wallet.feature.walletInfo.data.wallet.domain.Wallet
 import com.asfoundation.wallet.interact.DefaultTokenProvider
 import com.asfoundation.wallet.service.TokenRateService
 import com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue
-import com.appcoins.wallet.feature.walletInfo.data.FindDefaultWalletInteract
+import com.appcoins.wallet.feature.walletInfo.data.wallet.FindDefaultWalletInteract
 import io.reactivex.Single
 import org.junit.Before
 import org.junit.Test
@@ -19,7 +19,7 @@ import java.math.BigDecimal
 import java.util.*
 
 class OneStepWatchedTransactionParserTest {
-  private lateinit var findDefaultWalletInteract: com.appcoins.wallet.feature.walletInfo.data.FindDefaultWalletInteract
+  private lateinit var findDefaultWalletInteract: FindDefaultWalletInteract
   private lateinit var defaultTokenProvider: DefaultTokenProvider
   private lateinit var proxyService: ProxyService
   private lateinit var billing: Billing
@@ -43,28 +43,27 @@ class OneStepWatchedTransactionParserTest {
   @Before
   fun before() {
     findDefaultWalletInteract =
-        mock<com.appcoins.wallet.feature.walletInfo.data.FindDefaultWalletInteract>(
-            com.appcoins.wallet.feature.walletInfo.data.FindDefaultWalletInteract::class.java)
-    proxyService = mock<ProxyService>(ProxyService::class.java)
-    billing = mock<Billing>(Billing::class.java)
-    conversionService = mock<TokenRateService>(TokenRateService::class.java)
-    defaultTokenProvider = mock<DefaultTokenProvider>(DefaultTokenProvider::class.java)
+        mock(FindDefaultWalletInteract::class.java)
+    proxyService = mock(ProxyService::class.java)
+    billing = mock(Billing::class.java)
+    conversionService = mock(TokenRateService::class.java)
+    defaultTokenProvider = mock(DefaultTokenProvider::class.java)
 
-    `when`<Single<Wallet>>(findDefaultWalletInteract.find()).thenReturn(
+    `when`(findDefaultWalletInteract.find()).thenReturn(
         Single.just(Wallet(contractAddress)))
     val tokenInfo = TokenInfo(contractAddress, "AppCoins", "APPC", 18)
 
     `when`(defaultTokenProvider.defaultToken)
         .thenReturn(Single.just(tokenInfo))
-    `when`<Single<String>>(proxyService.getAppCoinsAddress(anyBoolean())).thenReturn(
+    `when`(proxyService.getAppCoinsAddress(anyBoolean())).thenReturn(
         Single.just(contractAddress))
-    `when`<Single<String>>(proxyService.getIabAddress(anyBoolean())).thenReturn(
+    `when`(proxyService.getIabAddress(anyBoolean())).thenReturn(
         Single.just(iabContractAddress))
 
     `when`<Single<FiatValue>>(conversionService.getAppcRate(anyString())).thenReturn(
         Single.just(FiatValue(BigDecimal("0.07"), "EUR")))
 
-    `when`<Single<String>>(billing.getWallet(anyString())).thenReturn(
+    `when`(billing.getWallet(anyString())).thenReturn(
         Single.just(developerAddress))
   }
 
