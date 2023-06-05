@@ -29,7 +29,6 @@ import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.GetWalletInfo
 import com.asf.wallet.databinding.PaymentMethodsLayoutBinding
 import com.asfoundation.wallet.billing.paypal.usecases.IsPaypalAgreementCreatedUseCase
 import com.asfoundation.wallet.billing.paypal.usecases.RemovePaypalBillingAgreementUseCase
-import com.asfoundation.wallet.wallets.usecases.GetWalletInfoUseCase
 import com.jakewharton.rxbinding2.view.RxView
 import com.jakewharton.rxrelay2.PublishRelay
 import com.wallet.appcoins.core.legacy_base.BasePageViewFragment

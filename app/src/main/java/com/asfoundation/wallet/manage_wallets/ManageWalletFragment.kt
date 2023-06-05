@@ -62,6 +62,7 @@ import com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue
 import com.appcoins.wallet.feature.walletInfo.data.balance.TokenBalance
 import com.appcoins.wallet.feature.walletInfo.data.balance.TokenValue
 import com.appcoins.wallet.feature.walletInfo.data.balance.WalletBalance
+import com.appcoins.wallet.feature.walletInfo.data.balance.WalletInfoSimple
 import com.appcoins.wallet.feature.walletInfo.data.wallet.domain.WalletInfo
 import com.appcoins.wallet.ui.common.theme.WalletColors
 import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_blue
@@ -131,7 +132,7 @@ class ManageWalletFragment : BasePageViewFragment() {
   internal fun ManageWalletContent(
     padding: PaddingValues,
     walletInfo: WalletInfo,
-    inactiveWallets: List<WalletBalance>
+    inactiveWallets: List<WalletInfoSimple>
   ) {
     LazyColumn(modifier = Modifier.padding(padding)) {
       item { ScreenHeader(walletInfo) }
@@ -445,7 +446,7 @@ class ManageWalletFragment : BasePageViewFragment() {
   }
 
   @Composable
-  fun InactiveWalletCard(walletBalance: WalletBalance) {
+  fun InactiveWalletCard(walletBalance: WalletInfoSimple) {
     Card(
       colors = CardDefaults.cardColors(styleguide_blue_secondary),
       modifier = Modifier
@@ -533,7 +534,7 @@ class ManageWalletFragment : BasePageViewFragment() {
   fun PreviewInactiveWallet() {
     val fiatValue = FiatValue(amount = BigDecimal(123456), "EUR", "€")
     InactiveWalletCard(
-      WalletBalance(
+      WalletInfoSimple(
         walletName = "a24863cb-e586-472f-9e8a-622834c20c52",
         walletAddress = "a24863cb-e586-472f-9e8a-622834c20c52a24863cb-e586-472f-9e8a-622834c20c52",
         balance = fiatValue,
