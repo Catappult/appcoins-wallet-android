@@ -30,8 +30,12 @@ import com.asfoundation.wallet.ui.iab.PaymentMethod
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.appcoins.wallet.core.utils.android_common.WalletCurrency
 import com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue
+import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.appcoins.wallet.ui.common.convertDpToPx
 import com.asf.wallet.databinding.FragmentTopUpBinding
+import com.asfoundation.wallet.billing.paypal.usecases.IsPaypalAgreementCreatedUseCase
+import com.asfoundation.wallet.billing.paypal.usecases.RemovePaypalBillingAgreementUseCase
+import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import com.jakewharton.rxbinding2.view.RxView
 import com.jakewharton.rxbinding2.widget.RxTextView
 import com.jakewharton.rxrelay2.PublishRelay
@@ -53,10 +57,19 @@ class TopUpFragment : BasePageViewFragment(), TopUpFragmentView {
   lateinit var interactor: TopUpInteractor
 
   @Inject
+  lateinit var removePaypalBillingAgreementUseCase: RemovePaypalBillingAgreementUseCase
+
+  @Inject
+  lateinit var isPaypalAgreementCreatedUseCase: IsPaypalAgreementCreatedUseCase
+
+  @Inject
   lateinit var topUpAnalytics: TopUpAnalytics
 
   @Inject
   lateinit var formatter: CurrencyFormatUtils
+
+  @Inject
+  lateinit var logger: Logger
 
   private lateinit var adapter: TopUpPaymentMethodsAdapter
   private lateinit var presenter: TopUpFragmentPresenter
@@ -133,9 +146,21 @@ class TopUpFragment : BasePageViewFragment(), TopUpFragmentView {
     paymentMethodClick = PublishRelay.create()
     valueSubject = PublishSubject.create()
     keyboardEvents = PublishSubject.create()
-    presenter = TopUpFragmentPresenter(this, topUpActivityView, interactor,
-        AndroidSchedulers.mainThread(), Schedulers.io(), CompositeDisposable(), topUpAnalytics,
-        formatter, savedInstanceState?.getString(SELECTED_VALUE_PARAM))
+    presenter = TopUpFragmentPresenter(
+      view = this,
+      activity = topUpActivityView,
+      interactor = interactor,
+      removePaypalBillingAgreementUseCase = removePaypalBillingAgreementUseCase,
+      isPaypalAgreementCreatedUseCase = isPaypalAgreementCreatedUseCase,
+      viewScheduler = AndroidSchedulers.mainThread(),
+      networkScheduler = Schedulers.io(),
+      disposables = CompositeDisposable(),
+      topUpAnalytics = topUpAnalytics,
+      formatter = formatter,
+      selectedValue = savedInstanceState?.getString(SELECTED_VALUE_PARAM),
+      logger = logger,
+      networkThread = Schedulers.io(),
+    )
   }
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -173,9 +198,21 @@ class TopUpFragment : BasePageViewFragment(), TopUpFragmentView {
     presenter.onSavedInstance(outState)
   }
 
-  override fun setupPaymentMethods(paymentMethods: List<PaymentMethod>) {
+  override fun setupPaymentMethods(paymentMethods: List<PaymentMethod>, showLogoutPaypal: Boolean) {
     this@TopUpFragment.paymentMethods = paymentMethods
-    adapter = TopUpPaymentMethodsAdapter(paymentMethods, paymentMethodClick)
+    adapter = TopUpPaymentMethodsAdapter(
+      paymentMethods = paymentMethods,
+      paymentMethodClick = paymentMethodClick,
+      showPaypalLogout = showLogoutPaypal,
+      wasLoggedOut = { presenter.wasLoggedOut },
+      logoutCallback = {
+        presenter.removePaypalBillingAgreement()
+        presenter.wasLoggedOut = true
+        presenter.showingLogout = false
+        setNextButton()
+        showAsLoading()
+      }
+    )
     selectPaymentMethod(paymentMethods)
 
     binding.paymentMethods.adapter = adapter
@@ -247,6 +284,18 @@ class TopUpFragment : BasePageViewFragment(), TopUpFragmentView {
       val imm = context?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager?
       imm?.showSoftInput(view, InputMethodManager.SHOW_FORCED)
     }
+  }
+
+  override fun showAsLoading() {
+    setNextButtonState(enabled = false)
+    binding.paymentsSkeleton.visibility = View.VISIBLE
+    binding.paymentMethods.visibility = View.INVISIBLE
+  }
+
+  override fun hideLoading() {
+    setNextButtonState(enabled = true)
+    binding.paymentsSkeleton.visibility = View.GONE
+    binding.paymentMethods.visibility = View.VISIBLE
   }
 
   override fun setDefaultAmountValue(amount: String) {
@@ -501,6 +550,14 @@ class TopUpFragment : BasePageViewFragment(), TopUpFragmentView {
     binding.rvDefaultValues.visibility = View.GONE
     binding.errorTopup.root.startAnimation(AnimationUtils.loadAnimation(context,R.anim.pop_in_animation))
     binding.errorTopup.root.visibility = View.VISIBLE
+  }
+
+  override fun setNextButton() {
+    binding.button.setTextRes(R.string.action_next)
+  }
+
+  override fun setTopupButton() {
+    binding.button.setTextRes(R.string.topup_button)
   }
 
   private fun hideKeyboard() {

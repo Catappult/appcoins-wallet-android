@@ -136,6 +136,9 @@ class PayPalIABFragment() : BasePageViewFragment() {
     views.paypalErrorButtons.errorCancel.setOnClickListener {
       close()
     }
+    views.paypalErrorButtons.errorTryAgain.setOnClickListener {
+      close()
+    }
     views.successContainer.lottieTransactionSuccess
       .addAnimatorListener(object : Animator.AnimatorListener {
         override fun onAnimationRepeat(animation: Animator) = Unit

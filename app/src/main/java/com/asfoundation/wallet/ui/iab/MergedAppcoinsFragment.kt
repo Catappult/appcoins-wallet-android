@@ -297,7 +297,8 @@ class MergedAppcoinsFragment : BasePageViewFragment(), MergedAppcoinsView {
     if (bonus.isNotEmpty()) {
       //Build string for both landscape (header) and portrait (radio button) bonus layout
       // appcoins_radio?.bonus_value?.text = getString(R.string.gamification_purchase_header_part_2, bonus)
-      binding.appcoinsRadio.appcoinsBonusLayout?.bonusValue?.text = getString(R.string.gamification_purchase_header_part_2, bonus)
+      binding.appcoinsRadio.appcoinsBonusLayout?.bonusValue?.text =
+        getString(R.string.gamification_purchase_header_part_2, bonus)
 
       //Set visibility for both landscape (header) and portrait (radio button) bonus layout
       if (binding.appcoinsRadio.appcoinsRadioButton.isChecked) {
@@ -443,7 +444,12 @@ class MergedAppcoinsFragment : BasePageViewFragment(), MergedAppcoinsView {
       )
       title.typeface = Typeface.create("sans-serif-medium", Typeface.NORMAL)
     } else {
-      title.setTextColor(ContextCompat.getColor(requireContext(), R.color.styleguide_black_transparent_80))
+      title.setTextColor(
+        ContextCompat.getColor(
+          requireContext(),
+          R.color.styleguide_black_transparent_80
+        )
+      )
       title.typeface = Typeface.create("sans-serif", Typeface.NORMAL)
     }
   }
@@ -467,27 +473,29 @@ class MergedAppcoinsFragment : BasePageViewFragment(), MergedAppcoinsView {
     else -> ""
   }
 
-  override fun buyClick(): Observable<PaymentInfoWrapper> = RxView.clicks(binding.dialogBuyButtonsPaymentMethods.buyButton)
-    .map {
-      PaymentInfoWrapper(
-        packageName = appName,
-        skuDetails = skuId,
-        value = appcAmount.toString(),
-        purchaseDetails = getSelectedPaymentMethod(),
-        transactionType = transactionType
-      )
-    }
+  override fun buyClick(): Observable<PaymentInfoWrapper> =
+    RxView.clicks(binding.dialogBuyButtonsPaymentMethods.buyButton)
+      .map {
+        PaymentInfoWrapper(
+          packageName = appName,
+          skuDetails = skuId,
+          value = appcAmount.toString(),
+          purchaseDetails = getSelectedPaymentMethod(),
+          transactionType = transactionType
+        )
+      }
 
-  override fun backClick(): Observable<PaymentInfoWrapper> = RxView.clicks(binding.dialogBuyButtonsPaymentMethods.cancelButton)
-    .map {
-      PaymentInfoWrapper(
-        packageName = appName,
-        skuDetails = skuId,
-        value = appcAmount.toString(),
-        purchaseDetails = getSelectedPaymentMethod(),
-        transactionType = transactionType
-      )
-    }
+  override fun backClick(): Observable<PaymentInfoWrapper> =
+    RxView.clicks(binding.dialogBuyButtonsPaymentMethods.cancelButton)
+      .map {
+        PaymentInfoWrapper(
+          packageName = appName,
+          skuDetails = skuId,
+          value = appcAmount.toString(),
+          purchaseDetails = getSelectedPaymentMethod(),
+          transactionType = transactionType
+        )
+      }
 
   override fun backPressed(): Observable<PaymentInfoWrapper> = iabView.backButtonPress()
     .map {
@@ -540,9 +548,11 @@ class MergedAppcoinsFragment : BasePageViewFragment(), MergedAppcoinsView {
 
   override fun errorDismisses() = RxView.clicks(binding.mergedErrorLayout.errorDismiss)
 
-  override fun getSupportLogoClicks() = RxView.clicks(binding.mergedErrorLayout.genericErrorLayout.layoutSupportLogo)
+  override fun getSupportLogoClicks() =
+    RxView.clicks(binding.mergedErrorLayout.genericErrorLayout.layoutSupportLogo)
 
-  override fun getSupportIconClicks() = RxView.clicks(binding.mergedErrorLayout.genericErrorLayout.layoutSupportIcn)
+  override fun getSupportIconClicks() =
+    RxView.clicks(binding.mergedErrorLayout.genericErrorLayout.layoutSupportIcn)
 
   override fun showAuthenticationActivity() = iabView.showAuthenticationActivity()
 
@@ -618,7 +628,11 @@ class MergedAppcoinsFragment : BasePageViewFragment(), MergedAppcoinsView {
 
   private fun setAppIcon() {
     try {
-      binding.paymentMethodsHeader.appIcon.setImageDrawable(requireContext().packageManager.getApplicationIcon(appName))
+      binding.paymentMethodsHeader.appIcon.setImageDrawable(
+        requireContext().packageManager.getApplicationIcon(
+          appName
+        )
+      )
     } catch (e: PackageManager.NameNotFoundException) {
       e.printStackTrace()
     }

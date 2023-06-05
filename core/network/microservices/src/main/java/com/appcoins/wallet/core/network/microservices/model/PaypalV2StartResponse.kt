@@ -4,7 +4,8 @@ package com.appcoins.wallet.core.network.microservices.model
 data class PaypalV2StartResponse(
   val uid: String,
   val hash: String?,
-  val status: TransactionStatus
+  val status: TransactionStatus,
+  val data: ErrorData?,
 ) {
   fun mapValidity(): PaypalTransaction.PaypalValidityState {
     return when(status) {
@@ -24,4 +25,10 @@ data class PaypalV2StartResponse(
       TransactionStatus.EXPIRED -> PaypalTransaction.PaypalValidityState.ERROR
     }
   }
+
+  data class ErrorData(
+    val name: String?,
+    val message: String?,
+  )
+
 }

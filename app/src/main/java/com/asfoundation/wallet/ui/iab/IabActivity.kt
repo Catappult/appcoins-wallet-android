@@ -530,7 +530,10 @@ class IabActivity() : BaseActivity(), IabView, UriNavigator {
   }
 
   override fun getSupportClicks(): Observable<Any> =
-    Observable.merge(RxView.clicks(binding.iabErrorLayout.genericErrorLayout.layoutSupportLogo), RxView.clicks(binding.iabErrorLayout.genericErrorLayout.layoutSupportIcn))
+    Observable.merge(
+      RxView.clicks(binding.iabErrorLayout.genericErrorLayout.layoutSupportLogo),
+      RxView.clicks(binding.iabErrorLayout.genericErrorLayout.layoutSupportIcn)
+    )
 
   override fun errorDismisses() = RxView.clicks(binding.iabErrorLayout.errorDismiss)
 

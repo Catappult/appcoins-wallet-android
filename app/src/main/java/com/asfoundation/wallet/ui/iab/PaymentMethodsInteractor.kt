@@ -45,10 +45,10 @@ class PaymentMethodsInteractor @Inject constructor(
   fun isBonusActiveAndValid(forecastBonus: ForecastBonusAndLevel) =
       gamificationInteractor.isBonusActiveAndValid(forecastBonus)
 
-  fun getEarningBonus(packageName: String, amount: BigDecimal): Single<ForecastBonusAndLevel> {
+  fun getEarningBonus(packageName: String, amount: BigDecimal, currency: String?): Single<ForecastBonusAndLevel> {
     return getCurrentPromoCodeUseCase()
         .flatMap {
-          gamificationInteractor.getEarningBonus(packageName, amount, it.code)
+          gamificationInteractor.getEarningBonus(packageName, amount, it.code, currency)
         }
   }
 

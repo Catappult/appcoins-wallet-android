@@ -61,7 +61,6 @@ class PayPalTopupViewModel @Inject constructor(
         .doOnSuccess {
           when (it?.validity) {
             PaypalTransaction.PaypalValidityState.COMPLETED -> {
-              Log.d(TAG, "Successful Paypal payment ")
               topUpAnalytics.sendPaypalSuccessEvent(amount)
               _state.postValue(State.SuccessPurchase(it.hash, it.uid))
             }
@@ -71,8 +70,11 @@ class PayPalTopupViewModel @Inject constructor(
                 createToken()
               } else {
                 Log.d(TAG, "No paypal billing agreement")
-                topUpAnalytics.sendPaypalErrorEvent("No paypal billing agreement")
-                _state.postValue(State.Error(R.string.unknown_error))
+                topUpAnalytics.sendPaypalErrorEvent(
+                  errorCode = it.errorCode,
+                  errorDetails = it.errorMessage ?: ""
+                )
+                _state.postValue(State.Error(R.string.purchase_error_paypal))
               }
             }
             PaypalTransaction.PaypalValidityState.PENDING -> {
@@ -80,20 +82,20 @@ class PayPalTopupViewModel @Inject constructor(
             }
             PaypalTransaction.PaypalValidityState.ERROR -> {
               Log.d(TAG, "Paypal transaction error")
-              topUpAnalytics.sendPaypalErrorEvent("Paypal transaction error")
-              _state.postValue(State.Error(R.string.unknown_error))
+              topUpAnalytics.sendPaypalErrorEvent(errorDetails = "Paypal transaction error")
+              _state.postValue(State.Error(R.string.purchase_error_paypal))
             }
             null -> {
               Log.d(TAG, "Paypal transaction error")
-              topUpAnalytics.sendPaypalErrorEvent("Paypal transaction error")
-              _state.postValue(State.Error(R.string.unknown_error))
+              topUpAnalytics.sendPaypalErrorEvent(errorDetails = "Paypal transaction error")
+              _state.postValue(State.Error(R.string.purchase_error_paypal))
             }
           }
         }
         .subscribe({}, {
           Log.d(TAG, it.toString())
-          topUpAnalytics.sendPaypalErrorEvent("Paypal transaction error")
-          _state.postValue(State.Error(R.string.unknown_error))
+          topUpAnalytics.sendPaypalErrorEvent(errorDetails = "Paypal transaction error")
+          _state.postValue(State.Error(R.string.purchase_error_paypal))
         })
     )
   }
@@ -104,13 +106,12 @@ class PayPalTopupViewModel @Inject constructor(
         .subscribeOn(networkScheduler)
         .observeOn(viewScheduler)
         .doOnSuccess {
-          Log.d(TAG, "Successful Token creation ")
           authenticatedToken = it.token
           _state.postValue(State.WebViewAuthentication(it.redirect.url))
         }
         .subscribe({}, {
           Log.d(TAG, it.toString())
-          topUpAnalytics.sendPaypalErrorEvent("Paypal createToken error")
+          topUpAnalytics.sendPaypalErrorEvent(errorDetails = "Paypal createToken error")
           _state.postValue(State.Error(R.string.unknown_error))
         })
     )
@@ -125,7 +126,6 @@ class PayPalTopupViewModel @Inject constructor(
           .subscribeOn(networkScheduler)
           .observeOn(viewScheduler)
           .doOnSuccess {
-            Log.d(TAG, "Successful Agreement creation: ${it.uid}")
             // after creating the billing agreement, don't create a new token if it fails
             attemptTransaction(
               createTokenIfNeeded = false,
@@ -135,7 +135,7 @@ class PayPalTopupViewModel @Inject constructor(
           }
           .subscribe({}, {
             Log.d(TAG, it.toString())
-            topUpAnalytics.sendPaypalErrorEvent("Paypal BillingAgreement error")
+            topUpAnalytics.sendPaypalErrorEvent(errorDetails = "Paypal BillingAgreement error")
             _state.postValue(State.Error(R.string.unknown_error))
           })
       )
@@ -162,7 +162,6 @@ class PayPalTopupViewModel @Inject constructor(
           {
             when (it.status) {
               PaymentModel.Status.COMPLETED -> {
-                Log.d(TAG, "Settled transaction polling completed")
                 topUpAnalytics.sendPaypalSuccessEvent(amount)
                 _state.postValue(State.SuccessPurchase(it.hash, it.uid))
               }
@@ -170,16 +169,17 @@ class PayPalTopupViewModel @Inject constructor(
               PaymentModel.Status.INVALID_TRANSACTION -> {
                 Log.d(TAG, "Error on transaction on Settled transaction polling")
                 topUpAnalytics.sendPaypalErrorEvent(
-                  "Error on transaction on Settled transaction polling ${it.status.name}"
+                  errorDetails = "Error on transaction on Settled transaction polling ${it.status.name}"
                 )
                 _state.postValue(State.Error(R.string.unknown_error))
               }
-              else -> { /* pending */ }
+              else -> { /* pending */
+              }
             }
           },
           {
             Log.d(TAG, "Error on Settled transaction polling")
-            topUpAnalytics.sendPaypalErrorEvent("Error on Settled transaction polling")
+            topUpAnalytics.sendPaypalErrorEvent(errorDetails = "Error on Settled transaction polling")
           })
     )
   }
