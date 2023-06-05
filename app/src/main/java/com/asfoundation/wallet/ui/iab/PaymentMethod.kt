@@ -6,7 +6,9 @@ open class PaymentMethod(
   open val id: String, open val label: String,
   open val iconUrl: String, val async: Boolean, val fee: PaymentMethodFee?,
   open val isEnabled: Boolean = true, open var disabledReason: Int? = null,
-  val showTopup: Boolean = false
+  val showTopup: Boolean = false,
+  val showLogout: Boolean = false,
+  val showExtraFeesMessage: Boolean = false
 ) {
   constructor() : this("", "", "", false, null, false)
 
@@ -22,9 +24,9 @@ open class PaymentMethod(
 }
 
 data class PaymentMethodFee(
-    val isExact: Boolean,
-    val amount: BigDecimal?,
-    val currency: String?
+  val isExact: Boolean,
+  val amount: BigDecimal?,
+  val currency: String?
 ) {
 
   fun isValidFee() = isExact && amount != null && currency != null

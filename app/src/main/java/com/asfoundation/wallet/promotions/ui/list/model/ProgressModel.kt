@@ -18,8 +18,8 @@ import com.asfoundation.wallet.promotions.ui.PromotionsViewModel.Companion.DETAI
 import com.asfoundation.wallet.promotions.ui.list.PromotionClick
 import com.appcoins.wallet.ui.widgets.BaseViewHolder
 import com.appcoins.wallet.ui.widgets.SeparatorView
-import java.time.LocalDateTime
 import java.time.ZoneOffset
+import java.time.ZonedDateTime
 import java.util.concurrent.TimeUnit
 
 @EpoxyModelClass
@@ -104,7 +104,7 @@ abstract class ProgressModel : EpoxyModelWithHolder<ProgressModel.ProgressHolder
   }
 
   private fun ProgressHolder.handleExpiryDate(endDate: Long) {
-    val currentTime = LocalDateTime.now().toEpochSecond(ZoneOffset.UTC)
+    val currentTime = ZonedDateTime.now(ZoneOffset.UTC).toEpochSecond()
     val diff: Long = endDate - currentTime
     val days = TimeUnit.DAYS.convert(diff, TimeUnit.SECONDS)
     val hours = TimeUnit.HOURS.convert(diff, TimeUnit.SECONDS)
