@@ -13,7 +13,7 @@ android{
 }
 
 dependencies{
-  implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar", "*.aar"))))
+  compileOnly(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar", "*.aar"))))
   implementation(project(":legacy:billing"))
   implementation(project(":feature:wallet-info:data"))
   implementation(project(":feature:backup:data"))
