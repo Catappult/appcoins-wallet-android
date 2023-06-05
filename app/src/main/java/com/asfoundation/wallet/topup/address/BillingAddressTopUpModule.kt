@@ -2,7 +2,6 @@ package com.asfoundation.wallet.topup.address
 
 import androidx.fragment.app.Fragment
 import com.asfoundation.wallet.billing.address.BillingAddressRepository
-import com.asfoundation.wallet.topup.TopUpActivityView
 import com.asfoundation.wallet.topup.TopUpAnalytics
 import com.asfoundation.wallet.topup.TopUpPaymentData
 import dagger.Module

@@ -2,10 +2,10 @@ package com.asfoundation.wallet.nfts.usecases
 
 import com.appcoins.wallet.core.utils.android_common.Dispatchers
 import com.appcoins.wallet.feature.changecurrency.data.use_cases.GetSelectedCurrencyUseCase
+import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.GetCurrentWalletUseCase
 import com.asfoundation.wallet.nfts.domain.GasInfo
 import com.asfoundation.wallet.nfts.domain.NFTItem
 import com.asfoundation.wallet.nfts.repository.NFTRepository
-import com.asfoundation.wallet.wallets.usecases.GetCurrentWalletUseCase
 import com.github.michaelbull.result.get
 import io.reactivex.Single
 import kotlinx.coroutines.rx2.rxSingle

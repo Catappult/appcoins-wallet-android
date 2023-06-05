@@ -1,10 +1,10 @@
 package com.asfoundation.wallet.permissions
 
+import com.appcoins.wallet.feature.walletInfo.data.wallet.FindDefaultWalletInteract
+import com.appcoins.wallet.feature.walletInfo.data.wallet.domain.Wallet
 import com.appcoins.wallet.permissions.ApplicationPermission
 import com.appcoins.wallet.permissions.PermissionName
 import com.appcoins.wallet.permissions.Permissions
-import com.asfoundation.wallet.entity.Wallet
-import com.asfoundation.wallet.wallets.FindDefaultWalletInteract
 import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Single

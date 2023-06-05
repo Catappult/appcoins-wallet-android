@@ -1,21 +1,21 @@
 package com.asfoundation.wallet.ui.transact
 
 import com.appcoins.wallet.appcoins.rewards.AppcoinsRewardsRepository
-import com.asfoundation.wallet.entity.Wallet
+import com.appcoins.wallet.feature.walletInfo.data.wallet.FindDefaultWalletInteract
+import com.appcoins.wallet.feature.walletInfo.data.wallet.domain.Wallet
+import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.GetWalletInfoUseCase
 import com.asfoundation.wallet.ui.iab.RewardsManager
 import com.asfoundation.wallet.wallet_blocked.WalletBlockedInteract
-import com.asfoundation.wallet.wallets.FindDefaultWalletInteract
-import com.asfoundation.wallet.wallets.usecases.GetWalletInfoUseCase
 import io.reactivex.Single
 import java.math.BigDecimal
 import java.net.UnknownHostException
 import javax.inject.Inject
 
 class TransferInteractor @Inject constructor(private val rewardsManager: RewardsManager,
-                         private val transactionDataValidator: TransactionDataValidator,
-                         private val getWalletInfoUseCase: GetWalletInfoUseCase,
-                         private val findDefaultWalletInteract: FindDefaultWalletInteract,
-                         private val walletBlockedInteract: WalletBlockedInteract) {
+                                             private val transactionDataValidator: TransactionDataValidator,
+                                             private val getWalletInfoUseCase: GetWalletInfoUseCase,
+                                             private val findDefaultWalletInteract: FindDefaultWalletInteract,
+                                             private val walletBlockedInteract: WalletBlockedInteract) {
 
   fun transferCredits(toWallet: String, amount: BigDecimal,
                       packageName: String): Single<AppcoinsRewardsRepository.Status> {

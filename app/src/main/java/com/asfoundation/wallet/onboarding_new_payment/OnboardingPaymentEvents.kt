@@ -3,8 +3,8 @@ package com.asfoundation.wallet.onboarding_new_payment
 import android.content.Intent
 import android.net.Uri
 import cm.aptoide.analytics.AnalyticsManager
+import com.appcoins.wallet.core.analytics.analytics.legacy.BillingAnalytics
 import com.asfoundation.wallet.billing.adyen.PaymentType
-import com.asfoundation.wallet.billing.analytics.BillingAnalytics
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.onboarding_new_payment.use_cases.GetAnalyticsRevenueValueUseCase
 import com.asfoundation.wallet.ui.iab.PaymentMethodsAnalytics
@@ -12,10 +12,10 @@ import java.math.BigDecimal
 import javax.inject.Inject
 
 class OnboardingPaymentEvents @Inject constructor(
-  private val paymentMethodsAnalytics: PaymentMethodsAnalytics,
-  private val billingAnalytics: BillingAnalytics,
-  private val revenueValueUseCase: GetAnalyticsRevenueValueUseCase,
-  private val analyticsManager: AnalyticsManager
+    private val paymentMethodsAnalytics: PaymentMethodsAnalytics,
+    private val billingAnalytics: BillingAnalytics,
+    private val revenueValueUseCase: GetAnalyticsRevenueValueUseCase,
+    private val analyticsManager: AnalyticsManager
 ) {
 
 

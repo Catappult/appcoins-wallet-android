@@ -42,7 +42,7 @@ import com.asf.wallet.R
 import com.asfoundation.wallet.transactions.Transaction.TransactionType.*
 import com.asfoundation.wallet.transactions.TransactionsListViewModel.*
 import com.asfoundation.wallet.transactions.TransactionsListViewModel.UiModel.TransactionItem
-import com.asfoundation.wallet.viewmodel.BasePageViewFragment
+import com.wallet.appcoins.core.legacy_base.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 

@@ -2,7 +2,7 @@ package com.asfoundation.wallet.topup.address
 
 import com.asfoundation.wallet.billing.address.BillingAddressModel
 import com.asfoundation.wallet.billing.address.BillingAddressRepository
-import com.asfoundation.wallet.billing.analytics.BillingAnalytics
+import com.appcoins.wallet.core.analytics.analytics.legacy.BillingAnalytics
 import com.asfoundation.wallet.topup.TopUpAnalytics
 import io.reactivex.Scheduler
 import io.reactivex.disposables.CompositeDisposable

@@ -5,7 +5,7 @@ import com.appcoins.wallet.core.utils.android_common.RxSchedulers
 import com.asfoundation.wallet.entity.NetworkInfo
 import com.asfoundation.wallet.interact.DefaultTokenProvider
 import com.asfoundation.wallet.repository.entity.TransactionEntity
-import com.asfoundation.wallet.service.AccountKeystoreService
+import com.appcoins.wallet.feature.walletInfo.data.AccountKeystoreService
 import com.asfoundation.wallet.transactions.Transaction
 import com.asfoundation.wallet.transactions.TransactionsMapper
 import com.asfoundation.wallet.ui.iab.raiden.MultiWalletNonceObtainer
@@ -20,17 +20,17 @@ import javax.inject.Inject
 
 @BoundTo(supertype = TransactionRepositoryType::class)
 class BackendTransactionRepository @Inject constructor(
-  networkInfo: NetworkInfo,
-  accountKeystoreService: AccountKeystoreService,
-  defaultTokenProvider: DefaultTokenProvider,
-  errorMapper: BlockchainErrorMapper,
-  nonceObtainer: MultiWalletNonceObtainer,
-  private val offChainTransactions: OffChainTransactions,
-  private val localRepository: TransactionsRepository,
-  private val mapper: TransactionMapper,
-  private val transactionsMapper: TransactionsMapper,
-  private val disposables: CompositeDisposable,
-  private val rxSchedulers: RxSchedulers
+    networkInfo: NetworkInfo,
+    accountKeystoreService: AccountKeystoreService,
+    defaultTokenProvider: DefaultTokenProvider,
+    errorMapper: BlockchainErrorMapper,
+    nonceObtainer: MultiWalletNonceObtainer,
+    private val offChainTransactions: OffChainTransactions,
+    private val localRepository: TransactionsRepository,
+    private val mapper: TransactionMapper,
+    private val transactionsMapper: TransactionsMapper,
+    private val disposables: CompositeDisposable,
+    private val rxSchedulers: RxSchedulers
 ) :
   TransactionRepository(
     networkInfo, accountKeystoreService,

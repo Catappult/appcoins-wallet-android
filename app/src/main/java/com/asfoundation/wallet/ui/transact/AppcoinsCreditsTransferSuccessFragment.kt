@@ -6,12 +6,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import by.kirich1409.viewbindingdelegate.viewBinding
-import com.asf.wallet.R
-import com.asfoundation.wallet.ui.ActivityResultSharer
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
+import com.asf.wallet.R
 import com.asf.wallet.databinding.TransactSuccessFragmentLayoutBinding
-import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import com.jakewharton.rxbinding2.view.RxView
+import com.wallet.appcoins.core.legacy_base.ActivityResultSharer
+import com.wallet.appcoins.core.legacy_base.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable

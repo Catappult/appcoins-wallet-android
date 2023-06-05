@@ -2,7 +2,7 @@ package com.asfoundation.wallet.ui.iab.payments.carrier.verify
 
 import androidx.fragment.app.Fragment
 import com.appcoins.wallet.core.utils.jvm_common.Logger
-import com.asfoundation.wallet.billing.analytics.BillingAnalytics
+import com.appcoins.wallet.core.analytics.analytics.legacy.BillingAnalytics
 import com.asfoundation.wallet.ui.iab.payments.carrier.CarrierInteractor
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.appcoins.wallet.ui.common.StringProvider

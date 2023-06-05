@@ -1,5 +1,5 @@
 package com.asfoundation.wallet.ui.settings.wallets.bottomsheet
 
-import com.asfoundation.wallet.ui.wallets.WalletsModel
+import com.appcoins.wallet.feature.walletInfo.data.wallet.domain.WalletsModel
 
 data class SettingsWalletsBottomSheetData(val walletsModel: WalletsModel)

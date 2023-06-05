@@ -18,17 +18,17 @@ import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import by.kirich1409.viewbindingdelegate.viewBinding
+import com.appcoins.wallet.core.arch.SingleStateFragment
+import com.appcoins.wallet.core.arch.data.Async
 import com.appcoins.wallet.core.utils.properties.PRIVACY_POLICY_URL
 import com.appcoins.wallet.core.utils.properties.TERMS_CONDITIONS_URL
 import com.asf.wallet.R
 import com.asf.wallet.databinding.OnboardingPaymentMethodsFragmentBinding
-import com.appcoins.wallet.core.arch.data.Async
-import com.appcoins.wallet.core.arch.SingleStateFragment
 import com.asfoundation.wallet.onboarding_new_payment.payment_methods.list.PaymentMethodClick
 import com.asfoundation.wallet.onboarding_new_payment.payment_methods.list.PaymentMethodsController
 import com.asfoundation.wallet.ui.iab.PaymentMethod
 import com.asfoundation.wallet.ui.iab.PaymentMethodsMapper
-import com.asfoundation.wallet.viewmodel.BasePageViewFragment
+import com.wallet.appcoins.core.legacy_base.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 

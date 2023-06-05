@@ -6,17 +6,17 @@ import com.appcoins.wallet.billing.carrierbilling.*
 import com.appcoins.wallet.core.network.microservices.model.TransactionStatus
 import com.appcoins.wallet.core.utils.android_common.RxSchedulers
 import com.appcoins.wallet.core.utils.jvm_common.Logger
+import com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue
 import com.asfoundation.wallet.billing.adyen.PurchaseBundleModel
 import com.asfoundation.wallet.billing.carrier_billing.CarrierBillingRepository
 import com.asfoundation.wallet.billing.partners.AddressService
 import com.asfoundation.wallet.entity.TransactionBuilder
-import com.asfoundation.wallet.promo_code.use_cases.GetCurrentPromoCodeUseCase
-import com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue
+import com.appcoins.wallet.feature.promocode.data.use_cases.GetCurrentPromoCodeUseCase
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
 import com.asfoundation.wallet.ui.iab.PaymentMethodsView
 import com.asfoundation.wallet.ui.iab.payments.common.model.WalletAddresses
 import com.asfoundation.wallet.ui.iab.payments.common.model.WalletStatus
-import com.asfoundation.wallet.verification.ui.credit_card.WalletVerificationInteractor
+import com.appcoins.wallet.feature.walletInfo.data.verification.WalletVerificationInteractor
 import com.asfoundation.wallet.wallet_blocked.WalletBlockedInteract
 import io.reactivex.Completable
 import io.reactivex.Observable
@@ -31,8 +31,8 @@ class CarrierInteractor @Inject constructor(private val repository: CarrierBilli
                                             private val partnerAddressService: AddressService,
                                             private val inAppPurchaseInteractor: InAppPurchaseInteractor,
                                             private val walletBlockedInteract: WalletBlockedInteract,
-                                            private val walletVerificationInteractor: WalletVerificationInteractor,
-                                            private val getCurrentPromoCodeUseCase: GetCurrentPromoCodeUseCase,
+                                            private val walletVerificationInteractor: com.appcoins.wallet.feature.walletInfo.data.verification.WalletVerificationInteractor,
+                                            private val getCurrentPromoCodeUseCase: com.appcoins.wallet.feature.promocode.data.use_cases.GetCurrentPromoCodeUseCase,
                                             private val logger: Logger,
                                             private val rxSchedulers: RxSchedulers
 ) {

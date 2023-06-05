@@ -1,8 +1,7 @@
 package com.asfoundation.wallet.billing.address
 
 import androidx.fragment.app.Fragment
-import com.asfoundation.wallet.billing.analytics.BillingAnalytics
-import com.asfoundation.wallet.ui.iab.IabActivity
+import com.appcoins.wallet.core.analytics.analytics.legacy.BillingAnalytics
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

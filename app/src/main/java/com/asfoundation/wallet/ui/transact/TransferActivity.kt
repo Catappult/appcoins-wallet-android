@@ -3,8 +3,10 @@ package com.asfoundation.wallet.ui.transact
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
+import androidx.appcompat.widget.Toolbar
 import com.asf.wallet.R
-import com.asfoundation.wallet.ui.BaseActivity
+import com.wallet.appcoins.core.legacy_base.BaseActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -30,6 +32,21 @@ class TransferActivity : BaseActivity(), TransferActivityView, TransactNavigator
     presenter = TransferActivityPresenter(this)
     presenter.present(savedInstanceState == null)
     toolbar()
+  }
+
+  /**
+   * function hardcoded temporarily, must be changed
+   * @return
+   */
+   fun toolbar(): Toolbar? {
+    val toolbar = findViewById<Toolbar>(R.id.toolbar)
+    toolbar!!.visibility = View.VISIBLE
+    if (toolbar != null) {
+      setSupportActionBar(toolbar)
+      toolbar.title = title
+    }
+    enableDisplayHomeAsUp()
+    return toolbar
   }
 
   override fun showTransactFragment() {

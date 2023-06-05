@@ -4,11 +4,11 @@ import com.appcoins.wallet.core.arch.data.Async
 import com.appcoins.wallet.core.arch.BaseViewModel
 import com.appcoins.wallet.core.arch.SideEffect
 import com.appcoins.wallet.core.arch.ViewState
-import com.asfoundation.wallet.promo_code.FailedPromoCode
-import com.asfoundation.wallet.promo_code.PromoCodeResult
-import com.asfoundation.wallet.promo_code.use_cases.DeletePromoCodeUseCase
-import com.asfoundation.wallet.promo_code.use_cases.GetStoredPromoCodeResultUseCase
-import com.asfoundation.wallet.promo_code.use_cases.VerifyAndSavePromoCodeUseCase
+import com.appcoins.wallet.feature.promocode.data.FailedPromoCode
+import com.appcoins.wallet.feature.promocode.data.PromoCodeResult
+import com.appcoins.wallet.feature.promocode.data.use_cases.DeletePromoCodeUseCase
+import com.appcoins.wallet.feature.promocode.data.use_cases.GetStoredPromoCodeResultUseCase
+import com.appcoins.wallet.feature.promocode.data.use_cases.VerifyAndSavePromoCodeUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
@@ -17,16 +17,16 @@ sealed class PromoCodeBottomSheetSideEffect : SideEffect {
 }
 
 data class PromoCodeBottomSheetState(
-  val storedPromoCodeAsync: Async<PromoCodeResult> = Async.Uninitialized,
-  val submitPromoCodeAsync: Async<PromoCodeResult> = Async.Uninitialized,
-  val shouldShowDefault: Boolean = false
+    val storedPromoCodeAsync: Async<com.appcoins.wallet.feature.promocode.data.PromoCodeResult> = Async.Uninitialized,
+    val submitPromoCodeAsync: Async<com.appcoins.wallet.feature.promocode.data.PromoCodeResult> = Async.Uninitialized,
+    val shouldShowDefault: Boolean = false
 ) : ViewState
 
 @HiltViewModel
 class PromoCodeBottomSheetViewModel @Inject constructor(
-  private val getStoredPromoCodeResultUseCase: GetStoredPromoCodeResultUseCase,
-  private val verifyAndSavePromoCodeUseCase: VerifyAndSavePromoCodeUseCase,
-  private val deletePromoCodeUseCase: DeletePromoCodeUseCase
+    private val getStoredPromoCodeResultUseCase: com.appcoins.wallet.feature.promocode.data.use_cases.GetStoredPromoCodeResultUseCase,
+    private val verifyAndSavePromoCodeUseCase: com.appcoins.wallet.feature.promocode.data.use_cases.VerifyAndSavePromoCodeUseCase,
+    private val deletePromoCodeUseCase: com.appcoins.wallet.feature.promocode.data.use_cases.DeletePromoCodeUseCase
 ) :
   BaseViewModel<PromoCodeBottomSheetState, PromoCodeBottomSheetSideEffect>(initialState()) {
 
@@ -47,7 +47,7 @@ class PromoCodeBottomSheetViewModel @Inject constructor(
     getStoredPromoCodeResultUseCase()
       .asAsyncToState { copy(storedPromoCodeAsync = it) }
       .doOnNext {
-        if (it == FailedPromoCode.ExpiredCode()) deleteCode()
+        if (it == com.appcoins.wallet.feature.promocode.data.FailedPromoCode.ExpiredCode()) deleteCode()
       }
       .repeatableScopedSubscribe(PromoCodeBottomSheetState::storedPromoCodeAsync.name) { e ->
         e.printStackTrace()

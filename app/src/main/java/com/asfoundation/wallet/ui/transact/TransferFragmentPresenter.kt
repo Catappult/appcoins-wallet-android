@@ -2,14 +2,14 @@ package com.asfoundation.wallet.ui.transact
 
 import android.content.Intent
 import com.appcoins.wallet.appcoins.rewards.AppcoinsRewardsRepository.Status
+import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
+import com.appcoins.wallet.core.utils.android_common.WalletCurrency
+import com.appcoins.wallet.core.utils.android_common.extensions.isNoNetworkException
+import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.GetWalletInfoUseCase
 import com.asfoundation.wallet.ui.barcode.BarcodeCaptureActivity
 import com.asfoundation.wallet.ui.transact.TransferFragmentView.Currency
 import com.asfoundation.wallet.ui.transact.TransferFragmentView.TransferData
-import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.asfoundation.wallet.util.QRUri
-import com.appcoins.wallet.core.utils.android_common.WalletCurrency
-import com.appcoins.wallet.core.utils.android_common.extensions.isNoNetworkException
-import com.asfoundation.wallet.wallets.usecases.GetWalletInfoUseCase
 import com.google.android.gms.common.api.CommonStatusCodes
 import com.google.android.gms.vision.barcode.Barcode
 import io.reactivex.Completable

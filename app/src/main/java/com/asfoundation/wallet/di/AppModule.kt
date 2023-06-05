@@ -24,10 +24,10 @@ import com.asf.appcoins.sdk.contractproxy.AppCoinsAddressProxyBuilder
 import com.asf.appcoins.sdk.contractproxy.AppCoinsAddressProxySdk
 import com.asf.wallet.BuildConfig
 import com.asf.wallet.R
-import com.asfoundation.wallet.C
+import com.appcoins.wallet.core.utils.jvm_common.C
 import com.appcoins.wallet.core.analytics.analytics.TaskTimer
 import com.asfoundation.wallet.entity.NetworkInfo
-import com.asfoundation.wallet.ewt.EwtAuthenticatorService
+import com.appcoins.wallet.feature.walletInfo.data.authentication.EwtAuthenticatorService
 import com.asfoundation.wallet.logging.DebugReceiver
 import com.asfoundation.wallet.logging.WalletLogger
 import com.asfoundation.wallet.repository.Web3jProvider
