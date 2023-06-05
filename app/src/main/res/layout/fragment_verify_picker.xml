@@ -50,7 +50,7 @@
           android:layout_marginStart="15dp"
           android:layout_marginEnd="15dp"
           android:fontFamily="sans-serif-medium"
-          android:text="@string/verify_paypal_button"
+          android:text="Verify with PayPal"
           android:textColor="@color/styleguide_blue"
           android:textSize="16sp"
           />
@@ -89,7 +89,7 @@
           android:layout_marginStart="15dp"
           android:layout_marginEnd="15dp"
           android:fontFamily="sans-serif-medium"
-          android:text="@string/verify_card_button"
+          android:text="Verify with Credit Card"
           android:textColor="@color/styleguide_blue"
           android:textSize="16sp"
           />
