@@ -11,6 +11,7 @@ import com.asfoundation.wallet.ui.wallets.activeWalletAddress
 import com.asfoundation.wallet.ui.wallets.inactiveWallets
 import com.asfoundation.wallet.wallets.domain.WalletInfo
 import com.asfoundation.wallet.wallets.usecases.ObserveWalletInfoUseCase
+import com.asfoundation.wallet.wallets.usecases.UpdateWalletNameUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -24,6 +25,7 @@ constructor(
   private val observeWalletInfoUseCase: ObserveWalletInfoUseCase,
   private val walletsInteract: WalletsInteract,
   private val walletDetailsInteractor: WalletDetailsInteractor,
+  private val updateWalletNameUseCase: UpdateWalletNameUseCase
 ) : ViewModel() {
 
   private val _uiState = MutableStateFlow<UiState>(UiState.Idle)
@@ -76,6 +78,12 @@ constructor(
   fun changeActiveWallet(wallet: String) {
     walletDetailsInteractor.setActiveWallet(wallet)
       .doOnComplete { getWallets(walletChanged = true) }
+      .subscribe()
+  }
+
+  fun setName(wallet: String, name: String) {
+    updateWalletNameUseCase(wallet, name)
+      .doOnComplete { getWallets() }
       .subscribe()
   }
 }
