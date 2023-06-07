@@ -2,7 +2,7 @@ package com.asfoundation.wallet.ui.iab.share
 
 import com.asfoundation.wallet.billing.share.ShareLinkRepository
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
-import com.asfoundation.wallet.wallets.FindDefaultWalletInteract
+import com.appcoins.wallet.feature.walletInfo.data.wallet.FindDefaultWalletInteract
 import io.reactivex.Single
 import javax.inject.Inject
 

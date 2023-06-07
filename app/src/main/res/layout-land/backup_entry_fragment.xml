@@ -39,7 +39,6 @@
           app:layout_constraintGuide_percent="0.5"
           />
       <include
-          android:id="@+id/password_toggle"
           layout="@layout/backup_entry_password_toggle"
           android:layout_width="0dp"
           android:layout_height="wrap_content"

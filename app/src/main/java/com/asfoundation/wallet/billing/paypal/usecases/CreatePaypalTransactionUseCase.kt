@@ -4,15 +4,15 @@ import com.appcoins.wallet.bdsbilling.WalletService
 import com.asfoundation.wallet.billing.paypal.repository.PayPalV2Repository
 import com.asfoundation.wallet.billing.partners.AddressService
 import com.appcoins.wallet.core.network.microservices.model.PaypalTransaction
-import com.asfoundation.wallet.promo_code.use_cases.GetCurrentPromoCodeUseCase
+import com.appcoins.wallet.feature.promocode.data.use_cases.GetCurrentPromoCodeUseCase
 import io.reactivex.Single
 import javax.inject.Inject
 
 class CreatePaypalTransactionUseCase @Inject constructor(
-  private val partnerAddressService: AddressService,
-  private val walletService: WalletService,
-  private val getCurrentPromoCodeUseCase: GetCurrentPromoCodeUseCase,
-  private val payPalV2Repository: PayPalV2Repository,
+    private val partnerAddressService: AddressService,
+    private val walletService: WalletService,
+    private val getCurrentPromoCodeUseCase: com.appcoins.wallet.feature.promocode.data.use_cases.GetCurrentPromoCodeUseCase,
+    private val payPalV2Repository: PayPalV2Repository,
 ) {
 
   operator fun invoke(value: String, currency: String, reference: String?,

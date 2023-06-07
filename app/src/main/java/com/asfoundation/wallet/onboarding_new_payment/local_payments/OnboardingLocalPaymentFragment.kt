@@ -16,7 +16,7 @@ import com.appcoins.wallet.core.arch.data.Async
 import com.asf.wallet.R
 import com.asf.wallet.databinding.LocalPaymentLayoutBinding
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
-import com.asfoundation.wallet.viewmodel.BasePageViewFragment
+import com.wallet.appcoins.core.legacy_base.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 

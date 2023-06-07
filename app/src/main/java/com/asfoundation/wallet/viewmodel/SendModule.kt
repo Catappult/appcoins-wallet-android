@@ -5,7 +5,7 @@ import com.asfoundation.wallet.router.TransactionsRouter
 import com.asfoundation.wallet.router.TransferConfirmationRouter
 import com.asfoundation.wallet.util.TransferParser
 import com.asfoundation.wallet.viewmodel.SendViewModelFactory
-import com.asfoundation.wallet.wallets.FindDefaultWalletInteract
+import com.appcoins.wallet.feature.walletInfo.data.wallet.FindDefaultWalletInteract
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

@@ -2,8 +2,12 @@ package com.asfoundation.wallet.manage_wallets
 
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
+import com.appcoins.wallet.feature.walletInfo.data.balance.WalletBalance
+import com.appcoins.wallet.feature.walletInfo.data.balance.WalletInfoSimple
+import com.appcoins.wallet.feature.walletInfo.data.wallet.WalletsInteract
+import com.appcoins.wallet.feature.walletInfo.data.wallet.domain.WalletInfo
+import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.ObserveWalletInfoUseCase
 import com.asfoundation.wallet.home.usecases.DisplayChatUseCase
-import com.asfoundation.wallet.ui.wallets.WalletBalance
 import com.asfoundation.wallet.ui.wallets.WalletDetailsInteractor
 import com.asfoundation.wallet.ui.wallets.WalletsInteract
 import com.asfoundation.wallet.ui.wallets.WalletsModel
@@ -69,7 +73,7 @@ constructor(
     object WalletChanged : UiState()
     data class Success(
       val activeWalletInfo: WalletInfo,
-      val inactiveWallets: List<WalletBalance>
+      val inactiveWallets: List<WalletInfoSimple>
     ) : UiState()
   }
 

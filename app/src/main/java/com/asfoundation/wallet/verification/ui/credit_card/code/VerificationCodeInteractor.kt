@@ -2,17 +2,17 @@ package com.asfoundation.wallet.verification.ui.credit_card.code
 
 import com.appcoins.wallet.bdsbilling.WalletService
 import com.appcoins.wallet.billing.adyen.VerificationCodeResult
-import com.appcoins.wallet.core.network.microservices.model.VerificationInfoResponse
 import com.appcoins.wallet.billing.util.Error
-import com.asfoundation.wallet.verification.repository.BrokerVerificationRepository
-import com.asfoundation.wallet.verification.ui.credit_card.WalletVerificationInteractor
+import com.appcoins.wallet.core.network.microservices.model.VerificationInfoResponse
+import com.appcoins.wallet.feature.walletInfo.data.verification.BrokerVerificationRepository
+import com.appcoins.wallet.feature.walletInfo.data.verification.WalletVerificationInteractor
 import io.reactivex.Single
 import javax.inject.Inject
 
 class VerificationCodeInteractor @Inject constructor(
-  private val walletVerificationInteractor: WalletVerificationInteractor,
-  private val brokerVerificationRepository: BrokerVerificationRepository,
-  private val walletService: WalletService
+    private val walletVerificationInteractor: WalletVerificationInteractor,
+    private val brokerVerificationRepository: BrokerVerificationRepository,
+    private val walletService: WalletService
 ) {
 
   fun confirmCode(code: String): Single<VerificationCodeResult> {

@@ -1,18 +1,18 @@
 package com.asfoundation.wallet.ui.gamification
 
+import com.appcoins.wallet.core.network.backend.model.GamificationResponse
+import com.appcoins.wallet.core.network.backend.model.PromotionsResponse
+import com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue
+import com.appcoins.wallet.feature.changecurrency.data.currencies.LocalCurrencyConversionService
+import com.appcoins.wallet.feature.promocode.data.use_cases.GetCurrentPromoCodeUseCase
+import com.appcoins.wallet.feature.walletInfo.data.wallet.FindDefaultWalletInteract
+import com.appcoins.wallet.feature.walletInfo.data.wallet.domain.Wallet
 import com.appcoins.wallet.gamification.Gamification
 import com.appcoins.wallet.gamification.GamificationContext
 import com.appcoins.wallet.gamification.repository.ForecastBonus
 import com.appcoins.wallet.gamification.repository.ForecastBonusAndLevel
-import com.appcoins.wallet.gamification.repository.PromotionsGamificationStats
 import com.appcoins.wallet.gamification.repository.Levels
-import com.appcoins.wallet.core.network.backend.model.GamificationResponse
-import com.appcoins.wallet.core.network.backend.model.PromotionsResponse
-import com.asfoundation.wallet.entity.Wallet
-import com.asfoundation.wallet.promo_code.use_cases.GetCurrentPromoCodeUseCase
-import com.appcoins.wallet.feature.changecurrency.data.currencies.LocalCurrencyConversionService
-import com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue
-import com.asfoundation.wallet.wallets.FindDefaultWalletInteract
+import com.appcoins.wallet.gamification.repository.PromotionsGamificationStats
 import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Single

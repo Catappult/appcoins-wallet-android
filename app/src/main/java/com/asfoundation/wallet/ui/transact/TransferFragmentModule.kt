@@ -2,7 +2,7 @@ package com.asfoundation.wallet.ui.transact
 
 import androidx.fragment.app.Fragment
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
-import com.asfoundation.wallet.wallets.usecases.GetWalletInfoUseCase
+import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.GetWalletInfoUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

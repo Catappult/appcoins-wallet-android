@@ -19,12 +19,11 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.SwitchPreferenceCompat
+import com.appcoins.wallet.core.analytics.analytics.legacy.PageViewAnalytics
+import com.appcoins.wallet.core.analytics.analytics.legacy.WalletsEventSender
 import com.appcoins.wallet.feature.changecurrency.data.FiatCurrency
 import com.appcoins.wallet.ui.widgets.TopBar
 import com.asf.wallet.R
-import com.asfoundation.wallet.billing.analytics.PageViewAnalytics
-import com.asfoundation.wallet.billing.analytics.WalletsEventSender
-import com.asfoundation.wallet.change_currency.ChangeFiatCurrencyFragment
 import com.asfoundation.wallet.change_currency.SettingsCurrencyPreference
 import com.asfoundation.wallet.permissions.manage.view.ManagePermissionsActivity
 import com.asfoundation.wallet.subscriptions.SubscriptionActivity
@@ -169,13 +168,6 @@ class SettingsFragment : PreferenceFragmentCompat(), SettingsView {
     settingsCurrencyPreference?.setCurrency(selectedCurrency)
     settingsCurrencyPreference?.setOnPreferenceClickListener {
       presenter.onChangeCurrencyPreferenceClick(navController())
-//      parentFragmentManager
-//        .beginTransaction()
-//        .replace(
-//          R.id.settings_container_view,
-//          ChangeFiatCurrencyFragment.newInstance()
-//        ).addToBackStack(null)
-//        .commit()
       false
     }
   }

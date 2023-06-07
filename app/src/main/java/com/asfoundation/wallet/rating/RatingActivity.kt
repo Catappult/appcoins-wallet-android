@@ -6,7 +6,7 @@ import android.os.Bundle
 import com.asf.wallet.R
 import com.asfoundation.wallet.rating.entry.RatingEntryFragment
 import com.asfoundation.wallet.rating.positive.RatingPositiveFragment
-import com.asfoundation.wallet.ui.BaseActivity
+import com.wallet.appcoins.core.legacy_base.BaseActivity
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.subjects.PublishSubject
 import javax.inject.Inject

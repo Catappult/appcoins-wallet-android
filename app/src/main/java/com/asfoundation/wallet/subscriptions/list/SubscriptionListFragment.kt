@@ -10,8 +10,8 @@ import com.asf.wallet.R
 import com.asf.wallet.databinding.FragmentSubscriptionListBinding
 import com.asfoundation.wallet.subscriptions.SubscriptionAdapter
 import com.asfoundation.wallet.subscriptions.SubscriptionItem
-import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import com.jakewharton.rxbinding2.view.RxView
+import com.wallet.appcoins.core.legacy_base.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject

@@ -60,6 +60,11 @@ import androidx.fragment.app.viewModels
 import com.appcoins.wallet.core.utils.android_common.AmountUtils.formatMoney
 import com.appcoins.wallet.core.utils.android_common.extensions.StringUtils.masked
 import com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue
+import com.appcoins.wallet.feature.walletInfo.data.balance.TokenBalance
+import com.appcoins.wallet.feature.walletInfo.data.balance.TokenValue
+import com.appcoins.wallet.feature.walletInfo.data.balance.WalletBalance
+import com.appcoins.wallet.feature.walletInfo.data.balance.WalletInfoSimple
+import com.appcoins.wallet.feature.walletInfo.data.wallet.domain.WalletInfo
 import com.appcoins.wallet.ui.common.theme.WalletColors
 import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_blue
 import com.appcoins.wallet.ui.common.theme.WalletColors.styleguide_blue_secondary
@@ -81,11 +86,7 @@ import com.asfoundation.wallet.manage_wallets.ManageWalletViewModel.UiState.Wall
 import com.asfoundation.wallet.my_wallets.main.MyWalletsNavigator
 import com.asfoundation.wallet.my_wallets.more.MoreDialogNavigator
 import com.asfoundation.wallet.transactions.TransactionDetailsFragment
-import com.asfoundation.wallet.ui.TokenValue
-import com.asfoundation.wallet.ui.balance.TokenBalance
-import com.asfoundation.wallet.ui.wallets.WalletBalance
-import com.asfoundation.wallet.viewmodel.BasePageViewFragment
-import com.asfoundation.wallet.wallets.domain.WalletInfo
+import com.wallet.appcoins.core.legacy_base.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import java.math.BigDecimal
@@ -146,7 +147,7 @@ class ManageWalletFragment : BasePageViewFragment() {
   internal fun ManageWalletContent(
     padding: PaddingValues,
     walletInfo: WalletInfo,
-    inactiveWallets: List<WalletBalance>
+    inactiveWallets: List<WalletInfoSimple>
   ) {
     LazyColumn(modifier = Modifier.padding(padding)) {
       item { ScreenHeader(walletInfo) }
@@ -472,7 +473,7 @@ class ManageWalletFragment : BasePageViewFragment() {
   }
 
   @Composable
-  fun InactiveWalletCard(walletBalance: WalletBalance) {
+  fun InactiveWalletCard(walletBalance: WalletInfoSimple) {
     Row(
       horizontalArrangement = Arrangement.SpaceBetween,
       verticalAlignment = CenterVertically,
@@ -611,7 +612,7 @@ class ManageWalletFragment : BasePageViewFragment() {
   fun PreviewInactiveWallet() {
     val fiatValue = FiatValue(amount = BigDecimal(123456), "EUR", "€")
     InactiveWalletCard(
-      WalletBalance(
+      WalletInfoSimple(
         walletName = "a24863cb-e586-472f-9e8a-622834c20c52",
         walletAddress =
         "a24863cb-e586-472f-9e8a-622834c20c52a24863cb-e586-472f-9e8a-622834c20c52",

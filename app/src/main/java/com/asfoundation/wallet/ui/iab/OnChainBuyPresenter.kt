@@ -4,7 +4,7 @@ import android.os.Bundle
 import com.appcoins.wallet.billing.BillingMessagesMapper
 import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.asf.wallet.R
-import com.asfoundation.wallet.billing.analytics.BillingAnalytics
+import com.appcoins.wallet.core.analytics.analytics.legacy.BillingAnalytics
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.ui.iab.AsfInAppPurchaseInteractor.CurrentPaymentStep
 import com.appcoins.wallet.core.utils.jvm_common.UnknownTokenException
@@ -18,19 +18,19 @@ import java.math.BigDecimal
 import java.util.concurrent.TimeUnit
 
 class OnChainBuyPresenter(
-  private val view: OnChainBuyView,
-  private val viewScheduler: Scheduler,
-  private val networkScheduler: Scheduler,
-  private val disposables: CompositeDisposable,
-  private val billingMessagesMapper: BillingMessagesMapper,
-  private val isBds: Boolean,
-  private val analytics: BillingAnalytics,
-  private val appPackage: String,
-  private val uriString: String?,
-  private val gamificationLevel: Int,
-  private val logger: Logger,
-  private val onChainBuyInteract: OnChainBuyInteract,
-  private val transactionBuilder: TransactionBuilder
+    private val view: OnChainBuyView,
+    private val viewScheduler: Scheduler,
+    private val networkScheduler: Scheduler,
+    private val disposables: CompositeDisposable,
+    private val billingMessagesMapper: BillingMessagesMapper,
+    private val isBds: Boolean,
+    private val analytics: BillingAnalytics,
+    private val appPackage: String,
+    private val uriString: String?,
+    private val gamificationLevel: Int,
+    private val logger: Logger,
+    private val onChainBuyInteract: OnChainBuyInteract,
+    private val transactionBuilder: TransactionBuilder
 ) {
 
   private var statusDisposable: Disposable? = null

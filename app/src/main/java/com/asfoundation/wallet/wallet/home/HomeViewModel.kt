@@ -6,29 +6,39 @@ import android.text.format.DateUtils
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.viewModelScope
+import com.appcoins.wallet.core.analytics.analytics.legacy.HomeAnalytics
+import com.appcoins.wallet.core.analytics.analytics.legacy.WalletsAnalytics
+import com.appcoins.wallet.core.analytics.analytics.legacy.WalletsEventSender
+import com.appcoins.wallet.core.arch.BaseViewModel
+import com.appcoins.wallet.core.arch.SideEffect
+import com.appcoins.wallet.core.arch.ViewState
+import com.appcoins.wallet.core.arch.data.Async
 import com.appcoins.wallet.core.network.backend.model.GamificationStatus
 import com.appcoins.wallet.core.network.base.call_adapter.ApiException
 import com.appcoins.wallet.core.network.base.call_adapter.ApiFailure
 import com.appcoins.wallet.core.network.base.call_adapter.ApiSuccess
 import com.appcoins.wallet.core.utils.android_common.DateFormatterUtils.getDay
+import com.appcoins.wallet.core.utils.android_common.Dispatchers
 import com.appcoins.wallet.core.utils.android_common.RxSchedulers
 import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.appcoins.wallet.core.utils.properties.APTOIDE_TOP_APPS_URL
 import com.appcoins.wallet.core.utils.properties.VIP_PROGRAM_BADGE_URL
+import com.appcoins.wallet.feature.backup.data.use_cases.ShouldShowBackupTriggerUseCase
+import com.appcoins.wallet.feature.backup.ui.triggers.TriggerUtils.toJson
+import com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue
+import com.appcoins.wallet.feature.changecurrency.data.use_cases.GetSelectedCurrencyUseCase
+import com.appcoins.wallet.feature.walletInfo.data.balance.TokenBalance
+import com.appcoins.wallet.feature.walletInfo.data.balance.WalletBalance
+import com.appcoins.wallet.feature.walletInfo.data.wallet.domain.Wallet
+import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.GetWalletInfoUseCase
+import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.ObserveWalletInfoUseCase
 import com.appcoins.wallet.gamification.repository.Levels
 import com.appcoins.wallet.sharedpreferences.BackupTriggerPreferencesDataSource
 import com.appcoins.wallet.sharedpreferences.BackupTriggerPreferencesDataSource.TriggerSource
 import com.appcoins.wallet.sharedpreferences.BackupTriggerPreferencesDataSource.TriggerSource.NEW_LEVEL
-import com.appcoins.wallet.core.arch.*
-import com.appcoins.wallet.core.arch.data.Async
 import com.appcoins.wallet.ui.widgets.CardPromotionItem
 import com.appcoins.wallet.ui.widgets.GameData
-import com.asfoundation.wallet.backup.triggers.TriggerUtils.toJson
-import com.asfoundation.wallet.backup.use_cases.ShouldShowBackupTriggerUseCase
-import com.asfoundation.wallet.billing.analytics.WalletsAnalytics
-import com.asfoundation.wallet.billing.analytics.WalletsEventSender
 import com.asfoundation.wallet.entity.GlobalBalance
-import com.asfoundation.wallet.entity.Wallet
 import com.asfoundation.wallet.gamification.ObserveUserStatsUseCase
 import com.asfoundation.wallet.home.usecases.*
 import com.asfoundation.wallet.promotions.model.PromotionsModel
@@ -38,17 +48,11 @@ import com.asfoundation.wallet.promotions.usecases.SetSeenPromotionsUseCase
 import com.asfoundation.wallet.referrals.CardNotification
 import com.asfoundation.wallet.transactions.TransactionModel
 import com.asfoundation.wallet.transactions.toModel
-import com.asfoundation.wallet.ui.balance.TokenBalance
-import com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue
-import com.appcoins.wallet.feature.changecurrency.data.use_cases.GetSelectedCurrencyUseCase
 import com.asfoundation.wallet.ui.widget.entity.TransactionsModel
 import com.asfoundation.wallet.ui.widget.holder.CardNotificationAction
 import com.asfoundation.wallet.update_required.use_cases.BuildUpdateIntentUseCase.Companion.PLAY_APP_VIEW_URL
 import com.asfoundation.wallet.viewmodel.TransactionsWalletModel
 import com.asfoundation.wallet.wallet.home.HomeViewModel.UiState.Success
-import com.asfoundation.wallet.wallets.domain.WalletBalance
-import com.asfoundation.wallet.wallets.usecases.GetWalletInfoUseCase
-import com.asfoundation.wallet.wallets.usecases.ObserveWalletInfoUseCase
 import com.github.michaelbull.result.unwrap
 import com.google.gson.Gson
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -57,15 +61,16 @@ import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.subjects.BehaviorSubject
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.rx2.rxSingle
 import java.math.BigDecimal
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 import javax.inject.Named
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.rx2.rxObservable
+import kotlinx.coroutines.rx2.rxSingle
 
 sealed class HomeSideEffect : SideEffect {
   data class NavigateToBrowser(val uri: Uri) : HomeSideEffect()
@@ -125,6 +130,7 @@ constructor(
   @Named("package-name") private val walletPackageName: String,
   private val walletsEventSender: WalletsEventSender,
   private val rxSchedulers: RxSchedulers,
+  private val dispatchers: Dispatchers,
   private val logger: Logger
 ) : BaseViewModel<HomeState, HomeSideEffect>(initialState()) {
 
@@ -449,7 +455,7 @@ constructor(
   private fun handleBackupTrigger() {
     getWalletInfoUseCase(null, cached = false, updateFiat = false)
       .flatMap { walletInfo ->
-        shouldShowBackupTriggerUseCase(walletInfo.wallet).map { shouldShow ->
+        rxSingle(dispatchers.io) { shouldShowBackupTriggerUseCase(walletInfo.wallet)}.map { shouldShow ->
           setState { copy(showBackup = !walletInfo.hasBackup) }
           if (shouldShow &&
             backupTriggerPreferences.getTriggerState(walletInfo.wallet) &&

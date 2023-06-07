@@ -2,7 +2,7 @@ package com.asfoundation.wallet.ui
 
 import android.os.Bundle
 import com.appcoins.wallet.bdsbilling.WalletService
-import com.asfoundation.wallet.service.WalletGetterStatus
+import com.appcoins.wallet.feature.walletInfo.data.wallet.WalletGetterStatus
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
 import com.asfoundation.wallet.util.TransferParser
 import io.reactivex.Observable
@@ -48,11 +48,11 @@ internal class Erc681ReceiverPresenter(private val view: Erc681ReceiverView,
     return walletService.findWalletOrCreate()
       .observeOn(viewScheduler)
       .doOnNext {
-        if (it == WalletGetterStatus.CREATING.toString()) {
+        if (it == com.appcoins.wallet.feature.walletInfo.data.wallet.WalletGetterStatus.CREATING.toString()) {
           view.showLoadingAnimation()
         }
       }
-      .filter { it != WalletGetterStatus.CREATING.toString() }
+      .filter { it != com.appcoins.wallet.feature.walletInfo.data.wallet.WalletGetterStatus.CREATING.toString() }
       .map {
         view.endAnimation()
         it

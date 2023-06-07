@@ -1,11 +1,8 @@
 package com.asfoundation.wallet.interact;
 
 import com.appcoins.wallet.core.utils.properties.MiscProperties;
-import com.asf.wallet.BuildConfig;
-import com.asfoundation.wallet.entity.NetworkInfo;
+import com.appcoins.wallet.feature.walletInfo.data.wallet.FindDefaultWalletInteract;
 import com.asfoundation.wallet.entity.TokenInfo;
-import com.asfoundation.wallet.wallets.FindDefaultWalletInteract;
-import dagger.hilt.components.SingletonComponent;
 import io.reactivex.Single;
 import it.czerwinski.android.hilt.annotations.BoundTo;
 import javax.inject.Inject;
