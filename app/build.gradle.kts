@@ -10,8 +10,8 @@ plugins {
 android {
   defaultConfig {
     applicationId = "com.appcoins.wallet"
-    versionCode = 262
-    versionName = "2.11.1"
+    versionCode = 263
+    versionName = "2.12.1"
   }
 }
 
@@ -39,10 +39,16 @@ dependencies {
   implementation(project(":core:utils:jvm-common"))
   implementation(project(":core:utils:properties"))
   implementation(project(":core:arch"))
+  implementation(project(":core:legacy-base"))
   implementation(project(":ui:common"))
   implementation(project(":ui:widgets"))
   implementation(project(":feature:change-currency:data"))
   implementation(project(":feature:change-currency:ui"))
+  implementation(project(":feature:wallet-info:data"))
+  implementation(project(":feature:backup:data"))
+  implementation(project(":feature:support:data"))
+  implementation(project(":feature:backup:ui"))
+  implementation(project(":feature:promo-code:data"))
   implementation(project(":home"))
 
   implementation(libs.kotlin.coroutines)

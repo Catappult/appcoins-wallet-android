@@ -7,7 +7,3 @@ data class WalletsModel(
   val totalBalance: FiatValue, val totalWallets: Int,
   val wallets: List<WalletBalance>
 ) : Serializable
-
-fun WalletsModel.activeWalletAddress() = wallets.first { it.isActiveWallet }.walletAddress
-
-fun WalletsModel.inactiveWallets() = wallets.filter { !it.isActiveWallet }

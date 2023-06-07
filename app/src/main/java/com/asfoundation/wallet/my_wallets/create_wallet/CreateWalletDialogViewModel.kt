@@ -4,7 +4,7 @@ import com.appcoins.wallet.core.arch.data.Async
 import com.appcoins.wallet.core.arch.BaseViewModel
 import com.appcoins.wallet.core.arch.SideEffect
 import com.appcoins.wallet.core.arch.ViewState
-import com.asfoundation.wallet.ui.wallets.WalletsInteract
+import com.appcoins.wallet.feature.walletInfo.data.wallet.WalletsInteract
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.Completable
 import javax.inject.Inject

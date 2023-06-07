@@ -14,14 +14,14 @@ import com.airbnb.lottie.FontAssetDelegate
 import com.airbnb.lottie.TextDelegate
 import com.appcoins.wallet.billing.ErrorInfo
 import com.appcoins.wallet.billing.util.Error
+import com.appcoins.wallet.core.arch.SingleStateFragment
+import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.asf.wallet.R
 import com.asf.wallet.databinding.OnboardingPaymentResultFragmentBinding
-import com.appcoins.wallet.core.arch.SingleStateFragment
 import com.asfoundation.wallet.billing.adyen.AdyenErrorCodeMapper
 import com.asfoundation.wallet.onboarding_new_payment.getPurchaseBonusMessage
 import com.asfoundation.wallet.service.ServicesErrorCodeMapper
-import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
-import com.asfoundation.wallet.viewmodel.BasePageViewFragment
+import com.wallet.appcoins.core.legacy_base.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
 import org.apache.commons.lang3.StringUtils
 import javax.inject.Inject

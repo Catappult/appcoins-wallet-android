@@ -2,16 +2,15 @@ package com.asfoundation.wallet.manage_wallets
 
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
+import com.appcoins.wallet.feature.walletInfo.data.balance.WalletInfoSimple
+import com.appcoins.wallet.feature.walletInfo.data.wallet.WalletsInteract
+import com.appcoins.wallet.feature.walletInfo.data.wallet.domain.WalletInfo
+import com.appcoins.wallet.feature.walletInfo.data.wallet.domain.WalletsModel
+import com.appcoins.wallet.feature.walletInfo.data.wallet.domain.activeWalletAddress
+import com.appcoins.wallet.feature.walletInfo.data.wallet.domain.inactiveWallets
+import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.ObserveWalletInfoUseCase
 import com.asfoundation.wallet.home.usecases.DisplayChatUseCase
-import com.asfoundation.wallet.ui.wallets.WalletBalance
 import com.asfoundation.wallet.ui.wallets.WalletDetailsInteractor
-import com.asfoundation.wallet.ui.wallets.WalletsInteract
-import com.asfoundation.wallet.ui.wallets.WalletsModel
-import com.asfoundation.wallet.ui.wallets.activeWalletAddress
-import com.asfoundation.wallet.ui.wallets.inactiveWallets
-import com.asfoundation.wallet.wallets.domain.WalletInfo
-import com.asfoundation.wallet.wallets.usecases.ObserveWalletInfoUseCase
-import com.asfoundation.wallet.wallets.usecases.UpdateWalletNameUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -32,7 +31,7 @@ constructor(
   var uiState: StateFlow<UiState> = _uiState
 
   val openBottomSheet = mutableStateOf(false)
-  val inactiveWalletBalance = mutableStateOf(WalletBalance())
+  val inactiveWalletBalance = mutableStateOf(WalletInfoSimple())
 
   fun displayChat() {
     displayChatUseCase()
@@ -71,7 +70,7 @@ constructor(
     object WalletChanged : UiState()
     data class Success(
       val activeWalletInfo: WalletInfo,
-      val inactiveWallets: List<WalletBalance>
+      val inactiveWallets: List<WalletInfoSimple>
     ) : UiState()
   }
 

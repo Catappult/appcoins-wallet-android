@@ -11,7 +11,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import com.asf.wallet.R;
-import com.asfoundation.wallet.C;
+import com.appcoins.wallet.core.utils.jvm_common.C;
 import com.asfoundation.wallet.GlideApp;
 import com.asfoundation.wallet.transactions.Transaction;
 import com.asfoundation.wallet.transactions.Transaction.TransactionType;

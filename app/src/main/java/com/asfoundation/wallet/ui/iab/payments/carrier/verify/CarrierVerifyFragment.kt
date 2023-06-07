@@ -10,11 +10,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.widget.doOnTextChanged
 import by.kirich1409.viewbindingdelegate.viewBinding
-import com.asf.wallet.R
 import com.appcoins.wallet.ui.common.withNoLayoutTransition
+import com.asf.wallet.R
 import com.asf.wallet.databinding.FragmentCarrierVerifyPhoneBinding
-import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import com.jakewharton.rxbinding2.view.RxView
+import com.wallet.appcoins.core.legacy_base.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject

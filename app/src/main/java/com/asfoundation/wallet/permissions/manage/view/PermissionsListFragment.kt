@@ -8,14 +8,13 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
+import com.appcoins.wallet.core.utils.android_common.applicationinfo.ApplicationInfoProvider
 import com.appcoins.wallet.permissions.ApplicationPermission
 import com.appcoins.wallet.permissions.PermissionName
-import com.asfoundation.wallet.permissions.PermissionsInteractor
-import com.appcoins.wallet.core.utils.android_common.applicationinfo.ApplicationInfoProvider
-import com.asf.wallet.R
 import com.asf.wallet.databinding.FragmentPermissionsListLayoutBinding
-import com.asfoundation.wallet.viewmodel.BasePageViewFragment
+import com.asfoundation.wallet.permissions.PermissionsInteractor
 import com.jakewharton.rxrelay2.BehaviorRelay
+import com.wallet.appcoins.core.legacy_base.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.Completable
 import io.reactivex.Observable

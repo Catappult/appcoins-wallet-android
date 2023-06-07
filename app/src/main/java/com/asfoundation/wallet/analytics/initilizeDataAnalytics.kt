@@ -13,8 +13,8 @@ import com.asfoundation.wallet.identification.DeviceInformation
 import com.asfoundation.wallet.identification.IdsRepository
 import com.asfoundation.wallet.logging.RakamReceiver
 import com.asfoundation.wallet.logging.SentryReceiver
-import com.asfoundation.wallet.promo_code.repository.PromoCode
-import com.asfoundation.wallet.promo_code.repository.PromoCodeLocalDataSource
+import com.appcoins.wallet.feature.promocode.data.repository.PromoCode
+import com.appcoins.wallet.feature.promocode.data.repository.PromoCodeLocalDataSource
 import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.GoogleApiAvailability
 import com.indicative.client.android.Indicative
@@ -33,7 +33,7 @@ class initilizeDataAnalytics @Inject constructor(
     private val promotionsRepository: PromotionsRepository,
     private val rakamAnalytics: RakamAnalytics,
     private val indicativeAnalytics: IndicativeAnalytics,
-    private val promoCodeLocalDataSource: PromoCodeLocalDataSource
+    private val promoCodeLocalDataSource: com.appcoins.wallet.feature.promocode.data.repository.PromoCodeLocalDataSource
 ) {
 
     fun initializeSentry(): Completable {
@@ -75,7 +75,7 @@ class initilizeDataAnalytics @Inject constructor(
                     Single.just(idsRepository.getGamificationLevel()), Single.just(hasGms()),
                     Single.just(idsRepository.getActiveWalletAddress()),
                     promoCodeLocalDataSource.getSavedPromoCode()
-                ) { installerPackage: String, level: Int, hasGms: Boolean, walletAddress: String, promoCode: PromoCode ->
+                ) { installerPackage: String, level: Int, hasGms: Boolean, walletAddress: String, promoCode: com.appcoins.wallet.feature.promocode.data.repository.PromoCode ->
                     RakamInitializeWrapper(
                         installerPackage,
                         level,
@@ -115,7 +115,7 @@ class initilizeDataAnalytics @Inject constructor(
                     promoCodeLocalDataSource.getSavedPromoCode(),
                     Single.just(idsRepository.getDeviceInfo())
                 )
-                { installerPackage: String, level: Int, hasGms: Boolean, walletAddress: String, promoCode: PromoCode, deviceInfo: DeviceInformation ->
+                { installerPackage: String, level: Int, hasGms: Boolean, walletAddress: String, promoCode: com.appcoins.wallet.feature.promocode.data.repository.PromoCode, deviceInfo: DeviceInformation ->
                     IndicativeInitializeWrapper(
                         installerPackage,
                         level,

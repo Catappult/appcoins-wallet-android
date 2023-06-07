@@ -11,17 +11,17 @@ import com.adyen.checkout.card.CardConfiguration
 import com.adyen.checkout.core.api.Environment
 import com.appcoins.wallet.billing.adyen.PaymentInfoModel
 import com.appcoins.wallet.billing.adyen.VerificationPaymentModel
-import com.asf.wallet.BuildConfig
-import com.asf.wallet.R
-import com.asfoundation.wallet.billing.adyen.AdyenCardWrapper
-import com.asfoundation.wallet.util.AdyenCardView
 import com.appcoins.wallet.core.utils.android_common.CurrencyFormatUtils
 import com.appcoins.wallet.core.utils.android_common.KeyboardUtils
 import com.appcoins.wallet.core.utils.android_common.WalletCurrency
+import com.asf.wallet.BuildConfig
+import com.asf.wallet.R
 import com.asf.wallet.databinding.FragmentVerificationIntroBinding
+import com.asfoundation.wallet.billing.adyen.AdyenCardWrapper
+import com.asfoundation.wallet.util.AdyenCardView
 import com.asfoundation.wallet.verification.ui.credit_card.VerificationCreditCardActivityView
-import com.asfoundation.wallet.viewmodel.BasePageViewFragment
 import com.jakewharton.rxbinding2.view.RxView
+import com.wallet.appcoins.core.legacy_base.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.Observable
 import io.reactivex.subjects.BehaviorSubject
@@ -99,8 +99,8 @@ class VerificationIntroFragment : BasePageViewFragment(), VerificationIntroView 
       verificationIntroModel.verificationInfoModel.value,
       WalletCurrency.FIAT
     )
-    views.title.text = getString(
-      R.string.card_verification_body_new,
+    views.description.text = getString(
+      R.string.card_verification_charde_disclaimer,
       "${verificationIntroModel.verificationInfoModel.symbol}$amount"
     )
   }

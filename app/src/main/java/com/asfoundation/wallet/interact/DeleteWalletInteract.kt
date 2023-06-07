@@ -1,27 +1,26 @@
 package com.asfoundation.wallet.interact
 
-import com.asfoundation.wallet.entity.Wallet
-import com.asfoundation.wallet.repository.PasswordStore
-import com.asfoundation.wallet.repository.WalletRepositoryType
-import com.asfoundation.wallet.verification.ui.credit_card.WalletVerificationInteractor
-import com.asfoundation.wallet.wallets.repository.WalletInfoRepository
-import com.appcoins.wallet.sharedpreferences.FingerprintPreferencesDataSource
-import io.reactivex.Completable
+import com.appcoins.wallet.feature.walletInfo.data.authentication.PasswordStore
+import com.appcoins.wallet.feature.walletInfo.data.wallet.domain.Wallet
+import com.appcoins.wallet.feature.walletInfo.data.wallet.repository.WalletInfoRepository
+import com.appcoins.wallet.feature.walletInfo.data.wallet.repository.WalletRepositoryType
 import com.appcoins.wallet.sharedpreferences.BackupSystemNotificationPreferencesDataSource
 import com.appcoins.wallet.sharedpreferences.BackupTriggerPreferencesDataSource
+import com.appcoins.wallet.sharedpreferences.FingerprintPreferencesDataSource
+import io.reactivex.Completable
 import javax.inject.Inject
 
 /**
  * Delete and fetchTokens wallets
  */
 class DeleteWalletInteract @Inject constructor(
-  private val walletRepository: WalletRepositoryType,
-  private val passwordStore: PasswordStore,
-  private val walletVerificationInteractor: WalletVerificationInteractor,
-  private val backupTriggerPreferences: BackupTriggerPreferencesDataSource,
-  private val backupSystemNotificationPreferences: BackupSystemNotificationPreferencesDataSource,
-  private val fingerprintPreferences: FingerprintPreferencesDataSource,
-  private val walletInfoRepository: WalletInfoRepository
+        private val walletRepository: WalletRepositoryType,
+        private val passwordStore: PasswordStore,
+        private val walletVerificationInteractor: com.appcoins.wallet.feature.walletInfo.data.verification.WalletVerificationInteractor,
+        private val backupTriggerPreferences: BackupTriggerPreferencesDataSource,
+        private val backupSystemNotificationPreferences: BackupSystemNotificationPreferencesDataSource,
+        private val fingerprintPreferences: FingerprintPreferencesDataSource,
+        private val walletInfoRepository: WalletInfoRepository
 ) {
 
   fun delete(address: String): Completable = passwordStore.getPassword(address)

@@ -7,7 +7,7 @@ import com.asfoundation.wallet.nfts.domain.NFTItem
 import com.asfoundation.wallet.nfts.domain.NftTransferResult
 import com.asfoundation.wallet.nfts.domain.SuccessfulNftTransfer
 import com.appcoins.wallet.feature.changecurrency.data.currencies.LocalCurrencyConversionService
-import com.asfoundation.wallet.wallets.repository.BalanceRepository
+import com.appcoins.wallet.feature.walletInfo.data.balance.BalanceRepository
 import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
 import org.web3j.abi.FunctionEncoder

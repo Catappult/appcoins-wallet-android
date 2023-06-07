@@ -4,10 +4,12 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
+import android.view.View
+import androidx.appcompat.widget.Toolbar
 import com.asf.wallet.R
 import com.asfoundation.wallet.subscriptions.list.SubscriptionListFragment
 import com.asfoundation.wallet.subscriptions.success.SubscriptionSuccessFragment
-import com.asfoundation.wallet.ui.BaseActivity
+import com.wallet.appcoins.core.legacy_base.BaseActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -20,6 +22,21 @@ class SubscriptionActivity : BaseActivity() {
     toolbar()
 
     if (savedInstanceState == null) showSubscriptionList()
+  }
+
+  /**
+   * function hardcoded temporarily, must be changed
+   * @return
+   */
+   fun toolbar(): Toolbar {
+    val toolbar = findViewById<Toolbar>(R.id.toolbar)
+    toolbar!!.visibility = View.VISIBLE
+    if (toolbar != null) {
+      setSupportActionBar(toolbar)
+      toolbar.title = title
+    }
+    enableDisplayHomeAsUp()
+    return toolbar
   }
 
   private fun showSubscriptionList() {

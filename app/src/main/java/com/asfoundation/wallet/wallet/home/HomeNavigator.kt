@@ -9,10 +9,9 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import com.appcoins.wallet.sharedpreferences.BackupTriggerPreferencesDataSource
 import com.appcoins.wallet.core.arch.data.Navigator
-import com.appcoins.wallet.core.arch.data.navigate
+import com.appcoins.wallet.feature.backup.ui.BackupActivity
+import com.appcoins.wallet.feature.backup.ui.triggers.BackupTriggerDialogFragment
 import com.asf.wallet.R
-import com.asfoundation.wallet.backup.BackupActivity
-import com.asfoundation.wallet.backup.triggers.BackupTriggerDialogFragment
 import com.asfoundation.wallet.main.nav_bar.NavBarFragmentNavigator
 import com.asfoundation.wallet.rating.RatingActivity
 import com.asfoundation.wallet.recover.RecoverActivity
