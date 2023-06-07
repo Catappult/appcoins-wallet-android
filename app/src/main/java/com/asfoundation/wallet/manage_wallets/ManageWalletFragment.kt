@@ -504,7 +504,7 @@ class ManageWalletFragment : BasePageViewFragment() {
         item {
           Text(
             modifier = Modifier.padding(bottom = 24.dp),
-            text = "Change name of your wallet",
+            text = stringResource(R.string.manage_wallet_change_wallet_name_title),
             color = styleguide_light_grey,
             style = MaterialTheme.typography.bodyMedium,
             fontWeight = FontWeight.Bold
