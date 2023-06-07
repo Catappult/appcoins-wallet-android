@@ -126,7 +126,8 @@ class ManageWalletFragment : BasePageViewFragment() {
           )
 
         WalletChanged -> {
-          Toast.makeText(context, "Wallet changed", Toast.LENGTH_SHORT).show()
+          Toast.makeText(context, R.string.manage_wallet_wallet_changed_title, Toast.LENGTH_SHORT)
+            .show()
         }
 
         Loading ->
@@ -459,7 +460,7 @@ class ManageWalletFragment : BasePageViewFragment() {
       Column(verticalArrangement = Arrangement.Center) {
         Text(
           modifier = Modifier.padding(bottom = 24.dp),
-          text = "Do you want to select this wallet?",
+          text = stringResource(R.string.manage_wallet_change_active_wallet_title),
           color = styleguide_light_grey,
           style = MaterialTheme.typography.bodyMedium,
           fontWeight = FontWeight.Bold
