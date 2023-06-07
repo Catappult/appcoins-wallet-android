@@ -9,6 +9,7 @@ import com.appcoins.wallet.feature.walletInfo.data.wallet.domain.WalletsModel
 import com.appcoins.wallet.feature.walletInfo.data.wallet.domain.activeWalletAddress
 import com.appcoins.wallet.feature.walletInfo.data.wallet.domain.inactiveWallets
 import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.ObserveWalletInfoUseCase
+import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.UpdateWalletNameUseCase
 import com.asfoundation.wallet.home.usecases.DisplayChatUseCase
 import com.asfoundation.wallet.ui.wallets.WalletDetailsInteractor
 import dagger.hilt.android.lifecycle.HiltViewModel
