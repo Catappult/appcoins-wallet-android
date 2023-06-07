@@ -39,6 +39,7 @@ dependencies {
   implementation(project(":core:network:zendesk"))
   implementation(project(":core:utils:android-common"))
   implementation(project(":core:utils:jvm-common"))
+  implementation(project(":core:utils:partners"))
   implementation(project(":core:utils:properties"))
   implementation(project(":ui:common"))
   implementation(project(":ui:arch"))

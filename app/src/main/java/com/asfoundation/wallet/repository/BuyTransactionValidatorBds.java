@@ -3,8 +3,8 @@ package com.asfoundation.wallet.repository;
 import com.appcoins.wallet.bdsbilling.BillingPaymentProofSubmission;
 import com.appcoins.wallet.bdsbilling.PaymentProof;
 import com.appcoins.wallet.core.network.microservices.model.Transaction;
-import com.asfoundation.wallet.billing.partners.AddressService;
-import com.asfoundation.wallet.billing.partners.AttributionEntity;
+import com.appcoins.wallet.core.utils.partners.AddressService;
+import com.appcoins.wallet.core.utils.partners.AttributionEntity;
 import com.asfoundation.wallet.interact.DefaultTokenProvider;
 import com.asfoundation.wallet.interact.SendTransactionInteract;
 import io.reactivex.Single;
@@ -36,8 +36,8 @@ public class BuyTransactionValidatorBds implements TransactionValidator {
         partnerAddressService.getAttributionEntity(packageName);
 
     return Single.zip(getTransactionHash, attributionEntity,
-        (hash, attrEntity) -> new PaymentProof("appcoins", paymentTransaction.getApproveHash(),
-            hash, productName, packageName, attrEntity.getOemId(), attrEntity.getDomain()))
+            (hash, attrEntity) -> new PaymentProof("appcoins", paymentTransaction.getApproveHash(),
+                hash, productName, packageName, attrEntity.getOemId(), attrEntity.getDomain()))
         .flatMap(billingPaymentProofSubmission::processPurchaseProof);
   }
 }

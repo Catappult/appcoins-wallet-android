@@ -11,8 +11,8 @@ import com.appcoins.wallet.billing.adyen.PaymentModel
 import com.asfoundation.wallet.billing.address.BillingAddressRepository
 import com.asfoundation.wallet.billing.adyen.AdyenPaymentInteractor
 import com.asfoundation.wallet.billing.adyen.PurchaseBundleModel
-import com.asfoundation.wallet.billing.partners.AttributionEntity
-import com.asfoundation.wallet.billing.partners.PartnerAddressService
+import com.appcoins.wallet.core.utils.partners.AttributionEntity
+import com.appcoins.wallet.core.utils.partners.PartnerAddressService
 import com.asfoundation.wallet.promo_code.repository.PromoCode
 import com.asfoundation.wallet.promo_code.use_cases.GetCurrentPromoCodeUseCase
 import com.asfoundation.wallet.support.SupportInteractor
@@ -179,7 +179,12 @@ class AdyenPaymentInteractorTest {
     Mockito.`when`(walletService.getAndSignCurrentWalletAddress())
         .thenReturn(Single.just(WalletAddressModel(TEST_WALLET_ADDRESS, TEST_WALLET_SIGNATURE)))
     Mockito.`when`(partnerAddressService.getAttributionEntity("package"))
-        .thenReturn(Single.just(AttributionEntity("store_address", "oem_address")))
+        .thenReturn(Single.just(
+          AttributionEntity(
+            "store_address",
+            "oem_address"
+          )
+        ))
     Mockito.`when`(getCurrentPromoCodeUseCase())
         .thenReturn(Single.just(PromoCode(null, null, null, null)))
     Mockito.`when`(repository.makePayment(payment, false, false, emptyList(), "", TEST_FIAT_VALUE,

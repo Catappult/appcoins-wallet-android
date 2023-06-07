@@ -10,7 +10,7 @@ import com.appcoins.wallet.billing.BillingMessagesMapper;
 import com.appcoins.wallet.core.utils.jvm_common.MemoryCache;
 import com.appcoins.wallet.core.utils.jvm_common.CountryCodeProvider;
 import com.appcoins.wallet.core.utils.android_common.RxSchedulers;
-import com.asfoundation.wallet.billing.partners.AddressService;
+import com.appcoins.wallet.core.utils.partners.AddressService;
 import com.asfoundation.wallet.entity.GasSettings;
 import com.asfoundation.wallet.entity.PendingTransaction;
 import com.asfoundation.wallet.entity.TokenInfo;

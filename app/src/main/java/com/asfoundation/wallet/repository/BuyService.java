@@ -5,7 +5,7 @@ import com.appcoins.wallet.bdsbilling.BillingPaymentProofSubmission;
 import com.appcoins.wallet.core.network.microservices.model.Transaction;
 import com.appcoins.wallet.core.utils.jvm_common.CountryCodeProvider;
 import com.appcoins.wallet.core.utils.jvm_common.CountryCodeProviderKt;
-import com.asfoundation.wallet.billing.partners.AddressService;
+import com.appcoins.wallet.core.utils.partners.AddressService;
 import com.asfoundation.wallet.entity.TokenInfo;
 import com.asfoundation.wallet.entity.TransactionBuilder;
 import com.asfoundation.wallet.interact.DefaultTokenProvider;
@@ -49,9 +49,9 @@ public class BuyService {
     String storeAddress = getStoreAddress(cachedTransaction);
     String oemAddress = getOemAddress(cachedTransaction);
     return Single.zip(countryCodeProvider.getCountryCode(), defaultTokenProvider.getDefaultToken(),
-        (countryCode, tokenInfo) -> transactionBuilder.appcoinsData(
-            getBuyData(transactionBuilder, tokenInfo, paymentTransaction.getPackageName(),
-                countryCode, storeAddress, oemAddress)))
+            (countryCode, tokenInfo) -> transactionBuilder.appcoinsData(
+                getBuyData(transactionBuilder, tokenInfo, paymentTransaction.getPackageName(),
+                    countryCode, storeAddress, oemAddress)))
         .map(transaction -> updateTransactionBuilderData(paymentTransaction, transaction))
         .flatMap(payment -> transactionValidator.validate(paymentTransaction)
             .map(__ -> payment))

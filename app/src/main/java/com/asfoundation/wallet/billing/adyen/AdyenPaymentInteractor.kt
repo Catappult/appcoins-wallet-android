@@ -11,7 +11,7 @@ import com.appcoins.wallet.billing.adyen.PaymentModel
 import com.appcoins.wallet.billing.util.Error
 import com.appcoins.wallet.core.utils.android_common.RxSchedulers
 import com.asfoundation.wallet.billing.address.BillingAddressRepository
-import com.asfoundation.wallet.billing.partners.AddressService
+import com.appcoins.wallet.core.utils.partners.AddressService
 import com.asfoundation.wallet.promo_code.use_cases.GetCurrentPromoCodeUseCase
 import com.asfoundation.wallet.support.SupportInteractor
 import com.asfoundation.wallet.ui.iab.FiatValue

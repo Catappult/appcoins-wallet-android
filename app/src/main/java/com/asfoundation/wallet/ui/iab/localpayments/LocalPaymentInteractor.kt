@@ -2,7 +2,6 @@ package com.asfoundation.wallet.ui.iab.localpayments
 
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import com.appcoins.wallet.bdsbilling.WalletService
 import com.appcoins.wallet.bdsbilling.repository.RemoteRepository
 import com.appcoins.wallet.billing.BillingMessagesMapper
@@ -10,7 +9,7 @@ import com.appcoins.wallet.core.network.microservices.model.Transaction
 import com.appcoins.wallet.core.network.microservices.model.Transaction.Status
 import com.appcoins.wallet.core.network.microservices.model.Transaction.Status.*
 import com.asfoundation.wallet.billing.adyen.PurchaseBundleModel
-import com.asfoundation.wallet.billing.partners.AddressService
+import com.appcoins.wallet.core.utils.partners.AddressService
 import com.asfoundation.wallet.promo_code.use_cases.GetCurrentPromoCodeUseCase
 import com.asfoundation.wallet.support.SupportInteractor
 import com.asfoundation.wallet.ui.iab.FiatValue
@@ -23,62 +22,72 @@ import io.reactivex.Scheduler
 import io.reactivex.Single
 import javax.inject.Inject
 
-class LocalPaymentInteractor @Inject constructor(private val walletService: WalletService,
-                                                 private val partnerAddressService: AddressService,
-                                                 private val inAppPurchaseInteractor: InAppPurchaseInteractor,
-                                                 private val billingMessagesMapper: BillingMessagesMapper,
-                                                 private val supportInteractor: SupportInteractor,
-                                                 private val walletBlockedInteract: WalletBlockedInteract,
-                                                 private val walletVerificationInteractor: WalletVerificationInteractor,
-                                                 private val getCurrentPromoCodeUseCase: GetCurrentPromoCodeUseCase,
-                                                 private val remoteRepository: RemoteRepository) {
+class LocalPaymentInteractor @Inject constructor(
+  private val walletService: WalletService,
+  private val partnerAddressService: AddressService,
+  private val inAppPurchaseInteractor: InAppPurchaseInteractor,
+  private val billingMessagesMapper: BillingMessagesMapper,
+  private val supportInteractor: SupportInteractor,
+  private val walletBlockedInteract: WalletBlockedInteract,
+  private val walletVerificationInteractor: WalletVerificationInteractor,
+  private val getCurrentPromoCodeUseCase: GetCurrentPromoCodeUseCase,
+  private val remoteRepository: RemoteRepository
+) {
 
   fun isWalletBlocked() = walletBlockedInteract.isWalletBlocked()
 
   fun isWalletVerified() =
-      walletService.getAndSignCurrentWalletAddress()
-          .flatMap { walletVerificationInteractor.isVerified(it.address, it.signedAddress) }
-          .onErrorReturn { true }
+    walletService.getAndSignCurrentWalletAddress()
+      .flatMap { walletVerificationInteractor.isVerified(it.address, it.signedAddress) }
+      .onErrorReturn { true }
 
-  fun getPaymentLink(paymentMethod: String,packageName: String, fiatAmount: String?, fiatCurrency: String?,
-                     productName: String?, type: String, origin: String?,
-                     walletDeveloper: String?, developerPayload: String?,
-                     callbackUrl: String?, orderReference: String?,
-                     referrerUrl: String?): Single<String> {
+  fun getPaymentLink(
+    paymentMethod: String, packageName: String, fiatAmount: String?, fiatCurrency: String?,
+    productName: String?, type: String, origin: String?,
+    walletDeveloper: String?, developerPayload: String?,
+    callbackUrl: String?, orderReference: String?,
+    referrerUrl: String?
+  ): Single<String> {
     return walletService.getAndSignCurrentWalletAddress()
-        .flatMap { walletAddressModel ->
-          partnerAddressService.getAttributionEntity(packageName)
-              .flatMap { attributionEntity ->
-                getCurrentPromoCodeUseCase().flatMap { promoCode ->
-                  remoteRepository.createLocalPaymentTransaction(paymentMethod, packageName,
-                      fiatAmount, fiatCurrency, productName, type, origin, walletDeveloper,
-                      attributionEntity.oemId, attributionEntity.domain, promoCode.code,
-                      developerPayload,
-                      callbackUrl, orderReference,
-                      referrerUrl, walletAddressModel.address, walletAddressModel.signedAddress)
-                }
-              }
-              .map { it.url }
-        }
+      .flatMap { walletAddressModel ->
+        partnerAddressService.getAttributionEntity(packageName)
+          .flatMap { attributionEntity ->
+            getCurrentPromoCodeUseCase().flatMap { promoCode ->
+              remoteRepository.createLocalPaymentTransaction(
+                paymentMethod, packageName,
+                fiatAmount, fiatCurrency, productName, type, origin, walletDeveloper,
+                attributionEntity.oemId, attributionEntity.domain, promoCode.code,
+                developerPayload,
+                callbackUrl, orderReference,
+                referrerUrl, walletAddressModel.address, walletAddressModel.signedAddress
+              )
+            }
+          }
+          .map { it.url }
+      }
   }
 
-  fun getTopUpPaymentLink(packageName: String, fiatAmount: String,
-                          fiatCurrency: String, paymentMethod: String,
-                          productName: String): Single<String> {
+  fun getTopUpPaymentLink(
+    packageName: String, fiatAmount: String,
+    fiatCurrency: String, paymentMethod: String,
+    productName: String
+  ): Single<String> {
     return walletService.getAndSignCurrentWalletAddress()
-        .flatMap { walletAddressModel ->
-          remoteRepository.createLocalPaymentTransaction(paymentMethod, packageName,
-              fiatAmount, fiatCurrency, productName, TOP_UP_TRANSACTION_TYPE,
-              null, null, null, null, null, null, null, null, null,
-              walletAddressModel.address, walletAddressModel.signedAddress)
-        }
-        .map { it.url }
+      .flatMap { walletAddressModel ->
+        remoteRepository.createLocalPaymentTransaction(
+          paymentMethod, packageName,
+          fiatAmount, fiatCurrency, productName, TOP_UP_TRANSACTION_TYPE,
+          null, null, null, null, null, null, null, null, null,
+          walletAddressModel.address, walletAddressModel.signedAddress
+        )
+      }
+      .map { it.url }
   }
 
   fun getTransaction(uri: Uri, async: Boolean): Observable<Transaction> =
-      inAppPurchaseInteractor.getTransaction(uri.lastPathSegment)
-          .filter { isEndingState(it.status, async) }
-          .distinctUntilChanged { transaction -> transaction.status }
+    inAppPurchaseInteractor.getTransaction(uri.lastPathSegment)
+      .filter { isEndingState(it.status, async) }
+      .distinctUntilChanged { transaction -> transaction.status }
 
   private fun isEndingState(status: Status, async: Boolean) =
     (status == PENDING_USER_PAYMENT && async) ||
@@ -87,12 +96,16 @@ class LocalPaymentInteractor @Inject constructor(private val walletService: Wall
         status == CANCELED ||
         status == INVALID_TRANSACTION
 
-  fun getCompletePurchaseBundle(type: String, merchantName: String, sku: String?,
-                                purchaseUid: String?,
-                                orderReference: String?, hash: String?,
-                                scheduler: Scheduler): Single<PurchaseBundleModel> {
-    return inAppPurchaseInteractor.getCompletedPurchaseBundle(type, merchantName, sku, purchaseUid,
-        orderReference, hash, scheduler)
+  fun getCompletePurchaseBundle(
+    type: String, merchantName: String, sku: String?,
+    purchaseUid: String?,
+    orderReference: String?, hash: String?,
+    scheduler: Scheduler
+  ): Single<PurchaseBundleModel> {
+    return inAppPurchaseInteractor.getCompletedPurchaseBundle(
+      type, merchantName, sku, purchaseUid,
+      orderReference, hash, scheduler
+    )
   }
 
   fun savePreSelectedPaymentMethod(paymentMethod: String) {
@@ -107,8 +120,10 @@ class LocalPaymentInteractor @Inject constructor(private val walletService: Wall
     return supportInteractor.showSupport(gamificationLevel)
   }
 
-  fun topUpBundle(priceAmount: String, priceCurrency: String, bonus: String,
-                  fiatCurrencySymbol: String): Bundle {
+  fun topUpBundle(
+    priceAmount: String, priceCurrency: String, bonus: String,
+    fiatCurrencySymbol: String
+  ): Bundle {
     return billingMessagesMapper.topUpBundle(priceAmount, priceCurrency, bonus, fiatCurrencySymbol)
   }
 

@@ -6,7 +6,7 @@ import com.appcoins.wallet.appcoins.rewards.Transaction
 import com.appcoins.wallet.bdsbilling.Billing
 import com.appcoins.wallet.bdsbilling.repository.entity.Purchase
 import com.appcoins.wallet.core.network.microservices.model.BillingSupportedType
-import com.asfoundation.wallet.billing.partners.AddressService
+import com.appcoins.wallet.core.utils.partners.AddressService
 import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Single
@@ -16,7 +16,8 @@ import javax.inject.Inject
 
 class RewardsManager @Inject constructor(private val appcoinsRewards: AppcoinsRewards,
                                          private val billing: Billing,
-                                         private val partnerAddressService: AddressService) {
+                                         private val partnerAddressService: com.appcoins.wallet.core.utils.partners.AddressService
+) {
 
   fun pay(sku: String?, amount: BigDecimal, developerAddress: String, packageName: String,
           origin: String?, type: String, payload: String?, callbackUrl: String?,

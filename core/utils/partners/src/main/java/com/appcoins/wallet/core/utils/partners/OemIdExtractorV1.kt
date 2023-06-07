@@ -1,4 +1,4 @@
-package com.asfoundation.wallet.billing.partners
+package com.appcoins.wallet.core.utils.partners
 
 import android.content.Context
 import android.content.pm.PackageManager

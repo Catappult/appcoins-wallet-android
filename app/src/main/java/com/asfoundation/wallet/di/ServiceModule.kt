@@ -4,7 +4,7 @@ import com.appcoins.wallet.bdsbilling.BillingPaymentProofSubmission
 import com.appcoins.wallet.core.utils.android_common.RxSchedulers
 import com.appcoins.wallet.core.utils.jvm_common.CountryCodeProvider
 import com.appcoins.wallet.core.utils.jvm_common.MemoryCache
-import com.asfoundation.wallet.billing.partners.AddressService
+import com.appcoins.wallet.core.utils.partners.AddressService
 import com.asfoundation.wallet.entity.TransactionBuilder
 import com.asfoundation.wallet.interact.DefaultTokenProvider
 import com.asfoundation.wallet.interact.SendTransactionInteract
@@ -64,7 +64,7 @@ class ServiceModule {
     billingPaymentProofSubmission: BillingPaymentProofSubmission,
     defaultTokenProvider: DefaultTokenProvider,
     countryCodeProvider: CountryCodeProvider,
-    addressService: AddressService
+    addressService: com.appcoins.wallet.core.utils.partners.AddressService
   ): BuyService {
     return BuyService(
       WatchedTransactionService(
@@ -150,7 +150,7 @@ class ServiceModule {
     paymentErrorMapper: PaymentErrorMapper,
     noWaitPendingTransactionService: NotTrackTransactionService,
     billingPaymentProofSubmission: BillingPaymentProofSubmission,
-    addressService: AddressService
+    addressService: com.appcoins.wallet.core.utils.partners.AddressService
   ): ApproveService {
     return ApproveService(
       WatchedTransactionService(

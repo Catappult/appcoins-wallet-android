@@ -1,11 +1,10 @@
-package com.asfoundation.wallet.billing.partners
+package com.appcoins.wallet.core.utils.partners
 
 import android.content.Context
 import com.appcoins.wallet.sharedpreferences.OemIdPreferencesDataSource
 import com.aptoide.apk.injector.extractor.IExtractorCache
 import com.aptoide.apk.injector.extractor.domain.IExtract
 import com.aptoide.apk.injector.extractor.utils.Environment
-import com.asf.wallet.BuildConfig
 import dagger.hilt.android.qualifiers.ApplicationContext
 import io.reactivex.Single
 import it.czerwinski.android.hilt.annotations.BoundTo

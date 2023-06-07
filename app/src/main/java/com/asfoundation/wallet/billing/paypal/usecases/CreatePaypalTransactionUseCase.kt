@@ -2,7 +2,7 @@ package com.asfoundation.wallet.billing.paypal.usecases
 
 import com.appcoins.wallet.bdsbilling.WalletService
 import com.asfoundation.wallet.billing.paypal.repository.PayPalV2Repository
-import com.asfoundation.wallet.billing.partners.AddressService
+import com.appcoins.wallet.core.utils.partners.AddressService
 import com.appcoins.wallet.core.network.microservices.model.PaypalTransaction
 import com.asfoundation.wallet.promo_code.use_cases.GetCurrentPromoCodeUseCase
 import io.reactivex.Single
@@ -15,11 +15,13 @@ class CreatePaypalTransactionUseCase @Inject constructor(
   private val payPalV2Repository: PayPalV2Repository,
 ) {
 
-  operator fun invoke(value: String, currency: String, reference: String?,
-                  origin: String?, packageName: String, metadata: String?,
-                  sku: String?, callbackUrl: String?, transactionType: String,
-                  developerWallet: String?,
-                  referrerUrl: String?): Single<PaypalTransaction> {
+  operator fun invoke(
+    value: String, currency: String, reference: String?,
+    origin: String?, packageName: String, metadata: String?,
+    sku: String?, callbackUrl: String?, transactionType: String,
+    developerWallet: String?,
+    referrerUrl: String?
+  ): Single<PaypalTransaction> {
     return Single.zip(walletService.getAndSignCurrentWalletAddress(),
       partnerAddressService.getAttributionEntity(packageName),
       { address, attributionEntity -> Pair(address, attributionEntity) })
