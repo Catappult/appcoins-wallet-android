@@ -7,11 +7,11 @@ import androidx.core.util.Pair
 import androidx.fragment.app.Fragment
 import androidx.navigation.ActivityNavigatorExtras
 import androidx.navigation.NavController
-import com.asf.wallet.R
-import com.appcoins.wallet.core.utils.jvm_common.C
 import com.appcoins.wallet.core.arch.data.Navigator
 import com.appcoins.wallet.core.arch.data.navigate
+import com.appcoins.wallet.core.utils.jvm_common.C
 import com.appcoins.wallet.feature.walletInfo.data.wallet.domain.Wallet
+import com.asf.wallet.R
 import com.asfoundation.wallet.ui.MyAddressActivity
 import com.asfoundation.wallet.ui.transact.TransferActivity
 import javax.inject.Inject
@@ -103,6 +103,10 @@ class MyWalletsNavigator @Inject constructor(
     )
     val extras = ActivityNavigatorExtras(options)
     navController.navigate(R.id.action_navigate_to_qr_code, null, null, extras)
+  }
+
+  fun navigateToRemoveWallet(navController: NavController) {
+    navController.navigate(R.id.action_navigate_to_remove_wallet)
   }
 
   private fun openIntent(intent: Intent) = fragment.requireContext()
