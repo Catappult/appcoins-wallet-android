@@ -2,6 +2,7 @@ package com.appcoins.wallet.billing.adyen
 
 import com.adyen.checkout.components.model.payments.request.CardPaymentMethod
 import com.appcoins.wallet.billing.util.Error
+import com.appcoins.wallet.core.network.base.EwtAuthenticatorService
 import com.appcoins.wallet.core.network.microservices.api.broker.AdyenApi
 import com.appcoins.wallet.core.utils.jvm_common.Logger
 import com.appcoins.wallet.core.network.microservices.model.AdyenTransactionResponse
@@ -9,6 +10,7 @@ import com.appcoins.wallet.core.network.microservices.api.broker.BrokerVerificat
 import com.appcoins.wallet.core.network.microservices.api.broker.BrokerBdsApi
 import com.appcoins.wallet.core.network.microservices.api.product.SubscriptionBillingApi
 import com.appcoins.wallet.core.network.microservices.model.*
+import com.appcoins.wallet.core.utils.android_common.RxSchedulers
 import com.google.gson.JsonObject
 import io.reactivex.Completable
 import io.reactivex.Single
@@ -39,6 +41,11 @@ class AdyenPaymentRepositoryTest {
   @Mock
   lateinit var logger: Logger
 
+  @Mock
+  lateinit var ewtAuthenticatorService: EwtAuthenticatorService
+  @Mock
+  lateinit var rxSchedulers: RxSchedulers
+
   private lateinit var adyenRepo: AdyenPaymentRepository
 
   companion object {
@@ -52,7 +59,7 @@ class AdyenPaymentRepositoryTest {
 
   @Before
   fun setup() {
-    adyenRepo = AdyenPaymentRepository(adyenApi, brokerBdsApi, subscriptionsApi, mapper, logger)
+    adyenRepo = AdyenPaymentRepository(adyenApi, brokerBdsApi, subscriptionsApi, mapper, ewtAuthenticatorService, rxSchedulers,logger)
   }
 
   @Test
@@ -141,6 +148,7 @@ class AdyenPaymentRepositoryTest {
         TEST_UID,
         TEST_WALLET_ADDRESS,
         TEST_WALLET_SIGNATURE,
+        TEST_EWT,
         AdyenPayment(JsonObject(), null)
       )
     )
@@ -167,6 +175,7 @@ class AdyenPaymentRepositoryTest {
         TEST_UID,
         TEST_WALLET_ADDRESS,
         TEST_WALLET_SIGNATURE,
+        TEST_EWT,
         AdyenPayment(JsonObject(), null)
       )
     )
@@ -233,7 +242,9 @@ class AdyenPaymentRepositoryTest {
         brokerBdsApi.getAppcoinsTransaction(
             TEST_UID,
             TEST_WALLET_ADDRESS,
-            TEST_WALLET_SIGNATURE))
+            TEST_WALLET_SIGNATURE,
+            TEST_EWT
+        ))
         .thenReturn(Single.just(expectedTransaction))
     Mockito.`when`(mapper.map(expectedTransaction))
         .thenReturn(expectedPaymentModel)
@@ -258,7 +269,9 @@ class AdyenPaymentRepositoryTest {
         brokerBdsApi.getAppcoinsTransaction(
             TEST_UID,
             TEST_WALLET_ADDRESS,
-            TEST_WALLET_SIGNATURE))
+            TEST_WALLET_SIGNATURE,
+            TEST_EWT,
+        ))
         .thenReturn(Single.error(throwable))
     Mockito.`when`(mapper.mapPaymentModelError(throwable))
         .thenReturn(expectedPaymentModel)
@@ -289,6 +302,7 @@ class AdyenPaymentRepositoryTest {
       adyenApi.makeAdyenPayment(
         TEST_WALLET_ADDRESS,
         TEST_WALLET_SIGNATURE,
+        TEST_EWT,
         PaymentDetails(
           modelObject, false, "", "Ecommerce", null, null, null,
           null, paymentType, null,
@@ -330,10 +344,12 @@ class AdyenPaymentRepositoryTest {
     Mockito.`when`(subscriptionsApi.getSkuSubscriptionToken("trivial drive", "sku",
         TEST_FIAT_CURRENCY,
         TEST_WALLET_ADDRESS,
-        TEST_WALLET_SIGNATURE))
+        TEST_WALLET_SIGNATURE,
+        TEST_EWT,
+    ))
         .thenReturn(Single.just("token"))
 
-    Mockito.`when`(adyenApi.makeTokenPayment(TEST_WALLET_ADDRESS, TEST_WALLET_SIGNATURE,
+    Mockito.`when`(adyenApi.makeTokenPayment(TEST_WALLET_ADDRESS, TEST_WALLET_SIGNATURE, TEST_EWT,
         TokenPayment(modelObject, false, "", "Ecommerce", null, null, null, paymentType, null, null,
             null, null, null, null, null, null, "token")))
         .thenReturn(Single.just(expectedAdyenTransactionResponse))
@@ -365,10 +381,12 @@ class AdyenPaymentRepositoryTest {
     Mockito.`when`(subscriptionsApi.getSkuSubscriptionToken("trivial drive", "sku",
         TEST_FIAT_CURRENCY,
         TEST_WALLET_ADDRESS,
-        TEST_WALLET_SIGNATURE))
+        TEST_WALLET_SIGNATURE,
+        TEST_EWT
+    ))
         .thenReturn(Single.just("token"))
 
-    Mockito.`when`(adyenApi.makeTokenPayment(TEST_WALLET_ADDRESS, TEST_WALLET_SIGNATURE,
+    Mockito.`when`(adyenApi.makeTokenPayment(TEST_WALLET_ADDRESS, TEST_WALLET_SIGNATURE, TEST_EWT,
         TokenPayment(modelObject, false, "", "Ecommerce", null, null, null, paymentType, null, null,
             null, null, null, null, null, null, "token")))
         .thenReturn(Single.error(throwable))
@@ -400,7 +418,9 @@ class AdyenPaymentRepositoryTest {
     Mockito.`when`(subscriptionsApi.getSkuSubscriptionToken("trivial drive", "sku",
         TEST_FIAT_CURRENCY,
         TEST_WALLET_ADDRESS,
-        TEST_WALLET_SIGNATURE))
+        TEST_WALLET_SIGNATURE,
+        TEST_EWT
+    ))
         .thenReturn(Single.error(throwable))
 
     Mockito.`when`(mapper.mapPaymentModelError(throwable))

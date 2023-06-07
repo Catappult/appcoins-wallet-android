@@ -169,11 +169,6 @@ class AdyenPaymentInteractorTest {
       .thenReturn(
         Single.just(TEST_EWT)
       )
-    Mockito.`when`(repository.loadPaymentInfo(AdyenPaymentRepository.Methods.CREDIT_CARD,
-      TEST_FIAT_VALUE, TEST_FIAT_CURRENCY, TEST_WALLET_ADDRESS, TEST_WALLET_SIGNATURE, TEST_EWT))
-      .thenReturn(
-        Single.just(expectedModel)
-      )
 
     interactor.loadPaymentInfo(AdyenPaymentRepository.Methods.CREDIT_CARD,
         TEST_FIAT_VALUE, TEST_FIAT_CURRENCY)
