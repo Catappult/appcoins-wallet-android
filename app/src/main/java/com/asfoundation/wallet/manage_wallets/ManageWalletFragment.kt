@@ -85,7 +85,6 @@ import com.asfoundation.wallet.manage_wallets.ManageWalletViewModel.UiState.Succ
 import com.asfoundation.wallet.manage_wallets.ManageWalletViewModel.UiState.WalletChanged
 import com.asfoundation.wallet.my_wallets.main.MyWalletsNavigator
 import com.asfoundation.wallet.my_wallets.more.MoreDialogNavigator
-import com.asfoundation.wallet.transactions.TransactionDetailsFragment
 import com.wallet.appcoins.core.legacy_base.BasePageViewFragment
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -129,13 +128,14 @@ class ManageWalletFragment : BasePageViewFragment() {
           Toast.makeText(context, "Wallet changed", Toast.LENGTH_SHORT).show()
         }
 
-        Loading -> Row(
-          modifier = Modifier.fillMaxSize(),
-          verticalAlignment = CenterVertically,
-          horizontalArrangement = Arrangement.Center
-        ) {
-          CircularProgressIndicator()
-        }
+        Loading ->
+          Row(
+            modifier = Modifier.fillMaxSize(),
+            verticalAlignment = CenterVertically,
+            horizontalArrangement = Arrangement.Center
+          ) {
+            CircularProgressIndicator()
+          }
 
         else -> {}
       }
@@ -162,8 +162,7 @@ class ManageWalletFragment : BasePageViewFragment() {
           onClick = {
             viewModel.inactiveWalletBalance.value = wallet
             viewModel.openBottomSheet.value = !viewModel.openBottomSheet.value
-          }
-        ) {
+          }) {
           InactiveWalletCard(wallet)
         }
       }
@@ -506,7 +505,7 @@ class ManageWalletFragment : BasePageViewFragment() {
 
   @OptIn(ExperimentalMaterial3Api::class)
   @Composable
-  fun ChangeWalletBottomSheet(walletBalance: WalletBalance) {
+  fun ChangeWalletBottomSheet(walletBalance: WalletInfoSimple) {
     val skipPartiallyExpanded by remember { mutableStateOf(false) }
     val scope = rememberCoroutineScope()
     val bottomSheetState =
@@ -549,11 +548,11 @@ class ManageWalletFragment : BasePageViewFragment() {
               labelColor = styleguide_light_grey,
               backgroundColor = styleguide_pink,
               onClick = {
-                scope.launch {
-                  bottomSheetState.hide()
-                }
+                scope
+                  .launch { bottomSheetState.hide() }
                   .invokeOnCompletion {
-                    viewModel.openBottomSheet.value = !viewModel.openBottomSheet.value
+                    viewModel.openBottomSheet.value =
+                      !viewModel.openBottomSheet.value
                     viewModel.changeActiveWallet(walletBalance.walletAddress)
                   }
               },
@@ -568,7 +567,7 @@ class ManageWalletFragment : BasePageViewFragment() {
   private fun copyAddressToClipBoard(address: String) {
     val clipboard =
       requireActivity().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
-    val clip = ClipData.newPlainText(TransactionDetailsFragment.ORDER_KEY, address)
+    val clip = ClipData.newPlainText(ADDRESS_KEY, address)
     clipboard.setPrimaryClip(clip)
     Toast.makeText(context, R.string.copied_to_clipboard, Toast.LENGTH_SHORT).show()
   }
@@ -596,9 +595,7 @@ class ManageWalletFragment : BasePageViewFragment() {
       WalletInfo(
         "a24863cb-e586-472f-9e8a-622834c20c52",
         "a24863cb-e586-472f-9e8a-622834c20c52a24863cb-e586-472f-9e8a-622834c20c52",
-        com.asfoundation.wallet.wallets.domain.WalletBalance(
-          fiatValue, fiatValue, tokenBalance, tokenBalance, tokenBalance
-        ),
+        WalletBalance(fiatValue, fiatValue, tokenBalance, tokenBalance, tokenBalance),
         blocked = false,
         verified = true,
         logging = false,
@@ -621,5 +618,9 @@ class ManageWalletFragment : BasePageViewFragment() {
         backupDate = 987654L
       )
     )
+  }
+
+  companion object {
+    const val ADDRESS_KEY = "address_key"
   }
 }
