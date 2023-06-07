@@ -1,7 +1,7 @@
 package com.asfoundation.wallet.ui
 
 import android.os.Bundle
-import com.appcoins.wallet.bdsbilling.WalletService
+import com.appcoins.wallet.core.walletservices.WalletService
 import com.asfoundation.wallet.service.WalletGetterStatus
 import com.asfoundation.wallet.ui.iab.InAppPurchaseInteractor
 import com.asfoundation.wallet.util.TransferParser

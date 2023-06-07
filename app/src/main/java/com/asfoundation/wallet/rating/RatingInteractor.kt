@@ -1,6 +1,6 @@
 package com.asfoundation.wallet.rating
 
-import com.appcoins.wallet.bdsbilling.WalletService
+import com.appcoins.wallet.core.walletservices.WalletService
 import com.appcoins.wallet.core.utils.android_common.RxSchedulers
 import io.reactivex.Completable
 import java.util.*

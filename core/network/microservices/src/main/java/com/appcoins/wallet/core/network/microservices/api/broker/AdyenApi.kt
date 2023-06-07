@@ -11,6 +11,7 @@ interface AdyenApi {
   fun makeAdyenBodyPayment(
     @Query("wallet.address") walletAddress: String,
     @Query("wallet.signature") walletSignature: String,
+    @Header("authorization") authorization: String,
     @Body payment: PaymentRequest
   ): Single<AdyenTransactionResponse>
 
@@ -18,6 +19,7 @@ interface AdyenApi {
   fun makeAdyenPayment(
     @Query("wallet.address") walletAddress: String,
     @Query("wallet.signature") walletSignature: String,
+    @Header("authorization") authorization: String,
     @Body payment: PaymentDetails
   ): Single<AdyenTransactionResponse>
 
@@ -34,9 +36,10 @@ interface AdyenApi {
 
   @GET("8.20200815/gateways/adyen_v2/transactions/{uid}")
   fun getTransaction(
-    @Path("uid") uid: String, @Query("wallet.address") walletAddress: String,
-    @Query("wallet.signature")
-    walletSignature: String
+    @Path("uid") uid: String,
+    @Query("wallet.address") walletAddress: String,
+    @Query("wallet.signature") walletSignature: String,
+    @Header("authorization") authorization: String
   ): Single<TransactionResponse>
 
 
@@ -45,6 +48,7 @@ interface AdyenApi {
   fun makeTokenPayment(
     @Query("wallet.address") walletAddress: String,
     @Query("wallet.signature") walletSignature: String,
+    @Header("authorization") authorization: String,
     @Body payment: TokenPayment
   ): Single<AdyenTransactionResponse>
 
@@ -53,6 +57,7 @@ interface AdyenApi {
     @Path("uid") uid: String,
     @Query("wallet.address") address: String,
     @Query("wallet.signature") signature: String,
+    @Header("authorization") authorization: String,
     @Body payment: AdyenPayment
   ): Single<AdyenTransactionResponse>
 

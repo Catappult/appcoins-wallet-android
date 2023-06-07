@@ -1,7 +1,7 @@
 package com.asfoundation.wallet.ui.iab.payments.carrier
 
 import android.net.Uri
-import com.appcoins.wallet.bdsbilling.WalletService
+import com.appcoins.wallet.core.walletservices.WalletService
 import com.appcoins.wallet.billing.carrierbilling.*
 import com.appcoins.wallet.core.network.microservices.model.TransactionStatus
 import com.appcoins.wallet.core.utils.android_common.RxSchedulers

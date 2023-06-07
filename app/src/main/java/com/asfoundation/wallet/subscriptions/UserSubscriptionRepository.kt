@@ -1,20 +1,25 @@
 package com.asfoundation.wallet.subscriptions
 
+import com.appcoins.wallet.core.network.base.EwtAuthenticatorService
 import com.appcoins.wallet.core.network.microservices.model.SubscriptionSubStatus
 import com.appcoins.wallet.core.network.microservices.model.SubscriptionSubStatus.EXPIRED
-import com.appcoins.wallet.bdsbilling.WalletService
+import com.appcoins.wallet.core.walletservices.WalletService
 import com.appcoins.wallet.core.network.microservices.model.UserSubscriptionsListResponse
 import com.appcoins.wallet.core.network.microservices.model.UserSubscriptionApi
+import com.appcoins.wallet.core.utils.android_common.RxSchedulers
 import io.reactivex.Observable
 import io.reactivex.functions.BiFunction
 import java.util.*
 import javax.inject.Inject
 
 class UserSubscriptionRepository @Inject constructor(
-    private val subscriptionApi: UserSubscriptionApi,
-    private val local: UserSubscriptionsLocalData,
-    private val walletService: WalletService,
-    private val subscriptionsMapper: UserSubscriptionsMapper) {
+  private val subscriptionApi: UserSubscriptionApi,
+  private val local: UserSubscriptionsLocalData,
+  private val walletService: WalletService,
+  private val subscriptionsMapper: UserSubscriptionsMapper,
+  private val ewtObtainer: EwtAuthenticatorService,
+  private val rxSchedulers: RxSchedulers,
+    ) {
 
   fun getUserSubscriptions(walletAddress: String,
                            freshReload: Boolean): Observable<SubscriptionModel> {
@@ -60,10 +65,19 @@ class UserSubscriptionRepository @Inject constructor(
   private fun getUserSubscriptionAndSave(languageTag: String, walletAddress: String,
                                          signature: String, status: SubscriptionSubStatus? = null,
                                          limit: Int? = null): Observable<UserSubscriptionsListResponse> {
-    return subscriptionApi.getUserSubscriptions(languageTag, walletAddress, signature, status?.name,
-        limit)
-        .doOnSuccess { local.insertSubscriptions(it.items, walletAddress) }
-        .toObservable()
+    return ewtObtainer.getEwtAuthentication().subscribeOn(rxSchedulers.io)
+      .flatMapObservable { ewt ->
+        subscriptionApi.getUserSubscriptions(
+          language = languageTag,
+          walletAddress = walletAddress,
+          walletSignature = signature,
+          authorization = ewt,
+          subStatus = status?.name,
+          limit = limit
+        )
+          .doOnSuccess { local.insertSubscriptions(it.items, walletAddress) }
+          .toObservable()
+      }
   }
 
   private companion object {

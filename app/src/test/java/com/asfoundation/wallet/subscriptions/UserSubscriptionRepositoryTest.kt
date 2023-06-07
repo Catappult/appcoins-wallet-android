@@ -1,7 +1,9 @@
 package com.asfoundation.wallet.subscriptions
 
-import com.appcoins.wallet.bdsbilling.WalletService
+import com.appcoins.wallet.core.network.base.EwtAuthenticatorService
+import com.appcoins.wallet.core.walletservices.WalletService
 import com.appcoins.wallet.core.network.microservices.model.*
+import com.appcoins.wallet.core.utils.android_common.RxSchedulers
 import com.asfoundation.wallet.util.Period
 import io.reactivex.Observable
 import io.reactivex.Single
@@ -44,6 +46,7 @@ class UserSubscriptionRepositoryTest {
     private const val TEST_EXPIRED_LIMIT = 6
     private val TEST_FIAT_AMOUNT = BigDecimal.ONE
     private val TEST_APPC_AMOUNT = BigDecimal.TEN
+    private const val TEST_EWT = "aaabbbbccccdddd"
   }
 
   @Mock
@@ -54,6 +57,12 @@ class UserSubscriptionRepositoryTest {
 
   @Mock
   lateinit var walletService: WalletService
+
+  @Mock
+  lateinit var ewtAuthenticatorService: EwtAuthenticatorService
+
+  @Mock
+  lateinit var rxSchedulers: RxSchedulers
 
   @Mock
   lateinit var mapper: UserSubscriptionsMapper
@@ -109,7 +118,8 @@ class UserSubscriptionRepositoryTest {
             null,
             TEST_PACKAGE_NAME, TEST_NAME, TEST_ICON, TEST_FIAT_AMOUNT, TEST_SYMBOL, TEST_CURRENCY,
             TEST_PAYMENT_METHOD, TEST_PAYMENT_ICON, TEST_APPC_AMOUNT, TEST_APPC_LABEL, TEST_UID)
-    userSubscriptionRepository = UserSubscriptionRepository(api, localData, walletService, mapper)
+    userSubscriptionRepository = UserSubscriptionRepository(api, localData, walletService, mapper,
+      ewtAuthenticatorService, rxSchedulers)
   }
 
   @Test
@@ -199,12 +209,13 @@ class UserSubscriptionRepositoryTest {
     val locale = Locale.getDefault()
         .toLanguageTag()
     Mockito.`when`(
-        api.getUserSubscriptions(locale, TEST_WALLET_ADDRESS, TEST_WALLET_ADDRESS, null, null,
+        api.getUserSubscriptions(locale, TEST_WALLET_ADDRESS, TEST_WALLET_ADDRESS, TEST_EWT,
+          null, null,
             null))
         .thenReturn(Single.error(throwable))
     Mockito.`when`(
-        api.getUserSubscriptions(locale, TEST_WALLET_ADDRESS, TEST_WALLET_ADDRESS, "EXPIRED",
-            TEST_EXPIRED_LIMIT, null))
+        api.getUserSubscriptions(locale, TEST_WALLET_ADDRESS, TEST_WALLET_ADDRESS, TEST_EWT,
+          "EXPIRED", TEST_EXPIRED_LIMIT, null))
         .thenReturn(Single.error(throwable))
     Mockito.`when`(mapper.mapError(throwable, false))
         .thenReturn(subscriptionModel)
@@ -226,11 +237,13 @@ class UserSubscriptionRepositoryTest {
     val locale = Locale.getDefault()
         .toLanguageTag()
     Mockito.`when`(
-        api.getUserSubscriptions(locale, TEST_WALLET_ADDRESS, TEST_WALLET_ADDRESS, null, null,
+        api.getUserSubscriptions(locale, TEST_WALLET_ADDRESS, TEST_WALLET_ADDRESS, TEST_EWT,
+          null, null,
             null))
         .thenReturn(Single.just(listResponse))
     Mockito.`when`(
-        api.getUserSubscriptions(locale, TEST_WALLET_ADDRESS, TEST_WALLET_ADDRESS, "EXPIRED",
+        api.getUserSubscriptions(locale, TEST_WALLET_ADDRESS, TEST_WALLET_ADDRESS, TEST_EWT,
+          "EXPIRED",
             TEST_EXPIRED_LIMIT, null))
         .thenReturn(Single.just(expiredListResponse))
     Mockito.`when`(mapper.mapToSubscriptionModel(listResponse, expiredListResponse, false))

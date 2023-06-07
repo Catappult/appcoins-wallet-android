@@ -1,6 +1,6 @@
 package com.asfoundation.wallet.billing.adyen
 
-import com.appcoins.wallet.bdsbilling.WalletService
+import com.appcoins.wallet.core.walletservices.WalletService
 import com.appcoins.wallet.billing.adyen.PaymentModel
 import com.appcoins.wallet.billing.skills.SkillsPaymentRepository
 import io.reactivex.Single

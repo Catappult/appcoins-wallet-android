@@ -5,30 +5,29 @@ import com.appcoins.wallet.core.network.microservices.model.VerificationInfoResp
 import com.appcoins.wallet.core.network.microservices.model.VerificationPayment
 import io.reactivex.Completable
 import io.reactivex.Single
-import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.POST
-import retrofit2.http.Query
+import retrofit2.http.*
 
 interface BrokerVerificationApi {
 
   @GET("8.20200815/gateways/adyen_v2/verification/state")
   fun getVerificationState(
     @Query("wallet.address") wallet: String,
-    @Query("wallet.signature") walletSignature: String
+    @Query("wallet.signature") walletSignature: String,
+    @Header("authorization") authorization: String,
   ): Single<String>
 
   @GET("8.20200815/gateways/adyen_v2/verification/info")
   fun getVerificationInfo(
     @Query("wallet.address") walletAddress: String,
-    @Query("wallet.signature")
-    walletSignature: String
+    @Query("wallet.signature") walletSignature: String,
+    @Header("authorization") authorization: String,
   ): Single<VerificationInfoResponse>
 
   @POST("8.20200815/gateways/adyen_v2/verification/generate")
   fun makePaypalVerificationPayment(
     @Query("wallet.address") walletAddress: String,
     @Query("wallet.signature") walletSignature: String,
+    @Header("authorization") authorization: String,
     @Body
     verificationPayment: VerificationPayment
   ): Single<AdyenTransactionResponse>
@@ -37,6 +36,7 @@ interface BrokerVerificationApi {
   fun makeCreditCardVerificationPayment(
     @Query("wallet.address") walletAddress: String,
     @Query("wallet.signature") walletSignature: String,
+    @Header("authorization") authorization: String,
     @Body
     verificationPayment: VerificationPayment
   ): Completable
@@ -45,6 +45,7 @@ interface BrokerVerificationApi {
   fun validateCode(
     @Query("wallet.address") walletAddress: String,
     @Query("wallet.signature") walletSignature: String,
+    @Header("authorization") authorization: String,
     @Body code: String
   ): Completable
 }

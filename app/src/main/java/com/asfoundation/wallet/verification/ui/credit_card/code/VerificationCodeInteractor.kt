@@ -1,6 +1,6 @@
 package com.asfoundation.wallet.verification.ui.credit_card.code
 
-import com.appcoins.wallet.bdsbilling.WalletService
+import com.appcoins.wallet.core.walletservices.WalletService
 import com.appcoins.wallet.billing.adyen.VerificationCodeResult
 import com.appcoins.wallet.core.network.microservices.model.VerificationInfoResponse
 import com.appcoins.wallet.billing.util.Error

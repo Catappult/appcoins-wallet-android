@@ -1,6 +1,6 @@
 package com.asfoundation.wallet.billing.paypal.usecases
 
-import com.appcoins.wallet.bdsbilling.WalletService
+import com.appcoins.wallet.core.walletservices.WalletService
 import com.asfoundation.wallet.billing.paypal.repository.PayPalV2Repository
 import com.asfoundation.wallet.billing.partners.AddressService
 import com.appcoins.wallet.core.network.microservices.model.PaypalTransaction

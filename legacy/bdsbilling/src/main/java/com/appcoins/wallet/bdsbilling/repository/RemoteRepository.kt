@@ -1,12 +1,14 @@
 package com.appcoins.wallet.bdsbilling.repository
 
 import com.appcoins.wallet.bdsbilling.repository.entity.*
+import com.appcoins.wallet.core.network.base.EwtAuthenticatorService
 import com.appcoins.wallet.core.network.bds.api.BdsApiSecondary
 import com.appcoins.wallet.core.network.bds.model.GetWalletResponse
 import com.appcoins.wallet.core.network.microservices.api.broker.BrokerBdsApi
 import com.appcoins.wallet.core.network.microservices.api.product.InappBillingApi
 import com.appcoins.wallet.core.network.microservices.api.product.SubscriptionBillingApi
 import com.appcoins.wallet.core.network.microservices.model.*
+import com.appcoins.wallet.core.utils.android_common.RxSchedulers
 import io.reactivex.Completable
 import io.reactivex.Single
 import okhttp3.MediaType.Companion.toMediaType
@@ -23,6 +25,8 @@ class RemoteRepository(
   private val responseMapper: BdsApiResponseMapper,
   private val bdsApiSecondary: BdsApiSecondary,
   private val subsApi: SubscriptionBillingApi,
+  private val ewtObtainer: EwtAuthenticatorService,
+  private val rxSchedulers: RxSchedulers,
 ) {
   companion object {
     private const val SKUS_DETAILS_REQUEST_LIMIT = 50
@@ -48,8 +52,8 @@ class RemoteRepository(
     } else {
       Single.zip(
         inappApi.getConsumables(
-          packageName,
-          skus.take(SKUS_DETAILS_REQUEST_LIMIT).joinToString(separator = ",")
+          packageName = packageName,
+          names = skus.take(SKUS_DETAILS_REQUEST_LIMIT).joinToString(separator = ",")
         ), requestSkusDetails(packageName, skus.drop(SKUS_DETAILS_REQUEST_LIMIT))
       ) { firstResponse, secondResponse -> firstResponse.merge(secondResponse) }
     }
@@ -63,9 +67,9 @@ class RemoteRepository(
     } else {
       Single.zip(
         subsApi.getSubscriptions(
-          Locale.getDefault().toLanguageTag(),
-          packageName,
-          skus.take(SKUS_SUBS_DETAILS_REQUEST_LIMIT)
+          language = Locale.getDefault().toLanguageTag(),
+          domain = packageName,
+          skus = skus.take(SKUS_SUBS_DETAILS_REQUEST_LIMIT)
         ), requestSkusDetailsSubs(packageName, skus.drop(SKUS_SUBS_DETAILS_REQUEST_LIMIT))
       ) { firstResponse, secondResponse -> firstResponse.merge(secondResponse) }
     }
@@ -76,23 +80,27 @@ class RemoteRepository(
     walletAddress: String,
     walletSignature: String
   ): Single<Purchase> =
-    inappApi.getPurchases(
-      packageName,
-      walletAddress,
-      walletSignature,
-      type = BillingSupportedType.INAPP.name.toLowerCase(Locale.ROOT),
-      sku = skuId
-    )
-      .map {
-        if (it.items.isEmpty()) {
-          throw HttpException(
-            Response.error<GetPurchasesResponse>(
-              404,
-              ResponseBody.create("application/json".toMediaType(), "{}")
-            )
-          )
-        }
-        responseMapper.map(packageName, it)[0]
+    ewtObtainer.getEwtAuthentication().subscribeOn(rxSchedulers.io)
+      .flatMap { ewt ->
+        inappApi.getPurchases(
+          packageName = packageName,
+          walletAddress = walletAddress,
+          walletSignature = walletSignature,
+          authorization = ewt,
+          type = BillingSupportedType.INAPP.name.toLowerCase(Locale.ROOT),
+          sku = skuId
+        )
+          .map {
+            if (it.items.isEmpty()) {
+              throw HttpException(
+                Response.error<GetPurchasesResponse>(
+                  404,
+                  ResponseBody.create("application/json".toMediaType(), "{}")
+                )
+              )
+            }
+            responseMapper.map(packageName, it)[0]
+          }
       }
 
   internal fun getSkuPurchaseSubs(
@@ -101,8 +109,17 @@ class RemoteRepository(
     walletAddress: String,
     walletSignature: String
   ): Single<Purchase> =
-    subsApi.getPurchase(packageName, purchaseUid, walletAddress, walletSignature)
-      .map { responseMapper.map(packageName, it) }
+    ewtObtainer.getEwtAuthentication().subscribeOn(rxSchedulers.io)
+      .flatMap { ewt ->
+        subsApi.getPurchase(
+          domain = packageName,
+          uid = purchaseUid,
+          walletAddress = walletAddress,
+          walletSignature = walletSignature,
+          authorization = ewt
+        )
+          .map { responseMapper.map(packageName, it) }
+      }
 
   internal fun getSkuTransaction(
     packageName: String,
@@ -111,38 +128,53 @@ class RemoteRepository(
     walletSignature: String,
     type: BillingSupportedType
   ): Single<TransactionsResponse> =
-    brokerBdsApi.getSkuTransaction(
-      walletAddress,
-      walletSignature,
-      0,
-      type,
-      1,
-      "latest",
-      false,
-      skuId,
-      packageName
-    )
+    ewtObtainer.getEwtAuthentication().subscribeOn(rxSchedulers.io)
+      .flatMap { ewt ->
+        brokerBdsApi.getSkuTransaction(
+          walletAddress = walletAddress,
+          walletSignature = walletSignature,
+          authorization = ewt,
+          cursor = 0,
+          type = type,
+          limit = 1,
+          sort = "latest",
+          isReverse = false,
+          skuId = skuId,
+          packageName = packageName
+        )
+      }
 
   internal fun getPurchases(
     packageName: String,
     walletAddress: String,
     walletSignature: String
   ): Single<List<Purchase>> =
-    inappApi.getPurchases(
-      packageName,
-      walletAddress,
-      walletSignature,
-      BillingSupportedType.INAPP.name.toLowerCase(Locale.ROOT)
-    )
-      .map { responseMapper.map(packageName, it) }
-
+    ewtObtainer.getEwtAuthentication().subscribeOn(rxSchedulers.io)
+      .flatMap { ewt ->
+        inappApi.getPurchases(
+          packageName = packageName,
+          walletAddress = walletAddress,
+          walletSignature = walletSignature,
+          authorization = ewt,
+          type = BillingSupportedType.INAPP.name.toLowerCase(Locale.ROOT)
+        )
+          .map { responseMapper.map(packageName, it) }
+      }
   internal fun getPurchasesSubs(
     packageName: String,
     walletAddress: String,
     walletSignature: String
   ): Single<List<Purchase>> =
-    subsApi.getPurchases(packageName, walletAddress, walletSignature)
-      .map { responseMapper.map(packageName, it) }
+    ewtObtainer.getEwtAuthentication().subscribeOn(rxSchedulers.io)
+      .flatMap { ewt ->
+        subsApi.getPurchases(
+          domain = packageName,
+          walletAddress = walletAddress,
+          walletSignature = walletSignature,
+          authorization = ewt
+        )
+          .map { responseMapper.map(packageName, it) }
+      }
 
   @Suppress("unused")
   internal fun acknowledgePurchase(
@@ -150,8 +182,17 @@ class RemoteRepository(
     walletAddress: String,
     walletSignature: String
   ): Single<Boolean> =
-    inappApi.acknowledgePurchase(packageName, purchaseToken, walletAddress, walletSignature)
-      .toSingle { true }
+    ewtObtainer.getEwtAuthentication().subscribeOn(rxSchedulers.io)
+      .flatMap { ewt ->
+        inappApi.acknowledgePurchase(
+          domain = packageName,
+          uid = purchaseToken,
+          walletAddress = walletAddress,
+          walletSignature = walletSignature,
+          authorization = ewt
+        )
+          .toSingle { true }
+      }
 
   internal fun consumePurchase(
     packageName: String,
@@ -159,8 +200,17 @@ class RemoteRepository(
     walletAddress: String,
     walletSignature: String
   ): Single<Boolean> =
-    inappApi.consumePurchase(packageName, purchaseToken, walletAddress, walletSignature)
-      .toSingle { true }
+    ewtObtainer.getEwtAuthentication().subscribeOn(rxSchedulers.io)
+      .flatMap { ewt ->
+        inappApi.consumePurchase(
+          domain = packageName,
+          uid = purchaseToken,
+          walletAddress = walletAddress,
+          walletSignature = walletSignature,
+          authorization = ewt
+        )
+          .toSingle { true }
+      }
 
   internal fun getSubscriptionToken(
     domain: String,
@@ -168,7 +218,17 @@ class RemoteRepository(
     walletAddress: String,
     walletSignature: String
   ): Single<String> =
-    subsApi.getSkuSubscriptionToken(domain, skuId, null, walletAddress, walletSignature)
+    ewtObtainer.getEwtAuthentication().subscribeOn(rxSchedulers.io)
+      .flatMap { ewt ->
+        subsApi.getSkuSubscriptionToken(
+          domain = domain,
+          sku = skuId,
+          currency = null,
+          walletAddress = walletAddress,
+          walletSignature = walletSignature,
+          authorization = ewt
+        )
+      }
 
   fun registerAuthorizationProof(
     origin: String?,
@@ -190,25 +250,25 @@ class RemoteRepository(
     productToken: String?
   ): Single<Transaction> =
     createTransaction(
-      null,
-      developerWallet,
-      entityOemId,
-      entityDomainId,
-      id,
-      developerPayload,
-      callback,
-      orderReference,
-      referrerUrl,
-      productToken,
-      origin,
-      type,
-      gateway,
-      walletAddress,
-      walletSignature,
-      packageName,
-      priceValue.toPlainString(),
-      "APPC",
-      productName
+      userWallet = null,
+      developerWallet = developerWallet,
+      entityOemId = entityOemId,
+      entityDomain = entityDomainId,
+      token = id,
+      developerPayload = developerPayload,
+      callback = callback,
+      orderReference = orderReference,
+      referrerUrl = referrerUrl,
+      productToken = productToken,
+      origin = origin,
+      type = type,
+      gateway = gateway,
+      walletAddress = walletAddress,
+      signature = walletSignature,
+      packageName = packageName,
+      amount = priceValue.toPlainString(),
+      currency = "APPC",
+      productName = productName
     )
 
   fun registerPaymentProof(
@@ -218,13 +278,17 @@ class RemoteRepository(
     walletSignature: String,
     paymentProof: String
   ): Completable =
-    brokerBdsApi.patchTransaction(
-      paymentType,
-      paymentId,
-      walletAddress,
-      walletSignature,
-      paymentProof
-    )
+    ewtObtainer.getEwtAuthentication().subscribeOn(rxSchedulers.io)
+      .flatMapCompletable { ewt ->
+        brokerBdsApi.patchTransaction(
+          gateway = paymentType,
+          uid = paymentId,
+          walletAddress = walletAddress,
+          walletSignature = walletSignature,
+          authorization = ewt,
+          paykey = paymentProof
+        )
+      }
 
   internal fun getPaymentMethods(
     value: String?,
@@ -235,12 +299,12 @@ class RemoteRepository(
     packageName: String?
   ): Single<List<PaymentMethodEntity>> =
     brokerBdsApi.getPaymentMethods(
-      value,
-      currency,
-      currencyType,
-      direct,
-      transactionType,
-      packageName
+      value = value,
+      currency = currency,
+      currencyType = currencyType,
+      direct = direct,
+      type = transactionType,
+      packageName = packageName
     )
       .map { responseMapper.map(it) }
 
@@ -249,7 +313,15 @@ class RemoteRepository(
     address: String,
     signedContent: String
   ): Single<Transaction> =
-    brokerBdsApi.getAppcoinsTransaction(uid, address, signedContent)
+    ewtObtainer.getEwtAuthentication().subscribeOn(rxSchedulers.io)
+      .flatMap { ewt ->
+        brokerBdsApi.getAppcoinsTransaction(
+          uId = uid,
+          walletAddress = address,
+          walletSignature = signedContent,
+          authorization = ewt
+        )
+      }
 
   var ownerWalletCached: GetWalletResponse? = null
   var packageNameCached: String? = null
@@ -275,25 +347,25 @@ class RemoteRepository(
     amount: BigDecimal
   ): Completable =
     createTransaction(
-      toWallet,
-      null,
-      null,
-      null,
-      null,
-      null,
-      null,
-      null,
-      null,
-      null,
-      origin,
-      type,
-      gateway,
-      walletAddress,
-      signature,
-      packageName,
-      amount.toPlainString(),
-      "APPC",
-      null
+      userWallet = toWallet,
+      developerWallet = null,
+      entityOemId = null,
+      entityDomain = null,
+      token = null,
+      developerPayload = null,
+      callback = null,
+      orderReference = null,
+      referrerUrl = null,
+      productToken = null,
+      origin = origin,
+      type = type,
+      gateway = gateway,
+      walletAddress = walletAddress,
+      signature = signature,
+      packageName = packageName,
+      amount = amount.toPlainString(),
+      currency = "APPC",
+      productName = null
     ).toCompletable()
 
   fun createLocalPaymentTransaction(
@@ -315,26 +387,30 @@ class RemoteRepository(
     walletAddress: String,
     walletSignature: String
   ): Single<Transaction> =
-    brokerBdsApi.createTransaction(
-      origin,
-      packageName,
-      price,
-      currency,
-      productName,
-      type,
-      walletAddress,
-      walletsDeveloper,
-      entityOemId,
-      entityDomain,
-      entityPromoCode,
-      paymentId,
-      developerPayload,
-      callback,
-      orderReference,
-      referrerUrl,
-      walletAddress,
-      walletSignature
-    )
+    ewtObtainer.getEwtAuthentication().subscribeOn(rxSchedulers.io)
+      .flatMap { ewt ->
+        brokerBdsApi.createTransaction(
+          origin = origin,
+          domain = packageName,
+          priceValue = price,
+          priceCurrency = currency,
+          product = productName,
+          type = type,
+          userWallet = walletAddress,
+          walletsDeveloper = walletsDeveloper,
+          entityOemId = entityOemId,
+          entityDomain = entityDomain,
+          entityPromoCode = entityPromoCode,
+          method = paymentId,
+          developerPayload = developerPayload,
+          callback = callback,
+          orderReference = orderReference,
+          referrerUrl = referrerUrl,
+          walletAddress = walletAddress,
+          walletSignature = walletSignature,
+          authorization = ewt
+        )
+      }
 
   fun activateSubscription(
     packageName: String,
@@ -342,7 +418,16 @@ class RemoteRepository(
     walletAddress: String,
     walletSignature: String
   ): Completable =
-    subsApi.activateSubscription(packageName, uid, walletAddress, walletSignature)
+    ewtObtainer.getEwtAuthentication().subscribeOn(rxSchedulers.io)
+      .flatMapCompletable { ewt ->
+        subsApi.activateSubscription(
+          domain = packageName,
+          uid = uid,
+          walletAddress = walletAddress,
+          walletSignature = walletSignature,
+          authorization = ewt
+        )
+      }
 
   fun cancelSubscription(
     packageName: String,
@@ -350,7 +435,16 @@ class RemoteRepository(
     walletAddress: String,
     walletSignature: String
   ): Completable =
-    subsApi.cancelSubscription(packageName, uid, walletAddress, walletSignature)
+    ewtObtainer.getEwtAuthentication().subscribeOn(rxSchedulers.io)
+      .flatMapCompletable { ewt ->
+        subsApi.cancelSubscription(
+          domain = packageName,
+          uid = uid,
+          walletAddress = walletAddress,
+          walletSignature = walletSignature,
+          authorization = ewt
+        )
+      }
 
   private fun createTransaction(
     userWallet: String?,
@@ -373,34 +467,39 @@ class RemoteRepository(
     @Suppress("SameParameterValue") currency: String,
     productName: String?
   ): Single<Transaction> =
-    if (type == ESKILLS) {
-      brokerBdsApi.createTransaction(
-        gateway,
-        walletAddress,
-        signature,
-        CreditsPurchaseBody(callback, productToken)
-      )
-    } else {
-      brokerBdsApi.createTransaction(
-        gateway,
-        origin,
-        packageName,
-        amount,
-        currency,
-        productName,
-        type,
-        userWallet,
-        developerWallet,
-        entityOemId,
-        entityDomain,
-        null,
-        token,
-        developerPayload,
-        callback,
-        orderReference,
-        referrerUrl,
-        walletAddress,
-        signature
-      )
-    }
+    ewtObtainer.getEwtAuthentication().subscribeOn(rxSchedulers.io)
+      .flatMap { ewt ->
+        if (type == ESKILLS) {
+          brokerBdsApi.createTransaction(
+            gateway = gateway,
+            walletAddress = walletAddress,
+            walletSignature = signature,
+            authorization = ewt,
+            creditsPurchaseBody = CreditsPurchaseBody(callback, productToken)
+          )
+        } else {
+          brokerBdsApi.createTransaction(
+            gateway = gateway,
+            origin = origin,
+            domain = packageName,
+            priceValue = amount,
+            priceCurrency = currency,
+            product = productName,
+            type = type,
+            userWallet = userWallet,
+            walletsDeveloper = developerWallet,
+            entityOemId = entityOemId,
+            entityDomain = entityDomain,
+            entityPromoCode = null,
+            token = token,
+            developerPayload = developerPayload,
+            callback = callback,
+            orderReference = orderReference,
+            referrerUrl = referrerUrl,
+            walletAddress = walletAddress,
+            walletSignature = signature,
+            authorization = ewt
+          )
+        }
+      }
 }

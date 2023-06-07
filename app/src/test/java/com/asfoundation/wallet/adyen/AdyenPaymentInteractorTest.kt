@@ -2,8 +2,7 @@ package com.asfoundation.wallet.adyen
 
 import android.os.Bundle
 import com.adyen.checkout.components.model.payments.request.CardPaymentMethod
-import com.appcoins.wallet.bdsbilling.WalletAddressModel
-import com.appcoins.wallet.bdsbilling.WalletService
+import com.appcoins.wallet.core.walletservices.WalletService
 import com.appcoins.wallet.billing.BillingMessagesMapper
 import com.appcoins.wallet.billing.adyen.AdyenPaymentRepository
 import com.appcoins.wallet.billing.adyen.PaymentInfoModel
@@ -13,7 +12,8 @@ import com.asfoundation.wallet.billing.adyen.AdyenPaymentInteractor
 import com.asfoundation.wallet.billing.adyen.PurchaseBundleModel
 import com.asfoundation.wallet.billing.partners.AttributionEntity
 import com.asfoundation.wallet.billing.partners.PartnerAddressService
-import com.asfoundation.wallet.ewt.EwtAuthenticatorService
+import com.appcoins.wallet.core.network.base.EwtAuthenticatorService
+import com.appcoins.wallet.core.walletservices.WalletServices.WalletAddressModel
 import com.asfoundation.wallet.promo_code.repository.PromoCode
 import com.asfoundation.wallet.promo_code.use_cases.GetCurrentPromoCodeUseCase
 import com.asfoundation.wallet.support.SupportInteractor

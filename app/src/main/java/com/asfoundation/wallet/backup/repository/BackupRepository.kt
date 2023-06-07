@@ -2,11 +2,11 @@ package com.asfoundation.wallet.backup.repository
 
 import android.content.ContentResolver
 import androidx.documentfile.provider.DocumentFile
-import com.appcoins.wallet.bdsbilling.WalletService
+import com.appcoins.wallet.core.walletservices.WalletService
 import com.appcoins.wallet.core.network.backend.api.BackupLogApi
+import com.appcoins.wallet.core.network.base.EwtAuthenticatorService
 import com.appcoins.wallet.core.network.microservices.api.broker.BackupEmailApi
 import com.appcoins.wallet.core.network.microservices.model.EmailBody
-
 import com.appcoins.wallet.core.utils.android_common.RxSchedulers
 import com.appcoins.wallet.core.utils.android_common.extensions.convertToBase64
 import io.reactivex.Completable
@@ -18,7 +18,8 @@ class BackupRepository @Inject constructor(
   private val backupEmailApi: BackupEmailApi,
   private val rxSchedulers: RxSchedulers,
   private val walletService: WalletService,
-  private val backupLogApi: BackupLogApi
+  private val backupLogApi: BackupLogApi,
+  private val ewtObtainer: EwtAuthenticatorService,
 ) {
   fun saveFile(
     content: String, filePath: DocumentFile?,
@@ -46,14 +47,17 @@ class BackupRepository @Inject constructor(
   private fun getDefaultBackupFileExtension() = ".bck"
 
   fun sendBackupEmail(walletAddress: String, keystore: String, email: String): Completable {
-    return walletService.getAndSignSpecificWalletAddress(walletAddress)
-      .flatMapCompletable {
-        backupEmailApi.sendBackupEmail(
-          it.address, it.signedAddress,
-          EmailBody(email, keystore.convertToBase64())
-        )
+    return ewtObtainer.getEwtAuthentication().subscribeOn(rxSchedulers.io)
+      .flatMapCompletable { ewt ->
+        walletService.getAndSignSpecificWalletAddress(walletAddress)
+          .flatMapCompletable {
+            backupEmailApi.sendBackupEmail(
+              walletAddress = it.address, walletSignature = it.signedAddress, authorization = ewt,
+              emailBody = EmailBody(email, keystore.convertToBase64())
+            )
+          }
+          .subscribeOn(rxSchedulers.io)
       }
-      .subscribeOn(rxSchedulers.io)
   }
 
   fun logBackupSuccess(ewt: String): Completable {

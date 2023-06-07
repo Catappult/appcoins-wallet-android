@@ -10,6 +10,7 @@ interface CarrierBillingApi {
   fun makePayment(
     @Query("wallet.address") walletAddress: String,
     @Query("wallet.signature") walletSignature: String,
+    @Header("authorization") authorization: String,
     @Body carrierTransactionBody: CarrierTransactionBody
   )
       : Single<CarrierCreateTransactionResponse>
@@ -18,8 +19,8 @@ interface CarrierBillingApi {
   fun getPayment(
     @Path("uid") uid: String,
     @Query("wallet.address") walletAddress: String,
-    @Query("wallet.signature")
-    walletSignature: String
+    @Query("wallet.signature") walletSignature: String,
+    @Header("authorization") authorization: String,
   ): Observable<TransactionResponse>
 
   @GET("8.20210329/dimoco/countries")

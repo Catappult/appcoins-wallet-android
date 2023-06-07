@@ -1,7 +1,7 @@
 package com.asfoundation.wallet.billing.paypal.usecases
 
 import android.util.Log
-import com.appcoins.wallet.bdsbilling.WalletService
+import com.appcoins.wallet.core.walletservices.WalletService
 import com.appcoins.wallet.core.utils.android_common.RxSchedulers
 import com.asfoundation.wallet.billing.paypal.repository.PayPalV2Repository
 import io.reactivex.Completable

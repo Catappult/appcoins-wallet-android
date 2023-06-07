@@ -1,6 +1,7 @@
 package com.appcoins.wallet.bdsbilling
 
 import com.appcoins.wallet.bdsbilling.repository.*
+import com.appcoins.wallet.core.network.base.EwtAuthenticatorService
 import com.appcoins.wallet.core.network.bds.api.BdsApiSecondary
 import com.appcoins.wallet.core.network.bds.model.Data
 import com.appcoins.wallet.core.network.bds.model.GetWalletResponse
@@ -9,6 +10,9 @@ import com.appcoins.wallet.core.network.microservices.api.product.InappBillingAp
 import com.appcoins.wallet.core.network.microservices.api.product.SubscriptionBillingApi
 import com.appcoins.wallet.core.network.microservices.model.Transaction
 import com.appcoins.wallet.core.network.microservices.model.Gateway
+import com.appcoins.wallet.core.utils.android_common.RxSchedulers
+import com.appcoins.wallet.core.walletservices.WalletService
+import com.appcoins.wallet.core.walletservices.WalletServices.WalletAddressModel
 import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.Single
@@ -30,6 +34,7 @@ class BillingPaymentProofSubmissionTest {
     const val oemAddress = "developer_address"
     const val storeAddress = "store_address"
     const val signedContent = "signed $walletAddress"
+    const val ewt = "aaabbbcccddd"
     const val productName = "product_name"
     const val packageName = "package_name"
     const val paymentId = "payment_id"
@@ -55,6 +60,8 @@ class BillingPaymentProofSubmissionTest {
   lateinit var subscriptionBillingApi: SubscriptionBillingApi
   lateinit var billing: BillingPaymentProofSubmission
   lateinit var scheduler: TestScheduler
+  lateinit var ewtAuthenticatorService: EwtAuthenticatorService
+  lateinit var rxSchedulers: RxSchedulers
 
   @Before
   fun setUp() {
@@ -87,6 +94,8 @@ class BillingPaymentProofSubmissionTest {
         }
       })
       .setSubscriptionBillingService(subscriptionBillingApi)
+      .setEwtObtainer(ewtAuthenticatorService)
+      .setRxSchedulers(rxSchedulers)
       .build()
 
     `when`(
@@ -134,6 +143,7 @@ class BillingPaymentProofSubmissionTest {
         paymentId,
         walletAddress,
         signedContent,
+        ewt,
         paymentToken
       )
     ).thenReturn(Completable.complete())
@@ -205,6 +215,7 @@ class BillingPaymentProofSubmissionTest {
       paymentId,
       walletAddress,
       signedContent,
+      ewt,
       paymentToken
     )
   }

@@ -2,10 +2,12 @@ package com.asfoundation.wallet.verification.repository
 
 import com.adyen.checkout.core.model.ModelObject
 import com.appcoins.wallet.billing.adyen.*
+import com.appcoins.wallet.core.network.base.EwtAuthenticatorService
 import com.appcoins.wallet.core.utils.android_common.extensions.isNoNetworkException
 import com.appcoins.wallet.core.network.microservices.api.broker.BrokerVerificationApi
 import com.appcoins.wallet.core.network.microservices.model.VerificationInfoResponse
 import com.appcoins.wallet.core.network.microservices.model.VerificationPayment
+import com.appcoins.wallet.core.utils.android_common.RxSchedulers
 import com.asfoundation.wallet.verification.ui.credit_card.network.VerificationStatus
 import com.asfoundation.wallet.wallets.repository.WalletInfoRepository
 import io.reactivex.Completable
@@ -18,14 +20,19 @@ class BrokerVerificationRepository @Inject constructor(
   private val walletInfoRepository: WalletInfoRepository,
   private val brokerVerificationApi: BrokerVerificationApi,
   private val adyenResponseMapper: AdyenResponseMapper,
-  private val sharedPreferences: BrokerVerificationPreferencesDataSource
+  private val sharedPreferences: BrokerVerificationPreferencesDataSource,
+  private val ewtObtainer: EwtAuthenticatorService,
+  private val rxSchedulers: RxSchedulers,
 ) {
 
   fun getVerificationInfo(
     walletAddress: String,
     signedWalletAddress: String
   ): Single<VerificationInfoResponse> {
-    return brokerVerificationApi.getVerificationInfo(walletAddress, signedWalletAddress)
+    return ewtObtainer.getEwtAuthentication().subscribeOn(rxSchedulers.io)
+      .flatMap { ewt ->
+        brokerVerificationApi.getVerificationInfo(walletAddress, signedWalletAddress, ewt)
+      }
   }
 
   fun makeCreditCardVerificationPayment(
@@ -33,34 +40,52 @@ class BrokerVerificationRepository @Inject constructor(
     returnUrl: String, walletAddress: String,
     walletSignature: String
   ): Single<VerificationPaymentModel> {
-    return brokerVerificationApi.makeCreditCardVerificationPayment(
-      walletAddress, walletSignature,
-      VerificationPayment(
-        adyenPaymentMethod, shouldStoreMethod,
-        returnUrl
-      )
-    )
-        .toSingle { adyenResponseMapper.mapVerificationPaymentModelSuccess() }
-        .onErrorReturn { adyenResponseMapper.mapVerificationPaymentModelError(it) }
+    return ewtObtainer.getEwtAuthentication().subscribeOn(rxSchedulers.io)
+      .flatMap { ewt ->
+        brokerVerificationApi.makeCreditCardVerificationPayment(
+          walletAddress = walletAddress,
+          walletSignature = walletSignature,
+          authorization = ewt,
+          verificationPayment = VerificationPayment(
+            adyenPaymentMethod, shouldStoreMethod,
+            returnUrl
+          )
+        )
+          .toSingle { adyenResponseMapper.mapVerificationPaymentModelSuccess() }
+          .onErrorReturn { adyenResponseMapper.mapVerificationPaymentModelError(it) }
+      }
   }
 
   fun makePaypalVerificationPayment(adyenPaymentMethod: ModelObject, shouldStoreMethod: Boolean,
                                     returnUrl: String, walletAddress: String,
                                     walletSignature: String): Single<VerificationPaymentModel> {
-    return brokerVerificationApi.makePaypalVerificationPayment(walletAddress, walletSignature,
-      VerificationPayment(
-        adyenPaymentMethod, shouldStoreMethod,
-        returnUrl
-      ))
-        .map { adyenResponseMapper.mapVerificationPaymentModelSuccess(it) }
-        .onErrorReturn { adyenResponseMapper.mapVerificationPaymentModelError(it) }
+    return ewtObtainer.getEwtAuthentication().subscribeOn(rxSchedulers.io)
+      .flatMap { ewt ->
+        brokerVerificationApi.makePaypalVerificationPayment(
+          walletAddress = walletAddress, walletSignature = walletSignature, authorization = ewt,
+          verificationPayment = VerificationPayment(
+            adyenPaymentMethod, shouldStoreMethod,
+            returnUrl
+          )
+        )
+          .map { adyenResponseMapper.mapVerificationPaymentModelSuccess(it) }
+          .onErrorReturn { adyenResponseMapper.mapVerificationPaymentModelError(it) }
+      }
   }
 
   fun validateCode(code: String, walletAddress: String,
                    walletSignature: String): Single<VerificationCodeResult> {
-    return brokerVerificationApi.validateCode(walletAddress, walletSignature, code)
-        .toSingle { VerificationCodeResult(true) }
-        .onErrorReturn { adyenResponseMapper.mapVerificationCodeError(it) }
+    return ewtObtainer.getEwtAuthentication().subscribeOn(rxSchedulers.io)
+      .flatMap { ewt ->
+        brokerVerificationApi.validateCode(
+          walletAddress = walletAddress,
+          walletSignature = walletSignature,
+          authorization = ewt,
+          code = code
+        )
+          .toSingle { VerificationCodeResult(true) }
+          .onErrorReturn { adyenResponseMapper.mapVerificationCodeError(it) }
+      }
   }
 
   fun getVerificationStatus(walletAddress: String,
@@ -86,14 +111,21 @@ class BrokerVerificationRepository @Inject constructor(
 
   fun getCardVerificationState(walletAddress: String,
                                walletSignature: String): Single<VerificationStatus> {
-    return brokerVerificationApi.getVerificationState(walletAddress, walletSignature)
-      .map { verificationState ->
-        if (verificationState == "ACTIVE") VerificationStatus.CODE_REQUESTED
-        else VerificationStatus.UNVERIFIED
-      }
-      .onErrorReturn {
-        if (it.isNoNetworkException()) VerificationStatus.NO_NETWORK
-        else VerificationStatus.ERROR
+    return ewtObtainer.getEwtAuthentication().subscribeOn(rxSchedulers.io)
+      .flatMap { ewt ->
+        brokerVerificationApi.getVerificationState(
+          wallet = walletAddress,
+          walletSignature = walletSignature,
+          authorization = ewt
+        )
+          .map { verificationState ->
+            if (verificationState == "ACTIVE") VerificationStatus.CODE_REQUESTED
+            else VerificationStatus.UNVERIFIED
+          }
+          .onErrorReturn {
+            if (it.isNoNetworkException()) VerificationStatus.NO_NETWORK
+            else VerificationStatus.ERROR
+          }
       }
   }
 

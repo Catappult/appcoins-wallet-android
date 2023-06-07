@@ -8,7 +8,7 @@ import androidx.multidex.MultiDexApplication
 import cm.aptoide.analytics.AnalyticsManager
 import com.appcoins.wallet.appcoins.rewards.AppcoinsRewards
 import com.appcoins.wallet.bdsbilling.ProxyService
-import com.appcoins.wallet.bdsbilling.WalletService
+import com.appcoins.wallet.core.walletservices.WalletService
 import com.appcoins.wallet.billing.BillingDependenciesProvider
 import com.appcoins.wallet.billing.BillingMessagesMapper
 import com.appcoins.wallet.core.utils.jvm_common.Logger
@@ -22,9 +22,11 @@ import com.asfoundation.wallet.app_start.AppStartUseCase
 import com.asfoundation.wallet.app_start.StartMode
 import com.asfoundation.wallet.identification.IdsRepository
 import com.appcoins.wallet.core.analytics.analytics.logging.FlurryReceiver
+import com.appcoins.wallet.core.network.base.EwtAuthenticatorService
 import com.appcoins.wallet.core.network.microservices.api.broker.BrokerBdsApi
 import com.appcoins.wallet.core.network.microservices.api.product.InappBillingApi
 import com.appcoins.wallet.core.network.microservices.api.product.SubscriptionBillingApi
+import com.appcoins.wallet.core.utils.android_common.RxSchedulers
 import com.asfoundation.wallet.analytics.initilizeDataAnalytics
 import com.asfoundation.wallet.main.appsflyer.ApkOriginVerification
 import com.asfoundation.wallet.support.AlarmManagerBroadcastReceiver
@@ -105,6 +107,12 @@ class App : MultiDexApplication(), BillingDependenciesProvider {
 
   @Inject
   lateinit var subscriptionBillingApi: SubscriptionBillingApi
+
+  @Inject
+  lateinit var rxSchedulers: RxSchedulers
+
+  @Inject
+  lateinit var ewtObtainer: EwtAuthenticatorService
 
   companion object {
     private val TAG = App::class.java.name
@@ -247,4 +255,9 @@ class App : MultiDexApplication(), BillingDependenciesProvider {
   override fun bdsApiSecondary() = bdsapiSecondary
 
   override fun subscriptionsApi() = subscriptionBillingApi
+
+  override fun rxSchedulers() = rxSchedulers
+
+  override fun ewtObtainer() = ewtObtainer
+
 }

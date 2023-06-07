@@ -33,7 +33,8 @@ interface SubscriptionBillingApi {
                               @Path("sku") sku: String,
                               @Query("currency") currency: String?,
                               @Query("wallet.address") walletAddress: String,
-                              @Query("wallet.signature") walletSignature: String): Single<String>
+                              @Query("wallet.signature") walletSignature: String,
+                              @Header("authorization") authorization: String): Single<String>
 
   /**
    * Retrieves subscription purchases of a given application
@@ -44,20 +45,22 @@ interface SubscriptionBillingApi {
   fun getPurchases(@Path("domain") domain: String,
                    @Query("wallet.address") walletAddress: String,
                    @Query("wallet.signature") walletSignature: String,
+                   @Header("authorization") authorization: String,
                    @Query("limit") limit: Long? = null): Single<SubscriptionPurchaseListResponse>
 
   @GET("8.20200701/applications/{domain}/inapp/subscription/purchases/{uid}")
   fun getPurchase(@Path("domain") domain: String,
                   @Path("uid") uid: String,
                   @Query("wallet.address") walletAddress: String,
-                  @Query("wallet.signature")
-                  walletSignature: String): Single<SubscriptionPurchaseResponse>
+                  @Query("wallet.signature") walletSignature: String,
+                  @Header("authorization") authorization: String): Single<SubscriptionPurchaseResponse>
 
   @POST("8.20200701/applications/{domain}/inapp/subscription/purchases/{uid}/activate")
   fun activateSubscription(@Path("domain") domain: String,
                            @Path("uid") uid: String,
                            @Query("wallet.address") walletAddress: String,
-                           @Query("wallet.signature") walletSignature: String
+                           @Query("wallet.signature") walletSignature: String,
+                           @Header("authorization") authorization: String,
   ): Completable
 
   @POST("8.20200701/applications/{domain}/inapp/subscription/purchases/{uid}/cancel")
@@ -65,6 +68,7 @@ interface SubscriptionBillingApi {
     @Path("domain") domain: String,
     @Path("uid") uid: String,
     @Query("wallet.address") walletAddress: String,
-    @Query("wallet.signature") walletSignature: String
+    @Query("wallet.signature") walletSignature: String,
+    @Header("authorization") authorization: String
   ): Completable
 }

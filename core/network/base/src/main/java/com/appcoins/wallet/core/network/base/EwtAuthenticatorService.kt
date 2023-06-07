@@ -1,6 +1,6 @@
-package com.asfoundation.wallet.ewt
+package com.appcoins.wallet.core.network.base
 
-import com.appcoins.wallet.bdsbilling.WalletService
+import com.appcoins.wallet.core.walletservices.WalletService
 import com.appcoins.wallet.core.utils.android_common.extensions.convertToBase64
 import com.google.gson.JsonObject
 import io.reactivex.Single
@@ -77,4 +77,4 @@ class EwtAuthenticatorService(
       .replace("+", "-")
       .replace("/", "_")
   }
-} 
+}

@@ -3,7 +3,7 @@ package com.asfoundation.wallet.ui.iab.localpayments
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
-import com.appcoins.wallet.bdsbilling.WalletService
+import com.appcoins.wallet.core.walletservices.WalletService
 import com.appcoins.wallet.bdsbilling.repository.RemoteRepository
 import com.appcoins.wallet.billing.BillingMessagesMapper
 import com.appcoins.wallet.core.network.microservices.model.Transaction

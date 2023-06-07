@@ -10,6 +10,7 @@ interface BrokerBdsApi {
   fun getSkuTransaction(
     @Query("wallet.address") walletAddress: String,
     @Query("wallet.signature") walletSignature: String,
+    @Header("authorization") authorization: String,
     @Query("cursor") cursor: Long,
     @Query("type") type: BillingSupportedType,
     @Query("limit") limit: Long,
@@ -23,8 +24,8 @@ interface BrokerBdsApi {
   fun getAppcoinsTransaction(
     @Path("uId") uId: String,
     @Query("wallet.address") walletAddress: String,
-    @Query("wallet.signature")
-    walletSignature: String
+    @Query("wallet.signature") walletSignature: String,
+    @Header("authorization") authorization: String
   ): Single<Transaction>
 
   /**
@@ -53,6 +54,7 @@ interface BrokerBdsApi {
     @Path("uid") uid: String,
     @Query("wallet.address") walletAddress: String,
     @Query("wallet.signature") walletSignature: String,
+    @Header("authorization") authorization: String,
     @Field("pay_key")
     paykey: String
   ): Completable
@@ -69,6 +71,7 @@ interface BrokerBdsApi {
     @Path("gateway") gateway: String,
     @Query("wallet.address") walletAddress: String,
     @Query("wallet.signature") walletSignature: String,
+    @Header("authorization") authorization: String,
     @Body creditsPurchaseBody: CreditsPurchaseBody
   ): Single<Transaction>
 
@@ -115,7 +118,8 @@ interface BrokerBdsApi {
     @Field("reference") orderReference: String?,
     @Field("referrer_url") referrerUrl: String?,
     @Query("wallet.address") walletAddress: String,
-    @Query("wallet.signature") walletSignature: String
+    @Query("wallet.signature") walletSignature: String,
+    @Header("authorization") authorization: String,
   ): Single<Transaction>
 
   /**
@@ -159,6 +163,7 @@ interface BrokerBdsApi {
     @Field("reference") orderReference: String?,
     @Field("referrer_url") referrerUrl: String?,
     @Query("wallet.address") walletAddress: String,
-    @Query("wallet.signature") walletSignature: String
+    @Query("wallet.signature") walletSignature: String,
+    @Header("authorization") authorization: String,
   ): Single<Transaction>
 }

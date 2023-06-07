@@ -6,6 +6,7 @@ import com.appcoins.wallet.core.network.microservices.model.BillingSupportedType
 import com.appcoins.wallet.core.network.microservices.model.BillingSupportedType.Companion.isManagedType
 import com.appcoins.wallet.core.network.microservices.model.PaymentMethodEntity
 import com.appcoins.wallet.core.network.microservices.model.Transaction
+import com.appcoins.wallet.core.walletservices.WalletService
 import io.reactivex.Scheduler
 import io.reactivex.Single
 

@@ -37,6 +37,7 @@ dependencies {
   implementation(project(":core:network:eskills"))
   implementation(project(":core:network:microservices"))
   implementation(project(":core:network:zendesk"))
+  implementation(project(":core:walletServices"))
   implementation(project(":core:utils:android-common"))
   implementation(project(":core:utils:jvm-common"))
   implementation(project(":core:utils:properties"))

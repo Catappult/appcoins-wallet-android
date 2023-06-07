@@ -16,6 +16,7 @@ interface PaypalV2Api {
     // @Header("PayPal-Mock-Response") mockHeader: String,
     @Query("wallet.address") walletAddress: String,
     @Query("wallet.signature") walletSignature: String,
+    @Header("authorization") authorization: String,
     @Body paypalPayment: PaypalPayment
   ): Single<PaypalV2StartResponse>
 
@@ -23,6 +24,7 @@ interface PaypalV2Api {
   fun createToken(
     @Query("wallet.address") walletAddress: String,
     @Query("wallet.signature") walletSignature: String,
+    @Header("authorization") authorization: String,
     @Body createTokenRequest: CreateTokenRequest
   ): Single<PaypalV2CreateTokenResponse>
 
@@ -30,6 +32,7 @@ interface PaypalV2Api {
   fun createBillingAgreement(
     @Query("wallet.address") walletAddress: String,
     @Query("wallet.signature") walletSignature: String,
+    @Header("authorization") authorization: String,
     @Body token: String
   ): Single<PaypalV2CreateAgreementResponse>
 
@@ -37,6 +40,7 @@ interface PaypalV2Api {
   fun cancelToken(
     @Query("wallet.address") walletAddress: String,
     @Query("wallet.signature") walletSignature: String,
+    @Header("authorization") authorization: String,
     @Body token: String
   ): Single<String?>
 
@@ -44,12 +48,14 @@ interface PaypalV2Api {
   fun getCurrentBillingAgreement(
     @Query("wallet.address") walletAddress: String,
     @Query("wallet.signature") walletSignature: String,
+    @Header("authorization") authorization: String,
   ): Single<PaypalV2GetAgreementResponse>
 
   @POST("8.20230522/gateways/paypal/billing-agreement/cancel")
   fun removeBillingAgreement(
     @Query("wallet.address") walletAddress: String,
     @Query("wallet.signature") walletSignature: String,
+    @Header("authorization") authorization: String
   ): Single<Result<String?>>
 
 }
