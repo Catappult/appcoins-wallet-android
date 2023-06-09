@@ -55,6 +55,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.core.app.ShareCompat
+import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
@@ -112,6 +113,13 @@ class ManageWalletFragment : BasePageViewFragment() {
     savedInstanceState: Bundle?
   ): View {
     return ComposeView(requireContext()).apply { setContent { ManageWalletView() } }
+  }
+
+  override fun onCreate(savedInstanceState: Bundle?) {
+    super.onCreate(savedInstanceState)
+    setFragmentResultListener(MANAGE_WALLET_REQUEST_KEY) { _, _ ->
+      viewModel.updateWallets()
+    }
   }
 
   @Composable
@@ -594,6 +602,7 @@ class ManageWalletFragment : BasePageViewFragment() {
 
   companion object {
     const val ADDRESS_KEY = "address_key"
+    const val MANAGE_WALLET_REQUEST_KEY = "manage_wallet_request_key"
   }
 
   private fun navController(): NavController {

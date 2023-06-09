@@ -38,6 +38,8 @@ import androidx.compose.ui.text.font.FontWeight.Companion.Medium
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow.Companion.Ellipsis
 import androidx.compose.ui.unit.dp
+import androidx.core.os.bundleOf
+import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.viewModels
 import com.appcoins.wallet.core.utils.android_common.AmountUtils.formatMoney
 import com.appcoins.wallet.feature.walletInfo.data.wallet.domain.WalletInfo
@@ -278,7 +280,8 @@ class RemoveWalletFragment : BasePageViewFragment() {
     }
   }
 
-  fun navigateToManageWallet() {
+  private fun navigateToManageWallet() {
+    setFragmentResult(ManageWalletFragment.MANAGE_WALLET_REQUEST_KEY, bundleOf())
     requireActivity().onBackPressedDispatcher.onBackPressed()
   }
 }
