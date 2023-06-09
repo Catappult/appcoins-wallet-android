@@ -10,9 +10,14 @@ import com.asfoundation.wallet.ui.iab.PaymentMethodsViewHolder
 import com.jakewharton.rxrelay2.PublishRelay
 
 
-class TopUpPaymentMethodsAdapter(private var paymentMethods: List<PaymentMethod>,
-                                 private var paymentMethodClick: PublishRelay<String>) :
-    RecyclerView.Adapter<PaymentMethodsViewHolder>() {
+class TopUpPaymentMethodsAdapter(
+  private var paymentMethods: List<PaymentMethod>,
+  private var paymentMethodClick: PublishRelay<String>,
+  private val showPaypalLogout: Boolean,
+  private val wasLoggedOut: () -> Boolean,
+  private val logoutCallback: () -> Unit
+) :
+  RecyclerView.Adapter<PaymentMethodsViewHolder>() {
   private var selectedItem = 0
 
   fun setSelectedItem(position: Int) {
@@ -21,18 +26,28 @@ class TopUpPaymentMethodsAdapter(private var paymentMethods: List<PaymentMethod>
   }
 
   override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PaymentMethodsViewHolder {
-    return PaymentMethodsViewHolder(LayoutInflater.from(parent.context)
-        .inflate(R.layout.item_payment_method, parent, false))
+    return PaymentMethodsViewHolder(
+      LayoutInflater.from(parent.context)
+        .inflate(R.layout.item_payment_method, parent, false)
+    )
   }
 
   override fun getItemCount() = paymentMethods.size
 
   override fun onBindViewHolder(holder: PaymentMethodsViewHolder, position: Int) {
-    holder.bind(paymentMethods[position], selectedItem == position, View.OnClickListener {
-      selectedItem = position
-      paymentMethodClick.accept(paymentMethods[position].id)
-      notifyDataSetChanged()
-    }, { })
+    holder.bind(
+      data = paymentMethods[position],
+      checked = selectedItem == position,
+      listener = View.OnClickListener {
+        selectedItem = position
+        paymentMethodClick.accept(paymentMethods[position].id)
+        notifyDataSetChanged()
+      },
+      onClickListenerTopup = { },
+      showPaypalLogout = showPaypalLogout,
+      onClickPaypalLogout = logoutCallback,
+      wasLoggedOut = wasLoggedOut
+    )
   }
 
   fun getSelectedItemData(): PaymentMethod = paymentMethods[selectedItem]

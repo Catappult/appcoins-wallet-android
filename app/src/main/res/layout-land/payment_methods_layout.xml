@@ -94,19 +94,36 @@
           app:layout_constraintTop_toTopOf="parent"
           />
 
-      <com.asfoundation.wallet.ui.iab.payments.common.PurchaseBonusView
-          android:id="@+id/bonus_view"
+      <include
+          android:id="@+id/bonus_layout"
+          layout="@layout/view_purchase_bonus"
           android:layout_width="0dp"
           android:layout_height="wrap_content"
           android:layout_marginStart="@dimen/big_margin"
-          android:layout_marginTop="20dp"
           android:layout_marginEnd="@dimen/big_margin"
-          app:layout_constraintEnd_toEndOf="@id/mid_guideline"
+          android:visibility="invisible"
+          tools:visibility="visible"
+          app:layout_constraintTop_toBottomOf="@id/payment_methods_header"
           app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toBottomOf="@+id/payment_methods_header"
-          app:layout_constraintVertical_bias="1"
-          app:layout_constraintVertical_chainStyle="packed"
-          />
+          app:layout_constraintEnd_toStartOf="@id/mid_guideline"
+          app:layout_constraintBottom_toTopOf="@id/bonus_msg" />
+
+      <TextView
+          android:id="@+id/bonus_msg"
+          style="@style/TopUpTextStyle.Small.BonusText"
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_below="@id/bonus_layout"
+          android:layout_marginStart="@dimen/big_margin"
+          android:layout_marginTop="11dp"
+          android:layout_marginEnd="@dimen/big_margin"
+          android:gravity="center"
+          android:text="@string/gamification_purchase_body"
+          android:visibility="invisible"
+          tools:visibility="visible"
+          app:layout_constraintTop_toBottomOf="@id/bonus_layout"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintEnd_toStartOf="@id/mid_guideline"/>
 
       <ImageView
           android:id="@+id/mid_separator"
