@@ -489,8 +489,8 @@
   <string name="top_up_button">トップアップ</string>
   <string name="back_up_button">ウォレットをバックアップ</string>
   <string name="play_button">プレイ</string>
-  <string name="manage_wallet_button">Manage wallet</string>
-  <string name="log_out_button">Log out</string>
+  <string name="manage_wallet_button">ウォレットの管理</string>
+  <string name="log_out_button">ログアウト</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">AppCoins Walletの%1$sと%2$sに同意します。</string>
   <string name="terms_and_conditions_error">ご利用規約とプライバシーポリシーに同意の上、お進みください。</string>
@@ -534,11 +534,11 @@
   <string name="verification_notification_reward_already_received_body">この電話番号は、すでにこの報酬を受け取るために使用されています😔。</string>
   <string name="verification_insert_phone_field_phone_used_already_error">すでに使用されている番号です。</string>
   <string name="verification_insert_code_error_common">問題が発生しました。再試行してください。</string>
-  <string name="verification_settings_unverified_title">Verify Payment Method</string>
+  <string name="verification_settings_unverified_title">支払い方法の確認</string>
   <string name="verification_settings_unverified_body">リワードをゲットして友達を招待</string>
   <string name="verification_settings_verified_title">ウオレット認証済み</string>
-  <string name="verification_settings_verifying_title">Verifying…</string>
-  <string name="verification_verified_paypal_description">You will be refunded immediately. Your payment method will be verified shortly.</string>
+  <string name="verification_settings_verifying_title">確認中...</string>
+  <string name="verification_verified_paypal_description">すぐに返金されます。お客様のお支払い方法は、まもなく確認されます。</string>
   <string name="verification_verify_paypal_description">アカウントの確認のため、%sの最小限の取引が行われます。これはすぐに返金されます。</string>
   <string name="verification_verify_paypal_button">今すぐ確認</string>
   <string name="verification_settings_card_verified_title">カード認証済み</string>
@@ -598,9 +598,9 @@
   <string name="purchase_error_transaction_timeout">トランザクションの完了に時間がかかりすぎたようです。もう一度お試しください。</string>
   <string name="purchase_error_card_already_in_progress">あなたのリクエストはすでに処理済みか、処理中です。しばらくお待ちください。</string>
   <string name="purchase_error_payment_rejected">取引は拒否されました。別のカードや支払い方法をお試しください。</string>
-  <string name="purchase_error_verify_wallet">Verify your payment method to complete this purchase.</string>
-  <string name="purchase_error_verify_card">Verify your card to complete this purchase.</string>
-  <string name="purachse_error_verify_card_button">VERIFY CARD</string>
+  <string name="purchase_error_verify_wallet">この購入を完了するには支払い方法を確認してください。</string>
+  <string name="purchase_error_verify_card">この購入を完了するためにはこのカードを認証してください。</string>
+  <string name="purachse_error_verify_card_button">カード認証</string>
   <string name="purchase_eskills_sku">エントリーチケット</string>
   <string name="purchase_paytmupi_install_disclaimer">Paytm UPIアプリをインストールする必要があります。</string>
   <string name="purchase_app_needed_body">購入手続きには、以下のアプリが必要です。</string>
@@ -609,10 +609,10 @@
   <string name="purchase_error_wrong_pin_body">あなたのPINコードに問題がありました。もう一度やり直してください。</string>
   <string name="purchase_error_3d_body">3D認証に問題がありました。もう一度お試しください。</string>
   <string name="purchase_error_generic_contact_us_body">何か問題が発生しました。再度お試しいただくか、弊社までご連絡ください。</string>
-  <string name="error_blocked_wallet_title">Blocked Wallet</string>
-  <string name="error_blocked_wallet_body">For security reasons, your wallet has been blocked. Please contact us for more information.</string>
-  <string name="purchase_paypal_additional_fees_disclaimer_body">Additional fees may apply.</string>
-  <string name="purchase_error_paypal">There was a problem with your PayPal payment. Please try again or use a different payment method.</string>
+  <string name="error_blocked_wallet_title">ブロックされたウォレット</string>
+  <string name="error_blocked_wallet_body">セキュリティ上の理由により、お客様のウォレットはブロックされています。お手数ですが、弊社までご連絡ください。</string>
+  <string name="purchase_paypal_additional_fees_disclaimer_body">追加料金が発生する場合があります。</string>
+  <string name="purchase_error_paypal">PayPalでのお支払いに問題が発生しました。再度お試しいただくか、別のお支払い方法をご利用ください。</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">請求先住所</string>
   <string name="purchase_address_address_field">住所</string>
@@ -635,8 +635,8 @@
   <string name="referral_onboarding_body">紹介プログラムであなたとあなたのお友達は最大%sの報酬を得ることができます！</string>
   <string name="referral_onboarding_body_no_connection">あなたとあなたの友人は、紹介プログラムでAppCoinsクレジットを獲得できます！</string>
   <string name="referral_onboarding_redeem_button">すでに招待されている方</string>
-  <string name="referral_verification_title">Verify Payment Method</string>
-  <string name="referral_verification_body">You need to verify your payment method to participate in the Referral Program. We\'ll sent you a verification code via SMS.</string>
+  <string name="referral_verification_title">支払い方法の認証</string>
+  <string name="referral_verification_body">紹介プログラムに参加するためには、支払い方法の確認が必要です。SMSで認証コードをお送りします。</string>
   <string name="referral_verification_confirmation_title">あなたの招待が有効になりました。</string>
   <string name="referral_verification_confirmation_body">初めてのアプリ内購入で、%1$s相当のAppCoins Creditsを獲得できます。初回購入は、AppCoins Credits以外の支払い方法で、%2$s以上の購入である必要があります。</string>
   <string name="referral_verification_not_invited_title">この番号は招待されていないようです&#8230;</string>
@@ -649,8 +649,8 @@
   <string name="referral_view_share_link_button">招待リンクを共有</string>
   <string name="referral_view_notifications_title">通知</string>
   <string name="referral_share_sheet_title">招待リンクを共有：</string>
-  <string name="referral_view_unverified_body">Receive %s worth of AppCoins Credits for each friend. You first need to verify your payment method.</string>
-  <string name="referral_view_verify_button">Verify payment method</string>
+  <string name="referral_view_unverified_body">友達1人につき%s相当のAppCoinsクレジットを受け取ることができます。まず、支払い方法を確認する必要があります。</string>
+  <string name="referral_view_verify_button">支払い方法の認証</string>
   <string name="referral_view_i_have_been_invited_button">すでに招待されている方</string>
   <string name="referral_view_dropup_menu_friends_invited">招待済みの友達</string>
   <string name="referral_view_dropup_menu_earned">獲得額</string>
@@ -922,7 +922,7 @@
   <string name="perks_gamif_subtitle">お気に入りのアプリで使えば使うほど、ボーナスが大きくなります！</string>
   <string name="perks_title">プロモーション</string>
   <string name="perks_body">ご期待ください。特別なキャンペーンをご用意しています。</string>
-  <string name="promotion_ends_short_title">Promotion ends in</string>
+  <string name="promotion_ends_short_title">プロモーション終了まで：</string>
   <plurals name="promotion_ends">
     <item quantity="other">プロモーションは %s日で終了します。</item>
   </plurals>
