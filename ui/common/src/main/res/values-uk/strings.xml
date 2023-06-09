@@ -95,9 +95,9 @@
   <string name="suggestion_this_is_your_address">Моя публічна адреса гаманця %s</string>
   <!-- Hints -->
   <string name="hint_private_key_field">Приватний ключ *</string>
-  <string name="hint_keystore">Keystore *</string>
+  <string name="hint_keystore">Сховище ключів *</string>
   <!-- Tabs labels-->
-  <string name="tab_keystore">Keystore</string>
+  <string name="tab_keystore">Сховище ключів</string>
   <string name="tab_private_key">Приватний ключ</string>
   <!-- Dialog titles -->
   <string name="title_dialog_error">Помилка</string>
@@ -255,8 +255,8 @@
   <string name="transaction_type_standard">Переведення</string>
   <string name="transaction_type_bonus">Бонус</string>
   <string name="transaction_type_eskills_reward">Винагорода e-Skills</string>
-  <string name="transaction_type_eskills">e-Skills Entry Ticket</string>
-  <string name="transaction_type_eskills_ticke_refund">e-Skills Ticket Refund</string>
+  <string name="transaction_type_eskills">Вхідний квиток e-Skills</string>
+  <string name="transaction_type_eskills_ticke_refund">Відшкодування квитка e-Skills</string>
   <string name="transaction_type_voucher">електронний ваучер</string>
   <string name="transaction_type_voucher_title">Ваучер на %s</string>
   <string name="transaction_type_reverted_bonus_title">Повернений бонус</string>
@@ -287,29 +287,29 @@
   <string name="dialog_credit_card_cvv">CVV</string>
   <string name="dialog_bank_card">Кредитна/дебетова карта</string>
   <string name="dialog_expiry_date">Дата закінчення терміну придатності</string>
-  <string name="transaction_type_purchase_bonus">Purchase Bonus</string>
-  <string name="transaction_type_promo_code_bonus">Promo Code Bonus</string>
-  <string name="transaction_type_extra_bonus">Extra Bonus</string>
-  <string name="transaction_type_topup">Top-up</string>
-  <string name="transaction_type_reverted_purchase_bonus">Reverted Purchase Bonus</string>
-  <string name="transaction_type_reverted_promo_code_bonus">Reverted Promo Code Bonus</string>
-  <string name="transaction_type_reverted_extra_bonus">Reverted Extra Bonus</string>
-  <string name="transaction_type_reverted_topup">Reverted Top-up</string>
-  <string name="transaction_type_rejected_topup">Rejected Top-up</string>
-  <string name="transaction_type_rejected_subscription_purchase">Rejected Subscription Purchase</string>
-  <string name="transaction_type_rejected_purchase">Rejected Purchase</string>
-  <string name="transaction_type_rejected_eskills_ticket">Rejected e-Skills Ticket</string>
-  <string name="transaction_type_refund_subscription">Subscription Refund</string>
-  <string name="transaction_type_subscription_payment">Subscription Payment</string>
-  <string name="transaction_type_funds_sent">Funds Sent</string>
-  <string name="transaction_type_funds_received">Funds Received</string>
-  <string name="transaction_type_gift_card">Gift Card</string>
-  <string name="transaction_date_label">Date</string>
-  <string name="transaction_more_details_label">More Details</string>
-  <string name="transaction_rejected_body">This purchase has been rejected.\nFor more information contact support.</string>
-  <string name="transaction_reverted_body">This purchase has been reverted.\nFor more information contact support.</string>
-  <string name="transaction_status_rejected">Rejected</string>
-  <string name="transaction_details_header">Transaction detail</string>
+  <string name="transaction_type_purchase_bonus">Бонус за покупку</string>
+  <string name="transaction_type_promo_code_bonus">Промокод бонус</string>
+  <string name="transaction_type_extra_bonus">Додатковий бонус</string>
+  <string name="transaction_type_topup">Поповнення</string>
+  <string name="transaction_type_reverted_purchase_bonus">Повернений бонус за покупку</string>
+  <string name="transaction_type_reverted_promo_code_bonus">Повернений промокод бонус</string>
+  <string name="transaction_type_reverted_extra_bonus">Повернений додатковий бонус</string>
+  <string name="transaction_type_reverted_topup">Повернене поповнення</string>
+  <string name="transaction_type_rejected_topup">Відхилене поповнення</string>
+  <string name="transaction_type_rejected_subscription_purchase">Відхилена покупка підписки</string>
+  <string name="transaction_type_rejected_purchase">Відхилена покупка</string>
+  <string name="transaction_type_rejected_eskills_ticket">Відхилений квиток e-Skills</string>
+  <string name="transaction_type_refund_subscription">Повернення коштів за підписку</string>
+  <string name="transaction_type_subscription_payment">Оплата підписки</string>
+  <string name="transaction_type_funds_sent">Кошти відправлено</string>
+  <string name="transaction_type_funds_received">Кошти отримано</string>
+  <string name="transaction_type_gift_card">Подарункова карта</string>
+  <string name="transaction_date_label">Дата</string>
+  <string name="transaction_more_details_label">Детальніше</string>
+  <string name="transaction_rejected_body">Цю покупку було відхилено.\nДля додаткової інформації зверніться до підтримки.</string>
+  <string name="transaction_reverted_body">Цю покупку було скасовано.\nДля додаткової інформації зверніться до підтримки.</string>
+  <string name="transaction_status_rejected">Відхилено</string>
+  <string name="transaction_details_header">Деталі транзакції</string>
   <string name="activity_airdrop_title">Підтвердьте, що ви людина, щоб отримати AppCoins</string>
   <string name="activity_airdrop_details">Це лише питання безпеки.</string>
   <string name="activity_airdrop_hint">Введіть слова на малюнку</string>
@@ -429,7 +429,7 @@
   <string name="my_wallets_action_new_wallet">Новий гаманець</string>
   <string name="my_wallets_action_recover_wallet">Відновити гаманець</string>
   <string name="my_wallets_action_backup_wallet">Резервний гаманець</string>
-  <string name="my_wallets_action_verify_new_card">Verify new card</string>
+  <string name="my_wallets_action_verify_new_card">Підтвердити нову картку</string>
   <string name="my_wallets_action_delete_wallet">Видалити гаманець</string>
   <!--Ask a friend for funds-->
   <string name="askafriend_payment_option_button">Попросити когось заплатити</string>
@@ -485,14 +485,14 @@
   <string name="skip_button">Наразі пропустити</string>
   <string name="understand_button">Я розумію</string>
   <string name="install_button">Встановити</string>
-  <string name="get_button">Get</string>
-  <string name="see_all_button">See all</string>
+  <string name="get_button">Отримати</string>
+  <string name="see_all_button">Переглянути все</string>
   <string name="transfer_button">Переведення</string>
   <string name="top_up_button">Поповнити</string>
   <string name="back_up_button">Резервна копія гаманця</string>
-  <string name="play_button">Play</string>
-  <string name="manage_wallet_button">Manage wallet</string>
-  <string name="log_out_button">Log out</string>
+  <string name="play_button">Грати</string>
+  <string name="manage_wallet_button">Керувати гаманцем</string>
+  <string name="log_out_button">Вийти</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Я погоджуюся з %1$s і %2$s AppCoins Wallet\'s.</string>
   <string name="terms_and_conditions_error">Будь ласка, прийміть наші Загальні положення та умови та Політику конфіденційності, щоб продовжити</string>
@@ -1203,34 +1203,34 @@
   <string name="intro_active_promotions_header">Active Promotions</string>
   <string name="topup_home_button">Поповнити</string>
   <string name="intro_home_button">На домашню</string>
-  <string name="intro_rewards_button">Rewards</string>
+  <string name="intro_rewards_button">Винагороди</string>
   <plurals name="days">
     <item quantity="one">DAY</item>
     <item quantity="few">DAYS</item>
     <item quantity="many">DAYS</item>
-    <item quantity="other">DAYS</item>
+    <item quantity="other">ДНІ</item>
   </plurals>
   <plurals name="hours">
     <item quantity="one">HOUR</item>
     <item quantity="few">HOURS</item>
     <item quantity="many">HOURS</item>
-    <item quantity="other">HOURS</item>
+    <item quantity="other">ГОДИНИ</item>
   </plurals>
   <plurals name="minutes">
     <item quantity="one">MINUTE</item>
     <item quantity="few">MINUTES</item>
     <item quantity="many">MINUTES</item>
-    <item quantity="other">MINUTES</item>
+    <item quantity="other">ХВИЛИНИ</item>
   </plurals>
   <plurals name="seconds">
     <item quantity="one">SECOND</item>
     <item quantity="few">SECONDS</item>
     <item quantity="many">SECONDS</item>
-    <item quantity="other">SECONDS</item>
+    <item quantity="other">СЕКУНДИ</item>
   </plurals>
-  <string name="intro_transactions_header">Transactions</string>
-  <string name="intro_backup_card_title">Don\'t loose your funds!</string>
-  <string name="intro_backup_card_body">Back up your wallet and keep it safe all times.</string>
+  <string name="intro_transactions_header">Транзакції</string>
+  <string name="intro_backup_card_title">Не втрачайте свої кошти!</string>
+  <string name="intro_backup_card_body">Зробіть резервну копію свого гаманця і завжди тримайте його в безпеці.</string>
   <string name="rewards_spend_to_next_level_body">Spend more %1$s%2$s to reach the net level!</string>
   <string name="rewards_current_bonus_title">%s%% бонус за кожну покупку</string>
   <string name="rewards_eskills_card_title">Earn Money!</string>
