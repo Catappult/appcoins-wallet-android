@@ -981,7 +981,7 @@
   <string name="rate_us_back_title">ご協力していただけますか？</string>
   <string name="rate_us_back_body">改善のため、アプリストアでAppCoins Walletを評価する。</string>
   <!--Card verification-->
-  <string name="card_verification_body">Verify your credit/debit card to make payments.</string>
+  <string name="card_verification_body">支払いを行うにはクレジットカード/デビットカードを認証してください。</string>
   <string name="card_verification_charde_disclaimer">お客様のカードには%sが請求され、コードを確認した後に返金されます。お使いの銀行によっては、数分から数日かかる場合もあります。</string>
   <string name="card_verification_code_title">取引明細のコードを確認</string>
   <string name="card_verification_code_body">カード発行会社が提供する取引の概要に固有のコードが表示されます。</string>
@@ -999,17 +999,17 @@
   </plurals>
   <string name="card_verification_code_other_card_button">他のカードで試す。</string>
   <string name="card_verification_code_wrong_error">間違ったコード</string>
-  <string name="card_verification_wallets_one_step_title">One more step to verify</string>
+  <string name="card_verification_wallets_one_step_title">認証までのもう１ステップ</string>
   <string name="card_verification_wallets_one_step_body">取引明細に表示されるコードを入力してください。</string>
   <string name="card_verification_wallets_insert_bode_button">コードの入力</string>
   <string name="card_verification_no_attempts_title">間違ったコードが何回も入力されたので、%1$sはあなたのカードに返金されます。</string>
   <string name="card_verification_no_attempts_body">再度、認証プロセスを開始してください。</string>
-  <string name="wallet_verify_header">Verify at least one payment method</string>
-  <string name="verify_card_title">Verify Card</string>
-  <string name="verify_card_button">Verify bank card</string>
-  <string name="verify_paypal_button">Verify PayPal account</string>
-  <string name="card_verification_body_new">%s will be charged to your card and immediately refunded. Check your card statement for the validation code and insert it here.</string>
-  <string name="card_verification_disclaimer_body">Please note that the confirmation code may appear in the refund notification.</string>
+  <string name="wallet_verify_header">少なくとも1つの支払い方法を認証してください</string>
+  <string name="verify_card_title">カードの認証</string>
+  <string name="verify_card_button">銀行カードを認証</string>
+  <string name="verify_paypal_button">PayPalアカウントの認証</string>
+  <string name="card_verification_body_new">%sはカードに請求され、すぐに返金されます。カード明細書に記載されている認証コードを確認し、ここに挿入してください。</string>
+  <string name="card_verification_disclaimer_body">なお、返金通知には確認コードが表示される場合があります。</string>
   <!--Vouchers-->
   <string name="voucher_card_body_1">このクーポンを購入して</string>
   <string name="voucher_card_body_2"> 最大%s%% のボーナスをゲット</string>
@@ -1118,8 +1118,8 @@
   <string name="gift_card_error_new_users_title">このコードは新規ユーザー限定です！</string>
   <string name="gift_card_error_try_with_different_body">別のもので再度お試しください。</string>
   <!-- My Wallet -->
-  <string name="mywallet_unverified_title">Verify a Payment Method</string>
-  <string name="mywallet_unverified_body">Confirm a payment method to avoid blockages.</string>
+  <string name="mywallet_unverified_title">支払い方法の確認</string>
+  <string name="mywallet_unverified_body">決済が滞らないよう、支払い方法を確認</string>
   <string name="mywallet_backed_up_date">%sにウォレットをバックアップしました。</string>
   <string name="mywallet_backup_again_button">再度バックアップ</string>
   <string name="mywallet_verify_payment_method_button">新しいカードの認証</string>
@@ -1166,45 +1166,45 @@
   <string name="vip_program_max_bonus_short">購入毎に最大%s%%のボーナス.</string>
   <string name="vip_program_referral_notification_title">VIP紹介コードが利用可能です！</string>
   <string name="vip_program_referral_notification_body">あなたのコードをコミュニティで共有し、遊びながら収入を得ることができます！</string>
-  <string name="vip_program_title_vip_offer">VIP Offer</string>
+  <string name="vip_program_title_vip_offer">VIPオファー</string>
   <!-- Refactor Home -->
   <string name="intro_welcome_header">AppCoinsウォレットへようこそ</string>
   <string name="intro_welcome_body">AppCoinに対応したアプリやゲームで、ウォレットにチャージしたり、購入することができます。</string>
-  <string name="intro_appcoins_games_header">Discover Games with AppCoins</string>
-  <string name="intro_active_promotions_header">Active Promotions</string>
+  <string name="intro_appcoins_games_header">AppCoinでゲームを探す</string>
+  <string name="intro_active_promotions_header">アクティブ・プロモーション</string>
   <string name="topup_home_button">トップアップします。</string>
   <string name="intro_home_button">ホーム</string>
-  <string name="intro_rewards_button">Rewards</string>
+  <string name="intro_rewards_button">リワード</string>
   <plurals name="days">
-    <item quantity="other">DAYS</item>
+    <item quantity="other">日</item>
   </plurals>
   <plurals name="hours">
-    <item quantity="other">HOURS</item>
+    <item quantity="other">時間</item>
   </plurals>
   <plurals name="minutes">
-    <item quantity="other">MINUTES</item>
+    <item quantity="other">分</item>
   </plurals>
   <plurals name="seconds">
-    <item quantity="other">SECONDS</item>
+    <item quantity="other">秒</item>
   </plurals>
-  <string name="intro_transactions_header">Transactions</string>
-  <string name="intro_backup_card_title">Don\'t loose your funds!</string>
-  <string name="intro_backup_card_body">Back up your wallet and keep it safe all times.</string>
-  <string name="rewards_spend_to_next_level_body">Spend more %1$s%2$s to reach the net level!</string>
+  <string name="intro_transactions_header">取引</string>
+  <string name="intro_backup_card_title">資金を失わないようにしましょう！</string>
+  <string name="intro_backup_card_body">ウォレットをバックアップし、常に安全な状態に保ちましょう。</string>
+  <string name="rewards_spend_to_next_level_body">ネットレベルに到達するために、さらに%1$s%2$sを使う！</string>
   <string name="rewards_current_bonus_title">購入毎に最大%s%%のボーナス</string>
-  <string name="rewards_eskills_card_title">Earn Money!</string>
-  <string name="rewards_eskills_card_body">Beat other players with e-Skills</string>
-  <string name="rewards_promo_code_card_title">Promo Codes</string>
-  <string name="rewards_promo_code_card_body">Use a promo code to get special deals!</string>
+  <string name="rewards_eskills_card_title">お金を稼ごう！</string>
+  <string name="rewards_eskills_card_body">e-Skillで他のプレイヤーに勝とう</string>
+  <string name="rewards_promo_code_card_title">プロモーションコード</string>
+  <string name="rewards_promo_code_card_body">プロモコードを使ってお得に購入しよう！</string>
   <string name="rewards_promo_code_status">状況:</string>
   <string name="rewards_promo_code_status_active">有効</string>
   <string name="rewards_promo_code_status_expired">期限切れ</string>
-  <string name="home_nft_title">The AppCoins Wallet now supports NFTs</string>
+  <string name="home_nft_title">AppCoinsウォレットがNFTに対応しました。</string>
   <!-- Rewards Home -->
-  <string name="rewards_make_first_purchase_body">Make your first purchase in an AppCoins compatible game and unlock a bonus in every purchase.</string>
-  <string name="rewards_bonus_every_purchase_title">Enjoy a %s%% bonus in every purchase</string>
+  <string name="rewards_make_first_purchase_body">AppCoins対応ゲームで初回購入すると、購入ごとにボーナスがアンロックされます。</string>
+  <string name="rewards_bonus_every_purchase_title">購入のたびに%s%% ボーナスをゲット</string>
   <!-- Refactor Manage Wallet -->
-  <string name="manage_wallet_wallet_changed_title">Wallet changed</string>
-  <string name="manage_wallet_change_active_wallet_title">Do you want to select this wallet?</string>
-  <string name="manage_wallet_change_wallet_name_title">Change wallet name</string>
+  <string name="manage_wallet_wallet_changed_title">ウォレットが変更されました</string>
+  <string name="manage_wallet_change_active_wallet_title">このウォレットを選択しますか？</string>
+  <string name="manage_wallet_change_wallet_name_title">ウォレット名の変更</string>
 </resources>
