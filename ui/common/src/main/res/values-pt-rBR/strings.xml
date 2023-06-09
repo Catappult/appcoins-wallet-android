@@ -70,7 +70,7 @@
   <string name="skip_with_arrow">Pular &gt;</string>
   <string name="root_title">SEGURANÇA DO DISPOSITIVO ESTÁ COMPROMETIDA</string>
   <string name="root_body">Qualquer app \'roteado\' pode acessar os dados da keychain da sua AppCoin Wallet e roubar suas wallets! Apaque esta wallet imediatamente e restaure-a em um dispositivo seguro.</string>
-  <string name="credits_purchase_value">%s AppCoins Credits</string>
+  <string name="credits_purchase_value">%s Créditos AppCoins</string>
   <string name="buying">Comprar %s</string>
   <string name="action_buy">Comprar</string>
   <string name="empty"></string>
