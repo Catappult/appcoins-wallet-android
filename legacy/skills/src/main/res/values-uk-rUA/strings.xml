@@ -2,7 +2,7 @@
 <resources>
   <string name="appcoins_wallet">AppCoins Wallet</string>
   <!-- Common -->
-  <string name="start_button">Start</string>
+  <string name="start_button">Почати</string>
   <string name="ok">ОК</string>
   <string name="cancel">Скасувати</string>
   <string name="buy_button">Купити</string>
