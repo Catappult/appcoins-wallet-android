@@ -636,7 +636,7 @@
   <string name="referral_onboarding_body_no_connection">Você e seus amigos podem ganhar Créditos AppCoins com nosso Programa de Recompensas!</string>
   <string name="referral_onboarding_redeem_button">Você foi convidado</string>
   <string name="referral_verification_title">Verificar Método de Pagamento</string>
-  <string name="referral_verification_body">You need to verify your payment method to participate in the Referral Program. We\'ll sent you a verification code via SMS.</string>
+  <string name="referral_verification_body">Você precisa verificar seu método de pagamento para participar do Programa de Recompensas. Nós enviaremos um código de verificação via SMS.</string>
   <string name="referral_verification_confirmation_title">Seu convite foi validado!</string>
   <string name="referral_verification_confirmation_body">Você receberá %1$s em Créditos AppCoins na sua primeira compra dentro de um aplicativo. Sua primeira compra precisa ser acima de %2$s com qualquer método de pagamento diferente de Créditos AppCoins.</string>
   <string name="referral_verification_not_invited_title">Parece que este número não foi convidado&#8230;</string>
@@ -649,8 +649,8 @@
   <string name="referral_view_share_link_button">Compartilhar link de convite</string>
   <string name="referral_view_notifications_title">Notificações</string>
   <string name="referral_share_sheet_title">Compartilhar convite via:</string>
-  <string name="referral_view_unverified_body">Receive %s worth of AppCoins Credits for each friend. You first need to verify your payment method.</string>
-  <string name="referral_view_verify_button">Verify payment method</string>
+  <string name="referral_view_unverified_body">Receba %s em Créditos AppCoins por cada amigo. Primeiro você precisa verificar seu método de pagamento.</string>
+  <string name="referral_view_verify_button">Verificar método de pagamento</string>
   <string name="referral_view_i_have_been_invited_button">Você foi convidado</string>
   <string name="referral_view_dropup_menu_friends_invited">Amigos convidados</string>
   <string name="referral_view_dropup_menu_earned">Recebido</string>
@@ -923,7 +923,7 @@
   <string name="perks_gamif_subtitle">Quanto mais gastar em seus apps favoritos, maior o bônus!</string>
   <string name="perks_title">Promoções</string>
   <string name="perks_body">Fique ligado! Temos promoções especiais para você.</string>
-  <string name="promotion_ends_short_title">Promotion ends in</string>
+  <string name="promotion_ends_short_title">Promoção termina em</string>
   <plurals name="promotion_ends">
     <item quantity="one">A promoção termina em %s dia.</item>
     <item quantity="other">A promoção termina em %s dias.</item>
@@ -988,7 +988,7 @@
   <string name="rate_us_back_title">Gostaria de nos ajudar?</string>
   <string name="rate_us_back_body">Avalie o AppCoins Wallet na app store para que possamos melhorá-lo.</string>
   <!--Card verification-->
-  <string name="card_verification_body">Verify your credit/debit card to make payments.</string>
+  <string name="card_verification_body">Verifique o seu cartão de crédito/débito para efetuar pagamentos.</string>
   <string name="card_verification_charde_disclaimer">Cobraremos %s do seu cartão e o reembolsaremos assim que você confirmar o código. Dependendo de seu banco, pode levar entre minutos e até alguns dias.</string>
   <string name="card_verification_code_title">Verifique o código nos detalhes da transação</string>
   <string name="card_verification_code_body">Um código único será exibido no resumo da transação fornecido pelo emissor do seu cartão.</string>
@@ -1008,17 +1008,17 @@
   </plurals>
   <string name="card_verification_code_other_card_button">Tente com outro cartão</string>
   <string name="card_verification_code_wrong_error">Código incorreto</string>
-  <string name="card_verification_wallets_one_step_title">One more step to verify</string>
+  <string name="card_verification_wallets_one_step_title">Mais uma etapa para verificar</string>
   <string name="card_verification_wallets_one_step_body">Insira o código que aparece nos detalhes da transação.</string>
   <string name="card_verification_wallets_insert_bode_button">Inserir código</string>
   <string name="card_verification_no_attempts_title">Ops, você inseriu um código errado muitas vezes, por isso, %1$s s será reembolsado em seu cartão.</string>
   <string name="card_verification_no_attempts_body">Por favor, reinicie o processo de verificação.</string>
-  <string name="wallet_verify_header">Verify at least one payment method</string>
-  <string name="verify_card_title">Verify Card</string>
-  <string name="verify_card_button">Verify bank card</string>
-  <string name="verify_paypal_button">Verify PayPal account</string>
-  <string name="card_verification_body_new">%s will be charged to your card and immediately refunded. Check your card statement for the validation code and insert it here.</string>
-  <string name="card_verification_disclaimer_body">Please note that the confirmation code may appear in the refund notification.</string>
+  <string name="wallet_verify_header">Verifique pelo menos um método de pagamento</string>
+  <string name="verify_card_title">Verificar Cartão</string>
+  <string name="verify_card_button">Verificar cartão bancário</string>
+  <string name="verify_paypal_button">Verificar conta do PayPal</string>
+  <string name="card_verification_body_new">%s será cobrado no seu cartão e imediatamente reembolsado. Verifique o extrato do seu cartão para obter o código de validação e insira-o aqui.</string>
+  <string name="card_verification_disclaimer_body">Observe que o código de confirmação pode aparecer na notificação de reembolso.</string>
   <!--Vouchers-->
   <string name="voucher_card_body_1">Compre este voucher e receba</string>
   <string name="voucher_card_body_2"> até %s%% de bônus.</string>
@@ -1127,8 +1127,8 @@
   <string name="gift_card_error_new_users_title">Este código é apenas para novos usuários!</string>
   <string name="gift_card_error_try_with_different_body">Tente novamente com um diferente.</string>
   <!-- My Wallet -->
-  <string name="mywallet_unverified_title">Verify a Payment Method</string>
-  <string name="mywallet_unverified_body">Confirm a payment method to avoid blockages.</string>
+  <string name="mywallet_unverified_title">Verificar um Método de Pagamento</string>
+  <string name="mywallet_unverified_body">Confirme uma forma de pagamento para evitar bloqueios.</string>
   <string name="mywallet_backed_up_date">Você fez backup de sua carteira em %s.</string>
   <string name="mywallet_backup_again_button">Fazer backup novamente</string>
   <string name="mywallet_verify_payment_method_button">Verificar novo cartão</string>
@@ -1175,49 +1175,49 @@
   <string name="vip_program_max_bonus_short">%s% bônus em cada compra.</string>
   <string name="vip_program_referral_notification_title">Código de Indicação VIP Disponível!</string>
   <string name="vip_program_referral_notification_body">Compartilhe seu código com sua comunidade para que todos ganhem enquanto jogam!</string>
-  <string name="vip_program_title_vip_offer">VIP Offer</string>
+  <string name="vip_program_title_vip_offer">Oferta VIP</string>
   <!-- Refactor Home -->
   <string name="intro_welcome_header">Bem-vindo à AppCoins Wallet</string>
   <string name="intro_welcome_body">Adicione créditos na carteira ou faça uma compra em qualquer app ou jogo compatível com AppCoins.</string>
-  <string name="intro_appcoins_games_header">Discover Games with AppCoins</string>
-  <string name="intro_active_promotions_header">Active Promotions</string>
+  <string name="intro_appcoins_games_header">Descubra Games com AppCoins</string>
+  <string name="intro_active_promotions_header">Promoções Ativas</string>
   <string name="topup_home_button">Depositar</string>
   <string name="intro_home_button">Início</string>
-  <string name="intro_rewards_button">Rewards</string>
+  <string name="intro_rewards_button">Recompensas</string>
   <plurals name="days">
-    <item quantity="one">DAY</item>
-    <item quantity="other">DAYS</item>
+    <item quantity="one">DIA</item>
+    <item quantity="other">DIAS</item>
   </plurals>
   <plurals name="hours">
-    <item quantity="one">HOUR</item>
-    <item quantity="other">HOURS</item>
+    <item quantity="one">HORA</item>
+    <item quantity="other">HORAS</item>
   </plurals>
   <plurals name="minutes">
-    <item quantity="one">MINUTE</item>
-    <item quantity="other">MINUTES</item>
+    <item quantity="one">MINUTO</item>
+    <item quantity="other">MINUTOS</item>
   </plurals>
   <plurals name="seconds">
-    <item quantity="one">SECOND</item>
-    <item quantity="other">SECONDS</item>
+    <item quantity="one">SEGUNDO</item>
+    <item quantity="other">SEGUNDOS</item>
   </plurals>
-  <string name="intro_transactions_header">Transactions</string>
-  <string name="intro_backup_card_title">Don\'t loose your funds!</string>
-  <string name="intro_backup_card_body">Back up your wallet and keep it safe all times.</string>
-  <string name="rewards_spend_to_next_level_body">Spend more %1$s%2$s to reach the net level!</string>
+  <string name="intro_transactions_header">Transações</string>
+  <string name="intro_backup_card_title">Não perca os seus fundos!</string>
+  <string name="intro_backup_card_body">Faça o backup de sua carteira e mantenha-a sempre segura.</string>
+  <string name="rewards_spend_to_next_level_body">Gaste mais %1$s%2$s para chegar ao próximo nível!</string>
   <string name="rewards_current_bonus_title">%s% bônus em cada compra</string>
-  <string name="rewards_eskills_card_title">Earn Money!</string>
-  <string name="rewards_eskills_card_body">Beat other players with e-Skills</string>
-  <string name="rewards_promo_code_card_title">Promo Codes</string>
-  <string name="rewards_promo_code_card_body">Use a promo code to get special deals!</string>
+  <string name="rewards_eskills_card_title">Ganhe Dinheiro!</string>
+  <string name="rewards_eskills_card_body">Vença outros jogadores com o e-Skills</string>
+  <string name="rewards_promo_code_card_title">Códigos Promocionais</string>
+  <string name="rewards_promo_code_card_body">Utilize um código promocional para obter ofertas imperdíveis!</string>
   <string name="rewards_promo_code_status">Status:</string>
   <string name="rewards_promo_code_status_active">Ativo</string>
   <string name="rewards_promo_code_status_expired">Expirado</string>
-  <string name="home_nft_title">The AppCoins Wallet now supports NFTs</string>
+  <string name="home_nft_title">O AppCoins Wallet agora suporta NFTs</string>
   <!-- Rewards Home -->
-  <string name="rewards_make_first_purchase_body">Make your first purchase in an AppCoins compatible game and unlock a bonus in every purchase.</string>
-  <string name="rewards_bonus_every_purchase_title">Enjoy a %s%% bonus in every purchase</string>
+  <string name="rewards_make_first_purchase_body">Faça a sua primeira compra com um jogo compatível com AppCoins e libere um bônus a cada compra.</string>
+  <string name="rewards_bonus_every_purchase_title">Aproveite um bônus de %s a cada compra</string>
   <!-- Refactor Manage Wallet -->
-  <string name="manage_wallet_wallet_changed_title">Wallet changed</string>
-  <string name="manage_wallet_change_active_wallet_title">Do you want to select this wallet?</string>
-  <string name="manage_wallet_change_wallet_name_title">Change wallet name</string>
+  <string name="manage_wallet_wallet_changed_title">Carteira alterada</string>
+  <string name="manage_wallet_change_active_wallet_title">Você quer selecionar esta carteira?</string>
+  <string name="manage_wallet_change_wallet_name_title">Modificar o nome da carteira</string>
 </resources>
