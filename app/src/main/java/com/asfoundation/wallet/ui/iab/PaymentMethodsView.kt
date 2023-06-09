@@ -51,6 +51,9 @@ interface PaymentMethodsView {
   fun showPaypalV2(gamificationLevel: Int, fiatValue: FiatValue, frequency: String?,
                  isSubscription: Boolean)
 
+  fun showGiroPay(gamificationLevel: Int, fiatValue: FiatValue, frequency: String?,
+                   isSubscription: Boolean)
+
   fun showAdyen(fiatAmount: BigDecimal,
                 fiatCurrency: String,
                 paymentType: PaymentType,
@@ -118,12 +121,13 @@ interface PaymentMethodsView {
 
   enum class SelectedPaymentMethod {
     PAYPAL, PAYPAL_V2, CREDIT_CARD, APPC, APPC_CREDITS, MERGED_APPC, SHARE_LINK, LOCAL_PAYMENTS, EARN_APPC,
-    CARRIER_BILLING, ERROR
+    CARRIER_BILLING, ERROR, GIROPAY
   }
 
   enum class PaymentMethodId(val id: String) {
     PAYPAL("paypal"),
     PAYPAL_V2("paypal_v2"),
+    GIROPAY("giropay"),
     APPC("appcoins"),
     APPC_CREDITS("appcoins_credits"),
     MERGED_APPC("merged_appcoins"),

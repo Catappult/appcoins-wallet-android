@@ -386,6 +386,7 @@ class TopUpFragmentPresenter(
     val paymentMethod = topUpData.paymentMethod!!
     if (paymentMethod.paymentType == PaymentType.CARD
       || paymentMethod.paymentType == PaymentType.PAYPAL
+      || paymentMethod.paymentType == PaymentType.GIROPAY
     ) {
       activity?.navigateToAdyenPayment(
         paymentType = paymentMethod.paymentType,

@@ -143,6 +143,12 @@ class PaymentMethodsPresenter(
                 paymentMethodsData.frequency,
                 paymentMethodsData.subscription
               )
+              GIROPAY -> view.showGiroPay(
+                cachedGamificationLevel,
+                cachedFiatValue!!,
+                paymentMethodsData.frequency,
+                paymentMethodsData.subscription
+              )
               CREDIT_CARD -> view.showCreditCard(
                 cachedGamificationLevel,
                 cachedFiatValue!!,
@@ -1031,6 +1037,7 @@ class PaymentMethodsPresenter(
     loadedPaymentMethodEvent = when (paymentMethodId) {
       PaymentMethodId.PAYPAL.id -> PaymentMethodsAnalytics.PAYMENT_METHOD_PP
       PaymentMethodId.PAYPAL_V2.id -> PaymentMethodsAnalytics.PAYMENT_METHOD_PP_V2
+      PaymentMethodId.GIROPAY.id -> PaymentMethodsAnalytics.PAYMENT_METHOD_GIROPAY
       PaymentMethodId.APPC.id -> PaymentMethodsAnalytics.PAYMENT_METHOD_APPC
       PaymentMethodId.APPC_CREDITS.id -> PaymentMethodsAnalytics.PAYMENT_METHOD_APPC
       PaymentMethodId.MERGED_APPC.id -> PaymentMethodsAnalytics.PAYMENT_METHOD_APPC
