@@ -2,7 +2,7 @@
 <resources>
   <string name="appcoins_wallet">अॅपकॉइन्स वॉलेट</string>
   <!-- Common -->
-  <string name="start_button">Start</string>
+  <string name="start_button">सुरु करा</string>
   <string name="ok">ठीक आहे</string>
   <string name="cancel">रद्द करा</string>
   <string name="buy_button">खरेदी करा</string>
@@ -34,11 +34,11 @@
   <string name="shared_room_waiting">प्रतिस्पर्ध्यांनी जुडण्यासाठी थांबलो आहोत %s</string>
   <string name="update_wallet">Update wallet</string>
   <!-- Update wallet -->
-  <string name="update_not_supported_title">Wallet version not supported!</string>
-  <string name="update_not_supported_body">Update the AppCoins Wallet to the latest version.</string>
+  <string name="update_not_supported_title">वॉलेट आवृत्ती समर्थित नाही!</string>
+  <string name="update_not_supported_body">अॅपकॉइन्स वॉलेटला नविनोत्तम आवृत्तीत अद्यतनित करा.</string>
   <string name="update_button">अद्यतन</string>
   <!-- Refer a friend -->
-  <string name="refer_a_friend_waiting_room_tooltip">You and the friends you invite will receive a $%s bonus. You can invite up to 5 friends, and they must be new users. The bonus will be credited in your wallet once they use your invitation code in their first e-Skills game.</string>
+  <string name="refer_a_friend_waiting_room_tooltip">आपणांस आणि आपण निमंत्रित केलेल्या मित्रांना $%s बोनस मिळेल. आपण ५ मित्रांपर्यंत निमंत्रित करु शकता आणि ते नविन वापरकर्ते असायला हवेत. मित्रांनी त्यांच्या पहिल्या ई-स्किल्स खेळात आपला निमंत्रण कोड वापरल्यानंतर आपल्या वॉलेटमध्ये बोनस दिला जाईल.</string>
   <string name="refer_a_friend_first_time_header">Ready to show your skills?</string>
   <string name="refer_a_friend_first_time_body">Beat other players to get a prize in real money! Let\'s start with a practice game with no entry fee.</string>
   <string name="refer_a_friend_error_unavailable_body">This feature is currently unavailable.</string>
