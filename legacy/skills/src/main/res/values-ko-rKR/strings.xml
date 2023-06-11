@@ -47,11 +47,11 @@
   <string name="refer_a_friend_first_time_tooltip">소개 프로그램을 사용하면 친구 코드를 사용할 때 $%s 보너스를 받을 수 있습니다. 또한 앱 내 구매나 e-Skills 입장권에 사용될 보너스와 같은 금액을 받습니다.</string>
   <string name="refer_a_friend_waiting_room_title">친구 초대하기!</string>
   <string name="refer_a_friend_waiting_from_body">친구를 초대할 때마다 보너스를 받으세요.</string>
-  <string name="refer_a_friend_invitation_message">You\'ve been invited to play %1$s! Use the invite code %2$s after downloading it from %3$s.</string>
+  <string name="refer_a_friend_invitation_message">%1$s 플레이에 초대 받았습니다! %3$s에서 다운로드 후 %2$s 초대 코드를 사용하세요.</string>
   <!-- Error messages -->
-  <string name="error_vpn_not_permitted_title">e-Skills games cannot be played with an active VPN. Please disable it and try again!</string>
+  <string name="error_vpn_not_permitted_title">e-Skills 게임은 VPN을 활성화 후 플레이할 수 없습니다. 비활성화 후 다시 시도해 주세요!</string>
   <string name="top_up_needed_body">보안상의 이유로, e-Skills 게임을 하기 위해서는 지갑에 최소한 한 개 이상을 충전해야 합니다.</string>
   <string name="not_enough_funds_body">자본이 부족합니다! 입장 티켓을 구매하여 충전하세요.</string>
   <string name="error_message_local_payment_method_body">현지 결제 방식은 참가비를 구매할 수 없습니다. 새로운 지갑을 만들어서 직불 카드나 페이팔로 충전해주세요!</string>
-  <string name="rooted_device_blocked_body">Unfortunately, you cannot play e-Skills games with a rooted device.</string>
+  <string name="rooted_device_blocked_body">아쉽게도 루팅된 기기로 e-Skills 게임을 플레이하실 수 없습니다.</string>
 </resources>
