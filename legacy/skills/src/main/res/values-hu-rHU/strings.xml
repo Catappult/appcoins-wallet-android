@@ -47,11 +47,11 @@
   <string name="refer_a_friend_first_time_tooltip">Az Ajánlási programunkkal $%s bónuszt kapsz, ha egy barátod kódját használod. Ők is ugyanekkora bónuszt kapnak, amit alkalmazáson belüli vásárlásokra vagy e-Skills belépőre költhetnek el.</string>
   <string name="refer_a_friend_waiting_room_title">Hívd meg egy barátod!</string>
   <string name="refer_a_friend_waiting_from_body">Bónusz minden barát után.</string>
-  <string name="refer_a_friend_invitation_message">You\'ve been invited to play %1$s! Use the invite code %2$s after downloading it from %3$s.</string>
+  <string name="refer_a_friend_invitation_message">Meghívtak a(z) %1$s kipróbálására! Használd a %2$s meghívókódot miután letöltötted innen: %3$s.</string>
   <!-- Error messages -->
-  <string name="error_vpn_not_permitted_title">e-Skills games cannot be played with an active VPN. Please disable it and try again!</string>
+  <string name="error_vpn_not_permitted_title">Az e-Skills játékokat nem játszhatod aktív VPN mellett! Kapcsold ki, majd próbáld újra!</string>
   <string name="top_up_needed_body">Biztonsági okokból az e-Skills játékok megnyitásához el kell végezned legalább egy befizetést.</string>
   <string name="not_enough_funds_body">Nincs elég pénzed. Kérjük, fizess be a belépőjegy megvételéhez.</string>
   <string name="error_message_local_payment_method_body">A belépőjegyet nem lehet megvásárolni helyi fizetési módokkal. Hozz létre egy új pénztárcát, és küldj rá pénzt egy bankkártya vagy PayPal segítségével!</string>
-  <string name="rooted_device_blocked_body">Unfortunately, you cannot play e-Skills games with a rooted device.</string>
+  <string name="rooted_device_blocked_body">Az e-Skills játékokat sajnos nem tudod rootolt eszközzel játszani.</string>
 </resources>
