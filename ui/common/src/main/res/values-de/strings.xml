@@ -1185,11 +1185,11 @@
   <string name="intro_home_button">Startseite</string>
   <string name="intro_rewards_button">Belohnungen</string>
   <plurals name="days">
-    <item quantity="one">DAY</item>
+    <item quantity="one">TAG</item>
     <item quantity="other">TAGE</item>
   </plurals>
   <plurals name="hours">
-    <item quantity="one">HOUR</item>
+    <item quantity="one">STUNDE</item>
     <item quantity="other">STUNDEN</item>
   </plurals>
   <plurals name="minutes">
@@ -1197,7 +1197,7 @@
     <item quantity="other">MINUTEN</item>
   </plurals>
   <plurals name="seconds">
-    <item quantity="one">SECOND</item>
+    <item quantity="one">SEKUNDE</item>
     <item quantity="other">SEKUNDEN</item>
   </plurals>
   <string name="intro_transactions_header">Transaktionen</string>
