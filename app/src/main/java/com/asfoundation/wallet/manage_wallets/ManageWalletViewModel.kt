@@ -11,6 +11,7 @@ import com.appcoins.wallet.feature.walletInfo.data.wallet.domain.inactiveWallets
 import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.ObserveWalletInfoUseCase
 import com.appcoins.wallet.feature.walletInfo.data.wallet.usecases.UpdateWalletNameUseCase
 import com.asfoundation.wallet.home.usecases.DisplayChatUseCase
+import com.asfoundation.wallet.interact.DeleteWalletInteract
 import com.asfoundation.wallet.ui.wallets.WalletDetailsInteractor
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -25,7 +26,8 @@ constructor(
   private val observeWalletInfoUseCase: ObserveWalletInfoUseCase,
   private val walletsInteract: WalletsInteract,
   private val walletDetailsInteractor: WalletDetailsInteractor,
-  private val updateWalletNameUseCase: UpdateWalletNameUseCase
+  private val updateWalletNameUseCase: UpdateWalletNameUseCase,
+  private val deleteWalletInteract: DeleteWalletInteract
 ) : ViewModel() {
 
   private val _uiState = MutableStateFlow<UiState>(UiState.Idle)
@@ -42,8 +44,12 @@ constructor(
     getWallets()
   }
 
+  fun updateWallets() = getWallets()
+
+
   private fun getWallets(walletChanged: Boolean = false) {
-    walletsInteract.observeWalletsModel()
+    walletsInteract
+      .observeWalletsModel()
       .firstOrError()
       .doOnSubscribe { _uiState.value = UiState.Loading }
       .doOnSuccess { wallets ->
@@ -54,21 +60,17 @@ constructor(
   }
 
   private fun getActiveWallet(wallets: WalletsModel) {
-    observeWalletInfoUseCase(
-      wallets.activeWalletAddress(),
-      update = true,
-      updateFiat = true
-    )
+    observeWalletInfoUseCase(wallets.activeWalletAddress(), update = true, updateFiat = true)
       .firstOrError()
-      .doOnSuccess {
-        _uiState.value = UiState.Success(it, wallets.inactiveWallets())
-      }.subscribe()
+      .doOnSuccess { _uiState.value = UiState.Success(it, wallets.inactiveWallets()) }
+      .subscribe()
   }
 
   sealed class UiState {
     object Idle : UiState()
     object Loading : UiState()
     object WalletChanged : UiState()
+    object WalletDeleted : UiState()
     data class Success(
       val activeWalletInfo: WalletInfo,
       val inactiveWallets: List<WalletInfoSimple>
@@ -76,14 +78,21 @@ constructor(
   }
 
   fun changeActiveWallet(wallet: String) {
-    walletDetailsInteractor.setActiveWallet(wallet)
+    walletDetailsInteractor
+      .setActiveWallet(wallet)
       .doOnComplete { getWallets(walletChanged = true) }
       .subscribe()
   }
 
   fun setName(wallet: String, name: String) {
-    updateWalletNameUseCase(wallet, name)
-      .doOnComplete { getWallets() }
+    updateWalletNameUseCase(wallet, name).doOnComplete { getWallets() }.subscribe()
+  }
+
+  fun deleteWallet(wallet: String) {
+    deleteWalletInteract.delete(wallet)
+      .doOnComplete {
+        _uiState.value = UiState.WalletDeleted
+      }
       .subscribe()
   }
 }

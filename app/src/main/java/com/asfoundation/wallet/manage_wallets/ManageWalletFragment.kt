@@ -55,7 +55,10 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.core.app.ShareCompat
+import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
+import androidx.navigation.NavController
+import androidx.navigation.fragment.NavHostFragment
 import com.appcoins.wallet.core.utils.android_common.AmountUtils.formatMoney
 import com.appcoins.wallet.core.utils.android_common.extensions.StringUtils.masked
 import com.appcoins.wallet.feature.changecurrency.data.currencies.FiatValue
@@ -84,6 +87,7 @@ import com.asf.wallet.R
 import com.asfoundation.wallet.manage_wallets.ManageWalletViewModel.UiState.Loading
 import com.asfoundation.wallet.manage_wallets.ManageWalletViewModel.UiState.Success
 import com.asfoundation.wallet.manage_wallets.ManageWalletViewModel.UiState.WalletChanged
+import com.asfoundation.wallet.manage_wallets.ManageWalletViewModel.UiState.WalletDeleted
 import com.asfoundation.wallet.my_wallets.main.MyWalletsNavigator
 import com.asfoundation.wallet.my_wallets.more.MoreDialogNavigator
 import com.wallet.appcoins.core.legacy_base.BasePageViewFragment
@@ -109,6 +113,13 @@ class ManageWalletFragment : BasePageViewFragment() {
     savedInstanceState: Bundle?
   ): View {
     return ComposeView(requireContext()).apply { setContent { ManageWalletView() } }
+  }
+
+  override fun onCreate(savedInstanceState: Bundle?) {
+    super.onCreate(savedInstanceState)
+    setFragmentResultListener(MANAGE_WALLET_REQUEST_KEY) { _, _ ->
+      viewModel.updateWallets()
+    }
   }
 
   @Composable
@@ -139,6 +150,8 @@ class ManageWalletFragment : BasePageViewFragment() {
             CircularProgressIndicator()
           }
 
+        WalletDeleted -> viewModel.updateWallets()
+
         else -> {}
       }
     }
@@ -152,7 +165,7 @@ class ManageWalletFragment : BasePageViewFragment() {
     inactiveWallets: List<WalletInfoSimple>
   ) {
     LazyColumn(modifier = Modifier.padding(padding)) {
-      item { ScreenHeader(walletInfo) }
+      item { ScreenHeader(inactiveWallets.size) }
       item { ActiveWalletCard(walletInfo) }
 
       items(inactiveWallets) { wallet ->
@@ -265,14 +278,14 @@ class ManageWalletFragment : BasePageViewFragment() {
   }
 
   @Composable
-  fun ScreenHeader(walletInfo: WalletInfo) {
+  fun ScreenHeader(inactiveWalletsQuantity: Int) {
     Row(
       horizontalArrangement = SpaceBetween,
       verticalAlignment = CenterVertically,
       modifier = Modifier.fillMaxWidth()
     ) {
       ScreenTitle()
-      ManagementOptionsBottomSheet(walletInfo)
+      ManagementOptionsBottomSheet(inactiveWalletsQuantity)
     }
   }
 
@@ -289,7 +302,7 @@ class ManageWalletFragment : BasePageViewFragment() {
 
   @OptIn(ExperimentalMaterial3Api::class)
   @Composable
-  fun ManagementOptionsBottomSheet(walletInfo: WalletInfo) {
+  fun ManagementOptionsBottomSheet(inactiveWalletsQuantity: Int) {
     var openBottomSheet by rememberSaveable { mutableStateOf(false) }
     val scope = rememberCoroutineScope()
     val bottomSheetState = rememberModalBottomSheetState(false)
@@ -327,18 +340,12 @@ class ManageWalletFragment : BasePageViewFragment() {
               navigator.navigateToRestoreWallet()
             }
           })
-        BottomSheetButton(R.drawable.ic_delete_v3,
+        if (inactiveWalletsQuantity > 0) BottomSheetButton(R.drawable.ic_delete_v3,
           R.string.my_wallets_action_delete_wallet,
           onClick = {
             scope.launch { bottomSheetState.hide() }.invokeOnCompletion {
               openBottomSheet = !openBottomSheet
-              navigator.navigateToRemoveWallet(
-                walletAddress = walletInfo.wallet,
-                totalFiatBalance = walletInfo.walletBalance.overallFiat.amount.toString(),
-                appcoinsBalance = walletInfo.walletBalance.appcBalance.token.amount.toString(),
-                creditsBalance = walletInfo.walletBalance.creditsBalance.token.amount.toString(),
-                ethereumBalance = walletInfo.walletBalance.ethBalance.token.amount.toString()
-              )
+              myWalletsNavigator.navigateToRemoveWallet(navController = navController())
             }
           })
       }
@@ -595,5 +602,13 @@ class ManageWalletFragment : BasePageViewFragment() {
 
   companion object {
     const val ADDRESS_KEY = "address_key"
+    const val MANAGE_WALLET_REQUEST_KEY = "manage_wallet_request_key"
+  }
+
+  private fun navController(): NavController {
+    val navHostFragment = requireActivity().supportFragmentManager.findFragmentById(
+      R.id.main_host_container
+    ) as NavHostFragment
+    return navHostFragment.navController
   }
 }
