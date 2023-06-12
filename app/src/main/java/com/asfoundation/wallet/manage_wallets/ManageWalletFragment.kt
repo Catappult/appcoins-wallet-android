@@ -31,7 +31,6 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -79,6 +78,8 @@ import com.appcoins.wallet.ui.widgets.VerifyWalletAlertCard
 import com.appcoins.wallet.ui.widgets.component.BottomSheetButton
 import com.appcoins.wallet.ui.widgets.component.ButtonType
 import com.appcoins.wallet.ui.widgets.component.ButtonWithText
+import com.appcoins.wallet.ui.widgets.component.WalletBottomSheet
+import com.appcoins.wallet.ui.widgets.component.WalletTextField
 import com.asf.wallet.R
 import com.asfoundation.wallet.manage_wallets.ManageWalletViewModel.UiState.Loading
 import com.asfoundation.wallet.manage_wallets.ManageWalletViewModel.UiState.Success
@@ -247,12 +248,8 @@ class ManageWalletFragment : BasePageViewFragment() {
         )
       }
       Row {
-        VectorIconButton(
-          imageVector = Icons.Default.Edit,
-          contentDescription = R.string.action_edit,
-          onClick = {})
-        VectorIconButton(
-          painter = painterResource(R.drawable.ic_qrcode),
+        EditNameBottomSheet(wallet)
+        VectorIconButton(painter = painterResource(R.drawable.ic_qrcode),
           contentDescription = R.string.scan_qr,
           onClick = {})
         VectorIconButton(
@@ -294,10 +291,8 @@ class ManageWalletFragment : BasePageViewFragment() {
   @Composable
   fun ManagementOptionsBottomSheet(walletInfo: WalletInfo) {
     var openBottomSheet by rememberSaveable { mutableStateOf(false) }
-    val skipPartiallyExpanded by remember { mutableStateOf(false) }
     val scope = rememberCoroutineScope()
-    val bottomSheetState =
-      rememberModalBottomSheetState(skipPartiallyExpanded = skipPartiallyExpanded)
+    val bottomSheetState = rememberModalBottomSheetState(false)
 
     Row(
       horizontalArrangement = Arrangement.End,
@@ -314,63 +309,38 @@ class ManageWalletFragment : BasePageViewFragment() {
       )
     }
 
-    if (openBottomSheet) {
-      ModalBottomSheet(
-        onDismissRequest = { openBottomSheet = false },
-        sheetState = bottomSheetState,
-        containerColor = styleguide_blue_secondary
-      ) {
-        Column(
-          Modifier
-            .fillMaxWidth()
-            .padding(bottom = 48.dp),
-          verticalArrangement = Arrangement.Center
-        ) {
-          BottomSheetButton(
-            R.drawable.ic_plus_v3,
-            R.string.my_wallets_action_new_wallet,
-            onClick = {
-              scope
-                .launch { bottomSheetState.hide() }
-                .invokeOnCompletion {
-                  openBottomSheet = !openBottomSheet
-                  navigator.navigateToCreateNewWallet()
-                }
-            })
-          BottomSheetButton(
-            R.drawable.ic_recover_wallet,
-            R.string.my_wallets_action_recover_wallet,
-            onClick = {
-              scope
-                .launch { bottomSheetState.hide() }
-                .invokeOnCompletion {
-                  openBottomSheet = !openBottomSheet
-                  navigator.navigateToRestoreWallet()
-                }
-            })
-          BottomSheetButton(
-            R.drawable.ic_delete_v3,
-            R.string.my_wallets_action_delete_wallet,
-            onClick = {
-              scope
-                .launch { bottomSheetState.hide() }
-                .invokeOnCompletion {
-                  openBottomSheet = !openBottomSheet
-                  navigator.navigateToRemoveWallet(
-                    walletAddress = walletInfo.wallet,
-                    totalFiatBalance =
-                    walletInfo.walletBalance.overallFiat.amount.toString(),
-                    appcoinsBalance =
-                    walletInfo.walletBalance.appcBalance.token.amount.toString(),
-                    creditsBalance =
-                    walletInfo.walletBalance.creditsBalance.token.amount
-                      .toString(),
-                    ethereumBalance =
-                    walletInfo.walletBalance.ethBalance.token.amount.toString()
-                  )
-                }
-            })
-        }
+    WalletBottomSheet(
+      openBottomSheet, onDismissRequest = { openBottomSheet = false }, bottomSheetState
+    ) {
+      Column(verticalArrangement = Arrangement.Center) {
+        BottomSheetButton(R.drawable.ic_plus_v3, R.string.my_wallets_action_new_wallet, onClick = {
+          scope.launch { bottomSheetState.hide() }.invokeOnCompletion {
+            openBottomSheet = !openBottomSheet
+            navigator.navigateToCreateNewWallet()
+          }
+        })
+        BottomSheetButton(R.drawable.ic_recover_wallet,
+          R.string.my_wallets_action_recover_wallet,
+          onClick = {
+            scope.launch { bottomSheetState.hide() }.invokeOnCompletion {
+              openBottomSheet = !openBottomSheet
+              navigator.navigateToRestoreWallet()
+            }
+          })
+        BottomSheetButton(R.drawable.ic_delete_v3,
+          R.string.my_wallets_action_delete_wallet,
+          onClick = {
+            scope.launch { bottomSheetState.hide() }.invokeOnCompletion {
+              openBottomSheet = !openBottomSheet
+              navigator.navigateToRemoveWallet(
+                walletAddress = walletInfo.wallet,
+                totalFiatBalance = walletInfo.walletBalance.overallFiat.amount.toString(),
+                appcoinsBalance = walletInfo.walletBalance.appcBalance.token.amount.toString(),
+                creditsBalance = walletInfo.walletBalance.creditsBalance.token.amount.toString(),
+                ethereumBalance = walletInfo.walletBalance.ethBalance.token.amount.toString()
+              )
+            }
+          })
       }
     }
   }
@@ -380,9 +350,6 @@ class ManageWalletFragment : BasePageViewFragment() {
   fun BalanceBottomSheet(walletInfo: WalletInfo) {
     val balance = walletInfo.walletBalance
     var openBottomSheet by rememberSaveable { mutableStateOf(false) }
-    val skipPartiallyExpanded by remember { mutableStateOf(false) }
-    val bottomSheetState =
-      rememberModalBottomSheetState(skipPartiallyExpanded = skipPartiallyExpanded)
 
     Row(
       horizontalArrangement = Arrangement.SpaceBetween,
@@ -402,8 +369,7 @@ class ManageWalletFragment : BasePageViewFragment() {
           text =
           balance.creditsOnlyFiat.amount
             .toString()
-            .formatMoney(balance.creditsOnlyFiat.symbol, "")
-            ?: "",
+            .formatMoney(balance.creditsOnlyFiat.symbol, "") ?: "",
           style = MaterialTheme.typography.bodyMedium,
           color = styleguide_light_grey,
           fontWeight = FontWeight.Bold,
@@ -413,60 +379,38 @@ class ManageWalletFragment : BasePageViewFragment() {
       }
     }
 
-    if (openBottomSheet) {
-      ModalBottomSheet(
-        onDismissRequest = { openBottomSheet = false },
-        sheetState = bottomSheetState,
-        containerColor = styleguide_blue_secondary
-      ) {
-        Column(
-          modifier =
-          Modifier
-            .fillMaxWidth()
-            .padding(start = 16.dp, end = 16.dp, bottom = 48.dp),
-          verticalArrangement = Arrangement.spacedBy(16.dp)
+    WalletBottomSheet(openBottomSheet, { openBottomSheet = false }) {
+      Column(verticalArrangement = Arrangement.spacedBy(16.dp)) {
+        TotalBalance(
+          amount = balance.creditsOnlyFiat.amount.toString()
+            .formatMoney(balance.creditsOnlyFiat.symbol, "") ?: "", convertedAmount = "${
+            balance.creditsBalance.token.amount.toString().formatMoney()
+          } ${balance.creditsBalance.token.symbol}"
+        )
+        Row(
+          horizontalArrangement = Arrangement.SpaceBetween,
+          verticalAlignment = CenterVertically,
+          modifier = Modifier.fillMaxWidth()
         ) {
-          TotalBalance(
-            amount =
-            balance.creditsOnlyFiat.amount
-              .toString()
-              .formatMoney(balance.creditsOnlyFiat.symbol, "")
-              ?: "",
-            convertedAmount =
-            "${
+          BalanceItem(
+            icon = R.drawable.ic_appc_token, currencyName = R.string.appc_token_name, balance = "${
+              balance.appcBalance.token.amount.toString().formatMoney()
+            } ${balance.appcBalance.token.symbol}"
+          )
+          BalanceItem(
+            icon = R.drawable.ic_appc_c_token,
+            currencyName = R.string.appc_credits_token_name,
+            balance = "${
               balance.creditsBalance.token.amount.toString().formatMoney()
             } ${balance.creditsBalance.token.symbol}"
           )
-          Row(
-            horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = CenterVertically,
-            modifier = Modifier.fillMaxWidth()
-          ) {
-            BalanceItem(
-              icon = R.drawable.ic_appc_token,
-              currencyName = R.string.appc_token_name,
-              balance =
-              "${
-                balance.appcBalance.token.amount.toString().formatMoney()
-              } ${balance.appcBalance.token.symbol}"
-            )
-            BalanceItem(
-              icon = R.drawable.ic_appc_c_token,
-              currencyName = R.string.appc_credits_token_name,
-              balance =
-              "${
-                balance.creditsBalance.token.amount.toString().formatMoney()
-              } ${balance.creditsBalance.token.symbol}"
-            )
-            BalanceItem(
-              icon = R.drawable.ic_eth_token,
-              currencyName = R.string.ethereum_token_name,
-              balance =
-              "${
-                balance.ethBalance.token.amount.toString().formatMoney()
-              } ${balance.ethBalance.token.symbol}"
-            )
-          }
+          BalanceItem(
+            icon = R.drawable.ic_eth_token,
+            currencyName = R.string.ethereum_token_name,
+            balance = "${
+              balance.ethBalance.token.amount.toString().formatMoney()
+            } ${balance.ethBalance.token.symbol}"
+          )
         }
       }
     }
@@ -507,59 +451,87 @@ class ManageWalletFragment : BasePageViewFragment() {
   @OptIn(ExperimentalMaterial3Api::class)
   @Composable
   fun ChangeWalletBottomSheet(walletBalance: WalletInfoSimple) {
-    val skipPartiallyExpanded by remember { mutableStateOf(false) }
     val scope = rememberCoroutineScope()
-    val bottomSheetState =
-      rememberModalBottomSheetState(skipPartiallyExpanded = skipPartiallyExpanded)
+    val bottomSheetState = rememberModalBottomSheetState(false)
 
-    if (viewModel.openBottomSheet.value) {
-      ModalBottomSheet(
-        onDismissRequest = { viewModel.openBottomSheet.value = false },
-        sheetState = bottomSheetState,
-        containerColor = styleguide_blue_secondary
-      ) {
-        Column(
-          Modifier
-            .fillMaxWidth()
-            .padding(horizontal = 16.dp)
-            .padding(bottom = 48.dp),
-          verticalArrangement = Arrangement.Center
+    WalletBottomSheet(
+      viewModel.openBottomSheet.value, { viewModel.openBottomSheet.value = false }, bottomSheetState
+    ) {
+      Column(verticalArrangement = Arrangement.Center) {
+        Text(
+          modifier = Modifier.padding(bottom = 24.dp),
+          text = stringResource(R.string.manage_wallet_change_active_wallet_title),
+          color = styleguide_light_grey,
+          style = MaterialTheme.typography.bodyMedium,
+          fontWeight = FontWeight.Bold
+        )
+        Card(
+          colors = CardDefaults.cardColors(styleguide_blue),
+          modifier = Modifier.padding(bottom = 24.dp)
         ) {
+          InactiveWalletCard(walletBalance)
+        }
+        ButtonWithText(
+          label = stringResource(R.string.wallet_view_activate_button),
+          labelColor = styleguide_light_grey,
+          backgroundColor = styleguide_pink,
+          onClick = {
+            scope.launch { bottomSheetState.hide() }.invokeOnCompletion {
+              viewModel.openBottomSheet.value = !viewModel.openBottomSheet.value
+              viewModel.changeActiveWallet(walletBalance.walletAddress)
+            }
+          },
+          buttonType = ButtonType.LARGE
+        )
+      }
+    }
+  }
+
+  @OptIn(ExperimentalMaterial3Api::class)
+  @Composable
+  fun EditNameBottomSheet(wallet: String) {
+    var openBottomSheet by rememberSaveable { mutableStateOf(false) }
+    val scope = rememberCoroutineScope()
+    val bottomSheetState = rememberModalBottomSheetState(false)
+    var name by remember { mutableStateOf("") }
+
+    VectorIconButton(imageVector = Icons.Default.Edit,
+      contentDescription = R.string.action_edit,
+      onClick = { openBottomSheet = !openBottomSheet })
+
+    WalletBottomSheet(openBottomSheet, { openBottomSheet = false }, bottomSheetState) {
+      LazyColumn(verticalArrangement = Arrangement.Center) {
+        item {
           Text(
-            modifier = Modifier.padding(start = 8.dp, bottom = 24.dp),
-            text = stringResource(R.string.manage_wallet_change_active_wallet_title),
+            modifier = Modifier.padding(bottom = 24.dp),
+            text = stringResource(R.string.manage_wallet_change_wallet_name_title),
             color = styleguide_light_grey,
             style = MaterialTheme.typography.bodyMedium,
             fontWeight = FontWeight.Bold
           )
-          Card(
-            colors = CardDefaults.cardColors(styleguide_blue),
-            modifier = Modifier.padding(bottom = 24.dp)
-          ) {
-            InactiveWalletCard(walletBalance)
+        }
+
+        item {
+          WalletTextField(name) { newName ->
+            name = newName
           }
-          Row(
-            Modifier
-              .padding(horizontal = 8.dp)
-              .fillMaxWidth(),
-            horizontalArrangement = Arrangement.Center
-          ) {
-            ButtonWithText(
-              label = stringResource(R.string.wallet_view_activate_button),
-              labelColor = styleguide_light_grey,
-              backgroundColor = styleguide_pink,
-              onClick = {
-                scope
-                  .launch { bottomSheetState.hide() }
-                  .invokeOnCompletion {
-                    viewModel.openBottomSheet.value =
-                      !viewModel.openBottomSheet.value
-                    viewModel.changeActiveWallet(walletBalance.walletAddress)
-                  }
-              },
-              buttonType = ButtonType.LARGE
-            )
-          }
+        }
+
+        item {
+          ButtonWithText(
+            label = stringResource(R.string.action_save),
+            labelColor = styleguide_light_grey,
+            backgroundColor = styleguide_pink,
+            onClick = {
+              scope.launch {
+                bottomSheetState.hide()
+              }.invokeOnCompletion {
+                openBottomSheet = !openBottomSheet
+                viewModel.setName(wallet, name)
+              }
+            },
+            buttonType = ButtonType.LARGE
+          )
         }
       }
     }
@@ -573,7 +545,7 @@ class ManageWalletFragment : BasePageViewFragment() {
     Toast.makeText(context, R.string.copied_to_clipboard, Toast.LENGTH_SHORT).show()
   }
 
-  fun shareAddress(walletAddress: String) =
+  private fun shareAddress(walletAddress: String) =
     ShareCompat.IntentBuilder(requireActivity())
       .setText(walletAddress)
       .setType("text/plain")

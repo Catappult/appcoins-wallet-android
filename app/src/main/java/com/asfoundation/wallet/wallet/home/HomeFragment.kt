@@ -20,7 +20,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
@@ -46,6 +45,7 @@ import com.appcoins.wallet.core.utils.android_common.WalletCurrency.FIAT
 import com.appcoins.wallet.ui.common.theme.WalletColors
 import com.appcoins.wallet.ui.widgets.*
 import com.appcoins.wallet.ui.widgets.component.BottomSheetButton
+import com.appcoins.wallet.ui.widgets.component.WalletBottomSheet
 import com.asf.wallet.R
 import com.asfoundation.wallet.entity.GlobalBalance
 import com.asfoundation.wallet.promotions.model.DefaultItem
@@ -150,10 +150,8 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
     padding: PaddingValues
   ) {
     var openBottomSheet by rememberSaveable { mutableStateOf(false) }
-    val skipPartiallyExpanded by remember { mutableStateOf(false) }
     val scope = rememberCoroutineScope()
-    val bottomSheetState =
-      rememberModalBottomSheetState(skipPartiallyExpanded = skipPartiallyExpanded)
+    val bottomSheetState = rememberModalBottomSheetState(false)
 
     Column(
       modifier = Modifier
@@ -179,34 +177,29 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
       NftCard(onClick = { navigateToNft() })
       Spacer(modifier = Modifier.padding(32.dp))
 
-      if (openBottomSheet) {
-        ModalBottomSheet(
-          onDismissRequest = { openBottomSheet = false },
-          sheetState = bottomSheetState,
-          containerColor = WalletColors.styleguide_blue_secondary,
-          content = walletOptionsBottomSheet(
-            onManageWalletClick = {
-              scope.launch { bottomSheetState.hide() }
-                .invokeOnCompletion {
-                  openBottomSheet = !openBottomSheet
-                  navigateToManageWallet()
-                }
-            },
-            onRecoverWalletClick = {
-              scope.launch { bottomSheetState.hide() }
-                .invokeOnCompletion {
-                  openBottomSheet = !openBottomSheet
-                  viewModel.onRecoverClick()
-                }
-            },
-            onBackupWalletClick = {
-              scope.launch { bottomSheetState.hide() }
-                .invokeOnCompletion {
-                  openBottomSheet = !openBottomSheet
-                  viewModel.onBackupClick()
-                }
-            },
-          )
+      WalletBottomSheet(openBottomSheet, { openBottomSheet = false }, bottomSheetState) {
+        WalletOptionsBottomSheetContent(
+          onManageWalletClick = {
+            scope.launch { bottomSheetState.hide() }
+              .invokeOnCompletion {
+                openBottomSheet = !openBottomSheet
+                navigateToManageWallet()
+              }
+          },
+          onRecoverWalletClick = {
+            scope.launch { bottomSheetState.hide() }
+              .invokeOnCompletion {
+                openBottomSheet = !openBottomSheet
+                viewModel.onRecoverClick()
+              }
+          },
+          onBackupWalletClick = {
+            scope.launch { bottomSheetState.hide() }
+              .invokeOnCompletion {
+                openBottomSheet = !openBottomSheet
+                viewModel.onBackupClick()
+              }
+          },
         )
       }
     }
@@ -301,34 +294,29 @@ class HomeFragment : BasePageViewFragment(), SingleStateFragment<HomeState, Home
   }
 
   @Composable
-  fun walletOptionsBottomSheet(
+  fun WalletOptionsBottomSheetContent(
     onManageWalletClick: () -> Unit,
     onRecoverWalletClick: () -> Unit,
     onBackupWalletClick: () -> Unit
-  ): @Composable (ColumnScope.() -> Unit) =
-    {
-      Column(
-        Modifier
-          .fillMaxWidth()
-          .padding(bottom = 48.dp), verticalArrangement = Arrangement.Center
-      ) {
-        BottomSheetButton(
-          R.drawable.ic_manage_wallet,
-          R.string.manage_wallet_button,
-          onClick = onManageWalletClick
-        )
-        BottomSheetButton(
-          R.drawable.ic_recover_wallet,
-          R.string.my_wallets_action_recover_wallet,
-          onClick = onRecoverWalletClick
-        )
-        BottomSheetButton(
-          R.drawable.ic_backup_white,
-          R.string.my_wallets_action_backup_wallet,
-          onClick = onBackupWalletClick
-        )
-      }
+  ) {
+    Column(Modifier.fillMaxWidth(), verticalArrangement = Arrangement.Center) {
+      BottomSheetButton(
+        R.drawable.ic_manage_wallet,
+        R.string.manage_wallet_button,
+        onClick = onManageWalletClick
+      )
+      BottomSheetButton(
+        R.drawable.ic_recover_wallet,
+        R.string.my_wallets_action_recover_wallet,
+        onClick = onRecoverWalletClick
+      )
+      BottomSheetButton(
+        R.drawable.ic_backup_white,
+        R.string.my_wallets_action_backup_wallet,
+        onClick = onBackupWalletClick
+      )
     }
+  }
 
   @Preview(showBackground = true)
   @Composable
