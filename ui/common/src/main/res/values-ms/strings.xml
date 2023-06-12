@@ -609,9 +609,9 @@
   <string name="purchase_error_wrong_pin_body">Ada masalah dengan pin anda. Sila cuba semula.</string>
   <string name="purchase_error_3d_body">Ada masalah dengan pengesahan 3D anda. Sila cuba semula.</string>
   <string name="purchase_error_generic_contact_us_body">Oops, ada yang tidak kena. Sila cuba lagi atau hubungi kami.</string>
-  <string name="error_blocked_wallet_title">Blocked Wallet</string>
-  <string name="error_blocked_wallet_body">For security reasons, your wallet has been blocked. Please contact us for more information.</string>
-  <string name="purchase_paypal_additional_fees_disclaimer_body">Additional fees may apply.</string>
+  <string name="error_blocked_wallet_title">Dompet Disekat</string>
+  <string name="error_blocked_wallet_body">Untuk tujuan keselamatan, dompet anda telah disekat. Sila hubungi kami untuk maklumat lanjut.</string>
+  <string name="purchase_paypal_additional_fees_disclaimer_body">Caj tambahan mungkin dikenakan.</string>
   <string name="purchase_error_paypal">There was a problem with your PayPal payment. Please try again or use a different payment method.</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">Alamat bil</string>
@@ -1005,9 +1005,9 @@
   <string name="card_verification_no_attempts_title">Oops, anda telah masukkan kod yang salah berulang kali, jadi %1$s akan dikembalikan ke kad anda.</string>
   <string name="card_verification_no_attempts_body">Sila mulakan proses pengesahan sekali lagi.</string>
   <string name="wallet_verify_header">Verify at least one payment method</string>
-  <string name="verify_card_title">Verify Card</string>
-  <string name="verify_card_button">Verify bank card</string>
-  <string name="verify_paypal_button">Verify PayPal account</string>
+  <string name="verify_card_title">Sahkan Kad</string>
+  <string name="verify_card_button">Sahkan kad bank</string>
+  <string name="verify_paypal_button">Sahkan akaun PayPal</string>
   <string name="card_verification_body_new">%s will be charged to your card and immediately refunded. Check your card statement for the validation code and insert it here.</string>
   <string name="card_verification_disclaimer_body">Please note that the confirmation code may appear in the refund notification.</string>
   <!--Vouchers-->
