@@ -304,7 +304,7 @@ class ManageWalletFragment : BasePageViewFragment() {
     var openBottomSheet by rememberSaveable { mutableStateOf(false) }
     val scope = rememberCoroutineScope()
     val bottomSheetState = rememberModalBottomSheetState(false)
-    var bottomSheetContent by rememberSaveable { mutableStateOf(0) }
+    var bottomSheetContent by rememberSaveable { mutableStateOf(OPTIONS_CONTENT_ID) }
 
     Row(
       horizontalArrangement = Arrangement.End,
