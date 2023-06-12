@@ -1211,34 +1211,34 @@
   </plurals>
   <plurals name="hours">
     <item quantity="one">दिवस</item>
-    <item quantity="other">HOURS</item>
+    <item quantity="other">तास</item>
   </plurals>
   <plurals name="minutes">
     <item quantity="one">MINUTE</item>
-    <item quantity="other">MINUTES</item>
+    <item quantity="other">मिनिटे</item>
   </plurals>
   <plurals name="seconds">
     <item quantity="one">SECOND</item>
-    <item quantity="other">SECONDS</item>
+    <item quantity="other">सेकंद</item>
   </plurals>
-  <string name="intro_transactions_header">Transactions</string>
-  <string name="intro_backup_card_title">Don\'t loose your funds!</string>
-  <string name="intro_backup_card_body">Back up your wallet and keep it safe all times.</string>
-  <string name="rewards_spend_to_next_level_body">Spend more %1$s%2$s to reach the next level!</string>
+  <string name="intro_transactions_header">व्यवहार</string>
+  <string name="intro_backup_card_title">पैसे घालवु नका!</string>
+  <string name="intro_backup_card_body">आपले वॉलेट बॅकअप करुन नेहमीच सुरक्षित राखा.</string>
+  <string name="rewards_spend_to_next_level_body">पुढच्या पातळीवर पोचण्यासाठी अधिक %1$s%2$s खर्च करा!</string>
   <string name="rewards_current_bonus_title">%s%% बोनस प्रत्येक खरेदीवर</string>
-  <string name="rewards_eskills_card_title">Earn Money!</string>
-  <string name="rewards_eskills_card_body">Beat other players with e-Skills</string>
-  <string name="rewards_promo_code_card_title">Promo Codes</string>
-  <string name="rewards_promo_code_card_body">Use a promo code to get special deals!</string>
-  <string name="rewards_promo_code_status">Status:</string>
+  <string name="rewards_eskills_card_title">पैसे कमवा!</string>
+  <string name="rewards_eskills_card_body">ई-स्किल्स सह इतर खेळाडुंना मात द्या</string>
+  <string name="rewards_promo_code_card_title">प्रोमो कोडस</string>
+  <string name="rewards_promo_code_card_body">खास सूट मिळविण्यासाठी प्रोमो कोड वापरा!</string>
+  <string name="rewards_promo_code_status">स्थिती:</string>
   <string name="rewards_promo_code_status_active">सक्रिय</string>
   <string name="rewards_promo_code_status_expired">कालबाह्य</string>
-  <string name="home_nft_title">The AppCoins Wallet now supports NFTs</string>
+  <string name="home_nft_title">आता अॅपकॉइन्स वॉलेट एनएफटीला समर्थन देते</string>
   <!-- Rewards Home -->
-  <string name="rewards_make_first_purchase_body">Make your first purchase in an AppCoins compatible game and unlock a bonus in every purchase.</string>
-  <string name="rewards_bonus_every_purchase_title">Enjoy a %s%% bonus in every purchase</string>
+  <string name="rewards_make_first_purchase_body">अॅपकॉइन्स सुसंगत खेळातील आपली पहिली खरेदी करा आणि प्रत्येक खरेदीवर बोनस मिळवा.</string>
+  <string name="rewards_bonus_every_purchase_title">प्रत्येक खरेदीवर %s%% बोनस मिळवा</string>
   <!-- Refactor Manage Wallet -->
-  <string name="manage_wallet_wallet_changed_title">Wallet changed</string>
-  <string name="manage_wallet_change_active_wallet_title">Do you want to select this wallet?</string>
-  <string name="manage_wallet_change_wallet_name_title">Change wallet name</string>
+  <string name="manage_wallet_wallet_changed_title">वॉलेट बदलले</string>
+  <string name="manage_wallet_change_active_wallet_title">हे वॉलेट निवताय?</string>
+  <string name="manage_wallet_change_wallet_name_title">वॉलेटचे नाव बदला</string>
 </resources>
