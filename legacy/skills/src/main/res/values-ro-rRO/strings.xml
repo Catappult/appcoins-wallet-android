@@ -44,13 +44,13 @@
   <string name="refer_a_friend_error_unavailable_body">Această funcție nu este disponibilă momentan.</string>
   <string name="refer_a_friend_error_invalid_code_body">Cod nevalid!</string>
   <string name="refer_a_friend_error_user_not_eligible_body">Doar pentru utilizatori noi!</string>
-  <string name="refer_a_friend_first_time_tooltip">Cu programul nostru de recomandare, vei primi un bonus de %s$, atunci când utilizezi codul pentru prieteni. Aceștia vor primi aceeași sumă, ca bonus, care va fi folosită pentru achiziții în aplicație sau bilete de intrare pentru e-Skills.</string>
+  <string name="refer_a_friend_first_time_tooltip">Cu programul nostru de referință, vei primi un bonus de %s$, atunci când utilizezi codul pentru prieteni. Aceștia vor primi aceeași sumă, ca bonus, care va fi folosită pentru achiziții în aplicație sau bilete de intrare pentru e-Skills.</string>
   <string name="refer_a_friend_waiting_room_title">Invită un prieten!</string>
   <string name="refer_a_friend_waiting_from_body">Primești un bonus pentru fiecare prieten invitat.</string>
   <string name="refer_a_friend_invitation_message">Ai fost invitat să joci %1$s! Folosește codul de invitație %2$s după ce îl descarci din %3$s.</string>
   <!-- Error messages -->
   <string name="error_vpn_not_permitted_title">Jocurile e-Skills nu pot fi jucate cu un VPN activ. Dezactivează-l și încearcă din nou!</string>
-  <string name="top_up_needed_body">Din motive de securitate, trebuie să încarci portofelul cel puțin o dată, pentru a juca jocuri e-Skills.</string>
+  <string name="top_up_needed_body">Din motive de securitate, trebuie să alimentezi portofelul cel puțin o dată, pentru a juca jocuri e-Skills.</string>
   <string name="not_enough_funds_body">Fonduri insuficiente! Te rugăm să alimentezi pentru a cumpăra un bilet de intrare.</string>
   <string name="error_message_local_payment_method_body">Metodele de plată locale nu sunt acceptate pentru achiziționarea unei taxe de intrare. Creează un portofel nou și alimentează folosind un card bancar sau PayPal!</string>
   <string name="rooted_device_blocked_body">Din păcate, nu poți juca jocuri e-Skills cu un dispozitiv cu Root.</string>
