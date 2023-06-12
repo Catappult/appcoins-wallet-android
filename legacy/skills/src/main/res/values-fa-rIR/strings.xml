@@ -2,7 +2,7 @@
 <resources>
   <string name="appcoins_wallet">کیف پول AppCoins</string>
   <!-- Common -->
-  <string name="start_button">Start</string>
+  <string name="start_button">شروع</string>
   <string name="ok">اوکی</string>
   <string name="cancel">لغو</string>
   <string name="buy_button">خرید</string>
@@ -38,7 +38,7 @@
   <string name="update_not_supported_body">کیف پول AppCoins خود را به آخرین نسخه بروزرسانی کنید.</string>
   <string name="update_button">بروزرسانی</string>
   <!-- Refer a friend -->
-  <string name="refer_a_friend_waiting_room_tooltip">You and the friends you invite will receive a $%s bonus. You can invite up to 5 friends, and they must be new users. The bonus will be credited in your wallet once they use your invitation code in their first e-Skills game.</string>
+  <string name="refer_a_friend_waiting_room_tooltip">شما و دوستی که دعوت می‌کنید، یک پاداش %s$ دریافت خواهد کرد. شما می‌توانید تا ۵ دوست دعوت کنید که کاربر تازه باشند. زمانیکه آن‌ها از کد دعوت شما در بازیهای e-Skills استفاده کنند، پاداش به کیف پول شما واریز می‌شود.</string>
   <string name="refer_a_friend_first_time_header">آیا آماده نمایش مهارت‌های خود هستید؟</string>
   <string name="refer_a_friend_first_time_body">سایر بازیکنان را شکست دهید تا پول واقعی ببرید! بیایید با یک بازی آموزشی بدین هزینه ورودی شروع کنیم.</string>
   <string name="refer_a_friend_error_unavailable_body">این قابلیت درحال حاضر موجود نیست.</string>
