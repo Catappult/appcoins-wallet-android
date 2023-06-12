@@ -2,7 +2,7 @@
 <resources>
   <string name="appcoins_wallet">Dompet AppCoins</string>
   <!-- Common -->
-  <string name="start_button">Start</string>
+  <string name="start_button">Mula</string>
   <string name="ok">OK</string>
   <string name="cancel">Batal</string>
   <string name="buy_button">Beli</string>
@@ -38,16 +38,16 @@
   <string name="update_not_supported_body">Kemas kini Dompet AppCoins ke versi terkini.</string>
   <string name="update_button">Kemas kini</string>
   <!-- Refer a friend -->
-  <string name="refer_a_friend_waiting_room_tooltip">You and the friends you invite will receive a $%s bonus. You can invite up to 5 friends, and they must be new users. The bonus will be credited in your wallet once they use your invitation code in their first e-Skills game.</string>
+  <string name="refer_a_friend_waiting_room_tooltip">Anda dan rakan yang anda jemput akan terima bonus $%s. Anda boleh jemput sehingga 5 rakan, dan mereka mestilah pengguna baru. Bonus akan dikreditkan ke dompet anda sebaik saja mereka gunakan kod jemputan dalam permainan e-Skills pertama mereka.</string>
   <string name="refer_a_friend_first_time_header">Dah sedia nak tunjuk hebat?</string>
   <string name="refer_a_friend_first_time_body">Tumpaskan pemain lain untuk dapat hadiah wang tunai! Jum berlatih dulu tanpa sebarang bayaran masuk.</string>
   <string name="refer_a_friend_error_unavailable_body">Ciri ini tidak tersedia buat masa ini.</string>
   <string name="refer_a_friend_error_invalid_code_body">Kod tidak sah!</string>
   <string name="refer_a_friend_error_user_not_eligible_body">Hanya untuk pengguna baru!</string>
   <string name="refer_a_friend_first_time_tooltip">Dengan Program Rujukan kami, anda akan terima $%s apabila anda guna kod rakan anda. Mereka juga akan terima bonus berjumlah sama untuk digunakan bagi pembelian dalam aplikasi atau tiket masuk e-Skills.</string>
-  <string name="refer_a_friend_waiting_room_title">Invite a Friend!</string>
+  <string name="refer_a_friend_waiting_room_title">Jemput Rakan!</string>
   <string name="refer_a_friend_waiting_from_body">Dapat bonus untuk setiap rakan yang dijemput.</string>
-  <string name="refer_a_friend_invitation_message">You\'ve been invited to play %1$s! Use the invite code %2$s after downloading it from %3$s.</string>
+  <string name="refer_a_friend_invitation_message">Anda telah dijemput untuk main %1$s! Guna kod jemputan %2$s setelah muat turun daripada %3$s.</string>
   <!-- Error messages -->
   <string name="error_vpn_not_permitted_title">e-Skills games cannot be played with an active VPN. Please disable it and try again!</string>
   <string name="top_up_needed_body">Untuk tujuan keselamatan, anda perlu tambah nilai minimum satu kali dalam dompet anda untuk main permainan e-Skills.</string>
