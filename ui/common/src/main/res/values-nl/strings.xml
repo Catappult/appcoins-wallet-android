@@ -287,12 +287,12 @@
   <string name="dialog_credit_card_cvv">CVV</string>
   <string name="dialog_bank_card">Creditcard/betaalkaart</string>
   <string name="dialog_expiry_date">Vervaldatum</string>
-  <string name="transaction_type_purchase_bonus">Aankoopbonus</string>
-  <string name="transaction_type_promo_code_bonus">Promotiecodebonus</string>
+  <string name="transaction_type_purchase_bonus">Bonus voor aankoop</string>
+  <string name="transaction_type_promo_code_bonus">Bonus voor actiecode</string>
   <string name="transaction_type_extra_bonus">Extra bonus</string>
   <string name="transaction_type_topup">Opwaarderen</string>
-  <string name="transaction_type_reverted_purchase_bonus">Teruggedraaide aankoopbonus</string>
-  <string name="transaction_type_reverted_promo_code_bonus">Teruggedraaide bonus promotiecode</string>
+  <string name="transaction_type_reverted_purchase_bonus">Teruggedraaide bonus voor aankoop</string>
+  <string name="transaction_type_reverted_promo_code_bonus">Teruggedraaide bonus voor actiecode</string>
   <string name="transaction_type_reverted_extra_bonus">Teruggedraaide extra bonus</string>
   <string name="transaction_type_reverted_topup">Teruggedraaide opwaardering</string>
   <string name="transaction_type_rejected_topup">Geweigerde opwaardering</string>
@@ -1128,7 +1128,7 @@
   <string name="gift_card_error_try_with_different_body">Probeer het opnieuw met een andere code.</string>
   <!-- My Wallet -->
   <string name="mywallet_unverified_title">Verifieer een betaalmethode</string>
-  <string name="mywallet_unverified_body">Beevstig een betaalmethode om blokkades te voorkomen.</string>
+  <string name="mywallet_unverified_body">Bevestig een betaalmethode om blokkades te voorkomen.</string>
   <string name="mywallet_backed_up_date">Je hebt op %s een back-up van je wallet gemaakt.</string>
   <string name="mywallet_backup_again_button">Opnieuw een back-up maken</string>
   <string name="mywallet_verify_payment_method_button">Nieuwe kaart verifiëren</string>
@@ -1180,7 +1180,7 @@
   <string name="intro_welcome_header">Welkom bij de AppCoins Wallet</string>
   <string name="intro_welcome_body">Voeg saldo toe aan je wallet of doe een aankoop in een app of game die AppCoins ondersteunt.</string>
   <string name="intro_appcoins_games_header">Ontdek games met AppCoins</string>
-  <string name="intro_active_promotions_header">Actieve promoties</string>
+  <string name="intro_active_promotions_header">Huidige acties</string>
   <string name="topup_home_button">Opwaarderen</string>
   <string name="intro_home_button">Start</string>
   <string name="intro_rewards_button">Beloningen</string>
@@ -1203,7 +1203,7 @@
   <string name="intro_transactions_header">Transacties</string>
   <string name="intro_backup_card_title">Verlies je saldo niet!</string>
   <string name="intro_backup_card_body">Maak een back-up van je wallet om deze altijd veilig te bewaren.</string>
-  <string name="rewards_spend_to_next_level_body">Besteed nog %1$s%2$s om het volgende niveau te bereiken!</string>
+  <string name="rewards_spend_to_next_level_body">Besteed meer %1$s%2$s om het volgende niveau te bereiken!</string>
   <string name="rewards_current_bonus_title">%s%% bonus bij elke aankoop</string>
   <string name="rewards_eskills_card_title">Verdien geld!</string>
   <string name="rewards_eskills_card_body">Versla andere spelers met e-Skills</string>
