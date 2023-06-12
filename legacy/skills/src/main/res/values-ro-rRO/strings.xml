@@ -34,24 +34,24 @@
   <string name="shared_room_waiting">Se așteaptă adversari să participe la %s</string>
   <string name="update_wallet">Update wallet</string>
   <!-- Update wallet -->
-  <string name="update_not_supported_title">Wallet version not supported!</string>
-  <string name="update_not_supported_body">Update the AppCoins Wallet to the latest version.</string>
-  <string name="update_button">Update</string>
+  <string name="update_not_supported_title">Versiunea portofelului nu este acceptată!</string>
+  <string name="update_not_supported_body">Actualizează AppCoins Wallet cu ultima versiune.</string>
+  <string name="update_button">Actualizează</string>
   <!-- Refer a friend -->
-  <string name="refer_a_friend_waiting_room_tooltip">You and the friends you invite will receive a $%s bonus. You can invite up to 5 friends, and they must be new users. The bonus will be credited in your wallet once they use your invitation code in their first e-Skills game.</string>
-  <string name="refer_a_friend_first_time_header">Ready to show your skills?</string>
-  <string name="refer_a_friend_first_time_body">Beat other players to get a prize in real money! Let\'s start with a practice game with no entry fee.</string>
-  <string name="refer_a_friend_error_unavailable_body">This feature is currently unavailable.</string>
+  <string name="refer_a_friend_waiting_room_tooltip">Tu și prietenii pe care îi inviți veți primi un bonus de %s$. Poți invita până la 5 prieteni, iar aceștia trebuie să fie utilizatori noi. Bonusul va fi creditat în portofelul tău, după ce aceștia vor folosi codul tău de invitație, în primul lor joc e-Skills.</string>
+  <string name="refer_a_friend_first_time_header">Ești pregătit să îți demonstrezi abilitățile?</string>
+  <string name="refer_a_friend_first_time_body">Învinge alți jucători, pentru a primi un premiu în bani adevărați! Hai să începem cu un joc de antrenament fără taxă de intrare.</string>
+  <string name="refer_a_friend_error_unavailable_body">Această funcție nu este disponibilă momentan.</string>
   <string name="refer_a_friend_error_invalid_code_body">Cod nevalid!</string>
-  <string name="refer_a_friend_error_user_not_eligible_body">Only for new users!</string>
-  <string name="refer_a_friend_first_time_tooltip">With our Referral Program you\'ll receive a $%s bonus when using your friends code. They\'ll also receive the same amount as bonus to be used on in-app purchases or e-Skills entry tickets.</string>
-  <string name="refer_a_friend_waiting_room_title">Invite a Friend!</string>
-  <string name="refer_a_friend_waiting_from_body">Get a bonus for each friend you invite.</string>
-  <string name="refer_a_friend_invitation_message">You\'ve been invited to play %1$s! Use the invite code %2$s after downloading it from %3$s.</string>
+  <string name="refer_a_friend_error_user_not_eligible_body">Doar pentru utilizatori noi!</string>
+  <string name="refer_a_friend_first_time_tooltip">Cu programul nostru de recomandare, vei primi un bonus de %s$, atunci când utilizezi codul pentru prieteni. Aceștia vor primi aceeași sumă, ca bonus, care va fi folosită pentru achiziții în aplicație sau bilete de intrare pentru e-Skills.</string>
+  <string name="refer_a_friend_waiting_room_title">Invită un prieten!</string>
+  <string name="refer_a_friend_waiting_from_body">Primești un bonus pentru fiecare prieten invitat.</string>
+  <string name="refer_a_friend_invitation_message">Ai fost invitat să joci %1$s! Folosește codul de invitație %2$s după ce îl descarci din %3$s.</string>
   <!-- Error messages -->
-  <string name="error_vpn_not_permitted_title">e-Skills games cannot be played with an active VPN. Please disable it and try again!</string>
-  <string name="top_up_needed_body">For security reasons, you need to make at least one top-up in your wallet to play e-Skills games.</string>
-  <string name="not_enough_funds_body">You don\'t have enough funds! Please top up to buy the entry ticket.</string>
-  <string name="error_message_local_payment_method_body">Local payment methods aren\'t accepted to purchase an entry fee. Please create a new wallet and top it up with a bank card or PayPal!</string>
-  <string name="rooted_device_blocked_body">Unfortunately, you cannot play e-Skills games with a rooted device.</string>
+  <string name="error_vpn_not_permitted_title">Jocurile e-Skills nu pot fi jucate cu un VPN activ. Dezactivează-l și încearcă din nou!</string>
+  <string name="top_up_needed_body">Din motive de securitate, trebuie să încarci portofelul cel puțin o dată, pentru a juca jocuri e-Skills.</string>
+  <string name="not_enough_funds_body">Fonduri insuficiente! Te rugăm să alimentezi pentru a cumpăra un bilet de intrare.</string>
+  <string name="error_message_local_payment_method_body">Metodele de plată locale nu sunt acceptate pentru achiziționarea unei taxe de intrare. Creează un portofel nou și alimentează folosind un card bancar sau PayPal!</string>
+  <string name="rooted_device_blocked_body">Din păcate, nu poți juca jocuri e-Skills cu un dispozitiv cu Root.</string>
 </resources>
