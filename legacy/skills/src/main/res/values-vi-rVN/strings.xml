@@ -2,7 +2,7 @@
 <resources>
   <string name="appcoins_wallet">Ví AppCoins</string>
   <!-- Common -->
-  <string name="start_button">Start</string>
+  <string name="start_button">Bắt đầu</string>
   <string name="ok">OK</string>
   <string name="cancel">Hủy</string>
   <string name="buy_button">Mua</string>
@@ -38,16 +38,16 @@
   <string name="update_not_supported_body">Cập nhật Ví AppCoins lên phiên bản mới nhất.</string>
   <string name="update_button">Cập nhật</string>
   <!-- Refer a friend -->
-  <string name="refer_a_friend_waiting_room_tooltip">You and the friends you invite will receive a $%s bonus. You can invite up to 5 friends, and they must be new users. The bonus will be credited in your wallet once they use your invitation code in their first e-Skills game.</string>
+  <string name="refer_a_friend_waiting_room_tooltip">Bạn và những người bạn mà bạn đã mời đều sẽ nhận được $%s tiền thưởng. Bạn có thể mời tối đa 5 người và họ phải là người dùng mới. Phần thưởng sẽ được ghi có vào ví của bạn ngay khi họ sử dụng mã mời của bạn trong trò chơi e-Skills đầu tiên của họ.</string>
   <string name="refer_a_friend_first_time_header">Sẵn sàng để thể hiện kỹ năng của bạn?</string>
   <string name="refer_a_friend_first_time_body">Đánh bại những người chơi khác để nhận giải thưởng bằng tiền thật! Hãy bắt đầu với một trò chơi thực hành không tốn phí vào cửa.</string>
   <string name="refer_a_friend_error_unavailable_body">Tính năng này hiện không khả dụng.</string>
   <string name="refer_a_friend_error_invalid_code_body">Mã không hợp lệ!</string>
   <string name="refer_a_friend_error_user_not_eligible_body">Chỉ dành cho người dùng mới!</string>
   <string name="refer_a_friend_first_time_tooltip">Với chương trình giới thiệu của chúng tôi, bạn sẽ nhận được $%s tiền thưởng khi sử dụng mã bạn bè của mình. Họ cũng sẽ nhận được số tiền tương tự để sử dụng khi mua hàng trong ứng dụng hoặc vé tham gia các trò chơi e-Skill.</string>
-  <string name="refer_a_friend_waiting_room_title">Invite a Friend!</string>
+  <string name="refer_a_friend_waiting_room_title">Mời bạn bè của bạn!</string>
   <string name="refer_a_friend_waiting_from_body">Nhận tiền thưởng cho mỗi người bạn mà bạn mời.</string>
-  <string name="refer_a_friend_invitation_message">You\'ve been invited to play %1$s! Use the invite code %2$s after downloading it from %3$s.</string>
+  <string name="refer_a_friend_invitation_message">Bạn đã được mời chơi %1$s! Hãy sử dụng mã mời %2$s sau khi tải nó xuống từ %3$s.</string>
   <!-- Error messages -->
   <string name="error_vpn_not_permitted_title">e-Skills games cannot be played with an active VPN. Please disable it and try again!</string>
   <string name="top_up_needed_body">Vì lý do bảo mật, bạn cần nạp tiền vào ví của mình ít nhất 1 lần để chơi các trò chơi e-Skills.</string>
