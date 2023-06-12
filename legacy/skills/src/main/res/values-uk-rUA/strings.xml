@@ -47,7 +47,7 @@
   <string name="refer_a_friend_first_time_tooltip">З нашою реферальною програмою ви отримаєте бонус у розмірі $%s при використанні коду друзів. Вони також отримають стільки ж, скільки й бонус, який можна буде використати на покупки в додатку або вхідні квитки e-Skills.</string>
   <string name="refer_a_friend_waiting_room_title">Запросити друга!</string>
   <string name="refer_a_friend_waiting_from_body">Отримайте бонус за кожного запрошеного друга.</string>
-  <string name="refer_a_friend_invitation_message">Вас запрошено зіграти у %1$s! Використайте код запрошення %2$s, завантаживши його з %3$s.</string>
+  <string name="refer_a_friend_invitation_message">Вас запрошено зіграти у %1$s! Використайте код запрошення %2$s, після завантаження з %3$s.</string>
   <!-- Error messages -->
   <string name="error_vpn_not_permitted_title">Грати в ігри e-Skills з активним VPN не можна. Будь ласка, вимкніть його і спробуйте ще раз!</string>
   <string name="top_up_needed_body">З міркувань безпеки ви маєте поповнити свій гаманець принаймні один раз, щоб грати в ігри e-Skills.</string>
