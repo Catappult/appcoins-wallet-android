@@ -1029,17 +1029,17 @@
   </plurals>
   <string name="card_verification_code_other_card_button">दुसर कार्ड वापरुन पहा</string>
   <string name="card_verification_code_wrong_error">कोड चूकीचा आहे</string>
-  <string name="card_verification_wallets_one_step_title">One more step to verify</string>
+  <string name="card_verification_wallets_one_step_title">सत्यापनास एकच चरण शिल्लक</string>
   <string name="card_verification_wallets_one_step_body">व्यवहार तपशीलात दिसणारा कोड घाला.</string>
   <string name="card_verification_wallets_insert_bode_button">कोड घाला</string>
   <string name="card_verification_no_attempts_title">अरेरे, आपण चुकीचा कोड खूप वेळा घातल्याने %1$s आपल्या कार्डावर रिफंड केले जातील.</string>
   <string name="card_verification_no_attempts_body">कृपया सत्यापन प्रक्रिया पुन्हा सुरु करा.</string>
-  <string name="wallet_verify_header">Verify at least one payment method</string>
-  <string name="verify_card_title">Verify Card</string>
-  <string name="verify_card_button">Verify bank card</string>
-  <string name="verify_paypal_button">Verify PayPal account</string>
-  <string name="card_verification_body_new">%s will be charged to your card and immediately refunded. Check your card statement for the validation code and insert it here.</string>
-  <string name="card_verification_disclaimer_body">Please note that the confirmation code may appear in the refund notification.</string>
+  <string name="wallet_verify_header">किमान एक पेमेंट पद्धत सत्यापित करा</string>
+  <string name="verify_card_title">कार्ड सत्यापित करा</string>
+  <string name="verify_card_button">बँक कार्ड सत्यापित करा</string>
+  <string name="verify_paypal_button">पेपाल खाते सत्यापित करा</string>
+  <string name="card_verification_body_new">%s रक्कम आपल्या कार्डावर लावली जाऊन लगेच परतावा दिला जाईल. आपल्या कार्ड स्टेटमेंटवर सत्यापन कोड तपासुन इथे घाला.</string>
+  <string name="card_verification_disclaimer_body">परतावा सूचनेत पुष्टी कोड दिसेल.</string>
   <!--Vouchers-->
   <string name="voucher_card_body_1">हे व्हाऊचर खरेदी करा आणि मिळवा</string>
   <string name="voucher_card_body_2"> %s%% पर्यंत बोनस मिळवा.</string>
@@ -1148,8 +1148,8 @@
   <string name="gift_card_error_new_users_title">हा कोड फक्त नविन वापरकर्त्यांसाठीच आहे!</string>
   <string name="gift_card_error_try_with_different_body">वेगळ्यासह पुन्हा प्रयत्न करा.</string>
   <!-- My Wallet -->
-  <string name="mywallet_unverified_title">Verify a Payment Method</string>
-  <string name="mywallet_unverified_body">Confirm a payment method to avoid blockages.</string>
+  <string name="mywallet_unverified_title">पेमेंट पद्धत सत्यापित करा</string>
+  <string name="mywallet_unverified_body">अडथळे टाळण्यासाठी पेमेंट पद्धतीची पुष्टी करा.</string>
   <string name="mywallet_backed_up_date">आपण आपले वॉलेट %s ला बॅकअप केलेत.</string>
   <string name="mywallet_backup_again_button">पुन्हा बॅक अप करा</string>
   <string name="mywallet_verify_payment_method_button">नविन कार्ड सत्यापित करा</string>
@@ -1196,21 +1196,21 @@
   <string name="vip_program_max_bonus_short">%s%% बोनस प्रत्येक खरेदीवर.</string>
   <string name="vip_program_referral_notification_title">व्हीआयपी संदर्भ कोड उपलब्ध!</string>
   <string name="vip_program_referral_notification_body">आपला कोड आपल्या समुदायात सामायिक करा म्हणजे खेळताना आपण कमवाल!</string>
-  <string name="vip_program_title_vip_offer">VIP Offer</string>
+  <string name="vip_program_title_vip_offer">व्हीआयपी ऑफर</string>
   <!-- Refactor Home -->
   <string name="intro_welcome_header">अॅपकॉईन्स वॉलेटमध्ये स्वागत आहे</string>
   <string name="intro_welcome_body">वॉलेटमध्ये भर घाला किंवा अॅप वा खेळाशी सुसंगत कोणत्याही अॅपकॉईन्सची खरेदी करा.</string>
-  <string name="intro_appcoins_games_header">Discover Games with AppCoins</string>
-  <string name="intro_active_promotions_header">Active Promotions</string>
+  <string name="intro_appcoins_games_header">अॅपकॉइन्ससहचे खेळ शोधा</string>
+  <string name="intro_active_promotions_header">सक्रिय प्रमोशन्स</string>
   <string name="topup_home_button">भरणा करा</string>
-  <string name="intro_home_button">Home</string>
-  <string name="intro_rewards_button">Rewards</string>
+  <string name="intro_home_button">मुख्य पृष्ठ</string>
+  <string name="intro_rewards_button">बक्षिसे</string>
   <plurals name="days">
     <item quantity="one">DAY</item>
-    <item quantity="other">DAYS</item>
+    <item quantity="other">दिवस</item>
   </plurals>
   <plurals name="hours">
-    <item quantity="one">HOUR</item>
+    <item quantity="one">दिवस</item>
     <item quantity="other">HOURS</item>
   </plurals>
   <plurals name="minutes">
@@ -1224,7 +1224,7 @@
   <string name="intro_transactions_header">Transactions</string>
   <string name="intro_backup_card_title">Don\'t loose your funds!</string>
   <string name="intro_backup_card_body">Back up your wallet and keep it safe all times.</string>
-  <string name="rewards_spend_to_next_level_body">Spend more %1$s%2$s to reach the net level!</string>
+  <string name="rewards_spend_to_next_level_body">Spend more %1$s%2$s to reach the next level!</string>
   <string name="rewards_current_bonus_title">%s%% बोनस प्रत्येक खरेदीवर</string>
   <string name="rewards_eskills_card_title">Earn Money!</string>
   <string name="rewards_eskills_card_body">Beat other players with e-Skills</string>
