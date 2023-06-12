@@ -49,9 +49,9 @@
   <string name="refer_a_friend_waiting_from_body">Nhận tiền thưởng cho mỗi người bạn mà bạn mời.</string>
   <string name="refer_a_friend_invitation_message">Bạn đã được mời chơi %1$s! Hãy sử dụng mã mời %2$s sau khi tải nó xuống từ %3$s.</string>
   <!-- Error messages -->
-  <string name="error_vpn_not_permitted_title">e-Skills games cannot be played with an active VPN. Please disable it and try again!</string>
+  <string name="error_vpn_not_permitted_title">Không thể chơi trò chơi e-Skills bằng VPN đang hoạt động. Vui lòng tắt nó và thử lại!</string>
   <string name="top_up_needed_body">Vì lý do bảo mật, bạn cần nạp tiền vào ví của mình ít nhất 1 lần để chơi các trò chơi e-Skills.</string>
   <string name="not_enough_funds_body">Bạn không có đủ tiền! Vui lòng nạp tiền để mua vé vào cửa.</string>
   <string name="error_message_local_payment_method_body">Phương thức thanh toán địa phương không được chấp nhận. Vui lòng tạo một ví mới và nạp tiền bằng thẻ ngân hàng hoặc PayPal!</string>
-  <string name="rooted_device_blocked_body">Unfortunately, you cannot play e-Skills games with a rooted device.</string>
+  <string name="rooted_device_blocked_body">Rất tiếc, bạn không thể chơi trò chơi e-Skills bằng thiết bị đã root.</string>
 </resources>
