@@ -2,7 +2,7 @@
 <resources>
   <string name="appcoins_wallet">AppCoins Cüzdan</string>
   <!-- Common -->
-  <string name="start_button">Start</string>
+  <string name="start_button">Başla</string>
   <string name="ok">Tamam</string>
   <string name="cancel">İptal et</string>
   <string name="buy_button">Satın Al</string>
@@ -38,20 +38,20 @@
   <string name="update_not_supported_body">AppCoins Cüzdanı son sürüme güncelle.</string>
   <string name="update_button">Güncelle</string>
   <!-- Refer a friend -->
-  <string name="refer_a_friend_waiting_room_tooltip">You and the friends you invite will receive a $%s bonus. You can invite up to 5 friends, and they must be new users. The bonus will be credited in your wallet once they use your invitation code in their first e-Skills game.</string>
+  <string name="refer_a_friend_waiting_room_tooltip">Sen ve davet ettiğin arkadaşların $%s bonus kazanacak. En fazla 5 arkadaşını davet edebilirsin ve bunlar yeni kullanıcı olmalıdır. Davet kodunu ilk e-Skills oyunlarında kullandıkları anda bonus cüzdanına yüklenecektir.</string>
   <string name="refer_a_friend_first_time_header">Yeteneklerini göstermeye hazır mısın?</string>
   <string name="refer_a_friend_first_time_body">Gerçek para cinsinden ödül kazanmak için diğer oyuncuları yen! Giriş ücreti olmayan bir alıştırma oyunuyla başlayalım.</string>
   <string name="refer_a_friend_error_unavailable_body">Bu özellik şu an mevcut değil.</string>
   <string name="refer_a_friend_error_invalid_code_body">Geçersiz kod!</string>
   <string name="refer_a_friend_error_user_not_eligible_body">Yalnızca yeni kullanıcılar için!</string>
   <string name="refer_a_friend_first_time_tooltip">Tavsiye Programımız sayesinde, arkadaş kodunu kullandığında %s$ bonus kazanırsın. Ayrıca, arkadaşların da uygulama içi satın alımlarda veya e-Skill giriş biletlerinde kullanılmak üzere aynı miktarda bonus kazanır.</string>
-  <string name="refer_a_friend_waiting_room_title">Invite a Friend!</string>
+  <string name="refer_a_friend_waiting_room_title">Arkadaşını Davet Et!</string>
   <string name="refer_a_friend_waiting_from_body">Davet ettiğin her arkadaşın için bonus kazan.</string>
-  <string name="refer_a_friend_invitation_message">You\'ve been invited to play %1$s! Use the invite code %2$s after downloading it from %3$s.</string>
+  <string name="refer_a_friend_invitation_message">%1$s oynamaya davet edildin! %3$s adresinden indirdikten sonra %2$s davet kodunu kullan.</string>
   <!-- Error messages -->
-  <string name="error_vpn_not_permitted_title">e-Skills games cannot be played with an active VPN. Please disable it and try again!</string>
+  <string name="error_vpn_not_permitted_title">e-Skills oyunları aktif bir VPN ile oynanamaz. Lütfen VPN\'i devre dışı bırak ve tekrar dene!</string>
   <string name="top_up_needed_body">Güvenlik nedeniyle, e-Skills oyunları oynamak için cüzdanına en az bir yükleme yapman gerekiyor.</string>
   <string name="not_enough_funds_body">Yeterli bakiyen yok! Giriş bileti almak için lütfen yükleme yap.</string>
   <string name="error_message_local_payment_method_body">Giriş ücreti satın almak için yerel ödeme yöntemleri kabul edilmiyor. Lütfen yeni bir cüzdan oluştur ve bir banka kartı veya PayPal ile yükleme yap!</string>
-  <string name="rooted_device_blocked_body">Unfortunately, you cannot play e-Skills games with a rooted device.</string>
+  <string name="rooted_device_blocked_body">Maalesef e-Skills oyunlarını root atılmış bir cihazda oynayamazsın.</string>
 </resources>
