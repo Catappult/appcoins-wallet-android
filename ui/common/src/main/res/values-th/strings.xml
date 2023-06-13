@@ -70,7 +70,7 @@
   <string name="skip_with_arrow">ข้าม&gt;</string>
   <string name="root_title">อุปกรณ์ความปลอดภัยที่สมบูรณ์</string>
   <string name="root_body">\'รูท\'ของแอปใดๆที่สามารถเข้าถึงข้อมูลกุญแจ AppCoins Wallet และขโมยกระเป๋าสตางค์ของคุณ ล้างกระเป๋าสตางค์นี้ทันที และกู้คืนบนอุปกรณ์ที่เชื่อถือได้</string>
-  <string name="credits_purchase_value">%s AppCoins Credits</string>
+  <string name="credits_purchase_value">%s เครดิต AppCoins</string>
   <string name="buying">การซื้อ %s</string>
   <string name="action_buy">ซื้อ</string>
   <string name="empty"></string>
@@ -255,8 +255,8 @@
   <string name="transaction_type_standard">โอนย้าย</string>
   <string name="transaction_type_bonus">โบนัส</string>
   <string name="transaction_type_eskills_reward">รางวัล e-Skill</string>
-  <string name="transaction_type_eskills">e-Skills Entry Ticket</string>
-  <string name="transaction_type_eskills_ticke_refund">e-Skills Ticket Refund</string>
+  <string name="transaction_type_eskills">บัตรเข้างาน e-Skills</string>
+  <string name="transaction_type_eskills_ticke_refund">การคืนเงินตั๋ว e-Skills</string>
   <string name="transaction_type_voucher">เวาเชอร์อิเล็กทรอนิกส์</string>
   <string name="transaction_type_voucher_title">บัตรกำนัลสำหรับ %s</string>
   <string name="transaction_type_reverted_bonus_title">โบนัสเงินคืน</string>
@@ -287,29 +287,29 @@
   <string name="dialog_credit_card_cvv">CVV</string>
   <string name="dialog_bank_card">บัตรเครดิต/เดบิต</string>
   <string name="dialog_expiry_date">วันหมดอายุ</string>
-  <string name="transaction_type_purchase_bonus">Purchase Bonus</string>
-  <string name="transaction_type_promo_code_bonus">Promo Code Bonus</string>
-  <string name="transaction_type_extra_bonus">Extra Bonus</string>
-  <string name="transaction_type_topup">Top-up</string>
-  <string name="transaction_type_reverted_purchase_bonus">Reverted Purchase Bonus</string>
-  <string name="transaction_type_reverted_promo_code_bonus">Reverted Promo Code Bonus</string>
-  <string name="transaction_type_reverted_extra_bonus">Reverted Extra Bonus</string>
-  <string name="transaction_type_reverted_topup">Reverted Top-up</string>
-  <string name="transaction_type_rejected_topup">Rejected Top-up</string>
-  <string name="transaction_type_rejected_subscription_purchase">Rejected Subscription Purchase</string>
-  <string name="transaction_type_rejected_purchase">Rejected Purchase</string>
+  <string name="transaction_type_purchase_bonus">โบนัสการซื้อ</string>
+  <string name="transaction_type_promo_code_bonus">โบนัสรหัสโปรโมชั่น</string>
+  <string name="transaction_type_extra_bonus">โบนัสพิเศษ</string>
+  <string name="transaction_type_topup">เติมเงิน</string>
+  <string name="transaction_type_reverted_purchase_bonus">โบนัสคืนจากการซื้อ</string>
+  <string name="transaction_type_reverted_promo_code_bonus">คืนรหัสโปรโมชั่นโบนัส</string>
+  <string name="transaction_type_reverted_extra_bonus">โบนัสเงินคืน</string>
+  <string name="transaction_type_reverted_topup">โบนัสเติมเงิน</string>
+  <string name="transaction_type_rejected_topup">ปฏิเสธการเติมเงิน</string>
+  <string name="transaction_type_rejected_subscription_purchase">การซื้อการสมัครรับข้อมูลถูกปฏิเสธ</string>
+  <string name="transaction_type_rejected_purchase">การซื้อที่ถูกปฏิเสธ</string>
   <string name="transaction_type_rejected_eskills_ticket">Rejected e-Skills Ticket</string>
-  <string name="transaction_type_refund_subscription">Subscription Refund</string>
-  <string name="transaction_type_subscription_payment">Subscription Payment</string>
-  <string name="transaction_type_funds_sent">Funds Sent</string>
-  <string name="transaction_type_funds_received">Funds Received</string>
-  <string name="transaction_type_gift_card">Gift Card</string>
-  <string name="transaction_date_label">Date</string>
-  <string name="transaction_more_details_label">More Details</string>
-  <string name="transaction_rejected_body">This purchase has been rejected.\nFor more information contact support.</string>
-  <string name="transaction_reverted_body">This purchase has been reverted.\nFor more information contact support.</string>
-  <string name="transaction_status_rejected">Rejected</string>
-  <string name="transaction_details_header">Transaction detail</string>
+  <string name="transaction_type_refund_subscription">การคืนเงินการสมัครสมาชิก</string>
+  <string name="transaction_type_subscription_payment">การชำระเงินสมัครสมาชิก</string>
+  <string name="transaction_type_funds_sent">ส่งเงิน</string>
+  <string name="transaction_type_funds_received">รับเงิน</string>
+  <string name="transaction_type_gift_card">บัตรของขวัญ</string>
+  <string name="transaction_date_label">วันที่</string>
+  <string name="transaction_more_details_label">รายละเอียดเพิ่มเติม</string>
+  <string name="transaction_rejected_body">การซื้อนี้ถูกปฏิเสธ\nสำหรับข้อมูลเพิ่มเติม โปรดติดต่อฝ่ายสนับสนุน</string>
+  <string name="transaction_reverted_body">การซื้อนี้ถูกเปลี่ยนกลับ\nสำหรับข้อมูลเพิ่มเติม โปรดติดต่อฝ่ายสนับสนุน</string>
+  <string name="transaction_status_rejected">ปฏิเสธ</string>
+  <string name="transaction_details_header">รายละเอียดธุรกรรม</string>
   <string name="activity_airdrop_title">ยืนยันว่า คุณเป็นคนที่จะได้รับ AppCoins</string>
   <string name="activity_airdrop_details">นี้เป็นเพียงสิ่งปลอดภัย</string>
   <string name="activity_airdrop_hint">พิมพ์คำในภาพ</string>
@@ -406,7 +406,7 @@
   <string name="provide_wallet_cancel">@string/cancel_button</string>
   <!-- Top Up -->
   <string name="topup_title">เติม</string>
-  <string name="topup_amount">%s AppCoins Credits</string>
+  <string name="topup_amount">%s เครดิต AppCoins</string>
   <string name="topup_bonus_header">คุณได้รับโบนัส</string>
   <string name="topup_bonus_message">%s เครดิต AppCoins พิเศษจะถูกเครดิตในกระเป๋าเงินของคุณ</string>
   <string name="topup_completed_1">%s ในเครดิต AppCoins</string>
@@ -429,7 +429,7 @@
   <string name="my_wallets_action_new_wallet">วอลเล็ตใหม่</string>
   <string name="my_wallets_action_recover_wallet">กู้คืนวอลเล็ต</string>
   <string name="my_wallets_action_backup_wallet">สำรองวอลเล็ต</string>
-  <string name="my_wallets_action_verify_new_card">Verify new card</string>
+  <string name="my_wallets_action_verify_new_card">ยืนยันบัตรใหม่</string>
   <string name="my_wallets_action_delete_wallet">ลบวอลเล็ต</string>
   <!--Ask a friend for funds-->
   <string name="askafriend_payment_option_button">ขอให้บางคนชำระเงิน</string>
@@ -483,14 +483,14 @@
   <string name="skip_button">ข้ามไปก่อน</string>
   <string name="understand_button">ฉันเข้าใจ</string>
   <string name="install_button">ติดตั้ง</string>
-  <string name="get_button">Get</string>
-  <string name="see_all_button">See all</string>
+  <string name="get_button">รับ</string>
+  <string name="see_all_button">ดูทั้งหมด</string>
   <string name="transfer_button">โอน</string>
   <string name="top_up_button">เติม</string>
   <string name="back_up_button">สำรองวอลเล็ต</string>
-  <string name="play_button">Play</string>
-  <string name="manage_wallet_button">Manage wallet</string>
-  <string name="log_out_button">Log out</string>
+  <string name="play_button">เล่น</string>
+  <string name="manage_wallet_button">จัดการวอลเล็ต</string>
+  <string name="log_out_button">ลงชื่อออก</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">ฉันตกลงใน %1$s และ %2$sของกระเป่าสตางค์ AppCoins</string>
   <string name="terms_and_conditions_error">โปรดยอมรับข้อตกลงและเงื่อนไขเพื่อดำเนินการต่อ</string>
@@ -500,7 +500,7 @@
   <string name="get_started">เริ่ม</string>
   <string name="existent_wallet">ฉันมีกระเป๋าเงินอยู่แล้ว</string>
   <!--Home-->
-  <string name="home_empty_discover_apps_body">Make a purchase on your favorite game and we\'ll handle everything.</string>
+  <string name="home_empty_discover_apps_body">ดำเนินการซื้อเกมส์ที่คุณชื่นชอบและเราจะรับมือกับทุกอย่าง</string>
   <string name="home_empty_discover_apps_button">ค้นพบแอปยอดนิยม</string>
   <!--Tokens-->
   <!--Settings-->
@@ -534,11 +534,11 @@
   <string name="verification_notification_reward_already_received_body">หมายเลขโทรศัพท์นี้ถูกใช้เพื่อรับรางวัลนี้แล้ว😔</string>
   <string name="verification_insert_phone_field_phone_used_already_error">เบอร์โทรศัพท์ถูกใช้แล้ว</string>
   <string name="verification_insert_code_error_common">อุ๊ปส์ มีบางอย่างผิดพลาด โปรดลองใหม่อีกครั้ง!</string>
-  <string name="verification_settings_unverified_title">Verify Payment Method</string>
+  <string name="verification_settings_unverified_title">ยืนยันวิธีการชำระเงิน</string>
   <string name="verification_settings_unverified_body">รับรางวัลและเชิญเพื่อน</string>
   <string name="verification_settings_verified_title">กระเป๋าสตางค์ที่ยืนยัน</string>
-  <string name="verification_settings_verifying_title">Verifying…</string>
-  <string name="verification_verified_paypal_description">You will be refunded immediately. Your payment method will be verified shortly.</string>
+  <string name="verification_settings_verifying_title">กำลังยืนยัน...</string>
+  <string name="verification_verified_paypal_description">คุณจะได้รับเงินคืนทันที วอลเล็ตของคุณจะได้รับการยืนยันในไม่ช้า</string>
   <string name="verification_verify_paypal_description">การทำธุรกรรมขั้นต่ำ %s จะทำเพื่อยืนยันบัญชีของคุณ เงินจะถูกคืนให้ทันที</string>
   <string name="verification_verify_paypal_button">ยืนยันตอนนี้</string>
   <string name="verification_settings_card_verified_title">บัตรได้รับการยืนยัน</string>
@@ -598,9 +598,9 @@
   <string name="purchase_error_transaction_timeout">ดูเหมือนว่าคุณใช้เวลานานเกินไปในการทำธุรกรรม กรุณาลองอีกครั้ง</string>
   <string name="purchase_error_card_already_in_progress">คำขอของคุณได้รับการประมวลผลแล้วหรืออยู่ระหว่างดำเนินการ โปรดรอ</string>
   <string name="purchase_error_payment_rejected">ธุรกรรมถูกปฏิเสธ โปรดลองใช้บัตรหรือวิธีการชำระเงินอื่น</string>
-  <string name="purchase_error_verify_wallet">Verify your payment method to complete this purchase.</string>
-  <string name="purchase_error_verify_card">Verify your card to complete this purchase.</string>
-  <string name="purachse_error_verify_card_button">VERIFY CARD</string>
+  <string name="purchase_error_verify_wallet">ตรวจสอบวิธีการชำระเงินของคุณเพื่อดำเนินการสั่งซื้อนี้ให้เสร็จสิ้น</string>
+  <string name="purchase_error_verify_card">ตรวจสอบบัตรของคุณเพื่อทำการซื้อนี้ให้เสร็จสมบูรณ์</string>
+  <string name="purachse_error_verify_card_button">ตรวจสอบบัตร</string>
   <string name="purchase_eskills_sku">ตั๋วเข้า</string>
   <string name="purchase_paytmupi_install_disclaimer">คุณจะต้องติดตั้งแอป Paytm UPI</string>
   <string name="purchase_app_needed_body">คุณจำเป็นต้องซื้อแอปให้สำเร็จ</string>
