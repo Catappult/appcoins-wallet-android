@@ -287,9 +287,9 @@
   <string name="dialog_credit_card_cvv">CVV</string>
   <string name="dialog_bank_card">Kartu kredit/debit</string>
   <string name="dialog_expiry_date">Tanggal kedaluwarsa</string>
-  <string name="transaction_type_purchase_bonus">Purchase Bonus</string>
-  <string name="transaction_type_promo_code_bonus">Promo Code Bonus</string>
-  <string name="transaction_type_extra_bonus">Extra Bonus</string>
+  <string name="transaction_type_purchase_bonus">Bonus Pembelian</string>
+  <string name="transaction_type_promo_code_bonus">Bonus Kode Promo</string>
+  <string name="transaction_type_extra_bonus">Bonus Ekstra</string>
   <string name="transaction_type_topup">Top-up</string>
   <string name="transaction_type_reverted_purchase_bonus">Reverted Purchase Bonus</string>
   <string name="transaction_type_reverted_promo_code_bonus">Reverted Promo Code Bonus</string>
@@ -1004,10 +1004,10 @@
   <string name="card_verification_wallets_insert_bode_button">Masukkan kode</string>
   <string name="card_verification_no_attempts_title">Ups, Anda terlalu banyak memasukkan kode yang salah, jadi dana sebesar %1$s akan dikembalikan ke kartu Anda.</string>
   <string name="card_verification_no_attempts_body">Silakan mulai lagi proses verifikasinya.</string>
-  <string name="wallet_verify_header">Verify at least one payment method</string>
-  <string name="verify_card_title">Verify Card</string>
-  <string name="verify_card_button">Verify bank card</string>
-  <string name="verify_paypal_button">Verify PayPal account</string>
+  <string name="wallet_verify_header">Verifikasi setidaknya satu metode pembayaran</string>
+  <string name="verify_card_title">Verifikasi Kartu</string>
+  <string name="verify_card_button">Verifikasi kartu bank</string>
+  <string name="verify_paypal_button">Verifikasi akun PayPal</string>
   <string name="card_verification_body_new">%s will be charged to your card and immediately refunded. Check your card statement for the validation code and insert it here.</string>
   <string name="card_verification_disclaimer_body">Please note that the confirmation code may appear in the refund notification.</string>
   <!--Vouchers-->
@@ -1118,8 +1118,8 @@
   <string name="gift_card_error_new_users_title">Kode ini hanya untuk pengguna baru!</string>
   <string name="gift_card_error_try_with_different_body">Silakan coba lagi dengan yang lain.</string>
   <!-- My Wallet -->
-  <string name="mywallet_unverified_title">Verify a Payment Method</string>
-  <string name="mywallet_unverified_body">Confirm a payment method to avoid blockages.</string>
+  <string name="mywallet_unverified_title">Verifikasi Metode Pembayaran</string>
+  <string name="mywallet_unverified_body">Konfirmasikan metode pembayaran untuk menghindari pemblokiran.</string>
   <string name="mywallet_backed_up_date">Anda mencadangkan dompet Anda pada %s.</string>
   <string name="mywallet_backup_again_button">Cadangkan lagi</string>
   <string name="mywallet_verify_payment_method_button">Verifikasi kartu baru</string>
@@ -1166,34 +1166,34 @@
   <string name="vip_program_max_bonus_short">Bonus %s%% untuk setiap pembelian.</string>
   <string name="vip_program_referral_notification_title">Kode Referensi VIP Tersedia!</string>
   <string name="vip_program_referral_notification_body">Bagikan kode Anda dengan komunitas sehingga Anda semua memperoleh penghasilan saat bermain!</string>
-  <string name="vip_program_title_vip_offer">VIP Offer</string>
+  <string name="vip_program_title_vip_offer">Penawaran VIP</string>
   <!-- Refactor Home -->
   <string name="intro_welcome_header">Selamat Datang di Dompet AppCoins</string>
   <string name="intro_welcome_body">Isi ulang dompet Anda atau lakukan pembelian di aplikasi atau game yang kompatibel dengan AppCoins.</string>
-  <string name="intro_appcoins_games_header">Discover Games with AppCoins</string>
-  <string name="intro_active_promotions_header">Active Promotions</string>
+  <string name="intro_appcoins_games_header">Temukan Game dengan AppCoins</string>
+  <string name="intro_active_promotions_header">Promosi Aktif</string>
   <string name="topup_home_button">Isi Ulang</string>
-  <string name="intro_home_button">Home</string>
-  <string name="intro_rewards_button">Rewards</string>
+  <string name="intro_home_button">Beranda</string>
+  <string name="intro_rewards_button">Hadiah</string>
   <plurals name="days">
-    <item quantity="other">DAYS</item>
+    <item quantity="other">HARI</item>
   </plurals>
   <plurals name="hours">
-    <item quantity="other">HOURS</item>
+    <item quantity="other">JAM</item>
   </plurals>
   <plurals name="minutes">
-    <item quantity="other">MINUTES</item>
+    <item quantity="other">MENIT</item>
   </plurals>
   <plurals name="seconds">
-    <item quantity="other">SECONDS</item>
+    <item quantity="other">DETIK</item>
   </plurals>
-  <string name="intro_transactions_header">Transactions</string>
-  <string name="intro_backup_card_title">Don\'t loose your funds!</string>
+  <string name="intro_transactions_header">Transaksi</string>
+  <string name="intro_backup_card_title">Jangan sampai dana Anda hilang!</string>
   <string name="intro_backup_card_body">Back up your wallet and keep it safe all times.</string>
   <string name="rewards_spend_to_next_level_body">Spend more %1$s%2$s to reach the next level!</string>
   <string name="rewards_current_bonus_title">bonus %s%% untuk setiap pembelian</string>
-  <string name="rewards_eskills_card_title">Earn Money!</string>
-  <string name="rewards_eskills_card_body">Beat other players with e-Skills</string>
+  <string name="rewards_eskills_card_title">Raih Uang!</string>
+  <string name="rewards_eskills_card_body">Kalahkan pemain lain dengan e-Skills</string>
   <string name="rewards_promo_code_card_title">Kode Promo</string>
   <string name="rewards_promo_code_card_body">Use a promo code to get special deals!</string>
   <string name="rewards_promo_code_status">Status:</string>
