@@ -70,7 +70,7 @@
   <string name="skip_with_arrow">Pomiń &gt;</string>
   <string name="root_title">ZŁAMANE ZABEZPIECZENIE URZĄDZENIA</string>
   <string name="root_body">Dowolna aplikacja z uprawnieniami \'root\' może uzyskać dostęp do danych portfela i ukraść portfel! Należy natychmiast opróżnić ten portfel i przywrócić na bezpieczne urządzenie.</string>
-  <string name="credits_purchase_value">%s AppCoins Credits</string>
+  <string name="credits_purchase_value">%s Kredyty AppCoins</string>
   <string name="buying">Kupowanie %s</string>
   <string name="action_buy">Kup</string>
   <string name="empty"></string>
@@ -255,8 +255,8 @@
   <string name="transaction_type_standard">Przelewy</string>
   <string name="transaction_type_bonus">Bonus</string>
   <string name="transaction_type_eskills_reward">Nagroda e-Skills</string>
-  <string name="transaction_type_eskills">e-Skills Entry Ticket</string>
-  <string name="transaction_type_eskills_ticke_refund">e-Skills Ticket Refund</string>
+  <string name="transaction_type_eskills">Bilet wejścia do e-Skills</string>
+  <string name="transaction_type_eskills_ticke_refund">Zwrot biletu do e-skills</string>
   <string name="transaction_type_voucher">e-Voucher</string>
   <string name="transaction_type_voucher_title">Voucher na %s</string>
   <string name="transaction_type_reverted_bonus_title">Cofnięty bonus</string>
@@ -287,29 +287,29 @@
   <string name="dialog_credit_card_cvv">CVV</string>
   <string name="dialog_bank_card">Karta kredytowa/debetowa</string>
   <string name="dialog_expiry_date">Data ważności</string>
-  <string name="transaction_type_purchase_bonus">Purchase Bonus</string>
-  <string name="transaction_type_promo_code_bonus">Promo Code Bonus</string>
-  <string name="transaction_type_extra_bonus">Extra Bonus</string>
-  <string name="transaction_type_topup">Top-up</string>
-  <string name="transaction_type_reverted_purchase_bonus">Reverted Purchase Bonus</string>
-  <string name="transaction_type_reverted_promo_code_bonus">Reverted Promo Code Bonus</string>
-  <string name="transaction_type_reverted_extra_bonus">Reverted Extra Bonus</string>
-  <string name="transaction_type_reverted_topup">Reverted Top-up</string>
-  <string name="transaction_type_rejected_topup">Rejected Top-up</string>
-  <string name="transaction_type_rejected_subscription_purchase">Rejected Subscription Purchase</string>
-  <string name="transaction_type_rejected_purchase">Rejected Purchase</string>
-  <string name="transaction_type_rejected_eskills_ticket">Rejected e-Skills Ticket</string>
-  <string name="transaction_type_refund_subscription">Subscription Refund</string>
-  <string name="transaction_type_subscription_payment">Subscription Payment</string>
-  <string name="transaction_type_funds_sent">Funds Sent</string>
-  <string name="transaction_type_funds_received">Funds Received</string>
-  <string name="transaction_type_gift_card">Gift Card</string>
-  <string name="transaction_date_label">Date</string>
-  <string name="transaction_more_details_label">More Details</string>
-  <string name="transaction_rejected_body">This purchase has been rejected.\nFor more information contact support.</string>
-  <string name="transaction_reverted_body">This purchase has been reverted.\nFor more information contact support.</string>
-  <string name="transaction_status_rejected">Rejected</string>
-  <string name="transaction_details_header">Transaction detail</string>
+  <string name="transaction_type_purchase_bonus">Bonus zakupowy</string>
+  <string name="transaction_type_promo_code_bonus">Bonus z Promo Code</string>
+  <string name="transaction_type_extra_bonus">Dodatkowy bonus</string>
+  <string name="transaction_type_topup">Doładowanie</string>
+  <string name="transaction_type_reverted_purchase_bonus">Cofnięty bonus zakupowy</string>
+  <string name="transaction_type_reverted_promo_code_bonus">Cofnięty bonus z Promo Code</string>
+  <string name="transaction_type_reverted_extra_bonus">Cofnięty bonus</string>
+  <string name="transaction_type_reverted_topup">Cofnięte doładowanie</string>
+  <string name="transaction_type_rejected_topup">Odrzucone doładowanie</string>
+  <string name="transaction_type_rejected_subscription_purchase">Odrzucony zakup subskrypcji</string>
+  <string name="transaction_type_rejected_purchase">Odrzucony zakup</string>
+  <string name="transaction_type_rejected_eskills_ticket">Odrzucony bilet e-Skills</string>
+  <string name="transaction_type_refund_subscription">Refundacja subskrypcji</string>
+  <string name="transaction_type_subscription_payment">Płatność za subskrypcję</string>
+  <string name="transaction_type_funds_sent">Środki wysłane</string>
+  <string name="transaction_type_funds_received">Środki otrzymane</string>
+  <string name="transaction_type_gift_card">Karta podarunkowa</string>
+  <string name="transaction_date_label">Data</string>
+  <string name="transaction_more_details_label">Więcej szczegółów</string>
+  <string name="transaction_rejected_body">Ten zakup został odrzucony.\nAby uzyskać więcej informacji, skontaktuj się z nami.</string>
+  <string name="transaction_reverted_body">Ten zakup został cofnięty.\nAby uzyskać więcej informacji, skontaktuj się z nami.</string>
+  <string name="transaction_status_rejected">Odrzucono</string>
+  <string name="transaction_details_header">Szczegóły transakcji</string>
   <string name="activity_airdrop_title">Potwierdź, że jesteś człowiekiem, aby otrzymać AppCoins</string>
   <string name="activity_airdrop_details">To dla bezpieczeństwa.</string>
   <string name="activity_airdrop_hint">Wpisz słowa z obrazka</string>
@@ -406,7 +406,7 @@
   <string name="provide_wallet_cancel">@string/cancel_button</string>
   <!-- Top Up -->
   <string name="topup_title">Doładowanie</string>
-  <string name="topup_amount">%s AppCoins Credits</string>
+  <string name="topup_amount">%s Kredytów APPC</string>
   <string name="topup_bonus_header">Masz Bonus!</string>
   <string name="topup_bonus_message">Dodatkowe %s AppCoins będą dodane do Twojego portfela.</string>
   <string name="topup_completed_1">%s Kredyty AppCoins</string>
@@ -429,7 +429,7 @@
   <string name="my_wallets_action_new_wallet">Nowy portfel</string>
   <string name="my_wallets_action_recover_wallet">Odzyskaj portfel</string>
   <string name="my_wallets_action_backup_wallet">Kopia zapasowa portfela</string>
-  <string name="my_wallets_action_verify_new_card">Verify new card</string>
+  <string name="my_wallets_action_verify_new_card">Zweryfikuj nową kartę</string>
   <string name="my_wallets_action_delete_wallet">Usuń kartę</string>
   <!--Ask a friend for funds-->
   <string name="askafriend_payment_option_button">Poproś znajomego o środki</string>
@@ -483,14 +483,14 @@
   <string name="skip_button">Pomiń</string>
   <string name="understand_button">Rozumiem</string>
   <string name="install_button">Instaluj</string>
-  <string name="get_button">Get</string>
-  <string name="see_all_button">See all</string>
+  <string name="get_button">Pobierz</string>
+  <string name="see_all_button">Wszystkie</string>
   <string name="transfer_button">Przelewy</string>
   <string name="top_up_button">Doładowanie</string>
   <string name="back_up_button">Utwórz kopię zapasową</string>
-  <string name="play_button">Play</string>
-  <string name="manage_wallet_button">Manage wallet</string>
-  <string name="log_out_button">Log out</string>
+  <string name="play_button">Graj</string>
+  <string name="manage_wallet_button">Zarządzaj portfelem</string>
+  <string name="log_out_button">Wyloguj</string>
   <!--Onboarding-->
   <string name="terms_and_conditions_tickbox">Zgadzam się na %1$s i %2$s portfela AppCoins.</string>
   <string name="terms_and_conditions_error">Proszę zaakceptować nasz regulamin aby kontynuować</string>
@@ -500,7 +500,7 @@
   <string name="get_started">Zaczynamy</string>
   <string name="existent_wallet">Mam już portfel</string>
   <!--Home-->
-  <string name="home_empty_discover_apps_body">Make a purchase on your favorite game and we\'ll handle everything.</string>
+  <string name="home_empty_discover_apps_body">Dokonaj zakupu w ulubionej grze – my zajmiemy się resztą.</string>
   <string name="home_empty_discover_apps_button">ODKRYJ NAJLEPSZE APLIKACJE</string>
   <!--Tokens-->
   <!--Settings-->
