@@ -70,7 +70,7 @@
   <string name="skip_with_arrow">Lewati &gt;</string>
   <string name="root_title">KEAMANAN PERANGKAT TERGANGGU</string>
   <string name="root_body">Aplikasi yang \'di-root\' dapat mengakses data keychain Dompet AppCoin dan mencuri dompet Anda! Segera hapus dompet ini, lalu pulihkan di perangkat yang aman.</string>
-  <string name="credits_purchase_value">%s AppCoins Credits</string>
+  <string name="credits_purchase_value">%s Kredit AppCoins</string>
   <string name="buying">Membeli %s</string>
   <string name="action_buy">Beli</string>
   <string name="empty"></string>
@@ -1194,7 +1194,7 @@
   <string name="rewards_current_bonus_title">bonus %s%% untuk setiap pembelian</string>
   <string name="rewards_eskills_card_title">Earn Money!</string>
   <string name="rewards_eskills_card_body">Beat other players with e-Skills</string>
-  <string name="rewards_promo_code_card_title">Promo Codes</string>
+  <string name="rewards_promo_code_card_title">Kode Promo</string>
   <string name="rewards_promo_code_card_body">Use a promo code to get special deals!</string>
   <string name="rewards_promo_code_status">Status:</string>
   <string name="rewards_promo_code_status_active">Aktif</string>
@@ -1204,7 +1204,7 @@
   <string name="rewards_make_first_purchase_body">Make your first purchase in an AppCoins compatible game and unlock a bonus in every purchase.</string>
   <string name="rewards_bonus_every_purchase_title">Enjoy a %s%% bonus in every purchase</string>
   <!-- Refactor Manage Wallet -->
-  <string name="manage_wallet_wallet_changed_title">Wallet changed</string>
-  <string name="manage_wallet_change_active_wallet_title">Do you want to select this wallet?</string>
-  <string name="manage_wallet_change_wallet_name_title">Change wallet name</string>
+  <string name="manage_wallet_wallet_changed_title">Dompet sudah berubah</string>
+  <string name="manage_wallet_change_active_wallet_title">Apakah Anda ingin memilih dompet ini?</string>
+  <string name="manage_wallet_change_wallet_name_title">Ganti nama dompet</string>
 </resources>
