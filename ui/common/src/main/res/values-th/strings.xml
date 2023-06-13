@@ -298,7 +298,7 @@
   <string name="transaction_type_rejected_topup">ปฏิเสธการเติมเงิน</string>
   <string name="transaction_type_rejected_subscription_purchase">การซื้อการสมัครรับข้อมูลถูกปฏิเสธ</string>
   <string name="transaction_type_rejected_purchase">การซื้อที่ถูกปฏิเสธ</string>
-  <string name="transaction_type_rejected_eskills_ticket">Rejected e-Skills Ticket</string>
+  <string name="transaction_type_rejected_eskills_ticket">ตั๋ว e-Skills ที่ถูกปฏิเสธ</string>
   <string name="transaction_type_refund_subscription">การคืนเงินการสมัครสมาชิก</string>
   <string name="transaction_type_subscription_payment">การชำระเงินสมัครสมาชิก</string>
   <string name="transaction_type_funds_sent">ส่งเงิน</string>
@@ -609,10 +609,10 @@
   <string name="purchase_error_wrong_pin_body">รหัสของคุณมีปัญหา โปรดลองใหม่อีกครั้งหรือติดต่อเรา</string>
   <string name="purchase_error_3d_body">รหัส 3D ของคุณมีปัญหา โปรดลองใหม่อีกครั้งหรือติดต่อเรา</string>
   <string name="purchase_error_generic_contact_us_body">อุ๊ปส์ มีบางอย่างผิดพลาด โปรดลองใหม่อีกครั้งหรือติดต่อเรา</string>
-  <string name="error_blocked_wallet_title">Blocked Wallet</string>
-  <string name="error_blocked_wallet_body">For security reasons, your wallet has been blocked. Please contact us for more information.</string>
-  <string name="purchase_paypal_additional_fees_disclaimer_body">Additional fees may apply.</string>
-  <string name="purchase_error_paypal">There was a problem with your PayPal payment. Please try again or use a different payment method.</string>
+  <string name="error_blocked_wallet_title">บล็อกวอลเล็ต</string>
+  <string name="error_blocked_wallet_body">เหตุผลด้านความปลอดภัย วอลเล็ตของคุณถูกบล็อก กรุณาติดต่อเราสำหรับข้อมูลเพิ่มเติม</string>
+  <string name="purchase_paypal_additional_fees_disclaimer_body">อาจมีค่าใช้จ่ายเพิ่มเติม.</string>
+  <string name="purchase_error_paypal">เกิดปัญหากับการชำระเงิน PayPal ของคุณ โปรดลองอีกครั้งหรือใช้วิธีการชำระเงินอื่น</string>
   <!--Billing address in purchase flow-->
   <string name="purchase_address_title">ที่อยู่เรียกเก็บเงิน</string>
   <string name="purchase_address_address_field">ที่อยู่</string>
@@ -635,8 +635,8 @@
   <string name="referral_onboarding_body">คุณและเพื่อนของคุณสามารถรับได้สูงสุด %s ด้วยโปรแกรมการแนะนำเพื่อน!</string>
   <string name="referral_onboarding_body_no_connection">คุณและเพื่อนของคุณสามารถรับเครดิต AppCoins ด้วยโปรแกรมการแนะนำเพื่อน!</string>
   <string name="referral_onboarding_redeem_button">ฉันถูกเชิญแล้ว</string>
-  <string name="referral_verification_title">Verify Payment Method</string>
-  <string name="referral_verification_body">You need to verify your payment method to participate in the Referral Program. We\'ll sent you a verification code via SMS.</string>
+  <string name="referral_verification_title">ตรวจสอบวิธีการชำระเงิน</string>
+  <string name="referral_verification_body">คุณจำเป็นยืนยันวอลเล็ตของคุณเพื่อเข้าร่วมโปรแกรมการแนะนำเพื่อน พวกเราจะส่งรหัสยืนยันไปยัง SMS</string>
   <string name="referral_verification_confirmation_title">คำเชิญของคุณถูกยืนยันแล้ว!</string>
   <string name="referral_verification_confirmation_body">คุณจะได้รับเครดิต AppCoins มูลค่าสูงสุด %1$s ของการซื้อครั้งแรกที่มากกว่า %2$s ด้วยการชำระเงินอื่นนอกเหนือจากเครดิต AppCoins</string>
   <string name="referral_verification_not_invited_title">ดูเหมือนว่าหมายเลขนี้ไม่ได้เชิญ &#8230;</string>
@@ -649,8 +649,8 @@
   <string name="referral_view_share_link_button">แชร์ลิงค์เชิญ</string>
   <string name="referral_view_notifications_title">การแจ้งเตือน</string>
   <string name="referral_share_sheet_title">แชร์ลิงค์เชิญ:</string>
-  <string name="referral_view_unverified_body">Receive %s worth of AppCoins Credits for each friend. You first need to verify your payment method.</string>
-  <string name="referral_view_verify_button">Verify payment method</string>
+  <string name="referral_view_unverified_body">รับเครดิต AppCoins มูลค่า %s สำหรับเพื่อนแต่ละคน คุณต้องยืนยันวอลเล็ตของคุณก่อน</string>
+  <string name="referral_view_verify_button">ตรวจสอบวิธีการชำระเงิน</string>
   <string name="referral_view_i_have_been_invited_button">ฉันถูกเชิญแล้ว</string>
   <string name="referral_view_dropup_menu_friends_invited">เพื่อนที่เชิญ</string>
   <string name="referral_view_dropup_menu_earned">รับ</string>
@@ -924,7 +924,7 @@
   <string name="perks_gamif_subtitle">ยิ่งคุณซื้อแอปที่คุณชื่นชอบมากเท่าไหร่ ก็จะยิ่งได้รับโบนัสมากขึ้น!</string>
   <string name="perks_title">โปรโมชั่น</string>
   <string name="perks_body">คอยติดตาม! พวกเรามีโปรโมชั่นพิเศษสำหรับคุณ</string>
-  <string name="promotion_ends_short_title">Promotion ends in</string>
+  <string name="promotion_ends_short_title">จบโปรโมชั่นภาายใน</string>
   <plurals name="promotion_ends">
     <item quantity="other">โปรโมชันจะสิ้นสุดใน %s วัน</item>
   </plurals>
@@ -983,7 +983,7 @@
   <string name="rate_us_back_title">ต้องการความช่วยเหลือไหม</string>
   <string name="rate_us_back_body">ให้คะแนน AppCoins Wallet บนแอพสโตร์เพื่อให้เราปรับปรุง</string>
   <!--Card verification-->
-  <string name="card_verification_body">Verify your credit/debit card to make payments.</string>
+  <string name="card_verification_body">ตรวจสอบบัตรเครดิต/เดบิตของคุณเพื่อชำระเงิน</string>
   <string name="card_verification_charde_disclaimer">เราจะเรียกเก็บเงิน %s จากบัตรของคุณ และเราจะคืนเงินเมื่อคุณยืนยันรหัส ขึ้นอยู่กับธนาคารของคุณ อาจใช้เวลาระหว่างนาทีถึงสองสามวัน</string>
   <string name="card_verification_code_title">ตรวจสอบรหัสรายละเอียดธุรกรรม</string>
   <string name="card_verification_code_body">รหัสเฉพาะจะแสดงในข้อมูลสรุปธุรกรรมที่ผู้ออกบัตรของคุณให้ไว้</string>
@@ -1001,17 +1001,17 @@
   </plurals>
   <string name="card_verification_code_other_card_button">ลองบัตรใบอื่น</string>
   <string name="card_verification_code_wrong_error">รหัสไม่ถูกต้อง</string>
-  <string name="card_verification_wallets_one_step_title">One more step to verify</string>
+  <string name="card_verification_wallets_one_step_title">ตรวจสอบความถูกต้องอีกหนึ่งขั้นตอน</string>
   <string name="card_verification_wallets_one_step_body">ใส่รหัสที่ปรากฏในรายละเอียดธุรกรรม</string>
   <string name="card_verification_wallets_insert_bode_button">ใส่รหัส</string>
   <string name="card_verification_no_attempts_title">อ๊ะ คุณใส่รหัสผิดหลายครั้งเกินไปดังนั้น %1$s จะได้รับเงินคืนไปยังบัตรของคุณ</string>
   <string name="card_verification_no_attempts_body">โปรดเริ่มการตรวจสอบอีกครั้ง</string>
-  <string name="wallet_verify_header">Verify at least one payment method</string>
-  <string name="verify_card_title">Verify Card</string>
-  <string name="verify_card_button">Verify bank card</string>
-  <string name="verify_paypal_button">Verify PayPal account</string>
-  <string name="card_verification_body_new">%s will be charged to your card and immediately refunded. Check your card statement for the validation code and insert it here.</string>
-  <string name="card_verification_disclaimer_body">Please note that the confirmation code may appear in the refund notification.</string>
+  <string name="wallet_verify_header">ตรวจสอบวิธีการชำระเงินอย่างน้อยหนึ่งวิธี</string>
+  <string name="verify_card_title">ตรวจสอบบัตร</string>
+  <string name="verify_card_button">ตรวจสอบบัตรธนาคาร</string>
+  <string name="verify_paypal_button">ตรวจสอบบัญชี Paypal</string>
+  <string name="card_verification_body_new">%s จะถูกหักจากบัตรของคุณและคืนเงินทันที ตรวจสอบใบแจ้งยอดบัตรของคุณสำหรับรหัสการตรวจสอบและใส่ที่นี่</string>
+  <string name="card_verification_disclaimer_body">โปรดทราบว่ารหัสยืนยันอาจปรากฏในการแจ้งเตือนการคืนเงิน</string>
   <!--Vouchers-->
   <string name="voucher_card_body_1">ซื้อและรับบัตรกำนัลนี้</string>
   <string name="voucher_card_body_2"> โบนัสสูงสุด %s%%</string>
@@ -1120,8 +1120,8 @@
   <string name="gift_card_error_new_users_title">รหัสนี้สำหรับผู้ใช้ใหม่เท่านั้น!</string>
   <string name="gift_card_error_try_with_different_body">โปรดลองอีกครั้งโดยใช้อันอื่น</string>
   <!-- My Wallet -->
-  <string name="mywallet_unverified_title">Verify a Payment Method</string>
-  <string name="mywallet_unverified_body">Confirm a payment method to avoid blockages.</string>
+  <string name="mywallet_unverified_title">ตรวจสอบวิธีการชำระเงิน</string>
+  <string name="mywallet_unverified_body">ยืนยันวิธีการชำระเงินเพื่อหลีกเลี่ยงการปิดกั้น</string>
   <string name="mywallet_backed_up_date">คุณสำรองข้อมูลกระเป๋าสตางค์ของคุณใน %s</string>
   <string name="mywallet_backup_again_button">สำรองอีกครั้ง</string>
   <string name="mywallet_verify_payment_method_button">ยืนยันบัตรใหม่</string>
@@ -1168,45 +1168,45 @@
   <string name="vip_program_max_bonus_short">%s%% โบนัสในการซื้อทุกครั้ง</string>
   <string name="vip_program_referral_notification_title">มีรหัสอ้างอิง VIP!</string>
   <string name="vip_program_referral_notification_body">แบ่งปันรหัสของคุณกับชุมชนของคุณเพื่อให้คุณได้รับในขณะที่เล่น!</string>
-  <string name="vip_program_title_vip_offer">VIP Offer</string>
+  <string name="vip_program_title_vip_offer">ข้อเสนอ VIP</string>
   <!-- Refactor Home -->
   <string name="intro_welcome_header">ยินดีต้อนรับสู่ AppCoins Wallet</string>
   <string name="intro_welcome_body">เติมเงินในกระเป๋าเงินของคุณหรือทำการซื้อในแอพหรือเกมส์ที่เข้ากันได้กับ AppCoins</string>
-  <string name="intro_appcoins_games_header">Discover Games with AppCoins</string>
-  <string name="intro_active_promotions_header">Active Promotions</string>
+  <string name="intro_appcoins_games_header">พบกับเกมส์ที่มี AppCoins</string>
+  <string name="intro_active_promotions_header">โปรโมชั่นปัจจุบัน</string>
   <string name="topup_home_button">เติม</string>
-  <string name="intro_home_button">Home</string>
-  <string name="intro_rewards_button">Rewards</string>
+  <string name="intro_home_button">หน้าแรก</string>
+  <string name="intro_rewards_button">รางวัล</string>
   <plurals name="days">
-    <item quantity="other">DAYS</item>
+    <item quantity="other">วัน</item>
   </plurals>
   <plurals name="hours">
-    <item quantity="other">HOURS</item>
+    <item quantity="other">ชั่วโมง</item>
   </plurals>
   <plurals name="minutes">
-    <item quantity="other">MINUTES</item>
+    <item quantity="other">นาที</item>
   </plurals>
   <plurals name="seconds">
-    <item quantity="other">SECONDS</item>
+    <item quantity="other">วินาที</item>
   </plurals>
-  <string name="intro_transactions_header">Transactions</string>
-  <string name="intro_backup_card_title">Don\'t loose your funds!</string>
-  <string name="intro_backup_card_body">Back up your wallet and keep it safe all times.</string>
-  <string name="rewards_spend_to_next_level_body">Spend more %1$s%2$s to reach the next level!</string>
-  <string name="rewards_current_bonus_title">%s%% bonus on every purchase</string>
-  <string name="rewards_eskills_card_title">Earn Money!</string>
-  <string name="rewards_eskills_card_body">Beat other players with e-Skills</string>
-  <string name="rewards_promo_code_card_title">Promo Codes</string>
-  <string name="rewards_promo_code_card_body">Use a promo code to get special deals!</string>
+  <string name="intro_transactions_header">ธุรกรรม</string>
+  <string name="intro_backup_card_title">อย่าสูญเสียเงินของคุณ!</string>
+  <string name="intro_backup_card_body">สำรองวอลเล็ตของคุณและเก็บอย่างปลอดภัย</string>
+  <string name="rewards_spend_to_next_level_body">ใช้จ่ายมากขึ้น %1$s%2$s เพื่อไปถึงระดับถัดไป!</string>
+  <string name="rewards_current_bonus_title">%s%% โบนัสในการซื้อทุกครั้ง</string>
+  <string name="rewards_eskills_card_title">ทำรายได้!</string>
+  <string name="rewards_eskills_card_body">เอาชนะผู้เล่นคนอื่นด้วย e-Skills</string>
+  <string name="rewards_promo_code_card_title">รหัสโปรโม</string>
+  <string name="rewards_promo_code_card_body">ใส่ Promo Code เพื่อรับข้อเสนอพิเศษ!</string>
   <string name="rewards_promo_code_status">สถานะ:</string>
   <string name="rewards_promo_code_status_active">ใช้งาน</string>
   <string name="rewards_promo_code_status_expired">หมดอายุ</string>
-  <string name="home_nft_title">The AppCoins Wallet now supports NFTs</string>
+  <string name="home_nft_title">AppCoins Wallet รองรับ NFT แล้ว</string>
   <!-- Rewards Home -->
-  <string name="rewards_make_first_purchase_body">Make your first purchase in an AppCoins compatible game and unlock a bonus in every purchase.</string>
-  <string name="rewards_bonus_every_purchase_title">Enjoy a %s%% bonus in every purchase</string>
+  <string name="rewards_make_first_purchase_body">ทำการสั่งซื้อครั้งแรกของคุณในเกมที่รองรับ AppCoins และปลดล็อกโบนัสในทุกการซื้อ</string>
+  <string name="rewards_bonus_every_purchase_title">เพลิดเพลินกับโบนัส %s%% ในการซื้อทุกครั้ง</string>
   <!-- Refactor Manage Wallet -->
-  <string name="manage_wallet_wallet_changed_title">Wallet changed</string>
-  <string name="manage_wallet_change_active_wallet_title">Do you want to select this wallet?</string>
-  <string name="manage_wallet_change_wallet_name_title">Change wallet name</string>
+  <string name="manage_wallet_wallet_changed_title">เปลี่ยนวอลเล็ต</string>
+  <string name="manage_wallet_change_active_wallet_title">คุณต้องการเลือกกระเป๋าเงินใบนี้หรือไม่?</string>
+  <string name="manage_wallet_change_wallet_name_title">เปลี่ยนชื่อวอลเล็ต</string>
 </resources>
