@@ -290,12 +290,12 @@
   <string name="transaction_type_purchase_bonus">Satın Alma Bonusu</string>
   <string name="transaction_type_promo_code_bonus">Promosyon Kodu Bonusu</string>
   <string name="transaction_type_extra_bonus">İlave Bonus</string>
-  <string name="transaction_type_topup">Top-up</string>
+  <string name="transaction_type_topup">Yükle</string>
   <string name="transaction_type_reverted_purchase_bonus">Geri Alınan Satın Alma Bonusu</string>
   <string name="transaction_type_reverted_promo_code_bonus">Geri Alınan Promosyon Kodu Bonusu</string>
   <string name="transaction_type_reverted_extra_bonus">Geri Alınan Ek Bonus</string>
-  <string name="transaction_type_reverted_topup">Reverted Top-up</string>
-  <string name="transaction_type_rejected_topup">Rejected Top-up</string>
+  <string name="transaction_type_reverted_topup">Geri Alınan Yükleme</string>
+  <string name="transaction_type_rejected_topup">Reddedilen Yükleme</string>
   <string name="transaction_type_rejected_subscription_purchase">Reddedilen Abonelik Satın Alımı</string>
   <string name="transaction_type_rejected_purchase">Reddedilen Satın Alım</string>
   <string name="transaction_type_rejected_eskills_ticket">Reddedilen e-Skills Bileti</string>
