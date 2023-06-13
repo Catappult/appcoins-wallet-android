@@ -38,20 +38,20 @@
   <string name="update_not_supported_body">Zaktualizuj aplikację AppCoins Wallet do najnowszej wersji.</string>
   <string name="update_button">Aktualizuj</string>
   <!-- Refer a friend -->
-  <string name="refer_a_friend_waiting_room_tooltip">You and the friends you invite will receive a $%s bonus. You can invite up to 5 friends, and they must be new users. The bonus will be credited in your wallet once they use your invitation code in their first e-Skills game.</string>
+  <string name="refer_a_friend_waiting_room_tooltip">Ty i zaproszeni znajomi otrzymacie bonus $%s. Możesz zaprosić do 5 znajomych, którzy muszą być nowymi użytkownikami. Bonus zostanie zaksięgowany w portfelu, gdy użyją kodu zaproszenia w pierwszej grze e-Skills.</string>
   <string name="refer_a_friend_first_time_header">Gotów pokazać, co potrafisz?</string>
   <string name="refer_a_friend_first_time_body">Pokonaj innych graczy i wygraj prawdziwe pieniądze! Zaczynamy od bezpłatnej gry treningowej.</string>
   <string name="refer_a_friend_error_unavailable_body">Ta opcja jest obecnie niedostępna.</string>
   <string name="refer_a_friend_error_invalid_code_body">Nieprawidłowy kod!</string>
   <string name="refer_a_friend_error_user_not_eligible_body">Tylko dla nowych użytkowników!</string>
   <string name="refer_a_friend_first_time_tooltip">Dzięki naszemu Programowi Poleceń otrzymasz bonus $%s przy użyciu kodu znajomych. Otrzymają taką samą kwotę jak Twój bonus – do wykorzystania w zakupach w aplikacji lub biletu e-Skills.</string>
-  <string name="refer_a_friend_waiting_room_title">Invite a Friend!</string>
+  <string name="refer_a_friend_waiting_room_title">Zaproś Znajomego!</string>
   <string name="refer_a_friend_waiting_from_body">Otrzymaj bonus za każdego zaproszonego znajomego.</string>
-  <string name="refer_a_friend_invitation_message">You\'ve been invited to play %1$s! Use the invite code %2$s after downloading it from %3$s.</string>
+  <string name="refer_a_friend_invitation_message">Zostałeś zaproszony do gry %1$s! Użyj kodu zaproszenia %2$s po pobraniu go z %3$s.</string>
   <!-- Error messages -->
-  <string name="error_vpn_not_permitted_title">e-Skills games cannot be played with an active VPN. Please disable it and try again!</string>
+  <string name="error_vpn_not_permitted_title">W gry e-Skills nie można grać z aktywną siecią VPN. Wyłącz VPN i spróbuj ponownie!</string>
   <string name="top_up_needed_body">Ze względów bezpieczeństwa musisz uzupełnić portfel przynajmnije raz, by grać w gry e-Skills.</string>
   <string name="not_enough_funds_body">Brak wystarczających środków! Doładuj portfel, by kupić bilet wstępu.</string>
   <string name="error_message_local_payment_method_body">Lokalne metody płatności nie są akceptowane do zakupu wejścia. Utwórz nowy portfel i uzupełnij go kartą bankową lub PayPal!</string>
-  <string name="rooted_device_blocked_body">Unfortunately, you cannot play e-Skills games with a rooted device.</string>
+  <string name="rooted_device_blocked_body">Niestety nie można grać w gry e-Skills za pomocą zrootowanego urządzenia.</string>
 </resources>
