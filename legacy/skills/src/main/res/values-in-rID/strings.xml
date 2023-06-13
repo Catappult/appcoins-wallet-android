@@ -2,7 +2,7 @@
 <resources>
   <string name="appcoins_wallet">Dompet AppCoins</string>
   <!-- Common -->
-  <string name="start_button">Start</string>
+  <string name="start_button">Mulai</string>
   <string name="ok">Oke</string>
   <string name="cancel">Batal</string>
   <string name="buy_button">Beli</string>
@@ -38,20 +38,20 @@
   <string name="update_not_supported_body">Perbarui Dompet AppCoins ke versi terbaru.</string>
   <string name="update_button">Perbarui</string>
   <!-- Refer a friend -->
-  <string name="refer_a_friend_waiting_room_tooltip">You and the friends you invite will receive a $%s bonus. You can invite up to 5 friends, and they must be new users. The bonus will be credited in your wallet once they use your invitation code in their first e-Skills game.</string>
+  <string name="refer_a_friend_waiting_room_tooltip">Anda dan teman yang Anda undang akan menerima bonus sebesar $%s. Anda bisa mengundang maksimal 5 teman, dan mereka harus pengguna baru. Bonus akan dikreditkan ke dompet Anda setelah mereka menggunakan kode undangan Anda di game e-Skill pertama mereka.</string>
   <string name="refer_a_friend_first_time_header">Siap menunjukkan keahlian Anda?</string>
   <string name="refer_a_friend_first_time_body">Kalahkan pemain lain untuk mendapatkan hadiah berupa uang sungguhan! Yuk mulai dengan game latihan tanpa biaya masuk.</string>
   <string name="refer_a_friend_error_unavailable_body">Fitur ini saat ini tidak tersedia.</string>
   <string name="refer_a_friend_error_invalid_code_body">Kode tidak valid!</string>
   <string name="refer_a_friend_error_user_not_eligible_body">Khusus pengguna baru!</string>
   <string name="refer_a_friend_first_time_tooltip">Dengan Program Referral kami, Anda akan menerima bonus sebesar $%s saat menggunakan kode teman Anda. Dia juga akan menerima bonus dengan jumlah yang sama untuk digunakan pada pembelian dalam aplikasi atau tiket masuk e-Skills.</string>
-  <string name="refer_a_friend_waiting_room_title">Invite a Friend!</string>
+  <string name="refer_a_friend_waiting_room_title">Undang Teman!</string>
   <string name="refer_a_friend_waiting_from_body">Dapatkan bonus untuk setiap teman yang Anda undang.</string>
-  <string name="refer_a_friend_invitation_message">You\'ve been invited to play %1$s! Use the invite code %2$s after downloading it from %3$s.</string>
+  <string name="refer_a_friend_invitation_message">Anda mendapatkan undangan untuk bermain %1$s! Gunakan kode undangan %2$s setelah mengunduhnya dari %3$s.</string>
   <!-- Error messages -->
-  <string name="error_vpn_not_permitted_title">e-Skills games cannot be played with an active VPN. Please disable it and try again!</string>
+  <string name="error_vpn_not_permitted_title">Game e-Skills tidak bisa dimainkan dengan VPN aktif. Nonaktifkan VPN itu lalu coba lagi!</string>
   <string name="top_up_needed_body">Karena alasan keamanan, Anda harus mengisi ulang dompet Anda setidaknya sekali agar tetap bisa memainkan game e-Skills.</string>
   <string name="not_enough_funds_body">Dana Anda tidak cukup! Silakan isi ulang untuk membeli tiket masuk.</string>
   <string name="error_message_local_payment_method_body">Metode pembayaran lokal tidak diterima untuk membeli biaya masuk. Silakan buat dompet baru dan isi ulang dompet itu dengan kartu bank atau PayPal!</string>
-  <string name="rooted_device_blocked_body">Unfortunately, you cannot play e-Skills games with a rooted device.</string>
+  <string name="rooted_device_blocked_body">Sayangnya, Anda tidak bisa memainkan game e-Skills pada perangkat yang sudah di-root.</string>
 </resources>
