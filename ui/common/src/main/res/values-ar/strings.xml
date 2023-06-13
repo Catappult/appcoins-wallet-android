@@ -1055,7 +1055,7 @@
   <string name="verify_card_button">توثيق بطاقة البنك</string>
   <string name="verify_paypal_button">توثيق حساب PayPal</string>
   <string name="card_verification_body_new">سيتم خصم %s من بطاقتك وستسترجعها في الحال. تحقق من بيان بطاقتك وابحث عن رمز التوثيق وانقله هنا.</string>
-  <string name="card_verification_disclaimer_body">Please note that the confirmation code may appear in the refund notification.</string>
+  <string name="card_verification_disclaimer_body">يرجى ملاحظة أن رمز التأكيد يمكن أن يظهر في إشعارات استرجاع الأموال.</string>
   <!--Vouchers-->
   <string name="voucher_card_body_1">اشترِ بطاقة الهدة هذه واحصل على</string>
   <string name="voucher_card_body_2"> ما يصل إلى %s%% مكافأة.</string>
@@ -1118,7 +1118,7 @@
   <string name="promo_code_success_title">تم!</string>
   <string name="promo_code_success_body">ستحثل على %s%% مكافأة إضافية على كل مشترياتك.</string>
   <string name="promo_code_success_body_specific_app">ستحصل على %1$s%% مكافأة إضافية على كل عمليات الشراء في %2$s.</string>
-  <string name="promo_code_promotions_tag">الكود الترويجي</string>
+  <string name="promo_code_promotions_tag">الرمز الترويجي</string>
   <string name="promo_code_error_not_available">رمز الترويج هذا لم يعد صالحًا.</string>
   <string name="promo_code_error_invalid_user">يييي! لا يمكن تطبيق هذا الرمز.</string>
   <!--AppCoins Info Page-->
@@ -1164,8 +1164,8 @@
   <string name="gift_card_error_new_users_title">هذا الرمز خاص بالمستخدمين الجدد فقط!</string>
   <string name="gift_card_error_try_with_different_body">يرجى المحاولة ثانية مع رمز آخر.</string>
   <!-- My Wallet -->
-  <string name="mywallet_unverified_title">Verify a Payment Method</string>
-  <string name="mywallet_unverified_body">Confirm a payment method to avoid blockages.</string>
+  <string name="mywallet_unverified_title">وثّق وسيلة دفع</string>
+  <string name="mywallet_unverified_body">يرجى تأكيد وسيلة الدفع لتجنب العراقيل.</string>
   <string name="mywallet_backed_up_date">حفظت نسخة احتياطية لمحفظتك في %s.</string>
   <string name="mywallet_backup_again_button">أعد النسخ الاحتياطي</string>
   <string name="mywallet_verify_payment_method_button">توثيق بطاقة جديدة</string>
@@ -1212,65 +1212,65 @@
   <string name="vip_program_max_bonus_short">%s%% مكافأة في كل عملية شراء.</string>
   <string name="vip_program_referral_notification_title">يتوفر رمز إحالة VIP!</string>
   <string name="vip_program_referral_notification_body">شارك رمزك مع مجتمعك لتكسبوا جميعًا بينما تلعبون!</string>
-  <string name="vip_program_title_vip_offer">VIP Offer</string>
+  <string name="vip_program_title_vip_offer">عرض VIP</string>
   <!-- Refactor Home -->
   <string name="intro_welcome_header">أهلا بك بمحفظة AppCoins Wallet</string>
   <string name="intro_welcome_body">أضف إلى المحفظة أو أجرِ عملية شراء في أي تطبيق أو لُعبة تتوافق مع AppCoins.</string>
-  <string name="intro_appcoins_games_header">Discover Games with AppCoins</string>
-  <string name="intro_active_promotions_header">Active Promotions</string>
+  <string name="intro_appcoins_games_header">اكتشف الألعاب مع AppCoins</string>
+  <string name="intro_active_promotions_header">الترويجات النشطة</string>
   <string name="topup_home_button">أعد تعبئة</string>
   <string name="intro_home_button">الرئيسية</string>
-  <string name="intro_rewards_button">Rewards</string>
+  <string name="intro_rewards_button">الجوائز</string>
   <plurals name="days">
-    <item quantity="zero">DAYS</item>
-    <item quantity="one">DAY</item>
-    <item quantity="two">DAYS</item>
-    <item quantity="few">DAYS</item>
-    <item quantity="many">DAYS</item>
-    <item quantity="other">DAYS</item>
+    <item quantity="zero">يوم</item>
+    <item quantity="one">يوم</item>
+    <item quantity="two">يومان</item>
+    <item quantity="few">أيام</item>
+    <item quantity="many">يوم</item>
+    <item quantity="other">يوم</item>
   </plurals>
   <plurals name="hours">
-    <item quantity="zero">HOURS</item>
-    <item quantity="one">HOUR</item>
-    <item quantity="two">HOURS</item>
-    <item quantity="few">HOURS</item>
-    <item quantity="many">HOURS</item>
-    <item quantity="other">HOURS</item>
+    <item quantity="zero">ساعة</item>
+    <item quantity="one">ساعة</item>
+    <item quantity="two">ساعتان</item>
+    <item quantity="few">ساعات</item>
+    <item quantity="many">ساعة</item>
+    <item quantity="other">ساعة</item>
   </plurals>
   <plurals name="minutes">
-    <item quantity="zero">MINUTES</item>
-    <item quantity="one">MINUTE</item>
-    <item quantity="two">MINUTES</item>
-    <item quantity="few">MINUTES</item>
-    <item quantity="many">MINUTES</item>
-    <item quantity="other">MINUTES</item>
+    <item quantity="zero">دقيقة</item>
+    <item quantity="one">دقيقة</item>
+    <item quantity="two">دقيقتان</item>
+    <item quantity="few">دقائق</item>
+    <item quantity="many">دقيقة</item>
+    <item quantity="other">دقيقة</item>
   </plurals>
   <plurals name="seconds">
-    <item quantity="zero">SECONDS</item>
-    <item quantity="one">SECOND</item>
-    <item quantity="two">SECONDS</item>
-    <item quantity="few">SECONDS</item>
-    <item quantity="many">SECONDS</item>
-    <item quantity="other">SECONDS</item>
+    <item quantity="zero">ثانية</item>
+    <item quantity="one">ثانية</item>
+    <item quantity="two">ثانيتان</item>
+    <item quantity="few">ثوانٍ</item>
+    <item quantity="many">ثانية</item>
+    <item quantity="other">ثانية</item>
   </plurals>
-  <string name="intro_transactions_header">Transactions</string>
-  <string name="intro_backup_card_title">Don\'t loose your funds!</string>
-  <string name="intro_backup_card_body">Back up your wallet and keep it safe all times.</string>
-  <string name="rewards_spend_to_next_level_body">Spend more %1$s%2$s to reach the next level!</string>
+  <string name="intro_transactions_header">التحويلات</string>
+  <string name="intro_backup_card_title">لا تخسر أموالك!</string>
+  <string name="intro_backup_card_body">أنشئ نسخة احتياطية لمحفظتك واحتفظ بها في مكان آمن دائمًا.</string>
+  <string name="rewards_spend_to_next_level_body">أنفق أكثر من %1$s%2$s لتصل إلى المستوى التالي!</string>
   <string name="rewards_current_bonus_title">%s%% مكافأة في كل عملية شراء</string>
-  <string name="rewards_eskills_card_title">Earn Money!</string>
-  <string name="rewards_eskills_card_body">Beat other players with e-Skills</string>
+  <string name="rewards_eskills_card_title">اكسب المال!</string>
+  <string name="rewards_eskills_card_body">اهزم اللاعبين الآخرين مع e-Skills</string>
   <string name="rewards_promo_code_card_title">رموز ترويجية</string>
   <string name="rewards_promo_code_card_body">استخدم الرمز الترويجي للحصول على صفقات مميزة!</string>
   <string name="rewards_promo_code_status">الحالة:</string>
   <string name="rewards_promo_code_status_active">نشط</string>
   <string name="rewards_promo_code_status_expired">منتهي الصلاحية</string>
-  <string name="home_nft_title">The AppCoins Wallet now supports NFTs</string>
+  <string name="home_nft_title">محفظة AppCoins Wallet الآن تدعم NFTs</string>
   <!-- Rewards Home -->
-  <string name="rewards_make_first_purchase_body">Make your first purchase in an AppCoins compatible game and unlock a bonus in every purchase.</string>
-  <string name="rewards_bonus_every_purchase_title">Enjoy a %s%% bonus in every purchase</string>
+  <string name="rewards_make_first_purchase_body">أتم أول عملية شراء لك في لعبة متوافقة مع AppCoins واحصل على مكافآت على كل عملية شراء.</string>
+  <string name="rewards_bonus_every_purchase_title">استمتع بـ %s%% مكافأة لكل عملية شراء</string>
   <!-- Refactor Manage Wallet -->
-  <string name="manage_wallet_wallet_changed_title">Wallet changed</string>
-  <string name="manage_wallet_change_active_wallet_title">Do you want to select this wallet?</string>
-  <string name="manage_wallet_change_wallet_name_title">Change wallet name</string>
+  <string name="manage_wallet_wallet_changed_title">المحفظة تغيرت</string>
+  <string name="manage_wallet_change_active_wallet_title">هل تريد اختيار هذه المحفظة؟</string>
+  <string name="manage_wallet_change_wallet_name_title">تغيير اسم المحفظة</string>
 </resources>
