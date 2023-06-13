@@ -2,7 +2,7 @@
 <resources>
   <string name="appcoins_wallet">محفظة AppCoins</string>
   <!-- Common -->
-  <string name="start_button">Start</string>
+  <string name="start_button">ابدأ</string>
   <string name="ok">موافق</string>
   <string name="cancel">إلغاء</string>
   <string name="buy_button">شراء</string>
@@ -38,20 +38,20 @@
   <string name="update_not_supported_body">حدّث AppCoins Wallet إلى أحدث إصدار.</string>
   <string name="update_button">تحديث</string>
   <!-- Refer a friend -->
-  <string name="refer_a_friend_waiting_room_tooltip">You and the friends you invite will receive a $%s bonus. You can invite up to 5 friends, and they must be new users. The bonus will be credited in your wallet once they use your invitation code in their first e-Skills game.</string>
+  <string name="refer_a_friend_waiting_room_tooltip">أنت والأصدقاء الذين تدعوهم ستحصلون على $%s مكافأة. يمكنك دعوة حتى 5 أصدقاء، ويجب أن يكونوا مستخدمين جددًا. ستنزل المكافأة في حسابك حالما يستخدمون كود الدعوة في لعبة e-Skills الأولى لديهم.</string>
   <string name="refer_a_friend_first_time_header">جاهز لاستعراض مهاراتك؟</string>
   <string name="refer_a_friend_first_time_body">اهزم اللاعبين الآخرين واحصل على الجائزة في صورة نقود حقيقية! لنبدأ التدريب على الألعاب دون رسوم دخول.</string>
   <string name="refer_a_friend_error_unavailable_body">هذه الميزة غير متوفرة حاليًّا.</string>
   <string name="refer_a_friend_error_invalid_code_body">رمز غير صالح!</string>
   <string name="refer_a_friend_error_user_not_eligible_body">للمستخدمين الجدد فقط!</string>
   <string name="refer_a_friend_first_time_tooltip">مع برنامجنا للإحالة ستحصل على $%s مكافأة عند استخدام رموز أصدقائك. سيحصلون هم أيضًا على القيمة نفسها من المكافأة لاستخدامها في مشترياتهم داخل التطبيقات أو كتذاكر دخول e-Skills.</string>
-  <string name="refer_a_friend_waiting_room_title">Invite a Friend!</string>
+  <string name="refer_a_friend_waiting_room_title">دعوة صديق!</string>
   <string name="refer_a_friend_waiting_from_body">احصل على مكافأة لكل صديق تدعوه.</string>
-  <string name="refer_a_friend_invitation_message">You\'ve been invited to play %1$s! Use the invite code %2$s after downloading it from %3$s.</string>
+  <string name="refer_a_friend_invitation_message">لقد تمت دعوتك لتلعب %1$s! استخدم كود الدعوة %2$s بعد تنزيلها من %3$s.</string>
   <!-- Error messages -->
-  <string name="error_vpn_not_permitted_title">e-Skills games cannot be played with an active VPN. Please disable it and try again!</string>
+  <string name="error_vpn_not_permitted_title">ألعاب e-Skills لا يمكن أن تلعبها أثناء تشغيل VPN. يرجى تعطيله والمحاولة مرة أخرى!</string>
   <string name="top_up_needed_body">لأسباب أمنية، أنت بحاجة إلى زيادة رصيدك لمرة واحدة على الأقل في محفظتك لتلعب ألعاب e-Skills.</string>
   <string name="not_enough_funds_body">ليس لديك رصيد كافٍ! يرجى زيادة رصيدك لتشتري تذكِرة الدخول.</string>
   <string name="error_message_local_payment_method_body">وسائل الدفع المحلية غير مقبولة لدفع رسوم الدخول. يرجى إنشاء محفظة جديدة وزيادة الرصيد فيها ببطاقة بنكية أو بحساب PayPal!</string>
-  <string name="rooted_device_blocked_body">Unfortunately, you cannot play e-Skills games with a rooted device.</string>
+  <string name="rooted_device_blocked_body">لسوء الحظ، لا يمكنك أن تلعب ألعاب e-Skills بجهاز تمت إعادة تشغيله.</string>
 </resources>
